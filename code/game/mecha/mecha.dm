@@ -181,7 +181,7 @@
 	if(equipment && equipment.len)
 		to_chat(user, "It's equipped with:")
 		for(var/obj/item/mecha_parts/mecha_equipment/ME in equipment)
-			to_chat(user, "\icon[ME] [ME]")
+			to_chat(user, "[bicon(ME)] [ME]")
 	return
 
 
@@ -213,13 +213,13 @@
 				return
 		var/obj/mecha/Mech = M.loc
 		spawn() //this helps prevent clickspam fest.
-			if (Mech)
+			if(Mech)
 				Mech.click_action(object,M)
 //	else
 //		return ..()
 */
 
-/obj/mecha/proc/click_action(atom/target,mob/user)
+/obj/mecha/proc/click_action(atom/target, mob/user, params)
 	if(!src.occupant || src.occupant != user ) return
 	if(user.stat || !user.canmove)
 		return
@@ -239,9 +239,9 @@
 			return
 	if(!target.Adjacent(src))
 		if(selected && selected.is_ranged())
-			selected.action(target)
+			selected.action(target, params)
 	else if(selected && selected.is_melee())
-		selected.action(target)
+		selected.action(target, params)
 	else
 		if(internal_damage&MECHA_INT_CONTROL_LOST)
 			target = safepick(oview(1,src))
@@ -458,7 +458,7 @@
 	internal_damage |= int_dam_flag
 	pr_internal_damage.start()
 	log_append_to_last("Internal damage of type [int_dam_flag].",1)
-	to_chat(occupant, sound('sound/machines/warning-buzzer.ogg',wait=0))
+	occupant << sound('sound/machines/warning-buzzer.ogg',wait=0)
 	diag_hud_set_mechstat()
 	return
 
@@ -509,7 +509,7 @@
 	src.log_message("Attack by hand/paw. Attacker - [user].",1)
 
 
-	if ((HULK in user.mutations) && !prob(src.deflect_chance))
+	if((HULK in user.mutations) && !prob(src.deflect_chance))
 		src.take_damage(15)
 		src.check_for_internal_damage(list(MECHA_INT_TEMP_CONTROL,MECHA_INT_TANK_BREACH,MECHA_INT_CONTROL_LOST))
 		user.visible_message("<font color='red'><b>[user] hits [src.name], doing some damage.</b></font>", "<font color='red'><b>You hit [src.name] with all your might. The metal creaks and bends.</b></font>")
@@ -679,13 +679,13 @@
 		if(1.0)
 			qdel(src)
 		if(2.0)
-			if (prob(30))
+			if(prob(30))
 				qdel(src)
 			else
 				src.take_damage(initial(src.health)/2)
 				src.check_for_internal_damage(list(MECHA_INT_FIRE,MECHA_INT_TEMP_CONTROL,MECHA_INT_TANK_BREACH,MECHA_INT_CONTROL_LOST,MECHA_INT_SHORT_CIRCUIT),1)
 		if(3.0)
-			if (prob(5))
+			if(prob(5))
 				qdel(src)
 			else
 				src.take_damage(initial(src.health)/5)
@@ -700,7 +700,7 @@
 		src.check_for_internal_damage(list(MECHA_INT_TEMP_CONTROL,MECHA_INT_TANK_BREACH,MECHA_INT_CONTROL_LOST))
 		playsound(src.loc, 'sound/effects/blobattack.ogg', 50, 1, -1)
 		to_chat(user, "\red You smash at the armored suit!")
-		for (var/mob/V in viewers(src))
+		for(var/mob/V in viewers(src))
 			if(V.client && !(V.blinded))
 				V.show_message("\red The [user] smashes against [src.name]'s armor!", 1)
 	else
@@ -708,7 +708,7 @@
 		playsound(src.loc, 'sound/effects/blobattack.ogg', 50, 1, -1)
 		to_chat(user, "\green Your attack had no effect!")
 		src.occupant_message("\blue The [user]'s attack is stopped by the armor.")
-		for (var/mob/V in viewers(src))
+		for(var/mob/V in viewers(src))
 			if(V.client && !(V.blinded))
 				V.show_message("\blue The [user] rebounds off the [src.name] armor!", 1)
 	return
@@ -742,7 +742,7 @@
 		to_chat(user, "\red The [W] bounces off [src.name] armor.")
 		src.log_append_to_last("Armor saved.")
 /*
-		for (var/mob/V in viewers(src))
+		for(var/mob/V in viewers(src))
 			if(V.client && !(V.blinded))
 				V.show_message("The [W] bounces off [src.name] armor.", 1)
 */
@@ -855,8 +855,8 @@
 
 	else if(istype(W, /obj/item/weapon/weldingtool) && user.a_intent != I_HARM)
 		var/obj/item/weapon/weldingtool/WT = W
-		if (WT.remove_fuel(0,user))
-			if (hasInternalDamage(MECHA_INT_TANK_BREACH))
+		if(WT.remove_fuel(0,user))
+			if(hasInternalDamage(MECHA_INT_TANK_BREACH))
 				clearInternalDamage(MECHA_INT_TANK_BREACH)
 				to_chat(user, "\blue You repair the damaged gas tank.")
 		else
@@ -912,7 +912,7 @@
 			to_chat(user, "\red The [W] bounces off [src.name] armor.")
 			src.log_append_to_last("Armor saved.")
 /*
-			for (var/mob/V in viewers(src))
+			for(var/mob/V in viewers(src))
 				if(V.client && !(V.blinded))
 					V.show_message("The [W] bounces off [src.name] armor.", 1)
 */
@@ -969,7 +969,7 @@
 			if(!AI || !isAI(occupant)) //Mech does not have an AI for a pilot
 				to_chat(user, "<span class='warning'>No AI detected in the [name] onboard computer.</span>")
 				return
-			if (AI.mind.special_role == "malfunction") //Malf AIs cannot leave mechs. Except through death.
+			if(AI.mind.special_role == "malfunction") //Malf AIs cannot leave mechs. Except through death.
 				to_chat(user, "<span class='boldannounce'>ACCESS DENIED.</span>")
 				return
 			AI.aiRestorePowerRoutine = 0//So the AI initially has power.
@@ -1015,7 +1015,7 @@
 	icon_state = initial(icon_state)
 	playsound(src, 'sound/machines/windowdoor.ogg', 50, 1)
 	if(!hasInternalDamage())
-		to_chat(occupant, sound('sound/mecha/nominal.ogg',volume=50))
+		occupant << sound('sound/mecha/nominal.ogg',volume=50)
 	AI.cancel_camera()
 	AI.controlled_mech = src
 	AI.remote_control = src
@@ -1172,16 +1172,16 @@
 /obj/mecha/MouseDrop_T(mob/M as mob, mob/user as mob)
 	if(user.restrained() || user.stat || user.weakened || user.stunned || user.paralysis || user.resting) //are you cuffed, dying, lying, stunned or other
 		return
-	if (user != M)
+	if(user != M)
 		return
 	src.log_message("[user] tries to move in.")
-	if (src.occupant)
+	if(src.occupant)
 		to_chat(usr, "<span class='warning'>The [src.name] is already occupied!</span>")
 		src.log_append_to_last("Permission denied.")
 		return
 	var/passed
 	if(src.dna)
-		if (user.stat || ishuman(user))
+		if(user.stat || ishuman(user))
 			if(user.dna.unique_enzymes==src.dna)
 				passed = 1
 	else if(src.operation_allowed(user))
@@ -1223,7 +1223,7 @@
 		dir = dir_in
 		playsound(src, 'sound/machines/windowdoor.ogg', 50, 1)
 		if(!hasInternalDamage())
-			to_chat(src.occupant, sound('sound/mecha/nominal.ogg',volume=50))
+			occupant << sound('sound/mecha/nominal.ogg',volume=50)
 		return 1
 	else
 		return 0
@@ -1643,7 +1643,7 @@
 /obj/mecha/proc/occupant_message(message as text)
 	if(message)
 		if(src.occupant && src.occupant.client)
-			to_chat(src.occupant, "\icon[src] [message]")
+			to_chat(src.occupant, "[bicon(src)] [message]")
 	return
 
 /obj/mecha/proc/log_message(message as text,red=null)
@@ -1706,7 +1706,7 @@
 	if(href_list["rfreq"])
 		if(usr != src.occupant)	return
 		var/new_frequency = (radio.frequency + filter.getNum("rfreq"))
-		if ((radio.frequency < PUBLIC_LOW_FREQ || radio.frequency > PUBLIC_HIGH_FREQ))
+		if((radio.frequency < PUBLIC_LOW_FREQ || radio.frequency > PUBLIC_HIGH_FREQ))
 			new_frequency = sanitize_frequency(new_frequency)
 		radio.set_frequency(new_frequency)
 		send_byjax(src.occupant,"exosuit.browser","rfreq","[format_frequency(radio.frequency)]")
@@ -1715,16 +1715,16 @@
 		if(usr != src.occupant)	return
 		src.disconnect_from_port()
 		return
-	if (href_list["port_connect"])
+	if(href_list["port_connect"])
 		if(usr != src.occupant)	return
 		src.connect_to_port()
 		return
-	if (href_list["view_log"])
+	if(href_list["view_log"])
 		if(usr != src.occupant)	return
 		src.occupant << browse(src.get_log_html(), "window=exosuit_log")
 		onclose(occupant, "exosuit_log")
 		return
-	if (href_list["change_name"])
+	if(href_list["change_name"])
 		if(usr != src.occupant)	return
 		var/newname = strip_html_simple(input(occupant,"Choose new exosuit name","Rename exosuit",initial(name)) as text, MAX_NAME_LEN)
 		if(newname && trim(newname))
@@ -1732,7 +1732,7 @@
 		else
 			alert(occupant, "nope.avi")
 		return
-	if (href_list["toggle_id_upload"])
+	if(href_list["toggle_id_upload"])
 		if(usr != src.occupant)	return
 		add_req_access = !add_req_access
 		send_byjax(src.occupant,"exosuit.browser","t_id_upload","[add_req_access?"L":"Unl"]ock ID upload panel")
@@ -1862,7 +1862,7 @@
 	return 0
 
 /obj/mecha/proc/reset_icon()
-	if (initial_icon)
+	if(initial_icon)
 		icon_state = initial_icon
 	else
 		icon_state = initial(icon_state)

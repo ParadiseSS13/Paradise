@@ -130,8 +130,8 @@
 
 //returns how well tool is suited for this step
 /datum/surgery_step/proc/tool_quality(obj/item/tool)
-	for (var/T in allowed_tools)
-		if (istype(tool,T))
+	for(var/T in allowed_tools)
+		if(istype(tool,T))
 			return allowed_tools[T]
 	return 0
 
@@ -160,13 +160,13 @@
 /datum/surgery_step/proc/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	if(ishuman(target))
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
-		if (can_infect && affected)
+		if(can_infect && affected)
 			spread_germs_to_organ(affected, user)
-	if (ishuman(user) && !(istype(target,/mob/living/carbon/alien)) && prob(60))
+	if(ishuman(user) && !(istype(target,/mob/living/carbon/alien)) && prob(60))
 		var/mob/living/carbon/human/H = user
-		if (blood_level)
+		if(blood_level)
 			H.bloody_hands(target,0)
-		if (blood_level > 1)
+		if(blood_level > 1)
 			H.bloody_body(target,0)
 	return
 
@@ -192,7 +192,7 @@
 /proc/sort_surgeries()
 	var/gap = surgery_steps.len
 	var/swapped = 1
-	while (gap > 1 || swapped)
+	while(gap > 1 || swapped)
 		swapped = 0
 		if(gap > 1)
 			gap = round(gap / 1.247330950103979)

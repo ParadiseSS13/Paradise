@@ -5,67 +5,64 @@
 
 var/list/random_color_list = list("#00aedb","#a200ff","#f47835","#d41243","#d11141","#00b159","#00aedb","#f37735","#ffc425","#008744","#0057e7","#d62d20","#ffa700")
 
-datum/reagent/oil
+/datum/reagent/oil
 	name = "Oil"
 	id = "oil"
 	description = "A decent lubricant for machines. High in benzene, naptha and other hydrocarbons."
 	reagent_state = LIQUID
 	color = "#3C3C3C"
 
-datum/reagent/iodine
+/datum/reagent/iodine
 	name = "Iodine"
 	id = "iodine"
 	description = "A purple gaseous element."
 	reagent_state = GAS
 	color = "#493062"
 
-datum/reagent/carpet
+/datum/reagent/carpet
 	name = "Carpet"
 	id = "carpet"
 	description = "A covering of thick fabric used on floors. This type looks particularly gross."
 	reagent_state = LIQUID
 	color = "#701345"
 
-/datum/reagent/carpet/reaction_turf(var/turf/simulated/T, var/volume)
+/datum/reagent/carpet/reaction_turf(turf/simulated/T, volume)
 	if(istype(T, /turf/simulated/floor/plating) || istype(T, /turf/simulated/floor/plasteel))
 		var/turf/simulated/floor/F = T
 		F.ChangeTurf(/turf/simulated/floor/carpet)
 	..()
-	return
 
-datum/reagent/bromine
+/datum/reagent/bromine
 	name = "Bromine"
 	id = "bromine"
 	description = "A red-brown liquid element."
 	reagent_state = LIQUID
 	color = "#4E3A3A"
 
-datum/reagent/phenol
+/datum/reagent/phenol
 	name = "Phenol"
 	id = "phenol"
 	description = "Also known as carbolic acid, this is a useful building block in organic chemistry."
 	reagent_state = LIQUID
 	color = "#525050"
 
-datum/reagent/ash
+/datum/reagent/ash
 	name = "Ash"
 	id = "ash"
 	description = "Ashes to ashes, dust to dust."
 	reagent_state = LIQUID
 	color = "#191919"
 
-datum/reagent/acetone
+/datum/reagent/acetone
 	name = "Acetone"
 	id = "acetone"
 	description = "Pure 100% nail polish remover, also works as an industrial solvent."
 	reagent_state = LIQUID
 	color = "#474747"
 
-/datum/reagent/acetone/on_mob_life(var/mob/living/M as mob)
-	if(!M) M = holder.my_atom
+/datum/reagent/acetone/on_mob_life(mob/living/M)
 	M.adjustToxLoss(1.5)
 	..()
-	return
 
 /datum/chemical_reaction/acetone
 	name = "acetone"
@@ -111,7 +108,7 @@ datum/reagent/acetone
 	mix_sound = null
 	no_message = 1
 
-datum/reagent/colorful_reagent
+/datum/reagent/colorful_reagent
 	name = "Colorful Reagent"
 	id = "colorful_reagent"
 	description = "It's pure liquid colors. That's a thing now."
@@ -126,22 +123,20 @@ datum/reagent/colorful_reagent
 	result_amount = 6
 	mix_message = "The substance flashes multiple colors and emits the smell of a pocket protector."
 
-datum/reagent/colorful_reagent/reaction_mob(var/mob/living/simple_animal/M, var/method=TOUCH, var/volume)
-    if(M && istype(M))
+/datum/reagent/colorful_reagent/reaction_mob(mob/living/simple_animal/M, method=TOUCH, volume)
+    if(isanimal(M))
         M.color = pick(random_color_list)
     ..()
-    return
 
-datum/reagent/colorful_reagent/reaction_obj(var/obj/O, var/volume)
+/datum/reagent/colorful_reagent/reaction_obj(obj/O, volume)
 	if(O)
 		O.color = pick(random_color_list)
 	..()
-	return
-datum/reagent/colorful_reagent/reaction_turf(var/turf/T, var/volume)
+
+/datum/reagent/colorful_reagent/reaction_turf(turf/T, volume)
 	if(T)
 		T.color = pick(random_color_list)
 	..()
-	return
 
 /datum/chemical_reaction/corgium
 	name = "corgium"
@@ -151,19 +146,17 @@ datum/reagent/colorful_reagent/reaction_turf(var/turf/T, var/volume)
 	result_amount = 3
 	min_temp = 374
 
-datum/reagent/corgium
+/datum/reagent/corgium
 	name = "Corgium"
 	id = "corgium"
 	description = "Corgi in liquid form. Don't ask."
 	reagent_state = LIQUID
 	color = "#F9A635"
 
-/datum/chemical_reaction/corgium/on_reaction(var/datum/reagents/holder, var/created_volume)
+/datum/chemical_reaction/corgium/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
 	new /mob/living/simple_animal/pet/corgi(location)
 	..()
-	return
-
 
 /datum/chemical_reaction/flaptonium
 	name = "Flaptonium"
@@ -174,14 +167,12 @@ datum/reagent/corgium
 	min_temp = 374
 	mix_message = "The substance turns an airy sky-blue and foams up into a new shape."
 
-/datum/chemical_reaction/flaptonium/on_reaction(var/datum/reagents/holder, var/created_volume)
+/datum/chemical_reaction/flaptonium/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
 	new /mob/living/simple_animal/parrot(location)
 	..()
-	return
 
-
-datum/reagent/hair_dye
+/datum/reagent/hair_dye
 	name = "Quantum Hair Dye"
 	id = "hair_dye"
 	description = "A rather tubular and gnarly way of coloring totally bodacious hair. Duuuudddeee."
@@ -195,8 +186,8 @@ datum/reagent/hair_dye
 	required_reagents = list("colorful_reagent" = 1, "hairgrownium" = 1)
 	result_amount = 2
 
-datum/reagent/hair_dye/reaction_mob(var/mob/living/M, var/volume)
-	if(M && ishuman(M))
+/datum/reagent/hair_dye/reaction_mob(mob/living/M, volume)
+	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/external/head/head_organ = H.get_organ("head")
 		head_organ.r_facial = rand(0,255)
@@ -208,9 +199,8 @@ datum/reagent/hair_dye/reaction_mob(var/mob/living/M, var/volume)
 		H.update_hair()
 		H.update_fhair()
 	..()
-	return
 
-datum/reagent/hairgrownium
+/datum/reagent/hairgrownium
 	name = "Hairgrownium"
 	id = "hairgrownium"
 	description = "A mysterious chemical purported to help grow hair. Often found on late-night TV infomercials."
@@ -226,8 +216,8 @@ datum/reagent/hairgrownium
 	result_amount = 3
 	mix_message = "The liquid becomes slightly hairy."
 
-datum/reagent/hairgrownium/reaction_mob(var/mob/living/M, var/volume)
-	if(M && ishuman(M))
+/datum/reagent/hairgrownium/reaction_mob(mob/living/M, volume)
+	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/external/head/head_organ = H.get_organ("head")
 		head_organ.h_style = random_hair_style(H.gender, head_organ.species.name)
@@ -235,9 +225,8 @@ datum/reagent/hairgrownium/reaction_mob(var/mob/living/M, var/volume)
 		H.update_hair()
 		H.update_fhair()
 	..()
-	return
 
-datum/reagent/super_hairgrownium
+/datum/reagent/super_hairgrownium
 	name = "Super Hairgrownium"
 	id = "super_hairgrownium"
 	description = "A mysterious and powerful chemical purported to cause rapid hair growth."
@@ -254,8 +243,8 @@ datum/reagent/super_hairgrownium
 	result_amount = 3
 	mix_message = "The liquid becomes amazingly furry and smells peculiar."
 
-datum/reagent/super_hairgrownium/reaction_mob(var/mob/living/M, var/volume)
-	if(M && ishuman(M))
+/datum/reagent/super_hairgrownium/reaction_mob(mob/living/M, volume)
+	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/external/head/head_organ = H.get_organ("head")
 		var/datum/sprite_accessory/tmp_hair_style = hair_styles_list["Very Long Hair"]
@@ -278,9 +267,8 @@ datum/reagent/super_hairgrownium/reaction_mob(var/mob/living/M, var/volume)
 			H.equip_to_slot(fakemoustache, slot_wear_mask)
 			to_chat(H, "<span class='notice'>Hair bursts forth from your every follicle!")
 	..()
-	return
 
-datum/reagent/fartonium
+/datum/reagent/fartonium
 	name = "Fartonium"
 	id = "fartonium"
 	description = "Oh god it never ends, IT NEVER STOPS!"
@@ -295,9 +283,7 @@ datum/reagent/fartonium
 	result_amount = 2
 	mix_message = "The substance makes a little 'toot' noise and starts to smell pretty bad."
 
-datum/reagent/fartonium/on_mob_life(var/mob/living/M as mob)
-	if(!M) M = holder.my_atom
-
+/datum/reagent/fartonium/on_mob_life(mob/living/M)
 	if(prob(66))
 		M.emote("fart")
 
@@ -312,8 +298,6 @@ datum/reagent/fartonium/on_mob_life(var/mob/living/M as mob)
 			M.emote("scream")
 			M.adjustBruteLoss(4)
 	..()
-	return
-
 
 /datum/chemical_reaction/soapification
 	name = "Soapification"
@@ -327,7 +311,6 @@ datum/reagent/fartonium/on_mob_life(var/mob/living/M as mob)
 /datum/chemical_reaction/soapification/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
 	new /obj/item/weapon/soap/homemade(location)
-	return
 
 /datum/chemical_reaction/candlefication
 	name = "Candlefication"
@@ -340,8 +323,6 @@ datum/reagent/fartonium/on_mob_life(var/mob/living/M as mob)
 /datum/chemical_reaction/candlefication/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
 	new /obj/item/candle(location)
-	return
-
 
 /datum/chemical_reaction/meatification
 	name = "Meatification"
@@ -353,7 +334,6 @@ datum/reagent/fartonium/on_mob_life(var/mob/living/M as mob)
 /datum/chemical_reaction/meatification/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
 	new /obj/item/weapon/reagent_containers/food/snacks/meat/slab/meatproduct(location)
-	return
 
 /datum/chemical_reaction/lye
 	name = "lye"
@@ -376,12 +356,10 @@ datum/reagent/fartonium/on_mob_life(var/mob/living/M as mob)
 	reagent_state = LIQUID
 	color = "#FF83A5"
 
-/datum/reagent/love/reaction_mob(var/mob/living/M, var/method=TOUCH, var/volume)
+/datum/reagent/love/reaction_mob(mob/living/M, method=TOUCH, volume)
 	to_chat(M, "<span class='notice'>You feel loved!</span>")
 
-/datum/reagent/love/on_mob_life(var/mob/living/M as mob)
-	if(!M) M = holder.my_atom
-
+/datum/reagent/love/on_mob_life(mob/living/M)
 	if(M.a_intent == I_HARM)
 		M.a_intent = I_HELP
 
@@ -410,35 +388,35 @@ datum/reagent/fartonium/on_mob_life(var/mob/living/M as mob)
 
 ///Alchemical Reagents
 
-datum/reagent/eyenewt
+/datum/reagent/eyenewt
 	name = "Eye of newt"
 	id = "eyenewt"
 	description = "A potent alchemic ingredient."
 	reagent_state = LIQUID
 	color = "#050519"
 
-datum/reagent/toefrog
+/datum/reagent/toefrog
 	name = "Toe of frog"
 	id = "toefrog"
 	description = "A potent alchemic ingredient."
 	reagent_state = LIQUID
 	color = "#092D09"
 
-datum/reagent/woolbat
+/datum/reagent/woolbat
 	name = "Wool of bat"
 	id = "woolbat"
 	description = "A potent alchemic ingredient."
 	reagent_state = LIQUID
 	color = "#080808"
 
-datum/reagent/tonguedog
+/datum/reagent/tonguedog
 	name = "Tongue of dog"
 	id = "tonguedog"
 	description = "A potent alchemic ingredient."
 	reagent_state = LIQUID
 	color = "#2D0909"
 
-datum/reagent/triplepiss
+/datum/reagent/triplepiss
 	name = "Triplepiss"
 	id = "triplepiss"
 	description = "Ewwwwwwwww."

@@ -76,9 +76,7 @@
 	w_class = 5
 	force = 5
 	slot_flags = SLOT_BACK
-
-/obj/item/weapon/nullrod/staff/IsShield()
-	return 1
+	block_chance = 50
 
 /obj/item/weapon/nullrod/staff/blue
 	name = "blue holy staff"
@@ -92,16 +90,16 @@
 	desc = "A weapon fit for a crusade!"
 	w_class = 4
 	slot_flags = SLOT_BACK|SLOT_BELT
+	block_chance = 30
 	sharp = 1
 	edge = 1
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 
-/obj/item/weapon/nullrod/claymore/IsShield()
-	if(prob(30))
-		return 1
-	else
-		return 0
+/obj/item/weapon/nullrod/claymore/hit_reaction(mob/living/carbon/human/owner, attack_text, final_block_chance, damage, attack_type)
+	if(attack_type == PROJECTILE_ATTACK)
+		final_block_chance = 0 //Don't bring a sword to a gunfight
+	return ..()
 
 /obj/item/weapon/nullrod/claymore/darkblade
 	icon_state = "cultblade"
@@ -134,6 +132,13 @@
 	item_state = "katana"
 	slot_flags = SLOT_BELT | SLOT_BACK
 
+/obj/item/weapon/nullrod/claymore/multiverse
+	name = "extradimensional blade"
+	desc = "Once the harbringer of a interdimensional war, now a dormant souvenir. Still sharp though."
+	icon_state = "multiverse"
+	item_state = "multiverse"
+	slot_flags = SLOT_BELT
+
 /obj/item/weapon/nullrod/claymore/saber
 	name = "light energy sword"
 	hitsound = 'sound/weapons/blade1.ogg'
@@ -147,6 +152,12 @@
 	icon_state = "swordred"
 	item_state = "swordred"
 	desc = "Woefully ineffective when used on steep terrain."
+
+/obj/item/weapon/nullrod/claymore/saber/pirate
+	name = "nautical energy sword"
+	icon_state = "cutlass1"
+	item_state = "cutlass1"
+	desc = "Convincing HR that your religion involved piracy was no mean feat."
 
 /obj/item/weapon/nullrod/sord
 	name = "\improper UNREAL SORD"
@@ -178,6 +189,49 @@
 	name = "high frequency blade"
 	desc = "Bad references are the DNA of the soul."
 	attack_verb = list("chopped", "sliced", "cut", "zandatsu'd")
+
+/obj/item/weapon/nullrod/scythe/talking
+	icon_state = "talking_sword"
+	item_state = "talking_sword"
+	name = "possessed blade"
+	desc = "When the station falls into chaos, it's nice to have a friend by your side."
+	attack_verb = list("chopped", "sliced", "cut")
+	hitsound = 'sound/weapons/bladeslice.ogg'
+	var/possessed = FALSE
+
+/obj/item/weapon/nullrod/scythe/talking/attack_self(mob/living/user)
+	if(possessed)
+		return
+
+	to_chat(user, "You attempt to wake the spirit of the blade...")
+
+	possessed = TRUE
+
+	var/list/mob/dead/observer/candidates = pollCandidates("Do you want to play as the spirit of [user.real_name]'s blade?", ROLE_PAI, 0, 100)
+	var/mob/dead/observer/theghost = null
+
+	if(candidates.len)
+		theghost = pick(candidates)
+		var/mob/living/simple_animal/shade/S = new(src)
+		S.real_name = name
+		S.name = name
+		S.ckey = theghost.ckey
+		var/input = stripped_input(S,"What are you named?", ,"", MAX_NAME_LEN)
+
+		if(src && input)
+			name = input
+			S.real_name = input
+			S.name = input
+	else
+		to_chat(user, "The blade is dormant. Maybe you can try again later.")
+		possessed = FALSE
+
+/obj/item/weapon/nullrod/scythe/talking/Destroy()
+	for(var/mob/living/simple_animal/shade/S in contents)
+		to_chat(S, "You were destroyed!")
+		S.ghostize()
+		qdel(S)
+	return ..()
 
 /obj/item/weapon/nullrod/hammmer
 	icon_state = "hammeron"
@@ -277,6 +331,7 @@
 	desc = "A long, tall staff made of polished wood. Traditionally used in ancient old-Earth martial arts, now used to harass the clown."
 	w_class = 4
 	force = 15
+	block_chance = 40
 	slot_flags = SLOT_BACK
 	sharp = 0
 	edge = 0
@@ -285,12 +340,6 @@
 	icon = 'icons/obj/weapons.dmi'
 	icon_state = "bostaff0"
 	item_state = "bostaff0"
-
-/obj/item/weapon/nullrod/claymore/bostaff/IsShield()
-	if(prob(40))
-		return 1
-	else
-		return 0
 
 /obj/item/weapon/nullrod/tribal_knife
 	icon_state = "crysknife"
@@ -326,3 +375,75 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	sharp = 1
 	edge = 1
+
+/obj/item/weapon/nullrod/rosary
+	icon_state = "rosary"
+	item_state = null
+	name = "prayer beads"
+	desc = "A set of prayer beads used by many of the more traditional religions in space.<br>Vampires and other unholy abominations have learned to fear these."
+	force = 0
+	throwforce = 0
+	var/praying = 0
+
+/obj/item/weapon/nullrod/rosary/New()
+	..()
+	processing_objects.Add(src)
+
+
+/obj/item/weapon/nullrod/rosary/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
+	if(!istype(M))
+		return ..()
+
+	if(!user.mind || user.mind.assigned_role != "Chaplain")
+		to_chat(user, "<span class='notice'>You are not close enough with [ticker.Bible_deity_name] to use [src].</span>")
+		return
+
+	if(praying)
+		to_chat(user, "<span class='notice'>You are already using [src].</span>")
+
+	user.visible_message("<span class='info'>[user] kneels[M == user ? null : " next to [M]"] and begins to utter a prayer to [ticker.Bible_deity_name].</span>", \
+		"<span class='info'>You kneel[M == user ? null : " next to [M]"] and begin a prayer to [ticker.Bible_deity_name].</span>")
+
+	praying = 1
+	if(do_after(user, 150, target = M))
+		if(istype(M, /mob/living/carbon/human)) // This probably should not work on vulps. They're unholy abominations.
+			var/mob/living/carbon/human/target = M
+
+			if(target.mind)
+				if(iscultist(target))
+					ticker.mode.remove_cultist(target.mind) // This proc will handle message generation.
+					praying = 0
+					return
+
+				if(target.mind.vampire && !target.mind.vampire.get_ability(/datum/vampire_passive/full)) // Getting a full prayer off on a vampire will interrupt their powers for a large duration.
+					target.mind.vampire.nullified = max(120, target.mind.vampire.nullified + 120)
+					to_chat(target, "<span class='userdanger'>[user]'s prayer to [ticker.Bible_deity_name] has interfered with your power!</span>")
+					praying = 0
+					return
+
+			if(prob(25))
+				to_chat(target, "<span class='notice'>[user]'s prayer to [ticker.Bible_deity_name] has eased your pain!</span>")
+				target.adjustToxLoss(-5)
+				target.adjustOxyLoss(-5)
+				target.adjustBruteLoss(-5)
+				target.adjustFireLoss(-5)
+
+			praying = 0
+
+	else
+		to_chat(user, "<span class='notice'>Your prayer to [ticker.Bible_deity_name] was interrupted.</span>")
+		praying = 0
+
+/obj/item/weapon/nullrod/rosary/process()
+	if(istype(loc, /mob/living/carbon/human))
+		var/mob/living/carbon/human/holder = loc
+
+		if(src == holder.l_hand || src == holder.r_hand) // Holding this in your hand will
+			for(var/mob/living/carbon/human/M in range(5))
+				if(M.mind.vampire && !M.mind.vampire.get_ability(/datum/vampire_passive/full))
+					M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
+					if(prob(10))
+						to_chat(M, "<span class='userdanger'>Being in the presence of [holder]'s [src] is interfering with your powers!</span>")
+
+
+

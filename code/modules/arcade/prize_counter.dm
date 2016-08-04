@@ -171,7 +171,7 @@ td.cost.toomuch {
 	if(href_list["eject"])
 		print_tickets()
 
-	if (href_list["buy"])
+	if(href_list["buy"])
 		var/itemID = text2num(href_list["buy"])
 		var/datum/prize_item/item = global_prizes.prizes[itemID]
 		var/sure = alert(usr,"Are you sure you wish to purchase [item.name] for [item.cost] tickets?","You sure?","Yes","No") in list("Yes","No")

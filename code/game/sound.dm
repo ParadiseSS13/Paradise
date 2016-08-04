@@ -9,8 +9,9 @@ var/list/jackboot_sound = list('sound/effects/jackboot1.ogg','sound/effects/jack
 var/list/swing_hit_sound = list('sound/weapons/genhit1.ogg', 'sound/weapons/genhit2.ogg', 'sound/weapons/genhit3.ogg')
 var/list/hiss_sound = list('sound/voice/hiss1.ogg','sound/voice/hiss2.ogg','sound/voice/hiss3.ogg','sound/voice/hiss4.ogg')
 var/list/page_sound = list('sound/effects/pageturn1.ogg', 'sound/effects/pageturn2.ogg','sound/effects/pageturn3.ogg')
-//var/list/gun_sound = list('sound/weapons/Gunshot.ogg', 'sound/weapons/Gunshot2.ogg','sound/weapons/Gunshot3.ogg','sound/weapons/Gunshot4.ogg')
+var/list/gun_sound = list('sound/weapons/Gunshot.ogg', 'sound/weapons/Gunshot2.ogg','sound/weapons/Gunshot3.ogg','sound/weapons/Gunshot4.ogg')
 var/list/computer_ambience = list('sound/goonstation/machines/ambicomp1.ogg', 'sound/goonstation/machines/ambicomp2.ogg', 'sound/goonstation/machines/ambicomp3.ogg')
+var/list/ricochet = list('sound/weapons/effects/ric1.ogg', 'sound/weapons/effects/ric2.ogg','sound/weapons/effects/ric3.ogg','sound/weapons/effects/ric4.ogg','sound/weapons/effects/ric5.ogg')
 
 /proc/playsound(var/atom/source, soundin, vol as num, vary, extrarange as num, falloff, var/is_global, var/pitch)
 
@@ -24,30 +25,31 @@ var/list/computer_ambience = list('sound/goonstation/machines/ambicomp1.ogg', 's
 	var/turf/turf_source = get_turf(source)
 
  	// Looping through the player list has the added bonus of working for mobs inside containers
-	for (var/P in player_list)
+	var/sound/S = sound(soundin)
+	var/maxdistance = (world.view + extrarange) * 3
+	for(var/P in player_list)
 		var/mob/M = P
 		if(!M || !M.client)
 			continue
-
 		var/distance = get_dist(M, turf_source)
-		if(distance <= (world.view + extrarange) * 3)
+
+		if(distance <= maxdistance)
 			var/turf/T = get_turf(M)
 
 			if(T && T.z == turf_source.z)
-				M.playsound_local(turf_source, soundin, vol, vary, frequency, falloff, is_global)
+				M.playsound_local(turf_source, soundin, vol, vary, frequency, falloff, is_global, S)
 
-var/const/FALLOFF_SOUNDS = 0.5
+/mob/proc/playsound_local(var/turf/turf_source, soundin, vol as num, vary, frequency, falloff, is_global, sound/S)
+	if(!src.client || ear_deaf > 0)
+		return
 
-/mob/proc/playsound_local(var/turf/turf_source, soundin, vol as num, vary, frequency, falloff, is_global)
-	if(!src.client || ear_deaf > 0)	return
-	soundin = get_sfx(soundin)
-
-	var/sound/S = sound(soundin)
+	if(!S)
+		S = sound(get_sfx(soundin))
 	S.wait = 0 //No queue
 	S.channel = 0 //Any channel
 	S.volume = vol
 	S.environment = -1
-	if (vary)
+	if(vary)
 		if(frequency)
 			S.frequency = frequency
 		else
@@ -68,20 +70,20 @@ var/const/FALLOFF_SOUNDS = 0.5
 		var/datum/gas_mixture/hearer_env = T.return_air()
 		var/datum/gas_mixture/source_env = turf_source.return_air()
 
-		if (hearer_env && source_env)
+		if(hearer_env && source_env)
 			var/pressure = min(hearer_env.return_pressure(), source_env.return_pressure())
 
-			if (pressure < ONE_ATMOSPHERE)
+			if(pressure < ONE_ATMOSPHERE)
 				pressure_factor = max((pressure - SOUND_MINIMUM_PRESSURE)/(ONE_ATMOSPHERE - SOUND_MINIMUM_PRESSURE), 0)
 		else //in space
 			pressure_factor = 0
 
-		if (distance <= 1)
+		if(distance <= 1)
 			pressure_factor = max(pressure_factor, 0.15)	//hearing through contact
 
 		S.volume *= pressure_factor
 
-		if (S.volume <= 0)
+		if(S.volume <= 0)
 			return	//no volume means no sound
 
 		var/dx = turf_source.x - T.x // Hearing from the right/left
@@ -107,17 +109,32 @@ var/const/FALLOFF_SOUNDS = 0.5
 /proc/get_sfx(soundin)
 	if(istext(soundin))
 		switch(soundin)
-			if ("shatter") soundin = pick(shatter_sound)
-			if ("explosion") soundin = pick(explosion_sound)
-			if ("sparks") soundin = pick(spark_sound)
-			if ("rustle") soundin = pick(rustle_sound)
-			if ("bodyfall") soundin = pick(bodyfall_sound)
-			if ("punch") soundin = pick(punch_sound)
-			if ("clownstep") soundin = pick(clown_sound)
-			if ("jackboot") soundin = pick(jackboot_sound)
-			if ("swing_hit") soundin = pick(swing_hit_sound)
-			if ("hiss") soundin = pick(hiss_sound)
-			if ("pageturn") soundin = pick(page_sound)
-			//if ("gunshot") soundin = pick(gun_sound)
-			if("computer_ambience") soundin = pick(computer_ambience)
+			if("shatter")
+				soundin = pick(shatter_sound)
+			if("explosion")
+				soundin = pick(explosion_sound)
+			if("sparks")
+				soundin = pick(spark_sound)
+			if("rustle")
+				soundin = pick(rustle_sound)
+			if("bodyfall")
+				soundin = pick(bodyfall_sound)
+			if("punch")
+				soundin = pick(punch_sound)
+			if("clownstep")
+				soundin = pick(clown_sound)
+			if("jackboot")
+				soundin = pick(jackboot_sound)
+			if("swing_hit")
+				soundin = pick(swing_hit_sound)
+			if("hiss")
+				soundin = pick(hiss_sound)
+			if("pageturn")
+				soundin = pick(page_sound)
+			if("gunshot")
+				soundin = pick(gun_sound)
+			if("computer_ambience")
+				soundin = pick(computer_ambience)
+			if("ricochet")
+				soundin = pick(ricochet)
 	return soundin

@@ -31,7 +31,7 @@ var/list/potential_theft_objectives=subtypesof(/datum/theft_objective) \
 	proc/find_target()
 		var/list/possible_targets = list()
 		for(var/datum/mind/possible_target in ticker.minds)
-			if(possible_target != owner && ishuman(possible_target.current) && (possible_target.current.stat != DEAD))
+			if(possible_target != owner && ishuman(possible_target.current) && (possible_target.current.stat != DEAD) && possible_target.current.client)
 				possible_targets += possible_target
 		if(possible_targets.len > 0)
 			target = pick(possible_targets)
@@ -39,7 +39,7 @@ var/list/potential_theft_objectives=subtypesof(/datum/theft_objective) \
 	proc/find_target_by_role(role, role_type=0)//Option sets either to check assigned role or special role. Default to assigned.
 		var/list/possible_targets = list()
 		for(var/datum/mind/possible_target in ticker.minds)
-			if((possible_target != owner) && ishuman(possible_target.current) && ((role_type ? possible_target.special_role : possible_target.assigned_role) == role) && (possible_target.current.stat != DEAD) )
+			if((possible_target != owner) && ishuman(possible_target.current) && ((role_type ? possible_target.special_role : possible_target.assigned_role) == role) && (possible_target.current.stat != DEAD) && possible_target.current.client)
 				possible_targets += possible_target
 		if(possible_targets.len > 0)
 			target = pick(possible_targets)
@@ -48,7 +48,7 @@ var/list/potential_theft_objectives=subtypesof(/datum/theft_objective) \
 	proc/find_target_with_special_role(role)
 		var/list/possible_targets = list()
 		for(var/datum/mind/possible_target in ticker.minds)
-			if((possible_target != owner) && ishuman(possible_target.current) && (role && possible_target.special_role == role || !role && possible_target.special_role) && (possible_target.current.stat != DEAD) )
+			if((possible_target != owner) && ishuman(possible_target.current) && (role && possible_target.special_role == role || !role && possible_target.special_role) && (possible_target.current.stat != DEAD) && possible_target.current.client)
 				possible_targets += possible_target
 		if(possible_targets.len > 0)
 			target = pick(possible_targets)
@@ -77,7 +77,8 @@ var/list/potential_theft_objectives=subtypesof(/datum/theft_objective) \
 
 	check_completion()
 		if(target && target.current)
-			if(target.current.stat == DEAD || issilicon(target.current) || isbrain(target.current) || target.current.z > 6 || !target.current.ckey) //Borgs/brains/AIs count as dead for traitor objectives. --NeoFite
+			// TODO: Tie into space manager
+			if(target.current.stat == DEAD || issilicon(target.current) || isbrain(target.current) || target.current.z > ZLEVEL_DERELICT || !target.current.ckey) //Borgs/brains/AIs count as dead for traitor objectives. --NeoFite
 				return 1
 			return 0
 		return 1
@@ -109,6 +110,7 @@ var/list/potential_theft_objectives=subtypesof(/datum/theft_objective) \
 			if(target.current.stat == DEAD || !ishuman(target.current) || !target.current.ckey || !target.current.client)
 				return 1
 			var/turf/T = get_turf(target.current)
+			// TODO: Tie into space manager
 			if(T && !(T.z in config.station_levels))			//If they leave the station they count as dead for this
 				return 2
 			return 0
@@ -144,6 +146,7 @@ var/list/potential_theft_objectives=subtypesof(/datum/theft_objective) \
 				if(target in ticker.mode:head_revolutionaries)
 					return 1
 			var/turf/T = get_turf(target.current)
+			// TODO: Tie into space manager
 			if(T && !(T.z in config.station_levels))			//If they leave the station they count as dead for this
 				rval = 2
 			return 0
@@ -170,8 +173,10 @@ var/list/potential_theft_objectives=subtypesof(/datum/theft_objective) \
 
 	check_completion()
 		if(target && target.current)
-			if(target.current.stat == DEAD || issilicon(target.current) || isbrain(target.current) || target.current.z > 6 || !target.current.ckey) //Borgs/brains/AIs count as dead for traitor objectives. --NeoFite
+			// TODO: Tie into space manager
+			if(target.current.stat == DEAD || issilicon(target.current) || isbrain(target.current) || target.current.z > ZLEVEL_DERELICT || !target.current.ckey) //Borgs/brains/AIs count as dead for traitor objectives. --NeoFite
 				return 1
+			// TODO: Tie into space manager
 			if((target.current.z in config.admin_levels))
 				return 0
 		return 1
@@ -247,10 +252,11 @@ var/list/potential_theft_objectives=subtypesof(/datum/theft_objective) \
 			return 1
 		return 0
 
+/datum/objective/protect/mindslave //subytpe for mindslave implants
 
 /datum/objective/hijack
 	martyr_compatible = 0 //Technically you won't get both anyway.
-	explanation_text = "Hijack the shuttle to ensure no loyalist Nanotrasen crew escape alive."
+	explanation_text = "Hijack the shuttle by escaping on it with no loyalist NanoTrasen crew on board and alive. Syndicate agents, other enemies of NanoTrasen, cyborgs, and pets may be allowed to escape alive."
 
 	check_completion()
 		if(!owner.current || owner.current.stat)
@@ -310,7 +316,7 @@ var/list/potential_theft_objectives=subtypesof(/datum/theft_objective) \
 		return 0
 
 /datum/objective/block
-	explanation_text = "Do not allow any organic lifeforms to escape on the shuttle alive."
+	explanation_text = "Do not allow any lifeforms, be it organic or synthetic to escape on the shuttle alive. AIs, Cyborgs, and pAIs are not considered alive."
 	martyr_compatible = 1
 
 	check_completion()
@@ -375,7 +381,7 @@ var/list/potential_theft_objectives=subtypesof(/datum/theft_objective) \
 	find_target()
 		var/list/possible_targets = list() //Copypasta because NO_SCAN races, yay for snowflakes.
 		for(var/datum/mind/possible_target in ticker.minds)
-			if(possible_target != owner && ishuman(possible_target.current) && (possible_target.current.stat != DEAD))
+			if(possible_target != owner && ishuman(possible_target.current) && (possible_target.current.stat != DEAD) && possible_target.current.client)
 				var/mob/living/carbon/human/H = possible_target.current
 				if(!(H.species.flags & NO_SCAN))
 					possible_targets += possible_target
@@ -456,16 +462,16 @@ var/list/potential_theft_objectives=subtypesof(/datum/theft_objective) \
 	proc/select_target()
 		var/list/possible_items_all = potential_theft_objectives+"custom"
 		var/new_target = input("Select target:", "Objective target", null) as null|anything in possible_items_all
-		if (!new_target) return
-		if (new_target == "custom")
+		if(!new_target) return
+		if(new_target == "custom")
 			var/datum/theft_objective/O=new
 			O.typepath = input("Select type:","Type") as null|anything in typesof(/obj/item)
-			if (!O.typepath) return
+			if(!O.typepath) return
 			var/tmp_obj = new O.typepath
 			var/custom_name = tmp_obj:name
 			qdel(tmp_obj)
 			O.name = sanitize(copytext(input("Enter target name:", "Objective target", custom_name) as text|null,1,MAX_NAME_LEN))
-			if (!O.name) return
+			if(!O.name) return
 			steal_target = O
 			explanation_text = "Steal [O.name]."
 		else
@@ -529,15 +535,15 @@ var/list/potential_theft_objectives=subtypesof(/datum/theft_objective) \
 /datum/objective/absorb
 	proc/gen_amount_goal(var/lowbound = 4, var/highbound = 6)
 		target_amount = rand (lowbound,highbound)
-		if (ticker)
+		if(ticker)
 			var/n_p = 1 //autowin
-			if (ticker.current_state == GAME_STATE_SETTING_UP)
+			if(ticker.current_state == GAME_STATE_SETTING_UP)
 				for(var/mob/new_player/P in player_list)
 					if(P.client && P.ready && P.mind != owner)
 						if(P.client.prefs && (P.client.prefs.species == "Vox" || P.client.prefs.species == "Slime People" || P.client.prefs.species == "Machine")) // Special check for species that can't be absorbed. No better solution.
 							continue
 						n_p++
-			else if (ticker.current_state == GAME_STATE_PLAYING)
+			else if(ticker.current_state == GAME_STATE_PLAYING)
 				for(var/mob/living/carbon/human/P in player_list)
 					if(P.species.flags & NO_SCAN)
 						continue
@@ -571,7 +577,8 @@ var/list/potential_theft_objectives=subtypesof(/datum/theft_objective) \
 
 	check_completion()
 		if(target && target.current)
-			if(target.current.stat == DEAD || target.current.z > 6 || !target.current.ckey)
+			// TODO: Tie into space manager
+			if(target.current.stat == DEAD || target.current.z > ZLEVEL_DERELICT || !target.current.ckey)
 				return 1
 			return 0
 		return 1
@@ -629,7 +636,7 @@ var/list/potential_theft_objectives=subtypesof(/datum/theft_objective) \
 
 	check_completion()
 		if(target && target.current)
-			if (target.current.stat == DEAD)
+			if(target.current.stat == DEAD)
 				return 0
 
 			var/area/shuttle/vox/A = locate() //stupid fucking hardcoding
@@ -667,7 +674,7 @@ var/list/potential_theft_objectives=subtypesof(/datum/theft_objective) \
 			if(5)
 				target = /obj/item/weapon/gun
 				target_amount = 6
-				loot = "six guns"
+				loot = "six guns. Tasers and other non-lethal guns are acceptable"
 			if(6)
 				target = /obj/item/weapon/gun/energy
 				target_amount = 4
@@ -796,12 +803,68 @@ var/list/potential_theft_objectives=subtypesof(/datum/theft_objective) \
 			return 1
 		return 0
 
-#define MAX_VOX_KILLS 10 //Number of kills during the round before the Inviolate is broken.
-						 //Would be nice to use vox-specific kills but is currently not feasible.
-var/global/vox_kills = 0 //Used to check the Inviolate.
-
 /datum/objective/heist/inviolate_death
 	explanation_text = "Follow the Inviolate. Minimise death and loss of resources."
+
 	check_completion()
-		if(vox_kills > MAX_VOX_KILLS) return 0
+		var/vox_allowed_kills = 3 // The number of people the vox can accidently kill. Mostly a counter to people killing themselves if a raider touches them to force fail.
+		var/vox_total_kills = 0
+
+		var/datum/game_mode/heist/H = ticker.mode
+		for(var/datum/mind/raider in H.raiders)
+			vox_total_kills += raider.kills.len // Kills are listed in the mind; uses this to calculate vox kills
+
+		if(vox_total_kills > vox_allowed_kills) return 0
 		return 1
+
+// Traders
+
+/datum/objective/trade // Yes, I know there's no check_completion. The objectives exist only to tell the traders what to get.
+/datum/objective/trade/proc/choose_target(var/station)
+	return
+
+/datum/objective/trade/stock // Stock or spare parts.
+	var/target_rating = 1
+/datum/objective/trade/stock/choose_target(var/station)
+	var/itemname
+	switch(rand(1,8))
+		if(1)
+			target = /obj/item/weapon/stock_parts/cell
+			target_amount = 10
+			target_rating = 3
+			itemname = "ten high-capacity power cells"
+		if(2)
+			target = /obj/item/weapon/stock_parts/manipulator
+			target_amount = 20
+			itemname = "twenty micro manipulators"
+		if(3)
+			target = /obj/item/weapon/stock_parts/matter_bin
+			target_amount = 20
+			itemname = "twenty matter bins"
+		if(4)
+			target = /obj/item/weapon/stock_parts/micro_laser
+			target_amount = 15
+			itemname = "fifteen micro-lasers"
+		if(5)
+			target = /obj/item/weapon/stock_parts/capacitor
+			target_amount = 15
+			itemname = "fifteen capacitors"
+		if(6)
+			target = /obj/item/weapon/stock_parts/subspace/filter
+			target_amount = 4
+			itemname = "four hyperwave filters"
+		if(7)
+			target = /obj/item/solar_assembly
+			target_amount = 10
+			itemname = "ten solar panel assemblies"
+		if(8)
+			target = /obj/item/device/flash
+			target_amount = 6
+			itemname = "six flashes"
+	explanation_text = "We are running low on spare parts. Trade for [itemname]."
+
+//wizard
+
+/datum/objective/wizchaos
+	explanation_text = "Wreak havoc upon the station as much you can. Send those wandless Nanotrasen scum a message!"
+	completed = 1

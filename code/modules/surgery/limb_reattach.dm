@@ -68,10 +68,10 @@
 /datum/surgery_step/limb/
 	can_infect = 0
 	can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
-		if (!hasorgans(target))
+		if(!hasorgans(target))
 			return 0
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
-		if (affected)
+		if(affected)
 			return 0
 		var/list/organ_data = target.species.has_limbs["[target_zone]"]
 		return !isnull(organ_data)
@@ -95,6 +95,11 @@
 	E.replaced(target)
 	E.forceMove(target)
 	if(target.get_species() == "Machine")//as this is the only step needed for ipc put togethers
+		if(!(E.dna) && E.robotic == 2 && target.dna)
+			E.dna = target.dna.Clone()
+			if(!E.blood_DNA)
+				E.blood_DNA = list()
+			E.blood_DNA[target.dna.unique_enzymes] = target.dna.b_type
 		if(target_zone == "head")
 			var/obj/item/organ/external/head/H = target.get_organ("head")
 			var/datum/robolimb/robohead = all_robolimbs[H.model]
@@ -170,8 +175,8 @@
 /datum/surgery_step/limb/mechanize/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	if(..())
 		var/obj/item/robot_parts/p = tool
-		if (p.part)
-			if (!(target_zone in p.part))
+		if(p.part)
+			if(!(target_zone in p.part))
 				return 0
 		return isnull(target.get_organ(target_zone))
 

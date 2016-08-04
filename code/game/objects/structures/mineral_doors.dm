@@ -16,152 +16,155 @@
 	var/hardness = 1
 	var/oreAmount = 7
 
-	New(location)
-		..()
-		icon_state = mineralType
-		name = "[mineralType] door"
-		air_update_turf(1)
+/obj/structure/mineral_door/New(location)
+	..()
+	icon_state = mineralType
+	name = "[mineralType] door"
 
-	Destroy()
-		density = 0
-		air_update_turf(1)
-		return ..()
+/obj/structure/mineral_door/initialize()
+	..()
+	air_update_turf(1)
 
-	Move()
-		var/turf/T = loc
-		..()
-		move_update_air(T)
+/obj/structure/mineral_door/Destroy()
+	density = 0
+	air_update_turf(1)
+	return ..()
 
-	Bumped(atom/user)
-		..()
-		if(!state)
-			return TryToSwitchState(user)
-		return
+/obj/structure/mineral_door/Move()
+	var/turf/T = loc
+	..()
+	move_update_air(T)
 
-	attack_ai(mob/user as mob) //those aren't machinery, they're just big fucking slabs of a mineral
-		if(isAI(user)) //so the AI can't open it
-			return
-		else if(isrobot(user)) //but cyborgs can
-			if(get_dist(user,src) <= 1) //not remotely though
-				return TryToSwitchState(user)
-
-	attack_hand(mob/user as mob)
+/obj/structure/mineral_door/Bumped(atom/user)
+	..()
+	if(!state)
 		return TryToSwitchState(user)
+	return
 
-	CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
-		if(air_group) return 0
-		if(istype(mover, /obj/effect/beam))
-			return !opacity
-		return !density
+/obj/structure/mineral_door/attack_ai(mob/user as mob) //those aren't machinery, they're just big fucking slabs of a mineral
+	if(isAI(user)) //so the AI can't open it
+		return
+	else if(isrobot(user)) //but cyborgs can
+		if(get_dist(user,src) <= 1) //not remotely though
+			return TryToSwitchState(user)
 
-	CanAtmosPass()
-		return !density
+/obj/structure/mineral_door/attack_hand(mob/user as mob)
+	return TryToSwitchState(user)
 
-	proc/TryToSwitchState(atom/user)
-		if(isSwitchingStates) return
-		if(ismob(user))
-			var/mob/M = user
-			if(world.time - user.last_bumped <= 60) return //NOTE do we really need that?
-			if(M.client)
-				if(iscarbon(M))
-					var/mob/living/carbon/C = M
-					if(!C.handcuffed)
-						SwitchState()
-				else
+/obj/structure/mineral_door/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
+	if(air_group) return 0
+	if(istype(mover, /obj/effect/beam))
+		return !opacity
+	return !density
+
+/obj/structure/mineral_door/CanAtmosPass()
+	return !density
+
+/obj/structure/mineral_door/proc/TryToSwitchState(atom/user)
+	if(isSwitchingStates) return
+	if(ismob(user))
+		var/mob/M = user
+		if(world.time - user.last_bumped <= 60) return //NOTE do we really need that?
+		if(M.client)
+			if(iscarbon(M))
+				var/mob/living/carbon/C = M
+				if(!C.handcuffed)
 					SwitchState()
-		else if(istype(user, /obj/mecha))
-			SwitchState()
+			else
+				SwitchState()
+	else if(istype(user, /obj/mecha))
+		SwitchState()
 
-	proc/SwitchState()
-		if(state)
-			Close()
-		else
-			Open()
+/obj/structure/mineral_door/proc/SwitchState()
+	if(state)
+		Close()
+	else
+		Open()
 
-	proc/Open()
-		isSwitchingStates = 1
-		playsound(loc, 'sound/effects/stonedoor_openclose.ogg', 100, 1)
-		flick("[mineralType]opening",src)
-		sleep(10)
-		density = 0
-		opacity = 0
-		state = 1
-		update_icon()
-		isSwitchingStates = 0
-		air_update_turf(1)
-
-	proc/Close()
-		isSwitchingStates = 1
-		playsound(loc, 'sound/effects/stonedoor_openclose.ogg', 100, 1)
-		flick("[mineralType]closing",src)
-		sleep(10)
-		density = 1
-		opacity = 1
-		state = 0
-		update_icon()
-		isSwitchingStates = 0
-		air_update_turf(1)
-
+/obj/structure/mineral_door/proc/Open()
+	isSwitchingStates = 1
+	playsound(loc, 'sound/effects/stonedoor_openclose.ogg', 100, 1)
+	flick("[mineralType]opening",src)
+	sleep(10)
+	density = 0
+	opacity = 0
+	state = 1
 	update_icon()
-		if(state)
-			icon_state = "[mineralType]open"
-		else
-			icon_state = mineralType
+	isSwitchingStates = 0
+	air_update_turf(1)
 
-	attackby(obj/item/weapon/W as obj, mob/user as mob, params)
-		if(istype(W,/obj/item/weapon/pickaxe))
-			var/obj/item/weapon/pickaxe/digTool = W
-			to_chat(user, "You start digging the [name].")
-			if(do_after(user,digTool.digspeed*hardness, target = src) && src)
-				to_chat(user, "You finished digging.")
-				Dismantle()
-		else if(istype(W,/obj/item/weapon)) //not sure, can't not just weapons get passed to this proc?
-			hardness -= W.force/100
-			to_chat(user, "You hit the [name] with your [W.name]!")
-			CheckHardness()
-		else
-			attack_hand(user)
-		return
+/obj/structure/mineral_door/proc/Close()
+	isSwitchingStates = 1
+	playsound(loc, 'sound/effects/stonedoor_openclose.ogg', 100, 1)
+	flick("[mineralType]closing",src)
+	sleep(10)
+	density = 1
+	opacity = 1
+	state = 0
+	update_icon()
+	isSwitchingStates = 0
+	air_update_turf(1)
 
-	proc/CheckHardness()
-		if(hardness <= 0)
+/obj/structure/mineral_door/update_icon()
+	if(state)
+		icon_state = "[mineralType]open"
+	else
+		icon_state = mineralType
+
+/obj/structure/mineral_door/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+	if(istype(W,/obj/item/weapon/pickaxe))
+		var/obj/item/weapon/pickaxe/digTool = W
+		to_chat(user, "You start digging the [name].")
+		if(do_after(user,digTool.digspeed*hardness, target = src) && src)
+			to_chat(user, "You finished digging.")
+			Dismantle()
+	else if(istype(W,/obj/item/weapon)) //not sure, can't not just weapons get passed to this proc?
+		hardness -= W.force/100
+		to_chat(user, "You hit the [name] with your [W.name]!")
+		CheckHardness()
+	else
+		attack_hand(user)
+	return
+
+/obj/structure/mineral_door/proc/CheckHardness()
+	if(hardness <= 0)
+		Dismantle(1)
+
+/obj/structure/mineral_door/proc/Dismantle(devastated = 0)
+	if(!devastated)
+		if(mineralType == "metal")
+			var/ore = /obj/item/stack/sheet/metal
+			for(var/i = 1, i <= oreAmount, i++)
+				new ore(get_turf(src))
+		else
+			var/ore = text2path("/obj/item/stack/sheet/mineral/[mineralType]")
+			for(var/i = 1, i <= oreAmount, i++)
+				new ore(get_turf(src))
+	else
+		if(mineralType == "metal")
+			var/ore = /obj/item/stack/sheet/metal
+			for(var/i = 3, i <= oreAmount, i++)
+				new ore(get_turf(src))
+		else
+			var/ore = text2path("/obj/item/stack/sheet/mineral/[mineralType]")
+			for(var/i = 3, i <= oreAmount, i++)
+				new ore(get_turf(src))
+	qdel(src)
+
+/obj/structure/mineral_door/ex_act(severity = 1)
+	switch(severity)
+		if(1)
 			Dismantle(1)
-
-	proc/Dismantle(devastated = 0)
-		if(!devastated)
-			if (mineralType == "metal")
-				var/ore = /obj/item/stack/sheet/metal
-				for(var/i = 1, i <= oreAmount, i++)
-					new ore(get_turf(src))
-			else
-				var/ore = text2path("/obj/item/stack/sheet/mineral/[mineralType]")
-				for(var/i = 1, i <= oreAmount, i++)
-					new ore(get_turf(src))
-		else
-			if (mineralType == "metal")
-				var/ore = /obj/item/stack/sheet/metal
-				for(var/i = 3, i <= oreAmount, i++)
-					new ore(get_turf(src))
-			else
-				var/ore = text2path("/obj/item/stack/sheet/mineral/[mineralType]")
-				for(var/i = 3, i <= oreAmount, i++)
-					new ore(get_turf(src))
-		qdel(src)
-
-	ex_act(severity = 1)
-		switch(severity)
-			if(1)
+		if(2)
+			if(prob(20))
 				Dismantle(1)
-			if(2)
-				if(prob(20))
-					Dismantle(1)
-				else
-					hardness--
-					CheckHardness()
-			if(3)
-				hardness -= 0.1
+			else
+				hardness--
 				CheckHardness()
-		return
+		if(3)
+			hardness -= 0.1
+			CheckHardness()
+	return
 
 /obj/structure/mineral_door/iron
 	mineralType = "metal"
@@ -216,6 +219,8 @@
 /obj/structure/mineral_door/wood
 	mineralType = "wood"
 	hardness = 1
+	burn_state = FLAMMABLE
+	burntime = 30
 
 	Open()
 		isSwitchingStates = 1

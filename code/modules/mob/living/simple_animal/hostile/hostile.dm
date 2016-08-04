@@ -219,7 +219,7 @@
 
 //////////////END HOSTILE MOB TARGETTING AND AGGRESSION////////////
 
-/mob/living/simple_animal/hostile/death()
+/mob/living/simple_animal/hostile/death(gibbed)
 	LoseAggro()
 	mouse_opacity = 1
 	..()
@@ -260,20 +260,23 @@
 	if(target == start)
 		return
 
-	var/obj/item/projectile/A = new projectiletype(src.loc)
-	playsound(user, projectilesound, 100, 1)
-	if(!A)	return
-
-	A.current = target
-	A.firer = src
-	A.yo = target:y - start:y
-	A.xo = target:x - start:x
-	if(AIStatus == AI_OFF)//Don't want mindless mobs to have their movement screwed up firing in space
-		newtonian_move(get_dir(target, user))
-	A.original = target
-	spawn( 0 )
-		A.process()
-	return
+	if(casingtype)
+		var/obj/item/ammo_casing/casing = new casingtype
+		playsound(src, projectilesound, 100, 1)
+		casing.fire(target, src, zone_override = ran_zone())
+		casing.loc = loc
+	else
+		var/obj/item/projectile/A = new projectiletype(loc)
+		playsound(user, projectilesound, 100, 1)
+		A.current = target
+		A.firer = src
+		A.yo = target:y - start:y
+		A.xo = target:x - start:x
+		if(AIStatus == AI_OFF)//Don't want mindless mobs to have their movement screwed up firing in space
+			newtonian_move(get_dir(target, user))
+			A.original = target
+		A.fire()
+		return A
 
 /mob/living/simple_animal/hostile/proc/DestroySurroundings()
 	if(environment_smash)

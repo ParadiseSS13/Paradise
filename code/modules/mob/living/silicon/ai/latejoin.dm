@@ -34,7 +34,7 @@ var/global/list/empty_playable_ai_cores = list()
 	job_master.FreeRole(job)
 
 	if(mind.objectives.len)
-		qdel(mind.objectives)
+		mind.objectives.Cut()
 		mind.special_role = null
 	else
 		if(ticker.mode.name == "AutoTraitor")

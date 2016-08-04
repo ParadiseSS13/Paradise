@@ -11,6 +11,7 @@
 /datum/event/vent_clog/setup()
 	endWhen = rand(25, 100)
 	for(var/obj/machinery/atmospherics/unary/vent_scrubber/temp_vent in machines)
+		// TODO: Tie into space manager
 		if((temp_vent.loc.z in config.station_levels))
 			if(temp_vent.parent.other_atmosmch.len > 50)
 				vents += temp_vent

@@ -5,7 +5,7 @@
 	icon_state = "paper"
 	item_state = "paper"
 	throwforce = 0
-	w_class = 1.0
+	w_class = 1
 	throw_range = 2
 	throw_speed = 1
 	layer = 4
@@ -21,9 +21,9 @@
 	var/obj/item/weapon/paper/P
 	if(istype(W, /obj/item/weapon/paper))
 		P = W
-		if (istype(P, /obj/item/weapon/paper/carbon))
+		if(istype(P, /obj/item/weapon/paper/carbon))
 			var/obj/item/weapon/paper/carbon/C = P
-			if (!C.iscopy && !C.copied)
+			if(!C.iscopy && !C.copied)
 				to_chat(user, "<span class='notice'>Take off the carbon copy first.</span>")
 				add_fingerprint(user)
 				return
@@ -177,7 +177,7 @@
 			update_icon()
 	else
 		to_chat(usr, "<span class='notice'>You need to hold it in your hands to change pages.</span>")
-	if (istype(src.loc, /mob))
+	if(istype(src.loc, /mob))
 		src.attack_self(src.loc)
 		updateUsrDialog()
 
@@ -204,6 +204,7 @@
 	for(var/obj/O in src)
 		O.loc = usr.loc
 		O.layer = initial(O.layer)
+		O.plane = initial(O.plane)
 		O.add_fingerprint(usr)
 	usr.unEquip(src)
 	qdel(src)

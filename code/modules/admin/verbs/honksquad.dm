@@ -50,7 +50,7 @@ var/global/sent_honksquad = 0
 //Spawns HONKsquad and equips them.
 	for(var/obj/effect/landmark/L in landmarks_list)
 		if(honksquad_number<=0)	break
-		if (L.name == "HONKsquad")
+		if(L.name == "HONKsquad")
 			honk_leader_selected = honksquad_number == 1?1:0
 
 			var/mob/living/carbon/human/new_honksquad = create_honksquad(L, honk_leader_selected)
@@ -59,7 +59,7 @@ var/global/sent_honksquad = 0
 				new_honksquad.key = pick(commandos)
 				commandos -= new_honksquad.key
 				new_honksquad.internal = new_honksquad.s_store
-				new_honksquad.internals.icon_state = "internal1"
+				new_honksquad.update_internals_hud_icon(1)
 
 			//So they don't forget their code or mission.
 			new_honksquad.mind.store_memory("<B>Mission:</B> \red [input].")
@@ -121,7 +121,7 @@ var/global/sent_honksquad = 0
 	if(prob(50))
 		equip_to_slot_or_del(new /obj/item/weapon/gun/energy/clown(src), slot_in_backpack)
 	else
-		equip_to_slot_or_del(new /obj/item/weapon/gun/grenadelauncher/piecannon(src), slot_in_backpack)
+		equip_to_slot_or_del(new /obj/item/weapon/gun/throw/piecannon(src), slot_in_backpack)
 	src.mutations.Add(CLUMSY)
 
 

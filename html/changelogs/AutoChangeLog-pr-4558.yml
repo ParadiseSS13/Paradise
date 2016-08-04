@@ -1,5 +1,0 @@
-author: monster860
-delete-after: True
-changes: 
-  - rscadd: "Adds comical implant. It is an implant that causes you to have a comic sans voice. It can be made in the protolathe using bananium."
-  - rscadd: "The comical implant now spawns by default inside IPC clowns"

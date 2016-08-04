@@ -26,6 +26,7 @@
 		update_revive()
 	med_hud_set_health()
 	med_hud_set_status()
+	handle_hud_icons()
 
 /mob/living/carbon/human/adjustBrainLoss(var/amount)
 	if(status_flags & GODMODE)
@@ -103,7 +104,7 @@
 	if(species && species.brute_mod)
 		amount = amount*species.brute_mod
 
-	if (organ_name in organs_by_name)
+	if(organ_name in organs_by_name)
 		var/obj/item/organ/external/O = get_organ(organ_name)
 
 		if(amount > 0)
@@ -117,7 +118,7 @@
 	if(species && species.burn_mod)
 		amount = amount*species.burn_mod
 
-	if (organ_name in organs_by_name)
+	if(organ_name in organs_by_name)
 		var/obj/item/organ/external/O = get_organ(organ_name)
 
 		if(amount > 0)
@@ -316,8 +317,9 @@ This function restores the subjects blood to max.
 */
 /mob/living/carbon/human/proc/restore_blood()
 	if(!(species.flags & NO_BLOOD))
-		var/blood_volume = vessel.get_reagent_amount("blood")
-		vessel.add_reagent("blood", 560.0 - blood_volume)
+		var/blood_type = get_blood_name()
+		var/blood_volume = vessel.get_reagent_amount(blood_type)
+		vessel.add_reagent(blood_type, BLOOD_VOLUME_NORMAL - blood_volume)
 
 /*
 This function restores all organs.
@@ -383,7 +385,7 @@ This function restores all organs.
 					var/list/attack_bubble_recipients = list()
 					var/mob/living/user
 					for(var/mob/O in viewers(user, src))
-						if (O.client && !(O.blinded))
+						if(O.client && !(O.blinded))
 							attack_bubble_recipients.Add(O.client)
 					spawn(0)
 						var/image/dmgIcon = image('icons/effects/hit_blips.dmi', src, "dmg[rand(1,2)]",MOB_LAYER+1)

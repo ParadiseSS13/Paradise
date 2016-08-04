@@ -30,11 +30,9 @@
 		var/obj/item/projectile/projone = new proj_type(firstloc)
 		var/obj/item/projectile/projtwo = new proj_type(secondloc)
 		projone.starting = get_turf(my_atom)
-		projone.shot_from = src
 		projone.firer = usr
 		projone.def_zone = "chest"
 		projtwo.starting = get_turf(my_atom)
-		projtwo.shot_from = src
 		projtwo.firer = usr
 		projtwo.def_zone = "chest"
 		spawn()
@@ -46,7 +44,7 @@
 
 /datum/spacepod/equipment
 	var/obj/spacepod/my_atom
-	var/list/obj/item/device/spacepod_equipment/installed_modules // holds an easy to access list of installed modules
+	var/list/obj/item/device/spacepod_equipment/installed_modules = list() // holds an easy to access list of installed modules
 
 	var/obj/item/device/spacepod_equipment/weaponry/weapon_system // weapons system
 	var/obj/item/device/spacepod_equipment/misc/misc_system // misc system
@@ -270,7 +268,7 @@
 	desc = "A key for a spacepod lock."
 	icon = 'icons/vehicles/spacepod.dmi'
 	icon_state = "podkey"
-	w_class = 1.0
+	w_class = 1
 	var/id = 0
 
 // Key - Lock Interactions

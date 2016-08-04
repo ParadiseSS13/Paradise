@@ -125,7 +125,7 @@
 	icon_state = "arm_blade"
 	item_state = "arm_blade"
 	flags = ABSTRACT | NODROP
-	w_class = 5.0
+	w_class = 5
 	sharp = 1
 	edge = 1
 	force = 25
@@ -206,6 +206,7 @@
 	flags = NODROP
 	icon = 'icons/obj/weapons.dmi'
 	icon_state = "ling_shield"
+	block_chance = 50
 
 	var/remaining_uses //Set by the changeling ability.
 
@@ -217,17 +218,17 @@
 /obj/item/weapon/shield/changeling/dropped()
 	qdel(src)
 
-/obj/item/weapon/shield/changeling/IsShield()
+/obj/item/weapon/shield/changeling/hit_reaction()
 	if(remaining_uses < 1)
 		if(ishuman(loc))
 			var/mob/living/carbon/human/H = loc
-			H.visible_message("<span class='warning'>With a sickening crunch, [H] reforms his shield into an arm!</span>", "<span class='notice'>We assimilate our shield into our body</span>", "<span class='warning>You hear organic matter ripping and tearing!</span>")
+			H.visible_message("<span class='warning'>With a sickening crunch, [H] reforms his shield into an arm!</span>", "<span class='notice'>We assimilate our shield into our body</span>", "<span class='italics>You hear organic matter ripping and tearing!</span>")
 			H.unEquip(src, 1)
 		qdel(src)
 		return 0
 	else
 		remaining_uses--
-		return 1
+		return ..()
 
 
 /***************************************\
@@ -256,7 +257,7 @@
 	desc = "A huge, bulky mass of pressure and temperature-resistant organic tissue, evolved to facilitate space travel."
 	flags = STOPSPRESSUREDMAGE | NODROP
 	allowed = list(/obj/item/device/flashlight, /obj/item/weapon/tank/emergency_oxygen, /obj/item/weapon/tank/oxygen)
-	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0) //No armor at all.
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0) //No armor at all.
 
 /obj/item/clothing/suit/space/changeling/New()
 	..()
@@ -277,7 +278,7 @@
 	icon_state = "lingspacehelmet"
 	desc = "A covering of pressure and temperature-resistant organic tissue with a glass-like chitin front."
 	flags = HEADCOVERSEYES | BLOCKHAIR | HEADCOVERSMOUTH | STOPSPRESSUREDMAGE | NODROP
-	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0)
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
 
 /obj/item/clothing/head/helmet/space/changeling/dropped()
 	qdel(src)
@@ -308,11 +309,12 @@
 	icon_state = "lingarmor"
 	flags = NODROP
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
-	slowdown = 2
-	armor = list(melee = 65, bullet = 20, laser = 10, energy = 15, bomb = 0, bio = 0, rad = 0)
+	armor = list(melee = 40, bullet = 40, laser = 40, energy = 20, bomb = 10, bio = 4, rad = 0)
 	flags_inv = HIDEJUMPSUIT
 	cold_protection = 0
 	heat_protection = 0
+	species_fit = null
+	sprite_sheets = null
 
 /obj/item/clothing/suit/armor/changeling/New()
 	..()
@@ -327,7 +329,7 @@
 	desc = "A tough, hard covering of black chitin with transparent chitin in front."
 	icon_state = "lingarmorhelmet"
 	flags = HEADCOVERSEYES | BLOCKHAIR | NODROP
-	armor = list(melee = 65, bullet = 20, laser = 10,energy = 15, bomb = 0, bio = 0, rad = 0)
+	armor = list(melee = 30, bullet = 30, laser = 40, energy = 20, bomb = 10, bio = 4, rad = 0)
 	flags_inv = HIDEEARS
 
 /obj/item/clothing/head/helmet/changeling/dropped()

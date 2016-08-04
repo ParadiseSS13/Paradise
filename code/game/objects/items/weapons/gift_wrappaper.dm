@@ -13,6 +13,7 @@
 	icon = 'icons/obj/items.dmi'
 	icon_state = "gift1"
 	item_state = "gift1"
+	burn_state = FLAMMABLE
 
 /obj/item/weapon/a_gift/New()
 	..()
@@ -39,14 +40,14 @@
 	return
 
 /obj/effect/spresent/relaymove(mob/user as mob)
-	if (user.stat)
+	if(user.stat)
 		return
 	to_chat(user, "\blue You cant move.")
 
 /obj/effect/spresent/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	..()
 
-	if (!istype(W, /obj/item/weapon/wirecutters))
+	if(!istype(W, /obj/item/weapon/wirecutters))
 		to_chat(user, "\blue I need wirecutters for that.")
 		return
 
@@ -54,7 +55,7 @@
 
 	for(var/mob/M in src) //Should only be one but whatever.
 		M.loc = src.loc
-		if (M.client)
+		if(M.client)
 			M.client.eye = M.client.mob
 			M.client.perspective = MOB_PERSPECTIVE
 
@@ -139,6 +140,7 @@
 	flags = NOBLUDGEON
 	amount = 25
 	max_amount = 25
+	burn_state = FLAMMABLE
 
 /obj/item/stack/wrapping_paper/attack_self(mob/user)
 	to_chat(user, "<span class='notice'>You need to use it on a package that has already been wrapped!</span>")

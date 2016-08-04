@@ -9,6 +9,19 @@
 	var/mob/attacher = null
 	var/valve_open = 0
 	var/toggle = 1
+	origin_tech = "materials=1;engineering=1"
+
+/obj/item/device/transfer_valve/Destroy()
+	if(tank_one)
+		qdel(tank_one)
+		tank_one = null
+	if(tank_two)
+		qdel(tank_two)
+		tank_two = null
+	if(attached_device)
+		qdel(attached_device)
+		attached_device = null
+	return ..()
 
 /obj/item/device/transfer_valve/proc/process_activation(var/obj/item/device/D)
 
@@ -87,7 +100,7 @@
 
 	// update the ui if it exists, returns null if no ui is passed/found
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if (!ui)
+	if(!ui)
 		// the ui does not exist, so we'll create a new() one
         // for a list of parameters and their descriptions see the code docs in \code\modules\nano\nanoui.dm
 		ui = new(user, src, ui_key, "transfer_valve.tmpl", "Tank Transfer Valve", 460, 280)
@@ -100,9 +113,9 @@
 
 /obj/item/device/transfer_valve/Topic(href, href_list)
 	..()
-	if ( usr.stat || usr.restrained() )
+	if( usr.stat || usr.restrained() )
 		return 0
-	if (src.loc != usr)
+	if(src.loc != usr)
 		return 0
 	if(tank_one && href_list["tankone"])
 		split_gases()
@@ -161,7 +174,7 @@
 	tank_two.air_contents.merge(temp)
 
 /obj/item/device/transfer_valve/proc/split_gases()
-	if (!valve_open || !tank_one || !tank_two)
+	if(!valve_open || !tank_one || !tank_two)
 		return
 	var/ratio1 = tank_one.air_contents.volume/tank_two.air_contents.volume
 	var/datum/gas_mixture/temp
@@ -187,13 +200,13 @@
 			attacher_name = "[key_name_admin(attacher)]"
 
 		var/mob/mob = get_mob_by_key(src.fingerprintslast)
-		
+
 		bombers += "Bomb valve opened at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z]) with [attached_device ? attached_device : "no device"], attached by [attacher_name]. Last touched by: [key_name(mob)]"
 		message_admins("Bomb valve opened at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a> with [attached_device ? attached_device : "no device"], attached by [attacher_name]. Last touched by: [key_name_admin(mob)]")
 		log_game("Bomb valve opened at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z]) with [attached_device ? attached_device : "no device"], attached by [attacher_name]. Last touched by: [key_name(mob)]")
 		merge_gases()
 		spawn(20) // In case one tank bursts
-			for (var/i=0,i<5,i++)
+			for(var/i=0,i<5,i++)
 				src.update_icon()
 				sleep(10)
 			src.update_icon()

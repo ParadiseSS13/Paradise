@@ -112,11 +112,11 @@
 	if( ishuman(AM) )
 		if(!stat)
 			var/mob/M = AM
-			to_chat(M, "\blue \icon[src] Squeek!")
+			to_chat(M, "\blue [bicon(src)] Squeek!")
 			M << 'sound/effects/mousesqueek.ogg'
 	..()
 
-/mob/living/simple_animal/mouse/death()
+/mob/living/simple_animal/mouse/death(gibbed)
 	layer = MOB_LAYER
 	if(client)
 		client.time_died_as_mouse = world.time

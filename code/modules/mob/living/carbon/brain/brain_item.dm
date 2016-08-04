@@ -4,7 +4,7 @@
 	max_damage = 200
 	icon_state = "brain2"
 	force = 1.0
-	w_class = 2.0
+	w_class = 2
 	throwforce = 1.0
 	throw_speed = 3
 	throw_range = 5
@@ -21,8 +21,7 @@
 /obj/item/organ/internal/brain/surgeryize()
 	if(!owner)
 		return
-	owner.ear_damage = 0 //Yeah, didn't you...hear? The ears are totally inside the brain.
-	owner.ear_deaf = 0
+	owner.setEarDamage(0,0) //Yeah, didn't you...hear? The ears are totally inside the brain.
 
 /obj/item/organ/internal/brain/xeno
 	name = "xenomorph brain"

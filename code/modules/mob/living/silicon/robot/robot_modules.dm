@@ -2,13 +2,12 @@
 	name = "robot module"
 	icon = 'icons/obj/module.dmi'
 	icon_state = "std_module"
-	w_class = 100.0
+	w_class = 100
 	item_state = "electronic"
 	flags = CONDUCT
 
 	var/list/modules = list()
 	var/obj/item/emag = null
-	var/obj/item/borg/upgrade/jetpack = null
 	var/list/subsystems = list()
 
 	var/module_type = "NoMod" // For icon usage
@@ -39,8 +38,6 @@
 	modules.Cut()
 	qdel(emag)
 	emag = null
-	qdel(jetpack)
-	jetpack = null
 	return ..()
 
 /obj/item/weapon/robot_module/proc/fix_modules()
@@ -122,8 +119,8 @@
 	module_type = "Medical"
 	subsystems = list(/mob/living/silicon/proc/subsystem_crew_monitor)
 	stacktypes = list(
-		/obj/item/stack/medical/advanced/bruise_pack = 5,
-		/obj/item/stack/medical/advanced/ointment = 5,
+		/obj/item/stack/medical/bruise_pack/advanced = 5,
+		/obj/item/stack/medical/ointment/advanced = 5,
 		/obj/item/stack/medical/splint = 5,
 		/obj/item/stack/nanopaste = 5
 		)
@@ -139,8 +136,8 @@
 	src.modules += new /obj/item/weapon/reagent_containers/dropper(src)
 	src.modules += new /obj/item/weapon/reagent_containers/syringe(src)
 	src.modules += new /obj/item/weapon/extinguisher/mini(src)
-	src.modules += new /obj/item/stack/medical/advanced/bruise_pack(src)
-	src.modules += new /obj/item/stack/medical/advanced/ointment(src)
+	src.modules += new /obj/item/stack/medical/bruise_pack/advanced(src)
+	src.modules += new /obj/item/stack/medical/ointment/advanced(src)
 	src.modules += new /obj/item/stack/medical/splint(src)
 	src.modules += new /obj/item/stack/nanopaste(src)
 	src.modules += new /obj/item/weapon/scalpel(src)
@@ -230,7 +227,7 @@
 	src.modules += new /obj/item/device/flash/cyborg(src)
 	src.modules += new /obj/item/weapon/soap/nanotrasen(src)
 	src.modules += new /obj/item/weapon/storage/bag/trash/cyborg(src)
-	src.modules += new /obj/item/weapon/mop(src)
+	src.modules += new /obj/item/weapon/mop/advanced/cyborg(src)
 	src.modules += new /obj/item/device/lightreplacer(src)
 	src.modules += new /obj/item/weapon/holosign_creator(src)
 	src.emag = new /obj/item/weapon/reagent_containers/spray(src)
@@ -316,16 +313,18 @@
 	module_type = "Miner"
 
 /obj/item/weapon/robot_module/miner/New()
-	src.modules += new /obj/item/device/flash/cyborg(src)
-	src.modules += new /obj/item/borg/sight/meson(src)
-	src.modules += new /obj/item/weapon/wrench(src)
-	src.modules += new /obj/item/weapon/screwdriver(src)
-	src.modules += new /obj/item/device/t_scanner/adv_mining_scanner/cyborg(src)
-	src.modules += new /obj/item/weapon/storage/bag/ore/cyborg(src)
-	src.modules += new /obj/item/weapon/pickaxe/drill/cyborg(src)
-	src.modules += new /obj/item/weapon/storage/bag/sheetsnatcher/borg(src)
-	src.modules += new /obj/item/weapon/gun/energy/kinetic_accelerator/cyborg(src)
-	src.emag = new /obj/item/borg/stun(src)
+	modules += new /obj/item/device/flash/cyborg(src)
+	modules += new /obj/item/borg/sight/meson(src)
+	modules += new /obj/item/weapon/storage/bag/ore/cyborg(src)
+	modules += new /obj/item/weapon/pickaxe/drill/cyborg(src)
+	modules += new /obj/item/weapon/shovel(src)
+	modules += new /obj/item/weapon/weldingtool/mini(src)
+	modules += new /obj/item/weapon/extinguisher/mini(src)
+	modules += new /obj/item/weapon/storage/bag/sheetsnatcher/borg(src)
+	modules += new /obj/item/device/t_scanner/adv_mining_scanner/cyborg(src)
+	modules += new /obj/item/weapon/gun/energy/kinetic_accelerator/cyborg(src)
+	modules += new /obj/item/device/gps/cyborg(src)
+	emag = new /obj/item/borg/stun(src)
 
 	fix_modules()
 
@@ -337,8 +336,7 @@
 	src.modules += new /obj/item/device/flash/cyborg(src)
 	src.modules += new /obj/item/borg/sight/thermal(src)
 	src.modules += new /obj/item/weapon/melee/energy/sword/cyborg(src)
-	src.modules += new /obj/item/weapon/gun/energy/pulse_rifle/cyborg(src)
-	src.modules += new /obj/item/weapon/tank/jetpack/carbondioxide(src)
+	src.modules += new /obj/item/weapon/gun/energy/pulse/cyborg(src)
 	src.modules += new /obj/item/weapon/crowbar(src)
 	src.emag = null
 
@@ -354,7 +352,6 @@
 	src.modules += new /obj/item/weapon/gun/energy/printer(src)
 	src.modules += new /obj/item/weapon/gun/projectile/revolver/grenadelauncher/multi/cyborg(src)
 	src.modules += new /obj/item/weapon/card/emag(src)
-	src.modules += new /obj/item/weapon/tank/jetpack/carbondioxide(src)
 	src.modules += new /obj/item/weapon/crowbar(src)
 	src.modules += new /obj/item/weapon/pinpointer/operative(src)
 	src.emag = null
@@ -365,8 +362,8 @@
 	name = "syndicate medical robot module"
 	module_type = "Malf"
 	stacktypes = list(
-		/obj/item/stack/medical/advanced/bruise_pack = 25,
-		/obj/item/stack/medical/advanced/ointment = 25,
+		/obj/item/stack/medical/bruise_pack/advanced = 25,
+		/obj/item/stack/medical/ointment/advanced = 25,
 		/obj/item/stack/medical/splint = 25,
 		/obj/item/stack/nanopaste = 25
 	)
@@ -379,8 +376,8 @@
 	src.modules += new /obj/item/roller_holder(src)
 	src.modules += new /obj/item/weapon/reagent_containers/borghypo/syndicate(src)
 	src.modules += new /obj/item/weapon/extinguisher/mini(src)
-	src.modules += new /obj/item/stack/medical/advanced/bruise_pack(src)
-	src.modules += new /obj/item/stack/medical/advanced/ointment(src)
+	src.modules += new /obj/item/stack/medical/bruise_pack/advanced(src)
+	src.modules += new /obj/item/stack/medical/ointment/advanced(src)
 	src.modules += new /obj/item/stack/medical/splint(src)
 	src.modules += new /obj/item/stack/nanopaste(src)
 	src.modules += new /obj/item/weapon/scalpel(src)
@@ -393,7 +390,6 @@
 	src.modules += new /obj/item/weapon/surgicaldrill(src)
 	src.modules += new /obj/item/weapon/melee/energy/sword/cyborg/saw(src) //Energy saw -- primary weapon
 	src.modules += new /obj/item/weapon/card/emag(src)
-	src.modules += new /obj/item/weapon/tank/jetpack/carbondioxide(src)
 	src.modules += new /obj/item/weapon/crowbar(src)
 	src.modules += new /obj/item/weapon/pinpointer/operative(src)
 	src.emag = null
@@ -507,7 +503,7 @@
 
 //checks whether this item is a module of the robot it is located in.
 /obj/item/proc/is_robot_module()
-	if (!istype(src.loc, /mob/living/silicon/robot))
+	if(!istype(src.loc, /mob/living/silicon/robot))
 		return 0
 
 	var/mob/living/silicon/robot/R = src.loc

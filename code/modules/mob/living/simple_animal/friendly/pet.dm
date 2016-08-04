@@ -17,7 +17,7 @@
 	..()
 	regenerate_icons()
 
-/mob/living/simple_animal/pet/death()
+/mob/living/simple_animal/pet/death(gibbed)
 	..()
 	regenerate_icons()
 

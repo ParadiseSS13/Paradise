@@ -11,7 +11,7 @@
 	playsound(get_turf(src), 'sound/machines/click.ogg', 75, 1)
 	var/constrdir = user.dir
 	var/constrloc = get_turf(user)
-	if (!do_after(user, 30, target = src))
+	if(!do_after(user, 30, target = src))
 		return
 	var/obj/machinery/light_construct/newlight
 	switch(fixture_type)

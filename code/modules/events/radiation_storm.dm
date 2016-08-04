@@ -24,6 +24,7 @@
 		command_announcement.Announce("High levels of radiation detected near the station. Please evacuate into one of the shielded maintenance tunnels.", "Anomaly Alert", new_sound = 'sound/AI/radiation.ogg')
 
 		for(var/area/A in world)
+			// TODO: Tie into space manager
 			if(!(A.z in config.station_levels) || is_safe_zone(A))
 				continue
 			A.radiation_alert()
@@ -42,6 +43,7 @@
 				var/turf/T = get_turf(H)
 				if(!T)
 					continue
+				// TODO: Tie into space manager
 				if(!(T.z in config.station_levels) || is_safe_zone(T.loc))
 					continue
 
@@ -49,7 +51,7 @@
 					H.apply_effect((rand(15,35)),IRRADIATE,0)
 					if(prob(5))
 						H.apply_effect((rand(40,70)),IRRADIATE,0)
-						if (prob(75))
+						if(prob(75))
 							randmutb(H) // Applies bad mutation
 							domutcheck(H,null,1)
 						else
@@ -61,6 +63,7 @@
 		command_announcement.Announce("The station has passed the radiation belt. Please report to medbay if you experience any unusual symptoms. Maintenance will lose all access again shortly.", "Anomaly Alert")
 
 		for(var/area/A in world)
+			// TODO: Tie into space manager
 			if(!(A.z in config.station_levels) || is_safe_zone(A))
 				continue
 			A.reset_radiation_alert()

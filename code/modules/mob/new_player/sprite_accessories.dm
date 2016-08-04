@@ -1017,7 +1017,6 @@
 		icon_state = "vox_beard"
 		species_allowed = list("Vox")
 
-
 //Vulpkanin
 
 	vulp_blaze

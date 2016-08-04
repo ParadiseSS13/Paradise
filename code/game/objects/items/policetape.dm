@@ -3,7 +3,7 @@
 	name = "tape roll"
 	icon = 'icons/policetape.dmi'
 	icon_state = "rollstart"
-	w_class = 1.0
+	w_class = 1
 	var/turf/start
 	var/turf/end
 	var/tape_type = /obj/item/tape
@@ -77,7 +77,7 @@ var/list/tape_roll_applications = list()
 
 		var/turf/cur = start
 		var/dir
-		if (start.x == end.x)
+		if(start.x == end.x)
 			var/d = end.y-start.y
 			if(d) d = d/abs(d)
 			end = get_turf(locate(end.x,end.y+d,end.z))
@@ -89,10 +89,10 @@ var/list/tape_roll_applications = list()
 			dir = "h"
 
 		var/can_place = 1
-		while (cur!=end && can_place)
+		while(cur!=end && can_place)
 			if(cur.density == 1)
 				can_place = 0
-			else if (istype(cur, /turf/space))
+			else if(istype(cur, /turf/space))
 				can_place = 0
 			else
 				for(var/obj/O in cur)
@@ -100,13 +100,13 @@ var/list/tape_roll_applications = list()
 						can_place = 0
 						break
 			cur = get_step_towards(cur,end)
-		if (!can_place)
+		if(!can_place)
 			to_chat(usr, "\blue You can't run \the [src] through that!")
 			return
 
 		cur = start
 		var/tapetest = 0
-		while (cur!=end)
+		while(cur!=end)
 			for(var/obj/item/tape/Ptest in cur)
 				if(Ptest.icon_state == "[Ptest.icon_base]_[dir]")
 					tapetest = 1
@@ -119,7 +119,7 @@ var/list/tape_roll_applications = list()
 
 
 /obj/item/taperoll/afterattack(var/atom/A, mob/user as mob, proximity)
-	if (!proximity)
+	if(!proximity)
 		return
 
 	if(istype(A, /obj/machinery/door/airlock))
@@ -130,7 +130,7 @@ var/list/tape_roll_applications = list()
 		P.layer = 3.2
 		to_chat(user, "\blue You finish placing the [src].")
 
-	if (istype(A, /turf/simulated/floor) ||istype(A, /turf/unsimulated/floor))
+	if(istype(A, /turf/simulated/floor) ||istype(A, /turf/unsimulated/floor))
 		var/turf/F = A
 		var/direction = user.loc == F ? user.dir : turn(user.dir, 180)
 		var/icon/hazard_overlay = hazard_overlays["[direction]"]
@@ -147,16 +147,13 @@ var/list/tape_roll_applications = list()
 			tape_roll_applications[F] |= direction
 		return
 
-/obj/item/tape/Bumped(M as mob)
-	if(src.allowed(M))
-		var/turf/T = get_turf(src)
-		M:loc = T
-
 /obj/item/tape/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
 	if(!density) return 1
 	if(air_group || (height==0)) return 1
 
-	if ((mover.pass_flags & PASSTABLE || istype(mover, /obj/effect/meteor) || mover.throwing == 1) )
+	if((mover.pass_flags & PASSTABLE || istype(mover, /obj/effect/meteor) || mover.throwing == 1) )
+		return 1
+	else if(ismob(mover) && allowed(mover))
 		return 1
 	else
 		return 0
@@ -165,7 +162,7 @@ var/list/tape_roll_applications = list()
 	breaktape(W, user)
 
 /obj/item/tape/attack_hand(mob/user as mob)
-	if (user.a_intent == I_HELP && src.allowed(user))
+	if(user.a_intent == I_HELP && src.allowed(user))
 		user.visible_message("<span class=notice>[user] lifts [src], allowing passage.</span>", "<span class=notice>You lift [src], allowing passage.</span>")
 		src.density = 0
 		spawn(200)
@@ -196,7 +193,7 @@ var/list/tape_roll_applications = list()
 		var/turf/cur = get_step(src,dir[i])
 		while(N != 1)
 			N = 1
-			for (var/obj/item/tape/P in cur)
+			for(var/obj/item/tape/P in cur)
 				if(P.icon_state == icon_dir)
 					N = 0
 					qdel(P)

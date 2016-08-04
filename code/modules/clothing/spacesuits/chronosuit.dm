@@ -22,8 +22,7 @@
 	desc = "An advanced spacesuit equipped with teleportation and anti-compression technology"
 	icon_state = "chronosuit"
 	item_state = "chronosuit"
-	action_button_name = "Toggle Chronosuit"
-	slowdown = 2
+	actions_types = list(/datum/action/item_action/toggle)
 	armor = list(melee = 60, bullet = 60, laser = 60, energy = 60, bomb = 30, bio = 90, rad = 90)
 	var/obj/item/clothing/head/helmet/space/chronos/helmet = null
 	var/obj/effect/chronos_cam/camera = null

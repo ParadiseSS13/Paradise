@@ -60,6 +60,12 @@
 	var/obj/screen/using
 	var/obj/screen/inventory/inv_box
 
+	using = new /obj/screen/inventory/craft
+	using.icon = ui_style
+	using.color = ui_color
+	using.alpha = ui_alpha
+	static_inventory += using
+
 	using = new /obj/screen/act_intent()
 	using.icon_state = mymob.a_intent
 	using.color = ui_color
@@ -309,13 +315,13 @@
 	mymob.throw_icon.alpha = ui_alpha
 	hotkeybuttons += mymob.throw_icon
 
-	mymob.internals = new /obj/screen/internals()
-	infodisplay += mymob.internals
+	internals = new /obj/screen/internals()
+	infodisplay += internals
 
 	mymob.healths = new /obj/screen/healths()
 	infodisplay += mymob.healths
 
-	mymob.healthdoll = new /obj/screen/healthdoll()
+	mymob.healthdoll = new()
 	infodisplay += mymob.healthdoll
 
 	mymob.pullin = new /obj/screen/pull()

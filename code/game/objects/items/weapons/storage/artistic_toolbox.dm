@@ -73,7 +73,7 @@
 	..()
 
 /obj/item/weapon/storage/toolbox/green/memetic/proc/consume(mob/M)
-	if (!M)
+	if(!M)
 		return
 	hunger = 0
 	hunger_message_level = 0
@@ -135,6 +135,7 @@
 		affected_mob.adjustBruteLoss(-12)
 		affected_mob.adjustFireLoss(-12)
 		affected_mob.adjustToxLoss(-5)
+		affected_mob.setStaminaLoss(0)
 		var/status = CANSTUN | CANWEAKEN | CANPARALYSE
 		affected_mob.status_flags &= ~status
 		affected_mob.dizziness = max(0, affected_mob.dizziness-10)

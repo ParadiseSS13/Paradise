@@ -6,8 +6,33 @@
 	siemens_coefficient = 0
 	permeability_coefficient = 0.05
 	item_color="yellow"
-	power
-		var/next_shock = 0
+	burn_state = FIRE_PROOF
+
+/obj/item/clothing/gloves/color/yellow/power
+	description_antag = "These are a pair of power gloves, and can be used to fire bolts of electricity while standing over powered power cables."
+	var/old_mclick_override
+	var/datum/middleClickOverride/power_gloves/mclick_override = new /datum/middleClickOverride/power_gloves
+
+/obj/item/clothing/gloves/color/yellow/power/equipped(mob/user, slot)
+	if(!ishuman(user))
+		return
+	var/mob/living/carbon/human/H = user
+	if(slot == slot_gloves)
+		if(H.middleClickOverride)
+			old_mclick_override = H.middleClickOverride
+		H.middleClickOverride = mclick_override
+		to_chat(H, "<span class='notice'>You feel electricity begin to build up in [src].</span>")
+
+/obj/item/clothing/gloves/color/yellow/power/dropped(mob/user, slot)
+	if(!ishuman(user))
+		return
+	var/mob/living/carbon/human/H = user
+	if(H.get_item_by_slot(slot_gloves) == src && H.middleClickOverride == mclick_override)
+		if(old_mclick_override)
+			H.middleClickOverride = old_mclick_override
+			old_mclick_override = null
+		else
+			H.middleClickOverride = null
 
 /obj/item/clothing/gloves/color/yellow/fake
 	desc = "These gloves will protect the wearer from electric shock. They don't feel like rubber..."
@@ -21,6 +46,7 @@
 	siemens_coefficient = 1			//Set to a default of 1, gets overridden in New()
 	permeability_coefficient = 0.05
 	item_color="yellow"
+	burn_state = FIRE_PROOF
 
 	New()
 		siemens_coefficient = pick(0,0.5,0.5,0.5,0.5,0.75,1.5)
@@ -35,16 +61,30 @@
 	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
 	heat_protection = HANDS
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
+	burn_state = FIRE_PROOF
+	var/can_be_cut = 1
 
 
-	hos
-		item_color = "hosred"		//Exists for washing machines. Is not different from black gloves in any way.
+/obj/item/clothing/gloves/color/black/hos
+	item_color = "hosred"		//Exists for washing machines. Is not different from black gloves in any way.
 
-	ce
-		item_color = "chief"			//Exists for washing machines. Is not different from black gloves in any way.
+/obj/item/clothing/gloves/color/black/ce
+	item_color = "chief"			//Exists for washing machines. Is not different from black gloves in any way.
 
-	thief
-		pickpocket = 1
+/obj/item/clothing/gloves/color/black/thief
+	pickpocket = 1
+
+/obj/item/clothing/gloves/color/black/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+	if(istype(W, /obj/item/weapon/wirecutters))
+		if(can_be_cut && icon_state == initial(icon_state))//only if not dyed
+			to_chat(user, "<span class='notice'>You snip the fingertips off of [src].</span>")
+			playsound(user.loc,'sound/items/Wirecutter.ogg', rand(10,50), 1)
+			var/obj/item/clothing/gloves/fingerless/F = new/obj/item/clothing/gloves/fingerless(user.loc)
+			if(pickpocket)
+				F.pickpocket = 1
+			qdel(src)
+			return
+	..()
 
 /obj/item/clothing/gloves/color/orange
 	name = "orange gloves"
@@ -65,6 +105,7 @@
 	desc = "These gloves will protect the wearer from electric shock."
 	siemens_coefficient = 0
 	permeability_coefficient = 0.05
+	burn_state = FIRE_PROOF
 
 /obj/item/clothing/gloves/color/rainbow
 	name = "rainbow gloves"
@@ -135,6 +176,7 @@
 	permeability_coefficient = 0.01
 	item_color="white"
 	transfer_prints = TRUE
+	burn_state = FIRE_PROOF
 
 /obj/item/clothing/gloves/color/latex/nitrile
 	name = "nitrile gloves"

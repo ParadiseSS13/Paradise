@@ -24,11 +24,7 @@
 	check_friendly_fire = 1
 	status_flags = CANPUSH
 	loot = list(/obj/effect/landmark/mobcorpse/syndicatesoldier)
-
-/mob/living/simple_animal/hostile/syndicate/death()
-	..()
-	qdel(src)
-	return
+	del_on_death = 1
 
 ///////////////Sword and shield////////////
 
@@ -39,6 +35,7 @@
 	icon_living = "syndicatemelee"
 	attacktext = "slashes"
 	attack_sound = 'sound/weapons/bladeslice.ogg'
+	armour_penetration = 28
 	status_flags = 0
 	loot = list(/obj/effect/landmark/mobcorpse/syndicatesoldier, /obj/item/weapon/melee/energy/sword/saber/red, /obj/item/weapon/shield/energy)
 
@@ -46,7 +43,7 @@
 	if(O.force)
 		if(prob(80))
 			var/damage = O.force
-			if (O.damtype == STAMINA)
+			if(O.damtype == STAMINA)
 				damage = 0
 			health -= damage
 			visible_message("\red \b [src] has been attacked with the [O] by [user]. ")
@@ -88,8 +85,6 @@
 	icon_state = "syndicateranged"
 	icon_living = "syndicateranged"
 	casingtype = /obj/item/ammo_casing/c45
-	projectilesound = 'sound/weapons/Gunshot_smg.ogg'
-	projectiletype = /obj/item/projectile/bullet/midbullet2
 	loot = list(/obj/effect/landmark/mobcorpse/syndicatesoldier, /obj/item/weapon/gun/projectile/automatic/c20r)
 
 /mob/living/simple_animal/hostile/syndicate/ranged/space
@@ -125,9 +120,5 @@
 	minbodytemp = 0
 	flying = 1
 	gold_core_spawnable = CHEM_MOB_SPAWN_HOSTILE
-
-/mob/living/simple_animal/hostile/viscerator/death()
-	..()
-	visible_message("\red <b>[src]</b> is smashed into pieces!")
-	qdel(src)
-	return
+	del_on_death = 1
+	deathmessage = "is smashed into pieces!"

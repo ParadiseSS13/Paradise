@@ -33,8 +33,9 @@
 	if(default_spells.len)
 		for(var/spell in default_spells)
 			var/obj/effect/proc_holder/spell/S = spell
-			if(!S) return
-			H.AddSpell(new S)
+			if(!S)
+				return
+			H.mind.AddSpell(new S(null))
 
 /datum/superheroes/proc/assign_id(var/mob/living/carbon/human/H)
 	var/obj/item/weapon/card/id/syndicate/W = new(H)
@@ -191,14 +192,14 @@
 					if(isloyal(target))
 						to_chat(usr, "<span class='notice'>They are enslaved by Nanotrasen. You feel their interest in your cause wane and disappear.</span>")
 						usr.visible_message("<span class='danger'>[usr] stops talking for a moment, then moves back away from [target].</span>")
-						to_chat(target, "<span class='danger'>Your loyalty implant activates and a sharp pain reminds you of your loyalties to Nanotrasen.</span>")
+						to_chat(target, "<span class='danger'>Your mindshield implant activates, protecting you from conversion.</span>")
 						return
 				if(3)
 					to_chat(usr, "<span class='notice'>You begin filling out the application form with [target].</span>")
 					usr.visible_message("<span class='danger'>[usr] pulls out a pen and paper and begins filling an application form with [target].</span>")
 					to_chat(target, "<span class='danger'>You are being convinced by [usr] to fill out an application form to become a henchman.</span>")//Ow the edge
 
-			if(!do_mob(usr, target, 100)) //around 30 seconds total for enthralling, 45 for someone with a loyalty implant
+			if(!do_mob(usr, target, 100)) //around 30 seconds total for enthralling, 45 for someone with a mindshield implant
 				to_chat(usr, "<span class='danger'>The enrollment process has been interrupted - you have lost the attention of [target].</span>")
 				to_chat(target, "<span class='warning'>You move away and are no longer under the charm of [usr]. The application form is null and void.</span>")
 				recruiting = 0

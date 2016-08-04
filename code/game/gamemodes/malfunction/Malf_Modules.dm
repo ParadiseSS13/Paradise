@@ -69,16 +69,17 @@ rcd light flash thingy on matter drain
 	src.verbs -= /mob/living/silicon/ai/proc/upgrade_turrets
 	for(var/obj/machinery/porta_turret/turret in machines)
 		var/turf/T = get_turf(turret)
+		// TODO: Tie into space manager
 		if(T.z in config.station_levels)
 			// Increase health by 37.5% of original max, decrease delays between shots to 66%
 			turret.health += initial(turret.health) * 3 / 8
-			turret.eprojectile = /obj/item/projectile/beam/heavylaser //Once you see it, you will know what it means to FEAR.
+			turret.eprojectile = /obj/item/projectile/beam/laser/heavylaser //Once you see it, you will know what it means to FEAR.
 			turret.eshot_sound = 'sound/weapons/lasercannonfire.ogg'
 	to_chat(src, "<span class='notice'>Turrets upgraded.</span>")
 /datum/AI_Module/large/destroy_rcd
 	module_name = "Destroy RCDs"
 	mod_pick_name = "rcd"
-	description = "Send a specialised pulse to detonate all hand-held and exosuit Rapid Cconstruction Devices on the station."
+	description = "Send a specialised pulse to detonate all hand-held and exosuit Rapid Construction Devices on the station."
 	cost = 25
 	one_time = 1
 
@@ -108,7 +109,7 @@ rcd light flash thingy on matter drain
 /datum/AI_Module/large/mecha_domination
 	module_name = "Viral Mech Domination"
 	mod_pick_name = "mechjack"
-	description = "Hack into a mech's onboard computer, shunting all processes into it and ejecting any occupants. Once uploaded to the mech, it is impossible to leave.\
+	description = "Hack into a mech's onboard computer, shunting all processes into it and ejecting any occupants. Once uploaded to the mech, it is impossible to leave. \
 	Do not allow the mech to leave the station's vicinity or allow it to be destroyed."
 	cost = 30
 	one_time = 1
@@ -145,7 +146,7 @@ rcd light flash thingy on matter drain
 	if(stat)
 		return
 
-	if (istype(M, /obj/machinery))
+	if(istype(M, /obj/machinery))
 		if(istype(M,/obj/machinery/field/generator))
 			to_chat(src, "This machine can not be overloaded due to a firewall.")
 			return
@@ -288,7 +289,7 @@ rcd light flash thingy on matter drain
 	for(var/datum/AI_Module/small/blackout/blackout in current_modules)
 		if(blackout.uses > 0)
 			blackout.uses --
-			for(var/obj/machinery/power/apc/apc in world)
+			for(var/obj/machinery/power/apc/apc in apcs)
 				if(prob(30*apc.overload))
 					apc.overload_lighting()
 				else
@@ -406,7 +407,7 @@ rcd light flash thingy on matter drain
 	for(var/datum/AI_Module/small/module in src.possible_modules)
 		dat += "<A href='byond://?src=\ref[src];[module.mod_pick_name]=1'>[module.module_name]</A><A href='byond://?src=\ref[src];showdesc=[module.mod_pick_name]'>\[?\]</A> ([module.cost])<BR>"
 	dat += "<HR>"
-	if (src.temp)
+	if(src.temp)
 		dat += "[src.temp]"
 	var/datum/browser/popup = new(user, "modpicker", "Malf Module Menu")
 	popup.set_content(dat)
@@ -421,7 +422,7 @@ rcd light flash thingy on matter drain
 	var/mob/living/silicon/ai/A = usr
 
 	for(var/datum/AI_Module/AM in possible_modules)
-		if (href_list[AM.mod_pick_name])
+		if(href_list[AM.mod_pick_name])
 
 			// Cost check
 			if(AM.cost > src.processing_time)

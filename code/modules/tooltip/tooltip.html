@@ -102,7 +102,7 @@
 				window.location = 'byond://winset?id='+tooltip.control+';is-visible=false';
 			},
 			updateCallback: function(map) {
-				if (typeof map === 'undefined' || !map) {return false;}
+				if(typeof map === 'undefined' || !map) {return false;}
 
 				//alert(tooltip.params+' | '+tooltip.clientView+' | '+tooltip.text+' | '+tooltip.theme); //DEBUG
 
@@ -123,7 +123,7 @@
 
 				//Parse out the tile and cursor locations from params (e.g. "icon-x=32;icon-y=29;screen-loc=3:10,15:29")
 				var paramsA = tooltip.params.cursor.split(';');
-				if (paramsA.length < 3) {return false;} //Sometimes screen-loc is never sent ahaha fuck you byond
+				if(paramsA.length < 3) {return false;} //Sometimes screen-loc is never sent ahaha fuck you byond
 				//icon-x
 				var iconX = paramsA[0];
 				iconX = iconX.split('=');
@@ -136,10 +136,10 @@
 				var screenLoc = paramsA[2];
 				screenLoc = screenLoc.split('=');
 				screenLoc = screenLoc[1].split(',');
-				if (screenLoc.length < 2) {return false;}
+				if(screenLoc.length < 2) {return false;}
 				var left = screenLoc[0];
 				var top = screenLoc[1];
-				if (!left || !top) {return false;}
+				if(!left || !top) {return false;}
 				screenLoc = left.split(':');
 				left = parseInt(screenLoc[0]);
 				var enteredX = parseInt(screenLoc[1]);
@@ -152,26 +152,26 @@
 				var oScreenLoc = tooltip.params.screenLoc.split(','); //o for original ok
 
 				var west = oScreenLoc[0].split(':');
-				if (west.length > 1) { //Only if west has a pixel offset
+				if(west.length > 1) { //Only if west has a pixel offset
 					var westOffset = parseInt(west[1]);
-					if (westOffset !== 0) {
-						if ((iconX + westOffset) !== enteredX) { //Cursor entered on the offset tile
+					if(westOffset !== 0) {
+						if((iconX + westOffset) !== enteredX) { //Cursor entered on the offset tile
 							left = left + (westOffset < 0 ? 1 : -1);
 						}
 						leftOffset = leftOffset + (westOffset * resizeRatio);
 					}
 				}
 
-				if (oScreenLoc.length > 1) { //If north is given
+				if(oScreenLoc.length > 1) { //If north is given
 					var north = oScreenLoc[1].split(':');
-					if (north.length > 1) { //Only if north has a pixel offset
+					if(north.length > 1) { //Only if north has a pixel offset
 						var northOffset = parseInt(north[1]);
-						if (northOffset !== 0) {
-							if ((iconY + northOffset) === enteredY) { //Cursor entered on the original tile
+						if(northOffset !== 0) {
+							if((iconY + northOffset) === enteredY) { //Cursor entered on the original tile
 								top--;
 								topOffset = topOffset - ((tooltip.tileSize + northOffset) * resizeRatio);
 							} else { //Cursor entered on the offset tile
-								if (northOffset < 0) { //Offset southwards
+								if(northOffset < 0) { //Offset southwards
 									topOffset = topOffset - ((tooltip.tileSize + northOffset) * resizeRatio);
 								} else { //Offset northwards
 									top--;
@@ -183,7 +183,7 @@
 				}
 
 				//Handle special cases (for fuck sake)
-				if (tooltip.special !== 'none') {
+				if(tooltip.special !== 'none') {
 					//Put yo special cases here
 				}
 
@@ -210,7 +210,7 @@
 				var docWidth	= $wrap.outerWidth(),
 					docHeight	= $wrap.outerHeight();
 
-				if (posY + docHeight > map.size.y) { //Is the bottom edge below the window? Snap it up if so
+				if(posY + docHeight > map.size.y) { //Is the bottom edge below the window? Snap it up if so
 					posY = (posY - docHeight) - realIconSize - tooltip.padding;
 				}
 

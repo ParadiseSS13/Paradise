@@ -45,6 +45,7 @@
 	heat_gen /= max(1, tot_rating)
 
 /obj/machinery/r_n_d/server/initialize()
+	..()
 	if(!files) files = new /datum/research(src)
 	var/list/temp_list
 	if(!id_with_upload.len)
@@ -132,10 +133,10 @@
 				air_update_turf()
 
 /obj/machinery/r_n_d/server/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
-	if (disabled)
+	if(disabled)
 		return
 
-	if (shocked)
+	if(shocked)
 		shock(user,50)
 
 	if(istype(O, /obj/item/weapon/screwdriver))
@@ -145,17 +146,17 @@
 	if(exchange_parts(user, O))
 		return 1
 
-	if (panel_open)
+	if(panel_open)
 		if(istype(O, /obj/item/weapon/crowbar))
 			griefProtection()
 			default_deconstruction_crowbar(O)
 			return 1
 
 /obj/machinery/r_n_d/server/attack_hand(mob/user as mob)
-	if (disabled)
+	if(disabled)
 		return
 
-	if (shocked)
+	if(shocked)
 		shock(user,50)
 	return
 

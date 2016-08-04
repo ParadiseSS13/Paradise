@@ -32,7 +32,7 @@ var/global/sent_syndicate_strike_team = 0
 
 	sent_syndicate_strike_team = 1
 
-	//if (emergency_shuttle.can_recall())
+	//if(emergency_shuttle.can_recall())
 	//	emergency_shuttle.recall()	//why, exactly? Admins can do this themselves.
 
 	var/syndicate_commando_number = syndicate_commandos_possible //for selecting a leader
@@ -62,7 +62,7 @@ var/global/sent_syndicate_strike_team = 0
 //Spawns commandos and equips them.
 	for(var/obj/effect/landmark/L in landmarks_list)
 		if(syndicate_commando_number<=0)	break
-		if (L.name == "Syndicate-Commando")
+		if(L.name == "Syndicate-Commando")
 			syndicate_leader_selected = syndicate_commando_number == 1?1:0
 
 			var/mob/living/carbon/human/new_syndicate_commando = create_syndicate_death_commando(L, syndicate_leader_selected)
@@ -71,7 +71,7 @@ var/global/sent_syndicate_strike_team = 0
 				new_syndicate_commando.key = pick(commandos)
 				commandos -= new_syndicate_commando.key
 				new_syndicate_commando.internal = new_syndicate_commando.s_store
-				new_syndicate_commando.internals.icon_state = "internal1"
+				new_syndicate_commando.update_internals_hud_icon(1)
 
 			//So they don't forget their code or mission.
 			if(nuke_code)
@@ -83,15 +83,15 @@ var/global/sent_syndicate_strike_team = 0
 			syndicate_commando_number--
 
 //Spawns the rest of the commando gear.
-//	for (var/obj/effect/landmark/L)
-	//	if (L.name == "Commando_Manual")
+//	for(var/obj/effect/landmark/L)
+	//	if(L.name == "Commando_Manual")
 			//new /obj/item/weapon/gun/energy/pulse_rifle(L.loc)
 		//	var/obj/item/weapon/paper/P = new(L.loc)
 		//	P.info = "<p><b>Good morning soldier!</b>. This compact guide will familiarize you with standard operating procedure. There are three basic rules to follow:<br>#1 Work as a team.<br>#2 Accomplish your objective at all costs.<br>#3 Leave no witnesses.<br>You are fully equipped and stocked for your mission--before departing on the Spec. Ops. Shuttle due South, make sure that all operatives are ready. Actual mission objective will be relayed to you by Central Command through your headsets.<br>If deemed appropriate, Central Command will also allow members of your team to equip assault power-armor for the mission. You will find the armor storage due West of your position. Once you are ready to leave, utilize the Special Operations shuttle console and toggle the hull doors via the other console.</p><p>In the event that the team does not accomplish their assigned objective in a timely manner, or finds no other way to do so, attached below are instructions on how to operate a Nanotrasen Nuclear Device. Your operations <b>LEADER</b> is provided with a nuclear authentication disk and a pin-pointer for this reason. You may easily recognize them by their rank: Lieutenant, Captain, or Major. The nuclear device itself will be present somewhere on your destination.</p><p>Hello and thank you for choosing Nanotrasen for your nuclear information needs. Today's crash course will deal with the operation of a Fission Class Nanotrasen made Nuclear Device.<br>First and foremost, <b>DO NOT TOUCH ANYTHING UNTIL THE BOMB IS IN PLACE.</b> Pressing any button on the compacted bomb will cause it to extend and bolt itself into place. If this is done to unbolt it one must completely log in which at this time may not be possible.<br>To make the device functional:<br>#1 Place bomb in designated detonation zone<br> #2 Extend and anchor bomb (attack with hand).<br>#3 Insert Nuclear Auth. Disk into slot.<br>#4 Type numeric code into keypad ([nuke_code]).<br>Note: If you make a mistake press R to reset the device.<br>#5 Press the E button to log onto the device.<br>You now have activated the device. To deactivate the buttons at anytime, for example when you have already prepped the bomb for detonation, remove the authentication disk OR press the R on the keypad. Now the bomb CAN ONLY be detonated using the timer. A manual detonation is not an option.<br>Note: Toggle off the <b>SAFETY</b>.<br>Use the - - and + + to set a detonation time between 5 seconds and 10 minutes. Then press the timer toggle button to start the countdown. Now remove the authentication disk so that the buttons deactivate.<br>Note: <b>THE BOMB IS STILL SET AND WILL DETONATE</b><br>Now before you remove the disk if you need to move the bomb you can: Toggle off the anchor, move it, and re-anchor.</p><p>The nuclear authorization code is: <b>[nuke_code ? nuke_code : "None provided"]</b></p><p><b>Good luck, soldier!</b></p>"
 		//	P.name = "Spec. Ops. Manual"
 
-	for (var/obj/effect/landmark/L in landmarks_list)
-		if (L.name == "Syndicate-Commando-Bomb")
+	for(var/obj/effect/landmark/L in landmarks_list)
+		if(L.name == "Syndicate-Commando-Bomb")
 			new /obj/effect/spawner/newbomb/timer/syndicate(L.loc)
 			qdel(L)
 
@@ -131,12 +131,12 @@ var/global/sent_syndicate_strike_team = 0
 	equip_to_slot_or_del(R, slot_l_ear)
 	equip_to_slot_or_del(new /obj/item/clothing/under/syndicate(src), slot_w_uniform)
 	equip_to_slot_or_del(new /obj/item/clothing/shoes/magboots/syndie/advance(src), slot_shoes)
-	if (!syndicate_leader_selected)
+	if(!syndicate_leader_selected)
 		equip_to_slot_or_del(new /obj/item/clothing/suit/space/syndicate/black/strike(src), slot_wear_suit)
 	else
 		equip_to_slot_or_del(new /obj/item/clothing/suit/space/syndicate/black/red/strike(src), slot_wear_suit)
 	equip_to_slot_or_del(new /obj/item/clothing/gloves/combat(src), slot_gloves)
-	if (!syndicate_leader_selected)
+	if(!syndicate_leader_selected)
 		equip_to_slot_or_del(new /obj/item/clothing/head/helmet/space/syndicate/black/strike(src), slot_head)
 	else
 		equip_to_slot_or_del(new /obj/item/clothing/head/helmet/space/syndicate/black/red/strike(src), slot_head)
@@ -144,14 +144,14 @@ var/global/sent_syndicate_strike_team = 0
 	equip_to_slot_or_del(new /obj/item/clothing/glasses/thermal(src), slot_glasses)
 
 	equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/security(src), slot_back)
-	equip_to_slot_or_del(new /obj/item/ammo_box/magazine/m762, slot_in_backpack)
+	equip_to_slot_or_del(new /obj/item/ammo_box/magazine/mm556x45)
 
 	equip_to_slot_or_del(new /obj/item/ammo_box/magazine/m45(src), slot_in_backpack)
 	equip_to_slot_or_del(new /obj/item/weapon/reagent_containers/hypospray/combat/nanites(src), slot_in_backpack)
-	equip_to_slot_or_del(new /obj/item/weapon/c4(src), slot_in_backpack)
+	equip_to_slot_or_del(new /obj/item/weapon/grenade/plastic/x4(src), slot_in_backpack)
 	equip_to_slot_or_del(new /obj/item/device/flashlight(src), slot_in_backpack)
-	if (!syndicate_leader_selected)
-		equip_to_slot_or_del(new /obj/item/weapon/c4(src), slot_in_backpack)
+	if(!syndicate_leader_selected)
+		equip_to_slot_or_del(new /obj/item/weapon/grenade/plastic/x4(src), slot_in_backpack)
 		equip_to_slot_or_del(new /obj/item/weapon/card/emag(src), slot_in_backpack)
 	else
 		equip_to_slot_or_del(new /obj/item/weapon/pinpointer(src), slot_in_backpack)
@@ -160,7 +160,7 @@ var/global/sent_syndicate_strike_team = 0
 	equip_to_slot_or_del(new /obj/item/weapon/melee/energy/sword/saber(src), slot_l_store)
 	equip_to_slot_or_del(new /obj/item/weapon/grenade/empgrenade(src), slot_r_store)
 	equip_to_slot_or_del(new /obj/item/weapon/tank/emergency_oxygen/double/full(src), slot_s_store)
-	equip_to_slot_or_del(new /obj/item/weapon/gun/projectile/automatic/pistol/m2411(src), slot_belt)
+	equip_to_slot_or_del(new /obj/item/weapon/gun/projectile/automatic/pistol/m1911(src), slot_belt)
 
 	equip_to_slot_or_del(new /obj/item/weapon/gun/projectile/automatic/l6_saw(src), slot_r_hand)
 

@@ -26,11 +26,11 @@
 //Inverts the colour of an HTML string
 /proc/invertHTML(HTMLstring)
 
-	if (!( istext(HTMLstring) ))
+	if(!( istext(HTMLstring) ))
 		CRASH("Given non-text argument!")
 		return
 	else
-		if (length(HTMLstring) != 7)
+		if(length(HTMLstring) != 7)
 			CRASH("Given non-HTML argument!")
 			return
 	var/textr = copytext(HTMLstring, 2, 4)
@@ -42,11 +42,11 @@
 	textr = num2hex(255 - r)
 	textg = num2hex(255 - g)
 	textb = num2hex(255 - b)
-	if (length(textr) < 2)
+	if(length(textr) < 2)
 		textr = text("0[]", textr)
-	if (length(textg) < 2)
+	if(length(textg) < 2)
 		textr = text("0[]", textg)
-	if (length(textb) < 2)
+	if(length(textb) < 2)
 		textr = text("0[]", textb)
 	return text("#[][][]", textr, textg, textb)
 	return
@@ -218,14 +218,14 @@ Turf and target are seperate in case you want to teleport some distance from a t
 
 //Returns whether or not a player is a guest using their ckey as an input
 /proc/IsGuestKey(key)
-	if (findtext(key, "Guest-", 1, 7) != 1) //was findtextEx
+	if(findtext(key, "Guest-", 1, 7) != 1) //was findtextEx
 		return 0
 
 	var/i, ch, len = length(key)
 
-	for (i = 7, i <= len, ++i)
+	for(i = 7, i <= len, ++i)
 		ch = text2ascii(key, i)
-		if (ch < 48 || ch > 57)
+		if(ch < 48 || ch > 57)
 			return 0
 	return 1
 
@@ -234,7 +234,7 @@ Turf and target are seperate in case you want to teleport some distance from a t
 	f = round(f)
 	f = max(low, f)
 	f = min(high, f)
-	if ((f % 2) == 0) //Ensure the last digit is an odd number
+	if((f % 2) == 0) //Ensure the last digit is an odd number
 		f += 1
 	return f
 
@@ -248,7 +248,7 @@ Turf and target are seperate in case you want to teleport some distance from a t
 	var/pressure = air_contents.return_pressure()
 	var/total_moles = air_contents.total_moles()
 
-	to_chat(user, "<span class='notice'>Results of analysis of \icon[icon] [target].</span>")
+	to_chat(user, "<span class='notice'>Results of analysis of [bicon(icon)] [target].</span>")
 	if(total_moles>0)
 		var/o2_concentration = air_contents.oxygen/total_moles
 		var/n2_concentration = air_contents.nitrogen/total_moles
@@ -277,13 +277,13 @@ Turf and target are seperate in case you want to teleport some distance from a t
 /proc/freeborg()
 	var/select = null
 	var/list/borgs = list()
-	for (var/mob/living/silicon/robot/A in player_list)
-		if (A.stat == 2 || A.connected_ai || A.scrambledcodes || istype(A,/mob/living/silicon/robot/drone))
+	for(var/mob/living/silicon/robot/A in player_list)
+		if(A.stat == 2 || A.connected_ai || A.scrambledcodes || istype(A,/mob/living/silicon/robot/drone))
 			continue
 		var/name = "[A.real_name] ([A.modtype] [A.braintype])"
 		borgs[name] = A
 
-	if (borgs.len)
+	if(borgs.len)
 		select = input("Unshackled borg signals detected:", "Borg selection", null, null) as null|anything in borgs
 		return borgs[select]
 
@@ -352,15 +352,15 @@ Turf and target are seperate in case you want to teleport some distance from a t
 	var/list/namecounts = list()
 	for(var/mob/M in mobs)
 		var/name = M.name
-		if (name in names)
+		if(name in names)
 			namecounts[name]++
 			name = "[name] ([namecounts[name]])"
 		else
 			names.Add(name)
 			namecounts[name] = 1
-		if (M.real_name && M.real_name != M.name)
+		if(M.real_name && M.real_name != M.name)
 			name += " \[[M.real_name]\]"
-		if (M.stat == 2)
+		if(M.stat == 2)
 			if(istype(M, /mob/dead/observer/))
 				name += " \[ghost\]"
 			else
@@ -679,13 +679,13 @@ proc/anim(turf/location as turf,target as mob|obj,a_icon,a_icon_state as text,fl
 
 	var/src_min_x = 0
 	var/src_min_y = 0
-	for (var/turf/T in turfs_src)
+	for(var/turf/T in turfs_src)
 		if(T.x < src_min_x || !src_min_x) src_min_x	= T.x
 		if(T.y < src_min_y || !src_min_y) src_min_y	= T.y
 
 	var/trg_min_x = 0
 	var/trg_min_y = 0
-	for (var/turf/T in turfs_trg)
+	for(var/turf/T in turfs_trg)
 		if(T.x < trg_min_x || !trg_min_x) trg_min_x	= T.x
 		if(T.y < trg_min_y || !trg_min_y) trg_min_y	= T.y
 
@@ -709,9 +709,9 @@ proc/anim(turf/location as turf,target as mob|obj,a_icon,a_icon_state as text,fl
 	var/list/toupdate = new/list()
 
 	moving:
-		for (var/turf/T in refined_src)
+		for(var/turf/T in refined_src)
 			var/datum/coords/C_src = refined_src[T]
-			for (var/turf/B in refined_trg)
+			for(var/turf/B in refined_trg)
 				var/datum/coords/C_trg = refined_trg[B]
 				if(C_src.x_pos == C_trg.x_pos && C_src.y_pos == C_trg.y_pos)
 
@@ -845,13 +845,13 @@ proc/anim(turf/location as turf,target as mob|obj,a_icon,a_icon_state as text,fl
 
 	var/src_min_x = 0
 	var/src_min_y = 0
-	for (var/turf/T in turfs_src)
+	for(var/turf/T in turfs_src)
 		if(T.x < src_min_x || !src_min_x) src_min_x	= T.x
 		if(T.y < src_min_y || !src_min_y) src_min_y	= T.y
 
 	var/trg_min_x = 0
 	var/trg_min_y = 0
-	for (var/turf/T in turfs_trg)
+	for(var/turf/T in turfs_trg)
 		if(T.x < trg_min_x || !trg_min_x) trg_min_x	= T.x
 		if(T.y < trg_min_y || !trg_min_y) trg_min_y	= T.y
 
@@ -877,9 +877,9 @@ proc/anim(turf/location as turf,target as mob|obj,a_icon,a_icon_state as text,fl
 
 
 	moving:
-		for (var/turf/T in refined_src)
+		for(var/turf/T in refined_src)
 			var/datum/coords/C_src = refined_src[T]
-			for (var/turf/B in refined_trg)
+			for(var/turf/B in refined_trg)
 				var/datum/coords/C_trg = refined_trg[B]
 				if(C_src.x_pos == C_trg.x_pos && C_src.y_pos == C_trg.y_pos)
 
@@ -990,32 +990,25 @@ proc/oview_or_orange(distance = world.view , center = usr , type)
 proc/get_mob_with_client_list()
 	var/list/mobs = list()
 	for(var/mob/M in mob_list)
-		if (M.client)
+		if(M.client)
 			mobs += M
 	return mobs
 
 
 /proc/parse_zone(zone)
 	if(zone == "r_hand") return "right hand"
-	else if (zone == "l_hand") return "left hand"
-	else if (zone == "l_arm") return "left arm"
-	else if (zone == "r_arm") return "right arm"
-	else if (zone == "l_leg") return "left leg"
-	else if (zone == "r_leg") return "right leg"
-	else if (zone == "l_foot") return "left foot"
-	else if (zone == "r_foot") return "right foot"
-	else if (zone == "l_hand") return "left hand"
-	else if (zone == "r_hand") return "right hand"
-	else if (zone == "l_foot") return "left foot"
-	else if (zone == "r_foot") return "right foot"
+	else if(zone == "l_hand") return "left hand"
+	else if(zone == "l_arm") return "left arm"
+	else if(zone == "r_arm") return "right arm"
+	else if(zone == "l_leg") return "left leg"
+	else if(zone == "r_leg") return "right leg"
+	else if(zone == "l_foot") return "left foot"
+	else if(zone == "r_foot") return "right foot"
+	else if(zone == "l_hand") return "left hand"
+	else if(zone == "r_hand") return "right hand"
+	else if(zone == "l_foot") return "left foot"
+	else if(zone == "r_foot") return "right foot"
 	else return zone
-
-
-/proc/get_turf(atom/A)
-	if (!istype(A))
-		return
-	for(A, A && !isturf(A), A=A.loc); //semicolon is for the empty statement
-	return A
 
 //Finds the distance between two atoms, in pixels
 //centered = 0 counts from turf edge to edge
@@ -1146,15 +1139,15 @@ var/global/list/common_tools = list(
 
 //Whether or not the given item counts as sharp in terms of dealing damage
 /proc/is_sharp(obj/O as obj)
-	if (!O) return 0
-	if (O.sharp) return 1
-	if (O.edge) return 1
+	if(!O) return 0
+	if(O.sharp) return 1
+	if(O.edge) return 1
 	return 0
 
 //Whether or not the given item counts as cutting with an edge in terms of removing limbs
 /proc/has_edge(obj/O as obj)
-	if (!O) return 0
-	if (O.edge) return 1
+	if(!O) return 0
+	if(O.edge) return 1
 	return 0
 
 //Returns 1 if the given item is capable of popping things like balloons, inflatable barriers, or cutting police tape.
@@ -1528,7 +1521,7 @@ var/mob/dview/dview_mob = new
 		lastloc = loc
 		sleep(0.6)
 
-	if (orbiting == A) //make sure we haven't started orbiting something else.
+	if(orbiting == A) //make sure we haven't started orbiting something else.
 		orbiting = null
 		SpinAnimation(0,0)
 
@@ -1679,7 +1672,7 @@ var/mob/dview/dview_mob = new
 
 /proc/pick_closest_path(value)
 	var/list/matches = get_fancy_list_of_types()
-	if (!isnull(value) && value!="")
+	if(!isnull(value) && value!="")
 		matches = filter_fancy_list(matches, value)
 
 	if(matches.len==0)
@@ -1713,13 +1706,13 @@ var/list/TYPES_SHORTCUTS = list(
 
 var/global/list/g_fancy_list_of_types = null
 /proc/get_fancy_list_of_types()
-	if (isnull(g_fancy_list_of_types)) //init
+	if(isnull(g_fancy_list_of_types)) //init
 		var/list/temp = sortList(subtypesof(/atom) - typesof(/area) - /atom/movable)
 		g_fancy_list_of_types = new(temp.len)
 		for(var/type in temp)
 			var/typename = "[type]"
-			for (var/tn in TYPES_SHORTCUTS)
-				if (copytext(typename,1, length("[tn]/")+1)=="[tn]/" /*findtextEx(typename,"[tn]/",1,2)*/ )
+			for(var/tn in TYPES_SHORTCUTS)
+				if(copytext(typename,1, length("[tn]/")+1)=="[tn]/" /*findtextEx(typename,"[tn]/",1,2)*/ )
 					typename = TYPES_SHORTCUTS[tn]+copytext(typename,length("[tn]/"))
 					break
 			g_fancy_list_of_types[typename] = type
@@ -1733,18 +1726,14 @@ var/global/list/g_fancy_list_of_types = null
 			matches[key] = value
 	return matches
 
-// Use this to send to a client's chat, no exceptions (except this proc itself).
-/proc/to_chat(var/thing, var/output)
-	thing << output
-
 //Key thing that stops lag. Cornerstone of performance in ss13, Just sitting here, in unsorted.dm.
 /proc/stoplag()
 	. = 1
 	sleep(world.tick_lag)
-	if (world.tick_usage > TICK_LIMIT_TO_RUN) //woke up, still not enough tick, sleep for more.
+	if(world.tick_usage > TICK_LIMIT_TO_RUN) //woke up, still not enough tick, sleep for more.
 		. += 2
 		sleep(world.tick_lag*2)
-		if (world.tick_usage > TICK_LIMIT_TO_RUN) //woke up, STILL not enough tick, sleep for more.
+		if(world.tick_usage > TICK_LIMIT_TO_RUN) //woke up, STILL not enough tick, sleep for more.
 			. += 4
 			sleep(world.tick_lag*4)
 			//you might be thinking of adding more steps to this, or making it use a loop and a counter var

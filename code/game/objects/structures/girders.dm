@@ -41,7 +41,7 @@
 		else if(!anchored)
 			playsound(src.loc, 'sound/items/Ratchet.ogg', 100, 1)
 			to_chat(user, "\blue Now securing the girder")
-			if(get_turf(user, 40))
+			if(do_after(user, 40, target = src))
 				to_chat(user, "\blue You secured the girder!")
 				new/obj/structure/girder( src.loc )
 				qdel(src)
@@ -106,7 +106,7 @@
 				else
 					if(S.amount < 2) return ..()
 					to_chat(user, "\blue Now adding plating...")
-					if (do_after(user,40, target = src))
+					if(do_after(user,40, target = src))
 						if(!src || !S || S.amount < 2) return
 						S.use(2)
 						to_chat(user, "\blue You added the plating!")
@@ -125,7 +125,7 @@
 					new /obj/structure/falsewall/reinforced (src.loc)
 					qdel(src)
 				else
-					if (src.icon_state == "reinforced") //I cant believe someone would actually write this line of code...
+					if(src.icon_state == "reinforced") //I cant believe someone would actually write this line of code...
 						if(S.amount < 1) return ..()
 						to_chat(user, "\blue Now finalising reinforced wall.")
 						if(do_after(user, 50, target = src))
@@ -141,7 +141,7 @@
 					else
 						if(S.amount < 1) return ..()
 						to_chat(user, "\blue Now reinforcing girders")
-						if (do_after(user,60, target = src))
+						if(do_after(user,60, target = src))
 							if(!src || !S || S.amount < 1) return
 							S.use(1)
 							to_chat(user, "\blue Girders reinforced!")
@@ -161,7 +161,7 @@
 			else
 				if(S.amount < 2) return ..()
 				to_chat(user, "\blue Now adding plating...")
-				if (do_after(user,40, target = src))
+				if(do_after(user,40, target = src))
 					if(!src || !S || S.amount < 2) return
 					S.use(2)
 					to_chat(user, "\blue You added the plating!")
@@ -176,7 +176,7 @@
 
 	else if(istype(W, /obj/item/pipe))
 		var/obj/item/pipe/P = W
-		if (P.pipe_type in list(0, 1, 5))	//simple pipes, simple bends, and simple manifolds.
+		if(P.pipe_type in list(0, 1, 5))	//simple pipes, simple bends, and simple manifolds.
 			user.drop_item()
 			P.loc = src.loc
 			to_chat(user, "\blue You fit the pipe into the [src]!")
@@ -206,13 +206,13 @@
 			qdel(src)
 			return
 		if(2.0)
-			if (prob(75))
+			if(prob(75))
 				var/remains = pick(/obj/item/stack/rods,/obj/item/stack/sheet/metal)
 				new remains(loc)
 				qdel(src)
 			return
 		if(3.0)
-			if (prob(40))
+			if(prob(40))
 				var/remains = pick(/obj/item/stack/rods,/obj/item/stack/sheet/metal)
 				new remains(loc)
 				qdel(src)
@@ -277,12 +277,12 @@
 			qdel(src)
 			return
 		if(2.0)
-			if (prob(30))
+			if(prob(30))
 				new /obj/effect/decal/remains/human(loc)
 				qdel(src)
 			return
 		if(3.0)
-			if (prob(5))
+			if(prob(5))
 				new /obj/effect/decal/remains/human(loc)
 				qdel(src)
 			return

@@ -66,7 +66,7 @@
 	for(var/datum/wound/W in affected.wounds) if(W.internal)
 		affected.wounds -= W
 		affected.update_damages()
-	if (ishuman(user) && prob(40))
+	if(ishuman(user) && prob(40))
 		var/mob/living/carbon/human/U = user
 		U.bloody_hands(target, 0)
 
@@ -97,7 +97,7 @@
 	if(!hasorgans(target))
 		return 0
 
-	if (target_zone == "mouth" || target_zone == "eyes")
+	if(target_zone == "mouth" || target_zone == "eyes")
 		return 0
 
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -143,7 +143,7 @@
 	time = 24
 
 /datum/surgery_step/fix_dead_tissue/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
-	if (!istype(tool, /obj/item/weapon/reagent_containers))
+	if(!istype(tool, /obj/item/weapon/reagent_containers))
 		return 0
 
 	var/obj/item/weapon/reagent_containers/container = tool
@@ -153,7 +153,7 @@
 	if(!hasorgans(target))
 		return 0
 
-	if (target_zone == "mouth" || target_zone == "eyes")
+	if(target_zone == "mouth" || target_zone == "eyes")
 		return 0
 
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -169,13 +169,13 @@
 /datum/surgery_step/fix_dead_tissue/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
-	if (!istype(tool, /obj/item/weapon/reagent_containers))
+	if(!istype(tool, /obj/item/weapon/reagent_containers))
 		return
 
 	var/obj/item/weapon/reagent_containers/container = tool
 
 	var/trans = container.reagents.trans_to(target, container.amount_per_transfer_from_this)
-	if (trans > 0)
+	if(trans > 0)
 		container.reagents.reaction(target, INGEST)	//technically it's contact, but the reagents are being applied to internal tissue
 
 		if(container.reagents.has_reagent("mitocholide"))
@@ -189,7 +189,7 @@
 /datum/surgery_step/fix_dead_tissue/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
-	if (!istype(tool, /obj/item/weapon/reagent_containers))
+	if(!istype(tool, /obj/item/weapon/reagent_containers))
 		return
 
 	var/obj/item/weapon/reagent_containers/container = tool
@@ -232,7 +232,7 @@
 	time = 30
 
 /datum/surgery_step/internal/dethrall/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
-	if (!hasorgans(target))
+	if(!hasorgans(target))
 		return
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	return ..() && affected && is_thrall(target) && affected.open_enough_for_surgery() && target_zone == target.named_organ_parent("brain")
@@ -256,14 +256,17 @@
 		if(iscarbon(user))
 			var/mob/living/carbon/C = user
 			C.Weaken(6)
-			C.apply_damage(20, "brute", "chest")
+			C.apply_damage(20, BRUTE, "chest")
 		else if(issilicon(user))
 			var/mob/living/silicon/S = user
 			S.Weaken(8)
-			S.apply_damage(20, "brute")
+			S.apply_damage(20, BRUTE)
 			playsound(S, 'sound/effects/bang.ogg', 50, 1)
 		return 0
 	user.visible_message("[user] shines light onto the tumor in [target]'s head!", "<span class='notice'>You cleanse the contamination from [target]'s brain!</span>")
+	if(target.vision_type) //Turns off their darksight if it's still active.
+		to_chat(target, "<span class='boldannounce'>Your eyes are suddenly wrought with immense pain as your darksight is forcibly dismissed!</span>")
+		target.vision_type = null
 	ticker.mode.remove_thrall(target.mind, 0)
 	target.visible_message("<span class='warning'>A strange black mass falls from [target]'s head!</span>")
 	new /obj/item/organ/internal/shadowtumor(get_turf(target))

@@ -100,27 +100,42 @@ proc/random_name(gender, species = "Human")
 	else
 		return current_species.get_random_name(gender)
 
-proc/random_skin_tone()
-	switch(pick(60;"caucasian", 15;"afroamerican", 10;"african", 10;"latino", 5;"albino"))
-		if("caucasian")		. = -10
-		if("afroamerican")	. = -115
-		if("african")		. = -165
-		if("latino")		. = -55
-		if("albino")		. = 34
-		else				. = rand(-185,34)
-	return min(max( .+rand(-25, 25), -185),34)
+proc/random_skin_tone(species = "Human")
+	if(species == "Human" || species == "Drask")
+		switch(pick(60;"caucasian", 15;"afroamerican", 10;"african", 10;"latino", 5;"albino"))
+			if("caucasian")		. = -10
+			if("afroamerican")	. = -115
+			if("african")		. = -165
+			if("latino")		. = -55
+			if("albino")		. = 34
+			else				. = rand(-185, 34)
+		return min(max(. + rand(-25, 25), -185), 34)
+	else if(species == "Vox")
+		. = rand(1, 6)
+		return .
 
-proc/skintone2racedescription(tone)
-	switch (tone)
-		if(30 to INFINITY)		return "albino"
-		if(20 to 30)			return "pale"
-		if(5 to 15)				return "light skinned"
-		if(-10 to 5)			return "white"
-		if(-25 to -10)			return "tan"
-		if(-45 to -25)			return "darker skinned"
-		if(-65 to -45)			return "brown"
-		if(-INFINITY to -65)	return "black"
-		else					return "unknown"
+proc/skintone2racedescription(tone, species = "Human")
+	if(species == "Human")
+		switch(tone)
+			if(30 to INFINITY)		return "albino"
+			if(20 to 30)			return "pale"
+			if(5 to 15)				return "light skinned"
+			if(-10 to 5)			return "white"
+			if(-25 to -10)			return "tan"
+			if(-45 to -25)			return "darker skinned"
+			if(-65 to -45)			return "brown"
+			if(-INFINITY to -65)	return "black"
+			else					return "unknown"
+	else if(species == "Vox")
+		switch(tone)
+			if(2)					return "dark green"
+			if(3)					return "brown"
+			if(4)					return "gray"
+			if(5)					return "emerald"
+			if(6)					return "azure"
+			else					return "green"
+	else
+		return "unknown"
 
 proc/age2agedescription(age)
 	switch(age)
@@ -156,7 +171,7 @@ proc/add_logs(mob/target, mob/user, what_done, var/object=null, var/addition=nul
 		target.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been [what_done] by [key_name(user)][object ? " with [object]" : " "][addition]</font>")
 	if(admin)
 		log_attack("<font color='red'>[key_name(user)] [what_done] [key_name(target)][object ? " with [object]" : " "][addition]</font>")
-	if(target.client)
+	if(istype(target) && (target.client || target.player_logged))
 		if(what_done in ignore) return
 		if(target == user)return
 		if(!admin) return
@@ -175,15 +190,15 @@ proc/add_logs(mob/target, mob/user, what_done, var/object=null, var/addition=nul
 
 	var/holding = user.get_active_hand()
 	var/datum/progressbar/progbar
-	if (progress)
+	if(progress)
 		progbar = new(user, time, target)
 
 	var/endtime = world.time+time
 	var/starttime = world.time
 	. = 1
-	while (world.time < endtime)
+	while(world.time < endtime)
 		sleep(1)
-		if (progress)
+		if(progress)
 			progbar.update(world.time - starttime)
 		if(!user || !target)
 			. = 0
@@ -198,7 +213,7 @@ proc/add_logs(mob/target, mob/user, what_done, var/object=null, var/addition=nul
 		if((!drifting && user.loc != user_loc) || target.loc != target_loc || user.get_active_hand() != holding || user.incapacitated() || user.lying )
 			. = 0
 			break
-	if (progress)
+	if(progress)
 		qdel(progbar)
 
 /proc/do_after(mob/user, delay, needhand = 1, atom/target = null, progress = 1)
@@ -221,15 +236,15 @@ proc/add_logs(mob/target, mob/user, what_done, var/object=null, var/addition=nul
 		holdingnull = 0 //Users hand started holding something, check to see if it's still holding that
 
 	var/datum/progressbar/progbar
-	if (progress)
+	if(progress)
 		progbar = new(user, delay, target)
 
 	var/endtime = world.time + delay
 	var/starttime = world.time
 	. = 1
-	while (world.time < endtime)
+	while(world.time < endtime)
 		sleep(1)
-		if (progress)
+		if(progress)
 			progbar.update(world.time - starttime)
 
 		if(drifting && !user.inertia_dir)
@@ -254,5 +269,76 @@ proc/add_logs(mob/target, mob/user, what_done, var/object=null, var/addition=nul
 			if(user.get_active_hand() != holding)
 				. = 0
 				break
-	if (progress)
+	if(progress)
 		qdel(progbar)
+
+/proc/admin_mob_info(mob/M, mob/user = usr)
+	if(!ismob(M))
+		to_chat(user, "This can only be used on instances of type /mob")
+		return
+
+	var/location_description = ""
+	var/special_role_description = ""
+	var/health_description = ""
+	var/gender_description = ""
+	var/turf/T = get_turf(M)
+
+	//Location
+	if(isturf(T))
+		if(isarea(T.loc))
+			location_description = "([M.loc == T ? "at coordinates " : "in [M.loc] at coordinates "] [T.x], [T.y], [T.z] in area <b>[T.loc]</b>)"
+		else
+			location_description = "([M.loc == T ? "at coordinates " : "in [M.loc] at coordinates "] [T.x], [T.y], [T.z])"
+
+	//Job + antagonist
+	if(M.mind)
+		special_role_description = "Role: <b>[M.mind.assigned_role]</b>; Antagonist: <font color='red'><b>[M.mind.special_role]</b></font>; Has been rev: [(M.mind.has_been_rev)?"Yes":"No"]"
+	else
+		special_role_description = "Role: <i>Mind datum missing</i> Antagonist: <i>Mind datum missing</i>; Has been rev: <i>Mind datum missing</i>;"
+
+	//Health
+	if(isliving(M))
+		var/mob/living/L = M
+		var/status
+		switch(M.stat)
+			if(CONSCIOUS) 
+				status = "Alive"
+			if(UNCONSCIOUS)
+				status = "<font color='orange'><b>Unconscious</b></font>"
+			if(DEAD)
+				status = "<font color='red'><b>Dead</b></font>"
+		health_description = "Status = [status]"
+		health_description += "<BR>Oxy: [L.getOxyLoss()] - Tox: [L.getToxLoss()] - Fire: [L.getFireLoss()] - Brute: [L.getBruteLoss()] - Clone: [L.getCloneLoss()] - Brain: [L.getBrainLoss()]"
+	else
+		health_description = "This mob type has no health to speak of."
+
+	//Gener
+	switch(M.gender)
+		if(MALE, FEMALE)
+			gender_description = "[M.gender]"
+		else
+			gender_description = "<font color='red'><b>[M.gender]</b></font>"
+
+	to_chat(user, "<b>Info about [M.name]:</b> ")
+	to_chat(user, "Mob type = [M.type]; Gender = [gender_description] Damage = [health_description]")
+	to_chat(user, "Name = <b>[M.name]</b>; Real_name = [M.real_name]; Mind_name = [M.mind?"[M.mind.name]":""]; Key = <b>[M.key]</b>;")
+	to_chat(user, "Location = [location_description];")
+	to_chat(user, "[special_role_description]")
+	to_chat(user, "(<a href='?src=\ref[usr];priv_msg=\ref[M]'>PM</a>) (<A HREF='?src=\ref[src];adminplayeropts=\ref[M]'>PP</A>) (<A HREF='?_src_=vars;Vars=\ref[M]'>VV</A>) (<A HREF='?src=\ref[src];subtlemessage=\ref[M]'>SM</A>) (<A HREF='?src=\ref[src];adminplayerobservefollow=\ref[M]'>FLW</A>) (<A HREF='?src=\ref[src];secretsadmin=check_antagonist'>CA</A>)")
+
+// Gets the first mob contained in an atom, and warns the user if there's not exactly one
+/proc/get_mob_in_atom_with_warning(atom/A, mob/user = usr)
+	if(!istype(A))
+		return null
+	if(ismob(A))
+		return A
+
+	. = null
+	for(var/mob/M in A)
+		if(!.)
+			. = M
+		else
+			to_chat(user, "<span class='warning'>Multiple mobs in [A], using first mob found...</span>")
+			break
+	if(!.)
+		to_chat(user, "<span class='warning'>No mob located in [A].</span>")

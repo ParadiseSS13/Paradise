@@ -19,8 +19,8 @@
 	var/obj/item/possessed_item
 
 
-/mob/living/simple_animal/possessed_object/examine()
-	possessed_item.examine()
+/mob/living/simple_animal/possessed_object/examine(mob/user)
+	possessed_item.examine(user)
 	if(health > (maxHealth / 30))
 		to_chat(usr, "<span class='warning'>[src] appears to be floating without any support!</span>")
 	else
@@ -77,7 +77,7 @@
 /mob/living/simple_animal/possessed_object/New(var/atom/loc as obj)
 	..()
 
-	if (!istype(loc, /obj/item)) // Some silly motherfucker spawned us directly via the game panel.
+	if(!istype(loc, /obj/item)) // Some silly motherfucker spawned us directly via the game panel.
 		message_admins("<span class='adminnotice'>Posessed object improperly spawned, deleting.</span>") // So silly admins with debug off will see the message too and not spam these things.
 		log_debug("[src] spawned manually, no object to assign attributes to.")
 		qdel()

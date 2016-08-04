@@ -1,19 +1,10 @@
 
-datum/reagent/coolant
+/datum/reagent/coolant
 	name = "Coolant"
 	id = "coolant"
 	description = "Industrial cooling substance."
 	reagent_state = LIQUID
 	color = "#C8A5DC" // rgb: 200, 165, 220
-
-datum/chemical_reaction/coolant
-	name = "Coolant"
-	id = "coolant"
-	result = "coolant"
-	required_reagents = list("tungsten" = 1, "oxygen" = 1, "water" = 1)
-	result_amount = 3
-
-
 
 /obj/structure/reagent_dispensers/coolanttank
 	name = "coolant tank"
@@ -21,13 +12,14 @@ datum/chemical_reaction/coolant
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "coolanttank"
 	amount_per_transfer_from_this = 10
-	New()
-		..()
-		reagents.add_reagent("coolant",1000)
+
+/obj/structure/reagent_dispensers/coolanttank/New()
+	..()
+	reagents.add_reagent("coolant",1000)
 
 /obj/structure/reagent_dispensers/coolanttank/bullet_act(var/obj/item/projectile/Proj)
 	if(istype(Proj ,/obj/item/projectile/beam)||istype(Proj,/obj/item/projectile/bullet))
-		if(!istype(Proj ,/obj/item/projectile/lasertag) && !istype(Proj ,/obj/item/projectile/practice) )
+		if(!Proj.damage)
 			explode()
 
 /obj/structure/reagent_dispensers/coolanttank/blob_act()
@@ -47,9 +39,9 @@ datum/chemical_reaction/coolant
 
 	var/datum/gas_mixture/env = src.loc.return_air()
 	if(env)
-		if (reagents.total_volume > 750)
+		if(reagents.total_volume > 750)
 			env.temperature = 0
-		else if (reagents.total_volume > 500)
+		else if(reagents.total_volume > 500)
 			env.temperature -= 100
 		else
 			env.temperature -= 50

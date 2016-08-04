@@ -48,26 +48,26 @@
 	can_infect = 0
 
 /datum/surgery_step/robotics/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
-	if (isslime(target))
+	if(isslime(target))
 		return 0
-	if (target_zone == "eyes")	//there are specific steps for eye surgery
+	if(target_zone == "eyes")	//there are specific steps for eye surgery
 		return 0
-	if (!hasorgans(target))
+	if(!hasorgans(target))
 		return 0
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	if (affected == null)
+	if(affected == null)
 		return 0
-	if (affected.status & ORGAN_DESTROYED)
+	if(affected.status & ORGAN_DESTROYED)
 		return 0
 	return 1
 
 /datum/surgery_step/robotics/external
 
 /datum/surgery_step/robotics/external/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
-	if (!..())
+	if(!..())
 		return 0
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	if (!(affected.status & ORGAN_ROBOT))
+	if(!(affected.status & ORGAN_ROBOT))
 		return 0
 	return 1
 
@@ -373,7 +373,7 @@
 
 	else if(implement_type in implements_mend)
 		current_type = "mend"
-		if (!hasorgans(target))
+		if(!hasorgans(target))
 			return
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
@@ -396,7 +396,7 @@
 /datum/surgery_step/robotics/manipulate_robotic_organs/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	if(current_type == "mend")
 
-		if (!hasorgans(target))
+		if(!hasorgans(target))
 			return
 		for(var/obj/item/organ/internal/I in affected.internal_organs)
 			if(I && I.damage > 0)
@@ -418,13 +418,13 @@
 
 		if(I && istype(I))
 			I.status &= ~ORGAN_CUT_AWAY
-	else if (current_type == "install")
+	else if(current_type == "install")
 		user.visible_message("<span class='notice'> [user] has installed \the [tool] into [target]'s [affected.name].</span>", \
 		"<span class='notice'> You have installed \the [tool] into [target]'s [affected.name].</span>")
 
 		var/obj/item/device/mmi/M = tool
 		var/obj/item/organ/internal/brain/mmi_holder/holder = new()
-		if (istype(M, /obj/item/device/mmi/posibrain))
+		if(istype(M, /obj/item/device/mmi/posibrain))
 			holder.robotize()
 
 		holder.insert(target)
@@ -461,7 +461,7 @@
 /datum/surgery_step/robotics/manipulate_robotic_organs/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 
 	if(current_type == "mend")
-		if (!hasorgans(target))
+		if(!hasorgans(target))
 			return
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
@@ -483,7 +483,7 @@
 		user.visible_message("<span class='warning'> [user]'s hand slips, disconnecting \the [tool].</span>", \
 		"<span class='warning'> Your hand slips, disconnecting \the [tool].</span>")
 
-	else if (current_type == "install")
+	else if(current_type == "install")
 		user.visible_message("<span class='warning'> [user]'s hand slips!</span>.", \
 		"<span class='warning'> Your hand slips!</span>")
 	else if(current_type == "finish")
@@ -549,7 +549,7 @@
 
 		var/obj/item/device/mmi/M = tool
 		var/obj/item/organ/internal/brain/mmi_holder/holder = new()
-		if (istype(M, /obj/item/device/mmi/posibrain))
+		if(istype(M, /obj/item/device/mmi/posibrain))
 			holder.robotize()
 
 		holder.insert(target)

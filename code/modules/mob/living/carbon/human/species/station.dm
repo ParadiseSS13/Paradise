@@ -59,6 +59,16 @@
 	default_hair = "Unathi Horns"
 	butt_sprite = "unathi"
 
+	has_organ = list(
+		"heart" =    /obj/item/organ/internal/heart,
+		"lungs" =    /obj/item/organ/internal/lungs,
+		"liver" =    /obj/item/organ/internal/liver/unathi,
+		"kidneys" =  /obj/item/organ/internal/kidneys,
+		"brain" =    /obj/item/organ/internal/brain,
+		"appendix" = /obj/item/organ/internal/appendix,
+		"eyes" =     /obj/item/organ/internal/eyes,
+		)
+
 	allowed_consumed_mobs = list(/mob/living/simple_animal/mouse, /mob/living/simple_animal/lizard, /mob/living/simple_animal/chick, /mob/living/simple_animal/chicken,
 								 /mob/living/simple_animal/crab, /mob/living/simple_animal/butterfly, /mob/living/simple_animal/parrot, /mob/living/simple_animal/tribble)
 
@@ -70,11 +80,6 @@
 
 /datum/species/unathi/handle_death(var/mob/living/carbon/human/H)
 	H.stop_tail_wagging(1)
-
-/datum/species/unathi/equip(var/mob/living/carbon/human/H)
-	if(H.mind.assigned_role != "Clown")
-		H.unEquip(H.shoes)
-		H.equip_or_collect(new /obj/item/clothing/shoes/sandal(H), slot_shoes)
 
 /datum/species/tajaran
 	name = "Tajaran"
@@ -116,6 +121,16 @@
 	default_headacc = "Tajaran Ears"
 	butt_sprite = "tajaran"
 
+	has_organ = list(
+		"heart" =    /obj/item/organ/internal/heart,
+		"lungs" =    /obj/item/organ/internal/lungs,
+		"liver" =    /obj/item/organ/internal/liver/tajaran,
+		"kidneys" =  /obj/item/organ/internal/kidneys,
+		"brain" =    /obj/item/organ/internal/brain,
+		"appendix" = /obj/item/organ/internal/appendix,
+		"eyes" =     /obj/item/organ/internal/eyes,
+		)
+
 	allowed_consumed_mobs = list(/mob/living/simple_animal/mouse, /mob/living/simple_animal/chick, /mob/living/simple_animal/butterfly, /mob/living/simple_animal/parrot,
 								 /mob/living/simple_animal/tribble)
 
@@ -127,11 +142,6 @@
 
 /datum/species/tajaran/handle_death(var/mob/living/carbon/human/H)
 	H.stop_tail_wagging(1)
-
-/datum/species/tajaran/equip(var/mob/living/carbon/human/H)
-	if(H.mind.assigned_role != "Clown")
-		H.unEquip(H.shoes)
-		H.equip_or_collect(new /obj/item/clothing/shoes/sandal(H), slot_shoes)
 
 /datum/species/vulpkanin
 	name = "Vulpkanin"
@@ -160,6 +170,16 @@
 	flesh_color = "#966464"
 	base_color = "#B43214"
 	butt_sprite = "vulp"
+
+	has_organ = list(
+		"heart" =    /obj/item/organ/internal/heart,
+		"lungs" =    /obj/item/organ/internal/lungs,
+		"liver" =    /obj/item/organ/internal/liver/vulpkanin,
+		"kidneys" =  /obj/item/organ/internal/kidneys,
+		"brain" =    /obj/item/organ/internal/brain,
+		"appendix" = /obj/item/organ/internal/appendix,
+		"eyes" =     /obj/item/organ/internal/eyes,
+		)
 
 	allowed_consumed_mobs = list(/mob/living/simple_animal/mouse, /mob/living/simple_animal/lizard, /mob/living/simple_animal/chick, /mob/living/simple_animal/chicken,
 								 /mob/living/simple_animal/crab, /mob/living/simple_animal/butterfly, /mob/living/simple_animal/parrot, /mob/living/simple_animal/tribble)
@@ -221,8 +241,8 @@
 /datum/species/vox
 	name = "Vox"
 	name_plural = "Vox"
-	icobase = 'icons/mob/human_races/r_vox.dmi'
-	deform = 'icons/mob/human_races/r_def_vox.dmi'
+	icobase = 'icons/mob/human_races/vox/r_vox.dmi'
+	deform = 'icons/mob/human_races/vox/r_def_vox.dmi'
 	path = /mob/living/carbon/human/vox
 
 	default_language = "Galactic Common"
@@ -267,12 +287,13 @@
 	flags = NO_SCAN | IS_WHITELISTED
 	clothing_flags = HAS_SOCKS
 	dietflags = DIET_OMNI
-	bodyflags = HAS_TAIL | TAIL_WAGGING | TAIL_OVERLAPPED
+	bodyflags = HAS_ICON_SKIN_TONE | HAS_TAIL | TAIL_WAGGING | TAIL_OVERLAPPED
 
 	blood_color = "#2299FC"
 	flesh_color = "#808D11"
 	//Default styles for created mobs.
 	default_hair = "Short Vox Quills"
+	default_hair_colour = "#614f19" //R: 97, G: 79, B: 25
 	butt_sprite = "vox"
 
 	reagent_tag = PROCESS_ORG
@@ -280,10 +301,19 @@
 	male_scream_sound = 'sound/voice/shriek1.ogg'
 	female_scream_sound = 'sound/voice/shriek1.ogg'
 
+	icon_skin_tones = list(
+		1 = "Default Green",
+		2 = "Dark Green",
+		3 = "Brown",
+		4 = "Grey",
+		5 = "Emerald",
+		6 = "Azure"
+		)
+
 	has_organ = list(
 		"heart" =    /obj/item/organ/internal/heart,
 		"lungs" =    /obj/item/organ/internal/lungs,
-		"liver" =    /obj/item/organ/internal/liver,
+		"liver" =    /obj/item/organ/internal/liver/vox,
 		"kidneys" =  /obj/item/organ/internal/kidneys,
 		"brain" =    /obj/item/organ/internal/brain,
 		"appendix" = /obj/item/organ/internal/appendix,
@@ -324,15 +354,46 @@
 		H.equip_or_collect(new /obj/item/weapon/tank/emergency_oxygen/vox(H), slot_l_hand)
 	to_chat(H, "<span class='notice'>You are now running on nitrogen internals from the [H.l_hand] in your hand. Your species finds oxygen toxic, so you must breathe nitrogen only.</span>")
 	H.internal = H.l_hand
-	if (H.internals)
-		H.internals.icon_state = "internal1"
+	H.update_internals_hud_icon(1)
 
-/*
 /datum/species/vox/handle_post_spawn(var/mob/living/carbon/human/H)
-	H.verbs += /mob/living/carbon/human/proc/leap
-	..() */
+	updatespeciescolor(H)
+	H.update_icons()
+	//H.verbs += /mob/living/carbon/human/proc/leap
+	..()
+
+/datum/species/vox/updatespeciescolor(var/mob/living/carbon/human/H) //Handling species-specific skin-tones for the Vox race.
+	if(H.species.name == "Vox") //Making sure we don't break Armalis.
+		switch(H.s_tone)
+			if(6) //Azure Vox.
+				icobase = 'icons/mob/human_races/vox/r_voxazu.dmi'
+				deform = 'icons/mob/human_races/vox/r_def_voxazu.dmi'
+				tail = "voxtail_azu"
+			if(5) //Emerald Vox.
+				icobase = 'icons/mob/human_races/vox/r_voxemrl.dmi'
+				deform = 'icons/mob/human_races/vox/r_def_voxemrl.dmi'
+				tail = "voxtail_emrl"
+			if(4) //Grey Vox.
+				icobase = 'icons/mob/human_races/vox/r_voxgry.dmi'
+				deform = 'icons/mob/human_races/vox/r_def_voxgry.dmi'
+				tail = "voxtail_gry"
+			if(3) //Brown Vox.
+				icobase = 'icons/mob/human_races/vox/r_voxbrn.dmi'
+				deform = 'icons/mob/human_races/vox/r_def_voxbrn.dmi'
+				tail = "voxtail_brn"
+			if(2) //Dark Green Vox.
+				icobase = 'icons/mob/human_races/vox/r_voxdgrn.dmi'
+				deform = 'icons/mob/human_races/vox/r_def_voxdgrn.dmi'
+				tail = "voxtail_dgrn"
+			else  //Default Green Vox.
+				icobase = 'icons/mob/human_races/vox/r_vox.dmi'
+				deform = 'icons/mob/human_races/vox/r_def_vox.dmi'
+				tail = "voxtail" //Ensures they get an appropriately coloured tail depending on the skin-tone.
+
+		H.update_dna()
 
 /datum/species/vox/armalis/handle_post_spawn(var/mob/living/carbon/human/H)
+	H.verbs += /mob/living/carbon/human/proc/leap
 	H.verbs += /mob/living/carbon/human/proc/gut
 	..()
 
@@ -411,6 +472,16 @@
 	blood_color = "#FB9800"
 	reagent_tag = PROCESS_ORG
 	butt_sprite = "kidan"
+
+	has_organ = list(
+		"heart" =    /obj/item/organ/internal/heart,
+		"lungs" =    /obj/item/organ/internal/lungs,
+		"liver" =    /obj/item/organ/internal/liver/kidan,
+		"kidneys" =  /obj/item/organ/internal/kidneys,
+		"brain" =    /obj/item/organ/internal/brain,
+		"appendix" = /obj/item/organ/internal/appendix,
+		"eyes" =     /obj/item/organ/internal/eyes,
+		)
 
 	allowed_consumed_mobs = list(/mob/living/simple_animal/diona)
 
@@ -610,11 +681,21 @@
 	icobase = 'icons/mob/human_races/r_grey.dmi'
 	deform = 'icons/mob/human_races/r_def_grey.dmi'
 	default_language = "Galactic Common"
-	//language = "Grey" // Perhaps if they ever get a hivemind
+	language = "Psionic Communication"
 	unarmed_type = /datum/unarmed_attack/punch
 	darksight = 5 // BOOSTED from 2
 	eyes = "grey_eyes_s"
 	butt_sprite = "grey"
+
+	has_organ = list(
+		"heart" =    /obj/item/organ/internal/heart,
+		"lungs" =    /obj/item/organ/internal/lungs,
+		"liver" =    /obj/item/organ/internal/liver/grey,
+		"kidneys" =  /obj/item/organ/internal/kidneys,
+		"brain" =    /obj/item/organ/internal/brain/grey,
+		"appendix" = /obj/item/organ/internal/appendix,
+		"eyes" =     /obj/item/organ/internal/eyes,
+		)
 
 	brute_mod = 1.25 //greys are fragile
 
@@ -636,8 +717,6 @@
 		C.dna.SetSEState(REMOTETALKBLOCK,0,1)
 		C.mutations -= REMOTE_TALK
 		genemutcheck(C,REMOTETALKBLOCK,null,MUTCHK_FORCED)
-	C.mutations.Add(GREY)
-	C.update_mutations()
 	..()
 
 /datum/species/diona
@@ -713,8 +792,7 @@
 		"is pulling themselves apart!")
 
 /datum/species/diona/can_understand(var/mob/other)
-	var/mob/living/simple_animal/diona/D = other
-	if(istype(D))
+	if(istype(other, /mob/living/simple_animal/diona))
 		return 1
 	return 0
 
@@ -771,17 +849,6 @@
 	brute_mod = 2.5 // 100% * 2.5 * 0.6 (robolimbs) ~= 150%
 	burn_mod = 2.5  // So they take 50% extra damage from brute/burn overall.
 	death_message = "gives one shrill beep before falling limp, their monitor flashing blue before completely shutting off..."
-
-	cold_level_1 = 50
-	cold_level_2 = -1
-	cold_level_3 = -1
-
-	heat_level_1 = 500		//gives them about 25 seconds in space before taking damage
-	heat_level_2 = 540
-	heat_level_3 = 600
-	heat_level_3_breathe = 600
-
-	passive_temp_gain = 10 //this should cause IPCs to stabilize at ~80 C in a 20 C environment.
 
 	flags = IS_WHITELISTED | NO_BREATHE | NO_SCAN | NO_BLOOD | NO_PAIN | NO_DNA | NO_POISON | RADIMMUNE | ALL_RPARTS
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS

@@ -42,6 +42,7 @@
 	cameranet.addCamera(src)
 
 /obj/machinery/camera/initialize()
+	..()
 	if(z == ZLEVEL_STATION && prob(3) && !start_active)
 		toggle_cam()
 
@@ -89,7 +90,7 @@
 							if(!qdeleted(src))
 								cancelCameraAlarm()
 			for(var/mob/O in mob_list)
-				if (O.client && O.client.eye == src)
+				if(O.client && O.client.eye == src)
 					O.unset_machine()
 					O.reset_view(null)
 					to_chat(O, "The screen bursts into static.")
@@ -151,6 +152,9 @@
 			qdel(src)
 			return
 	else if(istype(W, /obj/item/device/analyzer) && panel_open) //XRay
+		if(!user.unEquip(W))
+			to_chat(user, "<span class='warning'>[W] is stuck!</span>")
+			return
 		if(!isXRay())
 			upgradeXRay()
 			qdel(W)
@@ -159,6 +163,9 @@
 			to_chat(user, "[msg2]")
 
 	else if(istype(W, /obj/item/stack/sheet/mineral/plasma) && panel_open)
+		if(!user.unEquip(W))
+			to_chat(user, "<span class='warning'>[W] is stuck!</span>")
+			return
 		if(!isEmpProof())
 			upgradeEmpProof()
 			to_chat(user, "[msg]")
@@ -166,6 +173,8 @@
 		else
 			to_chat(user, "[msg2]")
 	else if(istype(W, /obj/item/device/assembly/prox_sensor) && panel_open)
+		if(!user.unEquip(W))
+			return
 		if(!isMotion())
 			upgradeMotion()
 			to_chat(user, "[msg]")
@@ -174,7 +183,7 @@
 			to_chat(user, "[msg2]")
 
 	// OTHER
-	else if ((istype(W, /obj/item/weapon/paper) || istype(W, /obj/item/device/pda)) && isliving(user))
+	else if((istype(W, /obj/item/weapon/paper) || istype(W, /obj/item/device/pda)) && isliving(user))
 		var/mob/living/U = user
 		var/obj/item/weapon/paper/X = null
 		var/obj/item/device/pda/P = null
@@ -203,12 +212,12 @@
 				else
 					to_chat(AI, "<b><a href='?src=\ref[AI];track=[html_encode(U.name)]'>[U]</a></b> holds <a href='?_src_=usr;show_paper=1;'>\a [itemname]</a> up to one of your cameras ...")
 				AI.last_paper_seen = "<HTML><HEAD><TITLE>[itemname]</TITLE></HEAD><BODY><TT>[info]</TT></BODY></HTML>"
-			else if (O.client && O.client.eye == src)
+			else if(O.client && O.client.eye == src)
 				to_chat(O, "[U] holds \a [itemname] up to one of the cameras ...")
 				O << browse(text("<HTML><HEAD><TITLE>[]</TITLE></HEAD><BODY><TT>[]</TT></BODY></HTML>", itemname, info), text("window=[]", itemname))
 
-	else if (istype(W, /obj/item/device/camera_bug))
-		if (!src.can_use())
+	else if(istype(W, /obj/item/device/camera_bug))
+		if(!src.can_use())
 			to_chat(user, "<span class='notice'>Camera non-functional.</span>")
 			return
 		if(istype(src.bug))
@@ -268,7 +277,7 @@
 	//Apparently, this will disconnect anyone even if the camera was re-activated.
 	//I guess that doesn't matter since they can't use it anyway?
 	for(var/mob/O in player_list)
-		if (O.client && O.client.eye == src)
+		if(O.client && O.client.eye == src)
 			O.unset_machine()
 			O.reset_view(null)
 			to_chat(O, "The screen bursts into static.")
@@ -368,9 +377,14 @@
 	cam["name"] = sanitize(c_tag)
 	cam["deact"] = !can_use()
 	cam["camera"] = "\ref[src]"
-	cam["x"] = T.x
-	cam["y"] = T.y
-	cam["z"] = T.z
+	if(T)
+		cam["x"] = T.x
+		cam["y"] = T.y
+		cam["z"] = T.z
+	else
+		cam["x"] = 0
+		cam["y"] = 0
+		cam["z"] = 0
 	return cam
 
 /obj/machinery/camera/portable //Cameras which are placed inside of things, such as helmets.

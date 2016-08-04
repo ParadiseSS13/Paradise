@@ -13,10 +13,12 @@
 	icon_state = "bed"
 	can_buckle = 1
 	buckle_lying = 1
+	burn_state = FLAMMABLE
+	burntime = 30
 	var/movable = 0 // For mobility checks
 
 /obj/structure/stool/bed/MouseDrop(atom/over_object)
-	..(over_object, 1)
+	..(over_object, skip_fucking_stool_shit = 1)
 
 /obj/structure/stool/psychbed
 	name = "psych bed"
@@ -46,6 +48,7 @@
 	name = "roller bed"
 	icon = 'icons/obj/rollerbed.dmi'
 	icon_state = "down"
+	burn_state = FIRE_PROOF
 	anchored = 0
 
 /obj/structure/stool/bed/roller/attackby(obj/item/weapon/W as obj, mob/user as mob, params)

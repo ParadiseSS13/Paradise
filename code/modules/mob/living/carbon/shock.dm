@@ -16,14 +16,12 @@
 				src.traumatic_shock -= R.shock_reduction // now you too can varedit cyanide to reduce shock by 1000 - Iamgoofball
 	if(src.slurring)
 		src.traumatic_shock -= 10
-	if(src.analgesic)
-		src.traumatic_shock = 0
 
 	// broken or ripped off organs will add quite a bit of pain
 	if(istype(src,/mob/living/carbon/human))
 		var/mob/living/carbon/human/M = src
 		for(var/obj/item/organ/external/organ in M.organs)
-			if (!organ)
+			if(!organ)
 				continue
 			else if(organ.status & ORGAN_BROKEN || organ.open)
 				src.traumatic_shock += 15

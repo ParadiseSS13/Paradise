@@ -485,8 +485,8 @@ datum
 
 				if(location in locate(/area/shuttle/escape/centcom))
 					for(var/mob/living/player in locate(/area/shuttle/escape/centcom))
-						if (player.mind && (player.mind != owner))
-							if (player.stat != 2) //they're not dead
+						if(player.mind && (player.mind != owner))
+							if(player.stat != 2) //they're not dead
 								return 0
 					return 1
 
@@ -631,31 +631,6 @@ datum
 			handtele
 				steal_target = /obj/item/weapon/hand_tele
 				explanation_text = "Steal a hand teleporter."
-				weight = 20
-
-				get_points(var/job)
-					switch(GetRank(job))
-						if(0)
-							return 75
-						if(1)
-							return 60
-						if(2)
-							return 50
-						if(3)
-							return 30
-						if(4)
-							return 20
-
-				get_weight(var/job)
-					if(GetRank(job) == 4)
-						return 10
-					else
-						return 20
-
-
-			RCD
-				steal_target = /obj/item/weapon/rcd
-				explanation_text = "Steal a rapid construction device."
 				weight = 20
 
 				get_points(var/job)
@@ -1231,9 +1206,9 @@ datum
 				var/protected_mobs[] = list(/mob/living/silicon/ai, /mob/living/silicon/pai, /mob/living/silicon/robot)
 				for(var/mob/living/player in world)
 					if(player.type in protected_mobs)	continue
-					if (player.mind)
-						if (player.stat != 2)
-							if (get_turf(player) in shuttle)
+					if(player.mind)
+						if(player.stat != 2)
+							if(get_turf(player) in shuttle)
 								return 0
 				return 1
 
@@ -1276,13 +1251,13 @@ datum
 			var/target_amount
 			proc/gen_amount_goal(var/lowbound = 4, var/highbound = 6)
 				target_amount = rand (lowbound,highbound)
-				if (ticker)
+				if(ticker)
 					var/n_p = 1 //autowin
-					if (ticker.current_state == GAME_STATE_SETTING_UP)
+					if(ticker.current_state == GAME_STATE_SETTING_UP)
 						for(var/mob/new_player/P in world)
 							if(P.client && P.ready && P.mind!=owner)
 								n_p++
-					else if (ticker.current_state == GAME_STATE_PLAYING)
+					else if(ticker.current_state == GAME_STATE_PLAYING)
 						for(var/mob/living/carbon/human/P in world)
 							if(P.client && !(P.mind in ticker.mode.changelings) && P.mind!=owner)
 								n_p++
@@ -1383,6 +1358,7 @@ datum
 					var/turf/T = get_turf(target.current)
 					if(target.current.stat == 2)
 						return 1
+					// TODO: Tie into space manager
 					else if((T) && !(T.z in config.station_levels))//If they leave the station they count as dead for this
 						return 2
 					else
@@ -1415,19 +1391,19 @@ datum/objective/silence
 		var/area/pod4 =    locate(/area/shuttle/escape_pod5/centcom)
 
 		for(var/mob/living/player in world)
-			if (player == owner.current)
+			if(player == owner.current)
 				continue
-			if (player.mind)
-				if (player.stat != 2)
-					if (get_turf(player) in shuttle)
+			if(player.mind)
+				if(player.stat != 2)
+					if(get_turf(player) in shuttle)
 						return 0
-					if (get_turf(player) in pod1)
+					if(get_turf(player) in pod1)
 						return 0
-					if (get_turf(player) in pod2)
+					if(get_turf(player) in pod2)
 						return 0
-					if (get_turf(player) in pod3)
+					if(get_turf(player) in pod3)
 						return 0
-					if (get_turf(player) in pod4)
+					if(get_turf(player) in pod4)
 						return 0
 		return 1
 

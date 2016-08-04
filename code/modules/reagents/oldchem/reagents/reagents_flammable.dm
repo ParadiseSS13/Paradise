@@ -5,9 +5,7 @@
 	reagent_state = LIQUID
 	color = "#060606"
 
-/datum/reagent/fuel/reaction_mob(var/mob/living/M, var/method=TOUCH, var/volume)//Splashing people with welding fuel to make them easy to ignite!
-	if(!istype(M, /mob/living))
-		return
+/datum/reagent/fuel/reaction_mob(mob/living/M, method=TOUCH, volume)//Splashing people with welding fuel to make them easy to ignite!
 	if(method == TOUCH)
 		M.adjust_fire_stacks(volume / 10)
 		return
@@ -18,6 +16,7 @@
 	id = "unholywater"
 	description = "Something that shouldn't exist on this plane of existance."
 	process_flags = ORGANIC | SYNTHETIC //ethereal means everything processes it.
+	metabolization_rate = 1
 
 /datum/reagent/fuel/unholywater/on_mob_life(mob/living/M)
 	M.adjustBrainLoss(3)
@@ -32,7 +31,11 @@
 		M.adjustFireLoss(2)
 		M.adjustOxyLoss(2)
 		M.adjustBruteLoss(2)
-	holder.remove_reagent(src.id, 1)
+	..()
+
+/datum/reagent/fuel/unholywater/reagent_deleted(mob/living/M)
+	M.status_flags &= ~GOTTAGOFAST
+	..()
 
 /datum/reagent/plasma
 	name = "Plasma"
@@ -41,8 +44,7 @@
 	reagent_state = LIQUID
 	color = "#7A2B94"
 
-/datum/reagent/plasma/on_mob_life(var/mob/living/M as mob)
-	if(!M) M = holder.my_atom
+/datum/reagent/plasma/on_mob_life(mob/living/M)
 	M.adjustToxLoss(1*REM)
 	if(holder.has_reagent("epinephrine"))
 		holder.remove_reagent("epinephrine", 2)
@@ -50,15 +52,11 @@
 		var/mob/living/carbon/C = M
 		C.adjustPlasma(10)
 	..()
-	return
 
-/datum/reagent/plasma/reaction_mob(var/mob/living/M, var/method=TOUCH, var/volume)//Splashing people with plasma is stronger than fuel!
-	if(!istype(M, /mob/living))
-		return
+/datum/reagent/plasma/reaction_mob(mob/living/M, method=TOUCH, volume)//Splashing people with plasma is stronger than fuel!
 	if(method == TOUCH)
 		M.adjust_fire_stacks(volume / 5)
 		..()
-		return
 
 
 /datum/reagent/thermite
@@ -69,26 +67,15 @@
 	color = "#673910" // rgb: 103, 57, 16
 	process_flags = ORGANIC | SYNTHETIC
 
-/datum/reagent/thermite/reaction_turf(var/turf/T, var/volume)
-	src = null
-	if(volume >= 5)
-		if(istype(T, /turf/simulated/wall))
-			T:thermite = 1
-			T.overlays.Cut()
-			T.overlays = image('icons/effects/effects.dmi',icon_state = "thermite")
-	return
+/datum/reagent/thermite/reaction_turf(turf/simulated/wall/W, volume)
+	if(volume >= 5 && istype(W))
+		W.thermite = 1
+		W.overlays.Cut()
+		W.overlays = image('icons/effects/effects.dmi',icon_state = "thermite")
 
 /datum/reagent/glycerol
 	name = "Glycerol"
 	id = "glycerol"
 	description = "Glycerol is a simple polyol compound. Glycerol is sweet-tasting and of low toxicity."
-	reagent_state = LIQUID
-	color = "#808080" // rgb: 128, 128, 128
-
-
-/datum/reagent/nitroglycerin
-	name = "Nitroglycerin"
-	id = "nitroglycerin"
-	description = "Nitroglycerin is a heavy, colorless, oily, explosive liquid obtained by nitrating glycerol."
 	reagent_state = LIQUID
 	color = "#808080" // rgb: 128, 128, 128

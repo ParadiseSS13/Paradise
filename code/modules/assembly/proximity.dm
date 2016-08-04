@@ -42,15 +42,15 @@
 
 
 	HasProximity(atom/movable/AM as mob|obj)
-		if (istype(AM, /obj/effect/beam))	return
-		if (AM.move_speed < 12)	sense()
+		if(istype(AM, /obj/effect/beam))	return
+		if(AM.move_speed < 12)	sense()
 		return
 
 
 	sense()
 		if((!secured)||(!scanning)||(cooldown > 0))	return 0
 		pulse(0)
-		visible_message("\icon[src] *beep* *beep*", "*beep* *beep*")
+		visible_message("[bicon(src)] *beep* *beep*", "*beep* *beep*")
 		cooldown = 2
 		spawn(10)
 			process_cooldown()
@@ -68,6 +68,7 @@
 
 
 	dropped()
+		..()
 		spawn(0)
 			sense()
 			return
@@ -114,7 +115,9 @@
 		dat += "<BR><A href='?src=\ref[src];scanning=1'>[scanning?"Armed":"Unarmed"]</A> (Movement sensor active when armed!)"
 		dat += "<BR><BR><A href='?src=\ref[src];refresh=1'>Refresh</A>"
 		dat += "<BR><BR><A href='?src=\ref[src];close=1'>Close</A>"
-		user << browse(dat, "window=prox")
+		var/datum/browser/popup = new(user, "prox", name, 400, 400)
+		popup.set_content(dat)
+		popup.open(0)
 		onclose(user, "prox")
 		return
 

@@ -166,7 +166,7 @@
 		I.loc = exit
 	I.materials[MAT_METAL] = get_resource_cost_w_coeff(D,MAT_METAL)
 	I.materials[MAT_GLASS] = get_resource_cost_w_coeff(D,MAT_GLASS)
-	visible_message("\icon[src] <b>\The [src]</b> beeps, \"\The [I] is complete.\"")
+	visible_message("[bicon(src)] <b>\The [src]</b> beeps, \"\The [I] is complete.\"")
 	being_built = null
 
 	updateUsrDialog()
@@ -209,14 +209,14 @@
 		if(stat&(NOPOWER|BROKEN))
 			return 0
 		if(!check_resources(D))
-			visible_message("\icon[src] <b>\The [src]</b> beeps, \"Not enough resources. Queue processing stopped.\"")
+			visible_message("[bicon(src)] <b>\The [src]</b> beeps, \"Not enough resources. Queue processing stopped.\"")
 			temp = {"<span class='alert'>Not enough resources to build next part.</span><br>
 						<a href='?src=\ref[src];process_queue=1'>Try again</a> | <a href='?src=\ref[src];clear_temp=1'>Return</a><a>"}
 			return 0
 		remove_from_queue(1)
 		build_part(D)
 		D = listgetindex(queue, 1)
-	visible_message("\icon[src] <b>\The [src]</b> beeps, \"Queue processing finished successfully.\"")
+	visible_message("[bicon(src)] <b>\The [src]</b> beeps, \"Queue processing finished successfully.\"")
 
 /obj/machinery/spod_part_fabricator/proc/list_queue()
 	var/output = "<b>Queue contains:</b>"
@@ -277,7 +277,7 @@
 		temp += "<a href='?src=\ref[src];clear_temp=1'>Return</a>"
 
 		updateUsrDialog()
-		visible_message("\icon[src] <b>\The [src]</b> beeps, \"Successfully synchronized with R&D server.\"")
+		visible_message("[bicon(src)] <b>\The [src]</b> beeps, \"Successfully synchronized with R&D server.\"")
 		return
 
 	temp = "Unable to connect to local R&D Database.<br>Please check your connections and try again.<br><a href='?src=\ref[src];clear_temp=1'>Return</a>"
@@ -297,11 +297,11 @@
 
 /obj/machinery/spod_part_fabricator/interact(mob/user as mob)
 	var/dat, left_part
-	if (..())
+	if(..())
 		return
 	user.set_machine(src)
 	if(exit.density)
-		visible_message("\icon[src] <b>\The [src]</b> beeps, \"Error! Part outlet is obstructed.\"")
+		visible_message("[bicon(src)] <b>\The [src]</b> beeps, \"Error! Part outlet is obstructed.\"")
 		return
 	if(temp)
 		left_part = temp
@@ -319,9 +319,8 @@
 			if("parts")
 				left_part += output_parts_list(part_set)
 				left_part += "<hr><a href='?src=\ref[src];screen=main'>Return</a>"
-	dat = {"<html>
-			  <head>
-			  <title>[name]</title>
+	dat = {"
+			<title>[name]</title>
 				<style>
 				.res_name {font-weight: bold; text-transform: capitalize;}
 				.red {color: #f00;}
@@ -335,21 +334,19 @@
 				<script language='javascript' type='text/javascript'>
 				[js_byjax]
 				</script>
-				</head><body>
-				<body>
 				<table style='width: 100%;'>
 				<tr>
 				<td style='width: 65%; padding-right: 10px;'>
 				[left_part]
 				</td>
-				<td style='width: 35%; background: #ccc;' id='queue'>
+				<td style='width: 35%; background: #000;' id='queue'>
 				[list_queue()]
 				</td>
 				<tr>
-				</table>
-				</body>
-				</html>"}
-	user << browse(dat, "window=mecha_fabricator;size=1000x430")
+				</table>"}
+	var/datum/browser/popup = new(user, "mecha_fabricator", name, 1000, 430)
+	popup.set_content(dat)
+	popup.open(0)
 	onclose(user, "mecha_fabricator")
 	return
 
@@ -430,7 +427,7 @@
 		if(href_list["custom_eject"])
 			amount = input("How many sheets would you like to eject from the machine?", "How much?", 1) as null|num
 			amount = max(0,min(round(resources[material]/MINERAL_MATERIAL_AMOUNT),amount)) // Rounding errors aren't scary, as the mineral eject proc is smart
-			if (!amount)
+			if(!amount)
 				return
 			amount = round(amount)
 		if(amount < 0 || amount > resources[material]) //href protection
