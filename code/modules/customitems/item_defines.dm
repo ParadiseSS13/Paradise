@@ -428,7 +428,7 @@
 
 obj/item/clothing/mask/gas/fluff/tyhailer // T0EPIC4U: Ty Omaha
 	name = "tacticool security gas mask"
-	desc = "A tacticool Security gas mask with modified 'Compli-o-nator 3000' device, it's labeled: Ty Omaha. It looks like it has some..residue..you probably don't want to touch it."
+	desc = "A tacticool Security gas mask with modified 'Compli-o-nator 3000' device, it's labeled: \"Ty Omaha\". It looks like it has some..residue..you probably don't want to touch it."
 	icon_state = "sechailer"
 	var/phrase = 1
 	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/adjust)
