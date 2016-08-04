@@ -129,7 +129,6 @@
 	..()
 	block=SWEDEBLOCK
 
-
 /datum/dna/gene/disability/speech/swedish/OnSay(var/mob/M, var/message)
 	// svedish
 	message = replacetextEx(message,"W","V")
