@@ -3,12 +3,14 @@
 	var/prefix = "_maps/shuttles/"
 	var/suffix
 	var/port_id
+	var/shuttle_id
 
 	var/description
 	var/admin_notes
 
 /datum/map_template/shuttle/New()
-	mappath = "[prefix][port_id]_[suffix].dmm"
+	shuttle_id = "[port_id]_[suffix]"
+	mappath = "[prefix][shuttle_id].dmm"
 	. = ..()
 
 /datum/map_template/shuttle/emergency
@@ -23,17 +25,8 @@
 	port_id = "ferry"
 	name = "Base Shuttle Template (Ferry)"
 
-/datum/map_template/shuttle/whiteship
-	port_id = "whiteship"
 
 // Shuttles start here:
-
-/datum/map_template/shuttle/emergency/airless
-	suffix = "airless"
-	name = "(Shuttle Under Construction)"
-	description = "The documentation hasn't been finished yet for this \
-		shuttle.\n\
-		In case of emergency: Break glass."
 
 /datum/map_template/shuttle/emergency/bar
 	suffix = "bar"
@@ -44,9 +37,9 @@
 	admin_notes = "Bardrone should be controlled by a player, either admin \
 		or ghost, has modified drone laws, can speak human and see normally."
 
-/datum/map_template/shuttle/emergency/box
-	suffix = "box"
-	name = "emergency shuttle (Box)"
+/datum/map_template/shuttle/emergency/cyb
+	suffix = "cyb"
+	name = "emergency shuttle (Cyberiad)"
 
 /datum/map_template/shuttle/emergency/clown
 	suffix = "clown"
@@ -83,30 +76,13 @@
 
 /datum/map_template/shuttle/emergency/narnar
 	suffix = "narnar"
-	name = "Shuttle 667"
+	name = "Shuttle 667(WIP)"
 	description = "Looks like this shuttle may have wandered into the \
 		darkness between the stars on route to the station. Let's not think \
 		too hard about where all the bodies came from."
-	admin_notes = "Contains real cult ruins, mob eyeballs, and inactive \
+	admin_notes = "DO NOT USE DUE TO PLACE HOLDERS Contains real cult ruins, mob eyeballs, and inactive \
 		constructs. Put players in constructs if you want them to move. \
 		Cloning pods in 'medbay' area are showcases and nonfunctional."
-
-/datum/map_template/shuttle/emergency/supermatter
-	suffix = "supermatter"
-	name = "Hyperfractal Gigashuttle"
-	description = "\"I dunno, this seems kinda needlessly complicated.\"\n\
-		\"This shuttle has very a very high safety record, according to \
-		Centcom Officer Cadet Yins.\"\n\
-		\"Are you sure?\"\n\
-		\"Yes, it has a safety record of N-A-N, which is apparently \
-		larger than 100%.\""
-	admin_notes = "Supermatter that spawns on shuttle is special anchored \
-		'hugbox' supermatter that cannot take damage and does not take in \
-		or emit gas. Outside of admin intervention, it cannot explode. \
-		It does, however, still dust anything on contact, emits high levels \
-		of radiation, and induce hallucinations in anyone looking at it \
-		without protective goggles. Emitters spawn powered on, expect \
-		admin notices, they are harmless."
 
 /datum/map_template/shuttle/ferry/base
 	suffix = "base"
@@ -122,31 +98,5 @@
 		100% fresh, just ask this guy here. *person on meatspike moans* See? \
 		Definitely high quality meat, nothin' wrong with it, nothin' added, \
 		definitely no zombifyin' reagents!"
-	admin_notes = "Meat currently contains no zombifying reagents, lizard on \
+	admin_notes = "Meat currently contains no zombifying reagents, people on \
 		meatspike must be spawned in."
-
-/datum/map_template/shuttle/ferry/lighthouse
-	suffix = "lighthouse"
-	name = "The Lighthouse(?)"
-	description = "*static*... part of a much larger vessel, possibly \
-		military in origin. The weapon markings aren't anything we've seen \
-		... static ... by almost never the same person twice, possible use \
-		of unknown storage ...  static ... seeing ERT officers onboard, but \
-		no missions are on file for ... static ... static ... annoying \
-		jingle ... only at The LIGHTHOUSE! Fulfilling needs you didn't even \
-		know you had. We've got EVERYTHING, and something else!"
-	admin_notes = "Currently larger than ferry docking port on Box, will not \
-		hit anything, but must be force docked. Trader and ERT bodyguards are \
-		not included."
-
-/datum/map_template/shuttle/whiteship/box
-	suffix = "box"
-	name = "NT Medical Ship"
-
-/datum/map_template/shuttle/whiteship/meta
-	suffix = "meta"
-	name = "NT Recovery White-ship"
-
-/datum/map_template/shuttle/cargo/box
-	suffix = "box"
-	name = "supply shuttle (Box)"

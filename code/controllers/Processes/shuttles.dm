@@ -93,7 +93,12 @@ var/const/CALL_SHUTTLE_REASON_LENGTH = 12
 	if(!emergency)
 		WARNING("requestEvac(): There is no emergency shuttle, but the shuttle was called. Using the backup shuttle instead.")
 		if(!backup_shuttle)
-			WARNING("requestEvac(): There is no emergency shuttle, or backup shuttle! The game will be unresolvable. This is likely due to a mapping error")
+			WARNING("requestEvac(): There is no emergency shuttle, or backup shuttle! The game will be unresolvable.This is possibly a mapping error,\
+			more likely a bug with the shuttle \
+			manipulation system, or badminry. It is possible to manually \
+			resolve this problem by loading an emergency shuttle template \
+			manually, and then calling register() on the mobile docking port. \
+			Good luck.")
 			return
 		emergency = backup_shuttle
 

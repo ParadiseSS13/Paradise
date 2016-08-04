@@ -603,20 +603,32 @@
 /obj/docking_port/mobile/proc/roadkill(list/L, dir, x, y)
 	for(var/turf/T in L)
 		for(var/atom/movable/AM in T)
-			if(ismob(AM))
-				if(istype(AM, /mob/living))
+			if(isliving(AM))
+				if(ishuman(AM))
 					var/mob/living/M = AM
+					M.visible_message("<span class='warning'>[M] is hit by \
+						a bluespace ripple and thrown clear!</span>",
+						"<span class='userdanger'>You feel an immense \
+						crushing pressure as the space around you ripples.\
+						</span>")
+
 					M.Paralyse(10)
-					M.take_organ_damage(80)
+					M.apply_damage(60, BRUTE, "chest")
+					M.apply_damage(60, BRUTE, "head")
 					M.anchored = 0
 				else
+					var/mob/M = AM
+					M.visible_message("<span class='warning'>[M] is hit by \
+						a bluespace ripple and is torn into pieces!</span>",
+						"<span class='userdanger'>You are torn into pieces by \
+						bluespace churn.</span>")
+					M.gib()
 					continue
 
 			if(!AM.anchored)
 				step(AM, dir)
 			else
-				if(AM.simulated) //lighting overlays are static
-					qdel(AM)
+				qdel(AM)
 /*
 //used to check if atom/A is within the shuttle's bounding box
 /obj/docking_port/mobile/proc/onShuttleCheck(atom/A)
