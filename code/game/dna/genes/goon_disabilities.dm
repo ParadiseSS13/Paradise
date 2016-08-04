@@ -129,7 +129,6 @@
 	..()
 	block=SWEDEBLOCK
 
-<<<<<<< HEAD
 	OnSay(var/mob/M, var/message)
 		// svedish
 		message = replacetextEx(message,"W","V")
@@ -147,14 +146,6 @@
 		if(prob(30))
 			message += " Bork[pick("",", bork",", bork, bork")]!"
 		return message
-=======
-/datum/dna/gene/disability/speech/swedish/OnSay(var/mob/M, var/message)
-	// svedish
-	message = replacetext(message,"w","v")
-	if(prob(30))
-		message += " Bork[pick("",", bork",", bork, bork")]!"
-	return message
->>>>>>> refs/remotes/ParadiseSS13/master
 
 // WAS: /datum/bioEffect/unintelligable
 /datum/dna/gene/disability/unintelligable
