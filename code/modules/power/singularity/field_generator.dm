@@ -106,7 +106,7 @@ field_generator power level display
 		var/obj/item/weapon/weldingtool/WT = W
 		switch(state)
 			if(FG_UNSECURED)
-				user << "<span class='warning'>The [name] needs to be wrenched to the floor!</span>"
+				to_chat(user, "<span class='warning'>The [name] needs to be wrenched to the floor!</span>")
 
 			if(FG_SECURED)
 				if(WT.remove_fuel(0,user))
