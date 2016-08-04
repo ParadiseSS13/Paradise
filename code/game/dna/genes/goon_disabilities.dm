@@ -130,6 +130,7 @@
 		message = replacetextEx(message,"bo","bjo")
 		message = replacetextEx(message,"O",pick("Ö","Ø","O"))
 		message = replacetextEx(message,"o",pick("ö","ø","o"))
+
 		if(prob(30))
 			message += " Bork[pick("",", bork",", bork, bork")]!"
 		return message
