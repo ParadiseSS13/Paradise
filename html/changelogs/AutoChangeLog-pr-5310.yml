@@ -1,0 +1,4 @@
+author: Krausus
+delete-after: True
+changes: 
+  - rscadd: "Missing limbs will now be grayed out on your health doll."
