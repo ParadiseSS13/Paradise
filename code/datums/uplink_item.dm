@@ -783,6 +783,13 @@ var/list/uplink_items = list()
 	reference = "CHHUD"
 	item = /obj/item/clothing/glasses/hud/security/chameleon
 	cost = 2
+	
+/datum/uplink_item/stealthy_weapons/chameleonflag
+	name = "Chameleon Flag"
+	desc = "A flag that can be disguised as any other known flag. There is a heat sensitive bomb loaded into the pole that will be detonated if the flag is lit on fire."
+	reference = "CHFLAG"
+	item = /obj/item/flag/chameleon
+	cost = 7
 
 // STEALTHY TOOLS
 
