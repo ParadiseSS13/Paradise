@@ -55,20 +55,6 @@ dmm_suite{
 		var/buffer_line = {""}
 		var/dmm_text = {""}
 
-
-		// // Don't write more than 1000 maps at once ;)
-		// var/static/cache_index = 0
-		// if(cache_index > 1000)
-		// 	cache_index = 0
-		// cache_index++
-		// var/cache_prefix = "data/map_cache/"
-		// var/cache_name = "mapcache[cache_index].txt"
-		// var/cache_path = "[cache_prefix][cache_name]"
-		// if(fexists(cache_path))
-		// 	fdel(cache_path)
-		// // Here's hoping file writes are less pricey than repeated string appends
-		// var/template_buffer_cache = file(cache_path)
-
 		for(var/pos_z in sw.z to ne.z){
 			for(var/pos_y = ne.y, pos_y >= sw.y, pos_y--){ // We're reversing this because the map format is silly
 				for(var/pos_x in sw.x to ne.x){
