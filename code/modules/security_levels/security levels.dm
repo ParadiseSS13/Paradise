@@ -89,13 +89,13 @@
 				move_gamma_ship()
 
 				if(security_level < SEC_LEVEL_RED)
-					for(var/obj/machinery/door/airlock/highsecurity/red/R in world)
+					for(var/obj/machinery/door/airlock/highsecurity/red/R in airlocks)
 						// TODO: Tie into space manager
 						if((R.z in config.station_levels))
 							R.locked = 0
 							R.update_icon()
 
-				for(var/obj/machinery/door/airlock/hatch/gamma/H in world)
+				for(var/obj/machinery/door/airlock/hatch/gamma/H in airlocks)
 					// TODO: Tie into space manager
 					if((H.z in config.station_levels))
 						H.locked = 0

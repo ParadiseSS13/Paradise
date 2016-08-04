@@ -37,10 +37,14 @@ var/global/datum/controller/plants/plant_controller // Set in New().
 /datum/controller/plants/New()
 	if(plant_controller && plant_controller != src)
 		log_debug("Rebuilding plant controller.")
-		del(plant_controller)
+		qdel(plant_controller)
 	plant_controller = src
 	setup()
 	process()
+
+/datum/controller/plants/Destroy()
+	..()
+	return QDEL_HINT_HARDDEL_NOW
 
 // Predefined/roundstart varieties use a string key to make it
 // easier to grab the new variety when mutating. Post-roundstart

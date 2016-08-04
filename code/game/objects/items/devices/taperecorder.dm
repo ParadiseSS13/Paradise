@@ -20,6 +20,12 @@
 	mytape = new /obj/item/device/tape/random(src)
 	update_icon()
 
+/obj/item/device/taperecorder/Destroy()
+	if(mytape)
+		qdel(mytape)
+		mytape = null
+	return ..()
+
 /obj/item/device/taperecorder/examine(mob/user)
 	if(..(user, 1))
 		to_chat(user, "The wire panel is [open_panel ? "opened" : "closed"].")
@@ -283,7 +289,8 @@
 	timestamp.Cut()
 
 /obj/item/device/tape/proc/ruin()
-	overlays += "ribbonoverlay"
+	if(!ruined)
+		overlays += "ribbonoverlay"
 	ruined = 1
 
 

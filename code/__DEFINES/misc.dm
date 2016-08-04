@@ -270,6 +270,9 @@
 // Macro to get the current elapsed round time, rather than total world runtime
 #define ROUND_TIME (round_start_time ? (world.time - round_start_time) : 0)
 
+// Macro that returns true if it's too early in a round to freely ghost out
+#define TOO_EARLY_TO_GHOST (config && (ROUND_TIME < (config.round_abandon_penalty_period)))
+
 // Used by radios to indicate that they have sent a message via something other than subspace
 #define RADIO_CONNECTION_FAIL 0
 #define RADIO_CONNECTION_NON_SUBSPACE 1
@@ -279,3 +282,7 @@
 #define FIRE_PROOF -1
 #define FLAMMABLE 0
 #define ON_FIRE 1
+
+// Sound
+#define SOUND_MINIMUM_PRESSURE 10
+#define FALLOFF_SOUNDS 0.5
