@@ -120,10 +120,14 @@ dmm_suite{
 			var/area_template = ""
 			if(!(flags & DMM_IGNORE_OBJS)){
 				for(var/obj/O in model.contents){
+					if(O.dont_save)
+						continue
 					obj_template += "[O.type][check_attributes(O,use_json=use_json)],"
 					}
 				}
 			for(var/mob/M in model.contents){
+				if(O.dont_save)
+					continue
 				if(M.client){
 					if(!(flags & DMM_IGNORE_PLAYERS)){
 						mob_template += "[M.type][check_attributes(M,use_json=use_json)],"
