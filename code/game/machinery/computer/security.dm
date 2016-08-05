@@ -35,11 +35,11 @@
 	..()
 
 /obj/machinery/computer/secure_data/emag_act(mob/user)
-	src.active1 = null
-	src.active2 = null
-	src.authenticated = "*ERROR*"
-	src.rank = "AI"
-	src.screen = 1
+	active1 = null
+	active2 = null
+	authenticated = "*ERROR*"
+	rank = "AI"
+	screen = 1
 
 /obj/machinery/computer/secure_data/attack_ai(mob/user as mob)
 	return attack_hand(user)
