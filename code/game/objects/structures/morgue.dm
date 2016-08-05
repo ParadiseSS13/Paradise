@@ -361,6 +361,8 @@
 				user.attack_log +="\[[time_stamp()]\] <font color='red'>Cremated [M.name] ([M.ckey])</font>"
 				log_attack("[user.name] ([user.ckey]) cremated [M.name] ([M.ckey])")
 			M.death(1)
+			if(!M || !isnull(M.gcDestroyed))
+				continue // Re-check for mobs that delete themselves on death
 			M.ghostize()
 			qdel(M)
 

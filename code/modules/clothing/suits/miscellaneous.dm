@@ -410,7 +410,7 @@
 	name = "black hoodie"
 	desc = "It's a hoodie. It has a hood. Most hoodies do."
 	icon_state = "black_hoodie"
-	item_state = "labcoat"
+	item_state = "blueshieldcoat"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	hoodtype = /obj/item/clothing/head/hood
 	species_fit = list("Vox")

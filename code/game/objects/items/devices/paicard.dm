@@ -24,9 +24,13 @@
 	overlays += "pai-off"
 
 /obj/item/device/paicard/Destroy()
-	//Will stop people throwing friend pAIs into the singularity so they can respawn
-	if(!isnull(pai))
-		pai.death(0)
+	if(pai)
+		pai.ghostize()
+		qdel(pai)
+		pai = null
+	if(radio)
+		qdel(radio)
+		radio = null
 	return ..()
 
 /obj/item/device/paicard/attack_self(mob/user)

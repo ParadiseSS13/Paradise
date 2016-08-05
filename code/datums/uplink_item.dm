@@ -894,8 +894,8 @@ var/list/uplink_items = list()
 	cost = 1
 
 /datum/uplink_item/device_tools/surgerybag
-	name = "Syndicate Surgery Dufflebag"
-	desc = "The Syndicate surgery dufflebag is a toolkit containing all surgery tools, a straitjacket, and a muzzle."
+	name = "Syndicate Surgery Duffelbag"
+	desc = "The Syndicate surgery duffelbag is a toolkit containing all surgery tools, a straitjacket, and a muzzle."
 	reference = "SSDB"
 	item = /obj/item/weapon/storage/backpack/duffel/syndie/surgery
 	cost = 4
