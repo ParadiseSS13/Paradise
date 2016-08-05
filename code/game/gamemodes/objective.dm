@@ -470,7 +470,7 @@ var/list/potential_theft_objectives=subtypesof(/datum/theft_objective) \
 			var/tmp_obj = new O.typepath
 			var/custom_name = tmp_obj:name
 			qdel(tmp_obj)
-			O.name = sanitize(copytext(input("Enter target name:", "Objective target", custom_name) as text|null,1,MAX_NAME_LEN))
+			O.name = sanitize_local(copytext(input("Enter target name:", "Objective target", custom_name) as text|null,1,MAX_NAME_LEN))
 			if(!O.name) return
 			steal_target = O
 			explanation_text = "Steal [O.name]."

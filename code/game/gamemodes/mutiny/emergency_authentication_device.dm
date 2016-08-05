@@ -1,7 +1,7 @@
 /obj/machinery/emergency_authentication_device
 	var/datum/game_mode/mutiny/mode
 
-	name = "\improper Emergency Authentication Device"
+	name = "Emergency Authentication Device"
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "blackbox"
 	density = 1
