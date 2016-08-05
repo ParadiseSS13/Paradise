@@ -183,3 +183,17 @@ var/list/whitelisted_positions = list(
 
 	return titles
 
+var/global/list/exp_jobsmap = list(
+	EXP_TYPE_CREW = list(), // all playtime from all jobs, together
+	EXP_TYPE_COMMAND = list(titles = command_positions),
+	EXP_TYPE_ENGINEERING = list(titles = engineering_positions),
+	EXP_TYPE_SECURITY = list(titles = security_positions),
+	EXP_TYPE_SILICON = list(titles = nonhuman_positions),
+	EXP_TYPE_SERVICE = list(titles = service_positions),
+	EXP_TYPE_MEDICAL = list(titles = medical_positions),
+	EXP_TYPE_SCIENCE = list(titles = science_positions),
+	EXP_TYPE_SUPPLY = list(titles = supply_positions),
+	EXP_TYPE_SPECIAL = list(), // special_role
+	EXP_TYPE_GHOST = list(), // dead/observer
+	EXP_TYPE_EXEMPT = list() // special grandfather setting
+)

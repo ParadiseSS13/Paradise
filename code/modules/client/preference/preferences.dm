@@ -552,8 +552,9 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 		if(jobban_isbanned(user, rank))
 			HTML += "<del>[rank]</del></td><td><b> \[BANNED]</b></td></tr>"
 			continue
-		if(!has_exp_for_job(user, job.title))
-			HTML += "<del>[rank]</del></td><td> \[TIME]</td></tr>"
+		var/available_in_playtime = job.available_in_playtime(user.client)
+		if(available_in_playtime)
+			HTML += "<del>[rank]</del></td><td> \[ " + get_exp_format(available_in_playtime) + " as [job.exp_type] ]</td></tr>"
 			continue
 		if(!job.player_old_enough(user.client))
 			var/available_in_days = job.available_in_days(user.client)

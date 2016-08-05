@@ -16,7 +16,7 @@
 			access_keycard_auth, access_sec_doors, access_psychiatrist, access_maint_tunnels, access_paramedic, access_mineral_storeroom)
 	minimal_player_age = 21
 	exp_requirements = 600
-	exp_type = "Medical"
+	exp_type = EXP_TYPE_MEDICAL
 
 	equip(var/mob/living/carbon/human/H)
 		if(!H)	return 0
@@ -54,7 +54,7 @@
 	alt_titles = list("Surgeon","Nurse","Coroner")
 	minimal_player_age = 3
 	exp_requirements = 60
-	exp_type = "Crew"
+	exp_type = EXP_TYPE_CREW
 
 	equip(var/mob/living/carbon/human/H)
 		if(!H)	return 0
@@ -119,7 +119,7 @@
 	alt_titles = list("Pharmacist","Pharmacologist")
 	minimal_player_age = 7
 	exp_requirements = 180
-	exp_type = "Crew"
+	exp_type = EXP_TYPE_CREW
 
 	equip(var/mob/living/carbon/human/H)
 		if(!H)	return 0
@@ -152,7 +152,7 @@
 	minimal_access = list(access_medical, access_morgue, access_genetics, access_research, access_maint_tunnels)
 	minimal_player_age = 3
 	exp_requirements = 60
-	exp_type = "Crew"
+	exp_type = EXP_TYPE_CREW
 
 	equip(var/mob/living/carbon/human/H)
 		if(!H)	return 0
@@ -184,7 +184,7 @@
 	alt_titles = list("Pathologist","Microbiologist")
 	minimal_player_age = 7
 	exp_requirements = 180
-	exp_type = "Crew"
+	exp_type = EXP_TYPE_CREW
 
 	equip(var/mob/living/carbon/human/H)
 		if(!H)	return 0

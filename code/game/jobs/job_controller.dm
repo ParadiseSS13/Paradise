@@ -123,7 +123,7 @@ var/global/datum/controller/occupations/job_master
 			if(job.admin_only) // No admin positions either.
 				continue
 
-			if(!has_exp_for_job(player, job.title))
+			if(job.available_in_playtime(player.client))
 				continue
 
 			if(jobban_isbanned(player, job.title))

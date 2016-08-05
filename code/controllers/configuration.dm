@@ -251,7 +251,7 @@
 					config.use_exp_restrictions_heads = 1
 
 				if("use_exp_restrictions_heads_hours")
-					config.use_exp_restrictions_heads_hours = value
+					config.use_exp_restrictions_heads_hours = text2num(value)
 
 				if("use_exp_restrictions_other")
 					config.use_exp_restrictions_other = 1
