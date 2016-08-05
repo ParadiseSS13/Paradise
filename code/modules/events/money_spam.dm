@@ -9,7 +9,7 @@
 
 /datum/event/pda_spam/proc/pick_message_server()
 	if(message_servers)
-		for (var/obj/machinery/message_server/MS in message_servers)
+		for(var/obj/machinery/message_server/MS in message_servers)
 			if(MS.active)
 				useMS = MS
 				break
@@ -27,16 +27,18 @@
 	if(useMS)
 		if(prob(5))
 			// /obj/machinery/message_server/proc/send_pda_message(var/recipient = "",var/sender = "",var/message = "")
-			var/obj/item/device/pda/P
 			var/list/viables = list()
-			for(var/obj/item/device/pda/check_pda in sortAtom(PDAs))
-				if (!check_pda.owner||check_pda.toff||check_pda == src||check_pda.hidden)
+			for(var/obj/item/device/pda/check_pda in PDAs)
+				var/datum/data/pda/app/messenger/check_m = check_pda.find_program(/datum/data/pda/app/messenger)
+
+				if(!check_m || !check_m.can_receive())
 					continue
 				viables.Add(check_pda)
 
 			if(!viables.len)
 				return
-			P = pick(viables)
+			var/obj/item/device/pda/P = pick(viables)
+			var/datum/data/pda/app/messenger/PM = P.find_program(/datum/data/pda/app/messenger)
 
 			var/sender
 			var/message
@@ -90,31 +92,15 @@
 					"You have won tickets to the newest romantic comedy 16 RULES OF LOVE!",\
 					"You have won tickets to the newest thriller THE CULT OF THE SLEEPING ONE!")
 
-			if (useMS.send_pda_message("[P.owner]", sender, message))	//Message been filtered by spam filter.
+			if(useMS.send_pda_message("[P.owner]", sender, message))	//Message been filtered by spam filter.
 				return
 
 			last_spam_time = world.time
 
-			if (prob(50)) //Give the AI an increased chance to intercept the message
+			if(prob(50)) //Give the AI an increased chance to intercept the message
 				for(var/mob/living/silicon/ai/ai in mob_list)
 					// Allows other AIs to intercept the message but the AI won't intercept their own message.
 					if(ai.aiPDA != P && ai.aiPDA != src)
 						ai.show_message("<i>Intercepted message from <b>[sender]</b></i> (Unknown / spam?) <i>to <b>[P:owner]</b>: [message]</i>")
 
-			//Commented out because we don't send messages like this anymore.  Instead it will just popup in their chat window.
-			//P.tnote += "<i><b>&larr; From [sender] (Unknown / spam?):</b></i><br>[message]<br>"
-
-			if (!P.silent)
-				playsound(P.loc, 'sound/machines/twobeep.ogg', 50, 1)
-			for (var/mob/O in hearers(3, P.loc))
-				if(!P.silent) O.show_message(text("\icon[P] *[P.ttone]*"))
-			//Search for holder of the PDA.
-			var/mob/living/L = null
-			if(P.loc && isliving(P.loc))
-				L = P.loc
-			//Maybe they are a pAI!
-			else
-				L = get(P, /mob/living/silicon)
-
-			if(L)
-				L << "\icon[P] <b>Message from [sender] (Unknown / spam?), </b>\"[message]\" (Unable to Reply)"
+			PM.notify("<b>Message from [sender] (Unknown / spam?), </b>\"[message]\" (Unable to Reply)", 0)

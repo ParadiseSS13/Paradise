@@ -10,8 +10,8 @@
 	Note that AI have no need for the adjacency proc, and so this proc is a lot cleaner.
 */
 /mob/living/silicon/ai/DblClickOn(var/atom/A, params)
-	if(client.buildmode) // comes after object.Click to allow buildmode gui objects to be clicked
-		build_click(src, client.buildmode, params, A)
+	if(client.click_intercept)
+		client.click_intercept.InterceptClickOn(src, params, A)
 		return
 
 	if(control_disabled || stat) return
@@ -23,13 +23,14 @@
 
 
 /mob/living/silicon/ai/ClickOn(var/atom/A, params)
+	if(client.click_intercept)
+		client.click_intercept.InterceptClickOn(src, params, A)
+		return
+
 	if(world.time <= next_click)
 		return
 	next_click = world.time + 1
 
-	if(client.buildmode) // comes after object.Click to allow buildmode gui objects to be clicked
-		build_click(src, client.buildmode, params, A)
-		return
 
 	if(control_disabled || stat)
 		return
@@ -43,6 +44,8 @@
 		return
 	if(modifiers["middle"])
 		MiddleClickOn(A)
+		if(controlled_mech) //Are we piloting a mech? Placed here so the modifiers are not overridden.
+			controlled_mech.click_action(A, src, params) //Override AI normal click behavior.
 		return
 	if(modifiers["shift"])
 		ShiftClickOn(A)
@@ -115,7 +118,7 @@
 
 /atom/proc/AICtrlShiftClick(var/mob/user)  // Examines
 	if(user.client)
-		examine()
+		user.examinate(src)
 	return
 
 /atom/proc/AIAltShiftClick()
@@ -127,8 +130,10 @@
 	else
 		Topic(src, list("src"= "\ref[src]", "command"="emergency", "activate" = "0"), 1)
 	return
-	
-/atom/proc/AIShiftClick()
+
+/atom/proc/AIShiftClick(var/mob/user)
+	if(user.client)
+		user.examinate(src)
 	return
 
 /obj/machinery/door/airlock/AIShiftClick()  // Opens and closes doors!

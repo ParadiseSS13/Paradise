@@ -1,0 +1,3 @@
+#define PDA_APP_UPDATE		0
+#define PDA_APP_NOUPDATE	1
+#define PDA_APP_UPDATE_SLOW	2

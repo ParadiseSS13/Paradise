@@ -25,56 +25,18 @@
 	var/list/protected_jobs = list()	// Jobs that can't be traitors
 	var/list/protected_species = list() // Species that can't be traitors
 	var/required_players = 0
-	var/required_players_secret = 0 //Minimum number of players for that game mode to be chose in Secret
 	var/required_enemies = 0
-	var/recommended_players = 0
 	var/recommended_enemies = 0
 	var/newscaster_announcements = null
 	var/ert_disabled = 0
 	var/uplink_welcome = "Syndicate Uplink Console:"
-	var/uplink_uses = 10
-	var/uplink_items = {"Highly Visible and Dangerous Weapons;
-/obj/item/weapon/gun/projectile:6:Revolver;
-/obj/item/ammo_magazine/a357:2:Ammo-357;
-/obj/item/weapon/gun/energy/kinetic_accelerator/crossbow:5:Energy Crossbow;
-/obj/item/weapon/melee/energy/sword:4:Energy Sword;
-/obj/item/weapon/storage/box/syndicate:10:Syndicate Bundle;
-/obj/item/weapon/storage/box/emps:3:5 EMP Grenades;
-Whitespace:Seperator;
-Stealthy and Inconspicuous Weapons;
-/obj/item/weapon/pen/sleepy:3:Sleepy Pen;
-/obj/item/weapon/soap/syndie:1:Syndicate Soap;
-/obj/item/weapon/cartridge/syndicate:3:Detomatix PDA Cartridge;
-Whitespace:Seperator;
-Stealth and Camouflage Items;
-/obj/item/clothing/under/chameleon:3:Chameleon Jumpsuit;
-/obj/item/clothing/shoes/syndigaloshes:2:No-Slip Syndicate Shoes;
-/obj/item/weapon/card/id/syndicate:2:Agent ID card;
-/obj/item/clothing/mask/gas/voice:4:Voice Changer;
-/obj/item/device/chameleon:4:Chameleon-Projector;
-Whitespace:Seperator;
-Devices and Tools;
-/obj/item/weapon/card/emag:3:Cryptographic Sequencer;
-/obj/item/weapon/storage/toolbox/syndicate:1:Fully Loaded Toolbox;
-/obj/item/weapon/storage/box/syndie_kit/space:3:Space Suit;
-/obj/item/clothing/glasses/thermal/syndi:3:Thermal Imaging Glasses;
-/obj/item/device/encryptionkey/binary:3:Binary Translator Key;
-/obj/item/weapon/aiModule/syndicate:7:Hacked AI Upload Module;
-/obj/item/weapon/c4:2:C-4 (Destroys walls);
-/obj/item/device/powersink:5:Powersink (DANGER!);
-/obj/item/device/radio/beacon/syndicate:7:Singularity Beacon (DANGER!);
-/obj/item/weapon/circuitboard/teleporter:20:Teleporter Circuit Board;
-Whitespace:Seperator;
-Implants;
-/obj/item/weapon/storage/box/syndie_kit/imp_freedom:3:Freedom Implant;
-/obj/item/weapon/storage/box/syndie_kit/imp_uplink:10:Uplink Implant (Contains 5 Telecrystals);
-/obj/item/weapon/storage/box/syndie_kit/imp_explosive:6:Explosive Implant (DANGER!);
-/obj/item/weapon/storage/box/syndie_kit/imp_compress:4:Compressed Matter Implant;Whitespace:Seperator;
-(Pointless) Badassery;
-/obj/item/toy/syndicateballoon:10:For showing that You Are The BOSS (Useless Balloon);"}
+	var/uplink_uses = 20
+
+	var/const/waittime_l = 600  //lower bound on time before intercept arrives (in tenths of seconds)
+	var/const/waittime_h = 1800 //upper bound on time before intercept arrives (in tenths of seconds)
 
 /datum/game_mode/proc/announce() //to be calles when round starts
-	world << "<B>Notice</B>: [src] did not define announce()"
+	to_chat(world, "<B>Notice</B>: [src] did not define announce()")
 
 
 ///can_start()
@@ -85,12 +47,8 @@ Implants;
 		if((player.client)&&(player.ready))
 			playerC++
 
-	if(master_mode=="secret")
-		if(playerC >= required_players_secret)
-			return 1
-	else
-		if(playerC >= required_players)
-			return 1
+	if(playerC >= required_players)
+		return 1
 	return 0
 
 //pre_pre_setup() For when you really don't want certain jobs ingame.
@@ -115,6 +73,8 @@ Implants;
 //	if(revdata)
 //		feedback_set_details("revision","[revdata.revision]")
 	feedback_set_details("server_ip","[world.internet_address]:[world.port]")
+	start_state = new /datum/station_state()
+	start_state.count()
 	return 1
 
 
@@ -127,7 +87,7 @@ Implants;
 /datum/game_mode/proc/process_job_tasks()
 	var/obj/machinery/message_server/useMS = null
 	if(message_servers)
-		for (var/obj/machinery/message_server/MS in message_servers)
+		for(var/obj/machinery/message_server/MS in message_servers)
 			if(MS.active)
 				useMS = MS
 				break
@@ -135,7 +95,7 @@ Implants;
 		if(M.mind)
 			var/obj/item/device/pda/P=null
 			for(var/obj/item/device/pda/check_pda in PDAs)
-				if (check_pda.owner==M.name)
+				if(check_pda.owner==M.name)
 					P=check_pda
 					break
 			var/count=0
@@ -148,17 +108,18 @@ Implants;
 					msg="We see that you completed [newunits] new unit[newunits>1?"s":""] for Task #[count]! "
 					pay=objective.completion_payment * newunits
 					objective.units_compensated += newunits
+					objective.is_completed() // So we don't get many messages regarding completion
 				else if(!objective.completed)
 					if(objective.is_completed())
 						pay=objective.completion_payment
 						msg="Task #[count] completed! "
 				if(pay>0)
 					if(M.mind.initial_account)
-						M.mind.initial_account.money += objective.completion_payment
+						M.mind.initial_account.money += pay
 						var/datum/transaction/T = new()
 						T.target_name = "[command_name()] Payroll"
 						T.purpose = "Payment"
-						T.amount = objective.completion_payment
+						T.amount = pay
 						T.date = current_date_string
 						T.time = worldtime2text()
 						T.source_terminal = "\[CLASSIFIED\] Terminal #[rand(111,333)]"
@@ -166,31 +127,15 @@ Implants;
 						msg += "You have been sent the $[pay], as agreed."
 					else
 						msg += "However, we were unable to send you the $[pay] you're entitled."
-					if(useMS)
-						// THIS SHOULD HAVE DONE EVERYTHING FOR ME
+					if(useMS && P)
 						useMS.send_pda_message("[P.owner]", "[command_name()] Payroll", msg)
 
-						// BUT NOPE, NEED TO DO THIS BULLSHIT.
-						P.tnote += "<i><b>&larr; From [command_name()] (Payroll):</b></i><br>[msg]<br>"
-
-						if (!P.silent)
-							playsound(P.loc, 'sound/machines/twobeep.ogg', 50, 1)
-						for (var/mob/O in hearers(3, P.loc))
-							if(!P.silent) O.show_message(text("\icon[P] *[P.ttone]*"))
-						//Search for holder of the PDA.
-						var/mob/living/L = null
-						if(P.loc && isliving(P.loc))
-							L = P.loc
-						//Maybe they are a pAI!
-						else
-							L = get(P, /mob/living/silicon)
-
-						if(L)
-							L << "\icon[P] <b>Message from [command_name()] (Payroll), </b>\"[msg]\" (<i>Unable to Reply</i>)"
+						var/datum/data/pda/app/messenger/PM = P.find_program(/datum/data/pda/app/messenger)
+						PM.notify("<b>Message from [command_name()] (Payroll), </b>\"[msg]\" (<i>Unable to Reply</i>)", 0)
 					break
 
 /datum/game_mode/proc/check_finished() //to be called by ticker
-	if(emergency_shuttle.returned() || station_was_nuked)
+	if(shuttle_master.emergency.mode >= SHUTTLE_ENDGAME || station_was_nuked)
 		return 1
 	return 0
 
@@ -210,7 +155,10 @@ Implants;
 	var/escaped_on_pod_5 = 0
 	var/escaped_on_shuttle = 0
 
-	var/list/area/escape_locations = list(/area/shuttle/escape/centcom, /area/shuttle/escape_pod1/centcom, /area/shuttle/escape_pod2/centcom, /area/shuttle/escape_pod3/centcom, /area/shuttle/escape_pod5/centcom)
+	var/list/area/escape_locations = list(/area/shuttle/escape, /area/shuttle/escape_pod1/centcom, /area/shuttle/escape_pod2/centcom, /area/shuttle/escape_pod3/centcom, /area/shuttle/escape_pod5/centcom)
+
+	if(shuttle_master.emergency.mode < SHUTTLE_ENDGAME) //shuttle didn't get to centcom
+		escape_locations -= /area/shuttle/escape
 
 	for(var/mob/M in player_list)
 		if(M.client)
@@ -225,7 +173,7 @@ Implants;
 				if(M.loc && M.loc.loc && M.loc.loc.type in escape_locations)
 					escaped_total++
 
-				if(M.loc && M.loc.loc && M.loc.loc.type == /area/shuttle/escape/centcom)
+				if(M.loc && M.loc.loc && M.loc.loc.type == shuttle_master.emergency.areaInstance.type && shuttle_master.emergency.mode >= SHUTTLE_ENDGAME)
 					escaped_on_shuttle++
 
 				if(M.loc && M.loc.loc && M.loc.loc.type == /area/shuttle/escape_pod1/centcom)
@@ -264,69 +212,11 @@ Implants;
 		feedback_set("escaped_on_pod_5",escaped_on_pod_5)
 
 	send2mainirc("A round of [src.name] has ended - [surviving_total] survivors, [ghosts] ghosts.")
-
 	return 0
 
 
 /datum/game_mode/proc/check_win() //universal trigger to be called at mob death, nuke explosion, etc. To be called from everywhere.
 	return 0
-
-
-/datum/game_mode/proc/send_intercept()
-	var/intercepttext = "<FONT size = 3><B>Cent. Com. Update</B> Requested status information:</FONT><HR>"
-	intercepttext += "<B> In case you have misplaced your copy, attached is a list of personnel whom reliable sources&trade; suspect may be affiliated with the Syndicate:</B><br>"
-
-
-	var/list/suspects = list()
-	for(var/mob/living/carbon/human/man in player_list) if(man.client && man.mind)
-		// NT relation option
-		var/special_role = man.mind.special_role
-		if (special_role == "Wizard" || special_role == "Ninja" || special_role == "Syndicate" || special_role == "Syndicate Commando" || special_role == "Vox Raider" || special_role == "Alien")
-			continue	//NT intelligence ruled out possiblity that those are too classy to pretend to be a crew.
-		if(man.client.prefs.nanotrasen_relation == "Opposed" && prob(50) || \
-		   man.client.prefs.nanotrasen_relation == "Skeptical" && prob(20))
-			suspects += man
-		// Antags
-		else if(special_role == "traitor" && prob(40) || \
-		   special_role == "Changeling" && prob(50) || \
-		   special_role == "Cultist" && prob(30) || \
-		   special_role == "Head Revolutionary" && prob(30))
-			suspects += man
-
-			// If they're a traitor or likewise, give them extra TC in exchange.
-			var/obj/item/device/uplink/hidden/suplink = man.mind.find_syndicate_uplink()
-			if(suplink)
-				var/extra = 0 //was 4; with the TC rebalance, this isn't really needed, anymore
-				suplink.uses += extra
-				man << "\red We have received notice that enemy intelligence suspects you to be linked with us. We recommend adjusting your plans and equipment accordingly."
-			else
-				// Give them a warning!
-				man << "\red They are on to you!"
-
-		// Some poor people who were just in the wrong place at the wrong time..
-		else if(prob(10))
-			suspects += man
-	for(var/mob/M in suspects)
-		switch(rand(1, 100))
-			if(1 to 50)
-				intercepttext += "Someone with the job of <b>[M.mind.assigned_role]</b> <br>"
-			else
-				intercepttext += "<b>[M.name]</b>, the <b>[M.mind.assigned_role]</b> <br>"
-
-	for (var/obj/machinery/computer/communications/comm in machines)
-		if (!(comm.stat & (BROKEN | NOPOWER)) && comm.prints_intercept)
-			var/obj/item/weapon/paper/intercept = new /obj/item/weapon/paper( comm.loc )
-			intercept.name = "paper- 'Cent. Com. Status Summary'"
-			intercept.info = intercepttext
-
-			comm.messagetitle.Add("Cent. Com. Status Summary")
-			comm.messagetext.Add(intercepttext)
-/*	world << sound('sound/AI/commandreport.ogg') */
-
-	command_announcement.Announce("Summary downloaded and printed out at all communications consoles.", "Enemy communication intercepted. Security Level Elevated.", new_sound = 'sound/AI/intercept.ogg')
-	if(security_level < SEC_LEVEL_BLUE)
-		set_security_level(SEC_LEVEL_BLUE)
-
 
 /datum/game_mode/proc/get_players_for_role(var/role, override_jobbans=0)
 	var/list/players = list()
@@ -348,7 +238,7 @@ Implants;
 
 	// Get a list of all the people who want to be the antagonist for this round, except those with incompatible species
 	for(var/mob/new_player/player in players)
-		if(player.client.prefs.be_special & role && !(player.client.prefs.species in protected_species))
+		if((role in player.client.prefs.be_special) && !(player.client.prefs.species in protected_species))
 			log_debug("[player.key] had [roletext] enabled, so we are drafting them.")
 			candidates += player.mind
 			players -= player
@@ -370,57 +260,6 @@ Implants;
 				if(player.assigned_role == job)
 					candidates -= player
 
-	/*if(candidates.len < recommended_enemies)
-		for(var/mob/new_player/player in players)
-			if(player.client && player.ready)
-				if(!(player.client.prefs.be_special & role)) // We don't have enough people who want to be antagonist, make a seperate list of people who don't want to be one
-					if(!jobban_isbanned(player, "Syndicate") && !jobban_isbanned(player, roletext)) //Nodrak/Carn: Antag Job-bans
-						drafted += player.mind
-
-	if(restricted_jobs)
-		for(var/datum/mind/player in drafted)				// Remove people who can't be an antagonist
-			for(var/job in restricted_jobs)
-				if(player.assigned_role == job)
-					drafted -= player
-
-	drafted = shuffle(drafted) // Will hopefully increase randomness, Donkie
-
-	while(candidates.len < recommended_enemies)				// Pick randomlly just the number of people we need and add them to our list of candidates
-		if(drafted.len > 0)
-			applicant = pick(drafted)
-			if(applicant)
-				candidates += applicant
-				log_debug("[applicant.key] was force-drafted as [roletext], because there aren't enough candidates.")
-				drafted.Remove(applicant)
-
-		else												// Not enough scrubs, ABORT ABORT ABORT
-			break
-
-	if(candidates.len < recommended_enemies && override_jobbans) //If we still don't have enough people, we're going to start drafting banned people.
-		for(var/mob/new_player/player in players)
-			if (player.client && player.ready)
-				if(jobban_isbanned(player, "Syndicate") || jobban_isbanned(player, roletext)) //Nodrak/Carn: Antag Job-bans
-					drafted += player.mind
-
-	if(restricted_jobs)
-		for(var/datum/mind/player in drafted)				// Remove people who can't be an antagonist
-			for(var/job in restricted_jobs)
-				if(player.assigned_role == job)
-					drafted -= player
-
-	drafted = shuffle(drafted) // Will hopefully increase randomness, Donkie
-
-	while(candidates.len < recommended_enemies)				// Pick randomlly just the number of people we need and add them to our list of candidates
-		if(drafted.len > 0)
-			applicant = pick(drafted)
-			if(applicant)
-				candidates += applicant
-				drafted.Remove(applicant)
-				log_debug("[applicant.key] was force-drafted as [roletext], because there aren't enough candidates.")
-
-		else												// Not enough scrubs, ABORT ABORT ABORT
-			break
-	*/
 
 	return candidates		// Returns: The number of people who had the antagonist role set to yes, regardless of recomended_enemies, if that number is greater than recommended_enemies
 							//			recommended_enemies if the number of people with that role set to yes is less than recomended_enemies,
@@ -430,7 +269,7 @@ Implants;
 /datum/game_mode/proc/latespawn(var/mob)
 
 /*
-/datum/game_mode/proc/check_player_role_pref(var/role, var/mob/new_player/player)
+/datum/game_mode/proc/check_player_role_pref(var/role, var/mob/player)
 	if(player.preferences.be_special & role)
 		return 1
 	return 0
@@ -440,49 +279,50 @@ Implants;
 	. = 0
 	for(var/mob/new_player/P in player_list)
 		if(P.client && P.ready)
-			. ++
+			.++
 
 /datum/game_mode/proc/num_players_started()
 	. = 0
 	for(var/mob/living/carbon/human/H in player_list)
 		if(H.client)
-			. ++
+			.++
 
 ///////////////////////////////////
 //Keeps track of all living heads//
 ///////////////////////////////////
 /datum/game_mode/proc/get_living_heads()
-	var/list/heads = list()
+	. = list()
 	for(var/mob/living/carbon/human/player in mob_list)
-		if(player.stat!=2 && player.mind && (player.mind.assigned_role in command_positions))
-			heads += player.mind
-	return heads
+		if(player.stat != DEAD && player.mind && (player.mind.assigned_role in command_positions))
+			. |= player.mind
 
-/datum/game_mode/proc/get_extra_living_heads()
-	var/list/heads = list()
-	var/list/alt_positions = list("Warden", "Magistrate", "Blueshield", "Nanotrasen Representative")
-	for(var/mob/living/carbon/human/player in mob_list)
-		if(player.stat!=2 && player.mind && (player.mind.assigned_role in alt_positions))
-			heads += player.mind
-	return heads
 
 ////////////////////////////
 //Keeps track of all heads//
 ////////////////////////////
 /datum/game_mode/proc/get_all_heads()
-	var/list/heads = list()
+	. = list()
 	for(var/mob/player in mob_list)
 		if(player.mind && (player.mind.assigned_role in command_positions))
-			heads += player.mind
-	return heads
+			. |= player.mind
 
-/datum/game_mode/proc/get_extra_heads()
-	var/list/heads = list()
-	var/list/alt_positions = list("Warden", "Magistrate", "Blueshield", "Nanotrasen Representative")
-	for(var/mob/player in mob_list)
-		if(player.mind && (player.mind.assigned_role in alt_positions))
-			heads += player.mind
-	return heads
+//////////////////////////////////////////////
+//Keeps track of all living security members//
+//////////////////////////////////////////////
+/datum/game_mode/proc/get_living_sec()
+	. = list()
+	for(var/mob/living/carbon/human/player in mob_list)
+		if(player.stat != DEAD && player.mind && (player.mind.assigned_role in security_positions))
+			. |= player.mind
+
+////////////////////////////////////////
+//Keeps track of all  security members//
+////////////////////////////////////////
+/datum/game_mode/proc/get_all_sec()
+	. = list()
+	for(var/mob/living/carbon/human/player in mob_list)
+		if(player.mind && (player.mind.assigned_role in security_positions))
+			. |= player.mind
 
 /datum/game_mode/proc/check_antagonists_topic(href, href_list[])
 	return 0
@@ -494,7 +334,7 @@ Implants;
 //Reports player logouts//
 //////////////////////////
 proc/display_roundstart_logout_report()
-	var/msg = "\blue <b>Roundstart logout report\n\n"
+	var/msg = "<span class='notice'>Roundstart logout report</span>\n\n"
 	for(var/mob/living/L in mob_list)
 
 		if(L.ckey)
@@ -515,7 +355,7 @@ proc/display_roundstart_logout_report()
 				if(L.suiciding)	//Suicider
 					msg += "<b>[L.name]</b> ([L.ckey]), the [L.job] (<font color='red'><b>Suicide</b></font>)\n"
 					job_master.FreeRole(L.job)
-					message_admins("<b>[L.name]</b> ([L.ckey]), the [L.job] has been freed due to (<font color='#ffcc00'><b>Early Round Suicide</b></font>)\n")
+					message_admins("<b>[key_name_admin(L)]</b>, the [L.job] has been freed due to (<font color='#ffcc00'><b>Early Round Suicide</b></font>)\n")
 					continue //Disconnected client
 				if(L.stat == UNCONSCIOUS)
 					msg += "<b>[L.name]</b> ([L.ckey]), the [L.job] (Dying)\n"
@@ -541,14 +381,14 @@ proc/display_roundstart_logout_report()
 					else
 						msg += "<b>[L.name]</b> ([ckey(D.mind.key)]), the [L.job] (<font color='red'><b>Ghosted</b></font>)\n"
 						job_master.FreeRole(L.job)
-						message_admins("<b>[L.name]</b> ([L.ckey]), the [L.job] has been freed due to (<font color='#ffcc00'><b>Early Round Ghosted While Alive</b></font>)\n")
+						message_admins("<b>[key_name_admin(L)]</b>, the [L.job] has been freed due to (<font color='#ffcc00'><b>Early Round Ghosted While Alive</b></font>)\n")
 						continue //Ghosted while alive
 
 
 
 	for(var/mob/M in mob_list)
 		if(M.client && M.client.holder)
-			M << msg
+			to_chat(M, msg)
 
 
 proc/get_nt_opposed()
@@ -565,36 +405,69 @@ proc/get_nt_opposed()
 //Announces objectives/generic antag text.
 /proc/show_generic_antag_text(var/datum/mind/player)
 	if(player.current)
-		player.current << \
-		"You are an antagonist! <font color=blue>Within the rules,</font> \
+		to_chat(player.current, "You are an antagonist! <font color=blue>Within the rules,</font> \
 		try to act as an opposing force to the crew. Further RP and try to make sure \
 		other players have <i>fun</i>! If you are confused or at a loss, always adminhelp, \
 		and before taking extreme actions, please try to also contact the administration! \
 		Think through your actions and make the roleplay immersive! <b>Please remember all \
-		rules aside from those without explicit exceptions apply to antagonists.</b>"
+		rules aside from those without explicit exceptions apply to antagonists.</b>")
 
 /proc/show_objectives(var/datum/mind/player)
 	if(!player || !player.current) return
 
 	var/obj_count = 1
-	player.current << "\blue Your current objectives:"
+	to_chat(player.current, "\blue Your current objectives:")
 	for(var/datum/objective/objective in player.objectives)
-		player.current << "<B>Objective #[obj_count]</B>: [objective.explanation_text]"
+		to_chat(player.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
 		obj_count++
 
 /proc/get_roletext(var/role)
-	var/roletext
-	switch(role)
-		if(BE_CHANGELING)	roletext="changeling"
-		if(BE_TRAITOR)		roletext="traitor"
-		if(BE_OPERATIVE)	roletext="operative"
-		if(BE_WIZARD)		roletext="wizard"
-		if(BE_REV)			roletext="revolutionary"
-		if(BE_CULTIST)		roletext="cultist"
-		if(BE_NINJA)		roletext="ninja"
-		if(BE_RAIDER)		roletext="raider"
-		if(BE_VAMPIRE)		roletext="vampire"
-		if(BE_ALIEN)		roletext="alien"
-		if(BE_MUTINEER)		roletext="mutineer"
-		if(BE_BLOB)			roletext="blob"
-	return roletext
+	return role
+
+/proc/get_nuke_code()
+	var/nukecode = "ERROR"
+	for(var/obj/machinery/nuclearbomb/bomb in world)
+		// TODO: Tie into space manager
+		if(bomb && bomb.r_code && bomb.z == ZLEVEL_STATION)
+			nukecode = bomb.r_code
+	return nukecode
+
+/datum/game_mode/proc/replace_jobbaned_player(mob/living/M, role_type)
+	var/list/mob/dead/observer/candidates = pollCandidates("Do you want to play as a [role_type]?", role_type, 0, 100)
+	var/mob/dead/observer/theghost = null
+	if(candidates.len)
+		theghost = pick(candidates)
+		to_chat(M, "<span class='userdanger'>Your mob has been taken over by a ghost! Appeal your job ban if you want to avoid this in the future!</span>")
+		message_admins("[key_name_admin(theghost)] has taken control of ([key_name_admin(M)]) to replace a jobbanned player.")
+		M.ghostize()
+		M.key = theghost.key
+	else
+		message_admins("[M] ([M.key] has been converted into [role_type] with an active antagonist jobban for said role since no ghost has volunteered to take their place.")
+		to_chat(M, "<span class='biggerdanger'>You have been converted into [role_type] with an active jobban. Any further violations of the rules on your part are likely to result in a permanent ban.</span>")
+
+/datum/game_mode/proc/printplayer(datum/mind/ply, fleecheck)
+	var/text = "<br><b>[ply.key]</b> was <b>[ply.name]</b> the <b>[ply.assigned_role]</b> and"
+	if(ply.current)
+		if(ply.current.stat == DEAD)
+			text += " <span class='boldannounce'>died</span>"
+		else
+			text += " <span class='greenannounce'>survived</span>"
+		if(fleecheck && ply.current.z > ZLEVEL_STATION)
+			// TODO: Tie into space manager
+			text += " while <span class='boldannounce'>fleeing the station</span>"
+		if(ply.current.real_name != ply.name)
+			text += " as <b>[ply.current.real_name]</b>"
+	else
+		text += " <span class='boldannounce'>had their body destroyed</span>"
+	return text
+
+/datum/game_mode/proc/printobjectives(datum/mind/ply)
+	var/text = ""
+	var/count = 1
+	for(var/datum/objective/objective in ply.objectives)
+		if(objective.check_completion())
+			text += "<br><b>Objective #[count]</b>: [objective.explanation_text] <span class='greenannounce'>Success!</span>"
+		else
+			text += "<br><b>Objective #[count]</b>: [objective.explanation_text] <span class='boldannounce'>Fail.</span>"
+		count++
+	return text

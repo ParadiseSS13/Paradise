@@ -35,7 +35,7 @@
 
 /obj/structure/filingcabinet/attackby(obj/item/P as obj, mob/user as mob, params)
 	if(istype(P, /obj/item/weapon/paper) || istype(P, /obj/item/weapon/folder) || istype(P, /obj/item/weapon/photo) || istype(P, /obj/item/weapon/paper_bundle) || istype(P, /obj/item/documents))
-		user << "<span class='notice'>You put [P] in [src].</span>"
+		to_chat(user, "<span class='notice'>You put [P] in [src].</span>")
 		user.drop_item()
 		P.loc = src
 		icon_state = "[initial(icon_state)]-open"
@@ -45,14 +45,14 @@
 	else if(istype(P, /obj/item/weapon/wrench))
 		playsound(loc, 'sound/items/Ratchet.ogg', 50, 1)
 		anchored = !anchored
-		user << "<span class='notice'>You [anchored ? "wrench" : "unwrench"] \the [src].</span>"
+		to_chat(user, "<span class='notice'>You [anchored ? "wrench" : "unwrench"] \the [src].</span>")
 	else
-		user << "<span class='notice'>You can't put [P] in [src]!</span>"
+		to_chat(user, "<span class='notice'>You can't put [P] in [src]!</span>")
 
 
 /obj/structure/filingcabinet/attack_hand(mob/user as mob)
 	if(contents.len <= 0)
-		user << "<span class='notice'>\The [src] is empty.</span>"
+		to_chat(user, "<span class='notice'>\The [src] is empty.</span>")
 		return
 
 	user.set_machine(src)
@@ -60,7 +60,9 @@
 	for(var/obj/item/P in src)
 		dat += "<tr><td><a href='?src=\ref[src];retrieve=\ref[P]'>[P.name]</a></td></tr>"
 	dat += "</table></center>"
-	user << browse("<html><head><title>[name]</title></head><body>[dat]</body></html>", "window=filingcabinet;size=350x300")
+	var/datum/browser/popup = new(user, "filingcabinet", name, 350, 300)
+	popup.set_content(dat)
+	popup.open(0)
 
 	return
 
@@ -77,13 +79,13 @@
 			I.loc = loc
 			if(prob(25))
 				step_rand(I)
-			user << "<span class='notice'>You pull \a [I] out of [src] at random.</span>"
+			to_chat(user, "<span class='notice'>You pull \a [I] out of [src] at random.</span>")
 			return
-	user << "<span class='notice'>You find nothing in [src].</span>"
+	to_chat(user, "<span class='notice'>You find nothing in [src].</span>")
 
 /obj/structure/filingcabinet/Topic(href, href_list)
 	if(href_list["retrieve"])
-		usr << browse("", "window=filingcabinet") // Close the menu
+		usr << browse(null, "window=filingcabinet") // Close the menu
 
 		//var/retrieveindex = text2num(href_list["retrieve"])
 		var/obj/item/P = locate(href_list["retrieve"])//contents[retrieveindex]

@@ -156,14 +156,14 @@ swapmap
 			if(z2>swapmaps_compiled_maxz ||\
 			   y2>swapmaps_compiled_maxy ||\
 			   x2>swapmaps_compiled_maxx)
-				del(src)
+				qdel(src)
 			return
 		x2=x?(x):world.maxx
 		y2=y?(y):world.maxy
 		z2=z?(z):1
 		AllocateSwapMap()
 
-	Del()
+	Destroy()
 		// a temporary datum for a chunk can be deleted outright
 		// for others, some cleanup is necessary
 		if(!ischunk)
@@ -179,13 +179,14 @@ swapmap
 						if(!M.key) qdel(M)
 						else M.loc=null
 					areas[A.loc]=null
-					del(A)
+					qdel(A)
 				// delete areas that belong only to this map
 				for(var/area/a in areas)
-					if(a && !a.contents.len) del(a)
+					if(a && !a.contents.len) qdel(a)
 				if(x2>=world.maxx || y2>=world.maxy || z2>=world.maxz) CutXYZ()
-				del(areas)
+				qdel(areas)
 		..()
+		return QDEL_HINT_HARDDEL_NOW
 
 	/*
 		Savefile format:
@@ -226,11 +227,11 @@ swapmap
 		S["areas"] << areas
 		for(n in 1 to areas.len) areas[areas[n]]=n
 		var/oldcd=S.cd
-		for(z=z1,z<=z2,++z)
+		for(z in z1 to z2)
 			S.cd="[z-z1+1]"
-			for(y=y1,y<=y2,++y)
+			for(y in y1 to y2)
 				S.cd="[y-y1+1]"
-				for(x=x1,x<=x2,++x)
+				for(x in x1 to x2)
 					S.cd="[x-x1+1]"
 					var/turf/T=locate(x,y,z)
 					S["type"] << T.type
@@ -241,7 +242,7 @@ swapmap
 			sleep()
 			S.cd=oldcd
 		locked=0
-		del(areas)
+		qdel(areas)
 
 	Read(savefile/S,_id,turf/locorner)
 		var/x
@@ -269,11 +270,11 @@ swapmap
 		locked=1
 		AllocateSwapMap()	// adjust x1,y1,z1 - x2,y2,z2 coords
 		var/oldcd=S.cd
-		for(z=z1,z<=z2,++z)
+		for(z in z1 to z2)
 			S.cd="[z-z1+1]"
-			for(y=y1,y<=y2,++y)
+			for(y in y1 to y2)
 				S.cd="[y-y1+1]"
-				for(x=x1,x<=x2,++x)
+				for(x in x1 to x2)
 					S.cd="[x-x1+1]"
 					var/tp
 					S["type"]>>tp
@@ -297,7 +298,7 @@ swapmap
 			sleep()
 			S.cd=oldcd
 		locked=0
-		del(areas)
+		qdel(areas)
 
 	/*
 		Find an empty block on the world map in which to load this map.
@@ -321,11 +322,11 @@ swapmap
 				x1=l[1]
 				y1=l[2]
 				z1=l[3]
-				del(l)
+				qdel(l)
 		x2+=x1-1
 		y2+=y1-1
 		z2+=z1-1
-		world.maxz=max(z2,world.maxz)	// stretch z if necessary
+		space_manager.increase_max_zlevel_to(z2)	// stretch z if necessary
 		if(!ischunk)
 			swapmaps_loaded[src]=null
 			swapmaps_byname[id]=src
@@ -372,12 +373,12 @@ swapmap
 			mz=max(mz,M.z2)
 		world.maxx=mx
 		world.maxy=my
-		world.maxz=mz
+		space_manager.cut_levels_downto(mz)
 
 	// save and delete
 	proc/Unload()
 		Save()
-		del(src)
+		qdel(src)
 
 	proc/Save()
 		if(id==src) return 0
@@ -472,7 +473,7 @@ atom
 				l=l.Copy()
 				for(M in src) if(M.key) l-=M
 			if(l.len) S["contents"]<<l
-			if(l!=contents) del(l)
+			if(l!=contents) qdel(l)
 	Read(savefile/S)
 		var/list/l
 		if(contents.len) l=contents
@@ -485,7 +486,7 @@ atom
 			if(istext(ic)) icon=swapmaps_iconcache[ic]
 		if(l && contents!=l)
 			contents+=l
-			del(l)
+			qdel(l)
 
 
 // set this up (at runtime) as follows:
@@ -585,7 +586,7 @@ proc/SwapMaps_CreateFromTemplate(template_id)
 	else if(swapmaps_mode!=SWAPMAPS_TEXT && fexists("map_[template_id].txt"))
 		text=1
 	else
-		world.log << "SwapMaps error in SwapMaps_CreateFromTemplate(): map_[template_id] file not found."
+		log_to_dd("SwapMaps error in SwapMaps_CreateFromTemplate(): map_[template_id] file not found.")
 		return
 	if(text)
 		S=new
@@ -612,7 +613,7 @@ proc/SwapMaps_LoadChunk(chunk_id,turf/locorner)
 	else if(swapmaps_mode!=SWAPMAPS_TEXT && fexists("map_[chunk_id].txt"))
 		text=1
 	else
-		world.log << "SwapMaps error in SwapMaps_LoadChunk(): map_[chunk_id] file not found."
+		log_to_dd("SwapMaps error in SwapMaps_LoadChunk(): map_[chunk_id] file not found.")
 		return
 	if(text)
 		S=new
@@ -625,14 +626,14 @@ proc/SwapMaps_LoadChunk(chunk_id,turf/locorner)
 	S.cd="//.0"
 	M.Read(S,M,locorner)
 	while(M.locked) sleep(1)
-	del(M)
+	qdel(M)
 	return 1
 
 proc/SwapMaps_SaveChunk(chunk_id,turf/corner1,turf/corner2)
 	if(!corner1 || !corner2)
-		world.log << "SwapMaps error in SwapMaps_SaveChunk():"
-		if(!corner1) world.log << "  corner1 turf is null"
-		if(!corner2) world.log << "  corner2 turf is null"
+		log_to_dd("SwapMaps error in SwapMaps_SaveChunk():")
+		if(!corner1) log_to_dd("  corner1 turf is null")
+		if(!corner2) log_to_dd("  corner2 turf is null")
 		return
 	var/swapmap/M=new
 	M.id=chunk_id
@@ -646,7 +647,7 @@ proc/SwapMaps_SaveChunk(chunk_id,turf/corner1,turf/corner2)
 	M.mode=swapmaps_mode
 	M.Save()
 	while(M.locked) sleep(1)
-	del(M)
+	qdel(M)
 	return 1
 
 proc/SwapMaps_GetSize(id)
@@ -659,7 +660,7 @@ proc/SwapMaps_GetSize(id)
 	else if(swapmaps_mode!=SWAPMAPS_TEXT && fexists("map_[id].txt"))
 		text=1
 	else
-		world.log << "SwapMaps error in SwapMaps_GetSize(): map_[id] file not found."
+		log_to_dd("SwapMaps error in SwapMaps_GetSize(): map_[id] file not found.")
 		return
 	if(text)
 		S=new

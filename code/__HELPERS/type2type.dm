@@ -2,7 +2,6 @@
  * Holds procs designed to change one type of value, into another.
  * Contains:
  *			hex2num & num2hex
- *			text2list & list2text
  *			file2list
  *			angle2dir
  *			angle2text
@@ -11,7 +10,7 @@
 
 //Returns an integer given a hex input
 /proc/hex2num(hex)
-	if (!( istext(hex) ))
+	if(!( istext(hex) ))
 		return
 
 	var/num = 0
@@ -45,198 +44,30 @@
 
 //Returns the hex value of a number given a value assumed to be a base-ten value
 /proc/num2hex(num, placeholder)
+	if(!isnum(num)) return
+	if(placeholder == null) placeholder = 2
 
-	if (placeholder == null)
-		placeholder = 2
-	if (!( isnum(num) ))
-		return
-	if (!( num ))
-		return "0"
 	var/hex = ""
-	var/i = 0
-	while(16 ** i < num)
-		i++
-	var/power = null
-	power = i - 1
-	while(power >= 0)
-		var/val = round(num / 16 ** power)
-		num -= val * 16 ** power
-		switch(val)
-			if(9.0, 8.0, 7.0, 6.0, 5.0, 4.0, 3.0, 2.0, 1.0, 0.0)
-				hex += text("[]", val)
-			if(10.0)
-				hex += "A"
-			if(11.0)
-				hex += "B"
-			if(12.0)
-				hex += "C"
-			if(13.0)
-				hex += "D"
-			if(14.0)
-				hex += "E"
-			if(15.0)
-				hex += "F"
-			else
-		power--
+	while(num)
+		var/val = num % 16
+		num = round(num / 16)
+
+		if(val > 9)
+			val = ascii2text(55 + val) // 65 - 70 correspond to "A" - "F"
+		hex = "[val][hex]"
 	while(length(hex) < placeholder)
-		hex = text("0[]", hex)
-	return hex
-
-// Concatenates a list of strings into a single string.  A seperator may optionally be provided.
-/proc/list2text(list/ls, sep)
-	if(ls.len <= 1) // Early-out code for empty or singleton lists.
-		return ls.len ? ls[1] : ""
-
-	var/l = ls.len // Made local for sanic speed.
-	var/i = 0 // Incremented every time a list index is accessed.
-
-	if(sep != null)
-		// Macros expand to long argument lists like so: sep, ls[++i], sep, ls[++i], sep, ls[++i], etc...
-		#define S1    sep, ls[++i]
-		#define S4    S1,  S1,  S1,  S1
-		#define S16   S4,  S4,  S4,  S4
-		#define S64   S16, S16, S16, S16
-
-		. = "[ls[++i]]" // Make sure the initial element is converted to text.
-
-		// Having the small concatenations come before the large ones boosted speed by an average of at least 5%.
-		if(l-1 & 0x01) // 'i' will always be 1 here.
-			. = text("[][][]", ., S1) // Append 1 element if the remaining elements are not a multiple of 2.
-		if(l-i & 0x02)
-			. = text("[][][][][]", ., S1, S1) // Append 2 elements if the remaining elements are not a multiple of 4.
-		if(l-i & 0x04)
-			. = text("[][][][][][][][][]", ., S4) // And so on....
-		if(l-i & 0x08)
-			. = text("[][][][][][][][][][][][][][][][][]", ., S4, S4)
-		if(l-i & 0x10)
-			. = text("[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]", ., S16)
-		if(l-i & 0x20)
-			. = text("[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]\
-	            [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]", ., S16, S16)
-		if(l-i & 0x40)
-			. = text("[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]\
-	            [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]\
-	            [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]\
-	            [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]", ., S64)
-		while(l > i) // Chomp through the rest of the list, 128 elements at a time.
-			. = text("[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]\
-	            [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]\
-	            [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]\
-	            [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]\
-	            [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]\
-	            [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]\
-	            [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]\
-	            [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]", ., S64, S64)
-
-		#undef S64
-		#undef S16
-		#undef S4
-		#undef S1
-
-	else
-		// Macros expand to long argument lists like so: ls[++i], ls[++i], ls[++i], etc...
-		#define S1    ls[++i]
-		#define S4    S1,  S1,  S1,  S1
-		#define S16   S4,  S4,  S4,  S4
-		#define S64   S16, S16, S16, S16
-
-		. = "[ls[++i]]" // Make sure the initial element is converted to text.
-
-		if(l-1 & 0x01) // 'i' will always be 1 here.
-			. += S1 // Append 1 element if the remaining elements are not a multiple of 2.
-		if(l-i & 0x02)
-			. = text("[][][]", ., S1, S1) // Append 2 elements if the remaining elements are not a multiple of 4.
-		if(l-i & 0x04)
-			. = text("[][][][][]", ., S4) // And so on...
-		if(l-i & 0x08)
-			. = text("[][][][][][][][][]", ., S4, S4)
-		if(l-i & 0x10)
-			. = text("[][][][][][][][][][][][][][][][][]", ., S16)
-		if(l-i & 0x20)
-			. = text("[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]", ., S16, S16)
-		if(l-i & 0x40)
-			. = text("[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]\
-	            [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]", ., S64)
-		while(l > i) // Chomp through the rest of the list, 128 elements at a time.
-			. = text("[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]\
-	            [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]\
-	            [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]\
-	            [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]", ., S64, S64)
-
-		#undef S64
-		#undef S16
-		#undef S4
-		#undef S1
-
-//slower then list2text, but correctly processes associative lists.
-proc/tg_list2text(list/list, glue=",", assocglue=";")
-	if(!istype(list) || !list.len)
-		return
-	var/output
-	for(var/i=1 to list.len)
-		if(!isnull(list["[list[i]]"]))
-			output += (i!=1? glue : null)+ "[list[i]]"+(i!=1? assocglue : null)+"[list["[list[i]]"]]"
-		else
-			output += (i!=1? glue : null)+ "[list[i]]"
-	return output
-
-proc/tg_text2list(text, glue=",", assocglue=";")
-	var/length = length(glue)
-	if(length < 1) return list(text)
-	. = list()
-	var/lastglue_found = 1
-	var/foundglue
-	var/foundassocglue
-	var/searchtext
-	do
-		foundglue = findtext(text, glue, lastglue_found, 0)
-		searchtext = copytext(text, lastglue_found, foundglue)
-		foundassocglue = findtext(searchtext, assocglue, 1, 0)
-		if(foundassocglue)
-			var/sublist = copytext(searchtext, 1, foundassocglue)
-			sublist[1] = copytext(searchtext, foundassocglue, 0)
-			. += sublist
-		else
-			. += copytext(text, lastglue_found, foundglue)
-		lastglue_found = foundglue + length
-	while(foundglue)
-
-
-//Converts a string into a list by splitting the string at each delimiter found. (discarding the seperator)
-/proc/text2list(text, delimiter="\n")
-	var/delim_len = length(delimiter)
-	if(delim_len < 1) return list(text)
-	. = list()
-	var/last_found = 1
-	var/found
-	do
-		found = findtext(text, delimiter, last_found, 0)
-		. += copytext(text, last_found, found)
-		last_found = found + delim_len
-	while(found)
-
-//Case Sensitive!
-/proc/text2listEx(text, delimiter="\n")
-	var/delim_len = length(delimiter)
-	if(delim_len < 1) return list(text)
-	. = list()
-	var/last_found = 1
-	var/found
-	do
-		found = findtextEx(text, delimiter, last_found, 0)
-		. += copytext(text, last_found, found)
-		last_found = found + delim_len
-	while(found)
+		hex = "0[hex]"
+	return hex || "0"
 
 /proc/text2numlist(text, delimiter="\n")
 	var/list/num_list = list()
-	for(var/x in text2list(text, delimiter))
+	for(var/x in splittext(text, delimiter))
 		num_list += text2num(x)
 	return num_list
 
 //Splits the text of a file at seperator and returns them in a list.
 /proc/file2list(filename, seperator="\n")
-	return text2list(return_file_text(filename),seperator)
+	return splittext(return_file_text(filename),seperator)
 
 
 //Turns a direction into text
@@ -248,7 +79,7 @@ proc/tg_text2list(text, glue=",", assocglue=";")
 		if(4.0) return EAST
 		if(8.0) return WEST
 		else
-			world.log << "UNKNOWN DIRECTION: [direction]"
+			log_to_dd("UNKNOWN DIRECTION: [direction]")
 
 /proc/dir2text(direction)
 	switch(direction)
@@ -346,14 +177,76 @@ proc/tg_text2list(text, glue=",", assocglue=";")
 	if(rights & R_VAREDIT)		. += "[seperator]+VAREDIT"
 	if(rights & R_SOUNDS)		. += "[seperator]+SOUND"
 	if(rights & R_SPAWN)		. += "[seperator]+SPAWN"
+	if(rights & R_PROCCALL)		. += "[seperator]+PROCCALL"
 	if(rights & R_MOD)			. += "[seperator]+MODERATOR"
 	if(rights & R_MENTOR)		. += "[seperator]+MENTOR"
 	return .
 
 /proc/ui_style2icon(ui_style)
 	switch(ui_style)
-		if("Midnight")  return 'icons/mob/screen1_Midnight.dmi'
-		else      return 'icons/mob/screen1_White.dmi'
+		if("Retro")
+			return 'icons/mob/screen_retro.dmi'
+		if("Plasmafire")
+			return 'icons/mob/screen_plasmafire.dmi'
+		if("Slimecore")
+			return 'icons/mob/screen_slimecore.dmi'
+		if("Operative")
+			return 'icons/mob/screen_operative.dmi'
+		if("White")
+			return 'icons/mob/screen_white.dmi'
+		else
+			return 'icons/mob/screen_midnight.dmi'
+
+//colour formats
+/proc/rgb2hsl(red, green, blue)
+	red /= 255;green /= 255;blue /= 255;
+	var/max = max(red,green,blue)
+	var/min = min(red,green,blue)
+	var/range = max-min
+
+	var/hue=0;var/saturation=0;var/lightness=0;
+	lightness = (max + min)/2
+	if(range != 0)
+		if(lightness < 0.5)	saturation = range/(max+min)
+		else				saturation = range/(2-max-min)
+
+		var/dred = ((max-red)/(6*max)) + 0.5
+		var/dgreen = ((max-green)/(6*max)) + 0.5
+		var/dblue = ((max-blue)/(6*max)) + 0.5
+
+		if(max==red)		hue = dblue - dgreen
+		else if(max==green)	hue = dred - dblue + (1/3)
+		else				hue = dgreen - dred + (2/3)
+		if(hue < 0)			hue++
+		else if(hue > 1)	hue--
+
+	return list(hue, saturation, lightness)
+
+/proc/hsl2rgb(hue, saturation, lightness)
+	var/red;var/green;var/blue;
+	if(saturation == 0)
+		red = lightness * 255
+		green = red
+		blue = red
+	else
+		var/a;var/b;
+		if(lightness < 0.5)	b = lightness*(1+saturation)
+		else				b = (lightness+saturation) - (saturation*lightness)
+		a = 2*lightness - b
+
+		red = round(255 * hue2rgb(a, b, hue+(1/3)))
+		green = round(255 * hue2rgb(a, b, hue))
+		blue = round(255 * hue2rgb(a, b, hue-(1/3)))
+
+	return list(red, green, blue)
+
+/proc/hue2rgb(a, b, hue)
+	if(hue < 0)			hue++
+	else if(hue > 1)	hue--
+	if(6*hue < 1)	return (a+(b-a)*6*hue)
+	if(2*hue < 1)	return b
+	if(3*hue < 2)	return (a+(b-a)*((2/3)-hue)*6)
+	return a
 
 /proc/num2septext(var/theNum, var/sigFig = 7,var/sep=",") // default sigFig (1,000,000)
 	var/finalNum = num2text(theNum, sigFig)
@@ -366,3 +259,51 @@ proc/tg_text2list(text, glue=",", assocglue=";")
 		finalNum = copytext(finalNum, 1, pos) + sep + copytext(finalNum, pos)
 
 	return finalNum
+
+
+// heat2color functions. Adapted from: http://www.tannerhelland.com/4435/convert-temperature-rgb-algorithm-code/
+/proc/heat2color(temp)
+	return rgb(heat2color_r(temp), heat2color_g(temp), heat2color_b(temp))
+
+/proc/heat2color_r(temp)
+	temp /= 100
+	if(temp <= 66)
+		. = 255
+	else
+		. = max(0, min(255, 329.698727446 * (temp - 60) ** -0.1332047592))
+
+/proc/heat2color_g(temp)
+	temp /= 100
+	if(temp <= 66)
+		. = max(0, min(255, 99.4708025861 * log(temp) - 161.1195681661))
+	else
+		. = max(0, min(255, 288.1221695283 * ((temp - 60) ** -0.0755148492)))
+
+/proc/heat2color_b(temp)
+	temp /= 100
+	if(temp >= 66)
+		. = 255
+	else
+		if(temp <= 16)
+			. = 0
+		else
+			. = max(0, min(255, 138.5177312231 * log(temp - 10) - 305.0447927307))
+
+//Argument: Give this a space-separated string consisting of 6 numbers. Returns null if you don't
+/proc/text2matrix(var/matrixtext)
+	var/list/matrixtext_list = splittext(matrixtext, " ")
+	var/list/matrix_list = list()
+	for(var/item in matrixtext_list)
+		var/entry = text2num(item)
+		if(entry == null)
+			return null
+		matrix_list += entry
+	if(matrix_list.len < 6)
+		return null
+	var/a = matrix_list[1]
+	var/b = matrix_list[2]
+	var/c = matrix_list[3]
+	var/d = matrix_list[4]
+	var/e = matrix_list[5]
+	var/f = matrix_list[6]
+	return matrix(a, b, c, d, e, f)

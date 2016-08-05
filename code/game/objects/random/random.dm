@@ -9,9 +9,9 @@
 // creates a new object and deletes itself
 /obj/random/New()
 	..()
-	if (!prob(spawn_nothing_percentage))
+	if(!prob(spawn_nothing_percentage))
 		spawn_item()
-	del src
+	qdel(src)
 
 
 // this function should return a specific item to spawn
@@ -101,4 +101,5 @@
 					prob(3);/obj/item/stack/cable_coil,\
 					prob(2);/obj/random/toolbox,\
 					prob(2);/obj/item/weapon/storage/belt/utility,\
-					prob(5);/obj/random/tool)
+					prob(5);/obj/random/tool,\
+					prob(3);/obj/item/stack/tape_roll)

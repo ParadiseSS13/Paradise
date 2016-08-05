@@ -8,9 +8,9 @@
 
 /datum/artifact_effect/robohurt/DoEffectTouch(var/mob/user)
 	if(user)
-		if (istype(user, /mob/living/silicon/robot))
+		if(istype(user, /mob/living/silicon/robot))
 			var/mob/living/silicon/robot/R = user
-			R << "\red Your systems report severe damage has been inflicted!"
+			to_chat(R, "\red Your systems report severe damage has been inflicted!")
 			R.adjustBruteLoss(rand(10,50))
 			R.adjustFireLoss(rand(10,50))
 			return 1
@@ -18,8 +18,9 @@
 /datum/artifact_effect/robohurt/DoEffectAura()
 	if(holder)
 		var/turf/T = get_turf(holder)
-		for (var/mob/living/silicon/robot/M in range(src.effectrange,T))
-			if(prob(10)) M << "\red SYSTEM ALERT: Harmful energy field detected!"
+		for(var/mob/living/silicon/robot/M in range(src.effectrange,T))
+			if(prob(10))
+				to_chat(M, "\red SYSTEM ALERT: Harmful energy field detected!")
 			M.adjustBruteLoss(1)
 			M.adjustFireLoss(1)
 			M.updatehealth()
@@ -28,8 +29,8 @@
 /datum/artifact_effect/robohurt/DoEffectPulse()
 	if(holder)
 		var/turf/T = get_turf(holder)
-		for (var/mob/living/silicon/robot/M in range(src.effectrange,T))
-			M << "\red SYSTEM ALERT: Structural damage inflicted by energy pulse!"
+		for(var/mob/living/silicon/robot/M in range(src.effectrange,T))
+			to_chat(M, "\red SYSTEM ALERT: Structural damage inflicted by energy pulse!")
 			M.adjustBruteLoss(10)
 			M.adjustFireLoss(10)
 			M.updatehealth()

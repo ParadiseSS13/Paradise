@@ -5,35 +5,37 @@
 
 
 /obj/machinery/computer/message_monitor
-	name = "Message Monitor Console"
-	desc = "Used to Monitor the crew's messages, that are sent via PDA. Can also be used to view Request Console messages."
-	icon_state = "comm_logs"
-	var/hack_icon = "comm_logsc"
+	name = "message monitoring console"
+	desc = "Used to monitor the crew's messages that are sent via PDA. It can also be used to view Request Console messages."
+	icon_screen = "comm_logs"
+	light_color = LIGHT_COLOR_GREEN
+	var/hack_icon = "tcboss"
 	var/normal_icon = "comm_logs"
-	circuit = "/obj/item/weapon/circuitboard/message_monitor"
+	circuit = /obj/item/weapon/circuitboard/message_monitor
 	//Server linked to.
 	var/obj/machinery/message_server/linkedServer = null
 	//Sparks effect - For emag
-	var/datum/effect/effect/system/spark_spread/spark_system = new /datum/effect/effect/system/spark_spread
+	var/datum/effect/system/spark_spread/spark_system = new /datum/effect/system/spark_spread
 	//Messages - Saves me time if I want to change something.
 	var/noserver = "<span class='alert'>ALERT: No server detected.</span>"
 	var/incorrectkey = "<span class='warning'>ALERT: Incorrect decryption key!</span>"
 	var/defaultmsg = "<span class='notice'>Welcome. Please select an option.</span>"
 	var/rebootmsg = "<span class='warning'>%$&(£: Critical %$$@ Error // !RestArting! <lOadiNg backUp iNput ouTput> - ?pLeaSe wAit!</span>"
 	//Computer properties
-	var/screen = 0 		// 0 = Main menu, 1 = Message Logs, 2 = Hacked screen, 3 = Custom Message
+	var/screen = 0 		// 0 = Main menu, 1 = Message Logs, 2 = Hacked screen, 3 = Custom Message, 4 = chat room selection, 5 = chat room logs
 	var/hacking = 0		// Is it being hacked into by the AI/Cyborg
 	var/emag = 0		// When it is emagged.
 	var/message = "<span class='notice'>System bootup complete. Please select an option.</span>"	// The message that shows on the main menu.
 	var/auth = 0 // Are they authenticated?
-	var/optioncount = 7
+	var/optioncount = 8
 	// Custom Message Properties
 	var/customsender = "System Administrator"
 	var/obj/item/device/pda/customrecepient = null
 	var/customjob		= "Admin"
 	var/custommessage 	= "This is a test, please ignore."
+	var/datum/chatroom/current_chatroom = null
 
-	l_color = "#50AB00"
+	light_color = LIGHT_COLOR_DARKGREEN
 
 
 /obj/machinery/computer/message_monitor/attackby(obj/item/weapon/O as obj, mob/living/user as mob, params)
@@ -43,51 +45,55 @@
 		return
 	if(isscrewdriver(O) && emag)
 		//Stops people from just unscrewing the monitor and putting it back to get the console working again.
-		user << "<span class='warning'>It is too hot to mess with!</span>"
+		to_chat(user, "<span class='warning'>It is too hot to mess with!</span>")
 		return
 
 	..()
 	return
-	
+
 /obj/machinery/computer/message_monitor/emag_act(user as mob)
 	// Will create sparks and print out the console's password. You will then have to wait a while for the console to be back online.
 	// It'll take more time if there's more characters in the password..
 	if(!emag)
 		if(!isnull(src.linkedServer))
-			icon_state = hack_icon // An error screen I made in the computers.dmi
+			icon_screen = hack_icon // An error screen I made in the computers.dmi
 			emag = 1
 			screen = 2
 			spark_system.set_up(5, 0, src)
 			src.spark_system.start()
 			var/obj/item/weapon/paper/monitorkey/MK = new/obj/item/weapon/paper/monitorkey
 			MK.loc = src.loc
+			playsound(loc, "sound/goonstation/machines/printer_dotmatrix.ogg", 50, 1)
 			// Will help make emagging the console not so easy to get away with.
 			MK.info += "<br><br><font color='red'>£%@%(*$%&(£&?*(%&£/{}</font>"
-			spawn(100*length(src.linkedServer.decryptkey)) UnmagConsole()
+			update_icon()
+			spawn(100*length(src.linkedServer.decryptkey))
+				UnmagConsole()
+				update_icon()
 			message = rebootmsg
 		else
-			user << "<span class='notice'>A no server error appears on the screen.</span>"
+			to_chat(user, "<span class='notice'>A no server error appears on the screen.</span>")
 
 /obj/machinery/computer/message_monitor/update_icon()
-	..()
-	if(stat & (NOPOWER|BROKEN))
-		return
 	if(emag || hacking)
-		icon_state = hack_icon
+		icon_screen = hack_icon
 	else
-		icon_state = normal_icon
+		icon_screen = normal_icon
+
+	..()
 
 /obj/machinery/computer/message_monitor/initialize()
+	..()
 	//Is the server isn't linked to a server, and there's a server available, default it to the first one in the list.
 	if(!linkedServer)
 		if(message_servers && message_servers.len > 0)
 			linkedServer = message_servers[1]
 	return
 
-/obj/machinery/computer/message_monitor/attack_hand(var/mob/living/user as mob)
-	if(stat & (NOPOWER|BROKEN))
+/obj/machinery/computer/message_monitor/attack_hand(var/mob/user as mob)
+	if(..())
 		return
-	if(!istype(user))
+	if(stat & (NOPOWER|BROKEN))
 		return
 	//If the computer is being hacked or is emagged, display the reboot message.
 	if(hacking || emag)
@@ -125,6 +131,7 @@
 					dat += "<dd><A href='?src=\ref[src];clearr=1'>&#09;[++i]. Clear Request Console Logs</a><br></dd>"
 					dat += "<dd><A href='?src=\ref[src];pass=1'>&#09;[++i]. Set Custom Key</a><br></dd>"
 					dat += "<dd><A href='?src=\ref[src];msg=1'>&#09;[++i]. Send Admin Message</a><br></dd>"
+					dat += "<dd><A href='?src=\ref[src];chatroom=1'>&#09;[++i]. View Chatrooms</a><br></dd>"
 			else
 				for(var/n = ++i; n <= optioncount; n++)
 					dat += "<dd><font color='blue'>&#09;[n]. ---------------</font><br></dd>"
@@ -242,7 +249,41 @@
 				dat += {"<tr><td width = '5%'><center><A href='?src=\ref[src];deleter=\ref[rc]' style='color: rgb(255,0,0)'>X</a></center></td><td width='15%'>[rc.send_dpt]</td>
 				<td width='15%'>[rc.rec_dpt]</td><td width='300px'>[rc.message]</td><td width='15%'>[rc.stamp]</td><td width='15%'>[rc.id_auth]</td><td width='15%'>[rc.priority]</td></tr>"}
 			dat += "</table>"
-
+		//Chat room list
+		if(5)
+			dat += "<center><A href='?src=\ref[src];back=1'>Back</a> - <A href='?src=\ref[src];refresh=1'>Refresh</center><hr>"
+			dat += {"<table border='1' width='100%'>
+					<tr>
+					<th width='40%'>Room Name</th>
+					<th width='20%'>Users</th>
+					<th width='20%'>Invites</th>
+					<th width='20%'>Messages</th>
+					</tr>"}
+			for(var/datum/chatroom/C in chatrooms)
+				var/list/invites = (C.invites - C.users)
+				dat += {"<tr>
+					<td><a href='?src=\ref[src];viewroom=\ref[C]'>[C.name]</a></td>
+					<td>[C.users.len]</td>
+					<td>[invites.len]</td>
+					<td>[C.logs.len]</td>
+					</tr>"}
+			dat += "</table>"
+		//View chat room logs
+		if(6)
+			dat += "<center><A href='?src=\ref[src];chatroom=1'>Back</a> - <A href='?src=\ref[src];refresh=1'>Refresh</center><hr>"
+			dat += {"<table border='1' width='100%'>
+					<tr>
+					<th width='25%'>Name</th>
+					<th width='75%'>Message</th>
+					</tr>"}
+			if(current_chatroom)
+				for(var/M in current_chatroom.logs)
+					var/list/message = M
+					dat += {"<tr>
+						<td>[message["username"]]</td>
+						<td>[message["message"]]</td>
+						</tr>"}
+			dat += "</table>"
 
 	dat += "</body>"
 	message = defaultmsg
@@ -255,16 +296,16 @@
 
 /obj/machinery/computer/message_monitor/proc/BruteForce(mob/user as mob)
 	if(isnull(linkedServer))
-		user << "<span class='warning'>Could not complete brute-force: Linked Server Disconnected!</span>"
+		to_chat(user, "<span class='warning'>Could not complete brute-force: Linked Server Disconnected!</span>")
 	else
 		var/currentKey = src.linkedServer.decryptkey
-		user << "<span class='warning'>Brute-force completed! The key is '[currentKey]'.</span>"
+		to_chat(user, "<span class='warning'>Brute-force completed! The key is '[currentKey]'.</span>")
 	src.hacking = 0
-	src.icon_state = normal_icon
+	src.icon_screen = normal_icon
 	src.screen = 0 // Return the screen back to normal
 
 /obj/machinery/computer/message_monitor/proc/UnmagConsole()
-	src.icon_state = normal_icon
+	src.icon_screen = normal_icon
 	src.emag = 0
 
 /obj/machinery/computer/message_monitor/proc/ResetMessage()
@@ -274,15 +315,11 @@
 	customjob 		= "Admin"
 
 /obj/machinery/computer/message_monitor/Topic(href, href_list)
-	if(..())
+	if(..(href, href_list))
 		return 1
-	if(stat & (NOPOWER|BROKEN))
-		return
-	if(!istype(usr, /mob/living))
-		return
-	if ((usr.contents.Find(src) || (in_range(src, usr) && istype(src.loc, /turf))) || (istype(usr, /mob/living/silicon)))
+	if((usr.contents.Find(src) || (in_range(src, usr) && istype(src.loc, /turf))) || (istype(usr, /mob/living/silicon)))
 		//Authenticate
-		if (href_list["auth"])
+		if(href_list["auth"])
 			if(auth)
 				auth = 0
 				screen = 0
@@ -295,10 +332,10 @@
 						message = incorrectkey
 
 		//Turn the server on/off.
-		if (href_list["active"])
+		if(href_list["active"])
 			if(auth) linkedServer.active = !linkedServer.active
 		//Find a server
-		if (href_list["find"])
+		if(href_list["find"])
 			if(message_servers && message_servers.len > 1)
 				src.linkedServer = input(usr,"Please select a server.", "Select a server.", null) as null|anything in message_servers
 				message = "<span class='alert'>NOTICE: Server selected.</span>"
@@ -309,7 +346,7 @@
 				message = noserver
 
 		//View the logs - KEY REQUIRED
-		if (href_list["view"])
+		if(href_list["view"])
 			if(src.linkedServer == null || (src.linkedServer.stat & (NOPOWER|BROKEN)))
 				message = noserver
 			else
@@ -317,7 +354,7 @@
 					src.screen = 1
 
 		//Clears the logs - KEY REQUIRED
-		if (href_list["clear"])
+		if(href_list["clear"])
 			if(!linkedServer || (src.linkedServer.stat & (NOPOWER|BROKEN)))
 				message = noserver
 			else
@@ -325,7 +362,7 @@
 					src.linkedServer.pda_msgs = list()
 					message = "<span class='notice'>NOTICE: Logs cleared.</span>"
 		//Clears the request console logs - KEY REQUIRED
-		if (href_list["clearr"])
+		if(href_list["clearr"])
 			if(!linkedServer || (src.linkedServer.stat & (NOPOWER|BROKEN)))
 				message = noserver
 			else
@@ -333,7 +370,7 @@
 					src.linkedServer.rc_msgs = list()
 					message = "<span class='notice'>NOTICE: Logs cleared.</span>"
 		//Change the password - KEY REQUIRED
-		if (href_list["pass"])
+		if(href_list["pass"])
 			if(!linkedServer || (src.linkedServer.stat & (NOPOWER|BROKEN)))
 				message = noserver
 			else
@@ -353,17 +390,17 @@
 							message = incorrectkey
 
 		//Hack the Console to get the password
-		if (href_list["hack"])
+		if(href_list["hack"])
 			if((istype(usr, /mob/living/silicon/ai) || istype(usr, /mob/living/silicon/robot)) && (usr.mind.special_role && usr.mind.original == usr))
 				src.hacking = 1
 				src.screen = 2
-				src.icon_state = hack_icon
+				src.icon_screen = hack_icon
 				//Time it takes to bruteforce is dependant on the password length.
 				spawn(100*length(src.linkedServer.decryptkey))
 					if(src && src.linkedServer && usr)
 						BruteForce(usr)
 		//Delete the log.
-		if (href_list["delete"])
+		if(href_list["delete"])
 			//Are they on the view logs screen?
 			if(screen == 1)
 				if(!linkedServer || (src.linkedServer.stat & (NOPOWER|BROKEN)))
@@ -372,7 +409,7 @@
 					src.linkedServer.pda_msgs -= locate(href_list["delete"])
 					message = "<span class='notice'>NOTICE: Log Deleted!</span>"
 		//Delete the request console log.
-		if (href_list["deleter"])
+		if(href_list["deleter"])
 			//Are they on the view logs screen?
 			if(screen == 4)
 				if(!linkedServer || (src.linkedServer.stat & (NOPOWER|BROKEN)))
@@ -381,14 +418,14 @@
 					src.linkedServer.rc_msgs -= locate(href_list["deleter"])
 					message = "<span class='notice'>NOTICE: Log Deleted!</span>"
 		//Create a custom message
-		if (href_list["msg"])
+		if(href_list["msg"])
 			if(src.linkedServer == null || (src.linkedServer.stat & (NOPOWER|BROKEN)))
 				message = noserver
 			else
 				if(auth)
 					src.screen = 3
 		//Fake messaging selection - KEY REQUIRED
-		if (href_list["select"])
+		if(href_list["select"])
 			if(src.linkedServer == null || (src.linkedServer.stat & (NOPOWER|BROKEN)))
 				message = noserver
 				screen = 0
@@ -408,7 +445,10 @@
 						//Get out list of viable PDAs
 						var/list/obj/item/device/pda/sendPDAs = list()
 						for(var/obj/item/device/pda/P in PDAs)
-							if(!P.owner || P.toff || P.hidden) continue
+							var/datum/data/pda/app/messenger/PM = P.find_program(/datum/data/pda/app/messenger)
+
+							if(!PM || !PM.can_receive())
+								continue
 							sendPDAs += P
 						if(PDAs && PDAs.len > 0)
 							customrecepient = input(usr, "Select a PDA from the list.") as null|anything in sortAtom(sendPDAs)
@@ -426,7 +466,6 @@
 
 					//Send message
 					if("Send")
-
 						if(isnull(customsender) || customsender == "")
 							customsender = "UNKNOWN"
 
@@ -438,42 +477,36 @@
 							message = "<span class='notice'>NOTICE: No message entered!</span>"
 							return src.attack_hand(usr)
 
+						var/datum/data/pda/app/messenger/recipient_messenger = customrecepient.find_program(/datum/data/pda/app/messenger)
+
+						if(!recipient_messenger)
+							message = "<span class='warning'>ERROR: Message could not be transmitted!</span>"
+							return src.attack_hand(usr)
+
 						var/obj/item/device/pda/PDARec = null
-						for (var/obj/item/device/pda/P in PDAs)
-							if (!P.owner || P.toff || P.hidden)	continue
+						for(var/obj/item/device/pda/P in PDAs)
+							var/datum/data/pda/app/messenger/PM = P.find_program(/datum/data/pda/app/messenger)
+
+							if(!PM || !PM.can_receive())
+								continue
 							if(P.owner == customsender)
 								PDARec = P
+								break
 						//Sender isn't faking as someone who exists
 						if(isnull(PDARec))
 							src.linkedServer.send_pda_message("[customrecepient.owner]", "[customsender]","[custommessage]")
-							if (!customrecepient.silent)
-								playsound(customrecepient.loc, 'sound/machines/twobeep.ogg', 50, 1)
-								for (var/mob/O in hearers(3, customrecepient.loc))
-									O.show_message(text("\icon[customrecepient] *[customrecepient.ttone]*"))
-								if( customrecepient.loc && ishuman(customrecepient.loc) )
-									var/mob/living/carbon/human/H = customrecepient.loc
-									H << "\icon[customrecepient] <b>Message from [customsender] ([customjob]), </b>\"[custommessage]\" (<a href='byond://?src=\ref[src];choice=Message;skiprefresh=1;target=\ref[src]'>Reply</a>)"
-								log_pda("[usr] (PDA: [customsender]) sent \"[custommessage]\" to [customrecepient.owner]")
-								customrecepient.overlays.Cut()
-								customrecepient.overlays += image('icons/obj/pda.dmi', "pda-r")
+							recipient_messenger.notify("<b>Message from [customsender] ([customjob]), </b>\"[custommessage]\" (<a href='?src=\ref[src];choice=Message;target=\ref[src]'>Reply</a>)")
+							log_pda("[usr] (PDA: [customsender]) sent \"[custommessage]\" to [customrecepient.owner]")
 						//Sender is faking as someone who exists
 						else
 							src.linkedServer.send_pda_message("[customrecepient.owner]", "[PDARec.owner]","[custommessage]")
-							customrecepient.tnote.Add(list(list("sent" = 0, "owner" = "[PDARec.owner]", "job" = "[customjob]", "message" = "[custommessage]", "target" ="\ref[PDARec]")))
+							recipient_messenger.tnote.Add(list(list("sent" = 0, "owner" = "[PDARec.owner]", "job" = "[customjob]", "message" = "[custommessage]", "target" ="\ref[PDARec]")))
 
-							if(!customrecepient.conversations.Find("\ref[PDARec]"))
-								customrecepient.conversations.Add("\ref[PDARec]")
+							if(!recipient_messenger.conversations.Find("\ref[PDARec]"))
+								recipient_messenger.conversations.Add("\ref[PDARec]")
 
-							if (!customrecepient.silent)
-								playsound(customrecepient.loc, 'sound/machines/twobeep.ogg', 50, 1)
-								for (var/mob/O in hearers(3, customrecepient.loc))
-									O.show_message(text("\icon[customrecepient] *[customrecepient.ttone]*"))
-								if( customrecepient.loc && ishuman(customrecepient.loc) )
-									var/mob/living/carbon/human/H = customrecepient.loc
-									H << "\icon[customrecepient] <b>Message from [PDARec.owner] ([customjob]), </b>\"[custommessage]\" (<a href='byond://?src=\ref[customrecepient];choice=Message;skiprefresh=1;target=\ref[PDARec]'>Reply</a>)"
-								log_pda("[usr] (PDA: [PDARec.owner]) sent \"[custommessage]\" to [customrecepient.owner]")
-								customrecepient.overlays.Cut()
-								customrecepient.overlays += image('icons/obj/pda.dmi', "pda-r")
+							recipient_messenger.notify("<b>Message from [PDARec.owner] ([customjob]), </b>\"[custommessage]\" (<a href='?src=\ref[recipient_messenger];choice=Message;target=\ref[PDARec]'>Reply</a>)")
+							log_pda("[usr] (PDA: [PDARec.owner]) sent \"[custommessage]\" to [customrecepient.owner]")
 						//Finally..
 						ResetMessage()
 
@@ -485,10 +518,23 @@
 				if(auth)
 					src.screen = 4
 
-			//usr << href_list["select"]
+//			to_chat(usr, href_list["select"])
 
-		if (href_list["back"])
+		if(href_list["back"])
 			src.screen = 0
+		// View chat room list
+		if(href_list["chatroom"])
+			if(!linkedServer || (linkedServer.stat & (NOPOWER|BROKEN)))
+				message = noserver
+			else if(auth)
+				screen = 5
+		if(href_list["viewroom"])
+			if(!linkedServer || (linkedServer.stat & (NOPOWER|BROKEN)))
+				message = noserver
+			else if(auth)
+				current_chatroom = locate(href_list["viewroom"])
+				if(current_chatroom)
+					screen = 6
 
 	return src.attack_hand(usr)
 

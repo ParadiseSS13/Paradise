@@ -1,0 +1,215 @@
+<!--
+Title: Operating Computer UI
+Used In File(s): \code\game\machinery\computer\Operating.dm
+ -->
+<h3>Patient Monitor</h3>
+
+<div class="statusDisplay">
+	{{if data.choice==0}}
+		{{if !data.hasOccupant}}
+			<div class="line">No Patient Detected</div>
+		{{else}}
+			<div class="line">
+					{{:data.occupant.name}}&nbsp;=>&nbsp;
+				{{if data.occupant.stat == 0}}
+					<span class="good">Conscious</span>
+				{{else data.occupant.stat == 1}}
+					<span class="average">Unconscious</span>
+				{{else}}
+					<span class="bad">DEAD</span>
+				{{/if}}
+			</div>
+
+			<div class="line">
+				<div class="statusLabel">Health:</div>
+					{{if data.occupant.health >= data.occupant.maxHealth}}
+						{{:helper.displayBar(data.occupant.health, 0, data.occupant.maxHealth, 'good')}}
+					{{else data.occupant.health > 0}}
+						{{:helper.displayBar(data.occupant.health, 0, data.occupant.maxHealth, 'average')}}
+					{{else data.occupant.health >= data.minhealth}}
+						{{:helper.displayBar(data.occupant.health, 0, data.occupant.minHealth, 'average alignRight')}}
+					{{else}}
+						{{:helper.displayBar(data.occupant.health, 0, data.occupant.minHealth, 'bad alignRight')}}
+					{{/if}}
+					<div class="statusValue">{{:helper.smoothRound(data.occupant.health)}}</div>
+				</div>
+
+				<div class="line">
+					<div class="statusLabel">Brute Damage:</div>
+					{{:helper.displayBar(data.occupant.bruteLoss, 0, data.occupant.maxHealth, 'bad')}}
+					<div class="statusValue">{{:helper.smoothRound(data.occupant.bruteLoss)}}</div>
+				</div>
+
+				<div class="line">
+					<div class="statusLabel">Resp. Damage:</div>
+					{{:helper.displayBar(data.occupant.oxyLoss, 0, data.occupant.maxHealth, 'bad')}}
+					<div class="statusValue">{{:helper.smoothRound(data.occupant.oxyLoss)}}</div>
+				</div>
+
+				<div class="line">
+					<div class="statusLabel">Toxin Damage:</div>
+					{{:helper.displayBar(data.occupant.toxLoss, 0, data.occupant.maxHealth, 'bad')}}
+					<div class="statusValue">{{:helper.smoothRound(data.occupant.toxLoss)}}</div>
+				</div>
+
+				<div class="line">
+					<div class="statusLabel">Burn Severity:</div>
+					{{:helper.displayBar(data.occupant.fireLoss, 0, data.occupant.maxHealth, 'bad')}}
+					<div class="statusValue">{{:helper.smoothRound(data.occupant.fireLoss)}}</div>
+				</div>
+
+				<div class="line">
+					<div class="statusLabel">Patient Temperature:</div>
+					{{if data.occupant.temperatureSuitability == -3}}
+					{{:helper.displayBar(data.occupant.bodyTemperature, 0, data.occupant.maxTemp, 'bad')}}
+					<div class="statusValue bad">{{:helper.smoothRound(data.occupant.btCelsius)}}&deg;C, {{:helper.smoothRound(data.occupant.btFaren)}}&deg;F</div>
+					{{else data.occupant.temperatureSuitability == -2}}
+					{{:helper.displayBar(data.occupant.bodyTemperature, 0, data.occupant.maxTemp, 'average')}}
+					<div class="statusValue bad">{{:helper.smoothRound(data.occupant.btCelsius)}}&deg;C, {{:helper.smoothRound(data.occupant.btFaren)}}&deg;F</div>
+					{{else data.occupant.temperatureSuitability == -1}}
+					{{:helper.displayBar(data.occupant.bodyTemperature, 0, data.occupant.maxTemp, 'average')}}
+					<div class="statusValue">{{:helper.smoothRound(data.occupant.btCelsius)}}&deg;C, {{:helper.helper.smoothRound(data.occupant.btFaren)}}&deg;F</div>
+					{{else data.occupant.temperatureSuitability == 0}}
+					{{:helper.displayBar(data.occupant.bodyTemperature, 0, data.occupant.maxTemp, 'good')}}
+					<div class="statusValue">{{:helper.smoothRound(data.occupant.btCelsius)}}&deg;C, {{:helper.smoothRound(data.occupant.btFaren)}}&deg;F</div>
+					{{else data.occupant.temperatureSuitability == 1}}
+					{{:helper.displayBar(data.occupant.bodyTemperature, 0, data.occupant.maxTemp, 'average')}}
+					<div class="statusValue">{{:helper.smoothRound(data.occupant.btCelsius)}}&deg;C, {{:helper.smoothRound(data.occupant.btFaren)}}&deg;F</div>
+					{{else data.occupant.temperatureSuitability == 2}}
+					{{:helper.displayBar(data.occupant.bodyTemperature, 0, data.occupant.maxTemp, 'average')}}
+					<div class="statusValue bad">{{:helper.smoothRound(data.occupant.btCelsius)}}&deg;C, {{:helper.smoothRound(data.occupant.btFaren)}}&deg;F</div>
+					{{else data.occupant.temperatureSuitability == 3}}
+					{{:helper.displayBar(data.occupant.bodyTemperature, 0, data.occupant.maxTemp, 'bad')}}
+					<div class="statusValue bad">{{:helper.smoothRound(data.occupant.btCelsius)}}&deg;C, {{:helper.smoothRound(data.occupant.btFaren)}}&deg;F</div>
+					{{/if}}
+				</div>
+				{{if data.occupant.hasBlood}}
+				<br>
+				<div class="line">
+					<div class="statusLabel">Blood Level:</div>
+					{{if data.occupant.bloodPercent <= 60}}
+						{{:helper.displayBar(data.occupant.bloodLevel, 0, data.occupant.bloodMax, 'bad')}}
+					<div class="statusValue">
+						{{:helper.smoothRound(data.occupant.bloodPercent)}}%, {{:helper.smoothRound(data.occupant.bloodLevel)}}cl
+					</div>
+					{{else data.occupant.bloodPercent <= 90}}
+						{{:helper.displayBar(data.occupant.bloodLevel, 0, data.occupant.bloodMax, 'average')}}
+					<div class="statusValue">
+						{{:helper.smoothRound(data.occupant.bloodPercent)}}%, {{:helper.smoothRound(data.occupant.bloodLevel)}}cl
+					</div>
+					{{else}}
+						{{:helper.displayBar(data.occupant.bloodLevel, 0, data.occupant.bloodMax, 'good')}}
+					<div class="statusValue">
+						{{:helper.smoothRound(data.occupant.bloodPercent)}}%, {{:helper.smoothRound(data.occupant.bloodLevel)}}cl
+					</div>
+					{{/if}}
+					<div class="line">
+						<div class="statusLabel">Blood Type:</div> <div class="statusValue">{{:data.occupant.bloodType}}</div>
+					</div>
+				</div>
+				<div class="line">
+					<div class="statusLabel">Pulse:</div> <div class="statusValue">{{:data.occupant.pulse}} bpm</div>
+				</div>
+				{{/if}}
+				{{if data.occupant.inSurgery}}
+				<div class="line">
+					<div class="statusLabel">Initiated Surgery Procedure:</div> <div class="statusValue">{{:data.occupant.surgeryName}}</div>
+					<br>
+					<div class="statusLabel">Next Step:</div> <div class="statusValue">{{:data.occupant.stepName}}</div>
+
+				</div>
+				{{/if}}
+				<br>
+				<br>
+		{{/if}}
+		<div class="item">
+			<div class="itemLabelWide">
+				{{:helper.link('Options', 'gear', {'choiceOn' : 1})}}
+			</div>
+		</div>
+		{{else}}
+		<div class="item">
+			<div class="statusLabel">
+				Loudspeaker:
+			</div>
+			<div class="itemContentNarrow" style="float: left">
+				{{:helper.link('On', 'power-off', {'verboseOn' : 1}, data.verbose ? 'selected' : null)}}
+				{{:helper.link('Off', 'close', {'verboseOff' : 1}, data.verbose ? null : 'selected')}}
+			</div>
+		</div>
+		<br>
+		<div class="item">
+			<div class="statusLabel">
+				Health Announcer:
+			</div>
+			<div class="itemContentNarrow" style="float: left">
+				{{:helper.link('On', 'power-off', {'healthOn' : 1}, data.health ? 'selected' : null)}}
+				{{:helper.link('Off', 'close', {'healthOff' : 1}, data.health ? null : 'selected')}}
+			</div>
+		</div>
+
+		<div class="item">
+			<div class="line">
+				<div class="statusLabel">Health Announcer Threshold:</div>
+					{{:helper.link('-', null, {'health_adj' : -100}, (data.healthAlarm >= 0) ? null : 'disabled')}}
+					{{:helper.link('-', null, {'health_adj' : -10}, (data.healthAlarm >= -90) ? null : 'disabled')}}
+					{{:helper.link('-', null, {'health_adj' : -1}, (data.healthAlarm > -100) ? null : 'disabled')}}
+
+					{{if data.healthAlarm >= 100}}
+						{{:helper.displayBar(data.healthAlarm, 0, 100, 'good')}}
+					{{else data.healthAlarm > 0}}
+						{{:helper.displayBar(data.healthAlarm, 0, 100, 'average')}}
+					{{else data.healthAlarm >= -100}}
+						{{:helper.displayBar(data.healthAlarm, 0, -100, 'average alignRight')}}
+					{{else}}
+						{{:helper.displayBar(data.healthAlarm, 0, -100, 'bad alignRight')}}
+					{{/if}}
+
+					{{:helper.link('+', null, {'health_adj' : 1}, (data.healthAlarm < 100) ? null : 'disabled')}}
+					{{:helper.link('+', null, {'health_adj' : 10}, (data.healthAlarm <= 90) ? null : 'disabled')}}
+					{{:helper.link('+', null, {'health_adj' : 100}, (data.healthAlarm <= 0) ? null : 'disabled')}}
+				<div style="float: left; width: 80px; text-align: center;">&nbsp;{{: data.healthAlarm }} &nbsp;</div>
+			</div>
+		</div>
+		<br>
+		<div class="item">
+			<div class="statusLabel">
+				Oxygen Alarm:
+			</div>
+			<div class="itemContentNarrow" style="float: left">
+				{{:helper.link('On', 'power-off', {'oxyOn' : 1}, data.oxy ? 'selected' : null)}}
+				{{:helper.link('Off', 'close', {'oxyOff' : 1}, data.oxy ? null : 'selected')}}
+			</div>
+		</div>
+
+		<div class="item">
+			<div class="line">
+				<div class="statusLabel">Oxygen Alert Threshold:</div>
+					{{:helper.link('-', null, {'oxy_adj' : -100}, (data.oxyAlarm >= 100) ? null : 'disabled')}}
+					{{:helper.link('-', null, {'oxy_adj' : -10}, (data.oxyAlarm >= 10) ? null : 'disabled')}}
+					{{:helper.link('-', null, {'oxy_adj' : -1}, (data.oxyAlarm >= 0) ? null : 'disabled')}}
+					{{:helper.displayBar( data.oxyAlarm, 0, 200, 'good')}}
+					{{:helper.link('+', null, {'oxy_adj' : 1}, (data.oxyAlarm < 200) ? null : 'disabled')}}
+					{{:helper.link('+', null, {'oxy_adj' : 10}, (data.oxyAlarm <= 190) ? null : 'disabled')}}
+					{{:helper.link('+', null, {'oxy_adj' : 100}, (data.oxyAlarm <= 100) ? null : 'disabled')}}
+				<div style="float: left; width: 80px; text-align: center;">&nbsp;{{: data.oxyAlarm }} &nbsp;</div>
+			</div>
+		</div>
+		<br>
+		<div class="item">
+			<div class="statusLabel">
+				Critical Alert:
+			</div>
+			<div class="itemContentNarrow" style="float: left">
+				{{:helper.link('On', 'power-off', {'critOn' : 1}, data.crit ? 'selected' : null)}}
+				{{:helper.link('Off', 'close', {'critOff' : 1}, data.crit ? null : 'selected')}}
+			</div>
+		</div>
+		<br>
+		<div class="item">
+			<div class="itemLabelWide">
+				{{:helper.link('Return', 'arrow-left', {'choiceOff' : 1})}}
+			</div>
+		</div>
+	{{/if}}
+</div>

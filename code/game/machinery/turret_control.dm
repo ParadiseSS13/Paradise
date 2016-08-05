@@ -37,21 +37,21 @@
 	lethal = 1
 	icon_state = "control_kill"
 
-/obj/machinery/turretid/Del()
+/obj/machinery/turretid/Destroy()
 	if(control_area)
 		var/area/A = control_area
 		if(A && istype(A))
 			A.turret_controls -= src
-	..()
+	return ..()
 
 /obj/machinery/turretid/initialize()
+	..()
 	if(!control_area)
-		var/area/CA = get_area(src)
-		control_area = CA.master
+		control_area = get_area(src)
 	else if(istext(control_area))
 		for(var/area/A in world)
 			if(A.name && A.name==control_area)
-				control_area = A.master
+				control_area = A
 				break
 
 	if(control_area)
@@ -66,14 +66,20 @@
 
 /obj/machinery/turretid/proc/isLocked(mob/user)
 	if(ailock && (isrobot(user) || isAI(user)))
-		user << "<span class='notice'>There seems to be a firewall preventing you from accessing this device.</span>"
+		to_chat(user, "<span class='notice'>There seems to be a firewall preventing you from accessing this device.</span>")
 		return 1
 
-	if(locked && !(isrobot(user) || isAI(user)))
-		user << "<span class='notice'>Access denied.</span>"
+	if(locked && !(isrobot(user) || isAI(user) || isobserver(user)))
+		to_chat(user, "<span class='notice'>Access denied.</span>")
 		return 1
 
 	return 0
+
+/obj/machinery/turretid/CanUseTopic(mob/user)
+	if(isLocked(user))
+		return STATUS_CLOSE
+
+	return ..()
 
 /obj/machinery/turretid/attackby(obj/item/weapon/W, mob/user)
 	if(stat & BROKEN)
@@ -82,16 +88,16 @@
 	if(istype(W, /obj/item/weapon/card/id)||istype(W, /obj/item/device/pda))
 		if(src.allowed(usr))
 			if(emagged)
-				user << "<span class='notice'>The turret control is unresponsive.</span>"
+				to_chat(user, "<span class='notice'>The turret control is unresponsive.</span>")
 			else
 				locked = !locked
-				user << "<span class='notice'>You [ locked ? "lock" : "unlock"] the panel.</span>"
+				to_chat(user, "<span class='notice'>You [ locked ? "lock" : "unlock"] the panel.</span>")
 		return
 	return ..()
-	
+
 /obj/machinery/turretid/emag_act(user as mob)
 	if(!emagged)
-		user << "<span class='danger'>You short out the turret controls' access analysis module.</span>"
+		to_chat(user, "<span class='danger'>You short out the turret controls' access analysis module.</span>")
 		emagged = 1
 		locked = 0
 		ailock = 0
@@ -101,6 +107,9 @@
 	if(isLocked(user))
 		return
 
+	ui_interact(user)
+
+/obj/machinery/turretid/attack_ghost(mob/user as mob)
 	ui_interact(user)
 
 /obj/machinery/turretid/attack_hand(mob/user as mob)
@@ -128,7 +137,7 @@
 		data["settings"] = settings
 
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if (!ui)
+	if(!ui)
 		ui = new(user, src, ui_key, "turret_control.tmpl", "Turret Controls", 500, 300)
 		ui.set_initial_data(data)
 		ui.open()
@@ -137,7 +146,7 @@
 /obj/machinery/turretid/Topic(href, href_list, var/nowindow = 0)
 	if(..())
 		return 1
-		
+
 	if(isLocked(usr))
 		return 1
 
@@ -176,9 +185,8 @@
 	TC.ailock = ailock
 
 	if(istype(control_area))
-		for(var/area/sub_area in control_area.related)
-			for (var/obj/machinery/porta_turret/aTurret in sub_area)
-				aTurret.setState(TC)
+		for(var/obj/machinery/porta_turret/aTurret in control_area)
+			aTurret.setState(TC)
 
 	update_icon()
 
@@ -191,13 +199,17 @@
 	..()
 	if(stat & NOPOWER)
 		icon_state = "control_off"
-	else if (enabled)
-		if (lethal)
+		set_light(0)
+	else if(enabled)
+		if(lethal)
 			icon_state = "control_kill"
+			set_light(1.5, 1,"#990000")
 		else
 			icon_state = "control_stun"
+			set_light(1.5, 1,"#FF9900")
 	else
 		icon_state = "control_standby"
+		set_light(1.5, 1,"#003300")
 
 /obj/machinery/turretid/emp_act(severity)
 	if(enabled)
@@ -213,9 +225,9 @@
 		enabled=0
 		updateTurrets()
 
-		sleep(rand(60,600))
-		if(!enabled)
-			enabled=1
-			updateTurrets()
+		spawn(rand(60,600))
+			if(!enabled)
+				enabled=1
+				updateTurrets()
 
 	..()

@@ -9,97 +9,52 @@
 	response_disarm = "flails at"
 	response_harm   = "punches"
 	icon_dead = "shade_dead"
-	speed = -1
-	a_intent = "harm"
+	speed = 0
+	a_intent = I_HARM
 	stop_automated_movement = 1
 	status_flags = CANPUSH
 	attack_sound = 'sound/weapons/punch1.ogg'
-	min_oxy = 0
-	max_oxy = 0
-	min_tox = 0
-	max_tox = 0
-	min_co2 = 0
-	max_co2 = 0
-	min_n2 = 0
-	max_n2 = 0
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	faction = list("cult")
+	flying = 1
+	universal_speak = 1
 	var/list/construct_spells = list()
+	loot = list(/obj/item/weapon/reagent_containers/food/snacks/ectoplasm)
+	del_on_death = 1
+	deathmessage = "collapses in a shattered heap."
 
 /mob/living/simple_animal/construct/New()
 	..()
 	name = text("[initial(name)] ([rand(1, 1000)])")
 	real_name = name
 	for(var/spell in construct_spells)
-		spell_list += new spell(src)
+		AddSpell(new spell(null))
+	updateglow()
 
-/mob/living/simple_animal/construct/Die()
-	..()
-	new /obj/item/weapon/ectoplasm (src.loc)
-	for(var/mob/M in viewers(src, null))
-		if((M.client && !( M.blinded )))
-			M.show_message("\red [src] collapses in a shattered heap. ")
-	ghostize()
-	del src
-	return
+/mob/living/simple_animal/construct/examine(mob/user)
+	to_chat(user, "<span class='info'>*---------*</span>")
+	..(user)
 
-/mob/living/simple_animal/construct/examine()
-	set src in oview()
-
-	var/msg = "<span cass='info'>*---------*\nThis is \icon[src] \a <EM>[src]</EM>!\n"
-	if (src.health < src.maxHealth)
+	var/msg = "<span class='info'>"
+	if(src.health < src.maxHealth)
 		msg += "<span class='warning'>"
-		if (src.health >= src.maxHealth/2)
+		if(src.health >= src.maxHealth/2)
 			msg += "It looks slightly dented.\n"
 		else
 			msg += "<B>It looks severely dented!</B>\n"
 		msg += "</span>"
 	msg += "*---------*</span>"
 
-	usr << msg
-	return
-
-/mob/living/simple_animal/construct/Bump(atom/movable/AM as mob|obj, yes)
-	spawn( 0 )
-		if ((!( yes ) || now_pushing))
-			return
-		now_pushing = 1
-		if(ismob(AM))
-			var/mob/tmob = AM
-			if(istype(tmob, /mob/living/carbon/human) && (FAT in tmob.mutations))
-				if(prob(5))
-					src << "\red <B>You fail to push [tmob]'s fat ass out of the way.</B>"
-					now_pushing = 0
-					return
-			if(!(tmob.status_flags & CANPUSH))
-				now_pushing = 0
-				return
-
-			tmob.LAssailant = src
-		now_pushing = 0
-		..()
-		if (!( istype(AM, /atom/movable) ))
-			return
-		if (!( now_pushing ))
-			now_pushing = 1
-			if (!( AM.anchored ))
-				var/t = get_dir(src, AM)
-				if (istype(AM, /obj/structure/window/full))
-					for(var/obj/structure/window/win in get_step(AM,t))
-						now_pushing = 0
-						return
-				step(AM, t)
-			now_pushing = null
-		return
-	return
+	to_chat(user, msg)
 
 /mob/living/simple_animal/construct/attack_animal(mob/living/simple_animal/M as mob)
 	if(istype(M, /mob/living/simple_animal/construct/builder))
 		health += 5
-		M.emote("mends some of \the <EM>[src]'s</EM> wounds.")
+		M.custom_emote(1,"mends some of \the <EM>[src]'s</EM> wounds.")
 	else
 		if(M.melee_damage_upper <= 0)
-			M.emote("[M.friendly] \the <EM>[src]</EM>")
+			M.custom_emote(1, "[M.friendly] \the <EM>[src]</EM>")
 		else
 			M.do_attack_animation(src)
 			if(M.attack_sound)
@@ -110,22 +65,9 @@
 			var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
 			adjustBruteLoss(damage)
 
-/mob/living/simple_animal/construct/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
-	if(O.force)
-		var/damage = O.force
-		if (O.damtype == STAMINA)
-			damage = 0
-		adjustBruteLoss(damage)
-		for(var/mob/M in viewers(src, null))
-			if ((M.client && !( M.blinded )))
-				M.show_message("\red \b [src] has been attacked with [O] by [user]. ")
-	else
-		usr << "\red This weapon is ineffective, it does no damage."
-		for(var/mob/M in viewers(src, null))
-			if ((M.client && !( M.blinded )))
-				M.show_message("\red [user] gently taps [src] with [O]. ")
 
-
+/mob/living/simple_animal/construct/narsie_act()
+	return
 
 /////////////////Juggernaut///////////////
 
@@ -149,32 +91,13 @@
 	environment_smash = 2
 	attack_sound = 'sound/weapons/punch3.ogg'
 	status_flags = 0
-	construct_spells = list(/obj/effect/proc_holder/spell/wizard/aoe_turf/conjure/lesserforcewall)
-
-/mob/living/simple_animal/construct/armoured/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
-	if(O.force)
-		if(O.force >= 11)
-			var/damage = O.force
-			if (O.damtype == STAMINA)
-				damage = 0
-			adjustBruteLoss(damage)
-			for(var/mob/M in viewers(src, null))
-				if ((M.client && !( M.blinded )))
-					M.show_message("\red \b [src] has been attacked with [O] by [user]. ")
-		else
-			for(var/mob/M in viewers(src, null))
-				if ((M.client && !( M.blinded )))
-					M.show_message("\red \b [O] bounces harmlessly off of [src]. ")
-	else
-		usr << "\red This weapon is ineffective, it does no damage."
-		for(var/mob/M in viewers(src, null))
-			if ((M.client && !( M.blinded )))
-				M.show_message("\red [user] gently taps [src] with [O]. ")
+	construct_spells = list(/obj/effect/proc_holder/spell/aoe_turf/conjure/lesserforcewall)
+	force_threshold = 11
 
 
 /mob/living/simple_animal/construct/armoured/Life()
 	weakened = 0
-	..()
+	return ..()
 
 /mob/living/simple_animal/construct/armoured/bullet_act(var/obj/item/projectile/P)
 	if(istype(P, /obj/item/projectile/energy) || istype(P, /obj/item/projectile/beam))
@@ -221,10 +144,9 @@
 	melee_damage_lower = 25
 	melee_damage_upper = 25
 	attacktext = "slashes"
-	speed = -1
 	see_in_dark = 7
 	attack_sound = 'sound/weapons/bladeslice.ogg'
-	construct_spells = list(/obj/effect/proc_holder/spell/wizard/targeted/ethereal_jaunt/shift)
+	construct_spells = list(/obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift)
 
 
 
@@ -246,14 +168,13 @@
 	melee_damage_lower = 5
 	melee_damage_upper = 5
 	attacktext = "rams"
-	speed = 0
 	environment_smash = 2
 	attack_sound = 'sound/weapons/punch2.ogg'
-	construct_spells = list(/obj/effect/proc_holder/spell/wizard/aoe_turf/conjure/construct/lesser,
-							/obj/effect/proc_holder/spell/wizard/aoe_turf/conjure/wall,
-							/obj/effect/proc_holder/spell/wizard/aoe_turf/conjure/floor,
-							/obj/effect/proc_holder/spell/wizard/aoe_turf/conjure/soulstone,
-							/obj/effect/proc_holder/spell/wizard/targeted/projectile/magic_missile/lesser)
+	construct_spells = list(/obj/effect/proc_holder/spell/aoe_turf/conjure/construct/lesser,
+							/obj/effect/proc_holder/spell/aoe_turf/conjure/wall,
+							/obj/effect/proc_holder/spell/aoe_turf/conjure/floor,
+							/obj/effect/proc_holder/spell/aoe_turf/conjure/soulstone,
+							/obj/effect/proc_holder/spell/targeted/projectile/magic_missile/lesser)
 
 
 /////////////////////////////Behemoth/////////////////////////
@@ -277,30 +198,44 @@
 	speed = 5
 	environment_smash = 2
 	attack_sound = 'sound/weapons/punch4.ogg'
+	force_threshold = 11
 	var/energy = 0
 	var/max_energy = 1000
 
-/mob/living/simple_animal/construct/behemoth/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
-	if(O.force)
-		if(O.force >= 11)
-			var/damage = O.force
-			if (O.damtype == STAMINA)
-				damage = 0
-			adjustBruteLoss(damage)
-			for(var/mob/M in viewers(src, null))
-				if ((M.client && !( M.blinded )))
-					M.show_message("\red \b [src] has been attacked with [O] by [user]. ")
-		else
-			for(var/mob/M in viewers(src, null))
-				if ((M.client && !( M.blinded )))
-					M.show_message("\red \b [O] bounces harmlessly off of [src]. ")
-	else
-		usr << "\red This weapon is ineffective, it does no damage."
-		for(var/mob/M in viewers(src, null))
-			if ((M.client && !( M.blinded )))
-				M.show_message("\red [user] gently taps [src] with [O]. ")
+
+/////////////////////////////Harvester/////////////////////////
+
+/mob/living/simple_animal/construct/harvester
+	name = "Harvester"
+	real_name = "Harvester"
+	desc = "A harbinger of Nar-Sie's enlightenment. It'll be all over soon."
+	icon = 'icons/mob/mob.dmi'
+	icon_state = "harvester"
+	icon_living = "harvester"
+	maxHealth = 60
+	health = 60
+	melee_damage_lower = 1
+	melee_damage_upper = 5
+	attacktext = "prods"
+	speed = 0
+	environment_smash = 1
+	see_in_dark = 7
+	attack_sound = 'sound/weapons/tap.ogg'
+	construct_spells = list(/obj/effect/proc_holder/spell/targeted/smoke/disable)
+
+/mob/living/simple_animal/construct/harvester/Process_Spacemove(var/movement_dir = 0)
+	return 1
 
 
+////////////////Glow////////////////////
+/mob/living/simple_animal/construct/proc/updateglow()
+	overlays = 0
+	var/overlay_layer = LIGHTING_LAYER + 1
+	if(layer != MOB_LAYER)
+		overlay_layer=TURF_LAYER+0.2
+
+	overlays += image(icon,"glow-[icon_state]",overlay_layer)
+	set_light(2, -2, l_color = "#FFFFFF")
 
 ////////////////Powers//////////////////
 
@@ -310,10 +245,10 @@
 	set category = "Behemoth"
 	set name = "Summon Cultist (300)"
 	set desc = "Teleport a cultist to your location"
-	if (istype(usr,/mob/living/simple_animal/constructbehemoth))
+	if(istype(usr,/mob/living/simple_animal/constructbehemoth))
 
 		if(usr.energy<300)
-			usr << "\red You do not have enough power stored!"
+			to_chat(usr, "\red You do not have enough power stored!")
 			return
 
 		if(usr.stat)
@@ -322,12 +257,12 @@
 		usr.energy -= 300
 	var/list/mob/living/cultists = new
 	for(var/datum/mind/H in ticker.mode.cult)
-		if (istype(H.current,/mob/living))
+		if(istype(H.current,/mob/living))
 			cultists+=H.current
 			var/mob/cultist = input("Choose the one who you want to summon", "Followers of Geometer") as null|anything in (cultists - usr)
 			if(!cultist)
 				return
-			if (cultist == usr) //just to be sure.
+			if(cultist == usr) //just to be sure.
 				return
 			cultist.loc = usr.loc
 			usr.visible_message("/red [cultist] appears in a flash of red light as [usr] glows with power")*/

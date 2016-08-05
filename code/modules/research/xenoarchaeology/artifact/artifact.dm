@@ -13,10 +13,9 @@
 	artifact_id = "[pick("kappa","sigma","antaeres","beta","omicron","iota","epsilon","omega","gamma","delta","tau","alpha")]-[rand(100,999)]"
 
 	artifact_find_type = pick(\
-	5;/obj/machinery/power/supermatter,\
 	5;/obj/structure/constructshell,\
 	5;/obj/machinery/wish_granter,\
-	25;/obj/machinery/power/supermatter/shard,\
+	25;/obj/machinery/power/supermatter_shard,\
 	50;/obj/structure/cult/pylon,\
 	100;/obj/machinery/auto_cloner,\
 	100;/obj/machinery/giga_drill,\
@@ -64,7 +63,7 @@
 			M.selected.action(src)
 
 /obj/structure/boulder/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
-	if (istype(W, /obj/item/device/core_sampler))
+	if(istype(W, /obj/item/device/core_sampler))
 		if(geological_data)
 			src.geological_data.artifact_distance = rand(-100,100) / 100
 			src.geological_data.artifact_id = artifact_find.artifact_id
@@ -73,34 +72,34 @@
 		C.sample_item(src, user)
 		return
 
-	if (istype(W, /obj/item/device/depth_scanner))
+	if(istype(W, /obj/item/device/depth_scanner))
 		var/obj/item/device/depth_scanner/C = W
 		C.scan_atom(user, src)
 		return
 
-	if (istype(W, /obj/item/device/measuring_tape))
+	if(istype(W, /obj/item/device/measuring_tape))
 		var/obj/item/device/measuring_tape/P = W
 		user.visible_message("\blue[user] extends [P] towards [src].","\blue You extend [P] towards [src].")
-		if(do_after(user,40))
-			user << "\blue \icon[P] [src] has been excavated to a depth of [2*src.excavation_level]cm."
+		if(do_after(user,40, target = src))
+			to_chat(user, "\blue [bicon(P)] [src] has been excavated to a depth of [2*src.excavation_level]cm.")
 		return
 
-	if (istype(W, /obj/item/weapon/pickaxe))
+	if(istype(W, /obj/item/weapon/pickaxe))
 		var/obj/item/weapon/pickaxe/P = W
 
-		user << "\red You start [P.drill_verb] [src]."
+		to_chat(user, "\red You start [P.drill_verb] [src].")
 
-		if(!do_after(user,P.digspeed))
+		if(!do_after(user,P.digspeed, target = src))
 			return
 
-		user << "\blue You finish [P.drill_verb] [src]."
+		to_chat(user, "\blue You finish [P.drill_verb] [src].")
 		excavation_level += P.excavation_amount
 
 		if(excavation_level > 100)
 			//failure
 			user.visible_message("<font color='red'><b>[src] suddenly crumbles away.</b></font>",\
 			"\red [src] has disintegrated under your onslaught, any secrets it was holding are long gone.")
-			del(src)
+			qdel(src)
 			return
 
 		if(prob(excavation_level))
@@ -116,4 +115,4 @@
 			else
 				user.visible_message("<font color='red'><b>[src] suddenly crumbles away.</b></font>",\
 				"\blue [src] has been whittled away under your careful excavation, but there was nothing of interest inside.")
-			del(src)
+			qdel(src)

@@ -6,20 +6,19 @@
 		container.icon_state = "mmi_dead"
 	stat = DEAD
 
-	if(blind)	blind.layer = 0
 	sight |= SEE_TURFS|SEE_MOBS|SEE_OBJS
 	see_in_dark = 8
 	see_invisible = SEE_INVISIBLE_LEVEL_TWO
 
-	tod = worldtime2text() //weasellos time of death patch
-	if(mind)	mind.store_memory("Time of death: [tod]", 0)	//mind. ?
+	timeofdeath = worldtime2text()
+	if(mind)	mind.store_memory("Time of death: [timeofdeath]", 0)	//mind. ?
 
 	return ..(gibbed)
 
 /mob/living/carbon/brain/gib()
 	death(1)
 	var/atom/movable/overlay/animation = null
-	monkeyizing = 1
+	notransform = 1
 	canmove = 0
 	icon = null
 	invisibility = 101
@@ -34,10 +33,10 @@
 
 	dead_mob_list -= src
 	if(container && istype(container, /obj/item/device/mmi))
-		del(container)//Gets rid of the MMI if there is one
+		qdel(container)//Gets rid of the MMI if there is one
 	if(loc)
-		if(istype(loc,/obj/item/organ/brain))
-			del(loc)//Gets rid of the brain item
+		if(istype(loc,/obj/item/organ/internal/brain))
+			qdel(loc)//Gets rid of the brain item
 	spawn(15)
-		if(animation)	del(animation)
-		if(src)			del(src)
+		if(animation)	qdel(animation)
+		if(src)			qdel(src)

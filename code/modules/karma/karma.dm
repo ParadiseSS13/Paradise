@@ -1,7 +1,7 @@
 proc/sql_report_karma(var/mob/spender, var/mob/receiver)
-	var/sqlspendername = spender.name
+	var/sqlspendername = sanitizeSQL(spender.name)
 	var/sqlspenderkey = spender.key
-	var/sqlreceivername = receiver.name
+	var/sqlreceivername = sanitizeSQL(receiver.name)
 	var/sqlreceiverkey = receiver.key
 	var/sqlreceiverrole = "None"
 	var/sqlreceiverspecial = "None"
@@ -10,21 +10,21 @@ proc/sql_report_karma(var/mob/spender, var/mob/receiver)
 
 	if(receiver.mind)
 		if(receiver.mind.special_role)
-			sqlreceiverspecial = receiver.mind.special_role
+			sqlreceiverspecial = sanitizeSQL(receiver.mind.special_role)
 		if(receiver.mind.assigned_role)
-			sqlreceiverrole = receiver.mind.assigned_role
+			sqlreceiverrole = sanitizeSQL(receiver.mind.assigned_role)
 
 	if(!dbcon.IsConnected())
 		log_game("SQL ERROR during karma logging. Failed to connect.")
 	else
 		var/sqltime = time2text(world.realtime, "YYYY-MM-DD hh:mm:ss")
-		var/DBQuery/query = dbcon.NewQuery("INSERT INTO karma (spendername, spenderkey, receivername, receiverkey, receiverrole, receiverspecial, spenderip, time) VALUES ('[sqlspendername]', '[sqlspenderkey]', '[sqlreceivername]', '[sqlreceiverkey]', '[sqlreceiverrole]', '[sqlreceiverspecial]', '[sqlspenderip]', '[sqltime]')")
+		var/DBQuery/query = dbcon.NewQuery("INSERT INTO [format_table_name("karma")] (spendername, spenderkey, receivername, receiverkey, receiverrole, receiverspecial, spenderip, time) VALUES ('[sqlspendername]', '[sqlspenderkey]', '[sqlreceivername]', '[sqlreceiverkey]', '[sqlreceiverrole]', '[sqlreceiverspecial]', '[sqlspenderip]', '[sqltime]')")
 		if(!query.Execute())
 			var/err = query.ErrorMsg()
 			log_game("SQL ERROR during karma logging. Error : \[[err]\]\n")
 
 
-		query = dbcon.NewQuery("SELECT * FROM karmatotals WHERE byondkey='[receiver.key]'")
+		query = dbcon.NewQuery("SELECT * FROM [format_table_name("karmatotals")] WHERE byondkey='[receiver.key]'")
 		query.Execute()
 
 		var/karma
@@ -34,13 +34,13 @@ proc/sql_report_karma(var/mob/spender, var/mob/receiver)
 			karma = text2num(query.item[3])
 		if(karma == null)
 			karma = 1
-			query = dbcon.NewQuery("INSERT INTO karmatotals (byondkey, karma) VALUES ('[receiver.key]', [karma])")
+			query = dbcon.NewQuery("INSERT INTO [format_table_name("karmatotals")] (byondkey, karma) VALUES ('[receiver.key]', [karma])")
 			if(!query.Execute())
 				var/err = query.ErrorMsg()
 				log_game("SQL ERROR during karmatotal logging (adding new key). Error : \[[err]\]\n")
 		else
 			karma += 1
-			query = dbcon.NewQuery("UPDATE karmatotals SET karma=[karma] WHERE id=[id]")
+			query = dbcon.NewQuery("UPDATE [format_table_name("karmatotals")] SET karma=[karma] WHERE id=[id]")
 			if(!query.Execute())
 				var/err = query.ErrorMsg()
 				log_game("SQL ERROR during karmatotal logging (updating existing entry). Error : \[[err]\]\n")
@@ -54,22 +54,21 @@ var/list/karma_spenders = list()
 	set category = "Special Verbs"
 
 	if(!ticker || !player_list.len)
-		usr << "\red You can't award karma until the game has started."
+		to_chat(usr, "\red You can't award karma until the game has started.")
 		return
 
 	if(ticker.current_state == GAME_STATE_PREGAME)
-		usr << "\red You can't award karma until the game has started."
+		to_chat(usr, "\red You can't award karma until the game has started.")
 		return
 
 	var/list/karma_list = list("Cancel")
 	for(var/mob/M in player_list) if(M.client && M.mind)
-		var/special_role = M.mind.special_role
-		if (special_role == "Wizard" || special_role == "Ninja" || special_role == "Syndicate" || special_role == "Syndicate Commando" || special_role == "Vox Raider" || special_role == "Alien") // Don't include special roles, because players use it to meta
+		if(isNonCrewAntag(M)) // Don't include special roles, because players use it to meta
 			continue
 		karma_list += M
 
 	if(!karma_list.len || karma_list.len == 1)
-		usr << "\red There's no-one to spend your karma on."
+		to_chat(usr, "\red There's no-one to spend your karma on.")
 		return
 
 	var/pickedmob = input("Who would you like to award Karma to?", "Award Karma", "Cancel") as null|mob in karma_list
@@ -78,7 +77,7 @@ var/list/karma_spenders = list()
 		return
 
 	if(!istype(pickedmob, /mob))
-		usr << "\red That's not a mob."
+		to_chat(usr, "\red That's not a mob.")
 		return
 
 	spend_karma(pickedmob)
@@ -89,37 +88,37 @@ var/list/karma_spenders = list()
 	set category = "Special Verbs"
 
 	if(!M)
-		usr << "Please right click a mob to award karma directly, or use the 'Award Karma' verb to select a player from the player listing."
+		to_chat(usr, "Please right click a mob to award karma directly, or use the 'Award Karma' verb to select a player from the player listing.")
 		return
 	if(!istype(M, /mob))
-		usr << "\red That's not a mob."
+		to_chat(usr, "\red That's not a mob.")
 		return
 	if(!M.client)
-		usr << "\red That mob has no client connected at the moment."
+		to_chat(usr, "\red That mob has no client connected at the moment.")
 		return
 	if(src.client.karma_spent)
-		usr << "\red You've already spent your karma for the round."
+		to_chat(usr, "\red You've already spent your karma for the round.")
 		return
 	for(var/a in karma_spenders)
 		if(a == src.key)
-			usr << "\red You've already spent your karma for the round."
+			to_chat(usr, "\red You've already spent your karma for the round.")
 			return
 	if(M.key == src.key)
-		usr << "\red You can't spend karma on yourself!"
+		to_chat(usr, "\red You can't spend karma on yourself!")
 		return
 	if(M.client.address == src.client.address)
 		message_admins("\red Illegal karma spending detected from [src.key] to [M.key]. Using the same IP!")
 		log_game("\red Illegal karma spending detected from [src.key] to [M.key]. Using the same IP!")
-		usr << "\red The karma system is not available to multi-accounters."
+		to_chat(usr, "\red The karma system is not available to multi-accounters.")
 	var/choice = input("Give [M.name] good karma?", "Karma") in list("Good", "Cancel")
 	if(!choice || choice == "Cancel")
 		return
 	if(choice == "Good" && !(src.client.karma_spent))
 		if(src.client.karma_spent)
-			usr << "\red You've already spent your karma for the round."
+			to_chat(usr, "\red You've already spent your karma for the round.")
 			return
 		M.client.karma += 1
-		usr << "[choice] karma spent on [M.name]."
+		to_chat(usr, "[choice] karma spent on [M.name].")
 		src.client.karma_spent = 1
 		karma_spenders.Add(src.key)
 	if(M.client.karma <= -2 || M.client.karma >= 2)
@@ -141,16 +140,16 @@ var/list/karma_spenders = list()
 	set desc = "Reports how much karma you have accrued."
 
 	var/currentkarma=verify_karma()
-	usr << {"<br>You have <b>[currentkarma]</b> available."}
+	to_chat(usr, {"<br>You have <b>[currentkarma]</b> available."})
 	return
 
 /client/proc/verify_karma()
 	var/currentkarma=0
 	if(!dbcon.IsConnected())
-		usr << "\red Unable to connect to karma database. Please try again later.<br>"
+		to_chat(usr, "\red Unable to connect to karma database. Please try again later.<br>")
 		return
 	else
-		var/DBQuery/query = dbcon.NewQuery("SELECT karma, karmaspent FROM karmatotals WHERE byondkey='[src.key]'")
+		var/DBQuery/query = dbcon.NewQuery("SELECT karma, karmaspent FROM [format_table_name("karmatotals")] WHERE byondkey='[src.key]'")
 		query.Execute()
 
 		var/totalkarma
@@ -160,10 +159,10 @@ var/list/karma_spenders = list()
 			karmaspent = query.item[2]
 		currentkarma = (text2num(totalkarma) - text2num(karmaspent))
 /*		if(totalkarma)
-			usr << {"<br>You have <b>[currentkarma]</b> available.<br>
+			to_chat(usr, {"<br>You have <b>[currentkarma]</b> available.<br>)
 You've gained <b>[totalkarma]</b> total karma in your time here.<br>"}
 		else
-			usr << "<b>Your total karma is:</b> 0<br>"*/
+			to_chat(usr, "<b>Your total karma is:</b> 0<br>")*/
 	return currentkarma
 
 /client/verb/karmashop()
@@ -183,7 +182,7 @@ You've gained <b>[totalkarma]</b> total karma in your time here.<br>"}
 	dat += "<HR>"
 
 	switch(karma_tab)
-		if (0) // Job Unlocks
+		if(0) // Job Unlocks
 			dat += {"
 			<a href='?src=\ref[src];karmashop=shop;KarmaBuy=1'>Unlock Barber -- 5KP</a><br>
 			<a href='?src=\ref[src];karmashop=shop;KarmaBuy=2'>Unlock Brig Physician -- 5KP</a><br>
@@ -194,17 +193,18 @@ You've gained <b>[totalkarma]</b> total karma in your time here.<br>"}
 			<a href='?src=\ref[src];karmashop=shop;KarmaBuy=7'>Unlock Magistrate -- 45KP</a><br>
 			"}
 
-		if (1) // Species Unlocks
+		if(1) // Species Unlocks
 			dat += {"
 			<a href='?src=\ref[src];karmashop=shop;KarmaBuy2=1'>Unlock Machine People -- 15KP</a><br>
 			<a href='?src=\ref[src];karmashop=shop;KarmaBuy2=2'>Unlock Kidan -- 30KP</a><br>
 			<a href='?src=\ref[src];karmashop=shop;KarmaBuy2=3'>Unlock Grey -- 30KP</a><br>
+			<a href='?src=\ref[src];karmashop=shop;KarmaBuy2=7'>Unlock Drask -- 30KP</a><br>
 			<a href='?src=\ref[src];karmashop=shop;KarmaBuy2=4'>Unlock Vox -- 45KP</a><br>
 			<a href='?src=\ref[src];karmashop=shop;KarmaBuy2=5'>Unlock Slime People -- 45KP</a><br>
 			<a href='?src=\ref[src];karmashop=shop;KarmaBuy2=6'>Unlock Plasmaman -- 100KP</a><br>
 			"}
 
-		if (2) // Karma Refunds
+		if(2) // Karma Refunds
 			var/list/refundable = list()
 			var/list/purchased = checkpurchased()
 			if("Tajaran Ambassador" in purchased)
@@ -250,7 +250,7 @@ You've gained <b>[totalkarma]</b> total karma in your time here.<br>"}
 	return
 
 /client/proc/DB_job_unlock(var/job,var/cost)
-	var/DBQuery/query = dbcon.NewQuery("SELECT * FROM whitelist WHERE ckey='[usr.key]'")
+	var/DBQuery/query = dbcon.NewQuery("SELECT * FROM [format_table_name("whitelist")] WHERE ckey='[usr.key]'")
 	query.Execute()
 
 	var/dbjob
@@ -259,38 +259,38 @@ You've gained <b>[totalkarma]</b> total karma in your time here.<br>"}
 		dbckey = query.item[2]
 		dbjob = query.item[3]
 	if(!dbckey)
-		query = dbcon.NewQuery("INSERT INTO whitelist (ckey, job) VALUES ('[usr.key]','[job]')")
+		query = dbcon.NewQuery("INSERT INTO [format_table_name("whitelist")] (ckey, job) VALUES ('[usr.key]','[job]')")
 		if(!query.Execute())
 			var/err = query.ErrorMsg()
 			log_game("SQL ERROR during whitelist logging (adding new key). Error: \[[err]\]\n")
 			message_admins("SQL ERROR during whitelist logging (adding new key). Error: \[[err]\]\n")
 			return
 		else
-			usr << "You have unlocked [job]."
+			to_chat(usr, "You have unlocked [job].")
 			message_admins("[key_name(usr)] has unlocked [job].")
 			karmacharge(cost)
 
 	if(dbckey)
-		var/list/joblist = text2list(dbjob,",")
+		var/list/joblist = splittext(dbjob,",")
 		if(!(job in joblist))
 			joblist += job
-			var/newjoblist = list2text(joblist,",")
-			query = dbcon.NewQuery("UPDATE whitelist SET job='[newjoblist]' WHERE ckey='[dbckey]'")
+			var/newjoblist = jointext(joblist,",")
+			query = dbcon.NewQuery("UPDATE [format_table_name("whitelist")] SET job='[newjoblist]' WHERE ckey='[dbckey]'")
 			if(!query.Execute())
 				var/err = query.ErrorMsg()
 				log_game("SQL ERROR during whitelist logging (updating existing entry). Error : \[[err]\]\n")
 				message_admins("SQL ERROR during whitelist logging (updating existing entry). Error : \[[err]\]\n")
 				return
 			else
-				usr << "You have unlocked [job]."
+				to_chat(usr, "You have unlocked [job].")
 				message_admins("[key_name(usr)] has unlocked [job].")
 				karmacharge(cost)
 		else
-			usr << "You already have this job unlocked!"
+			to_chat(usr, "You already have this job unlocked!")
 			return
 
 /client/proc/DB_species_unlock(var/species,var/cost)
-	var/DBQuery/query = dbcon.NewQuery("SELECT * FROM whitelist WHERE ckey='[usr.key]'")
+	var/DBQuery/query = dbcon.NewQuery("SELECT * FROM [format_table_name("whitelist")] WHERE ckey='[usr.key]'")
 	query.Execute()
 
 	var/dbspecies
@@ -299,38 +299,38 @@ You've gained <b>[totalkarma]</b> total karma in your time here.<br>"}
 		dbckey = query.item[2]
 		dbspecies = query.item[4]
 	if(!dbckey)
-		query = dbcon.NewQuery("INSERT INTO whitelist (ckey, species) VALUES ('[usr.key]','[species]')")
+		query = dbcon.NewQuery("INSERT INTO [format_table_name("whitelist")] (ckey, species) VALUES ('[usr.key]','[species]')")
 		if(!query.Execute())
 			var/err = query.ErrorMsg()
 			log_game("SQL ERROR during whitelist logging (adding new key). Error : \[[err]\]\n")
 			message_admins("SQL ERROR during whitelist logging (adding new key). Error : \[[err]\]\n")
 			return
 		else
-			usr << "You have unlocked [species]."
+			to_chat(usr, "You have unlocked [species].")
 			message_admins("[key_name(usr)] has unlocked [species].")
 			karmacharge(cost)
 
 	if(dbckey)
-		var/list/specieslist = text2list(dbspecies,",")
+		var/list/specieslist = splittext(dbspecies,",")
 		if(!(species in specieslist))
 			specieslist += species
-			var/newspecieslist = list2text(specieslist,",")
-			query = dbcon.NewQuery("UPDATE whitelist SET species='[newspecieslist]' WHERE ckey='[dbckey]'")
+			var/newspecieslist = jointext(specieslist,",")
+			query = dbcon.NewQuery("UPDATE [format_table_name("whitelist")] SET species='[newspecieslist]' WHERE ckey='[dbckey]'")
 			if(!query.Execute())
 				var/err = query.ErrorMsg()
 				log_game("SQL ERROR during whitelist logging (updating existing entry). Error: \[[err]\]\n")
 				message_admins("SQL ERROR during whitelist logging (updating existing entry). Error: \[[err]\]\n")
 				return
 			else
-				usr << "You have unlocked [species]."
+				to_chat(usr, "You have unlocked [species].")
 				message_admins("[key_name(usr)] has unlocked [species].")
 				karmacharge(cost)
 		else
-			usr << "You already have this species unlocked!"
+			to_chat(usr, "You already have this species unlocked!")
 			return
 
 /client/proc/karmacharge(var/cost,var/refund = 0)
-	var/DBQuery/query = dbcon.NewQuery("SELECT * FROM karmatotals WHERE byondkey='[usr.key]'")
+	var/DBQuery/query = dbcon.NewQuery("SELECT * FROM [format_table_name("karmatotals")] WHERE byondkey='[usr.key]'")
 	query.Execute()
 
 	while(query.NextRow())
@@ -339,14 +339,14 @@ You've gained <b>[totalkarma]</b> total karma in your time here.<br>"}
 			spent -= cost
 		else
 			spent += cost
-		query = dbcon.NewQuery("UPDATE karmatotals SET karmaspent=[spent] WHERE byondkey='[usr.key]'")
+		query = dbcon.NewQuery("UPDATE [format_table_name("karmatotals")] SET karmaspent=[spent] WHERE byondkey='[usr.key]'")
 		if(!query.Execute())
 			var/err = query.ErrorMsg()
 			log_game("SQL ERROR during karmaspent updating (updating existing entry). Error: \[[err]\]\n")
 			message_admins("SQL ERROR during karmaspent updating (updating existing entry). Error: \[[err]\]\n")
 			return
 		else
-			usr << "You have been [refund ? "refunded" : "charged"] [cost] karma."
+			to_chat(usr, "You have been [refund ? "refunded" : "charged"] [cost] karma.")
 			message_admins("[key_name(usr)] has been [refund ? "refunded" : "charged"] [cost] karma.")
 			return
 
@@ -372,10 +372,10 @@ You've gained <b>[totalkarma]</b> total karma in your time here.<br>"}
 	else if(name == "Nanotrasen Recruiter")
 		cost = 10
 	else
-		usr << "\red That job is not refundable."
+		to_chat(usr, "\red That job is not refundable.")
 		return
 
-	var/DBQuery/query = dbcon.NewQuery("SELECT * FROM whitelist WHERE ckey='[usr.key]'")
+	var/DBQuery/query = dbcon.NewQuery("SELECT * FROM [format_table_name("whitelist")] WHERE ckey='[usr.key]'")
 	query.Execute()
 
 	var/dbjob
@@ -389,33 +389,33 @@ You've gained <b>[totalkarma]</b> total karma in your time here.<br>"}
 	if(dbckey)
 		var/list/typelist = list()
 		if(type == "job")
-			typelist = text2list(dbjob,",")
+			typelist = splittext(dbjob,",")
 		else if(type == "species")
-			typelist = text2list(dbspecies,",")
+			typelist = splittext(dbspecies,",")
 		else
-			usr << "\red Type [type] is not a valid column."
+			to_chat(usr, "\red Type [type] is not a valid column.")
 
 		if(name in typelist)
 			typelist -= name
-			var/newtypelist = list2text(typelist,",")
-			query = dbcon.NewQuery("UPDATE whitelist SET [type]='[newtypelist]' WHERE ckey='[dbckey]'")
+			var/newtypelist = jointext(typelist,",")
+			query = dbcon.NewQuery("UPDATE [format_table_name("whitelist")] SET [type]='[newtypelist]' WHERE ckey='[dbckey]'")
 			if(!query.Execute())
 				var/err = query.ErrorMsg()
 				log_game("SQL ERROR during whitelist logging (updating existing entry). Error: \[[err]\]\n")
 				message_admins("SQL ERROR during whitelist logging (updating existing entry). Error: \[[err]\]\n")
 				return
 			else
-				usr << "You have been refunded [cost] karma for [type] [name]."
+				to_chat(usr, "You have been refunded [cost] karma for [type] [name].")
 				message_admins("[key_name(usr)] has been refunded [cost] karma for [type] [name].")
 				karmacharge(text2num(cost),1)
 		else
-			usr << "\red You have not bought [name]."
+			to_chat(usr, "\red You have not bought [name].")
 
 	else
-		usr << "\red Your ckey ([dbckey]) was not found."
+		to_chat(usr, "\red Your ckey ([dbckey]) was not found.")
 
 /client/proc/checkpurchased(var/name = null) // If the first parameter is null, return a full list of purchases
-	var/DBQuery/query = dbcon.NewQuery("SELECT * FROM whitelist WHERE ckey='[usr.key]'")
+	var/DBQuery/query = dbcon.NewQuery("SELECT * FROM [format_table_name("whitelist")] WHERE ckey='[usr.key]'")
 	query.Execute()
 
 	var/dbjob
@@ -427,8 +427,8 @@ You've gained <b>[totalkarma]</b> total karma in your time here.<br>"}
 		dbspecies = query.item[4]
 
 	if(dbckey)
-		var/list/joblist = text2list(dbjob,",")
-		var/list/specieslist = text2list(dbspecies,",")
+		var/list/joblist = splittext(dbjob,",")
+		var/list/specieslist = splittext(dbspecies,",")
 		var/list/combinedlist = joblist + specieslist
 		if(name)
 			if(name in combinedlist)

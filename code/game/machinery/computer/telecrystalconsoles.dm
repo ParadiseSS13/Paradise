@@ -4,16 +4,17 @@ var/list/possible_uplinker_IDs = list("Alfa","Bravo","Charlie","Delta","Echo","F
 
 
 /obj/machinery/computer/telecrystals
-	name = "\improper Telecrystal assignment station"
+	name = "telecrystal assignment station"
 	desc = "A device used to manage telecrystals during group operations. You shouldn't be looking at this particular one..."
-	icon_state = "tcstation"
 
 /////////////////////////////////////////////
 /obj/machinery/computer/telecrystals/uplinker
-	name = "\improper Telecrystal upload/recieve station"
+	name = "telecrystal upload/recieve station"
 	desc = "A device used to manage telecrystals during group operations. To use, simply insert your uplink. With your uplink installed \
 	you can upload your telecrystals to the group's pool using the console, or be assigned additional telecrystals by your lieutenant."
 	icon_state = "tcstation"
+	icon_keyboard = "tcstation_key"
+	icon_screen = "syndie"
 	var/obj/item/uplinkholder = null
 	var/obj/machinery/computer/telecrystals/boss/linkedboss = null
 
@@ -33,7 +34,7 @@ var/list/possible_uplinker_IDs = list("Alfa","Bravo","Charlie","Delta","Echo","F
 	if(istype(O, /obj/item))
 
 		if(uplinkholder)
-			user << "<span class='notice'>The [src] already has an uplink in it.</span>"
+			to_chat(user, "<span class='notice'>The [src] already has an uplink in it.</span>")
 			return
 
 		if(O.hidden_uplink)
@@ -45,12 +46,13 @@ var/list/possible_uplinker_IDs = list("Alfa","Bravo","Charlie","Delta","Echo","F
 			update_icon()
 			updateUsrDialog()
 		else
-			user << "<span class='notice'>The [O] doesn't appear to be an uplink...</span>"
+			to_chat(user, "<span class='notice'>The [O] doesn't appear to be an uplink...</span>")
 
 
 
 /obj/machinery/computer/telecrystals/uplinker/update_icon()
 	overlays.Cut()
+	..()
 	if(uplinkholder)
 		overlays += "[initial(icon_state)]-closed"
 
@@ -126,7 +128,8 @@ var/list/possible_uplinker_IDs = list("Alfa","Bravo","Charlie","Delta","Echo","F
 	desc = "A device used to manage telecrystals during group operations. To use, simply initialize the machine by scanning for nearby uplink stations. \
 	Once the consoles are linked up, you can assign any telecrystals amongst your operatives; be they donated by your agents or rationed to the squad \
 	based on the danger rating of the mission."
-	icon_state = "tcboss"
+	icon_keyboard = "syndie_key"
+	icon_screen = "tcboss"
 	var/virgin = 1
 	var/scanrange = 10
 	var/storedcrystals = 0

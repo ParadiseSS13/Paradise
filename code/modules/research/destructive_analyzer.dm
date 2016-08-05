@@ -22,6 +22,15 @@ Note: Must be placed within 3 tiles of the R&D Console
 	component_parts += new /obj/item/weapon/stock_parts/manipulator(null)
 	component_parts += new /obj/item/weapon/stock_parts/micro_laser(null)
 	RefreshParts()
+	
+/obj/machinery/r_n_d/destructive_analyzer/upgraded/New()
+	..()
+	component_parts = list()
+	component_parts += new /obj/item/weapon/circuitboard/destructive_analyzer(null)
+	component_parts += new /obj/item/weapon/stock_parts/scanning_module/phasic(null)
+	component_parts += new /obj/item/weapon/stock_parts/manipulator/pico(null)
+	component_parts += new /obj/item/weapon/stock_parts/micro_laser/ultra(null)
+	RefreshParts()
 
 /obj/machinery/r_n_d/destructive_analyzer/RefreshParts()
 	var/T = 0
@@ -38,9 +47,9 @@ Note: Must be placed within 3 tiles of the R&D Console
 
 
 /obj/machinery/r_n_d/destructive_analyzer/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
-	if (shocked)
+	if(shocked)
 		shock(user,50)
-	if (default_deconstruction_screwdriver(user, "d_analyzer_t", "d_analyzer", O))
+	if(default_deconstruction_screwdriver(user, "d_analyzer_t", "d_analyzer", O))
 		if(linked_console)
 			linked_console.linked_destroy = null
 			linked_console = null
@@ -51,29 +60,29 @@ Note: Must be placed within 3 tiles of the R&D Console
 
 	default_deconstruction_crowbar(O)
 
-	if (disabled)
+	if(disabled)
 		return
-	if (!linked_console)
-		user << "<span class='warning'>The [src.name] must be linked to an R&D console first!</span>"
+	if(!linked_console)
+		to_chat(user, "<span class='warning'>The [src.name] must be linked to an R&D console first!</span>")
 		return
-	if (busy)
-		user << "<span class='warning'>The [src.name] is busy right now.</span>"
+	if(busy)
+		to_chat(user, "<span class='warning'>The [src.name] is busy right now.</span>")
 		return
-	if (istype(O, /obj/item) && !loaded_item)
+	if(istype(O, /obj/item) && !loaded_item)
 		if(!O.origin_tech)
-			user << "<span class='warning'>This doesn't seem to have a tech origin!</span>"
+			to_chat(user, "<span class='warning'>This doesn't seem to have a tech origin!</span>")
 			return
 		var/list/temp_tech = ConvertReqString2List(O.origin_tech)
-		if (temp_tech.len == 0)
-			user << "<span class='warning'>You cannot deconstruct this item!</span>"
+		if(temp_tech.len == 0)
+			to_chat(user, "<span class='warning'>You cannot deconstruct this item!</span>")
 			return
 		if(!user.drop_item())
-			user << "<span class='warning'>\The [O] is stuck to your hand, you cannot put it in the [src.name]!</span>"
+			to_chat(user, "<span class='warning'>\The [O] is stuck to your hand, you cannot put it in the [src.name]!</span>")
 			return
 		busy = 1
 		loaded_item = O
 		O.loc = src
-		user << "<span class='notice'>You add the [O.name] to the [src.name]!</span>"
+		to_chat(user, "<span class='notice'>You add the [O.name] to the [src.name]!</span>")
 		flick("d_analyzer_la", src)
 		spawn(10)
 			icon_state = "d_analyzer_l"

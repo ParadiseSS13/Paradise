@@ -19,9 +19,6 @@
 	var/list/all_items = owner.current.get_contents()
 	for(var/obj/I in all_items) //Check for items
 		if(istype(I, typepath) && check_special_completion(I))
-			//Stealing the cheap autoinjector doesn't count
-			if(istype(I, /obj/item/weapon/reagent_containers/hypospray/autoinjector))
-				continue
 			return 1
 	return 0
 
@@ -35,7 +32,7 @@
 
 /datum/theft_objective/hoslaser
 	name = "the head of security's recreated antique laser gun"
-	typepath = /obj/item/weapon/gun/energy/hos
+	typepath = /obj/item/weapon/gun/energy/gun/hos
 	protected_jobs = list("Head Of Security")
 
 /datum/theft_objective/hand_tele
@@ -43,20 +40,10 @@
 	typepath = /obj/item/weapon/hand_tele
 	protected_jobs = list("Captain", "Research Director")
 
-/datum/theft_objective/rcd
-	name = "a rapid-construction-device"
-	typepath = /obj/item/weapon/rcd
-	protected_jobs = list("Chief Engineer", "Quartermaster", "Cargo Technician", "Research Director", "Scientist", "Roboticist")
-
 /datum/theft_objective/jetpack
 	name = "a jetpack"
 	typepath = /obj/item/weapon/tank/jetpack
 	protected_jobs = list("Chief Engineer")
-
-/datum/theft_objective/cap_jumpsuit
-	name = "the captain's jumpsuit"
-	typepath = /obj/item/clothing/under/rank/captain
-	protected_jobs = list("Captain")
 
 /datum/theft_objective/ai
 	name = "a functional AI"
@@ -100,11 +87,6 @@ datum/theft_objective/ai/check_special_completion(var/obj/item/device/aicard/C)
 			return 1
 	return 0
 
-/datum/theft_objective/corgi
-	name = "a piece of corgi meat"
-	typepath = /obj/item/weapon/reagent_containers/food/snacks/meat/corgi
-	protected_jobs = list("Head of Personnel", "Quartermaster", "Cargo Technician")
-
 /datum/theft_objective/capmedal
 	name = "the medal of captaincy"
 	typepath = /obj/item/clothing/accessory/medal/gold/captain
@@ -117,52 +99,27 @@ datum/theft_objective/ai/check_special_completion(var/obj/item/device/aicard/C)
 
 /datum/theft_objective/reactive
 	name = "the reactive teleport armor"
-	typepath = /obj/item/clothing/suit/armor/reactive
+	typepath = /obj/item/clothing/suit/armor/reactive/teleport
 	protected_jobs = list("Research Director")
 
 /datum/theft_objective/steal/documents
 	name = "any set of secret documents of any organization"
 	typepath = /obj/item/documents //Any set of secret documents. Doesn't have to be NT's
 
-/datum/theft_objective/rd_jumpsuit
-	name = "the research director's jumpsuit"
-	typepath = /obj/item/clothing/under/rank/research_director
-	protected_jobs = list("Research Director")
-
-/datum/theft_objective/ce_jumpsuit
-	name = "the chief engineer's jumpsuit"
-	typepath = /obj/item/clothing/under/rank/chief_engineer
-	protected_jobs = list("Chief Engineer")
-
-/datum/theft_objective/cmo_jumpsuit
-	name = "the chief medical officer's jumpsuit"
-	typepath = /obj/item/clothing/under/rank/chief_medical_officer
-	protected_jobs = list("Chief Medical Officer")
-
-/datum/theft_objective/hos_jumpsuit
-	name = "the head of security's jumpsuit"
-	typepath = /obj/item/clothing/under/rank/head_of_security
-	protected_jobs = list("Head of Security")
-
-/datum/theft_objective/hop_jumpsuit
-	name = "the head of personnel's jumpsuit"
-	typepath = /obj/item/clothing/under/rank/head_of_personnel
-	protected_jobs = list("Head of Personnel")
-
 /datum/theft_objective/hypospray
 	name = "a hypospray"
-	typepath = /obj/item/weapon/reagent_containers/hypospray
+	typepath = /obj/item/weapon/reagent_containers/hypospray/CMO
 	protected_jobs = list("Chief Medical Officer")
 
-/datum/theft_objective
-	name = "the captain's pinpointer"
-	typepath = /obj/item/weapon/pinpointer
-	protected_jobs = list("Captain")
-
-/datum/theft_objective
+/datum/theft_objective/ablative
 	name = "an ablative armor vest"
 	typepath = /obj/item/clothing/suit/armor/laserproof
 	protected_jobs = list("Head of Security", "Warden")
+
+/datum/theft_objective/krav
+	name = "the warden's krav maga martial arts gloves"
+	typepath = /obj/item/clothing/gloves/color/black/krav_maga/sec
+	protected_jobs = list("Head Of Security", "Warden")
 
 /datum/theft_objective/number
 	var/min=0
@@ -200,7 +157,7 @@ datum/theft_objective/ai/check_special_completion(var/obj/item/device/aicard/C)
 	typepath = /obj/item/weapon/tank
 	min=28
 	max=28
-	protected_jobs = list("Chief Engineer", "Engineer", "Scientist", "Research Director", "Life Support Specialist")
+	protected_jobs = list("Chief Engineer", "Station Engineer", "Scientist", "Research Director", "Life Support Specialist")
 
 /datum/theft_objective/number/plasma_gas/getAmountStolen(var/obj/item/I)
 	return I:air_contents:toxins
@@ -252,7 +209,7 @@ datum/theft_objective/ai/check_special_completion(var/obj/item/device/aicard/C)
 
 /datum/theft_objective/special/diamond_drill
 	name = "diamond drill"
-	typepath = /obj/item/weapon/pickaxe/diamonddrill
+	typepath = /obj/item/weapon/pickaxe/drill/diamonddrill
 
 /datum/theft_objective/special/boh
 	name = "bag of holding"

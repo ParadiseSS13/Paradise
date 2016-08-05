@@ -47,7 +47,7 @@ Class Variables:
       Currently unused.
 
 Class Procs:
-   New()                     'game/machinery/machine.dm'
+   initialize()                     'game/machinery/machine.dm'
 
    Destroy()                     'game/machinery/machine.dm'
 
@@ -96,6 +96,7 @@ Class Procs:
 /obj/machinery
 	name = "machinery"
 	icon = 'icons/obj/stationobjs.dmi'
+	pressure_resistance = 10
 	var/stat = 0
 	var/emagged = 0
 	var/use_power = 1
@@ -114,28 +115,33 @@ Class Procs:
 	var/area/myArea
 	var/interact_offline = 0 // Can the machine be interacted with while de-powered.
 	var/use_log = list()
+	var/list/settagwhitelist = list()//WHITELIST OF VARIABLES THAT THE set_tag HREF CAN MODIFY, DON'T PUT SHIT YOU DON'T NEED ON HERE, AND IF YOU'RE GONNA USE set_tag (format_tag() proc), ADD TO THIS LIST.
 
-/obj/machinery/New()
+/obj/machinery/initialize()
 	addAtProcessing()
-	return ..()
+	. = ..()
+	power_change()
 
 /obj/machinery/proc/addAtProcessing()
-	if (use_power)
+	if(use_power)
 		myArea = get_area_master(src)
 
 	machines += src
 
 /obj/machinery/proc/removeAtProcessing()
-	if (myArea)
+	if(myArea)
 		myArea = null
 
 	machines -= src
 
 /obj/machinery/Destroy()
-	if (src in machines)
+	if(src in machines)
 		removeAtProcessing()
 
-	..()
+	return ..()
+
+/obj/machinery/proc/locate_machinery()
+	return
 
 /obj/machinery/process() // If you dont use process or power why are you here
 	return PROCESS_KILL
@@ -144,15 +150,7 @@ Class Procs:
 	if(use_power && stat == 0)
 		use_power(7500/severity)
 
-		var/obj/effect/overlay/pulse2 = new/obj/effect/overlay ( src.loc )
-		pulse2.icon = 'icons/effects/effects.dmi'
-		pulse2.icon_state = "empdisable"
-		pulse2.name = "emp sparks"
-		pulse2.anchored = 1
-		pulse2.dir = pick(cardinal)
-
-		spawn(10)
-			pulse2.delete()
+	new/obj/effect/overlay/temp/emp(src.loc)
 	..()
 
 /obj/machinery/ex_act(severity)
@@ -161,11 +159,11 @@ Class Procs:
 			qdel(src)
 			return
 		if(2.0)
-			if (prob(50))
+			if(prob(50))
 				qdel(src)
 				return
 		if(3.0)
-			if (prob(25))
+			if(prob(25))
 				qdel(src)
 				return
 		else
@@ -173,7 +171,11 @@ Class Procs:
 
 /obj/machinery/blob_act()
 	if(prob(50))
-		del(src)
+		qdel(src)
+
+//sets the use_power var and then forces an area power update
+/obj/machinery/proc/update_use_power(var/new_use_power)
+	use_power = new_use_power
 
 /obj/machinery/proc/auto_use_power()
 	if(!powered(power_channel))
@@ -184,7 +186,126 @@ Class Procs:
 		use_power(active_power_usage,power_channel, 1)
 	return 1
 
-/obj/machinery/CanUseTopic(var/mob/user, var/be_close)
+/obj/machinery/proc/multitool_topic(var/mob/user,var/list/href_list,var/obj/O)
+	if("set_id" in href_list)
+		if(!("id_tag" in vars))
+			warning("set_id: [type] has no id_tag var.")
+		var/newid = copytext(reject_bad_text(input(usr, "Specify the new ID tag for this machine", src, src:id_tag) as null|text),1,MAX_MESSAGE_LEN)
+		if(newid)
+			src:id_tag = newid
+			return MT_UPDATE|MT_REINIT
+	if("set_freq" in href_list)
+		if(!("frequency" in vars))
+			warning("set_freq: [type] has no frequency var.")
+			return 0
+		var/newfreq=src:frequency
+		if(href_list["set_freq"]!="-1")
+			newfreq=text2num(href_list["set_freq"])
+		else
+			newfreq = input(usr, "Specify a new frequency (GHz). Decimals assigned automatically.", src, src:frequency) as null|num
+		if(newfreq)
+			if(findtext(num2text(newfreq), "."))
+				newfreq *= 10 // shift the decimal one place
+			if(newfreq < 10000)
+				src:frequency = newfreq
+				return MT_UPDATE|MT_REINIT
+	return 0
+
+/obj/machinery/proc/handle_multitool_topic(var/href, var/list/href_list, var/mob/user)
+	if(!allowed(user))//no, not even HREF exploits
+		return 0
+	var/obj/item/device/multitool/P = get_multitool(usr)
+	if(P && istype(P))
+		var/update_mt_menu=0
+		var/re_init=0
+		if("set_tag" in href_list)
+			if(!(href_list["set_tag"] in settagwhitelist))//I see you're trying Href exploits, I see you're failing, I SEE ADMIN WARNING. (seriously though, this is a powerfull HREF, I originally found this loophole, I'm not leaving it in on my PR)
+				message_admins("set_tag HREF (var attempted to edit: [href_list["set_tag"]]) exploit attempted by [key_name_admin(user)] on [src] (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
+				return 1
+			if(!(href_list["set_tag"] in vars))
+				to_chat(usr, "<span class='warning'>Something went wrong: Unable to find [href_list["set_tag"]] in vars!</span>")
+				return 1
+			var/current_tag = src.vars[href_list["set_tag"]]
+			var/newid = copytext(reject_bad_text(input(usr, "Specify the new value", src, current_tag) as null|text),1,MAX_MESSAGE_LEN)
+			if(newid)
+				vars[href_list["set_tag"]] = newid
+				re_init=1
+
+		if("unlink" in href_list)
+			var/idx = text2num(href_list["unlink"])
+			if(!idx)
+				return 1
+
+			var/obj/O = getLink(idx)
+			if(!O)
+				return 1
+			if(!canLink(O))
+				to_chat(usr, "\red You can't link with that device.")
+				return 1
+
+			if(unlinkFrom(usr, O))
+				to_chat(usr, "\blue A green light flashes on \the [P], confirming the link was removed.")
+			else
+				to_chat(usr, "\red A red light flashes on \the [P].  It appears something went wrong when unlinking the two devices.")
+			update_mt_menu=1
+
+		if("link" in href_list)
+			var/obj/O = P.buffer
+			if(!O)
+				return 1
+			if(!canLink(O,href_list))
+				to_chat(usr, "\red You can't link with that device.")
+				return 1
+			if(isLinkedWith(O))
+				to_chat(usr, "\red A red light flashes on \the [P]. The two devices are already linked.")
+				return 1
+
+			if(linkWith(usr, O, href_list))
+				to_chat(usr, "\blue A green light flashes on \the [P], confirming the link was added.")
+			else
+				to_chat(usr, "\red A red light flashes on \the [P].  It appears something went wrong when linking the two devices.")
+			update_mt_menu=1
+
+		if("buffer" in href_list)
+			P.buffer = src
+			to_chat(usr, "\blue A green light flashes, and the device appears in the multitool buffer.")
+			update_mt_menu=1
+
+		if("flush" in href_list)
+			to_chat(usr, "\blue A green light flashes, and the device disappears from the multitool buffer.")
+			P.buffer = null
+			update_mt_menu=1
+
+		var/ret = multitool_topic(usr,href_list,P.buffer)
+		if(ret == MT_ERROR)
+			return 1
+		if(ret & MT_UPDATE)
+			update_mt_menu=1
+		if(ret & MT_REINIT)
+			re_init=1
+
+		if(re_init)
+			initialize()
+		if(update_mt_menu)
+			//usr.set_machine(src)
+			update_multitool_menu(usr)
+			return 1
+
+/obj/machinery/Topic(href, href_list, var/nowindow = 0, var/datum/topic_state/state = default_state)
+	if(..(href, href_list, nowindow, state))
+		return 1
+
+	handle_multitool_topic(href,href_list,usr)
+	add_fingerprint(usr)
+	return 0
+
+/obj/machinery/proc/operable(var/additional_flags = 0)
+	return !inoperable(additional_flags)
+
+/obj/machinery/proc/inoperable(var/additional_flags = 0)
+	return (stat & (NOPOWER|BROKEN|additional_flags))
+
+/obj/machinery/CanUseTopic(var/mob/user)
 	if(!interact_offline && (stat & (NOPOWER|BROKEN)))
 		return STATUS_CLOSE
 
@@ -197,54 +318,52 @@ Class Procs:
 /obj/machinery/CouldNotUseTopic(var/mob/user)
 	usr.unset_machine()
 
-////////////////////////////////////////////////////////////////////////////////////////////	
-	
-/obj/machinery/attack_ai(var/mob/user as mob)
-	if(isrobot(user))
-		// For some reason attack_robot doesn't work
-		// This is to stop robots from using cameras to remotely control machines.
-		if(user.client && user.client.eye == user)
-			return src.attack_hand(user)
-	else
-		return src.attack_hand(user)
+/obj/machinery/proc/dropContents()//putting for swarmers, occupent code commented out, someone can use later.
+	var/turf/T = get_turf(src)
+	for(var/atom/movable/AM in contents)
+		AM.forceMove(T)
 
-/obj/machinery/attack_paw(mob/user as mob)
-	return src.attack_hand(user)
+////////////////////////////////////////////////////////////////////////////////////////////
+
+/obj/machinery/attack_ai(mob/user)
+	if(isrobot(user))// For some reason attack_robot doesn't work
+		var/mob/living/silicon/robot/R = user
+		if(R.client && R.client.eye == R && !R.low_power_mode)// This is to stop robots from using cameras to remotely control machines; and from using machines when the borg has no power.
+			return attack_hand(user)
+	else
+		return attack_hand(user)
 
 /obj/machinery/attack_hand(mob/user as mob)
-	if(!interact_offline && stat & (NOPOWER|BROKEN|MAINT))
-		return 1
 	if(user.lying || user.stat)
 		return 1
-	if ( ! (istype(usr, /mob/living/carbon/human) || \
-			istype(usr, /mob/living/silicon) || \
-			istype(usr, /mob/living/carbon/monkey) && ticker && ticker.mode.name == "monkey") )
-		usr << "\red You don't have the dexterity to do this!"
+
+	if(!user.IsAdvancedToolUser())
+		to_chat(user, "<span class='warning'>You don't have the dexterity to do this!</span>")
 		return 1
-/*
-	//distance checks are made by atom/proc/DblClick
-	if ((get_dist(src, user) > 1 || !istype(src.loc, /turf)) && !istype(user, /mob/living/silicon))
-		return 1
-*/
-	if (ishuman(user))
+
+	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(H.getBrainLoss() >= 60)
-			visible_message("\red [H] stares cluelessly at [src] and drools.")
+			visible_message("<span class='warning'>[H] stares cluelessly at [src] and drools.</span>")
 			return 1
 		else if(prob(H.getBrainLoss()))
-			user << "\red You momentarily forget how to use [src]."
+			to_chat(user, "<span class='warning'>You momentarily forget how to use [src].</span>")
 			return 1
+
+	if(panel_open)
+		src.add_fingerprint(user)
+		return 0
+
+	if(!interact_offline && stat & (NOPOWER|BROKEN|MAINT))
+		return 1
 
 	src.add_fingerprint(user)
 
-	var/area/A = get_area(src)
-	A.powerupdate = 1
+	return ..()
 
-	return 0
-
-/obj/machinery/CheckParts()
+/obj/machinery/CheckParts(list/parts_list)
+	..()
 	RefreshParts()
-	return
 
 /obj/machinery/proc/RefreshParts() //Placeholder proc for machines that are built using frames.
 	return
@@ -263,7 +382,7 @@ Class Procs:
 		for(var/obj/item/I in component_parts)
 			if(I.reliability != 100 && crit_fail)
 				I.crit_fail = 1
-			I.loc = src.loc
+			I.forceMove(loc)
 		qdel(src)
 
 /obj/machinery/proc/default_deconstruction_screwdriver(var/mob/user, var/icon_state_open, var/icon_state_closed, var/obj/item/weapon/screwdriver/S)
@@ -272,28 +391,28 @@ Class Procs:
 		if(!panel_open)
 			panel_open = 1
 			icon_state = icon_state_open
-			user << "<span class='notice'>You open the maintenance hatch of [src].</span>"
+			to_chat(user, "<span class='notice'>You open the maintenance hatch of [src].</span>")
 		else
 			panel_open = 0
 			icon_state = icon_state_closed
-			user << "<span class='notice'>You close the maintenance hatch of [src].</span>"
+			to_chat(user, "<span class='notice'>You close the maintenance hatch of [src].</span>")
 		return 1
 	return 0
 
 /obj/machinery/proc/default_change_direction_wrench(var/mob/user, var/obj/item/weapon/wrench/W)
 	if(panel_open && istype(W))
 		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
-		dir = pick(WEST,EAST,SOUTH,NORTH)
-		user << "<span class='notice'>You clumsily rotate [src].</span>"
+		dir = turn(dir,-90)
+		to_chat(user, "<span class='notice'>You rotate [src].</span>")
 		return 1
 	return 0
 
-/obj/machinery/proc/default_unfasten_wrench(mob/user, obj/item/weapon/wrench/W, time = 20)
+/obj/proc/default_unfasten_wrench(mob/user, obj/item/weapon/wrench/W, time = 20)
 	if(istype(W))
-		user << "<span class='notice'>Now [anchored ? "un" : ""]securing [name].</span>"
+		to_chat(user, "<span class='notice'>Now [anchored ? "un" : ""]securing [name].</span>")
 		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
-		if(do_after(user, time))
-			user << "<span class='notice'>You've [anchored ? "un" : ""]secured [name].</span>"
+		if(do_after(user, time, target = src))
+			to_chat(user, "<span class='notice'>You've [anchored ? "un" : ""]secured [name].</span>")
 			anchored = !anchored
 			playsound(src.loc, 'sound/items/Deconstruct.ogg', 50, 1)
 		return 1
@@ -301,10 +420,10 @@ Class Procs:
 
 /obj/machinery/proc/state(var/msg)
   for(var/mob/O in hearers(src, null))
-    O.show_message("\icon[src] <span class = 'notice'>[msg]</span>", 2)
+    O.show_message("[bicon(src)] <span class = 'notice'>[msg]</span>", 2)
 
 /obj/machinery/proc/ping(text=null)
-  if (!text)
+  if(!text)
     text = "\The [src] pings."
 
   state(text, "blue")
@@ -313,9 +432,11 @@ Class Procs:
 /obj/machinery/proc/exchange_parts(mob/user, obj/item/weapon/storage/part_replacer/W)
 	var/shouldplaysound = 0
 	if(istype(W) && component_parts)
-		if(panel_open)
+		if(panel_open || W.works_from_distance)
 			var/obj/item/weapon/circuitboard/CB = locate(/obj/item/weapon/circuitboard) in component_parts
 			var/P
+			if(W.works_from_distance)
+				display_parts(user)
 			for(var/obj/item/weapon/stock_parts/A in component_parts)
 				for(var/D in CB.req_components)
 					if(ispath(A.type, D))
@@ -329,19 +450,27 @@ Class Procs:
 							component_parts -= A
 							component_parts += B
 							B.loc = null
-							user << "<span class='notice'>[A.name] replaced with [B.name].</span>"
+							to_chat(user, "<span class='notice'>[A.name] replaced with [B.name].</span>")
 							shouldplaysound = 1
 							break
 			RefreshParts()
 		else
-			user << "<span class='notice'>Following parts detected in the machine:</span>"
-			for(var/var/obj/item/C in component_parts)
-				user << "<span class='notice'>    [C.name]</span>"
+			display_parts(user)
 		if(shouldplaysound)
 			W.play_rped_sound()
 		return 1
 	else
 		return 0
+
+/obj/machinery/proc/display_parts(mob/user)
+	to_chat(user, "<span class='notice'>Following parts detected in the machine:</span>")
+	for(var/obj/item/C in component_parts)
+		to_chat(user, "<span class='notice'>[bicon(C)] [C.name]</span>")
+
+/obj/machinery/examine(mob/user)
+	..(user)
+	if(user.research_scanner && component_parts)
+		display_parts(user)
 
 /obj/machinery/proc/dismantle()
 	playsound(loc, 'sound/items/Crowbar.ogg', 50, 1)
@@ -352,16 +481,16 @@ Class Procs:
 		if(I.reliability != 100 && crit_fail)
 			I.crit_fail = 1
 		I.loc = loc
-	del(src)
+	qdel(src)
 	return 1
-	
+
 /obj/machinery/proc/on_assess_perp(mob/living/carbon/human/perp)
 	return 0
 
 /obj/machinery/proc/is_assess_emagged()
 	return emagged
 
-/obj/machinery/proc/assess_perp(mob/living/carbon/human/perp, var/auth_weapons, var/check_records, var/check_arrest)
+/obj/machinery/proc/assess_perp(mob/living/carbon/human/perp, var/check_access, var/auth_weapons, var/check_records, var/check_arrest)
 	var/threatcount = 0	//the integer returned
 
 	if(is_assess_emagged())
@@ -375,6 +504,12 @@ Class Procs:
 	var/obj/item/weapon/card/id/id = GetIdCard(perp)
 	if(id && istype(id, /obj/item/weapon/card/id/syndicate))
 		threatcount -= 2
+	// A proper	CentCom id is hard currency.
+	else if(id && istype(id, /obj/item/weapon/card/id/centcom))
+		threatcount -= 2
+
+	if(check_access && !allowed(perp))
+		threatcount += 4
 
 	if(auth_weapons && !src.allowed(perp))
 		if(istype(perp.l_hand, /obj/item/weapon/gun) || istype(perp.l_hand, /obj/item/weapon/melee))
@@ -402,3 +537,32 @@ Class Procs:
 			threatcount += 4
 
 	return threatcount
+
+
+/obj/machinery/proc/shock(mob/user, prb)
+	if(inoperable())
+		return 0
+	if(!prob(prb))
+		return 0
+	var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+	s.set_up(5, 1, src)
+	s.start()
+	if(electrocute_mob(user, get_area(src), src, 0.7))
+		if(user.stunned)
+			return 1
+	return 0
+
+//called on machinery construction (i.e from frame to machinery) but not on initialization
+/obj/machinery/proc/construction()
+	return
+
+/obj/machinery/tesla_act(var/power)
+	..()
+	if(prob(85))
+		emp_act(2)
+	else if(prob(50))
+		ex_act(3)
+	else if(prob(90))
+		ex_act(2)
+	else
+		ex_act(1)

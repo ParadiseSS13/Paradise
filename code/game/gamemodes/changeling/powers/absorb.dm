@@ -12,15 +12,15 @@
 
 	var/datum/changeling/changeling = user.mind.changeling
 	if(changeling.isabsorbing)
-		user << "<span class='warning'>We are already absorbing!</span>"
+		to_chat(user, "<span class='warning'>We are already absorbing!</span>")
 		return
 
 	var/obj/item/weapon/grab/G = user.get_active_hand()
 	if(!istype(G))
-		user << "<span class='warning'>We must be grabbing a creature in our active hand to absorb them.</span>"
+		to_chat(user, "<span class='warning'>We must be grabbing a creature in our active hand to absorb them.</span>")
 		return
 	if(G.state <= GRAB_NECK)
-		user << "<span class='warning'>We must have a tighter grip to absorb this creature.</span>"
+		to_chat(user, "<span class='warning'>We must have a tighter grip to absorb this creature.</span>")
 		return
 
 	var/mob/living/carbon/target = G.affecting
@@ -36,24 +36,24 @@
 	for(var/stage = 1, stage<=3, stage++)
 		switch(stage)
 			if(1)
-				user << "<span class='notice'>This creature is compatible. We must hold still...</span>"
+				to_chat(user, "<span class='notice'>This creature is compatible. We must hold still...</span>")
 			if(2)
-				user << "<span class='notice'>We extend a proboscis.</span>"
+				to_chat(user, "<span class='notice'>We extend a proboscis.</span>")
 				user.visible_message("<span class='warning'>[user] extends a proboscis!</span>")
 			if(3)
-				user << "<span class='notice'>We stab [target] with the proboscis.</span>"
+				to_chat(user, "<span class='notice'>We stab [target] with the proboscis.</span>")
 				user.visible_message("<span class='danger'>[user] stabs [target] with the proboscis!</span>")
-				target << "<span class='danger'>You feel a sharp stabbing pain!</span>"
+				to_chat(target, "<span class='danger'>You feel a sharp stabbing pain!</span>")
 				target.take_overall_damage(40)
 		feedback_add_details("changeling_powers","A[stage]")
 		if(!do_mob(user, target, 150))
-			user << "<span class='warning'>Our absorption of [target] has been interrupted!</span>"
+			to_chat(user, "<span class='warning'>Our absorption of [target] has been interrupted!</span>")
 			changeling.isabsorbing = 0
 			return
 
-	user << "<span class='notice'>We have absorbed [target]!</span>"
+	to_chat(user, "<span class='notice'>We have absorbed [target]!</span>")
 	user.visible_message("<span class='danger'>[user] sucks the fluids from [target]!</span>")
-	target << "<span class='danger'>You have been absorbed by the changeling!</span>"
+	to_chat(target, "<span class='danger'>You have been absorbed by the changeling!</span>")
 
 	if(!changeling.has_dna(target.dna))
 		changeling.absorb_dna(target, user)

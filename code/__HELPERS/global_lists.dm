@@ -1,167 +1,83 @@
-var/list/clients = list()							//list of all clients
-var/list/admins = list()							//list of all clients whom are admins
-var/list/directory = list()							//list of all ckeys with associated client
-
-//Since it didn't really belong in any other category, I'm putting this here
-//This is for procs to replace all the goddamn 'in world's that are chilling around the code
-
-var/global/list/player_list = list()				//List of all mobs **with clients attached**. Excludes /mob/new_player
-var/global/list/mob_list = list()					//List of all mobs, including clientless
-var/global/list/spirits = list()					//List of all the spirits, including Masks
-var/global/list/living_mob_list = list()			//List of all alive mobs, including clientless. Excludes /mob/new_player
-var/global/list/dead_mob_list = list()				//List of all dead mobs, including clientless. Excludes /mob/new_player
-var/global/list/respawnable_list = list()				//List of all mobs, dead or in mindless creatures that still be respawned.
-
-var/global/list/portals = list()					//for use by portals
-var/global/list/cable_list = list()					//Index for all cables, so that powernets don't have to look through the entire world all the time
-var/global/list/chemical_reactions_list				//list of all /datum/chemical_reaction datums. Used during chemical reactions
-var/global/list/chemical_reagents_list				//list of all /datum/reagent datums indexed by reagent id. Used by chemistry stuff
-var/global/list/landmarks_list = list()				//list of all landmarks created
-var/global/list/surgery_steps = list()				//list of all surgery steps  |BS12
-var/global/list/side_effects = list()				//list of all medical sideeffects types by thier names |BS12
-var/global/list/mechas_list = list()				//list of all mechs. Used by hostile mobs target tracking.
-var/global/list/spacepods_list = list()				//list of all space pods. Used by hostile mobs target tracking.
-var/global/list/joblist = list()					//list of all jobstypes, minus borg and AI
-var/global/list/flag_list = list()					//list of flags during Nations gamemode
-var/global/list/airlocks = list()					//list of all airlocks
-
-
-var/global/list/alphabet_uppercase = list("A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z") //added for Xenoarchaeology, might be useful for other stuff
-
-var/global/list/aibots = list() // AI controlled bots
-var/global/list/table_recipes = list() //list of all table craft recipes
-
-//Languages/species/whitelist.
-var/global/list/all_species[0]
-var/global/list/all_languages[0]
-var/global/list/language_keys[0]					// Table of say codes for all languages
-var/global/list/all_nations[0]
-var/global/list/whitelisted_species = list()
-
-//Preferences stuff
-	//Hairstyles
-var/global/list/hair_styles_list = list()			//stores /datum/sprite_accessory/hair indexed by name
-var/global/list/hair_styles_male_list = list()
-var/global/list/hair_styles_female_list = list()
-var/global/list/facial_hair_styles_list = list()	//stores /datum/sprite_accessory/facial_hair indexed by name
-var/global/list/facial_hair_styles_male_list = list()
-var/global/list/facial_hair_styles_female_list = list()
-var/global/list/skin_styles_female_list = list()		//unused
-	//Underwear
-var/global/list/underwear_m = list("White", "Grey", "Green", "Blue", "Black", "Mankini", "None")
-var/global/list/underwear_f = list("Red", "White", "Yellow", "Blue", "Black", "Thong", "None")
-var/global/list/underwear_list = underwear_m + underwear_f
-	//undershirt
-var/global/list/undershirt_t = list("White Shirt", "White Tank top", "Black shirt", "Black Tank top", "Grey Shirt", "Grey tank top", "Lover Shirt", "Blue Ian Shirt", "UK Shirt","I Love NT Shirt", "Peace Shirt", "Band Shirt", "PogoMan Shirt", "Matroska Shirt", "White Short-sleeved shirt", "Purple Short-sleeved shirt", "Blue Short-sleeved shirt", "Green Short-sleeved shirt", "Black Short-Sleeved shirt", "Blue T-Shirt", "Red T-Shirt", "Yellow T-Shirt", "Green T-Shirt", "Blue Polo Shirt", "Red Polo Shirt", "White Polo Shirt", "Gray-Yellow Polo Shirt", "Green Sports Shirt", "Red Sports Shirt", "Blue Sports Shirt", "SS13 Shirt", "Fire Tank Top", "Question Shirt", "Skull Shirt", "Commie Shirt", "Nanotrasen Shirt", "Striped Shirt", "Blue Shirt", "Red Shirt", "Green Shirt", "Meat Shirt", "Tie-Dye Shirt", "Red Jersey", "Blue Jersey", "None")
-var/global/list/undershirt_list = undershirt_t
-	//Backpacks
-var/global/list/backbaglist = list("Nothing", "Backpack", "Satchel", "Satchel Alt")
-	//Slime Colors
-var/global/slime_colorh = list("grey", "gold", "silver", "metal", "purple", "darkpurple", "orange", "yellow", "red", "blue", "darkblue", "pink", "green", "lightpink", "black", "oil", "adamantine")
-
-
 
 //////////////////////////
 /////Initial Building/////
 //////////////////////////
 
-/hook/startup/proc/makeDatumRefLists()
-	var/list/paths
+/proc/makeDatumRefLists()
+	//markings
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/body_markings, marking_styles_list)
+	//head accessory
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/head_accessory, head_accessory_styles_list)
+	//hair
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/hair, hair_styles_list, hair_styles_male_list, hair_styles_female_list)
+	//facial hair
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/facial_hair, facial_hair_styles_list, facial_hair_styles_male_list, facial_hair_styles_female_list)
+	//underwear
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/underwear, underwear_list, underwear_m, underwear_f)
+	//undershirt
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/undershirt, undershirt_list, undershirt_m, undershirt_f)
+	//socks
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/socks, socks_list, socks_m, socks_f)
 
-	//Hair - Initialise all /datum/sprite_accessory/hair into an list indexed by hair-style name
-	paths = typesof(/datum/sprite_accessory/hair) - /datum/sprite_accessory/hair
-	for(var/path in paths)
-		var/datum/sprite_accessory/hair/H = new path()
-		hair_styles_list[H.name] = H
-		switch(H.gender)
-			if(MALE)	hair_styles_male_list += H.name
-			if(FEMALE)	hair_styles_female_list += H.name
-			else
-				hair_styles_male_list += H.name
-				hair_styles_female_list += H.name
+	init_subtypes(/datum/surgery_step, surgery_steps)
 
-	//Facial Hair - Initialise all /datum/sprite_accessory/facial_hair into an list indexed by facialhair-style name
-	paths = typesof(/datum/sprite_accessory/facial_hair) - /datum/sprite_accessory/facial_hair
-	for(var/path in paths)
-		var/datum/sprite_accessory/facial_hair/H = new path()
-		facial_hair_styles_list[H.name] = H
-		switch(H.gender)
-			if(MALE)	facial_hair_styles_male_list += H.name
-			if(FEMALE)	facial_hair_styles_female_list += H.name
-			else
-				facial_hair_styles_male_list += H.name
-				facial_hair_styles_female_list += H.name
+	for(var/path in (subtypesof(/datum/surgery)))
+		surgeries_list += new path()
 
-	//Surgery Steps - Initialize all /datum/surgery_step into a list
-	paths = typesof(/datum/surgery_step)-/datum/surgery_step
-	for(var/T in paths)
-		var/datum/surgery_step/S = new T
-		surgery_steps += S
-	sort_surgeries()
+	init_datum_subtypes(/datum/job, joblist, list(/datum/job/ai, /datum/job/cyborg), "title")
+	init_datum_subtypes(/datum/superheroes, all_superheroes, null, "name")
+	init_datum_subtypes(/datum/nations, all_nations, null, "default_name")
+	init_datum_subtypes(/datum/language, all_languages, null, "name")
 
-	//Medical side effects. List all effects by their names
-	paths = typesof(/datum/medical_effect)-/datum/medical_effect
-	for(var/T in paths)
-		var/datum/medical_effect/M = new T
-		side_effects[M.name] = T
-
-	//List of job. I can't believe this was calculated multiple times per tick!
-	paths = typesof(/datum/job) -list(/datum/job,/datum/job/ai,/datum/job/cyborg)
-	for(var/T in paths)
-		var/datum/job/J = new T
-		joblist[J.title] = J
-
-	paths = typesof(/datum/nations)-/datum/nations
-	for(var/T in paths)
-		var/datum/nations/N = new T
-		all_nations[N.name] = N
-
-	//Languages and species.
-	paths = typesof(/datum/language)-/datum/language
-	for(var/T in paths)
-		var/datum/language/L = new T
-		all_languages[L.name] = L
-
-	for (var/language_name in all_languages)
+	for(var/language_name in all_languages)
 		var/datum/language/L = all_languages[language_name]
 		if(!(L.flags & NONGLOBAL))
 			language_keys[":[lowertext(L.key)]"] = L
 			language_keys[".[lowertext(L.key)]"] = L
 			language_keys["#[lowertext(L.key)]"] = L
 
+	var/list/paths = subtypesof(/datum/species)
 	var/rkey = 0
-	paths = typesof(/datum/species)-/datum/species
 	for(var/T in paths)
-		rkey++
 		var/datum/species/S = new T
-		S.race_key = rkey //Used in mob icon caching.
+		S.race_key = ++rkey //Used in mob icon caching.
 		all_species[S.name] = S
 
 		if(S.flags & IS_WHITELISTED)
 			whitelisted_species += S.name
 
-	init_subtypes(/datum/table_recipe, table_recipes)
-
+	init_subtypes(/datum/crafting_recipe, crafting_recipes)
 	return 1
 
 /* // Uncomment to debug chemical reaction list.
 /client/verb/debug_chemical_list()
 
-	for (var/reaction in chemical_reactions_list)
+	for(var/reaction in chemical_reactions_list)
 		. += "chemical_reactions_list\[\"[reaction]\"\] = \"[chemical_reactions_list[reaction]]\"\n"
 		if(islist(chemical_reactions_list[reaction]))
 			var/list/L = chemical_reactions_list[reaction]
 			for(var/t in L)
 				. += "    has: [t]\n"
-	world << .
+	to_chat(world, .)
 */
 
 
 //creates every subtype of prototype (excluding prototype) and adds it to list L.
 //if no list/L is provided, one is created.
 /proc/init_subtypes(prototype, list/L)
-        if(!istype(L))        L = list()
-        for(var/path in typesof(prototype))
-                if(path == prototype)        continue
-                L += new path()
-        return L
+	if(!istype(L))	L = list()
+	for(var/path in subtypesof(prototype))
+		L += new path()
+	return L
+
+/proc/init_datum_subtypes(prototype, list/L, list/pexempt, assocvar)
+	if(!istype(L))	L = list()
+	for(var/path in subtypesof(prototype) - pexempt)
+		var/datum/D = new path()
+		if(istype(D))
+			var/assoc
+			if(D.vars["[assocvar]"]) //has the var
+				assoc = D.vars["[assocvar]"] //access value of var
+			if(assoc) //value gotten
+				L["[assoc]"] = D //put in association
+	return L

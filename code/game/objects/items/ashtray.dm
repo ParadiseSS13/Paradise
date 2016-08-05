@@ -15,59 +15,59 @@
 	return
 
 /obj/item/ashtray/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
-	if (health < 1)
+	if(health < 1)
 		return
-	if (istype(W,/obj/item/weapon/cigbutt) || istype(W,/obj/item/clothing/mask/cigarette) || istype(W, /obj/item/weapon/match))
-		if (contents.len >= max_butts)
-			user << "This ashtray is full."
+	if(istype(W,/obj/item/weapon/cigbutt) || istype(W,/obj/item/clothing/mask/cigarette) || istype(W, /obj/item/weapon/match))
+		if(contents.len >= max_butts)
+			to_chat(user, "This ashtray is full.")
 			return
 		user.unEquip(W)
 		W.loc = src
 
-		if (istype(W,/obj/item/clothing/mask/cigarette))
+		if(istype(W,/obj/item/clothing/mask/cigarette))
 			var/obj/item/clothing/mask/cigarette/cig = W
-			if (cig.lit == 1)
+			if(cig.lit == 1)
 				src.visible_message("[user] crushes [cig] in [src], putting it out.")
 				processing_objects.Remove(cig)
 				var/obj/item/butt = new cig.type_butt(src)
 				cig.transfer_fingerprints_to(butt)
-				del(cig)
-			else if (cig.lit == 0)
-				user << "You place [cig] in [src] without even smoking it. Why would you do that?"
+				qdel(cig)
+			else if(cig.lit == 0)
+				to_chat(user, "You place [cig] in [src] without even smoking it. Why would you do that?")
 
 		src.visible_message("[user] places [W] in [src].")
 		user.update_inv_l_hand()
 		user.update_inv_r_hand()
 		add_fingerprint(user)
-		if (contents.len == max_butts)
+		if(contents.len == max_butts)
 			icon_state = icon_full
 			desc = empty_desc + " It's stuffed full."
-		else if (contents.len > max_butts/2)
+		else if(contents.len > max_butts/2)
 			icon_state = icon_half
 			desc = empty_desc + " It's half-filled."
 	else
 		health = max(0,health - W.force)
-		user << "You hit [src] with [W]."
-		if (health < 1)
+		to_chat(user, "You hit [src] with [W].")
+		if(health < 1)
 			die()
 	return
 
 /obj/item/ashtray/throw_impact(atom/hit_atom)
-	if (health > 0)
+	if(health > 0)
 		health = max(0,health - 3)
-		if (health < 1)
+		if(health < 1)
 			die()
 			return
-		if (contents.len)
+		if(contents.len)
 			src.visible_message("\red [src] slams into [hit_atom] spilling its contents!")
-		for (var/obj/item/clothing/mask/cigarette/O in contents)
+		for(var/obj/item/clothing/mask/cigarette/O in contents)
 			O.loc = src.loc
 		icon_state = icon_empty
 	return ..()
 
 /obj/item/ashtray/proc/die()
 	src.visible_message("\red [src] shatters spilling its contents!")
-	for (var/obj/item/clothing/mask/cigarette/O in contents)
+	for(var/obj/item/clothing/mask/cigarette/O in contents)
 		O.loc = src.loc
 	icon_state = icon_broken
 
@@ -81,8 +81,7 @@
 	icon_broken  = "ashtray_bork_bl"
 	max_butts = 14
 	health = 24.0
-	g_amt = 30
-	m_amt = 30
+	materials = list(MAT_METAL=30, MAT_GLASS=30)
 	empty_desc = "Cheap plastic ashtray."
 	throwforce = 3.0
 	die()
@@ -102,7 +101,7 @@
 	icon_broken  = "ashtray_bork_br"
 	max_butts = 10
 	health = 72.0
-	m_amt = 80
+	materials = list(MAT_METAL=80)
 	empty_desc = "Massive bronze ashtray."
 	throwforce = 10.0
 
@@ -123,7 +122,7 @@
 	icon_broken  = "ashtray_bork_gl"
 	max_butts = 12
 	health = 12.0
-	g_amt = 60
+	materials = list(MAT_GLASS=60)
 	empty_desc = "Glass ashtray. Looks fragile."
 	throwforce = 6.0
 

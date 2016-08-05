@@ -14,9 +14,20 @@
 	..()
 	component_parts = list()
 	component_parts += new /obj/item/weapon/circuitboard/telesci_pad(null)
-	component_parts += new /obj/item/bluespace_crystal/artificial(null)
-	component_parts += new /obj/item/bluespace_crystal/artificial(null)
+	component_parts += new /obj/item/weapon/ore/bluespace_crystal/artificial(null)
+	component_parts += new /obj/item/weapon/ore/bluespace_crystal/artificial(null)
 	component_parts += new /obj/item/weapon/stock_parts/capacitor(null)
+	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
+	component_parts += new /obj/item/stack/cable_coil(null, 1)
+	RefreshParts()
+
+/obj/machinery/telepad/upgraded/New()
+	..()
+	component_parts = list()
+	component_parts += new /obj/item/weapon/circuitboard/telesci_pad(null)
+	component_parts += new /obj/item/weapon/ore/bluespace_crystal/artificial(null)
+	component_parts += new /obj/item/weapon/ore/bluespace_crystal/artificial(null)
+	component_parts += new /obj/item/weapon/stock_parts/capacitor/super(null)
 	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
@@ -35,7 +46,7 @@
 		if(istype(I, /obj/item/device/multitool))
 			var/obj/item/device/multitool/M = I
 			M.buffer = src
-			user << "<span class = 'caution'>You save the data in the [I.name]'s buffer.</span>"
+			to_chat(user, "<span class = 'caution'>You save the data in the [I.name]'s buffer.</span>")
 
 	if(exchange_parts(user, I))
 		return
@@ -59,22 +70,22 @@
 		playsound(src, 'sound/items/Ratchet.ogg', 50, 1)
 		if(anchored)
 			anchored = 0
-			user << "<span class = 'caution'> The [src] can now be moved.</span>"
+			to_chat(user, "<span class = 'caution'> The [src] can now be moved.</span>")
 		else if(!anchored)
 			anchored = 1
-			user << "<span class = 'caution'> The [src] is now secured.</span>"
+			to_chat(user, "<span class = 'caution'> The [src] is now secured.</span>")
 	if(istype(W, /obj/item/weapon/screwdriver))
 		if(stage == 0)
 			playsound(src, 'sound/items/Screwdriver.ogg', 50, 1)
-			user << "<span class = 'caution'> You unscrew the telepad's tracking beacon.</span>"
+			to_chat(user, "<span class = 'caution'> You unscrew the telepad's tracking beacon.</span>")
 			stage = 1
 		else if(stage == 1)
 			playsound(src, 'sound/items/Screwdriver.ogg', 50, 1)
-			user << "<span class = 'caution'> You screw in the telepad's tracking beacon.</span>"
+			to_chat(user, "<span class = 'caution'> You screw in the telepad's tracking beacon.</span>")
 			stage = 0
 	if(istype(W, /obj/item/weapon/weldingtool) && stage == 1)
 		playsound(src, 'sound/items/Welder.ogg', 50, 1)
-		user << "<span class = 'caution'> You disassemble the telepad.</span>"
+		to_chat(user, "<span class = 'caution'> You disassemble the telepad.</span>")
 		new /obj/item/stack/sheet/metal(get_turf(src))
 		new /obj/item/stack/sheet/glass(get_turf(src))
 		qdel(src)
@@ -90,7 +101,7 @@
 
 /obj/item/device/telepad_beacon/attack_self(mob/user as mob)
 	if(user)
-		user << "<span class = 'caution'> Locked In</span>"
+		to_chat(user, "<span class = 'caution'> Locked In</span>")
 		new /obj/machinery/telepad_cargo(user.loc)
 		playsound(src, 'sound/effects/pop.ogg', 100, 1, 1)
 		qdel(src)
@@ -99,61 +110,55 @@
 ///HANDHELD TELEPAD USER///
 /obj/item/weapon/rcs
 	name = "rapid-crate-sender (RCS)"
-	desc = "Use this to send crates and closets to cargo telepads."
+	desc = "A device used to teleport crates and closets to cargo telepads."
 	icon = 'icons/obj/telescience.dmi'
 	icon_state = "rcs"
+	item_state = "rcd"
 	flags = CONDUCT
 	force = 10.0
 	throwforce = 10.0
 	throw_speed = 2
 	throw_range = 5
-	var/rcharges = 10
+	var/obj/item/weapon/stock_parts/cell/high/rcell = null
 	var/obj/machinery/pad = null
-	var/last_charge = 30
 	var/mode = 0
 	var/rand_x = 0
 	var/rand_y = 0
 	var/emagged = 0
 	var/teleporting = 0
+	var/chargecost = 1500
 
 /obj/item/weapon/rcs/New()
 	..()
-	processing_objects.Add(src)
+	rcell = new(src)
+
 
 /obj/item/weapon/rcs/examine(mob/user)
-	..()
-	user << "There are [rcharges] charge\s left."
+	..(user)
+	to_chat(user, "There are [round(rcell.charge/chargecost)] charge\s left.")
 
 /obj/item/weapon/rcs/Destroy()
-	processing_objects.Remove(src)
-	..()
-	
-/obj/item/weapon/rcs/process()
-	if(rcharges > 10)
-		rcharges = 10
-	if(last_charge == 0)
-		rcharges++
-		last_charge = 30
-	else
-		last_charge--
+	if(rcell)
+		qdel(rcell)
+		rcell = null
+	return ..()
 
 /obj/item/weapon/rcs/attack_self(mob/user)
 	if(emagged)
 		if(mode == 0)
 			mode = 1
 			playsound(src.loc, 'sound/effects/pop.ogg', 50, 0)
-			user << "<span class = 'caution'> The telepad locator has become uncalibrated.</span>"
+			to_chat(user, "<span class = 'caution'> The telepad locator has become uncalibrated.</span>")
 		else
 			mode = 0
 			playsound(src.loc, 'sound/effects/pop.ogg', 50, 0)
-			user << "<span class = 'caution'> You calibrate the telepad locator.</span>"
+			to_chat(user, "<span class = 'caution'> You calibrate the telepad locator.</span>")
 
 /obj/item/weapon/rcs/emag_act(user as mob)
 	if(!emagged)
 		emagged = 1
-		var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
+		var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 		s.set_up(5, 1, src)
 		s.start()
-		user << "<span class = 'caution'> You emag the RCS. Click on it to toggle between modes.</span>"
+		to_chat(user, "<span class = 'caution'> You emag the RCS. Activate it to toggle between modes.</span>")
 		return
-		

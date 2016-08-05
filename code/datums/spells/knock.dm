@@ -1,4 +1,4 @@
-/obj/effect/proc_holder/spell/wizard/aoe_turf/knock
+/obj/effect/proc_holder/spell/aoe_turf/knock
 	name = "Knock"
 	desc = "This spell opens nearby doors and does not require wizard garb."
 
@@ -10,9 +10,9 @@
 	range = 3
 	cooldown_min = 20 //20 deciseconds reduction per rank
 
-	icon_power_button = "spell_knock"
+	action_icon_state = "knock"
 
-/obj/effect/proc_holder/spell/wizard/aoe_turf/knock/cast(list/targets)
+/obj/effect/proc_holder/spell/aoe_turf/knock/cast(list/targets)
 	for(var/turf/T in targets)
 		for(var/obj/machinery/door/door in T.contents)
 			spawn(1)
@@ -22,4 +22,11 @@
 					var/obj/machinery/door/airlock/A = door
 					A.unlock(1)	//forced because it's magic!
 				door.open()
+		for(var/obj/structure/closet/C in T.contents)
+			spawn(1)
+				if(istype(C, /obj/structure/closet/secure_closet))
+					var/obj/structure/closet/secure_closet/SC = C
+					SC.locked = 0
+				C.open()
+
 	return

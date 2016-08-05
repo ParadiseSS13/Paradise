@@ -24,25 +24,25 @@
 			return
 		addEventType(event_type)
 		var/list/event = events[event_type]
-		var/datum/event/E = new /datum/event(proc_holder,proc_name)
+		var/datum/events_event/E = new /datum/events_event(proc_holder,proc_name)
 		event += E
 		return E
 
 	//  Arguments: event_type as text, any number of additional arguments to pass to event handler
 	//  Returns: null
 	proc/fireEvent()
-		//world << "Events in [args[1]] called"
+//		to_chat(world, "Events in [args[1]] called")
 		var/list/event = listgetindex(events,args[1])
 		if(istype(event))
 			spawn(-1)
-				for(var/datum/event/E in event)
+				for(var/datum/events_event/E in event)
 					if(!E.Fire(arglist(args.Copy(2))))
 						clearEvent(args[1],E)
 		return
 
-	// Arguments: event_type as text, E as /datum/event
+	// Arguments: event_type as text, E as /datum/events_event
 	// Returns: 1 if event cleared, null on error
-	proc/clearEvent(event_type as text, datum/event/E)
+	proc/clearEvent(event_type as text, datum/events_event/E)
 		if(!event_type || !E)
 			return
 		var/list/event = listgetindex(events,event_type)
@@ -50,7 +50,7 @@
 		return 1
 
 
-/datum/event
+/datum/events_event
 	var/listener
 	var/proc_name
 
@@ -60,7 +60,7 @@
 		return ..()
 
 	proc/Fire()
-		//world << "Event fired"
+//		to_chat(world, "Event fired")
 		if(listener)
 			call(listener,proc_name)(arglist(args))
 			return 1

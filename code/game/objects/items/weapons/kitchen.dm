@@ -18,19 +18,19 @@
  */
 /obj/item/weapon/kitchen/utensil
 	force = 5.0
-	w_class = 1.0
+	w_class = 1
 	throwforce = 0.0
 	throw_speed = 3
 	throw_range = 5
 	flags = CONDUCT
 	origin_tech = "materials=1"
 	attack_verb = list("attacked", "stabbed", "poked")
+	hitsound = 'sound/weapons/bladeslice.ogg'
 	sharp = 0
-
-	var/loaded      //Descriptive string for currently loaded food object.
+	var/max_contents = 1
 
 /obj/item/weapon/kitchen/utensil/New()
-	if (prob(60))
+	if(prob(60))
 		src.pixel_y = rand(0, 4)
 
 	create_reagents(5)
@@ -40,7 +40,7 @@
 	if(!istype(M))
 		return ..()
 
-	if(user.a_intent != "help")
+	if(user.a_intent != I_HELP)
 		if(user.zone_sel.selecting == "head" || user.zone_sel.selecting == "eyes")
 			if((CLUMSY in user.mutations) && prob(50))
 				M = user
@@ -48,19 +48,17 @@
 		else
 			return ..()
 
-	if (reagents.total_volume > 0)
-		reagents.trans_to_ingest(M, reagents.total_volume)
-		if(M == user)
-			for(var/mob/O in viewers(M, null))
-				O.show_message(text("\blue [] eats some [] from \the [].", user, loaded, src), 1)
-				M.reagents.add_reagent("nutriment", 1)
-		else
-			for(var/mob/O in viewers(M, null))
-				O.show_message(text("\blue [] feeds [] some [] from \the []", user, M, loaded, src), 1)
-				M.reagents.add_reagent("nutriment", 1)
-		playsound(M.loc,'sound/items/eatfood.ogg', rand(10,40), 1)
-		overlays.Cut()
-		return
+	if(contents.len)
+		var/obj/item/weapon/reagent_containers/food/snacks/toEat = contents[1]
+		if(istype(toEat))
+			if(M.eat(toEat, user))
+				toEat.On_Consume(M, user)
+				spawn(0)
+					if(toEat)
+						qdel(toEat)
+				overlays.Cut()
+				return
+
 
 /obj/item/weapon/kitchen/utensil/fork
 	name = "fork"
@@ -87,118 +85,72 @@
 /*
  * Knives
  */
-/obj/item/weapon/kitchen/utensil/knife
-	name = "knife"
-	desc = "Can cut through any food."
-	icon_state = "knife"
-	force = 10.0
-	throwforce = 10.0
-	sharp = 1
-	edge = 1
-
-	suicide_act(mob/user)
-		viewers(user) << pick("<span class='suicide'>[user] is slitting \his wrists with the [src.name]! It looks like \he's trying to commit suicide.</span>", \
-							"<span class='suicide'>[user] is slitting \his throat with the [src.name]! It looks like \he's trying to commit suicide.</span>", \
-							"<span class='suicide'>[user] is slitting \his stomach open with the [src.name]! It looks like \he's trying to commit seppuku.</span>")
-		return (BRUTELOSS)
-
-/obj/item/weapon/kitchen/utensil/knife/attack(target as mob, mob/living/user as mob)
-	if ((CLUMSY in user.mutations) && prob(50))
-		user << "\red You accidentally cut yourself with the [src]."
-		user.take_organ_damage(20)
-		return
-	playsound(loc, 'sound/weapons/bladeslice.ogg', 50, 1, -1)
-	return ..()
-
-/obj/item/weapon/kitchen/utensil/pknife
-	name = "plastic knife"
-	desc = "The bluntest of blades."
-	icon_state = "pknife"
-	force = 10.0
-	throwforce = 10.0
-
-/obj/item/weapon/kitchen/utensil/knife/attack(target as mob, mob/living/user as mob)
-	if ((CLUMSY in user.mutations) && prob(50))
-		user << "\red You somehow managed to cut yourself with the [src]."
-		user.take_organ_damage(20)
-		return
-	playsound(loc, 'sound/weapons/bladeslice.ogg', 50, 1, -1)
-	return ..()
-
-/*
- * Kitchen knives
- */
-/obj/item/weapon/kitchenknife
+/obj/item/weapon/kitchen/knife
 	name = "kitchen knife"
-	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "knife"
 	desc = "A general purpose Chef's Knife made by SpaceCook Incorporated. Guaranteed to stay sharp for years to come."
 	flags = CONDUCT
-	sharp = 1
-	edge = 1
-	force = 10.0
-	w_class = 3.0
-	throwforce = 6.0
+	force = 10
+	w_class = 2
+	throwforce = 10
+	hitsound = 'sound/weapons/bladeslice.ogg'
 	throw_speed = 3
 	throw_range = 6
-	m_amt = 12000
+	materials = list(MAT_METAL=12000)
 	origin_tech = "materials=1"
 	attack_verb = list("slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
+	no_embed = 1
+	sharp = 1
+	edge = 1
 
-	suicide_act(mob/user)
-		viewers(user) << pick("<span class='suicide'>[user] is slitting \his wrists with the [src.name]! It looks like \he's trying to commit suicide.</span>", \
-							"<span class='suicide'>[user] is slitting \his throat with the [src.name]! It looks like \he's trying to commit suicide.</span>", \
-							"<span class='suicide'>[user] is slitting \his stomach open with the [src.name]! It looks like \he's trying to commit seppuku.</span>")
-		return (BRUTELOSS)
+/obj/item/weapon/kitchen/knife/suicide_act(mob/user)
+	user.visible_message(pick("<span class='suicide'>[user] is slitting \his wrists with the [src.name]! It looks like \he's trying to commit suicide.</span>", \
+						"<span class='suicide'>[user] is slitting \his throat with the [src.name]! It looks like \he's trying to commit suicide.</span>", \
+						"<span class='suicide'>[user] is slitting \his stomach open with the [src.name]! It looks like \he's trying to commit seppuku.</span>"))
+	return (BRUTELOSS)
 
-/obj/item/weapon/kitchenknife/combat
-	name = "combat knife"
-	force = 15.0
-	throwforce = 10.0
-	origin_tech = "materials=2;combat=2"
-	desc = "A razor sharp knife, built from advanced alloys, designed for quick, melee killing. Also not half bad as a kitchen knife."
-	slot_flags = SLOT_BELT
-	icon = 'icons/obj/weapons.dmi'
-	icon_state = "combatknife"
+/obj/item/weapon/kitchen/knife/plastic
+	name = "plastic knife"
+	desc = "The bluntest of blades."
+	icon_state = "pknife"
+	item_state = "knife"
+	sharp = 0
+	edge = 0
 
-
-/obj/item/weapon/kitchenknife/ritual
+/obj/item/weapon/kitchen/knife/ritual
 	name = "ritual knife"
 	desc = "The unearthly energies that once powered this blade are now dormant."
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "render"
+	w_class = 3
 
-/*
- * Bucher's cleaver
- */
-/obj/item/weapon/butch
-	name = "butcher's Cleaver"
-	icon = 'icons/obj/kitchen.dmi'
+/obj/item/weapon/kitchen/knife/butcher
+	name = "butcher's cleaver"
 	icon_state = "butch"
 	desc = "A huge thing used for chopping and chopping up meat. This includes clowns and clown-by-products."
 	flags = CONDUCT
-	force = 15.0
-	w_class = 3.0
-	throwforce = 8.0
-	throw_speed = 3
-	throw_range = 6
-	m_amt = 12000
-	origin_tech = "materials=1"
+	force = 15
+	throwforce = 8
 	attack_verb = list("cleaved", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
-	sharp = 1
-	edge = 1
+	w_class = 3
 
-/obj/item/weapon/butch/meatcleaver
+/obj/item/weapon/kitchen/knife/butcher/meatcleaver
 	name = "Meat Cleaver"
 	icon_state = "mcleaver"
+	item_state = "butch"
 	desc = "A huge thing used for chopping and chopping up meat. This includes clowns and clown-by-products."
 	force = 25.0
 	throwforce = 15.0
-	no_embed = 1
 
-/obj/item/weapon/butch/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
-	playsound(loc, 'sound/weapons/bladeslice.ogg', 50, 1, -1)
-	return ..()
+/obj/item/weapon/kitchen/knife/combat
+	name = "combat knife"
+	icon_state = "combatknife"
+	item_state = "knife"
+	desc = "A military combat utility survival knife."
+	force = 20
+	throwforce = 20
+	origin_tech = "materials=2;combat=4"
+	attack_verb = list("slashed", "stabbed", "sliced", "torn", "ripped", "cut")
 
 /*
  * Rolling Pins
@@ -212,7 +164,7 @@
 	throwforce = 10.0
 	throw_speed = 3
 	throw_range = 7
-	w_class = 3.0
+	w_class = 3
 	attack_verb = list("bashed", "battered", "bludgeoned", "thrashed", "whacked")
 
 /* Trays moved to /obj/item/weapon/storage/bag */
@@ -229,7 +181,7 @@
 	throwforce = 5
 	throw_speed = 3
 	throw_range = 3
-	w_class = 2.0
+	w_class = 2
 	attack_verb = list("bashed", "battered", "bludgeoned", "thrashed", "smashed")
 
 /obj/item/weapon/kitchen/mould/bear

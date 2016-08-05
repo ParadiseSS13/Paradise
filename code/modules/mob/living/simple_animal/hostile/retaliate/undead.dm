@@ -41,17 +41,12 @@
 	attacktext = "grips"
 	attack_sound = 'sound/hallucinations/growl1.ogg'
 
-	min_oxy = 0
-	max_oxy = 0
-	min_tox = 0
-	max_tox = 0
-	min_co2 = 0
-	max_co2 = 0
-	min_n2 = 0
-	max_n2 = 0
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 
 	faction = list("undead") // did I mention ghost
+	loot = list(/obj/item/weapon/reagent_containers/food/snacks/ectoplasm)
+	del_on_death = 1
 
 /mob/living/simple_animal/hostile/retaliate/ghost/Process_Spacemove(var/check_drift = 0)
 	return 1
@@ -59,7 +54,7 @@
 /mob/living/simple_animal/hostile/retaliate/ghost/FindTarget()
 	. = ..()
 	if(.)
-		emote("wails at [.]")
+		custom_emote(1, "wails at [.]")
 
 /mob/living/simple_animal/hostile/retaliate/ghost/Life()
 	if(target)
@@ -67,10 +62,6 @@
 	else
 		invisibility = pick(0,60,60,invisibility)
 	..()
-/mob/living/simple_animal/hostile/retaliate/ghost/Die()
-	new /obj/item/weapon/ectoplasm(loc)
-	del src
-	return
 
 /mob/living/simple_animal/hostile/retaliate/skeleton
 	name = "skeleton"
@@ -93,22 +84,12 @@
 	attacktext = "claws"
 	attack_sound = 'sound/hallucinations/growl1.ogg'
 
-	min_oxy = 0
-	max_oxy = 0
-	min_tox = 0
-	max_tox = 0
-	min_co2 = 0
-	max_co2 = 0
-	min_n2 = 0
-	max_n2 = 0
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 
 	faction = list("undead")
-
-/mob/living/simple_animal/hostile/retaliate/skeleton/Die()
-	new /obj/effect/decal/remains/human(loc)
-	del src
-	return
+	loot = list(/obj/effect/decal/remains/human)
+	del_on_death = 1
 
 /mob/living/simple_animal/hostile/retaliate/zombie
 	name = "zombie"
@@ -131,19 +112,9 @@
 	attacktext = "claws"
 	attack_sound = 'sound/hallucinations/growl1.ogg'
 
-	min_oxy = 0
-	max_oxy = 0
-	min_tox = 0
-	max_tox = 0
-	min_co2 = 0
-	max_co2 = 0
-	min_n2 = 0
-	max_n2 = 0
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 
 	faction = list("undead")
-
-/mob/living/simple_animal/hostile/retaliate/zombie/Die()
-	new /obj/effect/decal/cleanable/blood/gibs(loc)
-	del src
-	return
+	loot = list(/obj/effect/decal/cleanable/blood/gibs)
+	del_on_death = 1

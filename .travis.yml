@@ -1,22 +1,47 @@
 #pretending we're C because otherwise ruby will initialize, even with "language: dm".
-language: c
+language: generic
+sudo: false
+
+git:
+  depth: 1
 
 env:
-  BYOND_MAJOR="503"
-  BYOND_MINOR="1224"
+  global:
+    - BYOND_MAJOR="510"
+    - BYOND_MINOR="1346"
+  matrix:
+    - DM_MAPFILE="cyberiad"
+    - DM_MAPFILE="metastation"
+    - DM_MAPFILE="test_away_missions"
 
-before_install:
-  - sudo apt-get update -qq
-  - sudo apt-get install libc6:i386 libgcc1:i386 libstdc++6:i386 -qq
+cache:
+  directories:
+    - $HOME/BYOND-${BYOND_MAJOR}.${BYOND_MINOR}
 
-install:
-  - curl "http://www.byond.com/download/build/${BYOND_MAJOR}/${BYOND_MAJOR}.${BYOND_MINOR}_byond_linux.zip" -o byond.zip
-  - unzip byond.zip
-  - cd byond
-  - sudo make install
-  - cd ..
+addons:
+  apt:
+    packages:
+      - libc6-i386
+      - libgcc1:i386
+      - libstdc++6:i386
 
+before_script:
+  - chmod +x ./install-byond.sh
+  - ./install-byond.sh
 script:
-  - shopt -s globstar
-  - (! grep 'step_[xy]' maps/**/*.dmm)
-  - DreamMaker paradise.dme
+  - source $HOME/BYOND-${BYOND_MAJOR}.${BYOND_MINOR}/byond/bin/byondsetup
+  - bash dm.sh -M${DM_MAPFILE} paradise.dme
+
+matrix:
+  include:
+    - env: FILE_CHECKS=1
+      addons:
+      install:
+        - pip install --user PyYaml -q
+        - pip install --user beautifulsoup4 -q
+      before_script:
+      script:
+        - shopt -s globstar
+        - (! grep 'step_[xy]' _maps/map_files/**/*.dmm)
+        - md5sum -c - <<< "6dc1b6bf583f3bd4176b6df494caa5f1 *html/changelogs/example.yml"
+        - python tools/ss13_genchangelog.py html/changelog.html html/changelogs

@@ -4,7 +4,7 @@
 <div class="item">
   {{if !data.isolating}}
     {{:helper.link('Home', 'home', {'home' : 1}, data.state == 'home' ? 'disabled' : null, 'fixedLeft')}}
-    {{:helper.link('List', 'note', {'list' : 1}, data.state == 'list' ? 'disabled' : null, 'fixedLeft')}}
+    {{:helper.link('List', 'sticky-note', {'list' : 1}, data.state == 'list' ? 'disabled' : null, 'fixedLeft')}}
     {{:helper.link('Pathogen', 'folder-open', {'entry' : 1}, data.state == 'entry' ? 'disabled' : null, 'fixedLeft')}}
   {{/if}}
   <br>
@@ -82,7 +82,7 @@
         {{for data.database}}
           <div class='itemContent'>
             <div class='highlight fixedLeft'>{{:data.name}}</div>
-            {{:helper.link('Details', 'circle-arrow-s', { 'entry' : 1, 'view' : value.record }, null, 'fixedLeft')}}
+            {{:helper.link('Details', 'arrow-circle-down', { 'entry' : 1, 'view' : value.record }, null, 'fixedLeft')}}
           </div>
         {{/for}}
       {{else}}

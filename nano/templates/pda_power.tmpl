@@ -1,0 +1,49 @@
+{{if !data.records.powerconnected}}
+	<div class="item">
+		<div class="itemLabel">Select a power monitor:</div>
+	</div>
+	{{for data.records.powermonitors}}
+		<div class="item">
+			{{:helper.link(value.Name, 'exclamation-circle', {'choice' : "Power Select", 'target' : value.ref}, null, 'pdalink fixedLeftWidest')}}
+		</div>
+	{{/for}}
+{{else}}
+	<div class="item">
+		<div class="itemLabelNarrow">
+			<b>Total Power:</b>
+		</div>
+		<div class="itemContent">
+			<span class="average">{{:data.records.poweravail}} W</span>
+		</div>
+	</div>
+	<div class="item">
+		<div class="itemLabelNarrow">
+			<b>Total Load:</b>
+		</div>
+		<div class="itemContent">
+			<span class="average">{{:data.records.powerload}} W</span>
+		</div>
+	</div>
+	<div class="item">
+		<div class="itemLabelNarrow">
+			<b>Total Demand:</b>
+		</div>
+		<div class="itemContent">
+			<span class="average">{{:data.records.powerdemand}} W</span>
+		</div>
+	</div>
+	<div class="item">
+		<table class="curvedEdges" style="text-align: center;"><tbody>
+			<tr><th>Area</th><th>Equip.</th><th>Lighting</th><th>Environ.</th><th>Cell</th><th>Load</th></tr>
+			{{for data.records.apcs}}		
+				<tr><td style="text-align: left; font-weight: bold;">{{:value.Name}}</td>
+					{{:helper.string('<td width="55px" bgcolor="{0}">{1}</td>', value.Equipment == "On" || value.Equipment == "AOn" ? '#4f7529' : '#8f1414', value.Equipment)}}
+					{{:helper.string('<td width="55px" bgcolor="{0}">{1}</td>', value.Lights == "On" || value.Lights == "AOn" ? '#4f7529' : '#8f1414', value.Lights)}}
+					{{:helper.string('<td width="55px" bgcolor="{0}">{1}</td>', value.Environment == "On" || value.Environment == "AOn" ? '#4f7529' : '#8f1414', value.Environment)}}
+					{{:helper.string('<td style="text-align: center;" width="65px" bgcolor="{0}">{1}{2}</td>', value.CellStatus == "F" ? '#4f7529' : value.CellStatus == "C" ? '#cd6500' : '#8f1414', value.CellStatus == "M" ? 'No Cell' : value.CellPct + '%', value.CellStatus == "M" ? '' : ' (' + value.CellStatus + ')')}}
+					<td width="55px">{{:value.Load}}W</td>
+				</tr>
+			{{/for}}
+		</tbody></table>
+	</div>
+{{/if}}

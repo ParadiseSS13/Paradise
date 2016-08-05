@@ -11,10 +11,11 @@ datum/genesequence
 #define SCANFOSSIL_RETVAL_SUCCESS 4
 
 /obj/machinery/computer/reconstitutor
-	name = "Flora reconstitution console"
+	name = "flora reconstitution console"
 	icon = 'icons/obj/computer.dmi'
-	icon_state = "dna"
-	circuit = "/obj/item/weapon/circuitboard/reconstitutor"
+	icon_keyboard = "med_key"
+	icon_screen = "dna"
+	circuit = /obj/item/weapon/circuitboard/reconstitutor
 	req_access = list(access_heads) //Only used for record deletion right now.
 	var/obj/machinery/clonepod/pod1 = 1 //Linked cloning pod.
 	var/temp = ""
@@ -38,10 +39,10 @@ datum/genesequence
 	..()
 
 /obj/machinery/computer/reconstitutor/animal
-	name = "Fauna reconstitution console"
+	name = "fauna reconstitution console"
 	accepted_fossil_types = list(/obj/item/weapon/fossil/bone,/obj/item/weapon/fossil/shell,/obj/item/weapon/fossil/skull)
 	pod1 = null
-	circuit = "/obj/item/weapon/circuitboard/reconstitutor/animal"
+	circuit = /obj/item/weapon/circuitboard/reconstitutor/animal
 
 /obj/machinery/computer/reconstitutor/animal/initialize()
 	undiscovered_genesequences = master_controller.all_animal_genesequences.Copy()
@@ -53,14 +54,14 @@ datum/genesequence
 		W.loc = src.loc
 		switch(scan_fossil(W))
 			if(1)
-				src.visible_message("\red \icon[src] [src] scans the fossil and rejects it.")
+				src.visible_message("\red [bicon(src)] [src] scans the fossil and rejects it.")
 			if(2)
-				visible_message("\red \icon[src] [src] can not extract any more genetic data from new fossils.")
+				visible_message("\red [bicon(src)] [src] can not extract any more genetic data from new fossils.")
 			if(4)
-				src.visible_message("\blue \icon[src] [user] inserts [W] into [src], the fossil is consumed as [src] extracts genetic data from it.")
-				del(W)
+				src.visible_message("\blue [bicon(src)] [user] inserts [W] into [src], the fossil is consumed as [src] extracts genetic data from it.")
+				qdel(W)
 				updateDialog()
-	else if (istype(W, /obj/item/weapon/storage))
+	else if(istype(W, /obj/item/weapon/storage))
 		var/obj/item/weapon/storage/S = W
 		S.hide_from(usr)
 		var/numaccepted = 0
@@ -75,7 +76,7 @@ datum/genesequence
 				if(SCANFOSSIL_RETVAL_SUCCESS)
 					numaccepted += 1
 					S.remove_from_storage(F, src) //This will move the item to this item's contents
-					del(F)
+					qdel(F)
 					updateDialog()
 		var/outmsg = "\blue You empty all the fossils from [S] into [src]."
 		if(numaccepted)
@@ -181,13 +182,13 @@ datum/genesequence
 		var/datum/genesequence/cloned_genesequence = completed_genesequences[sequence_num]
 		if(pod1)
 			if(pod1.occupant)
-				visible_message("\red \icon[src] The cloning pod is currently occupied.")
+				visible_message("\red [bicon(src)] The cloning pod is currently occupied.")
 			else if(pod1.biomass < CLONE_BIOMASS)
-				visible_message("\red \icon[src] Not enough biomass in the cloning pod.")
+				visible_message("\red [bicon(src)] Not enough biomass in the cloning pod.")
 			else if(pod1.mess)
-				visible_message("\red \icon[src] Error: clonepod malfunction.")
+				visible_message("\red [bicon(src)] Error: clonepod malfunction.")
 			else
-				visible_message("\blue \icon[src] [src] clones something from a reconstituted gene sequence!")
+				visible_message("\blue [bicon(src)] [src] clones something from a reconstituted gene sequence!")
 				playsound(src.loc, 'sound/effects/screech.ogg', 50, 1, -3)
 				pod1.occupant = new cloned_genesequence.spawned_type(pod1)
 				pod1.locked = 1
@@ -195,13 +196,13 @@ datum/genesequence
 				//pod1.occupant.name = "[pod1.occupant.name] ([rand(0,999)])"
 				pod1.biomass -= CLONE_BIOMASS
 		else
-			usr << "\red \icon[src] Unable to locate cloning pod!"
+			to_chat(usr, "\red [bicon(src)] Unable to locate cloning pod!")
 	else
 		..()
 
 /obj/machinery/computer/reconstitutor/Topic(href, href_list)
 	if(href_list["insertpos"])
-		//world << "inserting gene for genesequence [href_list["insertgenome"]] at pos [text2num(href_list["insertpos"])]"
+//		to_chat(world, "inserting gene for genesequence [href_list["insertgenome"]] at pos [text2num(href_list["insertpos"])]")
 		var/sequence_num = text2num(href_list["sequence_num"])
 		var/insertpos = text2num(href_list["insertpos"])
 
@@ -239,7 +240,7 @@ datum/genesequence
 	else if(href_list["clone"])
 		var/sequence_num = text2num(href_list["sequence_num"])
 		var/datum/genesequence/cloned_genesequence = completed_genesequences[sequence_num]
-		visible_message("\blue \icon[src] [src] clones a packet of seeds from a reconstituted gene sequence!")
+		visible_message("\blue [bicon(src)] [src] clones a packet of seeds from a reconstituted gene sequence!")
 		playsound(src.loc, 'sound/effects/screech.ogg', 50, 1, -3)
 		new cloned_genesequence.spawned_type(src.loc)
 
@@ -299,7 +300,7 @@ datum/genesequence
 /obj/item/weapon/circuitboard/reconstitutor
 	name = "Circuit board (Flora Reconstitution Console)"
 	build_path = "/obj/machinery/computer/reconstitutor"
-	origin_tech = "programming=2;biotech=4;materials=6"
+	origin_tech = "programming=2;biotech=3;materials=4"
 	frame_desc = "Requires 2 Advanced Scanning Module, 1 Nano Manipulator, 1 Matter Bin and 1 Advanced Capacitor."
 	req_components = list(
 							"/obj/item/weapon/stock_parts/scanning_module/adv" = 2,

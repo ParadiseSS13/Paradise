@@ -9,9 +9,9 @@
 	..()
 	processing_objects.Add(src)
 
-/obj/item/weapon/holder/Del()
+/obj/item/weapon/holder/Destroy()
 	processing_objects.Remove(src)
-	..()
+	return ..()
 
 /obj/item/weapon/holder/process()
 
@@ -24,7 +24,7 @@
 			mob_container.forceMove(get_turf(src))
 			M.reset_view()
 
-		del(src)
+		qdel(src)
 
 /obj/item/weapon/holder/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	for(var/mob/M in src.contents)
@@ -34,18 +34,70 @@
 	for(var/mob/living/M in contents)
 		M.show_message(message,m_type)
 
+/obj/item/weapon/holder/emp_act(var/intensity)
+	for(var/mob/living/M in contents)
+		M.emp_act(intensity)
+
+/obj/item/weapon/holder/ex_act(var/intensity)
+	for(var/mob/living/M in contents)
+		M.ex_act(intensity)
+
+/obj/item/weapon/holder/container_resist(var/mob/living/L)
+	var/mob/M = src.loc                      //Get our mob holder (if any).
+
+	if(istype(M))
+		M.unEquip(src)
+		to_chat(M, "[src] wriggles out of your grip!")
+		to_chat(L, "You wriggle out of [M]'s grip!")
+	else if(istype(loc,/obj/item))
+		to_chat(L, "You struggle free of [loc].")
+		forceMove(get_turf(src))
+
+	if(istype(M))
+		for(var/atom/A in M.contents)
+			if(istype(A,/mob/living/simple_animal/borer) || istype(A,/obj/item/weapon/holder))
+				return
+		M.status_flags &= ~PASSEMOTES
+
+	return
+
+//Mob procs and vars for scooping up
+/mob/living/var/holder_type
+
+/mob/living/proc/get_scooped(var/mob/living/carbon/grabber)
+	if(!holder_type)	return
+
+	var/obj/item/weapon/holder/H = new holder_type(loc)
+	src.forceMove(H)
+	H.name = name
+	if(istype(H, /obj/item/weapon/holder/mouse))	H.icon_state = icon_state
+	if(desc)	H.desc = desc
+	H.attack_hand(grabber)
+
+	to_chat(grabber, "<span class='notice'>You scoop up \the [src].")
+	to_chat(src, "<span class='notice'>\The [grabber] scoops you up.</span>")
+	grabber.status_flags |= PASSEMOTES
+	return H
+
 //Mob specific holders.
 
 /obj/item/weapon/holder/diona
-
 	name = "diona nymph"
 	desc = "It's a tiny plant critter."
 	icon_state = "nymph"
-	origin_tech = "magnets=3;biotech=5"
 
 /obj/item/weapon/holder/drone
-
 	name = "maintenance drone"
 	desc = "It's a small maintenance robot."
 	icon_state = "drone"
-	origin_tech = "magnets=3;engineering=5"
+
+/obj/item/weapon/holder/pai
+	name = "pAI"
+	desc = "It's a little robot."
+	icon_state = "pai"
+
+/obj/item/weapon/holder/mouse
+	name = "mouse"
+	desc = "It's a small, disease-ridden rodent."
+	icon = 'icons/mob/animal.dmi'
+	icon_state = "mouse_gray"

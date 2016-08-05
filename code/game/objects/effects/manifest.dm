@@ -1,6 +1,6 @@
 /obj/effect/manifest
 	name = "manifest"
-	icon = 'icons/mob/screen1.dmi'
+	icon = 'icons/mob/screen_gen.dmi'
 	icon_state = "x"
 	unacidable = 1//Just to be sure.
 
@@ -17,5 +17,5 @@
 	P.info = dat
 	P.name = "paper- 'Crew Manifest'"
 	//SN src = null
-	del(src)
+	qdel(src)
 	return

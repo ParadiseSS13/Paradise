@@ -9,12 +9,14 @@ obj/machinery/door/airlock
 	var/cur_command = null	//the command the door is currently attempting to complete
 
 obj/machinery/door/airlock/process()
-	..()
-	if (arePowerSystemsOn())
-		execute_current_command()
+	if(arePowerSystemsOn() && cur_command)
+		spawn()
+			execute_current_command()
+	else
+		return PROCESS_KILL
 
 obj/machinery/door/airlock/receive_signal(datum/signal/signal)
-	if (!arePowerSystemsOn()) return //no power
+	if(!arePowerSystemsOn()) return //no power
 
 	if(!signal || signal.encryption) return
 
@@ -28,12 +30,15 @@ obj/machinery/door/airlock/proc/execute_current_command()
 	if(operating)
 		return //emagged or busy doing something else
 
-	if (!cur_command)
+	if(!cur_command)
 		return
-	
+
 	do_command(cur_command)
-	if (command_completed(cur_command))
+	if(command_completed(cur_command))
 		cur_command = null
+	else
+		if(!(src in machines))
+			addAtProcessing()
 
 obj/machinery/door/airlock/proc/do_command(var/command)
 	switch(command)
@@ -63,7 +68,7 @@ obj/machinery/door/airlock/proc/do_command(var/command)
 
 			lock()
 			sleep(2)
-	
+
 	send_status()
 
 obj/machinery/door/airlock/proc/command_completed(var/command)
@@ -85,7 +90,7 @@ obj/machinery/door/airlock/proc/command_completed(var/command)
 
 		if("secure_close")
 			return (locked && density)
-	
+
 	return 1	//Unknown command. Just assume it's completed.
 
 obj/machinery/door/airlock/proc/send_status(var/bumped = 0)
@@ -97,8 +102,8 @@ obj/machinery/door/airlock/proc/send_status(var/bumped = 0)
 
 		signal.data["door_status"] = density?("closed"):("open")
 		signal.data["lock_status"] = locked?("locked"):("unlocked")
-		
-		if (bumped)
+
+		if(bumped)
 			signal.data["bumped_with_access"] = 1
 
 		radio_connection.post_signal(src, signal, range = AIRLOCK_CONTROL_RANGE, filter = RADIO_AIRLOCK)
@@ -130,6 +135,7 @@ obj/machinery/door/airlock/proc/set_frequency(new_frequency)
 
 
 obj/machinery/door/airlock/initialize()
+	..()
 	if(frequency)
 		set_frequency(frequency)
 
@@ -208,6 +214,7 @@ obj/machinery/airlock_sensor/proc/set_frequency(new_frequency)
 	radio_connection = radio_controller.add_object(src, frequency, RADIO_AIRLOCK)
 
 obj/machinery/airlock_sensor/initialize()
+	..()
 	set_frequency(frequency)
 
 obj/machinery/airlock_sensor/New()
@@ -247,7 +254,7 @@ obj/machinery/access_button/update_icon()
 
 obj/machinery/access_button/attackby(obj/item/I as obj, mob/user as mob, params)
 	//Swiping ID on the access button
-	if (istype(I, /obj/item/weapon/card/id) || istype(I, /obj/item/device/pda))
+	if(istype(I, /obj/item/weapon/card/id) || istype(I, /obj/item/device/pda))
 		attack_hand(user)
 		return
 	..()
@@ -255,7 +262,7 @@ obj/machinery/access_button/attackby(obj/item/I as obj, mob/user as mob, params)
 obj/machinery/access_button/attack_hand(mob/user)
 	add_fingerprint(usr)
 	if(!allowed(user))
-		user << "\red Access Denied"
+		to_chat(user, "\red Access Denied")
 
 	else if(radio_connection)
 		var/datum/signal/signal = new
@@ -274,6 +281,7 @@ obj/machinery/access_button/proc/set_frequency(new_frequency)
 
 
 obj/machinery/access_button/initialize()
+	..()
 	set_frequency(frequency)
 
 

@@ -5,7 +5,7 @@
 	item_state = "assembly"
 	flags = CONDUCT
 	throwforce = 5
-	w_class = 2.0
+	w_class = 2
 	throw_speed = 3
 	throw_range = 10
 
@@ -29,19 +29,22 @@
 			a_left.holder = null
 		if(a_right)
 			a_right.holder = null
-		..()
+		return ..()
 
 	attach(var/obj/item/device/D, var/obj/item/device/D2, var/mob/user)
 		if((!D)||(!D2))	return 0
 		if((!isassembly(D))||(!isassembly(D2)))	return 0
 		if((D:secured)||(D2:secured))	return 0
-		if(user)
-			user.remove_from_mob(D)
-			user.remove_from_mob(D2)
+		if(!D.remove_item_from_storage(src))
+			if(user)
+				user.remove_from_mob(D)
+			D.loc = src
+		if(!D2.remove_item_from_storage(src))
+			if(user)
+				user.remove_from_mob(D2)
+			D2.loc = src
 		D:holder = src
 		D2:holder = src
-		D.loc = src
-		D2.loc = src
 		a_left = D
 		a_right = D2
 		name = "[D.name]-[D2.name] assembly"
@@ -63,15 +66,13 @@
 			master.update_icon()
 
 
-	examine()
-		set src in view()
-		..()
-		if ((in_range(src, usr) || src.loc == usr))
-			if (src.secured)
-				usr << "\The [src] is ready!"
+	examine(mob/user)
+		..(user)
+		if((in_range(src, user) || src.loc == user))
+			if(src.secured)
+				to_chat(user, "\The [src] is ready!")
 			else
-				usr << "\The [src] can be attached!"
-		return
+				to_chat(user, "\The [src] can be attached!")
 
 
 	HasProximity(atom/movable/AM as mob|obj)
@@ -99,6 +100,12 @@
 			a_left.hear_talk(M, msg)
 		if(a_right)
 			a_right.hear_talk(M, msg)
+	
+	hear_message(mob/living/M as mob, msg)
+		if(a_left)
+			a_left.hear_message(M, msg)
+		if(a_right)
+			a_right.hear_message(M, msg)
 
 	proc/process_movement() // infrared beams and prox sensors
 		if(a_left && a_right)
@@ -133,15 +140,15 @@
 	attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 		if(istype(W, /obj/item/weapon/screwdriver))
 			if(!a_left || !a_right)
-				user << "\red BUG:Assembly part missing, please report this!"
+				to_chat(user, "\red BUG:Assembly part missing, please report this!")
 				return
 			a_left.toggle_secure()
 			a_right.toggle_secure()
 			secured = !secured
 			if(secured)
-				user << "\blue \The [src] is ready!"
+				to_chat(user, "\blue \The [src] is ready!")
 			else
-				user << "\blue \The [src] can now be taken apart!"
+				to_chat(user, "\blue \The [src] can now be taken apart!")
 			update_icon()
 			return
 		else
@@ -153,7 +160,7 @@
 		src.add_fingerprint(user)
 		if(src.secured)
 			if(!a_left || !a_right)
-				user << "\red Assembly part missing!"
+				to_chat(user, "\red Assembly part missing!")
 				return
 			if(istype(a_left,a_right.type))//If they are the same type it causes issues due to window code
 				switch(alert("Which side would you like to use?",,"Left","Right"))
@@ -173,7 +180,7 @@
 				a_right:holder = null
 				a_right.loc = T
 			spawn(0)
-				del(src)
+				qdel(src)
 		return
 
 
@@ -192,15 +199,15 @@
 	ex_act(severity)
 		switch(severity)
 			if(1.0)
-				del(src)
+				qdel(src)
 				return
 			if(2.0)
-				if (prob(50))
-					del(src)
+				if(prob(50))
+					qdel(src)
 					return
 			if(3.0)
-				if (prob(25))
-					del(src)
+				if(prob(25))
+					qdel(src)
 					return
 		return
 

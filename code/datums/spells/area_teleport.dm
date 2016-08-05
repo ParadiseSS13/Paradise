@@ -1,11 +1,10 @@
-/obj/effect/proc_holder/spell/wizard/targeted/area_teleport
+/obj/effect/proc_holder/spell/targeted/area_teleport
 	name = "Area teleport"
 	desc = "This spell teleports you to a type of area of your selection."
 
 	var/randomise_selection = 0 //if it lets the usr choose the teleport loc or picks it from the list
 	var/invocation_area = 1 //if the invocation appends the selected area
-
-/obj/effect/proc_holder/spell/wizard/targeted/area_teleport/perform(list/targets, recharge = 1)
+/obj/effect/proc_holder/spell/targeted/area_teleport/perform(list/targets, recharge = 1)
 	var/thearea = before_cast(targets)
 	if(!thearea || !cast_check(1))
 		revert_cast()
@@ -17,7 +16,7 @@
 	cast(targets,thearea)
 	after_cast(targets)
 
-/obj/effect/proc_holder/spell/wizard/targeted/area_teleport/before_cast(list/targets)
+/obj/effect/proc_holder/spell/targeted/area_teleport/before_cast(list/targets)
 	var/A = null
 
 	if(!randomise_selection)
@@ -27,9 +26,13 @@
 
 	var/area/thearea = teleportlocs[A]
 
+	if(thearea.tele_proof && !istype(thearea, /area/wizard_station))
+		to_chat(usr, "A mysterious force disrupts your arcane spell matrix, and you remain where you are.")
+		return
+
 	return thearea
 
-/obj/effect/proc_holder/spell/wizard/targeted/area_teleport/cast(list/targets,area/thearea)
+/obj/effect/proc_holder/spell/targeted/area_teleport/cast(list/targets,area/thearea)
 	for(var/mob/living/target in targets)
 		var/list/L = list()
 		for(var/turf/T in get_area_turfs(thearea.type))
@@ -43,11 +46,11 @@
 					L+=T
 
 		if(!L.len)
-			usr <<"The spell matrix was unable to locate a suitable teleport destination for an unknown reason. Sorry."
+			to_chat(usr, "The spell matrix was unable to locate a suitable teleport destination for an unknown reason. Sorry.")
 			return
 
 		if(target && target.buckled)
-			target.buckled.unbuckle()
+			target.buckled.unbuckle_mob()
 
 		var/list/tempL = L
 		var/attempt = null
@@ -65,7 +68,7 @@
 
 	return
 
-/obj/effect/proc_holder/spell/wizard/targeted/area_teleport/invocation(area/chosenarea = null)
+/obj/effect/proc_holder/spell/targeted/area_teleport/invocation(area/chosenarea = null)
 	if(!invocation_area || !chosenarea)
 		..()
 	else

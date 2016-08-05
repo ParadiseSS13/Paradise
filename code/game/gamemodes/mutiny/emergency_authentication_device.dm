@@ -38,24 +38,24 @@
 
 	proc/launch_shuttle()
 		spawn(rand(5 SECONDS, 45 SECONDS))
-			if(emergency_shuttle.call_evac())
+			if(shuttle_master.requestEvac(usr, "Directive X"))
 				spawn(20 SECONDS)
 					var/text = "[station_name()], we have confirmed your completion of Directive X. An evacuation shuttle is en route to receive your crew for debriefing."
 					command_announcement.Announce(text, "Emergency Transmission")
 
 /obj/machinery/emergency_authentication_device/attack_hand(mob/user)
 	if(activated)
-		user << "\blue \The [src] is already active!"
+		to_chat(user, "\blue \The [src] is already active!")
 		return
 
 	if(!mode.current_directive.directives_complete())
-		state("Command aborted. Communication with CentCom is prohibited until Directive X has been completed.")
+		state("Command aborted. Communication with CentComm is prohibited until Directive X has been completed.")
 		return
 
 	check_key_existence()
 	if(captains_key && secondary_key)
 		activated = 1
-		user << "\blue You activate \the [src]!"
+		to_chat(user, "\blue You activate \the [src]!")
 		state("Command acknowledged. Initiating quantum entanglement relay to Nanotrasen High Command.")
 		launch_shuttle()
 		return
@@ -77,11 +77,11 @@
 
 /obj/machinery/emergency_authentication_device/attackby(obj/item/weapon/O, mob/user, params)
 	if(activated)
-		user << "\blue \The [src] is already active!"
+		to_chat(user, "\blue \The [src] is already active!")
 		return
 
 	if(!mode.current_directive.directives_complete())
-		state({"Command aborted. Communication with CentCom is prohibited until Directive X has been completed."})
+		state({"Command aborted. Communication with CentComm is prohibited until Directive X has been completed."})
 		return
 
 	check_key_existence()
@@ -92,7 +92,7 @@
 
 		state("Key received. Thank you, Captain [mode.head_loyalist].")
 		spawn(5)
-			state(secondary_key ? "Your keys have been authenticated. Communication with CentCom is now authorized." : "Please insert the Emergency Secondary Authentication Key now.")
+			state(secondary_key ? "Your keys have been authenticated. Communication with CentComm is now authorized." : "Please insert the Emergency Secondary Authentication Key now.")
 		return
 
 	if(istype(O, /obj/item/weapon/mutiny/auth_key/secondary) && !secondary_key)
@@ -102,11 +102,11 @@
 
 		state("Key received. Thank you, Secondary Authenticator [mode.head_mutineer].")
 		spawn(5)
-			state(captains_key ? "Your keys have been authenticated. Communication with CentCom is now authorized." : "Please insert the Captain's Authentication Key now.")
+			state(captains_key ? "Your keys have been authenticated. Communication with CentComm is now authorized." : "Please insert the Captain's Authentication Key now.")
 		return
 	..()
 
-/obj/machinery/emergency_authentication_device/examine()
-	usr << {"
-This is a specialized communications device that is able to instantly send a message to <b>Nanotrasen High Command</b> via quantum entanglement with a sister device at CentCom.
-The EAD's status is [get_status()]."}
+/obj/machinery/emergency_authentication_device/examine(mob/user)
+	to_chat(user, {"This is a specialized communications device that is able to instantly send a message to <b>Nanotrasen High Command</b> via quantum entanglement
+	                with a sister device at CentComm.<br>
+			        The EAD's status is [get_status()]."})

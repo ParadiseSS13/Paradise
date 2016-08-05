@@ -9,7 +9,7 @@
 	icon = 'icons/obj/pda.dmi'
 	icon_state = "crap"
 	item_state = "analyzer"
-	w_class = 1.0
+	w_class = 1
 	slot_flags = SLOT_BELT
 	var/list/positive_locations = list()
 	var/datum/depth_scan/current
@@ -34,7 +34,7 @@
 			D.coords = "[M.x].[rand(0,9)]:[M.y].[rand(0,9)]:[10 * M.z].[rand(0,9)]"
 			D.time = worldtime2text()
 			D.record_index = positive_locations.len + 1
-			D.material = M.mineral ? M.mineral.display_name : "Rock"
+			D.material = M.mineralName ? M.mineralName : "Rock"
 
 			//find the first artifact and store it
 			if(M.finds.len)
@@ -46,7 +46,7 @@
 			positive_locations.Add(D)
 
 			for(var/mob/L in range(src, 1))
-				L << "\blue \icon[src] [src] pings."
+				to_chat(L, "\blue [bicon(src)] [src] pings.")
 
 	else if(istype(A,/obj/structure/boulder))
 		var/obj/structure/boulder/B = A
@@ -65,7 +65,7 @@
 			positive_locations.Add(D)
 
 			for(var/mob/L in range(src, 1))
-				L << "\blue \icon[src] [src] pings [pick("madly","wildly","excitedly","crazily")]!."
+				to_chat(L, "\blue [bicon(src)] [src] pings [pick("madly","wildly","excitedly","crazily")]!.")
 
 /obj/item/device/depth_scanner/attack_self(var/mob/user as mob)
 	return src.interact(user)
@@ -118,11 +118,11 @@
 			if(index <= positive_locations.len)
 				var/datum/depth_scan/D = positive_locations[index]
 				positive_locations.Remove(D)
-				del(D)
+				qdel(D)
 		else
 			//GC will hopefully pick them up before too long
 			positive_locations = list()
-			del(current)
+			qdel(current)
 	else if(href_list["close"])
 		usr.unset_machine()
 		usr << browse(null, "window=depth_scanner")

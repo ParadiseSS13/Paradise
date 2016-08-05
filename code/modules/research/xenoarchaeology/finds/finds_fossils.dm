@@ -17,7 +17,7 @@
 	var/turf/T = get_turf(src)
 	if(istype(T, /turf/simulated/mineral))
 		T:last_find = W
-	del src
+	qdel(src)
 
 /obj/item/weapon/fossil/bone
 	name = "Fossilised bone"
@@ -40,8 +40,8 @@
 		var/b = new src.type
 		o.contents.Add(a)
 		o.contents.Add(b)
-		del W
-		del src
+		qdel(W)
+		qdel(src)
 
 /obj/skeleton
 	name = "Incomplete skeleton"
@@ -62,7 +62,7 @@
 		if(!bstate)
 			bnum++
 			src.contents.Add(new/obj/item/weapon/fossil/bone)
-			del W
+			qdel(W)
 			if(bnum==breq)
 				usr = user
 				icon_state = "skel"
@@ -75,12 +75,12 @@
 					src.desc = "A creature made of [src.contents.len-1] assorted bones and a skull. The plaque reads \'[plaque_contents]\'."
 			else
 				src.desc = "Incomplete skeleton, looks like it could use [src.breq-src.bnum] more bones."
-				user << "Looks like it could use [src.breq-src.bnum] more bones."
+				to_chat(user, "Looks like it could use [src.breq-src.bnum] more bones.")
 		else
 			..()
 	else if(istype(W,/obj/item/weapon/pen))
 		plaque_contents = input("What would you like to write on the plaque:","Skeleton plaque","")
-		user.visible_message("[user] writes something on the base of [src].","You relabel the plaque on the base of \icon[src] [src].")
+		user.visible_message("[user] writes something on the base of [src].","You relabel the plaque on the base of [bicon(src)] [src].")
 		if(src.contents.Find(/obj/item/weapon/fossil/skull/horned))
 			src.desc = "A creature made of [src.contents.len-1] assorted bones and a horned skull. The plaque reads \'[plaque_contents]\'."
 		else

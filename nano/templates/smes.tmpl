@@ -5,7 +5,7 @@
 	<div class="itemContent">
 		{{:helper.displayBar(data.storedCapacity, 0, 100, data.charging ? 'good' : 'average')}}
 		<div class="statusValue">
-			{{:helper.round(data.storedCapacity)}}%
+			{{:helper.smoothRound(data.storedCapacity)}}%
 		</div>
 	</div>
 </div>
@@ -18,10 +18,12 @@
 	<div class="itemContent">
 		{{:helper.link('Auto', 'refresh', {'cmode' : 1}, data.chargeMode ? 'selected' : null)}}{{:helper.link('Off', 'close', {'cmode' : 1}, data.chargeMode ? null : 'selected')}}
 		&nbsp;
-		{{if data.charging}}
+		{{if data.charging == 2}}
 			[<span class='good'>Charging</span>]
+		{{else data.charging == 1}}
+			[<span class='average'>Partially Charging</span>]
 		{{else}}
-			[<span class='average'>Not Charging</span>]
+			[<span class='bad'>Not Charging</span>]
 		{{/if}}
 	</div>
 </div>
@@ -34,9 +36,9 @@
 		{{:helper.displayBar(data.chargeLevel, 0, data.chargeMax)}}
 		<div style="clear: both; padding-top: 4px;">
 			{{:helper.link('MIN', null, {'input' : 'min'}, (data.chargeLevel > 0) ? null : 'disabled')}}
-			{{:helper.link('SET', null, {'input' : 'set'}, null)}}			
+			{{:helper.link('SET', null, {'input' : 'set'}, null)}}
 			{{:helper.link('MAX', null, {'input' : 'max'}, (data.chargeLevel < data.chargeMax) ? null : 'disabled')}}
-			<div style="float: left; width: 80px; text-align: center;">&nbsp;{{:data.chargeLevel}} W&nbsp;</div>
+			<div style="float: left; width: 100px; text-align: center;">&nbsp;{{:data.chargeLevel}} W&nbsp;</div>
 		</div>
 	</div>
 </div>
@@ -47,7 +49,15 @@
 		Output Status:
 	</div>
 	<div class="itemContent">
-		{{:helper.link('Online', 'power', {'online' : 1}, data.outputOnline ? 'selected' : null)}}{{:helper.link('Offline', 'close', {'online' : 1}, data.outputOnline ? null : 'selected')}}
+		{{:helper.link('Online', 'power-off', {'online' : 1}, data.outputOnline ? 'selected' : null)}}{{:helper.link('Offline', 'close', {'online' : 1}, data.outputOnline ? null : 'selected')}}
+		&nbsp;
+		{{if data.outputting == 2}}
+			[<span class='good'>Outputting</span>]
+		{{else data.outputting == 1}}
+			[<span class='average'>Stored energy too low</span>]
+		{{else}}
+			[<span class='bad'>Not Outputting</span>]
+		{{/if}}
 	</div>
 </div>
 
@@ -59,9 +69,9 @@
 		{{:helper.displayBar(data.outputLevel, 0, data.outputMax)}}
 		<div style="clear: both; padding-top: 4px;">
 			{{:helper.link('MIN', null, {'output' : 'min'}, (data.outputLevel > 0) ? null : 'disabled')}}
-			{{:helper.link('SET', null, {'output' : 'set'}, null)}}			
+			{{:helper.link('SET', null, {'output' : 'set'}, null)}}
 			{{:helper.link('MAX', null, {'output' : 'max'}, (data.outputLevel < data.outputMax) ? null : 'disabled')}}
-			<div style="float: left; width: 80px; text-align: center;">&nbsp;{{:data.outputLevel}} W&nbsp;</div>			
+			<div style="float: left; width: 100px; text-align: center;">&nbsp;{{:data.outputLevel}} W&nbsp;</div>
 		</div>
 	</div>
 </div>
@@ -73,7 +83,7 @@
 	<div class="itemContent">
 		{{:helper.displayBar(data.outputLoad, 0, data.outputMax, (data.outputLoad < data.outputLevel) ? 'good' : 'average')}}
 		<div class="statusValue">
-			{{:data.outputLoad}} W
+			{{:helper.smoothRound(data.outputLoad)}} W
 		</div>
 	</div>
 </div>

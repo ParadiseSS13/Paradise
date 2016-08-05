@@ -5,10 +5,15 @@
 
 /obj/item/weapon/stock_parts/cell/New()
 	..()
+	processing_objects.Add(src)
 	charge = maxcharge
 
 	spawn(5)
 		updateicon()
+
+/obj/item/weapon/stock_parts/cell/Destroy()
+	processing_objects.Remove(src)
+	return ..()
 
 /obj/item/weapon/stock_parts/cell/proc/updateicon()
 	if(isnull(src.overlay_image))
@@ -55,15 +60,14 @@
 	return power_used
 
 
-/obj/item/weapon/stock_parts/cell/examine()
-	set src in view(1)
-	if(usr /*&& !usr.stat*/)
+/obj/item/weapon/stock_parts/cell/examine(mob/user)
+	if(..(user, 1))
 		if(maxcharge <= 2500)
-			usr << "[desc]\nThe manufacturer's label states this cell has a power rating of [maxcharge], and that you should not swallow it.\nThe charge meter reads [round(src.percent() )]%."
+			to_chat(user, "[desc]\nThe manufacturer's label states this cell has a power rating of [maxcharge], and that you should not swallow it.\nThe charge meter reads [round(src.percent() )]%.")
 		else
-			usr << "This power cell has an exciting chrome finish, as it is an uber-capacity cell type! It has a power rating of [maxcharge]!\nThe charge meter reads [round(src.percent() )]%."
+			to_chat(user, "This power cell has an exciting chrome finish, as it is an uber-capacity cell type! It has a power rating of [maxcharge]!\nThe charge meter reads [round(src.percent() )]%.")
 	if(crit_fail)
-		usr << "\red This power cell seems to be faulty."
+		to_chat(user, "\red This power cell seems to be faulty.")
 
 /obj/item/weapon/stock_parts/cell/attack_self(mob/user as mob)
 	src.add_fingerprint(user)
@@ -74,7 +78,7 @@
 	if(istype(W, /obj/item/weapon/reagent_containers/syringe))
 		var/obj/item/weapon/reagent_containers/syringe/S = W
 
-		user << "You inject the solution into the power cell."
+		to_chat(user, "You inject the solution into the power cell.")
 
 		if(S.reagents.has_reagent("plasma", 5))
 
@@ -94,13 +98,13 @@
  * 10000-cell	explosion(T, -1, 1, 3, 3)
  * 15000-cell	explosion(T, -1, 2, 4, 4)
  * */
-	if (charge==0)
+	if(charge==0)
 		return
 	var/devastation_range = -1 //round(charge/11000)
 	var/heavy_impact_range = round(sqrt(charge)/60)
 	var/light_impact_range = round(sqrt(charge)/30)
 	var/flash_range = light_impact_range
-	if (light_impact_range==0)
+	if(light_impact_range==0)
 		rigged = 0
 		corrupt()
 		return
@@ -110,19 +114,17 @@
 	message_admins("LOG: Rigged power cell explosion, last touched by [fingerprintslast]")
 
 	explosion(T, devastation_range, heavy_impact_range, light_impact_range, flash_range)
-
-	spawn(1)
-		del(src)
+	qdel(src)
 
 /obj/item/weapon/stock_parts/cell/proc/corrupt()
 	charge /= 2
 	maxcharge /= 2
-	if (prob(10))
+	if(prob(10))
 		rigged = 1 //broken batterys are dangerous
 
 /obj/item/weapon/stock_parts/cell/emp_act(severity)
 	charge -= 1000 / severity
-	if (charge < 0)
+	if(charge < 0)
 		charge = 0
 	if(reliability != 100 && prob(50/severity))
 		reliability -= 10 / severity
@@ -135,16 +137,16 @@
 			qdel(src)
 			return
 		if(2.0)
-			if (prob(50))
+			if(prob(50))
 				qdel(src)
 				return
-			if (prob(50))
+			if(prob(50))
 				corrupt()
 		if(3.0)
-			if (prob(25))
+			if(prob(25))
 				qdel(src)
 				return
-			if (prob(25))
+			if(prob(25))
 				corrupt()
 	return
 
@@ -152,34 +154,34 @@
 	ex_act(1)
 
 /obj/item/weapon/stock_parts/cell/proc/get_electrocute_damage()
-	switch (charge)
-/*		if (9000 to INFINITY)
+	switch(charge)
+/*		if(9000 to INFINITY)
 			return min(rand(90,150),rand(90,150))
-		if (2500 to 9000-1)
+		if(2500 to 9000-1)
 			return min(rand(70,145),rand(70,145))
-		if (1750 to 2500-1)
+		if(1750 to 2500-1)
 			return min(rand(35,110),rand(35,110))
-		if (1500 to 1750-1)
+		if(1500 to 1750-1)
 			return min(rand(30,100),rand(30,100))
-		if (750 to 1500-1)
+		if(750 to 1500-1)
 			return min(rand(25,90),rand(25,90))
-		if (250 to 750-1)
+		if(250 to 750-1)
 			return min(rand(20,80),rand(20,80))
-		if (100 to 250-1)
+		if(100 to 250-1)
 			return min(rand(20,65),rand(20,65))*/
-		if (5000000 to INFINITY)
+		if(5000000 to INFINITY)
 			return min(rand(200,300),rand(200,300))
-		if (4000000 to 5000000-1)
+		if(4000000 to 5000000-1)
 			return min(rand(80,180),rand(80,180))
-		if (1000000 to 4000000-1)
+		if(1000000 to 4000000-1)
 			return min(rand(50,160),rand(50,160))
-		if (200000 to 1000000-1)
+		if(200000 to 1000000-1)
 			return min(rand(25,80),rand(25,80))
-		if (100000 to 200000-1)//Ave powernet
+		if(100000 to 200000-1)//Ave powernet
 			return min(rand(20,60),rand(20,60))
-		if (50000 to 100000-1)
+		if(50000 to 100000-1)
 			return min(rand(15,40),rand(15,40))
-		if (1000 to 50000-1)
+		if(1000 to 50000-1)
 			return min(rand(10,20),rand(10,20))
 		else
 			return 0

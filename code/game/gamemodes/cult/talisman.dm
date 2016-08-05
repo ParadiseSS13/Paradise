@@ -4,12 +4,6 @@
 	var/uses = 0
 	info = "<center><img src='talisman.png'></center><br/><br/>"
 
-	examine()
-		set src in view(2)
-		..()
-		return
-
-
 	attack_self(mob/living/user as mob)
 		if(iscultist(user))
 			var/delete = 1
@@ -34,17 +28,17 @@
 				if("blind")
 					call(/obj/effect/rune/proc/blind)()
 				if("runestun")
-					user << "\red To use this talisman, attack your target directly."
+					to_chat(user, "\red To use this talisman, attack your target directly.")
 					return
 				if("supply")
 					supply()
 			user.take_organ_damage(5, 0)
 			if(src && src.imbue!="supply" && src.imbue!="runestun")
 				if(delete)
-					del(src)
+					qdel(src)
 			return
 		else
-			user << "You see strange symbols on the paper. Are they supposed to mean something?"
+			to_chat(user, "You see strange symbols on the paper. Are they supposed to mean something?")
 			return
 
 
@@ -53,7 +47,7 @@
 			if(imbue == "runestun")
 				user.take_organ_damage(5, 0)
 				call(/obj/effect/rune/proc/runestun)(T)
-				del(src)
+				qdel(src)
 			else
 				..()   ///If its some other talisman, use the generic attack code, is this supposed to work this way?
 		else
@@ -61,8 +55,8 @@
 
 
 	proc/supply(var/key)
-		if (!src.uses)
-			del(src)
+		if(!src.uses)
+			qdel(src)
 			return
 
 		var/dat = "<B>There are [src.uses] bloody runes on the parchment.</B><BR>"
@@ -83,10 +77,10 @@
 
 	Topic(href, href_list)
 		if(!src)	return
-		if (usr.stat || usr.restrained() || !in_range(src, usr))	return
+		if(usr.stat || usr.restrained() || !in_range(src, usr))	return
 
-		if (href_list["rune"])
-			if (istype(usr, /mob/living/carbon/human))
+		if(href_list["rune"])
+			if(istype(usr, /mob/living/carbon/human))
 				var/mob/living/carbon/human/M = usr
 
 				switch(href_list["rune"])
@@ -104,10 +98,10 @@
 						)
 
 						var/where = M.equip_in_one_of_slots(T, slots)
-						if (!where)
-							M << "You need a space in your backpack, pocket or hand for the new paper."
+						if(!where)
+							to_chat(M, "You need a space in your backpack, pocket or hand for the new paper.")
 						else
-							M << "The [href_list["rune"]] talisman in your [where]"
+							to_chat(M, "The [href_list["rune"]] talisman in your [where]")
 							M.update_icons()
 							src.uses--
 							supply()
@@ -127,10 +121,10 @@
 						)
 
 						var/where = M.equip_in_one_of_slots(T, slots)
-						if (!where)
-							M << "You need a space in your backpack, pocket or hand for the new paper."
+						if(!where)
+							to_chat(M, "You need a space in your backpack, pocket or hand for the new paper.")
 						else
-							M << "The [href_list["rune"]] talisman in your [where]"
+							to_chat(M, "The [href_list["rune"]] talisman in your [where]")
 							M.update_icons()
 							src.uses--
 							supply()
@@ -148,10 +142,10 @@
 						)
 
 						var/where = M.equip_in_one_of_slots(T, slots)
-						if (!where)
-							M << "You need a space in your backpack, pocket or hand for the new paper."
+						if(!where)
+							to_chat(M, "You need a space in your backpack, pocket or hand for the new paper.")
 						else
-							M << "The [href_list["rune"]] talisman in your [where]"
+							to_chat(M, "The [href_list["rune"]] talisman in your [where]")
 							M.update_icons()
 							src.uses--
 							supply()
@@ -169,10 +163,10 @@
 						)
 
 						var/where = M.equip_in_one_of_slots(T, slots)
-						if (!where)
-							M << "You need a space in your backpack, pocket or hand for the new paper."
+						if(!where)
+							to_chat(M, "You need a space in your backpack, pocket or hand for the new paper.")
 						else
-							M << "The [href_list["rune"]] talisman in your [where]"
+							to_chat(M, "The [href_list["rune"]] talisman in your [where]")
 							M.update_icons()
 							src.uses--
 							supply()
@@ -190,10 +184,10 @@
 						)
 
 						var/where = M.equip_in_one_of_slots(T, slots)
-						if (!where)
-							M << "You need a space in your backpack, pocket or hand for the new paper."
+						if(!where)
+							to_chat(M, "You need a space in your backpack, pocket or hand for the new paper.")
 						else
-							M << "The [href_list["rune"]] talisman in your [where]"
+							to_chat(M, "The [href_list["rune"]] talisman in your [where]")
 							M.update_icons()
 							src.uses--
 							supply()
@@ -211,10 +205,10 @@
 						)
 
 						var/where = M.equip_in_one_of_slots(T, slots)
-						if (!where)
-							M << "You need a space in your backpack, pocket or hand for the new paper."
+						if(!where)
+							to_chat(M, "You need a space in your backpack, pocket or hand for the new paper.")
 						else
-							M << "The [href_list["rune"]] talisman in your [where]"
+							to_chat(M, "The [href_list["rune"]] talisman in your [where]")
 							M.update_icons()
 							src.uses--
 							supply()
@@ -232,10 +226,10 @@
 						)
 
 						var/where = M.equip_in_one_of_slots(T, slots)
-						if (!where)
-							M << "You need a space in your backpack, pocket or hand for the new paper."
+						if(!where)
+							to_chat(M, "You need a space in your backpack, pocket or hand for the new paper.")
 						else
-							M << "The [href_list["rune"]] talisman in your [where]"
+							to_chat(M, "The [href_list["rune"]] talisman in your [where]")
 							M.update_icons()
 							src.uses--
 							supply()

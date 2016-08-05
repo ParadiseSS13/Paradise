@@ -1,21 +1,18 @@
 /obj/effect/decal/point
 	name = "arrow"
 	desc = "It's an arrow hanging in mid-air. There may be a wizard about."
-	icon = 'icons/mob/screen1.dmi'
+	icon = 'icons/mob/screen_gen.dmi'
 	icon_state = "arrow"
 	layer = 16.0
 	anchored = 1
-
-/obj/effect/decal/point/point()
-	set src in oview()
-	set hidden = 1
-	return
+	mouse_opacity = 0
 
 // Used for spray that you spray at walls, tables, hydrovats etc
 /obj/effect/decal/spraystill
 	density = 0
 	anchored = 1
 	layer = 50
+	plane = HUD_PLANE
 
 /obj/effect/decal/chempuff
 	name = "chemicals"
@@ -40,3 +37,28 @@
 
 /obj/effect/decal/snow/sand/surround
 	icon_state="gravsnow_surround"
+
+/obj/effect/decal/leaves
+	name="fall leaves"
+	density = 0
+	anchored = 1
+	layer = 2
+	icon='icons/obj/flora/plants.dmi'
+	icon_state = "fallleaves"
+
+/obj/effect/decal/straw
+	name="scattered straw"
+	density = 0
+	anchored = 1
+	layer = 2
+	icon='icons/obj/flora/plants.dmi'
+	icon_state = "strawscattered"
+
+/obj/effect/decal/straw/medium
+	icon_state = "strawscattered3"
+
+/obj/effect/decal/straw/light
+	icon_state = "strawscattered2"
+
+/obj/effect/decal/straw/edge
+	icon_state = "strawscatterededge"

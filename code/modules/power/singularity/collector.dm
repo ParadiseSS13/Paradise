@@ -8,7 +8,6 @@ var/global/list/rad_collectors = list()
 	icon_state = "ca"
 	anchored = 0
 	density = 1
-	directwired = 1
 	req_access = list(access_engine_equip)
 //	use_power = 0
 	var/obj/item/weapon/tank/plasma/P = null
@@ -23,7 +22,7 @@ var/global/list/rad_collectors = list()
 
 /obj/machinery/power/rad_collector/Destroy()
 	rad_collectors -= src
-	..()
+	return ..()
 
 /obj/machinery/power/rad_collector/process()
 	if(P)
@@ -32,7 +31,7 @@ var/global/list/rad_collectors = list()
 			P.air_contents.toxins = 0
 			eject()
 		else
-			P.air_contents.adjust(tx = -0.001*drainratio)
+			P.air_contents.toxins -= 0.001*drainratio
 	return
 
 
@@ -45,21 +44,23 @@ var/global/list/rad_collectors = list()
 			investigate_log("turned [active?"<font color='green'>on</font>":"<font color='red'>off</font>"] by [user.key]. [P?"Fuel: [round(P.air_contents.toxins/0.29)]%":"<font color='red'>It is empty</font>"].","singulo")
 			return
 		else
-			user << "\red The controls are locked!"
+			to_chat(user, "\red The controls are locked!")
 			return
 ..()
 
 
 /obj/machinery/power/rad_collector/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/device/analyzer))
-		user << "\blue The [W.name] detects that [last_power]W were recently produced."
+	if(istype(W, /obj/item/device/multitool))
+		to_chat(user, "<span class='notice'>The [W.name] detects that [last_power]W were recently produced.</span>")
 		return 1
+	else if(istype(W, /obj/item/device/analyzer) && P)
+		atmosanalyzer_scan(P.air_contents, user)
 	else if(istype(W, /obj/item/weapon/tank/plasma))
 		if(!src.anchored)
-			user << "\red The [src] needs to be secured to the floor first."
+			to_chat(user, "\red The [src] needs to be secured to the floor first.")
 			return 1
 		if(src.P)
-			user << "\red There's already a plasma tank loaded."
+			to_chat(user, "\red There's already a plasma tank loaded.")
 			return 1
 		user.drop_item()
 		src.P = W
@@ -71,7 +72,7 @@ var/global/list/rad_collectors = list()
 			return 1
 	else if(istype(W, /obj/item/weapon/wrench))
 		if(P)
-			user << "\blue Remove the plasma tank first."
+			to_chat(user, "\blue Remove the plasma tank first.")
 			return 1
 		playsound(src.loc, 'sound/items/Ratchet.ogg', 75, 1)
 		src.anchored = !src.anchored
@@ -83,15 +84,15 @@ var/global/list/rad_collectors = list()
 		else
 			disconnect_from_network()
 	else if(istype(W, /obj/item/weapon/card/id)||istype(W, /obj/item/device/pda))
-		if (src.allowed(user))
+		if(src.allowed(user))
 			if(active)
 				src.locked = !src.locked
-				user << "The controls are now [src.locked ? "locked." : "unlocked."]"
+				to_chat(user, "The controls are now [src.locked ? "locked." : "unlocked."]")
 			else
 				src.locked = 0 //just in case it somehow gets locked
-				user << "\red The controls can only be locked when the [src] is active"
+				to_chat(user, "\red The controls can only be locked when the [src] is active")
 		else
-			user << "\red Access denied!"
+			to_chat(user, "\red Access denied!")
 			return 1
 	else
 		..()
@@ -108,10 +109,11 @@ var/global/list/rad_collectors = list()
 /obj/machinery/power/rad_collector/proc/eject()
 	locked = 0
 	var/obj/item/weapon/tank/plasma/Z = src.P
-	if (!Z)
+	if(!Z)
 		return
 	Z.loc = get_turf(src)
 	Z.layer = initial(Z.layer)
+	Z.plane = initial(Z.plane)
 	src.P = null
 	if(active)
 		toggle_power()

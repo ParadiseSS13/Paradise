@@ -22,12 +22,12 @@
 
 /obj/effect/proc_holder/changeling/weapon/try_to_sting(var/mob/user, var/mob/target)
 	if(istype(user.l_hand, weapon_type)) //Not the nicest way to do it, but eh
-		del(user.l_hand)
+		qdel(user.l_hand)
 		user.visible_message("<span class='warning'>With a sickening crunch, [user] reforms his [weapon_name_simple] into an arm!</span>", "<span class='notice'>We assimilate the [weapon_name_simple] back into our body.</span>", "<span class='warning>You hear organic matter ripping and tearing!</span>")
 		user.update_inv_l_hand()
 		return
 	if(istype(user.r_hand, weapon_type))
-		del(user.r_hand)
+		qdel(user.r_hand)
 		user.visible_message("<span class='warning'>With a sickening crunch, [user] reforms his [weapon_name_simple] into an arm!</span>", "<span class='notice'>We assimilate the [weapon_name_simple] back into our body.</span>", "<span class='warning>You hear organic matter ripping and tearing!</span>")
 		user.update_inv_r_hand()
 		return
@@ -35,7 +35,7 @@
 
 /obj/effect/proc_holder/changeling/weapon/sting_action(var/mob/user)
 	if(!user.drop_item())
-		user << "The [user.get_active_hand()] is stuck to your hand, you cannot grow a [weapon_name_simple] over it!"
+		to_chat(user, "The [user.get_active_hand()] is stuck to your hand, you cannot grow a [weapon_name_simple] over it!")
 		return
 	var/obj/item/W = new weapon_type(user)
 	user.put_in_hands(W)
@@ -65,11 +65,12 @@
 	var/mob/living/carbon/human/H = user
 	if(istype(H.wear_suit, suit_type) || istype(H.head, helmet_type))
 		H.visible_message("<span class='warning'>[H] casts off their [suit_name_simple]!</span>", "<span class='warning'>We cast off our [suit_name_simple][genetic_damage > 0 ? ", temporarily weakening our genomes." : "."]</span>", "<span class='warning'>You hear the organic matter ripping and tearing!</span>")
-		del(H.wear_suit)
-		del(H.head)
+		qdel(H.wear_suit)
+		qdel(H.head)
 		H.update_inv_wear_suit()
 		H.update_inv_head()
 		H.update_hair()
+		H.update_fhair()
 
 		if(blood_on_castoff)
 			var/turf/simulated/T = get_turf(H)
@@ -84,10 +85,10 @@
 
 /obj/effect/proc_holder/changeling/suit/sting_action(var/mob/living/carbon/human/user)
 	if(!user.unEquip(user.wear_suit))
-		user << "\the [user.wear_suit] is stuck to your body, you cannot grow a [suit_name_simple] over it!"
+		to_chat(user, "\the [user.wear_suit] is stuck to your body, you cannot grow a [suit_name_simple] over it!")
 		return
 	if(!user.unEquip(user.head))
-		user << "\the [user.head] is stuck on your head, you cannot grow a [helmet_name_simple] over it!"
+		to_chat(user, "\the [user.head] is stuck on your head, you cannot grow a [helmet_name_simple] over it!")
 		return
 
 	user.unEquip(user.head)
@@ -124,8 +125,7 @@
 	icon_state = "arm_blade"
 	item_state = "arm_blade"
 	flags = ABSTRACT | NODROP
-	icon_override = 'icons/mob/in-hand/changeling.dmi'
-	w_class = 5.0
+	w_class = 5
 	sharp = 1
 	edge = 1
 	force = 25
@@ -140,7 +140,7 @@
 
 /obj/item/weapon/melee/arm_blade/dropped(mob/user)
 	user.visible_message("<span class='warning'>With a sickening crunch, [user] reforms his blade into an arm!</span>", "<span class='notice'>We assimilate the blade back into our body.</span>", "<span class='warning>You hear organic matter ripping and tearing!</span>")
-	del(src)
+	qdel(src)
 
 /obj/item/weapon/melee/arm_blade/afterattack(atom/target, mob/user, proximity)
 	if(!proximity)
@@ -160,11 +160,11 @@
 			return
 
 		if(A.arePowerSystemsOn())
-			user << "<span class='notice'>The airlock's motors resist our efforts to force it.</span>"
+			to_chat(user, "<span class='notice'>The airlock's motors resist our efforts to force it.</span>")
 			return
 
 		else if(A.locked)
-			user << "<span class='notice'>The airlock's bolts prevent it from being forced.</span>"
+			to_chat(user, "<span class='notice'>The airlock's bolts prevent it from being forced.</span>")
 			return
 
 		else
@@ -206,7 +206,7 @@
 	flags = NODROP
 	icon = 'icons/obj/weapons.dmi'
 	icon_state = "ling_shield"
-	icon_override = 'icons/mob/in-hand/changeling.dmi'
+	block_chance = 50
 
 	var/remaining_uses //Set by the changeling ability.
 
@@ -216,22 +216,19 @@
 		loc.visible_message("<span class='warning'>The end of [loc.name]\'s hand inflates rapidly, forming a huge shield-like mass!</span>", "<span class='warning'>We inflate our hand into a strong shield.</span>", "<span class='warning'>You hear organic matter ripping and tearing!</span>")
 
 /obj/item/weapon/shield/changeling/dropped()
-	del(src)
+	qdel(src)
 
-/obj/item/weapon/shield/changeling/IsShield()
+/obj/item/weapon/shield/changeling/hit_reaction()
 	if(remaining_uses < 1)
 		if(ishuman(loc))
 			var/mob/living/carbon/human/H = loc
-			H.visible_message("<span class='warning'>With a sickening crunch, [H] reforms his shield into an arm!</span>", "<span class='notice'>We assimilate our shield into our body</span>", "<span class='warning>You hear organic matter ripping and tearing!</span>")
+			H.visible_message("<span class='warning'>With a sickening crunch, [H] reforms his shield into an arm!</span>", "<span class='notice'>We assimilate our shield into our body</span>", "<span class='italics>You hear organic matter ripping and tearing!</span>")
 			H.unEquip(src, 1)
-		del(src)
+		qdel(src)
 		return 0
 	else
 		remaining_uses--
-		return 1
-
-/obj/item/weapon/shield/changeling/IsReflect()
-	return 0
+		return ..()
 
 
 /***************************************\
@@ -260,7 +257,7 @@
 	desc = "A huge, bulky mass of pressure and temperature-resistant organic tissue, evolved to facilitate space travel."
 	flags = STOPSPRESSUREDMAGE | NODROP
 	allowed = list(/obj/item/device/flashlight, /obj/item/weapon/tank/emergency_oxygen, /obj/item/weapon/tank/oxygen)
-	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0) //No armor at all.
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0) //No armor at all.
 
 /obj/item/clothing/suit/space/changeling/New()
 	..()
@@ -269,7 +266,7 @@
 	processing_objects += src
 
 /obj/item/clothing/suit/space/changeling/dropped()
-	del(src)
+	qdel(src)
 
 /obj/item/clothing/suit/space/changeling/process()
 	if(ishuman(loc))
@@ -281,10 +278,10 @@
 	icon_state = "lingspacehelmet"
 	desc = "A covering of pressure and temperature-resistant organic tissue with a glass-like chitin front."
 	flags = HEADCOVERSEYES | BLOCKHAIR | HEADCOVERSMOUTH | STOPSPRESSUREDMAGE | NODROP
-	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0)
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
 
 /obj/item/clothing/head/helmet/space/changeling/dropped()
-	del(src)
+	qdel(src)
 
 
 /***************************************\
@@ -312,11 +309,12 @@
 	icon_state = "lingarmor"
 	flags = NODROP
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
-	slowdown = 2
-	armor = list(melee = 65, bullet = 20, laser = 10, energy = 15, bomb = 0, bio = 0, rad = 0)
+	armor = list(melee = 40, bullet = 40, laser = 40, energy = 20, bomb = 10, bio = 4, rad = 0)
 	flags_inv = HIDEJUMPSUIT
 	cold_protection = 0
 	heat_protection = 0
+	species_fit = null
+	sprite_sheets = null
 
 /obj/item/clothing/suit/armor/changeling/New()
 	..()
@@ -324,15 +322,15 @@
 		loc.visible_message("<span class='warning'>[loc.name]\'s flesh turns black, quickly transforming into a hard, chitinous mass!</span>", "<span class='warning'>We harden our flesh, creating a suit of armor!</span>", "<span class='warning'>You hear organic matter ripping and tearing!</span>")
 
 /obj/item/clothing/suit/armor/changeling/dropped()
-	del(src)
+	qdel(src)
 
 /obj/item/clothing/head/helmet/changeling
 	name = "chitinous mass"
 	desc = "A tough, hard covering of black chitin with transparent chitin in front."
 	icon_state = "lingarmorhelmet"
 	flags = HEADCOVERSEYES | BLOCKHAIR | NODROP
-	armor = list(melee = 65, bullet = 20, laser = 10,energy = 15, bomb = 0, bio = 0, rad = 0)
+	armor = list(melee = 30, bullet = 30, laser = 40, energy = 20, bomb = 10, bio = 4, rad = 0)
 	flags_inv = HIDEEARS
 
 /obj/item/clothing/head/helmet/changeling/dropped()
-	del(src)
+	qdel(src)

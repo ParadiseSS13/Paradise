@@ -75,15 +75,15 @@
 		set name = "Reset Computer"
 		set category = "Object"
 		set src in view(1)
-		
+
 		if(usr.stat || usr.restrained() || usr.lying || !istype(usr, /mob/living))
-			usr << "\red You can't do that."
+			to_chat(usr, "\red You can't do that.")
 			return
-		
+
 		if(!Adjacent(usr))
-			usr << "You can't reach it."
+			to_chat(usr, "You can't reach it.")
 			return
-		
+
 		Reset()
 
 	New(var/L, var/built = 0)
@@ -201,14 +201,6 @@
 
 		// todo does this do enough
 
-
-	meteorhit(var/obj/O as obj)
-		for(var/x in verbs)
-			verbs -= x
-		set_broken()
-		return
-
-
 	emp_act(severity)
 		if(prob(20/severity)) set_broken()
 		..()
@@ -217,18 +209,18 @@
 	ex_act(severity)
 		switch(severity)
 			if(1.0)
-				del(src)
+				qdel(src)
 				return
 			if(2.0)
-				if (prob(25))
-					del(src)
+				if(prob(25))
+					qdel(src)
 					return
-				if (prob(50))
+				if(prob(50))
 					for(var/x in verbs)
 						verbs -= x
 					set_broken()
 			if(3.0)
-				if (prob(25))
+				if(prob(25))
 					for(var/x in verbs)
 						verbs -= x
 					set_broken()
@@ -237,7 +229,7 @@
 
 
 	blob_act()
-		if (prob(75))
+		if(prob(75))
 			set_broken()
 			density = 0
 
@@ -280,8 +272,8 @@
 			chan = power_channel
 
 		var/area/A = get_area(loc)
-		if(istype(A) && A.master && A.master.powered(chan))
-			A.master.use_power(amount, chan)
+		if(istype(A) && A.powered(chan))
+			A.use_power(amount, chan)
 		else if(battery && battery.charge > 0)
 			battery.use(amount)
 
@@ -373,7 +365,7 @@
 			os.attack_hand(user)
 			return
 
-		user << "\The [src] won't boot!"
+		to_chat(user, "\The [src] won't boot!")
 
 	attack_ai(var/mob/user as mob) // copypasta because server racks lose attack_hand()
 		if(stat)
@@ -398,7 +390,7 @@
 			os.attack_hand(user)
 			return
 
-		user << "\The [src] won't boot!"
+		to_chat(user, "\The [src] won't boot!")
 
 	interact()
 		if(stat)
@@ -451,7 +443,7 @@
 
 	//Returns percentage of battery charge remaining. Returns -1 if no battery is installed.
 	proc/check_battery_status()
-		if (battery)
+		if(battery)
 			var/obj/item/weapon/stock_parts/cell/B = battery
 			return round(B.charge / (B.maxcharge / 100))
 		else

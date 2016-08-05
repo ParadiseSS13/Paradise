@@ -4,7 +4,7 @@
 	icon_state = "wire"
 
 /obj/structure/cable/heavyduty
-	icon = 'icons/obj/power_cond_heavy.dmi'
+	icon = 'icons/obj/power_cond/power_cond_heavy.dmi'
 	name = "large power cable"
 	desc = "This cable is tough. It cannot be cut with simple hand tools."
 	layer = 2.39 //Just below pipes, which are at 2.4
@@ -16,10 +16,10 @@
 		return
 
 	if(istype(W, /obj/item/weapon/wirecutters))
-		usr << "\blue These cables are too tough to be cut with those [W.name]."
+		to_chat(usr, "\blue These cables are too tough to be cut with those [W.name].")
 		return
 	else if(istype(W, /obj/item/stack/cable_coil))
-		usr << "\blue You will need heavier cables to connect to these."
+		to_chat(usr, "\blue You will need heavier cables to connect to these.")
 		return
 	else
 		..()

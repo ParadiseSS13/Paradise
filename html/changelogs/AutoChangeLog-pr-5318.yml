@@ -1,0 +1,6 @@
+author: Chakirski
+delete-after: True
+changes: 
+  - tweak: ".45 Magazine sprites for the M1911 are now longer invisible."
+  - tweak: "Hoodies no longer look like labcoats while in hand."
+  - tweak: "Ectoplasm spawns in cult mining rooms instead of an invisible \"weapon\"."

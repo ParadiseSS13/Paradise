@@ -3,25 +3,38 @@
 	icon = 'icons/obj/aicards.dmi'
 	icon_state = "pai"
 	item_state = "electronic"
-	w_class = 2.0
+	w_class = 2
 	slot_flags = SLOT_BELT
 	origin_tech = "programming=2"
+	var/request_cooldown = 5 // five seconds
+	var/last_request
 	var/obj/item/device/radio/radio
 	var/looking_for_personality = 0
 	var/mob/living/silicon/pai/pai
+
+/obj/item/device/paicard/relaymove(var/mob/user, var/direction)
+	if(user.stat || user.stunned)
+		return
+	var/obj/item/weapon/rig/rig = src.get_rig()
+	if(istype(rig))
+		rig.forced_move(direction, user)
 
 /obj/item/device/paicard/New()
 	..()
 	overlays += "pai-off"
 
 /obj/item/device/paicard/Destroy()
-	//Will stop people throwing friend pAIs into the singularity so they can respawn
-	if(!isnull(pai))
-		pai.death(0)
-	..()
+	if(pai)
+		pai.ghostize()
+		qdel(pai)
+		pai = null
+	if(radio)
+		qdel(radio)
+		radio = null
+	return ..()
 
 /obj/item/device/paicard/attack_self(mob/user)
-	if (!in_range(src, user))
+	if(!in_range(src, user))
 		return
 	user.set_machine(src)
 	var/dat = {"
@@ -189,7 +202,7 @@
 			dat += {"
 				<b><font size='3px'>pAI Request Module</font></b><br><br>
 				<p>Requesting AI personalities from central database... If there are no entries, or if a suitable entry is not listed, check again later as more personalities may be added.</p>
-				<img src='loading.gif' /> Searching for personalities<br><br>
+				Searching for personalities, please wait...<br><br>
 
 				<table>
 					<tr>
@@ -224,7 +237,7 @@
 		return
 
 	if(pai)
-		if(!in_range(src, U) || pai.canmove || pai.resting)
+		if(!in_range(src, U))
 			U << browse(null, "window=paicard")
 			usr.unset_machine()
 			return
@@ -234,23 +247,29 @@
 			return
 		var/mob/M = usr
 		if(!istype(M, /mob/living/carbon))
-			usr << "<font color=blue>You don't have any DNA, or your DNA is incompatible with this device.</font>"
+			to_chat(usr, "<font color=blue>You don't have any DNA, or your DNA is incompatible with this device.</font>")
 		else
 			var/datum/dna/dna = usr.dna
 			pai.master = M.real_name
 			pai.master_dna = dna.unique_enzymes
-			pai << "<font color = red><h3>You have been bound to a new master.</h3></font>"
+			to_chat(pai, "<font color = red><h3>You have been bound to a new master.</h3></font>")
 	if(href_list["request"])
+		var/delta = (world.time / 10) - last_request
+		if(request_cooldown > delta)
+			var/cooldown_time = round(request_cooldown - ((world.time / 10) - last_request), 1)
+			to_chat(usr, "\red The request system is currently offline. Please wait another [cooldown_time] seconds.")
+			return
+		last_request = world.time / 10
 		src.looking_for_personality = 1
 		paiController.findPAI(src, usr)
 	if(href_list["wipe"])
 		var/confirm = input("Are you CERTAIN you wish to delete the current personality? This action cannot be undone.", "Personality Wipe") in list("Yes", "No")
 		if(confirm == "Yes")
 			for(var/mob/M in src)
-				M << "<font color = #ff0000><h2>You feel yourself slipping away from reality.</h2></font>"
-				M << "<font color = #ff4d4d><h3>Byte by byte you lose your sense of self.</h3></font>"
-				M << "<font color = #ff8787><h4>Your mental faculties leave you.</h4></font>"
-				M << "<font color = #ffc4c4><h5>oblivion... </h5></font>"
+				to_chat(M, "<font color = #ff0000><h2>You feel yourself slipping away from reality.</h2></font>")
+				to_chat(M, "<font color = #ff4d4d><h3>Byte by byte you lose your sense of self.</h3></font>")
+				to_chat(M, "<font color = #ff8787><h4>Your mental faculties leave you.</h4></font>")
+				to_chat(M, "<font color = #ffc4c4><h5>oblivion... </h5></font>")
 				var/mob/living/silicon/pai/P = M
 				if(istype(P))
 					if(P.resting || P.canmove)
@@ -268,9 +287,9 @@
 		var/newlaws = sanitize(copytext(input("Enter any additional directives you would like your pAI personality to follow. Note that these directives will not override the personality's allegiance to its imprinted master. Conflicting directives will be ignored.", "pAI Directive Configuration", pai.pai_laws) as message,1,MAX_MESSAGE_LEN))
 		if(newlaws)
 			pai.pai_laws = newlaws
-			pai << "Your supplemental directives have been updated. Your new directives are:"
-			pai << "Prime Directive: <br>[pai.pai_law0]"
-			pai << "Supplemental Directives: <br>[pai.pai_laws]"
+			to_chat(pai, "Your supplemental directives have been updated. Your new directives are:")
+			to_chat(pai, "Prime Directive: <br>[pai.pai_law0]")
+			to_chat(pai, "Supplemental Directives: <br>[pai.pai_laws]")
 	attack_self(usr)
 
 // 		WIRE_SIGNAL = 1
@@ -305,7 +324,7 @@
 
 /obj/item/device/paicard/proc/alertUpdate()
 	var/turf/T = get_turf_or_move(src.loc)
-	for (var/mob/M in viewers(T))
+	for(var/mob/M in viewers(T))
 		M.show_message("\blue [src] flashes a message across its screen, \"Additional personalities available for download.\"", 3, "\blue [src] bleeps electronically.", 2)
 
 /obj/item/device/paicard/emp_act(severity)
@@ -317,4 +336,4 @@
 	if(pai)
 		pai.ex_act(severity)
 	else
-		del(src)
+		qdel(src)

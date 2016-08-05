@@ -1,3 +1,6 @@
+/obj/item/weapon/melee
+	needs_permit = 1
+
 /obj/item/weapon/melee/chainofcommand
 	name = "chain of command"
 	desc = "A tool used by great men to placate the frothing masses."
@@ -14,7 +17,7 @@
 
 
 /obj/item/weapon/melee/chainofcommand/suicide_act(mob/user)
-		viewers(user) << "<span class='suicide'>[user] is strangling \himself with the [src.name]! It looks like \he's trying to commit suicide.</span>"
+		to_chat(viewers(user), "<span class='suicide'>[user] is strangling \himself with the [src.name]! It looks like \he's trying to commit suicide.</span>")
 		return (OXYLOSS)
 
 
@@ -27,3 +30,13 @@
 	throwforce = 10
 	w_class = 2
 	attack_verb = list("stabbed", "jabbed", "iced,")
+
+/obj/item/weapon/melee/candy_sword
+	name = "candy cane sword"
+	desc = "A large candy cane with a sharpened point. Definitely too dangerous for schoolchildren."
+	icon_state = "candy_sword"
+	item_state = "candy_sword"
+	force = 10
+	throwforce = 7
+	w_class = 3
+	attack_verb = list("slashed", "stabbed", "sliced", "caned")

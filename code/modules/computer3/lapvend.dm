@@ -1,5 +1,5 @@
 /obj/machinery/lapvend
-	name = "Laptop Vendor"
+	name = "laptop vendor"
 	desc = "A generic vending machine."
 	icon = 'icons/obj/vending.dmi'
 	icon_state = "robotics"
@@ -29,9 +29,9 @@
 
 
 /obj/machinery/lapvend/blob_act()
-	if (prob(50))
+	if(prob(50))
 		spawn(0)
-			del(src)
+			qdel(src)
 		return
 
 	return
@@ -56,7 +56,7 @@
 			usr.drop_item()
 			L.loc = src
 			vendmode = 3
-			usr << "<span class='notice'>You slot your [L.name] into \The [src.name]</span>"
+			to_chat(usr, "<span class='notice'>You slot your [L.name] into \The [src.name]</span>")
 	else
 		..()
 
@@ -82,7 +82,7 @@
 		dat += "<b>Total: [total()]</b><br>"
 		if(cardreader == 1)
 			dat += "<A href='?src=\ref[src];choice=single_rem'>Card Reader: (single) (50)</a><br>"
-		else if (cardreader == 2)
+		else if(cardreader == 2)
 			dat += "<A href='?src=\ref[src];choice=dual_rem'>Card Reader: (double) (125)</a><br>"
 		else
 			dat += "Card Reader: None<br>"
@@ -105,10 +105,10 @@
 		else if(network == 3)
 			dat += "<A href='?src=\ref[src];choice=cable_rem'>Network card: Powernet (25)</a><br>"
 		else
-			dat += "Network card: None"
-		if (power == 0)
-			dat += "Power source: Regular"
-		else if (power == 1)
+			dat += "Network card: None<br>"
+		if(power == 0)
+			dat += "Power source: Regular<br>"
+		else if(power == 1)
 			dat += "<A href='?src=\ref[src];choice=high_rem'>Power source: Extended (175)</a><br>"
 		else
 			dat += "<A href='?src=\ref[src];choice=super_rem'>Power source: Unreal (250)</a><br>"
@@ -117,10 +117,10 @@
 		dat += "<br><A href='?src=\ref[src];choice=vend'>Vend Laptop</a>"
 
 	if(vendmode == 1)
-		dat += "Please swipe your card and enter your PIN to complete the transaction"
+		dat += "Please swipe your card to complete the transaction"
 
 	if(vendmode == 3)
-		dat += "Please swipe your card and enter your PIN to be finish returning your computer<br>"
+		dat += "Please swipe your card to finish returning your computer<br>"
 		dat += "<a href='?src=\ref[src];choice=cancel'>Cancel</a>"
 
 
@@ -133,41 +133,41 @@
 
 
 /obj/machinery/lapvend/Topic(href, href_list)
-	if ((usr.contents.Find(src) || (in_range(src, usr) && istype(src.loc, /turf))))
+	if((usr.contents.Find(src) || (in_range(src, usr) && istype(src.loc, /turf))))
 		usr.set_machine(src)
 	switch(href_list["choice"])
 		if("single_add")
 			cardreader = 1
-		if ("dual_add")
+		if("dual_add")
 			cardreader = 2
-		if ("floppy_add")
+		if("floppy_add")
 			floppy = 1
-		if ("radio_add")
+		if("radio_add")
 			radionet = 1
-		if ("camnet_add")
+		if("camnet_add")
 			camera = 1
-		if ("area_add")
+		if("area_add")
 			network = 1
-		if ("prox_add")
+		if("prox_add")
 			network = 2
-		if ("cable_add")
+		if("cable_add")
 			network = 3
-		if ("high_add")
+		if("high_add")
 			power = 1
-		if ("super_add")
+		if("super_add")
 			power = 2
 
-		if ("single_rem" || "dual_rem")
+		if("single_rem" || "dual_rem")
 			cardreader = 0
-		if ("floppy_rem")
+		if("floppy_rem")
 			floppy = 0
-		if ("radio_rem")
+		if("radio_rem")
 			radionet = 0
-		if ("camnet_rem")
+		if("camnet_rem")
 			camera = 0
-		if ("area_rem" || "prox_rem" || "cable_rem")
+		if("area_rem" || "prox_rem" || "cable_rem")
 			network = 0
-		if ("high_rem" || "super_rem")
+		if("high_rem" || "super_rem")
 			power = 0
 
 		if("vend")
@@ -194,28 +194,30 @@
 		newlap.spawn_parts += (/obj/item/part/computer/networking/radio)
 	if(camera == 1)
 		newlap.spawn_parts += (/obj/item/part/computer/networking/cameras)
-	if (network == 1)
+	if(network == 1)
 		newlap.spawn_parts += (/obj/item/part/computer/networking/area)
-	if (network == 2)
+	if(network == 2)
 		newlap.spawn_parts += (/obj/item/part/computer/networking/prox)
-	if (network == 3)
+	if(network == 3)
 		newlap.spawn_parts += (/obj/item/part/computer/networking/cable)
-	if (power == 1)
-		del(newlap.battery)
+	if(power == 1)
+		qdel(newlap.battery)
 		newlap.battery = new /obj/item/weapon/stock_parts/cell/high(newlap)
-	if (power == 2)
-		del(newlap.battery)
+	if(power == 2)
+		qdel(newlap.battery)
 		newlap.battery = new /obj/item/weapon/stock_parts/cell/super(newlap)
 
 	newlap.spawn_parts()
 
 /obj/machinery/lapvend/proc/scan_card(var/obj/item/weapon/card/I)
-	if (istype(I, /obj/item/weapon/card/id))
+	if(istype(I, /obj/item/weapon/card/id))
 		var/obj/item/weapon/card/id/C = I
 		visible_message("<span class='info'>[usr] swipes a card through [src].</span>")
 		if(vendor_account)
-			var/attempt_pin = input("Enter pin code", "Vendor transaction") as num
-			var/datum/money_account/D = attempt_account_access(C.associated_account_number, attempt_pin, 2)
+			var/datum/money_account/D = attempt_account_access_nosec(C.associated_account_number)
+			if(D && D.security_level)
+				var/attempt_pin = input("Enter pin code", "Vendor transaction") as num
+				D = attempt_account_access(C.associated_account_number, attempt_pin, 2)
 			if(D)
 				var/transaction_amount = total()
 				if(transaction_amount <= D.money)
@@ -260,11 +262,11 @@
 					network = 0
 					power = 0
 				else
-					usr << "\icon[src]<span class='warning'>You don't have that much money!</span>"
+					to_chat(usr, "[bicon(src)]<span class='warning'>You don't have that much money!</span>")
 			else
-				usr << "\icon[src]<span class='warning'>Unable to access account. Check security settings and try again.</span>"
+				to_chat(usr, "[bicon(src)]<span class='warning'>Unable to access account. Check security settings and try again.</span>")
 		else
-			usr << "\icon[src]<span class='warning'>Unable to access vendor account. Please record the machine ID and call CentComm Support.</span>"
+			to_chat(usr, "[bicon(src)]<span class='warning'>Unable to access vendor account. Please record the machine ID and call CentComm Support.</span>")
 
 /obj/machinery/lapvend/proc/total()
 	var/total = 0
@@ -310,7 +312,7 @@
 		newlap.spawn_files += (/datum/file/program/communications)
 	if((access_medical in C.access) || (access_forensics_lockers in C.access)) //Gives detective the medical records program, but not the crew monitoring one.
 		newlap.spawn_files += (/datum/file/program/med_data)
-		if (access_medical in C.access)
+		if(access_medical in C.access)
 			newlap.spawn_files += (/datum/file/program/crew)
 	if(access_engine in C.access)
 		newlap.spawn_files += (/datum/file/program/powermon)
@@ -357,7 +359,7 @@
 
 
 /obj/machinery/lapvend/proc/reimburse(var/obj/item/weapon/card/I)
-	if (istype(I, /obj/item/weapon/card/id))
+	if(istype(I, /obj/item/weapon/card/id))
 		var/obj/item/weapon/card/id/C = I
 		visible_message("<span class='info'>[usr] swipes a card through [src].</span>")
 		if(vendor_account)
@@ -392,7 +394,7 @@
 				T.time = worldtime2text()
 				vendor_account.transaction_log.Add(T)
 
-				del(relap)
+				qdel(relap)
 
 				vendmode = 0
 				cardreader = 0
@@ -403,6 +405,6 @@
 				power = 0
 
 			else
-				usr << "\icon[src]<span class='warning'>Unable to access account. Check security settings and try again.</span>"
+				to_chat(usr, "[bicon(src)]<span class='warning'>Unable to access account. Check security settings and try again.</span>")
 		else
-			usr << "\icon[src]<span class='warning'>Unable to access vendor account. Please record the machine ID and call CentComm Support.</span>"
+			to_chat(usr, "[bicon(src)]<span class='warning'>Unable to access vendor account. Please record the machine ID and call CentComm Support.</span>")

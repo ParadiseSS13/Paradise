@@ -4,7 +4,7 @@
 	var/radio_desc = ""
 	icon_state = "headset"
 	item_state = "headset"
-	m_amt = 75
+	materials = list(MAT_METAL=75)
 	subspace_transmission = 1
 	canhear_range = 0 // can't hear headsets from very far away
 
@@ -13,45 +13,67 @@
 	var/translate_hive = 0
 	var/obj/item/device/encryptionkey/keyslot1 = null
 	var/obj/item/device/encryptionkey/keyslot2 = null
-	maxf = 1489
 
 	var/ks1type = null
 	var/ks2type = null
 
 /obj/item/device/radio/headset/New()
 	..()
+	internal_channels.Cut()
+
+/obj/item/device/radio/headset/initialize()
+	..()
+
 	if(ks1type)
 		keyslot1 = new ks1type(src)
 	if(ks2type)
 		keyslot2 = new ks2type(src)
+
 	recalculateChannels(1)
 
-/obj/item/device/radio/headset/examine(mob/user)
+/obj/item/device/radio/headset/Destroy()
+	if(keyslot1)
+		qdel(keyslot1)
+	if(keyslot2)
+		qdel(keyslot2)
+	keyslot1 = null
+	keyslot2 = null
+	return ..()
+
+/obj/item/device/radio/headset/list_channels(var/mob/user)
+	return list_secure_channels()
+
+/obj/item/device/radio/headset/examine(mob/user, var/distance = -1)
 	if(!(..(user, 1) && radio_desc))
 		return
 
-	user << "The following channels are built-in:"
-	user << radio_desc
+	to_chat(user, "The following channels are available:")
+	to_chat(user, radio_desc)
 
 /obj/item/device/radio/headset/handle_message_mode(mob/living/M as mob, message, channel)
-	if (channel == "special")
-		if (translate_binary)
+	if(channel == "special")
+		if(translate_binary)
 			var/datum/language/binary = all_languages["Robot Talk"]
 			binary.broadcast(M, message)
-		if (translate_hive)
+			return RADIO_CONNECTION_NON_SUBSPACE
+		if(translate_hive)
 			var/datum/language/hivemind = all_languages["Hivemind"]
 			hivemind.broadcast(M, message)
-		return null
+			return RADIO_CONNECTION_NON_SUBSPACE
+		return RADIO_CONNECTION_FAIL
 
 	return ..()
 
 /obj/item/device/radio/headset/receive_range(freq, level, aiOverride = 0)
-	if (aiOverride)
+	if(aiOverride)
 		return ..(freq, level)
-	if(ishuman(src.loc))
-		var/mob/living/carbon/human/H = src.loc
+	if(ishuman(loc))
+		var/mob/living/carbon/human/H = loc
 		if(H.l_ear == src || H.r_ear == src)
 			return ..(freq, level)
+	else if(isanimal(loc))
+		// frankly, all the ones with inventory are small enough to not warrant snowflaking the slot check somehow
+		return ..(freq, level)
 	return -1
 
 /obj/item/device/radio/headset/alt
@@ -189,27 +211,18 @@
 	icon_state = "com_headset"
 	item_state = "headset"
 	ks2type = /obj/item/device/encryptionkey/heads/hop
-/*
-/obj/item/device/radio/headset/headset_mine
-	name = "mining radio headset"
-	desc = "Headset used by miners. How useless."
-	icon_state = "mine_headset"
-	item_state = "headset"
-	ks2type = /obj/item/device/encryptionkey/headset_mine
 
-/obj/item/device/radio/headset/heads/qm
-	name = "quartermaster's headset"
-	desc = "The headset of the man who control your toiletpaper supply."
-	icon_state = "cargo_headset"
-	item_state = "headset"
-	ks2type = /obj/item/device/encryptionkey/heads/qm
-*/
 /obj/item/device/radio/headset/headset_cargo
 	name = "supply radio headset"
 	desc = "A headset used by the cargo department."
 	icon_state = "cargo_headset"
 	item_state = "headset"
 	ks2type = /obj/item/device/encryptionkey/headset_cargo
+
+/obj/item/device/radio/headset/headset_cargo/mining
+	name = "mining radio headset"
+	desc = "Headset used by shaft miners."
+	icon_state = "mine_headset"
 
 /obj/item/device/radio/headset/headset_service
 	name = "service radio headset"
@@ -232,6 +245,13 @@
 	item_state = "headset"
 	ks2type = /obj/item/device/encryptionkey/heads/magistrate
 
+/obj/item/device/radio/headset/heads/magistrate/alt
+	name = "\proper magistrate's bowman headset"
+	desc = "The headset of the Magistrate. Protects ears from flashbangs."
+	flags = EARBANGPROTECT
+	icon_state = "com_headset_alt"
+	item_state = "com_headset_alt"
+
 /obj/item/device/radio/headset/heads/blueshield
 	name = "blueshield's headset"
 	desc = "The headset of the Blueshield."
@@ -251,7 +271,6 @@
 	desc = "The headset of the boss's boss."
 	icon_state = "com_headset"
 	item_state = "headset"
-	freerange = 1
 	ks2type = /obj/item/device/encryptionkey/ert
 
 /obj/item/device/radio/headset/ert/alt
@@ -260,6 +279,14 @@
 	flags = EARBANGPROTECT
 	icon_state = "com_headset_alt"
 	item_state = "com_headset_alt"
+
+/obj/item/device/radio/headset/centcom
+	name = "\proper centcom officer's bowman headset"
+	desc = "The headset of final authority. Protects ears from flashbangs."
+	flags = EARBANGPROTECT
+	icon_state = "com_headset_alt"
+	item_state = "com_headset_alt"
+	ks2type = /obj/item/device/encryptionkey/centcom
 
 /obj/item/device/radio/headset/heads/ai_integrated //No need to care about icons, it should be hidden inside the AI anyway.
 	name = "\improper AI subspace transceiver"
@@ -272,33 +299,27 @@
 	var/disabledAi = 0 // Atlantis: Used to manually disable AI's integrated radio via intellicard menu.
 
 /obj/item/device/radio/headset/heads/ai_integrated/receive_range(freq, level)
-	if (disabledAi)
+	if(disabledAi)
 		return -1 //Transciever Disabled.
 	return ..(freq, level, 1)
 
 /obj/item/device/radio/headset/attackby(obj/item/weapon/W as obj, mob/user as mob)
-//	..()
 	user.set_machine(src)
-	if (!( istype(W, /obj/item/weapon/screwdriver) || (istype(W, /obj/item/device/encryptionkey/ ))))
+	if(!( istype(W, /obj/item/weapon/screwdriver) || (istype(W, /obj/item/device/encryptionkey/ ))))
 		return
 
 	if(istype(W, /obj/item/weapon/screwdriver))
 		if(keyslot1 || keyslot2)
 
-
 			for(var/ch_name in channels)
 				radio_controller.remove_object(src, radiochannels[ch_name])
 				secure_radio_connections[ch_name] = null
-
 
 			if(keyslot1)
 				var/turf/T = get_turf(user)
 				if(T)
 					keyslot1.loc = T
 					keyslot1 = null
-
-
-
 			if(keyslot2)
 				var/turf/T = get_turf(user)
 				if(T)
@@ -306,29 +327,25 @@
 					keyslot2 = null
 
 			recalculateChannels()
-			user << "You pop out the encryption keys in the headset!"
-
+			to_chat(user, "You pop out the encryption keys in the headset!")
 		else
-			user << "This headset doesn't have any encryption keys!  How useless..."
+			to_chat(user, "This headset doesn't have any encryption keys!  How useless...")
 
 	if(istype(W, /obj/item/device/encryptionkey/))
 		if(keyslot1 && keyslot2)
-			user << "The headset can't hold another key!"
+			to_chat(user, "The headset can't hold another key!")
 			return
 
 		if(!keyslot1)
 			user.drop_item()
 			W.loc = src
 			keyslot1 = W
-
 		else
 			user.drop_item()
 			W.loc = src
 			keyslot2 = W
 
-
 		recalculateChannels()
-
 	return
 
 
@@ -371,9 +388,7 @@
 			src.syndie = 1
 
 
-	for (var/ch_name in channels)
-		if(!radio_controller)
-			sleep(30) // Waiting for the radio_controller to be created.
+	for(var/ch_name in channels)
 		if(!radio_controller)
 			src.name = "broken radio headset"
 			return

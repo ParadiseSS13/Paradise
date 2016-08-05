@@ -14,7 +14,7 @@
 
 /obj/item/clothing/head/helmet/space/chronos/Destroy()
 	dropped()
-	..()
+	return ..()
 
 
 /obj/item/clothing/suit/space/chronos
@@ -22,22 +22,19 @@
 	desc = "An advanced spacesuit equipped with teleportation and anti-compression technology"
 	icon_state = "chronosuit"
 	item_state = "chronosuit"
-	action_button_name = "Toggle Chronosuit"
-	icon_action_button = "action_chronosuit"
-	slowdown = 2
+	actions_types = list(/datum/action/item_action/toggle)
 	armor = list(melee = 60, bullet = 60, laser = 60, energy = 60, bomb = 30, bio = 90, rad = 90)
 	var/obj/item/clothing/head/helmet/space/chronos/helmet = null
 	var/obj/effect/chronos_cam/camera = null
 	var/activating = 0
 	var/activated = 0
 	var/cooldowntime = 50 //deciseconds
-	var/cooldown = 0
 	var/teleporting = 0
 
 
 /obj/item/clothing/suit/space/chronos/proc/new_camera(var/mob/user)
 	if(camera)
-		del(camera)
+		qdel(camera)
 	camera = new /obj/effect/chronos_cam(get_turf(user))
 	camera.holder = user
 	user.remote_control = camera
@@ -56,14 +53,14 @@
 
 /obj/item/clothing/suit/space/chronos/Destroy()
 	dropped()
-	..()
+	return ..()
 
 /obj/item/clothing/suit/space/chronos/emp_act(severity)
 	var/mob/living/carbon/human/user = src.loc
 	switch(severity)
 		if(1)
 			if(user && ishuman(user) && (user.wear_suit == src))
-				user << "<span class='userdanger'>Elecrtromagnetic pulse detected, shutting down systems to preserve integrity...</span>"
+				to_chat(user, "<span class='userdanger'>Elecrtromagnetic pulse detected, shutting down systems to preserve integrity...</span>")
 			deactivate()
 
 /obj/item/clothing/suit/space/chronos/proc/chronowalk(var/mob/living/carbon/human/user)
@@ -84,7 +81,7 @@
 		phaseanim.master = user
 		user.ExtinguishMob()
 		if(user.buckled)
-			user.buckled.unbuckle()
+			user.buckled.unbuckle_mob()
 		user.loc = holder
 		flick("chronophase", phaseanim)
 		spawn(7)
@@ -105,11 +102,11 @@
 							user.client.eye = camera
 						else
 							user.client.eye = user
-				del(holder)
+				qdel(holder)
 			else if(user)
 				user.loc = from_turf
 			if(phaseanim)
-				del(phaseanim)
+				qdel(phaseanim)
 			teleporting = 0
 			if(user && !user.loc) //ubersanity
 				user.loc = locate(0,0,1)
@@ -133,24 +130,24 @@
 		var/mob/living/carbon/human/user = src.loc
 		if(user && ishuman(user))
 			if(user.wear_suit == src)
-				user << "\nChronosuitMK4 login: root"
-				user << "Password:\n"
-				user << "root@ChronosuitMK4# chronowalk4 --start\n"
+				to_chat(user, "\nChronosuitMK4 login: root")
+				to_chat(user, "Password:\n")
+				to_chat(user, "root@ChronosuitMK4# chronowalk4 --start\n")
 				if(user.head && istype(user.head, /obj/item/clothing/head/helmet/space/chronos))
-					user << "\[ <span style='color: #00ff00;'>ok</span> \] Mounting /dev/helmet"
+					to_chat(user, "\[ <span style='color: #00ff00;'>ok</span> \] Mounting /dev/helmet")
 					helmet = user.head
 					helmet.flags |= NODROP
 					helmet.suit = src
 					src.flags |= NODROP
-					user << "\[ <span style='color: #00ff00;'>ok</span> \] Starting brainwave scanner"
-					user << "\[ <span style='color: #00ff00;'>ok</span> \] Starting ui display driver"
-					user << "\[ <span style='color: #00ff00;'>ok</span> \] Initializing chronowalk4-view"
+					to_chat(user, "\[ <span style='color: #00ff00;'>ok</span> \] Starting brainwave scanner")
+					to_chat(user, "\[ <span style='color: #00ff00;'>ok</span> \] Starting ui display driver")
+					to_chat(user, "\[ <span style='color: #00ff00;'>ok</span> \] Initializing chronowalk4-view")
 					new_camera(user)
 					processing_objects.Add(src)
 					activated = 1
 				else
-					user << "\[ <span style='color: #ff0000;'>fail</span> \] Mounting /dev/helmet"
-					user << "<span style='color: #ff0000;'><b>FATAL: </b>Unable to locate /dev/helmet. <b>Aborting...</b>"
+					to_chat(user, "\[ <span style='color: #ff0000;'>fail</span> \] Mounting /dev/helmet")
+					to_chat(user, "<span style='color: #ff0000;'><b>FATAL: </b>Unable to locate /dev/helmet. <b>Aborting...</b>")
 		cooldown = world.time + cooldowntime
 		activating = 0
 		return 0
@@ -161,18 +158,19 @@
 		var/mob/living/carbon/human/user = src.loc
 		if(user && ishuman(user))
 			if(user.wear_suit == src)
-				user << "\nroot@ChronosuitMK4# chronowalk4 --stop\n"
+				to_chat(user, "\nroot@ChronosuitMK4# chronowalk4 --stop\n")
 				if(camera)
-					user << "\[ <span style='color: #ff5500;'>ok</span> \] Sending TERM signal to chronowalk4-view" //yes I know they aren't a different color when shutting down, but they were too similar at a glance
-					del(camera)
+					to_chat(user, "\[ <span style='color: #ff5500;'>ok</span> \] Sending TERM signal to chronowalk4-view")//yes I know they aren't a different color when shutting down, but they were too similar at a glance
+
+					qdel(camera)
 				if(helmet)
-					user << "\[ <span style='color: #ff5500;'>ok</span> \] Stopping ui display driver"
-					user << "\[ <span style='color: #ff5500;'>ok</span> \] Stopping brainwave scanner"
-					user << "\[ <span style='color: #ff5500;'>ok</span> \] Unmounting /dev/helmet"
+					to_chat(user, "\[ <span style='color: #ff5500;'>ok</span> \] Stopping ui display driver")
+					to_chat(user, "\[ <span style='color: #ff5500;'>ok</span> \] Stopping brainwave scanner")
+					to_chat(user, "\[ <span style='color: #ff5500;'>ok</span> \] Unmounting /dev/helmet")
 					helmet.flags &= ~NODROP
 					helmet.suit = null
 					helmet = null
-				user << "logout"
+				to_chat(user, "logout")
 		src.flags &= ~NODROP
 		cooldown = world.time + cooldowntime * 1.5
 		activated = 0
@@ -202,7 +200,7 @@
 				else
 					src.loc = step
 	else
-		del(src)
+		qdel(src)
 
 /obj/effect/chronos_cam/Destroy()
 	if(holder)
@@ -210,4 +208,4 @@
 			holder.remote_control = null
 		if(holder.client && (holder.client.eye == src))
 			holder.client.eye = holder
-	..()
+	return ..()

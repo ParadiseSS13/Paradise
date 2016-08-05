@@ -3,19 +3,20 @@
 	name = "black jumpsuit"
 	icon_state = "black"
 	item_state = "bl_suit"
-	_color = "black"
+	item_color = "black"
 	desc = "It's a plain jumpsuit. It seems to have a small dial on the wrist."
 	origin_tech = "syndicate=3"
-	siemens_coefficient = 0.8
 	var/list/clothing_choices = list()
+	burn_state = FIRE_PROOF
+	armor = list(melee = 10, bullet = 10, laser = 10, energy = 0, bomb = 0, bio = 0, rad = 0)
 
 	New()
 		..()
-		for(var/U in typesof(/obj/item/clothing/under/color)-(/obj/item/clothing/under/color))
+		for(var/U in subtypesof(/obj/item/clothing/under/color))
 			var/obj/item/clothing/under/V = new U
 			src.clothing_choices += V
 
-		for(var/U in typesof(/obj/item/clothing/under/rank)-(/obj/item/clothing/under/rank))
+		for(var/U in subtypesof(/obj/item/clothing/under/rank))
 			var/obj/item/clothing/under/V = new U
 			src.clothing_choices += V
 		return
@@ -24,26 +25,28 @@
 	attackby(obj/item/clothing/under/U as obj, mob/user as mob, params)
 		..()
 		if(istype(U, /obj/item/clothing/under/chameleon))
-			user << "\red Nothing happens."
+			to_chat(user, "\red Nothing happens.")
 			return
 		if(istype(U, /obj/item/clothing/under))
 			if(src.clothing_choices.Find(U))
-				user << "\red Pattern is already recognised by the suit."
+				to_chat(user, "\red Pattern is already recognised by the suit.")
 				return
 			src.clothing_choices += U
-			user << "\red Pattern absorbed by the suit."
+			to_chat(user, "\red Pattern absorbed by the suit.")
 
 
 	emp_act(severity)
 		name = "psychedelic"
 		desc = "Groovy!"
 		icon_state = "psyche"
-		_color = "psyche"
+		item_color = "psyche"
+		usr.update_inv_w_uniform()
 		spawn(200)
-			name = "Black Jumpsuit"
-			icon_state = "bl_suit"
-			_color = "black"
-			desc = null
+			name = initial(name)
+			icon_state = initial(icon_state)
+			item_color = initial(item_color)
+			desc = initial(desc)
+			usr.update_inv_w_uniform()
 		..()
 
 
@@ -53,7 +56,7 @@
 		set src in usr
 
 		if(icon_state == "psyche")
-			usr << "\red Your suit is malfunctioning"
+			to_chat(usr, "\red Your suit is malfunctioning")
 			return
 
 		var/obj/item/clothing/under/A
@@ -68,7 +71,7 @@
 		name = A.name
 		icon_state = A.icon_state
 		item_state = A.item_state
-		_color = A._color
+		item_color = A.item_color
 		usr.update_inv_w_uniform()	//so our overlays update.
 
 

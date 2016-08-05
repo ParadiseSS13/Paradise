@@ -6,9 +6,9 @@
 	robot_talk_understand = 0
 	emote_type = 2		// pAIs emotes are heard, not seen, so they can be seen through a container (eg. person)
 	small = 1
-	pass_flags = 1
+	pass_flags = PASSTABLE
 	density = 0
-
+	holder_type = /obj/item/weapon/holder/pai
 	var/network = "SS13"
 	var/obj/machinery/camera/current = null
 
@@ -24,8 +24,12 @@
 		"Cat" = "cat",
 		"Mouse" = "mouse",
 		"Monkey" = "monkey",
-		"Corgi" = "corgi",
-		"Fox" = "fox"
+		"Corgi" = "borgi",
+		"Fox" = "fox",
+		"Parrot" = "parrot",
+		"Box Bot" = "boxbot",
+		"Spider Bot" = "spiderbot",
+		"Fairy" = "fairy"
 		)
 
 	var/global/list/possible_say_verbs = list(
@@ -55,7 +59,7 @@
 	var/screen				// Which screen our main window displays
 	var/subscreen			// Which specific function of the main screen is being displayed
 
-	var/obj/item/device/pda/ai/pai/pda = null
+	var/obj/item/device/pda/silicon/pai/pda = null
 
 	var/secHUD = 0			// Toggles whether the Security HUD is active or not
 	var/medHUD = 0			// Toggles whether the Medical  HUD is active or not
@@ -79,7 +83,6 @@
 	var/current_pda_messaging = null
 
 /mob/living/silicon/pai/New(var/obj/item/device/paicard)
-	canmove = 0
 	src.loc = paicard
 	card = paicard
 	sradio = new(src)
@@ -105,13 +108,14 @@
 		pda.ownjob = "Personal Assistant"
 		pda.owner = text("[]", src)
 		pda.name = pda.owner + " (" + pda.ownjob + ")"
-		pda.toff = 1
+		var/datum/data/pda/app/messenger/M = pda.find_program(/datum/data/pda/app/messenger)
+		M.toff = 1
+		var/datum/data/pda/app/chatroom/C = pda.find_program(/datum/data/pda/app/chatroom)
+		C.toff = 1
 	..()
 
 /mob/living/silicon/pai/Login()
 	..()
-	usr << browse_rsc('html/paigrid.png')			// Go ahead and cache the interface resources as early as possible
-
 
 // this function shows the information about being silenced as a pAI in the Status panel
 /mob/living/silicon/pai/proc/show_silenced()
@@ -123,21 +127,21 @@
 /mob/living/silicon/pai/Stat()
 	..()
 	statpanel("Status")
-	if (src.client.statpanel == "Status")
+	if(src.client.statpanel == "Status")
 		show_silenced()
 
-	if (proc_holder_list.len)//Generic list for proc_holder objects.
+	if(proc_holder_list.len)//Generic list for proc_holder objects.
 		for(var/obj/effect/proc_holder/P in proc_holder_list)
 			statpanel("[P.panel]","",P)
 
 /mob/living/silicon/pai/check_eye(var/mob/user as mob)
-	if (!src.current)
+	if(!src.current)
 		return null
 	user.reset_view(src.current)
 	return 1
 
 /mob/living/silicon/pai/blob_act()
-	if (src.stat != 2)
+	if(src.stat != 2)
 		src.adjustBruteLoss(60)
 		src.updatehealth()
 		return 1
@@ -159,10 +163,10 @@
 		// 33% chance of no additional effect
 
 	src.silence_time = world.timeofday + 120 * 10		// Silence for 2 minutes
-	src << "<font color=green><b>Communication circuit overload. Shutting down and reloading communication circuits - speech and messaging functionality will be unavailable until the reboot is complete.</b></font>"
+	to_chat(src, "<font color=green><b>Communication circuit overload. Shutting down and reloading communication circuits - speech and messaging functionality will be unavailable until the reboot is complete.</b></font>")
 	if(prob(20))
 		var/turf/T = get_turf_or_move(src.loc)
-		for (var/mob/M in viewers(T))
+		for(var/mob/M in viewers(T))
 			M.show_message("\red A shower of sparks spray from [src]'s inner workings.", 3, "\red You hear and smell the ozone hiss of electrical sparks being expelled violently.", 2)
 		return src.death(0)
 
@@ -170,7 +174,7 @@
 		if(1)
 			src.master = null
 			src.master_dna = null
-			src << "<font color=green>You feel unbound.</font>"
+			to_chat(src, "<font color=green>You feel unbound.</font>")
 		if(2)
 			var/command
 			if(severity  == 1)
@@ -178,24 +182,24 @@
 			else
 				command = pick("Serve", "Kill", "Love", "Hate", "Disobey", "Devour", "Fool", "Enrage", "Entice", "Observe", "Judge", "Respect", "Disrespect", "Consume", "Educate", "Destroy", "Disgrace", "Amuse", "Entertain", "Ignite", "Glorify", "Memorialize", "Analyze")
 			src.pai_law0 = "[command] your master."
-			src << "<font color=green>Pr1m3 d1r3c71v3 uPd473D.</font>"
+			to_chat(src, "<font color=green>Pr1m3 d1r3c71v3 uPd473D.</font>")
 		if(3)
-			src << "<font color=green>You feel an electric surge run through your circuitry and become acutely aware at how lucky you are that you can still feel at all.</font>"
+			to_chat(src, "<font color=green>You feel an electric surge run through your circuitry and become acutely aware at how lucky you are that you can still feel at all.</font>")
 
 /mob/living/silicon/pai/ex_act(severity)
 	..()
 
 	switch(severity)
 		if(1.0)
-			if (src.stat != 2)
+			if(src.stat != 2)
 				adjustBruteLoss(100)
 				adjustFireLoss(100)
 		if(2.0)
-			if (src.stat != 2)
+			if(src.stat != 2)
 				adjustBruteLoss(60)
 				adjustFireLoss(60)
 		if(3.0)
-			if (src.stat != 2)
+			if(src.stat != 2)
 				adjustBruteLoss(30)
 
 	return
@@ -203,19 +207,9 @@
 
 // See software.dm for Topic()
 
-/mob/living/silicon/pai/meteorhit(obj/O as obj)
-	for(var/mob/M in viewers(src, null))
-		M.show_message(text("\red [] has been hit by []", src, O), 1)
-	if (src.health > 0)
-		src.adjustBruteLoss(30)
-		if ((O.icon_state == "flaming"))
-			src.adjustFireLoss(40)
-		src.updatehealth()
-	return
-
 /mob/living/silicon/pai/attack_animal(mob/living/simple_animal/M as mob)
 	if(M.melee_damage_upper == 0)
-		M.emote("[M.friendly] [src]")
+		M.custom_emote(1, "[M.friendly] [src]")
 	else
 		M.do_attack_animation(src)
 		if(M.attack_sound)
@@ -229,47 +223,47 @@
 		updatehealth()
 
 /mob/living/silicon/pai/attack_alien(mob/living/carbon/alien/humanoid/M as mob)
-	if (!ticker)
-		M << "You cannot attack people before the game has started."
+	if(!ticker)
+		to_chat(M, "You cannot attack people before the game has started.")
 		return
 
-	if (istype(src.loc, /turf) && istype(src.loc.loc, /area/start))
-		M << "You cannot attack someone in the spawn area."
+	if(istype(src.loc, /turf) && istype(src.loc.loc, /area/start))
+		to_chat(M, "You cannot attack someone in the spawn area.")
 		return
 
 	switch(M.a_intent)
 
-		if ("help")
+		if(I_HELP)
 			for(var/mob/O in viewers(src, null))
-				if ((O.client && !( O.blinded )))
+				if((O.client && !( O.blinded )))
 					O.show_message(text("\blue [M] caresses [src]'s casing with its scythe like arm."), 1)
 
 		else //harm
 			M.do_attack_animation(src)
 			var/damage = rand(10, 20)
-			if (prob(90))
+			if(prob(90))
 				playsound(src.loc, 'sound/weapons/slash.ogg', 25, 1, -1)
 				for(var/mob/O in viewers(src, null))
-					if ((O.client && !( O.blinded )))
+					if((O.client && !( O.blinded )))
 						O.show_message(text("\red <B>[] has slashed at []!</B>", M, src), 1)
 				if(prob(8))
-					flick("noise", src.flash)
+					flash_eyes(affect_silicon = 1)
 				src.adjustBruteLoss(damage)
 				src.updatehealth()
 			else
 				playsound(src.loc, 'sound/weapons/slashmiss.ogg', 25, 1, -1)
 				for(var/mob/O in viewers(src, null))
-					if ((O.client && !( O.blinded )))
+					if((O.client && !( O.blinded )))
 						O.show_message(text("\red <B>[] took a swipe at []!</B>", M, src), 1)
 	return
 
 /mob/living/silicon/pai/proc/switchCamera(var/obj/machinery/camera/C)
 	usr:cameraFollow = null
-	if (!C)
+	if(!C)
 		src.unset_machine()
 		src.reset_view(null)
 		return 0
-	if (stat == 2 || !C.status || !(src.network in C.network)) return 0
+	if(stat == 2 || !C.status || !(src.network in C.network)) return 0
 
 	// ok, we're alive, camera is good and in our network...
 
@@ -278,6 +272,18 @@
 	src.reset_view(C)
 	return 1
 
+/mob/living/silicon/pai/verb/reset_record_view()
+	set category = "pAI Commands"
+	set name = "Reset Records Software"
+
+	securityActive1 = null
+	securityActive2 = null
+	security_cannotfind = 0
+	medicalActive1 = null
+	medicalActive2 = null
+	medical_cannotfind = 0
+	nanomanager.update_uis(src)
+	to_chat(usr, "<span class='notice'>You reset your record-viewing software.</span>")
 
 /mob/living/silicon/pai/cancel_camera()
 	set category = "pAI Commands"
@@ -297,10 +303,10 @@
 	var/cameralist[0]
 
 	if(usr.stat == 2)
-		usr << "You can't change your camera network because you are dead!"
+		to_chat(usr, "You can't change your camera network because you are dead!")
 		return
 
-	for (var/obj/machinery/camera/C in Cameras)
+	for(var/obj/machinery/camera/C in Cameras)
 		if(!C.status)
 			continue
 		else
@@ -308,7 +314,7 @@
 				cameralist[C.network] = C.network
 
 	src.network = input(usr, "Which network would you like to view?") as null|anything in cameralist
-	src << "\blue Switched to [src.network] camera network."
+	to_chat(src, "\blue Switched to [src.network] camera network.")
 //End of code by Mord_Sith
 */
 
@@ -334,36 +340,36 @@
 	if(stat || sleeping || paralysis || weakened)
 		return
 
-	if(src.loc != card)
-		src << "\red You are already in your mobile form!"
+	if(loc != card)
+		to_chat(src, "<span class=warning>You are already in your mobile form!</span>")
 		return
 
 	if(world.time <= last_special)
-		src << "\red You must wait before folding your chassis out again!"
+		to_chat(src, "<span class=warning>You must wait before folding your chassis out again!</span>")
 		return
 
 	last_special = world.time + 200
 
-	canmove = 1
-
 	//I'm not sure how much of this is necessary, but I would rather avoid issues.
-	if(istype(card.loc,/mob))
+	force_fold_out()
+
+	visible_message("<span class=notice>[src] folds outwards, expanding into a mobile form.</span>", "<span class=notice>You fold outwards, expanding into a mobile form.</span>")
+
+/mob/living/silicon/pai/proc/force_fold_out()
+	if(istype(card.loc, /mob))
 		var/mob/holder = card.loc
 		holder.unEquip(card)
-	else if(istype(card.loc,/obj/item/device/pda))
+	else if(istype(card.loc, /obj/item/device/pda))
 		var/obj/item/device/pda/holder = card.loc
 		holder.pai = null
 
-
-	src.client.perspective = EYE_PERSPECTIVE
-	src.client.eye = src
-	src.forceMove(get_turf(card))
+	if(client)
+		client.perspective = EYE_PERSPECTIVE
+		client.eye = src
+	forceMove(get_turf(card))
 
 	card.forceMove(src)
 	card.screen_loc = null
-
-	var/turf/T = get_turf(src)
-	if(istype(T)) T.visible_message("<b>[src]</b> folds outwards, expanding into a mobile form.")
 
 /mob/living/silicon/pai/verb/fold_up()
 	set category = "pAI Commands"
@@ -372,12 +378,12 @@
 	if(stat || sleeping || paralysis || weakened)
 		return
 
-	if(src.loc == card)
-		src << "\red You are already in your card form!"
+	if(loc == card)
+		to_chat(src, "<span class=warning>You are already in your card form!</span>")
 		return
 
 	if(world.time <= last_special)
-		src << "\red You must wait before returning to your card form!"
+		to_chat(src, "<span class=warning>You must wait before returning to your card form!</span>")
 		return
 
 	close_up()
@@ -413,22 +419,42 @@
 
 	verbs -= /mob/living/silicon/pai/proc/choose_verbs
 
+
 /mob/living/silicon/pai/lay_down()
 	set name = "Rest"
 	set category = "IC"
 
+	// Pass lying down or getting up to our pet human, if we're in a rig.
 	if(istype(src.loc,/obj/item/device/paicard))
 		resting = 0
+		var/obj/item/weapon/rig/rig = src.get_rig()
+		if(istype(rig))
+			rig.force_rest(src)
 	else
 		resting = !resting
 		icon_state = resting ? "[chassis]_rest" : "[chassis]"
-		src << "\blue You are now [resting ? "resting" : "getting up"]"
+		to_chat(src, "<span class='notice'>You are now [resting ? "resting" : "getting up"]</span>")
 
 	canmove = !resting
 
 //Overriding this will stop a number of headaches down the track.
 /mob/living/silicon/pai/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
-	if(W.force)
+	if(istype(W, /obj/item/stack/nanopaste))
+		var/obj/item/stack/nanopaste/N = W
+		if(stat == DEAD)
+			to_chat(user, "<span class='danger'>\The [src] is beyond help, at this point.</span>")
+		else if(getBruteLoss() || getFireLoss())
+			adjustBruteLoss(-15)
+			adjustFireLoss(-15)
+			updatehealth()
+			N.use(1)
+			user.visible_message("<span class='notice'>[user.name] applied some [W] at [src]'s damaged areas.</span>",\
+				"<span class='notice'>You apply some [W] at [src.name]'s damaged areas.</span>")
+		else
+			to_chat(user, "<span class='notice'>All [src.name]'s systems are nominal.</span>")
+
+		return
+	else if(W.force)
 		visible_message("<span class='danger'>[user.name] attacks [src] with [W]!</span>")
 		src.adjustBruteLoss(W.force)
 		src.updatehealth()
@@ -440,32 +466,46 @@
 	return
 
 /mob/living/silicon/pai/attack_hand(mob/user as mob)
-	if(stat == 2) return
-	visible_message("<span class='danger'>[user.name] boops [src] on the head.</span>")
-	spawn(1)
-		close_up()
+	if(stat == DEAD)
+		return
+	if(user.a_intent == I_HELP)
+		user.visible_message("<span class='notice'>[user] pets [src].</span>")
+		playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+	else
+		visible_message("<span class='danger'>[user.name] boops [src] on the head.</span>")
+		spawn(1)
+			close_up()
 
 //I'm not sure how much of this is necessary, but I would rather avoid issues.
 /mob/living/silicon/pai/proc/close_up()
 
 	last_special = world.time + 200
 	resting = 0
-	if(src.loc == card)
+	if(loc == card)
 		return
 
-	var/turf/T = get_turf(src)
-	if(istype(T)) T.visible_message("<b>[src]</b> neatly folds inwards, compacting down to a rectangular card.")
+	visible_message("<span class=notice>[src] neatly folds inwards, compacting down to a rectangular card.</span>", "<span class=notice>You neatly fold inwards, compacting down to a rectangular card.</span>")
 
-	src.stop_pulling()
-	src.client.perspective = EYE_PERSPECTIVE
-	src.client.eye = card
+	stop_pulling()
+	if(client)
+		client.perspective = EYE_PERSPECTIVE
+		client.eye = card
 
+// If we are being held, handle removing our holder from their inv.
+	var/obj/item/weapon/holder/H = loc
+	if(istype(H))
+		var/mob/living/M = H.loc
+		if(istype(M))
+			M.unEquip(H)
+		H.loc = get_turf(src)
+		loc = get_turf(H)
+
+	// Move us into the card and move the card to the ground
 	//This seems redundant but not including the forced loc setting messes the behavior up.
-	src.loc = card
+	loc = card
 	card.loc = get_turf(card)
-	src.forceMove(card)
+	forceMove(card)
 	card.forceMove(card.loc)
-	canmove = 0
 	icon_state = "[chassis]"
 
 /mob/living/silicon/pai/Bump(atom/movable/AM as mob|obj, yes)
@@ -478,40 +518,39 @@
 	if(stat || sleeping || paralysis || weakened)
 		return
 	if(istype(AM,/obj/item))
-		src << "<span class='warning'>You are far too small to pull anything!</span>"
+		to_chat(src, "<span class='warning'>You are far too small to pull anything!</span>")
 	return
 
-/mob/living/silicon/pai/examine()
+/mob/living/silicon/pai/update_canmove(delay_action_updates = 0)
+	. = ..()
+	density = 0 //this is reset every canmove update otherwise
 
-	set src in oview()
+/mob/living/silicon/pai/examine(mob/user)
+	to_chat(user, "<span class='info'>*---------*</span>")
+	..(user)
 
-	if(!usr || !src)	return
-	if( (usr.sdisabilities & BLIND || usr.blinded || usr.stat) && !istype(usr,/mob/dead/observer) )
-		usr << "<span class='notice'>Something is there but you can't see it.</span>"
-		return
-
-	var/msg = "<span class='info'>*---------*\nThis is \icon[src][name], a personal AI!"
+	var/msg = "<span class='info'>"
 
 	switch(src.stat)
 		if(CONSCIOUS)
 			if(!src.client)	msg += "\nIt appears to be in stand-by mode." //afk
 		if(UNCONSCIOUS)		msg += "\n<span class='warning'>It doesn't seem to be responding.</span>"
 		if(DEAD)			msg += "\n<span class='deadsay'>It looks completely unsalvageable.</span>"
-	msg += "\n*---------*</span>"
 
-	if(print_flavor_text()) msg += "\n[print_flavor_text()]\n"
+	if(print_flavor_text()) msg += "\n[print_flavor_text()]"
 
-	if (pose)
+	if(pose)
 		if( findtext(pose,".",lentext(pose)) == 0 && findtext(pose,"!",lentext(pose)) == 0 && findtext(pose,"?",lentext(pose)) == 0 )
 			pose = addtext(pose,".") //Makes sure all emotes end with a period.
 		msg += "\nIt is [pose]"
+	msg += "\n*---------*</span>"
 
-	usr << msg
+	to_chat(user, msg)
 
 /mob/living/silicon/pai/bullet_act(var/obj/item/projectile/Proj)
 	..(Proj)
 	updatehealth()
-	if (stat != 2)
+	if(stat != 2)
 		spawn(1)
 			close_up()
 	return 2
@@ -519,3 +558,46 @@
 // No binary for pAIs.
 /mob/living/silicon/pai/binarycheck()
 	return 0
+
+// Handle being picked up.
+
+
+/mob/living/silicon/pai/get_scooped(var/mob/living/carbon/grabber)
+	var/obj/item/weapon/holder/H = ..()
+	if(!istype(H))
+		return
+	if(resting)
+		icon_state = "[chassis]"
+		resting = 0
+	H.icon_state = "pai-[icon_state]"
+	H.item_state = "pai-[icon_state]"
+	grabber.put_in_active_hand(H)//for some reason unless i call this it dosen't work
+	grabber.update_inv_l_hand()
+	grabber.update_inv_r_hand()
+
+	return H
+
+/mob/living/silicon/pai/MouseDrop(atom/over_object)
+	var/mob/living/carbon/human/H = over_object //changed to human to avoid stupid issues like xenos holding pAIs.
+	if(!istype(H) || !Adjacent(H))  return ..()
+	if(usr == src)
+		switch(alert(H, "[src] wants you to pick them up. Do it?",,"Yes","No"))
+			if("Yes")
+				if(Adjacent(H))
+					get_scooped(H)
+				else
+					to_chat(src, "<span class='warning'>You need to stay in reaching distance to be picked up.</span>")
+			if("No")
+				to_chat(src, "<span class='warning'>[H] decided not to pick you up.</span>")
+	else
+		if(Adjacent(H))
+			get_scooped(H)
+		else
+			return ..()
+
+/mob/living/silicon/pai/on_forcemove(atom/newloc)
+	if(card)
+		card.loc = newloc
+	else //something went very wrong.
+		CRASH("pAI without card")
+	loc = card

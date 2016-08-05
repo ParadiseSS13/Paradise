@@ -28,8 +28,8 @@
 			t = d.id_tag
 			if(t == src.door_tag)
 				src.release_door = d
-		if (machine && (release_door || !use_release_door))
-			machine.console = src
+		if(machine && (release_door || !use_release_door))
+			machine.CONSOLE = src
 		else
 			qdel(src)
 
@@ -65,19 +65,18 @@
 	if(istype(I, /obj/item/weapon/card/id))
 		return attack_hand(user)
 	..()
-	
+
 /obj/machinery/mineral/labor_claim_console/emag_act(user as mob)
 	emag(user)
 
 /obj/machinery/mineral/labor_claim_console/proc/emag(mob/user as mob)
 	if(!emagged)
 		emagged = 1
-		user << "<span class='warning'>PZZTTPFFFT</span>"
+		to_chat(user, "<span class='warning'>PZZTTPFFFT</span>")
 
 
 
 /obj/machinery/mineral/labor_claim_console/Topic(href, href_list)
-	var/datum/shuttle/ferry/shuttle = shuttle_controller.shuttles["Labor"]
 	usr.set_machine(src)
 	src.add_fingerprint(usr)
 	if(href_list["choice"])
@@ -89,39 +88,42 @@
 			if(href_list["choice"] == "claim")
 				inserted_id.points += machine.points
 				machine.points = 0
-				src << "Points transferred."
+				to_chat(src, "Points transferred.")
 		else if(href_list["choice"] == "insert")
 			var/obj/item/weapon/card/id/prisoner/I = usr.get_active_hand()
 			if(istype(I))
 				usr.drop_item()
 				I.loc = src
 				inserted_id = I
-			else usr << "<span class='warning'>Invalid ID.</span>"
+			else
+				to_chat(usr, "<span class='warning'>Invalid ID.</span>")
 		if(check_auth()) //Sanity check against hef spoofs
 			if(href_list["choice"] == "station")
 				if(!alone_in_area(get_area(src), usr))
-					usr << "<span class='warning'>Prisoners are only allowed to be released while alone.</span>"
+					to_chat(usr, "<span class='warning'>Prisoners are only allowed to be released while alone.</span>")
 				else
-					if(shuttle.location == 1)
-						if (shuttle.moving_status == SHUTTLE_IDLE)
+					switch(shuttle_master.moveShuttle("laborcamp","laborcamp_home"))
+						if(1)
+							to_chat(usr, "<span class='notice'>Shuttle not found</span>")
+						if(2)
+							to_chat(usr, "<span class='notice'>Shuttle already at station</span>")
+						if(3)
+							to_chat(usr, "<span class='notice'>No permission to dock could be granted.</span>")
+						else
 							var/message = "[inserted_id.registered_name] has returned to the station. Minerals and Prisoner ID card ready for retrieval."
 							announcer.autosay(message, "Labor Camp Controller", "Security")
-							usr << "<span class='notice'>Shuttle received message and will be sent shortly.</span>"
-							shuttle.launch()
-						else
-							usr << "\blue Shuttle is already moving."
-					else
-						usr << "\blue Shuttle is already on-station."
+							to_chat(usr, "<span class='notice'>Shuttle received message and will be sent shortly.</span>")
 
 			if(href_list["choice"] == "release")
 				if(alone_in_area(get_area(loc), usr))
-					if(shuttle.location == 1)
+					var/obj/docking_port/stationary/S = shuttle_master.getDock("laborcamp_home")
+					if(S && S.get_docked())
 						if(release_door && release_door.density)
 							release_door.open()
 					else
-						usr << "<span class='warning'>Prisoners can only be released while docked with the station.</span>"
+						to_chat(usr, "<span class='warning'>Prisoners can only be released while docked with the station.</span>")
 				else
-					usr << "<span class='warning'>Prisoners are only allowed to be released while alone.</span>"
+					to_chat(usr, "<span class='warning'>Prisoners are only allowed to be released while alone.</span>")
 
 		src.updateUsrDialog()
 	return
@@ -132,7 +134,7 @@
 
 /obj/machinery/mineral/stacking_machine/laborstacker
 	var/points = 0 //The unclaimed value of ore stacked.  Value for each ore loosely relative to its rarity.
-	var/list/ore_values = list(("glass" = 1), ("metal" = 2), ("iron" = 3), ("solid plasma" = 20), ("plasteel" = 23), ("reinforced glass" = 4), ("gold" = 20), ("silver" = 20), ("uranium" = 20), ("diamond" = 25), ("bananium" = 50))
+	var/list/ore_values = list(("glass" = 1), ("metal" = 2), ("solid plasma" = 20), ("plasteel" = 23), ("reinforced glass" = 4), ("gold" = 20), ("silver" = 20), ("uranium" = 20), ("diamond" = 25), ("bananium" = 50), ("tranquillite" = 50))
 
 /obj/machinery/mineral/stacking_machine/laborstacker/proc/get_ore_values()
 	var/dat = "<table border='0' width='200'>"
@@ -142,31 +144,13 @@
 	dat += "</table>"
 	return dat
 
-/obj/machinery/mineral/stacking_machine/laborstacker/process()
-	if (src.output && src.input)
-		var/turf/T = get_turf(input)
-		for(var/obj/item/O in T.contents)
-			if(!O) return
-			if(istype(O,/obj/item/stack))
-				var/obj/item/stack/S = O
-				if(S.name in ore_values)
-					points += ore_values[S.name] * S.amount
-					S.loc = null
-				else
-					S.loc = output.loc
-			else
-				O.loc = output.loc
-				
-	//Output amounts that are past stack_amt.
-	for(var/sheet in stack_storage)
-		if(stack_storage[sheet] >= stack_amt)
-			var/stacktype = stack_paths[sheet]
-			var/obj/item/stack/sheet/S = new stacktype (get_turf(output))
-			S.amount = stack_amt
-			stack_storage[sheet] -= stack_amt
-
-	console.updateUsrDialog()
-	return
+/obj/machinery/mineral/stacking_machine/laborstacker/process_sheet(obj/item/stack/sheet/inp)
+	if(istype(inp))
+		var/n = inp.name
+		var/a = inp.amount
+		if(n in ore_values)
+			points += ore_values[n] * a
+	..()
 
 
 /**********************Point Lookup Console**************************/
@@ -185,11 +169,11 @@
 	if(istype(I, /obj/item/weapon/card/id))
 		if(istype(I, /obj/item/weapon/card/id/prisoner))
 			var/obj/item/weapon/card/id/prisoner/prisoner_id = I
-			user << "<span class='notice'><B>ID: [prisoner_id.registered_name]</B></span>"
-			user << "<span class='notice'>Points Collected:[prisoner_id.points]</span>"
-			user << "<span class='notice'>Point Quota: [prisoner_id.goal]</span>"
-			user << "<span class='notice'>Collect points by bringing smelted minerals to the Labor Shuttle stacking machine. Reach your quota to earn your release.</span>"
+			to_chat(user, "<span class='notice'><B>ID: [prisoner_id.registered_name]</B></span>")
+			to_chat(user, "<span class='notice'>Points Collected:[prisoner_id.points]</span>")
+			to_chat(user, "<span class='notice'>Point Quota: [prisoner_id.goal]</span>")
+			to_chat(user, "<span class='notice'>Collect points by bringing smelted minerals to the Labor Shuttle stacking machine. Reach your quota to earn your release.</span>")
 		else
-			user << "<span class='warning'>Error: Invalid ID</span>"
+			to_chat(user, "<span class='warning'>Error: Invalid ID</span>")
 		return
 	..()

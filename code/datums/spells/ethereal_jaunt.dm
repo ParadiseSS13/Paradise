@@ -1,4 +1,4 @@
-/obj/effect/proc_holder/spell/wizard/targeted/ethereal_jaunt
+/obj/effect/proc_holder/spell/targeted/ethereal_jaunt
 	name = "Ethereal Jaunt"
 	desc = "This spell creates your ethereal form, temporarily making you invisible and able to pass through walls."
 
@@ -15,15 +15,18 @@
 	var phaseshift = 0
 	var/jaunt_duration = 50 //in deciseconds
 
-	icon_power_button = "spell_jaunt"
+	action_icon_state = "jaunt"
 
-/obj/effect/proc_holder/spell/wizard/targeted/ethereal_jaunt/cast(list/targets) //magnets, so mostly hardcoded
+/obj/effect/proc_holder/spell/targeted/ethereal_jaunt/cast(list/targets) //magnets, so mostly hardcoded
 	for(var/mob/living/target in targets)
+		if(!target.can_safely_leave_loc()) // No more brainmobs hopping out of their brains
+			to_chat(target, "<span class='warning'>You are somehow too bound to your current location to abandon it.</span>")
+			continue
 		spawn(0)
 
 			if(target.buckled)
 				var/obj/structure/stool/bed/buckled_to = target.buckled.
-				buckled_to.unbuckle()
+				buckled_to.unbuckle_mob()
 
 			var/mobloc = get_turf(target.loc)
 			var/obj/effect/dummy/spell_jaunt/holder = new /obj/effect/dummy/spell_jaunt( mobloc )
@@ -37,7 +40,7 @@
 			animation.master = holder
 			target.ExtinguishMob()
 			if(target.buckled)
-				target.buckled.unbuckle()
+				target.buckled.unbuckle_mob()
 			if(phaseshift == 1)
 				animation.dir = target.dir
 				flick("phase_shift",animation)
@@ -59,13 +62,13 @@
 								break
 				target.canmove = 1
 				target.client.eye = target
-				del(animation)
-				del(holder)
+				qdel(animation)
+				qdel(holder)
 			else
 				flick("liquify",animation)
 				target.loc = holder
 				target.client.eye = holder
-				var/datum/effect/effect/system/steam_spread/steam = new /datum/effect/effect/system/steam_spread()
+				var/datum/effect/system/steam_spread/steam = new /datum/effect/system/steam_spread()
 				steam.set_up(10, 0, mobloc)
 				steam.start()
 				sleep(jaunt_duration)
@@ -85,8 +88,8 @@
 								break
 				target.canmove = 1
 				target.client.eye = target
-				del(animation)
-				del(holder)
+				qdel(animation)
+				qdel(holder)
 
 /obj/effect/dummy/spell_jaunt
 	name = "water"
@@ -95,14 +98,21 @@
 	var/canmove = 1
 	density = 0
 	anchored = 1
+	burn_state = LAVA_PROOF
+
+/obj/effect/dummy/spell_jaunt/Destroy()
+	// Eject contents if deleted somehow
+	for(var/atom/movable/AM in src)
+		AM.loc = get_turf(src)
+	return ..()
 
 /obj/effect/dummy/spell_jaunt/relaymove(var/mob/user, direction)
-	if (!src.canmove) return
+	if(!src.canmove) return
 	var/turf/newLoc = get_step(src,direction)
 	if(!(newLoc.flags & NOJAUNT))
 		loc = newLoc
 	else
-		user << "<span class='warning'>Some strange aura is blocking the way!</span>"
+		to_chat(user, "<span class='warning'>Some strange aura is blocking the way!</span>")
 	src.canmove = 0
 	spawn(2) src.canmove = 1
 

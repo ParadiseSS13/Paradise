@@ -25,40 +25,40 @@
 /*
 /obj/machinery/flasher/New()
 	sleep(4)					//<--- What the fuck are you doing? D=
-	src.sd_SetLuminosity(2)
+	src.sd_set_light(2)
 */
 /obj/machinery/flasher/power_change()
-	if ( powered() )
+	if( powered() )
 		stat &= ~NOPOWER
 		icon_state = "[base_state]1"
-//		src.sd_SetLuminosity(2)
+//		src.sd_set_light(2)
 	else
 		stat |= ~NOPOWER
 		icon_state = "[base_state]1-p"
-//		src.sd_SetLuminosity(0)
+//		src.sd_set_light(0)
 
 //Don't want to render prison breaks impossible
 /obj/machinery/flasher/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
-	if (istype(W, /obj/item/weapon/wirecutters))
+	if(istype(W, /obj/item/weapon/wirecutters))
 		add_fingerprint(user)
 		src.disable = !src.disable
-		if (src.disable)
+		if(src.disable)
 			user.visible_message("\red [user] has disconnected the [src]'s flashbulb!", "\red You disconnect the [src]'s flashbulb!")
-		if (!src.disable)
+		if(!src.disable)
 			user.visible_message("\red [user] has connected the [src]'s flashbulb!", "\red You connect the [src]'s flashbulb!")
 
 //Let the AI trigger them directly.
 /obj/machinery/flasher/attack_ai()
-	if (src.anchored)
+	if(src.anchored)
 		return src.flash()
 	else
 		return
 
 /obj/machinery/flasher/proc/flash()
-	if (!(powered()))
+	if(!(powered()))
 		return
 
-	if ((src.disable) || (src.last_flash && world.time < src.last_flash + 150))
+	if((src.disable) || (src.last_flash && world.time < src.last_flash + 150))
 		return
 
 	playsound(src.loc, 'sound/weapons/flash.ogg', 100, 1)
@@ -66,29 +66,15 @@
 	src.last_flash = world.time
 	use_power(1000)
 
-	for (var/mob/O in viewers(src, null))
-		if (get_dist(src, O) > src.range)
+	for(var/mob/living/L in viewers(src, null))
+		if(get_dist(src, L) > src.range)
 			continue
 
-		if (istype(O, /mob/living/carbon/human))
-			var/mob/living/carbon/human/H = O
-			if(!H.eyecheck() <= 0)
-				continue
-
-		if (istype(O, /mob/living/carbon/alien))//So aliens don't get flashed (they have no external eyes)/N
-			continue
-
-		O.Weaken(strength)
-		if (istype(O, /mob/living/carbon/human))
-			var/mob/living/carbon/human/H = O
-			var/obj/item/organ/eyes/E = H.internal_organs_by_name["eyes"]
-			if ((E.damage > E.min_bruised_damage && prob(E.damage + 50)))
-				flick("e_flash", O:flash)
-				E.damage += rand(1, 2)
-		else
-			if(!O.blinded)
-				flick("flash", O:flash)
-
+		if(L.flash_eyes(affect_silicon = 1))
+			L.Weaken(strength)
+			if(L.weakeyes)
+				L.Weaken(strength * 1.5)
+				L.visible_message("<span class='disarm'><b>[L]</b> gasps and shields their eyes!</span>")
 
 /obj/machinery/flasher/emp_act(severity)
 	if(stat & (BROKEN|NOPOWER))
@@ -99,31 +85,28 @@
 	..(severity)
 
 /obj/machinery/flasher/portable/HasProximity(atom/movable/AM as mob|obj)
-	if ((src.disable) || (src.last_flash && world.time < src.last_flash + 150))
+	if((src.disable) || (src.last_flash && world.time < src.last_flash + 150))
 		return
 
 	if(istype(AM, /mob/living/carbon))
 		var/mob/living/carbon/M = AM
-		if ((M.m_intent != "walk") && (src.anchored))
+		if((M.m_intent != "walk") && (src.anchored))
 			src.flash()
 
 /obj/machinery/flasher/portable/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
-	if (istype(W, /obj/item/weapon/wrench))
+	if(istype(W, /obj/item/weapon/wrench))
 		add_fingerprint(user)
 		src.anchored = !src.anchored
 
-		if (!src.anchored)
+		if(!src.anchored)
 			user.show_message(text("\red [src] can now be moved."))
 			src.overlays.Cut()
 
-		else if (src.anchored)
+		else if(src.anchored)
 			user.show_message(text("\red [src] is now secured."))
 			src.overlays += "[base_state]-s"
 
 /obj/machinery/flasher_button/attack_ai(mob/user as mob)
-	return src.attack_hand(user)
-
-/obj/machinery/flasher_button/attack_paw(mob/user as mob)
 	return src.attack_hand(user)
 
 /obj/machinery/flasher_button/attackby(obj/item/weapon/W, mob/user as mob, params)

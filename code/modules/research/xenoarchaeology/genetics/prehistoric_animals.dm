@@ -5,7 +5,6 @@
 	icon_state = "samak"
 	icon_living = "samak"
 	icon_dead = "samak_dead"
-	icon = 'code/modules/jungle/jungle.dmi'
 	move_to_delay = 2
 	maxHealth = 125
 	health = 125
@@ -18,6 +17,7 @@
 	speak = list("Hruuugh!","Hrunnph")
 	emote_see = list("paws the ground","shakes its mane","stomps")
 	emote_hear = list("snuffles")
+	gold_core_spawnable = CHEM_MOB_SPAWN_HOSTILE
 
 /mob/living/simple_animal/hostile/diyaab
 	name = "diyaab"
@@ -26,7 +26,6 @@
 	icon_state = "diyaab"
 	icon_living = "diyaab"
 	icon_dead = "diyaab_dead"
-	icon = 'code/modules/jungle/jungle.dmi'
 	move_to_delay = 1
 	maxHealth = 25
 	health = 25
@@ -39,6 +38,7 @@
 	speak = list("Awrr?","Aowrl!","Worrl")
 	emote_see = list("sniffs the air cautiously","looks around")
 	emote_hear = list("snuffles")
+	gold_core_spawnable = CHEM_MOB_SPAWN_HOSTILE
 
 /mob/living/simple_animal/hostile/shantak
 	name = "shantak"
@@ -47,7 +47,6 @@
 	icon_state = "shantak"
 	icon_living = "shantak"
 	icon_dead = "shantak_dead"
-	icon = 'code/modules/jungle/jungle.dmi'
 	move_to_delay = 1
 	maxHealth = 75
 	health = 75
@@ -59,6 +58,7 @@
 	speak_chance = 5
 	speak = list("Shuhn","Shrunnph?","Shunpf")
 	emote_see = list("scratches the ground","shakes out it's mane","tinkles gently")
+	gold_core_spawnable = CHEM_MOB_SPAWN_HOSTILE
 
 /mob/living/simple_animal/yithian
 	name = "yithian"
@@ -66,7 +66,7 @@
 	icon_state = "yithian"
 	icon_living = "yithian"
 	icon_dead = "yithian_dead"
-	icon = 'code/modules/jungle/jungle.dmi'
+	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
 
 /mob/living/simple_animal/tindalos
 	name = "tindalos"
@@ -74,4 +74,4 @@
 	icon_state = "tindalos"
 	icon_living = "tindalos"
 	icon_dead = "tindalos_dead"
-	icon = 'code/modules/jungle/jungle.dmi'
+	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY

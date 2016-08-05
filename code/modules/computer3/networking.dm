@@ -105,6 +105,7 @@
 		for(var/obj/O in radio_connection.devices)
 			if(istype(O,typekey))
 				T = get_turf(O)
+				// TODO: Tie into space manager
 				if(istype(O) && (subspace || (O.z == z_level)))		// radio does not work across z-levels
 					result |= O
 		return result
@@ -143,10 +144,9 @@
 		if(typekey == null)
 			typekey = /obj/machinery
 		var/list/machines = list()
-		for(var/area/area in A.related)
-			for(var/obj/O in area.contents)
-				if(istype(O,typekey))
-					machines |= O
+		for(var/obj/O in A.contents)
+			if(istype(O,typekey))
+				machines |= O
 		return machines
 	verify_machine(var/obj/previous)
 		if(!previous) return 0
@@ -233,4 +233,3 @@
 			if(C.d1 == 0 && (C.powernet == P))
 				return 1
 		return 0
-

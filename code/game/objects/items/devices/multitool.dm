@@ -10,15 +10,19 @@
 	icon_state = "multitool"
 	flags = CONDUCT
 	force = 5.0
-	w_class = 2.0
+	w_class = 2
 	throwforce = 5.0
 	throw_range = 15
 	throw_speed = 3
 	desc = "You can use this on airlocks or APCs to try to hack them without cutting wires."
-	m_amt = 50
-	g_amt = 20
+	materials = list(MAT_METAL=50, MAT_GLASS=20)
 	origin_tech = "magnets=1;engineering=1"
-	var/obj/machinery/telecomms/buffer // simple machine buffer for device linkage
+	var/obj/machinery/buffer // simple machine buffer for device linkage
+
+/obj/item/device/multitool/proc/IsBufferA(var/typepath)
+	if(!buffer)
+		return 0
+	return istype(buffer,typepath)
 
 // Syndicate device disguised as a multitool; it will turn red when an AI camera is nearby.
 
@@ -31,9 +35,9 @@
 	processing_objects += src
 
 
-/obj/item/device/multitool/ai_detect/Del()
+/obj/item/device/multitool/ai_detect/Destroy()
 	processing_objects -= src
-	..()
+	return ..()
 
 /obj/item/device/multitool/ai_detect/process()
 
@@ -42,7 +46,7 @@
 
 	var/found_eye = 0
 
-	for(var/mob/aiEye/A in living_mob_list)
+	for(var/mob/camera/aiEye/A in living_mob_list)
 
 		var/turf/our_turf = get_turf(src)
 		var/turf/eye_turf = get_turf(A)

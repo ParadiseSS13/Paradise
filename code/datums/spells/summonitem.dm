@@ -1,4 +1,4 @@
-/obj/effect/proc_holder/spell/wizard/targeted/summonitem
+/obj/effect/proc_holder/spell/targeted/summonitem
 	name = "Instant Summons"
 	desc = "This spell can be used to recall a previously marked item to your hand from anywhere in the universe."
 	school = "transmutation"
@@ -7,13 +7,15 @@
 	invocation = "GAR YOK"
 	invocation_type = "whisper"
 	range = -1
-	level_max = 1 //cannot be improved
+	level_max = 0 //cannot be improved
 	cooldown_min = 100
 	include_user = 1
 
 	var/obj/marked_item
 
-/obj/effect/proc_holder/spell/wizard/targeted/summonitem/cast(list/targets)
+	action_icon_state = "summons"
+
+/obj/effect/proc_holder/spell/targeted/summonitem/cast(list/targets)
 	for(var/mob/living/user in targets)
 		var/list/hand_items = list(user.get_active_hand(),user.get_inactive_hand())
 		var/butterfingers = 0
@@ -22,7 +24,7 @@
 		if(!marked_item) //linking item to the spell
 			message = "<span class='notice'>"
 			for(var/obj/item in hand_items)
-				if(istype(item, /obj/item/organ/brain)) //Yeah, sadly this doesn't work due to the organ system.
+				if(istype(item, /obj/item/organ/internal/brain)) //Yeah, sadly this doesn't work due to the organ system.
 					break
 				marked_item = 		item
 				message += "You mark [item] for recall.</span>"
@@ -69,7 +71,7 @@
 								var/obj/item/brain/B = new /obj/item/brain(user.loc)
 								B.transfer_identity(C)
 								C.death()
-								add_logs(user, C, "magically debrained", addition="INTENT: [uppertext(user.a_intent)]")*/
+								add_logs(C, user, "magically debrained", addition="INTENT: [uppertext(user.a_intent)]")*/
 						if(C.stomach_contents && item_to_retrive in C.stomach_contents)
 							C.stomach_contents -= item_to_retrive
 
@@ -104,4 +106,4 @@
 				item_to_retrive.loc.visible_message("<span class='caution'>The [item_to_retrive.name] suddenly appears in [user]'s hand!</span>")
 
 		if(message)
-			user << message
+			to_chat(user, message)

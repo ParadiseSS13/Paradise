@@ -1,0 +1,26 @@
+<!-- 
+Title: Bluespace Artillery
+Used In File(s): \code\modules\awaymissions\bluespaceartillery.dm
+-->
+<h2>Bluespace Artillery Control</h2>
+<div class="item">
+	<div class="itemLabel">Target Lock</div>
+	<div class="itemContent">{{:data.target}}</div>
+</div>
+<div class="item">
+	<div class="itemLabel">Fire Cooldown</div>
+	<div class="itemContent">
+		{{if data.reloadtime_mins > 0 || data.reloadtime_mins == 0 && data.reloadtime_secs > 0}}
+			<span class='bad'>{{:data.reloadtime_mins}}:{{:data.reloadtime_secs}}</span>
+		{{else}}
+			<span class='good'>Ready</span>
+		{{/if}}	
+	</div>
+</div>
+<div class="item">
+	{{:helper.link('Select Target', 'exclamation-triangle', { 'area' : 1 })}}
+	{{:helper.link('Fire', 'exclamation-triangle', { 'fire' : 1 }, data.reloadtime_mins > 0 || data.reloadtime_mins == 0 && data.reloadtime_secs > 0 ? 'disabled' : '')}}
+</div>
+<hr>
+<b>Deployment of weapon authorized by Nanotrasen Naval Command. Remember, friendly fire is grounds for termination of your contract and life.</b>
+

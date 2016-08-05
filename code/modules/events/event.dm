@@ -48,6 +48,7 @@
 	return 0*/
 
 /datum/event	//NOTE: Times are measured in master controller ticks!
+	var/processing = 1
 	var/startWhen		= 0	//When in the lifetime to call start().
 	var/announceWhen	= 0	//When in the lifetime to call announce().
 	var/endWhen			= 0	//When in the lifetime the event should end.
@@ -105,6 +106,9 @@
 //Do not override this proc, instead use the appropiate procs.
 //This proc will handle the calls to the appropiate procs.
 /datum/event/proc/process()
+	if(!processing)
+		return
+
 	if(activeFor > startWhen && activeFor < endWhen || noAutoEnd)
 		tick()
 
@@ -139,6 +143,9 @@
 /datum/event/New(var/datum/event_meta/EM)
 	// event needs to be responsible for this, as stuff like APLUs currently make their own events for curious reasons
 	event_manager.active_events += src
+
+	if(!EM)
+		EM = new /datum/event_meta(EVENT_LEVEL_MAJOR, "Unknown, Most likely admin called", src.type)
 
 	event_meta = EM
 	severity = event_meta.severity

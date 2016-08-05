@@ -4,6 +4,8 @@
 	icon_state = "cabinet_closed"
 	icon_closed = "cabinet_closed"
 	icon_opened = "cabinet_open"
+	burn_state = FLAMMABLE
+	burntime = 20
 
 /obj/structure/closet/cabinet/update_icon()
 	if(!opened)
@@ -36,7 +38,6 @@
 
 /obj/structure/closet/gimmick/russian/New()
 	..()
-	sleep(2)
 	new /obj/item/clothing/head/ushanka(src)
 	new /obj/item/clothing/head/ushanka(src)
 	new /obj/item/clothing/head/ushanka(src)
@@ -58,7 +59,6 @@
 
 /obj/structure/closet/gimmick/tacticool/New()
 	..()
-	sleep(2)
 	new /obj/item/clothing/glasses/eyepatch(src)
 	new /obj/item/clothing/glasses/sunglasses(src)
 	new /obj/item/clothing/gloves/combat(src)
@@ -83,22 +83,17 @@
 	icon_opened = "syndicateopen"
 	anchored = 1
 
-/obj/structure/closet/thunderdome/New()
-	..()
-	sleep(2)
-
 /obj/structure/closet/thunderdome/tdred
 	name = "red-team Thunderdome closet"
 
 /obj/structure/closet/thunderdome/tdred/New()
 	..()
-	sleep(2)
 	new /obj/item/clothing/suit/armor/tdome/red(src)
 	new /obj/item/clothing/suit/armor/tdome/red(src)
 	new /obj/item/clothing/suit/armor/tdome/red(src)
-	new /obj/item/weapon/melee/energy/sword(src)
-	new /obj/item/weapon/melee/energy/sword(src)
-	new /obj/item/weapon/melee/energy/sword(src)
+	new /obj/item/weapon/melee/energy/sword/saber(src)
+	new /obj/item/weapon/melee/energy/sword/saber(src)
+	new /obj/item/weapon/melee/energy/sword/saber(src)
 	new /obj/item/weapon/gun/energy/laser(src)
 	new /obj/item/weapon/gun/energy/laser(src)
 	new /obj/item/weapon/gun/energy/laser(src)
@@ -120,13 +115,12 @@
 
 /obj/structure/closet/thunderdome/tdgreen/New()
 	..()
-	sleep(2)
 	new /obj/item/clothing/suit/armor/tdome/green(src)
 	new /obj/item/clothing/suit/armor/tdome/green(src)
 	new /obj/item/clothing/suit/armor/tdome/green(src)
-	new /obj/item/weapon/melee/energy/sword(src)
-	new /obj/item/weapon/melee/energy/sword(src)
-	new /obj/item/weapon/melee/energy/sword(src)
+	new /obj/item/weapon/melee/energy/sword/saber(src)
+	new /obj/item/weapon/melee/energy/sword/saber(src)
+	new /obj/item/weapon/melee/energy/sword/saber(src)
 	new /obj/item/weapon/gun/energy/laser(src)
 	new /obj/item/weapon/gun/energy/laser(src)
 	new /obj/item/weapon/gun/energy/laser(src)

@@ -4,7 +4,7 @@
 
 	icon = 'icons/obj/machines/broadcast.dmi'
 	icon_state = "broadcaster"
-	l_color="#4285F4"
+	light_color="#4285F4"
 	use_power = 1
 	idle_power_usage = 50
 	active_power_usage = 1000
@@ -19,6 +19,7 @@
 	var/const/MAX_TEMP=70 // Celsius
 
 /obj/machinery/media/transmitter/broadcast/initialize()
+	..()
 	testing("[type]/initialize() called!")
 	if(autolink && autolink.len)
 		for(var/obj/machinery/media/source in orange(20, src))
@@ -88,32 +89,16 @@
 	return screen
 */
 
-
-/obj/machinery/light_switch/power_change()
-	if(powered(LIGHT))
-		stat &= ~NOPOWER
-	else
-		stat |= NOPOWER
-
-	updateicon()
-
-/obj/machinery/light_switch/emp_act(severity)
-	if(stat & (BROKEN|NOPOWER))
-		..(severity)
-		return
-	power_change()
-	..(severity)
-
 /obj/machinery/media/transmitter/broadcast/update_icon()
 	overlays = 0
 	if(stat & (NOPOWER|BROKEN))
 		return
 	if(on)
 		overlays+="broadcaster on"
-		SetLuminosity(3) // OH FUUUUCK
+		set_light(3) // OH FUUUUCK
 		use_power = 2
 	else
-		SetLuminosity(1) // Only the tile we're on.
+		set_light(1) // Only the tile we're on.
 		use_power = 1
 	if(sources.len)
 		overlays+="broadcaster linked"
@@ -151,7 +136,7 @@
 				media_frequency = newfreq
 				connect_frequency()
 			else
-				usr << "\red Invalid FM frequency. (90.0, 200.0)"
+				to_chat(usr, "\red Invalid FM frequency. (90.0, 200.0)")
 
 /obj/machinery/media/transmitter/broadcast/process()
 	if(stat & (NOPOWER|BROKEN))
@@ -164,10 +149,7 @@
 		// Radiation
 		for(var/mob/living/carbon/M in view(src,3))
 			var/rads = RADS_PER_TICK * sqrt( 1 / (get_dist(M, src) + 1) )
-			if(istype(M,/mob/living/carbon/human))
-				M.apply_effect((rads*3),IRRADIATE)
-			else
-				M.radiation += rads
+			M.apply_effect((rads*3),IRRADIATE)
 
 		// Heat output
 		var/turf/simulated/L = loc
@@ -179,23 +161,23 @@
 
 				var/datum/gas_mixture/removed = env.remove(transfer_moles)
 
-				//world << "got [transfer_moles] moles at [removed.temperature]"
+//				to_chat(world, "got [transfer_moles] moles at [removed.temperature]")
 
 				if(removed)
 
 					var/heat_capacity = removed.heat_capacity()
-					//world << "heating ([heat_capacity])"
+//					to_chat(world, "heating ([heat_capacity])")
 					if(heat_capacity) // Added check to avoid divide by zero (oshi-) runtime errors -- TLE
 						if(removed.temperature < MAX_TEMP + T0C)
 							removed.temperature = min(removed.temperature + heating_power/heat_capacity, 1000) // Added min() check to try and avoid wacky superheating issues in low gas scenarios -- TLE
 						else
 							removed.temperature = max(removed.temperature - heating_power/heat_capacity, TCMB)
 
-					//world << "now at [removed.temperature]"
+//					to_chat(world, "now at [removed.temperature]")
 
 				env.merge(removed)
 
-				//world << "turf now at [env.temperature]"
+//				to_chat(world, "turf now at [env.temperature]")
 /*
 		// Checks heat from the environment and applies any integrity damage
 		var/datum/gas_mixture/environment = loc.return_air()

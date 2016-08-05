@@ -7,19 +7,17 @@
 /datum/event/tear/announce()
 	command_announcement.Announce("A tear in the fabric of space and time has opened. Expected location: [impact_area.name].", "Anomaly Alert")
 
-
 /datum/event/tear/start()
 	var/turf/T = pick(get_area_turfs(impact_area))
 	if(T)
 		TE = new /obj/effect/tear(T.loc)
-
 
 /datum/event/tear/setup()
 	impact_area = findEventArea()
 
 /datum/event/tear/end()
 	if(TE)
-		del(TE)
+		qdel(TE)
 
 /obj/effect/tear
 	name="Dimensional Tear"
@@ -40,34 +38,20 @@
 	animation.master = src
 //	flick("newtear",usr)
 	spawn(15)
-		if(animation)	del(animation)
-
+		if(animation)	qdel(animation)
 
 	spawn(rand(30,120))
-		var/blocked = list(/mob/living/simple_animal/hostile,
-		/mob/living/simple_animal/hostile/pirate,
-		/mob/living/simple_animal/hostile/pirate/ranged,
-		/mob/living/simple_animal/hostile/russian,
-		/mob/living/simple_animal/hostile/russian/ranged,
-		/mob/living/simple_animal/hostile/syndicate,
-		/mob/living/simple_animal/hostile/syndicate/melee,
-		/mob/living/simple_animal/hostile/syndicate/melee/space,
-		/mob/living/simple_animal/hostile/syndicate/ranged,
-		/mob/living/simple_animal/hostile/syndicate/ranged/space,
-		/mob/living/simple_animal/hostile/alien/queen/large,
-		/mob/living/simple_animal/hostile/faithless,
-		/mob/living/simple_animal/hostile/panther,
-		/mob/living/simple_animal/hostile/snake,
-		/mob/living/simple_animal/hostile/retaliate,
-		/mob/living/simple_animal/hostile/retaliate/clown
-		)//exclusion list for things you don't want the reaction to create.
-		var/list/critters = typesof(/mob/living/simple_animal/hostile) - blocked // list of possible hostile mobs
+		var/list/tear_critters = list()
+		for(var/T in typesof(/mob/living/simple_animal))
+			var/mob/living/simple_animal/SA = T
+			if(initial(SA.gold_core_spawnable) == CHEM_MOB_SPAWN_HOSTILE)
+				tear_critters += T
 
-		for(var/i = 1, i <= 5, i++)
-			var/chosen = pick(critters)
-			var/mob/living/simple_animal/hostile/C = new chosen
-			C.faction = list("slimesummon")
-			C.loc = src.loc
+		for(var/i in 1 to 5)
+			var/chosen = pick(tear_critters)
+			var/mob/living/simple_animal/C = new chosen
+			C.faction |= "chemicalsummon"
+			C.forceMove(get_turf(src))
 			if(prob(50))
 				for(var/j = 1, j <= rand(1, 3), j++)
 					step(C, pick(NORTH,SOUTH,EAST,WEST))

@@ -71,6 +71,12 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	var/strength = null
 	var/desc_holder = null
 
+/obj/structure/particle_accelerator/Destroy()
+	construction_state = 0
+	if(master)
+		master.part_scan()
+	return ..()
+
 /obj/structure/particle_accelerator/end_cap
 	name = "Alpha Particle Generation Array"
 	desc_holder = "This is where Alpha particles are generated from \[REDACTED\]"
@@ -87,24 +93,36 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	set category = "Object"
 	set src in oview(1)
 
-	if (src.anchored || usr:stat)
-		usr << "It is fastened to the floor!"
+	if(usr.stat || !usr.canmove || usr.restrained())
+		return
+	if(src.anchored)
+		to_chat(usr, "It is fastened to the floor!")
 		return 0
 	src.dir = turn(src.dir, 270)
 	return 1
+
+/obj/structure/particle_accelerator/AltClick(mob/user)
+	if(user.incapacitated())
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		return
+	if(!Adjacent(user))
+		return
+	rotate()
 
 /obj/structure/particle_accelerator/verb/rotateccw()
 	set name = "Rotate Counter Clockwise"
 	set category = "Object"
 	set src in oview(1)
 
-	if (src.anchored || usr:stat)
-		usr << "It is fastened to the floor!"
+	if(usr.stat || !usr.canmove || usr.restrained())
+		return
+	if(src.anchored)
+		to_chat(usr, "It is fastened to the floor!")
 		return 0
 	src.dir = turn(src.dir, 90)
 	return 1
 
-/obj/structure/particle_accelerator/examine()
+/obj/structure/particle_accelerator/examine(mob/user)
 	switch(src.construction_state)
 		if(0)
 			src.desc = text("A [name], looks like it's not attached to the flooring")
@@ -116,9 +134,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 			src.desc = text("The [name] is assembled")
 			if(powered)
 				src.desc = src.desc_holder
-	..()
-	return
-
+	..(user)
 
 /obj/structure/particle_accelerator/attackby(obj/item/W, mob/user, params)
 	if(istool(W))
@@ -134,17 +150,18 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 		master.toggle_power()
 		investigate_log("was moved whilst active; it <font color='red'>powered down</font>.","singulo")
 
+
 /obj/structure/particle_accelerator/ex_act(severity)
 	switch(severity)
 		if(1.0)
 			qdel(src)
 			return
 		if(2.0)
-			if (prob(50))
+			if(prob(50))
 				qdel(src)
 				return
 		if(3.0)
-			if (prob(25))
+			if(prob(25))
 				qdel(src)
 				return
 		else
@@ -153,14 +170,9 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 
 /obj/structure/particle_accelerator/blob_act()
 	if(prob(50))
-		del(src)
+		qdel(src)
 	return
 
-
-/obj/structure/particle_accelerator/meteorhit()
-	if(prob(50))
-		del(src)
-	return
 
 /obj/structure/particle_accelerator/update_icon()
 	switch(construction_state)
@@ -211,7 +223,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 
 	switch(src.construction_state)//TODO:Might be more interesting to have it need several parts rather than a single list of steps
 		if(0)
-			if(iswrench(O))
+			if(iswrench(O) && !isinspace())
 				playsound(src.loc, 'sound/items/Ratchet.ogg', 75, 1)
 				src.anchored = 1
 				user.visible_message("[user.name] secures the [src.name] to the floor.", \
@@ -225,10 +237,14 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 					"You remove the external bolts.")
 				temp_state--
 			else if(iscoil(O))
-				if(O:use(1,user))
+				var/obj/item/stack/cable_coil/C = O
+				if(C.use(1))
 					user.visible_message("[user.name] adds wires to the [src.name].", \
 						"You add some wires.")
 					temp_state++
+				else
+					to_chat(user, "<span class='warning'>You need one length of cable to wire the [src.name]!</span>")
+					return
 		if(2)
 			if(iswirecutter(O))//TODO:Shock user if its on?
 				user.visible_message("[user.name] removes some wires from the [src.name].", \
@@ -278,8 +294,10 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	set category = "Object"
 	set src in oview(1)
 
-	if (src.anchored || usr:stat)
-		usr << "It is fastened to the floor!"
+	if(usr.stat || !usr.canmove || usr.restrained())
+		return
+	if(src.anchored)
+		to_chat(usr, "It is fastened to the floor!")
 		return 0
 	src.dir = turn(src.dir, 270)
 	return 1
@@ -289,30 +307,16 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	set category = "Object"
 	set src in oview(1)
 
-	if (src.anchored || usr:stat)
-		usr << "It is fastened to the floor!"
+	if(usr.stat || !usr.canmove || usr.restrained())
+		return
+	if(src.anchored)
+		to_chat(usr, "It is fastened to the floor!")
 		return 0
 	src.dir = turn(src.dir, 90)
 	return 1
 
 /obj/machinery/particle_accelerator/update_icon()
 	return
-
-/obj/machinery/particle_accelerator/examine()
-	switch(src.construction_state)
-		if(0)
-			src.desc = text("A [name], looks like it's not attached to the flooring")
-		if(1)
-			src.desc = text("A [name], it is missing some cables")
-		if(2)
-			src.desc = text("A [name], the panel is open")
-		if(3)
-			src.desc = text("The [name] is assembled")
-			if(powered)
-				src.desc = src.desc_holder
-	..()
-	return
-
 
 /obj/machinery/particle_accelerator/attackby(obj/item/W, mob/user, params)
 	if(istool(W))
@@ -327,11 +331,11 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 			qdel(src)
 			return
 		if(2.0)
-			if (prob(50))
+			if(prob(50))
 				qdel(src)
 				return
 		if(3.0)
-			if (prob(25))
+			if(prob(25))
 				qdel(src)
 				return
 		else
@@ -340,13 +344,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 
 /obj/machinery/particle_accelerator/blob_act()
 	if(prob(50))
-		del(src)
-	return
-
-
-/obj/machinery/particle_accelerator/meteorhit()
-	if(prob(50))
-		del(src)
+		qdel(src)
 	return
 
 

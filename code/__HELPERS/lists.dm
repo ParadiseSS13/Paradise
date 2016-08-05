@@ -12,17 +12,17 @@
 //Returns a list in plain english as a string
 /proc/english_list(var/list/input, nothing_text = "nothing", and_text = " and ", comma_text = ", ", final_comma_text = "" )
 	var/total = input.len
-	if (!total)
+	if(!total)
 		return "[nothing_text]"
-	else if (total == 1)
+	else if(total == 1)
 		return "[input[1]]"
-	else if (total == 2)
+	else if(total == 2)
 		return "[input[1]][and_text][input[2]]"
 	else
 		var/output = ""
 		var/index = 1
-		while (index < total)
-			if (index == total - 1)
+		while(index < total)
+			if(index == total - 1)
 				comma_text = final_comma_text
 
 			output += "[input[index]][comma_text]"
@@ -31,7 +31,7 @@
 		return "[output][and_text][input[index]]"
 
 //Returns list element or null. Should prevent "index out of bounds" error.
-proc/listgetindex(var/list/list,index)
+/proc/listgetindex(var/list/list,index)
 	if(istype(list) && list.len)
 		if(isnum(index))
 			if(InRange(index,1,list.len))
@@ -40,38 +40,61 @@ proc/listgetindex(var/list/list,index)
 			return list[index]
 	return
 
-proc/islist(list/list)
+/proc/islist(list/list)
 	if(istype(list))
 		return 1
 	return 0
 
 //Return either pick(list) or null if list is not of type /list or is empty
-proc/safepick(list/list)
+/proc/safepick(list/list)
 	if(!islist(list) || !list.len)
 		return
 	return pick(list)
 
 //Checks if the list is empty
-proc/isemptylist(list/list)
+/proc/isemptylist(list/list)
 	if(!list.len)
 		return 1
 	return 0
 
 //Checks for specific types in a list
-/proc/is_type_in_list(var/atom/A, var/list/L)
+/proc/is_type_in_list(atom/A, list/L)
+	if(!L || !L.len || !A)
+		return 0
 	for(var/type in L)
 		if(istype(A, type))
 			return 1
 	return 0
 
-//Empties the list by setting the length to 0. Hopefully the elements get garbage collected
-proc/clearlist(list/list)
-	if(istype(list))
-		list.len = 0
-	return
+//Checks for specific types in specifically structured (Assoc "type" = TRUE) lists ('typecaches')
+/proc/is_type_in_typecache(atom/A, list/L)
+	if(!L || !L.len || !A)
+		return 0
+	return L[A.type]
+
+//Like typesof() or subtypesof(), but returns a typecache instead of a list
+/proc/typecacheof(path, ignore_root_path)
+	if(ispath(path))
+		var/list/types = ignore_root_path ? subtypesof(path) : typesof(path)
+		var/list/L = list()
+		for(var/T in types)
+			L[T] = TRUE
+		return L
+	else if(islist(path))
+		var/list/pathlist = path
+		var/list/L = list()
+		if(ignore_root_path)
+			for(var/P in pathlist)
+				for(var/T in subtypesof(P))
+					L[T] = TRUE
+		else
+			for(var/P in pathlist)
+				for(var/T in typesof(P))
+					L[T] = TRUE
+		return L
 
 //Removes any null entries from the list
-proc/listclearnulls(list/list)
+/proc/listclearnulls(list/list)
 	if(istype(list))
 		while(null in list)
 			list -= null
@@ -113,22 +136,22 @@ proc/listclearnulls(list/list)
 /proc/pickweight(list/L)
 	var/total = 0
 	var/item
-	for (item in L)
-		if (!L[item])
+	for(item in L)
+		if(!L[item])
 			L[item] = 1
 		total += L[item]
 
 	total = rand(1, total)
-	for (item in L)
+	for(item in L)
 		total -=L [item]
-		if (total <= 0)
+		if(total <= 0)
 			return item
 
 	return null
 
 //Pick a random element from the list and remove it from the list.
 /proc/pick_n_take(list/listfrom)
-	if (listfrom.len > 0)
+	if(listfrom.len > 0)
 		var/picked = pick(listfrom)
 		listfrom -= picked
 		return picked
@@ -136,7 +159,7 @@ proc/listclearnulls(list/list)
 
 //Returns the top(last) element from the list and removes it from the list (typical stack function)
 /proc/pop(list/listfrom)
-	if (listfrom.len > 0)
+	if(listfrom.len > 0)
 		var/picked = listfrom[listfrom.len]
 		listfrom.len--
 		return picked
@@ -155,24 +178,21 @@ proc/listclearnulls(list/list)
 	return output
 
 //Randomize: Return the list in a random order
-/proc/shuffle(var/list/shufflelist)
-	if(!shufflelist)
+/proc/shuffle(var/list/L)
+	if(!L)
 		return
-	var/list/new_list = list()
-	var/list/old_list = shufflelist.Copy()
-	while(old_list.len)
-		var/item = pick(old_list)
-		new_list += item
-		old_list -= item
-	return new_list
+	L = L.Copy()
+
+	for(var/i=1, i<L.len, ++i)
+		L.Swap(i,rand(i,L.len))
+
+	return L
 
 //Return a list with no duplicate entries
 /proc/uniquelist(var/list/L)
-	var/list/K = list()
-	for(var/item in L)
-		if(!(item in K))
-			K += item
-	return K
+	. = list()
+	for(var/i in L)
+		. |= i
 
 //Mergesort: divides up the list into halves to begin the sort
 /proc/sortKey(var/list/client/L, var/order = 1)
@@ -373,7 +393,7 @@ proc/listclearnulls(list/list)
 
 //Don't use this on lists larger than half a dozen or so
 /proc/insertion_sort_numeric_list_ascending(var/list/L)
-	//world.log << "ascending len input: [L.len]"
+	//log_to_dd("ascending len input: [L.len]")
 	var/list/out = list(pop(L))
 	for(var/entry in L)
 		if(isnum(entry))
@@ -386,14 +406,24 @@ proc/listclearnulls(list/list)
 			if(!success)
 				out.Add(entry)
 
-	//world.log << "	output: [out.len]"
+	//log_to_dd("	output: [out.len]")
 	return out
 
 /proc/insertion_sort_numeric_list_descending(var/list/L)
-	//world.log << "descending len input: [L.len]"
+	//log_to_dd("descending len input: [L.len]")
 	var/list/out = insertion_sort_numeric_list_ascending(L)
-	//world.log << "	output: [out.len]"
+	//log_to_dd("	output: [out.len]")
 	return reverselist(out)
+
+//Copies a list, and all lists inside it recusively
+//Does not copy any other reference type
+/proc/deepCopyList(list/l)
+	if(!islist(l))
+		return l
+	. = l.Copy()
+	for(var/i = 1 to l.len)
+		if(islist(.[i]))
+			.[i] = .(.[i])
 
 /proc/dd_sortedObjectList(var/list/L, var/cache=list())
 	if(L.len < 2)
@@ -468,22 +498,22 @@ proc/dd_sortedObjectList(list/incoming)
 	var/list/list_bottom
 
 	var/current_sort_object
-	for (current_sort_object in incoming)
+	for(current_sort_object in incoming)
 		low_index = 1
 		high_index = sorted_list.len
-		while (low_index <= high_index)
+		while(low_index <= high_index)
 			// Figure out the midpoint, rounding up for fractions.  (BYOND rounds down, so add 1 if necessary.)
 			midway_calc = (low_index + high_index) / 2
 			current_index = round(midway_calc)
-			if (midway_calc > current_index)
+			if(midway_calc > current_index)
 				current_index++
 			current_item = sorted_list[current_index]
 
 			current_item_value = current_item:dd_SortValue()
 			current_sort_object_value = current_sort_object:dd_SortValue()
-			if (current_sort_object_value < current_item_value)
+			if(current_sort_object_value < current_item_value)
 				high_index = current_index - 1
-			else if (current_sort_object_value > current_item_value)
+			else if(current_sort_object_value > current_item_value)
 				low_index = current_index + 1
 			else
 				// current_sort_object == current_item
@@ -494,7 +524,7 @@ proc/dd_sortedObjectList(list/incoming)
 		insert_index = low_index
 
 		// Special case adding to end of list.
-		if (insert_index > sorted_list.len)
+		if(insert_index > sorted_list.len)
 			sorted_list += current_sort_object
 			continue
 
@@ -507,7 +537,7 @@ proc/dd_sortedObjectList(list/incoming)
 	return sorted_list
 */
 
-proc/dd_sortedtextlist(list/incoming, case_sensitive = 0)
+/proc/dd_sortedtextlist(list/incoming, case_sensitive = 0)
 	// Returns a new list with the text values sorted.
 	// Use binary search to order by sortValue.
 	// This works by going to the half-point of the list, seeing if the node in question is higher or lower cost,
@@ -524,28 +554,28 @@ proc/dd_sortedtextlist(list/incoming, case_sensitive = 0)
 	var/sort_result
 
 	var/current_sort_text
-	for (current_sort_text in incoming)
+	for(current_sort_text in incoming)
 		low_index = 1
 		high_index = sorted_text.len
-		while (low_index <= high_index)
+		while(low_index <= high_index)
 			// Figure out the midpoint, rounding up for fractions.  (BYOND rounds down, so add 1 if necessary.)
 			midway_calc = (low_index + high_index) / 2
 			current_index = round(midway_calc)
-			if (midway_calc > current_index)
+			if(midway_calc > current_index)
 				current_index++
 			current_item = sorted_text[current_index]
 
-			if (case_sensitive)
+			if(case_sensitive)
 				sort_result = sorttextEx(current_sort_text, current_item)
 			else
 				sort_result = sorttext(current_sort_text, current_item)
 
 			switch(sort_result)
-				if (1)
+				if(1)
 					high_index = current_index - 1	// current_sort_text < current_item
-				if (-1)
+				if(-1)
 					low_index = current_index + 1	// current_sort_text > current_item
-				if (0)
+				if(0)
 					low_index = current_index		// current_sort_text == current_item
 					break
 
@@ -553,7 +583,7 @@ proc/dd_sortedtextlist(list/incoming, case_sensitive = 0)
 		insert_index = low_index
 
 		// Special case adding to end of list.
-		if (insert_index > sorted_text.len)
+		if(insert_index > sorted_text.len)
 			sorted_text += current_sort_text
 			continue
 
@@ -566,12 +596,16 @@ proc/dd_sortedtextlist(list/incoming, case_sensitive = 0)
 	return sorted_text
 
 
-proc/dd_sortedTextList(list/incoming)
+/proc/dd_sortedTextList(list/incoming)
 	var/case_sensitive = 1
 	return dd_sortedtextlist(incoming, case_sensitive)
 
+/proc/subtypesof(var/path) //Returns a list containing all subtypes of the given path, but not the given path itself.
+	if(!path || !ispath(path))
+		CRASH("Invalid path, failed to fetch subtypes of \"[path]\".")
+	return (typesof(path) - path)
 
-datum/proc/dd_SortValue()
+/datum/proc/dd_SortValue()
 	return "[src]"
 
 /obj/machinery/dd_SortValue()
@@ -579,3 +613,6 @@ datum/proc/dd_SortValue()
 
 /obj/machinery/camera/dd_SortValue()
 	return "[c_tag]"
+
+/datum/alarm/dd_SortValue()
+	return "[sanitize(last_name)]"

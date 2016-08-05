@@ -5,14 +5,38 @@
 	item_state = "ygloves"
 	siemens_coefficient = 0
 	permeability_coefficient = 0.05
-	_color="yellow"
-	species_fit = list("Vox")
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/gloves.dmi'
-		)
+	item_color="yellow"
+	burn_state = FIRE_PROOF
 
-	power
-		var/next_shock = 0
+/obj/item/clothing/gloves/color/yellow/power
+	description_antag = "These are a pair of power gloves, and can be used to fire bolts of electricity while standing over powered power cables."
+	var/old_mclick_override
+	var/datum/middleClickOverride/power_gloves/mclick_override = new /datum/middleClickOverride/power_gloves
+
+/obj/item/clothing/gloves/color/yellow/power/equipped(mob/user, slot)
+	if(!ishuman(user))
+		return
+	var/mob/living/carbon/human/H = user
+	if(slot == slot_gloves)
+		if(H.middleClickOverride)
+			old_mclick_override = H.middleClickOverride
+		H.middleClickOverride = mclick_override
+		to_chat(H, "<span class='notice'>You feel electricity begin to build up in [src].</span>")
+
+/obj/item/clothing/gloves/color/yellow/power/dropped(mob/user, slot)
+	if(!ishuman(user))
+		return
+	var/mob/living/carbon/human/H = user
+	if(H.get_item_by_slot(slot_gloves) == src && H.middleClickOverride == mclick_override)
+		if(old_mclick_override)
+			H.middleClickOverride = old_mclick_override
+			old_mclick_override = null
+		else
+			H.middleClickOverride = null
+
+/obj/item/clothing/gloves/color/yellow/fake
+	desc = "These gloves will protect the wearer from electric shock. They don't feel like rubber..."
+	siemens_coefficient = 1
 
 /obj/item/clothing/gloves/color/fyellow                             //Cheap Chinese Crap
 	desc = "These gloves are cheap copies of the coveted gloves, no way this can end badly."
@@ -21,11 +45,8 @@
 	item_state = "ygloves"
 	siemens_coefficient = 1			//Set to a default of 1, gets overridden in New()
 	permeability_coefficient = 0.05
-	species_fit = list("Vox")
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/gloves.dmi'
-		)
-	_color="yellow"
+	item_color="yellow"
+	burn_state = FIRE_PROOF
 
 	New()
 		siemens_coefficient = pick(0,0.5,0.5,0.5,0.5,0.75,1.5)
@@ -35,127 +56,116 @@
 	name = "black gloves"
 	icon_state = "black"
 	item_state = "bgloves"
-	_color="brown"
-	species_fit = list("Vox")
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/gloves.dmi'
-		)
+	item_color="brown"
 	cold_protection = HANDS
-	min_cold_protection_temperature = GLOVES_MIN_COLD_PROTECTION_TEMPERATURE
+	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
 	heat_protection = HANDS
-	max_heat_protection_temperature = GLOVES_MAX_HEAT_PROTECTION_TEMPERATURE
+	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
+	burn_state = FIRE_PROOF
+	var/can_be_cut = 1
 
 
-	hos
-		_color = "hosred"		//Exists for washing machines. Is not different from black gloves in any way.
+/obj/item/clothing/gloves/color/black/hos
+	item_color = "hosred"		//Exists for washing machines. Is not different from black gloves in any way.
 
-	ce
-		_color = "chief"			//Exists for washing machines. Is not different from black gloves in any way.
+/obj/item/clothing/gloves/color/black/ce
+	item_color = "chief"			//Exists for washing machines. Is not different from black gloves in any way.
 
-	thief
-		pickpocket = 1
+/obj/item/clothing/gloves/color/black/thief
+	pickpocket = 1
+
+/obj/item/clothing/gloves/color/black/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+	if(istype(W, /obj/item/weapon/wirecutters))
+		if(can_be_cut && icon_state == initial(icon_state))//only if not dyed
+			to_chat(user, "<span class='notice'>You snip the fingertips off of [src].</span>")
+			playsound(user.loc,'sound/items/Wirecutter.ogg', rand(10,50), 1)
+			var/obj/item/clothing/gloves/fingerless/F = new/obj/item/clothing/gloves/fingerless(user.loc)
+			if(pickpocket)
+				F.pickpocket = 1
+			qdel(src)
+			return
+	..()
 
 /obj/item/clothing/gloves/color/orange
 	name = "orange gloves"
 	desc = "A pair of gloves, they don't look special in any way."
 	icon_state = "orange"
 	item_state = "orangegloves"
-	_color="orange"
-	species_fit = list("Vox")
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/gloves.dmi'
-		)
+	item_color="orange"
+
 /obj/item/clothing/gloves/color/red
 	name = "red gloves"
 	desc = "A pair of gloves, they don't look special in any way."
 	icon_state = "red"
 	item_state = "redgloves"
-	_color = "red"
-	species_fit = list("Vox")
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/gloves.dmi'
-		)
+	item_color = "red"
+
+/obj/item/clothing/gloves/color/red/insulated
+	name = "insulated gloves"
+	desc = "These gloves will protect the wearer from electric shock."
+	siemens_coefficient = 0
+	permeability_coefficient = 0.05
+	burn_state = FIRE_PROOF
+
 /obj/item/clothing/gloves/color/rainbow
 	name = "rainbow gloves"
 	desc = "A pair of gloves, they don't look special in any way."
 	icon_state = "rainbow"
 	item_state = "rainbowgloves"
-	_color = "rainbow"
-	species_fit = list("Vox")
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/gloves.dmi'
-		)
+	item_color = "rainbow"
 	clown
-		_color = "clown"
+		item_color = "clown"
 
 /obj/item/clothing/gloves/color/blue
 	name = "blue gloves"
 	desc = "A pair of gloves, they don't look special in any way."
 	icon_state = "blue"
 	item_state = "bluegloves"
-	_color="blue"
-	species_fit = list("Vox")
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/gloves.dmi'
-		)
+	item_color="blue"
+
 /obj/item/clothing/gloves/color/purple
 	name = "purple gloves"
 	desc = "A pair of gloves, they don't look special in any way."
 	icon_state = "purple"
 	item_state = "purplegloves"
-	_color="purple"
-	species_fit = list("Vox")
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/gloves.dmi'
-		)
+	item_color="purple"
+
 /obj/item/clothing/gloves/color/green
 	name = "green gloves"
 	desc = "A pair of gloves, they don't look special in any way."
 	icon_state = "green"
 	item_state = "greengloves"
-	_color="green"
-	species_fit = list("Vox")
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/gloves.dmi'
-		)
+	item_color="green"
+
 /obj/item/clothing/gloves/color/grey
 	name = "grey gloves"
 	desc = "A pair of gloves, they don't look special in any way."
 	icon_state = "gray"
 	item_state = "graygloves"
-	_color="grey"
-	species_fit = list("Vox")
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/gloves.dmi'
-		)
+	item_color="grey"
+
 	rd
-		_color = "director"			//Exists for washing machines. Is not different from gray gloves in any way.
+		item_color = "director"			//Exists for washing machines. Is not different from gray gloves in any way.
 
 	hop
-		_color = "hop"				//Exists for washing machines. Is not different from gray gloves in any way.
+		item_color = "hop"				//Exists for washing machines. Is not different from gray gloves in any way.
 
 /obj/item/clothing/gloves/color/light_brown
 	name = "light brown gloves"
 	desc = "A pair of gloves, they don't look special in any way."
 	icon_state = "lightbrown"
 	item_state = "lightbrowngloves"
-	_color="light brown"
-	species_fit = list("Vox")
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/gloves.dmi'
-		)
+	item_color="light brown"
+
 /obj/item/clothing/gloves/color/brown
 	name = "brown gloves"
 	desc = "A pair of gloves, they don't look special in any way."
 	icon_state = "brown"
 	item_state = "browngloves"
-	_color="brown"
-	species_fit = list("Vox")
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/gloves.dmi'
-		)
+	item_color="brown"
+
 	cargo
-		_color = "cargo"				//Exists for washing machines. Is not different from brown gloves in any way.
+		item_color = "cargo"				//Exists for washing machines. Is not different from brown gloves in any way.
 
 /obj/item/clothing/gloves/color/latex
 	name = "latex gloves"
@@ -164,12 +174,9 @@
 	item_state = "lgloves"
 	siemens_coefficient = 0.30
 	permeability_coefficient = 0.01
-	_color="white"
+	item_color="white"
 	transfer_prints = TRUE
-	species_fit = list("Vox")
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/mask.dmi'
-		)
+	burn_state = FIRE_PROOF
 
 /obj/item/clothing/gloves/color/latex/nitrile
 	name = "nitrile gloves"
@@ -177,17 +184,17 @@
 	icon_state = "nitrile"
 	item_state = "nitrilegloves"
 	transfer_prints = FALSE
-	_color = "medical"
+	item_color = "medical"
 
 /obj/item/clothing/gloves/color/white
 	name = "white gloves"
 	desc = "These look pretty fancy."
 	icon_state = "white"
 	item_state = "wgloves"
-	_color="mime"
+	item_color="mime"
 
 	redcoat
-		_color = "redcoat"		//Exists for washing machines. Is not different from white gloves in any way.
+		item_color = "redcoat"		//Exists for washing machines. Is not different from white gloves in any way.
 
 
 /obj/item/clothing/gloves/color/captain
@@ -195,14 +202,11 @@
 	name = "captain's gloves"
 	icon_state = "captain"
 	item_state = "egloves"
-	_color = "captain"
+	item_color = "captain"
 	siemens_coefficient = 0
 	permeability_coefficient = 0.05
 	cold_protection = HANDS
-	min_cold_protection_temperature = GLOVES_MIN_COLD_PROTECTION_TEMPERATURE
+	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
 	heat_protection = HANDS
-	max_heat_protection_temperature = GLOVES_MAX_HEAT_PROTECTION_TEMPERATURE
-	species_fit = list("Vox")
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/mask.dmi'
-		)
+	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
+	strip_delay = 60

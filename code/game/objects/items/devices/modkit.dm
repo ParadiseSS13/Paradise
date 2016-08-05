@@ -18,33 +18,33 @@
 	if(!proximity)
 		return
 
-	if (!target_species)
+	if(!target_species)
 		return	//it shouldn't be null, okay?
 
 	if(!parts)
-		user << "<span class='warning'>This kit has no parts for this modification left.</span>"
+		to_chat(user, "<span class='warning'>This kit has no parts for this modification left.</span>")
 		user.unEquip(src)
-		del(src)
+		qdel(src)
 		return
 
 	var/allowed = 0
-	for (var/permitted_type in permitted_types)
+	for(var/permitted_type in permitted_types)
 		if(istype(O, permitted_type))
 			allowed = 1
 
 	var/obj/item/clothing/I = O
-	if (!istype(I) || !allowed)
-		user << "<span class='notice'>[src] is unable to modify that.</span>"
+	if(!istype(I) || !allowed)
+		to_chat(user, "<span class='notice'>[src] is unable to modify that.</span>")
 		return
 
 	var/excluding = ("exclude" in I.species_restricted)
 	var/in_list = (target_species in I.species_restricted)
-	if (excluding ^ in_list)
-		user << "<span class='notice'>[I] is already modified.</span>"
+	if(excluding ^ in_list)
+		to_chat(user, "<span class='notice'>[I] is already modified.</span>")
 		return
 
 	if(!isturf(O.loc))
-		user << "<span class='warning'>[O] must be safely placed on the ground for modification.</span>"
+		to_chat(user, "<span class='warning'>[O] must be safely placed on the ground for modification.</span>")
 		return
 
 	playsound(user.loc, 'sound/items/Screwdriver.ogg', 100, 1)
@@ -53,18 +53,18 @@
 
 	I.refit_for_species(target_species)
 
-	if (istype(I, /obj/item/clothing/head/helmet))
+	if(istype(I, /obj/item/clothing/head/helmet))
 		parts &= ~MODKIT_HELMET
-	if (istype(I, /obj/item/clothing/suit))
+	if(istype(I, /obj/item/clothing/suit))
 		parts &= ~MODKIT_SUIT
 
 	if(!parts)
 		user.unEquip(src)
-		del(src)
+		qdel(src)
 
-/obj/item/device/modkit/examine()
-	..()
-	usr << "It looks as though it modifies hardsuits to fit [target_species] users."
+/obj/item/device/modkit/examine(mob/user)
+	..(user)
+	to_chat(user, "It looks as though it modifies hardsuits to fit [target_species] users.")
 
 /obj/item/device/modkit/tajaran
 	name = "Tajaran hardsuit modification kit"

@@ -6,8 +6,6 @@
 
 	maxHealth = 30
 	health = 30
-	storedPlasma = 50
-	max_plasma = 50
 	density = 0
 
 	var/amount_grown = 0
@@ -25,20 +23,22 @@
 	regenerate_icons()
 	add_language("Xenomorph")
 	add_language("Hivemind")
+	internal_organs += new /obj/item/organ/internal/xenos/plasmavessel/larva
+
 	..()
 
 //This is fine, works the same as a human
 /mob/living/carbon/alien/larva/Bump(atom/movable/AM as mob|obj, yes)
 
 	spawn( 0 )
-		if ((!( yes ) || now_pushing))
+		if((!( yes ) || now_pushing))
 			return
 		now_pushing = 1
 		if(ismob(AM))
 			var/mob/tmob = AM
 			if(istype(tmob, /mob/living/carbon/human) && (FAT in tmob.mutations))
 				if(prob(70))
-					src << "\red <B>You fail to push [tmob]'s fat ass out of the way.</B>"
+					to_chat(src, "\red <B>You fail to push [tmob]'s fat ass out of the way.</B>")
 					now_pushing = 0
 					return
 				if(!(tmob.status_flags & CANPUSH))
@@ -48,11 +48,11 @@
 
 		now_pushing = 0
 		..()
-		if (!( istype(AM, /atom/movable) ))
+		if(!( istype(AM, /atom/movable) ))
 			return
-		if (!( now_pushing ))
+		if(!( now_pushing ))
 			now_pushing = 1
-			if (!( AM.anchored ))
+			if(!( AM.anchored ))
 				var/t = get_dir(src, AM)
 				step(AM, t)
 			now_pushing = null
@@ -64,8 +64,9 @@
 	..()
 	stat(null, "Progress: [amount_grown]/[max_grown]")
 
-/mob/living/carbon/alien/larva/adjustToxLoss(amount)
-	if(stat != DEAD)
+
+/mob/living/carbon/alien/larva/adjustPlasma(amount)
+	if(stat != DEAD && amount > 0)
 		amount_grown = min(amount_grown + 1, max_grown)
 	..(amount)
 
@@ -75,74 +76,37 @@
 
 	var/b_loss = null
 	var/f_loss = null
-	switch (severity)
-		if (1.0)
+	switch(severity)
+		if(1.0)
 			gib()
 			return
 
-		if (2.0)
+		if(2.0)
 
 			b_loss += 60
 
 			f_loss += 60
 
-			ear_damage += 30
-			ear_deaf += 120
+			adjustEarDamage(30,120)
 
 		if(3.0)
 			b_loss += 30
-			if (prob(50))
+			if(prob(50))
 				Paralyse(1)
-			ear_damage += 15
-			ear_deaf += 60
+			adjustEarDamage(15,60)
 
 	adjustBruteLoss(b_loss)
 	adjustFireLoss(f_loss)
 
 	updatehealth()
 
-
-
-/mob/living/carbon/alien/larva/blob_act()
-	if (stat == 2)
-		return
-	var/shielded = 0
-
-	var/damage = null
-	if (stat != 2)
-		damage = rand(10,30)
-
-	if(shielded)
-		damage /= 4
-
-		//paralysis += 1
-
-	show_message("<span class='userdanger'>The blob attacks you!</span>")
-
-	adjustFireLoss(damage)
-
-	updatehealth()
-	return
-
-
 //can't equip anything
 /mob/living/carbon/alien/larva/attack_ui(slot_id)
 	return
 
-/mob/living/carbon/alien/larva/meteorhit(O as obj)
-	for(var/mob/M in viewers(src, null))
-		if ((M.client && !( M.blinded )))
-			M.show_message(text("\red [] has been hit by []", src, O), 1)
-	if (health > 0)
-		adjustBruteLoss((istype(O, /obj/effect/meteor/small) ? 10 : 25))
-		adjustFireLoss(30)
-
-		updatehealth()
-	return
-
 /mob/living/carbon/alien/larva/attack_animal(mob/living/simple_animal/M as mob)
 	if(M.melee_damage_upper == 0)
-		M.emote("[M.friendly] [src]")
+		M.custom_emote(1, "[M.friendly] [src]")
 	else
 		M.do_attack_animation(src)
 		if(M.attack_sound)
@@ -151,48 +115,20 @@
 				"<span class='userdanger'>[M] [M.attacktext] [src]!</span>")
 		var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
 		adjustBruteLoss(damage)
-		add_logs(M, src, "attacked", admin=0)
+		add_logs(src, M, "attacked", admin=0)
 		updatehealth()
 
 
-/mob/living/carbon/alien/larva/attack_paw(mob/living/carbon/monkey/M as mob)
-	if(!(istype(M, /mob/living/carbon/monkey)))	return//Fix for aliens receiving double messages when attacking other aliens.
-
-	if (!ticker)
-		M << "You cannot attack people before the game has started."
-		return
-
-	if (istype(loc, /turf) && istype(loc.loc, /area/start))
-		M << "No attacking people at spawn, you jackass."
-		return
-	..()
-
-	switch(M.a_intent)
-
-		if ("help")
-			help_shake_act(M)
-		else
-			M.do_attack_animation(src)
-			if (istype(src.wear_mask, /obj/item/clothing/mask/muzzle))
-				return
-			playsound(loc, 'sound/weapons/bite.ogg', 50, 1, -1)
-			visible_message("<span class='danger'>[M.name] bites [src]!</span>", \
-					"<span class='userdanger'>[M.name] bites [src]!</span>")
-			if (health > -100)
-				adjustBruteLoss(rand(1, 3))
-				updatehealth()
-	return
-
 
 /mob/living/carbon/alien/larva/attack_slime(mob/living/carbon/slime/M as mob)
-	if (!ticker)
-		M << "You cannot attack people before the game has started."
+	if(!ticker)
+		to_chat(M, "You cannot attack people before the game has started.")
 		return
 
 	if(M.Victim)
 		return // can't attack while eating!
 
-	if (stat != DEAD)
+	if(stat != DEAD)
 		M.do_attack_animation(src)
 		visible_message("<span class='danger'>The [M.name] glomps [src]!</span>", \
 				"<span class='userdanger'>The [M.name] glomps [src]!</span>")
@@ -210,40 +146,29 @@
 	return
 
 /mob/living/carbon/alien/larva/attack_hand(mob/living/carbon/human/M as mob)
-	if (!ticker)
-		M << "You cannot attack people before the game has started."
+	if(!ticker)
+		to_chat(M, "You cannot attack people before the game has started.")
 		return
 
-	if (istype(loc, /turf) && istype(loc.loc, /area/start))
-		M << "No attacking people at spawn, you jackass."
+	if(istype(loc, /turf) && istype(loc.loc, /area/start))
+		to_chat(M, "No attacking people at spawn, you jackass.")
 		return
 
 	..()
 
 	switch(M.a_intent)
 
-		if ("help")
+		if(I_HELP)
 			help_shake_act(M)
 
-		if ("grab")
-			if (M == src || anchored)
-				return
-			var/obj/item/weapon/grab/G = new /obj/item/weapon/grab(M, src )
-
-			M.put_in_active_hand(G)
-
-			G.synch()
-
-			LAssailant = M
-
-			playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-			visible_message("<span class='warning'>[M] has grabbed [src] passively!</span>")
+		if(I_GRAB)
+			grabbedby(M)
 
 		else
 			M.do_attack_animation(src)
 			var/damage = rand(1, 9)
-			if (prob(90))
-				if (HULK in M.mutations)
+			if(prob(90))
+				if(HULK in M.mutations)
 					damage += 5
 					spawn(0)
 						Paralyse(1)
@@ -253,7 +178,7 @@
 				playsound(loc, "punch", 25, 1, -1)
 				visible_message("<span class='danger'>[M] has kicked [src]!</span>", \
 						"<span class='userdanger'>[M] has kicked [src]!</span>")
-				if ((stat != DEAD) && (damage > 4.9))
+				if((stat != DEAD) && (damage > 4.9))
 					Paralyse(rand(5,10))
 					visible_message("<span class='danger'>[M] has weakened [src]!</span>", \
 							"<span class='userdanger'>[M] has weakened [src]!</span>", \
@@ -267,19 +192,19 @@
 	return
 
 /mob/living/carbon/alien/larva/attack_alien(mob/living/carbon/alien/humanoid/M as mob)
-	if (!ticker)
-		M << "You cannot attack people before the game has started."
+	if(!ticker)
+		to_chat(M, "You cannot attack people before the game has started.")
 		return
 
-	if (istype(loc, /turf) && istype(loc.loc, /area/start))
-		M << "No attacking people at spawn, you jackass."
+	if(istype(loc, /turf) && istype(loc.loc, /area/start))
+		to_chat(M, "No attacking people at spawn, you jackass.")
 		return
 
 	..()
 
 	switch(M.a_intent)
 
-		if ("help")
+		if(I_HELP)
 			sleeping = max(0,sleeping-5)
 			resting = 0
 			AdjustParalysis(-3)
@@ -288,7 +213,7 @@
 			visible_message("<span class='notice'>[M.name] nuzzles [src] trying to wake it up!</span>")
 
 		else
-			if (health > 0)
+			if(health > 0)
 				M.do_attack_animation(src)
 				playsound(loc, 'sound/weapons/bite.ogg', 50, 1, -1)
 				var/damage = 1
@@ -297,13 +222,12 @@
 				adjustBruteLoss(damage)
 				updatehealth()
 			else
-				M << "<span class='warning'>[name] is too injured for that.</span>"
+				to_chat(M, "<span class='warning'>[name] is too injured for that.</span>")
 	return
 
 /mob/living/carbon/alien/larva/restrained()
 	return 0
 
-/mob/living/carbon/alien/larva/var/co2overloadtime = null
 /mob/living/carbon/alien/larva/var/temperature_resistance = T0C+75
 
 // new damage icon system
@@ -311,15 +235,6 @@
 
 
 /mob/living/carbon/alien/larva/show_inv(mob/user as mob)
-
-	user.set_machine(src)
-	var/dat = {"
-	<B><HR><FONT size=3>[name]</FONT></B>
-	<BR><HR><BR>
-	<BR><A href='?src=\ref[user];mach_close=mob[name]'>Close</A>
-	<BR>"}
-	user << browse(dat, text("window=mob[name];size=340x480"))
-	onclose(user, "mob[name]")
 	return
 
 /* Commented out because it's duplicated in life.dm
@@ -329,4 +244,4 @@
 	else
 		var/mob/living/carbon/alien/humanoid/A = new(loc)
 		A.key = key
-		del(src) */
+		qdel(src) */

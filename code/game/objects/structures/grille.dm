@@ -10,6 +10,7 @@
 	layer = 2.9
 	var/health = 10
 	var/destroyed = 0
+	level = 3
 
 
 /obj/structure/grille/fence/
@@ -36,26 +37,15 @@
 	//height=42
 	icon='icons/fence-ns.dmi'
 
-/obj/structure/grille/Destroy()
-	loc = null //garbage collect
-
-
 /obj/structure/grille/ex_act(severity)
-	returnToPool(src)
+	qdel(src)
 
 /obj/structure/grille/blob_act()
-	returnToPool(src)
-
-/obj/structure/grille/meteorhit(var/obj/M)
-	returnToPool(src)
-
+	qdel(src)
 
 /obj/structure/grille/Bumped(atom/user)
 	if(ismob(user)) shock(user, 70)
 
-
-/obj/structure/grille/attack_paw(mob/living/user as mob)
-	attack_hand(user)
 
 /obj/structure/grille/attack_hand(mob/living/user as mob)
 	user.changeNext_move(CLICK_CD_MELEE)
@@ -91,7 +81,7 @@
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(src)
 	var/mob/living/carbon/slime/S = user
-	if (!S.is_adult)
+	if(!S.is_adult)
 		return
 
 	playsound(loc, 'sound/effects/grillehit.ogg', 80, 1)
@@ -132,6 +122,12 @@
 		else
 			return !density
 
+/obj/structure/grille/CanAStarPass(ID, dir, caller)
+	. = !density
+	if(ismovableatom(caller))
+		var/atom/movable/mover = caller
+		. = . || mover.checkpass(PASSGRILLE)
+
 /obj/structure/grille/bullet_act(var/obj/item/projectile/Proj)
 	if(!Proj)
 		return
@@ -146,8 +142,11 @@
 	if(iswirecutter(W))
 		if(!shock(user, 100))
 			playsound(loc, 'sound/items/Wirecutter.ogg', 100, 1)
-			new /obj/item/stack/rods(loc, 2)
-			returnToPool(src)
+			if(!destroyed)
+				new /obj/item/stack/rods(loc, 2)
+			else
+				new /obj/item/stack/rods(loc)
+			qdel(src)
 	else if((isscrewdriver(W)) && (istype(loc, /turf/simulated) || anchored))
 		if(!shock(user, 90))
 			playsound(loc, 'sound/items/Screwdriver.ogg', 100, 1)
@@ -174,18 +173,18 @@
 					else
 						dir_to_set = 4
 			else
-				user << "<span class='notice'>You can't reach.</span>"
+				to_chat(user, "<span class='notice'>You can't reach.</span>")
 				return //Only works for cardinal direcitons, diagonals aren't supposed to work like this.
 		for(var/obj/structure/window/WINDOW in loc)
 			if(WINDOW.dir == dir_to_set)
-				user << "<span class='notice'>There is already a window facing this way there.</span>"
+				to_chat(user, "<span class='notice'>There is already a window facing this way there.</span>")
 				return
-		user << "<span class='notice'>You start placing the window.</span>"
-		if(do_after(user,20))
+		to_chat(user, "<span class='notice'>You start placing the window.</span>")
+		if(do_after(user,20, target = src))
 			if(!src) return //Grille destroyed while waiting
 			for(var/obj/structure/window/WINDOW in loc)
 				if(WINDOW.dir == dir_to_set)//checking this for a 2nd time to check if a window was made while we were waiting.
-					user << "<span class='notice'>There is already a window facing this way there.</span>"
+					to_chat(user, "<span class='notice'>There is already a window facing this way there.</span>")
 					return
 			var/obj/structure/window/WD
 			if(istype(W,/obj/item/stack/sheet/rglass))
@@ -202,7 +201,7 @@
 			WD.state = 0
 			var/obj/item/stack/ST = W
 			ST.use(1)
-			user << "<span class='notice'>You place the [WD] on [src].</span>"
+			to_chat(user, "<span class='notice'>You place the [WD] on [src].</span>")
 			WD.update_icon()
 		return
 //window placing end
@@ -232,7 +231,7 @@
 		else
 			if(health <= -6)
 				new /obj/item/stack/rods(loc)
-				returnToPool(src)
+				qdel(src)
 				return
 	return
 
@@ -250,7 +249,7 @@
 	var/obj/structure/cable/C = T.get_cable_node()
 	if(C)
 		if(electrocute_mob(user, C, src))
-			var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
+			var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 			s.set_up(3, 1, src)
 			s.start()
 			return 1
@@ -258,7 +257,7 @@
 			return 0
 	return 0
 
-/obj/structure/grille/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/structure/grille/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	if(!destroyed)
 		if(exposed_temperature > T0C + 1500)
 			health -= 1

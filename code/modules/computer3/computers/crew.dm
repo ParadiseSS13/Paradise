@@ -4,7 +4,7 @@
 	icon_state			= "frame-med"
 
 /datum/file/program/crew
-	name = "Crew Monitoring Console"
+	name = "crew monitoring console"
 	desc = "Used to monitor active health sensors built into most of the crew's uniforms."
 	active_state = "crew"
 	var/list/tracked = list(  )

@@ -4,7 +4,7 @@
 	icon = 'icons/obj/xenoarchaeology.dmi'
 	icon_state = "flashgun"
 	item_state = "lampgreen"
-	w_class = 1.0
+	w_class = 1
 	slot_flags = SLOT_BELT
 	var/nearest_artifact_id = "unknown"
 	var/nearest_artifact_distance = -1
@@ -20,14 +20,13 @@
 /obj/item/device/ano_scanner/interact(var/mob/user as mob)
 	var/message = "Background radiation levels detected."
 	if(world.time - last_scan_time >= scan_delay)
-		spawn(0)
-			scan()
+		scan()
 		if(nearest_artifact_distance >= 0)
 			message = "Exotic energy detected on wavelength '[nearest_artifact_id]' in a radius of [nearest_artifact_distance]m"
 	else
 		message = "Scanning array is recharging."
 
-	user << "<span class='info'>[message]</span>"
+	to_chat(user, "<span class='info'>[message]</span>")
 
 /obj/item/device/ano_scanner/proc/scan()
 	last_scan_time = world.time

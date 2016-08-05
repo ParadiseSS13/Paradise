@@ -14,9 +14,10 @@
  */
 
 /obj/item/weapon/storage/fancy/
-	icon = 'icons/obj/food.dmi'
+	icon = 'icons/obj/food/food.dmi'
 	icon_state = "donutbox6"
 	name = "donut box"
+	burn_state = FLAMMABLE
 	var/icon_type = "donut"
 
 /obj/item/weapon/storage/fancy/update_icon(var/itemremoved = 0)
@@ -24,17 +25,16 @@
 	src.icon_state = "[src.icon_type]box[total_contents]"
 	return
 
-/obj/item/weapon/storage/fancy/examine()
-	set src in oview(1)
+/obj/item/weapon/storage/fancy/examine(mob/user)
+	if(!..(user, 1))
+		return
 
 	if(contents.len <= 0)
-		usr << "There are no [src.icon_type]s left in the box."
+		to_chat(user, "There are no [src.icon_type]s left in the box.")
 	else if(contents.len == 1)
-		usr << "There is one [src.icon_type] left in the box."
+		to_chat(user, "There is one [src.icon_type] left in the box.")
 	else
-		usr << "There are [src.contents.len] [src.icon_type]s in the box."
-
-	return
+		to_chat(user, "There are [src.contents.len] [src.icon_type]s in the box.")
 
 
 
@@ -43,7 +43,7 @@
  */
 
 /obj/item/weapon/storage/fancy/donut_box
-	icon = 'icons/obj/food.dmi'
+	icon = 'icons/obj/food/food.dmi'
 	icon_state = "donutbox6"
 	icon_type = "donut"
 	name = "donut box"
@@ -62,7 +62,7 @@
  */
 
 /obj/item/weapon/storage/fancy/egg_box
-	icon = 'icons/obj/food.dmi'
+	icon = 'icons/obj/food/food.dmi'
 	icon_state = "eggbox"
 	icon_type = "egg"
 	name = "egg box"
@@ -91,10 +91,20 @@
 	slot_flags = SLOT_BELT
 
 
-/obj/item/weapon/storage/fancy/candle_box/New()
+/obj/item/weapon/storage/fancy/candle_box/full/New()
 	..()
 	for(var/i=1; i <= storage_slots; i++)
 		new /obj/item/candle(src)
+	return
+
+/obj/item/weapon/storage/fancy/candle_box/eternal
+	name = "Eternal Candle pack"
+	desc = "A pack of red candles made with a special wax."
+
+/obj/item/weapon/storage/fancy/candle_box/eternal/New()
+	..()
+	for(var/i=1; i <= storage_slots; i++)
+		new /obj/item/candle/eternal(src)
 	return
 
 /*
@@ -106,7 +116,7 @@
 	desc = "A box of crayons for all your rune drawing needs."
 	icon = 'icons/obj/crayons.dmi'
 	icon_state = "crayonbox"
-	w_class = 2.0
+	w_class = 2
 	storage_slots = 6
 	icon_type = "crayon"
 	can_hold = list(
@@ -133,10 +143,10 @@
 	if(istype(W,/obj/item/toy/crayon))
 		switch(W:colourName)
 			if("mime")
-				usr << "This crayon is too sad to be contained in this box."
+				to_chat(usr, "This crayon is too sad to be contained in this box.")
 				return
 			if("rainbow")
-				usr << "This crayon is too powerful to be contained in this box."
+				to_chat(usr, "This crayon is too powerful to be contained in this box.")
 				return
 	..()
 
@@ -149,50 +159,88 @@
 	icon = 'icons/obj/cigarettes.dmi'
 	icon_state = "cigpacket"
 	item_state = "cigpacket"
-	w_class = 1
+	w_class = 2
 	throwforce = 2
 	slot_flags = SLOT_BELT
 	storage_slots = 6
-	can_hold = list("/obj/item/clothing/mask/cigarette")
+	max_combined_w_class = 6
+	can_hold = list("/obj/item/clothing/mask/cigarette",
+		"/obj/item/weapon/lighter",
+		"/obj/item/weapon/match")
+	cant_hold = list("/obj/item/clothing/mask/cigarette/cigar",
+		"/obj/item/clothing/mask/cigarette/pipe",
+		"/obj/item/weapon/lighter/zippo")
 	icon_type = "cigarette"
+	var/list/unlaced_cigarettes = list() // Cigarettes that haven't received reagents yet
+	var/default_reagents = list("nicotine" = 15) // List of reagents to pre-generate for each cigarette
+	var/cigarette_type = /obj/item/clothing/mask/cigarette
 
 /obj/item/weapon/storage/fancy/cigarettes/New()
 	..()
 	flags |= NOREACT
+	create_reagents(30 * storage_slots)//so people can inject cigarettes without opening a packet, now with being able to inject the whole one
 	for(var/i = 1 to storage_slots)
-		new /obj/item/clothing/mask/cigarette(src)
-	create_reagents(15 * storage_slots)//so people can inject cigarettes without opening a packet, now with being able to inject the whole one
+		var/obj/item/clothing/mask/cigarette/C = new cigarette_type(src)
+		unlaced_cigarettes += C
+		for(var/R in default_reagents)
+			reagents.add_reagent(R, default_reagents[R])
+
 
 /obj/item/weapon/storage/fancy/cigarettes/Destroy()
-	del(reagents)
-	..()
+	qdel(reagents)
+	return ..()
 
 
 /obj/item/weapon/storage/fancy/cigarettes/update_icon()
 	icon_state = "[initial(icon_state)][contents.len]"
-	desc = "There are [contents.len] cig\s left!"
 	return
 
+/obj/item/weapon/storage/fancy/cigarettes/proc/lace_cigarette(var/obj/item/clothing/mask/cigarette/C as obj)
+	if(istype(C) && (C in unlaced_cigarettes)) // Only transfer reagents to each cigarette once
+		reagents.trans_to(C, (reagents.total_volume/unlaced_cigarettes.len))
+		unlaced_cigarettes -= C
+		reagents.maximum_volume = 30 * unlaced_cigarettes.len
+
 /obj/item/weapon/storage/fancy/cigarettes/remove_from_storage(obj/item/W as obj, atom/new_location)
-		var/obj/item/clothing/mask/cigarette/C = W
-		if(!istype(C)) return // what
-		reagents.trans_to(C, (reagents.total_volume/contents.len))
-		..()
+	lace_cigarette(W)
+	..()
 
 /obj/item/weapon/storage/fancy/cigarettes/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
 	if(!istype(M, /mob))
 		return
 
-	if(M == user && user.zone_sel.selecting == "mouth" && contents.len > 0 && !user.wear_mask)
-		var/obj/item/clothing/mask/cigarette/W = new /obj/item/clothing/mask/cigarette(user)
-		reagents.trans_to(W, (reagents.total_volume/contents.len))
-		user.equip_to_slot_if_possible(W, slot_wear_mask)
-		reagents.maximum_volume = 15 * contents.len
-		contents.len--
-		user << "<span class='notice'>You take a cigarette out of the pack.</span>"
-		update_icon()
+	if(istype(M) && M == user && user.zone_sel.selecting == "mouth" && contents.len > 0 && !user.wear_mask)
+		var/got_cig = 0
+		for(var/num=1, num <= contents.len, num++)
+			var/obj/item/I = contents[num]
+			if(istype(I, /obj/item/clothing/mask/cigarette))
+				var/obj/item/clothing/mask/cigarette/C = I
+				lace_cigarette(C)
+				user.equip_to_slot_if_possible(C, slot_wear_mask)
+				to_chat(user, "<span class='notice'>You take \a [C.name] out of the pack.</span>")
+				update_icon()
+				got_cig = 1
+				break
+		if(!got_cig)
+			to_chat(user, "<span class='warning'>There are no smokables in the pack!</span>")
 	else
 		..()
+
+/obj/item/weapon/storage/fancy/cigarettes/can_be_inserted(obj/item/W as obj, stop_messages = 0)
+	if(istype(W, /obj/item/weapon/match))
+		var/obj/item/weapon/match/M = W
+		if(M.lit == 1)
+			if(!stop_messages)
+				to_chat(usr, "<span class='notice'>Putting a lit [W] in [src] probably isn't a good idea.</span>")
+			return 0
+	if(istype(W, /obj/item/weapon/lighter))
+		var/obj/item/weapon/lighter/L = W
+		if(L.lit == 1)
+			if(!stop_messages)
+				to_chat(usr, "<span class='notice'>Putting [W] in [src] while lit probably isn't a good idea.</span>")
+			return 0
+	//if we get this far, handle the insertion checks as normal
+	.=..()
 
 /obj/item/weapon/storage/fancy/cigarettes/dromedaryco
 	name = "\improper DromedaryCo packet"
@@ -217,11 +265,7 @@
 	desc = "An obscure brand of cigarettes."
 	icon_state = "syndiepacket"
 	item_state = "cigpacket"
-
-/obj/item/weapon/storage/fancy/cigarettes/cigpack_syndicate/New()
-	..()
-	for(var/i = 1 to storage_slots)
-		reagents.add_reagent("omnizine",15)
+	default_reagents = list("nicotine" = 15, "omnizine" = 15)
 
 /obj/item/weapon/storage/fancy/cigarettes/cigpack_uplift
 	name = "\improper Uplift Smooth packet"
@@ -240,11 +284,7 @@
 	desc = "Smoked by the truly robust."
 	icon_state = "robustgpacket"
 	item_state = "cigpacket"
-
-/obj/item/weapon/storage/fancy/cigarettes/cigpack_robustgold/New()
-	..()
-	for(var/i = 1 to storage_slots)
-		reagents.add_reagent("gold",1)
+	default_reagents = list("nicotine" = 15, "gold" = 1)
 
 /obj/item/weapon/storage/fancy/cigarettes/cigpack_carp
 	name = "\improper Carp Classic packet"
@@ -263,14 +303,18 @@
 	desc = "Is your weight slowing you down? Having trouble running away from gravitational singularities? Can't stop stuffing your mouth? Smoke Shady Jim's Super Slims and watch all that fat burn away. Guaranteed results!"
 	icon_state = "shadyjimpacket"
 	item_state = "cigpacket"
+	default_reagents = list("nicotine" = 15,
+		"lipolicide" = 7.5,
+		"ammonia" = 2,
+		"atrazine" = 1,
+		"toxin" = 1.5)
 
-/obj/item/weapon/storage/fancy/cigarettes/cigpack_shadyjims/New()
-	..()
-	for(var/i = 1 to storage_slots)
-		reagents.add_reagent("lipolicide",4)
-		reagents.add_reagent("ammonia",2)
-		reagents.add_reagent("atrazine",1)
-		reagents.add_reagent("toxin",1.5)
+/obj/item/weapon/storage/fancy/cigarettes/cigpack_random
+	name ="\improper Embellished Enigma packet"
+	desc = "For the true connoisseur of exotic flavors."
+	icon_state = "shadyjimpacket"
+	item_state = "cigpacket"
+	cigarette_type  = /obj/item/clothing/mask/cigarette/random
 
 /*
  * Vial Box
@@ -311,7 +355,7 @@
 	var/total_contents = src.contents.len - itemremoved
 	src.icon_state = "vialbox[total_contents]"
 	src.overlays.Cut()
-	if (!broken)
+	if(!broken)
 		overlays += image(icon, src, "led[locked]")
 		if(locked)
 			overlays += image(icon, src, "cover")
@@ -323,3 +367,23 @@
 	..()
 	update_icon()
 
+
+
+///Aquatic Starter Kit
+
+/obj/item/weapon/storage/firstaid/aquatic_kit
+	name = "aquatic starter kit"
+	desc = "It's a starter kit box for an aquarium."
+	icon_state = "AquaticKit"
+	throw_speed = 2
+	throw_range = 8
+
+/obj/item/weapon/storage/firstaid/aquatic_kit/full
+	desc = "It's a starter kit for an acquarium; includes 1 tank brush, 1 egg scoop, 1 fish net, and 1 container of fish food."
+
+/obj/item/weapon/storage/firstaid/aquatic_kit/full/New()
+	..()
+	new /obj/item/weapon/egg_scoop(src)
+	new /obj/item/weapon/fish_net(src)
+	new /obj/item/weapon/tank_brush(src)
+	new /obj/item/weapon/fishfood(src)

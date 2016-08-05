@@ -17,39 +17,43 @@
 	var/current_heat_capacity = 50
 	var/efficiency
 
-	l_color = "#FFFFFF"
+	var/running_bob_animation = 0 // This is used to prevent threads from building up if update_icons is called multiple times
+
+	light_color = LIGHT_COLOR_WHITE
 	power_change()
 		..()
 		if(!(stat & (BROKEN|NOPOWER)))
-			SetLuminosity(2)
+			set_light(2)
 		else
-			SetLuminosity(0)
+			set_light(0)
 
 /obj/machinery/atmospherics/unary/cryo_cell/New()
 	..()
 	initialize_directions = dir
-	initialize()
 	component_parts = list()
-	component_parts += new /obj/item/weapon/circuitboard/cryo_tube(src)
-	component_parts += new /obj/item/weapon/stock_parts/matter_bin(src)
-	component_parts += new /obj/item/weapon/stock_parts/console_screen(src)
-	component_parts += new /obj/item/weapon/stock_parts/console_screen(src)
-	component_parts += new /obj/item/weapon/stock_parts/console_screen(src)
-	component_parts += new /obj/item/weapon/stock_parts/console_screen(src)
-	component_parts += new /obj/item/stack/cable_coil(src, 1)
+	component_parts += new /obj/item/weapon/circuitboard/cryo_tube(null)
+	component_parts += new /obj/item/weapon/stock_parts/matter_bin(null)
+	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
+	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
+	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
+	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
+	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
 
 /obj/machinery/atmospherics/unary/cryo_cell/upgraded/New()
 	..()
 	component_parts = list()
-	component_parts += new /obj/item/weapon/circuitboard/cryo_tube(src)
-	component_parts += new /obj/item/weapon/stock_parts/matter_bin/super(src)
-	component_parts += new /obj/item/weapon/stock_parts/console_screen(src)
-	component_parts += new /obj/item/weapon/stock_parts/console_screen(src)
-	component_parts += new /obj/item/weapon/stock_parts/console_screen(src)
-	component_parts += new /obj/item/weapon/stock_parts/console_screen(src)
-	component_parts += new /obj/item/stack/cable_coil(src, 1)
+	component_parts += new /obj/item/weapon/circuitboard/cryo_tube(null)
+	component_parts += new /obj/item/weapon/stock_parts/matter_bin/super(null)
+	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
+	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
+	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
+	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
+	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
+
+/obj/machinery/atmospherics/unary/cryo_cell/construction()
+	..(dir,dir)
 
 /obj/machinery/atmospherics/unary/cryo_cell/RefreshParts()
 	var/C
@@ -59,20 +63,22 @@
 	efficiency = C
 
 /obj/machinery/atmospherics/unary/cryo_cell/initialize()
+	..()
 	if(node) return
-	var/node_connect = dir
-	for(var/obj/machinery/atmospherics/target in get_step(src,node_connect))
-		if(target.initialize_directions & get_dir(target,src))
-			node = target
+	for(var/cdir in cardinal)
+		node = findConnecting(cdir)
+		if(node)
 			break
 
 /obj/machinery/atmospherics/unary/cryo_cell/Destroy()
-	var/turf/T = loc
-	T.contents += contents
-	var/obj/item/weapon/reagent_containers/glass/B = beaker
-	if(beaker)
-		B.loc = get_step(loc, SOUTH) //Beaker is carefully ejected from the wreckage of the cryotube
-	..()
+	var/turf/T = get_turf(src)
+	if(istype(T))
+		T.contents += contents
+		var/obj/item/weapon/reagent_containers/glass/B = beaker
+		if(beaker)
+			B.forceMove(get_step(T, SOUTH)) //Beaker is carefully ejected from the wreckage of the cryotube
+			beaker = null
+	return ..()
 
 /obj/machinery/atmospherics/unary/cryo_cell/MouseDrop_T(atom/movable/O as mob|obj, mob/user as mob)
 	if(O.loc == user) //no you can't pull things out of your ass
@@ -92,29 +98,25 @@
 	if(!istype(user.loc, /turf) || !istype(O.loc, /turf)) // are you in a container/closet/pod/etc?
 		return
 	if(occupant)
-		user << "\blue <B>The cryo cell is already occupied!</B>"
+		to_chat(user, "\blue <B>The cryo cell is already occupied!</B>")
 		return
-/*	if(isrobot(user))
-		if(!istype(user:module, /obj/item/weapon/robot_module/medical))
-			user << "<span class='warning'>You do not have the means to do this!</span>"
-			return*/
 	var/mob/living/L = O
 	if(!istype(L) || L.buckled)
 		return
 	if(L.abiotic())
-		user << "\red <B>Subject cannot have abiotic items on.</B>"
+		to_chat(user, "\red <B>Subject cannot have abiotic items on.</B>")
 		return
 	for(var/mob/living/carbon/slime/M in range(1,L))
 		if(M.Victim == L)
-			usr << "[L.name] will not fit into the cryo cell because they have a slime latched onto their head."
+			to_chat(usr, "[L.name] will not fit into the cryo cell because they have a slime latched onto their head.")
 			return
 	if(put_mob(L))
 		if(L == user)
-			visible_message("[user] climbs into the cryo cell.", 3)
+			visible_message("[user] climbs into the cryo cell.")
 		else
-			visible_message("[user] puts [L.name] into the cryo cell.", 3)
+			visible_message("[user] puts [L.name] into the cryo cell.")
 			if(user.pulling == L)
-				user.pulling = null
+				user.stop_pulling()
 
 /obj/machinery/atmospherics/unary/cryo_cell/process()
 	..()
@@ -137,7 +139,7 @@
 		if(occupant)
 			process_occupant()
 	if(abs(temperature_archived-air_contents.temperature) > 1)
-		network.update = 1
+		parent.update = 1
 
 	return 1
 
@@ -152,9 +154,15 @@
 	go_out()
 	return
 
+/obj/machinery/atmospherics/unary/cryo_cell/attack_ghost(mob/user)
+	return attack_hand(user)
+
 /obj/machinery/atmospherics/unary/cryo_cell/attack_hand(mob/user)
+	if(user == occupant)
+		return
+
 	if(panel_open)
-		usr << "\blue <b>Close the maintenance panel first.</b>"
+		to_chat(usr, "\blue <b>Close the maintenance panel first.</b>")
 		return
 
 	ui_interact(user)
@@ -172,17 +180,13 @@
   * @return nothing
   */
 /obj/machinery/atmospherics/unary/cryo_cell/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-
-	if(user == occupant || user.stat)
-		return
-
 	// this is the data which will be sent to the ui
 	var/data[0]
 	data["isOperating"] = on
 	data["hasOccupant"] = occupant ? 1 : 0
 
 	var/occupantData[0]
-	if (occupant)
+	if(occupant)
 		occupantData["name"] = occupant.name
 		occupantData["stat"] = occupant.stat
 		occupantData["health"] = occupant.health
@@ -214,7 +218,7 @@
 	data["beakerVolume"] = 0
 	if(beaker)
 		data["beakerLabel"] = beaker.label_text ? beaker.label_text : null
-		if (beaker.reagents && beaker.reagents.reagent_list.len)
+		if(beaker.reagents && beaker.reagents.reagent_list.len)
 			for(var/datum/reagent/R in beaker.reagents.reagent_list)
 				data["beakerVolume"] += R.volume
 
@@ -222,7 +226,7 @@
 
 	// update the ui if it exists, returns null if no ui is passed/found
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if (!ui)
+	if(!ui)
 		// the ui does not exist, so we'll create a new() one
         // for a list of parameters and their descriptions see the code docs in \code\modules\nano\nanoui.dm
 		ui = new(user, src, ui_key, "cryo.tmpl", "Cryo Cell Control System", 520, 420)
@@ -256,7 +260,7 @@
 
 	if(href_list["ejectBeaker"])
 		if(beaker)
-			beaker.loc = get_step(loc, SOUTH)
+			beaker.forceMove(get_step(loc, SOUTH))
 			beaker = null
 
 	if(href_list["ejectOccupant"])
@@ -270,17 +274,19 @@
 /obj/machinery/atmospherics/unary/cryo_cell/attackby(var/obj/item/weapon/G as obj, var/mob/user as mob, params)
 	if(istype(G, /obj/item/weapon/reagent_containers/glass))
 		if(beaker)
-			user << "\red A beaker is already loaded into the machine."
+			to_chat(user, "\red A beaker is already loaded into the machine.")
 			return
-
+		if(!user.drop_item())
+			to_chat(user, "The [G] is stuck to you!")
+			return
+		G.forceMove(src)
 		beaker =  G
-		user.drop_item()
-		G.loc = src
+
 		user.visible_message("[user] adds \a [G] to \the [src]!", "You add \a [G] to \the [src]!")
 
-	if (istype(G, /obj/item/weapon/screwdriver))
+	if(istype(G, /obj/item/weapon/screwdriver))
 		if(occupant || on)
-			user << "<span class='notice'>The maintenance panel is locked.</span>"
+			to_chat(user, "<span class='notice'>The maintenance panel is locked.</span>")
 			return
 		default_deconstruction_screwdriver(user, "pod0-o", "pod0", G)
 		return
@@ -292,17 +298,17 @@
 
 	if(istype(G, /obj/item/weapon/grab))
 		if(panel_open)
-			user << "\blue <b>Close the maintenance panel first.</b>"
+			to_chat(user, "\blue <b>Close the maintenance panel first.</b>")
 			return
 		if(!ismob(G:affecting))
 			return
 		for(var/mob/living/carbon/slime/M in range(1,G:affecting))
 			if(M.Victim == G:affecting)
-				usr << "[G:affecting:name] will not fit into the cryo because they have a slime latched onto their head."
+				to_chat(usr, "[G:affecting:name] will not fit into the cryo because they have a slime latched onto their head.")
 				return
 		var/mob/M = G:affecting
 		if(put_mob(M))
-			del(G)
+			qdel(G)
 	return
 
 /obj/machinery/atmospherics/unary/cryo_cell/update_icon()
@@ -324,34 +330,37 @@
 
 		overlays += pickle
 		overlays += "lid[on]"
-		if(src.on) //no bobbing if off
+		if(src.on && !running_bob_animation) //no bobbing if off
 			var/up = 0 //used to see if we are going up or down, 1 is down, 2 is up
-			while(occupant)
-				overlays -= "lid[on]" //have to remove the overlays first, to force an update- remove cloning pod overlay
-				overlays -= pickle //remove mob overlay
+			spawn(0) // Without this, the icon update will block. The new thread will die once the occupant leaves.
+				running_bob_animation = 1
+				while(occupant)
+					overlays -= "lid[on]" //have to remove the overlays first, to force an update- remove cloning pod overlay
+					overlays -= pickle //remove mob overlay
 
-				switch(pickle.pixel_y) //this looks messy as fuck but it works, switch won't call itself twice
+					switch(pickle.pixel_y) //this looks messy as fuck but it works, switch won't call itself twice
 
-					if(23) //inbetween state, for smoothness
-						switch(up) //this is set later in the switch, to keep track of where the mob is supposed to go
-							if(2) //2 is up
-								pickle.pixel_y = 24 //set to highest
+						if(23) //inbetween state, for smoothness
+							switch(up) //this is set later in the switch, to keep track of where the mob is supposed to go
+								if(2) //2 is up
+									pickle.pixel_y = 24 //set to highest
 
-							if(1) //1 is down
-								pickle.pixel_y = 22 //set to lowest
+								if(1) //1 is down
+									pickle.pixel_y = 22 //set to lowest
 
-					if(22) //mob is at it's lowest
-						pickle.pixel_y = 23 //set to inbetween
-						up = 2 //have to go up
+						if(22) //mob is at it's lowest
+							pickle.pixel_y = 23 //set to inbetween
+							up = 2 //have to go up
 
-					if(24) //mob is at it's highest
-						pickle.pixel_y = 23 //set to inbetween
-						up = 1 //have to go down
+						if(24) //mob is at it's highest
+							pickle.pixel_y = 23 //set to inbetween
+							up = 1 //have to go down
 
-				overlays += pickle //re-add the mob to the icon
-				overlays += "lid[on]" //re-add the overlay of the pod, they are inside it, not floating
+					overlays += pickle //re-add the mob to the icon
+					overlays += "lid[on]" //re-add the overlay of the pod, they are inside it, not floating
 
-				sleep(7) //don't want to jiggle violently, just slowly bob
+					sleep(7) //don't want to jiggle violently, just slowly bob
+				running_bob_animation = 0
 
 /obj/machinery/atmospherics/unary/cryo_cell/proc/process_occupant()
 	if(air_contents.total_moles() < 10)
@@ -400,43 +409,43 @@
 	expel_gas = air_contents.remove(remove_amount)
 	expel_gas.temperature = T20C // Lets expel hot gas and see if that helps people not die as they are removed
 	loc.assume_air(expel_gas)
-	update_nearby_tiles()
+	air_update_turf()
 
 /obj/machinery/atmospherics/unary/cryo_cell/proc/go_out()
-	if(!( occupant ))
+	if(!occupant)
 		return
-	//for(var/obj/O in src)
-	//	O.loc = loc
-	if (occupant.client)
+	if(occupant.client)
 		occupant.client.eye = occupant.client.mob
 		occupant.client.perspective = MOB_PERSPECTIVE
-	occupant.loc = get_step(loc, SOUTH)	//this doesn't account for walls or anything, but i don't forsee that being a problem.
-	if (occupant.bodytemperature < 261 && occupant.bodytemperature >= 70) //Patch by Aranclanos to stop people from taking burn damage after being ejected
+	occupant.forceMove(get_step(loc, SOUTH))	//this doesn't account for walls or anything, but i don't forsee that being a problem.
+	if(occupant.bodytemperature < 261 && occupant.bodytemperature >= 70) //Patch by Aranclanos to stop people from taking burn damage after being ejected
 		occupant.bodytemperature = 261
-//	occupant.metabslow = 0
 	occupant = null
 	update_icon()
-	return
+	// eject trash the occupant dropped
+	for(var/atom/movable/A in contents - component_parts - list(beaker))
+		A.forceMove(get_step(loc, SOUTH))
+
 /obj/machinery/atmospherics/unary/cryo_cell/proc/put_mob(mob/living/carbon/M as mob)
-	if (!istype(M))
-		usr << "\red <B>The cryo cell cannot handle such a lifeform!</B>"
+	if(!istype(M))
+		to_chat(usr, "\red <B>The cryo cell cannot handle such a lifeform!</B>")
 		return
-	if (occupant)
-		usr << "\red <B>The cryo cell is already occupied!</B>"
+	if(occupant)
+		to_chat(usr, "\red <B>The cryo cell is already occupied!</B>")
 		return
-	if (M.abiotic())
-		usr << "\red Subject may not have abiotic items on."
+	if(M.abiotic())
+		to_chat(usr, "\red Subject may not have abiotic items on.")
 		return
 	if(!node)
-		usr << "\red The cell is not correctly connected to its pipe network!"
+		to_chat(usr, "\red The cell is not correctly connected to its pipe network!")
 		return
-	if (M.client)
+	if(M.client)
 		M.client.perspective = EYE_PERSPECTIVE
 		M.client.eye = src
 	M.stop_pulling()
-	M.loc = src
+	M.forceMove(src)
 	if(M.health > -100 && (M.health < 0 || M.sleeping))
-		M << "\blue <b>You feel a cold liquid surround you. Your skin starts to freeze up.</b>"
+		to_chat(M, "\blue <b>You feel a cold liquid surround you. Your skin starts to freeze up.</b>")
 	occupant = M
 //	M.metabslow = 1
 	add_fingerprint(usr)
@@ -449,15 +458,15 @@
 	set category = "Object"
 	set src in oview(1)
 	if(usr == occupant)//If the user is inside the tube...
-		if (usr.stat == 2)//and he's not dead....
+		if(usr.stat == 2)//and he's not dead....
 			return
-		usr << "\blue Release sequence activated. This will take two minutes."
+		to_chat(usr, "\blue Release sequence activated. This will take two minutes.")
 		sleep(600)
 		if(!src || !usr || !occupant || (occupant != usr)) //Check if someone's released/replaced/bombed him already
 			return
 		go_out()//and release him from the eternal prison.
 	else
-		if (usr.stat != 0)
+		if(usr.stat != 0)
 			return
 		go_out()
 	add_fingerprint(usr)
@@ -469,9 +478,9 @@
 	set src in oview(1)
 	for(var/mob/living/carbon/slime/M in range(1,usr))
 		if(M.Victim == usr)
-			usr << "You're too busy getting your life sucked out of you."
+			to_chat(usr, "You're too busy getting your life sucked out of you.")
 			return
-	if (usr.stat != 0 || stat & (NOPOWER|BROKEN))
+	if(usr.stat != 0 || stat & (NOPOWER|BROKEN))
 		return
 	if(usr.restrained() || usr.stat || usr.weakened || usr.stunned || usr.paralysis || usr.resting) //are you cuffed, dying, lying, stunned or other
 		return

@@ -25,7 +25,7 @@
 
 /obj/structure/sign/attackby(obj/item/tool as obj, mob/user as mob)	//deconstruction
 	if(istype(tool, /obj/item/weapon/screwdriver) && !istype(src, /obj/structure/sign/double))
-		user << "You unfasten the sign with your [tool]."
+		to_chat(user, "You unfasten the sign with your [tool].")
 		var/obj/item/sign/S = new(src.loc)
 		S.name = name
 		S.desc = desc
@@ -33,7 +33,7 @@
 		//var/icon/I = icon('icons/obj/decals.dmi', icon_state)
 		//S.icon = I.Scale(24, 24)
 		S.sign_state = icon_state
-		del(src)
+		qdel(src)
 	else ..()
 
 /obj/item/sign
@@ -41,6 +41,7 @@
 	desc = ""
 	icon = 'icons/obj/decals.dmi'
 	w_class = 3		//big
+	burn_state = FLAMMABLE
 	var/sign_state = ""
 
 /obj/item/sign/attackby(obj/item/tool as obj, mob/user as mob)	//construction
@@ -61,8 +62,8 @@
 		S.name = name
 		S.desc = desc
 		S.icon_state = sign_state
-		user << "You fasten \the [S] with your [tool]."
-		del(src)
+		to_chat(user, "You fasten \the [S] with your [tool].")
+		qdel(src)
 	else ..()
 
 /obj/structure/sign/double/map
@@ -77,7 +78,7 @@
 
 /obj/structure/sign/securearea
 	name = "\improper SECURE AREA"
-	desc = "A warning sign which reads 'SECURE AREA'."
+	desc = "A warning sign which reads 'SECURE AREA'"
 	icon_state = "securearea"
 
 /obj/structure/sign/biohazard
@@ -142,12 +143,12 @@
 
 /obj/structure/sign/kiddieplaque
 	name = "AI developers plaque"
-	desc = "Next to the extremely long list of names and job titles, there is a drawing of a little child. The child appears to be retarded. Beneath the image, someone has scratched the word \"PACKETS\""
+	desc = "Next to the extremely long list of names and job titles, there is a drawing of a little child. The child appears to be retarded. Beneath the image, someone has scratched the word \"PACKETS\"."
 	icon_state = "kiddieplaque"
 
 /obj/structure/sign/atmosplaque
-	name = "\improper FEA Atmospherics Division plaque"
-	desc = "This plaque commemorates the fall of the Atmos FEA division. For all the charred, dizzy, and brittle men who have died in its hands."
+	name = "\improper ZAS Atmospherics Division plaque"
+	desc = "This plaque commemorates the fall of the Atmos ZAS division. For all the charred, dizzy, and brittle men who have died in its horrible hands."
 	icon_state = "atmosplaque"
 
 /obj/structure/sign/kidanplaque
@@ -197,27 +198,27 @@
 
 /obj/structure/sign/chinese
 	name = "\improper chinese restaurant sign"
-	desc = "A glowing dragon invites you in"
+	desc = "A glowing dragon invites you in."
 	icon_state = "chinese"
 
 /obj/structure/sign/directions/science
-	name = "\improper Science department"
-	desc = "A direction sign, pointing out which way Science department is."
+	name = "\improper Research Division"
+	desc = "A direction sign, pointing out which way the Research Division is."
 	icon_state = "direction_sci"
 
 /obj/structure/sign/directions/engineering
-	name = "\improper Engineering department"
-	desc = "A direction sign, pointing out which way Engineering department is."
+	name = "\improper Engineering Department"
+	desc = "A direction sign, pointing out which way the Engineering department is."
 	icon_state = "direction_eng"
 
 /obj/structure/sign/directions/security
-	name = "\improper Security department"
-	desc = "A direction sign, pointing out which way Security department is."
+	name = "\improper Security Department"
+	desc = "A direction sign, pointing out which way the Security department is."
 	icon_state = "direction_sec"
 
 /obj/structure/sign/directions/medical
 	name = "\improper Medical Bay"
-	desc = "A direction sign, pointing out which way Meducal Bay is."
+	desc = "A direction sign, pointing out which way Medical Bay is."
 	icon_state = "direction_med"
 
 /obj/structure/sign/directions/evac

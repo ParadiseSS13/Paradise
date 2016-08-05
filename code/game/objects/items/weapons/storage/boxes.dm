@@ -24,42 +24,44 @@
 	desc = "It's just an ordinary box."
 	icon_state = "box"
 	item_state = "syringe_kit"
+	burn_state = FLAMMABLE
 	foldable = /obj/item/stack/sheet/cardboard	//BubbleWrap
-
-	autoignition_temperature = 522 // Kelvin
-
 
 /obj/item/weapon/storage/box/large
 	name = "large box"
 	desc = "You could build a fort with this."
 	icon_state = "largebox"
-	item_state = "largebox"
 	w_class = 42 // Big, bulky.
 	foldable = /obj/item/stack/sheet/cardboard  //BubbleWrap
 	storage_slots = 21
 	max_combined_w_class = 42 // 21*2
 
-	autoignition_temperature = 530 // Kelvin
-
 /obj/item/weapon/storage/box/survival
 	New()
 		..()
 		contents = list()
-		sleep(1)
 		new /obj/item/clothing/mask/breath( src )
 		new /obj/item/weapon/tank/emergency_oxygen( src )
 		new /obj/item/weapon/reagent_containers/hypospray/autoinjector( src )
 		return
 
-/obj/item/weapon/storage/box/engineer/
+/obj/item/weapon/storage/box/engineer
 	New()
 		..()
 		contents = list()
-		sleep(1)
 		new /obj/item/clothing/mask/breath( src )
 		new /obj/item/weapon/tank/emergency_oxygen/engi( src )
 		new /obj/item/weapon/reagent_containers/hypospray/autoinjector( src )
 		return
+
+/obj/item/weapon/storage/box/survival_mining
+	New()
+		..()
+		contents = list()
+		new /obj/item/clothing/mask/breath(src)
+		new /obj/item/weapon/tank/emergency_oxygen/engi(src)
+		new /obj/item/weapon/crowbar/red(src)
+		new /obj/item/weapon/reagent_containers/hypospray/autoinjector(src)
 
 /obj/item/weapon/storage/box/gloves
 	name = "box of latex gloves"
@@ -138,7 +140,7 @@
 /obj/item/weapon/storage/box/gauge
 	name = "box of 12 gauge slugs"
 	desc = "It has a picture of a gun and several warning symbols on the front."
-	m_amt = 50000
+	materials = list(MAT_METAL=28000)
 
 	New()
 		..()
@@ -264,9 +266,22 @@
 		new /obj/item/weapon/implantcase/death_alarm(src)
 		new /obj/item/weapon/implantcase/death_alarm(src)
 		new /obj/item/weapon/implantcase/death_alarm(src)
+		new /obj/item/weapon/implantcase/death_alarm(src)
 		new /obj/item/weapon/implanter(src)
-		new /obj/item/weapon/implantpad(src)
 
+/obj/item/weapon/storage/box/tapes
+	name = "Tape Box"
+	desc = "A box of spare recording tapes"
+	icon_state = "box"
+
+	New()
+		..()
+		new /obj/item/device/tape(src)
+		new /obj/item/device/tape(src)
+		new /obj/item/device/tape(src)
+		new /obj/item/device/tape(src)
+		new /obj/item/device/tape(src)
+		new /obj/item/device/tape(src)
 
 /obj/item/weapon/storage/box/rxglasses
 	name = "prescription glasses"
@@ -372,7 +387,7 @@
 /obj/item/weapon/storage/box/monkeycubes
 	name = "monkey cube box"
 	desc = "Drymate brand monkey cubes. Just add water!"
-	icon = 'icons/obj/food.dmi'
+	icon = 'icons/obj/food/food.dmi'
 	icon_state = "monkeycubebox"
 	storage_slots = 7
 	can_hold = list("/obj/item/weapon/reagent_containers/food/snacks/monkeycube")
@@ -383,7 +398,7 @@
 /obj/item/weapon/storage/box/farwacubes
 	name = "farwa cube box"
 	desc = "Drymate brand farwa cubes. Just add water!"
-	icon = 'icons/obj/food.dmi'
+	icon = 'icons/obj/food/food.dmi'
 	icon_state = "monkeycubebox"
 	storage_slots = 7
 	can_hold = list("/obj/item/weapon/reagent_containers/food/snacks/monkeycube/wrapped/farwacube")
@@ -395,7 +410,7 @@
 /obj/item/weapon/storage/box/stokcubes
 	name = "stok cube box"
 	desc = "Drymate brand stok cubes. Just add water!"
-	icon = 'icons/obj/food.dmi'
+	icon = 'icons/obj/food/food.dmi'
 	icon_state = "monkeycubebox"
 	storage_slots = 7
 	can_hold = list("/item/weapon/reagent_containers/food/snacks/monkeycube/wrapped/stokcube")
@@ -407,7 +422,7 @@
 /obj/item/weapon/storage/box/neaeracubes
 	name = "neaera cube box"
 	desc = "Drymate brand neaera cubes. Just add water!"
-	icon = 'icons/obj/food.dmi'
+	icon = 'icons/obj/food/food.dmi'
 	icon_state = "monkeycubebox"
 	storage_slots = 7
 	can_hold = list("/obj/item/weapon/reagent_containers/food/snacks/monkeycube/wrapped/neaeracube")
@@ -415,6 +430,19 @@
 		..()
 		for(var/i = 1; i <= 5; i++)
 			new /obj/item/weapon/reagent_containers/food/snacks/monkeycube/wrapped/neaeracube(src)
+
+
+/obj/item/weapon/storage/box/wolpincubes
+	name = "wolpin cube box"
+	desc = "Drymate brand wolpin cubes. Just add water!"
+	icon = 'icons/obj/food/food.dmi'
+	icon_state = "monkeycubebox"
+	storage_slots = 7
+	can_hold = list("/obj/item/weapon/reagent_containers/food/snacks/monkeycube/wrapped/wolpincube")
+	New()
+		..()
+		for(var/i = 1; i <= 5; i++)
+			new /obj/item/weapon/reagent_containers/food/snacks/monkeycube/wrapped/wolpincube(src)
 
 
 /obj/item/weapon/storage/box/permits
@@ -505,6 +533,16 @@
 		new /obj/item/weapon/restraints/handcuffs/cable/zipties(src)
 		new /obj/item/weapon/restraints/handcuffs/cable/zipties(src)
 
+/obj/item/weapon/storage/box/alienhandcuffs
+	name = "box of spare handcuffs"
+	desc = "A box full of handcuffs."
+	icon_state = "alienboxCuffs"
+
+	New()
+		..()
+		for(var/i in 1 to 7)
+			new	/obj/item/weapon/restraints/handcuffs/alien(src)
+
 /obj/item/weapon/storage/box/fakesyndiesuit
 	name = "boxed space suit and helmet"
 	desc = "A sleek, sturdy box used to hold replica spacesuits."
@@ -576,6 +614,7 @@
 			W.lit = 1
 			W.icon_state = "match_lit"
 			processing_objects.Add(W)
+			playsound(user.loc, 'sound/goonstation/misc/matchstick_light.ogg', 50, 1)
 		W.update_icon()
 		return
 
@@ -585,7 +624,7 @@
 	icon_state = "syringe"
 	New()
 		..()
-		for (var/i; i < storage_slots; i++)
+		for(var/i; i < storage_slots; i++)
 			new /obj/item/weapon/reagent_containers/hypospray/autoinjector(src)
 
 /obj/item/weapon/storage/box/autoinjector/utility
@@ -637,3 +676,103 @@
 		new /obj/item/weapon/light/tube(src)
 	for(var/i = 0; i < 7; i++)
 		new /obj/item/weapon/light/bulb(src)
+
+/obj/item/weapon/storage/box/barber
+	name = "Barber Starter Kit"
+	desc = "For all hairstyling needs."
+	icon_state = "implant"
+
+/obj/item/weapon/storage/box/barber/New()
+	..()
+	new /obj/item/weapon/scissors/barber(src)
+	new /obj/item/hair_dye_bottle(src)
+	new /obj/item/weapon/reagent_containers/glass/bottle/reagent/hairgrownium(src)
+	new /obj/item/weapon/reagent_containers/glass/bottle/reagent/hair_dye(src)
+	new /obj/item/weapon/reagent_containers/glass/bottle/reagent(src)
+	new /obj/item/weapon/reagent_containers/dropper(src)
+	new /obj/item/clothing/mask/fakemoustache(src) //totally necessary for successful barbering -Fox
+
+/obj/item/weapon/storage/box/lip_stick
+	name = "Lipstick Kit"
+	desc = "For all your lip coloring needs."
+	icon_state = "implant"
+
+/obj/item/weapon/storage/box/lip_stick/New()
+	..()
+	new /obj/item/weapon/lipstick(src)
+	new /obj/item/weapon/lipstick/purple(src)
+	new /obj/item/weapon/lipstick/jade(src)
+	new /obj/item/weapon/lipstick/black(src)
+	new /obj/item/weapon/lipstick/green(src)
+	new /obj/item/weapon/lipstick/blue(src)
+	new /obj/item/weapon/lipstick/white(src)
+
+#define NODESIGN "None"
+#define NANOTRASEN "NanotrasenStandard"
+#define SYNDI "SyndiSnacks"
+#define HEART "Heart"
+#define SMILE "SmileyFace"
+
+/obj/item/weapon/storage/box/papersack
+	name = "paper sack"
+	desc = "A sack neatly crafted out of paper."
+	icon_state = "paperbag_None"
+	item_state = "paperbag_None"
+	foldable = null
+	var/design = NODESIGN
+
+/obj/item/weapon/storage/box/papersack/update_icon()
+	if(!contents.len)
+		icon_state = "[item_state]"
+	else icon_state = "[item_state]_closed"
+
+/obj/item/weapon/storage/box/papersack/attackby(obj/item/weapon/W, mob/user, params)
+	if(istype(W, /obj/item/weapon/pen))
+		//if a pen is used on the sack, dialogue to change its design appears
+		if(contents.len)
+			to_chat(user, "<span class='warning'>You can't modify [src] with items still inside!</span>")
+			return
+		var/list/designs = list(NODESIGN, NANOTRASEN, SYNDI, HEART, SMILE)
+		var/switchDesign = input("Select a Design:", "Paper Sack Design", designs[1]) as null|anything in designs
+		if(!switchDesign)
+			return
+		if(get_dist(usr, src) > 1 && !usr.incapacitated())
+			to_chat(usr, "<span class='warning'>You have moved too far away!</span>")
+			return
+		if(design == switchDesign)
+			return
+		to_chat(usr, "<span class='notice'>You make some modifications to [src] using your pen.</span>")
+		design = switchDesign
+		icon_state = "paperbag_[design]"
+		item_state = "paperbag_[design]"
+		switch(design)
+			if(NODESIGN)
+				desc = "A sack neatly crafted out of paper."
+			if(NANOTRASEN)
+				desc = "A standard Nanotrasen paper lunch sack for loyal employees on the go."
+			if(SYNDI)
+				desc = "The design on this paper sack is a remnant of the notorious 'SyndieSnacks' program."
+			if(HEART)
+				desc = "A paper sack with a heart etched onto the side."
+			if(SMILE)
+				desc = "A paper sack with a crude smile etched onto the side."
+		return
+	else if(is_sharp(W))
+		if(!contents.len)
+			if(item_state == "paperbag_None")
+				to_chat(user, "<span class='notice'>You cut eyeholes into [src].</span>")
+				new /obj/item/clothing/head/papersack(user.loc)
+				qdel(src)
+				return
+			else if(item_state == "paperbag_SmileyFace")
+				to_chat(user, "<span class='notice'>You cut eyeholes into [src] and modify the design.</span>")
+				new /obj/item/clothing/head/papersack/smiley(user.loc)
+				qdel(src)
+				return
+	return ..()
+
+#undef NODESIGN
+#undef NANOTRASEN
+#undef SYNDI
+#undef HEART
+#undef SMILE

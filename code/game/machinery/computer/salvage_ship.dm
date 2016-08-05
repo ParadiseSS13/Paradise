@@ -4,7 +4,8 @@
 /obj/machinery/computer/salvage_ship
 	name = "salvage ship terminal"
 	icon = 'icons/obj/computer.dmi'
-	icon_state = "syndishuttle"
+	icon_keyboard = "syndie_key"
+	icon_screen = "syndishuttle"
 	req_access = list(access_salvage_captain)
 	var/area/curr_location
 	var/moving = 0
@@ -43,12 +44,9 @@
 	src.add_hiddenprint(user)
 	return attack_hand(user)
 
-/obj/machinery/computer/salvage_ship/attack_paw(mob/user as mob)
-	return attack_hand(user)
-
 /obj/machinery/computer/salvage_ship/attack_hand(mob/user as mob)
 	if(!allowed(user))
-		user << "\red Access Denied"
+		to_chat(user, "\red Access Denied")
 		return
 
 	user.set_machine(src)

@@ -1,6 +1,7 @@
 /obj/structure/window/full
 	sheets = 2
 	dir=SOUTHWEST
+	level = 3
 
 /obj/structure/window/full/CheckExit(atom/movable/O as mob|obj, target as turf)
 	return 1
@@ -9,18 +10,6 @@
 	if(istype(mover) && mover.checkpass(PASSGLASS))
 		return 1
 	return 0
-
-/obj/structure/window/full/update_nearby_tiles(need_rebuild)
-	if(!air_master) return 0
-	if(!loc) return 0
-
-	var/turf/simulated/source = get_turf(src)
-	if(istype(source))
-		air_master.tiles_to_update |= source
-		for(var/dir in cardinal)
-			var/turf/simulated/target = get_step(source,dir)
-			if(istype(target)) air_master.tiles_to_update |= target
-	return 1
 
 /obj/structure/window/full/is_fulltile()
 	return 1
@@ -100,12 +89,18 @@
 	health = 160
 	reinf = 1
 
-	New()
-		..()
-		color = null
+/obj/structure/window/full/shuttle/New()
+	..()
+	color = null
 
-	update_icon() //icon_state has to be set manually
-		return
+/obj/structure/window/full/shuttle/update_icon() //icon_state has to be set manually
+	return
+
+/obj/structure/window/full/shuttle/shuttleRotate(rotation)
+	..()
+	var/matrix/M = transform
+	M.Turn(rotation)
+	transform = M
 
 /obj/structure/window/full/shuttle/dark
 	icon = 'icons/turf/shuttle.dmi'

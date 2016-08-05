@@ -9,11 +9,11 @@
 	var/datum/omni_port/input
 	var/datum/omni_port/output
 
-/obj/machinery/atmospherics/omni/filter/Del()
+/obj/machinery/atmospherics/omni/filter/Destroy()
 	input = null
 	output = null
 	filters.Cut()
-	..()
+	return ..()
 
 /obj/machinery/atmospherics/omni/filter/sort_ports()
 	for(var/datum/omni_port/P in ports)
@@ -43,23 +43,22 @@
 	return 0
 
 /obj/machinery/atmospherics/omni/filter/process()
-	..()
-	if(!on)
+	if(!..() || !on)
 		return 0
-	
+
 	if(!input || !output)
-		return
+		return 0
 
 	var/datum/gas_mixture/output_air = output.air	//BYOND doesn't like referencing "output.air.return_pressure()" so we need to make a direct reference
 	var/datum/gas_mixture/input_air = input.air		// it's completely happy with them if they're in a loop though i.e. "P.air.return_pressure()"... *shrug*
 
 	var/output_pressure = output_air.return_pressure()
-	
+
 	if(output_pressure >= target_pressure)
-		return
+		return 1
 	for(var/datum/omni_port/P in filters)
 		if(P.air.return_pressure() >= target_pressure)
-			return
+			return 1
 
 	var/pressure_delta = target_pressure - output_pressure
 
@@ -68,14 +67,14 @@
 
 	if(input.transfer_moles > 0)
 		var/datum/gas_mixture/removed = input_air.remove(input.transfer_moles)
-		
+
 		if(!removed)
-			return
-		
+			return 1
+
 		for(var/datum/omni_port/P in filters)
 			var/datum/gas_mixture/filtered_out = new
 			filtered_out.temperature = removed.return_temperature()
-			
+
 			switch(P.mode)
 				if(ATM_O2)
 					filtered_out.oxygen = removed.oxygen
@@ -97,20 +96,17 @@
 								filtered_out.trace_gases += trace_gas
 				else
 					filtered_out = null
-			
-			P.air.merge(filtered_out)
-			if(P.network)
-				P.network.update = 1
-		
-		output_air.merge(removed)
-		if(output.network)
-			output.network.update = 1
-		
-		input.transfer_moles = 0
-		if(input.network)
-			input.network.update = 1
 
-	return
+			P.air.merge(filtered_out)
+			P.parent.update = 1
+
+		output_air.merge(removed)
+		output.parent.update = 1
+
+		input.transfer_moles = 0
+		input.parent.update = 1
+
+	return 1
 
 /obj/machinery/atmospherics/omni/filter/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null)
 	usr.set_machine(src)
@@ -121,10 +117,9 @@
 
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data)
 
-	if (!ui)
+	if(!ui)
 		ui = new(user, src, ui_key, "omni_filter.tmpl", "Omni Filter Control", 330, 330)
 		ui.set_initial_data(data)
-
 		ui.open()
 
 /obj/machinery/atmospherics/omni/filter/proc/build_uidata()
@@ -181,7 +176,8 @@
 			return null
 
 /obj/machinery/atmospherics/omni/filter/Topic(href, href_list)
-	if(..()) return
+	if(..())
+		return 1
 	switch(href_list["command"])
 		if("power")
 			if(!configuring)

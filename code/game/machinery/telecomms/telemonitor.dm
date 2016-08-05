@@ -8,8 +8,8 @@
 
 
 /obj/machinery/computer/telecomms/monitor
-	name = "Telecommunications Monitor"
-	icon_state = "comm_monitor"
+	name = "telecommunications monitor"
+	icon_screen = "comm_monitor"
 
 	var/screen = 0				// the screen number:
 	var/list/machinelist = list()	// the machines located by the computer
@@ -18,9 +18,9 @@
 	var/network = "NULL"		// the network to probe
 
 	var/temp = ""				// temporary feedback messages
-	circuit = "/obj/item/weapon/circuitboard/comm_monitor"
-	
-	l_color = "#50AB00"
+	circuit = /obj/item/weapon/circuitboard/comm_monitor
+
+	light_color = LIGHT_COLOR_DARKGREEN
 
 	attack_hand(mob/user as mob)
 		if(stat & (BROKEN|NOPOWER))
@@ -129,30 +129,30 @@
 	attackby(var/obj/item/weapon/D as obj, var/mob/user as mob, params)
 		if(istype(D, /obj/item/weapon/screwdriver))
 			playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
-			if(do_after(user, 20))
-				if (src.stat & BROKEN)
-					user << "\blue The broken glass falls out."
+			if(do_after(user, 20, target = src))
+				if(src.stat & BROKEN)
+					to_chat(user, "\blue The broken glass falls out.")
 					var/obj/structure/computerframe/A = new /obj/structure/computerframe( src.loc )
-					getFromPool(/obj/item/weapon/shard, loc)
+					new /obj/item/weapon/shard(loc)
 					var/obj/item/weapon/circuitboard/comm_monitor/M = new /obj/item/weapon/circuitboard/comm_monitor( A )
-					for (var/obj/C in src)
+					for(var/obj/C in src)
 						C.loc = src.loc
 					A.circuit = M
 					A.state = 3
 					A.icon_state = "3"
 					A.anchored = 1
-					del(src)
+					qdel(src)
 				else
-					user << "\blue You disconnect the monitor."
+					to_chat(user, "\blue You disconnect the monitor.")
 					var/obj/structure/computerframe/A = new /obj/structure/computerframe( src.loc )
 					var/obj/item/weapon/circuitboard/comm_monitor/M = new /obj/item/weapon/circuitboard/comm_monitor( A )
-					for (var/obj/C in src)
+					for(var/obj/C in src)
 						C.loc = src.loc
 					A.circuit = M
 					A.state = 4
 					A.icon_state = "4"
 					A.anchored = 1
-					del(src)
+					qdel(src)
 		src.updateUsrDialog()
 		return
 
@@ -160,4 +160,4 @@
 		if(!emagged)
 			playsound(src.loc, 'sound/effects/sparks4.ogg', 75, 1)
 			emagged = 1
-			user << "\blue You you disable the security protocols"
+			to_chat(user, "\blue You you disable the security protocols")

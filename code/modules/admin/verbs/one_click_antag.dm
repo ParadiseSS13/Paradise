@@ -21,6 +21,7 @@ client/proc/one_click_antag()
 		<a href='?src=\ref[src];makeAntag=6'>Make Wizard (Requires Ghosts)</a><br>
 		<a href='?src=\ref[src];makeAntag=7'>Make Vampires</a><br>
 		<a href='?src=\ref[src];makeAntag=8'>Make Vox Raiders (Requires Ghosts)</a><br>
+		<a href='?src=\ref[src];makeAntag=9'>Make Abductor Team (Requires Ghosts)</a><br>
 		"}
 	usr << browse(dat, "window=oneclickantag;size=400x400")
 	return
@@ -33,7 +34,7 @@ client/proc/one_click_antag()
 	var/datum/mind/themind = null
 
 	for(var/mob/living/silicon/ai/ai in player_list)
-		if(ai.client && ai.client.prefs.be_special & BE_MALF)
+		if(ai.client && (ROLE_MALF in ai.client.prefs.be_special))
 			AIs += ai
 
 	if(AIs.len)
@@ -57,11 +58,11 @@ client/proc/one_click_antag()
 	var/mob/living/carbon/human/H = null
 
 	for(var/mob/living/carbon/human/applicant in player_list)
-		if(applicant.client.prefs.be_special & BE_TRAITOR)
-			if(player_old_enough_antag(applicant.client,BE_TRAITOR))
+		if(ROLE_TRAITOR in applicant.client.prefs.be_special)
+			if(player_old_enough_antag(applicant.client,ROLE_TRAITOR))
 				if(!applicant.stat)
 					if(applicant.mind)
-						if (!applicant.mind.special_role)
+						if(!applicant.mind.special_role)
 							if(!jobban_isbanned(applicant, "traitor") && !jobban_isbanned(applicant, "Syndicate"))
 								if(!(applicant.mind.assigned_role in temp.restricted_jobs))
 									if(!(applicant.client.prefs.species in temp.protected_species))
@@ -91,11 +92,11 @@ client/proc/one_click_antag()
 	var/mob/living/carbon/human/H = null
 
 	for(var/mob/living/carbon/human/applicant in player_list)
-		if(applicant.client.prefs.be_special & BE_CHANGELING)
-			if(player_old_enough_antag(applicant.client,BE_CHANGELING))
+		if(ROLE_CHANGELING in applicant.client.prefs.be_special)
+			if(player_old_enough_antag(applicant.client,ROLE_CHANGELING))
 				if(!applicant.stat)
 					if(applicant.mind)
-						if (!applicant.mind.special_role)
+						if(!applicant.mind.special_role)
 							if(!jobban_isbanned(applicant, "changeling") && !jobban_isbanned(applicant, "Syndicate"))
 								if(!(applicant.mind.assigned_role in temp.restricted_jobs))
 									if(!(applicant.client.prefs.species in temp.protected_species))
@@ -123,8 +124,8 @@ client/proc/one_click_antag()
 	var/mob/living/carbon/human/H = null
 
 	for(var/mob/living/carbon/human/applicant in player_list)
-		if(applicant.client.prefs.be_special & BE_REV)
-			if(player_old_enough_antag(applicant.client,BE_REV))
+		if(ROLE_REV in applicant.client.prefs.be_special)
+			if(player_old_enough_antag(applicant.client,ROLE_REV))
 				if(applicant.stat == CONSCIOUS)
 					if(applicant.mind)
 						if(!applicant.mind.special_role)
@@ -145,40 +146,16 @@ client/proc/one_click_antag()
 	return 0
 
 /datum/admins/proc/makeWizard()
-	var/list/mob/candidates = list()
-	var/mob/theghost = null
-	var/time_passed = world.time
 
-	for(var/mob/G in respawnable_list)
-		if(G.client.prefs.be_special & BE_WIZARD)
-			if(!jobban_isbanned(G, "wizard") && !jobban_isbanned(G, "Syndicate"))
-				if(player_old_enough_antag(G.client,BE_WIZARD))
-					spawn(0)
-						switch(G.timed_alert("Do you wish to be considered for the position of Space Wizard Foundation 'diplomat'?","Please answer in 30 seconds!","No",300,"Yes","No"))//alert(G, "Do you wish to be considered for the position of Space Wizard Foundation 'diplomat'?","Please answer in 30 seconds!","Yes","No"))
-							if("Yes")
-								if((world.time-time_passed)>300)//If more than 30 game seconds passed.
-									return
-								candidates += G
-							if("No")
-								return
-							else
-								return
-
-	sleep(300)
+	var/list/candidates = pollCandidates("Do you wish to be considered for the position of a Wizard Foundation 'diplomat'?", "wizard")
 
 	if(candidates.len)
-		shuffle(candidates)
-		for(var/mob/i in candidates)
-			if(!i || !i.client) continue //Dont bother removing them from the list since we only grab one wizard
+		var/mob/dead/observer/selected = pick(candidates)
+		candidates -= selected
 
-			theghost = i
-			break
-
-	if(theghost)
-		var/mob/living/carbon/human/new_character=makeBody(theghost)
+		var/mob/living/carbon/human/new_character = makeBody(selected)
 		new_character.mind.make_Wizard()
 		return 1
-
 	return 0
 
 
@@ -192,8 +169,8 @@ client/proc/one_click_antag()
 	var/mob/living/carbon/human/H = null
 
 	for(var/mob/living/carbon/human/applicant in player_list)
-		if(applicant.client.prefs.be_special & BE_CULTIST)
-			if(player_old_enough_antag(applicant.client,BE_CULTIST))
+		if(ROLE_CULTIST in applicant.client.prefs.be_special)
+			if(player_old_enough_antag(applicant.client,ROLE_CULTIST))
 				if(applicant.stat == CONSCIOUS)
 					if(applicant.mind)
 						if(!applicant.mind.special_role)
@@ -224,9 +201,9 @@ client/proc/one_click_antag()
 	var/time_passed = world.time
 
 	for(var/mob/G in respawnable_list)
-		if(G.client.prefs.be_special & BE_OPERATIVE)
+		if(istype(G) && G.client && (ROLE_OPERATIVE in G.client.prefs.be_special))
 			if(!jobban_isbanned(G, "operative") && !jobban_isbanned(G, "Syndicate"))
-				if(player_old_enough_antag(G.client,BE_OPERATIVE))
+				if(player_old_enough_antag(G.client,ROLE_OPERATIVE))
 					spawn(0)
 						switch(alert(G,"Do you wish to be considered for a nuke team being sent in?","Please answer in 30 seconds!","Yes","No"))
 							if("Yes")
@@ -276,15 +253,15 @@ client/proc/one_click_antag()
 		if(closet_spawn)
 			new /obj/structure/closet/syndicate/nuclear(closet_spawn.loc)
 
-		for (var/obj/effect/landmark/A in /area/syndicate_station/start)//Because that's the only place it can BE -Sieve
-			if (A.name == "Syndicate-Gear-Closet")
+		for(var/obj/effect/landmark/A in /area/syndicate_station/start)//Because that's the only place it can BE -Sieve
+			if(A.name == "Syndicate-Gear-Closet")
 				new /obj/structure/closet/syndicate/personal(A.loc)
-				del(A)
+				qdel(A)
 				continue
 
-			if (A.name == "Syndicate-Bomb")
+			if(A.name == "Syndicate-Bomb")
 				new /obj/effect/spawner/newbomb/timer/syndicate(A.loc)
-				del(A)
+				qdel(A)
 				continue
 
 		for(var/datum/mind/synd_mind in ticker.mode.syndicates)
@@ -292,7 +269,7 @@ client/proc/one_click_antag()
 				if(synd_mind.current.client)
 					for(var/image/I in synd_mind.current.client.images)
 						if(I.icon_state == "synd")
-							del(I)
+							qdel(I)
 
 		for(var/datum/mind/synd_mind in ticker.mode.syndicates)
 			if(synd_mind.current)
@@ -302,14 +279,16 @@ client/proc/one_click_antag()
 							var/I = image('icons/mob/mob.dmi', loc = synd_mind_1.current, icon_state = "synd")
 							synd_mind.current.client.images += I
 
-		for (var/obj/machinery/nuclearbomb/bomb in world)
+		for(var/obj/machinery/nuclearbomb/bomb in world)
 			bomb.r_code = nuke_code						// All the nukes are set to this code.
 
 	return 1
 
 
-
-
+//Abductors
+/datum/admins/proc/makeAbductorTeam()
+	new /datum/event/abductor
+	return 1
 
 /datum/admins/proc/makeAliens()
 	alien_infestation(3)
@@ -353,10 +332,10 @@ client/proc/one_click_antag()
 	if(candidates.len)
 		var/numagents = 6
 		//Spawns commandos and equips them.
-		for (var/obj/effect/landmark/L in /area/syndicate_mothership/elite_squad)
+		for(var/obj/effect/landmark/L in /area/syndicate_mothership/elite_squad)
 			if(numagents<=0)
 				break
-			if (L.name == "Syndicate-Commando")
+			if(L.name == "Syndicate-Commando")
 				syndicate_leader_selected = numagents == 1?1:0
 
 				var/mob/living/carbon/human/new_syndicate_commando = create_syndicate_death_commando(L, syndicate_leader_selected)
@@ -367,24 +346,24 @@ client/proc/one_click_antag()
 					candidates.Remove(theghost)
 
 				if(!theghost)
-					del(new_syndicate_commando)
+					qdel(new_syndicate_commando)
 					break
 
 				new_syndicate_commando.key = theghost.key
 				new_syndicate_commando.internal = new_syndicate_commando.s_store
-				new_syndicate_commando.internals.icon_state = "internal1"
+				new_syndicate_commando.update_internals_hud_icon(1)
 
 				//So they don't forget their code or mission.
 
 
-				new_syndicate_commando << "\blue You are an Elite Syndicate. [!syndicate_leader_selected?"commando":"<B>LEADER</B>"] in the service of the Syndicate. \nYour current mission is: \red<B> [input]</B>"
+				to_chat(new_syndicate_commando, "\blue You are an Elite Syndicate. [!syndicate_leader_selected?"commando":"<B>LEADER</B>"] in the service of the Syndicate. \nYour current mission is: \red<B> [input]</B>")
 
 				numagents--
 		if(numagents >= 6)
 			return 0
 
-		for (var/obj/effect/landmark/L in /area/shuttle/syndicate_elite)
-			if (L.name == "Syndicate-Commando-Bomb")
+		for(var/obj/effect/landmark/L in /area/shuttle/syndicate_elite)
+			if(L.name == "Syndicate-Commando-Bomb")
 				new /obj/effect/spawner/newbomb/timer/syndicate(L.loc)
 
 	return 1
@@ -396,16 +375,8 @@ client/proc/one_click_antag()
 	//First we spawn a dude.
 	var/mob/living/carbon/human/new_character = new(pick(latejoin))//The mob being spawned.
 
-	new_character.gender = pick(MALE,FEMALE)
-
-	var/datum/preferences/A = new()
-	A.randomize_appearance_for(new_character)
-	if(new_character.gender == MALE)
-		new_character.real_name = "[pick(first_names_male)] [pick(last_names)]"
-	else
-		new_character.real_name = "[pick(first_names_female)] [pick(last_names)]"
-	new_character.name = new_character.real_name
-	new_character.age = rand(17,45)
+	var/datum/preferences/A = new(G_found.client)
+	A.copy_to(new_character)
 
 	new_character.dna.ready_dna(new_character)
 	new_character.key = G_found.key
@@ -418,14 +389,13 @@ client/proc/one_click_antag()
 	var/syndicate_commando_rank = pick("Corporal", "Sergeant", "Staff Sergeant", "Sergeant 1st Class", "Master Sergeant", "Sergeant Major")
 	var/syndicate_commando_name = pick(last_names)
 
-	new_syndicate_commando.gender = pick(MALE, FEMALE)
-
 	var/datum/preferences/A = new()//Randomize appearance for the commando.
-	A.randomize_appearance_for(new_syndicate_commando)
-
-	new_syndicate_commando.real_name = "[!syndicate_leader_selected ? syndicate_commando_rank : syndicate_commando_leader_rank] [syndicate_commando_name]"
-	new_syndicate_commando.name = new_syndicate_commando.real_name
-	new_syndicate_commando.age = !syndicate_leader_selected ? rand(23,35) : rand(35,45)
+	if(syndicate_leader_selected)
+		A.real_name = "[syndicate_commando_leader_rank] [syndicate_commando_name]"
+		A.age = rand(35,45)
+	else
+		A.real_name = "[syndicate_commando_rank] [syndicate_commando_name]"
+	A.copy_to(new_syndicate_commando)
 
 	new_syndicate_commando.dna.ready_dna(new_syndicate_commando)//Creates DNA.
 
@@ -451,8 +421,8 @@ client/proc/one_click_antag()
 
 	//Generates a list of candidates from active ghosts.
 	for(var/mob/G in respawnable_list)
-		if(G.client.prefs.be_special & BE_RAIDER)
-			if(player_old_enough_antag(G.client,BE_RAIDER))
+		if(istype(G) && G.client && (ROLE_RAIDER in G.client.prefs.be_special))
+			if(player_old_enough_antag(G.client,ROLE_RAIDER))
 				if(!jobban_isbanned(G, "raider") && !jobban_isbanned(G, "Syndicate"))
 					spawn(0)
 						switch(alert(G,"Do you wish to be considered for a vox raiding party arriving on the station?","Please answer in 30 seconds!","Yes","No"))
@@ -475,7 +445,7 @@ client/proc/one_click_antag()
 		var/max_raiders = 1
 		var/raiders = max_raiders
 		//Spawns vox raiders and equips them.
-		for (var/obj/effect/landmark/L in world)
+		for(var/obj/effect/landmark/L in world)
 			if(L.name == "voxstart")
 				if(raiders<=0)
 					break
@@ -487,12 +457,14 @@ client/proc/one_click_antag()
 					candidates.Remove(theghost)
 
 				if(!theghost)
-					del(new_vox)
+					qdel(new_vox)
 					break
 
 				new_vox.key = theghost.key
-				new_vox << "\blue You are a Vox Primalis, fresh out of the Shoal. Your ship has arrived at the Tau Ceti system hosting the NSV Exodus... or was it the Luna? NSS? Utopia? Nobody is really sure, but everyong is raring to start pillaging! Your current goal is: \red<B> [input]</B>"
-				new_vox << "\red Don't forget to turn on your nitrogen internals!"
+				ticker.mode.traitors += new_vox.mind
+
+				to_chat(new_vox, "\blue You are a Vox Primalis, fresh out of the Shoal. Your ship has arrived at the Tau Ceti system hosting the NSV Exodus... or was it the Luna? NSS? Utopia? Nobody is really sure, but everyong is raring to start pillaging! Your current goal is: \red<B> [input]</B>")
+				to_chat(new_vox, "\red Don't forget to turn on your nitrogen internals!")
 
 				raiders--
 			if(raiders > max_raiders)
@@ -503,8 +475,6 @@ client/proc/one_click_antag()
 
 /datum/admins/proc/create_vox_raider(obj/spawn_location, leader_chosen = 0)
 
-	var/mob/living/carbon/human/new_vox = new(spawn_location.loc, "Vox")
-
 	var/sounds = rand(2,8)
 	var/i = 0
 	var/newname = ""
@@ -513,33 +483,33 @@ client/proc/one_click_antag()
 		i++
 		newname += pick(list("ti","hi","ki","ya","ta","ha","ka","ya","chi","cha","kah"))
 
+	var/mob/living/carbon/human/new_vox = new /mob/living/carbon/human/vox(spawn_location.loc)
+
+	new_vox.add_language("Tradeband")
 	new_vox.real_name = capitalize(newname)
+	new_vox.dna.real_name = new_vox.real_name
 	new_vox.name = new_vox.real_name
 	new_vox.age = rand(12,20)
-	new_vox.dna.mutantrace = "vox"
-	new_vox.set_species("Vox")
-	new_vox.languages = list() // Removing language from chargen.
 	new_vox.flavor_text = ""
-	new_vox.add_language("Vox-pidgin")
-	new_vox.add_language("Galactic Common")
-	new_vox.add_language("Tradeband")
-	new_vox.h_style = "Short Vox Quills"
-	new_vox.f_style = "Shaved"
+	new_vox.change_eye_color(rand(1, 255), rand(1, 255), rand(1, 255))
+	new_vox.s_tone = rand(1, 6)
+
+	// Do the initial caching of the player's body icons.
+	new_vox.force_update_limbs()
+	new_vox.update_dna()
+	new_vox.update_eyes()
 
 	for(var/obj/item/organ/external/limb in new_vox.organs)
 		limb.status &= ~(ORGAN_DESTROYED | ORGAN_ROBOT)
 
 	//Now apply cortical stack.
-	var/obj/item/organ/external/E = new_vox.get_organ("head")
 	var/obj/item/weapon/implant/cortical/I = new(new_vox)
 	I.imp_in = new_vox
 	I.implanted = 1
-	I.part = E
-	E.implants += I
 	cortical_stacks += I
 
-	ticker.mode.traitors += new_vox.mind
 	new_vox.equip_vox_raider()
+	new_vox.regenerate_icons()
 
 	return new_vox
 
@@ -553,11 +523,11 @@ client/proc/one_click_antag()
 	var/mob/living/carbon/human/H = null
 
 	for(var/mob/living/carbon/human/applicant in player_list)
-		if(applicant.client.prefs.be_special & BE_VAMPIRE)
-			if(player_old_enough_antag(applicant.client,BE_VAMPIRE))
+		if(ROLE_VAMPIRE in applicant.client.prefs.be_special)
+			if(player_old_enough_antag(applicant.client,ROLE_VAMPIRE))
 				if(!applicant.stat)
 					if(applicant.mind)
-						if (!applicant.mind.special_role)
+						if(!applicant.mind.special_role)
 							if(!jobban_isbanned(applicant, "vampire") && !jobban_isbanned(applicant, "Syndicate"))
 								if(!(applicant.job in temp.restricted_jobs))
 									if(!(applicant.client.prefs.species in temp.protected_species))
@@ -568,7 +538,9 @@ client/proc/one_click_antag()
 
 		for(var/i = 0, i<numVampires, i++)
 			H = pick(candidates)
-			H.make_vampire()
+			ticker.mode.vampires += H.mind
+			ticker.mode.grant_vampire_powers(H)
+			ticker.mode.update_vampire_icons_added(H.mind)
 			candidates.Remove(H)
 
 		return 1
@@ -604,21 +576,14 @@ client/proc/one_click_antag()
 		var/teamOneMembers = 5
 		var/teamTwoMembers = 5
 		var/datum/preferences/A = new()
-		for (var/obj/effect/landmark/L in world)
+		for(var/obj/effect/landmark/L in world)
 			if(L.name == "tdome1")
 				if(teamOneMembers<=0)
 					break
 
 				var/mob/living/carbon/human/newMember = new(L.loc)
 
-				newMember.gender = pick(MALE,FEMALE)
-				A.randomize_appearance_for(newMember)
-				if(newMember.gender == MALE)
-					newMember.real_name = "[pick(first_names_male)] [pick(last_names)]"
-				else
-					newMember.real_name = "[pick(first_names_female)] [pick(last_names)]"
-				newMember.name = newMember.real_name
-				newMember.age = rand(17,45)
+				A.copy_to(newMember)
 
 				newMember.dna.ready_dna(newMember)
 
@@ -632,7 +597,7 @@ client/proc/one_click_antag()
 
 				newMember.key = theghost.key
 				teamOneMembers--
-				newMember << "You are a member of the <font color = 'green'><b>GREEN</b></font> Thunderdome team! Gear up and help your team destroy the red team!"
+				to_chat(newMember, "You are a member of the <font color = 'green'><b>GREEN</b></font> Thunderdome team! Gear up and help your team destroy the red team!")
 
 			if(L.name == "tdome2")
 				if(teamTwoMembers<=0)
@@ -640,14 +605,7 @@ client/proc/one_click_antag()
 
 				var/mob/living/carbon/human/newMember = new(L.loc)
 
-				newMember.gender = pick(MALE,FEMALE)
-				A.randomize_appearance_for(newMember)
-				if(newMember.gender == MALE)
-					newMember.real_name = "[pick(first_names_male)] [pick(last_names)]"
-				else
-					newMember.real_name = "[pick(first_names_female)] [pick(last_names)]"
-				newMember.name = newMember.real_name
-				newMember.age = rand(17,45)
+				A.copy_to(newMember)
 
 				newMember.dna.ready_dna(newMember)
 
@@ -661,7 +619,7 @@ client/proc/one_click_antag()
 
 				newMember.key = theghost.key
 				teamTwoMembers--
-				newMember << "You are a member of the <font color = 'red'><b>RED</b></font> Thunderdome team! Gear up and help your team destroy the green team!"
+				to_chat(newMember, "You are a member of the <font color = 'red'><b>RED</b></font> Thunderdome team! Gear up and help your team destroy the green team!")
 	else
 		return 0
 	return 1

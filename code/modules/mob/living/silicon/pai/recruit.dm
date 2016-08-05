@@ -231,7 +231,7 @@ var/datum/paiController/paiController			// Global handler for pAI candidates
 		M << browse(dat, "window=paiRecruit;size=580x580;")
 
 	proc/findPAI(var/obj/item/device/paicard/p, var/mob/user)
-		requestRecruits()
+		requestRecruits(p, user)
 		var/list/available = list()
 		for(var/datum/paiCandidate/c in paiController.pai_candidates)
 			if(c.ready)
@@ -346,17 +346,18 @@ var/datum/paiController/paiController			// Global handler for pAI candidates
 
 		user << browse(dat, "window=findPai")
 
-	proc/requestRecruits()
+	proc/requestRecruits(var/obj/item/device/paicard/P, mob/user)
 		for(var/mob/dead/observer/O in player_list)
-			if(O.client && O.client.prefs.be_special & BE_PAI)
-				if(player_old_enough_antag(O.client,BE_PAI))
+			if(O.client && (ROLE_PAI in O.client.prefs.be_special))
+				if(player_old_enough_antag(O.client,ROLE_PAI))
 					if(check_recruit(O))
-						O << "\blue <b>A pAI card is looking for personalities. (<a href='?src=\ref[src];signup=\ref[O]'>Sign Up</a>)</b>"
+						to_chat(O, "\blue <b>A pAI card activated by [user.real_name] is looking for personalities. (<a href='?src=\ref[O];jump=\ref[P]'>Teleport</a> | <a href='?src=\ref[src];signup=\ref[O]'>Sign Up</a>)</b>")
 						//question(O.client)
+
 	proc/check_recruit(var/mob/dead/observer/O)
-		if(jobban_isbanned(O, "pAI") || jobban_isbanned(O,"nonhumandept"))
+		if(jobban_isbanned(O, ROLE_PAI) || jobban_isbanned(O,"nonhumandept"))
 			return 0
-		if(!player_old_enough_antag(O.client,BE_PAI))
+		if(!player_old_enough_antag(O.client,ROLE_PAI))
 			return 0
 		if(O.has_enabled_antagHUD == 1 && config.antag_hud_restricted)
 			return 0
@@ -373,7 +374,7 @@ var/datum/paiController/paiController			// Global handler for pAI candidates
 			if(!C)	return		//handle logouts that happen whilst the alert is waiting for a response.
 			if(response == "Yes")
 				recruitWindow(C.mob)
-			else if (response == "Never for this round")
+			else if(response == "Never for this round")
 				var/warning = alert(C, "Are you sure? This action will be undoable and you will need to wait until next round.", "You sure?", "Yes", "No")
 				if(warning == "Yes")
 					asked[C.key] = INFINITY

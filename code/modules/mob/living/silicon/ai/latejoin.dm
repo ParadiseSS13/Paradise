@@ -16,7 +16,7 @@ var/global/list/empty_playable_ai_cores = list()
 	set desc = "Wipe your core. This is functionally equivalent to cryo or robotic storage, freeing up your job slot."
 
 	if(ticker && ticker.mode && ticker.mode.name == "AI malfunction")
-		usr << "<span class='danger'>You cannot use this verb in malfunction. If you need to leave, please adminhelp.</span>"
+		to_chat(usr, "<span class='danger'>You cannot use this verb in malfunction. If you need to leave, please adminhelp.</span>")
 		return
 
 	// Guard against misclicks, this isn't the sort of thing we want happening accidentally
@@ -34,11 +34,11 @@ var/global/list/empty_playable_ai_cores = list()
 	job_master.FreeRole(job)
 
 	if(mind.objectives.len)
-		del(mind.objectives)
+		mind.objectives.Cut()
 		mind.special_role = null
 	else
 		if(ticker.mode.name == "AutoTraitor")
 			var/datum/game_mode/traitor/autotraitor/current_mode = ticker.mode
 			current_mode.possible_traitors.Remove(src)
 
-	del(src)
+	qdel(src)

@@ -18,32 +18,33 @@
 
 /obj/structure/largecrate/attack_hand(mob/user as mob)
 	if(manifest)
-		user << "<span class='notice'>You tear the manifest off of the crate.</span>"
+		to_chat(user, "<span class='notice'>You tear the manifest off of the crate.</span>")
 		playsound(src.loc, 'sound/items/poster_ripped.ogg', 75, 1)
-		manifest.loc = loc
+		manifest.forceMove(loc)
 		if(ishuman(user))
 			user.put_in_hands(manifest)
 		manifest = null
 		update_icon()
 		return
 	else
-		user << "<span class='notice'>You need a crowbar to pry this open!</span>"
+		to_chat(user, "<span class='notice'>You need a crowbar to pry this open!</span>")
 		return
 
 /obj/structure/largecrate/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/weapon/crowbar))
 		if(manifest)
-			manifest.loc = loc
+			manifest.forceMove(loc)
 			manifest = null
 			update_icon()
 		new /obj/item/stack/sheet/wood(src)
 		var/turf/T = get_turf(src)
-		for(var/obj/O in contents)
-			O.loc = T
+		for(var/O in contents)
+			var/atom/movable/A = O
+			A.forceMove(T)
 		user.visible_message("<span class='notice'>[user] pries \the [src] open.</span>", \
 							 "<span class='notice'>You pry open \the [src].</span>", \
 							 "<span class='notice'>You hear splitting wood.</span>")
-		del(src)
+		qdel(src)
 	else
 		return attack_hand(user)
 
@@ -55,7 +56,7 @@
 
 /obj/structure/largecrate/lisa/attackby(obj/item/weapon/W as obj, mob/user as mob)	//ugly but oh well
 	if(istype(W, /obj/item/weapon/crowbar))
-		new /mob/living/simple_animal/corgi/Lisa(loc)
+		new /mob/living/simple_animal/pet/corgi/Lisa(loc)
 	..()
 
 /obj/structure/largecrate/cow
@@ -93,5 +94,5 @@
 
 /obj/structure/largecrate/cat/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/weapon/crowbar))
-		new /mob/living/simple_animal/cat(loc)
+		new /mob/living/simple_animal/pet/cat(loc)
 	..()

@@ -35,15 +35,15 @@ mob/spirit/proc/Spirit_Move(direct)
 	var/obj/cult_viewpoint/currentView = getCultViewpoint(target)
 	var/mob/spirit/U = usr
 
-	if (!currentView)
-		U << "As a spirit, you may only track cultists."
+	if(!currentView)
+		to_chat(U, "As a spirit, you may only track cultists.")
 
 	U.follow_target = target
-	U << "Now following [currentView.get_cult_name()]."
+	to_chat(U, "Now following [currentView.get_cult_name()].")
 
 	spawn (0)
-		while (U.follow_target == target)
-			if (U.follow_target == null)
+		while(U.follow_target == target)
+			if(U.follow_target == null)
 				return
 			U.setLoc(get_turf(target))
 			sleep(10)
@@ -58,4 +58,4 @@ mob/spirit/verb/toggle_acceleration()
 	set name = "Toggle Acceleration"
 
 	acceleration = !acceleration
-	usr << "Acceleration has been toggled [acceleration ? "on" : "off"]."
+	to_chat(usr, "Acceleration has been toggled [acceleration ? "on" : "off"].")

@@ -7,11 +7,11 @@
 	hitsound = 'sound/weapons/smash.ogg'
 	flags = CONDUCT
 	throwforce = 10
-	w_class = 3.0
+	w_class = 3
 	throw_speed = 2
 	throw_range = 7
 	force = 10
-	m_amt = 90
+	materials = list(MAT_METAL=90)
 	attack_verb = list("slammed", "whacked", "bashed", "thunked", "battered", "bludgeoned", "thrashed")
 	var/max_water = 50
 	var/last_use = 1.0
@@ -29,21 +29,19 @@
 	hitsound = null	//it is much lighter, after all.
 	flags = null //doesn't CONDUCT
 	throwforce = 2
-	w_class = 2.0
+	w_class = 2
 	force = 3.0
-	m_amt = 0
+	materials = list()
 	max_water = 30
 	sprite_name = "miniFE"
-	
-/obj/item/weapon/extinguisher/examine()
-	set src in usr
 
-	usr << "\icon[src] [src.name] contains:"
-	if(reagents && reagents.reagent_list.len)
-		for(var/datum/reagent/R in reagents.reagent_list)
-			usr << "\blue [R.volume] units of [R.name]"
-	..()
-	return
+/obj/item/weapon/extinguisher/examine(mob/user)
+	if(..(user, 0))
+		to_chat(usr, "[bicon(src)] [src.name] contains:")
+		if(reagents && reagents.reagent_list.len)
+			for(var/datum/reagent/R in reagents.reagent_list)
+				to_chat(user, "\blue [R.volume] units of [R.name]")
+
 
 /obj/item/weapon/extinguisher/New()
 	create_reagents(max_water)
@@ -53,7 +51,7 @@
 	safety = !safety
 	src.icon_state = "[sprite_name][!safety]"
 	src.desc = "The safety is [safety ? "on" : "off"]."
-	user << "The safety is [safety ? "on" : "off"]."
+	to_chat(user, "The safety is [safety ? "on" : "off"].")
 	return
 
 /obj/item/weapon/extinguisher/proc/AttemptRefill(atom/target, mob/user)
@@ -61,18 +59,18 @@
 		var/safety_save = safety
 		safety = 1
 		if(reagents.total_volume == reagents.maximum_volume)
-			user << "<span class='notice'>\The [src] is already full!</span>"
+			to_chat(user, "<span class='notice'>\The [src] is already full!</span>")
 			safety = safety_save
 			return 1
 		var/obj/structure/reagent_dispensers/watertank/W = target
 		var/transferred = W.reagents.trans_to(src, max_water)
 		if(transferred > 0)
-			user << "<span class='notice'>\The [src] has been refilled by [transferred] units</span>"
+			to_chat(user, "<span class='notice'>\The [src] has been refilled by [transferred] units</span>")
 			playsound(src.loc, 'sound/effects/refill.ogg', 50, 1, -6)
 			for(var/datum/reagent/water/R in reagents.reagent_list)
 				R.cooling_temperature = cooling_power
 		else
-			user << "<span class='notice'>\The [W] is empty!</span>"
+			to_chat(user, "<span class='notice'>\The [W] is empty!</span>")
 		safety = safety_save
 		return 1
 	else
@@ -85,12 +83,12 @@
 	var/Refill = AttemptRefill(target, user)
 	if(Refill)
 		return
-	if (!safety)
-		if (src.reagents.total_volume < 1)
-			usr << "<span class='danger'>\The [src] is empty.</span>"
+	if(!safety)
+		if(src.reagents.total_volume < 1)
+			to_chat(usr, "<span class='danger'>\The [src] is empty.</span>")
 			return
 
-		if (world.time < src.last_use + 20)
+		if(world.time < src.last_use + 20)
 			return
 
 		src.last_use = world.time
@@ -107,27 +105,29 @@
 				var/obj/B = usr.buckled
 				var/movementdirection = turn(direction,180)
 				if(C)	C.propelled = 4
-				B.Move(get_step(usr,movementdirection), movementdirection)
+				step(B, movementdirection)
 				sleep(1)
-				B.Move(get_step(usr,movementdirection), movementdirection)
+				step(B, movementdirection)
 				if(C)	C.propelled = 3
 				sleep(1)
-				B.Move(get_step(usr,movementdirection), movementdirection)
+				step(B, movementdirection)
 				sleep(1)
-				B.Move(get_step(usr,movementdirection), movementdirection)
+				step(B, movementdirection)
 				if(C)	C.propelled = 2
 				sleep(2)
-				B.Move(get_step(usr,movementdirection), movementdirection)
+				step(B, movementdirection)
 				if(C)	C.propelled = 1
 				sleep(2)
-				B.Move(get_step(usr,movementdirection), movementdirection)
+				step(B, movementdirection)
 				if(C)	C.propelled = 0
 				sleep(3)
-				B.Move(get_step(usr,movementdirection), movementdirection)
+				step(B, movementdirection)
 				sleep(3)
-				B.Move(get_step(usr,movementdirection), movementdirection)
+				step(B, movementdirection)
 				sleep(3)
-				B.Move(get_step(usr,movementdirection), movementdirection)
+				step(B, movementdirection)
+
+		else user.newtonian_move(turn(direction, 180))
 
 		var/turf/T = get_turf(target)
 		var/turf/T1 = get_step(T,turn(direction, 90))
@@ -160,12 +160,8 @@
 						if(isliving(atm)) //For extinguishing mobs on fire
 							var/mob/living/M = atm
 							M.ExtinguishMob()
+
 					if(W.loc == my_target) break
 					sleep(2)
-
-		if(!has_gravity(user))
-			user.inertia_dir = get_dir(target, user)
-			step(user, user.inertia_dir)
 	else
 		return ..()
-		

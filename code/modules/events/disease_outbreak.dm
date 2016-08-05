@@ -1,44 +1,38 @@
 /datum/event/disease_outbreak
-	announceWhen	= 15
-	oneShot			= 1
+	announceWhen = 15
 
-/datum/event/disease_outbreak/announce()
-	command_announcement.Announce("Confirmed outbreak of level 7 viral biohazard aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert", new_sound = 'sound/AI/outbreak7.ogg')
+	var/virus_type
 
 /datum/event/disease_outbreak/setup()
 	announceWhen = rand(15, 30)
 
+/datum/event/disease_outbreak/announce()
+	command_announcement.Announce("Confirmed outbreak of level 7 major viral biohazard aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert", new_sound = 'sound/AI/outbreak7.ogg')
+
 /datum/event/disease_outbreak/start()
-	var/virus_type = pick(/datum/disease/dnaspread, /datum/disease/advance/flu, /datum/disease/advance/cold, /datum/disease/brainrot, /datum/disease/magnitis)
+	if(!virus_type)
+		virus_type = pick(/datum/disease/advance/flu, /datum/disease/advance/cold, /datum/disease/brainrot, /datum/disease/magnitis)
 
 	for(var/mob/living/carbon/human/H in shuffle(living_mob_list))
-		var/foundAlready = 0	// don't infect someone that already has the virus
+		if(issmall(H)) //don't infect monkies; that's a waste
+			continue
+		if(H.species.virus_immune) //don't let virus immune things get diseases they're not supposed to get.
+			continue
 		var/turf/T = get_turf(H)
 		if(!T)
 			continue
-		if(!(T.z in config.station_levels))
+		// TODO: Tie into space manager
+		if(T.z != ZLEVEL_STATION)
 			continue
+		var/foundAlready = 0	// don't infect someone that already has the virus
 		for(var/datum/disease/D in H.viruses)
 			foundAlready = 1
-		if(H.stat == 2 || foundAlready)
+			break
+		if(H.stat == DEAD || foundAlready)
 			continue
 
-		if(virus_type == /datum/disease/dnaspread)		//Dnaspread needs strain_data set to work.
-			if((!H.dna) || (H.sdisabilities & BLIND))	//A blindness disease would be the worst.
-				continue
-			var/datum/disease/dnaspread/D = new
-			D.strain_data["name"] = H.real_name
-			D.strain_data["UI"] = H.dna.UI.Copy()
-			D.strain_data["SE"] = H.dna.SE.Copy()
-			D.carrier = 1
-			D.holder = H
-			D.affected_mob = H
-			H.viruses += D
-			break
-		else
-			var/datum/disease/D = new virus_type
-			D.carrier = 1
-			D.holder = H
-			D.affected_mob = H
-			H.viruses += D
-			break
+		var/datum/disease/D
+		D = new virus_type()
+		D.carrier = 1
+		H.AddDisease(D)
+		break

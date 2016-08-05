@@ -7,21 +7,20 @@
 	sharp = 1
 	edge = 1
 	desc = "Could probably be used as ... a throwing weapon?"
-	w_class = 1.0
+	w_class = 1
 	force = 5.0
 	throwforce = 10.0
 	item_state = "shard-glass"
-	g_amt = MINERAL_MATERIAL_AMOUNT
+	materials = list(MAT_GLASS=MINERAL_MATERIAL_AMOUNT)
 	attack_verb = list("stabbed", "slashed", "sliced", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 
 /obj/item/weapon/shard/suicide_act(mob/user)
-		viewers(user) << pick("\red <b>[user] is slitting \his wrists with \the [src]! It looks like \he's trying to commit suicide.</b>", \
-							"\red <b>[user] is slitting \his throat with \the [src]! It looks like \he's trying to commit suicide.</b>")
+		to_chat(viewers(user), pick("\red <b>[user] is slitting \his wrists with \the [src]! It looks like \he's trying to commit suicide.</b>",
+									"\red <b>[user] is slitting \his throat with \the [src]! It looks like \he's trying to commit suicide.</b>"))
 		return (BRUTELOSS)
 
 /obj/item/weapon/shard/New()
-
 	src.icon_state = pick("large", "medium", "small")
 	switch(src.icon_state)
 		if("small")
@@ -34,7 +33,7 @@
 			src.pixel_x = rand(-5, 5)
 			src.pixel_y = rand(-5, 5)
 		else
-	return
+	..()
 
 /obj/item/weapon/shard/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/weapon/weldingtool))
@@ -47,23 +46,24 @@
 				if(G.amount >= G.max_amount)
 					continue
 				G.attackby(NG, user)
-			user << "<span class='notice'>You add the newly-formed glass to the stack. It now contains [NG.amount] sheet\s.</span>"
+			to_chat(user, "<span class='notice'>You add the newly-formed glass to the stack. It now contains [NG.amount] sheet\s.</span>")
 			qdel(src)
 	..()
 
 /obj/item/weapon/shard/Crossed(AM as mob|obj)
-	if(ismob(AM))
-		var/mob/M = AM
-		M << "\red <B>You step on \the [src]!</B>"
+	if(isliving(AM))
+		var/mob/living/M = AM
+		if(M.incorporeal_move || M.flying)//you are incorporal or flying..no shard stepping!
+			return
+		to_chat(M, "\red <B>You step on \the [src]!</B>")
 		playsound(src.loc, 'sound/effects/glass_step.ogg', 50, 1) // not sure how to handle metal shards with sounds
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
 
-			if(H.species.flags & IS_SYNTHETIC)
-				return
-
 			if( !H.shoes && ( !H.wear_suit || !(H.wear_suit.body_parts_covered & FEET) ) )
 				var/obj/item/organ/external/affecting = H.get_organ(pick("l_foot", "r_foot"))
+				if(!affecting)
+					return
 				if(affecting.status & ORGAN_ROBOT)
 					return
 				H.Weaken(3)

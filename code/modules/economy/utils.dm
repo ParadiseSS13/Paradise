@@ -5,7 +5,7 @@
 ////////////////////////
 
 /proc/get_money_account(var/account_number, var/from_z=-1)
-	for(var/obj/machinery/account_database/DB in world)
+	for(var/obj/machinery/computer/account_database/DB in world)
 		if(from_z > -1 && DB.z != from_z) continue
 		if((DB.stat & NOPOWER) || !DB.activated ) continue
 		var/datum/money_account/acct = DB.get_account(account_number)
@@ -16,7 +16,7 @@
 /obj/proc/get_card_account(var/obj/item/weapon/card/I, var/mob/user=null, var/terminal_name="", var/transaction_purpose="", var/require_pin=0)
 	if(terminal_name=="")
 		terminal_name=src.name
-	if (istype(I, /obj/item/weapon/card/id))
+	if(istype(I, /obj/item/weapon/card/id))
 		var/obj/item/weapon/card/id/C = I
 		var/attempt_pin=0
 		var/datum/money_account/D = get_money_account(C.associated_account_number)
@@ -31,6 +31,8 @@
 	if(ishuman(src))
 		var/mob/living/carbon/human/H=src
 		var/obj/item/weapon/card/id/I=H.get_idcard()
+		if(!I || !istype(I))
+			return null
 		var/attempt_pin=0
 		var/datum/money_account/D = get_money_account(I.associated_account_number)
 		if(require_pin && user)
@@ -45,6 +47,10 @@
 	return "$[num2septext(money)]"
 
 /datum/money_account/proc/charge(var/transaction_amount,var/datum/money_account/dest,var/transaction_purpose, var/terminal_name="", var/terminal_id=0, var/dest_name = "UNKNOWN")
+	if(suspended)
+		to_chat(usr, "<span class='warning'>Unable to access source account: account suspended.</span>")
+		return 0
+	
 	if(transaction_amount <= money)
 		//transfer the money
 		money -= transaction_amount
@@ -82,5 +88,5 @@
 		transaction_log.Add(T)
 		return 1
 	else
-		usr << "\icon[src]<span class='warning'>You don't have that much money!</span>"
+		to_chat(usr, "<span class='warning'>Insufficient funds in account.</span>")
 		return 0

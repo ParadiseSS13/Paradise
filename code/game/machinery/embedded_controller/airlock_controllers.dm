@@ -34,7 +34,7 @@
 
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
 
-	if (!ui)
+	if(!ui)
 		ui = new(user, src, ui_key, "advanced_airlock_console.tmpl", name, 470, 290)
 
 		ui.set_initial_data(data)
@@ -45,7 +45,7 @@
 
 /obj/machinery/embedded_controller/radio/airlock/advanced_airlock_controller/Topic(href, href_list)
 	if(..())
-		return
+		return 1
 
 	usr.set_machine(src)
 	src.add_fingerprint(usr)
@@ -90,7 +90,7 @@
 
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
 
-	if (!ui)
+	if(!ui)
 		ui = new(user, src, ui_key, "simple_airlock_console.tmpl", name, 470, 290)
 
 		ui.set_initial_data(data)
@@ -154,7 +154,7 @@
 
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
 
-	if (!ui)
+	if(!ui)
 		ui = new(user, src, ui_key, "door_access_console.tmpl", name, 330, 220)
 
 		ui.set_initial_data(data)

@@ -72,13 +72,10 @@
 			hot_air.temperature = hot_air.temperature - energy_transfer/hot_air_heat_capacity
 			cold_air.temperature = cold_air.temperature + heat/cold_air_heat_capacity
 
-			//world << "POWER: [lastgen] W generated at [efficiency*100]% efficiency and sinks sizes [cold_air_heat_capacity], [hot_air_heat_capacity]"
+//			to_chat(world, "POWER: [lastgen] W generated at [efficiency*100]% efficiency and sinks sizes [cold_air_heat_capacity], [hot_air_heat_capacity]")
 
-			if(input1.network)
-				input1.network.update = 1
-
-			if(input2.network)
-				input2.network.update = 1
+			input1.parent.update = 1
+			input2.parent.update = 1
 
 			add_avail(lastgen)
 	// update icon overlays only if displayed level has changed
@@ -103,7 +100,7 @@
 
 
 /obj/machinery/power/generator_type2/interact(mob/user)
-	if ( (get_dist(src, user) > 1 ) && (!istype(user, /mob/living/silicon/ai)))
+	if( (get_dist(src, user) > 1 ) && (!istype(user, /mob/living/silicon/ai)))
 		user.unset_machine()
 		user << browse(null, "window=teg")
 		return

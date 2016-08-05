@@ -19,7 +19,7 @@ effective or pretty fucking useless.
 	desc = "A strange device with twin antennas."
 	icon_state = "batterer"
 	throwforce = 5
-	w_class = 1.0
+	w_class = 1
 	throw_speed = 4
 	throw_range = 10
 	flags = CONDUCT
@@ -27,35 +27,34 @@ effective or pretty fucking useless.
 	origin_tech = "magnets=3;combat=3;syndicate=3"
 
 	var/times_used = 0 //Number of times it's been used.
-	var/max_uses = 2
+	var/max_uses = 5
 
-
-/obj/item/device/batterer/attack_self(mob/living/carbon/user as mob, flag = 0, emp = 0)
-	if(!user) 	return
+/obj/item/device/batterer/examine(mob/user)
+	..(user)
 	if(times_used >= max_uses)
-		user << "\red The mind batterer has been burnt out!"
+		to_chat(user, "<span class='notice'>[src] is out of charge.</span>")
+	if(times_used < max_uses)
+		to_chat(user, "<span class='notice'>[src] has [max_uses-times_used] charges left.</span>")
+
+/obj/item/device/batterer/attack_self(mob/living/carbon/user, flag = 0, emp = 0)
+	if(!user)
+		return
+	if(times_used >= max_uses)
+		to_chat(user, "<span class='danger'>The mind batterer has been burnt out!</span>")
 		return
 
-	user.attack_log += text("\[[time_stamp()]\] <font color='red'>Used [src] to knock down people in the area.</font>")
 
-	for(var/mob/living/carbon/human/M in orange(10, user))
-		spawn()
-			if(prob(50))
+	for(var/mob/living/carbon/human/M in oview(7, user))
+		if(prob(50))
+			M.Weaken(rand(4,7))
+			add_logs(M, user, "stunned", src)
+			to_chat(M, "<span class='danger'>You feel a tremendous, paralyzing wave flood your mind.</span>")
+		else
+			to_chat(M, "<span class='danger'>You feel a sudden, electric jolt travel through your head.</span>")
 
-				M.Weaken(rand(10,20))
-				if(prob(25))
-					M.Stun(rand(5,10))
-				M << "\red <b>You feel a tremendous, paralyzing wave flood your mind.</b>"
-				if(!iscarbon(user))
-					M.LAssailant = null
-				else
-					M.LAssailant = user
-			else
-				M << "\red <b>You feel a sudden, electric jolt travel through your head.</b>"
-
-	playsound(src.loc, 'sound/misc/interference.ogg', 50, 1)
-	user << "\blue You trigger [src]."
-	times_used += 1
+	playsound(loc, 'sound/misc/interference.ogg', 50, 1)
+	times_used++
+	to_chat(user, "<span class='notice'>You trigger [src]. It has [max_uses-times_used] charges left.</span>")
 	if(times_used >= max_uses)
 		icon_state = "battererburnt"
 
@@ -76,25 +75,23 @@ effective or pretty fucking useless.
 	name = "Health Analyzer"
 	icon_state = "health2"
 	item_state = "healthanalyzer"
-	icon_override = 'icons/mob/in-hand/tools.dmi'
 	desc = "A hand-held body scanner able to distinguish vital signs of the subject. A strange microlaser is hooked on to the scanning end."
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
-	discrete = 1 // Makes the item not give an attack log message for viewers.
 	throwforce = 3
-	w_class = 1.0
-	throw_speed = 5
-	throw_range = 10
-	m_amt = 200
+	w_class = 1
+	throw_speed = 3
+	throw_range = 7
+	materials = list(MAT_METAL=400)
 	origin_tech = "magnets=3;biotech=5;syndicate=3"
 	var/intensity = 5 // how much damage the radiation does
 	var/wavelength = 10 // time it takes for the radiation to kick in, in seconds
 	var/used = 0 // is it cooling down?
 
-/obj/item/device/rad_laser/attack(mob/living/M as mob, mob/living/user as mob)
+/obj/item/device/rad_laser/attack(mob/living/M, mob/living/user)
 	if(!used)
-		..()
-		user.visible_message("<span class='notice'> [user] has analyzed [M]'s vitals.","<span class='notice'> You have analyzed [M]'s vitals.")
+		add_logs(M, user, "irradiated", src)
+		user.visible_message("<span class='notice'>[user] has analyzed [M]'s vitals.</span>")
 		var/cooldown = round(max(100,(((intensity*8)-(wavelength/2))+(intensity*2))*10))
 		used = 1
 		icon_state = "health1"
@@ -105,18 +102,18 @@ effective or pretty fucking useless.
 					M.apply_effect(round(intensity/1.5), PARALYZE)
 				M.apply_effect(intensity*10, IRRADIATE)
 	else
-		user << "<span class='danger'>The radioactive microlaser is still recharging.</span>"
+		to_chat(user, "<span class='warning'>The radioactive microlaser is still recharging.</span>")
 
-/obj/item/device/rad_laser/proc/handle_cooldown(var/cooldown)
+/obj/item/device/rad_laser/proc/handle_cooldown(cooldown)
 	spawn(cooldown)
 		used = 0
 		icon_state = "health2"
 
-/obj/item/device/rad_laser/attack_self(mob/user as mob)
+/obj/item/device/rad_laser/attack_self(mob/user)
 	..()
 	interact(user)
 
-/obj/item/device/rad_laser/interact(mob/user as mob)
+/obj/item/device/rad_laser/interact(mob/user)
 	user.set_machine(src)
 
 	var/cooldown = round(max(10,((intensity*8)-(wavelength/2))+(intensity*2)))
@@ -131,7 +128,7 @@ effective or pretty fucking useless.
 	popup.open()
 
 /obj/item/device/rad_laser/Topic(href, href_list)
-	if(!in_range(src, usr) || issilicon(usr) || !usr.canmove || usr.restrained())
+	if(..())
 		return 1
 
 	usr.set_machine(src)
@@ -146,7 +143,6 @@ effective or pretty fucking useless.
 		amount += wavelength
 		wavelength = max(1,(min(120,amount)))
 
-	//updateUsrDialog()
-	interact(usr)
+	attack_self(usr)
 	add_fingerprint(usr)
 	return

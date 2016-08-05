@@ -6,22 +6,22 @@ Used In File(s): \code\game\machinery\computer\cloning.dm
 	<div class="item">
 		<div class="itemLabelNarrow">Menu</div>
 		<div class="itemContentWide">
-			{{:helper.link('Main', 'home', {'menu' : 1}, data.menu == 1 ? 'selected' : '')}}{{:helper.link('Records', 'document', {'menu' : 2}, data.menu == 2 ? 'selected' : '')}}
+			{{:helper.link('Main', 'home', {'menu' : 1}, data.menu == 1 ? 'selected' : '')}}{{:helper.link('Records', 'folder-open', {'menu' : 2}, data.menu == 2 ? 'selected' : '')}}
 		</div>
 	</div>
 	<div class="item">
 		<div class="itemLabelNarrow">Refresh</div>
 		<div class="itemContentWide">
-			{{:helper.link('Refresh', 'arrowrefresh-1-e', {'refresh' : 1})}}
+			{{:helper.link('Refresh', 'refresh', {'refresh' : 1})}}
 		</div>
 	</div>
 	<div class="item">
 		<div class="itemLabelNarrow">Autoprocessing</div>
 		<div class="itemContentWide">
 			{{if data.autoallowed}}
-				{{:helper.link('Enabled', 'check', {'task' : 'autoprocess'}, data.autoprocess ? 'selected' : '')}}{{:helper.link('Disabled', 'closethick', {'task' : 'stopautoprocess'}, !data.autoprocess ? 'selected' : '')}}
+				{{:helper.link('Enabled', 'check', {'task' : 'autoprocess'}, data.autoprocess ? 'selected' : '')}}{{:helper.link('Disabled', 'close', {'task' : 'stopautoprocess'}, !data.autoprocess ? 'selected' : '')}}
 			{{else}}
-				{{:helper.link('Enabled', 'check', null, 'disabled')}}{{:helper.link('Disabled', 'closethick', null, 'selected')}}
+				{{:helper.link('Enabled', 'check', null, 'disabled')}}{{:helper.link('Disabled', 'close', null, 'selected')}}
 			{{/if}}
 		</div>
 	</div>
@@ -41,30 +41,54 @@ Used In File(s): \code\game\machinery\computer\cloning.dm
 		</div>
 	</div>
 	<div class="item">
-		<div class="itemLabelNarrow">Pod</div>
-		<div class="itemContentWide{{if data.pod}} good{{else}} bad{{/if}}">
-			{{if data.pod}} Found!{{else}} Error: Not detected!{{/if}}
+		<div class="itemLabelNarrow">Pods</div>
+		<div class="itemContentWide{{if data.numberofpods}} good{{else}} bad{{/if}}">
+			{{if data.numberofpods}} Found {{:data.numberofpods}}!{{else}} Error: None detected!{{/if}}
 		</div>
 	</div>
 	{{if data.scanner}}
-	<h2>Scanner Functions</h2>
-	{{if data.loading}}
-		<b>Scanning...</b>
-	{{else}}	
-		<b>{{:data.scantemp}}</b>
+		<h2>Scanner Functions</h2>
+		{{if data.loading}}
+			<b>Scanning...</b>
+		{{else}}	
+			<b>{{:data.scantemp}}</b>
+		{{/if}}
+		<div class="item">
+			<div class="itemLabelNarrow">Scan Occupant</div>
+			<div class="itemContentWide">{{:helper.link('Scan', 'search', {'scan' : 1}, !data.occupant ? 'disabled' : '')}}</div>
+		</div>
+		<div class="item">
+			<div class="itemLabelNarrow">Scanner Lock</div>
+			<div class="itemContentWide">{{if data.occupant}}{{:helper.link('Engaged', 'lock', {'lock' : 1}, data.locked ? 'selected' : '')}}{{else}} {{:helper.link('Engaged', 'lock', null, 'disabled')}}{{/if}}{{:helper.link('Disengaged', 'unlock', {'lock' : 1}, !data.locked ? 'selected' : '')}}</div>
+		</div>
+		{{if data.can_brainscan}}
+		<div class="item">
+			<div class="itemLabelNarrow">Scan Mode</div>
+			<div class="itemContentWide">
+				{{:helper.link('Brain', null, {'toggle_mode' : 1}, !data.scan_mode ? '' : 'selected')}}{{:helper.link('Body', null, {'toggle_mode' : 1}, data.scan_mode ? '' : 'selected')}}
+			</div>
+		</div>
+		{{/if}}
 	{{/if}}
-	<div class="item">
-		<div class="itemLabelNarrow">Scan Occupant</div>
-		<div class="itemContentWide">{{:helper.link('Scan', 'search', {'scan' : 1}, !data.occupant ? 'disabled' : '')}}</div>
-	</div>		
-	<div class="item">
-		<div class="itemLabelNarrow">Scanner Lock</div>
-		<div class="itemContentWide">{{if data.occupant}}{{:helper.link('Engaged', 'locked', {'lock' : 1}, data.locked ? 'selected' : '')}}{{else}} {{:helper.link('Engaged', 'locked', null, 'disabled')}}{{/if}}{{:helper.link('Disengaged', 'unlocked', {'lock' : 1}, !data.locked ? 'selected' : '')}}</div>
-	</div>	
-	<div class="item">
-		<div class="itemLabelNarrow">Biomass</div>
-		<div class="itemContentWide">{{:data.biomass}}</div>
-	</div>	
+	{{if data.numberofpods}}
+		<h2>Pods</h2>
+		{{for data.pods}}
+			<b>{{:value.name}}</b></br>
+			<div class="item">				
+				<div class="itemLabelNarrow">Biomass</div>
+				<div class="itemContentWide{{if value.biomass > 0}} good{{else}} bad{{/if}}">
+					{{:value.biomass}}
+				</div>
+			</div>
+
+			<div class="item">
+				<div class="itemLabelNarrow">Select</div>
+				<div class="itemContentWide">
+					{{:helper.link('Select', 'check', {'selectpod' : value.pod}, value.pod == data.selected_pod ? 'selected' : '')}}
+				</div>
+			</div>
+
+		{{/for}}
 	{{/if}}
 {{/if}}
 {{if data.menu == 2}}
@@ -75,7 +99,7 @@ Used In File(s): \code\game\machinery\computer\cloning.dm
 		</div>
 	{{/if}}
 	{{for data.records}}
-		<div>{{:helper.link(value.realname, 'arrowthickstop-1-s', {'view_rec' : value.record})}}</div>
+		<div>{{:helper.link(value.realname, 'arrow-circle-down', {'view_rec' : value.record})}}</div>
 	{{empty}}
 		No records found!
 	{{/for}}
@@ -96,17 +120,17 @@ Used In File(s): \code\game\machinery\computer\cloning.dm
 		</div>
 		<div class="item">
 			<b>UI:</b> {{:data.unidentity}}<br />
-			<b>SE:</b> {{:data.strucenzymes}}
+			<b>SE:</b> <div style="word-wrap: break-word;">{{:data.strucenzymes}}</div>
 		</div>
 		{{if data.disk}}
 			<div class="item">
 				<div class="itemLabelNarrow">Disk</div>
-				<div class="itemContentWide">{{:helper.link('Load from Disk', 'disk', {'disk' : 'load'})}}{{:helper.link('Save UI + UE', 'arrowthickstop-1-n', {'save_disk' : 'ue'})}}{{:helper.link('Save UI', 'arrowthickstop-1-n', {'save_disk' : 'ui'})}}{{:helper.link('Save SE', 'arrowthickstop-1-n', {'save_disk' : 'se'})}}</div>
+				<div class="itemContentWide">{{:helper.link('Load from Disk', 'floppy-o', {'disk' : 'load'})}}{{:helper.link('Save UI + UE', 'arrow-circle-up', {'save_disk' : 'ue'})}}{{:helper.link('Save UI', 'arrow-circle-up', {'save_disk' : 'ui'})}}{{:helper.link('Save SE', 'arrow-circle-up', {'save_disk' : 'se'})}}</div>
 			</div>		
 		{{/if}}
 		<div class="item">
 			<div class="itemLabelNarrow">Actions</div>
-			<div class="itemContentWide">{{:helper.link('Clone', 'arrowreturnthick-1-e', {'clone' : data.activerecord}, !data.enoughbiomass ? 'disabled' : '')}}{{:helper.link('Delete', 'trash', {'del_rec' : 1})}}</div>
+			<div class="itemContentWide">{{:helper.link('Clone', 'arrow-right', {'clone' : data.activerecord}, !data.podready ? 'disabled' : '')}}{{:helper.link('Delete', 'trash', {'del_rec' : 1})}}</div>
 		</div>
 	{{/if}}
 {{/if}}
@@ -118,7 +142,7 @@ Used In File(s): \code\game\machinery\computer\cloning.dm
 		</div>
 	{{/if}}
 	<div class="item">
-		{{:helper.link('Scan Card and Confirm', 'trash', {'del_rec' : 1})}}{{:helper.link('Cancel', 'closethick', {'menu' : 3})}}
+		{{:helper.link('Scan Card and Confirm', 'trash', {'del_rec' : 1})}}{{:helper.link('Cancel', 'close', {'menu' : 3})}}
 	</div>
 {{/if}}
 	

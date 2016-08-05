@@ -23,7 +23,7 @@
 /datum/artifact_effect/gassleeping/DoEffectAura()
 	if(holder)
 		var/datum/gas_mixture/env = holder.loc.return_air()
-		if(env && env.total_moles < max_pressure)
+		if(env && env.total_moles() < max_pressure)
 			var/datum/gas/sleeping_agent/trace_gas = new
 			env.trace_gases += trace_gas
 			trace_gas.moles = pick(0, 0, 0.1, rand())

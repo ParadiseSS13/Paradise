@@ -1,9 +1,9 @@
-/obj/effect/proc_holder/spell/wizard/aoe_turf/conjure
+/obj/effect/proc_holder/spell/aoe_turf/conjure
 	name = "Conjure"
 	desc = "This spell conjures objs of the specified types in range."
 
 	var/list/summon_type = list() //determines what exactly will be summoned
-	//should be text, like list("/obj/machinery/bot/ed209")
+	//should be text, like list("/mob/simple_animal/bot/ed209")
 
 	var/summon_lifespan = 0 // 0=permanent, any other time in deciseconds
 	var/summon_amt = 1 //amount of objects summoned
@@ -14,14 +14,14 @@
 	//should have format of list("emagged" = 1,"name" = "Wizard's Justicebot"), for example
 	var/delay = 1//Go Go Gadget Inheritance
 
-/obj/effect/proc_holder/spell/wizard/aoe_turf/conjure/cast(list/targets)
+/obj/effect/proc_holder/spell/aoe_turf/conjure/cast(list/targets)
 
 	for(var/turf/T in targets)
 		if(T.density && !summon_ignore_density)
 			targets -= T
 	playsound(get_turf(src), 'sound/items/welder.ogg', 50, 1)
 
-	if(do_after(usr,delay))
+	if(do_after(usr,delay, target = usr))
 		for(var/i=0,i<summon_amt,i++)
 			if(!targets.len)
 				break
@@ -31,7 +31,7 @@
 				targets -= spawn_place
 			if(ispath(summoned_object_type,/turf))
 				if(istype(get_turf(usr),/turf/simulated/shuttle))
-					usr << "\red You can't build things on shuttles!"
+					to_chat(usr, "\red You can't build things on shuttles!")
 					break
 				var/turf/O = spawn_place
 				var/N = summoned_object_type
@@ -46,7 +46,7 @@
 				if(summon_lifespan)
 					spawn(summon_lifespan)
 						if(summoned_object)
-							del(summoned_object)
+							qdel(summoned_object)
 	else
 		switch(charge_type)
 			if("recharge")
@@ -57,11 +57,11 @@
 
 	return
 
-/obj/effect/proc_holder/spell/wizard/aoe_turf/conjure/summonEdSwarm //test purposes
+/obj/effect/proc_holder/spell/aoe_turf/conjure/summonEdSwarm //test purposes
 	name = "Dispense Wizard Justice"
 	desc = "This spell dispenses wizard justice."
 
-	summon_type = list(/obj/machinery/bot/ed209)
+	summon_type = list(/mob/living/simple_animal/bot/ed209)
 	summon_amt = 10
 	range = 3
 	newVars = list("emagged" = 1,"name" = "Wizard's Justicebot")

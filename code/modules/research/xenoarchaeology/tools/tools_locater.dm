@@ -18,7 +18,7 @@
 
 /obj/item/device/beacon_locator/Destroy()
 	processing_objects.Remove(src)
-	..()
+	return ..()
 
 /obj/item/device/beacon_locator/process()
 	if(target_radio)
@@ -52,9 +52,9 @@
 						scan_ticks = 0
 						var/turf/T = get_turf(src)
 						if(target_radio)
-							T.visible_message("\icon[src] [src] [pick("chirps","chirrups","cheeps")] happily.")
+							T.visible_message("[bicon(src)] [src] [pick("chirps","chirrups","cheeps")] happily.")
 						else
-							T.visible_message("\icon[src] [src] [pick("chirps","chirrups","cheeps")] sadly.")
+							T.visible_message("[bicon(src)] [src] [pick("chirps","chirrups","cheeps")] sadly.")
 		else
 			icon_state = "pinoff"
 
@@ -86,7 +86,7 @@
 		target_radio = null
 	else if(href_list["freq"])
 		var/new_frequency = (frequency + text2num(href_list["freq"]))
-		if (frequency < 1200 || frequency > 1600)
+		if(frequency < RADIO_LOW_FREQ || frequency > RADIO_HIGH_FREQ)
 			new_frequency = sanitize_frequency(new_frequency, 1499)
 		frequency = new_frequency
 

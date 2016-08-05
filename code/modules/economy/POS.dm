@@ -201,6 +201,7 @@ var/const/POS_HEADER = {"<html>
 		</tr>"}
 	receipt += "</table></body></html>"
 
+	playsound(loc, "sound/goonstation/machines/printer_thermal.ogg", 50, 1)
 	var/obj/item/weapon/paper/P = new(loc)
 	P.name="Receipt #[id]-[++sales]"
 	P.info=receipt
@@ -361,11 +362,6 @@ var/const/POS_HEADER = {"<html>
 	else
 		overlays += "pos-standby"
 
-/obj/machinery/pos/attack_robot(var/mob/user)
-//	if(isMoMMI(user))
-//		return attack_hand(user)
-	return ..()
-
 /obj/machinery/pos/attack_hand(var/mob/user)
 	user.set_machine(src)
 	var/logindata=""
@@ -395,7 +391,7 @@ var/const/POS_HEADER = {"<html>
 	return
 
 /obj/machinery/pos/proc/say(var/text)
-	src.visible_message("\icon[src] <span class=\"notice\"><b>[name]</b> states, \"[text]\"</span>")
+	src.visible_message("[bicon(src)] <span class=\"notice\"><b>[name]</b> states, \"[text]\"</span>")
 
 /obj/machinery/pos/Topic(var/href, var/list/href_list)
 	if(..(href,href_list)) return
@@ -407,7 +403,7 @@ var/const/POS_HEADER = {"<html>
 		src.attack_hand(usr)
 		return
 	if(usr != logged_in)
-		usr << "\red [logged_in.name] is already logged in.  You cannot use this machine until they log out."
+		to_chat(usr, "\red [logged_in.name] is already logged in.  You cannot use this machine until they log out.")
 		return
 	if("act" in href_list)
 		switch(href_list["act"])
@@ -432,10 +428,10 @@ var/const/POS_HEADER = {"<html>
 			if("Add to Order")
 				AddToOrder(href_list["preset"],text2num(href_list["units"]))
 			if("Add Products")
-				for(var/list/line in text2list(href_list["csv"],"\n"))
-					var/list/cells = text2list(line,",")
+				for(var/list/line in splittext(href_list["csv"],"\n"))
+					var/list/cells = splittext(line,",")
 					if(cells.len<2)
-						usr << "\red The CSV must have at least two columns: Product Name, followed by Price (as a number)."
+						to_chat(usr, "\red The CSV must have at least two columns: Product Name, followed by Price (as a number).")
 						src.attack_hand(usr)
 						return
 					var/line_item/LI = new
@@ -449,7 +445,7 @@ var/const/POS_HEADER = {"<html>
 			if("Save Settings")
 				var/datum/money_account/new_linked_account = get_money_account(text2num(href_list["payableto"]),z)
 				if(!new_linked_account)
-					usr << "\red Unable to link new account."
+					to_chat(usr, "\red Unable to link new account.")
 				else
 					linked_account = new_linked_account
 				screen=POS_SCREEN_SETTINGS
@@ -526,7 +522,7 @@ var/const/POS_HEADER = {"<html>
 			flick(src,"pos-error")
 			return
 		var/obj/item/weapon/spacecash/C=A
-		credits_held += C.worth*C.amount
+		credits_held += C.get_total()
 		if(credits_held >= credits_needed)
 			visible_message("\blue The machine beeps, and begins printing a receipt","You hear a beep and the sound of paper being shredded.")
 			PrintReceipt()

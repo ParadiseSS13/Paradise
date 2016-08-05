@@ -19,30 +19,24 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "sampler0"
 	item_state = "screwdriver_brown"
-	w_class = 1.0
+	w_class = 1
 	//slot_flags = SLOT_BELT
 	var/sampled_turf = ""
 	var/num_stored_bags = 10
 	var/obj/item/weapon/evidencebag/filled_bag
 
-/obj/item/device/core_sampler/examine()
-	set src in orange(1)
-	if (!( usr ))
-		return
-	if(get_dist(src, usr) < 2)
-		usr << "That's \a [src]."
-		usr << "\blue Used to extract geological core samples - this one is [sampled_turf ? "full" : "empty"], and has [num_stored_bags] bag[num_stored_bags != 1 ? "s" : ""] remaining."
-	else
-		return ..()
+/obj/item/device/core_sampler/examine(mob/user)
+	if(..(user, 2))
+		to_chat(user, "\blue Used to extract geological core samples - this one is [sampled_turf ? "full" : "empty"], and has [num_stored_bags] bag[num_stored_bags != 1 ? "s" : ""] remaining.")
 
 /obj/item/device/core_sampler/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(istype(W,/obj/item/weapon/evidencebag))
 		if(num_stored_bags < 10)
-			del(W)
+			qdel(W)
 			num_stored_bags += 1
-			user << "\blue You insert the [W] into the core sampler."
+			to_chat(user, "\blue You insert the [W] into the core sampler.")
 		else
-			user << "\red The core sampler can not fit any more bags!"
+			to_chat(user, "\red The core sampler can not fit any more bags!")
 	else
 		return ..()
 
@@ -58,9 +52,9 @@
 
 	if(geo_data)
 		if(filled_bag)
-			user << "\red The core sampler is full!"
+			to_chat(user, "\red The core sampler is full!")
 		else if(num_stored_bags < 1)
-			user << "\red The core sampler is out of sample bags!"
+			to_chat(user, "\red The core sampler is out of sample bags!")
 		else
 			//create a new sample bag which we'll fill with rock samples
 			filled_bag = new /obj/item/weapon/evidencebag(src)
@@ -81,13 +75,13 @@
 			filled_bag.underlays += I
 			filled_bag.w_class = 1
 
-			user << "\blue You take a core sample of the [item_to_sample]."
+			to_chat(user, "\blue You take a core sample of the [item_to_sample].")
 	else
-		user << "\red You are unable to take a sample of [item_to_sample]."
+		to_chat(user, "\red You are unable to take a sample of [item_to_sample].")
 
 /obj/item/device/core_sampler/attack_self()
 	if(filled_bag)
-		usr << "\blue You eject the full sample bag."
+		to_chat(usr, "\blue You eject the full sample bag.")
 		var/success = 0
 		if(istype(src.loc, /mob))
 			var/mob/M = src.loc
@@ -97,4 +91,4 @@
 		filled_bag = null
 		icon_state = "sampler0"
 	else
-		usr << "\red The core sampler is empty."
+		to_chat(usr, "\red The core sampler is empty.")

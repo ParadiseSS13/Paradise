@@ -15,7 +15,8 @@
 	desc = "A camera film cartridge. Insert it into a camera to reload it."
 	icon_state = "film"
 	item_state = "electropack"
-	w_class = 1.0
+	w_class = 1
+	burn_state = FLAMMABLE
 
 
 /********
@@ -26,14 +27,16 @@
 	icon = 'icons/obj/items.dmi'
 	icon_state = "photo"
 	item_state = "paper"
-	w_class = 2.0
+	w_class = 2
+	burn_state = FLAMMABLE
+	burntime = 5
 	var/icon/img	//Big photo image
 	var/scribble	//Scribble on the back.
 	var/icon/tiny
 	var/photo_size = 3
 
 /obj/item/weapon/photo/attack_self(mob/user as mob)
-	src.examine(user)
+	user.examinate(src)
 
 /obj/item/weapon/photo/attackby(obj/item/weapon/P as obj, mob/user as mob, params)
 	if(istype(P, /obj/item/weapon/pen) || istype(P, /obj/item/toy/crayon))
@@ -64,16 +67,16 @@
 					user.unEquip(src)
 
 				new /obj/effect/decal/cleanable/ash(get_turf(src))
-				del(src)
+				qdel(src)
 
 			else
-				user << "\red You must hold \the [P] steady to burn \the [src]."
+				to_chat(user, "\red You must hold \the [P] steady to burn \the [src].")
 
 /obj/item/weapon/photo/examine(mob/user)
-	if(in_range(usr, src) || istype(usr, /mob/dead/observer))
-		show(usr)
+	if(..(user, 1) || isobserver(user))
+		show(user)
 	else
-		usr << "<span class='notice'>It is too far away.</span>"
+		to_chat(user, "<span class='notice'>It is too far away.</span>")
 
 /obj/item/weapon/photo/proc/show(mob/user as mob)
 	usr << browse_rsc(img, "tmp_photo.png")
@@ -106,7 +109,8 @@
 	icon = 'icons/obj/items.dmi'
 	icon_state = "album"
 	item_state = "briefcase"
-	can_hold = list("/obj/item/weapon/photo",)
+	can_hold = list("/obj/item/weapon/photo")
+	burn_state = FLAMMABLE
 
 /obj/item/weapon/storage/photo_album/MouseDrop(obj/over_object as obj)
 
@@ -141,7 +145,7 @@
 	desc = "A polaroid camera. 10 photos left."
 	icon_state = "camera"
 	item_state = "electropack"
-	w_class = 2.0
+	w_class = 2
 	slot_flags = SLOT_BELT
 	var/list/matter = list("metal" = 2000)
 	var/pictures_max = 10
@@ -150,6 +154,25 @@
 	var/icon_on = "camera"
 	var/icon_off = "camera_off"
 	var/size = 3
+	var/see_ghosts = 0 //for the spoop of it
+
+
+/obj/item/device/camera/spooky/CheckParts(list/parts_list)
+	..()
+	var/obj/item/device/camera/C = locate(/obj/item/device/camera) in contents
+	if(C)
+		pictures_max = C.pictures_max
+		pictures_left = C.pictures_left
+		visible_message("[C] has been imbued with godlike power!")
+		qdel(C)
+
+
+var/list/SpookyGhosts = list("ghost","shade","shade2","ghost-narsie","horror","shadow","ghostian2")
+
+/obj/item/device/camera/spooky
+	name = "camera obscura"
+	desc = "A polaroid camera, some say it can see ghosts!"
+	see_ghosts = 1
 
 /obj/item/device/camera/verb/change_size()
 	set name = "Set Photo Focus"
@@ -157,7 +180,7 @@
 	var/nsize = input("Photo Size","Pick a size of resulting photo.") as null|anything in list(1,3,5,7)
 	if(nsize)
 		size = nsize
-		usr << "<span class='notice'>Camera will now take [size]x[size] photos.</span>"
+		to_chat(usr, "<span class='notice'>Camera will now take [size]x[size] photos.</span>")
 
 /obj/item/device/camera/attack(mob/living/carbon/human/M as mob, mob/user as mob)
 	return
@@ -168,23 +191,23 @@
 		src.icon_state = icon_on
 	else
 		src.icon_state = icon_off
-	user << "You switch the camera [on ? "on" : "off"]."
+	to_chat(user, "You switch the camera [on ? "on" : "off"].")
 	return
 
 /obj/item/device/camera/attackby(obj/item/I as obj, mob/user as mob, params)
 	if(istype(I, /obj/item/device/camera_film))
 		if(pictures_left)
-			user << "<span class='notice'>[src] still has some film in it!</span>"
+			to_chat(user, "<span class='notice'>[src] still has some film in it!</span>")
 			return
-		user << "<span class='notice'>You insert [I] into [src].</span>"
+		to_chat(user, "<span class='notice'>You insert [I] into [src].</span>")
 		user.drop_item()
-		del(I)
+		qdel(I)
 		pictures_left = pictures_max
 		return
 	..()
 
 
-/obj/item/device/camera/proc/get_icon(list/turfs, turf/center)
+/obj/item/device/camera/proc/get_icon(list/turfs, turf/center,mob/user)
 
 	//Bigger icon base to capture those icons that were shifted to the next tile
 	//i.e. pretty much all wall-mounted machinery
@@ -199,8 +222,20 @@
 		atoms.Add(the_turf);
 		// As well as anything that isn't invisible.
 		for(var/atom/A in the_turf)
-			if(A.invisibility) continue
-			atoms.Add(A)
+			if(A.invisibility )
+				if(see_ghosts && istype(A,/mob/dead/observer))
+					var/mob/dead/observer/O = A
+					if(O.following)
+						continue
+					if(user.mind && !(user.mind.assigned_role == "Chaplain"))
+						atoms.Add(image('icons/mob/mob.dmi', O.loc, pick(SpookyGhosts), 4, SOUTH))
+					else
+						atoms.Add(image('icons/mob/mob.dmi', O.loc, "ghost", 4, SOUTH))
+				else//its not a ghost
+					continue
+			else//not invisable, not a spookyghost add it.
+				atoms.Add(A)
+
 
 	// Sort the atoms into their layers
 	var/list/sorted = sort_atoms_by_layer(atoms)
@@ -219,7 +254,7 @@
 				// Calculate where we are relative to the center of the photo
 				var/xoff = (A.x - center.x) * 32 + center_offset
 				var/yoff = (A.y - center.y) * 32 + center_offset
-				if (istype(A,/atom/movable))
+				if(istype(A,/atom/movable))
 					xoff+=A:step_x
 					yoff+=A:step_y
 				res.Blend(img, blendMode2iconMode(A.blend_mode),  A.pixel_x + xoff, A.pixel_y + yoff)
@@ -235,21 +270,35 @@
 
 /obj/item/device/camera/proc/get_mobs(turf/the_turf as turf)
 	var/mob_detail
-	for(var/mob/living/carbon/A in the_turf)
-		if(A.invisibility) continue
-		var/holding = null
-		if(A.l_hand || A.r_hand)
-			if(A.l_hand) holding = "They are holding \a [A.l_hand]"
-			if(A.r_hand)
-				if(holding)
-					holding += " and \a [A.r_hand]"
+	for(var/mob/M in the_turf)
+		if(M.invisibility)
+			if(see_ghosts && istype(M,/mob/dead/observer))
+				var/mob/dead/observer/O = M
+				if(O.following)
+					continue
+				if(!mob_detail)
+					mob_detail = "You can see a g-g-g-g-ghooooost! "
 				else
-					holding = "They are holding \a [A.r_hand]"
+					mob_detail += "You can also see a g-g-g-g-ghooooost!"
+			else
+				continue
 
-		if(!mob_detail)
-			mob_detail = "You can see [A] on the photo[A:health < 75 ? " - [A] looks hurt":""].[holding ? " [holding]":"."]. "
-		else
-			mob_detail += "You can also see [A] on the photo[A:health < 75 ? " - [A] looks hurt":""].[holding ? " [holding]":"."]."
+		var/holding = null
+
+		if(istype(M, /mob/living/carbon))
+			var/mob/living/carbon/A = M
+			if(A.l_hand || A.r_hand)
+				if(A.l_hand) holding = "They are holding \a [A.l_hand]"
+				if(A.r_hand)
+					if(holding)
+						holding += " and \a [A.r_hand]"
+					else
+						holding = "They are holding \a [A.r_hand]"
+
+			if(!mob_detail)
+				mob_detail = "You can see [A] on the photo[A:health < 75 ? " - [A] looks hurt":""].[holding ? " [holding]":"."]. "
+			else
+				mob_detail += "You can also see [A] on the photo[A:health < 75 ? " - [A] looks hurt":""].[holding ? " [holding]":"."]."
 	return mob_detail
 
 /obj/item/device/camera/afterattack(atom/target as mob|obj|turf|area, mob/user as mob, flag)
@@ -260,9 +309,12 @@
 
 	pictures_left--
 	desc = "A polaroid camera. It has [pictures_left] photos left."
-	user << "<span class='notice'>[pictures_left] photos left.</span>"
+	to_chat(user, "<span class='notice'>[pictures_left] photos left.</span>")
 	icon_state = icon_off
 	on = 0
+	if(user.mind && !(user.mind.assigned_role == "Chaplain"))
+		if(prob(24))
+			handle_haunt(user)
 	spawn(64)
 		icon_state = icon_on
 		on = 1
@@ -298,7 +350,7 @@
 	printpicture(user, P)
 
 /obj/item/device/camera/proc/createpicture(atom/target, mob/user, list/turfs, mobs, flag)
-	var/icon/photoimage = get_icon(turfs, target)
+	var/icon/photoimage = get_icon(turfs, target,user)
 
 	var/icon/small_img = icon(photoimage)
 	var/icon/tiny_img = icon(photoimage)
@@ -310,7 +362,11 @@
 	pc.Blend(tiny_img,ICON_OVERLAY, 12, 19)
 
 	var/datum/picture/P = new()
-	P.fields["name"] = "photo"
+	if(istype(src,/obj/item/device/camera/digital))
+		P.fields["name"] = input(user,"Name photo:","photo")
+		P.name = P.fields["name"]//So the name is displayed on the print/delete list.
+	else
+		P.fields["name"] = "photo"
 	P.fields["author"] = user
 	P.fields["icon"] = ic
 	P.fields["tiny"] = pc
@@ -351,6 +407,82 @@
 
 	return p
 
+/*****************
+* digital camera *
+******************/
+/obj/item/device/camera/digital
+	name = "digital camera"
+	desc = "A digital camera. A small screen shows there is space for 10 photos left."
+	var/list/datum/picture/saved_pictures = list()
+	pictures_left = 30
+	var/max_storage = 10
+
+/obj/item/device/camera/digital/afterattack(atom/target as mob|obj|turf|area, mob/user as mob, flag)
+	if(!on || !pictures_left || ismob(target.loc)) return
+	captureimage(target, user, flag)
+
+	playsound(loc, pick('sound/items/polaroid1.ogg', 'sound/items/polaroid2.ogg'), 75, 1, -3)
+
+	desc = "A digital camera. A small screen shows that there are currently [saved_pictures.len] pictures stored."
+	icon_state = icon_off
+	on = 0
+	spawn(64)
+		icon_state = icon_on
+		on = 1
+
+/obj/item/device/camera/digital/captureimage(atom/target, mob/user, flag)
+	if(saved_pictures.len >= max_storage)
+		to_chat(user, "<span class='notice'>Maximum photo storage capacity reached.</span>")
+		return
+	to_chat(user, "Picture saved.")
+	var/x_c = target.x - (size-1)/2
+	var/y_c = target.y + (size-1)/2
+	var/z_c	= target.z
+	var/list/turfs = list()
+	var/mobs = ""
+	for(var/i = 1; i <= size; i++)
+		for(var/j = 1; j <= size; j++)
+			var/turf/T = locate(x_c, y_c, z_c)
+			if(can_capture_turf(T, user))
+				turfs.Add(T)
+				mobs += get_mobs(T)
+			x_c++
+		y_c--
+		x_c = x_c - size
+
+	var/datum/picture/P = createpicture(target, user, turfs, mobs, flag)
+	saved_pictures += P
+
+/obj/item/device/camera/digital/verb/print_picture()
+	set name = "Print picture"
+	set category = "Object"
+	set src in usr
+
+	if(saved_pictures.len == 0)
+		to_chat(usr, "<span class='userdanger'>No images saved.</span>")
+		return
+	if(pictures_left == 0)
+		to_chat(usr, "<span class='userdanger'>There is no film left to print.</span>")
+		return
+
+	var/datum/picture/P = null
+	P = input("Select image to print:",P) as null|anything in saved_pictures
+	if(P)
+		printpicture(usr,P)
+		pictures_left --
+
+/obj/item/device/camera/digital/verb/delete_picture()
+	set name = "Delete picture"
+	set category = "Object"
+	set src in usr
+
+	if(saved_pictures.len == 0)
+		to_chat(usr, "<span class='userdanger'>No images saved</span>")
+		return
+	var/datum/picture/P = null
+	P = input("Select image to delete:",P) as null|anything in saved_pictures
+	if(P)
+		saved_pictures -= P
 
 /**************
 *video camera *
@@ -362,15 +494,14 @@
 	desc = "video camera that can send live feed to the entertainment network."
 	icon_state = "videocam"
 	item_state = "videocam"
-	w_class = 2.0
+	w_class = 2
 	slot_flags = SLOT_BELT
-	m_amt = 2000
+	materials = list(MAT_METAL=2000)
 	var/on = 0
 	var/obj/machinery/camera/camera
 	var/icon_on = "videocam_on"
 	var/icon_off = "videocam"
 	var/canhear_range = 7
-	var/watcherslist = list()
 
 /obj/item/device/videocam/attack_self(mob/user)
 	on = !on
@@ -390,17 +521,33 @@
 		camera.network = list("news")
 		cameranet.removeCamera(camera)
 		camera.c_tag = user.name
-	user << "You switch the camera [on ? "on" : "off"]."
+	to_chat(user, "You switch the camera [on ? "on" : "off"].")
 
-/obj/item/device/videocam/examine()
-	..()
-	if(get_dist(usr,src) <= 1)
-		usr << "This video camera can send live feeds to the entertainment network. It's [camera ? "" : "in"]active."
-
+/obj/item/device/videocam/examine(mob/user)
+	if(..(user, 1))
+		to_chat(user, "This video camera can send live feeds to the entertainment network. It's [camera ? "" : "in"]active.")
 
 /obj/item/device/videocam/hear_talk(mob/M as mob, msg)
-	if (camera && on)
+	if(camera && on)
 		if(get_dist(src, M) <= canhear_range)
 			talk_into(M, msg)
-		for(var/mob/living/carbon/human/H in watcherslist)
-			H.show_message(text("\blue (Newscaster) [] says, '[]'",M,msg), 1)
+		for(var/obj/machinery/computer/security/telescreen/T in machines)
+			if(T.current == camera)
+				T.audible_message("<span class='game radio'><span class='name'>(Newscaster) [M]</span> says, '[msg]'", hearing_distance = 2)
+
+/obj/item/device/videocam/hear_message(mob/M as mob, msg)
+	if(camera && on)
+		for(var/obj/machinery/computer/security/telescreen/T in machines)
+			if(T.current == camera)
+				T.audible_message("<span class='game radio'><span class='name'>(Newscaster) [M]</span> [msg]", hearing_distance = 2)
+
+
+///hauntings, like hallucinations but more spooky
+
+/obj/item/device/camera/proc/handle_haunt(mob/user as mob)
+			var/list/creepyasssounds = list('sound/effects/ghost.ogg', 'sound/effects/ghost2.ogg', 'sound/effects/Heart Beat.ogg', 'sound/effects/screech.ogg',\
+						'sound/hallucinations/behind_you1.ogg', 'sound/hallucinations/behind_you2.ogg', 'sound/hallucinations/far_noise.ogg', 'sound/hallucinations/growl1.ogg', 'sound/hallucinations/growl2.ogg',\
+						'sound/hallucinations/growl3.ogg', 'sound/hallucinations/im_here1.ogg', 'sound/hallucinations/im_here2.ogg', 'sound/hallucinations/i_see_you1.ogg', 'sound/hallucinations/i_see_you2.ogg',\
+						'sound/hallucinations/look_up1.ogg', 'sound/hallucinations/look_up2.ogg', 'sound/hallucinations/over_here1.ogg', 'sound/hallucinations/over_here2.ogg', 'sound/hallucinations/over_here3.ogg',\
+						'sound/hallucinations/turn_around1.ogg', 'sound/hallucinations/turn_around2.ogg', 'sound/hallucinations/veryfar_noise.ogg', 'sound/hallucinations/wail.ogg')
+			user << pick(creepyasssounds)

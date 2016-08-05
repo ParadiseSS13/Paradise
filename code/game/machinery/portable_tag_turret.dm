@@ -50,7 +50,7 @@
 	data["is_lethal"] = 0
 
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if (!ui)
+	if(!ui)
 		ui = new(user, src, ui_key, "turret_control.tmpl", "Turret Controls", 500, 300)
 		ui.set_initial_data(data)
 		ui.open()
@@ -82,13 +82,13 @@
 	if(lasercolor == "b" && disabled == 0)
 		if(istype(Proj, /obj/item/weapon/gun/energy/laser/redtag))
 			disabled = 1
-			del(Proj) // qdel
+			qdel(Proj) // qdel
 			sleep(100)
 			disabled = 0
 	if(lasercolor == "r" && disabled == 0)
 		if(istype(Proj, /obj/item/weapon/gun/energy/laser/bluetag))
 			disabled = 1
-			del(Proj) // qdel
+			qdel(Proj) // qdel
 			sleep(100)
 			disabled = 0
 

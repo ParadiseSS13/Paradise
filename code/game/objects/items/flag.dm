@@ -1,77 +1,14 @@
 /obj/item/flag
 	icon = 'icons/obj/flag.dmi'
-	w_class = 4.0
-	var/lit = 0
-	var/burntime = 30
+	w_class = 4
+	burntime = 20
+	burn_state = FLAMMABLE
 
-/obj/item/flag/fire_act(null, temperature, volume)
-	if(!lit)
-		Ignite()
-		return
-
-/obj/item/flag/proc/Ignite()
-	if(lit) return
-	lit = 1
-	update_icons()
-	processing_objects.Add(src)
-
-/obj/item/flag/process()
-	burntime--
-	if(burntime < 1)
-		processing_objects.Remove(src)
-		if(istype(src.loc,/turf))
-			new /obj/effect/decal/cleanable/ash(src.loc)
-			new /obj/item/stack/rods(src.loc)
-			del(src)
-			return
-		if(istype(src.loc,/mob/living/carbon))
-			var/mob/living/carbon/C = src.loc
-			var/turf/location = get_turf(C)
-			new /obj/effect/decal/cleanable/ash(location)
-			new /obj/item/stack/rods(location)
-			del(src)
-			return
-		else
-			del(src)
-			return
-
-/obj/item/flag/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+/obj/item/flag/attackby(obj/item/weapon/W, mob/user, params)
 	..()
-	if(istype(W, /obj/item/weapon/weldingtool))
-		var/obj/item/weapon/weldingtool/WT = W
-		if(WT.isOn())//Badasses dont get blinded while lighting their cig with a welding tool
-			light("<span class='notice'>[user] casually lights the [name] with [W], what a badass.</span>")
-
-	else if(istype(W, /obj/item/weapon/lighter/zippo))
-		var/obj/item/weapon/lighter/zippo/Z = W
-		if(Z.lit)
-			light("<span class='rose'>With a single flick of their wrist, [user] smoothly lights the [name] with their [W]. Damn they're cool.</span>")
-
-	else if(istype(W, /obj/item/weapon/lighter))
-		var/obj/item/weapon/lighter/L = W
-		if(L.lit)
-			light("<span class='notice'>After some fiddling, [user] manages to light the [name] with [W].</span>")
-
-	else if(istype(W, /obj/item/weapon/match))
-		var/obj/item/weapon/match/M = W
-		if(M.lit)
-			light("<span class='notice'>[user] lights the [name] with their [W].</span>")
-
-	else if(istype(W, /obj/item/weapon/melee/energy/sword))
-		var/obj/item/weapon/melee/energy/sword/S = W
-		if(S.active)
-			light("<span class='warning'>[user] swings their [W], barely missing their nose. They light the [name] in the process.</span>")
-
-	else if(istype(W, /obj/item/device/assembly/igniter))
-		light("<span class='notice'>[user] fiddles with [W], and manages to light the [name].</span>")
-
-/obj/item/flag/proc/light(var/flavor_text = "[usr] lights the [name].")
-	if(!src.lit)
-		src.lit = 1
-		var/turf/T = get_turf(src)
-		T.visible_message(flavor_text)
-		update_icons()
-		processing_objects.Add(src)
+	if(is_hot(W) && burn_state != ON_FIRE)
+		user.visible_message("<span class='notice'>[user] lights the [name] with [W].</span>")
+		fire_act()
 
 /obj/item/flag/proc/update_icons()
 	overlays = null
@@ -128,7 +65,7 @@
 
 /obj/item/flag/species/diona
 	name = "Diona flag"
-	desc = "A flag proudly proclaiming the superior heritage of Diona."
+	desc = "A flag proudly proclaiming the superior heritage of Dionae."
 	icon_state = "dionaflag"
 
 /obj/item/flag/species/human
@@ -156,7 +93,17 @@
 	desc = "A flag proudly proclaiming the superior heritage of Unathi."
 	icon_state = "unathiflag"
 
-//Nation Flags (Able to spawn outside Nations gamemode)
+/obj/item/flag/species/vulp
+	name = "Vulpkanin flag"
+	desc = "A flag proudly proclaiming the superior heritage of Vulpkanin."
+	icon_state = "vulpflag"
+
+/obj/item/flag/species/drask
+	name = "Drask flag"
+	desc = "A flag proudly proclaiming the superior heritage of Drask."
+	icon_state = "draskflag"
+
+//Department Flags
 
 /obj/item/flag/cargo
 	name = "Cargonia flag"
@@ -184,8 +131,8 @@
 	icon_state = "atmosflag"
 
 /obj/item/flag/command
-	name = "Command flag"
-	desc = "The flag of the independent, sovereign nation of Command."
+	name = "Commandzikstan flag"
+	desc = "The flag of the independent, sovereign nation of Commandzikstan."
 	icon_state = "ntflag"
 
 //Antags

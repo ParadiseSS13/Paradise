@@ -6,11 +6,10 @@
 	icon = 'icons/obj/chronos.dmi'
 	icon_state = "chronobackpack"
 	item_state = "backpack"
-	w_class = 4.0
+	w_class = 4
 	slot_flags = SLOT_BACK
 	slowdown = 1
-	action_button_name = "Equip/Unequip TED Gun"
-	icon_action_button = "action_chronobackpack"
+	actions_types = list(/datum/action/item_action/equip_unequip_TED_Gun)
 	var/obj/item/weapon/gun/energy/chrono_gun/PA = null
 	var/list/erased_minds = list() //a collection of minds from the dead
 
@@ -18,22 +17,27 @@
 	erased_minds += M
 
 /obj/item/weapon/chrono_eraser/dropped()
+	..()
 	if(PA)
-		del(PA)
+		qdel(PA)
 
 /obj/item/weapon/chrono_eraser/Destroy()
 	dropped()
-	..()
+	return ..()
 
-/obj/item/weapon/chrono_eraser/ui_action_click()
-	var/mob/living/carbon/user = src.loc
-	if(iscarbon(user) && (user.back == src))
-		if(PA)
-			del(PA)
-		else
-			PA = new(src)
-			user.put_in_hands(PA)
+/obj/item/weapon/chrono_eraser/ui_action_click(mob/user)
+	if(iscarbon(user))
+		var/mob/living/carbon/C = user
+		if(C.back == src)
+			if(PA)
+				qdel(PA)
+			else
+				PA = new(src)
+				user.put_in_hands(PA)
 
+/obj/item/weapon/chrono_eraser/item_action_slot_check(slot, mob/user)
+	if(slot == slot_back)
+		return 1
 
 
 /obj/item/weapon/gun/energy/chrono_gun
@@ -42,13 +46,11 @@
 	icon = 'icons/obj/chronos.dmi'
 	icon_state = "chronogun"
 	item_state = "chronogun"
-	icon_override = 'icons/mob/in-hand/guns.dmi'
-	w_class = 3.0
-	projectile_type = "/obj/item/projectile/energy/chrono_beam"
-	fire_sound = 'sound/weapons/Laser.ogg'
-	charge_cost = 0
-	fire_delay = 50
+	w_class = 3
 	flags = NODROP
+	ammo_type = list(/obj/item/ammo_casing/energy/chrono_beam)
+	can_charge = 0
+	fire_delay = 50
 	var/obj/item/weapon/chrono_eraser/TED = null
 	var/obj/effect/chrono_field/field = null
 	var/turf/startpos = null
@@ -59,15 +61,16 @@
 		TED = T
 	else //admin must have spawned it
 		TED = new(src.loc)
-		del(src)
+		qdel(src)
 
 /obj/item/weapon/gun/energy/chrono_gun/dropped()
-	del(src)
+	..()
+	qdel(src)
 
 /obj/item/weapon/gun/energy/chrono_gun/update_icon()
 	return
 
-/obj/item/weapon/gun/energy/chrono_gun/Fire()
+/obj/item/weapon/gun/energy/chrono_gun/process_fire()
 	if(field)
 		field_disconnect(field)
 	..()
@@ -78,20 +81,20 @@
 		TED = null
 	if(field)
 		field_disconnect(field)
-	..()
+	return ..()
 
 /obj/item/weapon/gun/energy/chrono_gun/proc/field_connect(var/obj/effect/chrono_field/F)
 	var/mob/living/user = src.loc
 	if(F.gun)
 		if(isliving(user) && F.captured)
-			user << "<span class='alert'><b>FAIL: <i>[F.captured]</i> already has an existing connection.</b></span>"
+			to_chat(user, "<span class='alert'><b>FAIL: <i>[F.captured]</i> already has an existing connection.</b></span>")
 		src.field_disconnect(F)
 	else
 		startpos = get_turf(src)
 		field = F
 		F.gun = src
 		if(isliving(user) && F.captured)
-			user << "<span class='notice'>Connection established with target: <b>[F.captured]</b></span>"
+			to_chat(user, "<span class='notice'>Connection established with target: <b>[F.captured]</b></span>")
 
 
 /obj/item/weapon/gun/energy/chrono_gun/proc/field_disconnect(var/obj/effect/chrono_field/F)
@@ -100,7 +103,7 @@
 		if(F.gun == src)
 			F.gun = null
 		if(isliving(user) && F.captured)
-			user << "<span class='alert'>Disconnected from target: <b>[F.captured]</b></span>"
+			to_chat(user, "<span class='alert'>Disconnected from target: <b>[F.captured]</b></span>")
 	field = null
 	startpos = null
 
@@ -127,18 +130,23 @@
 	nodamage = 1
 	var/obj/item/weapon/gun/energy/chrono_gun/gun = null
 
-/obj/item/projectile/energy/chrono_beam/process()
+/obj/item/projectile/energy/chrono_beam/fire()
 	gun = firer.get_active_hand()
 	if(istype(gun))
 		return ..()
 	else
 		return 0
 
-/obj/item/projectile/energy/chrono_beam/on_hit(var/atom/target)
+/obj/item/projectile/energy/chrono_beam/on_hit(atom/target)
 	if(target && gun && isliving(target))
 		var/obj/effect/chrono_field/F = new(target.loc, target, gun)
 		gun.field_connect(F)
 
+/obj/item/ammo_casing/energy/chrono_beam
+	name = "eradication beam"
+	projectile_type = /obj/item/projectile/energy/chrono_beam
+	icon_state = "chronobolt"
+	e_cost = 0
 
 /obj/effect/chrono_field
 	name = "eradication field"
@@ -178,7 +186,7 @@
 /obj/effect/chrono_field/Destroy()
 	if(gun && gun.field_check(src))
 		gun.field_disconnect(src)
-	..()
+	return ..()
 
 /obj/effect/chrono_field/update_icon()
 	var/ttk_frame = 1 - (tickstokill / initial(tickstokill))
@@ -194,17 +202,17 @@
 		if(tickstokill > initial(tickstokill))
 			for(var/atom/movable/AM in contents)
 				AM.loc = loc
-			del(src)
+			qdel(src)
 		else if(tickstokill <= 0)
-			captured << "<span class='boldnotice'>As the last essence of your being is erased from time, you begin to re-experience your most enjoyable memory. You feel happy...</span>"
+			to_chat(captured, "<span class='boldnotice'>As the last essence of your being is erased from time, you begin to re-experience your most enjoyable memory. You feel happy...</span>")
 			var/mob/dead/observer/ghost = captured.ghostize(1)
 			if(captured.mind)
 				if(ghost)
 					ghost.mind = null
 				if(gun)
 					gun.pass_mind(captured.mind)
-			del(captured)
-			del(src)
+			qdel(captured)
+			qdel(src)
 		else
 			captured.Paralyse(4)
 			if(captured.reagents)
@@ -223,7 +231,7 @@
 			else
 				tickstokill++
 	else
-		del(src)
+		qdel(src)
 
 /obj/effect/chrono_field/bullet_act(var/obj/item/projectile/P)
 	if(istype(P, /obj/item/projectile/energy/chrono_beam))
@@ -245,6 +253,9 @@
 	return GM
 
 /obj/effect/chrono_field/Move()
+	return
+
+/obj/effect/chrono_field/singularity_act()
 	return
 
 /obj/effect/chrono_field/ex_act()

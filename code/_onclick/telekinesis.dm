@@ -67,8 +67,9 @@ var/const/tk_maxrange = 15
 	icon_state = "2"
 	flags = NOBLUDGEON | ABSTRACT
 	//item_state = null
-	w_class = 10.0
+	w_class = 10
 	layer = 20
+	plane = HUD_PLANE
 
 	var/last_throw = 0
 	var/atom/movable/focus = null
@@ -80,14 +81,14 @@ var/const/tk_maxrange = 15
 			if(focus.Adjacent(loc))
 				focus.loc = loc
 
-		del(src)
+		qdel(src)
 		return
 
 
 	//stops TK grabs being equipped anywhere but into hands
 	equipped(var/mob/user, var/slot)
 		if( (slot == slot_l_hand) || (slot== slot_r_hand) )	return
-		del(src)
+		qdel(src)
 		return
 
 
@@ -99,10 +100,10 @@ var/const/tk_maxrange = 15
 		if(!target || !user)	return
 		if(last_throw+3 > world.time)	return
 		if(!host || host != user)
-			del(src)
+			qdel(src)
 			return
 		if(!(TK in host.mutations))
-			del(src)
+			qdel(src)
 			return
 		if(isobj(target) && !isturf(target.loc))
 			return
@@ -111,7 +112,7 @@ var/const/tk_maxrange = 15
 		if(focus)
 			d = max(d,get_dist(user,focus)) // whichever is further
 		if(d > tk_maxrange)
-			user << "<span class='warning'>Your mind won't reach that far.</span>"
+			to_chat(user, "<span class='warning'>Your mind won't reach that far.</span>")
 			return
 
 		if(!focus)
@@ -143,7 +144,7 @@ var/const/tk_maxrange = 15
 	proc/focus_object(var/obj/target, var/mob/living/user)
 		if(!istype(target,/obj))	return//Cant throw non objects atm might let it do mobs later
 		if(target.anchored || !isturf(target.loc))
-			del src
+			qdel(src)
 			return
 		focus = target
 		update_icon()

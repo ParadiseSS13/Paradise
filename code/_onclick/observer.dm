@@ -1,60 +1,58 @@
 /mob/dead/observer/DblClickOn(var/atom/A, var/params)
-	if(client.buildmode)
-		build_click(src, client.buildmode, params, A)
+	if(client.click_intercept)
+		client.click_intercept.InterceptClickOn(src, params, A)
 		return
+
 	if(can_reenter_corpse && mind && mind.current)
 		if(A == mind.current || (mind.current in A)) // double click your corpse or whatever holds it
 			reenter_corpse()						// (cloning scanner, body bag, closet, mech, etc)
 			return									// seems legit.
 
-	// Things you might plausibly want to follow
-	if((ismob(A) && A != src) || istype(A,/obj/machinery/bot) || istype(A,/obj/machinery/singularity))
+	// Follow !!ALL OF THE THINGS!!
+	if(istype(A, /atom/movable) && A != src)
 		ManualFollow(A)
 
 	// Otherwise jump
 	else
-		loc = get_turf(A)
+		following = null
+		forceMove(get_turf(A))
 
 /mob/dead/observer/ClickOn(var/atom/A, var/params)
-	if(client.buildmode)
-		build_click(src, client.buildmode, params, A)
+	if(client.click_intercept)
+		client.click_intercept.InterceptClickOn(src, params, A)
 		return
-	if(world.time <= next_move) 
+	if(world.time <= next_move)
 		return
 
 	var/list/modifiers = params2list(params)
+	if(check_rights(R_ADMIN, 0)) // Admin click shortcuts
+		var/mob/M
+		if(modifiers["shift"] && modifiers["ctrl"])
+			client.debug_variables(A)
+			return
+		if(modifiers["ctrl"])
+			M = get_mob_in_atom_with_warning(A)
+			if(M)
+				client.holder.show_player_panel(M)
+			return
+		if(modifiers["shift"] && modifiers["middle"])
+			M = get_mob_in_atom_with_warning(A)
+			if(M)
+				admin_mob_info(M)
+			return
 	if(modifiers["shift"])
 		ShiftClickOn(A)
+		return
+	if(modifiers["alt"])
+		AltClickOn(A)
 		return
 	// You are responsible for checking config.ghost_interaction when you override this function
 	// Not all of them require checking, see below
 	A.attack_ghost(src)
 
-
-// This is the ghost's follow verb with an argument
-/mob/dead/observer/proc/ManualFollow(var/atom/target)
-	following = target
-	if(target)
-		src << "\blue Now following [target]"
-		spawn(0)
-			var/turf/pos = get_turf(src)
-			while(loc == pos && target && following == target)
-
-				var/turf/T = get_turf(target)
-				if(!T)
-					break
-				if(following != target)
-					break
-				if(!client)
-					break
-				loc = T
-				pos = loc
-				sleep(15)
-			following = null
-
 // We don't need a fucking toggle.
 /mob/dead/observer/ShiftClickOn(var/atom/A)
-	A.examine()
+	examinate(A)
 
 /atom/proc/attack_ghost(mob/user as mob)
 	return
@@ -68,33 +66,20 @@
 	if(S)
 		var/obj/machinery/computer/teleporter/com = S.teleporter_console
 		if(com && com.target)
-			user.loc = get_turf(com.target)
+			user.forceMove(get_turf(com.target))
 
 /obj/effect/portal/attack_ghost(mob/user as mob)
 	if(target)
-		user.loc = get_turf(target)
+		user.forceMove(get_turf(target))
 
 /obj/machinery/gateway/centerstation/attack_ghost(mob/user as mob)
 	if(awaygate)
-		user.loc = awaygate.loc
+		user.forceMove(awaygate.loc)
 	else
-		user << "[src] has no destination."
+		to_chat(user, "[src] has no destination.")
 
 /obj/machinery/gateway/centeraway/attack_ghost(mob/user as mob)
 	if(stationgate)
-		user.loc = stationgate.loc
+		user.forceMove(stationgate.loc)
 	else
-		user << "[src] has no destination."
-
-// -------------------------------------------
-// This was supposed to be used by adminghosts
-// I think it is a *terrible* idea
-// but I'm leaving it here anyway
-// commented out, of course.
-
-/atom/proc/attack_admin(mob/user as mob)
-	if(!user || !user.client || !user.client.holder)
-		return
-	attack_hand(user)
-
-
+		to_chat(user, "[src] has no destination.")

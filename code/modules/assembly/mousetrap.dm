@@ -2,16 +2,16 @@
 	name = "mousetrap"
 	desc = "A handy little spring-loaded trap for catching pesty rodents."
 	icon_state = "mousetrap"
-	m_amt = 100
+	materials = list(MAT_METAL=100)
 	origin_tech = "combat=1"
 	var/armed = 0
 
 	bomb_name = "contact mine"
 
-	examine()
-		..()
+	examine(mob/user)
+		..(user)
 		if(armed)
-			usr << "It looks like it's armed."
+			to_chat(user, "It looks like it's armed.")
 
 	activate()
 		if(..())
@@ -20,7 +20,7 @@
 				if(ishuman(usr))
 					var/mob/living/carbon/human/user = usr
 					if(((user.getBrainLoss() >= 60 || (CLUMSY in user.mutations)) && prob(50)))
-						user << "Your hand slips, setting off the trigger."
+						to_chat(user, "Your hand slips, setting off the trigger.")
 						pulse(0)
 			update_icon()
 			if(usr)
@@ -53,6 +53,7 @@
 						affecting = H.get_organ(type)
 						H.Stun(3)
 			if(affecting)
+				affecting.take_damage(1, 0)
 				H.updatehealth()
 		else if(ismouse(target))
 			var/mob/living/simple_animal/mouse/M = target
@@ -67,7 +68,7 @@
 
 	attack_self(mob/living/user as mob)
 		if(!armed)
-			user << "<span class='notice'>You arm [src].</span>"
+			to_chat(user, "<span class='notice'>You arm [src].</span>")
 		else
 			if(((user.getBrainLoss() >= 60 || (CLUMSY in user.mutations)) && prob(50)))
 				var/which_hand = "l_hand"
@@ -77,7 +78,7 @@
 				user.visible_message("<span class='warning'>[user] accidentally sets off [src], breaking their fingers.</span>", \
 									 "<span class='warning'>You accidentally trigger [src]!</span>")
 				return
-			user << "<span class='notice'>You disarm [src].</span>"
+			to_chat(user, "<span class='notice'>You disarm [src].</span>")
 		armed = !armed
 		update_icon()
 		playsound(user.loc, 'sound/weapons/handcuffs.ogg', 30, 1, -3)
@@ -141,4 +142,4 @@
 		return
 
 	layer = TURF_LAYER+0.2
-	usr << "<span class='notice'>You hide [src].</span>"
+	to_chat(usr, "<span class='notice'>You hide [src].</span>")

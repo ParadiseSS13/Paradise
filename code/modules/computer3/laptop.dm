@@ -35,24 +35,24 @@
 		set src in view(1)
 
 		if(usr.stat || usr.restrained() || usr.lying || !istype(usr, /mob/living))
-			usr << "\red You can't do that."
+			to_chat(usr, "\red You can't do that.")
 			return
 
 		if(!Adjacent(usr))
-			usr << "You can't reach it."
+			to_chat(usr, "You can't reach it.")
 			return
 
 		if(!istype(loc,/turf))
-			usr << "[src] is too bulky!  You'll have to set it down."
+			to_chat(usr, "[src] is too bulky!  You'll have to set it down.")
 			return
 
 		if(!stored_computer)
 			if(contents.len)
 				for(var/obj/O in contents)
-					O.loc = loc
-			usr << "\The [src] crumbles to pieces."
+					O.forceMove(loc)
+			to_chat(usr, "\The [src] crumbles to pieces.")
 			spawn(5)
-				del src
+				qdel(src)
 			return
 
 		if(!stored_computer.manipulating)
@@ -61,18 +61,22 @@
 			stored_computer.stat &= ~MAINT
 			stored_computer.update_icon()
 			loc = null
-			usr << "You open \the [src]."
+			to_chat(usr, "You open \the [src].")
 
 			spawn(5)
 				stored_computer.manipulating = 0
-				del src
+				qdel(src)
 		else
-			usr << "\red You are already opening the computer!"
+			to_chat(usr, "\red You are already opening the computer!")
 
 
 	AltClick()
 		if(Adjacent(usr))
 			open_computer()
+
+	Destroy()
+		..()
+		return QDEL_HINT_HARDDEL_NOW // Warning: GC'ing will cause the laptop to vanish when it next closes
 
 //Quickfix until Snapshot works out how he wants to redo power. ~Z
 /obj/item/device/laptop/verb/eject_id()
@@ -91,20 +95,21 @@
 	var/obj/item/part/computer/cardslot/C = locate() in src.contents
 
 	if(!C)
-		usr << "There is no card port on the laptop."
+		to_chat(usr, "There is no card port on the laptop.")
 		return
 
 	var/obj/item/weapon/card/id/card
 	if(C.reader)
 		card = C.reader
+		C.remove_reader(usr)
 	else if(C.writer)
 		card = C.writer
+		C.remove_writer(usr)
 	else
-		usr << "There is nothing to remove from the laptop card port."
+		to_chat(usr, "There is nothing to remove from the laptop card port.")
 		return
 
-	usr << "You remove [card] from the laptop."
-	C.remove(card)
+	to_chat(usr, "You remove [card] from the laptop.")
 
 
 /obj/machinery/computer3/laptop
@@ -131,11 +136,11 @@
 		set src in view(1)
 
 		if(usr.stat || usr.restrained() || usr.lying || !istype(usr, /mob/living))
-			usr << "\red You can't do that."
+			to_chat(usr, "\red You can't do that.")
 			return
 
 		if(!Adjacent(usr))
-			usr << "You can't reach it."
+			to_chat(usr, "You can't reach it.")
 			return
 
 		if(istype(loc,/obj/item/device/laptop))
@@ -146,18 +151,18 @@
 			return
 
 		if(stat&BROKEN)
-			usr << "\The [src] is broken!  You can't quite get it closed."
+			to_chat(usr, "\The [src] is broken!  You can't quite get it closed.")
 			return
 
 		if(!portable)
-			portable=new
+			portable = new
 			portable.stored_computer = src
 
 		if(!manipulating)
-			portable.loc = loc
-			loc = portable
+			portable.forceMove(loc)
+			forceMove(portable)
 			stat |= MAINT
-			usr << "You close \the [src]."
+			to_chat(usr, "You close \the [src].")
 
 	auto_use_power()
 		if(stat&MAINT)
@@ -180,13 +185,13 @@
 		else
 			stat &= ~NOPOWER
 
-	Del()
+	Destroy()
 		if(istype(loc,/obj/item/device/laptop))
 			var/obj/O = loc
 			spawn(5)
 				if(O)
-					del O
-		..()
+					qdel(O)
+		return ..()
 
 
 	AltClick()

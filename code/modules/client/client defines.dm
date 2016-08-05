@@ -3,7 +3,6 @@
 		//ADMIN THINGS//
 		////////////////
 	var/datum/admins/holder = null
-	var/buildmode		= 0
 
 	var/last_message	= "" //Contains the last message sent by this client - used to protect against copy-paste spamming.
 	var/last_message_count = 0 //contins a number of how many times a message identical to last_message was sent.
@@ -23,7 +22,7 @@
 		///////////////
 		//SOUND STUFF//
 		///////////////
-	var/ambience_playing= null
+	var/ambience_playing = 0
 	var/played			= 0
 
 		////////////
@@ -41,12 +40,13 @@
 		////////////////////////////////////
 		//things that require the database//
 		////////////////////////////////////
-	var/player_age = "Requires database"	//So admins know why it isn't working - Used to determine how old the account is - in days.
-	var/related_accounts_ip = "Requires database"	//So admins know why it isn't working - Used to determine what other accounts previously logged in from this ip
-	var/related_accounts_cid = "Requires database"	//So admins know why it isn't working - Used to determine what other accounts previously logged in from this computer id
+	var/player_age = "--"	//So admins know why it isn't working - Used to determine how old the account is - in days.
+	var/list/related_accounts_ip = list()	//So admins know why it isn't working - Used to determine what other accounts previously logged in from this ip
+	var/list/related_accounts_cid = list()	//So admins know why it isn't working - Used to determine what other accounts previously logged in from this computer id
 
 	preload_rsc = 1 // This is 0 so we can set it to an URL once the player logs in and have them download the resources from a different server.
 
+	var/global/obj/screen/click_catcher/void
 
 	var/karma = 0
 	var/karma_spent = 0
@@ -60,7 +60,7 @@
 	//adv. hotkey mode vars, code using them in /interface/interface.dm//
 	/////////////////////////////////////////////////////////////////////
 
-	var/hotkeytype = "QWERTY" //what set of hotkeys is in use(defaulting to QWERTY because I can't be bothered to ake this save on SQL)
+	var/hotkeytype = "QWERTY" //what set of hotkeys is in use(defaulting to QWERTY because I can't be bothered to make this save on SQL)
 	var/hotkeyon = 0 //is the hotkey on?
 
 	var/hotkeylist = list( //list defining hotkey types, look at lists in place for structure if adding any if the future
@@ -69,5 +69,23 @@
 			"off" = "macro"),
 		"AZERTY" = list(
 			"on" = "AZERTYon",
-			"off" = "AZERTYoff")
+			"off" = "AZERTYoff"),
+		"Cyborg" = list(
+			"on" = "borghotkeymode",
+			"off" = "borgmacro")
 	)
+
+	var/reset_stretch = 0 //Used by things that fiddle with client's stretch-to-fit.
+
+	var/topic_debugging = 0 //if set to true, allows client to see nanoUI errors -- yes i realize this is messy but it'll make live testing infinitely easier
+
+	control_freak = CONTROL_FREAK_ALL | CONTROL_FREAK_SKIN | CONTROL_FREAK_MACROS
+
+	var/datum/click_intercept/click_intercept = null
+
+	//datum that controls the displaying and hiding of tooltips
+	var/datum/tooltip/tooltips
+
+	// Their chat window, sort of important.
+	// See /goon/code/datums/browserOutput.dm
+	var/datum/chatOutput/chatOutput

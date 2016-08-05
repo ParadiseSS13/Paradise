@@ -6,7 +6,6 @@
 	origin_tech = "programming=2;biotech=3"
 	energy_drain = 20
 	range = MELEE
-	construction_cost = list("metal"=5000,"glass"=10000)
 	reliability = 1000
 	equip_cooldown = 20
 	var/mob/living/carbon/occupant = null
@@ -29,7 +28,7 @@
 	allow_drop()
 		return 0
 
-	destroy()
+	Destroy()
 		for(var/atom/movable/AM in src)
 			AM.forceMove(get_turf(src))
 		return ..()
@@ -199,6 +198,9 @@
 			update_equip_info()
 		return
 
+	container_resist(var/mob/living/L)
+		go_out()
+
 	update_equip_info()
 		if(..())
 			send_byjax(chassis.occupant,"msleeper.browser","lossinfo",get_occupant_dam())
@@ -263,7 +265,7 @@
 		chassis.events.clearEvent("onMove",event)
 		return ..()
 
-	destroy()
+	Destroy()
 		chassis.events.clearEvent("onMove",event)
 		return ..()
 
@@ -342,9 +344,9 @@
 	proc/dismantleFloor(var/turf/new_turf)
 		if(istype(new_turf, /turf/simulated/floor))
 			var/turf/simulated/floor/T = new_turf
-			if(!T.is_plating())
+			if(!istype(T, /turf/simulated/floor/plating))
 				if(!T.broken && !T.burnt)
-					new T.floor_tile.type(T)
+					new T.floor_tile(T)
 				T.make_plating()
 		return !new_turf.intact
 
@@ -372,9 +374,7 @@
 
 		if(!PN)
 			PN = new()
-			powernets += PN
-		NC.powernet = PN
-		PN.cables += NC
+		PN.add_cable(NC)
 		NC.mergeConnectedNetworks(NC.d2)
 
 		//NC.mergeConnectedNetworksOnTurf()
@@ -384,8 +384,11 @@
 /obj/item/mecha_parts/mecha_equipment/tool/syringe_gun
 	name = "Syringe Gun"
 	desc = "Exosuit-mounted chem synthesizer with syringe gun. Reagents inside are held in stasis, so no reactions will occur. (Can be attached to: Medical Exosuits)"
-	icon = 'icons/obj/gun.dmi'
+	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "syringegun"
+	item_state = "syringegun"
+	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
 	var/list/syringes
 	var/list/known_reagents
 	var/list/processed_reagents
@@ -398,8 +401,6 @@
 	range = MELEE|RANGED
 	equip_cooldown = 10
 	origin_tech = "materials=3;biotech=4;magnets=4;programming=3"
-	construction_time = 200
-	construction_cost = list("metal"=3000,"glass"=2000)
 
 	New()
 		..()
@@ -472,6 +473,7 @@
 					if(M)
 						S.icon_state = initial(S.icon_state)
 						S.icon = initial(S.icon)
+						S.reagents.reaction(M, INGEST)
 						S.reagents.trans_to(M, S.reagents.total_volume)
 						M.take_organ_damage(2)
 						S.visible_message("<span class=\"attack\"> [M] was hit by the syringe!</span>")

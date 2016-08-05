@@ -4,12 +4,13 @@
 	icon_state = "clipboard"
 	item_state = "clipboard"
 	throwforce = 0
-	w_class = 2.0
+	w_class = 2
 	throw_speed = 3
 	throw_range = 10
 	var/obj/item/weapon/pen/haspen		//The stored pen.
 	var/obj/item/weapon/toppaper	//The topmost piece of paper.
 	slot_flags = SLOT_BELT
+	burn_state = FLAMMABLE
 
 /obj/item/weapon/clipboard/New()
 	update_icon()
@@ -49,7 +50,7 @@
 		W.loc = src
 		if(istype(W, /obj/item/weapon/paper))
 			toppaper = W
-		user << "<span class='notice'>You clip the [W] onto \the [src].</span>"
+		to_chat(user, "<span class='notice'>You clip the [W] onto \the [src].</span>")
 		update_icon()
 
 	else if(istype(toppaper) && istype(W, /obj/item/weapon/pen))
@@ -102,7 +103,7 @@
 					usr.drop_item()
 					W.loc = src
 					haspen = W
-					usr << "<span class='notice'>You slot the pen into \the [src].</span>"
+					to_chat(usr, "<span class='notice'>You slot the pen into \the [src].</span>")
 
 		else if(href_list["write"])
 			var/obj/item/weapon/P = locate(href_list["write"])
@@ -134,13 +135,7 @@
 			var/obj/item/weapon/paper/P = locate(href_list["read"])
 
 			if(P && (P.loc == src) && istype(P, /obj/item/weapon/paper) )
-
-				if(!(istype(usr, /mob/living/carbon/human) || istype(usr, /mob/dead/observer) || istype(usr, /mob/living/silicon)))
-					usr << browse("<HTML><HEAD><TITLE>[P.name]</TITLE></HEAD><BODY>[stars(P.info)][P.stamps]</BODY></HTML>", "window=[P.name]")
-					onclose(usr, "[P.name]")
-				else
-					usr << browse("<HTML><HEAD><TITLE>[P.name]</TITLE></HEAD><BODY>[P.info][P.stamps]</BODY></HTML>", "window=[P.name]")
-					onclose(usr, "[P.name]")
+				P.show_content(usr)
 
 		else if(href_list["look"])
 			var/obj/item/weapon/photo/P = locate(href_list["look"])
@@ -151,7 +146,7 @@
 			var/obj/item/P = locate(href_list["top"])
 			if(P && (P.loc == src) && istype(P, /obj/item/weapon/paper) )
 				toppaper = P
-				usr << "<span class='notice'>You move [P.name] to the top.</span>"
+				to_chat(usr, "<span class='notice'>You move [P.name] to the top.</span>")
 
 		//Update everything
 		attack_self(usr)

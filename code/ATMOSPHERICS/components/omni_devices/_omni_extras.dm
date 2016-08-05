@@ -8,13 +8,13 @@
 #define ATM_O2		3
 #define ATM_N2		4
 #define ATM_CO2		5
-#define ATM_P		6	//Phoron
+#define ATM_P		6	//Plasma
 #define ATM_N2O		7
 
 //--------------------------------------------
 // Omni port datum
 //
-// Used by omni devices to manage connections 
+// Used by omni devices to manage connections
 //  to other atmospheric objects.
 //--------------------------------------------
 /datum/omni_port
@@ -27,7 +27,7 @@
 	var/transfer_moles = 0
 	var/datum/gas_mixture/air
 	var/obj/machinery/atmospherics/node
-	var/datum/pipe_network/network
+	var/datum/pipeline/parent
 
 /datum/omni_port/New(var/obj/machinery/atmospherics/omni/M, var/direction = NORTH)
 	..()
@@ -41,16 +41,16 @@
 	if(node)
 		return
 	master.initialize()
-	master.build_network()
 	if(node)
 		node.initialize()
-		node.build_network()
+		node.addMember(master)
+	master.build_network()
 
 /datum/omni_port/proc/disconnect()
 	if(node)
 		node.disconnect(master)
-		master.disconnect(node)
-
+		node = null
+		master.nullifyPipenet(parent)
 
 //--------------------------------------------
 // Need to find somewhere else for these
@@ -70,10 +70,10 @@
 			string = "East"
 		if(WEST)
 			string = "West"
-	
+
 	if(!capitalize && string)
 		string = lowertext(string)
-	
+
 	return string
 
 //returns a direction flag based on the string passed to it
@@ -91,3 +91,4 @@
 			return WEST
 		else
 			return 0
+		

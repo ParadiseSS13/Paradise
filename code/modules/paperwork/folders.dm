@@ -5,8 +5,7 @@
 	icon_state = "folder"
 	w_class = 2
 	pressure_resistance = 2
-
-	autoignition_temperature = 522 // Kelvin
+	burn_state = FLAMMABLE
 
 /obj/item/weapon/folder/blue
 	desc = "A blue folder."
@@ -34,11 +33,15 @@
 	if(istype(W, /obj/item/weapon/paper) || istype(W, /obj/item/weapon/photo) || istype(W, /obj/item/weapon/paper_bundle) || istype(W, /obj/item/documents))
 		user.drop_item()
 		W.loc = src
-		user << "<span class='notice'>You put the [W] into \the [src].</span>"
+		to_chat(user, "<span class='notice'>You put the [W] into \the [src].</span>")
 		update_icon()
 	else if(istype(W, /obj/item/weapon/pen))
-		var/n_name = sanitize(copytext(input(usr, "What would you like to label the folder?", "Folder Labelling", null) as text, 1, MAX_NAME_LEN))
-		if((loc == usr && usr.stat == 0))
+		var/n_name = input(usr, "What would you like to label the folder?", "Folder Labelling", null) as text|null
+		if(!n_name)
+			return
+		n_name = sanitize(copytext(n_name, 1, MAX_NAME_LEN))
+
+		if((loc == usr || Adjacent(usr)) && usr.stat == 0)
 			name = "folder[(n_name ? text("- '[n_name]'") : null)]"
 	return
 
@@ -74,12 +77,7 @@
 		else if(href_list["read"])
 			var/obj/item/weapon/paper/P = locate(href_list["read"])
 			if(P && (P.loc == src) && istype(P))
-				if(!(istype(usr, /mob/living/carbon/human) || istype(usr, /mob/dead/observer) || istype(usr, /mob/living/silicon)))
-					usr << browse("<HTML><HEAD><TITLE>[P.name]</TITLE></HEAD><BODY>[stars(P.info)][P.stamps]</BODY></HTML>", "window=[P.name]")
-					onclose(usr, "[P.name]")
-				else
-					usr << browse("<HTML><HEAD><TITLE>[P.name]</TITLE></HEAD><BODY>[P.info][P.stamps]</BODY></HTML>", "window=[P.name]")
-					onclose(usr, "[P.name]")
+				P.show_content(usr)
 		else if(href_list["look"])
 			var/obj/item/weapon/photo/P = locate(href_list["look"])
 			if(P && (P.loc == src) && istype(P))

@@ -9,13 +9,15 @@
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "paper"
 	throwforce = 0
-	w_class = 1.0
+	w_class = 1
 	throw_range = 1
 	throw_speed = 1
 	layer = 4
-	pressure_resistance = 1
+	pressure_resistance = 0
 	slot_flags = SLOT_HEAD
 	body_parts_covered = HEAD
+	burn_state = FLAMMABLE
+	burntime = 5
 	attack_verb = list("bapped")
 
 	var/info		//What's actually written on the paper.
@@ -52,21 +54,28 @@
 		return
 	icon_state = "paper"
 
-/obj/item/weapon/paper/examine()
-	if(in_range(usr, src) || istype(usr, /mob/dead/observer))
-		show_content(usr)
+/obj/item/weapon/paper/examine(mob/user)
+	if(in_range(user, src) || istype(user, /mob/dead/observer))
+		show_content(user)
 	else
-		usr << "<span class='notice'>You have to go closer if you want to read it.</span>"
-	return
+		to_chat(user, "<span class='notice'>You have to go closer if you want to read it.</span>")
 
-/obj/item/weapon/paper/proc/show_content(var/mob/user, var/forceshow=0)
-	set src in oview(1)
-	if(!(istype(usr, /mob/living/carbon/human) || istype(usr, /mob/dead/observer) || istype(usr, /mob/living/silicon)) && !forceshow)
-		usr << browse("<HTML><HEAD><TITLE>[name]</TITLE></HEAD><BODY>[stars(info)][stamps]</BODY></HTML>", "window=[name]")
-		onclose(usr, "[name]")
+/obj/item/weapon/paper/proc/show_content(var/mob/user, var/forceshow = 0, var/forcestars = 0, var/infolinks = 0, var/view = 1)
+	var/datum/asset/assets = get_asset_datum(/datum/asset/simple/paper)
+	assets.send(user)
+
+	var/data
+	if((!user.say_understands(null, all_languages["Galactic Common"]) && !forceshow) || forcestars) //assuming all paper is written in common is better than hardcoded type checks
+		data = "<HTML><HEAD><TITLE>[name]</TITLE></HEAD><BODY>[stars(info)][stamps]</BODY></HTML>"
+		if(view)
+			usr << browse(data, "window=[name]")
+			onclose(usr, "[name]")
 	else
-		usr << browse("<HTML><HEAD><TITLE>[name]</TITLE></HEAD><BODY>[info][stamps]</BODY></HTML>", "window=[name]")
-		onclose(usr, "[name]")
+		data = "<HTML><HEAD><TITLE>[name]</TITLE></HEAD><BODY>[infolinks ? info_links : info][stamps]</BODY></HTML>"
+		if(view)
+			usr << browse(data, "window=[name]")
+			onclose(usr, "[name]")
+	return data
 
 /obj/item/weapon/paper/verb/rename()
 	set name = "Rename paper"
@@ -74,7 +83,7 @@
 	set src in usr
 
 	if((CLUMSY in usr.mutations) && prob(50))
-		usr << "<span class='warning'>You cut yourself on the paper.</span>"
+		to_chat(usr, "<span class='warning'>You cut yourself on the paper.</span>")
 		return
 	var/n_name = sanitize(copytext(input(usr, "What would you like to label the paper?", "Paper Labelling", name) as text, 1, MAX_MESSAGE_LEN))
 	if((loc == usr && usr.stat == 0))
@@ -85,8 +94,8 @@
 	return
 
 /obj/item/weapon/paper/attack_self(mob/living/user as mob)
-	src.examine(user)
-	if(rigged && (Holiday == "April Fool's Day"))
+	user.examinate(src)
+	if(rigged && (holiday_master.holidays && holiday_master.holidays[APRIL_FOOLS]))
 		if(spam_flag == 0)
 			spam_flag = 1
 			playsound(loc, 'sound/items/bikehorn.ogg', 50, 1)
@@ -101,40 +110,45 @@
 	else //cyborg or AI not seeing through a camera
 		dist = get_dist(src, user)
 	if(dist < 2)
-		usr << browse("<HTML><HEAD><TITLE>[name]</TITLE></HEAD><BODY>[info][stamps]</BODY></HTML>", "window=[name]")
-		onclose(usr, "[name]")
+		show_content(user, forceshow = 1)
 	else
-		usr << browse("<HTML><HEAD><TITLE>[name]</TITLE></HEAD><BODY>[stars(info)][stamps]</BODY></HTML>", "window=[name]")
-		onclose(usr, "[name]")
+		show_content(user, forcestars = 1)
 	return
 
 /obj/item/weapon/paper/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
 	if(user.zone_sel.selecting == "eyes")
 		user.visible_message("<span class='notice'>You show the paper to [M]. </span>", \
 			"<span class='notice'> [user] holds up a paper and shows it to [M]. </span>")
-		src.examine(user)
+		M.examinate(src)
 
-	else if(user.zone_sel.selecting == "mouth") // lipstick wiping
+	else if(user.zone_sel.selecting == "mouth")
+		if(!istype(M, /mob))	return
+
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
 			if(H == user)
-				user << "<span class='notice'>You wipe off the lipstick with [src].</span>"
+				to_chat(user, "<span class='notice'>You wipe off your face with [src].</span>")
 				H.lip_style = null
 				H.update_body()
 			else
-				user.visible_message("<span class='warning'>[user] begins to wipe [H]'s lipstick off with \the [src].</span>", \
-								 	 "<span class='notice'>You begin to wipe off [H]'s lipstick.</span>")
-				if(do_after(user, 10) && do_after(H, 10, 5, 0))	//user needs to keep their active hand, H does not.
-					user.visible_message("<span class='notice'>[user] wipes [H]'s lipstick off with \the [src].</span>", \
-										 "<span class='notice'>You wipe off [H]'s lipstick.</span>")
+				user.visible_message("<span class='warning'>[user] begins to wipe [H]'s face clean with \the [src].</span>", \
+								 	 "<span class='notice'>You begin to wipe off [H]'s face.</span>")
+				if(do_after(user, 10, target = H) && do_after(H, 10, 0))	//user needs to keep their active hand, H does not.
+					user.visible_message("<span class='notice'>[user] wipes [H]'s face clean with \the [src].</span>", \
+										 "<span class='notice'>You wipe off [H]'s face.</span>")
 					H.lip_style = null
 					H.update_body()
+	else
+		..()
 
 /obj/item/weapon/paper/proc/addtofield(var/id, var/text, var/links = 0)
+	if(id > MAX_PAPER_FIELDS)
+		return
+
 	var/locid = 0
 	var/laststart = 1
 	var/textindex = 1
-	while(1) // I know this can cause infinite loops and fuck up the whole server, but the if(istart==0) should be safe as fuck
+	while(locid <= MAX_PAPER_FIELDS)
 		var/istart = 0
 		if(links)
 			istart = findtext(info_links, "<span class=\"paper_field\">", laststart)
@@ -239,11 +253,11 @@
 
 		t = "<font face=\"[crayonfont]\" color=[P ? P.colour : "black"]><b>[t]</b></font>"
 
-//	t = replacetext(t, "#", "") // Junk converted to nothing!
+	t = copytext(t, 1, MAX_PAPER_MESSAGE_LEN)
 
 //Count the fields
 	var/laststart = 1
-	while(1)
+	while(fields < MAX_PAPER_FIELDS)
 		var/i = findtext(t, "<span class=\"paper_field\">", laststart)
 		if(i==0)
 			break
@@ -277,30 +291,6 @@
 		\[hr\] : Adds a horizontal rule.
 	</BODY></HTML>"}, "window=paper_help")
 
-/obj/item/weapon/paper/proc/burnpaper(obj/item/weapon/lighter/P, mob/user)
-	var/class = "<span class='warning'>"
-
-	if(P.lit && !user.restrained())
-		if(istype(P, /obj/item/weapon/lighter/zippo))
-			class = "<span class='rose'>"
-
-		user.visible_message("[class][user] holds \the [P] up to \the [src], it looks like \he's trying to burn it!", \
-		"[class]You hold \the [P] up to \the [src], burning it slowly.")
-
-		spawn(20)
-			if(get_dist(src, user) < 2 && user.get_active_hand() == P && P.lit)
-				user.visible_message("[class][user] burns right through \the [src], turning it to ash. It flutters through the air before settling on the floor in a heap.", \
-				"[class]You burn right through \the [src], turning it to ash. It flutters through the air before settling on the floor in a heap.")
-
-				if(user.get_inactive_hand() == src)
-					user.unEquip(src)
-
-				new /obj/effect/decal/cleanable/ash(get_turf(src))
-				del(src)
-
-			else
-				user << "\red You must hold \the [P] steady to burn \the [src]."
-
 /obj/item/weapon/paper/Topic(href, href_list)
 	..()
 	if(!usr || (usr.stat || usr.restrained()))
@@ -313,6 +303,7 @@
 		var/t =  input("Enter what you want to write:", "Write", null, null)  as message
 		var/obj/item/i = usr.get_active_hand() // Check to see if he still got that darn pen, also check if he's using a crayon or pen.
 		var/iscrayon = 0
+		add_hiddenprint(usr) // No more forging nasty documents as someone else, you jerks
 		if(!istype(i, /obj/item/weapon/pen))
 			if(!istype(i, /obj/item/toy/crayon))
 				return
@@ -328,9 +319,9 @@
 		// check for exploits
 		for(var/bad in paper_blacklist)
 			if(findtext(t,bad))
-				usr << "\blue You think to yourself, \"Hm.. this is only paper...\""
-				log_admin("PAPER: [usr] ([usr.ckey]) tried to use forbidden word in [src]: [bad].")
-				message_admins("PAPER: [usr] ([usr.ckey]) tried to use forbidden word in [src]: [bad].")
+				to_chat(usr, "\blue You think to yourself, \"Hm.. this is only paper...\"")
+				log_admin("PAPER: [key_name(usr)] tried to use forbidden word in [src]: [bad].")
+				message_admins("PAPER: [key_name_admin(usr)] tried to use forbidden word in [src]: [bad].")
 				return
 */
 		t = html_encode(t)
@@ -343,68 +334,81 @@
 			info += t // Oh, he wants to edit to the end of the file, let him.
 			updateinfolinks()
 
-		usr << browse("<HTML><HEAD><TITLE>[name]</TITLE></HEAD><BODY>[info_links][stamps]</BODY></HTML>", "window=[name]") // Update the window
+		show_content(usr, forceshow = 1, infolinks = 1)
 
 		update_icon()
 
 
-/obj/item/weapon/paper/attackby(obj/item/weapon/P as obj, mob/user as mob, params)
+/obj/item/weapon/paper/attackby(obj/item/weapon/P, mob/living/user, params)
 	..()
+
+	if(burn_state == ON_FIRE)
+		return
+
 	var/clown = 0
 	if(user.mind && (user.mind.assigned_role == "Clown"))
 		clown = 1
 
+	if(istype(P, /obj/item/stack/tape_roll))
+		var/obj/item/stack/tape_roll/tape = P
+		tape.stick(src, user)
+		tape.use(1)
+		return
+
 	if(istype(P, /obj/item/weapon/paper) || istype(P, /obj/item/weapon/photo))
-		if (istype(P, /obj/item/weapon/paper/carbon))
+		if(istype(P, /obj/item/weapon/paper/carbon))
 			var/obj/item/weapon/paper/carbon/C = P
-			if (!C.iscopy && !C.copied)
-				user << "<span class='notice'>Take off the carbon copy first.</span>"
+			if(!C.iscopy && !C.copied)
+				to_chat(user, "<span class='notice'>Take off the carbon copy first.</span>")
 				add_fingerprint(user)
 				return
 		var/obj/item/weapon/paper_bundle/B = new(src.loc)
-		if (name != "paper")
+		if(name != "paper")
 			B.name = name
-		else if (P.name != "paper" && P.name != "photo")
+		else if(P.name != "paper" && P.name != "photo")
 			B.name = P.name
 		user.unEquip(P)
-		if (istype(user, /mob/living/carbon/human))
+		if(istype(user, /mob/living/carbon/human))
 			var/mob/living/carbon/human/h_user = user
-			if (h_user.r_hand == src)
+			if(h_user.r_hand == src)
 				h_user.unEquip(src)
 				h_user.put_in_r_hand(B)
-			else if (h_user.l_hand == src)
+			else if(h_user.l_hand == src)
 				h_user.unEquip(src)
 				h_user.put_in_l_hand(B)
-			else if (h_user.l_store == src)
+			else if(h_user.l_store == src)
 				h_user.unEquip(src)
 				B.loc = h_user
 				B.layer = 20
+				B.plane = HUD_PLANE
 				h_user.l_store = B
 				h_user.update_inv_pockets()
-			else if (h_user.r_store == src)
+			else if(h_user.r_store == src)
 				h_user.unEquip(src)
 				B.loc = h_user
 				B.layer = 20
+				B.plane = HUD_PLANE
 				h_user.r_store = B
 				h_user.update_inv_pockets()
-			else if (h_user.head == src)
+			else if(h_user.head == src)
 				h_user.unEquip(src)
 				h_user.put_in_hands(B)
-			else if (!istype(src.loc, /turf))
+			else if(!istype(src.loc, /turf))
 				src.loc = get_turf(h_user)
 				if(h_user.client)	h_user.client.screen -= src
 				h_user.put_in_hands(B)
-		user << "<span class='notice'>You clip the [P.name] to [(src.name == "paper") ? "the paper" : src.name].</span>"
+		to_chat(user, "<span class='notice'>You clip the [P.name] to [(src.name == "paper") ? "the paper" : src.name].</span>")
 		src.loc = B
 		P.loc = B
 		B.amount++
 		B.update_icon()
 
 	else if(istype(P, /obj/item/weapon/pen) || istype(P, /obj/item/toy/crayon))
-		if ( istype(P, /obj/item/weapon/pen/robopen) && P:mode == 2 )
-			P:RenamePaper(user,src)
+		var/obj/item/weapon/pen/multi/robopen/RP = P
+		if(istype(P, /obj/item/weapon/pen/multi/robopen) && RP.mode == 2)
+			RP.RenamePaper(user,src)
 		else
-			user << browse("<HTML><HEAD><TITLE>[name]</TITLE></HEAD><BODY>[info_links][stamps]</BODY></HTML>", "window=[name]")
+			show_content(user, infolinks = 1)
 		//openhelp(user)
 		return
 
@@ -412,44 +416,62 @@
 		if((!in_range(src, usr) && loc != user && !( istype(loc, /obj/item/weapon/clipboard) ) && loc.loc != user && user.get_active_hand() != P))
 			return
 
-		//stamps += (stamps=="" ? "<HR>" : "<BR>") + "<i>This paper has been stamped with the [P.name].</i>"
-		stamps += (stamps=="" ? "<HR>" : "") + "<img src=large_[P.icon_state].png>"
-
-		var/image/stampoverlay = image('icons/obj/bureaucracy.dmi')
-		var/{x; y;}
-		if(istype(P, /obj/item/weapon/stamp/captain) || istype(P, /obj/item/weapon/stamp/centcom))
-			x = rand(-2, 0)
-			y = rand(-1, 2)
-		else
-			x = rand(-2, 2)
-			y = rand(-3, 2)
-		offset_x += x
-		offset_y += y
-		stampoverlay.pixel_x = x
-		stampoverlay.pixel_y = y
-
 		if(istype(P, /obj/item/weapon/stamp/clown))
 			if(!clown)
-				user << "<span class='notice'>You are totally unable to use the stamp. HONK!</span>"
+				to_chat(user, "<span class='notice'>You are totally unable to use the stamp. HONK!</span>")
 				return
 
-		if(!ico)
-			ico = new
-		ico += "paper_[P.icon_state]"
-		stampoverlay.icon_state = "paper_[P.icon_state]"
+		stamp(P)
 
-		if(!stamped)
-			stamped = new
-		stamped += P.type
-		overlays += stampoverlay
+		to_chat(user, "<span class='notice'>You stamp the paper with your rubber stamp.</span>")
 
-		user << "<span class='notice'>You stamp the paper with your rubber stamp.</span>"
+	if(is_hot(P))
+		if((CLUMSY in user.mutations) && prob(10))
+			user.visible_message("<span class='warning'>[user] accidentally ignites themselves!</span>", \
+								"<span class='userdanger'>You miss the paper and accidentally light yourself on fire!</span>")
+			user.unEquip(P)
+			user.adjust_fire_stacks(1)
+			user.IgniteMob()
+			return
 
-	else if(istype(P, /obj/item/weapon/lighter))
-		burnpaper(P, user)
+		if(!Adjacent(user)) //to prevent issues as a result of telepathically lighting a paper
+			return
+
+		user.unEquip(src)
+		user.visible_message("<span class='danger'>[user] lights [src] ablaze with [P]!</span>", "<span class='danger'>You light [src] on fire!</span>")
+		fire_act()
 
 	add_fingerprint(user)
-	return
+
+/obj/item/weapon/paper/fire_act()
+	..()
+	info = "[stars(info)]"
+
+/obj/item/weapon/paper/proc/stamp(var/obj/item/weapon/stamp/S)
+	stamps += (!stamps || stamps == "" ? "<HR>" : "") + "<img src=large_[S.icon_state].png>"
+
+	var/image/stampoverlay = image('icons/obj/bureaucracy.dmi')
+	var/{x; y;}
+	if(istype(S, /obj/item/weapon/stamp/captain) || istype(S, /obj/item/weapon/stamp/centcom))
+		x = rand(-2, 0)
+		y = rand(-1, 2)
+	else
+		x = rand(-2, 2)
+		y = rand(-3, 2)
+	offset_x += x
+	offset_y += y
+	stampoverlay.pixel_x = x
+	stampoverlay.pixel_y = y
+
+	if(!ico)
+		ico = new
+	ico += "paper_[S.icon_state]"
+	stampoverlay.icon_state = "paper_[S.icon_state]"
+
+	if(!stamped)
+		stamped = new
+	stamped += S.type
+	overlays += stampoverlay
 
 /*
  * Premade paper
@@ -460,7 +482,7 @@
 
 /obj/item/weapon/paper/Toxin
 	name = "Chemical Information"
-	info = "Known Onboard Toxins:<BR>\n\tGrade A Semi-Liquid Phoron:<BR>\n\t\tHighly poisonous. You cannot sustain concentrations above 15 units.<BR>\n\t\tA gas mask fails to filter phoron after 50 units.<BR>\n\t\tWill attempt to diffuse like a gas.<BR>\n\t\tFiltered by scrubbers.<BR>\n\t\tThere is a bottled version which is very different<BR>\n\t\t\tfrom the version found in canisters!<BR>\n<BR>\n\t\tWARNING: Highly Flammable. Keep away from heat sources<BR>\n\t\texcept in a enclosed fire area!<BR>\n\t\tWARNING: It is a crime to use this without authorization.<BR>\nKnown Onboard Anti-Toxin:<BR>\n\tAnti-Toxin Type 01P: Works against Grade A Phoron.<BR>\n\t\tBest if injected directly into bloodstream.<BR>\n\t\tA full injection is in every regular Med-Kit.<BR>\n\t\tSpecial toxin Kits hold around 7.<BR>\n<BR>\nKnown Onboard Chemicals (other):<BR>\n\tRejuvenation T#001:<BR>\n\t\tEven 1 unit injected directly into the bloodstream<BR>\n\t\t\twill cure paralysis and sleep phoron.<BR>\n\t\tIf administered to a dying patient it will prevent<BR>\n\t\t\tfurther damage for about units*3 seconds.<BR>\n\t\t\tit will not cure them or allow them to be cured.<BR>\n\t\tIt can be administeredd to a non-dying patient<BR>\n\t\t\tbut the chemicals disappear just as fast.<BR>\n\tSoporific T#054:<BR>\n\t\t5 units wilkl induce precisely 1 minute of sleep.<BR>\n\t\t\tThe effect are cumulative.<BR>\n\t\tWARNING: It is a crime to use this without authorization"
+	info = "Known Onboard Toxins:<BR>\n\tGrade A Semi-Liquid Plasma:<BR>\n\t\tHighly poisonous. You cannot sustain concentrations above 15 units.<BR>\n\t\tA gas mask fails to filter plasma after 50 units.<BR>\n\t\tWill attempt to diffuse like a gas.<BR>\n\t\tFiltered by scrubbers.<BR>\n\t\tThere is a bottled version which is very different<BR>\n\t\t\tfrom the version found in canisters!<BR>\n<BR>\n\t\tWARNING: Highly Flammable. Keep away from heat sources<BR>\n\t\texcept in a enclosed fire area!<BR>\n\t\tWARNING: It is a crime to use this without authorization.<BR>\nKnown Onboard Anti-Toxin:<BR>\n\tAnti-Toxin Type 01P: Works against Grade A Plasma.<BR>\n\t\tBest if injected directly into bloodstream.<BR>\n\t\tA full injection is in every regular Med-Kit.<BR>\n\t\tSpecial toxin Kits hold around 7.<BR>\n<BR>\nKnown Onboard Chemicals (other):<BR>\n\tRejuvenation T#001:<BR>\n\t\tEven 1 unit injected directly into the bloodstream<BR>\n\t\t\twill cure paralysis and sleep plasma.<BR>\n\t\tIf administered to a dying patient it will prevent<BR>\n\t\t\tfurther damage for about units*3 seconds.<BR>\n\t\t\tit will not cure them or allow them to be cured.<BR>\n\t\tIt can be administeredd to a non-dying patient<BR>\n\t\t\tbut the chemicals disappear just as fast.<BR>\n\tSoporific T#054:<BR>\n\t\t5 units wilkl induce precisely 1 minute of sleep.<BR>\n\t\t\tThe effect are cumulative.<BR>\n\t\tWARNING: It is a crime to use this without authorization"
 
 /obj/item/weapon/paper/courtroom
 	name = "A Crash Course in Legal SOP on SS13"
@@ -481,7 +503,7 @@
 
 /obj/item/weapon/paper/jobs
 	name = "Job Information"
-	info = "Information on all formal jobs that can be assigned on Space Station 13 can be found on this document.<BR>\nThe data will be in the following form.<BR>\nGenerally lower ranking positions come first in this list.<BR>\n<BR>\n<B>Job Name</B>   general access>lab access-engine access-systems access (atmosphere control)<BR>\n\tJob Description<BR>\nJob Duties (in no particular order)<BR>\nTips (where applicable)<BR>\n<BR>\n<B>Research Assistant</B> 1>1-0-0<BR>\n\tThis is probably the lowest level position. Anyone who enters the space station after the initial job\nassignment will automatically receive this position. Access with this is restricted. Head of Personnel should\nappropriate the correct level of assistance.<BR>\n1. Assist the researchers.<BR>\n2. Clean up the labs.<BR>\n3. Prepare materials.<BR>\n<BR>\n<B>Staff Assistant</B> 2>0-0-0<BR>\n\tThis position assists the security officer in his duties. The staff assisstants should primarily br\npatrolling the ship waiting until they are needed to maintain ship safety.\n(Addendum: Updated/Elevated Security Protocols admit issuing of low level weapons to security personnel)<BR>\n1. Patrol ship/Guard key areas<BR>\n2. Assist security officer<BR>\n3. Perform other security duties.<BR>\n<BR>\n<B>Technical Assistant</B> 1>0-0-1<BR>\n\tThis is yet another low level position. The technical assistant helps the engineer and the statian\ntechnician with the upkeep and maintenance of the station. This job is very important because it usually\ngets to be a heavy workload on station technician and these helpers will alleviate that.<BR>\n1. Assist Station technician and Engineers.<BR>\n2. Perform general maintenance of station.<BR>\n3. Prepare materials.<BR>\n<BR>\n<B>Medical Assistant</B> 1>1-0-0<BR>\n\tThis is the fourth position yet it is slightly less common. This position doesn't have much power\noutside of the med bay. Consider this position like a nurse who helps to upkeep medical records and the\nmaterials (filling syringes and checking vitals)<BR>\n1. Assist the medical personnel.<BR>\n2. Update medical files.<BR>\n3. Prepare materials for medical operations.<BR>\n<BR>\n<B>Research Technician</B> 2>3-0-0<BR>\n\tThis job is primarily a step up from research assistant. These people generally do not get their own lab\nbut are more hands on in the experimentation process. At this level they are permitted to work as consultants to\nthe others formally.<BR>\n1. Inform superiors of research.<BR>\n2. Perform research alongside of official researchers.<BR>\n<BR>\n<B>Detective</B> 3>2-0-0<BR>\n\tThis job is in most cases slightly boring at best. Their sole duty is to\nperform investigations of crine scenes and analysis of the crime scene. This\nalleviates SOME of the burden from the security officer. This person's duty\nis to draw conclusions as to what happened and testify in court. Said person\nalso should stroe the evidence ly.<BR>\n1. Perform crime-scene investigations/draw conclusions.<BR>\n2. Store and catalogue evidence properly.<BR>\n3. Testify to superiors/inquieries on findings.<BR>\n<BR>\n<B>Station Technician</B> 2>0-2-3<BR>\n\tPeople assigned to this position must work to make sure all the systems aboard Space Station 13 are operable.\nThey should primarily work in the computer lab and repairing faulty equipment. They should work with the\natmospheric technician.<BR>\n1. Maintain SS13 systems.<BR>\n2. Repair equipment.<BR>\n<BR>\n<B>Atmospheric Technician</B> 3>0-0-4<BR>\n\tThese people should primarily work in the atmospheric control center and lab. They have the very important\njob of maintaining the delicate atmosphere on SS13.<BR>\n1. Maintain atmosphere on SS13<BR>\n2. Research atmospheres on the space station. (safely please!)<BR>\n<BR>\n<B>Engineer</B> 2>1-3-0<BR>\n\tPeople working as this should generally have detailed knowledge as to how the propulsion systems on SS13\nwork. They are one of the few classes that have unrestricted access to the engine area.<BR>\n1. Upkeep the engine.<BR>\n2. Prevent fires in the engine.<BR>\n3. Maintain a safe orbit.<BR>\n<BR>\n<B>Medical Researcher</B> 2>5-0-0<BR>\n\tThis position may need a little clarification. Their duty is to make sure that all experiments are safe and\nto conduct experiments that may help to improve the station. They will be generally idle until a new laboratory\nis constructed.<BR>\n1. Make sure the station is kept safe.<BR>\n2. Research medical properties of materials studied of Space Station 13.<BR>\n<BR>\n<B>Scientist</B> 2>5-0-0<BR>\n\tThese people study the properties, particularly the toxic properties, of materials handled on SS13.\nTechnically they can also be called Phoron Technicians as phoron is the material they routinly handle.<BR>\n1. Research phoron<BR>\n2. Make sure all phoron is properly handled.<BR>\n<BR>\n<B>Medical Doctor (Officer)</B> 2>0-0-0<BR>\n\tPeople working this job should primarily stay in the medical area. They should make sure everyone goes to\nthe medical bay for treatment and examination. Also they should make sure that medical supplies are kept in\norder.<BR>\n1. Heal wounded people.<BR>\n2. Perform examinations of all personnel.<BR>\n3. Moniter usage of medical equipment.<BR>\n<BR>\n<B>Security Officer</B> 3>0-0-0<BR>\n\tThese people should attempt to keep the peace inside the station and make sure the station is kept safe. One\nside duty is to assist in repairing the station. They also work like general maintenance personnel. They are not\ngiven a weapon and must use their own resources.<BR>\n(Addendum: Updated/Elevated Security Protocols admit issuing of weapons to security personnel)<BR>\n1. Maintain order.<BR>\n2. Assist others.<BR>\n3. Repair structural problems.<BR>\n<BR>\n<B>Head of Security</B> 4>5-2-2<BR>\n\tPeople assigned as Head of Security should issue orders to the security staff. They should\nalso carefully moderate the usage of all security equipment. All security matters should be reported to this person.<BR>\n1. Oversee security.<BR>\n2. Assign patrol duties.<BR>\n3. Protect the station and staff.<BR>\n<BR>\n<B>Head of Personnel</B> 4>4-2-2<BR>\n\tPeople assigned as head of personnel will find themselves moderating all actions done by personnel. \nAlso they have the ability to assign jobs and access levels.<BR>\n1. Assign duties.<BR>\n2. Moderate personnel.<BR>\n3. Moderate research. <BR>\n<BR>\n<B>Captain</B> 5>5-5-5 (unrestricted station wide access)<BR>\n\tThis is the highest position youi can aquire on Space Station 13. They are allowed anywhere inside the\nspace station and therefore should protect their ID card. They also have the ability to assign positions\nand access levels. They should not abuse their power.<BR>\n1. Assign all positions on SS13<BR>\n2. Inspect the station for any problems.<BR>\n3. Perform administrative duties.<BR>\n"
+	info = "Information on all formal jobs that can be assigned on Space Station 13 can be found on this document.<BR>\nThe data will be in the following form.<BR>\nGenerally lower ranking positions come first in this list.<BR>\n<BR>\n<B>Job Name</B>   general access>lab access-engine access-systems access (atmosphere control)<BR>\n\tJob Description<BR>\nJob Duties (in no particular order)<BR>\nTips (where applicable)<BR>\n<BR>\n<B>Research Assistant</B> 1>1-0-0<BR>\n\tThis is probably the lowest level position. Anyone who enters the space station after the initial job\nassignment will automatically receive this position. Access with this is restricted. Head of Personnel should\nappropriate the correct level of assistance.<BR>\n1. Assist the researchers.<BR>\n2. Clean up the labs.<BR>\n3. Prepare materials.<BR>\n<BR>\n<B>Staff Assistant</B> 2>0-0-0<BR>\n\tThis position assists the security officer in his duties. The staff assisstants should primarily br\npatrolling the ship waiting until they are needed to maintain ship safety.\n(Addendum: Updated/Elevated Security Protocols admit issuing of low level weapons to security personnel)<BR>\n1. Patrol ship/Guard key areas<BR>\n2. Assist security officer<BR>\n3. Perform other security duties.<BR>\n<BR>\n<B>Technical Assistant</B> 1>0-0-1<BR>\n\tThis is yet another low level position. The technical assistant helps the engineer and the statian\ntechnician with the upkeep and maintenance of the station. This job is very important because it usually\ngets to be a heavy workload on station technician and these helpers will alleviate that.<BR>\n1. Assist Station technician and Engineers.<BR>\n2. Perform general maintenance of station.<BR>\n3. Prepare materials.<BR>\n<BR>\n<B>Medical Assistant</B> 1>1-0-0<BR>\n\tThis is the fourth position yet it is slightly less common. This position doesn't have much power\noutside of the med bay. Consider this position like a nurse who helps to upkeep medical records and the\nmaterials (filling syringes and checking vitals)<BR>\n1. Assist the medical personnel.<BR>\n2. Update medical files.<BR>\n3. Prepare materials for medical operations.<BR>\n<BR>\n<B>Research Technician</B> 2>3-0-0<BR>\n\tThis job is primarily a step up from research assistant. These people generally do not get their own lab\nbut are more hands on in the experimentation process. At this level they are permitted to work as consultants to\nthe others formally.<BR>\n1. Inform superiors of research.<BR>\n2. Perform research alongside of official researchers.<BR>\n<BR>\n<B>Detective</B> 3>2-0-0<BR>\n\tThis job is in most cases slightly boring at best. Their sole duty is to\nperform investigations of crine scenes and analysis of the crime scene. This\nalleviates SOME of the burden from the security officer. This person's duty\nis to draw conclusions as to what happened and testify in court. Said person\nalso should stroe the evidence ly.<BR>\n1. Perform crime-scene investigations/draw conclusions.<BR>\n2. Store and catalogue evidence properly.<BR>\n3. Testify to superiors/inquieries on findings.<BR>\n<BR>\n<B>Station Technician</B> 2>0-2-3<BR>\n\tPeople assigned to this position must work to make sure all the systems aboard Space Station 13 are operable.\nThey should primarily work in the computer lab and repairing faulty equipment. They should work with the\natmospheric technician.<BR>\n1. Maintain SS13 systems.<BR>\n2. Repair equipment.<BR>\n<BR>\n<B>Atmospheric Technician</B> 3>0-0-4<BR>\n\tThese people should primarily work in the atmospheric control center and lab. They have the very important\njob of maintaining the delicate atmosphere on SS13.<BR>\n1. Maintain atmosphere on SS13<BR>\n2. Research atmospheres on the space station. (safely please!)<BR>\n<BR>\n<B>Engineer</B> 2>1-3-0<BR>\n\tPeople working as this should generally have detailed knowledge as to how the propulsion systems on SS13\nwork. They are one of the few classes that have unrestricted access to the engine area.<BR>\n1. Upkeep the engine.<BR>\n2. Prevent fires in the engine.<BR>\n3. Maintain a safe orbit.<BR>\n<BR>\n<B>Medical Researcher</B> 2>5-0-0<BR>\n\tThis position may need a little clarification. Their duty is to make sure that all experiments are safe and\nto conduct experiments that may help to improve the station. They will be generally idle until a new laboratory\nis constructed.<BR>\n1. Make sure the station is kept safe.<BR>\n2. Research medical properties of materials studied of Space Station 13.<BR>\n<BR>\n<B>Scientist</B> 2>5-0-0<BR>\n\tThese people study the properties, particularly the toxic properties, of materials handled on SS13.\nTechnically they can also be called Plasma Technicians as plasma is the material they routinly handle.<BR>\n1. Research plasma<BR>\n2. Make sure all plasma is properly handled.<BR>\n<BR>\n<B>Medical Doctor (Officer)</B> 2>0-0-0<BR>\n\tPeople working this job should primarily stay in the medical area. They should make sure everyone goes to\nthe medical bay for treatment and examination. Also they should make sure that medical supplies are kept in\norder.<BR>\n1. Heal wounded people.<BR>\n2. Perform examinations of all personnel.<BR>\n3. Moniter usage of medical equipment.<BR>\n<BR>\n<B>Security Officer</B> 3>0-0-0<BR>\n\tThese people should attempt to keep the peace inside the station and make sure the station is kept safe. One\nside duty is to assist in repairing the station. They also work like general maintenance personnel. They are not\ngiven a weapon and must use their own resources.<BR>\n(Addendum: Updated/Elevated Security Protocols admit issuing of weapons to security personnel)<BR>\n1. Maintain order.<BR>\n2. Assist others.<BR>\n3. Repair structural problems.<BR>\n<BR>\n<B>Head of Security</B> 4>5-2-2<BR>\n\tPeople assigned as Head of Security should issue orders to the security staff. They should\nalso carefully moderate the usage of all security equipment. All security matters should be reported to this person.<BR>\n1. Oversee security.<BR>\n2. Assign patrol duties.<BR>\n3. Protect the station and staff.<BR>\n<BR>\n<B>Head of Personnel</B> 4>4-2-2<BR>\n\tPeople assigned as head of personnel will find themselves moderating all actions done by personnel. \nAlso they have the ability to assign jobs and access levels.<BR>\n1. Assign duties.<BR>\n2. Moderate personnel.<BR>\n3. Moderate research. <BR>\n<BR>\n<B>Captain</B> 5>5-5-5 (unrestricted station wide access)<BR>\n\tThis is the highest position youi can aquire on Space Station 13. They are allowed anywhere inside the\nspace station and therefore should protect their ID card. They also have the ability to assign positions\nand access levels. They should not abuse their power.<BR>\n1. Assign all positions on SS13<BR>\n2. Inspect the station for any problems.<BR>\n3. Perform administrative duties.<BR>\n"
 
 /obj/item/weapon/paper/photograph
 	name = "photo"
@@ -511,7 +533,7 @@
 
 /obj/item/weapon/paper/Toxin
 	name = "Chemical Information"
-	info = "Known Onboard Toxins:<BR>\n\tGrade A Semi-Liquid Phoron:<BR>\n\t\tHighly poisonous. You cannot sustain concentrations above 15 units.<BR>\n\t\tA gas mask fails to filter phoron after 50 units.<BR>\n\t\tWill attempt to diffuse like a gas.<BR>\n\t\tFiltered by scrubbers.<BR>\n\t\tThere is a bottled version which is very different<BR>\n\t\t\tfrom the version found in canisters!<BR>\n<BR>\n\t\tWARNING: Highly Flammable. Keep away from heat sources<BR>\n\t\texcept in a enclosed fire area!<BR>\n\t\tWARNING: It is a crime to use this without authorization.<BR>\nKnown Onboard Anti-Toxin:<BR>\n\tAnti-Toxin Type 01P: Works against Grade A Phoron.<BR>\n\t\tBest if injected directly into bloodstream.<BR>\n\t\tA full injection is in every regular Med-Kit.<BR>\n\t\tSpecial toxin Kits hold around 7.<BR>\n<BR>\nKnown Onboard Chemicals (other):<BR>\n\tRejuvenation T#001:<BR>\n\t\tEven 1 unit injected directly into the bloodstream<BR>\n\t\t\twill cure paralysis and sleep phoron.<BR>\n\t\tIf administered to a dying patient it will prevent<BR>\n\t\t\tfurther damage for about units*3 seconds.<BR>\n\t\t\tit will not cure them or allow them to be cured.<BR>\n\t\tIt can be administeredd to a non-dying patient<BR>\n\t\t\tbut the chemicals disappear just as fast.<BR>\n\tSoporific T#054:<BR>\n\t\t5 units wilkl induce precisely 1 minute of sleep.<BR>\n\t\t\tThe effect are cumulative.<BR>\n\t\tWARNING: It is a crime to use this without authorization"
+	info = "Known Onboard Toxins:<BR>\n\tGrade A Semi-Liquid Plasma:<BR>\n\t\tHighly poisonous. You cannot sustain concentrations above 15 units.<BR>\n\t\tA gas mask fails to filter plasma after 50 units.<BR>\n\t\tWill attempt to diffuse like a gas.<BR>\n\t\tFiltered by scrubbers.<BR>\n\t\tThere is a bottled version which is very different<BR>\n\t\t\tfrom the version found in canisters!<BR>\n<BR>\n\t\tWARNING: Highly Flammable. Keep away from heat sources<BR>\n\t\texcept in a enclosed fire area!<BR>\n\t\tWARNING: It is a crime to use this without authorization.<BR>\nKnown Onboard Anti-Toxin:<BR>\n\tAnti-Toxin Type 01P: Works against Grade A Plasma.<BR>\n\t\tBest if injected directly into bloodstream.<BR>\n\t\tA full injection is in every regular Med-Kit.<BR>\n\t\tSpecial toxin Kits hold around 7.<BR>\n<BR>\nKnown Onboard Chemicals (other):<BR>\n\tRejuvenation T#001:<BR>\n\t\tEven 1 unit injected directly into the bloodstream<BR>\n\t\t\twill cure paralysis and sleep plasma.<BR>\n\t\tIf administered to a dying patient it will prevent<BR>\n\t\t\tfurther damage for about units*3 seconds.<BR>\n\t\t\tit will not cure them or allow them to be cured.<BR>\n\t\tIt can be administeredd to a non-dying patient<BR>\n\t\t\tbut the chemicals disappear just as fast.<BR>\n\tSoporific T#054:<BR>\n\t\t5 units wilkl induce precisely 1 minute of sleep.<BR>\n\t\t\tThe effect are cumulative.<BR>\n\t\tWARNING: It is a crime to use this without authorization"
 
 /obj/item/weapon/paper/courtroom
 	name = "A Crash Course in Legal SOP on SS13"
@@ -532,7 +554,7 @@
 
 /obj/item/weapon/paper/jobs
 	name = "Job Information"
-	info = "Information on all formal jobs that can be assigned on Space Station 13 can be found on this document.<BR>\nThe data will be in the following form.<BR>\nGenerally lower ranking positions come first in this list.<BR>\n<BR>\n<B>Job Name</B>   general access>lab access-engine access-systems access (atmosphere control)<BR>\n\tJob Description<BR>\nJob Duties (in no particular order)<BR>\nTips (where applicable)<BR>\n<BR>\n<B>Research Assistant</B> 1>1-0-0<BR>\n\tThis is probably the lowest level position. Anyone who enters the space station after the initial job\nassignment will automatically receive this position. Access with this is restricted. Head of Personnel should\nappropriate the correct level of assistance.<BR>\n1. Assist the researchers.<BR>\n2. Clean up the labs.<BR>\n3. Prepare materials.<BR>\n<BR>\n<B>Staff Assistant</B> 2>0-0-0<BR>\n\tThis position assists the security officer in his duties. The staff assisstants should primarily br\npatrolling the ship waiting until they are needed to maintain ship safety.\n(Addendum: Updated/Elevated Security Protocols admit issuing of low level weapons to security personnel)<BR>\n1. Patrol ship/Guard key areas<BR>\n2. Assist security officer<BR>\n3. Perform other security duties.<BR>\n<BR>\n<B>Technical Assistant</B> 1>0-0-1<BR>\n\tThis is yet another low level position. The technical assistant helps the engineer and the statian\ntechnician with the upkeep and maintenance of the station. This job is very important because it usually\ngets to be a heavy workload on station technician and these helpers will alleviate that.<BR>\n1. Assist Station technician and Engineers.<BR>\n2. Perform general maintenance of station.<BR>\n3. Prepare materials.<BR>\n<BR>\n<B>Medical Assistant</B> 1>1-0-0<BR>\n\tThis is the fourth position yet it is slightly less common. This position doesn't have much power\noutside of the med bay. Consider this position like a nurse who helps to upkeep medical records and the\nmaterials (filling syringes and checking vitals)<BR>\n1. Assist the medical personnel.<BR>\n2. Update medical files.<BR>\n3. Prepare materials for medical operations.<BR>\n<BR>\n<B>Research Technician</B> 2>3-0-0<BR>\n\tThis job is primarily a step up from research assistant. These people generally do not get their own lab\nbut are more hands on in the experimentation process. At this level they are permitted to work as consultants to\nthe others formally.<BR>\n1. Inform superiors of research.<BR>\n2. Perform research alongside of official researchers.<BR>\n<BR>\n<B>Detective</B> 3>2-0-0<BR>\n\tThis job is in most cases slightly boring at best. Their sole duty is to\nperform investigations of crine scenes and analysis of the crime scene. This\nalleviates SOME of the burden from the security officer. This person's duty\nis to draw conclusions as to what happened and testify in court. Said person\nalso should stroe the evidence ly.<BR>\n1. Perform crime-scene investigations/draw conclusions.<BR>\n2. Store and catalogue evidence properly.<BR>\n3. Testify to superiors/inquieries on findings.<BR>\n<BR>\n<B>Station Technician</B> 2>0-2-3<BR>\n\tPeople assigned to this position must work to make sure all the systems aboard Space Station 13 are operable.\nThey should primarily work in the computer lab and repairing faulty equipment. They should work with the\natmospheric technician.<BR>\n1. Maintain SS13 systems.<BR>\n2. Repair equipment.<BR>\n<BR>\n<B>Atmospheric Technician</B> 3>0-0-4<BR>\n\tThese people should primarily work in the atmospheric control center and lab. They have the very important\njob of maintaining the delicate atmosphere on SS13.<BR>\n1. Maintain atmosphere on SS13<BR>\n2. Research atmospheres on the space station. (safely please!)<BR>\n<BR>\n<B>Engineer</B> 2>1-3-0<BR>\n\tPeople working as this should generally have detailed knowledge as to how the propulsion systems on SS13\nwork. They are one of the few classes that have unrestricted access to the engine area.<BR>\n1. Upkeep the engine.<BR>\n2. Prevent fires in the engine.<BR>\n3. Maintain a safe orbit.<BR>\n<BR>\n<B>Medical Researcher</B> 2>5-0-0<BR>\n\tThis position may need a little clarification. Their duty is to make sure that all experiments are safe and\nto conduct experiments that may help to improve the station. They will be generally idle until a new laboratory\nis constructed.<BR>\n1. Make sure the station is kept safe.<BR>\n2. Research medical properties of materials studied of Space Station 13.<BR>\n<BR>\n<B>Scientist</B> 2>5-0-0<BR>\n\tThese people study the properties, particularly the toxic properties, of materials handled on SS13.\nTechnically they can also be called Phoron Technicians as phoron is the material they routinly handle.<BR>\n1. Research phoron<BR>\n2. Make sure all phoron is properly handled.<BR>\n<BR>\n<B>Medical Doctor (Officer)</B> 2>0-0-0<BR>\n\tPeople working this job should primarily stay in the medical area. They should make sure everyone goes to\nthe medical bay for treatment and examination. Also they should make sure that medical supplies are kept in\norder.<BR>\n1. Heal wounded people.<BR>\n2. Perform examinations of all personnel.<BR>\n3. Moniter usage of medical equipment.<BR>\n<BR>\n<B>Security Officer</B> 3>0-0-0<BR>\n\tThese people should attempt to keep the peace inside the station and make sure the station is kept safe. One\nside duty is to assist in repairing the station. They also work like general maintenance personnel. They are not\ngiven a weapon and must use their own resources.<BR>\n(Addendum: Updated/Elevated Security Protocols admit issuing of weapons to security personnel)<BR>\n1. Maintain order.<BR>\n2. Assist others.<BR>\n3. Repair structural problems.<BR>\n<BR>\n<B>Head of Security</B> 4>5-2-2<BR>\n\tPeople assigned as Head of Security should issue orders to the security staff. They should\nalso carefully moderate the usage of all security equipment. All security matters should be reported to this person.<BR>\n1. Oversee security.<BR>\n2. Assign patrol duties.<BR>\n3. Protect the station and staff.<BR>\n<BR>\n<B>Head of Personnel</B> 4>4-2-2<BR>\n\tPeople assigned as head of personnel will find themselves moderating all actions done by personnel. \nAlso they have the ability to assign jobs and access levels.<BR>\n1. Assign duties.<BR>\n2. Moderate personnel.<BR>\n3. Moderate research. <BR>\n<BR>\n<B>Captain</B> 5>5-5-5 (unrestricted station wide access)<BR>\n\tThis is the highest position youi can aquire on Space Station 13. They are allowed anywhere inside the\nspace station and therefore should protect their ID card. They also have the ability to assign positions\nand access levels. They should not abuse their power.<BR>\n1. Assign all positions on SS13<BR>\n2. Inspect the station for any problems.<BR>\n3. Perform administrative duties.<BR>\n"
+	info = "Information on all formal jobs that can be assigned on Space Station 13 can be found on this document.<BR>\nThe data will be in the following form.<BR>\nGenerally lower ranking positions come first in this list.<BR>\n<BR>\n<B>Job Name</B>   general access>lab access-engine access-systems access (atmosphere control)<BR>\n\tJob Description<BR>\nJob Duties (in no particular order)<BR>\nTips (where applicable)<BR>\n<BR>\n<B>Research Assistant</B> 1>1-0-0<BR>\n\tThis is probably the lowest level position. Anyone who enters the space station after the initial job\nassignment will automatically receive this position. Access with this is restricted. Head of Personnel should\nappropriate the correct level of assistance.<BR>\n1. Assist the researchers.<BR>\n2. Clean up the labs.<BR>\n3. Prepare materials.<BR>\n<BR>\n<B>Staff Assistant</B> 2>0-0-0<BR>\n\tThis position assists the security officer in his duties. The staff assisstants should primarily br\npatrolling the ship waiting until they are needed to maintain ship safety.\n(Addendum: Updated/Elevated Security Protocols admit issuing of low level weapons to security personnel)<BR>\n1. Patrol ship/Guard key areas<BR>\n2. Assist security officer<BR>\n3. Perform other security duties.<BR>\n<BR>\n<B>Technical Assistant</B> 1>0-0-1<BR>\n\tThis is yet another low level position. The technical assistant helps the engineer and the statian\ntechnician with the upkeep and maintenance of the station. This job is very important because it usually\ngets to be a heavy workload on station technician and these helpers will alleviate that.<BR>\n1. Assist Station technician and Engineers.<BR>\n2. Perform general maintenance of station.<BR>\n3. Prepare materials.<BR>\n<BR>\n<B>Medical Assistant</B> 1>1-0-0<BR>\n\tThis is the fourth position yet it is slightly less common. This position doesn't have much power\noutside of the med bay. Consider this position like a nurse who helps to upkeep medical records and the\nmaterials (filling syringes and checking vitals)<BR>\n1. Assist the medical personnel.<BR>\n2. Update medical files.<BR>\n3. Prepare materials for medical operations.<BR>\n<BR>\n<B>Research Technician</B> 2>3-0-0<BR>\n\tThis job is primarily a step up from research assistant. These people generally do not get their own lab\nbut are more hands on in the experimentation process. At this level they are permitted to work as consultants to\nthe others formally.<BR>\n1. Inform superiors of research.<BR>\n2. Perform research alongside of official researchers.<BR>\n<BR>\n<B>Detective</B> 3>2-0-0<BR>\n\tThis job is in most cases slightly boring at best. Their sole duty is to\nperform investigations of crine scenes and analysis of the crime scene. This\nalleviates SOME of the burden from the security officer. This person's duty\nis to draw conclusions as to what happened and testify in court. Said person\nalso should stroe the evidence ly.<BR>\n1. Perform crime-scene investigations/draw conclusions.<BR>\n2. Store and catalogue evidence properly.<BR>\n3. Testify to superiors/inquieries on findings.<BR>\n<BR>\n<B>Station Technician</B> 2>0-2-3<BR>\n\tPeople assigned to this position must work to make sure all the systems aboard Space Station 13 are operable.\nThey should primarily work in the computer lab and repairing faulty equipment. They should work with the\natmospheric technician.<BR>\n1. Maintain SS13 systems.<BR>\n2. Repair equipment.<BR>\n<BR>\n<B>Atmospheric Technician</B> 3>0-0-4<BR>\n\tThese people should primarily work in the atmospheric control center and lab. They have the very important\njob of maintaining the delicate atmosphere on SS13.<BR>\n1. Maintain atmosphere on SS13<BR>\n2. Research atmospheres on the space station. (safely please!)<BR>\n<BR>\n<B>Engineer</B> 2>1-3-0<BR>\n\tPeople working as this should generally have detailed knowledge as to how the propulsion systems on SS13\nwork. They are one of the few classes that have unrestricted access to the engine area.<BR>\n1. Upkeep the engine.<BR>\n2. Prevent fires in the engine.<BR>\n3. Maintain a safe orbit.<BR>\n<BR>\n<B>Medical Researcher</B> 2>5-0-0<BR>\n\tThis position may need a little clarification. Their duty is to make sure that all experiments are safe and\nto conduct experiments that may help to improve the station. They will be generally idle until a new laboratory\nis constructed.<BR>\n1. Make sure the station is kept safe.<BR>\n2. Research medical properties of materials studied of Space Station 13.<BR>\n<BR>\n<B>Scientist</B> 2>5-0-0<BR>\n\tThese people study the properties, particularly the toxic properties, of materials handled on SS13.\nTechnically they can also be called Plasma Technicians as plasma is the material they routinly handle.<BR>\n1. Research plasma<BR>\n2. Make sure all plasma is properly handled.<BR>\n<BR>\n<B>Medical Doctor (Officer)</B> 2>0-0-0<BR>\n\tPeople working this job should primarily stay in the medical area. They should make sure everyone goes to\nthe medical bay for treatment and examination. Also they should make sure that medical supplies are kept in\norder.<BR>\n1. Heal wounded people.<BR>\n2. Perform examinations of all personnel.<BR>\n3. Moniter usage of medical equipment.<BR>\n<BR>\n<B>Security Officer</B> 3>0-0-0<BR>\n\tThese people should attempt to keep the peace inside the station and make sure the station is kept safe. One\nside duty is to assist in repairing the station. They also work like general maintenance personnel. They are not\ngiven a weapon and must use their own resources.<BR>\n(Addendum: Updated/Elevated Security Protocols admit issuing of weapons to security personnel)<BR>\n1. Maintain order.<BR>\n2. Assist others.<BR>\n3. Repair structural problems.<BR>\n<BR>\n<B>Head of Security</B> 4>5-2-2<BR>\n\tPeople assigned as Head of Security should issue orders to the security staff. They should\nalso carefully moderate the usage of all security equipment. All security matters should be reported to this person.<BR>\n1. Oversee security.<BR>\n2. Assign patrol duties.<BR>\n3. Protect the station and staff.<BR>\n<BR>\n<B>Head of Personnel</B> 4>4-2-2<BR>\n\tPeople assigned as head of personnel will find themselves moderating all actions done by personnel. \nAlso they have the ability to assign jobs and access levels.<BR>\n1. Assign duties.<BR>\n2. Moderate personnel.<BR>\n3. Moderate research. <BR>\n<BR>\n<B>Captain</B> 5>5-5-5 (unrestricted station wide access)<BR>\n\tThis is the highest position youi can aquire on Space Station 13. They are allowed anywhere inside the\nspace station and therefore should protect their ID card. They also have the ability to assign positions\nand access levels. They should not abuse their power.<BR>\n1. Assign all positions on SS13<BR>\n2. Inspect the station for any problems.<BR>\n3. Perform administrative duties.<BR>\n"
 
 /obj/item/weapon/paper/photograph
 	name = "photo"
@@ -545,15 +567,15 @@
 
 /obj/item/weapon/paper/blueshield
 	name = "paper- 'Blueshield Mission Briefing'"
-	info = "<b>Blueshield Mission Briefing</b><br>You are charged with the defence of any persons of importance within the station. This includes but is not limited to The Captain, The Heads of Staff and Central Command staff. You answer directly to the Head of Security who will assist you in achieving your mission.<br>Where required to achieve your primary responsibility you should liaise with security and share resources, however the day to day security operations of the station are outside of your jurisdiction.<br>Monitor the health and safety of your principals, identify any potential risks and threats then alert the proper departments to resolve the situation. You are authorized to act as bodyguard to any of the station heads that you determine are most in need of protection, however additional access to their departments shall be granted solely at their discretion.<br>Observe the station alert system and carry your armaments only as required by the situation or when authorized by the Head of Security or Captain in exceptional cases.<br>Remember, as an agent of Nanotrasen it is your responsibility to conduct yourself appropriately and you will be held to the highest standard. You will be held accountable for your actions. Security is authorized to search, interrogate or detain you as required by their own procedures. Internal affairs will also monitor and observe your conduct and their mandate applies equally to security and Blueshield operations."
+	info = "<b>Blueshield Mission Briefing</b><br>You are charged with the defence of any persons of importance within the station. This includes, but is not limited to, The Captain, The Heads of Staff and Central Command staff. You answer directly to the Nanotrasen Representative who will assist you in achieving your mission.<br>When required to achieve your primary responsibility, you should liaise with security and share resources; however, the day to day security operations of the station are outside of your jurisdiction.<br>Monitor the health and safety of your principals, identify any potential risks and threats, then alert the proper departments to resolve the situation. You are authorized to act as bodyguard to any of the station heads that you determine are most in need of protection; however, additional access to their departments shall be granted solely at their discretion.<br>Observe the station alert system and carry your armaments only as required by the situation, or when authorized by the Head of Security or Captain in exceptional cases.<br>Remember, as an agent of Nanotrasen it is your responsibility to conduct yourself appropriately and you will be held to the highest standard. You will be held accountable for your actions. Security is authorized to search, interrogate or detain you as required by their own procedures. Internal affairs will also monitor and observe your conduct, and their mandate applies equally to security and Blueshield operations."
 
 /obj/item/weapon/paper/ntrep
 	name = "paper- 'Nanotrasen Representative Mission Briefing'"
-	info = "<b>Nanotrasen Representative Mission Briefing</b><br><br>Nanotrasen Central Command has dispatched you to this station in order to liaise with command staff on their behalf. As experienced field officers, the staff on the station are experts in handling their own fields. It is your job however to consider the bigger picture and to direct the staff towards Nanotrasen's corporate interests.<br>As a civilian, you should consider yourself an advisor, diplomat and intermediary. The command staff do not answer to you directly and are not required to follow your orders nor do you have disciplinary authority over personnel. In all station internal matters you answer to the Head of Personnel who will direct you in your conduct within the station. However you also answer to Central Command who may, as required, direct you in acting on company interests.<br>Central Command may dispatch orders to the staff through you which you are responsible to communicate, however enforcement of these orders is not your mandate and will be handled directly by Central Command or authorized Nanotrasen personnel. When not specifically directed by Central Command, assist the head of personnel in evaluation of the station and receiving departmental reports.<br>Your office has been provided with a direct link to Central Command, through which you can issue any urgent reports or requests for Nanotrasen intervention. Remember that any direct intervention is a costly exercise and should be used only when the situation justifies the request. You will be held accountable for any unnecessary usage of Nanotrasen resources.<br>"
+	info = "<b>Nanotrasen Representative Mission Briefing</b><br><br>Nanotrasen Central Command has dispatched you to this station in order to liaise with command staff on their behalf. As experienced field officers, the staff on the station are experts in handling their own fields. It is your job, however, to consider the bigger picture and to direct the staff towards Nanotrasen's corporate interests.<br>As a civilian, you should consider yourself an advisor, diplomat and intermediary. The command staff do not answer to you directly and are not required to follow your orders, nor do you have disciplinary authority over personnel. In all station internal matters you answer to the Head of Personnel who will direct you in your conduct within the station. However, you also answer to Central Command who may, as required, direct you in acting on company interests.<br>Central Command may dispatch orders to the staff through you which you are responsible to communicate; however, enforcement of these orders is not your mandate and will be handled directly by Central Command or authorized Nanotrasen personnel. When not specifically directed by Central Command, assist the Head of Personnel in evaluation of the station and receiving departmental reports.<br>Your office has been provided with a direct link to Central Command, through which you can issue any urgent reports or requests for Nanotrasen intervention. Remember that any direct intervention is a costly exercise and should be used only when the situation justifies the request. You will be held accountable for any unnecessary usage of Nanotrasen resources.<br>"
 
 /obj/item/weapon/paper/armory
 	name = "paper- 'Armory Inventory'"
-	info = "4 Deployable Barriers<br>4 Portable Flashers<br>1 Mechanical Toolbox<br>2 Boxes of Spare Handcuffs<br>1 Box of Flashbangs<br>1 Box of Spare R.O.B.U.S.T. Cartridges<br>1 Tracking Implant Kit<br>1 Chemical Implant Kit<br>1 Box of Tear Gas Grenades<br>1 Explosive Ordnance Disposal Suit<br>1 Biohazard Suit<br>6 Gas Masks<br>1 Lockbox of Loyalty Implants<br>1 Ion Rifle<br>3 Sets of Riot Equipment<br>2 Sets of Security Hardsuits<br>1 Ablative Armor Vest<br>3 Bulletproof Vests<br>3 Helmets<br><br>2 Riot Shotguns<br>2 Boxes of Beanbag Shells<br>3 Laser Guns<br>3 Energy Guns<br>3 Advanced Tasers"
+	info = "4 Deployable Barriers<br>4 Portable Flashers<br>1 Mechanical Toolbox<br>2 Boxes of Spare Handcuffs<br>1 Box of Flashbangs<br>1 Box of Spare R.O.B.U.S.T. Cartridges<br>1 Tracking Implant Kit<br>1 Chemical Implant Kit<br>1 Box of Tear Gas Grenades<br>1 Explosive Ordnance Disposal Suit<br>1 Biohazard Suit<br>6 Gas Masks<br>1 Lockbox of Mindshield Implants<br>1 Ion Rifle<br>3 Sets of Riot Equipment<br>2 Sets of Security Hardsuits<br>1 Ablative Armor Vest<br>3 Bulletproof Vests<br>3 Helmets<br><br>2 Riot Shotguns<br>2 Boxes of Beanbag Shells<br>3 Laser Guns<br>3 Energy Guns<br>3 Advanced Tasers"
 
 /obj/item/weapon/paper/firingrange
 	name = "paper- 'Firing Range Instructions'"
@@ -570,6 +592,10 @@
 /obj/item/weapon/paper/syndimemo
 	name = "paper- 'Memo'"
 	info = "GET DAT FUKKEN DISK"
+
+/obj/item/weapon/paper/synditele
+	name = "Teleporter Instructions"
+	info = "<h3>Teleporter Instruction</h3><hr><ol><li>Install circuit board, glass and wiring to complete Teleporter Control Console</li><li>Use a screwdriver, wirecutter and screwdriver again on the Teleporter Station to connect it</li><li>Set destination with Teleporter Control Computer</li><li>Activate Teleporter Hub with Teleporter Station</li></ol>"
 
 /obj/item/weapon/paper/russiantraitorobj
 	name = "paper- 'Mission Objectives'"
@@ -592,3 +618,94 @@
 
 /obj/item/weapon/paper/crumpled/bloody
 	icon_state = "scrap_bloodied"
+
+/obj/item/weapon/paper/evilfax
+	name = "Centcomm Reply"
+	info = ""
+	var/mytarget = null
+	var/myeffect = null
+	var/used = 0
+	var/countdown = 60
+	var/activate_on_timeout = 0
+
+/obj/item/weapon/paper/evilfax/show_content(var/mob/user, var/forceshow = 0, var/forcestars = 0, var/infolinks = 0, var/view = 1)
+	if(user == mytarget)
+		if(istype(user, /mob/living/carbon))
+			var/mob/living/carbon/C = user
+			evilpaper_specialaction(C)
+			..()
+		else
+			// This should never happen, but just in case someone is adminbussing
+			evilpaper_selfdestruct()
+	else
+		if(mytarget)
+			to_chat(user,"<span class='notice'>This page appears to be covered in some sort of bizzare code. The only bit you recognize is the name of [mytarget]. Perhaps [mytarget] can make sense of it?</span>")
+		else
+			evilpaper_selfdestruct()
+
+
+/obj/item/weapon/paper/evilfax/New()
+	..()
+	processing_objects.Add(src)
+
+
+/obj/item/weapon/paper/evilfax/Destroy()
+	processing_objects.Remove(src)
+	if(mytarget && !used)
+		var/mob/living/carbon/target = mytarget
+		target.ForceContractDisease(new /datum/disease/transformation/corgi(0))
+	return ..()
+
+
+/obj/item/weapon/paper/evilfax/process()
+	if(!countdown)
+		if(mytarget)
+			if(activate_on_timeout)
+				evilpaper_specialaction(mytarget)
+			else
+				message_admins("[mytarget] ignored an evil fax until it timed out.")
+		else
+			message_admins("Evil paper '[src]' timed out, after not being assigned a target.")
+		used = 1
+		evilpaper_selfdestruct()
+	else
+		countdown--
+
+/obj/item/weapon/paper/evilfax/proc/evilpaper_specialaction(var/mob/living/carbon/target)
+	spawn(30)
+		if(istype(target,/mob/living/carbon))
+			if(myeffect == "Borgification")
+				to_chat(target,"<span class='userdanger'>You seem to comprehend the AI a little better. Why are your muscles so stiff?</span>")
+				target.ForceContractDisease(new /datum/disease/transformation/robot(0))
+			else if(myeffect == "Corgification")
+				to_chat(target,"<span class='userdanger'>You hear distant howling as the world seems to grow bigger around you. Boy, that itch sure is getting worse!</span>")
+				target.ForceContractDisease(new /datum/disease/transformation/corgi(0))
+			else if(myeffect == "Death By Fire")
+				to_chat(target,"<span class='userdanger'>You feel hotter than usual. Maybe you should lowe-wait, is that your hand melting?</span>")
+				var/turf/simulated/T = get_turf(target)
+				new /obj/effect/hotspot(T)
+				target.adjustFireLoss(150) // hard crit, the burning takes care of the rest.
+			else if(myeffect == "Total Brain Death")
+				to_chat(target,"<span class='userdanger'>You see a message appear in front of you in bright red letters: <b>YHWH-3 ACTIVATED. TERMINATION IN 3 SECONDS</b></span>")
+				target.mutations.Add(NOCLONE)
+				target.adjustBrainLoss(125)
+			else if(myeffect == "Honk Tumor")
+				if(!target.get_int_organ(/obj/item/organ/internal/honktumor))
+					var/obj/item/organ/internal/organ = new /obj/item/organ/internal/honktumor
+					to_chat(target,"<span class='userdanger'>Life seems funnier, somehow.</span>")
+					organ.insert(target)
+			else if(myeffect == "Cluwne")
+				if(istype(target, /mob/living/carbon/human))
+					var/mob/living/carbon/human/H = target
+					to_chat(H, "<span class='userdanger'>You feel surrounded by sadness. Sadness... and HONKS!</span>")
+					H.makeCluwne()
+			else if(myeffect == "Demotion Notice")
+				command_announcement.Announce("[mytarget] is hereby demoted to the rank of Civilian. Process this demotion immediately. Failure to comply with these orders is grounds for termination.","CC Demotion Order")
+			else
+				message_admins("Evil paper [src] was activated without a proper effect set! This is a bug.")
+		used = 1
+		evilpaper_selfdestruct()
+
+/obj/item/weapon/paper/evilfax/proc/evilpaper_selfdestruct()
+	visible_message("<span class='danger'>[src] spontaneously catches fire, and burns up!</span>")
+	qdel(src)

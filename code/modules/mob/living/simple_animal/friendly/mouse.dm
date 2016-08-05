@@ -9,119 +9,77 @@
 	speak_emote = list("squeeks","squeeks","squiks")
 	emote_hear = list("squeeks","squeaks","squiks")
 	emote_see = list("runs in a circle", "shakes", "scritches at something")
-	pass_flags = PASSTABLE
 	small = 1
 	speak_chance = 1
 	turns_per_move = 5
 	see_in_dark = 6
 	maxHealth = 5
 	health = 5
-	meat_type = /obj/item/weapon/reagent_containers/food/snacks/meat
-	meat_amount = 1
+	butcher_results = list(/obj/item/weapon/reagent_containers/food/snacks/meat = 1)
 	response_help  = "pets the"
 	response_disarm = "gently pushes aside the"
 	response_harm   = "stamps on the"
 	density = 0
-	var/_color //brown, gray and white, leave blank for random
+	ventcrawler = 2
+	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
+	var/mouse_color //brown, gray and white, leave blank for random
 	layer = MOB_LAYER
-	min_oxy = 16 //Require atleast 16kPA oxygen
+	atmos_requirements = list("min_oxy" = 16, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 223		//Below -50 Degrees Celcius
 	maxbodytemp = 323	//Above 50 Degrees Celcius
 	universal_speak = 0
 	can_hide = 1
+	holder_type = /obj/item/weapon/holder/mouse
+	can_collar = 1
+	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
 
-/mob/living/simple_animal/mouse/Life()
+/mob/living/simple_animal/mouse/handle_automated_speech()
 	..()
-	if(!stat && prob(speak_chance))
+	if(prob(speak_chance))
 		for(var/mob/M in view())
 			M << 'sound/effects/mousesqueek.ogg'
 
-	if(!ckey && stat == CONSCIOUS && prob(0.5))
-		stat = UNCONSCIOUS
-		icon_state = "mouse_[_color]_sleep"
-		wander = 0
-		speak_chance = 0
-		//snuffles
-	else if(stat == UNCONSCIOUS)
+/mob/living/simple_animal/mouse/Life()
+	. = ..()
+	if(stat == UNCONSCIOUS)
 		if(ckey || prob(1))
 			stat = CONSCIOUS
-			icon_state = "mouse_[_color]"
+			icon_state = "mouse_[mouse_color]"
 			wander = 1
 		else if(prob(5))
 			emote("snuffles")
 
+/mob/living/simple_animal/mouse/process_ai()
+	..()
+
+	if(prob(0.5))
+		stat = UNCONSCIOUS
+		icon_state = "mouse_[mouse_color]_sleep"
+		wander = 0
+		speak_chance = 0
+
 /mob/living/simple_animal/mouse/New()
 	..()
-	if(!_color)
-		_color = pick( list("brown","gray","white") )
-	icon_state = "mouse_[_color]"
-	icon_living = "mouse_[_color]"
-	icon_dead = "mouse_[_color]_dead"
-	desc = "It's a small [_color] rodent, often seen hiding in maintenance areas and making a nuisance of itself."
-
+	if(!mouse_color)
+		mouse_color = pick( list("brown","gray","white") )
+	icon_state = "mouse_[mouse_color]"
+	icon_living = "mouse_[mouse_color]"
+	icon_dead = "mouse_[mouse_color]_dead"
+	desc = "It's a small [mouse_color] rodent, often seen hiding in maintenance areas and making a nuisance of itself."
 
 /mob/living/simple_animal/mouse/proc/splat()
 	src.health = 0
 	src.stat = DEAD
-	src.icon_dead = "mouse_[_color]_splat"
-	src.icon_state = "mouse_[_color]_splat"
+	src.icon_dead = "mouse_[mouse_color]_splat"
+	src.icon_state = "mouse_[mouse_color]_splat"
 	layer = MOB_LAYER
 	if(client)
 		client.time_died_as_mouse = world.time
 
-//copy paste from alien/larva, if that func is updated please update this one also
-/mob/living/simple_animal/mouse/verb/ventcrawl()
-	set name = "Crawl through Vent"
-	set desc = "Enter an air vent and crawl through the pipe system."
-	set category = "Mouse"
-
-//	if(!istype(V,/obj/machinery/atmoalter/siphs/fullairsiphon/air_vent))
-//		return
-
-	if(src.stat != CONSCIOUS)	return
-
-	var/obj/machinery/atmospherics/unary/vent_pump/vent_found
-	var/welded = 0
-	for(var/obj/machinery/atmospherics/unary/vent_pump/v in range(1,src))
-		if(!v.welded)
-			vent_found = v
-			break
-		else
-			welded = 1
-	if(vent_found)
-		if(vent_found.network&&vent_found.network.normal_members.len)
-			var/list/vents = list()
-			for(var/obj/machinery/atmospherics/unary/vent_pump/temp_vent in vent_found.network.normal_members)
-				if(temp_vent.loc == loc)
-					continue
-				vents.Add(temp_vent)
-			var/list/choices = list()
-			for(var/obj/machinery/atmospherics/unary/vent_pump/vent in vents)
-				if(vent.loc.z != loc.z)
-					continue
-				var/atom/a = get_turf(vent)
-				choices.Add(a.loc)
-			var/turf/startloc = loc
-			var/obj/selection = input("Select a destination.", "Duct System") in choices
-			var/selection_position = choices.Find(selection)
-			if(loc==startloc)
-				var/obj/target_vent = vents[selection_position]
-				if(target_vent)
-					/*
-					for(var/mob/O in oviewers(src, null))
-						if ((O.client && !( O.blinded )))
-							O.show_message(text("<B>[src] scrambles into the ventillation ducts!</B>"), 1)
-					*/
-					loc = target_vent.loc
-			else
-				src << "\blue You need to remain still while entering a vent."
-		else
-			src << "\blue This vent is not connected to anything."
-	else if(welded)
-		src << "\red That vent is welded."
-	else
-		src << "\blue You must be standing on or beside an air vent to enter it."
-	return
+/mob/living/simple_animal/mouse/attack_hand(mob/living/carbon/human/M as mob)
+	if(M.a_intent == I_HELP)
+		get_scooped(M)
+	..()
 
 //make mice fit under tables etc? this was hacky, and not working
 /*
@@ -147,18 +105,18 @@
 //	return 1
 
 /mob/living/simple_animal/mouse/start_pulling(var/atom/movable/AM)//Prevents mouse from pulling things
-	src << "<span class='warning'>You are too small to pull anything.</span>"
+	to_chat(src, "<span class='warning'>You are too small to pull anything.</span>")
 	return
 
 /mob/living/simple_animal/mouse/Crossed(AM as mob|obj)
 	if( ishuman(AM) )
 		if(!stat)
 			var/mob/M = AM
-			M << "\blue \icon[src] Squeek!"
+			to_chat(M, "\blue [bicon(src)] Squeek!")
 			M << 'sound/effects/mousesqueek.ogg'
 	..()
 
-/mob/living/simple_animal/mouse/Die()
+/mob/living/simple_animal/mouse/death(gibbed)
 	layer = MOB_LAYER
 	if(client)
 		client.time_died_as_mouse = world.time
@@ -169,15 +127,15 @@
  */
 
 /mob/living/simple_animal/mouse/white
-	_color = "white"
+	mouse_color = "white"
 	icon_state = "mouse_white"
 
 /mob/living/simple_animal/mouse/gray
-	_color = "gray"
+	mouse_color = "gray"
 	icon_state = "mouse_gray"
 
 /mob/living/simple_animal/mouse/brown
-	_color = "brown"
+	mouse_color = "brown"
 	icon_state = "mouse_brown"
 
 //TOM IS ALIVE! SQUEEEEEEEE~K :)
@@ -187,3 +145,4 @@
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm   = "splats"
+	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID

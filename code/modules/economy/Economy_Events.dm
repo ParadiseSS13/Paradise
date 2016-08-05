@@ -57,7 +57,7 @@
 /datum/event/economic_event/announce()
 	//copy-pasted from the admin verbs to submit new newscaster messages
 	var/datum/feed_message/newMsg = new /datum/feed_message
-	newMsg.author = "Tau Ceti Daily"
+	newMsg.author = "Nyx Daily"
 	newMsg.is_admin_message = 1
 
 	//see if our location has custom event info for this event
@@ -95,11 +95,11 @@
 				newMsg.body = "A [pick("festival","week long celebration","day of revelry","planet-wide holiday")] has been declared on [affected_dest.name] by [pick("Governor","Commissioner","General","Commandant","Administrator")] [random_name(pick(MALE,FEMALE))] to celebrate [pick("the birth of their [pick("son","daughter")]","coming of age of their [pick("son","daughter")]","the pacification of rogue military cell","the apprehension of a violent criminal who had been terrorising the planet")]. Massive stocks of food and meat have been bought driving up prices across the planet."
 
 	for(var/datum/feed_channel/FC in news_network.network_channels)
-		if(FC.channel_name == "Tau Ceti Daily")
+		if(FC.channel_name == "Nyx Daily")
 			FC.messages += newMsg
 			break
 	for(var/obj/machinery/newscaster/NEWSCASTER in allCasters)
-		NEWSCASTER.newsAlert("Tau Ceti Daily")
+		NEWSCASTER.newsAlert("Nyx Daily")
 
 /datum/event/economic_event/end()
 	for(var/good_type in dearer_goods)

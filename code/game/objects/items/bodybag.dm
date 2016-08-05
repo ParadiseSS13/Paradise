@@ -5,7 +5,7 @@
 	desc = "A folded bag designed for the storage and transportation of cadavers."
 	icon = 'icons/obj/bodybag.dmi'
 	icon_state = "bodybag_folded"
-	w_class = 2.0
+	w_class = 2
 
 	attack_self(mob/user)
 		var/obj/structure/closet/body_bag/R = new /obj/structure/closet/body_bag(user.loc)
@@ -41,14 +41,14 @@
 
 
 	attackby(W as obj, mob/user as mob, params)
-		if (istype(W, /obj/item/weapon/pen))
+		if(istype(W, /obj/item/weapon/pen))
 			var/t = input(user, "What would you like the label to be?", text("[]", src.name), null)  as text
-			if (user.get_active_hand() != W)
+			if(user.get_active_hand() != W)
 				return
-			if (!in_range(src, user) && src.loc != user)
+			if(!in_range(src, user) && src.loc != user)
 				return
 			t = sanitize(copytext(t,1,MAX_MESSAGE_LEN))
-			if (t)
+			if(t)
 				src.name = "body bag - "
 				src.name += t
 				src.overlays += image(src.icon, "bodybag_label")
@@ -57,7 +57,7 @@
 		//..() //Doesn't need to run the parent. Since when can fucking bodybags be welded shut? -Agouri
 			return
 		else if(istype(W, /obj/item/weapon/wirecutters))
-			user << "You cut the tag off the bodybag"
+			to_chat(user, "You cut the tag off the bodybag")
 			src.name = "body bag"
 			src.overlays.Cut()
 			return
@@ -79,15 +79,17 @@
 			visible_message("[usr] folds up the [src.name]")
 			new item_path(get_turf(src))
 			spawn(0)
-				del(src)
+				qdel(src)
 			return
 
-/obj/structure/closet/bodybag/update_icon()
-	if(!opened)
-		icon_state = icon_closed
-	else
-		icon_state = icon_opened
+/obj/structure/closet/body_bag/relaymove(mob/user as mob)
+	if(user.stat)
+		return
 
+	// Make it possible to escape from bodybags in morgues and crematoriums
+	if(loc && (isturf(loc) || istype(loc, /obj/structure/morgue) || istype(loc, /obj/structure/crematorium)))
+		if(!open())
+			to_chat(user, "<span class='notice'>It won't budge!</span>")
 
 /obj/item/bodybag/cryobag
 	name = "stasis bag"
@@ -98,7 +100,7 @@
 	attack_self(mob/user)
 		var/obj/structure/closet/body_bag/cryobag/R = new /obj/structure/closet/body_bag/cryobag(user.loc)
 		R.add_fingerprint(user)
-		del(src)
+		qdel(src)
 
 
 
@@ -119,19 +121,19 @@
 			O.icon = src.icon
 			O.icon_state = "bodybag_used"
 			O.desc = "Pretty useless now.."
-			del(src)
+			qdel(src)
 
 	MouseDrop(over_object, src_location, over_location)
 		if((over_object == usr && (in_range(src, usr) || usr.contents.Find(src))))
 			if(!ishuman(usr))	return
-			usr << "\red You can't fold that up anymore.."
+			to_chat(usr, "\red You can't fold that up anymore..")
 		..()
 
 	attackby(W as obj, mob/user as mob, params)
 		if(istype(W, /obj/item/weapon/card/id) || istype(W, /obj/item/device/pda))
 			if(src.allowed(user))
 				src.locked = !src.locked
-				user << "The controls are now [src.locked ? "locked." : "unlocked."]"
+				to_chat(user, "The controls are now [src.locked ? "locked." : "unlocked."]")
 			else
-				user << "\red Access denied."
+				to_chat(user, "\red Access denied.")
 			return

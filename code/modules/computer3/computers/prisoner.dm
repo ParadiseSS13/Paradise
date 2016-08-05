@@ -43,11 +43,10 @@
 				if(!T.implanted) continue
 				var/loc_display = "Unknown"
 				var/mob/living/carbon/M = T.imp_in
-				if(M.z == 1 && !istype(M.loc, /turf/space))
+				// TODO: Tie into space manager
+				if(M.z == ZLEVEL_STATION && !istype(M.loc, /turf/space))
 					var/turf/mob_loc = get_turf(M)
 					loc_display = mob_loc.loc
-				if(T.malfunction)
-					loc_display = pick(teleportlocs)
 				dat += "ID: [T.id] | Location: [loc_display]<BR>"
 				dat += "<A href='?src=\ref[src];warn=\ref[T]'>(<i>Send Message</i></font>)</A> |<BR>"
 				dat += "********************************<BR>"
@@ -96,9 +95,7 @@
 			if( istype(I) && I.imp_in)
 				var/mob/living/carbon/R = I.imp_in
 				log_say("PrisonComputer3 message: [key_name(usr)]->[key_name(R)] : [warning]")
-				R << "\green You hear a voice in your head saying: '[warning]'"
+				to_chat(R, "\green You hear a voice in your head saying: '[warning]'")
 
 		interact()
 		return
-
-

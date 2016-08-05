@@ -2,12 +2,12 @@
 	name = "shoulder holster"
 	desc = "A handgun holster."
 	icon_state = "holster"
-	_color = "holster"
+	item_color = "holster"
 	slot = "utility"
 	var/holster_allow = /obj/item/weapon/gun
 	var/obj/item/weapon/gun/holstered = null
-	icon_action_button = "action_holster"
-	w_class = 3.0 // so it doesn't fit in pockets
+	actions_types = list(/datum/action/item_action/accessory/holster)
+	w_class = 3 // so it doesn't fit in pockets
 
 //subtypes can override this to specify what can be holstered
 /obj/item/clothing/accessory/holster/proc/can_holster(obj/item/weapon/gun/W)
@@ -27,16 +27,20 @@
 
 /obj/item/clothing/accessory/holster/proc/holster(obj/item/I, mob/user as mob)
 	if(holstered)
-		user << "<span class='warning'>There is already a [holstered] holstered here!</span>"
+		to_chat(user, "<span class='warning'>There is already a [holstered] holstered here!</span>")
 		return
 
-	if (!istype(I, /obj/item/weapon/gun))
-		user << "<span class='warning'>Only guns can be holstered!</span>"
+	if(!istype(I, /obj/item/weapon/gun))
+		to_chat(user, "<span class='warning'>Only guns can be holstered!</span>")
 		return
 
 	var/obj/item/weapon/gun/W = I
-	if (!can_holster(W))
-		user << "<span class='warning'>This [W] won't fit in the [src]!</span>"
+	if(!can_holster(W))
+		to_chat(user, "<span class='warning'>This [W] won't fit in the [src]!</span>")
+		return
+
+	if(!user.canUnEquip(W, 0))
+		to_chat(user, "<span class='warning'>You can't let go of the [W]!<span>")
 		return
 
 	holstered = W
@@ -50,9 +54,9 @@
 		return
 
 	if(istype(user.get_active_hand(),/obj) && istype(user.get_inactive_hand(),/obj))
-		user << "<span class='warning'>You need an empty hand to draw the [holstered]!</span>"
+		to_chat(user, "<span class='warning'>You need an empty hand to draw the [holstered]!</span>")
 	else
-		if(user.a_intent == "hurt")
+		if(user.a_intent == I_HARM)
 			usr.visible_message("\red [user] draws the [holstered], ready to shoot!</span>", \
 			"<span class='warning'>You draw the [holstered], ready to shoot!</span>")
 		else
@@ -63,8 +67,8 @@
 		holstered = null
 
 /obj/item/clothing/accessory/holster/attack_hand(mob/user as mob)
-	if (has_suit)	//if we are part of a suit
-		if (holstered)
+	if(has_suit)	//if we are part of a suit
+		if(holstered)
 			unholster(user)
 		return
 
@@ -74,16 +78,16 @@
 	holster(W, user)
 
 /obj/item/clothing/accessory/holster/emp_act(severity)
-	if (holstered)
+	if(holstered)
 		holstered.emp_act(severity)
 	..()
 
 /obj/item/clothing/accessory/holster/examine(mob/user)
 	..(user)
-	if (holstered)
-		user << "A [holstered] is holstered here."
+	if(holstered)
+		to_chat(user, "A [holstered] is holstered here.")
 	else
-		user << "It is empty."
+		to_chat(user, "It is empty.")
 
 /obj/item/clothing/accessory/holster/on_attached(obj/item/clothing/under/S, mob/user as mob)
 	..()
@@ -102,19 +106,19 @@
 	if(usr.stat) return
 
 	var/obj/item/clothing/accessory/holster/H = null
-	if (istype(src, /obj/item/clothing/accessory/holster))
+	if(istype(src, /obj/item/clothing/accessory/holster))
 		H = src
-	else if (istype(src, /obj/item/clothing/under))
+	else if(istype(src, /obj/item/clothing/under))
 		var/obj/item/clothing/under/S = src
-		if (S.accessories.len)
+		if(S.accessories.len)
 			H = locate() in S.accessories
 
-	if (!H)
-		usr << "<span class='warning'>Something is very wrong.</span>"
+	if(!H)
+		to_chat(usr, "<span class='warning'>Something is very wrong.</span>")
 
 	if(!H.holstered)
 		if(!istype(usr.get_active_hand(), /obj/item/weapon/gun))
-			usr << "<span class='warning'>You need your gun equiped to holster it.</span>"
+			to_chat(usr, "<span class='warning'>You need your gun equiped to holster it.</span>")
 			return
 		var/obj/item/weapon/gun/W = usr.get_active_hand()
 		H.holster(W, usr)
@@ -125,11 +129,11 @@
 	name = "shoulder holster"
 	desc = "A worn-out handgun holster. Perfect for concealed carry"
 	icon_state = "holster"
-	_color = "holster"
+	item_color = "holster"
 	holster_allow = /obj/item/weapon/gun/projectile
 
 /obj/item/clothing/accessory/holster/waist
 	name = "shoulder holster"
 	desc = "A handgun holster. Made of expensive leather."
 	icon_state = "holster"
-	_color = "holster_low"
+	item_color = "holster_low"

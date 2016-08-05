@@ -72,12 +72,12 @@ var/list/valid_secondary_effect_types = list(\
 	..()
 
 	//setup primary effect - these are the main ones (mixed)
-	var/effecttype = pick(typesof(/datum/artifact_effect) - /datum/artifact_effect)
+	var/effecttype = pick(subtypesof(/datum/artifact_effect))
 	my_effect = new effecttype(src)
 
 	//75% chance to have a secondary stealthy (and mostly bad) effect
 	if(prob(75))
-		effecttype = pick(typesof(/datum/artifact_effect) - /datum/artifact_effect)
+		effecttype = pick(subtypesof(/datum/artifact_effect))
 		secondary_effect = new effecttype(src)
 		if(prob(75))
 			secondary_effect.ToggleActivate(0)
@@ -220,25 +220,25 @@ var/list/valid_secondary_effect_types = list(\
 			secondary_effect.ToggleActivate(0)
 
 /obj/machinery/artifact/attack_hand(var/mob/user as mob)
-	if (get_dist(user, src) > 1)
-		user << "\red You can't reach [src] from here."
+	if(get_dist(user, src) > 1)
+		to_chat(user, "\red You can't reach [src] from here.")
 		return
 	if(ishuman(user) && user:gloves)
-		user << "<b>You touch [src]</b> with your gloved hands, [pick("but nothing of note happens","but nothing happens","but nothing interesting happens","but you notice nothing different","but nothing seems to have happened")]."
+		to_chat(user, "<b>You touch [src]</b> with your gloved hands, [pick("but nothing of note happens","but nothing happens","but nothing interesting happens","but you notice nothing different","but nothing seems to have happened")].")
 		return
 
 	src.add_fingerprint(user)
 
 	if(my_effect.trigger == TRIGGER_TOUCH)
-		user << "<b>You touch [src].<b>"
+		to_chat(user, "<b>You touch [src].<b>")
 		my_effect.ToggleActivate()
 	else
-		user << "<b>You touch [src],</b> [pick("but nothing of note happens","but nothing happens","but nothing interesting happens","but you notice nothing different","but nothing seems to have happened")]."
+		to_chat(user, "<b>You touch [src],</b> [pick("but nothing of note happens","but nothing happens","but nothing interesting happens","but you notice nothing different","but nothing seems to have happened")].")
 
 	if(prob(25) && secondary_effect && secondary_effect.trigger == TRIGGER_TOUCH)
 		secondary_effect.ToggleActivate(0)
 
-	if (my_effect.effect == EFFECT_TOUCH)
+	if(my_effect.effect == EFFECT_TOUCH)
 		my_effect.DoEffectTouch(user)
 
 	if(secondary_effect && secondary_effect.effect == EFFECT_TOUCH && secondary_effect.activated)
@@ -246,7 +246,7 @@ var/list/valid_secondary_effect_types = list(\
 
 /obj/machinery/artifact/attackby(obj/item/weapon/W as obj, mob/living/user as mob, params)
 
-	if (istype(W, /obj/item/weapon/reagent_containers/))
+	if(istype(W, /obj/item/weapon/reagent_containers/))
 		if(W.reagents.has_reagent("hydrogen", 1) || W.reagents.has_reagent("water", 1))
 			if(my_effect.trigger == TRIGGER_WATER)
 				my_effect.ToggleActivate()
@@ -272,12 +272,12 @@ var/list/valid_secondary_effect_types = list(\
 			istype(W,/obj/item/weapon/melee/cultblade) ||\
 			istype(W,/obj/item/weapon/card/emag) ||\
 			istype(W,/obj/item/device/multitool))
-		if (my_effect.trigger == TRIGGER_ENERGY)
+		if(my_effect.trigger == TRIGGER_ENERGY)
 			my_effect.ToggleActivate()
 		if(secondary_effect && secondary_effect.trigger == TRIGGER_ENERGY && prob(25))
 			secondary_effect.ToggleActivate(0)
 
-	else if (istype(W,/obj/item/weapon/match) && W:lit ||\
+	else if(istype(W,/obj/item/weapon/match) && W:lit ||\
 			istype(W,/obj/item/weapon/weldingtool) && W:welding ||\
 			istype(W,/obj/item/weapon/lighter) && W:lit)
 		if(my_effect.trigger == TRIGGER_HEAT)
@@ -286,7 +286,7 @@ var/list/valid_secondary_effect_types = list(\
 			secondary_effect.ToggleActivate(0)
 	else
 		..()
-		if (my_effect.trigger == TRIGGER_FORCE && W.force >= 10)
+		if(my_effect.trigger == TRIGGER_FORCE && W.force >= 10)
 			my_effect.ToggleActivate()
 		if(secondary_effect && secondary_effect.trigger == TRIGGER_FORCE && prob(25))
 			secondary_effect.ToggleActivate(0)
@@ -302,14 +302,14 @@ var/list/valid_secondary_effect_types = list(\
 	else if(ishuman(M) && !istype(M:gloves,/obj/item/clothing/gloves))
 		var/warn = 0
 
-		if (my_effect.trigger == TRIGGER_TOUCH && prob(50))
+		if(my_effect.trigger == TRIGGER_TOUCH && prob(50))
 			my_effect.ToggleActivate()
 			warn = 1
 		if(secondary_effect && secondary_effect.trigger == TRIGGER_TOUCH && prob(25))
 			secondary_effect.ToggleActivate(0)
 			warn = 1
 
-		if (my_effect.effect == EFFECT_TOUCH && prob(50))
+		if(my_effect.effect == EFFECT_TOUCH && prob(50))
 			my_effect.DoEffectTouch(M)
 			warn = 1
 		if(secondary_effect && secondary_effect.effect == EFFECT_TOUCH && secondary_effect.activated && prob(50))
@@ -317,7 +317,7 @@ var/list/valid_secondary_effect_types = list(\
 			warn = 1
 
 		if(warn)
-			M << "<b>You accidentally touch [src].<b>"
+			to_chat(M, "<b>You accidentally touch [src].<b>")
 	..()
 
 /obj/machinery/artifact/bullet_act(var/obj/item/projectile/P)
@@ -340,7 +340,7 @@ var/list/valid_secondary_effect_types = list(\
 	switch(severity)
 		if(1.0) qdel(src)
 		if(2.0)
-			if (prob(50))
+			if(prob(50))
 				qdel(src)
 			else
 				if(my_effect.trigger == TRIGGER_FORCE || my_effect.trigger == TRIGGER_HEAT)
@@ -348,7 +348,7 @@ var/list/valid_secondary_effect_types = list(\
 				if(secondary_effect && (secondary_effect.trigger == TRIGGER_FORCE || secondary_effect.trigger == TRIGGER_HEAT) && prob(25))
 					secondary_effect.ToggleActivate(0)
 		if(3.0)
-			if (my_effect.trigger == TRIGGER_FORCE || my_effect.trigger == TRIGGER_HEAT)
+			if(my_effect.trigger == TRIGGER_FORCE || my_effect.trigger == TRIGGER_HEAT)
 				my_effect.ToggleActivate()
 			if(secondary_effect && (secondary_effect.trigger == TRIGGER_FORCE || secondary_effect.trigger == TRIGGER_HEAT) && prob(25))
 				secondary_effect.ToggleActivate(0)

@@ -5,8 +5,8 @@
 		mode = M
 
 	proc/announce_directives()
-		for (var/obj/machinery/photocopier/faxmachine/fax in world)
-			if (fax.department == "Captain's Office")
+		for(var/obj/machinery/photocopier/faxmachine/fax in world)
+			if(fax.department == "Captain's Office")
 				var/obj/item/weapon/paper/directive_x = new(fax.loc)
 				directive_x.name = "emergency action message"
 				directive_x.info = get_fax_body()
@@ -72,8 +72,8 @@ They don't care about us they only care about WEALTH and POWER... Share this mes
 Be safe, friend.\" (Unable to Reply)</p>"}
 
 	proc/announce()
-		world << "<B>The current game mode is - Mutiny!</B>"
-		world << {"
+		to_chat(world, "<B>The current game mode is - Mutiny!</B>")
+		to_chat(world, {"
 <p>The crew will be divided by their sense of ethics when a morally turbulent emergency directive arrives with an incomplete command validation code.<br><br>
 The [loyalist_tag("Head Loyalist")] is the Captain, who carries the [loyalist_tag("Captain's Authentication Key")] at all times.<br>
 The [mutineer_tag("Head Mutineer")] is a random Head of Staff who carries the [mutineer_tag("Emergency Secondary Authentication Key")].</p>
@@ -82,8 +82,7 @@ Both keys are required to activate the <b>Emergency Authentication Device (EAD)<
 <p>
 <b>Loyalists</b> - Follow the Head Loyalist in carrying out [loyalist_tag("Nanotrasen's directives")] then activate the <b>EAD</b>.<br>
 <b>Mutineers</b> - Prevent the completion of the [mutineer_tag("improperly validated directives")] and the activation of the <b>EAD</b>.
-</p>
-		"}
+</p>"})
 
 	proc/loyalist_tag(text)
 		return "<font color='blue'><b>[text]</b></font>"
@@ -92,9 +91,9 @@ Both keys are required to activate the <b>Emergency Authentication Device (EAD)<
 		return "<font color='#FFA500'><b>[text]</b></font>"
 
 	proc/their(datum/mind/head)
-		if (head.current.gender == MALE)
+		if(head.current.gender == MALE)
 			return "his"
-		else if (head.current.gender == FEMALE)
+		else if(head.current.gender == FEMALE)
 			return "her"
 
 		return "their"

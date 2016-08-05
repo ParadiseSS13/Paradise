@@ -10,13 +10,18 @@
 // Converted to VLC for cross-platform and ogg support. - N3X
 var/const/PLAYER_HTML={"
 <embed type="application/x-vlc-plugin" pluginspage="http://www.videolan.org" />
-<object classid="clsid:9BE31822-FDAD-461B-AD51-BE1D1C159921" codebase="http://download.videolan.org/pub/videolan/vlc/last/win32/axvlc.cab" id="player"></object>
+<object classid="clsid:9BE31822-FDAD-461B-AD51-BE1D1C159921" codebase="http://download.videolan.org/pub/videolan/vlc/last/win32/axvlc.cab" version="VideoLAN.VLCPlugin.2" id="player"></object>
 	<script>
+var _volume = 50;
+var vlc = document.getElementById('player');
+
 function noErrorMessages () { return true; }
 window.onerror = noErrorMessages;
-function SetMusic(url, time, volume) {
-	var vlc = document.getElementById('player');
 
+function SetMusic(url, time, volume) {
+	// scaling volume log-wise so that it's a more useful range
+	_volume = Math.log(volume) / Math.LN10 * 50; // volume ranges from 0-200
+	
 	// Stop playing
 	vlc.playlist.stop();
 
@@ -30,46 +35,37 @@ function SetMusic(url, time, volume) {
 	vlc.playlist.playItem(id);
 
 	vlc.input.time = time*1000; // VLC takes milliseconds.
-	vlc.audio.volume = volume*100; // \[0-200]
+}
+
+function UpdateVolume() {
+	vlc.audio.volume = _volume;
+}
+
+// volume must be set after song already playing
+if(vlc.attachEvent) {
+	vlc.attachEvent("MediaPlayerBuffering", UpdateVolume);
+} else {
+	vlc.addEventListener("MediaPlayerBuffering", UpdateVolume, false);
 }
 	</script>
 "}
 
-/* OLD, DO NOT USE.  CONTROLS.CURRENTPOSITION IS BROKEN.
-var/const/PLAYER_HTML={"
-	<OBJECT id='player' CLASSID='CLSID:6BF52A52-394A-11d3-B153-00C04F79FAA6' type='application/x-oleobject'></OBJECT>
-	<script>
-function noErrorMessages () { return true; }
-window.onerror = noErrorMessages;
-function SetMusic(url, time, volume) {
-	var player = document.getElementById('player');
-	player.URL = url;
-	player.Controls.currentPosition = time;
-	player.Settings.volume = volume;
-}
-	</script>"}
-*/
-
 // Hook into the events we desire.
-/hook_handler/soundmanager
-	// Set up player on login
-	proc/OnLogin(var/list/args)
-		//testing("Received OnLogin.")
-		var/client/C = args["client"]
-		C.media = new /datum/media_manager(args["mob"])
-		C.media.open()
-		C.media.update_music()
+/hook/mob_login/proc/init_media_manager(client/client, mob/mob)
+	client.media = new /datum/media_manager(mob)
+	client.media.open()
+	spawn(20)
+		client.media.update_music()
+	return 1
 
 	// Update when moving between areas.
-	proc/OnMobAreaChange(var/list/args)
-		var/mob/M = args["mob"]
-		//if(istype(M, /mob/living/carbon/human)||istype(M, /mob/dead/observer))
-		//	testing("Received OnMobAreaChange for [M.type] [M] (M.client=[M.client==null?"null":"/client"]).")
-		if(M.client)
-			M.update_music()
+/hook/mob_area_change/proc/update_media(mob/mob, area/newarea, area/oldarea)
+	if(mob.client)
+		mob.update_music()
+	return 1
 
 /mob/proc/update_music()
-	if (client && client.media)
+	if(client && client.media)
 		client.media.update_music()
 	//else
 	//	testing("[src] - client: [client?"Y":"N"]; client.media: [client && client.media ? "Y":"N"]")
@@ -80,7 +76,7 @@ function SetMusic(url, time, volume) {
 
 
 #ifdef DEBUG_MEDIAPLAYER
-#define MP_DEBUG(x) owner << x
+to_chat(#define MP_DEBUG(x) owner, x)
 #warning Please comment out #define DEBUG_MEDIAPLAYER before committing.
 #else
 #define MP_DEBUG(x)
@@ -90,7 +86,6 @@ function SetMusic(url, time, volume) {
 /datum/media_manager
 	var/url = ""
 	var/start_time = 0
-	var/volume = 25
 
 	var/client/owner
 	var/mob/mob
@@ -109,10 +104,10 @@ function SetMusic(url, time, volume) {
 
 	// Tell the player to play something via JS.
 	proc/send_update()
-		if(!(owner.prefs.toggles & SOUND_STREAMING))
+		if(!(owner.prefs.sound & SOUND_STREAMING) && url != "")
 			return // Nope.
 		MP_DEBUG("\green Sending update to WMP ([url])...")
-		owner << output(list2params(list(url, (world.time - start_time) / 10, volume)), "[window]:SetMusic")
+		owner << output(list2params(list(url, (world.time - start_time) / 10, get_volume())), "[window]:SetMusic")
 
 	proc/stop_music()
 		url=""
@@ -123,9 +118,8 @@ function SetMusic(url, time, volume) {
 	proc/update_music()
 		var/targetURL = ""
 		var/targetStartTime = 0
-		//var/targetVolume = volume
 
-		if (!owner)
+		if(!owner)
 			//testing("owner is null")
 			return
 
@@ -138,30 +132,29 @@ function SetMusic(url, time, volume) {
 		if(M && M.playing)
 			targetURL = M.media_url
 			targetStartTime = M.media_start_time
-			//owner << "Found audio source: [M.media_url] @ [(world.time - start_time) / 10]s."
+//			to_chat(owner, "Found audio source: [M.media_url] @ [(world.time - start_time) / 10]s.")
 		//else
 		//	testing("M is not playing or null.")
 
-		if (url != targetURL || abs(targetStartTime - start_time) > 1)
+		if(url != targetURL || abs(targetStartTime - start_time) > 1)
 			url = targetURL
 			start_time = targetStartTime
-			//volume = targetVolume
 			send_update()
-
-	proc/update_volume(var/value)
-		volume = value
-		send_update()
+			
+	proc/get_volume()
+		return (owner && owner.prefs) ? owner.prefs.volume : 25
 
 /client/verb/change_volume()
 	set name = "Set Volume"
 	set category = "Preferences"
 	set desc = "Set jukebox volume"
+
 	if(!media || !istype(media))
-		usr << "You have no media datum to change, if you're not in the lobby tell an admin."
+		to_chat(usr, "You have no media datum to change, if you're not in the lobby tell an admin.")
 		return
-	var/value = input("Choose your Jukebox volume.", "Jukebox volume", media.volume)
+	var/value = input("Choose your Jukebox volume.", "Jukebox volume", media.get_volume())
 	value = round(max(0, min(100, value)))
-	media.update_volume(value)
 	if(prefs)
 		prefs.volume = value
 		prefs.save_preferences(src)
+		media.send_update()

@@ -14,11 +14,11 @@ var/global/vox_tick = 1
 		if(1) // Vox raider!
 			equip_to_slot_or_del(new /obj/item/clothing/suit/space/vox/carapace(src), slot_wear_suit)
 			equip_to_slot_or_del(new /obj/item/clothing/head/helmet/space/vox/carapace(src), slot_head)
-			equip_to_slot_or_del(new /obj/item/weapon/melee/telebaton(src), slot_belt)
+			equip_to_slot_or_del(new /obj/item/weapon/melee/classic_baton/telescopic(src), slot_belt)
 			equip_to_slot_or_del(new /obj/item/clothing/glasses/thermal/monocle(src), slot_glasses) // REPLACE WITH CODED VOX ALTERNATIVE.
 			equip_to_slot_or_del(new /obj/item/device/chameleon(src), slot_l_store)
 
-			var/obj/item/weapon/gun/launcher/spikethrower/W = new(src)
+			var/obj/item/weapon/gun/projectile/automatic/spikethrower/W = new(src)
 			equip_to_slot_or_del(W, slot_r_hand)
 
 
@@ -48,14 +48,12 @@ var/global/vox_tick = 1
 			equip_to_slot_or_del(new /obj/item/weapon/circular_saw(src), slot_l_store)
 			equip_to_slot_or_del(new /obj/item/weapon/gun/dartgun/vox/medical, slot_r_hand)
 
-	equip_to_slot_or_del(new /obj/item/clothing/mask/breath(src), slot_wear_mask)
+	equip_to_slot_or_del(new /obj/item/clothing/mask/breath/vox(src), slot_wear_mask)
 	equip_to_slot_or_del(new /obj/item/weapon/tank/nitrogen(src), slot_back)
 	equip_to_slot_or_del(new /obj/item/device/flashlight(src), slot_r_store)
 
-	var/obj/item/weapon/card/id/syndicate/W = new(src)
+	var/obj/item/weapon/card/id/syndicate/vox/W = new(src)
 	W.name = "[real_name]'s Legitimate Human ID Card"
-	W.icon_state = "id"
-	W.access = list(access_vox)
 	W.assignment = "Trader"
 	W.registered_name = real_name
 	W.registered_user = src
@@ -65,9 +63,6 @@ var/global/vox_tick = 1
 	var/obj/item/weapon/implant/cortical/I = new(src)
 	I.imp_in = src
 	I.implanted = 1
-	var/obj/item/organ/external/affected = src.get_organ("head")
-	affected.implants += I
-	I.part = affected
 
 	if(ticker.mode && ( istype(ticker.mode,/datum/game_mode/vox/heist) ) )
 		var/datum/game_mode/vox/heist/M = ticker.mode
@@ -80,6 +75,6 @@ var/global/vox_tick = 1
 
 */
 	vox_tick++
-	if (vox_tick > 4) vox_tick = 1
+	if(vox_tick > 4) vox_tick = 1
 
 	return 1

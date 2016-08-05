@@ -41,30 +41,28 @@ var/intercom_range_display_status = 0
 	set category = "Mapping"
 	set name = "Camera Range Display"
 
+	if(!check_rights(R_DEBUG))
+		return
+
 	if(camera_range_display_status)
 		camera_range_display_status = 0
 	else
 		camera_range_display_status = 1
 
-
-
 	for(var/obj/effect/debugging/camera_range/C in world)
-		del(C)
+		qdel(C)
 
 	if(camera_range_display_status)
 		for(var/obj/machinery/camera/C in cameranet.cameras)
 			new/obj/effect/debugging/camera_range(C.loc)
 	feedback_add_details("admin_verb","mCRD") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-
-
 /client/proc/sec_camera_report()
 	set category = "Mapping"
 	set name = "Camera Report"
 
-	if(!master_controller)
-		alert(usr,"Master_controller not found.","Sec Camera Report")
-		return 0
+	if(!check_rights(R_DEBUG))
+		return
 
 	var/list/obj/machinery/camera/CL = list()
 
@@ -88,7 +86,7 @@ var/intercom_range_display_status = 0
 			if(!(locate(/obj/structure/grille,T)))
 				var/window_check = 0
 				for(var/obj/structure/window/W in T)
-					if (W.dir == turn(C1.dir,180) || W.is_fulltile() )
+					if(W.dir == turn(C1.dir,180) || W.is_fulltile() )
 						window_check = 1
 						break
 				if(!window_check)
@@ -102,58 +100,68 @@ var/intercom_range_display_status = 0
 	set category = "Mapping"
 	set name = "Intercom Range Display"
 
+	if(!check_rights(R_DEBUG))
+		return
+
 	if(intercom_range_display_status)
 		intercom_range_display_status = 0
 	else
 		intercom_range_display_status = 1
 
 	for(var/obj/effect/debugging/marker/M in world)
-		del(M)
+		qdel(M)
 
 	if(intercom_range_display_status)
 		for(var/obj/item/device/radio/intercom/I in world)
 			for(var/turf/T in orange(7,I))
 				var/obj/effect/debugging/marker/F = new/obj/effect/debugging/marker(T)
-				if (!(F in view(7,I.loc)))
-					del(F)
+				if(!(F in view(7,I.loc)))
+					qdel(F)
 	feedback_add_details("admin_verb","mIRD") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
+var/list/admin_verbs_show_debug_verbs = list(
+	/client/proc/camera_view,
+	/client/proc/sec_camera_report,
+	/client/proc/intercom_view,
+	/client/proc/Cell, //More air things
+	/client/proc/atmosscan, //check plumbing
+	/client/proc/powerdebug, //check power
+	/client/proc/count_objects_on_z_level,
+	/client/proc/count_objects_all,
+	/client/proc/cmd_assume_direct_control,
+	/client/proc/startSinglo,
+	/client/proc/ticklag,
+	/client/proc/cmd_admin_grantfullaccess,
+	/client/proc/cmd_admin_areatest,
+	/client/proc/cmd_admin_rejuvenate,
+	/datum/admins/proc/show_traitor_panel,
+	/client/proc/print_jobban_old,
+	/client/proc/print_jobban_old_filter,
+	/client/proc/forceEvent,
+	/client/proc/nanomapgen_DumpImage,
+	/client/proc/reload_nanoui_resources,
+	/client/proc/admin_redo_space_transitions,
+	/client/proc/make_turf_space_map
+)
 
 /client/proc/enable_debug_verbs()
 	set category = "Debug"
 	set name = "Debug verbs"
 
-	if(!check_rights(R_DEBUG)) return
+	if(!check_rights(R_DEBUG))
+		return
 
-	src.verbs += /client/proc/camera_view 				//-errorage
-	src.verbs += /client/proc/sec_camera_report 		//-errorage
-	src.verbs += /client/proc/intercom_view 			//-errorage
-	src.verbs += /client/proc/Cell //More air things
-	src.verbs += /client/proc/atmosscan //check plumbing
-	src.verbs += /client/proc/powerdebug //check power
-	src.verbs += /client/proc/count_objects_on_z_level
-	src.verbs += /client/proc/count_objects_all
-	src.verbs += /client/proc/cmd_assume_direct_control	//-errorage
-	src.verbs += /client/proc/startSinglo
-	src.verbs += /client/proc/ticklag
-	src.verbs += /client/proc/cmd_admin_grantfullaccess
-//	src.verbs += /client/proc/splash
-	src.verbs += /client/proc/cmd_admin_areatest
-	src.verbs += /client/proc/cmd_admin_rejuvenate
-	src.verbs += /datum/admins/proc/show_traitor_panel
-	src.verbs += /client/proc/print_jobban_old
-	src.verbs += /client/proc/print_jobban_old_filter
-	src.verbs += /client/proc/forceEvent
-	src.verbs += /client/proc/Zone_Info
-	src.verbs += /client/proc/Test_ZAS_Connection
-	src.verbs += /client/proc/ZoneTick
-	//src.verbs += /client/proc/TestZASRebuild
-	//src.verbs += /client/proc/cmd_admin_rejuvenate
+	verbs += admin_verbs_show_debug_verbs
 
 	feedback_add_details("admin_verb","mDV") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/count_objects_on_z_level()
 	set category = "Mapping"
 	set name = "Count Objects On Level"
+
+	if(!check_rights(R_DEBUG))
+		return
+
 	var/level = input("Which z-level?","Level?") as text
 	if(!level) return
 	var/num_level = text2num(level)
@@ -181,22 +189,16 @@ var/intercom_range_display_status = 0
 				if(B.z == num_level)
 					count++
 					atom_list += A
-	/*
-	var/atom/temp_atom
-	for(var/i = 0; i <= (atom_list.len/10); i++)
-		var/line = ""
-		for(var/j = 1; j <= 10; j++)
-			if(i*10+j <= atom_list.len)
-				temp_atom = atom_list[i*10+j]
-				line += " no.[i+10+j]@\[[temp_atom.x], [temp_atom.y], [temp_atom.z]\]; "
-		world << line*/
 
-	world << "There are [count] objects of type [type_path] on z-level [num_level]"
+	to_chat(world, "There are [count] objects of type [type_path] on z-level [num_level].")
 	feedback_add_details("admin_verb","mOBJZ") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/count_objects_all()
 	set category = "Mapping"
 	set name = "Count Objects All"
+
+	if(!check_rights(R_DEBUG))
+		return
 
 	var/type_text = input("Which type path?","") as text
 	if(!type_text) return
@@ -208,15 +210,6 @@ var/intercom_range_display_status = 0
 	for(var/atom/A in world)
 		if(istype(A,type_path))
 			count++
-	/*
-	var/atom/temp_atom
-	for(var/i = 0; i <= (atom_list.len/10); i++)
-		var/line = ""
-		for(var/j = 1; j <= 10; j++)
-			if(i*10+j <= atom_list.len)
-				temp_atom = atom_list[i*10+j]
-				line += " no.[i+10+j]@\[[temp_atom.x], [temp_atom.y], [temp_atom.z]\]; "
-		world << line*/
 
-	world << "There are [count] objects of type [type_path] in the game world"
+	to_chat(world, "There are [count] objects of type [type_path] in the game world.")
 	feedback_add_details("admin_verb","mOBJ") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!

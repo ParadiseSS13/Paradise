@@ -57,7 +57,7 @@
 				else
 					for(var/mob/M in viewers(world.view, user))
 						M.show_message("<span class='info'>[src] burns away into nothing.</span>",1)
-				del(src)
+				qdel(src)
 				w.remove_fuel(4)
 			else
 				for(var/mob/M in viewers(world.view, user))
@@ -73,7 +73,7 @@
 	..()
 	if(prob(33))
 		src.visible_message("<span class='warning'>[src] crumbles away, leaving some dust and gravel behind.</span>")
-		del(src)
+		qdel(src)
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Archaeological finds
@@ -138,7 +138,7 @@
 			if(prob(25))
 				new_item = new /obj/item/weapon/kitchen/utensil/fork(src.loc)
 			else if(prob(50))
-				new_item = new /obj/item/weapon/kitchen/utensil/knife(src.loc)
+				new_item = new /obj/item/weapon/kitchen/knife(src.loc)
 			else
 				new_item = new /obj/item/weapon/kitchen/utensil/spoon(src.loc)
 			additional_desc = "[pick("It's like no [item_type] you've ever seen before",\
@@ -164,7 +164,7 @@
 				"You wonder what kind of music was made with it")]."
 		if(6)
 			item_type = "[pick("bladed knife","serrated blade","sharp cutting implement")]"
-			new_item = new /obj/item/weapon/kitchenknife(src.loc)
+			new_item = new /obj/item/weapon/kitchen/knife(src.loc)
 			additional_desc = "[pick("It doesn't look safe.",\
 			"It looks wickedly jagged",\
 			"There appear to be [pick("dark red","dark purple","dark green","dark blue")] stains along the edges")]."
@@ -296,9 +296,7 @@
 		if(20)
 			//arcane clothing
 			apply_prefix = 0
-			var/list/possible_spawns = list(/obj/item/clothing/head/culthood,
-			/obj/item/clothing/head/magus,
-			/obj/item/clothing/head/culthood/alt,
+			var/list/possible_spawns = list(/obj/item/clothing/head/magus,
 			/obj/item/clothing/head/helmet/space/cult)
 
 			var/new_type = pick(possible_spawns)
@@ -311,9 +309,9 @@
 			apply_material_decorations = 0
 		if(22)
 			if(prob(50))
-				new_item = getFromPool(/obj/item/weapon/shard, loc)
+				new_item = new /obj/item/weapon/shard(loc)
 			else
-				new_item = getFromPool(/obj/item/weapon/shard/plasma, loc)
+				new_item = new /obj/item/weapon/shard/plasma(loc)
 
 			apply_prefix = 0
 			apply_image_decorations = 0
@@ -324,8 +322,7 @@
 			apply_image_decorations = 0
 			apply_material_decorations = 0
 		if(24)
-			var/list/possible_spawns = typesof(/obj/item/weapon/stock_parts)
-			possible_spawns -= /obj/item/weapon/stock_parts
+			var/list/possible_spawns = subtypesof(/obj/item/weapon/stock_parts)
 			possible_spawns -= /obj/item/weapon/stock_parts/subspace
 
 			var/new_type = pick(possible_spawns)
@@ -548,7 +545,7 @@
 				talking_atom.holder_atom = new_item
 				talking_atom.init()
 
-		del(src)
+		qdel(src)
 
 	else if(talkative)
 		src.talking_atom = new()

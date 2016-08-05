@@ -1,11 +1,11 @@
 //This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:31
 /obj/machinery/computer/telecomms
 
-	l_color = "#50AB00"
+	light_color = LIGHT_COLOR_DARKGREEN
 
 /obj/machinery/computer/telecomms/server
-	name = "Telecommunications Server Monitor"
-	icon_state = "comm_logs"
+	name = "telecommunications server monitor"
+	icon_screen = "comm_logs"
 
 
 	var/screen = 0				// the screen number:
@@ -18,7 +18,7 @@
 	var/universal_translate = 0 // set to 1 if it can translate nonhuman speech
 
 	req_access = list(access_tcomsat)
-	circuit = "/obj/item/weapon/circuitboard/comm_server"
+	circuit = /obj/item/weapon/circuitboard/comm_server
 
 	attack_hand(mob/user as mob)
 		if(stat & (BROKEN|NOPOWER))
@@ -82,7 +82,7 @@
 							race = "[H.species.name]"
 
 
-						else if(ismonkey(M))
+						else if(issmall(M))
 							race = "Monkey"
 							language = race
 
@@ -90,8 +90,11 @@
 							race = "Artificial Life"
 
 						else if(isslime(M)) // NT knows a lot about slimes, but not aliens. Can identify slimes
-							race = "slime"
+							race = "Slime"
 							language = race
+
+						else if(isbot(M))
+							race = "Bot"
 
 						else if(isanimal(M))
 							race = "Domestic Animal"
@@ -101,7 +104,7 @@
 							race = "<i>Unidentifiable</i>"
 							language = race
 
-						del(M)
+						qdel(M)
 
 						// -- If the orator is a human, or universal translate is active, OR mob has universal speech on --
 
@@ -184,7 +187,7 @@
 		if(href_list["delete"])
 
 			if(!src.allowed(usr) && !emagged)
-				usr << "\red ACCESS DENIED."
+				to_chat(usr, "\red ACCESS DENIED.")
 				return
 
 			if(SelectedServer)
@@ -194,7 +197,7 @@
 				temp = "<font color = #336699>- DELETED ENTRY: [D.name] -</font color>"
 
 				SelectedServer.log_entries.Remove(D)
-				del(D)
+				qdel(D)
 
 			else
 				temp = "<font color = #D70B00>- FAILED: NO SELECTED MACHINE -</font color>"
@@ -220,35 +223,35 @@
 	attackby(var/obj/item/weapon/D as obj, var/mob/user as mob, params)
 		if(istype(D, /obj/item/weapon/screwdriver))
 			playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
-			if(do_after(user, 20))
-				if (src.stat & BROKEN)
-					user << "\blue The broken glass falls out."
+			if(do_after(user, 20, target = src))
+				if(src.stat & BROKEN)
+					to_chat(user, "\blue The broken glass falls out.")
 					var/obj/structure/computerframe/A = new /obj/structure/computerframe( src.loc )
-					getFromPool(/obj/item/weapon/shard, loc)
+					new /obj/item/weapon/shard(loc)
 					var/obj/item/weapon/circuitboard/comm_server/M = new /obj/item/weapon/circuitboard/comm_server( A )
-					for (var/obj/C in src)
+					for(var/obj/C in src)
 						C.loc = src.loc
 					A.circuit = M
 					A.state = 3
 					A.icon_state = "3"
 					A.anchored = 1
-					del(src)
+					qdel(src)
 				else
-					user << "\blue You disconnect the monitor."
+					to_chat(user, "\blue You disconnect the monitor.")
 					var/obj/structure/computerframe/A = new /obj/structure/computerframe( src.loc )
 					var/obj/item/weapon/circuitboard/comm_server/M = new /obj/item/weapon/circuitboard/comm_server( A )
-					for (var/obj/C in src)
+					for(var/obj/C in src)
 						C.loc = src.loc
 					A.circuit = M
 					A.state = 4
 					A.icon_state = "4"
 					A.anchored = 1
-					del(src)
+					qdel(src)
 		src.updateUsrDialog()
 		return
-		
+
 	emag_act(user as mob)
 		if(!emagged)
 			playsound(src.loc, 'sound/effects/sparks4.ogg', 75, 1)
 			emagged = 1
-			user << "\blue You you disable the security protocols"
+			to_chat(user, "\blue You you disable the security protocols")

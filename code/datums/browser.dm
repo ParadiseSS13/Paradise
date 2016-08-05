@@ -20,13 +20,13 @@
 
 	user = nuser
 	window_id = nwindow_id
-	if (ntitle)
+	if(ntitle)
 		title = format_text(ntitle)
-	if (nwidth)
+	if(nwidth)
 		width = nwidth
-	if (nheight)
+	if(nheight)
 		height = nheight
-	if (nref)
+	if(nref)
 		ref = nref
 	add_stylesheet("common", 'html/browser/common.css') // this CSS sheet is common to all UIs
 
@@ -60,24 +60,25 @@
 /datum/browser/proc/get_header()
 	var/key
 	var/filename
-	for (key in stylesheets)
+	for(key in stylesheets)
 		filename = "[ckey(key)].css"
 		user << browse_rsc(stylesheets[key], filename)
 		head_content += "<link rel='stylesheet' type='text/css' href='[filename]'>"
 
-	for (key in scripts)
+	for(key in scripts)
 		filename = "[ckey(key)].js"
 		user << browse_rsc(scripts[key], filename)
 		head_content += "<script type='text/javascript' src='[filename]'></script>"
 
 	var/title_attributes = "class='uiTitle'"
-	if (title_image)
+	if(title_image)
 		title_attributes = "class='uiTitle icon' style='background-image: url([title_image]);'"
 
-	return {"<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+	return {"<!DOCTYPE html>
 <html>
-	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<meta charset=ISO-8859-1">
 	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		[head_content]
 	</head>
 	<body scroll=auto>
@@ -102,10 +103,10 @@
 
 /datum/browser/proc/open(var/use_onclose = 1)
 	var/window_size = ""
-	if (width && height)
+	if(width && height)
 		window_size = "size=[width]x[height];"
 	user << browse(get_content(), "window=[window_id];[window_size][window_options]")
-	if (use_onclose)
+	if(use_onclose)
 		onclose(user, window_id, ref)
 
 /datum/browser/proc/close()
@@ -117,7 +118,7 @@
 /mob/proc/browse_rsc_icon(icon, icon_state, dir = -1)
 	/*
 	var/icon/I
-	if (dir >= 0)
+	if(dir >= 0)
 		I = new /icon(icon, icon_state, dir)
 	else
 		I = new /icon(icon, icon_state)
@@ -152,7 +153,7 @@
 
 	winset(user, windowid, "on-close=\".windowclose [param]\"")
 
-	//world << "OnClose [user]: [windowid] : ["on-close=\".windowclose [param]\""]"
+//	to_chat(world, "OnClose [user]: [windowid] : ["on-close=\".windowclose [param]\""]")
 
 
 // the on-close client verb
@@ -164,11 +165,11 @@
 	set hidden = 1						// hide this verb from the user's panel
 	set name = ".windowclose"			// no autocomplete on cmd line
 
-	//world << "windowclose: [atomref]"
+//	to_chat(world, "windowclose: [atomref]")
 	if(atomref!="null")				// if passed a real atomref
 		var/hsrc = locate(atomref)	// find the reffed atom
 		if(hsrc)
-			//world << "[src] Topic [href] [hsrc]"
+//			to_chat(world, "[src] Topic [href] [hsrc]")
 			usr = src.mob
 			src.Topic("close=1", list("close"="1"), hsrc)	// this will direct to the atom's
 			return										// Topic() proc via client.Topic()
@@ -176,6 +177,6 @@
 	// no atomref specified (or not found)
 	// so just reset the user mob's machine var
 	if(src && src.mob)
-		//world << "[src] was [src.mob.machine], setting to null"
+//		to_chat(world, "[src] was [src.mob.machine], setting to null")
 		src.mob.unset_machine()
 	return

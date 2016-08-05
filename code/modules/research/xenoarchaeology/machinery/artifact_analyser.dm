@@ -1,6 +1,6 @@
 
 /obj/machinery/artifact_analyser
-	name = "Anomaly Analyser"
+	name = "anomaly analyser"
 	desc = "Studies the emissions of anomalous materials to discover their uses."
 	icon = 'icons/obj/virology.dmi'
 	icon_state = "isolator"
@@ -73,11 +73,12 @@
 			results = get_scan_info(scanned_object)
 
 		src.visible_message("<b>[name]</b> states, \"Scanning complete.\"")
+		playsound(loc, "sound/goonstation/machines/printer_dotmatrix.ogg", 50, 1)
 		var/obj/item/weapon/paper/P = new(src.loc)
 		P.name = "[src] report #[++report_num]"
 		P.info = "<b>[src] analysis report #[report_num]</b><br>"
 		P.info += "<br>"
-		P.info += "\icon[scanned_object] [results]"
+		P.info += "[bicon(scanned_object)] [results]"
 		P.stamped = list(/obj/item/weapon/stamp)
 		P.overlays = list("paper_stamped")
 
@@ -92,13 +93,14 @@
 			reconnect_scanner()
 		if(owned_scanner)
 			var/artifact_in_use = 0
+			scanned_object = null
 			for(var/obj/O in owned_scanner.loc)
 				if(O == owned_scanner)
 					continue
 				if(O.invisibility)
 					continue
-				if(istype(scanned_object, /obj/machinery/artifact))
-					var/obj/machinery/artifact/A = scanned_object
+				if(istype(O, /obj/machinery/artifact))
+					var/obj/machinery/artifact/A = O
 					if(A.being_used)
 						artifact_in_use = 1
 					else
@@ -134,10 +136,7 @@
 			ecosystem involving self cannibalism and a symbiotic relationship with the contained liquid.<br><br>\
 			Structure is composed of a carbo-titanium alloy with interlaced reinforcing energy fields, and the contained liquid \
 			resembles proto-plasmic residue supportive of single cellular developmental conditions."
-		if(/obj/machinery/power/supermatter)
-			return "Super dense plasma clump - Appears to have been shaped or hewn, structure is composed of matter 2000% denser than ordinary carbon matter residue.\
-			Potential application as unrefined plasma source."
-		if(/obj/machinery/power/supermatter)
+		if(/obj/machinery/power/supermatter_shard)
 			return "Super dense plasma clump - Appears to have been shaped or hewn, structure is composed of matter 2000% denser than ordinary carbon matter residue.\
 			Potential application as unrefined plasma source."
 		if(/obj/structure/constructshell)

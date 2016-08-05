@@ -30,7 +30,7 @@
 /mob/living/carbon/human/RangedAttack(var/atom/A)
 	if(!gloves && !mutations.len) return
 	var/obj/item/clothing/gloves/G = gloves
-	if((LASER in mutations) && a_intent == "harm")
+	if((LASER in mutations) && a_intent == I_HARM)
 		LaserEyes(A) // moved into a proc below
 
 	else if(istype(G) && G.Touch(A,0)) // for magic gloves
@@ -45,43 +45,15 @@
 */
 /mob/living/UnarmedAttack(var/atom/A)
 	A.attack_animal(src)
+
+/mob/living/simple_animal/hostile/UnarmedAttack(var/atom/A)
+	target = A
+	AttackingTarget()
+
 /atom/proc/attack_animal(mob/user as mob)
 	return
 /mob/living/RestrainedClickOn(var/atom/A)
 	return
-
-/*
-	Monkeys
-*/
-/mob/living/carbon/monkey/UnarmedAttack(var/atom/A)
-	A.attack_paw(src)
-/atom/proc/attack_paw(mob/user as mob)
-	return
-
-/*
-	Monkey RestrainedClickOn() was apparently the
-	one and only use of all of the restrained click code
-	(except to stop you from doing things while handcuffed);
-	moving it here instead of various hand_p's has simplified
-	things considerably
-*/
-/mob/living/carbon/monkey/RestrainedClickOn(var/atom/A)
-	if(..())
-		return
-	if(a_intent != "harm" || !ismob(A)) return
-	if(is_muzzled())
-		return
-	var/mob/living/carbon/ML = A
-	var/dam_zone = ran_zone(pick("chest", "l_hand", "r_hand", "l_leg", "r_leg"))
-	var/armor = ML.run_armor_check(dam_zone, "melee")
-	if(prob(75))
-		ML.apply_damage(rand(1,3), BRUTE, dam_zone, armor)
-		for(var/mob/O in viewers(ML, null))
-			O.show_message("\red <B>[name] has bit [ML]!</B>", 1)
-		if(armor >= 2) return
-	else
-		for(var/mob/O in viewers(ML, null))
-			O.show_message("\red <B>[src] has attempted to bite [ML]!</B>", 1)
 
 /*
 	Aliens
@@ -90,7 +62,7 @@
 /mob/living/carbon/alien/UnarmedAttack(var/atom/A)
 	A.attack_alien(src)
 /atom/proc/attack_alien(mob/user as mob)
-	attack_paw(user)
+	attack_hand(user)
 	return
 /mob/living/carbon/alien/RestrainedClickOn(var/atom/A)
 	return
@@ -118,4 +90,8 @@
 	Have no reason to click on anything at all.
 */
 /mob/new_player/ClickOn()
+	return
+
+// pAIs are not intended to interact with anything in the world
+/mob/living/silicon/pai/UnarmedAttack(var/atom/A)
 	return

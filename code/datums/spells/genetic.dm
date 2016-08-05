@@ -1,4 +1,4 @@
-/obj/effect/proc_holder/spell/wizard/targeted/genetic
+/obj/effect/proc_holder/spell/targeted/genetic
 	name = "Genetic"
 	desc = "This spell inflicts a set of mutations and disabilities upon the target."
 
@@ -15,7 +15,7 @@
 			6th bit - ?
 	*/
 
-/obj/effect/proc_holder/spell/wizard/targeted/genetic/cast(list/targets)
+/obj/effect/proc_holder/spell/targeted/genetic/cast(list/targets)
 
 	for(var/mob/living/target in targets)
 		for(var/x in mutations)
@@ -24,9 +24,14 @@
 				target:hulk_time=world.time + duration */
 		target.disabilities |= disabilities
 		target.update_mutations()	//update target's mutation overlays
+		var/mob/living/carbon/human/H = target
+		if(ishuman(target))
+			H.update_body()
 		spawn(duration)
 			target.mutations.Remove(mutations)
 			target.disabilities &= ~disabilities
 			target.update_mutations()
+			if(ishuman(target))
+				H.update_body()
 
 	return

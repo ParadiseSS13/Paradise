@@ -1,11 +1,3 @@
-/mob/living/silicon/ai/say(var/message)
-	if(parent && istype(parent) && parent.stat != 2)
-		return parent.say(message)
-		//If there is a defined "parent" AI, it is actually an AI, and it is alive, anything the AI tries to say is said by the parent instead.
-	return ..(message)
-
-/mob/living/silicon/ai/proc/IsVocal()
-
 var/announcing_vox = 0 // Stores the time of the last announcement
 var/const/VOX_CHANNEL = 200
 var/const/VOX_DELAY = 100
@@ -34,18 +26,24 @@ var/const/VOX_PATH = "sound/vox_fem/"
 	popup.open()
 
 /mob/living/silicon/ai/proc/ai_announcement()
-	if(announcing_vox > world.time)
-		src << "<span class='notice'>Please wait [round((announcing_vox - world.time) / 10)] seconds.</span>"
+	if(check_unable(AI_CHECK_WIRELESS | AI_CHECK_RADIO))
 		return
 
-	var/message = input(src, "WARNING: Misuse of this verb can result in you being job banned. More help is available in 'Announcement Help'", "Announcement", src.last_announcement) as text
+	if(announcing_vox > world.time)
+		to_chat(src, "<span class='warning'>Please wait [round((announcing_vox - world.time) / 10)] seconds.</span>")
+		return
+
+	var/message = input(src, "WARNING: Misuse of this verb can result in you being job banned. More help is available in 'Announcement Help'", "Announcement", last_announcement) as text|null
 
 	last_announcement = message
+
+	if(check_unable(AI_CHECK_WIRELESS | AI_CHECK_RADIO))
+		return
 
 	if(!message || announcing_vox > world.time)
 		return
 
-	var/list/words = text2list(trim(message), " ")
+	var/list/words = splittext(trim(message), " ")
 	var/list/incorrect_words = list()
 
 	if(words.len > 30)
@@ -60,7 +58,7 @@ var/const/VOX_PATH = "sound/vox_fem/"
 			incorrect_words += word
 
 	if(incorrect_words.len)
-		src << "<span class='notice'>These words are not available on the announcement system: [english_list(incorrect_words)].</span>"
+		to_chat(src, "<span class='warning'>These words are not available on the announcement system: [english_list(incorrect_words)].</span>")
 		return
 
 	announcing_vox = world.time + VOX_DELAY
@@ -84,7 +82,7 @@ var/const/VOX_PATH = "sound/vox_fem/"
 			for(var/mob/M in player_list)
 				if(M.client)
 					var/turf/T = get_turf(M)
-					if(T.z == z_level && !isdeaf(M))
+					if(T && T.z == z_level && !isdeaf(M))
 						M << voice
 		else
 			only_listener << voice
@@ -96,6 +94,6 @@ var/const/VOX_PATH = "sound/vox_fem/"
 /client/proc/preload_vox()
 	var/list/vox_files = flist(VOX_PATH)
 	for(var/file in vox_files)
-	//  src << "Downloading [file]"
+//	to_chat(src, "Downloading [file]")
 		var/sound/S = sound("[VOX_PATH][file]")
 		src << browse_rsc(S)

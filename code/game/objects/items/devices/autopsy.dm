@@ -8,7 +8,7 @@
 	icon = 'icons/obj/autopsy_scanner.dmi'
 	icon_state = ""
 	flags = CONDUCT
-	w_class = 1.0
+	w_class = 1
 	origin_tech = "materials=1;biotech=1"
 	var/list/datum/autopsy_data_scanner/wdata = list()
 	var/list/datum/autopsy_data_scanner/chemtraces = list()
@@ -68,7 +68,7 @@
 			else
 				D.organ_names += ", [O.name]"
 
-		del D.organs_scanned[O.name]
+		qdel(D.organs_scanned[O.name])
 		D.organs_scanned[O.name] = W.copy()
 
 	for(var/V in O.trace_chemicals)
@@ -79,7 +79,7 @@
 	set src in view(usr, 1)
 	set name = "Print Data"
 	if(usr.stat || !(istype(usr,/mob/living/carbon/human)))
-		usr << "No."
+		to_chat(usr, "No.")
 		return
 
 	var/scan_data = ""
@@ -151,6 +151,7 @@
 	for(var/mob/O in viewers(usr))
 		O.show_message("\red \the [src] rattles and prints out a sheet of paper.", 1)
 
+	playsound(loc, "sound/goonstation/machines/printer_thermal.ogg", 50, 1)
 	sleep(10)
 
 	var/obj/item/weapon/paper/P = new(usr.loc)
@@ -164,10 +165,12 @@
 			P.loc = usr
 			usr.r_hand = P
 			P.layer = 20
+			P.plane = HUD_PLANE
 		else if(!usr.l_hand)
 			P.loc = usr
 			usr.l_hand = P
 			P.layer = 20
+			P.plane = HUD_PLANE
 
 	if(istype(usr,/mob/living/carbon/human))
 		usr:update_inv_l_hand()
@@ -185,16 +188,16 @@
 		src.wdata = list()
 		src.chemtraces = list()
 		src.timeofdeath = null
-		user << "\red A new patient has been registered.. Purging data for previous patient."
+		to_chat(user, "\red A new patient has been registered.. Purging data for previous patient.")
 
 	src.timeofdeath = M.timeofdeath
 
 	var/obj/item/organ/external/S = M.get_organ(user.zone_sel.selecting)
 	if(!S)
-		usr << "<b>You can't scan this body part.</b>"
+		to_chat(usr, "<b>You can't scan this body part.</b>")
 		return
 	if(!S.open)
-		usr << "<b>You have to cut the limb open first!</b>"
+		to_chat(usr, "<b>You have to cut the limb open first!</b>")
 		return
 	for(var/mob/O in viewers(M))
 		O.show_message("\red [user.name] scans the wounds on [M.name]'s [S.name] with \the [src.name]", 1)

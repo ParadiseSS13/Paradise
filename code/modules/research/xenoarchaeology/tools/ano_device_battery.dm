@@ -40,7 +40,7 @@
 /obj/item/weapon/anodevice/attackby(var/obj/I as obj, var/mob/user as mob, params)
 	if(istype(I, /obj/item/weapon/anobattery))
 		if(!inserted_battery)
-			user << "\blue You insert the battery."
+			to_chat(user, "\blue You insert the battery.")
 			user.drop_item()
 			I.loc = src
 			inserted_battery = I
@@ -103,9 +103,9 @@
 					if(interval > 0)
 						//apply the touch effect to the holder
 						if(holder)
-							holder << "the \icon[src] [src] held by [holder] shudders in your grasp."
+							to_chat(holder, "the [bicon(src)] [src] held by [holder] shudders in your grasp.")
 						else
-							src.loc.visible_message("the \icon[src] [src] shudders.")
+							src.loc.visible_message("the [bicon(src)] [src] shudders.")
 						inserted_battery.battery_effect.DoEffectTouch(holder)
 
 						//consume power
@@ -131,13 +131,13 @@
 
 			//work out if we need to shutdown
 			if(inserted_battery.stored_charge <= 0)
-				src.loc.visible_message("\blue \icon[src] [src] buzzes.", "\blue \icon[src] You hear something buzz.")
+				src.loc.visible_message("\blue [bicon(src)] [src] buzzes.", "\blue [bicon(src)] You hear something buzz.")
 				shutdown_emission()
 			else if(world.time > time_end)
-				src.loc.visible_message("\blue \icon[src] [src] chimes.", "\blue \icon[src] You hear something chime.")
+				src.loc.visible_message("\blue [bicon(src)] [src] chimes.", "\blue [bicon(src)] You hear something chime.")
 				shutdown_emission()
 		else
-			src.visible_message("\blue \icon[src] [src] buzzes.", "\blue \icon[src] You hear something buzz.")
+			src.visible_message("\blue [bicon(src)] [src] buzzes.", "\blue [bicon(src)] You hear something buzz.")
 			shutdown_emission()
 		last_process = world.time
 
@@ -164,7 +164,7 @@
 	if(href_list["startup"])
 		if(inserted_battery && inserted_battery.battery_effect && (inserted_battery.stored_charge > 0) )
 			activated = 1
-			src.visible_message("\blue \icon[src] [src] whirrs.", "\icon[src]\blue You hear something whirr.")
+			src.visible_message("\blue [bicon(src)] [src] whirrs.", "[bicon(src)]\blue You hear something whirr.")
 			if(!inserted_battery.battery_effect.activated)
 				inserted_battery.battery_effect.ToggleActivate(1)
 			time_end = world.time + duration
@@ -192,10 +192,10 @@
 
 /obj/item/weapon/anodevice/Destroy()
 	processing_objects.Remove(src)
-	..()
+	return ..()
 
 /obj/item/weapon/anodevice/attack(mob/living/M as mob, mob/living/user as mob, def_zone)
-	if (!istype(M))
+	if(!istype(M))
 		return
 
 	if(activated && inserted_battery.battery_effect.effect == EFFECT_TOUCH && !isnull(inserted_battery))
@@ -210,6 +210,6 @@
 	M.lastattacker = user
 
 	if(inserted_battery.battery_effect)
-		user.attack_log += "\[[time_stamp()]\]<font color='red'> Tapped [M.name] ([M.ckey]) with [name] (EFFECT: [inserted_battery.battery_effect.effecttype])</font>"
-		M.attack_log += "\[[time_stamp()]\]<font color='orange'> Tapped by [user.name] ([user.ckey]) with [name] (EFFECT: [inserted_battery.battery_effect.effecttype])</font>"
-		msg_admin_attack("[key_name(user)] tapped [key_name(M)] with [name] (EFFECT: [inserted_battery.battery_effect.effecttype])" )
+		user.attack_log += "\[[time_stamp()]\]<font color='red'> Tapped [key_name(M)] with [name] (EFFECT: [inserted_battery.battery_effect.effecttype])</font>"
+		M.attack_log += "\[[time_stamp()]\]<font color='orange'> Tapped by [key_name(user)] with [name] (EFFECT: [inserted_battery.battery_effect.effecttype])</font>"
+		msg_admin_attack("[key_name_admin(user)] tapped [key_name_admin(M)] with [name] (EFFECT: [inserted_battery.battery_effect.effecttype])" )

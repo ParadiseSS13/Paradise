@@ -1,34 +1,74 @@
+/var/global/machinery_sort_required = 0
+
 /datum/controller/process/machinery/setup()
 	name = "machinery"
 	schedule_interval = 20 // every 2 seconds
+	start_delay = 12
+
+/datum/controller/process/machinery/statProcess()
+	..()
+	stat(null, "[machines.len] machines")
+	stat(null, "[powernets.len] powernets, [deferred_powernet_rebuilds.len] deferred")
 
 /datum/controller/process/machinery/doWork()
-	//#ifdef PROFILE_MACHINES
-	//machine_profiling.len = 0
-	//#endif
+	process_sort()
+	process_power()
+	process_power_drain()
+	process_machines()
 
-	for(var/obj/machinery/M in machines)
-		if(M && !M.gcDestroyed)
-			#ifdef PROFILE_MACHINES
-			var/time_start = world.timeofday
-			#endif
+/datum/controller/process/machinery/proc/process_sort()
+	if(machinery_sort_required)
+		machinery_sort_required = 0
+		machines = dd_sortedObjectList(machines)
 
-			if(M.process() == PROCESS_KILL)
-				//M.inMachineList = 0 We don't use this debugging function
-				machines.Remove(M)
-				continue
+/datum/controller/process/machinery/proc/process_machines()
+	for(last_object in machines)
+		var/obj/machinery/M = last_object
+		if(istype(M) && isnull(M.gcDestroyed))
+			try
+				if(M.process() == PROCESS_KILL)
+					machines.Remove(M)
+					continue
 
-			if(M && M.use_power)
-				M.auto_use_power()
+				if(M.use_power)
+					M.auto_use_power()
+			catch(var/exception/e)
+				catchException(e, M)
+		else
+			catchBadType(M)
+			machines -= M
 
-			#ifdef PROFILE_MACHINES
-			var/time_end = world.timeofday
+		SCHECK_EVERY(100)
 
-			if(!(M.type in machine_profiling))
-				machine_profiling[M.type] = 0
+/datum/controller/process/machinery/proc/process_power()
+	for(last_object in deferred_powernet_rebuilds)
+		var/obj/O = last_object
+		if(istype(O) && isnull(O.gcDestroyed))
+			try
+				var/datum/powernet/newPN = new()// creates a new powernet...
+				propagate_network(O, newPN)//... and propagates it to the other side of the cable
+			catch(var/exception/e)
+				catchException(e, O)
+			SCHECK
+		else
+			catchBadType(O)
+		deferred_powernet_rebuilds -= O
 
-			machine_profiling[M.type] += (time_end - time_start)
-			#endif
+	for(last_object in powernets)
+		var/datum/powernet/powerNetwork = last_object
+		if(istype(powerNetwork) && isnull(powerNetwork.gcDestroyed))
+			try
+				powerNetwork.reset()
+			catch(var/exception/e)
+				catchException(e, powerNetwork)
+			SCHECK
+		else
+			catchBadType(powerNetwork)
+			powernets -= powerNetwork
 
-		scheck()
-
+/datum/controller/process/machinery/proc/process_power_drain()
+	// Currently only used by powersinks. These items get priority processed before machinery
+	for(var/obj/item/I in processing_power_items)
+		if(!I.pwr_drain()) // 0 = Process Kill, remove from processing list.
+			processing_power_items.Remove(I)
+		SCHECK

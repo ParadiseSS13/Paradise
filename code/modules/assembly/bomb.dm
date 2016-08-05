@@ -3,17 +3,18 @@
 	icon = 'icons/obj/tank.dmi'
 	item_state = "assembly"
 	throwforce = 5
-	w_class = 3.0
+	w_class = 3
 	throw_speed = 2
 	throw_range = 4
 	flags = CONDUCT //Copied this from old code, so this may or may not be necessary
 	var/status = 0   //0 - not readied //1 - bomb finished with welder
 	var/obj/item/device/assembly_holder/bombassembly = null   //The first part of the bomb is an assembly holder, holding an igniter+some device
 	var/obj/item/weapon/tank/bombtank = null //the second part of the bomb is a plasma tank
+	origin_tech = "materials=1;engineering=1"
 
-/obj/item/device/onetankbomb/examine()
-	..()
-	bombtank.examine()
+/obj/item/device/onetankbomb/examine(mob/user)
+	..(user)
+	user.examinate(bombtank)
 
 /obj/item/device/onetankbomb/update_icon()
 	if(bombtank)
@@ -29,7 +30,7 @@
 		return
 	if(istype(W, /obj/item/weapon/wrench) && !status)	//This is basically bomb assembly code inverted. apparently it works.
 
-		user << "<span class='notice'>You disassemble [src].</span>"
+		to_chat(user, "<span class='notice'>You disassemble [src].</span>")
 
 		bombassembly.loc = user.loc
 		bombassembly.master = null
@@ -39,18 +40,18 @@
 		bombtank.master = null
 		bombtank = null
 
-		del(src)
+		qdel(src)
 		return
 	if((istype(W, /obj/item/weapon/weldingtool) && W:welding))
 		if(!status)
 			status = 1
-			bombers += "[key_name(user)] welded a single tank bomb. Temp: [bombtank.air_contents.temperature-T0C]"
-			msg_admin_attack("[key_name_admin(user)] welded a single tank bomb. Temp: [bombtank.air_contents.temperature-T0C]")
-			user << "<span class='notice'>A pressure hole has been bored to [bombtank] valve. \The [bombtank] can now be ignited.</span>"
+			bombers += "[key_name(user)] welded a single tank bomb. Temperature: [bombtank.air_contents.temperature-T0C]"
+			msg_admin_attack("[key_name_admin(user)] welded a single tank bomb. Temperature: [bombtank.air_contents.temperature-T0C]")
+			to_chat(user, "<span class='notice'>A pressure hole has been bored to [bombtank] valve. \The [bombtank] can now be ignited.</span>")
 		else
 			status = 0
-			bombers += "[key_name(user)] unwelded a single tank bomb. Temp: [bombtank.air_contents.temperature-T0C]"
-			user << "<span class='notice'>The hole has been closed.</span>"
+			bombers += "[key_name(user)] unwelded a single tank bomb. Temperature: [bombtank.air_contents.temperature-T0C]"
+			to_chat(user, "<span class='notice'>The hole has been closed.</span>")
 	add_fingerprint(user)
 	..()
 
@@ -60,7 +61,7 @@
 	return
 
 /obj/item/device/onetankbomb/receive_signal()	//This is mainly called by the sensor through sense() to the holder, and from the holder to here.
-	visible_message("\icon[src] *beep* *beep*", "*beep* *beep*")
+	visible_message("[bicon(src)] *beep* *beep*", "*beep* *beep*")
 	sleep(10)
 	if(!src)
 		return
@@ -85,6 +86,9 @@
 	if(bombassembly)
 		bombassembly.hear_talk(M, msg)
 
+/obj/item/device/onetankbomb/hear_message(mob/living/M as mob, msg)
+	if(bombassembly)
+		bombassembly.hear_message(M, msg)
 
 // ---------- Procs below are for tanks that are used exclusively in 1-tank bombs ----------
 
@@ -137,7 +141,7 @@
 
 		if(strength >=1)
 			explosion(ground_zero, 0, round(strength,1), round(strength*2,1), round(strength*3,1))
-		else if (strength >=0.5)
+		else if(strength >=0.5)
 			explosion(ground_zero, -1, 0, 1, 2)
 		else
 			ground_zero.assume_air(air_contents)
@@ -146,7 +150,7 @@
 	else if(air_contents.temperature > (T0C + 100))
 		strength = (fuel_moles/25)
 
-		if (strength >=1)
+		if(strength >=1)
 			explosion(ground_zero, -1, 0, round(strength,1), round(strength*3,1))
 		else
 			ground_zero.assume_air(air_contents)
@@ -156,9 +160,10 @@
 		ground_zero.assume_air(air_contents)
 		ground_zero.hotspot_expose(1000, 125)
 
+	air_update_turf()
 	if(master)
-		del(master)
-	del(src)
+		qdel(master)
+	qdel(src)
 
 /obj/item/weapon/tank/proc/release()	//This happens when the bomb is not welded. Tank contents are just spat out.
 	var/datum/gas_mixture/removed = air_contents.remove(air_contents.total_moles())
@@ -166,3 +171,4 @@
 	if(!T)
 		return
 	T.assume_air(removed)
+	air_update_turf()

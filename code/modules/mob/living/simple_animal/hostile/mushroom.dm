@@ -8,7 +8,7 @@
 	turns_per_move = 1
 	maxHealth = 10
 	health = 10
-	meat_type = /obj/item/weapon/reagent_containers/food/snacks/hugemushroomslice
+	butcher_results = list(/obj/item/weapon/reagent_containers/food/snacks/hugemushroomslice = 1)
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm   = "whacks"
@@ -17,11 +17,16 @@
 	melee_damage_upper = 1
 	attack_same = 2
 	attacktext = "chomps"
+	attack_sound = 'sound/weapons/bite.ogg'
 	faction = list("mushroom")
 	environment_smash = 0
 	stat_attack = 2
 	mouse_opacity = 1
 	speed = 1
+	ventcrawler = 2
+	robust_searching = 1
+	speak_emote = list("squeaks")
+	deathmessage = "fainted"
 	var/powerlevel = 0 //Tracks our general strength level gained from eating other shrooms
 	var/bruised = 0 //If someone tries to cheat the system by attacking a shroom to lower its health, punish them so that it wont award levels to shrooms that eat it
 	var/recovery_cooldown = 0 //So you can't repeatedly revive it during a fight
@@ -29,32 +34,33 @@
 	var/image/cap_living = null //Where we store our cap icons so we dont generate them constantly to update our icon
 	var/image/cap_dead = null
 
-/mob/living/simple_animal/hostile/mushroom/examine()
-	..()
+/mob/living/simple_animal/hostile/mushroom/examine(mob/user)
+	..(user)
 	if(health >= maxHealth)
-		usr << "<span class='info'>It looks healthy.</span>"
+		to_chat(user, "<span class='info'>It looks healthy.</span>")
 	else
-		usr << "<span class='info'>It looks like it's been roughed up.</span>"
+		to_chat(user, "<span class='info'>It looks like it's been roughed up.</span>")
 
 /mob/living/simple_animal/hostile/mushroom/Life()
 	..()
 	if(!stat)//Mushrooms slowly regenerate if conscious, for people who want to save them from being eaten
-		health = min(health+2, maxHealth)
+		adjustBruteLoss(-2)
 
 /mob/living/simple_animal/hostile/mushroom/New()//Makes every shroom a little unique
 	melee_damage_lower += rand(3, 5)
 	melee_damage_upper += rand(10,20)
 	maxHealth += rand(40,60)
-	move_to_delay = rand(2,10)
+	move_to_delay = rand(3,11)
 	var/cap_color = rgb(rand(0, 255), rand(0, 255), rand(0, 255))
 	cap_living = image('icons/mob/animal.dmi',icon_state = "mushroom_cap")
 	cap_dead = image('icons/mob/animal.dmi',icon_state = "mushroom_cap_dead")
 	cap_living.color = cap_color
 	cap_dead.color = cap_color
 	UpdateMushroomCap()
+	health = maxHealth
 	..()
 
-/mob/living/simple_animal/hostile/mushroom/adjustBruteLoss(var/damage)//Possibility to flee from a fight just to make it more visually interesting
+/mob/living/simple_animal/hostile/mushroom/adjustHealth(damage)//Possibility to flee from a fight just to make it more visually interesting
 	if(!retreat_distance && prob(33))
 		retreat_distance = 5
 		spawn(30)
@@ -74,8 +80,8 @@
 			if(level_gain < 1)//So we still gain a level if two mushrooms were the same level
 				level_gain = 1
 			M.LevelUp(level_gain)
-		M.health = M.maxHealth
-		del(src)
+		M.adjustBruteLoss(-M.maxHealth)
+		qdel(src)
 	..()
 
 /mob/living/simple_animal/hostile/mushroom/revive()
@@ -83,8 +89,7 @@
 	icon_state = "mushroom_color"
 	UpdateMushroomCap()
 
-/mob/living/simple_animal/hostile/mushroom/Die()
-	visible_message("<span class='notice'>[src] fainted.</span>")
+/mob/living/simple_animal/hostile/mushroom/death(gibbed)
 	..()
 	UpdateMushroomCap()
 
@@ -97,9 +102,8 @@
 
 /mob/living/simple_animal/hostile/mushroom/proc/Recover()
 	visible_message("<span class='notice'>[src] slowly begins to recover.</span>")
-	health = 5
 	faint_ticker = 0
-	icon_state = icon_living
+	revive()
 	UpdateMushroomCap()
 	recovery_cooldown = 1
 	spawn(300)
@@ -113,7 +117,7 @@
 		else
 			melee_damage_upper += (level_gain * rand(1,5))
 		maxHealth += (level_gain * rand(1,5))
-	health = maxHealth //They'll always heal, even if they don't gain a level, in case you want to keep this shroom around instead of harvesting it
+	adjustBruteLoss(-maxHealth) //They'll always heal, even if they don't gain a level, in case you want to keep this shroom around instead of harvesting it
 
 /mob/living/simple_animal/hostile/mushroom/proc/Bruise()
 	if(!bruised && !stat)
@@ -124,9 +128,9 @@
 	if(istype(I, /obj/item/weapon/reagent_containers/food/snacks/grown/mushroom))
 		if(stat == DEAD && !recovery_cooldown)
 			Recover()
-			del(I)
+			qdel(I)
 		else
-			user << "<span class='notice'>[src] won't eat it!</span>"
+			to_chat(user, "<span class='notice'>[src] won't eat it!</span>")
 		return
 	if(I.force)
 		Bruise()
@@ -134,7 +138,7 @@
 
 /mob/living/simple_animal/hostile/mushroom/attack_hand(mob/living/carbon/human/M as mob)
 	..()
-	if(M.a_intent == "harm")
+	if(M.a_intent == I_HARM)
 		Bruise()
 
 /mob/living/simple_animal/hostile/mushroom/hitby(atom/movable/AM)
@@ -155,4 +159,4 @@
 		S.reagents.add_reagent("mushroomhallucinogen", powerlevel)
 		S.reagents.add_reagent("omnizine", powerlevel)
 		S.reagents.add_reagent("synaptizine", powerlevel)
-	del(src)
+	qdel(src)

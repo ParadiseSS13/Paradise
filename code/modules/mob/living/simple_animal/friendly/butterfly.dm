@@ -8,13 +8,17 @@
 	emote_see = list("flutters")
 	response_help = "shoos"
 	response_disarm = "brushes aside"
-	response_harm = "aquashes"
+	response_harm = "squashes"
 	speak_chance = 0
 	maxHealth = 2
 	health = 2
 	harm_intent_damage = 1
 	friendly = "nudges"
-	pass_flags = PASSTABLE
+	density = 0
+	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
+	ventcrawler = 2
+	butcher_results = list(/obj/item/weapon/reagent_containers/food/snacks/meat = 0)
+	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
 
 /mob/living/simple_animal/butterfly/New()
 	..()

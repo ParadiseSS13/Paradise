@@ -1,17 +1,24 @@
 /mob/living/carbon/human/gib()
 	death(1)
 	var/atom/movable/overlay/animation = null
-	monkeyizing = 1
+	notransform = 1
 	canmove = 0
 	icon = null
 	invisibility = 101
-	if(!(species.flags & IS_SYNTHETIC))
+	if(!isSynthetic())
 		animation = new(loc)
 		animation.icon_state = "blank"
 		animation.icon = 'icons/mob/mob.dmi'
 		animation.master = src
 
-		playsound(src.loc, 'sound/effects/gib.ogg', 100, 1, 10)
+		playsound(src.loc, 'sound/goonstation/effects/gib.ogg', 50, 1)
+
+	for(var/obj/item/organ/internal/I in internal_organs)
+		if(isturf(loc))
+			I.remove(src)
+			I.forceMove(get_turf(src))
+			spawn()
+				I.throw_at(get_edge_target_turf(src,pick(alldirs)),rand(1,3),5)
 
 	for(var/obj/item/organ/external/E in src.organs)
 		if(istype(E, /obj/item/organ/external/chest))
@@ -19,25 +26,31 @@
 		// Only make the limb drop if it's not too damaged
 		if(prob(100 - E.get_damage()))
 			// Override the current limb status and don't cause an explosion
-			E.droplimb(1,pick(DROPLIMB_EDGE,DROPLIMB_BLUNT))
+			E.droplimb(DROPLIMB_EDGE)
 
-	if(!(species.flags & IS_SYNTHETIC))
+	for(var/mob/M in src)
+		if(M in stomach_contents)
+			stomach_contents.Remove(M)
+		M.forceMove(get_turf(src))
+		visible_message("<span class='danger'>[M] bursts out of [src]!</span>")
+
+	if(!isSynthetic())
 		flick("gibbed-h", animation)
 		hgibs(loc, viruses, dna)
 	else
 		new /obj/effect/decal/cleanable/blood/gibs/robot(src.loc)
-		var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
+		var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 		s.set_up(3, 1, src)
 		s.start()
 
 	spawn(15)
-		if(animation)	del(animation)
-		if(src)			del(src)
+		if(animation)	qdel(animation)
+		if(src)			qdel(src)
 
 /mob/living/carbon/human/dust()
 	death(1)
 	var/atom/movable/overlay/animation = null
-	monkeyizing = 1
+	notransform = 1
 	canmove = 0
 	icon = null
 	invisibility = 101
@@ -51,13 +64,13 @@
 	new /obj/effect/decal/remains/human(loc)
 
 	spawn(15)
-		if(animation)	del(animation)
-		if(src)			del(src)
+		if(animation)	qdel(animation)
+		if(src)			qdel(src)
 
 /mob/living/carbon/human/melt()
 	death(1)
 	var/atom/movable/overlay/animation = null
-	monkeyizing = 1
+	notransform = 1
 	canmove = 0
 	icon = null
 	invisibility = 101
@@ -71,21 +84,20 @@
 	//new /obj/effect/decal/remains/human(loc)
 
 	spawn(15)
-		if(animation)	del(animation)
-		if(src)			del(src)
+		if(animation)	qdel(animation)
+		if(src)			qdel(src)
 
 /mob/living/carbon/human/death(gibbed)
 	if(stat == DEAD)	return
 	if(healths)		healths.icon_state = "health5"
 
+	if(!gibbed)
+		emote("deathgasp") //let the world KNOW WE ARE DEAD
+
 	stat = DEAD
 	dizziness = 0
 	jitteriness = 0
-
-	hud_updateflag |= 1 << HEALTH_HUD
-	hud_updateflag |= 1 << STATUS_HUD
-
-	handle_hud_list()
+	heart_attack = 0
 
 	//Handle species-specific deaths.
 	if(species) species.handle_death(src)
@@ -99,22 +111,12 @@
 			if(istype(I,/mob/living/simple_animal/borer))
 				B = I
 	if(B)
-		if(!B.ckey && ckey && B.controlling)
-			B.ckey = ckey
-			B.controlling = 0
-		if(B.host_brain.ckey)
-			ckey = B.host_brain.ckey
-			B.host_brain.ckey = null
-			B.host_brain.name = "host brain"
-			B.host_brain.real_name = "host brain"
+		if(B.controlling && B.host == src)
+			B.detatch()
 
 		verbs -= /mob/living/carbon/proc/release_control
 
 	callHook("death", list(src, gibbed))
-
-	if(ticker && ticker.mode)
-		if(istype(ticker.mode,/datum/game_mode/heist))
-			vox_kills++ //Bad vox. Shouldn't be killing humans.
 
 	if(ishuman(LAssailant))
 		var/mob/living/carbon/human/H=LAssailant
@@ -122,26 +124,32 @@
 			H.mind.kills += "[name] ([ckey])"
 
 	if(!gibbed)
-		emote("deathgasp") //let the world KNOW WE ARE DEAD
-
 		update_canmove()
-		if(client) blind.layer = 0
 
-	tod = worldtime2text()		//weasellos time of death patch
-	if(mind)	mind.store_memory("Time of death: [tod]", 0)
+	timeofdeath = worldtime2text()
+	med_hud_set_health()
+	med_hud_set_status()
+	if(mind)	mind.store_memory("Time of death: [timeofdeath]", 0)
 	if(ticker && ticker.mode)
-//		world.log << "k"
+//		log_to_dd("k")
 		sql_report_death(src)
 		ticker.mode.check_win()		//Calls the rounds wincheck, mainly for wizard, malf, and changeling now
+
+	if(wearing_rig)
+		wearing_rig.notify_ai("<span class='danger'>Warning: user death event. Mobility control passed to integrated intelligence system.</span>")
+
 	return ..(gibbed)
 
 /mob/living/carbon/human/proc/makeSkeleton()
+	var/obj/item/organ/external/head/H = get_organ("head")
 	if(SKELETON in src.mutations)	return
 
-	if(f_style)
-		f_style = "Shaved"
-	if(h_style)
-		h_style = "Bald"
+	if(istype(H))
+		if(H.f_style)
+			H.f_style = "Shaved"
+		if(H.h_style)
+			H.h_style = "Bald"
+	update_fhair(0)
 	update_hair(0)
 
 	mutations.Add(SKELETON)
@@ -152,12 +160,15 @@
 	return
 
 /mob/living/carbon/human/proc/ChangeToHusk()
+	var/obj/item/organ/external/head/H = organs_by_name["head"]
 	if(HUSK in mutations)	return
 
-	if(f_style)
-		f_style = "Shaved"		//we only change the icon_state of the hair datum, so it doesn't mess up their UI/UE
-	if(h_style)
-		h_style = "Bald"
+	if(istype(H))
+		if(H.f_style)
+			H.f_style = "Shaved"		//we only change the icon_state of the hair datum, so it doesn't mess up their UI/UE
+		if(H.h_style)
+			H.h_style = "Bald"
+	update_fhair(0)
 	update_hair(0)
 
 	mutations.Add(HUSK)

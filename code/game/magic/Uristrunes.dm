@@ -16,6 +16,7 @@ var/list/word_to_uristrune_table = null
 			words -= w
 			bit <<= 1
 
+
 	return word_to_uristrune_table[word]
 
 

@@ -15,10 +15,11 @@ Thus, the two variables affect pump operation are set in New():
 /obj/machinery/atmospherics/binary/volume_pump
 	icon = 'icons/atmos/volume_pump.dmi'
 	icon_state = "map_off"
-	level = 1
 
-	name = "Volumetric gas pump"
+	name = "volumetric gas pump"
 	desc = "A volumetric pump"
+
+	can_unwrench = 1
 
 	var/on = 0
 	var/transfer_rate = 200
@@ -30,6 +31,10 @@ Thus, the two variables affect pump operation are set in New():
 /obj/machinery/atmospherics/binary/volume_pump/on
 	on = 1
 	icon_state = "map_on"
+
+/obj/machinery/atmospherics/binary/volume_pump/initialize()
+	..()
+	set_frequency(frequency)
 
 /obj/machinery/atmospherics/binary/volume_pump/update_icon()
 	if(!powered())
@@ -46,18 +51,11 @@ Thus, the two variables affect pump operation are set in New():
 		add_underlay(T, node1, turn(dir, -180))
 		add_underlay(T, node2, dir)
 
-/obj/machinery/atmospherics/binary/volume_pump/hide(var/i)
-	update_underlays()
-
 /obj/machinery/atmospherics/binary/volume_pump/process()
-//		..()
-	if(stat & (NOPOWER|BROKEN))
-		return
-	if(!on)
+	if(!..() || (stat & (NOPOWER|BROKEN)) || !on)
 		return 0
 
-// Pump mechanism just won't do anything if the pressure is too high/too low
-
+	// Pump mechanism just won't do anything if the pressure is too high/too low
 	var/input_starting_pressure = air1.return_pressure()
 	var/output_starting_pressure = air2.return_pressure()
 
@@ -70,11 +68,9 @@ Thus, the two variables affect pump operation are set in New():
 
 	air2.merge(removed)
 
-	if(network1)
-		network1.update = 1
 
-	if(network2)
-		network2.update = 1
+	parent1.update = 1
+	parent2.update = 1
 
 	return 1
 
@@ -109,16 +105,17 @@ Thus, the two variables affect pump operation are set in New():
 				[round(transfer_rate,1)]l/s | <a href='?src=\ref[src];set_transfer_rate=1'>Change</a>
 				"}
 
-	user << browse("<HEAD><TITLE>[src.name] control</TITLE></HEAD><TT>[dat]</TT>", "window=atmo_pump")
+	var/datum/browser/popup = new(user, "atmo_pump", name, 400, 400)
+	popup.set_content(dat)
+	popup.open(0)
 	onclose(user, "atmo_pump")
 
-/obj/machinery/atmospherics/binary/volume_pump/initialize()
-	..()
-	set_frequency(frequency)
 
 /obj/machinery/atmospherics/binary/volume_pump/receive_signal(datum/signal/signal)
 	if(!signal.data["tag"] || (signal.data["tag"] != id) || (signal.data["sigtype"]!="command"))
 		return 0
+
+	var/old_on = on //for logging
 
 	if(signal.data["power"])
 		on = text2num(signal.data["power"])
@@ -132,6 +129,9 @@ Thus, the two variables affect pump operation are set in New():
 			text2num(signal.data["set_transfer_rate"]),
 			air1.volume
 		)
+
+	if(on != old_on)
+		investigate_log("was turned [on ? "on" : "off"] by a remote signal", "atmos")
 
 	if(signal.data["status"])
 		spawn(2)
@@ -147,19 +147,22 @@ Thus, the two variables affect pump operation are set in New():
 		return
 	src.add_fingerprint(usr)
 	if(!src.allowed(user))
-		user << "\red Access denied."
+		to_chat(user, "<span class='alert'>Access denied.</span>")
 		return
 	usr.set_machine(src)
 	interact(user)
 	return
 
 /obj/machinery/atmospherics/binary/volume_pump/Topic(href,href_list)
-	if(..()) return
+	if(..())
+		return 1
 	if(href_list["power"])
 		on = !on
+		investigate_log("was turned [on ? "on" : "off"] by [key_name(usr)]", "atmos")
 	if(href_list["set_transfer_rate"])
 		var/new_transfer_rate = input(usr,"Enter new output volume (0-200l/s)","Flow control",src.transfer_rate) as num
 		src.transfer_rate = max(0, min(200, new_transfer_rate))
+		investigate_log("was set to [transfer_rate] L/s by [key_name(usr)]", "atmos")
 	usr.set_machine(src)
 	src.update_icon()
 	src.updateUsrDialog()
@@ -172,23 +175,9 @@ Thus, the two variables affect pump operation are set in New():
 		update_icon()
 
 /obj/machinery/atmospherics/binary/volume_pump/attackby(var/obj/item/weapon/W as obj, var/mob/user as mob, params)
-	if (!istype(W, /obj/item/weapon/wrench))
+	if(!istype(W, /obj/item/weapon/wrench))
 		return ..()
-	if (!(stat & NOPOWER) && on)
-		user << "\red You cannot unwrench this [src], turn it off first."
+	if(!(stat & NOPOWER) && on)
+		to_chat(user, "<span class='alert'>You cannot unwrench this [src], turn it off first.</span>")
 		return 1
-	var/datum/gas_mixture/int_air = return_air()
-	var/datum/gas_mixture/env_air = loc.return_air()
-	if ((int_air.return_pressure()-env_air.return_pressure()) > 2*ONE_ATMOSPHERE)
-		user << "\red You cannot unwrench this [src], it too exerted due to internal pressure."
-		add_fingerprint(user)
-		return 1
-	playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
-	user << "\blue You begin to unfasten \the [src]..."
-	if (do_after(user, 40))
-		user.visible_message( \
-			"[user] unfastens \the [src].", \
-			"\blue You have unfastened \the [src].", \
-			"You hear ratchet.")
-		new /obj/item/pipe(loc, make_from=src)
-		del(src)
+	return ..()

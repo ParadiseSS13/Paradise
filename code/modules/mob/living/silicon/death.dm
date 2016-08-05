@@ -1,7 +1,7 @@
 /mob/living/silicon/gib()
 	death(1)
 	var/atom/movable/overlay/animation = null
-	monkeyizing = 1
+	notransform = 1
 	canmove = 0
 	icon = null
 	invisibility = 101
@@ -11,18 +11,20 @@
 	animation.icon = 'icons/mob/mob.dmi'
 	animation.master = src
 
+	playsound(src.loc, 'sound/goonstation/effects/robogib.ogg', 50, 1)
+
 //	flick("gibbed-r", animation)
 	robogibs(loc, viruses)
 
 	dead_mob_list -= src
 	spawn(15)
-		if(animation)	del(animation)
-		if(src)			del(src)
+		if(animation)	qdel(animation)
+		if(src)			qdel(src)
 
 /mob/living/silicon/dust()
 	death(1)
 	var/atom/movable/overlay/animation = null
-	monkeyizing = 1
+	notransform = 1
 	canmove = 0
 	icon = null
 	invisibility = 101
@@ -37,5 +39,5 @@
 
 	dead_mob_list -= src
 	spawn(15)
-		if(animation)	del(animation)
-		if(src)			del(src)
+		if(animation)	qdel(animation)
+		if(src)			qdel(src)

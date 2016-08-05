@@ -7,9 +7,6 @@
 	var/unwrenched = 0
 	var/wait = 0
 
-/obj/machinery/pipedispenser/attack_paw(user as mob)
-	return src.attack_hand(user)
-
 /obj/machinery/pipedispenser/attack_hand(user as mob)
 	if(..())
 		return
@@ -19,23 +16,25 @@
 <A href='?src=\ref[src];make=1;dir=5'>Bent Pipe</A><BR>
 <A href='?src=\ref[src];make=5;dir=1'>Manifold</A><BR>
 <A href='?src=\ref[src];make=8;dir=1'>Manual Valve</A><BR>
+<A href='?src=\ref[src];make=35;dir=1'>Digital Valve</A><BR>
 <A href='?src=\ref[src];make=20;dir=1'>Pipe Cap</A><BR>
 <A href='?src=\ref[src];make=19;dir=1'>4-Way Manifold</A><BR>
 <A href='?src=\ref[src];make=18;dir=1'>Manual T-Valve</A><BR>
+<A href='?src=\ref[src];make=38;dir=1'>Digital T-Valve</A><BR>
 <b>Supply pipes:</b><BR>
-<A href='?src=\ref[src];make=29;dir=1'>Pipe</A><BR>
-<A href='?src=\ref[src];make=30;dir=5'>Bent Pipe</A><BR>
-<A href='?src=\ref[src];make=33;dir=1'>Manifold</A><BR>
-<A href='?src=\ref[src];make=37;dir=1'>Pipe Cap</A><BR>
-<A href='?src=\ref[src];make=35;dir=1'>4-Way Manifold</A><BR>
+<A href='?src=\ref[src];make=24;dir=1'>Pipe</A><BR>
+<A href='?src=\ref[src];make=25;dir=5'>Bent Pipe</A><BR>
+<A href='?src=\ref[src];make=28;dir=1'>Manifold</A><BR>
+<A href='?src=\ref[src];make=32;dir=1'>Pipe Cap</A><BR>
+<A href='?src=\ref[src];make=30;dir=1'>4-Way Manifold</A><BR>
 <b>Scrubbers pipes:</b><BR>
-<A href='?src=\ref[src];make=31;dir=1'>Pipe</A><BR>
-<A href='?src=\ref[src];make=32;dir=5'>Bent Pipe</A><BR>
-<A href='?src=\ref[src];make=34;dir=1'>Manifold</A><BR>
-<A href='?src=\ref[src];make=38;dir=1'>Pipe Cap</A><BR>
-<A href='?src=\ref[src];make=36;dir=1'>4-Way Manifold</A><BR>
+<A href='?src=\ref[src];make=26;dir=1'>Pipe</A><BR>
+<A href='?src=\ref[src];make=27;dir=5'>Bent Pipe</A><BR>
+<A href='?src=\ref[src];make=29;dir=1'>Manifold</A><BR>
+<A href='?src=\ref[src];make=33;dir=1'>Pipe Cap</A><BR>
+<A href='?src=\ref[src];make=31;dir=1'>4-Way Manifold</A><BR>
 <b>Devices:</b><BR>
-<A href='?src=\ref[src];make=28;dir=1'>Universal Pipe Adapter</A><BR>
+<A href='?src=\ref[src];make=23;dir=1'>Universal Pipe Adapter</A><BR>
 <A href='?src=\ref[src];make=4;dir=1'>Connector</A><BR>
 <A href='?src=\ref[src];make=7;dir=1'>Unary Vent</A><BR>
 <A href='?src=\ref[src];make=9;dir=1'>Gas Pump</A><BR>
@@ -43,8 +42,12 @@
 <A href='?src=\ref[src];make=16;dir=1'>Volume Pump</A><BR>
 <A href='?src=\ref[src];make=10;dir=1'>Scrubber</A><BR>
 <A href='?src=\ref[src];makemeter=1'>Meter</A><BR>
+<A href='?src=\ref[src];makegsensor=1'>Gas Sensor</A><BR>
 <A href='?src=\ref[src];make=13;dir=1'>Gas Filter</A><BR>
 <A href='?src=\ref[src];make=14;dir=1'>Gas Mixer</A><BR>
+<A href='?src=\ref[src];make=34;dir=1'>Air Injector</A><BR>
+<A href='?src=\ref[src];make=36;dir=1'>Dual-Port Vent Pump</A><BR>
+<A href='?src=\ref[src];make=37;dir=1'>Passive Vent</A><BR>
 <b>Heat exchange:</b><BR>
 <A href='?src=\ref[src];make=2;dir=1'>Pipe</A><BR>
 <A href='?src=\ref[src];make=3;dir=5'>Bent Pipe</A><BR>
@@ -56,8 +59,11 @@
 
 "}
 //What number the make points to is in the define # at the top of construction.dm in same folder
+//which for some reason couldn't just be left defined, so it could be used here, top kek
 
-	user << browse("<HEAD><TITLE>[src]</TITLE></HEAD><TT>[dat]</TT>", "window=pipedispenser")
+	var/datum/browser/popup = new(user, "pipedispenser", name, 400, 400)
+	popup.set_content(dat)
+	popup.open(0)
 	onclose(user, "pipedispenser")
 	return
 
@@ -85,20 +91,26 @@
 			wait = 1
 			spawn(15)
 				wait = 0
+	if(href_list["makegsensor"])
+		if(!wait)
+			new /obj/item/pipe_gsensor(/*usr.loc*/ src.loc)
+			wait = 1
+			spawn(15)
+				wait = 0
 	return
 
 /obj/machinery/pipedispenser/attackby(var/obj/item/W as obj, var/mob/user as mob, params)
 	src.add_fingerprint(usr)
-	if (istype(W, /obj/item/pipe) || istype(W, /obj/item/pipe_meter))
-		usr << "\blue You put [W] back to [src]."
+	if(istype(W, /obj/item/pipe) || istype(W, /obj/item/pipe_meter) || istype(W, /obj/item/pipe_gsensor))
+		to_chat(usr, "\blue You put [W] back to [src].")
 		user.drop_item()
-		del(W)
+		qdel(W)
 		return
-	else if (istype(W, /obj/item/weapon/wrench))
-		if (unwrenched==0)
+	else if(istype(W, /obj/item/weapon/wrench))
+		if(unwrenched==0)
 			playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
-			user << "\blue You begin to unfasten \the [src] from the floor..."
-			if (do_after(user, 40))
+			to_chat(user, "\blue You begin to unfasten \the [src] from the floor...")
+			if(do_after(user, 40, target = src))
 				user.visible_message( \
 					"[user] unfastens \the [src].", \
 					"\blue You have unfastened \the [src]. Now it can be pulled somewhere else.", \
@@ -106,12 +118,12 @@
 				src.anchored = 0
 				src.stat |= MAINT
 				src.unwrenched = 1
-				if (usr.machine==src)
+				if(usr.machine==src)
 					usr << browse(null, "window=pipedispenser")
-		else /*if (unwrenched==1)*/
+		else /*if(unwrenched==1)*/
 			playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
-			user << "\blue You begin to fasten \the [src] to the floor..."
-			if (do_after(user, 20))
+			to_chat(user, "\blue You begin to fasten \the [src] to the floor...")
+			if(do_after(user, 20, target = src))
 				user.visible_message( \
 					"[user] fastens \the [src].", \
 					"\blue You have fastened \the [src]. Now it can dispense pipes.", \
@@ -135,7 +147,7 @@
 //Allow you to push disposal pipes into it (for those with density 1)
 /obj/machinery/pipedispenser/disposal/Crossed(var/obj/structure/disposalconstruct/pipe as obj)
 	if(istype(pipe) && !pipe.anchored)
-		del(pipe)
+		qdel(pipe)
 
 Nah
 */
@@ -145,13 +157,13 @@ Nah
 	if(!usr.canmove || usr.stat || usr.restrained())
 		return
 
-	if (!istype(pipe) || get_dist(usr, src) > 1 || get_dist(src,pipe) > 1 )
+	if(!istype(pipe) || get_dist(usr, src) > 1 || get_dist(src,pipe) > 1 )
 		return
 
-	if (pipe.anchored)
+	if(pipe.anchored)
 		return
 
-	del(pipe)
+	qdel(pipe)
 
 /obj/machinery/pipedispenser/disposal/attack_hand(user as mob)
 	if(..())
@@ -168,7 +180,9 @@ Nah
 <A href='?src=\ref[src];dmake=7'>Chute</A><BR>
 "}
 
-	user << browse("<HEAD><TITLE>[src]</TITLE></HEAD><TT>[dat]</TT>", "window=pipedispenser")
+	var/datum/browser/popup = new(user, "pipedispenser", name, 400, 400)
+	popup.set_content(dat)
+	popup.open()
 	return
 
 // 0=straight, 1=bent, 2=junction-j1, 3=junction-j2, 4=junction-y, 5=trunk

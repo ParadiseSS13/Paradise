@@ -1,10 +1,10 @@
 /obj/machinery/computer/merch
-	name = "Merch Computer"
+	name = "merch computer"
 	icon = 'icons/obj/computer.dmi'
-	icon_state = "comm_logs"
-	circuit = "/obj/item/weapon/circuitboard/merch"
+	icon_screen = "comm_logs"
+	circuit = /obj/item/weapon/circuitboard/merch
 
-	l_color = "#50AB00"
+	light_color = LIGHT_COLOR_GREEN
 
 /obj/item/weapon/circuitboard/merch
 	name = "\improper Merchandise Computer Circuitboard"
@@ -13,8 +13,6 @@
 /obj/machinery/computer/merch/New()
 	..()
 
-/obj/machinery/computer/merch/attack_paw(mob/user as mob)
-	return attack_hand(user)
 
 /obj/machinery/computer/merch/attack_ai(mob/user as mob)
 	src.add_hiddenprint(user)
@@ -134,7 +132,7 @@ td.cost.toomuch {
 
 	src.add_fingerprint(usr)
 
-	if (href_list["buy"])
+	if(href_list["buy"])
 		var/itemID = text2num(href_list["buy"])
 		var/datum/storeitem/item = centcomm_store.items[itemID]
 		var/sure = alert(usr,"Are you sure you wish to purchase [item.name] for $[item.cost]?","You sure?","Yes","No") in list("Yes","No")
@@ -142,20 +140,8 @@ td.cost.toomuch {
 			updateUsrDialog()
 			return
 		if(!centcomm_store.PlaceOrder(usr,itemID))
-			usr << "\red Unable to charge your account."
+			to_chat(usr, "\red Unable to charge your account.")
 		else
-			usr << "\blue You've successfully purchased the item.  It should be in your hands or on the floor."
+			to_chat(usr, "\blue You've successfully purchased the item.  It should be in your hands or on the floor.")
 	src.updateUsrDialog()
 	return
-
-/obj/machinery/computer/merch/update_icon()
-
-	if(stat & BROKEN)
-		icon_state = "comm_logsb"
-	else
-		if(stat & NOPOWER)
-			src.icon_state = "comm_logs0"
-			stat |= NOPOWER
-		else
-			icon_state = initial(icon_state)
-			stat &= ~NOPOWER

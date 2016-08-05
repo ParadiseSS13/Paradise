@@ -9,12 +9,16 @@ Used In File(s): /code/game/machinery/computers/communications.dm
 #define COMM_SCREEN_SECLEVEL	4
 -->
 {{if !data.authenticated}}
-<div class="notice">Please swipe your ID card. {{:helper.link('Log In','unlocked',{'operation':'login'},null,'fixed')}}</div>
+<div class="notice">Please swipe your ID card. {{:helper.link('Log In','unlock',{'login':1},null,'fixed')}}</div>
 {{else}}
 	{{if !data.is_ai}}
-	<div class="notice">Please remember to {{:helper.link('Log Out','locked',{'operation':'logout'},null,'fixed')}}</div>
+	<div class="notice">Please remember to {{:helper.link('Log Out','lock',{'logout':1},null,'fixed')}}</div>
 	{{/if}}
-	
+	{{if data.lastCallLoc}}
+	<div class="line">Most recent shuttle call/recall traced to: <b>{{:data.lastCallLoc}}</b></div>
+	{{else}}
+	<div class="line">Unable to trace most recent shuttle call/recall signal.</div>
+	{{/if}}
 	<div class="item">
 		<h3>Emergency Shuttle:</h3>
 		{{if data.shuttle.eta}}
@@ -25,12 +29,10 @@ Used In File(s): /code/game/machinery/computers/communications.dm
 		{{/if}}<!-- SHUTTLE ETA -->
 		<div class="itemLabel">Options:</div>
 		<div class="itemContents">
-			{{if data.shuttle.pos == 0}}
-				{{if data.shuttle.on && !data.is_ai}}
-					{{:helper.link('Cancel Shuttle','arrowreturnthick-1-w',{'operation':'cancelshuttle'})}}
-				{{else !data.shuttle.on}}
-					{{:helper.link('Call Shuttle','arrowthickstop-1-s',{'operation':'callshuttle'})}}
-				{{/if}}
+			{{if data.shuttle.callStatus == 1 && !data.is_ai}}
+				{{:helper.link('Cancel Shuttle','arrow-left',{'operation':'cancelshuttle'})}}
+			{{else data.shuttle.callStatus == 2}}
+				{{:helper.link('Call Shuttle','arrow-circle-down',{'operation':'callshuttle'})}}
 			{{/if}}
 		</div>
 	</div>
@@ -41,21 +43,24 @@ Used In File(s): /code/game/machinery/computers/communications.dm
 		<div class="item">
 			{{if data.authenticated==2}}
 				<div class="line">
-					{{:helper.link('Make an Announcement','alert',{'operation':'announce'})}}
+					{{:helper.link('Make an Announcement','info',{'operation':'announce'})}}
 				</div>
 				<div class="line">
 				{{if data.emagged}}
-					{{:helper.link('Message [UNKNOWN]','mail-closed',{'operation':'MessageSyndicate'})}}
+					{{:helper.link('Message [UNKNOWN]','envelope',{'operation':'MessageSyndicate'})}}
 					</div>
 					<div class="line">
-					{{:helper.link('Reset Relays','refresh',{'operation':'MessageCentcomm'})}}
+					{{:helper.link('Reset Relays','refresh',{'operation':'RestoreBackup'})}}
 				{{else}}
-					{{:helper.link('Message CentComm','mail-closed',{'operation':'MessageCentcomm'})}}
+					{{:helper.link('Message CentComm','envelope',{'operation':'MessageCentcomm'})}}
 				{{/if}}
 				</div>
+				<div class="line">
+					{{:helper.link('Request Nuclear Authentication Codes','exclamation-triangle',{'operation':'nukerequest'})}}
+				</div>		
 			{{/if}}
 			<div class="line">
-				{{:helper.link('Change Alert Level','signal-diag',{'operation':'changeseclevel'})}}
+				{{:helper.link('Change Alert Level','signal',{'operation':'changeseclevel'})}}
 			</div>
 			<div class="line">
 				{{:helper.link('Change Status Displays','info',{'operation':'status'})}}
@@ -63,6 +68,11 @@ Used In File(s): /code/game/machinery/computers/communications.dm
 			<div class="line">
 				{{:helper.link('Message List','comment',{'operation':'messagelist'})}}
 			</div>
+			{{if data.dock_request}}
+			<div class="line">
+				{{:helper.link('Accept Docking Request','signal',{'operation':'AcceptDocking'})}}
+				{{:helper.link('Deny Docking Request','signal',{'operation':'DenyDocking'})}}
+			{{/if}}
 		</div>
 	{{else data.screen==2}}
 		<!-- STATUS DISPLAYS -->
@@ -77,7 +87,7 @@ Used In File(s): /code/game/machinery/computers/communications.dm
 		<h3>Alerts</h3>
 		{{for data.stat_display.alerts}}
 			<div class="line">
-				<div class="statusLabel">{{:helper.link(value.label,'alert',{'operation':'setstat','statdisp':'alert','alert':value.alert},null,(value.alert==data.stat_display.type?'linkOn':''))}}</div>
+				<div class="statusLabel">{{:helper.link(value.label,'alert',{'operation':'setstat','statdisp':'alert','exclamation-triangle':value.alert},null,(value.alert==data.stat_display.type?'linkOn':''))}}</div>
 			</div>
 		{{/for}}
 		<h3>Messages</h3>
@@ -106,7 +116,7 @@ Used In File(s): /code/game/machinery/computers/communications.dm
 			{{:helper.link('Back','home',{'operation':'main'})}}
 			{{for data.messages}}
 				<div class="line">
-					{{:helper.link('Open','mail-open',{'operation':'messagelist','msgid':data.id})}}
+					{{:helper.link('Open','envelope-o',{'operation':'messagelist','msgid':data.id})}}
 					{{:helper.link('Delete','close',{'operation':'delmessage','msgid':data.id},'red')}}
 					{{>data.title}}
 				</div>

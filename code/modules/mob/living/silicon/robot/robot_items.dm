@@ -1,41 +1,39 @@
 // A special pen for service droids. Can be toggled to switch between normal writing mode, and paper rename mode
 // Allows service droids to rename paper items.
 
-/obj/item/weapon/pen/robopen
+/obj/item/weapon/pen/multi/robopen
 	desc = "A black ink printing attachment with a paper naming mode."
 	name = "Printing Pen"
 	var/mode = 1
 
-/obj/item/weapon/pen/robopen/attack_self(mob/user as mob)
+/obj/item/weapon/pen/multi/robopen/attack_self(mob/user as mob)
 
 	var/choice = input("Would you like to change colour or mode?") as null|anything in list("Colour","Mode")
 	if(!choice) return
 
-	playsound(src.loc, 'sound/effects/pop.ogg', 50, 0)
-
 	switch(choice)
 
 		if("Colour")
-			var/newcolour = input("Which colour would you like to use?") as null|anything in list("black","blue","red","green","yellow")
-			if(newcolour) colour = newcolour
+			select_colour(user)
 
 		if("Mode")
-			if (mode == 1)
+			if(mode == 1)
 				mode = 2
 			else
 				mode = 1
-			user << "Changed printing mode to '[mode == 2 ? "Rename Paper" : "Write Paper"]'"
+			to_chat(user, "Changed printing mode to '[mode == 2 ? "Rename Paper" : "Write Paper"]'")
+			playsound(src.loc, 'sound/effects/pop.ogg', 50, 0)
 
 	return
 
 // Copied over from paper's rename verb
 // see code\modules\paperwork\paper.dm line 62
 
-/obj/item/weapon/pen/robopen/proc/RenamePaper(mob/user as mob,obj/paper as obj)
-	if ( !user || !paper )
+/obj/item/weapon/pen/multi/robopen/proc/RenamePaper(mob/user as mob,obj/paper as obj)
+	if( !user || !paper )
 		return
 	var/n_name = input(user, "What would you like to label the paper?", "Paper Labelling", null)  as text
-	if ( !user || !paper )
+	if( !user || !paper )
 		return
 
 	n_name = copytext(n_name, 1, 32)
@@ -72,11 +70,15 @@
 
 
 //Personal shielding for the combat module.
+/obj/item/borg
+	var/powerneeded // Percentage of power remaining required to run item
+
 /obj/item/borg/combat/shield
 	name = "personal shielding"
 	desc = "A powerful experimental module that turns aside or absorbs incoming attacks at the cost of charge."
 	icon = 'icons/obj/decals.dmi'
 	icon_state = "shock"
+	powerneeded = 25
 	var/shield_level = 0.5 //Percentage of damage absorbed by the shield.
 
 /obj/item/borg/combat/shield/verb/set_shield_level()
@@ -85,7 +87,7 @@
 	set src in range(0)
 
 	var/N = input("How much damage should the shield absorb?") in list("5","10","25","50","75","100")
-	if (N)
+	if(N)
 		shield_level = text2num(N)/100
 
 /obj/item/borg/combat/mobility
@@ -93,3 +95,4 @@
 	desc = "By retracting limbs and tucking in its head, a combat android can roll at high speeds."
 	icon = 'icons/obj/decals.dmi'
 	icon_state = "shock"
+	powerneeded = 25

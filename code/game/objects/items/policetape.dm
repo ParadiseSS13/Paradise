@@ -3,11 +3,14 @@
 	name = "tape roll"
 	icon = 'icons/policetape.dmi'
 	icon_state = "rollstart"
-	w_class = 1.0
+	w_class = 1
 	var/turf/start
 	var/turf/end
 	var/tape_type = /obj/item/tape
 	var/icon_base
+
+var/list/image/hazard_overlays
+var/list/tape_roll_applications = list()
 
 /obj/item/tape
 	name = "tape"
@@ -15,6 +18,24 @@
 	anchored = 1
 	density = 1
 	var/icon_base
+
+/obj/item/tape/New()
+	..()
+	if(!hazard_overlays)
+		hazard_overlays = list()
+		hazard_overlays["[NORTH]"]	= new/image('icons/effects/warning_stripes.dmi', icon_state = "N")
+		hazard_overlays["[EAST]"]	= new/image('icons/effects/warning_stripes.dmi', icon_state = "E")
+		hazard_overlays["[SOUTH]"]	= new/image('icons/effects/warning_stripes.dmi', icon_state = "S")
+		hazard_overlays["[WEST]"]	= new/image('icons/effects/warning_stripes.dmi', icon_state = "W")
+
+/obj/item/taperoll/New() //just using tape is not enough to guarantee the overlays are genned
+	..()
+	if(!hazard_overlays)
+		hazard_overlays = list()
+		hazard_overlays["[NORTH]"]	= new/image('icons/effects/warning_stripes.dmi', icon_state = "N")
+		hazard_overlays["[EAST]"]	= new/image('icons/effects/warning_stripes.dmi', icon_state = "E")
+		hazard_overlays["[SOUTH]"]	= new/image('icons/effects/warning_stripes.dmi', icon_state = "S")
+		hazard_overlays["[WEST]"]	= new/image('icons/effects/warning_stripes.dmi', icon_state = "W")
 
 /obj/item/taperoll/police
 	name = "police tape"
@@ -45,18 +66,18 @@
 /obj/item/taperoll/attack_self(mob/user as mob)
 	if(icon_state == "[icon_base]_start")
 		start = get_turf(src)
-		usr << "\blue You place the first end of the [src]."
+		to_chat(usr, "\blue You place the first end of the [src].")
 		icon_state = "[icon_base]_stop"
 	else
 		icon_state = "[icon_base]_start"
 		end = get_turf(src)
 		if(start.y != end.y && start.x != end.x || start.z != end.z)
-			usr << "\blue [src] can only be laid horizontally or vertically."
+			to_chat(usr, "\blue [src] can only be laid horizontally or vertically.")
 			return
 
 		var/turf/cur = start
 		var/dir
-		if (start.x == end.x)
+		if(start.x == end.x)
 			var/d = end.y-start.y
 			if(d) d = d/abs(d)
 			end = get_turf(locate(end.x,end.y+d,end.z))
@@ -68,10 +89,10 @@
 			dir = "h"
 
 		var/can_place = 1
-		while (cur!=end && can_place)
+		while(cur!=end && can_place)
 			if(cur.density == 1)
 				can_place = 0
-			else if (istype(cur, /turf/space))
+			else if(istype(cur, /turf/space))
 				can_place = 0
 			else
 				for(var/obj/O in cur)
@@ -79,13 +100,13 @@
 						can_place = 0
 						break
 			cur = get_step_towards(cur,end)
-		if (!can_place)
-			usr << "\blue You can't run \the [src] through that!"
+		if(!can_place)
+			to_chat(usr, "\blue You can't run \the [src] through that!")
 			return
 
 		cur = start
 		var/tapetest = 0
-		while (cur!=end)
+		while(cur!=end)
 			for(var/obj/item/tape/Ptest in cur)
 				if(Ptest.icon_state == "[Ptest.icon_base]_[dir]")
 					tapetest = 1
@@ -94,27 +115,45 @@
 				P.icon_state = "[P.icon_base]_[dir]"
 			cur = get_step_towards(cur,end)
 	//is_blocked_turf(var/turf/T)
-		usr << "\blue You finish placing the [src]."	//Git Test
+			to_chat(usr, "\blue You finish placing the [src].")//Git Test
+
 
 /obj/item/taperoll/afterattack(var/atom/A, mob/user as mob, proximity)
-	if (proximity && istype(A, /obj/machinery/door/airlock))
+	if(!proximity)
+		return
+
+	if(istype(A, /obj/machinery/door/airlock))
 		var/turf/T = get_turf(A)
 		var/obj/item/tape/P = new tape_type(T.x,T.y,T.z)
 		P.loc = locate(T.x,T.y,T.z)
 		P.icon_state = "[src.icon_base]_door"
 		P.layer = 3.2
-		user << "\blue You finish placing the [src]."
+		to_chat(user, "\blue You finish placing the [src].")
 
-/obj/item/tape/Bumped(M as mob)
-	if(src.allowed(M))
-		var/turf/T = get_turf(src)
-		M:loc = T
+	if(istype(A, /turf/simulated/floor) ||istype(A, /turf/unsimulated/floor))
+		var/turf/F = A
+		var/direction = user.loc == F ? user.dir : turn(user.dir, 180)
+		var/icon/hazard_overlay = hazard_overlays["[direction]"]
+		if(tape_roll_applications[F] == null)
+			tape_roll_applications[F] = 0
+
+		if(tape_roll_applications[F] & direction) // hazard_overlay in F.overlays wouldn't work.
+			user.visible_message("[user] uses the adhesive of \the [src] to remove area markings from \the [F].", "You use the adhesive of \the [src] to remove area markings from \the [F].")
+			F.overlays -= hazard_overlay
+			tape_roll_applications[F] &= ~direction
+		else
+			user.visible_message("[user] applied \the [src] on \the [F] to create area markings.", "You apply \the [src] on \the [F] to create area markings.")
+			F.overlays |= hazard_overlay
+			tape_roll_applications[F] |= direction
+		return
 
 /obj/item/tape/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
 	if(!density) return 1
 	if(air_group || (height==0)) return 1
 
-	if ((mover.pass_flags & PASSTABLE || istype(mover, /obj/effect/meteor) || mover.throwing == 1) )
+	if((mover.pass_flags & PASSTABLE || istype(mover, /obj/effect/meteor) || mover.throwing == 1) )
+		return 1
+	else if(ismob(mover) && allowed(mover))
 		return 1
 	else
 		return 0
@@ -123,25 +162,22 @@
 	breaktape(W, user)
 
 /obj/item/tape/attack_hand(mob/user as mob)
-	if (user.a_intent == "help" && src.allowed(user))
-		user.show_viewers("\blue [user] lifts [src], allowing passage.")
+	if(user.a_intent == I_HELP && src.allowed(user))
+		user.visible_message("<span class=notice>[user] lifts [src], allowing passage.</span>", "<span class=notice>You lift [src], allowing passage.</span>")
 		src.density = 0
 		spawn(200)
 			src.density = 1
 	else
 		breaktape(/obj/item/weapon/soap, user)//cant be null, and can't be sharp.
 
-/obj/item/tape/attack_paw(mob/user as mob)
-	breaktape(/obj/item/weapon/wirecutters,user)
-
 /obj/item/tape/attack_alien(mob/user as mob)
 	breaktape(/obj/item/weapon/wirecutters,user)
 
 /obj/item/tape/proc/breaktape(obj/item/weapon/W as obj, mob/user as mob)
-	if(user.a_intent == "help" && ((!can_puncture(W) && src.allowed(user))))
-		user << "You can't break the [src] with that!"
+	if(user.a_intent == I_HELP && ((!can_puncture(W) && src.allowed(user))))
+		to_chat(user, "You can't break the [src] with that!")
 		return
-	user.show_viewers("\blue [user] breaks the [src]!")
+	user.visible_message("<span class=warning>[user] breaks the [src]!</span>", "<span class=warning>You break the [src]!</span>")
 
 	var/dir[2]
 	var/icon_dir = src.icon_state
@@ -157,13 +193,13 @@
 		var/turf/cur = get_step(src,dir[i])
 		while(N != 1)
 			N = 1
-			for (var/obj/item/tape/P in cur)
+			for(var/obj/item/tape/P in cur)
 				if(P.icon_state == icon_dir)
 					N = 0
-					del(P)
+					qdel(P)
 			cur = get_step(cur,dir[i])
 
-	del(src)
+	qdel(src)
 	return
 
 

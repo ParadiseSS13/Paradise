@@ -5,7 +5,7 @@
  *		Ushanka
  *		Pumpkin head
  *		Kitty ears
- *
+ *		Cardborg Disguise
  */
 
 /*
@@ -17,40 +17,62 @@
 	icon_state = "welding"
 	flags = HEADCOVERSEYES | HEADCOVERSMOUTH
 	item_state = "welding"
-	m_amt = 1750
-	g_amt = 400
-	var/up = 0
-	armor = list(melee = 10, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0)
+	materials = list(MAT_METAL=1750, MAT_GLASS=400)
+	flash_protect = 2
+	tint = 2
+	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
 	flags_inv = (HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE)
-	icon_action_button = "action_welding"
-	siemens_coefficient = 0.9
-	loose = 4
-	species_fit = list("Vox")
+	actions_types = list(/datum/action/item_action/toggle)
+	burn_state = FIRE_PROOF
+	species_fit = list("Vox", "Unathi", "Tajaran", "Vulpkanin")
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/eyes.dmi'
+		"Vox" = 'icons/mob/species/vox/head.dmi',
+		"Unathi" = 'icons/mob/species/unathi/helmet.dmi',
+		"Tajaran" = 'icons/mob/species/tajaran/helmet.dmi',
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/helmet.dmi'
 		)
+
+/obj/item/clothing/head/welding/flamedecal
+	name = "flame decal welding helmet"
+	desc = "A welding helmet adorned with flame decals, and several cryptic slogans of varying degrees of legibility."
+	icon_state = "welding_redflame"
+
+/obj/item/clothing/head/welding/flamedecal/blue
+	name = "blue flame decal welding helmet"
+	desc = "A welding helmet with blue flame decals on it."
+	icon_state = "welding_blueflame"
+
+/obj/item/clothing/head/welding/white
+	name = "white decal welding helmet"
+	desc = "A white welding helmet with a character written across it."
+	icon_state = "welding_white"
 
 /obj/item/clothing/head/welding/attack_self()
 	toggle()
 
-
 /obj/item/clothing/head/welding/proc/toggle()
-	set src in usr
+	if(up)
+		up = !up
+		flags |= (HEADCOVERSEYES | HEADCOVERSMOUTH)
+		flags_inv |= (HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE)
+		icon_state = initial(icon_state)
+		to_chat(usr, "You flip the [src] down to protect your eyes.")
+		flash_protect = 2
+		tint = 2
+	else
+		up = !up
+		flags &= ~(HEADCOVERSEYES | HEADCOVERSMOUTH)
+		flags_inv &= ~(HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE)
+		icon_state = "[initial(icon_state)]up"
+		to_chat(usr, "You push the [src] up out of your face.")
+		flash_protect = 0
+		tint = 0
+	usr.update_inv_head()	//so our mob-overlays update
 
-	if(usr.canmove && !usr.stat && !usr.restrained())
-		if(src.up)
-			src.up = !src.up
-			src.flags |= (HEADCOVERSEYES | HEADCOVERSMOUTH)
-			flags_inv |= (HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE)
-			icon_state = initial(icon_state)
-			usr << "You flip the [src] down to protect your eyes."
-		else
-			src.up = !src.up
-			src.flags &= ~(HEADCOVERSEYES | HEADCOVERSMOUTH)
-			flags_inv &= ~(HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE)
-			icon_state = "[initial(icon_state)]up"
-			usr << "You push the [src] up out of your face."
-		usr.update_inv_head()	//so our mob-overlays update
+	for(var/X in actions)
+		var/datum/action/A = X
+		A.UpdateButtonIcon()
+
 
 
 /*
@@ -65,7 +87,6 @@
 	var/status = 0
 	var/fire_resist = T0C+1300	//this is the max temp it can stand before you start to cook. although it might not burn away, you take damage
 	var/processing = 0 //I dont think this is used anywhere.
-	loose = 60
 
 /obj/item/clothing/head/cakehat/process()
 	if(!onfire)
@@ -78,13 +99,13 @@
 		if(M.l_hand == src || M.r_hand == src || M.head == src)
 			location = M.loc
 
-	if (istype(location, /turf))
+	if(istype(location, /turf))
 		location.hotspot_expose(700, 1)
 
 /obj/item/clothing/head/cakehat/attack_self(mob/user as mob)
 	if(status > 1)	return
 	src.onfire = !( src.onfire )
-	if (src.onfire)
+	if(src.onfire)
 		src.force = 3
 		src.damtype = "fire"
 		src.icon_state = "cake1"
@@ -106,18 +127,17 @@
 	item_state = "ushankadown"
 	flags_inv = HIDEEARS
 	cold_protection = HEAD
-	min_cold_protection_temperature = FIRE_HELMET_MIN_COLD_PROTECTION_TEMPERATURE
-	loose = 1 // too warm, your head doesn't want to leave
+	min_cold_protection_temperature = FIRE_HELM_MIN_TEMP_PROTECT
 
 /obj/item/clothing/head/ushanka/attack_self(mob/user as mob)
 	if(src.icon_state == "ushankadown")
 		src.icon_state = "ushankaup"
 		src.item_state = "ushankaup"
-		user << "You raise the ear flaps on the ushanka."
+		to_chat(user, "You raise the ear flaps on the ushanka.")
 	else
 		src.icon_state = "ushankadown"
 		src.item_state = "ushankadown"
-		user << "You lower the ear flaps on the ushanka."
+		to_chat(user, "You lower the ear flaps on the ushanka.")
 
 /*
  * Pumpkin head
@@ -127,14 +147,12 @@
 	desc = "A jack o' lantern! Believed to ward off evil spirits."
 	icon_state = "hardhat0_pumpkin"//Could stand to be renamed
 	item_state = "hardhat0_pumpkin"
-	_color = "pumpkin"
+	item_color = "pumpkin"
 	flags = HEADCOVERSEYES | HEADCOVERSMOUTH | BLOCKHAIR
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 
-	action_button_name = "Toggle Pumpkin Light"
-	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0)
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
 	brightness_on = 2 //luminosity when on
-	loose = 80
 
 
 /obj/item/clothing/head/hardhat/reindeer
@@ -142,10 +160,9 @@
 	desc = "Some fake antlers and a very fake red nose."
 	icon_state = "hardhat0_reindeer"
 	item_state = "hardhat0_reindeer"
-	_color = "reindeer"
+	item_color = "reindeer"
 	flags_inv = 0
-	action_button_name = "Toggle Nose Light"
-	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0)
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
 	brightness_on = 1 //luminosity when on
 
 
@@ -157,21 +174,27 @@
 	desc = "A pair of kitty ears. Meow!"
 	icon_state = "kitty"
 	var/icon/mob
-	siemens_coefficient = 1.5
-	loose = 33
 
-	update_icon(var/mob/living/carbon/human/user)
-		if(!istype(user)) return
-		mob = new/icon("icon" = 'icons/mob/head.dmi', "icon_state" = "kitty")
+/obj/item/clothing/head/kitty/update_icon(var/mob/living/carbon/human/user)
+	if(!istype(user)) return
+	var/obj/item/organ/external/head/head_organ = user.get_organ("head")
+
+	mob = new/icon("icon" = 'icons/mob/head.dmi', "icon_state" = "kitty")
 //		mob2 = new/icon("icon" = 'icons/mob/head.dmi', "icon_state" = "kitty2") - Commented out because it seemingly does nothing.
-		mob.Blend(rgb(user.r_hair, user.g_hair, user.b_hair), ICON_ADD)
+	mob.Blend(rgb(head_organ.r_hair, head_organ.g_hair, head_organ.b_hair), ICON_ADD)
 //		mob2.Blend(rgb(user.r_hair, user.g_hair, user.b_hair), ICON_ADD) - Commented out because it seemingly does nothing.
 
-		var/icon/earbit = new/icon("icon" = 'icons/mob/head.dmi', "icon_state" = "kittyinner")
+	var/icon/earbit = new/icon("icon" = 'icons/mob/head.dmi', "icon_state" = "kittyinner")
 //		var/icon/earbit2 = new/icon("icon" = 'icons/mob/head.dmi', "icon_state" = "kittyinner2") - Commented out because it seemingly does nothing.
-		mob.Blend(earbit, ICON_OVERLAY)
+	mob.Blend(earbit, ICON_OVERLAY)
 //		mob2.Blend(earbit2, ICON_OVERLAY) - Commented out because it seemingly does nothing.
 
+	icon_override = mob
+
+/obj/item/clothing/head/kitty/equipped(var/mob/M, slot)
+	. = ..()
+	if(ishuman(M) && slot == slot_head)
+		update_icon(M)
 
 
 /obj/item/clothing/head/kitty/mouse
@@ -179,10 +202,34 @@
 	desc = "A pair of mouse ears. Squeak!"
 	icon_state = "mousey"
 
-	update_icon(var/mob/living/carbon/human/user)
-		if(!istype(user)) return
-		mob = new/icon("icon" = 'icons/mob/head.dmi', "icon_state" = "mousey")
-		mob.Blend(rgb(user.r_hair, user.g_hair, user.b_hair), ICON_ADD)
+/obj/item/clothing/head/kitty/mouse/update_icon(var/mob/living/carbon/human/user)
+	if(!istype(user)) return
+	var/obj/item/organ/external/head/head_organ = user.get_organ("head")
+	mob = new/icon("icon" = 'icons/mob/head.dmi', "icon_state" = "mousey")
+	mob.Blend(rgb(head_organ.r_hair, head_organ.g_hair, head_organ.b_hair), ICON_ADD)
 
-		var/icon/earbit = new/icon("icon" = 'icons/mob/head.dmi', "icon_state" = "mouseyinner")
-		mob.Blend(earbit, ICON_OVERLAY)
+	var/icon/earbit = new/icon("icon" = 'icons/mob/head.dmi', "icon_state" = "mouseyinner")
+	mob.Blend(earbit, ICON_OVERLAY)
+
+	icon_override = mob
+
+/obj/item/clothing/head/cardborg
+	name = "cardborg helmet"
+	desc = "A helmet made out of a box."
+	icon_state = "cardborg_h"
+	item_state = "cardborg_h"
+	flags = HEADCOVERSEYES | HEADCOVERSMOUTH
+	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
+	species_disguise = "High-tech robot"
+
+/obj/item/clothing/head/cardborg/equipped(mob/living/user, slot)
+	..()
+	if(ishuman(user) && slot == slot_head)
+		var/mob/living/carbon/human/H = user
+		if(istype(H.wear_suit, /obj/item/clothing/suit/cardborg))
+			var/obj/item/clothing/suit/cardborg/CB = H.wear_suit
+			CB.disguise(user, src)
+
+/obj/item/clothing/head/cardborg/dropped(mob/living/user)
+	..()
+	user.remove_alt_appearance("standard_borg_disguise")

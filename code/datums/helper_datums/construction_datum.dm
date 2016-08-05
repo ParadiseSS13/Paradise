@@ -13,7 +13,7 @@
 		holder = atom
 		if(!holder) //don't want this without a holder
 			spawn
-				del src
+				qdel(src)
 		set_desc(steps.len)
 		return
 
@@ -45,7 +45,7 @@
 	proc/custom_action(step, used_atom, user)
 		if(istype(used_atom, /obj/item/weapon/weldingtool))
 			var/obj/item/weapon/weldingtool/W = used_atom
-			if (W.remove_fuel(0, user))
+			if(W.remove_fuel(0, user))
 				playsound(holder, 'sound/items/Welder2.ogg', 50, 1)
 			else
 				return 0
@@ -61,7 +61,7 @@
 		else if(istype(used_atom, /obj/item/stack/cable_coil))
 			var/obj/item/stack/cable_coil/C = used_atom
 			if(C.amount<4)
-				user << ("There's not enough cable to finish the task.")
+				to_chat(user, ("There's not enough cable to finish the task."))
 				return 0
 			else
 				C.use(4)
@@ -69,7 +69,7 @@
 		else if(istype(used_atom, /obj/item/stack))
 			var/obj/item/stack/S = used_atom
 			if(S.amount < 5)
-				user << ("There's not enough material in this stack.")
+				to_chat(user, ("There's not enough material in this stack."))
 				return 0
 			else
 				S.use(5)
@@ -97,7 +97,7 @@
 
 			new result(get_turf(holder))
 			spawn()
-				del holder
+				qdel(holder)
 		return
 
 	proc/set_desc(index as num)
@@ -111,24 +111,24 @@
 			if(istype(used_atom,/obj/item/stack))
 				var/obj/item/stack/stack=used_atom
 				if(stack.amount < amount)
-					user << "\red You don't have enough [stack]! You need at least [amount]."
+					to_chat(user, "\red You don't have enough [stack]! You need at least [amount].")
 					return 0
 				stack.use(amount)
 			// CABLES
 			if(istype(used_atom,/obj/item/stack/cable_coil))
 				var/obj/item/stack/cable_coil/coil=used_atom
 				if(coil.amount < amount)
-					user << "\red You don't have enough cable! You need at least [amount] coils."
+					to_chat(user, "\red You don't have enough cable! You need at least [amount] coils.")
 					return 0
 				coil.use(amount)
 			// WELDER
 			if(istype(used_atom,/obj/item/weapon/weldingtool))
 				var/obj/item/weapon/weldingtool/welder=used_atom
 				if(!welder.isOn())
-					user << "\blue You tap the [src] with your unlit welder.  [pick("Ding","Dong")]."
+					to_chat(user, "\blue You tap the [src] with your unlit welder.  [pick("Ding","Dong")].")
 					return 0
 				if(!welder.remove_fuel(amount,user))
-					user << "\red You don't have enough fuel!"
+					to_chat(user, "\red You don't have enough fuel!")
 					return 0
 		return 1
 

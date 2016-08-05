@@ -1,5 +1,5 @@
 /obj/structure/closet/secure_closet/bar
-	name = "Booze"
+	name = "Booze cabinet"
 	req_access = list(access_bar)
 	icon_state = "cabinetdetective_locked"
 	icon_closed = "cabinetdetective"
@@ -7,11 +7,12 @@
 	icon_opened = "cabinetdetective_open"
 	icon_broken = "cabinetdetective_broken"
 	icon_off = "cabinetdetective_broken"
+	burn_state = FLAMMABLE
+	burntime = 20
 
 
 	New()
 		..()
-		sleep(2)
 		new /obj/item/weapon/reagent_containers/food/drinks/cans/beer( src )
 		new /obj/item/weapon/reagent_containers/food/drinks/cans/beer( src )
 		new /obj/item/weapon/reagent_containers/food/drinks/cans/beer( src )
@@ -22,7 +23,6 @@
 		new /obj/item/weapon/reagent_containers/food/drinks/cans/beer( src )
 		new /obj/item/weapon/reagent_containers/food/drinks/cans/beer( src )
 		new /obj/item/weapon/reagent_containers/food/drinks/cans/beer( src )
-		return
 
 /obj/structure/closet/secure_closet/bar/update_icon()
 	if(broken)

@@ -1,21 +1,16 @@
 /obj/machinery/computer/area_atmos
-	name = "Area Air Control"
+	name = "area air control"
 	desc = "A computer used to control the stationary scrubbers and pumps in the area."
-	icon_state = "area_atmos"
-	circuit = "/obj/item/weapon/circuitboard/area_atmos"
+	icon_screen = "area_atmos"
+	icon_keyboard = "atmos_key"
+	circuit = /obj/item/weapon/circuitboard/area_atmos
 
 	var/list/connectedscrubbers = new()
 	var/status = ""
 
 	var/range = 25
 
-	l_color = "#7BF9FF"
-	power_change()
-		..()
-		if(!(stat & (BROKEN|NOPOWER)))
-			SetLuminosity(2)
-		else
-			SetLuminosity(0)
+	light_color = LIGHT_COLOR_CYAN
 
 	//Simple variable to prevent me from doing attack_hand in both this and the child computer
 	var/zone = "This computer is working on a wireless range, the range is currently limited to 25 meters."
@@ -30,8 +25,6 @@
 		src.add_hiddenprint(user)
 		return src.attack_hand(user)
 
-	attack_paw(var/mob/user as mob)
-		return
 
 	attack_hand(var/mob/user as mob)
 		if(..(user))
@@ -92,7 +85,9 @@
 				<i>[zone]</i>
 			</body>
 		</html>"}
-		user << browse("[dat]", "window=miningshuttle;size=400x400")
+		var/datum/browser/popup = new(user, "area_atmos", name, 400, 400)
+		popup.set_content(dat)
+		popup.open(0)
 		status = ""
 
 	Topic(href, href_list)
@@ -118,6 +113,7 @@
 			scrubber.update_icon()
 
 	proc/validscrubber( var/obj/machinery/portable_atmospherics/scrubber/huge/scrubber as obj )
+		// TODO: Tie into space manager
 		if(!isobj(scrubber) || get_dist(scrubber.loc, src.loc) > src.range || scrubber.loc.z != src.loc.z)
 			return 0
 
@@ -151,14 +147,10 @@
 		var/turf/T_src = get_turf(src)
 		if(!T_src.loc) return 0
 		var/area/A_src = T_src.loc
-		if (A_src.master)
-			A_src = A_src.master
 
 		var/turf/T_scrub = get_turf(scrubber)
 		if(!T_scrub.loc) return 0
 		var/area/A_scrub = T_scrub.loc
-		if (A_scrub.master)
-			A_scrub = A_scrub.master
 
 		if(A_scrub != A_src)
 			return 0
@@ -177,7 +169,7 @@
 			var/turf/T2 = get_turf(scrubber)
 			if(T2 && T2.loc)
 				var/area/A2 = T2.loc
-				if(istype(A2) && A2.master && A2.master == A )
+				if(istype(A2) && A2 == A )
 					connectedscrubbers += scrubber
 					found = 1
 

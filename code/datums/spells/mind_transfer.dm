@@ -1,4 +1,4 @@
-/obj/effect/proc_holder/spell/wizard/targeted/mind_transfer
+/obj/effect/proc_holder/spell/targeted/mind_transfer
 	name = "Mind Transfer"
 	desc = "This spell allows the user to switch bodies with a target."
 
@@ -12,38 +12,42 @@
 	var/list/protected_roles = list("Wizard","Changeling","Cultist") //which roles are immune to the spell
 	var/paralysis_amount_caster = 20 //how much the caster is paralysed for after the spell
 	var/paralysis_amount_victim = 20 //how much the victim is paralysed for after the spell
-	icon_power_button = "spell_mind"
+	action_icon_state = "mindswap"
 
 /*
 Urist: I don't feel like figuring out how you store object spells so I'm leaving this for you to do.
 Make sure spells that are removed from spell_list are actually removed and deleted when mind transfering.
 Also, you never added distance checking after target is selected. I've went ahead and did that.
 */
-/obj/effect/proc_holder/spell/wizard/targeted/mind_transfer/cast(list/targets,mob/user = usr)
+/obj/effect/proc_holder/spell/targeted/mind_transfer/cast(list/targets, mob/user = usr, distanceoverride)
 	if(!targets.len)
-		user << "No mind found."
+		to_chat(user, "No mind found.")
 		return
 
 	if(targets.len > 1)
-		user << "Too many minds! You're not a hive damnit!"//Whaa...aat?
+		to_chat(user, "Too many minds! You're not a hive damnit!")//Whaa...aat?
 		return
 
 	var/mob/living/target = targets[1]
 
-	if(!(target in oview(range)))//If they are not in overview after selection. Do note that !() is necessary for in to work because ! takes precedence over it.
-		user << "They are too far away!"
+	if(!(target in oview(range)) && !distanceoverride)//If they are not in overview after selection. Do note that !() is necessary for in to work because ! takes precedence over it.
+		to_chat(user, "They are too far away!")
 		return
 
 	if(target.stat == DEAD)
-		user << "You don't particularly want to be dead."
+		to_chat(user, "You don't particularly want to be dead.")
 		return
 
 	if(!target.key || !target.mind)
-		user << "They appear to be catatonic. Not even magic can affect their vacant mind."
+		to_chat(user, "They appear to be catatonic. Not even magic can affect their vacant mind.")
+		return
+
+	if(user.suiciding)
+		to_chat(user, "<span class='warning'>You're killing yourself! You can't concentrate enough to do this!</span>")
 		return
 
 	if(target.mind.special_role in protected_roles)
-		user << "Their mind is resisting your spell."
+		to_chat(user, "Their mind is resisting your spell.")
 		return
 
 	var/mob/living/victim = target//The target of the spell whos body will be transferred to.
@@ -59,18 +63,16 @@ Also, you never added distance checking after target is selected. I've went ahea
 			victim.verbs -= V
 
 	var/mob/dead/observer/ghost = victim.ghostize(0)
-	ghost.spell_list = victim.spell_list//If they have spells, transfer them. Now we basically have a backup mob.
-
 	caster.mind.transfer_to(victim)
-	victim.spell_list = caster.spell_list//Now they are inside the victim's body.
 
 	if(victim.mind.special_verbs.len)//To add all the special verbs for the original caster.
 		for(var/V in caster.mind.special_verbs)//Not too important but could come into play.
 			caster.verbs += V
 
 	ghost.mind.transfer_to(caster)
-	caster.key = ghost.key	//have to transfer the key since the mind was not active
-	caster.spell_list = ghost.spell_list
+	if(ghost.key)
+		caster.key = ghost.key	//have to transfer the key since the mind was not active
+	qdel(ghost)
 
 	if(caster.mind.special_verbs.len)//If they had any special verbs, we add them here.
 		for(var/V in caster.mind.special_verbs)

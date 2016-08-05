@@ -19,5 +19,5 @@
 /datum/artifact_effect/gasnitro/DoEffectAura()
 	if(holder)
 		var/datum/gas_mixture/env = holder.loc.return_air()
-		if(env && env.total_moles < max_pressure)
+		if(env && env.total_moles() < max_pressure)
 			env.nitrogen += pick(0, 0, 0.1, rand())

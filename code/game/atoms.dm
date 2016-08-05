@@ -1,6 +1,3 @@
-var/global/list/del_profiling = list()
-var/global/list/gdel_profiling = list()
-var/global/list/ghdel_profiling = list()
 /atom
 	layer = 2
 	var/level = 2
@@ -14,36 +11,92 @@ var/global/list/ghdel_profiling = list()
 	var/pass_flags = 0
 	var/throwpass = 0
 	var/germ_level = GERM_LEVEL_AMBIENT // The higher the germ level, the more germ on the atom.
+	var/simulated = 1 //filter for actions - used by lighting overlays
+	var/atom_say_verb = "says"
 
 	///Chemistry.
 	var/datum/reagents/reagents = null
+
+	//This atom's HUD (med/sec, etc) images. Associative list.
+	var/list/image/hud_list = list()
+	//HUD images that this atom can provide.
+	var/list/hud_possible
+
 
 	//var/chem_is_open_container = 0
 	// replaced by OPENCONTAINER flags and atom/proc/is_open_container()
 	///Chemistry.
 
+
+	//Value used to increment ex_act() if reactionary_explosions is on
+	var/explosion_block = 0
+
 	//Detective Work, used for the duplicate data points kept in the scanners
 	var/list/original_atom
 
-	// Garbage collection
-	var/gc_destroyed=null
+	var/allow_spin = 1 //Set this to 1 for a _target_ that is being thrown at; if an atom has this set to 1 then atoms thrown AT it will not spin; currently used for the singularity. -Fox
 
+/atom/proc/onCentcom()
+	var/turf/T = get_turf(src)
+	if(!T)
+		return 0
+
+	// TODO: Tie into space manager
+	if(T.z != ZLEVEL_CENTCOMM)//if not, don't bother
+		return 0
+
+	//check for centcomm shuttles
+	for(var/centcom_shuttle in list("emergency", "pod1", "pod2", "pod3", "pod4", "ferry"))
+		var/obj/docking_port/mobile/M = shuttle_master.getShuttle(centcom_shuttle)
+		if(T in M.areaInstance)
+			return 1
+
+	//finally check for centcom itself
+	return istype(T.loc,/area/centcom)
+
+/atom/proc/onSyndieBase()
+	var/turf/T = get_turf(src)
+	if(!T)
+		return 0
+
+	// TODO: Tie into space manager
+	if(T.z != ZLEVEL_CENTCOMM)//if not, don't bother
+		return 0
+
+	if(istype(T.loc, /area/shuttle/syndicate_elite) || istype(T.loc, /area/syndicate_mothership))
+		return 1
+
+	return 0
 
 /atom/Destroy()
-	SetOpacity(0)
-
+	if(alternate_appearances)
+		for(var/aakey in alternate_appearances)
+			var/datum/alternate_appearance/AA = alternate_appearances[aakey]
+			qdel(AA)
+		alternate_appearances = null
 
 	if(reagents)
-		reagents.Destroy()
+		qdel(reagents)
 		reagents = null
-
-	// Idea by ChuckTheSheep to make the object even more unreferencable.
 	invisibility = 101
+	return ..()
 
-/atom/proc/CheckParts()
-	return
+/atom/proc/CheckParts(list/parts_list)
+	for(var/A in parts_list)
+		if(istype(A, /datum/reagent))
+			if(!reagents)
+				reagents = new()
+			reagents.reagent_list.Add(A)
+			reagents.conditional_update()
+		else if(istype(A, /atom/movable))
+			var/atom/movable/M = A
+			if(istype(M.loc, /mob/living))
+				var/mob/living/L = M.loc
+				L.unEquip(M)
+			M.forceMove(src)
 
 /atom/proc/assume_air(datum/gas_mixture/giver)
+	qdel(giver)
 	return null
 
 /atom/proc/remove_air(amount)
@@ -56,7 +109,7 @@ var/global/list/ghdel_profiling = list()
 		return null
 
 /atom/proc/check_eye(user as mob)
-	if (istype(user, /mob/living/silicon/ai)) // WHYYYY
+	if(istype(user, /mob/living/silicon/ai)) // WHYYYY
 		return 1
 	return
 
@@ -82,8 +135,6 @@ var/global/list/ghdel_profiling = list()
 */
 
 
-/atom/proc/meteorhit(obj/meteor as obj)
-	return
 
 /atom/proc/allow_drop()
 	return 1
@@ -135,111 +186,44 @@ var/global/list/ghdel_profiling = list()
 	return found
 
 
-
-
-/*
-Beam code by Gunbuddy
-
-Beam() proc will only allow one beam to come from a source at a time.  Attempting to call it more than
-once at a time per source will cause graphical errors.
-Also, the icon used for the beam will have to be vertical and 32x32.
-The math involved assumes that the icon is vertical to begin with so unless you want to adjust the math,
-its easier to just keep the beam vertical.
-*/
-/atom/proc/Beam(atom/BeamTarget,icon_state="b_beam",icon='icons/effects/beam.dmi',time=50, maxdistance=10)
-	//BeamTarget represents the target for the beam, basically just means the other end.
-	//Time is the duration to draw the beam
-	//Icon is obviously which icon to use for the beam, default is beam.dmi
-	//Icon_state is what icon state is used. Default is b_beam which is a blue beam.
-	//Maxdistance is the longest range the beam will persist before it gives up.
-	var/EndTime=world.time+time
-	var/broken = 0
-	var/obj/item/projectile/beam/lightning/light = new
-	while(BeamTarget&&world.time<EndTime&&get_dist(src,BeamTarget)<maxdistance&&z==BeamTarget.z)
-	//If the BeamTarget gets deleted, the time expires, or the BeamTarget gets out
-	//of range or to another z-level, then the beam will stop.  Otherwise it will
-	//continue to draw.
-
-
-		//dir=get_dir(src,BeamTarget)	//Causes the source of the beam to rotate to continuosly face the BeamTarget.
-
-		for(var/obj/effect/overlay/beam/O in orange(10,src))	//This section erases the previously drawn beam because I found it was easier to
-			if(O.BeamSource==src)				//just draw another instance of the beam instead of trying to manipulate all the
-				del O							//pieces to a new orientation.
-		var/Angle=round(Get_Angle(src,BeamTarget))
-		var/icon/I=new(icon,icon_state)
-		I.Turn(Angle)
-		var/DX=(32*BeamTarget.x+BeamTarget.pixel_x)-(32*x+pixel_x)
-		var/DY=(32*BeamTarget.y+BeamTarget.pixel_y)-(32*y+pixel_y)
-		var/N=0
-		var/length=round(sqrt((DX)**2+(DY)**2))
-		for(N,N<length,N+=32)
-			var/obj/effect/overlay/beam/X=new(loc)
-			X.BeamSource=src
-			if(N+32>length)
-				var/icon/II=new(icon,icon_state)
-				II.DrawBox(null,1,(length-N),32,32)
-				II.Turn(Angle)
-				X.icon=II
-			else X.icon=I
-			var/Pixel_x=round(sin(Angle)+32*sin(Angle)*(N+16)/32)
-			var/Pixel_y=round(cos(Angle)+32*cos(Angle)*(N+16)/32)
-			if(DX==0) Pixel_x=0
-			if(DY==0) Pixel_y=0
-			if(Pixel_x>32)
-				for(var/a=0, a<=Pixel_x,a+=32)
-					X.x++
-					Pixel_x-=32
-			if(Pixel_x<-32)
-				for(var/a=0, a>=Pixel_x,a-=32)
-					X.x--
-					Pixel_x+=32
-			if(Pixel_y>32)
-				for(var/a=0, a<=Pixel_y,a+=32)
-					X.y++
-					Pixel_y-=32
-			if(Pixel_y<-32)
-				for(var/a=0, a>=Pixel_y,a-=32)
-					X.y--
-					Pixel_y+=32
-			X.pixel_x=Pixel_x
-			X.pixel_y=Pixel_y
-			var/turf/TT = get_turf(X.loc)
-			if(TT.density)
-				del(X)
-				break
-			for(var/obj/O in TT)
-				if(!O.CanPass(light))
-					broken = 1
-					break
-				else if(O.density)
-					broken = 1
-					break
-			if(broken)
-				del(X)
-				break
-		sleep(3)	//Changing this to a lower value will cause the beam to follow more smoothly with movement, but it will also be more laggy.
-					//I've found that 3 ticks provided a nice balance for my use.
-	for(var/obj/effect/overlay/beam/O in orange(10,src)) if(O.BeamSource==src) del O
-
-
 //All atoms
-/atom/verb/examine()
-	set name = "Examine"
-	set category = "IC"
-	set src in view(usr.client) //If it can be seen, it can be examined.
-	set popup_menu = 0
+/atom/proc/examine(mob/user, var/distance = -1, var/infix = "", var/suffix = "")
+	//This reformat names to get a/an properly working on item descriptions when they are bloody
+	var/f_name = "\a [src][infix]."
+	if(src.blood_DNA && !istype(src, /obj/effect/decal))
+		if(gender == PLURAL)
+			f_name = "some "
+		else
+			f_name = "a "
+		if(blood_color != "#030303")
+			f_name += "<span class='danger'>blood-stained</span> [name][infix]!"
+		else
+			f_name += "oil-stained [name][infix]."
 
-	if (!( usr ))
-		return
-	usr << "That's \a [src]." //changed to "That's" from "This is" because "This is some metal sheets" sounds dumb compared to "That's some metal sheets" ~Carn
-	usr << desc
-	// *****RM
-	//usr << "[name]: Dn:[density] dir:[dir] cont:[contents] icon:[icon] is:[icon_state] loc:[loc]"
-	return
+	to_chat(user, "[bicon(src)] That's [f_name] [suffix]")
+	to_chat(user, desc)
+
+	if(reagents && is_open_container()) //is_open_container() isn't really the right proc for this, but w/e
+		to_chat(user, "It contains:")
+		if(reagents.reagent_list.len)
+			if(user.can_see_reagents()) //Show each individual reagent
+				for(var/datum/reagent/R in reagents.reagent_list)
+					to_chat(user, "[R.volume] units of [R.name]")
+			else //Otherwise, just show the total volume
+				if(reagents && reagents.reagent_list.len)
+					to_chat(user, "[reagents.total_volume] units of various reagents.")
+		else
+			to_chat(user, "Nothing.")
+
+	return distance == -1 || (get_dist(src, user) <= distance) || isobserver(user) //observers do not have a range limit
 
 /atom/proc/relaymove()
 	return
+
+//called to set the atom's dir and used to add behaviour to dir-changes - Not fully used (yet)
+/atom/proc/set_dir(new_dir)
+	. = new_dir != dir
+	dir = new_dir
 
 /atom/proc/ex_act()
 	return
@@ -247,11 +231,14 @@ its easier to just keep the beam vertical.
 /atom/proc/blob_act()
 	return
 
+/atom/proc/fire_act()
+	return
+
 /atom/proc/emag_act()
 	return
 
 /atom/proc/hitby(atom/movable/AM as mob|obj)
-	if (density)
+	if(density)
 		AM.throwing = 0
 	return
 
@@ -301,14 +288,14 @@ its easier to just keep the beam vertical.
 		add_fibers(M)
 
 		//He has no prints!
-		if (FINGERPRINTS in M.mutations)
+		if(FINGERPRINTS in M.mutations)
 			if(fingerprintslast != M.key)
 				fingerprintshidden += "(Has no fingerprints) Real name: [M.real_name], Key: [M.key]"
 				fingerprintslast = M.key
 			return 0		//Now, lets get to the dirty work.
 		//First, make sure their DNA makes sense.
 		var/mob/living/carbon/human/H = M
-		if (!istype(H.dna, /datum/dna) || !H.dna.uni_identity || (length(H.dna.uni_identity) != 32))
+		if(!istype(H.dna, /datum/dna) || !H.dna.uni_identity || (length(H.dna.uni_identity) != 32))
 			if(!istype(H.dna, /datum/dna))
 				H.dna = new /datum/dna(null)
 				H.dna.real_name = H.real_name
@@ -339,7 +326,7 @@ its easier to just keep the beam vertical.
 			fingerprints = list()
 
 		//Hash this shit.
-		var/full_print = md5(H.dna.uni_identity)
+		var/full_print = H.get_full_print()
 
 		// Add the fingerprints
 		fingerprints[full_print] = full_print
@@ -378,28 +365,41 @@ its easier to just keep the beam vertical.
 //returns 1 if made bloody, returns 0 otherwise
 /atom/proc/add_blood(mob/living/carbon/human/M as mob)
 
-	if(flags & NOBLOODY)
-		return 0
-
 	if(!blood_DNA || !istype(blood_DNA, /list))	//if our list of DNA doesn't exist yet (or isn't a list) initialise it.
 		blood_DNA = list()
 
 	blood_color = "#A10808"
 	if(istype(M))
-		if (!istype(M.dna, /datum/dna))
-			M.dna = new /datum/dna(null)
-			M.dna.real_name = M.real_name
+		if(M.species.flags & NO_BLOOD)
+			return 0
 		M.check_dna()
-		if (M.species)
-			blood_color = M.species.blood_color
+		blood_color = M.species.blood_color
+
 	. = 1
 	return 1
 
+/atom/proc/add_blood_list(mob/living/carbon/M)
+	// Returns 0 if we have that blood already
+	if(!istype(blood_DNA, /list))	//if our list of DNA doesn't exist yet (or isn't a list) initialise it.
+		blood_DNA = list()
+	//if this blood isn't already in the list, add it
+	if(blood_DNA[M.dna.unique_enzymes])
+		return 0 //already bloodied with this blood. Cannot add more.
+	var/blood_type = "X*"
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		blood_type = H.b_type
+	blood_DNA[M.dna.unique_enzymes] = blood_type
+	return 1
+
+// Only adds blood on the floor -- Skie
+/atom/proc/add_blood_floor(mob/living/carbon/M)
+	return //why the fuck this is at an atom level but only works on simulated turfs I don't know
 
 /atom/proc/clean_blood()
 	src.germ_level = 0
 	if(istype(blood_DNA, /list))
-		del(blood_DNA)
+		qdel(blood_DNA)
 		return 1
 
 /atom/proc/add_vomit_floor(mob/living/carbon/M as mob, var/toxvomit = 0)
@@ -409,10 +409,6 @@ its easier to just keep the beam vertical.
 		// Make toxins vomit look different
 		if(toxvomit)
 			this.icon_state = "vomittox_[pick(1,4)]"
-
-/atom/proc/add_poop_floor(mob/living/carbon/M as mob)
-	if( istype(src, /turf/simulated) )
-		new /obj/effect/decal/cleanable/poop(src)
 
 
 /atom/proc/get_global_map_pos()
@@ -425,7 +421,7 @@ its easier to just keep the beam vertical.
 		cur_y = y_arr.Find(src.z)
 		if(cur_y)
 			break
-//	world << "X = [cur_x]; Y = [cur_y]"
+//	to_chat(world, "X = [cur_x]; Y = [cur_y]")
 	if(cur_x && cur_y)
 		return list("x"=cur_x,"y"=cur_y)
 	else
@@ -439,3 +435,24 @@ its easier to just keep the beam vertical.
 		return 1
 	else
 		return 0
+
+/atom/proc/handle_fall()
+	return
+
+/atom/proc/singularity_act()
+	return
+
+/atom/proc/singularity_pull()
+	return
+
+/atom/proc/narsie_act()
+	return
+
+/atom/proc/atom_say(var/message)
+	if((!message))
+		return
+	for(var/mob/O in hearers(src, null))
+		O.show_message("<span class='game say'><span class='name'>[src]</span> [atom_say_verb], \"[message]\"</span>",2)
+
+/atom/proc/speech_bubble(var/bubble_state = "",var/bubble_loc = src, var/list/bubble_recipients = list())
+	return

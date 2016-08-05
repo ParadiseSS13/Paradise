@@ -8,15 +8,11 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 	name = "changeling"
 	config_tag = "changeling"
 	restricted_jobs = list("AI", "Cyborg")
-	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Blueshield", "Nanotrasen Representative", "Security Pod Pilot", "Magistrate", "Brig Physician", "Internal Affairs Agent")
-	protected_species = list("Machine", "Slime People")
-	required_players = 2
-	required_players_secret = 10
+	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Blueshield", "Nanotrasen Representative", "Security Pod Pilot", "Magistrate", "Brig Physician", "Internal Affairs Agent", "Nanotrasen Navy Officer", "Special Operations Officer")
+	protected_species = list("Machine", "Slime People", "Plasmaman")
+	required_players = 15
 	required_enemies = 1
 	recommended_enemies = 4
-
-	uplink_welcome = "Syndicate Uplink Console:"
-	uplink_uses = 20
 
 	var/const/prob_int_murder_target = 50 // intercept names the assassination target half the time
 	var/const/prob_right_murder_target_l = 25 // lower bound on probability of naming right assassination target
@@ -35,26 +31,18 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 	var/const/prob_right_objective_l = 25 //lower bound on probability of determining the objective correctly
 	var/const/prob_right_objective_h = 50 //upper bound on probability of determining the objective correctly
 
-	var/const/waittime_l = 600 //lower bound on time before intercept arrives (in tenths of seconds)
-	var/const/waittime_h = 1800 //upper bound on time before intercept arrives (in tenths of seconds)
-
 	var/changeling_amount = 4
 
 /datum/game_mode/changeling/announce()
-	world << "<B>The current game mode is - Changeling!</B>"
-	world << "<B>There are alien changelings on the station. Do not let the changelings succeed!</B>"
+	to_chat(world, "<B>The current game mode is - Changeling!</B>")
+	to_chat(world, "<B>There are alien changelings on the station. Do not let the changelings succeed!</B>")
 
 /datum/game_mode/changeling/pre_setup()
 
 	if(config.protect_roles_from_antagonist)
 		restricted_jobs += protected_jobs
 
-	var/list/datum/mind/possible_changelings = get_players_for_role(BE_CHANGELING)
-
-	for(var/datum/mind/player in possible_changelings)
-		for(var/job in restricted_jobs)//Removing robots from the list
-			if(player.assigned_role == job)
-				possible_changelings -= player
+	var/list/datum/mind/possible_changelings = get_players_for_role(ROLE_CHANGELING)
 
 	changeling_amount = 1 + round(num_players() / 10)
 
@@ -64,7 +52,9 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 			var/datum/mind/changeling = pick(possible_changelings)
 			possible_changelings -= changeling
 			changelings += changeling
+			changeling.restricted_roles = restricted_jobs
 			modePlayer += changelings
+			changeling.special_role = "Changeling"
 		return 1
 	else
 		return 0
@@ -72,14 +62,11 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 /datum/game_mode/changeling/post_setup()
 	for(var/datum/mind/changeling in changelings)
 		grant_changeling_powers(changeling.current)
-		changeling.special_role = "Changeling"
 		forge_changeling_objectives(changeling)
 		greet_changeling(changeling)
+		update_change_icons_added(changeling)
 
-	spawn (rand(waittime_l, waittime_h))
-		send_intercept()
 	..()
-	return
 
 
 /datum/game_mode/proc/forge_changeling_objectives(var/datum/mind/changeling)
@@ -116,7 +103,7 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 		kill_objective.find_target()
 		changeling.objectives += kill_objective
 
-		if (!(locate(/datum/objective/escape) in changeling.objectives))
+		if(!(locate(/datum/objective/escape) in changeling.objectives))
 			var/datum/objective/escape/escape_with_identity/identity_theft = new
 			identity_theft.owner = changeling
 			identity_theft.target = kill_objective.target
@@ -125,11 +112,11 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 				var/mob/living/carbon/human/H = identity_theft.target.current
 				if(H.species && H.species.flags && H.species.flags & NO_SCAN) // For species that can't be absorbed - should default to an escape objective instead
 					return
-				else	
+				else
 					identity_theft.explanation_text = "Escape on the shuttle or an escape pod with the identity of [identity_theft.target_real_name], the [identity_theft.target.assigned_role] while wearing their identification card."
 			changeling.objectives += identity_theft
 
-	if (!(locate(/datum/objective/escape) in changeling.objectives))
+	if(!(locate(/datum/objective/escape) in changeling.objectives))
 		if(prob(70))
 			var/datum/objective/escape/escape_objective = new
 			escape_objective.owner = changeling
@@ -142,21 +129,46 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 	return
 
 /datum/game_mode/proc/greet_changeling(var/datum/mind/changeling, var/you_are=1)
-	if (you_are)
-		changeling.current << "<B>\red You are a changeling!</B>"
-	changeling.current << "<b>\red Use say \":g message\" to communicate with your fellow changelings. Remember: you get all of their absorbed DNA if you absorb them.</b>"
-	changeling.current << "<B>You must complete the following tasks:</B>"
-
-	if (changeling.current.mind)
-		if (changeling.current.mind.assigned_role == "Clown")
-			changeling.current << "You have evolved beyond your clownish nature, allowing you to wield weapons without harming yourself."
+	if(you_are)
+		to_chat(changeling.current, "<B>\red You are a changeling!</B>")
+	to_chat(changeling.current, "<b>\red Use say \":g message\" to communicate with your fellow changelings. Remember: you get all of their absorbed DNA if you absorb them.</b>")
+	to_chat(changeling.current, "<B>You must complete the following tasks:</B>")
+	if(changeling.current.mind)
+		if(changeling.current.mind.assigned_role == "Clown")
+			to_chat(changeling.current, "You have evolved beyond your clownish nature, allowing you to wield weapons without harming yourself.")
 			changeling.current.mutations.Remove(CLUMSY)
 
 	var/obj_count = 1
 	for(var/datum/objective/objective in changeling.objectives)
-		changeling.current << "<B>Objective #[obj_count]</B>: [objective.explanation_text]"
+		to_chat(changeling.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
 		obj_count++
 	return
+
+
+
+/datum/game_mode/proc/remove_changeling(datum/mind/changeling_mind)
+	if(changeling_mind in changelings)
+		changelings -= changeling_mind
+		changeling_mind.current.remove_changeling_powers()
+		changeling_mind.memory = ""
+		changeling_mind.special_role = null
+		if(issilicon(changeling_mind))
+			to_chat(changeling_mind.current, "<span class='userdanger'>You have been robotized!</span>")
+			to_chat(changeling_mind.current, "<span class='danger'>You must obey your silicon laws and master AI above all else. Your objectives will consider you to be dead.</span>")
+		else
+			to_chat(changeling_mind.current, "<FONT color='red' size = 3><B>You lose your powers! You are no longer a changeling and are stuck in your current form!</B></FONT>")
+		update_change_icons_removed(changeling_mind)
+
+/datum/game_mode/proc/update_change_icons_added(datum/mind/changeling)
+	var/datum/atom_hud/antag/linghud = huds[ANTAG_HUD_CHANGELING]
+	linghud.join_hud(changeling.current)
+	set_antag_hud(changeling.current, "hudchangeling")
+
+/datum/game_mode/proc/update_change_icons_removed(datum/mind/changeling)
+	var/datum/atom_hud/antag/linghud = huds[ANTAG_HUD_CHANGELING]
+	linghud.leave_hud(changeling.current)
+	set_antag_hud(changeling.current, null)
+
 
 /*/datum/game_mode/changeling/check_finished()
 	var/changelings_alive = 0
@@ -167,11 +179,11 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 			continue
 		changelings_alive++
 
-	if (changelings_alive)
+	if(changelings_alive)
 		changelingdeath = 0
 		return ..()
 	else
-		if (!changelingdeath)
+		if(!changelingdeath)
 			changelingdeathtime = world.time
 			changelingdeath = 1
 		if(world.time-changelingdeathtime > TIME_TO_GET_REVIVED)
@@ -226,7 +238,7 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 				text += "<br><font color='red'><B>The changeling has failed.</B></font>"
 				feedback_add_details("changeling_success","FAIL")
 
-		world << text
+		to_chat(world, text)
 
 
 	return 1
@@ -284,32 +296,36 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 
 /datum/changeling/proc/can_absorb_dna(var/mob/living/carbon/user, var/mob/living/carbon/target)
 	if(absorbed_dna[1] == user.dna)//If our current DNA is the stalest, we gotta ditch it.
-		user << "<span class='warning'>We have reached our capacity to store genetic information! We must transform before absorbing more.</span>"
+		to_chat(user, "<span class='warning'>We have reached our capacity to store genetic information! We must transform before absorbing more.</span>")
 		return
 
 	if(!target || !target.dna)
-		user << "<span class='warning'>This creature does not have any DNA.</span>"
+		to_chat(user, "<span class='warning'>This creature does not have any DNA.</span>")
 		return
 
 	var/mob/living/carbon/human/T = target
-	if(!istype(T))
-		user << "<span class='warning'>[T] is not compatible with our biology.</span>"
+	if(!istype(T) || issmall(T))
+		to_chat(user, "<span class='warning'>[T] is not compatible with our biology.</span>")
 		return
 
 	if((NOCLONE || SKELETON || HUSK) in T.mutations)
-		user << "<span class='warning'>DNA of [target] is ruined beyond usability!</span>"
+		to_chat(user, "<span class='warning'>DNA of [target] is ruined beyond usability!</span>")
 		return
 
-	if(T.species.flags & IS_SYNTHETIC)
-		user << "<span class='warning'>This creature does not have DNA!</span>"
+	if(T.species.flags & NO_DNA)
+		to_chat(user, "<span class='warning'>This creature does not have DNA!</span>")
 		return
 
 	if(T.species.flags & NO_SCAN)
-		user << "<span class='warning'>We do not know how to parse this creature's DNA!</span>"
+		to_chat(user, "<span class='warning'>We do not know how to parse this creature's DNA!</span>")
+		return
+
+	if(T.species.flags & NO_BLOOD)
+		to_chat(user, "<span class='warning'>We are not able to use the DNA of a creature without a circulatory system.</span>")
 		return
 
 	if(has_dna(target.dna))
-		user << "<span class='warning'>We already have this DNA in storage!</span>"
+		to_chat(user, "<span class='warning'>We already have this DNA in storage!</span>")
 
 	return 1
-	
+

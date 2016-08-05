@@ -1,7 +1,7 @@
 /mob/new_player/Login()
 	update_Login_details()	//handles setting lastKnownIP and computer_id for use by the ban systems as well as checking for multikeying
 	if(join_motd)
-		src << "<div class=\"motd\">[join_motd]</div>"
+		to_chat(src, "<div class=\"motd\">[join_motd]</div>")
 
 	if(!mind)
 		mind = new /datum/mind(key)
@@ -27,10 +27,20 @@
 		loc = pick(watch_locations)
 */
 
-	CallHook("Login", list("client" = src.client, "mob" = src))
+	callHook("mob_login", list("client" = client, "mob" = src))
 
 	new_player_panel()
+	if(ckey in deadmins)
+		verbs += /client/proc/readmin
 	spawn(40)
 		if(client)
-			handle_privacy_poll()
 			client.playtitlemusic()
+
+	if(config.player_overflow_cap && config.overflow_server_url) //Overflow rerouting, if set, forces players to be moved to a different server once a player cap is reached. Less rough than a pure kick.
+		if(src.client.holder)	return //admins are immune to overflow rerouting
+		if(config.overflow_whitelist.Find(lowertext(src.ckey)))	return //Whitelisted people are immune to overflow rerouting.
+		var/tally = 0
+		for(var/client/C in clients)
+			tally++
+		if(tally > config.player_overflow_cap)
+			src << link(config.overflow_server_url)

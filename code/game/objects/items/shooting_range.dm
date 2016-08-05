@@ -16,7 +16,7 @@
 				T.pinned_target = null
 				T.density = 1
 				break
-		..() // delete target
+		return ..() // delete target
 
 	Move()
 		..()
@@ -33,11 +33,11 @@
 
 
 	attackby(obj/item/W as obj, mob/user as mob, params)
-		if (istype(W, /obj/item/weapon/weldingtool))
+		if(istype(W, /obj/item/weapon/weldingtool))
 			var/obj/item/weapon/weldingtool/WT = W
 			if(WT.remove_fuel(0, user))
 				overlays.Cut()
-				usr << "You slice off [src]'s uneven chunks of aluminum and scorch marks."
+				to_chat(usr, "You slice off [src]'s uneven chunks of aluminum and scorch marks.")
 				return
 
 
@@ -59,10 +59,10 @@
 				if(ishuman(user))
 					if(!user.get_active_hand())
 						user.put_in_hands(src)
-						user << "You take the target out of the stake."
+						to_chat(user, "You take the target out of the stake.")
 				else
-					src.loc = get_turf_loc(user)
-					user << "You take the target out of the stake."
+					src.loc = get_turf(user)
+					to_chat(user, "You take the target out of the stake.")
 
 				stake.pinned_target = null
 				return
@@ -95,9 +95,9 @@
 		hp -= Proj.damage
 		if(hp <= 0)
 			for(var/mob/O in oviewers())
-				if ((O.client && !( O.blinded )))
-					O << "\red [src] breaks into tiny pieces and collapses!"
-			del(src)
+				if((O.client && !( O.blinded )))
+					to_chat(O, "\red [src] breaks into tiny pieces and collapses!")
+			qdel(src)
 
 		// Create a temporary object to represent the damage
 		var/obj/bmark = new
@@ -114,7 +114,7 @@
 			bmark.pixel_x--
 			bmark.pixel_y--
 
-			if(Proj.damage >= 20 || istype(Proj, /obj/item/projectile/practice))
+			if(Proj.damage >= 20 || istype(Proj, /obj/item/projectile/beam/practice))
 				bmark.icon_state = "scorch"
 				bmark.dir = pick(NORTH,SOUTH,EAST,WEST) // random scorch design
 

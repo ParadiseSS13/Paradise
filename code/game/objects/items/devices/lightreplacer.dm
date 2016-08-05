@@ -66,10 +66,9 @@
 	failmsg = "The [name]'s refill light blinks red."
 	..()
 
-/obj/item/device/lightreplacer/examine()
-	set src in view(2)
-	..()
-	usr << "It has [uses] lights remaining."
+/obj/item/device/lightreplacer/examine(mob/user)
+	if(..(user, 2))
+		to_chat(user, "It has [uses] lights remaining.")
 
 /obj/item/device/lightreplacer/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/stack/sheet/glass))
@@ -77,14 +76,14 @@
 		if(G.amount - decrement >= 0 && uses < max_uses)
 			var/remaining = max(G.amount - decrement, 0)
 			if(!remaining && !(G.amount - decrement) == 0)
-				user << "There isn't enough glass."
+				to_chat(user, "There isn't enough glass.")
 				return
 			G.amount = remaining
 			if(!G.amount)
 				user.drop_item()
-				del(G)
+				qdel(G)
 			AddUses(increment)
-			user << "You insert a piece of glass into the [src.name]. You have [uses] lights remaining."
+			to_chat(user, "You insert a piece of glass into the [src.name]. You have [uses] lights remaining.")
 			return
 
 	if(istype(W, /obj/item/weapon/light))
@@ -92,28 +91,28 @@
 		if(L.status == 0) // LIGHT OKAY
 			if(uses < max_uses)
 				AddUses(1)
-				user << "You insert the [L.name] into the [src.name]. You have [uses] lights remaining."
+				to_chat(user, "You insert the [L.name] into the [src.name]. You have [uses] lights remaining.")
 				user.drop_item()
-				del(L)
+				qdel(L)
 				return
 		else
-			user << "You need a working light."
+			to_chat(user, "You need a working light.")
 			return
 
 /obj/item/device/lightreplacer/emag_act(user as mob)
 	if(!emagged)
 		Emag()
-			
+
 /obj/item/device/lightreplacer/attack_self(mob/user)
 	/* // This would probably be a bit OP. If you want it though, uncomment the code.
 	if(isrobot(user))
 		var/mob/living/silicon/robot/R = user
 		if(R.emagged)
 			src.Emag()
-			usr << "You shortcircuit the [src]."
+			to_chat(usr, "You shortcircuit the [src].")
 			return
 	*/
-	usr << "It has [uses] lights remaining."
+	to_chat(usr, "It has [uses] lights remaining.")
 
 /obj/item/device/lightreplacer/update_icon()
 	icon_state = "lightreplacer[emagged]"
@@ -140,14 +139,16 @@
 	if(target.status != LIGHT_OK)
 		if(CanUse(U))
 			if(!Use(U)) return
-			U << "<span class='notice'>You replace the [target.fitting] with the [src].</span>"
+			to_chat(U, "<span class='notice'>You replace the [target.fitting] with the [src].</span>")
 
 			if(target.status != LIGHT_EMPTY)
 
 				var/obj/item/weapon/light/L1 = new target.light_type(target.loc)
 				L1.status = target.status
 				L1.rigged = target.rigged
-				L1.brightness = target.brightness
+				L1.brightness_range = target.brightness_range
+				L1.brightness_power = target.brightness_power
+				L1.brightness_color = target.brightness_color
 				L1.switchcount = target.switchcount
 				target.switchcount = 0
 				L1.update()
@@ -160,20 +161,22 @@
 			target.status = L2.status
 			target.switchcount = L2.switchcount
 			target.rigged = emagged
-			target.brightness = L2.brightness
+			target.brightness_range = L2.brightness_range
+			target.brightness_power = L2.brightness_power
+			target.brightness_color = L2.brightness_color
 			target.on = target.has_power()
 			target.update()
-			del(L2)
+			qdel(L2)
 
 			if(target.on && target.rigged)
 				target.explode()
 			return
 
 		else
-			U << failmsg
+			to_chat(U, failmsg)
 			return
 	else
-		U << "There is a working [target.fitting] already inserted."
+		to_chat(U, "There is a working [target.fitting] already inserted.")
 		return
 
 /obj/item/device/lightreplacer/proc/Emag()

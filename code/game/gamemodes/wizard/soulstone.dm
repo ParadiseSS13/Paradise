@@ -3,8 +3,8 @@
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "soulstone"
 	item_state = "electronic"
-	desc = "A fragment of the legendary treasure known simply as the 'Soul Stone'. The shard still flickers with a fraction of the full artefacts power."
-	w_class = 1.0
+	desc = "A fragment of the legendary treasure known simply as the 'Soul Stone'. The shard still flickers with a fraction of the full artifact's power."
+	w_class = 1
 	slot_flags = SLOT_BELT
 	origin_tech = "bluespace=4;materials=4"
 	var/imprinted = "empty"
@@ -16,16 +16,20 @@
 		if(!istype(M, /mob/living/carbon/human))//If target is not a human.
 			return ..()
 		if(istype(M, /mob/living/carbon/human/dummy))
-			return..()
+			return ..()
 
 		if(M.has_brain_worms()) //Borer stuff - RR
-			user << "<span class='warning'>This being is corrupted by an alien intelligence and cannot be soul trapped.</span>"
-			return..()
+			to_chat(user, "<span class='warning'>This being is corrupted by an alien intelligence and cannot be soul trapped.</span>")
+			return ..()
 
-		M.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has had their soul captured with [src.name] by [user.name] ([user.ckey])</font>")
-		user.attack_log += text("\[[time_stamp()]\] <font color='red'>Used the [src.name] to capture the soul of [M.name] ([M.ckey])</font>")
+		if(jobban_isbanned(M, "cultist") || jobban_isbanned(M, "Syndicate"))
+			to_chat(user, "<span class='warning'>A mysterious force prevents you from trapping this being's soul.</span>")
+			return ..()
 
-		log_attack("<font color='red'>[user.name] ([user.ckey]) used the [src.name] to capture the soul of [M.name] ([M.ckey])</font>")
+		M.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has had their soul captured with [src.name] by [key_name(user)]</font>")
+		user.attack_log += text("\[[time_stamp()]\] <font color='red'>Used the [src.name] to capture the soul of [key_name(M)]</font>")
+
+		log_attack("<font color='red'>[key_name(user)] used the [src.name] to capture the soul of [key_name(M)]</font>")
 
 
 		transfer_soul("VICTIM", M, user)
@@ -41,7 +45,7 @@
 ///////////////////Options for using captured souls///////////////////////////////////////
 
 	attack_self(mob/user)
-		if (!in_range(src, user))
+		if(!in_range(src, user))
 			return
 		user.set_machine(src)
 		var/dat = "<TT><B>Soul Stone</B><BR>"
@@ -59,7 +63,7 @@
 
 	Topic(href, href_list)
 		var/mob/U = usr
-		if (!in_range(src, U)||U.machine!=src)
+		if(!in_range(src, U)||U.machine!=src)
 			U << browse(null, "window=aicard")
 			U.unset_machine()
 			return
@@ -68,16 +72,16 @@
 		U.set_machine(src)
 
 		switch(href_list["choice"])//Now we switch based on choice.
-			if ("Close")
+			if("Close")
 				U << browse(null, "window=aicard")
 				U.unset_machine()
 				return
 
-			if ("Summon")
+			if("Summon")
 				for(var/mob/living/simple_animal/shade/A in src)
 					A.status_flags &= ~GODMODE
 					A.canmove = 1
-					A << "<b>You have been released from your prison, but you are still bound to [U.name]'s will. Help them suceed in their goals at all costs.</b>"
+					to_chat(A, "<b>You have been released from your prison, but you are still bound to [U.name]'s will. Help them suceed in their goals at all costs.</b>")
 					A.loc = U.loc
 					A.cancel_camera()
 					src.icon_state = "soulstone"
@@ -104,16 +108,16 @@
 			var/mob/living/carbon/human/T = target
 			var/obj/item/device/soulstone/C = src
 			if(C.imprinted != "empty")
-				U << "\red <b>Capture failed!</b>: \black The soul stone has already been imprinted with [C.imprinted]'s mind!"
+				to_chat(U, "<span class='danger'>Capture failed!</span>: The soul stone has already been imprinted with [C.imprinted]'s mind!")
 			else
-				if (T.stat == 0)
-					U << "\red <b>Capture failed!</b>: \black Kill or maim the victim first!"
+				if(T.stat == 0)
+					to_chat(U, "<span class='danger'>Capture failed!</span>: Kill or maim the victim first!")
 				else
 					if(T.client == null)
-						U << "\red <b>Capture failed!</b>: \black The soul has already fled it's mortal frame."
+						to_chat(U, "<span class='danger'>Capture failed!</span>: The soul has already fled it's mortal frame.")
 					else
 						if(C.contents.len)
-							U << "\red <b>Capture failed!</b>: \black The soul stone is full! Use or free an existing soul to make room."
+							to_chat(U, "<span class='danger'>Capture failed!</span>: The soul stone is full! Use or free an existing soul to make room.")
 						else
 							for(var/obj/item/W in T)
 								T.unEquip(W)
@@ -124,7 +128,7 @@
 							animation.icon = 'icons/mob/mob.dmi'
 							animation.master = T
 							flick("dust-h", animation)
-							del(animation)
+							qdel(animation)
 							var/mob/living/simple_animal/shade/S = new /mob/living/simple_animal/shade( T.loc )
 							S.loc = C //put shade in stone
 							S.status_flags |= GODMODE //So they won't die inside the stone somehow
@@ -132,27 +136,27 @@
 							S.faction |= "\ref[U]"
 							S.name = "Shade of [T.real_name]"
 							S.real_name = "Shade of [T.real_name]"
-							if (T.client)
+							if(T.client)
 								T.client.mob = S
 							S.cancel_camera()
 							C.icon_state = "soulstone2"
 							C.name = "Soul Stone: [S.real_name]"
-							S << "Your soul has been captured! You are now bound to [U.name]'s will, help them suceed in their goals at all costs."
-							U << "\blue <b>Capture successful!</b>: \black [T.real_name]'s soul has been ripped from their body and stored within the soul stone."
-							U << "The soulstone has been imprinted with [S.real_name]'s mind, it will no longer react to other souls."
+							to_chat(S, "Your soul has been captured! You are now bound to [U.name]'s will, help them suceed in their goals at all costs.")
+							to_chat(U, "<span class='notice'>Capture successful!</span>: [T.real_name]'s soul has been ripped from their body and stored within the soul stone.")
+							to_chat(U, "The soulstone has been imprinted with [S.real_name]'s mind, it will no longer react to other souls.")
 							C.imprinted = "[S.name]"
-							del T
+							qdel(T)
 		if("SHADE")
 			var/mob/living/simple_animal/shade/T = target
 			var/obj/item/device/soulstone/C = src
-			if (T.stat == DEAD)
-				U << "\red <b>Capture failed!</b>: \black The shade has already been banished!"
+			if(T.stat == DEAD)
+				to_chat(U, "<span class='danger'>Capture failed!</span>: The shade has already been banished!")
 			else
 				if(C.contents.len)
-					U << "\red <b>Capture failed!</b>: \black The soul stone is full! Use or free an existing soul to make room."
+					to_chat(U, "<span class='danger'>Capture failed!</span>: The soul stone is full! Use or free an existing soul to make room.")
 				else
 					if(T.name != C.imprinted)
-						U << "\red <b>Capture failed!</b>: \black The soul stone has already been imprinted with [C.imprinted]'s mind!"
+						to_chat(U, "<span class='danger'>Capture failed!</span>: The soul stone has already been imprinted with [C.imprinted]'s mind!")
 					else
 						T.loc = C //put shade in stone
 						T.status_flags |= GODMODE
@@ -160,8 +164,8 @@
 						T.health = T.maxHealth
 						T.faction |= "\ref[U]"
 						C.icon_state = "soulstone2"
-						T << "Your soul has been recaptured by the soul stone, its arcane energies are reknitting your ethereal form"
-						U << "\blue <b>Capture successful!</b>: \black [T.name]'s has been recaptured and stored within the soul stone."
+						to_chat(T, "Your soul has been recaptured by the soul stone, its arcane energies are reknitting your ethereal form")
+						to_chat(U, "<span class='notice'>Capture successful!</span>: [T.name]'s has been recaptured and stored within the soul stone.")
 		if("CONSTRUCT")
 			var/obj/structure/constructshell/T = target
 			var/obj/item/device/soulstone/C = src
@@ -179,11 +183,11 @@
 							else
 								ticker.mode.cult+=Z.mind
 							ticker.mode.update_cult_icons_added(Z.mind)
-						del(T)
-						Z << "<B>You are a Juggernaut. Though slow, your shell can withstand extreme punishment, create shield walls and even deflect energy weapons, and rip apart enemies and walls alike.</B>"
-						Z << "<B>You are still bound to serve your creator, follow their orders and help them complete their goals at all costs.</B>"
+						qdel(T)
+						to_chat(Z, "<B>You are a Juggernaut. Though slow, your shell can withstand extreme punishment, create shield walls and even deflect energy weapons, and rip apart enemies and walls alike.</B>")
+						to_chat(Z, "<B>You are still bound to serve your creator, follow their orders and help them complete their goals at all costs.</B>")
 						Z.cancel_camera()
-						del(C)
+						qdel(C)
 
 					if("Wraith")
 						var/mob/living/simple_animal/construct/wraith/Z = new /mob/living/simple_animal/construct/wraith (get_turf(T.loc))
@@ -195,11 +199,11 @@
 							else
 								ticker.mode.cult+=Z.mind
 							ticker.mode.update_cult_icons_added(Z.mind)
-						del(T)
-						Z << "<B>You are a Wraith. Though relatively fragile, you are fast, deadly, and even able to phase through walls.</B>"
-						Z << "<B>You are still bound to serve your creator, follow their orders and help them complete their goals at all costs.</B>"
+						qdel(T)
+						to_chat(Z, "<B>You are a Wraith. Though relatively fragile, you are fast, deadly, and even able to phase through walls.</B>")
+						to_chat(Z, "<B>You are still bound to serve your creator, follow their orders and help them complete their goals at all costs.</B>")
 						Z.cancel_camera()
-						del(C)
+						qdel(C)
 
 					if("Artificer")
 						var/mob/living/simple_animal/construct/builder/Z = new /mob/living/simple_animal/construct/builder (get_turf(T.loc))
@@ -211,11 +215,31 @@
 							else
 								ticker.mode.cult+=Z.mind
 							ticker.mode.update_cult_icons_added(Z.mind)
-						del(T)
-						Z << "<B>You are an Artificer. You are incredibly weak and fragile, but you are able to construct fortifications, use magic missile, repair allied constructs (by clicking on them), </B><I>and most important of all create new constructs</I><B> (Use your Artificer spell to summon a new construct shell and Summon Soulstone to create a new soulstone).</B>"
-						Z << "<B>You are still bound to serve your creator, follow their orders and help them complete their goals at all costs.</B>"
+						qdel(T)
+						to_chat(Z, "<B>You are an Artificer. You are incredibly weak and fragile, but you are able to construct fortifications, use magic missile, repair allied constructs (by clicking on them), </B><I>and most important of all create new constructs</I><B> (Use your Artificer spell to summon a new construct shell and Summon Soulstone to create a new soulstone).</B>")
+						to_chat(Z, "<B>You are still bound to serve your creator, follow their orders and help them complete their goals at all costs.</B>")
 						Z.cancel_camera()
-						del(C)
+						qdel(C)
 			else
-				U << "\red <b>Creation failed!</b>: \black The soul stone is empty! Go kill someone!"
+				to_chat(U, "<span class='danger'>Creation failed!</span>: The soul stone is empty! Go kill someone!")
 	return
+
+/proc/makeNewConstruct(var/mob/living/simple_animal/construct/ctype, var/mob/target, var/mob/stoner = null, cultoverride = 0)
+	if(jobban_isbanned(target, "cultist") || jobban_isbanned(target, "Syndicate"))
+		return
+	var/mob/living/simple_animal/construct/newstruct = new ctype(get_turf(target))
+	newstruct.faction |= "\ref[stoner]"
+	newstruct.key = target.key
+	if(stoner && iscultist(stoner) || cultoverride)
+		if(ticker.mode.name == "cult")
+			ticker.mode:add_cultist(newstruct.mind)
+		else
+			ticker.mode.cult+=newstruct.mind
+		ticker.mode.update_cult_icons_added(newstruct.mind)
+	if(stoner && iswizard(stoner))
+		to_chat(newstruct, "<B>You are still bound to serve your creator, follow their orders and help them complete their goals at all costs.</B>")
+	else if(stoner && iscultist(stoner))
+		to_chat(newstruct, "<B>You are still bound to serve the cult, follow their orders and help them complete their goals at all costs.</B>")
+	else
+		to_chat(newstruct, "<B>You are still bound to serve your creator, follow their orders and help them complete their goals at all costs.</B>")
+	newstruct.cancel_camera()

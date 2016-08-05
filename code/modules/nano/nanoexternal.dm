@@ -13,13 +13,13 @@
 
 	var/datum/nanoui/ui = locate(uiref)
 
-	if (istype(ui))
+	if(istype(ui))
 		ui.close()
 
 		if(ui.ref)
 			var/href = "close=1"
 			src.Topic(href, params2list(href), ui.ref)	// this will direct to the atom's Topic() proc via client.Topic()
-		else if (ui.on_close_logic)
+		else if(ui.on_close_logic)
 			// no atomref specified (or not found)
 			// so just reset the user mob's machine var
 			if(src && src.mob)
@@ -37,7 +37,7 @@
   *
   * @return nothing
   */
-/atom/movable/proc/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/nano_ui/master_ui = null, var/datum/topic_state/custom_state = null)
+/datum/proc/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/nano_ui/master_ui = null, var/datum/topic_state/state = default_state)
 	return
 
 // Used by the Nano UI Manager (/datum/nanomanager) to track UIs opened by this mob

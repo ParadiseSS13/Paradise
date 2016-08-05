@@ -19,7 +19,7 @@
 /obj/item/weapon/storage/bag
 	allow_quick_gather = 1
 	allow_quick_empty = 1
-	display_contents_with_number = 0 // UNStABLE AS FuCK, turn on when it stops crashing clients
+	display_contents_with_number = 1 // should work fine now
 	use_to_pickup = 1
 	slot_flags = SLOT_BELT
 
@@ -29,16 +29,16 @@
 /obj/item/weapon/storage/bag/trash
 	name = "trash bag"
 	desc = "It's the heavy-duty black polymer kind. Time to take out the trash!"
-	icon = 'icons/obj/trash.dmi'
-	icon_state = "trashbag0"
+	icon = 'icons/obj/janitor.dmi'
+	icon_state = "trashbag"
 	item_state = "trashbag"
 
 	w_class = 4
 	max_w_class = 2
 	storage_slots = 30
 	can_hold = list() // any
-	cant_hold = list("/obj/item/weapon/disk/nuclear","/obj/item/flag/nation")
-	
+	cant_hold = list("/obj/item/weapon/disk/nuclear")
+
 /obj/item/weapon/storage/bag/trash/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] puts the [src.name] over their head and starts chomping at the insides! Disgusting!</span>")
 	playsound(loc, 'sound/items/eatfood.ogg', 50, 1, -1)
@@ -46,22 +46,29 @@
 
 /obj/item/weapon/storage/bag/trash/update_icon()
 	if(contents.len == 0)
-		icon_state = "trashbag0"
+		icon_state = "[initial(icon_state)]"
 	else if(contents.len < 12)
-		icon_state = "trashbag1"
+		icon_state = "[initial(icon_state)]1"
 	else if(contents.len < 21)
-		icon_state = "trashbag2"
-	else icon_state = "trashbag3"
+		icon_state = "[initial(icon_state)]2"
+	else icon_state = "[initial(icon_state)]3"
 
-/obj/item/weapon/storage/bag/trash/cyborg	
-	
+/obj/item/weapon/storage/bag/trash/cyborg
+
 /obj/item/weapon/storage/bag/trash/proc/janicart_insert(mob/user, obj/structure/janitorialcart/J)
 	J.put_in_cart(src, user)
 	J.mybag=src
 	J.update_icon()
-	
+
 /obj/item/weapon/storage/bag/trash/cyborg/janicart_insert(mob/user, obj/structure/janitorialcart/J)
 	return
+
+/obj/item/weapon/storage/bag/trash/bluespace
+	name = "trash bag of holding"
+	desc = "The latest and greatest in custodial convenience, a trashbag that is capable of holding vast quantities of garbage."
+	icon_state = "bluetrashbag"
+	max_combined_w_class = 60
+	storage_slots = 60
 
 
 // -----------------------------
@@ -78,36 +85,35 @@
 	throwforce = 0
 	w_class = 4
 	max_w_class = 2
-	storage_slots = 21
+	storage_slots = 7
+	display_contents_with_number = 0 //or else this will lead to stupid behavior.
 	can_hold = list() // any
-	cant_hold = list("/obj/item/weapon/disk/nuclear","/obj/item/flag/nation")
-	var/head = 0
+	cant_hold = list("/obj/item/weapon/disk/nuclear")
 
 /obj/item/weapon/storage/bag/plasticbag/mob_can_equip(M as mob, slot)
 
 	if(slot==slot_head && contents.len)
-		M << "\red You need to empty the bag first!"
+		to_chat(M, "\red You need to empty the bag first!")
 		return 0
 	return ..()
 
 
 /obj/item/weapon/storage/bag/plasticbag/equipped(var/mob/user, var/slot)
 	if(slot==slot_head)
-		head = 1
 		storage_slots = 0
 		processing_objects.Add(src)
 	return
 
 /obj/item/weapon/storage/bag/plasticbag/process()
-	if(is_equipped() && head)
+	if(is_equipped())
 		if(ishuman(loc))
 			var/mob/living/carbon/human/H = loc
-			if(H.internal)
-				return
-			H.losebreath += 1
+			if(H.get_item_by_slot(slot_head) == src)
+				if(H.internal)
+					return
+				H.losebreath += 1
 	else
-		head = 0
-		storage_slots = 21
+		storage_slots = 7
 		processing_objects.Remove(src)
 	return
 
@@ -116,7 +122,7 @@
 // -----------------------------
 
 /obj/item/weapon/storage/bag/ore
-	name = "Mining Satchel"
+	name = "mining satchel"
 	desc = "This little bugger can be used to store and transport ores."
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "satchel"
@@ -126,7 +132,11 @@
 	max_combined_w_class = 200 //Doesn't matter what this is, so long as it's more or equal to storage_slots * ore.w_class
 	max_w_class = 3
 	can_hold = list("/obj/item/weapon/ore")
-	
+
+/obj/item/weapon/storage/bag/ore/cyborg
+	name = "cyborg mining satchel"
+	flags = NODROP
+
 /obj/item/weapon/storage/bag/ore/holding //miners, your messiah has arrived
 	name = "mining satchel of holding"
 	desc = "A revolution in convenience, this satchel allows for infinite ore storage. It's been outfitted with anti-malfunction safety measures."
@@ -134,7 +144,11 @@
 	max_combined_w_class = INFINITY
 	origin_tech = "bluespace=3"
 	icon_state = "satchel_bspace"
-	
+
+/obj/item/weapon/storage/bag/ore/holding/cyborg
+	name = "cyborg mining satchel of holding"
+	flags = NODROP
+
 // -----------------------------
 //          Plant bag
 // -----------------------------
@@ -147,25 +161,46 @@
 	max_combined_w_class = 200 //Doesn't matter what this is, so long as it's more or equal to storage_slots * plants.w_class
 	max_w_class = 3
 	w_class = 1
-	can_hold = list("/obj/item/weapon/reagent_containers/food/snacks/grown","/obj/item/seeds","/obj/item/weapon/grown", "/obj/item/stack/tile/grass")
+	can_hold = list("/obj/item/weapon/reagent_containers/food/snacks/grown","/obj/item/seeds","/obj/item/weapon/grown", "/obj/item/stack/tile/grass","/obj/item/stack/medical/ointment/aloe","/obj/item/stack/medical/bruise_pack/comfrey", "/obj/item/weapon/reagent_containers/honeycomb")
+	burn_state = FLAMMABLE
 
-/*
 /obj/item/weapon/storage/bag/plants/portaseeder
-	name = "Portable Seed Extractor"
+	name = "portable seed extractor"
 	desc = "For the enterprising botanist on the go. Less efficient than the stationary model, it creates one seed per plant."
 	icon_state = "portaseeder"
-	origin_tech = "materials=2;biotech=2"
 
-	verb/dissolve_contents()
-		set name = "Activate Seed Extraction"
-		set category = "Object"
-		set desc = "Activate to convert your plants into plantable seeds."
-		for(var/obj/item/O in contents)
-			seedify(O, 1)
-		for(var/mob/M in range(1))
-			if (M.s_active == src)
-				src.close(M)
-*/
+/obj/item/weapon/storage/bag/plants/portaseeder/verb/dissolve_contents()
+	set name = "Activate Seed Extraction"
+	set category = "Object"
+	set desc = "Activate to convert your plants into plantable seeds."
+	if(usr.stat || !usr.canmove || usr.restrained())
+		return
+	for(var/obj/item/O in contents)
+		if(istype(O, /obj/item/weapon/reagent_containers/food/snacks/grown) || istype(O, /obj/item/weapon/grown))
+
+			var/datum/seed/new_seed_type
+			if(istype(O, /obj/item/weapon/grown))
+				var/obj/item/weapon/grown/F = O
+				new_seed_type = plant_controller.seeds[F.plantname]
+			else
+				var/obj/item/weapon/reagent_containers/food/snacks/grown/F = O
+				new_seed_type = plant_controller.seeds[F.plantname]
+
+			if(new_seed_type)
+				var/obj/item/seeds/seeds = new(O.loc, O)
+				seeds.seed_type = new_seed_type.name
+				seeds.update_seed()
+			qdel(O)
+
+		if(istype(O, /obj/item/stack/tile/grass))
+			var/obj/item/stack/tile/grass/S = O
+			S.use(1)
+			new /obj/item/seeds/grassseed(O.loc, O)
+
+	for(var/mob/M in range(1))
+		if(M.s_active == src)
+			src.close(M)
+
 
 // -----------------------------
 //        Sheet Snatcher
@@ -191,14 +226,14 @@
 	can_be_inserted(obj/item/W as obj, stop_messages = 0)
 		if(!istype(W,/obj/item/stack/sheet) || istype(W,/obj/item/stack/sheet/mineral/sandstone) || istype(W,/obj/item/stack/sheet/wood))
 			if(!stop_messages)
-				usr << "The snatcher does not accept [W]."
+				to_chat(usr, "The snatcher does not accept [W].")
 			return 0 //I don't care, but the existing code rejects them for not being "sheets" *shrug* -Sayu
 		var/current = 0
 		for(var/obj/item/stack/sheet/S in contents)
 			current += S.amount
 		if(capacity == current)//If it's full, you're done
 			if(!stop_messages)
-				usr << "\red The snatcher is full."
+				to_chat(usr, "\red The snatcher is full.")
 			return 0
 		return 1
 
@@ -228,11 +263,11 @@
 		if(!inserted || !S.amount)
 			usr.unEquip(S)
 			usr.update_icons()	//update our overlays
-			if (usr.client && usr.s_active != src)
+			if(usr.client && usr.s_active != src)
 				usr.client.screen -= S
 			S.dropped(usr)
 			if(!S.amount)
-				del S
+				qdel(S)
 			else
 				S.loc = src
 
@@ -261,7 +296,7 @@
 
 		var/row_num = 0
 		var/col_count = min(7,storage_slots) -1
-		if (adjusted_contents > 7)
+		if(adjusted_contents > 7)
 			row_num = round((adjusted_contents-1) / 7) // 7 is the maximum allowed width.
 		src.standard_orient_objs(row_num, col_count, numbered_contents)
 		return
@@ -277,7 +312,7 @@
 				N.amount = stacksize
 				S.amount -= stacksize
 			if(!S.amount)
-				del S // todo: there's probably something missing here
+				qdel(S) // todo: there's probably something missing here
 		orient2hud(usr)
 		if(usr.s_active)
 			usr.s_active.show_to(usr)
@@ -340,23 +375,24 @@
 	max_combined_w_class = 21
 	max_w_class = 3
 	w_class = 4 //Bigger than a book because physics
-	can_hold = list(/obj/item/weapon/book, /obj/item/weapon/spellbook) //No bibles, consistent with bookcase
-	
+	can_hold = list("/obj/item/weapon/book", "/obj/item/weapon/storage/bible", "/obj/item/weapon/tome", "/obj/item/weapon/spellbook")
+	burn_state = FLAMMABLE
+
 /*
  * Trays - Agouri
  */
 /obj/item/weapon/storage/bag/tray
 	name = "tray"
-	icon = 'icons/obj/food.dmi'
+	icon = 'icons/obj/food/food.dmi'
 	icon_state = "tray"
 	desc = "A metal tray to lay food on."
 	force = 5
 	throwforce = 10.0
 	throw_speed = 3
 	throw_range = 5
-	w_class = 4.0
+	w_class = 4
 	flags = CONDUCT
-	m_amt = 3000
+	materials = list(MAT_METAL=3000)
 
 /obj/item/weapon/storage/bag/tray/attack(mob/living/M as mob, mob/living/user as mob)
 	..()
@@ -377,7 +413,7 @@
 	else
 		playsound(M, 'sound/items/trayhit2.ogg', 50, 1)
 
-	if(ishuman(M) || ismonkey(M))
+	if(ishuman(M))
 		if(prob(10))
 			M.Weaken(2)
 
@@ -394,20 +430,20 @@
 	overlays += image("icon" = I.icon, "icon_state" = I.icon_state, "layer" = -1)
 	..()
 
-/obj/item/weapon/storage/bag/tray/cyborg	
-	
+/obj/item/weapon/storage/bag/tray/cyborg
+
 /obj/item/weapon/storage/bag/tray/cyborg/afterattack(atom/target, mob/user as mob)
-	if ( isturf(target) || istype(target,/obj/structure/table) )
+	if( isturf(target) || istype(target,/obj/structure/table) )
 		var foundtable = istype(target,/obj/structure/table/)
-		if ( !foundtable ) //it must be a turf!
+		if( !foundtable ) //it must be a turf!
 			for(var/obj/structure/table/T in target)
 				foundtable = 1
 				break
 
 		var turf/dropspot
-		if ( !foundtable ) // don't unload things onto walls or other silly places.
+		if( !foundtable ) // don't unload things onto walls or other silly places.
 			dropspot = user.loc
-		else if ( isturf(target) ) // they clicked on a turf with a table in it
+		else if( isturf(target) ) // they clicked on a turf with a table in it
 			dropspot = target
 		else					// they clicked on a table
 			dropspot = target.loc
@@ -427,10 +463,40 @@
 						if(I)
 							step(I, pick(NORTH,SOUTH,EAST,WEST))
 							sleep(rand(2,4))
-		if ( droppedSomething )
-			if ( foundtable )
+		if( droppedSomething )
+			if( foundtable )
 				user.visible_message("\blue [user] unloads their service tray.")
 			else
 				user.visible_message("\blue [user] drops all the items on their tray.")
 
 	return ..()
+
+
+/*
+ *	Chemistry bag
+ */
+
+/obj/item/weapon/storage/bag/chemistry
+	name = "chemistry bag"
+	icon = 'icons/obj/chemical.dmi'
+	icon_state = "bag"
+	desc = "A bag for storing pills, patches, and bottles."
+	storage_slots = 50
+	max_combined_w_class = 200
+	w_class = 1
+	can_hold = list("/obj/item/weapon/reagent_containers/food/pill","/obj/item/weapon/reagent_containers/glass/beaker","/obj/item/weapon/reagent_containers/glass/bottle")
+	burn_state = FLAMMABLE
+/*
+ *  Biowaste bag (mostly for xenobiologists)
+ */
+
+/obj/item/weapon/storage/bag/bio
+	name = "bio bag"
+	icon = 'icons/obj/chemical.dmi'
+	icon_state = "biobag"
+	desc = "A bag for the safe transportation and disposal of biowaste and other biological materials."
+	storage_slots = 25
+	max_combined_w_class = 200
+	w_class = 1
+	can_hold = list("/obj/item/slime_extract","/obj/item/weapon/reagent_containers/food/snacks/monkeycube","/obj/item/weapon/reagent_containers/syringe","/obj/item/weapon/reagent_containers/glass/beaker","/obj/item/weapon/reagent_containers/glass/bottle","/obj/item/weapon/reagent_containers/blood","/obj/item/weapon/reagent_containers/hypospray/autoinjector")
+	burn_state = FLAMMABLE

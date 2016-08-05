@@ -11,7 +11,7 @@ var/const/ENGINEER			=(1<<6)
 var/const/ATMOSTECH			=(1<<7)
 var/const/AI				=(1<<8)
 var/const/CYBORG			=(1<<9)
-
+var/const/CENTCOM			=(1<<10)
 
 var/const/MEDSCI			=(1<<1)
 
@@ -112,7 +112,18 @@ var/list/support_positions = list(
 	"Mime",
 	"Barber",
 	"Magistrate",
+	"Nanotrasen Representative",
+	"Blueshield"
 )
+
+var/list/supply_positions = list(
+	"Head of Personnel",
+	"Quartermaster",
+	"Cargo Technician",
+	"Shaft Miner"
+)
+
+var/list/service_positions = support_positions - supply_positions + list("Head of Personnel")
 
 
 var/list/security_positions = list(
@@ -120,7 +131,6 @@ var/list/security_positions = list(
 	"Warden",
 	"Detective",
 	"Security Officer",
-	"Blueshield",
 	"Brig Physician",
 	"Security Pod Pilot"
 )

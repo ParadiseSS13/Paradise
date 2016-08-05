@@ -4,3 +4,4 @@
 	icon_state = "critter"
 	icon_opened = "critteropen"
 	icon_closed = "critter"
+	material_drop = /obj/item/stack/sheet/wood

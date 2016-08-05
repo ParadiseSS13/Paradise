@@ -1,6 +1,6 @@
 
 /obj/machinery/artifact_harvester
-	name = "Exotic Particle Harvester"
+	name = "exotic particle harvester"
 	icon = 'icons/obj/virology.dmi'
 	icon_state = "incubator"	//incubator_on
 	anchored = 1
@@ -24,13 +24,13 @@
 /obj/machinery/artifact_harvester/attackby(var/obj/I as obj, var/mob/user as mob, params)
 	if(istype(I,/obj/item/weapon/anobattery))
 		if(!inserted_battery)
-			user << "\blue You insert [I] into [src]."
+			to_chat(user, "\blue You insert [I] into [src].")
 			user.drop_item()
 			I.loc = src
 			src.inserted_battery = I
 			updateDialog()
 		else
-			user << "\red There is already a battery in [src]."
+			to_chat(user, "\red There is already a battery in [src].")
 	else
 		return..()
 
@@ -116,7 +116,7 @@
 
 /obj/machinery/artifact_harvester/Topic(href, href_list)
 
-	if (href_list["harvest"])
+	if(href_list["harvest"])
 		if(!inserted_battery)
 			src.visible_message("<b>[src]</b> states, \"Cannot harvest. No battery inserted.\"")
 
@@ -156,7 +156,7 @@
 						//see if we can clear out an old effect
 						//delete it when the ids match to account for duplicate ids having different effects
 						if(inserted_battery.battery_effect && inserted_battery.stored_charge <= 0)
-							del(inserted_battery.battery_effect)
+							qdel(inserted_battery.battery_effect)
 
 						//
 						var/datum/artifact_effect/source_effect
@@ -213,7 +213,7 @@
 								inserted_battery.battery_effect = E
 								inserted_battery.stored_charge = 0
 
-	if (href_list["stopharvest"])
+	if(href_list["stopharvest"])
 		if(harvesting)
 			if(harvesting < 0 && inserted_battery.battery_effect && inserted_battery.battery_effect.activated)
 				inserted_battery.battery_effect.ToggleActivate()
@@ -224,11 +224,11 @@
 			src.visible_message("<b>[name]</b> states, \"Energy harvesting interrupted.\"")
 			icon_state = "incubator"
 
-	if (href_list["ejectbattery"])
+	if(href_list["ejectbattery"])
 		src.inserted_battery.loc = src.loc
 		src.inserted_battery = null
 
-	if (href_list["drainbattery"])
+	if(href_list["drainbattery"])
 		if(inserted_battery)
 			if(inserted_battery.battery_effect && inserted_battery.stored_charge > 0)
 				if(alert("This action will dump all charge, safety gear is recommended before proceeding","Warning","Continue","Cancel"))

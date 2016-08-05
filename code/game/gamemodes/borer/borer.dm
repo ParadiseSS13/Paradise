@@ -6,8 +6,7 @@
 /datum/game_mode/borer
 	name = "corticalborers"
 	config_tag = "borer"
-	required_players = 3
-	required_players_secret = 10
+	required_players = 10
 	restricted_jobs = list("AI", "Cyborg", "Mobile MMI")
 	recommended_enemies = 2 // need at least a borer and a host
 	votable = 0 // temporarily disable this mode for voting
@@ -15,14 +14,11 @@
 	var/var/list/datum/mind/first_hosts = list()
 	var/var/list/assigned_hosts = list()
 
-	var/const/waittime_l = 600 //lower bound on time before intercept arrives (in tenths of seconds)
-	var/const/waittime_h = 1800 //upper bound on time before intercept arrives (in tenths of seconds)
-
 	var/list/found_vents = list()
 
 /datum/game_mode/borer/announce()
-	world << "<B>The current game mode is - Cortical Borer!</B>"
-	world << "<B>An unknown creature has infested the mind of a crew member. Find and destroy it by any means necessary.</B>"
+	to_chat(world, "<B>The current game mode is - Cortical Borer!</B>")
+	to_chat(world, "<B>An unknown creature has infested the mind of a crew member. Find and destroy it by any means necessary.</B>")
 
 /datum/game_mode/borer/can_start()
 	if(!..())
@@ -32,7 +28,7 @@
 	// also make sure that there's at least one borer and one host
 	recommended_enemies = max(src.num_players() / 20 * 2, 2)
 
-	var/list/datum/mind/possible_borers = get_players_for_role(BE_ALIEN)
+	var/list/datum/mind/possible_borers = get_players_for_role(ROLE_BORER)
 
 	if(possible_borers.len < 2)
 		log_admin("MODE FAILURE: BORER. NOT ENOUGH BORER CANDIDATES.")
@@ -94,22 +90,19 @@
 		M.perform_infestation(first_host.current)
 		forge_borer_objectives(borer, first_host)
 
-		del original
+		qdel(original)
 
 	log_admin("Created [borers.len] borers.")
 
-	spawn (rand(waittime_l, waittime_h))
-		send_intercept()
 	..()
-	return
 
 /datum/game_mode/proc/greet_borer(var/datum/mind/borer, var/you_are=1)
-	if (you_are)
-		borer.current << "<B>\red You are a Cortical Borer!</B>"
+	if(you_are)
+		to_chat(borer.current, "<B>\red You are a Cortical Borer!</B>")
 
 	var/obj_count = 1
 	for(var/datum/objective/objective in borer.objectives)
-		borer.current << "<B>Objective #[obj_count]</B>: [objective.explanation_text]"
+		to_chat(borer.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
 		obj_count++
 	return
 
@@ -122,7 +115,7 @@
 			continue
 		borers_alive++
 
-	if (borers_alive)
+	if(borers_alive)
 		return ..()
 	else
 		return 1
@@ -131,16 +124,16 @@
 	for(var/datum/mind/borer in borers)
 		var/borerwin = 1
 		if((borer.current) && istype(borer.current,/mob/living/simple_animal/borer))
-			world << "<B>The borer was [borer.current.key].</B>"
-			world << "<B>The last host was [borer.current:host.key].</B>"
+			to_chat(world, "<B>The borer was [borer.current.key].</B>")
+			to_chat(world, "<B>The last host was [borer.current:host.key].</B>")
 
 			var/count = 1
 			for(var/datum/objective/objective in borer.objectives)
 				if(objective.check_completion())
-					world << "<B>Objective #[count]</B>: [objective.explanation_text] \green <B>Success</B>"
+					to_chat(world, "<B>Objective #[count]</B>: [objective.explanation_text] \green <B>Success</B>")
 					feedback_add_details("borer_objective","[objective.type]|SUCCESS")
 				else
-					world << "<B>Objective #[count]</B>: [objective.explanation_text] \red Failed"
+					to_chat(world, "<B>Objective #[count]</B>: [objective.explanation_text] \red Failed")
 					feedback_add_details("borer_objective","[objective.type]|FAIL")
 					borerwin = 0
 				count++
@@ -149,10 +142,10 @@
 			borerwin = 0
 
 		if(borerwin)
-			world << "<B>The borer was successful!<B>"
+			to_chat(world, "<B>The borer was successful!<B>")
 			feedback_add_details("borer_success","SUCCESS")
 		else
-			world << "<B>The borer has failed!<B>"
+			to_chat(world, "<B>The borer has failed!<B>")
 			feedback_add_details("borer_success","FAIL")
 	return 1
 

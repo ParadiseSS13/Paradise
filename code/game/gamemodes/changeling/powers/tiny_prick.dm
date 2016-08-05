@@ -14,12 +14,16 @@
 	return
 
 /obj/effect/proc_holder/changeling/sting/proc/set_sting(var/mob/user)
-	user << "<span class='notice'>We prepare our sting, use alt+click or middle mouse button on target to sting them.</span>"
+	to_chat(user, "<span class='notice'>We prepare our sting, use alt+click or middle mouse button on target to sting them.</span>")
 	user.mind.changeling.chosen_sting = src
+	user.hud_used.lingstingdisplay.icon_state = sting_icon
+	user.hud_used.lingstingdisplay.invisibility = 0
 
 /obj/effect/proc_holder/changeling/sting/proc/unset_sting(var/mob/user)
-	user << "<span class='warning'>We retract our sting, we can't sting anyone for now.</span>"
+	to_chat(user, "<span class='warning'>We retract our sting, we can't sting anyone for now.</span>")
 	user.mind.changeling.chosen_sting = null
+	user.hud_used.lingstingdisplay.icon_state = null
+	user.hud_used.lingstingdisplay.invisibility = 101
 
 /mob/living/carbon/proc/unset_sting()
 	if(mind && mind.changeling && mind.changeling.chosen_sting)
@@ -29,20 +33,18 @@
 	if(!..())
 		return
 	if(!user.mind.changeling.chosen_sting)
-		user << "We haven't prepared our sting yet!"
+		to_chat(user, "We haven't prepared our sting yet!")
 	if(!iscarbon(target))
 		return
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
-		if(H.species.flags & IS_SYNTHETIC)
-			user << "<span class='warning'>This won't work on synthetics.</span>"
+		if(H.isSynthetic())
+			to_chat(user, "<span class='warning'>This won't work on synthetics.</span>")
 			return
 	if(!isturf(user.loc))
 		return
-	if(get_dist(user, target) > (user.mind.changeling.sting_range))
-		return //sanity check as AStar is still throwing insane stunts
-	if(!AStar(user.loc, target.loc, /turf/proc/AdjacentTurfs, /turf/proc/Distance, user.mind.changeling.sting_range))
-		return //hope this ancient magic still works
+	if(!AStar(user, target.loc, /turf/proc/Distance, user.mind.changeling.sting_range, simulated_only = 0))
+		return
 	if(target.mind && target.mind.changeling)
 		sting_feedback(user,target)
 		take_chemical_cost(user.mind.changeling)
@@ -52,9 +54,9 @@
 /obj/effect/proc_holder/changeling/sting/sting_feedback(var/mob/user, var/mob/target)
 	if(!target)
 		return
-	user << "<span class='notice'>We stealthily sting [target.name].</span>"
+	to_chat(user, "<span class='notice'>We stealthily sting [target.name].</span>")
 	if(target.mind && target.mind.changeling)
-		target << "<span class='warning'>You feel a tiny prick.</span>"
+		to_chat(target, "<span class='warning'>You feel a tiny prick.</span>")
 		add_logs(target, user, "unsuccessfully stung")
 	return 1
 
@@ -62,10 +64,11 @@
 /obj/effect/proc_holder/changeling/sting/transformation
 	name = "Transformation Sting"
 	desc = "We silently sting a human, injecting a retrovirus that forces them to transform."
-	helptext = "Does not provide a warning to others. The victim will transform much like a changeling would."
+	helptext = "The victim will transform much like a changeling would. The effects will be obvious to the victim, and the process will damage our genomes."
 	sting_icon = "sting_transform"
 	chemical_cost = 40
 	dna_cost = 2
+	genetic_damage = 100
 	var/datum/dna/selected_dna = null
 
 /obj/effect/proc_holder/changeling/sting/transformation/Click()
@@ -77,33 +80,43 @@
 	selected_dna = changeling.select_dna("Select the target DNA: ", "Target DNA")
 	if(!selected_dna)
 		return
-	..()
 
 /obj/effect/proc_holder/changeling/sting/transformation/can_sting(var/mob/user, var/mob/target)
 	if(!..())
 		return
-	if((HUSK in target.mutations) || (!ishuman(target) && !ismonkey(target)))
-		user << "<span class='warning'>Our sting appears ineffective against its DNA.</span>"
+	if((HUSK in target.mutations) || (!ishuman(target)))
+		to_chat(user, "<span class='warning'>Our sting appears ineffective against its DNA.</span>")
 		return 0
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
 		if(H.species.flags & NO_SCAN) //Prevents transforming slimes and killing them instantly
-			user << "<span class='warning'>This won't work on a creature with abnormal genetic material.</span>"
+			to_chat(user, "<span class='warning'>This won't work on a creature with abnormal genetic material.</span>")
+			return 0
+		if(H.species.flags & NO_BLOOD)
+			to_chat(user, "<span class='warning'>This won't work on a creature without a circulatory system.</span>")
 			return 0
 	return 1
 
 /obj/effect/proc_holder/changeling/sting/transformation/sting_action(var/mob/user, var/mob/target)
 	add_logs(target, user, "stung", object="transformation sting", addition=" new identity is [selected_dna.real_name]")
 	var/datum/dna/NewDNA = selected_dna
-	if(ismonkey(target))
-		user << "<span class='notice'>We stealthily sting [target.name].</span>"
-	target.dna = NewDNA.Clone()
-	target.real_name = NewDNA.real_name
-	var/mob/living/carbon/human/H = target
-	if(istype(H))
-		H.set_species()
-	target.UpdateAppearance()
-	domutcheck(target, null)
+	if(issmall(target))
+		to_chat(user, "<span class='notice'>Our genes cry out as we sting [target.name]!</span>")
+
+	if(iscarbon(target) && (target.status_flags & CANWEAKEN))
+		var/mob/living/carbon/C = target
+		C.do_jitter_animation(500)
+
+	target.visible_message("<span class='danger'>[target] begins to violenty convulse!</span>","<span class='userdanger'>You feel a tiny prick and a begin to uncontrollably convulse!</span>")
+
+	spawn(10)
+		target.dna = NewDNA.Clone()
+		target.real_name = NewDNA.real_name
+		var/mob/living/carbon/human/H = target
+		if(istype(H))
+			H.set_species()
+		target.UpdateAppearance()
+		domutcheck(target, null)
 	feedback_add_details("changeling_powers","TS")
 	return 1
 
@@ -150,7 +163,7 @@ obj/effect/proc_holder/changeling/sting/blind
 
 /obj/effect/proc_holder/changeling/sting/blind/sting_action(var/mob/user, var/mob/target)
 	add_logs(target, user, "stung", object="blind sting")
-	target << "<span class='danger'>Your eyes burn horrifically!</span>"
+	to_chat(target, "<span class='danger'>Your eyes burn horrifically!</span>")
 	target.disabilities |= NEARSIGHTED
 	target.eye_blind = 20
 	target.eye_blurry = 40
@@ -172,7 +185,7 @@ obj/effect/proc_holder/changeling/sting/LSD
 			target.hallucination = max(400, target.hallucination)
 	feedback_add_details("changeling_powers","HS")
 	return 1
-/*
+
 obj/effect/proc_holder/changeling/sting/cryo //Enable when mob cooling is fixed so that frostoil actually makes you cold, instead of mostly just hungry.
 	name = "Cryogenic Sting"
 	desc = "We silently sting a human with a cocktail of chemicals that freeze them."
@@ -188,4 +201,4 @@ obj/effect/proc_holder/changeling/sting/cryo //Enable when mob cooling is fixed 
 		target.reagents.add_reagent("ice", 30)
 	feedback_add_details("changeling_powers","CS")
 	return 1
-*/
+
