@@ -34,6 +34,13 @@
 		to_chat(user, "You insert [O].")
 	..()
 
+/obj/machinery/computer/secure_data/emag_act(mob/user)
+	src.active1 = null
+	src.active2 = null
+	src.authenticated = "*ERROR*"
+	src.rank = "AI"
+	src.screen = 1
+
 /obj/machinery/computer/secure_data/attack_ai(mob/user as mob)
 	return attack_hand(user)
 
@@ -253,10 +260,11 @@ What a mess.*/
 						scan = I
 
 			if("Log Out")
-				authenticated = null
-				screen = null
-				active1 = null
-				active2 = null
+				if(!emagged)
+					authenticated = null
+					screen = null
+					active1 = null
+					active2 = null
 
 			if("Log In")
 				if(istype(usr, /mob/living/silicon/ai))
