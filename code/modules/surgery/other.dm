@@ -239,7 +239,7 @@
 
 /datum/surgery_step/internal/dethrall/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/braincase = target.named_organ_parent("brain")
-	user.visible_message("[user] reaches into [target]'s head with [tool].", "<span class='notice'>You begin aligning [tool]'s light to the tumor on [target]'s brain...</span>")
+	user.visible_message("[user] reaches into [target]'s head with \the [tool].", "<span class='notice'>You begin aligning \the [tool]'s light to the tumor on [target]'s brain...</span>")
 	to_chat(target, "<span class='boldannounce'>A small part of your [braincase] pulses with agony as the light impacts it.</span>")
 	..()
 
