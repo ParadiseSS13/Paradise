@@ -67,7 +67,7 @@
 					<center>
 					<h2><B>IC Events</B></h2>
 					<b>Teams</b><br>
-					<A href='?src=\ref[src];secretsfun=striketeam'>Send in a strike team</A>&nbsp;&nbsp;
+					<A href='?src=\ref[src];secretsfun=striketeam'>Send in the Deathsquad</A>&nbsp;&nbsp;
 					<A href='?src=\ref[src];secretsfun=striketeam_syndicate'>Send in a syndicate strike team</A>&nbsp;&nbsp;
 					<A href='?src=\ref[src];secretsfun=honksquad'>Send in a HONKsquad</A><BR>
 					<b>Change Security Level</b><BR>
