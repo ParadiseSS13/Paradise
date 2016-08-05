@@ -446,19 +446,19 @@ obj/item/clothing/mask/gas/sechailer/fluff/tyhailer // T0EPIC4U: Ty Omaha
 				to_chat(user, "<span class='notice'>You set the special snowflake restrictor to: Criminal Scum</span>")
 				phrase = 3
 			if(3)
-				to_chat(user, "<span class='notice'>You set the special snowflake restrictor to: Stop or Bash</span>")
+				to_chat(user, "<span class='notice'>You set the special snowflake restrictor to: Prepare Justice</span>")
 				phrase = 4
 			if(4)
-				to_chat(user, "<span class='notice'>You set the special snowflake restrictor to: Stop or Bash</span>")
+				to_chat(user, "<span class='notice'>You set the special snowflake restrictor to: Shut Up</span>")
 				phrase = 5
 			if(5)
-				to_chat(user, "<span class='notice'>You set the special snowflake restrictor to: Stop or Bash</span>")
+				to_chat(user, "<span class='notice'>You set the special snowflake restrictor to: The Law</span>")
 				phrase = 6
 			if(6)
-				to_chat(user, "<span class='notice'>You set the special snowflake restrictor to: Stop or Bash</span>")
+				to_chat(user, "<span class='notice'>You set the special snowflake restrictor to: Dead or Alive</span>")
 				phrase = 7
 			if(7)
-				to_chat(user, "<span class='notice'>You set the special snowflake restrictor to: Stop or Bash</span>")
+				to_chat(user, "<span class='notice'>You set the special snowflake restrictor to: Golden Bolt</span>")
 				phrase = 1
 
 /obj/item/clothing/mask/gas/sechailer/fluff/tyhailer/proc/tyhalt()
