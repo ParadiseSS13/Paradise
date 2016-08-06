@@ -276,8 +276,8 @@
 	slowdown = 1
 
 /obj/item/weapon/storage/backpack/duffel/syndie
-	name = "suspicious looking dufflebag"
-	desc = "A large dufflebag for holding extra tactical supplies."
+	name = "suspicious looking duffelbag"
+	desc = "A large duffelbag for holding extra tactical supplies."
 	icon_state = "duffel-syndi"
 	item_state = "duffel-syndimed"
 	origin_tech = "syndicate=1"
@@ -297,7 +297,7 @@
 	item_state = "duffel-syndiammo"
 
 /obj/item/weapon/storage/backpack/duffel/syndie/ammo/loaded
-	desc = "A large dufflebag, packed to the brim with Bulldog shotgun ammo."
+	desc = "A large duffelbag, packed to the brim with Bulldog shotgun ammo."
 
 /obj/item/weapon/storage/backpack/duffel/syndie/ammo/loaded/New()
 	..()
@@ -312,10 +312,10 @@
 	new /obj/item/ammo_box/magazine/m12g/dragon(src)
 
 /obj/item/weapon/storage/backpack/duffel/syndie/surgery
-	name = "surgery dufflebag"
-	desc = "A suspicious looking dufflebag for holding surgery tools."
+	name = "surgery duffelbag"
+	desc = "A suspicious looking duffelbag for holding surgery tools."
 	icon_state = "duffel-syndimed"
-	item_state = "duffle-syndimed"
+	item_state = "duffel-syndimed"
 
 /obj/item/weapon/storage/backpack/duffel/syndie/surgery/New()
 	..()
@@ -333,10 +333,10 @@
 	new /obj/item/device/mmi/syndie(src)
 
 /obj/item/weapon/storage/backpack/duffel/syndie/surgery_fake //for maint spawns
-	name = "surgery dufflebag"
-	desc = "A suspicious looking dufflebag for holding surgery tools."
+	name = "surgery duffelbag"
+	desc = "A suspicious looking duffelbag for holding surgery tools."
 	icon_state = "duffel-syndimed"
-	item_state = "duffle-syndimed"
+	item_state = "duffel-syndimed"
 
 /obj/item/weapon/storage/backpack/duffel/syndie/surgery_fake/New()
 	..()
