@@ -142,7 +142,7 @@
 
 			else
 				if(articount > 1)
-					state("Cannot harvest. Too many artifacts on the pad.")
+					atom_say("Cannot harvest. Too many artifacts on the pad.")
 				else if(analysed)
 					cur_artifact = analysed
 
