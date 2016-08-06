@@ -244,9 +244,9 @@
 	if(!job.is_position_available()) return 0
 	if(jobban_isbanned(src,rank))	return 0
 	if(!is_job_whitelisted(src, rank))	 return 0
-	if(!job.player_old_enough(src.client))	return 0
+	if(!job.player_old_enough(client))	return 0
 	if(job.admin_only && !(check_rights(R_EVENT, 0))) return 0
-	if(job.available_in_playtime(src.client))
+	if(job.available_in_playtime(client))
 		return 0
 
 	if(config.assistantlimit)

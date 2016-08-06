@@ -29,21 +29,20 @@
 		return
 	var/msg = "<html><head><title>Playtime Report</title></head><body>Playtime:<BR><UL>"
 	for(var/client/C in clients)
-		var/list/play_records = params2list(C.prefs.exp)
-		var/gen_exp_time = text2num(play_records[EXP_TYPE_CREW])
-		gen_exp_time = num2text(round(gen_exp_time / 60)) + "h"
-		msg += "<LI> - [key_name_admin(C.mob)]: <A href='?_src_=holder;getplaytimewindow=\ref[C.mob]'>" + C.get_exp_general() + "</a></LI>"
+		msg += "<LI> - [key_name_admin(C)]: <A href='?_src_=holder;getplaytimewindow=\ref[C.mob]'>" + C.get_exp_general() + "</a></LI>"
 	msg += "</UL></BODY></HTML>"
 	src << browse(msg, "window=Player_playtime_check")
 
 
-/client/proc/cmd_show_exp_panel(var/client/C in clients)
+/datum/admins/proc/cmd_show_exp_panel(var/client/C)
+	if (!C)
+		return
 	if(!check_rights(R_ADMIN))
 		return
 	var/body = "<html><head><title>Playtime for [C.key]</title></head><BODY><BR>Playtime:"
 	body += C.get_exp_report()
 	body += "</BODY></HTML>"
-	src << browse(body, "window=playerplaytime;size=550x615")
+	usr << browse(body, "window=playerplaytime;size=550x615")
 
 
 // Procs
@@ -57,7 +56,7 @@
 	if(!job_is_xp_locked(src.title))
 		return 0
 	if(check_rights(R_ADMIN, 0, C.mob))
-		return 1
+		return 0
 	var/list/play_records = params2list(C.prefs.exp)
 	var/isexempt = text2num(play_records[EXP_TYPE_EXEMPT])
 	if(isexempt)
@@ -109,7 +108,11 @@
 			if(dep == EXP_TYPE_EXEMPT)
 				return_text += "<LI>Exempt (all jobs auto-unlocked)</LI>"
 			else if(exp_data[EXP_TYPE_CREW] > 0)
-				return_text += "<LI>[dep] [get_exp_format(exp_data[dep])] (" + num2text(round(exp_data[dep]/exp_data[EXP_TYPE_CREW]*100)) + "%)</LI>"
+				var/my_pc = num2text(round(exp_data[dep]/exp_data[EXP_TYPE_CREW]*100))
+				return_text += "<LI>[dep] [get_exp_format(exp_data[dep])] ([my_pc]%)</LI>"
+			else
+				return_text += "<LI>[dep] [get_exp_format(exp_data[dep])] </LI>"
+
 	return_text += "</UL>"
 	var/list/jobs_locked = list()
 	var/list/jobs_unlocked = list()
@@ -123,7 +126,7 @@
 				var/xp_req = job.exp_requirements
 				if(config.use_exp_restrictions_heads_hours && ((job.title in command_positions) || job.title == "AI"))
 					xp_req = config.use_exp_restrictions_heads_hours * 60
-				jobs_locked += job.title + " (" + get_exp_format(text2num(play_records[job.exp_type])) + " / " + get_exp_format(xp_req) + " [job.exp_type] EXP)"
+				jobs_locked += "[job.title] [get_exp_format(text2num(play_records[job.exp_type]))] / [get_exp_format(xp_req)] [job.exp_type] EXP)"
 	if(jobs_unlocked.len)
 		return_text += "<BR><BR>Jobs Unlocked:<UL> "
 		for(var/text in jobs_unlocked)
@@ -200,8 +203,9 @@
 
 /hook/roundstart/proc/exptimer()
 	if(!config.sql_enabled || !config.use_exp_tracking)
-		return  0
+		return 1
 	spawn(0)
 		while(TRUE)
 			sleep(5 MINUTES)
 			update_exp(5,0)
+	return 1

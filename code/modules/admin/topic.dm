@@ -2021,7 +2021,7 @@
 		var/mob/M = locate(href_list["getplaytimewindow"])
 		if(!M)
 			return
-		usr.client.cmd_show_exp_panel(M.client)
+		cmd_show_exp_panel(M.client)
 
 	else if(href_list["jumpto"])
 		if(!check_rights(R_ADMIN))	return
