@@ -1,0 +1,5 @@
+author: Chakirski
+delete-after: True
+changes: 
+  - tweak: "Duffel bag descriptions and names no longer contain \"duffle\"."
+  - tweak: "Syndicate medical duffel bags can now be seen while in hand."
