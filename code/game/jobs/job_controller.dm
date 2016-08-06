@@ -12,7 +12,6 @@ var/global/datum/controller/occupations/job_master
 		//Debug info
 	var/list/job_debug = list()
 
-
 	proc/SetupOccupations(var/list/faction = list("Station"))
 		occupations = list()
 		var/list/all_jobs = subtypesof(/datum/job)
@@ -67,12 +66,10 @@ var/global/datum/controller/occupations/job_master
 				player.mind.job_objectives.Cut()
 				for(var/objectiveType in job.required_objectives)
 					new objectiveType(player.mind)
-
-				// 50/50 chance of getting optional objectives.
+				//25% probability to take objective
 				for(var/objectiveType in job.optional_objectives)
-					if(prob(50))
+					if(prob(25))
 						new objectiveType(player.mind)
-
 				unassigned -= player
 				job.current_positions++
 				return 1
