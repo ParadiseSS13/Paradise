@@ -27,7 +27,7 @@
 		return
 
 
-	if(!is_type_in_list(target, compatible_mobs))
+	if(!ishuman(target))
 		to_chat(user, "<span class='notice'>It'd be stupid to curse [target] with a horse's head!</span>")
 		return
 
