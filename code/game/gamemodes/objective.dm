@@ -177,7 +177,8 @@ var/list/potential_theft_objectives=subtypesof(/datum/theft_objective) \
 			if(target.current.stat == DEAD || issilicon(target.current) || isbrain(target.current) || !target.current.ckey) //Borgs/brains/AIs count as dead for traitor objectives. --NeoFite
 				return 1
 			// TODO: Tie into space manager
-			if((target.current.z in config.admin_levels) || ((target.current.loc.type in typesof(/obj/structure/closet)) && (target.current.loc.z in config.admin_levels))) //No hiding in lockers and cheezing greentext.
+			var/turf/target_location = get_turf(target.current)
+			if(target_location.z in config.admin_levels) //No hiding in lockers and cheezing greentext.
 				return 0
 		return 1
 
