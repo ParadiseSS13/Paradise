@@ -314,11 +314,3 @@
 		smooth = SMOOTH_TRUE
 		icon_state = ""
 
-/turf/simulated/wall/r_wall/coated			//Coated for the heat resistance
-	name = "coated reinforced wall"
-	desc = "A huge chunk of reinforced metal used to seperate rooms. It seems to have additional plating to protect against heat."
-	icon = 'icons/turf/walls/reinforced_wall.dmi'
-	icon_state = "r_wall"
-	max_temperature = INFINITY
-	walltype = "rwall"
-
