@@ -27,3 +27,19 @@
 #define CHAT_NO_ADMINLOGS 16384
 
 #define TOGGLES_DEFAULT (CHAT_OOC|CHAT_DEAD|CHAT_GHOSTEARS|CHAT_GHOSTSIGHT|CHAT_PRAYER|CHAT_RADIO|CHAT_ATTACKLOGS|CHAT_LOOC|MEMBER_PUBLIC)
+
+// Playtime tracking system, see jobs_exp.dm
+#define EXP_TYPE_LIVING			"Living"
+#define EXP_TYPE_CREW			"Crew"
+#define EXP_TYPE_COMMAND		"Command"
+#define EXP_TYPE_ENGINEERING	"Engineering"
+#define EXP_TYPE_MEDICAL		"Medical"
+#define EXP_TYPE_SCIENCE		"Science"
+#define EXP_TYPE_SUPPLY			"Supply"
+#define EXP_TYPE_SECURITY		"Security"
+#define EXP_TYPE_SILICON		"Silicon"
+#define EXP_TYPE_SERVICE		"Service"
+#define EXP_TYPE_WHITELIST		"Whitelist"
+#define EXP_TYPE_SPECIAL		"Special"
+#define EXP_TYPE_GHOST			"Ghost"
+#define EXP_TYPE_EXEMPT			"Exempt"

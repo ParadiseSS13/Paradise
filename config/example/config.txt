@@ -20,10 +20,12 @@ JOBS_HAVE_MINIMAL_ACCESS
 ## USE_EXP_TRACKING enables playtime/exp tracking. REQUIRES DATABASE TO BE ENABLED.
 ## USE_EXP_RESTRICTIONS_HEADS enables playtime/exp requirements for head jobs. If USE_EXP_RESTRICTIONS_HEADS_HOURS is enabled also, it uses that value for their time requirements. If not, it goes by the values defined on their job definitions in code.
 ## USE_EXP_RESTRICTIONS_OTHER enables playtime/exp requirements for some dangerous non-head jobs, like engineer, scientist, security officer, etc. The requirements for these jobs are always taken from code.
+## USE_EXP_RESTRICTIONS_ADMIN_BYPASS lets admins always bypass the restrictions. Useful to turn off for testing.
 #USE_EXP_TRACKING
 #USE_EXP_RESTRICTIONS_HEADS
 #USE_EXP_RESTRICTIONS_HEADS_HOURS 15
 #USE_EXP_RESTRICTIONS_OTHER
+#USE_EXP_RESTRICTIONS_ADMIN_BYPASS
 
 ## Unhash this entry to have certain antagonist roles require your account to be at least a certain number of days old to select. You can configure the exact age requirement for different antag roles by editing special_role_times in /code/modules/client/preferences.dm.
 ## See USE_AGE_RESTRICTION_FOR_JOBS for more information
