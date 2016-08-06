@@ -9,6 +9,9 @@
 	idtype = /obj/item/weapon/card/id/prisoner
 	access = list()
 	minimal_access = list()
+	required_objectives=list(
+		/datum/job_objective/inviolate_escape
+		)
 	prisonlist_job = 1
 
 /datum/job/prisoner/equip(var/mob/living/carbon/human/H)
