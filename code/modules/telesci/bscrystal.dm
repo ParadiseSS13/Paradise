@@ -35,6 +35,11 @@
 		blink_mob(hit_atom)
 	qdel(src)
 
+// Bluespace crystal fragments
+/obj/item/weapon/ore/bluespace_crystal/fragment
+    points = 0
+    refined_type = null
+
 // Artifical bluespace crystal, doesn't give you much research.
 /obj/item/weapon/ore/bluespace_crystal/artificial
 	name = "artificial bluespace crystal"
@@ -46,7 +51,7 @@
 
 // Polycrystals, aka stacks
 
-var/global/list/datum/stack_recipe/bluespace_crystal_recipes = list(/datum/stack_recipe/bluespacecrystals("Breakdown into bluespace crystal", /obj/item/weapon/ore/bluespace_crystal, 1, one_per_turf = 0, on_floor = 1))
+var/global/list/datum/stack_recipe/bluespace_crystal_recipes = list(new/datum/stack_recipe("Breakdown into bluespace crystal", /obj/item/weapon/ore/bluespace_crystal/fragment, 1, one_per_turf = 0, on_floor = 1))
 
 /obj/item/stack/sheet/bluespace_crystal
 	name = "bluespace polycrystal"
