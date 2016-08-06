@@ -1232,7 +1232,7 @@
 	/obj/item/clothing/accessory/scarf/zebra=1,/obj/item/clothing/accessory/scarf/christmas=1,/obj/item/clothing/accessory/stripedredscarf=1,
 	/obj/item/clothing/accessory/stripedbluescarf=1,/obj/item/clothing/accessory/stripedgreenscarf=1,/obj/item/clothing/accessory/waistcoat=1,
 	/obj/item/clothing/under/sundress=2,/obj/item/clothing/under/stripeddress = 1, /obj/item/clothing/under/sailordress = 1, /obj/item/clothing/under/redeveninggown = 1, /obj/item/clothing/under/blacktango=1,/obj/item/clothing/suit/jacket=3,
-	/obj/item/clothing/glasses/regular=2,/obj/item/clothing/head/sombrero=1,/obj/item/clothing/suit/poncho=1,
+	/obj/item/clothing/glasses/regular=2,/obj/item/clothing/glasses/sunglasses/fake=2,/obj/item/clothing/head/sombrero=1,/obj/item/clothing/suit/poncho=1,
 	/obj/item/clothing/suit/ianshirt=1,/obj/item/clothing/shoes/laceup=2,/obj/item/clothing/shoes/black=4,
 	/obj/item/clothing/shoes/sandal=1, /obj/item/clothing/gloves/fingerless=2,
 	/obj/item/weapon/storage/belt/fannypack=1, /obj/item/weapon/storage/belt/fannypack/blue=1, /obj/item/weapon/storage/belt/fannypack/red=1)
