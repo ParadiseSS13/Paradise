@@ -307,6 +307,7 @@
 
 /datum/construction/reversible/mecha/gygax
 	result = "/obj/mecha/combat/gygax"
+	taskpath = /datum/job_objective/make_gygax
 	steps = list(
 					//1
 					list("key"=/obj/item/weapon/weldingtool,
@@ -809,6 +810,7 @@
 
 /datum/construction/mecha/honker
 	result = "/obj/mecha/combat/honker"
+	taskpath = /datum/job_objective/make_honker
 	steps = list(list("key"=/obj/item/weapon/bikehorn),//1
 					 list("key"=/obj/item/clothing/shoes/clown_shoes),//2
 					 list("key"=/obj/item/weapon/bikehorn),//3
@@ -963,6 +965,7 @@
 
 /datum/construction/reversible/mecha/durand
 	result = "/obj/mecha/combat/durand"
+	taskpath = /datum/job_objective/make_durand
 	steps = list(
 					//1
 					list("key"=/obj/item/weapon/weldingtool,
@@ -1217,6 +1220,7 @@
 
 /datum/construction/mecha/phazon_chassis
 	result = "/obj/mecha/combat/phazon"
+	taskpath = /datum/job_objective/make_phazon
 	steps = list(list("key"=/obj/item/mecha_parts/part/phazon_torso),//1
 					 list("key"=/obj/item/mecha_parts/part/phazon_left_arm),//2
 					 list("key"=/obj/item/mecha_parts/part/phazon_right_arm),//3
@@ -1570,6 +1574,7 @@
 
 /datum/construction/reversible/mecha/odysseus
 	result = "/obj/mecha/medical/odysseus"
+	taskpath = /datum/job_objective/make_odysseus
 	steps = list(
 					//1
 					list("key"=/obj/item/weapon/weldingtool,

@@ -1,5 +1,5 @@
 /////////////////////////////////////////////////////////////////////////////////////////
-// Misc objectives - optional and such
+// Misc objectives - fluff and stuff
 /////////////////////////////////////////////////////////////////////////////////////////
 
 // Power the station
@@ -9,11 +9,11 @@
 
 /datum/job_objective/inviolate_escape/get_description()
 	var/desc = "Покиньте станцию на шаттле свободным и живым, никого не убив."
-	return desc
+	return sanitize_local(desc)
 
-/datum/job_objective/inviolate_escape/check_for_completion()
+/datum/job_objective/inviolate_escape/check_in_the_end()
 
-  if(owner.kills.len>1)
+  if(owner.kills.len > 0)
     return 0
   if(issilicon(owner.current))
     return 0
