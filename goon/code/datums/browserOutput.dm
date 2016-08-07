@@ -202,7 +202,6 @@ var/to_chat_line
 var/to_chat_src
 // Call using macro: to_chat(target, message)
 /proc/__to_chat(target, message)
-	message = sanitize_local(message)
 	if(istype(message, /image) || istype(message, /sound) || istype(target, /savefile) || !(ismob(target) || islist(target) || isclient(target) || target == world))
 		target << message
 		if(!istext(message))
@@ -217,11 +216,12 @@ var/to_chat_src
 		message = replacetext(message, "\n", "<br>")
 
 		message = macro2html(message)
+
 		if(findtext(message, "\improper"))
 			message = replacetext(message, "\improper", "")
 		if(findtext(message, "\proper"))
 			message = replacetext(message, "\proper", "")
-
+		message = sanitize_local(message)
 		var/client/C
 		if(istype(target, /client))
 			C = target
