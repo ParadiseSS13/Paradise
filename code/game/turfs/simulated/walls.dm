@@ -116,8 +116,6 @@
 	if(radiated_temperature > max_temperature)
 		take_damage(rand(10, 20) * (radiated_temperature / max_temperature))
 
-	return ..()
-
 /turf/simulated/wall/proc/dismantle_wall(devastated=0, explode=0)
 	if(istype(src,/turf/simulated/wall/r_wall))
 		if(!devastated)

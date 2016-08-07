@@ -80,10 +80,6 @@ var/list/icons_to_ignore_at_floor_init = list("damaged1","damaged2","damaged3","
 				src.hotspot_expose(1000,CELL_VOLUME)
 	return
 
-/turf/simulated/floor/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume)
-	if(!burnt && prob(5))
-		burn_tile()
-
 /turf/simulated/floor/is_shielded()
 	for(var/obj/structure/A in contents)
 		if(A.level == 3)
