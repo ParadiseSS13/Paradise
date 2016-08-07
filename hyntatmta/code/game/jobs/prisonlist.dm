@@ -102,7 +102,10 @@ var/list/bwhitelist
 /proc/check_prisonlist(var/K)
 	var/noprison_key
 	if(!dbcon.IsConnected())
-		to_chat(usr, "\red Unable to connect to whitelist database. Please try again later.<br>")
+		log_admin("Unable to connect to whitelist database. Please try again later.")
+		return 1
+	if(config.prisonlist_enabled)
+		log_admin("Whitelist disabled in config.")
 		return 1
 	else
 		var/DBQuery/query = dbcon.NewQuery("SELECT ckey FROM [format_table_name("bwhitelist")] WHERE ckey='[K]'")
