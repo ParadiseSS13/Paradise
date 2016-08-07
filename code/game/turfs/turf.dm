@@ -165,6 +165,7 @@
 	var/old_blueprint_data = blueprint_data
 	var/old_obscured = obscured
 
+	PreChange()
 	if(air_master)
 		air_master.remove_from_active(src)
 	var/turf/W = new path(src)
@@ -186,10 +187,13 @@
 			lighting_build_overlays()
 		else
 			lighting_clear_overlays()
-	
+
 	obscured = old_obscured
 
 	return W
+
+/turf/proc/PreChange()
+	return
 
 // I'm including `ignore_air` because BYOND lacks positional-only arguments
 /turf/proc/AfterChange(ignore_air, keep_cabling = FALSE) //called after a turf has been replaced in ChangeTurf()

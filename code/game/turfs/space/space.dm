@@ -23,6 +23,16 @@
 /turf/space/Destroy()
 	return QDEL_HINT_LETMELIVE
 
+/turf/space/PreChange()
+	..()
+	var/datum/space_level/S = space_manager.get_zlev(z)
+	S.remove_from_transit(src)
+
+/turf/space/AfterChange(ignore_air, keep_cabling = FALSE)
+	..()
+	var/datum/space_level/S = space_manager.get_zlev(z)
+	S.add_to_transit(src)
+
 /turf/space/proc/update_starlight()
 	if(!config.starlight)
 		return
@@ -69,7 +79,7 @@
 
 /turf/space/Entered(atom/movable/A as mob|obj, atom/OL, ignoreRest = 0)
 	..()
-	
+
 	if(destination_z && A && (src in A.locs))
 		A.x = destination_x
 		A.y = destination_y

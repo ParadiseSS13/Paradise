@@ -28,27 +28,46 @@
 	var/timer = start_watch()
 	log_debug("Starting to build space destination arrays for z level '[zpos]'...")
 	for(var/turf/space/S in get_turfs())
-
-		// Bottom border
-		if(S.y <= TRANSITIONEDGE)
-			transit_south |= S
-			continue
-
-		// Top border
-		if(S.y >= (world.maxy - TRANSITIONEDGE - 1))
-			transit_north |= S
-			continue
-
-		// Left border
-		if(S.x <= TRANSITIONEDGE)
-			transit_west |= S
-			continue
-
-		// Right border
-		if(S.x >= (world.maxx - TRANSITIONEDGE - 1))
-			transit_east |= S
-			continue
+		add_to_transit(S)
 	log_debug("Building space destination arrays complete, took [stop_watch(timer)]s.")
+
+/datum/space_level/proc/add_to_transit(turf/space/S)
+	if(S.y <= TRANSITIONEDGE)
+		transit_south |= S
+		return
+
+	// Top border
+	if(S.y >= (world.maxy - TRANSITIONEDGE - 1))
+		transit_north |= S
+		return
+
+	// Left border
+	if(S.x <= TRANSITIONEDGE)
+		transit_west |= S
+		return
+
+	// Right border
+	if(S.x >= (world.maxx - TRANSITIONEDGE - 1))
+		transit_east |= S
+
+/datum/space_level/proc/remove_from_transit(turf/space/S)
+	if(S.y <= TRANSITIONEDGE)
+		transit_south -= S
+		return
+
+	// Top border
+	if(S.y >= (world.maxy - TRANSITIONEDGE - 1))
+		transit_north -= S
+		return
+
+	// Left border
+	if(S.x <= TRANSITIONEDGE)
+		transit_west -= S
+		return
+
+	// Right border
+	if(S.x >= (world.maxx - TRANSITIONEDGE - 1))
+		transit_east -= S
 
 /datum/space_level/proc/get_turfs()
 	return block(locate(1, 1, zpos), locate(world.maxx, world.maxy, zpos))
