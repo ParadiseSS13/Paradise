@@ -32,6 +32,7 @@
 	..()
 	var/datum/space_level/S = space_manager.get_zlev(z)
 	S.add_to_transit(src)
+	S.apply_transition(src)
 
 /turf/space/proc/update_starlight()
 	if(!config.starlight)
@@ -209,3 +210,26 @@
 
 /turf/space/can_have_cabling()
 	return 0
+
+/turf/space/proc/set_transition_north(dest_z)
+	destination_x = x
+	destination_y = TRANSITIONEDGE + 2
+	destination_z = dest_z
+
+/turf/space/proc/set_transition_south(dest_z)
+	destination_x = x
+	destination_y = world.maxy - TRANSITIONEDGE - 2
+	destination_z = dest_z
+
+/turf/space/proc/set_transition_east(dest_z)
+	destination_x = TRANSITIONEDGE + 2
+	destination_y = y
+	destination_z = dest_z
+
+/turf/space/proc/set_transition_west(dest_z)
+	destination_x = world.maxx - TRANSITIONEDGE - 2
+	destination_y = y
+	destination_z = dest_z
+
+/turf/space/proc/remove_transitions()
+	destination_z = initial(destination_z)
