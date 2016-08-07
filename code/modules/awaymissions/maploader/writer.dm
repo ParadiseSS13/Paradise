@@ -67,7 +67,7 @@
 				template_buffer += "[template_number],"
 				CHECK_TICK
 
-			template_buffer += "[buffer_line];"
+			template_buffer += ";"
 
 		template_buffer += "."
 	template_buffer_text = jointext(template_buffer,"")
