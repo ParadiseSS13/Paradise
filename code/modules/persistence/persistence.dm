@@ -21,20 +21,37 @@
 /datum/proc/deserialize(var/list/data)
 	return
 
-
 /atom
-	// This is so specific atoms can override these, and ignore certain ones
-	var/list/vars_to_save = list("dir","name","color","icon","icon_state", "pixel_x", "pixel_y")
+	// This var isn't actually used for anything, but is present so that
+	// DM's map reader doesn't forfeit on reading a JSON-serialized map
+	var/map_json_data
+
+// This is so specific atoms can override these, and ignore certain ones
+/atom/proc/vars_to_save()
+ 	return list("dir","name","color","icon","icon_state", "pixel_x", "pixel_y")
+
+/atom/proc/map_important_vars()
+	// A list of important things to save in the map editor
+	return list("dir","name","color","icon","icon_state", "pixel_x", "pixel_y")
+
+/area/map_important_vars()
+	// Keep the area default icons, to keep things nice and legible
+	return list("name")
+
+// No need to save any state of an area by default
+/area/vars_to_save()
+	return list("name")
+
 /atom/serialize()
 	var/list/data = ..()
-	for(var/thing in vars_to_save)
+	for(var/thing in vars_to_save())
 		if(vars[thing] != initial(vars[thing]))
 			data[thing] = vars[thing]
 	return data
 
 
 /atom/deserialize(var/list/data)
-	for(var/thing in vars_to_save)
+	for(var/thing in vars_to_save())
 		if(thing in data)
 			vars[thing] = data[thing]
 	..()

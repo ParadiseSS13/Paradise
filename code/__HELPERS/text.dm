@@ -401,7 +401,9 @@ proc/checkhtml(var/t)
 		var/keylength = length(char)
 		while(index)
 			log_debug("Bad string given to dmm encoder! [text]")
-			text = copytext(text, 1, index) + copytext(text, index+keylength)
+			// Replace w/ underscore to prevent "&#3&#123;4;" from cheesing the radar
+			// Should probably also use canon text replacing procs
+			text = copytext(text, 1, index) + "_" + copytext(text, index+keylength)
 			index = findtext(text, char)
 
 	// Then, replace characters as normal

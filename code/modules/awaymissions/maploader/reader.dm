@@ -385,7 +385,10 @@ var/global/dmm_suite/preloader/_preloader = new
 				var/endquote = findtext(trim_right,quote,-1)
 				if(!endquote)
 					log_debug("Terminating quote not found!")
-				trim_right = copytext(trim_right,2,endquote)
+				// Our map writer escapes quotes and curly brackets to avoid
+				// letting our simple parser choke on meanly-crafted names/etc
+				// - so we decode it here so it's back to good ol' legibility
+				trim_right = dmm_decode(copytext(trim_right,2,endquote))
 
 			//Check for number
 			else if(isnum(text2num(trim_right)))
@@ -450,18 +453,18 @@ var/global/dmm_suite/preloader/_preloader = new
 /dmm_suite/preloader/proc/load(atom/what)
 	if(json_ready)
 		var/json_data = attributes["map_json_data"]
+		attributes -= "map_json_data"
 		json_data = dmm_decode(json_data)
 		try
 			what.deserialize(json_decode(json_data))
 		catch(var/exception/e)
 			log_debug("Bad json data: '[json_data]'")
 			throw e
-	else
-		for(var/attribute in attributes)
-			var/value = attributes[attribute]
-			if(islist(value))
-				value = deepCopyList(value)
-			what.vars[attribute] = value
+	for(var/attribute in attributes)
+		var/value = attributes[attribute]
+		if(islist(value))
+			value = deepCopyList(value)
+		what.vars[attribute] = value
 	use_preloader = FALSE
 
 // If the map loader fails, make this safe
