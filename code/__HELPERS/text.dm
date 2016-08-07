@@ -395,7 +395,7 @@ proc/checkhtml(var/t)
 	// First, go through and nix out any of our escape sequences so we don't leave ourselves open to some escape sequence attack
 	// Some coder will probably despise me for this, years down the line
 
-	var/list/repl_chars = list("&#34;", "&#123;", "&#125;")
+	var/list/repl_chars = list("#?qt;", "#?lbr;", "#?rbr;")
 	for(var/char in repl_chars)
 		var/index = findtext(text, char)
 		var/keylength = length(char)
@@ -407,7 +407,7 @@ proc/checkhtml(var/t)
 			index = findtext(text, char)
 
 	// Then, replace characters as normal
-	var/list/repl_chars_2 = list("\"" = "&#34;", "{" = "&#123;", "}" = "&#125;")
+	var/list/repl_chars_2 = list("\"" = "#?qt;", "{" = "#?lbr;", "}" = "#?rbr;")
 	for(var/char in repl_chars_2)
 		var/index = findtext(text, char)
 		var/keylength = length(char)
@@ -419,7 +419,7 @@ proc/checkhtml(var/t)
 
 /proc/dmm_decode(text)
 	// Replace what we extracted above
-	var/list/repl_chars = list("&#34;" = "\"", "&#123;" = "{", "&#125;" = "}")
+	var/list/repl_chars = list("#?qt;" = "\"", "#?lbr;" = "{", "#?rbr;" = "}")
 	for(var/char in repl_chars)
 		var/index = findtext(text, char)
 		var/keylength = length(char)
