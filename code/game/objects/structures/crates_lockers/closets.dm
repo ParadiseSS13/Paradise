@@ -63,7 +63,9 @@
 			M.client.perspective = MOB_PERSPECTIVE
 
 /obj/structure/closet/proc/moveMob(var/mob/M, var/atom/destination)
-	M.forceMove(destination)
+	loc.Exited(M)
+	M.loc = destination
+	loc.Entered(M, ignoreRest = 1)
 	for(var/atom/movable/AM in loc)
 		if(istype(AM, /obj/item))
 			continue
