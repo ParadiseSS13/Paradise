@@ -434,6 +434,9 @@ obj/item/clothing/mask/gas/sechailer/fluff/tyhailer // T0EPIC4U: Ty Omaha
 	var/phrase = 1
 	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/adjust)
 
+/obj/item/clothing/mask/gas/sechailer/fluff/tyhailer/attack_self()
+	tyhalt()
+
 /obj/item/clothing/mask/gas/sechailer/fluff/tyhailer/ui_action_click(mob/user, actiontype)
 	if(actiontype == /datum/action/item_action/halt)
 		tyhalt()
