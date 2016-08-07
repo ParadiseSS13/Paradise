@@ -10,8 +10,7 @@ obj/machinery/door/airlock
 
 obj/machinery/door/airlock/process()
 	if(arePowerSystemsOn() && cur_command)
-		spawn()
-			execute_current_command()
+		execute_current_command()
 	else
 		return PROCESS_KILL
 
