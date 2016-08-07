@@ -329,5 +329,5 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 
 	return 1
 
-/datum/changeling/proc/check_species_absorb(datum/species/S)
+/proc/check_species_absorb(datum/species/S)
   return !((S.flags & NO_DNA) || (S.flags & NO_SCAN) || (S.flags & NO_BLOOD))
