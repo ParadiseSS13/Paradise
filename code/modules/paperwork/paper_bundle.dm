@@ -31,7 +31,7 @@
 		amount++
 		if(screen == 2)
 			screen = 1
-		to_chat(user, "<span class='notice'>You add [(P.name == "paper") ? "the paper" : P.name] to [(src.name == "paper bundle") ? "the paper bundle" : src.name].</span>")
+		to_chat(user, "<span class='notice'>You add [(P.name == "paper") ? "the paper" : src.name] to [(src.name == "paper bundle") ? "the paper bundle" : src.name].</span>")
 		user.unEquip(P)
 		P.loc = src
 		if(istype(user,/mob/living/carbon/human))
