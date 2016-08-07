@@ -49,7 +49,6 @@
 	var/list/templates[0]
 	var/list/template_buffer = list()
 	var/template_buffer_text
-	var/buffer_line = ""
 	var/dmm_text = ""
 
 	var/total_timer = start_watch()
@@ -110,7 +109,7 @@
 				var/temp_key = keys[key_number]
 				key_map += temp_key
 				CHECK_TICK
-			key_map += "[buffer_line]\n"
+			key_map += "\n"
 		key_map += "\"}"
 	dmm_text += jointext(key_map,"")
 	log_debug("Writing key map complete, took [stop_watch(timer)]s.")
@@ -123,8 +122,8 @@
 		use_json = 1
 	var/template = ""
 	var/turf_template = ""
-	var/obj_template = ""
-	var/mob_template = ""
+	var/list/obj_template = list()
+	var/list/mob_template = list()
 	var/area_template = ""
 
 
@@ -158,7 +157,7 @@
 		area_template = "[m_area.type][check_attributes(m_area,use_json=use_json)]"
 	else	area_template = "[world.area]"
 
-	template = "[obj_template][mob_template][turf_template][area_template]"
+	template = "[jointext(obj_template,"")][jointext(mob_template,"")][turf_template][area_template]"
 	return template
 
 /dmm_suite/proc/check_attributes(var/atom/A,use_json=0)
