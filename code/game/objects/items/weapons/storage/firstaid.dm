@@ -246,7 +246,7 @@
 
 /obj/item/weapon/storage/pill_bottle/attackby(var/obj/item/I, mob/user as mob, params)
 	if(istype(I, /obj/item/weapon/pen) || istype(I, /obj/item/device/flashlight/pen))
-		var/tmp_label = sanitize(input(user, "Enter a label for [name]","Label",label_text))
+		var/tmp_label = sanitize_local(input(user, "Enter a label for [name]","Label",label_text))
 		if(length(tmp_label) > MAX_NAME_LEN)
 			to_chat(user, "<span class='warning'>The label can be at most [MAX_NAME_LEN] characters long.</span>")
 		else

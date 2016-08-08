@@ -8,11 +8,11 @@
 	per_unit = 1
 
 /datum/job_objective/further_research/get_description()
-	var/desc = "Research tech levels, and have cargo ship them to centcomm."
-	desc += "([units_completed] completed.)"
-	return desc
+	var/desc = "Проводите исследования во всех областях, и отправьте ваши наработки на ЦК карго-шаттлом!"
+	desc += "([units_completed] областей исследовано.)"
+	return sanitize_local(desc)
 
-/datum/job_objective/maximize_research/check_for_completion()
+/datum/job_objective/further_research/check_for_completion()
 	for(var/tech in shuttle_master.techLevels)
 		if(shuttle_master.techLevels[tech] > 0)
 			return 1
@@ -28,18 +28,68 @@
 	per_unit = 1
 
 /datum/job_objective/make_cyborg/get_description()
-	var/desc = "Make a cyborg."
-	desc += "([units_completed] created.)"
-	return desc
+	var/desc = "Создайте киборга."
+	desc += "([units_completed] создано.)"
+	return sanitize_local(desc)
 
 
 
-//RIPLEY's
+//Mechas! RIPLEY
 /datum/job_objective/make_ripley
-	completion_payment = 600
+	completion_payment = 200
 	per_unit = 1
 
 /datum/job_objective/make_ripley/get_description()
-	var/desc = "Make a Ripley or Firefighter."
-	desc += "([units_completed] created.)"
-	return desc
+	var/desc = "Создайте мехаскафандр класса Ripley или Firefighter."
+	desc += "([units_completed] создано.)"
+	return sanitize_local(desc)
+
+//ODYSSEUS
+/datum/job_objective/make_odysseus
+	completion_payment = 400
+	per_unit = 1
+
+/datum/job_objective/make_odysseus/get_description()
+	var/desc = "Создайте мехаскафандр класса Odysseus."
+	desc += "([units_completed] создано.)"
+	return sanitize_local(desc)
+
+//DURAND
+/datum/job_objective/make_durand
+	completion_payment = 400
+	per_unit = 1
+
+/datum/job_objective/make_durand/get_description()
+	var/desc = "Создайте мехаскафандр класса Durand."
+	desc += "([units_completed] создано.)"
+	return sanitize_local(desc)
+
+//PHAZON
+/datum/job_objective/make_phazon
+	completion_payment = 600
+	per_unit = 1
+
+/datum/job_objective/make_phazon/get_description()
+	var/desc = "Создайте мехаскафандр класса Phazon."
+	desc += "([units_completed] создано.)"
+	return sanitize_local(desc)
+
+//HONKER
+/datum/job_objective/make_honker
+	completion_payment = 555
+	per_unit = 1
+
+/datum/job_objective/make_honker/get_description()
+	var/desc = "Создайте мехаскафандр класса H.O.N.K."
+	desc += "([units_completed] создано.)"
+	return sanitize_local(desc)
+
+//GYGAX
+/datum/job_objective/make_gygax
+	completion_payment = 600
+	per_unit = 1
+
+/datum/job_objective/make_gygax/get_description()
+	var/desc = "Создайте мехаскафандр класса Gygax"
+	desc += "([units_completed] создано.)"
+	return sanitize_local(desc)

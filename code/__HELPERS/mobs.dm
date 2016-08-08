@@ -301,7 +301,7 @@ proc/add_logs(mob/target, mob/user, what_done, var/object=null, var/addition=nul
 		var/mob/living/L = M
 		var/status
 		switch(M.stat)
-			if(CONSCIOUS) 
+			if(CONSCIOUS)
 				status = "Alive"
 			if(UNCONSCIOUS)
 				status = "<font color='orange'><b>Unconscious</b></font>"
@@ -324,7 +324,7 @@ proc/add_logs(mob/target, mob/user, what_done, var/object=null, var/addition=nul
 	to_chat(user, "Name = <b>[M.name]</b>; Real_name = [M.real_name]; Mind_name = [M.mind?"[M.mind.name]":""]; Key = <b>[M.key]</b>;")
 	to_chat(user, "Location = [location_description];")
 	to_chat(user, "[special_role_description]")
-	to_chat(user, "(<a href='?src=\ref[usr];priv_msg=\ref[M]'>PM</a>) (<A HREF='?src=\ref[src];adminplayeropts=\ref[M]'>PP</A>) (<A HREF='?_src_=vars;Vars=\ref[M]'>VV</A>) (<A HREF='?src=\ref[src];subtlemessage=\ref[M]'>SM</A>) (<A HREF='?src=\ref[src];adminplayerobservefollow=\ref[M]'>FLW</A>) (<A HREF='?src=\ref[src];secretsadmin=check_antagonist'>CA</A>)")
+	to_chat(user, "(<a href='?_src_=holder;priv_msg=\ref[M]'>PM</a>) (<A HREF='?_src_=holder;adminplayeropts=\ref[M]'>PP</A>) (<A HREF='?_src_=vars;Vars=\ref[M]'>VV</A>) (<A HREF='?_src_=holder;subtlemessage=\ref[M]'>SM</A>) (<A HREF='?_src_=holder;adminplayerobservefollow=\ref[M]'>FLW</A>) (<A HREF='?_src_=holder;adminpunish=\ref[M]'>PN</A>) (<A HREF='?_src_=holder;whitelisttoggle=\ref[M]'>WL</A>) (<A HREF='?_src_=holder;secretsadmin=check_antagonist'>CA</A>)")
 
 // Gets the first mob contained in an atom, and warns the user if there's not exactly one
 /proc/get_mob_in_atom_with_warning(atom/A, mob/user = usr)
