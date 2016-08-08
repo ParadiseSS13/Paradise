@@ -2,7 +2,7 @@
 	set category = "IC"
 	set name = "Pray"
 
-	msg = sanitize(copytext(msg, 1, MAX_MESSAGE_LEN))
+	msg = sanitize_local(copytext(msg, 1, MAX_MESSAGE_LEN))
 	if(!msg)	return
 
 	if(usr.client)
@@ -24,7 +24,7 @@
 	//log_admin("HELP: [key_name(src)]: [msg]")
 
 /proc/Centcomm_announce(var/text , var/mob/Sender)
-	var/msg = sanitize(copytext(text, 1, MAX_MESSAGE_LEN))
+	var/msg = sanitize_local(copytext(text, 1, MAX_MESSAGE_LEN))
 	msg = "\blue <b><font color=orange>CENTCOMM: </font>[key_name(Sender, 1)] (<A HREF='?_src_=holder;adminplayeropts=\ref[Sender]'>PP</A>) (<A HREF='?_src_=vars;Vars=\ref[Sender]'>VV</A>) (<A HREF='?_src_=holder;subtlemessage=\ref[Sender]'>SM</A>) ([admin_jump_link(Sender, "holder")]) (<A HREF='?_src_=holder;secretsadmin=check_antagonist'>CA</A>) (<A HREF='?_src_=holder;BlueSpaceArtillery=\ref[Sender]'>BSA</A>) (<A HREF='?_src_=holder;CentcommReply=\ref[Sender]'>RPLY</A>):</b> [msg]"
 	for(var/client/X in admins)
 		if(R_EVENT & X.holder.rights)
@@ -33,7 +33,7 @@
 				X << 'sound/effects/adminhelp.ogg'
 
 /proc/Syndicate_announce(var/text , var/mob/Sender)
-	var/msg = sanitize(copytext(text, 1, MAX_MESSAGE_LEN))
+	var/msg = sanitize_local(copytext(text, 1, MAX_MESSAGE_LEN))
 	msg = "\blue <b><font color='#DC143C'>SYNDICATE: </font>[key_name(Sender, 1)] (<A HREF='?_src_=holder;adminplayeropts=\ref[Sender]'>PP</A>) (<A HREF='?_src_=vars;Vars=\ref[Sender]'>VV</A>) (<A HREF='?_src_=holder;subtlemessage=\ref[Sender]'>SM</A>) ([admin_jump_link(Sender, "holder")]) (<A HREF='?_src_=holder;secretsadmin=check_antagonist'>CA</A>) (<A HREF='?_src_=holder;BlueSpaceArtillery=\ref[Sender]'>BSA</A>) (<A HREF='?_src_=holder;SyndicateReply=\ref[Sender]'>REPLY</A>):</b> [msg]"
 	for(var/client/X in admins)
 		if(check_rights(R_EVENT,0,X.mob))
@@ -42,7 +42,7 @@
 				X << 'sound/effects/adminhelp.ogg'
 
 /proc/HONK_announce(var/text , var/mob/Sender)
-	var/msg = sanitize(copytext(text, 1, MAX_MESSAGE_LEN))
+	var/msg = sanitize_local(copytext(text, 1, MAX_MESSAGE_LEN))
 	msg = "\blue <b><font color=pink>HONK: </font>[key_name(Sender, 1)] (<A HREF='?_src_=holder;adminplayeropts=\ref[Sender]'>PP</A>) (<A HREF='?_src_=vars;Vars=\ref[Sender]'>VV</A>) (<A HREF='?_src_=holder;subtlemessage=\ref[Sender]'>SM</A>) ([admin_jump_link(Sender, "holder")]) (<A HREF='?_src_=holder;secretsadmin=check_antagonist'>CA</A>) (<A HREF='?_src_=holder;BlueSpaceArtillery=\ref[Sender]'>BSA</A>) (<A HREF='?_src_=holder;HONKReply=\ref[Sender]'>RPLY</A>):</b> [msg]"
 	for(var/client/X in admins)
 		if(R_EVENT & X.holder.rights)
@@ -51,7 +51,7 @@
 				X << 'sound/effects/adminhelp.ogg'
 
 /proc/ERT_Announce(var/text , var/mob/Sender, var/repeat_warning)
-	var/msg = sanitize(copytext(text, 1, MAX_MESSAGE_LEN))
+	var/msg = sanitize_local(copytext(text, 1, MAX_MESSAGE_LEN))
 	msg = "<span class='adminnotice'><b><font color=orange>ERT REQUEST: </font>[key_name(Sender, 1)] (<A HREF='?_src_=holder;adminplayeropts=\ref[Sender]'>PP</A>) (<A HREF='?_src_=vars;Vars=\ref[Sender]'>VV</A>) (<A HREF='?_src_=holder;subtlemessage=\ref[Sender]'>SM</A>) ([admin_jump_link(Sender, "holder")]) (<A HREF='?_src_=holder;secretsadmin=check_antagonist'>CA</A>) (<A HREF='?_src_=holder;BlueSpaceArtillery=\ref[Sender]'>BSA</A>) (<A HREF='?_src_=holder;ErtReply=\ref[Sender]'>RESPOND</A>):</b> [msg]</span>"
 	if(repeat_warning)
 		msg += "<BR><span class='adminnotice'><b>WARNING: ERT request has gone 5 minutes with no reply!</b></span>"
@@ -63,7 +63,7 @@
 
 /proc/Nuke_request(text , mob/Sender)
 	var/nuke_code = get_nuke_code()
-	var/msg = sanitize(copytext(text, 1, MAX_MESSAGE_LEN))
+	var/msg = sanitize_local(copytext(text, 1, MAX_MESSAGE_LEN))
 	msg = "<span class='adminnotice'><b><font color=orange>NUKE CODE REQUEST: </font>[key_name(Sender)] (<A HREF='?_src_=holder;adminplayeropts=\ref[Sender]'>PP</A>) (<A HREF='?_src_=vars;Vars=\ref[Sender]'>VV</A>) (<A HREF='?_src_=holder;subtlemessage=\ref[Sender]'>SM</A>) ([admin_jump_link(Sender, "holder")]) (<A HREF='?_src_=holder;secretsadmin=check_antagonist'>CA</A>) (<A HREF='?_src_=holder;BlueSpaceArtillery=\ref[Sender]'>BSA</A>) (<A HREF='?_src_=holder;CentcommReply=\ref[Sender]'>RPLY</A>):</b> [msg]</span>"
 	for(var/client/X in admins)
 		if(check_rights(R_EVENT,0,X.mob))

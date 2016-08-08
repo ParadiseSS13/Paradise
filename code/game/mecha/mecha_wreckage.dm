@@ -119,7 +119,7 @@
 	icon_state = "seraph-broken"
 
 /obj/effect/decal/mecha_wreckage/recitence
-	name = "\improper Recitence wreckage"
+	name = "Recitence wreckage"
 	icon_state = "mime-broken"
 
 /obj/effect/decal/mecha_wreckage/ripley

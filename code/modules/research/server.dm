@@ -192,7 +192,7 @@
 
 
 /obj/machinery/computer/rdservercontrol
-	name = "\improper R&D server controller"
+	name = "R&D server controller"
 	icon_screen = "rdcomp"
 	icon_keyboard = "rd_key"
 	light_color = LIGHT_COLOR_FADEDPURPLE
