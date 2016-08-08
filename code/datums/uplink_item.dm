@@ -1252,6 +1252,13 @@ var/list/uplink_items = list()
 	item = /obj/item/toy/syndicateballoon
 	cost = 20
 
+/datum/uplink_item/badass/saltshaker
+	name = "Salt Shaker"
+	desc = "A salt shaker that will make your target very, very, salty."
+	reference = "SASH"
+	item = /obj/item/toy/saltshaker
+	cost = 1
+
 /datum/uplink_item/implants/macrobomb
 	name = "Macrobomb Implant"
 	desc = "An implant injected into the body, and later activated either manually or automatically upon death. Upon death, releases a massive explosion that will wipe out everything nearby."

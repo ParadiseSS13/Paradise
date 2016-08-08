@@ -111,6 +111,17 @@
 	item_state = "syndballoon"
 	w_class = 4
 
+/obj/item/toy/saltshaker
+	name = "salt shaker"
+	desc = "Causes people to become salty. Very salty."
+	icon = 'icons/obj/food/containers.dmi'
+	icon_state = "saltshakersmall"
+	w_class = 2
+
+/obj/item/toy/saltshaker/attack(mob/M, mob/user)
+	if(!M.salty)
+		to_chat(M, "<span class='danger'>You suddenly feel *very* salty!</span>")
+		M.salty = 1
 /*
  * Fake telebeacon
  */
