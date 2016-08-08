@@ -324,7 +324,6 @@
 	if(istype(loc, /mob/living/carbon/human))
 		var/mob/living/carbon/human/H = loc
 		if(H.head == src)
-			H.drunk = 0 //never get drunk
 			H.slurring = 3 //always slur
 
 //////////// Suits ////////////
