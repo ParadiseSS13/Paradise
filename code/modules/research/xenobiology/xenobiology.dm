@@ -403,6 +403,8 @@
 		return 0
 	if(O.mind && O.mind.current && O.mind.current.stat != DEAD)
 		return 0
+	if(!O.can_reenter_corpse)
+		return 0
 	if(O.has_enabled_antagHUD == 1 && config.antag_hud_restricted)
 		return 0
 	return 1

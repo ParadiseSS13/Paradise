@@ -65,13 +65,10 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) \
 			return 1
 		if(issilicon(target.current) || isbrain(target.current)) //Borgs/brains/AIs count as dead for traitor objectives. --NeoFite
 			return 1
-		if(target.current.z > ZLEVEL_DERELICT)
-			return 1
 		if(!target.current.ckey)
 			return 1
 		return 0
 	return 1
-
 
 
 /datum/objective/mutiny
@@ -144,18 +141,16 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) \
 	if(target && target.current)
 		if(target.current.stat == DEAD)
 			return 1
+		if(!target.current.ckey)
+			return 1
 		if(issilicon(target.current))
 			return 1
 		if(isbrain(target.current))
 			return 1
+		var/turf/T = get_turf(target.current)
 		// TODO: Tie into space manager
-		if(target.current.z in config.admin_levels)
+		if(T.z in config.admin_levels)
 			return 0
-		// TODO: Tie into space manager
-		if(target.current.z > ZLEVEL_DERELICT)
-			return 1
-		if(!target.current.ckey)
-			return 1
 		return 0
 	return 1
 
@@ -303,16 +298,6 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) \
 
 /datum/objective/escape
 	explanation_text = "Escape on the shuttle or an escape pod alive and free."
-	var/escape_areas = list(/area/shuttle/escape,
-		/area/shuttle/escape_pod1/centcom,
-		/area/shuttle/escape_pod1/transit,
-		/area/shuttle/escape_pod2/centcom,
-		/area/shuttle/escape_pod2/transit,
-		/area/shuttle/escape_pod3/centcom,
-		/area/shuttle/escape_pod3/transit,
-		/area/shuttle/escape_pod5/centcom,
-		/area/shuttle/escape_pod5/transit,
-		/area/centcom/evac)
 
 /datum/objective/escape/check_completion()
 	if(issilicon(owner.current))

@@ -421,7 +421,7 @@ var/global/list/bad_blocks[0]
 	reg_dna[unique_enzymes] = character.real_name
 
 // Hmm, I wonder how to go about this without a huge convention break
-/datum/dna/proc/serialize()
+/datum/dna/serialize()
 	var/data = list()
 	data["UE"] = unique_enzymes
 	data["SE"] = SE.Copy() // This is probably too lazy for my own good
@@ -432,7 +432,7 @@ var/global/list/bad_blocks[0]
 	data["real_name"] = real_name
 	return data
 
-/datum/dna/proc/deserialize(data)
+/datum/dna/deserialize(data)
 	unique_enzymes = data["UE"]
 	// The de-serializer is unlikely to tamper with the lists
 	SE = data["SE"]
