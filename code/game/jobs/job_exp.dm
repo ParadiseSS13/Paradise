@@ -141,14 +141,18 @@
 			if(L.inactivity >= (10 MINUTES))
 				continue
 			spawn(0)
-				update_exp_client(L, mins, ann)
+				L.update_exp_client(mins, ann)
 			sleep(10)
 
-/proc/update_exp_client(var/client/C, var/minutes, var/announce_changes = 0)
-	if(!C ||!C.ckey)
+/client/proc/update_exp_client(var/minutes, var/announce_changes = 0)
+	if(!src ||!ckey)
 		return
-	var/DBQuery/exp_read = dbcon.NewQuery("SELECT exp FROM [format_table_name("player")] WHERE ckey='[C.ckey]'")
-	exp_read.Execute()
+	var/DBQuery/exp_read = dbcon.NewQuery("SELECT exp FROM [format_table_name("player")] WHERE ckey='[ckey]'")
+	if(!exp_read.Execute())
+		var/err = exp_read.ErrorMsg()
+		log_game("SQL ERROR during exp_update_client read. Error : \[[err]\]\n")
+		message_admins("SQL ERROR during exp_update_client read. Error : \[[err]\]\n")
+		return
 	var/list/read_records = list()
 	var/hasread = 0
 	while(exp_read.NextRow())
@@ -162,31 +166,35 @@
 			play_records[rtype] = text2num(read_records[rtype])
 		else
 			play_records[rtype] = 0
-	if(C.mob.stat == CONSCIOUS && C.mob.mind.assigned_role)
+	if(mob.stat == CONSCIOUS && mob.mind.assigned_role)
 		play_records[EXP_TYPE_LIVING] += minutes
 		if(announce_changes)
-			to_chat(C.mob,"<span class='notice'>You got: [minutes] Living EXP!")
+			to_chat(mob,"<span class='notice'>You got: [minutes] Living EXP!")
 		for(var/cat in exp_jobsmap)
 			if(exp_jobsmap[cat]["titles"])
-				if(C.mob.mind.assigned_role in exp_jobsmap[cat]["titles"])
+				if(mob.mind.assigned_role in exp_jobsmap[cat]["titles"])
 					play_records[cat] += minutes
 					if(announce_changes)
-						to_chat(C.mob,"<span class='notice'>You got: [minutes] [cat] EXP!")
-		if(C.mob.mind.special_role)
+						to_chat(mob,"<span class='notice'>You got: [minutes] [cat] EXP!")
+		if(mob.mind.special_role)
 			play_records[EXP_TYPE_SPECIAL] += minutes
 			if(announce_changes)
-				to_chat(C.mob,"<span class='notice'>You got: [minutes] Special EXP!")
-	else if(isobserver(C.mob))
+				to_chat(mob,"<span class='notice'>You got: [minutes] Special EXP!")
+	else if(isobserver(mob))
 		play_records[EXP_TYPE_GHOST] += minutes
 		if(announce_changes)
-			to_chat(C.mob,"<span class='notice'>You got: [minutes] Ghost EXP!")
+			to_chat(mob,"<span class='notice'>You got: [minutes] Ghost EXP!")
 	else
 		return
 	var/new_exp = list2params(play_records)
-	C.prefs.exp = new_exp
+	prefs.exp = new_exp
 	new_exp = sanitizeSQL(new_exp)
-	var/DBQuery/update_query = dbcon.NewQuery("UPDATE [format_table_name("player")] SET exp = '[new_exp]' WHERE ckey='[C.ckey]'")
-	update_query.Execute()
+	var/DBQuery/update_query = dbcon.NewQuery("UPDATE [format_table_name("player")] SET exp = '[new_exp]' WHERE ckey='[ckey]'")
+	if(!update_query.Execute())
+		var/err = update_query.ErrorMsg()
+		log_game("SQL ERROR during exp_update_client write. Error : \[[err]\]\n")
+		message_admins("SQL ERROR during exp_update_client write. Error : \[[err]\]\n")
+		return
 
 /hook/roundstart/proc/exptimer()
 	if(!config.sql_enabled || !config.use_exp_tracking)

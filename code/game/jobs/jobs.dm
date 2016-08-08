@@ -185,7 +185,7 @@ var/list/whitelisted_positions = list(
 
 var/global/list/exp_jobsmap = list(
 	EXP_TYPE_LIVING = list(), // all living mobs
-	EXP_TYPE_CREW = list(titles = command_positions + engineering_positions + medical_positions + science_positions + support_positions + supply_positions + security_positions + civilian_positions + whitelisted_positions), // crew positions
+	EXP_TYPE_CREW = list(titles = command_positions | engineering_positions | medical_positions | science_positions | support_positions | supply_positions | security_positions | civilian_positions | nonhuman_positions | whitelisted_positions), // crew positions
 	EXP_TYPE_COMMAND = list(titles = command_positions),
 	EXP_TYPE_ENGINEERING = list(titles = engineering_positions),
 	EXP_TYPE_MEDICAL = list(titles = medical_positions),
