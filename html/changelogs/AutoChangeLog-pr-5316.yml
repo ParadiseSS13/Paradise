@@ -1,4 +1,0 @@
-author: Crazylemon64
-delete-after: True
-changes: 
-  - rscadd: "Adds a \"Save\" buildmode for admins to preserve their creations for later. This is currently in an early stage, so don't be surprised by errors!"
