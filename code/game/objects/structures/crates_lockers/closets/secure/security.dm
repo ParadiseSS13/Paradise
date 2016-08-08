@@ -15,6 +15,7 @@
 		else
 			new /obj/item/weapon/storage/backpack/satchel_cap(src)
 		new /obj/item/weapon/book/manual/faxes(src)
+		new /obj/item/clothing/head/crown/fancy(src)
 		new /obj/item/weapon/storage/backpack/duffel/captain(src)
 		new /obj/item/clothing/suit/captunic(src)
 		new /obj/item/clothing/suit/captunic/capjacket(src)
@@ -25,6 +26,7 @@
 		new /obj/item/clothing/suit/armor/vest/capcarapace/alt(src)
 		new /obj/item/weapon/cartridge/captain(src)
 		new /obj/item/clothing/shoes/brown(src)
+		new /obj/item/clothing/shoes/laceup(src)
 		new /obj/item/device/radio/headset/heads/captain/alt(src)
 		new /obj/item/clothing/gloves/color/captain(src)
 		new /obj/item/weapon/storage/belt/rapier(src)
