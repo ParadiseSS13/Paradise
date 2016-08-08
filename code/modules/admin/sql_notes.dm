@@ -178,7 +178,7 @@
 		output += ruler
 	usr << browse(output, "window=show_notes;size=900x500")
 
-/proc/show_note()
+/proc/see_own_notes()
 	var/target_ckey = usr.client.ckey
 	if(!target_ckey)
 		return
@@ -196,11 +196,9 @@
 		output += "<h2><center>Notes of [target_ckey]</center></h2>"
 		output += ruler
 		while(query_get_notes.NextRow())
-			var/id = query_get_notes.item[1]
 			var/timestamp = query_get_notes.item[2]
 			var/notetext = query_get_notes.item[3]
 			var/adminckey = query_get_notes.item[4]
-			var/last_editor = query_get_notes.item[5]
 			var/server = query_get_notes.item[6]
 			output += "<b>[timestamp] | [server] | [adminckey]</b>"
 			output += "<br>[notetext]<hr style='background:#000000; border:0; height:1px'>"
