@@ -426,6 +426,71 @@
 
 //////////// Masks ////////////
 
+obj/item/clothing/mask/gas/fluff/tyhailer // T0EPIC4U: Ty Omaha
+	name = "tacticool security gas mask"
+	desc = "A tacticool Security gas mask with modified 'Compli-o-nator 3000' device, it's labeled: \"Ty Omaha\". It looks like it has some..residue..you probably don't want to touch it."
+	icon_state = "sechailer"
+	var/phrase = 1
+	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/adjust)
+
+/obj/item/clothing/mask/gas/fluff/tyhailer/ui_action_click(mob/user, actiontype)
+	if(actiontype == /datum/action/item_action/halt)
+		tyhalt()
+	else
+		switch(phrase)
+			if(1)
+				to_chat(user, "\blue You set the special snowflake restrictor to: Stop or Bash")
+				phrase = 2
+			if(2)
+				to_chat(user, "\blue You set the special snowflake restrictor to: Criminal Scum")
+				phrase = 3
+			if(3)
+				to_chat(user, "\blue You set the special snowflake restrictor to: Prepare Justice")
+				phrase = 4
+			if(4)
+				to_chat(user, "\blue You set the special snowflake restrictor to: Shut up")
+				phrase = 5
+			if(5)
+				to_chat(user, "\blue You set the special snowflake restrictor to: The Law")
+				phrase = 6
+			if(6)
+				to_chat(user, "\blue You set the special snowflake restrictor to: Dead or Alive")
+				phrase = 7
+			if(7)
+				to_chat(user, "\blue You set the special snowflake restrictor to: Golden Bolt")
+				phrase = 1
+
+/obj/item/clothing/mask/gas/fluff/tyhailer/proc/tyhalt()
+	var/phrase_text = null
+	var/phrase_sound = null
+	if(cooldown < world.time - 30) // A cooldown, to stop Ty from being a nerd
+		switch(phrase)	//sets the properties of the chosen phrase
+			if(1)				// good Ty
+				phrase_text = "Face the wrath of the golden bolt!"
+				phrase_sound = "super"
+			if(2)
+				phrase_text = "Stop or I'll bash you."
+				phrase_sound = "bash"
+			if(3)
+				phrase_text = "Stop right there, criminal scum!"
+				phrase_sound = "imperial"
+			if(4)
+				phrase_text = "Prepare for justice!"
+				phrase_sound = "justice"
+			if(5)
+				phrase_text = "You have the right to shut the fuck up."
+				phrase_sound = "stfu"
+			if(6)
+				phrase_text = "I am, the LAW!"
+				phrase_sound = "dredd"
+			if(7)
+				phrase_text = "Dead or alive you're coming with me."
+				phrase_sound = "robocop"
+
+		usr.visible_message("[usr]'s tacticool Compli-o-Nator: <font color='red' size='4'><b>[phrase_text]</b></font>")
+		playsound(src.loc, "sound/voice/complionator/[phrase_sound].ogg", 100, 0, 4)
+		cooldown = world.time
+
 //////////// Shoes ////////////
 
 //////////// Sets ////////////
