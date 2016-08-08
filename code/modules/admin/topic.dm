@@ -1252,6 +1252,7 @@
 		message_admins("[key_name_admin(usr)] has sent [key_name_admin(M)] back to the Lobby.")
 
 		var/mob/new_player/NP = new()
+		non_respawnable_keys -= M.ckey
 		NP.ckey = M.ckey
 		qdel(M)
 

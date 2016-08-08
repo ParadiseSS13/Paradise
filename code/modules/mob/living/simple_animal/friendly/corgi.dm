@@ -6,7 +6,7 @@
 	icon_state = "corgi"
 	icon_living = "corgi"
 	icon_dead = "corgi_dead"
-	gender = MALE
+	gender = NEUTER
 	health = 30
 	maxHealth = 30
 	speak = list("YAP", "Woof!", "Bark!", "AUUUUUU")
@@ -33,6 +33,8 @@
 	..()
 	default_atmos_requirements = src.atmos_requirements
 	regenerate_icons()
+	if(gender == NEUTER)
+		gender = pick(MALE, FEMALE)
 
 /mob/living/simple_animal/pet/corgi/Life()
 	. = ..()
