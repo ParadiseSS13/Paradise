@@ -23,7 +23,7 @@
 /turf/space/Destroy()
 	return QDEL_HINT_LETMELIVE
 
-/turf/space/PreChange()
+/turf/space/BeforeChange()
 	..()
 	var/datum/space_level/S = space_manager.get_zlev(z)
 	S.remove_from_transit(src)

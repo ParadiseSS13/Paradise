@@ -165,7 +165,7 @@
 	var/old_blueprint_data = blueprint_data
 	var/old_obscured = obscured
 
-	PreChange()
+	BeforeChange()
 	if(air_master)
 		air_master.remove_from_active(src)
 	var/turf/W = new path(src)
@@ -192,7 +192,7 @@
 
 	return W
 
-/turf/proc/PreChange()
+/turf/proc/BeforeChange()
 	return
 
 // I'm including `ignore_air` because BYOND lacks positional-only arguments
