@@ -292,6 +292,6 @@
 					"}
 
 				P.info = text
-				state("The terminal prints out a report.")
+				visible_message("<span class='notice'>[src] prints out a report.</span>")
 
 	return 1

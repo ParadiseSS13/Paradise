@@ -276,7 +276,7 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 		update_icon()
 	if(!src.silent)
 		playsound(src.loc, 'sound/machines/twobeep.ogg', 50, 1)
-		state(title)
+		atom_say(title)
 
 	switch(priority)
 		if(2) // High

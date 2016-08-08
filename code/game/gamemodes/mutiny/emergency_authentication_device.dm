@@ -49,31 +49,31 @@
 		return
 
 	if(!mode.current_directive.directives_complete())
-		state("Command aborted. Communication with CentComm is prohibited until Directive X has been completed.")
+		atom_say("Command aborted. Communication with CentComm is prohibited until Directive X has been completed.")
 		return
 
 	check_key_existence()
 	if(captains_key && secondary_key)
 		activated = 1
 		to_chat(user, "\blue You activate \the [src]!")
-		state("Command acknowledged. Initiating quantum entanglement relay to Nanotrasen High Command.")
+		atom_say("Command acknowledged. Initiating quantum entanglement relay to Nanotrasen High Command.")
 		launch_shuttle()
 		return
 
 	if(!captains_key && !secondary_key)
-		state("Command aborted. Please present the authentication keys before proceeding.")
+		atom_say("Command aborted. Please present the authentication keys before proceeding.")
 		return
 
 	if(!captains_key)
-		state("Command aborted. Please present the Captain's Authentication Key.")
+		atom_say("Command aborted. Please present the Captain's Authentication Key.")
 		return
 
 	if(!secondary_key)
-		state("Command aborted. Please present the Emergency Secondary Authentication Key.")
+		atom_say("Command aborted. Please present the Emergency Secondary Authentication Key.")
 		return
 
 	// Impossible!
-	state("Command aborted. This unit is defective.")
+	atom_say("Command aborted. This unit is defective.")
 
 /obj/machinery/emergency_authentication_device/attackby(obj/item/weapon/O, mob/user, params)
 	if(activated)
@@ -81,7 +81,7 @@
 		return
 
 	if(!mode.current_directive.directives_complete())
-		state({"Command aborted. Communication with CentComm is prohibited until Directive X has been completed."})
+		atom_say("Command aborted. Communication with CentComm is prohibited until Directive X has been completed.")
 		return
 
 	check_key_existence()
@@ -90,9 +90,9 @@
 		user.drop_item()
 		O.loc = src
 
-		state("Key received. Thank you, Captain [mode.head_loyalist].")
+		atom_say("Key received. Thank you, Captain [mode.head_loyalist].")
 		spawn(5)
-			state(secondary_key ? "Your keys have been authenticated. Communication with CentComm is now authorized." : "Please insert the Emergency Secondary Authentication Key now.")
+			atom_say(secondary_key ? "Your keys have been authenticated. Communication with CentComm is now authorized." : "Please insert the Emergency Secondary Authentication Key now.")
 		return
 
 	if(istype(O, /obj/item/weapon/mutiny/auth_key/secondary) && !secondary_key)
@@ -100,9 +100,9 @@
 		user.drop_item()
 		O.loc = src
 
-		state("Key received. Thank you, Secondary Authenticator [mode.head_mutineer].")
+		atom_say("Key received. Thank you, Secondary Authenticator [mode.head_mutineer].")
 		spawn(5)
-			state(captains_key ? "Your keys have been authenticated. Communication with CentComm is now authorized." : "Please insert the Captain's Authentication Key now.")
+			atom_say(captains_key ? "Your keys have been authenticated. Communication with CentComm is now authorized." : "Please insert the Captain's Authentication Key now.")
 		return
 	..()
 
