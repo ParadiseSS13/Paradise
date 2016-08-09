@@ -221,12 +221,26 @@
 		fat="_fat"
 	preview_icon = new /icon(icobase, "torso_[g][fat]")
 	preview_icon.Blend(new /icon(icobase, "groin_[g]"), ICON_OVERLAY)
-	var/head = "head"
-	if(alt_head && current_species.bodyflags & HAS_ALT_HEADS)
-		var/datum/sprite_accessory/alt_heads/H = alt_heads_list[alt_head]
-		if(H.icon_state)
-			head = H.icon_state
-	preview_icon.Blend(new /icon(icobase, "[head]_[g]"), ICON_OVERLAY)
+	preview_icon.Blend(new /icon(icobase, "head_[g]"), ICON_OVERLAY)
+
+	//Tail
+	if(current_species && (current_species.bodyflags & HAS_TAIL))
+		var/tail_icon
+		var/tail_icon_state
+
+		if(body_accessory)
+			var/datum/body_accessory/accessory = body_accessory_by_name[body_accessory]
+			tail_icon = accessory.icon
+			tail_icon_state = accessory.icon_state
+		else
+			tail_icon = "icons/effects/species.dmi"
+			if(coloured_tail)
+				tail_icon_state = "[coloured_tail]_s"
+			else
+				tail_icon_state = "[current_species.tail]_s"
+
+		var/icon/temp = new /icon("icon" = tail_icon, "icon_state" = tail_icon_state)
+		preview_icon.Blend(temp, ICON_OVERLAY)
 
 	for(var/name in list("chest", "groin", "head", "r_arm", "r_hand", "r_leg", "r_foot", "l_leg", "l_foot", "l_arm", "l_hand"))
 		if(organ_data[name] == "amputated") continue
@@ -251,60 +265,13 @@
 		else
 			preview_icon.Blend(rgb(-s_tone,  -s_tone,  -s_tone), ICON_SUBTRACT)
 
-	//Tail
-	if(current_species && (current_species.bodyflags & HAS_TAIL))
-		var/tail_icon
-		var/tail_icon_state
-
-		if(body_accessory)
-			var/datum/body_accessory/accessory = body_accessory_by_name[body_accessory]
-			tail_icon = accessory.icon
-			tail_icon_state = accessory.icon_state
-		else
-			tail_icon = "icons/effects/species.dmi"
-			if(coloured_tail)
-				tail_icon_state = "[coloured_tail]_s"
-			else
-				tail_icon_state = "[current_species.tail]_s"
-
-		var/icon/temp = new /icon("icon" = tail_icon, "icon_state" = tail_icon_state)
-
-		if(current_species && (current_species.bodyflags & HAS_SKIN_COLOR))
-			temp.Blend(rgb(r_skin, g_skin, b_skin), ICON_ADD)
-
-		if(current_species && (current_species.bodyflags & HAS_TAIL_MARKINGS))
-			var/list/marking_styles = params2list(m_styles)
-			var/list/marking_colours = params2list(m_colours)
-			var/tail_marking = marking_styles["tail"]
-			var/datum/sprite_accessory/tail_marking_style = marking_styles_list[tail_marking]
-			if(tail_marking_style && tail_marking_style.species_allowed)
-				marking_colours["tail"] = sanitize_hexcolor(marking_colours["tail"])
-				var/icon/t_marking_s = new/icon("icon" = tail_marking_style.icon, "icon_state" = "[tail_marking_style.icon_state]_s")
-				t_marking_s.Blend(rgb(hex2num(copytext(marking_colours["tail"], 2, 4)), hex2num(copytext(marking_colours["tail"], 4, 6)), hex2num(copytext(marking_colours["tail"], 6, 8))), ICON_ADD)
-				temp.Blend(t_marking_s, ICON_OVERLAY)
-
-		preview_icon.Blend(temp, ICON_OVERLAY)
-
-	//Markings
-	if(current_species && ((current_species.bodyflags & HAS_HEAD_MARKINGS) || (current_species.bodyflags & HAS_BODY_MARKINGS)))
-		var/list/marking_styles = params2list(m_styles)
-		var/list/marking_colours = params2list(m_colours)
-		if(current_species.bodyflags & HAS_BODY_MARKINGS) //Body markings.
-			var/body_marking = marking_styles["body"]
-			var/datum/sprite_accessory/body_marking_style = marking_styles_list[body_marking]
-			if(body_marking_style && body_marking_style.species_allowed)
-				marking_colours["body"] = sanitize_hexcolor(marking_colours["body"])
-				var/icon/b_marking_s = new/icon("icon" = body_marking_style.icon, "icon_state" = "[body_marking_style.icon_state]_s")
-				b_marking_s.Blend(rgb(hex2num(copytext(marking_colours["body"], 2, 4)), hex2num(copytext(marking_colours["body"], 4, 6)), hex2num(copytext(marking_colours["body"], 6, 8))), ICON_ADD)
-				preview_icon.Blend(b_marking_s, ICON_OVERLAY)
-		if(current_species.bodyflags & HAS_HEAD_MARKINGS) //Head markings.
-			var/head_marking = marking_styles["head"]
-			var/datum/sprite_accessory/head_marking_style = marking_styles_list[head_marking]
-			if(head_marking_style && head_marking_style.species_allowed)
-				marking_colours["head"] = sanitize_hexcolor(marking_colours["head"])
-				var/icon/h_marking_s = new/icon("icon" = head_marking_style.icon, "icon_state" = "[head_marking_style.icon_state]_s")
-				h_marking_s.Blend(rgb(hex2num(copytext(marking_colours["head"], 2, 4)), hex2num(copytext(marking_colours["head"], 4, 6)), hex2num(copytext(marking_colours["head"], 6, 8))), ICON_ADD)
-				preview_icon.Blend(h_marking_s, ICON_OVERLAY)
+	//Body Markings
+	if(current_species && (current_species.bodyflags & HAS_MARKINGS))
+		var/datum/sprite_accessory/marking_style = marking_styles_list[m_style]
+		if(marking_style && marking_style.species_allowed)
+			var/icon/markings_s = new/icon("icon" = marking_style.icon, "icon_state" = "[marking_style.icon_state]_s")
+			markings_s.Blend(rgb(r_markings, g_markings, b_markings), ICON_ADD)
+			preview_icon.Blend(markings_s, ICON_OVERLAY)
 
 
 	var/icon/face_s = new/icon("icon" = 'icons/mob/human_face.dmi', "icon_state" = "bald_s")
@@ -321,13 +288,6 @@
 			hair_s.Blend(rgb(r_skin, g_skin, b_skin, 160), ICON_ADD)
 		else
 			hair_s.Blend(rgb(r_hair, g_hair, b_hair), ICON_ADD)
-
-		if(hair_style.secondary_theme)
-			var/icon/hair_secondary_s = new/icon("icon" = hair_style.icon, "icon_state" = "[hair_style.icon_state]_[hair_style.secondary_theme]_s")
-			if(!hair_style.no_sec_colour)
-				hair_secondary_s.Blend(rgb(r_hair_sec, g_hair_sec, b_hair_sec), ICON_ADD)
-			hair_s.Blend(hair_secondary_s, ICON_OVERLAY)
-
 		face_s.Blend(hair_s, ICON_OVERLAY)
 
 	//Head Accessory
@@ -345,13 +305,6 @@
 			facial_s.Blend(rgb(r_skin, g_skin, b_skin, 160), ICON_ADD)
 		else
 			facial_s.Blend(rgb(r_facial, g_facial, b_facial), ICON_ADD)
-
-		if(facial_hair_style.secondary_theme)
-			var/icon/facial_secondary_s = new/icon("icon" = facial_hair_style.icon, "icon_state" = "[facial_hair_style.icon_state]_[facial_hair_style.secondary_theme]_s")
-			if(!facial_hair_style.no_sec_colour)
-				facial_secondary_s.Blend(rgb(r_facial_sec, g_facial_sec, b_facial_sec), ICON_ADD)
-			facial_s.Blend(facial_secondary_s, ICON_OVERLAY)
-
 		face_s.Blend(facial_s, ICON_OVERLAY)
 
 	var/icon/underwear_s = null
