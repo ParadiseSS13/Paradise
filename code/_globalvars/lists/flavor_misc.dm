@@ -3,9 +3,6 @@
 var/global/list/head_accessory_styles_list = list() //stores /datum/sprite_accessory/head_accessory indexed by name
 	//Marking styles
 var/global/list/marking_styles_list = list() //stores /datum/sprite_accessory/body_markings indexed by name
-var/global/list/head_marking_styles_list = list()
-var/global/list/body_marking_styles_list = list()
-var/global/list/tail_marking_styles_list = list()
 	//Hairstyles
 var/global/list/hair_styles_list = list()			//stores /datum/sprite_accessory/hair indexed by name
 var/global/list/hair_styles_male_list = list()
@@ -26,8 +23,6 @@ var/global/list/undershirt_f = list()	 //stores only undershirt name
 var/global/list/socks_list = list()		//stores /datum/sprite_accessory/socks indexed by name
 var/global/list/socks_m = list()	 //stores only socks name
 var/global/list/socks_f = list()	 //stores only socks name
-	//Alt Heads
-var/global/list/alt_heads_list = list()	//stores /datum/sprite_accessory/alt_heads indexed by name
 	//Backpacks
 var/global/list/backbaglist = list("Nothing", "Backpack", "Satchel", "Satchel Alt")
 
