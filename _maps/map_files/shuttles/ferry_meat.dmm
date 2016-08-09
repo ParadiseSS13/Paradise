@@ -15,7 +15,7 @@
 "o" = (/obj/machinery/light/spot{tag = "icon-tube1 (NORTH)"; icon_state = "tube1"; dir = 1},/obj/structure/stool/bed/chair,/turf/simulated/floor/plasteel{icon_state = "freezerfloor"},/area/shuttle/transport)
 "p" = (/obj/machinery/door/airlock/shuttle{id_tag = "s_docking_airlock"},/turf/simulated/shuttle/floor,/area/shuttle/transport)
 "q" = (/obj/item/stack/sheet/animalhide/cat,/obj/item/stack/sheet/animalhide/corgi,/obj/item/stack/sheet/animalhide/human,/obj/item/stack/sheet/animalhide/lizard,/obj/item/stack/sheet/animalhide/monkey,/obj/item/stack/sheet/animalhide/xeno,/turf/simulated/floor/plasteel{icon_state = "freezerfloor"},/area/shuttle/transport)
-"r" = (/obj/machinery/door/airlock/shuttle{id_tag = "s_docking_airlock"},/obj/docking_port/mobile{dir = 8; dwidth = 2; height = 12; id = "ferry"; name = "ferry shuttle"; roundstart_move = "ferry_away"; width = 5},/turf/simulated/shuttle/floor,/area/shuttle/transport)
+"r" = (/obj/machinery/door/airlock/shuttle{id_tag = "s_docking_airlock"},/obj/docking_port/mobile{dir = 8; dwidth = 2; height = 12; id = "ferry"; name = "ferry shuttle"; roundstart_move = "ferry_away"; timid = 1; width = 5},/turf/simulated/shuttle/floor,/area/shuttle/transport)
 "s" = (/turf/space,/obj/structure/shuttle/engine/propulsion{tag = "icon-propulsion (EAST)"; icon_state = "propulsion"; dir = 4},/turf/simulated/shuttle/wall{icon_state = "swall_f5"; dir = 2},/area/shuttle/transport)
 "t" = (/turf/simulated/floor/plasteel{icon_state = "freezerfloor"},/turf/simulated/shuttle/wall/interior{tag = "icon-swall_f10"; icon_state = "swall_f10"},/area/shuttle/transport)
 "u" = (/obj/machinery/light/spot,/obj/structure/closet/chefcloset,/turf/simulated/floor/plasteel{icon_state = "freezerfloor"},/area/shuttle/transport)

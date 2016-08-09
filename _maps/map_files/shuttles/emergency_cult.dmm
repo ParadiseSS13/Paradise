@@ -31,7 +31,7 @@
 "aE" = (/obj/structure/stool/bed/chair{dir = 1},/obj/effect/decal/remains/human{desc = "This guy seemed to have died in terrible way! Half his remains are dust."; icon_state = "remains"; name = "Human remains"},/turf/simulated/floor/engine/cult,/area/shuttle/escape)
 "aF" = (/obj/structure/stool/bed/chair{dir = 8},/obj/item/device/radio/intercom{dir = 4; name = "station intercom (General)"; pixel_x = 28},/obj/effect/decal/remains/human{desc = "This guy seemed to have died in terrible way! Half his remains are dust."; icon_state = "remains"; name = "Human remains"},/turf/simulated/floor/engine/cult,/area/shuttle/escape)
 "aG" = (/obj/effect/spawner/window/reinforced,/turf/simulated/wall/cult,/area/shuttle/escape)
-"aH" = (/obj/docking_port/mobile/emergency{dir = 4; dwidth = 11; height = 13; name = "Shuttle 667"; width = 24},/obj/structure/mineral_door/wood,/turf/simulated/shuttle/floor,/area/shuttle/escape)
+"aH" = (/obj/docking_port/mobile/emergency{dir = 4; dwidth = 11; height = 13; name = "Shuttle 667"; timid = 1; width = 24},/obj/structure/mineral_door/wood,/turf/simulated/shuttle/floor,/area/shuttle/escape)
 "aI" = (/obj/effect/rune,/turf/simulated/floor/engine/cult,/area/shuttle/escape)
 "aJ" = (/obj/item/device/radio/intercom{dir = 8; name = "station intercom (General)"; pixel_x = -28},/obj/machinery/light/spot{tag = "icon-tube1 (WEST)"; icon_state = "tube1"; dir = 8},/obj/item/flag/cult,/turf/simulated/floor/engine/cult,/area/shuttle/escape)
 "aK" = (/obj/item/candle/eternal,/turf/simulated/floor/engine/cult,/area/shuttle/escape)

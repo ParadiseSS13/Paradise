@@ -13,6 +13,8 @@
 	icon = 'icons/obj/machines/shuttle_manipulator.dmi'
 	icon_state = "holograph_on"
 
+	var/current_tab = SHUTTLE_MANIPULATOR_STATUS
+	var/busy
 	// UI state variables
 	var/datum/map_template/shuttle/selected
 
@@ -20,6 +22,8 @@
 
 	var/obj/docking_port/mobile/preview_shuttle
 	var/datum/map_template/shuttle/preview_template
+	var/list/templates = list()
+	var/list/shuttle_data = list()
 
 /obj/machinery/shuttle_manipulator/New()
 	. = ..()
@@ -37,13 +41,11 @@
 /obj/machinery/shuttle_manipulator/process()
 	return
 
+/obj/machinery/shuttle_manipulator/attack_hand(mob/user as mob)
+		user.set_machine(src)
+		interact(user)
 
-/datum/shuttle_manipulator
-	var/current_tab = SHUTTLE_MANIPULATOR_STATUS
-	var/busy
-
-/datum/shuttle_manipulator/proc/showMenu(mob/user)
-
+/obj/machinery/shuttle_manipulator/interact(mob/user)
 
 	for(var/shuttle_id in shuttle_templates)
 		var/datum/map_template/shuttle/S = shuttle_templates[shuttle_id]
@@ -61,7 +63,7 @@
 		L["admin_notes"] = S.admin_notes
 
 		if(selected == S)
-			data["selected"] = L
+			shuttle_data["selected"] = L
 
 		templates[S.port_id]["templates"] += list(L)
 
@@ -77,9 +79,9 @@
 		L["mode"] = capitalize(M.mode)
 		L["status"] = M.getStatusText()
 		if(M == existing_shuttle)
-			data["existing_shuttle"] = L
+			shuttle_data["existing_shuttle"] = L
 
-		data["shuttles"] += list(L)
+		shuttle_data["shuttles"] += list(L)
 
 	var/dat = ""
 	dat += "<center>"
@@ -95,63 +97,85 @@
 		dat += "<div class='statusDisplay'>"
 
 		switch(current_tab)
-		    if(SHUTTLE_MANIPULATOR_STATUS)
-		        dat += "html goes here"
-		    if(SHUTTLE_MANIPULATOR_TEMPLATE)
-		        dat += "html goes here"
-		    if(SHUTTLE_MANIPULATOR_MOD)
-		        dat += "html goes here"
+			if(SHUTTLE_MANIPULATOR_STATUS)
+				dat += "<div class='block'>"
+				for(var/list/shuttle in shuttle_data["shuttles"])
+					dat += "<span class='line'>"
+					dat += "<span class='statusLabel'>[shuttle["name"]] [shuttle["id"]]: [shuttle["mode"]] [shuttle["status"]] [shuttle["timer"]] </span>"
+					dat += "<a href='?src=\ref[src];jump_to=[shuttle["id"]]'>Jump To</a><br>"
+					dat += "</span>"
+				dat += "</div>"
+			if(SHUTTLE_MANIPULATOR_TEMPLATE)
+				dat += "<div class='block'>"
+				for(var/list/shuttle in shuttle_data["shuttles"])
+					dat += "<span class='line'>"
+					dat += "<span class='statusLabel'> [shuttle["name"]] <br>[shuttle["description"]]<br> [shuttle["admin_notes"]] <br></span>"
+					dat += "<A href='?src=\ref[src];load=[shuttle["id"]]'>Load Template</A>"
+					dat += "<A href='?src=\ref[src];select_template=[shuttle["id"]]'>Select Template</A>"
+					dat += "<a href='?src=\ref[src];preview=[shuttle["id"]]'>Preview Template</a><br>"
+					dat += "</span>"
+				dat += "</div>"
+			if(SHUTTLE_MANIPULATOR_MOD)
+				dat += "<div class='block'>"
+				for(var/list/shuttle in shuttle_data["shuttles"])
+					dat += "<span class='line'>"
+					dat += "<span class='statusLabel'>[shuttle["name"]] [shuttle["id"]] <br>[shuttle["description"]]<br> [shuttle["admin_notes"]] <br> </span>"
+					dat += "<A href='?src=\ref[src];move=[shuttle["id"]]'>Send to port</A>"
+					dat += "<a href='?src=\ref[src];jump_to=[shuttle["id"]]'>Jump To</a><br>"
+					dat += "</span>"
+				dat += "</div>"
 
-	return data
+	var/datum/browser/popup = new(user, "shuttle manipulator", "Shuttle Manipulator", 500, 500)
+	popup.set_content(dat)
+	popup.open()
 
+	return
 
-/obj/machinery/shuttle_manipulator/ui_act(action, params)
+/obj/machinery/shuttle_manipulator/Topic(href, href_list)
 	if(..())
 		return
 
 	var/mob/user = usr
 
 	// Preload some common parameters
-	var/shuttle_id = params["shuttle_id"]
+	var/shuttle_id = href_list["shuttle_id"]
 	var/datum/map_template/shuttle/S = shuttle_templates[shuttle_id]
 
-	switch(action)
-		if("select_template")
-			if(S)
-				existing_shuttle = shuttle_master.getShuttle(S.port_id)
-				selected = S
-				. = TRUE
-		if("jump_to")
-			if(params["type"] == "mobile")
-				. = TRUE
-				for(var/i in shuttle_master.mobile)
-					var/obj/docking_port/mobile/M = i
-					if(M.id == params["id"])
-						user.forceMove(get_turf(M))
-						break
+	if(href_list["select_template"])
+		if(S)
+			existing_shuttle = shuttle_master.getShuttle(S.port_id)
+			selected = S
+			. = TRUE
+	if(href_list["jump_to"])
+		if(href_list["type"] == "mobile")
+			. = TRUE
+			for(var/i in shuttle_master.mobile)
+				var/obj/docking_port/mobile/M = i
+				if(M.id == href_list["id"])
+					user.forceMove(get_turf(M))
+					break
 
-		if("preview")
-			if(S)
-				. = TRUE
-				unload_preview()
-				load_template(S)
-				if(preview_shuttle)
-					preview_template = S
-					user.forceMove(get_turf(preview_shuttle))
-		if("load")
-			if(existing_shuttle == SSshuttle.backup_shuttle)
-				// TODO make the load button disabled
-				WARNING("The shuttle that the selected shuttle will replace \
-					is the backup shuttle. Backup shuttle is required to be \
-					intact for round sanity.")
-			else if(S)
-				. = TRUE
-				// If successful, returns the mobile docking port
-				var/mdp = action_load(S)
-				if(mdp)
-					user.forceMove(get_turf(mdp))
+	if(href_list["preview"])
+		if(S)
+			. = TRUE
+			unload_preview()
+			load_template(S)
+			if(preview_shuttle)
+				preview_template = S
+				user.forceMove(get_turf(preview_shuttle))
 
-	update_icon()
+	if(href_list["load"])
+		if(existing_shuttle == shuttle_master.backup_shuttle)
+			// TODO make the load button disabled
+			WARNING("The shuttle that the selected shuttle will replace \
+				is the backup shuttle. Backup shuttle is required to be \
+				intact for round sanity.")
+		else if(S)
+			. = TRUE
+			// If successful, returns the mobile docking port
+			var/mdp = action_load(S)
+			if(mdp)
+				user.forceMove(get_turf(mdp))
 
 /obj/machinery/shuttle_manipulator/proc/action_load(
 	datum/map_template/shuttle/loading_template)
@@ -186,7 +210,7 @@
 	// truthy value means that it cannot dock for some reason
 	// but we can ignore the someone else docked error because we'll
 	// be moving into their place shortly
-	if(result && (result != SHUTTLE_SOMEONE_ELSE_DOCKED))
+	if(result && (result != 6))
 		var/m = "Unsuccessful dock of [preview_shuttle] ([result])."
 		WARNING(m)
 		return
@@ -251,9 +275,9 @@
 	if(!found)
 		var/msg = "load_template(): Shuttle Template [S.mappath] has no \
 			mobile docking port. Aborting import."
-		for(var/T in affected)
-			var/turf/T0 = T
-			T0.empty()
+		//for(var/T in affected)//wot do?
+		//	var/turf/T0 = T
+		//	T0.empty()
 
 		message_admins(msg)
 		WARNING(msg)

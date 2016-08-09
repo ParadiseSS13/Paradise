@@ -44,7 +44,7 @@
 "aR" = (/obj/structure/table/woodentable,/obj/item/device/guitar,/turf/simulated/floor/plasteel{icon_state = "cafeteria"; dir = 2},/area/shuttle/escape)
 "aS" = (/turf/simulated/shuttle/wall{tag = "icon-swall7"; icon_state = "swall7"; dir = 2},/area/shuttle/escape)
 "aT" = (/obj/structure/grille,/obj/structure/window/full/shuttle{icon_state = "15"},/turf/simulated/floor/plating,/area/shuttle/escape)
-"aU" = (/obj/docking_port/mobile/emergency{dir = 4; dwidth = 11; height = 13; name = "The Emergency Escape Bar"; width = 24},/obj/machinery/door/airlock/shuttle{aiControlDisabled = 1; hackProof = 1; id_tag = "s_docking_airlock"; name = "Shuttle Hatch"},/turf/simulated/shuttle/floor,/area/shuttle/escape)
+"aU" = (/obj/docking_port/mobile/emergency{dir = 4; dwidth = 11; height = 13; name = "The Emergency Escape Bar"; timid = 1; width = 24},/obj/machinery/door/airlock/shuttle{aiControlDisabled = 1; hackProof = 1; id_tag = "s_docking_airlock"; name = "Shuttle Hatch"},/turf/simulated/shuttle/floor,/area/shuttle/escape)
 "aV" = (/obj/structure/table,/obj/item/weapon/storage/box/drinkingglasses,/obj/item/weapon/reagent_containers/food/drinks/shaker,/turf/simulated/floor/plasteel{icon_state = "cafeteria"; dir = 2},/area/shuttle/escape)
 "aW" = (/obj/structure/stool/bed/chair/wood/wings,/turf/simulated/floor/plasteel{icon_state = "grimy"},/area/shuttle/escape)
 "aX" = (/obj/structure/table,/obj/machinery/chem_dispenser/beer,/turf/simulated/floor/plasteel{icon_state = "cafeteria"; dir = 2},/area/shuttle/escape)

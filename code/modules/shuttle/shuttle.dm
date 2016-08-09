@@ -18,6 +18,10 @@
 	var/dwidth = 0	//position relative to covered area, perpendicular to dir
 	var/dheight = 0	//position relative to covered area, parallel to dir
 
+	// A timid shuttle will not register itself with the shuttle subsystem
+	// All shuttle templates are timid
+	var/timid = FALSE
+
 	var/i_know_what_im_doing = 0
 
 	//these objects are indestructable
@@ -207,6 +211,9 @@
 
 /obj/docking_port/mobile/New()
 	..()
+
+	if(!timid)
+		register()
 
 	var/area/A = get_area(src)
 	if(istype(A, /area/shuttle))
