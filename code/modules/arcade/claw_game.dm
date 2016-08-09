@@ -19,8 +19,7 @@
 								'icons/obj/arcade_images/prizeorbs.png')
 
 /obj/machinery/arcade/claw/New()
-	src.addAtProcessing()
-
+	..()
 	machine_image = pick("_1", "_2")
 	update_icon()
 

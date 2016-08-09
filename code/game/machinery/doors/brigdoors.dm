@@ -98,7 +98,7 @@
 
 	// Set releasetime
 	releasetime = world.timeofday + timetoset
-	if(!(src in machines))
+	if(!(src in machine_processing))
 		addAtProcessing()
 
 	for(var/obj/machinery/door/window/brigdoor/door in targets)

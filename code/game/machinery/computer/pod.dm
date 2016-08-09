@@ -19,8 +19,6 @@
 	..()
 	spawn(5)
 		driver_sync()
-	machines += src
-	return
 
 
 /obj/machinery/computer/pod/proc/driver_sync()
