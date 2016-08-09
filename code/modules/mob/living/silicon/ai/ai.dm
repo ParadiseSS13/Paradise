@@ -62,7 +62,6 @@ var/list/ai_verbs_default = list(
 	var/datum/module_picker/malf_picker
 	var/processing_time = 100
 	var/list/datum/AI_Module/current_modules = list()
-	var/fire_res_on_core = 0
 	var/can_dominate_mechs = 0
 	var/control_disabled = 0 // Set to 1 to stop AI from interacting via Click() -- TLE
 	var/malfhacking = 0 // More or less a copy of the above var, so that malf AIs can hack and still get new cyborgs -- NeoFite
@@ -812,54 +811,117 @@ var/list/ai_verbs_default = list(
 				custom_hologram = 1  // option is given in hologram menu
 
 	var/input
-	if(alert("Would you like to select a hologram based on a crew member or switch to unique avatar?",,"Crew Member","Unique")=="Crew Member")
+	switch(alert("Would you like to select a hologram based on a crew member, an animal, or switch to a unique avatar?",,"Crew Member","Unique","Animal"))
+		if("Crew Member")
+			var/personnel_list[] = list()
 
-		var/personnel_list[] = list()
+			for(var/datum/data/record/t in data_core.locked)//Look in data core locked.
+				personnel_list["[t.fields["name"]]: [t.fields["rank"]]"] = t.fields["image"]//Pull names, rank, and image.
 
-		for(var/datum/data/record/t in data_core.locked)//Look in data core locked.
-			personnel_list["[t.fields["name"]]: [t.fields["rank"]]"] = t.fields["image"]//Pull names, rank, and image.
+			if(personnel_list.len)
+				input = input("Select a crew member:") as null|anything in personnel_list
+				var/icon/character_icon = personnel_list[input]
+				if(character_icon)
+					qdel(holo_icon)//Clear old icon so we're not storing it in memory.
+					holo_icon = getHologramIcon(icon(character_icon))
+			else
+				alert("No suitable records found. Aborting.")
 
-		if(personnel_list.len)
-			input = input("Select a crew member:") as null|anything in personnel_list
-			var/icon/character_icon = personnel_list[input]
-			if(character_icon)
-				qdel(holo_icon)//Clear old icon so we're not storing it in memory.
-				holo_icon = getHologramIcon(icon(character_icon))
+		if("Animal")
+			var/icon_list[] = list(
+			"Bear",
+			"Carp",
+			"Chicken",
+			"Corgi",
+			"Cow",
+			"Crab",
+			"Deer",
+			"Fox",
+			"Goat",
+			"Goose",
+			"Kitten",
+			"Kitten2",
+			"Pig",
+			"Poly",
+			"Pug",
+			"Seal",
+			"Spider",
+			"Turkey"
+			)
+
+			input = input("Please select a hologram:") as null|anything in icon_list
+			if(input)
+				qdel(holo_icon)
+				switch(input)
+					if("Bear")
+						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi',"bear"))
+					if("Carp")
+						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi',"carp"))
+					if("Chicken")
+						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi',"chicken_brown"))
+					if("Corgi")
+						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi',"corgi"))
+					if("Cow")
+						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi',"cow"))
+					if("Crab")
+						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi',"crab"))
+					if("Deer")
+						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi',"deer"))
+					if("Fox")
+						holo_icon = getHologramIcon(icon('icons/mob/pets.dmi',"fox"))
+					if("Goat")
+						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi',"goat"))
+					if("Goose")
+						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi',"goose"))
+					if("Kitten")
+						holo_icon = getHologramIcon(icon('icons/mob/pets.dmi',"cat"))
+					if("Kitten2")
+						holo_icon = getHologramIcon(icon('icons/mob/pets.dmi',"cat2"))
+					if("Pig")
+						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi',"pig"))
+					if("Poly")
+						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi',"parrot_fly"))
+					if("Pug")
+						holo_icon = getHologramIcon(icon('icons/mob/pets.dmi',"pug"))
+					if("Seal")
+						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi',"seal"))
+					if("Spider")
+						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi',"guard"))
+					if("Turkey")
+						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi',"turkey"))
+
 		else
-			alert("No suitable records found. Aborting.")
+			var/icon_list[] = list(
+			"default",
+			"floating face",
+			"xeno queen",
+			"eldritch",
+			"ancient machine"
+			)
+			if(custom_hologram) //insert custom hologram
+				icon_list.Add("custom")
 
-	else
-		var/icon_list[] = list(
-		"default",
-		"floating face",
-		"xeno queen",
-		"eldritch",
-		"ancient machine"
-		)
-		if(custom_hologram) //insert custom hologram
-			icon_list.Add("custom")
-
-		input = input("Please select a hologram:") as null|anything in icon_list
-		if(input)
-			qdel(holo_icon)
-			switch(input)
-				if("default")
-					holo_icon = getHologramIcon(icon('icons/mob/AI.dmi',"holo1"))
-				if("floating face")
-					holo_icon = getHologramIcon(icon('icons/mob/AI.dmi',"holo2"))
-				if("xeno queen")
-					holo_icon = getHologramIcon(icon('icons/mob/AI.dmi',"holo3"))
-				if("eldritch")
-					holo_icon = getHologramIcon(icon('icons/mob/AI.dmi',"holo4"))
-				if("ancient machine")
-					holo_icon = getHologramIcon(icon('icons/mob/ancient_machine.dmi', "ancient_machine"))
-				if("custom")
-					if("[ckey]-ai-holo" in icon_states('icons/mob/custom-synthetic.dmi'))
-						holo_icon = getHologramIcon(icon('icons/mob/custom-synthetic.dmi', "[ckey]-ai-holo"))
-					else if("[ckey]-ai-holo" in icon_states('icons/mob/custom-synthetic64.dmi'))
-						holo_icon = getHologramIcon(icon('icons/mob/custom-synthetic64.dmi', "[ckey]-ai-holo"))
-					else
+			input = input("Please select a hologram:") as null|anything in icon_list
+			if(input)
+				qdel(holo_icon)
+				switch(input)
+					if("default")
 						holo_icon = getHologramIcon(icon('icons/mob/AI.dmi',"holo1"))
+					if("floating face")
+						holo_icon = getHologramIcon(icon('icons/mob/AI.dmi',"holo2"))
+					if("xeno queen")
+						holo_icon = getHologramIcon(icon('icons/mob/AI.dmi',"holo3"))
+					if("eldritch")
+						holo_icon = getHologramIcon(icon('icons/mob/AI.dmi',"holo4"))
+					if("ancient machine")
+						holo_icon = getHologramIcon(icon('icons/mob/ancient_machine.dmi', "ancient_machine"))
+					if("custom")
+						if("[ckey]-ai-holo" in icon_states('icons/mob/custom-synthetic.dmi'))
+							holo_icon = getHologramIcon(icon('icons/mob/custom-synthetic.dmi', "[ckey]-ai-holo"))
+						else if("[ckey]-ai-holo" in icon_states('icons/mob/custom-synthetic64.dmi'))
+							holo_icon = getHologramIcon(icon('icons/mob/custom-synthetic64.dmi', "[ckey]-ai-holo"))
+						else
+							holo_icon = getHologramIcon(icon('icons/mob/AI.dmi',"holo1"))
 
 	return
 
@@ -1073,3 +1135,18 @@ var/list/ai_verbs_default = list(
 	eyeobj.setLoc(get_turf(C))
 	client.eye = eyeobj
 	return 1
+
+/mob/living/silicon/ai/proc/relay_speech(mob/living/M, text, verb, datum/language/speaking)
+	if(!say_understands(M, speaking))//The AI will be able to understand most mobs talking through the holopad.
+		if(speaking)
+			text = speaking.scramble(text)
+		else
+			text = stars(text)
+	var/name_used = M.GetVoice()
+	//This communication is imperfect because the holopad "filters" voices and is only designed to connect to the master only.
+	var/rendered
+	if(speaking)
+		rendered = "<i><span class='game say'>Relayed Speech: <span class='name'>[name_used]</span> [speaking.format_message(text, verb)]</span></i>"
+	else
+		rendered = "<i><span class='game say'>Relayed Speech: <span class='name'>[name_used]</span> [verb], <span class='message'>\"[text]\"</span></span></i>"
+	show_message(rendered, 2)

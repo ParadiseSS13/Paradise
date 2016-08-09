@@ -30,19 +30,27 @@
 #define DNA_UI_HACC_R		11
 #define DNA_UI_HACC_G		12
 #define DNA_UI_HACC_B		13
-#define DNA_UI_MARK_R		14
-#define DNA_UI_MARK_G		15
-#define DNA_UI_MARK_B		16
-#define DNA_UI_EYES_R		17
-#define DNA_UI_EYES_G		18
-#define DNA_UI_EYES_B		19
-#define DNA_UI_GENDER		20
-#define DNA_UI_BEARD_STYLE	21
-#define DNA_UI_HAIR_STYLE	22
+#define DNA_UI_HEAD_MARK_R	14
+#define DNA_UI_HEAD_MARK_G	15
+#define DNA_UI_HEAD_MARK_B	16
+#define DNA_UI_BODY_MARK_R	17
+#define DNA_UI_BODY_MARK_G	18
+#define DNA_UI_BODY_MARK_B	19
+#define DNA_UI_TAIL_MARK_R	20
+#define DNA_UI_TAIL_MARK_G	21
+#define DNA_UI_TAIL_MARK_B	22
+#define DNA_UI_EYES_R		23
+#define DNA_UI_EYES_G		24
+#define DNA_UI_EYES_B		25
+#define DNA_UI_GENDER		26
+#define DNA_UI_BEARD_STYLE	27
+#define DNA_UI_HAIR_STYLE	28
 /*#define DNA_UI_BACC_STYLE	23*/
-#define DNA_UI_HACC_STYLE	23
-#define DNA_UI_MARK_STYLE	24
-#define DNA_UI_LENGTH		24 // Update this when you add something, or you WILL break shit.
+#define DNA_UI_HACC_STYLE	29
+#define DNA_UI_HEAD_MARK_STYLE	30
+#define DNA_UI_BODY_MARK_STYLE	31
+#define DNA_UI_TAIL_MARK_STYLE	32
+#define DNA_UI_LENGTH		32 // Update this when you add something, or you WILL break shit.
 
 #define DNA_SE_LENGTH 55 // Was STRUCDNASIZE, size 27. 15 new blocks added = 42, plus room to grow.
 
@@ -154,9 +162,16 @@ var/global/list/bad_blocks[0]
 	var/bodyacc	= character.body_accessory*/
 
 	// Markings
-	if(!character.m_style)
-		character.m_style = "None"
-	var/marks	= marking_styles_list.Find(character.m_style)
+	if(!character.m_styles)
+		character.m_styles = "head=None;\
+							body=None;\
+							tail=None"
+
+	var/list/marking_styles = params2list(character.m_styles)
+	var/list/marking_colours = params2list(character.m_colours)
+	var/head_marks	= marking_styles_list.Find(marking_styles["head"])
+	var/body_marks	= marking_styles_list.Find(marking_styles["body"])
+	var/tail_marks	= marking_styles_list.Find(marking_styles["tail"])
 
 	SetUIValueRange(DNA_UI_HAIR_R,	H.r_hair,				255,	1)
 	SetUIValueRange(DNA_UI_HAIR_G,	H.g_hair,				255,	1)
@@ -178,9 +193,17 @@ var/global/list/bad_blocks[0]
 	SetUIValueRange(DNA_UI_HACC_G,	H.g_headacc,			255,	1)
 	SetUIValueRange(DNA_UI_HACC_B,	H.b_headacc,			255,	1)
 
-	SetUIValueRange(DNA_UI_MARK_R,	character.r_markings,	255,	1)
-	SetUIValueRange(DNA_UI_MARK_G,	character.g_markings,	255,	1)
-	SetUIValueRange(DNA_UI_MARK_B,	character.b_markings,	255,	1)
+	SetUIValueRange(DNA_UI_HEAD_MARK_R,	hex2num(copytext(marking_colours["head"], 2, 4)),	255,	1)
+	SetUIValueRange(DNA_UI_HEAD_MARK_G,	hex2num(copytext(marking_colours["head"], 4, 6)),	255,	1)
+	SetUIValueRange(DNA_UI_HEAD_MARK_B,	hex2num(copytext(marking_colours["head"], 6, 8)),	255,	1)
+
+	SetUIValueRange(DNA_UI_BODY_MARK_R,	hex2num(copytext(marking_colours["body"], 2, 4)),	255,	1)
+	SetUIValueRange(DNA_UI_BODY_MARK_G,	hex2num(copytext(marking_colours["body"], 4, 6)),	255,	1)
+	SetUIValueRange(DNA_UI_BODY_MARK_B,	hex2num(copytext(marking_colours["body"], 6, 8)),	255,	1)
+
+	SetUIValueRange(DNA_UI_TAIL_MARK_R,	hex2num(copytext(marking_colours["tail"], 2, 4)),	255,	1)
+	SetUIValueRange(DNA_UI_TAIL_MARK_G,	hex2num(copytext(marking_colours["tail"], 4, 6)),	255,	1)
+	SetUIValueRange(DNA_UI_TAIL_MARK_B,	hex2num(copytext(marking_colours["tail"], 6, 8)),	255,	1)
 
 	SetUIValueRange(DNA_UI_SKIN_TONE, 35-character.s_tone,	220,	1) // Value can be negative.
 
@@ -190,7 +213,9 @@ var/global/list/bad_blocks[0]
 	SetUIValueRange(DNA_UI_BEARD_STYLE,	beard,		facial_hair_styles_list.len,	1)
 	/*SetUIValueRange(DNA_UI_BACC_STYLE,	bodyacc,	facial_hair_styles_list.len,	1)*/
 	SetUIValueRange(DNA_UI_HACC_STYLE,	headacc,	head_accessory_styles_list.len,	1)
-	SetUIValueRange(DNA_UI_MARK_STYLE,	marks,		marking_styles_list.len,		1)
+	SetUIValueRange(DNA_UI_HEAD_MARK_STYLE,	head_marks,		marking_styles_list.len,		1)
+	SetUIValueRange(DNA_UI_BODY_MARK_STYLE,	body_marks,		marking_styles_list.len,		1)
+	SetUIValueRange(DNA_UI_TAIL_MARK_STYLE,	tail_marks,		marking_styles_list.len,		1)
 
 
 	UpdateUI()
@@ -421,7 +446,7 @@ var/global/list/bad_blocks[0]
 	reg_dna[unique_enzymes] = character.real_name
 
 // Hmm, I wonder how to go about this without a huge convention break
-/datum/dna/proc/serialize()
+/datum/dna/serialize()
 	var/data = list()
 	data["UE"] = unique_enzymes
 	data["SE"] = SE.Copy() // This is probably too lazy for my own good
@@ -432,7 +457,7 @@ var/global/list/bad_blocks[0]
 	data["real_name"] = real_name
 	return data
 
-/datum/dna/proc/deserialize(data)
+/datum/dna/deserialize(data)
 	unique_enzymes = data["UE"]
 	// The de-serializer is unlikely to tamper with the lists
 	SE = data["SE"]
