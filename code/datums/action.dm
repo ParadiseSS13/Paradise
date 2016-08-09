@@ -213,6 +213,10 @@
 /datum/action/item_action/halt
 	name = "HALT!"
 
+/datum/action/item_action/selectphrase
+	name = "Change Phrase"
+	background_icon_state = "bg_revenant"
+
 /datum/action/item_action/hoot
 	name = "Hoot"
 
