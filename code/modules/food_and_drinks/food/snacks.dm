@@ -1110,43 +1110,6 @@
 		reagents.add_reagent("nutriment", 6)
 		bitesize = 2
 
-
-/obj/item/weapon/reagent_containers/food/snacks/human/kabob
-	name = "-kabob"
-	icon_state = "kabob"
-	desc = "A human meat, on a stick."
-	trash = /obj/item/stack/rods
-	filling_color = "#A85340"
-
-	New()
-		..()
-		reagents.add_reagent("nutriment", 8)
-		bitesize = 2
-
-/obj/item/weapon/reagent_containers/food/snacks/monkeykabob
-	name = "Meat-kabob"
-	icon_state = "kabob"
-	desc = "Delicious meat, on a stick."
-	trash = /obj/item/stack/rods
-	filling_color = "#A85340"
-
-	New()
-		..()
-		reagents.add_reagent("nutriment", 8)
-		bitesize = 2
-
-/obj/item/weapon/reagent_containers/food/snacks/tofukabob
-	name = "Tofu-kabob"
-	icon_state = "kabob"
-	desc = "Vegan meat, on a stick."
-	trash = /obj/item/stack/rods
-	filling_color = "#FFFEE0"
-
-	New()
-		..()
-		reagents.add_reagent("nutriment", 8)
-		bitesize = 2
-
 /obj/item/weapon/reagent_containers/food/snacks/popcorn
 	name = "Popcorn"
 	desc = "Now let's find some cinema."
