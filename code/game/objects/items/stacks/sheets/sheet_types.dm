@@ -112,7 +112,8 @@ var/global/list/datum/stack_recipe/plasteel_recipes = list(
 	new /datum/stack_recipe("AI core", /obj/structure/AIcore, 4, time = 50, one_per_turf = 1),
 	new /datum/stack_recipe("Surgery Table", /obj/machinery/optable, 5, time = 50, one_per_turf = 1, on_floor = 1),
 	new /datum/stack_recipe("Metal crate", /obj/structure/closet/crate, 10, time = 50, one_per_turf = 1),
-	new /datum/stack_recipe("Mass Driver frame", /obj/machinery/mass_driver_frame, 3, time = 50, one_per_turf = 1)
+	new /datum/stack_recipe("Mass Driver frame", /obj/machinery/mass_driver_frame, 3, time = 50, one_per_turf = 1),
+    new /datum/stack_recipe("Mech Recharge Bay", /turf/simulated/floor/mech_bay_recharge_floor, 2, time = 50, one_per_turf = 1),
 )
 
 /obj/item/stack/sheet/plasteel
