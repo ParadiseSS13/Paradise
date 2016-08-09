@@ -856,11 +856,11 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 /obj/item/organ/external/proc/mutate()
 	src.status |= ORGAN_MUTATED
-	if(owner) owner.update_body(0, 1) //Forces all bodyparts to update in order to correctly render the deformed sprite.
+	if(owner) owner.update_body()
 
 /obj/item/organ/external/proc/unmutate()
 	src.status &= ~ORGAN_MUTATED
-	if(owner) owner.update_body(0, 1) //Forces all bodyparts to update in order to correctly return them to normal.
+	if(owner) owner.update_body()
 
 /obj/item/organ/external/proc/get_damage()	//returns total damage
 	return max(brute_dam + burn_dam - perma_injury, perma_injury)	//could use health?
