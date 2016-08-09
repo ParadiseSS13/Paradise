@@ -215,7 +215,6 @@
 		SM.faction = user.faction
 		SM.master_commander = user
 		SM.sentience_act()
-		SM.attack_log += "\[[time_stamp()]\] <font color='blue'>Has been made sentient by [user.name] ([user.ckey])</font>"
 		to_chat(SM, "<span class='warning'>All at once it makes sense: you know what you are and who you are! Self awareness is yours!</span>")
 		to_chat(SM, "<span class='userdanger'>You are grateful to be self aware and owe [user] a great debt. Serve [user], and assist them in completing their goals at any cost.</span>")
 		to_chat(user, "<span class='notice'>[M] accepts the potion and suddenly becomes attentive and aware. It worked!</span>")
