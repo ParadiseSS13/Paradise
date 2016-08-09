@@ -48,7 +48,7 @@
   var/datum/station_state/ending_state = new /datum/station_state()
   ending_state.count()
   var/obj_station_integrity = min(round( 100.0 *  start_state.score(ending_state), 0.1), 100.0)
-  if(obj_station_integrity < 80)
+  if(obj_station_integrity < 95)
     return 0
   if(score_nuked)
     return 0
