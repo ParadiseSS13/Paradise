@@ -321,10 +321,10 @@
 	return ..()
 
 /obj/item/clothing/head/pirate/fluff/stumpy/process()
-	if(istype(loc, /mob/living/carbon/human))
+	if(ishuman(loc))
 		var/mob/living/carbon/human/H = loc
 		if(H.head == src)
-			H.slurring = 3 //always slur
+			H.slurring = max(3, H.slurring) //always slur
 
 //////////// Suits ////////////
 /obj/item/clothing/suit/storage/labcoat/fluff/aeneas_rinil //Socialsystem: Lynn Fea
