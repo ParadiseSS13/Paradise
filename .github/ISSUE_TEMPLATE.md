@@ -1,17 +1,17 @@
-**Problem Description**:
-What is the problem?
+**Описание проблемы**:
+В чем суть проблемы?
 
-**What did you expect to happen**: 
-Why do you think this is a bug?
+**Что должно было произойти**: 
+Что должно произойти? Это важно, чтобы понять, баг ли это вообще.
 
-**What happened instead**:
-How is what happened different from what you expected?
+**Что произошло вместо этого**:
+Что произошло и насколько это отличается от того, что вы ожидали?
 
-**Why is this bad/What are the consequences:**
-Why do you think this is an important issue?
+**Почему это плохо/Какие последствия этого:**
+Насколько важна эта проблема?
 
-**Steps to reproduce the problem**:
-The most important section. Review everything you did leading up to causing the issue.
+**Детальное описание как повторить возникновение проблемы**:
+Это очень важно. Опишите действия, которые, по вашему мнению, привели к багу.
 
-**Possibly related stuff (which gamemode was it? What were you doing at the time? Was
-anything else out of the ordinary happening?)**: Anything else you can tell us.
+**Что-нибудь еще что может помочь (какой был режим, была ли у вас роль, какие-то особенности и т.д.)**: 
+Все, что может нам помочь.

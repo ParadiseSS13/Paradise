@@ -7,7 +7,7 @@
 			if(src.client.handle_spam_prevention(message,MUTE_IC))
 				return 0
 
-		message = sanitize(message)
+		message = sanitize_local(message)
 
 		if(stat == 2)
 			return say_dead(message)

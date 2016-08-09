@@ -119,7 +119,7 @@ Returns the value of a global variable in the script and cleans it (sanitizes).
 /datum/n_Interpreter/proc/GetCleanVar(name, compare)
 	var/x = GetVar(name)
 	if(istext(x) && compare && x != compare) // Was changed
-		x = sanitize(x)
+		x = sanitize_local(x)
 	return x
 
 /*
