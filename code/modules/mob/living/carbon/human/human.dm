@@ -1587,6 +1587,12 @@
 		H.g_headacc = 0
 		H.b_headacc = 0
 
+	m_styles = initial(m_styles) //Wipes out markings, setting them all to "None".
+	m_colours = initial(m_styles) //Defaults colour to #00000 for all markings.
+	H.alt_head = "None"
+	H.ha_style = "None"
+	body_accessory = null
+
 	if(!dna)
 		dna = new /datum/dna(null)
 		dna.species = species.name
@@ -1687,14 +1693,15 @@
 		if(!head_organ)
 			return
 		if(!robohead.is_monitor) //If they've got a prosthetic head and it isn't a monitor, they've no screen to adjust. Instead, let them change the colour of their optics!
-			var/optic_colour = input(src, "Select optic colour", rgb(r_markings, g_markings, b_markings)) as color|null
+			var/list/marking_colours = params2list(m_colours)
+			marking_colours["head"] = sanitize_hexcolor(marking_colours["head"])
+			var/optic_colour = input(src, "Select optic colour", rgb(hex2num(copytext(marking_colours["head"], 2, 4)), hex2num(copytext(marking_colours["head"], 4, 6)), hex2num(copytext(marking_colours["head"], 6, 8)))) as color|null
 			if(incapacitated())
 				to_chat(src, "<span class='warning'>You were interrupted while changing the colour of your optics.</span>")
 				return
 			if(optic_colour)
-				r_markings = hex2num(copytext(optic_colour, 2, 4))
-				g_markings = hex2num(copytext(optic_colour, 4, 6))
-				b_markings = hex2num(copytext(optic_colour, 6, 8))
+				marking_colours["head"] = optic_colour
+				m_colours = list2params(marking_colours)
 
 			update_markings()
 		else if(robohead.is_monitor) //Means that the character's head is a monitor (has a screen). Time to customize.

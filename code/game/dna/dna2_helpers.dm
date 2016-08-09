@@ -152,10 +152,10 @@
 		head_organ.g_headacc		= dna.GetUIValueRange(DNA_UI_HACC_G,	255)
 		head_organ.b_headacc		= dna.GetUIValueRange(DNA_UI_HACC_B,	255)
 
-		H.r_markings	= dna.GetUIValueRange(DNA_UI_MARK_R,	255)
-		H.g_markings	= dna.GetUIValueRange(DNA_UI_MARK_G,	255)
-		H.b_markings	= dna.GetUIValueRange(DNA_UI_MARK_B,	255)
-
+		var/list/marking_colours = params2list(H.m_colours)
+		marking_colours["head"] = "#[num2hex(dna.GetUIValueRange(DNA_UI_HEAD_MARK_R,255),2)][num2hex(dna.GetUIValueRange(DNA_UI_HEAD_MARK_G,255),2)][num2hex(dna.GetUIValueRange(DNA_UI_HEAD_MARK_B,255),2)]"
+		marking_colours["body"] = "#[num2hex(dna.GetUIValueRange(DNA_UI_BODY_MARK_R,255),2)][num2hex(dna.GetUIValueRange(DNA_UI_BODY_MARK_G,255),2)][num2hex(dna.GetUIValueRange(DNA_UI_BODY_MARK_B,255),2)]"
+		marking_colours["tail"] = "#[num2hex(dna.GetUIValueRange(DNA_UI_TAIL_MARK_R,255),2)][num2hex(dna.GetUIValueRange(DNA_UI_TAIL_MARK_G,255),2)][num2hex(dna.GetUIValueRange(DNA_UI_TAIL_MARK_B,255),2)]"
 
 		H.update_eyes()
 
@@ -181,16 +181,43 @@
 		if((0 < headacc) && (headacc <= head_accessory_styles_list.len))
 			head_organ.ha_style = head_accessory_styles_list[headacc]
 
-		//Markings
-		var/marks = dna.GetUIValueRange(DNA_UI_MARK_STYLE,marking_styles_list.len)
-		if((0 < marks) && (marks <= marking_styles_list.len))
-			H.m_style = marking_styles_list[marks]
+		var/number_head_marks = 0
+		var/number_body_marks = 0
+		var/number_tail_marks = 0
+		for(var/m in marking_styles_list)
+			var/datum/sprite_accessory/body_markings/marking = marking_styles_list[m]
+			if(marking.marking_location == "head")
+				number_head_marks++
+			else if(marking.marking_location == "body")
+				number_body_marks++
+			else if(marking.marking_location == "tail")
+				number_tail_marks++
+
+		//Head Markings
+		var/head_marks = dna.GetUIValueRange(DNA_UI_HEAD_MARK_STYLE,marking_styles_list.len)
+		if((0 < head_marks) && (head_marks <= number_head_marks))
+			var/list/marking_styles = params2list(H.m_styles)
+			marking_styles["head"] = marking_styles_list[head_marks]
+			H.m_styles = list2params(marking_styles)
+		//Body Markings
+		var/body_marks = dna.GetUIValueRange(DNA_UI_BODY_MARK_STYLE,marking_styles_list.len)
+		if((0 < body_marks) && (body_marks <= number_body_marks))
+			var/list/marking_styles = params2list(H.m_styles)
+			marking_styles["body"] = marking_styles_list[body_marks]
+			H.m_styles = list2params(marking_styles)
+		//Tail Markings
+		var/tail_marks = dna.GetUIValueRange(DNA_UI_TAIL_MARK_STYLE,marking_styles_list.len)
+		if((0 < tail_marks) && (tail_marks <= number_tail_marks))
+			var/list/marking_styles = params2list(H.m_styles)
+			marking_styles["tail"] = marking_styles_list[tail_marks]
+			H.m_styles = list2params(marking_styles)
 
 		H.force_update_limbs()
 		H.update_eyes()
 		H.update_hair()
 		H.update_fhair()
 		H.update_markings()
+		H.update_tail_layer()
 		H.update_head_accessory()
 
 		return 1

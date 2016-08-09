@@ -43,8 +43,12 @@
 
 	// Restrict some styles to specific species
 	var/list/species_allowed = list("Human", "Slime People")
-	var/models_allowed = list() //Specifies which, if any, hairstyles can be accessed by which prosthetics. Should equal the manufacturing company name in robolimbs.dm.
+	var/list/models_allowed = list() //Specifies which, if any, hairstyles or markings can be accessed by which prosthetics. Should equal the manufacturing company name in robolimbs.dm.
+	var/list/heads_allowed = null //Specifies which, if any, alt heads a head marking, hairstyle or facial hair style is compatible with.
+	var/list/tails_allowed = null //Specifies which, if any, tails a tail marking is compatible with.
 	var/marking_location //Specifies which bodypart a body marking is located on.
+	var/secondary_theme = null //If exists, there's a secondary colour to that hair style and the secondary theme's icon state's suffix is equal to this.
+	var/no_sec_colour = null //If exists, prohibit the colouration of the secondary theme.
 
 	// Whether or not the accessory can be affected by colouration
 	var/do_colouration = 1
@@ -65,7 +69,7 @@
 		name = "Bald"
 		icon_state = "bald"
 		gender = MALE
-		species_allowed = list("Human", "Unathi", "Vox", "Diona", "Kidan", "Grey", "Plasmaman", "Skeleton")
+		species_allowed = list("Human", "Unathi", "Vox", "Diona", "Kidan", "Grey", "Plasmaman", "Skeleton", "Vulpkanin", "Tajaran")
 
 	short
 		name = "Short Hair"	  // try to capatilize the names please~
@@ -200,6 +204,19 @@
 		icon_state = "hair_hbraid"
 		gender = FEMALE
 
+	braid_hip
+		name = "Hippie Braid"
+		icon_state = "hair_hipbraid"
+		species_allowed = list("Human")
+		secondary_theme = "beads"
+
+
+	braid_hip_una
+		name = "Unathi Hippie Braid"
+		icon_state = "hair_ubraid"
+		species_allowed = list("Unathi")
+		secondary_theme = "beads"
+
 	buzz
 		name = "Buzzcut"
 		icon_state = "hair_buzzcut"
@@ -241,9 +258,9 @@
 		icon_state = "hair_bigafro"
 		gender = MALE
 
-	sargeant
+	sergeant
 		name = "Flat Top"
-		icon_state = "hair_sargeant"
+		icon_state = "hair_sergeant"
 		gender = MALE
 
 	emo
@@ -298,7 +315,7 @@
 		icon_state = "hair_spikey"
 		species_allowed = list("Human", "Unathi")
 
-	kusangi
+	kusanagi
 		name = "Kusanagi Hair"
 		icon_state = "hair_kusanagi"
 
@@ -689,95 +706,117 @@
 
 	skr_gold_m
 		name = "Gold plated Skrell Male Tentacles"
-		icon_state = "skrell_goldhair_m"
+		icon_state = "skrell_hair_m"
 		species_allowed = list("Skrell")
 		gender = MALE
+		secondary_theme = "gold"
+		no_sec_colour = 1
 
 	skr_gold_f
 		name = "Gold chained Skrell Female Tentacles"
-		icon_state = "skrell_goldhair_f"
+		icon_state = "skrell_hair_f"
 		species_allowed = list("Skrell")
 		gender = FEMALE
+		secondary_theme = "gold"
+		no_sec_colour = 1
+
 
 	skr_clothtentacle_m
 		name = "Cloth draped Skrell Male Tentacles"
-		icon_state = "skrell_clothhair_m"
+		icon_state = "skrell_hair_m"
 		species_allowed = list("Skrell")
 		gender = MALE
+		secondary_theme = "cloth"
 
 	skr_clothtentacle_f
 		name = "Cloth draped Skrell Female Tentacles"
-		icon_state = "skrell_clothhair_f"
+		icon_state = "skrell_hair_f"
 		species_allowed = list("Skrell")
 		gender = FEMALE
+		secondary_theme = "cloth"
 
-	taj_ears
-		name = "Tajaran Ears"
-		icon_state = "ears_plain"
-		species_allowed = list("Tajaran")
-
-	taj_ears_clean
+	taj_hair_clean
 		name = "Tajara Clean"
 		icon_state = "hair_clean"
 		species_allowed = list("Tajaran")
 
-	taj_ears_bangs
+	taj_hair_bangs
 		name = "Tajara Bangs"
 		icon_state = "hair_bangs"
 		species_allowed = list("Tajaran")
 
-	taj_ears_braid
+	taj_hair_braid
 		name = "Tajara Braid"
 		icon_state = "hair_tbraid"
 		species_allowed = list("Tajaran")
+		secondary_theme = "beads"
 
-	taj_ears_shaggy
+	taj_hair_shaggy
 		name = "Tajara Shaggy"
 		icon_state = "hair_shaggy"
 		species_allowed = list("Tajaran")
 
-	taj_ears_mohawk
+	taj_hair_mohawk
 		name = "Tajaran Mohawk"
 		icon_state = "hair_mohawk"
 		species_allowed = list("Tajaran")
 
-	taj_ears_plait
+	taj_hair_plait
 		name = "Tajara Plait"
 		icon_state = "hair_plait"
 		species_allowed = list("Tajaran")
 
-	taj_ears_straight
+	taj_hair_straight
 		name = "Tajara Straight"
 		icon_state = "hair_straight"
 		species_allowed = list("Tajaran")
 
-	taj_ears_long
+	taj_hair_long
 		name = "Tajara Long"
 		icon_state = "hair_long"
 		species_allowed = list("Tajaran")
 
-	taj_ears_rattail
+	taj_hair_rattail
 		name = "Tajara Rat Tail"
 		icon_state = "hair_rattail"
 		species_allowed = list("Tajaran")
 
-	taj_ears_spiky
-		name = "Tajara Spiky"
-		icon_state = "hair_tajspiky"
+	taj_hair_spiky
+		name = "Tajara Spikey"
+		icon_state = "hair_tajspikey"
 		species_allowed = list("Tajaran")
 
-	taj_ears_messy
+	taj_hair_messy
 		name = "Tajara Messy"
 		icon_state = "hair_messy"
 		species_allowed = list("Tajaran")
 
+	taj_hair_curls
+		name = "Tajara Curly"
+		icon_state = "hair_curly"
+		species_allowed = list("Tajaran")
+
+	taj_hair_wife
+		name = "Tajaran Ladies' Retro"
+		icon_state = "hair_ladies_retro"
+		species_allowed = list("Tajaran")
+
+	taj_hair_victory
+		name = "Tajara Victory Curls"
+		icon_state = "hair_victory"
+		species_allowed = list("Tajaran")
+
+	taj_hair_bob
+		name = "Tajara Bob"
+		icon_state = "hair_tbob"
+		species_allowed = list("Tajaran")
+
+	taj_hair_fingercurl
+		name = "Tajara Finger Curls"
+		icon_state = "hair_fingerwave"
+		species_allowed = list("Tajaran")
+
 //Vulpkanin
-
-	vulp_hair_none
-		name = "None"
-		icon_state = "bald"
-		species_allowed = list("Vulpkanin")
-
 	vulp_hair_kajam
 		name = "Kajam"
 		icon_state = "kajam"
@@ -812,6 +851,7 @@
 		name = "Belle"
 		icon_state = "belle"
 		species_allowed = list("Vulpkanin")
+		secondary_theme = "bands"
 
 	vulp_hair_bun
 		name = "Bun"
@@ -847,6 +887,12 @@
 		name = "Spike"
 		icon_state = "spike"
 		species_allowed = list("Vulpkanin")
+
+	vulp_hair_braided
+		name = "Braided"
+		icon_state = "braided"
+		species_allowed = list("Vulpkanin")
+		secondary_theme = "beads"
 
 //Vox
 
@@ -1081,6 +1127,12 @@
 		species_allowed = list("Unathi")
 		gender = NEUTER
 
+	una_frills_aquatic
+		name = "Aquatic Frills"
+		icon_state = "soghun_aquaticfrills"
+		species_allowed = list("Unathi")
+		gender = NEUTER
+
 	una_frills_long
 		name = "Long Frills"
 		icon_state = "soghun_longfrills"
@@ -1093,22 +1145,25 @@
 		species_allowed = list("Unathi")
 		gender = NEUTER
 
+	una_frills_webbed_aquatic
+		name = "Aquatic Webbed Frills"
+		icon_state = "soghun_aquaticfrills"
+		species_allowed = list("Unathi")
+		secondary_theme = "webbing"
+		gender = NEUTER
+
 	una_frills_webbed_long
 		name = "Long Webbed Frills"
-		icon_state = "soghun_longfrills_webbed"
+		icon_state = "soghun_longfrills"
 		species_allowed = list("Unathi")
+		secondary_theme = "webbing"
 		gender = NEUTER
 
 	una_frills_webbed_short
 		name = "Short Webbed Frills"
-		icon_state = "soghun_shortfrills_webbed"
+		icon_state = "soghun_shortfrills"
 		species_allowed = list("Unathi")
-		gender = NEUTER
-
-	una_frills_webbed_aquatic
-		name = "Aquatic Frills"
-		icon_state = "soghun_aquaticfrills_webbed"
-		species_allowed = list("Unathi")
+		secondary_theme = "webbing"
 		gender = NEUTER
 
 
@@ -1793,6 +1848,26 @@
 	species_allowed = list("Unathi")
 	icon_state = "horns_ram"
 
+/datum/sprite_accessory/head_accessory/outears_taj
+	name = "Tajaran Outer Ears"
+	species_allowed = list("Tajaran")
+	icon_state = "markings_face_outears_taj"
+
+/datum/sprite_accessory/head_accessory/inears_taj
+	name = "Tajaran Inner Ears"
+	species_allowed = list("Tajaran")
+	icon_state = "markings_face_inears_taj"
+
+/datum/sprite_accessory/head_accessory/muzzle_taj
+	name = "Tajaran Muzzle"
+	species_allowed = list("Tajaran")
+	icon_state = "markings_face_muzzle_taj"
+
+/datum/sprite_accessory/head_accessory/muzzle_and_inears_taj
+	name = "Tajaran Muzzle and Inner Ears"
+	species_allowed = list("Tajaran")
+	icon_state = "markings_face_muzzle_and_inears_taj"
+
 /datum/sprite_accessory/head_accessory/vulp_earfluff
 	icon = 'icons/mob/human_face.dmi'
 	name = "Vulpkanin Earfluff"
@@ -1847,6 +1922,12 @@
 	icon_state = "vulp_facial_swift"
 	species_allowed = list("Vulpkanin")
 
+/datum/sprite_accessory/head_accessory/vulp_nose
+	icon = 'icons/mob/body_accessory.dmi'
+	name = "Vulpkanin Nose"
+	species_allowed = list("Vulpkanin")
+	icon_state = "markings_face_nose_vulp"
+
 /datum/sprite_accessory/head_accessory/taj_ears
 	icon = 'icons/mob/human_face.dmi'
 	name = "Tajaran Ears"
@@ -1878,70 +1959,274 @@
 
 /datum/sprite_accessory/body_markings
 	icon = 'icons/mob/body_accessory.dmi'
-	species_allowed = list("Unathi", "Tajaran", "Vulpkanin", "Machine")
+	species_allowed = list("Unathi", "Tajaran", "Vulpkanin", "Machine", "Vox")
 	icon_state = "accessory_none"
+	marking_location = "body"
 
 /datum/sprite_accessory/body_markings/none
 	name = "None"
 	species_allowed = list("Human", "Unathi", "Diona", "Grey", "Machine", "Tajaran", "Vulpkanin", "Slime People", "Skeleton", "Vox")
 	icon_state = "accessory_none"
 
-/datum/sprite_accessory/body_markings/stripe
-	name = "Stripe"
-	species_allowed = list("Unathi")
-	icon_state = "markings_stripe"
-
 /datum/sprite_accessory/body_markings/tiger
 	name = "Tiger Body"
 	species_allowed = list("Unathi", "Tajaran", "Vulpkanin")
 	icon_state = "markings_tiger"
 
-/datum/sprite_accessory/body_markings/tigerhead
-	name = "Tiger Body and Head"
-	species_allowed = list("Unathi", "Tajaran", "Vulpkanin")
-	icon_state = "markings_tigerhead"
-
-/datum/sprite_accessory/body_markings/tigerheadface_taj
-	name = "Tajaran Tiger Body, Head and Face"
-	species_allowed = list("Tajaran")
-	icon_state = "markings_tigerheadface_taj"
-
-/datum/sprite_accessory/body_markings/tigerheadface_vulp
-	name = "Vulpkanin Tiger Body, Head and Face"
-	species_allowed = list("Vulpkanin")
-	icon_state = "markings_tigerheadface_vulp"
-
-/datum/sprite_accessory/body_markings/tigerheadface_una
-	name = "Unathi Tiger Body, Head and Face"
+/datum/sprite_accessory/body_markings/stripe_una
+	name = "Unathi Stripe"
 	species_allowed = list("Unathi")
-	icon_state = "markings_tigerheadface_una"
+	icon_state = "markings_stripe_una"
 
-/datum/sprite_accessory/body_markings/optics
+/datum/sprite_accessory/body_markings/belly_narrow_una
+	name = "Unathi Belly"
+	species_allowed = list("Unathi")
+	icon_state = "markings_belly_narrow_una"
+
+/datum/sprite_accessory/body_markings/banded_una
+	name = "Unathi Banded"
+	species_allowed = list("Unathi")
+	icon_state = "markings_banded_una"
+
+/datum/sprite_accessory/body_markings/points_una
+	name = "Unathi Points"
+	species_allowed = list("Unathi")
+	icon_state = "markings_points_una"
+
+/datum/sprite_accessory/body_markings/belly_flat_taj
+	name = "Tajaran Belly"
+	species_allowed = list("Tajaran")
+	icon_state = "markings_belly_flat_taj"
+
+/datum/sprite_accessory/body_markings/belly_crest_taj
+	name = "Tajaran Chest Crest"
+	species_allowed = list("Tajaran")
+	icon_state = "markings_belly_crest_taj"
+
+/datum/sprite_accessory/body_markings/belly_full_taj
+	name = "Tajaran Belly 2"
+	species_allowed = list("Tajaran")
+	icon_state = "markings_belly_full_taj"
+
+/datum/sprite_accessory/body_markings/points_taj
+	name = "Tajaran Points"
+	species_allowed = list("Tajaran")
+	icon_state = "markings_points_taj"
+
+/datum/sprite_accessory/body_markings/patchy_taj
+	name = "Tajaran Patches"
+	species_allowed = list("Tajaran")
+	icon_state = "markings_patch_taj"
+
+/datum/sprite_accessory/body_markings/belly_fox_vulp
+	name = "Vulpkanin Belly"
+	species_allowed = list("Vulpkanin")
+	icon_state = "markings_belly_fox_vulp"
+
+/datum/sprite_accessory/body_markings/belly_full_vulp
+	name = "Vulpkanin Belly 2"
+	species_allowed = list("Vulpkanin")
+	icon_state = "markings_belly_full_vulp"
+
+/datum/sprite_accessory/body_markings/belly_crest_vulp
+	name = "Vulpkanin Belly Crest"
+	species_allowed = list("Vulpkanin")
+	icon_state = "markings_belly_crest_vulp"
+
+/datum/sprite_accessory/body_markings/points_fade_vulp
+	name = "Vulpkanin Points"
+	species_allowed = list("Vulpkanin")
+	icon_state = "markings_points_fade_vulp"
+
+/datum/sprite_accessory/body_markings/points_fade_belly_vulp
+	name = "Vulpkanin Points and Belly"
+	species_allowed = list("Vulpkanin")
+	icon_state = "markings_points_fade_belly_vulp"
+
+/datum/sprite_accessory/body_markings/points_sharp_vulp
+	name = "Vulpkanin Points 2"
+	species_allowed = list("Vulpkanin")
+	icon_state = "markings_points_sharp_vulp"
+
+/datum/sprite_accessory/body_markings/head
+	marking_location = "head"
+	species_allowed = list()
+
+/datum/sprite_accessory/body_markings/head/tiger_head_taj
+	name = "Tajaran Tiger Head"
+	species_allowed = list("Tajaran")
+	icon_state = "markings_head_tiger_taj"
+
+/datum/sprite_accessory/body_markings/head/tiger_face_taj
+	name = "Tajaran Tiger Head and Face"
+	species_allowed = list("Tajaran")
+	icon_state = "markings_face_tiger_taj"
+
+/datum/sprite_accessory/body_markings/head/outears_taj
+	name = "Tajaran Outer Ears"
+	species_allowed = list("Tajaran")
+	icon_state = "markings_face_outears_taj"
+
+/datum/sprite_accessory/body_markings/head/inears_taj
+	name = "Tajaran Inner Ears"
+	species_allowed = list("Tajaran")
+	icon_state = "markings_face_inears_taj"
+
+/datum/sprite_accessory/body_markings/head/nose_taj
+	name = "Tajaran Nose"
+	species_allowed = list("Tajaran")
+	icon_state = "markings_face_nose_taj"
+
+/datum/sprite_accessory/body_markings/head/muzzle_taj
+	name = "Tajaran Muzzle"
+	species_allowed = list("Tajaran")
+	icon_state = "markings_face_muzzle_taj"
+
+/datum/sprite_accessory/body_markings/head/muzzle_and_inears_taj
+	name = "Tajaran Muzzle and Inner Ears"
+	species_allowed = list("Tajaran")
+	icon_state = "markings_face_muzzle_and_inears_taj"
+
+/datum/sprite_accessory/body_markings/head/muzzle_alt_taj //Companion marking for Tajaran Belly 2.
+	name = "Tajaran Muzzle 2"
+	species_allowed = list("Tajaran")
+	icon_state = "markings_face_full_taj"
+
+/datum/sprite_accessory/body_markings/head/points_taj //Companion marking for Tajaran Points.
+	name = "Tajaran Points Head"
+	species_allowed = list("Tajaran")
+	icon_state = "markings_face_points_taj"
+
+/datum/sprite_accessory/body_markings/head/patchy_taj //Companion marking for Tajaran Patches.
+	name = "Tajaran Patches Head"
+	species_allowed = list("Tajaran")
+	icon_state = "markings_face_patch_taj"
+
+/datum/sprite_accessory/body_markings/head/tiger_head_vulp
+	name = "Vulpkanin Tiger Head"
+	species_allowed = list("Vulpkanin")
+	icon_state = "markings_head_tiger_vulp"
+
+/datum/sprite_accessory/body_markings/head/tiger_face_vulp
+	name = "Vulpkanin Tiger Head and Face"
+	species_allowed = list("Vulpkanin")
+	icon_state = "markings_face_tiger_vulp"
+
+/datum/sprite_accessory/body_markings/head/nose_default_vulp
+	name = "Vulpkanin Nose"
+	species_allowed = list("Vulpkanin")
+	icon_state = "markings_face_nose_vulp"
+
+/datum/sprite_accessory/body_markings/head/muzzle_vulp //Companion marking for Vulpkanin Belly Alt..
+	name = "Vulpkanin Muzzle"
+	species_allowed = list("Vulpkanin")
+	icon_state = "markings_face_full_vulp"
+
+/datum/sprite_accessory/body_markings/head/muzzle_ears_vulp //Companion marking for Vulpkanin Belly Alt..
+	name = "Vulpkanin Muzzle and Ears"
+	species_allowed = list("Vulpkanin")
+	icon_state = "markings_face_full_ears_vulp"
+
+/datum/sprite_accessory/body_markings/head/points_fade_vulp //Companion marking for Vulpkanin Points Fade.
+	name = "Vulpkanin Points Head"
+	species_allowed = list("Vulpkanin")
+	icon_state = "markings_face_points_fade_vulp"
+
+/datum/sprite_accessory/body_markings/head/points_sharp_vulp //Companion marking for Vulpkanin Points Sharp.
+	name = "Vulpkanin Points Head 2"
+	species_allowed = list("Vulpkanin")
+	icon_state = "markings_face_points_sharp_vulp"
+
+/datum/sprite_accessory/body_markings/head/tiger_head_una
+	name = "Unathi Tiger Head"
+	species_allowed = list("Unathi")
+	icon_state = "markings_head_tiger_una"
+
+/datum/sprite_accessory/body_markings/head/tiger_face_una
+	name = "Unathi Tiger Head and Face"
+	species_allowed = list("Unathi")
+	icon_state = "markings_face_tiger_una"
+
+/datum/sprite_accessory/body_markings/head/tiger_face_una_sharp
+	name = "Unathi Sharp Tiger Head and Face"
+	species_allowed = list("Unathi")
+	icon_state = "markings_face_tiger_una_sharp"
+	heads_allowed = list("Unathi Sharp Snout")
+
+/datum/sprite_accessory/body_markings/head/snout_una_round
+	name = "Unathi Round Snout"
+	species_allowed = list("Unathi")
+	icon_state = "markings_face_snout_una_round"
+
+/datum/sprite_accessory/body_markings/head/snout_lower_una_round
+	name = "Unathi Lower Round Snout"
+	species_allowed = list("Unathi")
+	icon_state = "markings_face_snout_lower_una"
+
+/datum/sprite_accessory/body_markings/head/snout_una_sharp
+	name = "Unathi Sharp Snout"
+	species_allowed = list("Unathi")
+	icon_state = "markings_face_snout_una_sharp"
+	heads_allowed = list("Unathi Sharp Snout")
+
+/datum/sprite_accessory/body_markings/head/banded_una //Companion marking for Unathi Banded.
+	name = "Unathi Banded Head"
+	species_allowed = list("Unathi")
+	icon_state = "markings_face_banded_una"
+
+/datum/sprite_accessory/body_markings/head/banded_una_sharp //Companion marking for Unathi Banded.
+	name = "Unathi Sharp Banded Head"
+	species_allowed = list("Unathi")
+	icon_state = "markings_face_banded_una"
+	heads_allowed = list("Unathi Sharp Snout")
+
+/datum/sprite_accessory/body_markings/head/snout_narrow_una //Companion marking for Unathi Narrow Belly.
+	name = "Unathi Snout 2"
+	species_allowed = list("Unathi")
+	icon_state = "markings_face_narrow_una"
+
+/datum/sprite_accessory/body_markings/head/snout_narrow_una_sharp //Companion marking for Unathi Narrow Belly.
+	name = "Unathi Sharp Snout 2"
+	species_allowed = list("Unathi")
+	icon_state = "markings_face_narrow_una_sharp"
+	heads_allowed = list("Unathi Sharp Snout")
+
+/datum/sprite_accessory/body_markings/head/points_una //Companion marking for Unathi Points.
+	name = "Unathi Points Head"
+	species_allowed = list("Unathi")
+	icon_state = "markings_face_points_una"
+
+/datum/sprite_accessory/body_markings/head/points_una_sharp //Companion marking for Unathi Points.
+	name = "Unathi Sharp Points Head"
+	species_allowed = list("Unathi")
+	icon_state = "markings_face_points_una"
+	heads_allowed = list("Unathi Sharp Snout")
+
+/datum/sprite_accessory/body_markings/head/optics
 	name = "Humanoid Optics"
 	species_allowed = list("Machine")
 	icon_state = "optics"
 	models_allowed = list("Bishop Cybernetics", "Hesphiastos Industries", "Ward-Takahashi", "Xion Manufacturing Group", "Zeng-Hu Pharmaceuticals") //Should be the same as the manufacturing company of the limb in robolimbs.dm
-	marking_location = "head"
 
-/datum/sprite_accessory/body_markings/optics/bishop_alt
+/datum/sprite_accessory/body_markings/head/optics/bishop_alt
 	name = "Bishop Alt. Optics"
 	species_allowed = list("Machine")
 	icon_state = "bishop_alt_optics"
 	models_allowed = list("Bishop Cybernetics alt.")
 
-/datum/sprite_accessory/body_markings/optics/morpheus_alt
+/datum/sprite_accessory/body_markings/head/optics/morpheus_alt
 	name = "Morpheus Alt. Optics"
 	species_allowed = list("Machine")
 	icon_state = "morpheus_alt_optics"
 	models_allowed = list("Morpheus Cyberkinetics alt.")
 
-/datum/sprite_accessory/body_markings/optics/wardtakahashi_alt
+/datum/sprite_accessory/body_markings/head/optics/wardtakahashi_alt
 	name = "Ward-Takahashi Alt. Optics"
 	species_allowed = list("Machine")
 	icon_state = "wardtakahashi_alt_optics"
 	models_allowed = list("Ward-Takahashi alt.")
 
-/datum/sprite_accessory/body_markings/optics/xion_alt
+/datum/sprite_accessory/body_markings/head/optics/xion_alt
 	name = "Xion Alt. Optics"
 	species_allowed = list("Machine")
 	icon_state = "xion_alt_optics"
@@ -1955,3 +2240,114 @@
 /datum/sprite_accessory/body_markings/tattoo/elliot
 	name = "Elliot Circuit Tattoo"
 	icon_state = "campbell_tattoo"
+
+/datum/sprite_accessory/body_markings/tattoo/heart
+	name = "Heart Tattoo"
+	species_allowed = list("Human", "Unathi", "Grey", "Vulpkanin", "Tajaran", "Skrell")
+	icon_state = "markings_tattoo_heart"
+
+/datum/sprite_accessory/body_markings/tattoo/heart_vox
+	name = "Vox Heart Tattoo"
+	species_allowed = list("Vox")
+	icon_state = "markings_tattoo_heart_vox"
+
+/datum/sprite_accessory/body_markings/tattoo/hive
+	name = "Hive Tattoo"
+	species_allowed = list("Human", "Unathi", "Grey", "Vulpkanin", "Tajaran", "Skrell")
+	icon_state = "markings_tattoo_hive"
+
+/datum/sprite_accessory/body_markings/tattoo/hive_vox
+	name = "Vox Hive Tattoo"
+	species_allowed = list("Vox")
+	icon_state = "markings_tattoo_hive_vox"
+
+/datum/sprite_accessory/body_markings/tattoo/nightling
+	name = "Nightling Tattoo"
+	species_allowed = list("Human", "Unathi", "Grey", "Vulpkanin", "Tajaran", "Skrell")
+	icon_state = "markings_tattoo_nightling"
+
+/datum/sprite_accessory/body_markings/tattoo/nightling_vox
+	name = "Vox Nightling Tattoo"
+	species_allowed = list("Vox")
+	icon_state = "markings_tattoo_nightling_vox"
+
+/datum/sprite_accessory/body_markings/tail
+	name = "Tail Markings"
+	species_allowed = list()
+	icon_state = "accessory_none"
+	marking_location = "tail"
+	tails_allowed = null
+
+/datum/sprite_accessory/body_markings/tail/vox_band
+	name = "Vox Tail Band"
+	species_allowed = list("Vox")
+	icon_state = "markings_voxtail_band"
+
+/datum/sprite_accessory/body_markings/tail/vox_tip
+	name = "Vox Tail Tip"
+	species_allowed = list("Vox")
+	icon_state = "markings_voxtail_tip"
+
+/datum/sprite_accessory/body_markings/tail/vox_stripe
+	name = "Vox Tail Stripe"
+	species_allowed = list("Vox")
+	icon_state = "markings_voxtail_stripe"
+
+/datum/sprite_accessory/body_markings/tail/vulp_default_tip
+	name = "Vulpkanin Default Tail Tip"
+	species_allowed = list("Vulpkanin")
+	icon_state = "markings_vulptail_tip"
+
+/datum/sprite_accessory/body_markings/tail/vulp_default_fade
+	name = "Vulpkanin Default Tail Fade"
+	species_allowed = list("Vulpkanin")
+	icon_state = "markings_vulptail_fade"
+
+/datum/sprite_accessory/body_markings/tail/vulp_bushy_fluff
+	name = "Vulpkanin Bushy Tail Fluff"
+	species_allowed = list("Vulpkanin")
+	tails_allowed = list("Vulpkanin Alt 1 (Bushy)")
+	icon_state = "markings_vulptail2_fluff"
+
+/datum/sprite_accessory/body_markings/tail/vulp_short_tip
+	name = "Vulpkanin Short Tail Tip"
+	species_allowed = list("Vulpkanin")
+	tails_allowed = list("Vulpkanin Alt 4 (Short)")
+	icon_state = "markings_vulptail5_tip"
+
+/datum/sprite_accessory/body_markings/tail/vulp_hybrid_tip
+	name = "Vulpkanin Bushy Straight Tail Tip"
+	species_allowed = list("Vulpkanin")
+	tails_allowed = list("Vulpkanin Alt 5 (Straight Bushy)")
+	icon_state = "markings_vulptail6_tip"
+
+/datum/sprite_accessory/body_markings/tail/vulp_hybrid_fade
+	name = "Vulpkanin Bushy Straight Tail Fade"
+	species_allowed = list("Vulpkanin")
+	tails_allowed = list("Vulpkanin Alt 5 (Straight Bushy)")
+	icon_state = "markings_vulptail6_fade"
+
+/datum/sprite_accessory/body_markings/tail/vulp_hybrid_silverf
+	name = "Vulpkanin Bushy Straight Tail Black Fade White Tip"
+	species_allowed = list("Vulpkanin")
+	tails_allowed = list("Vulpkanin Alt 5 (Straight Bushy)")
+	icon_state = "markings_vulptail6_silverf"
+
+/* ALT HEADS */
+
+/datum/sprite_accessory/alt_heads
+	name = "Alternate Head"
+	icon = null
+	icon_state = null
+	species_allowed = null
+
+/datum/sprite_accessory/alt_heads/none
+	name = "None"
+	icon = null
+	icon_state = null
+	species_allowed = null
+
+/datum/sprite_accessory/alt_heads/una_sharp_snout
+	name = "Unathi Sharp Snout"
+	species_allowed = list("Unathi")
+	icon_state = "head_sharp"
