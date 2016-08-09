@@ -1,4 +1,0 @@
-author: Fox McCloud
-delete-after: True
-changes: 
-  - bugfix: "fixes the wormhole event being much shorter than intended"

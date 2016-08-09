@@ -1,5 +1,0 @@
-author: FreeStylaLT
-delete-after: True
-changes: 
-  - bugfix: "Fixed repainted-to-wood metal flooring in courtroom - it's now actually wood"
-  - bugfix: "Fixed windoor in witness stand facing the wrong way"

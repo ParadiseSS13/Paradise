@@ -1,6 +1,0 @@
-author: FreeStylaLT
-delete-after: True
-changes: 
-  - rscadd: "Walls now melt when hot"
-  - rscadd: "Added actual coated rwalls - you can make them by clicking on an existing rwall with at least 2 plasteel in hand. Has infinite temp resistance."
-  - tweak: "Replaced all fake coated rwalls with new rwalls in both metastation (where they should be) and boxstation"
