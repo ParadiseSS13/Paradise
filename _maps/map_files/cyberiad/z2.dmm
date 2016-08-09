@@ -802,7 +802,7 @@
 "pv" = (/obj/machinery/computer/med_data,/turf/unsimulated/floor{icon_state = "floor"},/area/centcom/control)
 "pw" = (/obj/machinery/door/airlock/external{id_tag = "specops_away"; name = "Shuttle Hatch"; req_access_txt = "109"},/turf/space,/area/centcom/control)
 "px" = (/obj/machinery/door/airlock/external{id_tag = "specops_away"; name = "Shuttle Hatch"; req_access_txt = "109"},/turf/unsimulated/floor{icon_state = "floor"},/area/centcom/control)
-"py" = (/obj/machinery/door/airlock/shuttle,/obj/docking_port/mobile/emergency/backup,/turf/space,/area/shuttle/escape)
+"py" = (/obj/machinery/door/airlock/shuttle,/obj/docking_port/mobile/emergency/backup,/obj/docking_port/stationary{dir = 4; dwidth = 2; height = 8; id = "backup_away"; name = "Backup shuttle Dock"; width = 8},/turf/space,/area/shuttle/escape)
 "pz" = (/obj/structure/toilet{dir = 4},/turf/unsimulated/floor{icon_state = "freezerfloor"; dir = 2},/area/centcom/specops)
 "pA" = (/turf/unsimulated/floor{icon_state = "freezerfloor"; dir = 2},/area/centcom/specops)
 "pB" = (/obj/effect/decal/cleanable/vomit{name = "urine"},/obj/machinery/camera{c_tag = "CentComm Special Ops. Bathroom"; dir = 2; network = list("ERT","CentComm")},/turf/unsimulated/floor{icon_state = "freezerfloor"; dir = 2},/area/centcom/specops)

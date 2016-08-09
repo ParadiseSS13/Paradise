@@ -267,16 +267,10 @@
 	if(height-dheight > S.height-S.dheight)
 		return 5
 	//check the dock isn't occupied
-	var/currently_docked = S.get_docked()
 	// by someone other than us
-	if(currently_docked != src)
+	if(S.get_docked())
 		return 6
-	else
-	// This isn't an error, per se, but we can't let the shuttle code
-	// attempt to move us where we currently are, it will get weird.
-		return SHUTTLE_ALREADY_DOCKED
-	return 0	//0 means we can dock
-
+	return 0
 //call the shuttle to destination S
 /obj/docking_port/mobile/proc/request(obj/docking_port/stationary/S)
 	var/status = canDock(S)
