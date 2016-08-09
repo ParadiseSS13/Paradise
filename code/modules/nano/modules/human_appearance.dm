@@ -7,8 +7,11 @@
 	var/list/valid_hairstyles = list()
 	var/list/valid_facial_hairstyles = list()
 	var/list/valid_head_accessories = list()
-	var/list/valid_marking_styles = list()
+	var/list/valid_head_marking_styles = list()
+	var/list/valid_body_marking_styles = list()
+	var/list/valid_tail_marking_styles = list()
 	var/list/valid_body_accessories = list()
+	var/list/valid_alt_head_styles = list()
 
 	var/check_whitelist
 	var/list/whitelist
@@ -46,7 +49,7 @@
 			else if(owner.species.bodyflags & HAS_ICON_SKIN_TONE)
 				var/const/MAX_LINE_ENTRIES = 4
 				var/prompt = "Choose your character's skin tone: 1-[owner.species.icon_skin_tones.len]\n("
-				for(var/i = 1; i <= owner.species.icon_skin_tones.len; i++)
+				for(var/i = 1 to owner.species.icon_skin_tones.len)
 					if(i > MAX_LINE_ENTRIES && !((i - 1) % MAX_LINE_ENTRIES))
 						prompt += "\n"
 					prompt += "[i] = [owner.species.icon_skin_tones[i]]"
@@ -85,6 +88,16 @@
 				if(owner.change_hair_color(r_hair, g_hair, b_hair))
 					update_dna()
 					return 1
+	if(href_list["secondary_hair_color"])
+		if(can_change(APPEARANCE_SECONDARY_HAIR_COLOR))
+			var/new_hair = input("Please select secondary hair color.", "Secondary Hair Color", rgb(head_organ.r_hair_sec, head_organ.g_hair_sec, head_organ.b_hair_sec)) as color|null
+			if(new_hair && can_still_topic(state))
+				var/r_hair_sec = hex2num(copytext(new_hair, 2, 4))
+				var/g_hair_sec = hex2num(copytext(new_hair, 4, 6))
+				var/b_hair_sec = hex2num(copytext(new_hair, 6, 8))
+				if(owner.change_hair_color(r_hair_sec, g_hair_sec, b_hair_sec, 1))
+					update_dna()
+					return 1
 	if(href_list["facial_hair"])
 		if(can_change(APPEARANCE_FACIAL_HAIR) && (href_list["facial_hair"] in valid_facial_hairstyles))
 			if(owner.change_facial_hair(href_list["facial_hair"]))
@@ -98,6 +111,16 @@
 				var/g_facial = hex2num(copytext(new_facial, 4, 6))
 				var/b_facial = hex2num(copytext(new_facial, 6, 8))
 				if(owner.change_facial_hair_color(r_facial, g_facial, b_facial))
+					update_dna()
+					return 1
+	if(href_list["secondary_facial_hair_color"])
+		if(can_change(APPEARANCE_SECONDARY_FACIAL_HAIR_COLOR))
+			var/new_facial = input("Please select secondary facial hair color.", "Secondary Facial Hair Color", rgb(head_organ.r_facial_sec, head_organ.g_facial_sec, head_organ.b_facial_sec)) as color|null
+			if(new_facial && can_still_topic(state))
+				var/r_facial_sec = hex2num(copytext(new_facial, 2, 4))
+				var/g_facial_sec = hex2num(copytext(new_facial, 4, 6))
+				var/b_facial_sec = hex2num(copytext(new_facial, 6, 8))
+				if(owner.change_facial_hair_color(r_facial_sec, g_facial_sec, b_facial_sec, 1))
 					update_dna()
 					return 1
 	if(href_list["eye_color"])
@@ -125,24 +148,56 @@
 				if(owner.change_head_accessory_color(r_headacc, g_headacc, b_headacc))
 					update_dna()
 					return 1
-	if(href_list["marking"])
-		if(can_change_markings() && (href_list["marking"] in valid_marking_styles))
-			if(owner.change_markings(href_list["marking"]))
+	if(href_list["head_marking"])
+		if(can_change_markings("head") && (href_list["head_marking"] in valid_head_marking_styles))
+			if(owner.change_markings(href_list["head_marking"], "head"))
 				update_dna()
 				return 1
-	if(href_list["marking_color"])
-		if(can_change_markings())
-			var/new_markings = input("Please select marking color.", "Marking Color", rgb(owner.r_markings, owner.g_markings, owner.b_markings)) as color|null
+	if(href_list["head_marking_color"])
+		if(can_change_markings("head"))
+			var/list/marking_colours = params2list(owner.m_colours)
+			marking_colours["head"] = sanitize_hexcolor(marking_colours["head"])
+			var/new_markings = input("Please select head marking color.", "Marking Color", rgb(hex2num(copytext(marking_colours["head"], 2, 4)), hex2num(copytext(marking_colours["head"], 4, 6)), hex2num(copytext(marking_colours["head"], 6, 8)))) as color|null
 			if(new_markings && can_still_topic(state))
-				var/r_markings = hex2num(copytext(new_markings, 2, 4))
-				var/g_markings = hex2num(copytext(new_markings, 4, 6))
-				var/b_markings = hex2num(copytext(new_markings, 6, 8))
-				if(owner.change_marking_color(r_markings, g_markings, b_markings))
+				if(owner.change_marking_color(new_markings, "head"))
+					update_dna()
+					return 1
+	if(href_list["body_marking"])
+		if(can_change_markings("body") && (href_list["body_marking"] in valid_body_marking_styles))
+			if(owner.change_markings(href_list["body_marking"], "body"))
+				update_dna()
+				return 1
+	if(href_list["body_marking_color"])
+		if(can_change_markings("body"))
+			var/list/marking_colours = params2list(owner.m_colours)
+			marking_colours["body"] = sanitize_hexcolor(marking_colours["body"])
+			var/new_markings = input("Please select body marking color.", "Marking Color", rgb(hex2num(copytext(marking_colours["body"], 2, 4)), hex2num(copytext(marking_colours["body"], 4, 6)), hex2num(copytext(marking_colours["body"], 6, 8)))) as color|null
+			if(new_markings && can_still_topic(state))
+				if(owner.change_marking_color(new_markings, "body"))
+					update_dna()
+					return 1
+	if(href_list["tail_marking"])
+		if(can_change_markings("tail") && (href_list["tail_marking"] in valid_tail_marking_styles))
+			if(owner.change_markings(href_list["tail_marking"], "tail"))
+				update_dna()
+				return 1
+	if(href_list["tail_marking_color"])
+		if(can_change_markings("tail"))
+			var/list/marking_colours = params2list(owner.m_colours)
+			marking_colours["tail"] = sanitize_hexcolor(marking_colours["tail"])
+			var/new_markings = input("Please select tail marking color.", "Marking Color", rgb(hex2num(copytext(marking_colours["tail"], 2, 4)), hex2num(copytext(marking_colours["tail"], 4, 6)), hex2num(copytext(marking_colours["tail"], 6, 8)))) as color|null
+			if(new_markings && can_still_topic(state))
+				if(owner.change_marking_color(new_markings, "tail"))
 					update_dna()
 					return 1
 	if(href_list["body_accessory"])
 		if(can_change_body_accessory() && (href_list["body_accessory"] in valid_body_accessories))
 			if(owner.change_body_accessory(href_list["body_accessory"]))
+				update_dna()
+				return 1
+	if(href_list["alt_head"])
+		if(can_change_alt_head() && (href_list["alt_head"] in valid_alt_head_styles))
+			if(owner.change_alt_head(href_list["alt_head"]))
 				update_dna()
 				return 1
 
@@ -189,13 +244,35 @@
 		data["facial_hair_styles"] = facial_hair_styles
 		data["facial_hair_style"] = head_organ.f_style
 
-	data["change_markings"] = can_change_markings()
-	if(data["change_markings"])
-		var/marking_styles[0]
-		for(var/marking_style in valid_marking_styles)
-			marking_styles[++marking_styles.len] = list("markingstyle" = marking_style)
-		data["marking_styles"] = marking_styles
-		data["marking_style"] = owner.m_style
+	data["change_head_markings"] = can_change_markings("head")
+	if(data["change_head_markings"])
+		var/list/marking_styles = params2list(owner.m_styles)
+		var/m_style = marking_styles["head"]
+		var/head_marking_styles[0]
+		for(var/head_marking_style in valid_head_marking_styles)
+			head_marking_styles[++head_marking_styles.len] = list("headmarkingstyle" = head_marking_style)
+		data["head_marking_styles"] = head_marking_styles
+		data["head_marking_style"] = m_style
+
+	data["change_body_markings"] = can_change_markings("body")
+	if(data["change_body_markings"])
+		var/list/marking_styles = params2list(owner.m_styles)
+		var/m_style = marking_styles["body"]
+		var/body_marking_styles[0]
+		for(var/body_marking_style in valid_body_marking_styles)
+			body_marking_styles[++body_marking_styles.len] = list("bodymarkingstyle" = body_marking_style)
+		data["body_marking_styles"] = body_marking_styles
+		data["body_marking_style"] = m_style
+
+	data["change_tail_markings"] = can_change_markings("tail")
+	if(data["change_tail_markings"])
+		var/list/marking_styles = params2list(owner.m_styles)
+		var/m_style = marking_styles["tail"]
+		var/tail_marking_styles[0]
+		for(var/tail_marking_style in valid_tail_marking_styles)
+			tail_marking_styles[++tail_marking_styles.len] = list("tailmarkingstyle" = tail_marking_style)
+		data["tail_marking_styles"] = tail_marking_styles
+		data["tail_marking_style"] = m_style
 
 	data["change_body_accessory"] = can_change_body_accessory()
 	if(data["change_body_accessory"])
@@ -208,10 +285,22 @@
 			BA = owner.body_accessory.name
 		data["body_accessory_style"] = BA
 
+	data["change_alt_head"] = can_change_alt_head()
+	if(data["change_alt_head"])
+		var/alt_head_styles[0]
+		for(var/alt_head_style in valid_alt_head_styles)
+			alt_head_styles[++alt_head_styles.len] = list("altheadstyle" = alt_head_style)
+		data["alt_head_styles"] = alt_head_styles
+		data["alt_head_style"] = head_organ.alt_head
+
 	data["change_head_accessory_color"] = can_change_head_accessory()
 	data["change_hair_color"] = can_change(APPEARANCE_HAIR_COLOR)
+	data["change_secondary_hair_color"] = can_change(APPEARANCE_SECONDARY_HAIR_COLOR)
 	data["change_facial_hair_color"] = can_change(APPEARANCE_FACIAL_HAIR_COLOR)
-	data["change_marking_color"] = can_change_markings()
+	data["change_secondary_facial_hair_color"] = can_change(APPEARANCE_SECONDARY_FACIAL_HAIR_COLOR)
+	data["change_head_marking_color"] = can_change_markings("head")
+	data["change_body_marking_color"] = can_change_markings("body")
+	data["change_tail_marking_color"] = can_change_markings("tail")
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "appearance_changer.tmpl", "[src]", 800, 450, state = state)
@@ -235,19 +324,36 @@
 /datum/nano_module/appearance_changer/proc/can_change_head_accessory()
 	return owner && (flags & APPEARANCE_HEAD_ACCESSORY) && (head_organ.species.bodyflags & HAS_HEAD_ACCESSORY)
 
-/datum/nano_module/appearance_changer/proc/can_change_markings()
-	return owner && (flags & APPEARANCE_MARKINGS) && (owner.species.bodyflags & HAS_MARKINGS)
+/datum/nano_module/appearance_changer/proc/can_change_markings(var/location = "body")
+	var/marking_flag = HAS_BODY_MARKINGS
+	var/body_flags = owner.species.bodyflags
+	if(location == "head")
+		var/obj/item/organ/external/head/H = owner.get_organ("head")
+		body_flags = H.species.bodyflags
+		marking_flag = HAS_HEAD_MARKINGS
+	if(location == "body")
+		marking_flag = HAS_BODY_MARKINGS
+	if(location == "tail")
+		marking_flag = HAS_TAIL_MARKINGS
+
+	return owner && (flags & APPEARANCE_MARKINGS) && (body_flags & marking_flag)
 
 /datum/nano_module/appearance_changer/proc/can_change_body_accessory()
 	return owner && (flags & APPEARANCE_BODY_ACCESSORY) && (owner.species.bodyflags & HAS_TAIL)
+
+/datum/nano_module/appearance_changer/proc/can_change_alt_head()
+	return owner && (flags & APPEARANCE_ALT_HEAD) && (owner.species.bodyflags & HAS_ALT_HEADS)
 
 /datum/nano_module/appearance_changer/proc/cut_and_generate_data()
 	// Making the assumption that the available species remain constant
 	valid_hairstyles.Cut()
 	valid_facial_hairstyles.Cut()
 	valid_head_accessories.Cut()
-	valid_marking_styles.Cut()
+	valid_head_marking_styles.Cut()
+	valid_body_marking_styles.Cut()
+	valid_tail_marking_styles.Cut()
 	valid_body_accessories.Cut()
+	valid_alt_head_styles.Cut()
 	generate_data()
 
 /datum/nano_module/appearance_changer/proc/generate_data()
@@ -260,7 +366,13 @@
 		valid_facial_hairstyles = owner.generate_valid_facial_hairstyles()
 	if(!valid_head_accessories.len)
 		valid_head_accessories = owner.generate_valid_head_accessories()
-	if(!valid_marking_styles.len)
-		valid_marking_styles = owner.generate_valid_markings()
+	if(!valid_head_marking_styles.len)
+		valid_head_marking_styles = owner.generate_valid_markings("head")
+	if(!valid_body_marking_styles.len)
+		valid_body_marking_styles = owner.generate_valid_markings("body")
+	if(!valid_tail_marking_styles.len)
+		valid_tail_marking_styles = owner.generate_valid_markings("tail")
 	if(!valid_body_accessories.len)
 		valid_body_accessories = owner.generate_valid_body_accessories()
+	if(!valid_alt_head_styles.len)
+		valid_alt_head_styles = owner.generate_valid_alt_heads()
