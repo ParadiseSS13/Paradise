@@ -20,6 +20,8 @@ var/global/datum/global_init/init = new ()
 
 #define RECOMMENDED_VERSION 510
 
+var/global/list/map_transition_config = MAP_TRANSITION_CONFIG
+
 /world/New()
 	//logs
 	var/date_string = time2text(world.realtime, "YYYY/MM-Month/DD-Day")
@@ -51,7 +53,7 @@ var/global/datum/global_init/init = new ()
 	// Create robolimbs for chargen.
 	populate_robolimb_list()
 
-	setup_map_transitions() //Before the MC starts up
+	space_manager.initialize() //Before the MC starts up
 
 	processScheduler = new
 	master_controller = new /datum/controller/game_controller()

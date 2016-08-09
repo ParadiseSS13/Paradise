@@ -31,7 +31,7 @@
 
 /datum/reagent/blob/boiling_oil/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(method == TOUCH)
-		M.adjust_fire_stacks(round(volume/12))
+		M.adjust_fire_stacks(round(volume/10))
 		volume = ..()
 		M.apply_damage(0.6*volume, BURN)
 		M.IgniteMob()

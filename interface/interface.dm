@@ -89,6 +89,11 @@ Admin:
 \tF7 = Player Panel
 \tF8 = Admin PM
 \tF9 = Invisimin
+
+Admin ghost:
+\tCtrl+Click = Player Panel
+\tCtrl+Shift+Click = View Variables
+\tShift+Middle Click = Mob Info
 </font>"}
 
 	mob.hotkey_help()

@@ -44,8 +44,8 @@
 // at which point object creations are a fair toss more seldom
 /atom/movable/proc/attempt_init()
 	var/turf/T = get_turf(src)
-	if(T && zlevels.is_zlevel_dirty(T.z))
-		zlevels.postpone_init(T.z, src)
+	if(T && space_manager.is_zlevel_dirty(T.z))
+		space_manager.postpone_init(T.z, src)
 	else if(auto_init)
 		initialize()
 

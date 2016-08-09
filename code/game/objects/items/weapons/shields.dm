@@ -44,6 +44,7 @@
 	icon_state = "buckler"
 	item_state = "buckler"
 	materials = list()
+	burn_state = FLAMMABLE
 	block_chance = 30
 
 /obj/item/weapon/shield/energy

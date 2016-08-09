@@ -21,11 +21,13 @@
 
 	// Who is alive/dead, who escaped
 	for(var/mob/living/silicon/ai/I in mob_list)
+		// TODO: Tie into space manager
 		if(I.stat == DEAD && (I.z in config.station_levels))
 			score_deadaipenalty++
 			score_deadcrew++
 
 	for(var/mob/living/carbon/human/I in mob_list)
+		// TODO: Tie into space manager
 		if(I.stat == DEAD && (I.z in config.station_levels))
 			score_deadcrew++
 
@@ -78,7 +80,8 @@
 
 
 	// Check station's power levels
-	for(var/obj/machinery/power/apc/A in machines)
+	for(var/obj/machinery/power/apc/A in apcs)
+		// TODO: Tie into space manager
 		if(!(A.z in config.station_levels)) continue
 
 		for(var/obj/item/weapon/stock_parts/cell/C in A.contents)
@@ -88,6 +91,7 @@
 
 	// Check how much uncleaned mess is on the station
 	for(var/obj/effect/decal/cleanable/M in world)
+		// TODO: Tie into space manager
 		if(!(M.z in config.station_levels)) continue
 		if(istype(M, /obj/effect/decal/cleanable/blood/gibs))
 			score_mess += 3

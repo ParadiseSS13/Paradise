@@ -13,6 +13,7 @@
 	var/germ_level = GERM_LEVEL_AMBIENT // The higher the germ level, the more germ on the atom.
 	var/simulated = 1 //filter for actions - used by lighting overlays
 	var/atom_say_verb = "says"
+	var/dont_save = 0 // For atoms that are temporary by necessity - like lighting overlays
 
 	///Chemistry.
 	var/datum/reagents/reagents = null
@@ -41,6 +42,7 @@
 	if(!T)
 		return 0
 
+	// TODO: Tie into space manager
 	if(T.z != ZLEVEL_CENTCOMM)//if not, don't bother
 		return 0
 
@@ -58,6 +60,7 @@
 	if(!T)
 		return 0
 
+	// TODO: Tie into space manager
 	if(T.z != ZLEVEL_CENTCOMM)//if not, don't bother
 		return 0
 
@@ -446,11 +449,10 @@
 /atom/proc/narsie_act()
 	return
 
-/atom/proc/atom_say(var/message)
-	if((!message))
+/atom/proc/atom_say(message)
+	if(!message)
 		return
-	for(var/mob/O in hearers(src, null))
-		O.show_message("<span class='game say'><span class='name'>[src]</span> [atom_say_verb], \"[message]\"</span>",2)
+	audible_message("<span class='game say'><span class='name'>[src]</span> [atom_say_verb], \"[message]\"</span>")
 
 /atom/proc/speech_bubble(var/bubble_state = "",var/bubble_loc = src, var/list/bubble_recipients = list())
 	return

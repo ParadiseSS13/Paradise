@@ -48,6 +48,7 @@ var/global/datum/store/centcomm_store=new
 
 /datum/store/proc/reconnect_database()
 	for(var/obj/machinery/computer/account_database/DB in world)
+		// TODO: Tie into space manager
 		if((DB.z in config.station_levels))
 			linked_db = DB
 			break

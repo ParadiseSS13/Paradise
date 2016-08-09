@@ -1,4 +1,5 @@
 //Different types of weather.
+// TODO: Tie into space manager
 
 /datum/weather/floor_is_lava //The Floor is Lava: Makes all turfs damage anyone on them unless they're standing on a solid object.
 	name = "the floor is lava"

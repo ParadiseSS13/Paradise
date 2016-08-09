@@ -673,7 +673,7 @@ steam.start() -- spawns the effect
 	for(var/mob/living/carbon/human/R in get_turf(src))
 		if(R.internal != null && usr.wear_mask && (R.wear_mask.flags & AIRTIGHT) && R.wear_suit != null && !istype(R.wear_suit, /obj/item/clothing/suit/storage/labcoat) && !istype(R.wear_suit, /obj/item/clothing/suit/straight_jacket) && !istype(R.wear_suit, /obj/item/clothing/suit/straight_jacket && !istype(R.wear_suit, /obj/item/clothing/suit/armor)))
 		else
-			R.burn_skin(0.75)
+			R.adjustFireLoss(0.75)
 			if(R.coughedtime != 1)
 				R.coughedtime = 1
 				R.emote("gasp")
@@ -687,7 +687,7 @@ steam.start() -- spawns the effect
 	if(istype(R, /mob/living/carbon/human))
 		if(R.internal != null && usr.wear_mask && (R.wear_mask.flags & AIRTIGHT) && R.wear_suit != null && !istype(R.wear_suit, /obj/item/clothing/suit/storage/labcoat) && !istype(R.wear_suit, /obj/item/clothing/suit/straight_jacket) && !istype(R.wear_suit, /obj/item/clothing/suit/straight_jacket && !istype(R.wear_suit, /obj/item/clothing/suit/armor)))
 			return
-		R.burn_skin(0.75)
+		R.adjustFireLoss(0.75)
 		if(R.coughedtime != 1)
 			R.coughedtime = 1
 			R.emote("gasp")

@@ -173,6 +173,9 @@
 /datum/action/item_action/toggle_mister
 	name = "Toggle Mister"
 
+/datum/action/item_action/toggle_headphones
+	name = "Toggle Headphones"
+
 /datum/action/item_action/toggle_helmet_light
 	name = "Toggle Helmet Light"
 

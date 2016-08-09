@@ -53,6 +53,7 @@
 			return
 		var/mob/living/simple_animal/hostile/illusion/M = new(loc)
 		M.faction = faction.Copy()
+		M.attack_sound = attack_sound
 		M.Copy_Parent(parent_mob, 80, health/2, melee_damage_upper, multiply_chance/2)
 		M.GiveTarget(L)
 

@@ -20,9 +20,7 @@
 // Put out fire
 	if(method == TOUCH)
 		M.adjust_fire_stacks(-(volume / 10))
-		if(M.fire_stacks <= 0)
-			M.ExtinguishMob()
-		return
+		M.ExtinguishMob()
 
 /datum/reagent/water/reaction_turf(turf/simulated/T, volume)
 	if(!istype(T))
@@ -42,15 +40,9 @@
 		qdel(hotspot)
 
 /datum/reagent/water/reaction_obj(obj/O, volume)
-	var/turf/simulated/T = get_turf(O)
-	if(istype(T))
-		var/hotspot = (locate(/obj/effect/hotspot) in T)
-		if(hotspot)
-			var/datum/gas_mixture/lowertemp = T.remove_air( T.air.total_moles() )
-			lowertemp.temperature = max(min(lowertemp.temperature-2000,lowertemp.temperature / 2), 0)
-			lowertemp.react()
-			T.assume_air(lowertemp)
-			qdel(hotspot)
+	if(istype(O))
+		O.extinguish()
+
 	if(istype(O, /obj/item/weapon/reagent_containers/food/snacks/monkeycube))
 		var/obj/item/weapon/reagent_containers/food/snacks/monkeycube/cube = O
 		if(!cube.wrapped)
@@ -274,7 +266,7 @@
 /datum/reagent/holywater/on_mob_life(mob/living/M)
 	M.jitteriness = max(M.jitteriness-5,0)
 	if(current_cycle >= 30)		// 12 units, 60 seconds @ metabolism 0.4 units & tick rate 2.0 sec
-		M.stuttering += 4
+		M.stuttering = min(M.stuttering+4, 20)
 		M.Dizzy(5)
 		if(iscultist(M) && prob(5))
 			M.say(pick("Av'te Nar'sie","Pa'lid Mors","INO INO ORA ANA","SAT ANA!","Daim'niodeis Arc'iai Le'eones","Egkau'haom'nai en Chaous","Ho Diak'nos tou Ap'iron","R'ge Na'sie","Diabo us Vo'iscum","Si gn'um Co'nu"))
