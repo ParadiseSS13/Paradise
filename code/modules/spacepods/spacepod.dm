@@ -6,7 +6,7 @@
 #define PAINT			4
 
 /obj/item/weapon/pod_paint_bucket
-	name = "Space Pod Paintkit"
+	name = "space pod paintkit"
 	desc = "Pimp your ride"
 	icon = 'icons/obj/items.dmi'
 	icon_state = "paint_red"
