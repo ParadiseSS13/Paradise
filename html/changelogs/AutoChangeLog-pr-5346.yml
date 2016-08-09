@@ -1,5 +1,0 @@
-author: KasparoVy
-delete-after: True
-changes: 
-  - bugfix: "Traitors with the Maroon objective will no longer succeed if their target is in a locker on the shuttle."
-  - bugfix: "Traitors with the Assassination objective will no longer fail if their target is assassinated/borged/debrained but on a Z-level greater than the derelict."

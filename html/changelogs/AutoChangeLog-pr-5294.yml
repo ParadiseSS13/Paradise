@@ -1,5 +1,0 @@
-author: Yurivw
-delete-after: True
-changes: 
-  - bugfix: "Condimaster now actually makes bottles.
-Removed: Unused options in admin secret menu are now removed."
