@@ -111,38 +111,6 @@
 	)
 	result = /obj/item/weapon/reagent_containers/food/snacks/wingfangchu
 
-/datum/recipe/grill/human/kabob
-	items = list(
-		/obj/item/stack/rods,
-		/obj/item/weapon/reagent_containers/food/snacks/meat/human,
-		/obj/item/weapon/reagent_containers/food/snacks/meat/human,
-	)
-	result = /obj/item/weapon/reagent_containers/food/snacks/human/kabob
-
-/datum/recipe/grill/monkeykabob
-	items = list(
-		/obj/item/stack/rods,
-		/obj/item/weapon/reagent_containers/food/snacks/meat/monkey,
-		/obj/item/weapon/reagent_containers/food/snacks/meat/monkey,
-	)
-	result = /obj/item/weapon/reagent_containers/food/snacks/monkeykabob
-
-/datum/recipe/grill/syntikabob
-	items = list(
-		/obj/item/stack/rods,
-		/obj/item/weapon/reagent_containers/food/snacks/meat/syntiflesh,
-		/obj/item/weapon/reagent_containers/food/snacks/meat/syntiflesh,
-	)
-	result = /obj/item/weapon/reagent_containers/food/snacks/monkeykabob
-
-/datum/recipe/grill/tofukabob
-	items = list(
-		/obj/item/stack/rods,
-		/obj/item/weapon/reagent_containers/food/snacks/tofu,
-		/obj/item/weapon/reagent_containers/food/snacks/tofu,
-	)
-	result = /obj/item/weapon/reagent_containers/food/snacks/tofukabob
-
 /datum/recipe/grill/sushi_Tamago
 	reagents = list("sake" = 5)
 	items = list(

@@ -149,15 +149,6 @@
 	add_overlays = 0
 	top = 0
 
-/obj/item/weapon/reagent_containers/food/snacks/customizable/cook/kebab
-	name = "kebab"
-	desc = "Kebab or Kabab?"
-	icon_state = "kababcustom"
-	baseicon = "kababcustom"
-	basename = "kebab"
-	add_overlays = 0
-	top = 0
-
 /obj/item/weapon/reagent_containers/food/snacks/customizable/cook/salad
 	name = "salad"
 	desc = "Very tasty."
