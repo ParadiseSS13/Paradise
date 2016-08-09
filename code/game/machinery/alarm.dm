@@ -710,7 +710,7 @@
 	data["rcon"] = rcon_setting
 	data["target_temp"] = target_temperature - T0C
 	data["atmos_alarm"] = alarm_area.atmosalm
-	data["emagged"] = emagged || isAI(user)
+	data["emagged"] = emagged
 	data["modes"] = list(
 		AALARM_MODE_SCRUBBING   = list("name"="Filtering",   "desc"="Scrubs out contaminants"),\
 		AALARM_MODE_VENTING		= list("name"="Draught", 	 "desc"="Siphons out air while replacing"),\

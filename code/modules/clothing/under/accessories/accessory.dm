@@ -30,6 +30,9 @@
 			var/mob/M = has_suit.loc
 			A.Grant(M)
 
+	for(var/armor_type in armor)
+		has_suit.armor[armor_type] += armor[armor_type]
+
 	if(user)
 		to_chat(user, "<span class='notice'>You attach [src] to [has_suit].</span>")
 	src.add_fingerprint(user)
@@ -45,6 +48,9 @@
 		if(ismob(has_suit.loc))
 			var/mob/M = has_suit.loc
 			A.Remove(M)
+
+	for(var/armor_type in armor)
+		has_suit.armor[armor_type] -= armor[armor_type]
 
 	has_suit = null
 	usr.put_in_hands(src)
