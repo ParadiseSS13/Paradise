@@ -43,6 +43,7 @@
 
 	var/exp_requirements = 0
 	var/exp_type = ""
+	var/exp_type_department = ""
 
 	var/admin_only = 0
 	var/spawn_ert = 0

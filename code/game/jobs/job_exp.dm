@@ -40,21 +40,29 @@
 	var/isexempt = text2num(play_records[EXP_TYPE_EXEMPT])
 	if(isexempt)
 		return 0
-	var/my_exp = text2num(play_records[exp_type])
-	var/job_requirement = text2num(exp_requirements)
-	if(config.use_exp_restrictions_heads_hours && ((title in command_positions) || title == "AI"))
-		job_requirement = config.use_exp_restrictions_heads_hours * 60
+	var/my_exp = text2num(play_records[get_exp_req_type()])
+	var/job_requirement = text2num(get_exp_req_amount())
 	if(my_exp >= job_requirement)
 		return 0
 	else
 		return (job_requirement - my_exp)
 
+/datum/job/proc/get_exp_req_amount()
+	if(title in command_positions)
+		if(config.use_exp_restrictions_heads_hours)
+			return config.use_exp_restrictions_heads_hours * 60
+	return exp_requirements
 
+/datum/job/proc/get_exp_req_type()
+	if(title in command_positions)
+		if(config.use_exp_restrictions_heads_department && exp_type_department)
+			return exp_type_department
+	return exp_type
 
 /proc/job_is_xp_locked(jobtitle)
-	if(!config.use_exp_restrictions_heads && ((jobtitle in command_positions) || jobtitle == "AI"))
+	if(!config.use_exp_restrictions_heads && jobtitle in command_positions)
 		return 0
-	if(!config.use_exp_restrictions_other && !((jobtitle in command_positions) || jobtitle == "AI"))
+	if(!config.use_exp_restrictions_other && !(jobtitle in command_positions))
 		return 0
 	return 1
 
@@ -103,10 +111,8 @@
 			else if(!job.available_in_playtime(mob.client))
 				jobs_unlocked += job.title
 			else
-				var/xp_req = job.exp_requirements
-				if(config.use_exp_restrictions_heads_hours && ((job.title in command_positions) || job.title == "AI"))
-					xp_req = config.use_exp_restrictions_heads_hours * 60
-				jobs_locked += "[job.title] [get_exp_format(text2num(play_records[job.exp_type]))] / [get_exp_format(xp_req)] [job.exp_type] EXP)"
+				var/xp_req = job.get_exp_req_amount()
+				jobs_locked += "[job.title] [get_exp_format(text2num(play_records[job.get_exp_req_type()]))] / [get_exp_format(xp_req)] as [job.get_exp_req_type()])"
 	if(jobs_unlocked.len)
 		return_text += "<BR><BR>Jobs Unlocked:<UL> "
 		for(var/text in jobs_unlocked)

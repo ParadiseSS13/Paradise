@@ -18,7 +18,8 @@
 			            access_ce, access_RC_announce, access_keycard_auth, access_tcomsat, access_minisat, access_mechanic, access_mineral_storeroom)
 	minimal_player_age = 21
 	exp_requirements = 600
-	exp_type = EXP_TYPE_ENGINEERING
+	exp_type = EXP_TYPE_CREW
+	exp_type_department = EXP_TYPE_ENGINEERING
 
 	equip(var/mob/living/carbon/human/H)
 		if(!H)	return 0

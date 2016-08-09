@@ -18,7 +18,8 @@
 			            access_heads, access_hos, access_RC_announce, access_keycard_auth, access_gateway, access_pilot, access_weapons)
 	minimal_player_age = 21
 	exp_requirements = 600
-	exp_type = EXP_TYPE_SECURITY
+	exp_type = EXP_TYPE_CREW
+	exp_type_department = EXP_TYPE_SECURITY
 
 	equip(var/mob/living/carbon/human/H)
 		if(!H)	return 0

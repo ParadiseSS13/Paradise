@@ -16,7 +16,8 @@
 			access_keycard_auth, access_sec_doors, access_psychiatrist, access_maint_tunnels, access_paramedic, access_mineral_storeroom)
 	minimal_player_age = 21
 	exp_requirements = 600
-	exp_type = EXP_TYPE_MEDICAL
+	exp_type = EXP_TYPE_CREW
+	exp_type_department = EXP_TYPE_MEDICAL
 
 	equip(var/mob/living/carbon/human/H)
 		if(!H)	return 0

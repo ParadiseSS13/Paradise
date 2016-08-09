@@ -130,6 +130,7 @@
 	var/use_exp_tracking = 0
 	var/use_exp_restrictions_heads = 0
 	var/use_exp_restrictions_heads_hours = 0
+	var/use_exp_restrictions_heads_department = 0
 	var/use_exp_restrictions_other = 0
 	var/use_exp_restrictions_admin_bypass = 0
 
@@ -253,6 +254,9 @@
 
 				if("use_exp_restrictions_heads_hours")
 					config.use_exp_restrictions_heads_hours = text2num(value)
+
+				if("use_exp_restrictions_heads_department")
+					config.use_exp_restrictions_heads_department = 1
 
 				if("use_exp_restrictions_other")
 					config.use_exp_restrictions_other = 1
