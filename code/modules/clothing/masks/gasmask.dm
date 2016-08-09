@@ -206,9 +206,9 @@
 	name = "\improper Warden SWAT mask"
 	desc = "A close-fitting tactical mask with an especially aggressive Compli-o-nator 3000. It has a blue stripe."
 	icon_state = "wardenmask"
-	aggressiveness = 2
-	phrase = 7
-	actions_types = list(/datum/action/item_action/halt,/datum/action/item_action/selectphrase)
+	aggressiveness = 3
+	phrase = 12
+	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/selectphrase)
 
 
 /obj/item/clothing/mask/gas/sechailer/swat
@@ -368,8 +368,6 @@
 						phrase = 1
 			else
 				to_chat(user, "<span class='notice'>It's broken.</span>")
-	else
-		return
 
 /obj/item/clothing/mask/gas/sechailer/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/weapon/screwdriver))
