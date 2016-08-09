@@ -187,14 +187,6 @@
 			to_add = pod_paint_effect[PAINT]
 			to_add.color = colors[PAINT]
 			overlays += to_add
-
-/*	if(has_paint)
-		for(var/i = 1,i < 4,i++)
-			if(!isnull(pod_paint_effect[i]))
-				var/image/to_add = pod_paint_effect[i]
-				to_add.color = color[i]//??
-				overlays += to_add
-*/
 	if(health <= round(initial(health)/2))
 		overlays += pod_overlays[DAMAGE]
 		if(health <= round(initial(health)/4))
