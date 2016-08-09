@@ -70,7 +70,7 @@
 
 /obj/spacepod/proc/apply_paint(mob/user as mob)
 	var/part_type
-	var/part = input(user, "Choose part", null) as null|anything in list("Lights","Rim","Paint","Windows","Cancel")
+	var/part = input(user, "Choose part", null) as null|anything in list("Lights","Rim","Paint","Windows")
 	if(part == "Lights")
 		part_type = LIGHT
 	if(part == "Rim")
@@ -79,14 +79,13 @@
 		part_type = PAINT
 	if(part == "Windows")
 		part_type = WINDOW
-	if(part == "Cancel")
+	if(!part)
 		return
 	var/coloradd = input(user, "Choose a color", "Color") as color
 	colors[part_type] = coloradd
 	if(!has_paint)
 		has_paint = 1
 	update_icons()
-	return
 
 
 /obj/spacepod/New()
