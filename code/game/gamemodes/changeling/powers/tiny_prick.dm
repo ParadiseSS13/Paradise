@@ -97,7 +97,7 @@ obj/effect/proc_holder/changeling/sting/transformation
 			to_chat(user, "<span class='warning'>This won't work on a creature without a circulatory system.</span>")
 			return 0
 		if(H.species.flags & NO_DNA)
-			to_chat(user, "<span class='warning'>This won't work on a creature with no DNA.</span>")
+			to_chat(user, "<span class='warning'>This won't work on a creature without DNA.</span>")
 			return 0
 	return 1
 
