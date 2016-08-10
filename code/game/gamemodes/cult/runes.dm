@@ -113,7 +113,7 @@ var/list/sacrificed = list()
 		cult_log("[key_name_admin(usr)] tried to convert [key_name_admin(M)]")
 		if(is_convertable_to_cult(M.mind))
 			ticker.mode.add_cultist(M.mind)
-			M.mind.special_role = "Cultist"
+			M.mind.special_role = SPECIAL_ROLE_CULTIST
 			to_chat(M, "<font color=\"purple\"><b><i>Your blood pulses. Your head throbs. The world goes red. All at once you are aware of a horrible, horrible truth. The veil of reality has been ripped away and in the festering wound left behind something sinister takes root.</b></i></font>")
 			to_chat(M, "<font color=\"purple\"><b><i>Assist your new compatriots in their dark dealings. Their goal is yours, and yours is theirs. You serve the Dark One above all else. Bring It back.</b></i></font>")
 			return 1
@@ -400,7 +400,7 @@ var/list/sacrificed = list()
 	else
 		ticker.mode.cult+=D.mind
 
-	D.mind.special_role = "Cultist"
+	D.mind.special_role = SPECIAL_ROLE_CULTIST
 	to_chat(D, "<font color=\"purple\"><b><i>Your blood pulses. Your head throbs. The world goes red. All at once you are aware of a horrible, horrible truth. The veil of reality has been ripped away and in the festering wound left behind something sinister takes root.</b></i></font>")
 	to_chat(D, "<font color=\"purple\"><b><i>Assist your new compatriots in their dark dealings. Their goal is yours, and yours is theirs. You serve the Dark One above all else. Bring It back.</b></i></font>")
 

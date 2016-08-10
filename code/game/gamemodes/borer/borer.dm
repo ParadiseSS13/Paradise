@@ -55,7 +55,7 @@
 		assigned_hosts[borer.key] = first_host
 
 		borer.assigned_role = "MODE" //So they aren't chosen for other jobs.
-		borer.special_role = "Borer"
+		borer.special_role = SPECIAL_ROLE_BORER
 
 	return 1
 
