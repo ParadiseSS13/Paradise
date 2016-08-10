@@ -99,6 +99,7 @@
 	projectile_type = /obj/item/projectile/bullet
 	materials = list(MAT_METAL=4000)
 
+
 /obj/item/ammo_casing/shotgun/buckshot
 	name = "buckshot shell"
 	desc = "A 12 gauge buckshot shell."
@@ -116,6 +117,7 @@
 	variance = 25
 	materials = list(MAT_METAL=4000)
 
+
 /obj/item/ammo_casing/shotgun/beanbag
 	name = "beanbag slug"
 	desc = "A weak beanbag slug for riot control."
@@ -123,14 +125,16 @@
 	projectile_type = /obj/item/projectile/bullet/weakbullet/rubber
 	materials = list(MAT_METAL=250)
 
+
 /obj/item/ammo_casing/shotgun/improvised
 	name = "improvised shell"
 	desc = "An extremely weak shotgun shell with multiple small pellets made out of metal shards."
-	icon_state = "gshell"
+	icon_state = "improvshell"
 	projectile_type = /obj/item/projectile/bullet/pellet/weak
 	materials = list(MAT_METAL=250)
-	pellets = 5
+	pellets = 10
 	variance = 25
+
 
 /obj/item/ammo_casing/shotgun/improvised/overload
 	name = "overloaded improvised shell"
@@ -139,12 +143,9 @@
 	icon_state = "improvshell"
 	projectile_type = /obj/item/projectile/bullet/pellet/overload
 	materials = list(MAT_METAL=250)
-	pellets = 5
+	pellets = 4
 	variance = 40
 
-/obj/item/ammo_casing/shotgun/improvised/overload/New()
-	..()
-	pellets = rand(3, 8)
 
 /obj/item/ammo_casing/shotgun/stunslug
 	name = "taser slug"
@@ -152,6 +153,7 @@
 	icon_state = "stunshell"
 	projectile_type = /obj/item/projectile/bullet/stunshot
 	materials = list(MAT_METAL=250)
+
 
 /obj/item/ammo_casing/shotgun/meteorshot
 	name = "meteorshot shell"
@@ -206,7 +208,7 @@
 	name = "laser slug"
 	desc = "An advanced shotgun shell that uses a micro laser to replicate the effects of a laser weapon in a ballistic package."
 	icon_state = "lshell"
-	projectile_type = /obj/item/projectile/beam
+	projectile_type = /obj/item/projectile/beam/laser
 
 /obj/item/ammo_casing/shotgun/techshell
 	name = "unloaded technological shell"
@@ -235,7 +237,7 @@
 /obj/item/ammo_casing/shotgun/dart/bioterror/New()
 	..()
 	reagents.add_reagent("neurotoxin", 6)
-	reagents.add_reagent("spores", 6)
+	reagents.add_reagent("spore", 6)
 	reagents.add_reagent("mutetoxin", 6) //;HELP OPS IN MAINT
 	reagents.add_reagent("coniine", 6)
 	reagents.add_reagent("sodium_thiopental", 6)
@@ -269,7 +271,7 @@
 	desc = "A caseless bullet casing."
 
 /obj/item/ammo_casing/caseless/fire(atom/target as mob|obj|turf, mob/living/user as mob|obj, params, distro, quiet)
-	if (..())
+	if(..())
 		loc = null
 		return 1
 	else
@@ -298,7 +300,7 @@
 
 /obj/item/ammo_casing/caseless/foam_dart/update_icon()
 	..()
-	if (modified)
+	if(modified)
 		icon_state = "foamdart_empty"
 		desc = "Its nerf or nothing! ... Although, this one doesn't look too safe."
 		if(BB)
@@ -312,11 +314,11 @@
 /obj/item/ammo_casing/caseless/foam_dart/attackby(obj/item/A, mob/user, params)
 	..()
 	var/obj/item/projectile/bullet/reusable/foam_dart/FD = BB
-	if (istype(A, /obj/item/weapon/screwdriver) && !modified)
+	if(istype(A, /obj/item/weapon/screwdriver) && !modified)
 		modified = 1
 		FD.damage_type = BRUTE
 		update_icon()
-	else if ((istype(A, /obj/item/weapon/pen)) && modified && !FD.pen)
+	else if((istype(A, /obj/item/weapon/pen)) && modified && !FD.pen)
 		if(!user.unEquip(A))
 			return
 		A.loc = FD

@@ -181,7 +181,7 @@
 
 	//proc/camera_list(var/datum/file/camnet_key/key)
 	get_machines(var/datum/file/camnet_key/key)
-		if (!computer || computer.z > 6)
+		if(!computer || !is_away_level(computer.z))
 			return null
 
 		var/list/L = list()

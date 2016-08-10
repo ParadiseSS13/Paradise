@@ -11,7 +11,7 @@ var/global/datum/repository/apc/apc_repository = new()
 	if(world.time < cache_entry.timestamp)
 		return cache_entry.data
 	
-	if (powermonitor && !isnull(powermonitor.powernet))
+	if(powermonitor && !isnull(powermonitor.powernet))
 		var/list/L = list()
 		for(var/obj/machinery/power/terminal/term in powermonitor.powernet.nodes)
 			if(istype(term.master, /obj/machinery/power/apc))

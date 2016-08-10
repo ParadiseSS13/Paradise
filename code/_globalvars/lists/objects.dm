@@ -11,7 +11,7 @@ var/global/list/joblist = list()					//list of all jobstypes, minus borg and AI
 var/global/list/airlocks = list()					//list of all airlocks
 var/global/list/singularities = list()				//list of all singularities
 var/global/list/janitorial_equipment = list()		//list of janitorial equipment
-var/global/list/table_recipes = list() //list of all table craft recipes
+var/global/list/crafting_recipes = list() //list of all crafting recipes
 
 var/global/list/all_areas = list()
 var/global/list/machines = list()

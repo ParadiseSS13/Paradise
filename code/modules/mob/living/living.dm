@@ -3,6 +3,9 @@
 	..()
 	return QDEL_HINT_HARDDEL_NOW
 
+/mob/living/proc/OpenCraftingMenu()
+	return
+
 /mob/living/Stat()
 	. = ..()
 	if(. && get_rig_stats)
@@ -15,9 +18,7 @@
 	var/turf/T = get_turf(src)
 	if(!T)
 		return 0
-	if(T.z == ZLEVEL_CENTCOMM) //dont detect mobs on centcomm
-		return 0
-	if(T.z >= MAX_Z)
+	if(!is_level_reachable(T.z))
 		return 0
 	if(user != null && src == user)
 		return 0
@@ -55,7 +56,7 @@
 
 /mob/living/verb/succumb()
 	set hidden = 1
-	if (InCritical())
+	if(InCritical())
 		attack_log += "[src] has ["succumbed to death"] with [round(health, 0.1)] points of health!"
 		adjustOxyLoss(health - config.health_threshold_dead)
 		updatehealth()
@@ -87,22 +88,6 @@
 //affects them once clothing is factored in. ~Errorage
 /mob/living/proc/calculate_affecting_pressure(var/pressure)
 	return 0
-
-
-//sort of a legacy burn method for /electrocute, /shock, and the e_chair
-/mob/living/proc/burn_skin(burn_amount)
-	if(istype(src, /mob/living/carbon/human))
-		var/mob/living/carbon/human/H = src	//make this damage method divide the damage to be done among all the body parts, then burn each body part for that much damage. will have better effect then just randomly picking a body part
-		var/divided_damage = (burn_amount)/(H.organs.len)
-		var/extradam = 0	//added to when organ is at max dam
-		for(var/obj/item/organ/external/affecting in H.organs)
-			if(!affecting)	continue
-			if(affecting.take_damage(0, divided_damage+extradam))	//TODO: fix the extradam stuff. Or, ebtter yet...rewrite this entire proc ~Carn
-				H.UpdateDamageIcon()
-		H.updatehealth()
-		return 1
-	else if(istype(src, /mob/living/silicon/ai))
-		return 0
 
 /mob/living/proc/adjustBodyTemp(actual, desired, incrementboost)
 	var/temperature = actual
@@ -271,7 +256,7 @@
 /mob/living/proc/get_organ_target()
 	var/mob/shooter = src
 	var/t = shooter:zone_sel.selecting
-	if ((t in list( "eyes", "mouth" )))
+	if((t in list( "eyes", "mouth" )))
 		t = "head"
 	var/obj/item/organ/external/def_zone = ran_zone(t)
 	return def_zone
@@ -323,12 +308,12 @@
 	if(iscarbon(src))
 		var/mob/living/carbon/C = src
 
-		if (C.handcuffed && !initial(C.handcuffed))
+		if(C.handcuffed && !initial(C.handcuffed))
 			C.unEquip(C.handcuffed)
 		C.handcuffed = initial(C.handcuffed)
 		C.update_handcuffed()
 
-		if (C.legcuffed && !initial(C.legcuffed))
+		if(C.legcuffed && !initial(C.legcuffed))
 			C.unEquip(C.legcuffed)
 		C.legcuffed = initial(C.legcuffed)
 		C.update_inv_legcuffed()
@@ -343,7 +328,7 @@
 	dead_mob_list -= src
 	living_mob_list |= src
 	mob_list |= src
-	ear_deaf = 0
+	setEarDamage(-1,0)
 	timeofdeath = 0
 
 /mob/living/proc/rejuvenate()
@@ -370,13 +355,11 @@
 	hallucination = 0
 	nutrition = 400
 	bodytemperature = 310
-	sdisabilities = 0
 	disabilities = 0
 	blinded = 0
 	eye_blind = 0
 	eye_blurry = 0
-	ear_deaf = 0
-	ear_damage = 0
+	setEarDamage(0,0)
 	heal_overall_damage(1000, 1000)
 	ExtinguishMob()
 	fire_stacks = 0
@@ -440,26 +423,26 @@
 	return
 
 /mob/living/Move(atom/newloc, direct)
-	if (buckled && buckled.loc != newloc) //not updating position
-		if (!buckled.anchored)
+	if(buckled && buckled.loc != newloc) //not updating position
+		if(!buckled.anchored)
 			return buckled.Move(newloc, direct)
 		else
 			return 0
 
-	if (restrained())
+	if(restrained())
 		stop_pulling()
 
 
 	var/t7 = 1
-	if (restrained())
+	if(restrained())
 		for(var/mob/living/M in range(src, 1))
-			if ((M.pulling == src && M.stat == 0 && !( M.restrained() )))
+			if((M.pulling == src && M.stat == 0 && !( M.restrained() )))
 				t7 = null
 	if(t7 && pulling && (get_dist(src, pulling) <= 1 || pulling.loc == loc))
 		var/turf/T = loc
 		. = ..()
 
-		if (pulling && pulling.loc)
+		if(pulling && pulling.loc)
 			if(!( isturf(pulling.loc) ))
 				stop_pulling()
 				return
@@ -473,46 +456,46 @@
 			stop_pulling()
 			return
 
-		if (!restrained())
+		if(!restrained())
 			var/diag = get_dir(src, pulling)
-			if ((diag - 1) & diag)
+			if((diag - 1) & diag)
 			else
 				diag = null
-			if ((get_dist(src, pulling) > 1 || diag))
-				if (isliving(pulling))
+			if((get_dist(src, pulling) > 1 || diag))
+				if(isliving(pulling))
 					var/mob/living/M = pulling
 					var/ok = 1
-					if (locate(/obj/item/weapon/grab, M.grabbed_by))
-						if (prob(75))
+					if(locate(/obj/item/weapon/grab, M.grabbed_by))
+						if(prob(75))
 							var/obj/item/weapon/grab/G = pick(M.grabbed_by)
-							if (istype(G, /obj/item/weapon/grab))
+							if(istype(G, /obj/item/weapon/grab))
 								for(var/mob/O in viewers(M, null))
 									O.show_message(text("\red [] has been pulled from []'s grip by []", G.affecting, G.assailant, src), 1)
 								//G = null
 								qdel(G)
 						else
 							ok = 0
-						if (locate(/obj/item/weapon/grab, M.grabbed_by.len))
+						if(locate(/obj/item/weapon/grab, M.grabbed_by.len))
 							ok = 0
-					if (ok)
+					if(ok)
 						var/atom/movable/t = M.pulling
 						M.stop_pulling()
 
-						if (M.lying && (prob(M.getBruteLoss() / 6)))
+						if(M.lying && (prob(M.getBruteLoss() / 6)))
 							var/turf/location = M.loc
-							if (istype(location, /turf/simulated))
+							if(istype(location, /turf/simulated))
 								location.add_blood(M)
 						pulling.Move(T, get_dir(pulling, T))
 						if(M)
 							M.start_pulling(t)
 				else
-					if (pulling)
+					if(pulling)
 						pulling.Move(T, get_dir(pulling, T))
 	else
 		stop_pulling()
 		. = ..()
 
-	if (s_active && !( s_active in contents ) && get_turf(s_active) != get_turf(src))	//check !( s_active in contents ) first so we hopefully don't have to call get_turf() so much.
+	if(s_active && !( s_active in contents ) && get_turf(s_active) != get_turf(src))	//check !( s_active in contents ) first so we hopefully don't have to call get_turf() so much.
 		s_active.close(src)
 
 	if(.) // did we actually move?
@@ -643,7 +626,7 @@
 
 //called when the mob receives a bright flash
 /mob/living/proc/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, type = /obj/screen/fullscreen/flash)
-	if(check_eye_prot() < intensity && (override_blindness_check || !(sdisabilities & BLIND)))
+	if(check_eye_prot() < intensity && (override_blindness_check || !(disabilities & BLIND)))
 		overlay_fullscreen("flash", type)
 		addtimer(src, "clear_fullscreen", 25, FALSE, "flash", 25)
 		return 1
@@ -834,6 +817,15 @@
 /mob/living/proc/get_permeability_protection()
 	return 0
 
+/mob/living/proc/attempt_harvest(obj/item/I, mob/user)
+	if(stat == DEAD && !isnull(butcher_results)) //can we butcher it?
+		if(istype(I, /obj/item/weapon/kitchen/knife))
+			to_chat(user, "<span class='notice'>You begin to butcher [src]...</span>")
+			playsound(loc, 'sound/weapons/slice.ogg', 50, 1, -1)
+			if(do_mob(user, src, 80))
+				harvest(user)
+			return 1
+
 /mob/living/proc/harvest(mob/living/user)
 	if(qdeleted(src))
 		return
@@ -854,7 +846,7 @@
 	return tally
 
 /mob/living/proc/can_use_guns(var/obj/item/weapon/gun/G)
-	if (G.trigger_guard != TRIGGER_GUARD_ALLOW_ALL && !IsAdvancedToolUser())
+	if(G.trigger_guard != TRIGGER_GUARD_ALLOW_ALL && !IsAdvancedToolUser())
 		to_chat(src, "<span class='warning'>You don't have the dexterity to do this!</span>")
 		return 0
 	return 1

@@ -4,9 +4,9 @@
 
 /mob/spirit/mask/New()
 	..()
-	AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/conjure/create_talisman(src))
-	AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/blood_speech(src))
-	AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/shatter_lights(src))
+	AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/conjure/create_talisman(null))
+	AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/blood_speech(null))
+	AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/shatter_lights(null))
 
 
 /mob/spirit/mask/verb/go_to_follower()
@@ -15,7 +15,7 @@
 	set desc = "Select who you would like to go too."
 
 	var/obj/cult_viewpoint/cultist = pick_cultist()
-	if (cultist)
+	if(cultist)
 		follow_cultist(cultist.owner)
 		cult_log("[key_name_admin(src)] started following [key_name_admin(cultist)].")
 		to_chat(src, "You start following [cultist.get_display_name()].")
@@ -27,8 +27,8 @@
 	set desc = "Push your cultists to do something."
 
 	var/obj/cult_viewpoint/cultist = pick_cultist()
-	if (cultist)
-		if (cultist.owner)
+	if(cultist)
+		if(cultist.owner)
 			var/newUrge = stripped_input(usr, "", "Set Urge", "")
 			cultist.set_urge(newUrge)
 			to_chat(src, "You urge [cultist.owner.name] to [newUrge].")
@@ -40,13 +40,13 @@
 	set desc = "Grant a cultist a name."
 
 	var/obj/cult_viewpoint/cultist = pick_cultist()
-	if (cultist)
+	if(cultist)
 		var/newName = stripped_input(usr, "", "Set Cult Name", "")
-		if (!newName)
+		if(!newName)
 			return
 		cultist.set_cult_name(newName)
 		to_chat(src, "You grant [cultist.owner.name] the secret name of [newName].")
-		if (cultist.owner)
+		if(cultist.owner)
 			cult_log("[key_name_admin(src)] has set [key_name_admin(cultist.owner)] to \'[newName]\'")
 
 
@@ -68,8 +68,8 @@
 	set desc = "Set the favor for a cultist"
 
 	var/obj/cult_viewpoint/cultist = pick_cultist()
-	if (cultist)
-		if (cultist.owner)
+	if(cultist)
+		if(cultist.owner)
 			var/list/favor = list("Pleased", "Displeased", "Indifference")
 			var/emotion = input("Pick your emotion", "Mask", null, null) in favor
 			switch(emotion)
@@ -132,7 +132,7 @@
 	cult_log("[key_name_admin(usr)]says : [input]")
 	flicker_mask(usr)
 	for(var/datum/mind/H in ticker.mode.cult)
-		if (H.current)
+		if(H.current)
 			to_chat(H.current, "<span class='cultspeech'><font size=3><span class='name'>[usr.name]: </span><span class='message'>[input]</span></font></span>")
 	for(var/mob/spirit/spirit in spirits)
 		to_chat(spirit, "<span class='cultspeech'><font size=3><span class='name'>[usr.name]: </span><span class='message'>[input]</span></font></span>")
@@ -193,7 +193,7 @@
 
 	var/talisman = input("Pick a talisman type", "Talisman", null, null) as null|anything in talismans
 	var/imbue_value = talismans[talisman]
-	if (!talisman)
+	if(!talisman)
 		to_chat(usr, "You choose not to create a talisman.")
 		revert_cast(usr)
 		return
@@ -203,20 +203,20 @@
 
 	switch(talisman)
 
-		if ("Teleport")
+		if("Teleport")
 			var/target_rune = input("Pick a teleport target", "Teleport Rune", null, null) as null|anything in engwords
-			if (!target_rune)
+			if(!target_rune)
 				to_chat(usr, "You choose not to create a talisman.")
 				revert_cast(usr)
 				return
 			summon_type = list(/obj/item/weapon/paper/talisman)
 			newVars = list("imbue" = "[target_rune]", "info" = "[target_rune]")
 
-		if ("Soul Stone")
+		if("Soul Stone")
 			summon_type = list(/obj/item/device/soulstone)
 			newVars = list()
 
-		if ("Construct")
+		if("Construct")
 			summon_type = list(/obj/structure/constructshell)
 			newVars = list()
 

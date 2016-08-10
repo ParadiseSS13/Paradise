@@ -84,7 +84,7 @@
 	if(istype(W, /obj/item/weapon/rcs) && !src.opened)
 		var/obj/item/weapon/rcs/E = W
 		if(E.rcell && (E.rcell.charge >= E.chargecost))
-			if(!(src.z in config.player_levels))
+			if(!is_level_reachable(src.z)) // This is inconsistent with the closet sending code
 				to_chat(user, "<span class='warning'>The rapid-crate-sender can't locate any telepads!</span>")
 				return
 			if(E.mode == 0)
@@ -185,7 +185,7 @@
 			qdel(src)
 			return
 		if(3.0)
-			if (prob(50))
+			if(prob(50))
 				qdel(src)
 			return
 		else
@@ -497,7 +497,7 @@
 
 /obj/structure/closet/crate/large/close()
 	. = ..()
-	if (.)//we can hold up to one large item
+	if(.)//we can hold up to one large item
 		var/found = 0
 		for(var/obj/structure/S in src.loc)
 			if(S == src)
@@ -524,7 +524,7 @@
 
 /obj/structure/closet/crate/secure/large/close()
 	. = ..()
-	if (.)//we can hold up to one large item
+	if(.)//we can hold up to one large item
 		var/found = 0
 		for(var/obj/structure/S in src.loc)
 			if(S == src)

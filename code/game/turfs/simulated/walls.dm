@@ -32,7 +32,8 @@
 	/obj/structure/falsewall,
 	/obj/structure/falsewall/reinforced,
 	/turf/simulated/wall/rust,
-	/turf/simulated/wall/r_wall/rust)
+	/turf/simulated/wall/r_wall/rust,
+	/turf/simulated/wall/r_wall/coated)
 	smooth = SMOOTH_TRUE
 
 /turf/simulated/wall/ChangeTurf(var/newtype)
@@ -110,13 +111,11 @@
 		update_icon()
 
 	return
-/*
-/turf/simulated/wall/adjacent_fire_act(turf/simulated/floor/adj_turf, datum/gas_mixture/adj_air, adj_temp, adj_volume)
-	if(adj_temp > max_temperature)
-		take_damage(rand(10, 20) * (adj_temp / max_temperature))
 
-	return ..()
-*/
+/turf/simulated/wall/proc/adjacent_fire_act(turf/simulated/wall, radiated_temperature)
+	if(radiated_temperature > max_temperature)
+		take_damage(rand(10, 20) * (radiated_temperature / max_temperature))
+
 /turf/simulated/wall/proc/dismantle_wall(devastated=0, explode=0)
 	if(istype(src,/turf/simulated/wall/r_wall))
 		if(!devastated)
@@ -140,7 +139,7 @@
 		if(!devastated)
 			playsound(src, 'sound/items/Welder.ogg', 100, 1)
 			new /obj/structure/girder(src)
-			if (mineral == "metal")
+			if(mineral == "metal")
 				new /obj/item/stack/sheet/metal( src )
 				new /obj/item/stack/sheet/metal( src )
 			else
@@ -148,7 +147,7 @@
 				new M( src )
 				new M( src )
 		else
-			if (mineral == "metal")
+			if(mineral == "metal")
 				new /obj/item/stack/sheet/metal( src )
 				new /obj/item/stack/sheet/metal( src )
 				new /obj/item/stack/sheet/metal( src )
@@ -258,8 +257,8 @@
 
 /turf/simulated/wall/attack_hand(mob/user as mob)
 	user.changeNext_move(CLICK_CD_MELEE)
-	if (HULK in user.mutations)
-		if (prob(hardness) || rotting)
+	if(HULK in user.mutations)
+		if(prob(hardness) || rotting)
 			playsound(src, 'sound/effects/meteorimpact.ogg', 100, 1)
 			to_chat(user, text("<span class='notice'>You smash through the wall.</span>"))
 			user.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ))
@@ -287,7 +286,7 @@
 
 /turf/simulated/wall/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	user.changeNext_move(CLICK_CD_MELEE)
-	if (!user.IsAdvancedToolUser())
+	if(!user.IsAdvancedToolUser())
 		to_chat(user, "<span class='warning'>You don't have the dexterity to do this!</span>")
 		return
 
@@ -376,7 +375,7 @@
 			visible_message("<span class='warning'>[user] slices apart \the [src]!</span>","<span class='warning'>You hear metal being sliced apart.</span>")
 
 	//DRILLING
-	else if (istype(W, /obj/item/weapon/pickaxe/drill/diamonddrill))
+	else if(istype(W, /obj/item/weapon/pickaxe/drill/diamonddrill))
 
 		to_chat(user, "<span class='notice'>You begin to drill though the wall.</span>")
 
@@ -385,7 +384,7 @@
 			dismantle_wall()
 			visible_message("<span class='warning'>[user] drills through \the [src]!</span>","<span class='warning'>You hear the grinding of metal.</span>")
 
-	else if (istype(W, /obj/item/weapon/pickaxe/drill/jackhammer))
+	else if(istype(W, /obj/item/weapon/pickaxe/drill/jackhammer))
 
 		to_chat(user, "<span class='notice'>You begin to disintegrates the wall.</span>")
 

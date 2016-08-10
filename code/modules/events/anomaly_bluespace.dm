@@ -19,7 +19,7 @@
 			var/obj/item/device/radio/beacon/chosen
 			var/list/possible = list()
 			for(var/obj/item/device/radio/beacon/W in world)
-				if(!(W.z in config.station_levels))
+				if(!is_station_level(W.z))
 					continue
 				possible += W
 
@@ -42,7 +42,7 @@
 
 				var/y_distance = TO.y - FROM.y
 				var/x_distance = TO.x - FROM.x
-				for (var/atom/movable/A in range(12, FROM )) // iterate thru list of mobs in the area
+				for(var/atom/movable/A in range(12, FROM )) // iterate thru list of mobs in the area
 					if(istype(A, /obj/item/device/radio/beacon)) continue // don't teleport beacons because that's just insanely stupid
 					if(A.anchored) continue
 

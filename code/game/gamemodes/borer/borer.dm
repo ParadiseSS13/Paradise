@@ -35,7 +35,7 @@
 		return 0 // not enough candidates for borer
 
 	for(var/obj/machinery/atmospherics/unary/vent_pump/v in world)
-		if(!v.welded && (v.z in config.station_levels))
+		if(!v.welded && is_station_level(v.z))
 			found_vents.Add(v)
 
 	// for each 2 possible borers, add one borer and one host
@@ -97,7 +97,7 @@
 	..()
 
 /datum/game_mode/proc/greet_borer(var/datum/mind/borer, var/you_are=1)
-	if (you_are)
+	if(you_are)
 		to_chat(borer.current, "<B>\red You are a Cortical Borer!</B>")
 
 	var/obj_count = 1
@@ -115,7 +115,7 @@
 			continue
 		borers_alive++
 
-	if (borers_alive)
+	if(borers_alive)
 		return ..()
 	else
 		return 1

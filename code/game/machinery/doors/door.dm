@@ -45,11 +45,13 @@
 			bound_width = world.icon_size
 			bound_height = width * world.icon_size
 
-	air_update_turf(1)
 	update_freelook_sight()
 	airlocks += src
 	return
 
+/obj/machinery/door/initialize()
+	air_update_turf(1)
+	..()
 
 /obj/machinery/door/Destroy()
 	density = 0
@@ -299,3 +301,11 @@
 
 /obj/machinery/door/morgue
 	icon = 'icons/obj/doors/doormorgue.dmi'
+
+/obj/machinery/door/proc/hostile_lockdown(mob/origin)
+	if(!stat) //So that only powered doors are closed.
+		close() //Close ALL the doors!
+
+/obj/machinery/door/proc/disable_lockdown()
+	if(!stat) //Opens only powered doors.
+		open() //Open everything!

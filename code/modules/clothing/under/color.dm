@@ -16,7 +16,8 @@
 	icon_state = "black"
 	item_state = "bl_suit"
 	item_color = "black"
-	flags = ONESIZEFITSALL
+	flags_size = ONESIZEFITSALL
+	burn_state = FIRE_PROOF
 
 /obj/item/clothing/under/color/blackf
 	name = "feminine black jumpsuit"
@@ -30,17 +31,18 @@
 	icon_state = "blue"
 	item_state = "b_suit"
 	item_color = "blue"
-	flags = ONESIZEFITSALL
+	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/color/blue/dodgeball
-	flags = ONESIZEFITSALL | NODROP
+	flags = NODROP
+	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/color/green
 	name = "green jumpsuit"
 	icon_state = "green"
 	item_state = "g_suit"
 	item_color = "green"
-	flags = ONESIZEFITSALL
+	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/color/grey
 	name = "grey jumpsuit"
@@ -48,10 +50,19 @@
 	icon_state = "grey"
 	item_state = "gy_suit"
 	item_color = "grey"
-	flags = ONESIZEFITSALL
+	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/color/grey/greytide
-	flags = ONESIZEFITSALL | NODROP
+	flags = NODROP
+	flags_size = ONESIZEFITSALL
+
+/obj/item/clothing/under/color/grey/glorf
+	name = "ancient jumpsuit"
+	desc = "A terribly ragged and frayed grey jumpsuit. It looks like it hasn't been washed in over a decade."
+
+/obj/item/clothing/under/color/grey/glorf/hit_reaction(mob/living/carbon/human/owner)
+	owner.forcesay(hit_appends)
+	return 0
 
 /obj/item/clothing/under/color/orange
 	name = "orange jumpsuit"
@@ -59,7 +70,7 @@
 	icon_state = "orange"
 	item_state = "o_suit"
 	item_color = "orange"
-	flags = ONESIZEFITSALL
+	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/color/orange/prison
 	name = "orange jumpsuit"
@@ -69,7 +80,7 @@
 	item_color = "orange"
 	has_sensor = 2
 	sensor_mode = 3
-	flags = ONESIZEFITSALL
+	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/color/pink
 	name = "pink jumpsuit"
@@ -77,31 +88,32 @@
 	icon_state = "pink"
 	item_state = "p_suit"
 	item_color = "pink"
-	flags = ONESIZEFITSALL
+	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/color/red
 	name = "red jumpsuit"
 	icon_state = "red"
 	item_state = "r_suit"
 	item_color = "red"
-	flags = ONESIZEFITSALL
+	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/color/red/dodgeball
-	flags = ONESIZEFITSALL | NODROP
+	flags = NODROP
+	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/color/white
 	name = "white jumpsuit"
 	icon_state = "white"
 	item_state = "w_suit"
 	item_color = "white"
-	flags = ONESIZEFITSALL
+	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/color/yellow
 	name = "yellow jumpsuit"
 	icon_state = "yellow"
 	item_state = "y_suit"
 	item_color = "yellow"
-	flags = ONESIZEFITSALL
+	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/psyche
 	name = "psychedelic jumpsuit"
@@ -122,7 +134,7 @@
 	name = "aqua jumpsuit"
 	icon_state = "aqua"
 	item_color = "aqua"
-	flags = ONESIZEFITSALL
+	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/color/purple
 	name = "purple jumpsuit"
@@ -149,7 +161,7 @@
 	name = "light brown jumpsuit"
 	icon_state = "lightbrown"
 	item_color = "lightbrown"
-	flags = ONESIZEFITSALL
+	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/color/brown
 	name = "brown jumpsuit"
@@ -165,7 +177,7 @@
 	name = "dark blue jumpsuit"
 	icon_state = "darkblue"
 	item_color = "darkblue"
-	flags = ONESIZEFITSALL
+	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/color/lightred
 	name = "light red jumpsuit"
@@ -176,7 +188,7 @@
 	name = "dark red jumpsuit"
 	icon_state = "darkred"
 	item_color = "darkred"
-	flags = ONESIZEFITSALL
+	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/color/red/jersey
 	name = "red team jersey"
@@ -184,7 +196,7 @@
 	icon_state = "redjersey"
 	item_state = "r_suit"
 	item_color = "redjersey"
-	flags = ONESIZEFITSALL
+	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/color/blue/jersey
 	name = "blue team jersey"
@@ -192,4 +204,4 @@
 	icon_state = "bluejersey"
 	item_state = "b_suit"
 	item_color = "bluejersey"
-	flags = ONESIZEFITSALL
+	flags_size = ONESIZEFITSALL

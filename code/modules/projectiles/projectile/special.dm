@@ -55,7 +55,7 @@
 
 /obj/item/projectile/temp/New(loc, shot_temp)
 	..(loc)
-	if(shot_temp)
+	if(!isnull(shot_temp))
 		temperature = shot_temp
 	switch(temperature)
 		if(501 to INFINITY)
@@ -140,7 +140,7 @@
 			if(prob(15))
 				M.apply_effect((rand(30,80)),IRRADIATE)
 				M.Weaken(5)
-				for (var/mob/V in viewers(src))
+				for(var/mob/V in viewers(src))
 					V.show_message("<span class='warning'>[M] writhes in pain as \his vacuoles boil.</span>", 3, "<span class='warning'>You hear the crunching of leaves.</span>", 2)
 			if(prob(35))
 				if(prob(80))
@@ -172,7 +172,7 @@
 		var/mob/living/carbon/human/H = M
 		if((H.species.flags & IS_PLANT) && (M.nutrition < 500))
 			M.nutrition += 30
-	else if (istype(target, /mob/living/carbon/))
+	else if(istype(target, /mob/living/carbon/))
 		M.show_message("<span class='notice'>The radiation beam dissipates harmlessly through your body.</span>")
 	else
 		return 1
@@ -276,17 +276,9 @@ obj/item/projectile/kinetic/New()
 
 /obj/item/projectile/beam/wormhole/on_hit(atom/target)
 	if(ismob(target))
-		var/turf/portal_destination = pick(orange(6, src))
-		do_teleport(target, portal_destination)
-		return ..()
-	if(!gun)
-		qdel(src)
-	gun.create_portal(src)
-
-/obj/item/projectile/beam/wormhole/on_hit(atom/target)
-	if(ismob(target))
-		var/turf/portal_destination = pick(orange(6, src))
-		do_teleport(target, portal_destination)
+		if(is_teleport_allowed(target.z))
+			var/turf/portal_destination = pick(orange(6, src))
+			do_teleport(target, portal_destination)
 		return ..()
 	if(!gun)
 		qdel(src)

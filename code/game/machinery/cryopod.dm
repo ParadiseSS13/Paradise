@@ -40,7 +40,7 @@
 
 	var/dat
 
-	if (!( ticker ))
+	if(!( ticker ))
 		return
 
 	dat += "<hr/><br/><b>[storage_name]</b><br/>"
@@ -174,7 +174,9 @@
 
 	var/mob/living/occupant = null       // Person waiting to be despawned.
 	var/orient_right = null       // Flips the sprite.
-	var/time_till_despawn = 9000 // 15 minutes-ish safe period before being despawned.
+	// 15 minutes-ish safe period before being despawned.
+	var/time_till_despawn = 9000 // This is reduced by 90% if a player manually enters cryo
+	var/willing_time_divisor = 10
 	var/time_entered = 0          // Used to keep track of the safe period.
 	var/obj/item/device/radio/intercom/announce //
 
@@ -319,7 +321,7 @@
 		else if(O.target && istype(O.target,/datum/mind))
 			if(O.target == occupant.mind)
 				if(O.owner && O.owner.current)
-					to_chat(O.owner.current, "<span class='warning'>You get the feeling your target is no longer within your reach. Time for Plan [pick(list("A","B","C","D","X","Y","Z"))]...</span>")
+					to_chat(O.owner.current, "<span class='userdanger'>You get the feeling your target is no longer within reach. Time for Plan [pick("A","B","C","D","X","Y","Z")]. Objectives updated!</span>")
 				O.target = null
 				spawn(1) //This should ideally fire after the occupant is deleted.
 					if(!O) return
@@ -335,7 +337,7 @@
 		job_master.FreeRole(job)
 
 		if(occupant.mind.objectives.len)
-			qdel(occupant.mind.objectives)
+			occupant.mind.objectives.Cut()
 			occupant.mind.special_role = null
 		else
 			if(ticker.mode.name == "AutoTraitor")
@@ -344,16 +346,18 @@
 
 	// Delete them from datacore.
 
+	var/announce_rank = null
 	if(PDA_Manifest.len)
 		PDA_Manifest.Cut()
 	for(var/datum/data/record/R in data_core.medical)
-		if ((R.fields["name"] == occupant.real_name))
+		if((R.fields["name"] == occupant.real_name))
 			qdel(R)
 	for(var/datum/data/record/T in data_core.security)
-		if ((T.fields["name"] == occupant.real_name))
+		if((T.fields["name"] == occupant.real_name))
 			qdel(T)
 	for(var/datum/data/record/G in data_core.general)
-		if ((G.fields["name"] == occupant.real_name))
+		if((G.fields["name"] == occupant.real_name))
+			announce_rank = G.fields["rank"]
 			qdel(G)
 
 	if(orient_right)
@@ -365,17 +369,27 @@
 	control_computer.frozen_crew += "[occupant.real_name]"
 
 	var/ailist[] = list()
-	for (var/mob/living/silicon/ai/A in living_mob_list)
+	for(var/mob/living/silicon/ai/A in living_mob_list)
 		ailist += A
-	if (ailist.len)
+	if(ailist.len)
 		var/mob/living/silicon/ai/announcer = pick(ailist)
-		announcer.say(";[occupant.real_name] [on_store_message]")
+		if (announce_rank)
+			announcer.say(";[occupant.real_name] ([announce_rank]) [on_store_message]")
+		else
+			announcer.say(";[occupant.real_name] [on_store_message]")
 	else
-		announce.autosay("[occupant.real_name] [on_store_message]", "[on_store_name]")
-
+		if (announce_rank)
+			announce.autosay("[occupant.real_name]  ([announce_rank]) [on_store_message]", "[on_store_name]")
+		else
+			announce.autosay("[occupant.real_name] [on_store_message]", "[on_store_name]")
 	visible_message("<span class='notice'>\The [src] hums and hisses as it moves [occupant.real_name] into storage.</span>")
 
-	// Delete the mob.
+	// Ghost and delete the mob.
+	if(!occupant.get_ghost(1))
+		if(TOO_EARLY_TO_GHOST)
+			occupant.ghostize(0) // Players despawned too early may not re-enter the game
+		else
+			occupant.ghostize(1)
 	qdel(occupant)
 	occupant = null
 	name = initial(name)
@@ -397,6 +411,7 @@
 
 		var/willing = null //We don't want to allow people to be forced into despawning.
 		var/mob/living/M = G:affecting
+		time_till_despawn = initial(time_till_despawn)
 
 		if(!istype(M) || M.stat == DEAD)
 			to_chat(user, "<span class='notice'>Dead people can not be put into cryo.</span>")
@@ -405,7 +420,7 @@
 		if(M.client)
 			if(alert(M,"Would you like to enter long-term storage?",,"Yes","No") == "Yes")
 				if(!M || !G || !G:affecting) return
-				willing = 1
+				willing = willing_time_divisor
 		else
 			willing = 1
 
@@ -425,6 +440,8 @@
 				if(M.client)
 					M.client.perspective = EYE_PERSPECTIVE
 					M.client.eye = src
+
+				time_till_despawn = initial(time_till_despawn) / willing
 
 			else //because why the fuck would you keep going if the mob isn't in the pod
 				to_chat(user, "<span class='notice'>You stop putting [M] into the cryopod.</span>")
@@ -451,7 +468,7 @@
 
 			// Book keeping!
 			log_admin("<span class='notice'>[key_name(M)] has entered a stasis pod.</span>")
-			message_admins("[key_name_admin(user)] has entered a stasis pod. (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
+			message_admins("[key_name_admin(M)] has entered a stasis pod. (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 
 			//Despawning occurs when process() is called with an occupant without a client.
 			src.add_fingerprint(M)
@@ -495,11 +512,12 @@
 
 
 	var/willing = null //We don't want to allow people to be forced into despawning.
+	time_till_despawn = initial(time_till_despawn)
 
 	if(L.client)
 		if(alert(L,"Would you like to enter cryosleep?",,"Yes","No") == "Yes")
 			if(!L) return
-			willing = 1
+			willing = willing_time_divisor
 	else
 		willing = 1
 
@@ -516,6 +534,7 @@
 				to_chat(user, "<span class='boldnotice'>\The [src] is in use.</span>")
 				return
 			L.loc = src
+			time_till_despawn = initial(time_till_despawn) / willing
 
 			if(L.client)
 				L.client.perspective = EYE_PERSPECTIVE
@@ -615,6 +634,7 @@
 		usr.client.eye = src
 		usr.loc = src
 		src.occupant = usr
+		time_till_despawn = initial(time_till_despawn) / willing_time_divisor
 
 		if(orient_right)
 			icon_state = "[occupied_icon_state]-r"

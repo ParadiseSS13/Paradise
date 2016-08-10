@@ -37,6 +37,8 @@ var/time_last_changed_position = 0
 		/datum/job/mechanic,
 		/datum/job/barber,
 		/datum/job/chaplain,
+		/datum/job/ntnavyofficer,
+		/datum/job/ntspecops,
 		/datum/job/civilian
 	)
 
@@ -212,7 +214,7 @@ var/time_last_changed_position = 0
 	if(modify)
 		data["current_skin"] = modify.icon_state
 
-	if (modify && is_centcom())
+	if(modify && is_centcom())
 		var/list/all_centcom_access = list()
 		for(var/access in get_all_centcom_access())
 			all_centcom_access.Add(list(list(
@@ -223,12 +225,12 @@ var/time_last_changed_position = 0
 		data["all_centcom_access"] = all_centcom_access
 		data["all_centcom_skins"] = format_card_skins(get_centcom_card_skins())
 
-	else if (modify)
+	else if(modify)
 		var/list/regions = list()
 		for(var/i = 1; i <= 7; i++)
 			var/list/accesses = list()
 			for(var/access in get_region_accesses(i))
-				if (get_access_desc(access))
+				if(get_access_desc(access))
 					accesses.Add(list(list(
 						"desc" = replacetext(get_access_desc(access), " ", "&nbsp;"),
 						"ref" = access,
@@ -241,7 +243,7 @@ var/time_last_changed_position = 0
 		data["regions"] = regions
 
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if (!ui)
+	if(!ui)
 		ui = new(user, src, ui_key, "identification_computer.tmpl", src.name, 775, 700)
 		ui.set_initial_data(data)
 		ui.open()
@@ -251,8 +253,8 @@ var/time_last_changed_position = 0
 		return 1
 
 	switch(href_list["choice"])
-		if ("modify")
-			if (modify)
+		if("modify")
+			if(modify)
 				data_core.manifest_modify(modify.registered_name, modify.assignment)
 				modify.name = text("[modify.registered_name]'s ID Card ([modify.assignment])")
 				if(ishuman(usr))
@@ -265,13 +267,13 @@ var/time_last_changed_position = 0
 					modify = null
 			else
 				var/obj/item/I = usr.get_active_hand()
-				if (istype(I, /obj/item/weapon/card/id))
+				if(istype(I, /obj/item/weapon/card/id))
 					usr.drop_item()
 					I.loc = src
 					modify = I
 
-		if ("scan")
-			if (scan)
+		if("scan")
+			if(scan)
 				if(ishuman(usr))
 					scan.loc = usr.loc
 					if(!usr.get_active_hand())
@@ -282,7 +284,7 @@ var/time_last_changed_position = 0
 					scan = null
 			else
 				var/obj/item/I = usr.get_active_hand()
-				if (istype(I, /obj/item/weapon/card/id))
+				if(istype(I, /obj/item/weapon/card/id))
 					usr.drop_item()
 					I.loc = src
 					scan = I
@@ -302,8 +304,8 @@ var/time_last_changed_position = 0
 			if(is_authenticated(usr) && modify && ((skin in get_station_card_skins()) || ((skin in get_centcom_card_skins()) && is_centcom())))
 				modify.icon_state = href_list["skin_target"]
 
-		if ("assign")
-			if (is_authenticated(usr) && modify)
+		if("assign")
+			if(is_authenticated(usr) && modify)
 				var/t1 = href_list["assign_target"]
 				if(t1 == "Custom")
 					var/temp_t = sanitize(copytext(input("Enter a custom job assignment.","Assignment"),1,MAX_MESSAGE_LEN))
@@ -333,10 +335,10 @@ var/time_last_changed_position = 0
 
 				callHook("reassign_employee", list(modify))
 
-		if ("reg")
-			if (is_authenticated(usr))
+		if("reg")
+			if(is_authenticated(usr))
 				var/t2 = modify
-				if ((modify == t2 && (in_range(src, usr) || (istype(usr, /mob/living/silicon))) && istype(loc, /turf)))
+				if((modify == t2 && (in_range(src, usr) || (istype(usr, /mob/living/silicon))) && istype(loc, /turf)))
 					var/temp_name = reject_bad_name(href_list["reg"])
 					if(temp_name)
 						modify.registered_name = temp_name
@@ -344,19 +346,19 @@ var/time_last_changed_position = 0
 						src.visible_message("<span class='notice'>[src] buzzes rudely.</span>")
 			nanomanager.update_uis(src)
 
-		if ("account")
-			if (is_authenticated(usr))
+		if("account")
+			if(is_authenticated(usr))
 				var/t2 = modify
-				if ((modify == t2 && (in_range(src, usr) || (istype(usr, /mob/living/silicon))) && istype(loc, /turf)))
+				if((modify == t2 && (in_range(src, usr) || (istype(usr, /mob/living/silicon))) && istype(loc, /turf)))
 					var/account_num = text2num(href_list["account"])
 					modify.associated_account_number = account_num
 			nanomanager.update_uis(src)
 
-		if ("mode")
+		if("mode")
 			mode = text2num(href_list["mode_target"])
 
-		if ("print")
-			if (!printing)
+		if("print")
+			if(!printing)
 				printing = 1
 				playsound(loc, "sound/goonstation/machines/printer_dotmatrix.ogg", 50, 1)
 				spawn(50)
@@ -364,13 +366,13 @@ var/time_last_changed_position = 0
 					nanomanager.update_uis(src)
 
 					var/obj/item/weapon/paper/P = new(loc)
-					if (mode == 2)
+					if(mode == 2)
 						P.name = text("crew manifest ([])", worldtime2text())
 						P.info = {"<h4>Crew Manifest</h4>
 							<br>
 							[data_core ? data_core.get_manifest(0) : ""]
 						"}
-					else if (modify && !mode)
+					else if(modify && !mode)
 						P.name = "access report"
 						P.info = {"<h4>Access Report</h4>
 							<u>Prepared By:</u> [scan && scan.registered_name ? scan.registered_name : "Unknown"]<br>
@@ -388,8 +390,8 @@ var/time_last_changed_position = 0
 							first = 0
 						P.info += "</div>"
 
-		if ("terminate")
-			if (is_authenticated(usr))
+		if("terminate")
+			if(is_authenticated(usr))
 				modify.assignment = "Terminated"
 				modify.access = list()
 
@@ -426,7 +428,7 @@ var/time_last_changed_position = 0
 				opened_positions[edit_job_target]--
 				nanomanager.update_uis(src)
 
-	if (modify)
+	if(modify)
 		modify.name = text("[modify.registered_name]'s ID Card ([modify.assignment])")
 
 	return 1

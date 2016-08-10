@@ -10,7 +10,7 @@
 	var/mob/currentUser = null
 	var/obj/item/device/radio/origradio = null
 	flags = CONDUCT | ONBELT
-	w_class = 2.0
+	w_class = 2
 	item_state = "radio"
 	throw_speed = 4
 	throw_range = 20
@@ -31,7 +31,7 @@
 	slot_flags = SLOT_BELT
 	item_state = "radio"
 	throwforce = 5
-	w_class = 2.0
+	w_class = 2
 	throw_speed = 4
 	throw_range = 20
 	materials = list(MAT_METAL=100)

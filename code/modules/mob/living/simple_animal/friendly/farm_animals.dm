@@ -194,7 +194,9 @@
 	if(.)
 		amount_grown += rand(1,2)
 		if(amount_grown >= 100)
-			new /mob/living/simple_animal/chicken(src.loc)
+			var/mob/living/simple_animal/chicken/C = new /mob/living/simple_animal/chicken(loc)
+			if(mind)
+				mind.transfer_to(C)
 			qdel(src)
 
 var/const/MAX_CHICKENS = 50
@@ -239,7 +241,7 @@ var/global/chicken_count = 0
 	pixel_y = rand(0, 10)
 	chicken_count += 1
 
-/mob/living/simple_animal/chicken/death()
+/mob/living/simple_animal/chicken/death(gibbed)
 	..()
 	chicken_count -= 1
 

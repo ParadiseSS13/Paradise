@@ -64,7 +64,7 @@
 			//Play sound through the station intercomms, so everyone knows the doom you have wrought.
 			for(var/O in global_intercoms)
 				var/obj/item/device/radio/intercom/I = O
-				if(I.z != ZLEVEL_STATION)	//Only broadcast to the station intercoms
+				if(!is_station_level(I.z))	//Only broadcast to the station intercoms
 					continue
 				if(!I.on)					//Only broadcast to active intercoms (powered, switched on)
 					continue

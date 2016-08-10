@@ -99,8 +99,8 @@
 			if(4) H.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel(H), slot_back)
 		H.equip_or_collect(new /obj/item/clothing/under/rank/atmospheric_technician(H), slot_w_uniform)
 		H.equip_or_collect(new /obj/item/clothing/shoes/workboots(H), slot_shoes)
-		H.equip_or_collect(new /obj/item/device/pda/atmos(H), slot_wear_pda)
 		H.equip_or_collect(new /obj/item/weapon/storage/belt/utility/atmostech/(H), slot_belt)
+		H.equip_or_collect(new /obj/item/device/pda/atmos(H), slot_wear_pda)
 		if(H.backbag == 1)
 			H.equip_or_collect(new /obj/item/weapon/storage/box/engineer(H), slot_r_hand)
 		else

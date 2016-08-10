@@ -27,6 +27,7 @@
 	var/last_warning
 	var/consumedSupermatter = 0 //If the singularity has eaten a supermatter shard and can go to stage six
 	allow_spin = 0
+	burn_state = LAVA_PROOF
 
 /obj/singularity/New(loc, var/starting_energy = 50, var/temp = 0)
 	//CARN: admin-alert for chuckle-fuckery.
@@ -148,17 +149,18 @@
 			dissipate_delay = 10
 			dissipate_track = 0
 			dissipate_strength = 1
-		if(STAGE_TWO)//1 to 3 does not check for the turfs if you put the gens right next to a 1x1 then its going to eat them
-			current_size = STAGE_TWO
-			icon = 'icons/effects/96x96.dmi'
-			icon_state = "singularity_s3"
-			pixel_x = -32
-			pixel_y = -32
-			grav_pull = 6
-			consume_range = 1
-			dissipate_delay = 5
-			dissipate_track = 0
-			dissipate_strength = 5
+		if(STAGE_TWO)
+			if((check_turfs_in(1,1))&&(check_turfs_in(2,1))&&(check_turfs_in(4,1))&&(check_turfs_in(8,1)))
+				current_size = STAGE_TWO
+				icon = 'icons/effects/96x96.dmi'
+				icon_state = "singularity_s3"
+				pixel_x = -32
+				pixel_y = -32
+				grav_pull = 6
+				consume_range = 1
+				dissipate_delay = 5
+				dissipate_track = 0
+				dissipate_strength = 5
 		if(STAGE_THREE)
 			if((check_turfs_in(1,2))&&(check_turfs_in(2,2))&&(check_turfs_in(4,2))&&(check_turfs_in(8,2)))
 				current_size = STAGE_THREE
@@ -237,22 +239,22 @@
 
 /obj/singularity/proc/eat()
 	set background = BACKGROUND_ENABLED
-	for(var/tile in spiral_range_turfs(grav_pull, src, 1))
+	for(var/tile in spiral_range_turfs(grav_pull, src))
 		var/turf/T = tile
-		if(!T)
+		if(!T || !isturf(loc))
 			continue
 		if(get_dist(T, src) > consume_range)
 			T.singularity_pull(src, current_size)
 		else
 			consume(T)
 		for(var/thing in T)
-			var/atom/movable/X = thing
-			if(get_dist(X, src) > consume_range)
-				X.singularity_pull(src, current_size)
-			else
-				consume(X)
+			if(isturf(loc) && thing != src)
+				var/atom/movable/X = thing
+				if(get_dist(X, src) > consume_range)
+					X.singularity_pull(src, current_size)
+				else
+					consume(X)
 			CHECK_TICK
-	return
 
 /obj/singularity/proc/consume(var/atom/A)
 	var/gain = A.singularity_act(current_size)
@@ -370,7 +372,7 @@
 	var/toxrange = 10
 	var/radiation = 15
 	var/radiationmin = 3
-	if (energy>200)
+	if(energy>200)
 		radiation += round((energy-150)/10,1)
 		radiationmin = round((radiation/5),1)
 	for(var/mob/living/M in view(toxrange, src.loc))
@@ -392,7 +394,7 @@
 			continue
 
 		if(M.stat == CONSCIOUS)
-			if (istype(M,/mob/living/carbon/human))
+			if(istype(M,/mob/living/carbon/human))
 				var/mob/living/carbon/human/H = M
 				if(istype(H.glasses, /obj/item/clothing/glasses/meson))
 					var/obj/item/clothing/glasses/meson/MS = H.glasses

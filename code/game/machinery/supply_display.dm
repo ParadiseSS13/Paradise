@@ -5,7 +5,7 @@
 /obj/machinery/status_display/supply_display/update()
 	if(!..() && mode == STATUS_DISPLAY_CUSTOM)
 		if(shuttle_master.supply.mode == SHUTTLE_IDLE)
-			if(shuttle_master.supply.z == ZLEVEL_STATION)
+			if(is_station_level(shuttle_master.supply.z))
 				message1 = "CARGO"
 				message2 = "Docked"
 			else

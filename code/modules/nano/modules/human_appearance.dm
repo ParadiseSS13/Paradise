@@ -213,7 +213,7 @@
 	data["change_facial_hair_color"] = can_change(APPEARANCE_FACIAL_HAIR_COLOR)
 	data["change_marking_color"] = can_change_markings()
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if (!ui)
+	if(!ui)
 		ui = new(user, src, ui_key, "appearance_changer.tmpl", "[src]", 800, 450, state = state)
 		ui.set_initial_data(data)
 		ui.open()

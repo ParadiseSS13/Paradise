@@ -180,11 +180,12 @@
 	var/turf/position = get_turf(src)
 
 	// Toggle on/off getting signals from the station or the current Z level
-	if(src.listening_level == ZLEVEL_STATION) // equals the station
+	// TODO: Could work with the space manager better
+	if(is_station_level(src.listening_level)) // equals the station
 		src.listening_level = position.z
 		return 1
-	else if(position.z == ZLEVEL_TELECOMMS)
-		src.listening_level = ZLEVEL_STATION
+	else if(level_boosts_signal(position.z))
+		src.listening_level = level_name_to_num(MAIN_STATION)
 		return 1
 	return 0
 
@@ -233,8 +234,8 @@
 
 /obj/machinery/telecomms/relay/Options_Menu()
 	var/dat = ""
-	if(src.z == ZLEVEL_TELECOMMS)
-		dat += "<br>Signal Locked to Station: <A href='?src=\ref[src];change_listening=1'>[listening_level == ZLEVEL_STATION ? "TRUE" : "FALSE"]</a>"
+	if(level_boosts_signal(src.z))
+		dat += "<br>Signal Locked to Station: <A href='?src=\ref[src];change_listening=1'>[is_station_level(listening_level) ? "TRUE" : "FALSE"]</a>"
 	dat += "<br>Broadcasting: <A href='?src=\ref[src];broadcast=1'>[broadcasting ? "YES" : "NO"]</a>"
 	dat += "<br>Receiving:    <A href='?src=\ref[src];receive=1'>[receiving ? "YES" : "NO"]</a>"
 	return dat
@@ -393,4 +394,3 @@
 	if(issilicon(user) || in_range(user, src))
 		return 1
 	return 0
-

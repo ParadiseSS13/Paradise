@@ -8,7 +8,7 @@
 	can_suppress = 1
 	burst_size = 1
 	fire_delay = 0
-	action_button_name = null
+	actions_types = list()
 
 /obj/item/weapon/gun/projectile/automatic/pistol/isHandgun()
 	return 1
@@ -25,6 +25,12 @@
 	w_class = 3
 	mag_type = /obj/item/ammo_box/magazine/m45
 	can_suppress = 0
+
+/obj/item/weapon/gun/projectile/automatic/pistol/empty	//empty stetchshit for maint spawns
+
+/obj/item/weapon/gun/projectile/automatic/pistol/empty/New()
+	magazine = new /obj/item/ammo_box/magazine/m10mm/empty(src)
+	..()
 
 /obj/item/weapon/gun/projectile/automatic/pistol/deagle
 	name = "desert eagle"
@@ -58,4 +64,4 @@
 	can_suppress = 0
 	burst_size = 3
 	fire_delay = 2
-	action_button_name = "Toggle Firemode"
+	actions_types = list(/datum/action/item_action/toggle_firemode)

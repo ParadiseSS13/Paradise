@@ -125,7 +125,7 @@
 	origin_tech = "biotech=4"
 
 /obj/item/slimepotion/afterattack(obj/item/weapon/reagent_containers/target, mob/user , proximity)
-	if (istype(target))
+	if(istype(target))
 		to_chat(user, "<span class='notice'>You cannot transfer [src] to [target]! It appears the potion must be given directly to a slime to absorb.</span>") // le fluff faec
 		return
 
@@ -154,7 +154,7 @@
 		qdel(M)
 		var/newname = sanitize(copytext(input(user, "Would you like to give the slime a name?", "Name your new pet", "pet slime") as null|text,1,MAX_NAME_LEN))
 
-		if (!newname)
+		if(!newname)
 			newname = "pet slime"
 		pet.name = newname
 		pet.real_name = newname
@@ -168,7 +168,7 @@
 		qdel(M)
 		var/newname = sanitize(copytext(input(user, "Would you like to give the slime a name?", "Name your new pet", "pet slime") as null|text,1,MAX_NAME_LEN))
 
-		if (!newname)
+		if(!newname)
 			newname = "pet slime"
 		pet.name = newname
 		pet.real_name = newname
@@ -342,6 +342,7 @@
 	C.color = "#000080"
 	C.max_heat_protection_temperature = FIRE_IMMUNITY_SUIT_MAX_TEMP_PROTECT
 	C.heat_protection = C.body_parts_covered
+	C.burn_state = FIRE_PROOF
 	uses --
 	if(!uses)
 		qdel(src)
@@ -401,6 +402,8 @@
 	if(!O.client)
 		return 0
 	if(O.mind && O.mind.current && O.mind.current.stat != DEAD)
+		return 0
+	if(!O.can_reenter_corpse)
 		return 0
 	if(O.has_enabled_antagHUD == 1 && config.antag_hud_restricted)
 		return 0

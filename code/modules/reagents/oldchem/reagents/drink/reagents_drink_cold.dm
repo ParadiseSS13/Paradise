@@ -1,6 +1,6 @@
 /datum/reagent/drink/cold
 	name = "Cold drink"
-	adj_temp = -5
+	adj_temp_cool = 5
 
 /datum/reagent/drink/cold/tonic
 	name = "Tonic Water"
@@ -25,6 +25,11 @@
 	description = "Frozen water, your dentist wouldn't like you chewing this."
 	reagent_state = SOLID
 	color = "#619494" // rgb: 97, 148, 148
+	adj_temp_cool = 0
+
+/datum/reagent/drink/cold/ice/on_mob_life(mob/living/M)
+	M.bodytemperature = max(M.bodytemperature - 5 * TEMPERATURE_DAMAGE_COEFFICIENT, 0)
+	..()
 
 /datum/reagent/drink/cold/space_cola
 	name = "Cola"
@@ -32,7 +37,7 @@
 	description = "A refreshing beverage."
 	reagent_state = LIQUID
 	color = "#100800" // rgb: 16, 8, 0
-	adj_drowsy 	= 	-3
+	adj_drowsy = -5
 
 /datum/reagent/drink/cold/nuka_cola
 	name = "Nuka Cola"
@@ -41,14 +46,17 @@
 	color = "#100800" // rgb: 16, 8, 0
 	adj_sleepy = -2
 
-/datum/reagent/drink/cold/nuka_cola/on_mob_life(var/mob/living/M as mob)
+/datum/reagent/drink/cold/nuka_cola/on_mob_life(mob/living/M)
 	M.Jitter(20)
 	M.druggy = max(M.druggy, 30)
 	M.dizziness +=5
 	M.drowsyness = 0
 	M.status_flags |= GOTTAGOFAST
 	..()
-	return
+
+/datum/reagent/drink/cold/nuka_cola/reagent_deleted(mob/living/M)
+	M.status_flags &= ~GOTTAGOFAST
+	..()
 
 /datum/reagent/drink/cold/spacemountainwind
 	name = "Space Mountain Wind"
@@ -70,14 +78,14 @@
 	id = "space_up"
 	description = "Tastes like a hull breach in your mouth."
 	color = "#202800" // rgb: 32, 40, 0
-	adj_temp = -8
+	adj_temp_cool = 8
 
 /datum/reagent/drink/cold/lemon_lime
 	name = "Lemon Lime"
 	description = "A tangy substance made of 0.5% natural citrus!"
 	id = "lemon_lime"
 	color = "#878F00" // rgb: 135, 40, 0
-	adj_temp = -8
+	adj_temp_cool = 8
 
 /datum/reagent/drink/cold/lemonade
 	name = "Lemonade"
@@ -93,40 +101,17 @@
 
 /datum/reagent/drink/cold/brownstar
 	name = "Brown Star"
-	description = "Its not what it sounds like..."
+	description = "It's not what it sounds like..."
 	id = "brownstar"
 	color = "#9F3400" // rgb: 159, 052, 000
-	adj_temp = - 2
+	adj_temp_cool = 2
 
 /datum/reagent/drink/cold/milkshake
 	name = "Milkshake"
 	description = "Glorious brainfreezing mixture."
 	id = "milkshake"
 	color = "#AEE5E4" // rgb" 174, 229, 228
-	adj_temp = -9
-
-/datum/reagent/drink/cold/milkshake/on_mob_life(var/mob/living/M as mob)
-	if(!M) M = holder.my_atom
-	if(!data) data = 1
-	switch(data)
-		if(1 to 15)
-			M.bodytemperature -= 5 * TEMPERATURE_DAMAGE_COEFFICIENT
-			if(holder.has_reagent("capsaicin"))
-				holder.remove_reagent("capsaicin", 5)
-			if(istype(M, /mob/living/carbon/slime))
-				M.bodytemperature -= rand(5,20)
-		if(15 to 25)
-			M.bodytemperature -= 10 * TEMPERATURE_DAMAGE_COEFFICIENT
-			if(istype(M, /mob/living/carbon/slime))
-				M.bodytemperature -= rand(10,20)
-		if(25 to INFINITY)
-			M.bodytemperature -= 15 * TEMPERATURE_DAMAGE_COEFFICIENT
-			if(prob(1)) M.emote("shiver")
-			if(istype(M, /mob/living/carbon/slime))
-				M.bodytemperature -= rand(15,20)
-	data++
-	..()
-	return
+	adj_temp_cool = 9
 
 /datum/reagent/drink/cold/rewriter
 	name = "Rewriter"
@@ -134,7 +119,6 @@
 	id = "rewriter"
 	color = "#485000" // rgb:72, 080, 0
 
-/datum/reagent/drink/cold/rewriter/on_mob_life(var/mob/living/M as mob)
-	..()
+/datum/reagent/drink/cold/rewriter/on_mob_life(mob/living/M)
 	M.Jitter(5)
-	return
+	..()

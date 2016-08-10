@@ -70,8 +70,8 @@
 	..()
 
 	statpanel("Status")
-	if (client.statpanel == "Status" && ticker)
-		if (ticker.current_state != GAME_STATE_PREGAME)
+	if(client.statpanel == "Status" && ticker)
+		if(ticker.current_state != GAME_STATE_PREGAME)
 			stat(null, "Station Time: [worldtime2text()]")
 	statpanel("Lobby")
 	if(client.statpanel=="Lobby" && ticker)
@@ -245,7 +245,7 @@
 	if(jobban_isbanned(src,rank))	return 0
 	if(!is_job_whitelisted(src, rank))	 return 0
 	if(!job.player_old_enough(src.client))	return 0
-	if(job.admin_only && !(check_rights(R_ADMIN, 0))) return 0
+	if(job.admin_only && !(check_rights(R_EVENT, 0))) return 0
 
 	if(config.assistantlimit)
 		if(job.title == "Civilian")
@@ -275,7 +275,7 @@
 		return 0
 
 /mob/new_player/proc/AttemptLateSpawn(rank,var/spawning_at)
-	if (src != usr)
+	if(src != usr)
 		return 0
 	if(!ticker || ticker.current_state != GAME_STATE_PLAYING)
 		to_chat(usr, "\red The round is either not ready, or has already finished...")
@@ -360,11 +360,11 @@
 
 
 /mob/new_player/proc/AnnounceArrival(var/mob/living/carbon/human/character, var/rank, var/join_message)
-	if (ticker.current_state == GAME_STATE_PLAYING)
+	if(ticker.current_state == GAME_STATE_PLAYING)
 		var/ailist[] = list()
-		for (var/mob/living/silicon/ai/A in living_mob_list)
+		for(var/mob/living/silicon/ai/A in living_mob_list)
 			ailist += A
-		if (ailist.len)
+		if(ailist.len)
 			var/mob/living/silicon/ai/announcer = pick(ailist)
 			if(character.mind)
 				if((character.mind.assigned_role != "Cyborg") && (character.mind.special_role != "MODE"))
@@ -385,11 +385,11 @@
 					global_announcer.autosay("[character.real_name],[rank ? " [rank]," : " visitor," ] [join_message ? join_message : "has arrived on the station"].", "Arrivals Announcement Computer")
 
 /mob/new_player/proc/AnnounceCyborg(var/mob/living/character, var/rank, var/join_message)
-	if (ticker.current_state == GAME_STATE_PLAYING)
+	if(ticker.current_state == GAME_STATE_PLAYING)
 		var/ailist[] = list()
-		for (var/mob/living/silicon/ai/A in living_mob_list)
+		for(var/mob/living/silicon/ai/A in living_mob_list)
 			ailist += A
-		if (ailist.len)
+		if(ailist.len)
 			var/mob/living/silicon/ai/announcer = pick(ailist)
 			if(character.mind)
 				if((character.mind.special_role != "MODE"))
@@ -402,7 +402,7 @@
 					global_announcer.autosay("A new[rank ? " [rank]" : " visitor" ] [join_message ? join_message : "has arrived on the station"].", "Arrivals Announcement Computer")
 
 /mob/new_player/proc/LateChoices()
-	var/mills = world.time // 1/10 of a second, not real milliseconds but whatever
+	var/mills = ROUND_TIME // 1/10 of a second, not real milliseconds but whatever
 	//var/secs = ((mills % 36000) % 600) / 10 //Not really needed, but I'll leave it here for refrence.. or something
 	var/mins = (mills % 36000) / 600
 	var/hours = mills / 36000
@@ -415,21 +415,64 @@
 	else if(shuttle_master.emergency.mode >= SHUTTLE_CALL)
 		dat += "<font color='red'>The station is currently undergoing evacuation procedures.</font><br>"
 
-	dat += "Choose from the following open positions:<br>"
+	dat += "Choose from the following open positions:<br><br>"
+
+	var/list/activePlayers = list()
+	var/list/categorizedJobs = list(
+		"Command" = list(jobs = list(), titles = command_positions, color = "#aac1ee"),
+		"Engineering" = list(jobs = list(), titles = engineering_positions, color = "#ffd699"),
+		"Security" = list(jobs = list(), titles = security_positions, color = "#ff9999"),
+		"Miscellaneous" = list(jobs = list(), titles = list(), color = "#ffffff", colBreak = 1),
+		"Synthetic" = list(jobs = list(), titles = nonhuman_positions, color = "#ccffcc"),
+		"Support / Service" = list(jobs = list(), titles = service_positions, color = "#cccccc"),
+		"Medical" = list(jobs = list(), titles = medical_positions, color = "#99ffe6", colBreak = 1),
+		"Science" = list(jobs = list(), titles = science_positions, color = "#e6b3e6"),
+		"Supply" = list(jobs = list(), titles = supply_positions, color = "#ead4ae"),
+		)
 	for(var/datum/job/job in job_master.occupations)
 		if(job && IsJobAvailable(job.title))
-			var/active = 0
+			activePlayers[job] = 0
+			var/categorized = 0
 			// Only players with the job assigned and AFK for less than 10 minutes count as active
-			for(var/mob/M in player_list) if(M.mind && M.client && M.mind.assigned_role == job.title && M.client.inactivity <= 10 * 60 * 10)
-				active++
-			dat += "<a href='byond://?src=\ref[src];SelectedJob=[job.title]'>[job.title] ([job.current_positions]) (Active: [active])</a><br>"
+			for(var/mob/M in player_list) if(M.mind && M.client && M.mind.assigned_role == job.title && M.client.inactivity <= 10 MINUTES)
+				activePlayers[job]++
+			for(var/jobcat in categorizedJobs)
+				var/list/jobs = categorizedJobs[jobcat]["jobs"]
+				if(job.title in categorizedJobs[jobcat]["titles"])
+					categorized = 1
+					if(jobcat == "Command") // Put captain at top of command jobs
+						if(job.title == "Captain")
+							jobs.Insert(1, job)
+						else
+							jobs += job
+					else // Put heads at top of non-command jobs
+						if(job.title in command_positions)
+							jobs.Insert(1, job)
+						else
+							jobs += job
+			if(!categorized)
+				categorizedJobs["Miscellaneous"]["jobs"] += job
 
-	dat += "</center>"
+	dat += "<table><tr><td valign='top'>"
+	for(var/jobcat in categorizedJobs)
+		if(categorizedJobs[jobcat]["colBreak"])
+			dat += "</td><td valign='top'>"
+		if(length(categorizedJobs[jobcat]["jobs"]) < 1)
+			continue
+		var/color = categorizedJobs[jobcat]["color"]
+		dat += "<fieldset style='border: 2px solid [color]; display: inline'>"
+		dat += "<legend align='center' style='color: [color]'>[jobcat]</legend>"
+		for(var/datum/job/job in categorizedJobs[jobcat]["jobs"])
+			dat += "<a href='byond://?src=\ref[src];SelectedJob=[job.title]'>[job.title] ([job.current_positions]) (Active: [activePlayers[job]])</a><br>"
+		dat += "</fieldset><br>"
+
+	dat += "</td></tr></table></center>"
 	// Removing the old window method but leaving it here for reference
 //		src << browse(dat, "window=latechoices;size=300x640;can_close=1")
 	// Added the new browser window method
-	var/datum/browser/popup = new(src, "latechoices", "Choose Profession", 440, 500)
+	var/datum/browser/popup = new(src, "latechoices", "Choose Profession", 900, 600)
 	popup.add_stylesheet("playeroptions", 'html/browser/playeroptions.css')
+	popup.add_script("delay_interactivity", 'html/browser/delay_interactivity.js')
 	popup.set_content(dat)
 	popup.open(0) // 0 is passed to open so that it doesn't use the onclose() proc
 

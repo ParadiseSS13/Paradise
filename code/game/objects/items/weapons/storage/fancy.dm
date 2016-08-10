@@ -17,6 +17,7 @@
 	icon = 'icons/obj/food/food.dmi'
 	icon_state = "donutbox6"
 	name = "donut box"
+	burn_state = FLAMMABLE
 	var/icon_type = "donut"
 
 /obj/item/weapon/storage/fancy/update_icon(var/itemremoved = 0)
@@ -115,7 +116,7 @@
 	desc = "A box of crayons for all your rune drawing needs."
 	icon = 'icons/obj/crayons.dmi'
 	icon_state = "crayonbox"
-	w_class = 2.0
+	w_class = 2
 	storage_slots = 6
 	icon_type = "crayon"
 	can_hold = list(
@@ -192,7 +193,6 @@
 
 /obj/item/weapon/storage/fancy/cigarettes/update_icon()
 	icon_state = "[initial(icon_state)][contents.len]"
-	desc = "There are [contents.len] cig\s left!"
 	return
 
 /obj/item/weapon/storage/fancy/cigarettes/proc/lace_cigarette(var/obj/item/clothing/mask/cigarette/C as obj)
@@ -355,7 +355,7 @@
 	var/total_contents = src.contents.len - itemremoved
 	src.icon_state = "vialbox[total_contents]"
 	src.overlays.Cut()
-	if (!broken)
+	if(!broken)
 		overlays += image(icon, src, "led[locked]")
 		if(locked)
 			overlays += image(icon, src, "cover")

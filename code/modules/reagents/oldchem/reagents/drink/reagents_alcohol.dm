@@ -10,15 +10,14 @@
 	var/dizzy_adj = 3
 	var/alcohol_perc = 1 //percentage of ethanol in a beverage 0.0 - 1.0
 
-/datum/reagent/ethanol/on_mob_life(var/mob/living/M as mob, var/alien)
+/datum/reagent/ethanol/on_mob_life(mob/living/M)
 	M.nutrition += nutriment_factor
 	M.AdjustDrunk(alcohol_perc)
 	M.dizziness += dizzy_adj
 	..()
-	return
 
 
-/datum/reagent/ethanol/reaction_obj(var/obj/O, var/volume)
+/datum/reagent/ethanol/reaction_obj(obj/O, volume)
 	if(istype(O,/obj/item/weapon/paper))
 		var/obj/item/weapon/paper/paperaffected = O
 		paperaffected.clearpaper()
@@ -30,14 +29,10 @@
 			to_chat(usr, "The solution melts away the ink on the book.")
 		else
 			to_chat(usr, "It wasn't enough...")
-	return
 
-/datum/reagent/ethanol/reaction_mob(var/mob/living/M, var/method=TOUCH, var/volume)//Splashing people with ethanol isn't quite as good as fuel.
-	if(!istype(M, /mob/living))
-		return
+/datum/reagent/ethanol/reaction_mob(mob/living/M, method=TOUCH, volume)//Splashing people with ethanol isn't quite as good as fuel.
 	if(method == TOUCH)
 		M.adjust_fire_stacks(volume / 15)
-		return
 
 
 /datum/reagent/ethanol/beer
@@ -47,11 +42,6 @@
 	nutriment_factor = 2 * FOOD_METABOLISM
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.2
-
-/datum/reagent/ethanol/beer/on_mob_life(var/mob/living/M as mob)
-		..()
-		M:jitteriness = max(M:jitteriness-3,0)
-		return
 
 /datum/reagent/ethanol/cider
 	name = "Cider"
@@ -93,11 +83,9 @@
 	alcohol_perc = 0.7
 
 //copy paste from LSD... shoot me
-/datum/reagent/ethanol/absinthe/on_mob_life(var/mob/living/M)
-	if(!M) M = holder.my_atom
+/datum/reagent/ethanol/absinthe/on_mob_life(mob/living/M)
 	M.hallucination += 5
 	..()
-	return
 
 /datum/reagent/ethanol/absinthe/overdose_process(mob/living/M, severity)
 	M.adjustToxLoss(1)
@@ -110,10 +98,9 @@
 	overdose_threshold = 30
 	alcohol_perc = 0.4
 
-/datum/reagent/ethanol/rum/on_mob_life(var/mob/living/M as mob)
-	..()
+/datum/reagent/ethanol/rum/on_mob_life(mob/living/M)
 	M.dizziness +=5
-	return
+	..()
 
 /datum/reagent/ethanol/rum/overdose_process(mob/living/M, severity)
 	M.adjustToxLoss(1)
@@ -139,9 +126,9 @@
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.2
 
-/datum/reagent/ethanol/tequilla
+/datum/reagent/ethanol/tequila
 	name = "Tequila"
-	id = "tequilla"
+	id = "tequila"
 	description = "A strong and mildly flavoured, mexican produced spirit. Feeling thirsty hombre?"
 	color = "#A8B0B7" // rgb: 168, 176, 183
 	alcohol_perc = 0.4
@@ -191,17 +178,16 @@
 	reagent_state = LIQUID
 	color = "#102000" // rgb: 16, 32, 0
 	alcohol_perc = 0.3
+	heart_rate_increase = 1
 
-/datum/reagent/ethanol/thirteenloko/on_mob_life(var/mob/living/M as mob)
+/datum/reagent/ethanol/thirteenloko/on_mob_life(mob/living/M)
+	M.nutrition += nutriment_factor
+	M.drowsyness = max(0, M.drowsyness-7)
+	M.AdjustSleeping(-2)
+	if(M.bodytemperature > 310)
+		M.bodytemperature = max(310, M.bodytemperature - (5 * TEMPERATURE_DAMAGE_COEFFICIENT))
+	M.Jitter(5)
 	..()
-	M:nutrition += nutriment_factor
-	M:drowsyness = max(0,M:drowsyness-7)
-	//if(!M:sleeping_willingly)
-	//	M:sleeping = max(0,M.sleeping-2)
-	if (M.bodytemperature > 310)
-		M.bodytemperature = max(310, M.bodytemperature-5)
-	M.Jitter(1)
-	return
 
 
 /////////////////////////////////////////////////////////////////cocktail entities//////////////////////////////////////////////
@@ -334,9 +320,9 @@
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.3
 
-/datum/reagent/ethanol/tequilla_sunrise
+/datum/reagent/ethanol/tequila_sunrise
 	name = "Tequila Sunrise"
-	id = "tequillasunrise"
+	id = "tequilasunrise"
 	description = "Tequila and orange juice. Much like a Screwdriver, only Mexican~"
 	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
@@ -349,6 +335,11 @@
 	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.5
+
+/datum/reagent/ethanol/toxins_special/on_mob_life(mob/living/M)
+	if(M.bodytemperature < 330)
+		M.bodytemperature = min(330, M.bodytemperature + (15 * TEMPERATURE_DAMAGE_COEFFICIENT)) //310 is the normal bodytemp. 310.055
+	..()
 
 /datum/reagent/ethanol/beepsky_smash
 	name = "Beepsky Smash"
@@ -458,6 +449,11 @@
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.2
 
+/datum/reagent/ethanol/antifreeze/on_mob_life(mob/living/M)
+	if(M.bodytemperature < 330)
+		M.bodytemperature = min(330, M.bodytemperature + (20 * TEMPERATURE_DAMAGE_COEFFICIENT)) //310 is the normal bodytemp. 310.055
+	..()
+
 /datum/reagent/ethanol/barefoot
 	name = "Barefoot"
 	id = "barefoot"
@@ -526,11 +522,10 @@
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.4
 
-/datum/reagent/ethanol/sbiten/on_mob_life(var/mob/living/M as mob)
+/datum/reagent/ethanol/sbiten/on_mob_life(mob/living/M)
+	if(M.bodytemperature < 360)
+		M.bodytemperature = min(360, M.bodytemperature + (50 * TEMPERATURE_DAMAGE_COEFFICIENT)) //310 is the normal bodytemp. 310.055
 	..()
-	if (M.bodytemperature < 360)
-		M.bodytemperature = min(360, M.bodytemperature+50) //310 is the normal bodytemp. 310.055
-	return
 
 /datum/reagent/ethanol/devilskiss
 	name = "Devils Kiss"
@@ -564,11 +559,10 @@
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.2
 
-/datum/reagent/ethanol/iced_beer/on_mob_life(var/mob/living/M as mob)
+/datum/reagent/ethanol/iced_beer/on_mob_life(mob/living/M)
+	if(M.bodytemperature > 270)
+		M.bodytemperature = max(270, M.bodytemperature - (20 * TEMPERATURE_DAMAGE_COEFFICIENT)) //310 is the normal bodytemp. 310.055
 	..()
-	if (M.bodytemperature < 270)
-		M.bodytemperature = min(270, M.bodytemperature-40) //310 is the normal bodytemp. 310.055
-	return
 
 /datum/reagent/ethanol/grog
 	name = "Grog"
@@ -624,17 +618,17 @@
 	description = "A strong neurotoxin that puts the subject into a death-like state."
 	reagent_state = LIQUID
 	color = "#2E2E61" // rgb: 46, 46, 97
-	alcohol_perc = 0.7
-
-/datum/reagent/ethanol/neurotoxin/on_mob_life(var/mob/living/M as mob)
-	M.weakened = max(M.weakened, 3)
 	dizzy_adj = 6
+	alcohol_perc = 0.7
+	heart_rate_decrease = 1
+
+/datum/reagent/ethanol/neurotoxin/on_mob_life(mob/living/M)
+	M.weakened = max(M.weakened, 3)
 	if(current_cycle >=55)
 		M.druggy = max(M.druggy, 55)
 	if(current_cycle >=200)
 		M.adjustToxLoss(2)
 	..()
-	return
 
 /datum/reagent/ethanol/changelingsting
 	name = "Changeling Sting"
@@ -644,10 +638,9 @@
 	color = "#2E6671" // rgb: 46, 102, 113
 	alcohol_perc = 0.7
 
-/datum/reagent/ethanol/changelingsting/on_mob_life(var/mob/living/M as mob)
-	..()
+/datum/reagent/ethanol/changelingsting/on_mob_life(mob/living/M)
 	M.dizziness +=5
-	return
+	..()
 
 /datum/reagent/ethanol/irishcarbomb
 	name = "Irish Car Bomb"
@@ -657,10 +650,9 @@
 	color = "#2E6671" // rgb: 46, 102, 113
 	alcohol_perc = 0.3
 
-/datum/reagent/ethanol/irishcarbomb/on_mob_life(var/mob/living/M as mob)
-	..()
+/datum/reagent/ethanol/irishcarbomb/on_mob_life(mob/living/M)
 	M.dizziness +=5
-	return
+	..()
 
 /datum/reagent/ethanol/syndicatebomb
 	name = "Syndicate Bomb"
@@ -686,14 +678,11 @@
 	color = "#2E6671" // rgb: 46, 102, 113
 	alcohol_perc = 0.5
 
-/datum/reagent/ethanol/driestmartini/on_mob_life(var/mob/living/M as mob)
+/datum/reagent/ethanol/driestmartini/on_mob_life(mob/living/M)
 	M.dizziness +=10
-	if(current_cycle >= 55 && current_cycle <115)
-		if (!M.stuttering) M.stuttering = 1
+	if(current_cycle >= 55 && current_cycle < 115)
 		M.stuttering += 10
 	..()
-
-	return
 
 /datum/reagent/ethanol/kahlua
 	name = "Kahlua"
@@ -702,10 +691,9 @@
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.2
 
-/datum/reagent/ethanol/kahlua/on_mob_life(var/mob/living/M as mob)
-	M.dizziness = max(0,M.dizziness-5)
-	M.drowsyness = max(0,M.drowsyness-3)
-	M.sleeping = max(0,M.sleeping-2)
+/datum/reagent/ethanol/kahlua/on_mob_life(mob/living/M)
+	M.dizziness = max(0, M.dizziness-5)
+	M.drowsyness = max(0, M.drowsyness-3)
+	M.AdjustSleeping(-2)
 	M.Jitter(5)
 	..()
-	return

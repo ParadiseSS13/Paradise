@@ -374,7 +374,7 @@
 	var/list/valid_body_accessories = new()
 	for(var/B in body_accessory_by_name)
 		var/datum/body_accessory/A = body_accessory_by_name[B]
-		if(check_rights(R_ADMIN, 1, src))
+		if(check_rights(R_ADMIN, 0, src))
 			valid_body_accessories = body_accessory_by_name.Copy()
 		else
 			if(!istype(A))

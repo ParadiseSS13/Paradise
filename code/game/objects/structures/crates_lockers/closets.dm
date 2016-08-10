@@ -66,8 +66,8 @@
 	loc.Exited(M)
 	M.loc = destination
 	loc.Entered(M, ignoreRest = 1)
-	for (var/atom/movable/AM in loc)
-		if (istype(AM, /obj/item))
+	for(var/atom/movable/AM in loc)
+		if(istype(AM, /obj/item))
 			continue
 		AM.Crossed(M)
 
@@ -149,7 +149,7 @@
 			qdel(src)
 		if(2)
 			if(prob(50))
-				for (var/atom/movable/A as mob|obj in src)
+				for(var/atom/movable/A as mob|obj in src)
 					A.forceMove(loc)
 					A.ex_act(severity++)
 				new /obj/item/stack/sheet/metal(loc)
@@ -192,7 +192,7 @@
 			return
 		var/obj/item/weapon/rcs/E = W
 		if(E.rcell && (E.rcell.charge >= E.chargecost))
-			if(!(src.z in config.contact_levels))
+			if(!is_level_reachable(src.z))
 				to_chat(user, "<span class='warning'>The rapid-crate-sender can't locate any telepads!</span>")
 				return
 			if(E.mode == 0)
@@ -335,7 +335,7 @@
 		to_chat(user, "<span class='notice'>It won't budge!</span>")
 		if(!lastbang)
 			lastbang = 1
-			for (var/mob/M in hearers(src, null))
+			for(var/mob/M in hearers(src, null))
 				to_chat(M, text("<FONT size=[]>BANG, bang!</FONT>", max(0, 5 - get_dist(src, M))))
 			spawn(30)
 				lastbang = 0
@@ -384,10 +384,11 @@
 /obj/structure/closet/container_resist(var/mob/living/L)
 	var/breakout_time = 2 //2 minutes by default
 	if(opened)
-		if (L.loc == src)
+		if(L.loc == src)
 			L.forceMove(get_turf(src)) // Let's just be safe here
 		return //Door's open... wait, why are you in it's contents then?
 	if(!welded)
+		open() //for cardboard boxes
 		return //closed but not welded...
 	//	else Meh, lets just keep it at 2 minutes for now
 	//		breakout_time++ //Harder to get out of welded lockers than locked lockers

@@ -8,23 +8,27 @@
 	throw_speed = 3
 	throw_range = 7
 	pressure_resistance = 8
+	burn_state = FLAMMABLE
 	var/amount = 30					//How much paper is in the bin.
-	var/list/papers = new/list()	//List of papers put in the bin for reference.
-/*
-	autoignition_temperature = 519.15 // Kelvin
+	var/list/papers = list()	//List of papers put in the bin for reference.
 
-/obj/item/weapon/paper_bin/ignite(var/temperature)
-	on_fire=1
-	visible_message("\The [src]'s paper bursts into flame!")
-	overlays += fire_sprite
-	spawn(rand(3,10) SECONDS)
-		if(!on_fire)
-			return
-		new ashtype(src.loc)
-		papers=0
-		amount=0
-		update_icon()
-*///LINDA shit figure out later
+/obj/item/weapon/paper_bin/fire_act()
+	if(!amount)
+		return
+	..()
+
+/obj/item/weapon/paper_bin/Destroy()
+	if(papers)
+		for(var/i in papers)
+			qdel(i)
+		papers.Cut()
+	return ..()
+
+/obj/item/weapon/paper_bin/burn()
+	amount = 0
+	extinguish()
+	update_icon()
+
 /obj/item/weapon/paper_bin/MouseDrop(atom/over_object)
 	var/mob/M = usr
 	if(M.restrained() || M.stat || !Adjacent(M))
@@ -48,10 +52,10 @@
 
 
 /obj/item/weapon/paper_bin/attack_hand(mob/user as mob)
-	if (ishuman(user))
+	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		var/obj/item/organ/external/temp = H.organs_by_name["r_hand"]
-		if (H.hand)
+		if(H.hand)
 			temp = H.organs_by_name["l_hand"]
 		if(temp && !temp.is_usable())
 			to_chat(H, "<span class='notice'>You try to move your [temp.name], but cannot!")

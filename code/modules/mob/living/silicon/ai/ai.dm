@@ -26,10 +26,10 @@ var/list/ai_verbs_default = list(
 //Not sure why this is necessary...
 /proc/AutoUpdateAI(obj/subject)
 	var/is_in_use = 0
-	if (subject!=null)
+	if(subject!=null)
 		for(var/A in ai_list)
 			var/mob/living/silicon/ai/M = A
-			if ((M.client && M.machine == subject))
+			if((M.client && M.machine == subject))
 				is_in_use = 1
 				subject.attack_ai(M)
 	return is_in_use
@@ -54,6 +54,7 @@ var/list/ai_verbs_default = list(
 	var/obj/item/device/pda/silicon/ai/aiPDA = null
 	var/obj/item/device/multitool/aiMulti = null
 	var/custom_sprite = 0 //For our custom sprites
+	var/custom_hologram = 0 //For our custom holograms
 
 	var/obj/item/device/radio/headset/heads/ai_integrated/aiRadio = null
 
@@ -61,7 +62,6 @@ var/list/ai_verbs_default = list(
 	var/datum/module_picker/malf_picker
 	var/processing_time = 100
 	var/list/datum/AI_Module/current_modules = list()
-	var/fire_res_on_core = 0
 	var/can_dominate_mechs = 0
 	var/control_disabled = 0 // Set to 1 to stop AI from interacting via Click() -- TLE
 	var/malfhacking = 0 // More or less a copy of the above var, so that malf AIs can hack and still get new cyborgs -- NeoFite
@@ -121,8 +121,8 @@ var/list/ai_verbs_default = list(
 	var/pickedName = null
 	while(!pickedName)
 		pickedName = pick(ai_names)
-		for (var/mob/living/silicon/ai/A in mob_list)
-			if (A.real_name == pickedName && possibleNames.len > 1) //fixing the theoretically possible infinite loop
+		for(var/mob/living/silicon/ai/A in mob_list)
+			if(A.real_name == pickedName && possibleNames.len > 1) //fixing the theoretically possible infinite loop
 				possibleNames -= pickedName
 				pickedName = null
 
@@ -138,7 +138,7 @@ var/list/ai_verbs_default = list(
 	proc_holder_list = new()
 
 	if(L)
-		if (istype(L, /datum/ai_laws))
+		if(istype(L, /datum/ai_laws))
 			laws = L
 	else
 		make_laws()
@@ -154,7 +154,7 @@ var/list/ai_verbs_default = list(
 
 	aiCamera = new/obj/item/device/camera/siliconcam/ai_camera(src)
 
-	if (istype(loc, /turf))
+	if(istype(loc, /turf))
 		add_ai_verbs(src)
 
 	//Languages
@@ -176,12 +176,12 @@ var/list/ai_verbs_default = list(
 	add_language("Clownish", 0)
 
 	if(!safety)//Only used by AIize() to successfully spawn an AI.
-		if (!B)//If there is no player/brain inside.
+		if(!B)//If there is no player/brain inside.
 			new/obj/structure/AIcore/deactivated(loc)//New empty terminal.
 			qdel(src)//Delete AI.
 			return
 		else
-			if (B.brainmob.mind)
+			if(B.brainmob.mind)
 				B.brainmob.mind.transfer_to(src)
 
 			on_mob_init()
@@ -219,7 +219,7 @@ var/list/ai_verbs_default = list(
 
 	to_chat(src, radio_text)
 
-	if (!(ticker && ticker.mode && (mind in ticker.mode.malf_ai)))
+	if(!(ticker && ticker.mode && (mind in ticker.mode.malf_ai)))
 		show_laws()
 		to_chat(src, "<b>These laws may be changed by other players, or by you being the traitor.</b>")
 
@@ -298,18 +298,19 @@ var/list/ai_verbs_default = list(
 				Entry[i] = trim(Entry[i])
 
 			if(Entry.len < 2)
-				continue;
+				continue
 
-			if(Entry[1] == src.ckey && Entry[2] == src.real_name)
+			if(Entry.len < 3 && Entry[1] == ckey && Entry[2] == real_name)
 				custom_sprite = 1 //They're in the list? Custom sprite time
 				icon = 'icons/mob/custom-synthetic.dmi'
 
+
 		//if(icon_state == initial(icon_state))
 	var/icontype = ""
-	if (custom_sprite == 1) icontype = ("Custom")//automagically selects custom sprite if one is available
+	if(custom_sprite == 1) icontype = ("Custom")//automagically selects custom sprite if one is available
 	else icontype = input("Select an icon!", "AI", null, null) in list("Monochrome", "Blue", "Clown", "Inverted", "Text", "Smiley", "Angry", "Dorf", "Matrix", "Bliss", "Firewall", "Green", "Red", "Static", "Triumvirate", "Triumvirate Static", "Red October", "Sparkles", "ANIMA", "President", "NT")
 	switch(icontype)
-		if("Custom") icon_state = "[src.ckey]-ai"
+		if("Custom") icon_state = "[ckey]-ai"
 		if("Clown") icon_state = "ai-clown2"
 		if("Monochrome") icon_state = "ai-mono"
 		if("Inverted") icon_state = "ai-u"
@@ -340,9 +341,9 @@ var/list/ai_verbs_default = list(
 /mob/living/silicon/ai/show_malf_ai()
 	if(ticker.mode.name == "AI malfunction")
 		var/datum/game_mode/malfunction/malf = ticker.mode
-		for (var/datum/mind/malfai in malf.malf_ai)
-			if (mind == malfai) // are we the evil one?
-				if (malf.apcs >= 3)
+		for(var/datum/mind/malfai in malf.malf_ai)
+			if(mind == malfai) // are we the evil one?
+				if(malf.apcs >= 3)
 					stat(null, "Time until station control secured: [max(malf.AI_win_timeleft/(malf.apcs/3), 0)] seconds")
 
 // this verb lets the ai see the stations manifest
@@ -436,13 +437,13 @@ var/list/ai_verbs_default = list(
 	ai_announcement()
 
 /mob/living/silicon/ai/check_eye(var/mob/user as mob)
-	if (!current)
+	if(!current)
 		return null
 	user.reset_view(current)
 	return 1
 
 /mob/living/silicon/ai/blob_act()
-	if (stat != 2)
+	if(stat != 2)
 		adjustBruteLoss(60)
 		updatehealth()
 		return 1
@@ -452,7 +453,7 @@ var/list/ai_verbs_default = list(
 	return 0
 
 /mob/living/silicon/ai/emp_act(severity)
-	if (prob(30))
+	if(prob(30))
 		switch(pick(1,2))
 			if(1)
 				view_core()
@@ -467,11 +468,11 @@ var/list/ai_verbs_default = list(
 		if(1.0)
 			gib()
 		if(2.0)
-			if (stat != 2)
+			if(stat != 2)
 				adjustBruteLoss(60)
 				adjustFireLoss(60)
 		if(3.0)
-			if (stat != 2)
+			if(stat != 2)
 				adjustBruteLoss(30)
 
 	return
@@ -481,21 +482,21 @@ var/list/ai_verbs_default = list(
 	if(usr != src)
 		return
 	..()
-	if (href_list["mach_close"])
-		if (href_list["mach_close"] == "aialerts")
+	if(href_list["mach_close"])
+		if(href_list["mach_close"] == "aialerts")
 			viewalerts = 0
 		var/t1 = text("window=[]", href_list["mach_close"])
 		unset_machine()
 		src << browse(null, t1)
-	if (href_list["switchcamera"])
+	if(href_list["switchcamera"])
 		switchCamera(locate(href_list["switchcamera"])) in cameranet.cameras
-	if (href_list["showalerts"])
+	if(href_list["showalerts"])
 		subsystem_alarm_monitor()
 	if(href_list["show_paper"])
 		if(last_paper_seen)
 			src << browse(last_paper_seen, "window=show_paper")
 	//Carn: holopad requests
-	if (href_list["jumptoholopad"])
+	if(href_list["jumptoholopad"])
 		var/obj/machinery/hologram/holopad/H = locate(href_list["jumptoholopad"])
 		if(stat == CONSCIOUS)
 			if(H)
@@ -507,7 +508,7 @@ var/list/ai_verbs_default = list(
 		play_vox_word(href_list["say_word"], null, src)
 		return
 
-	if (href_list["track"])
+	if(href_list["track"])
 		var/mob/living/target = locate(href_list["track"]) in mob_list
 		if(target && target.can_track())
 			ai_actual_track(target)
@@ -515,7 +516,7 @@ var/list/ai_verbs_default = list(
 			to_chat(src, "<span class='warning'>Target is not on or near any active cameras on the station.</span>")
 		return
 
-	if (href_list["trackbot"])
+	if(href_list["trackbot"])
 		var/mob/living/simple_animal/bot/target = locate(href_list["trackbot"]) in simple_animal_list
 		if(target)
 			ai_actual_track(target)
@@ -523,7 +524,7 @@ var/list/ai_verbs_default = list(
 			to_chat(src, "<span class='warning'>Target is not on or near any active cameras on the station.</span>")
 		return
 
-	if (href_list["callbot"]) //Command a bot to move to a selected location.
+	if(href_list["callbot"]) //Command a bot to move to a selected location.
 		Bot = locate(href_list["callbot"]) in simple_animal_list
 		if(!Bot || Bot.remote_disabled || src.control_disabled)
 			return //True if there is no bot found, the bot is manually emagged, or the AI is carded with wireless off.
@@ -531,17 +532,17 @@ var/list/ai_verbs_default = list(
 		to_chat(src, "<span class='notice'>Set your waypoint by clicking on a valid location free of obstructions.</span>")
 		return
 
-	if (href_list["interface"]) //Remotely connect to a bot!
+	if(href_list["interface"]) //Remotely connect to a bot!
 		Bot = locate(href_list["interface"]) in simple_animal_list
 		if(!Bot || Bot.remote_disabled || src.control_disabled)
 			return
 		Bot.attack_ai(src)
 
-	if (href_list["botrefresh"]) //Refreshes the bot control panel.
+	if(href_list["botrefresh"]) //Refreshes the bot control panel.
 		botcall()
 		return
 
-	if (href_list["ai_take_control"]) //Mech domination
+	if(href_list["ai_take_control"]) //Mech domination
 		var/obj/mecha/M = locate(href_list["ai_take_control"])
 		if(controlled_mech)
 			to_chat(src, "You are already loaded into an onboard computer!")
@@ -549,17 +550,17 @@ var/list/ai_verbs_default = list(
 		if(M)
 			M.transfer_ai(AI_MECH_HACK,src, usr) //Called om the mech itself.
 
-	else if (href_list["faketrack"])
+	else if(href_list["faketrack"])
 		var/mob/target = locate(href_list["track"]) in mob_list
 		var/mob/living/silicon/ai/A = locate(href_list["track2"]) in mob_list
 		if(A && target)
 
 			A.cameraFollow = target
 			to_chat(A, "Now tracking [target.name] on camera.")
-			if (usr.machine == null)
+			if(usr.machine == null)
 				usr.machine = usr
 
-			while (src.cameraFollow == target)
+			while(src.cameraFollow == target)
 				to_chat(usr, "Target is not on or near any active cameras on the station. We'll check again in 5 seconds (unless you use the cancel-camera verb).")
 				sleep(40)
 				continue
@@ -575,23 +576,23 @@ var/list/ai_verbs_default = list(
 
 
 /mob/living/silicon/ai/attack_alien(mob/living/carbon/alien/humanoid/M as mob)
-	if (!ticker)
+	if(!ticker)
 		to_chat(M, "You cannot attack people before the game has started.")
 		return
 
-	if (istype(loc, /turf) && istype(loc.loc, /area/start))
+	if(istype(loc, /turf) && istype(loc.loc, /area/start))
 		to_chat(M, "No attacking people at spawn, you jackass.")
 		return
 
 	switch(M.a_intent)
 
-		if (I_HELP)
+		if(I_HELP)
 			visible_message("<span class='notice'>[M] caresses [src]'s plating with its scythe like arm.</span>")
 
 		else //harm
 			M.do_attack_animation(src)
 			var/damage = rand(10, 20)
-			if (prob(90))
+			if(prob(90))
 				playsound(loc, 'sound/weapons/slash.ogg', 25, 1, -1)
 				visible_message("<span class='danger'>[M] has slashed at [src]!</span>",\
 								"<span class='userdanger'>[M] has slashed at [src]!</span>")
@@ -638,14 +639,13 @@ var/list/ai_verbs_default = list(
 	if(check_unable(AI_CHECK_WIRELESS | AI_CHECK_RADIO))
 		return
 
-	var/ai_allowed_Zlevel = list(1,3,5)
 	var/d
 	var/area/bot_area
 	d += "<A HREF=?src=\ref[src];botrefresh=\ref[Bot]>Query network status</A><br>"
 	d += "<table width='100%'><tr><td width='40%'><h3>Name</h3></td><td width='20%'><h3>Status</h3></td><td width='30%'><h3>Location</h3></td><td width='10%'><h3>Control</h3></td></tr>"
 
-	for (var/mob/living/simple_animal/bot/Bot in simple_animal_list)
-		if((Bot.z in ai_allowed_Zlevel) && !Bot.remote_disabled) //Only non-emagged bots on the allowed Z-level are detected!
+	for(var/mob/living/simple_animal/bot/Bot in simple_animal_list)
+		if(is_ai_allowed(Bot.z) && !Bot.remote_disabled) //Only non-emagged bots on the allowed Z-level are detected!
 			bot_area = get_area(Bot)
 			d += "<tr><td width='30%'>[Bot.hacked ? "<span class='bad'>(!) </span>[Bot.name]" : Bot.name] ([Bot.model])</td>"
 			//If the bot is on, it will display the bot's current mode status. If the bot is not mode, it will just report "Idle". "Inactive if it is not on at all.
@@ -686,7 +686,7 @@ var/list/ai_verbs_default = list(
 	if(!tracking)
 		cameraFollow = null
 
-	if (!C || stat == DEAD) //C.can_use())
+	if(!C || stat == DEAD) //C.can_use())
 		return 0
 
 	if(!src.eyeobj)
@@ -716,7 +716,7 @@ var/list/ai_verbs_default = list(
 
 	var/mob/living/silicon/ai/U = usr
 
-	for (var/obj/machinery/camera/C in cameranet.cameras)
+	for(var/obj/machinery/camera/C in cameranet.cameras)
 		if(!C.can_use())
 			continue
 
@@ -770,7 +770,7 @@ var/list/ai_verbs_default = list(
 	if(check_unable())
 		return
 
-	for (var/obj/machinery/M in machines) //change status
+	for(var/obj/machinery/M in machines) //change status
 		if(istype(M, /obj/machinery/ai_status_display))
 			var/obj/machinery/ai_status_display/AISD = M
 			AISD.emotion = emote
@@ -792,43 +792,135 @@ var/list/ai_verbs_default = list(
 
 	if(check_unable())
 		return
+	if(!custom_hologram) //Check to see if custom sprite time, checking the appopriate file to change a var
+		var/file = file2text("config/custom_sprites.txt")
+		var/lines = splittext(file, "\n")
+
+		for(var/line in lines)
+		// split & clean up
+			var/list/Entry = splittext(line, ":")
+			for(var/i = 1 to Entry.len)
+				Entry[i] = trim(Entry[i])
+
+			if(Entry.len < 3)
+				continue
+
+			if (Entry[1] == ckey && Entry[2] == real_name && Entry[3] == "Hologram") //Custom holograms
+				custom_hologram = 1  // option is given in hologram menu
 
 	var/input
-	if(alert("Would you like to select a hologram based on a crew member or switch to unique avatar?",,"Crew Member","Unique")=="Crew Member")
+	switch(alert("Would you like to select a hologram based on a crew member, an animal, or switch to a unique avatar?",,"Crew Member","Unique","Animal"))
+		if("Crew Member")
+			var/personnel_list[] = list()
 
-		var/personnel_list[] = list()
+			for(var/datum/data/record/t in data_core.locked)//Look in data core locked.
+				personnel_list["[t.fields["name"]]: [t.fields["rank"]]"] = t.fields["image"]//Pull names, rank, and image.
 
-		for(var/datum/data/record/t in data_core.locked)//Look in data core locked.
-			personnel_list["[t.fields["name"]]: [t.fields["rank"]]"] = t.fields["image"]//Pull names, rank, and image.
+			if(personnel_list.len)
+				input = input("Select a crew member:") as null|anything in personnel_list
+				var/icon/character_icon = personnel_list[input]
+				if(character_icon)
+					qdel(holo_icon)//Clear old icon so we're not storing it in memory.
+					holo_icon = getHologramIcon(icon(character_icon))
+			else
+				alert("No suitable records found. Aborting.")
 
-		if(personnel_list.len)
-			input = input("Select a crew member:") as null|anything in personnel_list
-			var/icon/character_icon = personnel_list[input]
-			if(character_icon)
-				qdel(holo_icon)//Clear old icon so we're not storing it in memory.
-				holo_icon = getHologramIcon(icon(character_icon))
+		if("Animal")
+			var/icon_list[] = list(
+			"Bear",
+			"Carp",
+			"Chicken",
+			"Corgi",
+			"Cow",
+			"Crab",
+			"Deer",
+			"Fox",
+			"Goat",
+			"Goose",
+			"Kitten",
+			"Kitten2",
+			"Pig",
+			"Poly",
+			"Pug",
+			"Seal",
+			"Spider",
+			"Turkey"
+			)
+
+			input = input("Please select a hologram:") as null|anything in icon_list
+			if(input)
+				qdel(holo_icon)
+				switch(input)
+					if("Bear")
+						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi',"bear"))
+					if("Carp")
+						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi',"carp"))
+					if("Chicken")
+						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi',"chicken_brown"))
+					if("Corgi")
+						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi',"corgi"))
+					if("Cow")
+						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi',"cow"))
+					if("Crab")
+						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi',"crab"))
+					if("Deer")
+						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi',"deer"))
+					if("Fox")
+						holo_icon = getHologramIcon(icon('icons/mob/pets.dmi',"fox"))
+					if("Goat")
+						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi',"goat"))
+					if("Goose")
+						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi',"goose"))
+					if("Kitten")
+						holo_icon = getHologramIcon(icon('icons/mob/pets.dmi',"cat"))
+					if("Kitten2")
+						holo_icon = getHologramIcon(icon('icons/mob/pets.dmi',"cat2"))
+					if("Pig")
+						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi',"pig"))
+					if("Poly")
+						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi',"parrot_fly"))
+					if("Pug")
+						holo_icon = getHologramIcon(icon('icons/mob/pets.dmi',"pug"))
+					if("Seal")
+						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi',"seal"))
+					if("Spider")
+						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi',"guard"))
+					if("Turkey")
+						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi',"turkey"))
+
 		else
-			alert("No suitable records found. Aborting.")
+			var/icon_list[] = list(
+			"default",
+			"floating face",
+			"xeno queen",
+			"eldritch",
+			"ancient machine"
+			)
+			if(custom_hologram) //insert custom hologram
+				icon_list.Add("custom")
 
-	else
-		var/icon_list[] = list(
-		"default",
-		"floating face",
-		"xeno queen",
-		"eldritch"
-		)
-		input = input("Please select a hologram:") as null|anything in icon_list
-		if(input)
-			qdel(holo_icon)
-			switch(input)
-				if("default")
-					holo_icon = getHologramIcon(icon('icons/mob/AI.dmi',"holo1"))
-				if("floating face")
-					holo_icon = getHologramIcon(icon('icons/mob/AI.dmi',"holo2"))
-				if("xeno queen")
-					holo_icon = getHologramIcon(icon('icons/mob/AI.dmi',"holo3"))
-				if("eldritch")
-					holo_icon = getHologramIcon(icon('icons/mob/AI.dmi',"holo4"))
+			input = input("Please select a hologram:") as null|anything in icon_list
+			if(input)
+				qdel(holo_icon)
+				switch(input)
+					if("default")
+						holo_icon = getHologramIcon(icon('icons/mob/AI.dmi',"holo1"))
+					if("floating face")
+						holo_icon = getHologramIcon(icon('icons/mob/AI.dmi',"holo2"))
+					if("xeno queen")
+						holo_icon = getHologramIcon(icon('icons/mob/AI.dmi',"holo3"))
+					if("eldritch")
+						holo_icon = getHologramIcon(icon('icons/mob/AI.dmi',"holo4"))
+					if("ancient machine")
+						holo_icon = getHologramIcon(icon('icons/mob/ancient_machine.dmi', "ancient_machine"))
+					if("custom")
+						if("[ckey]-ai-holo" in icon_states('icons/mob/custom-synthetic.dmi'))
+							holo_icon = getHologramIcon(icon('icons/mob/custom-synthetic.dmi', "[ckey]-ai-holo"))
+						else if("[ckey]-ai-holo" in icon_states('icons/mob/custom-synthetic64.dmi'))
+							holo_icon = getHologramIcon(icon('icons/mob/custom-synthetic64.dmi', "[ckey]-ai-holo"))
+						else
+							holo_icon = getHologramIcon(icon('icons/mob/AI.dmi',"holo1"))
+
 	return
 
 /mob/living/silicon/ai/proc/corereturn()
@@ -852,10 +944,10 @@ var/list/ai_verbs_default = list(
 
 	camera_light_on = !camera_light_on
 
-	if (!camera_light_on)
+	if(!camera_light_on)
 		to_chat(src, "Camera lights deactivated.")
 
-		for (var/obj/machinery/camera/C in lit_cameras)
+		for(var/obj/machinery/camera/C in lit_cameras)
 			C.set_light(0)
 			lit_cameras = list()
 
@@ -888,19 +980,19 @@ var/list/ai_verbs_default = list(
 	var/list/obj/machinery/camera/add = list()
 	var/list/obj/machinery/camera/remove = list()
 	var/list/obj/machinery/camera/visible = list()
-	for (var/datum/camerachunk/CC in eyeobj.visibleCameraChunks)
-		for (var/obj/machinery/camera/C in CC.cameras)
-			if (!C.can_use() || get_dist(C, eyeobj) > 7)
+	for(var/datum/camerachunk/CC in eyeobj.visibleCameraChunks)
+		for(var/obj/machinery/camera/C in CC.cameras)
+			if(!C.can_use() || get_dist(C, eyeobj) > 7)
 				continue
 			visible |= C
 
 	add = visible - lit_cameras
 	remove = lit_cameras - visible
 
-	for (var/obj/machinery/camera/C in remove)
+	for(var/obj/machinery/camera/C in remove)
 		lit_cameras -= C //Removed from list before turning off the light so that it doesn't check the AI looking away.
 		C.Togglelight(0)
-	for (var/obj/machinery/camera/C in add)
+	for(var/obj/machinery/camera/C in add)
 		C.Togglelight(1)
 		lit_cameras |= C
 
@@ -936,7 +1028,7 @@ var/list/ai_verbs_default = list(
 		return
 
 	to_chat(src, "Accessing Subspace Transceiver control...")
-	if (src.aiRadio)
+	if(src.aiRadio)
 		src.aiRadio.interact(src)
 
 
@@ -952,7 +1044,7 @@ var/list/ai_verbs_default = list(
 			if(H.digitalcamo)
 				to_chat(src, "Unable to locate an airlock")
 				return
-		if (!near_camera(target))
+		if(!near_camera(target))
 			to_chat(src, "Target is not near any active cameras.")
 			return
 		var/obj/machinery/door/airlock/tobeopened
@@ -1012,7 +1104,7 @@ var/list/ai_verbs_default = list(
 			to_chat(user, "<span class='warning'>No intelligence patterns detected.</span>")//No more magical carding of empty cores, AI RETURN TO BODY!!!11
 
 			return
-		if (mind.special_role == "malfunction") //AI MALF!!
+		if(mind.special_role == "malfunction") //AI MALF!!
 			to_chat(user, "<span class='boldannounce'>ERROR</span>: Remote transfer interface disabled.")//Do ho ho ho~
 
 			return
@@ -1041,3 +1133,18 @@ var/list/ai_verbs_default = list(
 	eyeobj.setLoc(get_turf(C))
 	client.eye = eyeobj
 	return 1
+
+/mob/living/silicon/ai/proc/relay_speech(mob/living/M, text, verb, datum/language/speaking)
+	if(!say_understands(M, speaking))//The AI will be able to understand most mobs talking through the holopad.
+		if(speaking)
+			text = speaking.scramble(text)
+		else
+			text = stars(text)
+	var/name_used = M.GetVoice()
+	//This communication is imperfect because the holopad "filters" voices and is only designed to connect to the master only.
+	var/rendered
+	if(speaking)
+		rendered = "<i><span class='game say'>Relayed Speech: <span class='name'>[name_used]</span> [speaking.format_message(text, verb)]</span></i>"
+	else
+		rendered = "<i><span class='game say'>Relayed Speech: <span class='name'>[name_used]</span> [verb], <span class='message'>\"[text]\"</span></span></i>"
+	show_message(rendered, 2)

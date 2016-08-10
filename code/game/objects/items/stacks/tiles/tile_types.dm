@@ -37,6 +37,7 @@
 	icon_state = "tile_grass"
 	origin_tech = "biotech=1"
 	turf_type = /turf/simulated/floor/grass
+	burn_state = FLAMMABLE
 
 /*
  * Wood
@@ -48,6 +49,7 @@
 	desc = "an easy to fit wood floor tile"
 	icon_state = "tile-wood"
 	turf_type = /turf/simulated/floor/wood
+	burn_state = FLAMMABLE
 
 /*
  * Carpets
@@ -58,6 +60,7 @@
 	desc = "A piece of carpet. It is the same size as a floor tile"
 	icon_state = "tile-carpet"
 	turf_type = /turf/simulated/floor/carpet
+	burn_state = FLAMMABLE
 
 /*
  * Plasteel
@@ -100,6 +103,7 @@
 	desc = "A piece of carpet with a convincing star pattern."
 	icon_state = "tile_space"
 	turf_type = /turf/simulated/floor/fakespace
+	burn_state = FLAMMABLE
 
 /obj/item/stack/tile/fakespace/loaded
 	amount = 30

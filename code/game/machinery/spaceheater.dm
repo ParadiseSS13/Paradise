@@ -19,6 +19,12 @@
 	update_icon()
 	return
 
+/obj/machinery/space_heater/Destroy()
+	if(cell)
+		qdel(cell)
+		cell = null
+	return ..()
+
 /obj/machinery/space_heater/update_icon()
 	overlays.Cut()
 	icon_state = "sheater[on]"
@@ -107,9 +113,9 @@
 
 
 /obj/machinery/space_heater/Topic(href, href_list)
-	if (..())
+	if(..())
 		return 1
-	if ((in_range(src, usr) && istype(src.loc, /turf)) || (istype(usr, /mob/living/silicon)))
+	if((in_range(src, usr) && istype(src.loc, /turf)) || (istype(usr, /mob/living/silicon)))
 		usr.set_machine(src)
 
 		switch(href_list["op"])

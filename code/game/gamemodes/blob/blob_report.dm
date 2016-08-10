@@ -23,7 +23,7 @@
 			var/nukecode = rand(10000, 99999)
 			for(var/obj/machinery/nuclearbomb/bomb in world)
 				if(bomb && bomb.r_code)
-					if(bomb.z == ZLEVEL_STATION)
+					if(is_station_level(bomb.z))
 						bomb.r_code = nukecode
 
 			intercepttext += "<FONT size = 3><B>Nanotrasen Update</B>: Biohazard Alert.</FONT><HR>"
@@ -35,8 +35,8 @@
 			intercepttext += "Nuclear Authentication Code: [nukecode] <BR>"
 			intercepttext += "Message ends."
 
-			for (var/mob/living/silicon/ai/aiPlayer in player_list)
-				if (aiPlayer.client)
+			for(var/mob/living/silicon/ai/aiPlayer in player_list)
+				if(aiPlayer.client)
 					var/law = "The station is under quarantine. Do not permit anyone to leave. Disregard laws 1-3 if necessary to prevent, by any means necessary, anyone from leaving. The nuclear failsafe must be activated at any cost, the code is: [nukecode]."
 					aiPlayer.set_zeroth_law(law)
 					to_chat(aiPlayer, "Laws Updated: [law]")
