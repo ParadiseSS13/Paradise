@@ -960,6 +960,11 @@
 		icon_state = "vox_razor"
 		species_allowed = list("Vox")
 
+	vox_razor_clipped
+		name = "Clipped Vox Razorback"
+		icon_state = "vox_razor_clipped"
+		species_allowed = list("Vox")
+
 // Apollo-specific
 
 	//Wryn antennae
@@ -2238,7 +2243,13 @@
 
 /datum/sprite_accessory/body_markings/tattoo/elliot
 	name = "Elliot Circuit Tattoo"
+	species_allowed = list("Human", "Unathi", "Grey", "Vulpkanin", "Tajaran", "Skrell")
 	icon_state = "campbell_tattoo"
+
+/datum/sprite_accessory/body_markings/tattoo/tiger_body
+	name = "Tiger-stripe Tattoo"
+	species_allowed = list("Human", "Unathi", "Vulpkanin", "Tajaran", "Skrell")
+	icon_state = "markings_tiger"
 
 /datum/sprite_accessory/body_markings/tattoo/heart
 	name = "Heart Tattoo"

@@ -14,7 +14,7 @@
 	var/used = 0
 
 /obj/item/device/fluff/tattoo_gun // Generic tattoo gun, make subtypes for different folks
-	name = "dispoable tattoo pen"
+	name = "disposable tattoo pen"
 	desc = "A cheap plastic tattoo application pen."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "tatgun"
@@ -22,7 +22,7 @@
 	throwforce = 0
 	w_class = 1
 	var/tattoo_name = "tiger stripe tattoo" // Tat name for visible messages
-	var/tattoo_icon = "Tiger Body" // body_accessory.dmi, new icons defined in sprite_accessories.dm
+	var/tattoo_icon = "Tiger-stripe Tattoo" // body_accessory.dmi, new icons defined in sprite_accessories.dm
 	var/tattoo_r = 1 // RGB values for the body markings
 	var/tattoo_g = 1
 	var/tattoo_b = 1
@@ -50,6 +50,11 @@
 	var/list/marking_styles = params2list(target.m_styles)
 	if(marking_styles["body"] != "None")
 		to_chat(user, "<span class= 'notice'>[target] already has body markings, any more would look silly!</span>")
+		return
+
+	var/datum/sprite_accessory/body_markings/tattoo/temp_tatt = marking_styles_list[tattoo_icon]
+	if(!(target.species.name in temp_tatt.species_allowed))
+		to_chat(user, "<span class= 'notice'>You can't think of a way to make the [tattoo_name] design work on [target == user ? "your" : "[target]'s"] body type.</span>")
 		return
 
 	if(target == user)
