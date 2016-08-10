@@ -353,23 +353,24 @@ var/list/intents = list(I_HELP,I_DISARM,I_GRAB,I_HARM)
 				hud_used.action_intent.icon_state = "help"
 
 
-/mob/living/carbon/verb/mob_sleep()
+/mob/living/verb/mob_sleep()
 	set name = "Sleep"
 	set category = "IC"
 
-	if(usr.sleeping)
-		to_chat(usr, "\red You are already sleeping")
+	if(sleeping)
+		to_chat(src, "<span class='notice'>You are already sleeping.</span>")
 		return
 	else
-		if(alert(src,"You sure you want to sleep for a while?","Sleep","Yes","No") == "Yes")
-			usr.sleeping = 20 //Short nap
+		if(alert(src, "You sure you want to sleep for a while?", "Sleep", "Yes", "No") == "Yes")
+			SetSleeping(20) //Short nap
 
 /mob/living/verb/lay_down()
 	set name = "Rest"
 	set category = "IC"
 
 	resting = !resting
-	to_chat(src, "\blue You are now [resting ? "resting" : "getting up"]")
+	update_canmove()
+	to_chat(src, "<span class='notice'>You are now [resting ? "resting" : "getting up"].</span>")
 
 /proc/is_blind(A)
 	if(iscarbon(A))
