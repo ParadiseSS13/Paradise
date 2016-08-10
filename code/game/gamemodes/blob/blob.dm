@@ -118,8 +118,7 @@ var/list/blob_nodes = list()
 		if(directory[ckey(blob.key)])
 			blob_client = directory[ckey(blob.key)]
 			location = get_turf(C)
-			// TODO: Tie into space manager
-			if(location.z != ZLEVEL_STATION || istype(location, /turf/space))
+			if(!is_station_level(location.z) || istype(location, /turf/space))
 				if(!warned)
 					to_chat(C, "<span class='userdanger'>You feel ready to burst, but this isn't an appropriate place!  You must return to the station!</span>")
 					message_admins("[key_name_admin(C)] was in space when the blobs burst, and will die if he doesn't return to the station.")

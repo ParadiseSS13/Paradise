@@ -60,7 +60,6 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) \
 
 /datum/objective/assassinate/check_completion()
 	if(target && target.current)
-		// TODO: Tie into space manager
 		if(target.current.stat == DEAD)
 			return 1
 		if(issilicon(target.current) || isbrain(target.current)) //Borgs/brains/AIs count as dead for traitor objectives. --NeoFite
@@ -87,8 +86,7 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) \
 		if(target.current.stat == DEAD || !ishuman(target.current) || !target.current.ckey || !target.current.client)
 			return 1
 		var/turf/T = get_turf(target.current)
-		// TODO: Tie into space manager
-		if(T && !(T.z in config.station_levels))			//If they leave the station they count as dead for this
+		if(T && !is_station_level(T.z))			//If they leave the station they count as dead for this
 			return 1
 		return 0
 	return 1
@@ -117,9 +115,8 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) \
 			if(target in ticker.mode.head_revolutionaries)
 				return 1
 
-		// TODO: Tie into space manager
 		var/turf/T = get_turf(target.current)
-		if(T && !(T.z in config.station_levels))
+		if(T && !is_station_level(T.z))
 			return 1
 
 		return 0
@@ -148,8 +145,7 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) \
 		if(isbrain(target.current))
 			return 1
 		var/turf/T = get_turf(target.current)
-		// TODO: Tie into space manager
-		if(T.z in config.admin_levels)
+		if(is_admin_level(T.z))
 			return 0
 		return 0
 	return 1
@@ -522,8 +518,7 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) \
 
 /datum/objective/destroy/check_completion()
 	if(target && target.current)
-		// TODO: Tie into space manager
-		if(target.current.stat == DEAD || target.current.z > ZLEVEL_DERELICT || !target.current.ckey)
+		if(target.current.stat == DEAD || is_away_level(target.current.z) || !target.current.ckey)
 			return 1
 		return 0
 	return 1

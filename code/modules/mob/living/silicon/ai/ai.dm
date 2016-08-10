@@ -62,7 +62,6 @@ var/list/ai_verbs_default = list(
 	var/datum/module_picker/malf_picker
 	var/processing_time = 100
 	var/list/datum/AI_Module/current_modules = list()
-	var/fire_res_on_core = 0
 	var/can_dominate_mechs = 0
 	var/control_disabled = 0 // Set to 1 to stop AI from interacting via Click() -- TLE
 	var/malfhacking = 0 // More or less a copy of the above var, so that malf AIs can hack and still get new cyborgs -- NeoFite
@@ -640,15 +639,13 @@ var/list/ai_verbs_default = list(
 	if(check_unable(AI_CHECK_WIRELESS | AI_CHECK_RADIO))
 		return
 
-	var/ai_allowed_Zlevel = list(ZLEVEL_STATION,ZLEVEL_TELECOMMS,ZLEVEL_ASTEROID)
 	var/d
 	var/area/bot_area
 	d += "<A HREF=?src=\ref[src];botrefresh=\ref[Bot]>Query network status</A><br>"
 	d += "<table width='100%'><tr><td width='40%'><h3>Name</h3></td><td width='20%'><h3>Status</h3></td><td width='30%'><h3>Location</h3></td><td width='10%'><h3>Control</h3></td></tr>"
 
 	for(var/mob/living/simple_animal/bot/Bot in simple_animal_list)
-		// TODO: Tie into space manager
-		if((Bot.z in ai_allowed_Zlevel) && !Bot.remote_disabled) //Only non-emagged bots on the allowed Z-level are detected!
+		if(is_ai_allowed(Bot.z) && !Bot.remote_disabled) //Only non-emagged bots on the allowed Z-level are detected!
 			bot_area = get_area(Bot)
 			d += "<tr><td width='30%'>[Bot.hacked ? "<span class='bad'>(!) </span>[Bot.name]" : Bot.name] ([Bot.model])</td>"
 			//If the bot is on, it will display the bot's current mode status. If the bot is not mode, it will just report "Idle". "Inactive if it is not on at all.
@@ -1136,3 +1133,18 @@ var/list/ai_verbs_default = list(
 	eyeobj.setLoc(get_turf(C))
 	client.eye = eyeobj
 	return 1
+
+/mob/living/silicon/ai/proc/relay_speech(mob/living/M, text, verb, datum/language/speaking)
+	if(!say_understands(M, speaking))//The AI will be able to understand most mobs talking through the holopad.
+		if(speaking)
+			text = speaking.scramble(text)
+		else
+			text = stars(text)
+	var/name_used = M.GetVoice()
+	//This communication is imperfect because the holopad "filters" voices and is only designed to connect to the master only.
+	var/rendered
+	if(speaking)
+		rendered = "<i><span class='game say'>Relayed Speech: <span class='name'>[name_used]</span> [speaking.format_message(text, verb)]</span></i>"
+	else
+		rendered = "<i><span class='game say'>Relayed Speech: <span class='name'>[name_used]</span> [verb], <span class='message'>\"[text]\"</span></span></i>"
+	show_message(rendered, 2)

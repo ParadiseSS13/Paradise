@@ -59,7 +59,7 @@ var/global/list/potentialRandomZlevels = generateMapList(filename = "config/away
 		var/map = pick(potentialRandomZlevels)
 		var/file = file(map)
 		if(isfile(file))
-			var/zlev = space_manager.add_new_zlevel(AWAY_MISSION, linkage = UNAFFECTED)
+			var/zlev = space_manager.add_new_zlevel(AWAY_MISSION, linkage = UNAFFECTED, traits = list(AWAY_LEVEL,BLOCK_TELEPORT))
 			space_manager.add_dirt(zlev)
 			maploader.load_map(file, z_offset = zlev)
 			late_setup_level(block(locate(1, 1, zlev), locate(world.maxx, world.maxy, zlev)))

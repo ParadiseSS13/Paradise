@@ -2001,6 +2001,8 @@
 #include "code\modules\shuttle\supply.dm"
 #include "code\modules\shuttle\syndicate.dm"
 #include "code\modules\space_management\heap_space_level.dm"
+#include "code\modules\space_management\level_check.dm"
+#include "code\modules\space_management\level_traits.dm"
 #include "code\modules\space_management\space_chunk.dm"
 #include "code\modules\space_management\space_level.dm"
 #include "code\modules\space_management\space_transition.dm"

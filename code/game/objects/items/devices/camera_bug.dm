@@ -61,7 +61,6 @@
 		return null
 
 	var/turf/T = get_turf(user.loc)
-	// TODO: Tie into space manager
 	if(T.z != current.z || !current.can_use())
 		to_chat(user, "<span class='danger'>[src] has lost the signal.</span>")
 		current = null
@@ -226,7 +225,6 @@
 				to_chat(usr, "<span class='danger'>Something's wrong with that camera.  You can't get a feed.</span>")
 				return
 			var/turf/T = get_turf(loc)
-			// TODO: Tie into space manager
 			if(!T || C.z != T.z)
 				to_chat(usr, "<span class='danger'>You can't get a signal.</span>")
 				return

@@ -21,8 +21,7 @@
 		var/turf/T = get_turf(H)
 		if(!T)
 			continue
-		// TODO: Tie into space manager
-		if(T.z != ZLEVEL_STATION)
+		if(!is_station_level(T.z))
 			continue
 		var/foundAlready = 0	// don't infect someone that already has the virus
 		for(var/datum/disease/D in H.viruses)
