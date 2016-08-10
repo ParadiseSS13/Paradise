@@ -266,8 +266,7 @@ var/round_start_time = 0
 				M.client.screen += cinematic
 			if(M.stat != DEAD)
 				var/turf/T = get_turf(M)
-				// TODO: Tie into space manager
-				if(T && T.z == ZLEVEL_STATION)
+				if(T && is_station_level(T.z))
 					M.death(0) //no mercy
 
 	//Now animate the cinematic

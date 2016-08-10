@@ -1358,8 +1358,7 @@ datum
 					var/turf/T = get_turf(target.current)
 					if(target.current.stat == 2)
 						return 1
-					// TODO: Tie into space manager
-					else if((T) && !(T.z in config.station_levels))//If they leave the station they count as dead for this
+					else if((T) && !is_station_level(T.z))//If they leave the station they count as dead for this
 						return 2
 					else
 						return 0

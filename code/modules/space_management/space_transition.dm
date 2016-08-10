@@ -20,6 +20,7 @@
 	var/list/direction_cache = list()
 
 /datum/space_level/proc/link_to_self()
+	reset_connections()
 	neighbors = list()
 	var/list/L = list(Z_LEVEL_NORTH,Z_LEVEL_SOUTH,Z_LEVEL_EAST,Z_LEVEL_WEST)
 	for(var/A in L)
@@ -279,13 +280,19 @@
 /datum/spacewalk_grid/proc/get_height()
 	return 1 + max_y - min_y
 
-// This function is called repeatedly to build the map
+// This function chooses an available point next to any node in the grid
 /datum/spacewalk_grid/proc/get_empty_node()
 	var/datum/point/P = pick(available_nodes)
 	if(isnull(P))
 		throw EXCEPTION("The `available_nodes` list was either empty or contained a null entry")
 	consume_node(P)
 	return P
+
+// This function is called repeatedly to build the map
+/datum/spacewalk_grid/proc/add_level(datum/space_level/S)
+	var/datum/point/P = get_empty_node()
+	P.set_space_level(S)
+
 
 // This proc substantiates the grid of points used to determine routes between levels
 // Separating this from initialization gives us time in which we can add more crosslink z levels
@@ -310,7 +317,6 @@
 	var/datum/spacewalk_grid/point_grid = new
 	// We do this so we can display the way the levels connect later
 	linkage_map = point_grid
-	var/datum/point/P
 
 	// Now, we pop entries in a random order from our list of space levels
 	// and assign its connections based on the grid
@@ -318,16 +324,10 @@
 		D = pick(crosslinks)
 		crosslinks.Remove(D)
 		// We now choose a point in our imaginary grid adjacent to our current location
-		P = point_grid.get_empty_node()
-		// Let our z level know where in the imaginary grid it is
-		// This will also handle establishing neighborship with other z levels
-		P.set_space_level(D)
+		point_grid.add_level(D)
 
-// A heavy proc - loops through all space turfs and sets its destination
+// Loops through border space turfs and sets its destination
 // based on its space level's linkage
-// Takes 0.6 seconds per call on my machine - could have each z level
-// have its own space turf cache, but I don't want to complicate this more
-// than is necessary
 /datum/zlev_manager/proc/setup_space_destinations()
 	var/timer = start_watch()
 	log_debug("Assigning space turf destinations...")

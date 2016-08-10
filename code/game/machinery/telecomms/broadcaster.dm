@@ -440,7 +440,7 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 	if(data == 1)
 		for(var/obj/item/device/radio/intercom/R in connection.devices["[RADIO_CHAT]"])
 			var/turf/position = get_turf(R)
-			// TODO: Tie into space manager
+			// TODO: Make the radio system cooperate with the space manager
 			if(position && position.z == level)
 				receive |= R.send_hear(display_freq, level)
 
@@ -453,7 +453,7 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 			if(istype(R, /obj/item/device/radio/headset))
 				continue
 			var/turf/position = get_turf(R)
-			// TODO: Tie into space manager
+			// TODO: Make the radio system cooperate with the space manager
 			if(position && position.z == level)
 				receive |= R.send_hear(display_freq)
 
@@ -465,7 +465,7 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 			var/datum/radio_frequency/antag_connection = radio_controller.return_frequency(freq)
 			for(var/obj/item/device/radio/R in antag_connection.devices["[RADIO_CHAT]"])
 				var/turf/position = get_turf(R)
-				// TODO: Tie into space manager
+				// TODO: Make the radio system cooperate with the space manager
 				if(position && position.z == level)
 					receive |= R.send_hear(freq)
 
@@ -475,7 +475,7 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 	else
 		for(var/obj/item/device/radio/R in connection.devices["[RADIO_CHAT]"])
 			var/turf/position = get_turf(R)
-			// TODO: Tie into space manager
+			// TODO: Make the radio system cooperate with the space manager
 			if(position && position.z == level)
 				receive |= R.send_hear(display_freq)
 
@@ -605,7 +605,7 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 /atom/proc/test_telecomms()
 	var/datum/signal/signal = src.telecomms_process()
 	var/turf/position = get_turf(src)
-	// TODO: Tie into space manager
+	// TODO: Make the radio system cooperate with the space manager
 	return (position.z in signal.data["level"]) && signal.data["done"]
 
 /atom/proc/telecomms_process(var/do_sleep = 1)
@@ -624,7 +624,7 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 		"type" = 4, // determines what type of radio input it is: test broadcast
 		"reject" = 0,
 		"done" = 0,
-		// TODO: Tie into space manager
+		// TODO: Make the radio system cooperate with the space manager
 		"level" = pos.z // The level it is being broadcasted at.
 	)
 	signal.frequency = PUB_FREQ// Common channel
