@@ -189,7 +189,7 @@ var/ert_request_answered = 0
 	M.mind.current = M
 	M.mind.original = M
 	M.mind.assigned_role = "MODE"
-	M.mind.special_role = "Response Team"
+	M.mind.special_role = SPECIAL_ROLE_ERT
 	if(!(M.mind in ticker.minds))
 		ticker.minds += M.mind //Adds them to regular mind list.
 	M.loc = spawn_location

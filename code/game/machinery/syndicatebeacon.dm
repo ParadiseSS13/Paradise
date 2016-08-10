@@ -61,7 +61,7 @@
 				var/mob/living/carbon/human/N = M
 				ticker.mode.equip_traitor(N)
 				ticker.mode.traitors += N.mind
-				N.mind.special_role = "traitor"
+				N.mind.special_role = SPECIAL_ROLE_TRAITOR
 				var/objective = "Free Objective"
 				switch(rand(1,100))
 					if(1 to 50)

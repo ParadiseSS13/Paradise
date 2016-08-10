@@ -48,7 +48,7 @@
 		return 0
 	for(var/datum/mind/ai_mind in malf_ai)
 		ai_mind.assigned_role = "MODE"
-		ai_mind.special_role = "malfunctioning AI"//So they actually have a special role/N
+		ai_mind.special_role = SPECIAL_ROLE_MALF
 		log_game("[ai_mind.key] (ckey) has been selected as a malf AI")
 	return 1
 
@@ -64,7 +64,7 @@
 		AI.show_laws()
 
 		greet_malf(AI_mind)
-		AI_mind.special_role = "malfunction"
+		AI_mind.special_role = SPECIAL_ROLE_MALF
 		AI_mind.current.verbs += /datum/game_mode/malfunction/proc/takeover
 
 		for(var/mob/living/silicon/robot/R in AI.connected_robots)
@@ -169,7 +169,7 @@
 	set category = "Malfunction"
 	set name = "System Override"
 	set desc = "Start the victory timer"
-	if(!istype(ticker.mode,/datum/game_mode/malfunction))
+	if(!GAMEMODE_IS_MALF)
 		to_chat(usr, "You cannot begin a takeover in this round type!.")
 		return
 	if(ticker.mode:malf_mode_declared)
@@ -320,7 +320,7 @@
 
 
 /datum/game_mode/proc/auto_declare_completion_malfunction()
-	if( malf_ai.len || istype(ticker.mode,/datum/game_mode/malfunction) )
+	if(malf_ai.len || GAMEMODE_IS_MALF)
 		var/text = "<FONT size = 2><B>The malfunctioning AI were:</B></FONT>"
 		var/module_text_temp = "<br><b>Purchased modules:</b><br>" //Added at the end
 

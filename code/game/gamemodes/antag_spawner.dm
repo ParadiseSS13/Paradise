@@ -64,7 +64,7 @@
 	R.key = C.key
 	ticker.mode.syndicates += R.mind
 	ticker.mode.update_synd_icons_added(R.mind)
-	R.mind.special_role = "syndicate"
+	R.mind.special_role = SPECIAL_ROLE_NUKEOPS
 	R.faction = list("syndicate")
 
 /obj/item/weapon/antag_spawner/slaughter_demon //Warning edgiest item in the game

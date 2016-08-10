@@ -1104,7 +1104,7 @@ var/list/ai_verbs_default = list(
 			to_chat(user, "<span class='warning'>No intelligence patterns detected.</span>")//No more magical carding of empty cores, AI RETURN TO BODY!!!11
 
 			return
-		if(mind.special_role == "malfunction") //AI MALF!!
+		if(mind.special_role == SPECIAL_ROLE_MALF) //AI MALF!!
 			to_chat(user, "<span class='boldannounce'>ERROR</span>: Remote transfer interface disabled.")//Do ho ho ho~
 
 			return

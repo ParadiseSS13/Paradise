@@ -54,7 +54,7 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 			changelings += changeling
 			changeling.restricted_roles = restricted_jobs
 			modePlayer += changelings
-			changeling.special_role = "Changeling"
+			changeling.special_role = SPECIAL_ROLE_CHANGELING
 		return 1
 	else
 		return 0

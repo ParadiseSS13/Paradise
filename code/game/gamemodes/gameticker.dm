@@ -337,7 +337,7 @@ var/round_start_time = 0
 /datum/controller/gameticker/proc/create_characters()
 	for(var/mob/new_player/player in player_list)
 		if(player.ready && player.mind)
-			if(player.mind.assigned_role == "AI" || player.mind.special_role == "malfunctioning AI")
+			if(player.mind.assigned_role == "AI" || player.mind.special_role == SPECIAL_ROLE_MALF)
 				player.close_spawn_windows()
 				player.AIize()
 			else if(!player.mind.assigned_role)
