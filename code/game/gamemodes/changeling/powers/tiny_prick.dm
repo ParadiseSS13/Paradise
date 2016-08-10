@@ -82,7 +82,7 @@ obj/effect/proc_holder/changeling/sting/transformation
 		return
 	..()
 
-/obj/effect/proc_holder/changeling/sting/transformation/can_sting(var/mob/user, var/mob/living/carbon/human/target)
+/obj/effect/proc_holder/changeling/sting/transformation/can_sting(var/mob/user, var/mob/target)
 	if(!..())
 		return
 	if((HUSK in target.mutations) || (!ishuman(target)))
