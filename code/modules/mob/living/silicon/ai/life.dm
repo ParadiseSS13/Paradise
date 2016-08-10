@@ -152,10 +152,7 @@
 		health = 100
 		stat = CONSCIOUS
 	else
-		if(fire_res_on_core)
-			health = 100 - getOxyLoss() - getToxLoss() - getBruteLoss()
-		else
-			health = 100 - getOxyLoss() - getToxLoss() - getFireLoss() - getBruteLoss()
+		health = 100 - getOxyLoss() - getToxLoss() - getFireLoss() - getBruteLoss()
 		diag_hud_set_status()
 		diag_hud_set_health()
 

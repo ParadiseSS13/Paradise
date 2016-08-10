@@ -548,6 +548,9 @@ Class Procs:
 /obj/machinery/proc/construction()
 	return
 
+/obj/machinery/proc/can_be_overridden()
+	. = 1
+
 /obj/machinery/tesla_act(var/power)
 	..()
 	if(prob(85))

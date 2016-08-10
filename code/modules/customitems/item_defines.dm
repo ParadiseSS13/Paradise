@@ -306,6 +306,26 @@
 	icon_state = "beret_hos"
 	item_state = "beret_hos"
 
+/obj/item/clothing/head/pirate/fluff/stumpy //MrFroztee: Stumpy
+	name = "The Sobriety Skullcap"
+	desc = "A hat suited for the king of the pirates"
+	icon_state = "pirate"
+	item_state = "pirate"
+
+/obj/item/clothing/head/pirate/fluff/stumpy/New()
+	..()
+	processing_objects.Add(src)
+
+/obj/item/clothing/head/pirate/fluff/stumpy/Destroy()
+	processing_objects.Remove(src)
+	return ..()
+
+/obj/item/clothing/head/pirate/fluff/stumpy/process()
+	if(ishuman(loc))
+		var/mob/living/carbon/human/H = loc
+		if(H.head == src)
+			H.slurring = max(3, H.slurring) //always slur
+
 //////////// Suits ////////////
 /obj/item/clothing/suit/storage/labcoat/fluff/aeneas_rinil //Socialsystem: Lynn Fea
 	name = "Robotics labcoat"

@@ -423,8 +423,9 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 
   /* ###### Prepare the radio connection ###### */
 
+	var/mob/living/carbon/human/H
 	if(!M)
-		var/mob/living/carbon/human/H = new
+		H = new
 		M = H
 
 	var/datum/radio_frequency/connection = radio_controller.return_frequency(frequency)
@@ -595,6 +596,9 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 
 			for(var/mob/R in heard_gibberish)
 				R.show_message(rendered, 2)
+
+	if(H)
+		qdel(H)
 
 //Use this to test if an obj can communicate with a Telecommunications Network
 
