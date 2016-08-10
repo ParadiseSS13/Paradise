@@ -59,7 +59,7 @@
 		return
 
 	for(var/obj/machinery/door/D in airlocks)
-		if(D.z != ZLEVEL_STATION)
+		if(!is_station_level(D.z))
 			continue
 		spawn(0)
 			D.hostile_lockdown(src)
@@ -145,7 +145,7 @@
 		return
 
 	for(var/obj/machinery/firealarm/F in machines)
-		if(F.z != ZLEVEL_STATION)
+		if(!is_station_level(F.z))
 			continue
 		F.emagged = 1
 	to_chat(src, "<span class='notice'>All thermal sensors on the station have been disabled. Fire alerts will no longer be recognized.</span>")
@@ -170,7 +170,7 @@
 		return
 
 	for(var/obj/machinery/alarm/AA in machines)
-		if(AA.z != ZLEVEL_STATION)
+		if(!is_station_level(AA.z))
 			continue
 		AA.emagged = 1
 	to_chat(src, "<span class='notice'>All air alarm safeties on the station have been overriden. Air alarms may now use the Flood environmental mode.")
