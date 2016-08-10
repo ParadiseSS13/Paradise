@@ -37,7 +37,7 @@ obj/machinery/door/airlock/proc/execute_current_command()
 		cur_command = null
 	else
 		if(!(src in machine_processing))
-			addAtProcessing()
+			machine_processing += src
 
 obj/machinery/door/airlock/proc/do_command(var/command)
 	switch(command)
