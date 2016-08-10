@@ -1,7 +1,7 @@
 /datum/space_level
 	var/name = "Your config settings failed, you need to fix this for the datum space levels to work"
 	var/zpos = 1
-	var/flags = 0 // We'll use this to keep track of whether you can teleport/etc
+	var/flags = list() // We'll use this to keep track of whether you can teleport/etc
 
 	// Map transition stuff
 	var/list/neighbors = list()
@@ -21,8 +21,9 @@
 	var/dirt_count = 0
 	var/list/init_list = list()
 
-/datum/space_level/New(z, name, transition_type = SELFLOOPING)
+/datum/space_level/New(z, name, transition_type = SELFLOOPING, traits = list(BLOCK_TELEPORT))
 	zpos = z
+	flags = traits
 	build_space_destination_arrays()
 	set_linkage(transition_type)
 
@@ -131,7 +132,6 @@
 			reset_connections()
 		if(SELFLOOPING)
 			link_to_self() // `link_to_self` is defined in space_transitions.dm
-
 
 /datum/space_level/proc/resume_init()
 	if(dirt_count > 0)

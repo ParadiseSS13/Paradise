@@ -54,7 +54,7 @@
 			//ticker.mode:implanter[user.mind] += H.mind
 			ticker.mode:implanter[ref] = implanters
 			ticker.mode.traitors += H.mind
-			H.mind.special_role = "traitor"
+			H.mind.special_role = SPECIAL_ROLE_TRAITOR
 			to_chat(H, "<span class='warning'><B>You're now completely loyal to [user.name]!</B> You now must lay down your life to protect them and assist in their goals at any cost.</span>")
 			var/datum/objective/protect/mindslave/MS = new
 			MS.owner = H.mind

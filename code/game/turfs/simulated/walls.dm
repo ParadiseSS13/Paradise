@@ -32,7 +32,8 @@
 	/obj/structure/falsewall,
 	/obj/structure/falsewall/reinforced,
 	/turf/simulated/wall/rust,
-	/turf/simulated/wall/r_wall/rust)
+	/turf/simulated/wall/r_wall/rust,
+	/turf/simulated/wall/r_wall/coated)
 	smooth = SMOOTH_TRUE
 
 /turf/simulated/wall/BeforeChange()
@@ -111,6 +112,10 @@
 		update_icon()
 
 	return
+
+/turf/simulated/wall/proc/adjacent_fire_act(turf/simulated/wall, radiated_temperature)
+	if(radiated_temperature > max_temperature)
+		take_damage(rand(10, 20) * (radiated_temperature / max_temperature))
 
 /turf/simulated/wall/proc/dismantle_wall(devastated=0, explode=0)
 	if(istype(src,/turf/simulated/wall/r_wall))

@@ -22,6 +22,7 @@
 	neighbors.Cut()
 
 /datum/space_level/proc/link_to_self()
+	reset_connections()
 	neighbors = list()
 	var/list/L = list(Z_LEVEL_NORTH,Z_LEVEL_SOUTH,Z_LEVEL_EAST,Z_LEVEL_WEST)
 	for(var/A in L)
@@ -298,13 +299,19 @@
 /datum/spacewalk_grid/proc/get_height()
 	return 1 + max_y - min_y
 
-// This function is called repeatedly to build the map
+// This function chooses an available point next to any node in the grid
 /datum/spacewalk_grid/proc/get_empty_node()
 	var/datum/point/P = pick(available_nodes)
 	if(isnull(P))
 		throw EXCEPTION("The `available_nodes` list was either empty or contained a null entry")
 	consume_node(P)
 	return P
+
+// This function is called repeatedly to build the map
+/datum/spacewalk_grid/proc/add_level(datum/space_level/S)
+	var/datum/point/P = get_empty_node()
+	P.set_space_level(S)
+
 
 // This proc substantiates the grid of points used to determine routes between levels
 // Separating this from initialization gives us time in which we can add more crosslink z levels

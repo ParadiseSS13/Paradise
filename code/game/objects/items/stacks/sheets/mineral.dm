@@ -36,6 +36,7 @@ var/global/list/datum/stack_recipe/uranium_recipes = list ( \
 
 var/global/list/datum/stack_recipe/gold_recipes = list ( \
 	new/datum/stack_recipe("golden door", /obj/structure/mineral_door/gold, 10, one_per_turf = 1, on_floor = 1), \
+	new/datum/stack_recipe("Simple Crown", /obj/item/clothing/head/crown, 5), \
 	)
 
 var/global/list/datum/stack_recipe/plasma_recipes = list ( \
