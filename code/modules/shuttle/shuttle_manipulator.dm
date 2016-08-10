@@ -103,6 +103,7 @@
 					dat += "<span class='line'>"
 					dat += "<span class='statusLabel'>[shuttle["name"]] [shuttle["id"]]: [shuttle["mode"]] [shuttle["status"]] [shuttle["timer"]] </span>"
 					dat += "<a href='?src=\ref[src];jump_to=[shuttle["id"]]'>Jump To</a>"
+					dat += "<a href='?src=\ref[src];fast_travel=[shuttle["id"]]'>Fast Travel</a>"
 					dat += "<br></span>"
 				dat += "</div>"
 			if(SHUTTLE_MANIPULATOR_TEMPLATE)
@@ -121,7 +122,7 @@
 					dat += "<span class='line'>"
 					dat += "<span class='statusLabel'>[shuttle["name"]] [shuttle["id"]] <br>[shuttle["description"]]<br> [shuttle["admin_notes"]] <br> </span>"
 					dat += "<A href='?src=\ref[src];move=[shuttle["id"]]'>Send to port</A>"
-					dat += "<a href='?src=\ref[src];jump_to=[shuttle["id"]]'>Jump To</a>
+					dat += "<a href='?src=\ref[src];jump_to=[shuttle["id"]]'>Jump To</A>"
 					dat += "<br></span>"
 				dat += "</div>"
 
