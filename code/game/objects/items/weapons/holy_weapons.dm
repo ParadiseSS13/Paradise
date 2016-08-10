@@ -445,5 +445,149 @@
 					if(prob(10))
 						to_chat(M, "<span class='userdanger'>Being in the presence of [holder]'s [src] is interfering with your powers!</span>")
 
+/obj/item/weapon/nullrod/missionary_staff
+	reskinned = TRUE
+	icon_state = "godstaff-red"
+	item_state = "godstaff-red"
+	name = "holy staff"
+	desc = "It has a mysterious, protective aura."
+	description_antag = "This seemingly standard holy staff is actually a disguised neurotransmitter capable of inducing blind zealotry in its victims. It must be allowed to recharge in the presence of a linked set of missionary robes."
+	w_class = 5
+	force = 5
+	slot_flags = SLOT_BACK
+	block_chance = 50
 
+	var/team_color = "red"
+	var/obj/item/clothing/suit/hooded/chaplain_hoodie/missionary_robe/robes = null		//the robes linked with this staff
+	var/faith = 99	//a conversion requires 100 faith to attempt. faith recharges over time while you are wearing missionary robes that have been linked to the staff.
 
+/obj/item/weapon/nullrod/missionary_staff/New()
+	team_color = pick("red", "blue")
+	icon_state = "godstaff-[team_color]"
+	item_state = "godstaff-[team_color]"
+	name = "[team_color] holy staff"
+
+/obj/item/weapon/nullrod/missionary_staff/Destroy()
+	if(robes)		//delink on destruction
+		robes.linked_staff = null
+		robes = null
+	..()
+
+/obj/item/weapon/nullrod/missionary_staff/attack_self(mob/user)
+	if(robes)	//as long as it is linked, sec can't try to meta by stealing your staff and seeing if they get the link error message
+		return
+	if(!ishuman(user))		//prevents the horror (runtimes) of missionary xenos and other non-human mobs that might be able to activate the item
+		return
+	var/mob/living/carbon/human/missionary = user
+	if(missionary.wear_suit && istype(missionary.wear_suit, /obj/item/clothing/suit/hooded/chaplain_hoodie/missionary_robe))
+		if(robes.linked_staff)
+			to_chat(missionary, "<span class='warning'>These robes are already linked with a staff and cannot support another. Connection refused.</span>")
+			return
+		robes = missionary.wear_suit
+		robes.linked_staff = src
+		to_chat(missionary, "<span class='notice'>Link established. Faith generators initialized. Go spread the word.</span>")
+		faith = 100		//full charge when a fresh link is made (can't be delinked without destroying the robes so this shouldn't be an exploitable thing)
+	else
+		to_chat(missionary, "<span class='warning'>You must be wearing the missionary robes you wish to link with this staff.</span>")
+
+/obj/item/weapon/nullrod/missionary_staff/afterattack(mob/living/carbon/human/target, mob/living/carbon/human/missionary, flag, params)
+	if(!istype(target) || !istype(missionary))		//ishuman checks effectively
+		return
+	if(target == missionary)	//you can't convert yourself, that would raise too many questions about your own dedication to the cause
+		return
+	if(!robes)		//staff must be linked to convert
+		to_chat(missionary, "<span class='warning'>You must link your staff to a set of missionary robes before attempting conversions.</span>")
+		return
+	if(!missionary.wear_suit || missionary.wear_suit != robes)	//must be wearing the robes to convert
+		return
+	if(faith < 100)
+		to_chat(missionary, "<span class='warning'>You don't have enough faith to attempt a conversion right now.</span>")
+		return
+	to_chat(missionary, "<span class='notice'>You concentrate on [target] and begin the conversion ritual...</span>")
+	if(!target.mind)	//no mind means no conversion, but also means no faith lost.
+		to_chat(missionary, "<span class='warning'>You halt the conversion as you realize [target] is mindless! Best to save your faith for someone more worthwhile.</span>")
+		return
+	if(do_after(missionary, 40))	//4 seconds to temporarily convert, roughly 1 second faster than a vampire's enthrall ability
+		if(faith < 100)		//to stop people from trying to exploit the do_after system to multi-convert, we check again if you have enough faith when it completes
+			to_chat(missionary, "<span class='warning'>You don't have enough faith to complete the conversion on [target]!</span>")
+			return
+		if(missionary in viewers(target))	//missionary must maintain line of sight to target, but the target doesn't necessary need to be able to see the missionary
+			do_convert(target, missionary)
+			return
+		else
+			to_chat(missionary, "<span class='warning'>You lost sight of the target before they could be converted!</span>")
+			faith -= 25		//they escaped, so you only lost a little faith (to prevent spamming)
+			return
+	else	//the do_after failed, probably because you moved or dropped the staff
+		to_chat(missionary, "<span class='warning'>Your concentration was broken!</span>")
+
+/obj/item/weapon/nullrod/missionary_staff/proc/do_convert(mob/living/carbon/human/target, mob/living/carbon/human/missionary)
+	if(!target || !missionary)
+		return
+	if(ismindslave(target))		//mindslaves override the staff because the staff is just a temporary mindslave
+		to_chat(missionary, "<span class='warning'>Your faith is strong, but their mind is already slaved to someone else's ideals. Perhaps an inquisition would reveal more...</span>")
+		faith -= 25		//same faith cost as losing sight of them mid-conversion, but did you just find someone who can lead you to a fellow traitor?
+	if(isloyal(target))
+		if(prob(20))	//loyalty implants typically overpower this, but you CAN get lucky and convert still (20% chance of success)
+			faith -= 125	//yes, this puts it negative. it's gonna take longer to recharge if you manage to convert a one of these people to balance the new power you gained through them
+			to_chat(missionary, "<span class='notice'>Through sheer willpower, you overcome their closed mind and rally [target] to your cause! You may need a bit longer than usual before your faith is fully recharged...</span>")
+		else	//80% chance to fail
+			faith -= 75
+			to_chat(missionary, "<span class='warning'>Your faith is strong, but their mind remains closed to your ideals. Your resolve helps you retain a bit of faith though.</span>")
+			return
+	else if(target.mind.assigned_role == "Psychiatrist" || target.mind.assigned_role == "Librarian")		//fancy book lernin helps counter religion (day 0 job love, what madness!)
+		if(prob(35))	//35% chance to fail
+			to_chat(missionary, "<span class='warning'>This one is well trained in matters of the mind... They will not be swayed as easily as you thought...</span>")
+			faith -=50		//lose half your faith to the book-readers
+			return
+	else if(target.mind.assigned_role == "Civilian")
+		if(prob(55))	//55% chance to take LESS faith than normal, because civies are stupid and easily manipulated
+			to_chat(missionary, "<span class='notice'>Your message seems to resound well with [target]; converting them was much easier than expected.</span>")
+			faith -= 50
+		else		//45% chance to take the normal 100 faith cost
+			faith -= 100
+	else		//everyone else takes 100 faith cost because they are normal
+		to_chat(missionary, "<span class='notice'>You successfully convert [target] to your cause. The following grows because of your faith!</span>")
+		faith -= 100
+	//if you made it this far: congratulations! you are now a religious zealot!
+	var/list/implanters
+	var/ref = "\ref[missionary.mind]"
+	if(!(missionary.mind in ticker.mode:implanter))
+		ticker.mode:implanter[ref] = list()
+	implanters = ticker.mode:implanter[ref]
+	implanters.Add(target.mind)
+	ticker.mode.implanted.Add(target.mind)
+	ticker.mode.implanted[target.mind] = missionary.mind
+	//ticker.mode:implanter[missionary.mind] += target.mind
+	ticker.mode:implanter[ref] = implanters
+	ticker.mode.traitors += target.mind
+	target.mind.special_role = "traitor"
+	to_chat(target, "<span class='warning'><B>You're now a loyal zealot of [missionary.name]!</B> You now must lay down your life to protect them and assist in their goals at any cost.</span>")
+	var/datum/objective/protect/mindslave/MS = new
+	MS.owner = target.mind
+	MS.target = missionary:mind
+	MS.explanation_text = "Obey every order from and protect [missionary:real_name], the [missionary:mind:assigned_role=="MODE" ? (missionary:mind:special_role) : (missionary:mind:assigned_role)]."
+	target.mind.objectives += MS
+	for(var/datum/objective/objective in target.mind.objectives)
+		to_chat(target, "<B>Objective #1</B>: [objective.explanation_text]")
+
+	ticker.mode.update_traitor_icons_added(missionary.mind)
+	ticker.mode.update_traitor_icons_added(target.mind)//handles datahuds/observerhuds
+
+	if(missionary.mind.som)//do not add if not a traitor..and you just picked up an implanter in the hall...
+		var/datum/mindslaves/slaved = missionary.mind.som
+		target.mind.som = slaved
+		slaved.serv += target
+		slaved.add_serv_hud(missionary.mind, "master") //handles master servent icons
+		slaved.add_serv_hud(target.mind, "mindslave")
+
+	if(target.w_uniform)
+		target.w_uniform.color = team_color
+		target.update_inv_w_uniform(0,0)
+
+	log_admin("[ckey(missionary.key)] has converted [ckey(target.key)] as a zealot.")
+	spawn(6000)		//10 minutes of zealotry before you return to normal
+		ticker.mode.remove_traitor_mind(target.mind)
+		to_chat(target, "<span class='warning'>You seem to have forgotten the events of the past 10 minutes or so, and your head aches a bit as if someone beat it savagely with a stick.</span>")
+		to_chat(target, "<span class='warning'>This means you don't remember who you were working for or what you were doing.</span>")
+		log_admin("[ckey(target.key)] has deconverted and is no a zealot of [ckey(missionary.key)].")
