@@ -61,7 +61,7 @@
 	return 1
 
 
-/obj/effect/proc_holder/changeling/sting/transformation
+obj/effect/proc_holder/changeling/sting/transformation
 	name = "Transformation Sting"
 	desc = "We silently sting a human, injecting a retrovirus that forces them to transform."
 	helptext = "The victim will transform much like a changeling would. The effects will be obvious to the victim, and the process will damage our genomes."
@@ -80,8 +80,9 @@
 	selected_dna = changeling.select_dna("Select the target DNA: ", "Target DNA")
 	if(!selected_dna)
 		return
+	..()
 
-/obj/effect/proc_holder/changeling/sting/transformation/can_sting(var/mob/user, var/mob/target)
+/obj/effect/proc_holder/changeling/sting/transformation/can_sting(var/mob/user, var/mob/living/carbon/human/target)
 	if(!..())
 		return
 	if((HUSK in target.mutations) || (!ishuman(target)))
@@ -94,6 +95,9 @@
 			return 0
 		if(H.species.flags & NO_BLOOD)
 			to_chat(user, "<span class='warning'>This won't work on a creature without a circulatory system.</span>")
+			return 0
+		if(H.species.flags & NO_DNA)
+			to_chat(user, "<span class='warning'>This won't work on a creature with no DNA.</span>")
 			return 0
 	return 1
 
