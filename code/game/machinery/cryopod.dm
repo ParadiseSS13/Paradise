@@ -493,7 +493,7 @@
 	if(!istype(user.loc, /turf) || !istype(O.loc, /turf)) // are you in a container/closet/pod/etc?
 		return
 	if(occupant)
-		to_chat(user, "\blue <B>The cryo pod is already occupied!</B>")
+		to_chat(user, "<span class='boldnotice'>The cryo pod is already occupied!</span>")
 		return
 
 

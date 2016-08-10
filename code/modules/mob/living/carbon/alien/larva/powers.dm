@@ -33,7 +33,7 @@
 
 	if(amount_grown >= max_grown)	//TODO ~Carn
 		//green is impossible to read, so i made these blue and changed the formatting slightly
-		to_chat(src, "\blue <b>You are growing into a beautiful alien! It is time to choose a caste.</b>")
+		to_chat(src, "<span class='boldnotice'>You are growing into a beautiful alien! It is time to choose a caste.</span>")
 		to_chat(src, "\blue There are three to choose from:")
 		to_chat(src, "<B>Hunters</B> \blue are strong and agile, able to hunt away from the hive and rapidly move through ventilation shafts. Hunters generate plasma slowly and have low reserves.")
 		to_chat(src, "<B>Sentinels</B> \blue are tasked with protecting the hive and are deadly up close and at a range. They are not as physically imposing nor fast as the hunters.")
