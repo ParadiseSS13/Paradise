@@ -1,0 +1,4 @@
+author: taukausanake
+delete-after: True
+changes: 
+  - bugfix: "Gives proper mix_messages for Uplink, Synthignon, and Synth 'n Soda drinks"

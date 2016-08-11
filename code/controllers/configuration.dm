@@ -498,18 +498,6 @@
 				if("max_maint_drones")
 					config.max_maint_drones = text2num(value)
 
-				if("station_levels")
-					config.station_levels = text2numlist(value, ";")
-
-				if("admin_levels")
-					config.admin_levels = text2numlist(value, ";")
-
-				if("contact_levels")
-					config.contact_levels = text2numlist(value, ";")
-
-				if("player_levels")
-					config.player_levels = text2numlist(value, ";")
-
 				if("expected_round_length")
 					config.expected_round_length = MinutesToTicks(text2num(value))
 

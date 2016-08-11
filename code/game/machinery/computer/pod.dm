@@ -19,8 +19,6 @@
 	..()
 	spawn(5)
 		driver_sync()
-	machines += src
-	return
 
 
 /obj/machinery/computer/pod/proc/driver_sync()
@@ -208,7 +206,9 @@
 			id_tags -= ident_tag
 		if(href_list["dstele"])
 			var/choices = list(0)
-			choices += accessable_z_levels
+			var/list/reachable_levels = levels_by_trait(REACHABLE)
+			for(var/datum/space_level/S in reachable_levels)
+				choices += S.zpos
 			var/obj/machinery/computer/pod/deathsquad/D = src
 			var/input = input("Enter the destination Z-Level. The mechs will arrive from the East. Leave 0 if you don't want to set a specific ZLevel", "Mass Driver Controls", 0) in choices
 			D.teleporter_dest = input

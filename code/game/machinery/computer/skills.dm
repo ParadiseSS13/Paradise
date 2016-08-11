@@ -41,8 +41,7 @@
 	if(..())
 		return
 
-	// TODO: Tie into space manager
-	if(src.z > ZLEVEL_DERELICT)
+	if(is_away_level(src.z))
 		to_chat(user, "<span class='danger'>Unable to establish a connection</span>: You're too far away from the station!")
 		return
 	var/dat

@@ -50,7 +50,7 @@ proc/issyndicate(mob/living/M as mob)
 
 	for(var/datum/mind/synd_mind in syndicates)
 		synd_mind.assigned_role = "MODE" //So they aren't chosen for other jobs.
-		synd_mind.special_role = "Syndicate"//So they actually have a special role/N
+		synd_mind.special_role = SPECIAL_ROLE_NUKEOPS
 	return 1
 
 
@@ -370,7 +370,7 @@ proc/issyndicate(mob/living/M as mob)
 
 
 /datum/game_mode/proc/auto_declare_completion_nuclear()
-	if( syndicates.len || (ticker && istype(ticker.mode,/datum/game_mode/nuclear)) )
+	if(syndicates.len || GAMEMODE_IS_NUCLEAR)
 		var/text = "<br><FONT size=3><B>The syndicate operatives were:</B></FONT>"
 
 		var/purchases = ""

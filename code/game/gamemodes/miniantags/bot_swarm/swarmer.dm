@@ -290,14 +290,13 @@
 /mob/living/simple_animal/hostile/swarmer/proc/DisperseTarget(var/mob/living/target)
 	if(target != src)
 		to_chat(src, "<span class='info'>Attempting to remove this being from our presence.</span>")
-		// TODO: Tie into space manager
-		if(src.z != ZLEVEL_STATION)
+		if(!is_station_level(src.z))
 			to_chat(src, "<span class='warning'>Our bluespace transceiver cannot locate a viable bluespace link, our teleportation abilities are useless in this area.</span>")
 			return
 		if(do_mob(src, target, 30))
 			var/cycle
 			for(cycle=0,cycle<100,cycle++)
-				var/random_location = locate(rand(37,202),rand(75,192),ZLEVEL_STATION)//Drunk dial a turf in the general ballpark of the station
+				var/random_location = locate(rand(37,202),rand(75,192),level_name_to_num(MAIN_STATION))//Drunk dial a turf in the general ballpark of the station
 				if(istype(random_location, /turf/simulated/floor))
 					var/turf/simulated/floor/F = random_location
 					if(F.air)

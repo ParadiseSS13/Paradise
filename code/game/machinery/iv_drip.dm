@@ -79,7 +79,7 @@
 		if(beaker)
 			usr.visible_message("<span class='warning'>[usr] attaches [src] to [target].</span>", "<span class='notice'>You attach [src] to [target].</span>")
 			attached = target
-			addAtProcessing()
+			machine_processing += src
 			update_icon()
 		else
 			to_chat(usr, "<span class='warning'>There's nothing attached to the IV drip!</span>")

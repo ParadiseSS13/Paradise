@@ -50,8 +50,21 @@ proc/isNonCrewAntag(A)
 
 	var/mob/living/carbon/C = A
 	var/special_role = C.mind.special_role
-	var/list/crew_roles = list("traitor", "Changeling", "Vampire", "Cultist", "Head Revolutionary", "Revolutionary", "malfunctioning AI", "Shadowling", "loyalist", "mutineer", "Response Team")
-	if((special_role in crew_roles))
+	var/list/crew_roles = list(
+		SPECIAL_ROLE_BLOB,
+		SPECIAL_ROLE_CULTIST,
+		SPECIAL_ROLE_CHANGELING,
+		SPECIAL_ROLE_ERT,
+		SPECIAL_ROLE_HEAD_REV,
+		SPECIAL_ROLE_MALF,
+		SPECIAL_ROLE_REV,
+		SPECIAL_ROLE_SHADOWLING,
+		SPECIAL_ROLE_SHADOWLING_THRALL,
+		SPECIAL_ROLE_TRAITOR,
+		SPECIAL_ROLE_VAMPIRE,
+		SPECIAL_ROLE_VAMPIRE_THRALL
+	)
+	if(special_role in crew_roles)
 		return 0
 
 	return 1
@@ -340,23 +353,24 @@ var/list/intents = list(I_HELP,I_DISARM,I_GRAB,I_HARM)
 				hud_used.action_intent.icon_state = "help"
 
 
-/mob/living/carbon/verb/mob_sleep()
+/mob/living/verb/mob_sleep()
 	set name = "Sleep"
 	set category = "IC"
 
-	if(usr.sleeping)
-		to_chat(usr, "\red You are already sleeping")
+	if(sleeping)
+		to_chat(src, "<span class='notice'>You are already sleeping.</span>")
 		return
 	else
-		if(alert(src,"You sure you want to sleep for a while?","Sleep","Yes","No") == "Yes")
-			usr.sleeping = 20 //Short nap
+		if(alert(src, "You sure you want to sleep for a while?", "Sleep", "Yes", "No") == "Yes")
+			SetSleeping(20) //Short nap
 
 /mob/living/verb/lay_down()
 	set name = "Rest"
 	set category = "IC"
 
 	resting = !resting
-	to_chat(src, "\blue You are now [resting ? "resting" : "getting up"]")
+	update_canmove()
+	to_chat(src, "<span class='notice'>You are now [resting ? "resting" : "getting up"].</span>")
 
 /proc/is_blind(A)
 	if(iscarbon(A))

@@ -7,14 +7,6 @@ var/list/cardinal = list( NORTH, SOUTH, EAST, WEST )
 var/list/alldirs = list(NORTH, SOUTH, EAST, WEST, NORTHEAST, NORTHWEST, SOUTHEAST, SOUTHWEST)
 var/list/diagonals = list(NORTHEAST, NORTHWEST, SOUTHEAST, SOUTHWEST)
 
-//This list contains the z-level numbers which can be accessed via space travel and the percentile chances to get there.
-//(Exceptions: extended, sandbox and nuke) -Errorage
-//Was list("3" = 30, "4" = 70).
-//Spacing should be a reliable method of getting rid of a body -- Urist.
-//Go away Urist, I'm restoring this to the longer list. ~Errorage
-// TODO: Tie into space manager
-var/list/accessable_z_levels = list(ZLEVEL_STATION,ZLEVEL_TELECOMMS,ZLEVEL_ENGI,ZLEVEL_ASTEROID,ZLEVEL_DERELICT,ZLEVEL_EMPTY) //Keep this to six maps, repeating z-levels is okay if needed
-
 var/global/list/global_map = null
 	//list/global_map = list(list(1,5),list(4,3))//an array of map Z levels.
 	//Resulting sector map looks like
@@ -25,9 +17,6 @@ var/global/list/global_map = null
 	//4 - Derelict
 	//3 - AI satellite
 	//5 - empty space
-
-// TODO: Tie into space manager
-var/shuttle_z = ZLEVEL_CENTCOMM	//default
 
 var/list/monkeystart = list()
 var/list/wizardstart = list()

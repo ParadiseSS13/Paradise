@@ -43,7 +43,7 @@
 
 /obj/machinery/camera/initialize()
 	..()
-	if(z == ZLEVEL_STATION && prob(3) && !start_active)
+	if(is_station_level(z) && prob(3) && !start_active)
 		toggle_cam()
 
 /obj/machinery/camera/Destroy()

@@ -769,7 +769,6 @@
 	var/turf/pos = get_turf(src)
 	data["x"] = pos.x
 	data["y"] = pos.y
-	// TODO: Tie into space manager
 	data["z"] = pos.z
 	return data
 

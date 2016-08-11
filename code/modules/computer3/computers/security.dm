@@ -57,8 +57,7 @@
 		if(!interactable())
 			return
 
-		// TODO: Tie into space manager
-		if(computer.z > ZLEVEL_DERELICT)
+		if(is_away_level(computer.z))
 			to_chat(usr, "<span class='danger'>Unable to establish a connection</span>: You're too far away from the station!")
 			return
 		var/dat

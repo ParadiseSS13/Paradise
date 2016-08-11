@@ -639,15 +639,13 @@ var/list/ai_verbs_default = list(
 	if(check_unable(AI_CHECK_WIRELESS | AI_CHECK_RADIO))
 		return
 
-	var/ai_allowed_Zlevel = list(ZLEVEL_STATION,ZLEVEL_TELECOMMS,ZLEVEL_ASTEROID)
 	var/d
 	var/area/bot_area
 	d += "<A HREF=?src=\ref[src];botrefresh=\ref[Bot]>Query network status</A><br>"
 	d += "<table width='100%'><tr><td width='40%'><h3>Name</h3></td><td width='20%'><h3>Status</h3></td><td width='30%'><h3>Location</h3></td><td width='10%'><h3>Control</h3></td></tr>"
 
 	for(var/mob/living/simple_animal/bot/Bot in simple_animal_list)
-		// TODO: Tie into space manager
-		if((Bot.z in ai_allowed_Zlevel) && !Bot.remote_disabled) //Only non-emagged bots on the allowed Z-level are detected!
+		if(is_ai_allowed(Bot.z) && !Bot.remote_disabled) //Only non-emagged bots on the allowed Z-level are detected!
 			bot_area = get_area(Bot)
 			d += "<tr><td width='30%'>[Bot.hacked ? "<span class='bad'>(!) </span>[Bot.name]" : Bot.name] ([Bot.model])</td>"
 			//If the bot is on, it will display the bot's current mode status. If the bot is not mode, it will just report "Idle". "Inactive if it is not on at all.
@@ -1106,7 +1104,7 @@ var/list/ai_verbs_default = list(
 			to_chat(user, "<span class='warning'>No intelligence patterns detected.</span>")//No more magical carding of empty cores, AI RETURN TO BODY!!!11
 
 			return
-		if(mind.special_role == "malfunction") //AI MALF!!
+		if(mind.special_role == SPECIAL_ROLE_MALF) //AI MALF!!
 			to_chat(user, "<span class='boldannounce'>ERROR</span>: Remote transfer interface disabled.")//Do ho ho ho~
 
 			return

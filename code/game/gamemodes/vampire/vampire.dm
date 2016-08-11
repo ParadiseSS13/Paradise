@@ -58,7 +58,7 @@
 			var/datum/mindslaves/slaved = new()
 			slaved.masters += vampire
 			vampire.som = slaved //we MIGT want to mindslave someone
-			vampire.special_role = "Vampire" // Needs to be done in pre-setup to prevent role bugs
+			vampire.special_role = SPECIAL_ROLE_VAMPIRE
 		return 1
 	else
 		return 0

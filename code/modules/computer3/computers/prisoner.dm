@@ -43,8 +43,7 @@
 				if(!T.implanted) continue
 				var/loc_display = "Unknown"
 				var/mob/living/carbon/M = T.imp_in
-				// TODO: Tie into space manager
-				if(M.z == ZLEVEL_STATION && !istype(M.loc, /turf/space))
+				if(is_station_level(M.z) && !istype(M.loc, /turf/space))
 					var/turf/mob_loc = get_turf(M)
 					loc_display = mob_loc.loc
 				dat += "ID: [T.id] | Location: [loc_display]<BR>"
