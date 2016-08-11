@@ -99,7 +99,7 @@
 				return
 		else if(L.status == 2 || L.status == 3)
 			AddShards(1)
-			to_chat(user, "You insert the [L.name] into the [src.name]. You have [shards] shards remaining.")
+			to_chat(user, "You insert [L] into [src]. You have [shards] shards remaining.")
 			user.drop_item()
 			qdel(L)
 			return
@@ -112,8 +112,8 @@
 			if(istype(I,/obj/item/weapon/light))
 				var/obj/item/weapon/light/L = I
 				found_lightbulbs = 1
-				if(src.uses >= max_uses)
-					to_chat(user, "<span class='warning'>\The [src] is full!</span>")
+				if(uses >= max_uses)
+					to_chat(user, "<span class='warning'>[src] is full!</span>")
 					break
 				if(L.status == 0)
 					AddUses(1)
@@ -121,9 +121,9 @@
 				else if(L.status == 2 || L.status == 3)
 					AddShards(1)
 					qdel(L)
-			to_chat(user, "<span class='notice'>You fill \the [src] with lights from \the [S].")
+			to_chat(user, "<span class='notice'>You fill [src] with lights from [S].")
 		if(!found_lightbulbs)
-			to_chat(user, "<span class='warning'>\The [S] contains no bulbs.</span>")
+			to_chat(user, "<span class='warning'>[S] contains no bulbs.</span>")
 			return
 
 /obj/item/device/lightreplacer/emag_act(user as mob)
@@ -155,7 +155,7 @@
 /obj/item/device/lightreplacer/proc/AddUses(var/amount = 1)
 	uses = min(max(uses + amount, 0), max_uses)
 
-/obj/item/device/lightreplacer/proc/AddShards(var/amount = 1)
+/obj/item/device/lightreplacer/proc/AddShards(amount = 1)
 	shards += amount
 	var/recycled_lights = round(shards / recycle)
 	if(recycled_lights > 0)
