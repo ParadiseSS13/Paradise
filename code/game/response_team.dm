@@ -127,7 +127,7 @@ var/ert_request_answered = 0
 	for(var/mob/dead/observer/M in (ert_candidates - respawnable_list))
 		teamsize += M.JoinResponseTeam()
 	send_emergency_team = 0
-	if (!teamsize)
+	if(!teamsize)
 		active_team.cannot_send_team()
 		return
 	active_team.announce_team()
