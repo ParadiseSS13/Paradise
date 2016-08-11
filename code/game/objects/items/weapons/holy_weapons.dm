@@ -58,9 +58,9 @@
 		qdel(src)
 
 /obj/item/weapon/nullrod/godhand
+	name = "god hand"
 	icon_state = "disintegrate"
 	item_state = "disintegrate"
-	name = "god hand"
 	desc = "This hand of yours glows with an awesome power!"
 	flags = ABSTRACT | NODROP
 	w_class = 5
@@ -69,9 +69,9 @@
 	attack_verb = list("punched", "cross countered", "pummeled")
 
 /obj/item/weapon/nullrod/staff
+	name = "red holy staff"
 	icon_state = "godstaff-red"
 	item_state = "godstaff-red"
-	name = "red holy staff"
 	desc = "It has a mysterious, protective aura."
 	w_class = 5
 	force = 5
@@ -84,9 +84,9 @@
 	item_state = "godstaff-blue"
 
 /obj/item/weapon/nullrod/claymore
+	name = "holy claymore"
 	icon_state = "claymore"
 	item_state = "claymore"
-	name = "holy claymore"
 	desc = "A weapon fit for a crusade!"
 	w_class = 4
 	slot_flags = SLOT_BACK|SLOT_BELT
@@ -102,26 +102,26 @@
 	return ..()
 
 /obj/item/weapon/nullrod/claymore/darkblade
+	name = "dark blade"
 	icon_state = "cultblade"
 	item_state = "cultblade"
-	name = "dark blade"
 	desc = "Spread the glory of the dark gods!"
 	slot_flags = SLOT_BELT
 	hitsound = 'sound/hallucinations/growl1.ogg'
 
 /obj/item/weapon/nullrod/claymore/chainsaw_sword
+	name = "sacred chainsaw sword"
 	icon_state = "chainswordon"
 	item_state = "chainswordon"
-	name = "sacred chainsaw sword"
 	desc = "Suffer not a heretic to live."
 	slot_flags = SLOT_BELT
 	attack_verb = list("sawed", "torn", "cut", "chopped", "diced")
 	hitsound = 'sound/weapons/chainsaw.ogg'
 
 /obj/item/weapon/nullrod/claymore/glowing
+	name = "force weapon"
 	icon_state = "swordon"
 	item_state = "swordon"
-	name = "force weapon"
 	desc = "The blade glows with the power of faith. Or possibly a battery."
 	slot_flags = SLOT_BELT
 
@@ -171,9 +171,9 @@
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 
 /obj/item/weapon/nullrod/scythe
+	name = "reaper scythe"
 	icon_state = "scythe0"
 	item_state = "scythe0"
-	name = "reaper scythe"
 	desc = "Ask not for whom the bell tolls..."
 	w_class = 4
 	armour_penetration = 35
@@ -184,16 +184,16 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 
 /obj/item/weapon/nullrod/scythe/vibro
+	name = "high frequency blade"
 	icon_state = "hfrequency0"
 	item_state = "hfrequency1"
-	name = "high frequency blade"
 	desc = "Bad references are the DNA of the soul."
 	attack_verb = list("chopped", "sliced", "cut", "zandatsu'd")
 
 /obj/item/weapon/nullrod/scythe/talking
+	name = "possessed blade"
 	icon_state = "talking_sword"
 	item_state = "talking_sword"
-	name = "possessed blade"
 	desc = "When the station falls into chaos, it's nice to have a friend by your side."
 	attack_verb = list("chopped", "sliced", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'
@@ -234,9 +234,9 @@
 	return ..()
 
 /obj/item/weapon/nullrod/hammmer
+	name = "relic war hammer"
 	icon_state = "hammeron"
 	item_state = "hammeron"
-	name = "relic war hammer"
 	desc = "This war hammer cost the chaplain fourty thousand space dollars."
 	slot_flags = SLOT_BELT
 	w_class = 5
@@ -255,10 +255,10 @@
 	hitsound = 'sound/weapons/chainsaw.ogg'
 
 /obj/item/weapon/nullrod/clown
+	name = "clown dagger"
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "clownrender"
 	item_state = "gold_horn"
-	name = "clown dagger"
 	desc = "Used for absolutely hilarious sacrifices."
 	hitsound = 'sound/items/bikehorn.ogg'
 	sharp = 1
@@ -342,9 +342,9 @@
 	item_state = "bostaff0"
 
 /obj/item/weapon/nullrod/tribal_knife
+	name = "arrhythmic knife"
 	icon_state = "crysknife"
 	item_state = "crysknife"
-	name = "arrhythmic knife"
 	w_class = 5
 	desc = "They say fear is the true mind killer, but stabbing them in the head works too. Honour compels you to not sheathe it once drawn."
 	sharp = 1
@@ -366,9 +366,9 @@
 	slowdown = rand(-2, 2)
 
 /obj/item/weapon/nullrod/pitchfork
+	name = "unholy pitchfork"
 	icon_state = "pitchfork0"
 	item_state = "pitchfork0"
-	name = "unholy pitchfork"
 	w_class = 3
 	desc = "Holding this makes you look absolutely devilish."
 	attack_verb = list("poked", "impaled", "pierced", "jabbed")
@@ -377,9 +377,9 @@
 	edge = 1
 
 /obj/item/weapon/nullrod/rosary
+	name = "prayer beads"
 	icon_state = "rosary"
 	item_state = null
-	name = "prayer beads"
 	desc = "A set of prayer beads used by many of the more traditional religions in space.<br>Vampires and other unholy abominations have learned to fear these."
 	force = 0
 	throwforce = 0
@@ -451,7 +451,7 @@
 	item_state = "godstaff-red"
 	name = "holy staff"
 	desc = "It has a mysterious, protective aura."
-	description_antag = "This seemingly standard holy staff is actually a disguised neurotransmitter capable of inducing blind zealotry in its victims. It must be allowed to recharge in the presence of a linked set of missionary robes."
+	description_antag = "This seemingly standard holy staff is actually a disguised neurotransmitter capable of inducing blind zealotry in its victims. It must be allowed to recharge in the presence of a linked set of missionary robes. Activate the staff while wearing robes to link, then aim the staff at your victim to try and convert them."
 	w_class = 5
 	force = 5
 	slot_flags = SLOT_BACK
@@ -475,20 +475,23 @@
 
 /obj/item/weapon/nullrod/missionary_staff/attack_self(mob/user)
 	if(robes)	//as long as it is linked, sec can't try to meta by stealing your staff and seeing if they get the link error message
-		return
+		return 0
 	if(!ishuman(user))		//prevents the horror (runtimes) of missionary xenos and other non-human mobs that might be able to activate the item
-		return
+		return 0
 	var/mob/living/carbon/human/missionary = user
 	if(missionary.wear_suit && istype(missionary.wear_suit, /obj/item/clothing/suit/hooded/chaplain_hoodie/missionary_robe))
-		if(robes.linked_staff)
+		var/obj/item/clothing/suit/hooded/chaplain_hoodie/missionary_robe/robe_to_link = missionary.wear_suit
+		if(robe_to_link.linked_staff)
 			to_chat(missionary, "<span class='warning'>These robes are already linked with a staff and cannot support another. Connection refused.</span>")
-			return
-		robes = missionary.wear_suit
+			return 0
+		robes = robe_to_link
 		robes.linked_staff = src
 		to_chat(missionary, "<span class='notice'>Link established. Faith generators initialized. Go spread the word.</span>")
 		faith = 100		//full charge when a fresh link is made (can't be delinked without destroying the robes so this shouldn't be an exploitable thing)
+		return 1
 	else
 		to_chat(missionary, "<span class='warning'>You must be wearing the missionary robes you wish to link with this staff.</span>")
+		return 0
 
 /obj/item/weapon/nullrod/missionary_staff/afterattack(mob/living/carbon/human/target, mob/living/carbon/human/missionary, flag, params)
 	if(!istype(target) || !istype(missionary))		//ishuman checks effectively
@@ -522,11 +525,12 @@
 		to_chat(missionary, "<span class='warning'>Your concentration was broken!</span>")
 
 /obj/item/weapon/nullrod/missionary_staff/proc/do_convert(mob/living/carbon/human/target, mob/living/carbon/human/missionary)
-	if(!target || !missionary)
+	if(!target || !istype(target) || !missionary || !istype(missionary))
 		return
-	if(ismindslave(target))		//mindslaves override the staff because the staff is just a temporary mindslave
+	if(ismindslave(target) || target.mind.zealot_master)	//mindslaves and zealots override the staff because the staff is just a temporary mindslave
 		to_chat(missionary, "<span class='warning'>Your faith is strong, but their mind is already slaved to someone else's ideals. Perhaps an inquisition would reveal more...</span>")
 		faith -= 25		//same faith cost as losing sight of them mid-conversion, but did you just find someone who can lead you to a fellow traitor?
+		return
 	if(isloyal(target))
 		if(prob(20))	//loyalty implants typically overpower this, but you CAN get lucky and convert still (20% chance of success)
 			faith -= 125	//yes, this puts it negative. it's gonna take longer to recharge if you manage to convert a one of these people to balance the new power you gained through them
@@ -540,54 +544,31 @@
 			to_chat(missionary, "<span class='warning'>This one is well trained in matters of the mind... They will not be swayed as easily as you thought...</span>")
 			faith -=50		//lose half your faith to the book-readers
 			return
+		else
+			to_chat(missionary, "<span class='notice'>You successfully convert [target] to your cause. The following grows because of your faith!</span>")
+			faith -= 100
 	else if(target.mind.assigned_role == "Civilian")
 		if(prob(55))	//55% chance to take LESS faith than normal, because civies are stupid and easily manipulated
 			to_chat(missionary, "<span class='notice'>Your message seems to resound well with [target]; converting them was much easier than expected.</span>")
 			faith -= 50
 		else		//45% chance to take the normal 100 faith cost
+			to_chat(missionary, "<span class='notice'>You successfully convert [target] to your cause. The following grows because of your faith!</span>")
 			faith -= 100
 	else		//everyone else takes 100 faith cost because they are normal
 		to_chat(missionary, "<span class='notice'>You successfully convert [target] to your cause. The following grows because of your faith!</span>")
 		faith -= 100
 	//if you made it this far: congratulations! you are now a religious zealot!
-	var/list/implanters
-	var/ref = "\ref[missionary.mind]"
-	if(!(missionary.mind in ticker.mode:implanter))
-		ticker.mode:implanter[ref] = list()
-	implanters = ticker.mode:implanter[ref]
-	implanters.Add(target.mind)
-	ticker.mode.implanted.Add(target.mind)
-	ticker.mode.implanted[target.mind] = missionary.mind
-	//ticker.mode:implanter[missionary.mind] += target.mind
-	ticker.mode:implanter[ref] = implanters
-	ticker.mode.traitors += target.mind
-	target.mind.special_role = "traitor"
-	to_chat(target, "<span class='warning'><B>You're now a loyal zealot of [missionary.name]!</B> You now must lay down your life to protect them and assist in their goals at any cost.</span>")
-	var/datum/objective/protect/mindslave/MS = new
-	MS.owner = target.mind
-	MS.target = missionary:mind
-	MS.explanation_text = "Obey every order from and protect [missionary:real_name], the [missionary:mind:assigned_role=="MODE" ? (missionary:mind:special_role) : (missionary:mind:assigned_role)]."
-	target.mind.objectives += MS
-	for(var/datum/objective/objective in target.mind.objectives)
-		to_chat(target, "<B>Objective #1</B>: [objective.explanation_text]")
+	target.mind.make_zealot(missionary)
 
-	ticker.mode.update_traitor_icons_added(missionary.mind)
-	ticker.mode.update_traitor_icons_added(target.mind)//handles datahuds/observerhuds
-
-	if(missionary.mind.som)//do not add if not a traitor..and you just picked up an implanter in the hall...
-		var/datum/mindslaves/slaved = missionary.mind.som
-		target.mind.som = slaved
-		slaved.serv += target
-		slaved.add_serv_hud(missionary.mind, "master") //handles master servent icons
-		slaved.add_serv_hud(target.mind, "mindslave")
+	target << sound('sound/misc/wololo.ogg', 0, 1, 25)
+	missionary.say("WOLOLO!")
+	missionary << sound('sound/misc/wololo.ogg', 0, 1, 25)
 
 	if(target.w_uniform)
 		target.w_uniform.color = team_color
 		target.update_inv_w_uniform(0,0)
 
 	log_admin("[ckey(missionary.key)] has converted [ckey(target.key)] as a zealot.")
-	spawn(6000)		//10 minutes of zealotry before you return to normal
-		ticker.mode.remove_traitor_mind(target.mind)
-		to_chat(target, "<span class='warning'>You seem to have forgotten the events of the past 10 minutes or so, and your head aches a bit as if someone beat it savagely with a stick.</span>")
-		to_chat(target, "<span class='warning'>This means you don't remember who you were working for or what you were doing.</span>")
-		log_admin("[ckey(target.key)] has deconverted and is no a zealot of [ckey(missionary.key)].")
+	spawn(6000)		//10 minutes of zealotry before you return to normal (there has to be a better way than this, but I can't think of one that doesn't involve a self-deleting implant/tumor off hand)
+		target.mind.remove_zealot()
+		log_admin("[ckey(target.key)] has deconverted and is no longer a zealot of [ckey(missionary.key)].")

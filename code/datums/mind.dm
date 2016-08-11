@@ -75,6 +75,9 @@
 	//put this here for easier tracking ingame
 	var/datum/money_account/initial_account
 
+	//zealot_master is a reference to the mob that converted them into a zealot (for ease of investigation and such)
+	var/mob/living/carbon/human/zealot_master = null
+
 /datum/mind/proc/transfer_to(mob/living/new_character)
 	if(!istype(new_character))
 		log_to_dd("## DEBUG: transfer_to(): Some idiot has tried to transfer_to() a non mob/living mob. Please inform Carn")
@@ -1526,6 +1529,52 @@
 	. = G
 	if(G)
 		G.reenter_corpse()
+
+/datum/mind/proc/make_zealot(mob/living/carbon/human/missionary)
+	if(!missionary || !istype(missionary))		//better provide a proper missionary or the rest of this is gonna break
+		return 0
+
+	zealot_master = missionary
+
+	var/list/implanters
+	var/ref = "\ref[missionary.mind]"
+	if(!(missionary.mind in ticker.mode:implanter))
+		ticker.mode:implanter[ref] = list()
+	implanters = ticker.mode:implanter[ref]
+	implanters.Add(src)
+	ticker.mode.implanted.Add(src)
+	ticker.mode.implanted[src] = missionary.mind
+	//ticker.mode:implanter[missionary.mind] += src
+	ticker.mode:implanter[ref] = implanters
+	ticker.mode.traitors += src
+	special_role = "traitor"
+	to_chat(current, "<span class='warning'><B>You're now a loyal zealot of [missionary.name]!</B> You now must lay down your life to protect them and assist in their goals at any cost.</span>")
+	var/datum/objective/protect/mindslave/MS = new
+	MS.owner = src
+	MS.target = missionary:mind
+	MS.explanation_text = "Obey every order from and protect [missionary:real_name], the [missionary:mind:assigned_role=="MODE" ? (missionary:mind:special_role) : (missionary:mind:assigned_role)]."
+	objectives += MS
+	for(var/datum/objective/objective in objectives)
+		to_chat(current, "<B>Objective #1</B>: [objective.explanation_text]")
+
+	ticker.mode.update_traitor_icons_added(missionary.mind)
+	ticker.mode.update_traitor_icons_added(src)//handles datahuds/observerhuds
+
+	if(missionary.mind.som)//do not add if not a traitor..and you just picked up a robe and staff in the hall...
+		var/datum/mindslaves/slaved = missionary.mind.som
+		som = slaved
+		slaved.serv += current
+		slaved.add_serv_hud(missionary.mind, "master") //handles master servent icons
+		slaved.add_serv_hud(src, "mindslave")
+	return 1
+
+/datum/mind/proc/remove_zealot()
+	if(!zealot_master)	//if they aren't a zealot, we can't remove their zealot status, obviously. don't bother with the rest so we don't confuse them with the messages
+		return
+	zealot_master = null
+	ticker.mode.remove_traitor_mind(src)
+	to_chat(current, "<span class='warning'>You seem to have forgotten the events of the past 10 minutes or so, and your head aches a bit as if someone beat it savagely with a stick.</span>")
+	to_chat(current, "<span class='warning'>This means you don't remember who you were working for or what you were doing.</span>")
 
 //Initialisation procs
 /mob/proc/mind_initialize()
