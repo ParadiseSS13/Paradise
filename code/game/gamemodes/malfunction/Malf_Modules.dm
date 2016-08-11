@@ -53,7 +53,7 @@
 	var/timing = 0
 	var/default_timer = 4500
 	var/detonation_timer
-	var/list/milestones = list()
+	var/announced = 0
 
 /obj/machinery/doomsday_device/Destroy()
 	fast_processing -= src
@@ -92,10 +92,11 @@
 		detonate(T.z)
 		qdel(src)
 	else
-		if(!(sec_left % 60) && (!milestones[sec_left]))
-			milestones[sec_left] = 1
+		if(!(sec_left % 60) && !announced)
 			var/message = "[sec_left] SECONDS UNTIL DOOMSDAY DEVICE ACTIVATION!"
 			minor_announcement.Announce(message, "ERROR ER0RR $R0RRO$!R41.%%!!(%$^^__+ @#F0E4", 'sound/misc/notice1.ogg')
+			announced = 10
+		announced = max(0, announced-1)
 
 /obj/machinery/doomsday_device/proc/detonate(z_level = 1)
 	for(var/mob/M in player_list)
