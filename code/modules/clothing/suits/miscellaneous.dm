@@ -597,6 +597,10 @@
 	icon_state = "stripper_p_under"
 	item_color = "stripper_p_under"
 	flags_size = ONESIZEFITSALL
+	species_fit = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/uniform.dmi'
+		)
 
 /obj/item/clothing/under/stripper/stripper_green
 	name = "green swimsuit"
@@ -604,6 +608,10 @@
 	icon_state = "stripper_g_under"
 	item_color = "stripper_g_under"
 	flags_size = ONESIZEFITSALL
+	species_fit = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/uniform.dmi'
+		)
 
 /obj/item/clothing/suit/stripper/stripper_pink
 	name = "pink skimpy dress"
@@ -611,6 +619,10 @@
 	icon_state = "stripper_p_over"
 	item_state = "stripper_p_over"
 	flags_size = ONESIZEFITSALL
+	species_fit = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		)
 
 /obj/item/clothing/suit/stripper/stripper_green
 	name = "green skimpy dress"
@@ -618,6 +630,10 @@
 	icon_state = "stripper_g_over"
 	item_state = "stripper_g_over"
 	flags_size = ONESIZEFITSALL
+	species_fit = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		)
 
 /obj/item/clothing/under/stripper/mankini
 	name = "the mankini"
@@ -625,6 +641,10 @@
 	icon_state = "mankini"
 	item_color = "mankini"
 	flags_size = ONESIZEFITSALL
+	species_fit = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/uniform.dmi'
+		)
 
 /obj/item/clothing/suit/jacket/miljacket
 	name = "olive military jacket"
