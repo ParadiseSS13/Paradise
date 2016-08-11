@@ -979,7 +979,7 @@ var/list/teleport_runes = list()
 	..()
 	cultist_desc = "manifests a spirit as a servant of [ticker.cultdat.entity_title3]. The invoker must not move from atop the rune, and will take damage for each summoned spirit."
 
-	notify_ghosts("Manifest rune created in [get_area(src)].", 'sound/effects/ghost2.ogg', source = src)
+	notify_ghosts("Manifest rune created in [get_area(src)].", ghost_sound='sound/effects/ghost2.ogg', source = src)
 
 /obj/effect/rune/manifest/can_invoke(mob/living/user)
 	if(ghosts >= ghost_limit)

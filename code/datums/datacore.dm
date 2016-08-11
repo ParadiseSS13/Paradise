@@ -338,6 +338,7 @@ var/record_id_num = 1001
 		L.fields["enzymes"]		= H.dna.SE // Used in respawning
 		L.fields["identity"]	= H.dna.UI // "
 		L.fields["image"]		= getFlatIcon(H)	//This is god-awful
+		L.fields["reference"]	= H
 		locked += L
 	return
 
