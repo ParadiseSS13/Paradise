@@ -269,6 +269,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			if(species in list("Human", "Drask", "Vox"))
 				dat += "<b>Skin Tone:</b> <a href='?_src_=prefs;preference=s_tone;task=input'>[species == "Vox" ? "[s_tone]" : "[-s_tone + 35]/220"]</a><br>"
 			dat += "<b>Disabilities:</b> <a href='?_src_=prefs;preference=disabilities'>\[Set\]</a><br>"
+			dat += "<b>Late Arrival Point</b>: <a href='byond://?src=\ref[user];preference=spawnpoint;task=input'>[spawnpoint]</a><br>"
 			dat += "<b>Nanotrasen Relation:</b> <a href ='?_src_=prefs;preference=nt_relation;task=input'>[nanotrasen_relation]</a><br>"
 			dat += "<a href='byond://?src=\ref[user];preference=flavor_text;task=input'>Set Flavor Text</a><br>"
 			if(lentext(flavor_text) <= 40)
@@ -1686,7 +1687,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 					if(!skin_style_name) return
 */
 
-/*					if("spawnpoint")
+				if("spawnpoint")
 					var/list/spawnkeys = list()
 					for(var/S in spawntypes)
 						spawnkeys += S
@@ -1694,7 +1695,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 					if(!choice || !spawntypes[choice])
 						spawnpoint = "Arrivals Shuttle"
 						return
-					spawnpoint = choice */
+					spawnpoint = choice
 
 		else
 			switch(href_list["preference"])
