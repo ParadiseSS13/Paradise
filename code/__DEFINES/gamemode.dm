@@ -7,7 +7,6 @@
 #define GAMEMODE_IS_BLOB		(ticker && istype(ticker.mode, /datum/game_mode/blob))
 #define GAMEMODE_IS_CULT		(ticker && istype(ticker.mode, /datum/game_mode/cult))
 #define GAMEMODE_IS_HEIST		(ticker && istype(ticker.mode, /datum/game_mode/heist))
-#define GAMEMODE_IS_MALF		(ticker && istype(ticker.mode, /datum/game_mode/malfunction))
 #define GAMEMODE_IS_NATIONS		(ticker && istype(ticker.mode, /datum/game_mode/nations))
 #define GAMEMODE_IS_NUCLEAR		(ticker && istype(ticker.mode, /datum/game_mode/nuclear))
 #define GAMEMODE_IS_REVOLUTION	(ticker && istype(ticker.mode, /datum/game_mode/revolution))
@@ -27,7 +26,6 @@
 #define SPECIAL_ROLE_HEAD_REV "Head Revolutionary"
 #define SPECIAL_ROLE_HONKSQUAD "Honksquad"
 #define SPECIAL_ROLE_REV "Revolutionary"
-#define SPECIAL_ROLE_MALF "Malfunction"
 #define SPECIAL_ROLE_MORPH "Morph"
 #define SPECIAL_ROLE_MULTIVERSE "Multiverse Traveller"
 #define SPECIAL_ROLE_NUKEOPS "Syndicate"

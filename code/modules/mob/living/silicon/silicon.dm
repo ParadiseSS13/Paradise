@@ -143,18 +143,12 @@
 		stat(null, text("Systems nonfunctional"))
 
 
-// This is a pure virtual function, it should be overwritten by all subclasses
-/mob/living/silicon/proc/show_malf_ai()
-	return 0
-
-
 // This adds the basic clock, shuttle recall timer, and malf_ai info to all silicon lifeforms
 /mob/living/silicon/Stat()
 	if(statpanel("Status"))
 		show_stat_station_time()
 		show_stat_emergency_shuttle_eta()
 		show_system_integrity()
-		show_malf_ai()
 	..()
 
 //Silicon mob language procs
