@@ -115,14 +115,14 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		return
 
 	if(!A || !IsValidSrc(A))
-		to_chat(usr, "<span class='warning'>Error: callproc_datum(): owner of proc no longer exists.</span>")
+		to_chat(src, "<span class='warning'>Error: callproc_datum(): owner of proc no longer exists.</span>")
 		return
 	message_admins("[key_name_admin(src)] called [A]'s [procname]() with [lst.len ? "the arguments [list2params(lst)]":"no arguments"]")
 	log_admin("[key_name(src)] called [A]'s [procname]() with [lst.len ? "the arguments [list2params(lst)]":"no arguments"]")
 
 	spawn()
 		var/returnval = call(A,procname)(arglist(lst)) // Pass the lst as an argument list to the proc
-		to_chat(usr, "<span class='notice'>[procname] returned: [!isnull(returnval) ? returnval : "null"]</span>")
+		to_chat(src, "<span class='notice'>[procname] returned: [!isnull(returnval) ? returnval : "null"]</span>")
 
 	feedback_add_details("admin_verb","DPC") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
