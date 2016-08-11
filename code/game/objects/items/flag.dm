@@ -193,3 +193,4 @@
 			
 /obj/item/flag/chameleon/burn()
 	explosion(loc,1,2,4,4, flame_range = 4)
+	qdel(src)
