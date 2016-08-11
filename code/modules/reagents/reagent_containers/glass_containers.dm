@@ -54,10 +54,10 @@
 /obj/item/weapon/reagent_containers/glass/attack_self()
 	..()
 	if(is_open_container())
-		to_chat(usr, "<span class='notice'>You put the lid on \the [src].</span>")
+		to_chat(usr, "<span class='notice'>You put the lid on [src].</span>")
 		flags ^= OPENCONTAINER
 	else
-		to_chat(usr, "<span class='notice'>You take the lid off \the [src].</span>")
+		to_chat(usr, "<span class='notice'>You take the lid off [src].</span>")
 		flags |= OPENCONTAINER
 	update_icon()
 
@@ -114,29 +114,12 @@
 			to_chat(user, "<span class='warning'>[target] is full.</span>")
 			return
 
-		// /vg/: Logging transfers of bad things
-		if(target.reagents_to_log.len)
-			var/list/badshit=list()
-			for(var/bad_reagent in target.reagents_to_log)
-				if(reagents.has_reagent(bad_reagent))
-					badshit += reagents_to_log[bad_reagent]
-			if(badshit.len)
-				var/hl = "<span class='danger'>([english_list(badshit)])</span>"
-				message_admins("[key_name_admin(user)] added [reagents.get_reagent_ids(1)] to \a [target] with [src].[hl]")
-				log_game("[key_name(user)] added [reagents.get_reagent_ids(1)] to \a [target] with [src].")
-
 		var/trans = reagents.trans_to(target, amount_per_transfer_from_this)
 		to_chat(user, "<span class='notice'>You transfer [trans] units of the solution to [target].</span>")
 
 	else if(istype(target, /obj/item/weapon/reagent_containers/glass) && !target.is_open_container())
 		to_chat(user, "<span class='warning'>You cannot fill [target] while it is sealed.</span>")
 		return
-
-	/*else if(istype(target, /obj/machinery/bunsen_burner))
-		return
-
-	else if(istype(target, /obj/machinery/radiocarbon_spectrometer))
-		return*/
 
 	else if(istype(target, /obj/effect/decal/cleanable)) //stops splashing while scooping up fluids
 		return
@@ -148,7 +131,7 @@
 		return
 
 
-/obj/item/weapon/reagent_containers/glass/attackby(var/obj/item/I, mob/user as mob, params)
+/obj/item/weapon/reagent_containers/glass/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/clothing/mask/cigarette)) //ciggies are weird
 		return
 	if(is_hot(I))
@@ -157,7 +140,7 @@
 			to_chat(user, "<span class='notice'>You heat [src] with [I].</span>")
 			reagents.handle_reactions()
 	if(istype(I, /obj/item/weapon/pen) || istype(I, /obj/item/device/flashlight/pen))
-		var/tmp_label = sanitize(input(user, "Enter a label for [name]","Label",label_text))
+		var/tmp_label = sanitize_local(input(user, "Enter a label for [name]","Label",label_text))
 		if(length(tmp_label) > MAX_NAME_LEN)
 			to_chat(user, "<span class='warning'>The label can be at most [MAX_NAME_LEN] characters long.</span>")
 		else
@@ -181,20 +164,9 @@
 	item_state = "beaker"
 	materials = list(MAT_GLASS=500)
 	var/obj/item/device/assembly_holder/assembly = null
+	var/can_assembly = 1
 
 /obj/item/weapon/reagent_containers/glass/beaker/on_reagent_change()
-	update_icon()
-
-/obj/item/weapon/reagent_containers/glass/beaker/pickup(mob/user)
-	..()
-	update_icon()
-
-/obj/item/weapon/reagent_containers/glass/beaker/dropped(mob/user)
-	..()
-	update_icon()
-
-/obj/item/weapon/reagent_containers/glass/beaker/attack_hand()
-	..()
 	update_icon()
 
 /obj/item/weapon/reagent_containers/glass/beaker/update_icon()
@@ -233,10 +205,10 @@
 	set name = "Remove Assembly"
 	set category = "Object"
 	set src in usr
-	if(usr.stat || !usr.canmove || usr.restrained())
+	if(usr.incapacitated())
 		return
 	if(assembly)
-		to_chat(usr, "<span class='notice'>You detach [assembly] from \the [src]</span>")
+		to_chat(usr, "<span class='notice'>You detach [assembly] from [src]</span>")
 		usr.put_in_hands(assembly)
 		assembly = null
 		update_icon()
@@ -248,10 +220,10 @@
 		reagents.chem_temp += 30
 		reagents.handle_reactions()
 
-/obj/item/weapon/reagent_containers/glass/beaker/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
-	if(istype(W,/obj/item/device/assembly_holder))
+/obj/item/weapon/reagent_containers/glass/beaker/attackby(obj/item/weapon/W, mob/user, params)
+	if(istype(W, /obj/item/device/assembly_holder) && can_assembly)
 		if(assembly)
-			to_chat(usr, "<span class='warning'>The [src] already has an assembly.</span>")
+			to_chat(usr, "<span class='warning'>[src] already has an assembly.</span>")
 			return ..()
 		assembly = W
 		user.drop_item()
@@ -299,6 +271,17 @@
 	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = list(5,10,15,25)
 	flags = OPENCONTAINER
+	can_assembly = 0
+
+/obj/item/weapon/reagent_containers/glass/beaker/drugs
+	name = "baggie"
+	desc = "A baggie. Can hold up to 10 units."
+	icon_state = "baggie"
+	amount_per_transfer_from_this = 2
+	possible_transfer_amounts = 2
+	volume = 10
+	flags = OPENCONTAINER
+	can_assembly = 0
 
 /obj/item/weapon/reagent_containers/glass/beaker/noreact
 	name = "cryostasis beaker"
@@ -319,14 +302,20 @@
 	possible_transfer_amounts = list(5,10,15,25,30,50,100,300)
 	flags = OPENCONTAINER
 
+
 /obj/item/weapon/reagent_containers/glass/beaker/cryoxadone
 	list_reagents = list("cryoxadone" = 30)
 
 /obj/item/weapon/reagent_containers/glass/beaker/sulphuric
 	list_reagents = list("sacid" = 50)
 
+
 /obj/item/weapon/reagent_containers/glass/beaker/slime
 	list_reagents = list("slimejelly" = 50)
+
+/obj/item/weapon/reagent_containers/glass/beaker/drugs/meth
+	list_reagents = list("methamphetamine" = 10)
+
 
 /obj/item/weapon/reagent_containers/glass/bucket
 	desc = "It's a bucket."
@@ -350,13 +339,3 @@
 		qdel(src)
 	else
 		..()
-
-/obj/item/weapon/reagent_containers/glass/beaker/vial
-	name = "vial"
-	desc = "Small glass vial. Looks fragile."
-	icon_state = "vial"
-	materials = list(MAT_GLASS=500)
-	volume = 15
-	amount_per_transfer_from_this = 5
-	possible_transfer_amounts = list(1,5,15)
-	flags = OPENCONTAINER

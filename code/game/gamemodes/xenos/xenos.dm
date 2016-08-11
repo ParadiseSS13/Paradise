@@ -5,7 +5,7 @@
 /datum/game_mode/xenos
 	name = "xenos"
 	config_tag = "xenos"
-	required_players = 30
+	required_players = 10
 	required_enemies = 3
 	var/result = 0
 	var/checkwin_counter = 0
@@ -122,6 +122,7 @@
 			command_announcement.Announce("The aliens have nearly succeeded in capturing the station and exterminating the crew. Activate the nuclear failsafe to stop the alien threat once and for all. The Nuclear Authentication Code is [get_nuke_code()] ", "Alien Lifeform Alert")
 			set_security_level("gamma")
 			var/obj/machinery/door/airlock/vault/V = locate(/obj/machinery/door/airlock/vault) in world
+			// TODO: Tie into space manager
 			if(V && (V.z in config.station_levels))
 				V.locked = 0
 				V.update_icon()
@@ -142,6 +143,7 @@
 	var/list/livingplayers = list()
 	for(var/mob/M in player_list)
 		var/turf/T = get_turf(M)
+		// TODO: Tie into space manager
 		if((M) && (M.stat != 2) && M.client && T && ((T.z in config.station_levels) || shuttle_master.emergency.mode >= SHUTTLE_ESCAPE && ((T.z in config.station_levels) || (T.z in config.admin_levels))))
 			if(ishuman(M))
 				livingplayers += 1

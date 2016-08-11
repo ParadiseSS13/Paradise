@@ -113,7 +113,8 @@ var/list/admin_verbs_event = list(
 
 var/list/admin_verbs_spawn = list(
 	/datum/admins/proc/spawn_atom,		/*allows us to spawn instances*/
-	/client/proc/respawn_character
+	/client/proc/respawn_character,
+	/client/proc/admin_deserialize
 	)
 var/list/admin_verbs_server = list(
 	/client/proc/ToRban,
@@ -151,8 +152,6 @@ var/list/admin_verbs_debug = list(
 	/client/proc/toggledebuglogs,
 	/client/proc/qdel_toggle,
 	/client/proc/gc_dump_hdl,
-	/client/proc/gc_toggle_profiling,
-	/client/proc/gc_show_del_report,
 	/client/proc/debugNatureMapGenerator,
 	/client/proc/check_bomb_impacts,
 	/client/proc/test_movable_UI,
@@ -161,7 +160,9 @@ var/list/admin_verbs_debug = list(
 	/proc/machine_upgrade,
 	/client/proc/map_template_load,
 	/client/proc/map_template_upload,
-	/client/proc/view_runtimes
+	/client/proc/view_runtimes,
+	/client/proc/admin_serialize,
+	/client/proc/admin_deserialize
 	)
 var/list/admin_verbs_possess = list(
 	/proc/possess,
@@ -170,7 +171,9 @@ var/list/admin_verbs_possess = list(
 var/list/admin_verbs_permissions = list(
 	/client/proc/edit_admin_permissions,
 	/client/proc/create_poll,
-	/client/proc/big_brother
+	/client/proc/big_brother,
+	/client/proc/give_karma_list,
+	/client/proc/bwhitelist_panel_open
 	)
 var/list/admin_verbs_rejuv = list(
 	/client/proc/respawn_character,

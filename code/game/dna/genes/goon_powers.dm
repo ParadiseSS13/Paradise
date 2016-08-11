@@ -92,14 +92,14 @@
 	var/obj/effect/proc_holder/spell/spelltype
 
 /datum/dna/gene/basic/grant_spell/activate(var/mob/M, var/connected, var/flags)
-	M.AddSpell(new spelltype(M))
+	M.AddSpell(new spelltype(null))
 	..()
 	return 1
 
 /datum/dna/gene/basic/grant_spell/deactivate(var/mob/M, var/connected, var/flags)
-	for(var/obj/effect/proc_holder/spell/S in M.spell_list)
-		if(istype(S,spelltype))
-			M.spell_list.Remove(S)
+	for(var/obj/effect/proc_holder/spell/S in M.mob_spell_list)
+		if(istype(S, spelltype))
+			M.RemoveSpell(S)
 	..()
 	return 1
 

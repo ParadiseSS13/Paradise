@@ -61,6 +61,7 @@
 	var/ToRban = 0
 	var/automute_on = 0					//enables automuting/spam prevention
 	var/jobs_have_minimal_access = 0	//determines whether jobs use minimal access or expanded access.
+	var/round_abandon_penalty_period = 30 MINUTES // Time from round start during which ghosting out is penalized
 
 	var/reactionary_explosions = 0 //If we use reactionary explosions, explosions that react to walls and doors
 
@@ -178,6 +179,8 @@
 	var/disable_cid_warn_popup = 0 //disables the annoying "You have already logged in this round, disconnect or be banned" popup, because it annoys the shit out of me when testing.
 
 	var/max_loadout_points = 5 // How many points can be spent on extra items in character setup
+
+	var/prisonlist_enabled = 0
 
 /datum/configuration/New()
 	var/list/L = subtypesof(/datum/game_mode)
@@ -559,6 +562,12 @@
 
 				if("max_loadout_points")
 					config.max_loadout_points = text2num(value)
+
+				if("round_abandon_penalty_period")
+					config.round_abandon_penalty_period = MinutesToTicks(text2num(value))
+
+				if("prisonlist_enabled")
+					config.prisonlist_enabled = 1
 
 				else
 					diary << "Unknown setting in configuration: '[name]'"

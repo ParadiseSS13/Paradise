@@ -1,6 +1,7 @@
 /mob/living/silicon/ai/proc/InvalidTurf(turf/T as turf)
 	if(!T)
 		return 1
+	// TODO: Tie into space manager
 	if((T.z in config.admin_levels))
 		return 1
 	if(T.z > MAX_Z)
@@ -56,7 +57,7 @@
 	set name = "Store Camera Location"
 	set desc = "Stores your current camera location by the given name"
 
-	loc = sanitize(copytext(loc, 1, MAX_MESSAGE_LEN))
+	loc = sanitize_local(copytext(loc, 1, MAX_MESSAGE_LEN))
 	if(!loc)
 		to_chat(src, "\red Must supply a location name")
 		return

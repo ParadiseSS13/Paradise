@@ -34,6 +34,9 @@
 			return 1
 	return 0
 
+proc/isSSD(mob/M)
+	return istype(M) && M.player_logged
+
 proc/isAntag(A)
 	if(istype(A, /mob/living/carbon))
 		var/mob/living/carbon/C = A
@@ -63,7 +66,7 @@ proc/iscuffed(A)
 proc/isdeaf(A)
 	if(istype(A, /mob))
 		var/mob/M = A
-		return (M.sdisabilities & DEAF) || M.ear_deaf
+		return (M.disabilities & DEAF) || M.ear_deaf
 	return 0
 
 proc/hassensorlevel(A, var/level)
@@ -145,7 +148,7 @@ proc/getsensorlevel(A)
 	return t
 
 proc/slur(phrase, var/list/slurletters = ("'"))//use a different list as an input if you want to make robots slur with $#@%! characters
-	phrase = html_decode(phrase)
+	phrase = lhtml_decode(phrase)
 	var/leng=lentext(phrase)
 	var/counter=lentext(phrase)
 	var/newphrase=""
@@ -169,7 +172,7 @@ proc/slur(phrase, var/list/slurletters = ("'"))//use a different list as an inpu
 	return newphrase
 
 /proc/stutter(n)
-	var/te = html_decode(n)
+	var/te = lhtml_decode(n)
 	var/t = ""//placed before the message. Not really sure what it's for.
 	n = length(n)//length of the entire word
 	var/p = null
@@ -189,10 +192,10 @@ proc/slur(phrase, var/list/slurletters = ("'"))//use a different list as an inpu
 						n_letter = text("[n_letter]-[n_letter]")
 		t = text("[t][n_letter]")//since the above is ran through for each letter, the text just adds up back to the original word.
 		p++//for each letter p is increased to find where the next letter will be.
-	return sanitize(copytext(t,1,MAX_MESSAGE_LEN))
+	return sanitize_local(copytext(t,1,MAX_MESSAGE_LEN))
 
 /proc/robostutter(n) //for robutts
-	var/te = html_decode(n)
+	var/te = lhtml_decode(n)
 	var/t = ""//placed before the message. Not really sure what it's for.
 	n = length(n)//length of the entire word
 	var/p = null
@@ -213,7 +216,7 @@ proc/slur(phrase, var/list/slurletters = ("'"))//use a different list as an inpu
 						n_letter = text("[n_letter]-[n_letter]")
 		t = text("[t][n_letter]")//since the above is ran through for each letter, the text just adds up back to the original word.
 		p++//for each letter p is increased to find where the next letter will be.
-	return sanitize(copytext(t,1,MAX_MESSAGE_LEN))
+	return sanitize_local(copytext(t,1,MAX_MESSAGE_LEN))
 
 
 proc/Gibberish(t, p)//t is the inputted message, and any value higher than 70 for p will cause letters to be replaced instead of added
@@ -234,7 +237,7 @@ proc/Gibberish(t, p)//t is the inputted message, and any value higher than 70 fo
 	return returntext
 
 proc/muffledspeech(phrase)
-	phrase = html_decode(phrase)
+	phrase = lhtml_decode(phrase)
 	var/leng=lentext(phrase)
 	var/counter=lentext(phrase)
 	var/newphrase=""
@@ -358,7 +361,7 @@ var/list/intents = list(I_HELP,I_DISARM,I_GRAB,I_HARM)
 /proc/is_blind(A)
 	if(iscarbon(A))
 		var/mob/living/carbon/C = A
-		if(C.sdisabilities & BLIND || C.blinded)
+		if(C.disabilities & BLIND || C.blinded)
 			return 1
 	return 0
 

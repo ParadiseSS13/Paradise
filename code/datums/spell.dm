@@ -57,7 +57,7 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 
 /obj/effect/proc_holder/spell/proc/cast_check(skipcharge = 0, mob/living/user = usr) //checks if the spell can be cast based on its settings; skipcharge is used when an additional cast_check is called inside the spell
 
-	if(((!user.mind) || !(src in user.mind.spell_list)) && !(src in user.spell_list))
+	if(((!user.mind) || !(src in user.mind.spell_list)) && !(src in user.mob_spell_list))
 		to_chat(user, "<span class='warning'>You shouldn't have this spell! Something's wrong.</span>")
 		return 0
 	if(istype(user, /mob/living/carbon/human))
@@ -67,6 +67,7 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 			caster.reset_view(0)
 			return 0
 
+	// TODO: Tie into space manager
 	if(user.z == ZLEVEL_CENTCOMM && !centcom_cancast) //Certain spells are not allowed on the centcom zlevel
 		return 0
 	if(user.z == ZLEVEL_CENTCOMM && ticker.mode.name == "ragin' mages")
@@ -91,7 +92,7 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 		if(ishuman(user) && (invocation_type == "whisper" || invocation_type == "shout") && user.is_muzzled())
 			to_chat(user, "Mmmf mrrfff!")
 			return 0
-	var/obj/effect/proc_holder/spell/noclothes/spell = locate() in (user.spell_list | (user.mind ? user.mind.spell_list : list()))
+	var/obj/effect/proc_holder/spell/noclothes/spell = locate() in (user.mob_spell_list | (user.mind ? user.mind.spell_list : list()))
 	if(clothes_req && !(spell && istype(spell)))//clothes check
 		if(!istype(user, /mob/living/carbon/human))
 			to_chat(user, "You aren't a human, Why are you trying to cast a human spell, silly non-human? Casting human spells is for humans.")
@@ -134,6 +135,7 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 
 /obj/effect/proc_holder/spell/New()
 	..()
+	action = new(src)
 
 	still_recharging_msg = "<span class='notice'>[name] is still recharging.</span>"
 	charge_counter = charge_max
@@ -152,9 +154,13 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 	return
 
 /obj/effect/proc_holder/spell/proc/start_recharge()
+	if(action)
+		action.UpdateButtonIcon()
 	while(charge_counter < charge_max)
 		sleep(1)
 		charge_counter++
+	if(action)
+		action.UpdateButtonIcon()
 
 /obj/effect/proc_holder/spell/proc/perform(list/targets, recharge = 1, mob/user = usr) //if recharge is started is important for the trigger spells
 	before_cast(targets)
@@ -355,9 +361,10 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 	return 1
 
 /obj/effect/proc_holder/spell/proc/can_cast(mob/user = usr)
-	if(((!user.mind) || !(src in user.mind.spell_list)) && !(src in user.spell_list))
+	if(((!user.mind) || !(src in user.mind.spell_list)) && !(src in user.mob_spell_list))
 		return 0
 
+	// TODO: Tie into space manager
 	if(user.z == ZLEVEL_CENTCOMM && !centcom_cancast) //Certain spells are not allowed on the centcom zlevel
 		return 0
 	if(user.z == ZLEVEL_CENTCOMM && ticker.mode.name == "ragin' mages")
@@ -381,7 +388,7 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 		if((invocation_type == "whisper" || invocation_type == "shout") && H.is_muzzled())
 			return 0
 
-		var/obj/effect/proc_holder/spell/noclothes/clothcheck = locate() in user.spell_list
+		var/obj/effect/proc_holder/spell/noclothes/clothcheck = locate() in user.mob_spell_list
 		var/obj/effect/proc_holder/spell/noclothes/clothcheck2 = locate() in user.mind.spell_list
 		if(clothes_req && !(clothcheck && istype(clothcheck)) && !(clothcheck2 && istype(clothcheck2)))//clothes check
 			if(!istype(H.wear_suit, /obj/item/clothing/suit/wizrobe) && !istype(H.wear_suit, /obj/item/clothing/suit/space/rig/wizard))

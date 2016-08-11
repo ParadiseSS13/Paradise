@@ -194,7 +194,7 @@
 	visible_message("<span class='danger'>The [P.name] was repelled by [src.name]'s girth!</span>")
 	return
 
-/mob/living/simple_animal/hostile/asteroid/goldgrub/death()
+/mob/living/simple_animal/hostile/asteroid/goldgrub/death(gibbed)
 	alerted = 0
 	Reward()
 	..()
@@ -321,14 +321,12 @@
 	throw_message = "falls right through the strange body of the"
 	environment_smash = 0
 	pass_flags = PASSTABLE
+	del_on_death = 1
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/New()
 	..()
 	spawn(100)
-		qdel(src)
-
-/mob/living/simple_animal/hostile/asteroid/hivelordbrood/death()
-	qdel(src)
+		death()
 
 /mob/living/simple_animal/hostile/asteroid/goliath
 	name = "goliath"

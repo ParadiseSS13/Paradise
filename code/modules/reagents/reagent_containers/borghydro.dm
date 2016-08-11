@@ -49,8 +49,8 @@
 	if(charge_tick < recharge_time) return 0
 	charge_tick = 0
 
-	if(isrobot(src.loc))
-		var/mob/living/silicon/robot/R = src.loc
+	if(isrobot(loc))
+		var/mob/living/silicon/robot/R = loc
 		if(R && R.cell)
 			var/datum/reagents/RG = reagent_list[mode]
 			if(RG.total_volume < RG.maximum_volume) 	//Don't recharge reagents and drain power if the storage is full.
@@ -84,10 +84,10 @@
 		if(M.reagents)
 			var/datum/reagent/injected = chemical_reagents_list[reagent_ids[mode]]
 			var/contained = injected.name
-			M.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been injected with [src.name] by [key_name(user)]. Reagents: [contained]</font>")
-			user.attack_log += text("\[[time_stamp()]\] <font color='red'>Used the [src.name] to inject [key_name(M)]. Reagents: [contained]</font>")
+			M.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been injected with [name] by [key_name(user)]. Reagents: [contained]</font>")
+			user.attack_log += text("\[[time_stamp()]\] <font color='red'>Used the [name] to inject [key_name(M)]. Reagents: [contained]</font>")
 			if(M.ckey)
-				msg_admin_attack("[key_name_admin(user)] injected [key_name_admin(M)] with [src.name]. Reagents: [contained] (INTENT: [uppertext(user.a_intent)])")
+				msg_admin_attack("[key_name_admin(user)] injected [key_name_admin(M)] with [name]. Reagents: [contained] (INTENT: [uppertext(user.a_intent)])")
 			M.LAssailant = user
 
 			var/trans = R.trans_to(M, amount_per_transfer_from_this)
@@ -95,7 +95,7 @@
 	return
 
 /obj/item/weapon/reagent_containers/borghypo/attack_self(mob/user)
-	playsound(src.loc, 'sound/effects/pop.ogg', 50, 0)		//Change the mode
+	playsound(loc, 'sound/effects/pop.ogg', 50, 0)		//Change the mode
 	mode++
 	if(mode > reagent_list.len)
 		mode = 1

@@ -45,6 +45,7 @@
 	heat_gen /= max(1, tot_rating)
 
 /obj/machinery/r_n_d/server/initialize()
+	..()
 	if(!files) files = new /datum/research(src)
 	var/list/temp_list
 	if(!id_with_upload.len)
@@ -191,7 +192,7 @@
 
 
 /obj/machinery/computer/rdservercontrol
-	name = "\improper R&D server controller"
+	name = "R&D server controller"
 	icon_screen = "rdcomp"
 	icon_keyboard = "rd_key"
 	light_color = LIGHT_COLOR_FADEDPURPLE

@@ -14,7 +14,7 @@
 	name = "revolution"
 	config_tag = "revolution"
 	restricted_jobs = list("Security Officer", "Warden", "Detective", "Internal Affairs Agent", "AI", "Cyborg","Captain", "Head of Personnel", "Head of Security", "Chief Engineer", "Research Director", "Chief Medical Officer", "Blueshield", "Nanotrasen Representative", "Security Pod Pilot", "Magistrate", "Brig Physician")
-	required_players = 20
+	required_players = 10
 	required_enemies = 1
 	recommended_enemies = 3
 
@@ -314,6 +314,7 @@
 /datum/game_mode/revolution/proc/check_heads_victory()
 	for(var/datum/mind/rev_mind in head_revolutionaries)
 		var/turf/T = get_turf(rev_mind.current)
+		// TODO: Tie into space manager
 		if((rev_mind) && (rev_mind.current) && (rev_mind.current.stat != 2) && rev_mind.current.client && T && (T.z == ZLEVEL_STATION))
 			if(ishuman(rev_mind.current))
 				return 0
@@ -323,9 +324,18 @@
 //Announces the end of the game with all relavent information stated//
 //////////////////////////////////////////////////////////////////////
 /datum/game_mode/revolution/declare_completion()
+	var/karma_reward = 0
 	if(finished == 1)
 		feedback_set_details("round_end_result","win - heads killed")
 		to_chat(world, "<span class='redtext'>The heads of staff were killed or exiled! The revolutionaries win!</span>")
+		for(var/datum/mind/headrev in head_revolutionaries)
+			karma_reward = 3
+			to_chat(world, "[headrev.key] earned [karma_reward] karma points for being a Head of Revolution! Viva [headrev.key]!")
+			sql_report_objective_karma(headrev.key, karma_reward)
+		for(var/datum/mind/rev in revolutionaries)
+			karma_reward = 1
+			to_chat(world, "[rev.key] earned [karma_reward] karma point for being a part of Revolution!")
+			sql_report_objective_karma(rev.key, karma_reward)
 	else if(finished == 2)
 		feedback_set_details("round_end_result","loss - rev heads killed")
 		to_chat(world, "<span class='redtext'>The heads of staff managed to stop the revolution!</span>")

@@ -1,7 +1,7 @@
 
 
 /obj/machinery/computer3/aiupload
-	name = "\improper AI upload console"
+	name = "AI upload console"
 	desc = "Used to upload laws to the AI."
 	icon_state = "frame-rnd"
 	var/mob/living/silicon/ai/current = null
@@ -24,7 +24,8 @@
 
 
 	attackby(obj/item/weapon/aiModule/module as obj, mob/user as mob, params)
-		if(user.z > 6)
+		// TODO: Tie into space manager
+		if(user.z > ZLEVEL_DERELICT)
 			to_chat(user, "<span class='danger'>Unable to establish a connection</span>: You're too far away from the station!")
 			return
 		if(istype(module, /obj/item/weapon/aiModule))

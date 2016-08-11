@@ -294,7 +294,7 @@
 				spawn()
 					if(!t || !M.check_messaging_available() || !P.pda.can_use())
 						return
-					t = sanitize(copytext(t, 1, MAX_MESSAGE_LEN))
+					t = sanitize_local(copytext(t, 1, MAX_MESSAGE_LEN))
 					t = readd_quotes(t)
 					if(!t)
 						return
@@ -327,7 +327,7 @@
 					spawn()
 						if(!t || !M.check_messaging_available())
 							return
-						t = sanitize(copytext(t, 1, MAX_MESSAGE_LEN))
+						t = sanitize_local(copytext(t, 1, MAX_MESSAGE_LEN))
 						t = readd_quotes(t)
 						if(!t || !P.pda.can_use())
 							return
@@ -499,6 +499,7 @@
 /mob/living/silicon/pai/proc/hackloop()
 	var/turf/T = get_turf_or_move(src.loc)
 	for(var/mob/living/silicon/ai/AI in player_list)
+		// TODO: Tie into space manager
 		if(!T || !(T.z in config.contact_levels))
 			break
 		if(T.loc)

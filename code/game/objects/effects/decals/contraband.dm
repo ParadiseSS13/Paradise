@@ -18,6 +18,7 @@
 	var/serial_number = 0
 	var/obj/structure/sign/poster/resulting_poster = null //The poster that will be created is initialised and stored through contraband/poster's constructor
 	var/subtype = 0
+	burn_state = FLAMMABLE
 
 
 /obj/item/weapon/contraband/poster/New(turf/loc, given_serial = 0)

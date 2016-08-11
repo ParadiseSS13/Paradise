@@ -65,6 +65,7 @@
 				health_display = "DEAD"
 			else if(total_loss)
 				health_display = "HURT ([total_loss])"
+			// TODO: Tie into space manager
 			if((M.z in config.station_levels) && !istype(M.loc, /turf/space))
 				loc_display = "[get_area(M)]"
 			dat += "ID: [T.id] <BR>Subject: [M] <BR>Location: [loc_display] <BR>Health: [health_display] <BR>"
@@ -125,7 +126,7 @@
 			to_chat(usr, "<span class='warning'>Unauthorized access.</span>")
 
 	else if(href_list["warn"])
-		var/warning = sanitize(copytext(input(usr,"Message:","Enter your message here!",""),1,MAX_MESSAGE_LEN))
+		var/warning = sanitize_local(copytext(input(usr,"Message:","Enter your message here!",""),1,MAX_MESSAGE_LEN))
 		if(!warning) return
 		var/obj/item/weapon/implant/I = locate(href_list["warn"])
 		if((I)&&(I.imp_in))

@@ -36,7 +36,7 @@ var/list/image/ghost_darkness_images = list() //this is a list of images for thi
 	verbs += /mob/dead/observer/proc/dead_tele
 
 	// Our new boo spell.
-	AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/boo(src))
+	AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/boo(null))
 
 	can_reenter_corpse = flags & GHOST_CAN_REENTER
 	started_as_observer = flags & GHOST_IS_OBSERVER
@@ -129,11 +129,15 @@ Works together with spawning an observer, noted above.
 
 /mob/proc/ghostize(var/flags = GHOST_CAN_REENTER)
 	if(key)
+		if(non_respawnable_keys[ckey])
+			flags &= ~GHOST_CAN_REENTER
 		var/mob/dead/observer/ghost = new(src, flags)	//Transfer safety to observer spawning proc.
 		ghost.timeofdeath = src.timeofdeath //BS12 EDIT
 		respawnable_list -= src
 		if(ghost.can_reenter_corpse)
 			respawnable_list += ghost
+		else
+			non_respawnable_keys[ckey] = 1
 		ghost.key = key
 		if(!(ghost.client && ghost.client.holder) && !config.antag_hud_allowed)    // For new ghosts we remove the verb from even showing up if it's not allowed.
 			ghost.verbs -= /mob/dead/observer/verb/toggle_antagHUD  // Poor guys, don't know what they are missing!
@@ -148,12 +152,28 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	set desc = "Relinquish your life and enter the land of the dead."
 
 	var/mob/M = src
+	var/warningmsg = null
+	var/obj/machinery/cryopod/P = istype(loc, /obj/machinery/cryopod) && loc
 
-	if(stat == DEAD)
+	if(P)
+		if(TOO_EARLY_TO_GHOST)
+			warningmsg = "It's too early in the shift to enter cryo"
+		// If it's not too early, we'll skip straight to ghosting out without penalty
+	else if(suiciding && TOO_EARLY_TO_GHOST)
+		warningmsg = "You have committed suicide too early in the round"
+	else if(stat != DEAD)
+		warningmsg = "You are alive"
+	else if(non_respawnable_keys[ckey])
+		warningmsg = "You have lost your right to respawn"
+
+	if(!warningmsg)
 		ghostize(1)
 	else
-		var/response = alert(src, "Are you -sure- you want to ghost?\n(You are alive. If you ghost now, you probably won't be able to rejoin the round! You can't change your mind, so choose wisely!)","Are you sure you want to ghost?","Ghost","Stay in body")
-		if(response != "Ghost")	return	//didn't want to ghost after-all
+		var/response
+		var/alertmsg = "Are you -sure- you want to ghost?\n([warningmsg]. If you ghost now, you probably won't be able to rejoin the round! You can't change your mind, so choose wisely!)"
+		response = alert(src, alertmsg,"Are you sure you want to ghost?","Ghost","Stay in body")
+		if(response != "Ghost")
+			return	//didn't want to ghost after-all
 		resting = 1
 		var/mob/dead/observer/ghost = ghostize(0)            //0 parameter is so we can never re-enter our body, "Charlie, you can never come baaaack~" :3
 		ghost.timeofdeath = world.time // Because the living mob won't have a time of death and we want the respawn timer to work properly.
@@ -162,8 +182,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		Morgue = M.loc
 	if(Morgue)
 		Morgue.update()
-	if(istype(M.loc, /obj/machinery/cryopod))
-		var/obj/machinery/cryopod/P = M.loc
+	if(P)
 		if(!P.control_computer)
 			P.find_control_computer(urgent=1)
 		if(P.control_computer)

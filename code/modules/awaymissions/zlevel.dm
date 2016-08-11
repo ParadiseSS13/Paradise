@@ -17,9 +17,13 @@ var/global/list/potentialRandomZlevels = generateMapList(filename = "config/away
 	log_debug("Initializing lighting")
 	for(var/turf/T in turfs)
 		if(T.dynamic_lighting)
-			T.lighting_build_overlays()
+			T.lighting_build_overlay()
+		T.lighting_corners_initialised = TRUE
+		for(var/i = 1 to 4)
+			if((T.corners[i]) || (istype(T, /turf/space))) // Already have a corner on this direction. Also ignoring space turfs!
+				continue
+			T.corners[i] = new/datum/lighting_corner(T, LIGHTING_CORNER_DIAGONAL[i])
 	log_debug("\tTook [stop_watch(subtimer)]s")
-
 	subtimer = start_watch()
 	log_debug("Smoothing tiles")
 	for(var/turf/T in smoothTurfs)
@@ -59,14 +63,12 @@ var/global/list/potentialRandomZlevels = generateMapList(filename = "config/away
 		var/map = pick(potentialRandomZlevels)
 		var/file = file(map)
 		if(isfile(file))
-			var/zlev = zlevels.add_new_zlevel()
-			zlevels.add_dirt(zlev)
+			var/zlev = space_manager.add_new_zlevel(AWAY_MISSION, linkage = UNAFFECTED)
+			space_manager.add_dirt(zlev)
 			maploader.load_map(file, z_offset = zlev)
 			late_setup_level(block(locate(1, 1, zlev), locate(world.maxx, world.maxy, zlev)))
-			zlevels.remove_dirt(zlev)
+			space_manager.remove_dirt(zlev)
 			log_to_dd("  Away mission loaded: [map]")
-
-		//map_transition_config.Add(AWAY_MISSION_LIST)
 
 		for(var/obj/effect/landmark/L in landmarks_list)
 			if(L.name != "awaystart")
@@ -91,11 +93,11 @@ var/global/list/potentialRandomZlevels = generateMapList(filename = "config/away
 			var/file = file(map)
 			if(isfile(file))
 				log_startup_progress("Loading away mission: [map]")
-				var/zlev = zlevels.add_new_zlevel()
-				zlevels.add_dirt(zlev)
+				var/zlev = space_manager.add_new_zlevel()
+				space_manager.add_dirt(zlev)
 				maploader.load_map(file, z_offset = zlev)
 				late_setup_level(block(locate(1, 1, zlev), locate(world.maxx, world.maxy, zlev)))
-				zlevels.remove_dirt(zlev)
+				space_manager.remove_dirt(zlev)
 				log_to_dd("  Away mission loaded: [map]")
 
 			//map_transition_config.Add(AWAY_MISSION_LIST)
@@ -151,8 +153,6 @@ var/global/list/potentialRandomZlevels = generateMapList(filename = "config/away
 	var/initialbudget = budget
 	var/watch = start_watch()
 
-	log_startup_progress("Loading ruins...")
-
 	while(budget > 0 && overall_sanity > 0)
 		// Pick a ruin
 		var/datum/map_template/ruin/ruin = ruins[pick(ruins)]
@@ -187,7 +187,6 @@ var/global/list/potentialRandomZlevels = generateMapList(filename = "config/away
 				ruins -= ruin.name
 			break
 
-	to_chat(world, "<span class='danger'>  Loaded ruins. Or not.</span>") //So the players don't know if we loaded ruins, but we do have a message
 
 	if(initialbudget == budget) //Kill me
 		log_to_dd("  No ruins loaded.")

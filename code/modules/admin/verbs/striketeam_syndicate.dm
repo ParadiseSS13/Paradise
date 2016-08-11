@@ -21,7 +21,7 @@ var/global/sent_syndicate_strike_team = 0
 
 	var/input = null
 	while(!input)
-		input = sanitize(copytext(input(src, "Please specify which mission the syndicate strike team shall undertake.", "Specify Mission", ""),1,MAX_MESSAGE_LEN))
+		input = sanitize_local(copytext(input(src, "Please specify which mission the syndicate strike team shall undertake.", "Specify Mission", ""),1,MAX_MESSAGE_LEN))
 		if(!input)
 			if(alert("Error, no mission set. Do you want to exit the setup process?",,"Yes","No")=="Yes")
 				return
@@ -71,7 +71,7 @@ var/global/sent_syndicate_strike_team = 0
 				new_syndicate_commando.key = pick(commandos)
 				commandos -= new_syndicate_commando.key
 				new_syndicate_commando.internal = new_syndicate_commando.s_store
-				new_syndicate_commando.internals.icon_state = "internal1"
+				new_syndicate_commando.update_internals_hud_icon(1)
 
 			//So they don't forget their code or mission.
 			if(nuke_code)

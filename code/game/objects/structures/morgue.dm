@@ -109,7 +109,7 @@
 			return
 		if((!in_range(src, usr) && loc != user))
 			return
-		t = sanitize(copytext(t,1,MAX_MESSAGE_LEN))
+		t = sanitize_local(copytext(t,1,MAX_MESSAGE_LEN))
 		if(t)
 			name = text("Morgue- '[]'", t)
 			overlays += image(icon, "morgue_label")
@@ -308,7 +308,7 @@
 			return
 		if((!in_range(src, usr) > 1 && loc != user))
 			return
-		t = sanitize(copytext(t,1,MAX_MESSAGE_LEN))
+		t = sanitize_local(copytext(t,1,MAX_MESSAGE_LEN))
 		if(t)
 			name = text("Crematorium- '[]'", t)
 		else
@@ -361,6 +361,8 @@
 				user.attack_log +="\[[time_stamp()]\] <font color='red'>Cremated [M.name] ([M.ckey])</font>"
 				log_attack("[user.name] ([user.ckey]) cremated [M.name] ([M.ckey])")
 			M.death(1)
+			if(!M || !isnull(M.gcDestroyed))
+				continue // Re-check for mobs that delete themselves on death
 			M.ghostize()
 			qdel(M)
 

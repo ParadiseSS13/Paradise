@@ -959,6 +959,10 @@
 				if(!mins)
 					return
 				if(mins >= 525600) mins = 525599
+				if(mins >= 1440)
+					switch(alert("Remove player from whitelist?",, "Yes","No"))
+						if("Yes")
+							bwhitelist_remove(ckey(M.mind.key))
 				var/reason = input(usr,"Please state the reason","Reason") as message|null
 				if(!reason)
 					return
@@ -1181,7 +1185,7 @@
 		var/speech = input("What will [key_name(M)] say?.", "Force speech", "")// Don't need to sanitize, since it does that in say(), we also trust our admins.
 		if(!speech)	return
 		M.say(speech)
-		speech = sanitize(speech) // Nah, we don't trust them
+		speech = sanitize_local(speech) // Nah, we don't trust them
 		log_admin("[key_name(usr)] forced [key_name(M)] to say: [speech]")
 		message_admins("\blue [key_name_admin(usr)] forced [key_name_admin(M)] to say: [speech]")
 
@@ -1252,6 +1256,7 @@
 		message_admins("[key_name_admin(usr)] has sent [key_name_admin(M)] back to the Lobby.")
 
 		var/mob/new_player/NP = new()
+		non_respawnable_keys -= M.ckey
 		NP.ckey = M.ckey
 		qdel(M)
 
@@ -1565,53 +1570,7 @@
 
 	else if(href_list["adminmoreinfo"])
 		var/mob/M = locate(href_list["adminmoreinfo"])
-		if(!ismob(M))
-			to_chat(usr, "This can only be used on instances of type /mob")
-			return
-
-		var/location_description = ""
-		var/special_role_description = ""
-		var/health_description = ""
-		var/gender_description = ""
-		var/turf/T = get_turf(M)
-
-		//Location
-		if(isturf(T))
-			if(isarea(T.loc))
-				location_description = "([M.loc == T ? "at coordinates " : "in [M.loc] at coordinates "] [T.x], [T.y], [T.z] in area <b>[T.loc]</b>)"
-			else
-				location_description = "([M.loc == T ? "at coordinates " : "in [M.loc] at coordinates "] [T.x], [T.y], [T.z])"
-
-		//Job + antagonist
-		if(M.mind)
-			special_role_description = "Role: <b>[M.mind.assigned_role]</b>; Antagonist: <font color='red'><b>[M.mind.special_role]</b></font>; Has been rev: [(M.mind.has_been_rev)?"Yes":"No"]"
-		else
-			special_role_description = "Role: <i>Mind datum missing</i> Antagonist: <i>Mind datum missing</i>; Has been rev: <i>Mind datum missing</i>;"
-
-		//Health
-		if(isliving(M))
-			var/mob/living/L = M
-			var/status
-			switch(M.stat)
-				if(0) status = "Alive"
-				if(1) status = "<font color='orange'><b>Unconscious</b></font>"
-				if(2) status = "<font color='red'><b>Dead</b></font>"
-			health_description = "Status = [status]"
-			health_description += "<BR>Oxy: [L.getOxyLoss()] - Tox: [L.getToxLoss()] - Fire: [L.getFireLoss()] - Brute: [L.getBruteLoss()] - Clone: [L.getCloneLoss()] - Brain: [L.getBrainLoss()]"
-		else
-			health_description = "This mob type has no health to speak of."
-
-		//Gener
-		switch(M.gender)
-			if(MALE,FEMALE)	gender_description = "[M.gender]"
-			else			gender_description = "<font color='red'><b>[M.gender]</b></font>"
-
-		to_chat(src.owner, "<b>Info about [M.name]:</b> ")
-		to_chat(src.owner, "Mob type = [M.type]; Gender = [gender_description] Damage = [health_description]")
-		to_chat(src.owner, "Name = <b>[M.name]</b>; Real_name = [M.real_name]; Mind_name = [M.mind?"[M.mind.name]":""]; Key = <b>[M.key]</b>;")
-		to_chat(src.owner, "Location = [location_description];")
-		to_chat(src.owner, "[special_role_description]")
-		to_chat(src.owner, "(<a href='?src=\ref[usr];priv_msg=\ref[M]'>PM</a>) (<A HREF='?src=\ref[src];adminplayeropts=\ref[M]'>PP</A>) (<A HREF='?_src_=vars;Vars=\ref[M]'>VV</A>) (<A HREF='?src=\ref[src];subtlemessage=\ref[M]'>SM</A>) (<A HREF='?src=\ref[src];adminplayerobservefollow=\ref[M]'>FLW</A>) (<A HREF='?src=\ref[src];secretsadmin=check_antagonist'>CA</A>)")
+		admin_mob_info(M)
 
 	else if(href_list["adminspawncookie"])
 		if(!check_rights(R_ADMIN|R_EVENT))	return
@@ -1636,6 +1595,47 @@
 		message_admins("[key_name_admin(H)] got their cookie, spawned by [key_name_admin(src.owner)]")
 		feedback_inc("admin_cookies_spawned",1)
 		to_chat(H, "\blue Your prayers have been answered!! You received the <b>best cookie</b>!")
+
+	else if(href_list["adminpunish"])
+		if(!check_rights(R_ADMIN))	return
+
+		var/mob/living/P = locate(href_list["adminpunish"])
+		if(!isliving(P))
+			to_chat(usr, "This can only be used on instances of type /mob/living")
+			return
+
+		var/Punishment = input( "How much you want to punish [P] (brute dmg)?", 1) as num
+		P.adjustBruteLoss(Punishment)
+		playsound(P.loc, 'sound/effects/adminpunish.ogg', 75, 0, 0, 1)
+		P.do_jitter_animation(20)
+		P.stuttering = 20
+		var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+		s.set_up(5, 1, P)
+		s.start()
+		log_admin("[key_name(src.owner)] punished [key_name(P)]")
+		message_admins("[key_name_admin(P)]have been punished by [key_name_admin(src.owner)]")
+		to_chat(P, "\red <b>GODS PUNISHED YOU FOR YOUR SINS!</b>")
+
+	else if(href_list["whitelisttoggle"])
+		if(!check_rights(R_ADMIN))	return
+
+		var/mob/living/P = locate(href_list["whitelisttoggle"])
+		if(!P.client)
+			to_chat(usr, "<span class='warning'>[P] doesn't seem to have an active client.</span>")
+			return
+
+		if(check_prisonlist(ckey(P.mind.key)))
+			if(alert(usr, "Player listed in the whitelist. Remove [key_name(P)] from the whitelist?", "Message", "Yes", "No") != "Yes")
+				return
+			bwhitelist_remove(ckey(P.mind.key))
+		else
+			if(alert(usr, "Player NOT listed in the whitelist. Add [key_name(P)] to the whitelist?", "Message", "Yes", "No") != "Yes")
+				return
+			if(!check_rights(R_PERMISSIONS))
+				to_chat(usr, "<span class='warning'>ONLY SECRETARY AND HIGHER RANKS CAN ADD PLAYERS INTO WHITELIST.</span>")
+				message_admins("[key_name_admin(src.owner)] doesn't have rights to add players into whitelist.")
+			else
+				bwhitelist_save(ckey(P.mind.key))
 
 	else if(href_list["BlueSpaceArtillery"])
 		if(!check_rights(R_ADMIN|R_EVENT))	return
@@ -2025,6 +2025,7 @@
 				return
 		else
 			for(var/obj/machinery/photocopier/faxmachine/F in allfaxes)
+				// TODO: Tie into space manager
 				if((F.z in config.station_levels))
 					spawn(0)
 						if(!F.receivefax(P))
@@ -2159,7 +2160,7 @@
 		var/obj_dir = tmp_dir ? text2num(tmp_dir) : 2
 		if(!obj_dir || !(obj_dir in list(1,2,4,8,5,6,9,10)))
 			obj_dir = 2
-		var/obj_name = sanitize(href_list["object_name"])
+		var/obj_name = sanitize_local(href_list["object_name"])
 
 
 		var/atom/target //Where the object will be spawned
@@ -2372,6 +2373,7 @@
 				for(var/mob/living/carbon/human/H in mob_list)
 					var/turf/loc = find_loc(H)
 					var/security = 0
+					// TODO: Tie into space manager
 					if(!(loc.z in config.station_levels) || prisonwarped.Find(H))
 
 //don't warp them if they aren't ready or are already there
@@ -2408,7 +2410,7 @@
 				if(!ticker)
 					alert("The game hasn't started yet!")
 					return
-				var/objective = sanitize(copytext(input("Enter an objective"),1,MAX_MESSAGE_LEN))
+				var/objective = sanitize_local(copytext(input("Enter an objective"),1,MAX_MESSAGE_LEN))
 				if(!objective)
 					return
 				feedback_inc("admin_secrets_fun_used",1)
@@ -2608,7 +2610,8 @@
 			if("eagles")//SCRAW
 				feedback_inc("admin_secrets_fun_used",1)
 				feedback_add_details("admin_secrets_fun_used","EgL")
-				for(var/obj/machinery/door/airlock/W in world)
+				for(var/obj/machinery/door/airlock/W in airlocks)
+					// TODO: Tie into space manager
 					if((W.z in config.station_levels) && !istype(get_area(W), /area/bridge) && !istype(get_area(W), /area/crew_quarters) && !istype(get_area(W), /area/security/prison))
 						W.req_access = list()
 				message_admins("[key_name_admin(usr)] activated Egalitarian Station mode")
@@ -2801,12 +2804,12 @@
 					dat += "No-one has done anything this round!"
 				usr << browse(dat, "window=admin_log")
 			if("maint_access_brig")
-				for(var/obj/machinery/door/airlock/maintenance/M in world)
+				for(var/obj/machinery/door/airlock/maintenance/M in airlocks)
 					if(access_maint_tunnels in M.req_access)
 						M.req_access = list(access_brig)
 				message_admins("[key_name_admin(usr)] made all maint doors brig access-only.")
 			if("maint_access_engiebrig")
-				for(var/obj/machinery/door/airlock/maintenance/M in world)
+				for(var/obj/machinery/door/airlock/maintenance/M in airlocks)
 					if(access_maint_tunnels in M.req_access)
 						M.req_access = list()
 						M.req_one_access = list(access_brig,access_engine)
@@ -3048,6 +3051,27 @@
 			error_viewer.showTo(usr, locate(href_list["viewruntime_backto"]), href_list["viewruntime_linear"])
 		else
 			error_viewer.showTo(usr, null, href_list["viewruntime_linear"])
+	else if(href_list["remove"])
+		var/ckeyname = href_list["remove"]
+		ckeyname = ckey(ckeyname)
+
+		bwhitelist_remove(ckeyname)
+		return
+
+
+	else if(href_list["addtowhitelist"])
+		var/ckeyname = href_list["ckeyname"]
+		ckeyname = ckey(ckeyname)
+
+		bwhitelist_save(ckeyname)
+		return
+
+	else if(href_list["whitelistsearchckey"])
+		var/playerckey = href_list["whitelistsearchckey"]
+
+		bwhitelist_panel(playerckey)
+		return
+
 
 /proc/admin_jump_link(var/atom/target, var/source)
 	if(!target) return

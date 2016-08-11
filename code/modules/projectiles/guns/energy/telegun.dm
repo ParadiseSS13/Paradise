@@ -23,7 +23,8 @@
 		var/turf/T = get_turf(R)
 		if(!T)
 			continue
-		if((T.z in config.admin_levels) || T.z > 7)
+		// TODO: Tie into space manager
+		if((T.z in config.admin_levels) || T.z > ZLEVEL_EMPTY)
 			continue
 		if(R.syndicate == 1)
 			continue
@@ -38,4 +39,6 @@
 	teleport_target = L[desc]
 
 /obj/item/weapon/gun/energy/telegun/newshot()
-	..(teleport_target)
+	var/obj/item/ammo_casing/energy/teleport/T = ammo_type[select]
+	T.teleport_target = teleport_target
+	..()

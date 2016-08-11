@@ -26,7 +26,7 @@
 
 
 /mob/living/simple_animal/parrot
-	name = "\improper Parrot"
+	name = "Parrot"
 	desc = "The parrot squaks, \"It's a Parrot! BAWWK!\""
 	icon = 'icons/mob/animal.dmi'
 	icon_state = "parrot_fly"
@@ -112,7 +112,7 @@
 	hear_radio_list -= src
 	return ..()
 
-/mob/living/simple_animal/parrot/death()
+/mob/living/simple_animal/parrot/death(gibbed)
 	if(held_item)
 		held_item.loc = src.loc
 		held_item = null
@@ -701,14 +701,14 @@
 
 /mob/living/simple_animal/parrot/hear_say(var/message, var/verb = "says", var/datum/language/language = null, var/alt_name = "",var/italics = 0, var/mob/speaker = null)
 	if(speaker != src && prob(50))
-		parrot_hear(html_decode(message))
+		parrot_hear(lhtml_decode(message))
 	..()
 
 
 
 /mob/living/simple_animal/parrot/hear_radio(var/message, var/verb="says", var/datum/language/language=null, var/part_a, var/part_b, var/mob/speaker = null, var/hard_to_hear = 0, var/atom/follow_target)
 	if(speaker != src && prob(50))
-		parrot_hear(html_decode(message))
+		parrot_hear(lhtml_decode(message))
 	..()
 
 

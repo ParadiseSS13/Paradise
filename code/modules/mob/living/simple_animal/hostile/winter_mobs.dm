@@ -33,14 +33,14 @@
 	gold_core_spawnable = CHEM_MOB_SPAWN_HOSTILE
 
 
-/mob/living/simple_animal/hostile/winter/snowman/death()
+/mob/living/simple_animal/hostile/winter/snowman/death(gibbed)
 	if(prob(50))		//50% chance to drop weapon on death, if it has one to drop
 		loot = list(/obj/item/weapon/melee/candy_sword)
 	if(prob(20))	//chance to become a stationary snowman structure instead of a corpse
 		loot.Add(/obj/structure/snowman)
-		visible_message("<span class='notice'>The [src.name] shimmers as its animating magic fades away!</span>")
+		deathmessage = "shimmers as its animating magic fades away!"
+		del_on_death = 1
 		..()		//this is just to make sure it gets properly killed before we qdel it
-		qdel(src)
 	else
 		..()
 
@@ -73,7 +73,7 @@
 	icon_living = "santa"
 	icon_dead = "santa-dead"
 
-/mob/living/simple_animal/hostile/winter/santa/death()
+/mob/living/simple_animal/hostile/winter/santa/death(gibbed)
 	..()
 	if(death_message)
 		visible_message(death_message)
@@ -121,7 +121,7 @@
 	melee_damage_lower = 15
 	melee_damage_upper = 25		//that's gonna leave a mark, for sure
 
-/mob/living/simple_animal/hostile/winter/santa/stage_4/death()
+/mob/living/simple_animal/hostile/winter/santa/stage_4/death(gibbed)
 	to_chat(world, "<span class='notice'><hr></span>")
 	to_chat(world, "<span class='notice'>THE FAT MAN HAS FALLEN!</span>")
 	to_chat(world, "<span class='notice'>SANTA CLAUS HAS BEEN DEFEATED!</span>")

@@ -133,9 +133,7 @@
 			M.fakevomit()
 	..()
 
-/datum/reagent/ethanol/synthanol/reaction_mob(mob/M, method=TOUCH, volume)
-	if(!istype(M, /mob/living))
-		return
+/datum/reagent/ethanol/synthanol/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(M.isSynthetic())
 		return
 	if(method == INGEST)
@@ -201,7 +199,7 @@
 	name = "Uplink"
 	id = "uplink"
 	result = "uplink"
-	required_reagents = list("rum" = 1, "vodka" = 1, "tequilla" = 1, "whiskey" = 1, "synthanol" = 1)
+	required_reagents = list("rum" = 1, "vodka" = 1, "tequila" = 1, "whiskey" = 1, "synthanol" = 1)
 	result_amount = 5
 
 /datum/reagent/ethanol/synthanol/synthnsoda

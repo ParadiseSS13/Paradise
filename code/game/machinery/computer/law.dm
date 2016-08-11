@@ -1,7 +1,7 @@
 //This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:31
 
 /obj/machinery/computer/aiupload
-	name = "\improper AI upload console"
+	name = "AI upload console"
 	desc = "Used to upload laws to the AI."
 	icon_screen = "command"
 	icon_keyboard = "med_key"
@@ -29,7 +29,8 @@
 
 
 	attackby(obj/item/weapon/O as obj, mob/user as mob, params)
-		if(user.z > 6)
+		// TODO: Tie into space manager
+		if(user.z > ZLEVEL_DERELICT)
 			to_chat(user, "<span class='danger'>Unable to establish a connection</span>: You're too far away from the station!")
 			return
 		if(istype(O, /obj/item/weapon/aiModule))

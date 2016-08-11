@@ -1,0 +1,4 @@
+author: Pinatacolada
+delete-after: True
+changes: 
+  - rscadd: "Makes the swedish gene spit out weird swedish chars and sounds"

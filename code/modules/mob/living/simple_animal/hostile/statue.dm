@@ -52,9 +52,9 @@
 /mob/living/simple_animal/hostile/statue/New(loc, var/mob/living/creator)
 	..()
 	// Give spells
-	AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/flicker_lights(src))
-	AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/blindness(src))
-	AddSpell(new /obj/effect/proc_holder/spell/targeted/night_vision(src))
+	AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/flicker_lights(null))
+	AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/blindness(null))
+	AddSpell(new /obj/effect/proc_holder/spell/targeted/night_vision(null))
 
 	// Give nightvision
 	see_invisible = SEE_INVISIBLE_OBSERVER_NOLIGHTING

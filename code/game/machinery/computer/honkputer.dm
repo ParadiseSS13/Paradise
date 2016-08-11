@@ -1,5 +1,5 @@
 /obj/machinery/computer/HONKputer
-	name = "\improper HONKputer Mark I"
+	name = "HONKputer Mark I"
 	desc = "A yellow computer used in case of critically low levels of HONK."
 	icon = 'icons/obj/machines/HONKputer.dmi'
 	icon_state = "honkputer"
@@ -20,6 +20,7 @@
 /obj/machinery/computer/HONKputer/Topic(href, href_list)
 	if(..())
 		return 1
+	// TODO: Tie into space manager
 	if(!(src.z in config.station_levels))
 		to_chat(usr, "<span class='danger'>Unable to establish a connection</span>: You're too far away from the station!")
 		return
@@ -68,7 +69,8 @@
 /obj/machinery/computer/HONKputer/attack_hand(var/mob/user as mob)
 	if(..())
 		return
-	if(src.z > 6)
+	// TODO: Tie into space manager
+	if(src.z > ZLEVEL_DERELICT)
 		to_chat(user, "<span class='danger'>Unable to establish a connection</span>: You're too far away from the station!")
 		return
 

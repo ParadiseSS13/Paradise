@@ -119,8 +119,8 @@
 	module_type = "Medical"
 	subsystems = list(/mob/living/silicon/proc/subsystem_crew_monitor)
 	stacktypes = list(
-		/obj/item/stack/medical/advanced/bruise_pack = 5,
-		/obj/item/stack/medical/advanced/ointment = 5,
+		/obj/item/stack/medical/bruise_pack/advanced = 5,
+		/obj/item/stack/medical/ointment/advanced = 5,
 		/obj/item/stack/medical/splint = 5,
 		/obj/item/stack/nanopaste = 5
 		)
@@ -136,8 +136,8 @@
 	src.modules += new /obj/item/weapon/reagent_containers/dropper(src)
 	src.modules += new /obj/item/weapon/reagent_containers/syringe(src)
 	src.modules += new /obj/item/weapon/extinguisher/mini(src)
-	src.modules += new /obj/item/stack/medical/advanced/bruise_pack(src)
-	src.modules += new /obj/item/stack/medical/advanced/ointment(src)
+	src.modules += new /obj/item/stack/medical/bruise_pack/advanced(src)
+	src.modules += new /obj/item/stack/medical/ointment/advanced(src)
 	src.modules += new /obj/item/stack/medical/splint(src)
 	src.modules += new /obj/item/stack/nanopaste(src)
 	src.modules += new /obj/item/weapon/scalpel(src)
@@ -362,8 +362,8 @@
 	name = "syndicate medical robot module"
 	module_type = "Malf"
 	stacktypes = list(
-		/obj/item/stack/medical/advanced/bruise_pack = 25,
-		/obj/item/stack/medical/advanced/ointment = 25,
+		/obj/item/stack/medical/bruise_pack/advanced = 25,
+		/obj/item/stack/medical/ointment/advanced = 25,
 		/obj/item/stack/medical/splint = 25,
 		/obj/item/stack/nanopaste = 25
 	)
@@ -376,8 +376,8 @@
 	src.modules += new /obj/item/roller_holder(src)
 	src.modules += new /obj/item/weapon/reagent_containers/borghypo/syndicate(src)
 	src.modules += new /obj/item/weapon/extinguisher/mini(src)
-	src.modules += new /obj/item/stack/medical/advanced/bruise_pack(src)
-	src.modules += new /obj/item/stack/medical/advanced/ointment(src)
+	src.modules += new /obj/item/stack/medical/bruise_pack/advanced(src)
+	src.modules += new /obj/item/stack/medical/ointment/advanced(src)
 	src.modules += new /obj/item/stack/medical/splint(src)
 	src.modules += new /obj/item/stack/nanopaste(src)
 	src.modules += new /obj/item/weapon/scalpel(src)

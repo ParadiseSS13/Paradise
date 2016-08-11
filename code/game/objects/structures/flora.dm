@@ -1,3 +1,7 @@
+/obj/structure/flora
+	burn_state = FLAMMABLE
+	burntime = 30
+
 //trees
 /obj/structure/flora/tree
 	name = "tree"
@@ -219,7 +223,7 @@
 	user.remove_alt_appearance("sneaking_mission")
 
 /obj/item/weapon/twohanded/required/kirbyplants/dead
-	name = "\improper RD's potted plant"
+	name = "RD's potted plant"
 	desc = "A gift from the botanical staff, presented after the RD's reassignment. There's a tag on it that says \"Y'all come back now, y'hear?\"\nIt doesn't look very healthy..."
 	icon_state = "plant-dead"
 
@@ -230,6 +234,7 @@
 	desc = "a rock"
 	icon_state = "rock1"
 	icon = 'icons/obj/flora/rocks.dmi'
+	burn_state = FIRE_PROOF
 	anchored = 1
 
 /obj/structure/flora/rock/New()

@@ -407,7 +407,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		if("Death Commando")//Leaves them at late-join spawn.
 			new_character.equip_death_commando()
 			new_character.internal = new_character.s_store
-			new_character.internals.icon_state = "internal1"
+			new_character.update_internals_hud_icon(1)
 		else//They may also be a cyborg or AI.
 			switch(new_character.mind.assigned_role)
 				if("Cyborg")//More rigging to make em' work and check if they're traitor.
@@ -873,8 +873,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	set name = "Reset Telecomms Scripts"
 	set desc = "Blanks all telecomms scripts from all telecomms servers"
 
-	if(!holder || !holder.rights || !holder.rights & R_ADMIN)
-		to_chat(usr, "<span class='warning'>Admin only.</span>")
+	if(!check_rights(R_ADMIN, 1, src))
 		return
 
 	var/confirm = alert(src, "You sure you want to blank all NTSL scripts?", "Confirm", "Yes", "No")

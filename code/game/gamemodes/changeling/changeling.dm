@@ -8,9 +8,9 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 	name = "changeling"
 	config_tag = "changeling"
 	restricted_jobs = list("AI", "Cyborg")
-	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Blueshield", "Nanotrasen Representative", "Security Pod Pilot", "Magistrate", "Brig Physician", "Internal Affairs Agent", "Nanotrasen Navy Officer", "Special Operations Officer")
+	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Blueshield", "Nanotrasen Representative", "Security Pod Pilot", "Magistrate", "Brig Physician", "Internal Affairs Agent", "D-class Prisoner", "Nanotrasen Navy Officer", "Special Operations Officer")
 	protected_species = list("Machine", "Slime People", "Plasmaman")
-	required_players = 15
+	required_players = 5
 	required_enemies = 1
 	recommended_enemies = 4
 
@@ -110,7 +110,7 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 			if(identity_theft.target && identity_theft.target.current)
 				identity_theft.target_real_name = kill_objective.target.current.real_name //Whoops, forgot this.
 				var/mob/living/carbon/human/H = identity_theft.target.current
-				if(H.species && H.species.flags && H.species.flags & NO_SCAN) // For species that can't be absorbed - should default to an escape objective instead
+				if(check_species_absorb(H.species)) // For species that can't be absorbed - should default to an escape objective
 					return
 				else
 					identity_theft.explanation_text = "Escape on the shuttle or an escape pod with the identity of [identity_theft.target_real_name], the [identity_theft.target.assigned_role] while wearing their identification card."
@@ -201,7 +201,7 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 		var/text = "<FONT size = 3><B>The changelings were:</B></FONT>"
 		for(var/datum/mind/changeling in changelings)
 			var/changelingwin = 1
-
+			var/karma_reward = 0
 			text += "<br>[changeling.key] was [changeling.name] ("
 			if(changeling.current)
 				if(changeling.current.stat == DEAD)
@@ -230,10 +230,13 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 						feedback_add_details("changeling_objective","[objective.type]|FAIL")
 						changelingwin = 0
 					count++
+					karma_reward = count - 1
 
 			if(changelingwin)
 				text += "<br><font color='green'><B>The changeling was successful!</B></font>"
 				feedback_add_details("changeling_success","SUCCESS")
+				sql_report_objective_karma(changeling.key, karma_reward)
+				to_chat(world, "<b>[changeling.key] got [karma_reward] karma points for completing objectives!</b>")
 			else
 				text += "<br><font color='red'><B>The changeling has failed.</B></font>"
 				feedback_add_details("changeling_success","FAIL")
@@ -329,3 +332,5 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 
 	return 1
 
+/proc/check_species_absorb(datum/species/S)
+  return !((S.flags & NO_DNA) || (S.flags & NO_SCAN) || (S.flags & NO_BLOOD))

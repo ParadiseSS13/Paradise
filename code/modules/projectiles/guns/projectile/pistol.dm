@@ -8,7 +8,7 @@
 	can_suppress = 1
 	burst_size = 1
 	fire_delay = 0
-	action_button_name = null
+	actions_types = list()
 
 /obj/item/weapon/gun/projectile/automatic/pistol/isHandgun()
 	return 1
@@ -19,7 +19,7 @@
 	return
 
 /obj/item/weapon/gun/projectile/automatic/pistol/m1911
-	name = "\improper M1911"
+	name = "M1911"
 	desc = "A classic .45 handgun with a small magazine capacity."
 	icon_state = "m1911"
 	w_class = 3
@@ -64,4 +64,4 @@
 	can_suppress = 0
 	burst_size = 3
 	fire_delay = 2
-	action_button_name = "Toggle Firemode"
+	actions_types = list(/datum/action/item_action/toggle_firemode)

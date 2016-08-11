@@ -276,10 +276,9 @@
 		text += "<br><b>enthralled</b>"
 		text = "<i><b>[text]</b></i>: "
 		if(src in ticker.mode.vampire_enthralled)
-			text += "<b><font color='#FF0000'>YES</font></b>|no"
+			text += "<b><font color='#FF0000'>YES</font></b>|<a href='?src=\ref[src];vampthrall=clear'>no</a>"
 		else
 			text += "yes|<font color='#00FF00'>NO</font></b>"
-
 
 		sections["vampire"] = text
 
@@ -615,7 +614,7 @@
 				new_objective.target = new_target
 				new_objective.explanation_text = "Escape on the shuttle or an escape pod with the identity of [targ.current.real_name], the [targ.assigned_role] while wearing their identification card."
 			if("custom")
-				var/expl = sanitize(copytext(input("Custom objective:", "Objective", objective ? objective.explanation_text : "") as text|null,1,MAX_MESSAGE_LEN))
+				var/expl = sanitize_local(copytext(input("Custom objective:", "Objective", objective ? objective.explanation_text : "") as text|null,1,MAX_MESSAGE_LEN))
 				if(!expl) return
 				new_objective = new /datum/objective
 				new_objective.owner = src
@@ -948,6 +947,13 @@
 				log_admin("[key_name(usr)] has automatically forged objectives for [key_name(current)]")
 				message_admins("[key_name_admin(usr)] has automatically forged objectives for [key_name_admin(current)]")
 
+	else if(href_list["vampthrall"])
+		switch(href_list["vampthrall"])
+			if("clear")
+				if(src in ticker.mode.vampire_enthralled)
+					ticker.mode.remove_vampire_mind(src)
+					log_admin("[key_name(usr)] has de-vampthralled [key_name(current)]")
+					message_admins("[key_name_admin(usr)] has de-vampthralled [key_name_admin(current)]")
 
 	else if(href_list["nuclear"])
 		var/mob/living/carbon/human/H = current
@@ -990,6 +996,7 @@
 				qdel(H.head)
 				qdel(H.shoes)
 				qdel(H.wear_id)
+				qdel(H.wear_pda)
 				qdel(H.wear_suit)
 				qdel(H.w_uniform)
 
@@ -1055,18 +1062,13 @@
 		switch(href_list["shadowling"])
 			if("clear")
 				ticker.mode.update_shadow_icons_removed(src)
-				current.spell_list.Cut()
 				if(src in ticker.mode.shadows)
 					ticker.mode.shadows -= src
 					special_role = null
 					to_chat(current, "<span class='userdanger'>Your powers have been quenched! You are no longer a shadowling!</span>")
-					current.spell_list.Cut()
-					if(current.mind)
-						current.mind.spell_list.Cut()
 					message_admins("[key_name_admin(usr)] has de-shadowlinged [current].")
 					log_admin("[key_name(usr)] has de-shadowlinged [current].")
-					remove_spell(/obj/effect/proc_holder/spell/targeted/shadowling_hatch)
-					remove_spell(/obj/effect/proc_holder/spell/targeted/shadowling_ascend)
+					current.spellremove(current)
 					current.remove_language("Shadowling Hivemind")
 				else if(src in ticker.mode.shadowling_thralls)
 					ticker.mode.remove_thrall(src,0)
@@ -1321,6 +1323,7 @@
 		qdel(H.head)
 		qdel(H.shoes)
 		qdel(H.wear_id)
+		qdel(H.wear_pda)
 		qdel(H.wear_suit)
 		qdel(H.w_uniform)
 
@@ -1488,17 +1491,17 @@
 
 	return (duration <= world.time - brigged_since)
 
-/datum/mind/proc/AddSpell(var/obj/effect/proc_holder/spell/spell)
-	spell_list += spell
-	if(!spell.action)
-		spell.action = new/datum/action/spell_action
-		spell.action.target = spell
-		spell.action.name = spell.name
-		spell.action.button_icon = spell.action_icon
-		spell.action.button_icon_state = spell.action_icon_state
-		spell.action.background_icon_state = spell.action_background_icon_state
-	spell.action.Grant(current)
-	return
+/datum/mind/proc/AddSpell(obj/effect/proc_holder/spell/S)
+	spell_list += S
+	S.action.Grant(current)
+
+/datum/mind/proc/RemoveSpell(obj/effect/proc_holder/spell/spell) //To remove a specific spell from a mind
+	if(!spell)
+		return
+	for(var/obj/effect/proc_holder/spell/S in spell_list)
+		if(istype(S, spell))
+			qdel(S)
+			spell_list -= S
 
 /datum/mind/proc/transfer_actions(var/mob/living/new_character)
 	if(current && current.actions)
@@ -1507,16 +1510,9 @@
 	transfer_mindbound_actions(new_character)
 
 /datum/mind/proc/transfer_mindbound_actions(var/mob/living/new_character)
-	for(var/obj/effect/proc_holder/spell/spell in spell_list)
-		if(!spell.action) // Unlikely but whatever
-			spell.action = new/datum/action/spell_action
-			spell.action.target = spell
-			spell.action.name = spell.name
-			spell.action.button_icon = spell.action_icon
-			spell.action.button_icon_state = spell.action_icon_state
-			spell.action.background_icon_state = spell.action_background_icon_state
-		spell.action.Grant(new_character)
-	return
+	for(var/X in spell_list)
+		var/obj/effect/proc_holder/spell/S = X
+		S.action.Grant(new_character)
 
 /datum/mind/proc/get_ghost(even_if_they_cant_reenter)
 	for(var/mob/dead/observer/G in dead_mob_list)

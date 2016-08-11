@@ -84,6 +84,7 @@
 	if(istype(W, /obj/item/weapon/rcs) && !src.opened)
 		var/obj/item/weapon/rcs/E = W
 		if(E.rcell && (E.rcell.charge >= E.chargecost))
+			// TODO: Tie into space manager
 			if(!(src.z in config.player_levels))
 				to_chat(user, "<span class='warning'>The rapid-crate-sender can't locate any telepads!</span>")
 				return
@@ -383,7 +384,7 @@
 
 /obj/structure/closet/crate/rcd
 	desc = "A crate for the storage of the RCD."
-	name = "\improper RCD crate"
+	name = "RCD crate"
 	icon_state = "crate"
 	icon_opened = "crateopen"
 	icon_closed = "crate"

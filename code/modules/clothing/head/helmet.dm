@@ -11,6 +11,7 @@
 	heat_protection = HEAD
 	max_heat_protection_temperature = HELMET_MAX_TEMP_PROTECT
 	strip_delay = 60
+	burn_state = FIRE_PROOF
 	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/helmet.dmi',
@@ -100,7 +101,7 @@
 	icon_state = "justice"
 	toggle_message = "You turn off the lights on"
 	alt_toggle_message = "You turn on the lights on"
-	action_button_name = "Toggle JUSTICE"
+	actions_types = list(/datum/action/item_action/toggle_helmet_light)
 	can_toggle = 1
 	toggle_cooldown = 20
 	active_sound = 'sound/items/WEEOO1.ogg'
@@ -114,7 +115,7 @@
 
 
 /obj/item/clothing/head/helmet/swat
-	name = "\improper SWAT helmet"
+	name = "SWAT helmet"
 	desc = "They're often used by highly trained Swat Members."
 	icon_state = "swat"
 	flags = HEADCOVERSEYES
@@ -139,7 +140,7 @@
 	item_state = "helmet"
 
 /obj/item/clothing/head/helmet/thunderdome
-	name = "\improper Thunderdome helmet"
+	name = "Thunderdome helmet"
 	desc = "<i>'Let the battle commence!'</i>"
 	icon_state = "thunderdome"
 	flags = HEADCOVERSEYES

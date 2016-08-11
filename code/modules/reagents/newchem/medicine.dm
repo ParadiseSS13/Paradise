@@ -42,7 +42,7 @@
 			M.adjustBruteLoss(-volume)
 			if(show_message)
 				to_chat(M, "<span class='notice'>The styptic powder stings like hell as it closes some of your wounds!</span>")
-			M.emote("scream")
+			M.emote("groan")
 		if(method == INGEST)
 			M.adjustToxLoss(0.5*volume)
 			if(show_message)
@@ -89,8 +89,7 @@
 	..()
 
 /datum/reagent/synthflesh/reaction_turf(turf/T, volume) //let's make a mess!
-	src = null
-	if(volume >= 5)
+	if(volume >= 5 && !istype(T, /turf/space))
 		new /obj/effect/decal/cleanable/blood/gibs/cleangibs(T)
 		playsound(T, 'sound/effects/splat.ogg', 50, 1, -3)
 
@@ -478,15 +477,15 @@
 			if(istype(E))
 				E.damage = max(E.damage-1, 0)
 		M.eye_blurry = max(M.eye_blurry-1 , 0)
-		M.ear_damage = max(M.ear_damage-1, 0)
+		M.adjustEarDamage(-1,0)
 	if(prob(50))
 		M.disabilities &= ~NEARSIGHTED
 	if(prob(30))
-		M.sdisabilities &= ~BLIND
+		M.disabilities &= ~BLIND
 		M.eye_blind = 0
 	if(M.ear_damage <= 25)
 		if(prob(30))
-			M.ear_deaf = 0
+			M.setEarDamage(-1,0)
 	..()
 
 /datum/chemical_reaction/oculine
@@ -620,7 +619,7 @@
 				SM.loot.Cut() //no abusing strange reagent for unlimited farming of resources
 				SM.visible_message("<span class='warning'>[M] seems to rise from the dead!</span>")
 
-	if(istype(M, /mob/living/carbon))
+	if(iscarbon(M))
 		if(method == INGEST)
 			if(M.stat == DEAD)
 				if(M.getBruteLoss()+M.getFireLoss() >= 150)
@@ -696,7 +695,7 @@
 
 /datum/reagent/mutadone/on_mob_life(mob/living/carbon/human/M)
 	M.jitteriness = 0
-	var/needs_update = M.mutations.len > 0 || M.disabilities > 0 || M.sdisabilities > 0
+	var/needs_update = M.mutations.len > 0 || M.disabilities > 0
 
 	if(needs_update)
 		for(var/block=1;block<=DNA_SE_LENGTH;block++)
@@ -952,11 +951,8 @@
 	result_amount = 2
 
 /datum/reagent/degreaser/reaction_turf(turf/simulated/T, volume)
-	if(!istype(T))
-		return
-	src = null
-	if(volume >= 1)
-		if(istype(T) && T.wet)
+	if(volume >= 1 && istype(T))
+		if(T.wet)
 			T.MakeDry(TURF_WET_LUBE)
 
 /datum/reagent/degreaser/on_mob_life(mob/living/M)

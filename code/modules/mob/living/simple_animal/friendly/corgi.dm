@@ -1,12 +1,12 @@
 //Corgi
 /mob/living/simple_animal/pet/corgi
-	name = "\improper corgi"
+	name = "corgi"
 	real_name = "corgi"
 	desc = "It's a corgi."
 	icon_state = "corgi"
 	icon_living = "corgi"
 	icon_dead = "corgi_dead"
-	gender = MALE
+	gender = NEUTER
 	health = 30
 	maxHealth = 30
 	speak = list("YAP", "Woof!", "Bark!", "AUUUUUU")
@@ -33,12 +33,14 @@
 	..()
 	default_atmos_requirements = src.atmos_requirements
 	regenerate_icons()
+	if(gender == NEUTER)
+		gender = pick(MALE, FEMALE)
 
 /mob/living/simple_animal/pet/corgi/Life()
 	. = ..()
 	regenerate_icons()
 
-/mob/living/simple_animal/pet/corgi/death()
+/mob/living/simple_animal/pet/corgi/death(gibbed)
 	..()
 	regenerate_icons()
 
@@ -313,7 +315,7 @@
 				valid = 1
 
 			if(/obj/item/weapon/bedsheet)
-				name = "\improper Ghost"
+				name = "Ghost"
 				speak = list("WoooOOOooo~","AUUUUUUUUUUUUUUUUUU")
 				emote_see = list("stumbles around.", "shivers.")
 				emote_hear = list("howls!","groans.")
@@ -531,7 +533,7 @@
 	..(0)
 
 /mob/living/simple_animal/pet/corgi/puppy
-	name = "\improper corgi puppy"
+	name = "corgi puppy"
 	real_name = "corgi"
 	desc = "It's a corgi puppy."
 	icon_state = "puppy"
@@ -612,6 +614,8 @@
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	loot = list(/obj/effect/decal/cleanable/blood/gibs/robot)
+	del_on_death = 1
+	deathmessage = "blows apart!"
 
 /mob/living/simple_animal/pet/corgi/Ian/borgi/emag_act(user as mob)
 	if(!emagged)
@@ -656,12 +660,8 @@
 		s.set_up(3, 1, src)
 		s.start()
 
-/mob/living/simple_animal/pet/corgi/Ian/borgi/death()
-	..()
-	visible_message("<b>[src]</b> blows apart!")
+/mob/living/simple_animal/pet/corgi/Ian/borgi/death(gibbed)
 	var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 	s.set_up(3, 1, src)
 	s.start()
-	respawnable_list += src
-	qdel(src)
-	return
+	..()

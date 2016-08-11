@@ -59,6 +59,7 @@
 	Topic(var/href, var/list/href_list)
 		if(!interactable() || !computer.radio || ..(href,href_list) )
 			return
+		// TODO: Tie into space manager
 		if(!(computer.z in config.station_levels))
 			to_chat(usr, "<span class='danger'>Unable to establish a connection</span>: You're too far away from the station!")
 			return

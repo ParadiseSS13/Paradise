@@ -189,6 +189,7 @@
 	item_state = "hazard"
 	blood_overlay_type = "armor"
 	allowed = list (/obj/item/device/flashlight, /obj/item/device/t_scanner, /obj/item/weapon/tank/emergency_oxygen)
+	burn_state = FIRE_PROOF
 	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
@@ -210,7 +211,7 @@
 	body_parts_covered = UPPER_TORSO|ARMS
 	ignore_suitadjust = 0
 	suit_adjusted = 1
-	action_button_name = "Button/Unbutton Jacket"
+	actions_types = list(/datum/action/item_action/button)
 	adjust_flavour = "unbutton"
 
 /obj/item/clothing/suit/storage/lawyer/bluejacket
@@ -222,7 +223,7 @@
 	body_parts_covered = UPPER_TORSO|ARMS
 	ignore_suitadjust = 0
 	suit_adjusted = 1
-	action_button_name = "Button/Unbutton Jacket"
+	actions_types = list(/datum/action/item_action/button)
 	adjust_flavour = "unbutton"
 
 /obj/item/clothing/suit/storage/lawyer/purpjacket
@@ -235,7 +236,7 @@
 
 //Internal Affairs
 /obj/item/clothing/suit/storage/internalaffairs
-	name = "\improper Internal Affairs jacket"
+	name = "Internal Affairs jacket"
 	desc = "A smooth black jacket."
 	icon_state = "ia_jacket_open"
 	item_state = "ia_jacket_open"
@@ -243,7 +244,7 @@
 	body_parts_covered = UPPER_TORSO|ARMS
 	ignore_suitadjust = 0
 	suit_adjusted = 1
-	action_button_name = "Button/Unbutton Jacket"
+	actions_types = list(/datum/action/item_action/button)
 	adjust_flavour = "unbutton"
 	species_fit = list("Vox")
 	sprite_sheets = list(
@@ -251,14 +252,14 @@
 		)
 
 /obj/item/clothing/suit/storage/ntrep
-	name = "\improper NanoTrasen Representative jacket"
+	name = "NanoTrasen Representative jacket"
 	desc = "A fancy black jacket, standard issue to NanoTrasen Represenatives."
 	icon_state = "ntrep"
 	item_state = "ntrep"
 	blood_overlay_type = "coat"
 	body_parts_covered = UPPER_TORSO|ARMS
 	ignore_suitadjust = 0
-	action_button_name = "Button/Unbutton Jacket"
+	actions_types = list(/datum/action/item_action/button)
 	adjust_flavour = "unbutton"
 	species_fit = list("Vox")
 	sprite_sheets = list(
@@ -276,7 +277,7 @@
 	/obj/item/device/healthanalyzer, /obj/item/device/flashlight, /obj/item/device/radio, /obj/item/weapon/tank/emergency_oxygen,/obj/item/device/rad_laser)
 	ignore_suitadjust = 0
 	suit_adjusted = 1
-	action_button_name = "Button/Unbutton Jacket"
+	actions_types = list(/datum/action/item_action/button)
 	adjust_flavour = "unbutton"
 	species_fit = list("Vox")
 	sprite_sheets = list(

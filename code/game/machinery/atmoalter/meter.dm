@@ -144,6 +144,7 @@
 /obj/machinery/meter/turf/initialize()
 	if(!target)
 		target = loc
+	..()
 
 /obj/machinery/meter/turf/attackby(var/obj/item/weapon/W as obj, var/mob/user as mob, params)
 	return

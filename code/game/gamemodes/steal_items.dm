@@ -19,9 +19,6 @@
 	var/list/all_items = owner.current.get_contents()
 	for(var/obj/I in all_items) //Check for items
 		if(istype(I, typepath) && check_special_completion(I))
-			//Stealing the cheap autoinjector doesn't count
-			if(istype(I, /obj/item/weapon/reagent_containers/hypospray/autoinjector))
-				continue
 			return 1
 	return 0
 
@@ -111,7 +108,7 @@ datum/theft_objective/ai/check_special_completion(var/obj/item/device/aicard/C)
 
 /datum/theft_objective/hypospray
 	name = "a hypospray"
-	typepath = /obj/item/weapon/reagent_containers/hypospray
+	typepath = /obj/item/weapon/reagent_containers/hypospray/CMO
 	protected_jobs = list("Chief Medical Officer")
 
 /datum/theft_objective/ablative

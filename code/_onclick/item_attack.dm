@@ -15,13 +15,8 @@
 
 /mob/living/attackby(obj/item/I, mob/user, params)
 	user.changeNext_move(CLICK_CD_MELEE)
-	if(stat == DEAD && !isnull(butcher_results)) //can we butcher it?
-		if(istype(I, /obj/item/weapon/kitchen/knife))
-			to_chat(user, "<span class='notice'>You begin to butcher [src]...</span>")
-			playsound(loc, 'sound/weapons/slice.ogg', 50, 1, -1)
-			if(do_mob(user, src, 80))
-				harvest(user)
-			return
+	if(attempt_harvest(I, user))
+		return
 	I.attack(src, user)
 
 
@@ -53,6 +48,23 @@
 				return 0
 			else
 				return 1
+
+	// Knifing
+	if(edge)
+		for(var/obj/item/weapon/grab/G in M.grabbed_by)
+			if(G.assailant == user && G.state >= GRAB_NECK && world.time >= (G.last_upgrade + 20))
+				//TODO: better alternative for applying damage multiple times? Nice knifing sound?
+				M.apply_damage(20, BRUTE, "head", 0, sharp=sharp, edge=edge)
+				M.apply_damage(20, BRUTE, "head", 0, sharp=sharp, edge=edge)
+				M.apply_damage(20, BRUTE, "head", 0, sharp=sharp, edge=edge)
+				M.adjustOxyLoss(60) // Brain lacks oxygen immediately, pass out
+				flick(G.hud.icon_state, G.hud)
+				G.last_upgrade = world.time
+				user.visible_message("<span class='danger'>[user] slit [M]'s throat open with \the [name]!</span>")
+				user.attack_log += "\[[time_stamp()]\]<font color='red'> Knifed [M.name] ([M.ckey]) with [name] (INTENT: [uppertext(user.a_intent)]) (DAMTYE: [uppertext(damtype)])</font>"
+				M.attack_log += "\[[time_stamp()]\]<font color='orange'> Got knifed by [user.name] ([user.ckey]) with [name] (INTENT: [uppertext(user.a_intent)]) (DAMTYE: [uppertext(damtype)])</font>"
+				add_logs(M, user, "knifed")
+				return
 
 	if(istype(M,/mob/living/carbon/brain))
 		messagesource = M:container

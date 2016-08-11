@@ -53,7 +53,7 @@
 
 /datum/reagent/slimejelly/on_mob_life(mob/living/M)
 	if(prob(10))
-		to_chat(M, "\red Your insides are burning!")
+		to_chat(M, "<span class='danger'>Your insides are burning!</span>")
 		M.adjustToxLoss(rand(20,60)*REM)
 	else if(prob(40))
 		M.adjustBruteLoss(-5*REM)
@@ -70,10 +70,10 @@
 	if(ishuman(M))
 		var/mob/living/carbon/human/human = M
 		if(human.species.name != "Shadow")
-			to_chat(M, "\red Your flesh rapidly mutates!")
-			to_chat(M, "<b>You are now a Shadow Person, a mutant race of darkness-dwelling humanoids.</b>")
-			to_chat(M, "\red Your body reacts violently to light. \green However, it naturally heals in darkness.")
-			to_chat(M, "Aside from your new traits, you are mentally unchanged and retain your prior obligations.")
+			to_chat(M, "<span class='danger'>Your flesh rapidly mutates!</span>")
+			to_chat(M, "<span class='danger'>You are now a Shadow Person, a mutant race of darkness-dwelling humanoids.</span>")
+			to_chat(M, "<span class='danger'>Your body reacts violently to light. \green However, it naturally heals in darkness.</span>")
+			to_chat(M, "<span class='danger'>Aside from your new traits, you are mentally unchanged and retain your prior obligations.</span>")
 			human.set_species("Shadow")
 	..()
 
@@ -84,7 +84,7 @@
 	reagent_state = LIQUID
 	color = "#13BC5E" // rgb: 19, 188, 94
 
-/datum/reagent/aslimetoxin/reaction_mob(mob/M, method=TOUCH, volume)
+/datum/reagent/aslimetoxin/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(method != TOUCH)
 		M.ForceContractDisease(new /datum/disease/transformation/slime(0))
 
@@ -145,12 +145,8 @@
 	..()
 
 /datum/reagent/radium/reaction_turf(turf/T, volume)
-	src = null
-	if(volume >= 3)
-		if(!istype(T, /turf/space))
-			new /obj/effect/decal/cleanable/greenglow(T)
-			return
-
+	if(volume >= 3 && !istype(T, /turf/space))
+		new /obj/effect/decal/cleanable/greenglow(T)
 
 /datum/reagent/mutagen
 	name = "Unstable mutagen"
@@ -160,17 +156,19 @@
 	color = "#04DF27"
 	metabolization_rate = 0.3
 
-/datum/reagent/mutagen/reaction_mob(mob/M, method=TOUCH, volume)
-	if(!..())	return
-	if(!M.dna) return //No robots, AIs, aliens, Ians or other mobs should be affected by this.
-	src = null
+/datum/reagent/mutagen/reaction_mob(mob/living/M, method=TOUCH, volume)
+	if(!..())
+		return
+	if(!M.dna)
+		return //No robots, AIs, aliens, Ians or other mobs should be affected by this.
 	if((method==TOUCH && prob(33)) || method==INGEST)
 		randmutb(M)
 		domutcheck(M, null)
 		M.UpdateAppearance()
 
 /datum/reagent/mutagen/on_mob_life(mob/living/M)
-	if(!M.dna) return //No robots, AIs, aliens, Ians or other mobs should be affected by this.
+	if(!M.dna)
+		return //No robots, AIs, aliens, Ians or other mobs should be affected by this.
 	M.apply_effect(2*REM, IRRADIATE, negate_armor = 1)
 	if(prob(4))
 		randmutb(M)
@@ -189,10 +187,8 @@
 	..()
 
 /datum/reagent/uranium/reaction_turf(turf/T, volume)
-	src = null
-	if(volume >= 3)
-		if(!istype(T, /turf/space))
-			new /obj/effect/decal/cleanable/greenglow(T)
+	if(volume >= 3 && !istype(T, /turf/space))
+		new /obj/effect/decal/cleanable/greenglow(T)
 
 
 /datum/reagent/lexorin
@@ -221,8 +217,6 @@
 	..()
 
 /datum/reagent/sacid/reaction_mob(mob/living/M, method=TOUCH, volume)
-	if(!istype(M, /mob/living))
-		return
 	if(method == TOUCH)
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
@@ -230,11 +224,11 @@
 			if(volume > 25)
 
 				if(H.wear_mask)
-					to_chat(H, "\red Your mask protects you from the acid!")
+					to_chat(H, "<span class='danger'>Your mask protects you from the acid!</span>")
 					return
 
 				if(H.head)
-					to_chat(H, "\red Your helmet protects you from the acid!")
+					to_chat(H, "<span class='danger'>Your helmet protects you from the acid!</span>")
 					return
 
 				if(!M.unacidable)
@@ -278,8 +272,7 @@
 		if(!O.unacidable)
 			var/obj/effect/decal/cleanable/molten_item/I = new/obj/effect/decal/cleanable/molten_item(O.loc)
 			I.desc = "Looks like this was \an [O] some time ago."
-			for(var/mob/M in viewers(5, O))
-				to_chat(M, "\red \the [O] melts.")
+			O.visible_message("<span class='warning'>[O] melts.</span>")
 			qdel(O)
 
 
@@ -324,10 +317,10 @@
 	..()
 
 
-/datum/reagent/spores
+/datum/reagent/spore
 	name = "Spore Toxin"
-	id = "spores"
-	description = "A toxic spore cloud which blocks vision when ingested."
+	id = "spore"
+	description = "A natural toxin produced by blob spores that inhibits vision when ingested."
 	color = "#9ACD32"
 
 /datum/reagent/spores/on_mob_life(mob/living/M)
@@ -361,10 +354,8 @@
 	color = "#B31008" // rgb: 179, 16, 8
 
 /datum/reagent/condensedcapsaicin/reaction_mob(mob/living/M, method=TOUCH, volume)
-	if(!istype(M, /mob/living))
-		return
 	if(method == TOUCH)
-		if(istype(M, /mob/living/carbon/human))
+		if(ishuman(M))
 			var/mob/living/carbon/human/victim = M
 			var/mouth_covered = 0
 			var/eyes_covered = 0
@@ -388,10 +379,10 @@
 				if( !safe_thing )
 					safe_thing = victim.glasses
 			if( eyes_covered && mouth_covered )
-				to_chat(victim, "\red Your [safe_thing] protects you from the pepperspray!")
+				to_chat(victim, "<span class='danger'>Your [safe_thing] protects you from the pepperspray!</span>")
 				return
 			else if( mouth_covered )	// Reduced effects if partially protected
-				to_chat(victim, "\red Your [safe_thing] protect you from most of the pepperspray!")
+				to_chat(victim, "<span class='danger'>Your [safe_thing] protect you from most of the pepperspray!</span>")
 				if(prob(5))
 					victim.emote("scream")
 				victim.eye_blurry = max(M.eye_blurry, 3)
@@ -402,14 +393,14 @@
 				victim.drop_item()
 				return
 			else if( eyes_covered ) // Eye cover is better than mouth cover
-				to_chat(victim, "\red Your [safe_thing] protects your eyes from the pepperspray!")
+				to_chat(victim, "<span class='danger'>Your [safe_thing] protects your eyes from the pepperspray!</span>")
 				victim.eye_blurry = max(M.eye_blurry, 3)
 				victim.damageoverlaytemp = 30
 				return
 			else // Oh dear :D
 				if(prob(5))
 					victim.emote("scream")
-				to_chat(victim, "\red You're sprayed directly in the eyes with pepperspray!")
+				to_chat(victim, "<span class='danger'>You're sprayed directly in the eyes with pepperspray!</span>")
 				victim.eye_blurry = max(M.eye_blurry, 5)
 				victim.eye_blind = max(M.eye_blind, 2)
 				victim.confused = max(M.confused, 6)

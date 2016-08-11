@@ -837,13 +837,13 @@
 	construction_time = 100
 	category = list("Exosuit Equipment")
 
-/datum/design/mech_bolas
-	name = "Exosuit Weapon Design (PCMK-6 Bolas Launcher)"
-	desc = "Allows for the construction of PCMK-6 Bolas Launcher."
-	id = "mech_bolas"
+/datum/design/mech_bola
+	name = "Exosuit Weapon Design (PCMK-6 Bola Launcher)"
+	desc = "Allows for the construction of PCMK-6 Bola Launcher."
+	id = "mech_bola"
 	build_type = MECHFAB
 	req_tech = list("combat" = 3)
-	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/bolas
+	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/bola
 	materials = list(MAT_METAL=10000)
 	construction_time = 100
 	category = list("Exosuit Equipment")

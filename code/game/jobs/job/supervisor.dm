@@ -25,7 +25,7 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 1)
 		U.accessories += M
 		M.on_attached(U)
 		H.equip_or_collect(U, slot_w_uniform)
-		H.equip_or_collect(new /obj/item/device/pda/captain(H), slot_belt)
+		H.equip_or_collect(new /obj/item/device/pda/captain(H), slot_wear_pda)
 		H.equip_or_collect(new /obj/item/clothing/suit/armor/vest/capcarapace(H), slot_wear_suit)
 		H.equip_or_collect(new /obj/item/clothing/shoes/brown(H), slot_shoes)
 		H.equip_or_collect(new /obj/item/clothing/head/caphat(H), slot_head)
@@ -39,7 +39,7 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 1)
 		L.imp_in = H
 		L.implanted = 1
 		H.sec_hud_set_implants()
-		captain_announcement.Announce("All hands, captain [H.real_name] on deck!")
+		captain_announcement.Announce("All hands, Captain [H.real_name] on deck!")
 		callHook("captain_spawned", list("captain" = H))
 		return 1
 
@@ -84,7 +84,7 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 1)
 		H.equip_or_collect(new /obj/item/clothing/under/rank/head_of_personnel(H), slot_w_uniform)
 		H.equip_or_collect(new /obj/item/clothing/head/hopcap(H), slot_head)
 		H.equip_or_collect(new /obj/item/clothing/shoes/brown(H), slot_shoes)
-		H.equip_or_collect(new /obj/item/device/pda/heads/hop(H), slot_belt)
+		H.equip_or_collect(new /obj/item/device/pda/heads/hop(H), slot_wear_pda)
 		if(H.backbag == 1)
 			H.equip_or_collect(new /obj/item/weapon/storage/box/ids(H), slot_r_hand)
 		else
@@ -130,7 +130,7 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 1)
 		H.equip_or_collect(new /obj/item/clothing/under/rank/ntrep(H), slot_w_uniform)
 		H.equip_or_collect(new /obj/item/clothing/suit/storage/ntrep(H), slot_wear_suit)
 		H.equip_or_collect(new /obj/item/clothing/shoes/centcom(H), slot_shoes)
-		H.equip_or_collect(new /obj/item/device/pda/heads/ntrep(H), slot_belt)
+		H.equip_or_collect(new /obj/item/device/pda/heads/ntrep(H), slot_wear_pda)
 		var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(H)
 		L.imp_in = H
 		L.implanted = 1
@@ -143,7 +143,7 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 1)
 	department_flag = KARMA
 	total_positions = 1
 	spawn_positions = 1
-	supervisors = "the nanotrasen representative"
+	supervisors = "the Nanotrasen representative"
 	selection_color = "#ddddff"
 	idtype = /obj/item/weapon/card/id/nanotrasen
 	req_admin_notify = 1
@@ -170,7 +170,7 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 1)
 		H.equip_or_collect(new /obj/item/clothing/glasses/hud/health/health_advanced, slot_glasses)
 		H.equip_or_collect(new /obj/item/clothing/under/rank/blueshield(H), slot_w_uniform)
 		H.equip_or_collect(new /obj/item/clothing/suit/armor/vest/blueshield(H), slot_wear_suit)
-		H.equip_or_collect(new /obj/item/device/pda/heads/blueshield(H), slot_belt)
+		H.equip_or_collect(new /obj/item/device/pda/heads/blueshield(H), slot_wear_pda)
 
 		if(H.backbag == 1)
 			H.equip_or_collect(new /obj/item/weapon/storage/box/deathimp(H), slot_r_hand)
@@ -216,7 +216,7 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 1)
 		H.equip_or_collect(new /obj/item/clothing/shoes/centcom(H), slot_shoes)
 		H.equip_or_collect(new /obj/item/clothing/head/powdered_wig(H), slot_head)
 		H.equip_or_collect(new /obj/item/clothing/glasses/hud/security/sunglasses(H), slot_glasses)
-		H.equip_or_collect(new /obj/item/device/pda/heads/magistrate(H), slot_belt)
+		H.equip_or_collect(new /obj/item/device/pda/heads/magistrate(H), slot_wear_pda)
 		H.equip_or_collect(new /obj/item/weapon/melee/classic_baton/telescopic(H.back), slot_in_backpack)
 		H.equip_or_collect(new /obj/item/device/flash(H), slot_r_store)
 		var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(H)
@@ -251,7 +251,7 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 1)
 		H.equip_or_collect(new /obj/item/clothing/suit/storage/internalaffairs(H), slot_wear_suit)
 		H.equip_or_collect(new /obj/item/clothing/shoes/brown(H), slot_shoes)
 		H.equip_or_collect(new /obj/item/clothing/glasses/hud/security/sunglasses(H), slot_glasses)
-		H.equip_or_collect(new /obj/item/device/pda/lawyer(H), slot_belt)
+		H.equip_or_collect(new /obj/item/device/pda/lawyer(H), slot_wear_pda)
 		H.equip_or_collect(new /obj/item/weapon/storage/briefcase(H), slot_l_hand)
 		H.equip_or_collect(new /obj/item/device/laser_pointer(H), slot_l_store)
 		H.equip_or_collect(new /obj/item/device/flash(H), slot_r_store)

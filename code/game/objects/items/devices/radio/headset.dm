@@ -55,10 +55,12 @@
 		if(translate_binary)
 			var/datum/language/binary = all_languages["Robot Talk"]
 			binary.broadcast(M, message)
+			return RADIO_CONNECTION_NON_SUBSPACE
 		if(translate_hive)
 			var/datum/language/hivemind = all_languages["Hivemind"]
 			hivemind.broadcast(M, message)
-		return null
+			return RADIO_CONNECTION_NON_SUBSPACE
+		return RADIO_CONNECTION_FAIL
 
 	return ..()
 
@@ -162,7 +164,7 @@
 	ks2type = /obj/item/device/encryptionkey/heads/captain
 
 /obj/item/device/radio/headset/heads/captain/alt
-	name = "\proper the captain's bowman headset"
+	name = "the captain's bowman headset"
 	desc = "The headset of the boss. Protects ears from flashbangs."
 	flags = EARBANGPROTECT
 	icon_state = "com_headset_alt"
@@ -183,7 +185,7 @@
 	ks2type = /obj/item/device/encryptionkey/heads/hos
 
 /obj/item/device/radio/headset/heads/hos/alt
-	name = "\proper the head of security's bowman headset"
+	name = "the head of security's bowman headset"
 	desc = "The headset of the man in charge of keeping order and protecting the station. Protects ears from flashbangs."
 	flags = EARBANGPROTECT
 	icon_state = "com_headset_alt"
@@ -244,7 +246,7 @@
 	ks2type = /obj/item/device/encryptionkey/heads/magistrate
 
 /obj/item/device/radio/headset/heads/magistrate/alt
-	name = "\proper magistrate's bowman headset"
+	name = "magistrate's bowman headset"
 	desc = "The headset of the Magistrate. Protects ears from flashbangs."
 	flags = EARBANGPROTECT
 	icon_state = "com_headset_alt"
@@ -258,7 +260,7 @@
 	ks2type = /obj/item/device/encryptionkey/heads/blueshield
 
 /obj/item/device/radio/headset/heads/blueshield/alt
-	name = "\proper blueshield's bowman headset"
+	name = "blueshield's bowman headset"
 	desc = "The headset of the Blueshield. Protects ears from flashbangs."
 	flags = EARBANGPROTECT
 	icon_state = "com_headset_alt"
@@ -272,14 +274,14 @@
 	ks2type = /obj/item/device/encryptionkey/ert
 
 /obj/item/device/radio/headset/ert/alt
-	name = "\proper emergency response team's bowman headset"
+	name = "emergency response team's bowman headset"
 	desc = "The headset of the boss. Protects ears from flashbangs."
 	flags = EARBANGPROTECT
 	icon_state = "com_headset_alt"
 	item_state = "com_headset_alt"
 
 /obj/item/device/radio/headset/centcom
-	name = "\proper centcom officer's bowman headset"
+	name = "centcom officer's bowman headset"
 	desc = "The headset of final authority. Protects ears from flashbangs."
 	flags = EARBANGPROTECT
 	icon_state = "com_headset_alt"
@@ -287,7 +289,7 @@
 	ks2type = /obj/item/device/encryptionkey/centcom
 
 /obj/item/device/radio/headset/heads/ai_integrated //No need to care about icons, it should be hidden inside the AI anyway.
-	name = "\improper AI subspace transceiver"
+	name = "AI subspace transceiver"
 	desc = "Integrated AI radio transceiver."
 	icon = 'icons/obj/robot_component.dmi'
 	icon_state = "radio"

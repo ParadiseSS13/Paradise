@@ -43,6 +43,7 @@
 				if(!T.implanted) continue
 				var/loc_display = "Unknown"
 				var/mob/living/carbon/M = T.imp_in
+				// TODO: Tie into space manager
 				if(M.z == ZLEVEL_STATION && !istype(M.loc, /turf/space))
 					var/turf/mob_loc = get_turf(M)
 					loc_display = mob_loc.loc
@@ -88,7 +89,7 @@
 			screen = !screen
 
 		else if(href_list["warn"])
-			var/warning = trim(sanitize(copytext(input(usr,"Message:","Enter your message here!",""),1,MAX_MESSAGE_LEN)))
+			var/warning = trim(sanitize_local(copytext(input(usr,"Message:","Enter your message here!",""),1,MAX_MESSAGE_LEN)))
 			if(!warning) return
 			var/obj/item/weapon/implant/I = locate(href_list["warn"])
 			if( istype(I) && I.imp_in)
@@ -98,5 +99,3 @@
 
 		interact()
 		return
-
-

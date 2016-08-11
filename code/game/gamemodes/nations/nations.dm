@@ -1,7 +1,7 @@
 datum/game_mode/nations
 	name = "nations"
 	config_tag = "nations"
-	required_players = 25
+	required_players = 10
 	var/kickoff = 0
 	var/victory = 0
 	var/list/cargonians = list("Quartermaster","Cargo Technician","Shaft Miner")
@@ -142,6 +142,7 @@ datum/game_mode/nations
 
 /datum/game_mode/nations/proc/remove_access()
 	for(var/obj/machinery/door/airlock/W in airlocks)
+		// TODO: Tie into space manager
 		if(W.z in config.station_levels)
 			W.req_access = list()
 

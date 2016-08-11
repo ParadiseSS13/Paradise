@@ -43,7 +43,7 @@
 				loopings += ident_tag
 				loopings[ident_tag] = 0
 				break
-	for(var/obj/machinery/door/poddoor/M in world)
+	for(var/obj/machinery/door/poddoor/M in airlocks)
 		if(M.z != src.z)	continue
 		for(var/ident_tag in id_tags)
 			if((M.id_tag == ident_tag) && !(ident_tag in synced) && !(ident_tag in door_only_tags))
@@ -69,7 +69,7 @@
 			loopings[ident_tag] = 0
 			break
 	if(!(ident_tag in synced))
-		for(var/obj/machinery/door/poddoor/M in world)
+		for(var/obj/machinery/door/poddoor/M in airlocks)
 			if(M.z != src.z)	continue
 			if((M.id_tag == ident_tag) && !(ident_tag in synced) && !(ident_tag in door_only_tags))
 				door_only_tags += ident_tag
@@ -90,7 +90,7 @@
 		visible_message("Cannot locate any mass driver of that ID. Cancelling firing sequence!")
 		return
 
-	for(var/obj/machinery/door/poddoor/M in world)
+	for(var/obj/machinery/door/poddoor/M in airlocks)
 		if(M.z != src.z)	continue
 		if(M.id_tag == ident_tag)
 			spawn()
@@ -104,7 +104,7 @@
 			M.drive()
 
 	sleep(50)
-	for(var/obj/machinery/door/poddoor/M in world)
+	for(var/obj/machinery/door/poddoor/M in airlocks)
 		if(M.z != src.z)	continue
 		if(M.id_tag == ident_tag)
 			spawn()
@@ -242,7 +242,7 @@
 			maxtimes[ident_tag] = min(max(round(maxtimes[ident_tag]), 0), 120)
 		if(href_list["door"])
 			var/ident_tag = href_list["driver"]
-			for(var/obj/machinery/door/poddoor/M in world)
+			for(var/obj/machinery/door/poddoor/M in airlocks)
 				if(M.z != src.z)	continue
 				if(M.id_tag == ident_tag)
 					spawn()
@@ -282,7 +282,7 @@
 		..()
 
 /obj/machinery/computer/pod/old/swf
-	name = "\improper Magix System IV"
+	name = "Magix System IV"
 	desc = "An arcane artifact that holds much magic. Running E-Knock 2.2: Sorceror's Edition"
 	circuit = /obj/item/weapon/circuitboard/swfdoor
 
@@ -315,7 +315,7 @@
 			P.failchance = 0//So it has no fail chance when teleporting.
 			spawn_marauder.Remove(P.target)
 
-	for(var/obj/machinery/door/poddoor/M in world)
+	for(var/obj/machinery/door/poddoor/M in airlocks)
 		if(M.z != src.z)	continue
 		if(M.id_tag == ident_tag)
 			spawn()
@@ -328,7 +328,7 @@
 			M.drive()
 
 	sleep(50)
-	for(var/obj/machinery/door/poddoor/M in world)
+	for(var/obj/machinery/door/poddoor/M in airlocks)
 		if(M.z != src.z)	continue
 		if(M.id_tag == ident_tag)
 			spawn()

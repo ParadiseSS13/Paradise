@@ -37,8 +37,9 @@
 	min_temp = 424
 
 /datum/reagent/clf3/on_mob_life(mob/living/M)
-	M.adjust_fire_stacks(4)
-	M.adjustFireLoss(0.35*M.fire_stacks)
+	M.adjust_fire_stacks(2)
+	var/burndmg = max(0.3*M.fire_stacks, 0.3)
+	M.adjustFireLoss(burndmg)
 	..()
 
 /datum/chemical_reaction/clf3/on_reaction(datum/reagents/holder, created_volume)
@@ -65,8 +66,8 @@
 		new /obj/effect/hotspot(T)
 
 /datum/reagent/clf3/reaction_mob(mob/living/M, method=TOUCH, volume)
-	if(method == TOUCH && isliving(M))
-		M.adjust_fire_stacks(5)
+	if(method == TOUCH)
+		M.adjust_fire_stacks(min(volume/5, 10))
 		M.IgniteMob()
 		M.bodytemperature += 30
 
@@ -177,9 +178,8 @@
 	mix_sound = null
 
 /datum/reagent/blackpowder/reaction_turf(turf/T, volume) //oh shit
-	src = null
-	if(volume >= 5)
-		if(!locate(/obj/effect/decal/cleanable/dirt/blackpowder) in get_turf(T)) //let's not have hundreds of decals of black powder on the same turf
+	if(volume >= 5 && !istype(T, /turf/space))
+		if(!locate(/obj/effect/decal/cleanable/dirt/blackpowder) in T) //let's not have hundreds of decals of black powder on the same turf
 			new /obj/effect/decal/cleanable/dirt/blackpowder(T)
 
 /datum/chemical_reaction/blackpowder_explosion/on_reaction(datum/reagents/holder, created_volume)
@@ -356,8 +356,7 @@
 		if(!ear_safety)
 			M.Stun(max(10/distance, 3))
 			M.Weaken(max(10/distance, 3))
-			M.ear_damage += rand(0, 5)
-			M.ear_deaf = max(M.ear_deaf,15)
+			M.setEarDamage(M.ear_damage + rand(0, 5), max(M.ear_deaf,15))
 			if(M.ear_damage >= 15)
 				to_chat(M, "<span class='warning'>Your ears start to ring badly!</span>")
 				if(prob(M.ear_damage - 10 + 5))
@@ -385,8 +384,7 @@
 		if(!ear_safety)
 			M.Stun(max(10/distance, 3))
 			M.Weaken(max(10/distance, 3))
-			M.ear_damage += rand(0, 5)
-			M.ear_deaf = max(M.ear_deaf,15)
+			M.setEarDamage(M.ear_damage + rand(0, 5), max(M.ear_deaf,15))
 			if(M.ear_damage >= 15)
 				to_chat(M, "<span class='warning'>Your ears start to ring badly!</span>")
 				if(prob(M.ear_damage - 10 + 5))
@@ -419,10 +417,14 @@
 	for(var/turf/simulated/turf in range(min(created_volume/10,4),T))
 		new /obj/effect/hotspot(turf)
 
+/datum/reagent/phlogiston/reaction_mob(mob/living/M, method=TOUCH, volume)
+	M.IgniteMob()
+	..()
+
 /datum/reagent/phlogiston/on_mob_life(mob/living/M)
 	M.adjust_fire_stacks(1)
-	M.IgniteMob()
-	M.adjustFireLoss(0.2*M.fire_stacks)
+	var/burndmg = max(0.3*M.fire_stacks, 0.3)
+	M.adjustFireLoss(burndmg)
 	..()
 
 /datum/reagent/napalm
@@ -438,8 +440,8 @@
 	..()
 
 /datum/reagent/napalm/reaction_mob(mob/living/M, method=TOUCH, volume)
-	if(method == TOUCH && isliving(M))
-		M.adjust_fire_stacks(7)
+	if(method == TOUCH)
+		M.adjust_fire_stacks(min(volume/4, 20))
 
 /datum/chemical_reaction/napalm
 	name = "Napalm"
@@ -476,7 +478,7 @@
 		holder.handle_reactions()
 	..()
 
-/datum/reagent/cryostylane/reaction_turf(turf/simulated/T, volume)
+/datum/reagent/cryostylane/reaction_turf(turf/T, volume)
 	if(volume >= 5)
 		for(var/mob/living/carbon/slime/M in T)
 			M.adjustToxLoss(rand(15,30))
@@ -539,37 +541,24 @@
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
 /datum/reagent/firefighting_foam/reaction_mob(mob/living/M, method=TOUCH, volume)
-	if(!istype(M, /mob/living))
-		return
-
 // Put out fire
 	if(method == TOUCH)
 		M.adjust_fire_stacks(-(volume / 5)) // more effective than water
-		if(M.fire_stacks <= 0)
-			M.ExtinguishMob()
+		M.ExtinguishMob()
+
+/datum/reagent/firefighting_foam/reaction_obj(obj/O, volume)
+	if(istype(O))
+		O.extinguish()
 
 /datum/reagent/firefighting_foam/reaction_turf(turf/simulated/T, volume)
 	if(!istype(T))
 		return
 	var/CT = cooling_temperature
-	src = null
-	if(!istype(T, /turf/space))
-		new /obj/effect/decal/cleanable/flour/foam(T) //foam mess; clears up quickly.
+	new /obj/effect/decal/cleanable/flour/foam(T) //foam mess; clears up quickly.
 	var/hotspot = (locate(/obj/effect/hotspot) in T)
-	if(hotspot && !istype(T, /turf/space))
-		var/datum/gas_mixture/lowertemp = T.remove_air( T:air:total_moles() )
-		lowertemp.temperature = max( min(lowertemp.temperature-(CT*1000),lowertemp.temperature / CT) ,0)
-		lowertemp.react()
-		T.assume_air(lowertemp)
-		qdel(hotspot)
-
-/datum/reagent/firefighting_foam/reaction_obj(obj/O, volume)
-	src = null
-	var/turf/T = get_turf(O)
-	var/hotspot = (locate(/obj/effect/hotspot) in T)
-	if(hotspot && !istype(T, /turf/space))
-		var/datum/gas_mixture/lowertemp = T.remove_air( T:air:total_moles() )
-		lowertemp.temperature = max( min(lowertemp.temperature-2000,lowertemp.temperature / 2) ,0)
+	if(hotspot)
+		var/datum/gas_mixture/lowertemp = T.remove_air(T.air.total_moles())
+		lowertemp.temperature = max(min(lowertemp.temperature-(CT*1000), lowertemp.temperature / CT), 0)
 		lowertemp.react()
 		T.assume_air(lowertemp)
 		qdel(hotspot)
@@ -627,8 +616,6 @@
 		T.atmos_spawn_air(SPAWN_TOXINS|SPAWN_20C, volume)
 
 /datum/reagent/plasma_dust/reaction_mob(mob/living/M, method=TOUCH, volume)//Splashing people with plasma dust is stronger than fuel!
-	if(!istype(M, /mob/living))
-		return
 	if(method == TOUCH)
 		M.adjust_fire_stacks(volume / 5)
 		return

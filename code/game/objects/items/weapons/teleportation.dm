@@ -48,6 +48,7 @@ Frequency:
 		return 1
 
 	var/turf/current_location = get_turf(usr)//What turf is the user on?
+	// TODO: Tie into space manager
 	if(!current_location ||( current_location.z in config.admin_levels))//If turf was not found or they're on z level 2.
 		to_chat(usr, "<span class='warning'>\The [src] is malfunctioning.</span>")
 		return 1
@@ -61,6 +62,7 @@ Frequency:
 
 			for(var/obj/item/device/radio/beacon/W in beacons)
 				if(W.frequency == frequency && !W.syndicate)
+					// TODO: Tie into space manager
 					if(W && W.z == z)
 						var/turf/TB = get_turf(W)
 						temp += "[W.code]: [TB.x], [TB.y], [TB.z]<BR>"
@@ -107,7 +109,8 @@ Frequency:
 
 /obj/item/weapon/hand_tele/attack_self(mob/user as mob)
 	var/turf/current_location = get_turf(user)//What turf is the user on?
-	if(!current_location||(current_location.z in config.admin_levels)||current_location.z>=7)//If turf was not found or they're on z level 2 or >7 which does not currently exist.
+	// TODO: Tie into space manager
+	if(!current_location||(current_location.z in config.admin_levels)||current_location.z>=ZLEVEL_EMPTY)//If turf was not found or they're on z level 2 or >7 which does not currently exist.
 		to_chat(user, "<span class='notice'>\The [src] is malfunctioning.</span>")
 		return
 	var/list/L = list(  )

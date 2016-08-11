@@ -5,7 +5,7 @@
 	can_suppress = 1
 	burst_size = 3
 	fire_delay = 2
-	action_button_name = "Toggle Firemode"
+	actions_types = list(/datum/action/item_action/toggle_firemode)
 
 /obj/item/weapon/gun/projectile/automatic/isHandgun()
 	return 0
@@ -58,6 +58,9 @@
 
 	playsound(user, 'sound/weapons/empty.ogg', 100, 1)
 	update_icon()
+	for(var/X in actions)
+		var/datum/action/A = X
+		A.UpdateButtonIcon()
 
 /obj/item/weapon/gun/projectile/automatic/can_shoot()
 	return get_ammo()
@@ -69,14 +72,14 @@
 		alarmed = 1
 
 /obj/item/weapon/gun/projectile/automatic/proto
-	name = "\improper Nanotrasen Saber SMG"
+	name = "Nanotrasen Saber SMG"
 	desc = "A prototype three-round burst 9mm submachine gun, designated 'SABR'. Has a threaded barrel for suppressors."
 	icon_state = "saber"
 	mag_type = /obj/item/ammo_box/magazine/smgm9mm
 	origin_tech = "combat=4;materials=2"
 
 /obj/item/weapon/gun/projectile/automatic/c20r
-	name = "\improper C-20r SMG"
+	name = "C-20r SMG"
 	desc = "A two-round burst .45 SMG, designated 'C-20r'. Has a 'Scarborough Arms - Per falcis, per pravitas' buttstamp."
 	icon_state = "c20r"
 	item_state = "c20r"
@@ -107,14 +110,14 @@
 	fire_delay = 2
 	can_suppress = 0
 	burst_size = 1
-	action_button_name = null
+	actions_types = list()
 
 /obj/item/weapon/gun/projectile/automatic/wt550/update_icon()
 	..()
 	icon_state = "wt550[magazine ? "-[Ceiling(get_ammo(0)/4)*4]" : ""]"
 
 /obj/item/weapon/gun/projectile/automatic/mini_uzi
-	name = "\improper 'Type U3' Uzi"
+	name = "'Type U3' Uzi"
 	desc = "A lightweight, burst-fire submachine gun, for when you really want someone dead. Uses 9mm rounds."
 	icon_state = "mini-uzi"
 	origin_tech = "combat=5;materials=2;syndicate=8"
@@ -122,14 +125,13 @@
 	burst_size = 2
 
 /obj/item/weapon/gun/projectile/automatic/m90
-	name = "\improper M-90gl Carbine"
+	name = "M-90gl Carbine"
 	desc = "A three-round burst 5.56 toploading carbine, designated 'M-90gl'. Has an attached underbarrel grenade launcher which can be toggled on and off."
 	icon_state = "m90"
 	item_state = "m90"
 	origin_tech = "combat=5;materials=2;syndicate=8"
 	mag_type = /obj/item/ammo_box/magazine/m556
 	fire_sound = 'sound/weapons/Gunshot_smg.ogg'
-	action_button_name = "Toggle Grenade Launcher"
 	can_suppress = 0
 	var/obj/item/weapon/gun/projectile/revolver/grenadelauncher/underbarrel
 	burst_size = 3
@@ -188,7 +190,7 @@
 	update_icon()
 
 /obj/item/weapon/gun/projectile/automatic/tommygun
-	name = "\improper Thompson SMG"
+	name = "Thompson SMG"
 	desc = "A genuine 'Chicago Typewriter'."
 	icon_state = "tommygun"
 	item_state = "shotgun"
@@ -216,7 +218,7 @@
 
 // Bulldog shotgun //
 /obj/item/weapon/gun/projectile/automatic/shotgun/bulldog
-	name = "\improper 'Bulldog' Shotgun"
+	name = "'Bulldog' Shotgun"
 	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Bulldog' by boarding parties. Compatible only with specialized 8-round drum magazines."
 	icon_state = "bulldog"
 	item_state = "bulldog"
@@ -227,7 +229,7 @@
 	can_suppress = 0
 	burst_size = 1
 	fire_delay = 0
-	action_button_name = null
+	actions_types = list()
 
 /obj/item/weapon/gun/projectile/automatic/shotgun/bulldog/New()
 	..()

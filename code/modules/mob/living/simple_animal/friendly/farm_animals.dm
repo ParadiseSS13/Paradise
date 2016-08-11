@@ -156,7 +156,7 @@
 		..()
 
 /mob/living/simple_animal/chick
-	name = "\improper chick"
+	name = "chick"
 	desc = "Adorable! They make such a racket though."
 	icon_state = "chick"
 	icon_living = "chick"
@@ -203,7 +203,7 @@ var/const/MAX_CHICKENS = 50
 var/global/chicken_count = 0
 
 /mob/living/simple_animal/chicken
-	name = "\improper chicken"
+	name = "chicken"
 	desc = "Hopefully the eggs are good this season."
 	icon_state = "chicken"
 	icon_living = "chicken"
@@ -241,7 +241,7 @@ var/global/chicken_count = 0
 	pixel_y = rand(0, 10)
 	chicken_count += 1
 
-/mob/living/simple_animal/chicken/death()
+/mob/living/simple_animal/chicken/death(gibbed)
 	..()
 	chicken_count -= 1
 

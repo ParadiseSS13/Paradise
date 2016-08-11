@@ -16,6 +16,7 @@
 	icon_state = "film"
 	item_state = "electropack"
 	w_class = 1
+	burn_state = FLAMMABLE
 
 
 /********
@@ -27,6 +28,8 @@
 	icon_state = "photo"
 	item_state = "paper"
 	w_class = 2
+	burn_state = FLAMMABLE
+	burntime = 5
 	var/icon/img	//Big photo image
 	var/scribble	//Scribble on the back.
 	var/icon/tiny
@@ -37,7 +40,7 @@
 
 /obj/item/weapon/photo/attackby(obj/item/weapon/P as obj, mob/user as mob, params)
 	if(istype(P, /obj/item/weapon/pen) || istype(P, /obj/item/toy/crayon))
-		var/txt = sanitize(input(user, "What would you like to write on the back?", "Photo Writing", null)  as text)
+		var/txt = sanitize_local(input(user, "What would you like to write on the back?", "Photo Writing", null)  as text)
 		txt = copytext(txt, 1, 128)
 		if(loc == user && user.stat == 0)
 			scribble = txt
@@ -90,7 +93,7 @@
 	set category = "Object"
 	set src in usr
 
-	var/n_name = sanitize(copytext(input(usr, "What would you like to label the photo?", "Photo Labelling", name) as text, 1, MAX_MESSAGE_LEN))
+	var/n_name = sanitize_local(copytext(input(usr, "What would you like to label the photo?", "Photo Labelling", name) as text, 1, MAX_MESSAGE_LEN))
 	//loc.loc check is for making possible renaming photos in clipboards
 	if(( (loc == usr || (loc.loc && loc.loc == usr)) && usr.stat == 0))
 		name = "[(n_name ? text("[n_name]") : "photo")]"
@@ -106,7 +109,8 @@
 	icon = 'icons/obj/items.dmi'
 	icon_state = "album"
 	item_state = "briefcase"
-	can_hold = list("/obj/item/weapon/photo",)
+	can_hold = list("/obj/item/weapon/photo")
+	burn_state = FLAMMABLE
 
 /obj/item/weapon/storage/photo_album/MouseDrop(obj/over_object as obj)
 
@@ -153,7 +157,7 @@
 	var/see_ghosts = 0 //for the spoop of it
 
 
-/obj/item/device/camera/spooky/CheckParts()
+/obj/item/device/camera/spooky/CheckParts(list/parts_list)
 	..()
 	var/obj/item/device/camera/C = locate(/obj/item/device/camera) in contents
 	if(C)

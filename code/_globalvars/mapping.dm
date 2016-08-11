@@ -12,7 +12,8 @@ var/list/diagonals = list(NORTHEAST, NORTHWEST, SOUTHEAST, SOUTHWEST)
 //Was list("3" = 30, "4" = 70).
 //Spacing should be a reliable method of getting rid of a body -- Urist.
 //Go away Urist, I'm restoring this to the longer list. ~Errorage
-var/list/accessable_z_levels = list(1,3,4,5,6,7) //Keep this to six maps, repeating z-levels is okay if needed
+// TODO: Tie into space manager
+var/list/accessable_z_levels = list(ZLEVEL_STATION,ZLEVEL_TELECOMMS,ZLEVEL_ENGI,ZLEVEL_ASTEROID,ZLEVEL_DERELICT,ZLEVEL_EMPTY) //Keep this to six maps, repeating z-levels is okay if needed
 
 var/global/list/global_map = null
 	//list/global_map = list(list(1,5),list(4,3))//an array of map Z levels.
@@ -25,7 +26,8 @@ var/global/list/global_map = null
 	//3 - AI satellite
 	//5 - empty space
 
-var/shuttle_z = 2	//default
+// TODO: Tie into space manager
+var/shuttle_z = ZLEVEL_CENTCOMM	//default
 
 var/list/monkeystart = list()
 var/list/wizardstart = list()
@@ -38,6 +40,7 @@ var/list/prisonwarp = list()	//prisoners go to these
 var/list/holdingfacility = list()	//captured people go here
 var/list/xeno_spawn = list()//Aliens spawn at these.
 var/list/ertdirector = list()
+var/list/permaprisoner = list()
 //	list/mazewarp = list()
 var/list/tdome1 = list()
 var/list/tdome2 = list()

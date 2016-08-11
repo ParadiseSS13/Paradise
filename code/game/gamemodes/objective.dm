@@ -77,7 +77,8 @@ var/list/potential_theft_objectives=subtypesof(/datum/theft_objective) \
 
 	check_completion()
 		if(target && target.current)
-			if(target.current.stat == DEAD || issilicon(target.current) || isbrain(target.current) || target.current.z > 6 || !target.current.ckey) //Borgs/brains/AIs count as dead for traitor objectives. --NeoFite
+			// TODO: Tie into space manager
+			if(target.current.stat == DEAD || issilicon(target.current) || isbrain(target.current) || !target.current.ckey) //Borgs/brains/AIs count as dead for traitor objectives. --NeoFite
 				return 1
 			return 0
 		return 1
@@ -109,6 +110,7 @@ var/list/potential_theft_objectives=subtypesof(/datum/theft_objective) \
 			if(target.current.stat == DEAD || !ishuman(target.current) || !target.current.ckey || !target.current.client)
 				return 1
 			var/turf/T = get_turf(target.current)
+			// TODO: Tie into space manager
 			if(T && !(T.z in config.station_levels))			//If they leave the station they count as dead for this
 				return 2
 			return 0
@@ -144,6 +146,7 @@ var/list/potential_theft_objectives=subtypesof(/datum/theft_objective) \
 				if(target in ticker.mode:head_revolutionaries)
 					return 1
 			var/turf/T = get_turf(target.current)
+			// TODO: Tie into space manager
 			if(T && !(T.z in config.station_levels))			//If they leave the station they count as dead for this
 				rval = 2
 			return 0
@@ -170,9 +173,12 @@ var/list/potential_theft_objectives=subtypesof(/datum/theft_objective) \
 
 	check_completion()
 		if(target && target.current)
-			if(target.current.stat == DEAD || issilicon(target.current) || isbrain(target.current) || target.current.z > 6 || !target.current.ckey) //Borgs/brains/AIs count as dead for traitor objectives. --NeoFite
+			// TODO: Tie into space manager
+			if(target.current.stat == DEAD || issilicon(target.current) || isbrain(target.current) || !target.current.ckey) //Borgs/brains/AIs count as dead for traitor objectives. --NeoFite
 				return 1
-			if((target.current.z in config.admin_levels))
+			// TODO: Tie into space manager
+			var/turf/target_location = get_turf(target.current)
+			if(target_location.z in config.admin_levels) //No hiding in lockers and cheezing greentext.
 				return 0
 		return 1
 
@@ -337,16 +343,6 @@ var/list/potential_theft_objectives=subtypesof(/datum/theft_objective) \
 
 /datum/objective/escape
 	explanation_text = "Escape on the shuttle or an escape pod alive and free."
-	var/escape_areas = list(/area/shuttle/escape,
-		/area/shuttle/escape_pod1/centcom,
-		/area/shuttle/escape_pod1/transit,
-		/area/shuttle/escape_pod2/centcom,
-		/area/shuttle/escape_pod2/transit,
-		/area/shuttle/escape_pod3/centcom,
-		/area/shuttle/escape_pod3/transit,
-		/area/shuttle/escape_pod5/centcom,
-		/area/shuttle/escape_pod5/transit,
-		/area/centcom/evac)
 
 	check_completion()
 		if(issilicon(owner.current))
@@ -465,7 +461,7 @@ var/list/potential_theft_objectives=subtypesof(/datum/theft_objective) \
 			var/tmp_obj = new O.typepath
 			var/custom_name = tmp_obj:name
 			qdel(tmp_obj)
-			O.name = sanitize(copytext(input("Enter target name:", "Objective target", custom_name) as text|null,1,MAX_NAME_LEN))
+			O.name = sanitize_local(copytext(input("Enter target name:", "Objective target", custom_name) as text|null,1,MAX_NAME_LEN))
 			if(!O.name) return
 			steal_target = O
 			explanation_text = "Steal [O.name]."
@@ -572,7 +568,8 @@ var/list/potential_theft_objectives=subtypesof(/datum/theft_objective) \
 
 	check_completion()
 		if(target && target.current)
-			if(target.current.stat == DEAD || target.current.z > 6 || !target.current.ckey)
+			// TODO: Tie into space manager
+			if(target.current.stat == DEAD || target.current.z > ZLEVEL_DERELICT || !target.current.ckey)
 				return 1
 			return 0
 		return 1
@@ -799,7 +796,17 @@ var/list/potential_theft_objectives=subtypesof(/datum/theft_objective) \
 
 /datum/objective/heist/inviolate_death
 	explanation_text = "Follow the Inviolate. Minimise death and loss of resources."
-	completed = 1
+
+	check_completion()
+		var/vox_allowed_kills = 3 // The number of people the vox can accidently kill. Mostly a counter to people killing themselves if a raider touches them to force fail.
+		var/vox_total_kills = 0
+
+		var/datum/game_mode/heist/H = ticker.mode
+		for(var/datum/mind/raider in H.raiders)
+			vox_total_kills += raider.kills.len // Kills are listed in the mind; uses this to calculate vox kills
+
+		if(vox_total_kills > vox_allowed_kills) return 0
+		return 1
 
 // Traders
 

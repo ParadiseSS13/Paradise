@@ -93,7 +93,7 @@
 	else
 		range = pick(2,2,2,3,3,3,4)
 
-/obj/item/weapon/grenade/iedcasing/CheckParts()
+/obj/item/weapon/grenade/iedcasing/CheckParts(list/parts_list)
 	..()
 	var/obj/item/weapon/reagent_containers/food/drinks/cans/can = locate() in contents
 	if(can)

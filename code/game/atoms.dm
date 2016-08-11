@@ -41,6 +41,7 @@
 	if(!T)
 		return 0
 
+	// TODO: Tie into space manager
 	if(T.z != ZLEVEL_CENTCOMM)//if not, don't bother
 		return 0
 
@@ -58,6 +59,7 @@
 	if(!T)
 		return 0
 
+	// TODO: Tie into space manager
 	if(T.z != ZLEVEL_CENTCOMM)//if not, don't bother
 		return 0
 
@@ -84,14 +86,14 @@
 		if(istype(A, /datum/reagent))
 			if(!reagents)
 				reagents = new()
-				reagents.reagent_list.Add(A)
-				reagents.conditional_update()
+			reagents.reagent_list.Add(A)
+			reagents.conditional_update()
 		else if(istype(A, /atom/movable))
 			var/atom/movable/M = A
 			if(istype(M.loc, /mob/living))
 				var/mob/living/L = M.loc
 				L.unEquip(M)
-				M.loc = src
+			M.forceMove(src)
 
 /atom/proc/assume_air(datum/gas_mixture/giver)
 	qdel(giver)
@@ -199,7 +201,7 @@
 			f_name += "oil-stained [name][infix]."
 
 	to_chat(user, "[bicon(src)] That's [f_name] [suffix]")
-	to_chat(user, desc)
+	to_chat(user, sanitize_local(desc))
 
 	if(reagents && is_open_container()) //is_open_container() isn't really the right proc for this, but w/e
 		to_chat(user, "It contains:")
@@ -446,11 +448,10 @@
 /atom/proc/narsie_act()
 	return
 
-/atom/proc/atom_say(var/message)
-	if((!message))
+/atom/proc/atom_say(message)
+	if(!message)
 		return
-	for(var/mob/O in hearers(src, null))
-		O.show_message("<span class='game say'><span class='name'>[src]</span> [atom_say_verb], \"[message]\"</span>",2)
+	audible_message("<span class='game say'><span class='name'>[src]</span> [atom_say_verb], \"[message]\"</span>")
 
 /atom/proc/speech_bubble(var/bubble_state = "",var/bubble_loc = src, var/list/bubble_recipients = list())
 	return

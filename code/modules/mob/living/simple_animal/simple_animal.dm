@@ -71,8 +71,14 @@
 	var/gold_core_spawnable = CHEM_MOB_SPAWN_INVALID //if CHEM_MOB_SPAWN_HOSTILE can be spawned by plasma with gold core, CHEM_MOB_SPAWN_FRIENDLY are 'friendlies' spawned with blood
 
 	var/master_commander = null //holding var for determining who own/controls a sentient simple animal (for sentience potions).
+
+	var/mob/living/simple_animal/hostile/spawner/nest
+
 	var/sentience_type = SENTIENCE_ORGANIC // Sentience type, for slime potions
 	var/list/loot = list() //list of things spawned at mob's loc when it dies
+	var/del_on_death = 0 //causes mob to be deleted on death, useful for mobs that spawn lootable corpses
+	var/deathmessage = ""
+	var/death_sound = null //The sound played on death
 
 
 /mob/living/simple_animal/New()
@@ -401,26 +407,7 @@
 	return
 
 /mob/living/simple_animal/attackby(var/obj/item/O as obj, var/mob/living/user as mob)  //Marker -Agouri
-	if(istype(O, /obj/item/stack/medical) && healable)
-		if(stat != DEAD)
-			var/obj/item/stack/medical/MED = O
-			if(health < maxHealth)
-				if(MED.amount >= 1)
-					if(MED.heal_brute >= 1)
-						heal_organ_damage((MED.heal_brute * 1.66), (MED.heal_burn * 1.66))
-						MED.use(1)
-						visible_message("<span class='notice'>[user] applies [MED] on [src]</span>")
-						return
-					else
-						to_chat(user, "<span class='notice'>[MED] won't help at all.</span>")
-						return
-			else
-				to_chat(user, "<span class='notice'>[src] is at full health.</span>")
-				return
-		else
-			to_chat(user, "<span class='notice'>[src] is dead, medical items won't bring it back to life.</span>")
-			return
-	else if(can_collar && !collar && istype(O, /obj/item/clothing/accessory/petcollar))
+	if(can_collar && !collar && istype(O, /obj/item/clothing/accessory/petcollar))
 		var/obj/item/clothing/accessory/petcollar/C = O
 		user.drop_item()
 		C.forceMove(src)
@@ -434,6 +421,8 @@
 		return
 	else
 		user.changeNext_move(CLICK_CD_MELEE)
+		if(attempt_harvest(O, user))
+			return
 		user.do_attack_animation(src)
 		if(istype(O) && istype(user) && !O.attack(src, user))
 			var/damage = 0
@@ -451,7 +440,6 @@
 				user.visible_message("<span class='warning'>[user] gently taps [src] with [O].</span>",\
 									"<span class='warning'>This weapon is ineffective, it does no damage.</span>")
 			adjustBruteLoss(damage)
-	..()
 
 
 /mob/living/simple_animal/movement_delay()
@@ -468,15 +456,28 @@
 	stat(null, "Health: [round((health / maxHealth) * 100)]%")
 
 /mob/living/simple_animal/death(gibbed)
+	if(nest)
+		nest.spawned_mobs -= src
+		nest = null
 	if(loot.len)
 		for(var/i in loot)
 			new i(loc)
-	health = 0
-	icon_state = icon_dead
-	stat = DEAD
-	density = 0
 	if(!gibbed)
-		visible_message("<span class='danger'>\The [src] stops moving...</span>")
+		if(death_sound)
+			playsound(get_turf(src),death_sound, 200, 1)
+		if(deathmessage)
+			visible_message("<span class='danger'>\The [src] [deathmessage]</span>")
+		else if(!del_on_death)
+			visible_message("<span class='danger'>\The [src] stops moving...</span>")
+	if(del_on_death)
+		ghostize()
+		qdel(src)
+	else
+		health = 0
+		icon_state = icon_dead
+		stat = DEAD
+		density = 0
+		lying = 1
 	..()
 
 /mob/living/simple_animal/ex_act(severity)
@@ -540,15 +541,23 @@
 			return 0
 	return 1
 
+/mob/living/simple_animal/handle_fire()
+	return
+
+/mob/living/simple_animal/update_fire()
+	return
+
+/mob/living/simple_animal/IgniteMob()
+	return 0
+
+/mob/living/simple_animal/ExtinguishMob()
+	return
+
 /mob/living/simple_animal/proc/attack_threshold_check(damage, damagetype = BRUTE)
 	if(damage <= force_threshold || !damage_coeff[damagetype])
 		visible_message("<span class='warning'>[src] looks unharmed from the damage.</span>")
 	else
 		apply_damage(damage, damagetype)
-
-
-/mob/living/simple_animal/update_fire()
-	return
 
 /mob/living/simple_animal/update_transform()
 	var/matrix/ntransform = matrix(transform) //aka transform.Copy()
@@ -616,7 +625,7 @@
 
 	return verb
 
-/mob/living/simple_animal/update_canmove()
+/mob/living/simple_animal/update_canmove(delay_action_updates = 0)
 	if(paralysis || stunned || weakened || stat || resting)
 		drop_r_hand()
 		drop_l_hand()
@@ -626,6 +635,8 @@
 	else
 		canmove = 1
 	update_transform()
+	if(!delay_action_updates)
+		update_action_buttons_icon()
 	return canmove
 
 /mob/living/simple_animal/update_transform()
@@ -692,4 +703,10 @@
 		. |= collar.GetAccess()
 
 /mob/living/simple_animal/proc/sentience_act() //Called when a simple animal gains sentience via gold slime potion
+	return
+
+/mob/living/simple_animal/adjustEarDamage()
+	return
+
+/mob/living/simple_animal/setEarDamage()
 	return

@@ -255,7 +255,7 @@ var/list/ai_verbs_default = list(
 	The alternative was to rewrite a bunch of AI code instead here we are.
 */
 /obj/machinery/ai_powersupply
-	name="\improper AI power supply"
+	name="AI power supply"
 	active_power_usage=1000
 	use_power = 2
 	power_channel = EQUIP
@@ -640,13 +640,14 @@ var/list/ai_verbs_default = list(
 	if(check_unable(AI_CHECK_WIRELESS | AI_CHECK_RADIO))
 		return
 
-	var/ai_allowed_Zlevel = list(1,3,5)
+	var/ai_allowed_Zlevel = list(ZLEVEL_STATION,ZLEVEL_TELECOMMS,ZLEVEL_ASTEROID)
 	var/d
 	var/area/bot_area
 	d += "<A HREF=?src=\ref[src];botrefresh=\ref[Bot]>Query network status</A><br>"
 	d += "<table width='100%'><tr><td width='40%'><h3>Name</h3></td><td width='20%'><h3>Status</h3></td><td width='30%'><h3>Location</h3></td><td width='10%'><h3>Control</h3></td></tr>"
 
 	for(var/mob/living/simple_animal/bot/Bot in simple_animal_list)
+		// TODO: Tie into space manager
 		if((Bot.z in ai_allowed_Zlevel) && !Bot.remote_disabled) //Only non-emagged bots on the allowed Z-level are detected!
 			bot_area = get_area(Bot)
 			d += "<tr><td width='30%'>[Bot.hacked ? "<span class='bad'>(!) </span>[Bot.name]" : Bot.name] ([Bot.model])</td>"
@@ -807,53 +808,122 @@ var/list/ai_verbs_default = list(
 			if(Entry.len < 3)
 				continue
 
-			if (Entry[1] == ckey && Entry[2] == real_name && Entry[3] == "Hologram") //Custom holograms
+			if(Entry[1] == ckey && Entry[2] == real_name && Entry[3] == "Hologram") //Custom holograms
 				custom_hologram = 1  // option is given in hologram menu
 
 	var/input
-	if(alert("Would you like to select a hologram based on a crew member or switch to unique avatar?",,"Crew Member","Unique")=="Crew Member")
+	switch(alert("Would you like to select a hologram based on a crew member, an animal, or switch to a unique avatar?",,"Crew Member","Unique","Animal"))
+		if("Crew Member")
+			var/personnel_list[] = list()
 
-		var/personnel_list[] = list()
+			for(var/datum/data/record/t in data_core.locked)//Look in data core locked.
+				personnel_list["[t.fields["name"]]: [t.fields["rank"]]"] = t.fields["image"]//Pull names, rank, and image.
 
-		for(var/datum/data/record/t in data_core.locked)//Look in data core locked.
-			personnel_list["[t.fields["name"]]: [t.fields["rank"]]"] = t.fields["image"]//Pull names, rank, and image.
+			if(personnel_list.len)
+				input = input("Select a crew member:") as null|anything in personnel_list
+				var/icon/character_icon = personnel_list[input]
+				if(character_icon)
+					qdel(holo_icon)//Clear old icon so we're not storing it in memory.
+					holo_icon = getHologramIcon(icon(character_icon))
+			else
+				alert("No suitable records found. Aborting.")
 
-		if(personnel_list.len)
-			input = input("Select a crew member:") as null|anything in personnel_list
-			var/icon/character_icon = personnel_list[input]
-			if(character_icon)
-				qdel(holo_icon)//Clear old icon so we're not storing it in memory.
-				holo_icon = getHologramIcon(icon(character_icon))
+		if("Animal")
+			var/icon_list[] = list(
+			"Bear",
+			"Carp",
+			"Chicken",
+			"Corgi",
+			"Cow",
+			"Crab",
+			"Deer",
+			"Fox",
+			"Goat",
+			"Goose",
+			"Kitten",
+			"Kitten2",
+			"Pig",
+			"Poly",
+			"Pug",
+			"Seal",
+			"Spider",
+			"Turkey"
+			)
+
+			input = input("Please select a hologram:") as null|anything in icon_list
+			if(input)
+				qdel(holo_icon)
+				switch(input)
+					if("Bear")
+						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi',"bear"))
+					if("Carp")
+						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi',"carp"))
+					if("Chicken")
+						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi',"chicken_brown"))
+					if("Corgi")
+						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi',"corgi"))
+					if("Cow")
+						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi',"cow"))
+					if("Crab")
+						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi',"crab"))
+					if("Deer")
+						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi',"deer"))
+					if("Fox")
+						holo_icon = getHologramIcon(icon('icons/mob/pets.dmi',"fox"))
+					if("Goat")
+						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi',"goat"))
+					if("Goose")
+						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi',"goose"))
+					if("Kitten")
+						holo_icon = getHologramIcon(icon('icons/mob/pets.dmi',"cat"))
+					if("Kitten2")
+						holo_icon = getHologramIcon(icon('icons/mob/pets.dmi',"cat2"))
+					if("Pig")
+						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi',"pig"))
+					if("Poly")
+						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi',"parrot_fly"))
+					if("Pug")
+						holo_icon = getHologramIcon(icon('icons/mob/pets.dmi',"pug"))
+					if("Seal")
+						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi',"seal"))
+					if("Spider")
+						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi',"guard"))
+					if("Turkey")
+						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi',"turkey"))
+
 		else
-			alert("No suitable records found. Aborting.")
+			var/icon_list[] = list(
+			"default",
+			"floating face",
+			"xeno queen",
+			"eldritch",
+			"ancient machine"
+			)
+			if(custom_hologram) //insert custom hologram
+				icon_list.Add("custom")
 
-	else
-		var/icon_list[] = list(
-		"default",
-		"floating face",
-		"xeno queen",
-		"eldritch",
-		"ancient machine"
-		)
-		if(custom_hologram) //insert custom hologram
-			icon_list.Add("custom")
+			input = input("Please select a hologram:") as null|anything in icon_list
+			if(input)
+				qdel(holo_icon)
+				switch(input)
+					if("default")
+						holo_icon = getHologramIcon(icon('icons/mob/AI.dmi',"holo1"))
+					if("floating face")
+						holo_icon = getHologramIcon(icon('icons/mob/AI.dmi',"holo2"))
+					if("xeno queen")
+						holo_icon = getHologramIcon(icon('icons/mob/AI.dmi',"holo3"))
+					if("eldritch")
+						holo_icon = getHologramIcon(icon('icons/mob/AI.dmi',"holo4"))
+					if("ancient machine")
+						holo_icon = getHologramIcon(icon('icons/mob/ancient_machine.dmi', "ancient_machine"))
+					if("custom")
+						if("[ckey]-ai-holo" in icon_states('icons/mob/custom-synthetic.dmi'))
+							holo_icon = getHologramIcon(icon('icons/mob/custom-synthetic.dmi', "[ckey]-ai-holo"))
+						else if("[ckey]-ai-holo" in icon_states('icons/mob/custom-synthetic64.dmi'))
+							holo_icon = getHologramIcon(icon('icons/mob/custom-synthetic64.dmi', "[ckey]-ai-holo"))
+						else
+							holo_icon = getHologramIcon(icon('icons/mob/AI.dmi',"holo1"))
 
-		input = input("Please select a hologram:") as null|anything in icon_list
-		if(input)
-			qdel(holo_icon)
-			switch(input)
-				if("default")
-					holo_icon = getHologramIcon(icon('icons/mob/AI.dmi',"holo1"))
-				if("floating face")
-					holo_icon = getHologramIcon(icon('icons/mob/AI.dmi',"holo2"))
-				if("xeno queen")
-					holo_icon = getHologramIcon(icon('icons/mob/AI.dmi',"holo3"))
-				if("eldritch")
-					holo_icon = getHologramIcon(icon('icons/mob/AI.dmi',"holo4"))
-				if("ancient machine")
-					holo_icon = getHologramIcon(icon('icons/mob/ancient_machine.dmi', "ancient_machine"))
-				if("custom")
-					holo_icon = getHologramIcon(icon('icons/mob/custom-synthetic.dmi', "[ckey]-ai-holo"))
 	return
 
 /mob/living/silicon/ai/proc/corereturn()

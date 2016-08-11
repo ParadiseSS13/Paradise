@@ -38,7 +38,7 @@
 	else, frequently even their own lives. They prefer warmer temperatures than most species and \
 	their native tongue is a heavy hissing laungage called Sinta'Unathi."
 
-	flags = HAS_LIPS
+	flags = HAS_LIPS | IS_WHITELISTED
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = FEET_CLAWS | HAS_TAIL | HAS_HEAD_ACCESSORY | HAS_MARKINGS | HAS_SKIN_COLOR | TAIL_WAGGING
 	dietflags = DIET_CARN
@@ -81,11 +81,6 @@
 /datum/species/unathi/handle_death(var/mob/living/carbon/human/H)
 	H.stop_tail_wagging(1)
 
-/datum/species/unathi/equip(var/mob/living/carbon/human/H)
-	if(H.mind.assigned_role != "Clown")
-		H.unEquip(H.shoes)
-		H.equip_or_collect(new /obj/item/clothing/shoes/sandal(H), slot_shoes)
-
 /datum/species/tajaran
 	name = "Tajaran"
 	name_plural = "Tajaran"
@@ -115,7 +110,7 @@
 
 	primitive_form = "Farwa"
 
-	flags = HAS_LIPS | CAN_BE_FAT
+	flags = HAS_LIPS | CAN_BE_FAT | IS_WHITELISTED
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = FEET_PADDED | HAS_TAIL | HAS_HEAD_ACCESSORY | HAS_MARKINGS | HAS_SKIN_COLOR | TAIL_WAGGING | HAS_FUR
 	dietflags = DIET_OMNI
@@ -148,11 +143,6 @@
 /datum/species/tajaran/handle_death(var/mob/living/carbon/human/H)
 	H.stop_tail_wagging(1)
 
-/datum/species/tajaran/equip(var/mob/living/carbon/human/H)
-	if(H.mind.assigned_role != "Clown")
-		H.unEquip(H.shoes)
-		H.equip_or_collect(new /obj/item/clothing/shoes/sandal(H), slot_shoes)
-
 /datum/species/vulpkanin
 	name = "Vulpkanin"
 	name_plural = "Vulpkanin"
@@ -172,7 +162,7 @@
 	to the degree it can cause conflict with more rigorous and strict authorities. They speak a guttural language known as 'Canilunzt' \
     which has a heavy emphasis on utilizing tail positioning and ear twitches to communicate intent."
 
-	flags = HAS_LIPS
+	flags = HAS_LIPS | IS_WHITELISTED
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = FEET_PADDED | HAS_TAIL | HAS_HEAD_ACCESSORY | HAS_MARKINGS | HAS_SKIN_COLOR | TAIL_WAGGING | HAS_FUR
 	dietflags = DIET_OMNI
@@ -220,7 +210,7 @@
 	herbivores on the whole and tend to be co-operative with the other species of the galaxy, although they rarely reveal \
 	the secrets of their empire to their allies."
 
-	flags = HAS_LIPS
+	flags = HAS_LIPS | IS_WHITELISTED
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_SKIN_COLOR
 	dietflags = DIET_HERB
@@ -364,8 +354,7 @@
 		H.equip_or_collect(new /obj/item/weapon/tank/emergency_oxygen/vox(H), slot_l_hand)
 	to_chat(H, "<span class='notice'>You are now running on nitrogen internals from the [H.l_hand] in your hand. Your species finds oxygen toxic, so you must breathe nitrogen only.</span>")
 	H.internal = H.l_hand
-	if(H.internals)
-		H.internals.icon_state = "internal1"
+	H.update_internals_hud_icon(1)
 
 /datum/species/vox/handle_post_spawn(var/mob/living/carbon/human/H)
 	updatespeciescolor(H)
@@ -762,7 +751,7 @@
 	even the simplest concepts of other minds. Their alien physiology allows them survive happily off a diet of nothing but light, \
 	water and other radiation."
 
-	flags = NO_BREATHE | RADIMMUNE | IS_PLANT | NO_BLOOD | NO_PAIN
+	flags = NO_BREATHE | RADIMMUNE | IS_PLANT | NO_BLOOD | NO_PAIN | IS_WHITELISTED
 	clothing_flags = HAS_SOCKS
 	dietflags = 0		//Diona regenerate nutrition in light, no diet necessary
 
@@ -803,8 +792,7 @@
 		"is pulling themselves apart!")
 
 /datum/species/diona/can_understand(var/mob/other)
-	var/mob/living/simple_animal/diona/D = other
-	if(istype(D))
+	if(istype(other, /mob/living/simple_animal/diona))
 		return 1
 	return 0
 

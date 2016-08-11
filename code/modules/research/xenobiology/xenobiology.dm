@@ -152,7 +152,7 @@
 		pet.icon_dead = "[M.colour] baby slime dead"
 		pet.colour = "[M.colour]"
 		qdel(M)
-		var/newname = sanitize(copytext(input(user, "Would you like to give the slime a name?", "Name your new pet", "pet slime") as null|text,1,MAX_NAME_LEN))
+		var/newname = sanitize_local(copytext(input(user, "Would you like to give the slime a name?", "Name your new pet", "pet slime") as null|text,1,MAX_NAME_LEN))
 
 		if(!newname)
 			newname = "pet slime"
@@ -166,7 +166,7 @@
 		pet.icon_dead = "[M.colour] baby slime dead"
 		pet.colour = "[M.colour]"
 		qdel(M)
-		var/newname = sanitize(copytext(input(user, "Would you like to give the slime a name?", "Name your new pet", "pet slime") as null|text,1,MAX_NAME_LEN))
+		var/newname = sanitize_local(copytext(input(user, "Would you like to give the slime a name?", "Name your new pet", "pet slime") as null|text,1,MAX_NAME_LEN))
 
 		if(!newname)
 			newname = "pet slime"
@@ -342,6 +342,7 @@
 	C.color = "#000080"
 	C.max_heat_protection_temperature = FIRE_IMMUNITY_SUIT_MAX_TEMP_PROTECT
 	C.heat_protection = C.body_parts_covered
+	C.burn_state = FIRE_PROOF
 	uses --
 	if(!uses)
 		qdel(src)
@@ -401,6 +402,8 @@
 	if(!O.client)
 		return 0
 	if(O.mind && O.mind.current && O.mind.current.stat != DEAD)
+		return 0
+	if(!O.can_reenter_corpse)
 		return 0
 	if(O.has_enabled_antagHUD == 1 && config.antag_hud_restricted)
 		return 0

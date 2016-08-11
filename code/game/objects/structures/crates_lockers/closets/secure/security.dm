@@ -252,7 +252,7 @@
 		new /obj/item/clothing/shoes/jackboots/jacksandals(src)
 
 /obj/structure/closet/secure_closet/ntrep
-	name = "\improper Nanotrasen Representative's locker"
+	name = "Nanotrasen Representative's locker"
 	req_access = list(access_ntrep)
 	icon_state = "ntsecure1"
 	icon_closed = "ntsecure"
@@ -317,6 +317,8 @@
 	icon_opened = "cabinetdetective_open"
 	icon_broken = "cabinetdetective_broken"
 	icon_off = "cabinetdetective_broken"
+	burn_state = FLAMMABLE
+	burntime = 20
 
 	New()
 		..()
@@ -339,6 +341,7 @@
 		new /obj/item/clothing/accessory/holster/armpit(src)
 		new /obj/item/clothing/glasses/sunglasses/yeah(src)
 		new /obj/item/device/flashlight/seclite(src)
+		new /obj/item/clothing/accessory/black(src)
 
 /obj/structure/closet/secure_closet/detective/update_icon()
 	if(broken)

@@ -6,8 +6,6 @@
 	color = "#060606"
 
 /datum/reagent/fuel/reaction_mob(mob/living/M, method=TOUCH, volume)//Splashing people with welding fuel to make them easy to ignite!
-	if(!istype(M, /mob/living))
-		return
 	if(method == TOUCH)
 		M.adjust_fire_stacks(volume / 10)
 		return
@@ -56,8 +54,6 @@
 	..()
 
 /datum/reagent/plasma/reaction_mob(mob/living/M, method=TOUCH, volume)//Splashing people with plasma is stronger than fuel!
-	if(!istype(M, /mob/living))
-		return
 	if(method == TOUCH)
 		M.adjust_fire_stacks(volume / 5)
 		..()
@@ -71,25 +67,15 @@
 	color = "#673910" // rgb: 103, 57, 16
 	process_flags = ORGANIC | SYNTHETIC
 
-/datum/reagent/thermite/reaction_turf(turf/T, volume)
-	src = null
-	if(volume >= 5)
-		if(istype(T, /turf/simulated/wall))
-			T:thermite = 1
-			T.overlays.Cut()
-			T.overlays = image('icons/effects/effects.dmi',icon_state = "thermite")
+/datum/reagent/thermite/reaction_turf(turf/simulated/wall/W, volume)
+	if(volume >= 5 && istype(W))
+		W.thermite = 1
+		W.overlays.Cut()
+		W.overlays = image('icons/effects/effects.dmi',icon_state = "thermite")
 
 /datum/reagent/glycerol
 	name = "Glycerol"
 	id = "glycerol"
 	description = "Glycerol is a simple polyol compound. Glycerol is sweet-tasting and of low toxicity."
-	reagent_state = LIQUID
-	color = "#808080" // rgb: 128, 128, 128
-
-
-/datum/reagent/nitroglycerin
-	name = "Nitroglycerin"
-	id = "nitroglycerin"
-	description = "Nitroglycerin is a heavy, colorless, oily, explosive liquid obtained by nitrating glycerol."
 	reagent_state = LIQUID
 	color = "#808080" // rgb: 128, 128, 128

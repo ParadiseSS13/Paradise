@@ -16,6 +16,14 @@
 	var/list/loadedItems = list() //The items loaded into the cannon that will be fired out
 	var/pressureSetting = 1 //How powerful the cannon is - higher pressure = more gas but more powerful throws
 
+/obj/item/weapon/pneumatic_cannon/Destroy()
+	if(tank)
+		qdel(tank)
+		tank = null
+	for(var/obj/item/I in loadedItems)
+		qdel(I)
+	loadedItems.Cut()
+	return ..()
 
 /obj/item/weapon/pneumatic_cannon/examine(mob/user)
 	..()
@@ -141,6 +149,7 @@
 				/obj/item/stack/packageWrap = 8,
 				/obj/item/pipe = 2)
 	time = 300
+	category = CAT_WEAPON
 
 /obj/item/weapon/pneumatic_cannon/proc/updateTank(obj/item/weapon/tank/thetank, removing = 0, mob/living/carbon/human/user)
 	if(removing)

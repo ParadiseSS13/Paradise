@@ -10,7 +10,7 @@ var/list/blob_nodes = list()
 	name = "blob"
 	config_tag = "blob"
 
-	required_players = 30
+	required_players = 10
 	required_enemies = 1
 	recommended_enemies = 1
 	restricted_jobs = list("Cyborg", "AI")
@@ -118,6 +118,7 @@ var/list/blob_nodes = list()
 		if(directory[ckey(blob.key)])
 			blob_client = directory[ckey(blob.key)]
 			location = get_turf(C)
+			// TODO: Tie into space manager
 			if(location.z != ZLEVEL_STATION || istype(location, /turf/space))
 				if(!warned)
 					to_chat(C, "<span class='userdanger'>You feel ready to burst, but this isn't an appropriate place!  You must return to the station!</span>")

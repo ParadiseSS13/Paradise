@@ -24,9 +24,13 @@
 	overlays += "pai-off"
 
 /obj/item/device/paicard/Destroy()
-	//Will stop people throwing friend pAIs into the singularity so they can respawn
-	if(!isnull(pai))
-		pai.death(0)
+	if(pai)
+		pai.ghostize()
+		qdel(pai)
+		pai = null
+	if(radio)
+		qdel(radio)
+		radio = null
 	return ..()
 
 /obj/item/device/paicard/attack_self(mob/user)
@@ -280,7 +284,7 @@
 			if(2)
 				radio.ToggleReception()
 	if(href_list["setlaws"])
-		var/newlaws = sanitize(copytext(input("Enter any additional directives you would like your pAI personality to follow. Note that these directives will not override the personality's allegiance to its imprinted master. Conflicting directives will be ignored.", "pAI Directive Configuration", pai.pai_laws) as message,1,MAX_MESSAGE_LEN))
+		var/newlaws = sanitize_local(copytext(input("Enter any additional directives you would like your pAI personality to follow. Note that these directives will not override the personality's allegiance to its imprinted master. Conflicting directives will be ignored.", "pAI Directive Configuration", pai.pai_laws) as message,1,MAX_MESSAGE_LEN))
 		if(newlaws)
 			pai.pai_laws = newlaws
 			to_chat(pai, "Your supplemental directives have been updated. Your new directives are:")

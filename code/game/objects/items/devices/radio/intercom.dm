@@ -29,7 +29,7 @@
 	frequency = COMM_FREQ
 
 /obj/item/device/radio/intercom/specops
-	name = "\improper Special Operations intercom"
+	name = "Special Operations intercom"
 	frequency = ERT_FREQ
 
 /obj/item/device/radio/intercom/department
@@ -124,6 +124,7 @@
 		return -1
 	if(!(0 in level))
 		var/turf/position = get_turf(src)
+		// TODO: Tie into space manager
 		if(isnull(position) || !(position.z in level))
 			return -1
 	if(!src.listening)
@@ -246,7 +247,7 @@
 	return ""
 
 /obj/item/device/radio/intercom/locked/ai_private
-	name = "\improper AI intercom"
+	name = "AI intercom"
 	frequency = AI_FREQ
 
 /obj/item/device/radio/intercom/locked/confessional
@@ -254,7 +255,7 @@
 	frequency = 1480
 
 /obj/item/device/radio/intercom/locked/prison
-	name = "\improper prison intercom"
+	name = "prison intercom"
 	desc = "Talk through this. It looks like it has been modified to not broadcast."
 
 /obj/item/device/radio/intercom/locked/prison/New()
