@@ -31,8 +31,7 @@
 
 
 	interact()
-		// TODO: Tie into space manager
-		if(!interactable() || computer.z > ZLEVEL_DERELICT)
+		if(!interactable() || is_away_level(computer.z))
 			return
 		var/dat
 		if(src.temp)

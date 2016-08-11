@@ -1,19 +1,4 @@
-
-
-
-//zlevel defines, can be overriden for different maps in the appropriate _maps file.
-#define ZLEVEL_STATION  1
-#define ZLEVEL_CENTCOMM 2
-#define ZLEVEL_TELECOMMS 3
-#define ZLEVEL_ENGI 4
-#define ZLEVEL_ASTEROID 5
-#define ZLEVEL_DERELICT 6
-#define ZLEVEL_EMPTY 7
-#define MAX_Z	7 // Used in space.dm to defince which Z-levels cannot be exited via space.
 #define TRANSITIONEDGE	7 //Distance from edge to move to another z-level
-
-///
-#define ENGINE_EJECT_Z	3
 
 //Object specific defines
 #define CANDLE_LUM 3 //For how bright candles are

@@ -364,7 +364,7 @@
 	traitorType = inPers
 
 	ticker.mode.traitors += mind
-	mind.special_role = "traitor"
+	mind.special_role = SPECIAL_ROLE_TRAITOR
 	var/datum/mindslaves/slaved = new()
 	slaved.masters += mind
 	mind.som = slaved

@@ -201,6 +201,7 @@
 	result = "uplink"
 	required_reagents = list("rum" = 1, "vodka" = 1, "tequila" = 1, "whiskey" = 1, "synthanol" = 1)
 	result_amount = 5
+	mix_message = "The chemicals mix to create a shiny, orange substance."
 
 /datum/reagent/ethanol/synthanol/synthnsoda
 	name = "Synth 'n Soda"
@@ -216,6 +217,7 @@
 	result = "synthnsoda"
 	required_reagents = list("synthanol" = 1, "cola" = 1)
 	result_amount = 2
+	mix_message = "The chemicals mix to create a smooth, fizzy substance."
 
 /datum/reagent/ethanol/synthanol/synthignon
 	name = "Synthignon"
@@ -231,5 +233,6 @@
 	result = "synthignon"
 	required_reagents = list("synthanol" = 1, "wine" = 1)
 	result_amount = 2
+	mix_message = "The chemicals mix to create a fine, red substance."
 
 // ROBOT ALCOHOL ENDS

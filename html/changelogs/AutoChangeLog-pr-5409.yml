@@ -1,0 +1,5 @@
+author: FreeStylaLT
+delete-after: True
+changes: 
+  - bugfix: "Fixed missing space transition tiles in emergency shuttle transit"
+  - bugfix: "Fixed lack of prisoner access to lower part of labor camp shuttle"
