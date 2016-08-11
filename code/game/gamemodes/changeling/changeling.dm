@@ -54,7 +54,7 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 			changelings += changeling
 			changeling.restricted_roles = restricted_jobs
 			modePlayer += changelings
-			changeling.special_role = "Changeling"
+			changeling.special_role = SPECIAL_ROLE_CHANGELING
 		return 1
 	else
 		return 0
@@ -168,29 +168,6 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 	var/datum/atom_hud/antag/linghud = huds[ANTAG_HUD_CHANGELING]
 	linghud.leave_hud(changeling.current)
 	set_antag_hud(changeling.current, null)
-
-
-/*/datum/game_mode/changeling/check_finished()
-	var/changelings_alive = 0
-	for(var/datum/mind/changeling in changelings)
-		if(!istype(changeling.current,/mob/living/carbon))
-			continue
-		if(changeling.current.stat==2)
-			continue
-		changelings_alive++
-
-	if(changelings_alive)
-		changelingdeath = 0
-		return ..()
-	else
-		if(!changelingdeath)
-			changelingdeathtime = world.time
-			changelingdeath = 1
-		if(world.time-changelingdeathtime > TIME_TO_GET_REVIVED)
-			return 1
-		else
-			return ..()
-	return 0*/
 
 /datum/game_mode/proc/grant_changeling_powers(mob/living/carbon/changeling_mob)
 	if(!istype(changeling_mob))	return

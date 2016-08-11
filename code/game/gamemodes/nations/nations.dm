@@ -142,8 +142,7 @@ datum/game_mode/nations
 
 /datum/game_mode/nations/proc/remove_access()
 	for(var/obj/machinery/door/airlock/W in airlocks)
-		// TODO: Tie into space manager
-		if(W.z in config.station_levels)
+		if(is_station_level(W.z))
 			W.req_access = list()
 
 
@@ -238,7 +237,7 @@ datum/game_mode/nations
 	return 1
 
 /proc/get_nations_mode()
-	if(!ticker || !istype(ticker.mode, /datum/game_mode/nations))
+	if(!GAMEMODE_IS_NATIONS)
 		return null
 
 	return ticker.mode

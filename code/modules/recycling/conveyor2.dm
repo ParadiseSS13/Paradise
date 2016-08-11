@@ -17,6 +17,7 @@
 	var/list/affecting	// the list of all items that will be moved this ptick
 	var/id = ""			// the control ID	- must match controller ID
 	var/verted = 1		// set to -1 to have the conveyour belt be inverted, so you can use the other corner icons
+	speed_process = 1
 
 /obj/machinery/conveyor/centcom_auto
 	id = "round_end_belt"
@@ -105,15 +106,12 @@
 	use_power(100)
 
 	affecting = loc.contents - src		// moved items will be all in loc
-	spawn(1)	// slight delay to prevent infinite propagation due to map order	//TODO: please no spawn() in process(). It's a very bad idea
-		var/items_moved = 0
-		for(var/atom/movable/A in affecting)
-			if(!A.anchored)
-				if(A.loc == src.loc) // prevents the object from being affected if it's not currently here.
-					step(A,movedir)
-					items_moved++
-			if(items_moved >= 10)
-				break
+	sleep(1)
+	for(var/atom/movable/A in affecting)
+		if(!A.anchored)
+			if(A.loc == loc) // prevents the object from being affected if it's not currently here.
+				step(A,movedir)
+		CHECK_TICK
 
 // attack with item, place item on conveyor
 /obj/machinery/conveyor/attackby(var/obj/item/I, mob/user, params)
@@ -183,7 +181,7 @@
 
 	var/list/conveyors		// the list of converyors that are controlled by this switch
 	anchored = 1
-
+	speed_process = 1
 
 
 /obj/machinery/conveyor_switch/New()
@@ -218,6 +216,7 @@
 	for(var/obj/machinery/conveyor/C in conveyors)
 		C.operating = position
 		C.setmove()
+		CHECK_TICK
 
 // attack with hand, switch position
 /obj/machinery/conveyor_switch/attack_hand(mob/user)
@@ -241,10 +240,11 @@
 	update()
 
 	// find any switches with same id as this one, and set their positions to match us
-	for(var/obj/machinery/conveyor_switch/S in world)
+	for(var/obj/machinery/conveyor_switch/S in machines)
 		if(S.id == src.id)
 			S.position = position
 			S.update()
+		CHECK_TICK
 
 /obj/machinery/conveyor_switch/oneway
 	var/convdir = 1 //Set to 1 or -1 depending on which way you want the convayor to go. (In other words keep at 1 and set the proper dir on the belts.)

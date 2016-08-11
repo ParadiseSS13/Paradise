@@ -115,7 +115,7 @@ var/global/sent_strike_team = 0
 	//Creates mind stuff.
 	new_commando.mind_initialize()
 	new_commando.mind.assigned_role = "MODE"
-	new_commando.mind.special_role = "Death Commando"
+	new_commando.mind.special_role = SPECIAL_ROLE_DEATHSQUAD
 	ticker.mode.traitors |= new_commando.mind//Adds them to current traitor list. Which is really the extra antagonist list.
 	new_commando.equip_death_commando(leader_selected)
 	return new_commando

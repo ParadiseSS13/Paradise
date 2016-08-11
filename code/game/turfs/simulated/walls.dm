@@ -36,11 +36,12 @@
 	/turf/simulated/wall/r_wall/coated)
 	smooth = SMOOTH_TRUE
 
-/turf/simulated/wall/ChangeTurf(var/newtype)
+/turf/simulated/wall/BeforeChange()
 	for(var/obj/effect/E in src)
+		// such quality code
 		if(E.name == "Wallrot")
 			qdel(E)
-	. = ..(newtype)
+	. = ..()
 
 //Appearance
 
