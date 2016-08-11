@@ -71,7 +71,7 @@
 /obj/spacepod/proc/apply_paint(mob/user as mob)
 	var/part_type
 	var/part = input(user, "Choose part", null) as null|anything in list("Lights","Rim","Paint","Windows")
-	switch (part)
+	switch(part)
 		if("Lights")
 			part_type = LIGHT
 		if("Rim")
