@@ -26,6 +26,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	ROLE_MUTINEER = 21,
 	ROLE_MALF = 30,
 	ROLE_ABDUCTOR = 30,
+	ROLE_DEVIL = 7
 )
 
 /proc/player_old_enough_antag(client/C, role)

@@ -63,6 +63,9 @@
 	var/antag_hud_icon_state = null //this mind's ANTAG_HUD should have this icon_state
 	var/datum/atom_hud/antag/antag_hud = null //this mind's antag HUD
 	var/datum/mindslaves/som //stands for slave or master...hush..
+	var/datum/devilinfo/devilinfo //Information about the devil, if any.
+ 	var/damnation_type = 0
+ 	var/datum/mind/soulOwner //who owns the soul.  Under normal circumstances, this will point to src
 
 	var/rev_cooldown = 0
 

@@ -746,3 +746,60 @@
 				if(prob(4))
 					charged++
 					user.visible_message("<span class='notice'>The axe starts to emit an electric buzz!</span>")
+
+/obj/item/weapon/twohanded/pitchfork
+	icon_state = "pitchfork0"
+	name = "pitchfork"
+	desc = "A simple tool used for moving hay."
+	force = 7
+	throwforce = 15
+	w_class = 4
+	force_unwielded = 7
+	force_wielded = 15
+	attack_verb = list("attacked", "impaled", "pierced")
+	hitsound = 'sound/weapons/bladeslice.ogg'
+
+/obj/item/weapon/twohanded/pitchfork/demonic
+	name = "demonic pitchfork"
+	desc = "A red pitchfork, it looks like the work of the devil."
+	force = 19
+	throwforce = 24
+	force_unwielded = 19
+	force_wielded = 25
+
+/obj/item/weapon/twohanded/pitchfork/demonic/greater
+	force = 24
+	throwforce = 50
+	force_unwielded = 24
+	force_wielded = 34
+
+/obj/item/weapon/twohanded/pitchfork/demonic/ascended
+	force = 100
+	throwforce = 100
+	force_unwielded = 100
+	force_wielded = 500000 // Kills you DEAD.
+
+/obj/item/weapon/twohanded/pitchfork/update_icon()
+	icon_state = "pitchfork[wielded]"
+
+/obj/item/weapon/twohanded/pitchfork/suicide_act(mob/user)
+	user.visible_message("<span class='suicide'>[user] impales \himself in \his abdomen with [src]! It looks like \he's trying to commit suicide..</span>")
+	return (BRUTELOSS)
+
+/obj/item/weapon/twohanded/pitchfork/demonic/pickup(mob/user)
+	if(istype(user, /mob/living))
+		var/mob/living/U = user
+		if(U.mind && !U.mind.devilinfo && (U.mind.soulOwner == U.mind)) //Burn hands unless they are a devil or have sold their soul
+			U.visible_message("<span class='warning'>As [U] picks [src] up, [U]'s arms briefly catch fire.</span>", \
+				"<span class='warning'>\"As you pick up the [src] your arms ignite, reminding you of all your past sins.\"</span>")
+			if(ishuman(U))
+				var/mob/living/carbon/human/H = U
+				H.apply_damage(rand(force/2, force), BURN, pick("l_arm", "r_arm"))
+			else
+				U.adjustFireLoss(rand(force/2,force))
+
+/obj/item/weapon/twohanded/pitchfork/demonic/attack(mob/target, mob/living/carbon/human/user)
+	if(user.mind && !user.mind.devilinfo && (user.mind.soulOwner != user.mind))
+		user << "<span class ='warning'>The [src] burns in your hands.</span>"
+		user.apply_damage(rand(force/2, force), BURN, pick("l_arm", "r_arm"))
+	..()
