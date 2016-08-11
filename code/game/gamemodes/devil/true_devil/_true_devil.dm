@@ -89,7 +89,7 @@
 	else if(health < (maxHealth/2))
 		msg += "<span class='warning'>You can see hellfire inside of it's wounds.</span>\n"
 	msg += "*---------*</span>"
-	user << msg
+	to_chat(user,msg)
 
 
 /mob/living/carbon/true_devil/IsAdvancedToolUser()
@@ -148,10 +148,10 @@
 		S.mind.assigned_role = "Imp"
 		S.mind.special_role = "Imp"
 		var/datum/objective/newobjective = new
-		newobjective.explanation_text = "Try to get a promotion to a higher devilic rank."
+		newobjective.explanation_text = "Try to get a promotion to a higher infernal rank."
 		S.mind.objectives += newobjective
-		S << S.playstyle_string
-		S << "<B>Objective #[1]</B>: [newobjective.explanation_text]"
+		to_chat(S,S.playstyle_string)
+		to_chat(S,"<B>Objective #1</B>: [newobjective.explanation_text]")
 		return
 	else
 		return ..()
