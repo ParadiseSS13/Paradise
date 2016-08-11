@@ -656,7 +656,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			if(jobdatum)
 				dresscode = "[jobdatum.title]"
 				jobdatum.equip(M)
-				equip_special_id(M,jobdatum.access,jobdatum.title, jobdatum.idtype)
+				equip_special_id(M,jobdatum.get_access(),jobdatum.title, jobdatum.idtype)
 
 		if("standard space gear")
 			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/black(M), slot_shoes)
