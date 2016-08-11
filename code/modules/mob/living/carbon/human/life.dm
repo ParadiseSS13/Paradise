@@ -680,8 +680,9 @@
 				update_mutantrace(0)
 				update_mutations(0)
 				update_inv_w_uniform(0)
-				update_inv_wear_suit()
 				update_body(0)
+				update_inv_wear_suit()
+				
 		else
 			if(overeatduration > 500)
 				to_chat(src, "<span class='alert'>You suddenly feel blubbery!</span>")
@@ -689,8 +690,8 @@
 				update_mutantrace(0)
 				update_mutations(0)
 				update_inv_w_uniform(0)
-				update_inv_wear_suit()
 				update_body(0)
+				update_inv_wear_suit()
 
 	// nutrition decrease
 	if(nutrition > 0 && stat != 2)
