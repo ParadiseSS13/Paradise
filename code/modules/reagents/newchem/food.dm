@@ -142,7 +142,7 @@
 
 /datum/reagent/mugwort/on_mob_life(mob/living/M)
 	if(ishuman(M) && M.mind)
-		if(M.mind.special_role == "Wizard")
+		if(M.mind.special_role == SPECIAL_ROLE_WIZARD)
 			M.adjustToxLoss(-1*REM)
 			M.adjustOxyLoss(-1*REM)
 			M.adjustBruteLoss(-1*REM)
