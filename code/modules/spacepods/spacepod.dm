@@ -145,7 +145,7 @@
 	else
 		var/damage = rand(user.melee_damage_lower, user.melee_damage_upper)
 		deal_damage(damage)
-		visible_message("\red <B>[user]</B> [user.attacktext] [src]!")
+		visible_message("<span class='danger'>[user]</span> [user.attacktext] [src]!")
 		user.attack_log += text("\[[time_stamp()]\] <font color='red'>attacked [src.name]</font>")
 	return
 
@@ -321,7 +321,7 @@
 					repair_damage(10)
 					to_chat(user, "\blue You mend some [pick("dents","bumps","damage")] with \the [WT]")
 				return
-			to_chat(user, "\blue <b>\The [src] is fully repaired!</b>")
+			to_chat(user, "<span class='boldnotice'>\The [src] is fully repaired!</span>")
 			return
 
 		if(istype(W, /obj/item/device/lock_buster))
