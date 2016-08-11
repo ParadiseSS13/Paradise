@@ -200,6 +200,7 @@
 	desc = "A close-fitting tactical mask with an especially aggressive Compli-o-nator 3000. It has a tan stripe."
 	icon_state = "hosmask"
 	aggressiveness = 3
+	phrase = 12
 	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/selectphrase)
 
 /obj/item/clothing/mask/gas/sechailer/warden
@@ -224,6 +225,8 @@
 	desc = "A neon blue swat mask, used for demoralizing Greytide in the wild."
 	icon_state = "blue_sechailer"
 	item_state = "blue_sechailer"
+	aggressiveness = 3
+	phrase = 12
 	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/selectphrase)
 
 /obj/item/clothing/mask/gas/sechailer/cyborg
