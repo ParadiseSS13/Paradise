@@ -1423,3 +1423,6 @@ mob/proc/yank_out_object()
 		if(F in target.faction)
 			return 1
 	return 0
+
+/mob/proc/is_literate()
+	return 0

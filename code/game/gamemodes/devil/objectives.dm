@@ -8,6 +8,9 @@
 	target_amount = pick(6,7,8)
 	update_explanation_text()
 
+/datum/objective/devil/proc/update_explanation_text()
+	//Intentionally empty
+
 /datum/objective/devil/soulquantity/update_explanation_text()
 	explanation_text = "Purchase, and retain control over at least [target_amount] souls."
 
@@ -86,8 +89,6 @@
 
 /datum/objective/devil/outsell
 	explanation_text = "You shouldn't see this text.  Error:DEVIL5"
-
-/datum/objective/devil/outsell/New()
 
 /datum/objective/devil/outsell/update_explanation_text()
 	explanation_text = "Purchase and retain control over more souls than [target.devilinfo.truename], known to mortals as [target.name], the [target.assigned_role]."

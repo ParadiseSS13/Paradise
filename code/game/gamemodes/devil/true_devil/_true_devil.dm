@@ -44,7 +44,11 @@
 /mob/living/carbon/true_devil/Login()
 	..()
 	mind.announceDevilLaws()
-	mind.announce_objectives()
+	var/obj_count = 1
+		to_chat(current, "\blue Your current objectives:")
+		for(var/datum/objective/objective in objectives)
+			to_chat(current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
+			obj_count++
 
 
 /mob/living/carbon/true_devil/death(gibbed)

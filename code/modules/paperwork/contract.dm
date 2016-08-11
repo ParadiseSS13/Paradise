@@ -154,7 +154,7 @@
 /obj/item/weapon/paper/contract/infernal/unwilling/update_text(var/signature = "____________", blood = 0)
 	info = "<center><B>Contract for slave</B></center><BR><BR><BR>I, [target], hereby offer my soul to the infernal hells by way of the infernal agent [owner.devilinfo.truename].  I understand that upon my demise, my soul shall fall into the infernal hells, and my body may not be resurrected, cloned, or otherwise brought back to life.  I also understand that this will prevent my brain from being used in an MMI.<BR><BR><BR>Signed, "
 	if(blood)
-		info += "<font face=\"Papyrus\" color=#600A0A size=6><i>[signature]</i></font>"
+		info += "<font face=\"Nyala\" color=#600A0A size=6><i>[signature]</i></font>"
 	else
 		info += "<i>[signature]</i>"
 
