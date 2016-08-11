@@ -601,53 +601,46 @@
 				if(A.locked)
 					A.unlock()
 
-/obj/docking_port/mobile/proc/roadkill(list/L, dir, x, y)
-	for(var/turf/T in L)
-		for(var/atom/movable/AM in T)
-			if(isliving(AM))
-				if(ishuman(AM))
+/obj/docking_port/mobile/proc/roadkill(list/L0, list/L1, dir)
+
+	//check for space pod to do TODO FETHAS DO IT
+	var/list/hurt_mobs = list()
+	for(var/i in 1 to L0.len)
+		var/turf/T0 = L0[i]
+		var/turf/T1 = L1[i]
+		if(!T0 || !T1)
+			continue
+		//if(T0.type == T0.baseturf)
+		//	continue//WOT DO?!
+		// The corresponding tile will not be changed, so no roadkill
+
+		for(var/atom/movable/AM in T1)
+			if(ismob(AM))
+				if(isliving(AM) && !(AM in hurt_mobs))
+					hurt_mobs |= AM
 					var/mob/living/M = AM
+					if(M.buckled)
+						M.buckled.unbuckle_mob(M, 1)
+					if(M.pulledby)
+						M.pulledby.stop_pulling()
+					M.stop_pulling()
 					M.visible_message("<span class='warning'>[M] is hit by \
-						a bluespace ripple and thrown clear!</span>",
-						"<span class='userdanger'>You feel an immense \
-						crushing pressure as the space around you ripples.\
-						</span>")
+							a hyperspace ripple[M.anchored ? "":" and is thrown clear"]!</span>",
+							"<span class='userdanger'>You feel an immense \
+							crushing pressure as the space around you ripples.</span>")
+					if(M.anchored)
+						M.gib()
+					else
+						step(M, dir)
+						M.Paralyse(10)
+						M.ex_act(2)
 
-					M.Paralyse(10)
-					M.apply_damage(60, BRUTE, "chest")
-					M.apply_damage(60, BRUTE, "head")
-					M.anchored = 0
+			else //non-living mobs shouldn't be affected by shuttles, which is why this is an else
+				if(!AM.anchored)
+					step(AM, dir)
 				else
-					var/mob/M = AM
-					M.visible_message("<span class='warning'>[M] is hit by \
-						a bluespace ripple and is torn into pieces!</span>",
-						"<span class='userdanger'>You are torn into pieces by \
-						bluespace churn.</span>")
-					M.gib()
-					continue
+					qdel(AM)
 
-			if(!AM.anchored)
-				step(AM, dir)
-			else
-				qdel(AM)
-/*
-//used to check if atom/A is within the shuttle's bounding box
-/obj/docking_port/mobile/proc/onShuttleCheck(atom/A)
-	var/turf/T = get_turf(A)
-	if(!T)
-		return 0
-
-	var/list/L = return_coords()
-	if(L[1] > L[3])
-		L.Swap(1,3)
-	if(L[2] > L[4])
-		L.Swap(2,4)
-
-	if(L[1] <= T.x && T.x <= L[3])
-		if(L[2] <= T.y && T.y <= L[4])
-			return 1
-	return 0
-*/
 //used by shuttle subsystem to check timers
 /obj/docking_port/mobile/proc/check()
 	var/timeLeft = timeLeft(1)

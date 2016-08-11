@@ -10,14 +10,14 @@
 "aj" = (/obj/machinery/computer/communications,/turf/simulated/floor/noslip,/area/shuttle/escape)
 "ak" = (/obj/machinery/computer/station_alert,/turf/simulated/floor/noslip,/area/shuttle/escape)
 "al" = (/obj/structure/stool/bed/chair{dir = 1},/turf/simulated/floor/plasteel{icon_state = "white"},/area/shuttle/escape)
-"am" = (/obj/item/toy/snappop,/turf/simulated/floor/plasteel{icon_state = "white"},/area/shuttle/escape)
+"am" = (/obj/item/toy/snappop/phoenix,/turf/simulated/floor/plasteel{icon_state = "white"},/area/shuttle/escape)
 "an" = (/obj/machinery/computer/crew,/obj/machinery/status_display{pixel_y = 30},/turf/simulated/floor/noslip,/area/shuttle/escape)
 "ao" = (/obj/structure/stool/bed/chair{dir = 1},/obj/structure/closet/walllocker/emerglocker{pixel_x = -28},/turf/simulated/floor/noslip,/area/shuttle/escape)
-"ap" = (/obj/structure/stool/bed/chair{dir = 1},/obj/structure/closet/walllocker/emerglocker{pixel_x = 28},/turf/simulated/floor/noslip,/area/shuttle/escape)
-"aq" = (/turf/simulated/shuttle/wall{icon_state = "swall3"; dir = 2},/area/shuttle/escape)
-"ar" = (/obj/machinery/computer/robotics,/turf/simulated/floor/noslip,/area/shuttle/escape)
-"as" = (/obj/structure/stool/bed/chair{dir = 8},/turf/simulated/floor/plasteel{icon_state = "white"},/area/shuttle/escape)
-"at" = (/obj/machinery/light/spot,/obj/item/toy/snappop,/turf/simulated/floor/plasteel{icon_state = "white"},/area/shuttle/escape)
+"ap" = (/obj/item/toy/snappop,/turf/simulated/floor/plasteel{icon_state = "white"},/area/shuttle/escape)
+"aq" = (/obj/structure/stool/bed/chair{dir = 1},/obj/structure/closet/walllocker/emerglocker{pixel_x = 28},/turf/simulated/floor/noslip,/area/shuttle/escape)
+"ar" = (/turf/simulated/shuttle/wall{icon_state = "swall3"; dir = 2},/area/shuttle/escape)
+"as" = (/obj/machinery/computer/robotics,/turf/simulated/floor/noslip,/area/shuttle/escape)
+"at" = (/obj/structure/stool/bed/chair{dir = 8},/turf/simulated/floor/plasteel{icon_state = "white"},/area/shuttle/escape)
 "au" = (/obj/structure/stool/bed/chair{dir = 4},/turf/simulated/floor/plasteel{icon_state = "white"},/area/shuttle/escape)
 "av" = (/turf/simulated/floor/noslip,/area/shuttle/escape)
 "aw" = (/turf/simulated/shuttle/wall{icon_state = "swall12"; dir = 2},/area/shuttle/escape)
@@ -28,7 +28,7 @@
 "aB" = (/obj/machinery/status_display{pixel_y = 30},/obj/machinery/light/spot{tag = "icon-tube1 (NORTH)"; icon_state = "tube1"; dir = 1},/turf/unsimulated/floor/chasm,/area/shuttle/escape)
 "aC" = (/obj/structure/grille,/obj/structure/window/full/shuttle{icon_state = "16"},/turf/simulated/floor/plating,/area/shuttle/escape)
 "aD" = (/obj/structure/stool/bed,/obj/item/weapon/bedsheet/rainbow,/turf/simulated/floor/noslip,/area/shuttle/escape)
-"aE" = (/obj/machinery/status_display{pixel_y = 30},/obj/machinery/light/spot{tag = "icon-tube1 (NORTH)"; icon_state = "tube1"; dir = 1},/obj/item/toy/snappop,/turf/simulated/floor/plasteel{icon_state = "white"},/area/shuttle/escape)
+"aE" = (/obj/machinery/status_display{pixel_y = 30},/obj/machinery/light/spot{tag = "icon-tube1 (NORTH)"; icon_state = "tube1"; dir = 1},/obj/item/toy/snappop/phoenix,/turf/simulated/floor/plasteel{icon_state = "white"},/area/shuttle/escape)
 "aF" = (/obj/structure/closet/walllocker/emerglocker{pixel_x = -28},/turf/unsimulated/floor/chasm,/area/shuttle/escape)
 "aG" = (/obj/item/weapon/storage/bible{anchored = 1; icon_state = "greentext"; name = "greentext"},/obj/item/weapon/reagent_containers/food/condiment/saltshaker,/turf/simulated/shuttle/floor4,/area/shuttle/escape)
 "aH" = (/obj/machinery/door/airlock/glass_security{name = "Escape Shuttle Cell"; req_access_txt = "2"},/turf/simulated/floor/noslip,/area/shuttle/escape)
@@ -43,7 +43,7 @@
 "aQ" = (/obj/structure/stool/bed,/obj/structure/stool/bed,/obj/item/weapon/bedsheet/rainbow,/turf/simulated/floor/noslip,/area/shuttle/escape)
 "aR" = (/obj/structure/table,/obj/item/weapon/storage/firstaid/fire,/obj/item/weapon/storage/firstaid/regular{pixel_x = 2; pixel_y = 3},/obj/item/weapon/extinguisher,/obj/item/weapon/crowbar,/obj/machinery/light/spot{tag = "icon-tube1 (WEST)"; icon_state = "tube1"; dir = 8},/obj/item/device/multitool/ai_detect,/turf/simulated/floor/noslip,/area/shuttle/escape)
 "aS" = (/obj/machinery/door/airlock/shuttle{aiControlDisabled = 1; hackProof = 1; id_tag = "s_docking_airlock"; name = "Shuttle Hatch"},/turf/simulated/shuttle/floor,/area/shuttle/escape)
-"aT" = (/obj/machinery/status_display{pixel_y = -30},/obj/machinery/light/spot,/obj/item/toy/snappop,/turf/simulated/floor/plasteel{icon_state = "white"},/area/shuttle/escape)
+"aT" = (/obj/machinery/status_display{pixel_y = -30},/obj/machinery/light/spot,/obj/item/toy/snappop/phoenix,/turf/simulated/floor/plasteel{icon_state = "white"},/area/shuttle/escape)
 "aU" = (/obj/structure/noticeboard,/turf/simulated/shuttle/wall{icon_state = "swall12"; dir = 2},/area/shuttle/escape)
 "aV" = (/obj/machinery/door/airlock/shuttle{aiControlDisabled = 1; hackProof = 1; id_tag = null; name = "Shuttle Cargo Hatch"},/turf/simulated/shuttle/floor{icon_state = "floor3"},/area/shuttle/escape)
 "aW" = (/turf/simulated/shuttle/wall{tag = "icon-swall14"; icon_state = "swall14"; dir = 2},/area/shuttle/escape)
@@ -75,24 +75,24 @@ aaaaaaaaaaabacadaaaaaaaaaa
 aaaaaaaaabaeafagadaaaaaaaa
 aaaaaaabaeahaiajagadaaaaaa
 aaaaaaacakalamalanacaaaaaa
-aaaaabaeaoamamamapagadaaaa
-aaaaaqarasamamatauavaqaaaa
+aaaaabaeaoamamapaqagadaaaa
+aaaaarasatamamamauavaraaaa
 abawaxawawawayawazawaxawad
-aqaAaBaAaCaDamaDaCaDaEaDaq
-aqaFaGaAaHavamaDaIaDamaJaq
-aqaAaAaKaLaDamaDaIaDamaDac
-aMawawawaNaDamaDaNaDamaDaq
-aOamamamamamamamamamamaDaq
-aqaPamaDaCaDamaDaCaDamaDaq
-aCaQamaDaIaDamaDaIaDamaDaC
-aIaDamaDaIaDamaDaIaDamaDaI
-aNaDamaDaNaDamaDaNaDamaDaN
-aqaRamamamamamamamamamamaq
+araAaBaAaCaDamaDaCaDaEaDar
+araFaGaAaHavamaDaIaDamaJar
+araAaAaKaLaDamaDaIaDamaDac
+aMawawawaNaDamaDaNaDamaDar
+aOamamamamamamamamamamaDar
+araPamaDaCaDapaDaCaDamaDar
+aCaQamaDaIaDapaDaIaDamaDaC
+aIaDamaDaIaDapaDaIaDamaDaI
+aNaDamaDaNaDapaDaNaDamaDaN
+araRamamamamamamamamamamar
 aSamamamamaTamaTamamamamac
-aMawaUaVawaWacaWacaXaYaZaq
-baavavavbbaqaaaqbcavavbdaq
-acbeavavbfaqaaaqbgavavbhaq
-aqbibibjbkaqaaaqblblblavaq
+aMawaUaVawaWacaWacaXaYaZar
+baavavavbbaraaarbcavavbdar
+acbeavavbfaraaarbgavavbhar
+arbibibjbkaraaarblblblavar
 bmazbnbnbnboaabpbqbqbqazbr
 aabmbsbsbsbraabmbsbsbsbraa
 "}
