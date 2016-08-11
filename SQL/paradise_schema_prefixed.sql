@@ -29,7 +29,7 @@ CREATE TABLE `SS13_characters` (
   `gender` varchar(11) NOT NULL,
   `age` smallint(4) NOT NULL,
   `species` varchar(45) NOT NULL,
-  `language` varchar(45) NOT NULL,
+  `language` mediumtext NOT NULL,
   `hair_red` smallint(4) NOT NULL,
   `hair_green` smallint(4) NOT NULL,
   `hair_blue` smallint(4) NOT NULL,

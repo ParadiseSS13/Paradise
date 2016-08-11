@@ -518,13 +518,6 @@
 		log_debug("[src] had species [client.prefs.species], though they weren't supposed to. Setting to Human.")
 		client.prefs.species = "Human"
 
-	var/datum/language/chosen_language
-	if(client.prefs.language)
-		chosen_language = all_languages[client.prefs.language]
-	if((chosen_language == null && client.prefs.language != "None") || (chosen_language && chosen_language.flags & RESTRICTED))
-		log_debug("[src] had language [client.prefs.language], though they weren't supposed to. Setting to None.")
-		client.prefs.language = "None"
-
 /mob/new_player/proc/ViewManifest()
 	var/dat = "<html><body>"
 	dat += "<h4>Crew Manifest</h4>"

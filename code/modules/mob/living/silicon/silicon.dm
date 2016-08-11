@@ -162,7 +162,7 @@
 /mob/living/silicon/can_speak(datum/language/speaking)
 	return universal_speak || (speaking in src.speech_synthesizer_langs)	//need speech synthesizer support to vocalize a language
 
-/mob/living/silicon/add_language(var/language, var/can_speak=1)
+/mob/living/silicon/add_language(var/language, var/can_speak = 1)
 	if(..(language) && can_speak)
 		speech_synthesizer_langs.Add(all_languages[language])
 		return 1

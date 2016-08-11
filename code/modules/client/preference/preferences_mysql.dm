@@ -106,7 +106,7 @@
 					gender,
 					age,
 					species,
-					language,
+					languages,
 					hair_red,
 					hair_green,
 					hair_blue,
@@ -175,7 +175,7 @@
 		gender = query.item[4]
 		age = text2num(query.item[5])
 		species = query.item[6]
-		language = query.item[7]
+		alternate_languages = params2list(query.item[7])
 
 		//colors to be consolidated into hex strings (requires some work with dna code)
 		r_hair = text2num(query.item[8])
@@ -243,7 +243,6 @@
 	metadata		= sanitize_text(metadata, initial(metadata))
 	real_name		= reject_bad_name(real_name)
 	if(isnull(species)) species = "Human"
-	if(isnull(language)) language = "None"
 	if(isnull(nanotrasen_relation)) nanotrasen_relation = initial(nanotrasen_relation)
 	if(isnull(speciesprefs)) speciesprefs = initial(speciesprefs)
 	if(!real_name) real_name = random_name(gender,species)
@@ -301,6 +300,7 @@
 	if(!organ_data) src.organ_data = list()
 	if(!rlimb_data) src.rlimb_data = list()
 	if(!gear) gear = list()
+	if(!alternate_languages) alternate_languages = list()
 
 	return 1
 
@@ -309,6 +309,7 @@
 	var/rlimblist
 	var/playertitlelist
 	var/gearlist
+	var/altlanguagelist
 	if(!isemptylist(organ_data))
 		organlist = list2params(organ_data)
 	if(!isemptylist(rlimb_data))
@@ -317,6 +318,8 @@
 		playertitlelist = list2params(player_alt_titles)
 	if(!isemptylist(gear))
 		gearlist = list2params(gear)
+	if(!isemptylist(alternate_languages))
+		altlanguagelist = list2params(alternate_languages)
 
 	var/DBQuery/firstquery = dbcon.NewQuery("SELECT slot FROM [format_table_name("characters")] WHERE ckey='[C.ckey]' ORDER BY slot")
 	firstquery.Execute()
@@ -328,7 +331,7 @@
 												gender='[gender]',
 												age='[age]',
 												species='[sql_sanitize_text(species)]',
-												language='[sql_sanitize_text(language)]',
+												languages='[altlanguagelist]',
 												hair_red='[r_hair]',
 												hair_green='[g_hair]',
 												hair_blue='[b_hair]',
@@ -395,7 +398,7 @@
 
 	var/DBQuery/query = dbcon.NewQuery({"
 					INSERT INTO [format_table_name("characters")] (ckey, slot, OOC_Notes, real_name, name_is_always_random, gender,
-											age, species, language,
+											age, species, languages,
 											hair_red, hair_green, hair_blue,
 											facial_red, facial_green, facial_blue,
 											skin_tone, skin_red, skin_green, skin_blue,
@@ -416,7 +419,7 @@
 
 					VALUES
 											('[C.ckey]', '[default_slot]', '[sql_sanitize_text(metadata)]', '[sql_sanitize_text(real_name)]', '[be_random_name]','[gender]',
-											'[age]', '[sql_sanitize_text(species)]', '[sql_sanitize_text(language)]',
+											'[age]', '[sql_sanitize_text(species)]', '[altlanguagelist]',
 											'[r_hair]', '[g_hair]', '[b_hair]',
 											'[r_facial]', '[g_facial]', '[b_facial]',
 											'[s_tone]', '[r_skin]', '[g_skin]', '[b_skin]',

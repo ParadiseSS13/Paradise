@@ -111,12 +111,13 @@
 	// Language/culture vars.
 	var/default_language = "Galactic Common" // Default language is used when 'say' is used without modifiers.
 	var/language = "Galactic Common"         // Default racial language, if any.
-	var/secondary_langs = list()             // The names of secondary languages that are available to this species.
+	var/list/secondary_langs = list()             // The names of secondary languages that are available to this species.
 	var/list/speech_sounds                   // A list of sounds to potentially play when speaking.
 	var/list/speech_chance                   // The likelihood of a speech sound playing.
 	var/scream_verb = "screams"
 	var/male_scream_sound = 'sound/goonstation/voice/male_scream.ogg'
 	var/female_scream_sound = 'sound/goonstation/voice/female_scream.ogg'
+	var/num_alternate_languages = 0          // How many secondary languages are available to select at character creation
 
 	//Default hair/headacc style vars.
 	var/default_hair = "Bald" 		//Default hair style for newly created humans unless otherwise set.
