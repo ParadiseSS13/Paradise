@@ -22,6 +22,22 @@
 	recharging_mecha = null
 	return ..()
 
+
+/turf/simulated/floor/mech_bay_recharge_floor/attackby(obj/item/C as obj, mob/user as mob, params)
+	if(!C || !user) // I don't know what these do, they're leftovers from floor.dm
+		return 1
+	if(..()) // Ditto
+		return 1
+	if(intact && istype(C, /obj/item/weapon/screwdriver)) //Can't be a crowbar, because otherwise the attackby() for floor.dm intercepts the call
+		to_chat(user, "<span class='danger'>You disassemble the mech bay recharge station.</span>")
+		Destroy() //calls the proc above that stops the machine from working
+		make_plating() //turns the floor back into uncovered plates
+		//how to get back the plasteel?
+		playsound(src, 'sound/items/Crowbar.ogg', 80, 1)
+		return 1
+	return 0
+
+
 /turf/simulated/floor/mech_bay_recharge_floor/Entered(var/obj/mecha/mecha, atom/OL, ignoreRest = 0)
 	. = ..()
 	if(istype(mecha))

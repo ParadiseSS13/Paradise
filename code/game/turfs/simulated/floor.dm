@@ -146,8 +146,6 @@ var/list/icons_to_ignore_at_floor_init = list("damaged1","damaged2","damaged3","
 		else
 			if(istype(src, /turf/simulated/floor/wood))
 				to_chat(user, "<span class='danger'>You forcefully pry off the planks, destroying them in the process.</span>")
-			else if(istype(src, /turf/simulated/floor/mech_bay_recharge_floor))
-				to_chat(user, "<span class='danger'>You hack apart the mech bay recharge station, destroying it in the process.</span>") //there is probably a better way to do this, but I don't know it.
 			else if(!builtin_tile)
 				to_chat(user, "<span class='notice'>You are unable to pry up \the [src] with a crowbar.</span>")
 				return 1
