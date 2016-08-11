@@ -729,7 +729,7 @@
 	to_chat(user, "<span class='notice'>The [src] begins to vibrate!</span>")
 	spawn(rand(10,30))
 		var/turf/userturf = get_turf(user)
-		if(src.loc == user && userturf.z != ZLEVEL_CENTCOMM) //Because Nuke Ops bringing this back on their shuttle, then looting the ERT area is 2fun4you!
+		if(src.loc == user && is_teleport_allowed(userturf.z)) //Because Nuke Ops bringing this back on their shuttle, then looting the ERT area is 2fun4you!
 			visible_message("<span class='notice'>The [src] twists and bends, relocating itself!</span>")
 			throwSmoke(userturf)
 			do_teleport(user, userturf, 8, asoundin = 'sound/effects/phasein.ogg')

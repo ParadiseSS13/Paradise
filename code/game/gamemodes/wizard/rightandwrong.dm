@@ -12,7 +12,7 @@
 		if(H.stat == 2 || !(H.client))
 			continue
 		if(H.mind)
-			if(H.mind.special_role == "Wizard" || H.mind.special_role == "apprentice")
+			if(H.mind.special_role == SPECIAL_ROLE_WIZARD || H.mind.special_role == SPECIAL_ROLE_WIZARD_APPRENTICE)
 				continue
 		var/randomizeguns = pick(gunslist)
 		var/randomizemagic = pick(magiclist)
