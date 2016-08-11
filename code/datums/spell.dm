@@ -388,9 +388,9 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 		if((invocation_type == "whisper" || invocation_type == "shout") && H.is_muzzled())
 			return 0
 
-		var/obj/effect/proc_holder/spell/noclothes/clothcheck = locate() in user.mob_spell_list
-		var/obj/effect/proc_holder/spell/noclothes/clothcheck2 = locate() in user.mind.spell_list
-		if(clothes_req && !(clothcheck && istype(clothcheck)) && !(clothcheck2 && istype(clothcheck2)))//clothes check
+		var/clothcheck = locate(/obj/effect/proc_holder/spell/noclothes) in user.mob_spell_list
+		var/clothcheck2 = user.mind && (locate(/obj/effect/proc_holder/spell/noclothes) in user.mind.spell_list)
+		if(clothes_req && !clothcheck && !clothcheck2) //clothes check
 			if(!istype(H.wear_suit, /obj/item/clothing/suit/wizrobe) && !istype(H.wear_suit, /obj/item/clothing/suit/space/rig/wizard))
 				return 0
 			if(!istype(H.shoes, /obj/item/clothing/shoes/sandal))
