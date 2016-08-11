@@ -12,6 +12,9 @@
 	nitrogen = 0.01
 	temperature = TCMB
 
+
+///turf/simulated/floor/mech_bay_recharge_floor/BeforeChange() //I'm told this is a better thing to call this request by. Undefinied proc error though.
+
 /turf/simulated/floor/mech_bay_recharge_floor/Destroy()
 	if(recharge_console && recharge_console.recharge_floor == src)
 		recharge_console.recharge_floor = null
@@ -28,11 +31,11 @@
 		return 1
 	if(..()) // Ditto
 		return 1
-	if(intact && istype(C, /obj/item/weapon/screwdriver)) //Can't be a crowbar, because otherwise the attackby() for floor.dm intercepts the call
+	if(intact && istype(C, /obj/item/weapon/screwdriver)) //Can't be a crowbar, because otherwise the attackby() for floor.dm intercepts the call, I think
 		to_chat(user, "<span class='danger'>You disassemble the mech bay recharge station.</span>")
-		Destroy() //calls the proc above that stops the machine from working
+		new /obj/item/stack/sheet/plasteel(src, 2)
+		qdel() //calls the proc above that stops the machine from working - Not required with BeforeChange, but that isn't working.
 		make_plating() //turns the floor back into uncovered plates
-		//how to get back the plasteel?
 		playsound(src, 'sound/items/Crowbar.ogg', 80, 1)
 		return 1
 	return 0
