@@ -61,7 +61,7 @@
 		if((Proj.damage_type == BRUTE || Proj.damage_type == BURN))
 			adjustHealth(Proj.damage)
 	else
-		visible_message("\red <B>[src] blocks [Proj] with its shield!</B>")
+		visible_message("<span class='danger'>[src] blocks [Proj] with its shield!</span>")
 	return 0
 
 

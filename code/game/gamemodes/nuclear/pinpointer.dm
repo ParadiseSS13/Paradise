@@ -12,7 +12,12 @@
 	var/obj/item/weapon/disk/nuclear/the_disk = null
 	var/active = 0
 
+/obj/item/weapon/pinpointer/New()
+	..()
+	pinpointer_list += src
+
 /obj/item/weapon/pinpointer/Destroy()
+	pinpointer_list -= src
 	active = 0
 	the_disk = null
 	return ..()

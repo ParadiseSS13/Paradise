@@ -28,7 +28,7 @@
 	return 1
 
 /obj/docking_port/mobile/supply/canMove()
-	if(z == ZLEVEL_STATION)
+	if(is_station_level(z))
 		return forbidden_atoms_check(areaInstance)
 	return ..()
 
@@ -45,7 +45,7 @@
 	sell()
 
 /obj/docking_port/mobile/supply/proc/buy()
-	if(z != ZLEVEL_STATION)		//we only buy when we are -at- the station
+	if(!is_station_level(z))		//we only buy when we are -at- the station
 		return 1
 
 	if(!shuttle_master.shoppinglist.len)
@@ -93,7 +93,7 @@
 	shuttle_master.shoppinglist.Cut()
 
 /obj/docking_port/mobile/supply/proc/sell()
-	if(z != ZLEVEL_CENTCOMM)		//we only sell when we are -at- centcomm
+	if(z != level_name_to_num(CENTCOMM))		//we only sell when we are -at- centcomm
 		return 1
 
 	var/plasma_count = 0

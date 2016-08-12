@@ -213,16 +213,10 @@ var/global/datum/controller/occupations/job_master
 	proc/FillAIPosition()
 		var/ai_selected = 0
 		var/datum/job/job = GetJob("AI")
-		if(!job)	return 0
-		if((job.title == "AI") && (config) && (!config.allow_ai))	return 0
-
-		if(ticker.mode.name == "AI malfunction")	// malf. AIs are pre-selected before jobs
-			for(var/datum/mind/mAI in ticker.mode.malf_ai)
-				AssignRole(mAI.current, "AI")
-				ai_selected++
-			if(ai_selected)	return 1
+		if(!job)
 			return 0
-
+		if((job.title == "AI") && (config) && (!config.allow_ai))
+			return 0
 		for(var/i = job.total_positions, i > 0, i--)
 			for(var/level = 1 to 3)
 				var/list/candidates = list()
@@ -485,7 +479,7 @@ var/global/datum/controller/occupations/job_master
 			H.mind.store_memory(remembered_info)
 
 		spawn(0)
-			to_chat(H, "\blue<b>Your account number is: [M.account_number], your account pin is: [M.remote_access_pin]</b>")
+			to_chat(H, "<span class='boldnotice'>Your account number is: [M.account_number], your account pin is: [M.remote_access_pin]</span>")
 
 		var/alt_title = null
 		if(H.mind)

@@ -54,7 +54,7 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 			changelings += changeling
 			changeling.restricted_roles = restricted_jobs
 			modePlayer += changelings
-			changeling.special_role = "Changeling"
+			changeling.special_role = SPECIAL_ROLE_CHANGELING
 		return 1
 	else
 		return 0
@@ -110,7 +110,7 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 			if(identity_theft.target && identity_theft.target.current)
 				identity_theft.target_real_name = kill_objective.target.current.real_name //Whoops, forgot this.
 				var/mob/living/carbon/human/H = identity_theft.target.current
-				if(H.species && H.species.flags && H.species.flags & NO_SCAN) // For species that can't be absorbed - should default to an escape objective instead
+				if(check_species_absorb(H.species)) // For species that can't be absorbed - should default to an escape objective
 					return
 				else
 					identity_theft.explanation_text = "Escape on the shuttle or an escape pod with the identity of [identity_theft.target_real_name], the [identity_theft.target.assigned_role] while wearing their identification card."
@@ -130,8 +130,8 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 
 /datum/game_mode/proc/greet_changeling(var/datum/mind/changeling, var/you_are=1)
 	if(you_are)
-		to_chat(changeling.current, "<B>\red You are a changeling!</B>")
-	to_chat(changeling.current, "<b>\red Use say \":g message\" to communicate with your fellow changelings. Remember: you get all of their absorbed DNA if you absorb them.</b>")
+		to_chat(changeling.current, "<span class='danger'>You are a changeling!</span>")
+	to_chat(changeling.current, "<span class='danger'>Use say \":g message\" to communicate with your fellow changelings. Remember: you get all of their absorbed DNA if you absorb them.</span>")
 	to_chat(changeling.current, "<B>You must complete the following tasks:</B>")
 	if(changeling.current.mind)
 		if(changeling.current.mind.assigned_role == "Clown")
@@ -168,29 +168,6 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 	var/datum/atom_hud/antag/linghud = huds[ANTAG_HUD_CHANGELING]
 	linghud.leave_hud(changeling.current)
 	set_antag_hud(changeling.current, null)
-
-
-/*/datum/game_mode/changeling/check_finished()
-	var/changelings_alive = 0
-	for(var/datum/mind/changeling in changelings)
-		if(!istype(changeling.current,/mob/living/carbon))
-			continue
-		if(changeling.current.stat==2)
-			continue
-		changelings_alive++
-
-	if(changelings_alive)
-		changelingdeath = 0
-		return ..()
-	else
-		if(!changelingdeath)
-			changelingdeathtime = world.time
-			changelingdeath = 1
-		if(world.time-changelingdeathtime > TIME_TO_GET_REVIVED)
-			return 1
-		else
-			return ..()
-	return 0*/
 
 /datum/game_mode/proc/grant_changeling_powers(mob/living/carbon/changeling_mob)
 	if(!istype(changeling_mob))	return
@@ -329,3 +306,5 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 
 	return 1
 
+/proc/check_species_absorb(datum/species/S)
+  return !((S.flags & NO_DNA) || (S.flags & NO_SCAN) || (S.flags & NO_BLOOD))

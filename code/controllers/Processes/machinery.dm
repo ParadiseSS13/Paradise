@@ -7,7 +7,7 @@
 
 /datum/controller/process/machinery/statProcess()
 	..()
-	stat(null, "[machines.len] machines")
+	stat(null, "[machine_processing.len] machines")
 	stat(null, "[powernets.len] powernets, [deferred_powernet_rebuilds.len] deferred")
 
 /datum/controller/process/machinery/doWork()
@@ -19,15 +19,15 @@
 /datum/controller/process/machinery/proc/process_sort()
 	if(machinery_sort_required)
 		machinery_sort_required = 0
-		machines = dd_sortedObjectList(machines)
+		machine_processing = dd_sortedObjectList(machine_processing)
 
 /datum/controller/process/machinery/proc/process_machines()
-	for(last_object in machines)
+	for(last_object in machine_processing)
 		var/obj/machinery/M = last_object
 		if(istype(M) && isnull(M.gcDestroyed))
 			try
 				if(M.process() == PROCESS_KILL)
-					machines.Remove(M)
+					machine_processing.Remove(M)
 					continue
 
 				if(M.use_power)
@@ -36,7 +36,7 @@
 				catchException(e, M)
 		else
 			catchBadType(M)
-			machines -= M
+			machine_processing -= M
 
 		SCHECK_EVERY(100)
 

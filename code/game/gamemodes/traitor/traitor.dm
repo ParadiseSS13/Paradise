@@ -11,7 +11,7 @@
 	name = "traitor"
 	config_tag = "traitor"
 	restricted_jobs = list("Cyborg")//They are part of the AI if he is traitor so are they, they use to get double chances
-	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Internal Affairs Agent", "Captain", "Blueshield", "Nanotrasen Representative", "Security Pod Pilot", "Magistrate", "Internal Affairs Agent", "Brig Physician", "Nanotrasen Navy Officer", "Special Operations Officer")//AI", Currently out of the list as malf does not work for shit
+	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Internal Affairs Agent", "Captain", "Blueshield", "Nanotrasen Representative", "Security Pod Pilot", "Magistrate", "Internal Affairs Agent", "Brig Physician", "Nanotrasen Navy Officer", "Special Operations Officer")
 	required_players = 0
 	required_enemies = 1
 	recommended_enemies = 4
@@ -48,7 +48,7 @@
 			break
 		var/datum/mind/traitor = pick(possible_traitors)
 		traitors += traitor
-		traitor.special_role = "traitor"
+		traitor.special_role = SPECIAL_ROLE_TRAITOR
 		var/datum/mindslaves/slaved = new()
 		slaved.masters += traitor
 		traitor.som = slaved //we MIGT want to mindslave someone
@@ -219,6 +219,10 @@
 	killer.set_zeroth_law(law, law_borg)
 	to_chat(killer, "New law: 0. [law]")
 	give_codewords(killer)
+	killer.set_syndie_radio()
+	to_chat(killer, "Your radio has been upgraded! Use :t to speak on an encrypted channel with Syndicate Agents!")
+	killer.verbs += /mob/living/silicon/ai/proc/choose_modules
+	killer.malf_picker = new /datum/module_picker
 
 
 /datum/game_mode/proc/auto_declare_completion_traitor()
