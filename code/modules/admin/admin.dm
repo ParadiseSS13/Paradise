@@ -773,7 +773,7 @@ var/global/nologevent = 0
 	set desc = "(atom path) Spawn an atom"
 	set name = "Spawn"
 
-	if(!check_rights(R_SPAWN))
+	if(!check_rights(R_DEBUG))
 		return
 
 	var/list/types = typesof(/atom)
