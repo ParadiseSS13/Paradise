@@ -852,7 +852,7 @@
 					special_role = SPECIAL_ROLE_WIZARD
 					//ticker.mode.learn_basic_spells(current)
 					ticker.mode.update_wiz_icons_added(src)
-					to_chat(current, "<B>\red You are the Space Wizard!</B>")
+					to_chat(current, "<span class='danger'>You are the Space Wizard!</span>")
 					current.faction = list("wizard")
 					log_admin("[key_name(usr)] has wizarded [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has wizarded [key_name_admin(current)]")
@@ -1043,7 +1043,7 @@
 					slaved.masters += src
 					src.som = slaved //we MIGT want to mindslave someone
 					special_role = SPECIAL_ROLE_TRAITOR
-					to_chat(current, "<B>\red You are a traitor!</B>")
+					to_chat(current, "<span class='danger'>You are a traitor!</span>")
 					log_admin("[key_name(usr)] has traitored [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has traitored [key_name_admin(current)]")
 					if(istype(current, /mob/living/silicon))

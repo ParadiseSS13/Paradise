@@ -548,7 +548,7 @@
 			var/damage = rand(user.melee_damage_lower, user.melee_damage_upper)
 			src.take_damage(damage)
 			src.check_for_internal_damage(list(MECHA_INT_TEMP_CONTROL,MECHA_INT_TANK_BREACH,MECHA_INT_CONTROL_LOST))
-			visible_message("\red <B>[user]</B> [user.attacktext] [src]!")
+			visible_message("<span class='danger'>[user]</span> [user.attacktext] [src]!")
 			user.attack_log += text("\[[time_stamp()]\] <font color='red'>attacked [src.name]</font>")
 		else
 			src.log_append_to_last("Armor saved.")
@@ -932,7 +932,7 @@
 		emagged = 1
 		to_chat(usr, "\blue You slide the card through the [src]'s ID slot.")
 		playsound(src.loc, "sparks", 100, 1)
-		src.desc += "</br><b>\red The mech's equipment slots spark dangerously!</b>"
+		src.desc += "</br><span class='danger'>The mech's equipment slots spark dangerously!</span>"
 	else
 		to_chat(usr, "\red The [src]'s ID slot rejects the card.")
 	return

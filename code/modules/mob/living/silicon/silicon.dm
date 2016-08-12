@@ -75,7 +75,7 @@
 			src.take_organ_damage(10)
 			Stun(3)
 	flash_eyes(affect_silicon = 1)
-	to_chat(src, "\red <B>*BZZZT*</B>")
+	to_chat(src, "<span class='danger'>*BZZZT*</span>")
 	to_chat(src, "\red Warning: Electromagnetic pulse detected.")
 	..()
 

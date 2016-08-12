@@ -756,10 +756,10 @@
 							M = A
 							break
 				if(M)
-					message = "\red <B>[src]</B> slaps [M] across the face. Ouch!"
+					message = "<span class='danger'>[src]</span> slaps [M] across the face. Ouch!"
 					playsound(src.loc, 'sound/effects/snap.ogg', 50, 1)
 				else
-					message = "\red <B>[src]</B> slaps \himself!"
+					message = "<span class='danger'>[src]</span> slaps \himself!"
 					playsound(src.loc, 'sound/effects/snap.ogg', 50, 1)
 					src.adjustFireLoss(4)
 

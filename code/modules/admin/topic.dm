@@ -454,7 +454,7 @@
 				add_note(M.ckey, "Appearance banned - [reason]", null, usr, 0)
 				message_admins("\blue [key_name_admin(usr)] appearance banned [key_name_admin(M)]", 1)
 				to_chat(M, "\red<BIG><B>You have been appearance banned by [usr.client.ckey].</B></BIG>")
-				to_chat(M, "\red <B>The reason is: [reason]</B>")
+				to_chat(M, "<span class='danger'>The reason is: [reason]</span>")
 				to_chat(M, "\red Appearance ban can be lifted only upon request.")
 				if(config.banappeals)
 					to_chat(M, "\red To try to resolve this matter head to [config.banappeals]")
@@ -818,7 +818,7 @@
 					add_note(M.ckey, "Banned  from [msg] - [reason]", null, usr, 0)
 					message_admins("\blue [key_name_admin(usr)] banned [key_name_admin(M)] from [msg] for [mins] minutes", 1)
 					to_chat(M, "\red<BIG><B>You have been jobbanned by [usr.client.ckey] from: [msg].</B></BIG>")
-					to_chat(M, "\red <B>The reason is: [reason]</B>")
+					to_chat(M, "<span class='danger'>The reason is: [reason]</span>")
 					to_chat(M, "\red This jobban will be lifted in [mins] minutes.")
 					href_list["jobban2"] = 1 // lets it fall through and refresh
 					return 1
@@ -838,7 +838,7 @@
 						add_note(M.ckey, "Banned  from [msg] - [reason]", null, usr, 0)
 						message_admins("\blue [key_name_admin(usr)] banned [key_name_admin(M)] from [msg]", 1)
 						to_chat(M, "\red<BIG><B>You have been jobbanned by [usr.client.ckey] from: [msg].</B></BIG>")
-						to_chat(M, "\red <B>The reason is: [reason]</B>")
+						to_chat(M, "<span class='danger'>The reason is: [reason]</span>")
 						to_chat(M, "\red Jobban can be lifted only upon request.")
 						href_list["jobban2"] = 1 // lets it fall through and refresh
 						return 1
@@ -1099,7 +1099,7 @@
 		master_mode = href_list["c_mode2"]
 		log_admin("[key_name(usr)] set the mode as [master_mode].")
 		message_admins("\blue [key_name_admin(usr)] set the mode as [master_mode].", 1)
-		to_chat(world, "\blue <b>The mode is now: [master_mode]</b>")
+		to_chat(world, "<span class='boldnotice'>The mode is now: [master_mode]</span>")
 		Game() // updates the main game menu
 		world.save_mode(master_mode)
 		.(href, list("c_mode"=1))
@@ -2450,11 +2450,11 @@
 						M.show_message(text("\blue The chilling wind suddenly stops..."), 1)
 /*				if("shockwave")
 				ok = 1
-				to_chat(world, "\red <B><big>ALERT: STATION STRESS CRITICAL</big></B>")
+				to_chat(world, "<span class='danger'><big>ALERT: STATION STRESS CRITICAL</big></span>")
 				sleep(60)
-				to_chat(world, "\red <B><big>ALERT: STATION STRESS CRITICAL. TOLERABLE LEVELS EXCEEDED!</big></B>")
+				to_chat(world, "<span class='danger'><big>ALERT: STATION STRESS CRITICAL. TOLERABLE LEVELS EXCEEDED!</big></span>")
 				sleep(80)
-				to_chat(world, "\red <B><big>ALERT: STATION STRUCTURAL STRESS CRITICAL. SAFETY MECHANISMS FAILED!</big></B>")
+				to_chat(world, "<span class='danger'><big>ALERT: STATION STRUCTURAL STRESS CRITICAL. SAFETY MECHANISMS FAILED!</big></span>")
 				sleep(40)
 				for(var/mob/M in world)
 					shake_camera(M, 400, 1)
@@ -2542,7 +2542,7 @@
 				feedback_inc("admin_secrets_fun_used",1)
 				feedback_add_details("admin_secrets_fun_used","RET")
 				for(var/mob/living/carbon/human/H in player_list)
-					to_chat(H, "\red <B>You suddenly feel stupid.</B>")
+					to_chat(H, "<span class='danger'>You suddenly feel stupid.</span>")
 					H.setBrainLoss(60)
 				message_admins("[key_name_admin(usr)] made everybody retarded")
 			if("fakeguns")

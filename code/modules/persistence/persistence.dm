@@ -15,7 +15,7 @@
 * This will be called after `New` but before `initialize`, so linking and stuff
 * would probably be handled in `initialize`
 *
-* Also, this should only be called by `json_to_object` in persistence.dm - at least
+* Also, this should only be called by `list_to_object` in persistence.dm - at least
 * with current plans - that way it can actually initialize the type from the list
 */
 /datum/proc/deserialize(var/list/data)
@@ -57,6 +57,19 @@
 	..()
 
 
+/*
+Whoops, forgot to put documentation here.
+What this does, is take a JSON string produced by running
+BYOND's native `json_encode` on a list from `serialize` above, and
+turns that string into a new instance of that object.
+
+You can also easily get an instance of this string by calling "Serialize Marked Datum"
+in the "Debug" tab.
+
+If you're clever, you can do neat things with SDQL and this, though be careful -
+some objects, like humans, are dependent that certain extra things are defined
+in their list
+*/
 /proc/json_to_object(var/json_data, var/loc)
 	var/data = json_decode(json_data)
 	return list_to_object(data, loc)
