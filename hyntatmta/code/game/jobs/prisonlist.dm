@@ -104,7 +104,7 @@ var/list/bwhitelist
 	if(!dbcon.IsConnected())
 		log_admin("Unable to connect to whitelist database. Please try again later.")
 		return 1
-	if(config.prisonlist_enabled)
+	if(!config.prisonlist_enabled)
 		log_admin("Whitelist disabled in config.")
 		return 1
 	else
