@@ -226,13 +226,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	statpanel("Status")
 	if(client.statpanel == "Status")
 		show_stat_station_time()
-		if(ticker)
-			if(ticker.mode)
-//				to_chat(world, "DEBUG: ticker not null")
-				if(ticker.mode.name == "AI malfunction")
-//					to_chat(world, "DEBUG: malf mode ticker test")
-					if(ticker.mode:malf_mode_declared)
-						stat(null, "Time left: [max(ticker.mode:AI_win_timeleft/(ticker.mode:apcs/3), 0)]")
 		show_stat_emergency_shuttle_eta()
 
 /mob/dead/observer/verb/reenter_corpse()
