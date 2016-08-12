@@ -158,6 +158,7 @@
 		if(signal.data["done"])
 			useTC = 1
 			var/turf/pos = get_turf(P)
+			// TODO: Make the radio system cooperate with the space manager
 			if(pos.z in signal.data["level"])
 				useTC = 2
 				//Let's make this barely readable

@@ -37,7 +37,9 @@
 		src.add_fingerprint(usr)
 		return
 
-
+/obj/item/weapon/storage/belt/deserialize(list/data)
+	..()
+	update_icon()
 
 /obj/item/weapon/storage/belt/utility
 	name = "tool-belt" //Carn: utility belt is nicer, but it bamboozles the text parsing.
@@ -312,6 +314,10 @@
 		"/obj/item/ammo_casing/shotgun"
 		)
 
+/obj/item/weapon/storage/belt/bandolier/New()
+	..()
+	update_icon()
+
 /obj/item/weapon/storage/belt/bandolier/full/New()
 	..()
 	new /obj/item/ammo_casing/shotgun/beanbag(src)
@@ -434,6 +440,31 @@
 	name = "yellow fannypack"
 	icon_state = "fannypack_yellow"
 	item_state = "fannypack_yellow"
+
+/obj/item/weapon/storage/belt/rapier
+	name = "rapier sheath"
+	desc = "Can hold rapiers."
+	icon_state = "sheath"
+	item_state = "sheath"
+	storage_slots = 1
+	max_w_class = 4
+	can_hold = list("/obj/item/weapon/melee/rapier")
+
+/obj/item/weapon/storage/belt/rapier/update_icon()
+	icon_state = "[initial(icon_state)]"
+	item_state = "[initial(item_state)]"
+	if(contents.len)
+		icon_state = "[initial(icon_state)]-rapier"
+		item_state = "[initial(item_state)]-rapier"
+	if(isliving(loc))
+		var/mob/living/L = loc
+		L.update_inv_belt()
+	..()
+
+/obj/item/weapon/storage/belt/rapier/New()
+	..()
+	new /obj/item/weapon/melee/rapier(src)
+	update_icon()
 
 // -------------------------------------
 //     Bluespace Belt

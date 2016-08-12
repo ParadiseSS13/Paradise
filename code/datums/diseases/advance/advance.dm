@@ -406,7 +406,7 @@ var/list/advance_cures = 	list(
 			AD.Refresh()
 
 		for(var/mob/living/carbon/human/H in shuffle(living_mob_list))
-			if(H.z != 1)
+			if(!is_station_level(H.z))
 				continue
 			if(!H.HasDisease(D))
 				H.ForceContractDisease(D)

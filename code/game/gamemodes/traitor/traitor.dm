@@ -48,7 +48,7 @@
 			break
 		var/datum/mind/traitor = pick(possible_traitors)
 		traitors += traitor
-		traitor.special_role = "traitor"
+		traitor.special_role = SPECIAL_ROLE_TRAITOR
 		var/datum/mindslaves/slaved = new()
 		slaved.masters += traitor
 		traitor.som = slaved //we MIGT want to mindslave someone

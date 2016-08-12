@@ -427,7 +427,7 @@ proc/get_nt_opposed()
 /proc/get_nuke_code()
 	var/nukecode = "ERROR"
 	for(var/obj/machinery/nuclearbomb/bomb in world)
-		if(bomb && bomb.r_code && bomb.z == ZLEVEL_STATION)
+		if(bomb && bomb.r_code && is_station_level(bomb.z))
 			nukecode = bomb.r_code
 	return nukecode
 
@@ -451,7 +451,7 @@ proc/get_nt_opposed()
 			text += " <span class='boldannounce'>died</span>"
 		else
 			text += " <span class='greenannounce'>survived</span>"
-		if(fleecheck && ply.current.z > ZLEVEL_STATION)
+		if(fleecheck && !is_station_level(ply.current.z))
 			text += " while <span class='boldannounce'>fleeing the station</span>"
 		if(ply.current.real_name != ply.name)
 			text += " as <b>[ply.current.real_name]</b>"

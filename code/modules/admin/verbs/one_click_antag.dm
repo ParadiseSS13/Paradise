@@ -146,40 +146,16 @@ client/proc/one_click_antag()
 	return 0
 
 /datum/admins/proc/makeWizard()
-	var/list/mob/candidates = list()
-	var/mob/theghost = null
-	var/time_passed = world.time
 
-	for(var/mob/G in respawnable_list)
-		if(istype(G) && G.client && (ROLE_WIZARD in G.client.prefs.be_special))
-			if(!jobban_isbanned(G, "wizard") && !jobban_isbanned(G, "Syndicate"))
-				if(player_old_enough_antag(G.client,ROLE_WIZARD))
-					spawn(0)
-						switch(G.timed_alert("Do you wish to be considered for the position of Space Wizard Foundation 'diplomat'?","Please answer in 30 seconds!","No",300,"Yes","No"))//alert(G, "Do you wish to be considered for the position of Space Wizard Foundation 'diplomat'?","Please answer in 30 seconds!","Yes","No"))
-							if("Yes")
-								if((world.time-time_passed)>300)//If more than 30 game seconds passed.
-									return
-								candidates += G
-							if("No")
-								return
-							else
-								return
-
-	sleep(300)
+	var/list/candidates = pollCandidates("Do you wish to be considered for the position of a Wizard Foundation 'diplomat'?", "wizard")
 
 	if(candidates.len)
-		candidates = shuffle(candidates)
-		for(var/mob/dead/observer/i in candidates)
-			if(!i || !i.client) continue //Dont bother removing them from the list since we only grab one wizard
+		var/mob/dead/observer/selected = pick(candidates)
+		candidates -= selected
 
-			theghost = i
-			break
-
-	if(theghost)
-		var/mob/living/carbon/human/new_character=makeBody(theghost)
+		var/mob/living/carbon/human/new_character = makeBody(selected)
 		new_character.mind.make_Wizard()
 		return 1
-
 	return 0
 
 
@@ -380,7 +356,7 @@ client/proc/one_click_antag()
 				//So they don't forget their code or mission.
 
 
-				to_chat(new_syndicate_commando, "\blue You are an Elite Syndicate. [!syndicate_leader_selected?"commando":"<B>LEADER</B>"] in the service of the Syndicate. \nYour current mission is: \red<B> [input]</B>")
+				to_chat(new_syndicate_commando, "\blue You are an Elite Syndicate. [!syndicate_leader_selected?"commando":"<B>LEADER</B>"] in the service of the Syndicate. \nYour current mission is: <span class='danger'> [input]</span>")
 
 				numagents--
 		if(numagents >= 6)
@@ -426,7 +402,7 @@ client/proc/one_click_antag()
 	//Creates mind stuff.
 	new_syndicate_commando.mind_initialize()
 	new_syndicate_commando.mind.assigned_role = "MODE"
-	new_syndicate_commando.mind.special_role = "Syndicate Commando"
+	new_syndicate_commando.mind.special_role = SPECIAL_ROLE_SYNDICATE_DEATHSQUAD
 
 	//Adds them to current traitor list. Which is really the extra antagonist list.
 	ticker.mode.traitors += new_syndicate_commando.mind
@@ -487,7 +463,7 @@ client/proc/one_click_antag()
 				new_vox.key = theghost.key
 				ticker.mode.traitors += new_vox.mind
 
-				to_chat(new_vox, "\blue You are a Vox Primalis, fresh out of the Shoal. Your ship has arrived at the Tau Ceti system hosting the NSV Exodus... or was it the Luna? NSS? Utopia? Nobody is really sure, but everyong is raring to start pillaging! Your current goal is: \red<B> [input]</B>")
+				to_chat(new_vox, "\blue You are a Vox Primalis, fresh out of the Shoal. Your ship has arrived at the Tau Ceti system hosting the NSV Exodus... or was it the Luna? NSS? Utopia? Nobody is really sure, but everyong is raring to start pillaging! Your current goal is: <span class='danger'> [input]</span>")
 				to_chat(new_vox, "\red Don't forget to turn on your nitrogen internals!")
 
 				raiders--

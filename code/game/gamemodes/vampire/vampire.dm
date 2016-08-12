@@ -10,7 +10,7 @@
 	config_tag = "vampire"
 	restricted_jobs = list("AI", "Cyborg")
 	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Blueshield", "Nanotrasen Representative", "Security Pod Pilot", "Magistrate", "Chaplain", "Brig Physician", "Internal Affairs Agent", "Nanotrasen Navy Officer", "Special Operations Officer")
-	protected_species = list("Machine")
+	protected_species = list("Machine", "Plasmaman")
 	required_players = 15
 	required_enemies = 1
 	recommended_enemies = 4
@@ -58,7 +58,7 @@
 			var/datum/mindslaves/slaved = new()
 			slaved.masters += vampire
 			vampire.som = slaved //we MIGT want to mindslave someone
-			vampire.special_role = "Vampire" // Needs to be done in pre-setup to prevent role bugs
+			vampire.special_role = SPECIAL_ROLE_VAMPIRE
 		return 1
 	else
 		return 0
@@ -273,7 +273,7 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 	owner.attack_log += text("\[[time_stamp()]\] <font color='red'>Bit [H] ([H.ckey]) in the neck and draining their blood</font>")
 	H.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been bit in the neck by [owner] ([owner.ckey])</font>")
 	log_attack("[owner] ([owner.ckey]) bit [H] ([H.ckey]) in the neck")
-	owner.visible_message("<span class='danger'>[owner] bites [H]'s neck!</span>", "<span class='danger'>You bite [H]'s neck and begin to drain their blood.</span>", "<span class='notice'>You hear a soft puncture and a wet sucking noise.</span>")
+	owner.visible_message("<span class='danger'>[owner] grabs [H]'s neck harshly and sinks in their fangs!</span>", "<span class='danger'>You sink your fangs into [H] and begin to drain their blood.</span>", "<span class='notice'>You hear a soft puncture and a wet sucking noise.</span>")
 	if(!iscarbon(owner))
 		H.LAssailant = null
 	else

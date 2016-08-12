@@ -31,7 +31,7 @@
 
 
 	interact()
-		if(!interactable() || computer.z > 6)
+		if(!interactable() || is_away_level(computer.z))
 			return
 		var/dat
 		if(src.temp)
@@ -206,6 +206,3 @@
 
 		interact()
 		return
-
-
-

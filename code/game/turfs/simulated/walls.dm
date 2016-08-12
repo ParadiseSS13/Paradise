@@ -32,14 +32,16 @@
 	/obj/structure/falsewall,
 	/obj/structure/falsewall/reinforced,
 	/turf/simulated/wall/rust,
-	/turf/simulated/wall/r_wall/rust)
+	/turf/simulated/wall/r_wall/rust,
+	/turf/simulated/wall/r_wall/coated)
 	smooth = SMOOTH_TRUE
 
-/turf/simulated/wall/ChangeTurf(var/newtype)
+/turf/simulated/wall/BeforeChange()
 	for(var/obj/effect/E in src)
+		// such quality code
 		if(E.name == "Wallrot")
 			qdel(E)
-	. = ..(newtype)
+	. = ..()
 
 //Appearance
 
@@ -110,13 +112,11 @@
 		update_icon()
 
 	return
-/*
-/turf/simulated/wall/adjacent_fire_act(turf/simulated/floor/adj_turf, datum/gas_mixture/adj_air, adj_temp, adj_volume)
-	if(adj_temp > max_temperature)
-		take_damage(rand(10, 20) * (adj_temp / max_temperature))
 
-	return ..()
-*/
+/turf/simulated/wall/proc/adjacent_fire_act(turf/simulated/wall, radiated_temperature)
+	if(radiated_temperature > max_temperature)
+		take_damage(rand(10, 20) * (radiated_temperature / max_temperature))
+
 /turf/simulated/wall/proc/dismantle_wall(devastated=0, explode=0)
 	if(istype(src,/turf/simulated/wall/r_wall))
 		if(!devastated)

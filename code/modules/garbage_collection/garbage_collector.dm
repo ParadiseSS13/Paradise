@@ -92,12 +92,13 @@ var/global/datum/controller/process/garbage_collector/garbageCollector
 	if(isnull(D))
 		return
 
-	if(isnull(garbageCollector))
+	if(!istype(D)) // A non-datum was passed into qdel - just delete it outright.
+		// warning("qdel() passed object of type [D.type]. qdel() can only handle /datum/ types.")
 		del(D)
 		return
 
-	if(!istype(D)) // A non-datum was passed into qdel - just delete it outright.
-		// warning("qdel() passed object of type [D.type]. qdel() can only handle /datum/ types.")
+	if(isnull(garbageCollector))
+		D.Destroy()
 		del(D)
 		return
 
@@ -161,23 +162,6 @@ var/global/datum/controller/process/garbage_collector/garbageCollector
 /datum/proc/Destroy()
 	tag = null
 	return QDEL_HINT_QUEUE // Garbage Collect everything.
-
-// If something gets deleted directly, make sure its Destroy proc is still called
-/datum/Del()
-	if(isnull(gcDestroyed)) // Not GC'd
-		try
-			Destroy()
-		catch(var/exception/e)
-			if(istype(e))
-				log_runtime(e, src, "Caught by Del() destroying [type]")
-			else
-				gcwarning("Del() caught runtime destroying [type]: [e]")
-		if(del_profiling)
-			delete_profile(src)
-	else
-		if(del_profiling)
-			delete_profile(src)
-	return ..()
 
 /proc/gcwarning(msg)
 	log_to_dd("## GC WARNING: [msg]")

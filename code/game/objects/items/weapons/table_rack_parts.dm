@@ -40,6 +40,7 @@
 	icon_state = "wood_tableparts"
 	flags = null
 	upgradable = 0
+	burn_state = FLAMMABLE
 	result = /obj/structure/table/woodentable
 	parts = list(
 		/obj/item/stack/sheet/wood,

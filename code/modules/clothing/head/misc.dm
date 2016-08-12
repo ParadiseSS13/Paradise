@@ -342,6 +342,7 @@
 	throw_range = 5
 	w_class = 2
 	attack_verb = list("warned", "cautioned", "smashed")
+	burn_state = FIRE_PROOF
 
 /obj/item/clothing/head/griffin
 	name = "griffon head"
@@ -386,3 +387,14 @@
 	icon_state = "papersack_smile"
 	flags = BLOCKHAIR
 	flags_inv = HIDEFACE|HIDEEARS
+
+/obj/item/clothing/head/crown
+	name = "crown"
+	desc = "A crown fit for a king, a petty king maybe."
+	icon_state = "crown"
+	armor = list(melee = 15, bullet = 0, laser = 0, energy = 15, bomb = 0, bio = 0, rad = 0) //for a warrior king //energy cause gold is reflective //worse than sec helm overall
+
+/obj/item/clothing/head/crown/fancy
+	name = "magnificent crown"
+	desc = "A crown worn by only the highest emperors of the land."
+	icon_state = "fancycrown"

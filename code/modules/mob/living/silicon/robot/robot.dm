@@ -571,7 +571,7 @@ var/list/robot_verbs_default = list(
 			var/mob/tmob = AM
 			if(istype(tmob, /mob/living/carbon/human) && (FAT in tmob.mutations))
 				if(prob(20))
-					to_chat(usr, "\red <B>You fail to push [tmob]'s fat ass out of the way.</B>")
+					to_chat(usr, "<span class='danger'>You fail to push [tmob]'s fat ass out of the way.</span>")
 					now_pushing = 0
 					return
 			if(!(tmob.status_flags & CANPUSH))
@@ -669,9 +669,6 @@ var/list/robot_verbs_default = list(
 					C.r_arm = new/obj/item/robot_parts/r_arm(C)
 					C.updateicon()
 					new/obj/item/robot_parts/chest(loc)
-					// This doesn't work.  Don't use it.
-					//src.Destroy()
-					// del() because it's infrequent and mobs act weird in qdel.
 					qdel(src)
 			else
 				// Okay we're not removing the cell or an MMI, but maybe something else?
@@ -1383,7 +1380,7 @@ var/list/robot_verbs_default = list(
 			var/mob/M = pick(borg_candidates)
 			M.mind.transfer_to(src)
 			M.mind.assigned_role = "MODE"
-			M.mind.special_role = "Death Commando"
+			M.mind.special_role = SPECIAL_ROLE_DEATHSQUAD
 			ticker.mode.traitors |= M.mind // Adds them to current traitor list. Which is really the extra antagonist list.
 			key = M.key
 		else

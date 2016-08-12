@@ -49,10 +49,17 @@ FIRE ALARM
 	else
 		icon_state = "fire0"
 
+/obj/machinery/firealarm/emag_act(mob/user)
+	if(!emagged)
+		emagged = 1
+		if(user)
+			user.visible_message("<span class='warning'>Sparks fly out of the [src]!</span>",
+								"<span class='notice'>You emag [src], disabling its thermal sensors.</span>")
+		playsound(loc, 'sound/effects/sparks4.ogg', 50, 1)
+
 /obj/machinery/firealarm/temperature_expose(datum/gas_mixture/air, temperature, volume)
-	if(detecting)
-		if(temperature > T0C+200)
-			alarm()			// added check of detector status here
+	if(!emagged && detecting && temperature > T0C + 200)
+		alarm()			// added check of detector status here
 
 /obj/machinery/firealarm/attack_ai(mob/user as mob)
 	src.add_hiddenprint(user)
@@ -147,11 +154,6 @@ FIRE ALARM
 			processing_objects -= src
 		updateDialog()
 	last_process = world.timeofday
-
-	if(locate(/obj/effect/hotspot) in loc)
-		alarm()
-
-	return
 
 /obj/machinery/firealarm/power_change()
 	if(powered(ENVIRON))
@@ -293,7 +295,7 @@ FIRE ALARM
 		pixel_x = (dir & 3)? 0 : (dir == 4 ? -24 : 24)
 		pixel_y = (dir & 3)? (dir ==1 ? -24 : 24) : 0
 
-	if(z == ZLEVEL_STATION || ZLEVEL_ASTEROID == 5)
+	if(is_station_contact(src.z))
 		if(security_level)
 			src.overlays += image('icons/obj/monitors.dmi', "overlay_[get_security_level()]")
 		else

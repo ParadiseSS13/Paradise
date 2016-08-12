@@ -423,8 +423,9 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 
   /* ###### Prepare the radio connection ###### */
 
+	var/mob/living/carbon/human/H
 	if(!M)
-		var/mob/living/carbon/human/H = new
+		H = new
 		M = H
 
 	var/datum/radio_frequency/connection = radio_controller.return_frequency(frequency)
@@ -439,6 +440,7 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 	if(data == 1)
 		for(var/obj/item/device/radio/intercom/R in connection.devices["[RADIO_CHAT]"])
 			var/turf/position = get_turf(R)
+			// TODO: Make the radio system cooperate with the space manager
 			if(position && position.z == level)
 				receive |= R.send_hear(display_freq, level)
 
@@ -451,6 +453,7 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 			if(istype(R, /obj/item/device/radio/headset))
 				continue
 			var/turf/position = get_turf(R)
+			// TODO: Make the radio system cooperate with the space manager
 			if(position && position.z == level)
 				receive |= R.send_hear(display_freq)
 
@@ -462,6 +465,7 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 			var/datum/radio_frequency/antag_connection = radio_controller.return_frequency(freq)
 			for(var/obj/item/device/radio/R in antag_connection.devices["[RADIO_CHAT]"])
 				var/turf/position = get_turf(R)
+				// TODO: Make the radio system cooperate with the space manager
 				if(position && position.z == level)
 					receive |= R.send_hear(freq)
 
@@ -471,6 +475,7 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 	else
 		for(var/obj/item/device/radio/R in connection.devices["[RADIO_CHAT]"])
 			var/turf/position = get_turf(R)
+			// TODO: Make the radio system cooperate with the space manager
 			if(position && position.z == level)
 				receive |= R.send_hear(display_freq)
 
@@ -592,11 +597,15 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 			for(var/mob/R in heard_gibberish)
 				R.show_message(rendered, 2)
 
+	if(H)
+		qdel(H)
+
 //Use this to test if an obj can communicate with a Telecommunications Network
 
 /atom/proc/test_telecomms()
 	var/datum/signal/signal = src.telecomms_process()
 	var/turf/position = get_turf(src)
+	// TODO: Make the radio system cooperate with the space manager
 	return (position.z in signal.data["level"]) && signal.data["done"]
 
 /atom/proc/telecomms_process(var/do_sleep = 1)
@@ -615,6 +624,7 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 		"type" = 4, // determines what type of radio input it is: test broadcast
 		"reject" = 0,
 		"done" = 0,
+		// TODO: Make the radio system cooperate with the space manager
 		"level" = pos.z // The level it is being broadcasted at.
 	)
 	signal.frequency = PUB_FREQ// Common channel
@@ -630,4 +640,3 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 	//log_to_dd("Level: [signal.data["level"]] - Done: [signal.data["done"]]")
 
 	return signal
-

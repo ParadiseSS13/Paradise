@@ -105,6 +105,7 @@
 		for(var/obj/O in radio_connection.devices)
 			if(istype(O,typekey))
 				T = get_turf(O)
+				// TODO: Make the radio system cooperate with the space manager
 				if(istype(O) && (subspace || (O.z == z_level)))		// radio does not work across z-levels
 					result |= O
 		return result
@@ -232,4 +233,3 @@
 			if(C.d1 == 0 && (C.powernet == P))
 				return 1
 		return 0
-
