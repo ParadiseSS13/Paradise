@@ -410,7 +410,7 @@
 	name = "black hoodie"
 	desc = "It's a hoodie. It has a hood. Most hoodies do."
 	icon_state = "black_hoodie"
-	item_state = "labcoat"
+	item_state = "blueshieldcoat"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	hoodtype = /obj/item/clothing/head/hood
 	species_fit = list("Vox")
@@ -588,32 +588,6 @@
 	desc = "A cream coloured, genteel suit."
 	icon_state = "creamsuit"
 	item_state = "creamsuit"
-
-//stripper
-
-/obj/item/clothing/under/stripper/stripper_pink
-	name = "pink swimsuit"
-	desc = "A rather skimpy pink swimsuit."
-	icon_state = "stripper_p_under"
-	item_color = "stripper_p"
-
-/obj/item/clothing/under/stripper/stripper_green
-	name = "green swimsuit"
-	desc = "A rather skimpy green swimsuit."
-	icon_state = "stripper_g_under"
-	item_color = "stripper_g"
-
-/obj/item/clothing/suit/stripper/stripper_pink
-	name = "pink skimpy dress"
-	desc = "A rather skimpy pink dress."
-	icon_state = "stripper_p_over"
-	item_state = "stripper_p"
-
-/obj/item/clothing/suit/stripper/stripper_green
-	name = "green skimpy dress"
-	desc = "A rather skimpy green dress."
-	icon_state = "stripper_g_over"
-	item_state = "stripper_g"
 
 /obj/item/clothing/under/stripper/mankini
 	name = "the mankini"

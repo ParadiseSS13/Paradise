@@ -373,8 +373,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 
 	for(var/I in singularities)
 		var/obj/singularity/S = I
-		// TODO: Tie into space manager
-		if(S.z == ZLEVEL_CENTCOMM  || S.z >= MAX_Z)
+		if(!is_level_reachable(S.z))
 			continue
 		qdel(S)
 	log_admin("[key_name(src)] has deleted all Singularities and Tesla orbs.")
@@ -657,7 +656,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			if(jobdatum)
 				dresscode = "[jobdatum.title]"
 				jobdatum.equip(M)
-				equip_special_id(M,jobdatum.access,jobdatum.title, jobdatum.idtype)
+				equip_special_id(M,jobdatum.get_access(),jobdatum.title, jobdatum.idtype)
 
 		if("standard space gear")
 			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/black(M), slot_shoes)
@@ -1371,33 +1370,28 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	if(alert("Are you sure? This will start up the engine. Should only be used during debug!",,"Yes","No") != "Yes")
 		return
 
-	for(var/obj/machinery/power/emitter/E in world)
+	for(var/obj/machinery/power/emitter/E in machines)
 		if(E.anchored)
 			E.active = 1
 
-	for(var/obj/machinery/field/generator/F in world)
-		if(F.anchored)
-			F.Varedit_start = 1
-	spawn(30)
-		for(var/obj/machinery/the_singularitygen/G in world)
-			if(G.anchored)
-				var/obj/singularity/S = new /obj/singularity(get_turf(G), 50)
-				spawn(0)
-					qdel(G)
-				S.energy = 1750
-				S.current_size = 7
-				S.icon = 'icons/effects/224x224.dmi'
-				S.icon_state = "singularity_s7"
-				S.pixel_x = -96
-				S.pixel_y = -96
-				S.grav_pull = 0
-				//S.consume_range = 3
-				S.dissipate = 0
-				//S.dissipate_delay = 10
-				//S.dissipate_track = 0
-				//S.dissipate_strength = 10
+	for(var/obj/machinery/field/generator/F in machines)
+		if(F.active == 0)
+			F.active = 1
+			F.state = 2
+			F.power = 250
+			F.anchored = 1
+			F.warming_up = 3
+			F.start_fields()
+			F.update_icon()
 
-	for(var/obj/machinery/power/rad_collector/Rad in world)
+	spawn(30)
+		for(var/obj/machinery/the_singularitygen/G in machines)
+			if(G.anchored)
+				var/obj/singularity/S = new /obj/singularity(get_turf(G))
+				S.energy = 800
+				break
+
+	for(var/obj/machinery/power/rad_collector/Rad in machines)
 		if(Rad.anchored)
 			if(!Rad.P)
 				var/obj/item/weapon/tank/plasma/Plasma = new/obj/item/weapon/tank/plasma(Rad)
@@ -1409,7 +1403,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			if(!Rad.active)
 				Rad.toggle_power()
 
-	for(var/obj/machinery/power/smes/SMES in world)
+	for(var/obj/machinery/power/smes/SMES in machines)
 		if(SMES.anchored)
 			SMES.input_attempt = 1
 

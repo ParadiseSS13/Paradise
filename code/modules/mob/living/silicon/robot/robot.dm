@@ -507,20 +507,6 @@ var/list/robot_verbs_default = list(
 		return 1
 	return 0
 
-// this function shows information about the malf_ai gameplay type in the status screen
-/mob/living/silicon/robot/show_malf_ai()
-	..()
-	if(ticker && ticker.mode.name == "AI malfunction")
-		var/datum/game_mode/malfunction/malf = ticker.mode
-		for(var/datum/mind/malfai in malf.malf_ai)
-			if(connected_ai)
-				if(connected_ai.mind == malfai)
-					if(malf.apcs >= 3)
-						stat(null, "Time until station control secured: [max(malf.AI_win_timeleft/(malf.apcs/3), 0)] seconds")
-			else if(ticker.mode:malf_mode_declared)
-				stat(null, "Time left: [max(ticker.mode:AI_win_timeleft/(ticker.mode:apcs/3), 0)]")
-	return 0
-
 // this function displays the cyborgs current cell charge in the stat panel
 /mob/living/silicon/robot/proc/show_cell_power()
 	if(cell)
@@ -571,7 +557,7 @@ var/list/robot_verbs_default = list(
 			var/mob/tmob = AM
 			if(istype(tmob, /mob/living/carbon/human) && (FAT in tmob.mutations))
 				if(prob(20))
-					to_chat(usr, "\red <B>You fail to push [tmob]'s fat ass out of the way.</B>")
+					to_chat(usr, "<span class='danger'>You fail to push [tmob]'s fat ass out of the way.</span>")
 					now_pushing = 0
 					return
 			if(!(tmob.status_flags & CANPUSH))
@@ -1380,7 +1366,7 @@ var/list/robot_verbs_default = list(
 			var/mob/M = pick(borg_candidates)
 			M.mind.transfer_to(src)
 			M.mind.assigned_role = "MODE"
-			M.mind.special_role = "Death Commando"
+			M.mind.special_role = SPECIAL_ROLE_DEATHSQUAD
 			ticker.mode.traitors |= M.mind // Adds them to current traitor list. Which is really the extra antagonist list.
 			key = M.key
 		else

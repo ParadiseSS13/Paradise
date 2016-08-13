@@ -234,6 +234,12 @@
 		"Drask" = 'icons/mob/species/drask/eyes.dmi'
 		)
 
+/obj/item/clothing/glasses/sunglasses/fake
+	desc = "Cheap, plastic sunglasses. They don't even have UV protection."
+	name = "cheap sunglasses"
+	darkness_view = 0
+	flash_protect = 0
+	tint = 0
 
 /obj/item/clothing/glasses/sunglasses/noir
 	name = "noir sunglasses"

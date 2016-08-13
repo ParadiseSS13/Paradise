@@ -1,0 +1,5 @@
+author: FlattestGuitar
+delete-after: True
+changes: 
+  - tweak: "Detective's coolness variable cranked up to 14.5, they will no longer vomit over corpses."
+  - tweak: "Now you're less likely to vomit over a corpse if you're a normal human being."

@@ -29,7 +29,7 @@
 	ventcrawler = 2
 
 /mob/living/carbon/alien/New()
-	verbs += /mob/living/carbon/verb/mob_sleep
+	verbs += /mob/living/verb/mob_sleep
 	verbs += /mob/living/verb/lay_down
 	internal_organs += new /obj/item/organ/internal/brain/xeno
 	internal_organs += new /obj/item/organ/internal/xenos/hivenode

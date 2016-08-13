@@ -92,7 +92,6 @@
 	icon = 'icons/obj/doors/Doorsand.dmi'
 	icon_state = "door_closed"
 	autoclose = 1
-	atom_say_verb = "beeps"
 	var/doorOpen = 'sound/machines/airlock.ogg'
 	var/doorClose = 'sound/machines/airlock.ogg'
 	var/doorDeni = 'sound/machines/DeniedBeep.ogg'
