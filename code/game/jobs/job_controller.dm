@@ -66,10 +66,10 @@ var/global/datum/controller/occupations/job_master
 				player.mind.job_objectives.Cut()
 				for(var/objectiveType in job.required_objectives)
 					new objectiveType(player.mind)
-				//25% probability to take objective
-				for(var/objectiveType in job.optional_objectives)
-					if(prob(25))
-						new objectiveType(player.mind)
+				//picks one optional objective
+				var/optObjectiveType = pick(job.optional_objectives)
+				if(optObjectiveType)
+					new optObjectiveType(player.mind)
 				unassigned -= player
 				job.current_positions++
 				return 1

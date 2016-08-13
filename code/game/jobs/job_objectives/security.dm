@@ -3,24 +3,16 @@
 /////////////////////////////////////////////////////////////////////////////////////////
 
 // Power the station
-/datum/job_objective/bringantag
-  completion_payment = 5
-  per_unit = 1
-
 /datum/job_objective/bringantag/get_description()
 	var/desc = "Приведите антагониста на ЦК для допроса (в наручниках)"
 	return sanitize_local(desc)
 
 /datum/job_objective/bringantag/check_in_the_end()
-  for(var/datum/mind/M in ticker.minds)
-		if(M.special_role && M.current && !istype(M.current,/mob/dead) && istype(get_area(M.current),/area/shuttle/escape/centcom) && M.current.handcuffed)
-			if(owner.current && owner.current.stat != 2 && istype(get_area(owner.current),/area/shuttle/escape/centcom)) //split this up as it was long
+	for(var/datum/mind/M in ticker.minds)
+		if(M.special_role && M.current && !istype(M.current,/mob/dead) && istype(get_turf(M.current),/turf/simulated/shuttle/floor4))
+			if(M.current && M.current.stat != 2 && istype(get_turf(M.current),/turf/simulated/shuttle/floor4)) //split this up as it was long
 				return 1
 	return 0
-
-/datum/job_objective/evac
-  completion_payment = 5
-  per_unit = 1
 
 /datum/job_objective/evac/get_description()
 	var/desc = "Не допустите гибели глав и VIP, доставьте их на ЦК при эвакуации."

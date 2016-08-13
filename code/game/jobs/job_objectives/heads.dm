@@ -4,8 +4,6 @@
 
 // Power the station
 /datum/job_objective/savedept
-  completion_payment = 5
-  per_unit = 1
   var/list/head_department
 
 /datum/job_objective/savedept/New()

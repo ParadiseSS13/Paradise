@@ -441,7 +441,15 @@
 	out += "<b>Memory:</b><br>"
 	out += memory
 	out += "<br><a href='?src=\ref[src];memory_edit=1'>Edit memory</a><br>"
-	out += "Objectives:<br>"
+	if(job_objectives.len>0)
+		out += "<HR><B>Job Objectives:</B><UL>"
+		var/job_obj_count = 1
+		for(var/datum/job_objective/jobie_objective in job_objectives)
+			out += "<LI><B>Task #[job_obj_count]</B>: [jobie_objective.get_description()] <a href='?src=\ref[src];job_obj_delete=\ref[jobie_objective]'>Delete</a><a href='?src=\ref[src];job_obj_completed=\ref[jobie_objective]'><font color=[jobie_objective.completed ? "green" : "red"]>Toggle Completion</font></a></li>"
+			job_obj_count++
+		out += "</UL>"
+		out += "<a href='?src=\ref[src];job_obj_add=1'>Add job objective</a>"
+	out += "Special Objectives:<br>"
 	if(objectives.len == 0)
 		out += "EMPTY<br>"
 	else
@@ -1231,6 +1239,23 @@
 		log_admin("[key_name(usr)] has announced [key_name(current)]'s objectives")
 		message_admins("[key_name_admin(usr)] has announced [key_name_admin(current)]'s objectives")
 
+	else if(href_list["job_obj_add"])
+		var/datum/objective/new_objective = null
+		var/job_expl = sanitize_local(copytext(input("Custom JOB objective:", "Objective", new_objective ? new_objective.explanation_text : "") as text|null,1,MAX_MESSAGE_LEN))
+		if(!job_expl) return
+		new_objective = new /datum/job_objective
+		new_objective.owner = src
+		new_objective.explanation_text = job_expl
+
+	else if(href_list["job_obj_completed"])
+		var/datum/job_objective/jobie_objective = locate(href_list["job_obj_completed"])
+		if(!istype(jobie_objective))	return
+		jobie_objective.completed = !jobie_objective.completed
+
+	else if(href_list["job_obj_delete"])
+		var/datum/objective/jobie_objective = locate(href_list["job_obj_delete"])
+		if(!istype(jobie_objective))	return
+		jobie_objective -= jobie_objective
 	edit_memory()
 /*
 /datum/mind/proc/clear_memory(var/silent = 1)

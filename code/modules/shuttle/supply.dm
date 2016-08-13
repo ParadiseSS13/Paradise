@@ -168,12 +168,12 @@
 					++intel_count
 
 				// Sell tech levels
-				if(istype(thing, /obj/item/weapon/disk/tech_disk))
-					var/obj/item/weapon/disk/tech_disk/disk = thing
-					if(!disk.stored) continue
-					var/datum/tech/tech = disk.stored
+				//if(istype(thing, /obj/item/weapon/disk/tech_disk))
+				//	var/obj/item/weapon/disk/tech_disk/disk = thing
+				//	if(!disk.stored) continue
+				//	var/datum/tech/tech = disk.stored
 
-					var/cost = tech.getCost(shuttle_master.techLevels[tech.id])
+				/*	var/cost = tech.getCost(shuttle_master.techLevels[tech.id])
 					if(cost)
 						shuttle_master.techLevels[tech.id] = tech.level
 						shuttle_master.points += cost
@@ -181,7 +181,7 @@
 							if(M.mind)
 								for(var/datum/job_objective/further_research/objective in M.mind.job_objectives)
 									objective.unit_completed(cost)
-						msg += "<span class='good'>+[cost]</span>: [tech.name] - new data.<br>"
+						msg += "<span class='good'>+[cost]</span>: [tech.name] - new data.<br>" */
 
 				// Sell max reliablity designs
 				if(istype(thing, /obj/item/weapon/disk/design_disk))

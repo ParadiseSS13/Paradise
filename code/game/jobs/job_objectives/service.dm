@@ -3,22 +3,14 @@
 /////////////////////////////////////////////////////////////////////////////////////////
 
 // Janitor
-/datum/job_objective/ultraclean
-  completion_payment = 5
-  per_unit = 1
-
 /datum/job_objective/ultraclean/get_description()
 	var/desc = "Соблюдать АБСОЛЮТНУЮ чистоту на станции"
 	return sanitize_local(desc)
 
 /datum/job_objective/ultraclean/check_in_the_end()
-  if(!score_mess)
-    return 1
+	if(!score_mess)
+		return 1
 	else return 0
-
-/datum/job_objective/harvest
-  completion_payment = 5
-  per_unit = 1
 
 /datum/job_objective/harvest/get_description()
 	var/desc = "Собрать урожай не менее чем с 30 растений (собрано [score_stuffharvested])"
@@ -28,10 +20,6 @@
   if(score_stuffharvested < 30)
     return 0
   else return 1
-
-/datum/job_objective/funeral
-  completion_payment = 5
-  per_unit = 1
 
 /datum/job_objective/funeral/get_description()
 	var/desc = "Сжечь/Космировать ВСЕ мертвые тела."

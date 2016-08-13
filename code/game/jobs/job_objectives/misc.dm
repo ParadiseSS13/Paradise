@@ -3,10 +3,6 @@
 /////////////////////////////////////////////////////////////////////////////////////////
 
 // Power the station
-/datum/job_objective/inviolate_escape
-  completion_payment = 5
-  per_unit = 1
-
 /datum/job_objective/inviolate_escape/get_description()
 	var/desc = "Покиньте станцию на шаттле свободным и живым, никого не убив."
 	return sanitize_local(desc)
