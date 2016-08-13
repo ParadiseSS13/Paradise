@@ -4,7 +4,6 @@ var/global/list/antag_roles = list(
 	ROLE_OPERATIVE,
 	ROLE_CHANGELING,
 	ROLE_WIZARD,
-	ROLE_MALF,
 	ROLE_REV,
 	ROLE_ALIEN,
 	ROLE_CULTIST,

@@ -1,0 +1,10 @@
+author: KorPhaeron and Fox McCloud
+delete-after: True
+changes: 
+  - tweak: "Merges Malf AI into traitor AI"
+  - tweak: "Malf AI's starting CPU reduced from 100 to 50"
+  - tweak: "Hacking APCs gives 10 additional CPU"
+  - rscadd: "Hacking APCs throws an alert to the AI when it's hacking that automatically clears when hacking is complete (sounds too)"
+  - rscadd: "Traitor AI's start off with a syndicate headset"
+  - rscadd: "Adds doomsday device module for AI's for 130 CPU; when activated, it will purge the station of all life if the AI is not destroyed after 7.5 minutes"
+  - rscadd: "Adds in AI upgrade modules which allows you to giving hacking abilities to the AI or allow it to have increase surveillance capabilities"
