@@ -42,6 +42,8 @@
 
 
 	HasProximity(atom/movable/AM as mob|obj)
+		if(!isobj(AM) && !isliving(AM))
+			return
 		if(istype(AM, /obj/effect/beam))	return
 		if(AM.move_speed < 12)	sense()
 		return
