@@ -1,6 +1,10 @@
 /datum/preferences
 	//The mob should have a gender you want before running this proc. Will run fine without H
 /datum/preferences/proc/random_character(gender_override)
+	var/datum/robolimb/robohead
+	if(species == "Machine")
+		var/head_model = "[!rlimb_data["head"] ? "Morpheus Cyberkinetics" : rlimb_data["head"]]"
+		robohead = all_robolimbs[head_model]
 	if(gender_override)
 		gender = gender_override
 	else
@@ -8,18 +12,39 @@
 	underwear = random_underwear(gender, species)
 	undershirt = random_undershirt(gender, species)
 	socks = random_socks(gender, species)
-	if(species in list("Human", "Drask"))
-		s_tone = random_skin_tone()
-	h_style = random_hair_style(gender, species)
-	f_style = random_facial_hair_style(gender, species)
-	if(species == "Human" || species == "Unathi" || species == "Tajaran" || species == "Skrell" || species == "Machine" || species == "Vulpkanin")
+	if(species == "Vulpkanin")
+		body_accessory = random_body_accessory(species)
+		if(body_accessory == "None") //Required to prevent a bug where the information/icons in the character preferences screen wouldn't update despite the data being changed.
+			body_accessory = null
+	if(species in list("Human", "Drask", "Vox"))
+		s_tone = random_skin_tone(species)
+	h_style = random_hair_style(gender, species, robohead)
+	f_style = random_facial_hair_style(gender, species, robohead)
+	if(species in list("Human", "Unathi", "Tajaran", "Skrell", "Machine", "Vulpkanin", "Vox"))
 		randomize_hair_color("hair")
-	randomize_hair_color("facial")
-	randomize_eyes_color()
-	if(species == "Unathi" || species == "Tajaran" || species == "Skrell" || species == "Vulpkanin")
+		randomize_hair_color("facial")
+	if(species in list("Unathi", "Vulpkanin", "Tajaran", "Machine"))
+		ha_style = random_head_accessory(species)
+		var/list/colours = randomize_skin_color(1)
+		r_headacc = colours["red"]
+		g_headacc = colours["green"]
+		b_headacc = colours["blue"]
+	if(species in list("Machine", "Tajaran", "Unathi", "Vulpkanin"))
+		m_styles["head"] = random_marking_style("head", species, robohead, body_accessory, alt_head)
+	if(species in list("Human", "Unathi", "Grey", "Vulpkanin", "Tajaran", "Skrell", "Vox"))
+		m_styles["body"] = random_marking_style("body", species, robohead, body_accessory, alt_head)
+		var/list/colours
+		for(var/location in list("head", "body", "tail"))
+			colours = randomize_skin_color(1)
+			m_colours[location] = rgb(colours["red"], colours["green"], colours["blue"])
+	if(species in list("Vox", "Vulpkanin")) //Species with tail markings.
+		m_styles["tail"] = random_marking_style("tail", species, robohead, body_accessory, alt_head)
+	if(species != "Machine")
+		randomize_eyes_color()
+	if(species in list("Unathi", "Tajaran", "Skrell", "Vulpkanin"))
 		randomize_skin_color()
 	backbag = 2
-	age = rand(AGE_MIN,AGE_MAX)
+	age = rand(AGE_MIN, AGE_MAX)
 
 
 /datum/preferences/proc/randomize_hair_color(var/target = "hair")
@@ -130,7 +155,7 @@
 	g_eyes = green
 	b_eyes = blue
 
-/datum/preferences/proc/randomize_skin_color()
+/datum/preferences/proc/randomize_skin_color(var/pass_to_list)
 	var/red
 	var/green
 	var/blue
@@ -174,9 +199,17 @@
 	green = max(min(green + rand (-25, 25), 255), 0)
 	blue = max(min(blue + rand (-25, 25), 255), 0)
 
-	r_skin = red
-	g_skin = green
-	b_skin = blue
+	if(pass_to_list)
+		var/list/colours = list(
+			"red" = red,
+			"blue" = blue,
+			"green" = green
+			)
+		return colours
+	else
+		r_skin = red
+		g_skin = green
+		b_skin = blue
 
 /datum/preferences/proc/blend_backpack(var/icon/clothes_s,var/backbag,var/satchel,var/backpack="backpack")
 	switch(backbag)
@@ -273,37 +306,30 @@
 			temp.Blend(rgb(r_skin, g_skin, b_skin), ICON_ADD)
 
 		if(current_species && (current_species.bodyflags & HAS_TAIL_MARKINGS))
-			var/list/marking_styles = params2list(m_styles)
-			var/list/marking_colours = params2list(m_colours)
-			var/tail_marking = marking_styles["tail"]
+			var/tail_marking = m_styles["tail"]
 			var/datum/sprite_accessory/tail_marking_style = marking_styles_list[tail_marking]
 			if(tail_marking_style && tail_marking_style.species_allowed)
-				marking_colours["tail"] = sanitize_hexcolor(marking_colours["tail"])
 				var/icon/t_marking_s = new/icon("icon" = tail_marking_style.icon, "icon_state" = "[tail_marking_style.icon_state]_s")
-				t_marking_s.Blend(rgb(hex2num(copytext(marking_colours["tail"], 2, 4)), hex2num(copytext(marking_colours["tail"], 4, 6)), hex2num(copytext(marking_colours["tail"], 6, 8))), ICON_ADD)
+				t_marking_s.Blend(m_colours["tail"], ICON_ADD)
 				temp.Blend(t_marking_s, ICON_OVERLAY)
 
 		preview_icon.Blend(temp, ICON_OVERLAY)
 
 	//Markings
 	if(current_species && ((current_species.bodyflags & HAS_HEAD_MARKINGS) || (current_species.bodyflags & HAS_BODY_MARKINGS)))
-		var/list/marking_styles = params2list(m_styles)
-		var/list/marking_colours = params2list(m_colours)
 		if(current_species.bodyflags & HAS_BODY_MARKINGS) //Body markings.
-			var/body_marking = marking_styles["body"]
+			var/body_marking = m_styles["body"]
 			var/datum/sprite_accessory/body_marking_style = marking_styles_list[body_marking]
 			if(body_marking_style && body_marking_style.species_allowed)
-				marking_colours["body"] = sanitize_hexcolor(marking_colours["body"])
 				var/icon/b_marking_s = new/icon("icon" = body_marking_style.icon, "icon_state" = "[body_marking_style.icon_state]_s")
-				b_marking_s.Blend(rgb(hex2num(copytext(marking_colours["body"], 2, 4)), hex2num(copytext(marking_colours["body"], 4, 6)), hex2num(copytext(marking_colours["body"], 6, 8))), ICON_ADD)
+				b_marking_s.Blend(m_colours["body"], ICON_ADD)
 				preview_icon.Blend(b_marking_s, ICON_OVERLAY)
 		if(current_species.bodyflags & HAS_HEAD_MARKINGS) //Head markings.
-			var/head_marking = marking_styles["head"]
+			var/head_marking = m_styles["head"]
 			var/datum/sprite_accessory/head_marking_style = marking_styles_list[head_marking]
 			if(head_marking_style && head_marking_style.species_allowed)
-				marking_colours["head"] = sanitize_hexcolor(marking_colours["head"])
 				var/icon/h_marking_s = new/icon("icon" = head_marking_style.icon, "icon_state" = "[head_marking_style.icon_state]_s")
-				h_marking_s.Blend(rgb(hex2num(copytext(marking_colours["head"], 2, 4)), hex2num(copytext(marking_colours["head"], 4, 6)), hex2num(copytext(marking_colours["head"], 6, 8))), ICON_ADD)
+				h_marking_s.Blend(m_colours["head"], ICON_ADD)
 				preview_icon.Blend(h_marking_s, ICON_OVERLAY)
 
 

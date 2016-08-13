@@ -222,21 +222,19 @@ proc/get_id_photo(var/mob/living/carbon/human/H)
 
 	//Markings
 	if((H.species.bodyflags & HAS_HEAD_MARKINGS) || (H.species.bodyflags & HAS_BODY_MARKINGS))
-		var/list/marking_styles = params2list(H.m_styles)
-		var/list/marking_colours = params2list(H.m_colours)
 		if(H.species.bodyflags & HAS_BODY_MARKINGS) //Body markings.
-			var/body_marking = marking_styles["body"]
+			var/body_marking = H.m_styles["body"]
 			var/datum/sprite_accessory/body_marking_style = marking_styles_list[body_marking]
 			if(body_marking_style && body_marking_style.species_allowed)
 				var/icon/b_marking_s = new/icon("icon" = body_marking_style.icon, "icon_state" = "[body_marking_style.icon_state]_s")
-				b_marking_s.Blend(rgb(hex2num(copytext(marking_colours["body"], 2, 4)), hex2num(copytext(marking_colours["body"], 4, 6)), hex2num(copytext(marking_colours["body"], 6, 8))), ICON_ADD)
+				b_marking_s.Blend(H.m_colours["body"], ICON_ADD)
 				face_s.Blend(b_marking_s, ICON_OVERLAY)
 		if(H.species.bodyflags & HAS_HEAD_MARKINGS) //Head markings.
-			var/head_marking = marking_styles["head"]
+			var/head_marking = H.m_styles["head"]
 			var/datum/sprite_accessory/head_marking_style = marking_styles_list[head_marking]
 			if(head_marking_style && head_marking_style.species_allowed)
 				var/icon/h_marking_s = new/icon("icon" = head_marking_style.icon, "icon_state" = "[head_marking_style.icon_state]_s")
-				h_marking_s.Blend(rgb(hex2num(copytext(marking_colours["head"], 2, 4)), hex2num(copytext(marking_colours["head"], 4, 6)), hex2num(copytext(marking_colours["head"], 6, 8))), ICON_ADD)
+				h_marking_s.Blend(H.m_colours["head"], ICON_ADD)
 				face_s.Blend(h_marking_s, ICON_OVERLAY)
 
 	preview_icon.Blend(face_s, ICON_OVERLAY)

@@ -104,11 +104,9 @@
 			var/obj/item/organ/external/head/H = target.get_organ("head")
 			var/datum/robolimb/robohead = all_robolimbs[H.model]
 			if(robohead.is_monitor) //Ensures that if an IPC gets a head that's got a human hair wig attached to their body, the hair won't wipe.
-				var/list/marking_styles = params2list(target.m_styles)
-				H.h_style = ""
-				H.f_style = ""
-				marking_styles["head"] = "None"
-				target.m_styles = list2params(marking_styles)
+				H.h_style = "Bald"
+				H.f_style = "Shaved"
+				target.m_styles["head"] = "None"
 		E.status &= ~ORGAN_DESTROYED
 		if(E.children)
 			for(var/obj/item/organ/external/C in E.children)

@@ -73,16 +73,13 @@ var/global/list/limb_icon_cache = list()
 		overlays |= lip_icon
 		mob_icon.Blend(lip_icon, ICON_OVERLAY)
 
-	var/list/marking_styles = params2list(owner.m_styles)
-	var/head_marking = marking_styles["head"]
+	var/head_marking = owner.m_styles["head"]
 	if(head_marking != "None")
-		var/list/marking_colours = params2list(owner.m_colours)
-		marking_colours["head"] = sanitize_hexcolor(marking_colours["head"])
 		var/datum/sprite_accessory/head_marking_style = marking_styles_list[head_marking]
 		if(head_marking_style && head_marking_style.species_allowed && (species.name in head_marking_style.species_allowed) && head_marking_style.marking_location == "head")
 			var/icon/h_marking_s = new/icon("icon" = head_marking_style.icon, "icon_state" = "[head_marking_style.icon_state]_s")
 			if(head_marking_style.do_colouration)
-				h_marking_s.Blend(rgb(hex2num(copytext(marking_colours["head"], 2, 4)), hex2num(copytext(marking_colours["head"], 4, 6)), hex2num(copytext(marking_colours["head"], 6, 8))), ICON_ADD)
+				h_marking_s.Blend(owner.m_colours["head"], ICON_ADD)
 			overlays |= h_marking_s
 
 	if(H.ha_style)

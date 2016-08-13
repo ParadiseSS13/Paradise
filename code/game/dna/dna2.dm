@@ -163,15 +163,11 @@ var/global/list/bad_blocks[0]
 
 	// Markings
 	if(!character.m_styles)
-		character.m_styles = "head=None;\
-							body=None;\
-							tail=None"
+		character.m_styles = initial(character.m_styles)
 
-	var/list/marking_styles = params2list(character.m_styles)
-	var/list/marking_colours = params2list(character.m_colours)
-	var/head_marks	= marking_styles_list.Find(marking_styles["head"])
-	var/body_marks	= marking_styles_list.Find(marking_styles["body"])
-	var/tail_marks	= marking_styles_list.Find(marking_styles["tail"])
+	var/head_marks	= marking_styles_list.Find(character.m_styles["head"])
+	var/body_marks	= marking_styles_list.Find(character.m_styles["body"])
+	var/tail_marks	= marking_styles_list.Find(character.m_styles["tail"])
 
 	SetUIValueRange(DNA_UI_HAIR_R,	H.r_hair,				255,	1)
 	SetUIValueRange(DNA_UI_HAIR_G,	H.g_hair,				255,	1)
@@ -193,17 +189,17 @@ var/global/list/bad_blocks[0]
 	SetUIValueRange(DNA_UI_HACC_G,	H.g_headacc,			255,	1)
 	SetUIValueRange(DNA_UI_HACC_B,	H.b_headacc,			255,	1)
 
-	SetUIValueRange(DNA_UI_HEAD_MARK_R,	hex2num(copytext(marking_colours["head"], 2, 4)),	255,	1)
-	SetUIValueRange(DNA_UI_HEAD_MARK_G,	hex2num(copytext(marking_colours["head"], 4, 6)),	255,	1)
-	SetUIValueRange(DNA_UI_HEAD_MARK_B,	hex2num(copytext(marking_colours["head"], 6, 8)),	255,	1)
+	SetUIValueRange(DNA_UI_HEAD_MARK_R,	color2R(character.m_colours["head"]),	255,	1)
+	SetUIValueRange(DNA_UI_HEAD_MARK_G,	color2G(character.m_colours["head"]),	255,	1)
+	SetUIValueRange(DNA_UI_HEAD_MARK_B,	color2B(character.m_colours["head"]),	255,	1)
 
-	SetUIValueRange(DNA_UI_BODY_MARK_R,	hex2num(copytext(marking_colours["body"], 2, 4)),	255,	1)
-	SetUIValueRange(DNA_UI_BODY_MARK_G,	hex2num(copytext(marking_colours["body"], 4, 6)),	255,	1)
-	SetUIValueRange(DNA_UI_BODY_MARK_B,	hex2num(copytext(marking_colours["body"], 6, 8)),	255,	1)
+	SetUIValueRange(DNA_UI_BODY_MARK_R,	color2R(character.m_colours["body"]),	255,	1)
+	SetUIValueRange(DNA_UI_BODY_MARK_G,	color2G(character.m_colours["body"]),	255,	1)
+	SetUIValueRange(DNA_UI_BODY_MARK_B,	color2B(character.m_colours["body"]),	255,	1)
 
-	SetUIValueRange(DNA_UI_TAIL_MARK_R,	hex2num(copytext(marking_colours["tail"], 2, 4)),	255,	1)
-	SetUIValueRange(DNA_UI_TAIL_MARK_G,	hex2num(copytext(marking_colours["tail"], 4, 6)),	255,	1)
-	SetUIValueRange(DNA_UI_TAIL_MARK_B,	hex2num(copytext(marking_colours["tail"], 6, 8)),	255,	1)
+	SetUIValueRange(DNA_UI_TAIL_MARK_R,	color2R(character.m_colours["tail"]),	255,	1)
+	SetUIValueRange(DNA_UI_TAIL_MARK_G,	color2G(character.m_colours["tail"]),	255,	1)
+	SetUIValueRange(DNA_UI_TAIL_MARK_B,	color2B(character.m_colours["tail"]),	255,	1)
 
 	SetUIValueRange(DNA_UI_SKIN_TONE, 35-character.s_tone,	220,	1) // Value can be negative.
 

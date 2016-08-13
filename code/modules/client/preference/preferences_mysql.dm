@@ -199,13 +199,13 @@
 		r_skin = text2num(query.item[21])
 		g_skin = text2num(query.item[22])
 		b_skin = text2num(query.item[23])
-		m_colours = query.item[24]
+		m_colours = params2list(query.item[24])
 		r_headacc = text2num(query.item[25])
 		g_headacc = text2num(query.item[26])
 		b_headacc = text2num(query.item[27])
 		h_style = query.item[28]
 		f_style = query.item[29]
-		m_styles = query.item[30]
+		m_styles = params2list(query.item[30])
 		ha_style = query.item[31]
 		alt_head = query.item[32]
 		r_eyes = text2num(query.item[33])
@@ -324,6 +324,8 @@
 	var/rlimblist
 	var/playertitlelist
 	var/gearlist
+	var/markingcolourslist = list2params(m_colours)
+	var/markingstyleslist = list2params(m_styles)
 	if(!isemptylist(organ_data))
 		organlist = list2params(organ_data)
 	if(!isemptylist(rlimb_data))
@@ -360,13 +362,13 @@
 												skin_red='[r_skin]',
 												skin_green='[g_skin]',
 												skin_blue='[b_skin]',
-												marking_colours='[m_colours]',
+												marking_colours='[markingcolourslist]',
 												head_accessory_red='[r_headacc]',
 												head_accessory_green='[g_headacc]',
 												head_accessory_blue='[b_headacc]',
 												hair_style_name='[sql_sanitize_text(h_style)]',
 												facial_style_name='[sql_sanitize_text(f_style)]',
-												marking_styles='[m_styles]',
+												marking_styles='[markingstyleslist]',
 												head_accessory_style_name='[sql_sanitize_text(ha_style)]',
 												alt_head_name='[sql_sanitize_text(alt_head)]',
 												eyes_red='[r_eyes]',
@@ -444,9 +446,9 @@
 											'[r_facial]', '[g_facial]', '[b_facial]',
 											'[r_facial_sec]', '[g_facial_sec]', '[b_facial_sec]',
 											'[s_tone]', '[r_skin]', '[g_skin]', '[b_skin]',
-											'[m_colours]',
+											'[markingcolourslist]',
 											'[r_headacc]', '[g_headacc]', '[b_headacc]',
-											'[sql_sanitize_text(h_style)]', '[sql_sanitize_text(f_style)]', '[m_styles]', '[sql_sanitize_text(ha_style)]', '[sql_sanitize_text(alt_head)]',
+											'[sql_sanitize_text(h_style)]', '[sql_sanitize_text(f_style)]', '[markingstyleslist]', '[sql_sanitize_text(ha_style)]', '[sql_sanitize_text(alt_head)]',
 											'[r_eyes]', '[g_eyes]', '[b_eyes]',
 											'[underwear]', '[undershirt]',
 											'[backbag]', '[b_type]', '[alternate_option]',

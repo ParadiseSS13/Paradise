@@ -110,12 +110,16 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	var/r_headacc = 0					//Head accessory colour
 	var/g_headacc = 0					//Head accessory colour
 	var/b_headacc = 0					//Head accessory colour
-	var/m_styles = "head=None;\
-					body=None;\
-					tail=None"			//Marking styles.
-	var/m_colours = "head=#000000;\
-					body=#000000;\
-					tail=#000000"		//Marking colours.
+	var/list/m_styles = list(
+		"head" = "None",
+		"body" = "None",
+		"tail" = "None"
+		)			//Marking styles.
+	var/list/m_colours = list(
+		"head" = "#000000",
+		"body" = "#000000",
+		"tail" = "#000000"
+		)		//Marking colours.
 	var/h_style = "Bald"				//Hair type
 	var/r_hair = 0						//Hair color
 	var/g_hair = 0						//Hair color
@@ -296,26 +300,17 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 				dat += "<a href='?_src_=prefs;preference=headaccessory;task=input'>Color</a> [color_square(r_headacc, g_headacc, b_headacc)]<br>"
 
 			if(species in list("Machine", "Tajaran", "Unathi", "Vulpkanin")) //Species with head markings.
-				var/list/marking_styles = params2list(m_styles)
-				var/list/marking_colours = params2list(m_colours)
-				marking_colours["head"] = sanitize_hexcolor(marking_colours["head"])
 				dat += "<b>Head Markings:</b> "
-				dat += "<a href='?_src_=prefs;preference=m_style_head;task=input'>[marking_styles["head"]]</a>"
-				dat += "<a href='?_src_=prefs;preference=m_head_colour;task=input'>Color</a> [color_square(hex2num(copytext(marking_colours["head"], 2, 4)), hex2num(copytext(marking_colours["head"], 4, 6)), hex2num(copytext(marking_colours["head"], 6, 8)))]<br>"
+				dat += "<a href='?_src_=prefs;preference=m_style_head;task=input'>[m_styles["head"]]</a>"
+				dat += "<a href='?_src_=prefs;preference=m_head_colour;task=input'>Color</a> [color_square(color2R(m_colours["head"]), color2G(m_colours["head"]), color2B(m_colours["head"]))]<br>"
 			if(species in list("Human", "Unathi", "Grey", "Vulpkanin", "Tajaran", "Skrell", "Vox")) //Species with body markings/tattoos.
-				var/list/marking_styles = params2list(m_styles)
-				var/list/marking_colours = params2list(m_colours)
-				marking_colours["body"] = sanitize_hexcolor(marking_colours["body"])
 				dat += "<b>Body Markings:</b> "
-				dat += "<a href='?_src_=prefs;preference=m_style_body;task=input'>[marking_styles["body"]]</a>"
-				dat += "<a href='?_src_=prefs;preference=m_body_colour;task=input'>Color</a> [color_square(hex2num(copytext(marking_colours["body"], 2, 4)), hex2num(copytext(marking_colours["body"], 4, 6)), hex2num(copytext(marking_colours["body"], 6, 8)))]<br>"
+				dat += "<a href='?_src_=prefs;preference=m_style_body;task=input'>[m_styles["body"]]</a>"
+				dat += "<a href='?_src_=prefs;preference=m_body_colour;task=input'>Color</a> [color_square(color2R(m_colours["body"]), color2G(m_colours["body"]), color2B(m_colours["body"]))]<br>"
 			if(species in list("Vox", "Vulpkanin")) //Species with tail markings.
-				var/list/marking_styles = params2list(m_styles)
-				var/list/marking_colours = params2list(m_colours)
-				marking_colours["tail"] = sanitize_hexcolor(marking_colours["tail"])
 				dat += "<b>Tail Markings:</b> "
-				dat += "<a href='?_src_=prefs;preference=m_style_tail;task=input'>[marking_styles["tail"]]</a>"
-				dat += "<a href='?_src_=prefs;preference=m_tail_colour;task=input'>Color</a> [color_square(hex2num(copytext(marking_colours["tail"], 2, 4)), hex2num(copytext(marking_colours["tail"], 4, 6)), hex2num(copytext(marking_colours["tail"], 6, 8)))]<br>"
+				dat += "<a href='?_src_=prefs;preference=m_style_tail;task=input'>[m_styles["tail"]]</a>"
+				dat += "<a href='?_src_=prefs;preference=m_tail_colour;task=input'>Color</a> [color_square(color2R(m_colours["tail"]), color2G(m_colours["tail"]), color2B(m_colours["tail"]))]<br>"
 
 			dat += "<b>Hair:</b> "
 			dat += "<a href='?_src_=prefs;preference=h_style;task=input'>[h_style]</a>"
@@ -1216,43 +1211,41 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 					species = input("Please select a species", "Character Generation", null) in new_species
 
 					if(prev_species != species)
+						var/datum/robolimb/robohead
+						if(species == "Machine")
+							var/head_model = "[!rlimb_data["head"] ? "Morpheus Cyberkinetics" : rlimb_data["head"]]"
+							robohead = all_robolimbs[head_model]
 						//grab one of the valid hair styles for the newly chosen species
-						var/list/valid_hairstyles = list()
-						for(var/hairstyle in hair_styles_list)
-							var/datum/sprite_accessory/S = hair_styles_list[hairstyle]
-							if(gender == MALE && S.gender == FEMALE)
-								continue
-							if(gender == FEMALE && S.gender == MALE)
-								continue
-							if(!(species in S.species_allowed))
-								continue
-
-							valid_hairstyles[hairstyle] = hair_styles_list[hairstyle]
-
-						if(valid_hairstyles.len)
-							h_style = pick(valid_hairstyles)
-						else
-							//this shouldn't happen
-							h_style = hair_styles_list["Bald"]
+						h_style = random_hair_style(gender, species, robohead)
 
 						//grab one of the valid facial hair styles for the newly chosen species
-						var/list/valid_facialhairstyles = list()
-						for(var/facialhairstyle in facial_hair_styles_list)
-							var/datum/sprite_accessory/S = facial_hair_styles_list[facialhairstyle]
-							if(gender == MALE && S.gender == FEMALE)
-								continue
-							if(gender == FEMALE && S.gender == MALE)
-								continue
-							if(!(species in S.species_allowed))
-								continue
+						f_style = random_facial_hair_style(gender, species, robohead)
 
-							valid_facialhairstyles[facialhairstyle] = facial_hair_styles_list[facialhairstyle]
-
-						if(valid_facialhairstyles.len)
-							f_style = pick(valid_facialhairstyles)
+						if(species in list("Unathi", "Vulpkanin", "Tajaran", "Machine")) //Species that have head accessories.
+							ha_style = random_head_accessory(species)
 						else
-							//this shouldn't happen
-							f_style = facial_hair_styles_list["Shaved"]
+							ha_style = "None" // No Vulp ears on Unathi
+							r_headacc = 0
+							g_headacc = 0
+							b_headacc = 0
+
+						if(species in list("Machine", "Tajaran", "Unathi", "Vulpkanin")) //Species with head markings.
+							m_styles["head"] = random_marking_style("head", species, robohead, body_accessory, alt_head)
+						else
+							m_styles["head"] = "None"
+							m_colours["head"] = "#000000"
+
+						if(species in list("Human", "Unathi", "Grey", "Vulpkanin", "Tajaran", "Skrell", "Vox")) //Species with body markings/tattoos.
+							m_styles["body"] = random_marking_style("body", species, robohead, body_accessory, alt_head)
+						else
+							m_styles["body"] = "None"
+							m_colours["body"] = "#000000"
+
+						if(species in list("Vox", "Vulpkanin")) //Species with tail markings.
+							m_styles["tail"] = random_marking_style("tail", species, robohead, body_accessory, alt_head)
+						else
+							m_styles["tail"] = "None"
+							m_colours["tail"] = "#000000"
 
 						// Don't wear another species' underwear!
 						var/datum/sprite_accessory/S = underwear_list[underwear]
@@ -1267,31 +1260,16 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						if(!S || !(species in S.species_allowed))
 							socks = random_socks(gender, species)
 
-						//reset hair colour and skin colour
-						r_hair = 0
-						g_hair = 0
-						b_hair = 0
-						r_hair_sec = 0
-						g_hair_sec = 0
-						b_hair_sec = 0
-						r_facial = 0
-						g_facial = 0
-						b_facial = 0
-						r_facial_sec = 0
-						g_facial_sec = 0
-						b_facial_sec = 0
-
-						s_tone = 0
+						//reset skin tone and colour
+						if(species in list("Human", "Drask", "Vox"))
+							random_skin_tone(species)
+						else
+							s_tone = 0
 
 						if(!(species in list("Unathi", "Tajaran", "Skrell", "Slime People", "Vulpkanin", "Machine")))
 							r_skin = 0
 							g_skin = 0
 							b_skin = 0
-
-						ha_style = "None" // No Vulp ears on Unathi
-						m_styles = "head=None;\
-									body=None;\
-									tail=None" // No Unathi markings on Tajara
 
 						alt_head = "None" //No alt heads on species that don't have them.
 
@@ -1340,9 +1318,9 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						var/input = "Choose your character's hair colour:"
 						var/new_hair = input(user, input, "Character Preference", rgb(r_hair, g_hair, b_hair)) as color|null
 						if(new_hair)
-							r_hair = hex2num(copytext(new_hair, 2, 4))
-							g_hair = hex2num(copytext(new_hair, 4, 6))
-							b_hair = hex2num(copytext(new_hair, 6, 8))
+							r_hair = color2R(new_hair)
+							g_hair = color2G(new_hair)
+							b_hair = color2B(new_hair)
 
 				if("secondary_hair")
 					if(species in list("Human", "Unathi", "Tajaran", "Skrell", "Machine", "Vulpkanin", "Vox"))
@@ -1350,9 +1328,9 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						if(hair_style.secondary_theme && !hair_style.no_sec_colour)
 							var/new_hair = input(user, "Choose your character's secondary hair colour:", "Character Preference", rgb(r_hair_sec, g_hair_sec, b_hair_sec)) as color|null
 							if(new_hair)
-								r_hair_sec = hex2num(copytext(new_hair, 2, 4))
-								g_hair_sec = hex2num(copytext(new_hair, 4, 6))
-								b_hair_sec = hex2num(copytext(new_hair, 6, 8))
+								r_hair_sec = color2R(new_hair)
+								g_hair_sec = color2G(new_hair)
+								b_hair_sec = color2B(new_hair)
 
 				if("h_style")
 					var/list/valid_hairstyles = list()
@@ -1393,9 +1371,9 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						var/input = "Choose the colour of your your character's head accessory:"
 						var/new_head_accessory = input(user, input, "Character Preference", rgb(r_headacc, g_headacc, b_headacc)) as color|null
 						if(new_head_accessory)
-							r_headacc = hex2num(copytext(new_head_accessory, 2, 4))
-							g_headacc = hex2num(copytext(new_head_accessory, 4, 6))
-							b_headacc = hex2num(copytext(new_head_accessory, 6, 8))
+							r_headacc = color2R(new_head_accessory)
+							g_headacc = color2G(new_head_accessory)
+							b_headacc = color2B(new_head_accessory)
 
 				if("ha_style")
 					if(species in list("Unathi", "Vulpkanin", "Tajaran", "Machine")) //Species with head accessories.
@@ -1427,13 +1405,11 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						var/new_alt_head = input(user, "Choose your character's alternate head style:", "Character Preference") as null|anything in valid_alt_heads
 						if(new_alt_head)
 							alt_head = new_alt_head
-						var/list/marking_styles = params2list(m_styles)
-						if(marking_styles["head"])
-							var/head_marking = marking_styles["head"]
+						if(m_styles["head"])
+							var/head_marking = m_styles["head"]
 							var/datum/sprite_accessory/body_markings/head/head_marking_style = marking_styles_list[head_marking]
 							if(!head_marking_style.heads_allowed || !(alt_head in head_marking_style.heads_allowed))
-								marking_styles["head"] = "None"
-								m_styles = list2params(marking_styles)
+								m_styles["head"] = "None"
 
 				if("m_style_head")
 					if(species in list("Machine", "Tajaran", "Unathi", "Vulpkanin")) //Species with head markings.
@@ -1467,21 +1443,16 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 							valid_markings[markingstyle] = marking_styles_list[markingstyle]
 
-						var/list/marking_styles = params2list(m_styles)
-						var/new_marking_style = input(user, "Choose the style of your character's head markings:", "Character Preference", marking_styles["head"]) as null|anything in valid_markings
+						var/new_marking_style = input(user, "Choose the style of your character's head markings:", "Character Preference", m_styles["head"]) as null|anything in valid_markings
 						if(new_marking_style)
-							marking_styles["head"] = new_marking_style
-							m_styles = list2params(marking_styles)
+							m_styles["head"] = new_marking_style
 
 				if("m_head_colour")
 					if(species in list("Machine", "Tajaran", "Unathi", "Vulpkanin")) //Species with head markings.
 						var/input = "Choose the colour of your your character's head markings:"
-						var/list/marking_colours = params2list(m_colours)
-						marking_colours["head"] = sanitize_hexcolor(marking_colours["head"])
-						var/new_markings = input(user, input, "Character Preference", rgb(hex2num(copytext(marking_colours["head"], 2, 4)), hex2num(copytext(marking_colours["head"], 4, 6)), hex2num(copytext(marking_colours["head"], 6, 8)))) as color|null
+						var/new_markings = input(user, input, "Character Preference", m_colours["head"]) as color|null
 						if(new_markings)
-							marking_colours["head"] = new_markings
-							m_colours = list2params(marking_colours)
+							m_colours["head"] = new_markings
 
 				if("m_style_body")
 					if(species in list("Human", "Unathi", "Grey", "Vulpkanin", "Tajaran", "Skrell", "Vox")) //Species with body markings/tattoos.
@@ -1496,21 +1467,16 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 							valid_markings[markingstyle] = marking_styles_list[markingstyle]
 
-						var/list/marking_styles = params2list(m_styles)
-						var/new_marking_style = input(user, "Choose the style of your character's body markings:", "Character Preference", marking_styles["body"]) as null|anything in valid_markings
+						var/new_marking_style = input(user, "Choose the style of your character's body markings:", "Character Preference", m_styles["body"]) as null|anything in valid_markings
 						if(new_marking_style)
-							marking_styles["body"] = new_marking_style
-							m_styles = list2params(marking_styles)
+							m_styles["body"] = new_marking_style
 
 				if("m_body_colour")
 					if(species in list("Human", "Unathi", "Grey", "Vulpkanin", "Tajaran", "Skrell", "Vox")) //Species with body markings/tattoos.
 						var/input = "Choose the colour of your your character's body markings:"
-						var/list/marking_colours = params2list(m_colours)
-						marking_colours["body"] = sanitize_hexcolor(marking_colours["body"])
-						var/new_markings = input(user, input, "Character Preference", rgb(hex2num(copytext(marking_colours["body"], 2, 4)), hex2num(copytext(marking_colours["body"], 4, 6)), hex2num(copytext(marking_colours["body"], 6, 8)))) as color|null
+						var/new_markings = input(user, input, "Character Preference", m_colours["body"]) as color|null
 						if(new_markings)
-							marking_colours["body"] = new_markings
-							m_colours = list2params(marking_colours)
+							m_colours["body"] = new_markings
 
 				if("m_style_tail")
 					if(species in list("Vox", "Vulpkanin")) //Species with tail markings.
@@ -1531,22 +1497,16 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 							valid_markings[markingstyle] = marking_styles_list[markingstyle]
 
-						var/list/marking_styles = params2list(m_styles)
-						var/new_marking_style = input(user, "Choose the style of your character's tail markings:", "Character Preference", marking_styles["tail"]) as null|anything in valid_markings
-
+						var/new_marking_style = input(user, "Choose the style of your character's tail markings:", "Character Preference", m_styles["tail"]) as null|anything in valid_markings
 						if(new_marking_style)
-							marking_styles["tail"] = new_marking_style
-							m_styles = list2params(marking_styles)
+							m_styles["tail"] = new_marking_style
 
 				if("m_tail_colour")
 					if(species in list("Vox", "Vulpkanin")) //Species with tail markings.
 						var/input = "Choose the colour of your your character's tail markings:"
-						var/list/marking_colours = params2list(m_colours)
-						marking_colours["tail"] = sanitize_hexcolor(marking_colours["tail"])
-						var/new_markings = input(user, input, "Character Preference", rgb(hex2num(copytext(marking_colours["tail"], 2, 4)), hex2num(copytext(marking_colours["tail"], 4, 6)), hex2num(copytext(marking_colours["tail"], 6, 8)))) as color|null
+						var/new_markings = input(user, input, "Character Preference", m_colours["tail"]) as color|null
 						if(new_markings)
-							marking_colours["tail"] = new_markings
-							m_colours = list2params(marking_colours)
+							m_colours["tail"] = new_markings
 
 				if("body_accessory")
 					var/list/possible_body_accessories = list()
@@ -1563,18 +1523,16 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 					var/new_body_accessory = input(user, "Choose your body accessory:", "Character Preference") as null|anything in possible_body_accessories
 					if(new_body_accessory)
-						var/list/marking_styles = params2list(m_styles)
-						marking_styles["tail"] = "None"
-						m_styles = list2params(marking_styles)
+						m_styles["tail"] = "None"
 						body_accessory = (new_body_accessory == "None") ? null : new_body_accessory
 
 				if("facial")
 					if(species in list("Human", "Unathi", "Tajaran", "Skrell", "Machine", "Vulpkanin", "Vox"))
 						var/new_facial = input(user, "Choose your character's facial-hair colour:", "Character Preference", rgb(r_facial, g_facial, b_facial)) as color|null
 						if(new_facial)
-							r_facial = hex2num(copytext(new_facial, 2, 4))
-							g_facial = hex2num(copytext(new_facial, 4, 6))
-							b_facial = hex2num(copytext(new_facial, 6, 8))
+							r_facial = color2R(new_facial)
+							g_facial = color2G(new_facial)
+							b_facial = color2B(new_facial)
 
 				if("secondary_facial")
 					if(species in list("Human", "Unathi", "Tajaran", "Skrell", "Machine", "Vulpkanin", "Vox"))
@@ -1582,9 +1540,9 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						if(facial_hair_style.secondary_theme && !facial_hair_style.no_sec_colour)
 							var/new_facial = input(user, "Choose your character's secondary facial-hair colour:", "Character Preference", rgb(r_facial_sec, g_facial_sec, b_facial_sec)) as color|null
 							if(new_facial)
-								r_facial_sec = hex2num(copytext(new_facial, 2, 4))
-								g_facial_sec = hex2num(copytext(new_facial, 4, 6))
-								b_facial_sec = hex2num(copytext(new_facial, 6, 8))
+								r_facial_sec = color2R(new_facial)
+								g_facial_sec = color2G(new_facial)
+								b_facial_sec = color2B(new_facial)
 
 				if("f_style")
 					var/list/valid_facialhairstyles = list()
@@ -1664,9 +1622,9 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 				if("eyes")
 					var/new_eyes = input(user, "Choose your character's eye colour:", "Character Preference", rgb(r_eyes, g_eyes, b_eyes)) as color|null
 					if(new_eyes)
-						r_eyes = hex2num(copytext(new_eyes, 2, 4))
-						g_eyes = hex2num(copytext(new_eyes, 4, 6))
-						b_eyes = hex2num(copytext(new_eyes, 6, 8))
+						r_eyes = color2R(new_eyes)
+						g_eyes = color2G(new_eyes)
+						b_eyes = color2B(new_eyes)
 
 				if("s_tone")
 					if(species == "Human" || species == "Drask")
@@ -1682,9 +1640,9 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 					if((species in list("Unathi", "Tajaran", "Skrell", "Slime People", "Vulpkanin", "Machine")) || body_accessory_by_species[species] || check_rights(R_ADMIN, 0, user))
 						var/new_skin = input(user, "Choose your character's skin colour: ", "Character Preference", rgb(r_skin, g_skin, b_skin)) as color|null
 						if(new_skin)
-							r_skin = hex2num(copytext(new_skin, 2, 4))
-							g_skin = hex2num(copytext(new_skin, 4, 6))
-							b_skin = hex2num(copytext(new_skin, 6, 8))
+							r_skin = color2R(new_skin)
+							g_skin = color2G(new_skin)
+							b_skin = color2B(new_skin)
 
 
 				if("ooccolor")
@@ -1767,11 +1725,10 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 					var/new_state = input(user, "What state do you wish the limb to be in?") as null|anything in valid_limb_states
 					if(!new_state) return
 
-					var/list/marking_styles = params2list(m_styles) //Handle resetting of head markings if the head is changed.
 					switch(new_state)
 						if("Normal")
 							if(limb == "head")
-								marking_styles["head"] = "None"
+								m_styles["head"] = "None"
 								h_style = hair_styles_list["Bald"]
 								f_style = facial_hair_styles_list["Shaved"]
 							organ_data[limb] = null
@@ -1825,7 +1782,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 									alt_head = null
 									h_style = hair_styles_list["Bald"]
 									f_style = facial_hair_styles_list["Shaved"]
-									marking_styles["head"] = "None"
+									m_styles["head"] = "None"
 							rlimb_data[limb] = choice
 							organ_data[limb] = "cyborg"
 							if(second_limb)
@@ -1836,7 +1793,6 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 								else
 									rlimb_data[second_limb] = choice
 									organ_data[second_limb] = "cyborg"
-					m_styles = list2params(marking_styles) //Pass the reset head markings back to the preference variable.
 				if("organs")
 					var/organ_name = input(user, "Which internal function do you want to change?") as null|anything in list("Heart", "Eyes")
 					if(!organ_name) return
@@ -2145,7 +2101,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 		H.g_headacc = g_headacc
 		H.b_headacc = b_headacc
 		H.ha_style = ha_style
-	if((character.species.bodyflags & HAS_HEAD_MARKINGS) || (character.species.bodyflags & HAS_BODY_MARKINGS) || (character.species.bodyflags & HAS_TAIL_MARKINGS))
+	if(character.species.bodyflags & HAS_MARKINGS)
 		character.m_colours = m_colours
 		character.m_styles = m_styles
 

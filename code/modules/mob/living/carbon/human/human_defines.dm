@@ -4,12 +4,17 @@ var/global/default_martial_art = new/datum/martial_art
 	hud_possible = list(HEALTH_HUD,STATUS_HUD,ID_HUD,WANTED_HUD,IMPLOYAL_HUD,IMPCHEM_HUD,IMPTRACK_HUD,SPECIALROLE_HUD,NATIONS_HUD)
 
 	//Marking colour and style
-	var/m_colours = "head=#000000;\
-					body=#000000;\
-					tail=#000000"
-	var/m_styles = "head=None;\
-					body=None;\
-					tail=None"
+	var/list/m_colours = list(
+		"head" = "#000000",
+		"body" = "#000000",
+		"tail" = "#000000"
+		)
+
+	var/list/m_styles = list(
+		"head" = "None",
+		"body" = "None",
+		"tail" = "None"
+		)
 
 	//Eye colour
 	var/r_eyes = 0

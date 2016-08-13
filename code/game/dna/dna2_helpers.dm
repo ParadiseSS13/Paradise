@@ -152,10 +152,9 @@
 		head_organ.g_headacc		= dna.GetUIValueRange(DNA_UI_HACC_G,	255)
 		head_organ.b_headacc		= dna.GetUIValueRange(DNA_UI_HACC_B,	255)
 
-		var/list/marking_colours = params2list(H.m_colours)
-		marking_colours["head"] = "#[num2hex(dna.GetUIValueRange(DNA_UI_HEAD_MARK_R,255),2)][num2hex(dna.GetUIValueRange(DNA_UI_HEAD_MARK_G,255),2)][num2hex(dna.GetUIValueRange(DNA_UI_HEAD_MARK_B,255),2)]"
-		marking_colours["body"] = "#[num2hex(dna.GetUIValueRange(DNA_UI_BODY_MARK_R,255),2)][num2hex(dna.GetUIValueRange(DNA_UI_BODY_MARK_G,255),2)][num2hex(dna.GetUIValueRange(DNA_UI_BODY_MARK_B,255),2)]"
-		marking_colours["tail"] = "#[num2hex(dna.GetUIValueRange(DNA_UI_TAIL_MARK_R,255),2)][num2hex(dna.GetUIValueRange(DNA_UI_TAIL_MARK_G,255),2)][num2hex(dna.GetUIValueRange(DNA_UI_TAIL_MARK_B,255),2)]"
+		H.m_colours["head"] = rgb(dna.GetUIValueRange(DNA_UI_HEAD_MARK_R, 255), dna.GetUIValueRange(DNA_UI_HEAD_MARK_G, 255), dna.GetUIValueRange(DNA_UI_HEAD_MARK_B, 255))
+		H.m_colours["body"] = rgb(dna.GetUIValueRange(DNA_UI_BODY_MARK_R, 255), dna.GetUIValueRange(DNA_UI_BODY_MARK_G, 255), dna.GetUIValueRange(DNA_UI_BODY_MARK_B, 255))
+		H.m_colours["tail"] = rgb(dna.GetUIValueRange(DNA_UI_TAIL_MARK_R, 255), dna.GetUIValueRange(DNA_UI_TAIL_MARK_G, 255), dna.GetUIValueRange(DNA_UI_TAIL_MARK_B, 255))
 
 		H.update_eyes()
 
@@ -167,18 +166,18 @@
 			H.change_gender(MALE, 0)
 
 		//Hair
-		var/hair = dna.GetUIValueRange(DNA_UI_HAIR_STYLE,hair_styles_list.len)
-		if((0 < hair) && (hair <= hair_styles_list.len))
+		var/hair = dna.GetUIValueRange(DNA_UI_HAIR_STYLE, hair_styles_list.len)
+		if((hair > 0) && (hair <= hair_styles_list.len))
 			head_organ.h_style = hair_styles_list[hair]
 
 		//Facial Hair
-		var/beard = dna.GetUIValueRange(DNA_UI_BEARD_STYLE,facial_hair_styles_list.len)
-		if((0 < beard) && (beard <= facial_hair_styles_list.len))
+		var/beard = dna.GetUIValueRange(DNA_UI_BEARD_STYLE, facial_hair_styles_list.len)
+		if((beard > 0) && (beard <= facial_hair_styles_list.len))
 			head_organ.f_style = facial_hair_styles_list[beard]
 
 		//Head Accessories
-		var/headacc = dna.GetUIValueRange(DNA_UI_HACC_STYLE,head_accessory_styles_list.len)
-		if((0 < headacc) && (headacc <= head_accessory_styles_list.len))
+		var/headacc = dna.GetUIValueRange(DNA_UI_HACC_STYLE, head_accessory_styles_list.len)
+		if((headacc > 0) && (headacc <= head_accessory_styles_list.len))
 			head_organ.ha_style = head_accessory_styles_list[headacc]
 
 		var/number_head_marks = 0
@@ -194,23 +193,17 @@
 				number_tail_marks++
 
 		//Head Markings
-		var/head_marks = dna.GetUIValueRange(DNA_UI_HEAD_MARK_STYLE,marking_styles_list.len)
-		if((0 < head_marks) && (head_marks <= number_head_marks))
-			var/list/marking_styles = params2list(H.m_styles)
-			marking_styles["head"] = marking_styles_list[head_marks]
-			H.m_styles = list2params(marking_styles)
+		var/head_marks = dna.GetUIValueRange(DNA_UI_HEAD_MARK_STYLE, marking_styles_list.len)
+		if((head_marks > 0) && (head_marks <= number_head_marks))
+			H.m_styles["head"] = marking_styles_list[head_marks]
 		//Body Markings
-		var/body_marks = dna.GetUIValueRange(DNA_UI_BODY_MARK_STYLE,marking_styles_list.len)
-		if((0 < body_marks) && (body_marks <= number_body_marks))
-			var/list/marking_styles = params2list(H.m_styles)
-			marking_styles["body"] = marking_styles_list[body_marks]
-			H.m_styles = list2params(marking_styles)
+		var/body_marks = dna.GetUIValueRange(DNA_UI_BODY_MARK_STYLE, marking_styles_list.len)
+		if((body_marks > 0) && (body_marks <= number_body_marks))
+			H.m_styles["body"] = marking_styles_list[body_marks]
 		//Tail Markings
-		var/tail_marks = dna.GetUIValueRange(DNA_UI_TAIL_MARK_STYLE,marking_styles_list.len)
-		if((0 < tail_marks) && (tail_marks <= number_tail_marks))
-			var/list/marking_styles = params2list(H.m_styles)
-			marking_styles["tail"] = marking_styles_list[tail_marks]
-			H.m_styles = list2params(marking_styles)
+		var/tail_marks = dna.GetUIValueRange(DNA_UI_TAIL_MARK_STYLE, marking_styles_list.len)
+		if((tail_marks > 0) && (tail_marks <= number_tail_marks))
+			H.m_styles["tail"] = marking_styles_list[tail_marks]
 
 		H.force_update_limbs()
 		H.update_eyes()

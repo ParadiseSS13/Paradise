@@ -68,7 +68,6 @@
 	bald
 		name = "Bald"
 		icon_state = "bald"
-		gender = MALE
 		species_allowed = list("Human", "Unathi", "Vox", "Diona", "Kidan", "Grey", "Plasmaman", "Skeleton", "Vulpkanin", "Tajaran")
 
 	short

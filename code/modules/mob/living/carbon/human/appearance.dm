@@ -63,8 +63,7 @@
 	return 1
 
 /mob/living/carbon/human/proc/change_markings(var/marking_style, var/location = "body")
-	var/list/marking_styles = params2list(m_styles)
-	if(!marking_style || marking_styles[location] == marking_style || !(marking_style in marking_styles_list))
+	if(!marking_style || m_styles[location] == marking_style || !(marking_style in marking_styles_list))
 		return
 
 	var/datum/sprite_accessory/body_markings/marking = marking_styles_list[marking_style]
@@ -93,8 +92,7 @@
 			if(!tail_marking.tails_allowed || !(body_accessory.name in tail_marking.tails_allowed))
 				return
 
-	marking_styles[location] = marking_style
-	m_styles = list2params(marking_styles)
+	m_styles[location] = marking_style
 
 	if(location == "tail")
 		stop_tail_wagging()
@@ -115,9 +113,7 @@
 	if(!found)
 		return
 
-	var/list/marking_styles = params2list(m_styles)
-	marking_styles["tail"] = "None"
-	m_styles = list2params(marking_styles)
+	m_styles["tail"] = "None"
 	update_tail_layer()
 	return 1
 
@@ -129,13 +125,11 @@
 	H.alt_head = alternate_head
 
 	//Handle head markings if they're incompatible with the new alt head.
-	var/list/marking_styles = params2list(m_styles)
-	if(marking_styles["head"])
-		var/head_marking = marking_styles["head"]
+	if(m_styles["head"])
+		var/head_marking = m_styles["head"]
 		var/datum/sprite_accessory/body_markings/head/head_marking_style = marking_styles_list[head_marking]
 		if(!head_marking_style.heads_allowed || !(H.alt_head in head_marking_style.heads_allowed))
-			marking_styles["head"] = "None"
-			m_styles = list2params(marking_styles)
+			m_styles["head"] = "None"
 			update_markings()
 
 	update_body(1, 1) //Update the body and force limb icon regeneration to update the head with the new icon.
@@ -145,8 +139,7 @@
 	reset_head_hair()
 	reset_facial_hair()
 	reset_head_accessory()
-	var/list/marking_styles = params2list(m_styles)
-	if(marking_styles["head"] && marking_styles["head"] != "None") //Resets head markings.
+	if(m_styles["head"] && m_styles["head"] != "None") //Resets head markings.
 		reset_markings()
 
 /mob/living/carbon/human/proc/reset_head_hair()
@@ -172,25 +165,22 @@
 
 /mob/living/carbon/human/proc/reset_markings(var/location)
 	var/list/valid_markings
-	var/list/marking_styles = params2list(m_styles)
 
 	if(location)
 		valid_markings = generate_valid_markings(location)
 		if(valid_markings.len)
-			marking_styles[location] = pick(valid_markings)
+			m_styles[location] = pick(valid_markings)
 		else
 			//this shouldn't happen
-			marking_styles[location] = "None"
+			m_styles[location] = "None"
 	else
 		for(var/m_location in list("head", "body", "tail"))
 			valid_markings = generate_valid_markings(m_location)
 			if(valid_markings.len)
-				marking_styles[m_location] = pick(valid_markings)
+				m_styles[m_location] = pick(valid_markings)
 			else
 				//this shouldn't happen
-				marking_styles[m_location] = "None"
-
-	m_styles = list2params(marking_styles)
+				m_styles[m_location] = "None"
 
 	update_markings()
 	stop_tail_wagging()
@@ -270,13 +260,10 @@
 	return 1
 
 /mob/living/carbon/human/proc/change_marking_color(var/colour, var/location = "body")
-	var/list/marking_colours = params2list(m_colours)
-	marking_colours[location] = sanitize_hexcolor(marking_colours[location])
-	if(colour == marking_colours[location])
+	if(colour == m_colours[location])
 		return
 
-	marking_colours[location] = colour
-	m_colours = list2params(marking_colours)
+	m_colours[location] = colour
 
 	if(location == "tail")
 		update_tail_layer()
@@ -339,7 +326,7 @@
 		if(H.species.flags & ALL_RPARTS) //If the user is a species who can have a robotic head...
 			var/datum/robolimb/robohead = all_robolimbs[H.model]
 			if(!H)
-				return
+				return //No head, no hair.
 			if(H.species.name in S.species_allowed) //If this is a hairstyle native to the user's species...
 				if(robohead.is_monitor && (robohead.company in S.models_allowed)) //Check to see if they have a head with an ipc-style screen and that the head's company is in the screen style's allowed models list.
 					valid_hairstyles += hairstyle //Give them their hairstyles if they do.
@@ -350,7 +337,7 @@
 				if(robohead.is_monitor) //If the hair style is not native to the user's species and they're using a head with an ipc-style screen, don't let them access it.
 					continue
 				else
-					if("Human" in S.species_allowed) //If the user has a robotic head and the hairstyle can fit humans, let them use it as a wig for their humanoid robot head.
+					if("Human" in S.species_allowed) //If the user has a robotic humanoid head and the hairstyle can fit humans, let them use it as a wig.
 						valid_hairstyles += hairstyle
 					continue
 		else //If the user is not a species who can have robotic heads, use the default handling.
@@ -371,7 +358,7 @@
 		if(H.species.flags & ALL_RPARTS) //If the user is a species who can have a robotic head...
 			var/datum/robolimb/robohead = all_robolimbs[H.model]
 			if(!H)
-				continue // No head, no hair
+				return //No head, no hair.
 			if(H.species.name in S.species_allowed) //If this is a facial hair style native to the user's species...
 				if(robohead.is_monitor && (robohead.company in S.models_allowed)) //Check to see if they have a head with an ipc-style screen and that the head's company is in the screen style's allowed models list.
 					valid_facial_hairstyles += facialhairstyle //Give them their facial hair styles if they do.
@@ -379,11 +366,10 @@
 				else //If they don't have the default head, they shouldn't be getting any facial hair styles they wouldn't normally.
 					continue
 			else
-
 				if(robohead.is_monitor) //If the facial hair style is not native to the user's species and they're using a head with an ipc-style screen, don't let them access it.
 					continue
 				else
-					if("Human" in S.species_allowed) //If the user has a robotic head and the facial hair style can fit humans, let them use it as a postiche for their humanoid robot head.
+					if("Human" in S.species_allowed) //If the user has a robotic humanoid head and the facial hair style can fit humans, let them use it as a postiche.
 						valid_facial_hairstyles += facialhairstyle
 					continue
 		else //If the user is not a species who can have robotic heads, use the default handling.
@@ -448,11 +434,10 @@
 			valid_body_accessories = body_accessory_by_name.Copy()
 		else
 			if(!istype(A))
-				valid_body_accessories += "None" //The only null entry should be the "None" option.
+				valid_body_accessories["None"] = "None" //The only null entry should be the "None" option.
 				continue
-			if(!(species.name in A.allowed_species)) //If the user is not of a species the body accessory style allows, skip it. Otherwise, add it to the list.
-				continue
-			valid_body_accessories += B
+			if(species.name in A.allowed_species) //If the user is not of a species the body accessory style allows, skip it. Otherwise, add it to the list.
+				valid_body_accessories += B
 
 	return valid_body_accessories
 

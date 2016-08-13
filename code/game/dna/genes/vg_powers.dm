@@ -44,7 +44,7 @@
 		else
 			M.change_gender(FEMALE)
 
-	var/new_eyes = input("Please select eye color.", "Character Generation", rgb(M.r_eyes,M.g_eyes,M.b_eyes)) as null|color
+	var/new_eyes = input("Please select eye color.", "Character Generation", rgb(M.r_eyes, M.g_eyes, M.b_eyes)) as null|color
 	if(new_eyes)
 		M.change_eye_color(M.r_eyes, M.g_eyes, M.b_eyes)
 
@@ -65,12 +65,13 @@
 
 	var/new_hair = input("Please select hair color.", "Character Generation", rgb(head_organ.r_hair, head_organ.g_hair, head_organ.b_hair)) as null|color
 	if(new_hair)
-		M.change_hair_color(hex2num(copytext(new_hair, 2, 4)), hex2num(copytext(new_hair, 4, 6)), hex2num(copytext(new_hair, 6, 8)))
+		M.change_hair_color(color2R(new_hair), color2G(new_hair), color2B(new_hair))
 
 	var/datum/sprite_accessory/hair_style = hair_styles_list[head_organ.h_style]
 	if(hair_style.secondary_theme && !hair_style.no_sec_colour)
 		new_hair = input("Please select secondary hair color.", "Character Generation", rgb(head_organ.r_hair_sec, head_organ.g_hair_sec, head_organ.b_hair_sec)) as null|color
-		M.change_hair_color(hex2num(copytext(new_hair, 2, 4)), hex2num(copytext(new_hair, 4, 6)), hex2num(copytext(new_hair, 6, 8)), 1)
+		if(new_hair)
+			M.change_hair_color(color2R(new_hair), color2G(new_hair), color2B(new_hair), 1)
 
 	// facial hair
 	var/list/valid_facial_hairstyles = M.generate_valid_facial_hairstyles()
@@ -81,12 +82,13 @@
 
 	var/new_facial = input("Please select facial hair color.", "Character Generation", rgb(head_organ.r_facial, head_organ.g_facial, head_organ.b_facial)) as null|color
 	if(new_facial)
-		M.change_facial_hair_color(hex2num(copytext(new_facial, 2, 4)), hex2num(copytext(new_facial, 4, 6)), hex2num(copytext(new_facial, 6, 8)))
+		M.change_facial_hair_color(color2R(new_facial), color2G(new_facial), color2B(new_facial))
 
 	var/datum/sprite_accessory/facial_hair_style = facial_hair_styles_list[head_organ.f_style]
 	if(facial_hair_style.secondary_theme && !facial_hair_style.no_sec_colour)
 		new_facial = input("Please select secondary facial hair color.", "Character Generation", rgb(head_organ.r_facial_sec, head_organ.g_facial_sec, head_organ.b_facial_sec)) as null|color
-		M.change_facial_hair_color(hex2num(copytext(new_facial, 2, 4)), hex2num(copytext(new_facial, 4, 6)), hex2num(copytext(new_facial, 6, 8)), 1)
+		if(new_facial)
+			M.change_facial_hair_color(color2R(new_facial), color2G(new_facial), color2B(new_facial), 1)
 
 	//Head accessory.
 	if(head_organ.species.bodyflags & HAS_HEAD_ACCESSORY)
@@ -97,7 +99,7 @@
 
 		var/new_head_accessory_colour = input("Please select head accessory colour.", "Character Generation", rgb(head_organ.r_headacc, head_organ.g_headacc, head_organ.b_headacc)) as null|color
 		if(new_head_accessory_colour)
-			M.change_head_accessory_color(hex2num(copytext(new_head_accessory_colour, 2, 4)), hex2num(copytext(new_head_accessory_colour, 4, 6)), hex2num(copytext(new_head_accessory_colour, 6, 8)))
+			M.change_head_accessory_color(color2R(new_head_accessory_colour), color2G(new_head_accessory_colour), color2B(new_head_accessory_colour))
 
 	//Body accessory.
 	if(M.species.tail && M.species.bodyflags & HAS_TAIL)
@@ -109,41 +111,32 @@
 
 	//Head markings.
 	if(M.species.bodyflags & HAS_HEAD_MARKINGS)
-		var/list/marking_styles = params2list(M.m_styles)
 		var/list/valid_head_markings = M.generate_valid_markings("head")
-		var/new_marking = input("Please select head marking style", "Character Generation", marking_styles["head"]) as null|anything in valid_head_markings
+		var/new_marking = input("Please select head marking style", "Character Generation", M.m_styles["head"]) as null|anything in valid_head_markings
 		if(new_marking)
 			M.change_markings(new_marking, "head")
 
-		var/list/marking_colours = params2list(M.m_colours)
-		marking_colours["head"] = sanitize_hexcolor(marking_colours["head"])
-		var/new_marking_colour = input("Please select head marking colour.", "Character Generation", rgb(hex2num(copytext(marking_colours["head"], 2, 4)), hex2num(copytext(marking_colours["head"], 4, 6)), hex2num(copytext(marking_colours["head"], 6, 8)))) as null|color
+		var/new_marking_colour = input("Please select head marking colour.", "Character Generation", M.m_colours["head"]) as null|color
 		if(new_marking_colour)
 			M.change_marking_color(new_marking_colour, "head")
 	//Body markings.
 	if(M.species.bodyflags & HAS_BODY_MARKINGS)
-		var/list/marking_styles = params2list(M.m_styles)
 		var/list/valid_body_markings = M.generate_valid_markings("body")
-		var/new_marking = input("Please select body marking style", "Character Generation", marking_styles["body"]) as null|anything in valid_body_markings
+		var/new_marking = input("Please select body marking style", "Character Generation", M.m_styles["body"]) as null|anything in valid_body_markings
 		if(new_marking)
 			M.change_markings(new_marking, "body")
 
-		var/list/marking_colours = params2list(M.m_colours)
-		marking_colours["body"] = sanitize_hexcolor(marking_colours["body"])
-		var/new_marking_colour = input("Please select body marking colour.", "Character Generation", rgb(hex2num(copytext(marking_colours["body"], 2, 4)), hex2num(copytext(marking_colours["body"], 4, 6)), hex2num(copytext(marking_colours["body"], 6, 8)))) as null|color
+		var/new_marking_colour = input("Please select body marking colour.", "Character Generation", M.m_colours["body"]) as null|color
 		if(new_marking_colour)
 			M.change_marking_color(new_marking_colour, "body")
 	//Tail markings.
 	if(M.species.bodyflags & HAS_TAIL_MARKINGS)
-		var/list/marking_styles = params2list(M.m_styles)
 		var/list/valid_tail_markings = M.generate_valid_markings("tail")
-		var/new_marking = input("Please select tail marking style", "Character Generation", marking_styles["tail"]) as null|anything in valid_tail_markings
+		var/new_marking = input("Please select tail marking style", "Character Generation", M.m_styles["tail"]) as null|anything in valid_tail_markings
 		if(new_marking)
 			M.change_markings(new_marking, "tail")
 
-		var/list/marking_colours = params2list(M.m_colours)
-		marking_colours["tail"] = sanitize_hexcolor(marking_colours["tail"])
-		var/new_marking_colour = input("Please select tail marking colour.", "Character Generation", rgb(hex2num(copytext(marking_colours["tail"], 2, 4)), hex2num(copytext(marking_colours["tail"], 4, 6)), hex2num(copytext(marking_colours["tail"], 6, 8)))) as null|color
+		var/new_marking_colour = input("Please select tail marking colour.", "Character Generation", M.m_colours["tail"]) as null|color
 		if(new_marking_colour)
 			M.change_marking_color(new_marking_colour, "tail")
 
@@ -175,7 +168,7 @@
 	if(M.species.bodyflags & HAS_SKIN_COLOR)
 		var/new_body_colour = input("Please select body colour.", "Character Generation", rgb(M.r_skin, M.g_skin, M.b_skin)) as null|color
 		if(new_body_colour)
-			M.change_skin_color(hex2num(copytext(new_body_colour, 2, 4)), hex2num(copytext(new_body_colour, 4, 6)), hex2num(copytext(new_body_colour, 6, 8)))
+			M.change_skin_color(color2R(new_body_colour), color2G(new_body_colour), color2B(new_body_colour))
 
 	M.update_dna()
 

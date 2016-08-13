@@ -1539,9 +1539,9 @@
 
 	if(species.base_color && default_colour)
 		//Apply colour.
-		r_skin = hex2num(copytext(species.base_color, 2, 4))
-		g_skin = hex2num(copytext(species.base_color, 4, 6))
-		b_skin = hex2num(copytext(species.base_color, 6, 8))
+		r_skin = color2R(species.base_color)
+		g_skin = color2G(species.base_color)
+		b_skin = color2B(species.base_color)
 	else
 		r_skin = 0
 		g_skin = 0
@@ -1563,25 +1563,25 @@
 
 	if(species.default_hair_colour)
 		//Apply colour.
-		H.r_hair = hex2num(copytext(species.default_hair_colour, 2, 4))
-		H.g_hair = hex2num(copytext(species.default_hair_colour, 4, 6))
-		H.b_hair = hex2num(copytext(species.default_hair_colour, 6, 8))
+		H.r_hair = color2R(species.default_hair_colour)
+		H.g_hair = color2G(species.default_hair_colour)
+		H.b_hair = color2B(species.default_hair_colour)
 	else
 		H.r_hair = 0
 		H.g_hair = 0
 		H.b_hair = 0
 	if(species.default_fhair_colour)
-		H.r_facial = hex2num(copytext(species.default_fhair_colour, 2, 4))
-		H.g_facial = hex2num(copytext(species.default_fhair_colour, 4, 6))
-		H.b_facial = hex2num(copytext(species.default_fhair_colour, 6, 8))
+		H.r_facial = color2R(species.default_fhair_colour)
+		H.g_facial = color2G(species.default_fhair_colour)
+		H.b_facial = color2B(species.default_fhair_colour)
 	else
 		H.r_facial = 0
 		H.g_facial = 0
 		H.b_facial = 0
 	if(species.default_headacc_colour)
-		H.r_headacc = hex2num(copytext(species.default_headacc_colour, 2, 4))
-		H.g_headacc = hex2num(copytext(species.default_headacc_colour, 4, 6))
-		H.b_headacc = hex2num(copytext(species.default_headacc_colour, 6, 8))
+		H.r_headacc = color2R(species.default_headacc_colour)
+		H.g_headacc = color2G(species.default_headacc_colour)
+		H.b_headacc = color2B(species.default_headacc_colour)
 	else
 		H.r_headacc = 0
 		H.g_headacc = 0
@@ -1693,17 +1693,13 @@
 		if(!head_organ)
 			return
 		if(!robohead.is_monitor) //If they've got a prosthetic head and it isn't a monitor, they've no screen to adjust. Instead, let them change the colour of their optics!
-			var/list/marking_colours = params2list(m_colours)
-			marking_colours["head"] = sanitize_hexcolor(marking_colours["head"])
-			var/optic_colour = input(src, "Select optic colour", rgb(hex2num(copytext(marking_colours["head"], 2, 4)), hex2num(copytext(marking_colours["head"], 4, 6)), hex2num(copytext(marking_colours["head"], 6, 8)))) as color|null
+			var/optic_colour = input(src, "Select optic colour", m_colours["head"]) as color|null
 			if(incapacitated())
 				to_chat(src, "<span class='warning'>You were interrupted while changing the colour of your optics.</span>")
 				return
 			if(optic_colour)
-				marking_colours["head"] = optic_colour
-				m_colours = list2params(marking_colours)
+				change_markings(optic_colour, "head")
 
-			update_markings()
 		else if(robohead.is_monitor) //Means that the character's head is a monitor (has a screen). Time to customize.
 			var/list/hair = list()
 			for(var/i in hair_styles_list)
@@ -1711,14 +1707,12 @@
 				if((head_organ.species.name in tmp_hair.species_allowed) && (robohead.company in tmp_hair.models_allowed)) //Populate the list of available monitor styles only with styles that the monitor-head is allowed to use.
 					hair += i
 
-			var/new_style = input(src, "Select a monitor display", "Monitor Display", head_organ.h_style)	as null|anything in hair
+			var/new_style = input(src, "Select a monitor display", "Monitor Display", head_organ.h_style) as null|anything in hair
 			if(incapacitated())
 				to_chat(src, "<span class='warning'>You were interrupted while changing your monitor display.</span>")
 				return
 			if(new_style)
-				head_organ.h_style = new_style
-
-		update_hair()
+				change_hair(new_style)
 
 //Putting a couple of procs here that I don't know where else to dump.
 //Mostly going to be used for Vox and Vox Armalis, but other human mobs might like them (for adminbuse).

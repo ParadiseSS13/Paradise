@@ -366,31 +366,25 @@ var/global/list/damage_icon_parts = list()
 	//Base icon.
 	var/icon/markings_standing	= new/icon('icons/mob/body_accessory.dmi',"accessory_none_s")
 
-	//Prep marking styles and colours.
-	var/list/marking_styles = params2list(m_styles)
-	var/list/marking_colours = params2list(m_colours)
-
 	//Body markings.
 	var/obj/item/organ/external/chest/chest_organ = get_organ("chest")
-	if(chest_organ && !chest_organ.is_stump() && !(chest_organ.status & ORGAN_DESTROYED) && marking_styles["body"])
-		var/body_marking = marking_styles["body"]
+	if(chest_organ && !chest_organ.is_stump() && !(chest_organ.status & ORGAN_DESTROYED) && m_styles["body"])
+		var/body_marking = m_styles["body"]
 		var/datum/sprite_accessory/body_marking_style = marking_styles_list[body_marking]
 		if(body_marking_style && body_marking_style.species_allowed && (species.name in body_marking_style.species_allowed))
 			var/icon/b_marking_s = new/icon("icon" = body_marking_style.icon, "icon_state" = "[body_marking_style.icon_state]_s")
 			if(body_marking_style.do_colouration)
-				marking_colours["body"] = sanitize_hexcolor(marking_colours["body"])
-				b_marking_s.Blend(rgb(hex2num(copytext(marking_colours["body"], 2, 4)), hex2num(copytext(marking_colours["body"], 4, 6)), hex2num(copytext(marking_colours["body"], 6, 8))), ICON_ADD)
+				b_marking_s.Blend(m_colours["body"], ICON_ADD)
 			markings_standing.Blend(b_marking_s, ICON_OVERLAY)
 	//Head markings.
 	var/obj/item/organ/external/head/head_organ = get_organ("head")
-	if(head_organ && !head_organ.is_stump() && !(head_organ.status & ORGAN_DESTROYED) && marking_styles["head"]) //If the head is destroyed, forget the head markings. This prevents floating optical markings on decapitated IPCs, for example.
-		var/head_marking = marking_styles["head"]
+	if(head_organ && !head_organ.is_stump() && !(head_organ.status & ORGAN_DESTROYED) && m_styles["head"]) //If the head is destroyed, forget the head markings. This prevents floating optical markings on decapitated IPCs, for example.
+		var/head_marking = m_styles["head"]
 		var/datum/sprite_accessory/head_marking_style = marking_styles_list[head_marking]
 		if(head_marking_style && head_marking_style.species_allowed && (head_organ.species.name in head_marking_style.species_allowed))
 			var/icon/h_marking_s = new/icon("icon" = head_marking_style.icon, "icon_state" = "[head_marking_style.icon_state]_s")
 			if(head_marking_style.do_colouration)
-				marking_colours["head"] = sanitize_hexcolor(marking_colours["head"])
-				h_marking_s.Blend(rgb(hex2num(copytext(marking_colours["head"], 2, 4)), hex2num(copytext(marking_colours["head"], 4, 6)), hex2num(copytext(marking_colours["head"], 6, 8))), ICON_ADD)
+				h_marking_s.Blend(m_colours["head"], ICON_ADD)
 			markings_standing.Blend(h_marking_s, ICON_OVERLAY)
 
 	overlays_standing[MARKINGS_LAYER]	= image(markings_standing)
@@ -408,7 +402,7 @@ var/global/list/damage_icon_parts = list()
 		return
 
 	//masks and helmets can obscure our head accessory
-	if( (head && (head.flags & BLOCKHAIR)) || (wear_mask && (wear_mask.flags & BLOCKHAIR)))
+	if((head && (head.flags & BLOCKHAIR)) || (wear_mask && (wear_mask.flags & BLOCKHAIR)))
 		if(update_icons)   update_icons()
 		return
 
@@ -1147,16 +1141,13 @@ var/global/list/damage_icon_parts = list()
 											If the species' tail is overlapped by limbs, this will be only the N direction icon so tails can still appear on the outside of uniforms and such.
 											Otherwise, since the user's tail isn't overlapped by limbs, it will be a full icon with all directions. */
 
-	var/list/marking_styles = params2list(m_styles)
 	var/icon/tail_marking_icon
 	var/datum/sprite_accessory/body_markings/tail/tail_marking_style
-	if(marking_styles["tail"] != "None" && (species.bodyflags & HAS_TAIL_MARKINGS))
-		var/tail_marking = marking_styles["tail"]
-		var/list/marking_colours = params2list(m_colours)
-		marking_colours["tail"] = sanitize_hexcolor(marking_colours["tail"])
+	if(m_styles["tail"] != "None" && (species.bodyflags & HAS_TAIL_MARKINGS))
+		var/tail_marking = m_styles["tail"]
 		tail_marking_style = marking_styles_list[tail_marking]
 		tail_marking_icon = new/icon("icon" = tail_marking_style.icon, "icon_state" = "[tail_marking_style.icon_state]_s")
-		tail_marking_icon.Blend(rgb(hex2num(copytext(marking_colours["tail"], 2, 4)), hex2num(copytext(marking_colours["tail"], 4, 6)), hex2num(copytext(marking_colours["tail"], 6, 8))), ICON_ADD)
+		tail_marking_icon.Blend(m_colours["tail"], ICON_ADD)
 
 	if(body_accessory)
 		if(body_accessory.try_restrictions(src))
@@ -1217,16 +1208,13 @@ var/global/list/damage_icon_parts = list()
 											If the species' tail is overlapped by limbs, this will be only the N direction icon so tails can still appear on the outside of uniforms and such.
 											Otherwise, since the user's tail isn't overlapped by limbs, it will be a full icon with all directions. */
 
-	var/list/marking_styles = params2list(m_styles)
 	var/icon/tail_marking_icon
 	var/datum/sprite_accessory/body_markings/tail/tail_marking_style
-	if(marking_styles["tail"] != "None" && (species.bodyflags & HAS_TAIL_MARKINGS))
-		var/tail_marking = marking_styles["tail"]
-		var/list/marking_colours = params2list(m_colours)
-		marking_colours["tail"] = sanitize_hexcolor(marking_colours["tail"])
+	if(m_styles["tail"] != "None" && (species.bodyflags & HAS_TAIL_MARKINGS))
+		var/tail_marking = m_styles["tail"]
 		tail_marking_style = marking_styles_list[tail_marking]
 		tail_marking_icon = new/icon("icon" = tail_marking_style.icon, "icon_state" = "[tail_marking_style.icon_state]w_s")
-		tail_marking_icon.Blend(rgb(hex2num(copytext(marking_colours["tail"], 2, 4)), hex2num(copytext(marking_colours["tail"], 4, 6)), hex2num(copytext(marking_colours["tail"], 6, 8))), ICON_ADD)
+		tail_marking_icon.Blend(m_colours["tail"], ICON_ADD)
 
 	if(body_accessory)
 		var/icon/accessory_s = new/icon("icon" = body_accessory.get_animated_icon(), "icon_state" = body_accessory.get_animated_icon_state())
