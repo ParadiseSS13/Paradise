@@ -1,7 +1,7 @@
 "a" = (/turf/space,/area/space)
-"b" = (/turf/simulated/shuttle/wall{icon_state = "swall_f6"; dir = 2},/area/shuttle/escape)
+"b" = (/turf/simulated/shuttle/wall{icon_state = "swall_s6"; dir = 2},/area/shuttle/escape)
 "c" = (/obj/structure/window/full/shuttle,/obj/structure/grille,/turf/simulated/floor/plating,/area/shuttle/escape)
-"d" = (/turf/simulated/shuttle/wall{icon_state = "swall_f10"; dir = 2},/area/shuttle/escape)
+"d" = (/turf/simulated/shuttle/wall{icon_state = "swall_s10"; dir = 2},/area/shuttle/escape)
 "e" = (/turf/simulated/shuttle/wall{icon_state = "swallc4"},/area/shuttle/escape)
 "f" = (/obj/machinery/computer/emergency_shuttle,/turf/simulated/floor/plating,/area/shuttle/escape)
 "g" = (/turf/simulated/shuttle/wall{icon_state = "swallc3"},/area/shuttle/escape)
@@ -23,10 +23,10 @@
 "w" = (/obj/structure/window/full/shuttle{icon_state = "15"},/obj/structure/grille,/turf/simulated/floor/plating,/area/shuttle/escape)
 "x" = (/obj/structure/closet/emcloset,/turf/simulated/floor/plating,/area/shuttle/escape)
 "y" = (/obj/structure/shuttle/engine/heater,/obj/structure/window/reinforced,/obj/structure/window/reinforced{dir = 1; layer = 2.9},/turf/simulated/floor/plating/airless,/area/shuttle/escape)
-"z" = (/turf/simulated/shuttle/wall{icon_state = "swall_f5"; dir = 2},/area/shuttle/escape)
+"z" = (/turf/simulated/shuttle/wall{icon_state = "swall_s5"; dir = 2},/area/shuttle/escape)
 "A" = (/obj/structure/shuttle/engine/propulsion{tag = "icon-burst_l"; icon_state = "burst_l"},/turf/space,/area/shuttle/escape)
 "B" = (/obj/structure/shuttle/engine/propulsion{tag = "icon-propulsion_r"; icon_state = "propulsion_r"},/turf/space,/area/shuttle/escape)
-"C" = (/turf/simulated/shuttle/wall{icon_state = "swall_f9"; dir = 2},/area/shuttle/escape)
+"C" = (/turf/simulated/shuttle/wall{tag = "icon-swall_s9"; icon_state = "swall_s9"; dir = 2},/area/shuttle/escape)
 
 (1,1,1) = {"
 abcda
