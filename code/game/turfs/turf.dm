@@ -192,7 +192,7 @@
 		if(dynamic_lighting)
 			lighting_build_overlay()
 		else
-			lighting_clear_overlays()
+			lighting_clear_overlay()
 	obscured = old_obscured
 
 	return W
