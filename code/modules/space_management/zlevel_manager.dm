@@ -6,6 +6,9 @@ var/global/datum/zlev_manager/space_manager = new
 	var/list/levels_by_name = list()
 	var/list/heaps = list()
 
+	// Levels that need their transitions rebuilt
+	var/list/unbuilt_space_transitions = list()
+
 	var/datum/spacewalk_grid/linkage_map
 	var/initialized = 0
 
