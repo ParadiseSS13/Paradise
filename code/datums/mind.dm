@@ -1538,21 +1538,21 @@
 
 	var/list/implanters
 	var/ref = "\ref[missionary.mind]"
-	if(!(missionary.mind in ticker.mode:implanter))
-		ticker.mode:implanter[ref] = list()
-	implanters = ticker.mode:implanter[ref]
+	if(!(missionary.mind in ticker.mode.implanter))
+		ticker.mode.implanter[ref] = list()
+	implanters = ticker.mode.implanter[ref]
 	implanters.Add(src)
 	ticker.mode.implanted.Add(src)
 	ticker.mode.implanted[src] = missionary.mind
-	//ticker.mode:implanter[missionary.mind] += src
-	ticker.mode:implanter[ref] = implanters
+	//ticker.mode.implanter[missionary.mind] += src
+	ticker.mode.implanter[ref] = implanters
 	ticker.mode.traitors += src
 	special_role = "traitor"
 	to_chat(current, "<span class='warning'><B>You're now a loyal zealot of [missionary.name]!</B> You now must lay down your life to protect them and assist in their goals at any cost.</span>")
 	var/datum/objective/protect/mindslave/MS = new
 	MS.owner = src
-	MS.target = missionary:mind
-	MS.explanation_text = "Obey every order from and protect [missionary:real_name], the [missionary:mind:assigned_role=="MODE" ? (missionary:mind:special_role) : (missionary:mind:assigned_role)]."
+	MS.target = missionary.mind
+	MS.explanation_text = "Obey every order from and protect [missionary.real_name], the [missionary.mind.assigned_role=="MODE" ? (missionary.mind.special_role) : (missionary.mind.assigned_role)]."
 	objectives += MS
 	for(var/datum/objective/objective in objectives)
 		to_chat(current, "<B>Objective #1</B>: [objective.explanation_text]")

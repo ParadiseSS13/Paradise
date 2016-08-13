@@ -889,12 +889,12 @@
 	if(linked_staff)	//delink on destruction
 		linked_staff.robes = null
 		linked_staff = null
-	..()
+	processing_objects -= src	//probably is cleared in a parent call already, but just in case we're gonna do it here
+	return ..()
 
 /obj/item/clothing/suit/hooded/chaplain_hoodie/missionary_robe/equipped(mob/living/carbon/human/H, slot)
 	if(!istype(H) || slot != slot_wear_suit)
-		if(src in processing_objects)
-			processing_objects -= src
+		processing_objects -= src
 		return
 	else
 		processing_objects |= src
@@ -903,11 +903,11 @@
 	if(!linked_staff)	//if we don't have a linked staff, the rest of this is useless
 		return
 
-	var/mob/living/carbon/human/H = loc
-
-	if(!istype(H))		//if we somehow try to process while not on a human, remove ourselves from processing and return
+	if(!ishuman(loc))		//if we somehow try to process while not on a human, remove ourselves from processing and return
 		processing_objects -= src
 		return
+
+	var/mob/living/carbon/human/H = loc
 
 	if(linked_staff.faith >= 100)	//if the linked staff is fully recharged, do nothing
 		return
@@ -920,4 +920,3 @@
 	linked_staff.faith += 5
 	if(linked_staff.faith >= 100)	//if this charge puts the staff at or above full, notify the wearer
 		to_chat(H, "<span class='notice'>Faith renewed; ready to convert new followers.</span>")
-	return

@@ -471,7 +471,7 @@
 	if(robes)		//delink on destruction
 		robes.linked_staff = null
 		robes = null
-	..()
+	return ..()
 
 /obj/item/weapon/nullrod/missionary_staff/attack_self(mob/user)
 	if(robes)	//as long as it is linked, sec can't try to meta by stealing your staff and seeing if they get the link error message
@@ -516,15 +516,14 @@
 			return
 		if(missionary in viewers(target))	//missionary must maintain line of sight to target, but the target doesn't necessary need to be able to see the missionary
 			do_convert(target, missionary)
-			return
 		else
 			to_chat(missionary, "<span class='warning'>You lost sight of the target before they could be converted!</span>")
 			faith -= 25		//they escaped, so you only lost a little faith (to prevent spamming)
-			return
 	else	//the do_after failed, probably because you moved or dropped the staff
 		to_chat(missionary, "<span class='warning'>Your concentration was broken!</span>")
 
 /obj/item/weapon/nullrod/missionary_staff/proc/do_convert(mob/living/carbon/human/target, mob/living/carbon/human/missionary)
+	var/convert_duration = 6000		//10 min
 	if(!target || !istype(target) || !missionary || !istype(missionary))
 		return
 	if(ismindslave(target) || target.mind.zealot_master)	//mindslaves and zealots override the staff because the staff is just a temporary mindslave
@@ -534,7 +533,8 @@
 	if(isloyal(target))
 		if(prob(20))	//loyalty implants typically overpower this, but you CAN get lucky and convert still (20% chance of success)
 			faith -= 125	//yes, this puts it negative. it's gonna take longer to recharge if you manage to convert a one of these people to balance the new power you gained through them
-			to_chat(missionary, "<span class='notice'>Through sheer willpower, you overcome their closed mind and rally [target] to your cause! You may need a bit longer than usual before your faith is fully recharged...</span>")
+			to_chat(missionary, "<span class='notice'>Through sheer willpower, you overcome their closed mind and rally [target] to your cause! You may need a bit longer than usual before your faith is fully recharged, and they won't remain loyal to you for long ...</span>")
+			convert_duration = 3000		//5 min, because the loyalty implant will attempt to counteract the subversion
 		else	//80% chance to fail
 			faith -= 75
 			to_chat(missionary, "<span class='warning'>Your faith is strong, but their mind remains closed to your ideals. Your resolve helps you retain a bit of faith though.</span>")
@@ -564,11 +564,21 @@
 	missionary.say("WOLOLO!")
 	missionary << sound('sound/misc/wololo.ogg', 0, 1, 25)
 
+	var/obj/item/clothing/under/jumpsuit = null
+
 	if(target.w_uniform)
-		target.w_uniform.color = team_color
+		jumpsuit = target.w_uniform
+		jumpsuit.color = team_color
 		target.update_inv_w_uniform(0,0)
 
 	log_admin("[ckey(missionary.key)] has converted [ckey(target.key)] as a zealot.")
-	spawn(6000)		//10 minutes of zealotry before you return to normal (there has to be a better way than this, but I can't think of one that doesn't involve a self-deleting implant/tumor off hand)
-		target.mind.remove_zealot()
-		log_admin("[ckey(target.key)] has deconverted and is no longer a zealot of [ckey(missionary.key)].")
+	addtimer(src, "do_deconvert", convert_duration, FALSE, target, missionary, jumpsuit)	//deconverts after the timer expires
+
+/obj/item/weapon/nullrod/missionary_staff/proc/do_deconvert(mob/living/carbon/human/target, mob/living/carbon/human/missionary, obj/item/clothing/under/jumpsuit)
+	if(!target  || !istype(target))		//if we didn't supply a target (or a non-human target), stop here
+		return 0
+	if(jumpsuit)
+		jumpsuit.color = initial(jumpsuit.color)
+		target.update_inv_w_uniform(0,0)
+	target.mind.remove_zealot()
+	log_admin("[ckey(target.key)] has deconverted and is no longer a zealot of [ckey(missionary.key)].")
