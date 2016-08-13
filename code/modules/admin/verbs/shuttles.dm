@@ -13,7 +13,7 @@
 	set name = "Shuttle Destroy"
 
 	if (!holder)
-		src << "Only administrators may use this command."
+		to_chat(src, "Only administrators may use this command.")
 		return
 
 	if(!emergency_sanity_check())
@@ -30,13 +30,13 @@
 	var/decide_against_msg = "You decide against destroying a shuttle."
 
 	if(!selected)
-		src << decide_against_msg
+		to_chat(src, decide_against_msg)
 		return
 
 	var/confirm = alert(src, "Are you sure you want to destroy [selected]?", "Confirm", "Yes", "No")
 
 	if(confirm != "Yes")
-		src << decide_against_msg
+		to_chat(src, decide_against_msg)
 		return
 
 	var/destroyed = FALSE
@@ -48,7 +48,7 @@
 			break
 
 	if(!destroyed)
-		src << "<span class='warning'>Something went wrong, the selected shuttle doesn't exist anymore."
+		to_chat(src, "<span class='warning'>Something went wrong, the selected shuttle doesn't exist anymore.")
 		return
 
 	log_admin("[key_name_admin(usr)] - ShuttleDestroy: [M]")

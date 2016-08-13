@@ -42,8 +42,8 @@
 	return
 
 /obj/machinery/shuttle_manipulator/attack_hand(mob/user as mob)
-		user.set_machine(src)
-		interact(user)
+	user.set_machine(src)
+	interact(user)
 
 /obj/machinery/shuttle_manipulator/interact(mob/user)
 

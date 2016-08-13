@@ -134,7 +134,7 @@
 
 //return first-found touching dockingport
 /obj/docking_port/proc/get_docked()
-	. = locate(/obj/docking_port/mobile) in loc
+	return locate(/obj/docking_port/stationary) in loc
 
 /obj/docking_port/proc/getDockedId()
 	var/obj/docking_port/P = get_docked()
@@ -387,7 +387,7 @@
 		T0.CalculateAdjacentTurfs()
 		air_master.add_to_active(T0,1)
 
-	src.i_know_what_im_doing = TRUE
+		i_know_what_im_doing = TRUE
 	qdel(src)
 
 //this is the main proc. It instantly moves our mobile port to stationary port S1
@@ -639,7 +639,8 @@
 				if(!AM.anchored)
 					step(AM, dir)
 				else
-					qdel(AM)
+					if(AM.simulated) //lighting overlays are static
+						qdel(AM)
 
 //used by shuttle subsystem to check timers
 /obj/docking_port/mobile/proc/check()
