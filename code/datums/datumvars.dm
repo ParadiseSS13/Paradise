@@ -387,7 +387,7 @@ body
 				var/index = 1
 				for(var/entry in L)
 					if(istext(entry))
-						html += debug_variable(entry, L[index], level + 1)
+						html += debug_variable(entry, L[entry], level + 1)
 					else
 						html += debug_variable(index, L[index], level + 1)
 					index++
