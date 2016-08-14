@@ -385,8 +385,10 @@ body
 			else
 				html += "<ul>"
 				var/index = 1
+				var/associative = FALSE
 				for(var/entry in L)
-					if(!isnum(entry) && !isnull(L[entry]))
+					if(!(isnum(entry) || (isnull(L[entry]) && !associative)))
+					 	associative = TRUE
 						html += debug_variable(entry, L[entry], level + 1)
 					else
 						html += debug_variable(index, L[index], level + 1)
