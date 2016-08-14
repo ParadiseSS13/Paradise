@@ -216,6 +216,9 @@
 /datum/action/item_action/halt
 	name = "HALT!"
 
+/datum/action/item_action/ripandtear
+	name = "RIP AND TEAR"
+
 /datum/action/item_action/hoot
 	name = "Hoot"
 

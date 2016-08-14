@@ -41,6 +41,7 @@
 		handle_heartattack()
 		handle_drunk()
 		species.handle_life(src)
+		handle_lust()
 
 		if(!client)
 			species.handle_npc(src)

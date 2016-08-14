@@ -181,7 +181,7 @@
 	flags = NODROP
 
 /obj/item/clothing/suit/corgisuit/super_hero/en
-	name = "\improper super-hero E-N suit"
+	name = "super-hero E-N suit"
 	icon_state = "ensuit"
 
 /obj/item/clothing/suit/corgisuit/super_hero/en/New()

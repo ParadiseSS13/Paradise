@@ -12,6 +12,7 @@
 /datum/job_objective
 	var/datum/mind/owner = null			//Who owns the objective.
 	var/completed = 0					//currently only used for custom objectives.
+	var/over = 0							//currently only used for round-end objectives.
 	var/per_unit = 0
 	var/units_completed = 0
 	var/units_compensated = 0 // Shit paid for
@@ -41,8 +42,19 @@
 			return 1
 	return 0
 
+/datum/job_objective/proc/is_over()
+	if(!over)
+		over = check_in_the_end()
+	return over
+
+/datum/job_objective/proc/check_in_the_end()
+	if(per_unit)
+		if(units_completed > 0)
+			return 1
+	return 0
+
 /datum/game_mode/proc/declare_job_completion()
-	var/text = "<hr><b><u>Job Completion</u></b>"
+	var/text = "<hr><b><u>Профессиональные успехи:</u></b>"
 
 	for(var/datum/mind/employee in ticker.minds)
 
@@ -54,23 +66,23 @@
 
 		var/tasks_completed=0
 
-		text += "<br>[employee.name] was a [employee.assigned_role]:"
+		text += "<br>[employee.name] - [employee.assigned_role]:"
 
 		var/count = 1
 		for(var/datum/job_objective/objective in employee.job_objectives)
-			if(objective.is_completed(1))
-				text += "<br>&nbsp;-&nbsp;<B>Task #[count]</B>: [objective.get_description()] <font color='green'><B>Completed!</B></font>"
-				feedback_add_details("employee_objective","[objective.type]|SUCCESS")
+			if(objective.is_completed(1) || objective.is_over(1))
+				text += "<br>&nbsp;-&nbsp;<B>Задача #[count]</B>: [objective.get_description()] <font color='green'><B>ВЫПОЛНЕНО!</B></font>"
+				feedback_add_details("employee_objective","[objective.type]|УСПЕХ")
 				tasks_completed++
 			else
-				text += "<br>&nbsp;-&nbsp;<B>Task #[count]</B>: [objective.get_description()] <font color='red'><b>Failed.</b></font>"
-				feedback_add_details("employee_objective","[objective.type]|FAIL")
+				text += "<br>&nbsp;-&nbsp;<B>Задача #[count]</B>: [objective.get_description()] <font color='red'><b>Провалено.</b></font>"
+				feedback_add_details("employee_objective","[objective.type]|ПРОВАЛ")
 			count++
 
 		if(tasks_completed >= 1)
-			text += "<br>&nbsp;<font color='green'><B>[employee.name] did their fucking job!</B></font>"
+			text += "<br>&nbsp;<font color='green'><B>[employee.name] сделал свою чертову работу!</B></font>"
 			feedback_add_details("employee_success","SUCCESS")
 		else
 			feedback_add_details("employee_success","FAIL")
 
-	return text
+	return sanitize_local(text)
