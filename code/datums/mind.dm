@@ -428,14 +428,16 @@
 	out += "<b>Memory:</b><br>"
 	out += memory
 	out += "<br><a href='?src=\ref[src];memory_edit=1'>Edit memory</a><br>"
-	if(job_objectives.len>0)
-		out += "<HR><B>Job Objectives:</B><UL>"
+	out += "<HR><B>Job Objectives:</B><UL>"
+	if(job_objectives.len == 0)
+		out += "EMPTY<br>"
+	else
 		var/job_obj_count = 1
 		for(var/datum/job_objective/jobie_objective in job_objectives)
 			out += "<LI><B>Task #[job_obj_count]</B>: [jobie_objective.get_description()] <a href='?src=\ref[src];job_obj_delete=\ref[jobie_objective]'>Delete</a><a href='?src=\ref[src];job_obj_completed=\ref[jobie_objective]'><font color=[jobie_objective.completed ? "green" : "red"]>Toggle Completion</font></a></li>"
 			job_obj_count++
 		out += "</UL>"
-		out += "<a href='?src=\ref[src];job_obj_add=1'>Add job objective</a><br><br><hr>"
+	out += "<a href='?src=\ref[src];job_obj_add=1'>Add job objective</a><br><br><hr>"
 	out += "<b>Special Objectives:</b><br>"
 	if(objectives.len == 0)
 		out += "EMPTY<br>"

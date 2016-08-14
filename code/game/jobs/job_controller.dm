@@ -67,9 +67,10 @@ var/global/datum/controller/occupations/job_master
 				for(var/objectiveType in job.required_objectives)
 					new objectiveType(player.mind)
 				//picks one optional objective
-				var/optObjectiveType = pick(job.optional_objectives)
-				if(optObjectiveType)
-					new optObjectiveType(player.mind)
+				if(job.optional_objectives)
+					var/optObjectiveType = pick(job.optional_objectives)
+					if(optObjectiveType)
+						new optObjectiveType(player.mind)
 				unassigned -= player
 				job.current_positions++
 				return 1
