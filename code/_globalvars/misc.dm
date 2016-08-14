@@ -65,7 +65,6 @@ var/score_dmgestname = null // who had the most damage on the shuttle (but was s
 var/score_dmgestjob = null
 var/score_dmgestdamage = 0
 var/score_dmgestkey = null
-var/ya = "&#1103;"
 
 var/TAB = "&nbsp;&nbsp;&nbsp;&nbsp;"
 

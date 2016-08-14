@@ -1220,7 +1220,6 @@
 
 /datum/construction/mecha/phazon_chassis
 	result = "/obj/mecha/combat/phazon"
-	taskpath = /datum/job_objective/make_phazon
 	steps = list(list("key"=/obj/item/mecha_parts/part/phazon_torso),//1
 					 list("key"=/obj/item/mecha_parts/part/phazon_left_arm),//2
 					 list("key"=/obj/item/mecha_parts/part/phazon_right_arm),//3

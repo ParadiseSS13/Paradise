@@ -20,11 +20,10 @@
 	required_objectives=list(
 		/datum/job_objective/station_integrity,
 		/datum/job_objective/powerstation,
-		/datum/job_objective/singulo
-		)
-	optional_objectives=list(
+		/datum/job_objective/singulo,
 		/datum/job_objective/savedept
 		)
+
 
 	equip(var/mob/living/carbon/human/H)
 		if(!H)	return 0
@@ -61,12 +60,10 @@
 	minimal_access = list(access_eva, access_engine, access_engine_equip, access_tech_storage, access_maint_tunnels, access_external_airlocks, access_construction)
 	alt_titles = list("Maintenance Technician","Engine Technician","Electrician")
 	minimal_player_age = 7
-	required_objectives=list(
-		/datum/job_objective/powerstation
-		)
 	optional_objectives=list(
-		/datum/job_objective/singulo,
-		/datum/job_objective/station_integrity
+		/datum/job_objective/station_integrity,
+		/datum/job_objective/powerstation,
+		/datum/job_objective/singulo
 		)
 
 	equip(var/mob/living/carbon/human/H)

@@ -13,11 +13,9 @@
 	var/datum/mind/owner = null			//Who owns the objective.
 	var/completed = 0					//currently only used for custom objectives.
 	var/over = 0							//currently only used for round-end objectives.
-	var/per_unit = 0
 	var/units_completed = 0
-	var/units_compensated = 0 // Shit paid for
-	var/units_requested = INFINITY
-	var/completion_payment = 0			// Credits paid to owner when completed
+	var/units_requested = 1
+	var/explanation_text = "Placeholder Objective"
 
 /datum/job_objective/New(var/datum/mind/new_owner)
 	owner = new_owner
@@ -25,7 +23,7 @@
 
 
 /datum/job_objective/proc/get_description()
-	var/desc = "Placeholder Objective"
+	var/desc = explanation_text
 	return desc
 
 /datum/job_objective/proc/unit_completed(var/count=1)
@@ -37,9 +35,8 @@
 	return completed
 
 /datum/job_objective/proc/check_for_completion()
-	if(per_unit)
-		if(units_completed > 0)
-			return 1
+	if(units_completed >= units_requested)
+		return 1
 	return 0
 
 /datum/job_objective/proc/is_over()
@@ -48,9 +45,8 @@
 	return over
 
 /datum/job_objective/proc/check_in_the_end()
-	if(per_unit)
-		if(units_completed > 0)
-			return 1
+	if(units_completed > 0)
+		return 1
 	return 0
 
 /datum/game_mode/proc/declare_job_completion()
@@ -66,7 +62,7 @@
 
 		var/tasks_completed=0
 
-		text += "<br>[employee.name] - [employee.assigned_role]:"
+		text += "<br><b>[employee.name] состоял на должности [employee.assigned_role]:</b><hr>"
 
 		var/count = 1
 		for(var/datum/job_objective/objective in employee.job_objectives)
