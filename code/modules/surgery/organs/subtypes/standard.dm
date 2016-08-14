@@ -193,3 +193,7 @@
 				disfigure("brute")
 		if(burn_dam > 40)
 			disfigure("burn")
+
+/obj/item/organ/external/head/set_dna(datum/dna/new_dna)
+	..()
+	new_dna.write_head_attributes(src)

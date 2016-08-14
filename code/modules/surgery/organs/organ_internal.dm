@@ -335,23 +335,14 @@
 	var/list/eye_colour = list(0,0,0)
 
 /obj/item/organ/internal/eyes/proc/update_colour()
-	if(!owner)
-		return
-	eye_colour = list(
-		owner.r_eyes ? owner.r_eyes : 0,
-		owner.g_eyes ? owner.g_eyes : 0,
-		owner.b_eyes ? owner.b_eyes : 0
-		)
+	dna.write_eyes_attributes(src)
 
 /obj/item/organ/internal/eyes/insert(mob/living/carbon/M, special = 0)
-// Apply our eye colour to the target.
-	if(istype(M) && eye_colour)
-		var/mob/living/carbon/human/eyes = M
-		eyes.r_eyes = eye_colour[1]
-		eyes.g_eyes = eye_colour[2]
-		eyes.b_eyes = eye_colour[3]
-		eyes.update_eyes()
 	..()
+	if(istype(M) && eye_colour)
+		var/mob/living/carbon/human/H = M
+		// Apply our eye colour to the target.
+		H.update_body()
 
 /obj/item/organ/internal/eyes/surgeryize()
 	if(!owner)

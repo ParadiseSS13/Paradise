@@ -9,11 +9,6 @@ var/global/default_martial_art = new/datum/martial_art
 	var/b_markings = 0
 	var/m_style = "None"
 
-	//Eye colour
-	var/r_eyes = 0
-	var/g_eyes = 0
-	var/b_eyes = 0
-
 	var/s_tone = 0	//Skin tone
 
 	//Skin colour

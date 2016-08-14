@@ -1301,43 +1301,6 @@ var/global/list/damage_icon_parts = list()
 
 	if(update_icons)   update_icons()
 
-
-// Used mostly for creating head items
-/mob/living/carbon/human/proc/generate_head_icon()
-//gender no longer matters for the mouth, although there should probably be seperate base head icons.
-//	var/g = "m"
-//	if(gender == FEMALE)	g = "f"
-	var/obj/item/organ/external/head/H = get_organ("head")
-	//base icons
-	var/icon/face_lying		= new /icon('icons/mob/human_face.dmi',"bald_l")
-
-
-	if(H.f_style)
-		var/datum/sprite_accessory/facial_hair_style = facial_hair_styles_list[H.f_style]
-		if(facial_hair_style)
-			var/icon/facial_l = new/icon("icon" = facial_hair_style.icon, "icon_state" = "[facial_hair_style.icon_state]_l")
-			facial_l.Blend(rgb(H.r_facial, H.g_facial, H.b_facial), ICON_ADD)
-			face_lying.Blend(facial_l, ICON_OVERLAY)
-
-	if(H.h_style)
-		var/datum/sprite_accessory/hair_style = hair_styles_list[H.h_style]
-		if(hair_style)
-			var/icon/hair_l = new/icon("icon" = hair_style.icon, "icon_state" = "[hair_style.icon_state]_l")
-			hair_l.Blend(rgb(H.r_hair, H.g_hair, H.b_hair), ICON_ADD)
-			face_lying.Blend(hair_l, ICON_OVERLAY)
-
-	//Eyes
-	// Note: These used to be in update_face(), and the fact they're here will make it difficult to create a disembodied head
-	var/icon/eyes_l = new/icon('icons/mob/human_face.dmi', "eyes_l")
-	eyes_l.Blend(rgb(r_eyes, g_eyes, b_eyes), ICON_ADD)
-	face_lying.Blend(eyes_l, ICON_OVERLAY)
-
-	if(lip_style)
-		face_lying.Blend(new/icon('icons/mob/human_face.dmi', "lips_[lip_style]_l"), ICON_OVERLAY)
-
-	var/image/face_lying_image = new /image(icon = face_lying)
-	return face_lying_image
-
 /mob/living/carbon/human/proc/force_update_limbs()
 	for(var/obj/item/organ/external/O in organs)
 		O.sync_colour_to_human(src)

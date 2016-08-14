@@ -134,6 +134,7 @@ var/global/list/bad_blocks[0]
 	// Hair
 	// FIXME:  Species-specific defaults pls
 	var/obj/item/organ/external/head/H = character.get_organ("head")
+	var/obj/item/organ/internal/eyes/eyes_organ = character.get_int_organ(/obj/item/organ/internal/eyes)
 	if(!H.h_style)
 		H.h_style = "Skinhead"
 	var/hair = hair_styles_list.Find(H.h_style)
@@ -166,9 +167,7 @@ var/global/list/bad_blocks[0]
 	SetUIValueRange(DNA_UI_BEARD_G,	H.g_facial,				255,	1)
 	SetUIValueRange(DNA_UI_BEARD_B,	H.b_facial,				255,	1)
 
-	SetUIValueRange(DNA_UI_EYES_R,	character.r_eyes,		255,	1)
-	SetUIValueRange(DNA_UI_EYES_G,	character.g_eyes,		255,	1)
-	SetUIValueRange(DNA_UI_EYES_B,	character.b_eyes,		255,	1)
+	eye_color_to_dna(eyes_organ)
 
 	SetUIValueRange(DNA_UI_SKIN_R,	character.r_skin,		255,	1)
 	SetUIValueRange(DNA_UI_SKIN_G,	character.g_skin,		255,	1)
