@@ -225,3 +225,37 @@
 	SetUIValueRange(DNA_UI_EYES_R,	eye_red,		255,	1)
 	SetUIValueRange(DNA_UI_EYES_G,	eye_green,		255,	1)
 	SetUIValueRange(DNA_UI_EYES_B,	eye_blue,		255,	1)
+
+/datum/dna/proc/head_traits_to_dna(obj/item/organ/external/head/H)
+	if(!H)
+		log_debug("Attempting to reset DNA from a missing head!")
+		return
+	if(!H.h_style)
+		H.h_style = "Skinhead"
+	var/hair = hair_styles_list.Find(H.h_style)
+
+	// Facial Hair
+	if(!H.f_style)
+		H.f_style = "Shaved"
+	var/beard	= facial_hair_styles_list.Find(H.f_style)
+
+	// Head Accessory
+	if(!H.ha_style)
+		H.ha_style = "None"
+	var/headacc	= head_accessory_styles_list.Find(H.ha_style)
+
+	SetUIValueRange(DNA_UI_HAIR_R,	H.r_hair,				255,	1)
+	SetUIValueRange(DNA_UI_HAIR_G,	H.g_hair,				255,	1)
+	SetUIValueRange(DNA_UI_HAIR_B,	H.b_hair,				255,	1)
+
+	SetUIValueRange(DNA_UI_BEARD_R,	H.r_facial,				255,	1)
+	SetUIValueRange(DNA_UI_BEARD_G,	H.g_facial,				255,	1)
+	SetUIValueRange(DNA_UI_BEARD_B,	H.b_facial,				255,	1)
+
+	SetUIValueRange(DNA_UI_HACC_R,	H.r_headacc,			255,	1)
+	SetUIValueRange(DNA_UI_HACC_G,	H.g_headacc,			255,	1)
+	SetUIValueRange(DNA_UI_HACC_B,	H.b_headacc,			255,	1)
+
+	SetUIValueRange(DNA_UI_HAIR_STYLE,	hair,		hair_styles_list.len,			1)
+	SetUIValueRange(DNA_UI_BEARD_STYLE,	beard,		facial_hair_styles_list.len,	1)
+	SetUIValueRange(DNA_UI_HACC_STYLE,	headacc,	head_accessory_styles_list.len,	1)

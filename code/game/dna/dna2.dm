@@ -135,19 +135,7 @@ var/global/list/bad_blocks[0]
 	// FIXME:  Species-specific defaults pls
 	var/obj/item/organ/external/head/H = character.get_organ("head")
 	var/obj/item/organ/internal/eyes/eyes_organ = character.get_int_organ(/obj/item/organ/internal/eyes)
-	if(!H.h_style)
-		H.h_style = "Skinhead"
-	var/hair = hair_styles_list.Find(H.h_style)
 
-	// Facial Hair
-	if(!H.f_style)
-		H.f_style = "Shaved"
-	var/beard	= facial_hair_styles_list.Find(H.f_style)
-
-	// Head Accessory
-	if(!H.ha_style)
-		H.ha_style = "None"
-	var/headacc	= head_accessory_styles_list.Find(H.ha_style)
 
 	/*// Body Accessory
 	if(!character.body_accessory)
@@ -159,23 +147,12 @@ var/global/list/bad_blocks[0]
 		character.m_style = "None"
 	var/marks	= marking_styles_list.Find(character.m_style)
 
-	SetUIValueRange(DNA_UI_HAIR_R,	H.r_hair,				255,	1)
-	SetUIValueRange(DNA_UI_HAIR_G,	H.g_hair,				255,	1)
-	SetUIValueRange(DNA_UI_HAIR_B,	H.b_hair,				255,	1)
-
-	SetUIValueRange(DNA_UI_BEARD_R,	H.r_facial,				255,	1)
-	SetUIValueRange(DNA_UI_BEARD_G,	H.g_facial,				255,	1)
-	SetUIValueRange(DNA_UI_BEARD_B,	H.b_facial,				255,	1)
-
+	head_traits_to_dna(H)
 	eye_color_to_dna(eyes_organ)
 
 	SetUIValueRange(DNA_UI_SKIN_R,	character.r_skin,		255,	1)
 	SetUIValueRange(DNA_UI_SKIN_G,	character.g_skin,		255,	1)
 	SetUIValueRange(DNA_UI_SKIN_B,	character.b_skin,		255,	1)
-
-	SetUIValueRange(DNA_UI_HACC_R,	H.r_headacc,			255,	1)
-	SetUIValueRange(DNA_UI_HACC_G,	H.g_headacc,			255,	1)
-	SetUIValueRange(DNA_UI_HACC_B,	H.b_headacc,			255,	1)
 
 	SetUIValueRange(DNA_UI_MARK_R,	character.r_markings,	255,	1)
 	SetUIValueRange(DNA_UI_MARK_G,	character.g_markings,	255,	1)
@@ -184,11 +161,7 @@ var/global/list/bad_blocks[0]
 	SetUIValueRange(DNA_UI_SKIN_TONE, 35-character.s_tone,	220,	1) // Value can be negative.
 
 	SetUIState(DNA_UI_GENDER,		character.gender!=MALE,		1)
-
-	SetUIValueRange(DNA_UI_HAIR_STYLE,	hair,		hair_styles_list.len,			1)
-	SetUIValueRange(DNA_UI_BEARD_STYLE,	beard,		facial_hair_styles_list.len,	1)
 	/*SetUIValueRange(DNA_UI_BACC_STYLE,	bodyacc,	facial_hair_styles_list.len,	1)*/
-	SetUIValueRange(DNA_UI_HACC_STYLE,	headacc,	head_accessory_styles_list.len,	1)
 	SetUIValueRange(DNA_UI_MARK_STYLE,	marks,		marking_styles_list.len,		1)
 
 
