@@ -386,7 +386,10 @@ body
 				html += "<ul>"
 				var/index = 1
 				for(var/entry in L)
-					html += debug_variable(index, L[index], level + 1)
+					if(istext(entry))
+						html += debug_variable(entry, L[index], level + 1)
+					else
+						html += debug_variable(index, L[index], level + 1)
 					index++
 				html += "</ul>"
 
