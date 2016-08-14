@@ -163,7 +163,7 @@ var/global/list/bad_blocks[0]
 
 	// Markings
 	if(!character.m_styles)
-		character.m_styles = initial(character.m_styles)
+		character.m_styles = DEFAULT_MARKING_STYLES
 
 	var/head_marks	= marking_styles_list.Find(character.m_styles["head"])
 	var/body_marks	= marking_styles_list.Find(character.m_styles["body"])

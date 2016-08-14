@@ -1486,7 +1486,6 @@
 		to_chat(usr, "\blue [self ? "Your" : "[src]'s"] pulse is [src.get_pulse(GETPULSE_HAND)].")
 
 /mob/living/carbon/human/proc/set_species(var/new_species, var/default_colour, var/delay_icon_update = 0)
-
 	var/datum/species/oldspecies = species
 	if(!dna)
 		if(!new_species)
@@ -1556,10 +1555,16 @@
 	var/obj/item/organ/external/head/H = get_organ("head")
 	if(species.default_hair)
 		H.h_style = species.default_hair
+	else
+		H.h_style = "Bald"
 	if(species.default_fhair)
 		H.f_style = species.default_fhair
+	else
+		H.f_style = "Shaved"
 	if(species.default_headacc)
 		H.ha_style = species.default_headacc
+	else
+		H.ha_style = "None"
 
 	if(species.default_hair_colour)
 		//Apply colour.
@@ -1587,10 +1592,8 @@
 		H.g_headacc = 0
 		H.b_headacc = 0
 
-	m_styles = initial(m_styles) //Wipes out markings, setting them all to "None".
-	m_colours = initial(m_styles) //Defaults colour to #00000 for all markings.
-	H.alt_head = "None"
-	H.ha_style = "None"
+	m_styles = DEFAULT_MARKING_STYLES //Wipes out markings, setting them all to "None".
+	m_colours = DEFAULT_MARKING_COLOURS //Defaults colour to #00000 for all markings.
 	body_accessory = null
 
 	if(!dna)

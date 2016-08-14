@@ -46,7 +46,7 @@
 
 	var/new_eyes = input("Please select eye color.", "Character Generation", rgb(M.r_eyes, M.g_eyes, M.b_eyes)) as null|color
 	if(new_eyes)
-		M.change_eye_color(M.r_eyes, M.g_eyes, M.b_eyes)
+		M.change_eye_color(color2R(new_eyes), color2G(new_eyes), color2B(new_eyes))
 
 	//Alt heads.
 	if(head_organ.species.bodyflags & HAS_ALT_HEADS)

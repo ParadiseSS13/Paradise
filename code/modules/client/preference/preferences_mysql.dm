@@ -313,8 +313,8 @@
 	if(!player_alt_titles) player_alt_titles = new()
 	if(!organ_data) src.organ_data = list()
 	if(!rlimb_data) src.rlimb_data = list()
-	if(!m_colours) m_colours = initial(m_colours)
-	if(!m_styles) m_styles = initial(m_styles)
+	if(!m_colours) m_colours = DEFAULT_MARKING_COLOURS
+	if(!m_styles) m_styles = DEFAULT_MARKING_STYLES
 	if(!gear) gear = list()
 
 	return 1
