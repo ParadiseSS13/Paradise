@@ -130,8 +130,8 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 
 /datum/game_mode/proc/greet_changeling(var/datum/mind/changeling, var/you_are=1)
 	if(you_are)
-		to_chat(changeling.current, "<B>\red You are a changeling!</B>")
-	to_chat(changeling.current, "<b>\red Use say \":g message\" to communicate with your fellow changelings. Remember: you get all of their absorbed DNA if you absorb them.</b>")
+		to_chat(changeling.current, "<span class='danger'>You are a changeling!</span>")
+	to_chat(changeling.current, "<span class='danger'>Use say \":g message\" to communicate with your fellow changelings. Remember: you get all of their absorbed DNA if you absorb them.</span>")
 	to_chat(changeling.current, "<B>You must complete the following tasks:</B>")
 	if(changeling.current.mind)
 		if(changeling.current.mind.assigned_role == "Clown")

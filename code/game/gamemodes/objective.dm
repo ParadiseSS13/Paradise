@@ -302,6 +302,10 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) \
 		return 0
 	if(!owner.current || owner.current.stat == DEAD)
 		return 0
+	if(ticker.force_ending) //This one isn't their fault, so lets just assume good faith
+		return 1
+	if(ticker.mode.station_was_nuked) //If they escaped the blast somehow, let them win
+		return 1
 	if(shuttle_master.emergency.mode < SHUTTLE_ENDGAME)
 		return 0
 	var/turf/location = get_turf(owner.current)

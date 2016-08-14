@@ -152,6 +152,8 @@
 		H.equip_or_collect(new /obj/item/device/pda/engineering(H), slot_wear_pda)
 		if(H.backbag == 1)
 			H.equip_or_collect(new /obj/item/weapon/storage/box/engineer(H), slot_r_hand)
+			H.equip_or_collect(new /obj/item/weapon/pod_paint_bucket(H),slot_l_hand)
 		else
 			H.equip_or_collect(new /obj/item/weapon/storage/box/engineer(H.back), slot_in_backpack)
+			H.equip_or_collect(new /obj/item/weapon/pod_paint_bucket(H.back), slot_in_backpack)
 		return 1

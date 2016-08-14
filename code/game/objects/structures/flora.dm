@@ -308,7 +308,7 @@
 			//this bush marks the edge of the map, you can't destroy it
 			to_chat(user, "\red You flail away at the undergrowth, but it's too thick here.")
 		else
-			user.visible_message("\red <b>[user] begins clearing away [src].</b>","\red <b>You begin clearing away [src].</b>")
+			user.visible_message("<span class='danger'>[user] begins clearing away [src].</b>","\red <b>You begin clearing away [src].</span>")
 			spawn(rand(15,30))
 				if(get_dist(user,src) < 2)
 					to_chat(user, "\blue You clear away [src].")

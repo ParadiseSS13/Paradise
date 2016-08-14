@@ -118,7 +118,7 @@ var/global/loopModeNames=list(
 		to_chat(usr, "\red You don't see anything to mess with.")
 		return
 	if(stat & BROKEN && playlist!=null)
-		user.visible_message("\red <b>[user.name] smacks the side of \the [src.name].</b>","\red You hammer the side of \the [src.name].")
+		user.visible_message("<span class='danger'>[user.name] smacks the side of \the [src.name].</span>","\red You hammer the side of \the [src.name].")
 		stat &= ~BROKEN
 		playlist=null
 		playing=emagged

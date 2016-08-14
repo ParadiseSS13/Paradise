@@ -410,3 +410,9 @@
 			radio_text += ", "
 
 	radio_desc = radio_text
+
+/obj/item/device/radio/headset/proc/make_syndie() // Turns normal radios into Syndicate radios!
+	qdel(keyslot1)
+	keyslot1 = new /obj/item/device/encryptionkey/syndicate
+	syndie = 1
+	recalculateChannels()

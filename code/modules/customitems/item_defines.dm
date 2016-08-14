@@ -446,6 +446,11 @@
 
 //////////// Masks ////////////
 
+/obj/item/clothing/mask/bandana/fluff/dar //sasanek12: Dar'Konr
+	name = "camo bandana"
+	desc = "It's a worn-out bandana in camo paint"
+	icon_state = "bandcamo"
+
 //////////// Shoes ////////////
 
 //////////// Sets ////////////
