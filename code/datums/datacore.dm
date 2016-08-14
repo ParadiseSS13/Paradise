@@ -171,7 +171,7 @@ proc/get_id_photo(var/mob/living/carbon/human/H)
 	var/icon/face_s = new/icon("icon" = 'icons/mob/human_face.dmi', "icon_state" = "bald_s")
 	if(!(H.species.bodyflags & NO_EYES))
 		var/icon/eyes_s = new/icon("icon" = 'icons/mob/human_face.dmi', "icon_state" = H.species ? H.species.eyes : "eyes_s")
-		if(!eyes_organ) // Probably needs a means for IPCs to have their optics show
+		if(!eyes_organ)
 			return
 		var/eye_red = eyes_organ.eye_colour[1]
 		var/eye_green = eyes_organ.eye_colour[2]
