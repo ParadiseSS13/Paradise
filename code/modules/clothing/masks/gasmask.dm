@@ -170,9 +170,12 @@
 	name = "owl mask"
 	desc = "Twoooo!"
 	icon_state = "owl"
-	flags = MASKCOVERSMOUTH | MASKCOVERSEYES | BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | NODROP
+	flags = MASKCOVERSMOUTH | MASKCOVERSEYES | BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT
 	burn_state = FLAMMABLE
 	actions_types = list(/datum/action/item_action/hoot)
+
+/obj/item/clothing/mask/gas/owl_mask/super_hero
+	flags = MASKCOVERSMOUTH | MASKCOVERSEYES | BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | NODROP
 
 /obj/item/clothing/mask/gas/owl_mask/attack_self()
 	hoot()
