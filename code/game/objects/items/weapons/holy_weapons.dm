@@ -9,6 +9,7 @@
 	throwforce = 10
 	w_class = 1
 	var/reskinned = FALSE
+	var/reskin_selectable = TRUE			//set to FALSE if a subtype is meant to not normally be available as a reskin option (fluff ones will get re-added through their list)
 	var/list/fluff_transformations = list() //does it have any special transformations only accessible to it? Should only be subtypes of /obj/item/weapon/nullrod
 
 /obj/item/weapon/nullrod/suicide_act(mob/user)
@@ -31,7 +32,11 @@
 		reskin_holy_weapon(user)
 
 /obj/item/weapon/nullrod/proc/reskin_holy_weapon(mob/M)
-	var/list/holy_weapons_list = typesof(/obj/item/weapon/nullrod) - typesof(/obj/item/weapon/nullrod/fluff)
+	var/list/holy_weapons_list = typesof(/obj/item/weapon/nullrod)
+	for(var/entry in holy_weapons_list)
+		var/obj/item/weapon/nullrod/variant = entry
+		if(initial(variant.reskin_selectable) == FALSE)
+			holy_weapons_list -= variant
 	if(fluff_transformations.len)
 		for(var/thing in fluff_transformations)
 			holy_weapons_list += thing
@@ -56,6 +61,9 @@
 		M.unEquip(src)
 		M.put_in_active_hand(holy_weapon)
 		qdel(src)
+
+/obj/item/weapon/nullrod/fluff		//fluff subtype to be used for all donator nullrods
+	reskin_selectable = FALSE
 
 /obj/item/weapon/nullrod/godhand
 	name = "god hand"
@@ -446,12 +454,13 @@
 						to_chat(M, "<span class='userdanger'>Being in the presence of [holder]'s [src] is interfering with your powers!</span>")
 
 /obj/item/weapon/nullrod/missionary_staff
-	reskinned = TRUE
-	icon_state = "godstaff-red"
-	item_state = "godstaff-red"
 	name = "holy staff"
 	desc = "It has a mysterious, protective aura."
 	description_antag = "This seemingly standard holy staff is actually a disguised neurotransmitter capable of inducing blind zealotry in its victims. It must be allowed to recharge in the presence of a linked set of missionary robes. Activate the staff while wearing robes to link, then aim the staff at your victim to try and convert them."
+	reskinned = TRUE
+	reskin_selectable = FALSE
+	icon_state = "godstaff-red"
+	item_state = "godstaff-red"
 	w_class = 5
 	force = 5
 	slot_flags = SLOT_BACK
@@ -558,27 +567,8 @@
 		to_chat(missionary, "<span class='notice'>You successfully convert [target] to your cause. The following grows because of your faith!</span>")
 		faith -= 100
 	//if you made it this far: congratulations! you are now a religious zealot!
-	target.mind.make_zealot(missionary)
+	target.mind.make_zealot(missionary, convert_duration, team_color)
 
 	target << sound('sound/misc/wololo.ogg', 0, 1, 25)
 	missionary.say("WOLOLO!")
 	missionary << sound('sound/misc/wololo.ogg', 0, 1, 25)
-
-	var/obj/item/clothing/under/jumpsuit = null
-
-	if(target.w_uniform)
-		jumpsuit = target.w_uniform
-		jumpsuit.color = team_color
-		target.update_inv_w_uniform(0,0)
-
-	log_admin("[ckey(missionary.key)] has converted [ckey(target.key)] as a zealot.")
-	addtimer(src, "do_deconvert", convert_duration, FALSE, target, missionary, jumpsuit)	//deconverts after the timer expires
-
-/obj/item/weapon/nullrod/missionary_staff/proc/do_deconvert(mob/living/carbon/human/target, mob/living/carbon/human/missionary, obj/item/clothing/under/jumpsuit)
-	if(!target  || !istype(target))		//if we didn't supply a target (or a non-human target), stop here
-		return 0
-	if(jumpsuit)
-		jumpsuit.color = initial(jumpsuit.color)
-		target.update_inv_w_uniform(0,0)
-	target.mind.remove_zealot()
-	log_admin("[ckey(target.key)] has deconverted and is no longer a zealot of [ckey(missionary.key)].")
