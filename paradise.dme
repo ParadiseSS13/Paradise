@@ -1396,6 +1396,7 @@
 #include "code\modules\hydroponics\trays\tray_update_icons.dm"
 #include "code\modules\karma\karma.dm"
 #include "code\modules\library\admin.dm"
+#include "code\modules\library\codex_gigas.dm"
 #include "code\modules\library\lib_items.dm"
 #include "code\modules\library\lib_machines.dm"
 #include "code\modules\library\lib_readme.dm"

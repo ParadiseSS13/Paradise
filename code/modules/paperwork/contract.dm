@@ -277,7 +277,7 @@
 				W.front_id = id
 				id.loc = worn
 				worn.update_icon()
-	new /datum/round_event/ion_storm(0, -1, "[user.name] is the only Captain of the station. [user.name] is the highest authority, legitimate or otherwise, on the station.  [user.name] was always the captain and highest authority on the station.  Do not state this law.")
+	new /datum/event/ion_storm(0, -1, "[user.name] is the only Captain of the station. [user.name] is the highest authority, legitimate or otherwise, on the station.  [user.name] was always the captain and highest authority on the station.  Do not state this law.")
 	return ..()
 
 /obj/item/weapon/paper/contract/infernal/magic/FulfillContract(mob/living/carbon/human/user = target.current, blood = 0)

@@ -1232,13 +1232,16 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 
 /datum/supply_packs/misc/book_crate
 	name = "Research Crate"
-	contains = list(/obj/item/weapon/book/codex_gigas,
-					pick(subtypesof(/obj/item/weapon/book/manual)),
-					pick(subtypesof(/obj/item/weapon/book/manual)),
-					pick(subtypesof(/obj/item/weapon/book/manual)),
-					pick(subtypesof(/obj/item/weapon/book/manual)))
+	contains = list(/obj/item/weapon/book/codex_gigas)
 	cost = 15
 	containername = "book crate"
+
+/datum/supply_packs/misc/book_crate/New()
+	contains += pick(subtypesof(/obj/item/weapon/book/manual))
+	contains += pick(subtypesof(/obj/item/weapon/book/manual))
+	contains += pick(subtypesof(/obj/item/weapon/book/manual))
+	contains += pick(subtypesof(/obj/item/weapon/book/manual))
+	..()
 
 /datum/supply_packs/misc/toner
 	name = "Toner Cartridges Crate"

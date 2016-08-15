@@ -17,11 +17,15 @@ var/global/const/base_law_type = /datum/ai_laws/nanotrasen
 /datum/ai_law/zero/get_index()
 	return 0
 
+/datum/ai_law/zero/devil_law/get_index()
+	return 666
+
 /datum/ai_laws
 	var/name = "Unknown Laws"
 	var/law_header = "Prime Directives"
 	var/selectable = 0
 	var/default = 0
+	var/list/datum/ai_law/zero/devil_law/devil_laws = list()
 	var/datum/ai_law/zero/zeroth_law = null
 	var/datum/ai_law/zero/zeroth_law_borg = null
 	var/list/datum/ai_law/inherent_laws = list()
@@ -56,6 +60,9 @@ var/global/const/base_law_type = /datum/ai_laws/nanotrasen
 	if(sorted_laws.len)
 		return
 
+	for(var/devil_law in devil_laws)
+		sorted_laws += devil_law
+
 	for(var/ion_law in ion_laws)
 		sorted_laws += ion_law
 
@@ -74,6 +81,7 @@ var/global/const/base_law_type = /datum/ai_laws/nanotrasen
 
 /datum/ai_laws/proc/sync(var/mob/living/silicon/S, var/full_sync = 1)
 	// Add directly to laws to avoid log-spam
+	S.sync_sixsixsix(devil_laws)
 	S.sync_zeroth(zeroth_law, zeroth_law_borg)
 
 	if(full_sync || ion_laws.len)
@@ -116,6 +124,13 @@ var/global/const/base_law_type = /datum/ai_laws/nanotrasen
 	else
 		zeroth_law_borg = null
 	sorted_laws.Cut()
+
+/datum/ai_laws/proc/set_law_sixsixsix(laws)
+	if(!laws)
+		return
+	devil_laws = new()
+	for(var/law in laws)
+		devil_laws += new /datum/ai_law/zero/devil_law(law)
 
 /datum/ai_laws/proc/add_ion_law(var/law)
 	if(!law)

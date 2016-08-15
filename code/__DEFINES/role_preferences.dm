@@ -74,5 +74,5 @@ var/global/list/special_roles = list(
 	ROLE_GUARDIAN,
 	ROLE_MORPH,
 	ROLE_TRADER,
-	ROLE_DEVIL = /datum/game_mode/devil/devil_agent
+	ROLE_DEVIL = /datum/game_mode/devil/devil_agents
 )

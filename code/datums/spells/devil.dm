@@ -77,7 +77,7 @@
 			to_chat(user,"<span class='notice'>[C] seems to not be sentient.  You cannot summon a contract for them.</span>")
 
 
-/obj/effect/proc_holder/spell/fireball/hellish
+/obj/effect/proc_holder/spell/dumbfire/fireball/hellish
 	name = "Hellfire"
 	desc = "This spell launches hellfire at the target."
 
@@ -88,9 +88,12 @@
 	invocation_type = "shout"
 	range = 2
 
-	fireball_type = /obj/item/projectile/magic/fireball/infernal
+	fireball_type = /obj/effect/proc_holder/spell/turf/fireball/infernal
 
 	action_background_icon_state = "bg_demon"
+
+/obj/effect/proc_holder/spell/turf/fireball/infernal/cast(var/turf/T)
+	explosion(T, -1, -1, -1, 4, 0, flame_range = 5)
 
 /obj/effect/proc_holder/spell/targeted/infernal_jaunt
 	name = "Infernal Jaunt"
