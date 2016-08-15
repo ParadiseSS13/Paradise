@@ -20,7 +20,6 @@
 	var/obj/machinery/computer/mech_bay_power_console/recharge_console
 	var/max_charge = 50
 	var/on = 0
-	var/repairability = 0 //What's this? I don't think this is a thing on paradise
 	var/turf/recharging_turf = null
 
 /obj/machinery/mech_bay_recharge_port/New()
@@ -59,6 +58,7 @@
 		return
 
 	if(default_change_direction_wrench(user, I))
+		recharging_turf = get_step(loc, dir)
 		return
 
 	if(exchange_parts(user, I))
@@ -86,7 +86,6 @@
 		if(recharging_mecha.loc != recharging_turf)
 			recharging_mecha = null
 			recharge_console.update_icon()
-	return //This was missing... Is it not needed? Appeared in the original, but not in the port. Added it back in, to be safe.
 
 
 /obj/machinery/computer/mech_bay_power_console/proc/reconnect()
@@ -140,12 +139,13 @@
 		if(recharge_port.recharging_mecha && !qdeleted(recharge_port.recharging_mecha))
 			data["recharge_port"]["mech"] = list("health" = recharge_port.recharging_mecha.health, "maxhealth" = initial(recharge_port.recharging_mecha.health), "cell" = null)
 			if(recharge_port.recharging_mecha.cell && !qdeleted(recharge_port.recharging_mecha.cell))
-				data["recharge_port"]["mech"]["cell"] = list(
-				"critfail" = recharge_port.recharging_mecha.cell.crit_fail,
-				"charge" = recharge_port.recharging_mecha.cell.charge,
-				"maxcharge" = recharge_port.recharging_mecha.cell.maxcharge
-				)
-/* Need to update the nanoUI for these new data types.
+				data["has_mech"] = 1 //Copied
+				data["mecha_name"] = recharge_port.recharging_mecha || "None"
+				data["mecha_charge"] = isnull(recharge_port.recharging_mecha) ? 0 : recharge_port.recharging_mecha.cell.charge
+				data["mecha_maxcharge"] = isnull(recharge_port.recharging_mecha) ? 0 : recharge_port.recharging_mecha.cell.maxcharge
+				data["mecha_charge_percentage"] = isnull(recharge_port.recharging_mecha) ? 0 : round(recharge_port.recharging_mecha.cell.percent())
+			else
+				data["has_mech"] = 0 //Copied
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
 	if(!ui)
 		// the ui does not exist, so we'll create a new() one
@@ -158,8 +158,7 @@
 		// auto update every Master Controller tick
 		ui.set_auto_update(1)
 	return data
-*/
 
 /obj/machinery/computer/mech_bay_power_console/initialize()
 	reconnect()
-	update_icon() //this the right place for it? Otherwise the computer sits there with a black screen.
+	update_icon()
