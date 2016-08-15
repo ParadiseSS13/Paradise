@@ -40,7 +40,7 @@
 	M.sight |= vision_flags
 
 /obj/item/organ/internal/cyberimp/eyes/remove(var/mob/living/carbon/M, var/special = 0)
-	..()
+	. = ..()
 	M.sight ^= vision_flags
 	if(istype(owner,/mob/living/carbon/human) && eye_colour)
 		var/mob/living/carbon/human/HMN = owner
@@ -97,7 +97,7 @@
 		M.permanent_huds |= H
 
 /obj/item/organ/internal/cyberimp/eyes/hud/remove(var/mob/living/carbon/M, var/special = 0)
-	..()
+	. = ..()
 	if(HUD_type)
 		var/datum/atom_hud/H = huds[HUD_type]
 		M.permanent_huds ^= H

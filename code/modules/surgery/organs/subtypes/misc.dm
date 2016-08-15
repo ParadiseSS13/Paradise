@@ -41,6 +41,7 @@
 
 	spawn(0)
 		qdel(src)
+	return null
 
 //VOX ORGANS.
 /obj/item/organ/internal/stack

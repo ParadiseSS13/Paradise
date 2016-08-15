@@ -36,4 +36,11 @@
 	for(var/datum/disease/D in user.viruses)
 		if(D.IsSpreadByTouch())
 			ContractDisease(D)
+
+	if(lying)
+		if(surgeries.len)
+			if(user != src && user.a_intent == "help")
+				for(var/datum/surgery/S in surgeries)
+					if(S.next_step(user, src))
+						return 1
 	return 0
