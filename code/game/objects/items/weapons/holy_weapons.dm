@@ -35,7 +35,7 @@
 	var/list/holy_weapons_list = typesof(/obj/item/weapon/nullrod)
 	for(var/entry in holy_weapons_list)
 		var/obj/item/weapon/nullrod/variant = entry
-		if(initial(variant.reskin_selectable) == FALSE)
+		if(!initial(variant.reskin_selectable))
 			holy_weapons_list -= variant
 	if(fluff_transformations.len)
 		for(var/thing in fluff_transformations)
