@@ -79,7 +79,7 @@ var/list/karma_spenders = list()
 		to_chat(src, "<span class='warning'>You can't spend karma on someone connected from the same IP.</span>")
 		return 0
 	return 1
-	
+
 
 /mob/verb/spend_karma_list()
 	set name = "Award Karma"
@@ -185,7 +185,7 @@ You've gained <b>[totalkarma]</b> total karma in your time here.<br>"}
 	var/dat = "<html><body><center>"
 	dat += "<a href='?src=\ref[src];karmashop=tab;tab=0' [karma_tab == 0 ? "class='linkOn'" : ""]>Job Unlocks</a>"
 	dat += "<a href='?src=\ref[src];karmashop=tab;tab=1' [karma_tab == 1 ? "class='linkOn'" : ""]>Species Unlocks</a>"
-	dat += "<a href='?src=\ref[src];karmashop=tab;tab=2' [karma_tab == 2 ? "class='linkOn'" : ""]>Karma Refunds</a>"
+	dat += "<a href='?src=\ref[src];karmashop=tab;tab=2' [karma_tab == 2 ? "class='linkOn'" : ""]>Item Unlocks</a>"
 	dat += "</center>"
 	dat += "<HR>"
 
@@ -204,50 +204,34 @@ You've gained <b>[totalkarma]</b> total karma in your time here.<br>"}
 		if(1) // Species Unlocks
 			dat += {"
 			<a href='?src=\ref[src];karmashop=shop;KarmaBuy2=1'>Unlock Machine People -- 15KP</a><br>
+			<a href='?src=\ref[src];karmashop=shop;KarmaBuy2=13'>Unlock Skrell -- 15KP</a><br>
+			<a href='?src=\ref[src];karmashop=shop;KarmaBuy2=14'>Unlock Vulpkanin -- 15KP</a><br>
 			<a href='?src=\ref[src];karmashop=shop;KarmaBuy2=2'>Unlock Kidan -- 30KP</a><br>
 			<a href='?src=\ref[src];karmashop=shop;KarmaBuy2=3'>Unlock Grey -- 30KP</a><br>
 			<a href='?src=\ref[src];karmashop=shop;KarmaBuy2=7'>Unlock Drask -- 30KP</a><br>
+			<a href='?src=\ref[src];karmashop=shop;KarmaBuy2=8'>Unlock Unathi -- 30KP</a><br>
+			<a href='?src=\ref[src];karmashop=shop;KarmaBuy2=9'>Unlock Tajaran -- 30KP</a><br>
+			<a href='?src=\ref[src];karmashop=shop;KarmaBuy2=10'>Unlock Diona -- 30KP</a><br>
 			<a href='?src=\ref[src];karmashop=shop;KarmaBuy2=4'>Unlock Vox -- 45KP</a><br>
 			<a href='?src=\ref[src];karmashop=shop;KarmaBuy2=5'>Unlock Slime People -- 45KP</a><br>
+			<a href='?src=\ref[src];karmashop=shop;KarmaBuy2=11'>Unlock Nucleation -- 100KP</a><br>
+			<a href='?src=\ref[src];karmashop=shop;KarmaBuy2=12'>Unlock Wryn -- 50KP</a><br>
 			<a href='?src=\ref[src];karmashop=shop;KarmaBuy2=6'>Unlock Plasmaman -- 100KP</a><br>
+
 			"}
 
-		if(2) // Karma Refunds
-			var/list/refundable = list()
-			var/list/purchased = checkpurchased()
-			if("Tajaran Ambassador" in purchased)
-				refundable += "Tajaran Ambassador"
-				dat += "<a href='?src=\ref[src];karmashop=shop;KarmaRefund=Tajaran Ambassador;KarmaRefundType=job;KarmaRefundCost=30'>Refund Tajaran Ambassador -- 30KP</a><br>"
-			if("Unathi Ambassador" in purchased)
-				refundable += "Unathi Ambassador"
-				dat += "<a href='?src=\ref[src];karmashop=shop;KarmaRefund=Unathi Ambassador;KarmaRefundType=job;KarmaRefundCost=30'>Refund Unathi Ambassador -- 30KP</a><br>"
-			if("Skrell Ambassador" in purchased)
-				refundable += "Skrell Ambassador"
-				dat += "<a href='?src=\ref[src];karmashop=shop;KarmaRefund=Skrell Ambassador;KarmaRefundType=job;KarmaRefundCost=30'>Refund Skrell Ambassador -- 30KP</a><br>"
-			if("Diona Ambassador" in purchased)
-				refundable += "Diona Ambassador"
-				dat += "<a href='?src=\ref[src];karmashop=shop;KarmaRefund=Diona Ambassador;KarmaRefundType=job;KarmaRefundCost=30'>Refund Diona Ambassador -- 30KP</a><br>"
-			if("Kidan Ambassador" in purchased)
-				refundable += "Kidan Ambassador"
-				dat += "<a href='?src=\ref[src];karmashop=shop;KarmaRefund=Kidan Ambassador;KarmaRefundType=job;KarmaRefundCost=30'>Refund Kidan Ambassador -- 30KP</a><br>"
-			if("Slime People Ambassador" in purchased)
-				refundable += "Slime People Ambassador"
-				dat += "<a href='?src=\ref[src];karmashop=shop;KarmaRefund=Slime People Ambassador;KarmaRefundType=job;KarmaRefundCost=30'>Refund Slime People Ambassador -- 30KP</a><br>"
-			if("Grey Ambassador" in purchased)
-				refundable += "Grey Ambassador"
-				dat += "<a href='?src=\ref[src];karmashop=shop;KarmaRefund=Grey Ambassador;KarmaRefundType=job;KarmaRefundCost=30'>Refund Grey Ambassador -- 30KP</a><br>"
-			if("Vox Ambassador" in purchased)
-				refundable += "Vox Ambassador"
-				dat += "<a href='?src=\ref[src];karmashop=shop;KarmaRefund=Vox Ambassador;KarmaRefundType=job;KarmaRefundCost=30'>Refund Vox Ambassador -- 30KP</a><br>"
-			if("Customs Officer" in purchased)
-				refundable += "Customs Officer"
-				dat += "<a href='?src=\ref[src];karmashop=shop;KarmaRefund=Customs Officer;KarmaRefundType=job;KarmaRefundCost=30'>Refund Customs Officer -- 30KP</a><br>"
-			if("Nanotrasen Recruiter" in purchased)
-				refundable += "Nanotrasen Recruiter"
-				dat += "<a href='?src=\ref[src];karmashop=shop;KarmaRefund=Nanotrasen Recruiter;KarmaRefundType=job;KarmaRefundCost=10'>Refund Nanotrasen Recruiter -- 10KP</a><br>"
+		if(2) // Item Unlocks
+			dat += {"
+			<a href='?src=\ref[src];karmashop=shop;KarmaBuy3=4001'>Unlock Dio Brando's costume -- 5KP</a><br>
+			<a href='?src=\ref[src];karmashop=shop;KarmaBuy3=4002'>Unlock Sneaking suit -- 5KP</a><br>
+			<a href='?src=\ref[src];karmashop=shop;KarmaBuy3=4003'>Unlock Adeptus Mechanicus -- 5KP</a>(for Engineering only)<br>
+			<a href='?src=\ref[src];karmashop=shop;KarmaBuy3=4005'>Unlock Simon Coat -- 5KP</a>(for Heads only)<br>
+			<a href='?src=\ref[src];karmashop=shop;KarmaBuy3=9001'>Unlock Kamina Cape -- 10KP</a><br>
+			<a href='?src=\ref[src];karmashop=shop;KarmaBuy3=4006'>Unlock H.E.V. -- 10KP</a>(for Engineering only)<br>
+			<a href='?src=\ref[src];karmashop=shop;KarmaBuy3=4008'>Unlock Alchemist Outfit -- 10KP</a>(for Chemist and Libranian only)<br>
+			<a href='?src=\ref[src];karmashop=shop;KarmaBuy3=1'>Unlock DIO Set -- 15KP</a><br>
 
-			if(!refundable.len)
-				dat += "You do not have any refundable karma purchases.<br>"
+			"}
 
 	dat += "<br><B>PLEASE NOTE THAT PEOPLE WHO TRY TO GAME THE KARMA SYSTEM WILL END UP ON THE WALL OF SHAME. THIS INCLUDES BUT IS NOT LIMITED TO TRADES, OOC KARMA BEGGING, CODE EXPLOITS, ETC.</B>"
 	dat += "</center></body></html>"
@@ -357,7 +341,7 @@ You've gained <b>[totalkarma]</b> total karma in your time here.<br>"}
 			to_chat(usr, "You have been [refund ? "refunded" : "charged"] [cost] karma.")
 			message_admins("[key_name(usr)] has been [refund ? "refunded" : "charged"] [cost] karma.")
 			return
-
+/*
 /client/proc/karmarefund(var/type,var/name,var/cost)
 	if(name == "Tajaran Ambassador")
 		cost = 30
@@ -421,7 +405,7 @@ You've gained <b>[totalkarma]</b> total karma in your time here.<br>"}
 
 	else
 		to_chat(usr, "\red Your ckey ([dbckey]) was not found.")
-
+*/
 /client/proc/checkpurchased(var/name = null) // If the first parameter is null, return a full list of purchases
 	var/DBQuery/query = dbcon.NewQuery("SELECT * FROM [format_table_name("whitelist")] WHERE ckey='[usr.key]'")
 	query.Execute()

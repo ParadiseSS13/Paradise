@@ -440,7 +440,7 @@ var/list/forbidden_varedit_object_types = list(
 
 	if(var_as_text == null)
 		var_as_text = "[O.vars[variable]]"
-	log_to_dd("### VarEdit by [src]: [O.type] [variable]=[html_encode("[var_as_text]")]")
+	log_to_dd("### VarEdit by [src]: [O.type] [variable]=[lhtml_encode("[var_as_text]")]")
 	log_admin("[key_name(src)] modified [original_name]'s [variable] to [var_as_text]")
 	message_admins("[key_name_admin(src)] modified [original_name]'s [variable] to [var_as_text]", 1)
 

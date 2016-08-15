@@ -428,7 +428,17 @@
 	out += "<b>Memory:</b><br>"
 	out += memory
 	out += "<br><a href='?src=\ref[src];memory_edit=1'>Edit memory</a><br>"
-	out += "Objectives:<br>"
+	out += "<HR><B>Job Objectives:</B><UL>"
+	if(job_objectives.len == 0)
+		out += "EMPTY<br>"
+	else
+		var/job_obj_count = 1
+		for(var/datum/job_objective/jobie_objective in job_objectives)
+			out += "<LI><B>Task #[job_obj_count]</B>: [jobie_objective.get_description()] <a href='?src=\ref[src];job_obj_delete=\ref[jobie_objective]'>Delete</a><a href='?src=\ref[src];job_obj_completed=\ref[jobie_objective]'><font color=[jobie_objective.completed ? "green" : "red"]>Toggle Completion</font></a></li>"
+			job_obj_count++
+		out += "</UL>"
+	out += "<a href='?src=\ref[src];job_obj_add=1'>Add job objective</a><br><br><hr>"
+	out += "<b>Special Objectives:</b><br>"
 	if(objectives.len == 0)
 		out += "EMPTY<br>"
 	else
@@ -601,7 +611,7 @@
 				new_objective.target = new_target
 				new_objective.explanation_text = "Escape on the shuttle or an escape pod with the identity of [targ.current.real_name], the [targ.assigned_role] while wearing their identification card."
 			if("custom")
-				var/expl = sanitize(copytext(input("Custom objective:", "Objective", objective ? objective.explanation_text : "") as text|null,1,MAX_MESSAGE_LEN))
+				var/expl = sanitize_local(copytext(input("Custom objective:", "Objective", objective ? objective.explanation_text : "") as text|null,1,MAX_MESSAGE_LEN))
 				if(!expl) return
 				new_objective = new /datum/objective
 				new_objective.owner = src
@@ -1192,6 +1202,26 @@
 			obj_count++
 		log_admin("[key_name(usr)] has announced [key_name(current)]'s objectives")
 		message_admins("[key_name_admin(usr)] has announced [key_name_admin(current)]'s objectives")
+
+	else if(href_list["job_obj_add"])
+		var/datum/job_objective/new_objective = null
+		var/job_expl = sanitize_local(copytext(input("Custom JOB objective:", "Objective", new_objective ? new_objective.explanation_text : "") as text|null,1,MAX_MESSAGE_LEN))
+		if(!job_expl) return
+		new_objective = new /datum/job_objective
+		new_objective.owner = src
+		new_objective.explanation_text = job_expl
+		job_objectives += new_objective
+
+	else if(href_list["job_obj_completed"])
+		var/datum/job_objective/jobie_objective = locate(href_list["job_obj_completed"])
+		if(!istype(jobie_objective))	return
+		jobie_objective.completed = !jobie_objective.completed
+
+	else if(href_list["job_obj_delete"])
+		var/datum/job_objective/jobie_objective = locate(href_list["job_obj_delete"])
+		if(!istype(jobie_objective))	return
+		job_objectives -= jobie_objective
+
 
 	edit_memory()
 /*

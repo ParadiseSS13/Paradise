@@ -35,7 +35,7 @@
 
 	if(href_list["nano_err"]) //nano throwing errors
 		if(topic_debugging)
-			to_chat(src, "## NanoUI: " + html_decode(href_list["nano_err"]))//NANO DEBUG HOOK
+			to_chat(src, "## NanoUI: " + lhtml_decode(href_list["nano_err"]))//NANO DEBUG HOOK
 
 
 
@@ -194,12 +194,103 @@
 						else
 							src.DB_species_unlock("Drask",30)
 							return
-			if(href_list["KarmaRefund"])
-				var/type = href_list["KarmaRefundType"]
-				var/job = href_list["KarmaRefund"]
-				var/cost = href_list["KarmaRefundCost"]
-				src.karmarefund(type,job,cost)
-				return
+					if("8")
+						if(karma <30)
+							to_chat(usr, "You do not have enough karma!")
+							return
+						else
+							src.DB_species_unlock("Unathi",30)
+							return
+					if("9")
+						if(karma <30)
+							to_chat(usr, "You do not have enough karma!")
+							return
+						else
+							src.DB_species_unlock("Tajaran",30)
+							return
+					if("10")
+						if(karma <30)
+							to_chat(usr, "You do not have enough karma!")
+							return
+						else
+							src.DB_species_unlock("Diona",30)
+							return
+					if("11")
+						if(karma <100)
+							to_chat(usr, "You do not have enough karma!")
+							return
+						else
+							src.DB_species_unlock("Nucleation",100)
+							return
+					if("12")
+						if(karma <50)
+							to_chat(usr, "You do not have enough karma!")
+							return
+						else
+							src.DB_species_unlock("Wryn",50)
+							return
+					if("13")
+						if(karma <15)
+							to_chat(usr, "You do not have enough karma!")
+							return
+						else
+							src.DB_species_unlock("Skrell",15)
+							return
+					if("14")
+						if(karma <15)
+							to_chat(usr, "You do not have enough karma!")
+							return
+						else
+							src.DB_species_unlock("Vulpkanin",15)
+							return
+
+			if(href_list["KarmaBuy3"])
+				var/karma=verify_karma()
+				switch(href_list["KarmaBuy3"])
+					if("4001")
+						if(karma < 5)
+							to_chat(usr,"You do not have enough karma!")
+						else
+							src.DB_item_unlock("4001",5)
+					if("4002")
+						if(karma < 5)
+							to_chat(usr,"You do not have enough karma!")
+						else
+							src.DB_item_unlock("4002",5)
+					if("4003")
+						if(karma < 5)
+							to_chat(usr,"You do not have enough karma!")
+						else
+							src.DB_item_unlock("4003",5)
+					if("4004")
+						if(karma < 5)
+							to_chat(usr,"You do not have enough karma!")
+						else
+							src.DB_item_unlock("4004",5)
+					if("9001")
+						if(karma < 10)
+							to_chat(usr,"You do not have enough karma!")
+						else
+							src.DB_item_unlock("9001",10)
+					if("4006")
+						if(karma < 10)
+							to_chat(usr,"You do not have enough karma!")
+						else
+							src.DB_item_unlock("4006",10)
+					if("4008")
+						if(karma < 10)
+							to_chat(usr,"You do not have enough karma!")
+						else
+							src.DB_item_unlock("4008",10)
+					if("1")
+						if(karma < 15)
+							to_chat(usr,"You do not have enough karma!")
+						else
+							src.DB_item_unlock("0001",3)
+							src.DB_item_unlock("4007",3)
+							src.DB_item_unlock("5001",3)
+							src.DB_item_unlock("6001",3)
+							src.DB_item_unlock("7001",3)
 
 	switch(href_list["_src_"])
 		if("holder")	hsrc = holder
@@ -300,7 +391,7 @@
 	if(custom_event_msg && custom_event_msg != "")
 		to_chat(src, "<h1 class='alert'>Custom Event</h1>")
 		to_chat(src, "<h2 class='alert'>A custom event is taking place. OOC Info:</h2>")
-		to_chat(src, "<span class='alert'>[html_encode(custom_event_msg)]</span>")
+		to_chat(src, "<span class='alert'>[lhtml_encode(custom_event_msg)]</span>")
 		to_chat(src, "<br>")
 
 	if( (world.address == address || !address) && !host )

@@ -375,7 +375,7 @@ var/round_start_time = 0
 
 	mode.process()
 	mode.process_job_tasks()
-
+	
 	//emergency_shuttle.process() DONE THROUGH PROCESS SCHEDULER
 
 	var/game_finished = shuttle_master.emergency.mode >= SHUTTLE_ENDGAME || mode.station_was_nuked
@@ -463,7 +463,6 @@ var/round_start_time = 0
 
 	if(dronecount)
 		to_chat(world, "<b>There [dronecount>1 ? "were" : "was"] [dronecount] industrious maintenance [dronecount>1 ? "drones" : "drone"] this round.")
-
 	mode.declare_completion()//To declare normal completion.
 
 	//calls auto_declare_completion_* for all modes
