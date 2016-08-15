@@ -1567,6 +1567,7 @@ window "mapwindow"
 	elem "mapwindow"
 		type = MAIN
 		is-pane = true
+		title = "Map window"
 		saved-params = "pos;size;is-minimized;is-maximized"
 	elem "map"
 		type = MAP
@@ -1590,6 +1591,7 @@ window "outputwindow"
 		can-close = false
 		can-minimize = false
 		saved-params = "pos;size;is-minimized;is-maximized"
+		title = "Output window"
 	elem "browseroutput"
 		type = BROWSER
 		is-disabled = true
@@ -1607,12 +1609,8 @@ window "outputwindow"
 window "rpane"
 	elem "rpane"
 		type = MAIN
-		is-pane = true
-		titlebar = true
-		statusbar = true
-		can-close = true
-		can-minimize = true
 		saved-params = "pos;size;is-minimized;is-maximized"
+		is-pane = true
 	elem "donate"
 		type = BUTTON
 		pos = 480,-2
@@ -1633,19 +1631,23 @@ window "rpane"
 		size = 636x449
 		anchor1 = 0,0
 		anchor2 = 100,100
-		is-vert = false
+		saved-params = "splitter"
 		left = ""
 		right = "outputwindow"
+		is-vert = false
 		splitter = 50
 		show-splitter = true
-		saved-params = "splitter"
+	elem "hosttracker"
+		type = BROWSER
+		pos = 392,25
+		size = 1x1
+		is-visible = true
 	elem "rulesb"
 		type = BUTTON
 		pos = 278,0
 		size = 60x16
 		text = "Rules"
 		command = "rules"
-		saved-params = "is-checked"
 	elem "changelog"
 		type = BUTTON
 		pos = 341,0
