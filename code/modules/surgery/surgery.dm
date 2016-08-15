@@ -112,7 +112,7 @@
 
 	if(prob_chance > 100)//if we are using a super tool
 		time = time/prob_chance //PLACEHOLDER VALUES
-	time = 1 // DEBUG LINE
+	
 	if(do_after(user, time, target = target))
 
 

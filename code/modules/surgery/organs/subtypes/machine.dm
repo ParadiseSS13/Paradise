@@ -163,7 +163,6 @@
 
 /obj/item/organ/internal/brain/mmi_holder/Destroy()
 	if(stored_mmi)
-		log_debug("Deleting MMI!")
 		qdel(stored_mmi)
 	return ..()
 
@@ -178,7 +177,6 @@
 			. = stored_mmi
 			if(owner.mind)
 				owner.mind.transfer_to(stored_mmi.brainmob)
-			log_debug("Releasing MMI!")
 			// move it to nullspace momentarily. If it STAYS there, we got a problem -
 			// 	the caller needs to set the location of the removed organ for this to work
 			contents -= stored_mmi
