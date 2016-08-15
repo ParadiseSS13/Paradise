@@ -12,7 +12,6 @@ var/global/list/antag_roles = list(
 	ROLE_SHADOWLING,
 	ROLE_RAIDER,
 	ROLE_VAMPIRE,
-	ROLE_MUTINEER,
 	ROLE_BORER,
 	ROLE_DEMON,
 	ROLE_REVENANT,
