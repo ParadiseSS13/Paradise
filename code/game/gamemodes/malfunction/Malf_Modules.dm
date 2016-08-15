@@ -16,6 +16,104 @@
 	uses = 5
 
 
+/datum/AI_Module/large/nuke_station
+	module_name = "Doomsday Device"
+	mod_pick_name = "nukestation"
+	description = "Activate a weapon that will disintegrate all organic life on the station after a 450 second delay."
+	cost = 130
+	one_time = 1
+
+	power_type = /mob/living/silicon/ai/proc/nuke_station
+
+/mob/living/silicon/ai/proc/nuke_station()
+	set category = "Malfunction"
+	set name = "Doomsday Device"
+
+	to_chat(src, "<span class='notice'>Nuclear device armed.</span>")
+	command_announcement.Announce("Hostile runtimes detected in all station systems, please deactivate your AI to prevent possible damage to its morality core.", "Anomaly Alert", new_sound = 'sound/AI/aimalf.ogg')
+	set_security_level("delta")
+	nuking = 1
+	var/obj/machinery/doomsday_device/DOOM = new /obj/machinery/doomsday_device(src)
+	doomsday_device = DOOM
+	doomsday_device.start()
+	verbs -= /mob/living/silicon/ai/proc/nuke_station
+	for(var/obj/item/weapon/pinpointer/point in pinpointer_list)
+		for(var/mob/living/silicon/ai/A in ai_list)
+			if((A.stat != DEAD) && A.nuking)
+				point.the_disk = A //The pinpointer now tracks the AI core
+
+/obj/machinery/doomsday_device
+	icon = 'icons/obj/machines/nuke_terminal.dmi'
+	name = "doomsday device"
+	icon_state = "nuclearbomb_base"
+	desc = "A weapon which disintegrates all organic life in a large area."
+	anchored = 1
+	density = 1
+	atom_say_verb = "blares"
+	var/timing = 0
+	var/default_timer = 4500
+	var/detonation_timer
+	var/announced = 0
+
+/obj/machinery/doomsday_device/Destroy()
+	fast_processing -= src
+	shuttle_master.emergencyNoEscape = 0
+	if(shuttle_master.emergency.mode == SHUTTLE_STRANDED)
+		shuttle_master.emergency.mode = SHUTTLE_DOCKED
+		shuttle_master.emergency.timer = world.time
+		priority_announcement.Announce("Hostile environment resolved. You have 3 minutes to board the Emergency Shuttle.", "Priority Announcement", 'sound/AI/shuttledock.ogg')
+	return ..()
+
+/obj/machinery/doomsday_device/proc/start()
+	detonation_timer = world.time + default_timer
+	timing = 1
+	fast_processing += src
+	shuttle_master.emergencyNoEscape = 1
+
+/obj/machinery/doomsday_device/proc/seconds_remaining()
+	. = max(0, (round(detonation_timer - world.time) / 10))
+
+/obj/machinery/doomsday_device/process()
+	var/turf/T = get_turf(src)
+	if(!T || !is_station_level(T.z))
+		minor_announcement.Announce("DOOMSDAY DEVICE OUT OF STATION RANGE, ABORTING", "ERROR ER0RR $R0RRO$!R41.%%!!(%$^^__+ @#F0E4", 'sound/misc/notice1.ogg')
+		shuttle_master.emergencyNoEscape = 0
+		if(shuttle_master.emergency.mode == SHUTTLE_STRANDED)
+			shuttle_master.emergency.mode = SHUTTLE_DOCKED
+			shuttle_master.emergency.timer = world.time
+			priority_announcement.Announce("Hostile environment resolved. You have 3 minutes to board the Emergency Shuttle.", "Priority Announcement", 'sound/AI/shuttledock.ogg')
+		qdel(src)
+	if(!timing)
+		fast_processing -= src
+		return
+	var/sec_left = seconds_remaining()
+	if(sec_left <= 0)
+		timing = 0
+		detonate(T.z)
+		qdel(src)
+	else
+		if(!(sec_left % 60) && !announced)
+			var/message = "[sec_left] SECONDS UNTIL DOOMSDAY DEVICE ACTIVATION!"
+			minor_announcement.Announce(message, "ERROR ER0RR $R0RRO$!R41.%%!!(%$^^__+ @#F0E4", 'sound/misc/notice1.ogg')
+			announced = 10
+		announced = max(0, announced-1)
+
+/obj/machinery/doomsday_device/proc/detonate(z_level = 1)
+	for(var/mob/M in player_list)
+		M << 'sound/machines/Alarm.ogg'
+	sleep(100)
+	for(var/mob/living/L in mob_list)
+		var/turf/T = get_turf(L)
+		if(!T || T.z != z_level)
+			continue
+		if(issilicon(L))
+			continue
+		to_chat(L, "<span class='danger'><B>The blast wave from [src] tears you atom from atom!</B></span>")
+		L.dust()
+	to_chat(world, "<B>The AI cleansed the station of life with the doomsday device!</B>")
+	ticker.force_ending = 1
+
+
 /datum/AI_Module/large/upgrade_turrets
 	module_name = "AI Turret Upgrade"
 	mod_pick_name = "turret"
@@ -443,14 +541,14 @@
 	set name = "Enhanced Surveillance"
 
 	if(eyeobj)
-		eyeobj.relay_speech = TRUE
+		eyeobj.relay_speech = 1
 	to_chat(src, "<span class='notice'>OTA firmware distribution complete! Cameras upgraded: Enhanced surveillance package online.</span>")
 	verbs -= /mob/living/silicon/ai/proc/surveillance
 
 
 /datum/module_picker
 	var/temp = null
-	var/processing_time = 100
+	var/processing_time = 50
 	var/list/possible_modules = list()
 
 /datum/module_picker/New()

@@ -23,8 +23,6 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 // 	ROLE_GANG = 21,
 	ROLE_BORER = 21,
 	ROLE_NINJA = 21,
-	ROLE_MUTINEER = 21,
-	ROLE_MALF = 30,
 	ROLE_ABDUCTOR = 30,
 	ROLE_DEVIL = 7
 )

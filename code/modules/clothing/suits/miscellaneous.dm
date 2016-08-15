@@ -589,32 +589,6 @@
 	icon_state = "creamsuit"
 	item_state = "creamsuit"
 
-//stripper
-
-/obj/item/clothing/under/stripper/stripper_pink
-	name = "pink swimsuit"
-	desc = "A rather skimpy pink swimsuit."
-	icon_state = "stripper_p_under"
-	item_color = "stripper_p"
-
-/obj/item/clothing/under/stripper/stripper_green
-	name = "green swimsuit"
-	desc = "A rather skimpy green swimsuit."
-	icon_state = "stripper_g_under"
-	item_color = "stripper_g"
-
-/obj/item/clothing/suit/stripper/stripper_pink
-	name = "pink skimpy dress"
-	desc = "A rather skimpy pink dress."
-	icon_state = "stripper_p_over"
-	item_state = "stripper_p"
-
-/obj/item/clothing/suit/stripper/stripper_green
-	name = "green skimpy dress"
-	desc = "A rather skimpy green dress."
-	icon_state = "stripper_g_over"
-	item_state = "stripper_g"
-
 /obj/item/clothing/under/stripper/mankini
 	name = "the mankini"
 	desc = "No honest man would wear this abomination"
@@ -789,6 +763,8 @@
 	armor = list(melee = 5, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
 	allowed = list(/obj/item/weapon/gun/energy,/obj/item/weapon/reagent_containers/spray/pepper,/obj/item/weapon/gun/projectile,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/weapon/melee/baton,/obj/item/weapon/restraints/handcuffs,/obj/item/device/flashlight/seclite)
 	actions_types = list(/datum/action/item_action/toggle_wings)
+
+/obj/item/clothing/suit/toggle/owlwings/super_hero
 	flags = NODROP
 
 /obj/item/clothing/suit/toggle/owlwings/griffinwings
@@ -796,6 +772,9 @@
 	desc = "A plush white cloak made of synthetic feathers. Soft to the touch, stylish, and a 2 meter wing span that will drive your captives mad."
 	icon_state = "griffin_wings"
 	item_state = "griffin_wings"
+
+/obj/item/clothing/suit/toggle/owlwings/griffinwings/super_hero
+	flags = NODROP
 
 /obj/item/clothing/suit/toggle/attack_self()
 	if(icon_state == initial(icon_state))

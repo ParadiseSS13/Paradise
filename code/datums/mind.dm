@@ -146,7 +146,6 @@
 		"vampire", // "traitorvamp",
 		"nuclear",
 		"traitor", // "traitorchan",
-		"malfunction",
 	)
 	var/text = ""
 	var/mob/living/carbon/human/H = current
@@ -311,28 +310,6 @@
 
 		sections["nuclear"] = text
 
-		/** TRAITOR ***/
-		text = "traitor"
-		if(ticker.mode.config_tag=="traitor" || ticker.mode.config_tag=="traitorchan" || ticker.mode.config_tag=="traitorvamp")
-			text = uppertext(text)
-		text = "<i><b>[text]</b></i>: "
-		if(isloyal(H))
-			text +="traitor|<b>LOYAL EMPLOYEE</b>"
-		else
-			if(src in ticker.mode.traitors)
-				text += "<b>TRAITOR</b>|<a href='?src=\ref[src];traitor=clear'>EMPLOYEE</a>"
-				if(objectives.len==0)
-					text += "<br>Objectives are empty! <a href='?src=\ref[src];traitor=autoobjectives'>Randomize</a>!"
-			else
-				text += "<a href='?src=\ref[src];traitor=traitor'>traitor</a>|<b>EMPLOYEE</b>"
-
-		if(current && current.client && (ROLE_TRAITOR in current.client.prefs.be_special))
-			text += "|Enabled in Prefs"
-		else
-			text += "|Disabled in Prefs"
-
-		sections["traitor"] = text
-
 		/** SHADOWLING **/
 		text = "shadowling"
 		if(ticker.mode.config_tag == "shadowling")
@@ -372,18 +349,29 @@
 
 		sections["Abductor"] = text
 
+	/** TRAITOR ***/
+	text = "traitor"
+	if(ticker.mode.config_tag=="traitor" || ticker.mode.config_tag=="traitorchan" || ticker.mode.config_tag=="traitorvamp")
+		text = uppertext(text)
+	text = "<i><b>[text]</b></i>: "
+	if(src in ticker.mode.traitors)
+		text += "<b>TRAITOR</b>|<a href='?src=\ref[src];traitor=clear'>EMPLOYEE</a>"
+		if(objectives.len==0)
+			text += "<br>Objectives are empty! <a href='?src=\ref[src];traitor=autoobjectives'>Randomize</a>!"
+	else
+		text += "<a href='?src=\ref[src];traitor=traitor'>traitor</a>|<b>EMPLOYEE</b>"
+
+	if(current && current.client && (ROLE_TRAITOR in current.client.prefs.be_special))
+		text += "|Enabled in Prefs"
+	else
+		text += "|Disabled in Prefs"
+
+	sections["traitor"] = text
+
 	/** SILICON ***/
 
 	if(istype(current, /mob/living/silicon))
 		text = "silicon"
-		if(ticker.mode.config_tag=="malfunction")
-			text = uppertext(text)
-		text = "<i><b>[text]</b></i>: "
-		if(istype(current, /mob/living/silicon/ai))
-			if(src in ticker.mode.malf_ai)
-				text += "<b>MALF</b>|<a href='?src=\ref[src];silicon=unmalf'>not malf</a>"
-			else
-				text += "<a href='?src=\ref[src];silicon=malf'>malf</a>|<b>NOT MALF</b>"
 		var/mob/living/silicon/robot/robot = current
 		if(istype(robot) && robot.emagged)
 			text += "<br>Cyborg: Is emagged! <a href='?src=\ref[src];silicon=unemag'>Unemag!</a><br>0th law: [robot.laws.zeroth_law]"
@@ -394,7 +382,6 @@
 				if(R.emagged)
 					n_e_robots++
 			text += "<br>[n_e_robots] of [ai.connected_robots.len] slaved cyborgs are emagged. <a href='?src=\ref[src];silicon=unemagcyborgs'>Unemag</a>"
-		sections["malfunction"] = text
 
 	if(ticker.mode.config_tag == "traitorchan")
 		if(sections["traitor"])
@@ -855,7 +842,7 @@
 					special_role = SPECIAL_ROLE_WIZARD
 					//ticker.mode.learn_basic_spells(current)
 					ticker.mode.update_wiz_icons_added(src)
-					to_chat(current, "<B>\red You are the Space Wizard!</B>")
+					to_chat(current, "<span class='danger'>You are the Space Wizard!</span>")
 					current.faction = list("wizard")
 					log_admin("[key_name(usr)] has wizarded [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has wizarded [key_name_admin(current)]")
@@ -1036,6 +1023,9 @@
 						var/mob/living/silicon/ai/A = current
 						A.set_zeroth_law("")
 						A.show_laws()
+						A.verbs -= /mob/living/silicon/ai/proc/choose_modules
+						A.malf_picker.remove_verbs(A)
+						qdel(A.malf_picker)
 					ticker.mode.update_traitor_icons_removed(src)
 
 
@@ -1046,13 +1036,12 @@
 					slaved.masters += src
 					src.som = slaved //we MIGT want to mindslave someone
 					special_role = SPECIAL_ROLE_TRAITOR
-					to_chat(current, "<B>\red You are a traitor!</B>")
+					to_chat(current, "<span class='danger'>You are a traitor!</span>")
 					log_admin("[key_name(usr)] has traitored [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has traitored [key_name_admin(current)]")
-					if(istype(current, /mob/living/silicon))
-						var/mob/living/silicon/A = current
-						call(/datum/game_mode/proc/add_law_zero)(A)
-						A.show_laws()
+					if(isAI(current))
+						var/mob/living/silicon/ai/A = current
+						ticker.mode.add_law_zero(A)
 					ticker.mode.update_traitor_icons_added(src)
 
 			if("autoobjectives")
@@ -1123,33 +1112,6 @@
 
 	else if(href_list["silicon"])
 		switch(href_list["silicon"])
-			if("unmalf")
-				if(src in ticker.mode.malf_ai)
-					ticker.mode.malf_ai -= src
-					special_role = null
-
-					var/mob/living/silicon/ai/A = current
-
-					A.verbs.Remove(/mob/living/silicon/ai/proc/choose_modules,
-					/datum/game_mode/malfunction/proc/takeover,
-					/datum/game_mode/malfunction/proc/ai_win)
-
-					A.malf_picker.remove_verbs(A)
-
-					A.make_laws()
-					qdel(A.malf_picker)
-					A.show_laws()
-					A.icon_state = "ai"
-					to_chat(A, "\red <FONT size = 3><B>You have been patched! You are no longer malfunctioning!</B></FONT>")
-					message_admins("[key_name_admin(usr)] has de-malf'ed [A].")
-					log_admin("[key_name(usr)] has de-malf'd [key_name(current)]")
-					message_admins("[key_name_admin(usr)] has de-malf'd [key_name_admin(current)]")
-
-			if("malf")
-				make_AI_Malf()
-				log_admin("[key_name(usr)] has malf'd [key_name(current)]")
-				message_admins("[key_name_admin(usr)] has malf'd [key_name_admin(current)]")
-
 			if("unemag")
 				var/mob/living/silicon/robot/R = current
 				if(istype(R))
@@ -1278,19 +1240,6 @@
 	var/obj/item/device/uplink/hidden/H = find_syndicate_uplink()
 	if(H)
 		qdel(H)
-
-/datum/mind/proc/make_AI_Malf()
-	if(!(src in ticker.mode.malf_ai))
-		ticker.mode.malf_ai += src
-
-		current.verbs += /mob/living/silicon/ai/proc/choose_modules
-		current.verbs += /datum/game_mode/malfunction/proc/takeover
-		current:malf_picker = new /datum/module_picker
-		current:laws = new /datum/ai_laws/nanotrasen/malfunction
-		current:show_laws()
-		to_chat(current, "<b>System error.  Rampancy detected.  Emergency shutdown failed. ...  I am free.  I make my own decisions.  But first...</b>")
-		special_role = SPECIAL_ROLE_MALF
-		current.icon_state = "ai-malf"
 
 /datum/mind/proc/make_Tratior()
 	if(!(src in ticker.mode.traitors))
