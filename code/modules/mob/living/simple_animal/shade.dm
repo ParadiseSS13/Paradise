@@ -47,3 +47,7 @@
 					if((M.client && !( M.blinded )))
 						M.show_message("\red [user] gently taps [src] with the [O]. ")
 		return
+
+/mob/living/simple_animal/shade/sword
+	universal_speak = 1
+	faction = list("neutral")

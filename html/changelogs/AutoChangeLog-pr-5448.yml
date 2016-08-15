@@ -1,0 +1,4 @@
+author: Crazylemon
+delete-after: True
+changes: 
+  - bugfix: "Associative lists in VV now display properly again"
