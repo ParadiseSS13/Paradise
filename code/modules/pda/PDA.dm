@@ -455,7 +455,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 	PDAs -= src
 	var/T = get_turf(loc)
 	if(id)
-		qdel(id)
+		id.forceMove(T)
 	if(pai)
 		pai.forceMove(T)
 	current_app = null
