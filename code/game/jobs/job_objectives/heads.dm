@@ -20,8 +20,8 @@
       head_department = medical_positions
 
 /datum/job_objective/savedept/get_description()
-	var/desc = "  концу смены увезите со станции весь свой отдел в целости и сохранности."
-	return sanitize_local(desc)
+	var/desc = "Make sure that all your department escaped by the round end."
+	return desc
 
 /datum/job_objective/savedept/check_in_the_end()
   var/count_evac

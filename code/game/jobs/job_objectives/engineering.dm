@@ -4,8 +4,8 @@
 
 // Power the station
 /datum/job_objective/powerstation/get_description()
-	var/desc = "Полностью обеспечьте станцию энергией!"
-	return sanitize_local(desc)
+	var/desc = "Power all the APC for 100%!"
+	return desc
 
 /datum/job_objective/powerstation/check_in_the_end()
   if(score_powerbonus) return 1
@@ -13,9 +13,8 @@
 
 //Make a singulo
 /datum/job_objective/singulo/get_description()
-	var/desc = "Настройте сингулярность или тесла-установку, и не дайте ей убежать!"
-	return sanitize_local(desc)
-
+	var/desc = "Make a singulo/tesla, and do not let it escape!"
+	return desc
 /datum/job_objective/singulo/check_in_the_end()
   var/not_contained = 0
   for(var/obj/singularity/O in singularities)
@@ -29,8 +28,8 @@
 
 //SAVE THE STATION PLEASE
 /datum/job_objective/station_integrity/get_description()
-  var/desc = "Сохраните не менее 95 процентов станции до конца смены."
-  return sanitize_local(desc)
+  var/desc = "Save 95% of station integrity by the round end."
+  return desc
 
 /datum/job_objective/station_integrity/check_in_the_end()
   var/datum/station_state/ending_state = new /datum/station_state()
@@ -47,6 +46,6 @@
   units_requested = rand(2,3)
 
 /datum/job_objective/make_pod/get_description()
-  var/desc = "Постройте [units_requested] пода."
-  desc += "[units_completed] готово."
-  return sanitize_local(desc)
+  var/desc = "Make [units_requested] pods."
+  desc += "[units_completed] ready."
+  return desc

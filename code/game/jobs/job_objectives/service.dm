@@ -4,8 +4,8 @@
 
 // Janitor
 /datum/job_objective/ultraclean/get_description()
-	var/desc = "Соблюдать АБСОЛЮТНУЮ чистоту на станции"
-	return sanitize_local(desc)
+	var/desc = "Make the station ULTRA clean"
+	return desc
 
 /datum/job_objective/ultraclean/check_in_the_end()
 	if(!score_mess)
@@ -13,8 +13,8 @@
 	else return 0
 
 /datum/job_objective/harvest/get_description()
-	var/desc = "Собрать урожай не менее чем с 30 растений (собрано [score_stuffharvested])"
-	return sanitize_local(desc)
+	var/desc = "Harvest at least 30 plants (harvested [score_stuffharvested])"
+	return desc
 
 /datum/job_objective/harvest/check_in_the_end()
   if(score_stuffharvested < 30)
@@ -22,8 +22,8 @@
   else return 1
 
 /datum/job_objective/funeral/get_description()
-	var/desc = "Сжечь/Космировать ВСЕ мертвые тела."
-	return sanitize_local(desc)
+	var/desc = "Do not left dead bodies on the station at the round end."
+	return desc
 
 /datum/job_objective/funeral/check_in_the_end()
   if(score_deadcrew)

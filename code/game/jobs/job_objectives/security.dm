@@ -4,8 +4,8 @@
 
 // Power the station
 /datum/job_objective/bringantag/get_description()
-	var/desc = "Приведите антагониста на ЦК для допроса (в наручниках)"
-	return sanitize_local(desc)
+	var/desc = "Bring the antag to the Central Command, handcuffed and in the shuttle brig zone."
+	return desc
 
 /datum/job_objective/bringantag/check_in_the_end()
 	for(var/datum/mind/M in ticker.minds)
@@ -15,8 +15,8 @@
 	return 0
 
 /datum/job_objective/evac/get_description()
-	var/desc = "Не допустите гибели глав и VIP, доставьте их на ЦК при эвакуации."
-	return sanitize_local(desc)
+	var/desc = "Do not let the heads or VIP die."
+	return desc
 
 /datum/job_objective/evac/check_in_the_end()
   var/count_evac
