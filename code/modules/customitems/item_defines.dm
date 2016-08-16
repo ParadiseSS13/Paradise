@@ -328,7 +328,7 @@
 
 /obj/item/clothing/head/beret/fluff/linda //Epic_Charger: Linda Clark
 	name = "Green beret"
-	desc = "A beret, an artists favorite headwear. This one has two holes cut on the edges."
+	desc = "A beret, an artist's favorite headwear. This one has two holes cut on the edges."
 	icon_state = "linda_beret"
 
 //////////// Suits ////////////
