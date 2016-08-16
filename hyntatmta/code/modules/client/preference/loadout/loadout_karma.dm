@@ -70,4 +70,4 @@
 	display_name = "alchemist robes"
 	wl_id = "4008"
 	path = /obj/item/clothing/suit/atmta/fullmetal
-	allowed_roles = list("Chemist", "Libranian")
+	allowed_roles = list("Chemist", "Librarian")
