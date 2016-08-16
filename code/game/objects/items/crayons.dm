@@ -92,19 +92,19 @@
 			if(uses)
 				uses--
 				if(!uses)
-					to_chat(user, "<span class='danger'>You used up your [src.name]!</span>")
+					to_chat(user, "<span class='danger'>You used up your [name]!</span>")
 					qdel(src)
 	return
 
 /obj/item/toy/crayon/attack(mob/M as mob, mob/user as mob)
 	var/huffable = istype(src,/obj/item/toy/crayon/spraycan)
 	if(M == user)
-		to_chat(user, "You take a [huffable ? "huff" : "bite"] of the [src.name]. Delicious!")
+		to_chat(user, "You take a [huffable ? "huff" : "bite"] of the [name]. Delicious!")
 		user.nutrition += 5
 		if(uses)
 			uses -= 5
 			if(uses <= 0)
-				to_chat(user, "<span class='danger'>There is no more of [src.name] left!</span>")
+				to_chat(user, "<span class='danger'>There is no more of [name] left!</span>")
 				qdel(src)
 	else
 		..()
