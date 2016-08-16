@@ -248,7 +248,7 @@
 /obj/effect/beam/i_beam/Crossed(atom/movable/AM as mob|obj)
 	if(!isobj(AM) && !isliving(AM))
 		return
-	if(istype(AM, /obj/effect/beam))
+	if(istype(AM, /obj/effect))
 		return
 	hit()
 
