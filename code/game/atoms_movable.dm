@@ -35,7 +35,7 @@
 	var/turf/un_opaque
 	if(opacity && isturf(loc))
 		un_opaque = loc
-		
+
 	loc = null
 	if(un_opaque)
 		un_opaque.recalc_atom_opacity()

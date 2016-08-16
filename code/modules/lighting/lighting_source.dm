@@ -20,7 +20,7 @@
 	var/list/datum/lighting_corner/effect_str     // List used to store how much we're affecting corners.
 	var/list/turf/affecting_turfs
 
-	var/applied             // Whether we have applied our light yet or not.
+	var/applied = FALSE     // Whether we have applied our light yet or not.
 
 	var/vis_update          // Whether we should smartly recalculate visibility. and then only update tiles that became (in)visible to us.
 	var/needs_update        // Whether we are queued for an update.

@@ -44,6 +44,8 @@
 	// Diagonal one is easy.
 	T = get_step(new_turf, diagonal)
 	if(T) // In case we're on the map's border.
+		if(!T.corners)
+			T.corners = list(null, null, null, null)
 		masters[T]   = diagonal
 		i            = LIGHTING_CORNER_DIAGONAL.Find(turn(diagonal, 180))
 		T.corners[i] = src
@@ -51,6 +53,8 @@
 	// Now the horizontal one.
 	T = get_step(new_turf, horizontal)
 	if(T) // Ditto.
+		if(!T.corners)
+			T.corners = list(null, null, null, null)
 		masters[T]   = ((T.x > x) ? EAST : WEST) | ((T.y > y) ? NORTH : SOUTH) // Get the dir based on coordinates.
 		i            = LIGHTING_CORNER_DIAGONAL.Find(turn(masters[T], 180))
 		T.corners[i] = src
@@ -58,6 +62,8 @@
 	// And finally the vertical one.
 	T = get_step(new_turf, vertical)
 	if(T)
+		if(!T.corners)
+			T.corners = list(null, null, null, null)
 		masters[T]   = ((T.x > x) ? EAST : WEST) | ((T.y > y) ? NORTH : SOUTH) // Get the dir based on coordinates.
 		i            = LIGHTING_CORNER_DIAGONAL.Find(turn(masters[T], 180))
 		T.corners[i] = src

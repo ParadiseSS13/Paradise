@@ -7,16 +7,19 @@
 	var/list/light_sources
 
 /atom/proc/set_light(l_range, l_power, l_color)
-	if(l_power != null) light_power = l_power
-	if(l_range != null) light_range = l_range
-	if(l_color != null) light_color = l_color
+	if(l_power != null)
+		light_power = l_power
+	if(l_range != null)
+		light_range = l_range
+	if(l_color != null)
+		light_color = l_color
 
 	update_light()
 
 /atom/proc/update_light()
 	set waitfor = FALSE
 
-	if(!lighting_corners_initialised)
+	if(!global.lighting_corners_initialised)
 		sleep(20)
 
 	if(!light_power || !light_range)
@@ -72,12 +75,28 @@
 	if(istype(new_loc) && opacity)
 		new_loc.reconsider_lights()
 
-/atom/proc/set_opacity(new_opacity)
+/atom/proc/set_opacity(var/new_opacity)
 	var/old_opacity = opacity
 	opacity = new_opacity
 	var/turf/T = loc
 	if(old_opacity != new_opacity && istype(T))
 		T.reconsider_lights()
+
+// This code makes the light be queued for update when it is moved.
+// Entered() should handle it, however Exited() can do it if it is being moved to nullspace (as there would be no Entered() call in that situation).
+/atom/Entered(var/atom/movable/Obj, var/atom/OldLoc) //Implemented here because forceMove() doesn't call Move()
+	. = ..()
+
+	if (Obj && OldLoc != src)
+		for (var/datum/light_source/L in Obj.light_sources) // Cycle through the light sources on this atom and tell them to update.
+			L.source_atom.update_light()
+
+/atom/Exited(var/atom/movable/Obj, var/atom/newloc)
+	. = ..()
+
+	if (!newloc && Obj && newloc != src) // Incase the atom is being moved to nullspace, we handle queuing for a lighting update here.
+		for (var/datum/light_source/L in Obj.light_sources) // Cycle through the light sources on this atom and tell them to update.
+			L.source_atom.update_light()
 
 /obj/item/equipped()
 	. = ..()
