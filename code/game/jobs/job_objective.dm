@@ -24,7 +24,7 @@
 
 /datum/job_objective/proc/get_description()
 	var/desc = explanation_text
-	return desc
+	return sanitize_local(desc)
 
 /datum/job_objective/proc/unit_completed(var/count=1)
 	units_completed += count
@@ -50,7 +50,7 @@
 	return 0
 
 /datum/game_mode/proc/declare_job_completion()
-	var/text = "<hr><b><u>Профессиональные успехи:</u></b>"
+	var/text = "<hr><b><u>Job objective completion:</u></b>"
 
 	for(var/datum/mind/employee in ticker.minds)
 
@@ -62,21 +62,21 @@
 
 		var/tasks_completed=0
 
-		text += "<br><b>[employee.name] состоял на должности [employee.assigned_role]:</b><hr>"
+		text += "<br><b>[employee.name] was a [employee.assigned_role]:</b><hr>"
 
 		var/count = 1
 		for(var/datum/job_objective/objective in employee.job_objectives)
 			if(objective.is_completed(1) || objective.is_over(1))
-				text += "<br>&nbsp;-&nbsp;<B>Задача #[count]</B>: [objective.get_description()] <font color='green'><B>ВЫПОЛНЕНО!</B></font>"
+				text += "<br>&nbsp;-&nbsp;<B>Task #[count]</B>: [objective.get_description()] <font color='green'><B>SUCCESS!</B></font>"
 				feedback_add_details("employee_objective","[objective.type]|УСПЕХ")
 				tasks_completed++
 			else
-				text += "<br>&nbsp;-&nbsp;<B>Задача #[count]</B>: [objective.get_description()] <font color='red'><b>Провалено.</b></font>"
+				text += "<br>&nbsp;-&nbsp;<B>Task #[count]</B>: [objective.get_description()] <font color='red'><b>FAIL.</b></font>"
 				feedback_add_details("employee_objective","[objective.type]|ПРОВАЛ")
 			count++
 
 		if(tasks_completed >= 1)
-			text += "<br>&nbsp;<font color='green'><B>[employee.name] сделал свою чертову работу!</B></font>"
+			text += "<br>&nbsp;<font color='green'><B>[employee.name] did their fucking job!</B></font>"
 			feedback_add_details("employee_success","SUCCESS")
 		else
 			feedback_add_details("employee_success","FAIL")

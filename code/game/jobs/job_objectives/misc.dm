@@ -4,8 +4,8 @@
 
 // Power the station
 /datum/job_objective/inviolate_escape/get_description()
-	var/desc = "Покиньте станцию на шаттле свободным и живым, никого не убив."
-	return sanitize_local(desc)
+	var/desc = "Leave the station alive and free, without even killing anybody."
+	return desc
 
 /datum/job_objective/inviolate_escape/check_in_the_end()
 
