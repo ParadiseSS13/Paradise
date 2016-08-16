@@ -37,10 +37,10 @@
 	can_collar = 1
 
 	var/list/clean_speak = list(
-		"Hi",
-		"Hello!",
-		"Cracker?",
-		"BAWWWWK george mellons griffing me")
+		"Привет",
+		"Дарова!",
+		"Крекккерр?",
+		"БУАААК винсонт антдар грифонит миня!")
 	speak_emote = list("squawks","says","yells")
 	emote_hear = list("squawks","bawks")
 	emote_see = list("flutters its wings")
@@ -158,9 +158,9 @@
 				if("ears")
 					if(ears)
 						if(available_channels.len)
-							say("[pick(available_channels)]BAWWWWWK LEAVE THE HEADSET BAWKKKKK!")
+							say("[pick(available_channels)]БУУУУАК ОСТАВЬ НАУШНИК БУАААК!")
 						else
-							say("BAWWWWWK LEAVE THE HEADSET BAWKKKKK!")
+							say("БУУУУАК ОСТАВЬ НАУШНИК БУАААК!")
 						ears.forceMove(loc)
 						ears = null
 						update_speak()
@@ -680,13 +680,13 @@
 	name = "Poly"
 	desc = "Poly the Parrot. An expert on quantum cracker theory."
 	clean_speak = list(
-		"Poly wanna cracker!",
-		"Check the singlo, you chucklefucks!",
-		"Check the tesla, you shits!",
-		"STOP HOT-WIRING THE ENGINE, FUCKING CHRIST!",
-		"Wire the solars, you lazy bums!",
-		"WHO TOOK THE DAMN HARDSUITS?",
-		"OH GOD ITS FREE CALL THE SHUTTLE")
+		"ПОЛИ ХОЧЕТ КРРРРЕКККЕРРР!",
+		"Проверьте сингу, вы идиоты!",
+		"Проверьте теслу, вы дебилы!",
+		"ГОСПОДИ ХВАТИТ ТЫ НЕ УМЕЕШЬ НАСТРАИВАТЬ ДВИГАТЕЛЬ!",
+		"Настройте соляры, лентяи!",
+		"КТО ВЗЯЛ ЧЕРТОВЫ РИГИ?",
+		"БОЖЕ ОНО ВЫРВАЛОСЬ ВЫЗЫВАЙТЕ ШАТТЛ")
 	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID
 
 /mob/living/simple_animal/parrot/Poly/New()
