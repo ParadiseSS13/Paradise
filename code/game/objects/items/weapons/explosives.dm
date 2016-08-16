@@ -71,10 +71,6 @@
 		return
 	if (istype(AM, /mob/living/carbon))
 		return
-	if(istype(AM, /obj/machinery/door/poddoor))
-		var/obj/machinery/door/poddoor/T = AM
-		if(T.protected)
-			return
 	to_chat(user, "<span class='notice'>You start planting the [src]. The timer is set to [det_time]...</span>")
 
 	if(do_after(user, 50, target = AM))
