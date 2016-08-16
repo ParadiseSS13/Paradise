@@ -267,6 +267,11 @@
 							to_chat(usr,"You do not have enough karma!")
 						else
 							src.DB_item_unlock("4004",5)
+					if("4005")
+						if(karma < 5)
+							to_chat(usr,"You do not have enough karma!")
+						else
+							src.DB_item_unlock("4005",5)
 					if("9001")
 						if(karma < 10)
 							to_chat(usr,"You do not have enough karma!")

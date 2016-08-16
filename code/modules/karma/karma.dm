@@ -228,7 +228,7 @@ You've gained <b>[totalkarma]</b> total karma in your time here.<br>"}
 			<a href='?src=\ref[src];karmashop=shop;KarmaBuy3=4005'>Unlock Simon Coat -- 5KP</a>(for Heads only)<br>
 			<a href='?src=\ref[src];karmashop=shop;KarmaBuy3=9001'>Unlock Kamina Cape -- 10KP</a><br>
 			<a href='?src=\ref[src];karmashop=shop;KarmaBuy3=4006'>Unlock H.E.V. -- 10KP</a>(for Engineering only)<br>
-			<a href='?src=\ref[src];karmashop=shop;KarmaBuy3=4008'>Unlock Alchemist Outfit -- 10KP</a>(for Chemist and Libranian only)<br>
+			<a href='?src=\ref[src];karmashop=shop;KarmaBuy3=4008'>Unlock Alchemist Outfit -- 10KP</a>(for Chemist and Librarian only)<br>
 			<a href='?src=\ref[src];karmashop=shop;KarmaBuy3=1'>Unlock DIO Set -- 15KP</a><br>
 
 			"}
