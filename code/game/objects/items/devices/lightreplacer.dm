@@ -91,6 +91,9 @@
 	if(istype(W, /obj/item/weapon/light))
 		var/obj/item/weapon/light/L = W
 		if(L.status == 0) // LIGHT OKAY
+			if(!user.drop_item())
+				to_chat(user, "[L] is stuck to your hand!")
+				return
 			if(uses < max_uses)
 				AddUses(1)
 				to_chat(user, "You insert the [L.name] into the [src.name]. You have [uses] lights remaining.")
@@ -98,11 +101,15 @@
 				qdel(L)
 				return
 		else if(L.status == 2 || L.status == 3)
-			AddShards(1)
-			to_chat(user, "You insert [L] into [src]. You have [shards] shards remaining.")
-			user.drop_item()
-			qdel(L)
-			return
+			if(!user.drop_item())
+				to_chat(user, "[L] is stuck to your hand!")
+				return
+			else
+				AddShards(1)
+				to_chat(user, "You insert [L] into [src]. You have [shards] shards remaining.")
+				user.drop_item()
+				qdel(L)
+				return
 
 	if(istype(W, /obj/item/weapon/storage))
 		var/obj/item/weapon/storage/S = W
