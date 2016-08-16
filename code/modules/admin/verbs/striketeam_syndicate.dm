@@ -78,7 +78,7 @@ var/global/sent_syndicate_strike_team = 0
 				new_syndicate_commando.mind.store_memory("<B>Nuke Code:</B> \red [nuke_code].")
 			new_syndicate_commando.mind.store_memory("<B>Mission:</B> \red [input].")
 
-			to_chat(new_syndicate_commando, "\blue You are an Elite Syndicate. [!syndicate_leader_selected?"commando":"<B>LEADER</B>"] in the service of the Syndicate. \nYour current mission is: \red<B>[input]</B>")
+			to_chat(new_syndicate_commando, "\blue You are an Elite Syndicate. [!syndicate_leader_selected?"commando":"<B>LEADER</B>"] in the service of the Syndicate. \nYour current mission is: <span class='danger'>[input]</span>")
 
 			syndicate_commando_number--
 
@@ -118,7 +118,7 @@ var/global/sent_syndicate_strike_team = 0
 	//Creates mind stuff.
 	new_syndicate_commando.mind_initialize()
 	new_syndicate_commando.mind.assigned_role = "MODE"
-	new_syndicate_commando.mind.special_role = "Syndicate Commando"
+	new_syndicate_commando.mind.special_role = SPECIAL_ROLE_SYNDICATE_DEATHSQUAD
 	ticker.mode.traitors |= new_syndicate_commando.mind	//Adds them to current traitor list. Which is really the extra antagonist list.
 	new_syndicate_commando.equip_syndicate_commando(syndicate_leader_selected)
 	qdel(spawn_location)

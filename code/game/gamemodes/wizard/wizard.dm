@@ -28,10 +28,10 @@
 	wizards += wizard
 	modePlayer += wizard
 	wizard.assigned_role = "MODE" //So they aren't chosen for other jobs.
-	wizard.special_role = "Wizard"
+	wizard.special_role = SPECIAL_ROLE_WIZARD
 	wizard.original = wizard.current
 	if(wizardstart.len == 0)
-		to_chat(wizard.current, "<B>\red A starting location for you could not be found, please report this bug!</B>")
+		to_chat(wizard.current, "<span class='danger'>A starting location for you could not be found, please report this bug!</span>")
 		return 0
 	return 1
 
@@ -93,7 +93,7 @@
 
 /datum/game_mode/proc/greet_wizard(var/datum/mind/wizard, var/you_are=1)
 	if(you_are)
-		to_chat(wizard.current, "<B>\red You are the Space Wizard!</B>")
+		to_chat(wizard.current, "<span class='danger'>You are the Space Wizard!</span>")
 	to_chat(wizard.current, "<B>The Space Wizards Federation has given you the following tasks:</B>")
 
 	var/obj_count = 1

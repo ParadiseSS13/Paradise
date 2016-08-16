@@ -100,7 +100,7 @@
 				new_objective.explanation_text = "Protect [H.real_name], the wizard."
 				M.mind.objectives += new_objective
 				ticker.mode.traitors += M.mind
-				M.mind.special_role = "apprentice"
+				M.mind.special_role = SPECIAL_ROLE_WIZARD_APPRENTICE
 				ticker.mode.update_wiz_icons_added(M.mind)
 				M.faction = list("wizard")
 			else
@@ -259,7 +259,7 @@ var/global/list/multiverse = list()
 	..()
 
 /obj/item/weapon/multisword/attack_self(mob/user)
-	if(user.mind.special_role == "apprentice")
+	if(user.mind.special_role == SPECIAL_ROLE_WIZARD_APPRENTICE)
 		to_chat(user, "<span class='warning'>You know better than to touch your teacher's stuff.</span>")
 		return
 	if(cooldown < world.time)
@@ -346,7 +346,7 @@ var/global/list/multiverse = list()
 		M.mind.objectives += hijack_objective
 		hijack_objective.explanation_text = "Ensure only [usr.real_name] and their copies are on the shuttle!"
 		to_chat(M, "<B>Objective #[1]</B>: [hijack_objective.explanation_text]")
-		M.mind.special_role = "multiverse traveller"
+		M.mind.special_role = SPECIAL_ROLE_MULTIVERSE
 		log_game("[M.key] was made a multiverse traveller with the objective to help [usr.real_name] hijack.")
 	else
 		var/datum/objective/protect/new_objective = new /datum/objective/protect
@@ -355,7 +355,7 @@ var/global/list/multiverse = list()
 		new_objective.explanation_text = "Protect [usr.real_name], your copy, and help them defend the innocent from the mobs of multiverse clones."
 		M.mind.objectives += new_objective
 		to_chat(M, "<B>Objective #[1]</B>: [new_objective.explanation_text]")
-		M.mind.special_role = "multiverse traveller"
+		M.mind.special_role = SPECIAL_ROLE_MULTIVERSE
 		log_game("[M.key] was made a multiverse traveller with the objective to help [usr.real_name] protect the station.")
 
 /obj/item/weapon/multisword/proc/equip_copy(var/mob/living/carbon/human/M)
@@ -408,6 +408,10 @@ var/global/list/multiverse = list()
 		var/obj/belt = H.get_item_by_slot(slot_belt)
 		if(belt)
 			M.equip_to_slot_or_del(new belt.type(M), slot_belt)
+
+		var/obj/pda = H.get_item_by_slot(slot_wear_pda)
+		if(pda)
+			M.equip_to_slot_or_del(new pda.type(M), slot_wear_pda)
 
 		var/obj/back = H.get_item_by_slot(slot_back)
 		if(back)
@@ -762,8 +766,8 @@ var/global/list/multiverse = list()
 	var/obj/item/link = null
 	var/cooldown_time = 30 //3s
 	var/cooldown = 0
-
-
+	burntime = 0
+	burn_state = FLAMMABLE
 
 /obj/item/voodoo/attackby(obj/item/I as obj, mob/user as mob, params)
 	if(target && cooldown < world.time)

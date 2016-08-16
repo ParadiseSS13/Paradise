@@ -66,7 +66,7 @@
 	name = "cable restraints"
 	desc = "Looks like some cables tied together. Could be used to tie something up."
 	icon_state = "cuff_white"
-	item_state = "coil_red"
+	materials = list(MAT_METAL=150, MAT_GLASS=75)
 	breakouttime = 300 //Deciseconds = 30s
 	cuffsound = 'sound/weapons/cablecuff.ogg'
 
@@ -114,14 +114,28 @@
 			to_chat(user, "<span class='notice'>You wrap the cable restraint around the top of the rod.</span>")
 			qdel(src)
 		else
-			to_chat(user, "<span class='warning'>You need one rod to make a wired rod.</span>")
+			to_chat(user, "<span class='warning'>You need one rod to make a wired rod!</span>")
+	else if(istype(I, /obj/item/stack/sheet/metal))
+		var/obj/item/stack/sheet/metal/M = I
+		if(M.amount < 6)
+			to_chat(user, "<span class='warning'>You need at least six metal sheets to make good enough weights!</span>")
 			return
+		to_chat(user, "<span class='notice'>You begin to apply [I] to [src]...</span>")
+		if(do_after(user, 35, target = src))
+			var/obj/item/weapon/restraints/legcuffs/bola/S = new /obj/item/weapon/restraints/legcuffs/bola
+			M.use(6)
+			user.put_in_hands(S)
+			to_chat(user, "<span class='notice'>You make some weights out of [I] and tie them to [src].</span>")
+			if(!remove_item_from_storage(user))
+				user.unEquip(src)
+			qdel(src)
 
 /obj/item/weapon/restraints/handcuffs/cable/zipties
 	name = "zipties"
 	desc = "Plastic, disposable zipties that can be used to restrain temporarily but are destroyed after use."
 	icon_state = "cuff_white"
 	breakouttime = 450 //Deciseconds = 45s
+	materials = list()
 	trashtype = /obj/item/weapon/restraints/handcuffs/cable/zipties/used
 
 /obj/item/weapon/restraints/handcuffs/cable/zipties/cyborg/attack(mob/living/carbon/C, mob/user)

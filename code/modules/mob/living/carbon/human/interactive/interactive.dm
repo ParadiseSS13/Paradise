@@ -262,7 +262,7 @@
 		MYPDA = wear_pda
 	else
 		MYPDA = new(src)
-		equip_to_slot_or_del(MYPDA, slot_belt)
+		equip_to_slot_or_del(MYPDA, slot_wear_pda)
 	MYPDA.owner = real_name
 	MYPDA.ownjob = alt_title
 	MYPDA.ownrank = job
@@ -364,7 +364,7 @@
 	traitorType = inPers
 
 	ticker.mode.traitors += mind
-	mind.special_role = "traitor"
+	mind.special_role = SPECIAL_ROLE_TRAITOR
 	var/datum/mindslaves/slaved = new()
 	slaved.masters += mind
 	mind.som = slaved

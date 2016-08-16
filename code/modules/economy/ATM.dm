@@ -125,6 +125,7 @@ log transactions
 	if(get_dist(src,user) <= 1)
 		//check to see if the user has low security enabled
 		scan_user(user)
+		add_fingerprint(user)
 
 		//js replicated from obj/machinery/computer/card
 		var/dat = {"<h1>Nanotrasen Automatic Teller Machine</h1>

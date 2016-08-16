@@ -4,6 +4,7 @@ var/round_start_time = 0
 /datum/controller/gameticker
 	var/const/restart_timeout = 600
 	var/current_state = GAME_STATE_PREGAME
+	var/force_ending = 0
 
 	var/hide_mode = 0 // leave here at 0 ! setup() will take care of it when needed for Secret mode -walter0o
 	var/datum/game_mode/mode = null
@@ -48,9 +49,7 @@ var/round_start_time = 0
 		to_chat(world, "<B><FONT color='blue'>Welcome to the pre-game lobby!</FONT></B>")
 		to_chat(world, "Please, setup your character and select ready. Game will start in [pregame_timeleft] seconds")
 		while(current_state == GAME_STATE_PREGAME)
-			for(var/i=0, i<10, i++)
-				sleep(1)
-				vote.process()
+			sleep(10)
 			if(going)
 				pregame_timeleft--
 
@@ -268,7 +267,7 @@ var/round_start_time = 0
 				M.client.screen += cinematic
 			if(M.stat != DEAD)
 				var/turf/T = get_turf(M)
-				if(T && T.z == 1)
+				if(T && is_station_level(T.z))
 					M.death(0) //no mercy
 
 	//Now animate the cinematic
@@ -339,7 +338,7 @@ var/round_start_time = 0
 /datum/controller/gameticker/proc/create_characters()
 	for(var/mob/new_player/player in player_list)
 		if(player.ready && player.mind)
-			if(player.mind.assigned_role == "AI" || player.mind.special_role == "malfunctioning AI")
+			if(player.mind.assigned_role == "AI")
 				player.close_spawn_windows()
 				player.AIize()
 			else if(!player.mind.assigned_role)
@@ -385,7 +384,7 @@ var/round_start_time = 0
 	else
 		game_finished |= mode.check_finished()
 
-	if(!mode.explosion_in_progress && game_finished)
+	if((!mode.explosion_in_progress && game_finished) || force_ending)
 		current_state = GAME_STATE_FINISHED
 		auto_toggle_ooc(1) // Turn it on
 		spawn

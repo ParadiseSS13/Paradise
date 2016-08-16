@@ -487,14 +487,15 @@
 		return
 	if(RESIST_HEAT in mutations)
 		return
-	var/thermal_protection = get_thermal_protection()
+	if(on_fire)
+		var/thermal_protection = get_thermal_protection()
 
-	if(thermal_protection >= FIRE_IMMUNITY_SUIT_MAX_TEMP_PROTECT)
-		return
-	if(thermal_protection >= FIRE_SUIT_MAX_TEMP_PROTECT)
-		bodytemperature += 11
-	else
-		bodytemperature += BODYTEMP_HEATING_MAX
+		if(thermal_protection >= FIRE_IMMUNITY_SUIT_MAX_TEMP_PROTECT)
+			return
+		if(thermal_protection >= FIRE_SUIT_MAX_TEMP_PROTECT)
+			bodytemperature += 11
+		else
+			bodytemperature += (BODYTEMP_HEATING_MAX + (fire_stacks * 12))
 
 /mob/living/carbon/human/proc/get_thermal_protection()
 	var/thermal_protection = 0 //Simple check to estimate how protected we are against multiple temperatures
@@ -1104,7 +1105,7 @@
 
 
 	for(var/mob/living/carbon/human/H in range(decaylevel, src))
-		if(prob(5))
+		if(prob(2))
 			if(istype(loc,/obj/item/bodybag))
 				return
 			var/obj/item/clothing/mask/M = H.wear_mask
@@ -1112,6 +1113,8 @@
 				return
 			if(H.species && H.species.flags & NO_BREATHE)
 				return //no puking if you can't smell!
+			if(H.mind.assigned_role == "Detective")
+				return //too cool for puke
 			to_chat(H, "<spawn class='warning'>You smell something foul...")
 			H.fakevomit()
 

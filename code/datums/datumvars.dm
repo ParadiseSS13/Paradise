@@ -24,13 +24,12 @@
 			body += debug_variable("icon", new/icon(A.icon, A.icon_state, A.dir), 0)
 		#endif
 
-	var/icon/sprite
+	var/sprite
 
 	if(istype(D,/atom))
 		var/atom/AT = D
 		if(AT.icon && AT.icon_state)
-			sprite = new /icon(AT.icon, AT.icon_state)
-			usr << browse_rsc(sprite, "view_vars_sprite.png")
+			sprite = 1
 
 	title = "[D] (\ref[D]) = [D.type]"
 
@@ -54,7 +53,7 @@
 										location.href=alist\[0\].href;
 									}
 								}
-							}catch(err) {   }
+							}catch(err) {	 }
 						}
 						return
 					}
@@ -75,7 +74,7 @@
 										return
 									}
 								}
-							}catch(err) {  }
+							}catch(err) {	}
 						}
 						return
 					}
@@ -96,7 +95,7 @@
 										return
 									}
 								}
-							}catch(err) {  }
+							}catch(err) {	}
 						}
 						return
 					}
@@ -122,7 +121,7 @@
 									vars_ol.removeChild(li);
 									i--;
 								}
-							}catch(err) {   }
+							}catch(err) {	 }
 						}
 					}
 					var lis_new = vars_ol.getElementsByTagName("li");
@@ -162,7 +161,7 @@
 	body += "<div align='center'><table width='100%'><tr><td width='50%'>"
 
 	if(sprite)
-		body += "<table align='center' width='100%'><tr><td><img src='view_vars_sprite.png'></td><td>"
+		body += "<table align='center' width='100%'><tr><td>[bicon(D, use_class=0)]</td><td>"
 	else
 		body += "<table align='center' width='100%'><tr><td>"
 
@@ -351,26 +350,18 @@ body
 
 	else if(isicon(value))
 		#ifdef VARSICON
-		var/icon/I = new/icon(value)
-		var/rnd = rand(1,10000)
-		var/rname = "tmp\ref[I][rnd].png"
-		usr << browse_rsc(I, rname)
-		html += "[name] = (<span class='value'>[value]</span>) <img class=icon src=\"[rname]\">"
+		html += "[name] = /icon (<span class='value'>[value]</span>) [bicon(value, use_class=0)]"
 		#else
 		html += "[name] = /icon (<span class='value'>[value]</span>)"
 		#endif
 
-/*		else if(istype(value, /image))
+	else if(istype(value, /image))
 		#ifdef VARSICON
-		var/rnd = rand(1, 10000)
-		var/image/I = value
-
-		src << browse_rsc(I.icon, "tmp\ref[value][rnd].png")
-		html += "[name] = <img src=\"tmp\ref[value][rnd].png\">"
+		html += "<a href='?_src_=vars;Vars=\ref[value]'>[name] \ref[value]</a> = /image (<span class='value'>[value]</span>) [bicon(value, use_class=0)]"
 		#else
-		html += "[name] = /image (<span class='value'>[value]</span>)"
+		html += "<a href='?_src_=vars;Vars=\ref[value]'>[name] \ref[value]</a> = /image (<span class='value'>[value]</span>)"
 		#endif
-*/
+
 	else if(isfile(value))
 		html += "[name] = <span class='value'>'[value]'</span>"
 
@@ -388,14 +379,24 @@ body
 
 		if(L.len > 0 && !(name == "underlays" || name == "overlays" || name == "vars" || L.len > 500))
 			// not sure if this is completely right...
-			if(0)   //(L.vars.len > 0)
+			if(0)	 //(L.vars.len > 0)
 				html += "<ol>"
 				html += "</ol>"
 			else
 				html += "<ul>"
+				// First loop to check for associativity
+				var/associative = FALSE
+				for(var/entry in L)
+					if(!(isnum(entry) || isnull(L[entry])))
+						associative = TRUE
+						break
+				// then we do it again! Except now with knowledge of associativity
 				var/index = 1
 				for(var/entry in L)
-					html += debug_variable(index, L[index], level + 1)
+					if(associative)
+						html += debug_variable(entry, L[entry], level + 1)
+					else
+						html += debug_variable(index, L[index], level + 1)
 					index++
 				html += "</ul>"
 
@@ -929,7 +930,7 @@ body
 			to_chat(usr, "Mob doesn't know that language.")
 
 	else if(href_list["addverb"])
-		if(!check_rights(R_DEBUG))      return
+		if(!check_rights(R_DEBUG))			return
 
 		var/mob/living/H = locate(href_list["addverb"])
 
@@ -961,7 +962,7 @@ body
 			log_admin("[key_name(usr)] has given [key_name(H)] the verb [verb]")
 
 	else if(href_list["remverb"])
-		if(!check_rights(R_DEBUG))      return
+		if(!check_rights(R_DEBUG))			return
 
 		var/mob/H = locate(href_list["remverb"])
 
@@ -1059,7 +1060,7 @@ body
 
 		var/Text = href_list["adjustDamage"]
 
-		var/amount =  input("Deal how much damage to mob? (Negative values here heal)","Adjust [Text]loss",0) as num
+		var/amount =	input("Deal how much damage to mob? (Negative values here heal)","Adjust [Text]loss",0) as num
 
 		if(!L)
 			to_chat(usr, "Mob doesn't exist anymore")

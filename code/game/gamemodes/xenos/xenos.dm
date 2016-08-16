@@ -42,7 +42,7 @@
 
 	for(var/datum/mind/xeno in xenos)
 		xeno.assigned_role = "MODE"
-		xeno.special_role = "Alien"
+		xeno.special_role = SPECIAL_ROLE_XENOMORPH
 		set_antag_hud(xeno, "hudalien")//like this is needed...
 	return 1
 
@@ -122,7 +122,7 @@
 			command_announcement.Announce("The aliens have nearly succeeded in capturing the station and exterminating the crew. Activate the nuclear failsafe to stop the alien threat once and for all. The Nuclear Authentication Code is [get_nuke_code()] ", "Alien Lifeform Alert")
 			set_security_level("gamma")
 			var/obj/machinery/door/airlock/vault/V = locate(/obj/machinery/door/airlock/vault) in world
-			if(V && (V.z in config.station_levels))
+			if(V && is_station_level(V.z))
 				V.locked = 0
 				V.update_icon()
 		return ..()
@@ -142,7 +142,7 @@
 	var/list/livingplayers = list()
 	for(var/mob/M in player_list)
 		var/turf/T = get_turf(M)
-		if((M) && (M.stat != 2) && M.client && T && ((T.z in config.station_levels) || shuttle_master.emergency.mode >= SHUTTLE_ESCAPE && ((T.z in config.station_levels) || (T.z in config.admin_levels))))
+		if((M) && (M.stat != DEAD) && M.client && T && (is_station_level(T.z) || shuttle_master.emergency.mode >= SHUTTLE_ESCAPE && is_secure_level(T.z)))
 			if(ishuman(M))
 				livingplayers += 1
 	return livingplayers.len

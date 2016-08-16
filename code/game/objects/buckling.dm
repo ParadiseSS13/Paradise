@@ -49,6 +49,13 @@
 	M.throw_alert("buckled", /obj/screen/alert/restrained/buckled, new_master = src)
 	return 1
 
+/obj/buckle_mob(mob/living/M)
+	. = ..()
+	if(.)
+		if(burn_state == ON_FIRE) //Sets the mob on fire if you buckle them to a burning atom/movableect
+			M.adjust_fire_stacks(1)
+			M.IgniteMob()
+
 /atom/movable/proc/unbuckle_mob()
 	if(buckled_mob && buckled_mob.buckled == src && buckled_mob.can_unbuckle(usr))
 		. = buckled_mob

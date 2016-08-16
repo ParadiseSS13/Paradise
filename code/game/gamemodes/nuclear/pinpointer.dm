@@ -3,7 +3,7 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "pinoff"
 	flags = CONDUCT
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_PDA | SLOT_BELT
 	w_class = 2
 	item_state = "electronic"
 	throw_speed = 4
@@ -12,7 +12,12 @@
 	var/obj/item/weapon/disk/nuclear/the_disk = null
 	var/active = 0
 
+/obj/item/weapon/pinpointer/New()
+	..()
+	pinpointer_list += src
+
 /obj/item/weapon/pinpointer/Destroy()
+	pinpointer_list -= src
 	active = 0
 	the_disk = null
 	return ..()

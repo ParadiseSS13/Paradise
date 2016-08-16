@@ -413,10 +413,10 @@
 	do_after_cooldown()
 	return
 
-/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/bolas
-	name = "PCMK-6 Bolas Launcher"
-	icon_state = "mecha_bolas"
-	projectile = /obj/item/weapon/legcuffs/bolas
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/bola
+	name = "PCMK-6 Bola Launcher"
+	icon_state = "mecha_bola"
+	projectile = /obj/item/weapon/restraints/legcuffs/bola
 	fire_sound = 'sound/weapons/whip.ogg'
 	projectiles = 10
 	missile_speed = 1
@@ -424,19 +424,18 @@
 	projectile_energy_cost = 50
 	equip_cooldown = 10
 
-/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/bolas/can_attach(obj/mecha/combat/gygax/M as obj)
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/bola/can_attach(obj/mecha/combat/gygax/M as obj)
 	if(..())
 		if(istype(M))
 			return 1
 	return 0
 
-/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/bolas/action(target, params)
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/bola/action(target, params)
 	if(!action_checks(target))
 		return
 	set_ready_state(0)
-	var/obj/item/weapon/legcuffs/bolas/M = new projectile(chassis.loc)
+	var/obj/item/weapon/restraints/legcuffs/bola/M = new projectile(chassis.loc)
 	playsound(chassis, fire_sound, 50, 1)
-	M.thrown_from = src
 	M.throw_at(target, missile_range, missile_speed)
 	projectiles--
 	log_message("Fired from [name], targeting [target].")

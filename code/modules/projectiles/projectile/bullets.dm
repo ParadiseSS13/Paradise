@@ -56,10 +56,10 @@
 /obj/item/projectile/bullet/incendiary
 
 /obj/item/projectile/bullet/incendiary/on_hit(var/atom/target, var/blocked = 0)
-	..()
-	if(istype(target, /mob/living/carbon))
+	. = ..()
+	if(iscarbon(target))
 		var/mob/living/carbon/M = target
-		M.adjust_fire_stacks(1)
+		M.adjust_fire_stacks(4)
 		M.IgniteMob()
 
 /obj/item/projectile/bullet/incendiary/firebullet

@@ -28,7 +28,7 @@
 /obj/item/weapon/reagent_containers/New()
 	..()
 	if(!possible_transfer_amounts)
-		src.verbs -= /obj/item/weapon/reagent_containers/verb/set_APTFT
+		verbs -= /obj/item/weapon/reagent_containers/verb/set_APTFT
 	var/datum/reagents/R = new/datum/reagents(volume)
 	reagents = R
 	R.my_atom = src
@@ -80,7 +80,7 @@
 /obj/item/weapon/reagent_containers/wash(mob/user, atom/source)
 	if(is_open_container())
 		if(reagents.total_volume >= volume)
-			to_chat(user, "<span class='warning'>\The [src] is full.</span>")
+			to_chat(user, "<span class='warning'>[src] is full.</span>")
 			return
 		else
 			reagents.add_reagent("water", min(volume - reagents.total_volume, amount_per_transfer_from_this))

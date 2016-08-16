@@ -67,7 +67,7 @@ var/list/teleportlocs = list()
 		if(AR.no_teleportlocs) continue
 		if(teleportlocs.Find(AR.name)) continue
 		var/turf/picked = safepick(get_area_turfs(AR.type))
-		if(picked && (picked.z == ZLEVEL_STATION))
+		if(picked && is_station_level(picked.z))
 			teleportlocs += AR.name
 			teleportlocs[AR.name] = AR
 
@@ -2632,4 +2632,3 @@ var/list/the_station_areas = list (
 	/area/turret_protected/ai_upload_foyer,
 	/area/turret_protected/ai,
 )
-

@@ -20,6 +20,8 @@ var/global/datum/global_init/init = new ()
 
 #define RECOMMENDED_VERSION 510
 
+var/global/list/map_transition_config = MAP_TRANSITION_CONFIG
+
 /world/New()
 	//logs
 	var/date_string = time2text(world.realtime, "YYYY/MM-Month/DD-Day")
@@ -51,7 +53,7 @@ var/global/datum/global_init/init = new ()
 	// Create robolimbs for chargen.
 	populate_robolimb_list()
 
-	setup_map_transitions() //Before the MC starts up
+	space_manager.initialize() //Before the MC starts up
 
 	processScheduler = new
 	master_controller = new /datum/controller/game_controller()
@@ -153,6 +155,39 @@ var/world_topic_spam_protect_time = world.timeofday
 				s["adminrank[i - 1]"] = A[2]
 
 		return list2params(s)
+
+	else if("manifest" in input)
+		var/list/positions = list()
+		var/list/set_names = list(
+			"heads" = command_positions,
+			"sec" = security_positions,
+			"eng" = engineering_positions,
+			"med" = medical_positions,
+			"sci" = science_positions,
+			"car" = supply_positions,
+			"srv" = service_positions,
+			"civ" = civilian_positions,
+			"bot" = nonhuman_positions
+		)
+
+		for(var/datum/data/record/t in data_core.general)
+			var/name = t.fields["name"]
+			var/rank = t.fields["rank"]
+			var/real_rank = t.fields["real_rank"]
+
+			var/department = 0
+			for(var/k in set_names)
+				if(real_rank in set_names[k])
+					if(!positions[k])
+						positions[k] = list()
+					positions[k][name] = rank
+					department = 1
+			if(!department)
+				if(!positions["misc"])
+					positions["misc"] = list()
+				positions["misc"][name] = rank
+
+		return json_encode(positions)
 
 	else if("adminmsg" in input)
 		/*

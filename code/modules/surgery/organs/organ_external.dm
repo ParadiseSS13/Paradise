@@ -799,7 +799,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(owner)
 		owner.visible_message(\
 			"\red You hear a loud cracking sound coming from \the [owner].",\
-			"\red <b>Something feels like it shattered in your [name]!</b>",\
+			"<span class='danger'>Something feels like it shattered in your [name]!</span>",\
 			"You hear a sickening crack.")
 		if(owner.species && !(owner.species.flags & NO_PAIN))
 			owner.emote("scream")
@@ -836,18 +836,23 @@ Note that amputating the affected organ does in fact remove the infection from t
 	..()
 
 	if(company && istext(company))
-		model = company
-		var/datum/robolimb/R = all_robolimbs[company]
-		if(R)
-			force_icon = R.icon
-			name = "[R.company] [initial(name)]"
-			desc = "[R.desc]"
+		set_company(company)
 
 	cannot_break = 1
 	get_icon()
 	for(var/obj/item/organ/external/T in children)
 		if(T)
 			T.robotize()
+
+
+
+/obj/item/organ/external/proc/set_company(var/company)
+	model = company
+	var/datum/robolimb/R = all_robolimbs[company]
+	if(R)
+		force_icon = R.icon
+		name = "[R.company] [initial(name)]"
+		desc = "[R.desc]"
 
 /obj/item/organ/external/proc/mutate()
 	src.status |= ORGAN_MUTATED
@@ -944,11 +949,11 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(owner)
 		if(type == "brute")
 			owner.visible_message("\red You hear a sickening cracking sound coming from \the [owner]'s [name].",	\
-			"\red <b>Your [name] becomes a mangled mess!</b>",	\
+			"<span class='danger'>Your [name] becomes a mangled mess!</span>",	\
 			"\red You hear a sickening crack.")
 		else
 			owner.visible_message("\red \The [owner]'s [name] melts away, turning into mangled mess!",	\
-			"\red <b>Your [name] melts away!</b>",	\
+			"<span class='danger'>Your [name] melts away!</span>",	\
 			"\red You hear a sickening sizzle.")
 	disfigured = 1
 
@@ -969,3 +974,19 @@ Note that amputating the affected organ does in fact remove the infection from t
 			continue
 		wounds -= W
 		qdel(W)
+
+
+/obj/item/organ/external/serialize()
+	var/list/data = ..()
+	if(robotic == 2)
+		data["company"] = model
+	// If we wanted to store wound information, here is where it would go
+	return data
+
+/obj/item/organ/external/deserialize(list/data)
+	var/company = data["company"]
+	if(company && istext(company))
+		set_company(company)
+	..() // Parent call loads in the DNA
+	if(data["dna"])
+		sync_colour_to_dna()

@@ -54,7 +54,7 @@
 	if(..(href, href_list))
 		return 1
 
-	if((!(src.z in config.station_levels) && !(src.z in config.admin_levels)))
+	if(!is_secure_level(src.z))
 		to_chat(usr, "<span class='warning'>Unable to establish a connection: You're too far away from the station!</span>")
 		return 1
 
@@ -303,7 +303,7 @@
 	if(stat & (NOPOWER|BROKEN))
 		return
 
-	if(!(src.z in list(ZLEVEL_STATION, ZLEVEL_CENTCOMM)))
+	if(!is_secure_level(src.z))
 		to_chat(user, "<span class='warning'>Unable to establish a connection: You're too far away from the station!</span>")
 		return
 
@@ -514,7 +514,7 @@
 		if(!shuttlecaller.stat && shuttlecaller.client && istype(shuttlecaller.loc,/turf))
 			return ..()
 
-	if(ticker.mode.name == "revolution" || ticker.mode.name == "AI malfunction" || sent_strike_team)
+	if(GAMEMODE_IS_REVOLUTION || sent_strike_team)
 		return ..()
 
 	shuttle_master.emergency.request(null, 0.3, null, "All communication consoles, boards, and AI's have been destroyed.")

@@ -13,6 +13,7 @@
 	icon = 'icons/obj/items.dmi'
 	icon_state = "gift1"
 	item_state = "gift1"
+	burn_state = FLAMMABLE
 
 /obj/item/weapon/a_gift/New()
 	..()
@@ -139,6 +140,7 @@
 	flags = NOBLUDGEON
 	amount = 25
 	max_amount = 25
+	burn_state = FLAMMABLE
 
 /obj/item/stack/wrapping_paper/attack_self(mob/user)
 	to_chat(user, "<span class='notice'>You need to use it on a package that has already been wrapped!</span>")

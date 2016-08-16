@@ -5,6 +5,7 @@
 	throw_speed = 1
 	throw_range = 5
 	w_class = 3
+	burn_state = FLAMMABLE
 	var/mob/affecting = null
 	var/deity_name = "Christ"
 
@@ -77,7 +78,7 @@
 		if((istype(M, /mob/living/carbon/human) && prob(60)))
 			bless(M)
 			for(var/mob/O in viewers(M, null))
-				O.show_message(text("\red <B>[] heals [] with the power of [src.deity_name]!</B>", user, M), 1)
+				O.show_message(text("<span class='danger'>[] heals [] with the power of [src.deity_name]!</span>", user, M), 1)
 			to_chat(M, "\red May the power of [src.deity_name] compel you to be healed!")
 			playsound(src.loc, "punch", 25, 1, -1)
 		else
@@ -85,11 +86,11 @@
 				M.adjustBrainLoss(10)
 				to_chat(M, "\red You feel dumber.")
 			for(var/mob/O in viewers(M, null))
-				O.show_message(text("\red <B>[] beats [] over the head with []!</B>", user, M, src), 1)
+				O.show_message(text("<span class='danger'>[] beats [] over the head with []!</span>", user, M, src), 1)
 			playsound(src.loc, "punch", 25, 1, -1)
 	else if(M.stat == 2)
 		for(var/mob/O in viewers(M, null))
-			O.show_message(text("\red <B>[] smacks []'s lifeless corpse with [].</B>", user, M, src), 1)
+			O.show_message(text("<span class='danger'>[] smacks []'s lifeless corpse with [].</span>", user, M, src), 1)
 		playsound(src.loc, "punch", 25, 1, -1)
 	return
 

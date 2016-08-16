@@ -366,7 +366,7 @@ About the new airlock wires panel:
 			else /*if(src.justzap)*/
 				return
 		else if(user.hallucination > 50 && prob(10) && src.operating == 0)
-			to_chat(user, "\red <B>You feel a powerful shock course through your body!</B>")
+			to_chat(user, "<span class='danger'>You feel a powerful shock course through your body!</span>")
 			user.adjustStaminaLoss(50)
 			user.AdjustStunned(5)
 			return
@@ -981,7 +981,7 @@ About the new airlock wires panel:
 	wires = new(src)
 	if(src.closeOtherId != null)
 		spawn (5)
-			for(var/obj/machinery/door/airlock/A in world)
+			for(var/obj/machinery/door/airlock/A in airlocks)
 				if(A.closeOtherId == src.closeOtherId && A != src)
 					src.closeOther = A
 					break
@@ -1070,4 +1070,23 @@ About the new airlock wires panel:
 		src.unlock()
 		src.open()
 		src.lock()
-	return
+
+/obj/machinery/door/airlock/hostile_lockdown(mob/origin)
+	// Must be powered and have working AI wire.
+	if(canAIControl(src) && !stat)
+		locked = FALSE //For airlocks that were bolted open.
+		safe = FALSE //DOOR CRUSH
+		close()
+		lock() //Bolt it!
+		electrified_until = -1  //Shock it!
+		if(origin)
+			shockedby += "\[[time_stamp()]\][origin](ckey:[origin.ckey])"
+
+
+/obj/machinery/door/airlock/disable_lockdown()
+	// Must be powered and have working AI wire.
+	if(canAIControl(src) && !stat)
+		unlock()
+		electrified_until = 0
+		open()
+		safe = TRUE

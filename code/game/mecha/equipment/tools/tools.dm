@@ -382,7 +382,7 @@
 	range = RANGED
 
 	action(atom/target)
-		if(!action_checks(target) || (src.loc.z in config.admin_levels)) return
+		if(!action_checks(target) || !is_teleport_allowed(src.loc.z)) return
 		var/turf/T = get_turf(target)
 		if(T)
 			set_ready_state(0)
@@ -403,7 +403,7 @@
 
 
 	action(atom/target)
-		if(!action_checks(target) || (src.loc.z in config.admin_levels)) return
+		if(!action_checks(target) || !is_teleport_allowed(src.loc.z)) return
 		var/list/theareas = list()
 		for(var/area/AR in orange(100, chassis))
 			if(AR in theareas) continue

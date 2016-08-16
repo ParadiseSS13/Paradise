@@ -16,12 +16,14 @@
 	for(var/mob/living/carbon/human/H in shuffle(living_mob_list))
 		if(issmall(H)) //don't infect monkies; that's a waste
 			continue
+		if(!H.client)
+			continue
 		if(H.species.virus_immune) //don't let virus immune things get diseases they're not supposed to get.
 			continue
 		var/turf/T = get_turf(H)
 		if(!T)
 			continue
-		if(T.z != 1)
+		if(!is_station_level(T.z))
 			continue
 		var/foundAlready = 0	// don't infect someone that already has the virus
 		for(var/datum/disease/D in H.viruses)

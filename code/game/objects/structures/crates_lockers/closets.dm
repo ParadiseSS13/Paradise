@@ -192,7 +192,7 @@
 			return
 		var/obj/item/weapon/rcs/E = W
 		if(E.rcell && (E.rcell.charge >= E.chargecost))
-			if(!(src.z in config.contact_levels))
+			if(!is_level_reachable(src.z))
 				to_chat(user, "<span class='warning'>The rapid-crate-sender can't locate any telepads!</span>")
 				return
 			if(E.mode == 0)

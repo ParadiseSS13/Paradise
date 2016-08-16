@@ -37,7 +37,9 @@
 		src.add_fingerprint(usr)
 		return
 
-
+/obj/item/weapon/storage/belt/deserialize(list/data)
+	..()
+	update_icon()
 
 /obj/item/weapon/storage/belt/utility
 	name = "tool-belt" //Carn: utility belt is nicer, but it bamboozles the text parsing.
@@ -181,8 +183,8 @@
 		"/obj/item/weapon/melee/classic_baton",
 		"/obj/item/device/flashlight/seclite",
 		"/obj/item/taperoll/police",
-		"/obj/item/weapon/melee/classic_baton/telescopic"
-		)
+		"/obj/item/weapon/melee/classic_baton/telescopic",
+		"/obj/item/weapon/restraints/legcuffs/bola")
 
 /obj/item/weapon/storage/belt/security/sec/New()
 	..()
@@ -312,6 +314,10 @@
 		"/obj/item/ammo_casing/shotgun"
 		)
 
+/obj/item/weapon/storage/belt/bandolier/New()
+	..()
+	update_icon()
+
 /obj/item/weapon/storage/belt/bandolier/full/New()
 	..()
 	new /obj/item/ammo_casing/shotgun/beanbag(src)
@@ -435,6 +441,31 @@
 	icon_state = "fannypack_yellow"
 	item_state = "fannypack_yellow"
 
+/obj/item/weapon/storage/belt/rapier
+	name = "rapier sheath"
+	desc = "Can hold rapiers."
+	icon_state = "sheath"
+	item_state = "sheath"
+	storage_slots = 1
+	max_w_class = 4
+	can_hold = list("/obj/item/weapon/melee/rapier")
+
+/obj/item/weapon/storage/belt/rapier/update_icon()
+	icon_state = "[initial(icon_state)]"
+	item_state = "[initial(item_state)]"
+	if(contents.len)
+		icon_state = "[initial(icon_state)]-rapier"
+		item_state = "[initial(item_state)]-rapier"
+	if(isliving(loc))
+		var/mob/living/L = loc
+		L.update_inv_belt()
+	..()
+
+/obj/item/weapon/storage/belt/rapier/New()
+	..()
+	new /obj/item/weapon/melee/rapier(src)
+	update_icon()
+
 // -------------------------------------
 //     Bluespace Belt
 // -------------------------------------
@@ -476,7 +507,7 @@
 	allow_quick_empty = 1
 	can_hold = list(
 		"/obj/item/weapon/grenade/smokebomb",
-		"/obj/item/weapon/legcuffs/bolas"
+		"/obj/item/weapon/restraints/legcuffs/bola"
 		)
 
 	flags = NODROP
@@ -492,8 +523,8 @@
 	new /obj/item/weapon/grenade/smokebomb(src)
 	new /obj/item/weapon/grenade/smokebomb(src)
 	new /obj/item/weapon/grenade/smokebomb(src)
-	new /obj/item/weapon/legcuffs/bolas(src)
-	new /obj/item/weapon/legcuffs/bolas(src)
+	new /obj/item/weapon/restraints/legcuffs/bola(src)
+	new /obj/item/weapon/restraints/legcuffs/bola(src)
 	processing_objects.Add(src)
 	cooldown = world.time
 
@@ -504,7 +535,7 @@
 		for(S in src)
 			smokecount++
 		bolacount = 0
-		var/obj/item/weapon/legcuffs/bolas/B
+		var/obj/item/weapon/restraints/legcuffs/bola/B
 		for(B in src)
 			bolacount++
 		if(smokecount < 4)
@@ -513,7 +544,7 @@
 				smokecount++
 		if(bolacount < 2)
 			while(bolacount < 2)
-				new /obj/item/weapon/legcuffs/bolas(src)
+				new /obj/item/weapon/restraints/legcuffs/bola(src)
 				bolacount++
 		cooldown = world.time
 		update_icon()

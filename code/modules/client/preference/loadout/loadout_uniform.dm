@@ -66,7 +66,7 @@
 /datum/gear/uniform/skirt/job/med
 	display_name = "skirt, medical"
 	path = /obj/item/clothing/under/rank/medical/skirt
-	allowed_roles = list("Chief Medical Officer","Medical Doctor","Chemist","Psychiatrist","Paramedic")
+	allowed_roles = list("Chief Medical Officer","Medical Doctor","Chemist","Psychiatrist","Paramedic","Brig Physician")
 
 /datum/gear/uniform/skirt/job/sci
 	display_name = "skirt, scientist"
@@ -106,8 +106,8 @@
 	path = /obj/item/clothing/under/rank/security/formal
 	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer", "Security Pod Pilot")
 
-datum/gear/uniform/secorporate
-	display_name = "security uniform, corporate "
+/datum/gear/uniform/sec/secorporate
+	display_name = "security uniform, corporate"
 	path = /obj/item/clothing/under/rank/security/corp
 	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Security Pod Pilot")
 

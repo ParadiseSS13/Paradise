@@ -2,14 +2,14 @@
 	var/spawn_prob = 10
 	startWhen = 2
 	announceWhen = 3
-	
+
 /datum/event/undead/start()
 	var/datum/event/electrical_storm/RS = new
 	RS.lightsoutAmount = pick(2,2,3)
 	RS.start()
 	RS.kill()
 	for(var/area/A)
-		if(!(A.z in config.station_levels)) continue //Spook on main station only.
+		if(!is_station_level(A.z)) continue //Spook on main station only.
 		if(A.luminosity) continue
 //			if(A.lighting_space) continue
 		if(A.type == /area) continue
@@ -34,7 +34,7 @@
 								80;/mob/living/simple_animal/hostile/retaliate/zombie,
 								60;/mob/living/simple_animal/hostile/retaliate/ghost)
 			new undeadtype(T)
-			
+
 /datum/event/undead/announce()
 	for(var/mob/living/M in player_list)
 		to_chat(M, "You feel [pick("a chill","a deathly chill","the undead","dirty", "creeped out","afraid","fear")]!")

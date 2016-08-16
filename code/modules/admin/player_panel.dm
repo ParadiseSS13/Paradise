@@ -461,7 +461,7 @@
 					dat += "<tr><td><i>Head not found!</i></td></tr>"
 			dat += "</table>"
 
-		if(istype(ticker.mode, /datum/game_mode/blob))
+		if(GAMEMODE_IS_BLOB)
 			var/datum/game_mode/blob/mode = ticker.mode
 			dat += "<br><table cellspacing=5><tr><td><B>Blob</B></td><td></td><td></td></tr>"
 			dat += "<tr><td><i>Progress: [blobs.len]/[mode.blobwincount]</i></td></tr>"
@@ -522,10 +522,6 @@
 
 		if(ticker.mode.greyshirts.len)
 			dat += check_role_table("Greyshirts", ticker.mode.greyshirts)
-
-		var/datum/game_mode/mutiny/mutiny = get_mutiny_mode()
-		if(mutiny)
-			dat += mutiny.check_antagonists_ui(src)
 
 		dat += "</body></html>"
 		usr << browse(dat, "window=roundstatus;size=400x500")
