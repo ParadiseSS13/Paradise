@@ -15,19 +15,8 @@
 	var/range = MELEE //bitflags
 	reliability = 1000
 	var/salvageable = 1
+	var/selectable = 1	// Set to 0 for passive equipment such as mining scanner or armor plates
 
-
-/obj/item/mecha_parts/mecha_equipment/proc/do_after_cooldown(target=1)
-	sleep(equip_cooldown)
-	set_ready_state(1)
-	if(target && chassis)
-		return 1
-	return 0
-
-
-/obj/item/mecha_parts/mecha_equipment/New()
-	..()
-	return
 
 /obj/item/mecha_parts/mecha_equipment/proc/update_chassis_page()
 	if(chassis)
@@ -49,30 +38,38 @@
 		if(chassis.selected == src)
 			chassis.selected = null
 		src.update_chassis_page()
-		chassis.occupant_message("<font color='red'>The [src] is destroyed!</font>")
+		chassis.occupant_message("<span class='danger'>The [src] is destroyed!</span>")
 		chassis.log_append_to_last("[src] is destroyed.",1)
 		if(istype(src, /obj/item/mecha_parts/mecha_equipment/weapon))
-			to_chat(chassis.occupant, sound('sound/mecha/weapdestr.ogg',volume=50))
+			chassis.occupant << sound('sound/mecha/weapdestr.ogg', volume = 50)
 		else
-			to_chat(chassis.occupant, sound('sound/mecha/critdestr.ogg',volume=50))
+			chassis.occupant << sound('sound/mecha/critdestr.ogg', volume = 50)
 		chassis = null
 	return ..()
 
 /obj/item/mecha_parts/mecha_equipment/proc/critfail()
 	if(chassis)
-		log_message("Critical failure",1)
+		log_message("Critical failure", 1)
 	return
 
 /obj/item/mecha_parts/mecha_equipment/proc/get_equip_info()
-	if(!chassis) return
-	return "<span style=\"color:[equip_ready?"#0f0":"#f00"];\">*</span>&nbsp;[chassis.selected==src?"<b>":"<a href='?src=\ref[chassis];select_equip=\ref[src]'>"][src.name][chassis.selected==src?"</b>":"</a>"]"
+	if(!chassis)
+		return
+	var/txt = "<span style=\"color:[equip_ready?"#0f0":"#f00"];\">*</span>&nbsp;"
+	if(chassis.selected == src)
+		txt += "<b>[name]</b>"
+	else if(selectable)
+		txt += "<a href='?src=\ref[chassis];select_equip=\ref[src]'>[name]</a>"
+	else
+		txt += "[name]"
+
+	return txt
 
 /obj/item/mecha_parts/mecha_equipment/proc/is_ranged()//add a distance restricted equipment. Why not?
 	return range&RANGED
 
 /obj/item/mecha_parts/mecha_equipment/proc/is_melee()
 	return range&MELEE
-
 
 /obj/item/mecha_parts/mecha_equipment/proc/action_checks(atom/target)
 	if(!target)
@@ -88,27 +85,42 @@
 	return 1
 
 /obj/item/mecha_parts/mecha_equipment/proc/action(atom/target)
-	return
+	return 0
 
-/obj/item/mecha_parts/mecha_equipment/proc/can_attach(obj/mecha/M as obj)
+/obj/item/mecha_parts/mecha_equipment/proc/start_cooldown()
+	set_ready_state(0)
+	chassis.use_power(energy_drain)
+	addtimer(src, "set_ready_state", equip_cooldown, FALSE, 1)
+
+/obj/item/mecha_parts/mecha_equipment/proc/do_after_cooldown(atom/target)
+	if(!chassis)
+		return
+	var/C = chassis.loc
+	set_ready_state(0)
+	chassis.use_power(energy_drain)
+	. = do_after(chassis.occupant, equip_cooldown, target=target)
+	set_ready_state(1)
+	if(!chassis || 	chassis.loc != C || src != chassis.selected)
+		return 0
+
+/obj/item/mecha_parts/mecha_equipment/proc/can_attach(obj/mecha/M)
 	if(istype(M))
 		if(M.equipment.len<M.max_equip)
 			return 1
 	return 0
 
-/obj/item/mecha_parts/mecha_equipment/proc/attach(obj/mecha/M as obj)
+/obj/item/mecha_parts/mecha_equipment/proc/attach(obj/mecha/M)
 	M.equipment += src
 	chassis = M
-	src.loc = M
+	loc = M
 	M.log_message("[src] initialized.")
 	if(!M.selected)
 		M.selected = src
-	src.update_chassis_page()
-	return
+	update_chassis_page()
 
-/obj/item/mecha_parts/mecha_equipment/proc/detach(atom/moveto=null)
+/obj/item/mecha_parts/mecha_equipment/proc/detach(atom/moveto = null)
 	moveto = moveto || get_turf(chassis)
-	if(src.Move(moveto))
+	if(Move(moveto))
 		chassis.equipment -= src
 		if(chassis.selected == src)
 			chassis.selected = null
@@ -116,27 +128,22 @@
 		chassis.log_message("[src] removed from equipment.")
 		chassis = null
 		set_ready_state(1)
-	return
 
 
 /obj/item/mecha_parts/mecha_equipment/Topic(href,href_list)
 	if(href_list["detach"])
-		src.detach()
-	return
+		detach()
 
 
 /obj/item/mecha_parts/mecha_equipment/proc/set_ready_state(state)
 	equip_ready = state
 	if(chassis)
 		send_byjax(chassis.occupant,"exosuit.browser","\ref[src]",src.get_equip_info())
-	return
 
 /obj/item/mecha_parts/mecha_equipment/proc/occupant_message(message)
 	if(chassis)
 		chassis.occupant_message("[bicon(src)] [message]")
-	return
 
 /obj/item/mecha_parts/mecha_equipment/proc/log_message(message)
 	if(chassis)
 		chassis.log_message("<i>[src]:</i> [message]")
-	return
