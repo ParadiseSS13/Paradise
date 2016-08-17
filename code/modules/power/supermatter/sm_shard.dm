@@ -44,7 +44,7 @@
 /obj/item/weapon/shard/supermatter/Crossed(AM as mob|obj)
 	if(ismob(AM))
 		var/mob/M = AM
-		to_chat(M, "\red <B>You step on \the [src]!</B>")
+		to_chat(M, "<span class='danger'>You step on \the [src]!</span>")
 		playsound(src.loc, 'sound/effects/glass_step_sm.ogg', 70, 1) // not sure how to handle metal shards with sounds
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M

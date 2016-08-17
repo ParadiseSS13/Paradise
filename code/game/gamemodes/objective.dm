@@ -91,38 +91,6 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) \
 		return 0
 	return 1
 
-/datum/objective/mutiny/rp
-/datum/objective/mutiny/rp/find_target()
-	..()
-	if(target && target.current)
-		explanation_text = "Assassinate, capture or convert [target.current.real_name], the [target.assigned_role]."
-	else
-		explanation_text = "Free Objective"
-
-//less violent rev objectives
-/datum/objective/mutiny/rp/check_completion()
-	if(target && target.current)
-		if(target.current.stat == DEAD)
-			return 1
-		if(!ishuman(target.current))
-			return 1
-		if(iscarbon(target.current))
-			var/mob/living/carbon/C = target.current
-			if(C.handcuffed)
-				return 1
-
-		if(GAMEMODE_IS_REVOLUTION)
-			if(target in ticker.mode.head_revolutionaries)
-				return 1
-
-		var/turf/T = get_turf(target.current)
-		if(T && !is_station_level(T.z))
-			return 1
-
-		return 0
-	return 1
-
-
 /datum/objective/maroon
 	martyr_compatible = 1
 
@@ -302,6 +270,10 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) \
 		return 0
 	if(!owner.current || owner.current.stat == DEAD)
 		return 0
+	if(ticker.force_ending) //This one isn't their fault, so lets just assume good faith
+		return 1
+	if(ticker.mode.station_was_nuked) //If they escaped the blast somehow, let them win
+		return 1
 	if(shuttle_master.emergency.mode < SHUTTLE_ENDGAME)
 		return 0
 	var/turf/location = get_turf(owner.current)

@@ -212,7 +212,7 @@
 
 	if(candidates.len)
 		theghost = pick(candidates)
-		var/mob/living/simple_animal/shade/S = new(src)
+		var/mob/living/simple_animal/shade/sword/S = new(src)
 		S.real_name = name
 		S.name = name
 		S.ckey = theghost.ckey
@@ -227,7 +227,7 @@
 		possessed = FALSE
 
 /obj/item/weapon/nullrod/scythe/talking/Destroy()
-	for(var/mob/living/simple_animal/shade/S in contents)
+	for(var/mob/living/simple_animal/shade/sword/S in contents)
 		to_chat(S, "You were destroyed!")
 		S.ghostize()
 		qdel(S)

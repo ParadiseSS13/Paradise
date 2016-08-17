@@ -1,0 +1,4 @@
+author: LittleBigKid2000
+delete-after: True
+changes: 
+  - bugfix: "Talking swords can now be understood by their wielders, and everyone else."

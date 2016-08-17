@@ -349,9 +349,12 @@
 	desc = "Why not 'eagle head'? Who knows."
 	icon_state = "griffinhat"
 	item_state = "griffinhat"
-	flags = BLOCKHAIR|NODROP
+	flags = BLOCKHAIR
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 	actions_types = list(/datum/action/item_action/caw)
+
+/obj/item/clothing/head/griffin/super_hero
+	flags = BLOCKHAIR|NODROP
 
 /obj/item/clothing/head/griffin/attack_self()
 	caw()
