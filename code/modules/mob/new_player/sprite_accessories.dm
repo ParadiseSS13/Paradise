@@ -2349,6 +2349,7 @@
 	icon = null
 	icon_state = null
 	species_allowed = null
+	var/suffix = null
 
 /datum/sprite_accessory/alt_heads/none
 	name = "None"
@@ -2360,3 +2361,4 @@
 	name = "Unathi Sharp Snout"
 	species_allowed = list("Unathi")
 	icon_state = "head_sharp"
+	suffix = "sharp"

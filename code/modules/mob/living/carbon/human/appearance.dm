@@ -133,6 +133,8 @@
 			update_markings()
 
 	update_body(1, 1) //Update the body and force limb icon regeneration to update the head with the new icon.
+	if(wear_mask)
+		update_inv_wear_mask()
 	return 1
 
 /mob/living/carbon/human/proc/reset_hair()
