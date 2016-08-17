@@ -177,9 +177,7 @@
 			. = stored_mmi
 			if(owner.mind)
 				owner.mind.transfer_to(stored_mmi.brainmob)
-			// move it to nullspace momentarily. If it STAYS there, we got a problem -
-			// 	the caller needs to set the location of the removed organ for this to work
-			contents -= stored_mmi
+			stored_mmi.forceMove(get_turf(src))
 			stored_mmi = null
 	..()
 
