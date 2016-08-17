@@ -244,6 +244,7 @@
 			icobase = H.species.icobase
 			if(H.species.bodyflags & HAS_TAIL)
 				coloured_tail = H.species.tail
+			qdel(H)
 		else
 			icobase = current_species.icobase
 	else

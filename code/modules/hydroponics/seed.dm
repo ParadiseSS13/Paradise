@@ -376,8 +376,7 @@
 
 	// Bluespace tomato code copied over from grown.dm.
 	if(get_trait(TRAIT_TELEPORTING))
-		// TODO: Tie into space manager
-		if(target.z in config.admin_levels)
+		if(!is_teleport_allowed(target.z))
 			return 1
 
 		//Plant potency determines radius of teleport.

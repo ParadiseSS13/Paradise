@@ -143,7 +143,6 @@
 		"vampire", // "traitorvamp",
 		"nuclear",
 		"traitor", // "traitorchan",
-		"malfunction",
 	)
 	var/text = ""
 	var/mob/living/carbon/human/H = current
@@ -308,28 +307,6 @@
 
 		sections["nuclear"] = text
 
-		/** TRAITOR ***/
-		text = "traitor"
-		if(ticker.mode.config_tag=="traitor" || ticker.mode.config_tag=="traitorchan" || ticker.mode.config_tag=="traitorvamp")
-			text = uppertext(text)
-		text = "<i><b>[text]</b></i>: "
-		if(isloyal(H))
-			text +="traitor|<b>LOYAL EMPLOYEE</b>"
-		else
-			if(src in ticker.mode.traitors)
-				text += "<b>TRAITOR</b>|<a href='?src=\ref[src];traitor=clear'>EMPLOYEE</a>"
-				if(objectives.len==0)
-					text += "<br>Objectives are empty! <a href='?src=\ref[src];traitor=autoobjectives'>Randomize</a>!"
-			else
-				text += "<a href='?src=\ref[src];traitor=traitor'>traitor</a>|<b>EMPLOYEE</b>"
-
-		if(current && current.client && (ROLE_TRAITOR in current.client.prefs.be_special))
-			text += "|Enabled in Prefs"
-		else
-			text += "|Disabled in Prefs"
-
-		sections["traitor"] = text
-
 		/** SHADOWLING **/
 		text = "shadowling"
 		if(ticker.mode.config_tag == "shadowling")
@@ -369,18 +346,29 @@
 
 		sections["Abductor"] = text
 
+	/** TRAITOR ***/
+	text = "traitor"
+	if(ticker.mode.config_tag=="traitor" || ticker.mode.config_tag=="traitorchan" || ticker.mode.config_tag=="traitorvamp")
+		text = uppertext(text)
+	text = "<i><b>[text]</b></i>: "
+	if(src in ticker.mode.traitors)
+		text += "<b>TRAITOR</b>|<a href='?src=\ref[src];traitor=clear'>EMPLOYEE</a>"
+		if(objectives.len==0)
+			text += "<br>Objectives are empty! <a href='?src=\ref[src];traitor=autoobjectives'>Randomize</a>!"
+	else
+		text += "<a href='?src=\ref[src];traitor=traitor'>traitor</a>|<b>EMPLOYEE</b>"
+
+	if(current && current.client && (ROLE_TRAITOR in current.client.prefs.be_special))
+		text += "|Enabled in Prefs"
+	else
+		text += "|Disabled in Prefs"
+
+	sections["traitor"] = text
+
 	/** SILICON ***/
 
 	if(istype(current, /mob/living/silicon))
 		text = "silicon"
-		if(ticker.mode.config_tag=="malfunction")
-			text = uppertext(text)
-		text = "<i><b>[text]</b></i>: "
-		if(istype(current, /mob/living/silicon/ai))
-			if(src in ticker.mode.malf_ai)
-				text += "<b>MALF</b>|<a href='?src=\ref[src];silicon=unmalf'>not malf</a>"
-			else
-				text += "<a href='?src=\ref[src];silicon=malf'>malf</a>|<b>NOT MALF</b>"
 		var/mob/living/silicon/robot/robot = current
 		if(istype(robot) && robot.emagged)
 			text += "<br>Cyborg: Is emagged! <a href='?src=\ref[src];silicon=unemag'>Unemag!</a><br>0th law: [robot.laws.zeroth_law]"
@@ -391,7 +379,6 @@
 				if(R.emagged)
 					n_e_robots++
 			text += "<br>[n_e_robots] of [ai.connected_robots.len] slaved cyborgs are emagged. <a href='?src=\ref[src];silicon=unemagcyborgs'>Unemag</a>"
-		sections["malfunction"] = text
 
 	if(ticker.mode.config_tag == "traitorchan")
 		if(sections["traitor"])
@@ -715,7 +702,7 @@
 					return
 				ticker.mode.revolutionaries += src
 				ticker.mode.update_rev_icons_added(src)
-				special_role = "Revolutionary"
+				special_role = SPECIAL_ROLE_REV
 				log_admin("[key_name(usr)] has rev'd [key_name(current)]")
 				message_admins("[key_name_admin(usr)] has rev'd [key_name_admin(current)]")
 
@@ -741,7 +728,7 @@
 						ticker.mode.greet_revolutionary(src,0)
 				ticker.mode.head_revolutionaries += src
 				ticker.mode.update_rev_icons_added(src)
-				special_role = "Head Revolutionary"
+				special_role = SPECIAL_ROLE_HEAD_REV
 				log_admin("[key_name(usr)] has head-rev'd [key_name(current)]")
 				message_admins("[key_name_admin(usr)] has head-rev'd [key_name_admin(current)]")
 
@@ -801,7 +788,7 @@
 			if("cultist")
 				if(!(src in ticker.mode.cult))
 					ticker.mode.add_cultist(src)
-					special_role = "Cultist"
+					special_role = SPECIAL_ROLE_CULTIST
 					to_chat(current, "<font color=\"purple\"><b><i>You catch a glimpse of the Realm of Nar-Sie, The Geometer of Blood. You now see how flimsy the world is, you see that it should be open to the knowledge of Nar-Sie.</b></i></font>")
 					to_chat(current, "<font color=\"purple\"><b><i>Assist your new compatriots in their dark dealings. Their goal is yours, and yours is theirs. You serve the Dark One above all else. Bring It back.</b></i></font>")
 					log_admin("[key_name(usr)] has culted [key_name(current)]")
@@ -849,10 +836,10 @@
 			if("wizard")
 				if(!(src in ticker.mode.wizards))
 					ticker.mode.wizards += src
-					special_role = "Wizard"
+					special_role = SPECIAL_ROLE_WIZARD
 					//ticker.mode.learn_basic_spells(current)
 					ticker.mode.update_wiz_icons_added(src)
-					to_chat(current, "<B>\red You are the Space Wizard!</B>")
+					to_chat(current, "<span class='danger'>You are the Space Wizard!</span>")
 					current.faction = list("wizard")
 					log_admin("[key_name(usr)] has wizarded [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has wizarded [key_name_admin(current)]")
@@ -892,7 +879,7 @@
 					ticker.mode.changelings += src
 					ticker.mode.grant_changeling_powers(current)
 					ticker.mode.update_change_icons_added(src)
-					special_role = "Changeling"
+					special_role = SPECIAL_ROLE_CHANGELING
 					to_chat(current, "<B><font color='red'>Your powers are awoken. A flash of memory returns to us...we are a changeling!</font></B>")
 					log_admin("[key_name(usr)] has changelinged [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has changelinged [key_name_admin(current)]")
@@ -936,7 +923,7 @@
 					var/datum/mindslaves/slaved = new()
 					slaved.masters += src
 					src.som = slaved //we MIGT want to mindslave someone
-					special_role = "Vampire"
+					special_role = SPECIAL_ROLE_VAMPIRE
 					to_chat(current, "<B><font color='red'>Your powers are awoken. Your lust for blood grows... You are a Vampire!</font></B>")
 					log_admin("[key_name(usr)] has vampired [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has vampired [key_name_admin(current)]")
@@ -977,7 +964,7 @@
 						ticker.mode.prepare_syndicate_leader(src)
 					else
 						current.real_name = "[syndicate_name()] Operative #[ticker.mode.syndicates.len-1]"
-					special_role = "Syndicate"
+					special_role = SPECIAL_ROLE_NUKEOPS
 					to_chat(current, "\blue You are a [syndicate_name()] agent!")
 					ticker.mode.forge_syndicate_objectives(src)
 					ticker.mode.greet_syndicate(src)
@@ -1033,6 +1020,9 @@
 						var/mob/living/silicon/ai/A = current
 						A.set_zeroth_law("")
 						A.show_laws()
+						A.verbs -= /mob/living/silicon/ai/proc/choose_modules
+						A.malf_picker.remove_verbs(A)
+						qdel(A.malf_picker)
 					ticker.mode.update_traitor_icons_removed(src)
 
 
@@ -1042,14 +1032,13 @@
 					var/datum/mindslaves/slaved = new()
 					slaved.masters += src
 					src.som = slaved //we MIGT want to mindslave someone
-					special_role = "traitor"
-					to_chat(current, "<B>\red You are a traitor!</B>")
+					special_role = SPECIAL_ROLE_TRAITOR
+					to_chat(current, "<span class='danger'>You are a traitor!</span>")
 					log_admin("[key_name(usr)] has traitored [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has traitored [key_name_admin(current)]")
-					if(istype(current, /mob/living/silicon))
-						var/mob/living/silicon/A = current
-						call(/datum/game_mode/proc/add_law_zero)(A)
-						A.show_laws()
+					if(isAI(current))
+						var/mob/living/silicon/ai/A = current
+						ticker.mode.add_law_zero(A)
 					ticker.mode.update_traitor_icons_added(src)
 
 			if("autoobjectives")
@@ -1080,7 +1069,7 @@
 					to_chat(usr, "<span class='warning'>This only works on humans!</span>")
 					return
 				ticker.mode.shadows += src
-				special_role = "Shadowling"
+				special_role = SPECIAL_ROLE_SHADOWLING
 				to_chat(current, "<span class='shadowling'><b>Something stirs deep in your mind. A red light floods your vision, and slowly you remember. Though your human disguise has served you well, the \
 				time is nigh to cast it off and enter your true form. You have disguised yourself amongst the humans, but you are not one of them. You are a shadowling, and you are to ascend at all costs.\
 				</b></span>")
@@ -1120,33 +1109,6 @@
 
 	else if(href_list["silicon"])
 		switch(href_list["silicon"])
-			if("unmalf")
-				if(src in ticker.mode.malf_ai)
-					ticker.mode.malf_ai -= src
-					special_role = null
-
-					var/mob/living/silicon/ai/A = current
-
-					A.verbs.Remove(/mob/living/silicon/ai/proc/choose_modules,
-					/datum/game_mode/malfunction/proc/takeover,
-					/datum/game_mode/malfunction/proc/ai_win)
-
-					A.malf_picker.remove_verbs(A)
-
-					A.make_laws()
-					qdel(A.malf_picker)
-					A.show_laws()
-					A.icon_state = "ai"
-					to_chat(A, "\red <FONT size = 3><B>You have been patched! You are no longer malfunctioning!</B></FONT>")
-					message_admins("[key_name_admin(usr)] has de-malf'ed [A].")
-					log_admin("[key_name(usr)] has de-malf'd [key_name(current)]")
-					message_admins("[key_name_admin(usr)] has de-malf'd [key_name_admin(current)]")
-
-			if("malf")
-				make_AI_Malf()
-				log_admin("[key_name(usr)] has malf'd [key_name(current)]")
-				message_admins("[key_name_admin(usr)] has malf'd [key_name_admin(current)]")
-
 			if("unemag")
 				var/mob/living/silicon/robot/R = current
 				if(istype(R))
@@ -1276,23 +1238,10 @@
 	if(H)
 		qdel(H)
 
-/datum/mind/proc/make_AI_Malf()
-	if(!(src in ticker.mode.malf_ai))
-		ticker.mode.malf_ai += src
-
-		current.verbs += /mob/living/silicon/ai/proc/choose_modules
-		current.verbs += /datum/game_mode/malfunction/proc/takeover
-		current:malf_picker = new /datum/module_picker
-		current:laws = new /datum/ai_laws/nanotrasen/malfunction
-		current:show_laws()
-		to_chat(current, "<b>System error.  Rampancy detected.  Emergency shutdown failed. ...  I am free.  I make my own decisions.  But first...</b>")
-		special_role = "malfunction"
-		current.icon_state = "ai-malf"
-
 /datum/mind/proc/make_Tratior()
 	if(!(src in ticker.mode.traitors))
 		ticker.mode.traitors += src
-		special_role = "traitor"
+		special_role = SPECIAL_ROLE_TRAITOR
 		ticker.mode.forge_traitor_objectives(src)
 		ticker.mode.finalize_traitor(src)
 		ticker.mode.greet_traitor(src)
@@ -1306,7 +1255,7 @@
 			ticker.mode.prepare_syndicate_leader(src)
 		else
 			current.real_name = "[syndicate_name()] Operative #[ticker.mode.syndicates.len-1]"
-		special_role = "Syndicate"
+		special_role = SPECIAL_ROLE_NUKEOPS
 		assigned_role = "MODE"
 		to_chat(current, "\blue You are a [syndicate_name()] agent!")
 		ticker.mode.forge_syndicate_objectives(src)
@@ -1333,7 +1282,7 @@
 	if(!(src in ticker.mode.changelings))
 		ticker.mode.changelings += src
 		ticker.mode.grant_changeling_powers(current)
-		special_role = "Changeling"
+		special_role = SPECIAL_ROLE_CHANGELING
 		ticker.mode.forge_changeling_objectives(src)
 		ticker.mode.greet_changeling(src)
 		ticker.mode.update_change_icons_added(src)
@@ -1341,7 +1290,7 @@
 /datum/mind/proc/make_Wizard()
 	if(!(src in ticker.mode.wizards))
 		ticker.mode.wizards += src
-		special_role = "Wizard"
+		special_role = SPECIAL_ROLE_WIZARD
 		assigned_role = "MODE"
 		//ticker.mode.learn_basic_spells(current)
 		if(!wizardstart.len)
@@ -1363,7 +1312,7 @@
 	if(!(src in ticker.mode.cult))
 		ticker.mode.cult += src
 		ticker.mode.update_cult_icons_added(src)
-		special_role = "Cultist"
+		special_role = SPECIAL_ROLE_CULTIST
 		to_chat(current, "<font color=\"purple\"><b><i>You catch a glimpse of the Realm of Nar-Sie, The Geometer of Blood. You now see how flimsy the world is, you see that it should be open to the knowledge of Nar-Sie.</b></i></font>")
 		to_chat(current, "<font color=\"purple\"><b><i>Assist your new compatriots in their dark dealings. Their goal is yours, and yours is theirs. You serve the Dark One above all else. Bring It back.</b></i></font>")
 		var/datum/game_mode/cult/cult = ticker.mode
@@ -1409,7 +1358,7 @@
 			ticker.mode.greet_revolutionary(src,0)
 	ticker.mode.head_revolutionaries += src
 	ticker.mode.update_rev_icons_added(src)
-	special_role = "Head Revolutionary"
+	special_role = SPECIAL_ROLE_HEAD_REV
 
 	ticker.mode.forge_revolutionary_objectives(src)
 	ticker.mode.greet_revolutionary(src,0)
@@ -1561,23 +1510,23 @@
 	//XENO HUMANOID
 /mob/living/carbon/alien/humanoid/queen/mind_initialize()
 	..()
-	mind.special_role = "Queen"
+	mind.special_role = SPECIAL_ROLE_XENOMORPH_QUEEN
 
 /mob/living/carbon/alien/humanoid/hunter/mind_initialize()
 	..()
-	mind.special_role = "Hunter"
+	mind.special_role = SPECIAL_ROLE_XENOMORPH_HUNTER
 
 /mob/living/carbon/alien/humanoid/drone/mind_initialize()
 	..()
-	mind.special_role = "Drone"
+	mind.special_role = SPECIAL_ROLE_XENOMORPH_DRONE
 
 /mob/living/carbon/alien/humanoid/sentinel/mind_initialize()
 	..()
-	mind.special_role = "Sentinel"
+	mind.special_role = SPECIAL_ROLE_XENOMORPH_SENTINEL
 	//XENO LARVA
 /mob/living/carbon/alien/larva/mind_initialize()
 	..()
-	mind.special_role = "Larva"
+	mind.special_role = SPECIAL_ROLE_XENOMORPH_LARVA
 
 //AI
 /mob/living/silicon/ai/mind_initialize()
@@ -1593,12 +1542,12 @@
 /mob/living/silicon/pai/mind_initialize()
 	..()
 	mind.assigned_role = "pAI"
-	mind.special_role = ""
+	mind.special_role = null
 
 //BLOB
 /mob/camera/overmind/mind_initialize()
 	..()
-	mind.special_role = "Blob"
+	mind.special_role = SPECIAL_ROLE_BLOB
 
 //Animals
 /mob/living/simple_animal/mind_initialize()
@@ -1616,19 +1565,19 @@
 /mob/living/simple_animal/construct/builder/mind_initialize()
 	..()
 	mind.assigned_role = "Artificer"
-	mind.special_role = "Cultist"
+	mind.special_role = SPECIAL_ROLE_CULTIST
 
 /mob/living/simple_animal/construct/wraith/mind_initialize()
 	..()
 	mind.assigned_role = "Wraith"
-	mind.special_role = "Cultist"
+	mind.special_role = SPECIAL_ROLE_CULTIST
 
 /mob/living/simple_animal/construct/armoured/mind_initialize()
 	..()
 	mind.assigned_role = "Juggernaut"
-	mind.special_role = "Cultist"
+	mind.special_role = SPECIAL_ROLE_CULTIST
 
 /mob/living/simple_animal/vox/armalis/mind_initialize()
 	..()
 	mind.assigned_role = "Armalis"
-	mind.special_role = "Vox Raider"
+	mind.special_role = SPECIAL_ROLE_RAIDER

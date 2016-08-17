@@ -18,10 +18,7 @@
 	var/turf/T = get_turf(src)
 	if(!T)
 		return 0
-	// TODO: Tie into space manager
-	if(T.z == ZLEVEL_CENTCOMM) //dont detect mobs on centcomm
-		return 0
-	if(T.z >= MAX_Z)
+	if(!is_level_reachable(T.z))
 		return 0
 	if(user != null && src == user)
 		return 0

@@ -88,7 +88,7 @@ var/ert_request_answered = 0
 		return 0
 
 	if(src.has_enabled_antagHUD == 1 && config.antag_hud_restricted)
-		to_chat(src, "\blue <B>Upon using the antagHUD you forfeited the ability to join the round.</B>")
+		to_chat(src, "<span class='boldnotice'>Upon using the antagHUD you forfeited the ability to join the round.</span>")
 		return 0
 
 	if(response_team_members.len > 6)
@@ -189,7 +189,7 @@ var/ert_request_answered = 0
 	M.mind.current = M
 	M.mind.original = M
 	M.mind.assigned_role = "MODE"
-	M.mind.special_role = "Response Team"
+	M.mind.special_role = SPECIAL_ROLE_ERT
 	if(!(M.mind in ticker.minds))
 		ticker.minds += M.mind //Adds them to regular mind list.
 	M.loc = spawn_location
@@ -426,7 +426,7 @@ var/ert_request_answered = 0
 	switch(officer_type)
 		if("Engineer")
 			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/magboots(M), slot_shoes)
-			M.equip_to_slot_or_del(new /obj/item/clothing/gloves/combat(M), slot_gloves)
+			M.equip_to_slot_or_del(new /obj/item/clothing/gloves/color/yellow(M), slot_gloves)
 			M.equip_to_slot_or_del(new /obj/item/clothing/suit/space/rig/ert/engineer(M), slot_wear_suit)
 			M.equip_to_slot_or_del(new /obj/item/weapon/tank/emergency_oxygen/engi(M), slot_s_store)
 			M.equip_to_slot_or_del(new /obj/item/clothing/glasses/meson(M), slot_glasses)
@@ -446,7 +446,7 @@ var/ert_request_answered = 0
 
 		if("Security")
 			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(M), slot_shoes)
-			M.equip_to_slot_or_del(new /obj/item/clothing/gloves/combat(M), slot_gloves)
+			M.equip_to_slot_or_del(new /obj/item/clothing/gloves/color/black(M), slot_gloves)
 			M.equip_to_slot_or_del(new /obj/item/clothing/suit/space/rig/ert/security(M), slot_wear_suit)
 			M.equip_to_slot_or_del(new /obj/item/weapon/gun/energy/gun/advtaser(M), slot_s_store)
 			M.equip_to_slot_or_del(new /obj/item/clothing/glasses/hud/security/sunglasses(M), slot_glasses)
@@ -464,7 +464,7 @@ var/ert_request_answered = 0
 
 		if("Medic")
 			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/white(M), slot_shoes)
-			M.equip_to_slot_or_del(new /obj/item/clothing/gloves/combat(M), slot_gloves)
+			M.equip_to_slot_or_del(new /obj/item/clothing/gloves/color/latex/nitrile(M), slot_gloves)
 			M.equip_to_slot_or_del(new /obj/item/clothing/suit/space/rig/ert/medical(M), slot_wear_suit)
 			M.equip_to_slot_or_del(new /obj/item/clothing/glasses/hud/health/health_advanced(M), slot_glasses)
 
@@ -511,7 +511,7 @@ var/ert_request_answered = 0
 	switch(officer_type)
 		if("Engineer")
 			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/magboots/advance(M), slot_shoes)
-			M.equip_to_slot_or_del(new /obj/item/clothing/gloves/combat(M), slot_gloves)
+			M.equip_to_slot_or_del(new /obj/item/clothing/gloves/color/yellow(M), slot_gloves)
 			M.equip_to_slot_or_del(new /obj/item/clothing/suit/space/rig/ert/engineer(M), slot_wear_suit)
 			M.equip_to_slot_or_del(new /obj/item/weapon/tank/emergency_oxygen/double/full(M), slot_s_store)
 			M.equip_to_slot_or_del(new /obj/item/clothing/glasses/meson/night(M), slot_glasses)

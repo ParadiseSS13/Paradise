@@ -13,7 +13,7 @@
 
 	switch(name)			//some of these are probably obsolete
 		if("shuttle")
-			shuttle_z = z
+			log_debug("Obsolete landmark '[name]' at ([x],[y],[z])")
 			qdel(src)
 
 		if("airtunnel_stop")

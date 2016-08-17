@@ -373,8 +373,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 
 	for(var/I in singularities)
 		var/obj/singularity/S = I
-		// TODO: Tie into space manager
-		if(S.z == ZLEVEL_CENTCOMM  || S.z >= MAX_Z)
+		if(!is_level_reachable(S.z))
 			continue
 		qdel(S)
 	log_admin("[key_name(src)] has deleted all Singularities and Tesla orbs.")
@@ -657,7 +656,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			if(jobdatum)
 				dresscode = "[jobdatum.title]"
 				jobdatum.equip(M)
-				equip_special_id(M,jobdatum.access,jobdatum.title, jobdatum.idtype)
+				equip_special_id(M,jobdatum.get_access(),jobdatum.title, jobdatum.idtype)
 
 		if("standard space gear")
 			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/black(M), slot_shoes)
@@ -1388,20 +1387,9 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	spawn(30)
 		for(var/obj/machinery/the_singularitygen/G in machines)
 			if(G.anchored)
-				var/obj/singularity/S = new /obj/singularity(get_turf(G), 50)
-//				qdel(G)
-				S.energy = 1750
-				S.current_size = 7
-				S.icon = 'icons/effects/224x224.dmi'
-				S.icon_state = "singularity_s7"
-				S.pixel_x = -96
-				S.pixel_y = -96
-				S.grav_pull = 0
-				//S.consume_range = 3
-				S.dissipate = 0
-				//S.dissipate_delay = 10
-				//S.dissipate_track = 0
-				//S.dissipate_strength = 10
+				var/obj/singularity/S = new /obj/singularity(get_turf(G))
+				S.energy = 800
+				break
 
 	for(var/obj/machinery/power/rad_collector/Rad in machines)
 		if(Rad.anchored)
