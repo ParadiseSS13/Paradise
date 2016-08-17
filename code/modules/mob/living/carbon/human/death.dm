@@ -61,10 +61,8 @@
 	animation.master = src
 
 	flick("dust-h", animation)
-	if(!isSynthetic())
-		new /obj/effect/decal/remains/human(loc)
-	else
-		new /obj/effect/decal/cleanable/blood/gibs/robot(loc)
+	new species.remains_type(get_turf(src))
+	if(isSynthetic())
 		var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 		s.set_up(3, 1, src)
 		s.start()
