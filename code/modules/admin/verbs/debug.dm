@@ -780,11 +780,10 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/clown_shoes(M), slot_shoes)
 			M.equip_to_slot_or_del(new /obj/item/clothing/gloves/color/black(M), slot_gloves)
 			M.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/clown_hat(M), slot_wear_mask)
-			M.equip_to_slot_or_del(new /obj/item/clothing/head/chaplain_hood(M), slot_head)
 			M.equip_to_slot_or_del(new /obj/item/device/radio/headset(M), slot_l_ear)
 			M.equip_to_slot_or_del(new /obj/item/weapon/storage/belt/utility/full/multitool(M), slot_belt)
 			M.equip_to_slot_or_del(new /obj/item/clothing/glasses/thermal/monocle(M), slot_glasses)
-			M.equip_to_slot_or_del(new /obj/item/clothing/suit/chaplain_hoodie(M), slot_wear_suit)
+			M.equip_to_slot_or_del(new /obj/item/clothing/suit/hooded/chaplain_hoodie(M), slot_wear_suit)
 			M.equip_to_slot_or_del(new /obj/item/weapon/reagent_containers/food/snacks/grown/banana(M), slot_l_store)
 			M.equip_to_slot_or_del(new /obj/item/weapon/bikehorn(M), slot_r_store)
 			equip_special_id(M,list(access_clown, access_theatre, access_maint_tunnels), "Tunnel Clown", /obj/item/weapon/card/id)
@@ -913,11 +912,9 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			M.equip_to_slot_or_del(new /obj/item/device/flashlight(M), slot_in_backpack)
 			M.equip_to_slot_or_del(new /obj/item/device/radio/headset/syndicate(M), slot_l_ear)
 			M.equip_to_slot_or_del(new /obj/item/weapon/twohanded/dualsaber/red(M), slot_l_hand)
-			var/obj/item/clothing/head/chaplain_hood/hood = new(M)
-			hood.name = "dark lord hood"
-			M.equip_to_slot_or_del(hood, slot_head)
-			var/obj/item/clothing/suit/chaplain_hoodie/robe = new(M)
+			var/obj/item/clothing/suit/hooded/chaplain_hoodie/robe = new /obj/item/clothing/suit/hooded/chaplain_hoodie(M)
 			robe.name = "dark lord robes"
+			robe.hood.name = "dark lord hood"
 			M.equip_to_slot_or_del(robe, slot_wear_suit)
 			equip_special_id(M,get_all_accesses(), "Dark Lord", /obj/item/weapon/card/id/syndicate, "syndie")
 
