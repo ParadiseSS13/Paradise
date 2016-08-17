@@ -1320,34 +1320,23 @@
 	return (get_charge()>=amount)
 
 /obj/mecha/proc/get_charge()
-	return call((proc_res["dyngetcharge"]||src), "dyngetcharge")()
-
-/obj/mecha/proc/dyngetcharge()//returns null if no powercell, else returns cell.charge
-	if(!cell) return
-	diag_hud_set_mechcell()
-	return max(0, cell.charge)
+	for(var/obj/item/mecha_parts/mecha_equipment/tesla_energy_relay/R in equipment)
+		var/relay_charge = R.get_charge()
+		if(relay_charge)
+			return relay_charge
+	if(cell)
+		return max(0, cell.charge)
 
 /obj/mecha/proc/use_power(amount)
-	return call((proc_res["dynusepower"]||src), "dynusepower")(amount)
-
-/obj/mecha/proc/dynusepower(amount)
 	if(get_charge())
 		cell.use(amount)
 		return 1
-	//Diagnostic HUD updates
-	diag_hud_set_mechhealth()
-	diag_hud_set_mechcell()
-	diag_hud_set_mechstat()
 	return 0
 
 /obj/mecha/proc/give_power(amount)
 	if(!isnull(get_charge()))
 		cell.give(amount)
 		return 1
-	//Diagnostic HUD updates
-	diag_hud_set_mechhealth()
-	diag_hud_set_mechcell()
-	diag_hud_set_mechstat()
 	return 0
 
 /obj/mecha/proc/reset_icon()

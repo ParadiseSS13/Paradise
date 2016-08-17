@@ -348,16 +348,10 @@
 	var/fuel_per_cycle_active = 100
 	var/power_per_cycle = 30
 
-/obj/item/mecha_parts/mecha_equipment/generator/New()
-	..()
-	generator_init()
 
 /obj/item/mecha_parts/mecha_equipment/generator/Destroy()
 	processing_objects.Remove(src)
 	return ..()
-
-/obj/item/mecha_parts/mecha_equipment/generator/proc/generator_init()
-	fuel_amount = 0
 
 /obj/item/mecha_parts/mecha_equipment/generator/detach()
 	processing_objects.Remove(src)
@@ -481,9 +475,6 @@
 	fuel_per_cycle_active = 30
 	power_per_cycle = 50
 	var/rad_per_cycle = 0.3
-
-/obj/item/mecha_parts/mecha_equipment/generator/nuclear/generator_init()
-	fuel_amount = 0
 
 /obj/item/mecha_parts/mecha_equipment/generator/nuclear/critfail()
 	return
