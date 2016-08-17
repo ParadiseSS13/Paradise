@@ -12,15 +12,6 @@
 	var/list/old_eye_colour = list(0,0,0)
 	var/flash_protect = 0
 	var/aug_message = "Your vision is augmented!"
-//
-// /obj/item/organ/internal/cyberimp/eyes/proc/update_colour()
-// 	if(!owner)
-// 		return
-// 	eye_colour = list(
-// 		owner.r_eyes ? owner.r_eyes : 0,
-// 		owner.g_eyes ? owner.g_eyes : 0,
-// 		owner.b_eyes ? owner.b_eyes : 0
-// 		)
 
 
 /obj/item/organ/internal/cyberimp/eyes/insert(var/mob/living/carbon/M, var/special = 0)
