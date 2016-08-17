@@ -174,7 +174,7 @@
 		return
 
 	dir = turn(dir, 90)
-	
+
 	if(usr.machine == src)
 		interact(usr)
 
@@ -246,7 +246,9 @@
 	hit()
 
 /obj/effect/beam/i_beam/Crossed(atom/movable/AM as mob|obj)
-	if(istype(AM, /obj/effect/beam) || !AM.density)
+	if(!isobj(AM) && !isliving(AM))
+		return
+	if(istype(AM, /obj/effect))
 		return
 	hit()
 

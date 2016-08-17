@@ -214,7 +214,7 @@
 //drill bone
 /datum/surgery_step/generic/drill
 	name = "drill bone"
-	allowed_tools = list(/obj/item/weapon/surgicaldrill = 100, /obj/item/weapon/pickaxe/drill = 60, /obj/item/mecha_parts/mecha_equipment/tool/drill = 60, /obj/item/weapon/screwdriver = 20)
+	allowed_tools = list(/obj/item/weapon/surgicaldrill = 100, /obj/item/weapon/pickaxe/drill = 60, /obj/item/mecha_parts/mecha_equipment/drill = 60, /obj/item/weapon/screwdriver = 20)
 	time = 30
 
 /datum/surgery_step/generic/drill/begin_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)

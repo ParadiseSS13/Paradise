@@ -1001,7 +1001,7 @@ About the new airlock wires panel:
 		to_chat(user, "The hatch is coated with a product that prevents the shaped charge from sticking!")
 		return
 
-	if(istype(C, /obj/item/mecha_parts/mecha_equipment/tool/rcd) || istype(C, /obj/item/weapon/rcd))
+	if(istype(C, /obj/item/mecha_parts/mecha_equipment/rcd) || istype(C, /obj/item/weapon/rcd))
 		to_chat(user, "The hatch is made of an advanced compound that cannot be deconstructed using an RCD.")
 		return
 
