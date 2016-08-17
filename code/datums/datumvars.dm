@@ -384,16 +384,9 @@ body
 				html += "</ol>"
 			else
 				html += "<ul>"
-				// First loop to check for associativity
-				var/associative = FALSE
-				for(var/entry in L)
-					if(!(isnum(entry) || isnull(L[entry])))
-						associative = TRUE
-						break
-				// then we do it again! Except now with knowledge of associativity
 				var/index = 1
 				for(var/entry in L)
-					if(associative)
+					if(istext(entry))
 						html += debug_variable(entry, L[entry], level + 1)
 					else
 						html += debug_variable(index, L[index], level + 1)
