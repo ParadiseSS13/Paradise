@@ -11,7 +11,7 @@
 	throw_range = 7
 	origin_tech = "programming=3"
 	var/list/signs = list()
-	var/max_signs = 10
+	var/max_signs = 20
 
 /obj/item/weapon/holosign_creator/afterattack(atom/target, mob/user, flag)
 	if(flag)
