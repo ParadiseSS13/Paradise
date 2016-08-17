@@ -874,9 +874,12 @@ var/list/slot_equipment_priority = list( \
 
 //this and stop_pulling really ought to be /mob/living procs
 /mob/proc/start_pulling(atom/movable/AM)
-	if( !AM || !src || src==AM || !isturf(AM.loc) )	//if there's no person pulling OR the person is pulling themself OR the object being pulled is inside something: abort!
+	if(src == AM) // Trying to pull yourself is a shortcut to stop pulling
+		stop_pulling()
 		return
-	if(!( AM.anchored ))
+	if(!AM || !isturf(AM.loc))	//if there's no object or the object being pulled is inside something: abort!
+		return
+	if(!(AM.anchored))
 		AM.add_fingerprint(src)
 
 		// If we're pulling something then drop what we're currently pulling and pull this instead.
