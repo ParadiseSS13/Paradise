@@ -6,6 +6,7 @@
 	exclaim_verb = "roars"
 	colour = "soghun"
 	key = "o"
+	flags = RESTRICTED
 	syllables = list("ss","ss","ss","ss","skak","seeki","resh","las","esi","kor","sh")
 
 /datum/language/unathi/get_random_name()
@@ -23,6 +24,7 @@
 	exclaim_verb = "yowls"
 	colour = "tajaran"
 	key = "j"
+	flags = RESTRICTED
 	syllables = list("rr","rr","tajr","kir","raj","kii","mir","kra","ahk","nal","vah","khaz","jri","ran","darr", \
 	"mi","jri","dynh","manq","rhe","zar","rrhaz","kal","chur","eech","thaa","dra","jurl","mah","sanu","dra","ii'r", \
 	"ka","aasi","far","wa","baq","ara","qara","zir","sam","mak","hrar","nja","rir","khan","jun","dar","rik","kah", \
@@ -44,6 +46,7 @@
 	exclaim_verb = "barks"
 	colour = "vulpkanin"
 	key = "7"
+	flags = RESTRICTED
 	syllables = list("rur","ya","cen","rawr","bar","kuk","tek","qat","uk","wu","vuh","tah","tch","schz","auch", \
 	"ist","ein","entch","zwichs","tut","mir","wo","bis","es","vor","nic","gro","lll","enem","zandt","tzch","noch", \
 	"hel","ischt","far","wa","baram","iereng","tech","lach","sam","mak","lich","gen","or","ag","eck","gec","stag","onn", \
@@ -57,6 +60,7 @@
 	exclaim_verb = "warbles"
 	colour = "skrell"
 	key = "k"
+	flags = RESTRICTED
 	syllables = list("qr","qrr","xuq","qil","quum","xuqm","vol","xrim","zaoo","qu-uu","qix","qoo","zix","*","!")
 
 /datum/language/vox
@@ -173,6 +177,7 @@
 	whisper_verb = "whispers"
 	colour = "solcom"
 	key = "1"
+	flags = RESTRICTED
 	syllables = list("tao","shi","tzu","yi","com","be","is","i","op","vi","ed","lec","mo","cle","te","dis","e")
 	english_names = 1
 
