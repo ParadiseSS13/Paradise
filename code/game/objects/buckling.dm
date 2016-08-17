@@ -29,6 +29,11 @@
 	. = ..()
 	unbuckle_mob()
 
+/atom/movable/proc/has_buckled_mobs()
+	if(buckled_mob)
+		return TRUE
+	return FALSE
+
 //procs that handle the actual buckling and unbuckling
 /atom/movable/proc/buckle_mob(mob/living/M)
 	if(!can_buckle || !istype(M) || (M.loc != loc) || M.buckled || M.buckled_mob || buckled_mob || (buckle_requires_restraints && !M.restrained()) || M == src)
