@@ -41,6 +41,10 @@
 /obj/machinery/shuttle_manipulator/process()
 	return
 
+/obj/machinery/shuttle_manipulator/attack_ghost(mob/user as mob)
+	user.set_machine(src)
+	interact(user)
+
 /obj/machinery/shuttle_manipulator/attack_hand(mob/user as mob)
 	user.set_machine(src)
 	interact(user)
@@ -85,9 +89,9 @@
 
 	var/dat = ""
 	dat += "<center>"
-	dat += "<a href='?src=\ref[src];[src]=tab;tab=[SHUTTLE_MANIPULATOR_STATUS]' [current_tab == SHUTTLE_MANIPULATOR_STATUS ? "class='linkOn'" : ""]>Status</a>"
-	dat += "<a href='?src=\ref[src];[src]=tab;tab=[SHUTTLE_MANIPULATOR_TEMPLATE]' [current_tab == SHUTTLE_MANIPULATOR_TEMPLATE ? "class='linkOn'" : ""]>Templates</a>"
-	dat += "<a href='?src=\ref[src];[src]=tab;tab=[SHUTTLE_MANIPULATOR_MOD]' [current_tab == SHUTTLE_MANIPULATOR_MOD ? "class='linkOn'" : ""]>Modification</a>"
+	dat += "<a href='?src=\ref[src];\ref[src]=tab;tab=[SHUTTLE_MANIPULATOR_STATUS]' [current_tab == SHUTTLE_MANIPULATOR_STATUS ? "class='linkOn'" : ""]>Status</a>"
+	dat += "<a href='?src=\ref[src];\ref[src]=tab;tab=[SHUTTLE_MANIPULATOR_TEMPLATE]' [current_tab == SHUTTLE_MANIPULATOR_TEMPLATE ? "class='linkOn'" : ""]>Templates</a>"
+	dat += "<a href='?src=\ref[src];\ref[src]=tab;tab=[SHUTTLE_MANIPULATOR_MOD]' [current_tab == SHUTTLE_MANIPULATOR_MOD ? "class='linkOn'" : ""]>Modification</a>"
 	dat += "</center>"
 	dat += "<HR>"
 
@@ -100,30 +104,30 @@
 			if(SHUTTLE_MANIPULATOR_STATUS)
 				dat += "<div class='block'>"
 				for(var/list/shuttle in shuttle_data["shuttles"])
-					dat += "<span class='line'>"
+					dat += "<div class='line'>"
 					dat += "<span class='statusLabel'>[shuttle["name"]] [shuttle["id"]]: [shuttle["mode"]] [shuttle["status"]] [shuttle["timer"]] </span>"
 					dat += "<a href='?src=\ref[src];jump_to=[shuttle["id"]]'>Jump To</a>"
 					dat += "<a href='?src=\ref[src];fast_travel=[shuttle["id"]]'>Fast Travel</a>"
-					dat += "<br></span>"
+					dat += "</div>"
 				dat += "</div>"
 			if(SHUTTLE_MANIPULATOR_TEMPLATE)
 				dat += "<div class='block'>"
 				for(var/list/shuttle in shuttle_data["shuttles"])
-					dat += "<span class='line'>"
+					dat += "<div class='line'>"
 					dat += "<span class='statusLabel'> [shuttle["name"]] <br>[shuttle["description"]]<br> [shuttle["admin_notes"]] <br></span>"
 					dat += "<A href='?src=\ref[src];load=[shuttle["id"]]'>Load Template</A>"
 					dat += "<A href='?src=\ref[src];select_template=[shuttle["id"]]'>Select Template</A>"
 					dat += "<a href='?src=\ref[src];preview=[shuttle["id"]]'>Preview Template</A>"
-					dat += "<br></span>"
+					dat += "</div>"
 				dat += "</div>"
 			if(SHUTTLE_MANIPULATOR_MOD)
 				dat += "<div class='block'>"
 				for(var/list/shuttle in shuttle_data["shuttles"])
-					dat += "<span class='line'>"
+					dat += "<div class='line'>"
 					dat += "<span class='statusLabel'>[shuttle["name"]] [shuttle["id"]] <br>[shuttle["description"]]<br> [shuttle["admin_notes"]] <br> </span>"
 					dat += "<A href='?src=\ref[src];move=[shuttle["id"]]'>Send to port</A>"
 					dat += "<a href='?src=\ref[src];jump_to=[shuttle["id"]]'>Jump To</A>"
-					dat += "<br></span>"
+					dat += "</div>"
 				dat += "</div>"
 
 	var/datum/browser/popup = new(user, "shuttle manipulator", "Shuttle Manipulator", 500, 500)
