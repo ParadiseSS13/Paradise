@@ -38,7 +38,7 @@
 		flick("gibbed-h", animation)
 		hgibs(loc, viruses, dna)
 	else
-		new /obj/effect/decal/cleanable/blood/gibs/robot(src.loc)
+		new /obj/effect/decal/cleanable/blood/gibs/robot(loc)
 		var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 		s.set_up(3, 1, src)
 		s.start()
@@ -61,7 +61,13 @@
 	animation.master = src
 
 	flick("dust-h", animation)
-	new /obj/effect/decal/remains/human(loc)
+	if(!isSynthetic())
+		new /obj/effect/decal/remains/human(loc)
+	else
+		new /obj/effect/decal/cleanable/blood/gibs/robot(loc)
+		var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+		s.set_up(3, 1, src)
+		s.start()
 
 	spawn(15)
 		if(animation)	qdel(animation)
