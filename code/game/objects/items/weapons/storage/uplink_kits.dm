@@ -204,3 +204,16 @@
 	..()
 	new /obj/item/weapon/grenade/clusterbuster/plasma(src)
 	new /obj/item/weapon/grenade/clusterbuster/n2o(src)
+
+/obj/item/weapon/storage/box/syndie_kit/missionary_set
+	name = "Missionary Starter Kit"
+
+/obj/item/weapon/storage/box/syndie_kit/missionary_set/New()
+	..()
+	new /obj/item/weapon/nullrod/missionary_staff(src)
+	new /obj/item/clothing/suit/hooded/chaplain_hoodie/missionary_robe(src)
+	var/obj/item/weapon/storage/bible/B = new /obj/item/weapon/storage/bible(src)
+	if(prob(25))	//an omen of success to come?
+		B.deity_name = "Success"
+		B.icon_state = "greentext"
+		B.item_state = "greentext"
