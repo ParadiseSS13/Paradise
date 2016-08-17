@@ -30,10 +30,10 @@
 	anchored = 1
 
 /obj/effect/decal/remains/slime/New()
-  var/datum/reagents/R = new/datum/reagents(5)
-  var/obj/effect/effect/water/W = new(get_turf(src))
-  W.reagents = R
-  R.my_atom = W
-  R.add_reagent("water", 5)
-  R.reaction(get_turf(src))
-  qdel(src)
+	var/datum/reagents/R = new/datum/reagents(5)
+	var/obj/effect/effect/water/W = new(get_turf(src))
+	W.reagents = R
+	R.my_atom = W
+	R.add_reagent("water", 5)
+	R.reaction(get_turf(src))
+	qdel(src)
