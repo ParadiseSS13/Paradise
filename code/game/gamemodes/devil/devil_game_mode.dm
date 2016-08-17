@@ -10,6 +10,7 @@
 	var/num_modifier = 0 // Used for gamemodes, that are a child of traitor, that need more than the usual.
 	var/objective_count = 2
 	var/minimum_devils = 1
+	var/devil_scale_coefficient = 6
 
 /datum/game_mode/devil/announce()
 	to_chat(world, {"<B>The current game mode is - Devil!</B><br>)
@@ -21,21 +22,26 @@
 	if(config.protect_roles_from_antagonist)
 		restricted_jobs += protected_jobs
 
-	var/num_devils = 1
-
-	num_devils = max(minimum_devils, min(round(num_players()/8)+ 2))
+	var/list/possible_devils = get_players_for_role(ROLE_DEVIL)
+	var/num_devils = 0
+	if(!possible_devils.len)
+		return 0
+	if(config.traitor_scaling)
+		num_devils = max(1, round((num_players())/(devil_scale_coefficient))+1)
+	else
+		num_devils = max(1, min(num_players(), traitors_possible))
 
 
 	for(var/j = 0, j < num_devils, j++)
-		if (!antag_candidates.len)
+		if (!possible_devils.len)
 			break
-		var/datum/mind/devil = pick(antag_candidates)
+		var/datum/mind/devil = pick(possible_devils)
 		devils += devil
 		devil.special_role = ROLE_DEVIL
 		devil.restricted_roles = restricted_jobs
 
 		log_game("[devil.key] (ckey) has been selected as a [config_tag]")
-		antag_candidates.Remove(devil)
+		possible_devils.Remove(devil)
 
 	if(devils.len < required_enemies)
 		return 0

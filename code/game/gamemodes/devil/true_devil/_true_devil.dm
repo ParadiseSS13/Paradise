@@ -17,9 +17,8 @@
 	var/ascended = 0
 	sight = (SEE_TURFS | SEE_OBJS)
 	status_flags = CANPUSH
-	languages_spoken = ALL //The devil speaks all languages meme
-	languages_understood = ALL //The devil speaks all languages meme
-	mob_size = MOB_SIZE_LARGE
+	universal_understand = 1
+	universal_speak = 1 //The devil speaks all languages meme
 	var/mob/living/oldform
 	var/list/devil_overlays[DEVIL_TOTAL_LAYERS]
 
@@ -45,10 +44,10 @@
 	..()
 	mind.announceDevilLaws()
 	var/obj_count = 1
-		to_chat(current, "\blue Your current objectives:")
-		for(var/datum/objective/objective in objectives)
-			to_chat(current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
-			obj_count++
+	to_chat(src, "\blue Your current objectives:")
+	for(var/datum/objective/objective in mind.objectives)
+		to_chat(src, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
+		obj_count++
 
 
 /mob/living/carbon/true_devil/death(gibbed)

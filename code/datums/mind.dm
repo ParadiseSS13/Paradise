@@ -1466,6 +1466,15 @@
 		var/obj/effect/proc_holder/spell/S = X
 		S.action.Grant(new_character)
 
+/datum/mind/proc/disrupt_spells(delay, list/exceptions = New())
+	for(var/X in spell_list)
+		var/obj/effect/proc_holder/spell/S = X
+		for(var/type in exceptions)
+			if(istype(S, type))
+				continue
+		S.charge_counter = delay
+		addtimer(S, "start_recharge", 0)
+
 /datum/mind/proc/get_ghost(even_if_they_cant_reenter)
 	for(var/mob/dead/observer/G in dead_mob_list)
 		if(G.mind == src)

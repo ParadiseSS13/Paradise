@@ -880,3 +880,8 @@
 			return 1
 	return 0
 
+/mob/living/proc/fakefireextinguish()
+	return
+
+/mob/living/proc/fakefire()
+	return

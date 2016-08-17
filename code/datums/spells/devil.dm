@@ -87,9 +87,6 @@
 	invocation = "Your very soul will catch fire!"
 	invocation_type = "shout"
 	range = 2
-
-	fireball_type = /obj/effect/proc_holder/spell/turf/fireball/infernal
-
 	action_background_icon_state = "bg_demon"
 
 /obj/effect/proc_holder/spell/turf/fireball/infernal/cast(var/turf/T)

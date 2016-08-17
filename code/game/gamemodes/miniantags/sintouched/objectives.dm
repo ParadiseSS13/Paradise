@@ -13,7 +13,7 @@
 		explanation_text = "Go get married, then immediately cheat on your new spouse." */
 
 /datum/objective/sintouched/gluttony
-	explanation_text = "Everything is so delicious. Go eat everything."
+	explanation_text = "Food is delicious, so delicious you can't let it be wasted on other people."
 
 /datum/objective/sintouched/greed
 	explanation_text = "You want MORE, more money, more wealth, more riches.  Go get it, but don't hurt people for it."
