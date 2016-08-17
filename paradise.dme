@@ -2082,6 +2082,7 @@
 #include "code\modules\vehicle\vehicle.dm"
 #include "goon\code\datums\browserOutput.dm"
 #include "honk\code\game\objects\effects\decals\Cleanable\misc.dm"
+#include "hyntatmta\code\datums\action.dm"
 #include "hyntatmta\code\game\jobs\prisonlist.dm"
 #include "hyntatmta\code\game\jobs\job\prisoner.dm"
 #include "hyntatmta\code\game\machinery\transformer.dm"

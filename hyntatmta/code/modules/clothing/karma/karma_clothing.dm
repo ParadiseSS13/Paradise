@@ -68,6 +68,7 @@
   icon_state = "hev"
   item_state = "hev"
 
+
 //TTGL
 //Simon's coat
 /obj/item/clothing/suit/atmta/simoncoat
@@ -78,6 +79,7 @@
   ignore_suitadjust = 0
   suit_adjusted = 0
 
+
 //Kamina's cape
 /obj/item/weapon/bedsheet/kaminacape
   name = "Sky-piercer cape"
@@ -86,3 +88,23 @@
   icon_override = 'hyntatmta/icons/mob/back.dmi'
   icon_state = "kaminacape"
   item_state = "kaminacape"
+  actions_types = list(/datum/action/item_action/sprial_power)
+  var/cooldown = 0
+
+/obj/item/weapon/bedsheet/kaminacape/ui_action_click(mob/user, actiontype)
+	if(actiontype == /datum/action/item_action/sprial_power)
+		rowrow(user)
+
+/obj/item/weapon/bedsheet/kaminacape/proc/rowrow(mob/user)
+	if(cooldown > world.time)
+		var/remaining = cooldown - world.time
+		remaining = remaining*0.1
+		to_chat(user, "<span class='warning'>Ability on cooldown - [remaining] seconds remaining.</span>")
+		return
+	else
+		user.overlays += image("icon"='hyntatmta/icons/mob/aura.dmi', "icon_state"="spiral")
+		user.visible_message("<span class='green'><b>[user]</b> glows with very STRONG and MANLY aura!</span>", "You awaken your inner power!")
+		spawn(200)
+		user.overlays -= image("icon"='hyntatmta/icons/mob/aura.dmi', "icon_state"="spiral")
+		cooldown = world.time + 3000
+
