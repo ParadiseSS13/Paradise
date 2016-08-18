@@ -221,7 +221,7 @@
 	A.ShiftClick(src)
 	return
 /atom/proc/ShiftClick(var/mob/user)
-	if(user.client && user.client.eye == user)
+	if(user.client && get_turf(user.client.eye) == get_turf(user))
 		user.examinate(src)
 	return
 
