@@ -1,0 +1,4 @@
+author: Ty-Omaha
+delete-after: True
+changes: 
+  - tweak: "Quick-equipping a PDA will now prioritize the PDA slot before the ID slot."
