@@ -1,4 +1,4 @@
-/turf/simulated/floor/mech_bay_recharge_floor //I'll remove this in a future PR, as it requires map changes.
+/turf/simulated/floor/mech_bay_recharge_floor
 	name = "Mech Bay Recharge Station"
 	icon = 'icons/mecha/mech_bay.dmi'
 	icon_state = "recharge_floor"
@@ -20,7 +20,7 @@
 	var/obj/machinery/computer/mech_bay_power_console/recharge_console
 	var/max_charge = 50
 	var/on = 0
-	var/turf/recharging_turf = null   //this isn't the actual turf, it's just the space in front of the recharge port
+	var/turf/recharging_turf = null
 
 /obj/machinery/mech_bay_recharge_port/New()
 	..()
