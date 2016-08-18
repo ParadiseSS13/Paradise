@@ -28,7 +28,6 @@
 #define ROLE_RAIDER				"vox raider"
 #define ROLE_TRADER				"trader"
 #define ROLE_VAMPIRE			"vampire"
-#define ROLE_MUTINEER			"mutineer"
 // Role tags for EVERYONE!
 #define ROLE_BORER				"cortical borer"
 #define ROLE_DEMON				"slaughter demon"
@@ -62,7 +61,6 @@ var/global/list/special_roles = list(
 //	ROLE_HOG_CULTIST = /datum/game_mode/hand_of_god,
 	ROLE_RAIDER = /datum/game_mode/heist,
 	ROLE_VAMPIRE = /datum/game_mode/vampire,
-	ROLE_MUTINEER = /datum/game_mode/mutiny,
 	ROLE_BORER,
 	ROLE_DEMON,
 	ROLE_SENTIENT,

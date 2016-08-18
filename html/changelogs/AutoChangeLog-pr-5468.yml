@@ -1,0 +1,4 @@
+author: Ar3nn
+delete-after: True
+changes: 
+  - tweak: "dusting playermobs now generates remains fitting for their race."

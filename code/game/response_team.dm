@@ -173,9 +173,7 @@ var/ert_request_answered = 0
 	head_organ.r_hair = color2R(hair_c)
 	head_organ.g_hair = color2G(hair_c)
 	head_organ.b_hair = color2B(hair_c)
-	M.r_eyes = color2R(eye_c)
-	M.g_eyes = color2G(eye_c)
-	M.b_eyes = color2B(eye_c)
+	M.change_eye_color(color2R(eye_c), color2G(eye_c), color2B(eye_c))
 	M.s_tone = skin_tone
 	head_organ.h_style = hair_style
 	head_organ.f_style = facial_hair_style

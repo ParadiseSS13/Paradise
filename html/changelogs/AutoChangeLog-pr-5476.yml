@@ -1,0 +1,4 @@
+author: Fox McCloud
+delete-after: True
+changes: 
+  - bugfix: "Cane Gun and NT Rep's cane now acts as actual canes"

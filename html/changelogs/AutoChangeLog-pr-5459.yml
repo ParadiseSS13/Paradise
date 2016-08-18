@@ -1,0 +1,4 @@
+author: Crazylemon
+delete-after: True
+changes: 
+  - rscadd: "Admins can now click on the DI panel buttons to debug the corresponding controller in VV"

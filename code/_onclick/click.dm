@@ -263,12 +263,13 @@
 
 /atom/proc/AltClick(var/mob/user)
 	var/turf/T = get_turf(src)
-	if(T && user.TurfAdjacent(T))
-		if(user.listed_turf == T)
-			user.listed_turf = null
-		else
+	if(T)
+		if(user.TurfAdjacent(T))
 			user.listed_turf = T
 			user.client.statpanel = T.name
+			// If we had a method to force a `Stat` update, it would go here
+		else
+			user.listed_turf = null
 	return
 
 /mob/proc/TurfAdjacent(var/turf/T)

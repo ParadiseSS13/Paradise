@@ -83,11 +83,6 @@
 	time = 24
 
 
-/datum/surgery_step/generic/clamp_bleeders/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
-		var/obj/item/organ/external/affected = target.get_organ(target_zone)
-		return ..() && affected.open && (affected.status & ORGAN_BLEEDING)
-
-
 /datum/surgery_step/generic/clamp_bleeders/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
 		user.visible_message("[user] starts clamping bleeders in [target]'s [affected.name] with \the [tool].", \
@@ -121,10 +116,6 @@
 	)
 
 	time = 24
-
-/datum/surgery_step/generic/retract_skin/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
-		var/obj/item/organ/external/affected = target.get_organ(target_zone)
-		return ..() && affected.open == 1 && !(affected.status & ORGAN_BLEEDING)
 
 /datum/surgery_step/generic/retract_skin/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -214,7 +205,7 @@
 //drill bone
 /datum/surgery_step/generic/drill
 	name = "drill bone"
-	allowed_tools = list(/obj/item/weapon/surgicaldrill = 100, /obj/item/weapon/pickaxe/drill = 60, /obj/item/mecha_parts/mecha_equipment/tool/drill = 60, /obj/item/weapon/screwdriver = 20)
+	allowed_tools = list(/obj/item/weapon/surgicaldrill = 100, /obj/item/weapon/pickaxe/drill = 60, /obj/item/mecha_parts/mecha_equipment/drill = 60, /obj/item/weapon/screwdriver = 20)
 	time = 30
 
 /datum/surgery_step/generic/drill/begin_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -264,7 +255,9 @@
 
 	add_logs(target,user ,"surgically removed [affected.name] from", addition="INTENT: [uppertext(user.a_intent)]")//log it
 
-	affected.droplimb(1,DROPLIMB_EDGE)
+	var/atom/movable/thing = affected.droplimb(1,DROPLIMB_EDGE)
+	if(istype(thing,/obj/item))
+		user.put_in_hands(thing)
 	return 1
 
 /datum/surgery_step/generic/amputate/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)

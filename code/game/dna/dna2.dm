@@ -142,19 +142,7 @@ var/global/list/bad_blocks[0]
 	// Hair
 	// FIXME:  Species-specific defaults pls
 	var/obj/item/organ/external/head/H = character.get_organ("head")
-	if(!H.h_style)
-		H.h_style = "Skinhead"
-	var/hair = hair_styles_list.Find(H.h_style)
-
-	// Facial Hair
-	if(!H.f_style)
-		H.f_style = "Shaved"
-	var/beard	= facial_hair_styles_list.Find(H.f_style)
-
-	// Head Accessory
-	if(!H.ha_style)
-		H.ha_style = "None"
-	var/headacc	= head_accessory_styles_list.Find(H.ha_style)
+	var/obj/item/organ/internal/eyes/eyes_organ = character.get_int_organ(/obj/item/organ/internal/eyes)
 
 	/*// Body Accessory
 	if(!character.body_accessory)
@@ -169,25 +157,12 @@ var/global/list/bad_blocks[0]
 	var/body_marks	= marking_styles_list.Find(character.m_styles["body"])
 	var/tail_marks	= marking_styles_list.Find(character.m_styles["tail"])
 
-	SetUIValueRange(DNA_UI_HAIR_R,	H.r_hair,				255,	1)
-	SetUIValueRange(DNA_UI_HAIR_G,	H.g_hair,				255,	1)
-	SetUIValueRange(DNA_UI_HAIR_B,	H.b_hair,				255,	1)
-
-	SetUIValueRange(DNA_UI_BEARD_R,	H.r_facial,				255,	1)
-	SetUIValueRange(DNA_UI_BEARD_G,	H.g_facial,				255,	1)
-	SetUIValueRange(DNA_UI_BEARD_B,	H.b_facial,				255,	1)
-
-	SetUIValueRange(DNA_UI_EYES_R,	character.r_eyes,		255,	1)
-	SetUIValueRange(DNA_UI_EYES_G,	character.g_eyes,		255,	1)
-	SetUIValueRange(DNA_UI_EYES_B,	character.b_eyes,		255,	1)
+	head_traits_to_dna(H)
+	eye_color_to_dna(eyes_organ)
 
 	SetUIValueRange(DNA_UI_SKIN_R,	character.r_skin,		255,	1)
 	SetUIValueRange(DNA_UI_SKIN_G,	character.g_skin,		255,	1)
 	SetUIValueRange(DNA_UI_SKIN_B,	character.b_skin,		255,	1)
-
-	SetUIValueRange(DNA_UI_HACC_R,	H.r_headacc,			255,	1)
-	SetUIValueRange(DNA_UI_HACC_G,	H.g_headacc,			255,	1)
-	SetUIValueRange(DNA_UI_HACC_B,	H.b_headacc,			255,	1)
 
 	SetUIValueRange(DNA_UI_HEAD_MARK_R,	color2R(character.m_colours["head"]),	255,	1)
 	SetUIValueRange(DNA_UI_HEAD_MARK_G,	color2G(character.m_colours["head"]),	255,	1)
@@ -201,14 +176,10 @@ var/global/list/bad_blocks[0]
 	SetUIValueRange(DNA_UI_TAIL_MARK_G,	color2G(character.m_colours["tail"]),	255,	1)
 	SetUIValueRange(DNA_UI_TAIL_MARK_B,	color2B(character.m_colours["tail"]),	255,	1)
 
-	SetUIValueRange(DNA_UI_SKIN_TONE, 35-character.s_tone,	220,	1) // Value can be negative.
+	SetUIValueRange(DNA_UI_SKIN_TONE,	35-character.s_tone,	220,	1) // Value can be negative.
 
-	SetUIState(DNA_UI_GENDER,		character.gender!=MALE,		1)
-
-	SetUIValueRange(DNA_UI_HAIR_STYLE,	hair,		hair_styles_list.len,			1)
-	SetUIValueRange(DNA_UI_BEARD_STYLE,	beard,		facial_hair_styles_list.len,	1)
+	SetUIState(DNA_UI_GENDER, character.gender!=MALE, 1)
 	/*SetUIValueRange(DNA_UI_BACC_STYLE,	bodyacc,	facial_hair_styles_list.len,	1)*/
-	SetUIValueRange(DNA_UI_HACC_STYLE,	headacc,	head_accessory_styles_list.len,	1)
 	SetUIValueRange(DNA_UI_HEAD_MARK_STYLE,	head_marks,		marking_styles_list.len,		1)
 	SetUIValueRange(DNA_UI_BODY_MARK_STYLE,	body_marks,		marking_styles_list.len,		1)
 	SetUIValueRange(DNA_UI_TAIL_MARK_STYLE,	tail_marks,		marking_styles_list.len,		1)

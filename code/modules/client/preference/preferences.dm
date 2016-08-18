@@ -23,7 +23,6 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 // 	ROLE_GANG = 21,
 	ROLE_BORER = 21,
 	ROLE_NINJA = 21,
-	ROLE_MUTINEER = 21,
 	ROLE_ABDUCTOR = 30,
 )
 
@@ -1986,12 +1985,16 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	character.age = age
 	character.b_type = b_type
 
-	character.r_eyes = r_eyes
-	character.g_eyes = g_eyes
-	character.b_eyes = b_eyes
+	character.change_eye_color(r_eyes, g_eyes, b_eyes)
 
 	//Head-specific
 	var/obj/item/organ/external/head/H = character.get_organ("head")
+	var/obj/item/organ/internal/eyes/eyes_organ = character.get_int_organ(/obj/item/organ/internal/eyes)
+
+	eyes_organ.eye_colour[1] = r_eyes
+	eyes_organ.eye_colour[2] = g_eyes
+	eyes_organ.eye_colour[3] = b_eyes
+
 	H.r_hair = r_hair
 	H.g_hair = g_hair
 	H.b_hair = b_hair

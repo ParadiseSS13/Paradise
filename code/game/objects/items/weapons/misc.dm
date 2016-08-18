@@ -34,6 +34,9 @@
 	materials = list(MAT_METAL=50)
 	attack_verb = list("bludgeoned", "whacked", "disciplined", "thrashed")
 
+/obj/item/weapon/cane/is_crutch()
+	return 1
+
 /obj/item/weapon/c_tube
 	name = "cardboard tube"
 	desc = "A tube... of cardboard."

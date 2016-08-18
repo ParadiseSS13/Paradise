@@ -193,6 +193,7 @@
 	src.modules += new /obj/item/taperoll/engineering(src)
 	src.modules += new /obj/item/weapon/gripper(src)
 	src.modules += new /obj/item/weapon/matter_decompiler(src)
+	src.modules += new /obj/item/device/floor_painter(src)
 
 	src.emag = new /obj/item/borg/stun(src)
 

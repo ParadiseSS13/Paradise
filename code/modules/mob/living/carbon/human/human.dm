@@ -2085,7 +2085,6 @@
 		dna.deserialize(data["dna"])
 		real_name = dna.real_name
 		name = real_name
-		UpdateAppearance()
 		set_species(dna.species)
 	age = data["age"]
 	undershirt = data["ushirt"]
@@ -2109,6 +2108,7 @@
 		// As above, "New" code handles insertion, DNA sync
 		list_to_object(organs_list[organ], src)
 
+	UpdateAppearance()
 
 	// De-serialize equipment
 	// #1: Jumpsuit
