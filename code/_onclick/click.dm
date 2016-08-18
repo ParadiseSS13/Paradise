@@ -71,7 +71,11 @@
 		return
 
 	if(istype(loc,/obj/mecha))
-		if(!locate(/turf) in list(A,A.loc)) // Prevents inventory from being drilled
+		// Prevents inventory from being drilled
+		// Allows using inventory buttons
+		if(!locate(/turf) in list(A,A.loc) || istype(A, /obj/screen))
+			var/obj/item/W = get_active_hand()
+			ClickInventory(A, W, params)
 			return
 		var/obj/mecha/M = loc
 		return M.click_action(A, src, params)
@@ -87,34 +91,13 @@
 
 	var/obj/item/W = get_active_hand()
 
-	if(W == A)
-		W.attack_self(src)
-		if(hand)
-			update_inv_l_hand(0)
-		else
-			update_inv_r_hand(0)
-		return
-
-	// operate three levels deep here (item in backpack in src; item in box in backpack in src, not any deeper)
-	var/sdepth = A.storage_depth(src)
-	if(A == loc || (A in loc) || (sdepth != -1 && sdepth <= 2))
-		// No adjacency needed
-		if(W)
-			var/resolved = A.attackby(W,src)
-			if(!resolved && A && W)
-				W.afterattack(A,src,1,params) // 1 indicates adjacency
-		else
-			if(ismob(A))
-				changeNext_move(CLICK_CD_MELEE)
-			UnarmedAttack(A, 1)
-
-		return
+	ClickInventory(A, W, params)
 
 	if(!isturf(loc)) // This is going to stop you from telekinesing from inside a closet, but I don't shed many tears for that
 		return
 
 	// Allows you to click on a box's contents, if that box is on the ground, but no deeper than that
-	sdepth = A.storage_depth_turf()
+	var/sdepth = A.storage_depth_turf()
 	if(isturf(A) || isturf(A.loc) || (sdepth != -1 && sdepth <= 1))
 		if(A.Adjacent(src)) // see adjacent.dm
 			if(W)
@@ -135,6 +118,28 @@
 				RangedAttack(A, params)
 
 	return
+
+/mob/proc/ClickInventory(var/atom/A, var/obj/item/W, var/params)
+	if(W == A)
+		W.attack_self(src)
+		if(hand)
+			update_inv_l_hand(0)
+		else
+			update_inv_r_hand(0)
+		return
+
+	// operate two STORAGE levels deep here (item in backpack in src; NOT item in box in backpack in src)
+	var/sdepth = A.storage_depth(src)
+	if(A == loc || (A in loc) || (sdepth != -1 && sdepth <= 1))
+		// No adjacency needed
+		if(W)
+			var/resolved = A.attackby(W,src)
+			if(!resolved && A && W)
+				W.afterattack(A,src,1,params) // 1 indicates adjacency
+		else
+			if(ismob(A))
+				changeNext_move(CLICK_CD_MELEE)
+			UnarmedAttack(A, 1)
 
 /mob/proc/changeNext_move(num)
 	next_move = world.time + num
