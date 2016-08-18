@@ -361,7 +361,9 @@
 	var/lastRunTime = round(last_run_time, 0.001)
 	var/highestRunTime = round(highest_run_time, 0.001)
 	var/deferTime = round(cpu_defer_count / 10 * world.tick_lag, 0.01)
-	stat("[name]", "T#[getTicks()] | AR [averageRunTime] | LR [lastRunTime] | HR [highestRunTime] | D [deferTime]")
+	if(!statclick)
+		statclick = new (src)
+	stat("[name]", statclick.update("T#[getTicks()] | AR [averageRunTime] | LR [lastRunTime] | HR [highestRunTime] | D [deferTime]"))
 
 /datum/controller/process/proc/catchException(var/exception/e, var/thrower)
 	if(istype(e)) // Real runtimes go to the real error handler

@@ -47,7 +47,7 @@ var/global/list/limb_icon_cache = list()
 
 /obj/item/organ/external/head/remove()
 	get_icon()
-	..()
+	. = ..()
 
 /obj/item/organ/external/head/get_icon()
 
@@ -55,13 +55,15 @@ var/global/list/limb_icon_cache = list()
 	overlays.Cut()
 	if(!owner)
 		return
-	var/obj/item/organ/external/head/H = owner.get_organ("head")
 
 	if(species.has_organ["eyes"])
-		var/obj/item/organ/internal/eyes/eyes = owner.get_int_organ(/obj/item/organ/internal/eyes)//owner.internal_organs_by_name["eyes"]
+		var/obj/item/organ/internal/eyes/eyes = owner.get_int_organ(/obj/item/organ/internal/eyes)
+		var/obj/item/organ/internal/cyberimp/eyes/eye_implant = owner.get_int_organ(/obj/item/organ/internal/cyberimp/eyes)
 		if(species.eyes)
 			var/icon/eyes_icon = new/icon('icons/mob/human_face.dmi', species.eyes)
-			if(eyes)
+			if(eye_implant) // Eye implants override native DNA eye color
+				eyes_icon.Blend(rgb(eye_implant.eye_colour[1],eye_implant.eye_colour[2],eye_implant.eye_colour[3]), ICON_ADD)
+			else if(eyes)
 				eyes_icon.Blend(rgb(eyes.eye_colour[1], eyes.eye_colour[2], eyes.eye_colour[3]), ICON_ADD)
 			else
 				eyes_icon.Blend(rgb(128,0,0), ICON_ADD)
@@ -81,32 +83,32 @@ var/global/list/limb_icon_cache = list()
 				markings_s.Blend(rgb(owner.r_markings, owner.g_markings, owner.b_markings), ICON_ADD)
 			overlays |= markings_s
 
-	if(H.ha_style)
-		var/datum/sprite_accessory/head_accessory_style = head_accessory_styles_list[H.ha_style]
-		if(head_accessory_style && head_accessory_style.species_allowed && (H.species.name in head_accessory_style.species_allowed))
+	if(ha_style)
+		var/datum/sprite_accessory/head_accessory_style = head_accessory_styles_list[ha_style]
+		if(head_accessory_style && head_accessory_style.species_allowed && (species.name in head_accessory_style.species_allowed))
 			var/icon/head_accessory_s = new/icon("icon" = head_accessory_style.icon, "icon_state" = "[head_accessory_style.icon_state]_s")
 			if(head_accessory_style.do_colouration)
-				head_accessory_s.Blend(rgb(H.r_headacc, H.g_headacc, H.b_headacc), ICON_ADD)
+				head_accessory_s.Blend(rgb(r_headacc, g_headacc, b_headacc), ICON_ADD)
 			overlays |= head_accessory_s
 
-	if(H.f_style)
-		var/datum/sprite_accessory/facial_hair_style = facial_hair_styles_list[H.f_style]
-		if(facial_hair_style && ((facial_hair_style.species_allowed && (H.species.name in facial_hair_style.species_allowed)) || (src.species.flags & ALL_RPARTS)))
+	if(f_style)
+		var/datum/sprite_accessory/facial_hair_style = facial_hair_styles_list[f_style]
+		if(facial_hair_style && ((facial_hair_style.species_allowed && (species.name in facial_hair_style.species_allowed)) || (src.species.flags & ALL_RPARTS)))
 			var/icon/facial_s = new/icon("icon" = facial_hair_style.icon, "icon_state" = "[facial_hair_style.icon_state]_s")
-			if(H.species.name == "Slime People") // I am el worstos
+			if(species.name == "Slime People") // I am el worstos
 				facial_s.Blend(rgb(owner.r_skin, owner.g_skin, owner.b_skin, 160), ICON_AND)
 			else if(facial_hair_style.do_colouration)
-				facial_s.Blend(rgb(H.r_facial, H.g_facial, H.b_facial), ICON_ADD)
+				facial_s.Blend(rgb(r_facial, g_facial, b_facial), ICON_ADD)
 			overlays |= facial_s
 
-	if(H.h_style && !(owner.head && (owner.head.flags & BLOCKHEADHAIR)))
-		var/datum/sprite_accessory/hair_style = hair_styles_list[H.h_style]
-		if(hair_style && ((H.species.name in hair_style.species_allowed) || (src.species.flags & ALL_RPARTS)))
+	if(h_style && !(owner.head && (owner.head.flags & BLOCKHEADHAIR)))
+		var/datum/sprite_accessory/hair_style = hair_styles_list[h_style]
+		if(hair_style && ((species.name in hair_style.species_allowed) || (src.species.flags & ALL_RPARTS)))
 			var/icon/hair_s = new/icon("icon" = hair_style.icon, "icon_state" = "[hair_style.icon_state]_s")
-			if(H.species.name == "Slime People") // I am el worstos
+			if(species.name == "Slime People") // I am el worstos
 				hair_s.Blend(rgb(owner.r_skin, owner.g_skin, owner.b_skin, 160), ICON_AND)
 			else if(hair_style.do_colouration)
-				hair_s.Blend(rgb(H.r_hair, H.g_hair, H.b_hair), ICON_ADD)
+				hair_s.Blend(rgb(r_hair, g_hair, b_hair), ICON_ADD)
 			overlays |= hair_s
 
 	return mob_icon

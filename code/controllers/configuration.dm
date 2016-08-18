@@ -86,7 +86,6 @@
 	var/donationsurl = "http://example.org"
 	var/repositoryurl = "http://example.org"
 
-	var/media_base_url = "http://example.org"
 	var/overflow_server_url
 	var/forbid_singulo_possession = 0
 
@@ -483,9 +482,6 @@
 
 				if("assistant_ratio")
 					config.assistantratio = text2num(value)
-
-				if("media_base_url")
-					media_base_url = value
 
 				if("allow_drone_spawn")
 					config.allow_drone_spawn = text2num(value)

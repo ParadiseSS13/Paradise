@@ -13,41 +13,16 @@
 	var/flash_protect = 0
 	var/aug_message = "Your vision is augmented!"
 
-/obj/item/organ/internal/cyberimp/eyes/proc/update_colour()
-	if(!owner)
-		return
-	eye_colour = list(
-		owner.r_eyes ? owner.r_eyes : 0,
-		owner.g_eyes ? owner.g_eyes : 0,
-		owner.b_eyes ? owner.b_eyes : 0
-		)
-
 
 /obj/item/organ/internal/cyberimp/eyes/insert(var/mob/living/carbon/M, var/special = 0)
 	..()
-	if(istype(owner, /mob/living/carbon/human) && eye_colour)
-		var/mob/living/carbon/human/HMN = owner
-		old_eye_colour[1] = HMN.r_eyes
-		old_eye_colour[2] = HMN.g_eyes
-		old_eye_colour[2] = HMN.b_eyes
-
-		HMN.r_eyes = eye_colour[1]
-		HMN.g_eyes = eye_colour[2]
-		HMN.b_eyes = eye_colour[3]
-		HMN.update_eyes()
 	if(aug_message && !special)
 		to_chat(owner, "<span class='notice'>[aug_message]</span>")
 	M.sight |= vision_flags
 
 /obj/item/organ/internal/cyberimp/eyes/remove(var/mob/living/carbon/M, var/special = 0)
-	..()
+	. = ..()
 	M.sight ^= vision_flags
-	if(istype(owner,/mob/living/carbon/human) && eye_colour)
-		var/mob/living/carbon/human/HMN = owner
-		HMN.r_eyes = old_eye_colour[1]
-		HMN.g_eyes = old_eye_colour[2]
-		HMN.b_eyes = old_eye_colour[3]
-		HMN.update_eyes()
 
 /obj/item/organ/internal/cyberimp/eyes/on_life()
 	..()
@@ -97,7 +72,7 @@
 		M.permanent_huds |= H
 
 /obj/item/organ/internal/cyberimp/eyes/hud/remove(var/mob/living/carbon/M, var/special = 0)
-	..()
+	. = ..()
 	if(HUD_type)
 		var/datum/atom_hud/H = huds[HUD_type]
 		M.permanent_huds ^= H
