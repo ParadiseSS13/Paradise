@@ -1101,6 +1101,31 @@
 	return
 
 
+/obj/mecha/verb/checkSeat()
+	set name = "Check under Seat"
+	set category = "Exosuit Interface"
+	set src = usr.loc
+	set popup_menu = 0
+	if(usr != occupant)
+		return
+	var/mob/user = usr
+	to_chat(user, "<span class='notice'>You start rooting around under the seat for lost items</span>")
+	if(do_after(user, 40, target = src))
+		var/obj/badlist = get_intended_components()
+		var/list/true_contents = contents - badlist
+		if(true_contents.len > 0)
+			var/obj/I = pick(true_contents)
+			if(user.put_in_any_hand_if_possible(I))
+				src.contents -= I
+				to_chat(user, "<span class='notice'>You find \a [I] [pick("under the seat", "under the console")]!</span>")
+			else
+				to_chat(user, "<span class='notice'>You think you saw something shiny, but you can't reach it!</span>")
+				log_debug("There was a loose [I] in the mech at [atom_loc_line(src)]")
+		else
+			to_chat(user, "<span class='notice'>You fail to find anything of value.</span>")
+	else
+		to_chat(user, "<span class='notice'>You decide against searching the [src]</span>")
+
 /obj/mecha/MouseDrop_T(mob/M, mob/user)
 	if(user.incapacitated())
 		return
@@ -1233,6 +1258,10 @@
 
 /obj/mecha/proc/pilot_mmi_hud(var/mob/living/carbon/brain/pilot)
 	return
+
+// Stuff that belongs inside the mech, as opposed to stuff that fell while inside the mech
+/obj/mecha/proc/get_intended_components()
+	return list(cell, radio, internal_tank, occupant) + equipment
 
 /obj/mecha/verb/view_stats()
 	set name = "View Stats"
