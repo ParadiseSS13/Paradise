@@ -800,6 +800,6 @@
 
 /obj/item/weapon/twohanded/pitchfork/demonic/attack(mob/target, mob/living/carbon/human/user)
 	if(user.mind && !user.mind.devilinfo && (user.mind.soulOwner != user.mind))
-		user << "<span class ='warning'>The [src] burns in your hands.</span>"
+		to_chat(user, "<span class ='warning'>The [src] burns in your hands.</span>")
 		user.apply_damage(rand(force/2, force), BURN, pick("l_arm", "r_arm"))
 	..()

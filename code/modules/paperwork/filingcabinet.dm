@@ -213,17 +213,14 @@ var/list/employmentCabinets = list()
 		sleep(100) // prevents the devil from just instantly emptying the cabinet, ensuring an easy win.
 		cooldown = 0
 	else
-		user << "<span class='warning'>The [src] is jammed, give it a few seconds.</span>"
-
-
-
+		to_chat(user, "<span class='warning'>The [src] is jammed, give it a few seconds.</span>")
 
 /obj/structure/filingcabinet/employment/attackby(obj/item/P, mob/user, params)
 	if(istype(P, /obj/item/weapon/wrench))
-		user << "<span class='notice'>You begin to [anchored ? "wrench" : "unwrench"] [src].</span>"
+		to_chat(user, "<span class='notice'>You begin to [anchored ? "wrench" : "unwrench"] [src].</span>")
 		if (do_after(user,300,user))
 			playsound(loc, 'sound/items/Ratchet.ogg', 50, 1)
 			anchored = !anchored
-			user << "<span class='notice'>You successfully [anchored ? "wrench" : "unwrench"] [src].</span>"
+			to_chat(user, "<span class='notice'>You successfully [anchored ? "wrench" : "unwrench"] [src].</span>")
 	else
 		return ..()
