@@ -1,5 +1,0 @@
-author: Kyep
-delete-after: True
-changes: 
-  - rscadd: "Added Syndicate Infiltration Teams (SITs), which are like Syndicate Strike Teams (SSTs) but focusing on stealth rather than direct combat. Useful for getting ghosts into rounds, spicing up rounds, having traitors with teamwork, and new kinds of traitor objectives like kidnap."
-  - bugfix: "Fixed bug that Dust implants had no icon."

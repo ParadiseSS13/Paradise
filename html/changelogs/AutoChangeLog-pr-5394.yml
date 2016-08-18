@@ -1,4 +1,0 @@
-author: Fox McCloud
-delete-after: True
-changes: 
-  - bugfix: "Appendicitis and Disease Outbreak events will no longer impact clientless mobs"
