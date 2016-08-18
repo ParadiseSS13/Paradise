@@ -158,4 +158,4 @@
 	else
 		log_startup_progress(" Crab'sie has risen!")
 	//todo:add adminonly datum var, check for said var here...
-	return picked_cut
+	return picked_cult

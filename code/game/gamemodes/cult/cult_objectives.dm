@@ -155,7 +155,7 @@
 	if(!sacrificed.len)
 		var/list/possible_targets = list()
 		for(var/mob/living/carbon/human/player in player_list)
-			if(player.z == ZLEVEL_CENTCOMM) //We can't sacrifice people that are on the centcom z-level
+			if(is_secure_level(player.z)) //We can't sacrifice people that are on the centcom z-level
 				continue
 			if(player.mind && !is_convertable_to_cult(player.mind) && (player.stat != DEAD))
 				possible_targets += player.mind
@@ -163,7 +163,7 @@
 		if(!possible_targets.len)
 			//There are no living Unconvertables on the station. Looking for a Sacrifice Target among the ordinary crewmembers
 			for(var/mob/living/carbon/human/player in player_list)
-				if(player.z == ZLEVEL_CENTCOMM) //We can't sacrifice people that are on the centcom z-level
+				if(is_secure_level(player.z)) //We can't sacrifice people that are on the centcom z-level
 					continue
 				if(player.mind && !(player.mind in cult))
 					possible_targets += player.mind
@@ -219,7 +219,7 @@
 		if(C.stat != DEAD)
 			if(!(C.mind in cult))
 				var/turf/T = get_turf(C)
-				if(T.z == ZLEVEL_STATION)	//we're only interested in the remaining humans on the station
+				if(is_station_level(T.z))	//we're only interested in the remaining humans on the station
 					living_crew++
 
 	if(living_crew > 5)
@@ -253,7 +253,7 @@
 				if(C.stat != DEAD)
 					if(!(C.mind in cult))
 						var/turf/T = get_turf(C)
-						if(T.z == ZLEVEL_STATION)	//we're only interested in the remaining humans on the station
+						if(is_station_level(T.z))	//we're only interested in the remaining humans on the station
 							survivors++
 			if(survivors < massacre_target)
 				bonus = 1

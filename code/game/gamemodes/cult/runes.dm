@@ -263,7 +263,7 @@ var/list/teleport_runes = list()
 		else
 			teleportnames.Add(resultkey)
 			duplicaterunecount[resultkey] = 1
-		if(T != src && (!is_level_reachable(t.z))
+		if(T != src && (!is_level_reachable(T.z)))
 			potential_runes[resultkey] = T
 
 	if(!potential_runes.len)
