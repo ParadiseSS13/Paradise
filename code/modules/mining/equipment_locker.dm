@@ -1193,7 +1193,7 @@
 		return
 	if(proximity_flag && target == mark && isliving(target))
 		var/mob/living/L = target
-		PoolOrNew(/obj/effect/overlay/temp/kinetic_blast, get_turf(L))
+		new /obj/effect/overlay/temp/kinetic_blast(get_turf(L))
 		mark = 0
 		if(L.mob_size >= MOB_SIZE_LARGE)
 			L.underlays -= marked_image
