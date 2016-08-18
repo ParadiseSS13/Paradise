@@ -1,5 +1,0 @@
-author: Crazylemon64
-delete-after: True
-changes: 
-  - bugfix: "Space border turfs will now regain their destination when over-written and replaced on the edge of the map"
-  - bugfix: "The space manager will no longer runtime if a space ruin writes on the edge of the map"

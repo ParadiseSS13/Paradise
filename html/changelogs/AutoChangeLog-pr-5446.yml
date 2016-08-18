@@ -1,5 +1,0 @@
-author: Crazylemon
-delete-after: True
-changes: 
-  - tweak: "Alt+Click should be quicker now"
-  - tweak: "The Alt+Click panel vanishes only when you alt click a turf distant from yourself"

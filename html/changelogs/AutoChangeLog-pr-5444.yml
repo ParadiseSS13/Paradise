@@ -1,6 +1,0 @@
-author: TullyBurnalot
-delete-after: True
-changes: 
-  - bugfix: "Ghosts can no longer trip Proximity Sensors"
-  - bugfix: "Ghosts can no longer trip Infrared Sensors"
-  - bugfix: "Effects (like hallucinations) can no longer trip Proximity and Infrared Sensors"
