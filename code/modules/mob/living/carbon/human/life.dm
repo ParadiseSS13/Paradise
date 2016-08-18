@@ -680,6 +680,7 @@
 				update_mutantrace(0)
 				update_mutations(0)
 				update_inv_w_uniform(0)
+				update_body(0)
 				update_inv_wear_suit()
 		else
 			if(overeatduration > 500)
@@ -688,6 +689,7 @@
 				update_mutantrace(0)
 				update_mutations(0)
 				update_inv_w_uniform(0)
+				update_body(0)
 				update_inv_wear_suit()
 
 	// nutrition decrease
