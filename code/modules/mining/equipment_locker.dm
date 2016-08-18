@@ -1211,4 +1211,4 @@
 	if(!charged)
 		charged = 1
 		icon_state = "mining_hammer1"
-		playsound(src.loc, 'sound/weapons/kenetic_reload.ogg', 60, 1)
+		playsound(loc, 'sound/weapons/kenetic_reload.ogg', 60, 1)

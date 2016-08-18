@@ -130,7 +130,7 @@
 
 /obj/item/weapon/twohanded/required/mob_can_equip(M as mob, slot)
 	if(wielded && !slot_flags)
-		to_chat(M, "<span class='warning'>[src.name] is too cumbersome to carry with anything but your hands!</span>")
+		to_chat(M, "<span class='warning'>[src] is too cumbersome to carry with anything but your hands!</span>")
 		return 0
 	return ..()
 
@@ -141,7 +141,7 @@
 	if(H != null)
 		to_chat(user, "<span class='notice'>[src] is too cumbersome to carry in one hand!</span>")
 		return
-	if(src.loc != user)
+	if(loc != user)
 		wield(user)
 	..()
 
