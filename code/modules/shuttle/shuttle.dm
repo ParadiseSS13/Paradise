@@ -444,7 +444,7 @@
 			A0.contents += T0
 
 	//move or squish anything in the way ship at destination
-	roadkill(L1, S1.dir)
+	roadkill(L0, L1, S1.dir)
 
 	var/list/door_unlock_list = list()
 
@@ -570,13 +570,7 @@
 
 /obj/effect/landmark/shuttle_import
 	name = "Shuttle Import"
-/*	commented out due to issues with rotation
-	for(var/obj/docking_port/stationary/transit/S in shuttle_master.transit)
-		if(S.id)
-			continue
-		if(!canDock(S))
-			return S
-*/
+
 
 
 //shuttle-door closing is handled in the dock() proc whilst looping through turfs

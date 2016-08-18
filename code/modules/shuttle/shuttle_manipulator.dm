@@ -1,6 +1,8 @@
 #define SHUTTLE_MANIPULATOR_STATUS 1
 #define SHUTTLE_MANIPULATOR_TEMPLATE 2
 #define SHUTTLE_MANIPULATOR_MOD 3
+#define NUM_SHUTTLE_MANIPULATOR_TABS 3
+
 
 /obj/machinery/shuttle_manipulator
 	name = "shuttle manipulator"
@@ -41,9 +43,10 @@
 /obj/machinery/shuttle_manipulator/process()
 	return
 
-/obj/machinery/shuttle_manipulator/attack_ghost(mob/user as mob)
-	user.set_machine(src)
-	interact(user)
+/obj/machinery/shuttle_manipulator/attack_ghost(user as mob)
+	if(!is_admin(user))
+		return
+	attack_hand(user)
 
 /obj/machinery/shuttle_manipulator/attack_hand(mob/user as mob)
 	user.set_machine(src)
@@ -89,9 +92,9 @@
 
 	var/dat = ""
 	dat += "<center>"
-	dat += "<a href='?src=\ref[src];\ref[src]=tab;tab=[SHUTTLE_MANIPULATOR_STATUS]' [current_tab == SHUTTLE_MANIPULATOR_STATUS ? "class='linkOn'" : ""]>Status</a>"
-	dat += "<a href='?src=\ref[src];\ref[src]=tab;tab=[SHUTTLE_MANIPULATOR_TEMPLATE]' [current_tab == SHUTTLE_MANIPULATOR_TEMPLATE ? "class='linkOn'" : ""]>Templates</a>"
-	dat += "<a href='?src=\ref[src];\ref[src]=tab;tab=[SHUTTLE_MANIPULATOR_MOD]' [current_tab == SHUTTLE_MANIPULATOR_MOD ? "class='linkOn'" : ""]>Modification</a>"
+	dat += "<a href='?src=\ref[src];tabchange=1;tab=[SHUTTLE_MANIPULATOR_STATUS]' [current_tab == SHUTTLE_MANIPULATOR_STATUS ? "class='linkOn'" : ""]>Status</a>"
+	dat += "<a href='?src=\ref[src];tabchange=1;tab=[SHUTTLE_MANIPULATOR_TEMPLATE]' [current_tab == SHUTTLE_MANIPULATOR_TEMPLATE ? "class='linkOn'" : ""]>Templates</a>"
+	dat += "<a href='?src=\ref[src];tabchange=1;tab=[SHUTTLE_MANIPULATOR_MOD]' [current_tab == SHUTTLE_MANIPULATOR_MOD ? "class='linkOn'" : ""]>Modification</a>"
 	dat += "</center>"
 	dat += "<HR>"
 
@@ -118,7 +121,7 @@
 					dat += "<A href='?src=\ref[src];load=[shuttle["id"]]'>Load Template</A>"
 					dat += "<A href='?src=\ref[src];select_template=[shuttle["id"]]'>Select Template</A>"
 					dat += "<a href='?src=\ref[src];preview=[shuttle["id"]]'>Preview Template</A>"
-					dat += "</div>"
+					dat += "<br></div>"
 				dat += "</div>"
 			if(SHUTTLE_MANIPULATOR_MOD)
 				dat += "<div class='block'>"
@@ -127,8 +130,9 @@
 					dat += "<span class='statusLabel'>[shuttle["name"]] [shuttle["id"]] <br>[shuttle["description"]]<br> [shuttle["admin_notes"]] <br> </span>"
 					dat += "<A href='?src=\ref[src];move=[shuttle["id"]]'>Send to port</A>"
 					dat += "<a href='?src=\ref[src];jump_to=[shuttle["id"]]'>Jump To</A>"
-					dat += "</div>"
+					dat += "<br></div>"
 				dat += "</div>"
+		dat += "</div>"
 
 	var/datum/browser/popup = new(user, "shuttle manipulator", "Shuttle Manipulator", 500, 500)
 	popup.set_content(dat)
@@ -139,6 +143,9 @@
 /obj/machinery/shuttle_manipulator/Topic(href, href_list)
 	if(..())
 		return
+
+	for(var/thing in href_list)
+		log_debug("[thing]: [href_list[thing]]")
 
 	var/mob/user = usr
 
@@ -152,13 +159,12 @@
 			selected = S
 			. = TRUE
 	if(href_list["jump_to"])
-		if(href_list["type"] == "mobile")
-			. = TRUE
-			for(var/i in shuttle_master.mobile)
-				var/obj/docking_port/mobile/M = i
-				if(M.id == href_list["id"])
-					user.forceMove(get_turf(M))
-					break
+		. = TRUE
+		for(var/i in shuttle_master.mobile)
+			var/obj/docking_port/mobile/M = i
+			if(M.id == href_list["id"])
+				user.forceMove(get_turf(M))
+				break
 
 	if(href_list["preview"])
 		if(S)
@@ -181,6 +187,14 @@
 			var/mdp = action_load(S)
 			if(mdp)
 				user.forceMove(get_turf(mdp))
+	if(href_list["tabchange"])
+		var/newtab = text2num(href_list["tab"])
+		// I am NOT making this take like 10 lines
+		if(!(newtab in list(1,2,3)))
+			log_debug("[newtab] is not a valid tab ID!")
+			return
+		. = TRUE
+		current_tab = round(newtab)
 
 /obj/machinery/shuttle_manipulator/proc/action_load(
 	datum/map_template/shuttle/loading_template)
@@ -280,9 +294,9 @@
 	if(!found)
 		var/msg = "load_template(): Shuttle Template [S.mappath] has no \
 			mobile docking port. Aborting import."
-		//for(var/T in affected)//wot do?
-		//	var/turf/T0 = T
-		//	T0.empty()
+		for(var/T in affected)//wot do?
+			var/turf/T0 = T
+			T0.contents = null
 
 		message_admins(msg)
 		WARNING(msg)
