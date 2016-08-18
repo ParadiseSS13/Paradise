@@ -6,6 +6,7 @@
 	path = /mob/living/carbon/human/abductor
 	language = "Abductor Mindlink"
 	default_language = "Abductor Mindlink"
+	num_alternate_languages = 0
 	unarmed_type = /datum/unarmed_attack/punch
 	darksight = 3
 	eyes = "blank_eyes"

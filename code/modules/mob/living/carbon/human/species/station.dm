@@ -5,7 +5,8 @@
 	deform = 'icons/mob/human_races/r_def_human.dmi'
 	primitive_form = "Monkey"
 	path = /mob/living/carbon/human/human
-	language = "Sol Common"
+	num_alternate_languages = 2
+	secondary_langs = list("Sol Common")
 	flags = HAS_LIPS | CAN_BE_FAT
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_SKIN_TONE
@@ -25,8 +26,8 @@
 	icobase = 'icons/mob/human_races/r_lizard.dmi'
 	deform = 'icons/mob/human_races/r_def_lizard.dmi'
 	path = /mob/living/carbon/human/unathi
-	default_language = "Galactic Common"
-	language = "Sinta'unathi"
+	num_alternate_languages = 2
+	secondary_langs = list("Sinta'unathi")
 	tail = "sogtail"
 	unarmed_type = /datum/unarmed_attack/claws
 	primitive_form = "Stok"
@@ -87,8 +88,8 @@
 	icobase = 'icons/mob/human_races/r_tajaran.dmi'
 	deform = 'icons/mob/human_races/r_def_tajaran.dmi'
 	path = /mob/living/carbon/human/tajaran
-	default_language = "Galactic Common"
-	language = "Siik'tajr"
+	num_alternate_languages = 2
+	secondary_langs = list("Siik'tajr")
 	tail = "tajtail"
 	unarmed_type = /datum/unarmed_attack/claws
 	darksight = 8
@@ -149,8 +150,8 @@
 	icobase = 'icons/mob/human_races/r_vulpkanin.dmi'
 	deform = 'icons/mob/human_races/r_vulpkanin.dmi'
 	path = /mob/living/carbon/human/vulpkanin
-	default_language = "Galactic Common"
-	language = "Canilunzt"
+	num_alternate_languages = 2
+	secondary_langs = list("Canilunzt")
 	primitive_form = "Wolpin"
 	tail = "vulptail"
 	unarmed_type = /datum/unarmed_attack/claws
@@ -199,8 +200,8 @@
 	icobase = 'icons/mob/human_races/r_skrell.dmi'
 	deform = 'icons/mob/human_races/r_def_skrell.dmi'
 	path = /mob/living/carbon/human/skrell
-	default_language = "Galactic Common"
-	language = "Skrellian"
+	num_alternate_languages = 2
+	secondary_langs = list("Skrellian")
 	primitive_form = "Neara"
 	unarmed_type = /datum/unarmed_attack/punch
 
@@ -246,6 +247,7 @@
 	path = /mob/living/carbon/human/vox
 
 	default_language = "Galactic Common"
+	num_alternate_languages = 1
 	language = "Vox-pidgin"
 	tail = "voxtail"
 	speech_sounds = list('sound/voice/shriek1.ogg')
@@ -459,7 +461,8 @@
 	deform = 'icons/mob/human_races/r_def_kidan.dmi'
 	path = /mob/living/carbon/human/kidan
 	default_language = "Galactic Common"
-	language = "Chittin"
+	num_alternate_languages = 2
+	secondary_langs = list("Chittin")
 	unarmed_type = /datum/unarmed_attack/claws
 
 	brute_mod = 0.8
@@ -495,7 +498,8 @@
 	name = "Slime People"
 	name_plural = "Slime People"
 	default_language = "Galactic Common"
-	language = "Bubblish"
+	num_alternate_languages = 2
+	secondary_langs = list("Bubblish")
 	icobase = 'icons/mob/human_races/r_slime.dmi'
 	deform = 'icons/mob/human_races/r_slime.dmi'
 	path = /mob/living/carbon/human/slime
@@ -682,7 +686,8 @@
 	icobase = 'icons/mob/human_races/r_grey.dmi'
 	deform = 'icons/mob/human_races/r_def_grey.dmi'
 	default_language = "Galactic Common"
-	language = "Psionic Communication"
+	num_alternate_languages = 2
+	secondary_langs = list("Psionic Communication")
 	unarmed_type = /datum/unarmed_attack/punch
 	darksight = 5 // BOOSTED from 2
 	eyes = "grey_eyes_s"
@@ -726,8 +731,8 @@
 	icobase = 'icons/mob/human_races/r_diona.dmi'
 	deform = 'icons/mob/human_races/r_def_plant.dmi'
 	path = /mob/living/carbon/human/diona
-	default_language = "Galactic Common"
-	language = "Rootspeak"
+	num_alternate_languages = 2
+	secondary_langs = list("Rootspeak")
 	unarmed_type = /datum/unarmed_attack/diona
 	//primitive_form = "Nymph"
 	slowdown = 5
@@ -843,8 +848,8 @@
 	icobase = 'icons/mob/human_races/r_machine.dmi'
 	deform = 'icons/mob/human_races/r_machine.dmi'
 	path = /mob/living/carbon/human/machine
-	default_language = "Galactic Common"
-	language = "Trinary"
+	num_alternate_languages = 2
+	secondary_langs = list("Trinary")
 	unarmed_type = /datum/unarmed_attack/punch
 	remains_type = /obj/effect/decal/remains/robot
 

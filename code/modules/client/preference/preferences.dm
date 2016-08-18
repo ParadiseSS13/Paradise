@@ -128,7 +128,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	var/g_eyes = 0						//Eye color
 	var/b_eyes = 0						//Eye color
 	var/species = "Human"
-	var/language = "None"				//Secondary language
+	var/list/alternate_languages = list() //Secondary language(s)
 
 	var/body_accessory = null
 
@@ -226,6 +226,8 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	user << browse_rsc(preview_icon_front, "previewicon.png")
 	user << browse_rsc(preview_icon_side, "previewicon2.png")
 
+	var/datum/species/S = all_species[species]
+
 	var/dat = ""
 	dat += "<center>"
 	dat += "<a href='?_src_=prefs;preference=tab;tab=[TAB_CHAR]' [current_tab == TAB_CHAR ? "class='linkOn'" : ""]>Character Settings</a>"
@@ -262,7 +264,22 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			dat += "<b>Species:</b> <a href='?_src_=prefs;preference=species;task=input'>[species]</a><br>"
 			if(species == "Vox")
 				dat += "<b>N2 Tank:</b> <a href='?_src_=prefs;preference=speciesprefs;task=input'>[speciesprefs ? "Large N2 Tank" : "Specialized N2 Tank"]</a><br>"
-			dat += "<b>Secondary Language:</b> <a href='?_src_=prefs;preference=language;task=input'>[language]</a><br>"
+
+			dat += "<b>Languages</b><br>"
+			if(S.language)
+				dat += " - [S.language]<br>"
+			if(S.default_language && S.default_language != S.language)
+				dat += " - [S.default_language]<br>"
+			if(S.num_alternate_languages)
+				if(alternate_languages.len)
+					for(var/i in 1 to alternate_languages.len)
+						var/lang = alternate_languages[i]
+						dat += " - [lang] - <a href='?_src_=prefs;preference=remove_language;lang=[i];task=input'>remove</a><br>"
+				if(alternate_languages.len < S.num_alternate_languages)
+					dat += " - <a href='?_src_=prefs;preference=add_language;task=input'>add</a> ([S.num_alternate_languages - alternate_languages.len] remaining)<br>"
+			else
+				dat += "- [species]\s cannot choose secondary languages.<br>"
+
 			dat += "<b>Blood Type:</b> <a href='?_src_=prefs;preference=b_type;task=input'>[b_type]</a><br>"
 			if(species in list("Human", "Drask", "Vox"))
 				dat += "<b>Skin Tone:</b> <a href='?_src_=prefs;preference=s_tone;task=input'>[species == "Vox" ? "[s_tone]" : "[-s_tone + 35]/220"]</a><br>"
@@ -1251,27 +1268,33 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 				if("speciesprefs")//oldvox code
 					speciesprefs = !speciesprefs
 
-				if("language")
-//						var/languages_available
-					var/list/new_languages = list("None")
-/*
-					if(config.usealienwhitelist)
-						for(var/L in all_languages)
-							var/datum/language/lang = all_languages[L]
-							if((!(lang.flags & RESTRICTED)) && (is_alien_whitelisted(user, L)||(!( lang.flags & WHITELISTED ))))
-								new_languages += lang
-								languages_available = 1
+				if("remove_language")
+					var/index = text2num(href_list["lang"])
+					alternate_languages.Cut(index, index+1)
 
-						if(!(languages_available))
-							alert(user, "There are not currently any available secondary languages.")
-					else
-*/
+				if("add_language")
+					var/datum/species/S = all_species[species]
+					if(alternate_languages.len >= S.num_alternate_languages)
+						alert(user, "You have already selected the maximum number of alternate languages for this species!")
+						return
+
+					var/list/available_languages = S.secondary_langs.Copy()
 					for(var/L in all_languages)
 						var/datum/language/lang = all_languages[L]
 						if(!(lang.flags & RESTRICTED))
-							new_languages += lang.name
+							available_languages |= L
 
-					language = input("Please select a secondary language", "Character Generation", null) in new_languages
+					available_languages -= S.language
+					available_languages -= S.default_language
+					available_languages -= alternate_languages
+
+					if(!available_languages.len)
+						alert(user, "There are no additional languages available to select.")
+						return
+
+					var/new_lang = input(user, "Select an additional language", "Character Generation", null) as null|anything in available_languages
+					if(new_lang)
+						alternate_languages |= new_lang
 
 				if("metadata")
 					var/new_metadata = input(user, "Enter any information you'd like others to see, such as Roleplay-preferences:", "Game Preference" , metadata)  as message|null
@@ -1835,7 +1858,8 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 		else if(firstspace == name_length)
 			real_name += "[pick(last_names)]"
 
-	character.add_language(language)
+	for(var/lang in alternate_languages)
+		character.add_language(lang)
 
 	character.real_name = real_name
 	character.dna.real_name = real_name

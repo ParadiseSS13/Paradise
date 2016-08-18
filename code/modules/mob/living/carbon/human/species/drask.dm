@@ -4,8 +4,8 @@
 	icobase = 'icons/mob/human_races/r_drask.dmi'
 	deform = 'icons/mob/human_races/r_drask.dmi'
 	path = /mob/living/carbon/human/drask
-	default_language = "Galactic Common"
-	language = "Orluum"
+	num_alternate_languages = 2
+	secondary_langs = list("Orluum")
 	unarmed_type = /datum/unarmed_attack/punch
 	eyes = "drask_eyes_s"
 	darksight = 5

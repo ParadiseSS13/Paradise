@@ -3,6 +3,7 @@
 	name_plural = "Plasmamen"
 	icobase = 'icons/mob/human_races/r_plasmaman_sb.dmi'
 	deform = 'icons/mob/human_races/r_plasmaman_pb.dmi'  // TODO: Need deform.
+	num_alternate_languages = 1
 	//language = "Clatter"
 	unarmed_type = /datum/unarmed_attack/punch
 
