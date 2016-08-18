@@ -307,6 +307,7 @@
 			var/obj/item/device/pda/P = W
 			if(P.id)
 				qdel(P.id)
+				P.id = null
 			qdel(P)
 
 		if(!preserve)
