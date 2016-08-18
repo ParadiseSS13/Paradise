@@ -1851,9 +1851,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	character.age = age
 	character.b_type = b_type
 
-	character.r_eyes = r_eyes
-	character.g_eyes = g_eyes
-	character.b_eyes = b_eyes
+	character.change_eye_color(r_eyes, g_eyes, b_eyes)
 
 	//Head-specific
 	var/obj/item/organ/external/head/H = character.get_organ("head")

@@ -675,20 +675,10 @@
 	if(species.flags & CAN_BE_FAT)
 		if(FAT in mutations)
 			if(overeatduration < 100)
-				to_chat(src, "<span class='notice'>You feel fit again!</span>")
-				mutations.Remove(FAT)
-				update_mutantrace(0)
-				update_mutations(0)
-				update_inv_w_uniform(0)
-				update_inv_wear_suit()
+				becomeSlim()
 		else
 			if(overeatduration > 500)
-				to_chat(src, "<span class='alert'>You suddenly feel blubbery!</span>")
-				mutations.Add(FAT)
-				update_mutantrace(0)
-				update_mutations(0)
-				update_inv_w_uniform(0)
-				update_inv_wear_suit()
+				becomeFat()
 
 	// nutrition decrease
 	if(nutrition > 0 && stat != 2)
@@ -1113,7 +1103,8 @@
 				return
 			if(H.species && H.species.flags & NO_BREATHE)
 				return //no puking if you can't smell!
-			if(H.mind.assigned_role == "Detective")
+			// Humans can lack a mind datum, y'know
+			if(H.mind && H.mind.assigned_role == "Detective")
 				return //too cool for puke
 			to_chat(H, "<spawn class='warning'>You smell something foul...")
 			H.fakevomit()

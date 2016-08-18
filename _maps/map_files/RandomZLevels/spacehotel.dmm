@@ -473,7 +473,7 @@
 "je" = (/obj/machinery/gateway{dir = 4},/turf/unsimulated/floor{icon_state = "warning"; dir = 4},/area/awaymission/spacehotel)
 "jf" = (/obj/structure/window/basic{icon_state = "window"; dir = 8},/obj/structure/flora/rock,/obj/structure/flora/grass/brown,/turf/unsimulated/floor/grass,/area/awaymission/spacehotel)
 "jg" = (/obj/item/candle,/obj/effect/decal/cleanable/blood/old,/turf/unsimulated/floor{name = "engraved floor"; icon_state = "cult"},/area/awaymission/spacehotel)
-"jh" = (/obj/effect/rune,/obj/item/organ/brain,/turf/unsimulated/floor{name = "engraved floor"; icon_state = "cult"},/area/awaymission/spacehotel)
+"jh" = (/obj/effect/rune,/obj/item/organ/internal/brain,/turf/unsimulated/floor{name = "engraved floor"; icon_state = "cult"},/area/awaymission/spacehotel)
 "ji" = (/obj/item/candle,/turf/unsimulated/floor{name = "engraved floor"; icon_state = "cult"},/area/awaymission/spacehotel)
 "jj" = (/obj/item/weapon/tome,/turf/unsimulated/floor{name = "engraved floor"; icon_state = "cult"},/area/awaymission/spacehotel)
 "jk" = (/obj/structure/closet/crate/critter,/turf/unsimulated/floor{icon_state = "floor"},/area/awaymission/spacehotel)

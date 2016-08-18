@@ -215,9 +215,8 @@
 		head_organ.h_style = "Bald"
 		head_organ.f_style = "Shaved"
 		target.s_tone = 35
-		target.r_eyes = 1
-		target.b_eyes = 1
-		target.g_eyes = 1
+		// No `update_dna=0` here because the character is being over-written
+		target.change_eye_color(1,1,1)
 		for(var/obj/item/W in target)
 			if(istype(W,/obj/item/organ)) continue
 			target.unEquip(W)
@@ -233,4 +232,3 @@
 		target.equip_to_slot_or_del(W, slot_wear_id)
 		target.equip_to_slot_or_del(new /obj/item/device/radio/headset(target), slot_l_ear)
 		target.regenerate_icons()
-
