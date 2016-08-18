@@ -1637,11 +1637,6 @@ window "rpane"
 		is-vert = false
 		splitter = 50
 		show-splitter = true
-	elem "hosttracker"
-		type = BROWSER
-		pos = 392,25
-		size = 1x1
-		is-visible = true
 	elem "rulesb"
 		type = BUTTON
 		pos = 278,0
