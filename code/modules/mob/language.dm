@@ -385,6 +385,65 @@
 	colour = "clown"
 	key = "0"
 	syllables = list ("honk","squeak","bonk","toot","narf","zub","wee","wub","norf")
+	
+/datum/language/kolhekar
+	name = "Kolhekar"
+	desc = "A guttural language that many find difficult to master. Favored by mercenaries."
+	colour = "kolhekar"
+	key = "ko"
+	syllables = list("hok","nok","kah","ael","na","lao","kol","alo","hri","hekh","ost","kis","awo","rek","esk","eth","eki","cik","kek","thar","koth","kuth","rar","aki","vra","kro","kra","ruk","kaa","isk","eve","raa","rah","eke","va","ehk","kru","shu","eth","ath","kre","ni","na","er")
+
+/datum/language/sohlee
+	name = "Sohlee"
+	desc = "Sing-songy language commonly used in theater productions."
+	exclaim_verb = "bellows"
+	ask_verb = "rasps"
+	colour = "sohlee"
+	key = "so"
+	syllables = list("fea","vea","vei","veh","vee","feh","fa","soa","su","sua","sou","se","seh","twa","twe","twi","ahm","lea","lee","nae","nah","pa","pau","fae","fai","soh","mou","ahe","ll","ea","ai","thi","hie","zei","zie","ize","ehy","uy","oya","dor","di","ja","ej")
+
+/datum/language/istketbo
+	name = "Istket'bo"
+	desc = "A subtle language commonly heard whispered on rim worlds. Speech often sounds like light wailing."
+	speech_verb = "murmurs"
+	exclaim_verb = "shrieks"
+	ask_verb = "wails"
+	whisper_verb = "spooks"
+	colour = "istketbo"
+	key = "bo"
+	syllables = list("ouo","ugg","uga","boo","bo","ix","ea","rie","ee","ien","oom","ang","ger","arv","ave","dy","ket","aul","ron","ead","gob","hob","ack","lan","bre","asm","gei","ist","oky","sku","kur","rif","oll","ire","lin","inn","ost","oo","ou")
+
+/datum/language/grynn
+	name = "Grynn"
+	desc = "A strange language found on a handful of uncivilized planets. Grynn follows a very loose grammatical pattern compared to most languages."
+	exclaim_verb = "bellows"
+	ask_verb = "rasps"
+	colour = "grynn"
+	key = "gr"
+	syllables = list("gry","gra","gru","gre","gro","gri","ynn","ivi","vi","ini","eyr","ei","esu","ou","est","ist","eh","ahe","gie","gye","yeh","eyi")
+
+/datum/language/asorian
+	name = "Asorian"
+	desc = "Asorian requires a loose tongue, and an even looser understanding of basic grammar. A sentence can make sense with its words put in any order."
+	colour = "asorian"
+	key = "as"
+	syllables = list("ploo","snar","wazz","azz","zza","zaz","zas","oft","aso","pru","via","vi","ru","uvia","oma","ash","mas","umo","ola","mol","bu","sor","ors","son","rso","on","oin","ina","nad","roi","lu","uwe","est","wes","west","di","igi","isol","iso","ore","rea","eal","alm","go","un","une","nel","eli","lin","ind","ca","azo","oo","ova","jo","abe","eri")
+
+/datum/language/isichul
+	name = "Isichul"
+	desc = "A bright language invented in the treetops of Isicoo. Utilizes a combination of rolling and clicking sounds."
+	exclaim_verb = "chirps"
+	whisper_verb = "croons"
+	colour = "isichul"
+	key = "is"
+	syllables = list("chi","i","ou","chou","coo","chu","tii","tee","e","ep","ea","lea","su","sou","osi","iss","ise","ira","aki","ack","irr","wyr","wys","su","si","in")
+
+/datum/language/kaikurik
+	name = "Kaikurik"
+	desc = "A loud, throaty language that commonly draws a lot of attention."
+	colour = "kaikurik"
+	key = "ka"
+	syllables = list("rah","rur","au","ue","gr","ba","kah","chu","uff","oo","ou","arv","rif","ack","lan","awr","ete","at","aur","ruu","eck","hue","ker","kur","ist","kai","tch","off","auf","wro","seh","fwe","soa","qua","roh")
 
 /datum/language/wryn
 	name = "Wryn Hivemind"
