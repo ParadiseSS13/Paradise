@@ -1,4 +1,4 @@
-/turf/simulated/floor/mech_bay_recharge_floor
+/turf/simulated/floor/mech_bay_recharge_floor //I'll remove this in a future PR, as it requires map changes.
 	name = "Mech Bay Recharge Station"
 	icon = 'icons/mecha/mech_bay.dmi'
 	icon_state = "recharge_floor"
@@ -20,7 +20,7 @@
 	var/obj/machinery/computer/mech_bay_power_console/recharge_console
 	var/max_charge = 50
 	var/on = 0
-	var/turf/recharging_turf = null
+	var/turf/recharging_turf = null   //this isn't the actual turf, it's just the space in front of the recharge port
 
 /obj/machinery/mech_bay_recharge_port/New()
 	..()
@@ -33,7 +33,7 @@
 	component_parts += new /obj/item/weapon/stock_parts/capacitor(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
-	recharging_turf = get_step(loc, dir) // this is new. It picks the turf based on the direction the recharger is facing by the looks of it. Still needs to be a recharge_floor
+	recharging_turf = get_step(loc, dir)
 
 /obj/machinery/mech_bay_recharge_port/upgraded/New()
 	..()
@@ -46,6 +46,7 @@
 	component_parts += new /obj/item/weapon/stock_parts/capacitor/super(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
+	recharging_turf = get_step(loc, dir)
 
 /obj/machinery/mech_bay_recharge_port/RefreshParts()
 	var/MC
@@ -65,9 +66,16 @@
 		return
 
 	if(default_deconstruction_crowbar(I))
+		recharge_console.recharge_port = null
+		recharge_console.update_icon()
 		return
 	return ..()
 
+/obj/machinery/mech_bay_recharge_port/Destroy()
+	if(recharge_console)
+		recharge_console.recharge_port = null
+		recharge_console.update_icon()
+	return ..()
 
 /obj/machinery/mech_bay_recharge_port/process()
 	if(stat & NOPOWER || !recharge_console)
@@ -86,25 +94,6 @@
 		if(recharging_mecha.loc != recharging_turf)
 			recharging_mecha = null
 			recharge_console.update_icon()
-
-
-/obj/machinery/computer/mech_bay_power_console/proc/reconnect()
-	if(recharge_port)
-		return
-	recharge_port = locate(/obj/machinery/mech_bay_recharge_port) in range(1)
-	if(!recharge_port )
-		for(var/D in cardinal)
-			var/turf/A = get_step(src, D)
-			A = get_step(A, D)
-			recharge_port = locate(/obj/machinery/mech_bay_recharge_port) in A
-			if(recharge_port)
-				break
-	if(recharge_port)
-		if(!recharge_port.recharge_console)
-			recharge_port.recharge_console = src
-		else
-			recharge_port = null
-
 
 
 /obj/machinery/computer/mech_bay_power_console
@@ -126,6 +115,31 @@
 		icon_screen = "recharge_comp_on"
 	..()
 
+/obj/machinery/computer/mech_bay_power_console/proc/reconnect()
+	if(recharge_port)
+		return
+	recharge_port = locate(/obj/machinery/mech_bay_recharge_port) in range(1)
+	if(!recharge_port)
+		for(var/D in cardinal)
+			var/turf/A = get_step(src, D)
+			A = get_step(A, D)
+			recharge_port = locate(/obj/machinery/mech_bay_recharge_port) in A
+			if(recharge_port)
+				if(!recharge_port.recharge_console)
+					break
+				else
+					recharge_port = null
+	if(recharge_port)
+		if(!recharge_port.recharge_console)
+			recharge_port.recharge_console = src
+		else
+			recharge_port = null
+
+
+/obj/machinery/computer/mech_bay_power_console/Destroy()
+	if(recharge_port)
+		recharge_port.recharge_console = null
+	return ..()
 
 /obj/machinery/computer/mech_bay_power_console/attack_hand(mob/user as mob)
 	if(..())
@@ -134,18 +148,20 @@
 
 /obj/machinery/computer/mech_bay_power_console/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	var/list/data = list()
+	if(!recharge_port)
+		reconnect()
 	if(recharge_port && !qdeleted(recharge_port))
 		data["recharge_port"] = list("mech" = null)
 		if(recharge_port.recharging_mecha && !qdeleted(recharge_port.recharging_mecha))
 			data["recharge_port"]["mech"] = list("health" = recharge_port.recharging_mecha.health, "maxhealth" = initial(recharge_port.recharging_mecha.health), "cell" = null)
 			if(recharge_port.recharging_mecha.cell && !qdeleted(recharge_port.recharging_mecha.cell))
-				data["has_mech"] = 1 //Copied
+				data["has_mech"] = 1
 				data["mecha_name"] = recharge_port.recharging_mecha || "None"
 				data["mecha_charge"] = isnull(recharge_port.recharging_mecha) ? 0 : recharge_port.recharging_mecha.cell.charge
 				data["mecha_maxcharge"] = isnull(recharge_port.recharging_mecha) ? 0 : recharge_port.recharging_mecha.cell.maxcharge
 				data["mecha_charge_percentage"] = isnull(recharge_port.recharging_mecha) ? 0 : round(recharge_port.recharging_mecha.cell.percent())
 			else
-				data["has_mech"] = 0 //Copied
+				data["has_mech"] = 0
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
 	if(!ui)
 		// the ui does not exist, so we'll create a new() one
@@ -162,3 +178,4 @@
 /obj/machinery/computer/mech_bay_power_console/initialize()
 	reconnect()
 	update_icon()
+	return ..()
