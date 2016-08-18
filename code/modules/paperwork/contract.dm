@@ -212,7 +212,7 @@
 			if(!ghost)
 				return		//handle logouts that happen whilst the alert is waiting for a response.
 		else
-			response = tgalert(target.current, "A devil is offering you another chance at life, at the price of your soul, do you accept?", "Infernal Resurrection", "Yes", "No")
+			response = alert(target.current, "A devil is offering you another chance at life, at the price of your soul, do you accept?", "Infernal Resurrection", "Yes", "No")
 		if(response == "Yes")
 			H.revive(1,0)
 			add_logs(user, H, "infernally revived via contract")
