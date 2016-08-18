@@ -1989,11 +1989,6 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 	//Head-specific
 	var/obj/item/organ/external/head/H = character.get_organ("head")
-	var/obj/item/organ/internal/eyes/eyes_organ = character.get_int_organ(/obj/item/organ/internal/eyes)
-
-	eyes_organ.eye_colour[1] = r_eyes
-	eyes_organ.eye_colour[2] = g_eyes
-	eyes_organ.eye_colour[3] = b_eyes
 
 	H.r_hair = r_hair
 	H.g_hair = g_hair
