@@ -61,7 +61,7 @@
 	return 1
 
 
-obj/effect/proc_holder/changeling/sting/transformation
+/obj/effect/proc_holder/changeling/sting/transformation
 	name = "Transformation Sting"
 	desc = "We silently sting a human, injecting a retrovirus that forces them to transform."
 	helptext = "The victim will transform much like a changeling would. The effects will be obvious to the victim, and the process will damage our genomes."
