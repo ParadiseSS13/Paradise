@@ -1493,7 +1493,7 @@ var/mob/dview/dview_mob = new
 		var/mob/living/LA = A
 		if(LA.lying)
 			return 0
-	var/goal_dir = angle2dir(dir2angle(get_dir(B,A)+180))
+	var/goal_dir = angle2dir(dir2angle(get_dir(B, A)+180))
 	var/clockwise_A_dir = get_clockwise_dir(A.dir)
 	var/anticlockwise_A_dir = get_anticlockwise_dir(B.dir)
 
