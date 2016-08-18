@@ -49,6 +49,38 @@ var/global/list/limb_icon_cache = list()
 	get_icon()
 	. = ..()
 
+/obj/item/organ/external/proc/get_icon(skeletal, fat)
+	// Kasparrov, you monster
+	if(istext(species))
+		species = all_species[species]
+	if(force_icon)
+		mob_icon = new /icon(force_icon, "[icon_name]")
+		if(species && species.name == "Machine") //snowflake for IPC's, sorry.
+			if(s_col && s_col.len >= 3)
+				mob_icon.Blend(rgb(s_col[1], s_col[2], s_col[3]), ICON_ADD)
+	else
+		var/new_icons = get_icon_state(skeletal)
+		var/icon_file = new_icons[1]
+		var/new_icon_state = new_icons[2]
+		mob_icon = new /icon(icon_file, new_icon_state)
+		if(!skeletal && !(status & ORGAN_ROBOT))
+			if(status & ORGAN_DEAD)
+				mob_icon.ColorTone(rgb(10,50,0))
+				mob_icon.SetIntensity(0.7)
+
+			if(!isnull(s_tone))
+				if(s_tone >= 0)
+					mob_icon.Blend(rgb(s_tone, s_tone, s_tone), ICON_ADD)
+				else
+					mob_icon.Blend(rgb(-s_tone,  -s_tone,  -s_tone), ICON_SUBTRACT)
+			else if(s_col && s_col.len >= 3)
+				mob_icon.Blend(rgb(s_col[1], s_col[2], s_col[3]), ICON_ADD)
+
+	dir = EAST
+	icon = mob_icon
+
+	return mob_icon
+
 /obj/item/organ/external/head/get_icon()
 
 	..()
@@ -113,51 +145,39 @@ var/global/list/limb_icon_cache = list()
 
 	return mob_icon
 
-/obj/item/organ/external/proc/get_icon(var/skeletal)
+/obj/item/organ/external/proc/get_icon_state(skeletal)
 	var/gender
-	if(istext(species))
-		species = all_species[species]
-	if(force_icon)
-		mob_icon = new /icon(force_icon, "[icon_name]")
-		if(species && species.name == "Machine") //snowflake for IPC's, sorry.
-			if(s_col && s_col.len >= 3)
-				mob_icon.Blend(rgb(s_col[1], s_col[2], s_col[3]), ICON_ADD)
+	var/icon_file
+	var/new_icon_state
+	if(!dna)
+		icon_file = 'icons/mob/human_races/r_human.dmi'
+		new_icon_state = "[icon_name][gendered_icon ? "_f" : ""]"
 	else
-		if(!dna)
-			mob_icon = new /icon('icons/mob/human_races/r_human.dmi', "[icon_name][gendered_icon ? "_f" : ""]")
-		else
-			if(gendered_icon)
-				if(dna.GetUIState(DNA_UI_GENDER))
-					gender = "f"
-				else
-					gender = "m"
-
-			if(skeletal)
-				mob_icon = new /icon('icons/mob/human_races/r_skeleton.dmi', "[icon_name][gender ? "_[gender]" : ""]")
-			else if(status & ORGAN_ROBOT)
-				mob_icon = new /icon('icons/mob/human_races/robotic.dmi', "[icon_name][gender ? "_[gender]" : ""]")
+		if(gendered_icon)
+			if(dna.GetUIState(DNA_UI_GENDER))
+				gender = "f"
 			else
-				if(status & ORGAN_MUTATED)
-					mob_icon = new /icon(species.deform, "[icon_name][gender ? "_[gender]" : ""]")
-				else
-					mob_icon = new /icon(species.icobase, "[icon_name][gender ? "_[gender]" : ""]")
+				gender = "m"
+		new_icon_state = "[icon_name][gender ? "_[gender]" : ""]"
 
-				if(status & ORGAN_DEAD)
-					mob_icon.ColorTone(rgb(10,50,0))
-					mob_icon.SetIntensity(0.7)
+		if(skeletal)
+			icon_file = 'icons/mob/human_races/r_skeleton.dmi'
+		else if(status & ORGAN_ROBOT)
+			icon_file = 'icons/mob/human_races/robotic.dmi'
+		else
+			if(status & ORGAN_MUTATED)
+				icon_file = species.deform
+			else
+				// Congratulations, you are normal
+				icon_file = species.icobase
+	return list(icon_file, new_icon_state)
 
-				if(!isnull(s_tone))
-					if(s_tone >= 0)
-						mob_icon.Blend(rgb(s_tone, s_tone, s_tone), ICON_ADD)
-					else
-						mob_icon.Blend(rgb(-s_tone,  -s_tone,  -s_tone), ICON_SUBTRACT)
-				else if(s_col && s_col.len >= 3)
-					mob_icon.Blend(rgb(s_col[1], s_col[2], s_col[3]), ICON_ADD)
+/obj/item/organ/external/chest/get_icon_state(skeletal)
+	var/result = ..()
+	if(fat && !skeletal && !(status & ORGAN_ROBOT) && (species.flags & CAN_BE_FAT))
+		result[2] += "_fat"
+	return result
 
-	dir = EAST
-	icon = mob_icon
-
-	return mob_icon
 
 // new damage icon system
 // adjusted to set damage_state to brute/burn code only (without r_name0 as before)
