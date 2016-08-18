@@ -208,11 +208,11 @@
 		var/response = "No"
 		if(ghost)
 			ghost.notify_cloning("A devil has offered you revival, at the cost of your soul.",'sound/effects/genetics.ogg', H)
-			response = tgalert(ghost, "A devil is offering you another chance at life, at the price of your soul, do you accept?", "Infernal Resurrection", "Yes", "No", "Never for this round", 0, 200)
+			response = alert(ghost, "A devil is offering you another chance at life, at the price of your soul, do you accept?", "Infernal Resurrection", "Yes", "No")
 			if(!ghost)
 				return		//handle logouts that happen whilst the alert is waiting for a response.
 		else
-			response = tgalert(target.current, "A devil is offering you another chance at life, at the price of your soul, do you accept?", "Infernal Resurrection", "Yes", "No", "Never for this round", 0, 200)
+			response = tgalert(target.current, "A devil is offering you another chance at life, at the price of your soul, do you accept?", "Infernal Resurrection", "Yes", "No")
 		if(response == "Yes")
 			H.revive(1,0)
 			add_logs(user, H, "infernally revived via contract")
@@ -242,8 +242,8 @@
 	if(!user.dna)
 		return -1
 	user.dna.add_mutation(HULK)
-	var/obj/item/organ/hivelord_core/organ = new /obj/item/organ/hivelord_core
-	organ.Insert(user)
+	var/obj/item/organ/internal/hivelord_core/organ = new /obj/item/organ/internal/hivelord_core
+	organ.insert(user)
 	return ..()
 
 /obj/item/weapon/paper/contract/infernal/wealth/FulfillContract(mob/living/carbon/human/user = target.current, blood = 0)

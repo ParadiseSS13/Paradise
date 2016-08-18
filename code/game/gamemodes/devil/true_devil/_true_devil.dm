@@ -26,7 +26,7 @@
 	internal_organs += new /obj/item/organ/brain/
 	for(var/X in internal_organs)
 		var/obj/item/organ/I = X
-		I.Insert(src)
+		I.insert(src)
 	..()
 
 
@@ -154,9 +154,6 @@
 		return
 	else
 		return ..()
-
-/mob/living/carbon/true_devil/can_be_revived()
-	return 1
 
 /mob/living/carbon/true_devil/resist_fire()
 	//They're immune to fire.

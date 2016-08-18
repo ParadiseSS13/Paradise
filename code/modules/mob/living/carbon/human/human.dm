@@ -2154,7 +2154,11 @@
 			O = new /datum/objective/sintouched/pride
 	ticker.mode.sintouched += src.mind
 	src.mind.objectives += O
-	src.mind.announce_objectives()
+	var/obj_count = 1
+	to_chat(src, "\blue Your current objectives:")
+	for(var/datum/objective/objective in src.mind.objectives)
+		to_chat(src, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
+		obj_count++
 
 /mob/living/carbon/human/is_literate()
 	return brainloss<=100
