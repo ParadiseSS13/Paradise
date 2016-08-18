@@ -212,10 +212,15 @@
 /obj/docking_port/mobile/New()
 	..()
 
+
+
+
+/obj/docking_port/mobile/initialize()
+	var/area/A = get_area(src)
+
 	if(!timid)
 		register()
 
-	var/area/A = get_area(src)
 	if(istype(A, /area/shuttle))
 		areaInstance = A
 
@@ -227,6 +232,7 @@
 	#ifdef DOCKING_PORT_HIGHLIGHT
 	highlight("#0f0")
 	#endif
+	..()
 
 /obj/docking_port/mobile/register()
 	if(!shuttle_master)
@@ -245,6 +251,9 @@
 /obj/docking_port/mobile/Destroy()
 	if(i_know_what_im_doing)
 		shuttle_master.mobile -= src
+		areaInstance = null
+		destination = null
+		previous = null
 	. = ..()
 
 //this is a hook for custom behaviour. Maybe at some point we could add checks to see if engines are intact
