@@ -1,0 +1,7 @@
+author: Crazylemon
+delete-after: True
+changes: 
+  - rscadd: "Adds `json_to_object_arbitrary_vars`, a proc intended for use with SDQL"
+  - tweak: "Eye color is tracked on the eyes only, instead of on the body."
+  - bugfix: "The CMA panel no longer runtimes when you change species."
+  - bugfix: "Deserializing a human now preserves hair and eyes."
