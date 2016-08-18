@@ -165,6 +165,12 @@
 
 #define MAX_STACK_SIZE 50
 
+//check_target_facings() return defines
+#define FACING_FAILED											0
+#define FACING_SAME_DIR											1
+#define FACING_EACHOTHER										2
+#define FACING_INIT_FACING_TARGET_TARGET_FACING_PERPENDICULAR	3 //Do I win the most informative but also most stupid define award?
+
 //unmagic-strings for types of polls
 #define POLLTYPE_OPTION		"OPTION"
 #define POLLTYPE_TEXT		"TEXT"
