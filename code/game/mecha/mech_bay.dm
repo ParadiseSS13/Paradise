@@ -66,8 +66,6 @@
 		return
 
 	if(default_deconstruction_crowbar(I))
-		recharge_console.recharge_port = null
-		recharge_console.update_icon()
 		return
 	return ..()
 
