@@ -16,7 +16,7 @@
 	a_intent = "harm"
 	stop_automated_movement = 1
 	status_flags = CANPUSH
-	attack_sound = 'sound/magic/demon_attack1.ogg'
+	attack_sound = 'sound/misc/demon_attack1.ogg'
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 250 //Weak to cold
 	maxbodytemp = INFINITY
@@ -48,7 +48,7 @@
 
 /mob/living/simple_animal/imp/death()
 	..(1)
-	playsound(get_turf(src),'sound/magic/demon_dies.ogg', 200, 1)
+	playsound(get_turf(src),'sound/misc/demon_dies.ogg', 200, 1)
 	visible_message("<span class='danger'>[src] screams in agony as it sublimates into a sulfurous smoke.</span>")
 	ghostize()
 	qdel(src)

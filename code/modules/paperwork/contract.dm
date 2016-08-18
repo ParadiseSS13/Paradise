@@ -241,7 +241,7 @@
 /obj/item/weapon/paper/contract/infernal/power/FulfillContract(mob/living/carbon/human/user = target.current, blood = 0)
 	if(!user.dna)
 		return -1
-	user.dna.add_mutation(HULK)
+	user.mutations.Add(HULK)
 	var/obj/item/organ/internal/hivelord_core/organ = new /obj/item/organ/internal/hivelord_core
 	organ.insert(user)
 	return ..()
@@ -291,6 +291,6 @@
 /obj/item/weapon/paper/contract/infernal/knowledge/FulfillContract(mob/living/carbon/human/user = target.current, blood = 0)
 	if(!istype(user) || !user.mind)
 		return -1
-	user.dna.add_mutation(XRAY)
+	user.mutations.Add(XRAY)
 	user.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/view_range(null))
 	return ..()
