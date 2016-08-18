@@ -47,7 +47,7 @@ var/global/list/limb_icon_cache = list()
 
 /obj/item/organ/external/head/remove()
 	get_icon()
-	..()
+	. = ..()
 
 /obj/item/organ/external/head/get_icon()
 

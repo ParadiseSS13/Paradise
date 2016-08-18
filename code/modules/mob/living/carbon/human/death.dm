@@ -12,13 +12,15 @@
 		animation.master = src
 
 		playsound(src.loc, 'sound/goonstation/effects/gib.ogg', 50, 1)
+	else
+		playsound(src.loc, 'sound/goonstation/effects/robogib.ogg', 50, 1)
 
 	for(var/obj/item/organ/internal/I in internal_organs)
 		if(isturf(loc))
-			I.remove(src)
-			I.forceMove(get_turf(src))
+			var/atom/movable/thing = I.remove(src)
+			thing.forceMove(get_turf(src))
 			spawn()
-				I.throw_at(get_edge_target_turf(src,pick(alldirs)),rand(1,3),5)
+				thing.throw_at(get_edge_target_turf(src,pick(alldirs)),rand(1,3),5)
 
 	for(var/obj/item/organ/external/E in src.organs)
 		if(istype(E, /obj/item/organ/external/chest))

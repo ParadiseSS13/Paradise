@@ -85,7 +85,7 @@
 
 /obj/item/organ/external/foot/remove()
 	if(owner.shoes) owner.unEquip(owner.shoes)
-	..()
+	. = ..()
 
 /obj/item/organ/external/foot/right
 	limb_name = "r_foot"
@@ -116,7 +116,7 @@
 	if(owner.r_hand)
 		owner.unEquip(owner.r_hand,1)
 
-	..()
+	. = ..()
 
 /obj/item/organ/external/hand/right
 	limb_name = "r_hand"
@@ -178,7 +178,7 @@
 			if(owner)//runtimer no runtiming
 				owner.update_hair()
 				owner.update_fhair()
-	..()
+	. = ..()
 
 /obj/item/organ/external/head/replaced()
 	name = limb_name

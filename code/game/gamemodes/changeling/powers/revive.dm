@@ -51,7 +51,6 @@
 			O.number_wounds = 0
 			O.open = 0
 			O.perma_injury = 0
-			O.stage = 0
 			O.status = 0
 			O.trace_chemicals = list()
 			O.wounds = list()

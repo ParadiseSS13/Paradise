@@ -15,6 +15,11 @@
 		insert(holder)
 	..()
 
+/obj/item/organ/internal/Destroy()
+	if(owner)
+		remove(owner, 1)
+	return ..()
+
 /obj/item/organ/internal/proc/insert(mob/living/carbon/M, special = 0, var/dont_remove_slot = 0)
 	if(!iscarbon(M) || owner == M)
 		return
@@ -43,7 +48,9 @@
 		var/datum/action/A = X
 		A.Grant(M)
 
-
+// Removes the given organ from its owner.
+// Returns the removed object, which is usually just itself
+// However, you MUST set the object's positiion yourself when you call this!
 /obj/item/organ/internal/remove(mob/living/carbon/M, special = 0)
 	owner = null
 	if(M)
@@ -63,7 +70,7 @@
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.Remove(M)
-
+	return src
 
 /obj/item/organ/internal/replaced(var/mob/living/carbon/human/target,var/obj/item/organ/external/affected)
     insert(target)
@@ -78,11 +85,6 @@
 /obj/item/organ/internal/proc/on_life()
 	return
 
-/obj/item/organ/internal/Destroy()
-	if(owner)
-		remove(owner, 1)
-	return ..()
-
 /obj/item/organ/internal/proc/prepare_eat()
 	if(status == ORGAN_ROBOT)
 		return //no eating cybernetic implants!
@@ -95,6 +97,12 @@
 	S.w_class = w_class
 
 	return S
+
+/obj/item/organ/internal/attempt_become_organ(obj/item/organ/external/parent,mob/living/carbon/human/H)
+	if(parent_organ != parent.limb_name)
+		return 0
+	insert(H)
+	return 1
 
 /obj/item/weapon/reagent_containers/food/snacks/organ
 	name = "appendix"
@@ -149,7 +157,7 @@
 		icon_state = "[icon_base]-off"
 
 /obj/item/organ/internal/heart/remove(mob/living/carbon/M, special = 0)
-	..()
+	. = ..()
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		if(H.stat == DEAD || H.heart_attack)
@@ -279,7 +287,7 @@
 ///obj/item/organ/internal/lungs/remove(mob/living/carbon/M, special = 0)
 //	owner.losebreath += 10
 	//insert oxy damage extream here.
-//	..()
+//	. = ..()
 
 
 /obj/item/organ/internal/lungs/process()
@@ -427,7 +435,7 @@
 		A.cure()
 		inflamed = 1
 	update_icon()
-	..()
+	. = ..()
 
 /obj/item/organ/internal/appendix/insert(mob/living/carbon/M, special = 0)
 	..()
@@ -499,7 +507,7 @@
 	organhonked = world.time
 
 /obj/item/organ/internal/honktumor/remove(mob/living/carbon/M, special = 0)
-	..()
+	. = ..()
 
 	M.mutations.Remove(CLUMSY)
 	M.mutations.Remove(COMICBLOCK)
@@ -552,7 +560,7 @@
 /obj/item/organ/internal/honktumor/cursed
 
 /obj/item/organ/internal/honktumor/cursed/remove(mob/living/carbon/M, special = 0, clean_remove = 0)
-	..()
+	. = ..()
 	if(!clean_remove)
 		visible_message("<span class='warning'>[src] vanishes into dust, and a [M] emits a loud honk!</span>", "<span class='notice'>You hear a loud honk.</span>")
 		insert(M) //You're not getting away that easily!
