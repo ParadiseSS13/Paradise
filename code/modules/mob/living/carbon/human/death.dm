@@ -62,10 +62,6 @@
 
 	flick("dust-h", animation)
 	new species.remains_type(get_turf(src))
-	if(isSynthetic())
-		var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
-		s.set_up(3, 1, src)
-		s.start()
 
 	spawn(15)
 		if(animation)	qdel(animation)
