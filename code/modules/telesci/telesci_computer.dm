@@ -1,45 +1,32 @@
 /obj/machinery/computer/telescience
 	name = "telepad control console"
-	desc = "Used to teleport objects to and from the telescience telepad."
+	desc = "Used to teleport objects to and from the telepad."
 	icon_keyboard = "telesci_key"
 	icon_screen = "telesci"
 	circuit = /obj/item/weapon/circuitboard/telesci_console
 	req_access = list(access_research)
 	var/sending = 1
 	var/obj/machinery/telepad/telepad = null
-	var/temp_msg = "Telescience control console initialized.<BR>Welcome."
+	var/temp_msg = "Telepad control console initialized.<BR>Welcome."
 
 	// VARIABLES //
-	var/teles_left	// How many teleports left until it becomes uncalibrated
-	var/datum/projectile_data/last_tele_data = null
-	var/z_co = 1
-	var/power_off
-	var/rotation_off
-	//var/angle_off
-	var/last_target
-
-	var/rotation = 0
-	var/angle = 45
-	var/power = 5
+	var/atom/movable/scan_target
+	var/atom/movable/locked_target
+	var/screen = 0
+	var/list/usage_logs = list()
 
 	// Based on the power used
 	var/teleport_cooldown = 0 // every index requires a bluespace crystal
-	var/list/power_options = list(5, 10, 20, 25, 30, 40, 50, 80)
 	var/teleporting = 0
 	var/starting_crystals = 0
 	var/max_crystals = 4
 	var/list/crystals = list()
-	var/obj/item/device/gps/inserted_gps
 
 /obj/machinery/computer/telescience/New()
 	..()
-	recalibrate()
 
 /obj/machinery/computer/telescience/Destroy()
 	eject()
-	if(inserted_gps)
-		inserted_gps.loc = loc
-		inserted_gps = null
 	return ..()
 
 /obj/machinery/computer/telescience/examine(mob/user)
@@ -61,13 +48,6 @@
 		W.loc = null
 		user.visible_message("<span class='notice'>[user] inserts [W] into \the [src]'s crystal slot.</span>")
 		updateUsrDialog()
-	else if(istype(W, /obj/item/device/gps))
-		if(!inserted_gps)
-			inserted_gps = W
-			user.unEquip(W)
-			W.loc = src
-			user.visible_message("<span class='notice'>[user] inserts [W] into \the [src]'s GPS device slot.</span>")
-			updateUsrDialog()
 	else if(istype(W, /obj/item/device/multitool))
 		var/obj/item/device/multitool/M = W
 		if(M.buffer && istype(M.buffer, /obj/machinery/telepad))
@@ -85,315 +65,325 @@
 	else
 		to_chat(user, "\red The machine seems unaffected by the card swipe...")
 
+/obj/machinery/computer/telescience/proc/check_target_sanity()
+	if(scan_target)
+		if(!is_valid_scantarget(scan_target))
+			scan_target = null
+			if(screen == 2)
+				screen = 0
+	if(locked_target)
+		if(!scan_target)
+			locked_target = null
+		if(locked_target == scan_target)
+			return
+		if(!(locked_target in view(crystals.len, get_turf(scan_target))))
+			locked_target = null
+
 /obj/machinery/computer/telescience/attack_ai(mob/user)
 	src.attack_hand(user)
 
 /obj/machinery/computer/telescience/attack_hand(mob/user)
 	if(..())
 		return
-	interact(user)
+	ui_interact(user)
 
-/obj/machinery/computer/telescience/interact(mob/user)
+/obj/machinery/computer/telescience/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/topic_state/state = default_state)
 	user.set_machine(src)
-	var/t
-	if(!telepad)
-		in_use = 0     //Yeah so if you deconstruct teleporter while its in the process of shooting it wont disable the console
-		t += "<div class='statusDisplay'>No telepad located. <BR>Please add telepad data.</div><BR>"
+	var/list/data = list()
+	
+	check_target_sanity()
+	// Suit sensors data.
+	data["isAI"] = isAI(user)
+	data["crewmembers"] = crew_repository.health_data(get_turf(src))
+	data["z"] = z
+	data["screen"] = screen
+	data["temp_msg"] = temp_msg
+	if(locked_target)
+		data["locked_target"] = locked_target.name
+		var/turf/T = get_turf(locked_target)
+		data["locked_target_area"] = T.loc.name
+		data["locked_target_x"] = T.x
+		data["locked_target_y"] = T.y
 	else
-		if(inserted_gps)
-			t += "<A href='?src=\ref[src];ejectGPS=1'>Eject GPS</A>"
-			t += "<A href='?src=\ref[src];setMemory=1'>Set GPS memory</A>"
-		else
-			t += "<span class='linkOff'>Eject GPS</span>"
-			t += "<span class='linkOff'>Set GPS memory</span>"
-		t += "<div class='statusDisplay'>[temp_msg]</div><BR>"
-		t += "<A href='?src=\ref[src];setrotation=1'>Set Bearing</A>"
-		t += "<div class='statusDisplay'>[rotation] degrees</div>"
-		t += "<A href='?src=\ref[src];setangle=1'>Set Elevation</A>"
-		t += "<div class='statusDisplay'>[angle] degrees</div>"
-		t += "<span class='linkOn'>Set Power</span>"
-		t += "<div class='statusDisplay'>"
-
-		for(var/i = 1; i <= power_options.len; i++)
-			if(crystals.len + telepad.efficiency  < i)
-				t += "<span class='linkOff'>[power_options[i]]</span>"
+		data["locked_target"] = null
+	
+	if(screen == 3)
+		data["usage_logs"] = usage_logs
+	
+	data["telepad"] = telepad ? 1 : 0
+	data["crystals_len"] = crystals.len
+	
+	if(scan_target && screen == 2)
+		var/list/targets_list = list()
+		data["scanned_objects"] = targets_list
+		var/turf/T2 = get_turf(scan_target)
+		for(var/atom/movable/A in view(crystals.len, T2)) // get_turf so that giving your metabuddy xray doesn't make stealing the CE's shit easy.
+			if(A.anchored || A.invisibility)
 				continue
-			if(power == power_options[i])
-				t += "<span class='linkOn'>[power_options[i]]</span>"
+			var/turf/T = get_turf(A)
+			targets_list[++targets_list.len] = list("name" = A.name, "id" = "\ref[A]", "x" = T.x, "y" = T.y, "offset_x" = T2.x-T.x, "offset_y" = T2.y-T.y, "area" = "[get_area(A)]")
+	
+	var/list/beacons_list = list()
+	var/list/areaindex = list()
+	data["beacons"] = beacons_list
+	for(var/obj/item/device/radio/beacon/R in beacons)
+		var/turf/T = get_turf(R)
+		if(!is_valid_scantarget(R))
+			continue
+		var/tmpname = T.loc.name
+		if(areaindex[tmpname])
+			tmpname = "[tmpname] ([++areaindex[tmpname]])"
+		else
+			areaindex[tmpname] = 1
+		beacons_list[++beacons_list.len] = list("area_name" = tmpname, "id" = "\ref[R]", "name" = R.name, "x" = T.x, "y" = T.y, "z" = T.z)
+
+	for(var/obj/item/weapon/implant/tracking/I in tracked_implants)
+		if(!I.implanted || !ismob(I.loc))
+			continue
+		else
+			if(!is_valid_scantarget(I))
 				continue
-			t += "<A href='?src=\ref[src];setpower=[i]'>[power_options[i]]</A>"
-		t += "</div>"
-
-		t += "<A href='?src=\ref[src];setz=1'>Set Sector</A>"
-		t += "<div class='statusDisplay'>[z_co ? z_co : "NULL"]</div>"
-
-		t += "<BR><A href='?src=\ref[src];send=1'>Send</A>"
-		t += " <A href='?src=\ref[src];receive=1'>Receive</A>"
-		t += "<BR><A href='?src=\ref[src];recal=1'>Recalibrate Crystals</A> <A href='?src=\ref[src];eject=1'>Eject Crystals</A>"
-
-		// Information about the last teleport
-		t += "<BR><div class='statusDisplay'>"
-		if(!last_tele_data)
-			t += "No teleport data found."
-		else
-			t += "Source Location: ([last_tele_data.src_x], [last_tele_data.src_y])<BR>"
-			//t += "Distance: [round(last_tele_data.distance, 0.1)]m<BR>"
-			t += "Time: [round(last_tele_data.time, 0.1)] secs<BR>"
-		t += "</div>"
-
-	var/datum/browser/popup = new(user, "telesci", name, 300, 500)
-	popup.set_content(t)
-	popup.open()
-	return
-
-/obj/machinery/computer/telescience/proc/sparks()
-	if(telepad)
-		var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
-		s.set_up(5, 1, get_turf(telepad))
-		s.start()
-	else
-		return
-
-/obj/machinery/computer/telescience/proc/telefail()
-	sparks()
-	visible_message("<span class='warning'>The telepad weakly fizzles.</span>")
-	return
-
-/obj/machinery/computer/telescience/proc/doteleport(mob/user)
-
-	if(teleport_cooldown > world.time)
-		temp_msg = "Telepad is recharging power.<BR>Please wait [round((teleport_cooldown - world.time) / 10)] seconds."
-		return
-
-	if(teleporting)
-		temp_msg = "Telepad is in use.<BR>Please wait."
-		return
-
-	if(telepad)
-
-		var/truePower = Clamp(power + power_off, 1, 1000)
-		var/trueRotation = rotation + rotation_off
-		var/trueAngle = Clamp(angle, 1, 90)
-
-		var/datum/projectile_data/proj_data = projectile_trajectory(telepad.x, telepad.y, trueRotation, trueAngle, truePower)
-		last_tele_data = proj_data
-
-		var/trueX = Clamp(round(proj_data.dest_x, 1), 1, world.maxx)
-		var/trueY = Clamp(round(proj_data.dest_y, 1), 1, world.maxy)
-		var/spawn_time = round(proj_data.time) * 10
-
-		var/turf/target = locate(trueX, trueY, z_co)
-		last_target = target
-		var/area/A = get_area(target)
-		flick("pad-beam", telepad)
-
-		if(spawn_time > 15) // 1.5 seconds
-			playsound(telepad.loc, 'sound/weapons/flash.ogg', 25, 1)
-			// Wait depending on the time the projectile took to get there
-			teleporting = 1
-			temp_msg = "Powering up bluespace crystals.<BR>Please wait."
-
-
-		spawn(round(proj_data.time) * 10) // in seconds
-			if(!telepad)
-				return
-			if(telepad.stat & NOPOWER)
-				return
-			teleporting = 0
-			teleport_cooldown = world.time + (power * 2)
-			teles_left -= 1
-
-			// use a lot of power
-			use_power(power * 10)
-
-			var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
-			s.set_up(5, 1, get_turf(telepad))
-			s.start()
-
-			temp_msg = "Teleport successful.<BR>"
-			if(teles_left < 10)
-				temp_msg += "<BR>Calibration required soon."
+			var/mob/M = I.loc
+			var/tmpname = M.real_name
+			if(areaindex[tmpname])
+				tmpname = "[tmpname] ([++areaindex[tmpname]])"
 			else
-				temp_msg += "Data printed below."
+				areaindex[tmpname] = 1
+			beacons_list[++beacons_list.len] = list("area_name" = tmpname, "id" = "\ref[I]", "name" = M.name, "x" = T.x, "y" = T.y, "z" = T.z)
+	
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "telesci.tmpl", "Telepad Control", 900, 800)
+		ui.add_template("mapContent", "telesci_map_content.tmpl")
+		ui.add_template("mapHeader", "telesci_map_header.tmpl")
+		ui.set_initial_data(data)
+		ui.open()
+		ui.set_auto_update(1)
 
-			var/sparks = get_turf(target)
-			var/datum/effect/system/spark_spread/y = new /datum/effect/system/spark_spread
-			y.set_up(5, 1, sparks)
-			y.start()
-
-			var/turf/source = target
-			var/turf/dest = get_turf(telepad)
-			var/log_msg = ""
-			log_msg += ": [key_name(user)] has teleported "
-
-			if(sending)
-				source = dest
-				dest = target
-
-			flick("pad-beam", telepad)
-			playsound(telepad.loc, 'sound/weapons/emitter2.ogg', 25, 1, extrarange = 3, falloff = 5)
-			for(var/atom/movable/ROI in source)
-				// if is anchored, don't let through
-				if(ROI.anchored)
-					if(isliving(ROI))
-						var/mob/living/L = ROI
-						if(L.buckled)
-							// TP people on office chairs
-							if(L.buckled.anchored)
-								continue
-
-							log_msg += "[key_name(L)] (on a chair), "
-						else
-							continue
-					else if(!isobserver(ROI))
-						continue
-				if(ismob(ROI))
-					var/mob/T = ROI
-					log_msg += "[key_name(T)], "
-				else
-					log_msg += "[ROI.name]"
-					if(istype(ROI, /obj/structure/closet))
-						var/obj/structure/closet/C = ROI
-						log_msg += " ("
-						for(var/atom/movable/Q as mob|obj in C)
-							if(ismob(Q))
-								log_msg += "[key_name(Q)], "
-							else
-								log_msg += "[Q.name], "
-						if(dd_hassuffix(log_msg, "("))
-							log_msg += "empty)"
-						else
-							log_msg = dd_limittext(log_msg, length(log_msg) - 2)
-							log_msg += ")"
-					log_msg += ", "
-				do_teleport(ROI, dest)
-
-			if(dd_hassuffix(log_msg, ", "))
-				log_msg = dd_limittext(log_msg, length(log_msg) - 2)
-			else
-				log_msg += "nothing"
-			log_msg += " [sending ? "to" : "from"] [trueX], [trueY], [z_co] ([A ? A.name : "null area"])"
-			investigate_log(log_msg, "telesci")
-			updateUsrDialog()
-
-/obj/machinery/computer/telescience/proc/teleport(mob/user)
-	if(rotation == null || angle == null || z_co == null)
-		temp_msg = "ERROR!<BR>Set a angle, rotation and sector."
-		return
-	if(power <= 0)
-		telefail()
-		temp_msg = "ERROR!<BR>No power selected!"
-		return
-	if(angle < 1 || angle > 90)
-		telefail()
-		temp_msg = "ERROR!<BR>Elevation is less than 1 or greater than 90."
-		return
-	if(z_co == 2 || z_co < 1 || z_co > 6)
-		if(z_co == 7 & emagged == 1)
-		// This should be empty, allows for it to continue if the z-level is 7 and the machine is emagged.
-		else
-			telefail()
-			temp_msg = "ERROR! Sector is less than 1, <BR>greater than [src.emagged ? "7" : "6"], or equal to 2."
-			return
-
-
-	var/truePower = Clamp(power + power_off, 1, 1000)
-	var/trueRotation = rotation + rotation_off
-	var/trueAngle = Clamp(angle, 1, 90)
-
-	var/datum/projectile_data/proj_data = projectile_trajectory(telepad.x, telepad.y, trueRotation, trueAngle, truePower)
-	var/turf/target = locate(Clamp(round(proj_data.dest_x, 1), 1, world.maxx), Clamp(round(proj_data.dest_y, 1), 1, world.maxy), z_co)
-	var/area/A = get_area(target)
-
-	if(A.tele_proof == 1)
-		telefail()
-		temp_msg = "ERROR! Target destination unreachable due to interference."
-		return
-
-	if(teles_left > 0)
-		doteleport(user)
-	else
-		telefail()
-		temp_msg = "ERROR!<BR>Calibration required."
-		return
-	return
+/obj/machinery/computer/telescience/proc/is_valid_scantarget(var/atom/movable/O)
+	var/turf/T = get_turf(O)
+	if(istype(O, /obj/item/device/radio/beacon))
+		var/obj/item/device/radio/beacon/R = O
+		if(!T)
+			return 0
+		if((T.z in config.admin_levels) || T.z > 7)
+			return 0
+		if(R.syndicate == 1 && emagged == 0)
+			return 0
+		return 1
+	if(istype(O, /obj/item/weapon/implant/tracking))
+		var/obj/item/weapon/implant/tracking/I
+		var/mob/M = I.loc
+		if(M.stat == 2)
+			if(M.timeofdeath + 6000 < world.time)
+				return 0
+		if(!T)
+			return 0
+		if((T.z in config.admin_levels))
+			return 0
+		return 1
+	if(istype(O, /mob/living/carbon/human))
+		var/mob/living/carbon/human/H = O
+		var/obj/item/clothing/under/C = H.w_uniform
+		if(!istype(C) || !C.has_sensor)
+			return 0
+		if(C.sensor_mode < 3)
+			return 0
+		return 1
+	return 0
 
 /obj/machinery/computer/telescience/proc/eject()
-
 	for(var/obj/item/I in crystals)
 		I.loc = loc
 		I.pixel_y = -9
 		crystals -= I
-	power = 0
+
+/obj/machinery/computer/telescience/proc/teleport(var/direction)
+	if(world.time < teleport_cooldown)
+		temp_msg = "Please wait another [(teleport_cooldown - world.time)/10] seconds before teleporting."
+		return
+	teleport_cooldown = world.time + 100
+	var/turf/source
+	var/turf/dest
+	if(direction)
+		source = get_turf(telepad)
+		dest = get_turf(locked_target)
+	else
+		source = get_turf(locked_target)
+		dest = get_turf(telepad)
+	
+	var/log_msg = ": [key_name(usr)] has teleported "
+	var/int_log_msg = "[usr] has teleported "
+	
+	for(var/atom/movable/A in source)
+		if(A.anchored)
+			if(isliving(A))
+				var/mob/living/L = A
+				if(L.buckled)
+					if(L.buckled.anchored)
+						continue
+					log_msg += "[key_name(L)] (on a chair), "
+					int_log_msg += "[L], "
+				else
+					continue
+			else if(!isobserver(A))
+				continue
+		if(ismob(A))
+			log_msg += "[key_name(A)]"
+			int_log_msg += "[A]"
+		else
+			log_msg += "\the [A]"
+			int_log_msg += "\the [A]"
+			if(istype(A, /obj/structure/closet))
+				log_msg += " ("
+				for(var/atom/movable/Q in A)
+					if(ismob(Q))
+						log_msg += "[key_name(Q)]"
+					else
+						log_msg += "\the [Q]"
+				if(dd_hassuffix(log_msg, "("))
+					log_msg += "empty)"
+				else
+					log_msg = dd_limittext(log_msg, length(log_msg) - 2)
+					log_msg += ", "
+			log_msg += ", "
+			int_log_msg += ", "
+		teleport_object(A, dest)
+	if(dd_hassuffix(log_msg, ", "))
+		log_msg = dd_limittext(log_msg, length(log_msg) - 2)
+		int_log_msg = dd_limittext(int_log_msg, length(int_log_msg) - 2)
+	else
+		log_msg += "nothing"
+		int_log_msg += "nothing"
+	var/turf/T = get_turf(locked_target)
+	log_msg += " [direction ? "to" : "from"] [T.x], [T.y], [T.z] ([T.loc])"
+	int_log_msg += " [direction ? "to" : "from"] [T.x], [T.y], [T.z] ([T.loc])"
+	investigate_log(log_msg, "telesci")
+	usage_logs += int_log_msg
+	temp_msg = "Teleport complete."
+	return
+
+/obj/machinery/computer/telescience/proc/teleport_object(atom/movable/A, turf/dest)
+	var/icon/flat_icon = getFlatIcon(A)
+	var/icon/appear_icon = icon('icons/effects/teleport.dmi', "appear")
+	var/icon/appear_icon_tmp = icon(flat_icon)
+	appear_icon.Blend(appear_icon_tmp, ICON_MULTIPLY)
+	
+	var/icon/disappear_icon = icon('icons/effects/teleport.dmi', "disappear")
+	var/icon/disappear_icon_tmp = icon(flat_icon)
+	disappear_icon.Blend(disappear_icon_tmp, ICON_MULTIPLY)
+	
+	var/icon/blink_icon = icon('icons/effects/teleport.dmi', "blink")
+	var/icon/blink_icon_tmp = icon(flat_icon)
+	blink_icon_tmp.MapColors(0, 0, 0, 0,  0, 0, 0, 0,  0, 0, 0, 0,  1, 1, 1, 1,  0, 0, 0, 0)
+	blink_icon.Blend(blink_icon_tmp, ICON_MULTIPLY)
+	
+	var/obj/effect/teleport_blink/from_blink = new(get_turf(A))
+	from_blink.invisibility = A.invisibility
+	spawn()
+		from_blink.do_blink(blink_icon, disappear_icon, 0)
+	var/obj/effect/teleport_blink/to_blink = new(dest)
+	to_blink.invisibility = A.invisibility
+	to_blink.reset_turf = get_turf(A)
+	A.forceMove(to_blink)
+	spawn()
+		to_blink.do_blink(blink_icon, appear_icon, 1)
+
+/obj/effect/teleport_blink
+	unacidable = 1
+	anchored = 1
+	density = 0
+	var/turf/reset_turf
+
+/obj/effect/teleport_blink/proc/do_blink(icon/blink_icon, icon/transition_icon, var/appear)
+	icon = blink_icon
+	if(!appear)
+		flick(transition_icon, src)
+	sleep(80)
+	for(var/atom/movable/A in contents)
+		A.forceMove(loc)
+		if(ismob(A))
+			var/mob/M = A
+			M.reset_view() // Prevent screen from flashing black
+		if(appear)
+			flick(transition_icon, A)
+	qdel(src)
+
+/obj/effect/teleport_blink/container_resist(mob/living/M)
+	if(!reset_turf)
+		return
+	if(prob(50))
+		to_chat(M, "<span class='warning'>You resist the teleportation!</span>")
+		visible_message("<span class='warning'>The teleport beam collapses!</span>")
+		M.forceMove(reset_turf)
+		M.adjustToxLoss(15) // A bit of toxins damage.
+		M.reset_view()
+		qdel(src)
+	else
+		to_chat(M, "<span class='danger'>You fail to resist the teleportation!</span>")
+		visible_message("<span class='notice'>The teleport beam flickers for a moment.</span>")
+		M.adjustToxLoss(15)
+
+/obj/effect/teleport_blink/Destroy()
+	if(contents.len)
+		return QDEL_HINT_LETMELIVE
+	else
+		return ..()
+
+/obj/effect/teleport_blink/singularity_pull()
+	return
+
+/obj/effect/teleport_blink/singularity_act()
+	return 0
 
 /obj/machinery/computer/telescience/Topic(href, href_list)
 	if(..())
 		return
-	if(!telepad)
-		updateUsrDialog()
-		return
-	if(telepad.panel_open)
-		temp_msg = "Telepad undergoing physical maintenance operations."
-
-	if(href_list["setrotation"])
-		var/new_rot = input("Please input desired bearing in degrees.", name, rotation) as num
-		if(..()) // Check after we input a value, as they could've moved after they entered something
-			return
-		rotation = Clamp(new_rot, -900, 900)
-		rotation = round(rotation, 0.01)
-
-	if(href_list["setangle"])
-		var/new_angle = input("Please input desired elevation in degrees.", name, angle) as num
-		if(..())
-			return
-		angle = Clamp(round(new_angle, 0.1), 1, 9999)
-
-	if(href_list["setpower"])
-		var/index = href_list["setpower"]
-		index = text2num(index)
-		if(index != null && power_options[index])
-			if(crystals.len + telepad.efficiency >= index)
-				power = power_options[index]
-
-	if(href_list["setz"])
-		var/new_z = input("Please input desired sector.", name, z_co) as num
-		if(..())
-			return
-		z_co = Clamp(round(new_z), 1, 10)
-
-	if(href_list["ejectGPS"])
-		if(inserted_gps)
-			usr.put_in_hands(inserted_gps)
-			inserted_gps = null
-
-	if(href_list["setMemory"])
-		if(last_target && inserted_gps)
-			inserted_gps.locked_location = last_target
-			temp_msg = "Location saved."
-		else
-			temp_msg = "ERROR!<BR>No data was stored."
-
-	if(href_list["send"])
-		sending = 1
-		teleport(usr)
-
-	if(href_list["receive"])
-		sending = 0
-		teleport(usr)
-
-	if(href_list["recal"])
-		recalibrate()
-		sparks()
-		temp_msg = "NOTICE:<BR>Calibration successful."
+	
+	check_target_sanity()
 
 	if(href_list["eject"])
 		eject()
-		temp_msg = "NOTICE:<BR>Bluespace crystals ejected."
+		temp_msg = "NOTICE: Bluespace crystals ejected."
+	if(href_list["map_select"])
+		var/atom/movable/A = locate(href_list["map_select"])
+		if(!is_valid_scantarget(A))
+			return
+		var/action = input("Select action:", "Telepad Control") as null|anything in list("Scan Nearby", "Lock Target")
+		if(!is_valid_scantarget(A) || !action)
+			return
+		if(action == "Scan Nearby")
+			scan_target = A
+			screen = 2
+		else
+			scan_target = A
+			locked_target = A
+	if(href_list["scan"])
+		var/atom/movable/A = locate(href_list["scan"])
+		if(!is_valid_scantarget(A))
+			return
+		scan_target = A
+		screen = 2
+	if(href_list["lock"])
+		var/atom/movable/A = locate(href_list["lock"])
+		if(!is_valid_scantarget(A) && (!is_valid_scantarget(scan_target) || !(A in view(crystals.len, get_turf(scan_target)))))
+			return
+		if(is_valid_scantarget(A))
+			scan_target = A
+		locked_target = A
+		screen = 0
+	if(href_list["screen"])
+		screen = text2num(href_list["screen"])
+	
+	if(!telepad)
+		nanomanager.update_uis(src)
+		return
+	
+	if(href_list["send"])
+		teleport(1)
+	if(href_list["receive"])
+		teleport(0)
+	if(href_list["eject"])
+		eject()
 
-	updateUsrDialog()
-
-/obj/machinery/computer/telescience/proc/recalibrate()
-	teles_left = rand(30, 40)
-	//angle_off = rand(-25, 25)
-	power_off = rand(-4, 0)
-	rotation_off = rand(-10, 10)
+	. = 1

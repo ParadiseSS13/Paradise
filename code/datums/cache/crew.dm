@@ -33,6 +33,7 @@ var/global/datum/repository/crew/crew_repository = new()
 				crewmemberData["name"] = H.get_authentification_name(if_no_id="Unknown")
 				crewmemberData["rank"] = H.get_authentification_rank(if_no_id="Unknown", if_no_job="No Job")
 				crewmemberData["assignment"] = H.get_assignment(if_no_id="Unknown", if_no_job="No Job")
+				crewmemberData["id"] = "\ref[H]"
 
 				if(C.sensor_mode >= SUIT_SENSOR_BINARY)
 					crewmemberData["dead"] = H.stat > UNCONSCIOUS
