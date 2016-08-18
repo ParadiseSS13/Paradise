@@ -1,6 +1,7 @@
 /mob/living/simple_animal/pet
 	icon = 'icons/mob/pets.dmi'
 	can_collar = 1
+	mob_size = MOB_SIZE_SMALL
 
 /mob/living/simple_animal/pet/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
 	if(istype(O, /obj/item/weapon/newspaper))

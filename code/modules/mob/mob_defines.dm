@@ -63,7 +63,6 @@
 	var/canmove = 1
 	var/lastpuke = 0
 	var/unacidable = 0
-	var/small = 0
 	var/can_strip = 1
 	var/list/pinned = list()            //List of things pinning this creature to walls (see living_defense.dm)
 	var/list/embedded = list()          //Embedded items, since simple mobs don't have organs.

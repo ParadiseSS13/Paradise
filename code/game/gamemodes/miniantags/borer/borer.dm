@@ -76,7 +76,7 @@
 	attacktext = "nips"
 	friendly = "prods"
 	wander = 0
-	small = 1
+	mob_size = MOB_SIZE_SMALL
 	density = 0
 	pass_flags = PASSTABLE
 	ventcrawler = 2

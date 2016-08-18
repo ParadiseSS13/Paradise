@@ -5,7 +5,7 @@
 
 	robot_talk_understand = 0
 	emote_type = 2		// pAIs emotes are heard, not seen, so they can be seen through a container (eg. person)
-	small = 1
+	mob_size = MOB_SIZE_TINY
 	pass_flags = PASSTABLE
 	density = 0
 	holder_type = /obj/item/weapon/holder/pai

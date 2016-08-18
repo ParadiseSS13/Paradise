@@ -52,8 +52,8 @@
 		return
 	if(!ticker)
 		return
-	var/mob/M = AM
-	if(!M.restrained() && !M.small)
+	var/mob/living/M = AM
+	if(!M.restrained() && M.mob_size > MOB_SIZE_SMALL)
 		bumpopen(M)
 	return
 
