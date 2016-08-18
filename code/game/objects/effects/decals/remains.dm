@@ -23,10 +23,10 @@
 	anchored = 1
 
 /obj/effect/decal/remains/robot/New()
+	..()
 	var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 	s.set_up(3, 1, src)
 	s.start()
-	..()
 
 /obj/effect/decal/remains/slime
 	name = "You shouldn't see this"
@@ -36,6 +36,7 @@
 	anchored = 1
 
 /obj/effect/decal/remains/slime/New()
+	..()
 	var/datum/reagents/R = new/datum/reagents(5)
 	var/obj/effect/effect/water/W = new(get_turf(src))
 	W.reagents = R
