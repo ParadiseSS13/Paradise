@@ -517,7 +517,19 @@ var/global/list/datum/stack_recipe/cable_coil_recipes = list(
 
 		if(S.burn_dam)
 			if(S.burn_dam < ROBOLIMB_SELF_REPAIR_CAP)
-				S.heal_damage(0,15,0,1)
+				if(S.burn_dam >= 15 && amount >= 5)
+					S.heal_damage(0, 15, 0, 1)
+					use(5)
+				else
+					var/cable_to_use = 0
+					var/dam_left = S.burn_dam
+					while(dam_left > 0)
+						cable_to_use += 1
+						dam_left -= 3
+					if(cable_to_use >= amount)	//make sure we don't use more cable than we have
+						cable_to_use = amount	//in case we have a lot of damage but not a lot of cable
+					use(cable_to_use)
+					S.heal_damage(0, (cable_to_use * 3), 0, 1)
 				user.visible_message("<span class='alert'>\The [user] repairs some burn damage on \the [M]'s [S.name] with \the [src].</span>")
 			else if(S.open != 2)
 				to_chat(user, "<span class='danger'>The damage is far too severe to patch over externally.</span>")
