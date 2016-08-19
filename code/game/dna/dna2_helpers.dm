@@ -205,11 +205,15 @@
 
 // This proc gives the DNA info for eye color to the given eyes
 /datum/dna/proc/write_eyes_attributes(obj/item/organ/internal/eyes/eyes_organ)
+	var/red = GetUIValueRange(DNA_UI_EYES_R,	255)
+	var/green = GetUIValueRange(DNA_UI_EYES_G,	255)
+	var/blue = GetUIValueRange(DNA_UI_EYES_B,	255)
 	eyes_organ.eye_colour = list(
-	GetUIValueRange(DNA_UI_EYES_R,	255),
-	GetUIValueRange(DNA_UI_EYES_G,	255),
-	GetUIValueRange(DNA_UI_EYES_B,	255)
+	red,
+	green,
+	blue
 	)
+	log_debug("[red],[green],[blue]")
 
 /*
 	TRAIT CHANGING PROCS

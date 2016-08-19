@@ -177,6 +177,7 @@
 		var/eyes_red = eyes_organ.eye_colour[1]
 		var/eyes_green = eyes_organ.eye_colour[2]
 		var/eyes_blue = eyes_organ.eye_colour[3]
+		log_debug("change_eye_color called with ([red],[green],[blue]), Eyes currently ([eyes_red],[eyes_green],[eyes_blue])")
 		if(red == eyes_red && green == eyes_green && blue == eyes_blue)
 			return
 
@@ -184,6 +185,7 @@
 		eyes_organ.eye_colour[2] = green
 		eyes_organ.eye_colour[3] = blue
 		dna.eye_color_to_dna(eyes_organ)
+		eyes_organ.set_dna(dna)
 
 	if(update_dna)
 		update_dna()

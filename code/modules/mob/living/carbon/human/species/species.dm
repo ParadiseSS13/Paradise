@@ -192,10 +192,8 @@
 
 	for(var/index in has_organ)
 		var/organ = has_organ[index]
-		H.internal_organs |= new organ(H)
-
-	for(var/obj/item/organ/internal/I in H.internal_organs)
-		I.insert(H)
+		// organ new code calls `insert` on its own
+		new organ(H)
 
 	for(var/name in H.organs_by_name)
 		H.organs |= H.organs_by_name[name]
