@@ -13,7 +13,7 @@
 		if(H.hand)
 			temp = H.organs_by_name["l_hand"]
 		if(!temp || !temp.is_usable())
-			to_chat(H, "\red You can't use your hand.")
+			to_chat(H, "<span class='warning'>You can't use your hand.</span>")
 			return
 
 	..()
@@ -62,10 +62,9 @@
 						for(var/datum/surgery/S in src.surgeries)
 							if(S.next_step(M, src))
 								return 1
-							else
-								help_shake_act(M)
-								add_logs(src, M, "shaked")
-								return 1
+						help_shake_act(M)
+						add_logs(src, M, "shaked")
+						return 1
 			if(health >= config.health_threshold_crit)
 				help_shake_act(M)
 				add_logs(src, M, "shaked")

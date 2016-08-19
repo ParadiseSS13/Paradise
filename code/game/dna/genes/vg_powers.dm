@@ -36,6 +36,7 @@
 		return
 	var/mob/living/carbon/human/M=usr
 	var/obj/item/organ/external/head/head_organ = M.get_organ("head")
+	var/obj/item/organ/internal/eyes/eyes_organ = M.get_int_organ(/obj/item/organ/internal/eyes)
 
 	var/new_gender = alert(usr, "Please select gender.", "Character Generation", "Male", "Female")
 	if(new_gender)
@@ -44,12 +45,19 @@
 		else
 			M.change_gender(FEMALE)
 
-	var/new_eyes = input("Please select eye color.", "Character Generation", rgb(M.r_eyes,M.g_eyes,M.b_eyes)) as null|color
+	var/eyes_red = 0
+	var/eyes_green = 0
+	var/eyes_blue = 0
+	if(eyes_organ)
+		eyes_red = eyes_organ.eye_colour[1]
+		eyes_green = eyes_organ.eye_colour[2]
+		eyes_blue = eyes_organ.eye_colour[3]
+	var/new_eyes = input("Please select eye color.", "Character Generation", rgb(eyes_red,eyes_green,eyes_blue)) as null|color
 	if(new_eyes)
-		M.r_eyes = hex2num(copytext(new_eyes, 2, 4))
-		M.g_eyes = hex2num(copytext(new_eyes, 4, 6))
-		M.b_eyes = hex2num(copytext(new_eyes, 6, 8))
-		M.change_eye_color(M.r_eyes, M.g_eyes, M.b_eyes)
+		eyes_red = hex2num(copytext(new_eyes, 2, 4))
+		eyes_green = hex2num(copytext(new_eyes, 4, 6))
+		eyes_blue = hex2num(copytext(new_eyes, 6, 8))
+		M.change_eye_color(eyes_red, eyes_green, eyes_blue)
 
 	// hair
 	var/list/valid_hairstyles = M.generate_valid_hairstyles()

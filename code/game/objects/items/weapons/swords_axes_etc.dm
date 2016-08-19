@@ -79,6 +79,9 @@
 	item_state = "cane_nt"
 	needs_permit = 0
 
+/obj/item/weapon/melee/classic_baton/ntcane/is_crutch()
+	return 1
+
 //Telescopic baton
 /obj/item/weapon/melee/classic_baton/telescopic
 	name = "telescopic baton"
