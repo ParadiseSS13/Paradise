@@ -156,8 +156,9 @@
 	return 0
 
 
-/mob/living/simple_animal/revenant/dust()
-	death()
+/mob/living/simple_animal/revenant/dust(visual_only = FALSE)
+	if(!visual_only)
+		death()
 
 /mob/living/simple_animal/revenant/gib()
 	death()

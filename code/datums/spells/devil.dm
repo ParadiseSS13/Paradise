@@ -139,8 +139,7 @@
 
 
 /mob/living/proc/infernalphaseout()
-	dust_animation()
-	spawn_dust()
+	dust(visual_only = TRUE)
 	src.visible_message("<span class='warning'>[src] disappears in a flashfire!</span>")
 	playsound(get_turf(src), 'sound/misc/enter_blood.ogg', 100, 1, -1)
 	var/obj/effect/dummy/slaughter/holder = PoolOrNew(/obj/effect/dummy/slaughter,loc)

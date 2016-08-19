@@ -45,7 +45,7 @@
 	else
 		if(ishuman(M))
 			var/mob/living/carbon/human/N = M
-			if(!istype(N.head, /obj/item/clothing/head/helmet))
+			if(prob(100-deconvert) && !istype(N.head, /obj/item/clothing/head/helmet))
 				N.adjustBrainLoss(10)
 				to_chat(N,"<span class='danger'>You feel dumber.</span>")
 		M.visible_message("<span class='danger'>[user] beats [M] over the head with [src]!</span>", \
@@ -173,7 +173,9 @@
 	add_fingerprint(user)
 	if(M == user && target == M.mind && M.mind.soulOwner != owner && attempt_signature(user, 1))
 		user.visible_message("<span class='danger'>[user] slices their wrist with [src], and scrawls their name in blood.</span>", "<span class='danger'>You slice your wrist open and scrawl your name in blood.</span>")
-		user.blood_volume = max(user.blood_volume - 100, 0)
+		if(istype(user, /mob/living/carbon/human))
+			var/mob/living/carbon/human/C = user
+			C.vessel.remove_reagent("blood",100)
 	else
 		return ..()
 

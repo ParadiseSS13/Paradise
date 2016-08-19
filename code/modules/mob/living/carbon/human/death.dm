@@ -49,13 +49,14 @@
 		if(animation)	qdel(animation)
 		if(src)			qdel(src)
 
-/mob/living/carbon/human/dust()
-	death(1)
+/mob/living/carbon/human/dust(visual_only = FALSE)
+	if(!visual_only)
+		death(1)
+		notransform = 1
+		canmove = 0
+		icon = null
+		invisibility = 101
 	var/atom/movable/overlay/animation = null
-	notransform = 1
-	canmove = 0
-	icon = null
-	invisibility = 101
 
 	animation = new(loc)
 	animation.icon_state = "blank"

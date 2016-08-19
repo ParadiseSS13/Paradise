@@ -22,13 +22,14 @@
 		if(animation)	qdel(animation)
 		if(src)			qdel(src)
 
-/mob/living/silicon/robot/dust()
-	death(1)
+/mob/living/silicon/robot/dust(visual_only = FALSE)
+	if(!visual_only)
+		death(1)
+		notransform = 1
+		canmove = 0
+		icon = null
+		invisibility = 101
 	var/atom/movable/overlay/animation = null
-	notransform = 1
-	canmove = 0
-	icon = null
-	invisibility = 101
 
 	animation = new(loc)
 	animation.icon_state = "blank"
@@ -42,7 +43,7 @@
 	dead_mob_list -= src
 	spawn(15)
 		if(animation)	qdel(animation)
-		if(src)			qdel(src)
+		if(src && !visual_only)			qdel(src)
 
 
 /mob/living/silicon/robot/death(gibbed)

@@ -211,11 +211,11 @@ var/global/list/lawlorify = list (
 	sleep(50)
 	if(istype(owner.current, /mob/living/carbon/human))
 		var/mob/living/carbon/human/H = owner.current
-		H.set_species(/datum/species/lizard, 1)
+		H.set_species(/datum/species/unathi, 1)
 		H.underwear = "Nude"
 		H.undershirt = "Nude"
 		H.socks = "Nude"
-		H.dna.features["mcolor"] = "511" //A deep red
+		H.change_skin_color(80,16,16) //A deep red
 		H.regenerate_icons()
 	else //Did the devil get hit by a staff of transmutation?
 		owner.current.color = "#501010"
@@ -414,11 +414,11 @@ var/global/list/lawlorify = list (
 			var/mob/living/carbon/human/H  = owner.current
 			give_summon_contract()
 			if(SOULVALUE >= BLOOD_THRESHOLD)
-				H.set_species(/datum/species/lizard, 1)
+				H.set_species(/datum/species/unathi, 1)
 				H.underwear = "Nude"
 				H.undershirt = "Nude"
 				H.socks = "Nude"
-				H.dna.features["mcolor"] = "511"
+				H.change_skin_color(80,16,16)
 				H.regenerate_icons()
 				if(SOULVALUE >= TRUE_THRESHOLD) //Yes, BOTH this and the above if statement are to run if soulpower is high enough.
 					var/mob/living/carbon/true_devil/A = new /mob/living/carbon/true_devil(targetturf)

@@ -1331,7 +1331,7 @@ mob/proc/yank_out_object()
 		to_chat(host, "<span class='info'>You are now a mouse. Try to avoid interaction with players, and do not give hints away that you are more than a simple rodent.</span>")
 
 /mob/proc/assess_threat() //For sec bot threat assessment
-	return
+	return 5
 
 /mob/proc/get_ghost(even_if_they_cant_reenter = 0)
 	if(mind)
