@@ -315,7 +315,7 @@ var/obj/machinery/blackbox_recorder/blackbox
 proc/feedback_set(var/variable,var/value)
 	if(!blackbox) return
 
-	variable = sql_sanitize_text(variable)
+	variable = sanitizeSQL(variable)
 
 	var/datum/feedback_variable/FV = blackbox.find_feedback_datum(variable)
 
@@ -326,7 +326,7 @@ proc/feedback_set(var/variable,var/value)
 proc/feedback_inc(var/variable,var/value)
 	if(!blackbox) return
 
-	variable = sql_sanitize_text(variable)
+	variable = sanitizeSQL(variable)
 
 	var/datum/feedback_variable/FV = blackbox.find_feedback_datum(variable)
 
@@ -337,7 +337,7 @@ proc/feedback_inc(var/variable,var/value)
 proc/feedback_dec(var/variable,var/value)
 	if(!blackbox) return
 
-	variable = sql_sanitize_text(variable)
+	variable = sanitizeSQL(variable)
 
 	var/datum/feedback_variable/FV = blackbox.find_feedback_datum(variable)
 
@@ -348,8 +348,8 @@ proc/feedback_dec(var/variable,var/value)
 proc/feedback_set_details(var/variable,var/details)
 	if(!blackbox) return
 
-	variable = sql_sanitize_text(variable)
-	details = sql_sanitize_text(details)
+	variable = sanitizeSQL(variable)
+	details = sanitizeSQL(details)
 
 	var/datum/feedback_variable/FV = blackbox.find_feedback_datum(variable)
 
@@ -360,8 +360,8 @@ proc/feedback_set_details(var/variable,var/details)
 proc/feedback_add_details(var/variable,var/details)
 	if(!blackbox) return
 
-	variable = sql_sanitize_text(variable)
-	details = sql_sanitize_text(details)
+	variable = sanitizeSQL(variable)
+	details = sanitizeSQL(details)
 
 	var/datum/feedback_variable/FV = blackbox.find_feedback_datum(variable)
 
