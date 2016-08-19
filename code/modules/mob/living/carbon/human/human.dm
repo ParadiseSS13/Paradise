@@ -404,13 +404,12 @@
 	if(M.melee_damage_upper == 0)
 		M.custom_emote(1, "[M.friendly] [src]")
 	else
-		M.do_attack_animation(src)
 		if(M.attack_sound)
 			playsound(loc, M.attack_sound, 50, 1, 1)
-		for(var/mob/O in viewers(src, null))
-			O.show_message("<span class='danger'>[M]</span> [M.attacktext] [src]!", 1)
-		M.attack_log += text("\[[time_stamp()]\] <font color='red'>attacked [src.name] ([src.ckey])</font>")
-		src.attack_log += text("\[[time_stamp()]\] <font color='orange'>was attacked by [M.name] ([M.ckey])</font>")
+		M.do_attack_animation(src)
+		visible_message("<span class='danger'>[M] [M.attacktext] [src]!</span>", \
+						"<span class='userdanger'>[M] [M.attacktext] [src]!</span>")
+		add_logs(src, M, "attacked")
 		var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
 		if(check_shields(damage, "the [M.name]", null, MELEE_ATTACK, M.armour_penetration))
 			return 0
