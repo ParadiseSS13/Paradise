@@ -103,7 +103,7 @@
 		return ..() //flashes don't stop devils UNLESS it's their bane.
 
 
-/mob/living/carbon/true_devil/attacked_by(obj/item/I, mob/living/user, def_zone)
+/mob/living/carbon/true_devil/proc/attacked_by(obj/item/I, mob/living/user, def_zone)
 	var/weakness = check_weakness(I, user)
 	apply_damage(I.force * weakness, I.damtype, def_zone)
 	var/message_verb = ""

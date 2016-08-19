@@ -169,7 +169,7 @@
 
 
 
-	if(istype(M, /mob/living/carbon/human))
+	if(istype(M, /mob/living/carbon/human) || istype(M, /mob/living/carbon/true_devil))
 		return M:attacked_by(src, user, def_zone)	//make sure to return whether we have hit or miss
 	else
 		switch(damtype)

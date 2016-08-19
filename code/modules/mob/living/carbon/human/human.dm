@@ -2161,4 +2161,15 @@
 		obj_count++
 
 /mob/living/carbon/human/is_literate()
-	return brainloss<=100
+	return brainloss<100
+
+
+/mob/living/carbon/human/fakefire(var/fire_icon = "Generic_mob_burning")
+	if(!overlays_standing[FIRE_LAYER])
+		overlays_standing[FIRE_LAYER] = image("icon"=fire_dmi, "icon_state"=fire_icon)
+		update_icons()
+
+/mob/living/carbon/human/fakefireextinguish()
+	overlays_standing[FIRE_LAYER] = null
+		update_icons()
+

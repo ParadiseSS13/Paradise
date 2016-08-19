@@ -16,6 +16,7 @@
 
 /obj/item/weapon/paper/contract/employment
 	icon_state = "paper_words"
+	signed = TRUE
 
 /obj/item/weapon/paper/contract/employment/New(atom/loc, mob/living/nOwner)
 	. = ..()

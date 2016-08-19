@@ -49,13 +49,13 @@
 /mob/living/carbon/true_devil/update_inv_r_hand()
 	update_inv_hands()
 
-/mob/living/carbon/true_devil/remove_overlay(cache_index)
+/mob/living/carbon/true_devil/proc/remove_overlay(cache_index)
 	if(devil_overlays[cache_index])
 		overlays -= devil_overlays[cache_index]
 		devil_overlays[cache_index] = null
 
 
-/mob/living/carbon/true_devil/apply_overlay(cache_index)
+/mob/living/carbon/true_devil/proc/apply_overlay(cache_index)
 	var/image/I = devil_overlays[cache_index]
 	if(I)
 		add_overlay(I)
