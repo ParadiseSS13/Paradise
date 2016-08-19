@@ -177,7 +177,6 @@
 		var/eyes_red = eyes_organ.eye_colour[1]
 		var/eyes_green = eyes_organ.eye_colour[2]
 		var/eyes_blue = eyes_organ.eye_colour[3]
-		log_debug("change_eye_color called with ([red],[green],[blue]), Eyes currently ([eyes_red],[eyes_green],[eyes_blue])")
 		if(red == eyes_red && green == eyes_green && blue == eyes_blue)
 			return
 

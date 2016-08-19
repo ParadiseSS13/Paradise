@@ -213,7 +213,6 @@
 	green,
 	blue
 	)
-	log_debug("[red],[green],[blue]")
 
 /*
 	TRAIT CHANGING PROCS
