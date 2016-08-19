@@ -1,5 +1,0 @@
-author: Chopchop1614
-delete-after: True
-changes: 
-  - bugfix: "fixes transformation sting not working."
-  - bugfix: "transformation sting now checks if the target has DNA or not"

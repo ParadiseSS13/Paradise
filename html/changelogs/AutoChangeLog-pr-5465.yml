@@ -1,4 +1,0 @@
-author: TullyBurnalot
-delete-after: True
-changes: 
-  - bugfix: "IDs are no longer dropped if their owner cryos with the ID inside a PDA inside a bag (very specific, yes)"

@@ -69,14 +69,6 @@ var/global/list/datum/dna/gene/dna_genes[0]
 var/global/list/good_blocks[0]
 var/global/list/bad_blocks[0]
 
-/////////////////
-// GENE DEFINES
-/////////////////
-
-// Skip checking if it's already active.
-// Used for genes that check for value rather than a binary on/off.
-#define GENE_ALWAYS_ACTIVATE 1
-
 /datum/dna
 	// READ-ONLY, GETS OVERWRITTEN
 	// DO NOT FUCK WITH THESE OR BYOND WILL EAT YOUR FACE
