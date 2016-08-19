@@ -34,7 +34,7 @@
 	canbypass = 1
 
 /obj/item/weapon/tome/New()
-	icon_state = "[ticker.mode.cultdat.tome_icon]"
+	icon_state = ticker.mode.cultdat.tome_icon
 	..()
 
 /obj/item/weapon/tome/examine(mob/user)

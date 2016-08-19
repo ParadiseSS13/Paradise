@@ -1,9 +1,5 @@
 //cult datums by FalseIncarnate
 
-
-
-
-
 /datum/cult_info
 	var/name = "Cult of Nar'Sie"
 	var/theme = "blood"

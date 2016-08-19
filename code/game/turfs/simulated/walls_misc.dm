@@ -8,8 +8,8 @@
 
 /turf/simulated/wall/cult/New()
 	new /obj/effect/overlay/temp/cult/turf(src)
-	if(!ticker.mode.cultdat)
-		icon_state = ticker.mode.cultdat.cult_wall_icon_state
+	icon_state = ticker.mode.cultdat.cult_wall_icon_state
+	walltype = ticker.mode.cultdat.cult_wall_icon_state
 	..()
 
 /turf/simulated/wall/cult/artificer

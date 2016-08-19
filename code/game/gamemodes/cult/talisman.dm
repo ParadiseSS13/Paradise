@@ -250,7 +250,7 @@
 				var/mob/living/carbon/C = target
 				C.silent += 5
 				C.stuttering += 15
-				C.cultslurring += 5
+				C.cultslurring += 20
 				C.Jitter(15)
 		user.drop_item()
 		qdel(src)
@@ -273,7 +273,7 @@
 	H.equip_or_collect(new /obj/item/weapon/storage/backpack/cultpack(user), slot_back)
 	H.drop_item()
 	H.put_in_hands(new /obj/item/weapon/melee/cultblade(user))
-	H.put_in_hands(new /obj/item/weapon/legcuffs/bolas/cult(user))
+	H.put_in_hands(new /obj/item/weapon/restraints/legcuffs/bola/cult(user))
 
 /obj/item/weapon/paper/talisman/armor/attack(mob/living/target, mob/living/user)
 	if(iscultist(user) && iscultist(target))

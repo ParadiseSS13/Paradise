@@ -42,17 +42,15 @@
 	throwforce = 25
 	var/cooldown = 0
 
-/obj/item/weapon/melee/cultblade/dagger/attack(mob/living/target as mob, mob/living/carbon/human/user as mob)
+/obj/item/weapon/melee/cultblade/dagger/afterattack(mob/living/target as mob, mob/living/carbon/human/user as mob)
 	..()
-	if(ishuman(target))
-		var/mob/living/carbon/human/bleeder = target
-		if(!(cooldown > world.time) && (!bleeder.stat || !(bleeder.species.flags & NO_BLOOD)))
-			visible_message("<span class='warning'>The runes on the blade absorb the blood of [target]!</span>")
-			bleeder.drip(500)
-			cooldown = world.time + 2400
+	var/mob/living/carbon/human/bleeder = target
+	if(!(cooldown > world.time) && (!bleeder.stat || !(bleeder.species.flags & NO_BLOOD)))
+		user.visible_message("<span class='warning'>The runes on the blade absorb the blood of [target]!</span>")
+		bleeder.drip(500)
+		cooldown = world.time + 2400
 
-
-/obj/item/weapon/legcuffs/bolas/cult
+/obj/item/weapon/restraints/legcuffs/bola/cult
 	name = "runed bola"
 	desc = "A strong bola, bound with dark magic. Throw it to trip and slow your victim."
 	icon = 'icons/obj/items.dmi'
