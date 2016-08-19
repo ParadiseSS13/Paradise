@@ -184,6 +184,7 @@
 		eyes_organ.eye_colour[2] = green
 		eyes_organ.eye_colour[3] = blue
 		dna.eye_color_to_dna(eyes_organ)
+		eyes_organ.set_dna(dna)
 
 	if(update_dna)
 		update_dna()

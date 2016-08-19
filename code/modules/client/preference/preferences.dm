@@ -1850,8 +1850,6 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	character.age = age
 	character.b_type = b_type
 
-	character.change_eye_color(r_eyes, g_eyes, b_eyes)
-
 	//Head-specific
 	var/obj/item/organ/external/head/H = character.get_organ("head")
 	H.r_hair = r_hair
@@ -1970,6 +1968,8 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 		if(isliving(src)) //Ghosts get neuter by default
 			message_admins("[key_name_admin(character)] has spawned with their gender as plural or neuter. Please notify coders.")
 			character.change_gender(MALE)
+
+	character.change_eye_color(r_eyes, g_eyes, b_eyes)
 
 	character.dna.ready_dna(character, flatten_SE = 0)
 	character.sync_organ_dna(assimilate=1)

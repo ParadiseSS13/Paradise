@@ -157,6 +157,7 @@
 	// Fixes fabricator IPC heads
 	if(!(E.dna) && E.robotic == 2 && target.dna)
 		E.set_dna(target.dna)
+	..()
 	if(E.limb_name == "head")
 		var/obj/item/organ/external/head/H = target.get_organ("head")
 		var/datum/robolimb/robohead = all_robolimbs[H.model]
@@ -164,7 +165,6 @@
 			H.h_style = ""
 			H.f_style = ""
 			target.m_style = ""
-	..()
 	E.status &= ~ORGAN_DESTROYED
 	if(E.children)
 		for(var/obj/item/organ/external/C in E.children)
