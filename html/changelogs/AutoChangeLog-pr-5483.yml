@@ -1,0 +1,5 @@
+author: IcyV
+delete-after: True
+changes: 
+  - rscadd: "Adds in an amount of new graffiti"
+  - bugfix: "Fixes the issue of other graffiti only being able to be done in black."
