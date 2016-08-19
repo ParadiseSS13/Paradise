@@ -1406,7 +1406,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						if(m_styles["head"])
 							var/head_marking = m_styles["head"]
 							var/datum/sprite_accessory/body_markings/head/head_marking_style = marking_styles_list[head_marking]
-							if(!head_marking_style.heads_allowed || !(alt_head in head_marking_style.heads_allowed))
+							if(!head_marking_style.heads_allowed || (!("All" in head_marking_style.heads_allowed) && !(alt_head in head_marking_style.heads_allowed)))
 								m_styles["head"] = "None"
 
 				if("m_style_head")
@@ -1420,10 +1420,10 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 							if(M.marking_location != "head")
 								continue
 							if(alt_head && alt_head != "None")
-								if(!(alt_head in M.heads_allowed))
+								if(!("All" in M.heads_allowed) && !(alt_head in M.heads_allowed))
 									continue
 							else
-								if(M.heads_allowed)
+								if(M.heads_allowed && !("All" in M.heads_allowed))
 									continue
 
 							if(species == "Machine") //Species that can use prosthetic heads.

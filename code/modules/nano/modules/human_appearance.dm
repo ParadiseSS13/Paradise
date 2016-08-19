@@ -198,11 +198,14 @@
 		if(can_change_body_accessory() && (href_list["body_accessory"] in valid_body_accessories))
 			if(owner.change_body_accessory(href_list["body_accessory"]))
 				update_dna()
+				cut_and_generate_data()
 				return 1
 	if(href_list["alt_head"])
 		if(can_change_alt_head() && (href_list["alt_head"] in valid_alt_head_styles))
 			if(owner.change_alt_head(href_list["alt_head"]))
 				update_dna()
+				head_organ = owner.get_organ("head") //Update the head with the new information.
+				cut_and_generate_data()
 				return 1
 
 	return 0
@@ -281,10 +284,7 @@
 		for(var/body_accessory_style in valid_body_accessories)
 			body_accessory_styles[++body_accessory_styles.len] = list("bodyaccessorystyle" = body_accessory_style)
 		data["body_accessory_styles"] = body_accessory_styles
-		var/datum/body_accessory/BA
-		if(owner.body_accessory)
-			BA = owner.body_accessory.name
-		data["body_accessory_style"] = BA
+		data["body_accessory_style"] = (owner.body_accessory ? owner.body_accessory.name : "None")
 
 	data["change_alt_head"] = can_change_alt_head()
 	if(data["change_alt_head"])
@@ -332,8 +332,10 @@
 	var/marking_flag = HAS_BODY_MARKINGS
 	var/body_flags = owner.species.bodyflags
 	if(location == "head")
-		var/obj/item/organ/external/head/H = owner.get_organ("head")
-		body_flags = H.species.bodyflags
+		if(!head_organ)
+			log_debug("Missing head!")
+			return 0
+		body_flags = head_organ.species.bodyflags
 		marking_flag = HAS_HEAD_MARKINGS
 	if(location == "body")
 		marking_flag = HAS_BODY_MARKINGS
@@ -346,7 +348,10 @@
 	return owner && (flags & APPEARANCE_BODY_ACCESSORY) && (owner.species.bodyflags & HAS_TAIL)
 
 /datum/nano_module/appearance_changer/proc/can_change_alt_head()
-	return owner && (flags & APPEARANCE_ALT_HEAD) && (owner.species.bodyflags & HAS_ALT_HEADS)
+	if(!head_organ)
+		log_debug("Missing head!")
+		return 0
+	return owner && (flags & APPEARANCE_ALT_HEAD) && (head_organ.species.bodyflags & HAS_ALT_HEADS)
 
 /datum/nano_module/appearance_changer/proc/cut_and_generate_data()
 	// Making the assumption that the available species remain constant

@@ -128,7 +128,7 @@
 	if(m_styles["head"])
 		var/head_marking = m_styles["head"]
 		var/datum/sprite_accessory/body_markings/head/head_marking_style = marking_styles_list[head_marking]
-		if(!head_marking_style.heads_allowed || !(H.alt_head in head_marking_style.heads_allowed))
+		if(!head_marking_style.heads_allowed || (!("All" in head_marking_style.heads_allowed) && !(H.alt_head in head_marking_style.heads_allowed)))
 			m_styles["head"] = "None"
 			update_markings()
 
@@ -414,7 +414,7 @@
 			continue
 		if(S.marking_location != location) //If the marking isn't for the location we desire, skip.
 			continue
-		if(!(species.name in S.species_allowed)) //If the user's head is not of a species the marking style allows, skip it. Otherwise, add it to the list.
+		if(!(species.name in S.species_allowed)) //If the user is not of a species the marking style allows, skip it. Otherwise, add it to the list.
 			continue
 		if(location == "tail")
 			if(!body_accessory)
@@ -430,10 +430,10 @@
 				if(!(S.models_allowed && (robohead.company in S.models_allowed))) //Make sure they don't get markings incompatible with their head.
 					continue
 			else if(H.alt_head && H.alt_head != "None") //If the user's got an alt head, validate markings for that head.
-				if(!(H.alt_head in M.heads_allowed))
+				if(!("All" in M.heads_allowed) && !(H.alt_head in M.heads_allowed))
 					continue
 			else
-				if(M.heads_allowed)
+				if(M.heads_allowed && !("All" in M.heads_allowed))
 					continue
 		valid_markings += marking
 

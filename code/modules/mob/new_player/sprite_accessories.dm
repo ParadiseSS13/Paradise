@@ -2144,6 +2144,7 @@
 	name = "Unathi Tiger Head"
 	species_allowed = list("Unathi")
 	icon_state = "markings_head_tiger_una"
+	heads_allowed = list("All")
 
 /datum/sprite_accessory/body_markings/head/tiger_face_una
 	name = "Unathi Tiger Head and Face"
@@ -2176,12 +2177,7 @@
 	name = "Unathi Banded Head"
 	species_allowed = list("Unathi")
 	icon_state = "markings_face_banded_una"
-
-/datum/sprite_accessory/body_markings/head/banded_una_sharp //Companion marking for Unathi Banded.
-	name = "Unathi Sharp Banded Head"
-	species_allowed = list("Unathi")
-	icon_state = "markings_face_banded_una"
-	heads_allowed = list("Unathi Sharp Snout")
+	heads_allowed = list("All")
 
 /datum/sprite_accessory/body_markings/head/snout_narrow_una //Companion marking for Unathi Narrow Belly.
 	name = "Unathi Snout 2"

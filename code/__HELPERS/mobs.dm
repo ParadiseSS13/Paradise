@@ -153,10 +153,10 @@ proc/random_marking_style(var/location = "body", species = "Human", var/robot_he
 				if(!(S.models_allowed && (robohead.company in S.models_allowed))) //Make sure they don't get markings incompatible with their head.
 					continue
 			else if(alt_head && alt_head != "None") //If the user's got an alt head, validate markings for that head.
-				if(!(alt_head in M.heads_allowed))
+				if(!("All" in M.heads_allowed) && !(alt_head in M.heads_allowed))
 					continue
 			else
-				if(M.heads_allowed)
+				if(M.heads_allowed && !("All" in M.heads_allowed))
 					continue
 		valid_markings += marking
 
