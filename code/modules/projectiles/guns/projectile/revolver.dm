@@ -389,6 +389,9 @@
 	suppressed = 1
 	needs_permit = 0 //its just a cane beepsky.....
 
+/obj/item/weapon/gun/projectile/revolver/doublebarrel/improvised/cane/is_crutch()
+	return 1
+
 /obj/item/weapon/gun/projectile/revolver/doublebarrel/improvised/cane/update_icon()
 	return
 

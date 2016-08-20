@@ -500,6 +500,7 @@
 	deform = 'icons/mob/human_races/r_slime.dmi'
 	path = /mob/living/carbon/human/slime
 	unarmed_type = /datum/unarmed_attack/punch
+	remains_type = /obj/effect/decal/remains/slime
 
 	// More sensitive to the cold
 	cold_level_1 = 280
@@ -730,6 +731,7 @@
 	unarmed_type = /datum/unarmed_attack/diona
 	//primitive_form = "Nymph"
 	slowdown = 5
+	remains_type = /obj/effect/decal/cleanable/ash
 
 	warning_low_pressure = 50
 	hazard_low_pressure = -1
@@ -844,6 +846,7 @@
 	default_language = "Galactic Common"
 	language = "Trinary"
 	unarmed_type = /datum/unarmed_attack/punch
+	remains_type = /obj/effect/decal/remains/robot
 
 	eyes = "blank_eyes"
 	brute_mod = 2.5 // 100% * 2.5 * 0.6 (robolimbs) ~= 150%

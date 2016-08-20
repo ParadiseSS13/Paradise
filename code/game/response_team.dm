@@ -173,9 +173,10 @@ var/ert_request_answered = 0
 	head_organ.r_hair = hex2num(copytext(hair_c, 2, 4))
 	head_organ.g_hair = hex2num(copytext(hair_c, 4, 6))
 	head_organ.b_hair = hex2num(copytext(hair_c, 6, 8))
-	M.r_eyes = hex2num(copytext(eye_c, 2, 4))
-	M.g_eyes = hex2num(copytext(eye_c, 4, 6))
-	M.b_eyes = hex2num(copytext(eye_c, 6, 8))
+	var/eyes_red = hex2num(copytext(eye_c, 2, 4))
+	var/eyes_green = hex2num(copytext(eye_c, 4, 6))
+	var/eyes_blue = hex2num(copytext(eye_c, 6, 8))
+	M.change_eye_color(eyes_red, eyes_green, eyes_blue)
 	M.s_tone = skin_tone
 	head_organ.h_style = hair_style
 	head_organ.f_style = facial_hair_style

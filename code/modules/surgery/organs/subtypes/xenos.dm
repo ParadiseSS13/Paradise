@@ -24,7 +24,7 @@
 		M.verbs -= P
 		//M.verbs -= alien_powers.Copy()
 
-	..()
+	. = ..()
 
 /obj/item/organ/internal/xenos/prepare_eat()
 	var/obj/S = ..()
@@ -106,7 +106,7 @@
 		A.updatePlasmaDisplay()
 
 /obj/item/organ/internal/alien/plasmavessel/remove(mob/living/carbon/M, special = 0)
-	..()
+	. =..()
 	if(isalien(M))
 		var/mob/living/carbon/alien/A = M
 		A.updatePlasmaDisplay()
@@ -140,7 +140,7 @@
 	M.faction -= "alien"
 	M.remove_language("Hivemind")
 	M.remove_language("Xenomorph")
-	..()
+	. = ..()
 
 /obj/item/organ/internal/xenos/neurotoxin
 	name = "xeno neurotoxin gland"

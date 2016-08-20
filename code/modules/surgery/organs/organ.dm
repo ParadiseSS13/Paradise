@@ -314,6 +314,7 @@ var/list/organ_cache = list()
 			msg_admin_attack("[key_name_admin(user)] removed a vital organ ([src]) from [key_name_admin(owner)]")
 		owner.death()
 	owner = null
+	return src
 
 /obj/item/organ/proc/replaced(var/mob/living/carbon/human/target,var/obj/item/organ/external/affected)
 

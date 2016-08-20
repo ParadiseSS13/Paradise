@@ -1,4 +1,0 @@
-author: LittleBigKid2000
-delete-after: True
-changes: 
-  - bugfix: "The arrivals checkpoint camera monitor is now connected to some camera networks by default."

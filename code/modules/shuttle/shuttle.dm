@@ -787,6 +787,14 @@
 	shuttleId = "sst"
 	possible_destinations = "sst_home;sst_away"
 
+<<<<<<< HEAD
+/obj/machinery/computer/shuttle/sit
+	req_access = list(access_syndicate)
+	name = "Syndicate Infiltration Team Shuttle Console"
+	desc = "Used to call and send the SIT shuttle."
+	shuttleId = "sit"
+	possible_destinations = "sit_arrivals;sit_scimaint;sit_engshuttle;sit_away"
+
 /obj/machinery/computer/shuttle/uzhin
 	name = "Grisha's shuttle Console"
 	desc = "Used to travel to unknown lands called Pyaterochka"

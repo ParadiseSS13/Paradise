@@ -542,6 +542,7 @@
 	shaved = 0
 	density = 0
 	pass_flags = PASSMOB
+	mob_size = MOB_SIZE_SMALL
 
 //puppies cannot wear anything.
 /mob/living/simple_animal/pet/corgi/puppy/Topic(href, href_list)

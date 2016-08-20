@@ -1,5 +1,0 @@
-author: Krausus
-delete-after: True
-changes: 
-  - tweak: "Karma spending is now slightly more straightforward and sanity-checked."
-  - tweak: "Ghosts can now see non-crew antagonists in the Award Karma listing."

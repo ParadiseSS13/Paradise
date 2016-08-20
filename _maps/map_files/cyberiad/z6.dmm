@@ -22,7 +22,7 @@
 "av" = (/turf/simulated/floor/plating/airless,/area/space)
 "aw" = (/obj/structure/closet/emcloset,/turf/simulated/floor/plasteel{tag = "icon-cafeteria (NORTHEAST)"; icon_state = "cafeteria"; dir = 5},/area/djstation)
 "ax" = (/turf/simulated/floor/plasteel{tag = "icon-cafeteria (NORTHEAST)"; icon_state = "cafeteria"; dir = 5},/area/djstation)
-"ay" = (/obj/machinery/newscaster{pixel_y = 32},/obj/machinery/media/jukebox/dj,/turf/simulated/floor/plasteel{tag = "icon-cafeteria (NORTHEAST)"; icon_state = "cafeteria"; dir = 5},/area/djstation)
+"ay" = (/obj/machinery/newscaster{pixel_y = 32},/turf/simulated/floor/plasteel{tag = "icon-cafeteria (NORTHEAST)"; icon_state = "cafeteria"; dir = 5},/area/djstation)
 "az" = (/turf/simulated/floor/plasteel/airless,/area/space)
 "aA" = (/turf/simulated/wall/r_wall,/area/space)
 "aB" = (/obj/structure/table,/obj/machinery/cell_charger,/turf/simulated/floor/plasteel{icon_state = "bar"},/area/djstation)

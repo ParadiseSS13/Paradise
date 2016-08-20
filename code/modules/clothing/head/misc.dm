@@ -181,14 +181,18 @@
 	icon_state = "fedora"
 	item_state = "fedora"
 	desc = "A great hat ruined by being within fifty yards of you."
+	actions_types = list(/datum/action/item_action/tip_fedora)
 
-//TIPS FEDORA
-/obj/item/clothing/head/fedora/verb/tip_fedora()
-	set name = "Tip Fedora"
-	set category = "Object"
-	set desc = "Show that CIS SCUM who's boss."
+/obj/item/clothing/head/fedora/attack_self(mob/user)
+	tip_fedora(user)
 
-	usr.visible_message("[usr] tips their fedora.","You tip your fedora")
+/obj/item/clothing/head/fedora/item_action_slot_check(slot)
+	if(slot == slot_head)
+		return 1
+
+/obj/item/clothing/head/fedora/proc/tip_fedora(mob/user)
+	user.visible_message("[user] tips their fedora.", "You tip your fedora")
+
 
 /obj/item/clothing/head/fez
 	name = "fez"

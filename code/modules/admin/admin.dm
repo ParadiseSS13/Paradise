@@ -893,9 +893,6 @@ var/gamma_ship_location = 1 // 0 = station , 1 = space
 		toArea = locate(/area/shuttle/gamma/space)
 	fromArea.move_contents_to(toArea)
 
-	for(var/turf/simulated/floor/mech_bay_recharge_floor/F in toArea)
-		F.init_devices()
-
 	for(var/obj/machinery/power/apc/A in toArea)
 		A.init()
 

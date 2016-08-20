@@ -207,6 +207,9 @@
 	levelupdate()
 	CalculateAdjacentTurfs()
 
+	if(air_master && !ignore_air)
+		air_master.add_to_active(src)
+
 	if(!keep_cabling && !can_have_cabling())
 		for(var/obj/structure/cable/C in contents)
 			qdel(C)

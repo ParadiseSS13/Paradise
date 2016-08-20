@@ -15,6 +15,10 @@
 
 // Run all strings to be used in an SQL query through this proc first to properly escape out injection attempts.
 /proc/sanitizeSQL(var/t as text)
+	if(isnull(t))
+		return null
+	if(!istext(t))
+		t = "[t]" // Just quietly assume any non-texts are supposed to be text
 	var/sqltext = dbcon.Quote(t);
 	return copytext(sqltext, 2, lentext(sqltext));//Quote() adds quotes around input, we already do that
 

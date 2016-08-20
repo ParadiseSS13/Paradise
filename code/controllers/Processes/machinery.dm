@@ -38,7 +38,7 @@
 			catchBadType(M)
 			machine_processing -= M
 
-		SCHECK_EVERY(100)
+		SCHECK
 
 /datum/controller/process/machinery/proc/process_power()
 	for(last_object in deferred_powernet_rebuilds)
