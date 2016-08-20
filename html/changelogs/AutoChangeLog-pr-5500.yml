@@ -1,0 +1,4 @@
+author: Krausus
+delete-after: True
+changes: 
+  - bugfix: "Flavor text and records are no longer horrifically butchered when saved in the database."
