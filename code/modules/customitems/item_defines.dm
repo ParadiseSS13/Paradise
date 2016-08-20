@@ -284,8 +284,6 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "eyepro"
 	item_state = "eyepro"
-	flash_protect = 1
-	tint = 1
 
 //////////// Hats ////////////
 /obj/item/clothing/head/fluff/heather_winceworth // Regens: Heather Winceworth
