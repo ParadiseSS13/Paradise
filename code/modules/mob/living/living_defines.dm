@@ -34,6 +34,7 @@
 	var/implanting = 0 //Used for the mind-slave implant
 	var/silent = 0 		//Can't talk. Value goes down every life proc. //NOTE TO FUTURE CODERS: DO NOT INITIALIZE NUMERICAL VARS AS NULL OR I WILL MURDER YOU.
 	var/floating = 0
+	var/mob_size = MOB_SIZE_HUMAN
 	var/nightvision = 0
 
 	var/bloodcrawl = 0 //0 No blood crawling, 1 blood crawling, 2 blood crawling+mob devour

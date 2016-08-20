@@ -34,6 +34,7 @@
 	density = 0
 	flying = 1
 	anchored = 1
+	mob_size = MOB_SIZE_TINY
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 
 	var/essence = 75 //The resource of revenants. Max health is equal to three times this amount
