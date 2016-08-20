@@ -138,3 +138,7 @@
 			continue
 		law_options += L
 	return pick(law_options)
+
+/mob/living/silicon/proc/clear_law_sixsixsix(force)
+	laws_sanity_check()
+	laws.clear_law_sixsixsix(force)

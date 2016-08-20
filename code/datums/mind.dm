@@ -351,7 +351,24 @@
 
 
 		sections["Abductor"] = text
+	/** DEVIL ***/
+	if(istype(current, /mob/living/carbon/human) || istype(current, /mob/living/carbon/true_devil) || istype(current, /mob/living/silicon/robot))
+		text = "devil"
+		if(ticker.mode.config_tag == "devil")
+			text = uppertext(text)
+		text = "<i><b>[text]</b></i>: "
+		if(src in ticker.mode.devils)
+			text += "<b>DEVIL</b>|sintouched|<a href='?src=\ref[src];devil=clear'>human</a>"
+		else if(src in ticker.mode.sintouched)
+			text += "devil|<b>SINTOUCHED</b>|<a href='?src=\ref[src];devil=clear'>human</a>"
+		else
+			text += "<a href='?src=\ref[src];devil=devil'>devil</a>|<a href='?src=\ref[src];devil=sintouched'>sintouched</a>|<b>HUMAN</b>"
 
+		if(current && current.client && (ROLE_DEVIL in current.client.prefs.be_special))
+			text += "|Enabled in Prefs"
+		else
+			text += "|Disabled in Prefs"
+		sections["devil"] = text
 	/** TRAITOR ***/
 	text = "traitor"
 	if(ticker.mode.config_tag=="traitor" || ticker.mode.config_tag=="traitorchan" || ticker.mode.config_tag=="traitorvamp")
@@ -1012,7 +1029,41 @@
 					message_admins("[key_name_admin(usr)] has given [key_name_admin(current)] the nuclear authorization code")
 				else
 					to_chat(usr, "\red No valid nuke found!")
-
+	else if(href_list["devil"])
+		switch(href_list["devil"])
+			if("clear")
+				if(src in ticker.mode.devils)
+					if(istype(current,/mob/living/carbon/true_devil/))
+						to_chat(usr,"<span class='warning'>This cannot be used on true or arch-devils.</span>")
+					else
+						ticker.mode.devils -= src
+						special_role = null
+						to_chat(current,"<span class='userdanger'>Your infernal link has been severed! You are no longer a devil!</span>")
+						RemoveSpell(/obj/effect/proc_holder/spell/targeted/infernal_jaunt)
+						RemoveSpell(/obj/effect/proc_holder/spell/dumbfire/fireball/hellish)
+						RemoveSpell(/obj/effect/proc_holder/spell/targeted/summon_contract)
+						RemoveSpell(/obj/effect/proc_holder/spell/targeted/summon_pitchfork)
+						message_admins("[key_name_admin(usr)] has de-devil'ed [current].")
+						devilinfo = null
+						if(issilicon(current))
+							var/mob/living/silicon/S = current
+							S.clear_law_sixsixsix(current)
+						log_admin("[key_name(usr)] has de-devil'ed [current].")
+				else if(src in ticker.mode.sintouched)
+					ticker.mode.sintouched -= src
+					message_admins("[key_name_admin(usr)] has de-sintouch'ed [current].")
+					log_admin("[key_name(usr)] has de-sintouch'ed [current].")
+			if("devil")
+				ticker.mode.devils += src
+				special_role = "devil"
+				ticker.mode.finalize_devil(src)
+				ticker.mode.add_devil_objectives(src, 2)
+				announceDevilLaws()
+			if("sintouched")
+				ticker.mode.sintouched += src
+				var/mob/living/carbon/human/H = current
+				H.influenceSin()
+				message_admins("[key_name_admin(usr)] has sintouch'ed [current].")
 	else if(href_list["traitor"])
 		switch(href_list["traitor"])
 			if("clear")

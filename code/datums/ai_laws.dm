@@ -197,6 +197,9 @@ var/global/const/base_law_type = /datum/ai_laws/nanotrasen
 /datum/ai_law/zero/delete_law(var/datum/ai_laws/laws)
 	laws.clear_zeroth_laws()
 
+/datum/ai_law/zero/devil_law/delete_law(var/datum/ai_laws/laws)
+	laws.clear_law_sixsixsix()
+
 /datum/ai_law/ion/delete_law(var/datum/ai_laws/laws)
 	laws.internal_delete_law(laws.ion_laws, laws.state_ion, src)
 
@@ -227,6 +230,9 @@ var/global/const/base_law_type = /datum/ai_laws/nanotrasen
 /datum/ai_laws/proc/clear_ion_laws()
 	ion_laws.Cut()
 	sorted_laws.Cut()
+
+/datum/ai_laws/proc/clear_law_sixsixsix()
+	devil_laws.Cut()
 
 /datum/ai_laws/proc/clear_inherent_laws()
 	inherent_laws.Cut()
