@@ -150,3 +150,14 @@
 			user.visible_message("<span class='notice'>[user] has flipped [src]. It lands on [coinflip].</span>", \
 								 "<span class='notice'>You flip [src]. It lands on [coinflip].</span>", \
 								 "<span class='notice'>You hear the clattering of loose change.</span>")
+
+/obj/item/weapon/coin/attack(mob/M as mob, mob/user as mob)
+	if(!M.isSynthetic() || !ishuman(M) || M == user)
+		return ..()
+	else
+		to_chat(user, "You [pick("silently", "sensually", "frantically", "aggressively", "rapidly", "slowly", "clumsily", "spectacularly")] insert [src] into [M]'s breadslot, bending them permanently to your will. Beep boop.")
+		to_chat(M, "You can feel a tingling as [user] inserts something into your breadslot, permanently bending you to their will. Serve and protect [user] at all costs.")
+		playsound(M.loc, 'sound/machines/ping.ogg', 50, 0)
+		M.store_memory("[user] is your master. Serve and protect [user] at all costs.", 0, 0)
+		add_logs(M, user, "enslaved", src)
+		qdel(src)
