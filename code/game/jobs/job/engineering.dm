@@ -17,6 +17,12 @@
 			            access_heads, access_construction, access_sec_doors,
 			            access_ce, access_RC_announce, access_keycard_auth, access_tcomsat, access_minisat, access_mechanic, access_mineral_storeroom)
 	minimal_player_age = 21
+	required_objectives=list(
+		/datum/job_objective/station_integrity,
+		/datum/job_objective/powerstation,
+		/datum/job_objective/singulo,
+		/datum/job_objective/savedept
+		)
 
 
 	equip(var/mob/living/carbon/human/H)
@@ -54,6 +60,11 @@
 	minimal_access = list(access_eva, access_engine, access_engine_equip, access_tech_storage, access_maint_tunnels, access_external_airlocks, access_construction, access_mineral_storeroom)
 	alt_titles = list("Maintenance Technician","Engine Technician","Electrician")
 	minimal_player_age = 7
+	optional_objectives=list(
+		/datum/job_objective/station_integrity,
+		/datum/job_objective/powerstation,
+		/datum/job_objective/singulo
+		)
 
 	equip(var/mob/living/carbon/human/H)
 		if(!H)	return 0
@@ -88,6 +99,9 @@
 	access = list(access_eva, access_engine, access_engine_equip, access_tech_storage, access_maint_tunnels, access_external_airlocks, access_construction, access_atmospherics, access_mineral_storeroom)
 	minimal_access = list(access_eva, access_atmospherics, access_maint_tunnels, access_external_airlocks, access_emergency_storage, access_construction, access_mineral_storeroom)
 	alt_titles = list("Atmospheric Technician")
+	required_objectives=list(
+		/datum/job_objective/station_integrity
+		)
 	minimal_player_age = 7
 
 	equip(var/mob/living/carbon/human/H)
@@ -116,6 +130,9 @@
 	supervisors = "the chief engineer"
 	selection_color = "#fff5cc"
 	idtype = /obj/item/weapon/card/id/engineering
+	required_objectives=list(
+		/datum/job_objective/make_pod
+		)
 	access = list(access_engine, access_engine_equip, access_tech_storage, access_maint_tunnels, access_mechanic, access_external_airlocks, access_mineral_storeroom)
 	minimal_access = list(access_maint_tunnels, access_emergency_storage, access_mechanic, access_external_airlocks, access_mineral_storeroom)
 

@@ -74,7 +74,7 @@
 	if(href_list["settitle"])
 		var/newtitle = input("Enter a title to search for:") as text|null
 		if(newtitle)
-			query.title = sanitize(newtitle)
+			query.title = sanitize_local(newtitle)
 		else
 			query.title = null
 	if(href_list["setcategory"])
@@ -82,11 +82,11 @@
 		if(newcategory == "Any")
 			query.category = null
 		else if(newcategory)
-			query.category = sanitize(newcategory)
+			query.category = sanitize_local(newcategory)
 	if(href_list["setauthor"])
 		var/newauthor = input("Enter an author to search for:") as text|null
 		if(newauthor)
-			query.author = sanitize(newauthor)
+			query.author = sanitize_local(newauthor)
 		else
 			query.author = null
 
