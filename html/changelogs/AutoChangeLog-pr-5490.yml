@@ -1,0 +1,6 @@
+author: FalseIncarnate
+delete-after: True
+changes: 
+  - tweak: "Repairing burn damage to robotic limbs now consumes cable in the process. Each length used repairs 3 burn damage, up to 15 damage per click."
+  - tweak: "Repairing brute damage to robotic limbs now uses 1 fuel per repair (click). Heal amount unchanged."
+  - tweak: "Self-repairing with cables or welders now incurs a 1 second delay between click and heal completion. Being repaired by a friend is still no delay (but requires a friend)."
