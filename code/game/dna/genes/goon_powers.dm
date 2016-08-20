@@ -47,7 +47,7 @@
 	desc = "Enables the subject to bend low levels of light around themselves, creating a cloaking effect."
 	activation_messages = list("You begin to fade into the shadows.")
 	deactivation_messages = list("You become fully visible.")
-	activation_prob=10
+	activation_prob=25
 	mutation = CLOAK
 
 /datum/dna/gene/basic/stealth/darkcloak/New()
@@ -74,7 +74,7 @@
 	desc = "The subject becomes able to subtly alter light patterns to become invisible, as long as they remain still."
 	activation_messages = list("You feel one with your surroundings.")
 	deactivation_messages = list("You feel oddly visible.")
-	activation_prob=10
+	activation_prob=25
 	mutation = CHAMELEON
 
 /datum/dna/gene/basic/stealth/chameleon/New()
