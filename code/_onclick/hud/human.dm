@@ -37,7 +37,7 @@
 	U.unset_sting()
 
 /obj/screen/devil
-	invisibility = INVISIBILITY_ABSTRACT
+	invisibility = 101
 
 /obj/screen/devil/soul_counter
 	icon = 'icons/mob/screen_gen.dmi'
@@ -63,7 +63,7 @@
 			icon_state = "Devil-6"
 
 /obj/screen/devil/soul_counter/proc/clear()
-	invisibility = INVISIBILITY_ABSTRACT
+	invisibility = 101
 
 /obj/screen/ling/chems
 	name = "chemical storage"

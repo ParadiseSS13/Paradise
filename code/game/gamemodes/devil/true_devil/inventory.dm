@@ -1,53 +1,40 @@
 /mob/living/carbon/true_devil/unEquip(obj/item/I, force)
 	if(..(I,force))
-		update_inv_hands()
+		update_inv_r_hand()
+		update_inv_l_hand()
 		return 1
 	return 0
 
-/mob/living/carbon/true_devil/proc/update_inv_hands()
-	//TODO LORDPIDEY:  Figure out how to make the hands line up properly.  the l/r_hand_image should use the down sprite when facing down, left, or right, and the up sprite when facing up.
-	remove_overlay(DEVIL_HANDS_LAYER)
-	var/list/hands_overlays = list()
-
+/mob/living/carbon/true_devil/update_inv_r_hand(var/update_icons=1)
+	..()
 	if(r_hand)
+		var/t_state = r_hand.item_state
+		if(!t_state)
+			t_state = r_hand.icon_state
 
-		var/r_state = r_hand.item_state
-		if(!r_state)
-			r_state = r_hand.icon_state
+		var/image/I = image("icon" = r_hand.righthand_file, "icon_state" = "[t_state]")
+		I = center_image(I, r_hand.inhand_x_dimension, r_hand.inhand_y_dimension)
+		devil_overlays[R_HAND_LAYER] = I
+	else
+		devil_overlays[R_HAND_LAYER] = null
+	if(update_icons)
+		update_icons()
 
-		var/image/r_hand_image = r_hand.build_worn_icon(state = r_state, default_layer = DEVIL_HANDS_LAYER, default_icon_file = r_hand.righthand_file, isinhands = TRUE)
 
-		hands_overlays += r_hand_image
-
-		if(client && hud_used && hud_used.hud_version != HUD_STYLE_NOHUD)
-			r_hand.layer = ABOVE_HUD_LAYER
-			r_hand.screen_loc = ui_rhand
-			client.screen |= r_hand
-
+/mob/living/carbon/true_devil/update_inv_l_hand(var/update_icons=1)
+	..()
 	if(l_hand)
+		var/t_state = l_hand.item_state
+		if(!t_state)
+			t_state = l_hand.icon_state
 
-		var/l_state = l_hand.item_state
-		if(!l_state)
-			l_state = l_hand.icon_state
-
-		var/image/l_hand_image = l_hand.build_worn_icon(state = l_state, default_layer = DEVIL_HANDS_LAYER, default_icon_file = l_hand.lefthand_file, isinhands = TRUE)
-
-		hands_overlays += l_hand_image
-
-		if(client && hud_used && hud_used.hud_version != HUD_STYLE_NOHUD)
-			l_hand.layer = ABOVE_HUD_LAYER
-			l_hand.screen_loc = ui_lhand
-			client.screen |= l_hand
-	if(hands_overlays.len)
-		devil_overlays[DEVIL_HANDS_LAYER] = hands_overlays
-	apply_overlay(DEVIL_HANDS_LAYER)
-
-/mob/living/carbon/true_devil/update_inv_l_hand()
-	update_inv_hands()
-
-
-/mob/living/carbon/true_devil/update_inv_r_hand()
-	update_inv_hands()
+		var/image/I = image("icon" = l_hand.lefthand_file, "icon_state" = "[t_state]")
+		I = center_image(I, l_hand.inhand_x_dimension, l_hand.inhand_y_dimension)
+		devil_overlays[L_HAND_LAYER] = I
+	else
+		devil_overlays[L_HAND_LAYER] = null
+	if(update_icons)
+		update_icons()
 
 /mob/living/carbon/true_devil/proc/remove_overlay(cache_index)
 	if(devil_overlays[cache_index])
@@ -58,4 +45,8 @@
 /mob/living/carbon/true_devil/proc/apply_overlay(cache_index)
 	var/image/I = devil_overlays[cache_index]
 	if(I)
-		add_overlay(I)
+		if(I in overlays)
+			return
+		var/list/new_overlays = overlays.Copy()
+		new_overlays += I
+		overlays = new_overlays

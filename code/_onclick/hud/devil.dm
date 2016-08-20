@@ -4,19 +4,20 @@
 
 /datum/hud/devil/New(mob/owner, ui_style = 'icons/mob/screen_midnight.dmi')
 	..()
+
 	var/obj/screen/using
 	var/obj/screen/inventory/inv_box
 
 	using = new /obj/screen/drop()
 	using.icon = ui_style
-	using.screen_loc = ui_drone_drop
+	using.screen_loc = ui_drop_throw
 	static_inventory += using
 
-	pull_icon = new /obj/screen/pull()
-	pull_icon.icon = ui_style
-	pull_icon.update_icon(mymob)
-	pull_icon.screen_loc = ui_drone_pull
-	static_inventory += pull_icon
+	mymob.pullin = new /obj/screen/pull()
+	mymob.pullin.icon = ui_style
+	mymob.pullin.update_icon(mymob)
+	mymob.pullin.screen_loc = ui_pull_resist
+	static_inventory += mymob.pullin
 
 	inv_box = new /obj/screen/inventory/hand()
 	inv_box.name = "right hand"
@@ -39,7 +40,7 @@
 	using.icon = ui_style
 	using.icon_state = "swap_1_m"
 	using.screen_loc = ui_swaphand1
-	using.layer = HUD_LAYER
+	using.layer = 19
 	static_inventory += using
 
 	using = new /obj/screen/inventory()
@@ -47,12 +48,12 @@
 	using.icon = ui_style
 	using.icon_state = "swap_2"
 	using.screen_loc = ui_swaphand2
-	using.layer = HUD_LAYER
+	using.layer = 19
 	static_inventory += using
 
-	zone_select = new /obj/screen/zone_sel()
-	zone_select.icon = ui_style
-	zone_select.update_icon(mymob)
+	mymob.zone_sel = new /obj/screen/zone_sel()
+	mymob.zone_sel.icon = ui_style
+	mymob.zone_sel.update_icon(mymob)
 
 	lingchemdisplay = new /obj/screen/ling/chems()
 	devilsouldisplay = new /obj/screen/devil/soul_counter
