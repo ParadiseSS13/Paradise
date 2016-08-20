@@ -1,7 +1,0 @@
-author: TheDZD
-delete-after: True
-changes: 
-  - tweak: "Lowered genetic instability damage thresholds by 5 across the board. Effectively meaning that you can have one additional minor power without shifting into the next threshold."
-  - tweak: "Lowered the rate at which damage scales with instability, and the decreased upper cap on each damage type."
-  - tweak: "The base activation probability for powers is now 100%, rather than 45%. Abilities affected include everything except Cloak of Darkness, Chameleon, No Breathing, Hulk, Telekinesis, and X-Ray Vision, which all have their own independent activation chances (varying from 5% to 10%)."
-  - tweak: "Increases activation chances of TK (10% to 15%), No Breathing (10% to 25%), Cloak of Darkness (10% to 25%), Hulk (5% to 15%), X-Ray Vision (10% to 15%), and Chameleon (10% to 25%)."
