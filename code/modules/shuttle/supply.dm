@@ -824,7 +824,7 @@
 				return 1
 
 		var/mob/living/M = caller
-		if(!M.ventcrawler && !M.small)
+		if(!M.ventcrawler && M.mob_size > MOB_SIZE_SMALL)
 			return 0
 	return 1
 
