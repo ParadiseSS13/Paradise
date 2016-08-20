@@ -278,8 +278,7 @@
 //////////// Gloves ////////////
 
 //////////// Eye Wear ////////////
-
-/obj/item/clothing/glasses/hud/security/fluff/eyepro //T0EPIC4U: Ty Omaha
+/obj/item/clothing/glasses/hud/security/sunglasses/fluff/eyepro //T0EPIC4U: Ty Omaha
 	name = "Tacticool EyePro"
 	desc = "Tacticool ballistic glasses, for making all operators look badass."
 	icon = 'icons/obj/custom_items.dmi'
