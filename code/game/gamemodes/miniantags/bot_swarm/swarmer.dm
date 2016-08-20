@@ -60,6 +60,7 @@
 	faction = list("swarmer")
 	projectiletype = /obj/item/projectile/beam/disabler
 	pass_flags = PASSTABLE
+	mob_size = MOB_SIZE_TINY
 	ventcrawler = 2
 	ranged = 1
 	ranged_cooldown_cap = 1
