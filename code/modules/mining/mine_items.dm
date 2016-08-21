@@ -288,12 +288,8 @@
 		return
 	template = shelter_templates[template_id]
 	if(!template)
-		throw EXCEPTION("Shelter template ([template_id]) not found!")
+		log_runtime("Shelter template ([template_id]) not found!", src)
 		qdel(src)
-
-/obj/item/weapon/survivalcapsule/Destroy()
-	template = null // without this, capsules would be one use. per round.
-	return ..()
 
 /obj/item/weapon/survivalcapsule/examine(mob/user)
 	. = ..()
