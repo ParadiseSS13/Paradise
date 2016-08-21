@@ -278,152 +278,59 @@
 	icon_state = "capsule"
 	icon = 'icons/obj/mining.dmi'
 	w_class = 1
+	origin_tech = "engineering=3;bluespace=3"
+	var/template_id = "shelter_alpha"
+	var/datum/map_template/shelter/template
 	var/used = FALSE
 
+/obj/item/weapon/survivalcapsule/proc/get_template()
+	if(template)
+		return
+	template = shelter_templates[template_id]
+	if(!template)
+		throw EXCEPTION("Shelter template ([template_id]) not found!")
+		qdel(src)
+
+/obj/item/weapon/survivalcapsule/Destroy()
+	template = null // without this, capsules would be one use. per round.
+	return ..()
+
+/obj/item/weapon/survivalcapsule/examine(mob/user)
+	. = ..()
+	get_template()
+	to_chat(user, "This capsule has the [template.name] stored.")
+	to_chat(user, template.description)
+
 /obj/item/weapon/survivalcapsule/attack_self()
+	// Can't grab when capsule is New() because templates aren't loaded then
+	get_template()
 	if(used == FALSE)
 		loc.visible_message("<span class='warning'>[src] begins to shake. Stand back!</span>")
 		used = TRUE
 		sleep(50)
-		var/turf/T = get_turf(src)
-		var/clear = TRUE
-		for(var/turf/turf in range(2, T))
-			if(turf.density && !istype(turf, /turf/simulated/mineral))
-				clear = FALSE
-				break
-			for(var/obj/obj in turf)
-				if(obj.density && obj.anchored)
-					clear = FALSE
-					break
-		if(!clear)
-			loc.visible_message("<span class='warning'>[src] doesn't have room to deploy! You need to clear a 5x5 area!</span>")
+		var/turf/deploy_location = get_turf(src)
+		var/status = template.check_deploy(deploy_location)
+		switch(status)
+			if(SHELTER_DEPLOY_BAD_AREA)
+				loc.visible_message("<span class='warning'>[src] will not function in this area.</span>")
+			if(SHELTER_DEPLOY_BAD_TURFS, SHELTER_DEPLOY_ANCHORED_OBJECTS)
+				var/width = template.width
+				var/height = template.height
+				loc.visible_message("<span class='warning'>[src] doesn't have room to deploy! You need to clear a [width]x[height] area!</span>")
+
+		if(status != SHELTER_DEPLOY_ALLOWED)
 			used = FALSE
 			return
+
 		playsound(get_turf(src), 'sound/effects/phasein.ogg', 100, 1)
+
+		var/turf/T = deploy_location
 		if(!is_mining_level(T.z))//only report capsules away from the mining/lavaland level
 			message_admins("[key_name_admin(usr)] (<A HREF='?_src_=holder;adminmoreinfo=\ref[usr]'>?</A>) (<A HREF='?_src_=holder;adminplayerobservefollow=\ref[usr]'>FLW</A>) activated a bluespace capsule away from the mining level! (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>JMP</a>)")
 			log_admin("[key_name(usr)] activated a bluespace capsule away from the mining level at [T.x], [T.y], [T.z]")
-		load()
-		new /obj/effect/effect/smoke(loc)
+		template.load(deploy_location, centered = TRUE)
+		new /obj/effect/effect/harmless_smoke(get_turf(src))
 		qdel(src)
-
-/obj/item/weapon/survivalcapsule/proc/load()
-	var/list/blacklist = list(/area/shuttle) //Shuttles move based on area, and we'd like not to break them
-	var/turf/start_turf = get_turf(loc)
-	var/turf/cur_turf
-	var/x_size = 5
-	var/y_size = 5
-	var/list/walltypes = list(/turf/simulated/wall/survival)
-	var/floor_type = /turf/simulated/floor/pod
-	var/room
-
-	//Center the room/spawn it
-	start_turf = locate(start_turf.x -2, start_turf.y - 2, start_turf.z)
-
-	room = spawn_room(start_turf, x_size, y_size, walltypes, floor_type, "Emergency Shelter")
-
-	start_turf = get_turf(loc)
-
-	//Fill it
-
-	//The door
-	cur_turf = locate(start_turf.x, start_turf.y-2, start_turf.z)
-	new /obj/machinery/door/airlock/survival_pod(cur_turf)
-
-
-	//Bed middle right
-	cur_turf = locate(start_turf.x+1, start_turf.y, start_turf.z)
-	new /obj/structure/stool/bed/pod(cur_turf)
-	new /obj/item/weapon/bedsheet/brown(cur_turf)
-
-	//Chair bottom right
-	cur_turf = locate(start_turf.x+1, start_turf.y-1, start_turf.z)
-	new /obj/structure/tubes(cur_turf)
-	var/obj/structure/stool/bed/chair/comfy/black/C = new (cur_turf)
-	C.dir = 8
-
-	//GPS computer top right
-	cur_turf = locate(start_turf.x+1, start_turf.y+1, start_turf.z)
-	new /obj/item/device/gps/computer(cur_turf)
-
-	//Donk Pocket Storage Top/middle
-	cur_turf = locate(start_turf.x, start_turf.y+1, start_turf.z)
-	new /obj/machinery/smartfridge/survival_pod(cur_turf)
-
-	//Table in Bottom Left
-	cur_turf = locate(start_turf.x-1, start_turf.y-1, start_turf.z)
-	new /obj/structure/table/survival_pod(cur_turf)
-
-	//Sleeper Middle Left
-	cur_turf = locate(start_turf.x-1, start_turf.y, start_turf.z)
-	new /obj/machinery/sleeper/survival_pod(cur_turf)
-
-	//Fans Top Left
-	cur_turf = locate(start_turf.x-1, start_turf.y+1, start_turf.z)
-	new /obj/structure/fans(cur_turf)
-
-	//Signs
-	cur_turf = locate(start_turf.x-2, start_turf.y, start_turf.z)
-	var/obj/structure/sign/mining/survival/S1 = new(cur_turf)
-	S1.dir = EAST
-
-	cur_turf = locate(start_turf.x+2, start_turf.y, start_turf.z)
-	var/obj/structure/sign/mining/survival/S2 = new(cur_turf)
-	S2.dir = WEST
-
-	cur_turf = locate(start_turf.x, start_turf.y+2, start_turf.z)
-	var/obj/structure/sign/mining/survival/S3 = new(cur_turf)
-	S3.dir = NORTH
-
-	cur_turf = locate(start_turf.x-1, start_turf.y-2, start_turf.z)
-	var/obj/structure/sign/mining/survival/S4 = new(cur_turf)
-	S4.dir = SOUTH
-
-	cur_turf = locate(start_turf.x+1, start_turf.y-2, start_turf.z)
-	new /obj/structure/sign/mining(cur_turf)
-
-	var/area/survivalpod/L = new /area/survivalpod
-
-	var/turf/threshhold = locate(start_turf.x, start_turf.y-2, start_turf.z)
-	threshhold.ChangeTurf(/turf/simulated/floor/pod)
-	var/turf/simulated/floor/pod/doorturf = threshhold
-	air_master.remove_from_active(doorturf)
-	doorturf.oxygen = 21
-	doorturf.temperature = 293.15
-	doorturf.nitrogen = 82
-	doorturf.carbon_dioxide = 0
-	doorturf.toxins = 0
-	doorturf.air.oxygen = 21
-	doorturf.air.carbon_dioxide = 0
-	doorturf.air.nitrogen = 82
-	doorturf.air.toxins = 0
-	doorturf.air.temperature = 293.15
-	air_master.add_to_active(doorturf)
-	var/area/ZZ = get_area(threshhold)
-	if(!is_type_in_list(ZZ, blacklist))
-		L.contents += threshhold
-	threshhold.overlays.Cut()
-
-	new /obj/structure/fans/tiny(threshhold) //a tiny fan, to keep the air in.
-
-	var/list/turfs = room["floors"]
-	for(var/turf/simulated/floor/A in turfs)
-		air_master.remove_from_active(A)
-		A.oxygen = 21
-		A.temperature = 293.15
-		A.nitrogen = 82
-		A.carbon_dioxide = 0
-		A.toxins = 0
-		A.air.oxygen = 21
-		A.air.carbon_dioxide = 0
-		A.air.nitrogen = 82
-		A.air.toxins = 0
-		A.air.temperature = 293.15
-		air_master.add_to_active(A)
-		A.overlays.Cut()
-		var/area/Z = get_area(A)
-		if(!is_type_in_list(Z, blacklist))
-			L.contents += A
 
 //Pod turfs and objects
 
