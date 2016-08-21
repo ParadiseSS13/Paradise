@@ -372,6 +372,19 @@
 	icon_state = "sleeper-open"
 	density = 0
 
+/obj/machinery/sleeper/survival_pod/New()
+	..()
+	component_parts = list()
+	component_parts += new /obj/item/weapon/circuitboard/sleeper/survival(null)
+	var/obj/item/weapon/stock_parts/matter_bin/B = new(null)
+	B.rating = initial_bin_rating
+	component_parts += B
+	component_parts += new /obj/item/weapon/stock_parts/manipulator(null)
+	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
+	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
+	component_parts += new /obj/item/stack/cable_coil(null, 1)
+	RefreshParts()
+
 //Computer
 /obj/item/device/gps/computer
 	name = "pod computer"
@@ -411,6 +424,13 @@
 	max_n_of_items = 10
 	pixel_y = -4
 
+/obj/item/weapon/circuitboard/smartfridge/survival
+	name = "circuit board (Smartfridge Survival)"
+	build_path = /obj/machinery/smartfridge/survival_pod
+
+/obj/item/weapon/circuitboard/smartfridge/attackby(obj/item/I, mob/user, params)
+	return
+
 /obj/machinery/smartfridge/survival_pod/accept_check(obj/item/O)
 	if(istype(O, /obj/item))
 		return 1
@@ -418,8 +438,15 @@
 
 /obj/machinery/smartfridge/survival_pod/New()
 	..()
+	component_parts = list()
+	component_parts += new /obj/item/weapon/circuitboard/smartfridge/survival(null)
+	component_parts += new /obj/item/weapon/stock_parts/matter_bin(null)
+	RefreshParts()
+
+/obj/machinery/smartfridge/survival_pod/loaded/New()
+	..()
 	for(var/i in 1 to 5)
-		var/obj/item/weapon/reagent_containers/food/snacks/warmdonkpocket/W = new(src)
+		var/obj/item/weapon/reagent_containers/food/snacks/warmdonkpocket_weak/W = new(src)
 		load(W)
 	if(prob(50))
 		var/obj/item/weapon/storage/pill_bottle/dice/D = new(src)
@@ -495,3 +522,13 @@
 	anchored = 1
 	layer = MOB_LAYER - 0.2
 	density = 0
+
+/obj/structure/tubes/attackby(obj/item/weapon/W, mob/user, params)
+	if(istype(W, /obj/item/weapon/wrench))
+		playsound(loc, 'sound/items/Ratchet.ogg', 50, 1)
+		user.visible_message("<span class='warning'>[user] disassembles [src].</span>", \
+							 "<span class='notice'>You start to disassemble [src]...</span>", "You hear clanking and banging noises.")
+		if(do_after(user, 20, target = src))
+			new /obj/item/stack/rods(loc)
+			qdel(src)
+			return ..()
