@@ -290,12 +290,27 @@
 		to_chat(user, "<span class='warning'>\The [src] flickers out of your hands, too eager to move!</span>")
 		return
 
+	var/outer_tele_radius = 0
+	var/inner_tele_radius = 9
+
 	var/mob/living/carbon/C = user
 	var/turf/mobloc = get_turf(C)
-	var/turf/destination = get_teleport_loc(mobloc,C,9,1,3,1,0,1)
+	var/list/turfs = new/list()
+	for(var/turf/T in range(user, outer_tele_radius))
+		if(T in range(user, inner_tele_radius))
+			continue
+		if(istype(T, /turf/space))
+			continue
+		if(T.x > world.maxx-outer_tele_radius || T.x < outer_tele_radius)
+			continue	//putting them at the edge is dumb
+		if(T.y > world.maxy-outer_tele_radius || T.y < outer_tele_radius)
+			continue
 
-	if(destination)
+		turfs += T
+
+	if(turfs.len)
 		uses--
+		var/turf/destination = pick(turfs)
 		if(uses <= 0)
 			icon_state ="shifter_drained"
 		playsound(mobloc, "sparks", 50, 1)

@@ -26,7 +26,7 @@
 	..()
 	icon_state = ticker.mode.cultdat.entity_icon_state
 	name = ticker.mode.cultdat.entity_name
-	to_chat(world, "<font size='15' color='red'><b>NAR-SIE HAS RISEN</b></font>")
+	to_chat(world, "<font size='15' color='red'><b> [name] HAS RISEN</b></font>")
 	world << pick(sound('sound/hallucinations/im_here1.ogg'), sound('sound/hallucinations/im_here2.ogg'))
 
 	var/area/A = get_area(src)

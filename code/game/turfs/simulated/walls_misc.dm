@@ -5,12 +5,14 @@
 	icon_state = "cult"
 	walltype = "cult"
 	canSmoothWith = null
+	smooth = SMOOTH_FALSE
 
 /turf/simulated/wall/cult/New()
-	new /obj/effect/overlay/temp/cult/turf(src)
-	icon_state = ticker.mode.cultdat.cult_wall_icon_state
-	walltype = ticker.mode.cultdat.cult_wall_icon_state
 	..()
+	if(ticker.mode)//game hasn't started offically don't do shit..
+		new /obj/effect/overlay/temp/cult/turf(src)
+		icon_state = ticker.mode.cultdat.cult_wall_icon_state
+		walltype = ticker.mode.cultdat.cult_wall_icon_state
 
 /turf/simulated/wall/cult/artificer
 	name = "runed stone wall"

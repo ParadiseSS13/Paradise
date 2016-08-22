@@ -89,6 +89,9 @@
 	entity_title2 = "The One Who Beckons"
 	entity_title3 = "The Ferryman of Oblivion"
 
+	cult_wall_icon_state = "deathcult"
+	cult_floor_icon_state = "carpet-broken"
+
 	artificer_name = "Boneshaper"
 
 	behemoth_name = "Draugr"
