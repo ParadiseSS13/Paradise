@@ -28,8 +28,6 @@
 	supervisors = "your laws and the AI"	//Nodrak
 	selection_color = "#ddffdd"
 	minimal_player_age = 21
-	exp_requirements = 300
-	exp_type = EXP_TYPE_CREW
 	alt_titles = list("Android", "Robot")
 
 	equip(var/mob/living/carbon/human/H)

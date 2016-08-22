@@ -32,7 +32,7 @@
 		return 0
 	if(!exp_requirements || !exp_type)
 		return 0
-	if(!job_is_xp_locked(src.title))
+	if(!config.use_exp_restrictions)
 		return 0
 	if(config.use_exp_restrictions_admin_bypass && check_rights(R_ADMIN, 0, C.mob))
 		return 0
@@ -48,24 +48,10 @@
 		return (job_requirement - my_exp)
 
 /datum/job/proc/get_exp_req_amount()
-	if(title in command_positions)
-		if(config.use_exp_restrictions_heads_hours)
-			return config.use_exp_restrictions_heads_hours * 60
 	return exp_requirements
 
 /datum/job/proc/get_exp_req_type()
-	if(title in command_positions)
-		if(config.use_exp_restrictions_heads_department && exp_type_department)
-			return exp_type_department
 	return exp_type
-
-/proc/job_is_xp_locked(jobtitle)
-	if(!config.use_exp_restrictions_heads && jobtitle in command_positions)
-		return 0
-	if(!config.use_exp_restrictions_other && !(jobtitle in command_positions))
-		return 0
-	return 1
-
 
 /mob/proc/get_exp_report()
 	if(client)
@@ -76,20 +62,16 @@
 /client/proc/get_exp_report()
 	if(!config.use_exp_tracking)
 		return "Tracking is disabled in the server configuration file."
-
 	var/list/play_records = params2list(prefs.exp)
 	if(!play_records.len)
 		return "[key] has no records."
-
 	var/return_text = "<UL>"
-
 	var/list/exp_data = list()
 	for(var/cat in exp_jobsmap)
 		if(text2num(play_records[cat]))
 			exp_data[cat] = text2num(play_records[cat])
 		else
 			exp_data[cat] = 0
-
 	for(var/dep in exp_data)
 		if(exp_data[dep] > 0)
 			if(dep == EXP_TYPE_EXEMPT)
@@ -106,9 +88,7 @@
 	var/list/jobs_unlocked = list()
 	for(var/datum/job/job in job_master.occupations)
 		if(job.exp_requirements && job.exp_type)
-			if(!job_is_xp_locked(job.title))
-				continue
-			else if(!job.available_in_playtime(mob.client))
+			if(!job.available_in_playtime(mob.client))
 				jobs_unlocked += job.title
 			else
 				var/xp_req = job.get_exp_req_amount()
@@ -128,8 +108,8 @@
 
 /client/proc/get_exp_living()
 	var/list/play_records = params2list(prefs.exp)
-	var/exp_gen = text2num(play_records[EXP_TYPE_LIVING])
-	return get_exp_format(exp_gen)
+	var/exp_living = text2num(play_records[EXP_TYPE_LIVING])
+	return get_exp_format(exp_living)
 
 /proc/get_exp_format(var/expnum)
 	if(expnum > 60)

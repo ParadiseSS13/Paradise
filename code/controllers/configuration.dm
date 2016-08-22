@@ -128,10 +128,7 @@
 	var/use_age_restriction_for_antags = 0 //Do antags use account age restrictions? --requires database
 
 	var/use_exp_tracking = 0
-	var/use_exp_restrictions_heads = 0
-	var/use_exp_restrictions_heads_hours = 0
-	var/use_exp_restrictions_heads_department = 0
-	var/use_exp_restrictions_other = 0
+	var/use_exp_restrictions = 0
 	var/use_exp_restrictions_admin_bypass = 0
 
 	var/simultaneous_pm_warning_timeout = 100
@@ -249,17 +246,8 @@
 				if("use_exp_tracking")
 					config.use_exp_tracking = 1
 
-				if("use_exp_restrictions_heads")
-					config.use_exp_restrictions_heads = 1
-
-				if("use_exp_restrictions_heads_hours")
-					config.use_exp_restrictions_heads_hours = text2num(value)
-
-				if("use_exp_restrictions_heads_department")
-					config.use_exp_restrictions_heads_department = 1
-
-				if("use_exp_restrictions_other")
-					config.use_exp_restrictions_other = 1
+				if("use_exp_restrictions")
+					config.use_exp_restrictions = 1
 
 				if("use_exp_restrictions_admin_bypass")
 					config.use_exp_restrictions_admin_bypass = 1

@@ -19,7 +19,6 @@
 	minimal_player_age = 21
 	exp_requirements = 600
 	exp_type = EXP_TYPE_CREW
-	exp_type_department = EXP_TYPE_ENGINEERING
 
 	equip(var/mob/living/carbon/human/H)
 		if(!H)	return 0
@@ -56,8 +55,6 @@
 	minimal_access = list(access_eva, access_engine, access_engine_equip, access_tech_storage, access_maint_tunnels, access_external_airlocks, access_construction)
 	alt_titles = list("Maintenance Technician","Engine Technician","Electrician")
 	minimal_player_age = 7
-	exp_requirements = 180
-	exp_type = EXP_TYPE_CREW
 	equip(var/mob/living/carbon/human/H)
 		if(!H)	return 0
 		H.equip_or_collect(new /obj/item/device/radio/headset/headset_eng(H), slot_l_ear)
@@ -92,8 +89,6 @@
 	minimal_access = list(access_eva, access_atmospherics, access_maint_tunnels, access_external_airlocks, access_emergency_storage, access_construction)
 	alt_titles = list("Atmospheric Technician")
 	minimal_player_age = 7
-	exp_requirements = 180
-	exp_type = EXP_TYPE_CREW
 	equip(var/mob/living/carbon/human/H)
 		if(!H)	return 0
 		H.equip_or_collect(new /obj/item/device/radio/headset/headset_eng(H), slot_l_ear)
