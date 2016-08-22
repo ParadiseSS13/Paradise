@@ -50,8 +50,6 @@
 	user.visible_message("<span class='notice'> [user] has cut [target]'s [affected.encased] open with \the [tool].</span>",		\
 	"<span class='notice'> You have cut [target]'s [affected.encased] open with \the [tool].</span>")
 	affected.open = 2.5
-	// crossin' the rubicon
-	surgery.can_cancel = 0
 	return 1
 
 /datum/surgery_step/open_encased/saw/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
@@ -203,6 +201,5 @@
 	user.visible_message(msg, self_msg)
 
 	affected.open = 2
-	surgery.can_cancel = 1
 
 	return 1
