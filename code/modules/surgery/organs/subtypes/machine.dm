@@ -180,10 +180,6 @@
 			stored_mmi.forceMove(get_turf(src))
 			stored_mmi = null
 	..()
-
-	var/mob/living/holder_mob = loc
-	if(istype(holder_mob))
-		holder_mob.unEquip(src)
 	qdel(src)
 
 /obj/item/organ/internal/brain/mmi_holder/proc/update_from_mmi()
