@@ -18,6 +18,7 @@
 	var/p_open = 0
 	var/operating = 0
 	var/autoclose = 0
+	var/autoclose_timer
 	var/glass = 0
 	var/normalspeed = 1
 	var/heat_proof = 0 // For glass airlocks/opacity firedoors
@@ -58,6 +59,9 @@
 	air_update_turf(1)
 	update_freelook_sight()
 	airlocks -= src
+	if(autoclose_timer)
+		deltimer(autoclose_timer)
+		autoclose_timer = 0
 	return ..()
 
 /obj/machinery/door/Bumped(atom/AM)
@@ -220,12 +224,9 @@
 	air_update_turf(1)
 	update_freelook_sight()
 
-	if(autoclose  && normalspeed)
-		spawn(150)
-			autoclose()
-	if(autoclose && !normalspeed)
-		spawn(5)
-			autoclose()
+	// The `addtimer` system has the advantage of being cancelable
+	if(autoclose)
+		autoclose_timer = addtimer(src, "autoclose", normalspeed ? 150 : 5, unique = 1)
 
 	return 1
 
@@ -235,6 +236,10 @@
 	if(operating > 0)
 		return
 	operating = 1
+
+	if(autoclose_timer)
+		deltimer(autoclose_timer)
+		autoclose_timer = 0
 
 	do_animate("closing")
 	src.layer = closed_layer
@@ -269,8 +274,8 @@
 	return 1
 
 /obj/machinery/door/proc/autoclose()
-	var/obj/machinery/door/airlock/A = src
-	if(!qdeleted(src) && A && !A.density && !A.operating && !A.locked && !A.welded && A.autoclose)
+	autoclose_timer = 0
+	if(!qdeleted(src) && !density && !operating && autoclose)
 		close()
 	return
 
