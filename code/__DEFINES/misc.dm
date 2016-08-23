@@ -1,5 +1,3 @@
-#define TRANSITIONEDGE	7 //Distance from edge to move to another z-level
-
 //Object specific defines
 #define CANDLE_LUM 3 //For how bright candles are
 
