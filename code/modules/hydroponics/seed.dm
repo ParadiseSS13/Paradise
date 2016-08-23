@@ -406,8 +406,10 @@
 /datum/seed/proc/randomize()
 
 	roundstart = 0
-	seed_name = "strange plant"     // TODO: name generator.
+	// TODO: Better name generator
+	seed_name = "cultivar #[uid]"
 	display_name = "strange plants" // TODO: name generator.
+	base_name = seed_name
 	mysterious = 1
 	seed_noun = pick("spores","nodes","cuttings","seeds")
 	modular_icon = 1
