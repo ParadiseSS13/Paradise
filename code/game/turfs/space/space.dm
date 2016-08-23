@@ -213,21 +213,21 @@
 
 /turf/space/proc/set_transition_north(dest_z)
 	destination_x = x
-	destination_y = TRANSITIONEDGE + 2
+	destination_y = TRANSITION_BORDER_SOUTH + 1
 	destination_z = dest_z
 
 /turf/space/proc/set_transition_south(dest_z)
 	destination_x = x
-	destination_y = world.maxy - TRANSITIONEDGE - 2
+	destination_y = TRANSITION_BORDER_NORTH - 1
 	destination_z = dest_z
 
 /turf/space/proc/set_transition_east(dest_z)
-	destination_x = TRANSITIONEDGE + 2
+	destination_x = TRANSITION_BORDER_WEST + 1
 	destination_y = y
 	destination_z = dest_z
 
 /turf/space/proc/set_transition_west(dest_z)
-	destination_x = world.maxx - TRANSITIONEDGE - 2
+	destination_x = TRANSITION_BORDER_EAST - 1
 	destination_y = y
 	destination_z = dest_z
 
