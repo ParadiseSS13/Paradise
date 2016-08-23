@@ -290,13 +290,17 @@
 		to_chat(user, "<span class='warning'>\The [src] flickers out of your hands, too eager to move!</span>")
 		return
 
-	var/outer_tele_radius = 0
-	var/inner_tele_radius = 9
+	var/outer_tele_radius = 9
+	var/inner_tele_radius = 0
 
 	var/mob/living/carbon/C = user
 	var/turf/mobloc = get_turf(C)
 	var/list/turfs = new/list()
 	for(var/turf/T in range(user, outer_tele_radius))
+		if(!is_teleport_allowed(T))
+			continue
+		if(get_dir(C, T) != C.dir)
+			continue
 		if(T in range(user, inner_tele_radius))
 			continue
 		if(istype(T, /turf/space))
@@ -308,7 +312,7 @@
 
 		turfs += T
 
-	if(turfs.len)
+	if(turfs)
 		uses--
 		var/turf/destination = pick(turfs)
 		if(uses <= 0)

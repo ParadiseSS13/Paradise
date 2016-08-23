@@ -418,7 +418,7 @@ var/list/teleport_runes = list()
 		if(T.mind)
 			var/obj/item/device/soulstone/stone = new /obj/item/device/soulstone(get_turf(src))
 			stone.invisibility = INVISIBILITY_MAXIMUM //so it's not picked up during transfer_soul()
-			if(!stone.transfer_soul("FORCE", T, usr)) //If it cannot be added
+			if(!stone.transfer_soul("VICTIM", T, usr)) //If it cannot be added
 				qdel(stone)
 			if(stone)
 				stone.invisibility = 0
