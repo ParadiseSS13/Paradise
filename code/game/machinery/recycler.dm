@@ -123,7 +123,8 @@ var/const/SAFETY_COOLDOWN = 100
 			items_recycled++
 		else
 			playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, 0)
-			AM.loc = loc
+			if(AM)
+				AM.loc = loc
 
 	if(items_recycled && sound)
 		playsound(loc, item_recycle_sound, 100, 0)
