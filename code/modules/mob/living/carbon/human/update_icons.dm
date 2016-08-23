@@ -639,7 +639,7 @@ var/global/list/damage_icon_parts = list()
 				standing.icon	= 'icons/mob/uniform_fat.dmi'
 			else
 				to_chat(src, "\red You burst out of \the [w_uniform]!")
-				unEquip(w_uniform)
+				drop_specific_item(w_uniform)
 				return
 		else
 			standing.icon	= 'icons/mob/uniform.dmi'
@@ -669,17 +669,8 @@ var/global/list/damage_icon_parts = list()
 	else
 		overlays_standing[UNIFORM_LAYER]	= null
 		// Automatically drop anything in store / id / belt if you're not wearing a uniform.	//CHECK IF NECESARRY
-		for( var/obj/item/thing in list(r_store, l_store, wear_id, wear_pda, belt) )						//
-			if(thing)																			//
-				unEquip(thing)																	//
-				if(client)																		//
-					client.screen -= thing														//
-																								//
-				if(thing)																		//
-					thing.loc = loc																//
-					thing.dropped(src)															//
-					thing.layer = initial(thing.layer)
-					thing.plane = initial(thing.plane)
+		for(var/obj/item/thing in list(r_store, l_store, wear_id, wear_pda, belt))						//
+			drop_specific_item(thing)
 	if(update_icons)   update_icons()
 
 /mob/living/carbon/human/update_inv_wear_id(var/update_icons=1)
@@ -958,14 +949,14 @@ var/global/list/damage_icon_parts = list()
 				standing = image("icon" = 'icons/mob/suit_fat.dmi', "icon_state" = "[wear_suit.icon_state]")
 			else
 				to_chat(src, "\red You burst out of \the [wear_suit]!")
-				unEquip(wear_suit)
+				drop_specific_item(wear_suit)
 				return
 		else
 			standing = image("icon" = 'icons/mob/suit.dmi', "icon_state" = "[wear_suit.icon_state]")
 
 
-		if( istype(wear_suit, /obj/item/clothing/suit/straight_jacket) )
-			unEquip(handcuffed)
+		if(istype(wear_suit, /obj/item/clothing/suit/straight_jacket))
+			drop_specific_item(handcuffed)
 			drop_l_hand()
 			drop_r_hand()
 

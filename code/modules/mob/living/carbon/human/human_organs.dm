@@ -108,12 +108,12 @@
 			if((E.body_part == HAND_LEFT) || (E.body_part == ARM_LEFT))
 				if(!l_hand)
 					continue
-				if(!unEquip(l_hand))
+				if(!drop_specific_item(l_hand))
 					continue
 			else
 				if(!r_hand)
 					continue
-				if(!unEquip(r_hand))
+				if(!drop_specific_item(r_hand))
 					continue
 
 			var/emote_scream = pick("screams in pain and ", "lets out a sharp cry and ", "cries out and ")
@@ -124,12 +124,12 @@
 			if((E.body_part == HAND_LEFT) || (E.body_part == ARM_LEFT))
 				if(!l_hand)
 					continue
-				if(!unEquip(l_hand))
+				if(!drop_specific_item(l_hand))
 					continue
 			else
 				if(!r_hand)
 					continue
-				if(!unEquip(r_hand))
+				if(!drop_specific_item(r_hand))
 					continue
 
 			custom_emote(1, "drops what they were holding, their [E.name] malfunctioning!")

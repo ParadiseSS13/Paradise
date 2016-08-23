@@ -137,7 +137,7 @@
 			AM.Uncrossed(src)
 
 	if(destination)
-		destination.Entered(src)
+		destination.Entered(src, old_loc)
 		for(var/atom/movable/AM in destination)
 			AM.Crossed(src)
 

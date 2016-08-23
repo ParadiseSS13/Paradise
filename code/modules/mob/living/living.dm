@@ -306,23 +306,6 @@
 
 /mob/living/proc/revive()
 	rejuvenate()
-	if(iscarbon(src))
-		var/mob/living/carbon/C = src
-
-		if(C.handcuffed && !initial(C.handcuffed))
-			C.unEquip(C.handcuffed)
-		C.handcuffed = initial(C.handcuffed)
-		C.update_handcuffed()
-
-		if(C.legcuffed && !initial(C.legcuffed))
-			C.unEquip(C.legcuffed)
-		C.legcuffed = initial(C.legcuffed)
-		C.update_inv_legcuffed()
-
-		if(C.reagents)
-			for(var/datum/reagent/R in C.reagents.reagent_list)
-				C.reagents.clear_reagents()
-			C.reagents.addiction_list.Cut()
 
 /mob/living/proc/rejuvenate()
 	var/mob/living/carbon/human/human_mob = null //Get this declared for use later.
@@ -649,8 +632,7 @@
 	what.add_fingerprint(src)
 	if(do_mob(src, who, what.strip_delay))
 		if(what && what == who.get_item_by_slot(where) && Adjacent(who))
-			who.unEquip(what)
-			if(silent)
+			if(silent && who.drop_specific_item(what))
 				put_in_hands(what)
 			add_logs(src, who, "stripped", addition="of [what]", print_attack_log = isLivingSSD(who))
 

@@ -635,6 +635,9 @@
 	mechas_list -= src //global mech list
 	return ..()
 
+/obj/mecha/allow_drop()
+	return 0
+
 /obj/mecha/ex_act(severity)
 	log_message("Affected by explosion of severity: [severity].",1)
 	if(prob(deflect_chance))
@@ -1099,31 +1102,6 @@
 	occupant_message("Now taking air from [use_internal_tank?"internal airtank":"environment"].")
 	log_message("Now taking air from [use_internal_tank?"internal airtank":"environment"].")
 	return
-
-
-/obj/mecha/verb/checkSeat()
-	set name = "Check under Seat"
-	set category = "Exosuit Interface"
-	set src = usr.loc
-	set popup_menu = 0
-	if(usr != occupant)
-		return
-	var/mob/user = usr
-	to_chat(user, "<span class='notice'>You start rooting around under the seat for lost items</span>")
-	if(do_after(user, 40, target = src))
-		var/obj/badlist = get_intended_components()
-		var/list/true_contents = contents - badlist
-		if(true_contents.len > 0)
-			var/obj/I = pick(true_contents)
-			if(user.put_in_any_hand_if_possible(I))
-				to_chat(user, "<span class='notice'>You find \a [I] [pick("under the seat", "under the console")]!</span>")
-			else
-				to_chat(user, "<span class='notice'>You think you saw something shiny, but you can't reach it!</span>")
-				log_debug("There was a loose [I] in the mech at [atom_loc_line(src)]")
-		else
-			to_chat(user, "<span class='notice'>You fail to find anything of value.</span>")
-	else
-		to_chat(user, "<span class='notice'>You decide against searching the [src]</span>")
 
 /obj/mecha/MouseDrop_T(mob/M, mob/user)
 	if(user.incapacitated())

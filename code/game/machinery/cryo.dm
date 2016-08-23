@@ -143,10 +143,6 @@
 	return 1
 
 
-/obj/machinery/atmospherics/unary/cryo_cell/allow_drop()
-	return 0
-
-
 /obj/machinery/atmospherics/unary/cryo_cell/relaymove(mob/user as mob)
 	if(user.stat)
 		return

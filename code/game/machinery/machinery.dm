@@ -163,6 +163,9 @@ Class Procs:
 /obj/machinery/proc/locate_machinery()
 	return
 
+/obj/machinery/allow_drop()
+	return 0
+
 /obj/machinery/process() // If you dont use process or power why are you here
 	return PROCESS_KILL
 

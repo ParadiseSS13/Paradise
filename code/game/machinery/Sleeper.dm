@@ -532,9 +532,6 @@
 		return
 	return
 
-/obj/machinery/sleeper/allow_drop()
-	return 0
-
 /obj/machinery/sleeper/verb/move_inside()
 	set name = "Enter Sleeper"
 	set category = "Object"

@@ -364,7 +364,7 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 		return 0
 
 	var/mob/M = loc
-	if(src in M.get_equipped_items())
+	if(src in M.get_worn_slots())
 		return 1
 	else
 		return 0

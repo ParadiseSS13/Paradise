@@ -465,3 +465,9 @@
 
 /mob/proc/update_gravity()
 	return
+
+/mob/forceMove(atom/destination)
+	var/atom/oldloc = loc
+	. = ..()
+	if(!oldloc.allow_drop() && destination.allow_drop())
+		update_item_drops()

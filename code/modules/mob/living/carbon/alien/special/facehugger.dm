@@ -137,9 +137,9 @@ var/const/MAX_ACTIVE_TIME = 400
 			if(prob(20))
 				return 0
 			var/obj/item/clothing/W = target.wear_mask
-			if(W.flags & NODROP)
+			// handles drop-ability
+			if(!target.drop_specific_item(W))
 				return 0
-			target.unEquip(W)
 
 			target.visible_message("<span class='danger'>[src] tears [W] off of [target]'s face!</span>", \
 									"<span class='userdanger'>[src] tears [W] off of [target]'s face!</span>")

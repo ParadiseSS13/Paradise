@@ -357,6 +357,22 @@
 /mob/living/carbon/proc/setDNA(var/datum/dna/newDNA)
 	dna = newDNA
 
+/mob/living/carbon/revive()
+	..()
+	if(handcuffed && !initial(handcuffed))
+		drop_specific_item(handcuffed)
+	handcuffed = initial(handcuffed)
+	update_handcuffed()
+
+	if(legcuffed && !initial(legcuffed))
+		unEquip(legcuffed)
+	legcuffed = initial(legcuffed)
+	update_inv_legcuffed()
+
+	if(reagents)
+		for(var/datum/reagent/R in reagents.reagent_list)
+			reagents.clear_reagents()
+		reagents.addiction_list.Cut()
 
 var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump, /obj/machinery/atmospherics/unary/vent_scrubber)
 
@@ -545,6 +561,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 
 	else if(!(I.flags & ABSTRACT)) //can't throw abstract items
 		thrown_thing = I
+		// Not sure if `drop_specific_item` should be used here
 		unEquip(I)
 
 	if(thrown_thing)
@@ -780,7 +797,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 		if(do_after(src, time, 0, target = src))
 			visible_message("<span class='warning'>[src] removes [I]!</span>")
 			to_chat(src, "<span class='notice'>You get rid of [I]!</span>")
-			unEquip(I)
+			drop_specific_item(I)
 
 
 /mob/living/carbon/proc/cuff_resist(obj/item/I, breakouttime = 600, cuff_break = 0)
