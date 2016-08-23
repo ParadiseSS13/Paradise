@@ -62,9 +62,10 @@ var/global/datum/controller/process/timer/timer_master
 	event.thingToCall = thingToCall
 	event.procToCall = procToCall
 	event.timeToRun = world.time + wait
-	// Make the tag portion of the hash be independent
-	args[1] = "\ref[thingToCall]"
-	event.hash = jointext(args, null)
+	var/hashlist = args.Copy()
+
+	hashlist[1] = "[thingToCall](\ref[thingToCall])"
+	event.hash = jointext(hashlist, null)
 	if(args.len > 4)
 		event.argList = args.Copy(5)
 
