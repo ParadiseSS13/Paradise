@@ -12,6 +12,8 @@
 	var/obj/item/weapon/rig/wearing_rig // This is very not good, but it's much much better than calling get_rig() every update_canmove() call.
 
 /mob/living/carbon/human/New(var/new_loc, var/new_species = null, var/delay_ready_dna = 0)
+	..()
+
 	if(!dna)
 		dna = new /datum/dna(null)
 		// Species name is handled by set_species()
@@ -31,8 +33,6 @@
 	var/datum/reagents/R = new/datum/reagents(330)
 	reagents = R
 	R.my_atom = src
-
-	..()
 
 	prev_gender = gender // Debug for plural genders
 	make_blood()
