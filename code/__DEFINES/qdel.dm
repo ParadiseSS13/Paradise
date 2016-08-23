@@ -7,3 +7,6 @@
 #define QDEL_HINT_PUTINPOOL		5 //qdel will put this object in the atom pool.
 #define QDEL_HINT_FINDREFERENCE	6 //functionally identical to QDEL_HINT_QUEUE if TESTING is not enabled in _compiler_options.dm.
 								  //if TESTING is enabled, qdel will call this object's find_references() verb.
+
+// A convenient wrapper around checking for qdeletion/non-existence
+#define exists(A)	(A && !qdeleted(A))
