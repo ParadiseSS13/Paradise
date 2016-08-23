@@ -12,7 +12,6 @@
 	var/obj/item/weapon/rig/wearing_rig // This is very not good, but it's much much better than calling get_rig() every update_canmove() call.
 
 /mob/living/carbon/human/New(var/new_loc, var/new_species = null, var/delay_ready_dna = 0)
-	..()
 
 	if(!dna)
 		dna = new /datum/dna(null)
@@ -23,6 +22,8 @@
 			set_species(new_species, 1, delay_icon_update = 1)
 		else
 			set_species(delay_icon_update = 1)
+
+	..()
 
 	if(species)
 		real_name = species.get_random_name(gender)
