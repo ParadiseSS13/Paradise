@@ -7,8 +7,11 @@
 	if(!new_species || species == new_species || !(new_species in all_species))
 		return
 
-	set_species(new_species)
+	set_species(new_species, null, 1)
 	reset_hair()
+	if(species.bodyflags & HAS_MARKINGS)
+		reset_markings()
+
 	return 1
 
 /mob/living/carbon/human/proc/change_gender(var/new_gender, var/update_dna = 1)
@@ -142,7 +145,7 @@
 	reset_facial_hair()
 	reset_head_accessory()
 	if(m_styles["head"] && m_styles["head"] != "None") //Resets head markings.
-		reset_markings()
+		reset_markings("head")
 
 /mob/living/carbon/human/proc/reset_head_hair()
 	var/obj/item/organ/external/head/H = get_organ("head")

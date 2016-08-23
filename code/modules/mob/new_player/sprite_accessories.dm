@@ -1080,6 +1080,12 @@
 		species_allowed = list("Vulpkanin")
 		gender = NEUTER
 
+	vulp_vulpine
+		name = "Vulpine and Brows"
+		icon_state = "vulp_facial_vulpine_brows"
+		species_allowed = list("Vulpkanin")
+		gender = NEUTER
+
 	vulp_vulpine_fluff
 		name = "Vulpine and Earfluff"
 		icon_state = "vulp_facial_vulpine_fluff"
@@ -1874,59 +1880,58 @@
 /datum/sprite_accessory/head_accessory/vulp_earfluff
 	icon = 'icons/mob/human_face.dmi'
 	name = "Vulpkanin Earfluff"
-	icon_state = "vulp_facial_earfluff"
 	species_allowed = list("Vulpkanin")
+	icon_state = "vulp_facial_earfluff"
 
 /datum/sprite_accessory/head_accessory/vulp_blaze
 	icon = 'icons/mob/human_face.dmi'
 	name = "Blaze"
-	icon_state = "vulp_facial_blaze"
 	species_allowed = list("Vulpkanin")
+	icon_state = "vulp_facial_blaze"
 
 /datum/sprite_accessory/head_accessory/vulp_vulpine
 	icon = 'icons/mob/human_face.dmi'
 	name = "Vulpine"
-	icon_state = "vulp_facial_vulpine"
 	species_allowed = list("Vulpkanin")
+	icon_state = "vulp_facial_vulpine"
 
 /datum/sprite_accessory/head_accessory/vulp_vulpine_fluff
 	icon = 'icons/mob/human_face.dmi'
 	name = "Vulpine and Earfluff"
-	icon_state = "vulp_facial_vulpine_fluff"
 	species_allowed = list("Vulpkanin")
+	icon_state = "vulp_facial_vulpine_fluff"
 
 /datum/sprite_accessory/head_accessory/vulp_mask
 	icon = 'icons/mob/human_face.dmi'
 	name = "Mask"
-	icon_state = "vulp_facial_mask"
 	species_allowed = list("Vulpkanin")
+	icon_state = "vulp_facial_mask"
 
 /datum/sprite_accessory/head_accessory/vulp_patch
 	icon = 'icons/mob/human_face.dmi'
 	name = "Patch"
-	icon_state = "vulp_facial_patch"
 	species_allowed = list("Vulpkanin")
+	icon_state = "vulp_facial_patch"
 
 /datum/sprite_accessory/head_accessory/vulp_ruff
 	icon = 'icons/mob/human_face.dmi'
 	name = "Ruff"
-	icon_state = "vulp_facial_ruff"
 	species_allowed = list("Vulpkanin")
+	icon_state = "vulp_facial_ruff"
 
 /datum/sprite_accessory/head_accessory/vulp_kita
 	icon = 'icons/mob/human_face.dmi'
 	name = "Kita"
-	icon_state = "vulp_facial_kita"
 	species_allowed = list("Vulpkanin")
+	icon_state = "vulp_facial_kita"
 
 /datum/sprite_accessory/head_accessory/vulp_swift
 	icon = 'icons/mob/human_face.dmi'
 	name = "Swift"
-	icon_state = "vulp_facial_swift"
 	species_allowed = list("Vulpkanin")
+	icon_state = "vulp_facial_swift"
 
 /datum/sprite_accessory/head_accessory/vulp_nose
-	icon = 'icons/mob/body_accessory.dmi'
 	name = "Vulpkanin Nose"
 	species_allowed = list("Vulpkanin")
 	icon_state = "markings_face_nose_vulp"
@@ -1934,28 +1939,33 @@
 /datum/sprite_accessory/head_accessory/taj_ears
 	icon = 'icons/mob/human_face.dmi'
 	name = "Tajaran Ears"
-	icon_state = "ears_plain"
 	species_allowed = list("Tajaran")
+	icon_state = "ears_plain"
+
+/datum/sprite_accessory/head_accessory/taj_nose
+	name = "Tajaran Nose"
+	species_allowed = list("Tajaran")
+	icon_state = "markings_face_nose_taj"
 
 /datum/sprite_accessory/head_accessory/ipc_antennae
 	name = "Antennae"
-	icon_state = "antennae"
 	species_allowed = list("Machine")
+	icon_state = "antennae"
 
 /datum/sprite_accessory/head_accessory/ipc_tv_antennae
 	name = "T.V. Antennae"
-	icon_state = "tvantennae"
 	species_allowed = list("Machine")
+	icon_state = "tvantennae"
 
 /datum/sprite_accessory/head_accessory/ipc_tesla_antennae
 	name = "Tesla Antennae"
-	icon_state = "tesla"
 	species_allowed = list("Machine")
+	icon_state = "tesla"
 
 /datum/sprite_accessory/head_accessory/ipc_light
 	name = "Head Light"
-	icon_state = "light"
 	species_allowed = list("Machine")
+	icon_state = "light"
 
 
 /* BODY MARKINGS */
@@ -2046,10 +2056,25 @@
 	species_allowed = list("Vulpkanin")
 	icon_state = "markings_points_fade_belly_vulp"
 
+/datum/sprite_accessory/body_markings/points_fade_belly_alt_vulp
+	name = "Vulpkanin Points and Belly Alt."
+	species_allowed = list("Vulpkanin")
+	icon_state = "markings_points_fade_belly_alt_vulp"
+
 /datum/sprite_accessory/body_markings/points_sharp_vulp
 	name = "Vulpkanin Points 2"
 	species_allowed = list("Vulpkanin")
 	icon_state = "markings_points_sharp_vulp"
+
+/datum/sprite_accessory/body_markings/points_crest_vulp
+	name = "Vulpkanin Points and Crest"
+	species_allowed = list("Vulpkanin")
+	icon_state = "markings_points_crest_vulp"
+
+/datum/sprite_accessory/body_markings/arm_spines_drask
+	name = "Drask Arm Spines"
+	species_allowed = list("Drask")
+	icon_state = "markings_armspines_drask"
 
 /datum/sprite_accessory/body_markings/head
 	marking_location = "head"

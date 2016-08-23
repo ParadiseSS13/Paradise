@@ -148,7 +148,7 @@
 	mutations.Remove(FAT)
 	update_mutantrace(0)
 	update_mutations(0)
-	update_body(0)
+	update_body(0, 1)
 	update_inv_w_uniform(0)
 	update_inv_wear_suit()
 
@@ -163,7 +163,7 @@
 	mutations.Add(FAT)
 	update_mutantrace(0)
 	update_mutations(0)
-	update_body(0)
+	update_body(0, 1)
 	update_inv_w_uniform(0)
 	update_inv_wear_suit()
 

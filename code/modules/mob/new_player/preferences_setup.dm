@@ -30,15 +30,17 @@
 		g_headacc = colours["green"]
 		b_headacc = colours["blue"]
 	if(species in list("Machine", "Tajaran", "Unathi", "Vulpkanin"))
-		m_styles["head"] = random_marking_style("head", species, robohead, body_accessory, alt_head)
-	if(species in list("Human", "Unathi", "Grey", "Vulpkanin", "Tajaran", "Skrell", "Vox"))
-		m_styles["body"] = random_marking_style("body", species, robohead, body_accessory, alt_head)
-		var/list/colours
-		for(var/location in list("head", "body", "tail"))
-			colours = randomize_skin_color(1)
-			m_colours[location] = rgb(colours["red"], colours["green"], colours["blue"])
+		m_styles["head"] = random_marking_style("head", species, robohead, null, alt_head)
+		var/list/colours = randomize_skin_color(1)
+		m_colours["head"] = rgb(colours["red"], colours["green"], colours["blue"])
+	if(species in list("Human", "Unathi", "Grey", "Vulpkanin", "Tajaran", "Skrell", "Vox", "Drask"))
+		m_styles["body"] = random_marking_style("body", species)
+		var/list/colours = randomize_skin_color(1)
+		m_colours["body"] = rgb(colours["red"], colours["green"], colours["blue"])
 	if(species in list("Vox", "Vulpkanin")) //Species with tail markings.
-		m_styles["tail"] = random_marking_style("tail", species, robohead, body_accessory, alt_head)
+		m_styles["tail"] = random_marking_style("tail", species, null, body_accessory)
+		var/list/colours = randomize_skin_color(1)
+		m_colours["tail"] = rgb(colours["red"], colours["green"], colours["blue"])
 	if(species != "Machine")
 		randomize_eyes_color()
 	if(species in list("Unathi", "Tajaran", "Skrell", "Vulpkanin"))
