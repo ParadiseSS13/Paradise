@@ -198,16 +198,26 @@ var/list/chatResources = list(
 
 	return "<img [class] src='data:image/png;base64,[bicon_cache[key]]'>"
 
+/proc/is_valid_tochat_message(message)
+	return !(istype(message, /image) || istype(message, /sound))
+
+/proc/is_valid_tochat_target(target)
+	return !istype(target, /savefile) && (ismob(target) || islist(target) || isclient(target) || target == world)
+
 var/to_chat_filename
 var/to_chat_line
 var/to_chat_src
 // Call using macro: to_chat(target, message)
 /proc/__to_chat(target, message)
-	if(istype(message, /image) || istype(message, /sound) || istype(target, /savefile) || !(ismob(target) || islist(target) || isclient(target) || target == world))
+	if(!is_valid_tochat_message(message) || !is_valid_tochat_target(target))
 		target << message
 		if(!istext(message))
 			message = "(non-text type)"
-		world.Error(new/exception("DEBUG: to_chat called with invalid message: [message]", to_chat_filename, to_chat_line), e_src = to_chat_src)
+		var/targetstring = "\'[target]\'"
+		if(istype(target, /datum))
+			var/datum/D = target
+			targetstring += ", [D.type]"
+		world.Error(new/exception("DEBUG: to_chat called with invalid message/target: Message: \'[message]\', Target: [targetstring]", to_chat_filename, to_chat_line), e_src = to_chat_src)
 		return
 
 	else if(istext(message))
