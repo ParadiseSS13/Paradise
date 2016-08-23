@@ -16,6 +16,8 @@ data/
 /_maps/map_files/**/*.dmm.backup
 /_maps/quicksave/*
 /nano/debug.html
+/icons/*.dmi.backup
+/icons/**/*.dmi.backup
 *.db
 stddef.dm
 .atom-build.json
