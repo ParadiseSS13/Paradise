@@ -250,11 +250,11 @@
 				var/no_los
 				var/turf/last_turf = origin_turf
 				for(var/turf/target_turf in getline(origin_turf,neighbor))
-					if(!last_turf.Enter(target_turf) || target_turf.density)
+					if(!last_turf.Enter(thrown,target_turf) || target_turf.density)
 						no_los = 1
 						break
 					last_turf = target_turf
-				if(!no_los && !origin_turf.Enter(neighbor))
+				if(!no_los && !origin_turf.Enter(thrown, neighbor))
 					no_los = 1
 				if(no_los)
 					closed_turfs |= neighbor
