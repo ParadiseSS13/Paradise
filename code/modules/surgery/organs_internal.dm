@@ -68,7 +68,10 @@
 		return 0
 
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	return affected && affected.open_enough_for_surgery()
+	if(affected)
+		return 1
+
+	return 0
 
 
 

@@ -36,7 +36,7 @@
 	var/syndie = 0                //IS WE SYNDICAT? (currently unused)
 	speed = -1                    //Spiderbots gotta go fast.
 	//pass_flags = PASSTABLE      //Maybe griefy?
-	small = 1
+	mob_size = MOB_SIZE_SMALL
 	speak_emote = list("beeps","clicks","chirps")
 	can_hide = 1
 	ventcrawler = 2

@@ -168,7 +168,6 @@
 	affected.status &= ~ORGAN_BROKEN
 	affected.status &= ~ORGAN_SPLINTED
 	affected.perma_injury = 0
-	surgery.can_cancel = 1
 
 	return 1
 

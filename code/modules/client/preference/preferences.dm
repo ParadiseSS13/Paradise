@@ -1755,12 +1755,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 				if("be_special")
 					var/r = href_list["role"]
-					if(!(r in special_roles))
-						var/cleaned_r = sql_sanitize_text(r)
-						if(r != cleaned_r) // up to no good
-							message_admins("[user] attempted an href exploit! (This could have possibly lead to a \"Bobby Tables\" exploit, so they're probably up to no good). String: [r] ID: [last_id] IP: [last_ip]")
-							to_chat(user, "<span class='userdanger'>Stop right there, criminal scum</span>")
-					else
+					if(r in special_roles)
 						be_special ^= r
 
 				if("name")

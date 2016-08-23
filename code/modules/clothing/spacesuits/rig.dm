@@ -30,6 +30,12 @@
 		"Vulpkanin" = 'icons/obj/clothing/species/vulpkanin/hats.dmi',
 		)
 
+/obj/item/clothing/head/helmet/space/rig/equip_to_best_slot(mob/M)
+	if(rig_restrict_helmet)
+		to_chat(M, "<span class='warning'>You must fasten the helmet to a hardsuit first. (Target the head and use on a hardsuit)</span>") // Stop RIG helmet equipping
+		return 0
+	..()
+
 /obj/item/clothing/head/helmet/space/rig/attack_self(mob/user)
 	toggle_light(user)
 

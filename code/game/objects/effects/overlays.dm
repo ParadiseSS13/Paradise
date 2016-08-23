@@ -64,6 +64,13 @@
 	duration = 8
 	randomdir = 0
 
+/obj/effect/overlay/temp/kinetic_blast
+	name = "kinetic explosion"
+	icon = 'icons/obj/projectiles.dmi'
+	icon_state = "kinetic_blast"
+	layer = 4.1
+	duration = 4
+
 /obj/effect/overlay/palmtree_r
 	name = "Palm tree"
 	icon = 'icons/misc/beach2.dmi'

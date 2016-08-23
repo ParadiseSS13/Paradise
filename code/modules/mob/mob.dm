@@ -866,7 +866,10 @@ var/list/slot_equipment_priority = list( \
 /mob/MouseDrop(mob/M as mob)
 	..()
 	if(M != usr) return
-	if(M.small) return // Stops pAI drones and small mobs (borers, parrots, crabs) from stripping people. --DZD
+	if(isliving(M)) // Ewww
+		var/mob/living/L = M
+		if(L.mob_size <= MOB_SIZE_SMALL)
+			return // Stops pAI drones and small mobs (borers, parrots, crabs) from stripping people. --DZD
 	if(!M.can_strip) return
 	if(usr == src) return
 	if(!Adjacent(usr)) return

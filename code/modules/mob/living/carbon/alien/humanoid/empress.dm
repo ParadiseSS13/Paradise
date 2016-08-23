@@ -5,6 +5,7 @@
 	health = 700
 	icon_state = "alienq_s"
 	status_flags = CANPARALYSE
+	mob_size = MOB_SIZE_LARGE
 	move_delay_add = 3
 	large = 1
 	ventcrawler = 0
