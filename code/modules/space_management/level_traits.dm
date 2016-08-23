@@ -38,7 +38,7 @@
 
 var/list/default_map_traits = MAP_TRANSITION_CONFIG
 /proc/check_level_trait(z, trait)
-  if(z == 0 || isnull(z))
+  if(!z)
     return 0 // If you're nowhere, you have no traits
   var/list/trait_list
   if(space_manager.initialized)
