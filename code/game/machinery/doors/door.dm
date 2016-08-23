@@ -270,7 +270,7 @@
 
 /obj/machinery/door/proc/autoclose()
 	var/obj/machinery/door/airlock/A = src
-	if(!A.density && !A.operating && !A.locked && !A.welded && A.autoclose)
+	if(!qdeleted(src) && A && !A.density && !A.operating && !A.locked && !A.welded && A.autoclose)
 		close()
 	return
 
