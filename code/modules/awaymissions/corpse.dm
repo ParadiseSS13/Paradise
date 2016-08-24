@@ -95,7 +95,7 @@
 
 
 
-
+///////////Syndicate//////////////////////
 
 /obj/effect/landmark/corpse/syndicatesoldier
 	name = "Syndicate Operative"
@@ -295,3 +295,51 @@
 	mob_species = "abductor"
 	corpseuniform = /obj/item/clothing/under/color/grey
 	corpseshoes = /obj/item/clothing/shoes/combat
+
+
+
+////////////////Random Corpse spawner//////////////////
+//Allows you to place down a random spawner object and have the map randomly choose one from a list, very much like maint loot spawners.
+
+
+/obj/effect/landmark/corpse/random/
+	icon = 'icons/mob/screen_gen.dmi'
+	icon_state = "x2"
+	color = "#00FF00"
+//	var/lootcount = 1		//how many items will be spawned
+//	var/lootdoubles = 1		//if the same item can be spawned twice
+	var/list/loot			//a list of possible items to spawn e.g. list(/obj/item, /obj/structure, /obj/effect)
+
+/obj/effect/landmark/corpse/random/New()
+//	if(loot && loot.len)
+//		for(var/i = lootcount, i > 0, i--)
+//			if(!loot.len) break
+	var/lootspawn = pickweight(loot)
+//			if(!lootdoubles)
+//				loot.Remove(lootspawn)
+//
+	if(lootspawn)
+		new lootspawn(get_turf(src))
+	qdel(src)
+
+
+/obj/effect/landmark/corpse/random/crew
+	name = "Crew spawner"
+	loot = list(
+				/obj/effect/landmark/corpse/chef = 1,
+				/obj/effect/landmark/corpse/doctor = 5,
+				/obj/effect/landmark/corpse/engineer = 4,
+				/obj/effect/landmark/corpse/engineer/rig = 2,
+				/obj/effect/landmark/corpse/scientist = 5,
+				/obj/effect/landmark/corpse/miner = 2,
+				/obj/effect/landmark/corpse/miner/rig = 1,
+				/obj/effect/landmark/corpse/bridgeofficer = 1,
+				/obj/effect/landmark/corpse/commander = 1
+				)
+
+/obj/effect/landmark/corpse/random/syndicate
+	name = "Syndicate spawner"
+	loot = list(
+				/obj/effect/landmark/corpse/syndicatesoldier = 5,
+				/obj/effect/landmark/corpse/syndicatecommando = 1,
+				)
