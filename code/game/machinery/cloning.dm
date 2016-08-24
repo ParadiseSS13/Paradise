@@ -308,7 +308,7 @@
 		return
 
 	if((occupant) && (occupant.loc == src))
-		if((occupant.stat == DEAD) || (occupant.suiciding) || !occupant.key)  //Autoeject corpses and suiciding dudes.
+		if((occupant.stat == DEAD) || (occupant.suiciding) || !occupant.key || occupant.hellbound)  //Autoeject corpses and suiciding dudes.
 			locked = 0
 			go_out()
 			connected_message("Clone Rejected: Deceased.")
