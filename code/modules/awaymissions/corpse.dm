@@ -341,5 +341,5 @@
 	name = "Syndicate spawner"
 	loot = list(
 				/obj/effect/landmark/corpse/syndicatesoldier = 5,
-				/obj/effect/landmark/corpse/syndicatecommando = 1,
+				/obj/effect/landmark/corpse/syndicatecommando = 1
 				)
