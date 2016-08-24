@@ -67,7 +67,8 @@
 	return
 */
 /obj/item/weapon/reagent_containers/afterattack(obj/target, mob/user , flag)
-	return
+	if(user.a_intent == "harm")
+		return ..()
 
 /obj/item/weapon/reagent_containers/proc/reagentlist(obj/item/weapon/reagent_containers/snack) //Attack logs for regents in pills
 	var/data
