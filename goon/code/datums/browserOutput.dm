@@ -199,7 +199,7 @@ var/list/chatResources = list(
 	return "<img [class] src='data:image/png;base64,[bicon_cache[key]]'>"
 
 /proc/is_valid_tochat_message(message)
-	return !(istype(message, /image) || istype(message, /sound))
+	return istext(message)
 
 /proc/is_valid_tochat_target(target)
 	return !istype(target, /savefile) && (ismob(target) || islist(target) || isclient(target) || target == world)
@@ -217,7 +217,7 @@ var/to_chat_src
 		if(istype(target, /datum))
 			var/datum/D = target
 			targetstring += ", [D.type]"
-		world.Error(new/exception("DEBUG: to_chat called with invalid message/target: Message: \'[message]\', Target: [targetstring]", to_chat_filename, to_chat_line), e_src = to_chat_src)
+		log_runtime(new/exception("DEBUG: to_chat called with invalid message/target.", to_chat_filename, to_chat_line), to_chat_src, list("Message: '[message]'", "Target: [targetstring]"))
 		return
 
 	else if(istext(message))
