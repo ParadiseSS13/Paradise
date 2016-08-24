@@ -25,7 +25,7 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 	desc = "A window."
 	icon = 'icons/obj/structures.dmi'
 	density = 1
-	layer = 3.2//Just above doors
+	layer = 3.21//Just above doors
 	pressure_resistance = 4*ONE_ATMOSPHERE
 	anchored = 1.0
 	flags = ON_BORDER
@@ -292,6 +292,7 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 		return 0
 
 	dir = turn(dir, 90)
+	update_icon()
 //	updateSilicate()
 	air_update_turf(1)
 	ini_dir = dir
@@ -389,6 +390,10 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 			W.update_icon()
 
 /obj/structure/window/update_icon()
+	if(dir == 1 || dir == 8)
+		layer = 3.19
+	else
+		layer = 3.21
 	return
 
 /obj/structure/window/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
