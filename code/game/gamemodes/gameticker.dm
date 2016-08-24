@@ -339,7 +339,8 @@ var/round_start_time = 0
 		if(player.ready && player.mind)
 			if(player.mind.assigned_role == "AI")
 				player.close_spawn_windows()
-				player.AIize()
+				var/mob/living/silicon/ai/ai_character = player.AIize()
+				ai_character.moveToAILandmark()
 			else if(!player.mind.assigned_role)
 				continue
 			else

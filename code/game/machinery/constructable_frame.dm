@@ -744,6 +744,15 @@ obj/item/weapon/circuitboard/rdserver
 							/obj/item/stack/cable_coil = 1,
 							/obj/item/weapon/stock_parts/console_screen = 2)
 
+/obj/item/weapon/circuitboard/sleeper/syndicate
+	name = "circuit board (Sleeper Syndicate)"
+	build_path = /obj/machinery/sleeper/syndie
+
+/obj/item/weapon/circuitboard/sleeper/survival
+	name = "circuit board (Sleeper Survival Pod)"
+	build_path = /obj/machinery/sleeper/survival_pod
+
+
 /obj/item/weapon/circuitboard/bodyscanner
 	name = "circuit board (Body Scanner)"
 	build_path = /obj/machinery/bodyscanner

@@ -1,19 +1,23 @@
 /datum/surgery/organ_extraction
 	name = "experimental dissection"
-	steps = list(/datum/surgery_step/generic/cut_open, /datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/open_encased/saw, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/internal/extract_organ, /datum/surgery_step/internal/gland_insert, /datum/surgery_step/generic/cauterize)
+	steps = list(/datum/surgery_step/generic/cut_open, /datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/open_encased/saw, /datum/surgery_step/open_encased/retract, /datum/surgery_step/internal/extract_organ, /datum/surgery_step/internal/gland_insert, /datum/surgery_step/generic/cauterize)
 	possible_locs = list("chest")
 
-/datum/surgery/organ_extraction/can_start(mob/user, mob/living/carbon/target)
+/datum/surgery/organ_extraction/can_start(mob/user, mob/living/carbon/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	if(!ishuman(user))
 		return 0
-	if(target.get_species() == "Machine") //Maybe add in a machine version, later?
-		return 0
+	if(ishuman(target))
+		var/mob/living/carbon/human/H = target
+		var/obj/item/organ/external/affected = H.get_organ(target_zone)
+		if(!affected)
+			return 0
+		if(affected.status & ORGAN_ROBOT) //Maybe add in a machine version, later?
+			return 0
 	var/mob/living/carbon/human/H = user
-	if(H.get_species() == "Abductor")
-		return 1
-	if((locate(/obj/item/weapon/implant/abductor) in H))
-		return 1
-	return 0
+	// You must either: Be of the abductor species, or contain an abductor implant
+	if(!(H.get_species() == "Abductor" || (locate(/obj/item/weapon/implant/abductor) in H)))
+		return 0
+	return 1
 
 
 /datum/surgery_step/internal/extract_organ

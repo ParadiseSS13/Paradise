@@ -391,7 +391,8 @@
 	prefs.last_id = computer_id			//these are gonna be used for banning
 
 	. = ..()	//calls mob.Login()
-	chatOutput.start()
+	spawn() // Goonchat does some non-instant checks in start()
+		chatOutput.start()
 
 	if(custom_event_msg && custom_event_msg != "")
 		to_chat(src, "<h1 class='alert'>Custom Event</h1>")

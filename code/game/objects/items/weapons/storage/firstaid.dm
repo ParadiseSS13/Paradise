@@ -276,16 +276,6 @@
 		new /obj/item/weapon/reagent_containers/food/pill/charcoal( src )
 		new /obj/item/weapon/reagent_containers/food/pill/charcoal( src )
 
-/obj/item/weapon/storage/pill_bottle/dice
-	name = "pack of dice"
-	desc = "It's a small container with dice inside."
-
-	New()
-		..()
-		new /obj/item/weapon/dice( src )
-		new /obj/item/weapon/dice/d20( src )
-
-
 /obj/item/weapon/storage/pill_bottle/painkillers
 	name = "Pill Bottle (Salicylic Acid)"
 	desc = "Contains various pills for minor pain relief."

@@ -49,6 +49,8 @@
 /obj/machinery/smartfridge/Destroy()
 	qdel(wires)
 	wires = null
+	for(var/atom/movable/A in contents)
+		A.forceMove(loc)
 	return ..()
 
 /obj/machinery/smartfridge/proc/accept_check(var/obj/item/O as obj)
@@ -207,7 +209,8 @@
 		power_change()
 		return
 
-	default_deconstruction_crowbar(O)
+	if(default_deconstruction_crowbar(O))
+		return
 
 	if(istype(O, /obj/item/device/multitool)||istype(O, /obj/item/weapon/wirecutters))
 		if(panel_open)
