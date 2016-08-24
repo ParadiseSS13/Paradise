@@ -40,9 +40,11 @@
 		loot.Add(/obj/structure/snowman)
 		deathmessage = "shimmers as its animating magic fades away!"
 		del_on_death = 1
-		..()		//this is just to make sure it gets properly killed before we qdel it
-	else
-		..()
+	. = ..()
+	if(!.)
+		loot = initial(loot)
+		deathmessage = initial(deathmessage)
+		del_on_death = initial(del_on_death)
 
 /mob/living/simple_animal/hostile/winter/snowman/ranged
 	ranged = 1
@@ -74,13 +76,14 @@
 	icon_dead = "santa-dead"
 
 /mob/living/simple_animal/hostile/winter/santa/death(gibbed)
-	..()
-	if(death_message)
-		visible_message(death_message)
-	if(next_stage)
-		spawn(10)
-			new next_stage(get_turf(src))
-			qdel(src)	//hide the body
+	. = ..()
+	if(.)
+		if(death_message)
+			visible_message(death_message)
+		if(next_stage)
+			spawn(10)
+				new next_stage(get_turf(src))
+				qdel(src)	//hide the body
 
 /mob/living/simple_animal/hostile/winter/santa/stage_1		//stage 1: slow melee
 	desc = "GET THE FAT MAN!"
@@ -122,12 +125,13 @@
 	melee_damage_upper = 25		//that's gonna leave a mark, for sure
 
 /mob/living/simple_animal/hostile/winter/santa/stage_4/death(gibbed)
-	to_chat(world, "<span class='notice'><hr></span>")
-	to_chat(world, "<span class='notice'>THE FAT MAN HAS FALLEN!</span>")
-	to_chat(world, "<span class='notice'>SANTA CLAUS HAS BEEN DEFEATED!</span>")
-	to_chat(world, "<span class='notice'><hr></span>")
-	..()
-	var/obj/item/weapon/grenade/clusterbuster/xmas/X = new /obj/item/weapon/grenade/clusterbuster/xmas(get_turf(src))
-	var/obj/item/weapon/grenade/clusterbuster/xmas/Y = new /obj/item/weapon/grenade/clusterbuster/xmas(get_turf(src))
-	X.prime()
-	Y.prime()
+	. = ..()
+	if(.)
+		to_chat(world, "<span class='notice'><hr></span>")
+		to_chat(world, "<span class='notice'>THE FAT MAN HAS FALLEN!</span>")
+		to_chat(world, "<span class='notice'>SANTA CLAUS HAS BEEN DEFEATED!</span>")
+		to_chat(world, "<span class='notice'><hr></span>")
+		var/obj/item/weapon/grenade/clusterbuster/xmas/X = new /obj/item/weapon/grenade/clusterbuster/xmas(get_turf(src))
+		var/obj/item/weapon/grenade/clusterbuster/xmas/Y = new /obj/item/weapon/grenade/clusterbuster/xmas(get_turf(src))
+		X.prime()
+		Y.prime()

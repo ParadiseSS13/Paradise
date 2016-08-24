@@ -43,7 +43,7 @@
 
 
 /obj/machinery/computer/security/check_eye(var/mob/user as mob)
-	if((get_dist(user, src) > 1 || !( user.canmove ) || user.blinded || !( current ) || !( current.status )) && (!istype(user, /mob/living/silicon)))
+	if((get_dist(user, src) > 1 || !( user.canmove ) || !user.can_see() || !( current ) || !( current.status )) && (!istype(user, /mob/living/silicon)))
 		return null
 	user.reset_view(current)
 	return 1
@@ -186,7 +186,7 @@
 
 // Switching to cameras
 /obj/machinery/computer/security/proc/switch_to_camera(var/mob/user, var/obj/machinery/camera/C)
-	if((get_dist(user, src) > 1 || user.machine != src || user.blinded || !(user.canmove) || !C.can_use()) && !(istype(user, /mob/living/silicon/ai)))
+	if((get_dist(user, src) > 1 || user.machine != src || !user.can_see() || !(user.canmove) || !C.can_use()) && !(istype(user, /mob/living/silicon/ai)))
 		if(!C.can_use() && !isAI(user))
 			current = null
 		return 0

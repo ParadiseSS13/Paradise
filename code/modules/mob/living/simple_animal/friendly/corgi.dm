@@ -41,8 +41,9 @@
 	regenerate_icons()
 
 /mob/living/simple_animal/pet/corgi/death(gibbed)
-	..()
-	regenerate_icons()
+	. = ..()
+	if(.)
+		regenerate_icons()
 
 /mob/living/simple_animal/pet/corgi/revive()
 	..()
@@ -662,7 +663,8 @@
 		s.start()
 
 /mob/living/simple_animal/pet/corgi/Ian/borgi/death(gibbed)
-	var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
-	s.set_up(3, 1, src)
-	s.start()
-	..()
+	. = ..()
+	if(.)
+		var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+		s.set_up(3, 1, src)
+		s.start()

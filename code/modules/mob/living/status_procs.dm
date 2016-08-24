@@ -98,18 +98,23 @@
 */
 
 /mob/living
+	/*
+	STATUS EFFECTS
+	*/
+	//	`eyes_blocked` vs `eye_blind`:
+	// 		`eyes_blocked` is intended for if something's covering your face or something - like too much tint
+	//		`eye_blind` is actual damage to the eyes, which can be healed over time like any
+	//			other status effect
+
+	// It's similar for `ears_blocked`
 
 	// Booleans
 	var/resting = FALSE
 
-	/*
-	STATUS EFFECTS
-	*/
-
 /mob // On `/mob` for now, to support legacy code
 	var/confused = 0
 	var/dizziness = 0
-	var/drowsyness = 0
+	var/drowsy = 0
 	var/druggy = 0
 	var/drunk = 0
 	var/ear_damage = 0
@@ -188,13 +193,13 @@
 // DROWSY
 
 /mob/living/Drowsy(amount)
-	SetDrowsy(max(drowsyness, amount))
+	SetDrowsy(max(drowsy, amount))
 
 /mob/living/SetDrowsy(amount)
-	drowsyness = max(amount, 0)
+	drowsy = max(amount, 0)
 
 /mob/living/AdjustDrowsy(amount, bound_lower = 0, bound_upper = INFINITY)
-	var/new_value = directional_bounded_sum(drowsyness, amount, bound_lower, bound_upper)
+	var/new_value = directional_bounded_sum(drowsy, amount, bound_lower, bound_upper)
 	SetDrowsy(new_value)
 
 // DRUNK
@@ -357,7 +362,6 @@
 	update_sleeping_effects()
 	if(updating)
 		update_stat()
-		update_canmove()
 
 /mob/living/AdjustSleeping(amount, bound_lower = 0, bound_upper = INFINITY, updating = 1)
 	var/new_value = directional_bounded_sum(sleeping, amount, bound_lower, bound_upper)

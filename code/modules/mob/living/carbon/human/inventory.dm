@@ -187,7 +187,6 @@
 
 	W.screen_loc = null
 	W.loc = src
-	W.equipped(src, slot)
 	W.layer = 20
 	W.plane = HUD_PLANE
 
@@ -286,6 +285,8 @@
 		else
 			to_chat(src, "<span class='warning'>You are trying to equip this item to an unsupported inventory slot. Report this to a coder!</span>")
 			return
+	// Putting this here because it says "after" put into an inventory slot
+	W.equipped(src, slot)
 
 /mob/living/carbon/human/put_in_hands(obj/item/W)
 	if(!W)		return 0

@@ -79,10 +79,11 @@
 /mob/living/proc/updatehealth()
 	if(status_flags & GODMODE)
 		health = maxHealth
-		stat = CONSCIOUS
+		if(stat != CONSCIOUS)
+			update_revive()
 		return
 	health = maxHealth - getOxyLoss() - getToxLoss() - getFireLoss() - getBruteLoss() - getCloneLoss()
-
+	update_stat()
 
 //This proc is used for mobs which are affected by pressure to calculate the amount of pressure that actually
 //affects them once clothing is factored in. ~Errorage
@@ -121,6 +122,7 @@
 /mob/living/proc/adjustBruteLoss(var/amount)
 	if(status_flags & GODMODE)	return 0	//godmode
 	bruteloss = min(max(bruteloss + amount, 0),(maxHealth*2))
+	updatehealth()
 
 /mob/living/proc/getOxyLoss()
 	return oxyloss
@@ -128,10 +130,12 @@
 /mob/living/proc/adjustOxyLoss(var/amount)
 	if(status_flags & GODMODE)	return 0	//godmode
 	oxyloss = min(max(oxyloss + amount, 0),(maxHealth*2))
+	updatehealth()
 
 /mob/living/proc/setOxyLoss(var/amount)
 	if(status_flags & GODMODE)	return 0	//godmode
 	oxyloss = amount
+	updatehealth()
 
 /mob/living/proc/getToxLoss()
 	return toxloss
@@ -139,10 +143,12 @@
 /mob/living/proc/adjustToxLoss(var/amount)
 	if(status_flags & GODMODE)	return 0	//godmode
 	toxloss = min(max(toxloss + amount, 0),(maxHealth*2))
+	updatehealth()
 
 /mob/living/proc/setToxLoss(var/amount)
 	if(status_flags & GODMODE)	return 0	//godmode
 	toxloss = amount
+	updatehealth()
 
 /mob/living/proc/getFireLoss()
 	return fireloss
@@ -150,6 +156,7 @@
 /mob/living/proc/adjustFireLoss(var/amount)
 	if(status_flags & GODMODE)	return 0	//godmode
 	fireloss = min(max(fireloss + amount, 0),(maxHealth*2))
+	updatehealth()
 
 /mob/living/proc/getCloneLoss()
 	return cloneloss
@@ -157,10 +164,12 @@
 /mob/living/proc/adjustCloneLoss(var/amount)
 	if(status_flags & GODMODE)	return 0	//godmode
 	cloneloss = min(max(cloneloss + amount, 0),(maxHealth*2))
+	updatehealth()
 
 /mob/living/proc/setCloneLoss(var/amount)
 	if(status_flags & GODMODE)	return 0	//godmode
 	cloneloss = amount
+	updatehealth()
 
 /mob/living/proc/getBrainLoss()
 	return brainloss
@@ -168,10 +177,12 @@
 /mob/living/proc/adjustBrainLoss(var/amount)
 	if(status_flags & GODMODE)	return 0	//godmode
 	brainloss = min(max(brainloss + amount, 0),(maxHealth*2))
+	update_stat()
 
 /mob/living/proc/setBrainLoss(var/amount)
 	if(status_flags & GODMODE)	return 0	//godmode
 	brainloss = amount
+	update_stat()
 
 /mob/living/proc/getStaminaLoss()
 	return staminaloss
@@ -179,10 +190,12 @@
 /mob/living/proc/adjustStaminaLoss(var/amount)
 	if(status_flags & GODMODE)	return 0
 	staminaloss = min(max(staminaloss + amount, 0),(maxHealth*2))
+	updatehealth()
 
 /mob/living/proc/setStaminaLoss(var/amount)
 	if(status_flags & GODMODE)	return 0
 	staminaloss = amount
+	updatehealth()
 
 /mob/living/proc/getMaxHealth()
 	return maxHealth
@@ -254,8 +267,8 @@
 	return 1
 
 /mob/living/proc/get_organ_target()
-	var/mob/shooter = src
-	var/t = shooter:zone_sel.selecting
+	var/mob/living/shooter = src
+	var/t = shooter.zone_selected
 	if((t in list( "eyes", "mouth" )))
 		t = "head"
 	var/obj/item/organ/external/def_zone = ran_zone(t)
@@ -319,34 +332,33 @@
 	setCloneLoss(0)
 	setBrainLoss(0)
 	setStaminaLoss(0)
-	SetSleeping(0)
-	SetParalysis(0)
-	SetStunned(0)
-	SetWeakened(0)
-	SetSlowed(0)
-	SetLoseBreath(0)
-	SetDizzy(0)
-	SetJitter(0)
-	SetConfused(0)
-	SetDrowsy(0)
-	radiation = 0
-	SetDruggy(0)
-	SetHallucinate(0)
-	blinded = 0
-	nutrition = 400
-	bodytemperature = 310
 	CureBlind()
-	CureNearsighted()
-	CureMute()
 	CureDeaf()
-	CureTourettes()
-	CureEpilepsy()
-	CureCoughing()
+	CureNearsighted()
 	CureNervous()
-	SetEyeBlind(0)
-	SetEyeBlurry(0)
+	CureEpilepsy()
+	CureMute()
+	CureCoughing()
+	CureTourettes()
+	SetConfused(0)
+	SetDizzy(0)
+	SetDrowsy(0)
+	SetDruggy(0)
 	SetEarDamage(0)
 	SetEarDeaf(0)
+	SetEyeBlind(0)
+	SetEyeBlurry(0)
+	SetHallucinate(0)
+	SetJitter(0)
+	SetLoseBreath(0)
+	SetParalysis(0)
+	SetSleeping(0)
+	SetSlowed(0)
+	SetStunned(0)
+	SetWeakened(0)
+	radiation = 0
+	nutrition = 400
+	bodytemperature = 310
 	heal_overall_damage(1000, 1000)
 	ExtinguishMob()
 	fire_stacks = 0
@@ -360,6 +372,7 @@
 		clear_alert("buckled")
 		post_buckle_mob(src)
 
+	// OO code is very disappointed in you :(
 	if(iscarbon(src))
 		var/mob/living/carbon/C = src
 		C.handcuffed = initial(C.handcuffed)
@@ -377,12 +390,7 @@
 
 	restore_all_organs()
 	surgeries.Cut() //End all surgeries.
-	if(stat == DEAD)
-		dead_mob_list -= src
-		living_mob_list += src
-		timeofdeath = 0
-
-	stat = CONSCIOUS
+	update_revive()
 	update_fire()
 	regenerate_icons()
 	if(human_mob)
@@ -506,7 +514,7 @@
 	set name = "Resist"
 	set category = "IC"
 
-	if(!isliving(src) || next_move > world.time || stat || weakened || stunned || paralysis)
+	if(next_move > world.time || stat || weakened || stunned || paralysis)
 		return
 	changeNext_move(CLICK_CD_RESIST)
 

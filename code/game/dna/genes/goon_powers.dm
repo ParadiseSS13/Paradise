@@ -315,7 +315,7 @@
 		if(the_item.gender == FEMALE)
 			t_his = "her"
 		var/mob/living/carbon/human/H = the_item
-		var/obj/item/organ/external/limb = H.get_organ(user.zone_sel.selecting)
+		var/obj/item/organ/external/limb = H.get_organ(user.zone_selected)
 		if(!istype(limb))
 			to_chat(user, "<span class='warning'>You can't eat this part of them!</span>")
 			revert_cast()
@@ -387,58 +387,59 @@
 
 /obj/effect/proc_holder/spell/targeted/leap/cast(list/targets)
 	var/failure = 0
-	if(istype(usr.loc,/mob/) || usr.lying || usr.stunned || usr.buckled || usr.stat)
-		to_chat(usr, "<span class='warning'>You can't jump right now!</span>")
+	var/mob/living/L = usr
+	if(istype(L.loc,/mob/) || L.lying || L.stunned || L.buckled || L.stat)
+		to_chat(L, "<span class='warning'>You can't jump right now!</span>")
 		return
 
-	if(istype(usr.loc,/turf/))
-		if(usr.restrained())//Why being pulled while cuffed prevents you from moving
-			for(var/mob/M in range(usr, 1))
-				if(M.pulling == usr)
-					if(!M.restrained() && M.stat == 0 && M.canmove && usr.Adjacent(M))
+	if(istype(L.loc,/turf/))
+		if(L.restrained())//Why being pulled while cuffed prevents you from moving
+			for(var/mob/M in range(L, 1))
+				if(M.pulling == L)
+					if(!M.restrained() && M.stat == 0 && M.canmove && L.Adjacent(M))
 						failure = 1
 					else
 						M.stop_pulling()
 
-		if(usr.pinned.len)
+		if(L.pinned.len)
 			failure = 1
 
-		usr.visible_message("<span class='danger'>[usr.name]</b> takes a huge leap!</span>")
-		playsound(usr.loc, 'sound/weapons/thudswoosh.ogg', 50, 1)
+		L.visible_message("<span class='danger'>[L.name]</b> takes a huge leap!</span>")
+		playsound(L.loc, 'sound/weapons/thudswoosh.ogg', 50, 1)
 		if(failure)
-			usr.Weaken(5)
-			usr.Stun(5)
-			usr.visible_message("<span class='warning'>[usr] attempts to leap away but is slammed back down to the ground!</span>",
+			L.Weaken(5)
+			L.Stun(5)
+			L.visible_message("<span class='warning'>[L] attempts to leap away but is slammed back down to the ground!</span>",
 								"<span class='warning'>You attempt to leap away but are suddenly slammed back down to the ground!</span>",
 								"<span class='notice'>You hear the flexing of powerful muscles and suddenly a crash as a body hits the floor.</span>")
 			return 0
-		var/prevLayer = usr.layer
-		var/prevFlying = usr.flying
-		usr.layer = 9
+		var/prevLayer = L.layer
+		var/prevFlying = L.flying
+		L.layer = 9
 
-		usr.flying = 1
+		L.flying = 1
 		for(var/i=0, i<10, i++)
-			step(usr, usr.dir)
-			if(i < 5) usr.pixel_y += 8
-			else usr.pixel_y -= 8
+			step(L, L.dir)
+			if(i < 5) L.pixel_y += 8
+			else L.pixel_y -= 8
 			sleep(1)
-		usr.flying = prevFlying
+		L.flying = prevFlying
 
-		if(FAT in usr.mutations && prob(66))
-			usr.visible_message("<span class='danger'>[usr.name]</b> crashes due to their heavy weight!</span>")
-			//playsound(usr.loc, 'zhit.wav', 50, 1)
-			usr.AdjustWeakened(10)
-			usr.AdjustStunned(5)
+		if(FAT in L.mutations && prob(66))
+			L.visible_message("<span class='danger'>[L.name]</b> crashes due to their heavy weight!</span>")
+			//playsound(L.loc, 'zhit.wav', 50, 1)
+			L.AdjustWeakened(10)
+			L.AdjustStunned(5)
 
-		usr.layer = prevLayer
+		L.layer = prevLayer
 
-	if(istype(usr.loc,/obj/))
-		var/obj/container = usr.loc
-		to_chat(usr, "<span class='warning'>You leap and slam your head against the inside of [container]! Ouch!</span>")
-		usr.AdjustParalysis(3)
-		usr.AdjustWeakened(5)
-		container.visible_message("<span class='danger'>[usr.loc]</b> emits a loud thump and rattles a bit.</span>")
-		playsound(usr.loc, 'sound/effects/bang.ogg', 50, 1)
+	if(istype(L.loc,/obj/))
+		var/obj/container = L.loc
+		to_chat(L, "<span class='warning'>You leap and slam your head against the inside of [container]! Ouch!</span>")
+		L.AdjustParalysis(3)
+		L.AdjustWeakened(5)
+		container.visible_message("<span class='danger'>[L.loc]</b> emits a loud thump and rattles a bit.</span>")
+		playsound(L.loc, 'sound/effects/bang.ogg', 50, 1)
 		var/wiggle = 6
 		while(wiggle > 0)
 			wiggle--

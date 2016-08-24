@@ -86,7 +86,7 @@
 		for(var/name in H.internal_organs)
 			var/obj/item/organ/internal/I = H.get_int_organ(name)
 			if(I.damage > 0)
-				I.damage = max(I.damage-0.4, 0)
+				I.set_damage(I.damage-0.4)
 	..()
 
 /datum/reagent/mitocholide/reaction_obj(obj/O, volume)

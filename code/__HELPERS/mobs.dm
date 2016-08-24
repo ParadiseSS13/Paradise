@@ -249,19 +249,19 @@ Proc for attack log creation, because really why not
 6 is whether the attack should be logged to the log file and shown to admins
 */
 
-proc/add_logs(mob/user, mob/target, what_done, var/object=null, var/addition=null, var/admin=1)
+/proc/add_logs(mob/user, mob/target, what_done, var/object=null, var/addition=null, var/admin=1)
 	var/list/ignore=list("shaked","CPRed","grabbed","punched")
 	if(!user)
 		return
 	if(ismob(user))
-		user.attack_log += text("\[[time_stamp()]\] <font color='red'>Has [what_done] [key_name(target)][object ? " with [object]" : " "][addition]</font>")
+		user.store_log("\[[time_stamp()]\] <font color='red'>Has [what_done] [key_name(target)][object ? " with [object]" : " "][addition]</font>")
 	if(ismob(target))
-		target.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been [what_done] by [key_name(user)][object ? " with [object]" : " "][addition]</font>")
+		target.store_log("\[[time_stamp()]\] <font color='orange'>Has been [what_done] by [key_name(user)][object ? " with [object]" : " "][addition]</font>")
 	if(admin)
 		log_attack("<font color='red'>[key_name(user)] [what_done] [key_name(target)][object ? " with [object]" : " "][addition]</font>")
 	if(istype(target) && (target.client || target.player_logged))
 		if(what_done in ignore) return
-		if(target == user)return
+		if(target == user) return
 		if(!admin) return
 		msg_admin_attack("[key_name_admin(user)] [what_done] [key_name_admin(target)][object ? " with [object]" : " "][addition]")
 
@@ -304,7 +304,7 @@ proc/add_logs(mob/user, mob/target, what_done, var/object=null, var/addition=nul
 	if(progress)
 		qdel(progbar)
 
-/proc/do_after(mob/user, delay, needhand = 1, atom/target = null, progress = 1)
+/proc/do_after(mob/living/user, delay, needhand = 1, atom/target = null, progress = 1)
 	if(!user)
 		return 0
 	var/atom/Tloc = null
@@ -339,7 +339,7 @@ proc/add_logs(mob/user, mob/target, what_done, var/object=null, var/addition=nul
 			drifting = 0
 			Uloc = user.loc
 
-		if(!user || user.stat || user.weakened || user.stunned  || (!drifting && user.loc != Uloc))
+		if(!user || user.incapacitated(ignore_restraints = 1, ignore_grab = 1, ignore_lying = 1) || (!drifting && user.loc != Uloc))
 			. = 0
 			break
 

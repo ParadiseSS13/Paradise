@@ -2,6 +2,10 @@
 	var/canEnterVentWith = "/obj/item/weapon/implant=0&/obj/item/clothing/mask/facehugger=0&/obj/item/device/radio/borg=0&/obj/machinery/camera=0"
 	var/datum/middleClickOverride/middleClickOverride = null
 
+/mob/living/carbon/New()
+	crit_health = config.health_threshold_softcrit
+	..()
+
 /mob/living/carbon/prepare_huds()
 	..()
 	prepare_data_huds()
@@ -164,7 +168,8 @@
 	if(!tesla_shock || (tesla_shock && siemens_coeff > 0.5))
 		Stun(2)
 	spawn(20)
-		AdjustJitter(-1000, bound_lower = 10) //Still jittery, but vastly less
+		//Still jittery, but vastly less
+		AdjustJitter(-1000, bound_lower = 10)
 		if(!tesla_shock || (tesla_shock && siemens_coeff > 0.5))
 			Stun(3)
 			Weaken(3)
@@ -269,8 +274,8 @@
 					var/mob/living/carbon/human/H = src
 					H.w_uniform.add_fingerprint(M)
 				AdjustSleeping(-5)
-				if(src.sleeping == 0)
-					src.resting = 0
+				if(!sleeping)
+					StopResting()
 				AdjustParalysis(-3)
 				AdjustStunned(-3)
 				AdjustWeakened(-3)
@@ -283,7 +288,7 @@
 			// BEGIN HUGCODE - N3X
 			else
 				playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-				if(M.zone_sel.selecting == "head")
+				if(M.zone_selected == "head")
 					M.visible_message(\
 					"<span class='notice'>[M] pats [src] on the head.</span>",\
 					"<span class='notice'>You pat [src] on the head.</span>",\
@@ -505,13 +510,13 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 
 /mob/living/carbon/proc/throw_mode_off()
 	src.in_throw_mode = 0
-	if(src.throw_icon) //in case we don't have the HUD and we use the hotkey
-		src.throw_icon.icon_state = "act_throw_off"
+	if(client && hud_used) //in case we don't have the HUD and we use the hotkey
+		hud_used.throw_icon.icon_state = "act_throw_off"
 
 /mob/living/carbon/proc/throw_mode_on()
 	src.in_throw_mode = 1
-	if(src.throw_icon)
-		src.throw_icon.icon_state = "act_throw_on"
+	if(client && hud_used)
+		hud_used.throw_icon.icon_state = "act_throw_on"
 
 /mob/proc/throw_item(atom/target)
 	return
@@ -742,7 +747,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 
 /mob/living/carbon/resist_fire()
 	fire_stacks -= 5
-	weakened = max(weakened, 3)//We dont check for CANWEAKEN, I don't care how immune to weakening you are, if you're rolling on the ground, you're busy.
+	Weaken(3, updating = 1, force = 1)//We dont check for CANWEAKEN, I don't care how immune to weakening you are, if you're rolling on the ground, you're busy.
 	update_canmove()
 	spin(32,2)
 	visible_message("<span class='danger'>[src] rolls on the floor, trying to put themselves out!</span>", \

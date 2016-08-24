@@ -116,7 +116,7 @@
 			if(H.get_item_by_slot(slot_head) == src)
 				if(H.internal)
 					return
-				H.AdjustLoseBreath(1)
+				H.LoseBreath(1)
 	else
 		storage_slots = 7
 		processing_objects.Remove(src)

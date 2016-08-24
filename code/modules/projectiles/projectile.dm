@@ -67,6 +67,9 @@
 	if(!isliving(target))
 		return 0
 	var/mob/living/L = target
+	if(L.status_flags & GODMODE)
+		// I am the one.
+		return
 	if(blocked < 100) // not completely blocked
 		var/organ_hit_text = ""
 		if(L.has_limbs)

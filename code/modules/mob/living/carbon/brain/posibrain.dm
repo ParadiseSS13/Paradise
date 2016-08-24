@@ -22,8 +22,8 @@
 		to_chat(user, "\blue You carefully locate the manual activation switch and start the positronic brain's boot process.")
 		icon_state = "posibrain-searching"
 		ghost_volunteers.Cut()
-		src.searching = 1
-		src.request_player()
+		searching = 1
+		request_player()
 		spawn(600)
 			if(ghost_volunteers.len)
 				var/mob/dead/observer/O = pick(ghost_volunteers)
@@ -82,7 +82,7 @@
 	brainmob.name = brainmob.dna.real_name
 	brainmob.real_name = brainmob.name
 	brainmob.timeofhostdeath = H.timeofdeath
-	brainmob.stat = CONSCIOUS
+	brainmob.update_revive()
 	if(brainmob.mind)
 		brainmob.mind.assigned_role = "Positronic Brain"
 	if(H.mind)
@@ -92,27 +92,27 @@
 	return
 
 /obj/item/device/mmi/posibrain/proc/transfer_personality(var/mob/candidate)
-	src.searching = 0
-	src.brainmob.key = candidate.key
-	src.name = "positronic brain ([src.brainmob.name])"
+	searching = 0
+	brainmob.key = candidate.key
+	name = "positronic brain ([brainmob.name])"
 
-	to_chat(src.brainmob, "<b>You are a positronic brain, brought into existence on [station_name()].</b>")
-	to_chat(src.brainmob, "<b>As a synthetic intelligence, you answer to all crewmembers, as well as the AI.</b>")
-	to_chat(src.brainmob, "<b>Remember, the purpose of your existence is to serve the crew and the station. Above all else, do no harm.</b>")
-	src.brainmob.mind.assigned_role = "Positronic Brain"
+	to_chat(brainmob, "<b>You are a positronic brain, brought into existence on [station_name()].</b>")
+	to_chat(brainmob, "<b>As a synthetic intelligence, you answer to all crewmembers, as well as the AI.</b>")
+	to_chat(brainmob, "<b>Remember, the purpose of your existence is to serve the crew and the station. Above all else, do no harm.</b>")
+	brainmob.mind.assigned_role = "Positronic Brain"
 
-	var/turf/T = get_turf_or_move(src.loc)
+	var/turf/T = get_turf_or_move(loc)
 	for(var/mob/M in viewers(T))
 		M.show_message("\blue The positronic brain chimes quietly.")
 	icon_state = "posibrain-occupied"
 
 /obj/item/device/mmi/posibrain/proc/reset_search() //We give the players sixty seconds to decide, then reset the timer.
-	if(src.brainmob && src.brainmob.key) return
+	if(brainmob && brainmob.key) return
 
-	src.searching = 0
+	searching = 0
 	icon_state = "posibrain"
 
-	var/turf/T = get_turf_or_move(src.loc)
+	var/turf/T = get_turf_or_move(loc)
 	for(var/mob/M in viewers(T))
 		M.show_message("\blue The positronic brain buzzes quietly, and the golden lights fade away. Perhaps you could try again?")
 
@@ -154,10 +154,10 @@
 
 	var/msg = "<span class='info'>"
 
-	if(src.brainmob && src.brainmob.key)
-		switch(src.brainmob.stat)
+	if(brainmob && brainmob.key)
+		switch(brainmob.stat)
 			if(CONSCIOUS)
-				if(!src.brainmob.client)	msg += "It appears to be in stand-by mode.\n" //afk
+				if(!brainmob.client)	msg += "It appears to be in stand-by mode.\n" //afk
 			if(UNCONSCIOUS)		msg += "<span class='warning'>It doesn't seem to be responsive.</span>\n"
 			if(DEAD)			msg += "<span class='deadsay'>It appears to be completely inactive.</span>\n"
 	else
@@ -166,27 +166,26 @@
 	to_chat(user, msg)
 
 /obj/item/device/mmi/posibrain/emp_act(severity)
-	if(!src.brainmob)
+	if(!brainmob)
 		return
 	else
 		switch(severity)
 			if(1)
-				src.brainmob.emp_damage += rand(20,30)
+				brainmob.emp_damage += rand(20,30)
 			if(2)
-				src.brainmob.emp_damage += rand(10,20)
+				brainmob.emp_damage += rand(10,20)
 			if(3)
-				src.brainmob.emp_damage += rand(0,10)
+				brainmob.emp_damage += rand(0,10)
 	..()
 
 /obj/item/device/mmi/posibrain/New()
-	src.brainmob = new(src)
-	src.brainmob.name = "[pick(list("PBU","HIU","SINA","ARMA","OSI"))]-[rand(100, 999)]"
-	src.brainmob.real_name = src.brainmob.name
-	src.brainmob.loc = src
-	src.brainmob.container = src
-	src.brainmob.stat = 0
-	src.brainmob.SetSilence(0)
-	dead_mob_list -= src.brainmob
+	brainmob = new(src)
+	brainmob.name = "[pick(list("PBU","HIU","SINA","ARMA","OSI"))]-[rand(100, 999)]"
+	brainmob.real_name = brainmob.name
+	brainmob.loc = src
+	brainmob.container = src
+	brainmob.update_revive()
+	brainmob.SetSilence(0)
 
 	..()
 
@@ -199,7 +198,7 @@
 	if(check_observer(O) && (world.time >= next_ping_at))
 		next_ping_at = world.time + (20 SECONDS)
 		playsound(get_turf(src), 'sound/items/posiping.ogg', 80, 0)
-		var/turf/T = get_turf_or_move(src.loc)
+		var/turf/T = get_turf_or_move(loc)
 		for(var/mob/M in viewers(T))
 			M.show_message("\blue The positronic brain pings softly.")
 

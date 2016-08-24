@@ -1,4 +1,8 @@
 /mob/living/carbon/slime/death(gibbed)
+	// uhhhhhhhhh
+	// if an adult slime dies, it creates a new, angry, baby slime, then
+	// becomes a baby slime itself again and comes back to life.
+	// TODO: This code is REALLY ugly, needs to be made nice
 	if(!gibbed)
 		if(is_adult)
 			var/mob/living/carbon/slime/M = new /mob/living/carbon/slime(loc)
@@ -10,18 +14,10 @@
 			regenerate_icons()
 			number = rand(1, 1000)
 			name = "[colour] [is_adult ? "adult" : "baby"] slime ([number])"
-			return
+			return 0
+	. = ..()
+	if(!.)	return
 
-	if(stat == DEAD)	return
-	stat = DEAD
-	icon_state = "[colour] baby slime dead"
-	overlays.len = 0
-	for(var/mob/O in viewers(src, null))
-		O.show_message("<b>The [name]</b> seizes up and falls limp...", 1) //ded -- Urist
-
-	update_canmove()
-
-	if(ticker && ticker.mode)
-		ticker.mode.check_win()
-
-	return ..(gibbed)
+	mood = ""
+	regenerate_icons()
+	visible_message("<b>The [name]</b> seizes up and falls limp...") //ded -- Urist

@@ -30,7 +30,7 @@
 				playsound(loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
 				visible_message("<span class='danger'>[M] has attempted to punch [src]!</span>")
 				return 0
-			var/obj/item/organ/external/affecting = get_organ(ran_zone(M.zone_sel.selecting))
+			var/obj/item/organ/external/affecting = get_organ(ran_zone(M.zone_selected))
 			var/armor_block = run_armor_check(affecting, "melee")
 
 			if(HULK in M.mutations)
@@ -85,7 +85,7 @@
 			M.visible_message("<span class='danger'>\The [M] is trying to perform CPR on \the [src]!</span>", \
 							  "<span class='danger'>You try to perform CPR on \the [src]!</span>")
 			if(do_mob(M, src, 40))
-				if(health > config.health_threshold_dead && health <= config.health_threshold_crit)
+				if(health > min_health && health <= crit_health)
 					var/suff = min(getOxyLoss(), 7)
 					adjustOxyLoss(-suff)
 					updatehealth()
@@ -108,7 +108,7 @@
 
 		if(I_HARM)
 			//Vampire code
-			if(M.mind && M.mind.vampire && (M.mind in ticker.mode.vampires) && !M.mind.vampire.draining && M.zone_sel && M.zone_sel.selecting == "head" && src != M)
+			if(M.mind && M.mind.vampire && (M.mind in ticker.mode.vampires) && !M.mind.vampire.draining && M.zone_selected == "head" && src != M)
 				if(species && species.flags & NO_BLOOD)//why this hell were we never checkinf for this?
 					to_chat(M, "<span class='warning'>They have no blood!</span>")
 					return
@@ -148,7 +148,7 @@
 					return 0
 
 
-				var/obj/item/organ/external/affecting = get_organ(ran_zone(M.zone_sel.selecting))
+				var/obj/item/organ/external/affecting = get_organ(ran_zone(M.zone_selected))
 				var/armor_block = run_armor_check(affecting, "melee")
 
 				if(HULK in M.mutations)
@@ -176,7 +176,7 @@
 
 				if(w_uniform)
 					w_uniform.add_fingerprint(M)
-				var/obj/item/organ/external/affecting = get_organ(ran_zone(M.zone_sel.selecting))
+				var/obj/item/organ/external/affecting = get_organ(ran_zone(M.zone_selected))
 				var/randn = rand(1, 100)
 				if(randn <= 25)
 					apply_effect(2, WEAKEN, run_armor_check(affecting, "melee"))

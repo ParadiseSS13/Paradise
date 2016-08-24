@@ -67,7 +67,7 @@
 		if(owner.restrained())
 			return 0
 	if(check_flags & AB_CHECK_STUNNED)
-		if(owner.stunned || owner.weakened)
+		if(owner.stunned || (owner.weakened && owner.lying))
 			return 0
 	if(check_flags & AB_CHECK_LYING)
 		if(owner.lying)

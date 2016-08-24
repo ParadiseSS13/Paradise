@@ -35,7 +35,7 @@
 
 		stacks++
 		//user.take_organ_damage(stacks * 0.03, 0)
-		user.staminaloss += stacks * 1.3 //At first the changeling may regenerate stamina fast enough to nullify fatigue, but it will stack
+		user.adjustStaminaLoss(stacks * 1.3) //At first the changeling may regenerate stamina fast enough to nullify fatigue, but it will stack
 
 		if(stacks == 11) //Warning message that the stacks are getting too high
 			to_chat(user, "<span class='warning'>Our legs are really starting to hurt...</span>")

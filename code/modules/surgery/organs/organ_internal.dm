@@ -344,15 +344,23 @@
 	slot = "eyes"
 	var/list/eye_colour = list(0,0,0)
 
+// This writes this eye's set of eye colour to its own DNA
 /obj/item/organ/internal/eyes/proc/update_colour()
 	dna.write_eyes_attributes(src)
 
-/obj/item/organ/internal/eyes/insert(mob/living/carbon/M, special = 0)
-	..()
-	if(istype(M) && eye_colour)
+/obj/item/organ/internal/eyes/insert(mob/living/carbon/human/M, special = 0)
+	. = ..()
+	if(istype(M))
 		var/mob/living/carbon/human/H = M
-		// Apply our eye colour to the target.
-		H.update_body()
+		if(eye_colour)
+			// Apply our eye colour to the target.
+			H.update_body()
+		H.update_eye_presence()
+
+/obj/item/organ/internal/eyes/remove(mob/living/carbon/human/H, special = 0)
+	. = ..()
+	if(istype(H))
+		H.update_eye_presence()
 
 /obj/item/organ/internal/eyes/surgeryize()
 	if(!owner)
@@ -362,6 +370,12 @@
 	owner.SetEyeBlurry(0)
 	owner.SetEyeBlind(0)
 
+// Since our health changed, we should update our human in case their eyes were busted
+/obj/item/organ/internal/eyes/set_damage(amount)
+	. = ..()
+	if(istype(owner,/mob/living/carbon/human))
+		var/mob/living/carbon/human/H = owner
+		H.update_eye_presence()
 
 /obj/item/organ/internal/liver
 	name = "liver"

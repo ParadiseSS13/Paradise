@@ -64,8 +64,8 @@ var/global/list/frozen_mob_list = list()
 /mob/living/carbon/slime/admin_unFreeze(admin)
 	..(admin)
 	adjustToxLoss(-1010101010)
-	stat = 0
 	revive()
+	WakeUp()
 
 
 /mob/living/simple_animal/var/admin_prev_health = null

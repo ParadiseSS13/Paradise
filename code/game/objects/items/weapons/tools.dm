@@ -85,7 +85,7 @@
 /obj/item/weapon/screwdriver/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
 	if(!istype(M) || user.a_intent == I_HELP)
 		return ..()
-	if(user.zone_sel.selecting != "eyes" && user.zone_sel.selecting != "head")
+	if(user.zone_selected != "eyes" && user.zone_selected != "head")
 		return ..()
 	if((CLUMSY in user.mutations) && prob(50))
 		M = user
@@ -234,7 +234,7 @@
 /obj/item/weapon/weldingtool/attack(mob/M as mob, mob/user as mob)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		var/obj/item/organ/external/S = H.organs_by_name[user.zone_sel.selecting]
+		var/obj/item/organ/external/S = H.organs_by_name[user.zone_selected]
 		if(!S)
 			return
 

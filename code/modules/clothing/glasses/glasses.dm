@@ -360,6 +360,7 @@
 		to_chat(usr, "You push the [src] up out of your face.")
 		flash_protect = 0
 		tint = 0
+	usr.update_tint_effects()
 	usr.update_inv_glasses()
 
 	for(var/X in actions)
@@ -381,7 +382,7 @@
 	item_state = "blindfold"
 	//vision_flags = BLIND
 	flash_protect = 2
-	tint = 3				//to make them blind
+	tint = TINT_BLIND				//to make them blind
 	prescription_upgradable = 0
 
 /obj/item/clothing/glasses/sunglasses/prescription

@@ -1,5 +1,16 @@
+/mob/living/carbon/alien/death(gibbed)
+	. = ..()
+	if(!.)	return
+
+	if(!gibbed)
+		if(death_sound)
+			playsound(loc, death_sound, 80, 1, 1)
+		visible_message("<span class='name'>[src]</span> [death_message]")
+		update_icons()
+
 /mob/living/carbon/alien/gib()
-	death(1)
+	if(!death(1) && stat != DEAD)
+		return
 	var/atom/movable/overlay/animation = null
 	notransform = 1
 	canmove = 0
@@ -22,7 +33,8 @@
 		if(src)			qdel(src)
 
 /mob/living/carbon/alien/dust()
-	death(1)
+	if(!death(1) && stat != DEAD)
+		return
 	var/atom/movable/overlay/animation = null
 	notransform = 1
 	canmove = 0
@@ -41,20 +53,3 @@
 	spawn(15)
 		if(animation)	qdel(animation)
 		if(src)			qdel(src)
-
-/mob/living/carbon/alien/death(gibbed)
-	if(stat == DEAD)	return
-	if(healths)			healths.icon_state = "health6"
-	stat = DEAD
-
-	if(!gibbed)
-		playsound(loc, 'sound/voice/hiss6.ogg', 80, 1, 1)
-		for(var/mob/O in viewers(src, null))
-			O.show_message("<B>[src]</B> lets out a waning guttural screech, green blood bubbling from its maw...", 1)
-		update_canmove()
-		update_icons()
-
-	timeofdeath = world.time
-	if(mind) 	mind.store_memory("Time of death: [worldtime2text(timeofdeath)]", 0)
-
-	return ..(gibbed)

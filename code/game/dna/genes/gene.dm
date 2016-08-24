@@ -29,12 +29,12 @@
 /*
 * Is the gene active in this mob's DNA?
 */
-/datum/dna/gene/proc/is_active(var/mob/M)
+/datum/dna/gene/proc/is_active(var/mob/living/M)
 	return M.active_genes && type in M.active_genes
 
 // Return 1 if we can activate.
 // HANDLE MUTCHK_FORCED HERE!
-/datum/dna/gene/proc/can_activate(var/mob/M, var/flags)
+/datum/dna/gene/proc/can_activate(var/mob/living/M, var/flags)
 	return 0
 
 // Called when the gene activates.  Do your magic here.
@@ -55,19 +55,19 @@
 /**
 * Called in each life() tick.
 */
-/datum/dna/gene/proc/OnMobLife(var/mob/M)
+/datum/dna/gene/proc/OnMobLife(var/mob/living/M)
 	return
 
 /**
 * Called when the mob dies
 */
-/datum/dna/gene/proc/OnMobDeath(var/mob/M)
+/datum/dna/gene/proc/OnMobDeath(var/mob/living/M)
 	return
 
 /**
 * Called when the mob says shit
 */
-/datum/dna/gene/proc/OnSay(var/mob/M, var/message)
+/datum/dna/gene/proc/OnSay(var/mob/living/M, var/message)
 	return message
 
 /**
@@ -77,7 +77,7 @@
 * @params g Gender (m or f)
 * @params fat Fat? (0 or 1)
 */
-/datum/dna/gene/proc/OnDrawUnderlays(var/mob/M, var/g, var/fat)
+/datum/dna/gene/proc/OnDrawUnderlays(var/mob/living/M, var/g, var/fat)
 	return 0
 
 
@@ -108,20 +108,20 @@
 	// Possible deactivation messages
 	var/list/deactivation_messages=list()
 
-/datum/dna/gene/basic/can_activate(var/mob/M,var/flags)
+/datum/dna/gene/basic/can_activate(var/mob/living/M,var/flags)
 	if(flags & MUTCHK_FORCED)
 		return 1
 	// Probability check
 	return prob(activation_prob)
 
-/datum/dna/gene/basic/activate(var/mob/M)
+/datum/dna/gene/basic/activate(var/mob/living/M)
 	..()
 	M.mutations.Add(mutation)
 	if(activation_messages.len)
 		var/msg = pick(activation_messages)
 		to_chat(M, "<span class='notice'>[msg]</span>")
 
-/datum/dna/gene/basic/deactivate(var/mob/M)
+/datum/dna/gene/basic/deactivate(var/mob/living/M)
 	..()
 	M.mutations.Remove(mutation)
 	if(deactivation_messages.len)

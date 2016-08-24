@@ -200,7 +200,7 @@
 /mob/living/carbon/proc/handle_changeling()
 	return
 
-/mob/living/carbon/handle_mutations_and_radiation()
+/mob/living/carbon/handle_radiation()
 	if(radiation)
 
 		switch(radiation)
@@ -251,95 +251,37 @@
 						M.adjustBruteLoss(5)
 					nutrition += 10
 
-//This updates the health and status of the mob (conscious, unconscious, dead)
-/mob/living/carbon/handle_regular_status_updates()
-
-	if(..()) //alive
-
-		if(health <= config.health_threshold_dead)
-			death()
-			return
-
-		if(getOxyLoss() > 50 || health <= config.health_threshold_crit)
-			Paralyse(3)
-			stat = UNCONSCIOUS
-
-		if(sleeping)
-			stat = UNCONSCIOUS
-
-		return 1
-
-/mob/living/carbon/proc/CheckStamina()
-	if(staminaloss)
-		var/total_health = (health - staminaloss)
-		if(total_health <= config.health_threshold_softcrit && !stat)
-			to_chat(src, "<span class='notice'>You're too exhausted to keep going...</span>")
-			Weaken(5)
-			setStaminaLoss(health - 2)
-			return
-		setStaminaLoss(max((staminaloss - 3), 0))
-
 //this updates all special effects: stunned, sleeping, weakened, druggy, stuttering, etc..
 /mob/living/carbon/handle_status_effects()
 	..()
+	adjustStaminaLoss(-3)
 
-	CheckStamina()
-
+	// Dizziness, drowsiness, and jitteriness all recover 5x faster when resting
 	var/restingpwr = 1 + 4 * resting
 
 	//Dizziness
 	if(dizziness)
-		var/client/C = client
-		var/pixel_x_diff = 0
-		var/pixel_y_diff = 0
-		var/temp
-		var/saved_dizz = dizziness
-		if(C)
-			var/oldsrc = src
-			var/amplitude = dizziness*(sin(dizziness * 0.044 * world.time) + 1) / 70 // This shit is annoying at high strength
-			src = null
-			spawn(0)
-				if(C)
-					temp = amplitude * sin(0.008 * saved_dizz * world.time)
-					pixel_x_diff += temp
-					C.pixel_x += temp
-					temp = amplitude * cos(0.008 * saved_dizz * world.time)
-					pixel_y_diff += temp
-					C.pixel_y += temp
-					sleep(3)
-					if(C)
-						temp = amplitude * sin(0.008 * saved_dizz * world.time)
-						pixel_x_diff += temp
-						C.pixel_x += temp
-						temp = amplitude * cos(0.008 * saved_dizz * world.time)
-						pixel_y_diff += temp
-						C.pixel_y += temp
-					sleep(3)
-					if(C)
-						C.pixel_x -= pixel_x_diff
-						C.pixel_y -= pixel_y_diff
-			src = oldsrc
+		dizzy_animation()
 		AdjustDizzy(-restingpwr)
 
-	if(drowsyness)
+	if(drowsy)
 		AdjustDrowsy(-restingpwr)
 		EyeBlurry(2)
 		if(prob(5))
 			AdjustSleeping(1)
 			Paralyse(5)
-
-	if(confused)
-		AdjustConfused(-1)
-
 	//Jitteryness
 	if(jitteriness)
 		do_jitter_animation(jitteriness)
 		AdjustJitter(-restingpwr)
 
+	if(confused)
+		AdjustConfused(-1)
+
 	if(hallucination)
 		spawn handle_hallucinations()
-
-		AdjustHallucinate(-2)
+		// This was formerly clocked at -2 per tick, not sure why
+		AdjustHallucinate(-1)
 
 /mob/living/carbon/handle_sleeping()
 	if(..())
@@ -353,60 +295,37 @@
 		Sleeping(2)
 	return sleeping
 
-
-//this handles hud updates. Calls update_vision() and handle_hud_icons()
-/mob/living/carbon/handle_regular_hud_updates()
-	if(!client)
-		return 0
-
-	if(stat == UNCONSCIOUS && health <= config.health_threshold_crit)
-		var/severity = 0
-		switch(health)
-			if(-20 to -10) severity = 1
-			if(-30 to -20) severity = 2
-			if(-40 to -30) severity = 3
-			if(-50 to -40) severity = 4
-			if(-60 to -50) severity = 5
-			if(-70 to -60) severity = 6
-			if(-80 to -70) severity = 7
-			if(-90 to -80) severity = 8
-			if(-95 to -90) severity = 9
-			if(-INFINITY to -95) severity = 10
-		overlay_fullscreen("crit", /obj/screen/fullscreen/crit, severity)
-	else
-		clear_fullscreen("crit")
-		if(oxyloss)
-			var/severity = 0
-			switch(oxyloss)
-				if(10 to 20) severity = 1
-				if(20 to 25) severity = 2
-				if(25 to 30) severity = 3
-				if(30 to 35) severity = 4
-				if(35 to 40) severity = 5
-				if(40 to 45) severity = 6
-				if(45 to INFINITY) severity = 7
-			overlay_fullscreen("oxy", /obj/screen/fullscreen/oxy, severity)
-		else
-			clear_fullscreen("oxy")
-
-		//Fire and Brute damage overlay (BSSR)
-		var/hurtdamage = getBruteLoss() + getFireLoss() + damageoverlaytemp
-		damageoverlaytemp = 0 // We do this so we can detect if someone hits us or not.
-		if(hurtdamage)
-			var/severity = 0
-			switch(hurtdamage)
-				if(5 to 15) severity = 1
-				if(15 to 30) severity = 2
-				if(30 to 45) severity = 3
-				if(45 to 70) severity = 4
-				if(70 to 85) severity = 5
-				if(85 to INFINITY) severity = 6
-			overlay_fullscreen("brute", /obj/screen/fullscreen/brute, severity)
-		else
-			clear_fullscreen("brute")
-
-	..()
-	return 1
+/mob/living/carbon/proc/dizzy_animation()
+	var/client/C = client
+	var/pixel_x_diff = 0
+	var/pixel_y_diff = 0
+	var/temp
+	var/saved_dizz = dizziness
+	if(C)
+		var/oldsrc = src
+		var/amplitude = dizziness*(sin(dizziness * 0.044 * world.time) + 1) / 70 // This shit is annoying at high strength
+		src = null
+		spawn(0)
+			if(C)
+				temp = amplitude * sin(0.008 * saved_dizz * world.time)
+				pixel_x_diff += temp
+				C.pixel_x += temp
+				temp = amplitude * cos(0.008 * saved_dizz * world.time)
+				pixel_y_diff += temp
+				C.pixel_y += temp
+				sleep(3)
+				if(C)
+					temp = amplitude * sin(0.008 * saved_dizz * world.time)
+					pixel_x_diff += temp
+					C.pixel_x += temp
+					temp = amplitude * cos(0.008 * saved_dizz * world.time)
+					pixel_y_diff += temp
+					C.pixel_y += temp
+				sleep(3)
+				if(C)
+					C.pixel_x -= pixel_x_diff
+					C.pixel_y -= pixel_y_diff
+		src = oldsrc
 
 /mob/living/carbon/update_sight()
 	if(stat == DEAD)
@@ -431,27 +350,18 @@
 		if(see_override)
 			see_invisible = see_override
 
-
-/mob/living/carbon/handle_hud_icons()
-	return
-
-/mob/living/carbon/handle_hud_icons_health()
-	if(healths)
-		if(stat != DEAD)
-			switch(health)
-				if(100 to INFINITY)
-					healths.icon_state = "health0"
-				if(80 to 100)
-					healths.icon_state = "health1"
-				if(60 to 80)
-					healths.icon_state = "health2"
-				if(40 to 60)
-					healths.icon_state = "health3"
-				if(20 to 40)
-					healths.icon_state = "health4"
-				if(0 to 20)
-					healths.icon_state = "health5"
-				else
-					healths.icon_state = "health6"
+/mob/living/carbon/handle_eyes_update()
+	//Eyes
+	if(!(disabilities & BLIND))	//disabled-blind, doesn't get better on its own
+		if(eye_blind)
+			AdjustEyeBlind(-1)
 		else
-			healths.icon_state = "health7"
+			AdjustEyeBlurry(-1)
+
+/mob/living/carbon/handle_ears_update()
+	//Ears
+	if(!(disabilities & DEAF))	//disabled-deaf, doesn't get better on its own
+		if(ear_deaf)			//deafness, heals slowly over time
+			AdjustEarDeaf(-1)
+		else if(ear_damage < 25)	//ear damage heals slowly under this threshold.
+			AdjustEarDamage(-0.05)

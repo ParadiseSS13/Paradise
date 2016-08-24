@@ -91,9 +91,10 @@
 	desc = "A repulsive pile of guts and gore."
 
 /mob/living/simple_animal/slaughter/death(gibbed)
-	for(var/mob/living/M in consumed_mobs)
-		M.forceMove(get_turf(src))
-	..()
+	. = ..()
+	if(.)
+		for(var/mob/living/M in consumed_mobs)
+			M.forceMove(get_turf(src))
 
 
 /mob/living/simple_animal/slaughter/phasein()
@@ -202,12 +203,13 @@
 	loot = list(/mob/living/simple_animal/pet/cat/kitten{name = "Laughter"})
 
 /mob/living/simple_animal/slaughter/laughter/death(gibbed)
-	for(var/mob/living/M in consumed_mobs)
-		if(M.revive())
-			M.grab_ghost(force = TRUE)
-			playsound(get_turf(src), feast_sound, 50, 1, -1)
-			to_chat(M, "<span class='clown'>You leave the [src]'s warm embrace, and feel ready to take on the world.</span>")
-	..()
+	. = ..()
+	if(.)
+		for(var/mob/living/M in consumed_mobs)
+			if(M.revive())
+				M.grab_ghost(force = TRUE)
+				playsound(get_turf(src), feast_sound, 50, 1, -1)
+				to_chat(M, "<span class='clown'>You leave the [src]'s warm embrace, and feel ready to take on the world.</span>")
 
 
 //Objectives and helpers.

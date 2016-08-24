@@ -69,7 +69,7 @@
 	if(istype(user,/mob/living/simple_animal/diona))
 		var/mob/living/simple_animal/diona/nymph = user
 
-		if(nymph.stat == DEAD || nymph.paralysis || nymph.weakened || nymph.stunned || nymph.restrained())
+		if(nymph.incapacitated())
 			return
 
 		if(weedlevel > 0)

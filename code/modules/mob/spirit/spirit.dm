@@ -12,7 +12,6 @@ mob/spirit
 	status_flags = GODMODE // spirits cannot be killed
 	density = 0
 	canmove = 0
-	blinded = 0
 	anchored = 1
 	mouse_opacity = 0
 	invisibility = INVISIBILITY_SPIRIT

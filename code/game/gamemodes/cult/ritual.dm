@@ -143,8 +143,9 @@ var/engwords = list("travel", "blood", "join", "hell", "destroy", "technology", 
 	if(istype(user.wear_mask, /obj/item/clothing/mask/muzzle))
 		to_chat(user, "You are unable to speak the words of the rune.")
 		return
-	if(user.silent) // checking if we've been muted somehow
+	if(!user.can_speak()) // checking if we've been muted somehow
 		to_chat(user, "You are unable to speak at all! You cannot say the words of the rune.")
+		return
 	if(!word1 || !word2 || !word3 || prob(user.getBrainLoss()))
 		return fizzle()
 

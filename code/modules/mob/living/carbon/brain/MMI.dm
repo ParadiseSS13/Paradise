@@ -30,16 +30,13 @@
 			to_chat(user, "<span class='userdanger'>Somehow, this MMI still has a brain in it. Report this to the bug tracker.</span>")
 			log_runtime(EXCEPTION("[user] tried to stick a [O] into [src] in [get_area(src)], but the held brain variable wasn't cleared"), src)
 			return
-		for(var/mob/V in viewers(src, null))
-			V.show_message("<span class='notice'>[user] sticks \a [O] into \the [src].</span>")
+		user.visible_message("<span class='notice'>[user] sticks \a [O] into \the [src].</span>")
 		brainmob = B.brainmob
 		B.brainmob = null
 		brainmob.loc = src
 		brainmob.container = src
-		brainmob.stat = CONSCIOUS
-		respawnable_list -= brainmob
-		dead_mob_list -= brainmob//Update dem lists
-		living_mob_list += brainmob
+		if(brainmob.health > brainmob.min_health)
+			brainmob.update_revive()
 
 		user.drop_item()
 		B.forceMove(src)
@@ -109,8 +106,12 @@
 
 	brainmob.container = null//Reset brainmob mmi var.
 	brainmob.loc = held_brain//Throw mob into brain.
+
+	// Unfortunate that we manually set `stat` here, but this isn't a full-fledged "death", either
+	brainmob.stat = DEAD
 	respawnable_list += brainmob
 	living_mob_list -= brainmob//Get outta here
+
 	held_brain.brainmob = brainmob//Set the brain to use the brainmob
 	held_brain.brainmob.cancel_camera()
 	brainmob = null//Set mmi brainmob var to null

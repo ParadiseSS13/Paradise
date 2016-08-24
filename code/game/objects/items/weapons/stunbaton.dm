@@ -181,7 +181,7 @@
 			flick("baton_active", source)
 			user.Stun(stunforce)
 			user.Weaken(stunforce)
-			user.stuttering = stunforce
+			user.Stuttering(stunforce)
 			deductcharge(hitcost)
 			user.visible_message("<span class='warning'>[user] shocks themself while attempting to wash the active [src]!</span>", \
 								"<span class='userdanger'>You unwisely attempt to wash [src] while it's still on.</span>")

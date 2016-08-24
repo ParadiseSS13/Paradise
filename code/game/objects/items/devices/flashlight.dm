@@ -44,7 +44,7 @@
 
 /obj/item/device/flashlight/attack(mob/living/M as mob, mob/living/user as mob)
 	add_fingerprint(user)
-	if(on && user.zone_sel.selecting == "eyes")
+	if(on && user.zone_selected == "eyes")
 
 		if(((CLUMSY in user.mutations) || user.getBrainLoss() >= 60) && prob(50))	//too dumb to use flashlight properly
 			return ..()	//just hit them in the head
@@ -264,7 +264,7 @@ obj/item/device/flashlight/lamp/bananalamp
 	return 1
 
 /obj/item/device/flashlight/emp/attack(mob/living/M as mob, mob/living/user as mob)
-	if(on && user.zone_sel.selecting == "eyes") // call original attack proc only if aiming at the eyes
+	if(on && user.zone_selected == "eyes") // call original attack proc only if aiming at the eyes
 		..()
 	return
 

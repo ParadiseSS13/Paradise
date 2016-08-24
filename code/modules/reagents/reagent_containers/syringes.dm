@@ -173,7 +173,7 @@
 
 			var/mob/living/carbon/human/H = target
 			if(istype(H))
-				var/obj/item/organ/external/affected = H.get_organ(user.zone_sel.selecting)
+				var/obj/item/organ/external/affected = H.get_organ(user.zone_selected)
 				if(!affected)
 					to_chat(user, "<span class='danger'>\The [H] is missing that limb!</span>")
 					return

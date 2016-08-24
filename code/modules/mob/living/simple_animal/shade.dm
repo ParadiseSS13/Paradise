@@ -29,24 +29,11 @@
 	deathmessage = "lets out a contented sigh as their form unwinds."
 
 
-	attackby(var/obj/item/O as obj, var/mob/user as mob)  //Marker -Agouri
-		if(istype(O, /obj/item/device/soulstone))
-			O.transfer_soul("SHADE", src, user)
-		else
-			if(O.force)
-				var/damage = O.force
-				if(O.damtype == STAMINA)
-					damage = 0
-				health -= damage
-				for(var/mob/M in viewers(src, null))
-					if((M.client && !( M.blinded )))
-						M.show_message("\red \b [src] has been attacked with the [O] by [user]. ")
-			else
-				to_chat(usr, "\red This weapon is ineffective, it does no damage.")
-				for(var/mob/M in viewers(src, null))
-					if((M.client && !( M.blinded )))
-						M.show_message("\red [user] gently taps [src] with the [O]. ")
-		return
+/mob/living/simple_animal/shade/attackby(var/obj/item/O as obj, var/mob/user as mob)  //Marker -Agouri
+	if(istype(O, /obj/item/device/soulstone))
+		O.transfer_soul("SHADE", src, user)
+	else
+		. = ..()
 
 /mob/living/simple_animal/shade/sword
 	universal_speak = 1

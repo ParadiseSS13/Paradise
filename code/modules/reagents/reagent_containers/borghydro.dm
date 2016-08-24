@@ -53,8 +53,7 @@
 		var/mob/living/silicon/robot/R = loc
 		if(R && R.cell)
 			var/datum/reagents/RG = reagent_list[mode]
-			if(RG.total_volume < RG.maximum_volume) 	//Don't recharge reagents and drain power if the storage is full.
-				R.cell.use(charge_cost) 					//Take power from borg...
+			if((RG.total_volume < RG.maximum_volume) && R.extract_power(charge_cost)) 	//Don't recharge reagents and drain power if the storage is full.
 				RG.add_reagent(reagent_ids[mode], 5)		//And fill hypo with reagent.
 	//update_icon()
 	return 1

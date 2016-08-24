@@ -11,6 +11,7 @@
 	origin_tech = "biotech=3"
 	attack_verb = list("attacked", "slapped", "whacked")
 	var/mob/living/carbon/brain/brainmob = null
+	var/damaged_brain = FALSE
 	organ_tag = "brain"
 	parent_organ = "head"
 	slot = "brain"
@@ -18,11 +19,29 @@
 	var/mmi_icon = 'icons/obj/assemblies.dmi'
 	var/mmi_icon_state = "mmi_full"
 
+/obj/item/organ/internal/brain/New()
+	..()
+	spawn(5)
+		if(brainmob && brainmob.client)
+			brainmob.client.screen.len = null //clear the hud
+
+/obj/item/organ/internal/brain/Destroy() //copypasted from MMIs.
+	if(brainmob)
+		qdel(brainmob)
+		brainmob = null
+	return ..()
+
 /obj/item/organ/internal/brain/surgeryize()
 	if(!owner)
 		return
 	owner.SetEarDeaf(0)
 	owner.SetEarDamage(0) //Yeah, didn't you...hear? The ears are totally inside the brain.
+
+/obj/item/organ/internal/brain/take_damage(amount, silent = 1)
+	. = ..()
+	if(owner)
+		// Make braindeath/etc be instant
+		owner.update_brain_damage()
 
 /obj/item/organ/internal/brain/xeno
 	name = "xenomorph brain"
@@ -31,12 +50,6 @@
 	origin_tech = "biotech=7"
 	mmi_icon = 'icons/mob/alien.dmi'
 	mmi_icon_state = "AlienMMI"
-
-/obj/item/organ/internal/brain/New()
-	..()
-	spawn(5)
-		if(brainmob && brainmob.client)
-			brainmob.client.screen.len = null //clear the hud
 
 /obj/item/organ/internal/brain/proc/transfer_identity(var/mob/living/carbon/H)
 	brainmob = new(src)
@@ -116,7 +129,7 @@
 	mmi_icon_state = "slime_mmi"
 //	parent_organ = "chest" Hello I am from the ministry of rubber forehead aliens how are you
 
-/obj/item/organ/internal/brain/slime/take_damage(var/amount, var/silent = 1)
+/obj/item/organ/internal/brain/slime/take_damage(amount, silent = 1)
 	//Slimes are 150% more vulnerable to brain damage
 	damage = between(0, src.damage + (1.5*amount), max_damage) //Since they take the damage twice, this is +150%
 	return ..()
@@ -127,9 +140,3 @@
 	desc = "A tightly furled roll of paper, covered with indecipherable runes."
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "scroll"
-
-/obj/item/organ/internal/brain/Destroy() //copypasted from MMIs.
-	if(brainmob)
-		qdel(brainmob)
-		brainmob = null
-	return ..()

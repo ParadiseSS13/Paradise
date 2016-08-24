@@ -106,7 +106,7 @@
 		assailant.client.screen -= hud
 		assailant.client.screen += hud
 
-	var/hit_zone = assailant.zone_sel.selecting
+	var/hit_zone = assailant.zone_selected
 	last_hit_zone = hit_zone
 
 	if(assailant.pulling == affecting)
@@ -151,13 +151,11 @@
 				/*if("mouth")
 					if(announce)
 						assailant.visible_message("<span class='warning'>[assailant] covers [affecting]'s mouth!</span>")
-					if(affecting.silent < 3)
-						affecting.silent = 3
+					affecting.Silence(3)
 				if("eyes")
 					if(announce)
 						assailant.visible_message("<span class='warning'>[assailant] covers [affecting]'s eyes!</span>")
-					if(affecting.eye_blind < 3)
-						affecting.eye_blind = 3*///These are being left in the code as an example for adding new hit-zone based things.
+					affecting.EyeBlind(3)*///These are being left in the code as an example for adding new hit-zone based things.
 
 		if(force_down)
 			if(affecting.loc != assailant.loc)
@@ -174,10 +172,9 @@
 			L.adjustOxyLoss(1)
 
 	if(state >= GRAB_KILL)
-		//affecting.apply_effect(STUTTER, 5) //would do this, but affecting isn't declared as mob/living for some stupid reason.
 		affecting.Stuttering(5) //It will hamper your voice, being choked and all.
 		affecting.Weaken(5)	//Should keep you down unless you get help.
-		affecting.AdjustLoseBreath(2, bound_lower = 0, bound_upper = 3)
+		affecting.LoseBreath(3)
 
 	adjust_position()
 

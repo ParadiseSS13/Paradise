@@ -885,19 +885,46 @@ Note that amputating the affected organ does in fact remove the infection from t
 /obj/item/organ/external/proc/is_malfunctioning()
 	return ((status & ORGAN_ROBOT) && (brute_dam + burn_dam) >= 10 && prob(brute_dam + burn_dam))
 
+// This is a list of types of implants that won't show on examine
+var/list/hidden_implant_types = typecacheof(list(
+/obj/item/weapon/implant,
+/obj/item/weapon/shard/shrapnel
+))
+
+/obj/item/organ/external/proc/get_visible_embedded_objects()
+	var/visible_list = implants.Copy()
+	for(var/thing in visible_list)
+		if(is_type_in_typecache(thing, hidden_implant_types))
+			visible_list -= thing
+	return visible_list
+
+// A list of types of implants that won't make you cry from how messed up you are inside
+var/list/safe_implant_types = typecacheof(list(
+/obj/item/weapon/implant,
+// keeping things the same
+/obj/item/weapon/shard/shrapnel
+))
+
+/obj/item/organ/external/proc/get_damaging_embedded_objects()
+	var/damager_list = implants.Copy()
+	for(var/thing in damager_list)
+		if(is_type_in_typecache(thing, safe_implant_types))
+			damager_list -= thing
+	return damager_list
+
 /obj/item/organ/external/proc/embed(var/obj/item/weapon/W, var/silent = 0)
 	if(!owner || loc != owner)
+		log_runtime(EXCEPTION("Something attempted to embed in a decapitated limb! Other object: [atom_loc_line(W)]"), src)
 		return
 	if(!silent)
 		owner.visible_message("<span class='danger'>\The [W] sticks in the wound!</span>")
 	implants += W
-	owner.embedded_flag = 1
-	owner.verbs += /mob/proc/yank_out_object
-	W.add_blood(owner)
 	if(ismob(W.loc))
 		var/mob/living/H = W.loc
 		H.drop_item()
-	W.loc = owner
+	W.forceMove(src)
+	W.add_blood(owner)
+	owner.update_embedded_objects()
 
 /obj/item/organ/external/proc/open_enough_for_surgery()
 	return (encased ? (open == 3) : (open == 2))

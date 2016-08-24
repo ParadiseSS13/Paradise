@@ -539,14 +539,14 @@ Auto Patrol[]"},
 		icon_state = "[lasercolor]ed209[on]"
 	var/threat = 5
 	if(istype(C, /mob/living/carbon/human))
-		C.stuttering = 5
+		C.Stuttering(5)
 		C.Stun(5)
 		C.Weaken(5)
 		var/mob/living/carbon/human/H = C
 		threat = H.assess_threat(src)
 	else
 		C.Weaken(5)
-		C.stuttering = 5
+		C.Stuttering(5)
 		C.Stun(5)
 	add_logs(src, C, "stunned")
 	if(declare_arrests)

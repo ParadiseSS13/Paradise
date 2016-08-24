@@ -1,6 +1,7 @@
 #define SEE_INVISIBLE_MINIMUM 5
 
-#define SEE_INVISIBLE_OBSERVER_NOLIGHTING 15
+// Used for general night vision - by both observers, and the "Night vision" spell some mobs have
+#define SEE_INVISIBLE_NOLIGHTING 15
 
 #define INVISIBILITY_LIGHTING 20
 
@@ -33,3 +34,7 @@
 #define SECHUD 1
 #define MEDHUD 2
 #define ANTAGHUD 3
+
+// Human eye tint defines
+#define TINT_IMPAIR 2			//Threshold of tint level to apply weld mask overlay
+#define TINT_BLIND 3			//Threshold of tint level to obscure vision fully

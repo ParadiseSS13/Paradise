@@ -1,6 +1,6 @@
 //TODO: Convert this over for languages.
 /mob/living/carbon/brain/say(var/message, var/datum/language/speaking = null)
-	if(silent)
+	if(!can_speak())
 		return
 
 	if(!(container && istype(container, /obj/item/device/mmi)))

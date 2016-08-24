@@ -185,10 +185,11 @@
 
 //Harder to kill the head, but it can kill off the whole worm
 /mob/living/simple_animal/hostile/spaceWorm/wormHead/death(gibbed)
-	..()
-	if(prob(catastrophicDeathProb))
-		for(var/mob/living/simple_animal/hostile/spaceWorm/SW in totalWormSegments)
-			SW.death()
+	. = ..()
+	if(.)
+		if(prob(catastrophicDeathProb))
+			for(var/mob/living/simple_animal/hostile/spaceWorm/SW in totalWormSegments)
+				SW.death()
 
 
 /mob/living/simple_animal/hostile/spaceWorm/Life()
@@ -295,9 +296,10 @@
 
 
 /mob/living/simple_animal/hostile/spaceWorm/death(gibbed)
-	..()
-	if(myHead)
-		myHead.totalWormSegments -= src
+	. = ..()
+	if(.)
+		if(myHead)
+			myHead.totalWormSegments -= src
 
 
 //Process nom noms, things we've eaten have a chance to become plasma

@@ -13,7 +13,7 @@
 	var/mob/living/silicon/pai/pai
 
 /obj/item/device/paicard/relaymove(var/mob/user, var/direction)
-	if(user.stat || user.stunned)
+	if(user.incapacitated())
 		return
 	var/obj/item/weapon/rig/rig = src.get_rig()
 	if(istype(rig))

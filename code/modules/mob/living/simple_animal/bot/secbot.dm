@@ -240,17 +240,17 @@ Auto Patrol: []"},
 		icon_state = "[base_icon][on]"
 	var/threat = 5
 	if(istype(C, /mob/living/carbon/human))
-		C.stuttering = 5
 		if(harmbaton) // Bots with harmbaton enabled become shitcurity. - Dave
 			C.apply_damage(10, BRUTE)
 		C.Stun(5)
+		C.Stuttering(5)
 		C.Weaken(5)
 		var/mob/living/carbon/human/H = C
 		threat = H.assess_threat(src)
 	else
-		C.Weaken(5)
-		C.stuttering = 5
 		C.Stun(5)
+		C.Stuttering(5)
+		C.Weaken(5)
 	add_logs(src, C, "stunned")
 	if(declare_arrests)
 		var/area/location = get_area(src)

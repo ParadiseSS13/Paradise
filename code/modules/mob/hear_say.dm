@@ -22,7 +22,7 @@
 			italics = 1
 			sound_vol *= 0.5
 
-	if(sleeping || stat == UNCONSCIOUS)
+	if(stat == UNCONSCIOUS)
 		hear_sleep(message)
 		return 0
 
@@ -85,7 +85,7 @@
 	if(!client)
 		return
 
-	if(sleeping || stat == UNCONSCIOUS) //If unconscious or sleeping
+	if(stat == UNCONSCIOUS) //If unconscious
 		hear_sleep(message)
 		return
 

@@ -304,8 +304,6 @@
 		return 1
 
 /obj/item/weapon/twohanded/shockpaddles/attack(mob/M, mob/user)
-	var/tobehealed
-	var/threshold = -config.health_threshold_dead
 	var/mob/living/carbon/human/H = M
 
 	if(busy)
@@ -324,6 +322,8 @@
 		to_chat(user, "<span class='notice'>The instructions on [defib] don't mention how to revive that...</span>")
 		return
 	else
+		var/threshold = -H.min_health
+		var/tobehealed
 		if(user.a_intent == I_HARM && !defib.safety)
 			busy = 1
 			H.visible_message("<span class='danger'>[user] has touched [H.name] with [src]!</span>", \
@@ -342,7 +342,7 @@
 			update_icon()
 			defib.cooldowncheck(user)
 			return
-		if(user.zone_sel && user.zone_sel.selecting == "chest")
+		if(user.zone_selected == "chest")
 			user.visible_message("<span class='warning'>[user] begins to place [src] on [M.name]'s chest.</span>", "<span class='warning'>You begin to place [src] on [M.name]'s chest.</span>")
 			busy = 1
 			update_icon()
@@ -408,8 +408,8 @@
 							H.adjustBruteLoss(tobehealed)
 							user.visible_message("<span class='boldnotice'>[defib] pings: Resuscitation successful.</span>")
 							playsound(get_turf(src), 'sound/machines/defib_success.ogg', 50, 0)
-							H.stat = 1
 							H.update_revive()
+							H.KnockOut()
 							H.emote("gasp")
 							if(tplus > tloss)
 								H.setBrainLoss( max(0, min(99, ((tlimit - tplus) / tlimit * 100))))
@@ -455,8 +455,6 @@
 	flags = NODROP
 
 /obj/item/weapon/borg_defib/attack(mob/M, mob/user)
-	var/tobehealed
-	var/threshold = -config.health_threshold_dead
 	var/mob/living/carbon/human/H = M
 
 	if(busy)
@@ -467,6 +465,8 @@
 		to_chat(user, "<span class='notice'>This unit is only designed to work on humanoid lifeforms.</span>")
 		return
 	else
+		var/tobehealed
+		var/threshold = -H.min_health
 		if(user.a_intent == I_HARM  && !safety)
 			busy = 1
 			H.visible_message("<span class='danger'>[user] has touched [H.name] with [src]!</span>", \
@@ -489,7 +489,7 @@
 				cooldown = 0
 				update_icon()
 			return
-		if(user.zone_sel && user.zone_sel.selecting == "chest")
+		if(user.zone_selected == "chest")
 			user.visible_message("<span class='warning'>[user] begins to place [src] on [M.name]'s chest.</span>", "<span class='warning'>You begin to place [src] on [M.name]'s chest.</span>")
 			busy = 1
 			update_icon()
@@ -527,8 +527,8 @@
 							H.adjustBruteLoss(tobehealed)
 							user.visible_message("<span class='notice'>[user] pings: Resuscitation successful.</span>")
 							playsound(get_turf(src), 'sound/machines/defib_success.ogg', 50, 0)
-							H.stat = UNCONSCIOUS
 							H.update_revive()
+							H.KnockOut()
 							H.emote("gasp")
 							if(tplus > tloss)
 								H.setBrainLoss( max(0, min(99, ((tlimit - tplus) / tlimit * 100))))

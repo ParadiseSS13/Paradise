@@ -96,11 +96,12 @@
 	icon_state = initial(icon_state)
 
 /mob/living/simple_animal/hostile/mimic/crate/death(gibbed)
-	var/obj/structure/closet/crate/C = new(get_turf(src))
-	// Put loot in crate
-	for(var/obj/O in src)
-		O.loc = C
-	..()
+	. = ..()
+	if(.)
+		var/obj/structure/closet/crate/C = new(get_turf(src))
+		// Put loot in crate
+		for(var/obj/O in src)
+			O.loc = C
 
 /mob/living/simple_animal/hostile/mimic/crate/AttackingTarget()
 	. =..()
@@ -133,9 +134,10 @@ var/global/list/protected_objects = list(/obj/structure/table, /obj/structure/ca
 		death()
 
 /mob/living/simple_animal/hostile/mimic/copy/death(gibbed)
-	for(var/atom/movable/M in src)
-		M.loc = get_turf(src)
-	..()
+	. = ..()
+	if(.)
+		for(var/atom/movable/M in src)
+			M.loc = get_turf(src)
 
 /mob/living/simple_animal/hostile/mimic/copy/ListTargets()
 	. = ..()

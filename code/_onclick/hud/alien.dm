@@ -50,10 +50,11 @@
 	move_intent = using
 
 	if(istype(mymob, /mob/living/carbon/alien/humanoid/hunter))
-		mymob.leap_icon = new /obj/screen/alien/leap()
-		mymob.leap_icon.icon = 'icons/mob/screen_alien.dmi'
-		mymob.leap_icon.screen_loc = ui_alien_storage_r
-		static_inventory += mymob.leap_icon
+		var/mob/living/carbon/alien/humanoid/hunter/H = mymob
+		H.leap_icon = new /obj/screen/alien/leap()
+		H.leap_icon.icon = 'icons/mob/screen_alien.dmi'
+		H.leap_icon.screen_loc = ui_alien_storage_r
+		static_inventory += H.leap_icon
 
 //equippable shit
 	inv_box = new /obj/screen/inventory/hand()
@@ -102,29 +103,29 @@
 	using.screen_loc = ui_drop_throw
 	static_inventory += using
 
-	mymob.throw_icon = new /obj/screen/throw_catch()
-	mymob.throw_icon.icon = 'icons/mob/screen_alien.dmi'
-	mymob.throw_icon.screen_loc = ui_drop_throw
-	static_inventory += mymob.throw_icon
+	throw_icon = new /obj/screen/throw_catch()
+	throw_icon.icon = 'icons/mob/screen_alien.dmi'
+	throw_icon.screen_loc = ui_drop_throw
+	static_inventory += throw_icon
 
-	mymob.healths = new /obj/screen/healths/alien()
-	infodisplay += mymob.healths
+	healths = new /obj/screen/healths/alien()
+	infodisplay += healths
 
 	nightvisionicon = new /obj/screen/alien/nightvision()
 	infodisplay += nightvisionicon
 
-	mymob.pullin = new /obj/screen/pull()
-	mymob.pullin.icon = 'icons/mob/screen_alien.dmi'
-	mymob.pullin.update_icon(mymob)
-	mymob.pullin.screen_loc = ui_pull_resist
-	hotkeybuttons += mymob.pullin
+	pull_icon = new /obj/screen/pull()
+	pull_icon.icon = 'icons/mob/screen_alien.dmi'
+	pull_icon.update_icon(mymob)
+	pull_icon.screen_loc = ui_pull_resist
+	hotkeybuttons += pull_icon
 
 	alien_plasma_display = new /obj/screen/alien/plasma_display()
 	infodisplay += alien_plasma_display
 
-	mymob.zone_sel = new /obj/screen/zone_sel/alien()
-	mymob.zone_sel.update_icon(mymob)
-	static_inventory += mymob.zone_sel
+	zone_select = new /obj/screen/zone_sel/alien()
+	zone_select.update_icon(mymob)
+	static_inventory += zone_select
 
 	for(var/obj/screen/inventory/inv in (static_inventory + toggleable_inventory))
 		if(inv.slot_id)

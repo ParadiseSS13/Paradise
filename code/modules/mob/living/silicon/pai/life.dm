@@ -21,8 +21,7 @@
 /mob/living/silicon/pai/updatehealth()
 	if(status_flags & GODMODE)
 		health = 100
-		stat = CONSCIOUS
 	else
 		health = 100 - getBruteLoss() - getFireLoss()
-	if(health <= 0)
-		death(0)
+		update_stat()
+	diag_hud_set_health()

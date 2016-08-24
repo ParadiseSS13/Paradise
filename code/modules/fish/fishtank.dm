@@ -27,8 +27,8 @@
 	var/list/egg_list = null	// Tracks the current types of harvestable eggs in the tank
 
 	var/has_lid = 0				// 0 if the tank doesn't have a lid/light, 1 if it does
-	var/max_health = 0			// Can handle a couple hits
-	var/cur_health = 0			// Current health, starts at max_health
+	var/maxHealth = 0			// Can handle a couple hits
+	var/cur_health = 0			// Current health, starts at maxHealth
 	var/leaking = 0				// 0 if not leaking, 1 if minor leak, 2 if major leak (not leaking by default)
 	var/shard_count = 0			// Number of glass shards to salvage when broken (1 less than the number of sheets to build the tank)
 
@@ -46,7 +46,7 @@
 	max_fish = 1				// What a lonely fish
 
 	has_lid = 0
-	max_health = 15				// Not very sturdy
+	maxHealth = 15				// Not very sturdy
 	cur_health = 15
 	shard_count = 0				// No salvageable shards
 
@@ -64,7 +64,7 @@
 	max_fish = 4				// Room for a few fish
 
 	has_lid = 1
-	max_health = 50				// Average strength, will take a couple hits from a toolbox.
+	maxHealth = 50				// Average strength, will take a couple hits from a toolbox.
 	cur_health = 50
 	shard_count = 2
 
@@ -82,7 +82,7 @@
 	max_fish = 10				// Plenty of room for a lot of fish
 
 	has_lid = 1
-	max_health = 100			// This thing is a freaking wall, it can handle abuse.
+	maxHealth = 100			// This thing is a freaking wall, it can handle abuse.
 	cur_health = 100
 	shard_count = 3
 
@@ -279,12 +279,12 @@
 
 /obj/machinery/fishtank/proc/check_health()
 	//Max value check
-	if(cur_health > max_health)						//Cur_health cannot exceed max_health, set it to max_health if it does
-		cur_health = max_health
+	if(cur_health > maxHealth)						//Cur_health cannot exceed maxHealth, set it to maxHealth if it does
+		cur_health = maxHealth
 	//Leaking status check
-	if(cur_health <= (max_health * 0.25))			//Major leak at or below 25% health (-10 water/cycle)
+	if(cur_health <= (maxHealth * 0.25))			//Major leak at or below 25% health (-10 water/cycle)
 		leaking = 2
-	else if(cur_health <= (max_health * 0.5))		//Minor leak at or below 50% health (-1 water/cycle)
+	else if(cur_health <= (maxHealth * 0.5))		//Minor leak at or below 50% health (-1 water/cycle)
 		leaking = 1
 	else											//Not leaking above 50% health
 		leaking = 0
@@ -605,14 +605,14 @@
 		var/obj/item/weapon/weldingtool/W = O
 		if(user.a_intent == I_HELP)
 			if(W.isOn())
-				if(cur_health < max_health)
+				if(cur_health < maxHealth)
 					to_chat(usr, "You repair some of the cracks on \the [src].")
 					cur_health += 20
 					check_health()
 				else
 					to_chat(usr, "There is no damage to fix!")
 			else
-				if(cur_health < max_health)
+				if(cur_health < maxHealth)
 					to_chat(usr, "[W.name] must on to repair this damage.")
 		else
 			user.changeNext_move(CLICK_CD_MELEE)

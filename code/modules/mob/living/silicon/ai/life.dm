@@ -27,7 +27,7 @@
 	else
 		adjustOxyLoss(-1)
 
-	handle_stunned()
+	handle_status_effects()
 
 	var/is_blind = 0 //THIS WAS JUST FUCKING 'blind' WHICH CONFLICTED WITH A NORMAL VARIABLE
 	var/area/my_area = get_area(src)
@@ -150,7 +150,8 @@
 /mob/living/silicon/ai/updatehealth()
 	if(status_flags & GODMODE)
 		health = 100
-		stat = CONSCIOUS
+		if(stat != CONSCIOUS)
+			update_revive()
 	else
 		health = 100 - getOxyLoss() - getToxLoss() - getFireLoss() - getBruteLoss()
 		diag_hud_set_status()

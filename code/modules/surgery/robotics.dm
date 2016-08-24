@@ -25,7 +25,7 @@
 
 	if(istype(target,/mob/living/carbon/human))
 		var/mob/living/carbon/human/H = target
-		var/obj/item/organ/external/affected = H.get_organ(user.zone_sel.selecting)
+		var/obj/item/organ/external/affected = H.get_organ(user.zone_selected)
 		if(!affected)
 			return 0
 		if(!(affected.status & ORGAN_ROBOT))
@@ -35,7 +35,7 @@
 /datum/surgery/cybernetic_amputation/can_start(mob/user, mob/living/carbon/target)
 	if(istype(target,/mob/living/carbon/human))
 		var/mob/living/carbon/human/H = target
-		var/obj/item/organ/external/affected = H.get_organ(user.zone_sel.selecting)
+		var/obj/item/organ/external/affected = H.get_organ(user.zone_selected)
 		if(!affected)
 			return 0
 		if(!(affected.status & ORGAN_ROBOT))

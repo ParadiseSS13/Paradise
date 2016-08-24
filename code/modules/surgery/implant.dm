@@ -26,7 +26,7 @@
 /datum/surgery/cavity_implant/can_start(mob/user, mob/living/carbon/human/target)
 	if(!istype(target))
 		return 0
-	var/obj/item/organ/external/affected = target.get_organ(user.zone_sel.selecting)
+	var/obj/item/organ/external/affected = target.get_organ(user.zone_selected)
 	if(!affected)
 		return 0
 	if(affected.status & ORGAN_ROBOT)
@@ -36,7 +36,7 @@
 /datum/surgery/cavity_implant/synth/can_start(mob/user, mob/living/carbon/human/target)
 	if(!istype(target))
 		return 0
-	var/obj/item/organ/external/affected = target.get_organ(user.zone_sel.selecting)
+	var/obj/item/organ/external/affected = target.get_organ(user.zone_selected)
 	if(!affected)
 		return 0
 	return (affected.status & ORGAN_ROBOT)
@@ -233,7 +233,7 @@
 /datum/surgery/cavity_implant_rem/can_start(mob/user, mob/living/carbon/human/target)
 	if(!istype(target))
 		return 0
-	var/obj/item/organ/external/affected = target.get_organ(user.zone_sel.selecting)
+	var/obj/item/organ/external/affected = target.get_organ(user.zone_selected)
 	if(!affected)
 		return 0
 	if(affected.status & ORGAN_ROBOT)
@@ -243,7 +243,7 @@
 /datum/surgery/cavity_implant_rem/synth/can_start(mob/user, mob/living/carbon/human/target)
 	if(!istype(target))
 		return 0
-	var/obj/item/organ/external/affected = target.get_organ(user.zone_sel.selecting)
+	var/obj/item/organ/external/affected = target.get_organ(user.zone_selected)
 	if(!affected)
 		return 0
 	if(!(affected.status & ORGAN_ROBOT))
@@ -333,7 +333,7 @@
 /datum/surgery/embedded_removal/can_start(mob/user, mob/living/carbon/human/target)
 	if(!istype(target))
 		return 0
-	var/obj/item/organ/external/affected = target.get_organ(user.zone_sel.selecting)
+	var/obj/item/organ/external/affected = target.get_organ(user.zone_selected)
 	if(!affected)
 		return 0
 	if(affected.status & ORGAN_ROBOT)
@@ -343,7 +343,7 @@
 /datum/surgery/embedded_removal/synth/can_start(mob/user, mob/living/carbon/human/target)
 	if(!istype(target))
 		return 0
-	var/obj/item/organ/external/affected = target.get_organ(user.zone_sel.selecting)
+	var/obj/item/organ/external/affected = target.get_organ(user.zone_selected)
 	if(!affected)
 		return 0
 	if(!(affected.status & ORGAN_ROBOT))

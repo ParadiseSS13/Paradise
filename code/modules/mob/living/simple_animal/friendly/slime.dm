@@ -72,10 +72,11 @@
 
 
 /mob/living/simple_animal/slime/adult/death(gibbed)
-	for(var/i in 1 to 2)
-		var/mob/living/simple_animal/slime/S = new /mob/living/simple_animal/slime (src.loc)
-		S.icon_state = "[colour] baby slime"
-		S.icon_living = "[colour] baby slime"
-		S.icon_dead = "[colour] baby slime dead"
-		S.colour = "[colour]"
-	..()
+	. = ..()
+	if(.)
+		for(var/i in 1 to 2)
+			var/mob/living/simple_animal/slime/S = new /mob/living/simple_animal/slime (src.loc)
+			S.icon_state = "[colour] baby slime"
+			S.icon_living = "[colour] baby slime"
+			S.icon_dead = "[colour] baby slime dead"
+			S.colour = "[colour]"

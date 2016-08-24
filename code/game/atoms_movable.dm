@@ -147,6 +147,16 @@
 
 	return 1
 
+/mob/living/forceMove(atom/destination)
+	stop_pulling()
+	if(buckled)
+		buckled.unbuckle_mob(force = 1)
+	. = ..()
+	if(client)
+		reset_perspective(destination)
+	// Moving out a closet causes immediate collapse if sleeping or similar
+	update_canmove()
+
 //called when src is thrown into hit_atom
 /atom/movable/proc/throw_impact(atom/hit_atom, var/speed)
 	if(istype(hit_atom,/mob/living))

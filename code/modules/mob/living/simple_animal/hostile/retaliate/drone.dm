@@ -66,20 +66,20 @@
 
 	//emps and lots of damage can temporarily shut us down
 	if(disabled > 0)
-		stat = UNCONSCIOUS
+		KnockOut()
 		icon_state = "drone_dead"
 		disabled--
 		wander = 0
 		speak_chance = 0
 		if(disabled <= 0)
-			stat = CONSCIOUS
+			WakeUp()
 			icon_state = "drone0"
 			wander = 1
 			speak_chance = 5
 
 	//repair a bit of damage
 	if(prob(1))
-		src.visible_message("\red [bicon(src)] [src] shudders and shakes as some of it's damaged systems come back online.")
+		visible_message("<span class='warning'>[bicon(src)] [src] shudders and shakes as some of it's damaged systems come back online.</span>")
 		var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 		s.set_up(3, 1, src)
 		s.start()
@@ -94,10 +94,10 @@
 	//sometimes our targetting sensors malfunction, and we attack anyone nearby
 	if(prob(disabled ? 0 : 1))
 		if(hostile_drone)
-			src.visible_message("\blue [bicon(src)] [src] retracts several targetting vanes, and dulls it's running lights.")
+			src.visible_message("<span class='notice'>[bicon(src)] [src] retracts several targetting vanes, and dulls it's running lights.</span>")
 			hostile_drone = 0
 		else
-			src.visible_message("\red [bicon(src)] [src] suddenly lights up, and additional targetting vanes slide into place.")
+			src.visible_message("<span class='warning'>[bicon(src)] [src] suddenly lights up, and additional targetting vanes slide into place.</span>")
 			hostile_drone = 1
 
 	if(health / maxHealth > 0.9)
@@ -135,7 +135,7 @@
 
 	if(!exploding && !disabled && prob(explode_chance))
 		exploding = 1
-		stat = UNCONSCIOUS
+		KnockOut()
 		wander = 1
 		walk(src,0)
 		spawn(rand(50,150))

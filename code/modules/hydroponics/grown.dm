@@ -306,7 +306,7 @@
 		if(!istype(M)) return 0
 
 		if(!def_zone)
-			def_zone = check_zone(user.zone_sel.selecting)
+			def_zone = check_zone(user.zone_selected)
 
 		user.lastattacked = M
 		M.lastattacker = user

@@ -8,10 +8,7 @@
 		var/t1 = findtext(act, "-", 1, null)
 		param = copytext(act, t1 + 1, length(act) + 1)
 		act = copytext(act, 1, t1)
-
-	var/muzzled = is_muzzled()
-	if(!can_speak())
-		muzzled = 1
+	var/muzzled = !can_speak()
 	//var/m_type = 1
 
 	for(var/obj/item/weapon/implant/I in src)

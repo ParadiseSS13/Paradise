@@ -1,3 +1,10 @@
+/mob/living/carbon/alien/Life()
+	. = ..()
+	if(.)
+		// Not exactly sure what this is supposed to be, but ok
+		if(move_delay_add > 0)
+			move_delay_add = max(0, move_delay_add - rand(1, 2))
+
 /mob/living/carbon/alien/check_breath(datum/gas_mixture/breath)
 	if(status_flags & GODMODE)
 		return
@@ -30,22 +37,6 @@
 
 	return 1
 
-/mob/living/carbon/alien/update_sight()
-	if(stat == DEAD || (XRAY in mutations))
-		sight |= SEE_TURFS
-		sight |= SEE_MOBS
-		sight |= SEE_OBJS
-		see_in_dark = 8
-		see_invisible = SEE_INVISIBLE_LEVEL_TWO
-	else if(stat != DEAD)
-		sight |= SEE_MOBS
-		sight &= ~SEE_TURFS
-		sight &= ~SEE_OBJS
-		if(nightvision)
-			see_in_dark = 8
-			see_invisible = SEE_INVISIBLE_MINIMUM
-		else if(!nightvision)
-			see_in_dark = 4
-			see_invisible = 45
-		if(see_override)
-			see_invisible = see_override
+/mob/living/carbon/alien/handle_sleeping()
+	if(prob(10) && health > crit_health)
+		emote("hiss")

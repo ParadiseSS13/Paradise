@@ -54,6 +54,6 @@
 				if(prob(1))
 					affected_mob.emote("snore")
 			if(prob(15))
-				affected_mob.stuttering += 3
+				affected_mob.Stuttering(3)
 
 	return

@@ -2,7 +2,6 @@
 /mob/living/carbon/human/updatehealth()
 	if(status_flags & GODMODE)
 		health = maxHealth
-		stat = CONSCIOUS
 		return
 
 	var/total_burn  = 0
@@ -14,19 +13,35 @@
 
 	health = maxHealth - getOxyLoss() - getToxLoss() - getCloneLoss() - total_burn - total_brute
 
+	updateshock()
+	update_stat()
 	//TODO: fix husking
-	if(((maxHealth - total_burn) < config.health_threshold_dead) && stat == DEAD)
+	if(((maxHealth - total_burn) < min_health) && stat == DEAD)
 		ChangeToHusk()
 	if(species.can_revive_by_healing)
-		var/obj/item/organ/internal/brain/B = get_int_organ(/obj/item/organ/internal/brain)
-		if(B)
-			if((health >= (config.health_threshold_dead + config.health_threshold_crit) * 0.5) && stat == DEAD && getBrainLoss()<120)
+		if(stat == DEAD && (health >= (min_health + crit_health) * 0.5))
+			if(can_be_revived())
 				update_revive()
-	if(stat == CONSCIOUS && (src in dead_mob_list)) //Defib fix
-		update_revive()
+
+	// NOTE: This is a hack and should now be fixed, but I'm leaving this here
+	// in case commenting it out breaks something
+	// if(stat == CONSCIOUS && (src in dead_mob_list)) //Defib fix
+	// 	update_revive()
 	med_hud_set_health()
 	med_hud_set_status()
-	handle_hud_icons()
+	update_health_hud()
+
+/mob/living/carbon/human/proc/update_brain_damage()
+	if(stat == DEAD)
+		return
+	if(getBrainLoss() >= 120) //they died from stupidity--literally. -Fox
+		visible_message("<span class='alert'><B>[src]</B> goes limp, their facial expression utterly blank.</span>")
+		death()
+	// Moving the non-stacking parts of high brain damage here
+	else if(getBrainLoss() >= 100)
+		Weaken(20)
+		LoseBreath(10)
+		Silence(2)
 
 /mob/living/carbon/human/adjustBrainLoss(var/amount)
 	if(status_flags & GODMODE)
@@ -126,13 +141,6 @@
 		else
 			//if you don't want to heal robot organs, they you will have to check that yourself before using this proc.
 			O.heal_damage(0, -amount, internal=0, robo_repair=(O.status & ORGAN_ROBOT))
-
-
-/mob/living/carbon/human/Paralyse(amount)
-	// Notify our AI if they can now control the suit.
-	if(wearing_rig && !stat && paralysis < amount) //We are passing out right this second.
-		wearing_rig.notify_ai("<span class='danger'>Warning: user consciousness failure. Mobility control passed to integrated intelligence system.</span>")
-	..()
 
 /mob/living/carbon/human/adjustCloneLoss(var/amount)
 	..()
@@ -255,7 +263,6 @@
 	if(picked.take_damage(brute,burn,sharp,edge))
 		UpdateDamageIcon()
 	updatehealth()
-	speech_problem_flag = 1
 
 
 //Heal MANY external organs, in random order
@@ -277,7 +284,6 @@
 		parts -= picked
 
 	updatehealth()
-	speech_problem_flag = 1
 	if(update)
 		UpdateDamageIcon()
 
@@ -346,6 +352,8 @@ This function restores all organs.
 	return organs_by_name[zone]
 
 /mob/living/carbon/human/apply_damage(var/damage = 0, var/damagetype = BRUTE, var/def_zone = null, var/blocked = 0, var/sharp = 0, var/edge = 0, var/obj/used_weapon = null)
+	if(status_flags & GODMODE)
+		return
 	//Handle other types of damage
 	if((damagetype != BRUTE) && (damagetype != BURN))
 		..(damage, damagetype, def_zone, blocked)
@@ -384,8 +392,9 @@ This function restores all organs.
 				if(H.mind && H.mind in (ticker.mode.superheroes || ticker.mode.supervillains || ticker.mode.greyshirts))
 					var/list/attack_bubble_recipients = list()
 					var/mob/living/user
+					// NOTE: Could be a nice effect - de-specialize this
 					for(var/mob/O in viewers(user, src))
-						if(O.client && !(O.blinded))
+						if(O.client && O.can_see())
 							attack_bubble_recipients.Add(O.client)
 					spawn(0)
 						var/image/dmgIcon = image('icons/effects/hit_blips.dmi', src, "dmg[rand(1,2)]",MOB_LAYER+1)

@@ -4,6 +4,7 @@
 	maxHealth = 125
 	health = 125
 	icon_state = "alienh_s"
+	var/obj/screen/leap_icon
 
 /mob/living/carbon/alien/humanoid/hunter/New()
 	var/datum/reagents/R = new/datum/reagents(100)
@@ -14,27 +15,6 @@
 	real_name = name
 	alien_organs += new /obj/item/organ/internal/xenos/plasmavessel/hunter
 	..()
-
-/mob/living/carbon/alien/humanoid/hunter/handle_regular_hud_updates()
-	..() //-Yvarov
-
-	if(healths)
-		if(stat != 2)
-			switch(health)
-				if(125 to INFINITY)
-					healths.icon_state = "health0"
-				if(100 to 125)
-					healths.icon_state = "health1"
-				if(50 to 100)
-					healths.icon_state = "health2"
-				if(25 to 50)
-					healths.icon_state = "health3"
-				if(0 to 25)
-					healths.icon_state = "health4"
-				else
-					healths.icon_state = "health5"
-		else
-			healths.icon_state = "health6"
 
 
 /mob/living/carbon/alien/humanoid/hunter/handle_environment()
@@ -116,7 +96,7 @@
 				pounce_cooldown = !pounce_cooldown
 		else if(A.density && !A.CanPass(src))
 			visible_message("<span class ='danger'>[src] smashes into [A]!</span>", "<span class ='alertalien'>[src] smashes into [A]!</span>")
-			weakened = 2
+			Weaken(2)
 
 		if(leaping)
 			leaping = 0

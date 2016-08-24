@@ -109,18 +109,6 @@
 	..()
 	health = Clamp(health, 0, maxHealth)
 
-/mob/living/simple_animal/handle_hud_icons_health()
-	..()
-	if(healths && maxHealth > 0)
-		switch(health / maxHealth * 30)
-			if(30 to INFINITY)		healths.icon_state = "health0"
-			if(26 to 29)			healths.icon_state = "health1"
-			if(21 to 25)			healths.icon_state = "health2"
-			if(16 to 20)			healths.icon_state = "health3"
-			if(11 to 15)			healths.icon_state = "health4"
-			if(6 to 10)				healths.icon_state = "health5"
-			if(1 to 5)				healths.icon_state = "health6"
-			if(0)					healths.icon_state = "health7"
 
 /mob/living/simple_animal/proc/process_ai()
 	handle_automated_movement()
@@ -137,13 +125,6 @@
 			icon_state = icon_resting
 		else if(stat != DEAD)
 			icon_state = icon_living
-
-/mob/living/simple_animal/handle_regular_status_updates()
-	if(..()) //alive
-		if(health < 1)
-			death()
-			return 0
-		return 1
 
 /mob/living/simple_animal/proc/handle_automated_action()
 	return
@@ -456,31 +437,6 @@
 	statpanel("Status")
 	stat(null, "Health: [round((health / maxHealth) * 100)]%")
 
-/mob/living/simple_animal/death(gibbed)
-	if(nest)
-		nest.spawned_mobs -= src
-		nest = null
-	if(loot.len)
-		for(var/i in loot)
-			new i(loc)
-	if(!gibbed)
-		if(death_sound)
-			playsound(get_turf(src),death_sound, 200, 1)
-		if(deathmessage)
-			visible_message("<span class='danger'>\The [src] [deathmessage]</span>")
-		else if(!del_on_death)
-			visible_message("<span class='danger'>\The [src] stops moving...</span>")
-	if(del_on_death)
-		ghostize()
-		qdel(src)
-	else
-		health = 0
-		icon_state = icon_dead
-		stat = DEAD
-		density = 0
-		lying = 1
-	..()
-
 /mob/living/simple_animal/ex_act(severity)
 	..()
 	switch(severity)
@@ -499,7 +455,7 @@
 	if(status_flags & GODMODE)
 		return 0
 	bruteloss = Clamp(bruteloss + amount, 0, maxHealth)
-	handle_regular_status_updates()
+	update_stat()
 
 /mob/living/simple_animal/adjustBruteLoss(amount)
 	if(damage_coeff[BRUTE])
@@ -625,20 +581,6 @@
 		verb = pick(speak_emote)
 
 	return verb
-
-/mob/living/simple_animal/update_canmove(delay_action_updates = 0)
-	if(paralysis || stunned || weakened || stat || resting)
-		drop_r_hand()
-		drop_l_hand()
-		canmove = 0
-	else if(buckled)
-		canmove = 0
-	else
-		canmove = 1
-	update_transform()
-	if(!delay_action_updates)
-		update_action_buttons_icon()
-	return canmove
 
 /mob/living/simple_animal/update_transform()
 	var/matrix/ntransform = matrix(transform) //aka transform.Copy()

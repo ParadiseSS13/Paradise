@@ -267,7 +267,7 @@
 	MYPDA.ownjob = alt_title
 	MYPDA.ownrank = job
 	MYPDA.name = "PDA-[real_name] ([alt_title])"
-	zone_sel.selecting = "chest"
+	zone_selected = "chest"
 	//arms
 	if(prob((SNPC_FUZZY_CHANCE_LOW+SNPC_FUZZY_CHANCE_HIGH)/4))
 		var/obj/item/organ/external/R = organs_by_name["r_arm"]
@@ -567,7 +567,7 @@
 
 /mob/living/carbon/human/interactive/death()
 	saveVoice()
-	..()
+	. = ..()
 
 /mob/living/carbon/human/interactive/hear_say(message, verb = "says", datum/language/language = null, alt_name = "", italics = 0, mob/speaker = null, sound/speech_sound, sound_vol)
 	if(!istype(speaker, /mob/living/carbon/human/interactive))

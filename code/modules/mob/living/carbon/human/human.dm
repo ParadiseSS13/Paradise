@@ -8,11 +8,11 @@
 	//why are these here and not in human_defines.dm
 	//var/list/hud_list[10]
 	var/datum/species/species //Contains icon generation and language information, set during New().
-	var/embedded_flag		//To check if we've need to roll for damage on movement while an item is imbedded in us.
 	var/obj/item/weapon/rig/wearing_rig // This is very not good, but it's much much better than calling get_rig() every update_canmove() call.
 
 /mob/living/carbon/human/New(var/new_loc, var/new_species = null, var/delay_ready_dna = 0)
-
+	min_health = config.health_threshold_dead
+	crit_health = config.health_threshold_crit
 	if(!dna)
 		dna = new /datum/dna(null)
 		// Species name is handled by set_species()
@@ -442,7 +442,7 @@
 
 			if(stat != DEAD)
 				L.amount_grown = min(L.amount_grown + damage, L.max_grown)
-			var/obj/item/organ/external/affecting = get_organ(ran_zone(L.zone_sel.selecting))
+			var/obj/item/organ/external/affecting = get_organ(ran_zone(L.zone_selected))
 			var/armor_block = run_armor_check(affecting, "melee")
 			apply_damage(damage, BRUTE, affecting, armor_block)
 
@@ -484,13 +484,8 @@
 				if(10) 		 stunprob = 95
 
 			if(prob(stunprob))
-				M.powerlevel -= 3
-				if(M.powerlevel < 0)
-					M.powerlevel = 0
-
-				for(var/mob/O in viewers(src, null))
-					if((O.client && !( O.blinded )))
-						O.show_message(text("<span class='danger'>The [M.name] has shocked []!</span>", src), 1)
+				M.powerlevel = max(M.powerlevel-3, 0)
+				visible_message("<span class='danger'>The [M.name] has shocked [src]!</span>")
 
 				Weaken(power)
 				Stuttering(power)
@@ -716,12 +711,12 @@
 	var/obj/item/device/pda/pda = wear_id
 	if(istype(pda) && pda.id)
 		id = pda.id
-		
+
 	if(check_hands)
 		if(istype(get_active_hand(), /obj/item/weapon/card/id))
 			id = get_active_hand()
 		else if(istype(get_inactive_hand(), /obj/item/weapon/card/id))
-			id = get_inactive_hand()					
+			id = get_inactive_hand()
 
 	if(istype(id))
 		return id
@@ -1184,7 +1179,7 @@
 		if(!user)
 			target_zone = pick("chest","chest","chest","left leg","right leg","left arm", "right arm", "head")
 		else
-			target_zone = user.zone_sel.selecting
+			target_zone = user.zone_selected
 
 	var/obj/item/organ/external/affecting = get_organ(target_zone)
 	var/fail_msg
@@ -1406,15 +1401,19 @@
 		if(..())
 			unEquip(I)
 
-/mob/living/carbon/human/get_visible_implants(var/class = 0)
-
+/mob/living/carbon/human/get_visible_implants()
 	var/list/visible_implants = list()
-	for(var/obj/item/organ/external/organ in src.organs)
-		for(var/obj/item/weapon/O in organ.implants)
-			if(!istype(O,/obj/item/weapon/implant) && (O.w_class > class) && !istype(O,/obj/item/weapon/shard/shrapnel))
-				visible_implants += O
+	for(var/obj/item/organ/external/O in organs)
+		visible_implants += O.get_visible_embedded_objects()
 
-	return(visible_implants)
+	return visible_implants
+
+/mob/living/carbon/human/get_damaging_implants()
+	var/list/damaging_implants = list()
+	for(var/obj/item/organ/external/O in organs)
+		damaging_implants += O.get_damaging_embedded_objects()
+
+	return damaging_implants
 
 /mob/living/carbon/human/generate_name()
 	name = species.makeName(gender,src)
@@ -1721,7 +1720,7 @@
 	if(last_special > world.time)
 		return
 
-	if(stat || paralysis || stunned || weakened || lying || restrained() || buckled)
+	if(incapacitated() || buckled)
 		to_chat(src, "You cannot leap in your current state.")
 		return
 
@@ -1740,7 +1739,7 @@
 	if(last_special > world.time)
 		return
 
-	if(!canmove)
+	if(incapacitated() || buckled)
 		to_chat(src, "You cannot leap in your current state.")
 		return
 
@@ -1794,7 +1793,7 @@
 	if(last_special > world.time)
 		return
 
-	if(!canmove)
+	if(incapacitated())
 		to_chat(src, "\red You cannot do that in your current state.")
 		return
 
@@ -1994,7 +1993,7 @@
 		if(istype(pda))
 			var/obj/item/weapon/card/id/id = pda.id
 			if(istype(id) && id.is_untrackable())
-				return 0		
+				return 0
 	if(istype(head, /obj/item/clothing/head))
 		var/obj/item/clothing/head/hat = head
 		if(hat.blockTracking)

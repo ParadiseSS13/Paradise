@@ -142,7 +142,7 @@
 				to_chat(user, "You feel as if you just narrowly avoided a terrible fate...")
 				for(var/mob/living/simple_animal/hostile/faithless/F in world)
 					F.health = -10
-					F.stat = 2
+					F.death()
 					F.icon_state = "faithless_dead"
 
 
@@ -198,11 +198,7 @@
 	to_chat(C, "<span class='notice'>Death is not your end!</span>")
 
 	spawn(rand(800,1200))
-		if(C.stat == DEAD)
-			dead_mob_list -= C
-			living_mob_list += C
-		C.stat = CONSCIOUS
-		C.timeofdeath = 0
+		C.update_revive()
 		C.setToxLoss(0)
 		C.setOxyLoss(0)
 		C.setCloneLoss(0)

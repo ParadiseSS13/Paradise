@@ -180,8 +180,9 @@
 	return ..()
 
 /mob/living/simple_animal/bot/death(gibbed)
-	explode()
-	..()
+	. = ..()
+	if(.)
+		explode()
 
 /mob/living/simple_animal/bot/proc/explode()
 	qdel(src)
@@ -995,7 +996,8 @@ Pass a positive integer as an argument to override a bot's default speed.
 				Radio.talk_into(src, message, message_mode, verb, speaking)
 				used_radios += Radio
 
-/mob/living/simple_animal/bot/handle_hud_icons_health()
+// Perhaps should be broken out into "update_temperature_hud"
+/mob/living/simple_animal/bot/update_health_hud()
 	..()
 	switch(bodytemperature) //310.055 optimal body temp
 		if(335 to INFINITY)

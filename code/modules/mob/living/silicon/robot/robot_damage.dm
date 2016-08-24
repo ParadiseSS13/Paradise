@@ -1,16 +1,23 @@
 /mob/living/silicon/robot/updatehealth()
-	if(status_flags & GODMODE)
-		health = maxHealth
-		stat = CONSCIOUS
-		return
-	health = maxHealth - (getOxyLoss() + getFireLoss() + getBruteLoss())
-	if(stat == DEAD && health > 0)
-		update_revive()
-		var/mob/dead/observer/ghost = get_ghost()
-		if(ghost)
-			to_chat(ghost, "<span class='ghostalert'>Your cyborg shell has been repaired, re-enter if you want to continue!</span> (Verbs -> Ghost -> Re-enter corpse)")
-			ghost << sound('sound/effects/genetics.ogg')
-	return
+	..()
+	update_module_damage()
+
+/mob/living/silicon/robot/proc/update_module_damage()
+	if(!modules_stick_when_hurt)
+		if(health < maxHealth*0.5) //Gradual break down of modules as more damage is sustained
+			if(uneq_module(module_state_3))
+				to_chat(src, "<span class='warning'>SYSTEM ERROR: Module 3 OFFLINE.</span>")
+				. = 1
+
+			if(health < 0)
+				if(uneq_module(module_state_2))
+					to_chat(src, "<span class='warning'>SYSTEM ERROR: Module 2 OFFLINE.</span>")
+					. = 1
+
+				if(health < -maxHealth*0.5)
+					if(uneq_module(module_state_1))
+						to_chat(src, "<span class='warning'>CRITICAL ERROR: All modules OFFLINE.</span>")
+						. = 1
 
 
 /mob/living/silicon/robot/getBruteLoss()
@@ -146,10 +153,12 @@
 			brute -= absorb_brute
 			burn -= absorb_burn
 			to_chat(src, "\red Your shield absorbs some of the impact!")
+		diag_hud_set_borgcell()
 
 	var/datum/robot_component/armour/A = get_armour()
 	if(A)
 		A.take_damage(brute,burn,sharp)
+		updatehealth()
 		return
 
 	while(parts.len && (brute>0 || burn>0) )
@@ -164,3 +173,4 @@
 		burn	-= (picked.electronics_damage - burn_was)
 
 		parts -= picked
+	updatehealth()

@@ -106,7 +106,7 @@
 	var/list/returns[3]
 	var/speech_problem_flag = 0
 
-	if(silent || (disabilities & MUTE))
+	if(!can_speak())
 		message = ""
 		speech_problem_flag = 1
 

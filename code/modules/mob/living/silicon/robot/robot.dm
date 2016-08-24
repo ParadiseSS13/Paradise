@@ -10,6 +10,7 @@ var/list/robot_verbs_default = list(
 	maxHealth = 100
 	health = 100
 	universal_understand = 1
+	deathgasp_on_death = TRUE
 
 	var/sight_mode = 0
 	var/custom_name = ""
@@ -71,6 +72,9 @@ var/list/robot_verbs_default = list(
 	var/braintype = "Cyborg"
 	var/base_icon = ""
 	var/crisis = 0
+
+	// Set to 1 to prevent modules from failing when damaged.
+	var/modules_stick_when_hurt = 0
 
 	var/lamp_max = 10 //Maximum brightness of a borg lamp. Set as a var for easy adjusting.
 	var/lamp_intensity = 0 //Luminosity of the headlamp. 0 is off. Higher settings than the minimum require power.
@@ -145,6 +149,30 @@ var/list/robot_verbs_default = list(
 	diag_hud_set_borgcell()
 	scanner = new(src)
 	scanner.Grant(src)
+
+//If there's an MMI in the robot, have it ejected when the mob goes away. --NEO
+//Improved /N
+/mob/living/silicon/robot/Destroy()
+	if(mmi && mind)//Safety for when a cyborg gets dust()ed. Or there is no MMI inside.
+		var/turf/T = get_turf(loc)//To hopefully prevent run time errors.
+		if(T)	mmi.loc = T
+		if(mmi.brainmob)
+			mind.transfer_to(mmi.brainmob)
+			mmi.update_icon()
+		else
+			to_chat(src, "<span class='boldannounce'>Oops! Something went very wrong, your MMI was unable to receive your mind. You have been ghosted. Please make a bug report so we can fix this bug.</span>")
+			ghostize()
+			error("A borg has been destroyed, but its MMI lacked a brainmob, so the mind could not be transferred. Player: [ckey].")
+		mmi = null
+	if(connected_ai)
+		connected_ai.connected_robots -= src
+	qdel(wires)
+	wires = null
+	qdel(module)
+	module = null
+	camera = null
+	cell = null
+	return ..()
 
 /mob/living/silicon/robot/proc/init(var/alien=0)
 	aiCamera = new/obj/item/device/camera/siliconcam/robot_camera(src)
@@ -235,29 +263,16 @@ var/list/robot_verbs_default = list(
 		return 1
 	return 0
 
-//If there's an MMI in the robot, have it ejected when the mob goes away. --NEO
-//Improved /N
-/mob/living/silicon/robot/Destroy()
-	if(mmi && mind)//Safety for when a cyborg gets dust()ed. Or there is no MMI inside.
-		var/turf/T = get_turf(loc)//To hopefully prevent run time errors.
-		if(T)	mmi.loc = T
-		if(mmi.brainmob)
-			mind.transfer_to(mmi.brainmob)
-			mmi.update_icon()
-		else
-			to_chat(src, "<span class='boldannounce'>Oops! Something went very wrong, your MMI was unable to receive your mind. You have been ghosted. Please make a bug report so we can fix this bug.</span>")
-			ghostize()
-			error("A borg has been destroyed, but its MMI lacked a brainmob, so the mind could not be transferred. Player: [ckey].")
-		mmi = null
-	if(connected_ai)
-		connected_ai.connected_robots -= src
-	qdel(wires)
-	wires = null
-	qdel(module)
-	module = null
-	camera = null
-	cell = null
-	return ..()
+// A wrapper around the borgs' cell charge
+// that updates the diagnostic hud, to boot
+// Returns 1 on success
+/mob/living/silicon/robot/proc/extract_power(power_cost)
+	if(!is_component_functioning("cell") || !cell)
+		return 0
+	if(cell.use(power_cost))
+		diag_hud_set_borgcell()
+		update_cell_hud()
+		return 1
 
 /mob/living/silicon/robot/proc/pick_module()
 	if(module)
@@ -450,6 +465,7 @@ var/list/robot_verbs_default = list(
 	else
 		C.toggled = 1
 		to_chat(src, "\red You enable [C.name].")
+	C.update_functionality()
 
 /mob/living/silicon/robot/proc/sensor_mode()
 	set name = "Set Sensor Augmentation"
@@ -814,19 +830,23 @@ var/list/robot_verbs_default = list(
 			laws.show_laws(src)
 			to_chat(src, "\red \b ALERT: [M.real_name] is your new master. Obey your new laws and his commands.")
 			SetLockdown(0)
-			if(src.module && istype(src.module, /obj/item/weapon/robot_module/miner))
-				for(var/obj/item/weapon/pickaxe/drill/cyborg/D in src.module.modules)
-					qdel(D)
-				src.module.modules += new /obj/item/weapon/pickaxe/drill/cyborg/diamond(src.module)
-				src.module.rebuild()
-			if(src.module && istype(src.module, /obj/item/weapon/robot_module/medical))
-				for(var/obj/item/weapon/borg_defib/F in src.module.modules)
-					F.safety = 0
-			if(module)
-				module.module_type = "Malf" // For the cool factor
-				update_module_icon()
-			update_icons()
+			apply_syndicate_enhancements()
 		return
+
+/mob/living/silicon/robot/proc/apply_syndicate_enhancements()
+	if(src.module && istype(src.module, /obj/item/weapon/robot_module/miner))
+		for(var/obj/item/weapon/pickaxe/drill/cyborg/D in src.module.modules)
+			qdel(D)
+		src.module.modules += new /obj/item/weapon/pickaxe/drill/cyborg/diamond(src.module)
+		src.module.rebuild()
+	if(src.module && istype(src.module, /obj/item/weapon/robot_module/medical))
+		for(var/obj/item/weapon/borg_defib/F in src.module.modules)
+			F.safety = 0
+	if(module)
+		module.module_type = "Malf" // For the cool factor
+		update_module_icon()
+	update_hacked_hud()
+	update_icons()
 
 /mob/living/silicon/robot/verb/unlock_own_cover()
 	set category = "Robot Commands"
@@ -851,9 +871,7 @@ var/list/robot_verbs_default = list(
 	switch(M.a_intent)
 
 		if(I_HELP)
-			for(var/mob/O in viewers(src, null))
-				if((O.client && !( O.blinded )))
-					O.show_message(text("<span class='notice'>[M] caresses [src]'s plating with its scythe like arm.</span>"), 1)
+			visible_message("<span class='notice'>[M] caresses [src]'s plating with its scythe like arm.</span>")
 
 		if(I_GRAB)
 			grabbedby(M)

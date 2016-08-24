@@ -659,7 +659,7 @@
 		if((graytide || (TRAITS & TRAIT_MEAN)) || retal)
 			interest += targetInterestShift
 			a_intent = "harm"
-			zone_sel.selecting = pick("chest","r_leg","l_leg","r_arm","l_arm","head")
+			zone_selected = pick("chest","r_leg","l_leg","r_arm","l_arm","head")
 			doing |= SNPC_FIGHTING
 			if(retal)
 				TARGET = retal_target

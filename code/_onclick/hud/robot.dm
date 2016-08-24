@@ -132,8 +132,8 @@
 	action_intent = using
 
 //Health
-	mymob.healths = new /obj/screen/healths/robot()
-	infodisplay += mymob.healths
+	healths = new /obj/screen/healths/robot()
+	infodisplay += healths
 
 //Installed Module
 	mymob.hands = new /obj/screen/robot/module()
@@ -143,15 +143,15 @@
 	module_store_icon = new /obj/screen/robot/store()
 	module_store_icon.screen_loc = ui_borg_store
 
-	mymob.pullin = new /obj/screen/pull()
-	mymob.pullin.icon = 'icons/mob/screen_robot.dmi'
-	mymob.pullin.update_icon(mymob)
-	mymob.pullin.screen_loc = ui_borg_pull
-	hotkeybuttons += mymob.pullin
+	pull_icon = new /obj/screen/pull()
+	pull_icon.icon = 'icons/mob/screen_robot.dmi'
+	pull_icon.update_icon(mymob)
+	pull_icon.screen_loc = ui_borg_pull
+	hotkeybuttons += pull_icon
 
-	mymob.zone_sel = new /obj/screen/zone_sel/robot()
-	mymob.zone_sel.update_icon(mymob)
-	static_inventory += mymob.zone_sel
+	zone_select = new /obj/screen/zone_sel/robot()
+	zone_select.update_icon(mymob)
+	static_inventory += zone_select
 
 //Headlamp
 	mymobR.lamp_button = new /obj/screen/robot/lamp()

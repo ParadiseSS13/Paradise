@@ -10,6 +10,7 @@
 	gender = NEUTER
 	dna = null
 
+	sight = SEE_MOBS
 
 	alien_talk_understand = 1
 
@@ -29,6 +30,12 @@
 	ventcrawler = 2
 	
 	var/list/alien_organs = list()
+
+	// Messages
+	var/death_message = "lets out a waning guttural screech, green blood bubbling from its maw..."
+
+	// Sounds
+	var/death_sound = 'sound/voice/hiss6.ogg'
 
 /mob/living/carbon/alien/New()
 	verbs += /mob/living/verb/mob_sleep
@@ -75,7 +82,8 @@
 /mob/living/carbon/alien/updatehealth()
 	if(status_flags & GODMODE)
 		health = maxHealth
-		stat = CONSCIOUS
+		if(stat != CONSCIOUS)
+			update_revive()
 		return
 	health = maxHealth - getOxyLoss() - getFireLoss() - getBruteLoss() - getCloneLoss()
 
@@ -118,7 +126,7 @@
 	else
 		clear_alert("alien_fire")
 
-/mob/living/carbon/alien/handle_mutations_and_radiation()
+/mob/living/carbon/alien/handle_radiation()
 	// Aliens love radiation nom nom nom
 	if(radiation)
 		if(radiation > 100)
@@ -131,17 +139,17 @@
 			if(1 to 49)
 				radiation--
 				if(prob(25))
-					adjustToxLoss(1)
+					adjustPlasma(1)
 
 			if(50 to 74)
 				radiation -= 2
-				adjustToxLoss(1)
+				adjustPlasma(1)
 				if(prob(5))
 					radiation -= 5
 
 			if(75 to 100)
 				radiation -= 3
-				adjustToxLoss(3)
+				adjustPlasma(3)
 
 /mob/living/carbon/alien/handle_fire()//Aliens on fire code
 	if(..())

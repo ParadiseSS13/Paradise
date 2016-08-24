@@ -69,8 +69,8 @@
 			src.occupant.adjustToxLoss(-1)
 			src.occupant.adjustBruteLoss(-1)
 			src.occupant.updatehealth()
-			if(src.occupant.health >= 0 && src.occupant.stat == 2)
-				src.occupant.stat = 0
+			if(src.occupant.health >= 0 && src.occupant.stat == DEAD)
+				src.occupant.update_revive()
 				src.occupant.lying = 0
 				dead_mob_list -= src.occupant
 				living_mob_list += src.occupant

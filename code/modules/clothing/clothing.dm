@@ -81,6 +81,17 @@
 	else
 		icon = initial(icon)
 
+/obj/item/clothing/equipped(mob/user, slot)
+	. = ..()
+	if(tint)
+		user.update_tint_effects()
+
+// And the winner of "Most intuitive proc naming interface of the year" goes to...
+/obj/item/clothing/dropped(mob/user, slot)
+	. = ..()
+	if(tint)
+		user.update_tint_effects()
+
 //Ears: currently only used for headsets and earmuffs
 /obj/item/clothing/ears
 	name = "ears"
@@ -166,7 +177,15 @@ SEE_PIXELS// if an object is located on an unlit area, but some of its pixels ar
           // in a lit area (via pixel_x,y or smooth movement), can see those pixels
 BLIND     // can't see anything
 */
+/obj/item/clothing/glasses/equipped(mob/user, slot)
+	. = ..()
+	if(prescription)
+		user.update_nearsighted_effects()
 
+/obj/item/clothing/glasses/dropped(mob/user, slot)
+	. = ..()
+	if(prescription)
+		user.update_nearsighted_effects()
 
 //Gloves
 /obj/item/clothing/gloves
@@ -707,4 +726,3 @@ BLIND     // can't see anything
 		for(var/obj/item/clothing/accessory/A in accessories)
 			A.emp_act(severity)
 	..()
-

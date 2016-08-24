@@ -778,12 +778,13 @@
 	..()
 
 /mob/living/simple_animal/hostile/mining_drone/death()
-	..()
-	visible_message("<span class='danger'>[src] is destroyed!</span>")
-	new /obj/effect/decal/cleanable/blood/gibs/robot(src.loc)
-	DropOre(0)
-	qdel(src)
-	return
+	. = ..()
+	if(.)
+		visible_message("<span class='danger'>[src] is destroyed!</span>")
+		new /obj/effect/decal/cleanable/blood/gibs/robot(src.loc)
+		DropOre(0)
+		qdel(src)
+		return
 
 /mob/living/simple_animal/hostile/mining_drone/attack_hand(mob/living/carbon/human/M)
 	if(M.a_intent == I_HELP)

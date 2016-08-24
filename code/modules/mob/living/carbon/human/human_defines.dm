@@ -44,8 +44,6 @@ var/global/default_martial_art = new/datum/martial_art
 
 	var/voice = ""	//Instead of new say code calling GetVoice() over and over and over, we're just going to ask this variable, which gets updated in Life()
 
-	var/speech_problem_flag = 0
-
 	var/datum/personal_crafting/handcrafting
 
 	var/datum/martial_art/martial_art = null
@@ -54,6 +52,7 @@ var/global/default_martial_art = new/datum/martial_art
 
 	var/last_dam = -1	//Used for determining if we need to process all organs or just some or even none.
 	var/list/bad_external_organs = list()// organs we check until they are good.
+	deathgasp_on_death = TRUE
 
 	var/hand_blood_color
 
@@ -65,6 +64,12 @@ var/global/default_martial_art = new/datum/martial_art
 	var/meatleft = 3 //For chef item
 	var/decaylevel = 0 // For rotting bodies
 	var/max_blood = BLOOD_VOLUME_NORMAL // For stuff in the vessel
+
+	// Sight related vars
+	var/eyes_missing = FALSE
+	var/eyes_permablurry = FALSE
+	var/eyes_blocked = FALSE
+	var/tint_total = 0
 
 	var/check_mutations=0 // Check mutations on next life tick
 

@@ -6,10 +6,10 @@
 		return 0
 	else if(stat == UNCONSCIOUS)
 		return 0
-	add_logs(src, null, "fallen unconscious at [atom_loc_line(get_turf(src))]", admin=0)
+	add_logs(src, null, "fell unconscious at [atom_loc_line(get_turf(src))]", admin=0)
 	stat = UNCONSCIOUS
 	if(updating)
-	// 	update_blind_effects()
+		update_blind_effects()
 		update_canmove()
 	return 1
 
@@ -19,17 +19,16 @@
 		return 0
 	else if(stat == CONSCIOUS)
 		return 0
-	add_logs(src, null, "woken up at [atom_loc_line(get_turf(src))]", admin=0)
+	add_logs(src, null, "woke up at [atom_loc_line(get_turf(src))]", admin=0)
 	stat = CONSCIOUS
 	if(updating)
-		// update_blind_effects()
+		update_blind_effects()
 		update_canmove()
 	return 1
 
 /mob/living/proc/can_be_revived()
 	. = TRUE
-	// if(health <= min_health)
-	if(health <= config.health_threshold_dead)
+	if(health <= min_health)
 		return FALSE
 
 // death() is used to make a mob die
@@ -46,5 +45,5 @@
 	living_mob_list += src
 	timeofdeath = null
 	update_canmove()
-	// update_blind_effects()
+	update_blind_effects()
 	updatehealth()

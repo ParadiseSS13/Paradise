@@ -89,27 +89,27 @@
 	inv_box.alpha = ui_alpha
 	static_inventory += inv_box
 
-	mymob.throw_icon = new /obj/screen/throw_catch()
-	mymob.throw_icon.icon = ui_style
-	mymob.throw_icon.screen_loc = ui_drop_throw
-	mymob.throw_icon.color = ui_color
-	mymob.throw_icon.alpha = ui_alpha
-	hotkeybuttons += mymob.throw_icon
+	throw_icon = new /obj/screen/throw_catch()
+	throw_icon.icon = ui_style
+	throw_icon.screen_loc = ui_drop_throw
+	throw_icon.color = ui_color
+	throw_icon.alpha = ui_alpha
+	hotkeybuttons += throw_icon
 
 	internals = new /obj/screen/internals()
 	infodisplay += internals
 
-	mymob.healths = new /obj/screen/healths()
-	infodisplay += mymob.healths
+	healths = new /obj/screen/healths()
+	infodisplay += healths
 
-	mymob.healthdoll = new()
-	infodisplay += mymob.healthdoll
+	healthdoll = new()
+	infodisplay += healthdoll
 
-	mymob.pullin = new /obj/screen/pull()
-	mymob.pullin.icon = ui_style
-	mymob.pullin.update_icon(mymob)
-	mymob.pullin.screen_loc = ui_pull_resist
-	static_inventory += mymob.pullin
+	pull_icon = new /obj/screen/pull()
+	pull_icon.icon = ui_style
+	pull_icon.update_icon(mymob)
+	pull_icon.screen_loc = ui_pull_resist
+	static_inventory += pull_icon
 
 	lingchemdisplay = new /obj/screen/ling/chems()
 	infodisplay += lingchemdisplay
@@ -117,10 +117,10 @@
 	lingstingdisplay = new /obj/screen/ling/sting()
 	infodisplay += lingstingdisplay
 
-	mymob.zone_sel = new /obj/screen/zone_sel()
-	mymob.zone_sel.icon = ui_style
-	mymob.zone_sel.update_icon(mymob)
-	static_inventory += mymob.zone_sel
+	zone_select = new /obj/screen/zone_sel()
+	zone_select.icon = ui_style
+	zone_select.update_icon(mymob)
+	static_inventory += zone_select
 
 	inventory_shown = 0
 

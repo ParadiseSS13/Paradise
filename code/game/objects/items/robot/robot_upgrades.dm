@@ -89,9 +89,7 @@
 			if(ghost.mind && ghost.mind.current == R)
 				R.key = ghost.key
 
-	R.stat = CONSCIOUS
-	dead_mob_list -= R //please never forget this ever kthx
-	living_mob_list += R
+	R.update_revive()
 	R.notify_ai(1)
 
 	return 1
@@ -228,6 +226,7 @@
 		return
 
 	R.emagged = 1
+	R.apply_syndicate_enhancements()
 
 	return 1
 

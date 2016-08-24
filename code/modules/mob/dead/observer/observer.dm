@@ -12,13 +12,15 @@ var/list/image/ghost_darkness_images = list() //this is a list of images for thi
 	stat = DEAD
 	density = 0
 	canmove = 0
-	blinded = 0
 	anchored = 1	//  don't get pushed around
 	invisibility = INVISIBILITY_OBSERVER
+	sight = SEE_TURFS | SEE_MOBS | SEE_OBJS | SEE_SELF
+	see_invisible = SEE_INVISIBLE_OBSERVER_AI_EYE
+	see_in_dark = 100
 	var/can_reenter_corpse
 	var/bootime = 0
 	var/started_as_observer //This variable is set to 1 when you enter the game as an observer.
-							//If you died in the game and are a ghsot - this will remain as null.
+							//If you died in the game and are a ghost - this will remain as null.
 							//Note that this is not a reliable way to determine if admins started as observers, since they change mobs a lot.
 	universal_speak = 1
 	var/atom/movable/following = null
@@ -29,9 +31,6 @@ var/list/image/ghost_darkness_images = list() //this is a list of images for thi
 	var/data_hud_seen = 0 //this should one of the defines in __DEFINES/hud.dm
 
 /mob/dead/observer/New(var/mob/body=null, var/flags=1)
-	sight |= SEE_TURFS | SEE_MOBS | SEE_OBJS | SEE_SELF
-	see_invisible = SEE_INVISIBLE_OBSERVER_AI_EYE
-	see_in_dark = 100
 	verbs += /mob/dead/observer/proc/dead_tele
 
 	// Our new boo spell.
@@ -39,9 +38,6 @@ var/list/image/ghost_darkness_images = list() //this is a list of images for thi
 
 	can_reenter_corpse = flags & GHOST_CAN_REENTER
 	started_as_observer = flags & GHOST_IS_OBSERVER
-
-
-	stat = DEAD
 
 	var/turf/T
 	if(ismob(body))
@@ -173,7 +169,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		response = alert(src, alertmsg,"Are you sure you want to ghost?","Ghost","Stay in body")
 		if(response != "Ghost")
 			return	//didn't want to ghost after-all
-		resting = 1
+		StartResting()
 		var/mob/dead/observer/ghost = ghostize(0)            //0 parameter is so we can never re-enter our body, "Charlie, you can never come baaaack~" :3
 		ghost.timeofdeath = world.time // Because the living mob won't have a time of death and we want the respawn timer to work properly.
 	var/obj/structure/morgue/Morgue = locate() in M.loc
@@ -632,11 +628,11 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 /mob/dead/observer/proc/updateghostsight()
 	if(!seedarkness)
-		see_invisible = SEE_INVISIBLE_OBSERVER_NOLIGHTING
+		see_invisible = SEE_INVISIBLE_NOLIGHTING
 	else
 		see_invisible = SEE_INVISIBLE_OBSERVER
 		if(!ghostvision)
-			see_invisible = SEE_INVISIBLE_LIVING;
+			see_invisible = SEE_INVISIBLE_LIVING
 	updateghostimages()
 
 /proc/updateallghostimages()

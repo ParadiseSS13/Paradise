@@ -19,8 +19,9 @@
 	regenerate_icons()
 
 /mob/living/simple_animal/pet/death(gibbed)
-	..()
-	regenerate_icons()
+	. = ..()
+	if(.)
+		regenerate_icons()
 
 /mob/living/simple_animal/pet/regenerate_icons(cut_overlays = 1)
 	if(cut_overlays)

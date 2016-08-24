@@ -2,7 +2,7 @@
 	if(istype(M))
 		var/mob/living/carbon/human/H
 		var/obj/item/organ/external/affecting
-		var/selected_zone = user.zone_sel.selecting
+		var/selected_zone = user.zone_selected
 
 		if(istype(M, /mob/living/carbon/human))
 			H = M
@@ -83,6 +83,17 @@
 	return 0
 
 
+//check if mob is lying down on something we can operate him on.
+/proc/can_operate(mob/living/carbon/M)
+	var/obj/surgery_thing = locate(/obj/machinery/optable, M.loc)
+	if(surgery_thing && (M.lying))
+		return TRUE
+	surgery_thing = locate(/obj/structure/stool/bed/roller, M.loc)
+	if(surgery_thing && (M.buckled == surgery_thing && M.lying) && prob(75))
+		return TRUE
+	surgery_thing = locate(/obj/structure/table, M.loc)
+	if(surgery_thing && M.lying && prob(66))
+		return TRUE
 
 /proc/get_location_modifier(mob/M)
 	var/turf/T = get_turf(M)
