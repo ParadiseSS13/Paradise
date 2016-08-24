@@ -73,7 +73,7 @@
 		. = file(mappath)
 
 	if(!.)
-		log_to_dd("  The file of [src] appears to be empty/non-existent.")
+		log_runtime(EXCEPTION("  The file of [src] appears to be empty/non-existent."), src)
 
 /datum/map_template/proc/get_affected_turfs(turf/T, centered = 0)
 	var/turf/placement = T
