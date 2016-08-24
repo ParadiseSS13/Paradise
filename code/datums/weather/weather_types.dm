@@ -86,7 +86,7 @@
 	end_sound = 'sound/lavaland/ash_storm_end.ogg'
 	end_overlay = "light_ash"
 
-	area_type = /area/mine
+	area_type = /area/mine/dangerous
 	target_level = MINING
 
 	immunity_type = "ash"

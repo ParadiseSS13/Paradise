@@ -624,7 +624,7 @@ var/global/list/rockTurfEdgeCache = list(
 
 /turf/simulated/floor/plating/airless/asteroid/cave/proc/SpawnFloor(var/turf/T)
 	for(var/turf/S in range(2,T))
-		if(istype(S, /turf/space) || istype(S.loc, /area/mine/explored))
+		if(istype(S, /turf/space) || istype(S.loc, /area/mine/dangerous/explored))
 			sanity = 0
 			break
 	if(!sanity)
@@ -637,7 +637,7 @@ var/global/list/rockTurfEdgeCache = list(
 
 /turf/simulated/floor/plating/airless/asteroid/cave/proc/SpawnMonster(var/turf/T)
 	if(prob(30))
-		if(istype(loc, /area/mine/explored))
+		if(istype(loc, /area/mine/dangerous/explored))
 			return
 		for(var/atom/A in range(15,T))//Lowers chance of mob clumps
 			if(istype(A, /mob/living/simple_animal/hostile/asteroid))

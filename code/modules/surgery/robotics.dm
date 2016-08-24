@@ -83,7 +83,9 @@
 /datum/surgery_step/robotics/external/unscrew_hatch/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	if(..())
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
-		return affected && affected.open == 0 && target_zone != "mouth"
+		if(!affected)
+			return 0
+		return 1
 
 /datum/surgery_step/robotics/external/unscrew_hatch/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -117,7 +119,9 @@
 /datum/surgery_step/robotics/external/open_hatch/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	if(..())
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
-		return affected && affected.open == 1
+		if(!affected)
+			return 0
+		return 1
 
 /datum/surgery_step/robotics/external/open_hatch/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -151,7 +155,9 @@
 /datum/surgery_step/robotics/external/close_hatch/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	if(..())
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
-		return affected && affected.open
+		if(!affected)
+			return 0
+		return 1
 
 /datum/surgery_step/robotics/external/close_hatch/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -199,9 +205,6 @@
 /datum/surgery_step/robotics/external/repair/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	if(!affected)
-		return -1
-	if(affected.open != 2)
-		to_chat(user, "<span class='warning'>The [affected] needs to be open to be operated on!</span>")
 		return -1
 
 	if(implement_type in implements_heal_burn)
@@ -335,7 +338,7 @@
 		var/obj/item/device/mmi/M = tool
 
 
-		if(!(affected && affected.open_enough_for_surgery()))
+		if(!affected)
 			return -1
 
 		if(!istype(M))
@@ -368,8 +371,6 @@
 		current_type = "extract"
 		var/list/organs = target.get_organs_zone(target_zone)
 		if(!(affected && (affected.status & ORGAN_ROBOT)))
-			return -1
-		if(!affected.open_enough_for_surgery())
 			return -1
 		if(!organs.len)
 			to_chat(user, "<span class='notice'>There is no removeable organs in [target]'s [parse_zone(target_zone)]!</span>")

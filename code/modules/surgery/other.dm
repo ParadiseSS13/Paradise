@@ -108,12 +108,15 @@
 	if(!hasorgans(target))
 		return 0
 
-	if(target_zone == "mouth" || target_zone == "eyes")
-		return 0
-
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
-	return affected && affected.open == 2 && (affected.status & ORGAN_DEAD)
+	if(!affected)
+		return 0
+
+	if(!(affected.status & ORGAN_DEAD))
+		return 0
+
+	return 1
 
 /datum/surgery_step/fix_dead_tissue/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -164,11 +167,10 @@
 	if(!hasorgans(target))
 		return 0
 
-	if(target_zone == "mouth" || target_zone == "eyes")
-		return 0
-
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	return affected.open == 3 && (affected.status & ORGAN_DEAD)
+	if(!(affected.status & ORGAN_DEAD))
+		return 0
+	return 1
 
 /datum/surgery_step/fix_dead_tissue/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -181,7 +183,7 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
 	if(!istype(tool, /obj/item/weapon/reagent_containers))
-		return
+		return 0
 
 	var/obj/item/weapon/reagent_containers/container = tool
 
