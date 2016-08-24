@@ -153,6 +153,9 @@ var/bomb_set
 				return
 	..()
 
+/obj/machinery/nuclearbomb/attack_ai(mob/user as mob)
+	return
+
 /obj/machinery/nuclearbomb/attack_ghost(mob/user as mob)
 	attack_hand(user)
 
