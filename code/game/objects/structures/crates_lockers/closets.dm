@@ -65,7 +65,10 @@
 /obj/structure/closet/proc/moveMob(var/mob/M, var/atom/destination)
 	loc.Exited(M)
 	M.loc = destination
-	loc.Entered(M, ignoreRest = 1)
+	if(isturf(loc))
+		loc.Entered(M, src, ignoreRest = 1)
+	else
+		loc.Entered(M, src)
 	for(var/atom/movable/AM in loc)
 		if(istype(AM, /obj/item))
 			continue

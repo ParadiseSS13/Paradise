@@ -1,5 +1,3 @@
-#define TRANSITIONEDGE	7 //Distance from edge to move to another z-level
-
 //Object specific defines
 #define CANDLE_LUM 3 //For how bright candles are
 
@@ -282,3 +280,10 @@
 // Sound
 #define SOUND_MINIMUM_PRESSURE 10
 #define FALLOFF_SOUNDS 0.5
+
+
+// Bluespace shelter deploy checks
+#define SHELTER_DEPLOY_ALLOWED "allowed"
+#define SHELTER_DEPLOY_BAD_TURFS "bad turfs"
+#define SHELTER_DEPLOY_BAD_AREA "bad area"
+#define SHELTER_DEPLOY_ANCHORED_OBJECTS "anchored objects"

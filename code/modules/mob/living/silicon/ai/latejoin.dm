@@ -38,3 +38,41 @@ var/global/list/empty_playable_ai_cores = list()
 			current_mode.possible_traitors.Remove(src)
 
 	qdel(src)
+
+// TODO: Move away from the insane name-based landmark system
+/mob/living/silicon/ai/proc/moveToAILandmark()
+	var/obj/loc_landmark
+	for(var/obj/effect/landmark/start/sloc in landmarks_list)
+		if(sloc.name != "AI")
+			continue
+		if(locate(/mob/living) in sloc.loc)
+			continue
+		loc_landmark = sloc
+	if(!loc_landmark)
+		for(var/obj/effect/landmark/tripai in landmarks_list)
+			if(tripai.name == "tripai")
+				if(locate(/mob/living) in tripai.loc)
+					continue
+				loc_landmark = tripai
+	if(!loc_landmark)
+		to_chat(src, "Oh god sorry we can't find an unoccupied AI spawn location, so we're spawning you on top of someone.")
+		for(var/obj/effect/landmark/start/sloc in landmarks_list)
+			if(sloc.name == "AI")
+				loc_landmark = sloc
+
+	forceMove(loc_landmark.loc)
+
+// Before calling this, make sure an empty core exists, or this will no-op
+/mob/living/silicon/ai/proc/moveToEmptyCore()
+	if(!empty_playable_ai_cores.len)
+		log_debug("moveToEmptyCore called without any available cores")
+		return
+
+	// IsJobAvailable for AI checks that there is an empty core available in this list
+	var/obj/structure/AIcore/deactivated/C = empty_playable_ai_cores[1]
+	empty_playable_ai_cores -= C
+
+	forceMove(C.loc)
+
+
+	qdel(C)

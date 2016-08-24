@@ -296,18 +296,13 @@
 	// AIs don't need a spawnpoint, they must spawn at an empty core
 	if(character.mind.assigned_role == "AI")
 
-		character = character.AIize(move=0) // AIize the character, but don't move them yet
+		var/mob/living/silicon/ai/ai_character = character.AIize() // AIize the character, but don't move them yet
 
 		// IsJobAvailable for AI checks that there is an empty core available in this list
-		var/obj/structure/AIcore/deactivated/C = empty_playable_ai_cores[1]
-		empty_playable_ai_cores -= C
+		ai_character.moveToEmptyCore()
+		AnnounceCyborg(ai_character, rank, "has been downloaded to the empty core in \the [get_area(ai_character)]")
 
-		character.loc = C.loc
-
-		AnnounceCyborg(character, rank, "has been downloaded to the empty core in \the [get_area(character)]")
-		ticker.mode.latespawn(character)
-
-		qdel(C)
+		ticker.mode.latespawn(ai_character)
 		qdel(src)
 		return
 
