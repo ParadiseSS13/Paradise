@@ -61,16 +61,6 @@ var/global/datum/controller/occupations/job_master
 				Debug("Player: [player] is now Rank: [rank], JCP:[job.current_positions], JPL:[position_limit]")
 				player.mind.assigned_role = rank
 				player.mind.role_alt_title = GetPlayerAltTitle(player, rank)
-
-				// JOB OBJECTIVES OH SHIT
-				player.mind.job_objectives.Cut()
-				for(var/objectiveType in job.required_objectives)
-					new objectiveType(player.mind)
-				//picks one optional objective
-				if(job.optional_objectives)
-					var/optObjectiveType = pick(job.optional_objectives)
-					if(optObjectiveType)
-						new optObjectiveType(player.mind)
 				unassigned -= player
 				job.current_positions++
 				return 1

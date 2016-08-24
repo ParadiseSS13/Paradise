@@ -374,8 +374,8 @@ var/round_start_time = 0
 		return 0
 
 	mode.process()
-	mode.process_job_tasks()
-	
+	//mode.process_job_tasks()
+
 	//emergency_shuttle.process() DONE THROUGH PROCESS SCHEDULER
 
 	var/game_finished = shuttle_master.emergency.mode >= SHUTTLE_ENDGAME || mode.station_was_nuked

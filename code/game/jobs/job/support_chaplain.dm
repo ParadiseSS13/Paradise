@@ -9,9 +9,6 @@
 	selection_color = "#dddddd"
 	access = list(access_morgue, access_chapel_office, access_crematorium, access_maint_tunnels)
 	minimal_access = list(access_morgue, access_chapel_office, access_crematorium, access_maint_tunnels)
-	required_objectives=list(
-		/datum/job_objective/funeral
-		)
 
 	equip(var/mob/living/carbon/human/H)
 		if(!H)	return 0
