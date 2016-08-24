@@ -15,11 +15,6 @@
 			access_chemistry, access_virology, access_cmo, access_surgery, access_RC_announce,
 			access_keycard_auth, access_sec_doors, access_psychiatrist, access_maint_tunnels, access_paramedic, access_mineral_storeroom)
 	minimal_player_age = 21
-	required_objectives=list(
-		/datum/job_objective/disease,
-		/datum/job_objective/hurt,
-		/datum/job_objective/savedept
-		)
 
 	equip(var/mob/living/carbon/human/H)
 		if(!H)	return 0
@@ -56,10 +51,6 @@
 	minimal_access = list(access_medical, access_morgue, access_surgery, access_maint_tunnels)
 	alt_titles = list("Surgeon","Nurse","Coroner")
 	minimal_player_age = 3
-	optional_objectives=list(
-		/datum/job_objective/disease,
-		/datum/job_objective/hurt
-		)
 
 	equip(var/mob/living/carbon/human/H)
 		if(!H)	return 0
@@ -185,9 +176,6 @@
 	minimal_access = list(access_medical, access_virology, access_maint_tunnels, access_mineral_storeroom)
 	alt_titles = list("Pathologist","Microbiologist")
 	minimal_player_age = 7
-	required_objectives=list(
-		/datum/job_objective/disease
-		)
 
 	equip(var/mob/living/carbon/human/H)
 		if(!H)	return 0

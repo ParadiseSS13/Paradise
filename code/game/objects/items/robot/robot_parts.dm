@@ -222,9 +222,9 @@
 
 			user.drop_item()
 
-			var/datum/job_objective/make_cyborg/task = user.mind.findJobTask(/datum/job_objective/make_cyborg)
+			/*var/datum/job_objective/make_cyborg/task = user.mind.findJobTask(/datum/job_objective/make_cyborg)
 			if(istype(task))
-				task.unit_completed()
+				task.unit_completed()*/
 
 			if(M.syndiemmi)
 				aisync = 0

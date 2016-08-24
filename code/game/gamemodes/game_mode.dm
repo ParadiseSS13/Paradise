@@ -83,14 +83,14 @@
 /datum/game_mode/proc/process()
 	return 0
 
-//Called by the gameticker
+/*Called by the gameticker
 /datum/game_mode/proc/process_job_tasks()
 	for(var/mob/M in player_list)
 		if(M.mind)
 			for(var/datum/job_objective/objective in M.mind.job_objectives)
 				if(objective.units_completed >= objective.units_requested)
 					objective.is_completed() // So we don't get many messages regarding completion
-	/* var/obj/machinery/message_server/useMS = null
+	var/obj/machinery/message_server/useMS = null
 	if(message_servers)
 		for(var/obj/machinery/message_server/MS in message_servers)
 			if(MS.active)

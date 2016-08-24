@@ -84,9 +84,6 @@
 	access = list(access_hydroponics, access_bar, access_kitchen)
 	minimal_access = list(access_hydroponics, access_maint_tunnels)
 	alt_titles = list("Hydroponicist", "Botanical Researcher")
-	required_objectives=list(
-		/datum/job_objective/harvest
-		)
 
 	equip(var/mob/living/carbon/human/H)
 		if(!H)	return 0
@@ -306,9 +303,6 @@
 	access = list(access_janitor, access_maint_tunnels)
 	minimal_access = list(access_janitor, access_maint_tunnels)
 	alt_titles = list("Custodial Technician")
-	required_objectives=list(
-		/datum/job_objective/ultraclean
-		)
 
 	equip(var/mob/living/carbon/human/H)
 		if(!H)	return 0

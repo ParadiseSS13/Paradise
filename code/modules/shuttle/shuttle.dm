@@ -787,7 +787,6 @@
 	shuttleId = "sst"
 	possible_destinations = "sst_home;sst_away"
 
-<<<<<<< HEAD
 /obj/machinery/computer/shuttle/sit
 	req_access = list(access_syndicate)
 	name = "Syndicate Infiltration Team Shuttle Console"
