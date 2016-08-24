@@ -20,7 +20,8 @@
 
 	// All science-y guys get bonuses for maxing out their tech.
 	required_objectives=list(
-		/datum/job_objective/further_research
+		/datum/job_objective/maximize_research,
+		/datum/job_objective/savedept
 	)
 
 	equip(var/mob/living/carbon/human/H)
@@ -58,7 +59,7 @@
 
 	// All science-y guys get bonuses for maxing out their tech.
 	required_objectives=list(
-		/datum/job_objective/further_research
+		/datum/job_objective/maximize_research
 	)
 
 	equip(var/mob/living/carbon/human/H)
@@ -93,9 +94,15 @@
 	minimal_player_age = 3
 
 	required_objectives=list(
-		/datum/job_objective/make_cyborg,
-		/datum/job_objective/make_ripley
-	)
+		/datum/job_objective/make_cyborg
+		)
+	optional_objectives=list(
+		/datum/job_objective/make_ripley,
+		/datum/job_objective/make_odysseus,
+		/datum/job_objective/make_durand,
+		/datum/job_objective/make_gygax,
+		/datum/job_objective/make_honker
+		)
 
 	equip(var/mob/living/carbon/human/H)
 		if(!H)	return 0
