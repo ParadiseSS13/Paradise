@@ -130,7 +130,7 @@
 
 
 
-///////////Support//////////////////////
+///////////Crew//////////////////////
 
 /obj/effect/landmark/corpse/chef
 	name = "Chef"
@@ -139,7 +139,7 @@
 	corpseshoes = /obj/item/clothing/shoes/black
 	corpsehelmet = /obj/item/clothing/head/chefhat
 	corpseback = /obj/item/weapon/storage/backpack
-	corpseradio = /obj/item/device/radio/headset
+	corpseradio = /obj/item/device/radio/headset/headset_service
 	corpseid = 1
 	corpseidjob = "Chef"
 	corpseidaccess = "Chef"
@@ -251,6 +251,7 @@
 	corpsegloves = /obj/item/clothing/gloves/fingerless
 	corpseback = /obj/item/weapon/storage/backpack/industrial
 	corpseshoes = /obj/item/clothing/shoes/black
+	corpsebelt = /obj/item/weapon/storage/bag/ore
 	corpseid = 1
 	corpseidjob = "Shaft Miner"
 	corpseidaccess = "Shaft Miner"
@@ -259,6 +260,67 @@
 	corpsesuit = /obj/item/clothing/suit/space/rig/mining
 	corpsemask = /obj/item/clothing/mask/breath
 	corpsehelmet = /obj/item/clothing/head/helmet/space/rig/mining
+
+/obj/effect/landmark/corpse/bartender
+	name = "Bartender"
+	corpseuniform = /obj/item/clothing/under/rank/chef
+	corpsesuit = /obj/item/clothing/suit/wcoat
+	corpseshoes = /obj/item/clothing/shoes/black
+	corpsehelmet = /obj/item/clothing/head/that
+	corpseback = /obj/item/weapon/storage/backpack
+	corpseradio = /obj/item/device/radio/headset/headset_service
+	corpseid = 1
+	corpseidjob = "Bartender"
+	corpseidaccess = "Bartender"
+
+/obj/effect/landmark/corpse/assistant
+	name = "Assistant"
+	corpseuniform = /obj/item/clothing/under/color/grey
+	corpsehelmet = /obj/item/clothing/head/soft/grey
+	corpseshoes = /obj/item/clothing/shoes/black
+	corpseback = /obj/item/weapon/storage/backpack
+	corpseradio = /obj/item/device/radio/headset
+	corpseid = 1
+	corpseidjob = "Assistant"
+	corpseidaccess = "Assistant"
+
+/obj/effect/landmark/corpse/assistant/greytide
+	name = "Assistant"
+	corpseuniform = /obj/item/clothing/under/color/black
+	corpsehelmet = /obj/item/clothing/head/soft/black
+	corpseshoes = /obj/item/clothing/shoes/black
+	corpseback = /obj/item/weapon/storage/backpack
+	corpseradio = /obj/item/device/radio/headset
+	corpsebelt = /obj/item/weapon/storage/belt/utility/full
+	corpsegloves = /obj/item/clothing/gloves/color/fyellow
+	corpseid = 1
+	corpseidjob = "Assistant"
+	corpseidaccess = "Assistant"
+
+/obj/effect/landmark/corpse/assistant/operative
+	name = "Assistant"
+	corpseuniform = /obj/item/clothing/under/chameleon
+	corpsehelmet = /obj/item/clothing/head/soft/black
+	corpseshoes = /obj/item/clothing/shoes/black
+	corpseback = /obj/item/weapon/storage/backpack
+	corpseradio = /obj/item/device/radio/headset
+	corpsegloves = /obj/item/clothing/gloves/color/yellow
+	corpsepocket1 = /obj/item/weapon/card/emag_broken
+	corpseid = 1
+	corpseidjob = "Assistant"
+	corpseidaccess = "Assistant"
+
+/obj/effect/landmark/corpse/cargo
+	name = "Cargo Tech"
+	corpseuniform = /obj/item/clothing/under/rank/cargotech
+	corpseshoes = /obj/item/clothing/shoes/black
+	corpsehelmet = /obj/item/clothing/head/soft
+	corpseback = /obj/item/weapon/storage/backpack
+	corpseradio = /obj/item/device/radio/headset/headset_cargo
+	corpsegloves = /obj/item/clothing/gloves/fingerless
+	corpseid = 1
+	corpseidjob = "Cargo Technician"
+	corpseidaccess = "Cargo Technician"
 
 
 /////////////////Officers//////////////////////
@@ -318,11 +380,16 @@
 /obj/effect/landmark/corpse/random/crew
 	name = "Crew spawner"
 	loot = list(
-				/obj/effect/landmark/corpse/chef = 1,
-				/obj/effect/landmark/corpse/doctor = 5,
-				/obj/effect/landmark/corpse/engineer = 4,
-				/obj/effect/landmark/corpse/engineer/rig = 2,
-				/obj/effect/landmark/corpse/scientist = 5,
+				/obj/effect/landmark/corpse/assistant = 6,
+				/obj/effect/landmark/corpse/assistant/greytide = 2,
+				/obj/effect/landmark/corpse/assistant/operative = 1,
+				/obj/effect/landmark/corpse/cargo = 2,
+				/obj/effect/landmark/corpse/chef = 2,
+				/obj/effect/landmark/corpse/bartender = 2,
+				/obj/effect/landmark/corpse/doctor = 3,
+				/obj/effect/landmark/corpse/engineer = 2,
+				/obj/effect/landmark/corpse/engineer/rig = 1,
+				/obj/effect/landmark/corpse/scientist = 3,
 				/obj/effect/landmark/corpse/miner = 2,
 				/obj/effect/landmark/corpse/miner/rig = 1,
 				/obj/effect/landmark/corpse/bridgeofficer = 1,
