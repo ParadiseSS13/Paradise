@@ -239,7 +239,7 @@
 		user.visible_message("[user] begins to close and secure the hatch on [target]'s [affected.name] with \the [tool]." , \
 		"You begin to close and secure the hatch on [target]'s [affected.name] with \the [tool].")
 	else
-		log_debug("Invalid tool: '[implement_type]'")
+		log_runtime(EXCEPTION("Invalid tool: '[implement_type]'"), src)
 		return -1
 	..()
 

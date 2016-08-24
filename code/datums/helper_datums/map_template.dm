@@ -53,14 +53,10 @@
 	if(!bounds)
 		return 0
 	if(bot_left == null || top_right == null)
-		log_debug("One of the late setup corners is bust")
-	else
-		log_debug("Late Setup from ([bot_left.x],[bot_left.y]) to ([top_right.x],[top_right.y])")
+		log_runtime(EXCEPTION("One of the late setup corners is bust"), src)
 
 	if(ST_bot_left == null || ST_top_right == null)
-		log_debug("One of the smoothing corners is bust")
-	else
-		log_debug("Tile smoothing from ([ST_bot_left.x],[ST_bot_left.y]) to ([ST_top_right.x],[ST_top_right.y])")
+		log_runtime(EXCEPTION("One of the smoothing corners is bust"), src)
 
 	late_setup_level(
 		block(bot_left, top_right),

@@ -12,7 +12,7 @@
 		var/turf/T = get_turf(src)
 		for(var/obj/structure/grille/G in get_turf(src))
 			// Complain noisily
-			log_debug("Extra grille on turf: ([T.x],[T.y],[T.z])")
+			log_runtime(EXCEPTION("Extra grille on turf: ([T.x],[T.y],[T.z])"), src)
 			qdel(G) //just in case mappers don't know what they are doing
 
 		if(!useFull)

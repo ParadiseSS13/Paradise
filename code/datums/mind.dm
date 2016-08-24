@@ -597,7 +597,7 @@
 					return
 				var/datum/mind/targ = new_target
 				if(!istype(targ))
-					log_debug("Invalid target for identity theft objective, cancelling")
+					log_runtime(EXCEPTION("Invalid target for identity theft objective, cancelling"), src)
 					return
 				new_objective = new /datum/objective/escape/escape_with_identity
 				new_objective.owner = src

@@ -244,7 +244,7 @@
 
 /datum/nano_module/appearance_changer/proc/can_change_head_accessory()
 	if(!head_organ)
-		log_debug("Missing head!")
+		log_runtime(EXCEPTION("Missing head!"), src)
 		return 0
 	return owner && (flags & APPEARANCE_HEAD_ACCESSORY) && (head_organ.species.bodyflags & HAS_HEAD_ACCESSORY)
 
