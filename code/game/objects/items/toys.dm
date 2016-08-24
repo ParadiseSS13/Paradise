@@ -1148,9 +1148,9 @@ obj/item/toy/cards/deck/syndicate/black
 	icon = 'icons/obj/library.dmi'
 	icon_state = "demonomicon"
 	w_class = 2
-	recharge_time = 60
+	var/cooldown = FALSE
 
-/obj/item/toy/codex_gigas/activation_message(mob/user)
+/obj/item/toy/codex_gigas/attack_self(mob/user)
 	if(!cooldown)
 		user.visible_message(
 			"<span class='notice'>[user] presses the button on \the [src].</span>",
@@ -1163,11 +1163,10 @@ obj/item/toy/cards/deck/syndicate/black
 		messages += "[lawlorify[LORE][devil.obligation]]"
 		messages += "[lawlorify[LORE][devil.ban]]"
 		messages += "[lawlorify[LORE][devil.banish]]"
-		activation_message(user)
 		playsound(loc, 'sound/machines/click.ogg', 20, 1)
 		cooldown = TRUE
 		for(var/message in messages)
-			user.loc.visible_message("<span class='[danger]'>\icon[src] [message]</span>")
+			user.loc.visible_message("<span class='danger'>\icon[src] [message]</span>")
 			sleep(10)
 		spawn(20)
 			cooldown = FALSE
