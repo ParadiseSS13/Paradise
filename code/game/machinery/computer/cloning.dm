@@ -387,6 +387,8 @@
 		return
 	if(subject.hellbound)
 		scantemp = "<font face=\"REBUFFED\" color=#600A0A size=6>This one is mine.</font>"
+		nanomanager.update_uis(src)
+		return
 	if((NOCLONE in subject.mutations) && src.scanner.scan_level < 2)
 		scantemp = "<span class=\"bad\">Error: Mental interface failure.</span>"
 		nanomanager.update_uis(src)

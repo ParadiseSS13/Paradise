@@ -140,7 +140,9 @@
 
 	if(wearing_rig)
 		wearing_rig.notify_ai("<span class='danger'>Warning: user death event. Mobility control passed to integrated intelligence system.</span>")
-
+	if(mind && mind.devilinfo)
+		spawn(0)
+			mind.devilinfo.beginResurrectionCheck(src)
 	return ..(gibbed)
 
 /mob/living/carbon/human/proc/makeSkeleton()

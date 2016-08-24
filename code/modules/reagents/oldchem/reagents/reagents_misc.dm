@@ -114,9 +114,9 @@
 	reagent_state = SOLID
 	color = "#D0D0D0" // rgb: 208, 208, 208
 
-/datum/reagent/silver/reaction_mob(mob/living/M, method=TOUCH, reac_volume)
-	if(istype(M) && M.has_bane(BANE_SILVER))
-		M.reagents.add_reagent("toxin", reac_volume)
+/datum/reagent/silver/reaction_mob(mob/living/M, method=TOUCH, volume)
+	if(M.has_bane(BANE_SILVER))
+		M.reagents.add_reagent("toxin", volume)
 	. = ..()
 
 
@@ -150,11 +150,9 @@
 	reagent_state = SOLID
 	color = "#C8A5DC" // rgb: 200, 165, 220
 
-/datum/reagent/iron/reaction_mob(mob/living/M, method=TOUCH, reac_volume)
-	if(!istype(M, /mob/living))
-		return
-	if(istype(M) && M.has_bane(BANE_IRON) && holder && holder.chem_temp < 100) //If the target is weak to cold iron, then poison them.
-		M.reagents.add_reagent("toxin", reac_volume)
+/datum/reagent/iron/reaction_mob(mob/living/M, method=TOUCH, volume)
+	if(M.has_bane(BANE_IRON) && holder && holder.chem_temp < 150) //If the target is weak to cold iron, then poison them.
+		M.reagents.add_reagent("toxin", volume)
 	..()
 
 /datum/reagent/iron/on_mob_life(mob/living/M)

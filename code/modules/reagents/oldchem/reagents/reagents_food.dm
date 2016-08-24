@@ -156,8 +156,8 @@
 	color = "#B1B0B0"
 	overdose_threshold = 100
 
-/datum/reagent/sodiumchloride/reaction_mob(mob/living/M, method=TOUCH, reac_volume)
-	if(istype(M) && M.has_bane(BANE_SALT))
+/datum/reagent/sodiumchloride/reaction_mob(mob/living/M, method=TOUCH, volume)
+	if(M.has_bane(BANE_SALT))
 		M.mind.disrupt_spells(-200)
 	. = ..()
 

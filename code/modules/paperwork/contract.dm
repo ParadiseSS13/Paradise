@@ -230,7 +230,7 @@
 
 /obj/item/weapon/paper/contract/infernal/proc/FulfillContract(mob/living/carbon/human/user = target.current, blood = 0)
 	signed = 1
-	if(user.mind.soulOwner != user.mind) //They already sold their soul to someone else?
+	if(user.mind.soulOwner != user.mind && user.mind.soulOwner.devilinfo) //They already sold their soul to someone else?
 		user.mind.soulOwner.devilinfo.remove_soul(user.mind) //Then they lose their claim.
 	user.mind.soulOwner = owner
 	user.hellbound = contractType

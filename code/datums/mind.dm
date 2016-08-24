@@ -81,6 +81,10 @@
 	//zealot_master is a reference to the mob that converted them into a zealot (for ease of investigation and such)
 	var/mob/living/carbon/human/zealot_master = null
 
+/datum/mind/New(var/key)
+	src.key = key
+	soulOwner = src
+
 /datum/mind/proc/transfer_to(mob/living/new_character)
 	if(!istype(new_character))
 		log_to_dd("## DEBUG: transfer_to(): Some idiot has tried to transfer_to() a non mob/living mob. Please inform Carn")
