@@ -306,18 +306,10 @@
 	icon = 'icons/mob/screen_gen.dmi'
 	icon_state = "x2"
 	color = "#00FF00"
-//	var/lootcount = 1		//how many items will be spawned
-//	var/lootdoubles = 1		//if the same item can be spawned twice
 	var/list/loot			//a list of possible items to spawn e.g. list(/obj/item, /obj/structure, /obj/effect)
 
 /obj/effect/landmark/corpse/random/New()
-//	if(loot && loot.len)
-//		for(var/i = lootcount, i > 0, i--)
-//			if(!loot.len) break
 	var/lootspawn = pickweight(loot)
-//			if(!lootdoubles)
-//				loot.Remove(lootspawn)
-//
 	if(lootspawn)
 		new lootspawn(get_turf(src))
 	qdel(src)
