@@ -122,14 +122,14 @@
 			if(1 to 5)				healths.icon_state = "health6"
 			if(0)					healths.icon_state = "health7"
 
-/mob/living/simple_animal/Life()
-	. = ..()
-	handle_state_icons()
-
 /mob/living/simple_animal/proc/process_ai()
 	handle_automated_movement()
 	handle_automated_action()
 	handle_automated_speech()
+
+/mob/living/simple_animal/lay_down()
+	..()
+	handle_state_icons()
 
 /mob/living/simple_animal/proc/handle_state_icons()
 	if(resting && icon_resting && stat != DEAD)
