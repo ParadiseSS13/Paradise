@@ -153,6 +153,9 @@ GUEST_JOBBAN
 ## Uncomment this to stop people connecting to your server without a registered ckey. (i.e. guest-* are all blocked from connecting)
 GUEST_BAN
 
+## Comment to disable checking for the cid randomizer dll. (disabled if database isn't enabled or connected)
+CHECK_RANDOMIZER
+
 ## the whitelist
 #USEWHITELIST
 

@@ -89,6 +89,8 @@
 	var/overflow_server_url
 	var/forbid_singulo_possession = 0
 
+	var/check_randomizer = 0
+
 	//game_options.txt configs
 
 	var/health_threshold_softcrit = 0
@@ -140,6 +142,7 @@
 	var/main_irc = ""
 	var/admin_irc = ""
 	var/admin_notify_irc = ""
+	var/cidrandomizer_irc = ""
 	var/python_path = "" //Path to the python executable.  Defaults to "python" on windows and "/usr/bin/env python2" on unix
 
 	var/default_laws = 0 //Controls what laws the AI spawns with.
@@ -405,6 +408,9 @@
 				if("forbid_singulo_possession")
 					forbid_singulo_possession = 1
 
+				if("check_randomizer")
+					check_randomizer = 1
+
 				if("popup_admin_pm")
 					config.popup_admin_pm = 1
 
@@ -471,6 +477,9 @@
 
 				if("admin_notify_irc")
 					config.admin_notify_irc = value
+
+				if("cidrandomizer_irc")
+					config.cidrandomizer_irc = value
 
 				if("python_path")
 					if(value)

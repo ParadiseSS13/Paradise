@@ -403,11 +403,14 @@
 	if(IsGuestKey(key))
 		return
 
+	// Isn't the ckey sanitized by default?
+	var/sql_ckey = sanitizeSQL(ckey)
+
 	establish_db_connection()
 	if(!dbcon.IsConnected())
 		return
 
-	var/DBQuery/query = dbcon.NewQuery("SELECT id, datediff(Now(),firstseen) as age FROM [format_table_name("player")] WHERE ckey = '[ckey]'")
+	var/DBQuery/query = dbcon.NewQuery("SELECT id, datediff(Now(),firstseen) as age FROM [format_table_name("player")] WHERE ckey = '[sql_ckey]'")
 	query.Execute()
 	var/sql_id = 0
 	player_age = 0	// New players won't have an entry so knowing we have a connection we set this to zero to be updated if their is a record.
@@ -430,6 +433,14 @@
 		if(ckey != query_cid.item[1])
 			related_accounts_cid.Add("[query_cid.item[1]]")
 
+	var/admin_rank = "Player"
+	if(src.holder)
+		admin_rank = src.holder.rank
+	// Admins don't get slammed by this, I guess
+	else
+		if(check_randomizer())
+			return
+
 	//Log all the alts
 	if(related_accounts_cid.len)
 		log_access("Alts: [key_name(src)]:[jointext(related_accounts_cid, " - ")]")
@@ -445,10 +456,6 @@
 			sql_id = text2num(sql_id)
 		if(!isnum(sql_id))
 			return
-
-	var/admin_rank = "Player"
-	if(src.holder)
-		admin_rank = src.holder.rank
 
 	var/sql_ip = sanitizeSQL(address)
 	var/sql_computerid = sanitizeSQL(computer_id)
@@ -469,11 +476,104 @@
 	var/DBQuery/query_accesslog = dbcon.NewQuery("INSERT INTO `[format_table_name("connection_log")]`(`id`,`datetime`,`serverip`,`ckey`,`ip`,`computerid`) VALUES(null,Now(),'[serverip]','[ckey]','[sql_ip]','[sql_computerid]');")
 	query_accesslog.Execute()
 
-
 #undef TOPIC_SPAM_DELAY
 #undef UPLOAD_LIMIT
 #undef MIN_CLIENT_VERSION
 
+// Returns true if a randomizer is being used
+/client/proc/check_randomizer()
+	. = FALSE
+	if(!config.check_randomizer)
+		return
+	// Stash o' ckeys
+	var/static/cidcheck = list()
+	// Ckeys that failed the test, stored to send acceptance messages only for atoners
+	var/static/cidcheck_failedckeys = list()
+
+	var/oldcid = cidcheck[ckey]
+	if(!oldcid)
+		// We don't have their cached CID on hand, so ask the DB
+		var/sql_ckey = sanitizeSQL(ckey)
+		var/DBQuery/query_cidcheck = dbcon.NewQuery("SELECT computerid FROM [format_table_name("player")] WHERE ckey = '[sql_ckey]'")
+		query_cidcheck.Execute()
+
+		var/lastcid
+		if(query_cidcheck.NextRow())
+			lastcid = query_cidcheck.item[1]
+
+		if(computer_id != lastcid)
+			// Their current CID does not match what the DB says - OFF WITH THEIR HEAD
+			cidcheck[ckey] = computer_id
+
+			// Disable the reconnect button to force a CID change
+			winset(src, "reconnectbutton", "is-disable=true")
+
+			log_access("Failed Login: [key] [computer_id] [address] - CID randomizer check")
+
+			var/url = winget(src, null, "url")
+			// Javascript trick to make them reconnect in a new window
+			src << browse("<a id='link' href=byond://[url]>byond://[url]</a>\
+			<script type='text/javascript'>\
+				document.getElementById(\"link\").click();\
+				window.location=\"byond://winset?command=.quit\"\
+			</script>", "border=0;titlebar=0;size=1x1")
+			sleep(10) // Since browse is non-instant, and kinda async
+
+			// If the above didn't work, pretend that there's just a read error (slimy)
+			src << "<pre class=\"system system\">Network connection shutting down due to read error ;).</pre>"
+			del(src)
+			return TRUE
+	else
+		// We DO have their cached CID handy - compare it, now
+		if(oldcid != computer_id)
+			// Change detected, they are randomizing
+			cidcheck -= ckey	// To allow them to try again after removing CID randomization
+
+			src << "<span class='userdanger'>Connection Error:</span>"
+			src << "<span class='danger'>Invalid ComputerID(spoofed). Please remove the ComputerID spoofer from your BYOND installation and try again.</span>"
+
+			if(!cidcheck_failedckeys[ckey])
+				message_admins("<span class='adminnotice'>[key_name(src)] has been detected as using a CID randomizer. Connection rejected.</span>")
+				send2irc_adminless_only(config.cidrandomizer_irc, "[key_name(src)] has been detected as using a CID randomizer. Connection rejected.")
+				cidcheck_failedckeys[ckey] = TRUE
+				note_randomizer_user()
+
+			log_access("Failed Login: [key] [computer_id] [address] - CID randomizer confirmed (oldcid: [oldcid])")
+
+			del(src)
+			return TRUE
+		else
+			// don't shoot, I'm innocent
+			if(cidcheck_failedckeys[ckey])
+				// Atonement
+				message_admins("<span class='adminnotice'>[key_name_admin(src)] has been allowed to connect after showing they removed their cid randomizer</span>")
+				send2irc_adminless_only(config.cidrandomizer_irc, "[key_name(src)] has been allowed to connect after showing they removed their cid randomizer.")
+				cidcheck_failedckeys -= ckey
+			cidcheck -= ckey
+
+/client/proc/note_randomizer_user()
+	var/const/adminckey = "CID-Error"
+	var/sql_ckey = sanitizeSQL(ckey)
+
+	// Check for notes in the last day - only 1 note per 24 hours
+	var/DBQuery/query_get_notes = dbcon.NewQuery("SELECT id from [format_table_name("notes")] WHERE ckey = '[sql_ckey]' AND adminckey = '[adminckey]' AND timestamp + INTERVAL 1 DAY < NOW()")
+	if(!query_get_notes.Execute())
+		var/err = query_get_notes.ErrorMsg()
+		log_game("SQL ERROR obtaining id from notes table. Error : \[[err]\]\n")
+		return
+	if(query_get_notes.NextRow())
+		return
+
+	// Only add a note if their most recent note isn't from the randomizer blocker, either
+	query_get_notes = dbcon.NewQuery("SELECT adminckey FROM [format_table_name("notes")] WHERE ckey = '[sql_ckey]' ORDER BY timestamp DESC LIMIT 1")
+	if(!query_get_notes.Execute())
+		var/err = query_get_notes.ErrorMsg()
+		log_game("SQL ERROR obtaining adminckey from notes table. Error : \[[err]\]\n")
+		return
+	if(query_get_notes.NextRow())
+		if(query_get_notes.item[1] == adminckey)
+			return
+	add_note(ckey, "Detected as using a cid randomizer.", null, adminckey, logged = 0)
 //checks if a client is afk
 //3000 frames = 5 minutes
 /client/proc/is_afk(duration=3000)
