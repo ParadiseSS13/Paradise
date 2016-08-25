@@ -116,6 +116,8 @@
 	if(!..())
 		return 0
 
+	if(!istype(M)) // To avoid non-humans from causing runtimes whena dding blood to the floor
+		return 0
 	var/obj/effect/decal/cleanable/blood/B = locate() in contents	//check for existing blood splatter
 	if(!B)
 		blood_splatter(src,M.get_blood(M.vessel),1)

@@ -69,13 +69,14 @@
 	if(parent && parent.children)
 		parent.children -= src
 
-	if(owner)
-		owner.organs_by_name[limb_name] = null
-
 	if(internal_organs)
 		for(var/obj/item/organ/internal/O in internal_organs)
 			internal_organs -= O
 			O.remove(owner,special = 1)
+			qdel(O)
+
+	if(owner)
+		owner.organs_by_name[limb_name] = null
 
 	if(children)
 		for(var/obj/item/organ/external/C in children)

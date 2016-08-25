@@ -1416,7 +1416,8 @@
 
 		message_admins("\red Admin [key_name_admin(usr)] AIized [key_name_admin(H)]!", 1)
 		log_admin("[key_name(usr)] AIized [key_name(H)]")
-		H.AIize()
+		var/mob/living/silicon/ai/ai_character = H.AIize()
+		ai_character.moveToAILandmark()
 
 	else if(href_list["makealien"])
 		if(!check_rights(R_SPAWN))	return
