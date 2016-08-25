@@ -497,7 +497,7 @@
 		var/DBQuery/query_cidcheck = dbcon.NewQuery("SELECT computerid FROM [format_table_name("player")] WHERE ckey = '[sql_ckey]'")
 		query_cidcheck.Execute()
 
-		var/lastcid = computer_
+		var/lastcid = computer_id
 		if(query_cidcheck.NextRow())
 			lastcid = query_cidcheck.item[1]
 
@@ -534,7 +534,7 @@
 
 			if(!cidcheck_failedckeys[ckey])
 				message_admins("<span class='adminnotice'>[key_name(src)] has been detected as using a CID randomizer. Connection rejected.</span>")
-				send2irc_adminless_only(config.cidrandomizer_irc, "[key_name(src)] has been detected as using a CID randomizer. Connection rejected.")
+				send2irc(config.cidrandomizer_irc, "[key_name(src)] has been detected as using a CID randomizer. Connection rejected.")
 				cidcheck_failedckeys[ckey] = TRUE
 				note_randomizer_user()
 
@@ -547,7 +547,7 @@
 			if(cidcheck_failedckeys[ckey])
 				// Atonement
 				message_admins("<span class='adminnotice'>[key_name_admin(src)] has been allowed to connect after showing they removed their cid randomizer</span>")
-				send2irc_adminless_only(config.cidrandomizer_irc, "[key_name(src)] has been allowed to connect after showing they removed their cid randomizer.")
+				send2irc(config.cidrandomizer_irc, "[key_name(src)] has been allowed to connect after showing they removed their cid randomizer.")
 				cidcheck_failedckeys -= ckey
 			cidcheck -= ckey
 
