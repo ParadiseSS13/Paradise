@@ -393,18 +393,18 @@
 /obj/effect/landmark/corpse/random/crew
 	name = "Crew spawner"
 	loot = list(
-				/obj/effect/landmark/corpse/assistant = 6,
-				/obj/effect/landmark/corpse/assistant/greytide = 2,
-				/obj/effect/landmark/corpse/assistant/operative = 1,
-				/obj/effect/landmark/corpse/cargo = 2,
+				/obj/effect/landmark/corpse/assistant = 10,
+				/obj/effect/landmark/corpse/assistant/greytide = 6,
+				/obj/effect/landmark/corpse/assistant/operative = 2,
+				/obj/effect/landmark/corpse/cargo = 6,
 				/obj/effect/landmark/corpse/chef = 2,
 				/obj/effect/landmark/corpse/bartender = 2,
-				/obj/effect/landmark/corpse/doctor = 3,
-				/obj/effect/landmark/corpse/engineer = 2,
-				/obj/effect/landmark/corpse/engineer/rig = 1,
-				/obj/effect/landmark/corpse/scientist = 3,
+				/obj/effect/landmark/corpse/doctor = 5,
+				/obj/effect/landmark/corpse/engineer = 4,
+				/obj/effect/landmark/corpse/engineer/rig = 2,
+				/obj/effect/landmark/corpse/scientist = 5,
 				/obj/effect/landmark/corpse/miner = 2,
-				/obj/effect/landmark/corpse/miner/rig = 1,
+				/obj/effect/landmark/corpse/miner/rig = 2,
 				/obj/effect/landmark/corpse/bridgeofficer = 1,
 				/obj/effect/landmark/corpse/commander = 1
 				)
