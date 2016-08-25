@@ -132,7 +132,6 @@
 	..()
 	icon_living = icon_state
 	icon_dead = icon_state
-	icon_resting = icon_state
 	access_card = new /obj/item/weapon/card/id(src)
 //This access is so bots can be immediately set to patrol and leave Robotics, instead of having to be let out first.
 	access_card.access += access_robotics
@@ -851,9 +850,6 @@ Pass a positive integer as an argument to override a bot's default speed.
 				to_chat(usr, "<span class='notice'>You eject [paicard] from [bot_name]</span>")
 				ejectpai(usr)
 	update_controls()
-
-/mob/living/simple_animal/bot/handle_state_icons()
-	return
 
 /mob/living/simple_animal/bot/proc/update_icon()
 	icon_state = "[initial(icon_state)][on]"

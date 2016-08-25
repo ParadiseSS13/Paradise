@@ -129,13 +129,14 @@
 
 /mob/living/simple_animal/lay_down()
 	..()
-	handle_state_icons()
+	handle_resting_state_icons()
 
-/mob/living/simple_animal/proc/handle_state_icons()
-	if(resting && icon_resting && stat != DEAD)
-		icon_state = icon_resting
-	else if(stat != DEAD)
-		icon_state = icon_living
+/mob/living/simple_animal/proc/handle_resting_state_icons()
+	if(icon_resting)
+		if(resting && stat != DEAD)
+			icon_state = icon_resting
+		else if(stat != DEAD)
+			icon_state = icon_living
 
 /mob/living/simple_animal/handle_regular_status_updates()
 	if(..()) //alive
