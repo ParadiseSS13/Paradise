@@ -497,7 +497,7 @@
 		var/DBQuery/query_cidcheck = dbcon.NewQuery("SELECT computerid FROM [format_table_name("player")] WHERE ckey = '[sql_ckey]'")
 		query_cidcheck.Execute()
 
-		var/lastcid
+		var/lastcid = computer_id
 		if(query_cidcheck.NextRow())
 			lastcid = query_cidcheck.item[1]
 
