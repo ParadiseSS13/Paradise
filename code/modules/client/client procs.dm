@@ -111,49 +111,49 @@
 							to_chat(usr, "You do not have enough karma!")
 							return
 						else
-							src.DB_job_unlock("Barber",5)
+							DB_job_unlock("Barber",5)
 							return
 					if("2")
 						if(karma <5)
 							to_chat(usr, "You do not have enough karma!")
 							return
 						else
-							src.DB_job_unlock("Brig Physician",5)
+							DB_job_unlock("Brig Physician",5)
 							return
 					if("3")
 						if(karma <30)
 							to_chat(usr, "You do not have enough karma!")
 							return
 						else
-							src.DB_job_unlock("Nanotrasen Representative",30)
+							DB_job_unlock("Nanotrasen Representative",30)
 							return
 					if("5")
 						if(karma <30)
 							to_chat(usr, "You do not have enough karma!")
 							return
 						else
-							src.DB_job_unlock("Blueshield",30)
+							DB_job_unlock("Blueshield",30)
 							return
 					if("6")
 						if(karma <30)
 							to_chat(usr, "You do not have enough karma!")
 							return
 						else
-							src.DB_job_unlock("Mechanic",30)
+							DB_job_unlock("Mechanic",30)
 							return
 					if("7")
 						if(karma <45)
 							to_chat(usr, "You do not have enough karma!")
 							return
 						else
-							src.DB_job_unlock("Magistrate",45)
+							DB_job_unlock("Magistrate",45)
 							return
 					if("9")
 						if(karma <30)
 							to_chat(usr, "You do not have enough karma!")
 							return
 						else
-							src.DB_job_unlock("Security Pod Pilot",30)
+							DB_job_unlock("Security Pod Pilot",30)
 							return
 			if(href_list["KarmaBuy2"])
 				var/karma=verify_karma()
@@ -163,55 +163,55 @@
 							to_chat(usr, "You do not have enough karma!")
 							return
 						else
-							src.DB_species_unlock("Machine",15)
+							DB_species_unlock("Machine",15)
 							return
 					if("2")
 						if(karma <30)
 							to_chat(usr, "You do not have enough karma!")
 							return
 						else
-							src.DB_species_unlock("Kidan",30)
+							DB_species_unlock("Kidan",30)
 							return
 					if("3")
 						if(karma <30)
 							to_chat(usr, "You do not have enough karma!")
 							return
 						else
-							src.DB_species_unlock("Grey",30)
+							DB_species_unlock("Grey",30)
 							return
 					if("4")
 						if(karma <45)
 							to_chat(usr, "You do not have enough karma!")
 							return
 						else
-							src.DB_species_unlock("Vox",45)
+							DB_species_unlock("Vox",45)
 							return
 					if("5")
 						if(karma <45)
 							to_chat(usr, "You do not have enough karma!")
 							return
 						else
-							src.DB_species_unlock("Slime People",45)
+							DB_species_unlock("Slime People",45)
 							return
 					if("6")
 						if(karma <100)
 							to_chat(usr, "You do not have enough karma!")
 							return
 						else
-							src.DB_species_unlock("Plasmaman",100)
+							DB_species_unlock("Plasmaman",100)
 							return
 					if("7")
 						if(karma <30)
 							to_chat(usr, "You do not have enough karma!")
 							return
 						else
-							src.DB_species_unlock("Drask",30)
+							DB_species_unlock("Drask",30)
 							return
 			if(href_list["KarmaRefund"])
 				var/type = href_list["KarmaRefundType"]
 				var/job = href_list["KarmaRefund"]
 				var/cost = href_list["KarmaRefundCost"]
-				src.karmarefund(type,job,cost)
+				karmarefund(type,job,cost)
 				return
 
 	switch(href_list["_src_"])
@@ -225,7 +225,7 @@
 		if("openLink")
 			src << link(href_list["link"])
 
-	..()	//redirect to hsrc.Topic()
+	..()	//redirect to hTopic()
 
 /client/proc/is_content_unlocked()
 	if(!prefs.unlock_content)
@@ -290,8 +290,8 @@
 
 	// Change the way they should download resources.
 	if(config.resource_urls)
-		src.preload_rsc = pick(config.resource_urls)
-	else src.preload_rsc = 1 // If config.resource_urls is not set, preload like normal.
+		preload_rsc = pick(config.resource_urls)
+	else preload_rsc = 1 // If config.resource_urls is not set, preload like normal.
 
 	to_chat(src, "\red If the title screen is black, resources are still downloading. Please be patient until the title screen appears.")
 
@@ -434,8 +434,8 @@
 			related_accounts_cid.Add("[query_cid.item[1]]")
 
 	var/admin_rank = "Player"
-	if(src.holder)
-		admin_rank = src.holder.rank
+	if(holder)
+		admin_rank = holder.rank
 	// Admins don't get slammed by this, I guess
 	else
 		if(check_randomizer())
@@ -497,7 +497,7 @@
 		var/DBQuery/query_cidcheck = dbcon.NewQuery("SELECT computerid FROM [format_table_name("player")] WHERE ckey = '[sql_ckey]'")
 		query_cidcheck.Execute()
 
-		var/lastcid = computer_id
+		var/lastcid = computer_
 		if(query_cidcheck.NextRow())
 			lastcid = query_cidcheck.item[1]
 
@@ -520,7 +520,7 @@
 			sleep(10) // Since browse is non-instant, and kinda async
 
 			// If the above didn't work, pretend that there's just a read error (slimy)
-			src << "<pre class=\"system system\">Network connection shutting down due to read error ;).</pre>"
+			to_chat("<pre class=\"system system\">Network connection shutting down due to read error ;).</pre>")
 			del(src)
 			return TRUE
 	else
@@ -529,8 +529,8 @@
 			// Change detected, they are randomizing
 			cidcheck -= ckey	// To allow them to try again after removing CID randomization
 
-			src << "<span class='userdanger'>Connection Error:</span>"
-			src << "<span class='danger'>Invalid ComputerID(spoofed). Please remove the ComputerID spoofer from your BYOND installation and try again.</span>"
+			to_chat("<span class='userdanger'>Connection Error:</span>")
+			to_chat("<span class='danger'>Invalid ComputerID(spoofed). Please remove the ComputerID spoofer from your BYOND installation and try again.</span>")
 
 			if(!cidcheck_failedckeys[ckey])
 				message_admins("<span class='adminnotice'>[key_name(src)] has been detected as using a CID randomizer. Connection rejected.</span>")
