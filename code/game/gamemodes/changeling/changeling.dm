@@ -224,7 +224,7 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 	var/list/absorbed_dna = list()
 	var/list/absorbed_languages = list()
 	var/list/protected_dna = list() //DNA that is not lost when capacity is otherwise full.
-	var/dna_max = 4 //How many extra DNA strands the changeling can store for transformation.
+	var/dna_max = 5 //How many total DNA strands the changeling can store for transformation.
 	var/absorbedcount = 1 //Would require at least 1 sample to take on the form of a human
 	var/chem_charges = 20
 	var/chem_recharge_rate = 0.5
@@ -253,7 +253,6 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 		changelingID = "[honorific] [changelingID]"
 	else
 		changelingID = "[honorific] [rand(1,999)]"
-	absorbed_dna.len = dna_max
 
 /datum/changeling/proc/regenerate()
 	chem_charges = min(max(0, chem_charges + chem_recharge_rate - chem_recharge_slowdown), chem_storage)
@@ -265,14 +264,35 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 		if(dna_owner == DNA.real_name)
 			return DNA
 
-/datum/changeling/proc/has_dna(var/datum/dna/tDNA)
+/datum/changeling/proc/find_dna(var/datum/dna/tDNA)
 	for(var/datum/dna/D in (absorbed_dna + protected_dna))
 		if(tDNA.unique_enzymes == D.unique_enzymes && tDNA.uni_identity == D.uni_identity && tDNA.species == D.species)
-			return 1
+			return D
+	return null
+
+/datum/changeling/proc/has_dna(var/datum/dna/tDNA)
+	if(find_dna(tDNA))
+		return 1
 	return 0
 
+// A changeling's DNA is "stale" if their current form's DNA is the oldest DNA in a full list
+/datum/changeling/proc/using_stale_dna(var/mob/living/carbon/user)
+	var/current_dna = find_dna(user.dna)
+	if(absorbed_dna.len < dna_max)
+		return 0 // Still more room for DNA
+	if(!current_dna || !(current_dna in absorbed_dna))
+		return 1 // Oops, our current DNA was somehow not absorbed; force a transformation
+	if(absorbed_dna[1] == current_dna)
+		return 1 // Oldest DNA is the current DNA
+	return 0
+
+/datum/changeling/proc/trim_dna()
+	absorbed_dna -= null
+	if(absorbed_dna.len > dna_max)
+		absorbed_dna.Cut(1, (absorbed_dna.len - dna_max) + 1)
+
 /datum/changeling/proc/can_absorb_dna(var/mob/living/carbon/user, var/mob/living/carbon/target)
-	if(absorbed_dna[1] == user.dna)//If our current DNA is the stalest, we gotta ditch it.
+	if(using_stale_dna(user))//If our current DNA is the stalest, we gotta ditch it.
 		to_chat(user, "<span class='warning'>We have reached our capacity to store genetic information! We must transform before absorbing more.</span>")
 		return
 

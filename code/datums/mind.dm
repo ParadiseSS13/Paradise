@@ -86,17 +86,17 @@
 	soulOwner = src
 
 /datum/mind/proc/transfer_to(mob/living/new_character)
+	var/datum/atom_hud/antag/hud_to_transfer = antag_hud //we need this because leave_hud() will clear this list
 	if(!istype(new_character))
 		log_to_dd("## DEBUG: transfer_to(): Some idiot has tried to transfer_to() a non mob/living mob. Please inform Carn")
 	if(current)					//remove ourself from our old body's mind variable
 		current.mind = null
+		leave_all_huds() //leave all the huds in the old body, so it won't get huds if somebody else enters it
 
 		nanomanager.user_transferred(current, new_character)
 
 	if(new_character.mind)		//remove any mind currently in our new body's mind variable
 		new_character.mind.current = null
-	var/datum/atom_hud/antag/hud_to_transfer = antag_hud//we need this because leave_hud() will clear this list
-	leave_all_huds()									//leave all the huds in the old body, so it won't get huds if somebody else enters it
 	current = new_character		//link ourself to our new body
 	new_character.mind = src	//and link our new body to ourself
 	transfer_antag_huds(hud_to_transfer)				//inherit the antag HUD
