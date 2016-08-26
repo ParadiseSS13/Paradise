@@ -216,7 +216,7 @@ var/to_chat_src
 		if(isnull(message))
 			message = "(null)"
 		else if(istype(target, /datum))
-		 	var/datum/D = target
+			var/datum/D = target
 			message = "([D.type]): '[D]'"
 		else if(!is_valid_tochat_message(message))
 			message = "(bad message) : '[message]'"
