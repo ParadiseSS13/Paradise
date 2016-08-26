@@ -37,6 +37,9 @@ var/list/chatResources = list(
 		broken = TRUE
 		return 0
 
+	if(!owner) // In case the client vanishes before winexists returns
+		return 0
+
 	if(winget(owner, "browseroutput", "is-disabled") == "false")
 		doneLoading()
 

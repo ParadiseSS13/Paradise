@@ -201,7 +201,8 @@
 				update_hair(redraw_mob)	//rebuild hair
 				update_fhair(redraw_mob)
 				update_head_accessory(redraw_mob)
-			sec_hud_set_ID()
+			if(hud_list.len)
+				sec_hud_set_ID()
 			update_inv_wear_mask(redraw_mob)
 		if(slot_handcuffed)
 			handcuffed = W
@@ -220,7 +221,8 @@
 			update_inv_belt(redraw_mob)
 		if(slot_wear_id)
 			wear_id = W
-			sec_hud_set_ID()
+			if(!hud_list.len)
+				sec_hud_set_ID()
 			update_inv_wear_id(redraw_mob)
 		if(slot_wear_pda)
 			wear_pda = W

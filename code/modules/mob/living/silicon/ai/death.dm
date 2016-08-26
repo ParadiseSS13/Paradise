@@ -39,7 +39,7 @@
 		if(istype(loc, /obj/item/device/aicard))
 			loc.icon_state = "aicard-404"
 
-	timeofdeath = worldtime2text()
-	if(mind)	mind.store_memory("Time of death: [timeofdeath]", 0)
+	timeofdeath = world.time
+	if(mind)	mind.store_memory("Time of death: [worldtime2text(timeofdeath)]", 0)
 
 	return ..(gibbed)

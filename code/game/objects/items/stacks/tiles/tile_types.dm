@@ -129,3 +129,11 @@
 	turf_type = /turf/simulated/floor/silent
 	mineralType = "tranquillite"
 	materials = list(MAT_TRANQUILLITE=500)
+
+//Pod floor
+/obj/item/stack/tile/pod
+	name = "pod floor tile"
+	singular_name = "pod floor tile"
+	desc = "A grooved floor tile."
+	icon_state = "tile_pod"
+	turf_type = /turf/simulated/floor/pod

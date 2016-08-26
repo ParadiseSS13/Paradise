@@ -386,6 +386,8 @@ Class Procs:
 				I.crit_fail = 1
 			I.forceMove(loc)
 		qdel(src)
+		return 1
+	return 0
 
 /obj/machinery/proc/default_deconstruction_screwdriver(var/mob/user, var/icon_state_open, var/icon_state_closed, var/obj/item/weapon/screwdriver/S)
 	if(istype(S))
