@@ -12,7 +12,7 @@
 	//Intentionally empty
 
 /datum/objective/devil/soulquantity/update_explanation_text()
-	explanation_text = "Purchase, and retain control over at least [target_amount] souls."
+	explanation_text = "Purchase, and retain control over at least [target_amount] S.O.U.L.s."
 
 /datum/objective/devil/soulquantity/check_completion()
 	var/count = 0
@@ -79,7 +79,7 @@
 
 /datum/objective/devil/buy_target/update_explanation_text()
 	if(target)
-		explanation_text = "Purchase and retain the soul of [target.name], the [target.assigned_role]."
+		explanation_text = "Purchase and retain the S.O.U.L. of [target.name], the [target.assigned_role]."
 	else
 		explanation_text = "Free objective."
 
@@ -91,7 +91,7 @@
 	explanation_text = "You shouldn't see this text.  Error:DEVIL5"
 
 /datum/objective/devil/outsell/update_explanation_text()
-	explanation_text = "Purchase and retain control over more souls than [target.devilinfo.truename], known to mortals as [target.name], the [target.assigned_role]."
+	explanation_text = "Purchase and retain control over more S.O.U.L.s than [target.devilinfo.truename], known to mortals as [target.name], the [target.assigned_role]."
 
 /datum/objective/devil/outsell/check_completion()
 	var/selfcount = 0

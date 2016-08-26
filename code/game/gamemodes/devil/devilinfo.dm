@@ -144,7 +144,7 @@ var/global/list/lawlorify = list (
 		return
 	soulsOwned += soul
 	owner.current.nutrition = NUTRITION_LEVEL_FULL
-	to_chat(owner.current, "<span class='warning'>You feel satiated as you received a new soul.</span>")
+	to_chat(owner.current, "<span class='warning'>You feel satiated as you received a new S.O.U.L.</span>")
 	update_hud()
 	switch(SOULVALUE)
 		if(0)
@@ -160,7 +160,7 @@ var/global/list/lawlorify = list (
 /datum/devilinfo/proc/remove_soul(datum/mind/soul)
 	if(soulsOwned.Remove(soul))
 		check_regression()
-		to_chat(owner.current,"<span class='warning'>You feel as though a soul has slipped from your grasp.</span>")
+		to_chat(owner.current,"<span class='warning'>You feel as though a S.O.U.L. has slipped from your grasp.</span>")
 		update_hud()
 
 /datum/devilinfo/proc/check_regression()

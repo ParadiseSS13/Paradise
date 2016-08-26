@@ -31,8 +31,8 @@
 	see_in_dark = 8
 	see_invisible = SEE_INVISIBLE_MINIMUM
 	var/boost
-	var/playstyle_string = "<B><font size=3 color='red'>You are an imp,</font> a mischevious creature from hell. You are the lowest rank on the hellish totem pole  \
-							Though you are not obligated to help, perhaps by aiding a higher ranking devil, you might just get a promotion.  However, you are incapable	\
+	var/playstyle_string = "<B><font size=3 color='red'>You are an imp,</font> a mischevious creature from Inferno Incorporated. You are the lowest rank on the corporate totem 
+							pole.  Though you are not obligated to help, perhaps by aiding a higher ranking devil, you might just get a promotion.  However, you are incapable	\
 							of intentionally harming a fellow devil.</B>"
 
 /mob/living/simple_animal/imp/New()
