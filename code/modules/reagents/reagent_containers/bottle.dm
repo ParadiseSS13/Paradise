@@ -15,7 +15,7 @@
 /obj/item/weapon/reagent_containers/glass/bottle/New()
 	..()
 	if(!icon_state)
-		icon_state = "bottle[rand(1,20)]"
+		icon_state = "rounded_bottle"
 
 /obj/item/weapon/reagent_containers/glass/bottle/on_reagent_change()
 	update_icon()
@@ -24,20 +24,20 @@
 	overlays.Cut()
 
 	if(reagents.total_volume)
-		var/image/filling = image('icons/obj/reagentfillings.dmi', src, "[icon_state]10")
+		var/image/filling = image('icons/obj/reagentfillings.dmi', src, "bottle10")
 
 		var/percent = round((reagents.total_volume / volume) * 100)
 		switch(percent)
 			if(0 to 24)
-				filling.icon_state = "[icon_state]10"
+				filling.icon_state = "bottle10"
 			if(25 to 49)
-				filling.icon_state = "[icon_state]25"
+				filling.icon_state = "bottle25"
 			if(50 to 74)
-				filling.icon_state = "[icon_state]50"
+				filling.icon_state = "bottle50"
 			if(75 to 90)
-				filling.icon_state = "[icon_state]75"
+				filling.icon_state = "bottle75"
 			if(91 to INFINITY)
-				filling.icon_state = "[icon_state]100"
+				filling.icon_state = "bottle100"
 
 		filling.icon += mix_color_from_reagents(reagents.reagent_list)
 		overlays += filling
@@ -50,42 +50,36 @@
 	name = "toxin bottle"
 	desc = "A small bottle of toxins. Do not drink, it is poisonous."
 	icon = 'icons/obj/chemical.dmi'
-	icon_state = "bottle12"
 	list_reagents = list("toxin" = 30)
 
 /obj/item/weapon/reagent_containers/glass/bottle/cyanide
 	name = "cyanide bottle"
 	desc = "A small bottle of cyanide. Bitter almonds?"
 	icon = 'icons/obj/chemical.dmi'
-	icon_state = "bottle12"
 	list_reagents = list("cyanide" = 30)
 
 /obj/item/weapon/reagent_containers/glass/bottle/mutagen
 	name = "unstable mutagen bottle"
 	desc = "A small bottle of unstable mutagen. Randomly changes the DNA structure of whoever comes in contact."
 	icon = 'icons/obj/chemical.dmi'
-	icon_state = "bottle20"
 	list_reagents = list("mutagen" = 30)
 
 /obj/item/weapon/reagent_containers/glass/bottle/ammonia
 	name = "ammonia bottle"
 	desc = "A small bottle."
 	icon = 'icons/obj/chemical.dmi'
-	icon_state = "bottle20"
 	list_reagents = list("ammonia" = 30)
 
 /obj/item/weapon/reagent_containers/glass/bottle/diethylamine
 	name = "diethylamine bottle"
 	desc = "A small bottle."
 	icon = 'icons/obj/chemical.dmi'
-	icon_state = "bottle17"
 	list_reagents = list("diethylamine" = 30)
 
 /obj/item/weapon/reagent_containers/glass/bottle/facid
 	name = "Fluorosulfuric Acid Bottle"
 	desc = "A small bottle. Contains a small amount of Fluorosulfuric Acid"
 	icon = 'icons/obj/chemical.dmi'
-	icon_state = "bottle17"
 	list_reagents = list("facid" = 30)
 
 /obj/item/weapon/reagent_containers/glass/bottle/adminordrazine
@@ -99,56 +93,48 @@
 	name = "Capsaicin Bottle"
 	desc = "A small bottle. Contains hot sauce."
 	icon = 'icons/obj/chemical.dmi'
-	icon_state = "bottle3"
 	list_reagents = list("capsaicin" = 30)
 
 /obj/item/weapon/reagent_containers/glass/bottle/frostoil
 	name = "Frost Oil Bottle"
 	desc = "A small bottle. Contains cold sauce."
 	icon = 'icons/obj/chemical.dmi'
-	icon_state = "bottle17"
 	list_reagents = list("frostoil" = 30)
 
 /obj/item/weapon/reagent_containers/glass/bottle/morphine
 	name = "Morphine Bottle"
 	desc = "A small bottle. Contains morphine."
 	icon = 'icons/obj/chemical.dmi'
-	icon_state = "bottle17"
 	list_reagents = list("morphine" = 30)
 
 /obj/item/weapon/reagent_containers/glass/bottle/ether
 	name = "Ether Bottle"
 	desc = "A small bottle. Contains ether."
 	icon = 'icons/obj/chemical.dmi'
-	icon_state = "bottle17"
 	list_reagents = list("ether" = 30)
 
 /obj/item/weapon/reagent_containers/glass/bottle/charcoal
 	name = "Charcoal Bottle"
 	desc = "A small bottle. Contains charcoal."
 	icon = 'icons/obj/chemical.dmi'
-	icon_state = "bottle17"
 	list_reagents = list("charcoal" = 30)
 
 /obj/item/weapon/reagent_containers/glass/bottle/epinephrine
 	name = "Epinephrine Bottle"
 	desc = "A small bottle. Contains epinephrine."
 	icon = 'icons/obj/chemical.dmi'
-	icon_state = "bottle17"
 	list_reagents = list("epinephrine" = 30)
 
 /obj/item/weapon/reagent_containers/glass/bottle/pancuronium
 	name = "Pancuronium Bottle"
 	desc = "A small bottle of pancuronium."
 	icon = 'icons/obj/chemical.dmi'
-	icon_state = "bottle14"
 	list_reagents = list("pancuronium" = 30)
 
 /obj/item/weapon/reagent_containers/glass/bottle/sulfonal
 	name = "Sulfonal Bottle"
 	desc = "A small bottle of Sulfonal."
 	icon = 'icons/obj/chemical.dmi'
-	icon_state = "bottle19"
 	list_reagents = list("sulfonal" = 30)
 
 //Reagent bottles
@@ -162,43 +148,36 @@
 /obj/item/weapon/reagent_containers/glass/bottle/reagent/oil
 	name = "Oil Bottle"
 	desc = "A reagent bottle. Contains oil."
-	icon_state = "rbottle1"
 	list_reagents = list("oil" = 50)
 
 /obj/item/weapon/reagent_containers/glass/bottle/reagent/phenol
 	name = "Phenol Bottle"
 	desc = "A reagent bottle. Contains phenol."
-	icon_state = "rbottle2"
 	list_reagents = list("phenol" = 50)
 
 /obj/item/weapon/reagent_containers/glass/bottle/reagent/acetone
 	name = "Acetone Bottle"
 	desc = "A reagent bottle. Contains acetone."
-	icon_state = "rbottle3"
 	list_reagents = list("acetone" = 50)
 
 /obj/item/weapon/reagent_containers/glass/bottle/reagent/ammonia
 	name = "Ammonia Bottle"
 	desc = "A reagent bottle. Contains ammonia."
-	icon_state = "rbottle4"
 	list_reagents = list("ammonia" = 50)
 
 /obj/item/weapon/reagent_containers/glass/bottle/reagent/diethylamine
 	name = "Diethylamine Bottle"
 	desc = "A reagent bottle. Contains diethylamine."
-	icon_state = "rbottle5"
 	list_reagents = list("diethylamine" = 50)
 
 /obj/item/weapon/reagent_containers/glass/bottle/reagent/acid
 	name = "Acid Bottle"
 	desc = "A reagent bottle. Contains sulfuric acid."
-	icon_state = "rbottle6"
 	list_reagents = list("sacid" = 50)
 
 /obj/item/weapon/reagent_containers/glass/bottle/reagent/formaldehyde
 	name = "Formaldehyde Bottle"
 	desc = "A reagent bottle. Contains formaldehyde."
-	icon_state = "rbottle"
 	list_reagents = list("formaldehyde" = 50)
 
 /obj/item/weapon/reagent_containers/glass/bottle/reagent/morphine
