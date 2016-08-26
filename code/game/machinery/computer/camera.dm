@@ -138,7 +138,10 @@
 		var/obj/machinery/camera/C = locate(href_list["switchTo"]) in cameranet.cameras
 		if(!C)
 			return 1
-
+		
+		if(!can_access_camera(C))
+			return 1 // No href exploits for you.
+		
 		switch_to_camera(usr, C)
 
 	else if(href_list["reset"])
