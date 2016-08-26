@@ -519,8 +519,7 @@
 			</script>", "border=0;titlebar=0;size=1x1")
 			sleep(10) // Since browse is non-instant, and kinda async
 
-			// If the above didn't work, pretend that there's just a read error (slimy)
-			to_chat("<pre class=\"system system\">Network connection shutting down due to read error ;).</pre>")
+			to_chat("<pre class=\"system system\">If you didn't reconnect automatically, please do so now.</pre>")
 			del(src)
 			return TRUE
 	else
