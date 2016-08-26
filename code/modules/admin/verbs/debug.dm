@@ -652,6 +652,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		if("strip")
 			//do nothing
 
+		// god is dead
 		if("as job...")
 			if(jobdatum)
 				dresscode = "[jobdatum.title]"
