@@ -225,7 +225,7 @@
 		if("openLink")
 			src << link(href_list["link"])
 
-	..()	//redirect to hTopic()
+	..()	//redirect to hsrc.Topic()
 
 /client/proc/is_content_unlocked()
 	if(!prefs.unlock_content)
