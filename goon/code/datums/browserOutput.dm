@@ -217,7 +217,7 @@ var/to_chat_src
 			message = "(null)"
 		else if(istype(target, /datum))
 		 	var/datum/D = target
-			message = "'[D]' ([D.type])"
+			message = "([D.type]): '[D]'"
 		else if(!is_valid_tochat_message(message))
 			message = "(bad message) : '[message]'"
 
@@ -231,8 +231,9 @@ var/to_chat_src
 		log_runtime(new/exception("DEBUG: to_chat called with invalid message/target.", to_chat_filename, to_chat_line), to_chat_src, list("Message: '[message]'", "Target: [targetstring]"))
 		return
 
-	else if(istext(message))
+	else if(is_valid_tochat_message(message))
 		if(istext(target))
+			log_runtime(EXCEPTION("Somehow, to_chat got a text as a target"))
 			return
 
 		message = replacetext(message, "\n", "<br>")
