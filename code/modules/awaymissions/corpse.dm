@@ -41,18 +41,29 @@
 	if(src.mob_species)
 		M.set_species(src.mob_species)
 	if(ishuman(M))
+//		random_character()
+//		M.prefs.random_character()
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/external/head/head_organ = H.get_organ("head")
-		head_organ.r_facial = rand(0,255)
-		head_organ.g_facial = rand(0,255)
+		head_organ.r_facial = rand(0,255) //facial coloring
+		head_organ.g_facial = rand(0,255)			//do these need to be pointed at the head??
 		head_organ.b_facial = rand(0,255)
-		head_organ.r_hair = rand(0,255)
+		head_organ.r_hair = rand(0,255) //hair coloring
 		head_organ.g_hair = rand(0,255)
 		head_organ.b_hair = rand(0,255)
-		head_organ.h_style = random_hair_style(H.gender, head_organ.species.name)
-		head_organ.f_style = random_facial_hair_style(H.gender, head_organ.species.name)
-		H.update_hair()
+		H.r_skin = rand (0,255) //skin coloring
+		H.g_skin = rand (0,255)						//can these not?
+		H.b_skin = rand (0,255)
+		H.r_markings = rand (0,255) //markings coloring here
+		H.g_markings = rand (0,255)
+		H.b_markings = rand (0,255)
+		head_organ.h_style = random_hair_style(H.gender, head_organ.species.name) // hair style
+		head_organ.f_style = random_facial_hair_style(H.gender, head_organ.species.name) // facial hair style
+//nope	H.m_style = random_markings_style(H.gender, H.species.name) // markings style - this one apparently doesn't exist for some reason. But it's fine because
+		H.update_hair() //update icon
 		H.update_fhair()
+		H.update_markings()
+		H.update_body()
 	if(src.corpseuniform)
 		M.equip_to_slot_or_del(new src.corpseuniform(M), slot_w_uniform)
 	if(src.corpsesuit)
@@ -347,7 +358,7 @@
 	corpseglasses = /obj/item/clothing/glasses/sunglasses
 	corpseid = 1
 	corpseidjob = "Bridge Officer"
-	corpseidaccess = "Captain"
+	corpseidaccess = "Head of Personel"
 
 /obj/effect/landmark/corpse/commander
 	name = "Commander"
@@ -377,7 +388,7 @@
 //Allows you to place down a random spawner object and have the map randomly choose one from a list, very much like maint loot spawners.
 
 
-/obj/effect/landmark/corpse/random/
+/obj/effect/landmark/corpse/random
 	icon = 'icons/mob/screen_gen.dmi'
 	icon_state = "x2"
 	color = "#00FF00"
@@ -393,19 +404,19 @@
 /obj/effect/landmark/corpse/random/crew
 	name = "Crew spawner"
 	loot = list(
-				/obj/effect/landmark/corpse/assistant = 10,
-				/obj/effect/landmark/corpse/assistant/greytide = 6,
-				/obj/effect/landmark/corpse/assistant/operative = 2,
-				/obj/effect/landmark/corpse/cargo = 6,
-				/obj/effect/landmark/corpse/chef = 2,
-				/obj/effect/landmark/corpse/bartender = 2,
-				/obj/effect/landmark/corpse/doctor = 5,
-				/obj/effect/landmark/corpse/engineer = 4,
-				/obj/effect/landmark/corpse/engineer/rig = 2,
-				/obj/effect/landmark/corpse/scientist = 5,
-				/obj/effect/landmark/corpse/miner = 2,
-				/obj/effect/landmark/corpse/miner/rig = 2,
-				/obj/effect/landmark/corpse/bridgeofficer = 1,
+				/obj/effect/landmark/corpse/assistant = 20,
+				/obj/effect/landmark/corpse/assistant/greytide = 12,
+				/obj/effect/landmark/corpse/assistant/operative = 4,
+				/obj/effect/landmark/corpse/cargo = 12,
+				/obj/effect/landmark/corpse/chef = 4,
+				/obj/effect/landmark/corpse/bartender = 4,
+				/obj/effect/landmark/corpse/doctor = 10,
+				/obj/effect/landmark/corpse/engineer = 8,
+				/obj/effect/landmark/corpse/engineer/rig = 4,
+				/obj/effect/landmark/corpse/scientist = 10,
+				/obj/effect/landmark/corpse/miner = 4,
+				/obj/effect/landmark/corpse/miner/rig = 4,
+				/obj/effect/landmark/corpse/bridgeofficer = 2,
 				/obj/effect/landmark/corpse/commander = 1
 				)
 
