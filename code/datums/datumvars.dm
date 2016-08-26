@@ -12,7 +12,7 @@
 
 
 	var/title = ""
-	var/body = ""
+	var/list/body = list()
 
 	if(!D)	return
 	if(istype(D, /atom))
@@ -319,7 +319,7 @@ body
 }
 </style>"}
 	html += "</head><body>"
-	html += body
+	html += body.Join("")
 
 	html += {"
 		<script type='text/javascript'>
@@ -335,7 +335,7 @@ body
 	return
 
 /client/proc/debug_variable(name, value, level, var/datum/DA = null)
-	var/html = ""
+	var/list/html = list()
 
 	if(DA)
 		html += "<li style='backgroundColor:white'>(<a href='?_src_=vars;datumedit=\ref[DA];varnameedit=[name]'>E</a>) (<a href='?_src_=vars;datumchange=\ref[DA];varnamechange=[name]'>C</a>) (<a href='?_src_=vars;datummass=\ref[DA];varnamemass=[name]'>M</a>) "
@@ -414,7 +414,7 @@ body
 		*/
 	html += "</li>"
 
-	return html
+	return html.Join("")
 
 /client/proc/view_var_Topic(href, href_list, hsrc)
 	//This should all be moved over to datum/admins/Topic() or something ~Carn
