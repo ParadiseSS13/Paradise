@@ -211,12 +211,23 @@ var/to_chat_src
 /proc/__to_chat(target, message)
 	if(!is_valid_tochat_message(message) || !is_valid_tochat_target(target))
 		target << message
-		if(!istext(message))
-			message = "(non-text type)"
-		var/targetstring = "\'[target]\'"
+
+		// Info about the "message"
+		if(isnull(message))
+			message = "(null)"
+		else if(istype(target, /datum))
+		 	var/datum/D = target
+			message = "'[D]' ([D.type])"
+		else if(!is_valid_tochat_message(message))
+			message = "(bad message) : '[message]'"
+
+		// Info about the target
+		var/targetstring = "'[target]'"
 		if(istype(target, /datum))
 			var/datum/D = target
 			targetstring += ", [D.type]"
+
+		// The final output
 		log_runtime(new/exception("DEBUG: to_chat called with invalid message/target.", to_chat_filename, to_chat_line), to_chat_src, list("Message: '[message]'", "Target: [targetstring]"))
 		return
 
