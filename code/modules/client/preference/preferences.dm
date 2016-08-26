@@ -314,7 +314,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			dat += "<a href='?_src_=prefs;preference=h_style;task=input'>[h_style]</a>"
 			dat += "<a href='?_src_=prefs;preference=hair;task=input'>Color</a> [color_square(r_hair, g_hair, b_hair)]"
 			var/datum/sprite_accessory/temp_hair_style = hair_styles_list[h_style]
-			if(temp_hair_style.secondary_theme && !temp_hair_style.no_sec_colour)
+			if(temp_hair_style && temp_hair_style.secondary_theme && !temp_hair_style.no_sec_colour)
 				dat += " <a href='?_src_=prefs;preference=secondary_hair;task=input'>Color #2</a> [color_square(r_hair_sec, g_hair_sec, b_hair_sec)]"
 			dat += "<br>"
 
@@ -322,7 +322,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			dat += "<a href='?_src_=prefs;preference=f_style;task=input'>[f_style ? "[f_style]" : "Shaved"]</a>"
 			dat += "<a href='?_src_=prefs;preference=facial;task=input'>Color</a> [color_square(r_facial, g_facial, b_facial)]"
 			var/datum/sprite_accessory/temp_facial_hair_style = facial_hair_styles_list[f_style]
-			if(temp_facial_hair_style.secondary_theme && !temp_facial_hair_style.no_sec_colour)
+			if(temp_facial_hair_style && temp_facial_hair_style.secondary_theme && !temp_facial_hair_style.no_sec_colour)
 				dat += " <a href='?_src_=prefs;preference=secondary_facial;task=input'>Color #2</a> [color_square(r_facial_sec, g_facial_sec, b_facial_sec)]"
 			dat += "<br>"
 
@@ -1130,6 +1130,10 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 	switch(href_list["task"])
 		if("random")
+			var/datum/robolimb/robohead
+			if(species == "Machine")
+				var/head_model = "[!rlimb_data["head"] ? "Morpheus Cyberkinetics" : rlimb_data["head"]]"
+				robohead = all_robolimbs[head_model]
 			switch(href_list["preference"])
 				if("name")
 					real_name = random_name(gender,species)
@@ -1140,23 +1144,59 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						r_hair = rand(0,255)
 						g_hair = rand(0,255)
 						b_hair = rand(0,255)
+				if("secondary_hair")
+					if(species in list("Human", "Unathi", "Tajaran", "Skrell", "Machine", "Wryn", "Vulpkanin", "Vox"))
+						r_hair_sec = rand(0,255)
+						g_hair_sec = rand(0,255)
+						b_hair_sec = rand(0,255)
 				if("h_style")
-					h_style = random_hair_style(gender, species)
+					h_style = random_hair_style(gender, species, robohead)
 				if("facial")
 					if(species in list("Human", "Unathi", "Tajaran", "Skrell", "Machine", "Wryn", "Vulpkanin", "Vox"))
 						r_facial = rand(0,255)
 						g_facial = rand(0,255)
 						b_facial = rand(0,255)
+				if("secondary_facial")
+					if(species in list("Human", "Unathi", "Tajaran", "Skrell", "Machine", "Wryn", "Vulpkanin", "Vox"))
+						r_facial_sec = rand(0,255)
+						g_facial_sec = rand(0,255)
+						b_facial_sec = rand(0,255)
 				if("f_style")
-					f_style = random_facial_hair_style(gender, species)
+					f_style = random_facial_hair_style(gender, species, robohead)
+				if("headaccessory")
+					if(species in list("Unathi", "Vulpkanin", "Tajaran", "Machine")) //Species that have head accessories.
+						r_headacc = rand(0,255)
+						g_headacc = rand(0,255)
+						b_headacc = rand(0,255)
+				if("ha_style")
+					if(species in list("Unathi", "Vulpkanin", "Tajaran", "Machine")) //Species that have head accessories.
+						ha_style = random_head_accessory(species)
+				if("m_style_head")
+					if(species in list("Machine", "Tajaran", "Unathi", "Vulpkanin")) //Species with head markings.
+						m_styles["head"] = random_marking_style("head", species, robohead, null, alt_head)
+				if("m_head_colour")
+					if(species in list("Machine", "Tajaran", "Unathi", "Vulpkanin")) //Species with head markings.
+						m_colours["head"] = rgb(rand(0,255), rand(0,255), rand(0,255))
+				if("m_style_body")
+					if(species in list("Human", "Unathi", "Grey", "Vulpkanin", "Tajaran", "Skrell", "Vox", "Drask")) //Species with body markings.
+						m_styles["body"] = random_marking_style("body", species)
+				if("m_body_colour")
+					if(species in list("Human", "Unathi", "Grey", "Vulpkanin", "Tajaran", "Skrell", "Vox", "Drask")) //Species with body markings.
+						m_colours["body"] = rgb(rand(0,255), rand(0,255), rand(0,255))
+				if("m_style_tail")
+					if(species in list("Vox", "Vulpkanin")) //Species with tail markings.
+						m_styles["tail"] = random_marking_style("tail", species, null, body_accessory)
+				if("m_tail_colour")
+					if(species in list("Vox", "Vulpkanin")) //Species with tail markings.
+						m_colours["tail"] = rgb(rand(0,255), rand(0,255), rand(0,255))
 				if("underwear")
-					underwear = random_underwear(gender)
+					underwear = random_underwear(gender, species)
 					ShowChoices(user)
 				if("undershirt")
-					undershirt = random_undershirt(gender)
+					undershirt = random_undershirt(gender, species)
 					ShowChoices(user)
 				if("socks")
-					socks = random_socks(gender)
+					socks = random_socks(gender, species)
 					ShowChoices(user)
 				if("eyes")
 					r_eyes = rand(0,255)
@@ -1334,10 +1374,12 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 					var/list/valid_hairstyles = list()
 					for(var/hairstyle in hair_styles_list)
 						var/datum/sprite_accessory/S = hair_styles_list[hairstyle]
+						if(hairstyle == "Bald") //Just in case.
+							valid_hairstyles[hairstyle] = S
+							continue
+
 						if(species == "Machine") //Species that can use prosthetic heads.
 							var/obj/item/organ/external/head/H = new()
-							if(S.name == "Bald")
-								valid_hairstyles[hairstyle] = S
 							if(!rlimb_data["head"]) //Handle situations where the head is default.
 								H.model = "Morpheus Cyberkinetics"
 							else
@@ -1546,8 +1588,10 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 					var/list/valid_facialhairstyles = list()
 					for(var/facialhairstyle in facial_hair_styles_list)
 						var/datum/sprite_accessory/S = facial_hair_styles_list[facialhairstyle]
-						if(S.name == "Shaved")
+						if(facialhairstyle == "Shaved") //Just in case.
 							valid_facialhairstyles[facialhairstyle] = S
+							continue
+
 						if(gender == MALE && S.gender == FEMALE)
 							continue
 						if(gender == FEMALE && S.gender == MALE)
@@ -1573,33 +1617,42 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 							if(!(species in S.species_allowed))
 								continue
 
-						valid_facialhairstyles[facialhairstyle] = facial_hair_styles_list[facialhairstyle]
+						valid_facialhairstyles[facialhairstyle] = S
 
 					var/new_f_style = input(user, "Choose your character's facial-hair style:", "Character Preference")  as null|anything in valid_facialhairstyles
 					if(new_f_style)
 						f_style = new_f_style
 
 				if("underwear")
-					var/list/underwear_options
-					if(gender == MALE)
-						underwear_options = underwear_m
-					else
-						underwear_options = underwear_f
-
-					var/new_underwear = input(user, "Choose your character's underwear:", "Character Preference")  as null|anything in underwear_options
+					var/list/valid_underwear = list()
+					for(var/underwear in underwear_list)
+						var/datum/sprite_accessory/S = underwear_list[underwear]
+						if(gender == MALE && S.gender == FEMALE)
+							continue
+						if(gender == FEMALE && S.gender == MALE)
+							continue
+						if(!(species in S.species_allowed))
+							continue
+						valid_underwear[underwear] = underwear_list[underwear]
+					var/new_underwear = input(user, "Choose your character's underwear:", "Character Preference") as null|anything in valid_underwear
+					ShowChoices(user)
 					if(new_underwear)
 						underwear = new_underwear
-					ShowChoices(user)
-
 				if("undershirt")
-					var/new_undershirt
-					if(gender == MALE)
-						new_undershirt = input(user, "Choose your character's undershirt:", "Character Preference") as null|anything in undershirt_m
-					else
-						new_undershirt = input(user, "Choose your character's undershirt:", "Character Preference") as null|anything in undershirt_f
+					var/list/valid_undershirts = list()
+					for(var/undershirt in undershirt_list)
+						var/datum/sprite_accessory/S = undershirt_list[undershirt]
+						if(gender == MALE && S.gender == FEMALE)
+							continue
+						if(gender == FEMALE && S.gender == MALE)
+							continue
+						if(!(species in S.species_allowed))
+							continue
+						valid_undershirts[undershirt] = undershirt_list[undershirt]
+					var/new_undershirt = input(user, "Choose your character's undershirt:", "Character Preference") as null|anything in valid_undershirts
+					ShowChoices(user)
 					if(new_undershirt)
 						undershirt = new_undershirt
-					ShowChoices(user)
 
 				if("socks")
 					var/list/valid_sockstyles = list()

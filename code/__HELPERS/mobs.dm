@@ -46,7 +46,7 @@ proc/pick_species_allowed_underwear(list/all_picks, species)
 
 	return pick(valid_picks)
 
-proc/random_hair_style(var/gender, species = "Human", var/robot_head)
+proc/random_hair_style(var/gender, species = "Human", var/datum/robolimb/robohead)
 	var/h_style = "Bald"
 	var/list/valid_hairstyles = list()
 	for(var/hairstyle in hair_styles_list)
@@ -55,7 +55,8 @@ proc/random_hair_style(var/gender, species = "Human", var/robot_head)
 		if((gender == MALE && S.gender == FEMALE) || (gender == FEMALE && S.gender == MALE))
 			continue
 		if(species == "Machine") //If the user is a species who can have a robotic head...
-			var/datum/robolimb/robohead = all_robolimbs["[!robot_head ? "Morpheus Cyberkinetics" : robot_head]"]
+			if(!robohead)
+				robohead = all_robolimbs["Morpheus Cyberkinetics"]
 			if(species in S.species_allowed) //If this is a facial hair style native to the user's species...
 				if(robohead.is_monitor && (robohead.company in S.models_allowed)) //Check to see if they have a head with an ipc-style screen and that the head's company is in the screen style's allowed models list.
 					valid_hairstyles += hairstyle //Give them their hairstyles if they do.
@@ -79,7 +80,7 @@ proc/random_hair_style(var/gender, species = "Human", var/robot_head)
 
 	return h_style
 
-proc/random_facial_hair_style(var/gender, species = "Human", var/robot_head)
+proc/random_facial_hair_style(var/gender, species = "Human", var/datum/robolimb/robohead)
 	var/f_style = "Shaved"
 	var/list/valid_facial_hairstyles = list()
 	for(var/facialhairstyle in facial_hair_styles_list)
@@ -88,7 +89,8 @@ proc/random_facial_hair_style(var/gender, species = "Human", var/robot_head)
 		if((gender == MALE && S.gender == FEMALE) || (gender == FEMALE && S.gender == MALE))
 			continue
 		if(species == "Machine") //If the user is a species who can have a robotic head...
-			var/datum/robolimb/robohead = all_robolimbs["[!robot_head ? "Morpheus Cyberkinetics" : robot_head]"]
+			if(!robohead)
+				robohead = all_robolimbs["Morpheus Cyberkinetics"]
 			if(species in S.species_allowed) //If this is a facial hair style native to the user's species...
 				if(robohead.is_monitor && (robohead.company in S.models_allowed)) //Check to see if they have a head with an ipc-style screen and that the head's company is in the screen style's allowed models list.
 					valid_facial_hairstyles += facialhairstyle //Give them their facial hair styles if they do.
@@ -127,7 +129,7 @@ proc/random_head_accessory(species = "Human")
 
 	return ha_style
 
-proc/random_marking_style(var/location = "body", species = "Human", var/robot_head, var/body_accessory, var/alt_head)
+proc/random_marking_style(var/location = "body", species = "Human", var/datum/robolimb/robohead, var/body_accessory, var/alt_head)
 	var/m_style = "None"
 	var/list/valid_markings = list()
 	for(var/marking in marking_styles_list)
@@ -149,7 +151,8 @@ proc/random_marking_style(var/location = "body", species = "Human", var/robot_he
 		if(location == "head")
 			var/datum/sprite_accessory/body_markings/head/M = marking_styles_list[S.name]
 			if(species == "Machine")//If the user is a species that can have a robotic head...
-				var/datum/robolimb/robohead = all_robolimbs[robot_head]
+				if(!robohead)
+					robohead = all_robolimbs["Morpheus Cyberkinetics"]
 				if(!(S.models_allowed && (robohead.company in S.models_allowed))) //Make sure they don't get markings incompatible with their head.
 					continue
 			else if(alt_head && alt_head != "None") //If the user's got an alt head, validate markings for that head.

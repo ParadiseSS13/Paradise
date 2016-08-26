@@ -204,6 +204,8 @@
 			if(owner)//runtimer no runtiming
 				owner.update_hair()
 				owner.update_fhair()
+				owner.update_head_accessory()
+				owner.update_markings()
 	. = ..()
 
 /obj/item/organ/external/head/replaced()

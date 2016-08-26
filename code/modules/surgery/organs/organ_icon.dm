@@ -158,16 +158,12 @@ var/global/list/limb_icon_cache = list()
 			if(dna.GetUIState(DNA_UI_GENDER))
 				gender = "f"
 			else
-				if(limb_name == "head")
-					var/obj/item/organ/external/head/head_organ = src
-					head_organ.handle_alt_icon()
-
-				if(status & ORGAN_MUTATED)
-					mob_icon = new /icon(species.deform, "[icon_name][gender ? "_[gender]" : ""]")
-				else
-					mob_icon = new /icon(species.icobase, "[icon_name][gender ? "_[gender]" : ""]")
 				gender = "m"
 		new_icon_state = "[icon_name][gender ? "_[gender]" : ""]"
+
+		if(limb_name == "head")
+			var/obj/item/organ/external/head/head_organ = src
+			head_organ.handle_alt_icon()
 
 		if(skeletal)
 			icon_file = 'icons/mob/human_races/r_skeleton.dmi'
