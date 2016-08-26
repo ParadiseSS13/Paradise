@@ -40,7 +40,7 @@
 		else if (user.mind && (user.mind.assigned_role =="Head of Personnel") || (user.mind.assigned_role == "Centcom Commander"))
 			deconvert = prob (10) // the HoP doesn't have AS much legal training
 		else
-			deconvert = prob(.0001) // one out of a million
+			deconvert = prob(0.0001) // one out of a million
 	if(deconvert)
 		M.visible_message("<span class='notice'>[user] reminds [M] that [M]'s S.O.U.L. was already purchased by Nanotrasen!</span>")
 		to_chat(M,"<span class='boldnotice'>You feel that your S.O.U.L. has returned to its rightful owner, Nanotrasen.</span>")
