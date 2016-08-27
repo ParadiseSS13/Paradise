@@ -23,3 +23,9 @@
 #define TS_DESC_MOTHER "Mother - HORROR"
 #define TS_DESC_QUEEN "Queen - LEADER"
 #define TS_DESC_EMPRESS "Empress - ADMINBUS"
+
+#define TS_TIER_1 1
+#define TS_TIER_2 2
+#define TS_TIER_3 3
+#define TS_TIER_4 4
+#define TS_TIER_5 5

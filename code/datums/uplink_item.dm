@@ -59,7 +59,7 @@ var/list/uplink_items = list()
 /datum/uplink_item/proc/spawn_item(var/turf/loc, var/obj/item/device/uplink/U)
 	if(hijack_only)
 		if(!(locate(/datum/objective/hijack) in usr.mind.objectives))
-			to_chat(usr, "<span class='warning'>This item is only available to agents with the 'hijack the shuttle' objective.</span>")
+			to_chat(usr, "<span class='warning'>The Syndicate lacks resources to provide you with this item.</span>")
 			return
 	if(item)
 		U.uses -= max(cost, 0)
@@ -309,7 +309,7 @@ var/list/uplink_items = list()
 	item = /obj/item/clothing/under/contortionist
 	cost = 6
 	job = list("Life Support Specialist")
-	
+
 /datum/uplink_item/dangerous/energizedfireaxe
 	name = "Energized Fire Axe"
 	desc = "A fire axe with a massive electrical charge built into it. It can release this charge on its first victim and will be rather plain after that."
@@ -1044,7 +1044,7 @@ var/list/uplink_items = list()
 	name = "PSI Emitter"
 	desc = "Lures terrifying monsters to the station. Requires a screwdriver, and a few minutes to charge. Ordering this sends you a small beacon, which teleports the emitter to you when activated."
 	reference = "PSI"
-	item = /obj/item/device/radio/beacon/terrorspider
+	item = /obj/item/device/radio/beacon/syndicate/terrorspider
 	cost = 18
 	surplus = 0
 	hijack_only = 1

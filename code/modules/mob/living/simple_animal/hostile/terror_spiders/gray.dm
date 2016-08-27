@@ -75,10 +75,11 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/gray/ShowGuide()
 	..()
-	to_chat(src, "GRAY TERROR guide:")
-	to_chat(src, "- You are an ambusher. Springing out of vents, you hunt unequipped and vulnerable humanoids.")
-	to_chat(src, "- You are weak, but fast, and should use webs in corridors to trap your prey, hiding in a vent until they are entangled.")
-	to_chat(src, "- Do not attempt to take on well-armed foes without the element of surprise - you will die quickly.")
+	var/guidetext = "GRAY TERROR guide:"
+	guidetext += "<BR>- You are an ambusher. Springing out of vents, you hunt unequipped and vulnerable humanoids."
+	guidetext += "<BR>- You are weak, but fast, and should use webs in corridors to trap your prey, hiding in a vent until they are entangled."
+	guidetext += "<BR>- Do not attempt to take on well-armed foes without the element of surprise - you will die quickly."
+	to_chat(src, guidetext)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/gray/spider_special_action()
 	if(prob(prob_ai_hides_in_vents))

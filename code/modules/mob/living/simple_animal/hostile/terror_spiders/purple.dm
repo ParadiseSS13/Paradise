@@ -26,7 +26,7 @@
 	melee_damage_upper = 25
 	move_to_delay = 6
 
-	spider_tier = 2
+	spider_tier = TS_TIER_2
 	spider_opens_doors = 2
 
 	ventcrawler = 0
@@ -52,10 +52,11 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/purple/ShowGuide()
 	..()
-	to_chat(src, "PURPLE TERROR guide:")
-	to_chat(src, "- You guard the nest of the all important Terror Queen! You are very robust, with a chance to stun on hit, but MUST stay with the queen at all times.")
-	to_chat(src, "- <b>If the Queen dies, you die!</b>")
-	to_chat(src, "- <b>If you abandon the Queen, you die!</b>")
+	var/guidetext = "PURPLE TERROR guide:"
+	guidetext += "<BR>- You guard the nest of the all important Terror Queen! You are very robust, with a chance to stun on hit, but MUST stay with the queen at all times."
+	guidetext += "<BR>- <b>If the Queen dies, you die!</b>"
+	guidetext += "<BR>- <b>If you abandon the Queen, you die!</b>"
+	to_chat(src, guidetext)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/purple/spider_specialattack(var/mob/living/carbon/human/L, var/poisonable)
 	if(cycles_noqueen < 6 && prob(10))

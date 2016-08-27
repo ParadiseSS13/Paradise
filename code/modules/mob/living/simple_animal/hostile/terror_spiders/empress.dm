@@ -43,7 +43,7 @@
 	projectiletype = /obj/item/projectile/terrorempressspit
 	force_threshold = 18 // same as queen, but a lot more health
 
-	spider_tier = 5
+	spider_tier = TS_TIER_5
 	spider_opens_doors = 2
 
 	var/shown_guide = 0 // has the empress player been warned of the chaos that can result from the use of their powers?
@@ -59,8 +59,8 @@
 	set name = "Lay Empress Eggs"
 	set category = "Spider"
 	set desc = "Lay spider eggs. As empress, you can lay queen-level eggs to create a new brood."
-	var/eggtype = input("What kind of eggs?") as null|anything in list(TS_DESC_QUEEN,TS_DESC_MOTHER,TS_DESC_PRINCE,TS_DESC_RED,TS_DESC_GRAY,TS_DESC_GREEN,TS_DESC_BLACK,TS_DESC_PURPLE,TS_DESC_WHITE)
-	var/numlings = input("How many in the batch?") as null|anything in list(1,2,3,4,5,10,15,20,30,40,50)
+	var/eggtype = input("What kind of eggs?") as null|anything in list(TS_DESC_QUEEN, TS_DESC_MOTHER, TS_DESC_PRINCE, TS_DESC_RED, TS_DESC_GRAY, TS_DESC_GREEN, TS_DESC_BLACK, TS_DESC_PURPLE, TS_DESC_WHITE)
+	var/numlings = input("How many in the batch?") as null|anything in list(1, 2, 3, 4, 5, 10, 15, 20, 30, 40, 50)
 	if(eggtype == null || numlings == null)
 		to_chat(src, "Cancelled.")
 		return
@@ -102,19 +102,19 @@
 	set name = "EMP Shockwave"
 	set category = "Spider"
 	set desc = "Emit a wide-area emp pulse, frying almost all electronics in a huge radius."
-	empulse(loc,10,25)
+	empulse(loc, 10, 25)
 
 
 /mob/living/simple_animal/hostile/poison/terror_spider/empress/verb/EmpressScreech()
 	set name = "Empress Screech"
 	set category = "Spider"
 	set desc = "Emit horrendusly loud screech which breaks lights and cameras in a massive radius. Good for making a spider nest in a pinch."
-	for(var/obj/machinery/light/L in range(14,src))
+	for(var/obj/machinery/light/L in range(14, src))
 		if(L.on)
 			L.broken()
-	for(var/obj/machinery/camera/C in range(14,src))
+	for(var/obj/machinery/camera/C in range(14, src))
 		if(C.status)
-			C.toggle_cam(src,0)
+			C.toggle_cam(src, 0)
 
 
 /mob/living/simple_animal/hostile/poison/terror_spider/empress/verb/EmpressMassHallucinate()
@@ -177,10 +177,10 @@
 		choices += L
 	var/killtarget = input(src, "Which terror spider should die?") in null|choices
 	if(!killtarget)
-		// cancel
+		return
 	else if(!isliving(killtarget))
 		to_chat(src, "[killtarget] is not living.")
-	else if(!istype(killtarget, /mob/living/simple_animal/hostile/poison/terror_spider/))
+	else if(!istype(killtarget, /mob/living/simple_animal/hostile/poison/terror_spider))
 		to_chat(src, "[killtarget] is not a terror spider.")
 	else
 		var/mob/living/simple_animal/hostile/poison/terror_spider/T = killtarget
@@ -188,7 +188,6 @@
 			// living player
 			ts_ckey_blacklist += T.ckey
 		to_chat(T, "<span class='userdanger'>Through the hivemind, the raw power of [src] floods into your body, burning it from the inside out!</span>")
-		T.death()
 		T.gib()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/empress/verb/EraseBrood()
@@ -239,24 +238,25 @@
 /mob/living/simple_animal/hostile/poison/terror_spider/empress/death(gibbed)
 	if(!hasdroppedloot)
 		var/obj/item/clothing/accessory/medal/M = new /obj/item/clothing/accessory/medal/gold/heroism(get_turf(src))
-		M.layer = 4.1
+		M.layer = (layer - 1)
 	..()
 
 
 /mob/living/simple_animal/hostile/poison/terror_spider/empress/ShowGuide()
 	..()
-	to_chat(src, "EMPRESS OF TERROR guide:")
-	to_chat(src, "- ICly, you are an aged and battle-hardened Queen, and one of the rulers of the Terror Spider species.")
-	to_chat(src, "- You outrank ALL other spiders and may execute any spider who dares question your authority. You're the CC of spiders.")
-	to_chat(src, "- Your abilities are game-breakingly OP, and should NOT be used lightly. You are a terrifying lovecraftian spider from the depths of space. Act like it.")
-	to_chat(src, " ")
-	to_chat(src, "Empress of Terror Verbs:")
-	to_chat(src, " - Empress Eggs - Lay eggs of any type.")
-	to_chat(src, " - HiveSense - Shows the names, statuses and locations of your brood's spiders.")
-	to_chat(src, " - HiveCommand - Sets the rules of engagement for your brood - IE if they should attack bipeds or not.")
-	to_chat(src, " - EMP Shockwave - Emits a large emp shockwave (radius: 10 light, 25 heavy)")
-	to_chat(src, " - Empress Screech - Breaks all lights and cameras within a 14 tile radius.")
-	to_chat(src, " - Mass Hallucinate - Causes all crew to have a 25% chance of strong hallucination, 25% chance of weak hallucination.")
-	to_chat(src, " - Empress Kill Spider - Remotely gibs any spider, no matter their location.")
-	to_chat(src, " - Erase Brood - Kills off every other spider in the game world, over the course of about two minutes.")
-	to_chat(src, " - Spiderling Flood - Spawns N spiderlings. Very configurable. Almost instant station-destroyer if used with high numbers.")
+	var/guidetext = "EMPRESS OF TERROR guide:"
+	guidetext += "<BR>- ICly, you are an aged and battle-hardened Queen, and one of the rulers of the Terror Spider species."
+	guidetext += "<BR>- You outrank ALL other spiders and may execute any spider who dares question your authority. You're the CC of spiders."
+	guidetext += "<BR>- Your abilities are game-breakingly OP, and should NOT be used lightly. You are a terrifying lovecraftian spider from the depths of space. Act like it."
+	guidetext += "<BR> "
+	guidetext += "<BR>Empress of Terror Verbs:"
+	guidetext += "<BR> - Empress Eggs - Lay eggs of any type."
+	guidetext += "<BR> - HiveSense - Shows the names, statuses and locations of your brood's spiders."
+	guidetext += "<BR> - HiveCommand - Sets the rules of engagement for your brood - IE if they should attack bipeds or not."
+	guidetext += "<BR> - EMP Shockwave - Emits a large emp shockwave (radius: 10 light, 25 heavy)"
+	guidetext += "<BR> - Empress Screech - Breaks all lights and cameras within a 14 tile radius."
+	guidetext += "<BR> - Mass Hallucinate - Causes all crew to have a 25% chance of strong hallucination, 25% chance of weak hallucination."
+	guidetext += "<BR> - Empress Kill Spider - Remotely gibs any spider, no matter their location."
+	guidetext += "<BR> - Erase Brood - Kills off every other spider in the game world, over the course of about two minutes."
+	guidetext += "<BR> - Spiderling Flood - Spawns N spiderlings. Very configurable. Almost instant station-destroyer if used with high numbers."
+	to_chat(src, guidetext)

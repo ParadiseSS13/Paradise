@@ -26,7 +26,7 @@
 	melee_damage_upper = 15
 	move_to_delay = 4
 	ventcrawler = 1
-	spider_tier = 2
+	spider_tier = TS_TIER_2
 	loot = list(/obj/item/clothing/accessory/medal)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/white/LoseTarget()
@@ -49,12 +49,13 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/white/ShowGuide()
 	..()
-	to_chat(src, "WHITE TERROR guide:")
-	to_chat(src, "- Amongst the most feared of all terror spiders, your multi-stage bite attack injects tiny spider eggs into a host, which will make spiders grow out of their skin in time.")
-	to_chat(src, "- You should advance quickly, attack three times, then retreat, letting your venom of tiny eggs do its work.")
-	to_chat(src, "- <span class='notice'>Your main objective is to infect humanoids with your egg venom, so that you can start a hive.</span>")
-	to_chat(src, "- <span class='notice'>Once the hive has started, they will look to you for leadership.</span>")
-	to_chat(src, "- Avoid groups, and stay alive, at all costs. White spiders, AKA White Death Spiders, are extremely rare, and impossible to replace!")
+	var/guidetext = "<BR>WHITE TERROR guide:"
+	guidetext += "<BR>- Amongst the most feared of all terror spiders, your multi-stage bite attack injects tiny spider eggs into a host, which will make spiders grow out of their skin in time."
+	guidetext += "<BR>- You should advance quickly, attack three times, then retreat, letting your venom of tiny eggs do its work."
+	guidetext += "<BR>- <span class='notice'>Your main objective is to infect humanoids with your egg venom, so that you can start a hive.</span>"
+	guidetext += "<BR>- <span class='notice'>Once the hive has started, they will look to you for leadership.</span>"
+	guidetext += "<BR>- Avoid groups, and stay alive, at all costs. White spiders, AKA White Death Spiders, are extremely rare, and impossible to replace!"
+	to_chat(src, guidetext)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/white/spider_specialattack(var/mob/living/carbon/human/L, var/poisonable)
 	if(!poisonable)

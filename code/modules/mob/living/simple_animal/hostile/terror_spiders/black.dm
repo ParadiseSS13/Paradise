@@ -26,7 +26,7 @@
 	melee_damage_upper = 15
 	move_to_delay = 5
 	stat_attack = 1 // ensures they will target people in crit, too!
-	spider_tier = 2
+	spider_tier = TS_TIER_2
 
 
 /mob/living/simple_animal/hostile/poison/terror_spider/black/harvest()
@@ -35,30 +35,29 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/black/ShowGuide()
 	..()
-	to_chat(src, "BLACK TERROR guide:")
-	to_chat(src, "- You are an assassin. Even 2-3 bites from you is fatal to organic humanoids - if you back off and let your poison work. You are very vulnurable to mechs and borgs.")
-	to_chat(src, "- Try to bite a few times and retreat quickly. You will die if you stick around. You are very dangerous and should expect crew to focus fire on you.")
+	var/guidetext = "BLACK TERROR guide:"
+	guidetext += "<BR>- You are an assassin. Even 2-3 bites from you is fatal to organic humanoids - if you back off and let your poison work. You are very vulnurable to mechs and borgs."
+	guidetext += "<BR>- Try to bite a few times and retreat quickly. You will die if you stick around. You are very dangerous and should expect crew to focus fire on you."
+	to_chat(src, guidetext)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/black/spider_specialattack(var/mob/living/carbon/human/L, var/poisonable)
 	if(!poisonable)
 		..()
-		return
-	if(L.reagents.has_reagent("terror_black_toxin",50))
+		return ..()
+	if(L.reagents.has_reagent("terror_black_toxin", 50))
 		L.attack_animal(src)
+		return ..()
+	var/inject_target = pick("chest", "head")
+	if(L.stunned || L.can_inject(null, 0, inject_target, 0))
+		L.reagents.add_reagent("terror_black_toxin", 15) // inject our special poison
+		visible_message("<span class='danger'>[src] buries its long fangs deep into the [inject_target] of [target]!</span>")
 	else
-		var/inject_target = pick("chest","head")
-		if(L.stunned || L.can_inject(null,0,inject_target,0))
-			L.reagents.add_reagent("terror_black_toxin", 15) // inject our special poison
-			visible_message("<span class='danger'>[src] buries its long fangs deep into the [inject_target] of [target]!</span>")
-		else
-			visible_message("<span class='danger'>[src] bites [target], but cannot inject venom into their [inject_target]!</span>")
-		L.attack_animal(src)
-	if(!ckey && ((!target in enemies) || L.reagents.has_reagent("terror_black_toxin",50)))
+		visible_message("<span class='danger'>[src] bites [target], but cannot inject venom into their [inject_target]!</span>")
+	L.attack_animal(src)
+	if(!ckey && (!(target in enemies) || L.reagents.has_reagent("terror_black_toxin", 50)))
 		step_away(src,L)
 		step_away(src,L)
 		LoseTarget()
 		for(var/i in 0 to 3)
 			step_away(src, L)
 		visible_message("<span class='notice'>[src] warily eyes [L] from a distance.</span>")
-		// aka, if you come over here I will wreck you.
-	return

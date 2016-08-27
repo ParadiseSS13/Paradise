@@ -3,8 +3,6 @@
 #define PRESSURE_CHECKS 1
 #undefine
 
-var/global/list/all_vent_pumps = list()
-
 /obj/machinery/atmospherics/unary/vent_pump
 	icon = 'icons/atmos/vent_pump.dmi'
 	icon_state = "map_vent"

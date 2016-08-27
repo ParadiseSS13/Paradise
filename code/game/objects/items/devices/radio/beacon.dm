@@ -79,13 +79,11 @@
 
 // TERROR SPIDER HOMING BEACON
 
-/obj/item/device/radio/beacon/terrorspider
+/obj/item/device/radio/beacon/syndicate/terrorspider
 	name = "suspicious beacon"
 	desc = "A label on it reads: <i>Activating this device will send a PSI emitter to your location</i>."
-	origin_tech = "bluespace=1;syndicate=7"
-	syndicate = 1
 
-/obj/item/device/radio/beacon/terrorspider/attack_self(mob/user as mob)
+/obj/item/device/radio/beacon/syndicate/terrorspider/attack_self(mob/user)
 	if(user)
 		to_chat(user, "<span class='notice'>Locked In.</span>")
 		new /obj/machinery/power/singularity_beacon/terrorspider_beacon(get_turf(user))

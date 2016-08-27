@@ -29,7 +29,7 @@
 	ventcrawler = 1
 	idle_ventcrawl_chance = 5
 
-	spider_tier = 3
+	spider_tier = TS_TIER_3
 	spider_opens_doors = 2
 
 	var/canspawn = 1
@@ -51,7 +51,8 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/mother/ShowGuide()
 	..()
-	to_chat(src, "MOTHER OF TERROR guide:")
-	to_chat(src, "- A form of living schmuck bait, you are fairly harmless while alive.")
-	to_chat(src, "- <b>When you die, dozens of spiderlings will come swarming off your back, infesting the whole station.</b>")
-	to_chat(src, "- When you die, try to die near a vent. The spiderlings will need vent access to get away.")
+	var/guidetext = "MOTHER OF TERROR guide:"
+	guidetext += "<BR>- A form of living schmuck bait, you are fairly harmless while alive."
+	guidetext += "<BR>- <b>When you die, dozens of spiderlings will come swarming off your back, infesting the whole station.</b>"
+	guidetext += "<BR>- When you die, try to die near a vent. The spiderlings will need vent access to get away."
+	to_chat(src, guidetext)

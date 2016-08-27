@@ -69,7 +69,8 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/red/ShowGuide()
 	..()
-	to_chat(src, "RED TERROR guide:")
-	to_chat(src, "- A straightforward fighter, you have high health, and high melee damage, but are very slow-moving.")
-	to_chat(src, "- You are best at taking out slow, armored foes. Be careful not to get kited with ranged weapons.")
-	to_chat(src, "- You can take a lot of hits, so don't be afraid to act as the tank in a group.")
+	var/guidetext = "<BR>RED TERROR guide:"
+	guidetext += "<BR>- A straightforward fighter, you have high health, and high melee damage, but are very slow-moving."
+	guidetext += "<BR>- You are best at taking out slow, armored foes. Be careful not to get kited with ranged weapons."
+	guidetext += "<BR>- You can take a lot of hits, so don't be afraid to act as the tank in a group."
+	to_chat(src, guidetext)
