@@ -116,7 +116,7 @@
 
 	if(!config.disable_space_ruins) // so we don't unnecessarily clutter start-up
 		preloadRuinTemplates()
-	//preloadShuttleTemplates()
+	preloadShelterTemplates()
 
 /proc/preloadRuinTemplates()
 	// Still supporting bans by filename
@@ -147,14 +147,12 @@
 		if(istype(R, /datum/map_template/ruin/space))
 			space_ruins_templates[R.name] = R
 
-
-/proc/preloadShuttleTemplates()
-	for(var/item in subtypesof(/datum/map_template/shuttle))
-		var/datum/map_template/shuttle/shuttle_type = item
-		if(!(initial(shuttle_type.suffix)))
+/proc/preloadShelterTemplates()
+	for(var/item in subtypesof(/datum/map_template/shelter))
+		var/datum/map_template/shelter/shelter_type = item
+		if(!(initial(shelter_type.mappath)))
 			continue
+		var/datum/map_template/shelter/S = new shelter_type()
 
-		var/datum/map_template/shuttle/S = new shuttle_type()
-
-		shuttle_templates[S.shuttle_id] = S
-		map_templates[S.shuttle_id] = S
+		shelter_templates[S.shelter_id] = S
+		map_templates[S.shelter_id] = S
