@@ -17,7 +17,7 @@ var/global/list/allDevils = list()
 var/global/list/lawlorify = list (
 		LORE = list(
 			OBLIGATION_FOOD = "This devil seems to always offer it's victims food before slaughtering them.",
-			OBLIGATION_DRINK = "This devil seems to always offer it's victims a drink before slaughtering them.",
+			OBLIGATION_FIDDLE = "This devil will never turn down a musical challenge.",
 			OBLIGATION_GREET = "This devil seems to only be able to converse with people it knows the name of.",
 			OBLIGATION_PRESENCEKNOWN = "This devil seems to be unable to attack from stealth.",
 			OBLIGATION_SAYNAME = "He will always chant his name upon killing someone.",
@@ -47,7 +47,7 @@ var/global/list/lawlorify = list (
 		),
 		LAW = list(
 			OBLIGATION_FOOD = "When not acting in self defense, you must always offer your victim food before harming them.",
-			OBLIGATION_DRINK = "When not acting in self defense, you must always offer your victim drink before harming them.",
+			OBLIGATION_FIDDLE = "When not in immediate danger, if you are challenged to a musical duel, you must accept it.  You are not obligated to duel the same person twice.",
 			OBLIGATION_GREET = "You must always greet other people by their last name before talking with them.",
 			OBLIGATION_PRESENCEKNOWN = "You must always make your presence known before attacking.",
 			OBLIGATION_SAYNAME = "You must always say your true name after you kill someone.",
@@ -128,7 +128,7 @@ var/global/list/lawlorify = list (
 	return preTitle + title + mainName + suffix
 
 /proc/randomdevilobligation()
-	return pick(OBLIGATION_FOOD, OBLIGATION_DRINK, OBLIGATION_GREET, OBLIGATION_PRESENCEKNOWN, OBLIGATION_SAYNAME, OBLIGATION_ANNOUNCEKILL, OBLIGATION_ANSWERTONAME)
+	return pick(OBLIGATION_FOOD, OBLIGATION_FIDDLE, OBLIGATION_GREET, OBLIGATION_PRESENCEKNOWN, OBLIGATION_SAYNAME, OBLIGATION_ANNOUNCEKILL, OBLIGATION_ANSWERTONAME)
 
 /proc/randomdevilban()
 	return pick(BAN_HURTWOMAN, BAN_CHAPEL, BAN_HURTPRIEST, BAN_AVOIDWATER, BAN_STRIKEUNCONCIOUS, BAN_HURTLIZARD, BAN_HURTANIMAL)
@@ -302,6 +302,8 @@ var/global/list/lawlorify = list (
 	owner.AddSpell(new /obj/effect/proc_holder/spell/targeted/summon_pitchfork(null))
 	if(give_summon_contract)
 		give_summon_contract()
+		if (obligation == OBLIGATION_FIDDLE)
+			owner.AddSpell(new /obj/effect/proc_holder/spell/targeted/summon_pitchfork/violin(null))
 
 /datum/devilinfo/proc/give_lizard_spells()
 	remove_spells()

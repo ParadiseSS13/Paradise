@@ -5,7 +5,7 @@
 	include_user = 1
 	range = -1
 	clothes_req = 0
-	var/obj/item/weapon/twohanded/pitchfork/demonic/pitchfork
+	var/obj/item/pitchfork
 	var/pitchfork_type = /obj/item/weapon/twohanded/pitchfork/demonic/
 
 	school = "conjuration"
@@ -34,6 +34,12 @@
 
 /obj/effect/proc_holder/spell/targeted/summon_pitchfork/ascended
 	pitchfork_type = /obj/item/weapon/twohanded/pitchfork/demonic/ascended
+
+/obj/effect/proc_holder/spell/targeted/summon_pitchfork/violin
+	pitchfork_type = /obj/item/device/violin/golden //Oh my god this is the most ghetto code reuse ever.
+	invocation_type = "whisper"
+	invocation = "I aint have this much fun since Georgia."
+	action_icon_state = "golden_fiddle"
 
 
 /obj/effect/proc_holder/spell/targeted/summon_contract

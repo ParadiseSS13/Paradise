@@ -39,3 +39,10 @@
 
 /obj/item/device/violin/Topic(href, href_list)
 	song.Topic(href, href_list)
+
+/obj/item/device/violin/golden
+	name = "golden violin"
+	desc = "A golden musical instrument with four strings and a bow. \"The devil went down to space, he was looking for an assistant to grief.\""
+	icon_state = "golden_violin"
+	item_state = "golden_violin"
+	burn_state = LAVA_PROOF
