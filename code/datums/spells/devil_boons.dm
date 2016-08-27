@@ -1,6 +1,6 @@
 /obj/effect/proc_holder/spell/targeted/summon_wealth
 	name = "Summon wealth"
-	desc = "The reward for selling your S.O.U.L."
+	desc = "The reward for selling your soul."
 	invocation_type = "none"
 	include_user = 1
 	range = -1
@@ -25,7 +25,7 @@
 
 /obj/effect/proc_holder/spell/targeted/view_range
 	name = "Distant vision"
-	desc = "The reward for selling your S.O.U.L."
+	desc = "The reward for selling your soul."
 	invocation_type = "none"
 	include_user = 1
 	range = -1

@@ -35,7 +35,7 @@
 	var/trueName= randomDevilName()
 
 	devil_mind.devilinfo = devilInfo(trueName, 1)
-	devil_mind.store_memory("Your devilic true name is [devil_mind.devilinfo.truename]<br>[lawlorify[LAW][devil_mind.devilinfo.ban]]<br>You may not use violence to coerce someone into selling their S.O.U.L.<br>You may not directly and knowingly physically harm a devil, other than yourself.<br>[lawlorify[LAW][devil_mind.devilinfo.bane]]<br>[lawlorify[LAW][devil_mind.devilinfo.obligation]]<br>[lawlorify[LAW][devil_mind.devilinfo.banish]]<br>")
+	devil_mind.store_memory("Your devilic true name is [devil_mind.devilinfo.truename]<br>[lawlorify[LAW][devil_mind.devilinfo.ban]]<br>You may not use violence to coerce someone into selling their soul.<br>You may not directly and knowingly physically harm a devil, other than yourself.<br>[lawlorify[LAW][devil_mind.devilinfo.bane]]<br>[lawlorify[LAW][devil_mind.devilinfo.obligation]]<br>[lawlorify[LAW][devil_mind.devilinfo.banish]]<br>")
 	devil_mind.devilinfo.owner = devil_mind
 	devil_mind.devilinfo.give_base_spells(1)
 	spawn(10)
@@ -61,9 +61,9 @@
 /datum/mind/proc/announceDevilLaws()
 	if(!devilinfo)
 		return
-	to_chat(current,"<span class='warning'><b>You remember your link to Inferno Incorporated.  You are [src.devilinfo.truename], an agent of Inferno Inc., a devil.  And you were sent to the plane of creation for a reason.  A greater purpose.  Convince the crew to sin, and embroiden Inferno's grasp.</b></span>")
+	to_chat(current,"<span class='warning'><b>You remember your link to the infernal.  You are [src.devilinfo.truename], an agent of hell, a devil.  And you were sent to the plane of creation for a reason.  A greater purpose.  Convince the crew to sin, and embroiden Hell's grasp.</b></span>")
 	to_chat(current,"<span class='warning'><b>However, your infernal form is not without weaknesses.</b></span>")
-	to_chat(current,"You may not use violence to coerce someone into selling their S.O.U.L.")
+	to_chat(current,"You may not use violence to coerce someone into selling their soul.")
 	to_chat(current,"You may not directly and knowingly physically harm a devil, other than yourself.")
 	to_chat(current,lawlorify[LAW][src.devilinfo.bane])
 	to_chat(current,lawlorify[LAW][src.devilinfo.ban])
