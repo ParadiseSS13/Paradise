@@ -737,7 +737,8 @@
 			return
 		cooldown = 1
 		to_chat(usr, "<span class='notice'>Your request has been recieved by Centcom.</span>")
-		to_chat(admins, "<b>FERRY: <font color='blue'>[key_name_admin(usr)] (<A HREF='?_src_=holder;adminmoreinfo=\ref[usr]'>?</A>) (<A HREF='?_src_=holder;adminplayerobservefollow=\ref[usr]'>FLW</A>) (<A HREF='?_src_=holder;secretsfun=moveferry'>Move Ferry</a>)</b> is requesting to move the transport ferry to Centcom.</font>")
+		log_admin("[key_name(usr)] requested to move the transport ferry to Centcom.")
+		message_admins("<b>FERRY: <font color='blue'>[key_name_admin(usr)] (<A HREF='?_src_=holder;secretsfun=moveferry'>Move Ferry</a>)</b> is requesting to move the transport ferry to Centcom.</font>")
 		spawn(600) //One minute cooldown
 			cooldown = 0
 
@@ -785,6 +786,14 @@
 	desc = "Used to call and send the SST shuttle."
 	shuttleId = "sst"
 	possible_destinations = "sst_home;sst_away"
+
+/obj/machinery/computer/shuttle/sit
+	req_access = list(access_syndicate)
+	name = "Syndicate Infiltration Team Shuttle Console"
+	desc = "Used to call and send the SIT shuttle."
+	shuttleId = "sit"
+	possible_destinations = "sit_arrivals;sit_scimaint;sit_engshuttle;sit_away"
+
 
 var/global/trade_dock_timelimit = 0
 var/global/trade_dockrequest_timelimit = 0

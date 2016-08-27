@@ -10,6 +10,7 @@
 	damage_coeff = list(BRUTE = 0.5, BURN = 0.7, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
 
 	environment_smash = 2 //Walls can't stop THE LAW
+	mob_size = MOB_SIZE_LARGE
 
 	radio_channel = "Security"
 	bot_type = SEC_BOT

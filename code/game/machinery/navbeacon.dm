@@ -26,11 +26,13 @@
 
 	var/turf/T = loc
 	hide(T.intact)
-	if(codes["patrol"])
+	if(!codes || !codes.len)
+		log_runtime(EXCEPTION("Empty codes datum at ([x],[y],[z])"), src, list("codes_txt: '[codes_txt]'"))
+	if("patrol" in codes)
 		if(!navbeacons["[z]"])
 			navbeacons["[z]"] = list()
 		navbeacons["[z]"] += src //Register with the patrol list!
-	if(codes["delivery"])
+	if("delivery" in codes)
 		deliverybeacons += src
 		deliverybeacontags += location
 
@@ -38,6 +40,15 @@
 	navbeacons["[z]"] -= src //Remove from beacon list, if in one.
 	deliverybeacons -= src
 	return ..()
+
+/obj/machinery/navbeacon/serialize()
+	var/list/data = ..()
+	data["codes"] = codes
+	return data
+
+/obj/machinery/navbeacon/deserialize(list/data)
+	codes = data["codes"]
+	..()
 
 // set the transponder codes assoc list from codes_txt
 /obj/machinery/navbeacon/proc/set_codes()

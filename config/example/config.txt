@@ -71,7 +71,6 @@ KICK_INACTIVE
 ## default probablity is 1, increase to make that mode more likely to be picked
 ## set to 0 to disable that mode
 PROBABILITY EXTENDED 2
-PROBABILITY MALFUNCTION 2
 PROBABILITY NUCLEAR 3
 PROBABILITY ABDUCTION 2
 PROBABILITY CHANGELING 3
@@ -87,12 +86,10 @@ PROBABILITY VAMPIRE 3
 PROBABILITY RAGINMAGES 0
 PROBABILITY BORER 0
 PROBABILITY XENOS 0
-PROBABILITY MUTINY 0
-PROBABILITY METEOR 1
+PROBABILITY METEOR 0
 PROBABILITY TRAITOR 0
 PROBABILITY SHADOWLING 2
-PROBABILITY NATIONS 1
-PROBABILITY RP-REVOLUTION 0
+PROBABILITY NATIONS 0
 
 ## Hash out to disable random events during the round.
 ALLOW_RANDOM_EVENTS
@@ -182,9 +179,6 @@ GUEST_BAN
 ## Ban appeals URL - usually for a forum or wherever people should go to contact your admins
 # BANAPPEALS http://example.org
 
-## Media base URL - determines where to pull the jukebox playlist from.
-# MEDIA_BASE_URL http://example.org
-
 ## In-game features
 ## spawns a spellbook which gives object-type spells instead of verb-type spells for the wizard
 # FEATURE_OBJECT_SPELL_SYSTEM
@@ -260,18 +254,6 @@ GHOST_INTERACTION
 ## Default is "python" on Windows, "/usr/bin/env python2" on UNIX.
 #PYTHON_PATH pythonw
 
-## Defines which Z-levels the station exists on.
-STATION_LEVELS 1
-
-## Defines which Z-levels are used for admin functionality, such as Central Command and the Syndicate Shuttle
-ADMIN_LEVELS 2
-
-## Defines which Z-levels which, for example, a Code Red announcement may affect
-CONTACT_LEVELS 1;5
-
-## Defines all Z-levels a character can typically reach
-PLAYER_LEVELS 1;3;4;5;6;7
-
 ## Expected round length in minutes
 EXPECTED_ROUND_LENGTH 120
 
@@ -324,3 +306,8 @@ DISABLE_SPACE_RUINS
 
 ## How many loadout points players may spend in character setup
 #MAX_LOADOUT_POINTS 5
+
+# How many minutes players must wait, from round start, before they can ghost out
+# and still qualify for re-entering the round. Defaults to 30.
+# Setting this to 0 will disable the penalty period
+#ROUND_ABANDON_PENALTY_PERIOD 30

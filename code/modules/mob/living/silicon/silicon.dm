@@ -75,7 +75,7 @@
 			src.take_organ_damage(10)
 			Stun(3)
 	flash_eyes(affect_silicon = 1)
-	to_chat(src, "\red <B>*BZZZT*</B>")
+	to_chat(src, "<span class='danger'>*BZZZT*</span>")
 	to_chat(src, "\red Warning: Electromagnetic pulse detected.")
 	..()
 
@@ -143,18 +143,12 @@
 		stat(null, text("Systems nonfunctional"))
 
 
-// This is a pure virtual function, it should be overwritten by all subclasses
-/mob/living/silicon/proc/show_malf_ai()
-	return 0
-
-
 // This adds the basic clock, shuttle recall timer, and malf_ai info to all silicon lifeforms
 /mob/living/silicon/Stat()
 	if(statpanel("Status"))
 		show_stat_station_time()
 		show_stat_emergency_shuttle_eta()
 		show_system_integrity()
-		show_malf_ai()
 	..()
 
 //Silicon mob language procs
@@ -248,7 +242,7 @@
 	set desc = "Sets an extended description of your character's features."
 	set category = "IC"
 
-	flavor_text =  sanitize(input(usr, "Please enter your new flavour text.", "Flavour text", null)  as text)
+	update_flavor_text()
 
 /mob/living/silicon/binarycheck()
 	return 1

@@ -565,3 +565,6 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 	user.visible_message("<span class='notice'>[user] washes [src] using [source].</span>", \
 						"<span class='notice'>You wash [src] using [source].</span>")
 	return 1
+
+/obj/item/proc/is_crutch() //Does an item prop up a human mob and allow them to stand if they are missing a leg/foot?
+	return 0

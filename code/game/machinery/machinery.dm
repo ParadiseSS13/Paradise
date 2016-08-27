@@ -116,6 +116,8 @@ Class Procs:
 	var/interact_offline = 0 // Can the machine be interacted with while de-powered.
 	var/use_log = list()
 	var/list/settagwhitelist = list()//WHITELIST OF VARIABLES THAT THE set_tag HREF CAN MODIFY, DON'T PUT SHIT YOU DON'T NEED ON HERE, AND IF YOU'RE GONNA USE set_tag (format_tag() proc), ADD TO THIS LIST.
+	atom_say_verb = "beeps"
+	var/speed_process = 0 // Process as fast as possible?
 
 /obj/machinery/initialize()
 	addAtProcessing()
@@ -127,17 +129,17 @@ Class Procs:
 		myArea = get_area_master(src)
 
 	machines += src
-
-/obj/machinery/proc/removeAtProcessing()
-	if(myArea)
-		myArea = null
-
-	machines -= src
+	if(!speed_process)
+		machine_processing += src
+	else
+		fast_processing += src
 
 /obj/machinery/Destroy()
-	if(src in machines)
-		removeAtProcessing()
-
+	if(myArea)
+		myArea = null
+	fast_processing -= src
+	machine_processing -= src
+	machines -= src
 	return ..()
 
 /obj/machinery/proc/locate_machinery()
@@ -384,6 +386,8 @@ Class Procs:
 				I.crit_fail = 1
 			I.forceMove(loc)
 		qdel(src)
+		return 1
+	return 0
 
 /obj/machinery/proc/default_deconstruction_screwdriver(var/mob/user, var/icon_state_open, var/icon_state_closed, var/obj/item/weapon/screwdriver/S)
 	if(istype(S))
@@ -417,17 +421,6 @@ Class Procs:
 			playsound(src.loc, 'sound/items/Deconstruct.ogg', 50, 1)
 		return 1
 	return 0
-
-/obj/machinery/proc/state(var/msg)
-  for(var/mob/O in hearers(src, null))
-    O.show_message("[bicon(src)] <span class = 'notice'>[msg]</span>", 2)
-
-/obj/machinery/proc/ping(text=null)
-  if(!text)
-    text = "\The [src] pings."
-
-  state(text, "blue")
-  playsound(src.loc, 'sound/machines/ping.ogg', 50, 0)
 
 /obj/machinery/proc/exchange_parts(mob/user, obj/item/weapon/storage/part_replacer/W)
 	var/shouldplaysound = 0
@@ -544,6 +537,8 @@ Class Procs:
 		return 0
 	if(!prob(prb))
 		return 0
+	if((TK in user.mutations) && !Adjacent(user))
+		return 0
 	var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 	s.set_up(5, 1, src)
 	s.start()
@@ -555,6 +550,9 @@ Class Procs:
 //called on machinery construction (i.e from frame to machinery) but not on initialization
 /obj/machinery/proc/construction()
 	return
+
+/obj/machinery/proc/can_be_overridden()
+	. = 1
 
 /obj/machinery/tesla_act(var/power)
 	..()

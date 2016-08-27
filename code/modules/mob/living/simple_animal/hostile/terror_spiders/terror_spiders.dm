@@ -437,7 +437,7 @@ var/global/list/ts_spiderling_list = list()
 		msg_terrorspiders("[src] has grown in [get_area(src)].")
 		if(name_usealtnames)
 			name = pick(altnames)
-		if(z > MAX_Z)
+		if(is_away_level(z))
 			spider_awaymission = 1
 			if(spider_tier >= 3)
 				ai_ventcrawls = 0 // means that pre-spawned bosses on away maps won't ventcrawl. Necessary to keep prince/mother in one place.

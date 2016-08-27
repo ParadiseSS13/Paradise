@@ -739,10 +739,6 @@ var/global/nologevent = 0
 		if(ticker.mode.config_tag == "cult")
 			return 2
 		return 1
-	if(M.mind in ticker.mode.malf_ai)
-		if(ticker.mode.config_tag == "malfunction")
-			return 2
-		return 1
 	if(M.mind in ticker.mode.syndicates)
 		if(ticker.mode.config_tag == "nuclear")
 			return 2
@@ -896,9 +892,6 @@ var/gamma_ship_location = 1 // 0 = station , 1 = space
 		fromArea = locate(/area/shuttle/gamma/station)
 		toArea = locate(/area/shuttle/gamma/space)
 	fromArea.move_contents_to(toArea)
-
-	for(var/turf/simulated/floor/mech_bay_recharge_floor/F in toArea)
-		F.init_devices()
 
 	for(var/obj/machinery/power/apc/A in toArea)
 		A.init()

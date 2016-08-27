@@ -74,7 +74,7 @@
 		cultists_possible -= cultist
 		cult += cultist
 		cultist.restricted_roles = restricted_jobs
-		cultist.special_role = "Cultist"
+		cultist.special_role = SPECIAL_ROLE_CULTIST
 	return (cult.len>0)
 
 
@@ -337,7 +337,7 @@
 
 
 /datum/game_mode/proc/auto_declare_completion_cult()
-	if( cult.len || (ticker && istype(ticker.mode,/datum/game_mode/cult)) )
+	if(cult.len || (ticker && GAMEMODE_IS_CULT))
 		var/text = "<FONT size = 2><B>The cultists were:</B></FONT>"
 		for(var/datum/mind/cultist in cult)
 

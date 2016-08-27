@@ -88,7 +88,7 @@ var/ert_request_answered = 0
 		return 0
 
 	if(src.has_enabled_antagHUD == 1 && config.antag_hud_restricted)
-		to_chat(src, "\blue <B>Upon using the antagHUD you forfeited the ability to join the round.</B>")
+		to_chat(src, "<span class='boldnotice'>Upon using the antagHUD you forfeited the ability to join the round.</span>")
 		return 0
 
 	if(response_team_members.len > 6)
@@ -114,13 +114,17 @@ var/ert_request_answered = 0
 	active_team = response_team_type
 
 	send_emergency_team = 1
-	var/list/ert_candidates = pollCandidates("Join the Emergency Response Team?",, responseteam_age, 600)
+	var/list/ert_candidates = pollCandidates("Join the Emergency Response Team?",, responseteam_age, 600, 1)
 	if(!ert_candidates.len)
 		active_team.cannot_send_team()
 		send_emergency_team = 0
 		return
 	var/teamsize = 0
-	for(var/mob/dead/observer/M in ert_candidates)
+	// Respawnable players get first dibs
+	for(var/mob/dead/observer/M in (ert_candidates & respawnable_list))
+		teamsize += M.JoinResponseTeam()
+	// If there's still open slots, non-respawnable players can fill them
+	for(var/mob/dead/observer/M in (ert_candidates - respawnable_list))
 		teamsize += M.JoinResponseTeam()
 	send_emergency_team = 0
 	if (!teamsize)
@@ -169,9 +173,10 @@ var/ert_request_answered = 0
 	head_organ.r_hair = hex2num(copytext(hair_c, 2, 4))
 	head_organ.g_hair = hex2num(copytext(hair_c, 4, 6))
 	head_organ.b_hair = hex2num(copytext(hair_c, 6, 8))
-	M.r_eyes = hex2num(copytext(eye_c, 2, 4))
-	M.g_eyes = hex2num(copytext(eye_c, 4, 6))
-	M.b_eyes = hex2num(copytext(eye_c, 6, 8))
+	var/eyes_red = hex2num(copytext(eye_c, 2, 4))
+	var/eyes_green = hex2num(copytext(eye_c, 4, 6))
+	var/eyes_blue = hex2num(copytext(eye_c, 6, 8))
+	M.change_eye_color(eyes_red, eyes_green, eyes_blue)
 	M.s_tone = skin_tone
 	head_organ.h_style = hair_style
 	head_organ.f_style = facial_hair_style
@@ -185,7 +190,7 @@ var/ert_request_answered = 0
 	M.mind.current = M
 	M.mind.original = M
 	M.mind.assigned_role = "MODE"
-	M.mind.special_role = "Response Team"
+	M.mind.special_role = SPECIAL_ROLE_ERT
 	if(!(M.mind in ticker.minds))
 		ticker.minds += M.mind //Adds them to regular mind list.
 	M.loc = spawn_location
@@ -422,7 +427,7 @@ var/ert_request_answered = 0
 	switch(officer_type)
 		if("Engineer")
 			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/magboots(M), slot_shoes)
-			M.equip_to_slot_or_del(new /obj/item/clothing/gloves/combat(M), slot_gloves)
+			M.equip_to_slot_or_del(new /obj/item/clothing/gloves/color/yellow(M), slot_gloves)
 			M.equip_to_slot_or_del(new /obj/item/clothing/suit/space/rig/ert/engineer(M), slot_wear_suit)
 			M.equip_to_slot_or_del(new /obj/item/weapon/tank/emergency_oxygen/engi(M), slot_s_store)
 			M.equip_to_slot_or_del(new /obj/item/clothing/glasses/meson(M), slot_glasses)
@@ -442,7 +447,7 @@ var/ert_request_answered = 0
 
 		if("Security")
 			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(M), slot_shoes)
-			M.equip_to_slot_or_del(new /obj/item/clothing/gloves/combat(M), slot_gloves)
+			M.equip_to_slot_or_del(new /obj/item/clothing/gloves/color/black(M), slot_gloves)
 			M.equip_to_slot_or_del(new /obj/item/clothing/suit/space/rig/ert/security(M), slot_wear_suit)
 			M.equip_to_slot_or_del(new /obj/item/weapon/gun/energy/gun/advtaser(M), slot_s_store)
 			M.equip_to_slot_or_del(new /obj/item/clothing/glasses/hud/security/sunglasses(M), slot_glasses)
@@ -460,7 +465,7 @@ var/ert_request_answered = 0
 
 		if("Medic")
 			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/white(M), slot_shoes)
-			M.equip_to_slot_or_del(new /obj/item/clothing/gloves/combat(M), slot_gloves)
+			M.equip_to_slot_or_del(new /obj/item/clothing/gloves/color/latex/nitrile(M), slot_gloves)
 			M.equip_to_slot_or_del(new /obj/item/clothing/suit/space/rig/ert/medical(M), slot_wear_suit)
 			M.equip_to_slot_or_del(new /obj/item/clothing/glasses/hud/health/health_advanced(M), slot_glasses)
 
@@ -507,7 +512,7 @@ var/ert_request_answered = 0
 	switch(officer_type)
 		if("Engineer")
 			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/magboots/advance(M), slot_shoes)
-			M.equip_to_slot_or_del(new /obj/item/clothing/gloves/combat(M), slot_gloves)
+			M.equip_to_slot_or_del(new /obj/item/clothing/gloves/color/yellow(M), slot_gloves)
 			M.equip_to_slot_or_del(new /obj/item/clothing/suit/space/rig/ert/engineer(M), slot_wear_suit)
 			M.equip_to_slot_or_del(new /obj/item/weapon/tank/emergency_oxygen/double/full(M), slot_s_store)
 			M.equip_to_slot_or_del(new /obj/item/clothing/glasses/meson/night(M), slot_glasses)

@@ -376,6 +376,7 @@ var/list/sting_paths
 
 	var/mob/living/carbon/C = src		//only carbons have dna now, so we have to typecaste
 	mind.changeling.absorbed_dna |= C.dna
+	mind.changeling.trim_dna()
 	return 1
 
 //Used to dump the languages from the changeling datum into the actual mob.

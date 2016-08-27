@@ -306,6 +306,31 @@
 	icon_state = "beret_hos"
 	item_state = "beret_hos"
 
+/obj/item/clothing/head/pirate/fluff/stumpy //MrFroztee: Stumpy
+	name = "The Sobriety Skullcap"
+	desc = "A hat suited for the king of the pirates"
+	icon_state = "pirate"
+	item_state = "pirate"
+
+/obj/item/clothing/head/pirate/fluff/stumpy/New()
+	..()
+	processing_objects.Add(src)
+
+/obj/item/clothing/head/pirate/fluff/stumpy/Destroy()
+	processing_objects.Remove(src)
+	return ..()
+
+/obj/item/clothing/head/pirate/fluff/stumpy/process()
+	if(ishuman(loc))
+		var/mob/living/carbon/human/H = loc
+		if(H.head == src)
+			H.slurring = max(3, H.slurring) //always slur
+
+/obj/item/clothing/head/beret/fluff/linda //Epic_Charger: Linda Clark
+	name = "Green beret"
+	desc = "A beret, an artist's favorite headwear. This one has two holes cut on the edges."
+	icon_state = "linda_beret"
+
 //////////// Suits ////////////
 /obj/item/clothing/suit/storage/labcoat/fluff/aeneas_rinil //Socialsystem: Lynn Fea
 	name = "Robotics labcoat"
@@ -372,6 +397,16 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "stobarico_jacket"
 
+
+/obj/item/clothing/suit/hooded/hoodie/fluff/linda // Epic_Charger: Linda Clark
+	name = "Green Nanotrasen Hoodie"
+	desc = "A green hoodie with the Nanotrasen logo on the back. It looks weathered."
+	icon_state = "linda_hoodie"
+	hoodtype = /obj/item/clothing/head/hood/fluff/linda
+
+/obj/item/clothing/head/hood/fluff/linda //Epic_Charger: Linda Clark
+	icon_state = "greenhood"
+
 //////////// Uniforms ////////////
 /obj/item/clothing/under/fluff/kharshai // Kharshai: Athena Castile
 	name = "Castile formal outfit"
@@ -425,6 +460,11 @@
 	strip_delay = 100
 
 //////////// Masks ////////////
+
+/obj/item/clothing/mask/bandana/fluff/dar //sasanek12: Dar'Konr
+	name = "camo bandana"
+	desc = "It's a worn-out bandana in camo paint"
+	icon_state = "bandcamo"
 
 //////////// Shoes ////////////
 

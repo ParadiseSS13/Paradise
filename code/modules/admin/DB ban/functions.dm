@@ -113,7 +113,7 @@ datum/admins/proc/DB_ban_record(var/bantype, var/mob/banned_mob, var/duration = 
 		else
 			adminwho += ", [C]"
 
-	reason = sql_sanitize_text(reason)
+	reason = sanitizeSQL(reason)
 
 	if(maxadminbancheck)
 		var/DBQuery/adm_query = dbcon.NewQuery("SELECT count(id) AS num FROM [format_table_name("ban")] WHERE (a_ckey = '[a_ckey]') AND (bantype = 'ADMIN_PERMABAN'  OR (bantype = 'ADMIN_TEMPBAN' AND expiration_time > Now())) AND isnull(unbanned)")
@@ -244,14 +244,14 @@ datum/admins/proc/DB_ban_edit(var/banid = null, var/param = null)
 		to_chat(usr, "Invalid ban id. Contact the database admin")
 		return
 
-	reason = sql_sanitize_text(reason)
+	reason = sanitizeSQL(reason)
 	var/value
 
 	switch(param)
 		if("reason")
 			if(!value)
 				value = input("Insert the new reason for [pckey]'s ban", "New Reason", "[reason]", null) as null|text
-				value = sql_sanitize_text(value)
+				value = sanitizeSQL(value)
 				if(!value)
 					to_chat(usr, "Cancelled")
 					return
@@ -417,8 +417,8 @@ datum/admins/proc/DB_ban_unban_by_id(var/id)
 
 		adminckey = ckey(adminckey)
 		playerckey = ckey(playerckey)
-		playerip = sql_sanitize_text(playerip)
-		playercid = sql_sanitize_text(playercid)
+		playerip = sanitizeSQL(playerip)
+		playercid = sanitizeSQL(playercid)
 
 		if(adminckey || playerckey || playerip || playercid || dbbantype)
 

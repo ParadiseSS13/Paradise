@@ -61,7 +61,7 @@
 	// Might as well scrub out any malformed be_special list entries while we're here
 	for(var/role in be_special)
 		if(!(role in special_roles))
-			log_to_dd("[C.key] had a malformed role entry: '[role]'. Removing!")
+			log_runtime(EXCEPTION("[C.key] had a malformed role entry: '[role]'. Removing!"), src)
 			be_special -= role
 
 	var/DBQuery/query = dbcon.NewQuery({"UPDATE [format_table_name("player")]
@@ -70,7 +70,7 @@
 					UI_style='[UI_style]',
 					UI_style_color='[UI_style_color]',
 					UI_style_alpha='[UI_style_alpha]',
-					be_role='[list2params(sql_sanitize_text_list(be_special))]',
+					be_role='[sanitizeSQL(list2params(be_special))]',
 					default_slot='[default_slot]',
 					toggles='[toggles]',
 					sound='[sound]',
@@ -227,6 +227,15 @@
 		med_record = query.item[49]
 		sec_record = query.item[50]
 		gen_record = query.item[51]
+		// Apparently, the preceding vars weren't always encoded properly...
+		if(findtext(flavor_text, "<")) // ... so let's clumsily check for tags!
+			flavor_text = html_encode(flavor_text)
+		if(findtext(med_record, "<"))
+			med_record = html_encode(med_record)
+		if(findtext(sec_record, "<"))
+			sec_record = html_encode(sec_record)
+		if(findtext(gen_record, "<"))
+			gen_record = html_encode(gen_record)
 		disabilities = text2num(query.item[52])
 		player_alt_titles = params2list(query.item[53])
 		organ_data = params2list(query.item[54])
@@ -322,13 +331,13 @@
 	firstquery.Execute()
 	while(firstquery.NextRow())
 		if(text2num(firstquery.item[1]) == default_slot)
-			var/DBQuery/query = dbcon.NewQuery({"UPDATE [format_table_name("characters")] SET OOC_Notes='[sql_sanitize_text(metadata)]',
-												real_name='[sql_sanitize_text(real_name)]',
+			var/DBQuery/query = dbcon.NewQuery({"UPDATE [format_table_name("characters")] SET OOC_Notes='[sanitizeSQL(metadata)]',
+												real_name='[sanitizeSQL(real_name)]',
 												name_is_always_random='[be_random_name]',
 												gender='[gender]',
 												age='[age]',
-												species='[sql_sanitize_text(species)]',
-												language='[sql_sanitize_text(language)]',
+												species='[sanitizeSQL(species)]',
+												language='[sanitizeSQL(language)]',
 												hair_red='[r_hair]',
 												hair_green='[g_hair]',
 												hair_blue='[b_hair]',
@@ -345,10 +354,10 @@
 												head_accessory_red='[r_headacc]',
 												head_accessory_green='[g_headacc]',
 												head_accessory_blue='[b_headacc]',
-												hair_style_name='[sql_sanitize_text(h_style)]',
-												facial_style_name='[sql_sanitize_text(f_style)]',
-												marking_style_name='[sql_sanitize_text(m_style)]',
-												head_accessory_style_name='[sql_sanitize_text(ha_style)]',
+												hair_style_name='[sanitizeSQL(h_style)]',
+												facial_style_name='[sanitizeSQL(f_style)]',
+												marking_style_name='[sanitizeSQL(m_style)]',
+												head_accessory_style_name='[sanitizeSQL(ha_style)]',
 												eyes_red='[r_eyes]',
 												eyes_green='[g_eyes]',
 												eyes_blue='[b_eyes]',
@@ -369,10 +378,10 @@
 												job_karma_high='[job_karma_high]',
 												job_karma_med='[job_karma_med]',
 												job_karma_low='[job_karma_low]',
-												flavor_text='[sql_sanitize_text(html_decode(flavor_text))]',
-												med_record='[sql_sanitize_text(html_decode(med_record))]',
-												sec_record='[sql_sanitize_text(html_decode(sec_record))]',
-												gen_record='[sql_sanitize_text(html_decode(gen_record))]',
+												flavor_text='[sanitizeSQL(flavor_text)]',
+												med_record='[sanitizeSQL(med_record)]',
+												sec_record='[sanitizeSQL(sec_record)]',
+												gen_record='[sanitizeSQL(gen_record)]',
 												player_alt_titles='[playertitlelist]',
 												disabilities='[disabilities]',
 												organ_data='[organlist]',
@@ -401,7 +410,10 @@
 											skin_tone, skin_red, skin_green, skin_blue,
 											markings_red, markings_green, markings_blue,
 											head_accessory_red, head_accessory_green, head_accessory_blue,
-											hair_style_name, facial_style_name, marking_style_name, head_accessory_style_name,
+											hair_style_name,
+											facial_style_name,
+											marking_style_name,
+											head_accessory_style_name,
 											eyes_red, eyes_green, eyes_blue,
 											underwear, undershirt,
 											backbag, b_type, alternate_option,
@@ -409,20 +421,26 @@
 											job_medsci_high, job_medsci_med, job_medsci_low,
 											job_engsec_high, job_engsec_med, job_engsec_low,
 											job_karma_high, job_karma_med, job_karma_low,
-											flavor_text, med_record, sec_record, gen_record,
+											flavor_text,
+											med_record,
+											sec_record,
+											gen_record,
 											player_alt_titles,
 											disabilities, organ_data, rlimb_data, nanotrasen_relation, speciesprefs,
 											socks, body_accessory, gear)
 
 					VALUES
-											('[C.ckey]', '[default_slot]', '[sql_sanitize_text(metadata)]', '[sql_sanitize_text(real_name)]', '[be_random_name]','[gender]',
-											'[age]', '[sql_sanitize_text(species)]', '[sql_sanitize_text(language)]',
+											('[C.ckey]', '[default_slot]', '[sanitizeSQL(metadata)]', '[sanitizeSQL(real_name)]', '[be_random_name]','[gender]',
+											'[age]', '[sanitizeSQL(species)]', '[sanitizeSQL(language)]',
 											'[r_hair]', '[g_hair]', '[b_hair]',
 											'[r_facial]', '[g_facial]', '[b_facial]',
 											'[s_tone]', '[r_skin]', '[g_skin]', '[b_skin]',
 											'[r_markings]', '[g_markings]', '[b_markings]',
 											'[r_headacc]', '[g_headacc]', '[b_headacc]',
-											'[sql_sanitize_text(h_style)]', '[sql_sanitize_text(f_style)]', '[sql_sanitize_text(m_style)]', '[sql_sanitize_text(ha_style)]',
+											'[sanitizeSQL(h_style)]',
+											'[sanitizeSQL(f_style)]',
+											'[sanitizeSQL(m_style)]',
+											'[sanitizeSQL(ha_style)]',
 											'[r_eyes]', '[g_eyes]', '[b_eyes]',
 											'[underwear]', '[undershirt]',
 											'[backbag]', '[b_type]', '[alternate_option]',
@@ -430,7 +448,10 @@
 											'[job_medsci_high]', '[job_medsci_med]', '[job_medsci_low]',
 											'[job_engsec_high]', '[job_engsec_med]', '[job_engsec_low]',
 											'[job_karma_high]', '[job_karma_med]', '[job_karma_low]',
-											'[sql_sanitize_text(html_encode(flavor_text))]', '[sql_sanitize_text(html_encode(med_record))]', '[sql_sanitize_text(html_encode(sec_record))]', '[sql_sanitize_text(html_encode(gen_record))]',
+											'[sanitizeSQL(flavor_text)]',
+											'[sanitizeSQL(med_record)]',
+											'[sanitizeSQL(sec_record)]',
+											'[sanitizeSQL(gen_record)]',
 											'[playertitlelist]',
 											'[disabilities]', '[organlist]', '[rlimblist]', '[nanotrasen_relation]', '[speciesprefs]',
 											'[socks]', '[body_accessory]', '[gearlist]')

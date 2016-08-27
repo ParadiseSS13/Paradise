@@ -9,8 +9,7 @@
 	RS.start()
 	RS.kill()
 	for(var/area/A)
-		// TODO: Tie into space manager
-		if(!(A.z in config.station_levels)) continue //Spook on main station only.
+		if(!is_station_level(A.z)) continue //Spook on main station only.
 		if(A.luminosity) continue
 //			if(A.lighting_space) continue
 		if(A.type == /area) continue

@@ -38,13 +38,7 @@
 						<A href='?src=\ref[src];secretsfun=power'>Make all areas powered</A>&nbsp;&nbsp;
 						<A href='?src=\ref[src];secretsfun=unpower'>Make all areas unpowered</A>&nbsp;&nbsp;
 						<A href='?src=\ref[src];secretsfun=quickpower'>Power all SMES</A><BR>
-						<BR>
-						<B>Shuttle options</b><br>
-						<A href='?src=\ref[src];secretsfun=launchshuttle'>Launch a shuttle</A>&nbsp;&nbsp;
-						<A href='?src=\ref[src];secretsfun=forcelaunchshuttle'>Force launch a shuttle</A><BR>
-						<A href='?src=\ref[src];secretsfun=jumpshuttle'>Jump a shuttle</A>&nbsp;&nbsp;
-						<A href='?src=\ref[src];secretsfun=moveshuttle'>Move a shuttle</A><BR>
-						<BR></center>
+						</center>
 					"}
 
 			else if(check_rights(R_SERVER,0)) //only add this if admin secrets are unavailiable; otherwise, it's added inline
@@ -73,8 +67,9 @@
 					<center>
 					<h2><B>IC Events</B></h2>
 					<b>Teams</b><br>
-					<A href='?src=\ref[src];secretsfun=striketeam'>Send in a strike team</A>&nbsp;&nbsp;
-					<A href='?src=\ref[src];secretsfun=striketeam_syndicate'>Send in a syndicate strike team</A>&nbsp;&nbsp;
+					<A href='?src=\ref[src];secretsfun=infiltrators_syndicate'>Send SIT - Syndicate Infiltration Team</A>&nbsp;&nbsp;
+					<BR><A href='?src=\ref[src];secretsfun=striketeam'>Send in the Deathsquad</A>&nbsp;&nbsp;
+					<A href='?src=\ref[src];secretsfun=striketeam_syndicate'>Send in a Syndie Strike Team</A>&nbsp;&nbsp;
 					<A href='?src=\ref[src];secretsfun=honksquad'>Send in a HONKsquad</A><BR>
 					<b>Change Security Level</b><BR>
 					<A href='?src=\ref[src];secretsfun=securitylevel0'>Security Level - Green</A>&nbsp;&nbsp;

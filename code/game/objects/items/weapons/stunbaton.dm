@@ -23,6 +23,12 @@
 	update_icon()
 	return
 
+/obj/item/weapon/melee/baton/Destroy()
+	if(bcell)
+		qdel(bcell)
+		bcell = null
+	return ..()
+
 /obj/item/weapon/melee/baton/CheckParts(list/parts_list)
 	..()
 	bcell = locate(/obj/item/weapon/stock_parts/cell) in contents

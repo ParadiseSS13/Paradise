@@ -384,6 +384,7 @@
 	G.change_gender(pick(MALE,FEMALE))
 	G.loc = src.loc
 	G.key = ghost.key
+	add_logs(G, user, "summoned", null, "as a golem")
 	to_chat(G, "You are an adamantine golem. You move slowly, but are highly resistant to heat and cold as well as blunt trauma. You are unable to wear clothes, but can still use most tools. Serve [user], and assist them in completing their goals at any cost.")
 	qdel(src)
 
@@ -402,6 +403,8 @@
 	if(!O.client)
 		return 0
 	if(O.mind && O.mind.current && O.mind.current.stat != DEAD)
+		return 0
+	if(!O.can_reenter_corpse)
 		return 0
 	if(O.has_enabled_antagHUD == 1 && config.antag_hud_restricted)
 		return 0

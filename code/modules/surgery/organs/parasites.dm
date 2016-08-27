@@ -36,6 +36,7 @@
 	..()
 	M.reagents.del_reagent("spidereggs") //purge all remaining spider eggs reagent if caught, in time.
 	qdel(src) //We don't want people re-implanting these for near instant gibbings.
+	return null
 
 
 
@@ -75,7 +76,7 @@
 		if(165) // 5m 30s
 			to_chat(owner,"<span class='danger'>The black flesh splits open completely, revealing a cluster of small black oval shapes inside you, shapes that seem to be moving!</span>")
 		if(180) // 6m
-			if(awaymission_infection && owner.z <= MAX_Z)
+			if(awaymission_infection && is_away_level(owner.z))
 				// we started in the awaymission, we ended on the station.
 				// To prevent someone bringing an infection back, we're going to trigger an alternate, equally-bad result here.
 				// Actually, let's make it slightly worse... just to discourage people from bringing back infections.
@@ -114,3 +115,4 @@
 	..()
 	M.reagents.del_reagent("terror_white_toxin") // prevent reinfection
 	qdel(src) // prevent people re-implanting them into others
+	return null

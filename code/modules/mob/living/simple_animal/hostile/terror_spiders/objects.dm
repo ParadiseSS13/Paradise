@@ -301,7 +301,6 @@
 			var/mob/living/M = mover
 			M.Stun(5) // 5 seconds.
 			M.Weaken(5) // 5 seconds.
-			M.emote("scream")
 			DeCloakNearby()
 			return 1
 		else

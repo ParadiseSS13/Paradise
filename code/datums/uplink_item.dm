@@ -180,6 +180,14 @@ var/list/uplink_items = list()
 	cost = 13
 	job = list("Chaplain")
 
+/datum/uplink_item/jobspecific/missionary_kit
+	name = "Missionary Starter Kit"
+	desc = "A box containing a missionary staff, missionary robes, and bible. The robes and staff can be linked to allow you to convert victims at range for a short time to do your bidding. The bible is for bible stuff."
+	reference = "MK"
+	item = /obj/item/weapon/storage/box/syndie_kit/missionary_set
+	cost = 15
+	job = list("Chaplain")
+
 /datum/uplink_item/jobspecific/artistic_toolbox
 	name = "Artistic Toolbox"
 	desc = "An accursed toolbox that grants its followers extreme power at the cost of requiring repeated sacrifices to it. If sacrifices are not provided, it will turn on its follower."
@@ -784,6 +792,13 @@ var/list/uplink_items = list()
 	reference = "CHHUD"
 	item = /obj/item/clothing/glasses/hud/security/chameleon
 	cost = 2
+	
+/datum/uplink_item/stealthy_weapons/chameleonflag
+	name = "Chameleon Flag"
+	desc = "A flag that can be disguised as any other known flag. There is a heat sensitive bomb loaded into the pole that will be detonated if the flag is lit on fire."
+	reference = "CHFLAG"
+	item = /obj/item/flag/chameleon
+	cost = 7
 
 // STEALTHY TOOLS
 
@@ -895,8 +910,8 @@ var/list/uplink_items = list()
 	cost = 1
 
 /datum/uplink_item/device_tools/surgerybag
-	name = "Syndicate Surgery Dufflebag"
-	desc = "The Syndicate surgery dufflebag is a toolkit containing all surgery tools, a straitjacket, and a muzzle."
+	name = "Syndicate Surgery Duffelbag"
+	desc = "The Syndicate surgery duffelbag is a toolkit containing all surgery tools, a straitjacket, and a muzzle."
 	reference = "SSDB"
 	item = /obj/item/weapon/storage/backpack/duffel/syndie/surgery
 	cost = 4

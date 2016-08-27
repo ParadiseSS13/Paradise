@@ -195,7 +195,7 @@
 	set category = "Spider"
 	set desc = "Debug: kill off all other spiders in the world. Takes two minutes to work."
 	for(var/mob/living/simple_animal/hostile/poison/terror_spider/T in ts_spiderlist)
-		if(T.spider_tier < 5)
+		if(T.spider_tier < spider_tier)
 			T.degenerate = 1
 			to_chat(T, "<span class='userdanger'>Through the hivemind, the raw power of [src] floods into your body, burning it from the inside out!</span>")
 	for(var/obj/effect/spider/eggcluster/terror_eggcluster/T in ts_egg_list)
@@ -208,11 +208,15 @@
 	set name = "Spiderling Flood"
 	set category = "Spider"
 	set desc = "Debug: Spawns N spiderlings. They grow into random spider types (red/green/gray/white/black). Pure horror!"
-	var/numlings = input("How many?") as null|anything in list(10,20,30,40,50)
-	var/sbpc = input("%chance to be stillborn?") as null|anything in list(0,25,50,75,100)
+	var/numlings = input("How many?") as null|anything in list(10, 20, 30, 40, 50)
+	var/sbpc = input("%chance to be stillborn?") as null|anything in list(0, 25, 50, 75, 100)
 	for(var/i=0, i<numlings, i++)
 		var/obj/effect/spider/spiderling/terror_spiderling/S = new /obj/effect/spider/spiderling/terror_spiderling(get_turf(src))
-		S.grow_as = pick(/mob/living/simple_animal/hostile/poison/terror_spider/red, /mob/living/simple_animal/hostile/poison/terror_spider/gray, /mob/living/simple_animal/hostile/poison/terror_spider/green, /mob/living/simple_animal/hostile/poison/terror_spider/white, /mob/living/simple_animal/hostile/poison/terror_spider/black)
+		S.grow_as = pick(/mob/living/simple_animal/hostile/poison/terror_spider/red, \
+		/mob/living/simple_animal/hostile/poison/terror_spider/gray, \
+		/mob/living/simple_animal/hostile/poison/terror_spider/green, \
+		/mob/living/simple_animal/hostile/poison/terror_spider/white, \
+		/mob/living/simple_animal/hostile/poison/terror_spider/black)
 		S.spider_myqueen = spider_myqueen
 		if(prob(sbpc))
 			S.stillborn = 1

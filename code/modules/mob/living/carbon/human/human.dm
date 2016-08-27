@@ -12,6 +12,7 @@
 	var/obj/item/weapon/rig/wearing_rig // This is very not good, but it's much much better than calling get_rig() every update_canmove() call.
 
 /mob/living/carbon/human/New(var/new_loc, var/new_species = null, var/delay_ready_dna = 0)
+
 	if(!dna)
 		dna = new /datum/dna(null)
 		// Species name is handled by set_species()
@@ -22,6 +23,8 @@
 		else
 			set_species(delay_icon_update = 1)
 
+	..()
+
 	if(species)
 		real_name = species.get_random_name(gender)
 		name = real_name
@@ -31,8 +34,6 @@
 	var/datum/reagents/R = new/datum/reagents(330)
 	reagents = R
 	R.my_atom = src
-
-	..()
 
 	prev_gender = gender // Debug for plural genders
 	make_blood()
@@ -249,10 +250,6 @@
 
 	show_stat_station_time()
 
-	if(ticker && ticker.mode && ticker.mode.name == "AI malfunction")
-		if(ticker.mode:malf_mode_declared)
-			stat(null, "Time left: [max(ticker.mode:AI_win_timeleft/(ticker.mode:apcs/3), 0)]")
-
 	show_stat_emergency_shuttle_eta()
 
 	if(client.statpanel == "Status")
@@ -408,13 +405,12 @@
 	if(M.melee_damage_upper == 0)
 		M.custom_emote(1, "[M.friendly] [src]")
 	else
-		M.do_attack_animation(src)
 		if(M.attack_sound)
 			playsound(loc, M.attack_sound, 50, 1, 1)
-		for(var/mob/O in viewers(src, null))
-			O.show_message("\red <B>[M]</B> [M.attacktext] [src]!", 1)
-		M.attack_log += text("\[[time_stamp()]\] <font color='red'>attacked [src.name] ([src.ckey])</font>")
-		src.attack_log += text("\[[time_stamp()]\] <font color='orange'>was attacked by [M.name] ([M.ckey])</font>")
+		M.do_attack_animation(src)
+		visible_message("<span class='danger'>[M] [M.attacktext] [src]!</span>", \
+						"<span class='userdanger'>[M] [M.attacktext] [src]!</span>")
+		add_logs(src, M, "attacked")
 		var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
 		if(check_shields(damage, "the [M.name]", null, MELEE_ATTACK, M.armour_penetration))
 			return 0
@@ -492,7 +488,7 @@
 
 				for(var/mob/O in viewers(src, null))
 					if((O.client && !( O.blinded )))
-						O.show_message(text("\red <B>The [M.name] has shocked []!</B>", src), 1)
+						O.show_message(text("<span class='danger'>The [M.name] has shocked []!</span>", src), 1)
 
 				Weaken(power)
 				if(stuttering < power)
@@ -2085,7 +2081,6 @@
 		dna.deserialize(data["dna"])
 		real_name = dna.real_name
 		name = real_name
-		UpdateAppearance()
 		set_species(dna.species)
 	age = data["age"]
 	undershirt = data["ushirt"]
@@ -2109,6 +2104,7 @@
 		// As above, "New" code handles insertion, DNA sync
 		list_to_object(organs_list[organ], src)
 
+	UpdateAppearance()
 
 	// De-serialize equipment
 	// #1: Jumpsuit

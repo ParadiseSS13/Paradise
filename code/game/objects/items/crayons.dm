@@ -12,7 +12,7 @@
 	attack_verb = list("attacked", "coloured")
 	var/colour = "#FF0000" //RGB
 	var/drawtype = "rune"
-	var/list/graffiti = list("body","amyjon","face","matt","revolution","engie","guy","end","dwarf","uboa","up","down","left","right","heart","borgsrogue","voxpox","shitcurity","catbeast","hieroglyphs1","hieroglyphs2","hieroglyphs3","security","syndicate1","syndicate2","nanotrasen","lie","valid")
+	var/list/graffiti = list("body","amyjon","face","matt","revolution","engie","guy","end","dwarf","uboa","up","down","left","right","heart","borgsrogue","voxpox","shitcurity","catbeast","hieroglyphs1","hieroglyphs2","hieroglyphs3","security","syndicate1","syndicate2","nanotrasen","lie","valid","arrowleft","arrowright","arrowup","arrowdown","chicken","hailcrab","brokenheart","peace","scribble","scribble2","scribble3","skrek","squish","tunnelsnake","yip","youaredead")
 	var/list/letters = list("a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z")
 	var/uses = 30 //0 for unlimited uses
 	var/instant = 0
@@ -92,19 +92,19 @@
 			if(uses)
 				uses--
 				if(!uses)
-					to_chat(user, "<span class='danger'>You used up your [src.name]!</span>")
+					to_chat(user, "<span class='danger'>You used up your [name]!</span>")
 					qdel(src)
 	return
 
 /obj/item/toy/crayon/attack(mob/M as mob, mob/user as mob)
 	var/huffable = istype(src,/obj/item/toy/crayon/spraycan)
 	if(M == user)
-		to_chat(user, "You take a [huffable ? "huff" : "bite"] of the [src.name]. Delicious!")
+		to_chat(user, "You take a [huffable ? "huff" : "bite"] of the [name]. Delicious!")
 		user.nutrition += 5
 		if(uses)
 			uses -= 5
 			if(uses <= 0)
-				to_chat(user, "<span class='danger'>There is no more of [src.name] left!</span>")
+				to_chat(user, "<span class='danger'>There is no more of [name] left!</span>")
 				qdel(src)
 	else
 		..()

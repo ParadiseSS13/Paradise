@@ -174,7 +174,9 @@
 
 	var/mob/living/occupant = null       // Person waiting to be despawned.
 	var/orient_right = null       // Flips the sprite.
-	var/time_till_despawn = 9000 // 15 minutes-ish safe period before being despawned.
+	// 15 minutes-ish safe period before being despawned.
+	var/time_till_despawn = 9000 // This is reduced by 90% if a player manually enters cryo
+	var/willing_time_divisor = 10
 	var/time_entered = 0          // Used to keep track of the safe period.
 	var/obj/item/device/radio/intercom/announce //
 
@@ -301,6 +303,13 @@
 				preserve = 1
 				break
 
+		if(istype(W,/obj/item/device/pda))
+			var/obj/item/device/pda/P = W
+			if(P.id)
+				qdel(P.id)
+				P.id = null
+			qdel(P)
+
 		if(!preserve)
 			qdel(W)
 		else
@@ -382,7 +391,12 @@
 			announce.autosay("[occupant.real_name] [on_store_message]", "[on_store_name]")
 	visible_message("<span class='notice'>\The [src] hums and hisses as it moves [occupant.real_name] into storage.</span>")
 
-	// Delete the mob.
+	// Ghost and delete the mob.
+	if(!occupant.get_ghost(1))
+		if(TOO_EARLY_TO_GHOST)
+			occupant.ghostize(0) // Players despawned too early may not re-enter the game
+		else
+			occupant.ghostize(1)
 	qdel(occupant)
 	occupant = null
 	name = initial(name)
@@ -404,6 +418,7 @@
 
 		var/willing = null //We don't want to allow people to be forced into despawning.
 		var/mob/living/M = G:affecting
+		time_till_despawn = initial(time_till_despawn)
 
 		if(!istype(M) || M.stat == DEAD)
 			to_chat(user, "<span class='notice'>Dead people can not be put into cryo.</span>")
@@ -412,7 +427,7 @@
 		if(M.client)
 			if(alert(M,"Would you like to enter long-term storage?",,"Yes","No") == "Yes")
 				if(!M || !G || !G:affecting) return
-				willing = 1
+				willing = willing_time_divisor
 		else
 			willing = 1
 
@@ -432,6 +447,8 @@
 				if(M.client)
 					M.client.perspective = EYE_PERSPECTIVE
 					M.client.eye = src
+
+				time_till_despawn = initial(time_till_despawn) / willing
 
 			else //because why the fuck would you keep going if the mob isn't in the pod
 				to_chat(user, "<span class='notice'>You stop putting [M] into the cryopod.</span>")
@@ -483,7 +500,7 @@
 	if(!istype(user.loc, /turf) || !istype(O.loc, /turf)) // are you in a container/closet/pod/etc?
 		return
 	if(occupant)
-		to_chat(user, "\blue <B>The cryo pod is already occupied!</B>")
+		to_chat(user, "<span class='boldnotice'>The cryo pod is already occupied!</span>")
 		return
 
 
@@ -502,11 +519,12 @@
 
 
 	var/willing = null //We don't want to allow people to be forced into despawning.
+	time_till_despawn = initial(time_till_despawn)
 
 	if(L.client)
 		if(alert(L,"Would you like to enter cryosleep?",,"Yes","No") == "Yes")
 			if(!L) return
-			willing = 1
+			willing = willing_time_divisor
 	else
 		willing = 1
 
@@ -523,6 +541,7 @@
 				to_chat(user, "<span class='boldnotice'>\The [src] is in use.</span>")
 				return
 			L.loc = src
+			time_till_despawn = initial(time_till_despawn) / willing
 
 			if(L.client)
 				L.client.perspective = EYE_PERSPECTIVE
@@ -622,6 +641,7 @@
 		usr.client.eye = src
 		usr.loc = src
 		src.occupant = usr
+		time_till_despawn = initial(time_till_despawn) / willing_time_divisor
 
 		if(orient_right)
 			icon_state = "[occupied_icon_state]-r"
