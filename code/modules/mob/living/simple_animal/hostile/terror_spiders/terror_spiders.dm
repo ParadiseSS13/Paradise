@@ -243,17 +243,15 @@ var/global/list/ts_spiderling_list = list()
 					targets2 += H
 				else
 					targets3 += H
-		for(var/obj/mecha/M in mechas_list)
-			if(get_dist(M, src) <= vision_range && can_see(src, M, vision_range))
+		if(health < maxHealth)
+			// very unlikely that we're being shot at by a mech or space pod - so only check for this if our health is lower than max.
+			for(var/obj/mecha/M in view(src, vision_range))
 				if(get_dist(M, src) <= 2)
 					targets2 += M
 				else
 					targets3 += M
-		if(health < maxHealth)
-			// very unlikely that we're being shot at by a space pod - so only check for this if our health is lower than max.
-			for(var/obj/spacepod/S in spacepods_list)
-				if(get_dist(S, src) <= vision_range && can_see(src, S, vision_range))
-					targets3 += S
+			for(var/obj/spacepod/S in view(src, vision_range))
+				targets3 += S
 		if(targets1.len)
 			return targets1
 		else if(targets2.len)
@@ -268,12 +266,14 @@ var/global/list/ts_spiderling_list = list()
 				// unconscious mobs are ignored unless spider has stat_attack
 			else if(H in enemies)
 				targets1 += H
-		for(var/obj/mecha/M in mechas_list)
-			if(M in enemies && get_dist(M, src) <= vision_range && can_see(src, M, vision_range))
-				targets1 += M
-		for(var/obj/spacepod/S in spacepods_list)
-			if(S in enemies && get_dist(S, src) <= vision_range && can_see(src, S, vision_range))
-				targets1 += S
+		if(health < maxHealth)
+			// very unlikely that we're being shot at by a mech or space pod - so only check for this if our health is lower than max.
+			for(var/obj/mecha/M in view(src, vision_range))
+				if(M in enemies)
+					targets1 += M
+			for(var/obj/spacepod/S in view(src, vision_range))
+				if(S in enemies)
+					targets1 += S
 		return targets1
 	else if(ai_type == TS_AI_PASSIVE)
 		return list()

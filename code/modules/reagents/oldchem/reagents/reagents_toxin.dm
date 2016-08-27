@@ -220,13 +220,17 @@
 	if(method == TOUCH)
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
+
 			if(volume > 25)
+
 				if(H.wear_mask)
 					to_chat(H, "<span class='danger'>Your mask protects you from the acid!</span>")
 					return
+
 				if(H.head)
 					to_chat(H, "<span class='danger'>Your helmet protects you from the acid!</span>")
 					return
+
 				if(!M.unacidable)
 					if(prob(75))
 						var/obj/item/organ/external/affecting = H.get_organ("head")
@@ -238,15 +242,20 @@
 						M.take_organ_damage(5,10)
 			else
 				M.take_organ_damage(5,10)
+
 	if(method == INGEST)
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
+
 			if(volume < 10)
 				to_chat(M, "<span class='danger'>The greenish acidic substance stings you, but isn't concentrated enough to harm you!</span>")
+
 			if(volume >=10 && volume <=25)
 				if(!H.unacidable)
 					M.take_organ_damage(0,min(max(volume-10,2)*2,20))
 					M.emote("scream")
+
+
 			if(volume > 25)
 				if(!M.unacidable)
 					if(prob(75))

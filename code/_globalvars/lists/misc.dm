@@ -15,7 +15,6 @@ var/list/restricted_camera_networks = list( //Those networks can only be accesse
 	"UO45",
 	"UO45R",
 	"UO71",
-	"UO71R",
 	"Xeno",
 	"Hotel"
 	)
