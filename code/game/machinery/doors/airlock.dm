@@ -375,6 +375,13 @@ About the new airlock wires panel:
 /obj/machinery/door/airlock/bumpopen(mob/living/simple_animal/user as mob)
 	..(user)
 
+
+/obj/machinery/door/airlock/autoclose()
+	autoclose_timer = 0
+	if(!qdeleted(src) && !density && !operating && !locked && !welded && autoclose)
+		close()
+	return
+
 /obj/machinery/door/airlock/proc/isElectrified()
 	if(src.electrified_until != 0)
 		return 1
