@@ -15,7 +15,8 @@
 /obj/item/weapon/reagent_containers/glass/bottle/New()
 	..()
 	if(!icon_state)
-		icon_state = "rounded_bottle"
+		icon_state = pick("bottle", "small_bottle", "reagent_bottle", "wide_bottle", "round_bottle")
+		update_icon()
 
 /obj/item/weapon/reagent_containers/glass/bottle/on_reagent_change()
 	update_icon()
@@ -29,15 +30,15 @@
 		var/percent = round((reagents.total_volume / volume) * 100)
 		switch(percent)
 			if(0 to 24)
-				filling.icon_state = "bottle10"
+				filling.icon_state = "[icon_state]10"
 			if(25 to 49)
-				filling.icon_state = "bottle25"
+				filling.icon_state = "[icon_state]25"
 			if(50 to 74)
-				filling.icon_state = "bottle50"
+				filling.icon_state = "[icon_state]50"
 			if(75 to 90)
-				filling.icon_state = "bottle75"
+				filling.icon_state = "[icon_state]75"
 			if(91 to INFINITY)
-				filling.icon_state = "bottle100"
+				filling.icon_state = "[icon_state]100"
 
 		filling.icon += mix_color_from_reagents(reagents.reagent_list)
 		overlays += filling
@@ -49,37 +50,37 @@
 /obj/item/weapon/reagent_containers/glass/bottle/toxin
 	name = "toxin bottle"
 	desc = "A small bottle of toxins. Do not drink, it is poisonous."
-	icon = 'icons/obj/chemical.dmi'
+	icon_state = "small_bottle"
 	list_reagents = list("toxin" = 30)
 
 /obj/item/weapon/reagent_containers/glass/bottle/cyanide
 	name = "cyanide bottle"
 	desc = "A small bottle of cyanide. Bitter almonds?"
-	icon = 'icons/obj/chemical.dmi'
+	icon_state = "small_bottle"
 	list_reagents = list("cyanide" = 30)
 
 /obj/item/weapon/reagent_containers/glass/bottle/mutagen
 	name = "unstable mutagen bottle"
 	desc = "A small bottle of unstable mutagen. Randomly changes the DNA structure of whoever comes in contact."
-	icon = 'icons/obj/chemical.dmi'
+	icon_state = "bottle"
 	list_reagents = list("mutagen" = 30)
 
 /obj/item/weapon/reagent_containers/glass/bottle/ammonia
 	name = "ammonia bottle"
 	desc = "A small bottle."
-	icon = 'icons/obj/chemical.dmi'
+	icon_state = "bottle"
 	list_reagents = list("ammonia" = 30)
 
 /obj/item/weapon/reagent_containers/glass/bottle/diethylamine
 	name = "diethylamine bottle"
 	desc = "A small bottle."
-	icon = 'icons/obj/chemical.dmi'
+	icon_state = "round_bottle"
 	list_reagents = list("diethylamine" = 30)
 
 /obj/item/weapon/reagent_containers/glass/bottle/facid
 	name = "Fluorosulfuric Acid Bottle"
 	desc = "A small bottle. Contains a small amount of Fluorosulfuric Acid"
-	icon = 'icons/obj/chemical.dmi'
+	icon_state = "round_bottle"
 	list_reagents = list("facid" = 30)
 
 /obj/item/weapon/reagent_containers/glass/bottle/adminordrazine
@@ -92,49 +93,49 @@
 /obj/item/weapon/reagent_containers/glass/bottle/capsaicin
 	name = "Capsaicin Bottle"
 	desc = "A small bottle. Contains hot sauce."
-	icon = 'icons/obj/chemical.dmi'
+	icon_state = "round_bottle"
 	list_reagents = list("capsaicin" = 30)
 
 /obj/item/weapon/reagent_containers/glass/bottle/frostoil
 	name = "Frost Oil Bottle"
 	desc = "A small bottle. Contains cold sauce."
-	icon = 'icons/obj/chemical.dmi'
+	icon_state = "round_bottle"
 	list_reagents = list("frostoil" = 30)
 
 /obj/item/weapon/reagent_containers/glass/bottle/morphine
 	name = "Morphine Bottle"
 	desc = "A small bottle. Contains morphine."
-	icon = 'icons/obj/chemical.dmi'
+	icon_state = "round_bottle"
 	list_reagents = list("morphine" = 30)
 
 /obj/item/weapon/reagent_containers/glass/bottle/ether
 	name = "Ether Bottle"
 	desc = "A small bottle. Contains ether."
-	icon = 'icons/obj/chemical.dmi'
+	icon_state = "round_bottle"
 	list_reagents = list("ether" = 30)
 
 /obj/item/weapon/reagent_containers/glass/bottle/charcoal
 	name = "Charcoal Bottle"
 	desc = "A small bottle. Contains charcoal."
-	icon = 'icons/obj/chemical.dmi'
+	icon_state = "round_bottle"
 	list_reagents = list("charcoal" = 30)
 
 /obj/item/weapon/reagent_containers/glass/bottle/epinephrine
 	name = "Epinephrine Bottle"
 	desc = "A small bottle. Contains epinephrine."
-	icon = 'icons/obj/chemical.dmi'
+	icon_state = "round_bottle"
 	list_reagents = list("epinephrine" = 30)
 
 /obj/item/weapon/reagent_containers/glass/bottle/pancuronium
 	name = "Pancuronium Bottle"
 	desc = "A small bottle of pancuronium."
-	icon = 'icons/obj/chemical.dmi'
+	icon_state = "round_bottle"
 	list_reagents = list("pancuronium" = 30)
 
 /obj/item/weapon/reagent_containers/glass/bottle/sulfonal
 	name = "Sulfonal Bottle"
 	desc = "A small bottle of Sulfonal."
-	icon = 'icons/obj/chemical.dmi'
+	icon_state = "round_bottle"
 	list_reagents = list("sulfonal" = 30)
 
 //Reagent bottles
@@ -142,7 +143,7 @@
 /obj/item/weapon/reagent_containers/glass/bottle/reagent
 	name = "Reagent Bottle"
 	desc = "A bottle for storing reagents"
-	icon_state = "rbottle"
+	icon_state = "reagent_bottle"
 	volume = 50
 
 /obj/item/weapon/reagent_containers/glass/bottle/reagent/oil
@@ -190,7 +191,6 @@
 	desc = "A reagent bottle. Contains insulin."
 	list_reagents = list("insulin" = 50)
 
-
 /obj/item/weapon/reagent_containers/glass/bottle/reagent/hairgrownium
 	name = "Hair Grow Gel"
 	desc = "A bottle full of a stimulative hair growth formula"
@@ -215,114 +215,113 @@
 /obj/item/weapon/reagent_containers/glass/bottle/plasma
 	name = "plasma dust bottle"
 	desc = "A small bottle of plasma in dust form. Extremely toxic and reacts with micro-organisms inside blood."
-	icon_state = "bottle8"
+	icon_state = "wide_bottle"
 	list_reagents = list("plasma_dust" = 30)
 
 /obj/item/weapon/reagent_containers/glass/bottle/diphenhydramine
 	name = "diphenhydramine bottle"
 	desc = "A small bottle of diphenhydramine."
-	icon_state = "bottle20"
+	icon_state = "bottle"
 	list_reagents = list("diphenhydramine" = 30)
 
 /obj/item/weapon/reagent_containers/glass/bottle/flu_virion
 	name = "Flu virion culture bottle"
 	desc = "A small bottle. Contains H13N1 flu virion culture in synthblood medium."
-	icon_state = "bottle3"
+	icon_state = "round_bottle"
 	spawned_disease = /datum/disease/advance/flu
 
 /obj/item/weapon/reagent_containers/glass/bottle/epiglottis_virion
 	name = "Epiglottis virion culture bottle"
 	desc = "A small bottle. Contains Epiglottis virion culture in synthblood medium."
-	icon_state = "bottle3"
+	icon_state = "round_bottle"
 	spawned_disease = /datum/disease/advance/voice_change
 
 /obj/item/weapon/reagent_containers/glass/bottle/liver_enhance_virion
 	name = "Liver enhancement virion culture bottle"
 	desc = "A small bottle. Contains liver enhancement virion culture in synthblood medium."
-	icon_state = "bottle3"
+	icon_state = "round_bottle"
 	spawned_disease = /datum/disease/advance/heal
 
 /obj/item/weapon/reagent_containers/glass/bottle/hullucigen_virion
 	name = "Hullucigen virion culture bottle"
 	desc = "A small bottle. Contains hullucigen virion culture in synthblood medium."
-	icon_state = "bottle3"
+	icon_state = "round_bottle"
 	spawned_disease = /datum/disease/advance/hullucigen
 
 /obj/item/weapon/reagent_containers/glass/bottle/pierrot_throat
 	name = "Pierrot's Throat culture bottle"
 	desc = "A small bottle. Contains H0NI<42 virion culture in synthblood medium."
-	icon_state = "bottle3"
+	icon_state = "round_bottle"
 	spawned_disease = /datum/disease/pierrot_throat
 
 /obj/item/weapon/reagent_containers/glass/bottle/cold
 	name = "Rhinovirus culture bottle"
 	desc = "A small bottle. Contains XY-rhinovirus culture in synthblood medium."
-	icon_state = "bottle3"
+	icon_state = "round_bottle"
 	spawned_disease = /datum/disease/advance/cold
 
 /obj/item/weapon/reagent_containers/glass/bottle/retrovirus
 	name = "Retrovirus culture bottle"
 	desc = "A small bottle. Contains a retrovirus culture in a synthblood medium."
-	icon_state = "bottle3"
+	icon_state = "round_bottle"
 	spawned_disease = /datum/disease/dna_retrovirus
 
 /obj/item/weapon/reagent_containers/glass/bottle/gbs
 	name = "GBS culture bottle"
 	desc = "A small bottle. Contains Gravitokinetic Bipotential SADS+ culture in synthblood medium."//Or simply - General BullShit
-	icon_state = "bottle3"
+	icon_state = "round_bottle"
 	amount_per_transfer_from_this = 5
 	spawned_disease = /datum/disease/gbs
-
 /obj/item/weapon/reagent_containers/glass/bottle/fake_gbs
 	name = "GBS culture bottle"
 	desc = "A small bottle. Contains Gravitokinetic Bipotential SADS- culture in synthblood medium."//Or simply - General BullShit
-	icon_state = "bottle3"
+	icon_state = "round_bottle"
 	spawned_disease = /datum/disease/fake_gbs
 
 /obj/item/weapon/reagent_containers/glass/bottle/brainrot
 	name = "Brainrot culture bottle"
 	desc = "A small bottle. Contains Cryptococcus Cosmosis culture in synthblood medium."
-	icon_state = "bottle3"
+	icon_state = "round_bottle"
 	spawned_disease = /datum/disease/brainrot
 
 /obj/item/weapon/reagent_containers/glass/bottle/magnitis
 	name = "Magnitis culture bottle"
 	desc = "A small bottle. Contains a small dosage of Fukkos Miracos."
-	icon_state = "bottle3"
+	icon_state = "round_bottle"
 	spawned_disease = /datum/disease/magnitis
 
 /obj/item/weapon/reagent_containers/glass/bottle/wizarditis
 	name = "Wizarditis culture bottle"
 	desc = "A small bottle. Contains a sample of Rincewindus Vulgaris."
-	icon_state = "bottle3"
+	icon_state = "round_bottle"
 	spawned_disease = /datum/disease/wizarditis
 
 /obj/item/weapon/reagent_containers/glass/bottle/anxiety
 	name = "Severe Anxiety culture bottle"
 	desc = "A small bottle. Contains a sample of Lepidopticides."
-	icon_state = "bottle3"
+	icon_state = "round_bottle"
 	spawned_disease = /datum/disease/anxiety
 
 /obj/item/weapon/reagent_containers/glass/bottle/beesease
 	name = "Beesease culture bottle"
 	desc = "A small bottle. Contains a sample of invasive Apidae."
-	icon_state = "bottle3"
+	icon_state = "round_bottle"
 	spawned_disease = /datum/disease/beesease
 
 /obj/item/weapon/reagent_containers/glass/bottle/fluspanish
 	name = "Spanish flu culture bottle"
 	desc = "A small bottle. Contains a sample of Inquisitius."
-	icon_state = "bottle3"
+	icon_state = "round_bottle"
 	spawned_disease = /datum/disease/fluspanish
 
 /obj/item/weapon/reagent_containers/glass/bottle/tuberculosis
 	name = "Fungal Tuberculosis culture bottle"
 	desc = "A small bottle. Contains a sample of Fungal Tubercle bacillus."
-	icon_state = "bottle3"
+	icon_state = "round_bottle"
 	spawned_disease = /datum/disease/tuberculosis
 
 /obj/item/weapon/reagent_containers/glass/bottle/tuberculosiscure
 	name = "BVAK bottle"
 	desc = "A small bottle containing Bio Virus Antidote Kit."
-	icon_state = "bottle5"
+	icon_state = "wide_bottle"
 	list_reagents = list("atropine" = 5, "epinephrine" = 5, "salbutamol" = 10, "spaceacillin" = 10)
