@@ -394,7 +394,7 @@
 	var/useramount = 30 // Last used amount
 	var/pillamount = 10
 	var/patchamount = 10
-	var/bottlesprite = "1" //yes, strings
+	var/bottlesprite = "rounded_bottle"
 	var/pillsprite = "1"
 	var/client/has_sprites = list()
 	var/printing = null
@@ -646,7 +646,7 @@
 				P.name = "[name] bottle"
 				P.pixel_x = rand(-7, 7) //random position
 				P.pixel_y = rand(-7, 7)
-				P.icon_state = "bottle"+bottlesprite
+				P.icon_state = bottlesprite
 				reagents.trans_to(P,30)
 			else
 				var/obj/item/weapon/reagent_containers/food/condiment/P = new/obj/item/weapon/reagent_containers/food/condiment(loc)
@@ -667,14 +667,13 @@
 			usr << browse(dat, "window=chem_master_iconsel;size=225x193")
 			return
 		else if(href_list["change_bottle"])
-			#define MAX_BOTTLE_SPRITE 20 //max icon state of the bottle sprites
 			var/dat = "<table>"
 			var/j = 0
-			for(var/i = 1 to MAX_BOTTLE_SPRITE)
+			for(var/i in list("rounded_bottle"))
 				j++
 				if(j == 1)
 					dat += "<tr>"
-				dat += "<td><a href=\"?src=\ref[src]&bottle_sprite=[i]\"><img src=\"bottle[i].png\" /></a></td>"
+				dat += "<td><a href=\"?src=\ref[src]&bottle_sprite=[i]\"><img src=\"[i].png\" /></a></td>"
 				if(j == 5)
 					dat += "</tr>"
 					j = 0
@@ -728,6 +727,7 @@
 			buffer_reagents_list[++buffer_reagents_list.len] = list("name" = R.name, "volume" = R.volume, "id" = R.id, "description" = R.description)
 
 	data["pillsprite"] = pillsprite
+	data["bottlesprite"] = bottlesprite
 	data["mode"] = mode
 
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
