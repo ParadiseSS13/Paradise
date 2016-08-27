@@ -519,7 +519,7 @@
 			</script>", "border=0;titlebar=0;size=1x1")
 			sleep(10) // Since browse is non-instant, and kinda async
 
-			to_chat("<pre class=\"system system\">If you didn't reconnect automatically, please do so now.</pre>")
+			to_chat(src, "<pre class=\"system system\">If you didn't reconnect automatically, please do so now. ;)</pre>")
 			del(src)
 			return TRUE
 	else
