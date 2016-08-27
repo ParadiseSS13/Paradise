@@ -577,4 +577,17 @@
 
 	light_color = LIGHT_COLOR_DARKRED
 
+/obj/machinery/sleeper/syndie/New()
+	..()
+	component_parts = list()
+	component_parts += new /obj/item/weapon/circuitboard/sleeper/syndicate(null)
+	var/obj/item/weapon/stock_parts/matter_bin/B = new(null)
+	B.rating = initial_bin_rating
+	component_parts += B
+	component_parts += new /obj/item/weapon/stock_parts/manipulator(null)
+	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
+	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
+	component_parts += new /obj/item/stack/cable_coil(null, 1)
+	RefreshParts()
+
 #undef ADDICTION_SPEEDUP_TIME

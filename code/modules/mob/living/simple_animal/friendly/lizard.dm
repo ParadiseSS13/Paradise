@@ -5,7 +5,6 @@
 	icon_state = "lizard"
 	icon_living = "lizard"
 	icon_dead = "lizard-dead"
-	small = 1
 	speak_emote = list("hisses")
 	health = 5
 	maxHealth = 5
@@ -19,6 +18,7 @@
 	ventcrawler = 2
 	density = 0
 	pass_flags = PASSTABLE | PASSMOB
+	mob_size = MOB_SIZE_SMALL
 	can_hide = 1
 	butcher_results = list(/obj/item/weapon/reagent_containers/food/snacks/meat = 1)
 	can_collar = 1

@@ -43,7 +43,7 @@
 
 /datum/surgery/proc/complete(mob/living/carbon/human/target)
 	target.surgeries -= src
-	src = null
+	qdel(src)
 
 
 
@@ -95,6 +95,8 @@
 	return 0
 
 /datum/surgery_step/proc/initiate(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	if(!can_use(user, target, target_zone, tool, surgery))
+		return
 	surgery.step_in_progress = 1
 
 	if(begin_step(user, target, target_zone, tool, surgery) == -1)
@@ -110,7 +112,7 @@
 
 	if(prob_chance > 100)//if we are using a super tool
 		time = time/prob_chance //PLACEHOLDER VALUES
-
+	
 	if(do_after(user, time, target = target))
 
 
@@ -154,7 +156,7 @@
 
 // checks whether this step can be applied with the given user and target
 /datum/surgery_step/proc/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
-	return 0
+	return 1
 
 // does stuff to begin the step, usually just printing messages. Moved germs transfering and bloodying here too
 /datum/surgery_step/proc/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)

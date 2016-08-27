@@ -1232,13 +1232,13 @@ steam.start() -- spawns the effect
 	var/amount = 6.0
 	anchored = 1.0
 	mouse_opacity = 0
+
 /obj/effect/sparkles/New()
 	..()
 	var/icon/I = new(src.icon,src.icon_state)
 	var/r = rand(0,255)
 	var/g = rand(0,255)
 	var/b = rand(0,255)
-	log_to_dd("Colour , [r],[g],[b]")
 	I.Blend(rgb(r,g,b),ICON_MULTIPLY)
 	src.icon = I
 	playsound(src.loc, "sparks", 100, 1)

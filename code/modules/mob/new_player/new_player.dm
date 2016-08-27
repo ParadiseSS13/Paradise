@@ -296,18 +296,13 @@
 	// AIs don't need a spawnpoint, they must spawn at an empty core
 	if(character.mind.assigned_role == "AI")
 
-		character = character.AIize(move=0) // AIize the character, but don't move them yet
+		var/mob/living/silicon/ai/ai_character = character.AIize() // AIize the character, but don't move them yet
 
 		// IsJobAvailable for AI checks that there is an empty core available in this list
-		var/obj/structure/AIcore/deactivated/C = empty_playable_ai_cores[1]
-		empty_playable_ai_cores -= C
+		ai_character.moveToEmptyCore()
+		AnnounceCyborg(ai_character, rank, "has been downloaded to the empty core in \the [get_area(ai_character)]")
 
-		character.loc = C.loc
-
-		AnnounceCyborg(character, rank, "has been downloaded to the empty core in \the [get_area(character)]")
-		ticker.mode.latespawn(character)
-
-		qdel(C)
+		ticker.mode.latespawn(ai_character)
 		qdel(src)
 		return
 
@@ -515,14 +510,14 @@
 		chosen_species = all_species[client.prefs.species]
 	if(!(chosen_species && (is_species_whitelisted(chosen_species) || has_admin_rights())))
 		// Have to recheck admin due to no usr at roundstart. Latejoins are fine though.
-		log_debug("[src] had species [client.prefs.species], though they weren't supposed to. Setting to Human.")
+		log_runtime(EXCEPTION("[src] had species [client.prefs.species], though they weren't supposed to. Setting to Human."), src)
 		client.prefs.species = "Human"
 
 	var/datum/language/chosen_language
 	if(client.prefs.language)
 		chosen_language = all_languages[client.prefs.language]
 	if((chosen_language == null && client.prefs.language != "None") || (chosen_language && chosen_language.flags & RESTRICTED))
-		log_debug("[src] had language [client.prefs.language], though they weren't supposed to. Setting to None.")
+		log_runtime(EXCEPTION("[src] had language [client.prefs.language], though they weren't supposed to. Setting to None."), src)
 		client.prefs.language = "None"
 
 /mob/new_player/proc/ViewManifest()

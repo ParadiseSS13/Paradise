@@ -12,5 +12,5 @@
 	M.add_language("Psionic Communication")
 
 /obj/item/organ/internal/brain/grey/remove(var/mob/living/carbon/M, var/special = 0)
-	..()
+	. = ..()
 	M.remove_language("Psionic Communication")

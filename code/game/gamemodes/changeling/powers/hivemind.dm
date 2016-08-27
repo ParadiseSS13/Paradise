@@ -62,7 +62,7 @@ var/list/datum/dna/hivemind_bank = list()
 	if(!..())
 		return
 	var/datum/changeling/changeling = user.mind.changeling
-	if(changeling.absorbed_dna[1] == user.dna)//If our current DNA is the stalest, we gotta ditch it.
+	if(changeling.using_stale_dna(user))//If our current DNA is the stalest, we gotta ditch it.
 		to_chat(user, "<span class='warning'>We have reached our capacity to store genetic information! We must transform before absorbing more.</span>")
 		return
 	return 1
@@ -84,8 +84,6 @@ var/list/datum/dna/hivemind_bank = list()
 	if(!chosen_dna)
 		return
 
-	if(changeling.absorbed_dna.len)
-		changeling.absorbed_dna.Cut(1,2)
 	changeling.store_dna(chosen_dna, user)
 	to_chat(user, "<span class='notice'>We absorb the DNA of [S] from the air.</span>")
 	feedback_add_details("changeling_powers","HD")

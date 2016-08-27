@@ -82,6 +82,7 @@
 	desc = "moustache is totally real."
 	icon_state = "fake-moustache"
 	flags_inv = HIDEFACE
+	actions_types = list(/datum/action/item_action/pontificate)
 	species_fit = list("Vox", "Unathi", "Tajaran", "Vulpkanin")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/mask.dmi',
@@ -90,12 +91,15 @@
 		"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi'
 		)
 
-/obj/item/clothing/mask/fakemoustache/verb/pontificate()
-	set name = "Pontificate Evilly"
-	set category = "Object"
-	set desc = "Devise evil plans of evilness."
+/obj/item/clothing/mask/fakemoustache/attack_self(mob/user)
+	pontificate(user)
 
-	usr.visible_message("<span class = 'danger'>\ [usr] twirls \his moustache and laughs [pick("fiendishly","maniacally","diabolically","evilly")]!</span>")
+/obj/item/clothing/mask/fakemoustache/item_action_slot_check(slot)
+	if(slot == slot_wear_mask)
+		return 1
+
+/obj/item/clothing/mask/fakemoustache/proc/pontificate(mob/user)
+	user.visible_message("<span class='danger'>\ [user] twirls \his moustache and laughs [pick("fiendishly","maniacally","diabolically","evilly")]!</span>")
 
 //scarves (fit in in mask slot)
 

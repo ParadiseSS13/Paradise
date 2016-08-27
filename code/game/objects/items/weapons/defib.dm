@@ -352,7 +352,7 @@
 				if(ghost && !ghost.client)
 					// In case the ghost's not getting deleted for some reason
 					H.key = ghost.key
-					log_to_dd("Ghost of name [ghost.name] is bound to [H.real_name], but lacks a client. Deleting ghost.")
+					log_runtime(EXCEPTION("Ghost of name [ghost.name] is bound to [H.real_name], but lacks a client. Deleting ghost."), src)
 
 					qdel(ghost)
 					ghost = null
@@ -499,7 +499,7 @@
 				if(ghost && !ghost.client)
 					// In case the ghost's not getting deleted for some reason
 					H.key = ghost.key
-					log_to_dd("Ghost of name [ghost.name] is bound to [H.real_name], but lacks a client. Deleting ghost.")
+					log_runtime(EXCEPTION("Ghost of name [ghost.name] is bound to [H.real_name], but lacks a client. Deleting ghost."), H)
 
 					qdel(ghost)
 					ghost = null

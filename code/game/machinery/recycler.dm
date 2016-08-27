@@ -113,7 +113,9 @@ var/const/SAFETY_COOLDOWN = 100
 
 	for(var/i in to_eat)
 		var/atom/movable/AM = i
-		if(isliving(AM))
+		if(!exists(AM))
+			continue
+		else if(isliving(AM))
 			if(emagged)
 				crush_living(AM)
 			else
@@ -123,7 +125,7 @@ var/const/SAFETY_COOLDOWN = 100
 			items_recycled++
 		else
 			playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, 0)
-			AM.loc = loc
+			AM.forceMove(loc)
 
 	if(items_recycled && sound)
 		playsound(loc, item_recycle_sound, 100, 0)

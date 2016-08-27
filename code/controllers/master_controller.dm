@@ -15,6 +15,9 @@ var/global/pipe_processing_killed = 0
 	var/iteration = 0
 	var/processing_interval = 0
 
+	// Dummy object to let us click it to debug while in the stat panel
+	var/obj/effect/statclick/debug/statclick
+
 /datum/controller/proc/recover() // If we are replacing an existing controller (due to a crash) we attempt to preserve as much as we can.
 
 /datum/controller/game_controller

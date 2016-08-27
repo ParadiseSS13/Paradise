@@ -39,57 +39,57 @@
 /datum/space_level/proc/build_space_destination_arrays()
 	// We skip `add_to_transit` here because we want to skip the checks in order to save time
 	// Bottom border
-	for(var/turf/space/S in block(locate(1,1,zpos),locate(world.maxx,TRANSITIONEDGE+1,zpos)))
+	for(var/turf/space/S in block(locate(1,1,zpos),locate(world.maxx,TRANSITION_BORDER_SOUTH,zpos)))
 		transit_south |= S
 
 	// Top border
-	for(var/turf/space/S in block(locate(1,world.maxy,zpos),locate(world.maxx,world.maxy - TRANSITIONEDGE - 1,zpos)))
+	for(var/turf/space/S in block(locate(1,world.maxy,zpos),locate(world.maxx,TRANSITION_BORDER_NORTH,zpos)))
 		transit_north |= S
 
 	// Left border
-	for(var/turf/space/S in block(locate(1,TRANSITIONEDGE+1,zpos),locate(TRANSITIONEDGE+1,world.maxy - TRANSITIONEDGE - 2,zpos)))
+	for(var/turf/space/S in block(locate(1,TRANSITION_BORDER_SOUTH + 1,zpos),locate(TRANSITION_BORDER_WEST,TRANSITION_BORDER_NORTH - 1,zpos)))
 		transit_west |= S
 
 	// Right border
-	for(var/turf/space/S in block(locate(world.maxx - TRANSITIONEDGE - 1,TRANSITIONEDGE+1,zpos),locate(world.maxx,world.maxy - TRANSITIONEDGE - 2,zpos)))
+	for(var/turf/space/S in block(locate(TRANSITION_BORDER_EAST,TRANSITION_BORDER_SOUTH + 1,zpos),locate(world.maxx,TRANSITION_BORDER_NORTH - 1,zpos)))
 		transit_east |= S
 
 /datum/space_level/proc/add_to_transit(turf/space/S)
-	if(S.y <= TRANSITIONEDGE)
+	if(S.y <= TRANSITION_BORDER_SOUTH)
 		transit_south |= S
 		return
 
 	// Top border
-	if(S.y >= (world.maxy - TRANSITIONEDGE - 1))
+	if(S.y >= TRANSITION_BORDER_NORTH)
 		transit_north |= S
 		return
 
 	// Left border
-	if(S.x <= TRANSITIONEDGE)
+	if(S.x <= TRANSITION_BORDER_WEST)
 		transit_west |= S
 		return
 
 	// Right border
-	if(S.x >= (world.maxx - TRANSITIONEDGE - 1))
+	if(S.x >= TRANSITION_BORDER_EAST)
 		transit_east |= S
 
 /datum/space_level/proc/remove_from_transit(turf/space/S)
-	if(S.y <= TRANSITIONEDGE)
+	if(S.y <= TRANSITION_BORDER_SOUTH)
 		transit_south -= S
 		return
 
 	// Top border
-	if(S.y >= (world.maxy - TRANSITIONEDGE - 1))
+	if(S.y >= TRANSITION_BORDER_NORTH)
 		transit_north -= S
 		return
 
 	// Left border
-	if(S.x <= TRANSITIONEDGE)
+	if(S.x <= TRANSITION_BORDER_WEST)
 		transit_west -= S
 		return
 
 	// Right border
-	if(S.x >= (world.maxx - TRANSITIONEDGE - 1))
+	if(S.x >= TRANSITION_BORDER_EAST)
 		transit_east -= S
 
 /datum/space_level/proc/apply_transition(turf/space/S)
@@ -101,16 +101,16 @@
 		if(SELFLOOPING,CROSSLINKED)
 			var/datum/space_level/E = get_connection()
 			if(S in transit_north)
-				E = get_connection("[NORTH]")
+				E = get_connection(Z_LEVEL_NORTH)
 				S.set_transition_north(E.zpos)
 			if(S in transit_south)
-				E = get_connection("[SOUTH]")
+				E = get_connection(Z_LEVEL_SOUTH)
 				S.set_transition_south(E.zpos)
 			if(S in transit_east)
-				E = get_connection("[EAST]")
+				E = get_connection(Z_LEVEL_EAST)
 				S.set_transition_east(E.zpos)
 			if(S in transit_west)
-				E = get_connection("[WEST]")
+				E = get_connection(Z_LEVEL_WEST)
 				S.set_transition_west(E.zpos)
 
 

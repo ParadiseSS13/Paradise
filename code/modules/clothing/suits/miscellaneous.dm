@@ -763,6 +763,8 @@
 	armor = list(melee = 5, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
 	allowed = list(/obj/item/weapon/gun/energy,/obj/item/weapon/reagent_containers/spray/pepper,/obj/item/weapon/gun/projectile,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/weapon/melee/baton,/obj/item/weapon/restraints/handcuffs,/obj/item/device/flashlight/seclite)
 	actions_types = list(/datum/action/item_action/toggle_wings)
+
+/obj/item/clothing/suit/toggle/owlwings/super_hero
 	flags = NODROP
 
 /obj/item/clothing/suit/toggle/owlwings/griffinwings
@@ -770,6 +772,9 @@
 	desc = "A plush white cloak made of synthetic feathers. Soft to the touch, stylish, and a 2 meter wing span that will drive your captives mad."
 	icon_state = "griffin_wings"
 	item_state = "griffin_wings"
+
+/obj/item/clothing/suit/toggle/owlwings/griffinwings/super_hero
+	flags = NODROP
 
 /obj/item/clothing/suit/toggle/attack_self()
 	if(icon_state == initial(icon_state))
@@ -852,3 +857,45 @@
 				user.reagents.add_reagent("syndicate_nanites", 15)
 	else
 		processing_objects.Remove(src)
+
+//Syndicate Chaplain Robe (WOLOLO!)
+/obj/item/clothing/suit/hooded/chaplain_hoodie/missionary_robe
+	description_antag = "This robe is made of reinforced fibers, granting it superior protection. The robes also wirelessly generate power for the neurotransmitter in the linked missionary staff while being worn."
+	armor = list(melee = 10, bullet = 10, laser = 5, energy = 5, bomb = 0, bio = 0, rad = 15)
+	var/obj/item/weapon/nullrod/missionary_staff/linked_staff = null
+
+/obj/item/clothing/suit/hooded/chaplain_hoodie/missionary_robe/Destroy()
+	if(linked_staff)	//delink on destruction
+		linked_staff.robes = null
+		linked_staff = null
+	processing_objects -= src	//probably is cleared in a parent call already, but just in case we're gonna do it here
+	return ..()
+
+/obj/item/clothing/suit/hooded/chaplain_hoodie/missionary_robe/equipped(mob/living/carbon/human/H, slot)
+	if(!istype(H) || slot != slot_wear_suit)
+		processing_objects -= src
+		return
+	else
+		processing_objects |= src
+
+/obj/item/clothing/suit/hooded/chaplain_hoodie/missionary_robe/process()
+	if(!linked_staff)	//if we don't have a linked staff, the rest of this is useless
+		return
+
+	if(!ishuman(loc))		//if we somehow try to process while not on a human, remove ourselves from processing and return
+		processing_objects -= src
+		return
+
+	var/mob/living/carbon/human/H = loc
+
+	if(linked_staff.faith >= 100)	//if the linked staff is fully recharged, do nothing
+		return
+
+	if(!linked_staff in range(3, get_turf(src)))		//staff won't charge at range (to prevent it from being handed off / stolen and used)
+		if(prob(10))	//10% chance per process should avoid being too spammy, can tweak if it ends up still being too frequent.
+			to_chat(H, "<span class='warning'>Your staff is unable to charge at this range. Get closer!</span>")
+		return
+
+	linked_staff.faith += 5
+	if(linked_staff.faith >= 100)	//if this charge puts the staff at or above full, notify the wearer
+		to_chat(H, "<span class='notice'>Faith renewed; ready to convert new followers.</span>")

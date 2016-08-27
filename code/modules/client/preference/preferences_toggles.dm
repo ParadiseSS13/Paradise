@@ -194,20 +194,6 @@
 		to_chat(src, "You will no longer hear musical instruments.")
 	feedback_add_details("admin_verb","TInstru") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/client/verb/toggle_media()
-	set name = "Hear/Silence Streaming"
-	set category = "Preferences"
-	set desc = "Toggle hearing streaming media (radios, jukeboxes, etc)"
-
-	prefs.sound ^= SOUND_STREAMING
-	prefs.save_preferences(src)
-	to_chat(usr, "You will [(prefs.sound & SOUND_STREAMING) ? "now" : "no longer"] hear streamed media.")
-	if(!media) return
-	if(prefs.sound & SOUND_STREAMING)
-		media.update_music()
-	else
-		media.stop_music()
-
 /client/verb/setup_character()
 	set name = "Game Preferences"
 	set category = "Preferences"

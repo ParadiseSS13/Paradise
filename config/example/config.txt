@@ -86,12 +86,10 @@ PROBABILITY VAMPIRE 3
 PROBABILITY RAGINMAGES 0
 PROBABILITY BORER 0
 PROBABILITY XENOS 0
-PROBABILITY MUTINY 0
-PROBABILITY METEOR 1
+PROBABILITY METEOR 0
 PROBABILITY TRAITOR 0
 PROBABILITY SHADOWLING 2
-PROBABILITY NATIONS 1
-PROBABILITY RP-REVOLUTION 0
+PROBABILITY NATIONS 0
 
 ## Hash out to disable random events during the round.
 ALLOW_RANDOM_EVENTS
@@ -180,9 +178,6 @@ GUEST_BAN
 
 ## Ban appeals URL - usually for a forum or wherever people should go to contact your admins
 # BANAPPEALS http://example.org
-
-## Media base URL - determines where to pull the jukebox playlist from.
-# MEDIA_BASE_URL http://example.org
 
 ## In-game features
 ## spawns a spellbook which gives object-type spells instead of verb-type spells for the wizard
