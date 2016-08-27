@@ -1755,12 +1755,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 				if("be_special")
 					var/r = href_list["role"]
-					if(!(r in special_roles))
-						var/cleaned_r = sql_sanitize_text(r)
-						if(r != cleaned_r) // up to no good
-							message_admins("[user] attempted an href exploit! (This could have possibly lead to a \"Bobby Tables\" exploit, so they're probably up to no good). String: [r] ID: [last_id] IP: [last_ip]")
-							to_chat(user, "<span class='userdanger'>Stop right there, criminal scum</span>")
-					else
+					if(r in special_roles)
 						be_special ^= r
 
 				if("name")
@@ -1849,10 +1844,6 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	character.change_gender(gender)
 	character.age = age
 	character.b_type = b_type
-
-	character.r_eyes = r_eyes
-	character.g_eyes = g_eyes
-	character.b_eyes = b_eyes
 
 	//Head-specific
 	var/obj/item/organ/external/head/H = character.get_organ("head")
@@ -1972,6 +1963,8 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 		if(isliving(src)) //Ghosts get neuter by default
 			message_admins("[key_name_admin(character)] has spawned with their gender as plural or neuter. Please notify coders.")
 			character.change_gender(MALE)
+
+	character.change_eye_color(r_eyes, g_eyes, b_eyes)
 
 	character.dna.ready_dna(character, flatten_SE = 0)
 	character.sync_organ_dna(assimilate=1)

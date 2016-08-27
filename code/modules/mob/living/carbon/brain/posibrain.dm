@@ -72,7 +72,7 @@
 
 // This should not ever happen, but let's be safe
 /obj/item/device/mmi/posibrain/dropbrain(var/turf/dropspot)
-	log_to_dd("[src] at [loc] attempted to drop brain without a contained brain.")
+	log_runtime(EXCEPTION("[src] at [loc] attempted to drop brain without a contained brain."), src)
 	return
 
 /obj/item/device/mmi/posibrain/transfer_identity(var/mob/living/carbon/H)

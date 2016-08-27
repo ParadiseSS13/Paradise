@@ -91,6 +91,7 @@
 	environment_smash = 2
 	attack_sound = 'sound/weapons/punch3.ogg'
 	status_flags = 0
+	mob_size = MOB_SIZE_LARGE
 	construct_spells = list(/obj/effect/proc_holder/spell/aoe_turf/conjure/lesserforcewall)
 	force_threshold = 11
 

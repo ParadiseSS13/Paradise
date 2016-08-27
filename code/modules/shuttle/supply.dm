@@ -646,7 +646,7 @@
 		return 1
 
 	if(!shuttle_master)
-		log_to_dd("## ERROR: The shuttle_master controller datum is missing somehow.")
+		log_runtime(EXCEPTION("The shuttle_master controller datum is missing somehow."), src)
 		return 1
 
 	if(href_list["send"])
@@ -824,7 +824,7 @@
 				return 1
 
 		var/mob/living/M = caller
-		if(!M.ventcrawler && !M.small)
+		if(!M.ventcrawler && M.mob_size > MOB_SIZE_SMALL)
 			return 0
 	return 1
 

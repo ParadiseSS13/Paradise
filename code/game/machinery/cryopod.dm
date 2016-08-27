@@ -303,6 +303,13 @@
 				preserve = 1
 				break
 
+		if(istype(W,/obj/item/device/pda))
+			var/obj/item/device/pda/P = W
+			if(P.id)
+				qdel(P.id)
+				P.id = null
+			qdel(P)
+
 		if(!preserve)
 			qdel(W)
 		else

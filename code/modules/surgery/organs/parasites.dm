@@ -33,3 +33,4 @@
 	..()
 	M.reagents.del_reagent("spidereggs") //purge all remaining spider eggs reagent if caught, in time.
 	qdel(src) //We don't want people re-implanting these for near instant gibbings.
+	return null

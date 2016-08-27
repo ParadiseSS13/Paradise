@@ -326,6 +326,11 @@
 		if(H.head == src)
 			H.slurring = max(3, H.slurring) //always slur
 
+/obj/item/clothing/head/beret/fluff/linda //Epic_Charger: Linda Clark
+	name = "Green beret"
+	desc = "A beret, an artist's favorite headwear. This one has two holes cut on the edges."
+	icon_state = "linda_beret"
+
 //////////// Suits ////////////
 /obj/item/clothing/suit/storage/labcoat/fluff/aeneas_rinil //Socialsystem: Lynn Fea
 	name = "Robotics labcoat"
@@ -391,6 +396,16 @@
 	desc = "A greatcoat with Nanotrasen colors."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "stobarico_jacket"
+
+
+/obj/item/clothing/suit/hooded/hoodie/fluff/linda // Epic_Charger: Linda Clark
+	name = "Green Nanotrasen Hoodie"
+	desc = "A green hoodie with the Nanotrasen logo on the back. It looks weathered."
+	icon_state = "linda_hoodie"
+	hoodtype = /obj/item/clothing/head/hood/fluff/linda
+
+/obj/item/clothing/head/hood/fluff/linda //Epic_Charger: Linda Clark
+	icon_state = "greenhood"
 
 //////////// Uniforms ////////////
 /obj/item/clothing/under/fluff/kharshai // Kharshai: Athena Castile

@@ -33,7 +33,6 @@
 	icon_living = "parrot_fly"
 	icon_dead = "parrot_dead"
 	pass_flags = PASSTABLE
-	small = 1
 	can_collar = 1
 
 	var/list/clean_speak = list(
@@ -54,6 +53,7 @@
 	response_harm   = "swats the"
 	stop_automated_movement = 1
 	universal_speak = 1
+	mob_size = MOB_SIZE_SMALL
 
 	var/parrot_state = PARROT_WANDER //Hunt for a perch when created
 	var/parrot_sleep_max = 25 //The time the parrot sits while perched before looking around. Mosly a way to avoid the parrot's AI in process_ai() being run every single tick.

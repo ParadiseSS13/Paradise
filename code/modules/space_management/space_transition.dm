@@ -1,9 +1,5 @@
 //This is realisation of the working torus-looping randomized-per-round space map, this kills the cube
 
-#define Z_LEVEL_NORTH 		"1"
-#define Z_LEVEL_SOUTH 		"2"
-#define Z_LEVEL_EAST 		"4"
-#define Z_LEVEL_WEST 		"8"
 
 /proc/get_opposite_direction(direction)
 	switch(direction)
@@ -430,9 +426,3 @@
 			else
 				our_spot = our_spot.ChangeTurf(/turf/simulated/floor/fakespace)
 			our_spot.desc = grid_desc
-
-
-#undef Z_LEVEL_NORTH
-#undef Z_LEVEL_SOUTH
-#undef Z_LEVEL_EAST
-#undef Z_LEVEL_WEST

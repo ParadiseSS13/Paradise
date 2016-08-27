@@ -49,7 +49,7 @@
 	user.show_message("<span class=notice>\t Key: Suffocation/Toxin/Burns/Brute</span>", 1)
 	user.show_message("<span class=notice>\t Body Temperature: [C.bodytemperature-T0C]&deg;C ([C.bodytemperature*1.8-459.67]&deg;F)</span>", 1)
 	if(C.timeofdeath && (C.stat == DEAD || (C.status_flags & FAKEDEATH)))
-		user.show_message("<span class=notice>\t Time of Death: [C.timeofdeath]</span>")
+		user.show_message("<span class=notice>\t Time of Death: [worldtime2text(C.timeofdeath)]</span>")
 	if(istype(C, /mob/living/carbon/human))
 		var/mob/living/carbon/human/H = C
 		var/list/damaged = H.get_damaged_organs(1,1)
@@ -162,7 +162,7 @@
 		// JMO 20140705: Makes scanned document show up properly in the notes. Not pretty for formatted documents,
 		// as this will clobber the HTML, but at least it lets you scan a document. You can restore the original
 		// notes by editing the note again. (Was going to allow you to edit, but scanned documents are too long.)
-		var/raw_scan = sanitize_simple(P.info, list("\t" = "", "ÿ" = ""))
+		var/raw_scan = sanitize_simple(P.info, list("\t" = "", "Ã¿" = ""))
 		var/formatted_scan = ""
 		// Scrub out the tags (replacing a few formatting ones along the way)
 		// Find the beginning and end of the first tag.

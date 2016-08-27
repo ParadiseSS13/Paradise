@@ -15,6 +15,10 @@
 
 // Run all strings to be used in an SQL query through this proc first to properly escape out injection attempts.
 /proc/sanitizeSQL(var/t as text)
+	if(isnull(t))
+		return null
+	if(!istext(t))
+		t = "[t]" // Just quietly assume any non-texts are supposed to be text
 	var/sqltext = dbcon.Quote(t);
 	return copytext(sqltext, 2, lentext(sqltext));//Quote() adds quotes around input, we already do that
 
@@ -400,7 +404,7 @@ proc/checkhtml(var/t)
 		var/index = findtext(text, char)
 		var/keylength = length(char)
 		while(index)
-			log_debug("Bad string given to dmm encoder! [text]")
+			log_runtime(EXCEPTION("Bad string given to dmm encoder! [text]"))
 			// Replace w/ underscore to prevent "&#3&#123;4;" from cheesing the radar
 			// Should probably also use canon text replacing procs
 			text = copytext(text, 1, index) + "_" + copytext(text, index+keylength)

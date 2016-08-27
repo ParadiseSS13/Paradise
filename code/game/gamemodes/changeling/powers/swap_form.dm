@@ -38,10 +38,12 @@
 
 	to_chat(target, "<span class='userdanger'>[user] tightens their grip as a painful sensation invades your body.</span>")
 
+	changeling.absorbed_dna -= changeling.find_dna(user.dna)
+	changeling.protected_dna -= changeling.find_dna(user.dna)
+	changeling.absorbedcount -= 1
 	if(!changeling.has_dna(target.dna))
 		changeling.absorb_dna(target, user)
-	changeling.protected_dna -= user.dna
-	changeling.absorbed_dna -= user.dna
+	changeling.trim_dna()
 
 	var/mob/dead/observer/ghost = target.ghostize(0)
 	user.mind.transfer_to(target)
@@ -52,6 +54,6 @@
 	user.Paralyse(2)
 	target.add_language("Changeling")
 	user.remove_language("Changeling")
-	transfer_changeling_powers(user, target)
 
 	to_chat(target, "<span class='warning'>Our genes cry out as we swap our [user] form for [target].</span>")
+	return 1
