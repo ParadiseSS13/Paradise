@@ -56,6 +56,7 @@
 	//search the href for script injection
 	if( findtext(href,"<script",1,0) )
 		log_to_dd("Attempted use of scripts within a topic call, by [src]")
+		log_runtime(EXCEPTION("Attempted use of scripts within a topic call, by [src]"), src)
 		message_admins("Attempted use of scripts within a topic call, by [src]")
 		return
 
