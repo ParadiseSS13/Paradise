@@ -58,10 +58,6 @@
 			DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/green, 2, 1)
 		fed--
 
-/mob/living/simple_animal/hostile/poison/terror_spider/green/harvest()
-	new /obj/item/weapon/reagent_containers/terrorspider_parts/toxgland_green(get_turf(src))
-	gib()
-
 /mob/living/simple_animal/hostile/poison/terror_spider/green/ShowGuide()
 	..()
 	var/guidetext = "GREEN TERROR guide:"

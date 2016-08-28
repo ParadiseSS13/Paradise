@@ -17,7 +17,6 @@
 	to_chat(src, " - Show Orders - Tells you how aggressive/defensive you should be. Queens can change this.")
 	to_chat(src, " - Web - Spins a terror web. Non-spiders get trapped if they touch a web.")
 	to_chat(src, " - Eat Corpse - Eat the corpse of a dead foe to boost your regeneration")
-	to_chat(src, " - Suicide - Safely removes you from the round.")
 	to_chat(src, "------------------------")
 	to_chat(src, " ")
 
@@ -28,7 +27,7 @@
 	DoShowOrders()
 
 
-
+// ---------- WEB
 
 /mob/living/simple_animal/hostile/poison/terror_spider/verb/Web()
 	set name = "Lay Web"
@@ -44,6 +43,108 @@
 				new /obj/effect/spider/terrorweb(T)
 			busy = 0
 			stop_automated_movement = 0
+
+
+/obj/effect/spider/terrorweb
+	name = "terror web"
+	desc = "it's stringy and sticky"
+	icon = 'icons/effects/effects.dmi'
+	anchored = 1 // prevents people dragging it
+	density = 0 // prevents it blocking all movement
+	health = 20 // two welders, or one laser shot (15 for the normal spider webs)
+	icon_state = "stickyweb1"
+
+
+/obj/effect/spider/terrorweb/New()
+	if(prob(50))
+		icon_state = "stickyweb2"
+
+/obj/effect/spider/terrorweb/proc/DeCloakNearby()
+	for(var/mob/living/simple_animal/hostile/poison/terror_spider/gray/G in view(6,src))
+		if(G.stat != DEAD)
+			G.GrayDeCloak()
+			G.Aggro()
+
+/obj/effect/spider/terrorweb/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
+	if(air_group || (height==0)) return 1
+	if(istype(mover, /mob/living/simple_animal/hostile/poison/terror_spider))
+		return 1
+	if(istype(mover, /obj/item/projectile/terrorqueenspit))
+		return 1
+	if(istype(mover, /obj/item/projectile/terrorempressspit))
+		return 1
+	if(istype(mover, /mob/living))
+		if(prob(80))
+			to_chat(mover, "<span class='danger'>You get stuck in \the [src] for a moment.</span>")
+			var/mob/living/M = mover
+			M.Stun(5) // 5 seconds.
+			M.Weaken(5) // 5 seconds.
+			DeCloakNearby()
+			return 1
+		else
+			return 0
+	if(istype(mover, /obj/item/projectile))
+		return prob(20)
+	return ..()
+
+
+
+// ---------- WRAP
+
+/mob/living/simple_animal/hostile/poison/terror_spider/proc/DoWrap()
+	if(!cocoon_target)
+		var/list/choices = list()
+		for(var/mob/living/L in view(1,src))
+			if(L == src)
+				continue
+			if(Adjacent(L))
+				if(L.stat != CONSCIOUS)
+					choices += L
+		for(var/obj/O in loc)
+			if(Adjacent(O))
+				if(istype(O, /obj/effect/spider/terrorweb))
+				else
+					choices += O
+		cocoon_target = input(src,"What do you wish to cocoon?") in null|choices
+	if(cocoon_target && busy != SPINNING_COCOON)
+		busy = SPINNING_COCOON
+		visible_message("<span class='notice'>\the [src] begins to secrete a sticky substance around \the [cocoon_target].</span>")
+		stop_automated_movement = 1
+		walk(src,0)
+		spawn(20)
+			if(busy == SPINNING_COCOON)
+				if(cocoon_target && istype(cocoon_target.loc, /turf) && get_dist(src,cocoon_target) <= 1)
+					var/obj/effect/spider/cocoon/C = new(cocoon_target.loc)
+					var/large_cocoon = 0
+					C.pixel_x = cocoon_target.pixel_x
+					C.pixel_y = cocoon_target.pixel_y
+					for(var/obj/item/I in C.loc)
+						I.loc = C
+					for(var/obj/structure/S in C.loc)
+						if(!S.anchored)
+							S.loc = C
+							large_cocoon = 1
+					for(var/obj/machinery/M in C.loc)
+						if(!M.anchored)
+							M.loc = C
+							large_cocoon = 1
+					for(var/mob/living/L in C.loc)
+						if(istype(L, /mob/living/simple_animal/hostile/poison/terror_spider))
+							continue
+						large_cocoon = 1
+						fed++
+						last_cocoon_object = 0
+						L.loc = C
+						C.pixel_x = L.pixel_x
+						C.pixel_y = L.pixel_y
+						visible_message("<span class='danger'>\the [src] sticks a proboscis into \the [L] and sucks a viscous substance out.</span>")
+						break
+					if(large_cocoon)
+						C.icon_state = pick("cocoon_large1","cocoon_large2","cocoon_large3")
+			cocoon_target = null
+			busy = 0
+			stop_automated_movement = 0
+
 
 
 /mob/living/simple_animal/hostile/poison/terror_spider/verb/EatCorpse()
@@ -73,34 +174,4 @@
 		src.do_attack_animation(nibbletarget)
 		if(spider_debug)
 			to_chat(src, "You now have " + num2text(regen_points) + " regeneration points.")
-
-
-/mob/living/simple_animal/hostile/poison/terror_spider/verb/KillMe()
-	set name = "Suicide"
-	set category = "Spider"
-	set desc = "Kills you, and spawns a spiderling. Use this if you need to leave the round for a considerable time."
-	if(spider_tier == 5)
-		visible_message("<span class='danger'> [src] summons a bluespace portal, and steps into it. She has vanished!</span>")
-		qdel(src)
-	else if(spider_tier >= 3)
-		to_chat(src, "Your type of spider is too important to the round to be allowed to suicide. Instead, you will be ghosted, and the spider controlled by AI.")
-		ts_ckey_blacklist += ckey
-		ghostize()
-		ckey = null
-	else
-		visible_message("<span class='notice'>\the [src] awakens the remaining eggs in its body, which hatch and start consuming it from the inside out!</span>")
-		spawn(50)
-			if(health > 0)
-				var/obj/effect/spider/spiderling/terror_spiderling/S = new /obj/effect/spider/spiderling/terror_spiderling(get_turf(src))
-				S.grow_as = pick(/mob/living/simple_animal/hostile/poison/terror_spider/red, /mob/living/simple_animal/hostile/poison/terror_spider/gray, /mob/living/simple_animal/hostile/poison/terror_spider/green)
-				if(spider_tier == 2)
-					S.grow_as = src.type
-				S.faction = faction
-				S.spider_myqueen = spider_myqueen
-				S.master_commander = master_commander
-				S.ai_playercontrol_allowingeneral = ai_playercontrol_allowingeneral
-				S.enemies = enemies
-				ts_ckey_blacklist += ckey
-				death()
-				gib()
 

@@ -41,11 +41,6 @@
 			UnlockBlastDoors("UO71_Bridge", "UO71 Bridge is now unlocked!")
 	..()
 
-/mob/living/simple_animal/hostile/poison/terror_spider/white/harvest()
-	if(!spider_awaymission)
-		new /obj/item/weapon/reagent_containers/terrorspider_parts/toxgland_white(get_turf(src))
-	gib()
-
 
 /mob/living/simple_animal/hostile/poison/terror_spider/white/ShowGuide()
 	..()

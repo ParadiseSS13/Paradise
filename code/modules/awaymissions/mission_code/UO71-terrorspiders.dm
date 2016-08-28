@@ -271,3 +271,14 @@
 
 
 
+/mob/living/simple_animal/hostile/poison/terror_spider/bullet_act(var/obj/item/projectile/Proj)
+	if(istype(Proj, /obj/item/projectile/energy/declone/declone_spider))
+		if(!degenerate)
+			if(spider_tier < 2)
+				if(ckey)
+					degenerate = 1
+				else
+					gib()
+			else
+				visible_message("<span class='danger'>[src] resists the bioweapon!</span>")
+	..()

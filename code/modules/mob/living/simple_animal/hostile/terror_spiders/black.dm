@@ -29,9 +29,6 @@
 	spider_tier = TS_TIER_2
 
 
-/mob/living/simple_animal/hostile/poison/terror_spider/black/harvest()
-	new /obj/item/weapon/reagent_containers/terrorspider_parts/toxgland_black(get_turf(src))
-	gib()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/black/ShowGuide()
 	..()

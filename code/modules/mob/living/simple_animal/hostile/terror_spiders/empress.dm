@@ -239,11 +239,6 @@
 	new /obj/effect/effect/bad_smoke(loc)
 
 
-/mob/living/simple_animal/hostile/poison/terror_spider/empress/death(gibbed)
-	if(!hasdroppedloot)
-		var/obj/item/clothing/accessory/medal/M = new /obj/item/clothing/accessory/medal/gold/heroism(get_turf(src))
-		M.layer = (layer - 1)
-	..()
 
 
 /mob/living/simple_animal/hostile/poison/terror_spider/empress/ShowGuide()
@@ -264,3 +259,19 @@
 	guidetext += "<BR> - Erase Brood - Kills off every other spider in the game world, over the course of about two minutes."
 	guidetext += "<BR> - Spiderling Flood - Spawns N spiderlings. Very configurable. Almost instant station-destroyer if used with high numbers."
 	to_chat(src, guidetext)
+
+
+/obj/item/projectile/terrorempressspit
+	name = "poisonous spit"
+	damage = 0
+	icon_state = "toxin"
+	damage_type = TOX
+
+
+/obj/item/projectile/terrorempressspit/on_hit(var/mob/living/carbon/target)
+	if(istype(target, /mob))
+		var/mob/living/L = target
+		if(L.reagents)
+			L.reagents.add_reagent("ketamine",30)
+		if(!istype(L, /mob/living/simple_animal/hostile/poison/terror_spider))
+			L.adjustToxLoss(60)

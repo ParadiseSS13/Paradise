@@ -438,3 +438,20 @@
 	guidetext += "<BR> - Queen Screech - Breaks lights over a wide area. Can only be used once."
 	guidetext += "<BR> - Fake Spiderlings - Creates many spiderlings that don't grow up, but do sow terror amongst crew."
 	to_chat(src, guidetext)
+
+/obj/item/projectile/terrorqueenspit
+	name = "poisonous spit"
+	damage = 0
+	icon_state = "toxin"
+	damage_type = TOX
+
+
+/obj/item/projectile/terrorqueenspit/on_hit(var/mob/living/carbon/target)
+	if(istype(target, /mob))
+		var/mob/living/L = target
+		if(L.reagents)
+			if(L.can_inject(null,0,"chest",0))
+				L.reagents.add_reagent("terror_queen_toxin",15)
+		if(!istype(L, /mob/living/simple_animal/hostile/poison/terror_spider))
+			L.adjustToxLoss(40)
+
