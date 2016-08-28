@@ -42,12 +42,13 @@
 	if(src.mob_species)
 		M.set_species(src.mob_species)
 	var/obj/item/organ/external/head/head_organ = M.get_organ("head")
-	head_organ.r_facial = rand(0,255) //facial coloring
-	head_organ.g_facial = rand(0,255)
-	head_organ.b_facial = rand(0,255)
-	head_organ.r_hair = rand(0,255) //hair coloring
-	head_organ.g_hair = rand(0,255)
-	head_organ.b_hair = rand(0,255)
+	if(head_organ)
+		head_organ.r_facial = rand(0,255) //facial coloring
+		head_organ.g_facial = rand(0,255)
+		head_organ.b_facial = rand(0,255)
+		head_organ.r_hair = rand(0,255) //hair coloring
+		head_organ.g_hair = rand(0,255)
+		head_organ.b_hair = rand(0,255)
 	M.r_skin = rand (0,255) //skin coloring
 	M.g_skin = rand (0,255)
 	M.b_skin = rand (0,255)
