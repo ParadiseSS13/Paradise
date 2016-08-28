@@ -1,0 +1,4 @@
+author: TullyBurnalot
+delete-after: True
+changes: 
+  - bugfix: "AIs can no longer interact with nuclear bombs (Syndicate-brand included). AIs can still see the countdown"
