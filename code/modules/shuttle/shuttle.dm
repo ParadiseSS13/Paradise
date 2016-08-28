@@ -651,6 +651,8 @@
 				possible_destinations += "[possible_destinations ? ";" : ""][S.id]"
 
 /obj/machinery/computer/shuttle/attack_hand(mob/user)
+	if(!isliving(user))
+		return
 	if(..(user))
 		return
 	if(!shuttleId)
