@@ -394,7 +394,7 @@
 	var/useramount = 30 // Last used amount
 	var/pillamount = 10
 	var/patchamount = 10
-	var/bottlesprite = "rounded_bottle"
+	var/bottlesprite = "bottle"
 	var/pillsprite = "1"
 	var/client/has_sprites = list()
 	var/printing = null
@@ -669,7 +669,7 @@
 		else if(href_list["change_bottle"])
 			var/dat = "<table>"
 			var/j = 0
-			for(var/i in list("rounded_bottle"))
+			for(var/i in list("bottle", "small_bottle", "wide_bottle", "round_bottle"))
 				j++
 				if(j == 1)
 					dat += "<tr>"
