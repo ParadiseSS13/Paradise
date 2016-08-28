@@ -194,28 +194,28 @@ You've gained <b>[totalkarma]</b> total karma in your time here.<br>"}
 			dat += {"
 			<a href='?src=\ref[src];karmashop=shop;KarmaBuy=1'>Unlock Barber -- 5KP</a><br>
 			<a href='?src=\ref[src];karmashop=shop;KarmaBuy=2'>Unlock Brig Physician -- 5KP</a><br>
-			<a href='?src=\ref[src];karmashop=shop;KarmaBuy=3'>Unlock Nanotrasen Representative -- 30KP</a><br>
-			<a href='?src=\ref[src];karmashop=shop;KarmaBuy=5'>Unlock Blueshield -- 30KP</a><br>
-			<a href='?src=\ref[src];karmashop=shop;KarmaBuy=9'>Unlock Security Pod Pilot -- 30KP</a><br>
-			<a href='?src=\ref[src];karmashop=shop;KarmaBuy=6'>Unlock Mechanic -- 30KP</a><br>
-			<a href='?src=\ref[src];karmashop=shop;KarmaBuy=7'>Unlock Magistrate -- 45KP</a><br>
+			<a href='?src=\ref[src];karmashop=shop;KarmaBuy=3'>Unlock Nanotrasen Representative -- 20KP</a><br>
+			<a href='?src=\ref[src];karmashop=shop;KarmaBuy=5'>Unlock Blueshield -- 25KP</a><br>
+			<a href='?src=\ref[src];karmashop=shop;KarmaBuy=9'>Unlock Security Pod Pilot -- 25KP</a><br>
+			<a href='?src=\ref[src];karmashop=shop;KarmaBuy=6'>Unlock Mechanic -- 25KP</a><br>
+			<a href='?src=\ref[src];karmashop=shop;KarmaBuy=7'>Unlock Magistrate -- 30KP</a><br>
 			"}
 
 		if(1) // Species Unlocks
 			dat += {"
+			<a href='?src=\ref[src];karmashop=shop;KarmaBuy2=13'>Unlock Skrell -- 5KP</a><br>
+			<a href='?src=\ref[src];karmashop=shop;KarmaBuy2=3'>Unlock Grey -- 10KP</a><br>
 			<a href='?src=\ref[src];karmashop=shop;KarmaBuy2=1'>Unlock Machine People -- 15KP</a><br>
-			<a href='?src=\ref[src];karmashop=shop;KarmaBuy2=13'>Unlock Skrell -- 15KP</a><br>
-			<a href='?src=\ref[src];karmashop=shop;KarmaBuy2=14'>Unlock Vulpkanin -- 15KP</a><br>
-			<a href='?src=\ref[src];karmashop=shop;KarmaBuy2=2'>Unlock Kidan -- 30KP</a><br>
-			<a href='?src=\ref[src];karmashop=shop;KarmaBuy2=3'>Unlock Grey -- 30KP</a><br>
-			<a href='?src=\ref[src];karmashop=shop;KarmaBuy2=7'>Unlock Drask -- 30KP</a><br>
+			<a href='?src=\ref[src];karmashop=shop;KarmaBuy2=7'>Unlock Drask -- 15KP</a><br>
+			<a href='?src=\ref[src];karmashop=shop;KarmaBuy2=5'>Unlock Slime People -- 15KP</a><br>
+			<a href='?src=\ref[src];karmashop=shop;KarmaBuy2=14'>Unlock Vulpkanin -- 30KP</a><br>
 			<a href='?src=\ref[src];karmashop=shop;KarmaBuy2=8'>Unlock Unathi -- 30KP</a><br>
 			<a href='?src=\ref[src];karmashop=shop;KarmaBuy2=9'>Unlock Tajaran -- 30KP</a><br>
-			<a href='?src=\ref[src];karmashop=shop;KarmaBuy2=10'>Unlock Diona -- 30KP</a><br>
+			<a href='?src=\ref[src];karmashop=shop;KarmaBuy2=10'>Unlock Diona -- 40KP</a><br>
+			<a href='?src=\ref[src];karmashop=shop;KarmaBuy2=2'>Unlock Kidan -- 45KP</a><br>
 			<a href='?src=\ref[src];karmashop=shop;KarmaBuy2=4'>Unlock Vox -- 45KP</a><br>
-			<a href='?src=\ref[src];karmashop=shop;KarmaBuy2=5'>Unlock Slime People -- 45KP</a><br>
-			<a href='?src=\ref[src];karmashop=shop;KarmaBuy2=11'>Unlock Nucleation -- 100KP</a><br>
 			<a href='?src=\ref[src];karmashop=shop;KarmaBuy2=12'>Unlock Wryn -- 50KP</a><br>
+			<a href='?src=\ref[src];karmashop=shop;KarmaBuy2=11'>Unlock Nucleation -- 100KP</a><br>
 			<a href='?src=\ref[src];karmashop=shop;KarmaBuy2=6'>Unlock Plasmaman -- 100KP</a><br>
 
 			"}

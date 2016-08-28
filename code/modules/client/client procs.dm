@@ -109,39 +109,39 @@
 							src.DB_job_unlock("Brig Physician",5)
 							return
 					if("3")
-						if(karma <30)
+						if(karma <20)
 							to_chat(usr, "You do not have enough karma!")
 							return
 						else
-							src.DB_job_unlock("Nanotrasen Representative",30)
+							src.DB_job_unlock("Nanotrasen Representative",20)
 							return
 					if("5")
-						if(karma <30)
+						if(karma <25)
 							to_chat(usr, "You do not have enough karma!")
 							return
 						else
-							src.DB_job_unlock("Blueshield",30)
+							src.DB_job_unlock("Blueshield",25)
 							return
 					if("6")
-						if(karma <30)
+						if(karma <25)
 							to_chat(usr, "You do not have enough karma!")
 							return
 						else
-							src.DB_job_unlock("Mechanic",30)
+							src.DB_job_unlock("Mechanic",25)
 							return
 					if("7")
-						if(karma <45)
-							to_chat(usr, "You do not have enough karma!")
-							return
-						else
-							src.DB_job_unlock("Magistrate",45)
-							return
-					if("9")
 						if(karma <30)
 							to_chat(usr, "You do not have enough karma!")
 							return
 						else
-							src.DB_job_unlock("Security Pod Pilot",30)
+							src.DB_job_unlock("Magistrate",30)
+							return
+					if("9")
+						if(karma <25)
+							to_chat(usr, "You do not have enough karma!")
+							return
+						else
+							src.DB_job_unlock("Security Pod Pilot",25)
 							return
 			if(href_list["KarmaBuy2"])
 				var/karma=verify_karma()
@@ -154,18 +154,18 @@
 							src.DB_species_unlock("Machine",15)
 							return
 					if("2")
-						if(karma <30)
+						if(karma <45)
 							to_chat(usr, "You do not have enough karma!")
 							return
 						else
-							src.DB_species_unlock("Kidan",30)
+							src.DB_species_unlock("Kidan",45)
 							return
 					if("3")
-						if(karma <30)
+						if(karma <15)
 							to_chat(usr, "You do not have enough karma!")
 							return
 						else
-							src.DB_species_unlock("Grey",30)
+							src.DB_species_unlock("Grey",15)
 							return
 					if("4")
 						if(karma <45)
@@ -175,11 +175,11 @@
 							src.DB_species_unlock("Vox",45)
 							return
 					if("5")
-						if(karma <45)
+						if(karma <15)
 							to_chat(usr, "You do not have enough karma!")
 							return
 						else
-							src.DB_species_unlock("Slime People",45)
+							src.DB_species_unlock("Slime People",15)
 							return
 					if("6")
 						if(karma <100)
@@ -189,11 +189,11 @@
 							src.DB_species_unlock("Plasmaman",100)
 							return
 					if("7")
-						if(karma <30)
+						if(karma <15)
 							to_chat(usr, "You do not have enough karma!")
 							return
 						else
-							src.DB_species_unlock("Drask",30)
+							src.DB_species_unlock("Drask",15)
 							return
 					if("8")
 						if(karma <30)
@@ -210,11 +210,11 @@
 							src.DB_species_unlock("Tajaran",30)
 							return
 					if("10")
-						if(karma <30)
+						if(karma <40)
 							to_chat(usr, "You do not have enough karma!")
 							return
 						else
-							src.DB_species_unlock("Diona",30)
+							src.DB_species_unlock("Diona",40)
 							return
 					if("11")
 						if(karma <100)
@@ -231,18 +231,18 @@
 							src.DB_species_unlock("Wryn",50)
 							return
 					if("13")
-						if(karma <15)
+						if(karma <5)
 							to_chat(usr, "You do not have enough karma!")
 							return
 						else
-							src.DB_species_unlock("Skrell",15)
+							src.DB_species_unlock("Skrell",5)
 							return
 					if("14")
-						if(karma <15)
+						if(karma <30)
 							to_chat(usr, "You do not have enough karma!")
 							return
 						else
-							src.DB_species_unlock("Vulpkanin",15)
+							src.DB_species_unlock("Vulpkanin",30)
 							return
 
 			if(href_list["KarmaBuy3"])
