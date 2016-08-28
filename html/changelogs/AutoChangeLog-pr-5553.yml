@@ -1,0 +1,5 @@
+author: Crazylemon
+delete-after: True
+changes: 
+  - rscadd: "Admins can now VV by a ref string, directly via a verb"
+  - tweak: "VV now builds its HTML using lists, making it much faster to open"
