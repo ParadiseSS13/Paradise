@@ -1,0 +1,4 @@
+author: Krausus
+delete-after: True
+changes: 
+  - bugfix: "Fixed setting status display alerts through communications consoles."
