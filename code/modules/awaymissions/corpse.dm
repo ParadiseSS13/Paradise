@@ -38,32 +38,29 @@
 	M.real_name = src.name
 	M.death(1) //Kills the new mob
 	M.timeofdeath = timeofdeath
+	M.gender = pick(MALE, FEMALE) //New to test
 	if(src.mob_species)
 		M.set_species(src.mob_species)
-	if(ishuman(M))
-//		random_character()
-//		M.prefs.random_character()
-		var/mob/living/carbon/human/H = M
-		var/obj/item/organ/external/head/head_organ = H.get_organ("head")
-		head_organ.r_facial = rand(0,255) //facial coloring
-		head_organ.g_facial = rand(0,255)			//do these need to be pointed at the head??
-		head_organ.b_facial = rand(0,255)
-		head_organ.r_hair = rand(0,255) //hair coloring
-		head_organ.g_hair = rand(0,255)
-		head_organ.b_hair = rand(0,255)
-		H.r_skin = rand (0,255) //skin coloring
-		H.g_skin = rand (0,255)						//can these not?
-		H.b_skin = rand (0,255)
-		H.r_markings = rand (0,255) //markings coloring here
-		H.g_markings = rand (0,255)
-		H.b_markings = rand (0,255)
-		head_organ.h_style = random_hair_style(H.gender, head_organ.species.name) // hair style
-		head_organ.f_style = random_facial_hair_style(H.gender, head_organ.species.name) // facial hair style
-//nope	H.m_style = random_markings_style(H.gender, H.species.name) // markings style - this one apparently doesn't exist for some reason. But it's fine because
-		H.update_hair() //update icon
-		H.update_fhair()
-		H.update_markings()
-		H.update_body()
+	var/obj/item/organ/external/head/head_organ = M.get_organ("head")
+	head_organ.r_facial = rand(0,255) //facial coloring
+	head_organ.g_facial = rand(0,255)
+	head_organ.b_facial = rand(0,255)
+	head_organ.r_hair = rand(0,255) //hair coloring
+	head_organ.g_hair = rand(0,255)
+	head_organ.b_hair = rand(0,255)
+	M.r_skin = rand (0,255) //skin coloring
+	M.g_skin = rand (0,255)
+	M.b_skin = rand (0,255)
+	M.r_markings = rand (0,255) //markings coloring, for when this can do other species
+	M.g_markings = rand (0,255)
+	M.b_markings = rand (0,255)
+	head_organ.h_style = random_hair_style(M.gender, head_organ.species.name) // hair style
+	head_organ.f_style = random_facial_hair_style(M.gender, head_organ.species.name) // facial hair style
+	M.update_hair() //update icons
+	M.update_fhair()
+	M.update_markings()
+	M.update_body()
+	M.update_dna()
 	if(src.corpseuniform)
 		M.equip_to_slot_or_del(new src.corpseuniform(M), slot_w_uniform)
 	if(src.corpsesuit)
@@ -112,10 +109,6 @@
 		var/obj/structure/closet/coffin/sarcophagus/sarc = locate(/obj/structure/closet/coffin/sarcophagus) in loc
 		if(sarc) M.loc = sarc
 	qdel(src)
-
-
-
-// I'll work on making a list of corpses people request for maps, or that I think will be commonly used. Syndicate operatives for example.
 
 
 
