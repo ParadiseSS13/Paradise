@@ -303,7 +303,7 @@
 			enthrall_safe = 1
 			break
 	if(!C)
-		log_to_dd("something bad happened on enthralling a mob, attacker is [user] [user.key] \ref[user]")
+		log_runtime(EXCEPTION("something bad happened on enthralling a mob, attacker is [user] [user.key] \ref[user]"), user)
 		return 0
 	if(!C.mind)
 		to_chat(user, "<span class='warning'>[C.name]'s mind is not there for you to enthrall.</span>")

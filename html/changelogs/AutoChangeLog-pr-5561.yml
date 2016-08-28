@@ -1,0 +1,4 @@
+author: TheDZD
+delete-after: True
+changes: 
+  - bugfix: "Bookcases no longer force you to take out a book after clicking them"

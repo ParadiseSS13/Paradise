@@ -40,7 +40,7 @@
 /obj/item/organ/internal/brain/proc/transfer_identity(var/mob/living/carbon/H)
 	brainmob = new(src)
 	if(isnull(dna)) // someone didn't set this right...
-		log_to_dd("[src] at [loc] did not contain a dna datum at time of removal.")
+		log_runtime(EXCEPTION("[src] at [loc] did not contain a dna datum at time of removal."), src)
 		dna = H.dna.Clone()
 	name = "\the [dna.real_name]'s [initial(src.name)]"
 	brainmob.dna = dna.Clone() // Silly baycode, what you do

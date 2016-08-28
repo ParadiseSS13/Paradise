@@ -277,7 +277,7 @@ var/global/list/default_medbay_channels = list(
 	..()
 
 /mob/living/automatedannouncer/proc/autocleanup()
-	log_debug("An announcer somehow managed to outlive the radio! Deleting! Area: [get_area(src)], Name: \"[name]\", Message: \"[message]\"")
+	log_runtime(EXCEPTION("An announcer somehow managed to outlive the radio! Deleting!"), src, list("Message: '[message]'"))
 	qdel(src)
 
 // Interprets the message mode when talking into a radio, possibly returning a connection datum
