@@ -23,6 +23,7 @@
 
 /obj/item/weapon/reagent_containers/glass/bottle/update_icon()
 	overlays.Cut()
+	underlays.Cut()
 
 	if(reagents.total_volume)
 		var/image/filling = image('icons/obj/reagentfillings.dmi', src, "bottle10")
@@ -41,7 +42,7 @@
 				filling.icon_state = "[icon_state]100"
 
 		filling.icon += mix_color_from_reagents(reagents.reagent_list)
-		overlays += filling
+		underlays += filling
 
 	if(!is_open_container())
 		var/image/lid = image(icon, src, "lid_bottle")
