@@ -38,7 +38,7 @@
 	M.real_name = src.name
 	M.death(1) //Kills the new mob
 	M.timeofdeath = timeofdeath
-	M.gender = pick(MALE, FEMALE) //New to test
+	M.gender = pick(MALE, FEMALE)
 	if(src.mob_species)
 		M.set_species(src.mob_species)
 	var/obj/item/organ/external/head/head_organ = M.get_organ("head")
@@ -52,6 +52,7 @@
 	M.r_skin = rand (0,255) //skin coloring
 	M.g_skin = rand (0,255)
 	M.b_skin = rand (0,255)
+	M.s_tone = rand (-185,220) //skin tone
 	M.r_markings = rand (0,255) //markings coloring, for when this can do other species
 	M.g_markings = rand (0,255)
 	M.b_markings = rand (0,255)
