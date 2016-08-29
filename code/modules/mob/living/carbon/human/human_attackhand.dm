@@ -19,7 +19,7 @@
 	..()
 
 	if((M != src) && M.a_intent != "help" && check_shields(0, M.name, attack_type = UNARMED_ATTACK))
-		add_logs(src, M, "attempted to touch")
+		add_logs(M, src, "attempted to touch")
 		visible_message("<span class='warning'>[M] attempted to touch [src]!</span>")
 		return 0
 
@@ -63,11 +63,11 @@
 							if(S.next_step(M, src))
 								return 1
 						help_shake_act(M)
-						add_logs(src, M, "shaked")
+						add_logs(M, src, "shaked")
 						return 1
 			if(health >= config.health_threshold_crit)
 				help_shake_act(M)
-				add_logs(src, M, "shaked")
+				add_logs(M, src, "shaked")
 				return 1
 			if(!H.check_has_mouth())
 				to_chat(H, "<span class='danger'>You don't have a mouth, you cannot perform CPR!</span>")
@@ -94,7 +94,7 @@
 
 					to_chat(src, "<span class='notice'>You feel a breath of fresh air enter your lungs. It feels good.</span>")
 					to_chat(M, "<span class='alert'>Repeat at least every 7 seconds.")
-					add_logs(src, M, "CPRed")
+					add_logs(M, src, "CPRed")
 					return 1
 			else
 				to_chat(M, "<span class='danger'>You need to stay still while performing CPR!</span>")
@@ -123,7 +123,7 @@
 					return
 				//we're good to suck the blood, blaah
 				M.mind.vampire.handle_bloodsucking(src)
-				add_logs(src, M, "vampirebit")
+				add_logs(M, src, "vampirebit")
 				msg_admin_attack("[key_name_admin(M)] vampirebit [key_name_admin(src)]")
 				return
 				//end vampire codes
@@ -133,7 +133,7 @@
 				var/datum/unarmed_attack/attack = M.species.unarmed
 
 				M.do_attack_animation(src)
-				add_logs(src, M, "[pick(attack.attack_verb)]ed")
+				add_logs(M, src, "[pick(attack.attack_verb)]ed")
 
 				if(!iscarbon(M))
 					LAssailant = null
@@ -172,7 +172,7 @@
 			if(attacker_style && attacker_style.disarm_act(H, src))
 				return 1
 			else
-				add_logs(src, M, "disarmed")
+				add_logs(M, src, "disarmed")
 
 				if(w_uniform)
 					w_uniform.add_fingerprint(M)
