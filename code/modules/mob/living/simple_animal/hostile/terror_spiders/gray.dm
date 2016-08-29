@@ -3,7 +3,7 @@
 // ----------------- TERROR SPIDERS: T1 GRAY TERROR -------------------------------
 // --------------------------------------------------------------------------------
 // -------------: ROLE: fast, weak terror spider
-// -------------: SPECIAL: none
+// -------------: SPECIAL: silences targets
 // -------------: TO FIGHT IT: shoot it!
 // -------------: SPRITES FROM: FoS, http://nanotrasen.se/phpBB3/memberlist.php?mode=viewprofile&u=386
 

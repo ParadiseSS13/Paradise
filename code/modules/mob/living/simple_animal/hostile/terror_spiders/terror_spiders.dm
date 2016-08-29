@@ -93,7 +93,6 @@ var/global/list/ts_spiderlist = list()
 	var/obj/machinery/atmospherics/unary/vent_pump/nest_vent // home vent, usually used by queens
 	var/fed = 0
 	var/travelling_in_vent = 0
-	var/list/nibbled = list()
 	var/busy = 0 // leave this alone!
 	var/spider_tier = TS_TIER_1 // 1 for red,gray,green. 2 for purple,black,white, 3 for prince, mother. 4 for queen, 5 for empress.
 	var/attackstep = 0
