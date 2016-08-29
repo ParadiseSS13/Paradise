@@ -126,7 +126,7 @@
 				/obj/item/seeds/ambrosiavulgarisseed = 20,
 				/obj/item/clothing/under/color/black = 30,
 				/obj/item/stack/tape_roll = 10,
-				/obj/item/weapon/storage/pill_bottle/random_drug_bottle = 10,
+				/obj/item/weapon/storage/pill_bottle/random_drug_bottle = 3,
 				////////////////CONTRABAND STUFF//////////////////
 				/obj/item/weapon/grenade/clown_grenade = 3,
 				/obj/item/seeds/ambrosiavulgarisseed/cruciatus = 3,
