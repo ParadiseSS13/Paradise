@@ -26,11 +26,12 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/gray/ShowGuide()
 	..()
-	var/guidetext = "GRAY TERROR guide:"
-	guidetext += "<BR>- You are a stealth killer. Your venom silences its targets."
-	guidetext += "<BR>- You are weak, but fast, and should use webs in corridors to trap your prey, hiding in a vent until they are entangled."
-	guidetext += "<BR>- Do not attempt to take on well-armed foes without the element of surprise - you will die quickly!"
-	to_chat(src, guidetext)
+	var/list/guidelist = list()
+	guidelist += "GRAY TERROR guide:"
+	guidelist += "- You are a stealth killer. Your venom silences its targets."
+	guidelist += "- You are weak, but fast, and should use webs in corridors to trap your prey, hiding in a vent until they are entangled."
+	guidelist += "- Do not attempt to take on well-armed foes without the element of surprise - you will die quickly!"
+	to_chat(src, guidelist.Join("<BR>"))
 
 /mob/living/simple_animal/hostile/poison/terror_spider/gray/spider_specialattack(var/mob/living/carbon/human/L, var/poisonable)
 	if(!poisonable)

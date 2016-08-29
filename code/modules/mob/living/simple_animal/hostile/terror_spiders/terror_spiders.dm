@@ -165,9 +165,8 @@ var/global/list/ts_spiderlist = list()
 			var/can_poison = 1
 			if(istype(G, /mob/living/carbon/human/))
 				var/mob/living/carbon/human/H = G
-				if(H.dna)
-					if(!(H.species.reagent_tag & PROCESS_ORG) || (H.species.flags & NO_POISON))
-						can_poison = 0
+				if(!(H.species.reagent_tag & PROCESS_ORG) || (H.species.flags & NO_POISON))
+					can_poison = 0
 			spider_specialattack(G,can_poison)
 		else
 			G.attack_animal(src)
@@ -189,27 +188,27 @@ var/global/list/ts_spiderlist = list()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/examine(mob/user)
 	..()
-	var/msg = ""
+	var/list/msgs = list()
 	if(stat == DEAD)
-		msg += "<span class='deadsay'>It appears to be dead.</span>\n"
+		msgs += "<span class='deadsay'>It appears to be dead.</span>\n"
 	else
 		if(key)
-			msg += "<BR><span class='warning'>Its eyes regard you with a curious intelligence.</span>"
+			msgs += "<span class='warning'>Its eyes regard you with a curious intelligence.</span>"
 		if(health > (maxHealth*0.95))
-			msg += "<BR><span class='notice'>It is in excellent health.</span>"
+			msgs += "<span class='notice'>It is in excellent health.</span>"
 		else if(health > (maxHealth*0.75))
-			msg += "<BR><span class='notice'>It has a few injuries.</span>"
+			msgs += "<span class='notice'>It has a few injuries.</span>"
 		else if(health > (maxHealth*0.55))
-			msg += "<BR><span class='warning'>It has many injuries.</span>"
+			msgs += "<span class='warning'>It has many injuries.</span>"
 		else if(health > (maxHealth*0.25))
-			msg += "<BR><span class='warning'>It is barely clinging on to life!</span>"
+			msgs += "<span class='warning'>It is barely clinging on to life!</span>"
 		else if(health < maxHealth && regen_points > regen_points_per_kill)
-			msg += "<BR><span class='notice'>It appears to be regenerating quickly</span>"
+			msgs += "<span class='notice'>It appears to be regenerating quickly</span>"
 		if(killcount == 1)
-			msg += "<BR><span class='warning'>It is soaked in the blood of its prey.</span>"
+			msgs += "<span class='warning'>It is soaked in the blood of its prey.</span>"
 		if(killcount > 1)
-			msg += "<BR><span class='warning'>It is soaked with the blood of " + num2text(killcount) + " prey it has killed.</span>"
-	to_chat(usr,msg)
+			msgs += "<span class='warning'>It is soaked with the blood of [killcount] prey it has killed.</span>"
+	to_chat(usr,msgs.Join("<BR>"))
 
 
 /mob/living/simple_animal/hostile/poison/terror_spider/New()
@@ -217,6 +216,7 @@ var/global/list/ts_spiderlist = list()
 	ts_spiderlist += src
 	if(type == /mob/living/simple_animal/hostile/poison/terror_spider)
 		message_admins("[src] spawned in [get_area(src)] - a subtype should have been spawned instead.")
+		log_runtime(EXCEPTION("Base type of the terror spiders created at [atom_loc_line(src)]"))
 		qdel(src)
 	else
 		add_language("TerrorSpider")
@@ -245,7 +245,7 @@ var/global/list/ts_spiderlist = list()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/Destroy()
 	ts_spiderlist -= src
-	..()
+	. = ..()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/Life()
 	if(stat != DEAD)
@@ -300,11 +300,12 @@ var/global/list/ts_spiderlist = list()
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/msg_terrorspiders(var/msgtext)
 	for(var/mob/living/simple_animal/hostile/poison/terror_spider/T in ts_spiderlist)
 		if(T.stat != DEAD)
-			to_chat(T, "<span class='terrorspider'>TerrorSense: " + msgtext + "</span>")
+			to_chat(T, "<span class='terrorspider'>TerrorSense: [msgtext]</span>")
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/CheckFaction()
 	if(faction.len != 1 || (!("terrorspiders" in faction)) || master_commander != null)
 		visible_message("<span class='danger'>[src] writhes in pain!</span>")
+		log_runtime(EXCEPTION("Terror spider created with incorrect faction list at: [atom_loc_line(src)]"))
 		death()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/try_open_airlock(var/obj/machinery/door/airlock/D)

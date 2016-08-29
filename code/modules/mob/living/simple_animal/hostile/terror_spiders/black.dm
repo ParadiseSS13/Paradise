@@ -30,17 +30,16 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/black/ShowGuide()
 	..()
-	var/guidetext = "BLACK TERROR guide:"
-	guidetext += "<BR>- You are an assassin. Even 2-3 bites from you is fatal to organic humanoids - if you back off and let your poison work. You are very vulnurable to mechs and borgs."
-	guidetext += "<BR>- Try to bite a few times and retreat quickly. You will die if you stick around. You are very dangerous and should expect crew to focus fire on you."
-	to_chat(src, guidetext)
+	var/list/guidelist = list()
+	guidelist += "BLACK TERROR guide:"
+	guidelist += "- You are an assassin. Even 2-3 bites from you is fatal to organic humanoids - if you back off and let your poison work. You are very vulnurable to mechs and borgs."
+	guidelist += "- Try to bite a few times and retreat quickly. You will die if you stick around. You are very dangerous and should expect crew to focus fire on you."
+	to_chat(src, guidelist.Join("<BR>"))
 
 /mob/living/simple_animal/hostile/poison/terror_spider/black/spider_specialattack(var/mob/living/carbon/human/L, var/poisonable)
 	if(!poisonable)
-		..()
 		return ..()
 	if(L.reagents.has_reagent("terror_black_toxin", 50))
-		L.attack_animal(src)
 		return ..()
 	var/inject_target = pick("chest", "head")
 	if(L.stunned || L.can_inject(null, 0, inject_target, 0))

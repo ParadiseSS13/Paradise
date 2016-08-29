@@ -63,8 +63,9 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/red/ShowGuide()
 	..()
-	var/guidetext = "<BR>RED TERROR guide:"
-	guidetext += "<BR>- A straightforward fighter, you have high health, and high melee damage, but are very slow-moving."
-	guidetext += "<BR>- You are best at taking out slow, armored foes. Be careful not to get kited with ranged weapons."
-	guidetext += "<BR>- You can take a lot of hits, so don't be afraid to act as the tank in a group."
-	to_chat(src, guidetext)
+	var/list/guidelist = list()
+	guidelist += "RED TERROR guide:"
+	guidelist += "- A straightforward fighter, you have high health, and high melee damage, but are very slow-moving."
+	guidelist += "- You are best at taking out slow, armored foes. Be careful not to get kited with ranged weapons."
+	guidelist += "- You can take a lot of hits, so don't be afraid to act as the tank in a group."
+	to_chat(src, guidelist.Join("<BR>"))

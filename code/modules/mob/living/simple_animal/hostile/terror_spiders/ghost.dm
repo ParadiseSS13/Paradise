@@ -12,8 +12,8 @@
 	if(key)//Someone is in it
 		return
 	var/error_on_humanize = ""
-	var/humanize_prompt = "Take direct control of " + src.name + "? "
-	humanize_prompt += "Role: " + spider_role_summary
+	var/humanize_prompt = "Take direct control of [src]?"
+	humanize_prompt += "Role: [spider_role_summary]"
 	if(user.ckey in ts_ckey_blacklist)
 		error_on_humanize = "You are not able to control any terror spider this round."
 	else if(!ai_playercontrol_allowingeneral)
@@ -32,7 +32,7 @@
 		if(spider_ask == "No" || !src || qdeleted(src))
 			return
 	else
-		to_chat(user, "Cannot inhabit spider: " + error_on_humanize)
+		to_chat(user, "Cannot inhabit spider: [error_on_humanize]")
 		return
 	if(key)
 		to_chat(user, "<span class='notice'>Someone else already took this spider.</span>")

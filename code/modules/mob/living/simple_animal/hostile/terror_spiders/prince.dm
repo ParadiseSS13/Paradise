@@ -31,12 +31,13 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/prince/ShowGuide()
 	..()
-	var/guidetext = "PRINCE OF TERROR guide:"
-	guidetext += "<BR>- A ferocious warrior, you wander the stars, identifying potential nest sites, and threats, for your fellow Terror Spiders."
-	guidetext += "<BR>- You have been sent to this remote station to determine if it would make a suitable nest."
-	guidetext += "<BR>- <b>You have lots of health, and decent attacks, but can be killed by a well-armed group.</b>"
-	guidetext += "<BR>- Expect crew to treat you as a level 5 biohazard. Even a single Prince (aka: War Spider) can wreck a station."
-	to_chat(src, guidetext)
+	var/list/guidelist = list()
+	guidelist += "PRINCE OF TERROR guide:"
+	guidelist += "- A ferocious warrior, you wander the stars, identifying potential nest sites, and threats, for your fellow Terror Spiders."
+	guidelist += "- You have been sent to this remote station to determine if it would make a suitable nest."
+	guidelist += "- <b>You have lots of health, and decent attacks, but can be killed by a well-armed group.</b>"
+	guidelist += "- Expect crew to treat you as a level 5 biohazard. Even a single Prince (aka: War Spider) can wreck a station."
+	to_chat(src, guidelist.Join("<BR>"))
 
 /mob/living/simple_animal/hostile/poison/terror_spider/prince/spider_specialattack(var/mob/living/carbon/human/L)
 	if(prob(15))
