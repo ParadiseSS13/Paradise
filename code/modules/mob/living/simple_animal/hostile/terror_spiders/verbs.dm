@@ -1,26 +1,4 @@
 
-/mob/living/simple_animal/hostile/poison/terror_spider/verb/ShowGuide()
-	set name = "Show Guide"
-	set category = "Spider"
-	set desc = "Learn how to spider."
-	var/list/guidelist = list()
-	guidelist += "------------------------"
-	guidelist += "Intro:"
-	guidelist += "- Terror Spiders are a bioweapon, created when the Syndicate mixed Giant Spider and Xenomorph DNA."
-	guidelist += "- Ruled by Queens, they are aggressive, and very good in melee combat."
-	guidelist += " "
-	guidelist += "Communications:"
-	guidelist += "<B>- You speak over the Terror Spider hivemind by default. All other TS hear this. To speak common, use :9 or .9 </B>"
-	guidelist += "- Terror Spiders are the nuke ops of spiders. They work as a team. Communicate regularly!"
-	guidelist += " "
-	guidelist += "Verbs:"
-	guidelist += " - Show Guide - Shows this guide."
-	guidelist += " - Web - Spins a terror web. Non-spiders get trapped if they touch a web."
-	guidelist += " - Wrap - Wraps a nearby corpse or other object. Webbing a human boosts your health regeneration."
-	guidelist += "------------------------"
-	guidelist += " "
-	to_chat(src, guidelist.Join("<BR>"))
-
 // ---------- WEB
 
 /mob/living/simple_animal/hostile/poison/terror_spider/verb/Web()

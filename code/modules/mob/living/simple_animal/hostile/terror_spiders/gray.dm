@@ -23,16 +23,8 @@
 	stat_attack = 1 // ensures they will target people in crit, too!
 	environment_smash = 1
 
-/mob/living/simple_animal/hostile/poison/terror_spider/gray/ShowGuide()
-	..()
-	var/list/guidelist = list()
-	guidelist += "GRAY TERROR guide:"
-	guidelist += "- You are a stealth killer. Your venom silences its targets."
-	guidelist += "- You are weak, but fast, and should use webs in corridors to trap your prey, hiding in a vent until they are entangled."
-	guidelist += "- Do not attempt to take on well-armed foes without the element of surprise - you will die quickly!"
-	to_chat(src, guidelist.Join("<BR>"))
 
-/mob/living/simple_animal/hostile/poison/terror_spider/gray/spider_specialattack(var/mob/living/carbon/human/L, var/poisonable)
+/mob/living/simple_animal/hostile/poison/terror_spider/gray/spider_specialattack(mob/living/carbon/human/L, poisonable)
 	if(!poisonable)
 		..()
 		return

@@ -59,12 +59,3 @@
 			melee_damage_lower = melee_damage_lower_rage0
 			melee_damage_upper = melee_damage_upper_rage0
 	..()
-
-/mob/living/simple_animal/hostile/poison/terror_spider/red/ShowGuide()
-	..()
-	var/list/guidelist = list()
-	guidelist += "RED TERROR guide:"
-	guidelist += "- A straightforward fighter, you have high health, and high melee damage, but are very slow-moving."
-	guidelist += "- You are best at taking out slow, armored foes. Be careful not to get kited with ranged weapons."
-	guidelist += "- You can take a lot of hits, so don't be afraid to act as the tank in a group."
-	to_chat(src, guidelist.Join("<BR>"))
