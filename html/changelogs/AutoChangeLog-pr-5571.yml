@@ -1,4 +1,0 @@
-author: TheDZD
-delete-after: True
-changes: 
-  - bugfix: "Fixes assorted things logging attacks incorrectly."
