@@ -1,17 +1,9 @@
-#define SOLID 1
-#define LIQUID 2
-#define GAS 3
-#define FOOD_METABOLISM 0.4
-#define REM REAGENTS_EFFECT_MULTIPLIER
-
-
 // Terror Spider, Black, Deadly Venom
 
 /datum/reagent/terror_black_toxin
 	name = "Black Widow venom"
 	id = "terror_black_toxin"
 	description = "An incredibly toxic venom injected by the Black Widow spider."
-	reagent_state = LIQUID
 	color = "#CF3600"
 	metabolization_rate = 0.1
 
