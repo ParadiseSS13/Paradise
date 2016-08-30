@@ -227,6 +227,10 @@
 	attack_hand(mob/user as mob)
 		return attack_self(user)
 
+/obj/item/weapon/storage/secure/safe/captain/New()
+	..()
+	new /obj/item/weapon/card/id/captains_spare
+
 // Clown planet WMD storage
 /obj/item/weapon/storage/secure/safe/clown
 	name="WMD Storage"
