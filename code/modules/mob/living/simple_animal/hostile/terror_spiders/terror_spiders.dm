@@ -15,8 +15,6 @@ var/global/list/ts_spiderlist = list()
 /mob/living/simple_animal/hostile/poison/terror_spider/
 	// Name / Description
 	name = "terror spider"
-	var/altnames = list()
-	var/name_usealtnames = 0 // if 1, spiders use their randomized names, if not they're all "<color> terror"
 	desc = "The generic parent of all other terror spider types. If you see this in-game, it is a bug."
 
 	// Icons
@@ -49,15 +47,11 @@ var/global/list/ts_spiderlist = list()
 	speak_emote = list("hisses")
 	emote_hear = list("hisses")
 
-	// Loot
-	loot = list()
-
 	// Languages are handled in terror_spider/New()
 
 	// Interaction keywords
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
-	response_harm   = "hits"
 
 	// regeneration settings - overridable by child classes
 	var/regen_points = 0 // number of regen points they have by default
@@ -112,9 +106,6 @@ var/global/list/ts_spiderlist = list()
 	minbodytemp = 0
 	maxbodytemp = 1500
 	heat_damage_per_tick = 5 //amount of damage applied if animal's body temperature is higher than maxbodytemp
-
-	// Xenobio Interactions
-	sentience_type = SENTIENCE_OTHER // prevents people from using a sentience potion on a TS to tame it
 
 	// DEBUG OPTIONS & COMMANDS
 	var/spider_debug = 0
@@ -172,7 +163,7 @@ var/global/list/ts_spiderlist = list()
 	else
 		target.attack_animal(src)
 
-/mob/living/simple_animal/hostile/poison/terror_spider/proc/spider_specialattack(var/mob/living/carbon/human/L, var/poisonable)
+/mob/living/simple_animal/hostile/poison/terror_spider/proc/spider_specialattack(mob/living/carbon/human/L, var/poisonable)
 	L.attack_animal(src)
 
 
@@ -213,38 +204,31 @@ var/global/list/ts_spiderlist = list()
 /mob/living/simple_animal/hostile/poison/terror_spider/New()
 	..()
 	ts_spiderlist += src
-	if(type == /mob/living/simple_animal/hostile/poison/terror_spider)
-		message_admins("[src] spawned in [get_area(src)] - a subtype should have been spawned instead.")
-		log_runtime(EXCEPTION("Base type of the terror spiders created at [atom_loc_line(src)]"))
-		qdel(src)
-	else
-		add_language("TerrorSpider")
-		add_language("Galactic Common")
-		default_language = all_languages["TerrorSpider"]
+	add_language("TerrorSpider")
+	add_language("Galactic Common")
+	default_language = all_languages["TerrorSpider"]
 
-		name += " ([rand(1, 1000)])"
-		msg_terrorspiders("[src] has grown in [get_area(src)].")
-		if(name_usealtnames)
-			name = pick(altnames)
-		if(is_away_level(z))
-			spider_awaymission = 1
-			ts_count_alive_awaymission++
-		else
-			ts_count_alive_station++
-		// after 30 seconds, assuming nobody took control of it yet, offer it to ghosts.
-		spawn(150) // deciseconds!
-			CheckFaction()
-		spawn(300) // deciseconds!
-			if(spider_awaymission)
-				return
-			else if(ckey)
-				notify_ghosts("[src] has appeared in [get_area(src)]. (already player-controlled)")
-			else if(ai_playercontrol_allowingeneral && ai_playercontrol_allowtype)
-				notify_ghosts("[src] has appeared in [get_area(src)].", enter_link = "<a href=?src=\ref[src];activate=1>(Click to control)</a>", source = src)
+	name += " ([rand(1, 1000)])"
+	msg_terrorspiders("[src] has grown in [get_area(src)].")
+	if(is_away_level(z))
+		spider_awaymission = 1
+		ts_count_alive_awaymission++
+	else
+		ts_count_alive_station++
+	// after 30 seconds, assuming nobody took control of it yet, offer it to ghosts.
+	spawn(150) // deciseconds!
+		CheckFaction()
+	spawn(300) // deciseconds!
+		if(spider_awaymission)
+			return
+		else if(ckey)
+			notify_ghosts("[src] has appeared in [get_area(src)]. (already player-controlled)")
+		else if(ai_playercontrol_allowingeneral && ai_playercontrol_allowtype)
+			notify_ghosts("[src] has appeared in [get_area(src)].", enter_link = "<a href=?src=\ref[src];activate=1>(Click to control)</a>", source = src)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/Destroy()
 	ts_spiderlist -= src
-	. = ..()
+	return ..()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/Life()
 	if(stat != DEAD)
@@ -283,7 +267,7 @@ var/global/list/ts_spiderlist = list()
 
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/spider_special_action()
-	// Do nothing, this proc only exists to be overriden
+	return
 
 /mob/living/simple_animal/hostile/poison/terror_spider/Bump(atom/A)
 	if(istype(A, /obj/machinery/door/airlock))
@@ -296,7 +280,7 @@ var/global/list/ts_spiderlist = list()
 			F.open()
 	..()
 
-/mob/living/simple_animal/hostile/poison/terror_spider/proc/msg_terrorspiders(var/msgtext)
+/mob/living/simple_animal/hostile/poison/terror_spider/proc/msg_terrorspiders(msgtext)
 	for(var/mob/living/simple_animal/hostile/poison/terror_spider/T in ts_spiderlist)
 		if(T.stat != DEAD)
 			to_chat(T, "<span class='terrorspider'>TerrorSense: [msgtext]</span>")
@@ -307,14 +291,15 @@ var/global/list/ts_spiderlist = list()
 		log_runtime(EXCEPTION("Terror spider created with incorrect faction list at: [atom_loc_line(src)]"))
 		death()
 
-/mob/living/simple_animal/hostile/poison/terror_spider/proc/try_open_airlock(var/obj/machinery/door/airlock/D)
+/mob/living/simple_animal/hostile/poison/terror_spider/proc/try_open_airlock(obj/machinery/door/airlock/D)
+	if(D.operating)
+		return
 	if(!D.density)
 		to_chat(src, "Closing doors does not help us.")
 	else if(D.welded)
 		to_chat(src, "The door is welded shut.")
 	else if(D.locked)
 		to_chat(src, "The door is bolted shut.")
-	else if(D.operating)
 	else if( (!istype(D.req_access) || !D.req_access.len) && (!istype(D.req_one_access) || !D.req_one_access.len) && (D.req_access_txt == "0") && (D.req_one_access_txt == "0") )
 		//visible_message("<span class='danger'>\the [src] opens the public-access door [D]!</span>")
 		D.open(1)

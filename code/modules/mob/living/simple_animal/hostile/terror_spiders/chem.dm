@@ -16,8 +16,6 @@
 	metabolization_rate = 0.1
 
 /datum/reagent/terror_black_toxin/on_mob_life(var/mob/living/M)
-	if(!M)
-		M = holder.my_atom
 	if(volume < 15)
 		// bitten once, die slowly. Easy to survive a single bite - just go to medbay.
 		// total damage: 2/tick, human health 150 until crit, = 75 ticks, = 150 seconds = 2.5 minutes to get to medbay.

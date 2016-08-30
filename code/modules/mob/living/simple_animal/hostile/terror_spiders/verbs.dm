@@ -116,6 +116,8 @@
 					for(var/mob/living/L in C.loc)
 						if(istype(L, /mob/living/simple_animal/hostile/poison/terror_spider))
 							continue
+						if(L.stat != DEAD)
+							continue
 						if(iscarbon(L))
 							regen_points += regen_points_per_kill
 							fed++

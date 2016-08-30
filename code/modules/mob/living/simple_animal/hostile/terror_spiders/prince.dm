@@ -14,7 +14,6 @@
 	name = "Prince of Terror spider"
 	desc = "An enormous, terrifying spider. It looks like it is judging everything it sees. Extremely dangerous."
 	spider_role_summary = "Boss-level terror spider. Lightning bruiser. Capable of taking on a squad by itself."
-	altnames = list("Prince of Terror", "Terror Prince")
 	icon_state = "terror_queen"
 	icon_living = "terror_queen"
 	icon_dead = "terror_queen_dead"

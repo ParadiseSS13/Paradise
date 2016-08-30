@@ -12,7 +12,6 @@
 /mob/living/simple_animal/hostile/poison/terror_spider/black
 	name = "Black Terror spider"
 	desc = "An ominous-looking spider, black as the darkest night, and with merciless yellow eyes."
-	altnames = list("Black Devil spider", "Giant Black Widow spider", "Shadow Terror spider")
 	spider_role_summary = "Hit-and-run attacker with extremely venomous bite."
 
 	icon_state = "terror_black"
@@ -36,7 +35,7 @@
 	guidelist += "- Try to bite a few times and retreat quickly. You will die if you stick around. You are very dangerous and should expect crew to focus fire on you."
 	to_chat(src, guidelist.Join("<BR>"))
 
-/mob/living/simple_animal/hostile/poison/terror_spider/black/spider_specialattack(var/mob/living/carbon/human/L, var/poisonable)
+/mob/living/simple_animal/hostile/poison/terror_spider/black/spider_specialattack(mob/living/carbon/human/L, var/poisonable)
 	if(!poisonable)
 		return ..()
 	if(L.reagents.has_reagent("terror_black_toxin", 50))

@@ -10,7 +10,6 @@
 /mob/living/simple_animal/hostile/poison/terror_spider/gray
 	name = "Gray Terror spider"
 	desc = "An ominous-looking gray spider, it seems jittery."
-	altnames = list("Gray Trap spider", "Gray Stalker spider", "Ghostly Ambushing spider")
 	spider_role_summary = "Fast-moving but weak spider."
 	icon_state = "terror_gray"
 	icon_living = "terror_gray"
