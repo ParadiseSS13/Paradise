@@ -110,6 +110,9 @@ var/global/list/ts_spiderlist = list()
 	// DEBUG OPTIONS & COMMANDS
 	var/spider_debug = 0
 
+	var/datum/action/innate/terrorspider/web/web_action
+	var/datum/action/innate/terrorspider/wrap/wrap_action
+
 
 // --------------------------------------------------------------------------------
 // --------------------- TERROR SPIDERS: SHARED ATTACK CODE -----------------------
@@ -207,6 +210,11 @@ var/global/list/ts_spiderlist = list()
 	add_language("TerrorSpider")
 	add_language("Galactic Common")
 	default_language = all_languages["TerrorSpider"]
+
+	web_action = new()
+	web_action.Grant(src)
+	wrap_action = new()
+	wrap_action.Grant(src)
 
 	name += " ([rand(1, 1000)])"
 	msg_terrorspiders("[src] has grown in [get_area(src)].")

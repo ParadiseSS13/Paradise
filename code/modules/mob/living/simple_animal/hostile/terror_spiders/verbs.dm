@@ -1,10 +1,27 @@
 
+
+/datum/action/innate/terrorspider/web
+	name = "Web"
+	icon_icon = 'icons/effects/effects.dmi'
+	button_icon_state = "stickyweb1"
+
+/datum/action/innate/terrorspider/web/Activate()
+	var/mob/living/simple_animal/hostile/poison/terror_spider/user = owner
+	user.Web()
+
+/datum/action/innate/terrorspider/wrap
+	name = "Wrap"
+	icon_icon = 'icons/effects/effects.dmi'
+	button_icon_state = "cocoon_large1"
+
+/datum/action/innate/terrorspider/wrap/Activate()
+	var/mob/living/simple_animal/hostile/poison/terror_spider/user = owner
+	user.DoWrap()
+
+
 // ---------- WEB
 
-/mob/living/simple_animal/hostile/poison/terror_spider/verb/Web()
-	set name = "Lay Web"
-	set category = "Spider"
-	set desc = "Spin a sticky web to slow down prey."
+/mob/living/simple_animal/hostile/poison/terror_spider/proc/Web()
 	visible_message("<span class='notice'>\the [src] begins to secrete a sticky substance.</span>")
 	if(do_after(src, 40, target = loc))
 		new /obj/effect/spider/terrorweb(loc)
@@ -47,11 +64,6 @@
 // ---------- WRAP
 
 
-/mob/living/simple_animal/hostile/poison/terror_spider/verb/Wrap()
-	set name = "Wrap"
-	set category = "Spider"
-	set desc = "Wrap up corpses (and possibly other ajacent objects)"
-	DoWrap()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/DoWrap()
 	if(!cocoon_target)
