@@ -1,4 +1,0 @@
-author: Krausus
-delete-after: True
-changes: 
-  - bugfix: "Changelings' Swap Form ability now actually deducts its cost upon use, and shouldn't arbitrarily fail to work properly."

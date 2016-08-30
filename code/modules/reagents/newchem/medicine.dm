@@ -639,7 +639,7 @@
 					M.adjustFireLoss(rand(0,15))
 					M.update_revive()
 					M.stat = UNCONSCIOUS
-					add_logs(M, M, "revived", object="strange reagent")
+					add_logs(M, M, "revived", object="strange reagent") //Yes, the logs say you revived yourself.
 	..()
 
 /datum/reagent/strange_reagent/on_mob_life(mob/living/M)

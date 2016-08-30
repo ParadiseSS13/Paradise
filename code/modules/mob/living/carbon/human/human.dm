@@ -415,7 +415,7 @@
 		M.do_attack_animation(src)
 		visible_message("<span class='danger'>[M] [M.attacktext] [src]!</span>", \
 						"<span class='userdanger'>[M] [M.attacktext] [src]!</span>")
-		add_logs(src, M, "attacked")
+		add_logs(M, src, "attacked")
 		var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
 		if(check_shields(damage, "the [M.name]", null, MELEE_ATTACK, M.armour_penetration))
 			return 0

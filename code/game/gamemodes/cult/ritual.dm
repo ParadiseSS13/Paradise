@@ -351,7 +351,7 @@ var/engwords = list("travel", "blood", "join", "hell", "destroy", "technology", 
 				var/holy2unholy = M.reagents.get_reagent_amount("holywater")
 				M.reagents.del_reagent("holywater")
 				M.reagents.add_reagent("unholywater",holy2unholy)
-				add_logs(M, user, "smacked", src, " removing the holy water from them")
+				add_logs(user, M, "smacked", src, " removing the holy water from them")
 			return
 		M.take_organ_damage(0,rand(5,20)) //really lucky - 5 hits for a crit
 		for(var/mob/O in viewers(M, null))
