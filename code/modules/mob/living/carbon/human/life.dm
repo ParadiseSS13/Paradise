@@ -803,10 +803,6 @@
 		if(REGEN in mutations)
 			heal_overall_damage(0.1, 0.1)
 
-		if(!in_stasis)
-			handle_organs()
-			handle_blood()
-
 		if(paralysis)
 			blinded = 1
 			stat = UNCONSCIOUS
@@ -892,6 +888,10 @@
 		// If you're dirty, your gloves will become dirty, too.
 		if(gloves && germ_level > gloves.germ_level && prob(10))
 			gloves.germ_level += 1
+
+		if(!in_stasis)
+			handle_organs()
+			handle_blood()
 
 
 	else //dead
