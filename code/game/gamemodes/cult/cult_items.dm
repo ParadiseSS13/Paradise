@@ -291,7 +291,6 @@
 		return
 
 	var/outer_tele_radius = 9
-	var/inner_tele_radius = 0
 
 	var/mob/living/carbon/C = user
 	var/turf/mobloc = get_turf(C)
@@ -301,7 +300,7 @@
 			continue
 		if(get_dir(C, T) != C.dir)
 			continue
-		if(T in range(user, inner_tele_radius))
+		if(T == mobloc)
 			continue
 		if(istype(T, /turf/space))
 			continue
