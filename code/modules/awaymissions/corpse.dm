@@ -33,7 +33,7 @@
 				"Grey" = 8,
 				"Human" = 45, //skin tone issue: caucasian only
 				"Kidan" = 8, //How to set eye color? All the vars I could find were invalid somehow
-				"Machine" = 10, //Are immune to death
+				"Machine" = 10,
 				"Plasmaman" = 1, //doesn't light anything on fire because it's dead.
 				"Shadow" = 1,
 				"Slime People" = 5,
@@ -59,7 +59,6 @@
 		M.set_species(pickweight(cspecies)) //If no species specified by the mob type, select one at random
 	M.set_species(src.mob_species)
 	M.death(1) //Kills the new mob
-//	empulse(get_turf(src),0,0) //Kills the new mob if they happen to be an IPC
 	M.emp_act(1)
 	var/obj/item/organ/external/head/head_organ = M.get_organ("head")
 	if(head_organ)
