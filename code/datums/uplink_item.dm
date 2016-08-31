@@ -791,7 +791,7 @@ var/list/uplink_items = list()
 	reference = "CHHUD"
 	item = /obj/item/clothing/glasses/hud/security/chameleon
 	cost = 2
-	
+
 /datum/uplink_item/stealthy_weapons/chameleonflag
 	name = "Chameleon Flag"
 	desc = "A flag that can be disguised as any other known flag. There is a heat sensitive bomb loaded into the pole that will be detonated if the flag is lit on fire."
@@ -914,6 +914,14 @@ var/list/uplink_items = list()
 	reference = "SSDB"
 	item = /obj/item/weapon/storage/backpack/duffel/syndie/surgery
 	cost = 4
+
+/datum/uplink_item/device_tools/syndiesleeperboard
+	name = "Syndicate Sleeper Board"
+	desc = "The circuit board required to build the Syndicate Sleeper, allowing agents to self-heal in the field."
+	reference = "SYSB"
+	item = /obj/item/weapon/circuitboard/sleeper/syndicate
+	cost = 2
+	excludefrom = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/device_tools/military_belt
 	name = "Military Belt"
