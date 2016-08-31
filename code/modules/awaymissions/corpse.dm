@@ -59,7 +59,8 @@
 		M.set_species(pickweight(cspecies)) //If no species specified by the mob type, select one at random
 	M.set_species(src.mob_species)
 	M.death(1) //Kills the new mob
-	empulse(get_turf(src),0,0) //Kills the new mob if they happen to be an IPC
+//	empulse(get_turf(src),0,0) //Kills the new mob if they happen to be an IPC
+	M.emp_act(1)
 	var/obj/item/organ/external/head/head_organ = M.get_organ("head")
 	if(head_organ)
 		head_organ.r_facial = rand(0,255) //facial coloring
