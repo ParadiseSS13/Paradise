@@ -164,12 +164,13 @@ var/global/dmm_suite/preloader/_preloader = new
 	log_debug("Loaded map in [stop_watch(watch)]s.")
 	qdel(LM)
 	if(bounds[MAP_MINX] == 1.#INF) // Shouldn't need to check every item
-		log_debug("Min x: bounds[MAP_MINX]")
-		log_debug("Min y: bounds[MAP_MINY]")
-		log_debug("Min z: bounds[MAP_MINZ]")
-		log_debug("Max x: bounds[MAP_MAXX]")
-		log_debug("Max y: bounds[MAP_MAXY]")
-		log_debug("Max z: bounds[MAP_MAXZ]")
+		log_runtime(EXCEPTION("Bad Map bounds."), src, list(
+		"Min x: [bounds[MAP_MINX]]",
+		"Min y: [bounds[MAP_MINY]]",
+		"Min z: [bounds[MAP_MINZ]]",
+		"Max x: [bounds[MAP_MAXX]]",
+		"Max y: [bounds[MAP_MAXY]]",
+		"Max z: [bounds[MAP_MAXZ]]"))
 		return null
 	else
 		if(!measureOnly)
@@ -233,7 +234,7 @@ var/global/dmm_suite/preloader/_preloader = new
 			old_position = dpos + 1
 
 			if(!atom_def) // Skip the item if the path does not exist.  Fix your crap, mappers!
-				log_debug("Bad path: [atom_text]")
+				log_runtime(EXCEPTION("Bad path: [atom_text]"), src, list("Source String: [model]", "dpos: [dpos]"))
 				continue
 			members.Add(atom_def)
 
@@ -384,7 +385,7 @@ var/global/dmm_suite/preloader/_preloader = new
 			if(findtext(trim_right,quote,1,2))
 				var/endquote = findtext(trim_right,quote,-1)
 				if(!endquote)
-					log_debug("Terminating quote not found!")
+					log_runtime(EXCEPTION("Terminating quote not found!"), src)
 				// Our map writer escapes quotes and curly brackets to avoid
 				// letting our simple parser choke on meanly-crafted names/etc
 				// - so we decode it here so it's back to good ol' legibility
@@ -458,7 +459,7 @@ var/global/dmm_suite/preloader/_preloader = new
 		try
 			what.deserialize(json_decode(json_data))
 		catch(var/exception/e)
-			log_debug("Bad json data: '[json_data]'")
+			log_runtime(EXCEPTION("Bad json data: '[json_data]'"), src)
 			throw e
 	for(var/attribute in attributes)
 		var/value = attributes[attribute]

@@ -318,7 +318,7 @@ Large: Whether the splat should be big or not
 				R.reaction_turf(T, R.volume)
 			return
 	else if(source)
-		log_to_dd("Non-human or reagent blood source. Area: [get_area(source)], Name: [source]")
+		log_runtime(EXCEPTION("Non-human or reagent blood source. Area: [get_area(source)], Name: [source]"), source)
 
 	// Are we dripping or splattering?
 	var/list/drips = list()

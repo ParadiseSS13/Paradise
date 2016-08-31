@@ -28,7 +28,7 @@
 			return
 		if(held_brain)
 			to_chat(user, "<span class='userdanger'>Somehow, this MMI still has a brain in it. Report this to the bug tracker.</span>")
-			log_to_dd("[user] tried to stick a [O] into [src] in [get_area(src)], but the held brain variable wasn't cleared")
+			log_runtime(EXCEPTION("[user] tried to stick a [O] into [src] in [get_area(src)], but the held brain variable wasn't cleared"), src)
 			return
 		for(var/mob/V in viewers(src, null))
 			V.show_message("<span class='notice'>[user] sticks \a [O] into \the [src].</span>")
@@ -101,7 +101,7 @@
 //problem i was having with alien/nonalien brain drops.
 /obj/item/device/mmi/proc/dropbrain(var/turf/dropspot)
 	if(isnull(held_brain))
-		log_to_dd("[src] at [loc] attempted to drop brain without a contained brain in [get_area(src)].")
+		log_runtime(EXCEPTION("[src] at [loc] attempted to drop brain without a contained brain in [get_area(src)]."), src)
 		to_chat(brainmob, "<span class='userdanger'>Your MMI did not contain a brain! We'll make a new one for you, but you'd best report this to the bugtracker!</span>")
 		held_brain = new(dropspot) // Let's not ruin someone's round because of something dumb -- Crazylemon
 		held_brain.dna = brainmob.dna.Clone()

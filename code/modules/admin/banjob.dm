@@ -77,7 +77,7 @@ DEBUG
 			if(jobban_regex.Find(s))
 				jobban_assoc_insert(jobban_regex.group[1], jobban_regex.group[2], jobban_regex.group[3])
 			else
-				log_debug("Skipping malformed job ban: [s]")
+				log_runtime(EXCEPTION("Skipping malformed job ban: [s]"))
 	else
 		if(!establish_db_connection())
 			log_to_dd("Database connection failed. Reverting to the legacy ban system.")
@@ -132,9 +132,9 @@ DEBUG
 				if(jobban_assoclist[ckey] && jobban_assoclist[ckey][rank])
 					jobban_assoclist[ckey] -= rank
 				else
-					log_debug("Attempted to remove non-existent job ban: [X]")
+					log_runtime(EXCEPTION("Attempted to remove non-existent job ban: [X]"))
 			else
-				log_debug("Failed to remove malformed job ban from associative list: [X]")
+				log_runtime(EXCEPTION("Failed to remove malformed job ban from associative list: [X]"))
 			jobban_keylist.Remove(jobban_keylist[i])
 			if(config.ban_legacy_system)
 				jobban_savebanfile()

@@ -545,7 +545,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 				var/start_T_descriptor = "<font color='#6b5d00'>tile at [start_T.x], [start_T.y], [start_T.z] in area [get_area(start_T)]</font>"
 				var/end_T_descriptor = "<font color='#6b4400'>tile at [end_T.x], [end_T.y], [end_T.z] in area [get_area(end_T)]</font>"
 
-				add_logs(throwable_mob, src, "thrown", addition="from [start_T_descriptor] with the target [end_T_descriptor]")
+				add_logs(src, throwable_mob, "thrown", addition="from [start_T_descriptor] with the target [end_T_descriptor]")
 
 	else if(!(I.flags & ABSTRACT)) //can't throw abstract items
 		thrown_thing = I

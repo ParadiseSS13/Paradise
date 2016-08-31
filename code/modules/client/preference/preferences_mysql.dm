@@ -61,7 +61,7 @@
 	// Might as well scrub out any malformed be_special list entries while we're here
 	for(var/role in be_special)
 		if(!(role in special_roles))
-			log_to_dd("[C.key] had a malformed role entry: '[role]'. Removing!")
+			log_runtime(EXCEPTION("[C.key] had a malformed role entry: '[role]'. Removing!"), src)
 			be_special -= role
 
 	var/DBQuery/query = dbcon.NewQuery({"UPDATE [format_table_name("player")]

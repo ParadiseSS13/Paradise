@@ -240,7 +240,7 @@
 			user.visible_message("<span class='notice'> [user] has separated and extracts [target]'s [I] with \the [tool].</span>" , \
 			"<span class='notice'> You have separated and extracted [target]'s [I] with \the [tool].</span>")
 
-			add_logs(target,user, "surgically removed [I.name] from", addition="INTENT: [uppertext(user.a_intent)]")
+			add_logs(user, target, "surgically removed [I.name] from", addition="INTENT: [uppertext(user.a_intent)]")
 			spread_germs_to_organ(I, user)
 			I.status |= ORGAN_CUT_AWAY
 			var/obj/item/thing = I.remove(target)

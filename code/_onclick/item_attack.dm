@@ -58,14 +58,15 @@
 				return 1
 
 	if(istype(M,/mob/living/carbon/brain))
-		messagesource = M:container
+		var/mob/living/carbon/brain/B = M
+		messagesource = B.container
 	if(hitsound && force > 0)
 		playsound(loc, hitsound, 50, 1, -1)
 	/////////////////////////
 	user.lastattacked = M
 	M.lastattacker = user
 
-	add_logs(M, user, "attacked", src.name, "(INTENT: [uppertext(user.a_intent)]) (DAMTYE: [uppertext(damtype)])")
+	add_logs(user, M, "attacked", name, "(INTENT: [uppertext(user.a_intent)]) (DAMTYE: [uppertext(damtype)])")
 
 	if(!iscarbon(user))
 		M.LAssailant = null
