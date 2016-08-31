@@ -37,7 +37,9 @@
 	O.add_ai_verbs()
 
 	O.rename_self("AI",1)
-	qdel(src)
+
+	spawn()
+		qdel(src)
 	return O
 
 /mob/living/carbon/human/make_into_mask(var/should_gib = 0)
