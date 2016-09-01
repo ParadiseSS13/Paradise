@@ -2030,6 +2030,7 @@
 #include "code\modules\vehicle\snowmobile.dm"
 #include "code\modules\vehicle\speedbike.dm"
 #include "code\modules\vehicle\sportscar.dm"
+#include "code\modules\vehicle\tank.dm"
 #include "code\modules\vehicle\vehicle.dm"
 #include "interface\interface.dm"
 #include "interface\stylesheet.dm"
