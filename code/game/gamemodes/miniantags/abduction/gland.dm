@@ -98,7 +98,7 @@
 		if(H == owner)
 			continue
 		to_chat(H, "<span class='alien'>You hear a buzz in your head.</span>")
-		H.confused += 20
+		H.AdjustConfused(20)
 
 /obj/item/organ/internal/gland/pop
 	origin_tech = "materials=4;biotech=6;abductor=3"

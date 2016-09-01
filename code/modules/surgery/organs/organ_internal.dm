@@ -307,7 +307,7 @@
 			owner.drip(10)
 		if(prob(4))
 			spawn owner.custom_emote(1, "gasps for air!")
-			owner.losebreath += 5
+			owner.AdjustLoseBreath(5)
 
 /obj/item/organ/internal/kidneys
 	name = "kidneys"
@@ -357,10 +357,10 @@
 /obj/item/organ/internal/eyes/surgeryize()
 	if(!owner)
 		return
-	owner.disabilities &= ~NEARSIGHTED
-	owner.disabilities &= ~BLIND
-	owner.eye_blurry = 0
-	owner.eye_blind = 0
+	owner.CureNearsighted()
+	owner.CureBlind()
+	owner.SetEyeBlurry(0)
+	owner.SetEyeBlind(0)
 
 
 /obj/item/organ/internal/liver
@@ -493,6 +493,7 @@
 	slot = "brain_tumor"
 	health = 3
 	var/organhonked = 0
+	var/suffering_delay = 900
 
 /obj/item/organ/internal/honktumor/New()
 	..()
@@ -535,11 +536,11 @@
 		return
 
 	if(organhonked < world.time)
-		organhonked = world.time+900
+		organhonked = world.time + suffering_delay
 		to_chat(owner, "<font color='red' size='7'>HONK</font>")
-		owner.sleeping = 0
-		owner.stuttering = 20
-		owner.adjustEarDamage(0, 30)
+		owner.SetSleeping(0)
+		owner.Stuttering(20)
+		owner.AdjustEarDeaf(30)
 		owner.Weaken(3)
 		owner << 'sound/items/AirHorn.ogg'
 		if(prob(30))

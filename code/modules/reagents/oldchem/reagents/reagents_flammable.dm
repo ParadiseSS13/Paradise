@@ -22,7 +22,7 @@
 	M.adjustBrainLoss(3)
 	if(iscultist(M))
 		M.status_flags |= GOTTAGOFAST
-		M.drowsyness = max(M.drowsyness-5, 0)
+		M.AdjustDrowsy(-5)
 		M.AdjustParalysis(-2)
 		M.AdjustStunned(-2)
 		M.AdjustWeakened(-2)

@@ -335,7 +335,7 @@
 	if(ishuman(loc))
 		var/mob/living/carbon/human/H = loc
 		if(H.head == src)
-			H.slurring = max(3, H.slurring) //always slur
+			H.Slur(3) //always slur
 
 /obj/item/clothing/head/beret/fluff/linda //Epic_Charger: Linda Clark
 	name = "Green beret"

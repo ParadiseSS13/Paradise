@@ -97,8 +97,8 @@
 		emote("deathgasp") //let the world KNOW WE ARE DEAD
 
 	stat = DEAD
-	dizziness = 0
-	jitteriness = 0
+	SetDizzy(0)
+	SetJitter(0)
 	heart_attack = 0
 
 	//Handle species-specific deaths.

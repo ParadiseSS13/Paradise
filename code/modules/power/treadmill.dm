@@ -71,7 +71,7 @@
 				var/mob_speed = M.movement_delay()
 				switch(M.m_intent)
 					if("run")
-						if(M.drowsyness > 0)
+						if(M.drowsy > 0)
 							mob_speed += 6
 						mob_speed += config.run_speed - 1
 					if("walk")
