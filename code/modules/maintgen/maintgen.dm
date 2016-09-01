@@ -68,32 +68,6 @@
 				if(!check_maint_room_bounds(space_dir, T, x_offset, -height, width, 1))
 					break
 				height++
-			/*var/X1
-			var/Y1
-			var/X2
-			var/Y2
-			switch(space_dir)
-				if(NORTH)
-					X1 = T.x-x_offset
-					Y1 = T.y-y_offset
-					X2 = T.x-x_offset+width-1
-					Y2 = T.y-y_offset+height-1
-				if(SOUTH)
-					X2 = T.x+x_offset
-					Y2 = T.y+y_offset
-					X1 = T.x+x_offset-width+1
-					Y1 = T.y+y_offset-width+1
-				if(EAST)
-					X1 = T.x-y_offset
-					Y2 = T.y+x_offset
-					X2 = T.x-y_offset+width-1
-					Y1 = T.y+x_offset-width+1
-				if(WEST)
-					X2 = T.x+y_offset
-					Y1 = T.y-x_offset
-					X1 = T.x+y_offset-width+1
-					Y2 = T.y-x_offset+width-1*/
-			to_chat(world, "Found [width]x[height] area at [T.x],[T.y]")
 			if(width < 3 || height < 2)
 				continue
 			var/list/turfs = get_turfs_in_maint_room_bounds(space_dir, T, x_offset, 0, width, height)
@@ -127,7 +101,6 @@
 					var/obj/structure/falsewall/F = new(door_turf)
 					smooth_icon_neighbors(F)
 					smooth_icon(F)
-			to_chat(world, "Successfully generated maintenance room at ([T.x],[T.y],[T.z])")
 			break
 
 /proc/get_turfs_in_maint_room_bounds(space_dir, turf/T, x_offset, y_offset, width, height)
