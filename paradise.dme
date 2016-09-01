@@ -939,6 +939,7 @@
 #include "code\game\objects\structures\crates_lockers\closets\secure\guncabinet.dm"
 #include "code\game\objects\structures\crates_lockers\closets\secure\hydroponics.dm"
 #include "code\game\objects\structures\crates_lockers\closets\secure\medical.dm"
+#include "code\game\objects\structures\crates_lockers\closets\secure\miscjobs.dm"
 #include "code\game\objects\structures\crates_lockers\closets\secure\personal.dm"
 #include "code\game\objects\structures\crates_lockers\closets\secure\scientist.dm"
 #include "code\game\objects\structures\crates_lockers\closets\secure\secure_closets.dm"
