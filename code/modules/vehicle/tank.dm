@@ -58,3 +58,13 @@
 /obj/vehicle/tank/unbuckle_mob(mob/living/M)
 	fire_cannon_action.Remove(buckled_mob)
 	..()
+
+/obj/vehicle/tank/tank_green
+	name = "green tank"
+	icon_state ="tank_green"
+	desc = "A tank belonging to the green army"
+
+/obj/vehicle/tank/tank_grey
+	name = "grey tank"
+	icon_state = "tank_grey"
+	desc = "A tank belonging to the grey army"
