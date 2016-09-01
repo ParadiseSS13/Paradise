@@ -114,7 +114,7 @@
 
 /obj/item/projectile/bullet/midbullet3/hp
 	damage = 45
-	armor_penetration = -100
+	armour_penetration = -100
 
 /obj/item/projectile/bullet/midbullet3/ap
 	damage = 27
