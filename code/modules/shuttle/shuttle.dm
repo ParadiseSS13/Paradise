@@ -212,15 +212,7 @@
 /obj/docking_port/mobile/New()
 	..()
 
-
-
-
-/obj/docking_port/mobile/initialize()
 	var/area/A = get_area(src)
-
-	if(!timid)
-		register()
-
 	if(istype(A, /area/shuttle))
 		areaInstance = A
 
@@ -232,6 +224,13 @@
 	#ifdef DOCKING_PORT_HIGHLIGHT
 	highlight("#0f0")
 	#endif
+
+
+
+
+/obj/docking_port/mobile/initialize()
+	if(!timid)
+		register()
 	..()
 
 /obj/docking_port/mobile/register()
