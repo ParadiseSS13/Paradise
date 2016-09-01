@@ -180,6 +180,22 @@
 	max_ammo = 8
 	multiple_sprites = 2
 
+/obj/item/ammo_box/magazine/m10mm/fire
+	name = "pistol magazine (10mm incendiary)"
+	desc = "A gun magazine. Loaded with rounds which ignite the target."
+	ammo_type = /obj/item/ammo_casing/c10mm/fire
+
+/obj/item/ammo_box/magazine/m10mm/silencer
+	name = "pistol magazine (10mm silencer)"
+	desc= "A gun magazine. Loaded with rounds which silence the target for a brief duration."
+	ammo_type = /obj/item/ammo_casing/c10mm/silencer
+
+
+/obj/item/ammo_box/magazine/m10mm/AP
+	name = "pistol magazine (10mm AP)"
+	desc= "A gun magazine. Loaded with rounds which penetrate armour, but are less effective against normal targets"
+	ammo_type = /obj/item/ammo_casing/c10mm/ap
+
 /obj/item/ammo_box/magazine/m10mm/empty		//for maint drops
 	desc = "A gun magazine. Seems to be broken and can only hold one bullet. Pretty useless."
 	max_ammo = 1

@@ -1,0 +1,4 @@
+author: TullyBurnalot
+delete-after: True
+changes: 
+  - bugfix: "Mobs without appendixes can no longer contract appendicitis"
