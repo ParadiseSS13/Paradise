@@ -86,7 +86,7 @@ var/intercom_range_display_status = 0
 			if(!(locate(/obj/structure/grille,T)))
 				var/window_check = 0
 				for(var/obj/structure/window/W in T)
-					if (W.dir == turn(C1.dir,180) || W.is_fulltile() )
+					if(W.dir == turn(C1.dir,180) || W.is_fulltile() )
 						window_check = 1
 						break
 				if(!window_check)
@@ -115,43 +115,9 @@ var/intercom_range_display_status = 0
 		for(var/obj/item/device/radio/intercom/I in world)
 			for(var/turf/T in orange(7,I))
 				var/obj/effect/debugging/marker/F = new/obj/effect/debugging/marker(T)
-				if (!(F in view(7,I.loc)))
+				if(!(F in view(7,I.loc)))
 					qdel(F)
 	feedback_add_details("admin_verb","mIRD") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
-var/list/admin_verbs_show_debug_verbs = list(
-	/client/proc/camera_view,
-	/client/proc/sec_camera_report,
-	/client/proc/intercom_view,
-	/client/proc/Cell, //More air things
-	/client/proc/atmosscan, //check plumbing
-	/client/proc/powerdebug, //check power
-	/client/proc/count_objects_on_z_level,
-	/client/proc/count_objects_all,
-	/client/proc/cmd_assume_direct_control,
-	/client/proc/startSinglo,
-	/client/proc/ticklag,
-	/client/proc/cmd_admin_grantfullaccess,
-	/client/proc/cmd_admin_areatest,
-	/client/proc/cmd_admin_rejuvenate,
-	/datum/admins/proc/show_traitor_panel,
-	/client/proc/print_jobban_old,
-	/client/proc/print_jobban_old_filter,
-	/client/proc/forceEvent,
-	/client/proc/nanomapgen_DumpImage,
-	/client/proc/reload_nanoui_resources
-)
-
-/client/proc/enable_debug_verbs()
-	set category = "Debug"
-	set name = "Debug verbs"
-
-	if(!check_rights(R_DEBUG))
-		return
-
-	verbs += admin_verbs_show_debug_verbs
-
-	feedback_add_details("admin_verb","mDV") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/count_objects_on_z_level()
 	set category = "Mapping"

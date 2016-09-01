@@ -65,7 +65,7 @@
 	else if(is_special_character(user))
 		to_chat(user, "Even to a heart as dark as yours, you know nothing good will come of this.  Something instinctual makes you pull away.")
 
-	else if (!insistinga)
+	else if(!insistinga)
 		to_chat(user, "Your first touch makes the Wish Granter stir, listening to you.  Are you really sure you want to do this?")
 		insistinga++
 
@@ -119,7 +119,7 @@
 				to_chat(user, "<B>Your wish is granted, but at a terrible cost...</B>")
 				to_chat(user, "The Wish Granter punishes you for your wickedness, claiming your soul and warping your body to match the darkness in your heart.")
 				ticker.mode.traitors += user.mind
-				user.mind.special_role = "traitor"
+				user.mind.special_role = SPECIAL_ROLE_TRAITOR
 				var/datum/objective/hijack/hijack = new
 				hijack.owner = user.mind
 				user.mind.objectives += hijack
@@ -172,7 +172,7 @@
 
 	if(istype(M, /mob/living/carbon/human))
 		for(var/mob/O in viewers(world.view, src.loc))
-			to_chat(O, "<font color='red'>[M] triggered the \icon[src] [src]</font>")
+			to_chat(O, "<font color='red'>[M] triggered the [bicon(src)] [src]</font>")
 		triggered = 1
 		call(src,triggerproc)(M)
 

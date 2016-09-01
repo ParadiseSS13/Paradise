@@ -18,7 +18,7 @@ var/global/vox_tick = 1
 			equip_to_slot_or_del(new /obj/item/clothing/glasses/thermal/monocle(src), slot_glasses) // REPLACE WITH CODED VOX ALTERNATIVE.
 			equip_to_slot_or_del(new /obj/item/device/chameleon(src), slot_l_store)
 
-			var/obj/item/weapon/gun/launcher/spikethrower/W = new(src)
+			var/obj/item/weapon/gun/projectile/automatic/spikethrower/W = new(src)
 			equip_to_slot_or_del(W, slot_r_hand)
 
 
@@ -48,7 +48,7 @@ var/global/vox_tick = 1
 			equip_to_slot_or_del(new /obj/item/weapon/circular_saw(src), slot_l_store)
 			equip_to_slot_or_del(new /obj/item/weapon/gun/dartgun/vox/medical, slot_r_hand)
 
-	equip_to_slot_or_del(new /obj/item/clothing/mask/breath(src), slot_wear_mask)
+	equip_to_slot_or_del(new /obj/item/clothing/mask/breath/vox(src), slot_wear_mask)
 	equip_to_slot_or_del(new /obj/item/weapon/tank/nitrogen(src), slot_back)
 	equip_to_slot_or_del(new /obj/item/device/flashlight(src), slot_r_store)
 
@@ -59,22 +59,7 @@ var/global/vox_tick = 1
 	W.registered_user = src
 	equip_to_slot_or_del(W, slot_wear_id)
 
-/*
-	var/obj/item/weapon/implant/cortical/I = new(src)
-	I.imp_in = src
-	I.implanted = 1
-
-	if(ticker.mode && ( istype(ticker.mode,/datum/game_mode/vox/heist) ) )
-		var/datum/game_mode/vox/heist/M = ticker.mode
-		M.cortical_stacks += I
-		M.raiders[mind] = I
-	else if(ticker.mode && ( istype(ticker.mode,/datum/game_mode/vox/trade) ) )
-		var/datum/game_mode/vox/trade/M = ticker.mode
-		M.cortical_stacks += I
-		M.traders[mind] = I
-
-*/
 	vox_tick++
-	if (vox_tick > 4) vox_tick = 1
+	if(vox_tick > 4) vox_tick = 1
 
 	return 1

@@ -34,7 +34,7 @@
 	attack_hand(mob/user as mob)
 
 
-		if (user.mind.special_role=="Ninja")
+		if(user.mind.special_role=="Ninja")
 			switch(alert("Phase Jaunt relay primed, target locked as [station_name()], initiate VOID-shift translocation? (Warning! Internals required!)",,"Yes","No"))
 
 				if("Yes")
@@ -48,12 +48,12 @@
 					playsound(user.loc, 'sound/effects/sparks2.ogg', 50, 1)
 					anim(user.loc,user,'icons/mob/mob.dmi',,"phasein",,user.dir)
 
-					to_chat(user, "\blue <b>VOID-Shift</b> translocation successful")
+					to_chat(user, "<span class='boldnotice'>VOID-Shift</span> translocation successful")
 
 				if("No")
 
-					to_chat(user, "\red <b>Process aborted!</b>")
+					to_chat(user, "<span class='danger'>Process aborted!</span>")
 
 					return
 		else
-			to_chat(user, "\red <B>FĆAL �Rr�R</B>: ŧer nt recgnized, c-cntr-r䣧-ç äcked.")
+			to_chat(user, "<span class='danger'>FĆAL �Rr�R</span>: ŧer nt recgnized, c-cntr-r䣧-ç äcked.")

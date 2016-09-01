@@ -156,12 +156,12 @@
 		to_chat(user, "<span class='notice'>The crate is locked with a Deca-code lock.</span>")
 		var/input = input(usr, "Enter [codelen] digits.", "Deca-Code Lock", "") as text
 		if(in_range(src, user))
-			if (input == code)
+			if(input == code)
 				to_chat(user, "<span class='notice'>The crate unlocks!</span>")
 				locked = 0
 				overlays.Cut()
 				overlays += "securecrateg"
-			else if (input == null || length(input) != codelen)
+			else if(input == null || length(input) != codelen)
 				to_chat(user, "<span class='notice'>You leave the crate alone.</span>")
 			else
 				to_chat(user, "<span class='warning'>A red light flashes.</span>")
@@ -179,6 +179,7 @@
 	if(locked)
 		if(istype(W, /obj/item/weapon/card/emag))
 			boom(user)
+			return 1
 		if(istype(W, /obj/item/device/multitool))
 			to_chat(user, "<span class='notice'>DECA-CODE LOCK REPORT:</span>")
 			if(attempts == 1)
@@ -186,30 +187,24 @@
 			else
 				to_chat(user, "<span class='notice'>* Anti-Tamper Bomb will activate after [src.attempts] failed access attempts.</span>")
 			if(lastattempt != null)
-				var/guess = lastattempt
 				var/bulls = 0
 				var/cows = 0
 				var/list/banned = list()
-				for(var/i; i <= length(lastattempt); i++)
-					var/list/a = strip_first(guess)
-					if(a[1] in banned)
+				for(var/i in 1 to codelen)
+					var/list/a = copytext(lastattempt, i, i + 1)
+					if(a in banned)
 						continue
-					if(findtext(a[2], a[1]))
-						if(findtext(code, a[1], i, i+1))
+					var/g = findtext(code, a)
+					if(g)
+						banned += a
+						if(g == i)
 							++bulls
-							banned += a[1]
-					else
-						var/g = findtext(code, a[1])
-						if(g)
-							if(g == i)
-								++bulls
-							else
-								++cows
-					guess = a[2]
+						else
+							++cows
 
 				to_chat(user, "<span class='notice'>Last code attempt had [bulls] correct digits at correct positions and [cows] correct digits at incorrect positions.</span>")
-		else ..()
-	else ..()
+			return 1
+	return ..()
 
 /obj/structure/closet/crate/secure/loot/togglelock(mob/user)
 	if(locked)

@@ -70,6 +70,14 @@
 		var/mob/living/silicon/robot/R = usr
 		R.control_headlamp()
 
+/obj/screen/robot/thrusters
+	name = "ion thrusters"
+	icon_state = "ionpulse0"
+
+/obj/screen/robot/thrusters/Click()
+	var/mob/living/silicon/robot/R = usr
+	R.toggle_ionpulse()
+
 /obj/screen/robot/panel
 	name = "installed modules"
 	icon_state = "panel"
@@ -150,6 +158,11 @@
 	mymobR.lamp_button.screen_loc = ui_borg_lamp
 	static_inventory += mymobR.lamp_button
 
+//Thrusters
+	using = new /obj/screen/robot/thrusters()
+	using.screen_loc = ui_borg_thrusters
+	static_inventory += using
+	mymobR.thruster_button = using
 
 /datum/hud/proc/toggle_show_robot_modules()
 	if(!isrobot(mymob))
@@ -209,6 +222,7 @@
 				else
 					A.screen_loc = "CENTER+[x]:16,SOUTH+[y]:7"
 				A.layer = 20
+				A.plane = HUD_PLANE
 
 				x++
 				if(x == 4)

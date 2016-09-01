@@ -10,7 +10,7 @@
 		else
 			src << link(config.wikiurl)
 	else
-		src << "<span class='danger'>The wiki URL is not set in the server configuration.</span>"
+		to_chat(src, "<span class='danger'>The wiki URL is not set in the server configuration.</span>")
 	return
 
 /client/verb/changes()
@@ -39,6 +39,9 @@
 		)
 	src << browse('html/changelog.html', "window=changes;size=675x650")
 
+	if(prefs.lastchangelog != changelog_hash) //if it's already opened, no need to tell them they have unread changes
+		prefs.SetChangelog(src,changelog_hash)
+
 /client/verb/forum()
 	set name = "forum"
 	set desc = "Visit the forum."
@@ -48,7 +51,7 @@
 			return
 		src << link(config.forumurl)
 	else
-		src << "<span class='danger'>The forum URL is not set in the server configuration.</span>"
+		to_chat(src, "<span class='danger'>The forum URL is not set in the server configuration.</span>")
 	return
 
 /client/verb/rules()
@@ -60,7 +63,7 @@
 			return
 		src << link(config.rulesurl)
 	else
-		src << "<span class='danger'>The rules URL is not set in the server configuration.</span>"
+		to_chat(src, "<span class='danger'>The rules URL is not set in the server configuration.</span>")
 	return
 
 /client/verb/donate()
@@ -72,7 +75,7 @@
 			return
 		src << link(config.donationsurl)
 	else
-		src << "<span class='danger'>The rules URL is not set in the server configuration.</span>"
+		to_chat(src, "<span class='danger'>The rules URL is not set in the server configuration.</span>")
 	return
 
 /client/verb/hotkeys_help()
@@ -86,12 +89,17 @@ Admin:
 \tF7 = Player Panel
 \tF8 = Admin PM
 \tF9 = Invisimin
+
+Admin ghost:
+\tCtrl+Click = Player Panel
+\tCtrl+Shift+Click = View Variables
+\tShift+Middle Click = Mob Info
 </font>"}
 
 	mob.hotkey_help()
 
 	if(check_rights(R_MOD|R_ADMIN,0))
-		src << adminhotkeys
+		to_chat(src, adminhotkeys)
 
 /mob/proc/hotkey_help()
 	var/hotkey_mode = {"<font color='purple'>
@@ -148,8 +156,8 @@ Any-Mode: (hotkey doesn't need to be on)
 \tF4 = Me
 </font>"}
 
-	src << hotkey_mode
-	src << other
+	to_chat(src, hotkey_mode)
+	to_chat(src, other)
 
 /mob/living/silicon/robot/hotkey_help()
 	var/hotkey_mode = {"<font color='purple'>
@@ -200,15 +208,15 @@ Any-Mode: (hotkey doesn't need to be on)
 \tF4 = Me
 </font>"}
 
-	src << hotkey_mode
-	src << other
+	to_chat(src, hotkey_mode)
+	to_chat(src, other)
 
 //adv. hotkey mode verbs, vars located in /code/modules/client/client defines.dm
 /client/verb/hotkey_toggle()//toggles hotkey mode between on and off, respects selected type
 	set name = ".Toggle Hotkey Mode"
 
 	hotkeyon = !hotkeyon//toggle the var
-	usr << (hotkeyon ? "Hotkey mode enabled." : "Hotkey mode disabled.")//feedback to the user
+	to_chat(usr, (hotkeyon ? "Hotkey mode enabled." : "Hotkey mode disabled."))//feedback to the user
 
 	if(hotkeyon)//using an if statement because I don't want to clutter winset() with ? operators
 		winset(usr, "mainwindow.hotkey_toggle", "is-checked=true")//checks the button
@@ -221,10 +229,13 @@ Any-Mode: (hotkey doesn't need to be on)
 	set name = "Set Hotkey Mode"
 	set category = "Preferences"
 
-	hotkeytype = input("Choose hotkey mode", "Hotkey mode") as null|anything in hotkeylist//ask the user for the hotkey type
+	var/hkt = input("Choose hotkey mode", "Hotkey mode") as null|anything in hotkeylist//ask the user for the hotkey type
+	if(!hkt)
+		return
+	hotkeytype = hkt
 
 	var/hotkeys = hotkeylist[hotkeytype]//get the list containing the hotkey names
 	var/hotkeyname = hotkeys[hotkeyon ? "on" : "off"]//get the name of the hotkey, to not clutter winset() to much
 
 	winset(usr, "mainwindow", "macro=[hotkeyname]")//change the hotkey
-	usr << "Hotkey mode changed to [hotkeytype]."
+	to_chat(usr, "Hotkey mode changed to [hotkeytype].")

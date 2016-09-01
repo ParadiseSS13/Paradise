@@ -10,6 +10,9 @@
 ////////// Usable Items //////////
 //////////////////////////////////
 
+/obj/item/device/fluff
+	var/used = 0
+
 /obj/item/device/fluff/tattoo_gun // Generic tattoo gun, make subtypes for different folks
 	name = "dispoable tattoo pen"
 	desc = "A cheap plastic tattoo application pen."
@@ -17,8 +20,7 @@
 	icon_state = "tatgun"
 	force = 0
 	throwforce = 0
-	w_class = 1.0
-	var/used = 0
+	w_class = 1
 	var/tattoo_name = "tiger stripe tattoo" // Tat name for visible messages
 	var/tattoo_icon = "Tiger Body" // body_accessory.dmi, new icons defined in sprite_accessories.dm
 	var/tattoo_r = 1 // RGB values for the body markings
@@ -67,8 +69,45 @@
 		target.update_markings()
 
 		playsound(src.loc, 'sound/items/Welder2.ogg', 20, 1)
-		icon_state = "tatgun_used"
 		used = 1
+		update_icon()
+
+/obj/item/device/fluff/tattoo_gun/update_icon()
+	..()
+
+	overlays.Cut()
+
+	if(!used)
+		var/image/ink = image(src.icon, src, "ink_overlay")
+		ink.icon += rgb(tattoo_r, tattoo_g, tattoo_b, 190)
+		overlays += ink
+
+/obj/item/device/fluff/tattoo_gun/New()
+	..()
+	update_icon()
+
+/obj/item/device/fluff/tattoo_gun/elliot_cybernetic_tat
+	desc = "A cheap plastic tattoo application pen.<br>This one seems heavily used."
+	tattoo_name = "circuitry tattoo"
+	tattoo_icon = "Elliot Circuit Tattoo"
+	tattoo_r = 48
+	tattoo_g = 138
+	tattoo_b = 176
+
+/obj/item/device/fluff/tattoo_gun/elliot_cybernetic_tat/attack_self(mob/user as mob)
+	if(!used)
+		var/ink_color = input("Please select an ink color.", "Tattoo Ink Color", rgb(tattoo_r, tattoo_g, tattoo_b)) as color|null
+		if(ink_color && !(user.incapacitated() || used) )
+			tattoo_r = hex2num(copytext(ink_color, 2, 4))
+			tattoo_g = hex2num(copytext(ink_color, 4, 6))
+			tattoo_b = hex2num(copytext(ink_color, 6, 8))
+
+			to_chat(user, "<span class='notice'>You change the color setting on the [src].</span>")
+
+			update_icon()
+
+	else
+		to_chat(user, "<span class='notice'>The [src] is out of ink!</span>")
 
 /obj/item/weapon/claymore/fluff // MrBarrelrolll: Maximus Greenwood
 	name = "Greenwood's Blade"
@@ -77,7 +116,7 @@
 	sharp = 0
 	edge = 0
 
-/obj/item/weapon/claymore/fluff/IsShield()
+/obj/item/weapon/claymore/fluff/hit_reaction()
 	return 0
 
 /obj/item/weapon/crowbar/fluff/zelda_creedy_1 // Zomgponies: Griffin Rowley
@@ -156,6 +195,82 @@
 	icon_state = "jello_guitar"
 	item_state = "jello_guitar"
 
+/obj/item/fluff/wingler_comb
+	name = "blue comb"
+	desc = "A blue comb, it looks like it was made to groom a Tajaran's fur."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "wingler_comb"
+	attack_verb = list("combed")
+	hitsound = 'sound/weapons/tap.ogg'
+	force = 0
+	throwforce = 0
+	w_class = 2
+	var/used = 0
+
+/obj/item/fluff/wingler_comb/attack_self(mob/user)
+	if(used)
+		return
+
+	var/mob/living/carbon/human/target = user
+	if(!istype(target) || target.get_species() != "Tajaran") // Only catbeasts, kthnx.
+		return
+
+	if(target.change_body_accessory("Jay Wingler Tail"))
+		to_chat(target, "<span class='notice'>You comb your tail with the [src].</span>")
+		used = 1
+
+#define USED_MOD_HELM 1
+#define USED_MOD_SUIT 2
+
+/obj/item/device/fluff/shadey_plasman_modkit
+	name = "plasmaman suit modkit"
+	desc = "A kit containing nanites that are able to modify the look of a plasmaman suit and helmet without exposing the wearer to hostile environments."
+	icon_state = "modkit"
+	w_class = 2
+	force = 0
+	throwforce = 0
+
+/obj/item/device/fluff/shadey_plasman_modkit/afterattack(atom/target, mob/user, proximity)
+	if(!proximity || !ishuman(user) || user.lying)
+		return
+	var/mob/living/carbon/human/H = user
+
+	if(istype(target, /obj/item/clothing/head/helmet/space/eva/plasmaman))
+		if(used & USED_MOD_HELM)
+			to_chat(H, "<span class='notice'>The kit's helmet modifier has already been used.</span>")
+			return
+		to_chat(H, "<span class='notice'>You modify the appearance of [target].</span>")
+		used |= USED_MOD_HELM
+
+		var/obj/item/clothing/head/helmet/space/eva/plasmaman/P = target
+		P.name = "plasma containment helmet"
+		P.desc = "A purpose-built containment helmet designed to keep plasma in, and everything else out."
+		P.icon_state = "plasmaman_halo_helmet[P.on]"
+		P.base_state = "plasmaman_halo_helmet"
+
+		if(P == H.head)
+			H.update_inv_head()
+		return
+	if(istype(target, /obj/item/clothing/suit/space/eva/plasmaman))
+		if(used & USED_MOD_SUIT)
+			to_chat(user, "<span class='notice'>The kit's suit modifier has already been used.</span>")
+			return
+		to_chat(H, "<span class='notice'>You modify the appearance of [target].</span>")
+		used |= USED_MOD_SUIT
+
+		var/obj/item/clothing/suit/space/eva/plasmaman/P = target
+		P.name = "plasma containment suit"
+		P.desc = "A feminine containment suit designed to keep plasma in, and everything else out. It's even got an overskirt."
+		P.icon_state = "plasmaman_halo"
+
+		if(P == H.wear_suit)
+			H.update_inv_wear_suit()
+		return
+	to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
+
+#undef USED_MOD_HELM
+#undef USED_MOD_SUIT
+
 //////////////////////////////////
 //////////// Clothing ////////////
 //////////////////////////////////
@@ -191,12 +306,39 @@
 	icon_state = "beret_hos"
 	item_state = "beret_hos"
 
+/obj/item/clothing/head/pirate/fluff/stumpy //MrFroztee: Stumpy
+	name = "The Sobriety Skullcap"
+	desc = "A hat suited for the king of the pirates"
+	icon_state = "pirate"
+	item_state = "pirate"
+
+/obj/item/clothing/head/pirate/fluff/stumpy/New()
+	..()
+	processing_objects.Add(src)
+
+/obj/item/clothing/head/pirate/fluff/stumpy/Destroy()
+	processing_objects.Remove(src)
+	return ..()
+
+/obj/item/clothing/head/pirate/fluff/stumpy/process()
+	if(ishuman(loc))
+		var/mob/living/carbon/human/H = loc
+		if(H.head == src)
+			H.slurring = max(3, H.slurring) //always slur
+
+/obj/item/clothing/head/beret/fluff/linda //Epic_Charger: Linda Clark
+	name = "Green beret"
+	desc = "A beret, an artist's favorite headwear. This one has two holes cut on the edges."
+	icon_state = "linda_beret"
+
 //////////// Suits ////////////
 /obj/item/clothing/suit/storage/labcoat/fluff/aeneas_rinil //Socialsystem: Lynn Fea
 	name = "Robotics labcoat"
 	desc = "A labcoat with a few markings denoting it as the labcoat of roboticist."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "aeneasrinil_open"
+	species_fit = null
+	sprite_sheets = null
 
 /obj/item/clothing/suit/jacket/fluff/kidosvest // Anxipal: Kido Qasteth
 	name = "Kido's Vest"
@@ -205,8 +347,10 @@
 	icon_state = "kidosvest"
 	item_state = "kidosvest"
 	ignore_suitadjust = 1
-	action_button_name = null
+	actions_types = list()
 	adjust_flavour = null
+	species_fit = null
+	sprite_sheets = null
 
 /obj/item/clothing/suit/fluff/kluys // Kluys: Cripty Pandaen
 	name = "Nano Fibre Jacket"
@@ -244,12 +388,24 @@
 	desc = "A suit that protects against minor chemical spills. Has a red stripe on the shoulders and rolled up sleeves."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "labcoat_red_open"
+	species_fit = null
+	sprite_sheets = null
 
 /obj/item/clothing/suit/fluff/stobarico_greatcoat // Stobarico: F.U.R.R.Y
 	name = "\improper F.U.R.R.Y's Nanotrasen Greatcoat"
 	desc = "A greatcoat with Nanotrasen colors."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "stobarico_jacket"
+
+
+/obj/item/clothing/suit/hooded/hoodie/fluff/linda // Epic_Charger: Linda Clark
+	name = "Green Nanotrasen Hoodie"
+	desc = "A green hoodie with the Nanotrasen logo on the back. It looks weathered."
+	icon_state = "linda_hoodie"
+	hoodtype = /obj/item/clothing/head/hood/fluff/linda
+
+/obj/item/clothing/head/hood/fluff/linda //Epic_Charger: Linda Clark
+	icon_state = "greenhood"
 
 //////////// Uniforms ////////////
 /obj/item/clothing/under/fluff/kharshai // Kharshai: Athena Castile
@@ -293,7 +449,22 @@
 	src.item_state = "[item_color]"
 	usr.update_inv_w_uniform()
 
+/obj/item/clothing/under/fluff/honourable // MrBarrelrolll: Maximus Greenwood
+	name = "Viridi Protegat"
+	desc = "A set of chainmail adorned with a hide mantle. \"Greenwood\" is engraved into the right breast."
+	icon = 'icons/obj/clothing/uniforms.dmi'
+	icon_state = "roman"
+	item_state = "maximus_armor"
+	item_color = "maximus_armor"
+	displays_id = 0
+	strip_delay = 100
+
 //////////// Masks ////////////
+
+/obj/item/clothing/mask/bandana/fluff/dar //sasanek12: Dar'Konr
+	name = "camo bandana"
+	desc = "It's a worn-out bandana in camo paint"
+	icon_state = "bandcamo"
 
 //////////// Shoes ////////////
 
@@ -306,8 +477,10 @@
 	icon_state = "fox_jacket"
 	item_state = "fox_jacket"
 	ignore_suitadjust = 1
-	action_button_name = null
+	actions_types = list()
 	adjust_flavour = null
+	species_fit = null
+	sprite_sheets = null
 
 /obj/item/clothing/under/fluff/fox
 	name = "Aeronautics Jumpsuit"
@@ -340,9 +513,9 @@
 	flags_inv = HIDEFACE
 
 /obj/item/weapon/nullrod/fluff/chronx //chronx100: Hughe O'Splash
-	transform_into = /obj/item/weapon/nullrod/sword/fluff/chronx
+	fluff_transformations = list(/obj/item/weapon/nullrod/fluff/chronx/scythe)
 
-/obj/item/weapon/nullrod/sword/fluff/chronx
+/obj/item/weapon/nullrod/fluff/chronx/scythe
 	name = "Soul Collector"
 	desc = "An ancient scythe used by the worshipers of Cthulhu. Tales say it is used to prepare souls for Cthulhu's great devouring. Someone carved their name into the handle: Hughe O'Splash"
 	icon = 'icons/obj/custom_items.dmi'
@@ -356,28 +529,27 @@
 	icon_state = "chronx_hood"
 	item_state = "chronx_hood"
 	flags = HEADCOVERSEYES | BLOCKHAIR
-	action_button_name = "Transform Hood"
+	actions_types = list(/datum/action/item_action/toggle)
 	var/adjusted = 0
 
 /obj/item/clothing/head/fluff/chronx/ui_action_click()
 	adjust()
 
-/obj/item/clothing/head/fluff/chronx/verb/adjust()
-	set name = "Transform Hood"
-	set category = "Object"
-	set src in usr
-	if(isliving(usr) && !usr.incapacitated())
-		if(adjusted)
-			icon_state = initial(icon_state)
-			item_state = initial(item_state)
-			to_chat(usr, "You untransform \the [src].")
-			adjusted = 0
-		else
-			icon_state += "_open"
-			item_state += "_open"
-			to_chat(usr, "You transform \the [src].")
-			adjusted = 1
-		usr.update_inv_head()
+/obj/item/clothing/head/fluff/chronx/proc/adjust()
+	if(adjusted)
+		icon_state = initial(icon_state)
+		item_state = initial(item_state)
+		to_chat(usr, "You untransform \the [src].")
+		adjusted = 0
+	else
+		icon_state += "_open"
+		item_state += "_open"
+		to_chat(usr, "You transform \the [src].")
+		adjusted = 1
+	usr.update_inv_head()
+	for(var/X in actions)
+		var/datum/action/A = X
+		A.UpdateButtonIcon()
 
 /obj/item/clothing/suit/chaplain_hoodie/fluff/chronx //chronx100: Hughe O'Splash
 	name = "Cthulhu's Robes"
@@ -385,22 +557,10 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "chronx_robe"
 	item_state = "chronx_robe"
-	flags = ONESIZEFITSALL
-	action_button_name = "Transform Robes"
+	flags_size = ONESIZEFITSALL
+	actions_types = list(/datum/action/item_action/toggle)
 	adjust_flavour = "untransform"
 	ignore_suitadjust = 0
-
-/obj/item/clothing/suit/chaplain_hoodie/fluff/chronx/New()
-	..()
-	verbs -= /obj/item/clothing/suit/verb/openjacket
-
-/obj/item/clothing/suit/chaplain_hoodie/fluff/chronx/verb/adjust()
-	set name = "Transform Robes"
-	set category = "Object"
-	set src in usr
-	if(!istype(usr, /mob/living))
-		return
-	adjustsuit(usr)
 
 /obj/item/clothing/shoes/black/fluff/chronx //chronx100: Hughe O'Splash
 	name = "Cthulhu's Boots"
@@ -415,6 +575,8 @@
 	icon = 'icons/obj/clothing/ties.dmi'
 	icon_state = "vest_black"
 	item_state = "vest_black"
+	species_fit = null
+	sprite_sheets = null
 
 /obj/item/clothing/under/pants/fluff/combat
 	name = "combat pants"
@@ -422,24 +584,13 @@
 	icon_state = "chaps"
 	item_color = "combat_pants"
 
-/obj/item/clothing/suit/jacket/fluff/windbreaker // DaveTheHeadcrab: Elliot Campbell
+/obj/item/clothing/suit/jacket/fluff/elliot_windbreaker // DaveTheHeadcrab: Elliot Campbell
 	name = "nylon windbreaker"
 	desc = "A cheap nylon windbreaker, according to the tag it was manufactured in New Chiba, Earth.<br>The color reminds you of a television tuned to a dead channel."
 	icon = 'icons/obj/custom_items.dmi'
-	icon_state = "elliot_windbreaker"
-	item_state = "elliot_windbreaker"
+	icon_state = "elliot_windbreaker_open"
+	item_state = "elliot_windbreaker_open"
 	adjust_flavour = "unzip"
-
-/obj/item/clothing/ears/earring/fluff/industrial_piercing
-	name = "industrial piercing and stud earring"
-	desc = "A set of ear piercings containing an industrial rod and a small stud. They appear to be made out of some form of non-magnetic metal."
-	icon = 'icons/obj/custom_items.dmi'
-	icon_state = "elliot_earring"
-
-/obj/item/device/fluff/tattoo_gun/cybernetic_tat
-	desc = "A cheap plastic tattoo application pen.<br>This one seems to have light blue ink."
-	tattoo_name = "circuitry tattoo"
-	tattoo_icon = "Elliot Circuit Tattoo"
-	tattoo_r = 100
-	tattoo_g = 150
-	tattoo_b = 255
+	suit_adjusted = 1
+	species_fit = null
+	sprite_sheets = null

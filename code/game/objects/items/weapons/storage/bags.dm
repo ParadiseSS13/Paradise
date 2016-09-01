@@ -33,7 +33,7 @@
 	icon_state = "trashbag"
 	item_state = "trashbag"
 
-	w_class = 4
+	w_class = 1
 	max_w_class = 2
 	storage_slots = 30
 	can_hold = list() // any
@@ -46,12 +46,17 @@
 
 /obj/item/weapon/storage/bag/trash/update_icon()
 	if(contents.len == 0)
+		w_class = 1
 		icon_state = "[initial(icon_state)]"
 	else if(contents.len < 12)
+		w_class = 4
 		icon_state = "[initial(icon_state)]1"
 	else if(contents.len < 21)
+		w_class = 4
 		icon_state = "[initial(icon_state)]2"
-	else icon_state = "[initial(icon_state)]3"
+	else
+		w_class = 4
+		icon_state = "[initial(icon_state)]3"
 
 /obj/item/weapon/storage/bag/trash/cyborg
 
@@ -162,7 +167,7 @@
 	max_w_class = 3
 	w_class = 1
 	can_hold = list("/obj/item/weapon/reagent_containers/food/snacks/grown","/obj/item/seeds","/obj/item/weapon/grown", "/obj/item/stack/tile/grass","/obj/item/stack/medical/ointment/aloe","/obj/item/stack/medical/bruise_pack/comfrey", "/obj/item/weapon/reagent_containers/honeycomb")
-
+	burn_state = FLAMMABLE
 
 /obj/item/weapon/storage/bag/plants/portaseeder
 	name = "portable seed extractor"
@@ -198,7 +203,7 @@
 			new /obj/item/seeds/grassseed(O.loc, O)
 
 	for(var/mob/M in range(1))
-		if (M.s_active == src)
+		if(M.s_active == src)
 			src.close(M)
 
 
@@ -263,7 +268,7 @@
 		if(!inserted || !S.amount)
 			usr.unEquip(S)
 			usr.update_icons()	//update our overlays
-			if (usr.client && usr.s_active != src)
+			if(usr.client && usr.s_active != src)
 				usr.client.screen -= S
 			S.dropped(usr)
 			if(!S.amount)
@@ -296,7 +301,7 @@
 
 		var/row_num = 0
 		var/col_count = min(7,storage_slots) -1
-		if (adjusted_contents > 7)
+		if(adjusted_contents > 7)
 			row_num = round((adjusted_contents-1) / 7) // 7 is the maximum allowed width.
 		src.standard_orient_objs(row_num, col_count, numbered_contents)
 		return
@@ -375,7 +380,8 @@
 	max_combined_w_class = 21
 	max_w_class = 3
 	w_class = 4 //Bigger than a book because physics
-	can_hold = list("/obj/item/weapon/book", "/obj/item/weapon/spellbook") //No bibles, consistent with bookcase
+	can_hold = list("/obj/item/weapon/book", "/obj/item/weapon/storage/bible", "/obj/item/weapon/tome", "/obj/item/weapon/spellbook")
+	burn_state = FLAMMABLE
 
 /*
  * Trays - Agouri
@@ -389,7 +395,7 @@
 	throwforce = 10.0
 	throw_speed = 3
 	throw_range = 5
-	w_class = 4.0
+	w_class = 4
 	flags = CONDUCT
 	materials = list(MAT_METAL=3000)
 
@@ -432,17 +438,17 @@
 /obj/item/weapon/storage/bag/tray/cyborg
 
 /obj/item/weapon/storage/bag/tray/cyborg/afterattack(atom/target, mob/user as mob)
-	if ( isturf(target) || istype(target,/obj/structure/table) )
+	if( isturf(target) || istype(target,/obj/structure/table) )
 		var foundtable = istype(target,/obj/structure/table/)
-		if ( !foundtable ) //it must be a turf!
+		if( !foundtable ) //it must be a turf!
 			for(var/obj/structure/table/T in target)
 				foundtable = 1
 				break
 
 		var turf/dropspot
-		if ( !foundtable ) // don't unload things onto walls or other silly places.
+		if( !foundtable ) // don't unload things onto walls or other silly places.
 			dropspot = user.loc
-		else if ( isturf(target) ) // they clicked on a turf with a table in it
+		else if( isturf(target) ) // they clicked on a turf with a table in it
 			dropspot = target
 		else					// they clicked on a table
 			dropspot = target.loc
@@ -462,8 +468,8 @@
 						if(I)
 							step(I, pick(NORTH,SOUTH,EAST,WEST))
 							sleep(rand(2,4))
-		if ( droppedSomething )
-			if ( foundtable )
+		if( droppedSomething )
+			if( foundtable )
 				user.visible_message("\blue [user] unloads their service tray.")
 			else
 				user.visible_message("\blue [user] drops all the items on their tray.")
@@ -484,7 +490,7 @@
 	max_combined_w_class = 200
 	w_class = 1
 	can_hold = list("/obj/item/weapon/reagent_containers/food/pill","/obj/item/weapon/reagent_containers/glass/beaker","/obj/item/weapon/reagent_containers/glass/bottle")
-
+	burn_state = FLAMMABLE
 /*
  *  Biowaste bag (mostly for xenobiologists)
  */
@@ -498,3 +504,4 @@
 	max_combined_w_class = 200
 	w_class = 1
 	can_hold = list("/obj/item/slime_extract","/obj/item/weapon/reagent_containers/food/snacks/monkeycube","/obj/item/weapon/reagent_containers/syringe","/obj/item/weapon/reagent_containers/glass/beaker","/obj/item/weapon/reagent_containers/glass/bottle","/obj/item/weapon/reagent_containers/blood","/obj/item/weapon/reagent_containers/hypospray/autoinjector")
+	burn_state = FLAMMABLE

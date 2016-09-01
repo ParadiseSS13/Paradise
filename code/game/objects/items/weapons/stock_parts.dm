@@ -59,7 +59,7 @@
 	desc = "What?"
 	gender = PLURAL
 	icon = 'icons/obj/stock_parts.dmi'
-	w_class = 2.0
+	w_class = 2
 	var/rating = 1
 	New()
 		src.pixel_x = rand(-5.0, 5)
@@ -131,7 +131,7 @@
 	name = "nano-manipulator"
 	desc = "A tiny little manipulator used in the construction of certain devices."
 	icon_state = "nano_mani"
-	origin_tech = "materials=3,programming=2"
+	origin_tech = "materials=3;programming=2"
 	rating = 2
 	materials = list(MAT_METAL=30)
 
@@ -173,7 +173,7 @@
 	name = "pico-manipulator"
 	desc = "A tiny little manipulator used in the construction of certain devices."
 	icon_state = "pico_mani"
-	origin_tech = "materials=5,programming=2"
+	origin_tech = "materials=5;programming=2"
 	rating = 3
 	materials = list(MAT_METAL=30)
 

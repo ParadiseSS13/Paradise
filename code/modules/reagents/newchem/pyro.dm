@@ -36,20 +36,18 @@
 	result_amount = 2
 	min_temp = 424
 
-/datum/reagent/clf3/on_mob_life(var/mob/living/M as mob)
-	if(!M) M = holder.my_atom
-	M.adjust_fire_stacks(4)
-	M.adjustFireLoss(0.35*M.fire_stacks)
+/datum/reagent/clf3/on_mob_life(mob/living/M)
+	M.adjust_fire_stacks(2)
+	var/burndmg = max(0.3*M.fire_stacks, 0.3)
+	M.adjustFireLoss(burndmg)
 	..()
-	return
 
-/datum/chemical_reaction/clf3/on_reaction(var/datum/reagents/holder, var/created_volume)
+/datum/chemical_reaction/clf3/on_reaction(datum/reagents/holder, created_volume)
 	var/turf/T = get_turf(holder.my_atom)
 	for(var/turf/turf in range(1,T))
 		new /obj/effect/hotspot(turf)
-	return
 
-/datum/reagent/clf3/reaction_turf(var/turf/simulated/T, var/volume)
+/datum/reagent/clf3/reaction_turf(turf/simulated/T, volume)
 	if(istype(T, /turf/simulated/floor/plating))
 		var/turf/simulated/floor/plating/F = T
 		if(prob(1))
@@ -66,14 +64,12 @@
 			W.ChangeTurf(/turf/simulated/floor)
 	if(istype(T, /turf/simulated/shuttle/))
 		new /obj/effect/hotspot(T)
-	return
 
-/datum/reagent/clf3/reaction_mob(var/mob/living/M, var/method=TOUCH, var/volume)
-	if(method == TOUCH && isliving(M))
-		M.adjust_fire_stacks(5)
+/datum/reagent/clf3/reaction_mob(mob/living/M, method=TOUCH, volume)
+	if(method == TOUCH)
+		M.adjust_fire_stacks(min(volume/5, 10))
 		M.IgniteMob()
 		M.bodytemperature += 30
-		return
 
 /datum/reagent/sorium
 	name = "Sorium"
@@ -96,11 +92,11 @@
 	required_reagents = list("sorium" = 1)
 	min_temp = 474
 
-/datum/chemical_reaction/sorium_vortex/on_reaction(var/datum/reagents/holder, var/created_volume)
+/datum/chemical_reaction/sorium_vortex/on_reaction(datum/reagents/holder, created_volume)
 	var/turf/simulated/T = get_turf(holder.my_atom)
 	goonchem_vortex(T, 1, 5, 6)
 
-/datum/chemical_reaction/sorium/on_reaction(var/datum/reagents/holder, var/created_volume)
+/datum/chemical_reaction/sorium/on_reaction(datum/reagents/holder, created_volume)
 	if(holder.has_reagent("stabilizing_agent"))
 		return
 	holder.remove_reagent("sorium", created_volume)
@@ -128,19 +124,18 @@
 	required_reagents = list("liquid_dark_matter" = 1)
 	min_temp = 474
 
-/datum/chemical_reaction/ldm_vortex/on_reaction(var/datum/reagents/holder, var/created_volume)
+/datum/chemical_reaction/ldm_vortex/on_reaction(datum/reagents/holder, created_volume)
 	var/turf/simulated/T = get_turf(holder.my_atom)
 	goonchem_vortex(T, 0, 5, 6)
-	return
-/datum/chemical_reaction/liquid_dark_matter/on_reaction(var/datum/reagents/holder, var/created_volume)
+
+/datum/chemical_reaction/liquid_dark_matter/on_reaction(datum/reagents/holder, created_volume)
 	if(holder.has_reagent("stabilizing_agent"))
 		return
 	holder.remove_reagent("liquid_dark_matter", created_volume)
 	var/turf/simulated/T = get_turf(holder.my_atom)
 	goonchem_vortex(T, 0, 5, 6)
-	return
 
-/proc/goonchem_vortex(var/turf/simulated/T, var/setting_type, var/range, var/pull_times)
+/proc/goonchem_vortex(turf/simulated/T, setting_type, range, pull_times)
 	for(var/atom/movable/X in orange(range, T))
 		if(istype(X, /obj/effect))
 			continue  //stop pulling smoke and hotspots please
@@ -182,21 +177,18 @@
 	no_message = 1
 	mix_sound = null
 
-datum/reagent/blackpowder/reaction_turf(var/turf/T, var/volume) //oh shit
-	src = null
-	if(volume >= 5)
-		if(!locate(/obj/effect/decal/cleanable/dirt/blackpowder) in get_turf(T)) //let's not have hundreds of decals of black powder on the same turf
+/datum/reagent/blackpowder/reaction_turf(turf/T, volume) //oh shit
+	if(volume >= 5 && !istype(T, /turf/space))
+		if(!locate(/obj/effect/decal/cleanable/dirt/blackpowder) in T) //let's not have hundreds of decals of black powder on the same turf
 			new /obj/effect/decal/cleanable/dirt/blackpowder(T)
-			return
 
-/datum/chemical_reaction/blackpowder_explosion/on_reaction(var/datum/reagents/holder, var/created_volume)
+/datum/chemical_reaction/blackpowder_explosion/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
 	var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 	s.set_up(2, 1, location)
 	s.start()
 	sleep(rand(20,30))
 	blackpowder_detonate(holder, created_volume)
-	return
 
 /*
 /datum/reagent/blackpowder/on_ex_act()
@@ -209,7 +201,7 @@ datum/reagent/blackpowder/reaction_turf(var/turf/T, var/volume) //oh shit
 	holder.remove_reagent("blackpowder", volume)
 	return */
 
-/proc/blackpowder_detonate(var/datum/reagents/holder, var/created_volume)
+/proc/blackpowder_detonate(datum/reagents/holder, created_volume)
 	var/turf/simulated/T = get_turf(holder.my_atom)
 	var/ex_severe = round(created_volume / 100)
 	var/ex_heavy = round(created_volume / 42)
@@ -220,7 +212,6 @@ datum/reagent/blackpowder/reaction_turf(var/turf/T, var/volume) //oh shit
 	if(istype(holder.my_atom, /obj/effect/decal/cleanable/dirt/blackpowder))
 		spawn(0)
 			qdel(holder.my_atom)
-	return
 
 /datum/reagent/flash_powder
 	name = "Flash Powder"
@@ -243,7 +234,7 @@ datum/reagent/blackpowder/reaction_turf(var/turf/T, var/volume) //oh shit
 	required_reagents = list("flash_powder" = 1)
 	min_temp = 374
 
-/datum/chemical_reaction/flash_powder_flash/on_reaction(var/datum/reagents/holder, var/created_volume)
+/datum/chemical_reaction/flash_powder_flash/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
 	var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 	s.set_up(2, 1, location)
@@ -256,7 +247,7 @@ datum/reagent/blackpowder/reaction_turf(var/turf/T, var/volume) //oh shit
 			C.Stun(5)
 
 
-/datum/chemical_reaction/flash_powder/on_reaction(var/datum/reagents/holder, var/created_volume)
+/datum/chemical_reaction/flash_powder/on_reaction(datum/reagents/holder, created_volume)
 	if(holder.has_reagent("stabilizing_agent"))
 		return
 	var/location = get_turf(holder.my_atom)
@@ -295,7 +286,7 @@ datum/reagent/blackpowder/reaction_turf(var/turf/T, var/volume) //oh shit
 	mix_message = "The mixture quickly turns into a pall of smoke!"
 	var/forbidden_reagents = list("sugar", "phosphorus", "potassium", "stimulants") //Do not transfer this stuff through smoke.
 
-/datum/chemical_reaction/smoke/on_reaction(var/datum/reagents/holder, var/created_volume)
+/datum/chemical_reaction/smoke/on_reaction(datum/reagents/holder, created_volume)
 	for(var/f_reagent in forbidden_reagents)
 		if(holder.has_reagent(f_reagent))
 			holder.remove_reagent(f_reagent, holder.get_reagent_amount(f_reagent))
@@ -316,7 +307,6 @@ datum/reagent/blackpowder/reaction_turf(var/turf/T, var/volume) //oh shit
 				S.start(4)
 		if(holder && holder.my_atom)
 			holder.clear_reagents()
-	return
 
 /datum/chemical_reaction/smoke/smoke_powder
 	name = "smoke_powder_smoke"
@@ -350,7 +340,7 @@ datum/reagent/blackpowder/reaction_turf(var/turf/T, var/volume) //oh shit
 	required_reagents = list("sonic_powder" = 1)
 	min_temp = 374
 
-/datum/chemical_reaction/sonic_powder_deafen/on_reaction(var/datum/reagents/holder, var/created_volume)
+/datum/chemical_reaction/sonic_powder_deafen/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
 	playsound(location, 'sound/effects/bang.ogg', 25, 1)
 	for(var/mob/living/M in hearers(5, location))
@@ -366,18 +356,17 @@ datum/reagent/blackpowder/reaction_turf(var/turf/T, var/volume) //oh shit
 		if(!ear_safety)
 			M.Stun(max(10/distance, 3))
 			M.Weaken(max(10/distance, 3))
-			M.ear_damage += rand(0, 5)
-			M.ear_deaf = max(M.ear_deaf,15)
-			if (M.ear_damage >= 15)
+			M.setEarDamage(M.ear_damage + rand(0, 5), max(M.ear_deaf,15))
+			if(M.ear_damage >= 15)
 				to_chat(M, "<span class='warning'>Your ears start to ring badly!</span>")
 				if(prob(M.ear_damage - 10 + 5))
 					to_chat(M, "<span class='warning'>You can't hear anything!</span>")
 					M.disabilities |= DEAF
 			else
-				if (M.ear_damage >= 5)
+				if(M.ear_damage >= 5)
 					to_chat(M, "<span class='warning'>Your ears start to ring!</span>")
 
-/datum/chemical_reaction/sonic_powder/on_reaction(var/datum/reagents/holder, var/created_volume)
+/datum/chemical_reaction/sonic_powder/on_reaction(datum/reagents/holder, created_volume)
 	if(holder.has_reagent("stabilizing_agent"))
 		return
 	var/location = get_turf(holder.my_atom)
@@ -395,15 +384,14 @@ datum/reagent/blackpowder/reaction_turf(var/turf/T, var/volume) //oh shit
 		if(!ear_safety)
 			M.Stun(max(10/distance, 3))
 			M.Weaken(max(10/distance, 3))
-			M.ear_damage += rand(0, 5)
-			M.ear_deaf = max(M.ear_deaf,15)
-			if (M.ear_damage >= 15)
+			M.setEarDamage(M.ear_damage + rand(0, 5), max(M.ear_deaf,15))
+			if(M.ear_damage >= 15)
 				to_chat(M, "<span class='warning'>Your ears start to ring badly!</span>")
 				if(prob(M.ear_damage - 10 + 5))
 					to_chat(M, "<span class='warning'>You can't hear anything!</span>")
 					M.disabilities |= DEAF
 			else
-				if (M.ear_damage >= 5)
+				if(M.ear_damage >= 5)
 					to_chat(M, "<span class='warning'>Your ears start to ring!</span>")
 	holder.remove_reagent("sonic_powder", created_volume)
 
@@ -422,21 +410,22 @@ datum/reagent/blackpowder/reaction_turf(var/turf/T, var/volume) //oh shit
 	required_reagents = list("phosphorus" = 1, "sacid" = 1, "plasma" = 1)
 	result_amount = 3
 
-/datum/chemical_reaction/phlogiston/on_reaction(var/datum/reagents/holder, var/created_volume)
+/datum/chemical_reaction/phlogiston/on_reaction(datum/reagents/holder, created_volume)
 	if(holder.has_reagent("stabilizing_agent"))
 		return
 	var/turf/simulated/T = get_turf(holder.my_atom)
 	for(var/turf/simulated/turf in range(min(created_volume/10,4),T))
 		new /obj/effect/hotspot(turf)
-	return
 
-/datum/reagent/phlogiston/on_mob_life(var/mob/living/M as mob)
-	if(!M) M = holder.my_atom
-	M.adjust_fire_stacks(1)
+/datum/reagent/phlogiston/reaction_mob(mob/living/M, method=TOUCH, volume)
 	M.IgniteMob()
-	M.adjustFireLoss(0.2*M.fire_stacks)
 	..()
-	return
+
+/datum/reagent/phlogiston/on_mob_life(mob/living/M)
+	M.adjust_fire_stacks(1)
+	var/burndmg = max(0.3*M.fire_stacks, 0.3)
+	M.adjustFireLoss(burndmg)
+	..()
 
 /datum/reagent/napalm
 	name = "Napalm"
@@ -446,16 +435,13 @@ datum/reagent/blackpowder/reaction_turf(var/turf/T, var/volume) //oh shit
 	color = "#FF9999"
 	process_flags = ORGANIC | SYNTHETIC
 
-/datum/reagent/napalm/on_mob_life(var/mob/living/M as mob)
-	if(!M) M = holder.my_atom
+/datum/reagent/napalm/on_mob_life(mob/living/M)
 	M.adjust_fire_stacks(1)
 	..()
-	return
 
-/datum/reagent/napalm/reaction_mob(var/mob/living/M, var/method=TOUCH, var/volume)
-	if(method == TOUCH && isliving(M))
-		M.adjust_fire_stacks(7)
-		return
+/datum/reagent/napalm/reaction_mob(mob/living/M, method=TOUCH, volume)
+	if(method == TOUCH)
+		M.adjust_fire_stacks(min(volume/4, 20))
 
 /datum/chemical_reaction/napalm
 	name = "Napalm"
@@ -464,7 +450,7 @@ datum/reagent/blackpowder/reaction_turf(var/turf/T, var/volume) //oh shit
 	required_reagents = list("sugar" = 1, "fuel" = 1, "ethanol" = 1 )
 	result_amount = 1
 
-datum/reagent/cryostylane
+/datum/reagent/cryostylane
 	name = "Cryostylane"
 	id = "cryostylane"
 	description = "Comes into existence at 20K. As long as there is sufficient oxygen for it to react with, Cryostylane slowly cools all other reagents in the mob down to 0K."
@@ -479,27 +465,25 @@ datum/reagent/cryostylane
 	result_amount = 3
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
-datum/reagent/cryostylane/on_mob_life(var/mob/living/M as mob) //TODO: code freezing into an ice cube
+/datum/reagent/cryostylane/on_mob_life(mob/living/M) //TODO: code freezing into an ice cube
 	if(M.reagents.has_reagent("oxygen"))
 		M.reagents.remove_reagent("oxygen", 1)
 		M.bodytemperature -= 30
 	..()
-	return
 
-datum/reagent/cryostylane/on_tick()
+/datum/reagent/cryostylane/on_tick()
 	if(holder.has_reagent("oxygen"))
 		holder.remove_reagent("oxygen", 1)
 		holder.chem_temp -= 10
 		holder.handle_reactions()
 	..()
-	return
 
-datum/reagent/cryostylane/reaction_turf(var/turf/simulated/T, var/volume)
+/datum/reagent/cryostylane/reaction_turf(turf/T, volume)
 	if(volume >= 5)
 		for(var/mob/living/carbon/slime/M in T)
 			M.adjustToxLoss(rand(15,30))
 
-datum/reagent/pyrosium
+/datum/reagent/pyrosium
 	name = "Pyrosium"
 	id = "pyrosium"
 	description = "Comes into existence at 20K. As long as there is sufficient oxygen for it to react with, Pyrosium slowly cools all other reagents in the mob down to 0K."
@@ -513,20 +497,18 @@ datum/reagent/pyrosium
 	required_reagents = list("plasma" = 1, "radium" = 1, "phosphorus" = 1)
 	result_amount = 3
 
-datum/reagent/pyrosium/on_mob_life(var/mob/living/M as mob)
+/datum/reagent/pyrosium/on_mob_life(mob/living/M)
 	if(M.reagents.has_reagent("oxygen"))
 		M.reagents.remove_reagent("oxygen", 1)
 		M.bodytemperature += 30
 	..()
-	return
 
-datum/reagent/pyrosium/on_tick()
+/datum/reagent/pyrosium/on_tick()
 	if(holder.has_reagent("oxygen"))
 		holder.remove_reagent("oxygen", 1)
 		holder.chem_temp += 10
 		holder.handle_reactions()
 	..()
-	return
 
 /datum/chemical_reaction/azide
 	name = "azide"
@@ -535,13 +517,13 @@ datum/reagent/pyrosium/on_tick()
 	required_reagents = list("chlorine" = 1, "oxygen" = 1, "nitrogen" = 1, "ammonia" = 1, "sodium" = 1, "silver" = 1)
 	result_amount = 1
 	mix_message = "The substance violently detonates!"
+	mix_sound = 'sound/effects/bang.ogg'
 
-/datum/chemical_reaction/azide/on_reaction(var/datum/reagents/holder, var/created_volume)
+/datum/chemical_reaction/azide/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
-	explosion(location,0,1,4)
-	return
+	explosion(location, 0, 1, 4)
 
-datum/reagent/firefighting_foam
+/datum/reagent/firefighting_foam
 	name = "Firefighting foam"
 	id = "firefighting_foam"
 	description = "Carbon Tetrachloride is a foam used for fire suppression."
@@ -558,43 +540,28 @@ datum/reagent/firefighting_foam
 	mix_message = "The mixture bubbles gently."
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
-datum/reagent/firefighting_foam/reaction_mob(var/mob/living/M, var/method=TOUCH, var/volume)
-	if(!istype(M, /mob/living))
-		return
-
+/datum/reagent/firefighting_foam/reaction_mob(mob/living/M, method=TOUCH, volume)
 // Put out fire
 	if(method == TOUCH)
 		M.adjust_fire_stacks(-(volume / 5)) // more effective than water
-		if(M.fire_stacks <= 0)
-			M.ExtinguishMob()
+		M.ExtinguishMob()
+
+/datum/reagent/firefighting_foam/reaction_obj(obj/O, volume)
+	if(istype(O))
+		O.extinguish()
+
+/datum/reagent/firefighting_foam/reaction_turf(turf/simulated/T, volume)
+	if(!istype(T))
 		return
-
-datum/reagent/firefighting_foam/reaction_turf(var/turf/simulated/T, var/volume)
-	if (!istype(T)) return
 	var/CT = cooling_temperature
-	src = null
-	if(!istype(T, /turf/space))
-		new /obj/effect/decal/cleanable/flour/foam(T) //foam mess; clears up quickly.
+	new /obj/effect/decal/cleanable/flour/foam(T) //foam mess; clears up quickly.
 	var/hotspot = (locate(/obj/effect/hotspot) in T)
-	if(hotspot && !istype(T, /turf/space))
-		var/datum/gas_mixture/lowertemp = T.remove_air( T:air:total_moles() )
-		lowertemp.temperature = max( min(lowertemp.temperature-(CT*1000),lowertemp.temperature / CT) ,0)
+	if(hotspot)
+		var/datum/gas_mixture/lowertemp = T.remove_air(T.air.total_moles())
+		lowertemp.temperature = max(min(lowertemp.temperature-(CT*1000), lowertemp.temperature / CT), 0)
 		lowertemp.react()
 		T.assume_air(lowertemp)
 		qdel(hotspot)
-	return
-
-datum/reagent/firefighting_foam/reaction_obj(var/obj/O, var/volume)
-	src = null
-	var/turf/T = get_turf(O)
-	var/hotspot = (locate(/obj/effect/hotspot) in T)
-	if(hotspot && !istype(T, /turf/space))
-		var/datum/gas_mixture/lowertemp = T.remove_air( T:air:total_moles() )
-		lowertemp.temperature = max( min(lowertemp.temperature-2000,lowertemp.temperature / 2) ,0)
-		lowertemp.react()
-		T.assume_air(lowertemp)
-		qdel(hotspot)
-	return
 
 /datum/chemical_reaction/clf3_firefighting
 	name = "clf3_firefighting"
@@ -603,11 +570,11 @@ datum/reagent/firefighting_foam/reaction_obj(var/obj/O, var/volume)
 	required_reagents = list("firefighting_foam" = 1, "clf3" = 1)
 	result_amount = 1
 	mix_message = "The substance violently detonates!"
+	mix_sound = 'sound/effects/bang.ogg'
 
-/datum/chemical_reaction/clf3_firefighting/on_reaction(var/datum/reagents/holder, var/created_volume)
+/datum/chemical_reaction/clf3_firefighting/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
-	explosion(location,-1,0,2)
-	return
+	explosion(location, -1, 0, 2)
 
 /datum/chemical_reaction/shock_explosion
 	name = "shock_explosion"
@@ -618,14 +585,13 @@ datum/reagent/firefighting_foam/reaction_obj(var/obj/O, var/volume)
 	mix_message = "<span class='danger'>The reaction releases an electrical blast!</span>"
 	mix_sound = 'sound/magic/lightningbolt.ogg'
 
-/datum/chemical_reaction/shock_explosion/on_reaction(var/datum/reagents/holder, var/created_volume)
+/datum/chemical_reaction/shock_explosion/on_reaction(datum/reagents/holder, created_volume)
 	var/turf/T = get_turf(holder.my_atom)
 	for(var/mob/living/carbon/C in view(6, T))
 		C.Beam(T,icon_state="lightning[rand(1,12)]",icon='icons/effects/effects.dmi',time=5) //What? Why are we beaming from the mob to the turf? Turf to mob generates really odd results.
 		C.electrocute_act(3.5, "electrical blast")
 	holder.del_reagent("teslium") //Clear all remaining Teslium and Uranium, but leave all other reagents untouched.
 	holder.del_reagent("uranium")
-	return
 
 /datum/reagent/plasma_dust
 	name = "Plasma Dust"
@@ -650,8 +616,6 @@ datum/reagent/firefighting_foam/reaction_obj(var/obj/O, var/volume)
 		T.atmos_spawn_air(SPAWN_TOXINS|SPAWN_20C, volume)
 
 /datum/reagent/plasma_dust/reaction_mob(mob/living/M, method=TOUCH, volume)//Splashing people with plasma dust is stronger than fuel!
-	if(!istype(M, /mob/living))
-		return
 	if(method == TOUCH)
 		M.adjust_fire_stacks(volume / 5)
 		return

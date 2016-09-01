@@ -23,18 +23,31 @@
 /atom/movable/New()
 	. = ..()
 	areaMaster = get_area_master(src)
-	if(auto_init && ticker && ticker.current_state == GAME_STATE_PLAYING)
-		initialize()
+
+	// If you're wondering what goofery this is, this is for things that need the environment
+	// around them set up - like `air_update_turf` and the like
+	if((ticker && ticker.current_state == GAME_STATE_PLAYING))
+		attempt_init()
 
 /atom/movable/Destroy()
 	for(var/atom/movable/AM in contents)
 		qdel(AM)
 	loc = null
-	if (pulledby)
-		if (pulledby.pulling == src)
+	if(pulledby)
+		if(pulledby.pulling == src)
 			pulledby.pulling = null
 		pulledby = null
 	return ..()
+
+// used to provide a good interface for the init delay system to step in
+// and we don't need to call `get_turf` until the game's started
+// at which point object creations are a fair toss more seldom
+/atom/movable/proc/attempt_init()
+	var/turf/T = get_turf(src)
+	if(T && space_manager.is_zlevel_dirty(T.z))
+		space_manager.postpone_init(T.z, src)
+	else if(auto_init)
+		initialize()
 
 /atom/movable/proc/initialize()
 	return
@@ -49,30 +62,30 @@
 	var/atom/oldloc = loc
 
 	if(loc != newloc)
-		if (!(direct & (direct - 1))) //Cardinal move
+		if(!(direct & (direct - 1))) //Cardinal move
 			. = ..()
 		else //Diagonal move, split it into cardinal moves
-			if (direct & 1)
-				if (direct & 4)
-					if (step(src, NORTH))
+			if(direct & 1)
+				if(direct & 4)
+					if(step(src, NORTH))
 						. = step(src, EAST)
-					else if (step(src, EAST))
+					else if(step(src, EAST))
 						. = step(src, NORTH)
-				else if (direct & 8)
-					if (step(src, NORTH))
+				else if(direct & 8)
+					if(step(src, NORTH))
 						. = step(src, WEST)
-					else if (step(src, WEST))
+					else if(step(src, WEST))
 						. = step(src, NORTH)
-			else if (direct & 2)
-				if (direct & 4)
-					if (step(src, SOUTH))
+			else if(direct & 2)
+				if(direct & 4)
+					if(step(src, SOUTH))
 						. = step(src, EAST)
-					else if (step(src, EAST))
+					else if(step(src, EAST))
 						. = step(src, SOUTH)
-				else if (direct & 8)
-					if (step(src, SOUTH))
+				else if(direct & 8)
+					if(step(src, SOUTH))
 						. = step(src, WEST)
-					else if (step(src, WEST))
+					else if(step(src, WEST))
 						. = step(src, SOUTH)
 
 
@@ -102,7 +115,7 @@
 	if(src.throwing)
 		src.throw_impact(A)
 
-	if (A && sendBump)
+	if(A && sendBump)
 		A.last_bumped = world.time
 		A.Bumped(src)
 	else
@@ -215,13 +228,13 @@
 	var/dist_y = abs(target.y - src.y)
 
 	var/dx
-	if (target.x > src.x)
+	if(target.x > src.x)
 		dx = EAST
 	else
 		dx = WEST
 
 	var/dy
-	if (target.y > src.y)
+	if(target.y > src.y)
 		dy = NORTH
 	else
 		dy = SOUTH
@@ -305,13 +318,13 @@
 	return
 
 /atom/movable/overlay/attackby(a, b, c)
-	if (src.master)
+	if(src.master)
 		return src.master.attackby(a, b, c)
 	return
 
 
 /atom/movable/overlay/attack_hand(a, b, c)
-	if (src.master)
+	if(src.master)
 		return src.master.attack_hand(a, b, c)
 	return
 
@@ -332,3 +345,22 @@
 	if(buckled_mob == mover)
 		return 1
 	return ..()
+
+/atom/movable/proc/get_spacemove_backup()
+	var/atom/movable/dense_object_backup
+	for(var/A in orange(1, get_turf(src)))
+		if(isarea(A))
+			continue
+		else if(isturf(A))
+			var/turf/turf = A
+			if(!turf.density)
+				continue
+			return turf
+		else
+			var/atom/movable/AM = A
+			if(!AM.CanPass(src) || AM.density)
+				if(AM.anchored)
+					return AM
+				dense_object_backup = AM
+				break
+	. = dense_object_backup

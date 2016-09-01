@@ -5,7 +5,7 @@
 	icon_state = "centcom"
 	desc = "It's good to be emperor."
 	item_state = "centhat"
-	armor = list(melee = 50, bullet = 15, laser = 50, energy = 10, bomb = 25, bio = 0, rad = 0)
+	armor = list(melee = 30, bullet = 15, laser = 30, energy = 10, bomb = 25, bio = 0, rad = 0)
 	strip_delay = 80
 
 /obj/item/clothing/head/hairflower
@@ -24,6 +24,15 @@
 	desc = "A powdered wig."
 	icon_state = "pwig"
 	item_state = "pwig"
+
+/obj/item/clothing/head/beret/blue
+	icon_state = "beret_blue"
+
+/obj/item/clothing/head/beret/black
+	icon_state = "beret_black"
+
+/obj/item/clothing/head/beret/purple_normal
+	icon_state = "beret_purple_normal"
 
 /obj/item/clothing/head/that
 	name = "top-hat"
@@ -161,22 +170,32 @@
 	item_state = "boater_hat"
 	desc = "Goes well with celery."
 
+/obj/item/clothing/head/cowboyhat
+	name = "cowboy hat"
+	icon_state = "cowboyhat"
+	item_state = "fedora"
+	desc = "There's a new sheriff in town. Pass the whiskey."
+
 /obj/item/clothing/head/fedora
-	name = "\improper fedora"
+	name = "fedora"
 	icon_state = "fedora"
 	item_state = "fedora"
 	desc = "A great hat ruined by being within fifty yards of you."
+	actions_types = list(/datum/action/item_action/tip_fedora)
 
-//TIPS FEDORA
-/obj/item/clothing/head/fedora/verb/tip_fedora()
-	set name = "Tip Fedora"
-	set category = "Object"
-	set desc = "Show that CIS SCUM who's boss."
+/obj/item/clothing/head/fedora/attack_self(mob/user)
+	tip_fedora(user)
 
-	usr.visible_message("[usr] tips their fedora.","You tip your fedora")
+/obj/item/clothing/head/fedora/item_action_slot_check(slot)
+	if(slot == slot_head)
+		return 1
+
+/obj/item/clothing/head/fedora/proc/tip_fedora(mob/user)
+	user.visible_message("[user] tips their fedora.", "You tip your fedora")
+
 
 /obj/item/clothing/head/fez
-	name = "\improper fez"
+	name = "fez"
 	icon_state = "fez"
 	item_state = "fez"
 	desc = "Put it on your monkey, make lots of cash money."
@@ -325,29 +344,26 @@
 	throwforce = 3.0
 	throw_speed = 2
 	throw_range = 5
-	w_class = 2.0
+	w_class = 2
 	attack_verb = list("warned", "cautioned", "smashed")
+	burn_state = FIRE_PROOF
 
 /obj/item/clothing/head/griffin
 	name = "griffon head"
 	desc = "Why not 'eagle head'? Who knows."
 	icon_state = "griffinhat"
 	item_state = "griffinhat"
-	flags = BLOCKHAIR|NODROP
+	flags = BLOCKHAIR
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
-	action_button_name = "Caw"
+	actions_types = list(/datum/action/item_action/caw)
+
+/obj/item/clothing/head/griffin/super_hero
+	flags = BLOCKHAIR|NODROP
 
 /obj/item/clothing/head/griffin/attack_self()
 	caw()
 
-/obj/item/clothing/head/griffin/verb/caw()
-
-	set category = "Object"
-	set name = "Caw"
-	set src in usr
-	if(!istype(usr, /mob/living)) return
-	if(usr.stat) return
-
+/obj/item/clothing/head/griffin/proc/caw()
 	if(cooldown < world.time - 20) // A cooldown, to stop people being jerks
 		playsound(src.loc, "sound/misc/caw.ogg", 50, 1)
 		cooldown = world.time
@@ -364,3 +380,28 @@
 	desc = "A horribly bloated and mismatched human head."
 	icon_state = "lingspacehelmet"
 	item_state = "lingspacehelmet"
+
+/obj/item/clothing/head/papersack
+	name = "paper sack hat"
+	desc = "A paper sack with crude holes cut out for eyes. Useful for hiding one's identity or ugliness."
+	icon_state = "papersack"
+	flags = BLOCKHAIR
+	flags_inv = HIDEFACE|HIDEEARS
+
+/obj/item/clothing/head/papersack/smiley
+	name = "paper sack hat"
+	desc = "A paper sack with crude holes cut out for eyes and a sketchy smile drawn on the front. Not creepy at all."
+	icon_state = "papersack_smile"
+	flags = BLOCKHAIR
+	flags_inv = HIDEFACE|HIDEEARS
+
+/obj/item/clothing/head/crown
+	name = "crown"
+	desc = "A crown fit for a king, a petty king maybe."
+	icon_state = "crown"
+	armor = list(melee = 15, bullet = 0, laser = 0, energy = 15, bomb = 0, bio = 0, rad = 0) //for a warrior king //energy cause gold is reflective //worse than sec helm overall
+
+/obj/item/clothing/head/crown/fancy
+	name = "magnificent crown"
+	desc = "A crown worn by only the highest emperors of the land."
+	icon_state = "fancycrown"

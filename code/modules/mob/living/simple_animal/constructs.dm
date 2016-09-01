@@ -20,32 +20,26 @@
 	flying = 1
 	universal_speak = 1
 	var/list/construct_spells = list()
+	loot = list(/obj/item/weapon/reagent_containers/food/snacks/ectoplasm)
+	del_on_death = 1
+	deathmessage = "collapses in a shattered heap."
 
 /mob/living/simple_animal/construct/New()
 	..()
 	name = text("[initial(name)] ([rand(1, 1000)])")
 	real_name = name
 	for(var/spell in construct_spells)
-		AddSpell(new spell(src))
+		AddSpell(new spell(null))
 	updateglow()
 
-/mob/living/simple_animal/construct/death()
-	..()
-	new /obj/item/weapon/reagent_containers/food/snacks/ectoplasm (src.loc)
-	for(var/mob/M in viewers(src, null))
-		if((M.client && !( M.blinded )))
-			M.show_message("\red [src] collapses in a shattered heap. ")
-	ghostize()
-	qdel(src)
-	return
-
 /mob/living/simple_animal/construct/examine(mob/user)
+	to_chat(user, "<span class='info'>*---------*</span>")
 	..(user)
 
-	var/msg = ""
-	if (src.health < src.maxHealth)
+	var/msg = "<span class='info'>"
+	if(src.health < src.maxHealth)
 		msg += "<span class='warning'>"
-		if (src.health >= src.maxHealth/2)
+		if(src.health >= src.maxHealth/2)
 			msg += "It looks slightly dented.\n"
 		else
 			msg += "<B>It looks severely dented!</B>\n"
@@ -97,6 +91,7 @@
 	environment_smash = 2
 	attack_sound = 'sound/weapons/punch3.ogg'
 	status_flags = 0
+	mob_size = MOB_SIZE_LARGE
 	construct_spells = list(/obj/effect/proc_holder/spell/aoe_turf/conjure/lesserforcewall)
 	force_threshold = 11
 
@@ -251,7 +246,7 @@
 	set category = "Behemoth"
 	set name = "Summon Cultist (300)"
 	set desc = "Teleport a cultist to your location"
-	if (istype(usr,/mob/living/simple_animal/constructbehemoth))
+	if(istype(usr,/mob/living/simple_animal/constructbehemoth))
 
 		if(usr.energy<300)
 			to_chat(usr, "\red You do not have enough power stored!")
@@ -263,12 +258,12 @@
 		usr.energy -= 300
 	var/list/mob/living/cultists = new
 	for(var/datum/mind/H in ticker.mode.cult)
-		if (istype(H.current,/mob/living))
+		if(istype(H.current,/mob/living))
 			cultists+=H.current
 			var/mob/cultist = input("Choose the one who you want to summon", "Followers of Geometer") as null|anything in (cultists - usr)
 			if(!cultist)
 				return
-			if (cultist == usr) //just to be sure.
+			if(cultist == usr) //just to be sure.
 				return
 			cultist.loc = usr.loc
 			usr.visible_message("/red [cultist] appears in a flash of red light as [usr] glows with power")*/

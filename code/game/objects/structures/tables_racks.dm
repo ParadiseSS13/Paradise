@@ -54,14 +54,14 @@
 		var/subtype = null
 		for(var/direction in list(turn(dir,90), turn(dir,-90)) )
 			var/obj/structure/table/T = locate(/obj/structure/table,get_step(src,direction))
-			if (T && T.flipped)
+			if(T && T.flipped)
 				type++
 				if(type == 1)
 					subtype = direction == turn(dir,90) ? "-" : "+"
 		var/base = "table"
-		if (istype(src, /obj/structure/table/woodentable))
+		if(istype(src, /obj/structure/table/woodentable))
 			base = "wood"
-		if (istype(src, /obj/structure/table/reinforced))
+		if(istype(src, /obj/structure/table/reinforced))
 			base = "rtable"
 
 		icon_state = "[base]flip[type][type == 1 ? subtype : ""]"
@@ -75,11 +75,11 @@
 			qdel(src)
 			return
 		if(2.0)
-			if (prob(50))
+			if(prob(50))
 				qdel(src)
 				return
 		if(3.0)
-			if (prob(25))
+			if(prob(25))
 				destroy()
 		else
 	return
@@ -134,8 +134,8 @@
 		return 1
 	if(locate(/obj/structure/table) in get_turf(mover))
 		return 1
-	if (flipped)
-		if (get_dir(loc, target) == dir)
+	if(flipped)
+		if(get_dir(loc, target) == dir)
 			return !density
 		else
 			return 1
@@ -150,13 +150,13 @@
 //checks if projectile 'P' from turf 'from' can hit whatever is behind the table. Returns 1 if it can, 0 if bullet stops.
 /obj/structure/table/proc/check_cover(obj/item/projectile/P, turf/from)
 	var/turf/cover = flipped ? get_turf(src) : get_step(loc, get_dir(from, loc))
-	if (get_dist(P.starting, loc) <= 1) //Tables won't help you if people are THIS close
+	if(get_dist(P.starting, loc) <= 1) //Tables won't help you if people are THIS close
 		return 1
-	if (get_turf(P.original) == cover)
+	if(get_turf(P.original) == cover)
 		var/chance = 20
-		if (ismob(P.original))
+		if(ismob(P.original))
 			var/mob/M = P.original
-			if (M.lying)
+			if(M.lying)
 				chance += 20				//Lying down lets you catch less bullets
 		if(flipped)
 			if(get_dir(loc, from) == dir)	//Flipped tables catch mroe bullets
@@ -165,7 +165,7 @@
 				return 1					//But only from one side
 		if(prob(chance))
 			health -= P.damage/2
-			if (health > 0)
+			if(health > 0)
 				visible_message("<span class='warning'>[P] hits \the [src]!</span>")
 				return 0
 			else
@@ -177,8 +177,8 @@
 /obj/structure/table/CheckExit(atom/movable/O as mob|obj, target as turf)
 	if(istype(O) && O.checkpass(PASSTABLE))
 		return 1
-	if (flipped)
-		if (get_dir(loc, target) == dir)
+	if(flipped)
+		if(get_dir(loc, target) == dir)
 			return !density
 		else
 			return 1
@@ -186,13 +186,13 @@
 
 /obj/structure/table/MouseDrop_T(obj/O as obj, mob/user as mob)
 	..()
-	if ((!( istype(O, /obj/item/weapon) ) || user.get_active_hand() != O))
+	if((!( istype(O, /obj/item/weapon) ) || user.get_active_hand() != O))
 		return
 	if(isrobot(user))
 		return
 	if(!user.drop_item())
 		return
-	if (O.loc != src.loc)
+	if(O.loc != src.loc)
 		step(O, get_dir(O, src))
 	return
 
@@ -208,20 +208,20 @@
 		if(!G.confirm())
 			return 0
 		G.affecting.forceMove(get_turf(src))
-		G.affecting.Weaken(5)
+		G.affecting.Weaken(2)
 		G.affecting.visible_message("<span class='danger'>[G.assailant] pushes [G.affecting] onto [src].</span>", \
 									"<span class='userdanger'>[G.assailant] pushes [G.affecting] onto [src].</span>")
-		add_logs(G.affecting, G.assailant, "pushed onto a table")
+		add_logs(G.assailant, G.affecting, "pushed onto a table")
 		qdel(I)
 		return 1
 	qdel(I)
 
 /obj/structure/table/attackby(obj/item/W as obj, mob/user as mob, params)
-	if (istype(W, /obj/item/weapon/grab))
+	if(istype(W, /obj/item/weapon/grab))
 		tablepush(W, user)
 		return
 
-	if (istype(W, /obj/item/weapon/wrench))
+	if(istype(W, /obj/item/weapon/wrench))
 		user.visible_message("<span class='notice'>[user] is disassembling \a [src].</span>", "<span class='notice'>You start disassembling \the [src].</span>")
 		playsound(loc, 'sound/items/Ratchet.ogg', 50, 1)
 		if(do_after(user, 50, target = src))
@@ -263,11 +263,11 @@
 		if(T && !T.flipped)
 			return 0
 	T = locate() in get_step(src.loc,direction)
-	if (!T || T.flipped)
+	if(!T || T.flipped)
 		return 1
-	if (istype(T,/obj/structure/table/reinforced/))
+	if(istype(T,/obj/structure/table/reinforced/))
 		var/obj/structure/table/reinforced/R = T
-		if (R.status == 2)
+		if(R.status == 2)
 			return 0
 	return T.straight_table_check(direction)
 
@@ -277,7 +277,7 @@
 	set category = null
 	set src in oview(1)
 
-	if (!can_touch(usr) || ismouse(usr))
+	if(!can_touch(usr) || ismouse(usr))
 		return
 
 	if(!flip(get_cardinal_dir(usr,src)))
@@ -297,13 +297,13 @@
 	set category = "Object"
 	set src in oview(1)
 
-	if (!unflip())
+	if(!unflip())
 		to_chat(usr, "<span class='notice'>It won't budge.</span>")
 		return
 
 
 /obj/structure/table/proc/flip(var/direction)
-	if (flipped)
+	if(flipped)
 		return 0
 
 	if( !straight_table_check(turn(direction,90)) || !straight_table_check(turn(direction,-90)) )
@@ -313,8 +313,8 @@
 	verbs +=/obj/structure/table/proc/do_put
 
 	var/list/targets = list(get_step(src,dir),get_step(src,turn(dir, 45)),get_step(src,turn(dir, -45)))
-	for (var/atom/movable/A in get_turf(src))
-		if (!A.anchored)
+	for(var/atom/movable/A in get_turf(src))
+		if(!A.anchored)
 			spawn(0)
 				A.throw_at(pick(targets),1,1)
 
@@ -333,14 +333,14 @@
 	return 1
 
 /obj/structure/table/proc/unflip()
-	if (!flipped)
+	if(!flipped)
 		return 0
 
 	var/can_flip = 1
-	for (var/mob/A in oview(src,0))//src.loc)
-		if (istype(A))
+	for(var/mob/A in oview(src,0))//src.loc)
+		if(istype(A))
 			can_flip = 0
-	if (!can_flip)
+	if(!can_flip)
 		return 0
 
 	verbs -=/obj/structure/table/proc/do_put
@@ -369,6 +369,8 @@
 	parts = /obj/item/weapon/table_parts/wood
 	health = 50
 	canSmoothWith = list(/obj/structure/table/woodentable, /obj/structure/table/woodentable/poker)
+	burn_state = FLAMMABLE
+	burntime = 20
 	var/canPokerize = 1
 
 /obj/structure/table/woodentable/attackby(obj/item/I as obj, mob/user as mob, params)
@@ -448,8 +450,9 @@
 /obj/structure/table/glass/destroy(dirty)
 	if(dirty)
 		new /obj/item/weapon/shard(loc)
+		new /obj/item/weapon/shard(loc)
 	else
-		new /obj/item/stack/sheet/glass(loc)
+		new /obj/item/stack/sheet/glass(loc, 2)
 	..()
 
 /obj/structure/table/glass/tablepush(obj/item/I, mob/user)
@@ -470,33 +473,33 @@
 	canSmoothWith = list(/obj/structure/table/reinforced, /obj/structure/table)
 
 /obj/structure/table/reinforced/flip(var/direction)
-	if (status == 2)
+	if(status == 2)
 		return 0
 	else
 		return ..()
 
 /obj/structure/table/reinforced/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
-	if (istype(W, /obj/item/weapon/weldingtool))
+	if(istype(W, /obj/item/weapon/weldingtool))
 		var/obj/item/weapon/weldingtool/WT = W
 		if(WT.remove_fuel(0, user))
 			if(src.status == 2)
 				to_chat(user, "\blue Now weakening the reinforced table")
 				playsound(src.loc, 'sound/items/Welder.ogg', 50, 1)
-				if (do_after(user, 50, target = src))
+				if(do_after(user, 50, target = src))
 					if(!src || !WT.isOn()) return
 					to_chat(user, "\blue Table weakened")
 					src.status = 1
 			else
 				to_chat(user, "\blue Now strengthening the reinforced table")
 				playsound(src.loc, 'sound/items/Welder.ogg', 50, 1)
-				if (do_after(user, 50, target = src))
+				if(do_after(user, 50, target = src))
 					if(!src || !WT.isOn()) return
 					to_chat(user, "\blue Table strengthened")
 					src.status = 2
 			return
 		return
 
-	if (istype(W, /obj/item/weapon/wrench))
+	if(istype(W, /obj/item/weapon/wrench))
 		if(src.status == 2)
 			return
 
@@ -559,18 +562,18 @@
 		. = . || mover.checkpass(PASSTABLE)
 
 /obj/structure/rack/MouseDrop_T(obj/O as obj, mob/user as mob)
-	if ((!( istype(O, /obj/item/weapon) ) || user.get_active_hand() != O))
+	if((!( istype(O, /obj/item/weapon) ) || user.get_active_hand() != O))
 		return
 	if(isrobot(user))
 		return
 	if(!user.drop_item())
 		return
-	if (O.loc != src.loc)
+	if(O.loc != src.loc)
 		step(O, get_dir(O, src))
 	return
 
 /obj/structure/rack/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
-	if (istype(W, /obj/item/weapon/wrench))
+	if(istype(W, /obj/item/weapon/wrench))
 		new /obj/item/weapon/rack_parts( src.loc )
 		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
 		qdel(src)

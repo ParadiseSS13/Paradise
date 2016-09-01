@@ -98,6 +98,10 @@
 /var/const/access_syndicate_leader = 151//Nuke Op Leader Access
 /var/const/access_vox = 152//Vox Access
 
+//Trade Stations
+
+var/const/access_trade_sol = 160
+
 	//MONEY
 /var/const/access_crate_cash = 200
 
@@ -111,6 +115,9 @@
 	//check if we don't require any access at all
 	if(check_access())
 		return 1
+
+	if(!M)
+		return 0
 
 	var/acc = M.get_access() //see mob.dm
 
@@ -267,6 +274,8 @@
 			return list(access_mailsorting, access_mining, access_mining_station, access_mineral_storeroom, access_cargo, access_qm)
 		if(REGION_COMMAND) //command
 			return list(access_heads, access_RC_announce, access_keycard_auth, access_change_ids, access_ai_upload, access_teleporter, access_eva, access_tcomsat, access_gateway, access_all_personal_lockers, access_heads_vault, access_blueshield, access_ntrep, access_hop, access_captain)
+		if(REGION_CENTCOMM) //because why the heck not
+			return get_all_centcom_access() + get_all_accesses()
 
 /proc/get_region_accesses_name(code)
 	switch(code)
@@ -286,6 +295,8 @@
 			return "Supply"
 		if(REGION_COMMAND) //command
 			return "Command"
+		if(REGION_CENTCOMM) //CC
+			return "CentComm"
 
 
 /proc/get_access_desc(A)
@@ -495,7 +506,7 @@
 //gets the actual job rank (ignoring alt titles)
 //this is used solely for sechuds
 /obj/proc/GetJobRealName()
-	if (!istype(src, /obj/item/device/pda) && !istype(src,/obj/item/weapon/card/id))
+	if(!istype(src, /obj/item/device/pda) && !istype(src,/obj/item/weapon/card/id))
 		return
 
 	var/rank
@@ -519,7 +530,7 @@
 //gets the alt title, failing that the actual job rank
 //this is unused
 /obj/proc/sdsdsd()	//GetJobDisplayName
-	if (!istype(src, /obj/item/device/pda) && !istype(src,/obj/item/weapon/card/id))
+	if(!istype(src, /obj/item/device/pda) && !istype(src,/obj/item/weapon/card/id))
 		return
 
 	var/assignment
@@ -587,17 +598,17 @@ proc/get_all_job_icons() //For all existing HUD icons
 		var/job_icons = get_all_job_icons()
 		var/centcom = get_all_centcom_jobs()
 
+		if(I.assignment	in centcom) //Return with the NT logo if it is a Centcom job
+			return "Centcom"
+		if(I.rank in centcom)
+			return "Centcom"
+
 		if(I.assignment	in job_icons) //Check if the job has a hud icon
 			return I.assignment
 		if(I.rank in job_icons)
 			return I.rank
 
-		if(I.assignment	in centcom) //Return with the NT logo if it is a Centcom job
-			return "Centcom"
-		if(I.rank in centcom)
-			return "Centcom"
 	else
 		return
 
 	return "Unknown" //Return unknown if none of the above apply
-

@@ -4,6 +4,7 @@
 	icon = 'icons/obj/surgery_drask.dmi'
 	icon_state = "innards"
 	desc = "A greenish, slightly translucent organ. It is extremely cold."
+	species = "Drask"
 
 /obj/item/organ/internal/heart/drask
 	name = "drask heart"
@@ -13,6 +14,7 @@
 	organ_tag = "heart"
 	parent_organ = "head"
 	slot = "heart"
+	species = "Drask"
 
 /obj/item/organ/internal/lungs/drask
 	name = "lungs"
@@ -22,6 +24,7 @@
 	organ_tag = "lungs"
 	parent_organ = "chest"
 	slot = "lungs"
+	species = "Drask"
 
 /obj/item/organ/internal/liver/drask
 	name = "metabolic strainer"
@@ -31,6 +34,8 @@
 	organ_tag = "kidneys"
 	parent_organ = "groin"
 	slot = "kidneys"
+	alcohol_intensity = 0.8
+	species = "Drask"
 
 /obj/item/organ/internal/brain/drask
 	name = "brain"
@@ -38,6 +43,9 @@
 	icon_state = "brain2"
 	organ_tag = "brain"
 	slot = "brain"
+	mmi_icon = 'icons/obj/surgery_drask.dmi'
+	mmi_icon_state = "mmi_full"
+	species = "Drask"
 
 /obj/item/organ/internal/eyes/drask
 	name = "eyes"
@@ -48,3 +56,4 @@
 	parent_organ = "head"
 	slot = "eyes"
 	desc = "Drask eyes. They look even stranger disembodied"
+	species = "Drask"

@@ -2,7 +2,7 @@
 /obj/item/weapon/reagent_containers/borghypo
 	name = "Cyborg Hypospray"
 	desc = "An advanced chemical synthesizer and injection system, designed for heavy-duty medical equipment."
-	icon = 'icons/obj/syringe.dmi'
+	icon = 'icons/obj/hypo.dmi'
 	item_state = "hypo"
 	icon_state = "borghypo"
 	amount_per_transfer_from_this = 5
@@ -23,7 +23,7 @@
 
 /obj/item/weapon/reagent_containers/borghypo/crisis
 	reagent_ids = list("salglu_solution", "epinephrine", "sal_acid")
-	
+
 /obj/item/weapon/reagent_containers/borghypo/syndicate
 	name = "syndicate cyborg hypospray"
 	desc = "An experimental piece of Syndicate technology used to produce powerful restorative nanites used to very quickly restore injuries of all types. Also metabolizes potassium iodide, for radiation poisoning, and morphine, for offense."
@@ -49,8 +49,8 @@
 	if(charge_tick < recharge_time) return 0
 	charge_tick = 0
 
-	if(isrobot(src.loc))
-		var/mob/living/silicon/robot/R = src.loc
+	if(isrobot(loc))
+		var/mob/living/silicon/robot/R = loc
 		if(R && R.cell)
 			var/datum/reagents/RG = reagent_list[mode]
 			if(RG.total_volume < RG.maximum_volume) 	//Don't recharge reagents and drain power if the storage is full.
@@ -60,7 +60,7 @@
 	return 1
 
 // Use this to add more chemicals for the borghypo to produce.
-/obj/item/weapon/reagent_containers/borghypo/proc/add_reagent(var/reagent)
+/obj/item/weapon/reagent_containers/borghypo/proc/add_reagent(reagent)
 	reagent_ids |= reagent
 	var/datum/reagents/RG = new(30)
 	RG.my_atom = src
@@ -69,14 +69,14 @@
 	var/datum/reagents/R = reagent_list[reagent_list.len]
 	R.add_reagent(reagent, 30)
 
-/obj/item/weapon/reagent_containers/borghypo/attack(mob/living/M as mob, mob/user as mob)
+/obj/item/weapon/reagent_containers/borghypo/attack(mob/living/M, mob/user)
 	var/datum/reagents/R = reagent_list[mode]
 	if(!R.total_volume)
 		to_chat(user, "<span class='warning'>The injector is empty.</span>")
 		return
-	if (!istype(M))
+	if(!istype(M))
 		return
-	if (R.total_volume && M.can_inject(user, 1, penetrate_thick = bypass_protection))
+	if(R.total_volume && M.can_inject(user, 1, penetrate_thick = bypass_protection))
 		to_chat(user, "<span class='notice'>You inject [M] with the injector.</span>")
 		to_chat(M, "<span class='notice'>You feel a tiny prick!</span>")
 
@@ -84,18 +84,18 @@
 		if(M.reagents)
 			var/datum/reagent/injected = chemical_reagents_list[reagent_ids[mode]]
 			var/contained = injected.name
-			M.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been injected with [src.name] by [key_name(user)]. Reagents: [contained]</font>")
-			user.attack_log += text("\[[time_stamp()]\] <font color='red'>Used the [src.name] to inject [key_name(M)]. Reagents: [contained]</font>")
+			M.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been injected with [name] by [key_name(user)]. Reagents: [contained]</font>")
+			user.attack_log += text("\[[time_stamp()]\] <font color='red'>Used the [name] to inject [key_name(M)]. Reagents: [contained]</font>")
 			if(M.ckey)
-				msg_admin_attack("[key_name_admin(user)] injected [key_name_admin(M)] with [src.name]. Reagents: [contained] (INTENT: [uppertext(user.a_intent)])")
+				msg_admin_attack("[key_name_admin(user)] injected [key_name_admin(M)] with [name]. Reagents: [contained] (INTENT: [uppertext(user.a_intent)])")
 			M.LAssailant = user
 
 			var/trans = R.trans_to(M, amount_per_transfer_from_this)
 			to_chat(user, "<span class='notice'>[trans] units injected. [R.total_volume] units remaining.</span>")
 	return
 
-/obj/item/weapon/reagent_containers/borghypo/attack_self(mob/user as mob)
-	playsound(src.loc, 'sound/effects/pop.ogg', 50, 0)		//Change the mode
+/obj/item/weapon/reagent_containers/borghypo/attack_self(mob/user)
+	playsound(loc, 'sound/effects/pop.ogg', 50, 0)		//Change the mode
 	mode++
 	if(mode > reagent_list.len)
 		mode = 1

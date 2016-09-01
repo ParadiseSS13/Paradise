@@ -16,20 +16,15 @@
 	var/cooling_temperature = 2
 	process_flags = ORGANIC | SYNTHETIC
 
-/datum/reagent/water/reaction_mob(var/mob/living/M, var/method=TOUCH, var/volume)
-	if(!istype(M, /mob/living))
-		return
-
+/datum/reagent/water/reaction_mob(mob/living/M, method=TOUCH, volume)
 // Put out fire
 	if(method == TOUCH)
 		M.adjust_fire_stacks(-(volume / 10))
-		if(M.fire_stacks <= 0)
-			M.ExtinguishMob()
-		return
+		M.ExtinguishMob()
 
-/datum/reagent/water/reaction_turf(var/turf/simulated/T, var/volume)
-	if (!istype(T)) return
-	src = null
+/datum/reagent/water/reaction_turf(turf/simulated/T, volume)
+	if(!istype(T))
+		return
 	if(volume >= 3)
 		T.MakeSlippery()
 
@@ -37,33 +32,25 @@
 		M.apply_water()
 
 	var/hotspot = (locate(/obj/effect/hotspot) in T)
-	if(hotspot && !istype(T, /turf/space))
-		var/datum/gas_mixture/lowertemp = T.remove_air( T:air:total_moles() )
-		lowertemp.temperature = max( min(lowertemp.temperature-2000,lowertemp.temperature / 2) ,0)
+	if(hotspot)
+		var/datum/gas_mixture/lowertemp = T.remove_air( T.air.total_moles())
+		lowertemp.temperature = max(min(lowertemp.temperature-2000,lowertemp.temperature / 2), 0)
 		lowertemp.react()
 		T.assume_air(lowertemp)
 		qdel(hotspot)
-	return
 
-/datum/reagent/water/reaction_obj(var/obj/O, var/volume)
-	src = null
-	var/turf/T = get_turf(O)
-	var/hotspot = (locate(/obj/effect/hotspot) in T)
-	if(hotspot && !istype(T, /turf/space))
-		var/datum/gas_mixture/lowertemp = T.remove_air( T:air:total_moles() )
-		lowertemp.temperature = max( min(lowertemp.temperature-2000,lowertemp.temperature / 2) ,0)
-		lowertemp.react()
-		T.assume_air(lowertemp)
-		qdel(hotspot)
-	if(istype(O,/obj/item/weapon/reagent_containers/food/snacks/monkeycube))
+/datum/reagent/water/reaction_obj(obj/O, volume)
+	if(istype(O))
+		O.extinguish()
+
+	if(istype(O, /obj/item/weapon/reagent_containers/food/snacks/monkeycube))
 		var/obj/item/weapon/reagent_containers/food/snacks/monkeycube/cube = O
 		if(!cube.wrapped)
 			cube.Expand()
 	// Dehydrated carp
-	if(istype(O,/obj/item/toy/carpplushie/dehy_carp))
+	if(istype(O, /obj/item/toy/carpplushie/dehy_carp))
 		var/obj/item/toy/carpplushie/dehy_carp/dehy = O
 		dehy.Swell() // Makes a carp
-	return
 
 
 /datum/reagent/lube
@@ -73,10 +60,8 @@
 	reagent_state = LIQUID
 	color = "#1BB1AB"
 
-/datum/reagent/lube/reaction_turf(var/turf/simulated/T, var/volume)
-	if (!istype(T)) return
-	src = null
-	if(volume >= 1)
+/datum/reagent/lube/reaction_turf(turf/simulated/T, volume)
+	if(volume >= 1 && istype(T))
 		T.MakeSlippery(TURF_WET_LUBE)
 
 
@@ -87,16 +72,15 @@
 	reagent_state = LIQUID
 	color = "#61C2C2"
 
-/datum/reagent/space_cleaner/reaction_obj(var/obj/O, var/volume)
+/datum/reagent/space_cleaner/reaction_obj(obj/O, volume)
 	if(O && !istype(O, /atom/movable/lighting_overlay))
 		O.color = initial(O.color)
-	if(istype(O,/obj/effect/decal/cleanable))
+	if(istype(O, /obj/effect/decal/cleanable))
 		qdel(O)
-	else
-		if(O)
-			O.clean_blood()
+	else if(O)
+		O.clean_blood()
 
-/datum/reagent/space_cleaner/reaction_turf(var/turf/T, var/volume)
+/datum/reagent/space_cleaner/reaction_turf(turf/T, volume)
 	if(volume >= 1)
 		if(T)
 			T.color = initial(T.color)
@@ -106,14 +90,14 @@
 
 		for(var/mob/living/carbon/slime/M in T)
 			M.adjustToxLoss(rand(5,10))
-		if(istype(T,/turf/simulated))
+		if(istype(T, /turf/simulated))
 			var/turf/simulated/S = T
 			S.dirt = 0
 
-/datum/reagent/space_cleaner/reaction_mob(var/mob/M, var/method=TOUCH, var/volume)
+/datum/reagent/space_cleaner/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(iscarbon(M))
 		var/mob/living/carbon/C = M
-		if(istype(M,/mob/living/carbon/human))
+		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
 			if(H.lip_style)
 				H.lip_style = null
@@ -141,7 +125,6 @@
 					H.update_inv_shoes(0,0)
 		M.clean_blood()
 		..()
-		return
 
 
 /datum/reagent/blood
@@ -151,7 +134,7 @@
 	reagent_state = LIQUID
 	color = "#C80000" // rgb: 200, 0, 0
 
-/datum/reagent/blood/reaction_mob(mob/M, method=TOUCH, reac_volume)
+/datum/reagent/blood/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(data && data["viruses"])
 		for(var/datum/disease/D in data["viruses"])
 
@@ -194,15 +177,15 @@
 			color = mix_data["blood_colour"]
 	return 1
 
-/datum/reagent/blood/on_update(var/atom/A)
+/datum/reagent/blood/on_update(atom/A)
 	if(data["blood_colour"])
 		color = data["blood_colour"]
 	return ..()
 
-/datum/reagent/blood/reaction_turf(turf/simulated/T, reac_volume)//splash the blood all over the place
+/datum/reagent/blood/reaction_turf(turf/simulated/T, volume)//splash the blood all over the place
 	if(!istype(T))
 		return
-	if(reac_volume < 3)
+	if(volume < 3)
 		return
 	if(!data["donor"] || istype(data["donor"], /mob/living/carbon/human))
 		var/obj/effect/decal/cleanable/blood/blood_prop = locate() in T //find some blood here
@@ -232,7 +215,7 @@
 	id = "vaccine"
 	color = "#C81040" // rgb: 200, 16, 64
 
-/datum/reagent/vaccine/reaction_mob(mob/M, method=TOUCH, reac_volume)
+/datum/reagent/vaccine/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(islist(data) && (method == INGEST))
 		for(var/datum/disease/D in M.viruses)
 			if(D.GetDiseaseID() in data)
@@ -241,7 +224,7 @@
 
 /datum/reagent/vaccine/on_merge(list/data)
 	if(istype(data))
-		src.data |= data.Copy()
+		data |= data.Copy()
 
 /datum/reagent/fishwater
 	name = "Fish Water"
@@ -250,21 +233,17 @@
 	reagent_state = LIQUID
 	color = "#757547"
 
-/datum/reagent/fishwater/reaction_mob(var/mob/M, var/method=TOUCH, var/volume)
-	if(!istype(M, /mob/living))
-		return
+/datum/reagent/fishwater/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(method == INGEST)
 		to_chat(M, "Oh god, why did you drink that?")
 
-/datum/reagent/fishwater/on_mob_life(var/mob/living/M as mob)
-	if(!M) M = holder.my_atom
+/datum/reagent/fishwater/on_mob_life(mob/living/M)
 	if(prob(30))		// Nasty, you drank this stuff? 30% chance of the fakevomit (non-stunning version)
 		if(prob(50))	// 50/50 chance of green vomit vs normal vomit
 			M.fakevomit(1)
 		else
 			M.fakevomit(0)
 	..()
-	return
 
 /datum/reagent/fishwater/toiletwater
 	name = "Toilet Water"
@@ -273,7 +252,7 @@
 	reagent_state = LIQUID
 	color = "#757547"
 
-/datum/reagent/fishwater/toiletwater/reaction_mob(var/mob/M, var/method=TOUCH, var/volume) //For shennanigans
+/datum/reagent/fishwater/toiletwater/reaction_mob(mob/living/M, method=TOUCH, volume) //For shennanigans
 	return
 
 /datum/reagent/holywater
@@ -284,28 +263,31 @@
 	color = "#0064C8" // rgb: 0, 100, 200
 	process_flags = ORGANIC | SYNTHETIC
 
-/datum/reagent/holywater/on_mob_life(var/mob/living/M as mob)
-	if(!data) data = 1
-	data++
+/datum/reagent/holywater/on_mob_life(mob/living/M)
 	M.jitteriness = max(M.jitteriness-5,0)
-	if(data >= 30)		// 12 units, 60 seconds @ metabolism 0.4 units & tick rate 2.0 sec
-		if (!M.stuttering) M.stuttering = 1
-		M.stuttering += 4
+	if(current_cycle >= 30)		// 12 units, 60 seconds @ metabolism 0.4 units & tick rate 2.0 sec
+		M.stuttering = min(M.stuttering+4, 20)
 		M.Dizzy(5)
 		if(iscultist(M) && prob(5))
 			M.say(pick("Av'te Nar'sie","Pa'lid Mors","INO INO ORA ANA","SAT ANA!","Daim'niodeis Arc'iai Le'eones","Egkau'haom'nai en Chaous","Ho Diak'nos tou Ap'iron","R'ge Na'sie","Diabo us Vo'iscum","Si gn'um Co'nu"))
-	if(data >= 75 && prob(33))	// 30 units, 150 seconds
-		if (!M.confused) M.confused = 1
+	if(current_cycle >= 75 && prob(33))	// 30 units, 150 seconds
 		M.confused += 3
+		if(isvampirethrall(M))
+			ticker.mode.remove_vampire_mind(M.mind)
+			holder.remove_reagent(id, volume)
+			M.jitteriness = 0
+			M.stuttering = 0
+			M.confused = 0
+			return
 		if(iscultist(M))
 			ticker.mode.remove_cultist(M.mind)
-			holder.remove_reagent(src.id, src.volume)	// maybe this is a little too perfect and a max() cap on the statuses would be better??
+			holder.remove_reagent(id, volume)	// maybe this is a little too perfect and a max() cap on the statuses would be better??
 			M.jitteriness = 0
 			M.stuttering = 0
 			M.confused = 0
 			return
 	if(ishuman(M) && M.mind && M.mind.vampire && !M.mind.vampire.get_ability(/datum/vampire_passive/full) && prob(80))
-		switch(data)
+		switch(current_cycle)
 			if(1 to 4)
 				to_chat(M, "<span class = 'warning'>Something sizzles in your veins!</span>")
 				M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
@@ -324,25 +306,25 @@
 	..()
 
 
-/datum/reagent/holywater/reaction_mob(var/mob/living/M, var/method=TOUCH, var/volume)
+/datum/reagent/holywater/reaction_mob(mob/living/M, method=TOUCH, volume)
 	// Vampires have their powers weakened by holy water applied to the skin.
 	if(ishuman(M) && M.mind && M.mind.vampire && !M.mind.vampire.get_ability(/datum/vampire_passive/full))
 		var/mob/living/carbon/human/H=M
 		if(method == TOUCH)
 			if(H.wear_mask)
-				to_chat(H, "\red Your mask protects you from the holy water!")
+				to_chat(H, "<span class='warning'>Your mask protects you from the holy water!</span>")
 				return
 			else if(H.head)
-				to_chat(H, "\red Your helmet protects you from the holy water!")
+				to_chat(H, "<span class='warning'>Your helmet protects you from the holy water!</span>")
 				return
 			else
 				to_chat(M, "<span class='warning'>Something holy interferes with your powers!</span>")
 				M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
 
 
-/datum/reagent/holywater/reaction_turf(var/turf/simulated/T, var/volume)
-	..()
-	if(!istype(T)) return
+/datum/reagent/holywater/reaction_turf(turf/simulated/T, volume)
+	if(!istype(T))
+		return
 	if(volume>=10)
 		for(var/obj/effect/rune/R in T)
 			qdel(R)
@@ -356,14 +338,10 @@
 	description = "You don't even want to think about what's in here."
 	reagent_state = LIQUID
 
-/datum/reagent/liquidgibs/reaction_turf(var/turf/T, var/volume) //yes i took it from synthflesh...
-	src = null
-	if(volume >= 5)
+/datum/reagent/liquidgibs/reaction_turf(turf/T, volume) //yes i took it from synthflesh...
+	if(volume >= 5 && !istype(T, /turf/space))
 		new /obj/effect/decal/cleanable/blood/gibs/cleangibs(T)
 		playsound(T, 'sound/effects/splat.ogg', 50, 1, -3)
-		return
-
-
 
 /datum/reagent/lye
 	name = "Lye"
@@ -379,11 +357,11 @@
 	reagent_state = LIQUID
 	color = "#A70FFF"
 
-/datum/reagent/drying_agent/reaction_turf(turf/simulated/T, reac_volume)
+/datum/reagent/drying_agent/reaction_turf(turf/simulated/T, volume)
 	if(istype(T) && T.wet)
 		T.MakeDry(TURF_WET_WATER)
 
-/datum/reagent/drying_agent/reaction_obj(obj/O, reac_volume)
+/datum/reagent/drying_agent/reaction_obj(obj/O, volume)
 	if(istype(O, /obj/item/clothing/shoes/galoshes))
 		var/t_loc = get_turf(O)
 		qdel(O)

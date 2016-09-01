@@ -124,7 +124,7 @@
 	if(!secured || !on || cooldown > 0)
 		return 0
 	pulse(0)
-	audible_message("\icon[src] *beep* *beep*", null, 3)
+	audible_message("[bicon(src)] *beep* *beep*", null, 3)
 	cooldown = 2
 	spawn(10)
 		process_cooldown()
@@ -139,7 +139,9 @@
 				</TT>
 				<BR><BR><A href='?src=\ref[src];refresh=1'>Refresh</A>
 				<BR><BR><A href='?src=\ref[src];close=1'>Close</A>"}
-	user << browse(dat, "window=infra")
+	var/datum/browser/popup = new(user, "infra", name, 400, 400)
+	popup.set_content(dat)
+	popup.open(0)
 	onclose(user, "infra")
 
 /obj/item/device/assembly/infra/Topic(href, href_list)
@@ -172,7 +174,7 @@
 		return
 
 	dir = turn(dir, 90)
-	
+
 	if(usr.machine == src)
 		interact(usr)
 
@@ -244,7 +246,9 @@
 	hit()
 
 /obj/effect/beam/i_beam/Crossed(atom/movable/AM as mob|obj)
-	if(istype(AM, /obj/effect/beam) || !AM.density)
+	if(!isobj(AM) && !isliving(AM))
+		return
+	if(istype(AM, /obj/effect))
 		return
 	hit()
 

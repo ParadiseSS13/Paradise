@@ -24,7 +24,6 @@
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang
 	ME.attach(src)
-	return
 
 /obj/mecha/combat/gygax/dark
 	desc = "A lightweight exosuit, painted in a dark scheme. This model appears to have some modifications."
@@ -51,7 +50,6 @@
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay
 	ME.attach(src)
-	return
 
 /obj/mecha/combat/gygax/dark/add_cell(var/obj/item/weapon/stock_parts/cell/C=null)
 	if(C)
@@ -68,31 +66,30 @@
 	set name = "Toggle leg actuators overload"
 	set src = usr.loc
 	set popup_menu = 0
-	if(usr!=src.occupant)
+	if(usr != occupant)
 		return
 	if(overload)
 		overload = 0
 		step_in = initial(step_in)
 		step_energy_drain = initial(step_energy_drain)
-		src.occupant_message("<font color='blue'>You disable leg actuators overload.</font>")
+		occupant_message("<font color='blue'>You disable leg actuators overload.</font>")
 	else
 		overload = 1
 		step_in = min(1, round(step_in/2))
 		step_energy_drain = step_energy_drain*overload_coeff
-		src.occupant_message("<font color='red'>You enable leg actuators overload.</font>")
-	src.log_message("Toggled leg actuators overload.")
-	return
+		occupant_message("<font color='red'>You enable leg actuators overload.</font>")
+	log_message("Toggled leg actuators overload.")
 
-/obj/mecha/combat/gygax/dyndomove(direction)
-	if(!..()) return
+/obj/mecha/combat/gygax/domove(direction)
+	if(!..())
+		return
 	if(overload)
 		health--
-		if(health < initial(health) - initial(health)/3)
+		if(health < initial(health) - initial(health) / 3)
 			overload = 0
 			step_in = initial(step_in)
 			step_energy_drain = initial(step_energy_drain)
-			src.occupant_message("<font color='red'>Leg actuators damage threshold exceded. Disabling overload.</font>")
-	return
+			occupant_message("<font color='red'>Leg actuators damage threshold exceded. Disabling overload.</font>")
 
 
 /obj/mecha/combat/gygax/get_stats_part()
@@ -113,6 +110,5 @@
 
 /obj/mecha/combat/gygax/Topic(href, href_list)
 	..()
-	if (href_list["toggle_leg_overload"])
-		src.overload()
-	return
+	if(href_list["toggle_leg_overload"])
+		overload()

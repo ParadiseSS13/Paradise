@@ -61,10 +61,8 @@
  */
 //Captain's retro laser - Fires practice laser shots instead.
 obj/item/weapon/gun/energy/laser/retro/sc_retro
-	name ="retro laser"
-	icon_state = "retro"
 	desc = "An older model of the basic lasergun, no longer used by Nanotrasen's security or military forces."
-//	projectile_type = "/obj/item/projectile/practice"
+	ammo_type = list(/obj/item/ammo_casing/energy/laser/practice)
 	clumsy_check = 0 //No sense in having a harmless gun blow up in the clowns face
 
 //Syndicate sub-machine guns.
@@ -177,7 +175,7 @@ var/sc_safecode5 = "[rand(0,9)]"
 /obj/singularity/narsie/sc_Narsie/consume(var/atom/A)
 	if(is_type_in_list(A, uneatable))
 		return 0
-	if (istype(A,/mob/living))
+	if(istype(A,/mob/living))
 		var/mob/living/L = A
 		L.gib()
 	else if(istype(A,/obj/))

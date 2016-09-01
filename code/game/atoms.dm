@@ -13,6 +13,7 @@
 	var/germ_level = GERM_LEVEL_AMBIENT // The higher the germ level, the more germ on the atom.
 	var/simulated = 1 //filter for actions - used by lighting overlays
 	var/atom_say_verb = "says"
+	var/dont_save = 0 // For atoms that are temporary by necessity - like lighting overlays
 
 	///Chemistry.
 	var/datum/reagents/reagents = null
@@ -41,7 +42,7 @@
 	if(!T)
 		return 0
 
-	if(T.z != ZLEVEL_CENTCOMM)//if not, don't bother
+	if(!is_admin_level(T.z))//if not, don't bother
 		return 0
 
 	//check for centcomm shuttles
@@ -58,7 +59,7 @@
 	if(!T)
 		return 0
 
-	if(T.z != ZLEVEL_CENTCOMM)//if not, don't bother
+	if(!is_admin_level(T.z))//if not, don't bother
 		return 0
 
 	if(istype(T.loc, /area/shuttle/syndicate_elite) || istype(T.loc, /area/syndicate_mothership))
@@ -79,8 +80,19 @@
 	invisibility = 101
 	return ..()
 
-/atom/proc/CheckParts()
-	return
+/atom/proc/CheckParts(list/parts_list)
+	for(var/A in parts_list)
+		if(istype(A, /datum/reagent))
+			if(!reagents)
+				reagents = new()
+			reagents.reagent_list.Add(A)
+			reagents.conditional_update()
+		else if(istype(A, /atom/movable))
+			var/atom/movable/M = A
+			if(istype(M.loc, /mob/living))
+				var/mob/living/L = M.loc
+				L.unEquip(M)
+			M.forceMove(src)
 
 /atom/proc/assume_air(datum/gas_mixture/giver)
 	qdel(giver)
@@ -96,7 +108,7 @@
 		return null
 
 /atom/proc/check_eye(user as mob)
-	if (istype(user, /mob/living/silicon/ai)) // WHYYYY
+	if(istype(user, /mob/living/silicon/ai)) // WHYYYY
 		return 1
 	return
 
@@ -187,8 +199,9 @@
 		else
 			f_name += "oil-stained [name][infix]."
 
-	to_chat(user, "\icon[src] That's [f_name] [suffix]")
-	to_chat(user, desc)
+	to_chat(user, "[bicon(src)] That's [f_name] [suffix]")
+	if(desc)
+		to_chat(user, desc)
 
 	if(reagents && is_open_container()) //is_open_container() isn't really the right proc for this, but w/e
 		to_chat(user, "It contains:")
@@ -225,7 +238,7 @@
 	return
 
 /atom/proc/hitby(atom/movable/AM as mob|obj)
-	if (density)
+	if(density)
 		AM.throwing = 0
 	return
 
@@ -275,14 +288,14 @@
 		add_fibers(M)
 
 		//He has no prints!
-		if (FINGERPRINTS in M.mutations)
+		if(FINGERPRINTS in M.mutations)
 			if(fingerprintslast != M.key)
 				fingerprintshidden += "(Has no fingerprints) Real name: [M.real_name], Key: [M.key]"
 				fingerprintslast = M.key
 			return 0		//Now, lets get to the dirty work.
 		//First, make sure their DNA makes sense.
 		var/mob/living/carbon/human/H = M
-		if (!istype(H.dna, /datum/dna) || !H.dna.uni_identity || (length(H.dna.uni_identity) != 32))
+		if(!istype(H.dna, /datum/dna) || !H.dna.uni_identity || (length(H.dna.uni_identity) != 32))
 			if(!istype(H.dna, /datum/dna))
 				H.dna = new /datum/dna(null)
 				H.dna.real_name = H.real_name
@@ -351,9 +364,6 @@
 
 //returns 1 if made bloody, returns 0 otherwise
 /atom/proc/add_blood(mob/living/carbon/human/M as mob)
-
-	if(flags & NOBLOODY)
-		return 0
 
 	if(!blood_DNA || !istype(blood_DNA, /list))	//if our list of DNA doesn't exist yet (or isn't a list) initialise it.
 		blood_DNA = list()
@@ -438,11 +448,10 @@
 /atom/proc/narsie_act()
 	return
 
-/atom/proc/atom_say(var/message)
-	if((!message))
+/atom/proc/atom_say(message)
+	if(!message)
 		return
-	for(var/mob/O in hearers(src, null))
-		O.show_message("<span class='game say'><span class='name'>[src]</span> [atom_say_verb], \"[message]\"</span>",2)
+	audible_message("<span class='game say'><span class='name'>[src]</span> [atom_say_verb], \"[message]\"</span>")
 
 /atom/proc/speech_bubble(var/bubble_state = "",var/bubble_loc = src, var/list/bubble_recipients = list())
 	return

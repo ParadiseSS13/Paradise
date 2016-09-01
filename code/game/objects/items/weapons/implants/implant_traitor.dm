@@ -45,22 +45,22 @@
 				return -1
 			H.implanting = 1
 			to_chat(H, "<span class='notice'>You feel completely loyal to [user.name].</span>")
-			if(!(user.mind in ticker.mode:implanter))
-				ticker.mode:implanter[ref] = list()
-			implanters = ticker.mode:implanter[ref]
+			if(!(user.mind in ticker.mode.implanter))
+				ticker.mode.implanter[ref] = list()
+			implanters = ticker.mode.implanter[ref]
 			implanters.Add(H.mind)
 			ticker.mode.implanted.Add(H.mind)
 			ticker.mode.implanted[H.mind] = user.mind
-			//ticker.mode:implanter[user.mind] += H.mind
-			ticker.mode:implanter[ref] = implanters
+			//ticker.mode.implanter[user.mind] += H.mind
+			ticker.mode.implanter[ref] = implanters
 			ticker.mode.traitors += H.mind
-			H.mind.special_role = "traitor"
+			H.mind.special_role = SPECIAL_ROLE_TRAITOR
 			to_chat(H, "<span class='warning'><B>You're now completely loyal to [user.name]!</B> You now must lay down your life to protect them and assist in their goals at any cost.</span>")
-			var/datum/objective/protect/p = new
-			p.owner = H.mind
-			p.target = user:mind
-			p.explanation_text = "Obey every order from and protect [user:real_name], the [user:mind:assigned_role=="MODE" ? (user:mind:special_role) : (user:mind:assigned_role)]."
-			H.mind.objectives += p
+			var/datum/objective/protect/mindslave/MS = new
+			MS.owner = H.mind
+			MS.target = user.mind
+			MS.explanation_text = "Obey every order from and protect [user.real_name], the [user.mind.assigned_role=="MODE" ? (user.mind.special_role) : (user.mind.assigned_role)]."
+			H.mind.objectives += MS
 			for(var/datum/objective/objective in H.mind.objectives)
 				to_chat(H, "<B>Objective #1</B>: [objective.explanation_text]")
 
@@ -71,10 +71,16 @@
 				var/datum/mindslaves/slaved = user.mind.som
 				H.mind.som = slaved
 				slaved.serv += H
-				slaved.add_serv_hud(user.mind,"syndicate")//handles master servent icons
-				slaved.add_serv_hud(H.mind,"mindslave")
+				slaved.add_serv_hud(user.mind, "master") //handles master servent icons
+				slaved.add_serv_hud(H.mind, "mindslave")
 
 			log_admin("[ckey(user.key)] has mind-slaved [ckey(H.key)].")
 			activated = 1
 			return 1
 		return 0
+
+/obj/item/weapon/implant/traitor/removed(mob/target)
+	if(..())
+		ticker.mode.remove_traitor_mind(target.mind)
+		return 1
+	return 0

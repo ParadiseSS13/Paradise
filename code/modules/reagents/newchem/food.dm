@@ -6,32 +6,28 @@
 	color = "#63DE63"
 	metabolization_rate = 0.4
 
-datum/reagent/questionmark/reaction_mob(var/mob/M, var/method=TOUCH, var/volume)
-	if(!istype(M, /mob/living))
-		return
+/datum/reagent/questionmark/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(method == INGEST)
 		M.Stun(2)
 		M.Weaken(2)
 		to_chat(M, "<span class='danger'>Ugh! Eating that was a terrible idea!</span>")
 		M.ForceContractDisease(new /datum/disease/food_poisoning(0))
 
-datum/reagent/egg
+/datum/reagent/egg
 	name = "Egg"
 	id = "egg"
 	description = "A runny and viscous mixture of clear and yellow fluids."
 	reagent_state = LIQUID
 	color = "#F0C814"
 
-datum/reagent/egg/on_mob_life(var/mob/living/M as mob)
-	if(!M) M = holder.my_atom
+/datum/reagent/egg/on_mob_life(mob/living/M)
 	if(prob(8))
 		M.emote("fart")
 	if(prob(3))
 		M.reagents.add_reagent("cholesterol", rand(1,2))
 	..()
-	return
 
-datum/reagent/triple_citrus
+/datum/reagent/triple_citrus
 	name = "Triple Citrus"
 	id = "triple_citrus"
 	description = "A refreshing mixed drink of orange, lemon and lime juice."
@@ -47,13 +43,11 @@ datum/reagent/triple_citrus
 	mix_message = "The citrus juices begin to blend together."
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
-datum/reagent/triple_citrus/reaction_mob(var/mob/living/carbon/M as mob, var/method=TOUCH, var/volume)
-	if(!istype(M, /mob/living/carbon))
-		return
+/datum/reagent/triple_citrus/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(method == INGEST)
 		M.adjustToxLoss(-rand(1,2))
 
-datum/reagent/corn_starch
+/datum/reagent/corn_starch
 	name = "Corn Starch"
 	id = "corn_starch"
 	description = "The powdered starch of maize, derived from the kernel's endosperm. Used as a thickener for gravies and puddings."
@@ -69,18 +63,16 @@ datum/reagent/corn_starch
 	min_temp = 374
 	mix_message = "The mixture forms a viscous, clear fluid!"
 
-datum/reagent/corn_syrup
+/datum/reagent/corn_syrup
 	name = "Corn Syrup"
 	id = "corn_syrup"
 	description = "A sweet syrup derived from corn starch that has had its starches converted into maltose and other sugars."
 	reagent_state = LIQUID
 	color = "#C8A5DC"
 
-datum/reagent/corn_syrup/on_mob_life(var/mob/living/M as mob)
-	if(!M) M = holder.my_atom
+/datum/reagent/corn_syrup/on_mob_life(mob/living/M)
 	M.reagents.add_reagent("sugar", 1.2)
 	..()
-	return
 
 /datum/chemical_reaction/vhfcs
 	name = "vhfcs"
@@ -91,18 +83,16 @@ datum/reagent/corn_syrup/on_mob_life(var/mob/living/M as mob)
 	result_amount = 1
 	mix_message = "The mixture emits a sickly-sweet smell."
 
-datum/reagent/vhfcs
+/datum/reagent/vhfcs
 	name = "Very-high-fructose corn syrup"
 	id = "vhfcs"
 	description = "An incredibly sweet syrup, created from corn syrup treated with enzymes to convert its sugars into fructose."
 	reagent_state = LIQUID
 	color = "#C8A5DC"
 
-datum/reagent/vhfcs/on_mob_life(var/mob/living/M as mob)
-	if(!M) M = holder.my_atom
+/datum/reagent/vhfcs/on_mob_life(mob/living/M)
 	M.reagents.add_reagent("sugar", 2.4)
 	..()
-	return
 
 /datum/chemical_reaction/cola
 	name = "cola"
@@ -120,14 +110,11 @@ datum/reagent/vhfcs/on_mob_life(var/mob/living/M as mob)
 	reagent_state = LIQUID
 	color = "#d3a308"
 
-datum/reagent/honey/on_mob_life(var/mob/living/M as mob)
-	if(!M)
-		M = holder.my_atom
+/datum/reagent/honey/on_mob_life(mob/living/M)
 	M.reagents.add_reagent("sugar", 0.4)
 	if(prob(20))
 		M.heal_organ_damage(3,1)
 	..()
-	return
 
 /datum/reagent/chocolate
 	name = "Chocolate"
@@ -137,18 +124,14 @@ datum/reagent/honey/on_mob_life(var/mob/living/M as mob)
 	nutriment_factor = 5 * REAGENTS_METABOLISM		//same as pure cocoa powder, because it makes no sense that chocolate won't fill you up and make you fat
 	color = "#2E2418"
 
-/datum/reagent/chocolate/on_mob_life(var/mob/living/M as mob)
-	if(!M) M = holder.my_atom
+/datum/reagent/chocolate/on_mob_life(mob/living/M)
 	M.nutrition += nutriment_factor
 	M.reagents.add_reagent("sugar", 0.8)
 	..()
-	return
 
-/datum/reagent/chocolate/reaction_turf(var/turf/T, var/volume)
-	src = null
-	if(volume >= 5)
+/datum/reagent/chocolate/reaction_turf(turf/T, volume)
+	if(volume >= 5 && !istype(T, /turf/space))
 		new /obj/item/weapon/reagent_containers/food/snacks/choc_pile(T)
-	return
 
 /datum/reagent/mugwort
 	name = "Mugwort"
@@ -157,16 +140,14 @@ datum/reagent/honey/on_mob_life(var/mob/living/M as mob)
 	reagent_state = LIQUID
 	color = "#21170E"
 
-datum/reagent/mugwort/on_mob_life(var/mob/living/M as mob)
-	if(!M) M = holder.my_atom
-	if(istype(M, /mob/living/carbon/human) && M.mind)
-		if(M.mind.special_role == "Wizard")
+/datum/reagent/mugwort/on_mob_life(mob/living/M)
+	if(ishuman(M) && M.mind)
+		if(M.mind.special_role == SPECIAL_ROLE_WIZARD)
 			M.adjustToxLoss(-1*REM)
 			M.adjustOxyLoss(-1*REM)
 			M.adjustBruteLoss(-1*REM)
 			M.adjustFireLoss(-1*REM)
 	..()
-	return
 
 /datum/reagent/porktonium
 	name = "Porktonium"
@@ -177,7 +158,7 @@ datum/reagent/mugwort/on_mob_life(var/mob/living/M as mob)
 	metabolization_rate = 0.2
 	overdose_threshold = 133
 
-/datum/reagent/porktonium/overdose_process(var/mob/living/M as mob, severity)
+/datum/reagent/porktonium/overdose_process(mob/living/M, severity)
 	if(prob(15))
 		M.reagents.add_reagent("cholesterol", rand(1,3))
 	if(prob(8))
@@ -191,9 +172,7 @@ datum/reagent/mugwort/on_mob_life(var/mob/living/M as mob)
 	reagent_state = LIQUID
 	color = "#C87D28"
 
-datum/reagent/fungus/reaction_mob(var/mob/M, var/method=TOUCH, var/volume)
-	if(!istype(M, /mob/living))
-		return
+/datum/reagent/fungus/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(method == INGEST)
 		var/ranchance = rand(1,10)
 		if(ranchance == 1)
@@ -213,10 +192,9 @@ datum/reagent/fungus/reaction_mob(var/mob/M, var/method=TOUCH, var/volume)
 	color = "#B4B400"
 	metabolization_rate = 0.2
 
-/datum/reagent/chicken_soup/on_mob_life(var/mob/living/M as mob)
+/datum/reagent/chicken_soup/on_mob_life(mob/living/M)
 	M.nutrition += 2
 	..()
-	return
 
 /datum/reagent/msg
 	name = "Monosodium glutamate"
@@ -226,14 +204,12 @@ datum/reagent/fungus/reaction_mob(var/mob/M, var/method=TOUCH, var/volume)
 	color = "#F5F5F5"
 	metabolization_rate = 0.2
 
-datum/reagent/msg/reaction_mob(var/mob/M, var/method=TOUCH, var/volume)
-	if(!istype(M, /mob/living))
-		return
+/datum/reagent/msg/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(method == INGEST)
 		to_chat(M, "<span class='notice'>That tasted amazing!</span>")
 
 
-/datum/reagent/msg/on_mob_life(var/mob/living/M as mob)
+/datum/reagent/msg/on_mob_life(mob/living/M)
 	if(prob(5))
 		if(prob(10))
 			M.adjustToxLoss(rand(2.4))
@@ -241,7 +217,6 @@ datum/reagent/msg/reaction_mob(var/mob/M, var/method=TOUCH, var/volume)
 			to_chat(M, "<span class='warning'>A horrible migraine overpowers you.</span>")
 			M.Stun(rand(2,5))
 	..()
-	return
 
 /datum/reagent/cheese
 	name = "Cheese"
@@ -252,16 +227,14 @@ datum/reagent/msg/reaction_mob(var/mob/M, var/method=TOUCH, var/volume)
 	metabolization_rate = 0 //heheheh
 
 
-/datum/reagent/cheese/on_mob_life(var/mob/living/M as mob)
+/datum/reagent/cheese/on_mob_life(mob/living/M)
 	if(prob(3))
 		M.reagents.add_reagent("cholesterol", rand(1,2))
 	..()
 
-datum/reagent/cheese/reaction_turf(var/turf/T, var/volume)
-	src = null
-	if(volume >= 5)
+/datum/reagent/cheese/reaction_turf(turf/T, volume)
+	if(volume >= 5 && !istype(T, /turf/space))
 		new /obj/item/weapon/reagent_containers/food/snacks/cheesewedge(T)
-		return
 
 /datum/chemical_reaction/cheese
 	name = "cheese"
@@ -271,7 +244,7 @@ datum/reagent/cheese/reaction_turf(var/turf/T, var/volume)
 	result_amount = 1
 	mix_message = "The mixture curdles up."
 
-/datum/chemical_reaction/cheese/on_reaction(var/datum/reagents/holder)
+/datum/chemical_reaction/cheese/on_reaction(datum/reagents/holder)
 	var/turf/T = get_turf(holder.my_atom)
 	T.visible_message("<span class='notice'>A faint cheesy smell drifts through the air...</span>")
 
@@ -283,7 +256,7 @@ datum/reagent/cheese/reaction_turf(var/turf/T, var/volume)
 	color = "#B2B139"
 	overdose_threshold = 50
 
-/datum/reagent/fake_cheese/overdose_process(var/mob/living/M as mob, severity)
+/datum/reagent/fake_cheese/overdose_process(mob/living/M, severity)
 	if(prob(8))
 		to_chat(M, "<span class='warning'>You feel something squirming in your stomach. Your thoughts turn to cheese and you begin to sweat.</span>")
 		M.adjustToxLoss(rand(1,2))
@@ -297,16 +270,14 @@ datum/reagent/cheese/reaction_turf(var/turf/T, var/volume)
 	metabolization_rate = 0 //heheheh
 	addiction_chance = 5
 
-/datum/reagent/weird_cheese/on_mob_life(var/mob/living/M as mob)
+/datum/reagent/weird_cheese/on_mob_life(mob/living/M)
 	if(prob(5))
 		M.reagents.add_reagent("cholesterol", rand(1,3))
 	..()
 
-datum/reagent/weird_cheese/reaction_turf(var/turf/T, var/volume)
-	src = null
-	if(volume >= 5)
+/datum/reagent/weird_cheese/reaction_turf(turf/T, volume)
+	if(volume >= 5 && !istype(T, /turf/space))
 		new /obj/item/weapon/reagent_containers/food/snacks/weirdcheesewedge(T)
-		return
 
 /datum/chemical_reaction/weird_cheese
 	name = "Weird cheese"
@@ -317,23 +288,21 @@ datum/reagent/weird_cheese/reaction_turf(var/turf/T, var/volume)
 	mix_message = "The disgusting mixture sloughs together horribly, emitting a foul stench."
 	mix_sound = 'sound/goonstation/misc/gurggle.ogg'
 
-/datum/chemical_reaction/weird_cheese/on_reaction(var/datum/reagents/holder)
+/datum/chemical_reaction/weird_cheese/on_reaction(datum/reagents/holder)
 	var/turf/T = get_turf(holder.my_atom)
 	T.visible_message("<span class='warning'>A horrible smell assaults your nose! What in space is it?</span>")
 
-datum/reagent/beans
+/datum/reagent/beans
 	name = "Refried beans"
 	id = "beans"
 	description = "A dish made of mashed beans cooked with lard."
 	reagent_state = LIQUID
 	color = "#684435"
 
-datum/reagent/beans/on_mob_life(var/mob/living/M as mob)
-	if(!M) M = holder.my_atom
+/datum/reagent/beans/on_mob_life(mob/living/M)
 	if(prob(10))
 		M.emote("fart")
 	..()
-	return
 
 /datum/reagent/bread
 	name = "Bread"
@@ -342,11 +311,9 @@ datum/reagent/beans/on_mob_life(var/mob/living/M as mob)
 	reagent_state = SOLID
 	color = "#9C5013"
 
-datum/reagent/bread/reaction_turf(var/turf/T, var/volume)
-	src = null
-	if(volume >= 5)
+/datum/reagent/bread/reaction_turf(turf/T, volume)
+	if(volume >= 5 && !istype(T, /turf/space))
 		new /obj/item/weapon/reagent_containers/food/snacks/breadslice(T)
-		return
 
 /datum/reagent/vomit
 	name = "Vomit"
@@ -355,12 +322,10 @@ datum/reagent/bread/reaction_turf(var/turf/T, var/volume)
 	reagent_state = LIQUID
 	color = "#FFFF00"
 
-datum/reagent/vomit/reaction_turf(var/turf/T, var/volume)
-	src = null
-	if(volume >= 5)
+/datum/reagent/vomit/reaction_turf(turf/T, volume)
+	if(volume >= 5 && !istype(T, /turf/space))
 		new /obj/effect/decal/cleanable/vomit(T)
 		playsound(T, 'sound/effects/splat.ogg', 50, 1, -3)
-		return
 
 /datum/reagent/greenvomit
 	name = "Green vomit"
@@ -369,12 +334,10 @@ datum/reagent/vomit/reaction_turf(var/turf/T, var/volume)
 	reagent_state = LIQUID
 	color = "#78FF74"
 
-datum/reagent/greenvomit/reaction_turf(var/turf/T, var/volume)
-	src = null
-	if(volume >= 5)
+/datum/reagent/greenvomit/reaction_turf(turf/T, volume)
+	if(volume >= 5 && !istype(T, /turf/space))
 		new /obj/effect/decal/cleanable/vomit/green(T)
 		playsound(T, 'sound/effects/splat.ogg', 50, 1, -3)
-		return
 
 
 /datum/reagent/ectoplasm
@@ -385,25 +348,20 @@ datum/reagent/greenvomit/reaction_turf(var/turf/T, var/volume)
 	color = "#8EAE7B"
 	process_flags = ORGANIC | SYNTHETIC		//Because apparently ghosts in the shell
 
-datum/reagent/ectoplasm/reaction_mob(var/mob/M, var/method=TOUCH, var/volume)
-	if(!istype(M, /mob/living))
-		return
+/datum/reagent/ectoplasm/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(method == INGEST)
 		var/spooky_eat = pick("Ugh, why did you eat that? Your mouth feels haunted. Haunted with bad flavors.", "Ugh, why did you eat that? It has the texture of ham aspic.  From the 1950s.  Left out in the sun.", "Ugh, why did you eat that? It tastes like a ghost fart.", "Ugh, why did you eat that? It tastes like flavor died.")
 		to_chat(M, "<span class='warning'>[spooky_eat]</span>")
 
-/datum/reagent/ectoplasm/on_mob_life(var/mob/living/M as mob)
+/datum/reagent/ectoplasm/on_mob_life(mob/living/M)
 	var/spooky_message = pick("You notice something moving out of the corner of your eye, but nothing is there...", "Your eyes twitch, you feel like something you can't see is here...", "You've got the heebie-jeebies.", "You feel uneasy.", "You shudder as if cold...", "You feel something gliding across your back...")
 	if(prob(8))
 		to_chat(M, "<span class='warning'>[spooky_message]</span>")
 	..()
-	return
 
-datum/reagent/ectoplasm/reaction_turf(var/turf/T, var/volume)
-	src = null
-	if(volume >= 10)
+/datum/reagent/ectoplasm/reaction_turf(turf/T, volume)
+	if(volume >= 10 && !istype(T, /turf/space))
 		new /obj/item/weapon/reagent_containers/food/snacks/ectoplasm(T)
-		return
 
 /datum/reagent/soybeanoil
 	name = "Space-soybean oil"
@@ -412,13 +370,12 @@ datum/reagent/ectoplasm/reaction_turf(var/turf/T, var/volume)
 	reagent_state = LIQUID
 	color = "#B1B0B0"
 
-/datum/reagent/soybeanoil/on_mob_life(var/mob/living/M as mob)
+/datum/reagent/soybeanoil/on_mob_life(mob/living/M)
 	if(prob(10))
 		M.reagents.add_reagent("cholesterol", rand(1,3))
 	if(prob(8))
 		M.reagents.add_reagent("porktonium", 5)
 	..()
-	return
 
 /datum/reagent/hydrogenated_soybeanoil
 	name = "Partially hydrogenated space-soybean oil"
@@ -429,7 +386,7 @@ datum/reagent/ectoplasm/reaction_turf(var/turf/T, var/volume)
 	metabolization_rate = 0.2
 	overdose_threshold = 75
 
-/datum/reagent/hydrogenated_soybeanoil/on_mob_life(var/mob/living/M as mob)
+/datum/reagent/hydrogenated_soybeanoil/on_mob_life(mob/living/M)
 	if(prob(15))
 		M.reagents.add_reagent("cholesterol", rand(1,3))
 	if(prob(8))
@@ -439,9 +396,8 @@ datum/reagent/ectoplasm/reaction_turf(var/turf/T, var/volume)
 	else
 		metabolization_rate = 0.2
 	..()
-	return
 
-/datum/reagent/hydrogenated_soybeanoil/overdose_process(var/mob/living/M as mob, severity)
+/datum/reagent/hydrogenated_soybeanoil/overdose_process(mob/living/M, severity)
 	if(prob(33))
 		to_chat(M, "<span class='warning'>You feel horribly weak.</span>")
 	if(prob(10))
@@ -469,14 +425,13 @@ datum/reagent/ectoplasm/reaction_turf(var/turf/T, var/volume)
 	reagent_state = LIQUID
 	color = "#EBD7D7"
 
-/datum/reagent/meatslurry/on_mob_life(var/mob/living/M as mob)
+/datum/reagent/meatslurry/on_mob_life(mob/living/M)
 	if(prob(4))
 		M.reagents.add_reagent("cholesterol", rand(1,3))
 	..()
 
-/datum/reagent/meatslurry/reaction_turf(var/turf/T, var/volume)
-	src = null
-	if(volume >= 5 && prob(10))
+/datum/reagent/meatslurry/reaction_turf(turf/T, volume)
+	if(volume >= 5 && prob(10) && !istype(T, /turf/space))
 		new /obj/effect/decal/cleanable/blood/gibs/cleangibs(T)
 		playsound(T, 'sound/effects/splat.ogg', 50, 1, -3)
 
@@ -519,7 +474,7 @@ datum/reagent/ectoplasm/reaction_turf(var/turf/T, var/volume)
 	reagent_state = SOLID
 	color = "#AC7E67"
 
-/datum/reagent/beff/on_mob_life(var/mob/living/M as mob)
+/datum/reagent/beff/on_mob_life(mob/living/M)
 	if(prob(5))
 		M.reagents.add_reagent("cholesterol", rand(1,3))
 	if(prob(8))
@@ -528,7 +483,6 @@ datum/reagent/ectoplasm/reaction_turf(var/turf/T, var/volume)
 		to_chat(M, "<span class='warning'>[pick("You feel ill.","Your stomach churns.","You feel queasy.","You feel sick.")]</span>")
 		M.emote(pick("groan","moan"))
 	..()
-	return
 
 /datum/chemical_reaction/beff
 	name = "Beff"
@@ -546,7 +500,7 @@ datum/reagent/ectoplasm/reaction_turf(var/turf/T, var/volume)
 	reagent_state = SOLID
 	color = "#AC7E67"
 
-datum/reagent/pepperoni/reaction_mob(var/mob/living/M, var/method=TOUCH, var/volume)
+/datum/reagent/pepperoni/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(method == TOUCH)
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
@@ -584,7 +538,7 @@ datum/reagent/pepperoni/reaction_mob(var/mob/living/M, var/method=TOUCH, var/vol
 	reagent_state = LIQUID
 	color = "#FFFAC8"
 
-/datum/reagent/cholesterol/on_mob_life(var/mob/living/M as mob)
+/datum/reagent/cholesterol/on_mob_life(mob/living/M)
 	if(volume >= 25 && prob(volume*0.15))
 		to_chat(M, "<span class='warning'>Your chest feels [pick("weird","uncomfortable","nasty","gross","odd","unusual","warm")]!</span>")
 		M.adjustToxLoss(rand(1,2))
@@ -600,45 +554,4 @@ datum/reagent/pepperoni/reaction_mob(var/mob/living/M, var/method=TOUCH, var/vol
 			var/mob/living/carbon/human/H = M
 			if(!H.heart_attack)
 				H.heart_attack = 1
-	..()
-
-/datum/reagent/ghost_chili_juice
-	name = "Ghost chili juice"
-	id = "ghostchilijuice"
-	description = "Juice from the universe's hottest chilli. Do not consume."
-	reagent_state = LIQUID
-	color = "#FF7F32"
-
-/datum/reagent/ghost_chili_juice/on_mob_life(var/mob/living/M as mob)
-	if(!M) M = holder.my_atom
-	if(M.reagents.has_reagent("milk"))
-		to_chat(M, "<span class='notice'>The milk stops the burning. Ahhh.</span>")
-		M.reagents.del_reagent("milk")
-		M.reagents.del_reagent("ghostchilijuice")
-		return
-	if(prob(8))
-		to_chat(M, "<span class='userdanger'>Oh god! Oh GODD!!</span>")
-	if(prob(50))
-		to_chat(M, "<span class='danger'>Your throat burns furiously!</span>")
-		M.emote(pick("scream","cry","choke","gasp"))
-		M.Stun(1)
-	if(prob(8))
-		to_chat(M, "<span class='danger'>Why!? WHY!?</span>")
-	if(prob(8))
-		to_chat(M, "<span class='danger'>ARGHHHH!</span>")
-	if(prob(33))
-		M.visible_message("<span class='danger'>[M] suddenly and violently vomits!</span>")
-		M.fakevomit(no_text = 1)
-		to_chat(M, "<span class='notice'>Thank goodness. You're not sure how long you could have held out with heat that intense!</span>")
-		M.reagents.del_reagent("ghostchilijuice")
-		return
-	if(prob(10))
-		to_chat(M, "<span class='userdanger'>OH GOD OH GOD PLEASE NO!!</span>")
-		if(M.on_fire)
-			M.adjust_fire_stacks(5)
-		if(prob(50))
-			to_chat(M, "<span class='userdanger'>IT BURNS!!!!</span>")
-			M.visible_message("<span class='danger'>[M] is consumed in flames!</span>")
-			M.dust()
-			return
 	..()

@@ -7,12 +7,6 @@ var/global/list/binary = list("0","1")
 var/global/list/day_names = list("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")
 var/global/list/month_names = list("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December")
 
-//Reagent stuff
-var/list/tachycardics = list("coffee", "methamphetamine", "nitroglycerin", "thirteenloko", "nicotine")	//increase heart rate
-var/list/bradycardics = list("neurotoxin", "cryoxadone", "space_drugs")					//decrease heart rate
-var/list/heartstopper = list("capulettium", "capulettium_plus") //this stops the heart
-var/list/cheartstopper = list() //this stops the heart when overdose is met -- c = conditional
-
 var/list/restricted_camera_networks = list( //Those networks can only be accessed by preexisting terminals. AIs and new terminals can't use them.
 	"CentComm",
 	"ERT",
@@ -20,8 +14,8 @@ var/list/restricted_camera_networks = list( //Those networks can only be accesse
 	"Thunderdome",
 	"UO45",
 	"UO45R",
-	"Xeno"
+	"Xeno",
+	"Hotel"
 	)
 
-var/list/map_templates = list()
 var/list/mineral_turfs = list()

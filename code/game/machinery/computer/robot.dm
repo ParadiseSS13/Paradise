@@ -47,7 +47,7 @@
 
 
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if (!ui)
+	if(!ui)
 		ui = new(user, src, ui_key, "robot_control.tmpl", "Robotic Control Console", 400, 500)
 		ui.set_initial_data(data)
 		ui.open()
@@ -71,7 +71,7 @@
 			to_chat(user, "<span class='warning'>Access Denied. This robot is not linked to you.</span>")
 			return
 		// Cyborgs may blow up themselves via the console
-		if(isrobot(user) && user != target)
+		if((isrobot(user) && user != target) || !is_authenticated(user))
 			to_chat(user, "<span class='warning'>Access Denied.</span>")
 			return
 		var/choice = input("Really detonate [target.name]?") in list ("Yes", "No")
@@ -94,7 +94,7 @@
 				target.self_destruct()
 
 	// Locks or unlocks the cyborg
-	else if (href_list["lockdown"])
+	else if(href_list["lockdown"])
 		var/mob/living/silicon/robot/target = get_cyborg_by_name(href_list["lockdown"])
 		if(!target || !istype(target))
 			return
@@ -123,7 +123,7 @@
 			to_chat(target.connected_ai, "[!target.lockcharge ? "<span class='notice'>NOTICE - Cyborg lockdown lifted</span>" : "<span class='alert'>ALERT - Cyborg lockdown detected</span>"]: <a href='?src=\ref[target.connected_ai];track=[html_encode(target.name)]'>[target.name]</a></span><br>")
 
 	// Remotely hacks the cyborg. Only antag AIs can do this and only to linked cyborgs.
-	else if (href_list["hack"])
+	else if(href_list["hack"])
 		var/mob/living/silicon/robot/target = get_cyborg_by_name(href_list["hack"])
 		if(!target || !istype(target))
 			return
@@ -204,7 +204,7 @@
 		robot["name"] = R.name
 		if(R.stat)
 			robot["status"] = "Not Responding"
-		else if (!R.canmove)
+		else if(!R.canmove)
 			robot["status"] = "Lockdown"
 		else
 			robot["status"] = "Operational"
@@ -240,7 +240,7 @@
 // Parameters: 1 (name - Cyborg we are trying to find)
 // Description: Helper proc for finding cyborg by name
 /obj/machinery/computer/robotics/proc/get_cyborg_by_name(var/name)
-	if (!name)
+	if(!name)
 		return
 	for(var/mob/living/silicon/robot/R in mob_list)
 		if(R.name == name)

@@ -11,10 +11,12 @@ var/global/list/joblist = list()					//list of all jobstypes, minus borg and AI
 var/global/list/airlocks = list()					//list of all airlocks
 var/global/list/singularities = list()				//list of all singularities
 var/global/list/janitorial_equipment = list()		//list of janitorial equipment
-var/global/list/table_recipes = list() //list of all table craft recipes
+var/global/list/crafting_recipes = list() //list of all crafting recipes
 
 var/global/list/all_areas = list()
 var/global/list/machines = list()
+var/global/list/machine_processing = list()
+var/global/list/fast_processing = list()
 var/global/list/processing_power_items = list() //items that ask to be called every cycle
 var/global/list/rcd_list = list() //list of Rapid Construction Devices.
 
@@ -29,5 +31,6 @@ var/global/list/deliverybeacontags = list()			//list of all tags associated with
 var/global/list/beacons = list()
 var/global/list/shuttle_caller_list = list()  		//list of all communication consoles and AIs, for automatic shuttle calls when there are none.
 var/global/list/tracked_implants = list()			//list of all current implants that are tracked to work out what sort of trek everyone is on. Sadly not on lavaworld not implemented...
+var/global/list/pinpointer_list = list()			//list of all pinpointers. Used to change stuff they are pointing to all at once.
 var/global/list/abductor_equipment = list()			//list of all abductor equipment
 var/global/list/global_intercoms = list()			//list of all intercomms, across all z-levels

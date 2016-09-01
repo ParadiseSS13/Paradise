@@ -90,7 +90,8 @@
 	H.loc = src
 	loc.visible_message("<span class='warning'>The corpse of [H.name] suddenly rises!</span>")
 
-/mob/living/simple_animal/hostile/blob/blobspore/death()
+/mob/living/simple_animal/hostile/blob/blobspore/death(gibbed)
+	..()
 	// On death, create a small smoke of harmful gas (s-Acid)
 	var/datum/effect/system/chem_smoke_spread/S = new
 	var/turf/location = get_turf(src)
@@ -101,14 +102,12 @@
 	if(overmind && overmind.blob_reagent_datum)
 		reagents.add_reagent(overmind.blob_reagent_datum.id, 8)
 	else
-		reagents.add_reagent("spores", 8)
+		reagents.add_reagent("spore", 8)
 
 	// Attach the smoke spreader and setup/start it.
 	S.attach(location)
 	S.set_up(reagents, 1, 1, location, 15, 1) // only 1-2 smoke cloud
 	S.start()
-
-	ghostize()
 	qdel(src)
 
 /mob/living/simple_animal/hostile/blob/blobspore/Destroy()
@@ -161,6 +160,7 @@
 	minbodytemp = 0
 	maxbodytemp = 360
 	force_threshold = 10
+	mob_size = MOB_SIZE_LARGE
 	environment_smash = 3
 	gold_core_spawnable = CHEM_MOB_SPAWN_HOSTILE
 
@@ -168,6 +168,6 @@
 /mob/living/simple_animal/hostile/blob/blobbernaut/blob_act()
 	return
 
-/mob/living/simple_animal/hostile/blob/blobbernaut/death()
+/mob/living/simple_animal/hostile/blob/blobbernaut/death(gibbed)
 	..()
 	flick("blobbernaut_death", src)

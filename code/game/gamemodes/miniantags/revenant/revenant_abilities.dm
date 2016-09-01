@@ -183,7 +183,8 @@
 	name = "[initial(name)] ([cast_amount]E)"
 	user.reveal(reveal)
 	user.stun(stun)
-	user.update_action_buttons()
+	if(action)
+		action.UpdateButtonIcon()
 	return 1
 
 //Overload Light: Breaks a light that's online and sends out lightning bolts to all nearby people.
@@ -238,7 +239,8 @@
 	action_icon_state = "defile"
 	var/stamdamage= 25
 	var/toxdamage = 5
-	var/confusion = 50
+	var/confusion = 20
+	var/maxconfusion = 30
 
 /obj/effect/proc_holder/spell/aoe_turf/revenant/defile/cast(list/targets, mob/living/simple_animal/revenant/user = usr)
 	if(attempt_cast(user))
@@ -251,7 +253,7 @@
 					to_chat(human, "<span class='warning'>You suddenly feel [pick("sick and tired", "tired and confused", "nauseated", "dizzy")].</span>")
 					human.adjustStaminaLoss(stamdamage)
 					human.adjustToxLoss(toxdamage)
-					human.confused += confusion
+					human.confused = min(human.confused+confusion, maxconfusion)
 					new/obj/effect/overlay/temp/revenant(human.loc)
 				if(!istype(T, /turf/simulated/shuttle) && !istype(T, /turf/simulated/wall/rust) && !istype(T, /turf/simulated/wall/r_wall) && istype(T, /turf/simulated/wall) && prob(15))
 					new/obj/effect/overlay/temp/revenant(T)
@@ -281,7 +283,7 @@
 	name = "Malfunction"
 	desc = "Corrupts and damages nearby machines and mechanical objects."
 	charge_max = 200
-	range = 4
+	range = 2
 	cast_amount = 45
 	unlock_amount = 150
 	action_icon_state = "malfunction"

@@ -8,20 +8,18 @@
 	var/overdosed = 0 // You fucked up and this is now triggering it's overdose effects, purge that shit quick.
 	var/current_cycle = 1
 
-/datum/reagents
-	var/chem_temp = 300
-	var/list/datum/reagent/addiction_list = new/list()
-
-/datum/reagents/proc/metabolize(var/mob/M)
+/datum/reagents/proc/metabolize(mob/living/M)
 	if(M)
-		if(!istype(M, /mob/living))		//Non-living mobs can't metabolize reagents, so don't bother trying (runtime safety check)
-			return
 		chem_temp = M.bodytemperature
 		handle_reactions()
 	for(var/A in reagent_list)
 		var/datum/reagent/R = A
-		if(!istype(R))
+		if(!istype(R)) // How are non-reagents ending up in the reagents_list?
 			continue
+		if(!R.holder)
+			continue
+		if(!M)
+			M = R.holder.my_atom
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
 			//Check if this mob's species is set and can process this type of reagent
@@ -82,6 +80,18 @@
 				addiction_list.Remove(R)
 	update_total()
 
+/datum/reagents/proc/death_metabolize(mob/living/M)
+	if(!M)
+		return
+	if(M.stat != DEAD)				//what part of DEATH_metabolize don't you get?
+		return
+	for(var/A in reagent_list)
+		var/datum/reagent/R = A
+		if(!istype(R))
+			continue
+		if(M && R)
+			R.on_mob_death(M)
+
 /datum/reagents/proc/overdose_list()
 	var/od_chems[0]
 	for(var/datum/reagent/R in reagent_list)
@@ -95,42 +105,28 @@
 		R.on_tick()
 	return
 
-/datum/reagents/proc/check_gofast(var/mob/M)
-	if(istype(M, /mob))
-		if(M.reagents.has_reagent("unholywater")||M.reagents.has_reagent("nuka_cola")||M.reagents.has_reagent("stimulative_agent"))
-			return 1
-		else
-			M.status_flags &= ~GOTTAGOFAST
-
-/datum/reagents/proc/check_goreallyfast(var/mob/M)
-	if(istype(M, /mob))
-		if(M.reagents.has_reagent("methamphetamine"))
-			return 1
-		else
-			M.status_flags &= ~GOTTAGOREALLYFAST
-
 // Called every time reagent containers process.
-/datum/reagent/proc/on_tick(var/data)
+/datum/reagent/proc/on_tick(data)
 	return
 
 // Called when the reagent container is hit by an explosion
-/datum/reagent/proc/on_ex_act(var/severity)
+/datum/reagent/proc/on_ex_act(severity)
 	return
 
 // Called if the reagent has passed the overdose threshold and is set to be triggering overdose effects
-/datum/reagent/proc/overdose_process(var/mob/living/M as mob, severity)
+/datum/reagent/proc/overdose_process(mob/living/M, severity)
 	var/effect = rand(1, 100) - severity
-	if (effect <= 8)
+	if(effect <= 8)
 		M.adjustToxLoss(severity)
 	return effect
 
-/datum/reagent/proc/overdose_start(var/mob/living/M as mob)
+/datum/reagent/proc/overdose_start(mob/living/M)
 	return
 
-/datum/reagent/proc/addiction_act_stage1(var/mob/living/M as mob)
+/datum/reagent/proc/addiction_act_stage1(mob/living/M)
 	return
 
-/datum/reagent/proc/addiction_act_stage2(var/mob/living/M as mob)
+/datum/reagent/proc/addiction_act_stage2(mob/living/M)
 	if(prob(8))
 		M.emote("shiver")
 	if(prob(8))
@@ -138,7 +134,7 @@
 	if(prob(4))
 		to_chat(M, "<span class='notice'>You feel a dull headache.</span>")
 
-/datum/reagent/proc/addiction_act_stage3(var/mob/living/M as mob)
+/datum/reagent/proc/addiction_act_stage3(mob/living/M)
 	if(prob(8))
 		M.emote("twitch_s")
 	if(prob(8))
@@ -146,7 +142,7 @@
 	if(prob(4))
 		to_chat(M, "<span class='warning'>You begin craving [name]!</span>")
 
-/datum/reagent/proc/addiction_act_stage4(var/mob/living/M as mob)
+/datum/reagent/proc/addiction_act_stage4(mob/living/M)
 	if(prob(8))
 		M.emote("twitch")
 	if(prob(4))
@@ -154,7 +150,7 @@
 	if(prob(4))
 		to_chat(M, "<span class='warning'>You REALLY crave some [name]!</span>")
 
-/datum/reagent/proc/addiction_act_stage5(var/mob/living/M as mob)
+/datum/reagent/proc/addiction_act_stage5(mob/living/M)
 	if(prob(8))
 		M.emote("twitch")
 	if(prob(6))

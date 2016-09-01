@@ -8,12 +8,12 @@
 /obj/effect/landmark/New()
 
 	..()
-	tag = text("landmark*[]", name)
+	set_tag()
 	invisibility = 101
 
 	switch(name)			//some of these are probably obsolete
 		if("shuttle")
-			shuttle_z = z
+			log_runtime(EXCEPTION("Obsolete landmark '[name]' at ([x],[y],[z])"), src)
 			qdel(src)
 
 		if("airtunnel_stop")
@@ -94,6 +94,9 @@
 		if("voxstart")
 			raider_spawn += loc
 
+		if("ERT Director")
+			ertdirector += loc
+
 	landmarks_list += src
 	return 1
 
@@ -102,18 +105,19 @@
 	..()
 	return QDEL_HINT_HARDDEL_NOW
 
+/obj/effect/landmark/proc/set_tag()
+	tag = text("landmark*[]", name)
+
+
 /obj/effect/landmark/start
 	name = "start"
 	icon = 'icons/mob/screen_gen.dmi'
 	icon_state = "x"
 	anchored = 1.0
 
-/obj/effect/landmark/start/New()
-	..()
+/obj/effect/landmark/start/set_tag()
 	tag = "start*[name]"
-	invisibility = 101
 
-	return 1
 
 //Costume spawner landmarks
 
@@ -172,7 +176,7 @@
 	new /obj/item/clothing/gloves/color/white(src.loc)
 	new /obj/item/clothing/shoes/white(src.loc)
 	new /obj/item/clothing/under/scratch(src.loc)
-	if (prob(30))
+	if(prob(30))
 		new /obj/item/clothing/head/cueball(src.loc)
 	qdel(src)
 
@@ -224,7 +228,7 @@
 
 /obj/effect/landmark/costume/imperium_monk/New()
 	new /obj/item/clothing/suit/imperium_monk(src.loc)
-	if (prob(25))
+	if(prob(25))
 		new /obj/item/clothing/mask/gas/cyborg(src.loc)
 	qdel(src)
 

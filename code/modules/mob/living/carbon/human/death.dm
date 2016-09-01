@@ -12,13 +12,15 @@
 		animation.master = src
 
 		playsound(src.loc, 'sound/goonstation/effects/gib.ogg', 50, 1)
+	else
+		playsound(src.loc, 'sound/goonstation/effects/robogib.ogg', 50, 1)
 
 	for(var/obj/item/organ/internal/I in internal_organs)
 		if(isturf(loc))
-			I.remove(src)
-			I.forceMove(get_turf(src))
+			var/atom/movable/thing = I.remove(src)
+			thing.forceMove(get_turf(src))
 			spawn()
-				I.throw_at(get_edge_target_turf(src,pick(alldirs)),rand(1,3),5)
+				thing.throw_at(get_edge_target_turf(src,pick(alldirs)),rand(1,3),5)
 
 	for(var/obj/item/organ/external/E in src.organs)
 		if(istype(E, /obj/item/organ/external/chest))
@@ -38,7 +40,7 @@
 		flick("gibbed-h", animation)
 		hgibs(loc, viruses, dna)
 	else
-		new /obj/effect/decal/cleanable/blood/gibs/robot(src.loc)
+		new /obj/effect/decal/cleanable/blood/gibs/robot(loc)
 		var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 		s.set_up(3, 1, src)
 		s.start()
@@ -61,7 +63,7 @@
 	animation.master = src
 
 	flick("dust-h", animation)
-	new /obj/effect/decal/remains/human(loc)
+	new species.remains_type(get_turf(src))
 
 	spawn(15)
 		if(animation)	qdel(animation)
@@ -111,16 +113,12 @@
 			if(istype(I,/mob/living/simple_animal/borer))
 				B = I
 	if(B)
-		if(!B.ckey && ckey && B.controlling)
+		if(B.controlling && B.host == src)
 			B.detatch()
 
 		verbs -= /mob/living/carbon/proc/release_control
 
 	callHook("death", list(src, gibbed))
-
-	if(ticker && ticker.mode)
-		if(istype(ticker.mode,/datum/game_mode/heist))
-			vox_kills++ //Bad vox. Shouldn't be killing humans.
 
 	if(ishuman(LAssailant))
 		var/mob/living/carbon/human/H=LAssailant
@@ -130,10 +128,10 @@
 	if(!gibbed)
 		update_canmove()
 
-	timeofdeath = worldtime2text()
+	timeofdeath = world.time
 	med_hud_set_health()
 	med_hud_set_status()
-	if(mind)	mind.store_memory("Time of death: [timeofdeath]", 0)
+	if(mind)	mind.store_memory("Time of death: [worldtime2text(timeofdeath)]", 0)
 	if(ticker && ticker.mode)
 //		log_to_dd("k")
 		sql_report_death(src)
@@ -144,14 +142,22 @@
 
 	return ..(gibbed)
 
+/mob/living/carbon/human/update_revive()
+	..()
+	// Update healthdoll
+	if(healthdoll)
+		// We're alive again, so re-build the entire healthdoll
+		healthdoll.cached_healthdoll_overlays.Cut()
+
 /mob/living/carbon/human/proc/makeSkeleton()
 	var/obj/item/organ/external/head/H = get_organ("head")
 	if(SKELETON in src.mutations)	return
 
-	if(H.f_style)
-		H.f_style = "Shaved"
-	if(H.h_style)
-		H.h_style = "Bald"
+	if(istype(H))
+		if(H.f_style)
+			H.f_style = "Shaved"
+		if(H.h_style)
+			H.h_style = "Bald"
 	update_fhair(0)
 	update_hair(0)
 
@@ -166,10 +172,11 @@
 	var/obj/item/organ/external/head/H = organs_by_name["head"]
 	if(HUSK in mutations)	return
 
-	if(H.f_style)
-		H.f_style = "Shaved"		//we only change the icon_state of the hair datum, so it doesn't mess up their UI/UE
-	if(H.h_style)
-		H.h_style = "Bald"
+	if(istype(H))
+		if(H.f_style)
+			H.f_style = "Shaved"		//we only change the icon_state of the hair datum, so it doesn't mess up their UI/UE
+		if(H.h_style)
+			H.h_style = "Bald"
 	update_fhair(0)
 	update_hair(0)
 

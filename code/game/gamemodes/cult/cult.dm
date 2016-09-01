@@ -28,14 +28,11 @@
 /datum/game_mode/cult
 	name = "cult"
 	config_tag = "cult"
-	restricted_jobs = list("Chaplain","AI", "Cyborg", "Internal Affairs Agent", "Security Officer", "Warden", "Detective", "Security Pod Pilot", "Head of Security", "Captain", "Head of Personnel", "Blueshield", "Nanotrasen Representative", "Magistrate", "Brig Physician")
+	restricted_jobs = list("Chaplain","AI", "Cyborg", "Internal Affairs Agent", "Security Officer", "Warden", "Detective", "Security Pod Pilot", "Head of Security", "Captain", "Head of Personnel", "Blueshield", "Nanotrasen Representative", "Magistrate", "Brig Physician", "Nanotrasen Navy Officer", "Special Operations Officer")
 	protected_jobs = list()
 	required_players = 30
 	required_enemies = 3
 	recommended_enemies = 4
-
-	uplink_welcome = "Nar-Sie Uplink Console:"
-	uplink_uses = 20
 
 	var/datum/mind/sacrifice_target = null
 	var/finished = 0
@@ -77,7 +74,7 @@
 		cultists_possible -= cultist
 		cult += cultist
 		cultist.restricted_roles = restricted_jobs
-		cultist.special_role = "Cultist"
+		cultist.special_role = SPECIAL_ROLE_CULTIST
 	return (cult.len>0)
 
 
@@ -126,8 +123,8 @@
 	if(!istype(mob))
 		return
 
-	if (mob.mind)
-		if (mob.mind.assigned_role == "Clown")
+	if(mob.mind)
+		if(mob.mind.assigned_role == "Clown")
 			to_chat(mob, "Your training has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself.")
 			mob.mutations.Remove(CLUMSY)
 
@@ -142,7 +139,7 @@
 		"right hand" = slot_r_hand,
 	)
 	var/where = mob.equip_in_one_of_slots(T, slots)
-	if (!where)
+	if(!where)
 		to_chat(mob, "Unfortunately, you weren't able to get a talisman. This is very bad and you should adminhelp immediately.")
 	else
 		to_chat(mob, "You have a talisman in your [where], one that will help you start the cult on this station. Use it well and remember - there are others.")
@@ -151,7 +148,7 @@
 
 
 /datum/game_mode/cult/grant_runeword(mob/living/carbon/human/cult_mob, var/word)
-	if (!word)
+	if(!word)
 		if(startwords.len > 0)
 			word=pick(startwords)
 			startwords -= word
@@ -161,7 +158,7 @@
 /datum/game_mode/proc/grant_runeword(mob/living/carbon/human/cult_mob, var/word)
 	if(!cultwords["travel"])
 		runerandom()
-	if (!word)
+	if(!word)
 		word=pick(allwords)
 	var/wordexp = "[cultwords[word]] is [word]..."
 	to_chat(cult_mob, "\red [pick("You remember something from the dark teachings of your master","You hear a dark voice on the wind","Black blood oozes into your vision and forms into symbols","You have a vision of a [pick("crow","raven","vulture","parrot")] it squawks","You catch a brief glimmer of the otherside")]... [wordexp]")
@@ -177,7 +174,7 @@
 
 
 /datum/game_mode/proc/add_cultist(datum/mind/cult_mind) //BASE
-	if (!istype(cult_mind))
+	if(!istype(cult_mind))
 		return 0
 	if(!(cult_mind in cult) && is_convertable_to_cult(cult_mind))
 		cult += cult_mind
@@ -190,7 +187,7 @@
 
 
 /datum/game_mode/cult/add_cultist(datum/mind/cult_mind) //INHERIT
-	if (!..(cult_mind))
+	if(!..(cult_mind))
 		return
 	memorize_cult_objectives(cult_mind)
 
@@ -214,7 +211,7 @@
 /datum/game_mode/proc/add_cult_icon_to_spirit(mob/spirit/currentSpirit)
 	if(!istype(currentSpirit))
 		return FALSE
-	if (currentSpirit.client)
+	if(currentSpirit.client)
 		var/datum/atom_hud/antag/maskhud = huds[ANTAG_HUD_CULT]
 		maskhud.join_hud(currentSpirit)
 		set_antag_hud(currentSpirit,"hudcultist")
@@ -223,7 +220,7 @@
 /datum/game_mode/proc/remove_cult_icon_from_spirit(mob/spirit/currentSpirit)
 	if(!istype(currentSpirit))
 		return FALSE
-	if (currentSpirit.client)
+	if(currentSpirit.client)
 		var/datum/atom_hud/antag/maskhud = huds[ANTAG_HUD_CULT]
 		maskhud.leave_hud(currentSpirit)
 		set_antag_hud(currentSpirit, null)
@@ -272,9 +269,9 @@
 /datum/game_mode/cult/proc/check_survive()
 	acolytes_survived = 0
 	for(var/datum/mind/cult_mind in cult)
-		if (cult_mind.current && cult_mind.current.stat!=2)
+		if(cult_mind.current && cult_mind.current.stat!=2)
 			var/area/A = get_area(cult_mind.current )
-			if ( is_type_in_list(A, centcom_areas))
+			if( is_type_in_list(A, centcom_areas))
 				acolytes_survived++
 			else if(A == shuttle_master.emergency.areaInstance && shuttle_master.emergency.mode >= SHUTTLE_ESCAPE)  //snowflaked into objectives because shitty bay shuttles had areas to auto-determine this
 				acolytes_survived++
@@ -340,7 +337,7 @@
 
 
 /datum/game_mode/proc/auto_declare_completion_cult()
-	if( cult.len || (ticker && istype(ticker.mode,/datum/game_mode/cult)) )
+	if(cult.len || (ticker && GAMEMODE_IS_CULT))
 		var/text = "<FONT size = 2><B>The cultists were:</B></FONT>"
 		for(var/datum/mind/cultist in cult)
 

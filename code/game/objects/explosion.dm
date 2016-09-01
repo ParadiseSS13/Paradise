@@ -222,10 +222,10 @@
 		if(dist < dev)
 			T.color = "red"
 			T.maptext = "Dev"
-		else if (dist < heavy)
+		else if(dist < heavy)
 			T.color = "yellow"
 			T.maptext = "Heavy"
-		else if (dist < light)
+		else if(dist < light)
 			T.color = "blue"
 			T.maptext = "Light"
 		else

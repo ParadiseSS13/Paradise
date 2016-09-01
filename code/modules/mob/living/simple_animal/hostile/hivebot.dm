@@ -23,6 +23,9 @@
 	minbodytemp = 0
 	speak_emote = list("states")
 	gold_core_spawnable = CHEM_MOB_SPAWN_HOSTILE
+	loot = list(/obj/effect/decal/cleanable/blood/gibs/robot)
+	deathmessage = "blows apart!"
+	del_on_death = 1
 
 /mob/living/simple_animal/hostile/hivebot/range
 	name = "Hivebot"
@@ -44,16 +47,11 @@
 	maxHealth = 80
 	ranged = 1
 
-/mob/living/simple_animal/hostile/hivebot/death()
-	..()
-	visible_message("<b>[src]</b> blows apart!")
-	new /obj/effect/decal/cleanable/blood/gibs/robot(src.loc)
+/mob/living/simple_animal/hostile/hivebot/death(gibbed)
 	var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 	s.set_up(3, 1, src)
 	s.start()
-	ghostize()
-	qdel(src)
-	return
+	..()
 
 /mob/living/simple_animal/hostile/hivebot/tele//this still needs work
 	name = "Beacon"
@@ -80,7 +78,7 @@
 	var/datum/effect/system/harmless_smoke_spread/smoke = new /datum/effect/system/harmless_smoke_spread()
 	smoke.set_up(5, 0, src.loc)
 	smoke.start()
-	visible_message("\red <B>The [src] warps in!</B>")
+	visible_message("<span class='danger'>The [src] warps in!</span>")
 	playsound(src.loc, 'sound/effects/EMPulse.ogg', 25, 1)
 
 /mob/living/simple_animal/hostile/hivebot/tele/warpbots()

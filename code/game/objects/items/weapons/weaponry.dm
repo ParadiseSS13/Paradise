@@ -5,7 +5,7 @@
 	icon_state = "toyhammer"
 	slot_flags = SLOT_BELT
 	throwforce = 0
-	w_class = 1.0
+	w_class = 1
 	throw_speed = 7
 	throw_range = 15
 	attack_verb = list("banned")
@@ -14,75 +14,6 @@
 /obj/item/weapon/banhammer/suicide_act(mob/user)
 		to_chat(viewers(user), "<span class='suicide'>[user] is hitting \himself with the [src.name]! It looks like \he's trying to ban \himself from life.</span>")
 		return (BRUTELOSS|FIRELOSS|TOXLOSS|OXYLOSS)
-
-/obj/item/weapon/nullrod
-	name = "null rod"
-	desc = "A rod of pure obsidian, its very presence disrupts and dampens the powers of paranormal phenomenae."
-	icon_state = "nullrod"
-	item_state = "nullrod"
-	slot_flags = SLOT_BELT
-	force = 15
-	throw_speed = 1
-	throw_range = 4
-	throwforce = 10
-	w_class = 1
-	var/transformed = 0
-	var/transform_into = /obj/item/weapon/nullrod/sword
-	var/transform_via = list(/obj/item/clothing/suit/armor/riot/knight/templar, /obj/item/clothing/suit/chaplain_hoodie/fluff/chronx)
-
-	suicide_act(mob/user)
-		to_chat(viewers(user), "<span class='suicide'>[user] is impaling \himself with the [src.name]! It looks like \he's trying to commit suicide.</span>")
-		return (BRUTELOSS|FIRELOSS)
-
-/obj/item/weapon/nullrod/attack(mob/M as mob, mob/living/user as mob) //Paste from old-code to decult with a null rod.
-
-	M.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been attacked with [src.name] by [user.name] ([user.ckey])</font>")
-	user.attack_log += text("\[[time_stamp()]\] <font color='red'>Used the [src.name] to attack [M.name] ([M.ckey])</font>")
-
-	if(!iscarbon(user))
-		M.LAssailant = null
-	else
-		M.LAssailant = user
-
-	msg_admin_attack("[key_name_admin(user)] attacked [key_name_admin(M)] with [src.name] (INTENT: [uppertext(user.a_intent)])")
-
-	if ((CLUMSY in user.mutations) && prob(50))
-		to_chat(user, "\red The rod slips out of your hand and hits your head.")
-		user.take_organ_damage(10)
-		user.Paralyse(20)
-		return
-
-	if(M.mind)
-		if(M.mind.vampire)
-			if(ishuman(M))
-				if(!M.mind.vampire.get_ability(/datum/vampire_passive/full))
-					to_chat(M, "<span class='warning'>The nullrod's power interferes with your own!</span>")
-					M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
-	..()
-
-/obj/item/weapon/nullrod/afterattack(var/obj/item/I as obj, mob/user as mob, proximity)
-	if(!proximity)
-		return
-	for(var/T in transform_via)
-		if(istype(I, T)) //Only the Chaplain's holy armor is capable fo performing this feat.
-			if(!transformed) // can't turn a sword into a sword.
-				var/obj/item/S = new transform_into()
-				to_chat(user, "<span class='notice'>You sheath the [src] into the [I]'s scabbard, transforming it into \a [S].</span>")
-				user.unEquip(src)
-				qdel(src)
-				user.put_in_hands(S)
-				break
-
-/obj/item/weapon/nullrod/sword
-	name = "holy sword"
-	desc = "A sword imbued with holy power, its very presence disrupts and dampens the powers of paranormal phenomenae."
-	icon_state = "claymore"
-	item_state = "claymore"
-	hitsound = 'sound/weapons/bladeslice.ogg'
-	w_class = 3 //transforming it is not without its downsides.
-	sharp = 1
-	edge = 1
-	transformed = 1
 
 /obj/item/weapon/sord
 	name = "\improper SORD"
@@ -119,13 +50,11 @@
 	edge = 1
 	w_class = 3
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
+	block_chance = 50
 
-	IsShield()
-		return 1
-
-	suicide_act(mob/user)
-		to_chat(viewers(user), "<span class='suicide'>[user] is falling on the [src.name]! It looks like \he's trying to commit suicide.</span>")
-		return(BRUTELOSS)
+/obj/item/weapon/claymore/suicide_act(mob/user)
+	user.visible_message("<span class='suicide'>[user] is falling on the [src.name]! It looks like \he's trying to commit suicide.</span>")
+	return(BRUTELOSS)
 
 /obj/item/weapon/claymore/ceremonial
 	name = "ceremonial claymore"
@@ -146,6 +75,7 @@
 	w_class = 3
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
+	block_chance = 50
 
 /obj/item/weapon/katana/cursed
 	slot_flags = null
@@ -153,9 +83,6 @@
 /obj/item/weapon/katana/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is slitting \his stomach open with the [src.name]! It looks like \he's trying to commit seppuku.</span>")
 	return(BRUTELOSS)
-
-/obj/item/weapon/katana/IsShield()
-		return 1
 
 /obj/item/weapon/harpoon
 	name = "harpoon"

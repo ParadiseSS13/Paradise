@@ -20,6 +20,8 @@ var/global/datum/global_init/init = new ()
 
 #define RECOMMENDED_VERSION 510
 
+var/global/list/map_transition_config = MAP_TRANSITION_CONFIG
+
 /world/New()
 	//logs
 	var/date_string = time2text(world.realtime, "YYYY/MM-Month/DD-Day")
@@ -35,16 +37,11 @@ var/global/datum/global_init/init = new ()
 	if(config && config.log_runtimes)
 		log = file("data/logs/runtime/[time2text(world.realtime,"YYYY-MM-DD-(hh-mm-ss)")]-runtime.log")
 
-	SetupHooks() // /vg/
-
 	if(config && config.server_name != null && config.server_suffix && world.port > 0)
 		// dumb and hardcoded but I don't care~
 		config.server_name += " #[(world.port % 1000) / 100]"
 
 	timezoneOffset = text2num(time2text(0,"hh")) * 36000
-
-	if(config && config.log_runtime)
-		log = file("data/logs/runtime/[time2text(world.realtime,"YYYY-MM-DD-(hh-mm-ss)")]-runtime.log")
 
 	callHook("startup")
 
@@ -56,7 +53,7 @@ var/global/datum/global_init/init = new ()
 	// Create robolimbs for chargen.
 	populate_robolimb_list()
 
-	setup_map_transitions() //Before the MC starts up
+	space_manager.initialize() //Before the MC starts up
 
 	processScheduler = new
 	master_controller = new /datum/controller/game_controller()
@@ -100,9 +97,9 @@ var/world_topic_spam_protect_time = world.timeofday
 	var/list/input = params2list(T)
 	var/key_valid = (config.comms_password && input["key"] == config.comms_password) //no password means no comms, not any password
 
-	if ("ping" in input)
+	if("ping" in input)
 		var/x = 1
-		for (var/client/C)
+		for(var/client/C)
 			x++
 		return x
 
@@ -113,8 +110,9 @@ var/world_topic_spam_protect_time = world.timeofday
 				n++
 		return n
 
-	else if ("status" in input)
+	else if("status" in input)
 		var/list/s = list()
+		var/list/admins = list()
 		s["version"] = game_version
 		s["mode"] = master_mode
 		s["respawn"] = config ? abandon_allowed : 0
@@ -132,6 +130,7 @@ var/world_topic_spam_protect_time = world.timeofday
 				if(C.holder.fakekey)
 					continue	//so stealthmins aren't revealed by the hub
 				admin_count++
+				admins += list(list(C.key, C.holder.rank))
 			s["player[player_count]"] = C.key
 			player_count++
 		s["players"] = player_count
@@ -150,7 +149,45 @@ var/world_topic_spam_protect_time = world.timeofday
 				// Shuttle timer, in seconds
 				s["shuttle_timer"] = shuttle_master.emergency.timeLeft()
 
+			for(var/i in 1 to admins.len)
+				var/list/A = admins[i]
+				s["admin[i - 1]"] = A[1]
+				s["adminrank[i - 1]"] = A[2]
+
 		return list2params(s)
+
+	else if("manifest" in input)
+		var/list/positions = list()
+		var/list/set_names = list(
+			"heads" = command_positions,
+			"sec" = security_positions,
+			"eng" = engineering_positions,
+			"med" = medical_positions,
+			"sci" = science_positions,
+			"car" = supply_positions,
+			"srv" = service_positions,
+			"civ" = civilian_positions,
+			"bot" = nonhuman_positions
+		)
+
+		for(var/datum/data/record/t in data_core.general)
+			var/name = t.fields["name"]
+			var/rank = t.fields["rank"]
+			var/real_rank = t.fields["real_rank"]
+
+			var/department = 0
+			for(var/k in set_names)
+				if(real_rank in set_names[k])
+					if(!positions[k])
+						positions[k] = list()
+					positions[k][name] = rank
+					department = 1
+			if(!department)
+				if(!positions["misc"])
+					positions["misc"] = list()
+				positions["misc"][name] = rank
+
+		return json_encode(positions)
 
 	else if("adminmsg" in input)
 		/*
@@ -219,7 +256,7 @@ var/world_topic_spam_protect_time = world.timeofday
 	return "Bad Key"
 
 /world/Reboot(var/reason, var/feedback_c, var/feedback_r, var/time)
-	if (reason == 1) //special reboot, do none of the normal stuff
+	if(reason == 1) //special reboot, do none of the normal stuff
 		if(usr)
 			message_admins("[key_name_admin(usr)] has requested an immediate world restart via client side debugging tools")
 			log_admin("[key_name(usr)] has requested an immediate world restart via client side debugging tools")
@@ -246,7 +283,7 @@ var/world_topic_spam_protect_time = world.timeofday
 	//kick_clients_in_lobby("<span class='boldannounce'>The round came to an end with you in the lobby.</span>", 1)
 
 	spawn(0)
-		to_chat(world, sound(pick('sound/AI/newroundsexy.ogg','sound/misc/apcdestroyed.ogg','sound/misc/bangindonk.ogg')))// random end sounds!! - LastyBatsy
+		world << sound(pick('sound/AI/newroundsexy.ogg','sound/misc/apcdestroyed.ogg','sound/misc/bangindonk.ogg', 'sound/goonstation/misc/newround1.ogg', 'sound/goonstation/misc/newround2.ogg'))// random end sounds!! - LastyBatsy
 
 
 	processScheduler.stop()
@@ -275,36 +312,11 @@ var/world_topic_spam_protect_time = world.timeofday
 					log_access("AFK: [key_name(C)]")
 					to_chat(C, "\red You have been inactive for more than 10 minutes and have been disconnected.")
 					del(C)
-		if ( ((world.timeofday - sleep_check) > work_length) || ((world.timeofday - sleep_check) < 0) )
+		if( ((world.timeofday - sleep_check) > work_length) || ((world.timeofday - sleep_check) < 0) )
 			sleep(sleep_length)
 			sleep_check = world.timeofday
 		waiting++
 //#undef INACTIVITY_KICK
-/*
-#define DISCONNECTED_DELETE	6000	//10 minutes in ticks (approx)
-/world/proc/KickDisconnectedClients()
-	spawn(-1)
-		//set background = 1
-		while(1)
-			sleep(DISCONNECTED_DELETE)
-			for(var/mob/living/carbon/human/C in living_mob_list)
-				if (dd_hasprefix(C.key,@)) return
-				if(!C.client && C.brain_op_stage!=4.0 && C.lastKnownIP)
-					sleep(600)
-					if(!C.client && C.stat != DEAD && C.brain_op_stage!=4.0)
-						job_master.FreeRole(C.job)
-						message_admins("[key_name_admin(C)], the [C.job] has been freed due to (<font color='#ffcc00'><b>Client disconnect for 10 minutes</b></font>)\n")
-						for(var/obj/item/W in C)
-							C.unEquip(W)
-						del(C)
-					else if(!C.key && C.stat != DEAD && C.brain_op_stage!=4.0)
-						job_master.FreeRole(C.job)
-						message_admins("[key_name_admin(C)], the [C.job] has been freed due to (<font color='#ffcc00'><b>Client quit BYOND</b></font>)\n")
-						for(var/obj/item/W in C)
-							C.unEquip(W)
-						del(C)
-#undef INACTIVITY_KICK
-*/
 
 /hook/startup/proc/loadMode()
 	world.load_mode()
@@ -320,12 +332,7 @@ var/world_topic_spam_protect_time = world.timeofday
 /world/proc/save_mode(var/the_mode)
 	var/F = file("data/mode.txt")
 	fdel(F)
-	to_chat(F, the_mode)
-
-/hook/startup/proc/loadMusic()
-	for(var/obj/machinery/media/jukebox/J in machines)
-		J.process()
-	return 1
+	F << the_mode
 
 /hook/startup/proc/loadMOTD()
 	world.load_motd()
@@ -346,7 +353,7 @@ var/world_topic_spam_protect_time = world.timeofday
 /world/proc/update_status()
 	var/s = ""
 
-	if (config && config.server_name)
+	if(config && config.server_name)
 		s += "<b>[config.server_name]</b> &#8212; "
 
 	s += "<b>[station_name()]</b>";
@@ -368,41 +375,41 @@ var/world_topic_spam_protect_time = world.timeofday
 	else
 		features += "<b>STARTING</b>"
 
-	if (!enter_allowed)
+	if(!enter_allowed)
 		features += "closed"
 
 	features += abandon_allowed ? "respawn" : "no respawn"
 
-	if (config && config.allow_vote_mode)
+	if(config && config.allow_vote_mode)
 		features += "vote"
 
-	if (config && config.allow_ai)
+	if(config && config.allow_ai)
 		features += "AI allowed"
 
 	var/n = 0
-	for (var/mob/M in player_list)
-		if (M.client)
+	for(var/mob/M in player_list)
+		if(M.client)
 			n++
 
-	if (n > 1)
+	if(n > 1)
 		features += "~[n] players"
-	else if (n > 0)
+	else if(n > 0)
 		features += "~[n] player"
 
 	/*
 	is there a reason for this? the byond site shows 'hosted by X' when there is a proper host already.
-	if (host)
+	if(host)
 		features += "hosted by <b>[host]</b>"
 	*/
 
-//	if (!host && config && config.hostedby)
+//	if(!host && config && config.hostedby)
 //		features += "hosted by <b>[config.hostedby]</b>"
 
-	if (features)
+	if(features)
 		s += ": [jointext(features, ", ")]"
 
 	/* does this help? I do not know */
-	if (src.status != s)
+	if(src.status != s)
 		src.status = s
 
 #define FAILED_DB_CONNECTION_CUTOFF 5
@@ -432,7 +439,7 @@ proc/setup_database_connection()
 
 	dbcon.Connect("dbi:mysql:[db]:[address]:[port]","[user]","[pass]")
 	. = dbcon.IsConnected()
-	if ( . )
+	if( . )
 		failed_db_connections = 0	//If this connection succeeded, reset the failed connections counter.
 	else
 		failed_db_connections++		//If it failed, increase the failed connections counter.

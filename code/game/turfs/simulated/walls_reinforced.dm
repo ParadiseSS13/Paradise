@@ -12,10 +12,11 @@
 	walltype = "rwall"
 
 	var/d_state = 0
+	var/can_be_reinforced = 1
 
 /turf/simulated/wall/r_wall/attackby(obj/item/W as obj, mob/user as mob, params)
 	user.changeNext_move(CLICK_CD_MELEE)
-	if (!user.IsAdvancedToolUser())
+	if(!user.IsAdvancedToolUser())
 		to_chat(user, "<span class='warning'>You don't have the dexterity to do this!</span>")
 		return
 
@@ -90,7 +91,7 @@
 				return
 
 		if(1)
-			if (istype(W, /obj/item/weapon/screwdriver))
+			if(istype(W, /obj/item/weapon/screwdriver))
 				to_chat(user, "<span class='notice'>You begin removing the support lines.</span>")
 				playsound(src, 'sound/items/Screwdriver.ogg', 100, 1)
 
@@ -229,6 +230,24 @@
 			smooth_icon_neighbors(src)
 			to_chat(user, "<span class='notice'>You repair the last of the damage.</span>")
 
+	//UPGRADING TO COATED
+	else if(istype(W, /obj/item/stack/sheet/plasteel) && !d_state)
+		var/obj/item/stack/sheet/plasteel/MS = W
+		if(!can_be_reinforced)
+			to_chat(user, "<span class='notice'>The wall is already coated!</span>")
+			return
+		to_chat(user, "<span class='notice'>You begin adding an additional layer of coating to the wall with \a [MS].</span>")
+
+		if(do_after(user, 40, target = src) && !d_state)
+			if(!MS.use(2))
+				to_chat(user, "<span class='warning'>You don't have enough plasteel for that!</span>")
+				return
+			to_chat(user, "<span class='notice'>You add an additional layer of coating to the wall!</span>")
+			ChangeTurf(/turf/simulated/wall/r_wall/coated)
+			update_icon()
+			smooth_icon_neighbors(src)
+			can_be_reinforced = 0
+			return
 
 	//APC
 	else if(istype(W,/obj/item/mounted))
@@ -294,3 +313,4 @@
 	else
 		smooth = SMOOTH_TRUE
 		icon_state = ""
+

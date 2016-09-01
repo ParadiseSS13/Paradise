@@ -20,7 +20,7 @@
 	damage_coeff = list(BRUTE = 0.5, BURN = 0.7, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
 	a_intent = "harm" //No swapping
 	buckle_lying = 0
-
+	mob_size = MOB_SIZE_LARGE
 	radio_channel = "Supply"
 
 	bot_type = MULE_BOT
@@ -106,8 +106,8 @@
 		visible_message("[user] crowbars out the power cell from [src].",
 						"<span class='notice'>You pry the powercell out of [src].</span>")
 		update_controls()
-	else if (istype(I, /obj/item/weapon/wrench))
-		if (health < maxHealth)
+	else if(istype(I, /obj/item/weapon/wrench))
+		if(health < maxHealth)
 			adjustBruteLoss(-25)
 			updatehealth()
 			user.visible_message(
@@ -639,7 +639,7 @@
 		if(pathset) //The AI called us here, so notify it of our arrival.
 			loaddir = dir //The MULE will attempt to load a crate in whatever direction the MULE is "facing".
 			if(calling_ai)
-				to_chat(calling_ai, "<span class='notice'>\icon[src] [src] wirelessly plays a chiming sound!</span>")
+				to_chat(calling_ai, "<span class='notice'>[bicon(src)] [src] wirelessly plays a chiming sound!</span>")
 				playsound(calling_ai, 'sound/machines/chime.ogg',40, 0)
 				calling_ai = null
 				radio_channel = "AI Private" //Report on AI Private instead if the AI is controlling us.

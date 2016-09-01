@@ -1,4 +1,0 @@
-author: monster860
-delete-after: True
-changes: 
-  - rscadd: "Adds the permanent teleporter. Use the circuitboard on a teleporter hub to set the target before constructing it."

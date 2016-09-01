@@ -5,7 +5,7 @@
 	icon_state = "rods"
 	item_state = "rods"
 	flags = CONDUCT
-	w_class = 3.0
+	w_class = 3
 	force = 9.0
 	throwforce = 10.0
 	throw_speed = 3
@@ -31,7 +31,7 @@
 		icon_state = "rods"
 
 /obj/item/stack/rods/attackby(obj/item/W as obj, mob/user as mob, params)
-	if (istype(W, /obj/item/weapon/weldingtool))
+	if(istype(W, /obj/item/weapon/weldingtool))
 		var/obj/item/weapon/weldingtool/WT = W
 
 		if(get_amount() < 2)
@@ -51,7 +51,7 @@
 
 			var/replace = user.get_inactive_hand() == src
 			use(2)
-			if (get_amount() <= 0 && replace)
+			if(get_amount() <= 0 && replace)
 				user.unEquip(src, 1)
 				if(new_item)
 					user.put_in_hands(new_item)
@@ -64,9 +64,9 @@
 
 	if(!istype(user.loc,/turf)) return 0
 
-	if (locate(/obj/structure/grille, usr.loc))
+	if(locate(/obj/structure/grille, usr.loc))
 		for(var/obj/structure/grille/G in usr.loc)
-			if (G.destroyed)
+			if(G.destroyed)
 				G.health = 10
 				G.density = 1
 				G.destroyed = 0
@@ -80,7 +80,7 @@
 			return
 		to_chat(usr, "\blue Assembling grille...")
 
-		if (!do_after(usr, 10, target = src))
+		if(!do_after(usr, 10, target = user))
 			return
 
 		var /obj/structure/grille/F = new /obj/structure/grille/ ( usr.loc )

@@ -23,9 +23,10 @@
 	var/dancing //determines if assailant and affecting keep looking at each other. Basically a wrestling position
 
 	layer = 21
+	plane = HUD_PLANE
 	item_state = "nothing"
 	icon = 'icons/mob/screen_gen.dmi'
-	w_class = 5.0
+	w_class = 5
 
 
 /obj/item/weapon/grab/New(var/mob/user, var/mob/victim)
@@ -53,7 +54,7 @@
 
 	//check if assailant is grabbed by victim as well
 	if(assailant.grabbed_by)
-		for (var/obj/item/weapon/grab/G in assailant.grabbed_by)
+		for(var/obj/item/weapon/grab/G in assailant.grabbed_by)
 			if(G.assailant == affecting && G.affecting == assailant)
 				G.dancing = 1
 				G.adjust_position()
@@ -93,13 +94,15 @@
 			hud.screen_loc = ui_rhand
 		else
 			hud.screen_loc = ui_lhand
-
+		assailant.client.screen += hud
 
 /obj/item/weapon/grab/process()
-	if(!confirm())	return //If the confirm fails, the grab is about to be deleted. That means it shouldn't continue processing.
+	if(!confirm())
+		return //If the confirm fails, the grab is about to be deleted. That means it shouldn't continue processing.
 
 	if(assailant.client)
-		if(!hud)	return //this somehow can runtime under the right circumstances
+		if(!hud)
+			return //this somehow can runtime under the right circumstances
 		assailant.client.screen -= hud
 		assailant.client.screen += hud
 
@@ -136,12 +139,8 @@
 			hud.icon_state = "!reinforce"
 
 	if(state >= GRAB_AGGRESSIVE)
-		var/h = affecting.hand
-		affecting.hand = 0
-		affecting.drop_item()
-		affecting.hand = 1
-		affecting.drop_item()
-		affecting.hand = h
+		affecting.drop_r_hand()
+		affecting.drop_l_hand()
 
 
 		//var/announce = 0
@@ -363,7 +362,7 @@
 						msg_admin_attack("[key_name(assailant)] has pressed his fingers into [key_name(affecting)]'s eyes.")
 						var/obj/item/organ/internal/eyes/eyes = affected.get_int_organ(/obj/item/organ/internal/eyes)
 						eyes.damage += rand(3,4)
-						if (eyes.damage >= eyes.min_broken_damage)
+						if(eyes.damage >= eyes.min_broken_damage)
 							if(M.stat != 2)
 								to_chat(M, "\red You go blind!")*///This is a demonstration of adding a new damaging type based on intent as well as hitzone.
 
@@ -440,7 +439,13 @@
 		affecting.pixel_y = 0 //used to be an animate, not quick enough for del'ing
 		affecting.layer = initial(affecting.layer)
 		affecting.grabbed_by -= src
+		affecting = null
+	if(assailant)
+		if(assailant.client)
+			assailant.client.screen -= hud
+		assailant = null
 	qdel(hud)
+	hud = null
 	return ..()
 
 

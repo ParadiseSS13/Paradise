@@ -23,7 +23,7 @@
 
 /obj/machinery/light_construct/New()
 	..()
-	if (fixture_type == "bulb")
+	if(fixture_type == "bulb")
 		icon_state = "bulb-construct-stage1"
 
 /obj/machinery/light_construct/examine(mob/user)
@@ -38,30 +38,30 @@
 
 /obj/machinery/light_construct/attackby(obj/item/weapon/W as obj, mob/living/user as mob, params)
 	src.add_fingerprint(user)
-	if (istype(W, /obj/item/weapon/wrench))
-		if (src.stage == 1)
+	if(istype(W, /obj/item/weapon/wrench))
+		if(src.stage == 1)
 			playsound(src.loc, 'sound/items/Ratchet.ogg', 75, 1)
 			to_chat(usr, "You begin deconstructing [src].")
-			if (!do_after(usr, 30, target = src))
+			if(!do_after(usr, 30, target = src))
 				return
 			new /obj/item/stack/sheet/metal( get_turf(src.loc), sheets_refunded )
 			user.visible_message("[user.name] deconstructs [src].", \
 				"You deconstruct [src].", "You hear a noise.")
 			playsound(src.loc, 'sound/items/Deconstruct.ogg', 75, 1)
 			qdel(src)
-		if (src.stage == 2)
+		if(src.stage == 2)
 			to_chat(usr, "You have to remove the wires first.")
 			return
 
-		if (src.stage == 3)
+		if(src.stage == 3)
 			to_chat(usr, "You have to unscrew the case first.")
 			return
 
 	if(istype(W, /obj/item/weapon/wirecutters))
-		if (src.stage != 2) return
+		if(src.stage != 2) return
 		src.stage = 1
 		switch(fixture_type)
-			if ("tube")
+			if("tube")
 				src.icon_state = "tube-construct-stage1"
 			if("bulb")
 				src.icon_state = "bulb-construct-stage1"
@@ -72,11 +72,11 @@
 		return
 
 	if(istype(W, /obj/item/stack/cable_coil))
-		if (src.stage != 1) return
+		if(src.stage != 1) return
 		var/obj/item/stack/cable_coil/coil = W
 		coil.use(1)
 		switch(fixture_type)
-			if ("tube")
+			if("tube")
 				src.icon_state = "tube-construct-stage2"
 			if("bulb")
 				src.icon_state = "bulb-construct-stage2"
@@ -86,9 +86,9 @@
 		return
 
 	if(istype(W, /obj/item/weapon/screwdriver))
-		if (src.stage == 2)
+		if(src.stage == 2)
 			switch(fixture_type)
-				if ("tube")
+				if("tube")
 					src.icon_state = "tube-empty"
 				if("bulb")
 					src.icon_state = "bulb-empty"
@@ -101,7 +101,7 @@
 
 				if("tube")
 					newlight = new /obj/machinery/light/built(src.loc)
-				if ("bulb")
+				if("bulb")
 					newlight = new /obj/machinery/light/small/built(src.loc)
 
 			newlight.dir = src.dir
@@ -337,7 +337,7 @@
 					continue
 				M.show_message("[user.name] smashed the light!", 3, "You hear a tinkle of breaking glass", 2)
 			if(on && (W.flags & CONDUCT))
-				if (prob(12))
+				if(prob(12))
 					electrocute_mob(user, get_area(src), src, 0.3)
 			broken()
 
@@ -373,7 +373,7 @@
 			var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 			s.set_up(3, 1, src)
 			s.start()
-			if (prob(75))
+			if(prob(75))
 				electrocute_mob(user, get_area(src), src, rand(0.7,1.0))
 
 
@@ -407,7 +407,7 @@
 	if(status == LIGHT_EMPTY||status == LIGHT_BROKEN)
 		to_chat(user, "\green That object is useless to you.")
 		return
-	else if (status == LIGHT_OK||status == LIGHT_BURNED)
+	else if(status == LIGHT_OK||status == LIGHT_BURNED)
 		user.do_attack_animation(src)
 		visible_message("<span class='danger'>[user.name] smashed the light!</span>", "You hear a tinkle of breaking glass")
 		broken()
@@ -418,7 +418,7 @@
 	if(status == LIGHT_EMPTY||status == LIGHT_BROKEN)
 		to_chat(M, "\red That object is useless to you.")
 		return
-	else if (status == LIGHT_OK||status == LIGHT_BURNED)
+	else if(status == LIGHT_OK||status == LIGHT_BURNED)
 		M.do_attack_animation(src)
 		visible_message("<span class='danger'>[M.name] smashed the light!</span>", "You hear a tinkle of breaking glass")
 		broken()
@@ -514,8 +514,8 @@
 	status = LIGHT_EMPTY
 	update()
 
-/obj/machinery/light/proc/broken(var/skip_sound_and_sparks = 0)
-	if(status == LIGHT_EMPTY)
+/obj/machinery/light/proc/broken(skip_sound_and_sparks = 0)
+	if(status == LIGHT_EMPTY || status == LIGHT_BROKEN)
 		return
 
 	if(!skip_sound_and_sparks)
@@ -707,3 +707,12 @@
 		sharp = 1
 		playsound(src.loc, 'sound/effects/Glasshit.ogg', 75, 1)
 		update()
+
+/obj/item/weapon/light/suicide_act(mob/living/carbon/human/user)
+	user.visible_message("<span class=suicide>[user] touches \the [src], burning their hands off!</span>", "<span class=suicide>You touch \the [src], burning your hands off!</span>")
+
+	for(var/oname in list("l_hand", "r_hand"))
+		var/obj/item/organ/external/limb = user.get_organ(oname)
+		if(limb)
+			limb.droplimb(0, DROPLIMB_BURN)
+	return FIRELOSS

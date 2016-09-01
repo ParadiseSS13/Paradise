@@ -1,3 +1,7 @@
+/obj/structure/flora
+	burn_state = FLAMMABLE
+	burntime = 30
+
 //trees
 /obj/structure/flora/tree
 	name = "tree"
@@ -191,20 +195,34 @@
 	icon_state = "fullgrass_[rand(1, 3)]"
 
 
-/obj/structure/flora/kirbyplants
+/obj/item/weapon/twohanded/required/kirbyplants
 	name = "potted plant"
 	icon = 'icons/obj/flora/plants.dmi'
 	icon_state = "plant-1"
 	anchored = 0
 	layer = 5
+	w_class = 5
+	force = 10
+	throwforce = 13
+	throw_speed = 2
+	throw_range = 4
 
-/obj/structure/flora/kirbyplants/New()
+/obj/item/weapon/twohanded/required/kirbyplants/New()
 	..()
 	icon_state = "plant-[rand(1,35)]"
 	if(prob(1))
 		icon_state = "plant-36"
 
-/obj/structure/flora/kirbyplants/dead
+/obj/item/weapon/twohanded/required/kirbyplants/equipped(mob/living/user)
+	var/image/I = image(icon = 'icons/obj/flora/plants.dmi' , icon_state = src.icon_state, loc = user)
+	I.override = 1
+	user.add_alt_appearance("sneaking_mission", I, player_list)
+
+/obj/item/weapon/twohanded/required/kirbyplants/dropped(mob/living/user)
+	..()
+	user.remove_alt_appearance("sneaking_mission")
+
+/obj/item/weapon/twohanded/required/kirbyplants/dead
 	name = "\improper RD's potted plant"
 	desc = "A gift from the botanical staff, presented after the RD's reassignment. There's a tag on it that says \"Y'all come back now, y'hear?\"\nIt doesn't look very healthy..."
 	icon_state = "plant-dead"
@@ -216,6 +234,7 @@
 	desc = "a rock"
 	icon_state = "rock1"
 	icon = 'icons/obj/flora/rocks.dmi'
+	burn_state = FIRE_PROOF
 	anchored = 1
 
 /obj/structure/flora/rock/New()
@@ -274,10 +293,10 @@
 
 /*
 /obj/structure/bush/Bumped(M as mob)
-	if (istype(M, /mob/living/simple_animal))
+	if(istype(M, /mob/living/simple_animal))
 		var/mob/living/simple_animal/A = M
 		A.loc = get_turf(src)
-	else if (istype(M, /mob/living/carbon/monkey))
+	else if(istype(M, /mob/living/carbon/monkey))
 		var/mob/living/carbon/monkey/A = M
 		A.loc = get_turf(src)
 */
@@ -289,7 +308,7 @@
 			//this bush marks the edge of the map, you can't destroy it
 			to_chat(user, "\red You flail away at the undergrowth, but it's too thick here.")
 		else
-			user.visible_message("\red <b>[user] begins clearing away [src].</b>","\red <b>You begin clearing away [src].</b>")
+			user.visible_message("<span class='danger'>[user] begins clearing away [src].</b>","\red <b>You begin clearing away [src].</span>")
 			spawn(rand(15,30))
 				if(get_dist(user,src) < 2)
 					to_chat(user, "\blue You clear away [src].")

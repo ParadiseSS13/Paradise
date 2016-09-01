@@ -45,7 +45,7 @@
 /datum/species/golem/handle_post_spawn(var/mob/living/carbon/human/H)
 	if(H.mind)
 		H.mind.assigned_role = "Golem"
-		H.mind.special_role = "Golem"
+		H.mind.special_role = SPECIAL_ROLE_GOLEM
 	H.real_name = "adamantine golem ([rand(1, 1000)])"
 	H.name = H.real_name
 	H.equip_to_slot_or_del(new /obj/item/clothing/under/golem(H), slot_w_uniform)
@@ -66,7 +66,7 @@
 	item_color = "golem"
 	has_sensor = 0
 	flags = ABSTRACT | NODROP
-	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0)
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
 
 /obj/item/clothing/suit/golem
 	name = "adamantine shell"
@@ -75,7 +75,8 @@
 	item_state = "golem"
 	body_parts_covered = HEAD|UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	flags_inv = HIDEGLOVES|HIDESHOES
-	flags = ONESIZEFITSALL | ABSTRACT | NODROP | THICKMATERIAL
+	flags = ABSTRACT | NODROP | THICKMATERIAL
+	flags_size = ONESIZEFITSALL
 	armor = list(melee = 55, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
 
 /obj/item/clothing/shoes/golem

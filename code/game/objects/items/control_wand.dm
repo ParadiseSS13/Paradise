@@ -18,6 +18,12 @@
 	ID = new /obj/item/weapon/card/id
 	ID.access = get_region_accesses(region_access)
 
+/obj/item/weapon/door_remote/Destroy()
+	if(ID)
+		qdel(ID)
+		ID = null
+	return ..()
+
 /obj/item/weapon/door_remote/attack_self(mob/user)
 	switch(mode)
 		if(WAND_OPEN)
@@ -30,6 +36,9 @@
 
 /obj/item/weapon/door_remote/afterattack(obj/machinery/door/airlock/D, mob/user)
 	if(!istype(D))
+		return
+	if(D.is_special)
+		to_chat(user, "<span class='danger'>[src] cannot access this kind of door!</span>")
 		return
 	if(!(D.arePowerSystemsOn()))
 		to_chat(user, "<span class='danger'>[D] has no power!</span>")
@@ -98,6 +107,12 @@
 	name = "civillian door remote"
 	icon_state = "gangtool-white"
 	region_access = REGION_GENERAL
+
+/obj/item/weapon/door_remote/centcomm
+	name = "centcomm door remote"
+	desc = "High-ranking NT officials only."
+	icon_state = "gangtool-blue"
+	region_access = REGION_CENTCOMM
 
 #undef WAND_OPEN
 #undef WAND_BOLT

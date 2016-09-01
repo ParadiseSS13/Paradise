@@ -28,7 +28,7 @@
 	return 1
 
 /obj/docking_port/mobile/supply/canMove()
-	if(z == ZLEVEL_STATION)
+	if(is_station_level(z))
 		return forbidden_atoms_check(areaInstance)
 	return ..()
 
@@ -45,7 +45,7 @@
 	sell()
 
 /obj/docking_port/mobile/supply/proc/buy()
-	if(z != ZLEVEL_STATION)		//we only buy when we are -at- the station
+	if(!is_station_level(z))		//we only buy when we are -at- the station
 		return 1
 
 	if(!shuttle_master.shoppinglist.len)
@@ -93,7 +93,7 @@
 	shuttle_master.shoppinglist.Cut()
 
 /obj/docking_port/mobile/supply/proc/sell()
-	if(z != ZLEVEL_CENTCOMM)		//we only sell when we are -at- centcomm
+	if(z != level_name_to_num(CENTCOMM))		//we only sell when we are -at- centcomm
 		return 1
 
 	var/plasma_count = 0
@@ -484,7 +484,7 @@
 	if(..())
 		return 1
 
-	if (href_list["doorder"])
+	if(href_list["doorder"])
 		if(world.time < reqtime)
 			visible_message("<b>[src]</b>'s monitor flashes, \"[world.time - reqtime] seconds remaining until another requisition form may be printed.\"")
 			nanomanager.update_uis(src)
@@ -528,7 +528,7 @@
 			if(i == 1)
 				O.generateRequisition(loc)
 
-	else if (href_list["rreq"])
+	else if(href_list["rreq"])
 		var/ordernum = text2num(href_list["rreq"])
 		var/obj/item/weapon/card/id/I = usr.get_id_card()
 		for(var/i=1, i<=shuttle_master.requestlist.len, i++)
@@ -537,11 +537,11 @@
 				shuttle_master.requestlist.Cut(i,i+1)
 				break
 
-	else if (href_list["last_viewed_group"])
+	else if(href_list["last_viewed_group"])
 		content_pack = null
 		last_viewed_group = text2num(href_list["last_viewed_group"])
 
-	else if (href_list["contents"])
+	else if(href_list["contents"])
 		var/topic = href_list["contents"]
 		if(topic == 1)
 			content_pack = null
@@ -646,7 +646,7 @@
 		return 1
 
 	if(!shuttle_master)
-		log_to_dd("## ERROR: The shuttle_master controller datum is missing somehow.")
+		log_runtime(EXCEPTION("The shuttle_master controller datum is missing somehow."), src)
 		return 1
 
 	if(href_list["send"])
@@ -658,7 +658,7 @@
 		else if(!shuttle_master.supply.request(shuttle_master.getDock("supply_home")))
 			post_signal("supply")
 
-	else if (href_list["doorder"])
+	else if(href_list["doorder"])
 		if(world.time < reqtime)
 			visible_message("<b>[src]</b>'s monitor flashes, \"[world.time - reqtime] seconds remaining until another requisition form may be printed.\"")
 			nanomanager.update_uis(src)
@@ -721,7 +721,7 @@
 					to_chat(usr, "<span class='warning'>There are insufficient supply points for this request.</span>")
 				break
 
-	else if (href_list["rreq"])
+	else if(href_list["rreq"])
 		var/ordernum = text2num(href_list["rreq"])
 		for(var/i=1, i<=shuttle_master.requestlist.len, i++)
 			var/datum/supply_order/SO = shuttle_master.requestlist[i]
@@ -729,11 +729,11 @@
 				shuttle_master.requestlist.Cut(i,i+1)
 				break
 
-	else if (href_list["last_viewed_group"])
+	else if(href_list["last_viewed_group"])
 		content_pack = null
 		last_viewed_group = text2num(href_list["last_viewed_group"])
 
-	else if (href_list["contents"])
+	else if(href_list["contents"])
 		var/topic = href_list["contents"]
 		if(topic == 1)
 			content_pack = null
@@ -790,10 +790,10 @@
 		return prob(60)
 
 	var/obj/structure/stool/bed/B = A
-	if (istype(A, /obj/structure/stool/bed) && B.buckled_mob)//if it's a bed/chair and someone is buckled, it will not pass
+	if(istype(A, /obj/structure/stool/bed) && B.buckled_mob)//if it's a bed/chair and someone is buckled, it will not pass
 		return 0
 
-	if (istype(A, /obj/structure/closet/cardboard))
+	if(istype(A, /obj/structure/closet/cardboard))
 		var/obj/structure/closet/cardboard/C = A
 		if(C.move_delay)
 			return 0
@@ -824,26 +824,26 @@
 				return 1
 
 		var/mob/living/M = caller
-		if(!M.ventcrawler && !M.small)
+		if(!M.ventcrawler && M.mob_size > MOB_SIZE_SMALL)
 			return 0
 	return 1
 
 /obj/structure/plasticflaps/ex_act(severity)
 	switch(severity)
-		if (1)
+		if(1)
 			qdel(src)
-		if (2)
-			if (prob(50))
+		if(2)
+			if(prob(50))
 				qdel(src)
-		if (3)
-			if (prob(5))
+		if(3)
+			if(prob(5))
 				qdel(src)
 
 /obj/structure/plasticflaps/mining //A specific type for mining that doesn't allow airflow because of them damn crates
 	name = "\improper Airtight plastic flaps"
 	desc = "Heavy duty, airtight, plastic flaps."
 
-/obj/structure/plasticflaps/mining/New()
+/obj/structure/plasticflaps/mining/initialize()
 	air_update_turf(1)
 	..()
 

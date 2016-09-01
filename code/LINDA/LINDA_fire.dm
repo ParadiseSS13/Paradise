@@ -126,6 +126,9 @@
 			var/radiated_temperature = location.air.temperature*FIRE_SPREAD_RADIOSITY_SCALE
 			for(var/direction in cardinal)
 				if(!(location.atmos_adjacent_turfs & direction))
+					var/turf/simulated/wall/W = get_step(src, direction)
+					if(istype(W))
+						W.adjacent_fire_act(W, radiated_temperature)
 					continue
 				var/turf/simulated/T = get_step(src, direction)
 				if(istype(T) && T.active_hotspot)
@@ -165,7 +168,7 @@
 		var/turf/simulated/T = loc
 		if(T.to_be_destroyed)
 			var/chance_of_deletion
-			if (T.heat_capacity) //beware of division by zero
+			if(T.heat_capacity) //beware of division by zero
 				chance_of_deletion = T.max_fire_temperature_sustained / T.heat_capacity * 8 //there is no problem with prob(23456), min() was redundant --rastaf0
 			else
 				chance_of_deletion = 100

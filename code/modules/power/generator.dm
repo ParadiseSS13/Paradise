@@ -17,6 +17,7 @@
 
 	var/image/overlay_image
 
+	var/power_multiplier = 1 // This is so admins can tweak how good it is to find a good balance for effort -> power
 	var/powercap = 500000 //Not a hard cap, but outputs above this have a 10% chance to cause the TeG to lose half it's power.
 
 /obj/machinery/power/generator/New()
@@ -81,7 +82,7 @@
 			var/efficiency = 0.65
 			var/energy_transfer = delta_temperature*air2_heat_capacity*air1_heat_capacity/(air2_heat_capacity+air1_heat_capacity)
 			var/heat = energy_transfer*(1-efficiency)
-			lastgen = energy_transfer*efficiency*0.05
+			lastgen = energy_transfer*efficiency*0.05*power_multiplier
 
 			if(air2.temperature > air1.temperature)
 				air2.temperature = air2.temperature - energy_transfer/air2_heat_capacity
@@ -91,14 +92,16 @@
 				air1.temperature = air1.temperature - energy_transfer/air1_heat_capacity
 
 	//Transfer the air
-	if (air1)
+	if(air1)
 		circ1.air2.merge(air1)
-	if (air2)
+	if(air2)
 		circ2.air2.merge(air2)
 
 	//Update the gas networks
-	circ1.parent2.update = 1
-	circ2.parent2.update = 1
+	if(circ1.parent2)
+		circ1.parent2.update = 1
+	if(circ2.parent2)
+		circ2.parent2.update = 1
 
 	// update icon overlays and power usage only if displayed level has changed
 	if(lastgen > powercap && prob(10))
@@ -134,7 +137,7 @@
 
 
 /obj/machinery/power/generator/interact(mob/user)
-	if ( (get_dist(src, user) > 1 ) && (!istype(user, /mob/living/silicon/ai)))
+	if( (get_dist(src, user) > 1 ) && (!istype(user, /mob/living/silicon/ai)))
 		user.unset_machine()
 		user << browse(null, "window=teg")
 		return
@@ -192,7 +195,7 @@
 	set name = "Rotate Generator (Clockwise)"
 	set src in view(1)
 
-	if (usr.stat || usr.restrained()  || anchored)
+	if(usr.stat || usr.restrained()  || anchored)
 		return
 
 	src.dir = turn(src.dir, 90)
@@ -202,7 +205,7 @@
 	set name = "Rotate Generator (Counterclockwise)"
 	set src in view(1)
 
-	if (usr.stat || usr.restrained()  || anchored)
+	if(usr.stat || usr.restrained()  || anchored)
 		return
 
 	src.dir = turn(src.dir, -90)

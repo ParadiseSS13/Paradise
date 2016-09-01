@@ -9,6 +9,27 @@
 
 /**********************Miner Lockers**************************/
 
+/obj/structure/closet/wardrobe/miner
+	name = "mining wardrobe"
+	icon_state = "mixed"
+	icon_closed = "mixed"
+
+/obj/structure/closet/wardrobe/miner/New()
+	..()
+	contents = list()
+	new /obj/item/weapon/storage/backpack/duffel(src)
+	new /obj/item/weapon/storage/backpack/industrial(src)
+	new /obj/item/weapon/storage/backpack/satchel_eng(src)
+	new /obj/item/clothing/under/rank/miner(src)
+	new /obj/item/clothing/under/rank/miner(src)
+	new /obj/item/clothing/under/rank/miner(src)
+	new /obj/item/clothing/shoes/workboots(src)
+	new /obj/item/clothing/shoes/workboots(src)
+	new /obj/item/clothing/shoes/workboots(src)
+	new /obj/item/clothing/gloves/fingerless(src)
+	new /obj/item/clothing/gloves/fingerless(src)
+	new /obj/item/clothing/gloves/fingerless(src)
+
 /obj/structure/closet/secure_closet/miner
 	name = "miner's equipment"
 	icon_state = "miningsec1"
@@ -21,20 +42,11 @@
 
 /obj/structure/closet/secure_closet/miner/New()
 	..()
-	sleep(2)
-	if(prob(50))
-		new /obj/item/weapon/storage/backpack/industrial(src)
-	else
-		new /obj/item/weapon/storage/backpack/satchel_eng(src)
-	new /obj/item/device/radio/headset/headset_cargo(src)
-	new /obj/item/clothing/under/rank/miner(src)
-	new /obj/item/clothing/gloves/fingerless(src)
-	new /obj/item/clothing/shoes/black(src)
-	new /obj/item/device/mining_scanner(src)
-	new /obj/item/weapon/storage/bag/ore(src)
-	new /obj/item/device/flashlight/lantern(src)
 	new /obj/item/weapon/shovel(src)
 	new /obj/item/weapon/pickaxe(src)
+	new /obj/item/device/radio/headset/headset_cargo/mining(src)
+	new /obj/item/device/t_scanner/adv_mining_scanner/lesser(src)
+	new /obj/item/weapon/storage/bag/ore(src)
 	new /obj/item/clothing/glasses/meson(src)
 
 /**********************Shuttle Computer**************************/
@@ -65,7 +77,7 @@
 	force = 15.0
 	throwforce = 10.0
 	item_state = "pickaxe"
-	w_class = 4.0
+	w_class = 4
 	materials = list(MAT_METAL=2000) //one sheet, but where can you make them?
 	var/digspeed = 40 //moving the delay to an item var so R&D can make improved picks. --NEO
 	origin_tech = "materials=1;engineering=1"
@@ -122,7 +134,7 @@
 	icon_state = "smdrill"
 	origin_tech = "materials=6;powerstorage=4;engineering=5;syndicate=3"
 	desc = "Microscopic supermatter crystals cover the head of this tiny drill."
-	w_class = 2.0
+	w_class = 2
 
 /obj/item/weapon/pickaxe/drill/cyborg/diamond //This is the BORG version!
 	name = "diamond-tipped cyborg mining drill" //To inherit the NODROP flag, and easier to change borg specific drill mechanics.
@@ -166,7 +178,7 @@
 	force = 8.0
 	throwforce = 4.0
 	item_state = "shovel"
-	w_class = 3.0
+	w_class = 3
 	materials = list(MAT_METAL=50)
 	origin_tech = "materials=1;engineering=1"
 	attack_verb = list("bashed", "bludgeoned", "thrashed", "whacked")
@@ -178,7 +190,7 @@
 	item_state = "spade"
 	force = 5.0
 	throwforce = 7.0
-	w_class = 2.0
+	w_class = 2
 
 
 /**********************Mining car (Crate like thing, not the rail car)**************************/
@@ -199,7 +211,7 @@
 	desc = "It allows you to store and deploy lazarus-injected creatures easier."
 	icon = 'icons/obj/mobcap.dmi'
 	icon_state = "mobcap0"
-	w_class = 1.0
+	w_class = 1
 	throw_range = 20
 	var/mob/living/simple_animal/captured = null
 	var/colorindex = 0
@@ -250,3 +262,273 @@
 		colorindex = 0
 	icon_state = "mobcap[colorindex]"
 	update_icon()
+
+/*****************************Survival Pod********************************/
+
+
+/area/survivalpod
+	name = "\improper Emergency Shelter"
+	icon_state = "away"
+	requires_power = 0
+	has_gravity = 1
+
+/obj/item/weapon/survivalcapsule
+	name = "bluespace shelter capsule"
+	desc = "An emergency shelter stored within a pocket of bluespace."
+	icon_state = "capsule"
+	icon = 'icons/obj/mining.dmi'
+	w_class = 1
+	origin_tech = "engineering=3;bluespace=3"
+	var/template_id = "shelter_alpha"
+	var/datum/map_template/shelter/template
+	var/used = FALSE
+
+/obj/item/weapon/survivalcapsule/proc/get_template()
+	if(template)
+		return
+	template = shelter_templates[template_id]
+	if(!template)
+		log_runtime("Shelter template ([template_id]) not found!", src)
+		qdel(src)
+
+/obj/item/weapon/survivalcapsule/examine(mob/user)
+	. = ..()
+	get_template()
+	to_chat(user, "This capsule has the [template.name] stored.")
+	to_chat(user, template.description)
+
+/obj/item/weapon/survivalcapsule/attack_self()
+	// Can't grab when capsule is New() because templates aren't loaded then
+	get_template()
+	if(used == FALSE)
+		loc.visible_message("<span class='warning'>[src] begins to shake. Stand back!</span>")
+		used = TRUE
+		sleep(50)
+		var/turf/deploy_location = get_turf(src)
+		var/status = template.check_deploy(deploy_location)
+		switch(status)
+			if(SHELTER_DEPLOY_BAD_AREA)
+				loc.visible_message("<span class='warning'>[src] will not function in this area.</span>")
+			if(SHELTER_DEPLOY_BAD_TURFS, SHELTER_DEPLOY_ANCHORED_OBJECTS)
+				var/width = template.width
+				var/height = template.height
+				loc.visible_message("<span class='warning'>[src] doesn't have room to deploy! You need to clear a [width]x[height] area!</span>")
+
+		if(status != SHELTER_DEPLOY_ALLOWED)
+			used = FALSE
+			return
+
+		playsound(get_turf(src), 'sound/effects/phasein.ogg', 100, 1)
+
+		var/turf/T = deploy_location
+		if(!is_mining_level(T.z))//only report capsules away from the mining/lavaland level
+			message_admins("[key_name_admin(usr)] (<A HREF='?_src_=holder;adminmoreinfo=\ref[usr]'>?</A>) (<A HREF='?_src_=holder;adminplayerobservefollow=\ref[usr]'>FLW</A>) activated a bluespace capsule away from the mining level! (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>JMP</a>)")
+			log_admin("[key_name(usr)] activated a bluespace capsule away from the mining level at [T.x], [T.y], [T.z]")
+		template.load(deploy_location, centered = TRUE)
+		new /obj/effect/effect/harmless_smoke(get_turf(src))
+		qdel(src)
+
+//Pod turfs and objects
+
+
+//Floors
+/turf/simulated/floor/pod
+	name = "pod floor"
+	icon_state = "podfloor"
+	icon_regular_floor = "podfloor"
+	floor_tile = /obj/item/stack/tile/pod
+
+//Walls
+/turf/simulated/wall/survival
+	name = "pod wall"
+	desc = "An easily-compressable wall used for temporary shelter."
+	icon = 'icons/turf/walls/survival_pod_walls.dmi'
+	icon_state = "smooth"
+	walltype = "shuttle"
+	smooth = SMOOTH_MORE // To Do: Add in Diagnaol Smooth Support
+	canSmoothWith = list(/turf/simulated/wall/survival, /obj/machinery/door/airlock/survival_pod)
+
+//Door
+/obj/machinery/door/airlock/survival_pod
+	name = "Airlock"
+	icon = 'icons/obj/doors/survival.dmi'
+	assembly_type = /obj/structure/door_assembly/door_assembly_pod
+	opacity = 0
+	glass = 1
+
+/obj/structure/door_assembly/door_assembly_pod
+	base_icon_state = "survival_pod"
+	glass_type = "/survival_pod"
+
+//Table
+/obj/structure/table/survival_pod
+	icon = 'icons/obj/lavaland/survival_pod.dmi'
+	icon_state = "table"
+	smooth = SMOOTH_FALSE
+
+//Sleeper
+/obj/machinery/sleeper/survival_pod
+	icon = 'icons/obj/lavaland/survival_pod.dmi'
+	icon_state = "sleeper-open"
+	density = 0
+
+/obj/machinery/sleeper/survival_pod/New()
+	..()
+	component_parts = list()
+	component_parts += new /obj/item/weapon/circuitboard/sleeper/survival(null)
+	var/obj/item/weapon/stock_parts/matter_bin/B = new(null)
+	B.rating = initial_bin_rating
+	component_parts += B
+	component_parts += new /obj/item/weapon/stock_parts/manipulator(null)
+	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
+	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
+	component_parts += new /obj/item/stack/cable_coil(null, 1)
+	RefreshParts()
+
+//Computer
+/obj/item/device/gps/computer
+	name = "pod computer"
+	icon_state = "pod_computer"
+	icon = 'icons/obj/lavaland/pod_computer.dmi'
+	anchored = 1
+	density = 1
+	pixel_y = -32
+
+/obj/item/device/gps/computer/attackby(obj/item/weapon/W, mob/user, params)
+	if(istype(W, /obj/item/weapon/wrench))
+		playsound(loc, 'sound/items/Ratchet.ogg', 50, 1)
+		user.visible_message("<span class='warning'>[user] disassembles the gps.</span>", \
+						"<span class='notice'>You start to disassemble the gps...</span>", "You hear clanking and banging noises.")
+		if(do_after(user, 20, target = src))
+			new /obj/item/device/gps(loc)
+			qdel(src)
+			return ..()
+
+/obj/item/device/gps/computer/attack_hand(mob/user)
+	attack_self(user)
+
+//Bed
+/obj/structure/stool/bed/pod
+	icon = 'icons/obj/lavaland/survival_pod.dmi'
+	icon_state = "bed"
+
+//Survival Storage Unit
+/obj/machinery/smartfridge/survival_pod
+	name = "survival pod storage"
+	desc = "A heated storage unit."
+	icon_state = "donkvendor"
+	icon = 'icons/obj/lavaland/donkvendor.dmi'
+	icon_on = "donkvendor"
+	icon_off = "donkvendor"
+	light_range = 8
+	max_n_of_items = 10
+	pixel_y = -4
+
+/obj/item/weapon/circuitboard/smartfridge/survival
+	name = "circuit board (Smartfridge Survival)"
+	build_path = /obj/machinery/smartfridge/survival_pod
+
+/obj/item/weapon/circuitboard/smartfridge/attackby(obj/item/I, mob/user, params)
+	return
+
+/obj/machinery/smartfridge/survival_pod/accept_check(obj/item/O)
+	if(istype(O, /obj/item))
+		return 1
+	return 0
+
+/obj/machinery/smartfridge/survival_pod/New()
+	..()
+	component_parts = list()
+	component_parts += new /obj/item/weapon/circuitboard/smartfridge/survival(null)
+	component_parts += new /obj/item/weapon/stock_parts/matter_bin(null)
+	RefreshParts()
+
+/obj/machinery/smartfridge/survival_pod/loaded/New()
+	..()
+	for(var/i in 1 to 5)
+		var/obj/item/weapon/reagent_containers/food/snacks/warmdonkpocket_weak/W = new(src)
+		load(W)
+	if(prob(50))
+		var/obj/item/weapon/storage/pill_bottle/dice/D = new(src)
+		load(D)
+	else
+		var/obj/item/device/guitar/G = new(src)
+		load(G)
+
+//Fans
+/obj/structure/fans
+	icon = 'icons/obj/lavaland/survival_pod.dmi'
+	icon_state = "fans"
+	name = "environmental regulation system"
+	desc = "A large machine releasing a constant gust of air."
+	anchored = 1
+	density = 1
+	var/arbitraryatmosblockingvar = 1
+	var/buildstacktype = /obj/item/stack/sheet/metal
+	var/buildstackamount = 5
+
+/obj/structure/fans/proc/deconstruct()
+	if(buildstacktype)
+		new buildstacktype(loc, buildstackamount)
+	qdel(src)
+
+/obj/structure/fans/attackby(obj/item/weapon/W, mob/user, params)
+	if(istype(W, /obj/item/weapon/wrench))
+		playsound(loc, 'sound/items/Ratchet.ogg', 50, 1)
+		user.visible_message("<span class='warning'>[user] disassembles the fan.</span>", \
+							 "<span class='notice'>You start to disassemble the fan...</span>", "You hear clanking and banging noises.")
+		if(do_after(user, 20, target = src))
+			deconstruct()
+			return ..()
+
+/obj/structure/fans/tiny
+	name = "tiny fan"
+	desc = "A tiny fan, releasing a thin gust of air."
+	layer = TURF_LAYER+0.1
+	density = 0
+	icon_state = "fan_tiny"
+	buildstackamount = 2
+
+/obj/structure/fans/New(loc)
+	..()
+	air_update_turf(1)
+
+/obj/structure/fans/Destroy()
+	arbitraryatmosblockingvar = 0
+	air_update_turf(1)
+	return ..()
+
+/obj/structure/fans/CanAtmosPass(turf/T)
+	return !arbitraryatmosblockingvar
+
+//Signs
+/obj/structure/sign/mining
+	name = "nanotrasen mining corps sign"
+	desc = "A sign of relief for weary miners, and a warning for would-be competitors to Nanotrasen's mining claims."
+	icon = 'icons/turf/walls/survival_pod_walls.dmi'
+	icon_state = "ntpod"
+
+/obj/structure/sign/mining/survival
+	name = "shelter sign"
+	desc = "A high visibility sign designating a safe shelter."
+	icon = 'icons/turf/walls/survival_pod_walls.dmi'
+	icon_state = "survival"
+
+//Fluff
+/obj/structure/tubes
+	icon_state = "tubes"
+	icon = 'icons/obj/lavaland/survival_pod.dmi'
+	name = "tubes"
+	anchored = 1
+	layer = MOB_LAYER - 0.2
+	density = 0
+
+/obj/structure/tubes/attackby(obj/item/weapon/W, mob/user, params)
+	if(istype(W, /obj/item/weapon/wrench))
+		playsound(loc, 'sound/items/Ratchet.ogg', 50, 1)
+		user.visible_message("<span class='warning'>[user] disassembles [src].</span>", \
+							 "<span class='notice'>You start to disassemble [src]...</span>", "You hear clanking and banging noises.")
+		if(do_after(user, 20, target = src))
+			new /obj/item/stack/rods(loc)
+			qdel(src)
+			return ..()

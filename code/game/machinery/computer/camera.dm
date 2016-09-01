@@ -43,17 +43,15 @@
 
 
 /obj/machinery/computer/security/check_eye(var/mob/user as mob)
-	if ((get_dist(user, src) > 1 || !( user.canmove ) || user.blinded || !( current ) || !( current.status )) && (!istype(user, /mob/living/silicon)))
+	if((get_dist(user, src) > 1 || !( user.canmove ) || user.blinded || !( current ) || !( current.status )) && (!istype(user, /mob/living/silicon)))
 		return null
 	user.reset_view(current)
 	return 1
 
 // Network configuration
-/obj/machinery/computer/security/attackby(I as obj, user as mob, params)
-	access = list()
-	if(istype(I,/obj/item/weapon/card/id)) // If hit by a regular ID card.
-		var/obj/item/weapon/card/id/E = I
-		access = E.access
+/obj/machinery/computer/security/attackby(obj/item/I, user as mob, params)
+	access = I.GetAccess()
+	if(access.len) // If hit by something with access.
 		ui_interact(user)
 	else
 		..()
@@ -77,7 +75,7 @@
 
 	var/list/cameras = list()
 	for(var/obj/machinery/camera/C in cameranet.cameras)
-		if((z > MAX_Z || C.z > MAX_Z) && (C.z != z)) //can only recieve away mission cameras on away missions
+		if((is_away_level(src.z) || is_away_level(C.z)) && !atoms_share_level(C, src)) //can only recieve away mission cameras on away missions
 			continue
 		if(!can_access_camera(C))
 			continue
@@ -118,7 +116,7 @@
 		data["current"] = current.nano_structure()
 
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if (!ui)
+	if(!ui)
 		ui = new(user, src, ui_key, "sec_camera.tmpl", "Camera Console", 900, 800)
 
 		// adding a template with the key "mapContent" enables the map ui functionality
@@ -140,7 +138,10 @@
 		var/obj/machinery/camera/C = locate(href_list["switchTo"]) in cameranet.cameras
 		if(!C)
 			return 1
-
+		
+		if(!can_access_camera(C))
+			return 1 // No href exploits for you.
+		
 		switch_to_camera(usr, C)
 
 	else if(href_list["reset"])
@@ -172,10 +173,7 @@
 		user.set_machine(src)
 
 	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		if(H.wear_id)
-			var/obj/item/weapon/card/id/gold/C = H.wear_id
-			access = C.access
+		access = user.get_access()
 
 	ui_interact(user)
 

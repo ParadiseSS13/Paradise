@@ -111,11 +111,11 @@
 		to_chat(user, "\red The maintenance drone chassis not compatible with \the [W].")
 		return
 
-	else if (istype(W, /obj/item/weapon/crowbar))
+	else if(istype(W, /obj/item/weapon/crowbar))
 		to_chat(user, "The machine is hermetically sealed. You can't open the case.")
 		return
 
-	else if (istype(W, /obj/item/weapon/card/id)||istype(W, /obj/item/device/pda))
+	else if(istype(W, /obj/item/weapon/card/id)||istype(W, /obj/item/device/pda))
 
 		if(stat == 2)
 
@@ -253,6 +253,8 @@
 
 /mob/living/silicon/robot/drone/proc/request_player()
 	for(var/mob/dead/observer/O in player_list)
+		if(O.has_enabled_antagHUD == 1 && config.antag_hud_restricted)
+			continue
 		if(jobban_isbanned(O,"nonhumandept") || jobban_isbanned(O,"Drone"))
 			continue
 		if(O.client)
@@ -301,7 +303,7 @@
 
 
 /mob/living/silicon/robot/drone/Bump(atom/movable/AM as mob|obj, yes)
-	if (!yes || ( \
+	if(!yes || ( \
 	 !istype(AM,/obj/machinery/door) && \
 	 !istype(AM,/obj/machinery/recharge_station) && \
 	 !istype(AM,/obj/machinery/disposal/deliveryChute) && \
@@ -335,7 +337,7 @@
 /mob/living/silicon/robot/drone/remove_robot_verbs()
 	src.verbs -= silicon_subsystems
 
-/mob/living/silicon/robot/drone/update_canmove()
+/mob/living/silicon/robot/drone/update_canmove(delay_action_updates = 0)
 	. = ..()
 	density = 0 //this is reset every canmove update otherwise
 

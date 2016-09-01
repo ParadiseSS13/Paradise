@@ -5,9 +5,8 @@
 	reagent_state = LIQUID
 	color = "#C7FFFF" // rgb: 199, 255, 255
 
-/datum/reagent/silicate/reaction_obj(var/obj/O, var/volume)
-	src = null
-	if(istype(O,/obj/structure/window))
+/datum/reagent/silicate/reaction_obj(obj/O, volume)
+	if(istype(O, /obj/structure/window))
 		if(O:silicate <= 200)
 
 			O:silicate += volume
@@ -30,9 +29,7 @@
 				var/b = (volume / 50) + 1
 				I.SetIntensity(r,g,b)
 				O.icon = I
-				O:silicateIcon = I
-
-	return*/
+				O:silicateIcon = I */
 
 
 /datum/reagent/oxygen
@@ -42,16 +39,6 @@
 	reagent_state = GAS
 	color = "#808080" // rgb: 128, 128, 128
 
-/datum/reagent/oxygen/on_mob_life(var/mob/living/M as mob, var/alien)
-	if(M.stat == 2) return
-	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
-		if(H.species && (H.species.name == "Vox" || H.species.name =="Vox Armalis"))
-			M.adjustToxLoss(REAGENTS_METABOLISM)
-			holder.remove_reagent(src.id, REAGENTS_METABOLISM) //By default it slowly disappears.
-			return
-	..()
-
 
 /datum/reagent/nitrogen
 	name = "Nitrogen"
@@ -59,16 +46,6 @@
 	description = "A colorless, odorless, tasteless gas."
 	reagent_state = GAS
 	color = "#808080" // rgb: 128, 128, 128
-
-/datum/reagent/nitrogen/on_mob_life(var/mob/living/M as mob, var/alien)
-	if(M.stat == 2) return
-	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
-		if(H.species && (H.species.name == "Vox" || H.species.name =="Vox Armalis"))
-			M.adjustOxyLoss(-2*REM)
-			holder.remove_reagent(src.id, REAGENTS_METABOLISM) //By default it slowly disappears.
-			return
-	..()
 
 
 /datum/reagent/hydrogen
@@ -118,12 +95,9 @@
 	reagent_state = SOLID
 	color = "#1C1300" // rgb: 30, 20, 0
 
-/datum/reagent/carbon/reaction_turf(var/turf/T, var/volume)
-	src = null
-	// Only add one dirt per turf.  Was causing people to crash.
-	if(!istype(T, /turf/space) && !(locate(/obj/effect/decal/cleanable/dirt) in T))
+/datum/reagent/carbon/reaction_turf(turf/T, volume)
+	if(!istype(T, /turf/space) && !(locate(/obj/effect/decal/cleanable/dirt) in T)) // Only add one dirt per turf.  Was causing people to crash.
 		new /obj/effect/decal/cleanable/dirt(T)
-
 
 /datum/reagent/gold
 	name = "Gold"
@@ -170,20 +144,13 @@
 	description = "Pure iron is a metal."
 	reagent_state = SOLID
 	color = "#C8A5DC" // rgb: 200, 165, 220
-/*
-/datum/reagent/iron/on_mob_life(var/mob/living/M as mob)
-	if(!M) M = holder.my_atom
-	if((M.virus) && (prob(8) && (M.virus.name=="Magnitis")))
-		if(M.virus.spread == "Airborne")
-			M.virus.spread = "Remissive"
-		M.virus.stage--
-		if(M.virus.stage <= 0)
-			M.resistances += M.virus.type
-			M.virus = null
-	holder.remove_reagent(src.id, 0.2)
-	return
-*/
 
+/datum/reagent/iron/on_mob_life(mob/living/M)
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		if(!H.species.exotic_blood && !(H.species.flags & NO_BLOOD))
+			H.vessel.add_reagent("blood", 0.8)
+	..()
 
 
 //foam

@@ -61,7 +61,9 @@
 //What number the make points to is in the define # at the top of construction.dm in same folder
 //which for some reason couldn't just be left defined, so it could be used here, top kek
 
-	user << browse("<HEAD><TITLE>[src]</TITLE></HEAD><TT>[dat]</TT>", "window=pipedispenser")
+	var/datum/browser/popup = new(user, "pipedispenser", name, 400, 400)
+	popup.set_content(dat)
+	popup.open(0)
 	onclose(user, "pipedispenser")
 	return
 
@@ -99,16 +101,16 @@
 
 /obj/machinery/pipedispenser/attackby(var/obj/item/W as obj, var/mob/user as mob, params)
 	src.add_fingerprint(usr)
-	if (istype(W, /obj/item/pipe) || istype(W, /obj/item/pipe_meter) || istype(W, /obj/item/pipe_gsensor))
+	if(istype(W, /obj/item/pipe) || istype(W, /obj/item/pipe_meter) || istype(W, /obj/item/pipe_gsensor))
 		to_chat(usr, "\blue You put [W] back to [src].")
 		user.drop_item()
 		qdel(W)
 		return
-	else if (istype(W, /obj/item/weapon/wrench))
-		if (unwrenched==0)
+	else if(istype(W, /obj/item/weapon/wrench))
+		if(unwrenched==0)
 			playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
 			to_chat(user, "\blue You begin to unfasten \the [src] from the floor...")
-			if (do_after(user, 40, target = src))
+			if(do_after(user, 40, target = src))
 				user.visible_message( \
 					"[user] unfastens \the [src].", \
 					"\blue You have unfastened \the [src]. Now it can be pulled somewhere else.", \
@@ -116,12 +118,12 @@
 				src.anchored = 0
 				src.stat |= MAINT
 				src.unwrenched = 1
-				if (usr.machine==src)
+				if(usr.machine==src)
 					usr << browse(null, "window=pipedispenser")
-		else /*if (unwrenched==1)*/
+		else /*if(unwrenched==1)*/
 			playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
 			to_chat(user, "\blue You begin to fasten \the [src] to the floor...")
-			if (do_after(user, 20, target = src))
+			if(do_after(user, 20, target = src))
 				user.visible_message( \
 					"[user] fastens \the [src].", \
 					"\blue You have fastened \the [src]. Now it can dispense pipes.", \
@@ -155,10 +157,10 @@ Nah
 	if(!usr.canmove || usr.stat || usr.restrained())
 		return
 
-	if (!istype(pipe) || get_dist(usr, src) > 1 || get_dist(src,pipe) > 1 )
+	if(!istype(pipe) || get_dist(usr, src) > 1 || get_dist(src,pipe) > 1 )
 		return
 
-	if (pipe.anchored)
+	if(pipe.anchored)
 		return
 
 	qdel(pipe)
@@ -178,7 +180,9 @@ Nah
 <A href='?src=\ref[src];dmake=7'>Chute</A><BR>
 "}
 
-	user << browse("<HEAD><TITLE>[src]</TITLE></HEAD><TT>[dat]</TT>", "window=pipedispenser")
+	var/datum/browser/popup = new(user, "pipedispenser", name, 400, 400)
+	popup.set_content(dat)
+	popup.open()
 	return
 
 // 0=straight, 1=bent, 2=junction-j1, 3=junction-j2, 4=junction-y, 5=trunk

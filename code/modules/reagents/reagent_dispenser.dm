@@ -12,26 +12,26 @@
 	var/amount_per_transfer_from_this = 10
 	var/possible_transfer_amounts = list(10,25,50,100)
 
-/obj/structure/reagent_dispensers/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+/obj/structure/reagent_dispensers/attackby(obj/item/weapon/W, mob/user, params)
 	return
 
 /obj/structure/reagent_dispensers/New()
 	var/datum/reagents/R = new/datum/reagents(1000)
 	reagents = R
 	R.my_atom = src
-	if (!possible_transfer_amounts)
-		src.verbs -= /obj/structure/reagent_dispensers/verb/set_APTFT
+	if(!possible_transfer_amounts)
+		verbs -= /obj/structure/reagent_dispensers/verb/set_APTFT
 	..()
 
 /obj/structure/reagent_dispensers/examine(mob/user)
 	if(!..(user, 2))
 		return
-	to_chat(user, "\blue It contains:")
+	to_chat(user, "<span class='notice'>It contains:</span>")
 	if(reagents && reagents.reagent_list.len)
 		for(var/datum/reagent/R in reagents.reagent_list)
-			to_chat(user, "\blue [R.volume] units of [R.name]")
+			to_chat(user, "<span class='notice'>[R.volume] units of [R.name]</span>")
 	else
-		to_chat(user, "\blue Nothing.")
+		to_chat(user, "<span class='notice'>Nothing.</span>")
 
 /obj/structure/reagent_dispensers/verb/set_APTFT() //set amount_per_transfer_from_this
 	set name = "Set transfer amount"
@@ -40,7 +40,7 @@
 	if(usr.stat || !usr.canmove || usr.restrained())
 		return
 	var/N = input("Amount per transfer from this:","[src]") as null|anything in possible_transfer_amounts
-	if (N)
+	if(N)
 		amount_per_transfer_from_this = N
 
 /obj/structure/reagent_dispensers/ex_act(severity)
@@ -49,13 +49,13 @@
 			qdel(src)
 			return
 		if(2.0)
-			if (prob(50))
-				new /obj/effect/effect/water(src.loc)
+			if(prob(50))
+				new /obj/effect/effect/water(loc)
 				qdel(src)
 				return
 		if(3.0)
-			if (prob(5))
-				new /obj/effect/effect/water(src.loc)
+			if(prob(5))
+				new /obj/effect/effect/water(loc)
 				qdel(src)
 				return
 		else
@@ -63,7 +63,7 @@
 
 /obj/structure/reagent_dispensers/blob_act()
 	if(prob(50))
-		new /obj/effect/effect/water(src.loc)
+		new /obj/effect/effect/water(loc)
 		qdel(src)
 
 
@@ -106,7 +106,7 @@
 		boom()
 
 /obj/structure/reagent_dispensers/fueltank/proc/boom()
-	explosion(src.loc,0,1,5,7,10, flame_range = 5)
+	explosion(loc,0,1,5,7,10, flame_range = 5)
 	if(src)
 		qdel(src)
 
@@ -128,28 +128,28 @@
 	if(!..(user, 2))
 		return
 	if(rig)
-		to_chat(usr, "<span class='notice'>There is some kind of device rigged to the tank.")
+		to_chat(usr, "<span class='notice'>There is some kind of device rigged to the tank.</span>")
 
 /obj/structure/reagent_dispensers/fueltank/attack_hand()
-	if (rig)
-		usr.visible_message("[usr] begins to detach [rig] from \the [src].", "You begin to detach [rig] from \the [src]")
+	if(rig)
+		usr.visible_message("<span class='notice'>[usr] begins to detach [rig] from [src].</span>", "<span class='notice'>You begin to detach [rig] from [src].</span>")
 		if(do_after(usr, 20, target = src))
-			usr.visible_message("\blue [usr] detaches [rig] from \the [src].", "\blue  You detach [rig] from \the [src]")
+			usr.visible_message("<span class='notice'>[usr] detaches [rig] from [src].</span>", "<span class='notice'>You detach [rig] from [src].</span>")
 			rig.loc = get_turf(usr)
 			rig = null
 			overlays = new/list()
 
-/obj/structure/reagent_dispensers/fueltank/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
-	if (istype(W,/obj/item/device/assembly_holder) && accepts_rig)
-		if (rig)
-			to_chat(user, "\red There is another device in the way.")
+/obj/structure/reagent_dispensers/fueltank/attackby(obj/item/weapon/W, mob/user, params)
+	if(istype(W,/obj/item/device/assembly_holder) && accepts_rig)
+		if(rig)
+			to_chat(user, "<span class='warning'>There is another device in the way.</span>")
 			return ..()
-		user.visible_message("[user] begins rigging [W] to \the [src].", "You begin rigging [W] to \the [src]")
+		user.visible_message("[user] begins rigging [W] to [src].", "You begin rigging [W] to [src]")
 		if(do_after(user, 20, target = src))
-			user.visible_message("\blue [user] rigs [W] to \the [src].", "\blue  You rig [W] to \the [src]")
+			user.visible_message("<span class='notice'>[user] rigs [W] to [src].</span>", "<span class='notice'>You rig [W] to [src].</span>")
 
 			var/obj/item/device/assembly_holder/H = W
-			if (istype(H.a_left,/obj/item/device/assembly/igniter) || istype(H.a_right,/obj/item/device/assembly/igniter))
+			if(istype(H.a_left,/obj/item/device/assembly/igniter) || istype(H.a_right,/obj/item/device/assembly/igniter))
 				msg_admin_attack("[key_name_admin(user)] rigged a fueltank for explosion (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 				log_game("[key_name(user)] rigged fueltank a fueltank for explosion at [loc.x], [loc.y], [loc.z]")
 
@@ -231,7 +231,7 @@
 	reagents.add_reagent("beer",1000)
 
 /obj/structure/reagent_dispensers/beerkeg/blob_act()
-	explosion(src.loc,0,3,5,7,10)
+	explosion(loc,0,3,5,7,10)
 	qdel(src)
 
 /obj/structure/reagent_dispensers/virusfood

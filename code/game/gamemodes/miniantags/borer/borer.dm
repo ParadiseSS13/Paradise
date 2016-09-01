@@ -4,19 +4,19 @@
 
 /mob/living/captive_brain/say(var/message)
 
-	if (src.client)
+	if(src.client)
 		if(client.prefs.muted & MUTE_IC)
 			to_chat(src, "\red You cannot speak in IC (muted).")
 			return
-		if (src.client.handle_spam_prevention(message,MUTE_IC))
+		if(src.client.handle_spam_prevention(message,MUTE_IC))
 			return
 
 	if(istype(src.loc,/mob/living/simple_animal/borer))
 		message = trim(sanitize(copytext(message, 1, MAX_MESSAGE_LEN)))
-		if (!message)
+		if(!message)
 			return
 		log_say("[key_name(src)] : [message]")
-		if (stat == DEAD)
+		if(stat == DEAD)
 			return say_dead(message)
 		var/mob/living/simple_animal/borer/B = src.loc
 		to_chat(src, "You whisper silently, \"[message]\"")
@@ -29,14 +29,14 @@
 /mob/living/captive_brain/say_understands(var/mob/other, var/datum/language/speaking = null)
 	var/mob/living/simple_animal/borer/B = src.loc
 	if(!istype(B))
-		log_to_dd("Trapped mind found without a borer!")
+		log_runtime(EXCEPTION("Trapped mind found without a borer!"), src)
 		return 0
 	return B.host.say_understands(other, speaking)
 
 /mob/living/captive_brain/emote(var/message)
 	return
 
-/mob/living/captive_brain/resist_borer()
+/mob/living/captive_brain/resist()
 	var/mob/living/simple_animal/borer/B = loc
 
 	to_chat(src, "<span class='danger'>You begin doggedly resisting the parasite's control (this will take approximately sixty seconds).</span>")
@@ -76,7 +76,7 @@
 	attacktext = "nips"
 	friendly = "prods"
 	wander = 0
-	small = 1
+	mob_size = MOB_SIZE_TINY
 	density = 0
 	pass_flags = PASSTABLE
 	ventcrawler = 2
@@ -97,8 +97,13 @@
 	set category = "Borer"
 	set name = "Converse with Host"
 	set desc = "Send a silent message to your host."
+
 	if(!host)
 		to_chat(src, "You do not have a host to communicate with!")
+		return
+
+	if(stat)
+		to_chat(src, "You cannot do that in your current state.")
 		return
 
 	var/input = stripped_input(src, "Please enter a message to tell your host.", "Borer", "")
@@ -207,6 +212,12 @@
 				if(prob(host.getBrainLoss()/20))
 					host.say("*[pick(list("blink","blink_r","choke","aflap","drool","twitch","twitch_s","gasp"))]")
 
+/mob/living/simple_animal/borer/handle_environment()
+	if(host)
+		return // Snuggled up, nice and warm, in someone's head
+	else
+		return ..()
+
 /mob/living/simple_animal/borer/New(var/by_gamemode=0)
 	..()
 	add_language("Cortical Link")
@@ -226,18 +237,10 @@
 
 	show_stat_emergency_shuttle_eta()
 
-	if (client.statpanel == "Status")
+	if(client.statpanel == "Status")
 		stat("Chemicals", chemicals)
 
 // VERBS!
-
-/mob/living/simple_animal/borer/proc/borer_speak(var/message)
-	if(!message)
-		return
-
-	for(var/mob/M in mob_list)
-		if(M.mind && (istype(M, /mob/living/simple_animal/borer) || istype(M, /mob/dead/observer)))
-			to_chat(M, "<i>Cortical link, <b>[truename]:</b> [copytext(message, 2)]</i>")
 
 /mob/living/simple_animal/borer/verb/dominate_victim()
 	set category = "Borer"
@@ -288,6 +291,10 @@
 		to_chat(src, "You are not inside a host body.")
 		return
 
+	if(host.stat == DEAD)
+		to_chat(src, "This host is in no condition to be controlled.")
+		return
+
 	if(src.stat)
 		to_chat(src, "You cannot do that in your current state.")
 		return
@@ -303,8 +310,8 @@
 		if(!host || !src || controlling)
 			return
 		else
-			to_chat(src, "\red <B>You plunge your probosci deep into the cortex of the host brain, interfacing directly with their nervous system.</B>")
-			to_chat(host, "\red <B>You feel a strange shifting sensation behind your eyes as an alien consciousness displaces yours.</B>")
+			to_chat(src, "<span class='danger'>You plunge your probosci deep into the cortex of the host brain, interfacing directly with their nervous system.</span>")
+			to_chat(host, "<span class='danger'>You feel a strange shifting sensation behind your eyes as an alien consciousness displaces yours.</span>")
 			var/borer_key = src.key
 			host.attack_log += text("\[[time_stamp()]\] <font color='blue'>[key_name(src)] has assumed control of [key_name(host)]</font>")
 			msg_admin_attack("[key_name_admin(src)] has assumed control of [key_name_admin(host)]")
@@ -405,6 +412,7 @@
 
 	if(stat)
 		to_chat(src, "You cannot leave your host in your current state.")
+		return
 
 	if(docile)
 		to_chat(src, "\blue You are feeling far too docile to do that.")
@@ -494,12 +502,12 @@
 	var/mob/living/simple_animal/borer/B = has_brain_worms()
 
 	if(B && B.host_brain)
-		to_chat(src, "\red <B>You withdraw your probosci, releasing control of [B.host_brain]</B>")
+		to_chat(src, "<span class='danger'>You withdraw your probosci, releasing control of [B.host_brain]</span>")
 
 		B.detatch()
 
 	else
-		to_chat(src, "\red <B>ERROR NO BORER OR BRAINMOB DETECTED IN THIS MOB, THIS IS A BUG !</B>")
+		to_chat(src, "<span class='danger'>ERROR NO BORER OR BRAINMOB DETECTED IN THIS MOB, THIS IS A BUG !</span>")
 
 //Brain slug proc for tormenting the host.
 /mob/living/carbon/proc/punish_host()
@@ -513,8 +521,8 @@
 		return
 
 	if(B.host_brain.ckey)
-		to_chat(src, "\red <B>You send a punishing spike of psychic agony lancing into your host's brain.</B>")
-		to_chat(B.host_brain, "\red <B><FONT size=3>Horrific, burning agony lances through you, ripping a soundless scream from your trapped mind!</FONT></B>")
+		to_chat(src, "<span class='danger'>You send a punishing spike of psychic agony lancing into your host's brain.</span>")
+		to_chat(B.host_brain, "<span class='danger'><FONT size=3>Horrific, burning agony lances through you, ripping a soundless scream from your trapped mind!</FONT></span>")
 
 //Check for brain worms in head.
 /mob/proc/has_brain_worms()
@@ -536,8 +544,8 @@
 		return
 
 	if(B.chemicals >= 100)
-		to_chat(src, "\red <B>Your host twitches and quivers as you rapdly excrete several larvae from your sluglike body.</B>")
-		visible_message("\red <B>[src] heaves violently, expelling a rush of vomit and a wriggling, sluglike creature!</B>")
+		to_chat(src, "<span class='danger'>Your host twitches and quivers as you rapdly excrete several larvae from your sluglike body.</span>")
+		visible_message("<span class='danger'>[src] heaves violently, expelling a rush of vomit and a wriggling, sluglike creature!</span>")
 		B.chemicals -= 100
 
 		new /obj/effect/decal/cleanable/vomit(get_turf(src))
@@ -658,7 +666,7 @@
 			return
 		if(response == "Yes")
 			transfer_personality(C)
-		else if (response == "Never for this round")
+		else if(response == "Never for this round")
 			C.prefs.be_special -= ROLE_BORER
 
 /mob/living/simple_animal/borer/proc/transfer_personality(var/client/candidate)
@@ -678,7 +686,7 @@
 	if(stat != CONSCIOUS)
 		return
 
-	if (layer != TURF_LAYER+0.2)
+	if(layer != TURF_LAYER+0.2)
 		layer = TURF_LAYER+0.2
 		to_chat(src, "\green You are now hiding.")
 	else

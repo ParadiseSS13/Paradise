@@ -56,40 +56,17 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 			continue
 		if(amount && send_count >= amount)
 			break
+			// TODO: Make the radio system cooperate with the space manager
 		if(machine.loc.z != listening_level)
 			if(long_range_link == 0 && machine.long_range_link == 0)
 				continue
 		// If we're sending a copy, be sure to create the copy for EACH machine and paste the data
-		var/datum/signal/copy = new
+		var/datum/signal/copy
 		if(copysig)
-
+			copy = new
 			copy.transmission_method = 2
 			copy.frequency = signal.frequency
-			// Copy the main data contents! Workaround for some nasty bug where the actual array memory is copied and not its contents.
-			copy.data = list(
-
-			"mob" = signal.data["mob"],
-			"mobtype" = signal.data["mobtype"],
-			"realname" = signal.data["realname"],
-			"name" = signal.data["name"],
-			"job" = signal.data["job"],
-			"key" = signal.data["key"],
-			"vmessage" = signal.data["vmessage"],
-			"vname" = signal.data["vname"],
-			"vmask" = signal.data["vmask"],
-			"compression" = signal.data["compression"],
-			"message" = signal.data["message"],
-			"connection" = signal.data["connection"],
-			"radio" = signal.data["radio"],
-			"slow" = signal.data["slow"],
-			"traffic" = signal.data["traffic"],
-			"type" = signal.data["type"],
-			"server" = signal.data["server"],
-			"reject" = signal.data["reject"],
-			"level" = signal.data["level"],
-			"verb" = signal.data["verb"],
-			"language" = signal.data["language"]
-			)
+			copy.data = signal.data.Copy()
 
 			// Keep the "original" signal constant
 			if(!signal.data["original"])
@@ -97,15 +74,11 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 			else
 				copy.data["original"] = signal.data["original"]
 
-		else
-			qdel(copy)
-
-
 		send_count++
 		if(machine.is_freq_listening(signal))
 			machine.traffic++
 
-		if(copysig && copy)
+		if(copysig)
 			machine.receive_information(copy, src)
 		else
 			machine.receive_information(signal, src)
@@ -142,9 +115,11 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 	if(!listening_level)
 		//Defaults to our Z level!
 		var/turf/position = get_turf(src)
+		// TODO: Make the radio system cooperate with the space manager
 		listening_level = position.z
 
 /obj/machinery/telecomms/initialize()
+	..()
 	if(autolinkers.len)
 		// Links nearby machines
 		if(!long_range_link)
@@ -166,6 +141,7 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 /obj/machinery/telecomms/proc/add_link(var/obj/machinery/telecomms/T)
 	var/turf/position = get_turf(src)
 	var/turf/T_position = get_turf(T)
+	// TODO: Make the radio system cooperate with the space manager
 	if((position.z == T_position.z) || (src.long_range_link && T.long_range_link))
 		for(var/x in autolinkers)
 			if(T.autolinkers.Find(x))
@@ -387,7 +363,7 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 			src.receive_information(signal, src)
 
 		// Try sending it!
-		var/list/try_send = list("/obj/machinery/telecomms/server", "/obj/machinery/telecomms/hub", "/obj/machinery/telecomms/broadcaster", "/obj/machinery/telecomms/bus")
+		var/list/try_send = list("/obj/machinery/telecomms/server", "/obj/machinery/telecomms/hub", "/obj/machinery/telecomms/broadcaster")
 		var/i = 0
 		for(var/send in try_send)
 			if(i)
@@ -584,10 +560,3 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 	var/name = "data packet (#)"
 	var/garbage_collector = 1 // if set to 0, will not be garbage collected
 	var/input_type = "Speech File"
-
-
-
-
-
-
-

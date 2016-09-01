@@ -19,7 +19,7 @@
 	..()
 	for(dir in list(NORTH,EAST,SOUTH,WEST))
 		computer = locate(/obj/machinery/computer/operating, get_step(src, dir))
-		if (computer)
+		if(computer)
 			computer.table = src
 			break
 
@@ -30,12 +30,12 @@
 			qdel(src)
 			return
 		if(2.0)
-			if (prob(50))
+			if(prob(50))
 				//SN src = null
 				qdel(src)
 				return
 		if(3.0)
-			if (prob(25))
+			if(prob(25))
 				src.density = 0
 		else
 	return
@@ -45,7 +45,7 @@
 		qdel(src)
 
 /obj/machinery/optable/attack_hand(mob/user as mob)
-	if (HULK in usr.mutations)
+	if(HULK in usr.mutations)
 		to_chat(usr, text("\blue You destroy the table."))
 		visible_message("\red [usr] destroys the operating table!")
 		src.density = 0
@@ -92,16 +92,17 @@
 	check_victim()
 
 /obj/machinery/optable/proc/take_victim(mob/living/carbon/C, mob/living/carbon/user as mob)
-	if (C == user)
+	if(C == user)
 		user.visible_message("[user] climbs on the operating table.","You climb on the operating table.")
 	else
 		visible_message("<span class='alert'>[C] has been laid on the operating table by [user].</span>")
-	if (C.client)
+	if(C.client)
 		C.client.perspective = EYE_PERSPECTIVE
 		C.client.eye = src
 	C.resting = 1
+	C.update_canmove()
 	C.loc = src.loc
-	if (user.pulling == C)
+	if(user.pulling == C)
 		user.stop_pulling()
 	for(var/obj/O in src)
 		O.loc = src.loc
@@ -126,7 +127,7 @@
 	take_victim(usr,usr)
 
 /obj/machinery/optable/attackby(obj/item/weapon/W as obj, mob/living/carbon/user as mob, params)
-	if (istype(W, /obj/item/weapon/grab))
+	if(istype(W, /obj/item/weapon/grab))
 		if(iscarbon(W:affecting))
 			take_victim(W:affecting,usr)
 			qdel(W)

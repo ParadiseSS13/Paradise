@@ -34,10 +34,10 @@ var/list/drinks = list("beer2","hot_coco","orangejuice","tomatojuice","limejuice
 					"nothing","potato","milk","soymilk","cream","coffee","tea","icecoffee",
 					"icetea","cola","nuka_cola","spacemountainwind","thirteenloko","dr_gibb",
 					"space_up","lemon_lime","beer","whiskey","gin","rum","vodka","holywater",
-					"tequilla","vermouth","wine","tonic","kahlua","cognac","ale","sodawater",
+					"tequila","vermouth","wine","tonic","kahlua","cognac","ale","sodawater",
 					"ice","bilk","atomicbomb","threemileisland","goldschlager","patron","gintonic",
 					"cubalibre","whiskeycola","martini","vodkamartini","whiterussian","screwdrivercocktail",
-					"booger","bloodymary","gargleblaster","bravebull","tequillasunrise","toxinsspecial",
+					"booger","bloodymary","gargleblaster","bravebull","tequilasunrise","toxinsspecial",
 					"beepskysmash","salglu_solution","irishcream","manlydorf","longislandicedtea",
 					"moonshine","b52","irishcoffee","margarita","blackrussian","manhattan",
 					"manhattan_proj","whiskeysoda","antifreeze","barefoot","snowwhite","demonsblood",
@@ -55,7 +55,12 @@ var/global/list/blocked_chems = list("polonium", "initropidril", "concentrated_i
 							"syndicate_nanites", "ripping_tendrils", "boiling_oil",
 							"envenomed_filaments", "lexorin_jelly", "kinetic",
 							"cryogenic_liquid", "dark_matter", "b_sorium",
-							"reagent", "life")
+							"reagent", "life","dragonsbreath")
 
 //List of chems/mixtures that can't grow in plants (in addition to the global random chem blacklist)
 var/global/list/plant_blocked_chems = list()	//filled in /datum/reagents/New() with chems that have can_grow_in_plants = 0
+
+var/global/list/safe_chem_list = list("antihol", "charcoal", "epinephrine", "insulin", "teporone","silver_sulfadiazine", "salbutamol",
+									  "omnizine", "stimulants", "synaptizine", "potass_iodide", "oculine", "mannitol", "styptic_powder",
+									  "spaceacillin", "salglu_solution", "sal_acid", "cryoxadone", "blood", "synthflesh", "hydrocodone",
+									  "mitocholide", "rezadone")

@@ -3,17 +3,15 @@
 /datum/dna/gene/basic/grant_spell/morph
 	name = "Morphism"
 	desc = "Enables the subject to reconfigure their appearance to that of any human."
-
 	spelltype =/obj/effect/proc_holder/spell/targeted/morph
 	activation_messages=list("Your body feels if can alter its appearance.")
 	deactivation_messages = list("Your body doesn't feel capable of altering its appearance.")
-
-
+	instability = GENE_INSTABILITY_MINOR
 	mutation=MORPH
 
-	New()
-		..()
-		block = MORPHBLOCK
+/datum/dna/gene/basic/grant_spell/morph/New()
+	..()
+	block = MORPHBLOCK
 
 /obj/effect/proc_holder/spell/targeted/morph
 	name = "Morph"
@@ -33,32 +31,40 @@
 /obj/effect/proc_holder/spell/targeted/morph/cast(list/targets)
 	if(!ishuman(usr))	return
 
-	if (istype(usr.loc,/mob/))
-		to_chat(usr, "\red You can't change your appearance right now!")
+	if(istype(usr.loc,/mob/))
+		to_chat(usr, "<span class='warning'>You can't change your appearance right now!</span>")
 		return
 	var/mob/living/carbon/human/M=usr
 	var/obj/item/organ/external/head/head_organ = M.get_organ("head")
+	var/obj/item/organ/internal/eyes/eyes_organ = M.get_int_organ(/obj/item/organ/internal/eyes)
 
 	var/new_gender = alert(usr, "Please select gender.", "Character Generation", "Male", "Female")
-	if (new_gender)
+	if(new_gender)
 		if(new_gender == "Male")
 			M.change_gender(MALE)
 		else
 			M.change_gender(FEMALE)
 
-	var/new_eyes = input("Please select eye color.", "Character Generation", rgb(M.r_eyes,M.g_eyes,M.b_eyes)) as null|color
+	var/eyes_red = 0
+	var/eyes_green = 0
+	var/eyes_blue = 0
+	if(eyes_organ)
+		eyes_red = eyes_organ.eye_colour[1]
+		eyes_green = eyes_organ.eye_colour[2]
+		eyes_blue = eyes_organ.eye_colour[3]
+	var/new_eyes = input("Please select eye color.", "Character Generation", rgb(eyes_red,eyes_green,eyes_blue)) as null|color
 	if(new_eyes)
-		M.r_eyes = hex2num(copytext(new_eyes, 2, 4))
-		M.g_eyes = hex2num(copytext(new_eyes, 4, 6))
-		M.b_eyes = hex2num(copytext(new_eyes, 6, 8))
-		M.change_eye_color(M.r_eyes, M.g_eyes, M.b_eyes)
+		eyes_red = hex2num(copytext(new_eyes, 2, 4))
+		eyes_green = hex2num(copytext(new_eyes, 4, 6))
+		eyes_blue = hex2num(copytext(new_eyes, 6, 8))
+		M.change_eye_color(eyes_red, eyes_green, eyes_blue)
 
 	// hair
 	var/list/valid_hairstyles = M.generate_valid_hairstyles()
 	var/new_style = input("Please select hair style", "Character Generation", head_organ.h_style) as null|anything in valid_hairstyles
 
 	// if new style selected (not cancel)
-	if (new_style)
+	if(new_style)
 		head_organ.h_style = new_style
 
 	var/new_hair = input("Please select hair color.", "Character Generation", rgb(head_organ.r_hair, head_organ.g_hair, head_organ.b_hair)) as null|color
@@ -116,10 +122,23 @@
 
 	//Skin tone.
 	if(M.species.bodyflags & HAS_SKIN_TONE)
-		var/new_tone = input("Please select skin tone level: 1-220 (1=albino, 35=caucasian, 150=black, 220='very' black)", "Character Generation", "[M.s_tone]") as null|text
-		if (!new_tone)
+		var/new_tone = input("Please select skin tone level: 1-220 (1=albino, 35=caucasian, 150=black, 220='very' black)", "Character Generation", M.s_tone) as null|text
+		if(!new_tone)
 			new_tone = 35
 		M.s_tone = 35 - max(min(round(text2num(new_tone)), 220), 1)
+
+	if(M.species.bodyflags & HAS_ICON_SKIN_TONE)
+		var/prompt = "Please select skin tone: 1-[M.species.icon_skin_tones.len] ("
+		for(var/i = 1; i <= M.species.icon_skin_tones.len; i++)
+			prompt += "[i] = [M.species.icon_skin_tones[i]]"
+			if(i != M.species.icon_skin_tones.len)
+				prompt += ", "
+		prompt += ")"
+
+		var/new_tone = input(prompt, "Character Generation", M.s_tone) as null|text
+		if(!new_tone)
+			new_tone = 0
+		M.s_tone = max(min(round(text2num(new_tone)), M.species.icon_skin_tones.len), 1)
 
 	//Skin colour.
 	if(M.species.bodyflags & HAS_SKIN_COLOR)
@@ -133,19 +152,20 @@
 	M.regenerate_icons()
 	M.update_dna()
 
-	M.visible_message("\blue \The [src] morphs and changes [M.get_visible_gender() == MALE ? "his" : M.get_visible_gender() == FEMALE ? "her" : "their"] appearance!", "\blue You change your appearance!", "\red Oh, god!  What the hell was that?  It sounded like flesh getting squished and bone ground into a different shape!")
+	M.visible_message("<span class='notice'>[src] morphs and changes [M.get_visible_gender() == MALE ? "his" : M.get_visible_gender() == FEMALE ? "her" : "their"] appearance!</span>", "<span class='notice'>You change your appearance!</span>", "<span class='warning'>Oh, god!  What the hell was that?  It sounded like flesh getting squished and bone ground into a different shape!</span>")
 
 /datum/dna/gene/basic/grant_spell/remotetalk
 	name="Telepathy"
 	activation_messages=list("You feel you can project your thoughts.")
 	deactivation_messages=list("You no longer feel you can project your thoughts.")
+	instability = GENE_INSTABILITY_MINOR
 	mutation=REMOTE_TALK
 
 	spelltype =/obj/effect/proc_holder/spell/targeted/remotetalk
 
-	New()
-		..()
-		block=REMOTETALKBLOCK
+/datum/dna/gene/basic/grant_spell/remotetalk/New()
+	..()
+	block=REMOTETALKBLOCK
 
 /obj/effect/proc_holder/spell/targeted/remotetalk
 	name = "Project Mind"
@@ -193,10 +213,10 @@
 	for(var/mob/living/target in targets)
 		log_say("Project Mind: [key_name(usr)]->[key_name(target)]: [say]")
 		if(REMOTE_TALK in target.mutations)
-			target.show_message("\blue You hear [usr.real_name]'s voice: [say]")
+			target.show_message("<span class='notice'>You hear [usr.real_name]'s voice: [say]</span>")
 		else
-			target.show_message("\blue You hear a voice that seems to echo around the room: [say]")
-		usr.show_message("\blue You project your mind into [target.real_name]: [say]")
+			target.show_message("<span class='notice'>You hear a voice that seems to echo around the room: [say]</span>")
+		usr.show_message("<span class='notice'>You project your mind into [target.real_name]: [say]</span>")
 		for(var/mob/dead/observer/G in player_list)
 			G.show_message("<i>Telepathic message from <b>[usr]</b> ([ghost_follow_link(usr, ghost=G)]) to <b>[target]</b> ([ghost_follow_link(target, ghost=G)]): [say]</i>")
 
@@ -204,12 +224,13 @@
 	name="Remote Viewing"
 	activation_messages=list("Your mind can see things from afar.")
 	deactivation_messages=list("Your mind can no longer can see things from afar.")
+	instability = GENE_INSTABILITY_MINOR
 	mutation=REMOTE_VIEW
 
 	spelltype =/obj/effect/proc_holder/spell/targeted/remoteview
 
-	New()
-		block=REMOTEVIEWBLOCK
+/datum/dna/gene/basic/grant_spell/remoteview/New()
+	block=REMOTEVIEWBLOCK
 
 
 /obj/effect/proc_holder/spell/targeted/remoteview
@@ -226,9 +247,11 @@
 	action_icon_state = "genetic_view"
 
 /obj/effect/proc_holder/spell/targeted/remoteview/choose_targets(mob/user = usr)
-	var/list/targets = living_mob_list
+	var/list/targets = list()
 	var/list/remoteviewers = new /list()
-	for(var/mob/M in targets)
+	for(var/mob/M in living_mob_list)
+		if(PSY_RESIST in M.mutations)
+			continue
 		if(REMOTE_VIEW in M.mutations)
 			remoteviewers += M
 	if(!remoteviewers.len || remoteviewers.len == 1)
@@ -249,7 +272,7 @@
 	var/mob/target
 
 	if(istype(user.l_hand, /obj/item/tk_grab) || istype(user.r_hand, /obj/item/tk_grab/))
-		to_chat(user, "\red Your mind is too busy with that telekinetic grab.")
+		to_chat(user, "<span class='warning'>Your mind is too busy with that telekinetic grab.</span>")
 		user.remoteview_target = null
 		user.reset_view(0)
 		return
@@ -260,17 +283,11 @@
 		return
 
 	for(var/mob/living/L in targets)
-		if(ishuman(L))
-			var/mob/living/carbon/human/H = L
-			if(PSY_RESIST in H.mutations)
-				continue
 		target = L
 
-	if (target)
+	if(target)
 		user.remoteview_target = target
 		user.reset_view(target)
 	else
 		user.remoteview_target = null
 		user.reset_view(0)
-
-

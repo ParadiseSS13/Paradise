@@ -10,6 +10,7 @@
 	damage_coeff = list(BRUTE = 0.5, BURN = 0.7, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
 
 	environment_smash = 2 //Walls can't stop THE LAW
+	mob_size = MOB_SIZE_LARGE
 
 	radio_channel = "Security"
 	bot_type = SEC_BOT
@@ -323,7 +324,7 @@ Auto Patrol[]"},
 		return
 	anchored = 0
 	threatlevel = 0
-	for (var/mob/living/carbon/C in view(7,src)) //Let's find us a criminal
+	for(var/mob/living/carbon/C in view(7,src)) //Let's find us a criminal
 		if((C.stat) || (C.handcuffed))
 			continue
 
@@ -365,7 +366,7 @@ Auto Patrol[]"},
 	new /obj/item/device/assembly/prox_sensor(Tsec)
 
 	if(!lasercolor)
-		var/obj/item/weapon/gun/energy/advtaser/G = new /obj/item/weapon/gun/energy/advtaser(Tsec)
+		var/obj/item/weapon/gun/energy/gun/advtaser/G = new /obj/item/weapon/gun/energy/gun/advtaser(Tsec)
 		G.power_supply.charge = 0
 		G.update_icon()
 	else if(lasercolor == "b")
@@ -403,7 +404,7 @@ Auto Patrol[]"},
 	shoot_sound = 'sound/weapons/laser.ogg'
 	if(emagged == 2)
 		if(lasercolor)
-			projectile = /obj/item/projectile/lasertag
+			projectile = /obj/item/projectile/beam/lasertag
 		else
 			projectile = /obj/item/projectile/beam
 	else
@@ -411,9 +412,9 @@ Auto Patrol[]"},
 			shoot_sound = 'sound/weapons/Taser.ogg'
 			projectile = /obj/item/projectile/energy/electrode
 		else if(lasercolor == "b")
-			projectile = /obj/item/projectile/lasertag/blue
+			projectile = /obj/item/projectile/beam/lasertag/bluetag
 		else if(lasercolor == "r")
-			projectile = /obj/item/projectile/lasertag/red
+			projectile = /obj/item/projectile/beam/lasertag/redtag
 
 /mob/living/simple_animal/bot/ed209/proc/shootAt(mob/target)
 	if(lastfired && world.time - lastfired < shot_delay)
@@ -438,8 +439,7 @@ Auto Patrol[]"},
 	A.current = U
 	A.yo = U.y - T.y
 	A.xo = U.x - T.x
-	spawn(0)
-		A.process()
+	A.fire()
 
 /mob/living/simple_animal/bot/ed209/attack_alien(mob/living/carbon/alien/user)
 	..()
@@ -491,10 +491,10 @@ Auto Patrol[]"},
 	if(!disabled)
 		var/lasertag_check = 0
 		if((lasercolor == "b"))
-			if(istype(Proj, /obj/item/projectile/lasertag/red))
+			if(istype(Proj, /obj/item/projectile/beam/lasertag/redtag))
 				lasertag_check++
 		else if((lasercolor == "r"))
-			if(istype(Proj, /obj/item/projectile/lasertag/blue))
+			if(istype(Proj, /obj/item/projectile/beam/lasertag/bluetag))
 				lasertag_check++
 		if(lasertag_check)
 			icon_state = "[lasercolor]ed2090"
@@ -548,7 +548,7 @@ Auto Patrol[]"},
 		C.Weaken(5)
 		C.stuttering = 5
 		C.Stun(5)
-	add_logs(src,C,"stunned")
+	add_logs(src, C, "stunned")
 	if(declare_arrests)
 		var/area/location = get_area(src)
 		speak("[arrest_type ? "Detaining" : "Arresting"] level [threat] scumbag <b>[C]</b> in [location].", radio_channel)

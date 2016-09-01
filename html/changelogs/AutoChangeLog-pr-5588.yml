@@ -1,0 +1,5 @@
+author: Crazylemon
+delete-after: True
+changes: 
+  - bugfix: "Dying of low blood is no longer capable of causing eternal death"
+  - bugfix: "Having your body brought back to life will no longer break your health doll"

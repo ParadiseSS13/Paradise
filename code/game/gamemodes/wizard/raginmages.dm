@@ -14,12 +14,12 @@
 
 /datum/game_mode/wizard/raginmages/announce()
 	to_chat(world, "<B>The current game mode is - Ragin' Mages!</B>")
-	to_chat(world, "<B>The \red Space Wizard Federation\black is pissed, help defeat all the space wizards!</B>")
+	to_chat(world, "<B>The <font color='red'>Space Wizard Federation</font> is pissed, help defeat all the space wizards!</B>")
 
 
 /datum/game_mode/wizard/raginmages/greet_wizard(var/datum/mind/wizard, var/you_are=1)
-	if (you_are)
-		to_chat(wizard.current, "<B>\red You are the Space Wizard!</B>")
+	if(you_are)
+		to_chat(wizard.current, "<span class='danger'>You are the Space Wizard!</span>")
 	to_chat(wizard.current, "<B>The Space Wizards Federation has given you the following tasks:</B>")
 
 	var/obj_count = 1
@@ -72,7 +72,7 @@
 			continue // Could just be a bad connection, so SSD wiz's shouldn't be gibbed over it, but they're not "alive" either
 		wizards_alive++
 
-	if (wizards_alive)
+	if(wizards_alive)
 		if(!time_checked) time_checked = world.time
 		if(world.time > time_till_chaos && world.time > time_checked + delay_per_mage && (mages_made < wizard_cap))
 			time_checked = world.time
@@ -161,7 +161,7 @@
 				mages_made++
 				return 1
 			else
-				log_to_dd("The candidates list for ragin' mages contained non-observer entries!")
+				log_runtime(EXCEPTION("The candidates list for ragin' mages contained non-observer entries!"), src)
 				return 0
 
 // ripped from -tg-'s wizcode, because whee lets make a very general proc for a very specific gamemode

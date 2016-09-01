@@ -1,3 +1,5 @@
+#define EMAG_DELAY 50
+
 /obj/machinery/photocopier
 	name = "photocopier"
 	icon = 'icons/obj/library.dmi'
@@ -9,9 +11,11 @@
 	idle_power_usage = 30
 	active_power_usage = 200
 	power_channel = EQUIP
+	var/emag_cooldown
+	atom_say_verb = "bleeps"
 	var/obj/item/copyitem = null	//what's in the copier!
 	var/copies = 1	//how many copies to print!
-	var/toner = 30 //how much toner is left! woooooo~
+	var/toner = 60 //how much toner is left! woooooo~
 	var/maxcopies = 10	//how many copies can be copied at once- idea shamelessly stolen from bs12's copier!
 	var/mob/living/ass = null
 
@@ -36,7 +40,9 @@
 	dat += "Current toner level: [toner]"
 	if(!toner)
 		dat +="<BR>Please insert a new toner cartridge!"
-	user << browse(dat, "window=copier")
+	var/datum/browser/popup = new(user, "copier", name, 400, 400)
+	popup.set_content(dat)
+	popup.open(0)
 	onclose(user, "copier")
 	return
 
@@ -50,16 +56,19 @@
 			if(toner <= 0)
 				break
 
-			if (istype(copyitem, /obj/item/weapon/paper))
+			if(emag_cooldown > world.time)
+				return
+
+			if(istype(copyitem, /obj/item/weapon/paper))
 				copy(copyitem)
 				sleep(15)
-			else if (istype(copyitem, /obj/item/weapon/photo))
+			else if(istype(copyitem, /obj/item/weapon/photo))
 				photocopy(copyitem)
 				sleep(15)
-			else if (istype(copyitem, /obj/item/weapon/paper_bundle))
+			else if(istype(copyitem, /obj/item/weapon/paper_bundle))
 				var/obj/item/weapon/paper_bundle/B = bundlecopy(copyitem)
 				sleep(15*B.amount)
-			else if (ass && ass.loc == src.loc)
+			else if(ass && ass.loc == src.loc)
 				copyass()
 				sleep(15)
 			else
@@ -97,13 +106,13 @@
 			if(!camera)
 				return
 			var/datum/picture/selection = camera.selectpicture()
-			if (!selection)
+			if(!selection)
 				return
 
 			playsound(loc, "sound/goonstation/machines/printer_dotmatrix.ogg", 50, 1)
 			var/obj/item/weapon/photo/p = new /obj/item/weapon/photo (src.loc)
 			p.construct(selection)
-			if (p.desc == "")
+			if(p.desc == "")
 				p.desc += "Copied by [tempAI.name]"
 			else
 				p.desc += " - Copied by [tempAI.name]"
@@ -188,11 +197,11 @@
 	c.offset_y = copy.offset_y
 	var/list/temp_overlays = copy.overlays       //Iterates through stamps
 	var/image/img                                //and puts a matching
-	for (var/j = 1, j <= temp_overlays.len, j++) //gray overlay onto the copy
+	for(var/j = 1, j <= temp_overlays.len, j++) //gray overlay onto the copy
 		if(copy.ico.len)
-			if (findtext(copy.ico[j], "cap") || findtext(copy.ico[j], "cent"))
+			if(findtext(copy.ico[j], "cap") || findtext(copy.ico[j], "cent"))
 				img = image('icons/obj/bureaucracy.dmi', "paper_stamp-circle")
-			else if (findtext(copy.ico[j], "deny"))
+			else if(findtext(copy.ico[j], "deny"))
 				img = image('icons/obj/bureaucracy.dmi', "paper_stamp-x")
 			else
 				img = image('icons/obj/bureaucracy.dmi', "paper_stamp-dots")
@@ -226,45 +235,30 @@
 
 /obj/machinery/photocopier/proc/copyass()
 	var/icon/temp_img
-	if(check_ass()) //You have to be sitting on the copier and either be a xeno or a human without clothes on.
-		if(ishuman(ass)) //Suit checks are in check_ass
+	if(!check_ass()) //You have to be sitting on the copier and either be a xeno or a human without clothes on.
+		return
+	if(emagged)
+		if(ishuman(ass))
 			var/mob/living/carbon/human/H = ass
-			switch(H.get_species())
-				if("Human")
-					temp_img = icon('icons/obj/butts.dmi', "human")
-				if("Tajaran")
-					temp_img = icon('icons/obj/butts.dmi', "tajaran")
-				if("Unathi")
-					temp_img = icon('icons/obj/butts.dmi', "unathi")
-				if("Skrell")
-					temp_img = icon('icons/obj/butts.dmi', "skrell")
-				if("Vox")
-					temp_img = icon('icons/obj/butts.dmi', "vox")
-				if("Kidan")
-					temp_img = icon('icons/obj/butts.dmi', "kidan")
-				if("Grey")
-					temp_img = icon('icons/obj/butts.dmi', "grey")
-				if("Diona")
-					temp_img = icon('icons/obj/butts.dmi', "diona")
-				if("Slime People")
-					temp_img = icon('icons/obj/butts.dmi', "slime")
-				if("Vulpkanin")
-					temp_img = icon('icons/obj/butts.dmi', "vulp")
-				if("Machine")
-					temp_img = icon('icons/obj/butts.dmi', "machine")
-				if("Plasmaman")
-					temp_img = icon('icons/obj/butts.dmi', "plasma")
-				if("Drask")
-					temp_img = icon('icons/obj/butts.dmi', "drask")
-				else
-					temp_img = icon('icons/obj/butts.dmi', "human")
-		else if(istype(ass,/mob/living/silicon/robot/drone))
-			temp_img = icon('icons/obj/butts.dmi', "drone")
-		else if(istype(ass,/mob/living/simple_animal/diona))
-			temp_img = icon('icons/obj/butts.dmi', "nymph")
-		else if(isalien(ass) || istype(ass,/mob/living/simple_animal/hostile/alien)) //Xenos have their own asses, thanks to Pybro.
-			temp_img = icon('icons/obj/butts.dmi', "xeno")
-		else return
+			to_chat(H, "<span class='notice'>Something smells toasty...</span>")
+			var/obj/item/organ/external/G = H.get_organ("groin")
+			G.take_damage(0, 30)
+			spawn(20)
+				H.emote("scream")
+			emag_cooldown = world.time + EMAG_DELAY
+		else
+			to_chat(ass, "<span class='notice'>Something smells toasty...</span>")
+			ass.apply_damage(30, BURN)
+			emag_cooldown = world.time + EMAG_DELAY
+	if(ishuman(ass)) //Suit checks are in check_ass
+		var/mob/living/carbon/human/H = ass
+		temp_img = icon('icons/obj/butts.dmi', H.species.butt_sprite)
+	else if(istype(ass,/mob/living/silicon/robot/drone))
+		temp_img = icon('icons/obj/butts.dmi', "drone")
+	else if(istype(ass,/mob/living/simple_animal/diona))
+		temp_img = icon('icons/obj/butts.dmi', "nymph")
+	else if(isalien(ass) || istype(ass,/mob/living/simple_animal/hostile/alien)) //Xenos have their own asses, thanks to Pybro.
+		temp_img = icon('icons/obj/butts.dmi', "xeno")
 	else
 		return
 	var/obj/item/weapon/photo/p = new /obj/item/weapon/photo (loc)
@@ -310,7 +304,7 @@
 
 /obj/machinery/photocopier/MouseDrop_T(mob/target, mob/user)
 	check_ass() //Just to make sure that you can re-drag somebody onto it after they moved off.
-	if (!istype(target) || target.buckled || get_dist(user, src) > 1 || get_dist(user, target) > 1 || user.stat || istype(user, /mob/living/silicon/ai) || target == ass)
+	if(!istype(target) || target.buckled || get_dist(user, src) > 1 || get_dist(user, target) > 1 || user.stat || istype(user, /mob/living/silicon/ai) || target == ass)
 		return
 	src.add_fingerprint(user)
 	if(target == user && !user.incapacitated())
@@ -335,9 +329,20 @@
 		updateUsrDialog()
 		return 0
 	else
+		playsound(loc, 'sound/machines/ping.ogg', 50, 0)
+		atom_say("<span class='danger'>Attention: Posterior Placed on Printing Plaque!</span>")
 		return 1
+
+/obj/machinery/photocopier/emag_act(user as mob)
+	if(!emagged)
+		emagged = 1
+		to_chat(user, "<span class='notice'>You overload the photocopier's laser printing mechanism.</span>")
+	else
+		to_chat(user, "<span class='notice'>The photocopier's laser printing mechanism is already overloaded!</span>")
 
 /obj/item/device/toner
 	name = "toner cartridge"
 	icon_state = "tonercartridge"
 	var/toner_amount = 30
+
+#undef EMAG_DELAY

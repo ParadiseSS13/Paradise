@@ -9,11 +9,6 @@ var/global/default_martial_art = new/datum/martial_art
 	var/b_markings = 0
 	var/m_style = "None"
 
-	//Eye colour
-	var/r_eyes = 0
-	var/g_eyes = 0
-	var/b_eyes = 0
-
 	var/s_tone = 0	//Skin tone
 
 	//Skin colour
@@ -53,10 +48,11 @@ var/global/default_martial_art = new/datum/martial_art
 
 	var/speech_problem_flag = 0
 
+	var/datum/personal_crafting/handcrafting
+
 	var/datum/martial_art/martial_art = null
 
 	var/special_voice = "" // For changing our voice. Used by a symptom.
-	var/said_last_words=0
 
 	var/last_dam = -1	//Used for determining if we need to process all organs or just some or even none.
 	var/list/bad_external_organs = list()// organs we check until they are good.
@@ -70,12 +66,9 @@ var/global/default_martial_art = new/datum/martial_art
 	var/mob/remoteview_target = null
 	var/meatleft = 3 //For chef item
 	var/decaylevel = 0 // For rotting bodies
-	var/max_blood = 560 // For stuff in the vessel
-	var/slime_color = "blue" //For slime people this defines their color, it's blue by default to pay tribute to the old icons
+	var/max_blood = BLOOD_VOLUME_NORMAL // For stuff in the vessel
 
 	var/check_mutations=0 // Check mutations on next life tick
-
-	var/lastFart = 0 // Toxic fart cooldown.
 
 	var/fire_dmi = 'icons/mob/OnFire.dmi'
 	var/fire_sprite = "Standing"

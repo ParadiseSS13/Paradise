@@ -34,6 +34,7 @@
 	density = 0
 	flying = 1
 	anchored = 1
+	mob_size = MOB_SIZE_TINY
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 
 	var/essence = 75 //The resource of revenants. Max health is equal to three times this amount
@@ -164,7 +165,7 @@
 
 /mob/living/simple_animal/revenant/death()
 	..()
-	if(!revealed || stat == DEAD) //Revenants cannot die if they aren't revealed //or are already dead
+	if(!revealed)
 		return
 	ghost_darkness_images -= ghostimage
 	updateallghostimages()
@@ -187,7 +188,6 @@
 	ghostize()
 	qdel(src)
 	return
-
 
 /mob/living/simple_animal/revenant/attackby(obj/item/W, mob/living/user, params)
 	if(istype(W, /obj/item/weapon/nullrod))
@@ -390,7 +390,7 @@
 		player_mind.active = 1
 		player_mind.transfer_to(R)
 		player_mind.assigned_role = "revenant"
-		player_mind.special_role = "Revenant"
+		player_mind.special_role = SPECIAL_ROLE_REVENANT
 		ticker.mode.traitors |= player_mind
 		message_admins("[key_of_revenant] has been [client_to_revive ? "re":""]made into a revenant by reforming ectoplasm.")
 		log_game("[key_of_revenant] was [client_to_revive ? "re":""]made as a revenant by reforming ectoplasm.")

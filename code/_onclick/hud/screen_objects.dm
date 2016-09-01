@@ -10,9 +10,11 @@
 	name = ""
 	icon = 'icons/mob/screen_gen.dmi'
 	layer = 20
+	plane = HUD_PLANE
 	unacidable = 1
 	var/obj/master = null	//A reference to the object in the slot. Grabs or items, generally.
 	var/datum/hud/hud = null
+	appearance_flags = NO_CLIENT_COLOR
 
 /obj/screen/Destroy()
 	master = null
@@ -94,114 +96,99 @@
 	screen_loc = ui_internal
 
 /obj/screen/internals/Click()
-	if(iscarbon(usr))
-		var/mob/living/carbon/C = usr
-		if(!C.stat && !C.stunned && !C.paralysis && !C.restrained())
-			if(C.internal)
-				C.internal = null
-				to_chat(C, "<span class='notice'>No longer running on internals.</span>")
-				if(C.internals)
-					C.internals.icon_state = "internal0"
-			else
+	if(!iscarbon(usr))
+		return
+	var/mob/living/carbon/C = usr
+	if(C.incapacitated())
+		return
 
-				var/no_mask
-				if(!(C.wear_mask && C.wear_mask.flags & AIRTIGHT))
-					if(ishuman(C))
-						var/mob/living/carbon/human/H = C
-						if(!(H.head && H.head.flags & AIRTIGHT))
-							no_mask = 1
+	if(C.internal)
+		C.internal = null
+		to_chat(C, "<span class='notice'>No longer running on internals.</span>")
+		icon_state = "internal0"
+	else
+		var/no_mask = FALSE
+		if(!C.wear_mask || !(C.wear_mask.flags & AIRTIGHT))
+			if(ishuman(C))
+				var/mob/living/carbon/human/H = C
+				if(!H.head || !(H.head.flags & AIRTIGHT))
+					no_mask = TRUE
 
-				if(no_mask)
-					to_chat(C, "<span class='notice'>You are not wearing a suitable mask or helmet.</span>")
-					return 1
-				else
-					var/list/nicename = null
-					var/list/tankcheck = null
-					var/breathes = "oxygen"    //default, we'll check later
-					var/list/contents = list()
-					var/from = "on"
+		if(no_mask)
+			to_chat(C, "<span class='notice'>You are not wearing a suitable mask or helmet.</span>")
+			return
 
-					if(ishuman(C))
-						var/mob/living/carbon/human/H = C
-						breathes = H.species.breath_type
-						nicename = list ("suit", "back", "belt", "right hand", "left hand", "left pocket", "right pocket")
-						tankcheck = list (H.s_store, C.back, H.belt, C.r_hand, C.l_hand, H.l_store, H.r_store)
-					else
-						nicename = list("right hand", "left hand", "back")
-						tankcheck = list(C.r_hand, C.l_hand, C.back)
+		var/list/nicename = null
+		var/list/tankcheck = null
+		var/breathes = "oxygen"
+		var/list/contents = list()
+		var/from = "on"
 
-					// Rigs are a fucking pain since they keep an air tank in nullspace.
-					if(istype(C.back,/obj/item/weapon/rig))
-						var/obj/item/weapon/rig/rig = C.back
-						if(rig.air_supply)
-							from = "in"
-							nicename |= "hardsuit"
-							tankcheck |= rig.air_supply
+		if(ishuman(C))
+			var/mob/living/carbon/human/H = C
+			breathes = H.species.breath_type
+			nicename = list("suit", "back", "belt", "right hand", "left hand", "left pocket", "right pocket")
+			tankcheck = list(H.s_store, C.back, H.belt, C.r_hand, C.l_hand, H.l_store, H.r_store)
+		else
+			nicename = list("right hand", "left hand", "back")
+			tankcheck = list(C.r_hand, C.l_hand, C.back)
 
-					for(var/i=1, i<tankcheck.len+1, ++i)
-						if(istype(tankcheck[i], /obj/item/weapon/tank))
-							var/obj/item/weapon/tank/t = tankcheck[i]
-/*									if (!isnull(t.manipulated_by) && t.manipulated_by != C.real_name && findtext(t.desc,breathes))
-								contents.Add(t.air_contents.total_moles)	Someone messed with the tank and put unknown gasses
-								continue					in it, so we're going to believe the tank is what it says it is*/
-							switch(breathes)
-																//These tanks we're sure of their contents
-								if("nitrogen") 							//So we're a bit more picky about them.
+		// Rigs are a fucking pain since they keep an air tank in nullspace.
+		if(istype(C.back,/obj/item/weapon/rig))
+			var/obj/item/weapon/rig/rig = C.back
+			if(rig.air_supply)
+				from = "in"
+				nicename |= "hardsuit"
+				tankcheck |= rig.air_supply
 
-									if(t.air_contents.nitrogen && !t.air_contents.oxygen)
-										contents.Add(t.air_contents.nitrogen)
-									else
-										contents.Add(0)
-
-								if ("oxygen")
-									if(t.air_contents.oxygen && !t.air_contents.toxins)
-										contents.Add(t.air_contents.oxygen)
-									else
-										contents.Add(0)
-
-								// No races breath this, but never know about downstream servers.
-								if ("carbon dioxide")
-									if(t.air_contents.carbon_dioxide && !t.air_contents.toxins)
-										contents.Add(t.air_contents.carbon_dioxide)
-									else
-										contents.Add(0)
-
-								// ACK ACK ACK Plasmen
-								if ("plasma")
-									if(t.air_contents.toxins)
-										contents.Add(t.air_contents.toxins)
-									else
-										contents.Add(0)
-
-
+		for(var/i = 1, i < tankcheck.len + 1, ++i)
+			if(istype(tankcheck[i], /obj/item/weapon/tank))
+				var/obj/item/weapon/tank/t = tankcheck[i]
+				switch(breathes)
+					if("nitrogen")
+						if(t.air_contents.nitrogen && !t.air_contents.oxygen)
+							contents.Add(t.air_contents.nitrogen)
 						else
-							//no tank so we set contents to 0
 							contents.Add(0)
+					if("oxygen")
+						if(t.air_contents.oxygen && !t.air_contents.toxins)
+							contents.Add(t.air_contents.oxygen)
+						else
+							contents.Add(0)
+					if("carbon dioxide")
+						if(t.air_contents.carbon_dioxide && !t.air_contents.toxins)
+							contents.Add(t.air_contents.carbon_dioxide)
+						else
+							contents.Add(0)
+					if("plasma")
+						if(t.air_contents.toxins)
+							contents.Add(t.air_contents.toxins)
+						else
+							contents.Add(0)
+			else
+				//no tank so we set contents to 0
+				contents.Add(0)
 
-					//Alright now we know the contents of the tanks so we have to pick the best one.
+		//Alright now we know the contents of the tanks so we have to pick the best one.
+		var/best = 0
+		var/bestcontents = 0
+		for(var/i=1, i <  contents.len + 1 , ++i)
+			if(!contents[i])
+				continue
+			if(contents[i] > bestcontents)
+				best = i
+				bestcontents = contents[i]
+		//We've determined the best container now we set it as our internals
+		if(best)
+			to_chat(C, "<span class='notice'>You are now running on internals from [tankcheck[best]] [from] your [nicename[best]].</span>")
+			C.internal = tankcheck[best]
 
-					var/best = 0
-					var/bestcontents = 0
-					for(var/i=1, i <  contents.len + 1 , ++i)
-						if(!contents[i])
-							continue
-						if(contents[i] > bestcontents)
-							best = i
-							bestcontents = contents[i]
+		if(C.internal)
+			icon_state = "internal1"
+		else
+			to_chat(C, "<span class='notice'>You don't have a[breathes == "oxygen" ? "n oxygen" : addtext(" ",breathes)] tank.</span>")
 
-
-					//We've determined the best container now we set it as our internals
-
-					if(best)
-						to_chat(C, "<span class='notice'>You are now running on internals from [tankcheck[best]] [from] your [nicename[best]].</span>")
-						C.internal = tankcheck[best]
-
-
-					if(C.internal)
-						if(C.internals)
-							C.internals.icon_state = "internal1"
-					else
-						to_chat(C, "<span class='notice'>You don't have a[breathes=="oxygen" ? "n oxygen" : addtext(" ",breathes)] tank.</span>")
+	C.update_action_buttons_icon()
 
 /obj/screen/mov_intent
 	name = "run/walk toggle"
@@ -270,7 +257,7 @@
 		return 1
 	if(usr.stat || usr.paralysis || usr.stunned || usr.weakened)
 		return 1
-	if (istype(usr.loc,/obj/mecha)) // stops inventory actions in a mech
+	if(istype(usr.loc,/obj/mecha)) // stops inventory actions in a mech
 		return 1
 	if(master)
 		var/obj/item/I = usr.get_active_hand()
@@ -359,6 +346,16 @@
 /obj/screen/zone_sel/robot
 	icon = 'icons/mob/screen_robot.dmi'
 
+/obj/screen/inventory/craft
+	name = "crafting menu"
+	icon = 'icons/mob/screen_midnight.dmi'
+	icon_state = "craft"
+	screen_loc = ui_crafting
+
+/obj/screen/inventory/craft/Click()
+	var/mob/living/M = usr
+	M.OpenCraftingMenu()
+
 /obj/screen/inventory
 	var/slot_id	//The indentifier for the slot. It has nothing to do with ID cards.
 	layer = 19
@@ -370,7 +367,7 @@
 		return 1
 	if(usr.incapacitated())
 		return 1
-	if (istype(usr.loc,/obj/mecha)) // stops inventory actions in a mech
+	if(istype(usr.loc,/obj/mecha)) // stops inventory actions in a mech
 		return 1
 	if(usr.attack_ui(slot_id))
 		usr.update_inv_l_hand(0)
@@ -409,7 +406,7 @@
 		return 1
 	if(usr.incapacitated())
 		return 1
-	if (istype(usr.loc,/obj/mecha)) // stops inventory actions in a mech
+	if(istype(usr.loc,/obj/mecha)) // stops inventory actions in a mech
 		return 1
 
 	if(ismob(usr))
@@ -471,4 +468,4 @@
 	name = "health doll"
 	icon_state = "healthdoll_DEAD"
 	screen_loc = ui_healthdoll
-
+	var/list/cached_healthdoll_overlays = list() // List of icon states (strings) for overlays

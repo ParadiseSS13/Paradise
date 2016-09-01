@@ -5,7 +5,7 @@
 
 	robot_talk_understand = 0
 	emote_type = 2		// pAIs emotes are heard, not seen, so they can be seen through a container (eg. person)
-	small = 1
+	mob_size = MOB_SIZE_TINY
 	pass_flags = PASSTABLE
 	density = 0
 	holder_type = /obj/item/weapon/holder/pai
@@ -127,21 +127,21 @@
 /mob/living/silicon/pai/Stat()
 	..()
 	statpanel("Status")
-	if (src.client.statpanel == "Status")
+	if(src.client.statpanel == "Status")
 		show_silenced()
 
-	if (proc_holder_list.len)//Generic list for proc_holder objects.
+	if(proc_holder_list.len)//Generic list for proc_holder objects.
 		for(var/obj/effect/proc_holder/P in proc_holder_list)
 			statpanel("[P.panel]","",P)
 
 /mob/living/silicon/pai/check_eye(var/mob/user as mob)
-	if (!src.current)
+	if(!src.current)
 		return null
 	user.reset_view(src.current)
 	return 1
 
 /mob/living/silicon/pai/blob_act()
-	if (src.stat != 2)
+	if(src.stat != 2)
 		src.adjustBruteLoss(60)
 		src.updatehealth()
 		return 1
@@ -166,7 +166,7 @@
 	to_chat(src, "<font color=green><b>Communication circuit overload. Shutting down and reloading communication circuits - speech and messaging functionality will be unavailable until the reboot is complete.</b></font>")
 	if(prob(20))
 		var/turf/T = get_turf_or_move(src.loc)
-		for (var/mob/M in viewers(T))
+		for(var/mob/M in viewers(T))
 			M.show_message("\red A shower of sparks spray from [src]'s inner workings.", 3, "\red You hear and smell the ozone hiss of electrical sparks being expelled violently.", 2)
 		return src.death(0)
 
@@ -191,15 +191,15 @@
 
 	switch(severity)
 		if(1.0)
-			if (src.stat != 2)
+			if(src.stat != 2)
 				adjustBruteLoss(100)
 				adjustFireLoss(100)
 		if(2.0)
-			if (src.stat != 2)
+			if(src.stat != 2)
 				adjustBruteLoss(60)
 				adjustFireLoss(60)
 		if(3.0)
-			if (src.stat != 2)
+			if(src.stat != 2)
 				adjustBruteLoss(30)
 
 	return
@@ -215,7 +215,7 @@
 		if(M.attack_sound)
 			playsound(loc, M.attack_sound, 50, 1, 1)
 		for(var/mob/O in viewers(src, null))
-			O.show_message("\red <B>[M]</B> [M.attacktext] [src]!", 1)
+			O.show_message("<span class='danger'>[M]</span> [M.attacktext] [src]!", 1)
 		M.attack_log += text("\[[time_stamp()]\] <font color='red'>attacked [src.name] ([src.ckey])</font>")
 		src.attack_log += text("\[[time_stamp()]\] <font color='orange'>was attacked by [M.name] ([M.ckey])</font>")
 		var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
@@ -223,29 +223,29 @@
 		updatehealth()
 
 /mob/living/silicon/pai/attack_alien(mob/living/carbon/alien/humanoid/M as mob)
-	if (!ticker)
+	if(!ticker)
 		to_chat(M, "You cannot attack people before the game has started.")
 		return
 
-	if (istype(src.loc, /turf) && istype(src.loc.loc, /area/start))
+	if(istype(src.loc, /turf) && istype(src.loc.loc, /area/start))
 		to_chat(M, "You cannot attack someone in the spawn area.")
 		return
 
 	switch(M.a_intent)
 
-		if (I_HELP)
+		if(I_HELP)
 			for(var/mob/O in viewers(src, null))
-				if ((O.client && !( O.blinded )))
+				if((O.client && !( O.blinded )))
 					O.show_message(text("\blue [M] caresses [src]'s casing with its scythe like arm."), 1)
 
 		else //harm
 			M.do_attack_animation(src)
 			var/damage = rand(10, 20)
-			if (prob(90))
+			if(prob(90))
 				playsound(src.loc, 'sound/weapons/slash.ogg', 25, 1, -1)
 				for(var/mob/O in viewers(src, null))
-					if ((O.client && !( O.blinded )))
-						O.show_message(text("\red <B>[] has slashed at []!</B>", M, src), 1)
+					if((O.client && !( O.blinded )))
+						O.show_message(text("<span class='danger'>[] has slashed at []!</span>", M, src), 1)
 				if(prob(8))
 					flash_eyes(affect_silicon = 1)
 				src.adjustBruteLoss(damage)
@@ -253,17 +253,17 @@
 			else
 				playsound(src.loc, 'sound/weapons/slashmiss.ogg', 25, 1, -1)
 				for(var/mob/O in viewers(src, null))
-					if ((O.client && !( O.blinded )))
-						O.show_message(text("\red <B>[] took a swipe at []!</B>", M, src), 1)
+					if((O.client && !( O.blinded )))
+						O.show_message(text("<span class='danger'>[] took a swipe at []!</span>", M, src), 1)
 	return
 
 /mob/living/silicon/pai/proc/switchCamera(var/obj/machinery/camera/C)
 	usr:cameraFollow = null
-	if (!C)
+	if(!C)
 		src.unset_machine()
 		src.reset_view(null)
 		return 0
-	if (stat == 2 || !C.status || !(src.network in C.network)) return 0
+	if(stat == 2 || !C.status || !(src.network in C.network)) return 0
 
 	// ok, we're alive, camera is good and in our network...
 
@@ -306,7 +306,7 @@
 		to_chat(usr, "You can't change your camera network because you are dead!")
 		return
 
-	for (var/obj/machinery/camera/C in Cameras)
+	for(var/obj/machinery/camera/C in Cameras)
 		if(!C.status)
 			continue
 		else
@@ -441,9 +441,9 @@
 /mob/living/silicon/pai/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/stack/nanopaste))
 		var/obj/item/stack/nanopaste/N = W
-		if (stat == DEAD)
+		if(stat == DEAD)
 			to_chat(user, "<span class='danger'>\The [src] is beyond help, at this point.</span>")
-		else if (getBruteLoss() || getFireLoss())
+		else if(getBruteLoss() || getFireLoss())
 			adjustBruteLoss(-15)
 			adjustFireLoss(-15)
 			updatehealth()
@@ -466,10 +466,15 @@
 	return
 
 /mob/living/silicon/pai/attack_hand(mob/user as mob)
-	if(stat == 2) return
-	visible_message("<span class='danger'>[user.name] boops [src] on the head.</span>")
-	spawn(1)
-		close_up()
+	if(stat == DEAD)
+		return
+	if(user.a_intent == I_HELP)
+		user.visible_message("<span class='notice'>[user] pets [src].</span>")
+		playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+	else
+		visible_message("<span class='danger'>[user.name] boops [src] on the head.</span>")
+		spawn(1)
+			close_up()
 
 //I'm not sure how much of this is necessary, but I would rather avoid issues.
 /mob/living/silicon/pai/proc/close_up()
@@ -516,35 +521,36 @@
 		to_chat(src, "<span class='warning'>You are far too small to pull anything!</span>")
 	return
 
-/mob/living/silicon/pai/update_canmove()
+/mob/living/silicon/pai/update_canmove(delay_action_updates = 0)
 	. = ..()
 	density = 0 //this is reset every canmove update otherwise
 
 /mob/living/silicon/pai/examine(mob/user)
+	to_chat(user, "<span class='info'>*---------*</span>")
 	..(user)
 
-	var/msg = ""
+	var/msg = "<span class='info'>"
 
 	switch(src.stat)
 		if(CONSCIOUS)
 			if(!src.client)	msg += "\nIt appears to be in stand-by mode." //afk
 		if(UNCONSCIOUS)		msg += "\n<span class='warning'>It doesn't seem to be responding.</span>"
 		if(DEAD)			msg += "\n<span class='deadsay'>It looks completely unsalvageable.</span>"
-	msg += "\n*---------*</span>"
 
-	if(print_flavor_text()) msg += "\n[print_flavor_text()]\n"
+	if(print_flavor_text()) msg += "\n[print_flavor_text()]"
 
-	if (pose)
+	if(pose)
 		if( findtext(pose,".",lentext(pose)) == 0 && findtext(pose,"!",lentext(pose)) == 0 && findtext(pose,"?",lentext(pose)) == 0 )
 			pose = addtext(pose,".") //Makes sure all emotes end with a period.
 		msg += "\nIt is [pose]"
+	msg += "\n*---------*</span>"
 
 	to_chat(user, msg)
 
 /mob/living/silicon/pai/bullet_act(var/obj/item/projectile/Proj)
 	..(Proj)
 	updatehealth()
-	if (stat != 2)
+	if(stat != 2)
 		spawn(1)
 			close_up()
 	return 2
@@ -560,6 +566,9 @@
 	var/obj/item/weapon/holder/H = ..()
 	if(!istype(H))
 		return
+	if(resting)
+		icon_state = "[chassis]"
+		resting = 0
 	H.icon_state = "pai-[icon_state]"
 	H.item_state = "pai-[icon_state]"
 	grabber.put_in_active_hand(H)//for some reason unless i call this it dosen't work

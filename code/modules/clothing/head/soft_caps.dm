@@ -5,25 +5,29 @@
 	item_state = "helmet"
 	item_color = "cargo"
 	var/flipped = 0
+	actions_types = list(/datum/action/item_action/flip_cap)
 
-	dropped()
-		src.icon_state = "[item_color]soft"
-		src.flipped=0
-		..()
+/obj/item/clothing/head/soft/dropped()
+	icon_state = "[item_color]soft"
+	flipped = 0
+	..()
 
-	verb/flip()
-		set category = "Object"
-		set name = "Flip cap"
-		set src in usr
-		if(usr.canmove && !usr.stat && !usr.restrained())
-			src.flipped = !src.flipped
-			if(src.flipped)
-				icon_state = "[item_color]soft_flipped"
-				to_chat(usr, "You flip the hat backwards.")
-			else
-				icon_state = "[item_color]soft"
-				to_chat(usr, "You flip the hat back in normal position.")
-			usr.update_inv_head()	//so our mob-overlays update
+/obj/item/clothing/head/soft/attack_self(mob/user)
+	flip(user)
+
+/obj/item/clothing/head/soft/proc/flip(mob/user)
+	flipped = !flipped
+	if(flipped)
+		icon_state = "[item_color]soft_flipped"
+		to_chat(usr, "You flip the hat backwards.")
+	else
+		icon_state = "[item_color]soft"
+		to_chat(user, "You flip the hat back in normal position.")
+	user.update_inv_head()	//so our mob-overlays update
+
+	for(var/X in actions)
+		var/datum/action/A = X
+		A.UpdateButtonIcon()
 
 /obj/item/clothing/head/soft/red
 	name = "red cap"
@@ -90,7 +94,7 @@
 	desc = "It's baseball hat in tasteful red colour."
 	icon_state = "secsoft"
 	item_color = "sec"
-	armor = list(melee = 30, bullet = 25, laser = 25, energy = 10, bomb = 0, bio = 0, rad = 0)
+	armor = list(melee = 30, bullet = 25, laser = 25, energy = 10, bomb = 25, bio = 0, rad = 0)
 	strip_delay = 60
 
 /obj/item/clothing/head/soft/sec/corp

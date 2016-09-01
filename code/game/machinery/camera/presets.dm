@@ -81,12 +81,12 @@
 	assembly.upgrades.Add(new /obj/item/device/assembly/prox_sensor(assembly))
 	setPowerUsage()
 	// Add it to machines that process
-	machines |= src
+	machine_processing |= src
 
 /obj/machinery/camera/proc/setPowerUsage()
 	var/mult = 1
-	if (isXRay())
+	if(isXRay())
 		mult++
-	if (isMotion())
+	if(isMotion())
 		mult++
 	active_power_usage = mult*initial(active_power_usage)

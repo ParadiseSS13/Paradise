@@ -36,12 +36,16 @@
 	var/obj/screen/movable/action_button/hide_toggle/hide_actions_toggle
 	var/action_buttons_hidden = 0
 
+	var/obj/screen/internals
+
 /mob/proc/create_mob_hud()
 	if(client && !hud_used)
 		hud_used = new /datum/hud(src)
 
 /datum/hud/New(mob/owner)
 	mymob = owner
+	hide_actions_toggle = new
+	hide_actions_toggle.InitialiseIcon(mymob)
 
 /datum/hud/Destroy()
 	if(mymob.hud_used == src)
@@ -79,7 +83,6 @@
 
 	//clear mob refs to screen objects
 	mymob.throw_icon = null
-	mymob.internals = null
 	mymob.healths = null
 	mymob.healthdoll = null
 	mymob.pullin = null
@@ -92,6 +95,7 @@
 	alien_plasma_display = null
 	vampire_blood_display = null
 	nightvisionicon = null
+	internals = null
 
 	mymob = null
 	return ..()
@@ -121,6 +125,8 @@
 				mymob.client.screen += hotkeybuttons
 			if(infodisplay.len)
 				mymob.client.screen += infodisplay
+
+			mymob.client.screen += hide_actions_toggle
 
 			if(action_intent)
 				action_intent.screen_loc = initial(action_intent.screen_loc) //Restore intent selection to the original position
@@ -158,7 +164,7 @@
 
 	hud_version = display_hud_version
 	persistant_inventory_update()
-	mymob.update_action_buttons()
+	mymob.update_action_buttons(1)
 	reorganize_alerts()
 	reload_fullscreen()
 
@@ -186,4 +192,3 @@
 		to_chat(usr, "<span class ='info'>Switched HUD mode. Press F12 to toggle.</span>")
 	else
 		to_chat(usr, "<span class ='warning'>This mob type does not use a HUD.</span>")
-

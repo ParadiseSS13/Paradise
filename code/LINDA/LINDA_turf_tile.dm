@@ -246,14 +246,15 @@
 		overlays -= icemaster
 
 	var/new_overlay_type = tile_graphic()
-	if (new_overlay_type == atmos_overlay_type)
+	if(new_overlay_type == atmos_overlay_type)
 		return
 	var/atmos_overlay = get_atmos_overlay_by_name(atmos_overlay_type)
-	if (atmos_overlay)
+	if(atmos_overlay)
 		overlays -= atmos_overlay
+		mouse_opacity = 1
 
 	atmos_overlay = get_atmos_overlay_by_name(new_overlay_type)
-	if (atmos_overlay)
+	if(atmos_overlay)
 		overlays += atmos_overlay
 		atmos_overlay_type = new_overlay_type
 
@@ -267,10 +268,12 @@
 
 /turf/simulated/proc/tile_graphic()
 	if(air.toxins > MOLES_PLASMA_VISIBLE)
+		mouse_opacity = 0
 		return "plasma"
 
 	var/datum/gas/sleeping_agent = locate(/datum/gas/sleeping_agent) in air.trace_gases
 	if(sleeping_agent && (sleeping_agent.moles > 1))
+		mouse_opacity = 0
 		return "sleeping_agent"
 	return null
 

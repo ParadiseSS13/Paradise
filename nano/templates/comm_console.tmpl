@@ -68,6 +68,11 @@ Used In File(s): /code/game/machinery/computers/communications.dm
 			<div class="line">
 				{{:helper.link('Message List','comment',{'operation':'messagelist'})}}
 			</div>
+			{{if data.dock_request}}
+			<div class="line">
+				{{:helper.link('Accept Docking Request','signal',{'operation':'AcceptDocking'})}}
+				{{:helper.link('Deny Docking Request','signal',{'operation':'DenyDocking'})}}
+			{{/if}}
 		</div>
 	{{else data.screen==2}}
 		<!-- STATUS DISPLAYS -->
@@ -82,7 +87,7 @@ Used In File(s): /code/game/machinery/computers/communications.dm
 		<h3>Alerts</h3>
 		{{for data.stat_display.alerts}}
 			<div class="line">
-				<div class="statusLabel">{{:helper.link(value.label,'alert',{'operation':'setstat','statdisp':'alert','exclamation-triangle':value.alert},null,(value.alert==data.stat_display.type?'linkOn':''))}}</div>
+				<div class="statusLabel">{{:helper.link(value.label,'exclamation-triangle',{'operation':'setstat','statdisp':'alert','alert':value.alert},null,(value.alert==data.stat_display.type?'linkOn':''))}}</div>
 			</div>
 		{{/for}}
 		<h3>Messages</h3>

@@ -1,0 +1,30 @@
+"a" = (/turf/template_noop,/area/template_noop)
+"b" = (/obj/effect/decal/cleanable/flour{desc = "Probably."},/obj/effect/decal/cleanable/pie_smudge,/turf/template_noop,/area/template_noop)
+"c" = (/obj/effect/decal/cleanable/pie_smudge,/obj/effect/decal/cleanable/flour,/obj/item/weapon/bananapeel{layer = 2.6},/turf/template_noop,/area/template_noop)
+"d" = (/obj/structure/sign/poster{dir = 8; pixel_x = -32},/turf/unsimulated/floor/carpet,/area/template_noop)
+"e" = (/turf/unsimulated/floor/carpet,/area/template_noop)
+"f" = (/obj/effect/decal/cleanable/pie_smudge,/obj/effect/decal/cleanable/flour,/turf/unsimulated/floor/carpet,/area/template_noop)
+"g" = (/obj/structure/dresser,/turf/unsimulated/floor/carpet,/area/template_noop)
+"h" = (/obj/structure/stool/bed,/obj/item/weapon/bedsheet/orange,/obj/effect/decal/cleanable/pie_smudge,/obj/effect/decal/cleanable/flour,/obj/item/weapon/bananapeel/clownfish,/turf/unsimulated/floor/carpet,/area/template_noop)
+"i" = (/obj/structure/stool/bed,/obj/item/weapon/bedsheet/orange,/obj/effect/decal/cleanable/flour{desc = "Rather caked in there."},/obj/effect/decal/cleanable/pie_smudge,/obj/item/weapon/bananapeel/clownfish,/turf/unsimulated/floor/carpet,/area/template_noop)
+"j" = (/obj/structure/window/reinforced/polarized{id = "room_n"},/turf/unsimulated/floor/carpet,/area/template_noop)
+"k" = (/obj/machinery/door/window/southright,/obj/effect/decal/cleanable/pie_smudge,/obj/effect/decal/cleanable/flour,/turf/unsimulated/floor/carpet,/area/template_noop)
+"l" = (/obj/effect/decal/cleanable/pie_smudge,/obj/effect/decal/cleanable/flour,/obj/structure/window/reinforced/polarized{id = "room_n"},/turf/unsimulated/floor/carpet,/area/template_noop)
+"m" = (/obj/structure/table/woodentable,/obj/item/device/flashlight/lamp/bananalamp,/turf/unsimulated/floor/carpet,/area/template_noop)
+"n" = (/obj/structure/sink{icon_state = "sink"; dir = 8; pixel_x = -12; pixel_y = 2},/obj/structure/mirror{dir = 8; pixel_x = -28},/turf/unsimulated/floor{icon_state = "freezerfloor"},/area/template_noop)
+"o" = (/obj/structure/toilet{dir = 1},/turf/unsimulated/floor{icon_state = "freezerfloor"},/area/template_noop)
+"p" = (/obj/machinery/door/window/eastleft,/obj/machinery/button/windowtint{id = "room_n"; pixel_y = -24; range = 2},/turf/unsimulated/floor{icon_state = "freezerfloor"},/area/template_noop)
+"q" = (/obj/machinery/shower{dir = 8},/turf/unsimulated/floor{icon_state = "freezerfloor"},/area/template_noop)
+"r" = (/turf/unsimulated/wall/metal,/area/template_noop)
+
+(1,1,1) = {"
+aaabbaa
+aaacaaa
+adefega
+affffha
+aefffia
+ajjklma
+anopqra
+aaaaaaa
+aaaaaaa
+"}

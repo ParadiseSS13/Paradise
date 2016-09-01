@@ -170,14 +170,25 @@
 		H.ha_style = "None"
 	update_head_accessory()
 
-/mob/living/carbon/human/proc/change_eye_color(var/red, var/green, var/blue)
-	if(red == r_eyes && green == g_eyes && blue == b_eyes)
-		return
+/mob/living/carbon/human/proc/change_eye_color(var/red, var/green, var/blue, update_dna = 1)
+	// Update the main DNA datum, then sync the change across the organs
+	var/obj/item/organ/internal/eyes/eyes_organ = get_int_organ(/obj/item/organ/internal/eyes)
+	if(eyes_organ)
+		var/eyes_red = eyes_organ.eye_colour[1]
+		var/eyes_green = eyes_organ.eye_colour[2]
+		var/eyes_blue = eyes_organ.eye_colour[3]
+		if(red == eyes_red && green == eyes_green && blue == eyes_blue)
+			return
 
-	r_eyes = red
-	g_eyes = green
-	b_eyes = blue
+		eyes_organ.eye_colour[1] = red
+		eyes_organ.eye_colour[2] = green
+		eyes_organ.eye_colour[3] = blue
+		dna.eye_color_to_dna(eyes_organ)
+		eyes_organ.set_dna(dna)
 
+	if(update_dna)
+		update_dna()
+	sync_organ_dna(assimilate=0)
 	update_eyes()
 	update_body()
 	return 1
@@ -243,7 +254,7 @@
 	return 1
 
 /mob/living/carbon/human/proc/change_skin_tone(var/tone)
-	if(s_tone == tone || !(species.bodyflags & HAS_SKIN_TONE))
+	if(s_tone == tone || !((species.bodyflags & HAS_SKIN_TONE) || (species.bodyflags & HAS_ICON_SKIN_TONE)))
 		return
 
 	s_tone = tone
@@ -374,7 +385,7 @@
 	var/list/valid_body_accessories = new()
 	for(var/B in body_accessory_by_name)
 		var/datum/body_accessory/A = body_accessory_by_name[B]
-		if(check_rights(R_ADMIN, 1, src))
+		if(check_rights(R_ADMIN, 0, src))
 			valid_body_accessories = body_accessory_by_name.Copy()
 		else
 			if(!istype(A))

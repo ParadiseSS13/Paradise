@@ -53,7 +53,7 @@
 			//for(var/mob/M in world)
 			//	if(M.loc.loc == src.loc.loc && M.music == 0)
 //					to_chat(world, "Found the song...")
-//					to_chat(M, S)
+//					M << S
 			//		M.music = 1
 			var/area/A = src.loc.loc
 
@@ -64,12 +64,12 @@
 				for(var/mob/M in world)
 					if((M.loc.loc in A) && M.music == 0)
 //						to_chat(world, "Found the song...")
-						to_chat(M, S)
+						M << S
 						M.music = 1
 					else if(!(M.loc.loc in A) && M.music == 1)
 						var/sound/Soff = sound(null)
 						Soff.channel = 10
-						to_chat(M, Soff)
+						M << Soff
 						M.music = 0
 				sleep(10)
 			return
@@ -85,7 +85,7 @@
 			//for(var/mob/M in world)
 			//	if(M.loc.loc == src.loc.loc && M.music == 0)
 //					to_chat(world, "Found the song...")
-//					to_chat(M, S)
+//					M << S
 			//		M.music = 1
 			var/area/A = src.loc.loc
 			for(var/obj/machinery/party/lasermachine/L in A)
@@ -95,12 +95,12 @@
 				for(var/mob/M in world)
 					if(M.loc.loc == src.loc.loc && M.music == 0)
 //						to_chat(world, "Found the song...")
-						to_chat(M, S)
+						M << S
 						M.music = 1
 					else if(M.loc.loc != src.loc.loc && M.music == 1)
 						var/sound/Soff = sound(null)
 						Soff.channel = 10
-						to_chat(M, Soff)
+						M << Soff
 						M.music = 0
 				sleep(10)
 			return
@@ -116,7 +116,7 @@
 			//for(var/mob/M in world)
 			//	if(M.loc.loc == src.loc.loc && M.music == 0)
 //					to_chat(world, "Found the song...")
-//					to_chat(M, S)
+//					M << S
 			//		M.music = 1
 			var/area/A = src.loc.loc
 			for(var/obj/machinery/party/lasermachine/L in A)
@@ -126,12 +126,12 @@
 				for(var/mob/M in world)
 					if(M.loc.loc == src.loc.loc && M.music == 0)
 //						to_chat(world, "Found the song...")
-						to_chat(M, S)
+						M << S
 						M.music = 1
 					else if(M.loc.loc != src.loc.loc && M.music == 1)
 						var/sound/Soff = sound(null)
 						Soff.channel = 10
-						to_chat(M, Soff)
+						M << Soff
 						M.music = 0
 				sleep(10)
 			return
@@ -143,7 +143,7 @@
 			S.channel = 10
 			S.wait = 1
 			for(var/mob/M in world)
-				to_chat(M, S)
+				M << S
 				M.music = 0
 			playing = 0
 			var/area/A = src.loc.loc

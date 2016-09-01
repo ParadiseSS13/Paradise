@@ -2,15 +2,11 @@
 #define STOPSPRESSUREDMAGE 		1		//This flag is used on the flags variable for SUIT and HEAD items which stop pressure damage. Note that the flag 1 was previous used as ONBACK, so it is possible for some code to use (flags & 1) when checking if something can be put on your back. Replace this code with (inv_flags & SLOT_BACK) if you see it anywhere To successfully stop you taking all pressure damage you must have both a suit and head item with this flag.
 #define NODROP					2		// This flag makes it so that an item literally cannot be removed at all, or at least that's how it should be. Only deleted.
 #define NOBLUDGEON  			4		// when an item has this it produces no "X has been hit by Y with Z" message with the default handler
-#define AIRTIGHT			8		// mask allows internals
-//#define USEDELAY 				16		// 1 second extra delay on use (Can be used once every 2s)
-#define NOSHIELD				32		// weapon not affected by shield
-#define CONDUCT					64		// conducts electricity (metal etc.)
-#define ABSTRACT				128		// for all things that are technically items but used for various different stuff, made it 128 because it could conflict with other flags other way
-#define ON_BORDER				512		// item has priority to check when entering or leaving
-#define NODELAY 				32768	// 1 second attackby delay skipped (Can be used once every 0.2s). Most objects have a 1s attackby delay, which doesn't require a flag.
-
-#define NOBLOODY				2048	// used to items if they don't want to get a blood overlay
+#define AIRTIGHT				8		// mask allows internals
+#define HANDSLOW        		16		// If an item has this flag, it will slow you to carry it
+#define CONDUCT					32		// conducts electricity (metal etc.)
+#define ABSTRACT				64		// for all things that are technically items but used for various different stuff, made it 128 because it could conflict with other flags other way
+#define ON_BORDER				128		// item has priority to check when entering or leaving
 
 #define GLASSESCOVERSEYES		1024
 #define MASKCOVERSEYES			1024	// get rid of some of the other retardation in these flags
@@ -21,14 +17,13 @@
 #define HEADBANGPROTECT			4096
 #define EARBANGPROTECT			1024
 
-#define THICKMATERIAL 	1024			//prevents syringes, parapens and hypos if the external suit or helmet (if targeting head) has this flag. Example: space suits, biosuit, bombsuits, thick suits that cover your body. (NOTE: flag shared with NOSLIP)
 #define NOSLIP					1024 	//prevents from slipping on wet floors, in space etc
 
 #define OPENCONTAINER			4096	// is an open container for chemistry purposes
 
-#define BLOCK_GAS_SMOKE_EFFECT	8192	// blocks the effect that chemical clouds would have on a mob --glasses, mask and helmets ONLY! (NOTE: flag shared with ONESIZEFITSALL)
-#define ONESIZEFITSALL 			8192
-#define PLASMAGUARD 			16384	//Does not get contaminated by plasma.
+#define BLOCK_GAS_SMOKE_EFFECT	8192	// blocks the effect that chemical clouds would have on a mob --glasses, mask and helmets ONLY!
+#define THICKMATERIAL 			8192	//prevents syringes, parapens and hypos if the external suit or helmet (if targeting head) has this flag. Example: space suits, biosuit, bombsuits, thick suits that cover your body. (NOTE: flag shared with BLOCK_GAS_SMOKE_EFFECT)
+
 
 #define	NOREACT					16384 	//Reagents dont' react inside this container.
 
@@ -62,11 +57,12 @@
 #define HAS_TAIL 			16
 #define TAIL_OVERLAPPED		32
 #define HAS_SKIN_TONE 		64
-#define HAS_SKIN_COLOR		128
-#define HAS_MARKINGS		256
-#define TAIL_WAGGING    	512
-#define NO_EYES				1024
-#define HAS_FUR				2048
+#define HAS_ICON_SKIN_TONE	128
+#define HAS_SKIN_COLOR		256
+#define HAS_MARKINGS		512
+#define TAIL_WAGGING    	1024
+#define NO_EYES				2048
+#define HAS_FUR				4096
 
 //Species Diet Flags
 #define DIET_CARN		1

@@ -3,7 +3,8 @@
 		alert("The game hasn't started yet!")
 		return
 
-	var/list/incompatible_species = list("Plasmaman")
+	var/list/incompatible_species = list("Plasmaman", "Vox")
+	var/team_toggle = 0
 	for(var/mob/living/carbon/human/H in player_list)
 		if(H.stat == DEAD || !(H.client))
 			continue
@@ -14,8 +15,8 @@
 			var/datum/preferences/A = new()	// Randomize appearance
 			A.copy_to(H)
 
-		for (var/obj/item/I in H)
-			if (istype(I, /obj/item/weapon/implant))
+		for(var/obj/item/I in H)
+			if(istype(I, /obj/item/weapon/implant))
 				continue
 			if(istype (I, /obj/item/organ))
 				continue
@@ -27,7 +28,7 @@
 		H.equip_to_slot_or_del(new /obj/item/weapon/beach_ball/dodgeball(H), slot_r_hand)
 		H.equip_to_slot_or_del(new /obj/item/clothing/shoes/white(H), slot_shoes)
 
-		if(prob(50))
+		if(!team_toggle)
 			team_alpha += H
 
 			H.equip_to_slot_or_del(new /obj/item/clothing/under/color/red/dodgeball(H), slot_w_uniform)
@@ -53,6 +54,7 @@
 			W.registered_name = H.real_name
 			H.equip_to_slot_or_del(W, slot_wear_id)
 
+		team_toggle = !team_toggle
 		H.species.equip(H)
 		H.regenerate_icons()
 

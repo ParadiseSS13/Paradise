@@ -72,7 +72,7 @@ Made by Xhuis
 	required_enemies = 2
 	recommended_enemies = 2
 	restricted_jobs = list("AI", "Cyborg")
-	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Blueshield", "Nanotrasen Representative", "Security Pod Pilot", "Magistrate", "Brig Physician", "Internal Affairs Agent")
+	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Blueshield", "Nanotrasen Representative", "Security Pod Pilot", "Magistrate", "Brig Physician", "Internal Affairs Agent", "Nanotrasen Navy Officer", "Special Operations Officer")
 
 /datum/game_mode/shadowling/announce()
 	to_chat(world, "<b>The current game mode is - Shadowling!</b>")
@@ -94,7 +94,7 @@ Made by Xhuis
 		shadows += shadow
 		possible_shadowlings -= shadow
 		modePlayer += shadow
-		shadow.special_role = "Shadowling"
+		shadow.special_role = SPECIAL_ROLE_SHADOWLING
 		shadow.restricted_roles = restricted_jobs
 		shadowlings--
 	return 1
@@ -132,7 +132,7 @@ Made by Xhuis
 
 /datum/game_mode/proc/finalize_shadowling(var/datum/mind/shadow_mind)
 	var/mob/living/carbon/human/S = shadow_mind.current
-	shadow_mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shadowling_hatch)
+	shadow_mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shadowling_hatch(null))
 	spawn(0)
 		shadow_mind.current.add_language("Shadowling Hivemind")
 		update_shadow_icons_added(shadow_mind)
@@ -145,13 +145,13 @@ Made by Xhuis
 		return 0
 	if(!(new_thrall_mind in shadowling_thralls))
 		shadowling_thralls += new_thrall_mind
-		new_thrall_mind.special_role = "shadowling thrall"
+		new_thrall_mind.special_role = SPECIAL_ROLE_SHADOWLING_THRALL
 		update_shadow_icons_added(new_thrall_mind)
 		new_thrall_mind.current.attack_log += "\[[time_stamp()]\] <span class='danger'>Became a thrall</span>"
 		new_thrall_mind.current.add_language("Shadowling Hivemind")
-		new_thrall_mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/lesser_glare)
-		new_thrall_mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/lesser_shadow_walk)
-		new_thrall_mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shadow_vision/thrall)
+		new_thrall_mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/lesser_glare(null))
+		new_thrall_mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/lesser_shadow_walk(null))
+		new_thrall_mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shadow_vision/thrall(null))
 		to_chat(new_thrall_mind.current, "<span class='shadowling'><b>You see the truth. Reality has been torn away and you realize what a fool you've been.</b></span>")
 		to_chat(new_thrall_mind.current, "<span class='shadowling'><b>The shadowlings are your masters.</b> Serve them above all else and ensure they complete their goals.</span>")
 		to_chat(new_thrall_mind.current, "<span class='shadowling'>You may not harm other thralls or the shadowlings. However, you do not need to obey other thralls.</span>")
@@ -171,7 +171,7 @@ Made by Xhuis
 	thrall_mind.special_role = null
 	update_shadow_icons_removed(thrall_mind)
 	for(var/obj/effect/proc_holder/spell/S in thrall_mind.spell_list)
-		thrall_mind.remove_spell(S)
+		thrall_mind.RemoveSpell(S)
 	thrall_mind.current.remove_language("Shadowling Hivemind")
 	if(kill && ishuman(thrall_mind.current)) //If dethrallization surgery fails, kill the mob as well as dethralling them
 		var/mob/living/carbon/human/H = thrall_mind.current
@@ -215,7 +215,7 @@ Made by Xhuis
 	ling_mind.current.attack_log += "\[[time_stamp()]\] <span class='danger'>Deshadowlinged</span>"
 	ling_mind.special_role = null
 	for(var/obj/effect/proc_holder/spell/S in ling_mind.spell_list)
-		ling_mind.remove_spell(S)
+		ling_mind.RemoveSpell(S)
 	var/mob/living/M = ling_mind.current
 	if(issilicon(M))
 		M.audible_message("<span class='notice'>[M] lets out a short blip.</span>", \
@@ -352,7 +352,7 @@ Made by Xhuis
 		light_amount = T.get_lumcount() * 10
 		if(light_amount > LIGHT_DAM_THRESHOLD && !H.incorporeal_move)
 			H.take_overall_damage(0, LIGHT_DAMAGE_TAKEN/2)
-		else if (light_amount < LIGHT_HEAL_THRESHOLD)
+		else if(light_amount < LIGHT_HEAL_THRESHOLD)
 			H.heal_overall_damage(2,2)
 			H.adjustToxLoss(-5)
 			H.adjustBrainLoss(-25)

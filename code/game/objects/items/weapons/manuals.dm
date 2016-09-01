@@ -809,7 +809,7 @@
 		</html>
 
 		"}
-		
+
 /obj/item/weapon/book/manual/security_space_law/black
 	name = "Space Law - Limited Edition"
 	desc = "A leather-bound, immaculately-written copy of JUSTICE."
@@ -1184,6 +1184,65 @@
 				</html>
 			"}
 
+/obj/item/weapon/book/manual/faxes
+	name = "A Guide to Faxes"
+	desc = "A NanoTrasen-approved guide to writing faxes"
+	icon_state = "book6"
+	author = "NanoTrasen"
+	title = "A Guide to Faxes"
+	dat = {"
+
+		<html>
+				<head>
+				<style>
+				h1 {font-size: 15px; margin: 15px 0px 5px;}
+				li {margin: 2px 0px 2px 15px;}
+				ul {list-style: none; margin: 5px; padding: 0px;}
+				ol {margin: 5px; padding: 0px 15px;}
+				</style>
+				</head>
+				<body>
+				<font face="Verdana" color=black>
+
+				<h1><a name="Contents">Contents</a></h1>
+				<ol>
+					<li><a href="#what">What's a Fax?</a></li>
+					<li><a href="#when">When to Fax?</a></li>
+					<li><a href="#how">How to Fax?</a></li>
+				</ol>
+				<br><BR>
+
+				<h1><a name="what"><U><B>What's a Fax?</B></U></a></h1><BR>
+				<li>Faxes are your main method of communicating with the NAS Trurl, better known as Central Command.</li>
+				<li>Faxes allow personnel on the station to maintain open lines of communication with the NAS Trurl, allowing for vital information to flow both ways.</li>
+				<li>Being written communications, proper grammar, syntax and typography is required, in addition to a signature and, if applicable, a stamp. Failure to sign faxes will lead to an automatic rejection.</li>
+				<li>We at NanoTrasen provide Fax Machines to every Head of Staff, in addition to the Magistrate, NanoTrasen Representative, and Internal Affairs Agents.</li>
+				<li>This means that we trust the recipients of these fax machines to only use them in the proper circumstances (see <B>When to Fax?</B>).</li>
+
+				<h1><a name="when"><B>When to Fax?</B></a></h1><BR>
+				<li>While it is up to the discretion of each individual person to decide when to fax Central Command, there are some simple guidelines on when to do this.</li>
+				<li>Firstly, any situation that can reasonably be solved on-site, <I>should</I> be handled on-site. Knowledge of Standard Operating Procedure is <B>mandatory</B> for everyone with access to a fax machine.</li>
+				<li>Resolving issues on-site not only leads to more expedient problem-solving, it also frees up company resources and provides valuable work experience for all parties involved.</li>
+				<li>This means that you should work with the Heads of Staff concerning personnel and workplace issues, and attempt to resolve situations with them. If, for whatever reason, the relevent Head of Staff is not available or receptive, consider speaking with the Captain and/or NanoTrasen Representative.</li>
+				<li>If, for whatever reason, these issues cannot be solved on-site, either due to incompetence or just plain refusal to cooperate, faxing Central Command becomes a viable option.</li>
+				<li>Secondly, station status reports should be sent occasionally, but never at the start of the shift. Remember, we assign personnel to the station. We do not need a repeat of what we just signed off on.</li>
+				<li>Thirdly, staff/departmental evaluations are always welcome, especially in cases of noticeable (in)competence. Just as a brilliant coworker can be rewarded, an incompetent one can be punished.</li>
+				<li>Fourthly, do not issue faxes asking for sentences. You have an entire Security department and an associated Detective, not to mention on-site Space Law manuals.</li>
+				<li>Lastly, please pay attention to context. If the station is facing a massive emergency, such as a Class 7-10 Blob Organism, most, if not all, non-relevant faxes will be duly ignored.</li>
+
+				<h1><a name="how"><B>How to Fax?</B></a></h1><BR>
+				<li>Sending a fax is simple. Simply insert your ID into the fax machine, then log in.</li>
+				<li>Once logged in, insert a piece of paper and select the destination from the provided list. Remember, you can rename your fax from within the fax machine's menu.</li>
+				<li>You can send faxes to any other fax machine on the station, which can be a very useful tool when you need to issue broad communications to all of the Heads of Staff.</li>
+				<li>To send a fax to Central Command, simply select the correct destination, and send the fax. Keep in mind, the communication arrays need to recharge after sending a fax to Central Command, so make sure you sent everything you need.</li>
+				<li>Lastly, paper bundles can also be faxed as a single item, so feel free to bundle up all relevant documentation and send it in at once.</li>
+
+				</ol><BR>
+				</body>
+				</html>
+
+		"}
+
 /obj/item/weapon/book/manual/sop_science
 	name = "Science Standard Operating Procedures"
 	desc = "A set of guidelines aiming at the safe conduct of all scientific activities."
@@ -1483,7 +1542,7 @@
                     <li>Attending Surgeon is to keep the Operating Room in an hygienic condition at all times, <b>again</b>, to prevent infection;</li>
                     <li>Attending Surgeon is to wash his/her hands between different patients, again, to prevent infection;</li>
                     <li>Attending Surgeon is to use either Anesthetics or Sedatives (for species that cannot breathe Anesthetics) during Surgical Procedures. Exception is made if the patient requests otherwise;</li>
-                    <li>Attending Surgeon is not to remove any legal Implants (such as Loyalty or Tracking Implants) from the patient, unless requested by Security;</li>
+                    <li>Attending Surgeon is not to remove any legal Implants (such as Mindshield or Tracking Implants) from the patient, unless requested by Security;</li>
                     <li>If a patient requests that a lost limb be replaced with an organic, rather than mechanical, substitute, said limb must be harvested from a compatible humanized Test Animal (such as Monkeys for Humans, or Farwas for Tajarans). Exception is made if the patient deliberately requests otherwise;</li>
                     <li>Attending Surgeon is not to bring any of the Surgical Tools outside of their respective Operating Room, and must in fact ensure the Operating Room maintains its proper inventory. This includes ensuring that the Anesthetics Equipment be kept inside the OR</li>
                 </ol>
@@ -1815,18 +1874,6 @@
 				</ol>
                 <br><br>
 
-                <h1><a name="atmos"><B>Atmospherics Technician</B></a></h1><BR>
-				<ol>
-					<li>Atmospheric Technicians are permitted to completely repipe the Atmospherics Piping Setup, provided they do not pump harmful gases into anywhere except the Turbine;</li>
-                    <li>Atmospheric Technicians are not permitted to create volatile mixes using Plasma and Oxygen, nor are they permitted to create any potentially harmful mixes with Carbon Dioxide and/or Nitrous Oxide. An exception is made when working with the Turbine;</li>
-                    <li>Atmospheric Technicians are permitted to cool Plasma and store it for later use in Radiation Collectors. Likewise, they are permitted to cool Nitrogen or Carbon Dioxide and store it for use as coolant for the Supermatter Engine;</li>
-                    <li>Atmospheric Technicians are not permitted to take the axe out of its case unless there is an immediate and urgent threat to their life or urgent access to crisis locations is necessary. The axe must be returned to the case afterwards, and the case locked;</li>
-                    <li>Atmospheric Technicians are not permitted to tamper with the default values on Air Alarms. They are, however, permitted to create small, acclimatized rooms for species that require special atmospheric conditions (such as Plasmamen and Vox), provided they receive express permission from the Chief Engineer;</li>
-                    <li>Atmospheric Technicians must periodically check on the Central Alarms Computer, in periods of, at most, thirty (30) minutes;</li>
-                    <li>Atmospheric Technicians must respond promptly to piping and station breaches. Failure to report within fifteen (15) minutes will be considered a breach of Standard Operating Procedure, unless there are no spare Atmospheric Technicians to report, or an Engineer has arrived on scene first. All Hazard Zones must be cordoned off with Engineering Tape, for the sake of everyone else</li>
-				</ol>
-                <br><br>
-
                 <h1><a name="sf"><B>Shaft Miner</B></a></h1><BR>
 				<ol>
 					<li>Shaft Miners are not permitted to bring Gibtonite aboard the station;</li>
@@ -2153,7 +2200,7 @@
                     <li>Prisoner must then be borged, fired into space via mass driver, cremated, or placed in the morgue with a DNR Notice, at the discretion of the Magistrate, Captain or Head of Security.</li>
 				</ol>
                 <br><br>
-                
+
                 <h1><a name="elec"><B>Execution: Lethal Injection</B></a></h1><BR>
 				<ol>
 					<li>Prisoner must be bucklecuffed to the electric chair or bed.</li>
@@ -2162,7 +2209,7 @@
                     <li>Prisoner must then be borged, fired into space via mass driver, cremated, or placed in the morgue with a DNR Notice, at the discretion of the Magistrate, Captain or Head of Security.</li>
 				</ol>
                 <br><br>
-                
+
                  <h1><a name="elec"><B>Execution: Firing Squad</B></a></h1><BR>
 				<ol>
 					<li>Prisoner must be brought to the Firing Range.</li>
@@ -2176,7 +2223,7 @@
 				</html>
 
 		"}
-        
+
 /obj/item/weapon/book/manual/sop_general
 	name = "Standard Operating Procedures"
 	desc = "A set of guidelines aiming at the safe conduct of all station activities."
@@ -2224,7 +2271,7 @@
 
 				<h1><a name="green"><B>Code Green</B></a></h1><BR>
                 <i>All clear.</i><br>
-                Default operating level. No immediate or clear threat to the station. All departments may carry out work as normal. 
+                Default operating level. No immediate or clear threat to the station. All departments may carry out work as normal.
                 This alert level can be set at the Communications Console with a Captain level ID.<br>
                 <i>All threats to the station have passed. All weapons need to be holstered and privacy laws are once again fully enforced.</i><br>
                 <br>
@@ -2242,10 +2289,10 @@
                 Crew:<br>
                 <ul>
                     <li>Crew members may freely walk in the hallways</li>
-                    <li>Suit sensors are not mandatory.</li>   
+                    <li>Suit sensors are not mandatory.</li>
                 </ul>
                 <br><br>
-                
+
                 <h1><a name="blue"><B>Code Blue</B></a></h1><BR>
                 <i>There is a suspected threat.</i><br>
                 Raised alert level. Suspected threat to the station. Issued by Central Command, the Captain, or a Head of Staff vote. This alert level can be set at the Communications Console with a Captain level ID.<br>
@@ -2267,10 +2314,10 @@
                 Crew:<br>
                 <ul>
                     <li>Employees are recommended to comply with all security requests.</li>
-                    <li>Suit sensors are mandatory, but coordinate positions are not required.</li>   
+                    <li>Suit sensors are mandatory, but coordinate positions are not required.</li>
                 </ul>
                 <br><br>
-                
+
                 <h1><a name="red"><B>Code Red</B></a></h1><BR>
                 <i>There is a confirmed threat.</i><br>
                 Maximum alert level. Confirmed threat to the station or severe damage. Issued by Central Command, the Captain, or a Head of Staff vote. This alert level can only be set via the Keycard Authentication Devices in each Heads of Staff office and by swiping two Heads of Staff ID cards simultaneously.<br>
@@ -2291,12 +2338,12 @@
                 Crew:<br>
                 <ul>
                     <li>Suit sensors and coordinate positions are mandatory.</li>
-                    <li>All crew members must remain in their departments.</li>   
-                    <li>Employees are required to comply with all security requests.</li>  
-                    <li>Emergency Response Team may be authorised. All crew are to comply with their direction.</li>  
+                    <li>All crew members must remain in their departments.</li>
+                    <li>Employees are required to comply with all security requests.</li>
+                    <li>Emergency Response Team may be authorised. All crew are to comply with their direction.</li>
                 </ul>
                 <br><br>
-                
+
                 <h1><a name="gamma"><B>Code Gamma</B></a></h1><BR>
                 <i>Extremely hostile threat onboard the station.</i><br>
                 GAMMA Security level has been set by Centcom.<br>
@@ -2318,21 +2365,21 @@
                 Crew:<br>
                 <ul>
                     <li>Employees are required to comply with all security requests.</li>
-                    <li>All civilians are to seek their nearest head for transportation to a safe location.</li>   
+                    <li>All civilians are to seek their nearest head for transportation to a safe location.</li>
                     <li>All personnel are required to defend the station and help security with dealing with the threat. All crew must follow direct orders from Security Personell or Head of Staff.</li>
                 </ul>
                 <br><br>
-                
+
                 <h1><a name="hiring"><B>Hiring Policies</B></a></h1><BR>
                 <ul>
                     <li>Authorisation from the relevant Department Head is required to be hired into a Department. If none exists, the HoP or Captain's authorisation is required.</li>
                     <li>Promotion to a Department Head requires authorisation from the Captain or Acting Captain.</li>
                     <li>CentComm Authorisation is required for hiring the following: Blueshield, Security Pod Pilot, Magistrate, Brig Physician, Nanotrasen Representative, Mechanic.</li>
                     <li>If no Department Head has yet been sent, any promotion to said position is on a temporary basis until one arrives. </li>
-                    <li>All Security personnel are to be loyalty implanted.</li>
+                    <li>All Security personnel are to be mindshield implanted.</li>
                 </ul>
                 <br><br>
-                
+
                 <h1><a name="firing"><B>Firing Policies</B></a></h1><BR>
                 <ul>
                     <li>If a crew is to be dismissed, their ID is to be terminated.</li>
@@ -2341,7 +2388,7 @@
                     <li>Demotion or Dismissal must have due cause.</li>
                 </ul>
                 <br><br>
-                
+
                 <h1><a name="causes"><B>Causes for Demotion and Dismissal</B></a></h1><BR>
                 <ul>
                     <li>A medium or higher crime may be grounds for dismissal, at the department head's discretion.</li>
@@ -2356,11 +2403,11 @@
                     <li>Failure or refusal to hand in any items, ID, etc, of their previous job, is to be considered theft.</li>
                 </ul>
                 <br><br>
-                
+
                 <h1><a name="sit"><B>Situational SoP</B></a></h1><BR>
                 The following situations have specific SoP. Failure to follow these may result in demotion/dismissal, or detaining by security if failure to follow them presents a significant risk.
                 <br><br>
-                
+
                 <h1><a name="causes"><B>Evacuation</B></a></h1><BR>
                 <ul>
                     <li>All personnel are required to assist with evacuation. All crew must be evacuated, regardless of conscious state.</li>
@@ -2371,7 +2418,7 @@
                     <li>Shortening time to shuttle launch may be authorised if a clear threat to life, limb, or shuttle integrity is present.</li>
                 </ul>
                 <br><br>
-                
+
                 <h1><a name="viral"><b>Viral Outbreak Procedures</b></a></h1><BR>
                 <i><b>Definition: </b>A Viral Outbreak is defined as a situation where a Viral Pathogen has infected a significant portion of the crew (>10%)</i>
 				<ol>
@@ -2388,7 +2435,7 @@
                     <li>Once the Viral Outbreak is over, all personnel are to return to regular duties.</li>
                 </ol>
                 <br><br>
-                
+
                 <h1><a name="evac"><B>Evacuation</B></a></h1><BR>
                 <ul>
                     <li>Immediate evacuation of all untrained personnel.</li>
@@ -2396,7 +2443,7 @@
                     <li>Atmospheric Technicians are to remove hazard.</li>
                 </ul>
                 <br><br>
-                
+
                 <h1><a name="meteor"><B>Meteor Storm</B></a></h1><BR>
                 <ul>
                     <li>All crew to move to central parts of the station.</li>
@@ -2404,7 +2451,7 @@
                     <li>Personel that are doing EVA maintenance should seek shelter immediately.</li>
                 </ul>
                 <br><br>
-                
+
                 <h1><a name="sing"><B>Singularity Containment Failure</B></a></h1><BR>
                 <ul>
                     <li>Observation of Singularity movement.</li>
@@ -2412,7 +2459,104 @@
                     <li>Demotion of Chief Engineer and reparation of Engine if no threat manifests.</li>
                 </ul>
                 <br><br>
-				
+
+				</body>
+				</html>
+
+		"}
+
+/obj/item/weapon/book/manual/sop_command
+	name = "Command Standard Operating Procedures"
+	desc = "A set of guidelines aiming at the safe conduct of all Command activities."
+	icon_state = "book4"
+	author = "Nanotrasen"
+	title = "Command Standard Operating Procedures"
+	dat = {"
+
+		<html>
+				<head>
+				<style>
+				h1 {font-size: 15px; margin: 15px 0px 5px;}
+				li {margin: 2px 0px 2px 15px;}
+				ul {list-style: none; margin: 5px; padding: 0px;}
+				ol {margin: 5px; padding: 0px 15px;}
+				</style>
+				</head>
+				<body>
+				<font face="Verdana" color=black>
+
+				<h1><a name="Contents">Contents</a></h1>
+				<ol>
+					<li><a href="#foreword">Foreword</a></li>
+					<li><a href="#cap">Captain</a></li>
+					<li><a href="#hop">Head of Personnel</a></li>
+					<li><a href="#ntrep">NanoTrasen Representative</a></li>
+					<li><a href="#bs">Blueshield Officer</a></li>
+                    <li><a href="#ai">AI</a></li>
+				</ol>
+				<br><BR>
+
+				<h1><a name="foreword"><U><B>FOREWORD</B></U></a></h1><BR>
+				Job SOP should not be a considered a checklist of conditions to fire someone over, and should not be rigidly followed to the letter in detriment of circumstances and context.
+				As always, SOP can be malleable if the situation so requires, and the decision to punish a crewmember for breaching it ultimately falls onto the relevant Head of Staff,
+				for Department Members, or Captain, for the Head of Staff.<BR><BR>
+
+				<h1><a name="cap"><B>Captain</B></a></h1><BR>
+				<ol>
+					<li>The Captain is not permitted to perform regular Security Duty. However, they may still assist Security if they are understaffed, or if they see a crime being committed. However, the Captain is not permitted to take items from the Armory under normal circumstances, unless authorized by the Head of Security. In addition, the Captain may not requisition weaponry for themselves from Cargo and/or Science, unless there's an immediate threat to station and/or crew;</li>
+					<li>If a Department lacks a Head of Staff, the Captain should make reasonable efforts to appoint an Acting Head of Staff, if there are available personnel to fill the position;</li>
+					<li>The Captain is to ensure that Space Law is being correctly applied. This should be done in cooperation with the Head of Security;</li>
+					<li>The Captain is not to leave the NSS Cyberiad unless given specific permission by Central Command, or it happens to be the end of the shift. This includes via space or via the Gateway. To do so is to be considered abandoning their posts and is grounds for termination;</li>
+					<li>The Captain must keep the Nuclear Authentication Disk on their person at all times or, failing that, in the possession of the Head of Security or Blueshield;</li>
+					<li>The Captain is to attempt to resolve every issue that arises in Command locally before contacting Central Command;</li>
+					<li>The Captain is not permitted to carry their Antique Laser Gun or Space Armor unless there's an immediate emergency that requires attending to;</li>
+					<li>The Captain, despite being in charge of the Cyberiad, is not independent from NanoTrasen. Any attempts to disregard general company policy are to be considered an instant condition for contract termination;</li>
+					<li>The Captain may only promote personnel to a Acting Head of Staff position if there is no assigned Head of Staff associated with the Department. Said Acting Head of Staff must be a member of the Department they are to lead. See below for more information on Chain of Command;</li>
+                    <li>The Captain may not fire any Head of Staff without reasonable justification (ie, incompetency, criminal activity, or otherwise any action that endangers/compromises the station and/or crew). The Captain may not fire any Central Command VIPs (ie, Blueshield, Magistrate, NanoTrasen Representative) without permission from Central Command, unless they are blatantly acting against the well-being and safety of the crew and station.</li>
+				</ol><BR>
+
+                <h1><a name="hop"><B>Head of Personnel</B></a></h1><BR>
+				<ol>
+					<li>The Head of Personnel may not transfer any personnel to another Department without authorization from the relevant Head of Staff. If no Head of Staff is available, the Head of Personnel may make a judgement call. This does not apply to Security, which always requires authorization from the Head of Security, or Genetics, which requires both Chief Medical Officer and Research Director approval. If there is no Head of Security active, no transfers are allowed to Security without authorization from the Captain;</li>
+					<li>The Head of Personnel may not give any personnel increased access without authorization from the relevant Head of Staff. This includes the Head of Personnel. In addition, the Head of Personnel may only give Captain-Level access to someone if they are the Acting Captain. This access is to be removed when a proper Captain arrives on the station;</li>
+					<li>The Head of Personnel may not increase any Job Openings unless the relevant Head of Staff approves;</li>
+					<li>The Head of Personnel may not fire any personnel without authorization from the relevant Head of Staff, unless other conditions apply (see Space Law and General Standard Operating Procedure);</li>
+					<li>The Head of Personnel may not promote any personnel to the following Jobs without authorization from Central Command: Barber, Brig Physician, NanoTrasen Representative, Blueshield, Security Pod Pilot, Mechanic and Magistrate; (This is due to them being karma locked. Do not promote people to these positions without approval from the Administrators);</li>
+					<li>The Head of Personnel is free to utilize paperwork at their discretion. However, during major station emergencies, expediency should take precedence over bureaucracy;</li>
+					<li>The Head of Personnel may not leave their office unmanned if there are personnel waiting in line. Failure to respond to personnel with a legitimate request within ten (10) minutes, either via radio or in person, is to be considered a breach of Standard Operating Procedure;</li>
+					<li>Despite nominally being in charge of Supply, the Head of Personnel should allow the Quartermaster to run the Department, unless they prove themselves to be incompetent/dangerous;</li>
+                    <li>The Head of Personnel is bound to the same rules regarding ordering Cargo Crates as the Quartermaster and Cargo Technicians. In addition, the Head of Personnel may not order unneeded, non-essential items against the wishes of Cargo;</li>
+                    <li>The Head of Personnel is not permitted to perform Security duty. The Head of Personnel is permitted to carry an Energy Gun, for self-defence only.</li>
+				</ol><BR>
+
+				<h1><a name="ntrep"><B>NanoTrasen Representative</B></a></h1><BR>
+				<ol>
+					<li>The NanoTrasen Representative is to ensure that every Department is following Standard Operating Procedure, up to and including the respective Head of Staff. If a Head of Staff is not available for a Department, the NanoTrasen Representative must ensure that the Captain appoints an Acting Head of Staff for said Department;</li>
+					<li>The NanoTrasen Representative must attempt to resolve any breach of Standard Operating Procedure locally before contacting Central Command. This is an imperative: Standard Operating Procedure should always be followed unless there is a very good reason not to;</li>
+					<li>The NanoTrasen Representative must, together with the Magistrate and Head of Security, ensure that Space Law is being followed and correctly applied;</li>
+					<li>The NanoTrasen Representative may not threaten the use of a fax in order to gain leverage over any personnel, up to and including Command. In addition they may not threaten to fire, or have Central Command, fire anyone, unless they actually possess a demotion note;</li>
+					<li>The NanoTrasen Representative is permitted to carry their Stun-Cane, or a Telescopic Baton if the Stun-Cane is lost.</li>
+				</ol><BR>
+
+                <h1><a name="bs"><B>Blueshield Officer</B></a></h1><BR>
+				<ol>
+					<li>The Blueshield may not conduct arrests under the same conditions as Security. However, they may apprehend any personnel that trespass on a Head of Staff Office or Command Area, any personnel that steal from those locations, or any personnel that steal from and/or injure any Head of Staff or Central Command VIP. However, all apprehended personnel are to be processed by Security personnel;</li>
+					<li>The Blueshield is to put the lives of Command over those of any other personnel, the Blueshield included. Their continued well-being is the Blueshield's top priority. This includes applying basic first aid and making sure they are revived if killed;</li>
+					<li>The Blueshield is to protect the lives of Command personnel, not follow their orders to a fault. The Blueshield is not to interfere with legal demotions or arrests. To do so is to place themselves under the Special Modifier Aiding and Abetting;</li>
+					<li>The Blueshield is not to apply Lethal Force unless there is a clear and present danger to their life, or to the life of a member of Command, and the assailant cannot be non-lethally detained.</li>
+				</ol><BR>
+
+	            <h1><a name="ai"><B>AI</B></a></h1><BR>
+				<b><i>The following are procedures for AI Maintenance:</i></b><br>
+				<ol>
+					<li>Only the Captain or Research Director may enter the AI Upload to perform Law Changes (see below), and only the Captain, Research Director or Chief Engineer may enter the AI Core to perform a Carding (see below);</li>
+					<li> No Law Changes are to be performed without approval from the Captain and Research Director. The only Lawsets to be used are those provided by NanoTrasen. Failure to legally perform a Law Change is to be considered Sabotage. Command must be informed prior to the Law Change, and all objections must be taken into consideration. If the number of Command personnel opposing the Law Change is greater than the number of Command personnel in favour, the Law Change is not to be done. If the Law Change is performed, the crew is to be immediately informed of the new Law(s);</li>
+                    <li>The AI may not be Carded unless it it clearly malfunctioning or subverted. However, any member of Command may card it if the AI agrees to it, either at the end of the shift, or due to external circumstances (such as massive damage to the AI Satellite);</li>
+                    <li>The AI Upload and Minisat Antechamber Turrets are to be kept on Non-Lethal in Code Green and Code Blue. The AI Core Turrets are to be kept on Lethal at all times. If a legal Law Change or Carding is occurring, the Turrets are to be disabled;</li>
+                    <li>If the AI Unit is not malfunctioning or subverted, any attempt at performing an illegal Carding or Law Change is to be responded to with non-lethal force. If the illegal attempts persist, and the perpetrator is demonstrably hostile, lethal force from Command/Security is permitted;</li>
+                    <li>Freeform Laws are only to be added if absolutely necessary due to external circumstances (such as major station emergencies). Adding unnecessary Freeform Laws is not permitted. Exception is made if the AI Unit and majority of Command agree to the Freeform Law that is proposed;</li>
+                    <li>Any use of the "Purge" Module is to be followed by the upload of a NanoTrasen-approved Lawset immediately. AI Units must be bound to a Lawset at all times.</li>
+				</ol><BR>
 				</body>
 				</html>
 

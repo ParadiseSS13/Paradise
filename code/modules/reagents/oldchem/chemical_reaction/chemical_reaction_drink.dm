@@ -44,7 +44,7 @@
 	name = "Patron"
 	id = "patron"
 	result = "patron"
-	required_reagents = list("tequilla" = 10, "silver" = 1)
+	required_reagents = list("tequila" = 10, "silver" = 1)
 	result_amount = 10
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
@@ -156,8 +156,8 @@
 	name = "Cuba Libre"
 	id = "cubalibre"
 	result = "cubalibre"
-	required_reagents = list("rum" = 2, "cola" = 1)
-	result_amount = 3
+	required_reagents = list("rum" = 2, "cola" = 2, "limejuice" = 1)
+	result_amount = 5
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
 /datum/chemical_reaction/mojito
@@ -228,15 +228,15 @@
 	name = "Brave Bull"
 	id = "bravebull"
 	result = "bravebull"
-	required_reagents = list("tequilla" = 2, "kahlua" = 1)
+	required_reagents = list("tequila" = 2, "kahlua" = 1)
 	result_amount = 3
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
-/datum/chemical_reaction/tequilla_sunrise
-	name = "Tequilla Sunrise"
-	id = "tequillasunrise"
-	result = "tequillasunrise"
-	required_reagents = list("tequilla" = 2, "orangejuice" = 1)
+/datum/chemical_reaction/tequila_sunrise
+	name = "Tequila Sunrise"
+	id = "tequilasunrise"
+	result = "tequilasunrise"
+	required_reagents = list("tequila" = 2, "orangejuice" = 1)
 	result_amount = 3
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
@@ -317,7 +317,7 @@
 	name = "Margarita"
 	id = "margarita"
 	result = "margarita"
-	required_reagents = list("tequilla" = 2, "limejuice" = 1)
+	required_reagents = list("tequila" = 2, "limejuice" = 1)
 	result_amount = 3
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
@@ -325,7 +325,7 @@
 	name = "Long Island Iced Tea"
 	id = "longislandicedtea"
 	result = "longislandicedtea"
-	required_reagents = list("vodka" = 1, "gin" = 1, "tequilla" = 1, "cubalibre" = 1)
+	required_reagents = list("vodka" = 1, "gin" = 1, "tequila" = 1, "cubalibre" = 1)
 	result_amount = 4
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
@@ -506,6 +506,14 @@
 	id = "cafe_latte"
 	result = "cafe_latte"
 	required_reagents = list("coffee" = 1, "milk" = 1)
+	result_amount = 2
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/cafe_mocha
+	name = "Cafe Mocha"
+	id = "cafe_mocha"
+	result = "cafe_mocha"
+	required_reagents = list("cafe_latte" = 1, "chocolate" = 1)
 	result_amount = 2
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 

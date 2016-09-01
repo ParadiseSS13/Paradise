@@ -99,7 +99,7 @@
 
 	if(charges >= 0.1)
 		if(prob(5))
-			src.visible_message("\red \icon[src] [src]'s eyes glow ruby red for a moment!")
+			src.visible_message("\red [bicon(src)] [src]'s eyes glow ruby red for a moment!")
 			charges -= 0.1
 
 	//check on our shadow wights

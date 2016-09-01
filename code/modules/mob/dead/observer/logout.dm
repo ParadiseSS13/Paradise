@@ -1,5 +1,5 @@
 /mob/dead/observer/Logout()
-	if (client)
+	if(client)
 		client.images -= ghost_darkness_images
 	..()
 	spawn(0)

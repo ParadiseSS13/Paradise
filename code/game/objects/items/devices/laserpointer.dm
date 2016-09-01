@@ -11,7 +11,6 @@
 	w_class = 2 //Increased to 2, because diodes are w_class 2. Conservation of matter.
 	origin_tech = "combat=1"
 	origin_tech = "magnets=2"
-	var/turf/pointer_loc
 	var/energy = 5
 	var/max_energy = 5
 	var/effectchance = 33
@@ -34,6 +33,12 @@
 	diode = new(src)
 	if(!pointer_icon_state)
 		pointer_icon_state = pick("red_laser","green_laser","blue_laser","purple_laser")
+
+/obj/item/device/laser_pointer/Destroy()
+	if(diode)
+		qdel(diode)
+		diode = null
+	return ..()
 
 /obj/item/device/laser_pointer/upgraded/New()
 	..()
@@ -71,10 +76,10 @@
 /obj/item/device/laser_pointer/proc/laser_act(var/atom/target, var/mob/living/user, var/params)
 	if( !(user in (viewers(7,target))) )
 		return
-	if (!diode)
+	if(!diode)
 		to_chat(user, "<span class='notice'>You point [src] at [target], but nothing happens!</span>")
 		return
-	if (!user.IsAdvancedToolUser())
+	if(!user.IsAdvancedToolUser())
 		to_chat(user, "<span class='warning'>You don't have the dexterity to do this!</span>")
 		return
 	if(ishuman(user))
@@ -97,7 +102,7 @@
 	if(iscarbon(target))
 		var/mob/living/carbon/C = target
 		if(user.zone_sel.selecting == "eyes")
-			add_logs(C, user, "shone in the eyes", object="laser pointer")
+			add_logs(user, C, "shone in the eyes", object="laser pointer")
 
 			var/severity = 1
 			if(prob(33))

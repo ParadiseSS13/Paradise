@@ -18,14 +18,14 @@
 /mob/living/simple_animal/slime/Bump(atom/movable/AM as mob|obj, yes)
 
 	spawn( 0 )
-		if ((!( yes ) || now_pushing))
+		if((!( yes ) || now_pushing))
 			return
 		now_pushing = 1
 		if(ismob(AM))
 			var/mob/tmob = AM
 			if(istype(tmob, /mob/living/carbon/human) && (FAT in tmob.mutations))
 				if(prob(70))
-					to_chat(src, "\red <B>You fail to push [tmob]'s fat ass out of the way.</B>")
+					to_chat(src, "<span class='danger'>You fail to push [tmob]'s fat ass out of the way.</span>")
 					now_pushing = 0
 					return
 			if(!(tmob.status_flags & CANPUSH))
@@ -35,13 +35,13 @@
 			tmob.LAssailant = src
 		now_pushing = 0
 		..()
-		if (!( istype(AM, /atom/movable) ))
+		if(!( istype(AM, /atom/movable) ))
 			return
-		if (!( now_pushing ))
+		if(!( now_pushing ))
 			now_pushing = 1
-			if (!( AM.anchored ))
+			if(!( AM.anchored ))
 				var/t = get_dir(src, AM)
-				if (istype(AM, /obj/structure/window/full))
+				if(istype(AM, /obj/structure/window/full))
 					for(var/obj/structure/window/win in get_step(AM,t))
 						now_pushing = 0
 						return
@@ -64,21 +64,18 @@
 	response_harm   = "stomps on"
 	emote_see = list("jiggles", "bounces in place")
 	var/colour = "grey"
+	del_on_death = 1
 
 /mob/living/simple_animal/adultslime/New()
 	..()
 	overlays += "aslime-:33"
 
 
-/mob/living/simple_animal/slime/adult/death()
-	var/mob/living/simple_animal/slime/S1 = new /mob/living/simple_animal/slime (src.loc)
-	S1.icon_state = "[src.colour] baby slime"
-	S1.icon_living = "[src.colour] baby slime"
-	S1.icon_dead = "[src.colour] baby slime dead"
-	S1.colour = "[src.colour]"
-	var/mob/living/simple_animal/slime/S2 = new /mob/living/simple_animal/slime (src.loc)
-	S2.icon_state = "[src.colour] baby slime"
-	S2.icon_living = "[src.colour] baby slime"
-	S2.icon_dead = "[src.colour] baby slime dead"
-	S2.colour = "[src.colour]"
-	qdel(src)
+/mob/living/simple_animal/slime/adult/death(gibbed)
+	for(var/i in 1 to 2)
+		var/mob/living/simple_animal/slime/S = new /mob/living/simple_animal/slime (src.loc)
+		S.icon_state = "[colour] baby slime"
+		S.icon_living = "[colour] baby slime"
+		S.icon_dead = "[colour] baby slime dead"
+		S.colour = "[colour]"
+	..()

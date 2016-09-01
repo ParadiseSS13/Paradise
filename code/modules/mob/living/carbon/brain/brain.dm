@@ -4,7 +4,6 @@
 	var/obj/item/container = null
 	var/timeofhostdeath = 0
 	var/emp_damage = 0//Handles a type of MMI damage
-	var/alert = null
 	use_me = 0 //Can't use the me verb, it's a freaking immobile brain
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "brain1"
@@ -23,39 +22,44 @@
 		return ..()
 
 	say_understands(var/other)//Goddamn is this hackish, but this say code is so odd
-		if (istype(other, /mob/living/silicon/ai))
+		if(istype(other, /mob/living/silicon/ai))
 			if(!(container && istype(container, /obj/item/device/mmi)))
 				return 0
 			else
 				return 1
-		if (istype(other, /mob/living/silicon/decoy))
+		if(istype(other, /mob/living/silicon/decoy))
 			if(!(container && istype(container, /obj/item/device/mmi)))
 				return 0
 			else
 				return 1
-		if (istype(other, /mob/living/silicon/pai))
+		if(istype(other, /mob/living/silicon/pai))
 			if(!(container && istype(container, /obj/item/device/mmi)))
 				return 0
 			else
 				return 1
-		if (istype(other, /mob/living/silicon/robot))
+		if(istype(other, /mob/living/silicon/robot))
 			if(!(container && istype(container, /obj/item/device/mmi)))
 				return 0
 			else
 				return 1
-		if (istype(other, /mob/living/carbon/human))
+		if(istype(other, /mob/living/carbon/human))
 			return 1
-		if (istype(other, /mob/living/carbon/slime))
+		if(istype(other, /mob/living/carbon/slime))
 			return 1
 		return ..()
 
 
-/mob/living/carbon/brain/update_canmove()
+/mob/living/carbon/brain/update_canmove(delay_action_updates = 0)
 	if(in_contents_of(/obj/mecha))
 		canmove = 1
 		use_me = 1 //If it can move, let it emote
-	else if(istype(loc, /obj/item/device/mmi))	canmove = 1 //mmi won't move anyways so whatever
-	else							canmove = 0
+	else if(istype(loc, /obj/item/device/mmi))
+		canmove = 1 //mmi won't move anyways so whatever
+	else
+		canmove = 0
+
+	if(!delay_action_updates)
+		update_action_buttons_icon()
 	return canmove
 
 /mob/living/carbon/brain/ex_act() //you cant blow up brainmobs because it makes transfer_to() freak out when borgs blow up.
@@ -95,3 +99,9 @@ I'm using this for Stat to give it a more nifty interface to work with
 
 /mob/living/carbon/brain/can_safely_leave_loc()
 	return 0 //You're not supposed to be ethereal jaunting, brains
+
+/mob/living/carbon/brain/adjustEarDamage()
+	return
+
+/mob/living/carbon/brain/setEarDamage() // no ears to damage or heal
+	return

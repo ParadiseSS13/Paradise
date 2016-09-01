@@ -62,7 +62,7 @@
 	goal = locate(endx, endy, 1)
 	src.x = startx
 	src.y = starty
-	src.z = 1
+	src.z = level_name_to_num(MAIN_STATION)
 	spawn(0)
 		walk_towards(src, goal, 1)
 	return
@@ -73,7 +73,7 @@
 			for(var/mob/M in range(10, src))
 				if(!M.stat && !istype(M, /mob/living/silicon/ai))
 					shake_camera(M, 3, 1)
-		if (A)
+		if(A)
 			playsound(src.loc, 'sound/effects/meteorimpact.ogg', 40, 1)
 
 			if(ismob(A))

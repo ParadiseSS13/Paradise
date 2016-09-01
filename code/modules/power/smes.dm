@@ -105,7 +105,7 @@
 
 	if(inputting == 2)
 		overlays += image('icons/obj/power.dmi', "smes-oc2")
-	else if (inputting == 1)
+	else if(inputting == 1)
 		overlays += image('icons/obj/power.dmi', "smes-oc1")
 	else
 		if(input_attempt)
@@ -158,7 +158,7 @@
 			return
 
 		var/turf/T = get_turf(user)
-		if (T.intact) //is the floor plating removed ?
+		if(T.intact) //is the floor plating removed ?
 			to_chat(user, "<span class='alert'>You must first remove the floor plating!</span>")
 			return
 
@@ -175,7 +175,7 @@
 	//disassembling the terminal
 	if(istype(I, /obj/item/weapon/wirecutters) && terminal && panel_open)
 		var/turf/T = get_turf(terminal)
-		if (T.intact) //is the floor plating removed ?
+		if(T.intact) //is the floor plating removed ?
 			to_chat(user, "<span class='alert'>You must first expose the power terminal!</span>")
 			return
 
@@ -183,7 +183,7 @@
 		playsound(src.loc, 'sound/items/Deconstruct.ogg', 50, 1)
 
 		if(do_after(user, 50, target = src))
-			if (prob(50) && electrocute_mob(usr, terminal.powernet, terminal)) //animate the electrocution if uncautious and unlucky
+			if(prob(50) && electrocute_mob(usr, terminal.powernet, terminal)) //animate the electrocution if uncautious and unlucky
 				var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 				s.set_up(5, 1, src)
 				s.start()
@@ -241,9 +241,9 @@
 		var/actual_load = draw_power(target_load)						// add the load to the terminal side network
 		charge += actual_load * SMESRATE								// increase the charge
 
-		if (actual_load >= target_load) // Did we charge at full rate?
+		if(actual_load >= target_load) // Did we charge at full rate?
 			inputting = 2
-		else if (actual_load) // If not, did we charge at least partially?
+		else if(actual_load) // If not, did we charge at least partially?
 			inputting = 1
 		else // Or not at all?
 			inputting = 0
@@ -301,22 +301,22 @@
 
 //Will return 1 on failure
 /obj/machinery/power/smes/proc/make_terminal(const/mob/user)
-	if (user.loc == loc)
+	if(user.loc == loc)
 		to_chat(user, "<span class='warning'>You must not be on the same tile as the [src].</span>")
 		return 1
 
 	//Direction the terminal will face to
 	var/tempDir = get_dir(user, src)
 	switch(tempDir)
-		if (NORTHEAST, SOUTHEAST)
+		if(NORTHEAST, SOUTHEAST)
 			tempDir = EAST
-		if (NORTHWEST, SOUTHWEST)
+		if(NORTHWEST, SOUTHWEST)
 			tempDir = WEST
 	var/turf/tempLoc = get_step(src, reverse_direction(tempDir))
-	if (istype(tempLoc, /turf/space))
+	if(istype(tempLoc, /turf/space))
 		to_chat(user, "<span class='warning'>You can't build a terminal on space.</span>")
 		return 1
-	else if (istype(tempLoc))
+	else if(istype(tempLoc))
 		if(tempLoc.intact)
 			to_chat(user, "<span class='warning'>You must remove the floor plating first.</span>")
 			return 1
@@ -324,7 +324,7 @@
 	if(do_after(user, 50, target = src))
 		var/turf/T = get_turf(user)
 		var/obj/structure/cable/N = T.get_cable_node() //get the connecting node cable, if there's one
-		if (prob(50) && electrocute_mob(user, N, N)) //animate the electrocution if uncautious and unlucky
+		if(prob(50) && electrocute_mob(user, N, N)) //animate the electrocution if uncautious and unlucky
 			var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 			s.set_up(5, 1, src)
 			s.start()
@@ -385,7 +385,7 @@
 
 	// update the ui if it exists, returns null if no ui is passed/found
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if (!ui)
+	if(!ui)
 		// the ui does not exist, so we'll create a new() one
         // for a list of parameters and their descriptions see the code docs in \code\modules\nano\nanoui.dm
 		ui = new(user, src, ui_key, "smes.tmpl", "SMES Power Storage Unit", 540, 380)
@@ -433,7 +433,7 @@
 	return 1
 
 /obj/machinery/power/smes/proc/ion_act()
-	if(src.z in config.station_levels)
+	if(is_station_level(src.z))
 		if(prob(1)) //explosion
 			for(var/mob/M in viewers(src))
 				M.show_message("\red The [src.name] is making strange noises!", 3, "\red You hear sizzling electronics.", 2)
@@ -475,7 +475,7 @@
 	output_level = rand(0, output_level_max)
 	input_level = rand(0, input_level_max)
 	charge -= 1e6/severity
-	if (charge < 0)
+	if(charge < 0)
 		charge = 0
 	update_icon()
 	..()

@@ -40,7 +40,7 @@
 	seed_name = "ghost pepper"
 	display_name = "ghost pepper plants"
 	mutants = null
-	chems = list("capsaicin" = list(8,2), "condensedcapsaicin" = list(4,4), "ghostchilijuice" = list(4,4), "plantmatter" = list(1,50))
+	chems = list("capsaicin" = list(8,2), "condensedcapsaicin" = list(4,4), "plantmatter" = list(1,50))
 	kitchen_tag = "ghostchili"
 	preset_icon = "ghostchilipepper"
 
@@ -825,6 +825,7 @@
 	display_name = "grapevines"
 	mutants = list("greengrapes")
 	chems = list("plantmatter" = list(1,10), "sugar" = list(1,5))
+	kitchen_tag = "grapes"
 	preset_icon = "grapes"
 
 /datum/seed/grapes/New()
@@ -899,6 +900,7 @@
 	seed_name = "peanut"
 	display_name = "peanut vines"
 	chems = list("plantmatter" = list(1,10))
+	kitchen_tag = "peanuts"
 	preset_icon = "peanuts"
 
 /datum/seed/peanuts/New()
@@ -1088,6 +1090,7 @@
 	seed_name = "sugarcane"
 	display_name = "sugarcanes"
 	chems = list("sugar" = list(4,5))
+	kitchen_tag = "sugarcane"
 	preset_icon = "sugarcane"
 
 /datum/seed/sugarcane/New()

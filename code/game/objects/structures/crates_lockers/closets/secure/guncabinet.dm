@@ -26,19 +26,19 @@
 	else
 		var/lazors = 0
 		var/shottas = 0
-		for (var/obj/item/weapon/gun/G in contents)
-			if (istype(G, /obj/item/weapon/gun/energy))
+		for(var/obj/item/weapon/gun/G in contents)
+			if(istype(G, /obj/item/weapon/gun/energy))
 				lazors++
-			if (istype(G, /obj/item/weapon/gun/projectile/))
+			if(istype(G, /obj/item/weapon/gun/projectile/))
 				shottas++
-		if (lazors || shottas)
-			for (var/i = 0 to 2)
+		if(lazors || shottas)
+			for(var/i = 0 to 2)
 				var/image/gun = image(icon(src.icon))
 
-				if (lazors > 0 && (shottas <= 0 || prob(50)))
+				if(lazors > 0 && (shottas <= 0 || prob(50)))
 					lazors--
 					gun.icon_state = "laser"
-				else if (shottas > 0)
+				else if(shottas > 0)
 					shottas--
 					gun.icon_state = "projectile"
 
@@ -49,7 +49,7 @@
 
 		if(broken)
 			overlays += icon(src.icon,"broken")
-		else if (locked)
+		else if(locked)
 			overlays += icon(src.icon,"locked")
 		else
 			overlays += icon(src.icon,"open")

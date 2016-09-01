@@ -49,7 +49,7 @@
 			ghostize()
 			qdel(src)
 	if(summoner)
-		if (get_dist(get_turf(summoner),get_turf(src)) <= range)
+		if(get_dist(get_turf(summoner),get_turf(src)) <= range)
 			return
 		else
 			to_chat(src, "You moved out of range, and were pulled back! You can only move [range] meters from [summoner.real_name]")
@@ -63,14 +63,14 @@
 /mob/living/simple_animal/hostile/guardian/Move() //Returns to summoner if they move out of range
 	..()
 	if(summoner)
-		if (get_dist(get_turf(summoner),get_turf(src)) <= range)
+		if(get_dist(get_turf(summoner),get_turf(src)) <= range)
 			return
 		else
 			to_chat(src, "You moved out of range, and were pulled back! You can only move [range] meters from [summoner.real_name]")
 			visible_message("<span class='danger'>The [src] jumps back to its user.</span>")
 			Recall()
 
-/mob/living/simple_animal/hostile/guardian/death()
+/mob/living/simple_animal/hostile/guardian/death(gibbed)
 	..()
 	to_chat(summoner, "<span class='danger'><B>Your [name] died somehow!</span></B>")
 	summoner.death()
@@ -88,7 +88,7 @@
 
 /mob/living/simple_animal/hostile/guardian/adjustHealth(amount) //The spirit is invincible, but passes on damage to the summoner
 	var/damage = amount * damage_transfer
-	if (summoner)
+	if(summoner)
 		if(loc == summoner)
 			return
 		summoner.adjustBruteLoss(damage)
@@ -100,11 +100,11 @@
 			summoner.adjustCloneLoss(damage/2)
 
 /mob/living/simple_animal/hostile/guardian/ex_act(severity, target)
-	switch (severity)
-		if (1)
+	switch(severity)
+		if(1)
 			gib()
 			return
-		if (2)
+		if(2)
 			adjustBruteLoss(60)
 
 		if(3)
@@ -146,7 +146,7 @@
 		if(M == summoner)
 			to_chat(M, "<span class='changeling'><i>[src]:</i> [input]</span>")
 			log_say("Guardian Communication: [key_name(src)] -> [key_name(M)] : [input]")
-		else if (M in dead_mob_list)
+		else if(M in dead_mob_list)
 			to_chat(M, "<span class='changeling'><i>Guardian Communication from <b>[src]</b> ([ghost_follow_link(src, ghost=M)]): [input]</i>")
 	to_chat(src, "<span class='changeling'><i>[src]:</i> [input]</span>")
 
@@ -168,7 +168,7 @@
 				to_chat(G, "<span class='changeling'><i>[src]:</i> [input]</span>")
 				log_say("Guardian Communication: [key_name(src)] -> [key_name(G)] : [input]")
 
-		else if (M in dead_mob_list)
+		else if(M in dead_mob_list)
 			to_chat(M, "<span class='changeling'><i>Guardian Communication from <b>[src]</b> ([ghost_follow_link(src, ghost=M)]): [input]</i>")
 	to_chat(src, "<span class='changeling'><i>[src]:</i> [input]</span>")
 
@@ -680,7 +680,7 @@
 
 /obj/item/weapon/guardiancreator/attack_self(mob/living/user)
 	for(var/mob/living/simple_animal/hostile/guardian/G in living_mob_list)
-		if (G.summoner == user)
+		if(G.summoner == user)
 			to_chat(user, "You already have a [mob_name]!")
 			return
 	if(user.mind && (user.mind.changeling || user.mind.vampire))
@@ -743,7 +743,7 @@
 	var/picked_name
 	var/picked_color = pick("#FFFFFF","#000000","#808080","#A52A2A","#FF0000","#8B0000","#DC143C","#FFA500","#FFFF00","#008000","#00FF00","#006400","#00FFFF","#0000FF","#000080","#008080","#800080","#4B0082")
 
-	switch (theme)
+	switch(theme)
 		if("magic")
 			color = pick("Pink", "Red", "Orange", "Green", "Blue")
 			picked_name = pick("Aries", "Leo", "Sagittarius", "Taurus", "Virgo", "Capricorn", "Gemini", "Libra", "Aquarius", "Cancer", "Scorpio", "Pisces")
@@ -785,7 +785,7 @@
 /obj/item/weapon/guardiancreator/tech
 	name = "holoparasite injector"
 	desc = "It contains alien nanoswarm of unknown origin. Though capable of near sorcerous feats via use of hardlight holograms and nanomachines, it requires an organic host as a home base and source of fuel."
-	icon = 'icons/obj/syringe.dmi'
+	icon = 'icons/obj/hypo.dmi'
 	icon_state = "combat_hypo"
 	theme = "tech"
 	mob_name = "Holoparasite"

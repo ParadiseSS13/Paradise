@@ -21,15 +21,16 @@
 	a_intent = I_HARM
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
-	var/dead = 0
 	unsuitable_atmos_damage = 15
+	heat_damage_per_tick = 20
 	faction = list("alien")
 	status_flags = CANPUSH
 	minbodytemp = 0
 	see_in_dark = 8
 	see_invisible = SEE_INVISIBLE_MINIMUM
-	heat_damage_per_tick = 20
 	gold_core_spawnable = CHEM_MOB_SPAWN_HOSTILE
+	death_sound = 'sound/voice/hiss6.ogg'
+	deathmessage = "lets out a waning guttural screech, green blood bubbling from its maw..."
 
 
 /mob/living/simple_animal/hostile/alien/drone
@@ -47,7 +48,6 @@
 /mob/living/simple_animal/hostile/alien/drone/handle_automated_action()
 	if(!..()) //AIStatus is off
 		return
-
 	plant_cooldown--
 	if(AIStatus == AI_IDLE)
 		if(!plants_off && prob(10) && plant_cooldown<=0)
@@ -129,20 +129,13 @@
 	move_to_delay = 4
 	maxHealth = 400
 	health = 400
+	mob_size = MOB_SIZE_LARGE
 	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID
 
 /obj/item/projectile/neurotox
 	name = "neurotoxin"
 	damage = 30
 	icon_state = "toxin"
-
-/mob/living/simple_animal/hostile/alien/death()
-	..()
-	if(dead == 0)
-		dead = 1
-		visible_message("[src] lets out a waning guttural screech, green blood bubbling from its maw...")
-		playsound(src, 'sound/voice/hiss6.ogg', 100, 1)
-
 
 /mob/living/simple_animal/hostile/alien/maid
 	name = "lusty xenomorph maid"

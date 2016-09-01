@@ -86,7 +86,7 @@
 	return 0
 
 /turf/Enter(atom/movable/mover as mob|obj, atom/forget as mob|obj|turf|area)
-	if (!mover)
+	if(!mover)
 		return 1
 
 
@@ -109,7 +109,7 @@
 			large_dense += border_obstacle
 
 	//Then, check the turf itself
-	if (!src.CanPass(mover, src))
+	if(!src.CanPass(mover, src))
 		mover.Bump(src, 1)
 		return 0
 
@@ -135,9 +135,6 @@
 		loopsanity--
 		A.HasProximity(M, 1)
 
-/turf/proc/adjacent_fire_act(turf/simulated/floor/source, temperature, volume)
-	return
-
 /turf/proc/levelupdate()
 	for(var/obj/O in src)
 		if(O.level == 1)
@@ -156,23 +153,25 @@
 		qdel(L)
 
 //Creates a new turf
-/turf/proc/ChangeTurf(var/path)
-	if(!path)			return
-	if(path == type)	return src
+/turf/proc/ChangeTurf(path, defer_change = FALSE, keep_icon = TRUE)
+	if(!path)
+		return
+	if(!use_preloader && path == type) // Don't no-op if the map loader requires it to be reconstructed
+		return src
 	var/old_opacity = opacity
 	var/old_dynamic_lighting = dynamic_lighting
 	var/list/old_affecting_lights = affecting_lights
 	var/old_lighting_overlay = lighting_overlay
 	var/old_blueprint_data = blueprint_data
+	var/old_obscured = obscured
 
+	BeforeChange()
 	if(air_master)
 		air_master.remove_from_active(src)
-
 	var/turf/W = new path(src)
+	if(!defer_change)
+		W.AfterChange()
 
-	if(istype(W, /turf/simulated))
-		W:Assimilate_Air()
-		W.RemoveLattice()
 	W.blueprint_data = old_blueprint_data
 
 	for(var/turf/space/S in range(W,1))
@@ -189,13 +188,30 @@
 		else
 			lighting_clear_overlays()
 
-	W.levelupdate()
-	W.CalculateAdjacentTurfs()
+	obscured = old_obscured
 
-	if(!can_have_cabling())
+	return W
+
+/turf/proc/BeforeChange()
+	return
+
+// I'm including `ignore_air` because BYOND lacks positional-only arguments
+/turf/proc/AfterChange(ignore_air, keep_cabling = FALSE) //called after a turf has been replaced in ChangeTurf()
+	levelupdate()
+	CalculateAdjacentTurfs()
+
+	if(air_master && !ignore_air)
+		air_master.add_to_active(src)
+
+	if(!keep_cabling && !can_have_cabling())
 		for(var/obj/structure/cable/C in contents)
 			qdel(C)
-	return W
+
+/turf/simulated/AfterChange(ignore_air, keep_cabling = FALSE)
+	..()
+	RemoveLattice()
+	if(!ignore_air)
+		Assimilate_Air()
 
 //////Assimilate Air//////
 /turf/simulated/proc/Assimilate_Air()

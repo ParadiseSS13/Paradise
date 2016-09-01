@@ -8,16 +8,13 @@
 	required_enemies = 1
 	recommended_enemies = 1
 
-	uplink_welcome = "Wizardly Uplink Console:"
-	uplink_uses = 20
-
 	var/use_huds = 0
 	var/finished = 0
 	var/but_wait_theres_more = 0
 
 /datum/game_mode/wizard/announce()
 	to_chat(world, "<B>The current game mode is - Wizard!</B>")
-	to_chat(world, "<B>There is a \red SPACE WIZARD\black on the station. You can't let him achieve his objective!</B>")
+	to_chat(world, "<B>There is a <font color='red'>SPACE WIZARD</font> on the station. You can't let him achieve his objective!</B>")
 
 
 /datum/game_mode/wizard/can_start()//This could be better, will likely have to recode it later
@@ -31,10 +28,10 @@
 	wizards += wizard
 	modePlayer += wizard
 	wizard.assigned_role = "MODE" //So they aren't chosen for other jobs.
-	wizard.special_role = "Wizard"
+	wizard.special_role = SPECIAL_ROLE_WIZARD
 	wizard.original = wizard.current
 	if(wizardstart.len == 0)
-		to_chat(wizard.current, "<B>\red A starting location for you could not be found, please report this bug!</B>")
+		to_chat(wizard.current, "<span class='danger'>A starting location for you could not be found, please report this bug!</span>")
 		return 0
 	return 1
 
@@ -70,59 +67,9 @@
 	set_antag_hud(wiz_mind.current, null)
 
 /datum/game_mode/proc/forge_wizard_objectives(var/datum/mind/wizard)
-	switch(rand(1,100))
-		if(1 to 30)
-			var/datum/objective/assassinate/kill_objective = new
-			kill_objective.owner = wizard
-			kill_objective.find_target()
-			wizard.objectives += kill_objective
-
-			var/datum/objective/steal/steal_objective = new
-			steal_objective.owner = wizard
-			steal_objective.find_target()
-			wizard.objectives += steal_objective
-
-			if (!(locate(/datum/objective/escape) in wizard.objectives))
-				var/datum/objective/escape/escape_objective = new
-				escape_objective.owner = wizard
-				wizard.objectives += escape_objective
-		if(31 to 60)
-			var/datum/objective/assassinate/kill_objective = new
-			kill_objective.owner = wizard
-			kill_objective.find_target()
-			wizard.objectives += kill_objective
-
-			var/datum/objective/steal/steal_objective = new
-			steal_objective.owner = wizard
-			steal_objective.find_target()
-			wizard.objectives += steal_objective
-
-			if (!(locate(/datum/objective/survive) in wizard.objectives))
-				var/datum/objective/survive/survive_objective = new
-				survive_objective.owner = wizard
-				wizard.objectives += survive_objective
-
-		if(61 to 85)
-			var/datum/objective/assassinate/kill_objective = new
-			kill_objective.owner = wizard
-			kill_objective.find_target()
-			wizard.objectives += kill_objective
-
-			if (!(locate(/datum/objective/hijack) in wizard.objectives))
-				var/datum/objective/hijack/hijack_objective = new
-				hijack_objective.owner = wizard
-				wizard.objectives += hijack_objective
-
-		else
-			var/datum/objective/steal/steal_objective = new
-			steal_objective.owner = wizard
-			steal_objective.find_target()
-			wizard.objectives += steal_objective
-
-			if (!(locate(/datum/objective/hijack) in wizard.objectives))
-				var/datum/objective/hijack/hijack_objective = new
-				hijack_objective.owner = wizard
-				wizard.objectives += hijack_objective
+	var/datum/objective/wizchaos/wiz_objective = new
+	wiz_objective.owner = wizard
+	wizard.objectives += wiz_objective
 	return
 
 
@@ -134,7 +81,7 @@
 	spawn(0)
 		var/newname = sanitize(copytext(input(wizard_mob, "You are the Space Wizard. Would you like to change your name to something else?", "Name change", randomname) as null|text,1,MAX_NAME_LEN))
 
-		if (!newname)
+		if(!newname)
 			newname = randomname
 
 		wizard_mob.real_name = newname
@@ -145,8 +92,8 @@
 
 
 /datum/game_mode/proc/greet_wizard(var/datum/mind/wizard, var/you_are=1)
-	if (you_are)
-		to_chat(wizard.current, "<B>\red You are the Space Wizard!</B>")
+	if(you_are)
+		to_chat(wizard.current, "<span class='danger'>You are the Space Wizard!</span>")
 	to_chat(wizard.current, "<B>The Space Wizards Federation has given you the following tasks:</B>")
 
 	var/obj_count = 1
@@ -157,7 +104,7 @@
 
 
 /*/datum/game_mode/proc/learn_basic_spells(mob/living/carbon/human/wizard_mob)
-	if (!istype(wizard_mob))
+	if(!istype(wizard_mob))
 		return
 	if(!config.feature_object_spell_system)
 		wizard_mob.verbs += /client/proc/jaunt
@@ -167,7 +114,7 @@
 */
 
 /datum/game_mode/proc/equip_wizard(mob/living/carbon/human/wizard_mob)
-	if (!istype(wizard_mob))
+	if(!istype(wizard_mob))
 		return
 
 	//So zards properly get their items when they are admin-made.
@@ -183,21 +130,28 @@
 	wizard_mob.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(wizard_mob), slot_shoes)
 	wizard_mob.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe(wizard_mob), slot_wear_suit)
 	wizard_mob.equip_to_slot_or_del(new /obj/item/clothing/head/wizard(wizard_mob), slot_head)
-	if(wizard_mob.backbag == 2) wizard_mob.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack(wizard_mob), slot_back)
-	if(wizard_mob.backbag == 3) wizard_mob.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/satchel_norm(wizard_mob), slot_back)
+	if(wizard_mob.backbag == 2)
+		wizard_mob.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack(wizard_mob), slot_back)
+	if(wizard_mob.backbag == 3)
+		wizard_mob.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/satchel_norm(wizard_mob), slot_back)
+	if(wizard_mob.backbag == 4)
+		wizard_mob.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/satchel(wizard_mob), slot_back)
 	wizard_mob.equip_to_slot_or_del(new /obj/item/weapon/storage/box/survival(wizard_mob), slot_in_backpack)
-//	wizard_mob.equip_to_slot_or_del(new /obj/item/weapon/scrying_gem(wizard_mob), slot_l_store) For scrying gem.
 	wizard_mob.equip_to_slot_or_del(new /obj/item/weapon/teleportation_scroll(wizard_mob), slot_r_store)
-	wizard_mob.equip_to_slot_or_del(new /obj/item/weapon/spellbook(wizard_mob), slot_r_hand)
+	var/obj/item/weapon/spellbook/spellbook = new /obj/item/weapon/spellbook(wizard_mob)
+	spellbook.owner = wizard_mob
+	wizard_mob.equip_to_slot_or_del(spellbook, slot_r_hand)
 
 	wizard_mob.faction = list("wizard")
 
 	wizard_mob.species.equip(wizard_mob)
 
 	to_chat(wizard_mob, "You will find a list of available spells in your spell book. Choose your magic arsenal carefully.")
+	to_chat(wizard_mob, "The spellbook is bound to you, and others cannot use it.")
 	to_chat(wizard_mob, "In your pockets you will find a teleport scroll. Use it as needed.")
 	wizard_mob.mind.store_memory("<B>Remember:</B> do not forget to prepare your spells.")
 	wizard_mob.update_icons()
+	wizard_mob.gene_stability += DEFAULT_GENE_STABILITY //magic
 	return 1
 
 
@@ -219,7 +173,7 @@
 				continue
 			traitors_alive++
 
-	if (wizards_alive || traitors_alive || but_wait_theres_more)
+	if(wizards_alive || traitors_alive || but_wait_theres_more)
 		return ..()
 	else
 		finished = 1
@@ -286,20 +240,19 @@
 
 //OTHER PROCS
 
-//To batch-remove wizard spells. Linked to mind.dm.
+//To batch-remove wizard spells. Linked to mind.dm
 /mob/proc/spellremove(mob/M)
 	if(!mind)
 		return
-	for(var/obj/effect/proc_holder/spell/spell_to_remove in src.mind.spell_list)
+	for(var/obj/effect/proc_holder/spell/spell_to_remove in mind.spell_list)
 		qdel(spell_to_remove)
 		mind.spell_list -= spell_to_remove
 
-/datum/mind/proc/remove_spell(var/obj/effect/proc_holder/spell/spell) //To remove a specific spell from a mind
-	if(!spell) return
-	for(var/obj/effect/proc_holder/spell/S in spell_list)
-		if(istype(S, spell))
-			qdel(S)
-			spell_list -= S
+//To batch-remove mob spells.
+/mob/proc/mobspellremove(mob/M)
+	for(var/obj/effect/proc_holder/spell/spell_to_remove in mob_spell_list)
+		qdel(spell_to_remove)
+		mob_spell_list -= spell_to_remove
 
 /*Checks if the wizard can cast spells.
 Made a proc so this is not repeated 14 (or more) times.*/

@@ -222,7 +222,7 @@
 
 	for(var/obj/W in T)
 		//Different classes of items give different commodities.
-		if (istype(W,/obj/item/weapon/cigbutt))
+		if(istype(W,/obj/item/weapon/cigbutt))
 			stored_comms["plastic"]++
 		else if(istype(W,/obj/effect/spider/spiderling))
 			stored_comms["wood"]++
@@ -270,7 +270,7 @@
 			stored_comms["glass"]++
 			stored_comms["glass"]++
 			stored_comms["glass"]++
-		else if (istype(W,/obj/item/weapon/light/tube) || istype(W,/obj/item/weapon/light/bulb))
+		else if(istype(W,/obj/item/weapon/light/tube) || istype(W,/obj/item/weapon/light/bulb))
 			stored_comms["glass"]++
 		else
 			continue
@@ -310,11 +310,11 @@
 	var/tools = "<B>Tools and devices</B><BR>"
 	var/resources = "<BR><B>Resources</B><BR>"
 
-	for (var/O in module.modules)
+	for(var/O in module.modules)
 
 		var/module_string = ""
 
-		if (!O)
+		if(!O)
 			module_string += text("<B>Resource depleted</B><BR>")
 		else if(activated(O))
 			module_string += text("[O]: <B>Activated</B><BR>")
@@ -328,8 +328,8 @@
 
 	dat += tools
 
-	if (emagged)
-		if (!module.emag)
+	if(emagged)
+		if(!module.emag)
 			dat += text("<B>Resource depleted</B><BR>")
 		else if(activated(module.emag))
 			dat += text("[module.emag]: <B>Activated</B><BR>")
@@ -344,7 +344,7 @@
 /mob/living/silicon/robot/drone/use_power()
 
 	..()
-	if(!src.has_power || !decompiler)
+	if(low_power_mode || !decompiler)
 		return
 
 	//The decompiler replenishes drone stores from hoovered-up junk each tick.

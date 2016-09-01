@@ -43,7 +43,7 @@
 
 /datum/surgery/proc/complete(mob/living/carbon/human/target)
 	target.surgeries -= src
-	src = null
+	qdel(src)
 
 
 
@@ -95,6 +95,8 @@
 	return 0
 
 /datum/surgery_step/proc/initiate(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	if(!can_use(user, target, target_zone, tool, surgery))
+		return
 	surgery.step_in_progress = 1
 
 	if(begin_step(user, target, target_zone, tool, surgery) == -1)
@@ -110,7 +112,7 @@
 
 	if(prob_chance > 100)//if we are using a super tool
 		time = time/prob_chance //PLACEHOLDER VALUES
-
+	
 	if(do_after(user, time, target = target))
 
 
@@ -130,8 +132,8 @@
 
 //returns how well tool is suited for this step
 /datum/surgery_step/proc/tool_quality(obj/item/tool)
-	for (var/T in allowed_tools)
-		if (istype(tool,T))
+	for(var/T in allowed_tools)
+		if(istype(tool,T))
 			return allowed_tools[T]
 	return 0
 
@@ -154,19 +156,19 @@
 
 // checks whether this step can be applied with the given user and target
 /datum/surgery_step/proc/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
-	return 0
+	return 1
 
 // does stuff to begin the step, usually just printing messages. Moved germs transfering and bloodying here too
 /datum/surgery_step/proc/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	if(ishuman(target))
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
-		if (can_infect && affected)
+		if(can_infect && affected)
 			spread_germs_to_organ(affected, user)
-	if (ishuman(user) && !(istype(target,/mob/living/carbon/alien)) && prob(60))
+	if(ishuman(user) && !(istype(target,/mob/living/carbon/alien)) && prob(60))
 		var/mob/living/carbon/human/H = user
-		if (blood_level)
+		if(blood_level)
 			H.bloody_hands(target,0)
-		if (blood_level > 1)
+		if(blood_level > 1)
 			H.bloody_body(target,0)
 	return
 
@@ -192,7 +194,7 @@
 /proc/sort_surgeries()
 	var/gap = surgery_steps.len
 	var/swapped = 1
-	while (gap > 1 || swapped)
+	while(gap > 1 || swapped)
 		swapped = 0
 		if(gap > 1)
 			gap = round(gap / 1.247330950103979)

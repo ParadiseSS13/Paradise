@@ -91,21 +91,21 @@
 		var/pressure = environment.return_pressure()
 		var/total_moles = environment.total_moles()
 
-		if (total_moles)
+		if(total_moles)
 			var/o2_level = environment.oxygen/total_moles
 			var/n2_level = environment.nitrogen/total_moles
 			var/co2_level = environment.carbon_dioxide/total_moles
 			var/plasma_level = environment.toxins/total_moles
 			var/unknown_level =  1-(o2_level+n2_level+co2_level+plasma_level)
-			data["aircontents"] = list(\
-				"pressure" = "[round(pressure,0.1)]",\
-				"nitrogen" = "[round(n2_level*100,0.1)]",\
-				"oxygen" = "[round(o2_level*100,0.1)]",\
-				"carbon_dioxide" = "[round(co2_level*100,0.1)]",\
-				"plasma" = "[round(plasma_level*100,0.01)]",\
-				"other" = "[round(unknown_level, 0.01)]",\
-				"temp" = "[round(environment.temperature-T0C,0.1)]",\
-				"reading" = 1\
+			data["aircontents"] = list(
+				"pressure" = pressure,
+				"nitrogen" = n2_level*100,
+				"oxygen" = o2_level*100,
+				"carbon_dioxide" = co2_level*100,
+				"plasma" = plasma_level*100,
+				"other" = unknown_level,
+				"temp" = environment.temperature-T0C,
+				"reading" = 1
 				)
 	if(isnull(data["aircontents"]))
 		data["aircontents"] = list("reading" = 0)

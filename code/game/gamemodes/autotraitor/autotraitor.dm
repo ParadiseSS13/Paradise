@@ -53,7 +53,7 @@
 			traitors.Remove(traitor)
 			continue
 		if(istype(traitor))
-			traitor.special_role = "traitor"
+			traitor.special_role = SPECIAL_ROLE_TRAITOR
 			traitor.restricted_roles = restricted_jobs
 
 //	if(!traitors.len)
@@ -76,19 +76,19 @@
 		var/traitorcount = 0
 		var/possible_traitors[0]
 		for(var/mob/living/player in mob_list)
-			if (player.client && player.stat != DEAD)
+			if(player.client && player.stat != DEAD)
 				playercount += 1
-			if (player.client && player.mind && player.mind.special_role && player.stat != DEAD)
+			if(player.client && player.mind && player.mind.special_role && player.stat != DEAD)
 				traitorcount += 1
-			if (player.client && player.mind && !player.mind.special_role && player.stat != DEAD)
-				if (ishuman(player) || isrobot(player) || isAI(player))
-					if (player.client && (ROLE_TRAITOR in player.client.prefs.be_special) && !jobban_isbanned(player, ROLE_TRAITOR) && !jobban_isbanned(player, "Syndicate"))
+			if(player.client && player.mind && !player.mind.special_role && player.stat != DEAD)
+				if(ishuman(player) || isrobot(player) || isAI(player))
+					if(player.client && (ROLE_TRAITOR in player.client.prefs.be_special) && !jobban_isbanned(player, ROLE_TRAITOR) && !jobban_isbanned(player, "Syndicate"))
 						possible_traitors += player.mind
 		for(var/datum/mind/player in possible_traitors)
 			for(var/job in restricted_jobs)
 				if(player.assigned_role == job)
 					possible_traitors -= player
-			if(player.current) // Remove loyalty implanted mobs from the list
+			if(player.current) // Remove mindshield-implanted mobs from the list
 				if(ishuman(player.current))
 					var/mob/living/carbon/human/H = player.current
 					for(var/obj/item/weapon/implant/loyalty/I in H.contents)
@@ -133,12 +133,12 @@
 					equip_traitor(newtraitor)
 
 				traitors += newtraitor.mind
-				to_chat(newtraitor, "\red <B>ATTENTION:</B> \black It is time to pay your debt to the Syndicate...")
+				to_chat(newtraitor, "<span class='danger'>ATTENTION:</span> It is time to pay your debt to the Syndicate...")
 				to_chat(newtraitor, "<B>You are now a traitor.</B>")
-				newtraitor.mind.special_role = "traitor"
+				newtraitor.mind.special_role = SPECIAL_ROLE_TRAITOR
 				var/datum/atom_hud/antag/tatorhud = huds[ANTAG_HUD_TRAITOR]
 				tatorhud.join_hud(newtraitor)
-				set_antag_hud(src, "hudsyndicate")
+				set_antag_hud(newtraitor, "hudsyndicate")
 
 				var/obj_count = 1
 				to_chat(newtraitor, "\blue Your current objectives:")
@@ -165,9 +165,9 @@
 		var/playercount = 0
 		var/traitorcount = 0
 		for(var/mob/living/player in mob_list)
-			if (player.client && player.stat != DEAD)
+			if(player.client && player.stat != DEAD)
 				playercount += 1
-			if (player.client && player.mind && player.mind.special_role && player.stat != DEAD)
+			if(player.client && player.mind && player.mind.special_role && player.stat != DEAD)
 				traitorcount += 1
 		//message_admins("Live Players: [playercount]")
 		//message_admins("Live Traitors: [traitorcount]")
@@ -183,7 +183,7 @@
 
 		//target_traitors = max(1, min(round((playercount + r) / 10, 1), traitors_possible))
 		//message_admins("Target Traitor Count is: [target_traitors]")
-		if (traitorcount < max_traitors)
+		if(traitorcount < max_traitors)
 			for(var/job in restricted_jobs)
 				if(character.mind.assigned_role == job || !ishuman(character))
 					return

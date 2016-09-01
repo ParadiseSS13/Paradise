@@ -36,7 +36,7 @@
 		if(!yieldmod)
 			yieldmod += 1
 //			to_chat(world, "Yield increased by 1, from 0, to a total of [myseed.yield]")
-		else if (prob(1/(yieldmod * yieldmod) *100))//This formula gives you diminishing returns based on yield. 100% with 1 yield, decreasing to 25%, 11%, 6, 4, 2...
+		else if(prob(1/(yieldmod * yieldmod) *100))//This formula gives you diminishing returns based on yield. 100% with 1 yield, decreasing to 25%, 11%, 6, 4, 2...
 			yieldmod += 1
 //			to_chat(world, "Yield increased by 1, to a total of [myseed.yield]")
 	else
@@ -65,7 +65,7 @@
 		qdel(O)
 	else if(istype(O, /obj/item/weapon/minihoe))
 		if(health > 0)
-			to_chat(user, "\red <b>You begin to dislodge the apiary from the tray, the bees don't like that.</b>")
+			to_chat(user, "<span class='danger'>You begin to dislodge the apiary from the tray, the bees don't like that.</span>")
 			angry_swarm(user)
 		else
 			to_chat(user, "\blue You begin to dislodge the dead apiary from the tray.")

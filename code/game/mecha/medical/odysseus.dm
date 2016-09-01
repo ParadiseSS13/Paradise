@@ -12,44 +12,35 @@
 	step_energy_drain = 6
 	var/builtin_hud_user = 0
 
-	moved_inside(var/mob/living/carbon/human/H as mob)
-		if(..())
-			if(H.glasses && istype(H.glasses, /obj/item/clothing/glasses/hud))
-				occupant_message("<span class='warning'>Your [H.glasses] prevent you from using the built-in medical hud.</span>")
-			else
-				var/datum/atom_hud/data/human/medical/advanced/A = huds[DATA_HUD_MEDICAL_ADVANCED]
-				A.add_hud_to(H)
-				builtin_hud_user = 1
-			return 1
+/obj/mecha/medical/odysseus/moved_inside(var/mob/living/carbon/human/H)
+	. = ..()
+	if(. && ishuman(H))
+		if(istype(H.glasses, /obj/item/clothing/glasses/hud))
+			occupant_message("<span class='warning'>[H.glasses] prevent you from using the built-in medical hud.</span>")
 		else
-			return 0
-
-	mmi_moved_inside(var/obj/item/device/mmi/mmi_as_oc as obj,mob/user as mob)
-		if(..())
-			if(occupant.client)
-				var/datum/atom_hud/A = huds[DATA_HUD_MEDICAL_ADVANCED]
-				A.add_hud_to(occupant)
-				builtin_hud_user = 1
-			return 1
-		else
-			return 0
-
-	go_out()
-		if(istype(occupant,/mob/living/carbon/human)  && builtin_hud_user)
-			var/mob/living/carbon/human/H = occupant
 			var/datum/atom_hud/data/human/medical/advanced/A = huds[DATA_HUD_MEDICAL_ADVANCED]
-			A.remove_hud_from(H)
-			builtin_hud_user = 0
-		else if ((istype(occupant, /mob/living/carbon/brain) || pilot_is_mmi()) && builtin_hud_user )
-			var/mob/living/carbon/brain/H = occupant
+			A.add_hud_to(H)
+			builtin_hud_user = 1
+
+/obj/mecha/medical/odysseus/mmi_moved_inside(var/obj/item/device/mmi/mmi_as_oc, mob/user)
+	. = ..()
+	if(.)
+		if(occupant.client)
 			var/datum/atom_hud/A = huds[DATA_HUD_MEDICAL_ADVANCED]
-			A.remove_hud_from(H)
-			builtin_hud_user = 0
+			A.add_hud_to(occupant)
+			builtin_hud_user = 1
 
-		..()
-		return
+/obj/mecha/medical/odysseus/go_out()
+	if(ishuman(occupant) && builtin_hud_user)
+		var/mob/living/carbon/human/H = occupant
+		var/datum/atom_hud/data/human/medical/advanced/A = huds[DATA_HUD_MEDICAL_ADVANCED]
+		A.remove_hud_from(H)
+		builtin_hud_user = 0
+	else if((isbrain(occupant) || pilot_is_mmi()) && builtin_hud_user)
+		var/mob/living/carbon/brain/H = occupant
+		var/datum/atom_hud/A = huds[DATA_HUD_MEDICAL_ADVANCED]
+		A.remove_hud_from(H)
+		builtin_hud_user = 0
 
-//TODO - Check documentation for client.eye and client.perspective...
-/obj/item/clothing/glasses/hud/health/mech
-	name = "Integrated Medical Hud"
-	HUDType = DATA_HUD_MEDICAL_ADVANCED
+	. = ..()
+

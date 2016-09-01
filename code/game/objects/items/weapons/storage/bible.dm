@@ -4,7 +4,8 @@
 	icon_state ="bible"
 	throw_speed = 1
 	throw_range = 5
-	w_class = 3.0
+	w_class = 3
+	burn_state = FLAMMABLE
 	var/mob/affecting = null
 	var/deity_name = "Christ"
 
@@ -52,7 +53,7 @@
 	else
 		M.LAssailant = user
 
-	if (!(istype(user, /mob/living/carbon/human) || ticker) && ticker.mode.name != "monkey")
+	if(!(istype(user, /mob/living/carbon/human) || ticker) && ticker.mode.name != "monkey")
 		to_chat(user, "\red You don't have the dexterity to do this!")
 		return
 	if(!chaplain)
@@ -60,7 +61,7 @@
 		user.take_organ_damage(0,10)
 		return
 
-	if ((CLUMSY in user.mutations) && prob(50))
+	if((CLUMSY in user.mutations) && prob(50))
 		to_chat(user, "\red The [src] slips out of your hand and hits your head.")
 		user.take_organ_damage(10)
 		user.Paralyse(20)
@@ -69,15 +70,15 @@
 //	if(..() == BLOCKED)
 //		return
 
-	if (M.stat !=2)
+	if(M.stat !=2)
 		/*if((M.mind in ticker.mode.cult) && (prob(20)))
 			to_chat(M, "\red The power of [src.deity_name] clears your mind of heresy!")
 			to_chat(user, "\red You see how [M]'s eyes become clear, the cult no longer holds control over him!")
 			ticker.mode.remove_cultist(M.mind)*/
-		if ((istype(M, /mob/living/carbon/human) && prob(60)))
+		if((istype(M, /mob/living/carbon/human) && prob(60)))
 			bless(M)
 			for(var/mob/O in viewers(M, null))
-				O.show_message(text("\red <B>[] heals [] with the power of [src.deity_name]!</B>", user, M), 1)
+				O.show_message(text("<span class='danger'>[] heals [] with the power of [src.deity_name]!</span>", user, M), 1)
 			to_chat(M, "\red May the power of [src.deity_name] compel you to be healed!")
 			playsound(src.loc, "punch", 25, 1, -1)
 		else
@@ -85,18 +86,18 @@
 				M.adjustBrainLoss(10)
 				to_chat(M, "\red You feel dumber.")
 			for(var/mob/O in viewers(M, null))
-				O.show_message(text("\red <B>[] beats [] over the head with []!</B>", user, M, src), 1)
+				O.show_message(text("<span class='danger'>[] beats [] over the head with []!</span>", user, M, src), 1)
 			playsound(src.loc, "punch", 25, 1, -1)
 	else if(M.stat == 2)
 		for(var/mob/O in viewers(M, null))
-			O.show_message(text("\red <B>[] smacks []'s lifeless corpse with [].</B>", user, M, src), 1)
+			O.show_message(text("<span class='danger'>[] smacks []'s lifeless corpse with [].</span>", user, M, src), 1)
 		playsound(src.loc, "punch", 25, 1, -1)
 	return
 
 /obj/item/weapon/storage/bible/afterattack(atom/A, mob/user as mob, proximity)
 	if(!proximity)
 		return
-	if (istype(A, /turf/simulated/floor))
+	if(istype(A, /turf/simulated/floor))
 		to_chat(user, "<span class='notice'>You hit the floor with the bible.</span>")
 		if(user.mind && (user.mind.assigned_role == "Chaplain"))
 			call(/obj/effect/rune/proc/revealrunes)(src)

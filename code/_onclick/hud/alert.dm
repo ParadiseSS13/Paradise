@@ -37,9 +37,12 @@
 
 	if(new_master)
 		var/old_layer = new_master.layer
+		var/old_plane = new_master.plane
 		new_master.layer = FLOAT_LAYER
+		new_master.plane = FLOAT_PLANE
 		alert.overlays += new_master
 		new_master.layer = old_layer
+		new_master.plane = old_plane
 		alert.icon_state = "template" // We'll set the icon to the client's ui pref in reorganize_alerts()
 		alert.master = new_master
 	else
@@ -162,7 +165,7 @@ The box in your backpack has an oxygen tank and gas mask in it."
 	name = "Too Cold"
 	desc = "You're freezing cold! Get somewhere warmer and take off any insulating clothing like a space suit."
 	icon_state = "cold"
-	
+
 /obj/screen/alert/cold/drask
     name = "Cold"
     desc = "You're breathing supercooled gas! It's stimulating your metabolism to regenerate damaged tissue."
@@ -291,6 +294,25 @@ so as to remain in compliance with the most up-to-date laws."
 	icon_state = "newlaw"
 	timeout = 300
 
+/obj/screen/alert/hackingapc
+	name = "Hacking APC"
+	desc = "An Area Power Controller is being hacked. When the process is \
+		complete, you will have exclusive control of it, and you will gain \
+		additional processing time to unlock more malfunction abilities."
+	icon_state = "hackingapc"
+	timeout = 600
+	var/atom/target = null
+
+/obj/screen/alert/hackingapc/Click()
+	if(!usr || !usr.client)
+		return
+	if(!target)
+		return
+	var/mob/living/silicon/ai/AI = usr
+	var/turf/T = get_turf(target)
+	if(T)
+		AI.eyeobj.setLoc(T)
+
 //MECHS
 
 /obj/screen/alert/low_mech_integrity
@@ -397,8 +419,7 @@ so as to remain in compliance with the most up-to-date laws."
 		return usr.client.Click(master, location, control, params)
 
 /obj/screen/alert/Destroy()
-	..()
 	severity = 0
 	master = null
 	screen_loc = ""
-	return QDEL_HINT_QUEUE
+	return ..()

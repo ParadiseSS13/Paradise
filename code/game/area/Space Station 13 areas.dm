@@ -29,6 +29,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	layer = 10
 	luminosity = 0
 	mouse_opacity = 0
+	invisibility = INVISIBILITY_LIGHTING
 	var/lightswitch = 1
 
 	var/eject = null
@@ -66,7 +67,7 @@ var/list/teleportlocs = list()
 		if(AR.no_teleportlocs) continue
 		if(teleportlocs.Find(AR.name)) continue
 		var/turf/picked = safepick(get_area_turfs(AR.type))
-		if (picked && (picked.z == ZLEVEL_STATION))
+		if(picked && is_station_level(picked.z))
 			teleportlocs += AR.name
 			teleportlocs[AR.name] = AR
 
@@ -295,6 +296,10 @@ var/list/ghostteleportlocs = list()
 	name = "\improper Special Ops Shuttle"
 	icon_state = "shuttlered2"
 
+/area/shuttle/syndicate_elite
+	name = "\improper Syndicate Elite Shuttle"
+	icon_state = "shuttlered"
+
 /area/shuttle/syndicate_elite/mothership
 	name = "\improper Syndicate Elite Shuttle"
 	icon_state = "shuttlered"
@@ -302,6 +307,10 @@ var/list/ghostteleportlocs = list()
 /area/shuttle/syndicate_elite/station
 	name = "\improper Syndicate Elite Shuttle"
 	icon_state = "shuttlered2"
+
+/area/shuttle/syndicate_sit
+	name = "\improper Syndicate SIT Shuttle"
+	icon_state = "shuttlered"
 
 /area/shuttle/assault_pod
 	name = "Steel Rain"
@@ -435,8 +444,16 @@ var/list/ghostteleportlocs = list()
 	icon_state = "shuttle"
 
 /area/shuttle/syndicate
-	name = "Syndicate Infiltrator"
+	name = "Syndicate Nuclear Team Shuttle"
 	icon_state = "shuttle"
+
+/area/shuttle/trade
+	name = "Trade Shuttle"
+	icon_state = "shuttle"
+	requires_power = 0
+
+/area/shuttle/trade/sol
+	name = "Sol Freighter"
 
 /area/airtunnel1/      // referenced in airtunnel.dm:759
 
@@ -511,6 +528,10 @@ var/list/ghostteleportlocs = list()
 
 /area/syndicate_mothership/elite_squad
 	name = "\improper Syndicate Elite Squad"
+	icon_state = "syndie-elite"
+
+/area/syndicate_mothership/infteam
+	name = "\improper Syndicate Infiltrators"
 	icon_state = "syndie-elite"
 
 /area/syndicate_depot
@@ -674,6 +695,14 @@ var/list/ghostteleportlocs = list()
 	name = "\improper Aft Starboard Solars"
 	icon_state = "southeast"
 	requires_power = 0
+
+/area/trader_station
+	name = "Trade Base"
+	icon_state = "yellow"
+	requires_power = 0
+
+/area/trader_station/sol
+	name = "Jupiter Station 6"
 
 /area/vox_station/mining
 	name = "\improper Nearby Mining Asteroid"
@@ -931,6 +960,10 @@ var/list/ghostteleportlocs = list()
 	power_equip = 0
 	power_light = 0
 	power_environ = 0
+
+/area/maintenance/consarea
+	name = "Alternate Construction Area"
+	icon_state = "yellow"
 
 
 //Hallway
@@ -1553,11 +1586,11 @@ var/list/ghostteleportlocs = list()
 
 /area/security/main
 	name = "\improper Security Office"
-	icon_state = "security"
+	icon_state = "securityoffice"
 
 /area/security/lobby
 	name = "\improper Security Lobby"
-	icon_state = "security"
+	icon_state = "securitylobby"
 
 /area/security/brig
 	name = "\improper Brig"
@@ -1573,7 +1606,7 @@ var/list/ghostteleportlocs = list()
 
 /area/security/permabrig
 	name = "\improper Prison Wing"
-	icon_state = "sec_prison"
+	icon_state = "sec_prison_perma"
 
 /area/security/prison
 	name = "\improper Prison Wing"
@@ -1593,11 +1626,11 @@ var/list/ghostteleportlocs = list()
 
 /area/security/prison/cell_block/A
 	name = "\improper Prison Cell Block A"
-	icon_state = "brig"
+	icon_state = "brigcella"
 
 /area/security/prison/cell_block/B
 	name = "\improper Prison Cell Block B"
-	icon_state = "brig"
+	icon_state = "brigcellb"
 
 /area/security/prison/cell_block/C
 	name = "\improper Prison Cell Block C"
@@ -1605,15 +1638,27 @@ var/list/ghostteleportlocs = list()
 
 /area/security/execution
 	name = "\improper Execution"
-	icon_state = "security"
+	icon_state = "execution"
 
 /area/security/processing
 	name = "\improper Prisoner Processing"
-	icon_state = "security"
+	icon_state = "prisonerprocessing"
 
 /area/security/interrogation
 	name = "\improper Interrogation"
-	icon_state = "security"
+	icon_state = "interrogation"
+
+/area/security/seceqstorage
+	name = "\improper Security Equipment Storage"
+	icon_state = "securityequipmentstorage"
+
+/area/security/interrogationhallway
+	name = "\improper Interrogation Hallway"
+	icon_state = "interrogationhall"
+
+/area/security/courtroomdandp
+	name = "\improper Courtroom Defense and Prosecution"
+	icon_state = "seccourt"
 
 /area/security/interrogationobs
 	name = "\improper Interrogation Observation"
@@ -1621,11 +1666,11 @@ var/list/ghostteleportlocs = list()
 
 /area/security/evidence
 	name = "\improper Evidence Room"
-	icon_state = "security"
+	icon_state = "evidence"
 
 /area/security/prisonlockers
 	name = "\improper Prisoner Lockers"
-	icon_state = "sec_prison"
+	icon_state = "sec_prison_lockers"
 
 /area/security/medbay
 	name = "\improper Security Medbay"
@@ -1641,11 +1686,11 @@ var/list/ghostteleportlocs = list()
 
 /area/security/armoury
 	name = "\improper Armory"
-	icon_state = "Warden"
+	icon_state = "armory"
 
 /area/security/securearmoury
 	name = "\improper Secure Armory"
-	icon_state = "Warden"
+	icon_state = "secarmory"
 
 /area/security/armoury/gamma
 	name = "\improper Gamma Armory"
@@ -1654,7 +1699,7 @@ var/list/ghostteleportlocs = list()
 
 /area/security/securehallway
 	name = "\improper Security Secure Hallway"
-	icon_state = "security"
+	icon_state = "securehall"
 
 /area/security/hos
 	name = "\improper Head of Security's Office"
@@ -1662,7 +1707,7 @@ var/list/ghostteleportlocs = list()
 
 area/security/podbay
 	name = "\improper Security Podbay"
-	icon_state = "security"
+	icon_state = "securitypodbay"
 
 /area/security/detectives_office
 	name = "\improper Detective's Office"
@@ -2595,4 +2640,3 @@ var/list/the_station_areas = list (
 	/area/turret_protected/ai_upload_foyer,
 	/area/turret_protected/ai,
 )
-

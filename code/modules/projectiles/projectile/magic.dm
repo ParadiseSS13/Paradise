@@ -4,15 +4,15 @@
 	damage = 0
 	damage_type = OXY
 	nodamage = 1
+	armour_penetration = 100
 	flag = "magic"
 
 /obj/item/projectile/magic/death
 	name = "bolt of death"
 	icon_state = "pulse1_bl"
-	damage = 9001
-	damage_type = OXY
+	damage_type = BURN //OXY does not kill IPCs
+	damage = 50000
 	nodamage = 0
-	flag = "magic"
 
 /obj/item/projectile/magic/fireball
 	name = "bolt of fireball"
@@ -20,9 +20,22 @@
 	damage = 10
 	damage_type = BRUTE
 	nodamage = 0
-	flag = "magic"
+
+/obj/item/projectile/magic/fireball/Range()
+	var/turf/T1 = get_step(src,turn(dir, -45))
+	var/turf/T2 = get_step(src,turn(dir, 45))
+	var/mob/living/L = locate(/mob/living) in T1 //if there's a mob alive in our front right diagonal, we hit it.
+	if(L && L.stat != DEAD)
+		Bump(L) //Magic Bullet #teachthecontroversy
+		return
+	L = locate(/mob/living) in T2
+	if(L && L.stat != DEAD)
+		Bump(L)
+		return
+	..()
 
 /obj/item/projectile/magic/fireball/on_hit(var/target)
+	. = ..()
 	var/turf/T = get_turf(target)
 	explosion(T, -1, 0, 2, 3, 0, flame_range = 2)
 	if(ismob(target)) //multiple flavors of pain
@@ -32,35 +45,13 @@
 /obj/item/projectile/magic/resurrection
 	name = "bolt of resurrection"
 	icon_state = "ion"
-	damage = 0
-	damage_type = OXY
-	nodamage = 1
-	flag = "magic"
 
 /obj/item/projectile/magic/resurrection/on_hit(var/mob/living/carbon/target)
-
-	if(istype(target,/mob))
+	. = ..()
+	if(ismob(target))
 		var/old_stat = target.stat
-		if(isanimal(target) && target.stat == DEAD)
-			var/mob/living/simple_animal/O = target
-			var/mob/living/simple_animal/A = new O.type(O.loc)
-			A.real_name = O.real_name
-			A.name = O.name
-			if(iscorgi(O))
-				var/mob/living/simple_animal/pet/corgi/C = O
-				if(C.inventory_head)
-					C.inventory_head.loc = C.loc
-				if(C.inventory_back)
-					C.inventory_back.loc = C.loc
-			if(O.mind)
-				O.mind.transfer_to(A)
-			else
-				A.key = O.key
-			qdel(O)
-			target = A
-		else
-			target.revive()
-			target.suiciding = 0
+		target.suiciding = 0
+		target.revive()
 		if(!target.ckey)
 			for(var/mob/dead/observer/ghost in player_list)
 				if(target.real_name == ghost.real_name)
@@ -74,14 +65,11 @@
 /obj/item/projectile/magic/teleport
 	name = "bolt of teleportation"
 	icon_state = "bluespace"
-	damage = 0
-	damage_type = OXY
-	nodamage = 1
-	flag = "magic"
 	var/inner_tele_radius = 0
 	var/outer_tele_radius = 6
 
 /obj/item/projectile/magic/teleport/on_hit(var/mob/target)
+	. = ..()
 	var/teleammount = 0
 	var/teleloc = target
 	if(!isturf(target))
@@ -97,37 +85,46 @@
 /obj/item/projectile/magic/door
 	name = "bolt of door creation"
 	icon_state = "energy"
-	damage = 0
-	damage_type = OXY
-	nodamage = 1
-	flag = "magic"
+	var/list/door_types = list(/obj/structure/mineral_door/wood,/obj/structure/mineral_door/iron,/obj/structure/mineral_door/silver,\
+		/obj/structure/mineral_door/gold,/obj/structure/mineral_door/uranium,/obj/structure/mineral_door/sandstone,/obj/structure/mineral_door/transparent/plasma,\
+		/obj/structure/mineral_door/transparent/diamond)
 
 /obj/item/projectile/magic/door/on_hit(var/atom/target)
+	. = ..()
 	var/atom/T = target.loc
-	if(isturf(target))
-		if(target.density)
-			new /obj/structure/mineral_door/wood(target)
-			target:ChangeTurf(/turf/simulated/floor/plating)
-	else if (isturf(T))
-		if(T.density)
-			new /obj/structure/mineral_door/wood(T)
-			T:ChangeTurf(/turf/simulated/floor/plating)
+	if(isturf(target) && target.density)
+		CreateDoor(target)
+	else if(isturf(T) && T.density)
+		CreateDoor(T)
+	else if(istype(target, /obj/machinery/door))
+		OpenDoor(target)
+
+/obj/item/projectile/magic/door/proc/CreateDoor(turf/T)
+	var/door_type = pick(door_types)
+	var/obj/structure/mineral_door/D = new door_type(T)
+	T.ChangeTurf(/turf/simulated/floor/plasteel)
+	D.Open()
+
+/obj/item/projectile/magic/door/proc/OpenDoor(var/obj/machinery/door/D)
+	if(istype(D,/obj/machinery/door/airlock))
+		var/obj/machinery/door/airlock/A = D
+		A.locked = 0
+	D.open()
 
 /obj/item/projectile/magic/change
 	name = "bolt of change"
 	icon_state = "ice_1"
-	damage = 0
 	damage_type = BURN
-	nodamage = 1
-	flag = "magic"
 
 /obj/item/projectile/magic/change/on_hit(var/atom/change)
+	. = ..()
 	wabbajack(change)
 
 proc/wabbajack(mob/living/M)
 	if(istype(M))
 		if(istype(M, /mob/living) && M.stat != DEAD)
-			if(M.notransform)	return
+			if(M.notransform)
+				return
 			M.notransform = 1
 			M.canmove = 0
 			M.icon = null
@@ -136,7 +133,9 @@ proc/wabbajack(mob/living/M)
 
 			if(istype(M, /mob/living/silicon/robot))
 				var/mob/living/silicon/robot/Robot = M
-				if(Robot.mmi)	qdel(Robot.mmi)
+				if(Robot.mmi)
+					qdel(Robot.mmi)
+				Robot.notify_ai(1)
 			else
 				if(ishuman(M))
 					var/mob/living/carbon/human/H = M
@@ -146,7 +145,8 @@ proc/wabbajack(mob/living/M)
 					for(var/i in H.internal_organs)
 						qdel(i)
 				for(var/obj/item/W in M)
-					M.unEquip(W)
+					M.unEquip(W, 1)
+					qdel(W)
 
 			var/mob/living/new_mob
 
@@ -166,8 +166,6 @@ proc/wabbajack(mob/living/M)
 						Robot.mmi.transfer_identity(M)	//Does not transfer key/client.
 				if("slime")
 					new_mob = new /mob/living/carbon/slime(M.loc)
-/*					if(prob(50))
-						new_mob.is_adult = 1*/
 					new_mob.universal_speak = 1
 				if("xeno")
 					if(prob(50))
@@ -175,14 +173,6 @@ proc/wabbajack(mob/living/M)
 					else
 						new_mob = new /mob/living/carbon/alien/humanoid/sentinel(M.loc)
 					new_mob.universal_speak = 1
-
-					/*var/alien_caste = pick("Hunter","Sentinel","Drone","Larva")
-					switch(alien_caste)
-						if("Hunter")	new_mob = new /mob/living/carbon/alien/humanoid/hunter(M.loc)
-						if("Sentinel")	new_mob = new /mob/living/carbon/alien/humanoid/sentinel(M.loc)
-						if("Drone")		new_mob = new /mob/living/carbon/alien/humanoid/drone(M.loc)
-						else			new_mob = new /mob/living/carbon/alien/larva(M.loc)
-					new_mob.universal_speak = 1*/
 				if("animal")
 					if(prob(50))
 						var/beast = pick("carp","bear","mushroom","statue", "bat", "goat", "tomato")
@@ -225,7 +215,6 @@ proc/wabbajack(mob/living/M)
 					randomize = picked_species
 					var/datum/preferences/A = new()	//Randomize appearance for the human
 					A.copy_to(new_mob)
-
 				else
 					return
 
@@ -246,13 +235,10 @@ proc/wabbajack(mob/living/M)
 /obj/item/projectile/magic/animate
 	name = "bolt of animation"
 	icon_state = "red_1"
-	damage = 0
 	damage_type = BURN
-	nodamage = 1
-	flag = "magic"
 
 /obj/item/projectile/magic/animate/Bump(var/atom/change)
-	. = ..()
+	..()
 	if(istype(change, /obj/item) || istype(change, /obj/structure) && !is_type_in_list(change, protected_objects))
 		if(istype(change, /obj/structure/closet/statue))
 			for(var/mob/living/carbon/human/H in change.contents)
@@ -269,7 +255,10 @@ proc/wabbajack(mob/living/M)
 				qdel(src)
 		else
 			var/obj/O = change
-			new /mob/living/simple_animal/hostile/mimic/copy(O.loc, O, firer)
+			if(istype(O, /obj/item/weapon/gun))
+				new /mob/living/simple_animal/hostile/mimic/copy/ranged(O.loc, O, firer)
+			else
+				new /mob/living/simple_animal/hostile/mimic/copy(O.loc, O, firer)
 	else if(istype(change, /mob/living/simple_animal/hostile/mimic/copy))
 		// Change our allegiance!
 		var/mob/living/simple_animal/hostile/mimic/copy/C = change

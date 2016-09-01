@@ -4,6 +4,7 @@
 //Potential replacement for genetics revives or something I dunno (?)
 
 #define CLONE_BIOMASS 150
+#define BIOMASS_MEAT_AMOUNT 50
 
 /obj/machinery/clonepod
 	anchored = 1
@@ -84,7 +85,7 @@
 	icon = 'icons/obj/cloning.dmi'
 	icon_state = "datadisk0" //Gosh I hope syndies don't mistake them for the nuke disk.
 	item_state = "card-id"
-	w_class = 1.0
+	w_class = 1
 	var/datum/dna2/record/buf=null
 	var/read_only = 0 //Well,it's still a floppy disk
 
@@ -123,19 +124,19 @@
 
 //Find a dead mob with a brain and client.
 /proc/find_dead_player(var/find_key)
-	if (isnull(find_key))
+	if(isnull(find_key))
 		return
 
 	var/mob/selected = null
 	for(var/mob/M in player_list)
 		//Dead people only thanks!
-		if ((M.stat != 2) || (!M.client))
+		if((M.stat != 2) || (!M.client))
 			continue
 		//They need a brain!
 		if(istype(M, /mob/living/carbon/human) && !M.get_int_organ(/obj/item/organ/internal/brain))
 			continue
 
-		if (M.ckey == find_key)
+		if(M.ckey == find_key)
 			selected = M
 			break
 	return selected
@@ -162,13 +163,13 @@
 	var/healthstring = ""
 
 /obj/item/weapon/implant/health/proc/sensehealth()
-	if (!implanted)
+	if(!implanted)
 		return "ERROR"
 	else
 		if(isliving(implanted))
 			var/mob/living/L = implanted
 			healthstring = "[round(L.getOxyLoss())] - [round(L.getFireLoss())] - [round(L.getToxLoss())] - [round(L.getBruteLoss())]"
-		if (!healthstring)
+		if(!healthstring)
 			healthstring = "ERROR"
 		return healthstring
 
@@ -176,11 +177,11 @@
 	return attack_hand(user)
 
 /obj/machinery/clonepod/attack_hand(mob/user as mob)
-	if ((isnull(occupant)) || (stat & NOPOWER))
+	if((isnull(occupant)) || (stat & NOPOWER))
 		if(mess)
 			go_out()
 		return
-	if ((!isnull(occupant)) && (occupant.stat != 2))
+	if((!isnull(occupant)) && (occupant.stat != 2))
 		var/completion = (100 * ((occupant.health + 100) / (heal_level + 100)))
 		to_chat(user, "Current clone cycle is [round(completion)]% complete.")
 	return
@@ -248,7 +249,7 @@
 		ticker.mode.update_rev_icons_added() //So the icon actually appears
 	if(H.mind in ticker.mode.syndicates)
 		ticker.mode.update_synd_icons_added()
-	if (H.mind in ticker.mode.cult)
+	if(H.mind in ticker.mode.cult)
 		ticker.mode.add_cult_viewpoint(H)
 		ticker.mode.add_cultist(occupant.mind)
 		ticker.mode.update_cult_icons_added() //So the icon actually appears
@@ -292,9 +293,16 @@
 
 //Grow clones to maturity then kick them out.  FREELOADERS
 /obj/machinery/clonepod/process()
+	var/show_message = 0
+	for(var/obj/item/weapon/reagent_containers/food/snacks/meat/meat in range(1, src))
+		qdel(meat)
+		biomass += BIOMASS_MEAT_AMOUNT
+		show_message = 1
+	if(show_message)
+		visible_message("\The [src] sucks in and processes the nearby biomass.")
 
 	if(stat & NOPOWER) //Autoeject if power is lost
-		if (occupant)
+		if(occupant)
 			locked = 0
 			go_out()
 		return
@@ -316,7 +324,7 @@
 			occupant.adjustBrainLoss(-((speed_coeff/20)*efficiency))
 
 			//So clones don't die of oxyloss in a running pod.
-			if (occupant.reagents.get_reagent_amount("salbutamol") < 5)
+			if(occupant.reagents.get_reagent_amount("salbutamol") < 5)
 				occupant.reagents.add_reagent("salbutamol", 5)
 
 			//Also heal some oxyloss ourselves just in case!!
@@ -331,9 +339,9 @@
 			go_out()
 			return
 
-	else if ((!occupant) || (occupant.loc != src))
+	else if((!occupant) || (occupant.loc != src))
 		occupant = null
-		if (locked)
+		if(locked)
 			locked = 0
 		//use_power(200)
 		return
@@ -342,7 +350,7 @@
 
 //Let's unlock this early I guess.  Might be too early, needs tweaking.
 /obj/machinery/clonepod/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
-	if (istype(W, /obj/item/weapon/screwdriver))
+	if(istype(W, /obj/item/weapon/screwdriver))
 		if(occupant || mess || locked)
 			to_chat(user, "<span class='notice'>The maintenance panel is locked.</span>")
 			return
@@ -357,13 +365,13 @@
 			default_deconstruction_crowbar(W)
 		return
 
-	if (istype(W, /obj/item/weapon/card/id)||istype(W, /obj/item/device/pda))
-		if (!check_access(W))
+	if(istype(W, /obj/item/weapon/card/id)||istype(W, /obj/item/device/pda))
+		if(!check_access(W))
 			to_chat(user, "\red Access Denied.")
 			return
-		if ((!locked) || (isnull(occupant)))
+		if((!locked) || (isnull(occupant)))
 			return
-		if ((occupant.health < -20) && (occupant.stat != 2))
+		if((occupant.health < -20) && (occupant.stat != 2))
 			to_chat(user, "\red Access Refused.")
 			return
 		else
@@ -371,13 +379,13 @@
 			to_chat(user, "System unlocked.")
 
 //Removing cloning pod biomass
-	else if (istype(W, /obj/item/weapon/reagent_containers/food/snacks/meat))
+	else if(istype(W, /obj/item/weapon/reagent_containers/food/snacks/meat))
 		to_chat(user, "\blue \The [src] processes \the [W].")
-		biomass += 50
+		biomass += BIOMASS_MEAT_AMOUNT
 		user.drop_item()
 		qdel(W)
 		return
-	else if (istype(W, /obj/item/weapon/wrench))
+	else if(istype(W, /obj/item/weapon/wrench))
 		if(locked && (anchored || occupant))
 			to_chat(user, "\red Can not do that while [src] is in use.")
 		else
@@ -401,7 +409,7 @@
 		..()
 
 /obj/machinery/clonepod/emag_act(user as mob)
-	if (isnull(occupant))
+	if(isnull(occupant))
 		return
 	to_chat(user, "You force an emergency ejection.")
 	locked = 0
@@ -410,9 +418,9 @@
 
 //Put messages in the connected computer's temp var for display.
 /obj/machinery/clonepod/proc/connected_message(var/message)
-	if ((isnull(connected)) || (!istype(connected, /obj/machinery/computer/cloning)))
+	if((isnull(connected)) || (!istype(connected, /obj/machinery/computer/cloning)))
 		return 0
-	if (!message)
+	if(!message)
 		return 0
 
 	connected.temp = "[name] : [message]"
@@ -426,14 +434,14 @@
 
 	if(!usr)
 		return
-	if (usr.stat != 0)
+	if(usr.stat != 0)
 		return
 	go_out(usr)
 	add_fingerprint(usr)
 	return
 
 /obj/machinery/clonepod/proc/go_out(user)
-	if (mess) //Clean that mess and dump those gibs!
+	if(mess) //Clean that mess and dump those gibs!
 		if(occupant)
 			return
 		mess = 0
@@ -442,15 +450,15 @@
 		update_icon()
 		return
 
-	if (!(occupant))
+	if(!(occupant))
 		to_chat(user, "<span class=\"warning\">The cloning pod is empty!</span>")
 		return
 
-	if (locked)
+	if(locked)
 		to_chat(user, "<span class=\"warning\">The cloning pod is locked!</span>")
 		return
 
-	if (occupant.client)
+	if(occupant.client)
 		occupant.client.eye = occupant.client.mob
 		occupant.client.perspective = MOB_PERSPECTIVE
 	occupant.forceMove(get_turf(src))
@@ -473,13 +481,13 @@
 /obj/machinery/clonepod/update_icon()
 	..()
 	icon_state = "pod_0"
-	if (occupant && !(stat & NOPOWER))
+	if(occupant && !(stat & NOPOWER))
 		icon_state = "pod_1"
-	else if (mess && !panel_open)
+	else if(mess && !panel_open)
 		icon_state = "pod_g"
 
 /obj/machinery/clonepod/relaymove(mob/user as mob)
-	if (user.stat)
+	if(user.stat)
 		return
 	go_out()
 	return
@@ -497,14 +505,14 @@
 			qdel(src)
 			return
 		if(2.0)
-			if (prob(50))
+			if(prob(50))
 				for(var/atom/movable/A as mob|obj in src)
 					A.forceMove(src.loc)
 					A.ex_act(severity)
 				qdel(src)
 				return
 		if(3.0)
-			if (prob(25))
+			if(prob(25))
 				for(var/atom/movable/A as mob|obj in src)
 					A.forceMove(src.loc)
 					A.ex_act(severity)

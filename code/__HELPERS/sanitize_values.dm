@@ -50,18 +50,3 @@
 	HSL[3] = min(HSL[3],0.4)
 	var/list/RGB = hsl2rgb(arglist(HSL))
 	return "#[num2hex(RGB[1],2)][num2hex(RGB[2],2)][num2hex(RGB[3],2)]"
-
-
-// Sanitize inputs to avoid SQL injection attacks
-/proc/sql_sanitize_text(var/text)
-	text = replacetext(text, "'", "''")
-	text = replacetext(text, ";", "")
-	text = replacetext(text, "&", "")
-	return text
-
-// Calls the above proc on each entry of a list to ensure its entries are clean
-/proc/sql_sanitize_text_list(var/list/l)
-	var/list/new_list = l.Copy()
-	for (var/text in new_list)
-		sql_sanitize_text(text)
-	return new_list

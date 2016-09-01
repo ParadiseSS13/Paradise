@@ -6,12 +6,19 @@
 	hud_used = null
 	if(mind && mind.current == src)
 		spellremove(src)
+	mobspellremove(src)
 	for(var/infection in viruses)
 		qdel(infection)
 	ghostize()
 	for(var/mob/dead/observer/M in following_mobs)
 		M.following = null
 	following_mobs = null
+	if(buckled)
+		buckled.unbuckle_mob()
+	if(viewing_alternate_appearances)
+		for(var/datum/alternate_appearance/AA in viewing_alternate_appearances)
+			AA.viewers -= src
+		viewing_alternate_appearances = null
 	return ..()
 
 /mob/New()
@@ -54,20 +61,20 @@
 
 	if(!client)	return
 
-	if (type)
-		if(type & 1 && (sdisabilities & BLIND || blinded || paralysis) )//Vision related
-			if (!( alt ))
+	if(type)
+		if(type & 1 && (disabilities & BLIND || blinded || paralysis) )//Vision related
+			if(!( alt ))
 				return
 			else
 				msg = alt
 				type = alt_type
-		if (type & 2 && (sdisabilities & DEAF || ear_deaf))//Hearing related
-			if (!( alt ))
+		if(type & 2 && (disabilities & DEAF || ear_deaf))//Hearing related
+			if(!( alt ))
 				return
 			else
 				msg = alt
 				type = alt_type
-				if ((type & 1 && sdisabilities & BLIND))
+				if((type & 1 && disabilities & BLIND))
 					return
 	// Added voice muffling for Issue 41.
 	if(stat == UNCONSCIOUS || (sleeping > 0 && stat != 2))
@@ -83,21 +90,23 @@
 // blind_message (optional) is what blind people will hear e.g. "You hear something!"
 
 /mob/visible_message(var/message, var/self_message, var/blind_message)
-	for(var/mob/M in viewers(src))
+	for(var/mob/M in get_mobs_in_view(7, src))
 		if(M.see_invisible < invisibility)
 			continue //can't view the invisible
 		var/msg = message
-		if(self_message && M==src)
+		if(self_message && M == src)
 			msg = self_message
-		M.show_message( msg, 1, blind_message, 2)
+		M.show_message(msg, 1, blind_message, 2)
 
 // Show a message to all mobs in sight of this atom
 // Use for objects performing visible actions
 // message is output to anyone who can see, e.g. "The [src] does something!"
 // blind_message (optional) is what blind people will hear e.g. "You hear something!"
 /atom/proc/visible_message(var/message, var/blind_message)
-	for(var/mob/M in viewers(src))
-		M.show_message( message, 1, blind_message, 2)
+	for(var/mob/M in get_mobs_in_view(7, src))
+		if(!M.client)
+			continue
+		M.show_message(message, 1, blind_message, 2)
 
 // Show a message to all mobs in earshot of this one
 // This would be for audible actions by the src mob
@@ -111,7 +120,7 @@
 		range = hearing_distance
 	var/msg = message
 	for(var/mob/M in get_mobs_in_view(range, src))
-		if(self_message && M==src)
+		if(self_message && M == src)
 			msg = self_message
 		M.show_message(msg, 2, deaf_message, 1)
 
@@ -143,7 +152,7 @@
 
 /mob/proc/findname(msg)
 	for(var/mob/M in mob_list)
-		if (M.real_name == text("[]", msg))
+		if(M.real_name == text("[]", msg))
 			return M
 	return 0
 
@@ -152,8 +161,6 @@
 
 /mob/proc/Life()
 //	handle_typing_indicator()
-//	if(organStructure)
-//		organStructure.ProcessOrgans()
 	return
 
 
@@ -168,7 +175,7 @@
 	var/obj/item/W = get_active_hand()
 
 	if(istype(W))
-		if (istype(W, /obj/item/clothing))
+		if(istype(W, /obj/item/clothing))
 			var/obj/item/clothing/C = W
 			if(C.rig_restrict_helmet)
 				to_chat(src, "\red You must fasten the helmet to a hardsuit first. (Target the head and use on a hardsuit)")// Stop eva helms equipping.
@@ -245,12 +252,13 @@
 					return // Bag could not be placed in players hands.  I don't know what to do here...
 		//Now, B represents a container we can insert W into.
 		B.handle_item_insertion(W,1)
+		return B
 
 //The list of slots by priority. equip_to_appropriate_slot() uses this list. Doesn't matter if a mob type doesn't have a slot.
 var/list/slot_equipment_priority = list( \
 		slot_back,\
-		slot_wear_id,\
 		slot_wear_pda,\
+		slot_wear_id,\
 		slot_w_uniform,\
 		slot_wear_suit,\
 		slot_wear_mask,\
@@ -399,7 +407,7 @@ var/list/slot_equipment_priority = list( \
 			if(slot_w_uniform)
 				if( !(slot_flags & SLOT_ICLOTHING) )
 					return 0
-				if((FAT in H.mutations) && !(flags & ONESIZEFITSALL))
+				if((FAT in H.mutations) && !(flags_size & ONESIZEFITSALL))
 					return 0
 				if(H.w_uniform)
 					if(!(H.w_uniform.flags & NODROP))
@@ -478,7 +486,7 @@ var/list/slot_equipment_priority = list( \
 					return 0
 				return 1
 			if(slot_in_backpack)
-				if (H.back && istype(H.back, /obj/item/weapon/storage/backpack))
+				if(H.back && istype(H.back, /obj/item/weapon/storage/backpack))
 					var/obj/item/weapon/storage/backpack/B = H.back
 					if(B.contents.len < B.storage_slots && w_class <= B.max_w_class)
 						return 1
@@ -487,12 +495,12 @@ var/list/slot_equipment_priority = list( \
 		//END HUMAN
 
 /mob/proc/reset_view(atom/A)
-	if (client)
-		if (istype(A, /atom/movable))
+	if(client)
+		if(istype(A, /atom/movable))
 			client.perspective = EYE_PERSPECTIVE
 			client.eye = A
 		else
-			if (isturf(loc))
+			if(isturf(loc))
 				client.eye = client.mob
 				client.perspective = MOB_PERSPECTIVE
 			else
@@ -543,7 +551,7 @@ var/list/slot_equipment_priority = list( \
 		return 0
 
 	var/tile = get_turf(A)
-	if (!tile)
+	if(!tile)
 		return 0
 
 	changeNext_move(CLICK_CD_POINT)
@@ -556,30 +564,30 @@ var/list/slot_equipment_priority = list( \
 	return 1
 
 /mob/proc/ret_grab(obj/effect/list_container/mobl/L as obj, flag)
-	if ((!( istype(l_hand, /obj/item/weapon/grab) ) && !( istype(r_hand, /obj/item/weapon/grab) )))
-		if (!( L ))
+	if((!( istype(l_hand, /obj/item/weapon/grab) ) && !( istype(r_hand, /obj/item/weapon/grab) )))
+		if(!( L ))
 			return null
 		else
 			return L.container
 	else
-		if (!( L ))
+		if(!( L ))
 			L = new /obj/effect/list_container/mobl( null )
 			L.container += src
 			L.master = src
-		if (istype(l_hand, /obj/item/weapon/grab))
+		if(istype(l_hand, /obj/item/weapon/grab))
 			var/obj/item/weapon/grab/G = l_hand
-			if (!( L.container.Find(G.affecting) ))
+			if(!( L.container.Find(G.affecting) ))
 				L.container += G.affecting
-				if (G.affecting)
+				if(G.affecting)
 					G.affecting.ret_grab(L, 1)
-		if (istype(r_hand, /obj/item/weapon/grab))
+		if(istype(r_hand, /obj/item/weapon/grab))
 			var/obj/item/weapon/grab/G = r_hand
-			if (!( L.container.Find(G.affecting) ))
+			if(!( L.container.Find(G.affecting) ))
 				L.container += G.affecting
-				if (G.affecting)
+				if(G.affecting)
 					G.affecting.ret_grab(L, 1)
-		if (!( flag ))
-			if (L.master == src)
+		if(!( flag ))
+			if(L.master == src)
 				var/list/temp = list(  )
 				temp += L.container
 				//L = null
@@ -599,12 +607,12 @@ var/list/slot_equipment_priority = list( \
 
 	if(hand)
 		var/obj/item/W = l_hand
-		if (W)
+		if(W)
 			W.attack_self(src)
 			update_inv_l_hand()
 	else
 		var/obj/item/W = r_hand
-		if (W)
+		if(W)
 			W.attack_self(src)
 			update_inv_r_hand()
 	return
@@ -644,15 +652,15 @@ var/list/slot_equipment_priority = list( \
 /mob/proc/store_memory(msg as message, popup, sane = 1)
 	msg = copytext(msg, 1, MAX_MESSAGE_LEN)
 
-	if (sane)
+	if(sane)
 		msg = sanitize(msg)
 
-	if (length(memory) == 0)
+	if(length(memory) == 0)
 		memory += msg
 	else
 		memory += "<BR>[msg]"
 
-	if (popup)
+	if(popup)
 		memory()
 
 /mob/proc/update_flavor_text()
@@ -668,7 +676,7 @@ var/list/slot_equipment_priority = list( \
 		flavor_text = msg
 
 /mob/proc/print_flavor_text(var/shrink = 1)
-	if (flavor_text && flavor_text != "")
+	if(flavor_text && flavor_text != "")
 		var/msg = replacetext(flavor_text, "\n", " ")
 		if(lentext(msg) <= 40 || !shrink)
 			return "<span class='notice'>[html_encode(msg)]</span>" //Repeat after me, "I will not give players access to decoded HTML."
@@ -685,11 +693,11 @@ var/list/slot_equipment_priority = list( \
 	set name = "Respawn"
 	set category = "OOC"
 
-	if (!abandon_allowed)
+	if(!abandon_allowed)
 		to_chat(usr, "<span class='warning'>Respawning is disabled.</span>")
 		return
 
-	if (stat != DEAD || !ticker)
+	if(stat != DEAD || !ticker)
 		to_chat(usr, "<span class='boldnotice'>You must be dead to use this!</span>")
 		return
 
@@ -739,7 +747,7 @@ var/list/slot_equipment_priority = list( \
 			continue
 		if(istype(O, /obj/item/weapon/disk/nuclear))
 			var/name = "Nuclear Disk"
-			if (names.Find(name))
+			if(names.Find(name))
 				namecounts[name]++
 				name = "[name] ([namecounts[name]])"
 			else
@@ -749,7 +757,7 @@ var/list/slot_equipment_priority = list( \
 
 		if(istype(O, /obj/singularity))
 			var/name = "Singularity"
-			if (names.Find(name))
+			if(names.Find(name))
 				namecounts[name]++
 				name = "[name] ([namecounts[name]])"
 			else
@@ -760,7 +768,7 @@ var/list/slot_equipment_priority = list( \
 
 	for(var/mob/M in sortAtom(mob_list))
 		var/name = M.name
-		if (names.Find(name))
+		if(names.Find(name))
 			namecounts[name]++
 			name = "[name] ([namecounts[name]])"
 		else
@@ -777,14 +785,14 @@ var/list/slot_equipment_priority = list( \
 	var/ok = "[is_admin ? "Admin Observe" : "Observe"]"
 	eye_name = input("Please, select a player!", ok, null, null) as null|anything in creatures
 
-	if (!eye_name)
+	if(!eye_name)
 		return
 
 	var/mob/mob_eye = creatures[eye_name]
 
 	if(client && mob_eye)
 		client.eye = mob_eye
-		if (is_admin)
+		if(is_admin)
 			client.adminobs = 1
 			if(mob_eye == client.mob || client.eye == client.mob)
 				client.adminobs = 0
@@ -858,7 +866,10 @@ var/list/slot_equipment_priority = list( \
 /mob/MouseDrop(mob/M as mob)
 	..()
 	if(M != usr) return
-	if(M.small) return // Stops pAI drones and small mobs (borers, parrots, crabs) from stripping people. --DZD
+	if(isliving(M)) // Ewww
+		var/mob/living/L = M
+		if(L.mob_size <= MOB_SIZE_SMALL)
+			return // Stops pAI drones and small mobs (borers, parrots, crabs) from stripping people. --DZD
 	if(!M.can_strip) return
 	if(usr == src) return
 	if(!Adjacent(usr)) return
@@ -866,9 +877,12 @@ var/list/slot_equipment_priority = list( \
 
 //this and stop_pulling really ought to be /mob/living procs
 /mob/proc/start_pulling(atom/movable/AM)
-	if ( !AM || !src || src==AM || !isturf(AM.loc) )	//if there's no person pulling OR the person is pulling themself OR the object being pulled is inside something: abort!
+	if(src == AM) // Trying to pull yourself is a shortcut to stop pulling
+		stop_pulling()
 		return
-	if (!( AM.anchored ))
+	if(!AM || !isturf(AM.loc))	//if there's no object or the object being pulled is inside something: abort!
+		return
+	if(!(AM.anchored))
 		AM.add_fingerprint(src)
 
 		// If we're pulling something then drop what we're currently pulling and pull this instead.
@@ -903,13 +917,8 @@ var/list/slot_equipment_priority = list( \
 /mob/proc/can_use_hands()
 	return
 
-/mob/proc/is_active()
-	return (0 >= usr.stat)
-
 /mob/proc/is_mechanical()
-	if(mind && (mind.assigned_role == "Cyborg" || mind.assigned_role == "AI"))
-		return 1
-	return istype(src, /mob/living/silicon) || get_species() == "Machine"
+	return mind && (mind.assigned_role == "Cyborg" || mind.assigned_role == "AI")
 
 /mob/proc/is_ready()
 	return client && !!mind
@@ -936,41 +945,21 @@ var/list/slot_equipment_priority = list( \
 /mob/proc/get_gender()
 	return gender
 
-/mob/proc/see(message)
-	if(!is_active())
-		return 0
-	to_chat(src, message)
-	return 1
-
 /mob/proc/is_muzzled()
 	return 0
-
-/mob/proc/show_viewers(message)
-	for(var/mob/M in viewers())
-		M.see(message)
 
 /mob/Stat()
 	..()
 
-	if(listed_turf && client)
-		if(!TurfAdjacent(listed_turf))
-			listed_turf = null
-		else
-			statpanel(listed_turf.name, null, listed_turf)
-			for(var/atom/A in listed_turf)
-				if(A.invisibility > see_invisible)
-					continue
-				if(is_type_in_list(A, shouldnt_see))
-					continue
-				statpanel(listed_turf.name, null, A)
+	show_stat_turf_contents()
 
 	statpanel("Status") // We only want alt-clicked turfs to come before Status
 
 	if(mind && mind.changeling)
 		add_stings_to_statpanel(mind.changeling.purchasedpowers)
 
-	if(spell_list && spell_list.len)
-		for(var/obj/effect/proc_holder/spell/S in spell_list)
+	if(mob_spell_list && mob_spell_list.len)
+		for(var/obj/effect/proc_holder/spell/S in mob_spell_list)
 			add_spell_to_statpanel(S)
 	if(mind && istype(src, /mob/living) && mind.spell_list && mind.spell_list.len)
 		for(var/obj/effect/proc_holder/spell/S in mind.spell_list)
@@ -999,10 +988,28 @@ var/list/slot_equipment_priority = list( \
 	if(ETA)
 		stat(null, "[ETA] [shuttle_master.emergency.getTimerStr()]")
 
+/mob/proc/show_stat_turf_contents()
+	if(listed_turf && client)
+		if(!TurfAdjacent(listed_turf))
+			listed_turf = null
+		else
+			statpanel(listed_turf.name, null, listed_turf)
+			var/list/statpanel_things = list()
+			for(var/foo in listed_turf)
+				var/atom/A = foo
+				if(A.invisibility > see_invisible)
+					continue
+				if(is_type_in_list(A, shouldnt_see))
+					continue
+				statpanel_things += A
+			statpanel(listed_turf.name, null, statpanel_things)
+
+
 /mob/proc/add_stings_to_statpanel(var/list/stings)
 	for(var/obj/effect/proc_holder/changeling/S in stings)
 		if(S.chemical_cost >=0 && S.can_be_used_by(src))
 			statpanel("[S.panel]",((S.chemical_cost > 0) ? "[S.chemical_cost]" : ""),S)
+
 /mob/proc/add_spell_to_statpanel(var/obj/effect/proc_holder/spell/S)
 	switch(S.charge_type)
 		if("recharge")
@@ -1011,17 +1018,6 @@ var/list/slot_equipment_priority = list( \
 			statpanel(S.panel,"[S.charge_counter]/[S.charge_max]",S)
 		if("holdervar")
 			statpanel(S.panel,"[S.holder_var_type] [S.holder_var_amount]",S)
-	/* // Why have a duplicate set of turfs in the stat panel?
-	if(listed_turf)
-		if(get_dist(listed_turf,src) > 1)
-			listed_turf = null
-		else
-			statpanel(listed_turf.name,listed_turf.name,listed_turf)
-			for(var/atom/A in listed_turf)
-				if(A.invisibility > see_invisible)
-					continue
-				statpanel(listed_turf.name,A.name,A)
-	*/
 
 
 // facing verbs
@@ -1036,7 +1032,7 @@ var/list/slot_equipment_priority = list( \
 	return 1
 
 //Updates canmove, lying and icons. Could perhaps do with a rename but I can't think of anything to describe it.
-/mob/proc/update_canmove()
+/mob/proc/update_canmove(delay_action_updates = 0)
 	var/ko = weakened || paralysis || stat || (status_flags & FAKEDEATH)
 	var/buckle_lying = !(buckled && !buckled.buckle_lying)
 	if(ko || resting || stunned)
@@ -1061,6 +1057,8 @@ var/list/slot_equipment_priority = list( \
 			layer = initial(layer)
 
 	update_transform()
+	if(!delay_action_updates)
+		update_action_buttons_icon()
 	return canmove
 
 /mob/proc/fall(var/forced)
@@ -1108,6 +1106,9 @@ var/list/slot_equipment_priority = list( \
 
 /mob/proc/Dizzy(amount)
 	dizziness = max(dizziness, amount, 0)
+
+/mob/proc/AdjustDrunk(amount)
+	drunk = max(drunk + amount, 0)
 
 /mob/proc/Stun(amount)
 	SetStunned(max(stunned, amount))
@@ -1253,7 +1254,7 @@ mob/proc/yank_out_object()
 			affected.wounds += I
 			H.custom_pain("Something tears wetly in your [affected] as [selection] is pulled free!", 1)
 
-		if (ishuman(U))
+		if(ishuman(U))
 			var/mob/living/carbon/human/human_user = U
 			human_user.bloody_hands(H)
 
@@ -1337,11 +1338,11 @@ mob/proc/yank_out_object()
 
 /mob/proc/get_ghost(even_if_they_cant_reenter = 0)
 	if(mind)
-		for(var/mob/dead/observer/G in dead_mob_list)
-			if(G.mind == mind)
-				if(G.can_reenter_corpse || even_if_they_cant_reenter)
-					return G
-				break
+		return mind.get_ghost(even_if_they_cant_reenter)
+
+/mob/proc/grab_ghost(force)
+	if(mind)
+		return mind.grab_ghost(force = force)
 
 /mob/proc/notify_ghost_cloning(var/message = "Someone is trying to revive you. Re-enter your corpse if you want to be revived!", var/sound = 'sound/effects/genetics.ogg', var/atom/source = null)
 	var/mob/dead/observer/ghost = get_ghost()
@@ -1353,7 +1354,7 @@ mob/proc/yank_out_object()
 	if(stat==DEAD)
 		return
 	var/turf/location = loc
-	if (istype(location, /turf/simulated))
+	if(istype(location, /turf/simulated))
 		if(green)
 			if(!no_text)
 				visible_message("<span class='warning'>[src] vomits up some green goo!</span>","<span class='warning'>You vomit up some green goo!</span>")
@@ -1371,18 +1372,17 @@ mob/proc/yank_out_object()
 /mob/proc/setEarDamage()
 	return
 
-/mob/proc/AddSpell(var/obj/effect/proc_holder/spell/spell)
-	spell_list += spell
-	if(!spell.action)
-		spell.action = new/datum/action/spell_action
-		spell.action.target = spell
-		spell.action.name = spell.name
-		spell.action.button_icon = spell.action_icon
-		spell.action.button_icon_state = spell.action_icon_state
-		spell.action.background_icon_state = spell.action_background_icon_state
-	if(isliving(src))
-		spell.action.Grant(src)
-	return
+/mob/proc/AddSpell(obj/effect/proc_holder/spell/S)
+	mob_spell_list += S
+	S.action.Grant(src)
+
+/mob/proc/RemoveSpell(obj/effect/proc_holder/spell/spell) //To remove a specific spell from a mind
+	if(!spell)
+		return
+	for(var/obj/effect/proc_holder/spell/S in mob_spell_list)
+		if(istype(S, spell))
+			qdel(S)
+			mob_spell_list -= S
 
 //override to avoid rotating pixel_xy on mobs
 /mob/shuttleRotate(rotation)

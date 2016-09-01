@@ -5,23 +5,26 @@
 	var/magboot_state = "magboots"
 	var/magpulse = 0
 	var/slowdown_active = 2
-	action_button_name = "Toggle Magboots"
+	actions_types = list(/datum/action/item_action/toggle)
 	strip_delay = 70
 	put_on_delay = 70
-	species_restricted = null
+	burn_state = FIRE_PROOF
 
 /obj/item/clothing/shoes/magboots/attack_self(mob/user)
-	if(src.magpulse)
-		src.flags &= ~NOSLIP
-		src.slowdown = SHOES_SLOWDOWN
+	if(magpulse)
+		flags &= ~NOSLIP
+		slowdown = SHOES_SLOWDOWN
 	else
-		src.flags |= NOSLIP
-		src.slowdown = slowdown_active
+		flags |= NOSLIP
+		slowdown = slowdown_active
 	magpulse = !magpulse
 	icon_state = "[magboot_state][magpulse]"
 	to_chat(user, "You [magpulse ? "enable" : "disable"] the mag-pulse traction system.")
 	user.update_inv_shoes()	//so our mob-overlays update
 	user.update_gravity(user.mob_has_gravity())
+	for(var/X in actions)
+		var/datum/action/A = X
+		A.UpdateButtonIcon()
 
 /obj/item/clothing/shoes/magboots/negates_gravity()
 	return flags & NOSLIP

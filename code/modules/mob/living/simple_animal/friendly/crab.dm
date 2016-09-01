@@ -5,7 +5,6 @@
 	icon_state = "crab"
 	icon_living = "crab"
 	icon_dead = "crab_dead"
-	small = 1
 	speak_emote = list("clicks")
 	emote_hear = list("clicks")
 	emote_see = list("clacks")
@@ -69,7 +68,7 @@
 					if(MED.amount <= 0)
 						qdel(MED)
 					for(var/mob/M in viewers(src, null))
-						if ((M.client && !( M.blinded )))
+						if((M.client && !( M.blinded )))
 							M.show_message("\blue [user] applies the [MED] on [src]")
 		else
 			to_chat(user, "\blue this [src] is dead, medical items won't bring it back to life.")
@@ -77,12 +76,12 @@
 		if(O.force)
 			health -= O.force
 			for(var/mob/M in viewers(src, null))
-				if ((M.client && !( M.blinded )))
+				if((M.client && !( M.blinded )))
 					M.show_message("\red \b [src] has been attacked with the [O] by [user]. ")
 		else
 			to_chat(usr, "\red This weapon is ineffective, it does no damage.")
 			for(var/mob/M in viewers(src, null))
-				if ((M.client && !( M.blinded )))
+				if((M.client && !( M.blinded )))
 					M.show_message("\red [user] gently taps [src] with the [O]. ")
 
 /mob/living/simple_animal/crab/Topic(href, href_list)

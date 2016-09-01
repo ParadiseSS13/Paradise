@@ -41,7 +41,7 @@ Note: Must be placed west/left of and R&D console to function.
 	component_parts += new /obj/item/weapon/stock_parts/manipulator(null)
 	component_parts += new /obj/item/weapon/reagent_containers/glass/beaker/large(null)
 	component_parts += new /obj/item/weapon/reagent_containers/glass/beaker/large(null)
-	materials = new(src, list(MAT_METAL=1, MAT_GLASS=1, MAT_SILVER=1, MAT_GOLD=1, MAT_DIAMOND=1, MAT_PLASMA=1, MAT_URANIUM=1, MAT_BANANIUM=1))
+	materials = new(src, list(MAT_METAL=1, MAT_GLASS=1, MAT_SILVER=1, MAT_GOLD=1, MAT_DIAMOND=1, MAT_PLASMA=1, MAT_URANIUM=1, MAT_BANANIUM=1, MAT_TRANQUILLITE=1))
 	RefreshParts()
 
 	reagents.my_atom = src
@@ -87,9 +87,9 @@ Note: Must be placed west/left of and R&D console to function.
 	return A
 
 /obj/machinery/r_n_d/protolathe/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
-	if (shocked)
+	if(shocked)
 		shock(user,50)
-	if (default_deconstruction_screwdriver(user, "protolathe_t", "protolathe", O))
+	if(default_deconstruction_screwdriver(user, "protolathe_t", "protolathe", O))
 		if(linked_console)
 			linked_console.linked_lathe = null
 			linked_console = null
@@ -98,7 +98,7 @@ Note: Must be placed west/left of and R&D console to function.
 	if(exchange_parts(user, O))
 		return
 
-	if (panel_open)
+	if(panel_open)
 		if(istype(O, /obj/item/weapon/crowbar))
 			for(var/obj/I in component_parts)
 				if(istype(I, /obj/item/weapon/reagent_containers/glass/beaker))
@@ -114,17 +114,17 @@ Note: Must be placed west/left of and R&D console to function.
 		else
 			to_chat(user, "<span class='warning'>You can't load the [src.name] while it's opened.</span>")
 			return 1
-	if (disabled)
+	if(disabled)
 		return
-	if (!linked_console)
+	if(!linked_console)
 		to_chat(user, "<span class='warning'> The [src.name] must be linked to an R&D console first!</span>")
 		return 1
-	if (busy)
+	if(busy)
 		to_chat(user, "<span class='warning'>The [src.name] is busy. Please wait for completion of previous operation.</span>")
 		return 1
-	if (O.is_open_container())
+	if(O.is_open_container())
 		return
-	if (stat)
+	if(stat)
 		return 1
 	if(!istype(O,/obj/item/stack/sheet))
 		return 1

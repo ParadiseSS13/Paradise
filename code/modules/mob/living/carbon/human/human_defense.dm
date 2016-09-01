@@ -27,12 +27,12 @@ emp_act
 				P.current = curloc
 				P.yo = new_y - curloc.y
 				P.xo = new_x - curloc.x
-				P.Angle = ""//round(Get_Angle(P,P.original))
+				P.Angle = null
 
 			return -1 // complete projectile permutation
 
 	//Shields
-	if(check_shields(P.damage, "the [P.name]", P))
+	if(check_shields(P.damage, "the [P.name]", P, PROJECTILE_ATTACK, P.armour_penetration))
 		P.on_hit(src, 100, def_zone)
 		return 2
 
@@ -41,12 +41,15 @@ emp_act
 		return
 
 	//Shrapnel
-	if (P.damage_type == BRUTE)
+	if(P.damage_type == BRUTE)
 		var/armor = getarmor_organ(organ, "bullet")
 		if((P.embed && prob(20 + max(P.damage - armor, -10))))
 			var/obj/item/weapon/shard/shrapnel/SP = new()
 			(SP.name) = "[P.name] shrapnel"
-			(SP.desc) = "[SP.desc] It looks like it was fired from [P.shot_from]."
+			if(P.ammo_casing && P.ammo_casing.caliber)
+				(SP.desc) = "[SP.desc] It looks like it is a [P.ammo_casing.caliber] caliber round."
+			else
+				(SP.desc) = "[SP.desc] The round's caliber is unidentifiable."
 			(SP.loc) = organ
 			organ.embed(SP)
 
@@ -88,7 +91,7 @@ emp_act
 
 //this proc returns the Siemens coefficient of electrical resistivity for a particular external organ.
 /mob/living/carbon/human/proc/get_siemens_coefficient_organ(var/obj/item/organ/external/def_zone)
-	if (!def_zone)
+	if(!def_zone)
 		return 1.0
 
 	var/siemens_coefficient = 1.0
@@ -129,40 +132,24 @@ emp_act
 
 //End Here
 
-/mob/living/carbon/human/proc/check_shields(var/damage = 0, var/attack_text = "the attack", var/obj/item/O)
-	if(O)
-		if(O.flags & NOSHIELD) //weapon ignores shields altogether
-			return 0
-	if(l_hand && istype(l_hand, /obj/item/weapon))//Current base is the prob(50-d/3)
-		var/obj/item/weapon/I = l_hand
-		if(I.IsShield() && (prob(50 - round(damage / 3))))
-			visible_message("<span class='danger'>[src] blocks [attack_text] with [l_hand]!</span>", \
-							"<span class='userdanger'>[src] blocks [attack_text] with [l_hand]!</span>")
+/mob/living/carbon/human/proc/check_shields(damage = 0, attack_text = "the attack", atom/movable/AM, attack_type = MELEE_ATTACK, armour_penetration = 0)
+	var/block_chance_modifier = round(damage / -3)
+
+	if(l_hand && !istype(l_hand, /obj/item/clothing))
+		var/final_block_chance = l_hand.block_chance - (Clamp((armour_penetration-l_hand.armour_penetration)/2,0,100)) + block_chance_modifier //So armour piercing blades can still be parried by other blades, for example
+		if(l_hand.hit_reaction(src, attack_text, final_block_chance, damage, attack_type))
 			return 1
-	if(r_hand && istype(r_hand, /obj/item/weapon))
-		var/obj/item/weapon/I = r_hand
-		if(I.IsShield() && (prob(50 - round(damage / 3))))
-			visible_message("<span class='danger'>[src] blocks [attack_text] with [r_hand]!</span>", \
-							"<span class='userdanger'>[src] blocks [attack_text] with [r_hand]!</span>")
+	if(r_hand && !istype(r_hand, /obj/item/clothing))
+		var/final_block_chance = r_hand.block_chance - (Clamp((armour_penetration-r_hand.armour_penetration)/2,0,100)) + block_chance_modifier //Need to reset the var so it doesn't carry over modifications between attempts
+		if(r_hand.hit_reaction(src, attack_text, final_block_chance, damage, attack_type))
 			return 1
-	if(wear_suit && istype(wear_suit, /obj/item/))
-		var/obj/item/I = wear_suit
-		if(I.IsShield() && (prob(50)))
-			visible_message("<span class='danger'>The reactive teleport system flings [src] clear of [attack_text]!</span>", \
-							"<span class='userdanger'>The reactive teleport system flings [src] clear of [attack_text]!</span>")
-			var/list/turfs = new/list()
-			for(var/turf/T in orange(6, src))
-				if(istype(T,/turf/space)) continue
-				if(T.density) continue
-				if(T.x>world.maxx-6 || T.x<6)	continue
-				if(T.y>world.maxy-6 || T.y<6)	continue
-				turfs += T
-			if(!turfs.len) turfs += pick(/turf in orange(6, src))
-			var/turf/picked = pick(turfs)
-			if(!isturf(picked)) return
-			if(buckled)
-				buckled.unbuckle_mob()
-			src.loc = picked
+	if(wear_suit)
+		var/final_block_chance = wear_suit.block_chance - (Clamp((armour_penetration-wear_suit.armour_penetration)/2,0,100)) + block_chance_modifier
+		if(wear_suit.hit_reaction(src, attack_text, final_block_chance, damage, attack_type))
+			return 1
+	if(w_uniform)
+		var/final_block_chance = w_uniform.block_chance - (Clamp((armour_penetration-w_uniform.armour_penetration)/2,0,100)) + block_chance_modifier
+		if(w_uniform.hit_reaction(src, attack_text, final_block_chance, damage, attack_type))
 			return 1
 	return 0
 
@@ -218,7 +205,7 @@ emp_act
 
 	if(user != src)
 		user.do_attack_animation(src)
-		if(check_shields(I.force, "the [I.name]", I))
+		if(check_shields(I.force, "the [I.name]", I, MELEE_ATTACK, I.armour_penetration))
 			return 0
 
 	if(istype(I,/obj/item/weapon/card/emag))
@@ -226,14 +213,14 @@ emp_act
 
 	if(! I.discrete)
 		if(I.attack_verb.len)
-			visible_message("\red <B>[src] has been [pick(I.attack_verb)] in the [hit_area] with [I.name] by [user]!</B>")
+			visible_message("<span class='danger'>[src] has been [pick(I.attack_verb)] in the [hit_area] with [I.name] by [user]!</span>")
 		else
-			visible_message("\red <B>[src] has been attacked in the [hit_area] with [I.name] by [user]!</B>")
+			visible_message("<span class='danger'>[src] has been attacked in the [hit_area] with [I.name] by [user]!</span>")
 
 	var/armor = run_armor_check(affecting, "melee", "Your armor has protected your [hit_area].", "Your armor has softened hit to your [hit_area].", armour_penetration = I.armour_penetration)
 	var/weapon_sharp = is_sharp(I)
 	var/weapon_edge = has_edge(I)
-	if ((weapon_sharp || weapon_edge) && prob(getarmor(user.zone_sel.selecting, "melee")))
+	if((weapon_sharp || weapon_edge) && prob(getarmor(user.zone_sel.selecting, "melee")))
 		weapon_sharp = 0
 		weapon_edge = 0
 
@@ -296,9 +283,9 @@ emp_act
 		forcesay(hit_appends)	//forcesay checks stat already
 
 /*	//Melee weapon embedded object code. Commented out, as most people on the forums seem to find this annoying and think it does not contribute to general gameplay. - Dave
-	if (I.damtype == BRUTE && !I.is_robot_module())
+	if(I.damtype == BRUTE && !I.is_robot_module())
 		var/damage = I.force
-		if (armor)
+		if(armor)
 			damage /= armor+1
 
 		//blunt objects should really not be embedding in things unless a huge amount of force is involved
@@ -312,63 +299,56 @@ emp_act
 
 //this proc handles being hit by a thrown atom
 /mob/living/carbon/human/hitby(atom/movable/AM as mob|obj,var/speed = 5)
-	if(istype(AM,/obj/))
-		var/obj/O = AM
+	if(istype(AM, /obj/item))
+		var/obj/item/I = AM
 
 		if(in_throw_mode && !get_active_hand() && speed <= 5)	//empty active hand and we're in throw mode
 			if(canmove && !restrained())
-				if(isturf(O.loc))
-					put_in_active_hand(O)
-					visible_message("<span class='warning'>[src] catches [O]!</span>")
+				if(isturf(I.loc))
+					put_in_active_hand(I)
+					visible_message("<span class='warning'>[src] catches [I]!</span>")
 					throw_mode_off()
 					return
 
 		var/zone = ran_zone("chest", 65)
 		var/dtype = BRUTE
-		if(istype(O,/obj/item/weapon))
-			var/obj/item/weapon/W = O
+		if(istype(I, /obj/item/weapon))
+			var/obj/item/weapon/W = I
 			dtype = W.damtype
-		var/throw_damage = O.throwforce*(speed/5)
+		var/throw_damage = I.throwforce*(speed/5)
 
-		/*
-		if(!zone)
-			visible_message("\blue \The [O] misses [src] narrowly!")
-			return
-		*/
-		O.throwing = 0		//it hit, so stop moving
+		I.throwing = 0		//it hit, so stop moving
 
-		if ((O.thrower != src) && check_shields(throw_damage, "[O]"))
+		if((I.thrower != src) && check_shields(throw_damage, "\the [I.name]", I, THROWN_PROJECTILE_ATTACK))
 			return
 
 		var/obj/item/organ/external/affecting = get_organ(zone)
 		if(!affecting)
-			var/missverb = (O.gender == PLURAL) ? "whizz" : "whizzes"
-			visible_message("<span class='notice'>\The [O] [missverb] past [src]'s missing [parse_zone(zone)]!</span>",
-				"<span class='notice'>\The [O] [missverb] past your missing [parse_zone(zone)]!</span>")
+			var/missverb = (I.gender == PLURAL) ? "whizz" : "whizzes"
+			visible_message("<span class='notice'>\The [I] [missverb] past [src]'s missing [parse_zone(zone)]!</span>",
+				"<span class='notice'>\The [I] [missverb] past your missing [parse_zone(zone)]!</span>")
 			return
 		var/hit_area = affecting.name
 
-		src.visible_message("\red [src] has been hit in the [hit_area] by [O].")
-		var/armor = run_armor_check(affecting, "melee", "Your armor has protected your [hit_area].", "Your armor has softened hit to your [hit_area].") //I guess "melee" is the best fit here
+		src.visible_message("\red [src] has been hit in the [hit_area] by [I].")
+		var/armor = run_armor_check(affecting, "melee", "Your armor has protected your [hit_area].", "Your armor has softened hit to your [hit_area].", I.armour_penetration) //I guess "melee" is the best fit here
 
+		apply_damage(throw_damage, dtype, zone, armor, is_sharp(I), has_edge(I), I)
 
-		apply_damage(throw_damage, dtype, zone, armor, is_sharp(O), has_edge(O), O)
-
-		if(ismob(O.thrower))
-			var/mob/M = O.thrower
+		if(ismob(I.thrower))
+			var/mob/M = I.thrower
 			if(M)
-				src.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been hit with a [O], thrown by [key_name(M)]</font>")
-				M.attack_log += text("\[[time_stamp()]\] <font color='red'>Hit [key_name(src)] with a thrown [O]</font>")
+				src.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been hit with a [I], thrown by [key_name(M)]</font>")
+				M.attack_log += text("\[[time_stamp()]\] <font color='red'>Hit [key_name(src)] with a thrown [I]</font>")
 				if(!istype(src,/mob/living/simple_animal/mouse))
-					msg_admin_attack("[key_name_admin(src)] was hit by a [O], thrown by [key_name_admin(M)]")
+					msg_admin_attack("[key_name_admin(src)] was hit by a [I], thrown by [key_name_admin(M)]")
 
 		//thrown weapon embedded object code.
-		if(dtype == BRUTE && istype(O,/obj/item))
-			var/obj/item/I = O
-			if (!I.is_robot_module())
+		if(dtype == BRUTE && istype(I))
+			if(!I.is_robot_module())
 				var/sharp = is_sharp(I)
 				var/damage = throw_damage
-				if (armor)
+				if(armor)
 					damage /= armor+1
 
 				//blunt objects should really not be embedding in things unless a huge amount of force is involved
@@ -381,10 +361,10 @@ emp_act
 					affecting.embed(I)
 
 		// Begin BS12 momentum-transfer code.
-		if(O.throw_source && speed >= 15)
-			var/obj/item/weapon/W = O
+		if(I.throw_source && speed >= 15)
+			var/obj/item/weapon/W = I
 			var/momentum = speed/2
-			var/dir = get_dir(O.throw_source, src)
+			var/dir = get_dir(I.throw_source, src)
 
 			visible_message("\red [src] staggers under the impact!","\red You stagger under the impact!")
 			src.throw_at(get_edge_target_turf(src,dir),1,momentum)
@@ -396,14 +376,14 @@ emp_act
 
 				if(T)
 					src.loc = T
-					visible_message("<span class='warning'>[src] is pinned to the wall by [O]!</span>","<span class='warning'>You are pinned to the wall by [O]!</span>")
+					visible_message("<span class='warning'>[src] is pinned to the wall by [I]!</span>","<span class='warning'>You are pinned to the wall by [I]!</span>")
 					src.anchored = 1
-					src.pinned += O
+					src.pinned += I
 
 
 /mob/living/carbon/human/proc/bloody_hands(var/mob/living/source, var/amount = 2)
 
-	if (gloves)
+	if(gloves)
 		gloves.add_blood(source)
 		gloves:transfer_blood = amount
 		gloves:bloody_hands_mob = source

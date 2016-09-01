@@ -15,13 +15,8 @@
 
 /mob/living/attackby(obj/item/I, mob/user, params)
 	user.changeNext_move(CLICK_CD_MELEE)
-	if(stat == DEAD && !isnull(butcher_results)) //can we butcher it?
-		if(istype(I, /obj/item/weapon/kitchen/knife))
-			to_chat(user, "<span class='notice'>You begin to butcher [src]...</span>")
-			playsound(loc, 'sound/weapons/slice.ogg', 50, 1, -1)
-			if(do_mob(user, src, 80))
-				harvest(user)
-			return
+	if(attempt_harvest(I, user))
+		return
 	I.attack(src, user)
 
 
@@ -33,16 +28,24 @@
 
 /obj/item/proc/attack(mob/living/M as mob, mob/living/user as mob, def_zone)
 
-	if (!istype(M)) // not sure if this is the right thing...
+	if(!istype(M)) // not sure if this is the right thing...
 		return 0
 	var/messagesource = M
 
-	if (can_operate(M))  //Checks if mob is lying down on table for surgery
-		if(istype(src,/obj/item/robot_parts))//popup ovveride for direct attach
+	if(can_operate(M))  //Checks if mob is lying down on table for surgery
+		if(istype(src,/obj/item/robot_parts))//popup override for direct attach
 			if(!attempt_initiate_surgery(src, M, user,1))
 				return 0
 			else
 				return 1
+		if(istype(src,/obj/item/organ/external))
+			var/obj/item/organ/external/E = src
+			if(E.robotic == 2) // Robot limbs are less messy to attach
+				if(!attempt_initiate_surgery(src, M, user,1))
+					return 0
+				else
+					return 1
+
 		if(istype(src,/obj/item/weapon/screwdriver) && M.get_species() == "Machine")
 			if(!attempt_initiate_surgery(src, M, user))
 				return 0
@@ -54,15 +57,16 @@
 			else
 				return 1
 
-	if (istype(M,/mob/living/carbon/brain))
-		messagesource = M:container
-	if (hitsound && force > 0)
+	if(istype(M,/mob/living/carbon/brain))
+		var/mob/living/carbon/brain/B = M
+		messagesource = B.container
+	if(hitsound && force > 0)
 		playsound(loc, hitsound, 50, 1, -1)
 	/////////////////////////
 	user.lastattacked = M
 	M.lastattacker = user
 
-	add_logs(M, user, "attacked", src.name, "(INTENT: [uppertext(user.a_intent)]) (DAMTYE: [uppertext(damtype)])")
+	add_logs(user, M, "attacked", name, "(INTENT: [uppertext(user.a_intent)]) (DAMTYE: [uppertext(damtype)])")
 
 	if(!iscarbon(user))
 		M.LAssailant = null
@@ -156,13 +160,13 @@
 
 		for(var/mob/O in viewers(messagesource, null))
 			if(attack_verb.len)
-				O.show_message("\red <B>[M] has been [pick(attack_verb)] with [src][showname] </B>", 1)
+				O.show_message("<span class='danger'>[M] has been [pick(attack_verb)] with [src][showname] </span>", 1)
 			else
-				O.show_message("\red <B>[M] has been attacked with [src][showname] </B>", 1)
+				O.show_message("<span class='danger'>[M] has been attacked with [src][showname] </span>", 1)
 
 		if(!showname && user)
 			if(user.client)
-				to_chat(user, "\red <B>You attack [M] with [src]. </B>")
+				to_chat(user, "<span class='danger'>You attack [M] with [src]. </span>")
 
 
 
@@ -177,9 +181,9 @@
 				else
 
 					M.take_organ_damage(power)
-					if (prob(33)) // Added blood for whacking non-humans too
+					if(prob(33)) // Added blood for whacking non-humans too
 						var/turf/simulated/location = M.loc
-						if (istype(location, /turf/simulated))
+						if(istype(location, /turf/simulated))
 							location.add_blood_floor(M)
 			if("fire")
 				M.take_organ_damage(0, power)

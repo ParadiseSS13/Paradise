@@ -49,7 +49,7 @@
 	implant_color = "#DE7E00"
 	slot = "brain_antidrop"
 	origin_tech = "materials=5;programming=4;biotech=4"
-	organ_action_name = "Toggle Anti-Drop"
+	actions_types = list(/datum/action/item_action/organ_action/toggle)
 
 /obj/item/organ/internal/cyberimp/brain/anti_drop/ui_action_click()
 	active = !active
@@ -116,7 +116,7 @@
 		r_hand_obj.flags ^= NODROP
 
 /obj/item/organ/internal/cyberimp/brain/anti_drop/remove(var/mob/living/carbon/M, special = 0)
-	..()
+	. = ..()
 	if(active)
 		ui_action_click()
 
@@ -143,6 +143,13 @@
 	crit_fail = 1
 	spawn(90 / severity)
 		crit_fail = 0
+
+/obj/item/organ/internal/cyberimp/brain/clown_voice
+	name = "Comical implant"
+	desc = "<span class='sans'>Uh oh.</span>"
+	implant_color = "#DEDE00"
+	slot = "brain_clownvoice"
+	origin_tech = "materials=2;biotech=2"
 
 //[[[[CHEST]]]]
 /obj/item/organ/internal/cyberimp/chest
@@ -256,7 +263,7 @@
 	implant_color = "#007ACC"
 	slot = "shoulders"
 	origin_tech = "materials=5;biotech=4;powerstorage=4"
-	organ_action_name = "Toggle Arm Mod"
+	actions_types = list(/datum/action/item_action/organ_action/toggle)
 	var/obj/holder//is defined as the retractable item itself. ensure this is defined somewhere!
 	var/out = 0//determines if the item is in the owner's hand or not
 	var/overloaded = 0//is set to 1 when owner gets EMPed. if set to 1, implant doesn't work.
@@ -312,17 +319,17 @@
 	desc = "A variant of the arm cannon implant that fires electrodes and disabler shots. The cannon emerges from the subject's arms and remains in the shoulders when not in use."
 	icon_state = "armcannon_tase_implant"
 	origin_tech = "materials=5;combat=5;biotech=4;powerstorage=4"
-	organ_action_name = "Toggle Arm Cannon Taser"
+	actions_types = list(/datum/action/item_action/organ_action/toggle)
 
 /obj/item/organ/internal/cyberimp/chest/arm_mod/tase/New()//when the implant is created...
-	holder = new /obj/item/weapon/gun/energy/advtaser/mounted(src)//assign a brand new item to it. (in this case, a gun)
+	holder = new /obj/item/weapon/gun/energy/gun/advtaser/mounted(src)//assign a brand new item to it. (in this case, a gun)
 
 /obj/item/organ/internal/cyberimp/chest/arm_mod/lase//mounted, self-charging laser!
 	name = "Arm-cannon laser implant"
 	desc = "A variant of the arm cannon implant that fires lethal laser beams. The cannon emerges from the subject's arms and remains in the shoulders when not in use."
 	icon_state = "armcannon_lase_implant"
 	origin_tech = "materials=5;combat=5;biotech=4;powerstorage=4;syndicate=5"//this is kinda nutty and i might lower it
-	organ_action_name = "Toggle Arm Cannon Laser"
+	actions_types = list(/datum/action/item_action/organ_action/toggle)
 
 /obj/item/organ/internal/cyberimp/chest/arm_mod/lase/New()
 	holder = new /obj/item/weapon/gun/energy/laser/mounted(src)

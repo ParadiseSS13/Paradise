@@ -1,3 +1,5 @@
+var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.dmi', "icon_state" = "fire")
+
 /obj/item
 	name = "item"
 	icon = 'icons/obj/items.dmi'
@@ -17,7 +19,7 @@
 	var/r_speed = 1.0
 	var/health = null
 	var/hitsound = null
-	var/w_class = 3.0
+	var/w_class = 3
 	var/slot_flags = 0		//This is used to determine on which slots an item can fit.
 	pass_flags = PASSTABLE
 	pressure_resistance = 3
@@ -29,10 +31,8 @@
 	var/max_heat_protection_temperature //Set this variable to determine up to which temperature (IN KELVIN) the item protects against heat damage. Keep at null to disable protection. Only protects areas set by heat_protection flags
 	var/min_cold_protection_temperature //Set this variable to determine down to which temperature (IN KELVIN) the item protects against cold damage. 0 is NOT an acceptable number due to if(varname) tests!! Keep at null to disable protection. Only protects areas set by cold_protection flags
 
-	//If this is set, The item will make an action button on the player's HUD when picked up.
-	var/action_button_name //It is also the text which gets displayed on the action button. If not set it defaults to 'Use [name]'. If it's not set, there'll be no button.
-	var/action_button_is_hands_free = 0 //If 1, bypass the restrained, lying, and stunned checks action buttons normally test for
-	var/datum/action/item_action/action = null
+	var/list/actions = list() //list of /datum/action's that this item has.
+	var/list/actions_types = list() //list of paths of action datums to give to the item on New().
 
 	var/list/materials = list()
 	//Since any item can now be a piece of clothing, this has to be put here so all items share it.
@@ -44,7 +44,7 @@
 	var/permeability_coefficient = 1 // for chemicals/diseases
 	var/siemens_coefficient = 1 // for electrical admittance/conductance (electrocution checks and shit)
 	var/slowdown = 0 // How much clothing is slowing you down. Negative values speeds you up
-	var/armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0)
+	var/armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
 	var/armour_penetration = 0 //percentage of armour effectiveness to remove
 	var/list/allowed = null //suit storage stuff.
 	var/obj/item/device/uplink/hidden/hidden_uplink = null // All items can have an uplink hidden inside, just remember to add the triggers.
@@ -54,6 +54,11 @@
 	var/strip_delay = DEFAULT_ITEM_STRIP_DELAY
 	var/put_on_delay = DEFAULT_ITEM_PUTON_DELAY
 	var/breakouttime = 0
+
+	var/flags_size = 0 //flag, primarily used for clothing to determine if a fatty can wear something or not.
+
+	var/block_chance = 0
+	var/hit_reaction_chance = 0 //If you want to have something unrelated to blocking/armour piercing etc. Maybe not needed, but trying to think ahead/allow more freedom
 
 	/* Species-specific sprites, concept stolen from Paradise//vg/.
 	ex:
@@ -67,10 +72,17 @@
 	var/sprite_sheets_obj = null //Used to override hardcoded clothing inventory object dmis in human clothing proc.
 	var/list/species_fit = null //This object has a different appearance when worn by these species
 
+/obj/item/New()
+	..()
+	for(var/path in actions_types)
+		new path(src)
+
 /obj/item/Destroy()
 	if(ismob(loc))
 		var/mob/m = loc
 		m.unEquip(src, 1)
+	for(var/X in actions)
+		qdel(X)
 	return ..()
 
 /obj/item/proc/check_allowed_items(atom/target, not_inside, target_self)
@@ -88,11 +100,11 @@
 			qdel(src)
 			return
 		if(2.0)
-			if (prob(50))
+			if(prob(50))
 				qdel(src)
 				return
 		if(3.0)
-			if (prob(5))
+			if(prob(5))
 				qdel(src)
 				return
 		else
@@ -167,11 +179,11 @@
 
 
 /obj/item/attack_hand(mob/user as mob)
-	if (!user) return 0
-	if (hasorgans(user))
+	if(!user) return 0
+	if(hasorgans(user))
 		var/mob/living/carbon/human/H = user
 		var/obj/item/organ/external/temp = H.organs_by_name["r_hand"]
-		if (user.hand)
+		if(user.hand)
 			temp = H.organs_by_name["l_hand"]
 		if(!temp)
 			to_chat(user, "<span class='warning'>You try to use your hand, but it's missing!</span>")
@@ -180,13 +192,29 @@
 			to_chat(user, "<span class='warning'>You try to move your [temp.name], but cannot!</span>")
 			return 0
 
-	if (istype(src.loc, /obj/item/weapon/storage))
+	if(burn_state == ON_FIRE)
+		var/mob/living/carbon/human/H = user
+		if(istype(H))
+			if(H.gloves && (H.gloves.max_heat_protection_temperature > 360))
+				extinguish()
+				to_chat(user, "<span class='notice'>You put out the fire on [src].</span>")
+			else
+				to_chat(user, "<span class='warning'>You burn your hand on [src]!</span>")
+				var/obj/item/organ/external/affecting = H.get_organ("[user.hand ? "l" : "r" ]_arm")
+				if(affecting && affecting.take_damage(0, 5))		// 5 burn damage
+					H.UpdateDamageIcon()
+				H.updatehealth()
+				return
+		else
+			extinguish()
+
+	if(istype(src.loc, /obj/item/weapon/storage))
 		//If the item is in a storage item, take it out
 		var/obj/item/weapon/storage/S = src.loc
 		S.remove_from_storage(src)
 
 	src.throwing = 0
-	if (loc == user)
+	if(loc == user)
 		if(!user.unEquip(src))
 			return 0
 
@@ -211,13 +239,13 @@
 			to_chat(user, "Your claws aren't capable of such fine manipulation.")
 			return
 
-	if (istype(src.loc, /obj/item/weapon/storage))
+	if(istype(src.loc, /obj/item/weapon/storage))
 		for(var/mob/M in range(1, src.loc))
-			if (M.s_active == src.loc)
-				if (M.client)
+			if(M.s_active == src.loc)
+				if(M.client)
 					M.client.screen -= src
 	src.throwing = 0
-	if (src.loc == user)
+	if(src.loc == user)
 		if(!user.unEquip(src))
 			return
 	else
@@ -240,12 +268,14 @@
 	attack_hand(A)
 
 /obj/item/attack_ai(mob/user as mob)
-	if (istype(src.loc, /obj/item/weapon/robot_module))
+	if(istype(src.loc, /obj/item/weapon/robot_module))
 		//If the item is part of a cyborg module, equip it
-		if(!isrobot(user)) return
+		if(!isrobot(user))
+			return
 		var/mob/living/silicon/robot/R = user
-		R.activate_module(src)
-		R.hud_used.update_robot_modules_display()
+		if(!R.low_power_mode) //can't equip modules with an empty cell.
+			R.activate_module(src)
+			R.hud_used.update_robot_modules_display()
 
 // Due to storage type consolidation this should get used more now.
 // I have cleaned it up a little, but it could probably use more.  -Sayu
@@ -280,14 +310,22 @@
 
 	return
 
-/obj/item/proc/talk_into(mob/M as mob, var/text, var/channel=null)
+/obj/item/proc/hit_reaction(mob/living/carbon/human/owner, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+	if(prob(final_block_chance))
+		owner.visible_message("<span class='danger'>[owner] blocks [attack_text] with [src]!</span>")
+		return 1
+	return 0
+
+/obj/item/proc/talk_into(mob/M, var/text, var/channel=null)
 	return
 
-/obj/item/proc/moved(mob/user as mob, old_loc as turf)
+/obj/item/proc/moved(mob/user, old_loc)
 	return
 
-/obj/item/proc/dropped(mob/user as mob)
-	..()
+/obj/item/proc/dropped(mob/user)
+	for(var/X in actions)
+		var/datum/action/A = X
+		A.Remove(user)
 
 // called just as an item is picked up (loc is not yet changed)
 /obj/item/proc/pickup(mob/user)
@@ -311,7 +349,13 @@
 // for items that can be placed in multiple slots
 // note this isn't called during the initial dressing of a player
 /obj/item/proc/equipped(var/mob/user, var/slot)
-	return
+	for(var/X in actions)
+		var/datum/action/A = X
+		if(item_action_slot_check(slot, user)) //some items only give their actions buttons when in a specific slot.
+			A.Grant(user)
+
+/obj/item/proc/item_action_slot_check(slot, mob/user)
+	return 1
 
 //returns 1 if the item is equipped by a mob, 0 otherwise.
 //This might need some error trapping, not sure if get_equipped_items() is safe for non-human mobs.
@@ -366,14 +410,11 @@
 	return
 
 
-//This proc is executed when someone clicks the on-screen UI button. To make the UI button show, set the 'icon_action_button' to the icon_state of the image of the button in screen1_action.dmi
+//This proc is executed when someone clicks the on-screen UI button.
 //The default action is attack_self().
 //Checks before we get to here are: mob is alive, mob is not restrained, paralyzed, asleep, resting, laying, item is on the mob.
-/obj/item/proc/ui_action_click()
-	attack_self(usr)
-
-/obj/item/proc/IsShield()
-	return 0
+/obj/item/proc/ui_action_click(mob/user, actiontype)
+	attack_self(user)
 
 /obj/item/proc/IsReflect(var/def_zone) //This proc determines if and at what% an object will reflect energy projectiles if it's in l_hand,r_hand or wear_suit
 	return 0
@@ -419,7 +460,7 @@
 			"<span class='userdanger'>You stab yourself in the eyes with [src]!</span>" \
 		)
 
-	add_logs(M, user, "attacked", "[src.name]", "(INTENT: [uppertext(user.a_intent)])")
+	add_logs(user, M, "attacked", "[name]", "(INTENT: [uppertext(user.a_intent)])")
 
 	if(istype(H))
 		var/obj/item/organ/internal/eyes/eyes = H.get_int_organ(/obj/item/organ/internal/eyes)
@@ -439,7 +480,7 @@
 				M.eye_blurry += 10
 				M.Paralyse(1)
 				M.Weaken(2)
-			if (eyes.damage >= eyes.min_broken_damage)
+			if(eyes.damage >= eyes.min_broken_damage)
 				if(M.stat != 2)
 					to_chat(M, "<span class='danger'>You go blind!</span>")
 		var/obj/item/organ/external/affecting = H.get_organ("head")
@@ -460,7 +501,7 @@
 
 
 /obj/item/add_blood(mob/living/carbon/human/M as mob)
-	if (!..())
+	if(!..())
 		return 0
 
 	if(istype(src, /obj/item/weapon/melee/energy))
@@ -524,3 +565,6 @@
 	user.visible_message("<span class='notice'>[user] washes [src] using [source].</span>", \
 						"<span class='notice'>You wash [src] using [source].</span>")
 	return 1
+
+/obj/item/proc/is_crutch() //Does an item prop up a human mob and allow them to stand if they are missing a leg/foot?
+	return 0

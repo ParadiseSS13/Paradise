@@ -99,13 +99,12 @@
 	one_access = 0
 
 /obj/machinery/porta_turret/proc/setup()
-	var/obj/item/weapon/gun/energy/E = installation	//All energy-based weapons are applicable
-	if(istext(installation)) E = text2path(installation)
-	//var/obj/item/ammo_casing/shottype = E.projectile_type
+	var/obj/item/weapon/gun/energy/E= new installation	//All energy-based weapons are applicable
+	var/obj/item/ammo_casing/shottype = E.ammo_type[1]
 
-	projectile = initial(E.projectile_type)
+	projectile = shottype.projectile_type
 	eprojectile = projectile
-	shot_sound = initial(E.fire_sound)
+	shot_sound = shottype.fire_sound
 	eshot_sound = shot_sound
 
 	weapon_setup(installation)
@@ -216,7 +215,7 @@ var/list/turret_icons
 	data["one_access"] = one_access
 	var/accesses[0]
 	var/list/access_list = get_all_accesses()
-	for (var/access in access_list)
+	for(var/access in access_list)
 		var/name = get_access_desc(access)
 		var/active
 		if(one_access)
@@ -227,7 +226,7 @@ var/list/turret_icons
 	data["accesses"] = accesses
 
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if (!ui)
+	if(!ui)
 		ui = new(user, src, ui_key, "turret_control.tmpl", "Turret Controls", 500, 320)
 		ui.set_initial_data(data)
 		ui.open()
@@ -438,7 +437,7 @@ var/list/turret_icons
 			return
 
 	health -= force
-	if (force > 5 && prob(45))
+	if(force > 5 && prob(45))
 		spark_system.start()
 	if(health <= 0)
 		die()	//the death process :(
@@ -480,15 +479,15 @@ var/list/turret_icons
 	..()
 
 /obj/machinery/porta_turret/ex_act(severity)
-	switch (severity)
-		if (1)
+	switch(severity)
+		if(1)
 			qdel(src)
-		if (2)
-			if (prob(25))
+		if(2)
+			if(prob(25))
 				qdel(src)
 			else
 				take_damage(initial(health) * 8) //should instakill most turrets
-		if (3)
+		if(3)
 			take_damage(initial(health) * 8 / 3)
 
 /obj/machinery/porta_turret/proc/die()	//called when the turret dies, ie, health <= 0
@@ -519,7 +518,7 @@ var/list/turret_icons
 		assess_and_assign(ME.occupant, targets, secondarytargets)
 
 	for(var/obj/spacepod/SP in view(7,src))
-		assess_and_assign(SP.occupant, targets, secondarytargets)
+		assess_and_assign(SP.pilot, targets, secondarytargets)
 
 	for(var/obj/vehicle/T in view(7,src))
 		assess_and_assign(T.buckled_mob, targets, secondarytargets)
@@ -559,9 +558,6 @@ var/list/turret_icons
 		return TURRET_NOT_TARGET	//move onto next potential victim!
 
 	if(get_dist(src, L) > 7)	//if it's too far away, why bother?
-		return TURRET_NOT_TARGET
-
-	if(!check_trajectory(L, src))	//check if we have true line of sight
 		return TURRET_NOT_TARGET
 
 	if(emagged)		// If emagged not even the dead get a rest
@@ -670,6 +666,8 @@ var/list/turret_icons
 	return
 
 /obj/machinery/porta_turret/proc/shootAt(var/mob/living/target)
+	if(!raised) //the turret has to be raised in order to fire - makes sense, right?
+		return
 	//any emagged turrets will shoot extremely fast! This not only is deadly, but drains a lot power!
 	if(!emagged)	//if it hasn't been emagged, it has to obey a cooldown rate
 		if(last_fired || !raised)	//prevents rapid-fire shooting, unless it's been emagged
@@ -684,10 +682,6 @@ var/list/turret_icons
 	if(!istype(T) || !istype(U))
 		return
 
-	if(!raised) //the turret has to be raised in order to fire - makes sense, right?
-		return
-
-
 	update_icon()
 	var/obj/item/projectile/A
 	if(emagged || lethal)
@@ -698,18 +692,17 @@ var/list/turret_icons
 		if(projectile)
 			A = new projectile(loc)
 			playsound(loc, shot_sound, 75, 1)
-	A.original = target
 
 	// Lethal/emagged turrets use twice the power due to higher energy beams
 	// Emagged turrets again use twice as much power due to higher firing rates
 	use_power(reqpower * (2 * (emagged || lethal)) * (2 * emagged))
 
-		//Shooting Code:
+	A.original = target
 	A.current = T
 	A.yo = U.y - T.y
 	A.xo = U.x - T.x
-	spawn(1)
-		A.process()
+	A.fire()
+	return A
 
 /datum/turret_checks
 	var/enabled

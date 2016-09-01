@@ -12,7 +12,7 @@
 	updatehealth()
 	update_gravity(mob_has_gravity())
 
-	if (health <= config.health_threshold_dead)
+	if(health <= config.health_threshold_dead)
 		death()
 		return 0
 
@@ -102,7 +102,7 @@
 					var/PRP
 					for(PRP = 1, PRP <= 4, PRP++)
 						for(var/obj/machinery/power/apc/APC in my_area)
-							if (!(APC.stat & BROKEN))
+							if(!(APC.stat & BROKEN))
 								theAPC = APC
 								break
 
@@ -116,7 +116,7 @@
 							return
 
 						if(my_area.power_equip)
-							if (!istype(T, /turf/space))
+							if(!istype(T, /turf/space))
 								to_chat(src, "Alert cancelled. Power has been restored without our assistance.")
 								aiRestorePowerRoutine = 0
 								clear_fullscreen("blind")
@@ -152,10 +152,7 @@
 		health = 100
 		stat = CONSCIOUS
 	else
-		if(fire_res_on_core)
-			health = 100 - getOxyLoss() - getToxLoss() - getBruteLoss()
-		else
-			health = 100 - getOxyLoss() - getToxLoss() - getFireLoss() - getBruteLoss()
+		health = 100 - getOxyLoss() - getToxLoss() - getFireLoss() - getBruteLoss()
 		diag_hud_set_status()
 		diag_hud_set_health()
 

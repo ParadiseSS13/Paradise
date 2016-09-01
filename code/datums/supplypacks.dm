@@ -234,9 +234,9 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 
 /datum/supply_packs/security/taser
 	name = "Stun Guns Crate"
-	contains = list(/obj/item/weapon/gun/energy/advtaser,
-					/obj/item/weapon/gun/energy/advtaser,
-					/obj/item/weapon/gun/energy/advtaser)
+	contains = list(/obj/item/weapon/gun/energy/gun/advtaser,
+					/obj/item/weapon/gun/energy/gun/advtaser,
+					/obj/item/weapon/gun/energy/gun/advtaser)
 	cost = 15
 	containername = "stun gun crate"
 
@@ -375,10 +375,10 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 /////// Implants & etc
 
 /datum/supply_packs/security/armory/loyalty
-	name = "Loyalty Implants Crate"
+	name = "Mindshield Implants Crate"
 	contains = list (/obj/item/weapon/storage/lockbox/loyalty)
 	cost = 40
-	containername = "loyalty implant crate"
+	containername = "mindshield implant crate"
 
 /datum/supply_packs/security/armory/trackingimp
 	name = "Tracking Implants Crate"
@@ -861,8 +861,8 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	name = "Food Crate"
 	contains = list(/obj/item/weapon/reagent_containers/food/condiment/flour,
 					/obj/item/weapon/reagent_containers/food/condiment/rice,
-					/obj/item/weapon/reagent_containers/food/drinks/milk,
-					/obj/item/weapon/reagent_containers/food/drinks/soymilk,
+					/obj/item/weapon/reagent_containers/food/condiment/milk,
+					/obj/item/weapon/reagent_containers/food/condiment/soymilk,
 					/obj/item/weapon/reagent_containers/food/condiment/saltshaker,
 					/obj/item/weapon/reagent_containers/food/condiment/peppermill,
 					/obj/item/weapon/storage/fancy/egg_box,
@@ -1083,6 +1083,14 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	cost = 10
 	containername = "beekeeper suits"
 
+//Bottler
+/datum/supply_packs/organic/bottler
+	name = "Brewing Buddy Bottler Unit"
+	contains = list(/obj/machinery/bottler,
+					/obj/item/weapon/wrench)
+	cost = 35
+	containername = "bottler crate"
+
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Materials ///////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -1190,10 +1198,8 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 					/obj/item/weapon/reagent_containers/food/drinks/bottle/holywater,
 					/obj/item/weapon/storage/bible/booze,
 					/obj/item/weapon/storage/bible/booze,
-					/obj/item/clothing/suit/chaplain_hoodie,
-					/obj/item/clothing/head/chaplain_hood,
-					/obj/item/clothing/suit/chaplain_hoodie,
-					/obj/item/clothing/head/chaplain_hood)
+					/obj/item/clothing/suit/hooded/chaplain_hoodie,
+					/obj/item/clothing/suit/hooded/chaplain_hoodie)
 	cost = 40
 	containername = "religious supplies crate"
 

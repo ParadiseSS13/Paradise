@@ -6,6 +6,7 @@
 	min_broken_damage = 30
 	encased = null
 	status = ORGAN_ROBOT
+	species = "Machine"
 
 /obj/item/organ/external/head/ipc/New()
 	robotize("Morpheus Cyberkinetics")
@@ -14,6 +15,7 @@
 /obj/item/organ/external/chest/ipc
 	encased = null
 	status = ORGAN_ROBOT
+	species = "Machine"
 
 /obj/item/organ/external/chest/ipc/New()
 	robotize("Morpheus Cyberkinetics")
@@ -22,6 +24,7 @@
 /obj/item/organ/external/groin/ipc
 	encased = null
 	status = ORGAN_ROBOT
+	species = "Machine"
 
 /obj/item/organ/external/groin/ipc/New()
 	robotize("Morpheus Cyberkinetics")
@@ -30,6 +33,7 @@
 /obj/item/organ/external/arm/ipc
 	encased = null
 	status = ORGAN_ROBOT
+	species = "Machine"
 
 /obj/item/organ/external/arm/ipc/New()
 	robotize("Morpheus Cyberkinetics")
@@ -38,6 +42,7 @@
 /obj/item/organ/external/arm/right/ipc
 	encased = null
 	status = ORGAN_ROBOT
+	species = "Machine"
 
 /obj/item/organ/external/arm/right/ipc/New()
 	robotize("Morpheus Cyberkinetics")
@@ -45,6 +50,7 @@
 /obj/item/organ/external/leg/ipc
 	encased = null
 	status = ORGAN_ROBOT
+	species = "Machine"
 
 /obj/item/organ/external/leg/ipc/New()
 	robotize("Morpheus Cyberkinetics")
@@ -53,7 +59,7 @@
 /obj/item/organ/external/leg/right/ipc
 	encased = null
 	status = ORGAN_ROBOT
-
+	species = "Machine"
 
 /obj/item/organ/external/leg/right/ipc/New()
 	robotize("Morpheus Cyberkinetics")
@@ -62,7 +68,7 @@
 /obj/item/organ/external/foot/ipc
 	encased = null
 	status = ORGAN_ROBOT
-
+	species = "Machine"
 
 /obj/item/organ/external/foot/ipc/New()
 	robotize("Morpheus Cyberkinetics")
@@ -71,7 +77,7 @@
 /obj/item/organ/external/foot/right/ipc
 	encased = null
 	status = ORGAN_ROBOT
-
+	species = "Machine"
 
 /obj/item/organ/external/foot/right/ipc/New()
 	robotize("Morpheus Cyberkinetics")
@@ -80,6 +86,7 @@
 /obj/item/organ/external/hand/ipc
 	encased = null
 	status = ORGAN_ROBOT
+	species = "Machine"
 
 /obj/item/organ/external/hand/ipc/New()
 	robotize("Morpheus Cyberkinetics")
@@ -88,6 +95,7 @@
 /obj/item/organ/external/hand/right/ipc
 	encased = null
 	status = ORGAN_ROBOT
+	species = "Machine"
 
 /obj/item/organ/external/hand/right/ipc/New()
 	robotize("Morpheus Cyberkinetics")
@@ -103,17 +111,11 @@
 	slot = "heart"
 	vital = 1
 	status = ORGAN_ROBOT
+	species = "Machine"
 
 /obj/item/organ/internal/cell/New()
 	robotize()
 	..()
-
-/obj/item/organ/internal/cell/insert()
-	..()
-	// This is very ghetto way of rebooting an IPC. TODO better way.
-	if(owner && owner.stat == DEAD)
-		owner.stat = CONSCIOUS
-		owner.visible_message("<span class='danger'>\The [owner] twitches visibly!</span>")
 
 /obj/item/organ/internal/optical_sensor
 	name = "optical sensor"
@@ -123,6 +125,7 @@
 	icon_state = "camera"
 	slot = "eyes"
 	status = ORGAN_ROBOT
+	species = "Machine"
 //	dead_icon = "camera_broken"
 
 /obj/item/organ/internal/optical_sensor/New()
@@ -140,7 +143,7 @@
 	if(!owner)
 		return
 	owner.disabilities &= ~NEARSIGHTED
-	owner.sdisabilities &= ~BLIND
+	owner.disabilities &= ~BLIND
 	owner.eye_blurry = 0
 	owner.eye_blind = 0
 
@@ -154,7 +157,30 @@
 	max_damage = 200
 	slot = "brain"
 	status = ORGAN_ROBOT
+	species = "Machine"
 	var/obj/item/device/mmi/stored_mmi
+
+
+/obj/item/organ/internal/brain/mmi_holder/Destroy()
+	if(stored_mmi)
+		qdel(stored_mmi)
+	return ..()
+
+/obj/item/organ/internal/brain/mmi_holder/insert(var/mob/living/target,special = 0)
+	..()
+	// To supersede the over-writing of the MMI's name from `insert`
+	update_from_mmi()
+
+/obj/item/organ/internal/brain/mmi_holder/remove(var/mob/living/user,special = 0)
+	if(!special)
+		if(stored_mmi)
+			. = stored_mmi
+			if(owner.mind)
+				owner.mind.transfer_to(stored_mmi.brainmob)
+			stored_mmi.forceMove(get_turf(src))
+			stored_mmi = null
+	..()
+	qdel(src)
 
 /obj/item/organ/internal/brain/mmi_holder/proc/update_from_mmi()
 	if(!stored_mmi)
@@ -163,27 +189,7 @@
 	desc = stored_mmi.desc
 	icon = stored_mmi.icon
 	icon_state = stored_mmi.icon_state
-
-/obj/item/organ/internal/brain/mmi_holder/remove(var/mob/living/user,special = 0)
-	if(!special)
-		if(stored_mmi)
-			stored_mmi.forceMove(get_turf(owner))
-			if(owner.mind)
-				owner.mind.transfer_to(stored_mmi.brainmob)
-	..()
-
-	var/mob/living/holder_mob = loc
-	if(istype(holder_mob))
-		holder_mob.unEquip(src)
-	qdel(src)
-
-/obj/item/organ/internal/brain/mmi_holder/New()
-	..()
-	// This is very ghetto way of rebooting an IPC. TODO better way.
-	spawn(1)
-		if(owner && owner.stat == DEAD)
-			owner.stat = CONSCIOUS
-			owner.visible_message("<span class='danger'>\The [owner] twitches visibly!</span>")
+	set_dna(stored_mmi.brainmob.dna)
 
 /obj/item/organ/internal/brain/mmi_holder/posibrain/New()
 	robotize()

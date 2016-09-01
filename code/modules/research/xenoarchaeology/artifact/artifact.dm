@@ -59,11 +59,11 @@
 
 	else if(istype(AM,/obj/mecha))
 		var/obj/mecha/M = AM
-		if(istype(M.selected,/obj/item/mecha_parts/mecha_equipment/tool/drill))
+		if(istype(M.selected,/obj/item/mecha_parts/mecha_equipment/drill))
 			M.selected.action(src)
 
 /obj/structure/boulder/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
-	if (istype(W, /obj/item/device/core_sampler))
+	if(istype(W, /obj/item/device/core_sampler))
 		if(geological_data)
 			src.geological_data.artifact_distance = rand(-100,100) / 100
 			src.geological_data.artifact_id = artifact_find.artifact_id
@@ -72,19 +72,19 @@
 		C.sample_item(src, user)
 		return
 
-	if (istype(W, /obj/item/device/depth_scanner))
+	if(istype(W, /obj/item/device/depth_scanner))
 		var/obj/item/device/depth_scanner/C = W
 		C.scan_atom(user, src)
 		return
 
-	if (istype(W, /obj/item/device/measuring_tape))
+	if(istype(W, /obj/item/device/measuring_tape))
 		var/obj/item/device/measuring_tape/P = W
 		user.visible_message("\blue[user] extends [P] towards [src].","\blue You extend [P] towards [src].")
 		if(do_after(user,40, target = src))
-			to_chat(user, "\blue \icon[P] [src] has been excavated to a depth of [2*src.excavation_level]cm.")
+			to_chat(user, "\blue [bicon(P)] [src] has been excavated to a depth of [2*src.excavation_level]cm.")
 		return
 
-	if (istype(W, /obj/item/weapon/pickaxe))
+	if(istype(W, /obj/item/weapon/pickaxe))
 		var/obj/item/weapon/pickaxe/P = W
 
 		to_chat(user, "\red You start [P.drill_verb] [src].")

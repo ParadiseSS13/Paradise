@@ -5,7 +5,7 @@
 /obj/item/weapon/reagent_containers/hypospray
 	name = "hypospray"
 	desc = "The DeForest Medical Corporation hypospray is a sterile, air-needle autoinjector for rapid administration of drugs to patients."
-	icon = 'icons/obj/syringe.dmi'
+	icon = 'icons/obj/hypo.dmi'
 	item_state = "hypo"
 	icon_state = "hypo"
 	amount_per_transfer_from_this = 5
@@ -17,37 +17,30 @@
 
 /obj/item/weapon/reagent_containers/hypospray/attack(mob/living/M, mob/user)
 	if(!reagents.total_volume)
-		to_chat(user, "\red [src] is empty.")
+		to_chat(user, "<span class='warning'>[src] is empty!</span>")
 		return
-	if(!istype(M))
+	if(!iscarbon(M))
 		return
-	if(reagents.total_volume && (ignore_flags || M.can_inject(user, 1)))
-		to_chat(user, "\blue You inject [M] with [src].")
-		to_chat(M, "\red You feel a tiny prick!")
 
-		src.reagents.add_reagent(M)
+	if(reagents.total_volume && (ignore_flags || M.can_inject(user, 1))) // Ignore flag should be checked first or there will be an error message.
+		to_chat(M, "<span class='warning'>You feel a tiny prick!</span>")
+		to_chat(user, "<span class='notice'>You inject [M] with [src].</span>")
+
 		if(M.reagents)
 			var/list/injected = list()
-			for(var/datum/reagent/R in src.reagents.reagent_list)
+			for(var/datum/reagent/R in reagents.reagent_list)
 				injected += R.name
-			var/contained = english_list(injected)
-			M.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been injected with [src.name] by [key_name(user)]. Reagents: [contained]</font>")
-			user.attack_log += text("\[[time_stamp()]\] <font color='red'>Used the [src.name] to inject [key_name(M)]. Reagents: [contained]</font>")
-			if(M.ckey)
-				msg_admin_attack("[key_name_admin(user)] injected [key_name_admin(M)] with [src.name]. Reagents: [contained] (INTENT: [uppertext(user.a_intent)])")
-			if(!iscarbon(user))
-				M.LAssailant = null
-			else
-				M.LAssailant = user
 
 			var/trans = reagents.trans_to(M, amount_per_transfer_from_this)
-			to_chat(user, "\blue [trans] units injected. [reagents.total_volume] units remaining in [src].")
 
-	return
+			to_chat(user, "<span class='notice'>[trans] unit\s injected.  [reagents.total_volume] unit\s remaining in [src].</span>")
 
-/obj/item/weapon/reagent_containers/hypospray/CMO/New()
-	..()
-	reagents.add_reagent("omnizine", 30)
+			var/contained = english_list(injected)
+
+			add_logs(user, M, "injected", src, "([contained])")
+
+/obj/item/weapon/reagent_containers/hypospray/CMO
+	list_reagents = list("omnizine" = 30)
 
 /obj/item/weapon/reagent_containers/hypospray/combat
 	name = "combat stimulant injector"
@@ -55,21 +48,14 @@
 	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = list(10)
 	icon_state = "combat_hypo"
-	volume = 60
+	volume = 75
 	ignore_flags = 1 // So they can heal their comrades.
-
-/obj/item/weapon/reagent_containers/hypospray/combat/New()
-	..()
-	reagents.add_reagent("synaptizine", 30)
+	list_reagents = list("epinephrine" = 30, "omnizine" = 30, "teporone" = 15)
 
 /obj/item/weapon/reagent_containers/hypospray/combat/nanites
-	name = "combat stimulant injector"
-	desc = "A modified air-needle autoinjector filled with expensive regeneration nanites."
+	desc = "A modified air-needle autoinjector for use in combat situations. Prefilled with expensive medical nanites for rapid healing."
 	volume = 100
-
-/obj/item/weapon/reagent_containers/hypospray/combat/nanites/New()
-	..()
-	reagents.add_reagent("nanites", 70)
+	list_reagents = list("nanites" = 100)
 
 /obj/item/weapon/reagent_containers/hypospray/autoinjector
 	name = "emergency autoinjector"
@@ -81,56 +67,41 @@
 	volume = 10
 	ignore_flags = 1 //so you can medipen through hardsuits
 	flags = null
+	list_reagents = list("epinephrine" = 10)
 
-/obj/item/weapon/reagent_containers/hypospray/autoinjector/New()
-	..()
-	reagents.add_reagent("epinephrine", 10)
-	update_icon()
-	return
-
-/obj/item/weapon/reagent_containers/hypospray/autoinjector/attack(mob/M as mob, mob/user as mob)
+/obj/item/weapon/reagent_containers/hypospray/autoinjector/attack(mob/M, mob/user)
+	if(!reagents.total_volume)
+		to_chat(user, "<span class='warning'>[src] is empty!</span>")
+		return
 	..()
 	update_icon()
-	return
 
 /obj/item/weapon/reagent_containers/hypospray/autoinjector/update_icon()
 	if(reagents.total_volume > 0)
-		icon_state = "[initial(icon_state)]1"
+		icon_state = initial(icon_state)
 	else
 		icon_state = "[initial(icon_state)]0"
 
-/obj/item/weapon/reagent_containers/hypospray/autoinjector/examine(mob/user)
-	..(user)
+/obj/item/weapon/reagent_containers/hypospray/autoinjector/examine()
+	..()
 	if(reagents && reagents.reagent_list.len)
-		to_chat(user, "\blue It is currently loaded.")
+		to_chat(usr, "<span class='notice'>It is currently loaded.</span>")
 	else
-		to_chat(user, "\blue It is spent.")
+		to_chat(usr, "<span class='notice'>It is spent.</span>")
 
 /obj/item/weapon/reagent_containers/hypospray/autoinjector/teporone //basilisks
 	name = "teporone autoinjector"
-	desc = "A rapid way to regulate your body's temperature in the event of a hardsuit malfunction at the cost of some shortness of breath."
+	desc = "A rapid way to regulate your body's temperature in the event of a hardsuit malfunction."
 	icon_state = "lepopen"
-
-/obj/item/weapon/reagent_containers/hypospray/autoinjector/teporone/New()
-	..()
-	reagents.remove_reagent("epinephrine", 10)
-	reagents.add_reagent("teporone", 9)
-	reagents.add_reagent("lexorin", 1)
-	update_icon()
-	return
+	list_reagents = list("teporone" = 10)
 
 /obj/item/weapon/reagent_containers/hypospray/autoinjector/stimpack //goliath kiting
 	name = "stimpack autoinjector"
-	desc = "A rapid way to stimulate your body's adrenaline, allowing for freer movement in restrictive armor at the cost of some shortness of breath."
+	desc = "A rapid way to stimulate your body's adrenaline, allowing for freer movement in restrictive armor."
 	icon_state = "stimpen"
-
-/obj/item/weapon/reagent_containers/hypospray/autoinjector/stimpack/New()
-	..()
-	reagents.remove_reagent("epinephrine", 10)
-	reagents.add_reagent("methamphetamine", 9)
-	reagents.add_reagent("lexorin", 1)
-	update_icon()
-	return
+	volume = 20
+	amount_per_transfer_from_this = 20
+	list_reagents = list("methamphetamine" = 10, "coffee" = 10)
 
 /obj/item/weapon/reagent_containers/hypospray/autoinjector/stimulants
 	name = "Stimulants autoinjector"
@@ -139,10 +110,4 @@
 	amount_per_transfer_from_this = 50
 	possible_transfer_amounts = list(50)
 	volume = 50
-
-/obj/item/weapon/reagent_containers/hypospray/autoinjector/stimulants/New()
-	..()
-	reagents.remove_reagent("epinephrine", 10)
-	reagents.add_reagent("stimulants", 50)
-	update_icon()
-	return
+	list_reagents = list("stimulants" = 50)

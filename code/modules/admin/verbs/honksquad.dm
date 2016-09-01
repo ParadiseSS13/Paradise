@@ -50,7 +50,7 @@ var/global/sent_honksquad = 0
 //Spawns HONKsquad and equips them.
 	for(var/obj/effect/landmark/L in landmarks_list)
 		if(honksquad_number<=0)	break
-		if (L.name == "HONKsquad")
+		if(L.name == "HONKsquad")
 			honk_leader_selected = honksquad_number == 1?1:0
 
 			var/mob/living/carbon/human/new_honksquad = create_honksquad(L, honk_leader_selected)
@@ -59,12 +59,12 @@ var/global/sent_honksquad = 0
 				new_honksquad.key = pick(commandos)
 				commandos -= new_honksquad.key
 				new_honksquad.internal = new_honksquad.s_store
-				new_honksquad.internals.icon_state = "internal1"
+				new_honksquad.update_internals_hud_icon(1)
 
 			//So they don't forget their code or mission.
 			new_honksquad.mind.store_memory("<B>Mission:</B> \red [input].")
 
-			to_chat(new_honksquad, "\blue You are a HONKsquad. [!honk_leader_selected?"commando":"<B>LEADER</B>"] in the service of Clown Planet. You are called in cases of exteme low levels of HONK. You are NOT authorized to kill. \nYour current mission is: \red<B>[input]</B>")
+			to_chat(new_honksquad, "\blue You are a HONKsquad. [!honk_leader_selected?"commando":"<B>LEADER</B>"] in the service of Clown Planet. You are called in cases of exteme low levels of HONK. You are NOT authorized to kill. \nYour current mission is: <span class='danger'>[input]</span>")
 
 			honksquad_number--
 
@@ -92,7 +92,7 @@ var/global/sent_honksquad = 0
 	//Creates mind stuff.
 	new_honksquad.mind_initialize()
 	new_honksquad.mind.assigned_role = "MODE"
-	new_honksquad.mind.special_role = "HONKsquad"
+	new_honksquad.mind.special_role = SPECIAL_ROLE_HONKSQUAD
 	ticker.mode.traitors |= new_honksquad.mind//Adds them to current traitor list. Which is really the extra antagonist list.
 	new_honksquad.equip_honksquad(honk_leader_selected)
 	return new_honksquad
@@ -121,7 +121,7 @@ var/global/sent_honksquad = 0
 	if(prob(50))
 		equip_to_slot_or_del(new /obj/item/weapon/gun/energy/clown(src), slot_in_backpack)
 	else
-		equip_to_slot_or_del(new /obj/item/weapon/gun/grenadelauncher/piecannon(src), slot_in_backpack)
+		equip_to_slot_or_del(new /obj/item/weapon/gun/throw/piecannon(src), slot_in_backpack)
 	src.mutations.Add(CLUMSY)
 
 

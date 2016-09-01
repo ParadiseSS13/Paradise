@@ -22,17 +22,15 @@
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack
 	ME.attach(src)
-	return
 
 
 /obj/mecha/combat/durand/relaymove(mob/user,direction)
 	if(defence)
 		if(world.time - last_message > 20)
-			src.occupant_message("<font color='red'>Unable to move while in defence mode</font>")
+			occupant_message("<font color='red'>Unable to move while in defence mode</font>")
 			last_message = world.time
 		return 0
 	. = ..()
-	return
 
 
 /obj/mecha/combat/durand/verb/defence_mode()
@@ -40,17 +38,16 @@
 	set name = "Toggle defence mode"
 	set src = usr.loc
 	set popup_menu = 0
-	if(usr!=src.occupant)
+	if(usr != occupant)
 		return
 	defence = !defence
 	if(defence)
 		deflect_chance = defence_deflect
-		src.occupant_message("<font color='blue'>You enable [src] defence mode.</font>")
+		occupant_message("<font color='blue'>You enable [src] defence mode.</font>")
 	else
 		deflect_chance = initial(deflect_chance)
-		src.occupant_message("<font color='red'>You disable [src] defence mode.</font>")
-	src.log_message("Toggled defence mode.")
-	return
+		occupant_message("<font color='red'>You disable [src] defence mode.</font>")
+	log_message("Toggled defence mode.")
 
 
 /obj/mecha/combat/durand/get_stats_part()
@@ -71,9 +68,8 @@
 
 /obj/mecha/combat/durand/Topic(href, href_list)
 	..()
-	if (href_list["toggle_defence_mode"])
-		src.defence_mode()
-	return
+	if(href_list["toggle_defence_mode"])
+		defence_mode()
 
 /obj/mecha/combat/durand/old
 	desc = "A retired, third-generation combat exosuit utilized by the Nanotrasen corporation. Originally developed to combat hostile alien lifeforms."

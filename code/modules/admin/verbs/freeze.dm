@@ -21,7 +21,7 @@ var/global/list/frozen_mob_list = list()
 
 ///mob freeze procs
 
-/mob/living/var/frozen = 0 //used for preventing attacks on admin-frozen mobs
+/mob/living/var/frozen = null //used for preventing attacks on admin-frozen mobs
 /mob/living/var/admin_prev_sleeping = 0 //used for keeping track of previous sleeping value with admin freeze
 
 /mob/living/proc/admin_Freeze(var/client/admin)
@@ -34,7 +34,7 @@ var/global/list/frozen_mob_list = list()
 	src.overlays += AO
 
 	anchored = 1
-	frozen = 1
+	frozen = AO
 	admin_prev_sleeping = sleeping
 	sleeping += 20000
 	if(!(src in frozen_mob_list))
@@ -46,14 +46,15 @@ var/global/list/frozen_mob_list = list()
 		message_admins("\blue [key_name_admin(admin)] unfroze [key_name_admin(src)]")
 		log_admin("[key_name(admin)] unfroze [key_name(src)]")
 
-	update_icons()
-
 	anchored = 0
-	frozen = 0
+	overlays -= frozen
+	frozen = null
 	sleeping = admin_prev_sleeping
 	admin_prev_sleeping = null
 	if(src in frozen_mob_list)
 		frozen_mob_list -= src
+
+	update_icons()
 
 
 /mob/living/carbon/slime/admin_Freeze(admin)
@@ -89,11 +90,11 @@ var/global/list/frozen_mob_list = list()
 		return
 	var/obj/mecha/M = O
 	if(!istype(M,/obj/mecha))
-		to_chat(src, "\red <b>This can only be used on Mechs!</b>")
+		to_chat(src, "<span class='danger'>This can only be used on Mechs!</span>")
 		return
 	else
 		if(usr)
-			if (usr.client)
+			if(usr.client)
 				if(usr.client.holder)
 					var/adminomaly = new/obj/effect/overlay/adminoverlay
 					if(M.can_move == 1)

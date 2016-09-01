@@ -19,9 +19,6 @@
 	var/list/all_items = owner.current.get_contents()
 	for(var/obj/I in all_items) //Check for items
 		if(istype(I, typepath) && check_special_completion(I))
-			//Stealing the cheap autoinjector doesn't count
-			if(istype(I, /obj/item/weapon/reagent_containers/hypospray/autoinjector))
-				continue
 			return 1
 	return 0
 
@@ -35,18 +32,13 @@
 
 /datum/theft_objective/hoslaser
 	name = "the head of security's recreated antique laser gun"
-	typepath = /obj/item/weapon/gun/energy/hos
+	typepath = /obj/item/weapon/gun/energy/gun/hos
 	protected_jobs = list("Head Of Security")
 
 /datum/theft_objective/hand_tele
 	name = "a hand teleporter"
 	typepath = /obj/item/weapon/hand_tele
 	protected_jobs = list("Captain", "Research Director")
-
-/datum/theft_objective/rcd
-	name = "a rapid-construction-device"
-	typepath = /obj/item/weapon/rcd
-	protected_jobs = list("Chief Engineer", "Quartermaster", "Cargo Technician", "Research Director", "Scientist", "Roboticist")
 
 /datum/theft_objective/jetpack
 	name = "a jetpack"
@@ -107,7 +99,7 @@ datum/theft_objective/ai/check_special_completion(var/obj/item/device/aicard/C)
 
 /datum/theft_objective/reactive
 	name = "the reactive teleport armor"
-	typepath = /obj/item/clothing/suit/armor/reactive
+	typepath = /obj/item/clothing/suit/armor/reactive/teleport
 	protected_jobs = list("Research Director")
 
 /datum/theft_objective/steal/documents
@@ -116,13 +108,18 @@ datum/theft_objective/ai/check_special_completion(var/obj/item/device/aicard/C)
 
 /datum/theft_objective/hypospray
 	name = "a hypospray"
-	typepath = /obj/item/weapon/reagent_containers/hypospray
+	typepath = /obj/item/weapon/reagent_containers/hypospray/CMO
 	protected_jobs = list("Chief Medical Officer")
 
 /datum/theft_objective/ablative
 	name = "an ablative armor vest"
 	typepath = /obj/item/clothing/suit/armor/laserproof
 	protected_jobs = list("Head of Security", "Warden")
+
+/datum/theft_objective/krav
+	name = "the warden's krav maga martial arts gloves"
+	typepath = /obj/item/clothing/gloves/color/black/krav_maga/sec
+	protected_jobs = list("Head Of Security", "Warden")
 
 /datum/theft_objective/number
 	var/min=0

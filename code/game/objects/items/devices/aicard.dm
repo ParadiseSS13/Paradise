@@ -3,7 +3,7 @@
 	icon = 'icons/obj/aicards.dmi'
 	icon_state = "aicard" // aicard-full
 	item_state = "electronic"
-	w_class = 2.0
+	w_class = 2
 	slot_flags = SLOT_BELT
 	flags = NOBLUDGEON
 	var/flush = null
@@ -17,7 +17,7 @@
 	var/mob/living/silicon/ai/AI = locate(/mob/living/silicon/ai) in src
 	if(AI) //AI is on the card, implies user wants to upload it.
 		target.transfer_ai(AI_TRANS_FROM_CARD, user, AI, src)
-		add_logs(AI,user, "carded", object="[name]")
+		add_logs(user, AI, "carded", object="[name]")
 	else //No AI on the card, therefore the user wants to download one.
 		target.transfer_ai(AI_TRANS_TO_CARD, user, null, src)
 	update_state() //Whatever happened, update the card's state (icon, name) to match.
@@ -26,7 +26,7 @@
 	var/mob/living/silicon/ai/AI = locate(/mob/living/silicon/ai) in src //AI is inside.
 	if(AI)
 		name = "intelliCard - [AI.name]"
-		if (AI.stat == DEAD)
+		if(AI.stat == DEAD)
 			icon_state = "aicard-404"
 		else
 			icon_state = "aicard-full"
@@ -60,7 +60,7 @@
 		data["has_laws"] = laws.len
 
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if (!ui)
+	if(!ui)
 		ui = new(user, src, ui_key, "aicard.tmpl", "[name]", 600, 400, state = state)
 		ui.set_initial_data(data)
 		ui.open()
@@ -77,25 +77,25 @@
 
 	var/user = usr
 
-	if (href_list["wipe"])
+	if(href_list["wipe"])
 		var/confirm = alert("Are you sure you want to wipe this card's memory? This cannot be undone once started.", "Confirm Wipe", "Yes", "No")
 		if(confirm == "Yes" && (CanUseTopic(user, state) == STATUS_INTERACTIVE))
 			msg_admin_attack("[key_name_admin(user)] wiped [key_name_admin(AI)] with \the [src].")
 			flush = 1
 			AI.suiciding = 1
 			to_chat(AI, "Your core files are being wiped!")
-			while (AI && AI.stat != DEAD)
+			while(AI && AI.stat != DEAD)
 				AI.adjustOxyLoss(2)
 				AI.updatehealth()
 				sleep(10)
 			flush = 0
 
-	if (href_list["radio"])
+	if(href_list["radio"])
 		AI.aiRadio.disabledAi = text2num(href_list["radio"])
 		to_chat(AI, "<span class='warning'>Your Subspace Transceiver has been [AI.aiRadio.disabledAi ? "disabled" : "enabled"]!</span>")
 		to_chat(user, "<span class='notice'>You [AI.aiRadio.disabledAi ? "disable" : "enable"] the AI's Subspace Transceiver.</span>")
 
-	if (href_list["wireless"])
+	if(href_list["wireless"])
 		AI.control_disabled = text2num(href_list["wireless"])
 		to_chat(AI, "<span class='warning'>Your wireless interface has been [AI.control_disabled ? "disabled" : "enabled"]!</span>")
 		to_chat(user, "<span class='notice'>You [AI.control_disabled ? "disable" : "enable"] the AI's wireless interface.</span>")

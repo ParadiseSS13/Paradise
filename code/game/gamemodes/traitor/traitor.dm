@@ -11,14 +11,10 @@
 	name = "traitor"
 	config_tag = "traitor"
 	restricted_jobs = list("Cyborg")//They are part of the AI if he is traitor so are they, they use to get double chances
-	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Internal Affairs Agent", "Captain", "Blueshield", "Nanotrasen Representative", "Security Pod Pilot", "Magistrate", "Internal Affairs Agent", "Brig Physician")//AI", Currently out of the list as malf does not work for shit
+	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Internal Affairs Agent", "Captain", "Blueshield", "Nanotrasen Representative", "Security Pod Pilot", "Magistrate", "Internal Affairs Agent", "Brig Physician", "Nanotrasen Navy Officer", "Special Operations Officer")
 	required_players = 0
 	required_enemies = 1
 	recommended_enemies = 4
-
-
-	uplink_welcome = "Syndicate Uplink Console:"
-	uplink_uses = 20
 
 	var/traitors_possible = 4 //hard limit on traitors if scaling is turned off
 	var/const/traitor_scaling_coeff = 5.0 //how much does the amount of players get divided by to determine traitors
@@ -48,11 +44,11 @@
 		num_traitors = max(1, min(num_players(), traitors_possible))
 
 	for(var/j = 0, j < num_traitors, j++)
-		if (!possible_traitors.len)
+		if(!possible_traitors.len)
 			break
 		var/datum/mind/traitor = pick(possible_traitors)
 		traitors += traitor
-		traitor.special_role = "traitor"
+		traitor.special_role = SPECIAL_ROLE_TRAITOR
 		var/datum/mindslaves/slaved = new()
 		slaved.masters += traitor
 		traitor.som = slaved //we MIGT want to mindslave someone
@@ -150,7 +146,7 @@
 				traitor.objectives += steal_objective
 
 		if(is_hijacker && objective_count <= config.traitor_objectives_amount) //Don't assign hijack if it would exceed the number of objectives set in config.traitor_objectives_amount
-			if (!(locate(/datum/objective/hijack) in traitor.objectives))
+			if(!(locate(/datum/objective/hijack) in traitor.objectives))
 				var/datum/objective/hijack/hijack_objective = new
 				hijack_objective.owner = traitor
 				traitor.objectives += hijack_objective
@@ -187,7 +183,7 @@
 
 
 /datum/game_mode/proc/finalize_traitor(var/datum/mind/traitor)
-	if (istype(traitor.current, /mob/living/silicon))
+	if(istype(traitor.current, /mob/living/silicon))
 		add_law_zero(traitor.current)
 	else
 		equip_traitor(traitor.current)
@@ -223,6 +219,10 @@
 	killer.set_zeroth_law(law, law_borg)
 	to_chat(killer, "New law: 0. [law]")
 	give_codewords(killer)
+	killer.set_syndie_radio()
+	to_chat(killer, "Your radio has been upgraded! Use :t to speak on an encrypted channel with Syndicate Agents!")
+	killer.verbs += /mob/living/silicon/ai/proc/choose_modules
+	killer.malf_picker = new /datum/module_picker
 
 
 /datum/game_mode/proc/auto_declare_completion_traitor()
@@ -288,11 +288,11 @@
 
 
 /datum/game_mode/proc/equip_traitor(mob/living/carbon/human/traitor_mob, var/safety = 0)
-	if (!istype(traitor_mob))
+	if(!istype(traitor_mob))
 		return
 	. = 1
-	if (traitor_mob.mind)
-		if (traitor_mob.mind.assigned_role == "Clown")
+	if(traitor_mob.mind)
+		if(traitor_mob.mind.assigned_role == "Clown")
 			to_chat(traitor_mob, "Your training has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself.")
 			traitor_mob.mutations.Remove(CLUMSY)
 
@@ -301,20 +301,20 @@
 	if(!R)
 		R = locate(/obj/item/device/radio) in traitor_mob.contents
 
-	if (!R)
+	if(!R)
 		to_chat(traitor_mob, "Unfortunately, the Syndicate wasn't able to get you a radio.")
 		. = 0
 	else
-		if (istype(R, /obj/item/device/radio))
+		if(istype(R, /obj/item/device/radio))
 			// generate list of radio freqs
 			var/obj/item/device/radio/target_radio = R
 			var/freq = PUBLIC_LOW_FREQ
 			var/list/freqlist = list()
-			while (freq <= PUBLIC_HIGH_FREQ)
-				if (freq < 1451 || freq > 1459)
+			while(freq <= PUBLIC_HIGH_FREQ)
+				if(freq < 1451 || freq > 1459)
 					freqlist += freq
 				freq += 2
-				if ((freq % 2) == 0)
+				if((freq % 2) == 0)
 					freq += 1
 			freq = freqlist[rand(1, freqlist.len)]
 
@@ -324,7 +324,7 @@
 			target_radio.traitor_frequency = freq
 			to_chat(traitor_mob, "The Syndicate have cunningly disguised a Syndicate Uplink as your [R.name] [T.loc]. Simply dial the frequency [format_frequency(freq)] to unlock its hidden features.")
 			traitor_mob.mind.store_memory("<B>Radio Freq:</B> [format_frequency(freq)] ([R.name] [T.loc]).")
-		else if (istype(R, /obj/item/device/pda))
+		else if(istype(R, /obj/item/device/pda))
 			// generate a passcode if the uplink is hidden in a PDA
 			var/pda_pass = "[rand(100,999)] [pick("Alpha","Bravo","Delta","Omega")]"
 
@@ -370,10 +370,11 @@
 		traitor_mind.special_role = null
 		traitor_mind.som = null
 		slaved.leave_serv_hud(traitor_mind)
+		for(var/datum/objective/protect/mindslave/MS in traitor_mind.objectives)
+			traitor_mind.objectives -= MS
 
 	update_traitor_icons_removed(traitor_mind)
-//	to_chat(world, "Removed [traitor_mind.current.name] from traitor shit")
-	to_chat(traitor_mind.current, "\red <FONT size = 3><B>The fog clouding your mind clears. You remember nothing from the moment you were implanted until now.(You don't remember who implanted you)</B></FONT>")
+	to_chat(traitor_mind.current, "<span class='userdanger'>You are no longer a mindslave; you have complete and free control of your own faculties, once more!</span>")
 
 /datum/game_mode/proc/assign_exchange_role(var/datum/mind/owner)
 	//set faction
@@ -412,7 +413,7 @@
 
 	var/where = "At your feet"
 	var/equipped_slot = mob.equip_in_one_of_slots(folder, slots)
-	if (equipped_slot)
+	if(equipped_slot)
 		where = "In your [equipped_slot]"
 	to_chat(mob, "<BR><BR><span class='info'>[where] is a folder containing <b>secret documents</b> that another Syndicate group wants. We have set up a meeting with one of their agents on station to make an exchange. Exercise extreme caution as they cannot be trusted and may be hostile.</span><BR>")
 	mob.update_icons()

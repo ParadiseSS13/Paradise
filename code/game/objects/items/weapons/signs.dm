@@ -4,8 +4,9 @@
 	name = "blank picket sign"
 	desc = "It's blank"
 	force = 5
-	w_class = 4.0
+	w_class = 4
 	attack_verb = list("bashed","smacked")
+	burn_state = FLAMMABLE
 
 	var/delayed = 0 //used to do delays
 
@@ -35,9 +36,10 @@
 	sleep(8)
 	delayed = 0
 
-/datum/table_recipe/picket_sign
+/datum/crafting_recipe/picket_sign
 	name = "Picket Sign"
 	result = /obj/item/weapon/picket_sign
 	reqs = list(/obj/item/stack/rods = 1,
 				/obj/item/stack/sheet/cardboard = 2)
 	time = 80
+	category = CAT_MISC

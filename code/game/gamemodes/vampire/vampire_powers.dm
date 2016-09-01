@@ -259,13 +259,17 @@
 			continue
 		to_chat(C, "<span class='warning'><font size='3'><b>You hear a ear piercing shriek and your senses dull!</font></b></span>")
 		C.Weaken(4)
-		C.ear_deaf = 20
+		C.adjustEarDamage(0,20)
 		C.stuttering = 20
 		C.Stun(4)
 		C.Jitter(150)
 	for(var/obj/structure/window/W in view(4))
 		W.destroy()
 	playsound(usr.loc, 'sound/effects/creepyshriek.ogg', 100, 1)
+
+
+/proc/isvampirethrall(mob/living/M as mob)
+	return istype(M) && M.mind && ticker && ticker.mode && (M.mind in ticker.mode.vampire_enthralled)
 
 /obj/effect/proc_holder/spell/vampire/targetted/enthrall
 	name = "Enthrall (300)"
@@ -299,7 +303,7 @@
 			enthrall_safe = 1
 			break
 	if(!C)
-		log_to_dd("something bad happened on enthralling a mob, attacker is [user] [user.key] \ref[user]")
+		log_runtime(EXCEPTION("something bad happened on enthralling a mob, attacker is [user] [user.key] \ref[user]"), user)
 		return 0
 	if(!C.mind)
 		to_chat(user, "<span class='warning'>[C.name]'s mind is not there for you to enthrall.</span>")
@@ -333,9 +337,9 @@
 
 	ticker.mode.vampire_enthralled.Add(H.mind)
 	ticker.mode.vampire_enthralled[H.mind] = user.mind
-	H.mind.special_role = "VampThrall"
+	H.mind.special_role = SPECIAL_ROLE_VAMPIRE_THRALL
 	to_chat(H, "<span class='danger'>You have been Enthralled by [user]. Follow their every command.</span>")
-	to_chat(src, "<span class='warning'>You have successfully Enthralled [H]. <i>If they refuse to do as you say just adminhelp.</i></span>")
+	to_chat(user, "<span class='warning'>You have successfully Enthralled [H]. <i>If they refuse to do as you say just adminhelp.</i></span>")
 	log_admin("[ckey(user.key)] has mind-slaved [ckey(H.key)].")
 
 /obj/effect/proc_holder/spell/vampire/self/cloak

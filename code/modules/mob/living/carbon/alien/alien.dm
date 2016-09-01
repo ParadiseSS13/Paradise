@@ -29,7 +29,7 @@
 	ventcrawler = 2
 
 /mob/living/carbon/alien/New()
-	verbs += /mob/living/carbon/verb/mob_sleep
+	verbs += /mob/living/verb/mob_sleep
 	verbs += /mob/living/verb/lay_down
 	internal_organs += new /obj/item/organ/internal/brain/xeno
 	internal_organs += new /obj/item/organ/internal/xenos/hivenode
@@ -118,11 +118,11 @@
 
 /mob/living/carbon/alien/handle_mutations_and_radiation()
 	// Aliens love radiation nom nom nom
-	if (radiation)
-		if (radiation > 100)
+	if(radiation)
+		if(radiation > 100)
 			radiation = 100
 
-		if (radiation < 0)
+		if(radiation < 0)
 			radiation = 0
 
 		switch(radiation)
@@ -217,7 +217,7 @@
 		if(judgebot.check_for_weapons(r_hand))
 			threatcount += 4
 
-	//Loyalty implants imply trustworthyness
+	//Mindshield implants imply trustworthyness
 	if(isloyal(src))
 		threatcount -= 1
 
@@ -228,8 +228,8 @@ Proc: AddInfectionImages()
 Des: Gives the client of the alien an image on each infected mob.
 ----------------------------------------*/
 /mob/living/carbon/alien/proc/AddInfectionImages()
-	if (client)
-		for (var/mob/living/C in mob_list)
+	if(client)
+		for(var/mob/living/C in mob_list)
 			if(C.status_flags & XENO_HOST)
 				var/obj/item/organ/internal/body_egg/alien_embryo/A = C.get_int_organ(/obj/item/organ/internal/body_egg/alien_embryo)
 				if(A)
@@ -243,7 +243,7 @@ Proc: RemoveInfectionImages()
 Des: Removes all infected images from the alien.
 ----------------------------------------*/
 /mob/living/carbon/alien/proc/RemoveInfectionImages()
-	if (client)
+	if(client)
 		for(var/image/I in client.images)
 			if(dd_hasprefix_case(I.icon_state, "infected"))
 				qdel(I)

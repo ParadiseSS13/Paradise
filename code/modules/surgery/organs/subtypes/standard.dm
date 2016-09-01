@@ -16,6 +16,25 @@
 	cannot_amputate = 1
 	parent_organ = null
 	encased = "ribcage"
+	var/fat = FALSE
+
+/obj/item/organ/external/chest/proc/makeFat(update_body_icon = 1)
+	fat = TRUE
+	if(owner)
+		owner.update_body(update_body_icon)
+	else
+		// get_icon updates the sprite icon, update_icon updates the injuries overlay.
+		// Madness.
+		get_icon()
+
+/obj/item/organ/external/chest/proc/makeSlim(update_body_icon = 1)
+	fat = FALSE
+	if(owner)
+		owner.update_body(update_body_icon)
+	else
+		// get_icon updates the sprite icon, update_icon updates the injuries overlay.
+		// Madness.
+		get_icon()
 
 /obj/item/organ/external/groin
 	name = "lower body"
@@ -85,7 +104,7 @@
 
 /obj/item/organ/external/foot/remove()
 	if(owner.shoes) owner.unEquip(owner.shoes)
-	..()
+	. = ..()
 
 /obj/item/organ/external/foot/right
 	limb_name = "r_foot"
@@ -116,7 +135,7 @@
 	if(owner.r_hand)
 		owner.unEquip(owner.r_hand,1)
 
-	..()
+	. = ..()
 
 /obj/item/organ/external/hand/right
 	limb_name = "r_hand"
@@ -178,7 +197,7 @@
 			if(owner)//runtimer no runtiming
 				owner.update_hair()
 				owner.update_fhair()
-	..()
+	. = ..()
 
 /obj/item/organ/external/head/replaced()
 	name = limb_name
@@ -187,9 +206,13 @@
 
 /obj/item/organ/external/head/take_damage(brute, burn, sharp, edge, used_weapon = null, list/forbidden_limbs = list())
 	..(brute, burn, sharp, edge, used_weapon, forbidden_limbs)
-	if (!disfigured)
-		if (brute_dam > 40)
-			if (prob(50))
+	if(!disfigured)
+		if(brute_dam > 40)
+			if(prob(50))
 				disfigure("brute")
-		if (burn_dam > 40)
+		if(burn_dam > 40)
 			disfigure("burn")
+
+/obj/item/organ/external/head/set_dna(datum/dna/new_dna)
+	..()
+	new_dna.write_head_attributes(src)

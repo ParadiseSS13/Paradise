@@ -7,6 +7,7 @@
 	icon = 'icons/obj/weapons.dmi'
 	var/plantname
 	var/potency = 1
+	burn_state = FLAMMABLE
 
 /obj/item/weapon/grown/New(newloc,planttype)
 
@@ -80,7 +81,7 @@
 
 /obj/item/weapon/grown/nettle/death
 	name = "deathnettle"
-	desc = "The <span class='danger'>glowing</span> \black nettle incites <span class='boldannounce'>rage</span>\black in you just from looking at it!"
+	desc = "The <span class='danger'>glowing</span> nettle incites <span class='boldannounce'>rage</span> in you just from looking at it!"
 	icon_state = "deathnettle"
 	force = 30
 	throwforce = 15
@@ -95,7 +96,7 @@
 /obj/item/weapon/grown/nettle/death/afterattack(mob/living/carbon/M, mob/user)
 	if(istype(M, /mob/living))
 		to_chat(M, "<span class='danger'>You are stunned by the powerful acid of the Deathnettle!</span>")
-		add_logs(M, user, "attacked", src)
+		add_logs(user, M, "attacked", src)
 
 		M.eye_blurry += force/7
 		if(prob(20))
@@ -110,7 +111,7 @@
 	icon = 'icons/obj/trash.dmi'
 	icon_state = "corncob"
 	item_state = "corncob"
-	w_class = 2.0
+	w_class = 2
 	throwforce = 0
 	throw_speed = 4
 	throw_range = 20
@@ -129,7 +130,7 @@
 	icon = 'icons/obj/items.dmi'
 	icon_state = "banana_peel"
 	item_state = "banana_peel"
-	w_class = 2.0
+	w_class = 2
 	throwforce = 0
 	throw_speed = 4
 	throw_range = 20
@@ -143,7 +144,7 @@
 	icon = 'icons/obj/harvest.dmi'
 	icon_state = "sunflower"
 	item_state = "sunflower"
-	w_class = 2.0
+	w_class = 2
 	throwforce = 0
 	throw_speed = 4
 	throw_range = 20
@@ -161,7 +162,7 @@
 	icon = 'icons/obj/harvest.dmi'
 	icon_state = "novaflower"
 	item_state = "sunflower"
-	w_class = 2.0
+	w_class = 2
 	throwforce = 0
 	throw_speed = 4
 	throw_range = 20
@@ -170,8 +171,11 @@
 	to_chat(M, "<font color='green'>[user] smacks you with a [name]!</font><font color='yellow'><b>FLOWER POWER</b></font>")
 	to_chat(user, "<font color='green'> Your [name]'s </font><font color='yellow'><b>FLOWER POWER</b></font><font color='green'> strikes [M]</font>")
 	if(istype(M, /mob/living))
-		to_chat(M, "<span class='warning'>You are heated by the warmth of the of the [name]!</span>")
-		M.bodytemperature += potency/2 * TEMPERATURE_DAMAGE_COEFFICIENT
+		to_chat(M, "<span class='danger'>You are lit on fire from the intense heat of the [name]!</span>")
+		M.adjust_fire_stacks(potency / 20)
+		if(M.IgniteMob())
+			message_admins("[key_name_admin(user)] set [key_name_admin(M)] on fire")
+			log_game("[key_name(user)] set [key_name(M)] on fire")
 
 /obj/item/weapon/grown/novaflower/pickup(mob/living/carbon/human/user as mob)
 	if(!user.gloves)

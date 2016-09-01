@@ -20,15 +20,12 @@
 	melee_damage_lower = 3
 	melee_damage_upper = 7
 
-	var/weapon1
-
 /mob/living/simple_animal/hostile/winter/snowman
 	name = "snowman"
 	desc = "A very angry snowman. Doesn't look like it wants to play around..."
 	icon_state = "snowman"
 	icon_living = "snowman"
 	icon_dead = "snowman-dead"
-	weapon1 = /obj/item/weapon/melee/candy_sword
 
 	bodytemperature = 73.0		//it's made of snow and hatred, so it's pretty cold.
 	maxbodytemp = 280.15		//at roughly 7 C, these will start melting (dying) from the warmth. Mind over matter or something.
@@ -36,14 +33,14 @@
 	gold_core_spawnable = CHEM_MOB_SPAWN_HOSTILE
 
 
-/mob/living/simple_animal/hostile/winter/snowman/death()
-	if(weapon1 && prob(50))		//50% chance to drop weapon on death, if it has one to drop
-		new weapon1(get_turf(src))
+/mob/living/simple_animal/hostile/winter/snowman/death(gibbed)
+	if(prob(50))		//50% chance to drop weapon on death, if it has one to drop
+		loot = list(/obj/item/weapon/melee/candy_sword)
 	if(prob(20))	//chance to become a stationary snowman structure instead of a corpse
-		new /obj/structure/snowman(get_turf(src))
-		visible_message("<span class='notice'>The [src.name] shimmers as its animating magic fades away!</span>")
+		loot.Add(/obj/structure/snowman)
+		deathmessage = "shimmers as its animating magic fades away!"
+		del_on_death = 1
 		..()		//this is just to make sure it gets properly killed before we qdel it
-		qdel(src)
 	else
 		..()
 
@@ -52,7 +49,6 @@
 	retreat_distance = 5
 	minimum_distance = 5
 	projectiletype = /obj/item/projectile/snowball
-	weapon1 = null
 
 /mob/living/simple_animal/hostile/winter/reindeer
 	name = "reindeer"
@@ -77,7 +73,7 @@
 	icon_living = "santa"
 	icon_dead = "santa-dead"
 
-/mob/living/simple_animal/hostile/winter/santa/death()
+/mob/living/simple_animal/hostile/winter/santa/death(gibbed)
 	..()
 	if(death_message)
 		visible_message(death_message)
@@ -125,7 +121,7 @@
 	melee_damage_lower = 15
 	melee_damage_upper = 25		//that's gonna leave a mark, for sure
 
-/mob/living/simple_animal/hostile/winter/santa/stage_4/death()
+/mob/living/simple_animal/hostile/winter/santa/stage_4/death(gibbed)
 	to_chat(world, "<span class='notice'><hr></span>")
 	to_chat(world, "<span class='notice'>THE FAT MAN HAS FALLEN!</span>")
 	to_chat(world, "<span class='notice'>SANTA CLAUS HAS BEEN DEFEATED!</span>")

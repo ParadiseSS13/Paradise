@@ -54,7 +54,7 @@
 	if(..(href, href_list))
 		return 1
 
-	if ((!(src.z in config.station_levels) && !(src.z in config.admin_levels)))
+	if(!is_secure_level(src.z))
 		to_chat(usr, "<span class='warning'>Unable to establish a connection: You're too far away from the station!</span>")
 		return 1
 
@@ -65,10 +65,10 @@
 		var/mob/living/carbon/human/M = usr
 		var/obj/item/card = M.get_active_hand()
 		var/obj/item/weapon/card/id/I = (card && card.GetID())||M.wear_id||M.wear_pda
-		if (istype(I, /obj/item/device/pda))
+		if(istype(I, /obj/item/device/pda))
 			var/obj/item/device/pda/pda = I
 			I = pda.id
-		if (I && istype(I))
+		if(I && istype(I))
 			if(src.check_access(I))
 				authenticated = 1
 			if(access_captain in I.access)
@@ -103,10 +103,10 @@
 			var/mob/living/carbon/human/L = usr
 			var/obj/item/card = L.get_active_hand()
 			var/obj/item/weapon/card/id/I = (card && card.GetID())||L.wear_id||L.wear_pda
-			if (istype(I, /obj/item/device/pda))
+			if(istype(I, /obj/item/device/pda))
 				var/obj/item/device/pda/pda = I
 				I = pda.id
-			if (I && istype(I))
+			if(I && istype(I))
 				if(access_captain in I.access)
 					var/old_level = security_level
 					if(!tmp_alertlevel) tmp_alertlevel = SEC_LEVEL_GREEN
@@ -273,6 +273,17 @@
 			src.emagged = 0
 			setMenuState(usr,COMM_SCREEN_MAIN)
 
+		if("AcceptDocking")
+			to_chat(usr, "Docking request accepted!")
+			trade_dock_timelimit = world.time + 1200
+			trade_dockrequest_timelimit = 0
+			command_announcement.Announce("Docking request for trading ship approved, please dock at port bay 4.", "Docking Request")
+		if("DenyDocking")
+			to_chat(usr, "Docking requeset denied!")
+			trade_dock_timelimit = 0
+			trade_dockrequest_timelimit = 0
+			command_announcement.Announce("Docking request for trading ship denied.", "Docking request")
+
 	nanomanager.update_uis(src)
 	return 1
 
@@ -292,7 +303,7 @@
 	if(stat & (NOPOWER|BROKEN))
 		return
 
-	if (!(src.z in list(ZLEVEL_STATION, ZLEVEL_CENTCOMM)))
+	if(!is_secure_level(src.z))
 		to_chat(user, "<span class='warning'>Unable to establish a connection: You're too far away from the station!</span>")
 		return
 
@@ -358,9 +369,14 @@
 
 	data["shuttle"] = shuttle
 
+	if(trade_dockrequest_timelimit > world.time)
+		data["dock_request"] = 1
+	else
+		data["dock_request"] = 0
+
 	// update the ui if it exists, returns null if no ui is passed/found
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data)
-	if (!ui)
+	if(!ui)
 		// the ui does not exist, so we'll create a new() one
         // for a list of parameters and their descriptions see the code docs in \code\modules\nano\nanoui.dm
 		ui = new(user, src, ui_key, "comm_console.tmpl", "Communications Console", 400, 500)
@@ -498,7 +514,7 @@
 		if(!shuttlecaller.stat && shuttlecaller.client && istype(shuttlecaller.loc,/turf))
 			return ..()
 
-	if(ticker.mode.name == "revolution" || ticker.mode.name == "AI malfunction" || sent_strike_team)
+	if(GAMEMODE_IS_REVOLUTION || sent_strike_team)
 		return ..()
 
 	shuttle_master.emergency.request(null, 0.3, null, "All communication consoles, boards, and AI's have been destroyed.")

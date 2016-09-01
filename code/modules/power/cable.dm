@@ -24,7 +24,7 @@ By design, d1 is the smallest direction and d2 is the highest
 
 /obj/structure/cable
 	level = 1
-	anchored =1
+	anchored = 1
 	on_blueprints = TRUE
 	var/datum/powernet/powernet
 	name = "power cable"
@@ -128,7 +128,7 @@ By design, d1 is the smallest direction and d2 is the highest
 			to_chat(user, "\red This cable is connected to nearby breaker box. Use breaker box to interact with it.")
 			return */
 
-		if (shock(user, 50))
+		if(shock(user, 50))
 			return
 
 		if(src.d1)	// 0-X cables are 1 unit, X-X cables are 2 units long
@@ -157,7 +157,7 @@ By design, d1 is the smallest direction and d2 is the highest
 
 	else if(istype(W, /obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/coil = W
-		if (coil.get_amount() < 1)
+		if(coil.get_amount() < 1)
 			to_chat(user, "Not enough cable")
 			return
 		coil.cable_join(src, user)
@@ -173,7 +173,7 @@ By design, d1 is the smallest direction and d2 is the highest
 		shock(user, 5, 0.2)
 
 	else
-		if (W.flags & CONDUCT)
+		if(W.flags & CONDUCT)
 			shock(user, 50, 0.7)
 
 	src.add_fingerprint(user)
@@ -182,7 +182,7 @@ By design, d1 is the smallest direction and d2 is the highest
 /obj/structure/cable/proc/shock(mob/user, prb, var/siemens_coeff = 1.0)
 	if(!prob(prb))
 		return 0
-	if (electrocute_mob(user, powernet, src, siemens_coeff))
+	if(electrocute_mob(user, powernet, src, siemens_coeff))
 		var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 		s.set_up(5, 1, src)
 		s.start()
@@ -196,12 +196,12 @@ By design, d1 is the smallest direction and d2 is the highest
 		if(1.0)
 			qdel(src) // qdel
 		if(2.0)
-			if (prob(50))
+			if(prob(50))
 				new/obj/item/stack/cable_coil(src.loc, src.d1 ? 2 : 1, color)
 				qdel(src) // qdel
 
 		if(3.0)
-			if (prob(25))
+			if(prob(25))
 				new/obj/item/stack/cable_coil(src.loc, src.d1 ? 2 : 1, color)
 				qdel(src) // qdel
 	return
@@ -341,7 +341,7 @@ obj/structure/cable/proc/cableColor(var/colorC)
 	var/turf/T
 
 ///// Z-Level Stuff
-	/* if (d1 == 11 || d1 == 12)
+	/* if(d1 == 11 || d1 == 12)
 		var/turf/controllerlocation = locate(1, 1, z)
 		for(var/obj/effect/landmark/zcontroller/controller in controllerlocation)
 			if(controller.up && d1 == 12)
@@ -457,16 +457,22 @@ obj/structure/cable/proc/cableColor(var/colorC)
 
 #define MAXCOIL 30
 
+var/global/list/datum/stack_recipe/cable_coil_recipes = list(
+	new /datum/stack_recipe/cable_restraints("cable restraints", /obj/item/weapon/restraints/handcuffs/cable, 15),
+)
+
 /obj/item/stack/cable_coil
 	name = "cable coil"
+	singular_name = "cable"
 	icon = 'icons/obj/power.dmi'
 	icon_state = "coil"
+	item_state = "coil_red"
 	amount = MAXCOIL
 	max_amount = MAXCOIL
 	color = COLOR_RED
 	desc = "A coil of power cable."
 	throwforce = 10
-	w_class = 2.0
+	w_class = 2
 	throw_speed = 2
 	throw_range = 5
 	materials = list(MAT_METAL=10, MAT_GLASS=5)
@@ -485,13 +491,14 @@ obj/structure/cable/proc/cableColor(var/colorC)
 /obj/item/stack/cable_coil/New(loc, length = MAXCOIL, var/paramcolor = null)
 	..()
 	src.amount = length
-	if (paramcolor)
+	if(paramcolor)
 		color = paramcolor
 	else
 		color = color
 	pixel_x = rand(-2,2)
 	pixel_y = rand(-2,2)
 	update_icon()
+	recipes = cable_coil_recipes
 	update_wclass()
 
 ///////////////////////////////////
@@ -510,7 +517,15 @@ obj/structure/cable/proc/cableColor(var/colorC)
 
 		if(S.burn_dam)
 			if(S.burn_dam < ROBOLIMB_SELF_REPAIR_CAP)
-				S.heal_damage(0,15,0,1)
+				if(H == user)
+					if(!do_mob(user, H, 10))
+						return 1
+				var/cable_to_use = 0
+				for(cable_to_use in 1 to 5)
+					if(cable_to_use == amount || (cable_to_use * 3) >= S.burn_dam)
+						break
+				use(cable_to_use)
+				S.heal_damage(0, (cable_to_use * 3), 0, 1)
 				user.visible_message("<span class='alert'>\The [user] repairs some burn damage on \the [M]'s [S.name] with \the [src].</span>")
 			else if(S.open != 2)
 				to_chat(user, "<span class='danger'>The damage is far too severe to patch over externally.</span>")
@@ -520,8 +535,13 @@ obj/structure/cable/proc/cableColor(var/colorC)
 	else
 		return ..()
 
+/obj/item/stack/cable_coil/split()
+	var/obj/item/stack/cable_coil/C = ..()
+	C.color = color
+	return C
+
 /obj/item/stack/cable_coil/update_icon()
-	if (!color)
+	if(!color)
 		color = pick(COLOR_RED, COLOR_BLUE, COLOR_GREEN, COLOR_ORANGE, COLOR_WHITE, COLOR_PINK, COLOR_YELLOW, COLOR_CYAN)
 		color = color
 	if(amount == 1)
@@ -536,9 +556,9 @@ obj/structure/cable/proc/cableColor(var/colorC)
 
 /obj/item/stack/cable_coil/proc/update_wclass()
 	if(amount == 1)
-		w_class = 1.0
+		w_class = 1
 	else
-		w_class = 2.0
+		w_class = 2
 
 /obj/item/stack/cable_coil/examine(mob/user)
 	if(!..(user, 1))
@@ -551,37 +571,12 @@ obj/structure/cable/proc/cableColor(var/colorC)
 	else
 		to_chat(user, "A coil of power cable. There are [get_amount()] lengths of cable in the coil.")
 
-
-/obj/item/stack/cable_coil/verb/make_restraint()
-	set name = "Make Cable Restraints"
-	set category = "Object"
-	var/mob/M = usr
-
-	if(ishuman(M) && !M.restrained() && !M.stat && !M.paralysis && ! M.stunned)
-		if(!istype(usr.loc,/turf)) return
-		if(src.amount <= 14)
-			to_chat(usr, "<span class='warning'>You need at least 15 lengths to make restraints!</span>")
-			return
-		var/obj/item/weapon/restraints/handcuffs/cable/B = new /obj/item/weapon/restraints/handcuffs/cable(usr.loc)
-		B.color = color
-		to_chat(usr, "<span class='notice'>You wind some cable together to make some restraints.</span>")
-		src.use(15)
-	else
-		to_chat(usr, "<span class='warning'>You cannot do that.</span>")
-	..()
-
 // Items usable on a cable coil :
 //   - Wirecutters : cut them duh !
 //   - Cable coil : merge cables
 /obj/item/stack/cable_coil/attackby(obj/item/weapon/W, mob/user)
 	..()
-	if( istype(W, /obj/item/weapon/wirecutters) && src.amount > 1)
-		src.amount--
-		new/obj/item/stack/cable_coil(user.loc, 1,color)
-		to_chat(user, "You cut a piece off the cable coil.")
-		src.update_icon()
-		return
-	else if(istype(W, /obj/item/stack/cable_coil))
+	if(istype(W, /obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/C = W
 		if(C.amount >= MAXCOIL)
 			to_chat(user, "The coil is too long, you cannot add any more cable to it.")
@@ -599,27 +594,6 @@ obj/structure/cable/proc/cableColor(var/colorC)
 			C.give(amt)
 			src.use(amt)
 			return
-
-//remove cables from the stack
-/* This is probably reduntant
-/obj/item/stack/cable_coil/use(var/used)
-	if(src.amount < used)
-		return 0
-	else if (src.amount == used)
-		if(ismob(loc)) //handle mob icon update
-			var/mob/M = loc
-			M.unEquip(src)
-		qdel(src)
-		return 1
-	else
-		amount -= used
-		update_icon()
-		return 1
-*/
-/obj/item/stack/cable_coil/use(var/used)
-	. = ..()
-	update_icon()
-	return
 
 //add cables to the stack
 /obj/item/stack/cable_coil/proc/give(var/extra)
@@ -690,8 +664,8 @@ obj/structure/cable/proc/cableColor(var/colorC)
 
 		use(1)
 
-		if (C.shock(user, 50))
-			if (prob(50)) //fail
+		if(C.shock(user, 50))
+			if(prob(50)) //fail
 				new/obj/item/stack/cable_coil(C.loc, 1, C.color)
 				qdel(C) // qdel
 
@@ -754,8 +728,8 @@ obj/structure/cable/proc/cableColor(var/colorC)
 
 			use(1)
 
-			if (NC.shock(user, 50))
-				if (prob(50)) //fail
+			if(NC.shock(user, 50))
+				if(prob(50)) //fail
 					new/obj/item/stack/cable_coil(NC.loc, 1, NC.color)
 					qdel(NC) // qdel
 
@@ -802,8 +776,8 @@ obj/structure/cable/proc/cableColor(var/colorC)
 
 		use(1)
 
-		if (C.shock(user, 50))
-			if (prob(50)) //fail
+		if(C.shock(user, 50))
+			if(prob(50)) //fail
 				new/obj/item/stack/cable_coil(C.loc, 2, C.color)
 				qdel(C) // qdel
 				return

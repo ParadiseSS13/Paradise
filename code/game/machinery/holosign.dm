@@ -5,24 +5,25 @@
 	icon = 'icons/obj/holosign.dmi'
 	icon_state = "sign_off"
 	layer = 4
+	anchored = 1
 	var/lit = 0
 	var/id = null
 	var/on_icon = "sign_on"
 
 	proc/toggle()
-		if (stat & (BROKEN|NOPOWER))
+		if(stat & (BROKEN|NOPOWER))
 			return
 		lit = !lit
 		update_icon()
 
 	update_icon()
-		if (!lit)
+		if(!lit)
 			icon_state = "sign_off"
 		else
 			icon_state = on_icon
 
 	power_change()
-		if (stat & NOPOWER)
+		if(stat & NOPOWER)
 			lit = 0
 		update_icon()
 
@@ -67,7 +68,7 @@
 		icon_state = "light0"
 
 	for(var/obj/machinery/holosign/M in world)
-		if (M.id == src.id)
+		if(M.id == src.id)
 			spawn( 0 )
 				M.toggle()
 				return

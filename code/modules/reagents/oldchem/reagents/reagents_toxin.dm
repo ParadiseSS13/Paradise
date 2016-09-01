@@ -5,12 +5,9 @@
 	reagent_state = LIQUID
 	color = "#CF3600" // rgb: 207, 54, 0
 
-/datum/reagent/toxin/on_mob_life(var/mob/living/M as mob)
-	if(!M) M = holder.my_atom
+/datum/reagent/toxin/on_mob_life(mob/living/M)
 	M.adjustToxLoss(2)
 	..()
-	return
-
 
 /datum/reagent/spider_venom
 	name = "Spider venom"
@@ -19,12 +16,9 @@
 	reagent_state = LIQUID
 	color = "#CF3600" // rgb: 207, 54, 0
 
-/datum/reagent/spider_venom/on_mob_life(var/mob/living/M as mob)
-		if(!M) M = holder.my_atom
-		M.adjustToxLoss(1.5)
-		..()
-		return
-
+/datum/reagent/spider_venom/on_mob_life(mob/living/M)
+	M.adjustToxLoss(1.5)
+	..()
 
 /datum/reagent/plasticide
 	name = "Plasticide"
@@ -33,11 +27,9 @@
 	reagent_state = LIQUID
 	color = "#CF3600" // rgb: 207, 54, 0
 
-/datum/reagent/plasticide/on_mob_life(var/mob/living/M as mob)
-	if(!M) M = holder.my_atom
+/datum/reagent/plasticide/on_mob_life(mob/living/M)
 	M.adjustToxLoss(1.5)
 	..()
-	return
 
 
 /datum/reagent/minttoxin
@@ -47,13 +39,10 @@
 	reagent_state = LIQUID
 	color = "#CF3600" // rgb: 207, 54, 0
 
-/datum/reagent/minttoxin/on_mob_life(var/mob/living/M as mob)
-	if(!M) M = holder.my_atom
-	if (FAT in M.mutations)
+/datum/reagent/minttoxin/on_mob_life(mob/living/M)
+	if(FAT in M.mutations)
 		M.gib()
 	..()
-	return
-
 
 /datum/reagent/slimejelly
 	name = "Slime Jelly"
@@ -62,14 +51,13 @@
 	reagent_state = LIQUID
 	color = "#801E28" // rgb: 128, 30, 40
 
-/datum/reagent/slimejelly/on_mob_life(var/mob/living/M as mob)
+/datum/reagent/slimejelly/on_mob_life(mob/living/M)
 	if(prob(10))
-		to_chat(M, "\red Your insides are burning!")
+		to_chat(M, "<span class='danger'>Your insides are burning!</span>")
 		M.adjustToxLoss(rand(20,60)*REM)
 	else if(prob(40))
 		M.adjustBruteLoss(-5*REM)
 	..()
-	return
 
 /datum/reagent/slimetoxin
 	name = "Mutation Toxin"
@@ -78,18 +66,16 @@
 	reagent_state = LIQUID
 	color = "#13BC5E" // rgb: 19, 188, 94
 
-/datum/reagent/slimetoxin/on_mob_life(var/mob/living/M as mob)
-	if(!M) M = holder.my_atom
+/datum/reagent/slimetoxin/on_mob_life(mob/living/M)
 	if(ishuman(M))
 		var/mob/living/carbon/human/human = M
 		if(human.species.name != "Shadow")
-			to_chat(M, "\red Your flesh rapidly mutates!")
-			to_chat(M, "<b>You are now a Shadow Person, a mutant race of darkness-dwelling humanoids.</b>")
-			to_chat(M, "\red Your body reacts violently to light. \green However, it naturally heals in darkness.")
-			to_chat(M, "Aside from your new traits, you are mentally unchanged and retain your prior obligations.")
+			to_chat(M, "<span class='danger'>Your flesh rapidly mutates!</span>")
+			to_chat(M, "<span class='danger'>You are now a Shadow Person, a mutant race of darkness-dwelling humanoids.</span>")
+			to_chat(M, "<span class='danger'>Your body reacts violently to light. \green However, it naturally heals in darkness.</span>")
+			to_chat(M, "<span class='danger'>Aside from your new traits, you are mentally unchanged and retain your prior obligations.</span>")
 			human.set_species("Shadow")
 	..()
-	return
 
 /datum/reagent/aslimetoxin
 	name = "Advanced Mutation Toxin"
@@ -98,7 +84,7 @@
 	reagent_state = LIQUID
 	color = "#13BC5E" // rgb: 19, 188, 94
 
-/datum/reagent/aslimetoxin/reaction_mob(mob/M, method=TOUCH, reac_volume)
+/datum/reagent/aslimetoxin/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(method != TOUCH)
 		M.ForceContractDisease(new /datum/disease/transformation/slime(0))
 
@@ -112,13 +98,10 @@
 	metabolization_rate = 0.2
 	penetrates_skin = 1
 
-/datum/reagent/mercury/on_mob_life(var/mob/living/M as mob)
-	if(!M) M = holder.my_atom
+/datum/reagent/mercury/on_mob_life(mob/living/M)
 	if(prob(70))
 		M.adjustBrainLoss(1)
 	..()
-	return
-
 
 /datum/reagent/chlorine
 	name = "Chlorine"
@@ -129,11 +112,9 @@
 	penetrates_skin = 1
 	process_flags = ORGANIC | SYNTHETIC
 
-/datum/reagent/chlorine/on_mob_life(var/mob/living/M as mob)
-	if(!M) M = holder.my_atom
+/datum/reagent/chlorine/on_mob_life(mob/living/M)
 	M.adjustFireLoss(1)
 	..()
-	return
 
 /datum/reagent/fluorine
 	name = "Fluorine"
@@ -144,13 +125,10 @@
 	penetrates_skin = 1
 	process_flags = ORGANIC | SYNTHETIC
 
-/datum/reagent/fluorine/on_mob_life(var/mob/living/M as mob)
-	if(!M) M = holder.my_atom
+/datum/reagent/fluorine/on_mob_life(mob/living/M)
 	M.adjustFireLoss(1)
 	M.adjustToxLoss(1*REM)
 	..()
-	return
-
 
 /datum/reagent/radium
 	name = "Radium"
@@ -161,19 +139,14 @@
 	metabolization_rate = 0.4
 	penetrates_skin = 1
 
-/datum/reagent/radium/on_mob_life(var/mob/living/M as mob)
-	if(!M) M = holder.my_atom
+/datum/reagent/radium/on_mob_life(mob/living/M)
 	if(M.radiation < 80)
 		M.apply_effect(4, IRRADIATE, negate_armor = 1)
 	..()
 
-/datum/reagent/radium/reaction_turf(var/turf/T, var/volume)
-	src = null
-	if(volume >= 3)
-		if(!istype(T, /turf/space))
-			new /obj/effect/decal/cleanable/greenglow(T)
-			return
-
+/datum/reagent/radium/reaction_turf(turf/T, volume)
+	if(volume >= 3 && !istype(T, /turf/space))
+		new /obj/effect/decal/cleanable/greenglow(T)
 
 /datum/reagent/mutagen
 	name = "Unstable mutagen"
@@ -183,24 +156,23 @@
 	color = "#04DF27"
 	metabolization_rate = 0.3
 
-/datum/reagent/mutagen/reaction_mob(var/mob/M, var/method=TOUCH, var/volume)
-	if(!..())	return
-	if(!M.dna) return //No robots, AIs, aliens, Ians or other mobs should be affected by this.
-	src = null
+/datum/reagent/mutagen/reaction_mob(mob/living/M, method=TOUCH, volume)
+	if(!..())
+		return
+	if(!M.dna)
+		return //No robots, AIs, aliens, Ians or other mobs should be affected by this.
 	if((method==TOUCH && prob(33)) || method==INGEST)
 		randmutb(M)
 		domutcheck(M, null)
 		M.UpdateAppearance()
-	return
 
-/datum/reagent/mutagen/on_mob_life(var/mob/living/M as mob)
-	if(!M.dna) return //No robots, AIs, aliens, Ians or other mobs should be affected by this.
-	if(!M) M = holder.my_atom
+/datum/reagent/mutagen/on_mob_life(mob/living/M)
+	if(!M.dna)
+		return //No robots, AIs, aliens, Ians or other mobs should be affected by this.
 	M.apply_effect(2*REM, IRRADIATE, negate_armor = 1)
 	if(prob(4))
 		randmutb(M)
 	..()
-	return
 
 
 /datum/reagent/uranium
@@ -210,17 +182,13 @@
 	reagent_state = SOLID
 	color = "#B8B8C0" // rgb: 184, 184, 192
 
-/datum/reagent/uranium/on_mob_life(var/mob/living/M as mob)
-	if(!M) M = holder.my_atom
+/datum/reagent/uranium/on_mob_life(mob/living/M)
 	M.apply_effect(2, IRRADIATE, negate_armor = 1)
 	..()
-	return
 
-/datum/reagent/uranium/reaction_turf(var/turf/T, var/volume)
-	src = null
-	if(volume >= 3)
-		if(!istype(T, /turf/space))
-			new /obj/effect/decal/cleanable/greenglow(T)
+/datum/reagent/uranium/reaction_turf(turf/T, volume)
+	if(volume >= 3 && !istype(T, /turf/space))
+		new /obj/effect/decal/cleanable/greenglow(T)
 
 
 /datum/reagent/lexorin
@@ -231,13 +199,9 @@
 	color = "#52685D"
 	metabolization_rate = 0.2
 
-/datum/reagent/lexorin/on_mob_life(var/mob/living/M as mob)
-	if(M.stat == 2.0)
-		return
-	if(!M) M = holder.my_atom
+/datum/reagent/lexorin/on_mob_life(mob/living/M)
 	M.adjustToxLoss(1)
 	..()
-	return
 
 
 /datum/reagent/sacid
@@ -248,15 +212,11 @@
 	color = "#00D72B"
 	process_flags = ORGANIC | SYNTHETIC
 
-/datum/reagent/sacid/on_mob_life(var/mob/living/M as mob)
-	if(!M) M = holder.my_atom
+/datum/reagent/sacid/on_mob_life(mob/living/M)
 	M.adjustFireLoss(1)
 	..()
-	return
 
-/datum/reagent/sacid/reaction_mob(var/mob/living/M, var/method=TOUCH, var/volume)
-	if(!istype(M, /mob/living))
-		return
+/datum/reagent/sacid/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(method == TOUCH)
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
@@ -264,11 +224,11 @@
 			if(volume > 25)
 
 				if(H.wear_mask)
-					to_chat(H, "\red Your mask protects you from the acid!")
+					to_chat(H, "<span class='danger'>Your mask protects you from the acid!</span>")
 					return
 
 				if(H.head)
-					to_chat(H, "\red Your helmet protects you from the acid!")
+					to_chat(H, "<span class='danger'>Your helmet protects you from the acid!</span>")
 					return
 
 				if(!M.unacidable)
@@ -307,13 +267,12 @@
 					else
 						M.take_organ_damage(0,20)
 
-/datum/reagent/sacid/reaction_obj(var/obj/O, var/volume)
+/datum/reagent/sacid/reaction_obj(obj/O, volume)
 	if((istype(O,/obj/item) || istype(O,/obj/effect/glowshroom)) && prob(40))
 		if(!O.unacidable)
 			var/obj/effect/decal/cleanable/molten_item/I = new/obj/effect/decal/cleanable/molten_item(O.loc)
 			I.desc = "Looks like this was \an [O] some time ago."
-			for(var/mob/M in viewers(5, O))
-				to_chat(M, "\red \the [O] melts.")
+			O.visible_message("<span class='warning'>[O] melts.</span>")
 			qdel(O)
 
 
@@ -322,14 +281,15 @@
 	id = "hell_water"
 	description = "YOUR FLESH! IT BURNS!"
 	process_flags = ORGANIC | SYNTHETIC		//Admin-bus has no brakes! KILL THEM ALL.
+	metabolization_rate = 1
 
-/datum/reagent/hellwater/on_mob_life(var/mob/living/M as mob)
-	M.fire_stacks = min(5,M.fire_stacks + 3)
+/datum/reagent/hellwater/on_mob_life(mob/living/M)
+	M.fire_stacks = min(5, M.fire_stacks + 3)
 	M.IgniteMob()			//Only problem with igniting people is currently the commonly availible fire suits make you immune to being on fire
 	M.adjustToxLoss(1)
 	M.adjustFireLoss(1)		//Hence the other damages... ain't I a bastard?
 	M.adjustBrainLoss(5)
-	holder.remove_reagent(src.id, 1)
+	..()
 
 
 /datum/reagent/carpotoxin
@@ -339,12 +299,9 @@
 	reagent_state = LIQUID
 	color = "#003333" // rgb: 0, 51, 51
 
-/datum/reagent/carpotoxin/on_mob_life(var/mob/living/M as mob)
-	if(!M) M = holder.my_atom
+/datum/reagent/carpotoxin/on_mob_life(mob/living/M)
 	M.adjustToxLoss(2*REM)
 	..()
-	return
-
 
 /datum/reagent/staminatoxin
 	name = "Tirizene"
@@ -354,25 +311,23 @@
 	color = "#6E2828"
 	data = 13
 
-/datum/reagent/staminatoxin/on_mob_life(var/mob/living/M)
+/datum/reagent/staminatoxin/on_mob_life(mob/living/M)
 	M.adjustStaminaLoss(REM * data)
 	data = max(data - 1, 3)
 	..()
 
 
-/datum/reagent/spores
+/datum/reagent/spore
 	name = "Spore Toxin"
-	id = "spores"
-	description = "A toxic spore cloud which blocks vision when ingested."
+	id = "spore"
+	description = "A natural toxin produced by blob spores that inhibits vision when ingested."
 	color = "#9ACD32"
 
-/datum/reagent/spores/on_mob_life(var/mob/living/M as mob)
+/datum/reagent/spores/on_mob_life(mob/living/M)
 	M.adjustToxLoss(1)
 	M.damageoverlaytemp = 60
 	M.eye_blurry = max(M.eye_blurry, 3)
 	..()
-	return
-
 
 /datum/reagent/beer2	//disguised as normal beer for use by emagged brobots
 	name = "Beer"
@@ -381,18 +336,14 @@
 	color = "#664300" // rgb: 102, 67, 0
 	metabolization_rate = 1.5 * REAGENTS_METABOLISM
 
-/datum/reagent/beer2/on_mob_life(var/mob/living/M as mob)
-	if(!data)
-		data = 1
-	switch(data)
+/datum/reagent/beer2/on_mob_life(mob/living/M)
+	switch(current_cycle)
 		if(1 to 50)
-			M.sleeping += 1
+			M.AdjustSleeping(1)
 		if(51 to INFINITY)
-			M.sleeping += 1
-			M.adjustToxLoss((data - 50)*REM)
-	data++
+			M.AdjustSleeping(1)
+			M.adjustToxLoss((current_cycle - 50)*REM)
 	..()
-	return
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /datum/reagent/condensedcapsaicin
@@ -402,38 +353,36 @@
 	reagent_state = LIQUID
 	color = "#B31008" // rgb: 179, 16, 8
 
-/datum/reagent/condensedcapsaicin/reaction_mob(var/mob/living/M, var/method=TOUCH, var/volume)
-	if(!istype(M, /mob/living))
-		return
+/datum/reagent/condensedcapsaicin/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(method == TOUCH)
-		if(istype(M, /mob/living/carbon/human))
+		if(ishuman(M))
 			var/mob/living/carbon/human/victim = M
 			var/mouth_covered = 0
 			var/eyes_covered = 0
 			var/obj/item/safe_thing = null
 			if( victim.wear_mask )
-				if ( victim.wear_mask.flags & MASKCOVERSEYES )
+				if( victim.wear_mask.flags & MASKCOVERSEYES )
 					eyes_covered = 1
 					safe_thing = victim.wear_mask
-				if ( victim.wear_mask.flags & MASKCOVERSMOUTH )
+				if( victim.wear_mask.flags & MASKCOVERSMOUTH )
 					mouth_covered = 1
 					safe_thing = victim.wear_mask
 			if( victim.head )
-				if ( victim.head.flags & MASKCOVERSEYES )
+				if( victim.head.flags & MASKCOVERSEYES )
 					eyes_covered = 1
 					safe_thing = victim.head
-				if ( victim.head.flags & MASKCOVERSMOUTH )
+				if( victim.head.flags & MASKCOVERSMOUTH )
 					mouth_covered = 1
 					safe_thing = victim.head
 			if(victim.glasses)
 				eyes_covered = 1
-				if ( !safe_thing )
+				if( !safe_thing )
 					safe_thing = victim.glasses
-			if ( eyes_covered && mouth_covered )
-				to_chat(victim, "\red Your [safe_thing] protects you from the pepperspray!")
+			if( eyes_covered && mouth_covered )
+				to_chat(victim, "<span class='danger'>Your [safe_thing] protects you from the pepperspray!</span>")
 				return
-			else if ( mouth_covered )	// Reduced effects if partially protected
-				to_chat(victim, "\red Your [safe_thing] protect you from most of the pepperspray!")
+			else if( mouth_covered )	// Reduced effects if partially protected
+				to_chat(victim, "<span class='danger'>Your [safe_thing] protect you from most of the pepperspray!</span>")
 				if(prob(5))
 					victim.emote("scream")
 				victim.eye_blurry = max(M.eye_blurry, 3)
@@ -443,15 +392,15 @@
 				victim.Weaken(3)
 				victim.drop_item()
 				return
-			else if ( eyes_covered ) // Eye cover is better than mouth cover
-				to_chat(victim, "\red Your [safe_thing] protects your eyes from the pepperspray!")
+			else if( eyes_covered ) // Eye cover is better than mouth cover
+				to_chat(victim, "<span class='danger'>Your [safe_thing] protects your eyes from the pepperspray!</span>")
 				victim.eye_blurry = max(M.eye_blurry, 3)
 				victim.damageoverlaytemp = 30
 				return
 			else // Oh dear :D
 				if(prob(5))
 					victim.emote("scream")
-				to_chat(victim, "\red You're sprayed directly in the eyes with pepperspray!")
+				to_chat(victim, "<span class='danger'>You're sprayed directly in the eyes with pepperspray!</span>")
 				victim.eye_blurry = max(M.eye_blurry, 5)
 				victim.eye_blind = max(M.eye_blind, 2)
 				victim.confused = max(M.confused, 6)
@@ -459,9 +408,7 @@
 				victim.Weaken(5)
 				victim.drop_item()
 
-/datum/reagent/condensedcapsaicin/on_mob_life(var/mob/living/M as mob)
-	if(!M) M = holder.my_atom
+/datum/reagent/condensedcapsaicin/on_mob_life(mob/living/M)
 	if(prob(5))
 		M.visible_message("<span class='warning'>[M] [pick("dry heaves!","coughs!","splutters!")]</span>")
 	..()
-	return

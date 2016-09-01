@@ -4,12 +4,12 @@ var/appearanceban_runonce	//Updates legacy bans with new info
 var/appearance_keylist[0]	//to store the keys
 
 /proc/appearance_fullban(mob/M, reason)
-	if (!M || !M.key) return
+	if(!M || !M.key) return
 	appearance_keylist.Add(text("[M.ckey] ## [reason]"))
 	appearance_savebanfile()
 
 /proc/appearance_client_fullban(ckey)
-	if (!ckey) return
+	if(!ckey) return
 	appearance_keylist.Add(text("[ckey]"))
 	appearance_savebanfile()
 
@@ -47,7 +47,7 @@ DEBUG
 		log_admin("Loading appearance_rank")
 		S["runonce"] >> appearanceban_runonce
 
-		if (!length(appearance_keylist))
+		if(!length(appearance_keylist))
 			appearance_keylist=list()
 			log_admin("appearance_keylist was empty")
 	else
@@ -86,24 +86,9 @@ DEBUG
 
 
 /proc/appearance_remove(X)
-	for (var/i = 1; i <= length(appearance_keylist); i++)
+	for(var/i = 1; i <= length(appearance_keylist); i++)
 		if( findtext(appearance_keylist[i], "[X]") )
 			appearance_keylist.Remove(appearance_keylist[i])
 			appearance_savebanfile()
 			return 1
 	return 0
-
-/*
-proc/DB_ban_isappearancebanned(var/playerckey)
-	establish_db_connection()
-	if(!dbcon.IsConnected())
-		return
-
-	var/sqlplayerckey = sql_sanitize_text(ckey(playerckey))
-
-	var/DBQuery/query = dbcon.NewQuery("SELECT id FROM [format_table_name("ban")] WHERE CKEY = '[sqlplayerckey]' AND ((bantype = 'APPEARANCE_BAN') OR (bantype = 'APPEARANCE_TEMPBAN' AND expiration_time > Now())) AND unbanned != 1")
-	query.Execute()
-	while(query.NextRow())
-		return 1
-	return 0
-*/

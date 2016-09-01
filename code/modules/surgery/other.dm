@@ -4,14 +4,25 @@
 //////////////////////////////////////////////////////////////////
 
 /datum/surgery/infection
-	name = "external infection treatment/autopsy"
+	name = "External Infection Treatment/Autopsy"
 	steps = list(/datum/surgery_step/generic/cut_open, /datum/surgery_step/generic/cauterize)
 	possible_locs = list("chest","head","groin", "l_arm", "r_arm", "l_leg", "r_leg", "r_hand", "l_hand", "r_foot", "l_foot")
 
 /datum/surgery/bleeding
-	name = "internal bleeding"
+	name = "Internal Bleeding"
 	steps = list(/datum/surgery_step/generic/cut_open,/datum/surgery_step/generic/clamp_bleeders,/datum/surgery_step/generic/retract_skin,/datum/surgery_step/fix_vein,/datum/surgery_step/generic/cauterize)
 	possible_locs = list("chest","head","groin", "l_arm", "r_arm", "l_leg", "r_leg", "r_hand", "l_hand", "r_foot", "l_foot")
+
+/datum/surgery/infection/can_start(mob/user, mob/living/carbon/target)
+	if(ishuman(target))
+		var/mob/living/carbon/human/H = target
+		var/obj/item/organ/external/affected = H.get_organ(user.zone_sel.selecting)
+		if(!affected)
+			return 0
+		if(affected.status & ORGAN_ROBOT)
+			return 0
+		return 1
+	return 0
 
 /datum/surgery/bleeding/can_start(mob/user, mob/living/carbon/target)
 	if(ishuman(target))
@@ -49,7 +60,7 @@
 			internal_bleeding = 1
 			break
 
-	return affected.open == 2 && internal_bleeding
+	return internal_bleeding
 
 /datum/surgery_step/fix_vein/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -66,7 +77,7 @@
 	for(var/datum/wound/W in affected.wounds) if(W.internal)
 		affected.wounds -= W
 		affected.update_damages()
-	if (ishuman(user) && prob(40))
+	if(ishuman(user) && prob(40))
 		var/mob/living/carbon/human/U = user
 		U.bloody_hands(target, 0)
 
@@ -97,12 +108,15 @@
 	if(!hasorgans(target))
 		return 0
 
-	if (target_zone == "mouth" || target_zone == "eyes")
-		return 0
-
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
-	return affected && affected.open == 2 && (affected.status & ORGAN_DEAD)
+	if(!affected)
+		return 0
+
+	if(!(affected.status & ORGAN_DEAD))
+		return 0
+
+	return 1
 
 /datum/surgery_step/fix_dead_tissue/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -143,7 +157,7 @@
 	time = 24
 
 /datum/surgery_step/fix_dead_tissue/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
-	if (!istype(tool, /obj/item/weapon/reagent_containers))
+	if(!istype(tool, /obj/item/weapon/reagent_containers))
 		return 0
 
 	var/obj/item/weapon/reagent_containers/container = tool
@@ -153,11 +167,10 @@
 	if(!hasorgans(target))
 		return 0
 
-	if (target_zone == "mouth" || target_zone == "eyes")
-		return 0
-
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	return affected.open == 3 && (affected.status & ORGAN_DEAD)
+	if(!(affected.status & ORGAN_DEAD))
+		return 0
+	return 1
 
 /datum/surgery_step/fix_dead_tissue/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -169,13 +182,13 @@
 /datum/surgery_step/fix_dead_tissue/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
-	if (!istype(tool, /obj/item/weapon/reagent_containers))
-		return
+	if(!istype(tool, /obj/item/weapon/reagent_containers))
+		return 0
 
 	var/obj/item/weapon/reagent_containers/container = tool
 
 	var/trans = container.reagents.trans_to(target, container.amount_per_transfer_from_this)
-	if (trans > 0)
+	if(trans > 0)
 		container.reagents.reaction(target, INGEST)	//technically it's contact, but the reagents are being applied to internal tissue
 
 		if(container.reagents.has_reagent("mitocholide"))
@@ -189,7 +202,7 @@
 /datum/surgery_step/fix_dead_tissue/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
-	if (!istype(tool, /obj/item/weapon/reagent_containers))
+	if(!istype(tool, /obj/item/weapon/reagent_containers))
 		return
 
 	var/obj/item/weapon/reagent_containers/container = tool
@@ -207,35 +220,59 @@
 //					Dethrall Shadowling 						//
 //////////////////////////////////////////////////////////////////
 /datum/surgery/remove_thrall
-	name = "cleanse contaminations"//RENAME MEH
+	name = "Remove Shadow Tumor"
 	steps = list(/datum/surgery_step/generic/cut_open, /datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/open_encased/saw,/datum/surgery_step/open_encased/retract, /datum/surgery_step/internal/dethrall, /datum/surgery_step/glue_bone, /datum/surgery_step/set_bone,/datum/surgery_step/finish_bone,/datum/surgery_step/generic/cauterize)
-	possible_locs = list("head")
+	possible_locs = list("head", "chest", "groin")
 
 /datum/surgery/remove_thrall/synth
-	name = "cleanse contaminations"//RENAME MEH
 	steps = list(/datum/surgery_step/robotics/external/unscrew_hatch,/datum/surgery_step/robotics/external/open_hatch,/datum/surgery_step/internal/dethrall,/datum/surgery_step/robotics/external/close_hatch)
-	possible_locs = list("chest")
+	possible_locs = list("head", "chest", "groin")
 
+/datum/surgery/remove_thrall/can_start(mob/user, mob/living/carbon/human/target)
+	if(!istype(target))
+		return 0
+	if(!is_thrall(target))
+		return 0
+	var/obj/item/organ/internal/brain/B = target.get_int_organ(/obj/item/organ/internal/brain)
+	var/obj/item/organ/external/affected = target.get_organ(user.zone_sel.selecting)
+	if(!B)
+		// No brain to remove the tumor from
+		return 0
+	if(affected.status & ORGAN_ROBOT)
+		return 0
+	if(!(B in affected.internal_organs))
+		return 0
+	return 1
 
-
-/datum/surgery/remove_thrall/can_start(mob/user, mob/living/carbon/target)
-	return is_thrall(target) //would this be too meta?
-
-/datum/surgery/remove_thrall/synth/can_start(mob/user, mob/living/carbon/target)
-	return is_thrall(target) && target.get_species() == "Machine"
+/datum/surgery/remove_thrall/synth/can_start(mob/user, mob/living/carbon/human/target)
+	if(!istype(target))
+		return 0
+	if(!is_thrall(target))
+		return 0
+	var/obj/item/organ/internal/brain/B = target.get_int_organ(/obj/item/organ/internal/brain)
+	var/obj/item/organ/external/affected = target.get_organ(user.zone_sel.selecting)
+	if(!B)
+		// No brain to remove the tumor from
+		return 0
+	if(!(affected.status & ORGAN_ROBOT))
+		return 0
+	if(!(B in affected.internal_organs))
+		return 0
+	return 1
 
 
 /datum/surgery_step/internal/dethrall
 	name = "cleanse contamination"
 	allowed_tools = list(/obj/item/device/flash = 100, /obj/item/device/flashlight/pen = 80, /obj/item/device/flashlight = 40)
-
+	blood_level = 0
 	time = 30
 
 /datum/surgery_step/internal/dethrall/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
-	if (!hasorgans(target))
-		return
-	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	return ..() && affected && is_thrall(target) && affected.open_enough_for_surgery() && target_zone == target.named_organ_parent("brain")
+	if(!..())
+		return 0
+	if(!is_thrall(target))
+		return 0
+	return 1
 
 /datum/surgery_step/internal/dethrall/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/braincase = target.named_organ_parent("brain")
@@ -256,15 +293,22 @@
 		if(iscarbon(user))
 			var/mob/living/carbon/C = user
 			C.Weaken(6)
-			C.apply_damage(20, "brute", "chest")
+			C.apply_damage(20, BRUTE, "chest")
 		else if(issilicon(user))
 			var/mob/living/silicon/S = user
 			S.Weaken(8)
-			S.apply_damage(20, "brute")
+			S.apply_damage(20, BRUTE)
 			playsound(S, 'sound/effects/bang.ogg', 50, 1)
 		return 0
-	user.visible_message("[user] shines light onto the tumor in [target]'s head!", "<span class='notice'>You cleanse the contamination from [target]'s brain!</span>")
+	var/obj/item/organ/internal/brain/B = target.get_int_organ(/obj/item/organ/internal/brain)
+	var/obj/item/organ/external/E = target.get_organ(check_zone(B.parent_organ))
+	user.visible_message("[user] shines light onto the tumor in [target]'s [E]!", "<span class='notice'>You cleanse the contamination from [target]'s brain!</span>")
+	if(target.vision_type) //Turns off their darksight if it's still active.
+		to_chat(target, "<span class='boldannounce'>Your eyes are suddenly wrought with immense pain as your darksight is forcibly dismissed!</span>")
+		target.vision_type = null
 	ticker.mode.remove_thrall(target.mind, 0)
-	target.visible_message("<span class='warning'>A strange black mass falls from [target]'s head!</span>")
-	new /obj/item/organ/internal/shadowtumor(get_turf(target))
+	target.visible_message("<span class='warning'>A strange black mass falls from [target]'s [E]!</span>")
+	var/obj/item/organ/thing = new /obj/item/organ/internal/shadowtumor(get_turf(target))
+	thing.set_dna(target.dna)
+	user.put_in_hands(thing)
 	return 1

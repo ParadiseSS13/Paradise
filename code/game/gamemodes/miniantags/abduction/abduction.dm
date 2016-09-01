@@ -75,11 +75,11 @@
 
 
 	scientist.assigned_role = "MODE"
-	scientist.special_role = "abductor scientist"
+	scientist.special_role = SPECIAL_ROLE_ABDUCTOR_SCIENTIST
 	log_game("[scientist.key] (ckey) has been selected as an abductor team [team_number] scientist.")
 
 	agent.assigned_role = "MODE"
-	agent.special_role = "abductor agent"
+	agent.special_role = SPECIAL_ROLE_ABDUCTOR_AGENT
 	log_game("[agent.key] (ckey) has been selected as an abductor team [team_number] agent.")
 
 	abductors |= agent
@@ -270,7 +270,7 @@
 		for(var/team_number=1,team_number<=abductor_teams,team_number++)
 			var/obj/machinery/abductor/console/con = get_team_console(team_number)
 			var/datum/objective/objective = team_objectives[team_number]
-			if (con.experiment.points >= objective.target_amount)
+			if(con.experiment.points >= objective.target_amount)
 				shuttle_master.emergency.request(null, 0.5)
 				finished = 1
 				return ..()

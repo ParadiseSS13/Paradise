@@ -4,7 +4,7 @@
 	desc = "A helmet worn by members of the Nanotrasen Emergency Response Team. Armoured and space ready."
 	icon_state = "rig0-ert_commander"
 	item_state = "helm-command"
-	armor = list(melee = 50, bullet = 50, laser = 30,energy = 15, bomb = 30, bio = 100, rad = 60)
+	armor = list(melee = 45, bullet = 25, laser = 30, energy = 10, bomb = 25, bio = 100, rad = 50)
 	rig_restrict_helmet = 0 // ERT helmets can be taken on and off at will.
 	var/obj/machinery/camera/camera
 	strip_delay = 130
@@ -30,12 +30,11 @@
 	item_state = "suit-command"
 	w_class = 3
 	allowed = list(/obj/item/weapon/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/weapon/melee/baton,/obj/item/weapon/melee/energy/sword/saber,/obj/item/weapon/restraints/handcuffs,/obj/item/weapon/tank)
-	slowdown = 1
-	armor = list(melee = 60, bullet = 50, laser = 30,energy = 15, bomb = 30, bio = 100, rad = 60)
+	armor = list(melee = 45, bullet = 25, laser = 30, energy = 10, bomb = 25, bio = 100, rad = 50)
 	allowed = list(/obj/item/device/flashlight, /obj/item/weapon/tank, /obj/item/device/t_scanner, /obj/item/weapon/rcd, /obj/item/weapon/crowbar, \
 	/obj/item/weapon/screwdriver, /obj/item/weapon/weldingtool, /obj/item/weapon/wirecutters, /obj/item/weapon/wrench, /obj/item/device/multitool, \
-	/obj/item/device/radio, /obj/item/device/analyzer, /obj/item/weapon/gun/energy/laser, /obj/item/weapon/gun/energy/pulse_rifle, \
-	/obj/item/weapon/gun/energy/advtaser, /obj/item/weapon/melee/baton, /obj/item/weapon/gun/energy/gun)
+	/obj/item/device/radio, /obj/item/device/analyzer, /obj/item/weapon/gun/energy/laser, /obj/item/weapon/gun/energy/pulse, \
+	/obj/item/weapon/gun/energy/gun/advtaser, /obj/item/weapon/melee/baton, /obj/item/weapon/gun/energy/gun)
 	strip_delay = 130
 
 //Commander

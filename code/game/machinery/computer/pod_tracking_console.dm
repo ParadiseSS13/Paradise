@@ -17,23 +17,26 @@
 	var/data[0]
 	var/list/pods[0]
 	for(var/obj/item/device/spacepod_equipment/misc/tracker/TR in world)
-		var/obj/spacepod/myPod = TR.my_atom
+		var/obj/spacepod/my_pod = TR.my_atom
 		var/enabled = TR.enabled
-		if(myPod && enabled)
-			var/podname = capitalize(sanitize(myPod.name))
-			var/occupant = "None"
-			var/occupant2 = "None"
-			if(myPod.occupant)
-				occupant = myPod.occupant.name
-			if(myPod.occupant2)
-				occupant2 = myPod.occupant2.name
-			pods.Add(list(list("pod" = "\ref[myPod]", "name" = podname, "occupant" = occupant, "occupant2" = occupant2, "x" = myPod.x, "y" = myPod.y, "z" = myPod.z)))
+		if(my_pod && enabled)
+			var/podname = capitalize(sanitize(my_pod.name))
+			var/list/chairs = list()
+			if(my_pod.pilot || my_pod.passengers)
+				if(my_pod.pilot)
+					chairs += list("pilot" = my_pod.pilot.name)
+				var/i = 1
+				for(var/mob/M in my_pod.passengers)
+					chairs += list("passenger [i]" = M.name)
+					i++
+
+			pods.Add(list(list("pod" = "\ref[my_pod]", "name" = podname) + chairs + list("x" = my_pod.x, "y" = my_pod.y, "z" = my_pod.z)))
 
 	data["pods"] = pods
 
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
 
-	if (!ui)
+	if(!ui)
 		ui = new(user, src, ui_key, "pod_tracking.tmpl", "Pod Tracking Console", 400, 500)
 		ui.set_initial_data(data)
 		ui.open()

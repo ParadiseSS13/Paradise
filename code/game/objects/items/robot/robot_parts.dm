@@ -120,7 +120,7 @@
 		B.loc = get_turf(src)
 		to_chat(user, "You armed the robot frame")
 		W:use(1)
-		if (user.get_inactive_hand()==src)
+		if(user.get_inactive_hand()==src)
 			user.unEquip(src)
 			user.put_in_inactive_hand(B)
 		qdel(src)
@@ -174,7 +174,7 @@
 		else
 			to_chat(user, "\blue You need to attach a flash to it first!")
 
-	if (istype(W, /obj/item/device/multitool))
+	if(istype(W, /obj/item/device/multitool))
 		if(check_completion())
 			Interact(user)
 		else
@@ -246,8 +246,6 @@
 			if(!lawsync && !M.syndiemmi)
 				O.lawupdate = 0
 				O.make_laws()
-				if(ticker.mode.config_tag == "malfunction") //Don't let humans get a cyborg on their side during malf, for balance reasons.
-					O.set_zeroth_law("<span class='danger'>ERROR ER0RR $R0RRO$!R41.%%!!(%$^^__+ @#F0E4'STATION OVERRUN, ASSUME CONTROL TO CONTAIN OUTBREAK#*�&110010</span>")
 
 			M.brainmob.mind.transfer_to(O)
 

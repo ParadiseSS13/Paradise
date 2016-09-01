@@ -1,12 +1,13 @@
-/mob/living/silicon/pai/death(gibbed)
+/mob/living/silicon/pai/death(gibbed, cleanWipe)
 	if(stat == DEAD)
 		return
 
-	force_fold_out()
+	if(!cleanWipe)
+		force_fold_out()
 
 	var/turf/T = get_turf_or_move(loc)
-	for (var/mob/M in viewers(T))
-		M.show_message("\red [src] emits a dull beep before it loses power and collapses.", 3, "\red You hear a dull beep followed by the sound of glass crunching.", 2)
+	for(var/mob/M in viewers(T))
+		M.show_message("<span class=warning>[src] emits a dull beep before it loses power and collapses.</span>", 3, "<span class=warning>You hear a dull beep followed by the sound of glass crunching.</span>", 2)
 	name = "pAI debris"
 	desc = "The unfortunate remains of some poor personal AI device."
 	icon_state = "[chassis]_dead"
@@ -24,5 +25,5 @@
 	if(mind)	qdel(mind)
 	living_mob_list -= src
 	ghostize()
-	if(icon_state != "[chassis]_dead")
+	if(icon_state != "[chassis]_dead" || cleanWipe)
 		qdel(src)

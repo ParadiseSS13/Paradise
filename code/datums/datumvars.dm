@@ -7,12 +7,12 @@
 
 
 	if(!usr.client || !usr.client.holder)
-		to_chat(usr, "\red You need to be an administrator to access this.")
+		to_chat(usr, "<span class='warning'>You need to be an administrator to access this.</span>")
 		return
 
 
 	var/title = ""
-	var/body = ""
+	var/list/body = list()
 
 	if(!D)	return
 	if(istype(D, /atom))
@@ -20,17 +20,16 @@
 		title = "[A.name] (\ref[A]) = [A.type]"
 
 		#ifdef VARSICON
-		if (A.icon)
+		if(A.icon)
 			body += debug_variable("icon", new/icon(A.icon, A.icon_state, A.dir), 0)
 		#endif
 
-	var/icon/sprite
+	var/sprite
 
 	if(istype(D,/atom))
 		var/atom/AT = D
 		if(AT.icon && AT.icon_state)
-			sprite = new /icon(AT.icon, AT.icon_state)
-			usr << browse_rsc(sprite, "view_vars_sprite.png")
+			sprite = 1
 
 	title = "[D] (\ref[D]) = [D.type]"
 
@@ -43,18 +42,18 @@
 					if(event.keyCode == 13){	//Enter / return
 						var vars_ol = document.getElementById('vars');
 						var lis = vars_ol.getElementsByTagName("li");
-						for ( var i = 0; i < lis.length; ++i )
+						for( var i = 0; i < lis.length; ++i )
 						{
 							try{
 								var li = lis\[i\];
-								if ( li.style.backgroundColor == "#ffee88" )
+								if( li.style.backgroundColor == "#ffee88" )
 								{
 									alist = lis\[i\].getElementsByTagName("a")
 									if(alist.length > 0){
 										location.href=alist\[0\].href;
 									}
 								}
-							}catch(err) {   }
+							}catch(err) {	 }
 						}
 						return
 					}
@@ -62,11 +61,11 @@
 					if(event.keyCode == 38){	//Up arrow
 						var vars_ol = document.getElementById('vars');
 						var lis = vars_ol.getElementsByTagName("li");
-						for ( var i = 0; i < lis.length; ++i )
+						for( var i = 0; i < lis.length; ++i )
 						{
 							try{
 								var li = lis\[i\];
-								if ( li.style.backgroundColor == "#ffee88" )
+								if( li.style.backgroundColor == "#ffee88" )
 								{
 									if( (i-1) >= 0){
 										var li_new = lis\[i-1\];
@@ -75,7 +74,7 @@
 										return
 									}
 								}
-							}catch(err) {  }
+							}catch(err) {	}
 						}
 						return
 					}
@@ -83,11 +82,11 @@
 					if(event.keyCode == 40){	//Down arrow
 						var vars_ol = document.getElementById('vars');
 						var lis = vars_ol.getElementsByTagName("li");
-						for ( var i = 0; i < lis.length; ++i )
+						for( var i = 0; i < lis.length; ++i )
 						{
 							try{
 								var li = lis\[i\];
-								if ( li.style.backgroundColor == "#ffee88" )
+								if( li.style.backgroundColor == "#ffee88" )
 								{
 									if( (i+1) < lis.length){
 										var li_new = lis\[i+1\];
@@ -96,7 +95,7 @@
 										return
 									}
 								}
-							}catch(err) {  }
+							}catch(err) {	}
 						}
 						return
 					}
@@ -113,23 +112,23 @@
 						var vars_ol = document.getElementById('vars');
 						var lis = vars_ol.getElementsByTagName("li");
 
-						for ( var i = 0; i < lis.length; ++i )
+						for( var i = 0; i < lis.length; ++i )
 						{
 							try{
 								var li = lis\[i\];
-								if ( li.innerText.toLowerCase().indexOf(filter) == -1 )
+								if( li.innerText.toLowerCase().indexOf(filter) == -1 )
 								{
 									vars_ol.removeChild(li);
 									i--;
 								}
-							}catch(err) {   }
+							}catch(err) {	 }
 						}
 					}
 					var lis_new = vars_ol.getElementsByTagName("li");
-					for ( var j = 0; j < lis_new.length; ++j )
+					for( var j = 0; j < lis_new.length; ++j )
 					{
 						var li1 = lis\[j\];
-						if (j == 0){
+						if(j == 0){
 							li1.style.backgroundColor = "#ffee88";
 						}else{
 							li1.style.backgroundColor = "white";
@@ -162,7 +161,7 @@
 	body += "<div align='center'><table width='100%'><tr><td width='50%'>"
 
 	if(sprite)
-		body += "<table align='center' width='100%'><tr><td><img src='view_vars_sprite.png'></td><td>"
+		body += "<table align='center' width='100%'><tr><td>[bicon(D, use_class=0)]</td><td>"
 	else
 		body += "<table align='center' width='100%'><tr><td>"
 
@@ -234,6 +233,7 @@
 
 	body += "<option value='?_src_=vars;mark_object=\ref[D]'>Mark Object</option>"
 	body += "<option value='?_src_=vars;proc_call=\ref[D]'>Call Proc</option>"
+	body += "<option value='?_src_=vars;jump_to=\ref[D]'>Jump to Object</option>"
 	if(ismob(D))
 		body += "<option value='?_src_=vars;mob_player_panel=\ref[D]'>Show player panel</option>"
 
@@ -293,18 +293,18 @@
 	body += "<ol id='vars'>"
 
 	var/list/names = list()
-	for (var/V in D.vars)
+	for(var/V in D.vars)
 		names += V
 
 	names = sortList(names)
 
-	for (var/V in names)
+	for(var/V in names)
 		body += debug_variable(V, D.vars[V], 0, D)
 
 	body += "</ol>"
 
 	var/html = "<html><head>"
-	if (title)
+	if(title)
 		html += "<title>[title]</title>"
 	html += {"<style>
 body
@@ -319,7 +319,7 @@ body
 }
 </style>"}
 	html += "</head><body>"
-	html += body
+	html += body.Join("")
 
 	html += {"
 		<script type='text/javascript'>
@@ -335,68 +335,59 @@ body
 	return
 
 /client/proc/debug_variable(name, value, level, var/datum/DA = null)
-	var/html = ""
+	var/list/html = list()
 
 	if(DA)
 		html += "<li style='backgroundColor:white'>(<a href='?_src_=vars;datumedit=\ref[DA];varnameedit=[name]'>E</a>) (<a href='?_src_=vars;datumchange=\ref[DA];varnamechange=[name]'>C</a>) (<a href='?_src_=vars;datummass=\ref[DA];varnamemass=[name]'>M</a>) "
 	else
 		html += "<li>"
 
-	if (isnull(value))
+	if(isnull(value))
 		html += "[name] = <span class='value'>null</span>"
 
-	else if (istext(value))
+	else if(istext(value))
 		html += "[name] = <span class='value'>\"[value]\"</span>"
 
-	else if (isicon(value))
+	else if(isicon(value))
 		#ifdef VARSICON
-		var/icon/I = new/icon(value)
-		var/rnd = rand(1,10000)
-		var/rname = "tmp\ref[I][rnd].png"
-		usr << browse_rsc(I, rname)
-		html += "[name] = (<span class='value'>[value]</span>) <img class=icon src=\"[rname]\">"
+		html += "[name] = /icon (<span class='value'>[value]</span>) [bicon(value, use_class=0)]"
 		#else
 		html += "[name] = /icon (<span class='value'>[value]</span>)"
 		#endif
 
-/*		else if (istype(value, /image))
+	else if(istype(value, /image))
 		#ifdef VARSICON
-		var/rnd = rand(1, 10000)
-		var/image/I = value
-
-		src << browse_rsc(I.icon, "tmp\ref[value][rnd].png")
-		html += "[name] = <img src=\"tmp\ref[value][rnd].png\">"
+		html += "<a href='?_src_=vars;Vars=\ref[value]'>[name] \ref[value]</a> = /image (<span class='value'>[value]</span>) [bicon(value, use_class=0)]"
 		#else
-		html += "[name] = /image (<span class='value'>[value]</span>)"
+		html += "<a href='?_src_=vars;Vars=\ref[value]'>[name] \ref[value]</a> = /image (<span class='value'>[value]</span>)"
 		#endif
-*/
-	else if (isfile(value))
+
+	else if(isfile(value))
 		html += "[name] = <span class='value'>'[value]'</span>"
 
-	else if (istype(value, /datum))
+	else if(istype(value, /datum))
 		var/datum/D = value
 		html += "<a href='?_src_=vars;Vars=\ref[value]'>[name] \ref[value]</a> = [D.type]"
 
-	else if (istype(value, /client))
+	else if(istype(value, /client))
 		var/client/C = value
 		html += "<a href='?_src_=vars;Vars=\ref[value]'>[name] \ref[value]</a> = [C] [C.type]"
 //
-	else if (istype(value, /list))
+	else if(istype(value, /list))
 		var/list/L = value
 		html += "[name] = /list ([L.len])"
 
-		if (L.len > 0 && !(name == "underlays" || name == "overlays" || name == "vars" || L.len > 500))
+		if(L.len > 0 && !(name == "underlays" || name == "overlays" || name == "vars" || L.len > 500))
 			// not sure if this is completely right...
-			if(0)   //(L.vars.len > 0)
+			if(0)	 //(L.vars.len > 0)
 				html += "<ol>"
 				html += "</ol>"
 			else
 				html += "<ul>"
 				var/index = 1
-				for (var/entry in L)
+				for(var/entry in L)
 					if(istext(entry))
 						html += debug_variable(entry, L[entry], level + 1)
-					//html += debug_variable("[index]", L[index], level + 1)
 					else
 						html += debug_variable(index, L[index], level + 1)
 					index++
@@ -423,7 +414,7 @@ body
 		*/
 	html += "</li>"
 
-	return html
+	return html.Join("")
 
 /client/proc/view_var_Topic(href, href_list, hsrc)
 	//This should all be moved over to datum/admins/Topic() or something ~Carn
@@ -736,6 +727,17 @@ body
 		if(T)
 			callproc_datum(T)
 
+	else if(href_list["jump_to"])
+		if(!check_rights(R_ADMIN))
+			return
+
+		var/atom/A = locate(href_list["jump_to"])
+		var/turf/T = get_turf(A)
+		if(T)
+			usr.client.jumptoturf(T)
+		href_list["datumrefresh"] = href_list["jump_to"]
+
+
 	else if(href_list["rotatedatum"])
 		if(!check_rights(R_DEBUG|R_ADMIN))	return
 
@@ -921,7 +923,7 @@ body
 			to_chat(usr, "Mob doesn't know that language.")
 
 	else if(href_list["addverb"])
-		if(!check_rights(R_DEBUG))      return
+		if(!check_rights(R_DEBUG))			return
 
 		var/mob/living/H = locate(href_list["addverb"])
 
@@ -953,7 +955,7 @@ body
 			log_admin("[key_name(usr)] has given [key_name(H)] the verb [verb]")
 
 	else if(href_list["remverb"])
-		if(!check_rights(R_DEBUG))      return
+		if(!check_rights(R_DEBUG))			return
 
 		var/mob/H = locate(href_list["remverb"])
 
@@ -1051,7 +1053,7 @@ body
 
 		var/Text = href_list["adjustDamage"]
 
-		var/amount =  input("Deal how much damage to mob? (Negative values here heal)","Adjust [Text]loss",0) as num
+		var/amount =	input("Deal how much damage to mob? (Negative values here heal)","Adjust [Text]loss",0) as num
 
 		if(!L)
 			to_chat(usr, "Mob doesn't exist anymore")
@@ -1080,4 +1082,3 @@ body
 		src.debug_variables(DAT)
 
 	return
-

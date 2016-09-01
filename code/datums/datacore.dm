@@ -17,7 +17,7 @@
 	var/real_title = assignment
 
 	for(var/datum/data/record/t in data_core.general)
-		if (t)
+		if(t)
 			if(t.fields["name"] == name)
 				foundrecord = t
 				break
@@ -66,6 +66,8 @@
 		G.fields["sex"]			= capitalize(H.gender)
 		G.fields["species"]		= H.get_species()
 		G.fields["photo"]		= get_id_photo(H)
+		G.fields["photo-south"] = "'data:image/png;base64,[icon2base64(icon(G.fields["photo"], dir = SOUTH))]'"
+		G.fields["photo-west"] = "'data:image/png;base64,[icon2base64(icon(G.fields["photo"], dir = WEST))]'"
 		if(H.gen_record && !jobban_isbanned(H, "Records"))
 			G.fields["notes"] = H.gen_record
 		else
@@ -127,9 +129,10 @@
 proc/get_id_photo(var/mob/living/carbon/human/H)
 	var/icon/preview_icon = null
 	var/obj/item/organ/external/head/head_organ = H.get_organ("head")
+	var/obj/item/organ/internal/eyes/eyes_organ = H.get_int_organ(/obj/item/organ/internal/eyes)
 
 	var/g = "m"
-	if (H.gender == FEMALE)
+	if(H.gender == FEMALE)
 		g = "f"
 
 	var/icon/icobase = H.species.icobase
@@ -151,7 +154,7 @@ proc/get_id_photo(var/mob/living/carbon/human/H)
 
 	// Skin tone
 	if(H.species.bodyflags & HAS_SKIN_TONE)
-		if (H.s_tone >= 0)
+		if(H.s_tone >= 0)
 			preview_icon.Blend(rgb(H.s_tone, H.s_tone, H.s_tone), ICON_ADD)
 		else
 			preview_icon.Blend(rgb(-H.s_tone,  -H.s_tone,  -H.s_tone), ICON_SUBTRACT)
@@ -168,7 +171,12 @@ proc/get_id_photo(var/mob/living/carbon/human/H)
 	var/icon/face_s = new/icon("icon" = 'icons/mob/human_face.dmi', "icon_state" = "bald_s")
 	if(!(H.species.bodyflags & NO_EYES))
 		var/icon/eyes_s = new/icon("icon" = 'icons/mob/human_face.dmi', "icon_state" = H.species ? H.species.eyes : "eyes_s")
-		eyes_s.Blend(rgb(H.r_eyes, H.g_eyes, H.b_eyes), ICON_ADD)
+		if(!eyes_organ)
+			return
+		var/eye_red = eyes_organ.eye_colour[1]
+		var/eye_green = eyes_organ.eye_colour[2]
+		var/eye_blue = eyes_organ.eye_colour[3]
+		eyes_s.Blend(rgb(eye_red, eye_green, eye_blue), ICON_ADD)
 		face_s.Blend(eyes_s, ICON_OVERLAY)
 
 	var/datum/sprite_accessory/hair_style = hair_styles_list[head_organ.h_style]

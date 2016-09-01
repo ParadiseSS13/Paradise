@@ -8,6 +8,7 @@ var/global/datum/controller/process/timer/timer_master
 	name = "timer"
 	schedule_interval = 5 //every 0.5 seconds
 	timer_master = src
+	log_startup_progress("Timer process starting up.")
 
 /datum/controller/process/timer/statProcess()
 	..()
@@ -61,7 +62,10 @@ var/global/datum/controller/process/timer/timer_master
 	event.thingToCall = thingToCall
 	event.procToCall = procToCall
 	event.timeToRun = world.time + wait
-	event.hash = jointext(args, null)
+	var/hashlist = args.Copy()
+
+	hashlist[1] = "[thingToCall](\ref[thingToCall])"
+	event.hash = jointext(hashlist, null)
 	if(args.len > 4)
 		event.argList = args.Copy(5)
 

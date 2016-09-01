@@ -23,7 +23,7 @@
 	if(!check_rights(R_ADMIN))
 		return
 
-	if (ismob(M))
+	if(ismob(M))
 		if(istype(M, /mob/living/silicon/ai))
 			alert("The AI can't be sent to prison you jerk!", null, null, null, null, null)
 			return
@@ -56,10 +56,10 @@
 
 	var/msg = input("Message:", text("Subtle PM to [M.key]")) as text
 
-	if (!msg)
+	if(!msg)
 		return
 	if(usr)
-		if (usr.client)
+		if(usr.client)
 			if(usr.client.holder)
 				to_chat(M, "\bold You hear a voice in your head... \italic [msg]")
 
@@ -108,7 +108,7 @@
 
 	var/msg = input("Message:", text("Enter the text you wish to appear to everyone:")) as text
 
-	if (!msg)
+	if(!msg)
 		return
 	to_chat(world, "[msg]")
 	log_admin("GlobalNarrate: [key_name(usr)] : [msg]")
@@ -235,19 +235,19 @@ proc/cmd_admin_mute(mob/M as mob, mute_type, automute = 0)
 			if(g.antagHUD)
 				g.antagHUD = 0						// Disable it on those that have it enabled
 				g.has_enabled_antagHUD = 2				// We'll allow them to respawn
-				to_chat(g, "\red <B>The Administrator has disabled AntagHUD </B>")
+				to_chat(g, "<span class='danger'>The Administrator has disabled AntagHUD </span>")
 		config.antag_hud_allowed = 0
-		to_chat(src, "\red <B>AntagHUD usage has been disabled</B>")
+		to_chat(src, "<span class='danger'>AntagHUD usage has been disabled</span>")
 		action = "disabled"
 	else
 		for(var/mob/dead/observer/g in get_ghosts())
 			if(!g.client.holder)						// Add the verb back for all non-admin ghosts
 				g.verbs += /mob/dead/observer/verb/toggle_antagHUD
-				to_chat(g, "\blue <B>The Administrator has enabled AntagHUD </B>")// Notify all observers they can now use AntagHUD
+				to_chat(g, "<span class='boldnotice'>The Administrator has enabled AntagHUD </span>")// Notify all observers they can now use AntagHUD
 
 		config.antag_hud_allowed = 1
 		action = "enabled"
-		to_chat(src, "\blue <B>AntagHUD usage has been enabled</B>")
+		to_chat(src, "<span class='boldnotice'>AntagHUD usage has been enabled</span>")
 
 
 	log_admin("[key_name(usr)] has [action] antagHUD usage for observers")
@@ -264,19 +264,19 @@ proc/cmd_admin_mute(mob/M as mob, mute_type, automute = 0)
 	var/action=""
 	if(config.antag_hud_restricted)
 		for(var/mob/dead/observer/g in get_ghosts())
-			to_chat(g, "\blue <B>The administrator has lifted restrictions on joining the round if you use AntagHUD</B>")
+			to_chat(g, "<span class='boldnotice'>The administrator has lifted restrictions on joining the round if you use AntagHUD</span>")
 		action = "lifted restrictions"
 		config.antag_hud_restricted = 0
-		to_chat(src, "\blue <B>AntagHUD restrictions have been lifted</B>")
+		to_chat(src, "<span class='boldnotice'>AntagHUD restrictions have been lifted</span>")
 	else
 		for(var/mob/dead/observer/g in get_ghosts())
-			to_chat(g, "\red <B>The administrator has placed restrictions on joining the round if you use AntagHUD</B>")
-			to_chat(g, "\red <B>Your AntagHUD has been disabled, you may choose to re-enabled it but will be under restrictions </B>")
+			to_chat(g, "<span class='danger'>The administrator has placed restrictions on joining the round if you use AntagHUD</span>")
+			to_chat(g, "<span class='danger'>Your AntagHUD has been disabled, you may choose to re-enabled it but will be under restrictions </span>")
 			g.antagHUD = 0
 			g.has_enabled_antagHUD = 0
 		action = "placed restrictions"
 		config.antag_hud_restricted = 1
-		to_chat(src, "\red <B>AntagHUD restrictions have been enabled</B>")
+		to_chat(src, "<span class='danger'>AntagHUD restrictions have been enabled</span>")
 
 	log_admin("[key_name(usr)] has [action] on joining the round if they use AntagHUD")
 	message_admins("Admin [key_name_admin(usr)] has [action] on joining the round if they use AntagHUD", 1)
@@ -407,7 +407,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		if("Death Commando")//Leaves them at late-join spawn.
 			new_character.equip_death_commando()
 			new_character.internal = new_character.s_store
-			new_character.internals.icon_state = "internal1"
+			new_character.update_internals_hud_icon(1)
 		else//They may also be a cyborg or AI.
 			switch(new_character.mind.assigned_role)
 				if("Cyborg")//More rigging to make em' work and check if they're traitor.
@@ -416,6 +416,8 @@ Traitors and the like can also be revived with the previous role mostly intact.
 						call(/datum/game_mode/proc/add_law_zero)(new_character)
 				if("AI")
 					new_character = new_character.AIize()
+					var/mob/living/silicon/ai/ai_character = new_character
+					ai_character.moveToAILandmark()
 					if(new_character.mind.special_role=="traitor")
 						call(/datum/game_mode/proc/add_law_zero)(new_character)
 				//Add aliens.
@@ -561,7 +563,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 			if("No")
 				to_chat(world, "\red [from] available at all communications consoles.")
 
-		for (var/obj/machinery/computer/communications/C in machines)
+		for(var/obj/machinery/computer/communications/C in machines)
 			if(! (C.stat & (BROKEN|NOPOWER) ) )
 				var/obj/item/weapon/paper/P = new /obj/item/weapon/paper( C.loc )
 				P.name = "[from]"
@@ -581,7 +583,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 			if("No")
 				to_chat(world, "\red New Nanotrasen Update available at all communication consoles.")
 
-		for (var/obj/machinery/computer/communications/C in machines)
+		for(var/obj/machinery/computer/communications/C in machines)
 			if(! (C.stat & (BROKEN|NOPOWER) ) )
 				var/obj/item/weapon/paper/P = new /obj/item/weapon/paper( C.loc )
 				P.name = "'[command_name()] Update.'"
@@ -590,7 +592,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 				C.messagetitle.Add("[command_name()] Update")
 				C.messagetext.Add(P.info)
 
-//	to_chat(world, sound('sound/AI/commandreport.ogg'))
+//	world << sound('sound/AI/commandreport.ogg')
 	log_admin("[key_name(src)] has created a communications report: [input]")
 	message_admins("[key_name_admin(src)] has created a communications report", 1)
 	feedback_add_details("admin_verb","CCR") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
@@ -603,7 +605,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(!check_rights(R_ADMIN))
 		return
 
-	if (alert(src, "Are you sure you want to delete:\n[O]\nat ([O.x], [O.y], [O.z])?", "Confirmation", "Yes", "No") == "Yes")
+	if(alert(src, "Are you sure you want to delete:\n[O]\nat ([O.x], [O.y], [O.z])?", "Confirmation", "Yes", "No") == "Yes")
 		log_admin("[key_name(usr)] deleted [O] at ([O.x],[O.y],[O.z])")
 		message_admins("[key_name_admin(usr)] deleted [O] at ([O.x],[O.y],[O.z])", 1)
 		feedback_add_details("admin_verb","DEL") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
@@ -643,9 +645,9 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	var/flames = input("Range of flames. -1 to none", text("Input"))  as num|null
 	if(flames == null) return
 
-	if ((devastation != -1) || (heavy != -1) || (light != -1) || (flash != -1) || (flames != -1))
-		if ((devastation > 20) || (heavy > 20) || (light > 20) || (flames > 20))
-			if (alert(src, "Are you sure you want to do this? It will laaag.", "Confirmation", "Yes", "No") == "No")
+	if((devastation != -1) || (heavy != -1) || (light != -1) || (flash != -1) || (flames != -1))
+		if((devastation > 20) || (heavy > 20) || (light > 20) || (flames > 20))
+			if(alert(src, "Are you sure you want to do this? It will laaag.", "Confirmation", "Yes", "No") == "No")
 				return
 
 		explosion(O, devastation, heavy, light, flash, null, null,flames)
@@ -668,7 +670,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	var/light = input("Range of light pulse.", text("Input"))  as num|null
 	if(light == null) return
 
-	if (heavy || light)
+	if(heavy || light)
 
 		empulse(O, heavy, light)
 		log_admin("[key_name(usr)] created an EM pulse ([heavy], [light]) at ([O.x],[O.y],[O.z])")
@@ -710,7 +712,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 	var/confirm = alert(src, "You sure?", "Confirm", "Yes", "No")
 	if(confirm == "Yes")
-		if (istype(mob, /mob/dead/observer)) // so they don't spam gibs everywhere
+		if(istype(mob, /mob/dead/observer)) // so they don't spam gibs everywhere
 			return
 		else
 			mob.gib()
@@ -791,7 +793,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	set category = "Admin"
 	set name = "Toggle Deny Shuttle"
 
-	if (!ticker)
+	if(!ticker)
 		return
 
 	if(!check_rights(R_ADMIN))
@@ -810,7 +812,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(!check_rights(R_ADMIN))
 		return
 
-	to_chat(usr, text("\red <b>Attack Log for []</b>", mob))
+	to_chat(usr, text("<span class='danger'>Attack Log for []</span>", mob))
 	for(var/t in M.attack_log)
 		to_chat(usr, t)
 	feedback_add_details("admin_verb","ATTL") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
@@ -824,7 +826,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(!check_rights(R_SERVER|R_EVENT))
 		return
 
-	if (ticker && ticker.mode)
+	if(ticker && ticker.mode)
 		to_chat(usr, "Nope you can't do this, the game's already started. This only works before rounds!")
 		return
 
@@ -868,6 +870,29 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		message_admins("Admin [key_name_admin(usr)] has disabled random events.", 1)
 	feedback_add_details("admin_verb","TRE") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
+/client/proc/reset_all_tcs()
+	set category = "Admin"
+	set name = "Reset Telecomms Scripts"
+	set desc = "Blanks all telecomms scripts from all telecomms servers"
+
+	if(!check_rights(R_ADMIN, 1, src))
+		return
+
+	var/confirm = alert(src, "You sure you want to blank all NTSL scripts?", "Confirm", "Yes", "No")
+	if(confirm != "Yes")
+		return
+
+	for(var/obj/machinery/telecomms/server/S in telecomms_list)
+		var/datum/TCS_Compiler/C = S.Compiler
+		S.rawcode = ""
+		C.Compile("")
+	for(var/obj/machinery/computer/telecomms/traffic/T in machines)
+		T.storedcode = ""
+	log_admin("[key_name(usr)] blanked all telecomms scripts.")
+	message_admins("[key_name_admin(usr)] blanked all telecomms scripts.")
+	feedback_add_details("admin_verb","RAT") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
+
 /client/proc/toggle_ert_calling()
 	set category = "Event"
 	set name = "Toggle ERT"
@@ -886,4 +911,3 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		to_chat(usr, "\red ERT has been <b>Disabled</b>.")
 		log_admin("Admin [key_name(src)] has disabled ERT calling.")
 		message_admins("Admin [key_name_admin(usr)] has disabled ERT calling.", 1)
-

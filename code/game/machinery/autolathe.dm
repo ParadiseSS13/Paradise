@@ -107,7 +107,7 @@
 	return
 
 /obj/machinery/autolathe/attackby(obj/item/O, mob/user, params)
-	if (busy)
+	if(busy)
 		to_chat(user, "<span class=\"alert\">The autolathe is busy. Please wait for completion of previous operation.</span>")
 		return 1
 
@@ -118,7 +118,7 @@
 	if(exchange_parts(user, O))
 		return
 
-	if (panel_open)
+	if(panel_open)
 		if(istype(O, /obj/item/weapon/crowbar))
 			materials.retrieve_all()
 			default_deconstruction_crowbar(O)
@@ -126,7 +126,7 @@
 		else
 			attack_hand(user)
 			return 1
-	if (stat)
+	if(stat)
 		return 1
 
 	if(istype(O, /obj/item/weapon/disk/design_disk))
@@ -156,9 +156,9 @@
 	var/inserted = materials.insert_item(O)
 	if(inserted)
 		if(istype(O,/obj/item/stack))
-			if (O.materials[MAT_METAL])
+			if(O.materials[MAT_METAL])
 				flick("autolathe_o",src)//plays metal insertion animation
-			if (O.materials[MAT_GLASS])
+			if(O.materials[MAT_GLASS])
 				flick("autolathe_r",src)//plays glass insertion animation
 			to_chat(user, "<span class='notice'>You insert [inserted] sheet[inserted>1 ? "s" : ""] to the autolathe.</span>")
 			use_power(inserted*100)
@@ -206,7 +206,7 @@
 
 		if(!is_stack && (multiplier > 1))
 			return
-		if (!(multiplier in list(1,10,25,max_multiplier))) //"enough materials ?" is checked in the build proc
+		if(!(multiplier in list(1,10,25,max_multiplier))) //"enough materials ?" is checked in the build proc
 			return
 		/////////////////
 
@@ -214,7 +214,7 @@
 			add_to_queue(design_last_ordered,multiplier)
 		else
 			to_chat(usr, "\red The autolathe queue is full!")
-		if (!busy)
+		if(!busy)
 			busy = 1
 			process_queue()
 			busy = 0
@@ -264,7 +264,7 @@
 	var/metal_cost = D.materials[MAT_METAL]
 	var/glass_cost = D.materials[MAT_GLASS]
 	var/power = max(2000, (metal_cost+glass_cost)*multiplier/5)
-	if (can_build(D,multiplier))
+	if(can_build(D,multiplier))
 		being_built = list(D,multiplier)
 		use_power(power)
 		icon_state = "autolathe"
@@ -325,7 +325,7 @@
 	var/output = "<td valign='top' style='width: 300px'>"
 	output += "<div class='statusDisplay'>"
 	output += "<b>Queue contains:</b>"
-	if (!istype(queue) || !queue.len)
+	if(!istype(queue) || !queue.len)
 		if(being_built.len)
 			output += "<ol><li>"
 			output += get_processing_line()
@@ -382,7 +382,7 @@
 			being_built = new /list()
 			return 0
 		if(!can_build(D,multiplier))
-			visible_message("\icon[src] <b>\The [src]</b> beeps, \"Not enough resources. Queue processing terminated.\"")
+			visible_message("[bicon(src)] <b>\The [src]</b> beeps, \"Not enough resources. Queue processing terminated.\"")
 			queue = list()
 			being_built = new /list()
 			return 0
@@ -392,7 +392,7 @@
 		D = listgetindex(listgetindex(queue, 1),1)
 		multiplier = listgetindex(listgetindex(queue,1),2)
 	being_built = new /list()
-	//visible_message("\icon[src] <b>\The [src]</b> beeps, \"Queue processing finished successfully.\"")
+	//visible_message("[bicon(src)] <b>\The [src]</b> beeps, \"Queue processing finished successfully.\"")
 
 /obj/machinery/autolathe/proc/main_win(mob/user)
 	var/dat = "<table style='width:100%'><tr>"
@@ -447,9 +447,9 @@
 
 		if(ispath(D.build_path, /obj/item/stack))
 			var/max_multiplier = min(D.maxstack, D.materials[MAT_METAL] ?round(materials.amount(MAT_METAL)/D.materials[MAT_METAL]):INFINITY,D.materials[MAT_GLASS]?round(materials.amount(MAT_GLASS)/D.materials[MAT_GLASS]):INFINITY)
-			if (max_multiplier>10 && !disabled)
+			if(max_multiplier>10 && !disabled)
 				dat += " <a href='?src=\ref[src];make=[D.id];multiplier=10'>x10</a>"
-			if (max_multiplier>25 && !disabled)
+			if(max_multiplier>25 && !disabled)
 				dat += " <a href='?src=\ref[src];make=[D.id];multiplier=25'>x25</a>"
 			if(max_multiplier > 0 && !disabled)
 				dat += " <a href='?src=\ref[src];make=[D.id];multiplier=[max_multiplier]'>x[max_multiplier]</a>"
@@ -479,9 +479,9 @@
 
 		if(ispath(D.build_path, /obj/item/stack))
 			var/max_multiplier = min(D.maxstack, D.materials[MAT_METAL] ?round(materials.amount(MAT_METAL)/D.materials[MAT_METAL]):INFINITY,D.materials[MAT_GLASS]?round(materials.amount(MAT_GLASS)/D.materials[MAT_GLASS]):INFINITY)
-			if (max_multiplier>10 && !disabled)
+			if(max_multiplier>10 && !disabled)
 				dat += " <a href='?src=\ref[src];make=[D.id];multiplier=10'>x10</a>"
-			if (max_multiplier>25 && !disabled)
+			if(max_multiplier>25 && !disabled)
 				dat += " <a href='?src=\ref[src];make=[D.id];multiplier=25'>x25</a>"
 			if(max_multiplier > 0 && !disabled)
 				dat += " <a href='?src=\ref[src];make=[D.id];multiplier=[max_multiplier]'>x[max_multiplier]</a>"
