@@ -141,6 +141,9 @@ var/list/ghostteleportlocs = list()
 /area/space/partyalert()
 	return
 
+/area/space/maintgen
+	icon_state = "space-maintgen"
+
 //These are shuttle areas, they must contain two areas in a subgroup if you want to move a shuttle from one
 //place to another. Look at escape shuttle for example.
 //All shuttles show now be under shuttle since we have smooth-wall code.

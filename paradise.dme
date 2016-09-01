@@ -1390,6 +1390,7 @@
 #include "code\modules\logic\dual_input.dm"
 #include "code\modules\logic\logic_base.dm"
 #include "code\modules\logic\mono_input.dm"
+#include "code\modules\maintgen\maintgen.dm"
 #include "code\modules\martial_arts\adminfu.dm"
 #include "code\modules\martial_arts\brawling.dm"
 #include "code\modules\martial_arts\krav_maga.dm"

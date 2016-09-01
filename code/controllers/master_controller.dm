@@ -67,6 +67,11 @@ var/global/pipe_processing_killed = 0
 		// 	seedRuins(zlev, rand(0, 3), /area/space, space_ruins_templates)
 
 	space_manager.do_transition_setup()
+	
+	var/timer = start_watch()
+	log_startup_progress("Generating maintenance...")
+	generate_maintenance()
+	log_startup_progress("Generated maintenance in [stop_watch(timer)]s.")
 
 	setup_objects()
 	setupgenetics()
