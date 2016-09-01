@@ -61,11 +61,12 @@ var/global/list/empty_playable_ai_cores = list()
 				loc_landmark = sloc
 
 	forceMove(loc_landmark.loc)
+	view_core()
 
 // Before calling this, make sure an empty core exists, or this will no-op
 /mob/living/silicon/ai/proc/moveToEmptyCore()
 	if(!empty_playable_ai_cores.len)
-		log_debug("moveToEmptyCore called without any available cores")
+		log_runtime(EXCEPTION("moveToEmptyCore called without any available cores"), src)
 		return
 
 	// IsJobAvailable for AI checks that there is an empty core available in this list
@@ -73,6 +74,6 @@ var/global/list/empty_playable_ai_cores = list()
 	empty_playable_ai_cores -= C
 
 	forceMove(C.loc)
-
+	view_core()
 
 	qdel(C)

@@ -1,6 +1,0 @@
-author: FreeStylaLT
-delete-after: True
-changes: 
-  - rscadd: "Added additional coating to Turbine room."
-  - bugfix: "Fixed leftover vent in Brig Physician's office"
-  - bugfix: "Fixed missing coated rwalls in Incinerator"

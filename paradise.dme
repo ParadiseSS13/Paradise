@@ -1042,6 +1042,7 @@
 #include "code\modules\admin\verbs\striketeam.dm"
 #include "code\modules\admin\verbs\striketeam_syndicate.dm"
 #include "code\modules\admin\verbs\ticklag.dm"
+#include "code\modules\admin\verbs\toggledebugverbs.dm"
 #include "code\modules\admin\verbs\tripAI.dm"
 #include "code\modules\admin\verbs\vox_raiders.dm"
 #include "code\modules\admin\verbs\SDQL2\SDQL_2.dm"

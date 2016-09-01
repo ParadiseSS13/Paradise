@@ -81,7 +81,7 @@
 /datum/mind/proc/transfer_to(mob/living/new_character)
 	var/datum/atom_hud/antag/hud_to_transfer = antag_hud //we need this because leave_hud() will clear this list
 	if(!istype(new_character))
-		log_to_dd("## DEBUG: transfer_to(): Some idiot has tried to transfer_to() a non mob/living mob. Please inform Carn")
+		log_runtime(EXCEPTION("transfer_to(): Some idiot has tried to transfer_to() a non mob/living mob."), src)
 	if(current)					//remove ourself from our old body's mind variable
 		current.mind = null
 		leave_all_huds() //leave all the huds in the old body, so it won't get huds if somebody else enters it
@@ -597,7 +597,7 @@
 					return
 				var/datum/mind/targ = new_target
 				if(!istype(targ))
-					log_debug("Invalid target for identity theft objective, cancelling")
+					log_runtime(EXCEPTION("Invalid target for identity theft objective, cancelling"), src)
 					return
 				new_objective = new /datum/objective/escape/escape_with_identity
 				new_objective.owner = src

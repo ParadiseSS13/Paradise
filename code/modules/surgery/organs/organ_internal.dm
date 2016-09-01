@@ -39,7 +39,7 @@
 		var/mob/living/carbon/human/H = M
 		parent = H.get_organ(check_zone(parent_organ))
 		if(!istype(parent))
-			log_debug("[src] attempted to insert into a [parent_organ], but [parent_organ] wasn't an organ! [atom_loc_line(M)]")
+			log_runtime(EXCEPTION("[src] attempted to insert into a [parent_organ], but [parent_organ] wasn't an organ! [atom_loc_line(M)]"), src)
 		else
 			parent.internal_organs |= src
 	//M.internal_organs_by_name[src] |= src(H,1)
@@ -53,7 +53,7 @@
 // However, you MUST set the object's positiion yourself when you call this!
 /obj/item/organ/internal/remove(mob/living/carbon/M, special = 0)
 	if(!owner)
-		log_debug("\'remove\' called on [src] without an owner! Mob: [M], [atom_loc_line(M)]")
+		log_runtime(EXCEPTION("\'remove\' called on [src] without an owner! Mob: [M], [atom_loc_line(M)]"), src)
 	owner = null
 	if(M)
 		M.internal_organs -= src
@@ -65,7 +65,7 @@
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/external/parent = H.get_organ(check_zone(parent_organ))
 		if(!istype(parent))
-			log_debug("[src] attempted to remove from a [parent_organ], but [parent_organ] didn't exist! [atom_loc_line(M)]")
+			log_runtime(EXCEPTION("[src] attempted to remove from a [parent_organ], but [parent_organ] didn't exist! [atom_loc_line(M)]"), src)
 		else
 			parent.internal_organs -= src
 

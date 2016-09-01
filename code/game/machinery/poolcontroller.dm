@@ -105,11 +105,11 @@
 
 		if(drownee.stat) //Mob is in critical.
 			drownee.losebreath -= 3		//You're gonna die here.
-			add_logs(drownee, src, "drowned", null, null, 0)	//log it to their VV, but don't spam the admins' chats with the logs
+			add_logs(src, drownee, "drowned", null, null, 0)	//log it to their VV, but don't spam the admins' chats with the logs
 			drownee.visible_message("<span class='danger'>\The [drownee] appears to be drowning!</span>","<span class='userdanger'>You're quickly drowning!</span>") //inform them that they are fucked.
 		else
 			drownee.losebreath -= 2		//For every time you drown, you miss 2 breath attempts. Hope you catch on quick!
-			add_logs(drownee, src, "drowned", null, null, 0)	//log it to their VV, but don't spam the admins' chats with the logs
+			add_logs(src, drownee, "drowned", null, null, 0)	//log it to their VV, but don't spam the admins' chats with the logs
 			if(prob(35)) //35% chance to tell them what is going on. They should probably figure it out before then.
 				drownee.visible_message("<span class='danger'>\The [drownee] flails, almost like they are drowning!</span>","<span class='userdanger'>You're lacking air!</span>") //*gasp* *gasp* *gasp* *gasp* *gasp*
 

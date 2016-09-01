@@ -35,6 +35,7 @@
 
 	var/const/waittime_l = 600  //lower bound on time before intercept arrives (in tenths of seconds)
 	var/const/waittime_h = 1800 //upper bound on time before intercept arrives (in tenths of seconds)
+	var/list/player_draft_log = list()
 
 /datum/game_mode/proc/announce() //to be calles when round starts
 	to_chat(world, "<B>Notice</B>: [src] did not define announce()")
@@ -242,7 +243,7 @@
 	// Get a list of all the people who want to be the antagonist for this round, except those with incompatible species
 	for(var/mob/new_player/player in players)
 		if((role in player.client.prefs.be_special) && !(player.client.prefs.species in protected_species))
-			log_debug("[player.key] had [roletext] enabled, so we are drafting them.")
+			player_draft_log += "[player.key] had [roletext] enabled, so we are drafting them."
 			candidates += player.mind
 			players -= player
 
@@ -251,7 +252,7 @@
 		for(var/key in round_voters)
 			for(var/mob/new_player/player in players)
 				if(player.ckey == key)
-					log_debug("[player.key] voted for this round, so we are drafting them.")
+					player_draft_log += "[player.key] voted for this round, so we are drafting them."
 					candidates += player.mind
 					players -= player
 					break
