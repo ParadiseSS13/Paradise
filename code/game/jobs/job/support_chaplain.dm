@@ -23,7 +23,7 @@
 		H.equip_or_collect(new /obj/item/clothing/under/rank/chaplain(H), slot_w_uniform)
 		H.equip_or_collect(new /obj/item/device/pda/chaplain(H), slot_wear_pda)
 		H.equip_or_collect(new /obj/item/clothing/shoes/black(H), slot_shoes)
-		give_kit(H)
+		H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H), slot_in_backpack)
 		H.equip_or_collect(new /obj/item/device/camera/spooky(H.back), slot_in_backpack)
 		spawn(0)
 			var/religion_name = "Christianity"

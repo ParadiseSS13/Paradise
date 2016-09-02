@@ -328,8 +328,6 @@
 		"is holding their breath!",
 		"is deeply inhaling oxygen!")
 
-	starting_gear = list(/obj/item/weapon/tank/emergency_oxygen/nitrogen, /obj/item/clothing/mask/breath, /obj/item/weapon/reagent_containers/hypospray/autoinjector)
-
 /datum/species/vox/handle_death(var/mob/living/carbon/human/H)
 	H.stop_tail_wagging(1)
 
@@ -527,8 +525,6 @@
 		"is melting into a puddle!",
 		"is ripping out their own core!",
 		"is turning a dull, brown color and melting into a puddle!")
-
-	starting_gear = list(/obj/item/weapon/reagent_containers/hypospray/autoinjector)
 
 	var/list/mob/living/carbon/human/recolor_list = list()
 
@@ -797,8 +793,6 @@
 		"pulls out a secret stash of herbicide and takes a hearty swig!",
 		"is pulling themselves apart!")
 
-	starting_gear = list(/obj/item/weapon/reagent_containers/hypospray/autoinjector)
-
 /datum/species/diona/can_understand(var/mob/other)
 	if(istype(other, /mob/living/simple_animal/diona))
 		return 1
@@ -902,8 +896,6 @@
 		"is downloading extra RAM!",
 		"is frying their own circuits!",
 		"is blocking their ventilation port!")
-
-	starting_gear = list(/obj/item/stack/cable_coil, /obj/item/weapon/weldingtool/mini)
 
 	species_abilities = list(
 		/mob/living/carbon/human/proc/change_monitor

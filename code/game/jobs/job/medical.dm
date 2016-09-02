@@ -29,7 +29,7 @@
 		H.equip_or_collect(new /obj/item/clothing/suit/storage/labcoat/cmo(H), slot_wear_suit)
 		H.equip_or_collect(new /obj/item/weapon/storage/firstaid/adv(H), slot_l_hand)
 		H.equip_or_collect(new /obj/item/device/flashlight/pen(H), slot_s_store)
-		give_kit(H)
+		H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H), slot_in_backpack)
 		H.equip_or_collect(new /obj/item/weapon/melee/classic_baton/telescopic(H.back), slot_in_backpack)
 		return 1
 
@@ -89,7 +89,7 @@
 		H.equip_or_collect(new /obj/item/device/pda/medical(H), slot_wear_pda)
 		H.equip_or_collect(new /obj/item/weapon/storage/firstaid/adv(H), slot_l_hand)
 		H.equip_or_collect(new /obj/item/device/flashlight/pen(H), slot_s_store)
-		give_kit(H)
+		H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H), slot_in_backpack)
 		return 1
 
 
@@ -122,7 +122,7 @@
 		H.equip_to_slot_or_del(new /obj/item/clothing/shoes/white(H), slot_shoes)
 		H.equip_to_slot_or_del(new /obj/item/device/pda/chemist(H), slot_wear_pda)
 		H.equip_to_slot_or_del(new /obj/item/clothing/suit/storage/labcoat/chemist(H), slot_wear_suit)
-		give_kit(H)
+		H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H), slot_in_backpack)
 		return 1
 
 
@@ -152,7 +152,7 @@
 		H.equip_to_slot_or_del(new /obj/item/device/pda/geneticist(H), slot_wear_pda)
 		H.equip_to_slot_or_del(new /obj/item/clothing/suit/storage/labcoat/genetics(H), slot_wear_suit)
 		H.equip_to_slot_or_del(new /obj/item/device/flashlight/pen(H), slot_s_store)
-		give_kit(H)
+		H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H), slot_in_backpack)
 		return 1
 
 /datum/job/virologist
@@ -182,7 +182,7 @@
 		H.equip_or_collect(new /obj/item/clothing/shoes/white(H), slot_shoes)
 		H.equip_or_collect(new /obj/item/clothing/suit/storage/labcoat/virologist(H), slot_wear_suit)
 		H.equip_or_collect(new /obj/item/device/flashlight/pen(H), slot_s_store)
-		give_kit(H)
+		H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H), slot_in_backpack)
 		return 1
 
 /datum/job/psychiatrist
@@ -219,7 +219,7 @@
 		H.equip_to_slot_or_del(new /obj/item/clothing/shoes/laceup(H), slot_shoes)
 		H.equip_to_slot_or_del(new /obj/item/device/pda/medical(H), slot_wear_pda)
 		H.equip_or_collect(new /obj/item/device/flashlight/pen(H), slot_s_store)
-		give_kit(H)
+		H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H), slot_in_backpack)
 		return 1
 
 /datum/job/paramedic
@@ -247,6 +247,6 @@
 		H.equip_or_collect(new /obj/item/clothing/mask/cigarette(H), slot_wear_mask)
 		H.equip_or_collect(new /obj/item/clothing/head/soft/blue(H), slot_head)
 		H.equip_or_collect(new /obj/item/device/flashlight/pen(H), slot_s_store)
-		give_kit(H)
+		H.equip_or_collect(new /obj/item/weapon/storage/box/engineer(H), slot_in_backpack)
 		H.equip_or_collect(new /obj/item/device/healthanalyzer(H.back), slot_in_backpack)
 		return 1

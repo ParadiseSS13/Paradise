@@ -32,7 +32,7 @@
 		H.equip_or_collect(new /obj/item/clothing/head/hardhat/white(H), slot_head)
 		H.equip_or_collect(new /obj/item/weapon/storage/belt/utility/full(H), slot_belt)
 		H.equip_or_collect(new /obj/item/clothing/gloves/color/black/ce(H), slot_gloves)
-		give_kit(H)
+		H.equip_or_collect(new /obj/item/weapon/storage/box/engineer(H), slot_in_backpack)
 		H.equip_or_collect(new /obj/item/weapon/melee/classic_baton/telescopic(H.back), slot_in_backpack)
 		return 1
 
@@ -65,7 +65,7 @@
 		H.equip_or_collect(new /obj/item/clothing/head/hardhat(H), slot_head)
 		H.equip_or_collect(new /obj/item/device/t_scanner(H), slot_r_store)
 		H.equip_or_collect(new /obj/item/device/pda/engineering(H), slot_wear_pda)
-		give_kit(H)
+		H.equip_or_collect(new /obj/item/weapon/storage/box/engineer(H), slot_in_backpack)
 		return 1
 
 
@@ -95,7 +95,7 @@
 		H.equip_or_collect(new /obj/item/clothing/shoes/workboots(H), slot_shoes)
 		H.equip_or_collect(new /obj/item/weapon/storage/belt/utility/atmostech/(H), slot_belt)
 		H.equip_or_collect(new /obj/item/device/pda/atmos(H), slot_wear_pda)
-		give_kit(H)
+		H.equip_or_collect(new /obj/item/weapon/storage/box/engineer(H), slot_in_backpack)
 		return 1
 
 /datum/job/mechanic
@@ -124,6 +124,6 @@
 		H.equip_or_collect(new /obj/item/clothing/head/hardhat(H), slot_head)
 		H.equip_or_collect(new /obj/item/device/t_scanner(H), slot_r_store)
 		H.equip_or_collect(new /obj/item/device/pda/engineering(H), slot_wear_pda)
-		give_kit(H)
+		H.equip_or_collect(new /obj/item/weapon/storage/box/engineer(H), slot_in_backpack)
 		H.equip_or_collect(new /obj/item/weapon/pod_paint_bucket(H.back), slot_in_backpack)
 		return 1

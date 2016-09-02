@@ -24,7 +24,7 @@
 		H.equip_or_collect(new /obj/item/clothing/under/rank/bartender(H), slot_w_uniform)
 		H.equip_or_collect(new /obj/item/device/pda/bar(H), slot_wear_pda)
 		H.equip_or_collect(new /obj/item/weapon/storage/belt/bandolier/full(H), slot_in_backpack)
-		give_kit(H)
+		H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H), slot_in_backpack)
 		H.equip_or_collect(new /obj/item/toy/russian_revolver(H.back), slot_in_backpack)
 
 		H.dna.SetSEState(SOBERBLOCK,1)
@@ -60,7 +60,7 @@
 		H.equip_or_collect(new /obj/item/clothing/shoes/black(H), slot_shoes)
 		H.equip_or_collect(new /obj/item/clothing/head/chefhat(H), slot_head)
 		H.equip_or_collect(new /obj/item/device/pda/chef(H), slot_wear_pda)
-		give_kit(H)
+		H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H), slot_in_backpack)
 		return 1
 
 
@@ -91,7 +91,7 @@
 		H.equip_or_collect(new /obj/item/clothing/suit/apron(H), slot_wear_suit)
 		H.equip_or_collect(new /obj/item/device/analyzer/plant_analyzer(H), slot_s_store)
 		H.equip_or_collect(new /obj/item/device/pda/botanist(H), slot_wear_pda)
-		give_kit(H)
+		H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H), slot_in_backpack)
 		return 1
 
 
@@ -122,7 +122,7 @@
 		H.equip_or_collect(new /obj/item/device/pda/quartermaster(H), slot_wear_pda)
 		H.equip_or_collect(new /obj/item/clothing/glasses/sunglasses(H), slot_glasses)
 		H.equip_or_collect(new /obj/item/weapon/clipboard(H), slot_l_hand)
-		give_kit(H)
+		H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H), slot_in_backpack)
 		return 1
 
 
@@ -150,7 +150,7 @@
 		H.equip_or_collect(new /obj/item/clothing/under/rank/cargotech(H), slot_w_uniform)
 		H.equip_or_collect(new /obj/item/clothing/shoes/black(H), slot_shoes)
 		H.equip_or_collect(new /obj/item/device/pda/cargo(H), slot_wear_pda)
-		give_kit(H)
+		H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H), slot_in_backpack)
 		return 1
 
 
@@ -187,7 +187,7 @@
 		H.equip_or_collect(new /obj/item/device/flashlight/seclite(H), slot_r_store)
 		H.equip_or_collect(new /obj/item/weapon/mining_voucher(H.back), slot_in_backpack)
 		H.equip_or_collect(new /obj/item/weapon/storage/bag/ore(H.back), slot_in_backpack)
-		give_kit(H)
+		H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H), slot_in_backpack)
 		return 1
 
 
@@ -209,11 +209,8 @@
 
 	equip(var/mob/living/carbon/human/H)
 		if(!H)	return 0
-		var/obj/item/weapon/storage/box/kit = new
-		for(var/I in H.species.starting_gear)
-			new I(kit)
 		H.equip_or_collect(new /obj/item/weapon/storage/backpack/clown(H), slot_back)
-		H.equip_or_collect(kit, slot_in_backpack)
+		H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H), slot_in_backpack)
 		if(H.gender == FEMALE)
 			H.equip_or_collect(new /obj/item/clothing/mask/gas/sexyclown(H), slot_wear_mask)
 			H.equip_or_collect(new /obj/item/clothing/under/sexyclown(H), slot_w_uniform)
@@ -272,7 +269,7 @@
 		H.equip_or_collect(new /obj/item/toy/crayon/mime(H), slot_in_backpack)
 		H.equip_or_collect(new /obj/item/weapon/reagent_containers/food/drinks/bottle/bottleofnothing(H), slot_in_backpack)
 		H.equip_or_collect(new /obj/item/weapon/cane(H), slot_in_backpack)
-		give_kit(H)
+		H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H), slot_in_backpack)
 		if(H.mind)
 			H.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/conjure/mime_wall(null))
 			H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/mime/speak(null))
@@ -304,7 +301,7 @@
 		H.equip_or_collect(new /obj/item/clothing/under/rank/janitor(H), slot_w_uniform)
 		H.equip_or_collect(new /obj/item/clothing/shoes/black(H), slot_shoes)
 		H.equip_or_collect(new /obj/item/device/pda/janitor(H), slot_wear_pda)
-		give_kit(H)
+		H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H), slot_in_backpack)
 		return 1
 
 
@@ -337,7 +334,7 @@
 		H.equip_or_collect(new /obj/item/weapon/storage/bag/books(H), slot_l_hand)
 		H.equip_or_collect(new /obj/item/weapon/barcodescanner(H), slot_r_store)
 		H.equip_or_collect(new /obj/item/device/laser_pointer(H), slot_l_store)
-		give_kit(H)
+		H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H), slot_in_backpack)
 		return 1
 
 /datum/job/barber
@@ -362,7 +359,7 @@
 		H.equip_or_collect(new /obj/item/device/radio/headset/headset_service(H), slot_l_ear)
 		H.equip_or_collect(new /obj/item/clothing/under/barber(H), slot_w_uniform)
 		H.equip_or_collect(new /obj/item/clothing/shoes/black(H), slot_shoes)
-		give_kit(H)
+		H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H), slot_in_backpack)
 		H.equip_or_collect(new /obj/item/weapon/storage/box/barber(H.back), slot_in_backpack)
 		H.equip_or_collect(new /obj/item/weapon/storage/box/lip_stick(H.back), slot_in_backpack)
 		return 1
