@@ -6,18 +6,12 @@
 	name = "bottle"
 	desc = "A small bottle."
 	icon = 'icons/obj/chemical.dmi'
-	icon_state = "rounded_bottle"
+	icon_state = "round_bottle"
 	item_state = "atoxinbottle"
 	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = list(5,10,15,25,30)
 	flags = OPENCONTAINER
 	volume = 30
-
-/obj/item/weapon/reagent_containers/glass/bottle/New()
-	..()
-	if(!icon_state)
-		icon_state = pick("bottle", "small_bottle", "wide_bottle", "round_bottle")
-		update_icon()
 
 /obj/item/weapon/reagent_containers/glass/bottle/on_reagent_change()
 	update_icon()
@@ -27,7 +21,7 @@
 	underlays.Cut()
 
 	if(reagents.total_volume)
-		var/image/filling = image('icons/obj/reagentfillings.dmi', src, "bottle10")
+		var/image/filling = image('icons/obj/reagentfillings.dmi', src, "[icon_state]10")
 
 		var/percent = round((reagents.total_volume / volume) * 100)
 		switch(percent)
@@ -152,31 +146,41 @@
 	name = "Oil Bottle"
 	desc = "A reagent bottle. Contains oil."
 	list_reagents = list("oil" = 50)
+	pixel_x = -4
+	pixel_y = 6
 
 /obj/item/weapon/reagent_containers/glass/bottle/reagent/phenol
 	name = "Phenol Bottle"
 	desc = "A reagent bottle. Contains phenol."
 	list_reagents = list("phenol" = 50)
+	pixel_x = 6
+	pixel_y = 6
 
 /obj/item/weapon/reagent_containers/glass/bottle/reagent/acetone
 	name = "Acetone Bottle"
 	desc = "A reagent bottle. Contains acetone."
 	list_reagents = list("acetone" = 50)
+	pixel_x = -4
 
 /obj/item/weapon/reagent_containers/glass/bottle/reagent/ammonia
 	name = "Ammonia Bottle"
 	desc = "A reagent bottle. Contains ammonia."
 	list_reagents = list("ammonia" = 50)
+	pixel_x = 6
 
 /obj/item/weapon/reagent_containers/glass/bottle/reagent/diethylamine
 	name = "Diethylamine Bottle"
 	desc = "A reagent bottle. Contains diethylamine."
 	list_reagents = list("diethylamine" = 50)
+	pixel_x = -4
+	pixel_y = -6
 
 /obj/item/weapon/reagent_containers/glass/bottle/reagent/acid
 	name = "Acid Bottle"
 	desc = "A reagent bottle. Contains sulfuric acid."
 	list_reagents = list("sacid" = 50)
+	pixel_x = 6
+	pixel_y = -6
 
 /obj/item/weapon/reagent_containers/glass/bottle/reagent/formaldehyde
 	name = "Formaldehyde Bottle"
