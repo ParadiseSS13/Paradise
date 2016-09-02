@@ -30,7 +30,7 @@
 	var/contractName
 
 /datum/objective/devil/soulquality/New()
-	contractType = pick(CONTRACT_POWER, CONTRACT_WEALTH, CONTRACT_PRESTIGE, CONTRACT_MAGIC, CONTRACT_REVIVE, CONTRACT_KNOWLEDGE/*, CONTRACT_UNWILLING*/)
+	contractType = pick(CONTRACT_POWER, CONTRACT_WEALTH, CONTRACT_PRESTIGE, CONTRACT_MAGIC, CONTRACT_REVIVE, CONTRACT_KNOWLEDGE)
 	target_amount = pick(1,2)
 	switch(contractType)
 		if(CONTRACT_POWER)
@@ -45,8 +45,6 @@
 			contractName = "of revival"
 		if(CONTRACT_KNOWLEDGE)
 			contractName = "for knowledge"
-		//if(CONTRACT_UNWILLING)	//Makes round unfun.
-		//	contractName = "against their will"
 	update_explanation_text()
 
 /datum/objective/devil/soulquality/update_explanation_text()
@@ -76,6 +74,10 @@
 
 /datum/objective/devil/buy_target
 	explanation_text = "You shouldn't see this text.  Error:DEVIL4"
+
+/datum/objective/devil/buy_target/New()
+	find_target()
+	update_explanation_text()
 
 /datum/objective/devil/buy_target/update_explanation_text()
 	if(target)

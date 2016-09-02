@@ -35,9 +35,9 @@
 /obj/item/weapon/paper/contract/employment/attack(mob/living/M, mob/living/carbon/human/user)
 	var/deconvert = 0
 	if(M.mind == target && target.soulOwner != target)
-		if(user.mind && (user.mind.assigned_role == "Lawyer"))
+		if(user.mind && (user.mind.assigned_role == "Internal Affairs Agent"))
 			deconvert = 25
-		else if (user.mind && (user.mind.assigned_role =="Head of Personnel") || (user.mind.assigned_role == "Centcom Commander"))
+		else if (user.mind && (user.mind.assigned_role =="Head of Personnel") || (user.mind.assigned_role == "Centcom Commander") || (user.mind.assigned_role == "Magistrate"))
 			deconvert = 10 // the HoP doesn't have AS much legal training
 		else
 			deconvert = 0.0001 // one out of a million

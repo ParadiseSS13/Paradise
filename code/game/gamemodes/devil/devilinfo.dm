@@ -289,7 +289,7 @@ var/global/list/lawlorify = list (
 /datum/devilinfo/proc/remove_spells()
 	for(var/X in owner.spell_list)
 		var/obj/effect/proc_holder/spell/S = X
-		if(!istype(S, /obj/effect/proc_holder/spell/targeted/summon_contract))
+		if(!istype(S, /obj/effect/proc_holder/spell/targeted/summon_contract) && !istype(S, /obj/effect/proc_holder/spell/targeted/summon_pitchfork/violin))
 			owner.RemoveSpell(S)
 
 /datum/devilinfo/proc/give_summon_contract()

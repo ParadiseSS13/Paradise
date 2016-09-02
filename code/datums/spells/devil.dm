@@ -39,7 +39,8 @@
 	pitchfork_type = /obj/item/device/violin/golden //Oh my god this is the most ghetto code reuse ever.
 	invocation_type = "whisper"
 	invocation = "I aint have this much fun since Georgia."
-	action_icon_state = "golden_fiddle"
+	action_icon_state = "golden_violin"
+	name = "Summon golden violin"
 
 
 /obj/effect/proc_holder/spell/targeted/summon_contract
