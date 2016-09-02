@@ -198,6 +198,7 @@
 		return // No point pinging a posibrain with a player already inside
 	if(check_observer(O) && (world.time >= next_ping_at))
 		next_ping_at = world.time + (20 SECONDS)
+		playsound(get_turf(src), 'sound/items/posiping.ogg', 100, 0)
 		var/turf/T = get_turf_or_move(src.loc)
 		for(var/mob/M in viewers(T))
 			M.show_message("\blue The positronic brain pings softly.")
