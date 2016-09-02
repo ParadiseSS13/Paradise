@@ -8,6 +8,9 @@ var/list/alldepartments = list()
 	icon = 'icons/obj/library.dmi'
 	icon_state = "fax"
 	insert_anim = "faxsend"
+	var/fax_network = "Local Fax Network"
+
+	var/long_range_enabled = 0 // Can we send messages off the station?
 	req_one_access = list(access_lawyer, access_heads, access_armory)
 
 	use_power = 1
@@ -20,7 +23,7 @@ var/list/alldepartments = list()
 
 	var/department = "Unknown" // our department
 
-	var/destination = "Central Command" // the department we're sending to
+	var/destination = "Not Selected" // the department we're sending to
 
 /obj/machinery/photocopier/faxmachine/New()
 	..()
@@ -28,6 +31,11 @@ var/list/alldepartments = list()
 
 	if( !(("[department]" in alldepartments) || ("[department]" in admin_departments)) )
 		alldepartments |= department
+
+/obj/machinery/photocopier/faxmachine/longrange
+	name = "long range fax machine"
+	fax_network = "Central Command Quantum Entanglement Network"
+	long_range_enabled = 1
 
 /obj/machinery/photocopier/faxmachine/attack_hand(mob/user as mob)
 	ui_interact(user)
@@ -58,7 +66,7 @@ var/list/alldepartments = list()
 	if(!authenticated)
 		data["network"] = "Disconnected"
 	else if(!emagged)
-		data["network"] = "Central Command Quantum Entanglement Network"
+		data["network"] = fax_network
 	else
 		data["network"] = "ERR*?*%!*"
 	if(copyitem)
@@ -117,9 +125,12 @@ var/list/alldepartments = list()
 	if(href_list["dept"])
 		if(authenticated)
 			var/lastdestination = destination
-			var/list/combineddepartments = alldepartments + admin_departments
-			if(emagged)
-				combineddepartments += hidden_admin_departments
+			var/list/combineddepartments = alldepartments
+			if(long_range_enabled)
+				combineddepartments += admin_departments
+				if(emagged)
+					combineddepartments += hidden_admin_departments
+
 			destination = input(usr, "To which department?", "Choose a department", "") as null|anything in combineddepartments
 			if(!destination)
 				destination = lastdestination
