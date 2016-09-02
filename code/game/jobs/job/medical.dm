@@ -248,8 +248,5 @@
 		H.equip_or_collect(new /obj/item/clothing/head/soft/blue(H), slot_head)
 		H.equip_or_collect(new /obj/item/device/flashlight/pen(H), slot_s_store)
 		give_kit(H)
-		if(H.backbag == 1)
-			H.equip_or_collect(new /obj/item/device/healthanalyzer(H), slot_l_hand)
-		else
-			H.equip_or_collect(new /obj/item/device/healthanalyzer(H.back), slot_in_backpack)
+		H.equip_or_collect(new /obj/item/device/healthanalyzer(H.back), slot_in_backpack)
 		return 1

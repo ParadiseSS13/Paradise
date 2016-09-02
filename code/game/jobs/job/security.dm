@@ -34,11 +34,8 @@
 		H.equip_or_collect(new /obj/item/clothing/glasses/hud/security/sunglasses(H), slot_glasses)
 		H.equip_or_collect(new /obj/item/weapon/gun/energy/gun(H), slot_s_store)
 		give_kit(H)
-		if(H.backbag == 1)
-			H.equip_or_collect(new /obj/item/weapon/restraints/handcuffs(H), slot_l_store)
-		else
-			H.equip_or_collect(new /obj/item/weapon/restraints/handcuffs(H), slot_in_backpack)
-			H.equip_or_collect(new /obj/item/weapon/melee/classic_baton/telescopic(H.back), slot_in_backpack)
+		H.equip_or_collect(new /obj/item/weapon/restraints/handcuffs(H), slot_in_backpack)
+		H.equip_or_collect(new /obj/item/weapon/melee/classic_baton/telescopic(H.back), slot_in_backpack)
 		var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(H)
 		L.imp_in = H
 		L.implanted = 1
@@ -78,10 +75,7 @@
 		H.equip_or_collect(new /obj/item/device/flash(H), slot_l_store)
 		H.equip_or_collect(new /obj/item/weapon/gun/energy/gun/advtaser(H), slot_s_store)
 		give_kit(H)
-		if(H.backbag == 1)
-			H.equip_or_collect(new /obj/item/weapon/restraints/handcuffs(H), slot_l_hand)
-		else
-			H.equip_or_collect(new /obj/item/weapon/restraints/handcuffs(H), slot_in_backpack)
+		H.equip_or_collect(new /obj/item/weapon/restraints/handcuffs(H), slot_in_backpack)
 		var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(H)
 		L.imp_in = H
 		L.implanted = 1
@@ -127,13 +121,9 @@
 			H.equip_or_collect(new /obj/item/clothing/head/det_hat(H), slot_head)
 		H.equip_or_collect(new /obj/item/weapon/lighter/zippo(H), slot_l_store)
 		give_kit(H)
-		if(H.backbag == 1)//Why cant some of these things spawn in his office?
-			H.equip_or_collect(new /obj/item/weapon/storage/box/evidence(H), slot_l_hand)
-			H.equip_or_collect(new /obj/item/device/detective_scanner(H), slot_r_store)
-		else
-			H.equip_or_collect(new /obj/item/weapon/storage/box/evidence(H), slot_in_backpack)
-			H.equip_or_collect(new /obj/item/device/detective_scanner(H), slot_in_backpack)
-			H.equip_or_collect(new /obj/item/weapon/melee/classic_baton/telescopic(H.back), slot_in_backpack)
+		H.equip_or_collect(new /obj/item/weapon/storage/box/evidence(H), slot_in_backpack)
+		H.equip_or_collect(new /obj/item/device/detective_scanner(H), slot_in_backpack)
+		H.equip_or_collect(new /obj/item/weapon/melee/classic_baton/telescopic(H.back), slot_in_backpack)
 		var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(H)
 		L.imp_in = H
 		L.implanted = 1
@@ -174,10 +164,7 @@
 		H.equip_or_collect(new /obj/item/weapon/gun/energy/gun/advtaser(H), slot_s_store)
 		H.equip_or_collect(new /obj/item/device/flash(H), slot_l_store)
 		give_kit(H)
-		if(H.backbag == 1)
-			H.equip_or_collect(new /obj/item/weapon/restraints/handcuffs(H), slot_l_hand)
-		else
-			H.equip_or_collect(new /obj/item/weapon/restraints/handcuffs(H), slot_in_backpack)
+		H.equip_or_collect(new /obj/item/weapon/restraints/handcuffs(H), slot_in_backpack)
 		var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(H)
 		L.imp_in = H
 		L.implanted = 1
@@ -244,10 +231,7 @@
 		H.equip_or_collect(new /obj/item/weapon/gun/energy/gun/advtaser(H), slot_s_store)
 		H.equip_or_collect(new /obj/item/device/flash(H), slot_l_store)
 		give_kit(H)
-		if(H.backbag == 1)
-			H.equip_or_collect(new /obj/item/weapon/restraints/handcuffs(H), slot_l_hand)
-		else
-			H.equip_or_collect(new /obj/item/weapon/restraints/handcuffs(H), slot_in_backpack)
+		H.equip_or_collect(new /obj/item/weapon/restraints/handcuffs(H), slot_in_backpack)
 		var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(H)
 		L.imp_in = H
 		L.implanted = 1

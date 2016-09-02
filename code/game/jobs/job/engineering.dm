@@ -125,8 +125,5 @@
 		H.equip_or_collect(new /obj/item/device/t_scanner(H), slot_r_store)
 		H.equip_or_collect(new /obj/item/device/pda/engineering(H), slot_wear_pda)
 		give_kit(H)
-		if(H.backbag == 1)
-			H.equip_or_collect(new /obj/item/weapon/pod_paint_bucket(H),slot_l_hand)
-		else
-			H.equip_or_collect(new /obj/item/weapon/pod_paint_bucket(H.back), slot_in_backpack)
+		H.equip_or_collect(new /obj/item/weapon/pod_paint_bucket(H.back), slot_in_backpack)
 		return 1
