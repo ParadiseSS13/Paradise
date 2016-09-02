@@ -14,7 +14,7 @@
 	icon = 'icons/obj/cloning.dmi'
 	icon_state = "pod_0"
 	req_access = list(access_genetics) //For premature unlocking.
-	var/mob/living/occupant
+	var/mob/living/carbon/human/occupant
 	var/heal_level = 90 //The clone is released once its health reaches this level.
 	var/locked = 0
 	var/obj/machinery/computer/cloning/connected = null //So we remember the connected clone machine.
@@ -178,7 +178,7 @@
 /obj/machinery/clonepod/examine(mob/user)
 	..()
 	if(mess)
-		to_chat(user, "It's filled with blood and vicerea. You swear you can see it moving...")
+		to_chat(user, "It's filled with blood and viscera. You swear you can see it moving...")
 	if(!occupant || stat & (NOPOWER|BROKEN))
 		return
 	if(occupant && occupant.stat != DEAD)
@@ -239,13 +239,13 @@
 	if(grab_ghost_when == CLONER_FRESH_CLONE)
 		clonemind.transfer_to(H)
 		H.ckey = R.ckey
-		to_chat(H, "<span class='notice'><b>Consciousness slowly creeps over you \
-			as your body regenerates.</b><br><i>So this is what cloning \
-			feels like?</i></span>")
+		to_chat(H, {"<span class='notice'><b>Consciousness slowly creeps over you
+			as your body regenerates.</b><br><i>So this is what cloning
+			feels like?</i></span>"})
 	else if(grab_ghost_when == CLONER_MATURE_CLONE)
-		to_chat(clonemind.current, "<span class='notice'>Your body is \
-			beginning to regenerate in a cloning pod. You will \
-			become conscious when it is complete.</span>")
+		to_chat(clonemind.current, {"<span class='notice'>Your body is
+			beginning to regenerate in a cloning pod. You will
+			become conscious when it is complete.</span>"})
 
 	// -- Mode/mind specific stuff goes here
 	callHook("clone", list(H))
@@ -315,9 +315,9 @@
 	else if((occupant) && (occupant.loc == src))
 		if((occupant.stat == DEAD) || (occupant.suiciding))  //Autoeject corpses and suiciding dudes.
 			locked = 0
+			Radio.autosay("The cloning of <b>[occupant]</b> has been aborted due to unrecoverable tissue failure.", name, "Medical", list(z))
 			go_out()
 			connected_message("Clone Rejected: Deceased.")
-			Radio.autosay("The cloning of <b>[occupant]</b> has been aborted due to unrecoverable tissue failure.", name, "Medical", list(z))
 
 		else if(occupant.cloneloss > (100 - heal_level))
 			occupant.Paralyse(4)
@@ -460,9 +460,7 @@
 	occupant.forceMove(get_turf(src))
 	eject_wait = 0 //If it's still set somehow.
 	domutcheck(occupant) //Waiting until they're out before possible notransform.
-	if(ishuman(occupant))
-		var/mob/living/carbon/human/H = occupant
-		H.shock_stage = 0 //Reset Shock
+	occupant.shock_stage = 0 //Reset Shock
 	occupant = null
 	update_icon()
 
@@ -475,9 +473,9 @@
 		if(occupant.mind != clonemind)
 			clonemind.transfer_to(occupant)
 		occupant.grab_ghost() // We really just want to make you suffer.
-		to_chat(occupant, "<span class='warning'><b>Agony blazes across your \
-			consciousness as your body is torn apart.</b><br>\
-			<i>Is this what dying is like? Yes it is.</i></span>")
+		to_chat(occupant, {"<span class='warning'><b>Agony blazes across your
+			consciousness as your body is torn apart.</b><br>
+			<i>Is this what dying is like? Yes it is.</i></span>"})
 		playsound(loc, 'sound/machines/warning-buzzer.ogg', 50, 0)
 		occupant << sound('sound/hallucinations/veryfar_noise.ogg',0,1,50)
 		spawn(40)
