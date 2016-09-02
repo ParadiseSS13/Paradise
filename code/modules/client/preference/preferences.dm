@@ -1374,33 +1374,26 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 					var/list/valid_hairstyles = list()
 					for(var/hairstyle in hair_styles_list)
 						var/datum/sprite_accessory/S = hair_styles_list[hairstyle]
+
 						if(hairstyle == "Bald") //Just in case.
-							valid_hairstyles[hairstyle] = S
+							valid_hairstyles += hairstyle
 							continue
-
 						if(species == "Machine") //Species that can use prosthetic heads.
-							var/obj/item/organ/external/head/H = new()
+							var/head_model
 							if(!rlimb_data["head"]) //Handle situations where the head is default.
-								H.model = "Morpheus Cyberkinetics"
+								head_model = "Morpheus Cyberkinetics"
 							else
-								H.model = rlimb_data["head"]
-							var/datum/robolimb/robohead = all_robolimbs[H.model]
-							if(species in S.species_allowed)
-								if(robohead.is_monitor && (robohead.company in S.models_allowed)) //If the Machine character has the default Morpheus screen head or another screen head
-																														   //and said head is in the hair style's allowed models list...
-									valid_hairstyles[hairstyle] = S //Allow them to select the hairstyle.
-								continue
+								head_model = rlimb_data["head"]
+							var/datum/robolimb/robohead = all_robolimbs[head_model]
+							if((species in S.species_allowed) && robohead.is_monitor && ((S.models_allowed && (robohead.company in S.models_allowed)) || !S.models_allowed)) //If this is a hair style native to the user's species, check to see if they have a head with an ipc-style screen and that the head's company is in the screen style's allowed models list.
+								valid_hairstyles += hairstyle //Give them their hairstyles if they do.
 							else
-								if(robohead.is_monitor) //Monitors (incl. the default morpheus head) cannot have wigs (human hairstyles).
-									continue
-								else if(!robohead.is_monitor && ("Human" in S.species_allowed))
-									valid_hairstyles[hairstyle] = S
-								continue
-						else
-							if(!(species in S.species_allowed))
-								continue
-
-							valid_hairstyles[hairstyle] = S
+								if(!robohead.is_monitor && ("Human" in S.species_allowed)) /*If the hairstyle is not native to the user's species and they're using a head with an ipc-style screen, don't let them access it.
+																							But if the user has a robotic humanoid head and the hairstyle can fit humans, let them use it as a wig. */
+									valid_hairstyles += hairstyle
+						else //If the user is not a species who can have robotic heads, use the default handling.
+							if(species in S.species_allowed) //If the user's head is of a species the hairstyle allows, add it to the list.
+								valid_hairstyles += hairstyle
 
 					var/new_h_style = input(user, "Choose your character's hair style:", "Character Preference") as null|anything in valid_hairstyles
 					if(new_h_style)
@@ -1423,7 +1416,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 							if(!(species in H.species_allowed))
 								continue
 
-							valid_head_accessory_styles[head_accessory_style] = head_accessory_styles_list[head_accessory_style]
+							valid_head_accessory_styles += head_accessory_style
 
 						var/new_head_accessory_style = input(user, "Choose the style of your character's head accessory:", "Character Preference") as null|anything in valid_head_accessory_styles
 						if(new_head_accessory_style)
@@ -1440,7 +1433,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 							if(!(species in head.species_allowed))
 								continue
 
-							valid_alt_heads[alternate_head] = alt_heads_list[alternate_head]
+							valid_alt_heads += alternate_head
 
 						var/new_alt_head = input(user, "Choose your character's alternate head style:", "Character Preference") as null|anything in valid_alt_heads
 						if(new_alt_head)
@@ -1469,19 +1462,19 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 									continue
 
 							if(species == "Machine") //Species that can use prosthetic heads.
-								var/obj/item/organ/external/head/H = new()
+								var/head_model
 								if(!rlimb_data["head"]) //Handle situations where the head is default.
-									H.model = "Morpheus Cyberkinetics"
+									head_model = "Morpheus Cyberkinetics"
 								else
-									H.model = rlimb_data["head"]
-								var/datum/robolimb/robohead = all_robolimbs[H.model]
+									head_model = rlimb_data["head"]
+								var/datum/robolimb/robohead = all_robolimbs[head_model]
 								if(robohead.is_monitor && M.name != "None") //If the character can have prosthetic heads and they have the default Morpheus head (or another monitor-head), no optic markings.
 									continue
 								else if(!robohead.is_monitor && M.name != "None") //Otherwise, if they DON'T have the default head and the head's not a monitor but the head's not in the style's list of allowed models, skip.
 									if(!(robohead.company in M.models_allowed))
 										continue
 
-							valid_markings[markingstyle] = marking_styles_list[markingstyle]
+							valid_markings += markingstyle
 
 						var/new_marking_style = input(user, "Choose the style of your character's head markings:", "Character Preference", m_styles["head"]) as null|anything in valid_markings
 						if(new_marking_style)
@@ -1505,7 +1498,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 							if(M.marking_location != "body")
 								continue
 
-							valid_markings[markingstyle] = marking_styles_list[markingstyle]
+							valid_markings += markingstyle
 
 						var/new_marking_style = input(user, "Choose the style of your character's body markings:", "Character Preference", m_styles["body"]) as null|anything in valid_markings
 						if(new_marking_style)
@@ -1535,7 +1528,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 								if(!M.tails_allowed || !(body_accessory in M.tails_allowed))
 									continue
 
-							valid_markings[markingstyle] = marking_styles_list[markingstyle]
+							valid_markings += markingstyle
 
 						var/new_marking_style = input(user, "Choose the style of your character's tail markings:", "Character Preference", m_styles["tail"]) as null|anything in valid_markings
 						if(new_marking_style)
@@ -1585,41 +1578,35 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 								b_facial_sec = color2B(new_facial)
 
 				if("f_style")
-					var/list/valid_facialhairstyles = list()
+					var/list/valid_facial_hairstyles = list()
 					for(var/facialhairstyle in facial_hair_styles_list)
 						var/datum/sprite_accessory/S = facial_hair_styles_list[facialhairstyle]
-						if(facialhairstyle == "Shaved") //Just in case.
-							valid_facialhairstyles[facialhairstyle] = S
-							continue
 
+						if(facialhairstyle == "Shaved") //Just in case.
+							valid_facial_hairstyles += facialhairstyle
+							continue
 						if(gender == MALE && S.gender == FEMALE)
 							continue
 						if(gender == FEMALE && S.gender == MALE)
 							continue
 						if(species == "Machine") //Species that can use prosthetic heads.
-							var/obj/item/organ/external/head/H = new()
+							var/head_model
 							if(!rlimb_data["head"]) //Handle situations where the head is default.
-								H.model = "Morpheus Cyberkinetics"
+								head_model = "Morpheus Cyberkinetics"
 							else
-								H.model = rlimb_data["head"]
-							var/datum/robolimb/robohead = all_robolimbs[H.model]
-							if(species in S.species_allowed)
-								if(robohead.is_monitor) //If the Machine character has the default Morpheus screen head or another screen head and they're allowed to have the style, let them have it.
-									valid_facialhairstyles[facialhairstyle] = S
-								continue
+								head_model = rlimb_data["head"]
+							var/datum/robolimb/robohead = all_robolimbs[head_model]
+							if((species in S.species_allowed) && robohead.is_monitor && ((S.models_allowed && (robohead.company in S.models_allowed)) || !S.models_allowed)) //If this is a facial hair style native to the user's species, check to see if they have a head with an ipc-style screen and that the head's company is in the screen style's allowed models list.
+								valid_facial_hairstyles += facialhairstyle //Give them their facial hairstyles if they do.
 							else
-								if(robohead.is_monitor) //Monitors (incl. the default morpheus head) cannot have wigs (human facial hairstyles).
-									continue
-								else if(!robohead.is_monitor && ("Human" in S.species_allowed))
-									valid_facialhairstyles[facialhairstyle] = S
-								continue
-						else
-							if(!(species in S.species_allowed))
-								continue
+								if(!robohead.is_monitor && ("Human" in S.species_allowed)) /*If the facial hairstyle is not native to the user's species and they're using a head with an ipc-style screen, don't let them access it.
+																							But if the user has a robotic humanoid head and the facial hairstyle can fit humans, let them use it as a wig. */
+									valid_facial_hairstyles += facialhairstyle
+						else //If the user is not a species who can have robotic heads, use the default handling.
+							if(species in S.species_allowed) //If the user's head is of a species the facial hair style allows, add it to the list.
+								valid_facial_hairstyles += facialhairstyle
 
-						valid_facialhairstyles[facialhairstyle] = S
-
-					var/new_f_style = input(user, "Choose your character's facial-hair style:", "Character Preference")  as null|anything in valid_facialhairstyles
+					var/new_f_style = input(user, "Choose your character's facial-hair style:", "Character Preference")  as null|anything in valid_facial_hairstyles
 					if(new_f_style)
 						f_style = new_f_style
 

@@ -993,7 +993,7 @@
 	name = "Vulpine"
 	icon_state = "vulp_facial_vulpine"
 
-/datum/sprite_accessory/facial_hair/vulpkanin/vulp_vulpine
+/datum/sprite_accessory/facial_hair/vulpkanin/vulp_vulpine_brows
 	name = "Vulpine and Brows"
 	icon_state = "vulp_facial_vulpine_brows"
 

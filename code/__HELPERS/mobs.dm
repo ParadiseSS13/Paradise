@@ -52,28 +52,23 @@ proc/random_hair_style(var/gender, species = "Human", var/datum/robolimb/robohea
 	for(var/hairstyle in hair_styles_list)
 		var/datum/sprite_accessory/S = hair_styles_list[hairstyle]
 
+		if(hairstyle == "Bald") //Just in case.
+			valid_hairstyles += hairstyle
+			continue
 		if((gender == MALE && S.gender == FEMALE) || (gender == FEMALE && S.gender == MALE))
 			continue
 		if(species == "Machine") //If the user is a species who can have a robotic head...
 			if(!robohead)
 				robohead = all_robolimbs["Morpheus Cyberkinetics"]
-			if(species in S.species_allowed) //If this is a facial hair style native to the user's species...
-				if(robohead.is_monitor && (robohead.company in S.models_allowed)) //Check to see if they have a head with an ipc-style screen and that the head's company is in the screen style's allowed models list.
-					valid_hairstyles += hairstyle //Give them their hairstyles if they do.
-					continue
-				else //If they don't have the default head, they shouldn't be getting any hairstyles they wouldn't normally.
-					continue
+			if((species in S.species_allowed) && robohead.is_monitor && ((S.models_allowed && (robohead.company in S.models_allowed)) || !S.models_allowed)) //If this is a hair style native to the user's species, check to see if they have a head with an ipc-style screen and that the head's company is in the screen style's allowed models list.
+				valid_hairstyles += hairstyle //Give them their hairstyles if they do.
 			else
-				if(robohead.is_monitor) //If the hairstyle is not native to the user's species and they're using a head with an ipc-style screen, don't let them access it.
-					continue
-				else
-					if("Human" in S.species_allowed) //If the user has a robotic humanoid head and the hairstyle can fit humans, let them use it as a wig.
-						valid_hairstyles += hairstyle
-					continue
+				if(!robohead.is_monitor && ("Human" in S.species_allowed)) /*If the hairstyle is not native to the user's species and they're using a head with an ipc-style screen, don't let them access it.
+																			But if the user has a robotic humanoid head and the hairstyle can fit humans, let them use it as a wig. */
+					valid_hairstyles += hairstyle
 		else //If the user is not a species who can have robotic heads, use the default handling.
-			if(!(species in S.species_allowed)) //If the user's head is not of a species the hairstyle allows, skip it. Otherwise, add it to the list.
-				continue
-			valid_hairstyles += hairstyle
+			if(species in S.species_allowed) //If the user's head is of a species the hairstyle allows, add it to the list.
+				valid_hairstyles += hairstyle
 
 	if(valid_hairstyles.len)
 		h_style = pick(valid_hairstyles)
@@ -86,28 +81,23 @@ proc/random_facial_hair_style(var/gender, species = "Human", var/datum/robolimb/
 	for(var/facialhairstyle in facial_hair_styles_list)
 		var/datum/sprite_accessory/S = facial_hair_styles_list[facialhairstyle]
 
+		if(facialhairstyle == "Shaved") //Just in case.
+			valid_facial_hairstyles += facialhairstyle
+			continue
 		if((gender == MALE && S.gender == FEMALE) || (gender == FEMALE && S.gender == MALE))
 			continue
 		if(species == "Machine") //If the user is a species who can have a robotic head...
 			if(!robohead)
 				robohead = all_robolimbs["Morpheus Cyberkinetics"]
-			if(species in S.species_allowed) //If this is a facial hair style native to the user's species...
-				if(robohead.is_monitor && (robohead.company in S.models_allowed)) //Check to see if they have a head with an ipc-style screen and that the head's company is in the screen style's allowed models list.
-					valid_facial_hairstyles += facialhairstyle //Give them their facial hair styles if they do.
-					continue
-				else //If they don't have the default head, they shouldn't be getting any facial hair styles they wouldn't normally.
-					continue
+			if((species in S.species_allowed) && robohead.is_monitor && ((S.models_allowed && (robohead.company in S.models_allowed)) || !S.models_allowed)) //If this is a facial hair style native to the user's species, check to see if they have a head with an ipc-style screen and that the head's company is in the screen style's allowed models list.
+				valid_facial_hairstyles += facialhairstyle //Give them their facial hairstyles if they do.
 			else
-				if(robohead.is_monitor) //If the facial hair style is not native to the user's species and they're using a head with an ipc-style screen, don't let them access it.
-					continue
-				else
-					if("Human" in S.species_allowed) //If the user has a robotic humanoid head and the facial hair style can fit humans, let them use it as a postiche.
-						valid_facial_hairstyles += facialhairstyle
-					continue
+				if(!robohead.is_monitor && ("Human" in S.species_allowed)) /*If the facial hairstyle is not native to the user's species and they're using a head with an ipc-style screen, don't let them access it.
+																			But if the user has a robotic humanoid head and the facial hairstyle can fit humans, let them use it as a wig. */
+					valid_facial_hairstyles += facialhairstyle
 		else //If the user is not a species who can have robotic heads, use the default handling.
-			if(!(species in S.species_allowed)) //If the user's head is not of a species the facial hair style allows, skip it. Otherwise, add it to the list.
-				continue
-			valid_facial_hairstyles += facialhairstyle
+			if(species in S.species_allowed) //If the user's head is of a species the facial hair style allows, add it to the list.
+				valid_facial_hairstyles += facialhairstyle
 
 	if(valid_facial_hairstyles.len)
 		f_style = pick(valid_facial_hairstyles)
