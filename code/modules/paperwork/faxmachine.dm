@@ -128,8 +128,9 @@ var/list/alldepartments = list()
 			var/list/combineddepartments = alldepartments
 			if(long_range_enabled)
 				combineddepartments += admin_departments
-				if(emagged)
-					combineddepartments += hidden_admin_departments
+			
+			if(emagged)
+				combineddepartments += hidden_admin_departments
 
 			destination = input(usr, "To which department?", "Choose a department", "") as null|anything in combineddepartments
 			if(!destination)
