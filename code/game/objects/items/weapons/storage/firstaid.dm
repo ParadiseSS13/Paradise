@@ -140,7 +140,7 @@
 	..()
 	if(empty)
 		return
-	new /obj/item/stack/medical/bruise_pack(src)
+	new /obj/item/stack/medical/splint(src)
 	new /obj/item/stack/medical/bruise_pack/advanced(src)
 	new /obj/item/stack/medical/bruise_pack/advanced(src)
 	new /obj/item/stack/medical/ointment/advanced(src)
