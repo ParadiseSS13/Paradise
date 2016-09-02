@@ -145,7 +145,7 @@
 	new /obj/item/stack/medical/bruise_pack/advanced(src)
 	new /obj/item/stack/medical/ointment/advanced(src)
 	new /obj/item/stack/medical/ointment/advanced(src)
-	new /obj/item/weapon/reagent_containers/hypospray/autoinjector(src)
+	new /obj/item/stack/medical/bruise_pack (src)
 	new /obj/item/device/healthanalyzer(src)
 
 /obj/item/weapon/storage/firstaid/adv/empty
