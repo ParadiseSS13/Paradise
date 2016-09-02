@@ -23,7 +23,7 @@
 	H.equip_or_collect(new /obj/item/device/pda/centcom(H), slot_wear_pda)
 	H.equip_or_collect(new /obj/item/clothing/glasses/hud/security/sunglasses(H), slot_glasses)
 	H.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel(H), slot_back)
-	H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H), slot_in_backpack)
+	give_kit(H)
 	H.equip_or_collect(new /obj/item/weapon/gun/energy/pulse/pistol(H), slot_in_backpack)
 
 	H.equip_or_collect(new /obj/item/weapon/implanter/dust(H), slot_in_backpack)
@@ -65,7 +65,7 @@
 	H.equip_or_collect(new /obj/item/clothing/glasses/hud/security/sunglasses(H), slot_glasses)
 	H.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel(H), slot_back)
 	H.equip_or_collect(new /obj/item/clothing/suit/space/deathsquad/officer(H), slot_wear_suit)
-	H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H), slot_in_backpack)
+	give_kit(H)
 	H.equip_or_collect(new /obj/item/weapon/implanter/dust(H), slot_in_backpack)
 	H.equip_or_collect(new /obj/item/weapon/gun/energy/pulse/pistol/m1911(H), slot_belt)
 	H.equip_or_collect(new /obj/item/weapon/implanter/death_alarm(H), slot_in_backpack)

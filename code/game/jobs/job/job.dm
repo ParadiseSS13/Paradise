@@ -122,3 +122,9 @@
 
 /datum/job/proc/is_position_available()
 	return (current_positions < total_positions) || (total_positions == -1)
+
+/datum/job/proc/give_kit(var/mob/living/carbon/human/H)//equips person with a survival kit depending on their species
+	var/obj/item/weapon/storage/box/kit = new
+	for(var/I in H.species.starting_gear)
+		new I(kit)
+	H.equip_or_collect(kit, slot_in_backpack)

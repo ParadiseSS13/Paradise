@@ -156,6 +156,7 @@
 		)
 	var/cyborg_type = "Cyborg"
 	var/list/proc/species_abilities = list()
+	var/list/starting_gear = list(/obj/item/weapon/tank/emergency_oxygen, /obj/item/clothing/mask/breath, /obj/item/weapon/reagent_containers/hypospray/autoinjector) //for emergency box content at roundstart
 
 /datum/species/New()
 	//If the species has eyes, they are the default vision organ

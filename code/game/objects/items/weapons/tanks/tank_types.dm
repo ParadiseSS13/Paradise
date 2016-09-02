@@ -19,7 +19,7 @@
 
 	New()
 		..()
-		src.air_contents.oxygen = (6*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C)
+		air_contents.oxygen = (6*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C)
 		return
 
 
@@ -51,12 +51,12 @@
 /obj/item/weapon/tank/anesthetic/New()
 	..()
 
-	src.air_contents.oxygen = (3*ONE_ATMOSPHERE)*70/(R_IDEAL_GAS_EQUATION*T20C) * O2STANDARD
+	air_contents.oxygen = (3*ONE_ATMOSPHERE)*70/(R_IDEAL_GAS_EQUATION*T20C) * O2STANDARD
 
 	var/datum/gas/sleeping_agent/trace_gas = new()
 	trace_gas.moles = (3*ONE_ATMOSPHERE)*70/(R_IDEAL_GAS_EQUATION*T20C) * N2STANDARD
 
-	src.air_contents.trace_gases += trace_gas
+	air_contents.trace_gases += trace_gas
 	return
 
 /*
@@ -77,8 +77,8 @@
 /obj/item/weapon/tank/air/New()
 	..()
 
-	src.air_contents.oxygen = (6*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C) * O2STANDARD
-	src.air_contents.nitrogen = (6*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C) * N2STANDARD
+	air_contents.oxygen = (6*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C) * O2STANDARD
+	air_contents.nitrogen = (6*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C) * N2STANDARD
 	return
 
 /*
@@ -93,7 +93,7 @@
 
 /obj/item/weapon/tank/plasma/New()
 	..()
-	src.air_contents.toxins = (3*ONE_ATMOSPHERE)*70/(R_IDEAL_GAS_EQUATION*T20C)
+	air_contents.toxins = (3*ONE_ATMOSPHERE)*70/(R_IDEAL_GAS_EQUATION*T20C)
 	return
 
 
@@ -103,16 +103,16 @@
 	if(istype(W, /obj/item/weapon/flamethrower))
 		var/obj/item/weapon/flamethrower/F = W
 		if((!F.status)||(F.ptank))	return
-		src.master = F
+		master = F
 		F.ptank = src
 		user.unEquip(src)
-		src.loc = F
+		loc = F
 		F.update_icon()
 	return
 
 /obj/item/weapon/tank/plasma/full/New()
 	..()
-	src.air_contents.toxins = (10*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C)
+	air_contents.toxins = (10*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C)
 	return
 
 /obj/item/weapon/tank/plasma/plasmaman
@@ -143,7 +143,7 @@
 
 	New()
 		..()
-		src.air_contents.oxygen = (3*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C)
+		air_contents.oxygen = (3*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C)
 		return
 
 
@@ -169,7 +169,7 @@
 
 	New()
 		..()
-		src.air_contents.oxygen = (10*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C)
+		air_contents.oxygen = (10*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C)
 		return
 
 /*
@@ -185,7 +185,7 @@
 /obj/item/weapon/tank/nitrogen/New()
 	..()
 
-	src.air_contents.nitrogen = (3*ONE_ATMOSPHERE)*70/(R_IDEAL_GAS_EQUATION*T20C)
+	air_contents.nitrogen = (3*ONE_ATMOSPHERE)*70/(R_IDEAL_GAS_EQUATION*T20C)
 	return
 
 /obj/item/weapon/tank/nitrogen/examine(mob/user)
@@ -202,9 +202,30 @@
 	item_state = "emergency_vox"
 	volume = 25
 
+	New()
+		..()
+		air_contents.oxygen -= (3*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C)
+		air_contents.nitrogen = (10*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C)
+		return
+
+/obj/item/weapon/tank/emergency_oxygen/nitrogen
+	name = "emergency nitrogen tank"
+	desc = "An emergency tank designed specifically for Vox."
+	icon_state = "emergency_nitrogen"
+	volume = 3
 
 	New()
 		..()
-		src.air_contents.oxygen -= (3*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C)
-		src.air_contents.nitrogen = (10*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C)
-		return
+		air_contents.oxygen -= (3*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C)
+		air_contents.nitrogen = (10*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C)
+
+/obj/item/weapon/tank/emergency_oxygen/plasma
+	name = "emergency plasma tank"
+	desc = "An emergency tank designed specifically for Plasmamen."
+	icon_state = "emergency_p"
+	volume = 3
+
+	New()
+		..()
+		air_contents.oxygen -= (3*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C)
+		air_contents.toxins = (10*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C)
