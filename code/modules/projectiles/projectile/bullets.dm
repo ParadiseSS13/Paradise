@@ -114,11 +114,11 @@
 
 /obj/item/projectile/bullet/midbullet3/hp
 	damage = 45
-	armour_penetration = -100
+	armour_penetration = -70
 
 /obj/item/projectile/bullet/midbullet3/ap
 	damage = 27
-	armour_penetration = 80
+	armour_penetration = 40
 
 /obj/item/projectile/bullet/midbullet3/fire/on_hit(atom/target, blocked = 0)
 	if(..(target, blocked))
