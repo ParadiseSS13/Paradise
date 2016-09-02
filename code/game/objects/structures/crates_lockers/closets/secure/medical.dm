@@ -12,7 +12,6 @@
 
 	New()
 		..()
-		new /obj/item/weapon/storage/box/autoinjectors(src)
 		new /obj/item/weapon/storage/box/syringes(src)
 		new /obj/item/weapon/reagent_containers/dropper(src)
 		new /obj/item/weapon/reagent_containers/dropper(src)
