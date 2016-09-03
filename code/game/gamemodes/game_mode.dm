@@ -388,7 +388,7 @@ proc/display_roundstart_logout_report()
 
 
 	for(var/mob/M in mob_list)
-		if(M.client && M.client.holder)
+		if(M.client && M.client.holder && (M.client.holder.rights & R_ADMIN))
 			to_chat(M, msg)
 
 
