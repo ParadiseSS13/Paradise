@@ -33,7 +33,7 @@
 		H.equip_or_collect(new /obj/item/weapon/storage/belt/utility/full(H), slot_belt)
 		H.equip_or_collect(new /obj/item/clothing/gloves/color/black/ce(H), slot_gloves)
 		H.equip_or_collect(new /obj/item/weapon/storage/box/engineer(H), slot_in_backpack)
-		H.equip_or_collect(new /obj/item/weapon/melee/classic_baton/telescopic(H.back), slot_in_backpack)
+		H.equip_or_collect(new /obj/item/weapon/melee/classic_baton/telescopic(H), slot_in_backpack)
 		return 1
 
 
@@ -125,5 +125,5 @@
 		H.equip_or_collect(new /obj/item/device/t_scanner(H), slot_r_store)
 		H.equip_or_collect(new /obj/item/device/pda/engineering(H), slot_wear_pda)
 		H.equip_or_collect(new /obj/item/weapon/storage/box/engineer(H), slot_in_backpack)
-		H.equip_or_collect(new /obj/item/weapon/pod_paint_bucket(H.back), slot_in_backpack)
+		H.equip_or_collect(new /obj/item/weapon/pod_paint_bucket(H), slot_in_backpack)
 		return 1

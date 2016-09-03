@@ -30,7 +30,7 @@
 		H.equip_or_collect(new /obj/item/weapon/storage/firstaid/adv(H), slot_l_hand)
 		H.equip_or_collect(new /obj/item/device/flashlight/pen(H), slot_s_store)
 		H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H), slot_in_backpack)
-		H.equip_or_collect(new /obj/item/weapon/melee/classic_baton/telescopic(H.back), slot_in_backpack)
+		H.equip_or_collect(new /obj/item/weapon/melee/classic_baton/telescopic(H), slot_in_backpack)
 		return 1
 
 
@@ -62,10 +62,10 @@
 					H.equip_or_collect(new /obj/item/clothing/under/rank/medical/mortician(H), slot_w_uniform)
 					H.equip_or_collect(new /obj/item/clothing/suit/storage/labcoat/mortician(H), slot_wear_suit)
 					if(H.backbag != 1)
-						H.equip_or_collect(new /obj/item/clothing/head/surgery/black(H.back), slot_in_backpack)
-						H.equip_or_collect(new /obj/item/weapon/autopsy_scanner(H.back), slot_in_backpack)
-						H.equip_or_collect(new /obj/item/device/mass_spectrometer(H.back), slot_in_backpack)
-						H.equip_or_collect(new /obj/item/weapon/storage/box/bodybags(H.back), slot_in_backpack)
+						H.equip_or_collect(new /obj/item/clothing/head/surgery/black(H), slot_in_backpack)
+						H.equip_or_collect(new /obj/item/weapon/autopsy_scanner(H), slot_in_backpack)
+						H.equip_or_collect(new /obj/item/device/mass_spectrometer(H), slot_in_backpack)
+						H.equip_or_collect(new /obj/item/weapon/storage/box/bodybags(H), slot_in_backpack)
 				if("Surgeon")
 					H.equip_or_collect(new /obj/item/clothing/under/rank/medical/blue(H), slot_w_uniform)
 					H.equip_or_collect(new /obj/item/clothing/suit/storage/labcoat(H), slot_wear_suit)
@@ -248,5 +248,5 @@
 		H.equip_or_collect(new /obj/item/clothing/head/soft/blue(H), slot_head)
 		H.equip_or_collect(new /obj/item/device/flashlight/pen(H), slot_s_store)
 		H.equip_or_collect(new /obj/item/weapon/storage/box/engineer(H), slot_in_backpack)
-		H.equip_or_collect(new /obj/item/device/healthanalyzer(H.back), slot_in_backpack)
+		H.equip_or_collect(new /obj/item/device/healthanalyzer(H), slot_in_backpack)
 		return 1

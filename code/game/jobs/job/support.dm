@@ -25,7 +25,7 @@
 		H.equip_or_collect(new /obj/item/device/pda/bar(H), slot_wear_pda)
 		H.equip_or_collect(new /obj/item/weapon/storage/belt/bandolier/full(H), slot_in_backpack)
 		H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H), slot_in_backpack)
-		H.equip_or_collect(new /obj/item/toy/russian_revolver(H.back), slot_in_backpack)
+		H.equip_or_collect(new /obj/item/toy/russian_revolver(H), slot_in_backpack)
 
 		H.dna.SetSEState(SOBERBLOCK,1)
 		H.mutations += SOBER
@@ -185,8 +185,8 @@
 		H.equip_or_collect(new /obj/item/clothing/shoes/workboots(H), slot_shoes)
 		H.equip_or_collect(new /obj/item/weapon/reagent_containers/food/pill/patch/styptic(H), slot_l_store)
 		H.equip_or_collect(new /obj/item/device/flashlight/seclite(H), slot_r_store)
-		H.equip_or_collect(new /obj/item/weapon/mining_voucher(H.back), slot_in_backpack)
-		H.equip_or_collect(new /obj/item/weapon/storage/bag/ore(H.back), slot_in_backpack)
+		H.equip_or_collect(new /obj/item/weapon/mining_voucher(H), slot_in_backpack)
+		H.equip_or_collect(new /obj/item/weapon/storage/bag/ore(H), slot_in_backpack)
 		H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H), slot_in_backpack)
 		return 1
 
@@ -360,6 +360,6 @@
 		H.equip_or_collect(new /obj/item/clothing/under/barber(H), slot_w_uniform)
 		H.equip_or_collect(new /obj/item/clothing/shoes/black(H), slot_shoes)
 		H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H), slot_in_backpack)
-		H.equip_or_collect(new /obj/item/weapon/storage/box/barber(H.back), slot_in_backpack)
-		H.equip_or_collect(new /obj/item/weapon/storage/box/lip_stick(H.back), slot_in_backpack)
+		H.equip_or_collect(new /obj/item/weapon/storage/box/barber(H), slot_in_backpack)
+		H.equip_or_collect(new /obj/item/weapon/storage/box/lip_stick(H), slot_in_backpack)
 		return 1

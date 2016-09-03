@@ -24,7 +24,7 @@
 		H.equip_or_collect(new /obj/item/device/pda/chaplain(H), slot_wear_pda)
 		H.equip_or_collect(new /obj/item/clothing/shoes/black(H), slot_shoes)
 		H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H), slot_in_backpack)
-		H.equip_or_collect(new /obj/item/device/camera/spooky(H.back), slot_in_backpack)
+		H.equip_or_collect(new /obj/item/device/camera/spooky(H), slot_in_backpack)
 		spawn(0)
 			var/religion_name = "Christianity"
 			var/new_religion = sanitize(copytext(input(H, "You are the crew services officer. Would you like to change your religion? Default is Christianity, in SPACE.", "Name change", religion_name),1,MAX_NAME_LEN))
