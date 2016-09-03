@@ -2,16 +2,11 @@
 	name = "tank"
 	icon = 'icons/vehicles/tanks.dmi'
 	icon_state = "tank_green"
-	vehicle_move_delay = 4
+	vehicle_move_delay = 3
 	var/allow_fire = 0
 	var/recoil_delay = 10
 	var/resume_move = 10
 	var/datum/action/innate/fire_cannon/fire_cannon_action = new
-
-
-/obj/vehicle/tank/New()
-	..()
-
 
 /obj/vehicle/tank/handle_vehicle_layer()
 	layer = MOB_LAYER+0.1
@@ -39,7 +34,18 @@
 
 	else
 		var/obj/item/projectile/A = new bullet_type(curloc)
-		A.dumbfire(owner.dir)
+		if(target.dir == NORTH)
+			A.Angle = 360
+
+		if(target.dir == EAST)
+			A.Angle = 90
+
+		if(target.dir == SOUTH)
+			A.Angle = 180
+
+		if(target.dir == WEST)
+			A.Angle = 270
+		A.fire()
 		next_firetime = world.time+fire_delay
 		T.resume_move = world.time+T.recoil_delay
 
@@ -58,6 +64,11 @@
 /obj/vehicle/tank/unbuckle_mob(mob/living/M)
 	fire_cannon_action.Remove(buckled_mob)
 	..()
+
+/obj/vehicle/tank/Destroy()
+	fire_cannon_action.Remove(buckled_mob)
+	..()
+
 
 /obj/vehicle/tank/tank_green
 	name = "green tank"
