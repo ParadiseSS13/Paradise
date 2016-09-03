@@ -17,17 +17,15 @@
 	distribute_pressure = ONE_ATMOSPHERE*O2STANDARD
 
 
-	New()
-		..()
-		air_contents.oxygen = (6*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C)
-		return
+/obj/item/weapon/tank/oxygen/New()
+	..()
+	air_contents.oxygen = (6*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C)
 
-
-	examine(mob/user)
-		if(..(user, 0))
-			if(air_contents.oxygen < 10)
-				to_chat(user, text("<span class='danger'>The meter on the [src.name] indicates you are almost out of air!</span>"))
-				//playsound(usr, 'sound/effects/alert.ogg', 50, 1)
+/obj/item/weapon/tank/oxygen/examine(mob/user)
+	if(..(user, 0))
+		if(air_contents.oxygen < 10)
+			to_chat(user, text("<span class='danger'>The meter on the [src.name] indicates you are almost out of air!</span>"))
+			//playsound(usr, 'sound/effects/alert.ogg', 50, 1)
 
 
 /obj/item/weapon/tank/oxygen/yellow
@@ -57,7 +55,6 @@
 	trace_gas.moles = (3*ONE_ATMOSPHERE)*70/(R_IDEAL_GAS_EQUATION*T20C) * N2STANDARD
 
 	air_contents.trace_gases += trace_gas
-	return
 
 /*
  * Air
@@ -68,18 +65,16 @@
 	icon_state = "oxygen"
 
 
-	examine(mob/user)
-		if(..(user, 0))
-			if(air_contents.oxygen < 1 && loc==usr)
-				to_chat(user, "<span class='danger'>The meter on the [src.name] indicates you are almost out of air!</span>")
-				user << sound('sound/effects/alert.ogg')
+/obj/item/weapon/tank/air/examine(mob/user)
+	if(..(user, 0))
+		if(air_contents.oxygen < 1 && loc==usr)
+			to_chat(user, "<span class='danger'>The meter on the [src.name] indicates you are almost out of air!</span>")
+			user << sound('sound/effects/alert.ogg')
 
 /obj/item/weapon/tank/air/New()
 	..()
-
 	air_contents.oxygen = (6*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C) * O2STANDARD
 	air_contents.nitrogen = (6*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C) * N2STANDARD
-	return
 
 /*
  * Plasma
@@ -94,8 +89,6 @@
 /obj/item/weapon/tank/plasma/New()
 	..()
 	air_contents.toxins = (3*ONE_ATMOSPHERE)*70/(R_IDEAL_GAS_EQUATION*T20C)
-	return
-
 
 /obj/item/weapon/tank/plasma/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	..()
@@ -108,12 +101,10 @@
 		user.unEquip(src)
 		loc = F
 		F.update_icon()
-	return
 
 /obj/item/weapon/tank/plasma/full/New()
 	..()
 	air_contents.toxins = (10*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C)
-	return
 
 /obj/item/weapon/tank/plasma/plasmaman
 	desc = "The lifeblood of plasmamen.  Warning:  Extremely flammable, do not inhale (unless you're a plasman)."
@@ -141,17 +132,15 @@
 	volume = 3 //Tiny. Real life equivalents only have 21 breaths of oxygen in them. They're EMERGENCY tanks anyway -errorage (dangercon 2011)
 
 
-	New()
-		..()
-		air_contents.oxygen = (3*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C)
-		return
+/obj/item/weapon/tank/emergency_oxygen/New()
+	..()
+	air_contents.oxygen = (3*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C)
 
-
-	examine(mob/user)
-		if(..(user, 0))
-			if(air_contents.oxygen < 0.2 && loc==usr)
-				to_chat(user, text("<span class='danger'>The meter on the [src.name] indicates you are almost out of air!</span>"))
-				user << sound('sound/effects/alert.ogg')
+/obj/item/weapon/tank/emergency_oxygen/examine(mob/user)
+	if(..(user, 0))
+		if(air_contents.oxygen < 0.2 && loc==usr)
+			to_chat(user, text("<span class='danger'>The meter on the [src.name] indicates you are almost out of air!</span>"))
+			user << sound('sound/effects/alert.ogg')
 
 /obj/item/weapon/tank/emergency_oxygen/engi
 	name = "extended-capacity emergency oxygen tank"
@@ -167,10 +156,9 @@
 	name = "pressurized double emergency oxygen tank"
 	desc = "Used for \"emergencies,\" it actually contains a fair amount of oxygen."
 
-	New()
-		..()
-		air_contents.oxygen = (10*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C)
-		return
+/obj/item/weapon/tank/emergency_oxygen/double/full/New()
+	..()
+	air_contents.oxygen = (10*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C)
 
 /*
  * Nitrogen
@@ -184,16 +172,13 @@
 
 /obj/item/weapon/tank/nitrogen/New()
 	..()
-
 	air_contents.nitrogen = (3*ONE_ATMOSPHERE)*70/(R_IDEAL_GAS_EQUATION*T20C)
-	return
 
 /obj/item/weapon/tank/nitrogen/examine(mob/user)
 	if(..(user, 0))
 		if(air_contents.nitrogen < 10)
 			to_chat(user, text("<span class='danger'>The meter on the [src.name] indicates you are almost out of air!</span>"))
 			//playsound(usr, 'sound/effects/alert.ogg', 50, 1)
-
 
 /obj/item/weapon/tank/emergency_oxygen/vox
 	name = "vox specialized nitrogen tank"
@@ -202,11 +187,10 @@
 	item_state = "emergency_vox"
 	volume = 25
 
-	New()
-		..()
-		air_contents.oxygen -= (3*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C)
-		air_contents.nitrogen = (10*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C)
-		return
+/obj/item/weapon/tank/emergency_oxygen/vox/New()
+	..()
+	air_contents.oxygen -= (3*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C)
+	air_contents.nitrogen = (10*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C)
 
 /obj/item/weapon/tank/emergency_oxygen/nitrogen
 	name = "emergency nitrogen tank"
@@ -214,10 +198,10 @@
 	icon_state = "emergency_nitrogen"
 	volume = 3
 
-	New()
-		..()
-		air_contents.oxygen -= (3*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C)
-		air_contents.nitrogen = (10*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C)
+/obj/item/weapon/tank/emergency_oxygen/nitrogen/New()
+	..()
+	air_contents.oxygen -= (3*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C)
+	air_contents.nitrogen = (10*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C)
 
 /obj/item/weapon/tank/emergency_oxygen/plasma
 	name = "emergency plasma tank"
@@ -225,7 +209,7 @@
 	icon_state = "emergency_p"
 	volume = 3
 
-	New()
-		..()
-		air_contents.oxygen -= (3*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C)
-		air_contents.toxins = (10*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C)
+/obj/item/weapon/tank/emergency_oxygen/plasma/New()
+	..()
+	air_contents.oxygen -= (3*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C)
+	air_contents.toxins = (10*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C)
