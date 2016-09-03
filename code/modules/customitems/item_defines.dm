@@ -132,6 +132,11 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "book_berner_1"
 
+/obj/item/clothing/glasses/sunglasses/fake/fluff/kaki //Rapidvalj: Kakicharakiti
+	name = "broken thermonocle"
+	desc = "A weathered Vox thermonocle, doesn't seem to work anymore."
+	icon_state = "thermoncle"
+
 /obj/item/weapon/lighter/zippo/fluff/purple // GodOfOreos: Jason Conrad
 	name = "purple engraved zippo"
 	desc = "All craftsspacemanship is of the highest quality. It is encrusted with refined plasma sheets. On the item is an image of a dwarf and the words 'Strike the Earth!' etched onto the side."
@@ -330,6 +335,11 @@
 	name = "Green beret"
 	desc = "A beret, an artist's favorite headwear. This one has two holes cut on the edges."
 	icon_state = "linda_beret"
+
+/obj/item/clothing/head/fluff/kaki //Rapidvalj: Kakicharakiti
+	name = "sleek fancy leader hat"
+	desc = "A uniquely colored vox leader hat. Has some signs of wear."
+	icon_state = "kakicharakiti"
 
 //////////// Suits ////////////
 /obj/item/clothing/suit/storage/labcoat/fluff/aeneas_rinil //Socialsystem: Lynn Fea
