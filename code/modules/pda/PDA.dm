@@ -498,3 +498,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 	else
 		close(usr)
 	return 0
+
+/obj/item/device/pda/process()
+	if(current_app)
+		current_app.program_process()

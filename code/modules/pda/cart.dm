@@ -22,7 +22,7 @@
 	if(radio)
 		radio.initialize()
 	..()
-		
+
 /obj/item/weapon/cartridge/Destroy()
 	if(radio)
 		qdel(radio)
@@ -312,3 +312,22 @@
 	var/datum/data/pda/utility/toggle_door/D = programs[1]
 	if(istype(D))
 		D.remote_door_id = initial_remote_door_id
+
+/obj/item/weapon/cartridge/mob_hunt_game
+	name = "Nano-Mob Hunter GO"
+	desc = "The hit new PDA game that lets you track down and capture your favorite Nano-Mobs living in your world!"
+	icon_state = "cart-eye"
+	programs = list(
+		new/datum/data/pda/app/mob_hunter_game)
+
+/obj/item/weapon/cartridge/mob_hunt_game/attackby(obj/item/O, mob/user)
+	if(istype(O, /obj/item/weapon/nanomob_card))
+		var/obj/item/weapon/nanomob_card/card = O
+		var/datum/data/pda/app/mob_hunter_game/my_game = programs[1]
+		if(my_game.register_capture(card.mob_data))
+			to_chat(user, "<span class='notice'>Transfer successful!</span>")
+			qdel(card)
+		else
+			to_chat(user, "<span class='warning'>Transfer failed. Could not read mob data from card.</span>")
+	else
+		..()

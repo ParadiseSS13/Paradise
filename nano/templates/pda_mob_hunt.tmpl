@@ -1,0 +1,35 @@
+{{if data.no_collection}}
+	<div class="item">
+		<div class="itemLabel">My Collection:</div>
+	</div>
+	<div class="item">
+		 <span class="average">Your collection is empty! Go capture some Nano-Mobs!</span>
+	</div>
+{{else}}
+	<div class="statusDisplayRecords">
+		<div class="item">
+			<div class="itemContent" style="width: 100%;">
+				{{if data.entry}}
+					{{if data.entry.nickname}}
+						<span class="good">Name: </span> <span class="average"> {{:data.entry.nickname}}</span><br>
+					{{/if}}
+					<span class="good">Species: </span> <span class="average">{{:data.entry.real_name}} </span><br>
+					<span class="good">Level: </span>  <span class="average">{{:data.entry.level}} </span><br>
+					<span class="good">Primary Type: </span>  <span class="average">{{:data.entry.type1}} </span><br>
+					{{if data.entry.type2}}
+						<span class="good">Secondary Type: </span>  <span class="average">{{:data.entry.type2}} </span><br>
+					{{/if}}
+					{{if data.entry.sprite}}
+						<img src='{{:data.entry.sprite}}'>
+					{{else}}
+						<span class="bad">Mob Image Missing!</span>
+					{{/if}}
+				{{else}}
+					<span class="bad">
+						Mob Data Missing!<br><br>
+					</span>
+				{{/if}}
+			</div>
+		</div>
+	</div>
+{{/if}}
