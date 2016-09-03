@@ -283,6 +283,12 @@
 //////////// Gloves ////////////
 
 //////////// Eye Wear ////////////
+/obj/item/clothing/glasses/hud/security/sunglasses/fluff/eyepro //T0EPIC4U: Ty Omaha
+	name = "Tacticool EyePro"
+	desc = "Tacticool ballistic glasses, for making all operators look badass."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "eyepro"
+	item_state = "eyepro"
 
 //////////// Hats ////////////
 /obj/item/clothing/head/fluff/heather_winceworth // Regens: Heather Winceworth
