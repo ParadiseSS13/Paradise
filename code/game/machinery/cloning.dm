@@ -29,6 +29,7 @@
 	var/grab_ghost_when = CLONER_MATURE_CLONE
 
 	var/obj/item/device/radio/Radio
+	var/radio_announce = 0
 
 	var/obj/effect/countdown/clonepod/countdown
 
@@ -190,6 +191,13 @@
 /obj/machinery/clonepod/attack_ai(mob/user)
 	return examine(user)
 
+//Radio Announcement
+
+/obj/machinery/clonepod/proc/announce_radio_message(message)
+	if(radio_announce)
+		Radio.autosay(message, name, "Medical", list(z))
+
+
 //Start growing a human clone in the pod!
 /obj/machinery/clonepod/proc/growclone(datum/dna2/record/R)
 	if(mess || attempting || panel_open || stat & (NOPOWER|BROKEN))
@@ -315,7 +323,7 @@
 	else if((occupant) && (occupant.loc == src))
 		if((occupant.stat == DEAD) || (occupant.suiciding))  //Autoeject corpses and suiciding dudes.
 			locked = 0
-			Radio.autosay("The cloning of <b>[occupant]</b> has been aborted due to unrecoverable tissue failure.", name, "Medical", list(z))
+			announce_radio_message("The cloning of <b>[occupant]</b> has been aborted due to unrecoverable tissue failure.")
 			go_out()
 			connected_message("Clone Rejected: Deceased.")
 
@@ -339,7 +347,7 @@
 
 		else if((occupant.cloneloss <= (100 - heal_level)) && (!eject_wait))
 			connected_message("Cloning Process Complete.")
-			Radio.autosay("The cloning cycle of <b>[occupant]</b> is complete.", name, "Medical", list(z))
+			announce_radio_message("The cloning cycle of <b>[occupant]</b> is complete.")
 			locked = 0
 			go_out()
 
@@ -455,7 +463,7 @@
 		occupant.grab_ghost()
 		to_chat(occupant, "<span class='notice'><b>There is a bright flash!</b><br>\
 			<i>You feel like a new being.</i></span>")
-		occupant.flash_eyes()
+		occupant.flash_eyes(visual = 1)
 
 	occupant.forceMove(get_turf(src))
 	eject_wait = 0 //If it's still set somehow.
@@ -467,7 +475,7 @@
 /obj/machinery/clonepod/proc/malfunction()
 	if(occupant)
 		connected_message("Critical Error!")
-		Radio.autosay("Critical error! Please contact a Thinktronic Systems technician, as your warranty may be affected.", name, "Medical", list(z))
+		announce_radio_message("Critical error! Please contact a Thinktronic Systems technician, as your warranty may be affected.")
 		mess = 1
 		update_icon()
 		if(occupant.mind != clonemind)
