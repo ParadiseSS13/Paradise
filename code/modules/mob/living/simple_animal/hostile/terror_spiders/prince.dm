@@ -8,15 +8,15 @@
 // -------------: TO FIGHT IT: a squad of at least 4 people with laser rifles.
 // -------------: CONCEPT: http://tvtropes.org/pmwiki/pmwiki.php/Main/LightningBruiser
 // -------------: CONCEPT: http://tvtropes.org/pmwiki/pmwiki.php/Main/WakeupCallBoss
-// -------------: SPRITES FROM: FoS, http://nanotrasen.se/phpBB3/memberlist.php?mode=viewprofile&u=386
+// -------------: SPRITES FROM: Travelling Merchant, http://nanotrasen.se/phpBB3/memberlist.php?mode=viewprofile&u=2766
 
 /mob/living/simple_animal/hostile/poison/terror_spider/prince
 	name = "Prince of Terror spider"
-	desc = "An enormous, terrifying spider. It looks like it is judging everything it sees. Extremely dangerous."
+	desc = "An enormous, terrifying spider. It looks like it is judging everything it sees. Its hide seems armored, and it bears the scars of many battles."
 	spider_role_summary = "Boss-level terror spider. Lightning bruiser. Capable of taking on a squad by itself."
-	icon_state = "terror_queen"
-	icon_living = "terror_queen"
-	icon_dead = "terror_queen_dead"
+	icon_state = "terror_allblack"
+	icon_living = "terror_allblack"
+	icon_dead = "terror_allblack_dead"
 	maxHealth = 400 // 20 laser shots.
 	health = 400
 	melee_damage_lower = 15
@@ -28,7 +28,7 @@
 	spider_opens_doors = 2
 
 
-/mob/living/simple_animal/hostile/poison/terror_spider/prince/spider_specialattack(var/mob/living/carbon/human/L)
+/mob/living/simple_animal/hostile/poison/terror_spider/prince/spider_specialattack(mob/living/carbon/human/L)
 	if(prob(15))
 		visible_message("<span class='danger'>[src] rams into [L], knocking them to the floor!</span>")
 		L.Weaken(5)

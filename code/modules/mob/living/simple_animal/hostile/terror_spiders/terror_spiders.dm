@@ -57,10 +57,10 @@ var/global/list/ts_spiderlist = list()
 	var/regen_points = 0 // number of regen points they have by default
 	var/regen_points_max = 100 // max number of points they can accumulate
 	var/regen_points_per_tick = 1 // gain one regen point per tick
-	var/regen_points_per_kill = 100 // gain extra regen points if you kill something
-	var/regen_points_per_hp = 2 // every X regen points = 1 health point you can regen
-	// desired: 30hp/minute unmolested, 60hp/min on food boost, assuming one tick every 2 seconds
-	//          100/kill means bonus 50hp/kill regenerated over the next 1-2 minutes
+	var/regen_points_per_kill = 90 // gain extra regen points if you kill something
+	var/regen_points_per_hp = 3 // every X regen points = 1 health point you can regen
+	// desired: 20hp/minute unmolested, 40hp/min on food boost, assuming one tick every 2 seconds
+	//          90/kill means bonus 30hp/kill regenerated over the next 1-2 minutes
 
 	// Vision
 	idle_vision_range = 10

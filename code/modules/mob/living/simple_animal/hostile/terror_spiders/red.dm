@@ -12,7 +12,7 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/red
 	name = "Red Terror spider"
-	desc = "An ominous-looking red spider, it has eight beady red eyes, and nasty, big, pointy fangs!"
+	desc = "An ominous-looking red spider, it has eight beady red eyes, and nasty, big, pointy fangs! It looks like it has a vicious streak a mile wide."
 
 	spider_role_summary = "High health, high damage, very slow, melee juggernaut"
 

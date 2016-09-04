@@ -7,16 +7,16 @@
 // -------------: SPECIAL: venom that does more damage the more of it is in you
 // -------------: TO FIGHT IT: if bitten once, retreat, get charcoal/etc treatment, and come back with a gun.
 // -------------: CONCEPT: http://tvtropes.org/pmwiki/pmwiki.php/Main/GradualGrinder
-// -------------: SPRITES FROM: Travelling Merchant, http://nanotrasen.se/phpBB3/memberlist.php?mode=viewprofile&u=2766
+// -------------: SPRITES FROM: FoS, http://nanotrasen.se/phpBB3/memberlist.php?mode=viewprofile&u=386
 
 /mob/living/simple_animal/hostile/poison/terror_spider/black
 	name = "Black Terror spider"
-	desc = "An ominous-looking spider, black as the darkest night, and with merciless yellow eyes."
+	desc = "An ominous-looking spider, black as the darkest night, and with merciless eyes and a blood-red hourglass pattern on its back."
 	spider_role_summary = "Hit-and-run attacker with extremely venomous bite."
 
-	icon_state = "terror_black"
-	icon_living = "terror_black"
-	icon_dead = "terror_black_dead"
+	icon_state = "terror_widow"
+	icon_living = "terror_widow"
+	icon_dead = "terror_widow_dead"
 	maxHealth = 120 // same health as hunter spider, aka, pretty weak.. but its bite will kill you!
 	health = 120
 	melee_damage_lower = 5
@@ -24,7 +24,6 @@
 	move_to_delay = 5
 	stat_attack = 1 // ensures they will target people in crit, too!
 	spider_tier = TS_TIER_2
-
 
 /mob/living/simple_animal/hostile/poison/terror_spider/black/spider_specialattack(mob/living/carbon/human/L, poisonable)
 	if(!poisonable)
