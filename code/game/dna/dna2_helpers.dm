@@ -252,7 +252,7 @@
 
 /datum/dna/proc/head_traits_to_dna(obj/item/organ/external/head/H)
 	if(!H)
-		log_debug("Attempting to reset DNA from a missing head!")
+		log_runtime(EXCEPTION("Attempting to reset DNA from a missing head!"), src)
 		return
 	if(!H.h_style)
 		H.h_style = "Skinhead"

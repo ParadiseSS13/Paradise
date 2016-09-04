@@ -53,7 +53,7 @@
 			to_chat(A, "<span class='danger'>Malicious program detected in the [english_list(areaName)] lighting and airlock control systems by [my_department].</span>")
 
 	else
-		log_to_dd("ERROR: Could not initate grey-tide. Unable to find suitable containment area.")
+		log_runtime("Could not initate grey-tide. Unable to find suitable containment area.", src)
 		kill()
 
 /datum/event/prison_break/tick()

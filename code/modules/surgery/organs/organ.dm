@@ -46,7 +46,7 @@ var/list/organ_cache = list()
 			dna = holder.dna.Clone()
 			species = all_species[dna.species]
 		else
-			log_to_dd("[src] at [loc] spawned without a proper DNA.")
+			log_runtime(EXCEPTION("[holder] spawned without a proper DNA."), holder)
 		var/mob/living/carbon/human/H = holder
 		if(istype(H))
 			if(dna)

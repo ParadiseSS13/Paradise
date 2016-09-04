@@ -334,7 +334,7 @@
 			H.emote("gasp")
 			if(!H.heart_attack && (prob(10) || defib.combat)) // Your heart explodes.
 				H.heart_attack = 1
-			add_logs(M, user, "stunned", object="defibrillator")
+			add_logs(user, M, "stunned", object="defibrillator")
 			defib.deductcharge(revivecost)
 			cooldown = 1
 			busy = 0
@@ -352,7 +352,7 @@
 				if(ghost && !ghost.client)
 					// In case the ghost's not getting deleted for some reason
 					H.key = ghost.key
-					log_to_dd("Ghost of name [ghost.name] is bound to [H.real_name], but lacks a client. Deleting ghost.")
+					log_runtime(EXCEPTION("Ghost of name [ghost.name] is bound to [H.real_name], but lacks a client. Deleting ghost."), src)
 
 					qdel(ghost)
 					ghost = null
@@ -413,7 +413,7 @@
 							if(tplus > tloss)
 								H.setBrainLoss( max(0, min(99, ((tlimit - tplus) / tlimit * 100))))
 							defib.deductcharge(revivecost)
-							add_logs(M, user, "revived", object="defibrillator")
+							add_logs(user, M, "revived", object="defibrillator")
 						else
 							if(tplus > tlimit|| !H.get_int_organ(/obj/item/organ/internal/heart))
 								user.visible_message("<span class='boldnotice'>[defib] buzzes: Resuscitation failed - Heart tissue damage beyond point of no return for defibrillation.</span>")
@@ -477,7 +477,7 @@
 				H.heart_attack = 1
 			playsound(get_turf(src), 'sound/machines/defib_zap.ogg', 50, 1, -1)
 			H.emote("gasp")
-			add_logs(M, user, "stunned", object="defibrillator")
+			add_logs(user, M, "stunned", object="defibrillator")
 			if(isrobot(user))
 				var/mob/living/silicon/robot/R = user
 				R.cell.use(revivecost)
@@ -499,7 +499,7 @@
 				if(ghost && !ghost.client)
 					// In case the ghost's not getting deleted for some reason
 					H.key = ghost.key
-					log_to_dd("Ghost of name [ghost.name] is bound to [H.real_name], but lacks a client. Deleting ghost.")
+					log_runtime(EXCEPTION("Ghost of name [ghost.name] is bound to [H.real_name], but lacks a client. Deleting ghost."), H)
 
 					qdel(ghost)
 					ghost = null
@@ -534,7 +534,7 @@
 							if(isrobot(user))
 								var/mob/living/silicon/robot/R = user
 								R.cell.use(revivecost)
-							add_logs(M, user, "revived", object="defibrillator")
+							add_logs(user, M, "revived", object="defibrillator")
 						else
 							if(tplus > tlimit)
 								user.visible_message("<span class='warning'>[user] buzzes: Resuscitation failed - Heart tissue damage beyond point of no return for defibrillation.</span>")

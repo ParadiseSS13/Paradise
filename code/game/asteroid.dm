@@ -207,6 +207,5 @@ var/global/max_secret_rooms = 6
 				new garbage(T)
 				areapoints -= 5
 				emptyturfs -= T
-			//log_to_dd("The [theme] themed [T.loc] has been created!")
 
 	return 1
