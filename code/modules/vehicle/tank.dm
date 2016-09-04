@@ -34,18 +34,16 @@
 
 	else
 		var/obj/item/projectile/A = new bullet_type(curloc)
-		if(target.dir == NORTH)
-			A.Angle = 360
+		var/turf/start = get_turf(T)
+		var/turf/MT = get_step(T, T.dir)
 
-		if(target.dir == EAST)
-			A.Angle = 90
-
-		if(target.dir == SOUTH)
-			A.Angle = 180
-
-		if(target.dir == WEST)
-			A.Angle = 270
+		A.original = MT
+		A.current = start
+		A.yo = MT.y - start.y
+		A.xo = MT.x - start.x
 		A.fire()
+
+
 		next_firetime = world.time+fire_delay
 		T.resume_move = world.time+T.recoil_delay
 
