@@ -39,7 +39,7 @@
 	name = "Thermite"
 	id = "thermite"
 	result = "thermite"
-	required_reagents = list("aluminum" = 1, "iron" = 1, "oxygen" = 1)
+	required_reagents = list("aluminum" = 1, "cornoil" = 1, "oxygen" = 1)
 	result_amount = 3
 
 /datum/chemical_reaction/glycerol
