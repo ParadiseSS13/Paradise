@@ -116,15 +116,6 @@
 			output += "<B>Objective #[obj_count]</B>: [objective.explanation_text]"
 			obj_count++
 
-	if(job_objectives.len>0)
-		output += "<HR><B>Job Objectives:</B><UL>"
-
-		var/obj_count = 1
-		for(var/datum/job_objective/objective in job_objectives)
-			output += "<LI><B>Task #[obj_count]</B>: [objective.get_description()]</LI>"
-			obj_count++
-		output += "</UL>"
-
 	recipient << browse(output,"window=memory")
 
 /datum/mind/proc/edit_memory()
@@ -430,7 +421,7 @@
 	out += "<b>Memory:</b><br>"
 	out += memory
 	out += "<br><a href='?src=\ref[src];memory_edit=1'>Edit memory</a><br>"
-	out += "Objectives:<br>"
+	out += "<b>Special Objectives:</b><br>"
 	if(objectives.len == 0)
 		out += "EMPTY<br>"
 	else
@@ -603,7 +594,7 @@
 				new_objective.target = new_target
 				new_objective.explanation_text = "Escape on the shuttle or an escape pod with the identity of [targ.current.real_name], the [targ.assigned_role] while wearing their identification card."
 			if("custom")
-				var/expl = sanitize(copytext(input("Custom objective:", "Objective", objective ? objective.explanation_text : "") as text|null,1,MAX_MESSAGE_LEN))
+				var/expl = sanitize_local(copytext(input("Custom objective:", "Objective", objective ? objective.explanation_text : "") as text|null,1,MAX_MESSAGE_LEN))
 				if(!expl) return
 				new_objective = new /datum/objective
 				new_objective.owner = src
@@ -1194,7 +1185,6 @@
 			obj_count++
 		log_admin("[key_name(usr)] has announced [key_name(current)]'s objectives")
 		message_admins("[key_name_admin(usr)] has announced [key_name_admin(current)]'s objectives")
-
 	edit_memory()
 /*
 /datum/mind/proc/clear_memory(var/silent = 1)
