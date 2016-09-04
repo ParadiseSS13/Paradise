@@ -32,7 +32,7 @@
 				"Grey" = 8,
 				"Human" = 45, //skin tone issue: caucasian only
 				"Kidan" = 8, //How to set eye color? All the vars I could find were invalid somehow
-				"Machine" = 10,
+				"Machine" = 0, //Requires snowflake death. Leaving this out until someone can figure out how to fix ipc death()
 				"Plasmaman" = 1, //doesn't light anything on fire because it's dead.
 				"Slime People" = 5,
 				"Tajaran" = 15,
@@ -77,7 +77,6 @@
 	M.update_dna()
 	M.regenerate_icons() //Apply the new changes
 	M.death(1) //Kills the new mob
-	M.emp_act(1) //If they're an IPC
 	if(src.corpseuniform)
 		M.equip_to_slot_or_del(new src.corpseuniform(M), slot_w_uniform)
 	if(src.corpsesuit)
