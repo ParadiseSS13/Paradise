@@ -889,6 +889,9 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
         name = "Condiments crate"
         contains = list(/obj/item/weapon/reagent_containers/glass/bottle/frostoil,
                                         /obj/item/weapon/reagent_containers/glass/bottle/capsaicin,
+                                        /obj/item/weapon/reagent_containers/glass/bottle/msg,
+                                        /obj/item/weapon/reagent_containers/food/condiment/sugar,
+                                        /obj/item/weapon/reagent_containers/food/condiment/soysauce,
                                         
 /datum/supply_packs/organic/monkey
 	name = "Monkey Crate"
