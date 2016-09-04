@@ -27,7 +27,6 @@
 	var/timeofdeath = null
 	var/coffin = 0
 	var/list/cspecies = list( //list or random species, in case none is specified by mob_species
-				"Abductor" = 1,
 				"Diona" = 8,
 				"Drask" = 8, //skin tone issue: white only
 				"Grey" = 8,
@@ -35,7 +34,6 @@
 				"Kidan" = 8, //How to set eye color? All the vars I could find were invalid somehow
 				"Machine" = 10,
 				"Plasmaman" = 1, //doesn't light anything on fire because it's dead.
-				"Shadow" = 1,
 				"Slime People" = 5,
 				"Tajaran" = 15,
 				"Unathi" = 15,
@@ -55,11 +53,12 @@
 	M.real_name = src.name
 	M.timeofdeath = timeofdeath
 	M.gender = pick(MALE, FEMALE)
-	if(!src.mob_species)
+	if(!mob_species)
 		M.set_species(pickweight(cspecies)) //If no species specified by the mob type, select one at random
-	M.set_species(src.mob_species)
+	else
+		M.set_species(src.mob_species)
 	M.death(1) //Kills the new mob
-	M.emp_act(1)
+	M.emp_act(1) //If they're an IPC
 	var/obj/item/organ/external/head/head_organ = M.get_organ("head")
 	if(head_organ)
 		head_organ.r_facial = rand(0,255) //facial coloring
@@ -77,10 +76,11 @@
 	M.b_markings = rand (0,255)
 	head_organ.h_style = random_hair_style(M.gender, head_organ.species.name) // hair style
 	head_organ.f_style = random_facial_hair_style(M.gender, head_organ.species.name) // facial hair style
-	M.update_hair() //update icons
-	M.update_fhair()
-	M.update_markings()
-	M.update_body()
+//	M.update_hair() //update icons
+//	M.update_fhair()
+//	M.update_markings()
+//	M.update_body()
+	M.regenerate_icons()
 	M.update_dna()
 	if(src.corpseuniform)
 		M.equip_to_slot_or_del(new src.corpseuniform(M), slot_w_uniform)
