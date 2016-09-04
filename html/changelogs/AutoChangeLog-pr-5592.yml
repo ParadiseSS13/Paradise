@@ -1,0 +1,5 @@
+author: TheDZD
+delete-after: True
+changes: 
+  - tweak: "Xenomorph hunters' leap ability is now always blocked by shields rather than only 50% of the time."
+  - tweak: "Xenomorph hunters' leap ability being blocked now stuns them as if they had hit a wall. The leap still goes on a 3 second cooldown as normal."
