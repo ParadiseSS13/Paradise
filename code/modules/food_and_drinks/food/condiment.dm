@@ -121,17 +121,23 @@
 	desc = "Tasty spacey sugar!"
 	list_reagents = list("sugar" = 50)
 	
+/obj/item/weapon/reagent_containers/food/condiment/ketchup
+        name = "ketchup bottle"
+        desc = "You feel more American already."
+        icon_state = "ketchup"
+        list_reagents = list("ketchup" = 50)
+        
 /obj/item/weapon/reagent_containers/food/condiment/hotsauce
         name = "hotsauce bottle"
         desc = "You can almost TASTE the stomach ulcers now"
         icon_state = "hotsauce"
-        list_reagents = list ("capsaicin" = 50)
+        list_reagents = list("capsaicin" = 50)
         
 /obj/item/weapon/reagent_containers/food/condiment/coldsauce
         name = "coldsauce bottle"
         desc = "Leaves the tongue numb in it's passage"
         icon_state = "coldsauce"
-        list_reagents = list ("frostoil" = 50)
+        list_reagents = list("frostoil" = 50)
 
 /obj/item/weapon/reagent_containers/food/condiment/saltshaker		//Seperate from above since it's a small shaker rather then
 	name = "salt shaker"											//	a large one.
@@ -204,7 +210,7 @@
 /obj/item/weapon/reagent_containers/food/condiment/tasteenchancer
         name = "taste enchancer"
         desc = "gets the best taste out of your food"
-        list_reagents = ("msg" = 50)
+        list_reagents = list("msg" = 50)
 
 /obj/item/weapon/reagent_containers/food/condiment/syndisauce
 	name = "\improper Chef Excellence's Special Sauce"
