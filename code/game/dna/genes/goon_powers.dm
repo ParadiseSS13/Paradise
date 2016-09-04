@@ -662,7 +662,6 @@
 	if(do_after(usr, 30, target = usr))
 		playsound(UT, 'sound/goonstation/effects/superfart.ogg', 50, 0)
 		usr.visible_message("<span class='warning'><b>[usr]</b> unleashes a [pick("tremendous","gigantic","colossal")] fart!</span>", "<span class='warning'>You hear a [pick("tremendous","gigantic","colossal")] fart.</span>")
-		usr.newtonian_move(usr.dir)
 		for(var/T in targets)
 			for(var/mob/living/M in T)
 				shake_camera(M, 10, 5)
