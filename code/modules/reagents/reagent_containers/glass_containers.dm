@@ -328,6 +328,7 @@
 	amount_per_transfer_from_this = 20
 	possible_transfer_amounts = list(5,10,15,20,25,30,50,80,100,120)
 	volume = 120
+	slot_flags = SLOT_HEAD
 	flags = OPENCONTAINER
 
 /obj/item/weapon/reagent_containers/glass/bucket/attackby(obj/D, mob/user, params)
