@@ -897,7 +897,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
                                         /obj/item/weapon/reagent_containers/food/condiment/saltshaker)
        cost = 20
        containername = "Condiments crate"
-       announce_beacons = list("Kitchen" = list ("Kitchen"))
+       announce_beacons = list("Kitchen" = list("Kitchen"))
        
 /datum/supply_packs/organic/monkey
 	name = "Monkey Crate"
