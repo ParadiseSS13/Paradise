@@ -108,6 +108,13 @@
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle17"
 	list_reagents = list("frostoil" = 30)
+	
+/obj/item/weapon/reagent_containers/glass/bottle/msg
+        name = "Taste enchancer"
+        desc = "A small bottle containing a chemical to enchance the taste of your food"
+        icon = 'icons/obj/chemical.dmi'
+        icon_state = "bottle17"
+        list_reagents = list("msg" = 30)
 
 /obj/item/weapon/reagent_containers/glass/bottle/morphine
 	name = "Morphine Bottle"
