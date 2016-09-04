@@ -19,7 +19,6 @@ client/proc/one_click_antag()
 		<a href='?src=\ref[src];makeAntag=4'>Make Cult</a><br>
 		<a href='?src=\ref[src];makeAntag=5'>Make Wizard (Requires Ghosts)</a><br>
 		<a href='?src=\ref[src];makeAntag=6'>Make Vampires</a><br>
-		<a href='?src=\ref[src];makeAntag=7'>Make Vox Raiders (Requires Ghosts)</a><br>
 		<a href='?src=\ref[src];makeAntag=8'>Make Abductor Team (Requires Ghosts)</a><br>
 		"}
 	usr << browse(dat, "window=oneclickantag;size=400x400")
@@ -387,109 +386,6 @@ client/proc/one_click_antag()
 	new_syndicate_commando.equip_syndicate_commando(syndicate_leader_selected)
 
 	return new_syndicate_commando
-
-/datum/admins/proc/makeVoxRaiders()
-
-	var/list/mob/candidates = list()
-	var/mob/theghost = null
-	var/time_passed = world.time
-	var/input = "Disregard shinies, acquire hardware."
-
-	var/leader_chosen = 0 //when the leader is chosen. The last person spawned.
-
-	//Generates a list of candidates from active ghosts.
-	for(var/mob/G in respawnable_list)
-		if(istype(G) && G.client && (ROLE_RAIDER in G.client.prefs.be_special))
-			if(player_old_enough_antag(G.client,ROLE_RAIDER))
-				if(!jobban_isbanned(G, "raider") && !jobban_isbanned(G, "Syndicate"))
-					spawn(0)
-						switch(alert(G,"Do you wish to be considered for a vox raiding party arriving on the station?","Please answer in 30 seconds!","Yes","No"))
-							if("Yes")
-								if((world.time-time_passed)>300)//If more than 30 game seconds passed.
-									return
-								candidates += G
-							if("No")
-								return
-							else
-								return
-
-	sleep(300) //Debug.
-
-	for(var/mob/dead/observer/G in candidates)
-		if(!G.key)
-			candidates.Remove(G)
-
-	if(candidates.len)
-		var/max_raiders = 1
-		var/raiders = max_raiders
-		//Spawns vox raiders and equips them.
-		for(var/obj/effect/landmark/L in world)
-			if(L.name == "voxstart")
-				if(raiders<=0)
-					break
-
-				var/mob/living/carbon/human/new_vox = create_vox_raider(L, leader_chosen)
-
-				while((!theghost || !theghost.client) && candidates.len)
-					theghost = pick(candidates)
-					candidates.Remove(theghost)
-
-				if(!theghost)
-					qdel(new_vox)
-					break
-
-				new_vox.key = theghost.key
-				ticker.mode.traitors += new_vox.mind
-
-				to_chat(new_vox, "\blue You are a Vox Primalis, fresh out of the Shoal. Your ship has arrived at the Tau Ceti system hosting the NSV Exodus... or was it the Luna? NSS? Utopia? Nobody is really sure, but everyong is raring to start pillaging! Your current goal is: <span class='danger'> [input]</span>")
-				to_chat(new_vox, "\red Don't forget to turn on your nitrogen internals!")
-
-				raiders--
-			if(raiders > max_raiders)
-				return 0
-	else
-		return 0
-	return 1
-
-/datum/admins/proc/create_vox_raider(obj/spawn_location, leader_chosen = 0)
-
-	var/sounds = rand(2,8)
-	var/i = 0
-	var/newname = ""
-
-	while(i<=sounds)
-		i++
-		newname += pick(list("ti","hi","ki","ya","ta","ha","ka","ya","chi","cha","kah"))
-
-	var/mob/living/carbon/human/new_vox = new /mob/living/carbon/human/vox(spawn_location.loc)
-
-	new_vox.add_language("Tradeband")
-	new_vox.real_name = capitalize(newname)
-	new_vox.dna.real_name = new_vox.real_name
-	new_vox.name = new_vox.real_name
-	new_vox.age = rand(12,20)
-	new_vox.flavor_text = ""
-	new_vox.change_eye_color(rand(1, 255), rand(1, 255), rand(1, 255))
-	new_vox.s_tone = rand(1, 6)
-
-	// Do the initial caching of the player's body icons.
-	new_vox.force_update_limbs()
-	new_vox.update_dna()
-	new_vox.update_eyes()
-
-	for(var/obj/item/organ/external/limb in new_vox.organs)
-		limb.status &= ~(ORGAN_DESTROYED | ORGAN_ROBOT)
-
-	//Now apply cortical stack.
-	var/obj/item/weapon/implant/cortical/I = new(new_vox)
-	I.imp_in = new_vox
-	I.implanted = 1
-	cortical_stacks += I
-
-	new_vox.equip_vox_raider()
-	new_vox.regenerate_icons()
-
-	return new_vox
 
 /datum/admins/proc/makeVampires()
 
