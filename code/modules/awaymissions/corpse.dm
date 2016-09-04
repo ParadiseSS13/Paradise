@@ -57,8 +57,6 @@
 		M.set_species(pickweight(cspecies)) //If no species specified by the mob type, select one at random
 	else
 		M.set_species(src.mob_species)
-	M.death(1) //Kills the new mob
-	M.emp_act(1) //If they're an IPC
 	var/obj/item/organ/external/head/head_organ = M.get_organ("head")
 	if(head_organ)
 		head_organ.r_facial = rand(0,255) //facial coloring
@@ -76,11 +74,9 @@
 	M.b_markings = rand (0,255)
 	head_organ.h_style = random_hair_style(M.gender, head_organ.species.name) // hair style
 	head_organ.f_style = random_facial_hair_style(M.gender, head_organ.species.name) // facial hair style
-//	M.update_hair() //update icons
-//	M.update_fhair()
-//	M.update_markings()
-//	M.update_body()
-	M.regenerate_icons()
+	M.regenerate_icons() //Apply the new changes
+	M.death(1) //Kills the new mob
+	M.emp_act(1) //If they're an IPC
 	M.update_dna()
 	if(src.corpseuniform)
 		M.equip_to_slot_or_del(new src.corpseuniform(M), slot_w_uniform)
