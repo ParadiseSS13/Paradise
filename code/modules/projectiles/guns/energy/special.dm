@@ -209,7 +209,7 @@
 	power_supply.give(5000)
 	if(!suppressed)
 		playsound(loc, 'sound/weapons/kenetic_reload.ogg', 60, 1)
-	else
+	else if(ismob(loc))
 		to_chat(loc, "<span class='warning'>[src] silently charges up.<span>")
 	update_icon()
 
