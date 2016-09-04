@@ -74,10 +74,10 @@
 	M.b_markings = rand (0,255)
 	head_organ.h_style = random_hair_style(M.gender, head_organ.species.name) // hair style
 	head_organ.f_style = random_facial_hair_style(M.gender, head_organ.species.name) // facial hair style
+	M.update_dna()
 	M.regenerate_icons() //Apply the new changes
 	M.death(1) //Kills the new mob
 	M.emp_act(1) //If they're an IPC
-	M.update_dna()
 	if(src.corpseuniform)
 		M.equip_to_slot_or_del(new src.corpseuniform(M), slot_w_uniform)
 	if(src.corpsesuit)
