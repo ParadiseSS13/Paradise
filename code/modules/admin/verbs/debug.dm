@@ -986,7 +986,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 				M.equip_to_slot_or_del(new /obj/item/clothing/under/vox/vox_robes (M), slot_w_uniform)
 				M.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack(M), slot_back)
 				M.equip_to_slot_or_del(new /obj/item/clothing/shoes/magboots/vox(M), slot_shoes)
-				M.equip_to_slot_or_del(new /obj/item/weapon/card/id/syndicate/vox(M), slot_shoes)
+				M.equip_to_slot_or_del(new /obj/item/weapon/card/id/syndicate/raider(M), slot_shoes)
 				M.equip_to_slot_or_del(new /obj/item/device/radio/headset/syndicate, slot_l_ear)
 				M.equip_to_slot_or_del(new /obj/item/clothing/gloves/color/yellow/vox, slot_gloves)
 				M.equip_to_slot_or_del(new /obj/item/weapon/melee/classic_baton/telescopic, slot_l_store)
@@ -996,9 +996,9 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 				M.equip_to_slot_or_del(new /obj/item/weapon/restraints/handcuffs/cable/zipties, slot_in_backpack)
 				M.equip_to_slot_or_del(new /obj/item/device/flash, slot_in_backpack)
 				M.equip_to_slot_or_del(new /obj/item/weapon/gun/energy/noisecannon, slot_in_backpack)
-				equip_special_id(M,get_all_accesses(), "Vox Armalis", /obj/item/weapon/card/id/syndicate/vox, "syndie")
+				equip_special_id(M,get_all_accesses(), "Vox Armalis", /obj/item/weapon/card/id/syndicate/raider, "syndie")
 			else
-				M.equip_vox_raider()
+				M.equip_raider()
 				M.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack(M), slot_l_hand)
 				M.regenerate_icons()
 

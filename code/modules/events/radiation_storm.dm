@@ -5,7 +5,7 @@
 		/area/crew_quarters/sleep,
 		/area/security/brig,
 		/area/shuttle,
-		/area/vox_station,
+		/area/raider_station,
 		/area/syndicate_station
 		)
 

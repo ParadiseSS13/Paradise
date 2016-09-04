@@ -367,13 +367,13 @@ var/list/ghostteleportlocs = list()
 /area/shuttle/research/outpost
 	icon_state = "shuttle"
 
-/area/shuttle/vox
-	name = "\improper Vox Skipjack"
+/area/shuttle/raider
+	name = "\improper Raider Skipjack"
 	icon_state = "shuttle"
 	requires_power = 0
 
-/area/shuttle/vox/station
-	name = "\improper Vox Skipjack"
+/area/shuttle/raider/station
+	name = "\improper Raider Skipjack"
 	icon_state = "yellow"
 	requires_power = 0
 
@@ -664,34 +664,34 @@ var/list/ghostteleportlocs = list()
 /area/ninja/holding
 	name = "\improper SpiderClan Holding Facility"
 
-/area/vox_station
-	name = "\improper Vox Base"
+/area/raider_station
+	name = "\improper Raider Outpost"
 	icon_state = "yellow"
 	requires_power = 0
 	lighting_use_dynamic = 0
 	no_teleportlocs = 1
 
-/area/vox_station/transit
+/area/raider_station/transit
 	name = "\improper Hyperspace"
 	icon_state = "shuttle"
 	requires_power = 0
 
-/area/vox_station/southwest_solars
+/area/raider_station/southwest_solars
 	name = "\improper Aft Port Solars"
 	icon_state = "southwest"
 	requires_power = 0
 
-/area/vox_station/northwest_solars
+/area/raider_station/northwest_solars
 	name = "\improper Fore Port Solars"
 	icon_state = "northwest"
 	requires_power = 0
 
-/area/vox_station/northeast_solars
+/area/raider_station/northeast_solars
 	name = "\improper Fore Starboard Solars"
 	icon_state = "northeast"
 	requires_power = 0
 
-/area/vox_station/southeast_solars
+/area/raider_station/southeast_solars
 	name = "\improper Aft Starboard Solars"
 	icon_state = "southeast"
 	requires_power = 0
@@ -704,7 +704,7 @@ var/list/ghostteleportlocs = list()
 /area/trader_station/sol
 	name = "Jupiter Station 6"
 
-/area/vox_station/mining
+/area/raider_station/mining
 	name = "\improper Nearby Mining Asteroid"
 	icon_state = "north"
 	requires_power = 0

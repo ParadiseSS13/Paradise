@@ -91,7 +91,7 @@
 		if("carpspawn")
 			carplist += loc
 
-		if("voxstart")
+		if("raiderstart")
 			raider_spawn += loc
 
 		if("ERT Director")
