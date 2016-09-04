@@ -108,7 +108,7 @@
 				sleep(2)//Runtime prevention (infinite bump() calls on hulks)
 				step_towards(src,L)
 			else
-				Weaken(2)
+				weakened = 2
 
 			toggle_leap(0)
 			pounce_cooldown = !pounce_cooldown
