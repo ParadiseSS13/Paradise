@@ -893,8 +893,8 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
                                         /obj/item/weapon/reagent_containers/food/condiment/sugar,
                                         /obj/item/weapon/reagent_containers/food/condiment/soysauce,
                                         /obj/item/weapon/reagent_containers/food/condiment/ketchup,
-                                        /obj/item/weapon/reagent_containers/food/condiment/peppermill
-                                        /obj/item/weapon/reagent_containers/food/condiment/saltshaker
+                                        /obj/item/weapon/reagent_containers/food/condiment/peppermill,
+                                        /obj/item/weapon/reagent_containers/food/condiment/saltshaker)
        cost = 20
        containername = "Condiments crate"
        announce_beacons = list("Kitchen" = list ("Kitchen"))
