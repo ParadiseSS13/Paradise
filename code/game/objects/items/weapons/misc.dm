@@ -135,7 +135,7 @@
 	throw_speed = 1
 	throw_range = 4
 	w_class = 2
-	attack_verb = list("called", "rang", "dialed", "belled")
+	attack_verb = list("called", "rang")
 	hitsound = 'sound/weapons/ring.ogg'
 	var/cooldown = 0
 
