@@ -819,6 +819,9 @@
 				src.gib()
 			else if(TOXIC_FARTS in mutations)
 				message = "<b>[src]</b> unleashes a [pick("horrible","terrible","foul","disgusting","awful")] fart."
+			else if(SUPER_FART in mutations)
+				message = "<b>[src]</b> unleashes a [pick("loud","deafening")] fart."
+				newtonian_move(dir)
 			else
 				message = "<b>[src]</b> [pick("passes wind","farts")]."
 			m_type = 2
