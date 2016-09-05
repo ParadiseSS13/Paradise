@@ -104,9 +104,13 @@ function setHighlightColor(match) {
 
 //Highlights words based on user settings
 function highlightTerms(el) {
+	var element = $(el)
+	if(!(element.mark)) { // mark.js isn't loaded; give up
+		return
+	}
 	for (var i = 0; i < opts.highlightTerms.length; i++) { //Each highlight term
 		if(opts.highlightTerms[i]) {
-			$(el).mark(opts.highlightTerms[i], {"element" : "span", "each" : setHighlightColor});
+			element.mark(opts.highlightTerms[i], {"element" : "span", "each" : setHighlightColor});
 		}
 	}
 }
@@ -808,6 +812,10 @@ $(function() {
 	});
 
 	$('#highlightTerm').click(function(e) {
+		if(!($().mark)) {
+			output('<span class="internal boldnshit">Highlighting is disabled. You are probably using Internet Explorer 8 and need to update.</span>', 'internal');
+			return;
+		}
 		if ($('.popup .highlightTerm').is(':visible')) {return;}
 		var termInputs = '';
 		for (var i = 0; i < opts.highlightLimit; i++) {
