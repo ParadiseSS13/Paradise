@@ -209,6 +209,7 @@ var/obj/machinery/blackbox_recorder/blackbox
 	var/list/msg_security = list()
 	var/list/msg_deathsquad = list()
 	var/list/msg_syndicate = list()
+	var/list/msg_syndteam = list()
 	var/list/msg_mining = list()
 	var/list/msg_cargo = list()
 	var/list/msg_service = list()
@@ -235,6 +236,7 @@ var/obj/machinery/blackbox_recorder/blackbox
 		BR.msg_security = msg_security
 		BR.msg_deathsquad = msg_deathsquad
 		BR.msg_syndicate = msg_syndicate
+		BR.msg_syndteam = msg_syndteam
 		BR.msg_mining = msg_mining
 		BR.msg_cargo = msg_cargo
 		BR.msg_service = msg_service
@@ -277,6 +279,7 @@ var/obj/machinery/blackbox_recorder/blackbox
 	feedback_add_details("radio_usage","SEC-[msg_security.len]")
 	feedback_add_details("radio_usage","DTH-[msg_deathsquad.len]")
 	feedback_add_details("radio_usage","SYN-[msg_syndicate.len]")
+	feedback_add_details("radio_usage","SYT-[msg_syndteam.len]")
 	feedback_add_details("radio_usage","MIN-[msg_mining.len]")
 	feedback_add_details("radio_usage","CAR-[msg_cargo.len]")
 	feedback_add_details("radio_usage","SRV-[msg_service.len]")
