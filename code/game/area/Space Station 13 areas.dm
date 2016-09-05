@@ -671,31 +671,6 @@ var/list/ghostteleportlocs = list()
 	lighting_use_dynamic = 0
 	no_teleportlocs = 1
 
-/area/raider_station/transit
-	name = "\improper Hyperspace"
-	icon_state = "shuttle"
-	requires_power = 0
-
-/area/raider_station/southwest_solars
-	name = "\improper Aft Port Solars"
-	icon_state = "southwest"
-	requires_power = 0
-
-/area/raider_station/northwest_solars
-	name = "\improper Fore Port Solars"
-	icon_state = "northwest"
-	requires_power = 0
-
-/area/raider_station/northeast_solars
-	name = "\improper Fore Starboard Solars"
-	icon_state = "northeast"
-	requires_power = 0
-
-/area/raider_station/southeast_solars
-	name = "\improper Aft Starboard Solars"
-	icon_state = "southeast"
-	requires_power = 0
-
 /area/trader_station
 	name = "Trade Base"
 	icon_state = "yellow"
@@ -703,11 +678,6 @@ var/list/ghostteleportlocs = list()
 
 /area/trader_station/sol
 	name = "Jupiter Station 6"
-
-/area/raider_station/mining
-	name = "\improper Nearby Mining Asteroid"
-	icon_state = "north"
-	requires_power = 0
 
 /area/xenos_station/start
 	name = "\improper Alien Shuttle"

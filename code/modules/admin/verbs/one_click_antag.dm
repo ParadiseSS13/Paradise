@@ -19,6 +19,7 @@ client/proc/one_click_antag()
 		<a href='?src=\ref[src];makeAntag=4'>Make Cult</a><br>
 		<a href='?src=\ref[src];makeAntag=5'>Make Wizard (Requires Ghosts)</a><br>
 		<a href='?src=\ref[src];makeAntag=6'>Make Vampires</a><br>
+		<a href='?src=\ref[src];makeAntag=7'>Make Raiders</a><br>
 		<a href='?src=\ref[src];makeAntag=8'>Make Abductor Team (Requires Ghosts)</a><br>
 		"}
 	usr << browse(dat, "window=oneclickantag;size=400x400")
@@ -420,6 +421,55 @@ client/proc/one_click_antag()
 		return 1
 
 	return 0
+
+/datum/admins/proc/makeRaiders()
+	var/list/mob/candidates = list()
+	var/mob/theghost = null
+	var/time_passed = world.time
+	var/input = "Loot and burn the station or trade with it."
+
+	for(var/mob/G in respawnable_list)
+		if(!jobban_isbanned(G, "Raider"))
+			spawn(0)
+				switch(alert(G,"Do you wish to be considered for a Space Pirate party about to be sent in?","Please answer in 30 seconds!","Yes","No"))
+					if("Yes")
+						if((world.time-time_passed)>300)
+							return
+						candidates += G
+					if("No")
+						return
+					else
+						return
+	sleep(300)
+
+	for(var/mob/dead/observer/G in candidates)
+		if(!G.key)
+			candidates.Remove(G)
+
+	if(candidates.len)
+		var/raidernum = rand(3, 6)
+		for(var/obj/effect/landmark/L in /area/raider_station)
+			if(raidernum<=0)
+				break
+			if(L.name == "raiderstart")
+				for(var/mob/j in candidates)
+					if(!j || !j.client)
+						candidates.Remove(j)
+						continue
+				candidates.Remove(theghost)
+				var/mob/living/carbon/human/M = makeBody(theghost)
+				var/datum/preferences/P = new
+				P.species = M.client.prefs.species
+				P.real_name = M.generate_name()
+				P.random_character()
+				P.copy_to(M)
+				theghost.name = M.real_name
+				M.equip_raider()
+				to_chat(M, "You're a Space Pirate hired by the Syndicate. \nYour current mission is: <span class='danger'>[input]</span>")
+				M.loc = raider_spawn[raidernum]
+				raidernum--
+	return 1
+
 
 /datum/admins/proc/makeThunderdomeTeams() // Not strictly an antag, but this seemed to be the best place to put it.
 

@@ -77,13 +77,13 @@ var/global/list/raider_spawn = list()
 
 	return ..()
 
-/datum/game_mode/proc/make_raider(var/datum/mind/newraider)//raiders KEEP their current species, makes for more interesting stuff
+/datum/game_mode/proc/make_raider(var/datum/mind/newraider)
 	if(!ishuman(newraider.current))
 		to_chat(world, "VERY WWRONG PLS HALPPPPP")
 		return 0
 	var/mob/living/carbon/human/M = newraider.current
 	var/datum/preferences/P = new
-	P.species = newraider.current.client.prefs.species
+	P.species = newraider.current.client.prefs.species//raiders KEEP their current species, makes for more interesting stuff
 	P.real_name = M.generate_name()
 	P.random_character()
 	P.copy_to(M)
@@ -98,15 +98,13 @@ var/global/list/raider_spawn = list()
 	M.update_dna()
 	M.update_eyes()
 
-
-
 	M.equip_raider()
 	M.rejuvenate()//removes people being stupid and taking limbless, mute and blind characters, also regenrates icons.
 
 /datum/game_mode/proc/is_raider_crew_alive()
 	for(var/datum/mind/raider in raiders)
 		if(raider.current)
-			if(!istype(raider.current, /mob/living/carbon/human) || raider.current.stat == DEAD)
+			if(!ishuman(raider.current) || raider.current.stat == DEAD)
 				return 0
 		else
 			return 0
@@ -115,11 +113,12 @@ var/global/list/raider_spawn = list()
 /datum/game_mode/proc/is_raider_crew_safe()
 	for(var/datum/mind/raider in raiders)
 		if(raider.current)
-			if(get_area(raider.current) != locate(/area/shuttle/raider) && get_area(raider.current) != locate(/area/raider_station))
-				return 0
-		else
-			return 0
-	return 1
+			var/area/A = get_area(raider.current)
+			if(istype(A, /area/shuttle/raider))
+				return 1
+			if(istype(A, /area/raider_station))
+				return 1
+	return 0
 
 /datum/game_mode/proc/forge_raider_objectives()
 	var/i = 1
@@ -221,7 +220,7 @@ datum/game_mode/proc/auto_declare_completion_heist()
 		for(var/datum/mind/raider in raiders)
 			text += "<br>[raider.key] was [raider.name] ("
 			if(check_return)
-				if(get_area(raider.current.loc) != locate(/area/shuttle/raider))
+				if(!istype(get_area(raider.current), /area/shuttle/raider))
 					text += "left behind)"
 					continue
 			if(raider.current)
