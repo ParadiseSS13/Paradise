@@ -83,6 +83,7 @@ var/global/list/raider_spawn = list()
 		return 0
 	var/mob/living/carbon/human/M = newraider.current
 	var/datum/preferences/P = new
+	P.species = newraider.current.client.prefs.species
 	P.real_name = M.generate_name()
 	P.random_character()
 	P.copy_to(M)

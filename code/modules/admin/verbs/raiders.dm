@@ -11,6 +11,7 @@
 	equip_or_collect(new /obj/item/clothing/gloves/color/black(src), slot_gloves)
 	equip_or_collect(new /obj/item/weapon/storage/backpack/duffel(src), slot_back)
 	equip_or_collect(new /obj/item/device/flashlight(src), slot_r_store)
+	equip_or_collect(new /obj/item/weapon/storage/box/raider(src), slot_in_backpack)
 
 	var/obj/item/weapon/card/id/syndicate/raider/W = new(src)
 	W.name = "[real_name]'s Legitimate Nanotrasen ID card"
@@ -20,5 +21,5 @@
 		W.assignment = "Trader"
 	W.registered_name = real_name
 	W.registered_user = src
-	equip_to_slot_or_del(W, slot_wear_id)
+	equip_or_collect(W, slot_wear_id)
 	return 1
