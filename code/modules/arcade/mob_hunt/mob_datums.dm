@@ -57,7 +57,7 @@
 	health[2] = base_health + (level * health_multiplier)
 	if(prob(1) && prob(1))
 		is_shiny = 1
-	if(no_register)
+	if(no_register)		//for booster pack cards
 		return
 	if(mob_hunt_server)
 		if(set_trap)
@@ -67,6 +67,8 @@
 			mob_hunt_server.register_trap(src)
 		else if(select_spawn())
 			mob_hunt_server.register_spawn(src)
+		else	//if we aren't a trap and can't spawn, delete the datum to avoid buildups
+			qdel(src)
 	else
 		qdel(src)
 
@@ -82,31 +84,37 @@
 		log_admin("No possible areas to spawn [type] found. Possible code/mapping error?")
 		return 0
 	var/list/possible_turfs = list()
+	var/turf/T
 	while(possible_areas.len)
 		//randomly select an area from our possible_areas list to try spawning in, then remove it from possible_areas so it won't get picked over and over forever.
-		var/spawn_area = pick(possible_areas)
-		possible_areas -= spawn_area
+		var/area/spawn_area = locate(pick_n_take(possible_areas))
+		if(!spawn_area)
+			break
 		//clear and generate a fresh list of turfs in the selected area, weighted based on white/black lists
 		possible_turfs.Cut()
-		for(var/turf/T in spawn_area)
+		for(var/turf/PT in spawn_area)
 			var/value = 1
-			if(is_type_in_list(T, turf_whitelist))		//if whitelisted, we have a significant bonus to our weight
+			if(is_type_in_list(PT, turf_whitelist))		//if whitelisted, we have a significant bonus to our weight
 				value += 2
-			if(is_type_in_list(T, turf_blacklist))		//blacklisting only removes 1 value (weight), so whitelisted subtypes are still more likely than normal turfs
+			if(is_type_in_list(PT, turf_blacklist))		//blacklisting only removes 1 value (weight), so whitelisted subtypes are still more likely than normal turfs
 				value -= 1								//but non-whitelisted turfs will be disqualified
 			if(!value)
 				continue
-			possible_turfs[T] = value
+			possible_turfs[PT] = value
 		if(!possible_turfs.len)		//If we don't have any possible turfs, this attempt was a failure. Try again.
 			continue
 		//if we got this far, we're spawning on this attempt, hooray!
-		var/turf/T = pickweight(possible_turfs)
+		T = pickweight(possible_turfs)
 		x_coord = T.x
 		y_coord = T.y
-
+		break
+	if(T)
+		to_chat(world, "DEBUGGING: [type] spawning at ([x_coord], [y_coord])")
+		return 1
+	else
 	//if we get to this, we failed every attempt to find a suitable turf for EVERY area in our list of possible areas. DAMN.
-	log_admin("No acceptable turfs to spawn [type] on could be located. Possible code/mapping error, or someone replaced/destroyed all the acceptable turf types?")
-	return 0
+		log_admin("No acceptable turfs to spawn [type] on could be located. Possible code/mapping error, or someone replaced/destroyed all the acceptable turf types?")
+		return 0
 
 /datum/mob_hunt/proc/calc_dam_multiplier(datum/mob_type/attack_type)
 	if(!primary_type)
@@ -168,6 +176,19 @@
 
 		health[2] = base_health + (level * health_multiplier)
 		message += "[nickname ? nickname : mob_name] has reached level [level]!"
+
+/datum/mob_hunt/proc/get_type1()
+	if(!primary_type)
+		return "Typeless"
+	else
+		return initial(primary_type.name)
+
+/datum/mob_hunt/proc/get_type2()
+	if(!secondary_type)
+		return null
+	else
+		return initial(secondary_type.name)
+
 
 /datum/mob_hunt/nemabug
 	mob_name = "Nemabug"

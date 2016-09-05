@@ -13,6 +13,7 @@
 
 	var/list/my_collection = list()
 	var/current_index = 0
+	var/connected = 0
 
 /datum/data/pda/app/mob_hunter_game/start()
 	..()
@@ -23,30 +24,41 @@
 	processing_objects.Remove(pda)
 
 /datum/data/pda/app/mob_hunter_game/proc/scan_nearby()
-	if(!mob_hunt_server)
+	if(!mob_hunt_server || !connected)
 		return
+	for(var/turf/T in range(3, get_turf(pda)))
+		for(var/obj/O in T.contents)
+			if(!istype(O, /obj/effect/nanomob))
+				continue
+			var/obj/effect/nanomob/N = O
+			//reveal the mob
+			N.reveal()
 
-/datum/data/pda/app/mob_hunter_game/proc/connect()
-	if(!mob_hunt_server || !mob_hunt_server.server_status)
+/datum/data/pda/app/mob_hunter_game/proc/reconnect()
+	if(!mob_hunt_server || !mob_hunt_server.server_status || connected)
 		//show a message about the server being unavailable (because it doesn't exist / didn't get set to the global var / is offline)
 		return 0
 	mob_hunt_server.connected_clients += src
+	connected = 1
+	if(pda)
+		for(var/mob/O in hearers(2, pda.loc))
+			O.show_message("[bicon(pda)] Connection established. Capture all of the mobs, [pda.owner ? pda.owner : "hunter"]!")
 	return 1
 
-/datum/data/pda/app/mob_hunter_game/proc/disconnect(reason_message = null)
+/datum/data/pda/app/mob_hunter_game/proc/disconnect(reason = null)
+	if(!mob_hunt_server || !connected)
+		return
 	mob_hunt_server.connected_clients -= src
-	//show a disconnect message if we were disconnected involuntarily (message argument provided)
+	connected = 0
+	//show a disconnect message if we were disconnected involuntarily (reason argument provided)
+	if(pda && reason)
+		for(var/mob/O in hearers(2, pda.loc))
+			O.show_message("[bicon(pda)] Disconnected from server. Reason: [reason].")
 
 /datum/data/pda/app/mob_hunter_game/program_process()
-	if(!mob_hunt_server)
-		return null
-	for(var/obj/effect/nanomob/N in range(3, pda.loc))
-		//TO-DO: show the mob (ideally only to the holder of the PDA, but we'll settle for the t-ray magic of showing everyone for right now)
-		if(N.invisibility == 101)
-			N.invisibility = 0
-			spawn(30)
-				if(N)
-					N.invisibility = 101
+	if(!mob_hunt_server || !connected)
+		return
+	scan_nearby()
 
 /datum/data/pda/app/mob_hunter_game/proc/register_capture(datum/mob_hunt/captured)
 	if(!captured)
@@ -55,6 +67,11 @@
 	return 1
 
 /datum/data/pda/app/mob_hunter_game/update_ui(mob/user as mob, list/data)
+	if(!mob_hunt_server || !(src in mob_hunt_server.connected_clients))
+		data["connected"] = 0
+	else
+		data["connected"] = 1
+	data["not_collection"] = 0
 	if(!my_collection.len)
 		data["no_collecton"] = 1
 		return
@@ -70,8 +87,8 @@
 						"nickname" = mob_info.nickname,
 						"real_name" = mob_info.mob_name,
 						"level" = mob_info.level,
-						"type1" = mob_info.primary_type,
-						"type2" = mob_info.secondary_type,
+						"type1" = mob_info.get_type1(),
+						"type2" = mob_info.get_type2(),
 						"sprite" = "[mob_info.icon_state_normal].png"
 						)
 	if(mob_info.is_shiny)
@@ -124,8 +141,8 @@
 			current_index--
 			if(current_index < 1)
 				current_index = my_collection.len
-		if("Connect")
-			connect()
+		if("Reconnect")
+			reconnect()
 		if("Disconnect")
 			disconnect()
 		if("Transfer")

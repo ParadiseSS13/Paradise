@@ -1,9 +1,36 @@
-{{if data.no_collection}}
-	<div class="item">
-		<div class="itemLabel">My Collection:</div>
+<div class="item">
+	<div class="itemLabel">
+		<table>
+			<tr>
+				<td>
+					Connection Status:
+				</td>
+				{{if data.connected}}
+					<td>
+						<span class="good">Connected</span>
+					</td>
+					<td>
+						{{:helper.link('Disconnect', 'sign-out', {'choice': 'Disconnect'})}}
+					</td>
+				{{else}}
+					<td>
+						<span class="bad">No Connection</span>
+					</td>
+					<td>
+						{{:helper.link('Connect', 'sign-in', {'choice': 'Reconnect'})}}
+					</td>
+				{{/if}}
+			</tr>
+		</table>
 	</div>
-	<div class="item">
-		 <span class="average">Your collection is empty! Go capture some Nano-Mobs!</span>
+</div>
+<hr>
+<div class="itemLabel">My Collection:</div>
+{{if data.no_collection}}
+	<div class="statusDisplayRecords">
+		<div class="item">
+			<span class="average">Your collection is empty! Go capture some Nano-Mobs!</span>
+		</div>
 	</div>
 {{else}}
 	<div class="statusDisplayRecords">
@@ -31,5 +58,26 @@
 				{{/if}}
 			</div>
 		</div>
+	</div>
+	<div class="item">
+		<table>
+			<tr>
+				<td>
+					{{:helper.link('Previous Mob', 'arrow-left', {'choice': 'Prev'})}}
+				</td>
+				<td>
+					{{:helper.link('Transfer Mob', 'exchange', {'choice': 'Transfer'})}}
+				</td>
+				<td>
+					{{:helper.link('Rename Mob', 'pencil', {'choice': 'Rename'})}}
+				</td>
+				<td>
+					{{:helper.link('Release Mob', 'tree', {'choice': 'Release'})}}
+				</td>
+				<td>
+					{{:helper.link('Next Mob', 'arrow-right', {'choice': 'Next'})}}
+				</td>
+			</tr>
+		</table>
 	</div>
 {{/if}}

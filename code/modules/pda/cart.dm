@@ -320,7 +320,7 @@
 	programs = list(
 		new/datum/data/pda/app/mob_hunter_game)
 
-/obj/item/weapon/cartridge/mob_hunt_game/attackby(obj/item/O, mob/user)
+/obj/item/weapon/cartridge/mob_hunt_game/attackby(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/weapon/nanomob_card))
 		var/obj/item/weapon/nanomob_card/card = O
 		var/datum/data/pda/app/mob_hunter_game/my_game = programs[1]

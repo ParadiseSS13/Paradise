@@ -12,6 +12,7 @@
 	var/list/clients_encountered = list()		//tracks who has already interacted with us, so they can't attempt a second capture
 
 /obj/effect/nanomob/New(loc, datum/mob_hunt/new_info)
+	..()
 	if(!new_info)
 		qdel(src)
 		return
@@ -21,6 +22,9 @@
 		icon_state = mob_info.icon_state_shiny
 	else
 		icon_state = mob_info.icon_state_normal
+	var/turf/target_turf = locate(mob_info.x_coord, mob_info.y_coord, STATION_LEVEL)
+	forceMove(target_turf)
+	to_chat(world, "[name] located at ([x],[y],[z])")
 	if(!mob_info.is_trap)
 		addtimer(src, "despawn", mob_info.lifetime)
 
@@ -43,6 +47,10 @@
 		return
 
 	var/datum/data/pda/app/mob_hunter_game/client = P.current_app
+	if(!client.connected)	//must be connected to attempt captures
+		for(var/mob/O in hearers(4, P.loc))
+			O.show_message("[bicon(P)] No server connection. Capture aborted.")
+		return
 
 	if(mob_info.is_trap)		//traps work even if you ran into them before
 		if(istype(P.loc, /mob/living/carbon))
@@ -85,3 +93,10 @@
 		else
 			mob_hunt_server.normal_spawns -= src
 	qdel(src)
+
+/obj/effect/nanomob/proc/reveal()
+	if(invisibility == 101)
+		invisibility = 0
+		spawn(30)
+			if(src)
+				invisibility = 101

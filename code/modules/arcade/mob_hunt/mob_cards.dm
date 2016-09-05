@@ -16,10 +16,10 @@
 	if(mob_data.is_shiny)
 		name = "Holographic [mob_data.mob_name] Nano-Mob Hunter Card"
 		desc = "WOW! A holographic trading card containing a level [mob_data.level] [mob_data.mob_name]!"
+		icon_state = "trade_card_holo"
 	else
 		name = "[mob_data.mob_name] Nano-Mob Hunter Card"
 		desc = "A trading card containing a level [mob_data.level] [mob_data.mob_name]!"
-		icon_state = "trade_card_holo"
 
 //Booster Pack Cards (random mob data)
 /obj/item/weapon/nanomob_card/booster
