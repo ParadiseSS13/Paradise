@@ -233,7 +233,7 @@
 		mob.last_movement = world.time
 		switch(mob.m_intent)
 			if("run")
-				if(mob.drowsy > 0)
+				if(mob.drowsyness > 0)
 					move_delay += 6
 				move_delay += 1+config.run_speed
 			if("walk")

@@ -109,7 +109,7 @@
 /mob // On `/mob` for now, to support legacy code
 	var/confused = 0
 	var/dizziness = 0
-	var/drowsy = 0
+	var/drowsyness = 0
 	var/druggy = 0
 	var/drunk = 0
 	var/ear_damage = 0
@@ -118,7 +118,7 @@
 	var/eye_blurry = 0
 	var/hallucination = 0
 	var/jitteriness = 0
-	var/lose_breath = 0
+	var/losebreath = 0
 	var/paralysis = 0
 	var/silent = 0
 	var/sleeping = 0
@@ -188,13 +188,13 @@
 // DROWSY
 
 /mob/living/Drowsy(amount)
-	SetDrowsy(max(drowsy, amount))
+	SetDrowsy(max(drowsyness, amount))
 
 /mob/living/SetDrowsy(amount)
-	drowsy = max(amount, 0)
+	drowsyness = max(amount, 0)
 
 /mob/living/AdjustDrowsy(amount, bound_lower = 0, bound_upper = INFINITY)
-	var/new_value = directional_bounded_sum(drowsy, amount, bound_lower, bound_upper)
+	var/new_value = directional_bounded_sum(drowsyness, amount, bound_lower, bound_upper)
 	SetDrowsy(new_value)
 
 // DRUNK
@@ -302,8 +302,6 @@
 	// Jitter is also associated with stun
 	if(status_flags & CANSTUN || force)
 		jitteriness = max(amount, 0)
-	else
-		jitteriness = 0
 
 /mob/living/AdjustJitter(amount, bound_lower = 0, bound_upper = INFINITY, force = 0)
 	var/new_value = directional_bounded_sum(jitteriness, amount, bound_lower, bound_upper)
@@ -312,13 +310,13 @@
 // LOSE_BREATH
 
 /mob/living/LoseBreath(amount)
-	SetLoseBreath(max(lose_breath, amount))
+	SetLoseBreath(max(losebreath, amount))
 
 /mob/living/SetLoseBreath(amount)
-	lose_breath = max(amount, 0)
+	losebreath = max(amount, 0)
 
 /mob/living/AdjustLoseBreath(amount, bound_lower = 0, bound_upper = INFINITY)
-	var/new_value = directional_bounded_sum(lose_breath, amount, bound_lower, bound_upper)
+	var/new_value = directional_bounded_sum(losebreath, amount, bound_lower, bound_upper)
 	SetLoseBreath(new_value)
 
 // PARALYSE
@@ -329,11 +327,9 @@
 /mob/living/SetParalysis(amount, updating = 1, force = 0)
 	if(status_flags & CANPARALYSE || force)
 		paralysis = max(amount, 0)
-	else
-		paralysis = 0
-	if(updating)
-		update_canmove()
-		update_stat()
+		if(updating)
+			update_canmove()
+			update_stat()
 
 /mob/living/AdjustParalysis(amount, bound_lower = 0, bound_upper = INFINITY, updating = 1, force = 0)
 	var/new_value = directional_bounded_sum(paralysis, amount, bound_lower, bound_upper)
@@ -398,10 +394,8 @@
 /mob/living/SetStunned(amount, updating = 1, force = 0) //if you REALLY need to set stun to a set amount without the whole "can't go below current stunned"
 	if(status_flags & CANSTUN || force)
 		stunned = max(amount, 0)
-	else if(stunned)
-		stunned = 0
-	if(updating)
-		update_canmove()
+		if(updating)
+			update_canmove()
 
 /mob/living/AdjustStunned(amount, bound_lower = 0, bound_upper = INFINITY, updating = 1, force = 0)
 	var/new_value = directional_bounded_sum(stunned, amount, bound_lower, bound_upper)
@@ -417,8 +411,6 @@
 	//From mob/living/apply_effect: "Stuttering is often associated with Stun"
 	if(status_flags & CANSTUN || force)
 		stuttering = max(stuttering, 0)
-	else
-		stuttering = 0
 
 /mob/living/AdjustStuttering(amount, bound_lower = 0, bound_upper = INFINITY, force = 0)
 	var/new_value = directional_bounded_sum(stuttering, amount, bound_lower, bound_upper)
@@ -432,10 +424,8 @@
 /mob/living/SetWeakened(amount, updating = 1, force = 0)
 	if(status_flags & CANWEAKEN || force)
 		weakened = max(amount, 0)
-	else
-		weakened = 0
-	if(updating)
-		update_canmove()	//updates lying, canmove and icons
+		if(updating)
+			update_canmove()	//updates lying, canmove and icons
 
 /mob/living/AdjustWeakened(amount, bound_lower = 0, bound_upper = INFINITY, updating = 1, force = 0)
 	var/new_value = directional_bounded_sum(weakened, amount, bound_lower, bound_upper)

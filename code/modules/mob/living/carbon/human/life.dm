@@ -283,7 +283,7 @@
 	if(health <= config.health_threshold_crit)
 		AdjustLoseBreath(1)
 
-	if(lose_breath > 0)
+	if(losebreath > 0)
 		AdjustLoseBreath(-1)
 		if(prob(10))
 			spawn emote("gasp")
@@ -695,7 +695,7 @@
 			else
 				overeatduration -= 2
 
-	if(drowsy)
+	if(drowsyness)
 		AdjustDrowsy(-1)
 		EyeBlurry(2)
 		if(prob(5))

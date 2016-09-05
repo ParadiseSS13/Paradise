@@ -100,7 +100,7 @@
 
 		if(drownee.stat == DEAD)	//Dead spacemen don't drown more
 			return
-		if(drownee.lose_breath > 20)	//You've probably got bigger problems than drowning at this point, so we won't add to it until you get that under control.
+		if(drownee.losebreath > 20)	//You've probably got bigger problems than drowning at this point, so we won't add to it until you get that under control.
 			return
 
 		if(drownee.stat) //Mob is in critical.
