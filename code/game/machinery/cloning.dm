@@ -118,7 +118,6 @@
 	name = "data disk - 'God Emperor of Mankind'"
 	read_only = 1
 
-<<<<<<< HEAD
 /obj/item/weapon/disk/data/demo/New()
 	Initialize()
 	buf.types=DNA2_BUF_UE|DNA2_BUF_UI
