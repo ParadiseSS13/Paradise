@@ -33,7 +33,7 @@ var/global/list/raider_spawn = list()
 	var/list/candidates = get_players_for_role(ROLE_RAIDER)
 	var/raider_num = 0
 
-	//Check that we have enough vox.
+	//Check that we have enough raiders.
 	if(candidates.len < required_enemies)
 		return 0
 
@@ -174,7 +174,6 @@ var/global/list/raider_spawn = list()
 	else
 		win_msg = "The Raiders have failed"
 
-	//Now we modify that result by the state of the vox crew.
 	if(!is_raider_crew_alive())
 		if(success > 1)
 			win_msg += " but "
