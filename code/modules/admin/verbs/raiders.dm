@@ -4,6 +4,8 @@
 	R.set_frequency(SYND_FREQ) //Same frequency as the syndicate team in Nuke mode.
 	equip_or_collect(R, slot_l_ear) // Less talking, more raiding
 
+	species.equip(src)
+
 	//ALL BASIC EQUIPMENT WILL GET REPLACED WITH COOL SHIT BEFORE THIS GETS MERGED, I JUST NEED SPRITE SLAVES
 	//ALSO, THIS WILL HANDLE DIFFERENT SPECIES LIKE VOX AND PLASMAMEN, BECAUSE IT'S A BIT TOO SPECIFIC TO BE HANDLED UNDER THE SPECIES' equip()
 	equip_or_collect(new /obj/item/clothing/under/color/black(src), slot_w_uniform)
