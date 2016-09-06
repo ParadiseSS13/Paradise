@@ -41,8 +41,7 @@
 	var/list/turf_blacklist = list()		//list of turfs this mob can NOT spawn on (such as wood floors)
 	var/list/area_whitelist = list()		//list of areas this mob is more likely to spawn in (can be used to reinclude subtypes of blacklisted areas)
 	var/list/turf_whitelist = list()		//list of turfs this mob is more likely to spawn on (can be used to reinclude subtypes of blacklisted turfs)
-	var/x_coord = 0							//gets set and sent to the game server to spawn its avatar (generated in select_spawn)
-	var/y_coord = 0							//gets set and sent to the game server to spawn its avatar (generated in select_spawn)
+	var/turf/spawn_point					//gets set and sent to the game server to spawn its avatar (generated in select_spawn or assigned via set_trap)
 	var/lifetime = 6000						//number of deciseconds the mob will remain before despawning (REMEMBER: DECISECONDS! So 6000 is 600 seconds which is 10 minutes)
 	var/is_shiny = 0						//if this gets set at spawn (super rare), the mob is considered "shiny" and will use the shiny icon_state and holographic cards
 
@@ -52,29 +51,32 @@
 
 	var/is_trap = 0							//if this gets set, the mob is a booby-trap and will electrocute any players that dare attempt to catch it
 
-/datum/mob_hunt/New(set_trap = 0, trap_x = 0, trap_y=0, no_register = 0)
-	level = rand(min_level, max_level)
-	health[2] = base_health + (level * health_multiplier)
+/datum/mob_hunt/New(set_trap = 0, turf/trap_turf = null, no_register = 0)
+	if(set_trap)
+		level = max_level
+		is_trap = 1
+		spawn_point = trap_turf
+	else
+		level = rand(min_level, max_level)
 	if(prob(1) && prob(1))
 		is_shiny = 1
+	health[2] = base_health + (level * health_multiplier)
 	if(no_register)		//for booster pack cards
 		return
 	if(mob_hunt_server)
 		if(set_trap)
-			is_trap = 1
-			x_coord = trap_x
-			y_coord = trap_y
-			mob_hunt_server.register_trap(src)
+			if(mob_hunt_server.register_trap(src))
+				return
 		else if(select_spawn())
-			mob_hunt_server.register_spawn(src)
-		else	//if we aren't a trap and can't spawn, delete the datum to avoid buildups
-			qdel(src)
-	else
-		qdel(src)
+			if(mob_hunt_server.register_spawn(src))
+				return
+	qdel(src)	//if you reach this, the datum is just pure clutter, so delete it
 
 /datum/mob_hunt/proc/select_spawn()
 	var/list/possible_areas = list()
 	for(var/areapath in the_station_areas)
+		if(istype(areapath, /area/holodeck))	//don't allow holodeck areas as possible spawns since it will allow it to spawn in the holodeck rooms on z2 as well
+			continue
 		possible_areas += typesof(areapath)
 	for(var/areapath in area_blacklist)
 		possible_areas -= typesof(areapath)
@@ -84,7 +86,6 @@
 		log_admin("No possible areas to spawn [type] found. Possible code/mapping error?")
 		return 0
 	var/list/possible_turfs = list()
-	var/turf/T
 	while(possible_areas.len)
 		//randomly select an area from our possible_areas list to try spawning in, then remove it from possible_areas so it won't get picked over and over forever.
 		var/area/spawn_area = locate(pick_n_take(possible_areas))
@@ -104,17 +105,13 @@
 		if(!possible_turfs.len)		//If we don't have any possible turfs, this attempt was a failure. Try again.
 			continue
 		//if we got this far, we're spawning on this attempt, hooray!
-		T = pickweight(possible_turfs)
-		x_coord = T.x
-		y_coord = T.y
+		spawn_point = pickweight(possible_turfs)
 		break
-	if(T)
-		to_chat(world, "DEBUGGING: [type] spawning at ([x_coord], [y_coord])")
-		return 1
-	else
+	if(!spawn_point)
 	//if we get to this, we failed every attempt to find a suitable turf for EVERY area in our list of possible areas. DAMN.
 		log_admin("No acceptable turfs to spawn [type] on could be located. Possible code/mapping error, or someone replaced/destroyed all the acceptable turf types?")
 		return 0
+	return 1
 
 /datum/mob_hunt/proc/calc_dam_multiplier(datum/mob_type/attack_type)
 	if(!primary_type)

@@ -14,6 +14,7 @@
 	var/list/my_collection = list()
 	var/current_index = 0
 	var/connected = 0
+	var/hacked = 0		//if set, this cartridge is able to spawn trap mobs from its collection (set via emag_act on the cartridge)
 
 /datum/data/pda/app/mob_hunter_game/start()
 	..()
@@ -71,9 +72,9 @@
 		data["connected"] = 0
 	else
 		data["connected"] = 1
-	data["not_collection"] = 0
+	data["no_collection"] = 0
 	if(!my_collection.len)
-		data["no_collecton"] = 1
+		data["no_collection"] = 1
 		return
 	var/datum/mob_hunt/mob_info
 	if(!current_index)
@@ -89,11 +90,14 @@
 						"level" = mob_info.level,
 						"type1" = mob_info.get_type1(),
 						"type2" = mob_info.get_type2(),
-						"sprite" = "[mob_info.icon_state_normal].png"
+						"sprite" = "[mob_info.icon_state_normal].png",
+						"is_hacked" = hacked
 						)
 	if(mob_info.is_shiny)
 		entry["sprite"] = "[mob_info.icon_state_shiny].png"
 	data["entry"] = entry
+	for(var/a in entry)
+		log_debug("[a] = [entry[a]]")
 
 /datum/data/pda/app/mob_hunter_game/proc/assign_nickname()
 	if(!my_collection.len)
@@ -127,6 +131,13 @@
 	if(current_index > my_collection.len)
 		current_index = my_collection.len
 
+/datum/data/pda/app/mob_hunter_game/proc/set_trap()
+	if(!my_collection.len || !pda || !hacked)
+		return
+	var/datum/mob_hunt/bait = my_collection[current_index]
+	bait = bait.type
+	new bait(1, get_turf(pda))
+
 /datum/data/pda/app/mob_hunter_game/Topic(href, list/href_list)
 	switch(href_list["choice"])
 		if("Rename")
@@ -147,3 +158,5 @@
 			disconnect()
 		if("Transfer")
 			print_card()
+		if("Set_Trap")
+			set_trap()

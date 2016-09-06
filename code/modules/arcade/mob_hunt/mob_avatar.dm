@@ -2,8 +2,8 @@
 /obj/effect/nanomob
 	name = "Nano-Mob Avatar"					//will be overridden by the mob datum name value when created
 	desc = "A wild Nano-Mob appeared! Hit it with your PDA with the game open to attempt to capture it!"
-	alpha = 128
 	invisibility = 101							//normally invisible, this gets adjusted through the game's scanning
+	alpha = 128
 	anchored = 1								//just in case
 	density = 0
 	icon = 'icons/effects/mob_hunt.dmi'
@@ -17,28 +17,36 @@
 		qdel(src)
 		return
 	mob_info = new_info
+	update_self()
+	forceMove(mob_info.spawn_point)
+	if(!mob_info.is_trap)
+		addtimer(src, "despawn", mob_info.lifetime)
+
+/obj/effect/nanomob/proc/update_self()
+	if(!mob_info)
+		return
 	name = mob_info.mob_name
+	desc = "A wild [name] (level [mob_info.level]) appeared! Hit it with your PDA with the game open to attempt to capture it!"
 	if(mob_info.is_shiny)
 		icon_state = mob_info.icon_state_shiny
 	else
 		icon_state = mob_info.icon_state_normal
-	var/turf/target_turf = locate(mob_info.x_coord, mob_info.y_coord, STATION_LEVEL)
-	forceMove(target_turf)
-	to_chat(world, "[name] located at ([x],[y],[z])")
-	if(!mob_info.is_trap)
-		addtimer(src, "despawn", mob_info.lifetime)
 
 /obj/effect/nanomob/attackby(obj/item/O, mob/user)
+	if(invisibility)	//no catching mobs you can't normally see!
+		return
 	if(istype(O, /obj/item/device/pda))
 		var/obj/item/device/pda/P = O
-		if(P.current_app && P.current_app == /datum/data/pda/app/mob_hunter_game)
+		if(P.current_app && istype(P.current_app, /datum/data/pda/app/mob_hunter_game))
 			attempt_capture(P)
 			return 1
 
 /obj/effect/nanomob/hitby(obj/item/O)
+	if(invisibility)	//no catching mobs you can't normally see!
+		return
 	if(istype(O, /obj/item/device/pda))
 		var/obj/item/device/pda/P = O
-		if(P.current_app && P.current_app == /datum/data/pda/app/mob_hunter_game)
+		if(P.current_app && istype(P.current_app, /datum/data/pda/app/mob_hunter_game))
 			attempt_capture(P)
 			return 1
 
@@ -52,7 +60,9 @@
 			O.show_message("[bicon(P)] No server connection. Capture aborted.")
 		return
 
-	if(mob_info.is_trap)		//traps work even if you ran into them before
+	if(mob_info.is_trap)		//traps work even if you ran into them before, which is why this is before the clients_encountered check
+		if(client.hacked)		//hacked copies of the game (copies capable of setting traps) are protected from traps
+			return
 		if(istype(P.loc, /mob/living/carbon))
 			var/mob/living/carbon/C = P.loc
 			//Strike them down with a lightning bolt to complete the illusion (copied from the surge reagent overdose, probably could
@@ -97,6 +107,8 @@
 /obj/effect/nanomob/proc/reveal()
 	if(invisibility == 101)
 		invisibility = 0
+		//density = 1
 		spawn(30)
 			if(src)
 				invisibility = 101
+				//density = 1

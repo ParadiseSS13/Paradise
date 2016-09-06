@@ -79,5 +79,9 @@
 				</td>
 			</tr>
 		</table>
+		{{if data.entry.is_hacked}}
+			<br>
+			{{:helper.link('Set Trap', 'bolt', {'choice': 'Set_Trap'})}}
+		{{/if}}
 	</div>
 {{/if}}

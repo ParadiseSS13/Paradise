@@ -28,7 +28,7 @@
 
 /obj/item/weapon/nanomob_card/booster/New()
 	var/datum/mob_hunt/mob_info = pick(subtypesof(/datum/mob_hunt))
-	mob_data = new mob_info(0,0,0,1)
+	mob_data = new mob_info(0,null,1)
 	update_info()
 
 //Booster Packs (Box of booster pack cards)

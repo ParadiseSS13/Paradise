@@ -90,7 +90,7 @@ var/global/obj/machinery/mob_hunt_server/mob_hunt_server = null
 /obj/machinery/mob_hunt_server/proc/register_spawn(datum/mob_hunt/mob_info)
 	if(!mob_info)
 		return 0
-	var/obj/effect/nanomob/new_mob = new /obj/effect/nanomob(get_turf(src), mob_info)
+	var/obj/effect/nanomob/new_mob = new /obj/effect/nanomob(mob_info.spawn_point, mob_info)
 	normal_spawns += new_mob
 	return 1
 
@@ -98,8 +98,8 @@ var/global/obj/machinery/mob_hunt_server/mob_hunt_server = null
 	if(!mob_info)
 		return 0
 	if(!mob_info.is_trap)
-		return register_spawn()
-	var/obj/effect/nanomob/new_mob = new /obj/effect/nanomob(locate(mob_info.x_coord, mob_info.y_coord, STATION_LEVEL), mob_info)
+		return register_spawn(mob_info)
+	var/obj/effect/nanomob/new_mob = new /obj/effect/nanomob(mob_info.spawn_point, mob_info)
 	trap_spawns += new_mob
 	check_stability()
 	return 1
