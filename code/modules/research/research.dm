@@ -187,7 +187,7 @@ datum/tech/materials
 
 datum/tech/engineering
 	name = "Engineering Research"
-	desc = "Development of new and improved engineering parts and."
+	desc = "Development of new and improved engineering parts and methods."
 	id = "engineering"
 	max_level = 5
 
@@ -206,7 +206,7 @@ datum/tech/powerstorage
 
 datum/tech/bluespace
 	name = "'Blue-space' Research"
-	desc = "Research into the sub-reality known as 'blue-space'"
+	desc = "Research into the sub-reality known as 'blue-space'."
 	id = "bluespace"
 	max_level = 6
 	rare = 2
@@ -293,7 +293,7 @@ datum/tech/robotics
 	return cost
 
 /obj/item/weapon/disk/tech_disk
-	name = "Technology Disk"
+	name = "\improper Technology Disk"
 	desc = "A disk for storing technology data for further research."
 	icon = 'icons/obj/cloning.dmi'
 	icon_state = "datadisk2"
@@ -301,13 +301,27 @@ datum/tech/robotics
 	w_class = 1
 	materials = list(MAT_METAL=30, MAT_GLASS=10)
 	var/datum/tech/stored
+	var/default_name = "\improper Technology Disk"
+	var/default_desc = "A disk for storing technology data for further research."
 
 /obj/item/weapon/disk/tech_disk/New()
 	src.pixel_x = rand(-5.0, 5)
 	src.pixel_y = rand(-5.0, 5)
 
+/obj/item/weapon/disk/tech_disk/proc/load_tech(datum/tech/T)
+	name = "[default_name] \[[T]\]"
+	desc = T.desc + " Level: '[T.level]'"
+	// NOTE: This is just a reference to the tech on the system it grabbed it from
+	// This seems highly fragile
+	stored = T
+
+/obj/item/weapon/disk/tech_disk/proc/wipe_tech()
+	name = default_name
+	desc = default_desc
+	stored = null
+
 /obj/item/weapon/disk/design_disk
-	name = "Component Design Disk"
+	name = "\improper Component Design Disk"
 	desc = "A disk for storing device design data for construction in lathes."
 	icon = 'icons/obj/cloning.dmi'
 	icon_state = "datadisk2"
@@ -315,7 +329,23 @@ datum/tech/robotics
 	w_class = 1
 	materials = list(MAT_METAL=30, MAT_GLASS=10)
 	var/datum/design/blueprint
+	// I'm doing this so that disk paths with pre-loaded designs don't get weird names
+	// Otherwise, I'd use "initial()"
+	var/default_name = "\improper Component Design Disk"
+	var/default_desc = "A disk for storing device design data for construction in lathes."
 
 /obj/item/weapon/disk/design_disk/New()
 	src.pixel_x = rand(-5.0, 5)
 	src.pixel_y = rand(-5.0, 5)
+
+/obj/item/weapon/disk/design_disk/proc/load_blueprint(datum/design/D)
+	name = "[default_name] \[[D]\]"
+	desc = D.desc
+	// NOTE: This is just a reference to the design on the system it grabbed it from
+	// This seems highly fragile
+	blueprint = D
+
+/obj/item/weapon/disk/design_disk/proc/wipe_blueprint()
+	name = default_name
+	desc = default_desc
+	blueprint = null
