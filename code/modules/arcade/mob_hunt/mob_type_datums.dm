@@ -85,7 +85,7 @@
 
 /datum/mob_type/normal
 	name = "Normal"
-	weakness = list(/datum/mob_type/normal)
+	weakness = list(/datum/mob_type/fighting)
 	immunity = list(/datum/mob_type/ghost)
 
 /datum/mob_type/fighting

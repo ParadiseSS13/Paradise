@@ -426,20 +426,21 @@
 	turf_whitelist = list(/turf/simulated/floor/bluegrid)
 	lifetime = 3000
 
-/datum/mob_hunt/mob_14
-	mob_name = "Mob 14"
+/datum/mob_hunt/pandoom
+	mob_name = "Pandoom"
 	run_chance = 50
 	min_level = 5
-	max_level = 10
-	primary_type = TYPE_NORMAL
-	secondary_type = TYPE_NORMAL
-	icon_state_normal = ""
-	icon_state_shiny = ""
+	max_level = 15
+	primary_type = TYPE_GHOST
+	icon_state_normal = "pandoom"
+	icon_state_shiny = "pandoom_shiny"
 	area_blacklist = list()
 	turf_blacklist = list()
-	area_whitelist = list()
+	area_whitelist = list(/area/medical/morgue,
+						/area/chapel,
+						/area/medical/genetics_cloning)
 	turf_whitelist = list()
-	lifetime = 6000
+	lifetime = 4500
 
 /datum/mob_hunt/relish
 	mob_name = "Relish"
@@ -456,20 +457,20 @@
 	turf_whitelist = list()
 	lifetime = 3000
 
-/datum/mob_hunt/mob_16
-	mob_name = "Mob 14"
+/datum/mob_hunt/xofine
+	mob_name = "Xofine"
 	run_chance = 50
 	min_level = 5
 	max_level = 10
-	primary_type = TYPE_NORMAL
+	primary_type = TYPE_FIRE
 	secondary_type = TYPE_NORMAL
-	icon_state_normal = ""
-	icon_state_shiny = ""
+	icon_state_normal = "xofine"
+	icon_state_shiny = "xofine_shiny"
 	area_blacklist = list()
 	turf_blacklist = list()
 	area_whitelist = list()
 	turf_whitelist = list()
-	lifetime = 6000
+	lifetime = 3000
 
 /datum/mob_hunt/gitten
 	mob_name = "Gitten"
