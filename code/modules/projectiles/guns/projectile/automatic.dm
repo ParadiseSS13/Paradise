@@ -78,6 +78,25 @@
 	mag_type = /obj/item/ammo_box/magazine/smgm9mm
 	origin_tech = "combat=4;materials=2"
 
+/obj/item/weapon/gun/projectile/automatic/ap10
+	name = "\improper AP10 Machine Pistol"
+	desc = "Slightly outdated, but it still packs a punch. Not suitable for children under 3 years old."
+	icon_state = "ap10"
+	w_class = 3
+	origin_tech = "combat=3;materials=1"
+	mag_type = /obj/item/ammo_box/magazine/ap10
+	fire_sound = 'sound/weapons/Gunshot.ogg'
+	can_suppress = 0
+	burst_size = 2
+
+/obj/item/weapon/gun/projectile/automatic/ap10/New()
+	..()
+	update_icon()
+
+/obj/item/weapon/gun/projectile/automatic/ap10/update_icon()
+	..()
+	icon_state = "ap10[magazine ? "-[Ceiling(get_ammo(0)/4)*4]" : ""][chambered ? "" : "-e"]"
+
 /obj/item/weapon/gun/projectile/automatic/c20r
 	name = "\improper C-20r SMG"
 	desc = "A two-round burst .45 SMG, designated 'C-20r'. Has a 'Scarborough Arms - Per falcis, per pravitas' buttstamp."

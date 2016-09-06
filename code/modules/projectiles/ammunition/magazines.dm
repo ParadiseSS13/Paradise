@@ -195,6 +195,19 @@
 	..()
 	icon_state = "[initial(icon_state)]-[ammo_count() ? "8" : "0"]"
 
+/obj/item/ammo_box/magazine/ap10
+	name = "AP10 magazine (10mm)"
+	desc = "A magazine for the AP10 machine pistol"
+	icon_state = "ap10"
+	origin_tech = "combat=2"
+	ammo_type = /obj/item/ammo_casing/c10mm
+	caliber = "10mm"
+	max_ammo = 24
+
+/obj/item/ammo_box/magazine/ap10/update_icon()
+	..()
+	icon_state = "ap10-[round(ammo_count(), 4)]"
+
 /obj/item/ammo_box/magazine/wt550m9
 	name = "wt550 magazine (4.6x30mm)"
 	icon_state = "46x30mmt-20"

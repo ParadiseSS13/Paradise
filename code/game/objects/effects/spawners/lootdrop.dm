@@ -103,7 +103,7 @@
 				/obj/item/weapon/hand_labeler = 10,
 				/obj/item/weapon/paper/crumpled = 10,
 				/obj/item/weapon/pen = 10,
-				 /obj/item/weapon/minihoe = 10,
+				/obj/item/weapon/minihoe = 10,
 				/obj/item/weapon/plantspray/pests = 10,
 				/obj/item/weapon/stock_parts/cell = 30,
 				/obj/item/weapon/storage/belt/utility = 20,
@@ -196,4 +196,22 @@
 				/obj/item/weapon/airlock_electronics = 1,
 				/obj/item/weapon/gun/energy/kinetic_accelerator/super = 1,
 				/obj/item/pizzabox = 3,
+				)
+
+/obj/effect/spawner/lootdrop/space_pirate_common
+	name = "space pirate common trade item spawn"
+	lootdoubles = 0
+	color = "#FF8800"
+
+	loot = list(
+				//what do I even put hereeeeeeeeeee
+				)
+
+/obj/effect/spawner/lootdrop/space_pirate_valuable
+	name = "space pirate valuable trade item spawn"
+	lootdoubles = 0
+	color = "#FF0000"
+
+	loot = list(
+				//What's this game design thing
 				)

@@ -3,6 +3,8 @@ SPACE PIRATES ROUNDTYPE
 */
 
 var/global/list/raider_spawn = list()
+var/global/list/raider_gear = list()
+var/global/list/raider_loot = list()
 
 /datum/game_mode/
 	var/list/datum/mind/raiders = list()  //Antags.
@@ -17,6 +19,74 @@ var/global/list/raider_spawn = list()
 	votable = 0
 
 	var/win_button_triggered = 0
+
+	//for spawning gear
+	var/list/weapons = list(
+						list(/obj/item/ammo_box/magazine/wt550m9,//wt550, 5 mags - 100 rounds
+							/obj/item/ammo_box/magazine/wt550m9,
+							/obj/item/ammo_box/magazine/wt550m9,
+							/obj/item/ammo_box/magazine/wt550m9,
+							/obj/item/weapon/gun/projectile/automatic/wt550),
+
+						list(/obj/item/ammo_box/magazine/uzim9mm,//uzi, 3 mags - 96 rounds
+							/obj/item/ammo_box/magazine/uzim9mm,
+							/obj/item/weapon/gun/projectile/automatic/mini_uzi),
+
+						list(/obj/item/ammo_box/magazine/ap10,//ap10, 4 mags - 96 rounds
+							/obj/item/ammo_box/magazine/ap10,
+							/obj/item/ammo_box/magazine/ap10,
+							/obj/item/weapon/gun/projectile/automatic/ap10),
+
+						list(/obj/item/ammo_box/magazine/m12g,//bulldog shotty, 24 rounds
+							/obj/item/ammo_box/magazine/m12g/buckshot,
+							/obj/item/weapon/gun/projectile/automatic/shotgun/bulldog),
+
+						list(/obj/item/ammo_box/shotgun/buck,//combat shotty, 27 rounds
+							/obj/item/ammo_box/shotgun/buck,
+							/obj/item/weapon/gun/projectile/shotgun/automatic/combat),
+
+						list(/obj/item/ammo_box/a357,//mateba, 4 mags - 28 rounds, a classic baton (the one that stuns, but isn't collapsible)
+							/obj/item/ammo_box/a357,
+							/obj/item/ammo_box/a357,
+							/obj/item/weapon/gun/projectile/revolver/mateba,
+							/obj/item/weapon/melee/classic_baton),
+
+						list(/obj/item/ammo_box/magazine/m45,//m1911, 5 mags - 40 rounds, plus an ESABER, YARRRR
+							/obj/item/ammo_box/magazine/m45,
+							/obj/item/ammo_box/magazine/m45,
+							/obj/item/ammo_box/magazine/m45,
+							/obj/item/weapon/gun/projectile/automatic/pistol/m1911,
+							/obj/item/weapon/melee/energy/sword/pirate),
+							)
+
+	var/list/space_suits = list(
+					list(/obj/item/clothing/suit/space/syndicate/black/orange,
+						/obj/item/clothing/head/helmet/space/syndicate/black/orange),
+
+					list(/obj/item/clothing/suit/space/syndicate/black/engie,
+						/obj/item/clothing/head/helmet/space/syndicate/black/engie),
+
+					list(/obj/item/clothing/suit/space/syndicate/black/med,
+						/obj/item/clothing/head/helmet/space/syndicate/black/med),
+
+					list(/obj/item/clothing/suit/space/syndicate/black/blue,
+						/obj/item/clothing/head/helmet/space/syndicate/black/blue),
+
+					list(/obj/item/clothing/suit/space/syndicate/blue,
+						/obj/item/clothing/head/helmet/space/syndicate/blue),
+
+					list(/obj/item/clothing/suit/space/syndicate/orange,
+						/obj/item/clothing/head/helmet/space/syndicate/orange),
+
+					list(/obj/item/clothing/suit/space/syndicate/green/dark,
+						/obj/item/clothing/head/helmet/space/syndicate/green/dark),
+
+					list(/obj/item/clothing/suit/space/syndicate/green,
+						/obj/item/clothing/head/helmet/space/syndicate/green),
+
+					list(/obj/item/clothing/suit/space/syndicate,
+						/obj/item/clothing/head/helmet/space/syndicate)
+						)
 
 /datum/game_mode/heist/announce()
 	to_chat(world, "<B>The current game mode is - Heist!</B>")
@@ -58,6 +128,7 @@ var/global/list/raider_spawn = list()
 		if(index > raider_spawn.len)
 			index = 1
 		raider.current.loc = raider_spawn[index]
+		make_raider_gear(raider_gear[index])
 		index++
 	return 1
 
@@ -84,9 +155,9 @@ var/global/list/raider_spawn = list()
 	var/mob/living/carbon/human/M = newraider.current
 	var/datum/preferences/P = new
 	P.species = newraider.current.client.prefs.species//raiders KEEP their current species, makes for more interesting stuff
-	P.real_name = M.generate_name()
 	P.random_character()
 	P.copy_to(M)
+	M.real_name = M.species.get_random_name(M.gender)//because the species var in prefs is only a string for some reason
 	newraider.name = M.real_name
 
 	M.underwear = "Nude"
@@ -100,6 +171,27 @@ var/global/list/raider_spawn = list()
 
 	M.equip_raider()
 	M.rejuvenate()//removes people being stupid and taking limbless, mute and blind characters, also regenrates icons.
+
+/datum/game_mode/heist/proc/make_raider_gear(var/location)
+	if(!istype(location, /turf))
+		return 0
+	if(weapons && weapons.len)
+		var/list/lootspawn = pick(weapons)
+		weapons -= lootspawn
+		if(lootspawn)
+			for(var/W in lootspawn)
+				new W(location)
+
+	if(space_suits && space_suits.len)
+		var/list/lootspawn = pick(space_suits)
+		space_suits -= lootspawn
+		if(lootspawn)
+			for(var/W in lootspawn)
+				new W(location)
+
+	new /obj/item/weapon/tank/jetpack/oxygen/harness(location)
+	new /obj/item/clothing/mask/breath(location)
+	new /obj/item/weapon/storage/belt/military(location)
 
 /datum/game_mode/proc/is_raider_crew_alive()
 	for(var/datum/mind/raider in raiders)
@@ -272,3 +364,12 @@ datum/game_mode/proc/auto_declare_completion_heist()
 
 	var/datum/game_mode/heist/H = ticker.mode
 	H.win_button_triggered = 1
+
+/obj/effect/landmark/raider/raider_start
+	name = "raiderstart"
+
+/obj/effect/landmark/raider/raider_gear
+	name = "raidergear"
+
+/obj/effect/landmark/raider/raider_loot
+	name = "raiderloot"

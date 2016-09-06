@@ -596,11 +596,11 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) \
 		if(7)
 			target = /obj/item/weapon/gun/energy/gun/hos
 			target_amount = 1
-			loot = "the renovated Head of Security's energy gun"
+			loot = "the Head of Security's recreated antique laser gun"
 		if(8)
 			target = /obj/item/weapon/defibrillator/compact
 			target_amount = 1
-			loot = "the Chief Medical Officer's experimental compat defibrillator"
+			loot = "the Chief Medical Officer's experimental compact defibrillator"
 		if(9)
 			target = /obj/item/clothing/suit/armor/reactive/teleport
 			target_amount = 1
