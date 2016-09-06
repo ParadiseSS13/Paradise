@@ -23,7 +23,8 @@
 	 "sodiumchloride" = list("saltshakersmall", "salt shaker", "Salt. From space oceans, presumably"),
 	 "blackpepper" = list("peppermillsmall", "pepper mill", "Often used to flavor food or make people sneeze"),
 	 "cornoil" = list("oliveoil", "corn oil bottle", "A delicious oil used in cooking. Made from corn"),
-	 "sugar" = list("emptycondiment", "sugar bottle", "Tasty spacey sugar!"))
+	 "sugar" = list("emptycondiment", "sugar bottle", "Tasty spacey sugar!"),
+	 "msg" = list("emptycondiment", "chef excellence special sauce", "Food never tasted any better then with this."))
 	var/originalname = "condiment" //Can't use initial(name) for this. This stores the name set by condimasters.
 
 /obj/item/weapon/reagent_containers/food/condiment/attackby(obj/item/weapon/W, mob/user, params)
@@ -187,6 +188,32 @@
 	icon_state = "soysauce"
 	list_reagents = list("soysauce" = 50)
 	possible_states = list()
+
+/obj/item/weapon/reagent_containers/food/condiment/ketchup
+	name = "ketchup bottle"
+	desc = "You feel more American already"
+	icon_state = "ketchup"
+	list_reagents = list("Ketchup" = 50)
+	possible_states = list()
+
+/obj/item/weapon/reagent_containers/food/condiment/coldsauce
+	name = "coldsauce bottle"
+	desc = "Leaves the tongue numb in it's passage."
+	icon_state = "coldsauce"
+	list_reagents = list("frostoil" = 50)
+	possible_states = list()
+
+/obj/item/weapon/reagent_containers/food/condiment/hotsauce
+	name = "hotsauce bottle"
+	desc = "You can almost TASTE the stomach ulcers now!"
+	icon_state = "hotsauce"
+	list_reagents = list("capsaicin" = 50)
+	possible_states = list()
+
+/obj/item/weapon/reagent_containers/food/condiment/chefsauce
+	name = "Chef Excellence's Special Sauce"
+	desc = "Food never tasted any better then with this"
+	list_reagents = list("msg" = 50)
 
 /obj/item/weapon/reagent_containers/food/condiment/syndisauce
 	name = "\improper Chef Excellence's Special Sauce"
