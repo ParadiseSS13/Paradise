@@ -413,7 +413,7 @@ This function completely restores a damaged organ to perfect condition.
 	if(germ_level)
 		return 1
 	if(!wound_cleanup_timer && wounds.len)
-		wound_cleanup_timer = addtimer(src, "cleanup_wounds", SecondsToTicks(600), unique = 1, wounds)
+		wound_cleanup_timer = addtimer(src, "cleanup_wounds", SecondsToTicks(600), 1, wounds)
 
 	if(update_icon())
 		owner.UpdateDamageIcon(1)

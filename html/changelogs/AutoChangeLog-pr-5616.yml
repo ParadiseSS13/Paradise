@@ -1,0 +1,4 @@
+author: Krausus
+delete-after: True
+changes: 
+  - bugfix: "Fixed species-restricted items sometimes failing to \"equip\" to restricted species' non-equipment slots."

@@ -1,0 +1,5 @@
+author: IcyV
+delete-after: True
+changes: 
+  - rscadd: "Adds new bottle sprite"
+  - bugfix: "Fixes many bottles being locked to a single icon"
