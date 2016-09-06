@@ -1118,13 +1118,13 @@
 		if("mainmenu")
 			temp_html += "<h3>Main Menu</h3>"
 			if(viable_occupant) //is there REALLY someone in there who can be modified?
-				temp_html += text("<A href='?src=\ref[];screen=unimenu'>Modify Unique Identifier</A><br />", src)
-				temp_html += text("<A href='?src=\ref[];screen=strucmenu'>Modify Structural Enzymes</A><br /><br />", src)
+				temp_html += "<A href='?src=[UID()];screen=unimenu'>Modify Unique Identifier</A><br />"
+				temp_html += "<A href='?src=[UID()];screen=strucmenu'>Modify Structural Enzymes</A><br /><br />"
 			else
 				temp_html += "<span class='linkOff'>Modify Unique Identifier</span><br />"
 				temp_html += "<span class='linkOff'>Modify Structural Enzymes</span><br /><br />"
-			temp_html += text("<A href='?src=\ref[];screen=radsetmenu'>Radiation Emitter Settings</A><br /><br />", src)
-			temp_html += text("<A href='?src=\ref[];screen=buffermenu'>Transfer Buffer</A><br /><br />", src)
+			temp_html += "<A href='?src=[UID()];screen=radsetmenu'>Radiation Emitter Settings</A><br /><br />"
+			temp_html += "<A href='?src=[UID()];screen=buffermenu'>Transfer Buffer</A><br /><br />"
 
 		if("unimenu")
 			if(!viable_occupant)
@@ -1159,7 +1159,7 @@
 			temp_html = "<A href='?src=[UID()];screen=mainmenu'><< Main Menu</A><br />"
 			temp_html += "<h3>Radiation Emitter Settings</h3>"
 			if(viable_occupant)
-				temp_html += text("<A href='?src=\ref[];genpulse=1'>Pulse Radiation</A>", src)
+				temp_html += "<A href='?src=[UID()];genpulse=1'>Pulse Radiation</A>"
 			else
 				temp_html += "<span class='linkOff'>Pulse Radiation</span>"
 			temp_html += "<br /><br />Radiation Duration: <A href='?src=[UID()];radleminus=1'>-</A> <font color='green'><B>[radduration]</B></FONT> <A href='?src=[UID()];radleplus=1'>+</A><br />"
@@ -1175,12 +1175,12 @@
 				temp_html += text("Data: <font class='highlight'>[]</FONT><br />", buffer1)
 				temp_html += text("By: <font class='highlight'>[]</FONT><br />", buffer1owner)
 				temp_html += text("Label: <font class='highlight'>[]</FONT><br />", buffer1label)
-			if(viable_occupant) temp_html += text("Save : <A href='?src=\ref[];b1addui=1'>UI</A> - <A href='?src=\ref[];b1adduiue=1'>UI+UE</A> - <A href='?src=\ref[];b1addse=1'>SE</A><br />", src, src, src)
-			if(buffer1) temp_html += text("Transfer to: <A href='?src=\ref[];b1transfer=1'>Occupant</A> - <A href='?src=\ref[];b1injector=1'>Injector</A><br />", src, src)
-			//if(buffer1) temp_html += text("<A href='?src=\ref[];b1iso=1'>Isolate Block</A><br />", src)
+			if(viable_occupant) temp_html += "Save : <A href='?src=[UID()];b1addui=1'>UI</A> - <A href='?src=[UID()];b1adduiue=1'>UI+UE</A> - <A href='?src=[UID()];b1addse=1'>SE</A><br />"
+			if(buffer1) temp_html += "Transfer to: <A href='?src=[UID()];b1transfer=1'>Occupant</A> - <A href='?src=[UID()];b1injector=1'>Injector</A><br />"
+			//if(buffer1) temp_html += "<A href='?src=[UID()];b1iso=1'>Isolate Block</A><br />"
 			if(buffer1) temp_html += "Disk: <A href='?src=[UID()];save_disk=1'>Save To</a> | <A href='?src=[UID()];load_disk=1'>Load From</a><br />"
-			if(buffer1) temp_html += text("<A href='?src=\ref[];b1label=1'>Edit Label</A><br />", src)
-			if(buffer1) temp_html += text("<A href='?src=\ref[];b1clear=1'>Clear Buffer</A><br /><br />", src)
+			if(buffer1) temp_html += "<A href='?src=[UID()];b1label=1'>Edit Label</A><br />"
+			if(buffer1) temp_html += "<A href='?src=[UID()];b1clear=1'>Clear Buffer</A><br /><br />"
 			if(!buffer1) temp_html += "<br />"
 			temp_html += "<h4>Buffer 2:</h4>"
 			if(!(buffer2))
@@ -1189,12 +1189,12 @@
 				temp_html += text("Data: <font class='highlight'>[]</FONT><br />", buffer2)
 				temp_html += text("By: <font class='highlight'>[]</FONT><br />", buffer2owner)
 				temp_html += text("Label: <font class='highlight'>[]</FONT><br />", buffer2label)
-			if(viable_occupant) temp_html += text("Save : <A href='?src=\ref[];b2addui=1'>UI</A> - <A href='?src=\ref[];b2adduiue=1'>UI+UE</A> - <A href='?src=\ref[];b2addse=1'>SE</A><br />", src, src, src)
-			if(buffer2) temp_html += text("Transfer to: <A href='?src=\ref[];b2transfer=1'>Occupant</A> - <A href='?src=\ref[];b2injector=1'>Injector</A><br />", src, src)
-			//if(buffer2) temp_html += text("<A href='?src=\ref[];b2iso=1'>Isolate Block</A><br />", src)
+			if(viable_occupant) temp_html += "Save : <A href='?src=[UID()];b2addui=1'>UI</A> - <A href='?src=[UID()];b2adduiue=1'>UI+UE</A> - <A href='?src=[UID()];b2addse=1'>SE</A><br />"
+			if(buffer2) temp_html += "Transfer to: <A href='?src=[UID()];b2transfer=1'>Occupant</A> - <A href='?src=[UID()];b2injector=1'>Injector</A><br />"
+			//if(buffer2) temp_html += "<A href='?src=[UID()];b2iso=1'>Isolate Block</A><br />"
 			if(buffer2) temp_html += "Disk: <A href='?src=[UID()];save_disk=2'>Save To</a> | <A href='?src=[UID()];load_disk=2'>Load From</a><br />"
-			if(buffer2) temp_html += text("<A href='?src=\ref[];b2label=1'>Edit Label</A><br />", src)
-			if(buffer2) temp_html += text("<A href='?src=\ref[];b2clear=1'>Clear Buffer</A><br /><br />", src)
+			if(buffer2) temp_html += "<A href='?src=[UID()];b2label=1'>Edit Label</A><br />"
+			if(buffer2) temp_html += "<A href='?src=[UID()];b2clear=1'>Clear Buffer</A><br /><br />"
 			if(!buffer2) temp_html += "<br />"
 			temp_html += "<h4>Buffer 3:</h4>"
 			if(!(buffer3))
@@ -1203,12 +1203,12 @@
 				temp_html += text("Data: <font class='highlight'>[]</FONT><br />", buffer3)
 				temp_html += text("By: <font class='highlight'>[]</FONT><br />", buffer3owner)
 				temp_html += text("Label: <font class='highlight'>[]</FONT><br />", buffer3label)
-			if(viable_occupant) temp_html += text("Save : <A href='?src=\ref[];b3addui=1'>UI</A> - <A href='?src=\ref[];b3adduiue=1'>UI+UE</A> - <A href='?src=\ref[];b3addse=1'>SE</A><br />", src, src, src)
-			if(buffer3) temp_html += text("Transfer to: <A href='?src=\ref[];b3transfer=1'>Occupant</A> - <A href='?src=\ref[];b3injector=1'>Injector</A><br />", src, src)
-			//if(buffer3) temp_html += text("<A href='?src=\ref[];b3iso=1'>Isolate Block</A><br />", src)
+			if(viable_occupant) temp_html += "Save : <A href='?src=[UID()];b3addui=1'>UI</A> - <A href='?src=[UID()];b3adduiue=1'>UI+UE</A> - <A href='?src=[UID()];b3addse=1'>SE</A><br />"
+			if(buffer3) temp_html += "Transfer to: <A href='?src=[UID()];b3transfer=1'>Occupant</A> - <A href='?src=[UID()];b3injector=1'>Injector</A><br />"
+			//if(buffer3) temp_html += "<A href='?src=[UID()];b3iso=1'>Isolate Block</A><br />"
 			if(buffer3) temp_html += "Disk: <A href='?src=[UID()];save_disk=3'>Save To</a> | <A href='?src=[UID()];load_disk=3'>Load From</a><br />"
-			if(buffer3) temp_html += text("<A href='?src=\ref[];b3label=1'>Edit Label</A><br />", src)
-			if(buffer3) temp_html += text("<A href='?src=\ref[];b3clear=1'>Clear Buffer</A><br /><br />", src)
+			if(buffer3) temp_html += "<A href='?src=[UID()];b3label=1'>Edit Label</A><br />"
+			if(buffer3) temp_html += "<A href='?src=[UID()];b3clear=1'>Clear Buffer</A><br /><br />"
 			if(!buffer3) temp_html += "<br />"
 	temp_html += temp_footer_html
 
@@ -1262,7 +1262,7 @@
 		dat += "<span class='linkOff'>Inject Rejuvenators</span><br />"
 
 	if(!isnull(diskette))
-		dat += text("<A href='?src=\ref[];eject_disk=1'>Eject Disk</A><br />", src)
+		dat += "<A href='?src=[UID()];eject_disk=1'>Eject Disk</A><br />"
 
 	dat += "<br />"
 

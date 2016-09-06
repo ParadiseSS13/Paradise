@@ -55,8 +55,8 @@
 				if(1.0)
 					dat += {"
 <p style='text-align:center;'>"}
-					dat += text("<A href='?src=\ref[];choice=Search Records'>Search Records</A><BR>", src)
-					dat += text("<A href='?src=\ref[];choice=New Record (General)'>New Record</A><BR>", src)
+					dat += "<A href='?src=[UID()];choice=Search Records'>Search Records</A><BR>"
+					dat += "<A href='?src=[UID()];choice=New Record (General)'>New Record</A><BR>"
 					dat += {"
 </p>
 <table style="text-align:center;" cellspacing="0" width="100%">
@@ -80,8 +80,8 @@
 							dat += text("<td>[]</td>", R.fields["rank"])
 							dat += text("<td>[]</td>", R.fields["fingerprint"])
 						dat += "</table><hr width='75%' />"
-					dat += text("<A href='?src=\ref[];choice=Record Maintenance'>Record Maintenance</A><br><br>", src)
-					dat += text("<A href='?src=\ref[];choice=Log Out'>{Log Out}</A>",src)
+					dat += "<A href='?src=[UID()];choice=Record Maintenance'>Record Maintenance</A><br><br>"
+					dat += "<A href='?src=[UID()];choice=Log Out'>{Log Out}</A>"
 				if(2.0)
 					dat += "<B>Records Maintenance</B><HR>"
 					dat += "<BR><A href='?src=[UID()];choice=Delete All Records'>Delete All Records</A><BR><BR><A href='?src=[UID()];choice=Return'>Back</A>"
@@ -102,10 +102,10 @@
 						<img src=[active1.fields["photo-west"]] height=80 width=80 border=4></td></tr></table>")
 					else
 						dat += "<B>General Record Lost!</B><BR>"
-					dat += text("\n<A href='?src=\ref[];choice=Delete Record (ALL)'>Delete Record (ALL)</A><BR><BR>\n<A href='?src=\ref[];choice=Print Record'>Print Record</A><BR>\n<A href='?src=\ref[];choice=Return'>Back</A><BR>", src, src, src)
+					dat += "\n<A href='?src=[UID()];choice=Delete Record (ALL)'>Delete Record (ALL)</A><BR><BR>\n<A href='?src=[UID()];choice=Print Record'>Print Record</A><BR>\n<A href='?src=[UID()];choice=Return'>Back</A><BR>"
 				if(4.0)
 					if(!Perp.len)
-						dat += text("ERROR.  String could not be located.<br><br><A href='?src=\ref[];choice=Return'>Back</A>", src)
+						dat += "ERROR.  String could not be located.<br><br><A href='?src=[UID()];choice=Return'>Back</A>"
 					else
 						dat += {"
 <table style="text-align:center;" cellspacing="0" width="100%">
@@ -135,10 +135,10 @@
 							dat += text("<td>[]</td>", R.fields["fingerprint"])
 							dat += text("<td>[]</td></tr>", crimstat)
 						dat += "</table><hr width='75%' />"
-						dat += text("<br><A href='?src=\ref[];choice=Return'>Return to index.</A>", src)
+						dat += "<br><A href='?src=[UID()];choice=Return'>Return to index.</A>"
 				else
 		else
-			dat += text("<A href='?src=\ref[];choice=Log In'>{Log In}</A>", src)
+			dat += "<A href='?src=[UID()];choice=Log In'>{Log In}</A>"
 	user << browse(text("<HEAD><TITLE>Employment Records</TITLE></HEAD><TT>[]</TT>", dat), "window=secure_rec;size=600x400")
 	onclose(user, "secure_rec")
 	return

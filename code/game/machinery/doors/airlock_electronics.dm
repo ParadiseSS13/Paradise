@@ -51,7 +51,7 @@
 				else
 					t1 += "<a style='color: red' href='?src=[UID()];access=[acc]'>[aname]</a><br>"
 
-		t1 += text("<p><a href='?src=\ref[];close=1'>Close</a></p>\n", src)
+		t1 += "<p><a href='?src=[UID()];close=1'>Close</a></p>\n"
 
 		var/datum/browser/popup = new(user, "airlock_electronics", name, 400, 400)
 		popup.set_content(t1)

@@ -82,9 +82,9 @@
 							for(var/datum/data/record/R in sortRecord(data_core.general))
 								dat += text("<A href='?src=\ref[];d_rec=\ref[]'>[]: []<BR>", src, R, R.fields["id"], R.fields["name"])
 								//Foreach goto(132)
-						dat += text("<HR><A href='?src=\ref[];screen=1'>Back</A>", src)
+						dat += "<HR><A href='?src=[UID()];screen=1'>Back</A>"
 					if(3.0)
-						dat += text("<B>Records Maintenance</B><HR>\n<A href='?src=\ref[];back=1'>Backup To Disk</A><BR>\n<A href='?src=\ref[];u_load=1'>Upload From disk</A><BR>\n<A href='?src=\ref[];del_all=1'>Delete All Records</A><BR>\n<BR>\n<A href='?src=\ref[];screen=1'>Back</A>", src, src, src, src)
+						dat += "<B>Records Maintenance</B><HR>\n<A href='?src=[UID()];back=1'>Backup To Disk</A><BR>\n<A href='?src=[UID()];u_load=1'>Upload From disk</A><BR>\n<A href='?src=[UID()];del_all=1'>Delete All Records</A><BR>\n<BR>\n<A href='?src=[UID()];screen=1'>Back</A>"
 					if(4.0)
 						dat += "<CENTER><B>Medical Record</B></CENTER><BR>"
 						if((istype(src.active1, /datum/data/record) && data_core.general.Find(src.active1)))
@@ -105,12 +105,12 @@
 							while(src.active2.fields[text("com_[]", counter)])
 								dat += text("[]<BR><A href='?src=\ref[];del_c=[]'>Delete Entry</A><BR><BR>", src.active2.fields[text("com_[]", counter)], src, counter)
 								counter++
-							dat += text("<A href='?src=\ref[];add_c=1'>Add Entry</A><BR><BR>", src)
-							dat += text("<A href='?src=\ref[];del_r=1'>Delete Record (Medical Only)</A><BR><BR>", src)
+							dat += "<A href='?src=[UID()];add_c=1'>Add Entry</A><BR><BR>"
+							dat += "<A href='?src=[UID()];del_r=1'>Delete Record (Medical Only)</A><BR><BR>"
 						else
 							dat += "<B>Medical Record Lost!</B><BR>"
 							dat += text("<A href='?src=[UID()];new=1'>New Record</A><BR><BR>")
-						dat += text("\n<A href='?src=\ref[];print_p=1'>Print Record</A><BR>\n<A href='?src=\ref[];screen=2'>Back</A><BR>", src, src)
+						dat += "\n<A href='?src=[UID()];print_p=1'>Print Record</A><BR>\n<A href='?src=[UID()];screen=2'>Back</A><BR>"
 					if(5.0)
 						dat += "<CENTER><B>Virus Database</B></CENTER>"
 						for(var/Dt in typesof(/datum/disease/))
@@ -143,7 +143,7 @@
 
 					else
 			else
-				dat += text("<A href='?src=\ref[];login=1'>{Log In}</A>", src)
+				dat += "<A href='?src=[UID()];login=1'>{Log In}</A>"
 		popup.width = 600
 		popup.height = 400
 		popup.set_content(dat)
@@ -239,7 +239,7 @@
 				src.temp += "<br><b>Details:</b><br> <A href='?src=[UID()];field=vir_desc;edit_vir=\ref[v]'>[v.fields["description"]]</A>"
 
 			if(href_list["del_all"])
-				src.temp = text("Are you sure you wish to delete all records?<br>\n\t<A href='?src=\ref[];temp=1;del_all2=1'>Yes</A><br>\n\t<A href='?src=\ref[];temp=1'>No</A><br>", src, src)
+				src.temp = "Are you sure you wish to delete all records?<br>\n\t<A href='?src=[UID()];temp=1;del_all2=1'>Yes</A><br>\n\t<A href='?src=[UID()];temp=1'>No</A><br>"
 
 			if(href_list["del_all2"])
 				for(var/datum/data/record/R in data_core.medical)
@@ -326,10 +326,10 @@
 							src.active2.fields["notes"] = t1
 					if("p_stat")
 						if(istype(src.active1, /datum/data/record))
-							src.temp = text("<B>Physical Condition:</B><BR>\n\t<A href='?src=\ref[];temp=1;p_stat=deceased'>*Deceased*</A><BR>\n\t<A href='?src=\ref[];temp=1;p_stat=ssd'>*SSD*</A><BR>\n\t<A href='?src=\ref[];temp=1;p_stat=active'>Active</A><BR>\n\t<A href='?src=\ref[];temp=1;p_stat=unfit'>Physically Unfit</A><BR>\n\t<A href='?src=\ref[];temp=1;p_stat=disabled'>Disabled</A><BR>", src, src, src, src, src)
+							src.temp = "<B>Physical Condition:</B><BR>\n\t<A href='?src=[UID()];temp=1;p_stat=deceased'>*Deceased*</A><BR>\n\t<A href='?src=[UID()];temp=1;p_stat=ssd'>*SSD*</A><BR>\n\t<A href='?src=[UID()];temp=1;p_stat=active'>Active</A><BR>\n\t<A href='?src=[UID()];temp=1;p_stat=unfit'>Physically Unfit</A><BR>\n\t<A href='?src=[UID()];temp=1;p_stat=disabled'>Disabled</A><BR>"
 					if("m_stat")
 						if(istype(src.active1, /datum/data/record))
-							src.temp = text("<B>Mental Condition:</B><BR>\n\t<A href='?src=\ref[];temp=1;m_stat=insane'>*Insane*</A><BR>\n\t<A href='?src=\ref[];temp=1;m_stat=unstable'>*Unstable*</A><BR>\n\t<A href='?src=\ref[];temp=1;m_stat=watch'>*Watch*</A><BR>\n\t<A href='?src=\ref[];temp=1;m_stat=stable'>Stable</A><BR>", src, src, src, src)
+							src.temp = "<B>Mental Condition:</B><BR>\n\t<A href='?src=[UID()];temp=1;m_stat=insane'>*Insane*</A><BR>\n\t<A href='?src=[UID()];temp=1;m_stat=unstable'>*Unstable*</A><BR>\n\t<A href='?src=[UID()];temp=1;m_stat=watch'>*Watch*</A><BR>\n\t<A href='?src=[UID()];temp=1;m_stat=stable'>Stable</A><BR>"
 					if("b_type")
 						if(istype(src.active2, /datum/data/record))
 							src.temp = text("<B>Blood Type:</B><BR>\n\t<A href='?src=\ref[];temp=1;b_type=an'>A-</A> <A href='?src=\ref[];temp=1;b_type=ap'>A+</A><BR>\n\t<A href='?src=\ref[];temp=1;b_type=bn'>B-</A> <A href='?src=\ref[];temp=1;b_type=bp'>B+</A><BR>\n\t<A href='?src=\ref[];temp=1;b_type=abn'>AB-</A> <A href='?src=\ref[];temp=1;b_type=abp'>AB+</A><BR>\n\t<A href='?src=\ref[];temp=1;b_type=on'>O-</A> <A href='?src=\ref[];temp=1;b_type=op'>O+</A><BR>", src, src, src, src, src, src, src, src)
@@ -405,7 +405,7 @@
 
 			if(href_list["del_r"])
 				if(src.active2)
-					src.temp = text("Are you sure you wish to delete the record (Medical Portion Only)?<br>\n\t<A href='?src=\ref[];temp=1;del_r2=1'>Yes</A><br>\n\t<A href='?src=\ref[];temp=1'>No</A><br>", src, src)
+					src.temp = "Are you sure you wish to delete the record (Medical Portion Only)?<br>\n\t<A href='?src=[UID()];temp=1;del_r2=1'>Yes</A><br>\n\t<A href='?src=[UID()];temp=1'>No</A><br>"
 
 			if(href_list["del_r2"])
 				if(src.active2)

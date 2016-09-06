@@ -182,13 +182,13 @@ FIRE ALARM
 		A = A.loc
 
 		if(A.fire)
-			d1 = text("<A href='?src=\ref[];reset=1'>Reset - Lockdown</A>", src)
+			d1 = "<A href='?src=[UID()];reset=1'>Reset - Lockdown</A>"
 		else
-			d1 = text("<A href='?src=\ref[];alarm=1'>Alarm - Lockdown</A>", src)
+			d1 = "<A href='?src=[UID()];alarm=1'>Alarm - Lockdown</A>"
 		if(src.timing)
-			d2 = text("<A href='?src=\ref[];time=0'>Stop Time Lock</A>", src)
+			d2 = "<A href='?src=[UID()];time=0'>Stop Time Lock</A>"
 		else
-			d2 = text("<A href='?src=\ref[];time=1'>Initiate Time Lock</A>", src)
+			d2 = "<A href='?src=[UID()];time=1'>Initiate Time Lock</A>"
 		var/second = round(src.time) % 60
 		var/minute = (round(src.time) - second) / 60
 		var/dat = "<HTML><HEAD></HEAD><BODY><TT><B>Fire alarm</B> [d1]\n<HR>The current alert level is: [get_security_level()]</b><br><br>\nTimer System: [d2]<BR>\nTime Left: [(minute ? "[minute]:" : null)][second] <A href='?src=[UID()];tp=-30'>-</A> <A href='?src=[UID()];tp=-1'>-</A> <A href='?src=[UID()];tp=1'>+</A> <A href='?src=[UID()];tp=30'>+</A>\n</TT></BODY></HTML>"
@@ -350,13 +350,13 @@ Just a object used in constructing fire alarms
 	if(istype(user, /mob/living/carbon/human) || istype(user, /mob/living/silicon/ai))
 
 		if(A.party)
-			d1 = text("<A href='?src=\ref[];reset=1'>No Party :(</A>", src)
+			d1 = "<A href='?src=[UID()];reset=1'>No Party :(</A>"
 		else
-			d1 = text("<A href='?src=\ref[];alarm=1'>PARTY!!!</A>", src)
+			d1 = "<A href='?src=[UID()];alarm=1'>PARTY!!!</A>"
 		if(timing)
-			d2 = text("<A href='?src=\ref[];time=0'>Stop Time Lock</A>", src)
+			d2 = "<A href='?src=[UID()];time=0'>Stop Time Lock</A>"
 		else
-			d2 = text("<A href='?src=\ref[];time=1'>Initiate Time Lock</A>", src)
+			d2 = "<A href='?src=[UID()];time=1'>Initiate Time Lock</A>"
 		var/second = time % 60
 		var/minute = (time - second) / 60
 		var/dat = text("<HTML><HEAD></HEAD><BODY><TT><B>Party Button</B> []\n<HR>\nTimer System: []<BR>\nTime Left: [][] <A href='?src=\ref[];tp=-30'>-</A> <A href='?src=\ref[];tp=-1'>-</A> <A href='?src=\ref[];tp=1'>+</A> <A href='?src=\ref[];tp=30'>+</A>\n</TT></BODY></HTML>", d1, d2, (minute ? text("[]:", minute) : null), second, src, src, src, src)
