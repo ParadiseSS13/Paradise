@@ -161,7 +161,7 @@
 				mages_made++
 				return 1
 			else
-				log_to_dd("The candidates list for ragin' mages contained non-observer entries!")
+				log_runtime(EXCEPTION("The candidates list for ragin' mages contained non-observer entries!"), src)
 				return 0
 
 // ripped from -tg-'s wizcode, because whee lets make a very general proc for a very specific gamemode

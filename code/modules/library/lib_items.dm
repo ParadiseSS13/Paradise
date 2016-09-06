@@ -83,7 +83,7 @@
 
 /obj/structure/bookcase/attack_hand(var/mob/user as mob)
 	if(contents.len)
-		var/obj/item/weapon/book/choice = input("Which book would you like to remove from \the [src]?") in contents as obj|null
+		var/obj/item/weapon/book/choice = input("Which book would you like to remove from [src]?") as null|anything in contents
 		if(choice)
 			if(user.incapacitated() || user.lying || !Adjacent(user))
 				return

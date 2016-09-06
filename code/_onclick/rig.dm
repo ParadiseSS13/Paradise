@@ -25,7 +25,7 @@
 			to_chat(src, "Hardsuit activation mode set to control-click.")
 		else
 			// should never get here, but just in case:
-			log_debug("Bad hardsuit click mode: [hardsuit_click_mode] - expected 0 to [MAX_HARDSUIT_CLICK_MODE]")
+			log_runtime(EXCEPTION("Bad hardsuit click mode: [hardsuit_click_mode] - expected 0 to [MAX_HARDSUIT_CLICK_MODE]"), src)
 			to_chat(src, "Somehow you bugged the system. Setting your hardsuit mode to middle-click.")
 			hardsuit_click_mode = MIDDLE_CLICK
 

@@ -199,6 +199,7 @@
 	var/msg = "[name] process hung at tick #[ticks]. Process was unresponsive for [(TimeOfGame - run_start) / 10] seconds and was restarted. Last task: [last_task]. Last Object Type: [lastObjType]"
 	log_debug(msg)
 	message_admins(msg)
+	log_runtime(EXCEPTION(msg), src)
 
 	main.restartProcess(src.name)
 
@@ -207,6 +208,7 @@
 		var/msg = "[name] process was killed at tick #[ticks]."
 		log_debug(msg)
 		message_admins(msg)
+		log_runtime(EXCEPTION(msg), src)
 		//finished()
 
 		// Allow inheritors to clean up if needed

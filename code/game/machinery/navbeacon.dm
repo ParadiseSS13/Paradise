@@ -27,7 +27,7 @@
 	var/turf/T = loc
 	hide(T.intact)
 	if(!codes || !codes.len)
-		log_debug("Empty codes datum at ([x],[y],[z])")
+		log_runtime(EXCEPTION("Empty codes datum at ([x],[y],[z])"), src, list("codes_txt: '[codes_txt]'"))
 	if("patrol" in codes)
 		if(!navbeacons["[z]"])
 			navbeacons["[z]"] = list()
