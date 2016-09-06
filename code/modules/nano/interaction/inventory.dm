@@ -6,5 +6,7 @@
 /datum/topic_state/inventory_state/can_use_topic(var/src_object, var/mob/user)
 	if(!(src_object in user))
 		return STATUS_CLOSE
+	if(user.loc && !user.loc.allow_inventory())
+		return STATUS_CLOSE
 
 	return user.shared_nano_interaction()

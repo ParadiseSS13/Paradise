@@ -635,8 +635,8 @@
 	mechas_list -= src //global mech list
 	return ..()
 
-/obj/mecha/allow_drop()
-	return 0
+/obj/mecha/allow_inventory()
+	return FALSE
 
 /obj/mecha/ex_act(severity)
 	log_message("Affected by explosion of severity: [severity].",1)

@@ -163,6 +163,9 @@
 	if(src != M.get_active_hand())
 		to_chat(M, "<span class='warning'>You are not holding anything to equip!</span>")
 		return 0
+	if(M.loc && !M.loc.allow_inventory())
+		to_chat(M, "<span class='warning'>You cannot use items in your current location.</span>")
+		return 0
 
 	if(M.equip_to_appropriate_slot(src))
 		if(M.hand)

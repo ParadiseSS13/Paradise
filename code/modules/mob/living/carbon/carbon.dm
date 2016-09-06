@@ -184,6 +184,8 @@
 
 
 /mob/living/carbon/swap_hand()
+	if(loc && !loc.allow_inventory())
+		return
 	var/obj/item/item_in_hand = src.get_active_hand()
 	if(item_in_hand) //this segment checks if the item in your hand is twohanded.
 		if(istype(item_in_hand,/obj/item/weapon/twohanded))

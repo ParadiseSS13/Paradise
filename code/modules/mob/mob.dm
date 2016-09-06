@@ -166,6 +166,8 @@
 
 //This proc is called whenever someone clicks an inventory ui slot.
 /mob/proc/attack_ui(slot)
+	if(loc && !loc.allow_inventory())
+		return FALSE
 	var/obj/item/W = get_active_hand()
 
 	if(istype(W))
@@ -186,6 +188,9 @@
 	if(ishuman(src) && W == src:head)
 		src:update_hair()
 		src:update_fhair()
+	// yay we succeeded or something why were we checking the value of the return
+	// but not defining it
+	return TRUE
 
 /mob/proc/put_in_any_hand_if_possible(obj/item/W as obj, del_on_fail = 0, disable_warning = 1, redraw_mob = 1)
 	if(equip_to_slot_if_possible(W, slot_l_hand, del_on_fail, disable_warning, redraw_mob))
@@ -618,6 +623,9 @@ var/list/slot_equipment_priority = list( \
 	set name = "Activate Held Object"
 	set category = null
 	set src = usr
+
+	if(loc && !loc.allow_inventory())
+		return
 
 	if(hand)
 		var/obj/item/W = l_hand

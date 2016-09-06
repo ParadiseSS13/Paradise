@@ -7,4 +7,7 @@
 	if(!user.contains(src_object))
 		return STATUS_CLOSE
 
+	if(user.loc && !user.loc.allow_inventory())
+		return STATUS_CLOSE
+
 	return user.shared_nano_interaction()

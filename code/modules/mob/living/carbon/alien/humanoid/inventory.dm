@@ -13,6 +13,8 @@
 		update_inv_pockets()
 
 /mob/living/carbon/alien/humanoid/attack_ui(slot_id)
+	if(loc && !loc.allow_inventory())
+		return FALSE
 	var/obj/item/W = get_active_hand()
 	if(W)
 		if(!istype(W))	return
@@ -21,17 +23,17 @@
 //			if("head")
 			if(slot_l_store)
 				if(l_store)
-					return
+					return FALSE
 				if(W.w_class > 3)
-					return
+					return FALSE
 				unEquip(W)
 				l_store = W
 				update_inv_pockets()
 			if(slot_r_store)
 				if(r_store)
-					return
+					return FALSE
 				if(W.w_class > 3)
-					return
+					return FALSE
 				unEquip(W)
 				r_store = W
 				update_inv_pockets()

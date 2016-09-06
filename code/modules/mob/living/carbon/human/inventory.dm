@@ -429,6 +429,12 @@
 		if(1)	return 1
 		if(2)	return 0 //if it returns 2, it wants no normal handling
 
+	// Moving inventory around? VERBOTEN
+	if(loc && !loc.allow_inventory())
+		if(!disable_warning)
+			to_chat(src, "<span class='warning'>You cannot use items in your current location.</span>")
+		return 0
+
 	if(istype(I, /obj/item/clothing/under) || istype(I, /obj/item/clothing/suit))
 		if(FAT in mutations)
 			if(!(I.flags_size & ONESIZEFITSALL))

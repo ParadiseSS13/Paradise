@@ -197,8 +197,8 @@
 
 	light_color = icon_light_color[src.icon_state]
 
-/obj/spacepod/allow_drop()
-	return 0
+/obj/spacepod/allow_inventory()
+	return FALSE
 
 /obj/spacepod/bullet_act(var/obj/item/projectile/P)
 	if(P.damage_type == BRUTE || P.damage_type == BURN)

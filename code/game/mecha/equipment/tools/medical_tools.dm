@@ -41,7 +41,7 @@
 	var/inject_amount = 10
 	salvageable = 0
 
-/obj/item/mecha_parts/mecha_equipment/medical/sleeper/allow_drop()
+/obj/item/mecha_parts/mecha_equipment/medical/sleeper/allow_inventory()
 	return 0
 
 /obj/item/mecha_parts/mecha_equipment/medical/sleeper/Destroy()
@@ -520,4 +520,3 @@
 	for(var/reagent in processed_reagents)
 		reagents.add_reagent(reagent,amount)
 		chassis.use_power(energy_drain)
-

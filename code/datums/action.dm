@@ -116,6 +116,8 @@
 /datum/action/item_action/Trigger()
 	if(!..())
 		return 0
+	if(owner.loc && !owner.loc.allow_inventory())
+		return 0
 	if(target)
 		var/obj/item/I = target
 		I.ui_action_click(owner, type)

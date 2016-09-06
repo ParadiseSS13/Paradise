@@ -120,6 +120,9 @@
 	return
 
 /mob/proc/ClickInventory(var/atom/A, var/obj/item/W, var/params)
+	if(!isnull(loc))
+		if(!loc.allow_inventory())
+			return
 	if(W == A)
 		W.attack_self(src)
 		if(hand)

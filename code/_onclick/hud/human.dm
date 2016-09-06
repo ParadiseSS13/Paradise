@@ -6,14 +6,12 @@
 	icon_state = "toggle"
 
 /obj/screen/human/toggle/Click()
+	if(usr.loc && !usr.loc.allow_inventory())
+		return
 	if(usr.hud_used.inventory_shown)
-		usr.hud_used.inventory_shown = 0
-		usr.client.screen -= usr.hud_used.toggleable_inventory
+		usr.hud_used.hide_inventory()
 	else
-		usr.hud_used.inventory_shown = 1
-		usr.client.screen += usr.hud_used.toggleable_inventory
-
-	usr.hud_used.hidden_inventory_update()
+		usr.hud_used.show_inventory()
 
 /obj/screen/human/equip
 	name = "equip"

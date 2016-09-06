@@ -471,3 +471,10 @@
 	. = ..()
 	if(!oldloc.allow_drop() && destination.allow_drop())
 		update_item_drops()
+	// Autoclose the rest of the inventory if you enter a spot where inv access
+	// is verboten
+	if(oldloc.allow_inventory() && !destination.allow_inventory())
+		if(hud_used && hud_used.inventory_shown)
+			hud_used.hide_inventory()
+		// Close any NanoUIs that depend on inventory access
+		nanomanager.update_user_uis(src)
