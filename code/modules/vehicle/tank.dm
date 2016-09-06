@@ -9,11 +9,23 @@
 	var/datum/action/innate/fire_cannon/fire_cannon_action = new
 
 /obj/vehicle/tank/handle_vehicle_layer()
-	layer = MOB_LAYER+0.1
+	layer = MOB_LAYER + 0.1
+
+
+/obj/vehicle/tank/handle_vehicle_offsets()
+	..()
+	if(buckled_mob)
+		switch(buckled_mob.dir)
+			if(NORTH || SOUTH)
+				buckled_mob.pixel_y = 4
+
+			if(EAST || WEST)
+				buckled_mob.pixel_y = 2
+
 
 
 /obj/vehicle/tank/proc/GrantActions(mob/living/carbon/buckled_mob)
-	if(allow_fire == 1)
+	if(allow_fire)
 		fire_cannon_action.target = src
 		fire_cannon_action.Grant(buckled_mob)
 
@@ -31,28 +43,26 @@
 
 	if(next_firetime > world.time)
 		to_chat(owner, "<span class='warning'>Your weapons are recharging.</span>")
+		return
 
-	else
-		var/obj/item/projectile/A = new bullet_type(curloc)
-		var/turf/start = get_turf(T)
-		var/turf/MT = get_step(T, T.dir)
+	var/obj/item/projectile/A = new bullet_type(curloc)
+	var/turf/start = get_turf(T)
+	var/turf/MT = get_step(T, T.dir)
 
-		A.original = MT
-		A.current = start
-		A.yo = MT.y - start.y
-		A.xo = MT.x - start.x
-		A.fire()
+	A.original = MT
+	A.current = start
+	A.yo = MT.y - start.y
+	A.xo = MT.x - start.x
+	A.fire()
 
-
-		next_firetime = world.time+fire_delay
-		T.resume_move = world.time+T.recoil_delay
+	next_firetime = world.time + fire_delay
+	T.resume_move = world.time + T.recoil_delay
 
 
 /obj/vehicle/tank/Move(atom/OldLoc, Dir)
-	if(resume_move>world.time)
+	if(resume_move > world.time)
 		return
-	else
-		..()
+	..()
 
 /obj/vehicle/tank/buckle_mob(mob/living/M)
 	..()
