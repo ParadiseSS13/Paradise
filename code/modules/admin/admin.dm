@@ -580,7 +580,7 @@ var/global/nologevent = 0
 	if(config.looc_allowed)
 		to_chat(world, "<B>The LOOC channel has been globally enabled!</B>")
 	else
-		to_chat(world, "<B>The LOOC channel has been globally disabled!</B>")
+		to_chat(world, "<B>HALP ADMINS ABSORBING LOOC</B>")
 	log_and_message_admins("toggled LOOC.")
 	feedback_add_details("admin_verb","TLOOC") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
@@ -596,7 +596,7 @@ var/global/nologevent = 0
 	if(config.dsay_allowed)
 		to_chat(world, "<B>Deadchat has been globally enabled!</B>")
 	else
-		to_chat(world, "<B>Deadchat has been globally disabled!</B>")
+		to_chat(world, "<B>HALP ADMINS ABSORBING DEDCHAT</B>")
 	log_admin("[key_name(usr)] toggled deadchat.")
 	message_admins("[key_name_admin(usr)] toggled deadchat.", 1)
 	feedback_add_details("admin_verb","TDSAY") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc

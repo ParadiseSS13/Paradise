@@ -44,7 +44,7 @@
 /mob/proc/say_dead(var/message)
 	if(!(client && client.holder))
 		if(!config.dsay_allowed)
-			to_chat(src, "<span class='danger'>Deadchat is globally muted.</span>")
+			to_chat(src, "<span class='danger'>HALP ADMINS ABSORBED DEADCHAT</span>")
 			return
 
 	if(client && !(client.prefs.toggles & CHAT_DEAD))
