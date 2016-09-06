@@ -60,33 +60,33 @@ var/global/list/raider_loot = list()
 							)
 
 	var/list/space_suits = list(
-					list(/obj/item/clothing/suit/space/syndicate/black/orange,
-						/obj/item/clothing/head/helmet/space/syndicate/black/orange),
+						list(/obj/item/clothing/suit/space/syndicate/black/orange,
+							/obj/item/clothing/head/helmet/space/syndicate/black/orange),
 
-					list(/obj/item/clothing/suit/space/syndicate/black/engie,
-						/obj/item/clothing/head/helmet/space/syndicate/black/engie),
+						list(/obj/item/clothing/suit/space/syndicate/black/engie,
+							/obj/item/clothing/head/helmet/space/syndicate/black/engie),
 
-					list(/obj/item/clothing/suit/space/syndicate/black/med,
-						/obj/item/clothing/head/helmet/space/syndicate/black/med),
+						list(/obj/item/clothing/suit/space/syndicate/black/med,
+							/obj/item/clothing/head/helmet/space/syndicate/black/med),
 
-					list(/obj/item/clothing/suit/space/syndicate/black/blue,
-						/obj/item/clothing/head/helmet/space/syndicate/black/blue),
+						list(/obj/item/clothing/suit/space/syndicate/black/blue,
+							/obj/item/clothing/head/helmet/space/syndicate/black/blue),
 
-					list(/obj/item/clothing/suit/space/syndicate/blue,
-						/obj/item/clothing/head/helmet/space/syndicate/blue),
+						list(/obj/item/clothing/suit/space/syndicate/blue,
+							/obj/item/clothing/head/helmet/space/syndicate/blue),
 
-					list(/obj/item/clothing/suit/space/syndicate/orange,
-						/obj/item/clothing/head/helmet/space/syndicate/orange),
+						list(/obj/item/clothing/suit/space/syndicate/orange,
+							/obj/item/clothing/head/helmet/space/syndicate/orange),
 
-					list(/obj/item/clothing/suit/space/syndicate/green/dark,
-						/obj/item/clothing/head/helmet/space/syndicate/green/dark),
+						list(/obj/item/clothing/suit/space/syndicate/green/dark,
+							/obj/item/clothing/head/helmet/space/syndicate/green/dark),
 
-					list(/obj/item/clothing/suit/space/syndicate/green,
-						/obj/item/clothing/head/helmet/space/syndicate/green),
+						list(/obj/item/clothing/suit/space/syndicate/green,
+							/obj/item/clothing/head/helmet/space/syndicate/green),
 
-					list(/obj/item/clothing/suit/space/syndicate,
-						/obj/item/clothing/head/helmet/space/syndicate)
-						)
+						list(/obj/item/clothing/suit/space/syndicate,
+							/obj/item/clothing/head/helmet/space/syndicate)
+							)
 
 /datum/game_mode/heist/announce()
 	to_chat(world, "<B>The current game mode is - Heist!</B>")
@@ -159,6 +159,7 @@ var/global/list/raider_loot = list()
 	P.copy_to(M)
 	M.real_name = M.species.get_random_name(M.gender)//because the species var in prefs is only a string for some reason
 	newraider.name = M.real_name
+	M.dna.real_name = M.real_name
 
 	M.underwear = "Nude"
 	M.undershirt = "Nude"
@@ -191,7 +192,9 @@ var/global/list/raider_loot = list()
 
 	new /obj/item/weapon/tank/jetpack/oxygen/harness(location)
 	new /obj/item/clothing/mask/breath(location)
-	new /obj/item/weapon/storage/belt/military(location)
+	new /obj/item/weapon/storage/belt/military/assault(location)
+
+	new /obj/structure/closet/syndicate(location)
 
 /datum/game_mode/proc/is_raider_crew_alive()
 	for(var/datum/mind/raider in raiders)
@@ -370,6 +373,3 @@ datum/game_mode/proc/auto_declare_completion_heist()
 
 /obj/effect/landmark/raider/raider_gear
 	name = "raidergear"
-
-/obj/effect/landmark/raider/raider_loot
-	name = "raiderloot"

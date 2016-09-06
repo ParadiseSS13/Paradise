@@ -97,9 +97,6 @@
 		if("raidergear")
 			raider_gear += loc
 
-		if("raiderloot")
-			raider_loot += loc
-
 		if("ERT Director")
 			ertdirector += loc
 

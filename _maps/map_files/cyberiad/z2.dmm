@@ -27,6 +27,7 @@
 "aC" = (/obj/docking_port/stationary{dir = 4; dwidth = 1; height = 4; id = "pod3_away"; name = "recovery ship bay 3"; width = 3},/turf/space,/area/space)
 "aD" = (/obj/docking_port/stationary{dir = 4; dwidth = 1; height = 4; id = "pod4_away"; name = "recovery ship bay 4"; width = 3},/turf/space,/area/space)
 "aE" = (/obj/docking_port/stationary/transit{dir = 8; dwidth = 2; height = 5; id = "laborcamp_transit"; name = "labor in transit"; width = 9},/turf/space/transit,/area/space)
+"aH" = (/obj/effect/landmark/raider/raider_gear,/turf/unsimulated/floor{icon_state = "floor"},/area/raider_station)
 "aL" = (/obj/machinery/computer/shuttle/syndicate/recall,/turf/unsimulated/floor{icon_state = "bar"; dir = 2},/area/syndicate_mothership)
 "aN" = (/turf/space,/area/space)
 "aO" = (/turf/unsimulated/wall{tag = "icon-iron6"; icon_state = "iron6"},/area/space)
@@ -48,6 +49,7 @@
 "be" = (/obj/machinery/computer/shuttle/ert,/turf/unsimulated/floor{icon_state = "grimy"},/area/centcom/specops)
 "bf" = (/obj/machinery/door/airlock/external{id_tag = "specops_away"; name = "Shuttle Hatch"; req_access_txt = "109"},/turf/unsimulated/floor{icon_state = "vault"; dir = 5},/area/centcom/specops)
 "bg" = (/obj/docking_port/stationary{dir = 8; dwidth = 2; height = 11; id = "specops_away"; name = "centcom bay 3"; width = 5},/turf/space,/area/space)
+"bl" = (/turf/unsimulated/floor{tag = "icon-floor"; icon_state = "floor"},/area/raider_station)
 "bm" = (/obj/docking_port/stationary/transit{dir = 2; dwidth = 2; height = 18; id = "skipjack_transit"; name = "skipjack in transit"; width = 19},/turf/space/transit,/area/space)
 "bn" = (/obj/docking_port/stationary{dir = 2; dwidth = 2; height = 18; id = "skipjack_away"; name = "raider bay 1"; width = 19},/turf/space,/area/space)
 "bo" = (/obj/docking_port/stationary/transit{dir = 8; dwidth = 3; height = 5; id = "mining_transit"; name = "mining in transit"; width = 7},/turf/space/transit,/area/space)
@@ -730,6 +732,7 @@
 "pl" = (/obj/machinery/light{icon_state = "tube1"; dir = 8},/turf/unsimulated/floor{icon_state = "bar"; dir = 2},/area/syndicate_mothership)
 "pm" = (/obj/structure/table/woodentable,/obj/item/weapon/reagent_containers/food/drinks/cans/beer{pixel_x = -2; pixel_y = 5},/turf/unsimulated/floor{icon_state = "bar"; dir = 2},/area/syndicate_mothership)
 "pp" = (/obj/machinery/computer/telecrystals/uplinker,/turf/unsimulated/floor{icon_state = "floor4"},/area/syndicate_mothership)
+"pr" = (/obj/effect/landmark/raider/raider_start,/obj/structure/stool,/turf/unsimulated/floor{icon_state = "dark"},/area/raider_station)
 "pu" = (/turf/unsimulated/wall/fakeglass{tag = "icon-fakewindows (NORTHWEST)"; icon_state = "fakewindows"; dir = 9},/area/syndicate_mothership)
 "pv" = (/turf/unsimulated/wall/fakeglass{tag = "icon-fakewindows2 (WEST)"; icon_state = "fakewindows2"; dir = 8},/area/syndicate_mothership)
 "pw" = (/obj/structure/table/woodentable,/obj/item/weapon/reagent_containers/food/snacks/mushroompizzaslice{pixel_x = -5; pixel_y = 5},/turf/unsimulated/floor{icon_state = "bar"; dir = 2},/area/syndicate_mothership)
@@ -747,6 +750,7 @@
 "pV" = (/obj/effect/decal/warning_stripes/north,/turf/unsimulated/floor{icon_state = "bar"; dir = 2},/area/syndicate_mothership)
 "pW" = (/obj/machinery/door/airlock/centcom{name = "Restroom"; opacity = 1; req_access_txt = "150"},/turf/unsimulated/floor{icon_state = "bar"; dir = 2},/area/syndicate_mothership)
 "pX" = (/turf/unsimulated/floor{icon_state = "freezerfloor"; dir = 2},/area/syndicate_mothership)
+"qc" = (/obj/machinery/door/airlock/centcom{req_access_txt = "152"},/turf/unsimulated/floor,/area/raider_station)
 "qf" = (/obj/effect/decal/warning_stripes/southeastcorner,/obj/item/device/radio/intercom/syndicate{pixel_x = -28},/turf/unsimulated/floor{dir = 2; icon_state = "wood"},/area/syndicate_mothership)
 "qg" = (/obj/effect/landmark{name = "Syndicate-Spawn"},/obj/effect/decal/warning_stripes/south,/turf/unsimulated/floor{dir = 2; icon_state = "wood"},/area/syndicate_mothership)
 "qh" = (/obj/effect/decal/warning_stripes/south,/turf/unsimulated/floor{dir = 2; icon_state = "wood"},/area/syndicate_mothership)
@@ -766,6 +770,8 @@
 "qX" = (/turf/unsimulated/wall/fakeglass{dir = 8; icon_state = "fakewindows3"; tag = "icon-fakewindows (WEST)"},/area/syndicate_mothership)
 "re" = (/obj/structure/closet/syndicate/personal,/turf/unsimulated/floor{icon_state = "vault"; dir = 8},/area/syndicate_mothership)
 "rf" = (/obj/structure/table,/obj/item/weapon/gun/energy/ionrifle,/turf/unsimulated/floor{tag = "icon-dark"; icon_state = "dark"},/area/syndicate_mothership)
+"rt" = (/obj/structure/table,/obj/item/weapon/storage/toolbox/syndicate,/turf/unsimulated/floor{tag = "icon-dark"; icon_state = "dark"},/area/raider_station)
+"rx" = (/obj/structure/rack,/obj/effect/spawner/lootdrop/space_pirate_common,/turf/unsimulated/floor{icon_state = "floorgrime"},/area/raider_station)
 "rE" = (/turf/unsimulated/wall,/area/start)
 "rH" = (/obj/effect/landmark/start,/turf/unsimulated/floor,/area/start)
 "rK" = (/turf/unsimulated/wall/splashscreen,/area/start)
@@ -973,6 +979,7 @@
 "vV" = (/turf/unsimulated/floor{dir = 6; icon_state = "carpetside"},/area/centcom/specops)
 "vW" = (/obj/machinery/telecomms/bus/preset_cent,/turf/unsimulated/floor{icon_state = "green"; dir = 8},/area/centcom/control)
 "vX" = (/obj/machinery/telecomms/hub/preset_cent,/turf/unsimulated/floor{icon_state = "green"; dir = 4},/area/centcom/control)
+"vZ" = (/turf/unsimulated/floor{icon_state = "floor"},/turf/unsimulated/wall{dir = 1; icon = 'icons/turf/shuttle.dmi'; icon_state = "window5_end"; name = "window"; opacity = 0; tag = "icon-window5_end (NORTH)"},/area/raider_station)
 "wb" = (/turf/unsimulated/wall/fakeglass{dir = 1; icon_state = "fakewindows"; tag = "icon-fakewindows (WEST)"},/area/centcom/specops)
 "wc" = (/turf/unsimulated/floor{tag = "icon-warning (NORTHWEST)"; icon_state = "warning"; dir = 9},/area/centcom/specops)
 "wd" = (/turf/unsimulated/floor{dir = 5; icon_state = "warning"},/area/centcom/specops)
@@ -1011,10 +1018,12 @@
 "xm" = (/turf/unsimulated/floor{icon_state = "green"; dir = 8},/area/centcom/evac)
 "xn" = (/obj/machinery/door/window/westright{name = "security checkpoint"; req_access_txt = "104"},/obj/structure/table,/turf/unsimulated/floor{icon_state = "floor"},/area/centcom/evac)
 "xo" = (/obj/machinery/door/window/eastleft{name = "security checkpoint"; req_access_txt = "104"},/turf/unsimulated/floor{icon_state = "floor"},/area/centcom/evac)
+"xr" = (/obj/structure/sign/vacuum{pixel_y = -32},/turf/unsimulated/floor{tag = "icon-dark"; icon_state = "dark"},/area/raider_station)
 "xx" = (/obj/structure/sink{dir = 4; icon_state = "sink"; pixel_x = 11; pixel_y = 0},/obj/structure/mirror{pixel_x = 32},/turf/unsimulated/floor{icon_state = "freezerfloor"; dir = 2},/area/centcom/bathroom)
 "xy" = (/turf/unsimulated/floor{icon_state = "green"; dir = 10},/area/centcom/evac)
 "xz" = (/obj/effect/spawner/window/reinforced,/turf/unsimulated/floor{name = "plating"},/area/centcom/evac)
 "xA" = (/obj/structure/stool/bed/chair,/turf/unsimulated/floor{icon_state = "floor"},/area/centcom/evac)
+"xF" = (/obj/structure/stool/bed,/turf/unsimulated/floor{tag = "icon-dark"; icon_state = "dark"},/area/raider_station)
 "xI" = (/obj/machinery/door/airlock/centcom{name = "Unit 2"; opacity = 1; req_access_txt = "0"},/turf/unsimulated/floor{icon_state = "freezerfloor"; dir = 2},/area/centcom/bathroom)
 "xJ" = (/obj/machinery/door/poddoor{id_tag = "CentComPort"; name = "Security Doors"},/turf/unsimulated/floor{icon_state = "green"; dir = 8},/area/centcom/evac)
 "xK" = (/obj/structure/table,/obj/machinery/door/window/southleft{name = "security checkpoint"; req_access_txt = "104"},/turf/unsimulated/floor{icon_state = "floor"},/area/centcom/evac)
@@ -1038,7 +1047,6 @@
 "yj" = (/obj/structure/window/reinforced,/obj/structure/shuttle/engine/heater{tag = "icon-heater (NORTH)"; icon_state = "heater"; dir = 1},/turf/simulated/floor/plating/airless,/area/centcom/evac)
 "yk" = (/turf/simulated/shuttle/wall{tag = "icon-swall7"; icon_state = "swall7"; dir = 2},/area/centcom/evac)
 "yl" = (/turf/simulated/shuttle/wall{tag = "icon-swall12"; icon_state = "swall12"; dir = 2},/area/centcom/evac)
-"ym" = (/obj/structure/rack,/turf/unsimulated/floor,/area/raider_station)
 "yn" = (/turf/unsimulated/floor{icon_state = "floorgrime"},/area/raider_station)
 "yo" = (/turf/simulated/shuttle/wall{tag = "icon-swall11"; icon_state = "swall11"; dir = 2},/area/centcom/evac)
 "yp" = (/obj/structure/sign/securearea{desc = "A warning sign which reads 'EXTERNAL AIRLOCK'"; icon_state = "space"; layer = 4; name = "EXTERNAL AIRLOCK"; pixel_x = 0},/turf/unsimulated/wall,/area/centcom/evac)
@@ -1100,14 +1108,21 @@
 "zV" = (/obj/structure/grille,/obj/structure/window/full/shuttle,/turf/simulated/floor/plating,/area/centcom/evac)
 "zW" = (/turf/simulated/shuttle/floor{icon_state = "floor3"},/area/centcom/evac)
 "zX" = (/obj/structure/grille,/obj/structure/window/full/shuttle{icon_state = "15"},/turf/simulated/floor/plating,/area/centcom/evac)
+"Aa" = (/obj/structure/rack,/obj/effect/spawner/lootdrop/space_pirate_valuable,/turf/unsimulated/floor{icon_state = "floor"},/area/raider_station)
+"Ag" = (/obj/machinery/door/airlock/centcom,/turf/unsimulated/floor{tag = "icon-dark"; icon_state = "dark"},/area/raider_station)
+"Ak" = (/obj/structure/rack,/obj/effect/spawner/lootdrop/space_pirate_common,/turf/unsimulated/floor{icon_state = "floor"},/area/raider_station)
 "Al" = (/obj/machinery/door/airlock/hatch{name = "Infirmary"; req_access_txt = "0"},/turf/simulated/shuttle/floor{tag = "icon-floor2"; icon_state = "floor2"},/area/centcom/evac)
+"At" = (/obj/structure/rack,/obj/effect/spawner/lootdrop/space_pirate_common,/turf/unsimulated/floor{tag = "icon-dark"; icon_state = "dark"},/area/raider_station)
 "Aw" = (/turf/unsimulated/wall,/area/centcom)
 "AD" = (/obj/machinery/vending/wallmed1{name = "Emergency NanoMed"; pixel_x = -30; pixel_y = 0; req_access_txt = "0"},/turf/simulated/shuttle/floor{icon_state = "floor3"},/area/centcom/evac)
+"AH" = (/obj/effect/decal/remains/human,/turf/unsimulated/floor{tag = "icon-dark"; icon_state = "dark"},/area/raider_station)
+"AL" = (/obj/effect/decal/cleanable/cobweb,/turf/unsimulated/floor,/area/raider_station)
 "AM" = (/obj/structure/table,/turf/simulated/shuttle/floor,/area/centcom/evac)
 "AN" = (/obj/structure/table,/obj/item/weapon/hand_labeler,/turf/simulated/shuttle/floor,/area/centcom/evac)
 "AO" = (/obj/machinery/vending/wallmed1{name = "Emergency NanoMed"; pixel_x = 30; pixel_y = 0; req_access_txt = "0"},/obj/machinery/vending/snack,/turf/simulated/shuttle/floor,/area/centcom/evac)
 "AX" = (/turf/simulated/shuttle/wall{tag = "icon-swall14"; icon_state = "swall14"; dir = 2},/area/centcom/evac)
 "AY" = (/obj/machinery/door/airlock/hatch{name = "Cockpit"; req_access_txt = "106"},/turf/simulated/shuttle/floor{tag = "icon-floor2"; icon_state = "floor2"},/area/centcom/evac)
+"Ba" = (/turf/unsimulated/floor{icon_state = "floor"},/turf/unsimulated/wall{dir = 2; icon = 'icons/turf/shuttle.dmi'; icon_state = "window5_mid"; name = "window"; opacity = 0; tag = "icon-window5_mid"},/area/raider_station)
 "Bb" = (/obj/machinery/computer/crew,/turf/simulated/shuttle/floor,/area/centcom/evac)
 "Bc" = (/obj/machinery/computer/communications,/turf/simulated/shuttle/floor,/area/centcom/evac)
 "Be" = (/obj/structure/stool/bed/chair,/turf/simulated/shuttle/floor,/area/centcom/evac)
@@ -1120,11 +1135,12 @@
 "Bq" = (/obj/structure/grille,/obj/structure/window/full/shuttle{icon_state = "window4"},/turf/simulated/floor/plating,/area/centcom/evac)
 "Br" = (/obj/structure/grille,/obj/structure/window/full/shuttle{dir = 10; icon_state = "9"},/turf/simulated/floor/plating,/area/centcom/evac)
 "Bs" = (/obj/structure/grille,/obj/structure/window/full/shuttle{icon_state = "17"},/turf/simulated/floor/plating,/area/centcom/evac)
-"Cj" = (/obj/structure/table,/turf/unsimulated/floor{icon_state = "floor"},/area/raider_station)
 "Cs" = (/obj/machinery/door/airlock/centcom{opacity = 1},/turf/unsimulated/floor{icon_state = "floorscorched2"},/area/raider_station)
-"CJ" = (/obj/raider/win_button,/turf/unsimulated/floor{icon_state = "light_on"},/area/raider_station)
+"CN" = (/obj/structure/window/reinforced/tinted{dir = 8},/obj/effect/decal/cleanable/dirt/blackpowder,/turf/unsimulated/floor{tag = "icon-floor"; icon_state = "floor"},/area/raider_station)
+"Db" = (/obj/effect/decal/cleanable/dirt/blackpowder,/turf/unsimulated/floor,/area/raider_station)
 "Dg" = (/obj/structure/sign/vacuum{pixel_y = -32},/turf/unsimulated/floor{icon_state = "floor"},/area/raider_station)
 "Dk" = (/obj/structure/table,/obj/structure/table,/obj/item/device/paicard,/turf/unsimulated/floor{icon_state = "dark"},/area/raider_station)
+"Dl" = (/obj/structure/table,/obj/item/weapon/storage/box/zipties,/turf/unsimulated/floor{tag = "icon-dark"; icon_state = "dark"},/area/raider_station)
 "Dt" = (/turf/space,/turf/unsimulated/wall{dir = 8; icon = 'icons/turf/shuttle.dmi'; icon_state = "diagonalWall3"},/area/admin)
 "Du" = (/turf/space,/turf/unsimulated/wall{dir = 1; icon = 'icons/turf/shuttle.dmi'; icon_state = "diagonalWall3"},/area/admin)
 "Dv" = (/turf/space,/area/admin)
@@ -1403,32 +1419,45 @@
 "IU" = (/obj/structure/table,/obj/machinery/door_control{desc = "A remote control switch for port-side blast doors."; icon_state = "doorctrl0"; id = "thunderdomegen"; name = "General Equiptment"; pixel_x = 0; pixel_y = 5; req_access_txt = "104"},/turf/unsimulated/floor{icon_state = "floor"},/area/tdome/tdomeadmin)
 "IV" = (/obj/structure/table,/obj/machinery/door_control{desc = "A remote control switch for port-side blast doors."; icon_state = "doorctrl0"; id = "thunderdomeaxe"; name = "Specialist Supply"; pixel_x = 0; pixel_y = 5; req_access_txt = "104"},/turf/unsimulated/floor{icon_state = "floor"},/area/tdome/tdomeadmin)
 "Jb" = (/mob/living/simple_animal/pet/cat/Syndi,/turf/unsimulated/floor{icon_state = "bar"; dir = 2},/area/syndicate_mothership)
+"Jm" = (/obj/structure/table,/obj/item/weapon/pinpointer/advpinpointer,/turf/unsimulated/floor{tag = "icon-dark"; icon_state = "dark"},/area/raider_station)
 "Jy" = (/obj/machinery/vending/clothing,/turf/unsimulated/floor{icon_state = "dark"},/area/raider_station)
 "JY" = (/turf/unsimulated/floor{icon_state = "dark"},/area/raider_station)
-"Ke" = (/obj/structure/rack,/turf/unsimulated/floor{icon_state = "floor"},/area/raider_station)
-"Ko" = (/obj/structure/rack,/obj/effect/landmark/raider/raider_gear,/turf/unsimulated/floor{icon_state = "floor"},/area/raider_station)
 "KG" = (/obj/machinery/vending/hatdispenser,/turf/unsimulated/floor{icon_state = "dark"},/area/raider_station)
 "KZ" = (/obj/structure/table,/obj/structure/table,/turf/unsimulated/floor{icon_state = "dark"},/area/raider_station)
-"Lv" = (/obj/effect/landmark/raider/raider_start,/turf/unsimulated/floor{icon_state = "dark"},/area/raider_station)
-"MX" = (/obj/structure/table,/obj/item/pizzabox,/turf/unsimulated/floor{icon_state = "dark"},/area/raider_station)
-"Ot" = (/obj/machinery/door/airlock/centcom,/turf/unsimulated/floor{icon_state = "floor"},/area/raider_station)
-"OB" = (/obj/structure/rack,/obj/effect/landmark/raider/raider_gear,/turf/unsimulated/floor{icon_state = "floorgrime"},/area/raider_station)
+"LJ" = (/obj/effect/decal/cleanable/confetti,/turf/unsimulated/floor{icon_state = "dark"},/area/raider_station)
+"My" = (/obj/effect/landmark/raider/raider_gear,/turf/unsimulated/floor{icon_state = "floorscorched2"},/area/raider_station)
+"Nf" = (/obj/structure/rack,/obj/effect/spawner/lootdrop/space_pirate_common,/turf/unsimulated/floor,/area/raider_station)
+"Nv" = (/turf/unsimulated/floor{dir = 4; heat_capacity = 1; icon_state = "warning"},/area/raider_station)
+"NL" = (/obj/effect/decal/cleanable/confetti,/turf/unsimulated/floor,/area/raider_station)
+"Or" = (/obj/effect/landmark/raider/raider_start,/obj/structure/stool,/turf/unsimulated/floor,/area/raider_station)
+"Ov" = (/obj/structure/rack,/obj/effect/spawner/lootdrop/space_pirate_valuable,/turf/unsimulated/floor{tag = "icon-warndark (EAST)"; icon_state = "warndark"; dir = 4},/area/raider_station)
+"Ow" = (/obj/structure/table,/obj/item/weapon/storage/box/emps,/turf/unsimulated/floor{tag = "icon-dark"; icon_state = "dark"},/area/raider_station)
+"OV" = (/turf/unsimulated/floor{tag = "icon-dark"; icon_state = "dark"},/area/raider_station)
 "Pd" = (/obj/structure/table,/obj/item/weapon/storage/box/drinkingglasses,/turf/unsimulated/floor{icon_state = "dark"},/area/raider_station)
 "Pv" = (/turf/unsimulated/floor{icon_state = "floor"},/area/raider_station)
-"Rq" = (/obj/effect/landmark/raider/raider_start,/turf/unsimulated/floor,/area/raider_station)
+"PH" = (/obj/raider/win_button,/turf/unsimulated/floor{tag = "icon-delivery"; icon_state = "delivery"},/area/raider_station)
+"PP" = (/obj/structure/window/reinforced/tinted{dir = 8},/turf/unsimulated/floor{tag = "icon-dark"; icon_state = "dark"},/area/raider_station)
 "RV" = (/turf/unsimulated/floor,/turf/unsimulated/wall{dir = 2; icon = 'icons/turf/shuttle.dmi'; icon_state = "window5_end"; name = "window"; opacity = 0; tag = "icon-window5_end"},/area/raider_station)
 "Sx" = (/obj/structure/table,/turf/unsimulated/floor{icon_state = "dark"},/area/raider_station)
 "Tw" = (/obj/machinery/vending/syndisnack,/turf/unsimulated/floor{icon_state = "dark"},/area/raider_station)
-"TE" = (/obj/structure/rack,/turf/unsimulated/floor{icon_state = "floorgrime"},/area/raider_station)
 "TJ" = (/turf/unsimulated/floor{icon_state = "circuit"},/area/raider_station)
-"Uz" = (/obj/structure/table,/turf/unsimulated/floor{icon_state = "floorscorched2"},/area/raider_station)
+"TS" = (/obj/structure/table,/obj/item/weapon/card/emag,/turf/unsimulated/floor{tag = "icon-dark"; icon_state = "dark"},/area/raider_station)
+"TU" = (/turf/unsimulated/floor{tag = "icon-warndark (EAST)"; icon_state = "warndark"; dir = 4},/area/raider_station)
+"Ur" = (/obj/structure/table,/obj/item/weapon/storage/backpack/duffel/syndie/ammo{pixel_x = 4; pixel_y = 8},/obj/item/weapon/storage/backpack/duffel/syndie/med,/turf/unsimulated/floor{tag = "icon-dark"; icon_state = "dark"},/area/raider_station)
 "UK" = (/turf/unsimulated/floor,/turf/unsimulated/wall{dir = 1; icon = 'icons/turf/shuttle.dmi'; icon_state = "window5_end"; name = "window"; opacity = 0; tag = "icon-window5_end (NORTH)"},/area/raider_station)
 "US" = (/obj/machinery/door/airlock/alarmlock{},/turf/unsimulated/floor{icon_state = "floorscorched2"},/area/raider_station)
 "Vl" = (/obj/machinery/vending/shoedispenser,/turf/unsimulated/floor{icon_state = "dark"},/area/raider_station)
 "Vy" = (/turf/unsimulated/floor,/area/raider_station)
 "Vz" = (/turf/unsimulated/floor,/turf/unsimulated/wall{dir = 2; icon = 'icons/turf/shuttle.dmi'; icon_state = "window5_mid"; name = "window"; opacity = 0; tag = "icon-window5_mid"},/area/raider_station)
+"VA" = (/turf/space,/turf/unsimulated/floor{icon_state = "floor"},/turf/unsimulated/wall{dir = 2; icon = 'icons/turf/shuttle.dmi'; icon_state = "window5_end"; name = "window"; opacity = 0; tag = "icon-window5_end"},/area/raider_station)
+"WF" = (/obj/effect/landmark/raider/raider_gear,/turf/unsimulated/floor{tag = "icon-dark"; icon_state = "dark"},/area/raider_station)
+"WL" = (/obj/machinery/door/window/brigdoor/westright{reliability = 100; req_access = null; req_access_txt = "152"},/turf/unsimulated/floor{tag = "icon-dark"; icon_state = "dark"},/area/raider_station)
+"WY" = (/obj/effect/decal/cleanable/blood/writing{message = "Oh god, my spleen!"},/turf/unsimulated/floor{tag = "icon-dark"; icon_state = "dark"},/area/raider_station)
 "Xj" = (/obj/machinery/vending/syndicigs,/turf/unsimulated/floor{icon_state = "dark"},/area/raider_station)
-"Yn" = (/obj/structure/rack,/obj/effect/landmark/raider/raider_gear,/turf/unsimulated/floor{icon_state = "floorscorched2"},/area/raider_station)
+"Xr" = (/obj/structure/table,/obj/item/pizzabox/meat,/turf/unsimulated/floor{icon_state = "dark"},/area/raider_station)
+"Xv" = (/obj/effect/decal/cleanable/cobweb2,/turf/unsimulated/floor{icon_state = "floor"},/area/raider_station)
+"YC" = (/obj/machinery/vending/tool,/turf/unsimulated/floor{icon_state = "floor"},/area/raider_station)
+"ZF" = (/obj/structure/rack,/obj/effect/spawner/lootdrop/space_pirate_valuable,/turf/unsimulated/floor{tag = "icon-dark"; icon_state = "dark"},/area/raider_station)
 "ZO" = (/obj/machinery/vending/autodrobe,/turf/unsimulated/floor{icon_state = "dark"},/area/raider_station)
 
 (1,1,1) = {"
@@ -1463,20 +1492,20 @@ ckckckckckckckckckckckckckckckckckckckckckckckckckckckaNckckckckckckckckckckckck
 ckckckckckckckckckckckckckckckckckckckckckckckckckckckaNckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNckckckckckckckckckckckckckckckckckckckckckckckaNckckckckckckckckckckckckckckckckckckckckckckckckaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNisaNaNaNaNaNitnYnxnZnxoanqaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNbpibichWicibbshYidhZidhYbsieifiaigiebD
 ckckckckckckckckckckckckckckckckckckckckckckckckckckckaNckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNckckckckckckckckckckckckckckckckckckckckckckckaNckckckckckckckckckckckckckckckckckckckckckckckckaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNisaNaNaNaNaNitnYnxobnxoanqaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNbZhzhzhzhzhzbZhzhzhzhzhzbZhzhzhzhzhzbZ
 ckckckckckckckckckckckckckckckckckckckckckckckckckckckaNckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNckckckckckckckckckckckckckckckckckckckckckckckaNckckckckckckckckckckckckckckckckckckckckckckckckaNaNaNaNaNaNaNaNaNihihihihihihihihihihihihaNaNaNaNaNaNaNaNaNaNaNaNitisisisisisitnqnqnqnqnqnqaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNatatatatataNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaN
-ckckckckckckckckckckckckckckckckckckckckckckckckckckckaNckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNihiiijikiliminihioipiqihaNaNirisisisisisitaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNatRVVzVzUKataNaNaNaNaNaNaNaNatPvPvPvataNaNaNaNaNaNaNaNaNaNaNbZbZbZbZbZbZbZaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNbZbZbZbZbZbZbZaNaNaNaNaN
-ckckckckckckckckckckckckckckckckckckckckckckckckckckckaNckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNckckckckckckckckckckckckckckckckckckckckckckckaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNihikikikikikikikixiyizihaNaNisaNaNaNaNaNitaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNatTJPvPvPvatatatataNaNaNaNaNatPvCJPvataNaNaNaNaNaNaNaNaNaNaNbZdEdEdEdEdEbZbZbZbZbZbZbZbZbZbZbZbZbZbZbZbZbZdFdFdFdFdFbZaNaNaNaNaN
-ckckckckckckckckckckckckckckckckckckckckckckckckckckckaNckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckaNckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckaNckckckckckckckckckckckckckckckckckckckckckckckaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNihiLiLikikikiMihiNiOiPihaNaNisaNaNaNaNaNititititaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNatCjPvCjPvKoKoKoataNaNaNaNaNatPvPvPvataNaNaNaNaNaNaNaNaNbZbZbZiZiZiZiZiZjajbjcjcjcjcjcjcjcjcjcjcjcjcjcjbjaiZiZiZiZiZbZbZbZaNaNaN
-ckckckckckckckckckckckckckckckckckckckckckckckckckckckaNckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckaNckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckaNckckckckckckckckckckckckckckckckckckckckckckckaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNihikikikikjdjdihihjeihihaNaNisaNaNaNaNaNitjgjhitaNaNaNaNaNaNaNaNaNaNmrmrmrmrmrmrmrmrmrmrmrmrmrmxmwatCjPvUzPvPvPvynatatatatatatatatOtatataNaNaNaNaNaNaNaNaNbZjljmbZbZbZbZbZjnjojpjpjpjpjpjpjpjpjpjpjpjpjpjqjnbZbZbZbZbZjmjrbZaNaNaN
-ckckckckckckckckckckckckckckckckckckckckckckckckckckckaNckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckaNckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckaNckckckckckckckckckckckckckckckckckckckckckckckaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNihjAjAikjBjCjDihjEjejFihaNaNisaNaNaNaNaNititititititititititititaNaNmraNaNaNaNaNaNaNaNaNaNaNmrmzmyatCjxOPvPvPvPvPvatVyPvPvPvPvPvPvPvPvataNaNaNaNaNaNaNaNaNbZjljmbZbZbZbZbZjnjojpjpjpjpjpjpjpjpjpjpjpjpjpjqjnbZbZbZbZbZjmjrbZaNaNaN
-ckckckckckckckckckckckckckckckckckckckckckckckckckckckaNckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckaNckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckaNckckckckckckckckckckckckckckckckckckckckckckckaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNihkbikikjBkckdihkekfkgihaNaNisaNaNaNaNaNkikjkkklkmknkjkokpkqkrksaNaNmraNaNaNaNaNaNaNaNaNaNaNmrmBmAatPvPvPvPvOBYnKoatVyKeTEKeKeKeKeymPvataNaNaNaNaNaNaNaNaNbZjljmbZbZbZbZbZjnjojpjpjpjpjpkBkCkBjpjpjpjpjpjqjnbZbZbZbZbZjmjrbZaNaNaN
-aNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckaNckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckaNckckckckckckckckckckckckckckckckckckckckckckckaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNihkJikikikikihihihihihihaNaNisaNaNaNaNaNkKkjknknkLknkjknkrkrkrksaNaNmraNaNaNaNaNaNaNaNaNaNmDmCmFmEatatatUSatatatatatVyPvPvPvPvxOPvPvPvataNaNaNaNaNaNaNaNaNbZjljmbZbZbZbZbZjnjojpjpjpjpjpkBkTkBjpjpjpjpjpjqjnbZbZbZbZbZjmjrbZaNaNaN
-aNckckckckckckckckckckckckckckckckckckckckckckckckckaNaNckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckaNckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckaNckckckckckckckckckckckckckckckckckckckckckckckaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNihkWkXkYkZiklalblcldleihaNaNisaNaNaNaNaNlgiBknknkLknkjkokpkrkrksaNaNmraNaNaNaNaNaNaNaNaNaNaNmrmGmEatPvPvPvynPvPvPvPvPvKeKeKeKeTEKeKePvataNaNaNaNaNaNaNaNaNbZjljmbZbZbZbZbZjnjojpjpjpjpjpjpjpjpjpjpjpjpjpjqjnbZbZbZbZbZjmjrbZaNaNaN
-aNckckckckckckckckckckckckckckckckckckckckckckckckckaNaNckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckaNckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckaNckckckckckckckckckckckckckckckckckckckckckckckaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNihlolplqikikiklrlsltluihaNaNisaNaNaNaNiClgiBknknknknlxknkrkrkrksaNaNmraNaNaNaNaNaNaNaNaNaNaNmrmEmEatPvPvPvPvPvPvPvPvPvynPvPvPvVyPvPvynataNaNaNaNaNaNaNaNaNbZbZbZlBlBlBlBlBlClDjpjpjpjpjpjplEjpjpjpjpjpjplDlClBlBlBlBlBbZbZbZaNaNaN
-aNckckckckckckckckckckckckckckckckckckckckckckckckckaNaNckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckaNckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckaNckckckckckckckckckckckckckckckckckckckckckckckaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNihlGlplqikikiklHlIlHlIihaNaNisaNaNaNaNaNkKkjknknkLknkjkokpkrkrksaNaNmrmrmrmrmrmrmrmrmrmrmrmrmrmEmEatynPvatatatatatJYPvatatatatatatPvPvataNaNaNaNaNaNaNaNaNaNaNbZlWlWlWlWlWbZbZbZbZbZbZbZbZbZbZbZbZbZbZbZbZbZlXlXlXlXlXbZaNaNaNaNaN
-aNckckckckckckckckckckckckckckckckckckckckckckckckckaNaNckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckaNckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckaNckckckckckckckckckckckckckckckckckckckckckckckaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNihlomambkJmcladclumeddihaNaNisaNaNaNaNaNkikjknknkLknkjknkrkrkrksaNaNaNaNaNaNmHmEmEmEmImEmEmEmEmEmJatDgxOatVlKGZOJyPvJYJYRqLvLvVyatxODgataNaNaNaNaNaNaNaNaNaNaNbZbZbZbZbZbZbZaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNbZbZbZbZbZbZbZaNaNaNaNaN
-aNckckckckckckckckckckckckckckckckckckckckckckckckckaNaNckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckaNckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckaNckckckckckckckckckckckckckckckckckckckckckckckaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNihihihihihihihihihihihihaNaNisaNaNaNaNaNmtkjknknmuknkjkokpmvkrksaNaNaNaNaNaNmKmEmLmNmMmOmOmMmEmQmPatatpLatJYJYJYJYJYJYVyMXDkPdJYatCsatataNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaN
+ckckckckckckckckckckckckckckckckckckckckckckckckckckckaNckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNihiiijikiliminihioipiqihaNaNirisisisisisitaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNatRVVzVzUKataNaNaNaNaNaNaNaNatOVPvXvataNaNaNaNaNaNaNaNaNaNaNbZbZbZbZbZbZbZaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNbZbZbZbZbZbZbZaNaNaNaNaN
+ckckckckckckckckckckckckckckckckckckckckckckckckckckckaNckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNckckckckckckckckckckckckckckckckckckckckckckckaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNihikikikikikikikixiyizihaNaNisaNaNaNaNaNitaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNatTJOVPvOVatatatataNaNaNaNaNatPvPHOVataNaNaNaNaNaNaNaNaNaNaNbZdEdEdEdEdEbZbZbZbZbZbZbZbZbZbZbZbZbZbZbZbZbZdFdFdFdFdFbZaNaNaNaNaN
+ckckckckckckckckckckckckckckckckckckckckckckckckckckckaNckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckaNckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckaNckckckckckckckckckckckckckckckckckckckckckckckaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNihiLiLikikikiMihiNiOiPihaNaNisaNaNaNaNaNititititaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNatDlPvOwPvWFWFaHataNaNaNaNaNatOVOVPvataNaNaNaNaNaNaNaNaNbZbZbZiZiZiZiZiZjajbjcjcjcjcjcjcjcjcjcjcjcjcjcjbjaiZiZiZiZiZbZbZbZaNaNaN
+ckckckckckckckckckckckckckckckckckckckckckckckckckckckaNckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckaNckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckaNckckckckckckckckckckckckckckckckckckckckckckckaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNihikikikikjdjdihihjeihihaNaNisaNaNaNaNaNitjgjhitaNaNaNaNaNaNaNaNaNaNmrmrmrmrmrmrmrmrmrmrmrmrmrmxmwatTSOVUrOVOVOVynatatVABavZatatatAgatataNaNaNaNaNaNaNaNaNbZjljmbZbZbZbZbZjnjojpjpjpjpjpjpjpjpjpjpjpjpjpjqjnbZbZbZbZbZjmjrbZaNaNaN
+ckckckckckckckckckckckckckckckckckckckckckckckckckckckaNckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckaNckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckaNckckckckckckckckckckckckckckckckckckckckckckckaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNihjAjAikjBjCjDihjEjejFihaNaNisaNaNaNaNaNititititititititititititaNaNmraNaNaNaNaNaNaNaNaNaNaNmrmzmyatrtxOJmOVOVOVOVatALOVPvOVOVOVPvOVOVataNaNaNaNaNaNaNaNaNbZjljmbZbZbZbZbZjnjojpjpjpjpjpjpjpjpjpjpjpjpjpjqjnbZbZbZbZbZjmjrbZaNaNaN
+ckckckckckckckckckckckckckckckckckckckckckckckckckckckaNckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckaNckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckaNckckckckckckckckckckckckckckckckckckckckckckckaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNihkbikikjBkckdihkekfkgihaNaNisaNaNaNaNaNkikjkkklkmknkjkokpkqkrksaNaNmraNaNaNaNaNaNaNaNaNaNaNmrmBmAatYCOVOVOVWFMyWFatVyZFAtZFAkAkAaNfPvatatatatatatataNaNaNbZjljmbZbZbZbZbZjnjojpjpjpjpjpkBkCkBjpjpjpjpjpjqjnbZbZbZbZbZjmjrbZaNaNaN
+aNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckaNckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckaNckckckckckckckckckckckckckckckckckckckckckckckaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNihkJikikikikihihihihihihaNaNisaNaNaNaNaNkKkjknknkLknkjknkrkrkrksaNaNmraNaNaNaNaNaNaNaNaNaNmDmCmFmEatatatUSatatatatatVyOVOVOVOVxOPvOVPvatVyblPPWYDbataNaNaNbZjljmbZbZbZbZbZjnjojpjpjpjpjpkBkTkBjpjpjpjpjpjqjnbZbZbZbZbZjmjrbZaNaNaN
+aNckckckckckckckckckckckckckckckckckckckckckckckckckaNaNckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckaNckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckaNckckckckckckckckckckckckckckckckckckckckckckckaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNihkWkXkYkZiklalblcldleihaNaNisaNaNaNaNaNlgiBknknkLknkjkokpkrkrksaNaNmraNaNaNaNaNaNaNaNaNaNaNmrmGmEatTUTUOVTUPvTUOVPvOVAtOvAtAarxAkAtOVqcblOVWLAHNvataNaNaNbZjljmbZbZbZbZbZjnjojpjpjpjpjpjpjpjpjpjpjpjpjpjqjnbZbZbZbZbZjmjrbZaNaNaN
+aNckckckckckckckckckckckckckckckckckckckckckckckckckaNaNckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckaNckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckaNckckckckckckckckckckckckckckckckckckckckckckckaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNihlolplqikikiklrlsltluihaNaNisaNaNaNaNiClgiBknknknknlxknkrkrkrksaNaNmraNaNaNaNaNaNaNaNaNaNaNmrmEmEatOVOVOVOVOVOVOVTUOVOVPvPvPvVyPvPvOVatOVynCNOVxFataNaNaNbZbZbZlBlBlBlBlBlClDjpjpjpjpjpjplEjpjpjpjpjpjplDlClBlBlBlBlBbZbZbZaNaNaN
+aNckckckckckckckckckckckckckckckckckckckckckckckckckaNaNckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckaNckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckaNckckckckckckckckckckckckckckckckckckckckckckckaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNihlGlplqikikiklHlIlHlIihaNaNisaNaNaNaNaNkKkjknknkLknkjkokpkrkrksaNaNmrmrmrmrmrmrmrmrmrmrmrmrmrmEmEatOVTUatatatatatJYPvatatatatatatOVOVatatatatatatataNaNaNaNaNbZlWlWlWlWlWbZbZbZbZbZbZbZbZbZbZbZbZbZbZbZbZbZlXlXlXlXlXbZaNaNaNaNaN
+aNckckckckckckckckckckckckckckckckckckckckckckckckckaNaNckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckaNckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckaNckckckckckckckckckckckckckckckckckckckckckckckaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNihlomambkJmcladclumeddihaNaNisaNaNaNaNaNkikjknknkLknkjknkrkrkrksaNaNaNaNaNaNmHmEmEmEmImEmEmEmEmEmJatDgxOatVlKGZOJyPvJYJYOrprprVyatxOxrataNaNaNaNaNaNaNaNaNaNaNbZbZbZbZbZbZbZaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNbZbZbZbZbZbZbZaNaNaNaNaN
+aNckckckckckckckckckckckckckckckckckckckckckckckckckaNaNckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckaNckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckaNckckckckckckckckckckckckckckckckckckckckckckckaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNihihihihihihihihihihihihaNaNisaNaNaNaNaNmtkjknknmuknkjkokpmvkrksaNaNaNaNaNaNmKmEmLmNmMmOmOmMmEmQmPatatpLatJYOVJYJYLJJYVyXrDkPdJYatCsatataNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaN
 aNckckckckckckckckckckckckckckckckckckckckckckckckckaNaNckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckaNckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckaNckckckckckckckckckckckckckckckckckckckckckckckaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNititititititititititititititititititaNaNaNaNaNaNmKmEmEmEmEmEmEmEmEmQmRatVyVyatVyJYJYJYJYJYJYSxorKZJYatVyVyataNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaN
-aNckckckckckckckckckckckckckckckckckckckckckckckckckaNaNckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckaNckckckckckckckckckckckckckckckckckckckckckckckckckbmckckckckckckckckckckckaNckckckckckckckckckckckckckckckckckckckckckckckaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNmKmEmMmOmOmOmSmMmEmEmTatVyVyatTwXjVyVyJYJYJYRqLvLvVyatVyVyataNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaN
+aNckckckckckckckckckckckckckckckckckckckckckckckckckaNaNckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckaNckckckckckckckckckckckckckckckckckckckckckckckckckbmckckckckckckckckckckckaNckckckckckckckckckckckckckckckckckckckckckckckaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNmKmEmMmOmOmOmSmMmEmEmTatVyVyatTwXjNLVyJYJYLJOrprprVyatVyVyataNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaN
 aNckckckckckckckckckckckckckckckckckckckckckckckckckaNaNckckckckckckckckckckckckckckckckckckaackckckckckckckckckckckaNckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckaNckckckckckckckckckckckckckckckckckckckckckckckaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNnjnjnjnjnjnjnjnjnjnjnjnjnjnjnjnjnjnjnjnjnjnjnjnjnjnjnjnjnjnjnjnjaNaNaNaNaNaNmUmVmEmEmEmEmEmEmEmEatatVyVyatatatatatatatatatatatatatVyVyatataNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaN
 aNckckckckckckckckckckckckckckckckckckckckckckckckckaNaNckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckaNckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckaNckckckckckckckckckckckckckaEckckckckckckckckckaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNnjabababababababababababacababababababababababababababababababnjaNaNaNaNaNmrmrmrmWmrmXmOmOmMmEmEataNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNbnaNaNataNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaN
 aNckckckckckckckckckckckckckckckckckckckckckckckckckaNaNckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckaNckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckckaNckckckckckckckckckckckckckckckckckckckckckckckaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNnjababababacabababababababababababababababababababababababababnjaNaNaNaNaNmrmYnamZmrmEmEmEmEnbncataNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNataNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNaN

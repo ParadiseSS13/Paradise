@@ -200,18 +200,46 @@
 
 /obj/effect/spawner/lootdrop/space_pirate_common
 	name = "space pirate common trade item spawn"
+	lootcount = 2
 	lootdoubles = 0
 	color = "#FF8800"
 
 	loot = list(
-				//what do I even put hereeeeeeeeeee
+				/obj/item/weapon/tank/anesthetic = 1,
+				/obj/item/weapon/weldingtool/hugetank = 1,
+				/obj/item/weapon/pickaxe/diamond = 1,
+				/obj/item/device/spacepod_equipment/weaponry/mining_laser = 1,
+				/obj/item/device/paicard = 1,
+				/obj/item/device/megaphone = 1,
+				/obj/item/weapon/gun/energy/kinetic_accelerator/super = 1,
+				/obj/item/pizzabox = 1,
+				/obj/item/clothing/glasses/sunglasses = 1,
+				/obj/item/weapon/tank/emergency_oxygen/engi = 10,
+				/obj/item/weapon/grenade/clown_grenade = 3,
+				/obj/item/weapon/storage/backpack/satchel_flat = 2,
+				/obj/item/weapon/storage/backpack/duffel/syndie/surgery_fake = 2,
+				/obj/item/weapon/storage/toolbox/syndicate = 2,
+				//NEEDS MORE ITEMS TO TRADE WITH, ADRESS BEFORE THIS GETS MERGED
+				//^ this will probably get removed by a PR in 2018
 				)
 
 /obj/effect/spawner/lootdrop/space_pirate_valuable
 	name = "space pirate valuable trade item spawn"
-	lootdoubles = 0
+	lootcount = 1
 	color = "#FF0000"
 
 	loot = list(
-				//What's this game design thing
+				/obj/item/weapon/defibrillator/compact/loaded = 1,
+				/obj/item/weapon/rcd/combat = 1,
+				/obj/item/weapon/kitchen/knife/combat = 1,
+				/obj/item/weapon/storage/box/syndidonkpockets = 1,
+				/obj/item/weapon/gun/energy/kinetic_accelerator/crossbow = 1,
+				/obj/item/weapon/grenade/syndieminibomb = 1,
+				/obj/item/clothing/glasses/hud/security/chameleon = 1,
+				/obj/item/weapon/storage/box/syndie_kit/hardsuit = 1,
+				/obj/item/weapon/pinpointer/advpinpointer = 1,
+				/obj/item/weapon/shield/energy = 1,
+				/obj/item/weapon/gun/medbeam = 1,
+				/obj/item/weapon/implanter/adrenalin = 1,
+				/obj/item/weapon/storage/belt/military = 2,
 				)
