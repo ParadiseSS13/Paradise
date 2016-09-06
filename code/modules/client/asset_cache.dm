@@ -235,7 +235,8 @@ proc/getFilesSlow(var/client/client, var/list/files, var/register_asset = TRUE)
 		"nano/layouts/"
 	)
 	var/list/uncommon_dirs = list(
-		"nano/templates/"
+		"nano/templates/",
+		"nano/firebug/"
 	)
 
 /datum/asset/nanoui/register()

@@ -6,6 +6,7 @@ var/list/admin_datums = list()
 	var/rights = 0
 	var/fakekey			= null
 	var/big_brother		= 0
+	var/nanoui_use_firebug = FALSE
 
 	var/datum/marked_datum
 
