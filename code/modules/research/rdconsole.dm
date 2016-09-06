@@ -887,7 +887,7 @@ proc/CallMaterialName(ID)
 			dat += "</tr><tr>"
 			line_length = 1
 
-		dat += "<td><A href='?src=\ref[src];category=[C];menu=[menu_num]'>[C]</A></td>"
+		dat += "<td><A href='?src=[UID()];category=[C];menu=[menu_num]'>[C]</A></td>"
 		line_length++
 
 	dat += "</tr></table></div>"

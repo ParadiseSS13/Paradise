@@ -69,23 +69,23 @@ var/list/ingredients_source = list(
 
 /obj/machinery/icecream_vat/interact(mob/user as mob)
 	var/dat
-	dat += "<a href='?src=\ref[src];dispense=[ICECREAM_VANILLA]'><b>Dispense vanilla icecream</b></a> There is [ingredients[ICECREAM_VANILLA]] scoops of vanilla icecream left (made from milk and ice).<br>"
-	dat += "<a href='?src=\ref[src];dispense=[FLAVOUR_STRAWBERRY]'><b>Dispense strawberry icecream</b></a> There is [ingredients[FLAVOUR_STRAWBERRY]] dollops of strawberry flavouring left (obtained from berry juice.<br>"
-	dat += "<a href='?src=\ref[src];dispense=[FLAVOUR_CHOCOLATE]'><b>Dispense chocolate icecream</b></a> There is [ingredients[FLAVOUR_CHOCOLATE]] dollops of chocolate flavouring left (obtained from cocoa powder).<br>"
-	dat += "<a href='?src=\ref[src];dispense=[FLAVOUR_BLUE]'><b>Dispense blue icecream</b></a> There is [ingredients[FLAVOUR_BLUE]] dollops of blue flavouring left (obtained from bluespace tomato singulo).<br>"
+	dat += "<a href='?src=[UID()];dispense=[ICECREAM_VANILLA]'><b>Dispense vanilla icecream</b></a> There is [ingredients[ICECREAM_VANILLA]] scoops of vanilla icecream left (made from milk and ice).<br>"
+	dat += "<a href='?src=[UID()];dispense=[FLAVOUR_STRAWBERRY]'><b>Dispense strawberry icecream</b></a> There is [ingredients[FLAVOUR_STRAWBERRY]] dollops of strawberry flavouring left (obtained from berry juice.<br>"
+	dat += "<a href='?src=[UID()];dispense=[FLAVOUR_CHOCOLATE]'><b>Dispense chocolate icecream</b></a> There is [ingredients[FLAVOUR_CHOCOLATE]] dollops of chocolate flavouring left (obtained from cocoa powder).<br>"
+	dat += "<a href='?src=[UID()];dispense=[FLAVOUR_BLUE]'><b>Dispense blue icecream</b></a> There is [ingredients[FLAVOUR_BLUE]] dollops of blue flavouring left (obtained from bluespace tomato singulo).<br>"
 	dat += "<br>"
-	dat += "<a href='?src=\ref[src];cone=[CONE_WAFFLE]'><b>Dispense waffle cones</b></a> There are [ingredients[CONE_WAFFLE]] waffle cones left. <br>"
-	dat += "<a href='?src=\ref[src];cone=[CONE_CHOC]'><b>Dispense chocolate cones</b></a> There are [ingredients[CONE_CHOC]] chocolate cones left.<br>"
+	dat += "<a href='?src=[UID()];cone=[CONE_WAFFLE]'><b>Dispense waffle cones</b></a> There are [ingredients[CONE_WAFFLE]] waffle cones left. <br>"
+	dat += "<a href='?src=[UID()];cone=[CONE_CHOC]'><b>Dispense chocolate cones</b></a> There are [ingredients[CONE_CHOC]] chocolate cones left.<br>"
 	dat += "<br>"
-	dat += "<a href='?src=\ref[src];make=[CONE_WAFFLE]'><b>Make waffle cones</b></a> There is [ingredients[INGR_FLOUR]]/[ingredients[INGR_SUGAR]] of flour and sugar left.<br>"
-	dat += "<a href='?src=\ref[src];make=[CONE_CHOC]'><b>Make chocolate cones</b></a> There is [ingredients[FLAVOUR_CHOCOLATE]]/[ingredients[CONE_WAFFLE]] of chocolate flavouring and waffle cones left.<br>"
-	dat += "<a href='?src=\ref[src];make=[ICECREAM_VANILLA]'><b>Make vanilla icecream</b></a> There is [ingredients[INGR_MILK]]/[ingredients[INGR_ICE]] of milk and ice left.<br>"
+	dat += "<a href='?src=[UID()];make=[CONE_WAFFLE]'><b>Make waffle cones</b></a> There is [ingredients[INGR_FLOUR]]/[ingredients[INGR_SUGAR]] of flour and sugar left.<br>"
+	dat += "<a href='?src=[UID()];make=[CONE_CHOC]'><b>Make chocolate cones</b></a> There is [ingredients[FLAVOUR_CHOCOLATE]]/[ingredients[CONE_WAFFLE]] of chocolate flavouring and waffle cones left.<br>"
+	dat += "<a href='?src=[UID()];make=[ICECREAM_VANILLA]'><b>Make vanilla icecream</b></a> There is [ingredients[INGR_MILK]]/[ingredients[INGR_ICE]] of milk and ice left.<br>"
 	dat += "<br>"
 	if(held_container)
-		dat += "<a href='?src=\ref[src];eject=1'>Eject [held_container]</a> "
+		dat += "<a href='?src=[UID()];eject=1'>Eject [held_container]</a> "
 	else
 		dat += "No beaker inserted. "
-	dat += "<a href='?src=\ref[src];refresh=1'>Refresh</a> <a href='?src=\ref[src];close=1'>Close</a>"
+	dat += "<a href='?src=[UID()];refresh=1'>Refresh</a> <a href='?src=[UID()];close=1'>Close</a>"
 
 	var/datum/browser/popup = new(user, "icecreamvat", name, 600, 400)
 	popup.set_content(dat)

@@ -73,15 +73,15 @@
 	if(case)
 		if(case.imp)
 			if(istype(case.imp, /obj/item/weapon/implant))
-				dat += "<A href='byond://?src=\ref[src];removecase=1'>Remove Case</A><HR>"
+				dat += "<A href='byond://?src=[UID()];removecase=1'>Remove Case</A><HR>"
 				dat += case.imp.get_data()
 				if(istype(case.imp, /obj/item/weapon/implant/tracking))
 					var/obj/item/weapon/implant/tracking/T = case.imp
 					dat += {"ID (1-100):
-					<A href='byond://?src=\ref[src];tracking_id=-10'>-</A>
-					<A href='byond://?src=\ref[src];tracking_id=-1'>-</A> [T.id]
-					<A href='byond://?src=\ref[src];tracking_id=1'>+</A>
-					<A href='byond://?src=\ref[src];tracking_id=10'>+</A><BR>"}
+					<A href='byond://?src=[UID()];tracking_id=-10'>-</A>
+					<A href='byond://?src=[UID()];tracking_id=-1'>-</A> [T.id]
+					<A href='byond://?src=[UID()];tracking_id=1'>+</A>
+					<A href='byond://?src=[UID()];tracking_id=10'>+</A><BR>"}
 		else
 			dat += "The implant casing is empty."
 	else

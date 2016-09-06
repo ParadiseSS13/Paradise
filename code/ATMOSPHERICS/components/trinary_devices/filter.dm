@@ -174,17 +174,17 @@ Filter types:
 			current_filter_type = "ERROR - Report this bug to the admin, please!"
 
 	dat += {"
-			<b>Power: </b><a href='?src=\ref[src];power=1'>[on?"On":"Off"]</a><br>
+			<b>Power: </b><a href='?src=[UID()];power=1'>[on?"On":"Off"]</a><br>
 			<b>Filtering: </b>[current_filter_type]<br><HR>
 			<h4>Set Filter Type:</h4>
-			<A href='?src=\ref[src];filterset=0'>Toxins</A><BR>
-			<A href='?src=\ref[src];filterset=1'>Oxygen</A><BR>
-			<A href='?src=\ref[src];filterset=2'>Nitrogen</A><BR>
-			<A href='?src=\ref[src];filterset=3'>Carbon Dioxide</A><BR>
-			<A href='?src=\ref[src];filterset=4'>Nitrous Oxide</A><BR>
-			<A href='?src=\ref[src];filterset=-1'>Nothing</A><BR>
+			<A href='?src=[UID()];filterset=0'>Toxins</A><BR>
+			<A href='?src=[UID()];filterset=1'>Oxygen</A><BR>
+			<A href='?src=[UID()];filterset=2'>Nitrogen</A><BR>
+			<A href='?src=[UID()];filterset=3'>Carbon Dioxide</A><BR>
+			<A href='?src=[UID()];filterset=4'>Nitrous Oxide</A><BR>
+			<A href='?src=[UID()];filterset=-1'>Nothing</A><BR>
 			<HR><B>Desirable output pressure:</B>
-			[src.target_pressure]kPa | <a href='?src=\ref[src];set_press=1'>Change</a>
+			[src.target_pressure]kPa | <a href='?src=[UID()];set_press=1'>Change</a>
 			"}
 /*
 		user << browse("<HEAD><TITLE>[src.name] control</TITLE></HEAD>[dat]","window=atmo_filter")

@@ -39,44 +39,44 @@
 
 	if(screen == 0) //main menu
 		dat += "<br>[temp]</br>"
-		dat += "<br>Current Network: <a href='?src=\ref[src];network=1'>[network]</a><br>"
+		dat += "<br>Current Network: <a href='?src=[UID()];network=1'>[network]</a><br>"
 		if(servers.len)
 			dat += "<br>Detected Telecommunication Servers:<ul>"
 			for(var/obj/machinery/telecomms/T in servers)
-				dat += "<li><a href='?src=\ref[src];viewserver=[T.id]'>\ref[T] [T.name]</a> ([T.id])</li>"
-			dat += "<li><a href='?src=\ref[src];viewserver=all'>Modify All Detected Servers</a></li>"
+				dat += "<li><a href='?src=[UID()];viewserver=[T.id]'>\ref[T] [T.name]</a> ([T.id])</li>"
+			dat += "<li><a href='?src=[UID()];viewserver=all'>Modify All Detected Servers</a></li>"
 			dat += "</ul>"
 
-			dat += "<br><a href='?src=\ref[src];operation=release'>\[Flush Buffer\]</a>"
+			dat += "<br><a href='?src=[UID()];operation=release'>\[Flush Buffer\]</a>"
 
 		else
-			dat += "<br>No servers detected. Scan for servers: <a href='?src=\ref[src];operation=scan'>\[Scan\]</a>"
+			dat += "<br>No servers detected. Scan for servers: <a href='?src=[UID()];operation=scan'>\[Scan\]</a>"
 
 	if(screen == 1) //server menu
 		dat += "<br>[temp]<br>"
-		dat += "<center><a href='?src=\ref[src];operation=mainmenu'>\[Main Menu\]</a>     <a href='?src=\ref[src];operation=refresh'>\[Refresh\]</a></center>"
+		dat += "<center><a href='?src=[UID()];operation=mainmenu'>\[Main Menu\]</a>     <a href='?src=[UID()];operation=refresh'>\[Refresh\]</a></center>"
 		dat += "<br>Current Network: [network]"
 		if(allservers)
 			dat += "<br>Selected Server: All Servers<br><br>"
 		else
 			dat += "<br>Selected Server: [SelectedServer.id]<br><br>"
-		dat += "<br><a href='?src=\ref[src];operation=editcode'>\[Edit Code\]</a>"
+		dat += "<br><a href='?src=[UID()];operation=editcode'>\[Edit Code\]</a>"
 		dat += "<br>Signal Execution: "
 		if(allservers)
-			dat += "<a href='?src=\ref[src];operation=runon'>ALWAYS</a> <a href='?src=\ref[src];operation=runoff'>NEVER</a>"
+			dat += "<a href='?src=[UID()];operation=runon'>ALWAYS</a> <a href='?src=[UID()];operation=runoff'>NEVER</a>"
 		else
 			if(SelectedServer.autoruncode)
-				dat += "<a href='?src=\ref[src];operation=togglerun'>ALWAYS</a>"
+				dat += "<a href='?src=[UID()];operation=togglerun'>ALWAYS</a>"
 			else
-				dat += "<a href='?src=\ref[src];operation=togglerun'>NEVER</a>"
+				dat += "<a href='?src=[UID()];operation=togglerun'>NEVER</a>"
 
 	if(screen == 2) //code editor
 		if(editingcode == user)
 			dat += {"<br>[temp]<br>
 					<center>
-					<a href='?src=\ref[src];operation=codeback'>\[Back\]</a>
-					<a href='?src=\ref[src];operation=mainmenu'>\[Main Menu\]</a>
-					<a href='?src=\ref[src];operation=refresh'>\[Refresh\]</a>
+					<a href='?src=[UID()];operation=codeback'>\[Back\]</a>
+					<a href='?src=[UID()];operation=mainmenu'>\[Main Menu\]</a>
+					<a href='?src=[UID()];operation=refresh'>\[Refresh\]</a>
 					</center>
 
 					<style type="text/css">
@@ -121,7 +121,7 @@
 						}
 
 						function clearCode() {
-							window.location = "byond://?src=\ref[src];choice=Clear;";
+							window.location = "byond://?src=[UID()];choice=Clear;";
 						}
 					</script>
 					<a href="javascript:compileCode()">Compile</a>
@@ -139,7 +139,7 @@
 					"}
 		else
 			dat += {"<br>[temp]<br>
-					<center><a href='?src=\ref[src];operation=refresh'>\[Refresh\]</a></center>
+					<center><a href='?src=[UID()];operation=refresh'>\[Refresh\]</a></center>
 					<div class="item" style="width:80%">
 						<textarea id="fSubmit" name="cMirror">
 							[storedcode]

@@ -51,14 +51,14 @@
 				dat += "Please wait. Harvesting in progress ([round((inserted_battery.stored_charge/inserted_battery.capacity)*100)]%).<br>"
 			else
 				dat += "Please wait. Energy dump in progress ([round((inserted_battery.stored_charge/inserted_battery.capacity)*100)]%).<br>"
-			dat += "<A href='?src=\ref[src];stopharvest=1'>Halt early</A><BR>"
+			dat += "<A href='?src=[UID()];stopharvest=1'>Halt early</A><BR>"
 		else
 			if(inserted_battery)
 				dat += "<b>[inserted_battery.name]</b> inserted, charge level: [inserted_battery.stored_charge]/[inserted_battery.capacity] ([(inserted_battery.stored_charge/inserted_battery.capacity)*100]%)<BR>"
 				dat += "<b>Energy signature ID:</b>[inserted_battery.battery_effect ? (inserted_battery.battery_effect.artifact_id == "" ? "???" : "[inserted_battery.battery_effect.artifact_id]") : "NA"]<BR>"
-				dat += "<A href='?src=\ref[src];ejectbattery=1'>Eject battery</a><BR>"
-				dat += "<A href='?src=\ref[src];drainbattery=1'>Drain battery of all charge</a><BR>"
-				dat += "<A href='?src=\ref[src];harvest=1'>Begin harvesting</a><BR>"
+				dat += "<A href='?src=[UID()];ejectbattery=1'>Eject battery</a><BR>"
+				dat += "<A href='?src=[UID()];drainbattery=1'>Drain battery of all charge</a><BR>"
+				dat += "<A href='?src=[UID()];harvest=1'>Begin harvesting</a><BR>"
 
 			else
 				dat += "No battery inserted.<BR>"
@@ -66,7 +66,7 @@
 		dat += "<B><font color=red>Unable to locate analysis pad.</font><BR></b>"
 	//
 	dat += "<HR>"
-	dat += "<A href='?src=\ref[src];refresh=1'>Refresh</A> <A href='?src=\ref[src];close=1'>Close<BR>"
+	dat += "<A href='?src=[UID()];refresh=1'>Refresh</A> <A href='?src=[UID()];close=1'>Close<BR>"
 	user << browse(dat, "window=artharvester;size=450x500")
 	onclose(user, "artharvester")
 

@@ -36,8 +36,8 @@
 		jobs_all += "<table><tr><td></td><td><b>Command</b></td>"
 
 		jobs_all += "</tr><tr height='20'><td><b>Special</b></font></td>"//Captain in special because he is head of heads ~Intercross21
-		jobs_all += "<td weight='100'><a href='?src=\ref[src];;assign=Captain'>Captain</a></td>"
-		jobs_all += "<td weight='100'><a href='?src=\ref[src];;assign=Custom'>Custom</a></td>"
+		jobs_all += "<td weight='100'><a href='?src=[UID()];;assign=Captain'>Captain</a></td>"
+		jobs_all += "<td weight='100'><a href='?src=[UID()];;assign=Custom'>Custom</a></td>"
 
 		counter = 0
 		jobs_all += "</tr><tr><td><font color='#A50000'><b>Security</b></font></td>"//Red
@@ -46,7 +46,7 @@
 			if(counter >= 6)
 				jobs_all += "</tr><tr height='20'><td></td><td></td>"
 				counter = 0
-			jobs_all += "<td height='20' weight='100'><a href='?src=\ref[src];assign=[job]'>[replacetext(job, " ", "&nbsp")]</a></td>"
+			jobs_all += "<td height='20' weight='100'><a href='?src=[UID()];assign=[job]'>[replacetext(job, " ", "&nbsp")]</a></td>"
 
 		counter = 0
 		jobs_all += "</tr><tr><td><font color='#FFA500'><b>Engineering</b></font></td>"//Orange
@@ -55,7 +55,7 @@
 			if(counter >= 6)
 				jobs_all += "</tr><tr height='20'><td></td><td></td>"
 				counter = 0
-			jobs_all += "<td height='20' weight='100'><a href='?src=\ref[src];assign=[job]'>[replacetext(job, " ", "&nbsp")]</a></td>"
+			jobs_all += "<td height='20' weight='100'><a href='?src=[UID()];assign=[job]'>[replacetext(job, " ", "&nbsp")]</a></td>"
 
 		counter = 0
 		jobs_all += "</tr><tr height='20'><td><font color='#008000'><b>Medical</b></font></td>"//Green
@@ -64,7 +64,7 @@
 			if(counter >= 6)
 				jobs_all += "</tr><tr height='20'><td></td><td></td>"
 				counter = 0
-			jobs_all += "<td weight='100'><a href='?src=\ref[src];assign=[job]'>[replacetext(job, " ", "&nbsp")]</a></td>"
+			jobs_all += "<td weight='100'><a href='?src=[UID()];assign=[job]'>[replacetext(job, " ", "&nbsp")]</a></td>"
 
 		counter = 0
 		jobs_all += "</tr><tr height='20'><td><font color='#800080'><b>Science</b></font></td>"//Purple
@@ -73,7 +73,7 @@
 			if(counter >= 6)
 				jobs_all += "</tr><tr height='20'><td></td><td></td>"
 				counter = 0
-			jobs_all += "<td weight='100'><a href='?src=\ref[src];assign=[job]'>[replacetext(job, " ", "&nbsp")]</a></td>"
+			jobs_all += "<td weight='100'><a href='?src=[UID()];assign=[job]'>[replacetext(job, " ", "&nbsp")]</a></td>"
 
 		counter = 0
 		jobs_all += "</tr><tr height='20'><td><font color='#808080'><b>Support</b></font></td>"//Grey
@@ -82,7 +82,7 @@
 			if(counter >= 6)
 				jobs_all += "</tr><tr height='20'><td></td><td></td>"
 				counter = 0
-			jobs_all += "<td weight='100'><a href='?src=\ref[src];assign=[job]'>[replacetext(job, " ", "&nbsp")]</a></td>"
+			jobs_all += "<td weight='100'><a href='?src=[UID()];assign=[job]'>[replacetext(job, " ", "&nbsp")]</a></td>"
 
 			dat = {"<script type="text/javascript">
 								function markRed(){

@@ -224,7 +224,7 @@ var/const/POS_HEADER = {"<html>
 		receipt += myArea.name
 	receipt += "</fieldset>"
 	receipt += {"<fieldset><legend>Order Data</legend>
-		<form action="?src=\ref[src]" method="get">
+		<form action="?src=[UID()]" method="get">
 		<input type="hidden" name="src" value="\ref[src]" />
 		<table>
 			<tr class=\"first\">
@@ -241,10 +241,10 @@ var/const/POS_HEADER = {"<html>
 			var/linetotal=LI.units*LI.price
 			receipt += {"<tr class=\"[(i%2)?"even":"odd"]\">
 				<th>[LI.name]</th>
-				<td><a href="?src=\ref[src];setunits=[i]">[LI.units]</a></td>
+				<td><a href="?src=[UID()];setunits=[i]">[LI.units]</a></td>
 				<td>$[num2septext(LI.price)]</td>
 				<td>$[num2septext(linetotal)]</td>
-				<td><a href="?src=\ref[src];removefromorder=[i]" style="color:red;">&times;</a></td>
+				<td><a href="?src=[UID()];removefromorder=[i]" style="color:red;">&times;</a></td>
 			</tr>"}
 			subtotal += linetotal
 	var/taxes = POS_TAX_RATE*subtotal
@@ -280,7 +280,7 @@ var/const/POS_HEADER = {"<html>
 
 /obj/machinery/pos/proc/ProductsScreen()
 	var/dat={"<fieldset><legend>Product List</legend>
-		<form action="?src=\ref[src]" method="get">
+		<form action="?src=[UID()]" method="get">
 		<input type="hidden" name="src" value="\ref[src]" />
 		<table>
 			<tr class=\"first\">
@@ -292,17 +292,17 @@ var/const/POS_HEADER = {"<html>
 	for(var/i in products)
 		var/line_item/LI = products[i]
 		dat += {"<tr class=\"[(i%2)?"even":"odd"]\">
-			<th><a href="?src=\ref[src];setpname=[i]">[LI.name]</a></th>
-			<td><a href="?src=\ref[src];setprice=[i]">$[num2septext(LI.price)]</a></td>
+			<th><a href="?src=[UID()];setpname=[i]">[LI.name]</a></th>
+			<td><a href="?src=[UID()];setprice=[i]">$[num2septext(LI.price)]</a></td>
 			<td>[LI.units]</td>
-			<td><a href="?src=\ref[src];rmproduct=[i]" style="color:red;">&times;</a></td>
+			<td><a href="?src=[UID()];rmproduct=[i]" style="color:red;">&times;</a></td>
 		</tr>"}
 	dat += {"</table>
 		<b>New Product:</b><br />
 		<label for="name">Name:</label> <input type="textbox" name="name" value=""/><br />
 		<label for="name">Price:</label> $<input type="textbox" name="price" value="0.00" /><br />
 		<input type="submit" name="act" value="Add Product" /><br />
-		<a href="?src=\ref[src];screen=[POS_SCREEN_IMPORT]">Import</a> | <a href="?src=\ref[src];screen=[POS_SCREEN_EXPORT]">Export</a>
+		<a href="?src=[UID()];screen=[POS_SCREEN_IMPORT]">Import</a> | <a href="?src=[UID()];screen=[POS_SCREEN_EXPORT]">Export</a>
 		</form>
 		</fieldset>"}
 	return dat
@@ -314,14 +314,14 @@ var/const/POS_HEADER = {"<html>
 		var/line_item/LI = products[i]
 		dat += "[LI.name],[LI.price]\n"
 	dat += {"</textarea>
-		<a href="?src=\ref[src];screen=[POS_SCREEN_PRODUCTS]">OK</a>
+		<a href="?src=[UID()];screen=[POS_SCREEN_PRODUCTS]">OK</a>
 		</fieldset>"}
 	return dat
 
 /obj/machinery/pos/proc/ImportScreen()
 	var/dat={"<fieldset>
 		<legend>Import Products as CSV</legend>
-		<form action="?src=\ref[src]" method="get">
+		<form action="?src=[UID()]" method="get">
 			<input type="hidden" name="src" value="\ref[src]" />
 			<textarea name="csv"></textarea>
 			<p>Data must be in the form of a CSV, with no headers or quotation marks.</p>
@@ -333,10 +333,10 @@ var/const/POS_HEADER = {"<html>
 	return dat
 
 /obj/machinery/pos/proc/FinalizeScreen()
-	return "<center><b>Waiting for Credit</b><br /><a href=\"?src=\ref[src];act=Reset\">Cancel</a></center>"
+	return "<center><b>Waiting for Credit</b><br /><a href=\"?src=[UID()];act=Reset\">Cancel</a></center>"
 
 /obj/machinery/pos/proc/SettingsScreen()
-	var/dat={"<form action="?src=\ref[src]" method="get">
+	var/dat={"<form action="?src=[UID()]" method="get">
 		<input type="hidden" name="src" value="\ref[src]" />
 		<fieldset>
 			<legend>Account Settings</legend>
@@ -366,14 +366,14 @@ var/const/POS_HEADER = {"<html>
 	user.set_machine(src)
 	var/logindata=""
 	if(logged_in)
-		logindata={"<a href="?src=\ref[src];logout=1">[logged_in.name]</a>"}
+		logindata={"<a href="?src=[UID()];logout=1">[logged_in.name]</a>"}
 	var/dat = POS_HEADER + {"
 	<div class="navbar">
 		[worldtime2text()], [current_date_string]<br />
 		[logindata]
-		<a href="?src=\ref[src];screen=[POS_SCREEN_ORDER]">Order</a> |
-		<a href="?src=\ref[src];screen=[POS_SCREEN_PRODUCTS]">Products</a> |
-		<a href="?src=\ref[src];screen=[POS_SCREEN_SETTINGS]">Settings</a>
+		<a href="?src=[UID()];screen=[POS_SCREEN_ORDER]">Order</a> |
+		<a href="?src=[UID()];screen=[POS_SCREEN_PRODUCTS]">Products</a> |
+		<a href="?src=[UID()];screen=[POS_SCREEN_SETTINGS]">Settings</a>
 	</div>"}
 	switch(screen)
 		if(POS_SCREEN_LOGIN)    dat += LoginScreen()
