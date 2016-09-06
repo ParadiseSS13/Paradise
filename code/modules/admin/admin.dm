@@ -52,9 +52,9 @@ var/global/nologevent = 0
 	body += "<br><br>\[ "
 	body += "<a href='?_src_=vars;Vars=\ref[M]'>VV</a> - "
 	body += "<a href='?_src_=holder;traitor=\ref[M]'>TP</a> - "
-	body += "<a href='?src=\ref[usr];priv_msg=\ref[M]'>PM</a> - "
+	body += "<a href='?src=[usr.UID()];priv_msg=\ref[M]'>PM</a> - "
 	body += "<a href='?_src_=holder;subtlemessage=\ref[M]'>SM</a> - "
-	body += "[admin_jump_link(M, src)]\] </b><br>"
+	body += "[admin_jump_link(M)]\] </b><br>"
 
 	body += "<b>Mob type:</b> [M.type]<br>"
 	if(M.client)
@@ -262,7 +262,7 @@ var/global/nologevent = 0
 			dat+= {"<HR><BR><A href='?src=[UID()];ac_create_channel=1'>Create Feed Channel</A>
 				<BR><A href='?src=[UID()];ac_view=1'>View Feed Channels</A>
 				<BR><A href='?src=[UID()];ac_create_feed_story=1'>Submit new Feed story</A>
-				<BR><BR><A href='?src=\ref[usr];mach_close=newscaster_main'>Exit</A>
+				<BR><BR><A href='?src=[usr.UID()];mach_close=newscaster_main'>Exit</A>
 			"}
 
 			var/wanted_already = 0

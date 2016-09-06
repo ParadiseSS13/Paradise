@@ -135,7 +135,7 @@
 						<div class='header'>Equipment</div>
 						<div class='links'>"}
 		for(var/obj/item/mecha_parts/mecha_equipment/W in equipment)
-			output += "[W.name] <a href='?src=\ref[W];detach=1'>Detach</a><br>"
+			output += "[W.name] <a href='?src=[W.UID()];detach=1'>Detach</a><br>"
 		output += "<b>Available equipment slots:</b> [max_equip-equipment.len]"
 		output += "</div></div>"
 	return output

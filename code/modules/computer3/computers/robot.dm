@@ -87,14 +87,14 @@
 					\n<BR>
 					\n<A href='?src=[UID()];killall'>Start Sequence</A><BR>
 					\n<BR>
-					\n<A href='?src=\ref[usr];close'>Close</A>"}
+					\n<A href='?src=[usr.UID()];close'>Close</A>"}
 				else
 					dat = {"<B>Emergency Robot Self-Destruct</B><HR>\nStatus: Activated<BR>
 					\n<BR>
 					\nCountdown: [src.timeleft]/60 \[Reset\]<BR>
 					\n<BR>\n<A href='?src=[UID()];stop=1'>Stop Sequence</A><BR>
 					\n<BR>
-					\n<A href='?src=\ref[usr];mach_close=computer'>Close</A>"}
+					\n<A href='?src=[usr.UID()];mach_close=computer'>Close</A>"}
 				dat += "<A href='?src=[UID()];screen=0'>(Return to Main Menu)</A><BR>"
 
 		popup.set_content(dat)

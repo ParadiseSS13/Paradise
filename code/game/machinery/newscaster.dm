@@ -210,7 +210,7 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 				else
 					dat+= "<BR><A href='?src=[UID()];unsilence_unit=1'>Unsilence unit</A>"
 				dat+= {"<BR><A href='?src=[UID()];refresh=1'>Re-scan User</A>
-				<BR><BR><A href='?src=\ref[human_or_robot_user];mach_close=newscaster_main'>Exit</A>"}
+				<BR><BR><A href='?src=[human_or_robot_user.UID()];mach_close=newscaster_main'>Exit</A>"}
 				if(src.securityCaster)
 					var/wanted_already = 0
 					if(news_network.wanted_issue)
@@ -836,7 +836,7 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 					dat+="</ul>"
 				if(scribble_page==curr_page)
 					dat+="<BR><I>There is a small scribble near the end of this page... It reads: \"[src.scribble]\"</I>"
-				dat+= "<HR><DIV STYLE='float:right;'><A href='?src=[UID()];next_page=1'>Next Page</A></DIV> <div style='float:left;'><A href='?src=\ref[human_user];mach_close=newspaper_main'>Done reading</A></DIV>"
+				dat+= "<HR><DIV STYLE='float:right;'><A href='?src=[UID()];next_page=1'>Next Page</A></DIV> <div style='float:left;'><A href='?src=[human_user.UID()];mach_close=newspaper_main'>Done reading</A></DIV>"
 			if(1) // X channel pages inbetween.
 				for(var/datum/feed_channel/NP in src.news_content)
 					src.pages++ //Let's get it right again.

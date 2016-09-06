@@ -79,7 +79,7 @@
 					body += "<a href='?src=[UID()];shownoteckey="+key+"'>N</a> - "
 					body += "<a href='?_src_=vars;Vars="+ref+"'>VV</a> - "
 					body += "<a href='?src=[UID()];traitor="+ref+"'>TP</a> - "
-					body += "<a href='?src=\ref[usr];priv_msg=\ref"+ref+"'>PM</a> - "
+					body += "<a href='?src=[usr.UID()];priv_msg=\ref"+ref+"'>PM</a> - "
 					body += "<a href='?src=[UID()];subtlemessage="+ref+"'>SM</a> - "
 					body += "<a href='?src=[UID()];adminplayerobservefollow="+ref+"'>FLW</a>"
 					if(eyeref)
@@ -378,7 +378,7 @@
 
 		dat += {"<td>[(M.client ? "[M.client]" : "No client")]</td>
 		<td align=center><A HREF='?src=[UID()];adminplayeropts=\ref[M]'>X</A></td>
-		<td align=center><A href='?src=\ref[usr];priv_msg=\ref[M]'>PM</A></td>
+		<td align=center><A href='?src=[usr.UID()];priv_msg=\ref[M]'>PM</A></td>
 		"}
 		switch(is_special_character(M))
 			if(0)
@@ -402,7 +402,7 @@
 		logout_status = M.client ? "" : " <i>(logged out)</i>"
 
 	return {"<tr><td><a href='?src=[UID()];adminplayeropts=\ref[M]'>[M.real_name]</a><b>[caption]</b>[logout_status][M.stat == 2 ? " <b><font color=red>(DEAD)</font></b>" : ""]</td>
-		<td><A href='?src=\ref[usr];priv_msg=\ref[M]'>PM</A></td>[close ? "</tr>" : ""]"}
+		<td><A href='?src=[usr.UID()];priv_msg=\ref[M]'>PM</A></td>[close ? "</tr>" : ""]"}
 
 /datum/admins/proc/check_antagonists()
 	if(!check_rights(R_ADMIN))	return

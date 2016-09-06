@@ -351,7 +351,7 @@ var/datum/paiController/paiController			// Global handler for pAI candidates
 			if(O.client && (ROLE_PAI in O.client.prefs.be_special))
 				if(player_old_enough_antag(O.client,ROLE_PAI))
 					if(check_recruit(O))
-						to_chat(O, "<span class='boldnotice'>A pAI card activated by [user.real_name] is looking for personalities. (<a href='?src=\ref[O];jump=\ref[P]'>Teleport</a> | <a href='?src=[UID()];signup=\ref[O]'>Sign Up</a>)</span>")
+						to_chat(O, "<span class='boldnotice'>A pAI card activated by [user.real_name] is looking for personalities. (<a href='?src=[O.UID()];jump=\ref[P]'>Teleport</a> | <a href='?src=[UID()];signup=\ref[O]'>Sign Up</a>)</span>")
 						//question(O.client)
 
 	proc/check_recruit(var/mob/dead/observer/O)

@@ -3005,13 +3005,10 @@
 		else
 			error_viewer.showTo(usr, null, href_list["viewruntime_linear"])
 
-/proc/admin_jump_link(var/atom/target, var/source)
+/proc/admin_jump_link(var/atom/target)
 	if(!target) return
 	// The way admin jump links handle their src is weirdly inconsistent...
-	if(istype(source, /datum/admins))
-		source = "src=\ref[source]"
-	else
-		source = "_src_=holder"
+	var/source = "_src_=holder"
 
 	if(isAI(target)) // AI core/eye follow links
 		var/mob/living/silicon/ai/A = target

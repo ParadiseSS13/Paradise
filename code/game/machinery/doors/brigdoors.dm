@@ -223,7 +223,7 @@
 		else
 			dat += "<br/><A href='?src=[UID()];fc=1'>Activate Flash</A>"
 
-	dat += "<br/><br/><a href='?src=\ref[user];mach_close=computer'>Close</a>"
+	dat += "<br/><br/><a href='?src=[user.UID()];mach_close=computer'>Close</a>"
 
 	var/datum/browser/popup = new(user, "door_timer", name, 400, 500)
 	popup.set_content(dat)

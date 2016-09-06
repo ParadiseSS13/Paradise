@@ -65,7 +65,7 @@
 	<a href='?src=[UID()];djstation=1'>Ruskie DJ Station</a><br>
 	<a href='?src=[UID()];commssat=1'>Communications Satellite</a> |
 	<a href='?src=[UID()];abandoned_ship=1'>Abandoned Ship</a><br>
-	<a href='?src=\ref[user];mach_close=computer'>Close</a>"}
+	<a href='?src=[user.UID()];mach_close=computer'>Close</a>"}
 
 	user << browse(dat, "window=computer;size=575x450")
 	onclose(user, "computer")

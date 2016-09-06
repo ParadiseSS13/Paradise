@@ -678,7 +678,7 @@
 				dat += "<A href='?src=[UID()];request=1]'>Request Authorization</A><br>"
 		if(docking_request)
 			dat += "<A href='?src=[UID()];request=1]'>Request docking at NSS Cyberiad</A><br>"
-	dat += "<a href='?src=\ref[user];mach_close=computer'>Close</a>"
+	dat += "<a href='?src=[user.UID()];mach_close=computer'>Close</a>"
 
 	var/datum/browser/popup = new(user, "computer", M ? M.name : "shuttle", 300, 200)
 	popup.set_content("<center>[dat]</center>")
