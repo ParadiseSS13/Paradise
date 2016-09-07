@@ -137,7 +137,7 @@
 	name = "Coldsauce bottle"
 	desc = "Leaves the tongue numb in it's passage"
 	icon_state = "coldsauce"
-	list_reagents = list("frostoil" = 50)
+	list_reagents = list("frostoil" = 20)
 
 /obj/item/weapon/reagent_containers/food/condiment/borksauce
 	name = "Chef Bork's special sauce"
