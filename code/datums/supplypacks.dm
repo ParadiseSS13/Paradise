@@ -887,7 +887,10 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 					/obj/item/weapon/reagent_containers/food/condiment/soysauce,
 					/obj/item/weapon/reagent_containers/food/condiment/sugar,)
 	cost = 15
+	containertype = /obj/structure/closet/crate/secure
 	containername = "Condiment Kit"
+	access = access_kitchen
+	announce_beacons = list("Kitchen" = list("Kitchen"))
 
 /datum/supply_packs/organic/pizza
 	name = "Pizza Crate"
