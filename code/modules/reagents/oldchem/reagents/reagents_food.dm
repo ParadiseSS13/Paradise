@@ -86,6 +86,10 @@
 	reagent_state = LIQUID
 	color = "#B31008" // rgb: 179, 16, 8
 
+/datum/reagent/msg/reaction_mob(mob/living/M, method=TOUCH, volume)
+	if(method == INGEST)
+		to_chat(M, "<span class='notice'>Yikes, thats spicy!</span>")
+
 /datum/reagent/capsaicin/on_mob_life(mob/living/M)
 	switch(current_cycle)
 		if(1 to 15)
@@ -115,6 +119,10 @@
 	reagent_state = LIQUID
 	color = "#8BA6E9" // rgb: 139, 166, 233
 	process_flags = ORGANIC | SYNTHETIC
+
+/datum/reagent/msg/reaction_mob(mob/living/M, method=TOUCH, volume)
+	if(method == INGEST)
+		to_chat(M, "<span class='notice'>Yikes, Thats freezing cold!</span>")
 
 /datum/reagent/frostoil/on_mob_life(mob/living/M)
 	switch(current_cycle)
@@ -368,6 +376,10 @@
 	reagent_state = SOLID
 	color = "#FFFFFF" // rgb: 255, 255, 255
 	overdose_threshold = 200 // Hyperglycaemic shock
+
+/datum/reagent/msg/reaction_mob(mob/living/M, method=TOUCH, volume)
+	if(method == INGEST)
+		to_chat(M, "<span class='notice'>Yum, that tastes sweet</span>")
 
 /datum/reagent/sugar/on_mob_life(mob/living/M)
 	M.drowsyness = max(0, M.drowsyness-5)
