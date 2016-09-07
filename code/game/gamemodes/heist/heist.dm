@@ -22,18 +22,18 @@ var/global/list/raider_loot = list()
 
 	//for spawning gear
 	var/list/weapons = list(
-						list(/obj/item/ammo_box/magazine/wt550m9,//wt550, 5 mags - 100 rounds
-							/obj/item/ammo_box/magazine/wt550m9,
-							/obj/item/ammo_box/magazine/wt550m9,
-							/obj/item/ammo_box/magazine/wt550m9,
+						list(/obj/item/ammo_box/magazine/wt550m9/wttx,//wt550, 4 mags - 80 rounds
+							/obj/item/ammo_box/magazine/wt550m9/wtic,
+							/obj/item/ammo_box/magazine/wt550m9/wtap,
+							/obj/item/weapon/melee/energy/sword/pirate,
 							/obj/item/weapon/gun/projectile/automatic/wt550),
 
 						list(/obj/item/ammo_box/magazine/uzim9mm,//uzi, 3 mags - 96 rounds
 							/obj/item/ammo_box/magazine/uzim9mm,
+							/obj/item/weapon/melee/energy/sword/pirate,
 							/obj/item/weapon/gun/projectile/automatic/mini_uzi),
 
-						list(/obj/item/ammo_box/magazine/ap10,//ap10, 4 mags - 96 rounds
-							/obj/item/ammo_box/magazine/ap10,
+						list(/obj/item/ammo_box/magazine/ap10,//ap10, 3 mags - 72 rounds
 							/obj/item/ammo_box/magazine/ap10,
 							/obj/item/weapon/gun/projectile/automatic/ap10),
 

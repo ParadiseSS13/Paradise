@@ -195,10 +195,12 @@
 				/obj/item/weapon/spacecash/c200 = 1,
 				/obj/item/weapon/airlock_electronics = 1,
 				/obj/item/weapon/gun/energy/kinetic_accelerator/super = 1,
-				/obj/item/pizzabox = 3,
+				/obj/item/pizzabox/margherita = 1,
+				/obj/item/pizzabox/meat = 1,
+
 				)
 
-/obj/effect/spawner/lootdrop/space_pirate_common
+/obj/effect/spawner/lootdrop/space_pirate_common //9 of these spawners, so 18 items total
 	name = "space pirate common trade item spawn"
 	lootcount = 2
 	lootdoubles = 0
@@ -213,33 +215,52 @@
 				/obj/item/device/megaphone = 1,
 				/obj/item/weapon/gun/energy/kinetic_accelerator/super = 1,
 				/obj/item/pizzabox = 1,
+				/obj/item/weapon/spacecash/c1000{amount = 3} = 1,//3000 creds
+				/obj/item/weapon/spacecash/c200{amount = 4} = 1,//800 creds
 				/obj/item/clothing/glasses/sunglasses = 1,
-				/obj/item/weapon/tank/emergency_oxygen/engi = 10,
-				/obj/item/weapon/grenade/clown_grenade = 3,
-				/obj/item/weapon/storage/backpack/satchel_flat = 2,
-				/obj/item/weapon/storage/backpack/duffel/syndie/surgery_fake = 2,
-				/obj/item/weapon/storage/toolbox/syndicate = 2,
-				//NEEDS MORE ITEMS TO TRADE WITH, ADRESS BEFORE THIS GETS MERGED
-				//^ this will probably get removed by a PR in 2018
+				/obj/item/weapon/tank/emergency_oxygen/engi = 1,
+				/obj/item/weapon/grenade/clown_grenade = 1,
+				/obj/item/weapon/storage/backpack/satchel_flat = 1,
+				/obj/item/weapon/storage/backpack/duffel/syndie/surgery_fake = 1,
+				/obj/item/weapon/storage/toolbox/syndicate = 1,
+				/obj/item/weapon/soap/syndie = 1,
+				/obj/item/weapon/coin/twoheaded = 1,
+				/obj/item/weapon/contraband/poster = 1,
+				/obj/item/clothing/gloves/color/yellow = 1,
+				/obj/item/clothing/gloves/color/black = 1,
+				/obj/item/weapon/storage/firstaid/brute = 1,
+				/obj/item/weapon/storage/firstaid/fire = 1,
+				/obj/item/weapon/storage/toolbox/electrical = 1,
+				/obj/item/weapon/storage/toolbox/mechanical = 1,
+				/obj/item/clothing/head/that = 1,
+				/obj/item/weapon/storage/belt/utility/full/multitool = 1,
+				/obj/item/weapon/wrench = 1,
+				/obj/item/weapon/screwdriver = 1,
+				/obj/item/weapon/wirecutters = 1,
+				/obj/item/weapon/crowbar/large = 1,
+				/obj/item/weapon/bananapeel = 1,
+				/obj/item/weapon/bikehorn = 1,//honk
+				/obj/item/weapon/bikehorn/golden = 0.1,//honk~~
+				/obj/item/weapon/restraints/handcuffs/pinkcuffs = 0.1,//~~~~~~
 				)
 
-/obj/effect/spawner/lootdrop/space_pirate_valuable
+/obj/effect/spawner/lootdrop/space_pirate_valuable //5 of these spawners, so 5 items total
 	name = "space pirate valuable trade item spawn"
 	lootcount = 1
 	color = "#FF0000"
 
 	loot = list(
-				/obj/item/weapon/defibrillator/compact/loaded = 1,
-				/obj/item/weapon/rcd/combat = 1,
-				/obj/item/weapon/kitchen/knife/combat = 1,
-				/obj/item/weapon/storage/box/syndidonkpockets = 1,
-				/obj/item/weapon/gun/energy/kinetic_accelerator/crossbow = 1,
-				/obj/item/weapon/grenade/syndieminibomb = 1,
-				/obj/item/clothing/glasses/hud/security/chameleon = 1,
-				/obj/item/weapon/storage/box/syndie_kit/hardsuit = 1,
+				/obj/item/weapon/rcd/combat = 2,
+				/obj/item/weapon/kitchen/knife/combat = 3,
+				/obj/item/weapon/storage/box/syndidonkpockets = 3,
+				/obj/item/weapon/gun/energy/kinetic_accelerator/crossbow = 2,
+				/obj/item/weapon/grenade/syndieminibomb = 2,
+				/obj/item/clothing/glasses/hud/security/chameleon = 3,
+				/obj/item/weapon/storage/box/syndie_kit/hardsuit = 2,
 				/obj/item/weapon/pinpointer/advpinpointer = 1,
 				/obj/item/weapon/shield/energy = 1,
-				/obj/item/weapon/gun/medbeam = 1,
 				/obj/item/weapon/implanter/adrenalin = 1,
-				/obj/item/weapon/storage/belt/military = 2,
+				/obj/item/weapon/storage/belt/military = 3,
+				/obj/item/weapon/implanter/storage = 1,
+				/obj/item/weapon/storage/firstaid/tactical = 2
 				)
