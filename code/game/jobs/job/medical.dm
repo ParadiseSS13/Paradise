@@ -29,11 +29,8 @@
 		H.equip_or_collect(new /obj/item/clothing/suit/storage/labcoat/cmo(H), slot_wear_suit)
 		H.equip_or_collect(new /obj/item/weapon/storage/firstaid/adv(H), slot_l_hand)
 		H.equip_or_collect(new /obj/item/device/flashlight/pen(H), slot_s_store)
-		if(H.backbag == 1)
-			H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H), slot_r_hand)
-		else
-			H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H.back), slot_in_backpack)
-			H.equip_or_collect(new /obj/item/weapon/melee/classic_baton/telescopic(H.back), slot_in_backpack)
+		H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H), slot_in_backpack)
+		H.equip_or_collect(new /obj/item/weapon/melee/classic_baton/telescopic(H), slot_in_backpack)
 		return 1
 
 
@@ -65,10 +62,10 @@
 					H.equip_or_collect(new /obj/item/clothing/under/rank/medical/mortician(H), slot_w_uniform)
 					H.equip_or_collect(new /obj/item/clothing/suit/storage/labcoat/mortician(H), slot_wear_suit)
 					if(H.backbag != 1)
-						H.equip_or_collect(new /obj/item/clothing/head/surgery/black(H.back), slot_in_backpack)
-						H.equip_or_collect(new /obj/item/weapon/autopsy_scanner(H.back), slot_in_backpack)
-						H.equip_or_collect(new /obj/item/device/mass_spectrometer(H.back), slot_in_backpack)
-						H.equip_or_collect(new /obj/item/weapon/storage/box/bodybags(H.back), slot_in_backpack)
+						H.equip_or_collect(new /obj/item/clothing/head/surgery/black(H), slot_in_backpack)
+						H.equip_or_collect(new /obj/item/weapon/autopsy_scanner(H), slot_in_backpack)
+						H.equip_or_collect(new /obj/item/device/mass_spectrometer(H), slot_in_backpack)
+						H.equip_or_collect(new /obj/item/weapon/storage/box/bodybags(H), slot_in_backpack)
 				if("Surgeon")
 					H.equip_or_collect(new /obj/item/clothing/under/rank/medical/blue(H), slot_w_uniform)
 					H.equip_or_collect(new /obj/item/clothing/suit/storage/labcoat(H), slot_wear_suit)
@@ -92,10 +89,7 @@
 		H.equip_or_collect(new /obj/item/device/pda/medical(H), slot_wear_pda)
 		H.equip_or_collect(new /obj/item/weapon/storage/firstaid/adv(H), slot_l_hand)
 		H.equip_or_collect(new /obj/item/device/flashlight/pen(H), slot_s_store)
-		if(H.backbag == 1)
-			H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H), slot_r_hand)
-		else
-			H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H.back), slot_in_backpack)
+		H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H), slot_in_backpack)
 		return 1
 
 
@@ -119,7 +113,6 @@
 	equip(var/mob/living/carbon/human/H)
 		if(!H)	return 0
 		switch(H.backbag)
-			if(1) H.equip_to_slot_or_del(new /obj/item/weapon/storage/box/survival(H), slot_r_hand)
 			if(2) H.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/chemistry(H), slot_back)
 			if(3) H.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/satchel_chem(H), slot_back)
 			if(4) H.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/satchel(H), slot_back)
@@ -129,7 +122,7 @@
 		H.equip_to_slot_or_del(new /obj/item/clothing/shoes/white(H), slot_shoes)
 		H.equip_to_slot_or_del(new /obj/item/device/pda/chemist(H), slot_wear_pda)
 		H.equip_to_slot_or_del(new /obj/item/clothing/suit/storage/labcoat/chemist(H), slot_wear_suit)
-		H.equip_to_slot_or_del(new /obj/item/weapon/storage/box/survival(H.back), slot_in_backpack)
+		H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H), slot_in_backpack)
 		return 1
 
 
@@ -150,7 +143,6 @@
 	equip(var/mob/living/carbon/human/H)
 		if(!H)	return 0
 		switch(H.backbag)
-			if(1) H.equip_to_slot_or_del(new /obj/item/weapon/storage/box/survival(H), slot_r_hand)
 			if(2) H.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/genetics(H), slot_back)
 			if(3) H.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/satchel_gen(H), slot_back)
 			if(4) H.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/satchel(H), slot_back)
@@ -160,7 +152,7 @@
 		H.equip_to_slot_or_del(new /obj/item/device/pda/geneticist(H), slot_wear_pda)
 		H.equip_to_slot_or_del(new /obj/item/clothing/suit/storage/labcoat/genetics(H), slot_wear_suit)
 		H.equip_to_slot_or_del(new /obj/item/device/flashlight/pen(H), slot_s_store)
-		H.equip_to_slot_or_del(new /obj/item/weapon/storage/box/survival(H.back), slot_in_backpack)
+		H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H), slot_in_backpack)
 		return 1
 
 /datum/job/virologist
@@ -190,10 +182,7 @@
 		H.equip_or_collect(new /obj/item/clothing/shoes/white(H), slot_shoes)
 		H.equip_or_collect(new /obj/item/clothing/suit/storage/labcoat/virologist(H), slot_wear_suit)
 		H.equip_or_collect(new /obj/item/device/flashlight/pen(H), slot_s_store)
-		if(H.backbag == 1)
-			H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H), slot_r_hand)
-		else
-			H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H.back), slot_in_backpack)
+		H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H), slot_in_backpack)
 		return 1
 
 /datum/job/psychiatrist
@@ -230,10 +219,7 @@
 		H.equip_to_slot_or_del(new /obj/item/clothing/shoes/laceup(H), slot_shoes)
 		H.equip_to_slot_or_del(new /obj/item/device/pda/medical(H), slot_wear_pda)
 		H.equip_or_collect(new /obj/item/device/flashlight/pen(H), slot_s_store)
-		if(H.backbag == 1)
-			H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H), slot_r_hand)
-		else
-			H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H.back), slot_in_backpack)
+		H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H), slot_in_backpack)
 		return 1
 
 /datum/job/paramedic
@@ -261,10 +247,6 @@
 		H.equip_or_collect(new /obj/item/clothing/mask/cigarette(H), slot_wear_mask)
 		H.equip_or_collect(new /obj/item/clothing/head/soft/blue(H), slot_head)
 		H.equip_or_collect(new /obj/item/device/flashlight/pen(H), slot_s_store)
-		if(H.backbag == 1)
-			H.equip_or_collect(new /obj/item/weapon/storage/box/engineer(H), slot_r_hand)
-			H.equip_or_collect(new /obj/item/device/healthanalyzer(H), slot_l_hand)
-		else
-			H.equip_or_collect(new /obj/item/weapon/storage/box/engineer(H.back), slot_in_backpack)
-			H.equip_or_collect(new /obj/item/device/healthanalyzer(H.back), slot_in_backpack)
+		H.equip_or_collect(new /obj/item/weapon/storage/box/engineer(H), slot_in_backpack)
+		H.equip_or_collect(new /obj/item/device/healthanalyzer(H), slot_in_backpack)
 		return 1
