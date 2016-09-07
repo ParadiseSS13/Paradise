@@ -144,9 +144,6 @@ var/list/radiochannels = list(
 // central command channels, i.e deathsquid & response teams
 var/list/CENT_FREQS = list(ERT_FREQ, DTH_FREQ)
 
-// Channels that show up as '#unkn'
-var/list/UNKN_FREQS = list(SYND_FREQ)
-
 // Antag channels, i.e. Syndicate
 var/list/ANTAG_FREQS = list(SYND_FREQ, SYNDTEAM_FREQ)
 
