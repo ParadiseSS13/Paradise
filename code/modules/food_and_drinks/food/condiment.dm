@@ -23,7 +23,7 @@
 	 "sodiumchloride" = list("saltshakersmall", "salt shaker", "Salt. From space oceans, presumably"),
 	 "blackpepper" = list("peppermillsmall", "pepper mill", "Often used to flavor food or make people sneeze"),
 	 "cornoil" = list("oliveoil", "corn oil bottle", "A delicious oil used in cooking. Made from corn"),
-	 "sugar" = list("emptycondiment", "sugar bottle", "Tasty spacey sugar!")
+	 "sugar" = list("emptycondiment", "sugar bottle", "Tasty spacey sugar!"),
 	 "msg" = list("emptycondiment", "Chef Bork's special sauce", "Food never tasted this great."))
 	var/originalname = "condiment" //Can't use initial(name) for this. This stores the name set by condimasters.
 
