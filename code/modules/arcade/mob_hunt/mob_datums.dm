@@ -37,6 +37,7 @@
 	var/health = list(0, 0)					//health[1] is the mob's current health, health[2] is the mob's max health (calculated in New())
 
 	//SPAWN PREFERENCES AND VARIABLES
+	//A note on mob spawn preferences: The mob types also have preferences, which are handled prior to per-mob preferences, so ultimately you use a combined set of preferences
 	var/list/area_blacklist = list()		//list of areas this mob can NOT spawn in (such as the bridge)
 	var/list/turf_blacklist = list()		//list of turfs this mob can NOT spawn on (such as wood floors)
 	var/list/area_whitelist = list()		//list of areas this mob is more likely to spawn in (can be used to reinclude subtypes of blacklisted areas)
@@ -73,35 +74,18 @@
 	qdel(src)	//if you reach this, the datum is just pure clutter, so delete it
 
 /datum/mob_hunt/proc/select_spawn()
-	var/list/possible_areas = list()
-	for(var/areapath in the_station_areas)
-		if(istype(areapath, /area/holodeck))	//don't allow holodeck areas as possible spawns since it will allow it to spawn in the holodeck rooms on z2 as well
-			continue
-		possible_areas += typesof(areapath)
-	for(var/areapath in area_blacklist)
-		possible_areas -= typesof(areapath)
-	for(var/areapath in area_whitelist)
-		possible_areas += typesof(areapath)		//yes, this means some areas may be included multiple times, which simply increases their likelihood of being chosen
+	var/list/possible_areas = get_possible_areas()
 	if(!possible_areas.len)
 		log_admin("No possible areas to spawn [type] found. Possible code/mapping error?")
 		return 0
-	var/list/possible_turfs = list()
 	while(possible_areas.len)
 		//randomly select an area from our possible_areas list to try spawning in, then remove it from possible_areas so it won't get picked over and over forever.
-		var/area/spawn_area = locate(pick_n_take(possible_areas))
+		var/area/spawn_area = locate(pickweight(possible_areas))
+		possible_areas -= spawn_area
 		if(!spawn_area)
 			break
 		//clear and generate a fresh list of turfs in the selected area, weighted based on white/black lists
-		possible_turfs.Cut()
-		for(var/turf/PT in spawn_area)
-			var/value = 1
-			if(is_type_in_list(PT, turf_whitelist))		//if whitelisted, we have a significant bonus to our weight
-				value += 2
-			if(is_type_in_list(PT, turf_blacklist))		//blacklisting only removes 1 value (weight), so whitelisted subtypes are still more likely than normal turfs
-				value -= 1								//but non-whitelisted turfs will be disqualified
-			if(!value)
-				continue
-			possible_turfs[PT] = value
+		var/list/possible_turfs = get_possible_turfs(spawn_area)
 		if(!possible_turfs.len)		//If we don't have any possible turfs, this attempt was a failure. Try again.
 			continue
 		//if we got this far, we're spawning on this attempt, hooray!
@@ -112,6 +96,73 @@
 		log_admin("No acceptable turfs to spawn [type] on could be located. Possible code/mapping error, or someone replaced/destroyed all the acceptable turf types?")
 		return 0
 	return 1
+
+/datum/mob_hunt/proc/get_possible_areas()
+	var/list/possible_areas = list()
+	//setup, sets all station areas (and subtypes) to weight 1
+	for(var/A in the_station_areas)
+		if(istype(A, /area/holodeck))	//don't allow holodeck areas as possible spawns since it will allow it to spawn in the holodeck rooms on z2 as well
+			continue
+		for(var/areapath in typesof(A))
+			possible_areas[areapath] = 1
+	//primary type preferences
+	if(primary_type)
+		for(var/A in primary_type.area_whitelist)
+			for(var/areapath in typesof(A))
+				possible_areas[areapath] += 4
+		for(var/A in primary_type.area_blacklist)
+			for(var/areapath in typesof(A))
+				possible_areas[areapath] -= 2
+	//secondary type preferences
+	if(secondary_type)
+		for(var/A in secondary_type.area_whitelist)
+			for(var/areapath in typesof(A))
+				possible_areas[areapath] += 4
+		for(var/A in secondary_type.area_blacklist)
+			for(var/areapath in typesof(A))
+				possible_areas[areapath] -= 2
+	//mob preferences
+	for(var/A in area_whitelist)
+		for(var/areapath in typesof(A))
+			possible_areas[areapath] += 4
+	for(var/A in area_blacklist)
+		for(var/areapath in typesof(A))
+			possible_areas[areapath] -= 2
+	//weight check, remove negative or zero weight areas from the list, then return the list
+	for(var/areapath in possible_areas)
+		if(possible_areas[areapath] < 1)
+			possible_areas -= areapath
+	return possible_areas
+
+/datum/mob_hunt/proc/get_possible_turfs(area/spawn_area)
+	if(!spawn_area)
+		return list()
+	var/list/possible_turfs = list()
+	//setup, sets all turfs in spawn_area to weight 1
+	for(var/turf/T in spawn_area)
+		possible_turfs[T] = 1
+	//primary type preferences
+	if(primary_type)
+		for(var/turf/T in primary_type.turf_whitelist)
+			possible_turfs[T] += 4
+		for(var/turf/T in primary_type.turf_blacklist)
+			possible_turfs[T] -= 2
+	//secondary type preferences
+	if(secondary_type)
+		for(var/turf/T in secondary_type.turf_whitelist)
+			possible_turfs[T] += 4
+		for(var/turf/T in secondary_type.turf_blacklist)
+			possible_turfs[T] -= 2
+	//mob preferences
+	for(var/turf/T in turf_whitelist)
+		possible_turfs[T] += 4
+	for(var/turf/T in turf_blacklist)
+		possible_turfs[T] -= 2
+	//weight check, remove negative or zero weight turfs from the list, then return the list
+	for(var/T in possible_turfs)
+		if(possible_turfs[T] < 1)
+			possible_turfs -= T
+	return possible_turfs
 
 /datum/mob_hunt/proc/calc_dam_multiplier(datum/mob_type/attack_type)
 	if(!primary_type)
@@ -195,11 +246,6 @@
 	primary_type = TYPE_BUG
 	icon_state_normal = "nemabug"
 	icon_state_shiny = "nemabug_shiny"
-	area_blacklist = list(/area/toxins)
-	turf_blacklist = list()
-	area_whitelist = list(/area/hydroponics,
-						/area/hallway/secondary/construction)
-	turf_whitelist = list(/turf/simulated/floor/grass)
 	lifetime = 6000
 
 /datum/mob_hunt/stoutquill
@@ -210,12 +256,6 @@
 	primary_type = TYPE_ICE
 	icon_state_normal = "stoutquill"
 	icon_state_shiny = "stoutquill_shiny"
-	area_blacklist = list(/area/maintenance/turbine,
-						/area/maintenance/incinerator,
-						/area/crew_quarters/kitchen)
-	turf_blacklist = list()
-	area_whitelist = list(/area/toxins/server_coldroom)
-	turf_whitelist = list()
 	lifetime = 4500
 
 /datum/mob_hunt/spectra
@@ -226,17 +266,6 @@
 	primary_type = TYPE_POISON
 	icon_state_normal = "spectra"
 	icon_state_shiny = "spectra_shiny"
-	area_blacklist = list(/area/medical,
-						/area/security/medbay,
-						/area/janitor)
-	turf_blacklist = list()
-	area_whitelist = list(/area/medical/virology,
-						/area/toxins,
-						/area/medical/research,
-						/area/medical/research_shuttle_dock,
-						/area/crew_quarters/hor,
-						/area/maintenance/asmaint2)
-	turf_whitelist = list()
 	lifetime = 6000
 
 /datum/mob_hunt/dunny
@@ -247,16 +276,6 @@
 	primary_type = TYPE_FIRE
 	icon_state_normal = "dunny"
 	icon_state_shiny = "dunny_shiny"
-	area_blacklist = list(/area/crew_quarters/toilet,
-						/area/crew_quarters/sleep_male/toilet_male,
-						/area/crew_quarters/sleep_female/toilet_female,
-						/area/crew_quarters/locker/locker_toilet,
-						/area/toxins/server_coldroom)
-	turf_blacklist = list(/turf/simulated/floor/beach/water)
-	area_whitelist = list(/area/maintenance/turbine,
-						/area/maintenance/incinerator,
-						/area/crew_quarters/kitchen)
-	turf_whitelist = list()
 	lifetime = 6000
 
 /datum/mob_hunt/buffsel
@@ -267,12 +286,6 @@
 	primary_type = TYPE_ROCK
 	icon_state_normal = "buffsel"
 	icon_state_shiny = "buffsel_shiny"
-	area_blacklist = list()
-	turf_blacklist = list()
-	area_whitelist = list(/area/quartermaster,
-						/area/maintenance/disposal)
-	turf_whitelist = list(/turf/simulated/wall,
-						/turf/simulated/floor/mineral)
 	lifetime = 6000
 
 /datum/mob_hunt/quarrel
@@ -283,10 +296,6 @@
 	primary_type = TYPE_NORMAL
 	icon_state_normal = "quarrel"
 	icon_state_shiny = "quarrel_shiny"
-	area_blacklist = list()
-	turf_blacklist = list()
-	area_whitelist = list()
-	turf_whitelist = list()
 	lifetime = 6000
 
 /datum/mob_hunt/vulerrt
@@ -297,16 +306,6 @@
 	primary_type = TYPE_DARK
 	icon_state_normal = "vulerrt"
 	icon_state_shiny = "vulerrt_shiny"
-	area_blacklist = list(/area/solar,
-						/area/maintenance/auxsolarport,
-						/area/maintenance/starboardsolar,
-						/area/maintenance/portsolar,
-						/area/maintenance/auxsolarstarboard,
-						/area/clownoffice)
-	turf_blacklist = list(/turf/simulated/floor/light)
-	area_whitelist = list(/area/maintenance,
-						/area/assembly/assembly_line,
-						/area/mimeoffice)
 	turf_whitelist = list()
 	lifetime = 4500
 
@@ -318,17 +317,6 @@
 	primary_type = TYPE_ELECTRIC
 	icon_state_normal = "strudel"
 	icon_state_shiny = "strudel_shiny"
-	area_blacklist = list()
-	turf_blacklist = list()
-	area_whitelist = list(/area/engine,
-						/area/toxins/server,
-						/area/maintenance,
-						/area/turret_protected/ai,
-						/area/turret_protected/ai_upload,
-						/area/turret_protected/aisat_interior,
-						/area/aisat,
-						/area/assembly)
-	turf_whitelist = list(/turf/simulated/floor/bluegrid)
 	lifetime = 4500
 
 /datum/mob_hunt/folstick
@@ -339,15 +327,6 @@
 	primary_type = TYPE_WATER
 	icon_state_normal = "folstick"
 	icon_state_shiny = "folstick_shiny"
-	area_blacklist = list(/area/maintenance/turbine,
-						/area/maintenance/incinerator,
-						/area/crew_quarters/kitchen)
-	turf_blacklist = list()
-	area_whitelist = list(/area/crew_quarters/toilet,
-						/area/crew_quarters/sleep_male/toilet_male,
-						/area/crew_quarters/sleep_female/toilet_female,
-						/area/crew_quarters/locker/locker_toilet)
-	turf_whitelist = list(/turf/simulated/floor/beach/water)
 	lifetime = 6000
 
 /datum/mob_hunt/glimmerflare
@@ -358,18 +337,6 @@
 	primary_type = TYPE_PSYCHIC
 	icon_state_normal = "glimmerflare"
 	icon_state_shiny = "glimmerflare_shiny"
-	area_blacklist = list(/area/toxins,
-						/area/medical/research,
-						/area/medical/research_shuttle_dock,
-						/area/crew_quarters/hor,
-						/area/maintenance/asmaint2,
-						/area/teleporter,
-						/area/gateway)
-	turf_blacklist = list()
-	area_whitelist = list(/area/library,
-						/area/chapel,
-						/area/medical/psych)
-	turf_whitelist = list()
 	lifetime = 4500
 
 /datum/mob_hunt/leecoon
@@ -380,11 +347,6 @@
 	primary_type = TYPE_GRASS
 	icon_state_normal = "leecoon"
 	icon_state_shiny = "leecoon_shiny"
-	area_blacklist = list(/area/toxins)
-	turf_blacklist = list()
-	area_whitelist = list(/area/hydroponics,
-						/area/hallway/secondary/construction)
-	turf_whitelist = list(/turf/simulated/floor/grass)
 	lifetime = 6000
 
 /datum/mob_hunt/halk
@@ -395,13 +357,6 @@
 	primary_type = TYPE_FLYING
 	icon_state_normal = "halk"
 	icon_state_shiny = "halk_shiny"
-	area_blacklist = list(/area/maintenance)
-	turf_blacklist = list()
-	area_whitelist = list(/area/hallway,
-						/area/escapepodbay,
-						/area/engine/mechanic_workshop,
-						/area/security/podbay)
-	turf_whitelist = list()
 	lifetime = 6000
 
 /datum/mob_hunt/gooby
@@ -413,17 +368,6 @@
 	secondary_type = TYPE_BUG
 	icon_state_normal = "gooby"
 	icon_state_shiny = "gooby_shiny"
-	area_blacklist = list()
-	turf_blacklist = list()
-	area_whitelist = list(/area/engine,
-						/area/toxins/server,
-						/area/maintenance,
-						/area/turret_protected/ai,
-						/area/turret_protected/ai_upload,
-						/area/turret_protected/aisat_interior,
-						/area/aisat,
-						/area/assembly)
-	turf_whitelist = list(/turf/simulated/floor/bluegrid)
 	lifetime = 3000
 
 /datum/mob_hunt/pandoom
@@ -434,12 +378,6 @@
 	primary_type = TYPE_GHOST
 	icon_state_normal = "pandoom"
 	icon_state_shiny = "pandoom_shiny"
-	area_blacklist = list()
-	turf_blacklist = list()
-	area_whitelist = list(/area/medical/morgue,
-						/area/chapel,
-						/area/medical/genetics_cloning)
-	turf_whitelist = list()
 	lifetime = 4500
 
 /datum/mob_hunt/relish
@@ -451,10 +389,6 @@
 	secondary_type = TYPE_GROUND
 	icon_state_normal = "relish"
 	icon_state_shiny = "relish_shiny"
-	area_blacklist = list()
-	turf_blacklist = list()
-	area_whitelist = list()
-	turf_whitelist = list()
 	lifetime = 3000
 
 /datum/mob_hunt/xofine
@@ -466,10 +400,6 @@
 	secondary_type = TYPE_NORMAL
 	icon_state_normal = "xofine"
 	icon_state_shiny = "xofine_shiny"
-	area_blacklist = list()
-	turf_blacklist = list()
-	area_whitelist = list()
-	turf_whitelist = list()
 	lifetime = 3000
 
 /datum/mob_hunt/gitten
@@ -481,10 +411,6 @@
 	secondary_type = TYPE_POISON
 	icon_state_normal = "gitten"
 	icon_state_shiny = "gitten_shiny"
-	area_blacklist = list()
-	turf_blacklist = list()
-	area_whitelist = list()
-	turf_whitelist = list()
 	lifetime = 3000
 
 /datum/mob_hunt/nai
@@ -496,10 +422,6 @@
 	secondary_type = TYPE_NORMAL
 	icon_state_normal = "nai"
 	icon_state_shiny = "nai_shiny"
-	area_blacklist = list()
-	turf_blacklist = list()
-	area_whitelist = list()
-	turf_whitelist = list()
 	lifetime = 3000
 
 /datum/mob_hunt/pyroghast
@@ -511,10 +433,6 @@
 	secondary_type = TYPE_GHOST
 	icon_state_normal = "pyroghast"
 	icon_state_shiny = "pyroghast"
-	area_blacklist = list()
-	turf_blacklist = list()
-	area_whitelist = list()
-	turf_whitelist = list()
 	lifetime = 4500
 
 /datum/mob_hunt/starslam
@@ -526,12 +444,6 @@
 	secondary_type = TYPE_ICE
 	icon_state_normal = "starslam"
 	icon_state_shiny = "starslam_shiny"
-	area_blacklist = list(/area/medical)
-	turf_blacklist = list()
-	area_whitelist = list(/area/crew_quarters/bar,
-						/area/crew_quarters/fitness,
-						/area/security)
-	turf_whitelist = list(/turf/simulated/floor/wood)
 	lifetime = 2500
 
 /datum/mob_hunt/pheron
