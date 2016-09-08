@@ -15,6 +15,8 @@
 	var/current_index = 0
 	var/connected = 0
 	var/hacked = 0		//if set, this cartridge is able to spawn trap mobs from its collection (set via emag_act on the cartridge)
+	var/catch_mod = 0	//used to adjust the likelihood of a mob running from this client, a negative value means it is less likely to run (support for temporary bonuses)
+	var/wild_captures = 0		//used to track the total number of mobs captured from the wild (does not count card mobs) by this client
 
 /datum/data/pda/app/mob_hunter_game/start()
 	..()
@@ -42,8 +44,7 @@
 	mob_hunt_server.connected_clients += src
 	connected = 1
 	if(pda)
-		for(var/mob/O in hearers(2, pda.loc))
-			O.show_message("[bicon(pda)] Connection established. Capture all of the mobs, [pda.owner ? pda.owner : "hunter"]!")
+		pda.audible_message("[bicon(pda)] Connection established. Capture all of the mobs, [pda.owner ? pda.owner : "hunter"]!", null, 2)
 	return 1
 
 /datum/data/pda/app/mob_hunter_game/proc/disconnect(reason = null)
@@ -53,18 +54,25 @@
 	connected = 0
 	//show a disconnect message if we were disconnected involuntarily (reason argument provided)
 	if(pda && reason)
-		for(var/mob/O in hearers(2, pda.loc))
-			O.show_message("[bicon(pda)] Disconnected from server. Reason: [reason].")
+		pda.audible_message("[bicon(pda)] Disconnected from server. Reason: [reason].", null, 2)
 
 /datum/data/pda/app/mob_hunter_game/program_process()
 	if(!mob_hunt_server || !connected)
 		return
 	scan_nearby()
 
-/datum/data/pda/app/mob_hunter_game/proc/register_capture(datum/mob_hunt/captured)
+/datum/data/pda/app/mob_hunter_game/program_hit_check()
+	if(!pda)
+		return
+	for(var/obj/effect/nanomob/hit_mob in get_turf(pda))
+		hit_mob.hitby(pda)
+
+/datum/data/pda/app/mob_hunter_game/proc/register_capture(datum/mob_hunt/captured, wild = 0)
 	if(!captured)
 		return 0
 	my_collection.Add(captured)
+	if(wild)
+		wild_captures++
 	return 1
 
 /datum/data/pda/app/mob_hunter_game/update_ui(mob/user as mob, list/data)
@@ -72,6 +80,7 @@
 		data["connected"] = 0
 	else
 		data["connected"] = 1
+	data["wild_captures"] = wild_captures
 	data["no_collection"] = 0
 	if(!my_collection.len)
 		data["no_collection"] = 1

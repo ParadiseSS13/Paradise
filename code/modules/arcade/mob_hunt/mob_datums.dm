@@ -62,6 +62,10 @@
 	if(prob(1) && prob(1))
 		is_shiny = 1
 	health[2] = base_health + (level * health_multiplier)
+	if(primary_type)
+		primary_type = new primary_type()
+	if(secondary_type)
+		secondary_type = new secondary_type()
 	if(no_register)		//for booster pack cards
 		return
 	if(mob_hunt_server)
@@ -101,7 +105,9 @@
 	var/list/possible_areas = list()
 	//setup, sets all station areas (and subtypes) to weight 1
 	for(var/A in the_station_areas)
-		if(istype(A, /area/holodeck))	//don't allow holodeck areas as possible spawns since it will allow it to spawn in the holodeck rooms on z2 as well
+		if(A == /area/holodeck)	//don't allow holodeck areas as possible spawns since it will allow it to spawn in the holodeck rooms on z2 as well
+			continue
+		if(A in possible_areas)
 			continue
 		for(var/areapath in typesof(A))
 			possible_areas[areapath] = 1
@@ -128,10 +134,16 @@
 	for(var/A in area_blacklist)
 		for(var/areapath in typesof(A))
 			possible_areas[areapath] -= 2
-	//weight check, remove negative or zero weight areas from the list, then return the list
+	//removes "bad areas" which shouldn't be on-station but are subtypes of station areas. probably should the unused ones and consider repathing the rest
+	var/list/bad_areas = list(subtypesof(/area/construction), /area/solar/derelict_starboard, /area/solar/derelict_aft, /area/solar/constructionsite)
+	for(var/A in bad_areas)
+		possible_areas -= A
+	//weight check, remove negative or zero weight areas from the list, then return the list.
 	for(var/areapath in possible_areas)
+		//remove any areas that shouldn't be on the station-level
 		if(possible_areas[areapath] < 1)
 			possible_areas -= areapath
+			continue
 	return possible_areas
 
 /datum/mob_hunt/proc/get_possible_turfs(area/spawn_area)
@@ -140,6 +152,8 @@
 	var/list/possible_turfs = list()
 	//setup, sets all turfs in spawn_area to weight 1
 	for(var/turf/T in spawn_area)
+		if(T.z > 1)		//mobs will only consider station-level turfs for spawning. Largely here so we won't have to worry about mapping errors or mobs on the derelict solars
+			continue
 		possible_turfs[T] = 1
 	//primary type preferences
 	if(primary_type)
@@ -229,13 +243,13 @@
 	if(!primary_type)
 		return "Typeless"
 	else
-		return initial(primary_type.name)
+		return primary_type.name
 
 /datum/mob_hunt/proc/get_type2()
 	if(!secondary_type)
 		return null
 	else
-		return initial(secondary_type.name)
+		return secondary_type.name
 
 
 /datum/mob_hunt/nemabug

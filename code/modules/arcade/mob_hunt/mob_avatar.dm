@@ -37,27 +37,25 @@
 		return
 	if(istype(O, /obj/item/device/pda))
 		var/obj/item/device/pda/P = O
-		if(P.current_app && istype(P.current_app, /datum/data/pda/app/mob_hunter_game))
-			attempt_capture(P)
-			return 1
+		attempt_capture(P, -20)		//attempting a melee capture reduces the mob's effective run_chance by 20% to balance the risk of triggering a trap mob
+		return 1
 
 /obj/effect/nanomob/hitby(obj/item/O)
 	if(invisibility)	//no catching mobs you can't normally see!
 		return
 	if(istype(O, /obj/item/device/pda))
 		var/obj/item/device/pda/P = O
-		if(P.current_app && istype(P.current_app, /datum/data/pda/app/mob_hunter_game))
-			attempt_capture(P)
-			return 1
+		attempt_capture(P)			//attempting a ranged capture does not affect the mob's effective run_chance but does prevent you from being shocked by a trap mob
+		return 1
 
-/obj/effect/nanomob/proc/attempt_capture(obj/item/device/pda/P)
+/obj/effect/nanomob/proc/attempt_capture(obj/item/device/pda/P, catch_mod = 0)		//negative catch_mods lower effective run chance,
 	if(!P || !P.current_app || !istype(P.current_app, /datum/data/pda/app/mob_hunter_game) || !P.cartridge)
 		return
 
 	var/datum/data/pda/app/mob_hunter_game/client = P.current_app
+	var/total_catch_mod = client.catch_mod + catch_mod		//negative values decrease the chance of the mob running, positive values makes it more likely to flee
 	if(!client.connected)	//must be connected to attempt captures
-		for(var/mob/O in hearers(4, P.loc))
-			O.show_message("[bicon(P)] No server connection. Capture aborted.")
+		P.audible_message("[bicon(P)] No server connection. Capture aborted.", null, 4)
 		return
 
 	if(mob_info.is_trap)		//traps work even if you ran into them before, which is why this is before the clients_encountered check
@@ -84,16 +82,16 @@
 	else	//deal with the new hunter by either running away or getting caught
 		clients_encountered += cart_ref
 		var/message = "[bicon(P)] "
-		if(mob_info.run_chance && prob(mob_info.run_chance))
+		var/effective_run_chance = mob_info.run_chance + total_catch_mod
+		if((effective_run_chance > 0) && prob(effective_run_chance))
 			message += "Capture failed! [name] escaped [P.owner ? "from [P.owner]" : "from this hunter"]!"
 		else
-			if(client.register_capture(mob_info))
+			if(client.register_capture(mob_info, 1))
 				message += "Capture success! [P.owner ? P.owner : "This hunter"] captured [name]!"
 			else
 				message += "Capture error! Try again."
 				clients_encountered -= cart_ref		//if the capture registration failed somehow, let them have another chance with this mob
-		for(var/mob/O in hearers(4, P.loc))
-			O.show_message(message)
+		P.audible_message(message, null, 4)
 
 /obj/effect/nanomob/proc/despawn()
 	if(mob_hunt_server)
@@ -107,8 +105,6 @@
 /obj/effect/nanomob/proc/reveal()
 	if(invisibility == 101)
 		invisibility = 0
-		//density = 1
 		spawn(30)
 			if(src)
 				invisibility = 101
-				//density = 1
