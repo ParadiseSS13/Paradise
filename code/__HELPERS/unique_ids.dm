@@ -3,6 +3,10 @@
 // Basically, a replacement for plain \refs that ensure the reference still
 // points to the exact same datum/client, but doesn't prevent GC like tags do.
 
+// An unintended side effect of the way UIDs are formatted is that the locate()
+// proc will ignore the number and attempt to locate the reference. I consider
+// this a feature, since it means they're conveniently backwards compatible.
+
 // Turns this:
 //   var/myref = "\ref[mydatum]"
 //   var/datum/D = locate(myref)

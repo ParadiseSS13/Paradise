@@ -32,7 +32,8 @@
 	// src should always be a UID; if it isn't, warn instead of failing entirely
 	if(href_list["src"])
 		hsrc = locateUID(href_list["src"])
-		if(!hsrc)
+		// If there's a ]_ in the src, it's a UID, so don't try to locate it
+		if(!hsrc && !findtext(href_list["src"], "]_"))
 			hsrc = locate(href_list["src"])
 			if(hsrc)
 				var/hsrc_info = datum_info_line(hsrc) || "[hsrc]"

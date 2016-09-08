@@ -50,7 +50,7 @@ var/global/nologevent = 0
 		body += " \[<A href='?_src_=holder;revive=\ref[M]'>Heal</A>\] "
 
 	body += "<br><br>\[ "
-	body += "<a href='?_src_=vars;Vars=\ref[M]'>VV</a> - "
+	body += "<a href='?_src_=vars;Vars=[M.UID()]'>VV</a> - "
 	body += "<a href='?_src_=holder;traitor=\ref[M]'>TP</a> - "
 	body += "<a href='?src=[usr.UID()];priv_msg=\ref[M]'>PM</a> - "
 	body += "<a href='?_src_=holder;subtlemessage=\ref[M]'>SM</a> - "
