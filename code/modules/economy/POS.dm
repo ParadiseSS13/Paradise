@@ -225,7 +225,7 @@ var/const/POS_HEADER = {"<html>
 	receipt += "</fieldset>"
 	receipt += {"<fieldset><legend>Order Data</legend>
 		<form action="?src=[UID()]" method="get">
-		<input type="hidden" name="src" value="\ref[src]" />
+		<input type="hidden" name="src" value="[UID()]" />
 		<table>
 			<tr class=\"first\">
 				<th class=\"first\">Item</th>
@@ -281,7 +281,7 @@ var/const/POS_HEADER = {"<html>
 /obj/machinery/pos/proc/ProductsScreen()
 	var/dat={"<fieldset><legend>Product List</legend>
 		<form action="?src=[UID()]" method="get">
-		<input type="hidden" name="src" value="\ref[src]" />
+		<input type="hidden" name="src" value="[UID()]" />
 		<table>
 			<tr class=\"first\">
 				<th class=\"first\">Item</th>
@@ -322,7 +322,7 @@ var/const/POS_HEADER = {"<html>
 	var/dat={"<fieldset>
 		<legend>Import Products as CSV</legend>
 		<form action="?src=[UID()]" method="get">
-			<input type="hidden" name="src" value="\ref[src]" />
+			<input type="hidden" name="src" value="[UID()]" />
 			<textarea name="csv"></textarea>
 			<p>Data must be in the form of a CSV, with no headers or quotation marks.</p>
 			<p>First column must be product names, second must be prices as an unformatted number (####.##)</p>
@@ -337,7 +337,7 @@ var/const/POS_HEADER = {"<html>
 
 /obj/machinery/pos/proc/SettingsScreen()
 	var/dat={"<form action="?src=[UID()]" method="get">
-		<input type="hidden" name="src" value="\ref[src]" />
+		<input type="hidden" name="src" value="[UID()]" />
 		<fieldset>
 			<legend>Account Settings</legend>
 			<div>

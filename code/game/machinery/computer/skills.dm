@@ -47,9 +47,9 @@
 	var/dat
 
 	if(temp)
-		dat = text("<TT>[]</TT><BR><BR><A href='?src=\ref[];choice=Clear Screen'>Clear Screen</A>", temp, src)
+		dat = "<TT>[temp]</TT><BR><BR><A href='?src=[UID()];choice=Clear Screen'>Clear Screen</A>"
 	else
-		dat = text("Confirm Identity: <A href='?src=\ref[];choice=Confirm Identity'>[]</A><HR>", src, (scan ? text("[]", scan.name) : "----------"))
+		dat = text("Confirm Identity: <A href='?src=[UID()];choice=Confirm Identity'>[]</A><HR>", (scan ? text("[]", scan.name) : "----------"))
 		if(authenticated)
 			switch(screen)
 				if(1.0)
@@ -75,7 +75,7 @@
 						for(var/datum/data/record/R in sortRecord(data_core.general, sortBy, order))
 							for(var/datum/data/record/E in data_core.security)
 							var/background
-							dat += text("<tr style=[]><td><A href='?src=\ref[];choice=Browse Record;d_rec=\ref[]'>[]</a></td>", background, src, R, R.fields["name"])
+							dat += text("<tr style=[]><td><A href='?src=[UID()];choice=Browse Record;d_rec=\ref[]'>[]</a></td>", background, R, R.fields["name"])
 							dat += text("<td>[]</td>", R.fields["id"])
 							dat += text("<td>[]</td>", R.fields["rank"])
 							dat += text("<td>[]</td>", R.fields["fingerprint"])
@@ -129,7 +129,7 @@
 								crimstat = E.fields["criminal"]
 							var/background
 							background = "'background-color:#00FF7F;'"
-							dat += text("<tr style=[]><td><A href='?src=\ref[];choice=Browse Record;d_rec=\ref[]'>[]</a></td>", background, src, R, R.fields["name"])
+							dat += text("<tr style=[]><td><A href='?src=[UID()];choice=Browse Record;d_rec=\ref[]'>[]</a></td>", background, R, R.fields["name"])
 							dat += text("<td>[]</td>", R.fields["id"])
 							dat += text("<td>[]</td>", R.fields["rank"])
 							dat += text("<td>[]</td>", R.fields["fingerprint"])

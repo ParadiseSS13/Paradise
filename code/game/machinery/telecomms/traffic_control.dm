@@ -133,7 +133,7 @@
 
 					<form action="byond://" method="POST" id="theform">
 						<input type="hidden" name="choice" value="Compile">
-						<input type="hidden" name="src" value="\ref[src]">
+						<input type="hidden" name="src" value="[UID()]">
 						<input type="hidden" id="cMirrorPost" name="cMirror" value="">
 					</form>
 					"}

@@ -102,20 +102,20 @@
 
 		if(BUGMODE_MONITOR)
 			if(current)
-				html = "Analyzing Camera '[current.c_tag]' <a href='?\ref[src];mode=0'>\[Select Camera\]</a><br>"
+				html = "Analyzing Camera '[current.c_tag]' <a href='?src=[UID()];mode=0'>\[Select Camera\]</a><br>"
 				html += camera_report()
 			else
 				track_mode = BUGMODE_LIST
 				return .(cameras)
 		if(BUGMODE_TRACK)
 			if(tracking)
-				html = "Tracking '[tracked_name]'  <a href='?\ref[src];mode=0'>\[Cancel Tracking\]</a>  <a href='?src=[UID()];view'>\[Cancel camera view\]</a><br>"
+				html = "Tracking '[tracked_name]'  <a href='?src=[UID()];mode=0'>\[Cancel Tracking\]</a>  <a href='?src=[UID()];view'>\[Cancel camera view\]</a><br>"
 				if(last_found)
 					var/time_diff = round((world.time - last_seen) / 150)
 					var/obj/machinery/camera/C = bugged_cameras[last_found]
 					var/outstring
 					if(C)
-						outstring = "<a href='?\ref[src];view=\ref[C]'>[last_found]</a>"
+						outstring = "<a href='?src=[UID()];view=\ref[C]'>[last_found]</a>"
 					else
 						outstring = last_found
 					if(!time_diff)
@@ -151,7 +151,7 @@
 				dat += "[S.name]"
 			var/stage = round(S.current_size / 2)+1
 			dat += " (Stage [stage])"
-			dat += " <a href='?\ref[src];track=\ref[S]'>\[Track\]</a><br>"
+			dat += " <a href='?src=[UID()];track=\ref[S]'>\[Track\]</a><br>"
 
 		for(var/obj/mecha/M in seen)
 			if(M.name in names)
@@ -160,7 +160,7 @@
 			else
 				names[M.name] = 1
 				dat += "[M.name]"
-			dat += " <a href='?\ref[src];track=\ref[M]'>\[Track\]</a><br>"
+			dat += " <a href='?src=[UID()];track=\ref[M]'>\[Track\]</a><br>"
 
 
 		for(var/mob/living/M in seen)
@@ -174,7 +174,7 @@
 				dat += " (Sitting)"
 			if(M.lying)
 				dat += " (Laying down)"
-			dat += " <a href='?\ref[src];track=\ref[M]'>\[Track\]</a><br>"
+			dat += " <a href='?src=[UID()];track=\ref[M]'>\[Track\]</a><br>"
 		if(length(dat) == 0)
 			dat += "No motion detected."
 		return dat

@@ -49,9 +49,19 @@
 	var/dat
 	user.set_machine(src)
 	if(src.temp)
-		dat = text("[]<BR><BR><A href='?src=\ref[];temp=1'>Clear</A>", src.temp, src)
+		dat = text("[]<BR><BR><A href='?src=[UID()];temp=1'>Clear</A>", src.temp)
 	else
-		dat = text("<B>Hologram Status:</B><HR>\nPower: <A href='?src=\ref[];power=1'>[]</A><HR>\n<B>Hologram Control:</B><BR>\nColor Luminosity: []/220 <A href='?src=\ref[];reset=1'>\[Reset\]</A><BR>\nLighten: <A href='?src=\ref[];light=1'>1</A> <A href='?src=\ref[];light=10'>10</A><BR>\nDarken: <A href='?src=\ref[];light=-1'>1</A> <A href='?src=\ref[];light=-10'>10</A><BR>\n<BR>\nHair Color: ([],[],[]) <A href='?src=\ref[];h_reset=1'>\[Reset\]</A><BR>\nRed (0-255): <A href='?src=\ref[];h_r=-300'>\[0\]</A> <A href='?src=\ref[];h_r=-10'>-10</A> <A href='?src=\ref[];h_r=-1'>-1</A> [] <A href='?src=\ref[];h_r=1'>1</A> <A href='?src=\ref[];h_r=10'>10</A> <A href='?src=\ref[];h_r=300'>\[255\]</A><BR>\nGreen (0-255): <A href='?src=\ref[];h_g=-300'>\[0\]</A> <A href='?src=\ref[];h_g=-10'>-10</A> <A href='?src=\ref[];h_g=-1'>-1</A> [] <A href='?src=\ref[];h_g=1'>1</A> <A href='?src=\ref[];h_g=10'>10</A> <A href='?src=\ref[];h_g=300'>\[255\]</A><BR>\nBlue (0-255): <A href='?src=\ref[];h_b=-300'>\[0\]</A> <A href='?src=\ref[];h_b=-10'>-10</A> <A href='?src=\ref[];h_b=-1'>-1</A> [] <A href='?src=\ref[];h_b=1'>1</A> <A href='?src=\ref[];h_b=10'>10</A> <A href='?src=\ref[];h_b=300'>\[255\]</A><BR>", src, (src.projector.hologram ? "On" : "Off"),  -src.lumens + 35, src, src, src, src, src, src.h_r, src.h_g, src.h_b, src, src, src, src, src.h_r, src, src, src, src, src, src, src.h_g, src, src, src, src, src, src, src.h_b, src, src, src)
+		dat = text({"<B>Hologram Status:</B><HR>\n
+			Power: <A href='?src=[UID()];power=1'>[]</A><HR>\n
+			<B>Hologram Control:</B><BR>\n
+			Color Luminosity: []/220 <A href='?src=[UID()];reset=1'>\[Reset\]</A><BR>\n
+			Lighten: <A href='?src=[UID()];light=1'>1</A> <A href='?src=[UID()];light=10'>10</A><BR>\n
+			Darken: <A href='?src=[UID()];light=-1'>1</A> <A href='?src=[UID()];light=-10'>10</A><BR>\n
+			<BR>\nHair Color: ([],[],[]) <A href='?src=[UID()];h_reset=1'>\[Reset\]</A><BR>\n
+			Red (0-255): <A href='?src=[UID()];h_r=-300'>\[0\]</A> <A href='?src=[UID()];h_r=-10'>-10</A> <A href='?src=[UID()];h_r=-1'>-1</A> [] <A href='?src=[UID()];h_r=1'>1</A> <A href='?src=[UID()];h_r=10'>10</A> <A href='?src=[UID()];h_r=300'>\[255\]</A><BR>\n
+			Green (0-255): <A href='?src=[UID()];h_g=-300'>\[0\]</A> <A href='?src=[UID()];h_g=-10'>-10</A> <A href='?src=[UID()];h_g=-1'>-1</A> [] <A href='?src=[UID()];h_g=1'>1</A> <A href='?src=[UID()];h_g=10'>10</A> <A href='?src=[UID()];h_g=300'>\[255\]</A><BR>\n
+			Blue (0-255): <A href='?src=[UID()];h_b=-300'>\[0\]</A> <A href='?src=[UID()];h_b=-10'>-10</A> <A href='?src=[UID()];h_b=-1'>-1</A> [] <A href='?src=[UID()];h_b=1'>1</A> <A href='?src=[UID()];h_b=10'>10</A> <A href='?src=[UID()];h_b=300'>\[255\]</A><BR>
+			"}, (src.projector.hologram ? "On" : "Off"),  -src.lumens + 35, src.h_r, src.h_g, src.h_b, src.h_r, src.h_g, src.h_b)
 	user << browse(dat, "window=hologram_console")
 	onclose(user, "hologram_console")
 	return

@@ -198,7 +198,7 @@ var/global/list/all_money_accounts = list()
 				dat += {"<br>
 					<a href='?src=[UID()];choice=view_accounts_list;'>Return to accounts list</a>
 					<form name='create_account' action='?src=[UID()]' method='get'>
-					<input type='hidden' name='src' value='\ref[src]'>
+					<input type='hidden' name='src' value='[UID()]'>
 					<input type='hidden' name='choice' value='finalise_create_account'>
 					<b>Holder name:</b> <input type='text' id='holder_name' name='holder_name' style='width:250px; background-color:white;'><br>
 					<b>Initial funds:</b> <input type='text' id='starting_funds' name='starting_funds' style='width:250px; background-color:white;'> (subtracted from station account)<br>

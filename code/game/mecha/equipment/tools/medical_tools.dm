@@ -423,7 +423,7 @@
 	var/r_list = get_reagents_list()
 	var/inputs
 	if(r_list)
-		inputs += "<input type=\"hidden\" name=\"src\" value=\"\ref[src]\">"
+		inputs += "<input type=\"hidden\" name=\"src\" value=\"[UID()]\">"
 		inputs += "<input type=\"hidden\" name=\"select_reagents\" value=\"1\">"
 		inputs += "<input id=\"submit\" type=\"submit\" value=\"Apply settings\">"
 	var/output = {"<form action="byond://" method="get">

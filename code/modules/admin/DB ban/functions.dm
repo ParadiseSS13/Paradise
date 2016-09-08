@@ -355,7 +355,7 @@ datum/admins/proc/DB_ban_unban_by_id(var/id)
 	output += "<td width='65%' align='center' bgcolor='#f9f9f9'>"
 
 	output += "<form method='GET' action='?src=[UID()]'><b>Add custom ban:</b> (ONLY use this if you can't ban through any other method)"
-	output += "<input type='hidden' name='src' value='\ref[src]'>"
+	output += "<input type='hidden' name='src' value='[UID()]'>"
 	output += "<table width='100%'><tr>"
 	output += "<td width='50%' align='right'><b>Ban type:</b><select name='dbbanaddtype'>"
 	output += "<option value=''>--</option>"
@@ -393,7 +393,7 @@ datum/admins/proc/DB_ban_unban_by_id(var/id)
 	output += "</table>"
 
 	output += "<form method='GET' action='?src=[UID()]'><table width='60%'><tr><td colspan='2' align='left'><b>Search:</b>"
-	output += "<input type='hidden' name='src' value='\ref[src]'></td></tr>"
+	output += "<input type='hidden' name='src' value='[UID()]'></td></tr>"
 	output += "<tr><td width='50%' align='right'><b>Ckey:</b> <input type='text' name='dbsearchckey' value='[playerckey]'></td>"
 	output += "<td width='50%' align='right'><b>Admin ckey:</b> <input type='text' name='dbsearchadmin' value='[adminckey]'></td></tr>"
 	output += "<tr><td width='50%' align='right'><b>IP:</b> <input type='text' name='dbsearchip' value='[playerip]'></td>"

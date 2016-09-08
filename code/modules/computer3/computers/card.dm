@@ -145,7 +145,7 @@
 
 		// form for renaming the ID
 		dat += "<form name='cardcomp' action='byond://' method='get'>"
-		dat += "<input type='hidden' name='src' value='\ref[src]'>"
+		dat += "<input type='hidden' name='src' value='[UID()]'>"
 		dat += "<b>registered_name:</b> <input type='text' id='namefield' name='reg' value='[writer.registered_name]' style='width:250px; background-color:white;' onchange='markRed()'>"
 		dat += "<input type='submit' value='Rename' onclick='markGreen()'>"
 		dat += "</form>"

@@ -403,7 +403,7 @@
 	dat += "<b>Glass amount:</b> [materials.amount(MAT_GLASS)] cm<sup>3</sup><br>"
 
 	dat += "<form name='search' action='?src=[UID()]'> \
-	<input type='hidden' name='src' value='\ref[src]'> \
+	<input type='hidden' name='src' value='[UID()]'> \
 	<input type='hidden' name='search' value='to_search'> \
 	<input type='hidden' name='menu' value='[AUTOLATHE_SEARCH_MENU]'> \
 	<input type='text' name='to_search'> \

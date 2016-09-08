@@ -30,7 +30,7 @@
 
 				dat += pagelist
 				dat += {"<form name='pagenum' action='?src=[UID()]' method='get'>
-										<input type='hidden' name='src' value='\ref[src]'>
+										<input type='hidden' name='src' value='[UID()]'>
 										<input type='text' name='pagenum' value='[page_num]' maxlength="5" size="5">
 										<input type='submit' value='Jump To Page'>
 							</form>"}

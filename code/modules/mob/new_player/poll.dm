@@ -92,7 +92,7 @@
 
 				if(!voted)	//Only make this a form if we have not voted yet
 					output += "<form name='cardcomp' action='?src=[UID()]' method='get'>"
-					output += "<input type='hidden' name='src' value='\ref[src]'>"
+					output += "<input type='hidden' name='src' value='[UID()]'>"
 					output += "<input type='hidden' name='votepollid' value='[pollid]'>"
 					output += "<input type='hidden' name='votetype' value='OPTION'>"
 
@@ -136,7 +136,7 @@
 
 				if(!voted)	//Only make this a form if we have not voted yet
 					output += "<form name='cardcomp' action='?src=[UID()]' method='get'>"
-					output += "<input type='hidden' name='src' value='\ref[src]'>"
+					output += "<input type='hidden' name='src' value='[UID()]'>"
 					output += "<input type='hidden' name='votepollid' value='[pollid]'>"
 					output += "<input type='hidden' name='votetype' value='TEXT'>"
 
@@ -147,7 +147,7 @@
 					output += "</form>"
 
 					output += "<form name='cardcomp' action='?src=[UID()]' method='get'>"
-					output += "<input type='hidden' name='src' value='\ref[src]'>"
+					output += "<input type='hidden' name='src' value='[UID()]'>"
 					output += "<input type='hidden' name='votepollid' value='[pollid]'>"
 					output += "<input type='hidden' name='votetype' value='TEXT'>"
 					output += "<input type='hidden' name='replytext' value='ABSTAIN'>"
@@ -179,7 +179,7 @@
 
 				if(!voted)	//Only make this a form if we have not voted yet
 					output += "<form name='cardcomp' action='?src=[UID()]' method='get'>"
-					output += "<input type='hidden' name='src' value='\ref[src]'>"
+					output += "<input type='hidden' name='src' value='[UID()]'>"
 					output += "<input type='hidden' name='votepollid' value='[pollid]'>"
 					output += "<input type='hidden' name='votetype' value='NUMVAL'>"
 
@@ -265,7 +265,7 @@
 
 				if(!voted)	//Only make this a form if we have not voted yet
 					output += "<form name='cardcomp' action='?src=[UID()]' method='get'>"
-					output += "<input type='hidden' name='src' value='\ref[src]'>"
+					output += "<input type='hidden' name='src' value='[UID()]'>"
 					output += "<input type='hidden' name='votepollid' value='[pollid]'>"
 					output += "<input type='hidden' name='votetype' value='MULTICHOICE'>"
 					output += "<input type='hidden' name='maxoptionid' value='[maxoptionid]'>"

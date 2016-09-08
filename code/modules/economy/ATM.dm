@@ -178,7 +178,7 @@ log transactions
 					dat += {"<b>Account balance:</b> $[authenticated_account.money]<br>
 						<A href='?src=[UID()];choice=view_screen;view_screen=0'>Back</a><br><br>
 						<form name='transfer' action='?src=[UID()]' method='get'>
-						<input type='hidden' name='src' value='\ref[src]'>
+						<input type='hidden' name='src' value='[UID()]'>
 						<input type='hidden' name='choice' value='transfer'>
 						Target account number: <input type='text' name='target_acc_number' value='' style='width:200px; background-color:white;'><br>
 						Funds to transfer: <input type='text' name='funds_amount' value='' style='width:200px; background-color:white;'><br>
@@ -189,7 +189,7 @@ log transactions
 					dat += {"Welcome, <b>[authenticated_account.owner_name].</b><br/>
 						<b>Account balance:</b> $[authenticated_account.money]
 						<form name='withdrawal' action='?src=[UID()]' method='get'>
-						<input type='hidden' name='src' value='\ref[src]'>
+						<input type='hidden' name='src' value='[UID()]'>
 						<input type='hidden' name='choice' value='withdrawal'>
 						<input type='text' name='funds_amount' value='' style='width:200px; background-color:white;'><input type='submit' value='Withdraw funds'><br>
 						</form>
@@ -200,7 +200,7 @@ log transactions
 						<A href='?src=[UID()];choice=logout'>Logout</a><br>"}
 		else if(linked_db)
 			dat += {"<form name='atm_auth' action='?src=[UID()]' method='get'>
-				<input type='hidden' name='src' value='\ref[src]'>
+				<input type='hidden' name='src' value='[UID()]'>
 				<input type='hidden' name='choice' value='attempt_auth'>
 				<b>Account:</b> <input type='text' id='account_num' name='account_num' style='width:250px; background-color:white;'><br>
 				<b>PIN:</b> <input type='text' id='account_pin' name='account_pin' style='width:250px; background-color:white;'><br>

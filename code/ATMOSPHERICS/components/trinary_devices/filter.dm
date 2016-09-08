@@ -186,16 +186,7 @@ Filter types:
 			<HR><B>Desirable output pressure:</B>
 			[src.target_pressure]kPa | <a href='?src=[UID()];set_press=1'>Change</a>
 			"}
-/*
-		user << browse("<HEAD><TITLE>[src.name] control</TITLE></HEAD>[dat]","window=atmo_filter")
-		onclose(user, "atmo_filter")
-		return
 
-	if(src.temp)
-		dat = text("<TT>[]</TT><BR><BR><A href='?src=\ref[];temp=1'>Clear Screen</A>", src.temp, src)
-	//else
-	//	src.on != src.on
-*/
 	var/datum/browser/popup = new(user, "atmo_filter", name, 400, 400)
 	popup.set_content(dat)
 	popup.open(0)
