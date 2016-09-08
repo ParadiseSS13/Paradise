@@ -80,9 +80,6 @@ var/global/list/raider_gear = list()
 	return ..()
 
 /datum/game_mode/proc/make_raider(var/datum/mind/newraider)
-	if(!ishuman(newraider.current))
-		to_chat(world, "VERY WWRONG PLS HALPPPPP")
-		return 0
 	var/mob/living/carbon/human/M = newraider.current
 	var/datum/preferences/P = new
 	P.species = newraider.current.client.prefs.species//raiders KEEP their current species, makes for more interesting stuff
