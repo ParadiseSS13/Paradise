@@ -365,7 +365,7 @@ About the new airlock wires panel:
 			else /*if(src.justzap)*/
 				return
 		else if(user.hallucination > 50 && prob(10) && src.operating == 0)
-			to_chat(user, "\red <B>You feel a powerful shock course through your body!</B>")
+			to_chat(user, "<span class='danger'>You feel a powerful shock course through your body!</span>")
 			user.adjustStaminaLoss(50)
 			user.AdjustStunned(5)
 			return
@@ -373,6 +373,13 @@ About the new airlock wires panel:
 
 /obj/machinery/door/airlock/bumpopen(mob/living/simple_animal/user as mob)
 	..(user)
+
+
+/obj/machinery/door/airlock/autoclose()
+	autoclose_timer = 0
+	if(!qdeleted(src) && !density && !operating && !locked && !welded && autoclose)
+		close()
+	return
 
 /obj/machinery/door/airlock/proc/isElectrified()
 	if(src.electrified_until != 0)
@@ -1001,7 +1008,7 @@ About the new airlock wires panel:
 		to_chat(user, "The hatch is coated with a product that prevents the shaped charge from sticking!")
 		return
 
-	if(istype(C, /obj/item/mecha_parts/mecha_equipment/tool/rcd) || istype(C, /obj/item/weapon/rcd))
+	if(istype(C, /obj/item/mecha_parts/mecha_equipment/rcd) || istype(C, /obj/item/weapon/rcd))
 		to_chat(user, "The hatch is made of an advanced compound that cannot be deconstructed using an RCD.")
 		return
 

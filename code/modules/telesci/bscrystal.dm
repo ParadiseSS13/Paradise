@@ -22,8 +22,7 @@
 	qdel(src)
 
 /obj/item/weapon/ore/bluespace_crystal/proc/blink_mob(var/mob/living/L)
-	// TODO: Tie into space manager
-	if(L.z in config.admin_levels)
+	if(!is_teleport_allowed(L.z))
 		src.visible_message("<span class=warning>[src]'s fragments begin rapidly vibrating and blink out of existence.<span>")
 		qdel(src)
 		return

@@ -2,41 +2,9 @@
 	set name = "quick-equip"
 	set hidden = 1
 
-	if(ishuman(src))
-		var/mob/living/carbon/human/H = src
-		var/obj/item/I = H.get_active_hand()
-		var/obj/item/weapon/storage/S = H.get_inactive_hand()
-		if(!I)
-			to_chat(H, "<span class='notice'>You are not holding anything to equip.</span>")
-			return
-
-		if(istype(I, /obj/item/clothing/head/helmet/space/rig)) // If the item to be equipped is a rigid suit helmet
-			var/obj/item/clothing/head/helmet/space/rig/C = I
-			if(C.rig_restrict_helmet)
-				to_chat(src, "\red You must fasten the helmet to a hardsuit first. (Target the head and use on a hardsuit)")// Stop eva helms equipping.
-
-				return 0
-
-		if(H.equip_to_appropriate_slot(I))
-			if(hand)
-				update_inv_l_hand(0)
-			else
-				update_inv_r_hand(0)
-		else if(s_active && s_active.can_be_inserted(I,1))  //if storage active insert there
-			s_active.handle_item_insertion(I)
-		else if(istype(S, /obj/item/weapon/storage) && S.can_be_inserted(I,1))  //see if we have box in other hand
-			S.handle_item_insertion(I)
-		else
-			S = H.get_item_by_slot(slot_belt)
-			if(istype(S, /obj/item/weapon/storage) && S.can_be_inserted(I,1))    //else we put in belt
-				S.handle_item_insertion(I)
-			else
-				S = H.get_item_by_slot(slot_back)  //else we put in backpack
-				if(istype(S, /obj/item/weapon/storage) && S.can_be_inserted(I,1))
-					S.handle_item_insertion(I)
-				else
-					to_chat(H, "\red You are unable to equip that.")
-
+	var/obj/item/I = get_active_hand()
+	if(I)
+		I.equip_to_best_slot(src)
 
 /mob/living/carbon/human/proc/equip_in_one_of_slots(obj/item/W, list/slots, del_on_fail = 1)
 	for(var/slot in slots)
@@ -233,7 +201,8 @@
 				update_hair(redraw_mob)	//rebuild hair
 				update_fhair(redraw_mob)
 				update_head_accessory(redraw_mob)
-			sec_hud_set_ID()
+			if(hud_list.len)
+				sec_hud_set_ID()
 			update_inv_wear_mask(redraw_mob)
 		if(slot_handcuffed)
 			handcuffed = W
@@ -252,7 +221,8 @@
 			update_inv_belt(redraw_mob)
 		if(slot_wear_id)
 			wear_id = W
-			sec_hud_set_ID()
+			if(hud_list.len)
+				sec_hud_set_ID()
 			update_inv_wear_id(redraw_mob)
 		if(slot_wear_pda)
 			wear_pda = W

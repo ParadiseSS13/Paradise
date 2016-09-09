@@ -161,7 +161,7 @@ Proc for attack log creation, because really why not
 6 is whether the attack should be logged to the log file and shown to admins
 */
 
-proc/add_logs(mob/target, mob/user, what_done, var/object=null, var/addition=null, var/admin=1) //Victim : Attacker : what they did : what they did it with : extra notes
+proc/add_logs(mob/user, mob/target, what_done, var/object=null, var/addition=null, var/admin=1)
 	var/list/ignore=list("shaked","CPRed","grabbed","punched")
 	if(!user)
 		return
@@ -301,7 +301,7 @@ proc/add_logs(mob/target, mob/user, what_done, var/object=null, var/addition=nul
 		var/mob/living/L = M
 		var/status
 		switch(M.stat)
-			if(CONSCIOUS) 
+			if(CONSCIOUS)
 				status = "Alive"
 			if(UNCONSCIOUS)
 				status = "<font color='orange'><b>Unconscious</b></font>"

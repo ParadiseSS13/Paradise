@@ -10,6 +10,7 @@
 	damage_coeff = list(BRUTE = 0.5, BURN = 0.7, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
 
 	environment_smash = 2 //Walls can't stop THE LAW
+	mob_size = MOB_SIZE_LARGE
 
 	radio_channel = "Security"
 	bot_type = SEC_BOT
@@ -547,7 +548,7 @@ Auto Patrol[]"},
 		C.Weaken(5)
 		C.stuttering = 5
 		C.Stun(5)
-	add_logs(src,C,"stunned")
+	add_logs(src, C, "stunned")
 	if(declare_arrests)
 		var/area/location = get_area(src)
 		speak("[arrest_type ? "Detaining" : "Arresting"] level [threat] scumbag <b>[C]</b> in [location].", radio_channel)

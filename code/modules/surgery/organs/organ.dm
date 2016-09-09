@@ -46,7 +46,7 @@ var/list/organ_cache = list()
 			dna = holder.dna.Clone()
 			species = all_species[dna.species]
 		else
-			log_to_dd("[src] at [loc] spawned without a proper DNA.")
+			log_runtime(EXCEPTION("[holder] spawned without a proper DNA."), holder)
 		var/mob/living/carbon/human/H = holder
 		if(istype(H))
 			if(dna)
@@ -314,6 +314,7 @@ var/list/organ_cache = list()
 			msg_admin_attack("[key_name_admin(user)] removed a vital organ ([src]) from [key_name_admin(owner)]")
 		owner.death()
 	owner = null
+	return src
 
 /obj/item/organ/proc/replaced(var/mob/living/carbon/human/target,var/obj/item/organ/external/affected)
 

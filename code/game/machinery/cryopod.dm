@@ -303,6 +303,13 @@
 				preserve = 1
 				break
 
+		if(istype(W,/obj/item/device/pda))
+			var/obj/item/device/pda/P = W
+			if(P.id)
+				qdel(P.id)
+				P.id = null
+			qdel(P)
+
 		if(!preserve)
 			qdel(W)
 		else
@@ -493,7 +500,7 @@
 	if(!istype(user.loc, /turf) || !istype(O.loc, /turf)) // are you in a container/closet/pod/etc?
 		return
 	if(occupant)
-		to_chat(user, "\blue <B>The cryo pod is already occupied!</B>")
+		to_chat(user, "<span class='boldnotice'>The cryo pod is already occupied!</span>")
 		return
 
 

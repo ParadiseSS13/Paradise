@@ -42,8 +42,7 @@
 	if(!T)
 		return 0
 
-	// TODO: Tie into space manager
-	if(T.z != ZLEVEL_CENTCOMM)//if not, don't bother
+	if(!is_admin_level(T.z))//if not, don't bother
 		return 0
 
 	//check for centcomm shuttles
@@ -60,8 +59,7 @@
 	if(!T)
 		return 0
 
-	// TODO: Tie into space manager
-	if(T.z != ZLEVEL_CENTCOMM)//if not, don't bother
+	if(!is_admin_level(T.z))//if not, don't bother
 		return 0
 
 	if(istype(T.loc, /area/shuttle/syndicate_elite) || istype(T.loc, /area/syndicate_mothership))
@@ -202,7 +200,8 @@
 			f_name += "oil-stained [name][infix]."
 
 	to_chat(user, "[bicon(src)] That's [f_name] [suffix]")
-	to_chat(user, desc)
+	if(desc)
+		to_chat(user, desc)
 
 	if(reagents && is_open_container()) //is_open_container() isn't really the right proc for this, but w/e
 		to_chat(user, "It contains:")

@@ -17,35 +17,13 @@ client/proc/one_click_antag()
 		<a href='?src=\ref[src];makeAntag=2'>Make Changelings</a><br>
 		<a href='?src=\ref[src];makeAntag=3'>Make Revolutionaries</a><br>
 		<a href='?src=\ref[src];makeAntag=4'>Make Cult</a><br>
-		<a href='?src=\ref[src];makeAntag=5'>Make Malf AI</a><br>
-		<a href='?src=\ref[src];makeAntag=6'>Make Wizard (Requires Ghosts)</a><br>
-		<a href='?src=\ref[src];makeAntag=7'>Make Vampires</a><br>
-		<a href='?src=\ref[src];makeAntag=8'>Make Vox Raiders (Requires Ghosts)</a><br>
-		<a href='?src=\ref[src];makeAntag=9'>Make Abductor Team (Requires Ghosts)</a><br>
+		<a href='?src=\ref[src];makeAntag=5'>Make Wizard (Requires Ghosts)</a><br>
+		<a href='?src=\ref[src];makeAntag=6'>Make Vampires</a><br>
+		<a href='?src=\ref[src];makeAntag=7'>Make Vox Raiders (Requires Ghosts)</a><br>
+		<a href='?src=\ref[src];makeAntag=8'>Make Abductor Team (Requires Ghosts)</a><br>
 		"}
 	usr << browse(dat, "window=oneclickantag;size=400x400")
 	return
-
-
-/datum/admins/proc/makeMalfAImode()
-
-	var/list/mob/living/silicon/AIs = list()
-	var/mob/living/silicon/malfAI = null
-	var/datum/mind/themind = null
-
-	for(var/mob/living/silicon/ai/ai in player_list)
-		if(ai.client && (ROLE_MALF in ai.client.prefs.be_special))
-			AIs += ai
-
-	if(AIs.len)
-		malfAI = pick(AIs)
-
-	if(malfAI)
-		themind = malfAI.mind
-		themind.make_AI_Malf()
-		return 1
-
-	return 0
 
 
 /datum/admins/proc/makeTraitors()
@@ -356,7 +334,7 @@ client/proc/one_click_antag()
 				//So they don't forget their code or mission.
 
 
-				to_chat(new_syndicate_commando, "\blue You are an Elite Syndicate. [!syndicate_leader_selected?"commando":"<B>LEADER</B>"] in the service of the Syndicate. \nYour current mission is: \red<B> [input]</B>")
+				to_chat(new_syndicate_commando, "\blue You are an Elite Syndicate. [!syndicate_leader_selected?"commando":"<B>LEADER</B>"] in the service of the Syndicate. \nYour current mission is: <span class='danger'> [input]</span>")
 
 				numagents--
 		if(numagents >= 6)
@@ -402,7 +380,7 @@ client/proc/one_click_antag()
 	//Creates mind stuff.
 	new_syndicate_commando.mind_initialize()
 	new_syndicate_commando.mind.assigned_role = "MODE"
-	new_syndicate_commando.mind.special_role = "Syndicate Commando"
+	new_syndicate_commando.mind.special_role = SPECIAL_ROLE_SYNDICATE_DEATHSQUAD
 
 	//Adds them to current traitor list. Which is really the extra antagonist list.
 	ticker.mode.traitors += new_syndicate_commando.mind
@@ -463,7 +441,7 @@ client/proc/one_click_antag()
 				new_vox.key = theghost.key
 				ticker.mode.traitors += new_vox.mind
 
-				to_chat(new_vox, "\blue You are a Vox Primalis, fresh out of the Shoal. Your ship has arrived at the Tau Ceti system hosting the NSV Exodus... or was it the Luna? NSS? Utopia? Nobody is really sure, but everyong is raring to start pillaging! Your current goal is: \red<B> [input]</B>")
+				to_chat(new_vox, "\blue You are a Vox Primalis, fresh out of the Shoal. Your ship has arrived at the Tau Ceti system hosting the NSV Exodus... or was it the Luna? NSS? Utopia? Nobody is really sure, but everyong is raring to start pillaging! Your current goal is: <span class='danger'> [input]</span>")
 				to_chat(new_vox, "\red Don't forget to turn on your nitrogen internals!")
 
 				raiders--

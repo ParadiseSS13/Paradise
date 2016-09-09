@@ -72,7 +72,7 @@
 
 // This should not ever happen, but let's be safe
 /obj/item/device/mmi/posibrain/dropbrain(var/turf/dropspot)
-	log_to_dd("[src] at [loc] attempted to drop brain without a contained brain.")
+	log_runtime(EXCEPTION("[src] at [loc] attempted to drop brain without a contained brain."), src)
 	return
 
 /obj/item/device/mmi/posibrain/transfer_identity(var/mob/living/carbon/H)
@@ -198,6 +198,7 @@
 		return // No point pinging a posibrain with a player already inside
 	if(check_observer(O) && (world.time >= next_ping_at))
 		next_ping_at = world.time + (20 SECONDS)
+		playsound(get_turf(src), 'sound/items/posiping.ogg', 80, 0)
 		var/turf/T = get_turf_or_move(src.loc)
 		for(var/mob/M in viewers(T))
 			M.show_message("\blue The positronic brain pings softly.")

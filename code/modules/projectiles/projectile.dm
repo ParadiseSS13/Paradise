@@ -87,7 +87,7 @@
 		for(var/datum/reagent/R in reagents.reagent_list)
 			reagent_note += R.id + " ("
 			reagent_note += num2text(R.volume) + ") "
-	add_logs(L, firer, "shot", src, reagent_note)
+	add_logs(firer, L, "shot", src, reagent_note)
 	return L.apply_effects(stun, weaken, paralyze, irradiate, slur, stutter, eyeblur, drowsy, blocked, stamina, jitter)
 
 /obj/item/projectile/proc/vol_by_damage()
