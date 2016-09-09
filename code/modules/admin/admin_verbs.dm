@@ -194,7 +194,8 @@ var/list/admin_verbs_mod = list(
 var/list/admin_verbs_mentor = list(
 	/client/proc/cmd_admin_pm_context,	/*right-click adminPM interface*/
 	/client/proc/cmd_admin_pm_panel,	/*admin-pm list*/
-	/client/proc/cmd_admin_pm_by_key_panel	/*admin-pm list by key*/
+	/client/proc/cmd_admin_pm_by_key_panel,	/*admin-pm list by key*/
+	/client/proc/cmd_mentor_say
 )
 var/list/admin_verbs_proccall = list(
 	/client/proc/callproc,
