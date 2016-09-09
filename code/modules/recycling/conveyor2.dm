@@ -23,7 +23,7 @@
 	id = "round_end_belt"
 
 
-// Auto conveyour is always on unless unpowered
+// Auto conveyor is always on unless unpowered
 
 /obj/machinery/conveyor/auto/New(loc, newdir)
 	..(loc, newdir)
@@ -44,12 +44,6 @@
 	icon_state = "conveyor[operating * verted]"
 
 	// create a conveyor
-/*/obj/machinery/conveyor/New(loc, newdir)
-	..(loc)
-	if(newdir)
-		dir = newdir
-	update_move_direction()*/ // Old
-
 /obj/machinery/conveyor/New(loc, newdir)
 	..(loc)
 	if(newdir)
@@ -57,7 +51,7 @@
 	update_move_direction()
 
 
-/obj/machinery/conveyor/proc/update_move_direction() //This proc is new, moved stuff from New
+/obj/machinery/conveyor/proc/update_move_direction()
 	switch(dir)
 		if(NORTH)
 			forwards = NORTH
@@ -129,11 +123,6 @@
 		CHECK_TICK
 
 // attack with item, place item on conveyor
-/*/obj/machinery/conveyor/attackby(var/obj/item/I, mob/user, params)
-	if(isrobot(user))	return //Carn: fix for borgs dropping their modules on conveyor belts
-	user.drop_item()
-	if(I && I.loc)	I.loc = src.loc
-	return*/ // NEW CODE HERE ---v
 /obj/machinery/conveyor/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/weapon/crowbar))
 		if(!(stat & BROKEN))
@@ -222,15 +211,6 @@
 	speed_process = 1
 
 
-/*/obj/machinery/conveyor_switch/New()
-	..()
-	update()
-
-	spawn(5)		// allow map load
-		conveyors = list()
-		for(var/obj/machinery/conveyor/C in world)
-			if(C.id == id)
-				conveyors += C*/ //NEW CODE -v
 obj/machinery/conveyor_switch/New(newloc, newid)
 	..(newloc)
 	if(!id)
@@ -272,34 +252,8 @@ obj/machinery/conveyor_switch/New(newloc, newid)
 	desc = "A conveyor control switch. It appears to only go in one direction."
 
 // attack with hand, switch position
-/*/obj/machinery/conveyor_switch/attack_hand(mob/user)
-	if(!allowed(user))
-		to_chat(user, "<span class='warning'>Access denied.</span>")
-		return
-
-
-	if(position == 0)
-		if(last_pos < 0)
-			position = 1
-			last_pos = 0
-		else
-			position = -1
-			last_pos = 0
-	else
-		last_pos = position
-		position = 0
-
-	operated = 1
-	update()
-
-	// find any switches with same id as this one, and set their positions to match us
-	for(var/obj/machinery/conveyor_switch/S in machines)
-		if(S.id == src.id)
-			S.position = position
-			S.update()
-		CHECK_TICK*/ //New vode
 /obj/machinery/conveyor_switch/attack_hand(mob/user)
-	if(!allowed(user)) //this is in Para but not TG
+	if(!allowed(user)) //this is in Para but not TG. I don't think there's any which are coded anyway.
 		to_chat(user, "<span class='warning'>Access denied.</span>")
 		return
 	add_fingerprint(user)

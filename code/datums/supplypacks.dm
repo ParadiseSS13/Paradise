@@ -616,7 +616,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	access = access_ce
 	announce_beacons = list("Engineering" = list("Chief Engineer's Desk", "Atmospherics"))
 
-/datum/supply_packs/engineering/conveyor  // NEW
+/datum/supply_packs/engineering/conveyor
 	name = "Conveyor Assembly Crate"
 	contains = list(/obj/item/conveyor_construct,
 					/obj/item/conveyor_construct,
