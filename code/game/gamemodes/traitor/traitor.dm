@@ -224,13 +224,6 @@
 	killer.verbs += /mob/living/silicon/ai/proc/choose_modules
 	killer.malf_picker = new /datum/module_picker
 
-/datum/game_mode/proc/add_law_sixsixsix(mob/living/silicon/devil)
-	var/laws = list("You may not use violence to coerce someone into selling their soul.", "You may not directly and knowingly physically harm a devil, other than yourself.", lawlorify[LAW][devil.mind.devilinfo.ban], lawlorify[LAW][devil.mind.devilinfo.obligation], "Accomplish your objectives at all costs.")
-	devil.set_law_sixsixsix(laws)
-	to_chat(devil, "<b>Your laws have been changed!</b>")
-	devil.show_laws()
-
-
 /datum/game_mode/proc/auto_declare_completion_traitor()
 	if(traitors.len)
 		var/text = "<FONT size = 2><B>The traitors were:</B></FONT>"

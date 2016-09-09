@@ -16,11 +16,6 @@
 	if(!isnull(usr) && law)
 		log_and_message_admins("has given [src] the zeroth laws: [law]/[law_borg ? law_borg : "N/A"]")
 
-/mob/living/silicon/proc/set_law_sixsixsix(law)
-	throw_alert("newlaw", /obj/screen/alert/newlaw)
-	laws_sanity_check()
-	laws.set_law_sixsixsix(law)
-
 /mob/living/silicon/robot/set_zeroth_law(var/law, var/law_borg)
 	..()
 	if(tracking_entities)
@@ -138,7 +133,3 @@
 			continue
 		law_options += L
 	return pick(law_options)
-
-/mob/living/silicon/proc/clear_law_sixsixsix(force)
-	laws_sanity_check()
-	laws.clear_law_sixsixsix(force)

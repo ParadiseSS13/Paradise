@@ -40,8 +40,6 @@
 	devil_mind.devilinfo.give_base_spells(1)
 	spawn(10)
 		devil_mind.devilinfo.update_hud()
-	if(issilicon(devil_mind.current))
-		add_law_sixsixsix(devil_mind.current)
 
 /datum/game_mode/proc/add_devil_objectives(datum/mind/devil_mind, quantity)
 	var/list/validtypes = list(/datum/objective/devil/soulquantity, /datum/objective/devil/soulquality, /datum/objective/devil/sintouch, /datum/objective/devil/buy_target)
