@@ -145,6 +145,13 @@
 			mind.devilinfo.beginResurrectionCheck(src)
 	return ..(gibbed)
 
+/mob/living/carbon/human/update_revive()
+	..()
+	// Update healthdoll
+	if(healthdoll)
+		// We're alive again, so re-build the entire healthdoll
+		healthdoll.cached_healthdoll_overlays.Cut()
+
 /mob/living/carbon/human/proc/makeSkeleton()
 	var/obj/item/organ/external/head/H = get_organ("head")
 	if(SKELETON in src.mutations)	return

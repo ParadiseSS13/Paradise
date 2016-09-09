@@ -15,7 +15,7 @@
 	desc = "A pair of scissors used by the barber."
 	icon_state = "bscissor"
 	item_state = "scissor"
-	attack_verb = list("beautifully slices", "artistically cuts", "smoothly stabs", "quickly jabs")
+	attack_verb = list("beautifully sliced", "artistically cut", "smoothly stabbed", "quickly jabbed")
 
 /obj/item/weapon/scissors/attack(mob/living/carbon/M as mob, mob/user as mob)
 	if(user.a_intent != "help")

@@ -1,0 +1,4 @@
+author: Krausus
+delete-after: True
+changes: 
+  - rscadd: "Players using very old versions of Internet Explorer will now receive explicit warnings that they're not supported."

@@ -1,0 +1,5 @@
+author: FreeStylaLT
+delete-after: True
+changes: 
+  - tweak: "Updated Metastation's AI Sat, brig and escape shuttle"
+  - tweak: "Updated other Meta areas to match most recent build. (Chapel, some maint, etc. - minor changes.)"
