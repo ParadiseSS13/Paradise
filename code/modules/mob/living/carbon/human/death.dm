@@ -50,12 +50,16 @@
 		if(src)			qdel(src)
 
 /mob/living/carbon/human/dust(visual_only = FALSE)
-	if(!visual_only)
-		death(1)
-		notransform = 1
-		canmove = 0
-		icon = null
-		invisibility = 101
+	death(1)
+	notransform = 1
+	canmove = 0
+	icon = null
+	invisibility = 101
+	dust_animation()
+	spawn(15)
+		if(src)			qdel(src)
+
+/mob/living/carbon/human/dust_animation()
 	var/atom/movable/overlay/animation = null
 
 	animation = new(loc)
@@ -65,10 +69,10 @@
 
 	flick("dust-h", animation)
 	new species.remains_type(get_turf(src))
-
 	spawn(15)
 		if(animation)	qdel(animation)
-		if(src)			qdel(src)
+	
+
 
 /mob/living/carbon/human/melt()
 	death(1)
