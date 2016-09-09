@@ -152,7 +152,7 @@
 	if(istype(current, /mob/living/carbon/human))
 		/** Impanted**/
 		if(isloyal(H))
-			text = "Mindshield Implant:<a href='?src=\ref[src];implant=remove'>Remove</a>|<b>Implanted</b></br>"
+			text = "Mindshield Implant:<a href='?src=\ref[src];implant=remove'>Remove</a>|<b><font color='green'>Implanted</font></b></br>"
 		else
 			text = "Mindshield Implant:<b>No Implant</b>|<a href='?src=\ref[src];implant=add'>Implant him!</a></br>"
 		sections["implant"] = text
@@ -162,9 +162,9 @@
 			text += uppertext(text)
 		text = "<i><b>[text]</b></i>: "
 		if(isloyal(H))
-			text += "<b>LOYAL EMPLOYEE</b>|headrev|rev"
+			text += "<b>NO</b>|headrev|rev"
 		else if(src in ticker.mode.head_revolutionaries)
-			text = "<a href='?src=\ref[src];revolution=clear'>employee</a>|<b>HEADREV</b>|<a href='?src=\ref[src];revolution=rev'>rev</a>"
+			text += "<a href='?src=\ref[src];revolution=clear'>no</a>|<b><font color='red'>HEADREV</font></b>|<a href='?src=\ref[src];revolution=rev'>rev</a>"
 			text += "<br>Flash: <a href='?src=\ref[src];revolution=flash'>give</a>"
 
 			var/list/L = current.get_contents()
@@ -181,9 +181,9 @@
 			if(objectives.len==0)
 				text += "<br>Objectives are empty! <a href='?src=\ref[src];revolution=autoobjectives'>Set to kill all heads</a>."
 		else if(src in ticker.mode.revolutionaries)
-			text += "<a href='?src=\ref[src];revolution=clear'>employee</a>|<a href='?src=\ref[src];revolution=headrev'>headrev</a>|<b>REV</b>"
+			text += "<a href='?src=\ref[src];revolution=clear'>no</a>|<a href='?src=\ref[src];revolution=headrev'>headrev</a>|<b><font color='red'>REV</font></b>"
 		else
-			text += "<b>EMPLOYEE</b>|<a href='?src=\ref[src];revolution=headrev'>headrev</a>|<a href='?src=\ref[src];revolution=rev'>rev</a>"
+			text += "<b>NO</b>|<a href='?src=\ref[src];revolution=headrev'>headrev</a>|<a href='?src=\ref[src];revolution=rev'>rev</a>"
 
 		if(current && current.client && (ROLE_REV in current.client.prefs.be_special))
 			text += "|Enabled in Prefs"
@@ -198,16 +198,16 @@
 			text = uppertext(text)
 		text = "<i><b>[text]</b></i>: "
 		if(isloyal(H))
-			text += "<B>LOYAL EMPLOYEE</B>|cultist"
+			text += "<B>NO</B>|cultist"
 		else if(src in ticker.mode.cult)
-			text += "<a href='?src=\ref[src];cult=clear'>employee</a>|<b>CULTIST</b>"
+			text += "<a href='?src=\ref[src];cult=clear'>no</a>|<b><font color='red'>CULTIST</font></b>"
 			text += "<br>Give <a href='?src=\ref[src];cult=tome'>tome</a>|<a href='?src=\ref[src];cult=equip'>equip</a>."
 /*
 			if(objectives.len==0)
 				text += "<br>Objectives are empty! Set to sacrifice and <a href='?src=\ref[src];cult=escape'>escape</a> or <a href='?src=\ref[src];cult=summon'>summon</a>."
 */
 		else
-			text += "<b>EMPLOYEE</b>|<a href='?src=\ref[src];cult=cultist'>cultist</a>"
+			text += "<b>NO</b>|<a href='?src=\ref[src];cult=cultist'>cultist</a>"
 
 
 		if(current && current.client && (ROLE_CULTIST in current.client.prefs.be_special))
@@ -223,12 +223,12 @@
 			text = uppertext(text)
 		text = "<i><b>[text]</b></i>: "
 		if(src in ticker.mode.wizards)
-			text += "<b>YES</b>|<a href='?src=\ref[src];wizard=clear'>no</a>"
+			text += "<b><font color='red'>WIZARD</font></b>|<a href='?src=\ref[src];wizard=clear'>no</a>"
 			text += "<br><a href='?src=\ref[src];wizard=lair'>To lair</a>, <a href='?src=\ref[src];common=undress'>undress</a>, <a href='?src=\ref[src];wizard=dressup'>dress up</a>, <a href='?src=\ref[src];wizard=name'>let choose name</a>."
 			if(objectives.len==0)
 				text += "<br>Objectives are empty! <a href='?src=\ref[src];wizard=autoobjectives'>Randomize!</a>"
 		else
-			text += "<a href='?src=\ref[src];wizard=wizard'>yes</a>|<b>NO</b>"
+			text += "<a href='?src=\ref[src];wizard=wizard'>wizard</a>|<b>NO</b>"
 
 		if(current && current.client && (ROLE_WIZARD in current.client.prefs.be_special))
 			text += "|Enabled in Prefs"
@@ -243,13 +243,13 @@
 			text = uppertext(text)
 		text = "<i><b>[text]</b></i>: "
 		if(src in ticker.mode.changelings)
-			text += "<b>YES</b>|<a href='?src=\ref[src];changeling=clear'>no</a>"
+			text += "<b><font color='red'>CHANGELING</font></b>|<a href='?src=\ref[src];changeling=clear'>no</a>"
 			if(objectives.len==0)
 				text += "<br>Objectives are empty! <a href='?src=\ref[src];changeling=autoobjectives'>Randomize!</a>"
 			if( changeling && changeling.absorbed_dna.len && (current.real_name != changeling.absorbed_dna[1]) )
 				text += "<br><a href='?src=\ref[src];changeling=initialdna'>Transform to initial appearance.</a>"
 		else
-			text += "<a href='?src=\ref[src];changeling=changeling'>yes</a>|<b>NO</b>"
+			text += "<a href='?src=\ref[src];changeling=changeling'>changeling</a>|<b>NO</b>"
 
 		if(current && current.client && (ROLE_CHANGELING in current.client.prefs.be_special))
 			text += "|Enabled in Prefs"
@@ -262,25 +262,24 @@
 		text = "vampire"
 		if(ticker.mode.config_tag=="vampire" || ticker.mode.config_tag=="traitorvamp")
 			text = uppertext(text)
-		text = "<i><b>[text]</b></i>: "
+		text = "<b><i>[text]</i></b>: "
 		if(src in ticker.mode.vampires)
-			text += "<b>YES</b>|<a href='?src=\ref[src];vampire=clear'>no</a>"
+			text += "<b><font color='red'>VAMPIRE</font></b>|<a href='?src=\ref[src];vampire=clear'>no</a>"
 			if(objectives.len==0)
 				text += "<br>Objectives are empty! <a href='?src=\ref[src];vampire=autoobjectives'>Randomize!</a>"
 		else
-			text += "<a href='?src=\ref[src];vampire=vampire'>yes</a>|<b>NO</b>"
+			text += "<a href='?src=\ref[src];vampire=vampire'>vampire</a>|<b>NO</b>"
 
 		if(current && current.client && (ROLE_VAMPIRE in current.client.prefs.be_special))
-			text += "</b></i>|Enabled in Prefs<i><b>"
+			text += "|Enabled in Prefs"
 		else
-			text += "</b></i>|Disabled in Prefs<i><b>"
+			text += "|Disabled in Prefs"
 		/** Enthralled ***/
-		text += "<br><b>enthralled</b>"
-		text = "<i><b>[text]</b></i>: "
+		text += "<br><b><i>enthralled</i></b>: "
 		if(src in ticker.mode.vampire_enthralled)
-			text += "<b><font color='#FF0000'>YES</font></b>|<a href='?src=\ref[src];vampthrall=clear'>no</a>"
+			text += "<b><font color='red'>THRALL</font></b>|<a href='?src=\ref[src];vampthrall=clear'>no</a>"
 		else
-			text += "yes|<font color='#00FF00'>NO</font></b>"
+			text += "thrall|<b>NO</b>"
 
 		sections["vampire"] = text
 
@@ -291,7 +290,7 @@
 			text = uppertext(text)
 		text = "<i><b>[text]</b></i>: "
 		if(src in ticker.mode.syndicates)
-			text += "<b>OPERATIVE</b>|<a href='?src=\ref[src];nuclear=clear'>nanotrasen</a>"
+			text += "<b><font color='red'>OPERATIVE</b></font>|<a href='?src=\ref[src];nuclear=clear'>no</a>"
 			text += "<br><a href='?src=\ref[src];nuclear=lair'>To shuttle</a>, <a href='?src=\ref[src];common=undress'>undress</a>, <a href='?src=\ref[src];nuclear=dressup'>dress up</a>."
 			var/code
 			for(var/obj/machinery/nuclearbomb/bombue in machines)
@@ -301,7 +300,7 @@
 			if(code)
 				text += " Code is [code]. <a href='?src=\ref[src];nuclear=tellcode'>tell the code.</a>"
 		else
-			text += "<a href='?src=\ref[src];nuclear=nuclear'>operative</a>|<b>NANOTRASEN</b>"
+			text += "<a href='?src=\ref[src];nuclear=nuclear'>operative</a>|<b>NO</b>"
 
 		if(current && current.client && (ROLE_OPERATIVE in current.client.prefs.be_special))
 			text += "|Enabled in Prefs"
@@ -316,11 +315,11 @@
 			text = uppertext(text)
 		text = "<i><b>[text]</b></i>: "
 		if(src in ticker.mode.shadows)
-			text += "<b>SHADOWLING</b>|thrall|<a href='?src=\ref[src];shadowling=clear'>human</a>"
+			text += "<b><font color='red'>SHADOWLING</font></b>|thrall|<a href='?src=\ref[src];shadowling=clear'>no</a>"
 		else if(src in ticker.mode.shadowling_thralls)
-			text += "Shadowling|<b>THRALL</b>|<a href='?src=\ref[src];shadowling=clear'>human</a>"
+			text += "Shadowling|<b><font color='red'>THRALL</font></b>|<a href='?src=\ref[src];shadowling=clear'>no</a>"
 		else
-			text += "<a href='?src=\ref[src];shadowling=shadowling'>shadowling</a>|<a href='?src=\ref[src];shadowling=thrall'>thrall</a>|<b>HUMAN</b>"
+			text += "<a href='?src=\ref[src];shadowling=shadowling'>shadowling</a>|<a href='?src=\ref[src];shadowling=thrall'>thrall</a>|<b>NO</b>"
 
 		if(current && current.client && (ROLE_SHADOWLING in current.client.prefs.be_special))
 			text += "|Enabled in Prefs"
@@ -331,15 +330,15 @@
 
 		/** Abductors **/
 
-		text = "Abductor"
+		text = "abductor"
 		if(ticker.mode.config_tag == "abductor")
 			text = uppertext(text)
 		text = "<i><b>[text]</b></i>: "
 		if(src in ticker.mode.abductors)
-			text += "<b>Abductor</b>|<a href='?src=\ref[src];abductor=clear'>human</a>"
+			text += "<b><font color='red'>ABDUCTOR</font></b>|<a href='?src=\ref[src];abductor=clear'>no</a>"
 			text += "|<a href='?src=\ref[src];common=undress'>undress</a>|<a href='?src=\ref[src];abductor=equip'>equip</a>"
 		else
-			text += "<a href='?src=\ref[src];abductor=abductor'>Abductor</a>|<b>human</b>"
+			text += "<a href='?src=\ref[src];abductor=abductor'>abductor</a>|<b>NO</b>"
 
 		if(current && current.client && (ROLE_ABDUCTOR in current.client.prefs.be_special))
 			text += "|Enabled in Prefs"
@@ -355,11 +354,11 @@
 		text = uppertext(text)
 	text = "<i><b>[text]</b></i>: "
 	if(src in ticker.mode.traitors)
-		text += "<b>TRAITOR</b>|<a href='?src=\ref[src];traitor=clear'>EMPLOYEE</a>"
+		text += "<b><font color='red'>TRAITOR</font></b>|<a href='?src=\ref[src];traitor=clear'>no</a>"
 		if(objectives.len==0)
 			text += "<br>Objectives are empty! <a href='?src=\ref[src];traitor=autoobjectives'>Randomize</a>!"
 	else
-		text += "<a href='?src=\ref[src];traitor=traitor'>traitor</a>|<b>EMPLOYEE</b>"
+		text += "<a href='?src=\ref[src];traitor=traitor'>traitor</a>|<b>NO</b>"
 
 	if(current && current.client && (ROLE_TRAITOR in current.client.prefs.be_special))
 		text += "|Enabled in Prefs"
@@ -374,7 +373,7 @@
 		text = "silicon"
 		var/mob/living/silicon/robot/robot = current
 		if(istype(robot) && robot.emagged)
-			text += "<br>Cyborg: Is emagged! <a href='?src=\ref[src];silicon=unemag'>Unemag!</a><br>0th law: [robot.laws.zeroth_law]"
+			text += "<br>Cyborg: <b><font color='red'>Is emagged!</font></b> <a href='?src=\ref[src];silicon=unemag'>Unemag!</a><br>0th law: [robot.laws.zeroth_law]"
 		var/mob/living/silicon/ai/ai = current
 		if(istype(ai) && ai.connected_robots.len)
 			var/n_e_robots = 0
@@ -443,7 +442,7 @@
 
 	out += "<a href='?src=\ref[src];obj_announce=1'>Announce objectives</a><br><br>"
 
-	usr << browse(out, "window=edit_memory[src]")
+	usr << browse(out, "window=edit_memory[src];size=400x500")
 
 /datum/mind/Topic(href, href_list)
 	if(!check_rights(R_ADMIN))	return
