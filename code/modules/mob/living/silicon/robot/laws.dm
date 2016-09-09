@@ -28,12 +28,6 @@
 			lawupdate = 0
 
 	to_chat(who, "<b>Obey these laws:</b>")
-	if(mind && mind.devilinfo) //TODO: someone clean this up and make this not snowflake.
-		to_chat(who, "666. You may not use violence to coerce someone into selling their soul.")
-		to_chat(who, "666. You may not directly and knowingly physically harm a devil, other than yourself.")
-		to_chat(who, "666. [lawlorify[LAW][mind.devilinfo.ban]]")
-		to_chat(who, "666. [lawlorify[LAW][mind.devilinfo.obligation]]")
-		to_chat(who, "666. Accomplish your objectives at all costs.")
 	laws.show_laws(who)
 	// TODO: Update to new antagonist system.
 	if(mind && (mind.special_role == SPECIAL_ROLE_TRAITOR && mind.original == src) && connected_ai)

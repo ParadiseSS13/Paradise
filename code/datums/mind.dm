@@ -1047,6 +1047,9 @@
 						RemoveSpell(/obj/effect/proc_holder/spell/targeted/summon_contract)
 						RemoveSpell(/obj/effect/proc_holder/spell/targeted/summon_pitchfork)
 						message_admins("[key_name_admin(usr)] has de-devil'ed [current].")
+						if(issilicon(current))
+							var/mob/living/silicon/S = current
+							S.laws.clear_sixsixsix_laws()
 						devilinfo = null
 						log_admin("[key_name(usr)] has de-devil'ed [current].")
 				else if(src in ticker.mode.sintouched)

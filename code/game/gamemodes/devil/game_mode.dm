@@ -31,15 +31,20 @@
 
 
 /datum/game_mode/proc/finalize_devil(datum/mind/devil_mind)
-
 	var/trueName= randomDevilName()
-
 	devil_mind.devilinfo = devilInfo(trueName, 1)
 	devil_mind.store_memory("Your devilic true name is [devil_mind.devilinfo.truename]<br>[lawlorify[LAW][devil_mind.devilinfo.ban]]<br>You may not use violence to coerce someone into selling their soul.<br>You may not directly and knowingly physically harm a devil, other than yourself.<br>[lawlorify[LAW][devil_mind.devilinfo.bane]]<br>[lawlorify[LAW][devil_mind.devilinfo.obligation]]<br>[lawlorify[LAW][devil_mind.devilinfo.banish]]<br>")
 	devil_mind.devilinfo.owner = devil_mind
 	devil_mind.devilinfo.give_base_spells(1)
 	spawn(10)
 		devil_mind.devilinfo.update_hud()
+	if(issilicon(devil_mind.current))
+		var/mob/living/silicon/S = devil_mind.current
+		S.laws.set_sixsixsix_law("You may not use violence to coerce someone into selling their soul.")
+		S.laws.set_sixsixsix_law("You may not directly and knowingly physically harm a devil, other than yourself.")
+		S.laws.set_sixsixsix_law("[lawlorify[LAW][devil_mind.devilinfo.ban]]")
+		S.laws.set_sixsixsix_law("[lawlorify[LAW][devil_mind.devilinfo.obligation]]")
+		S.laws.set_sixsixsix_law("Accomplish your objectives at all costs.")
 
 /datum/game_mode/proc/add_devil_objectives(datum/mind/devil_mind, quantity)
 	var/list/validtypes = list(/datum/objective/devil/soulquantity, /datum/objective/devil/soulquality, /datum/objective/devil/sintouch, /datum/objective/devil/buy_target)
