@@ -98,13 +98,13 @@
 	if(!istype(user.loc, /turf) || !istype(O.loc, /turf)) // are you in a container/closet/pod/etc?
 		return
 	if(occupant)
-		to_chat(user, "\blue <B>The cryo cell is already occupied!</B>")
+		to_chat(user, "<span class='boldnotice'>The cryo cell is already occupied!</span>")
 		return
 	var/mob/living/L = O
 	if(!istype(L) || L.buckled)
 		return
 	if(L.abiotic())
-		to_chat(user, "\red <B>Subject cannot have abiotic items on.</B>")
+		to_chat(user, "<span class='danger'>Subject cannot have abiotic items on.</span>")
 		return
 	for(var/mob/living/carbon/slime/M in range(1,L))
 		if(M.Victim == L)
@@ -162,7 +162,7 @@
 		return
 
 	if(panel_open)
-		to_chat(usr, "\blue <b>Close the maintenance panel first.</b>")
+		to_chat(usr, "<span class='boldnotice'>Close the maintenance panel first.</span>")
 		return
 
 	ui_interact(user)
@@ -298,7 +298,7 @@
 
 	if(istype(G, /obj/item/weapon/grab))
 		if(panel_open)
-			to_chat(user, "\blue <b>Close the maintenance panel first.</b>")
+			to_chat(user, "<span class='boldnotice'>Close the maintenance panel first.</span>")
 			return
 		if(!ismob(G:affecting))
 			return
@@ -428,10 +428,10 @@
 
 /obj/machinery/atmospherics/unary/cryo_cell/proc/put_mob(mob/living/carbon/M as mob)
 	if(!istype(M))
-		to_chat(usr, "\red <B>The cryo cell cannot handle such a lifeform!</B>")
+		to_chat(usr, "<span class='danger'>The cryo cell cannot handle such a lifeform!</span>")
 		return
 	if(occupant)
-		to_chat(usr, "\red <B>The cryo cell is already occupied!</B>")
+		to_chat(usr, "<span class='danger'>The cryo cell is already occupied!</span>")
 		return
 	if(M.abiotic())
 		to_chat(usr, "\red Subject may not have abiotic items on.")
@@ -445,7 +445,7 @@
 	M.stop_pulling()
 	M.forceMove(src)
 	if(M.health > -100 && (M.health < 0 || M.sleeping))
-		to_chat(M, "\blue <b>You feel a cold liquid surround you. Your skin starts to freeze up.</b>")
+		to_chat(M, "<span class='boldnotice'>You feel a cold liquid surround you. Your skin starts to freeze up.</span>")
 	occupant = M
 //	M.metabslow = 1
 	add_fingerprint(usr)

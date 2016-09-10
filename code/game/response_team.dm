@@ -88,7 +88,7 @@ var/ert_request_answered = 0
 		return 0
 
 	if(src.has_enabled_antagHUD == 1 && config.antag_hud_restricted)
-		to_chat(src, "\blue <B>Upon using the antagHUD you forfeited the ability to join the round.</B>")
+		to_chat(src, "<span class='boldnotice'>Upon using the antagHUD you forfeited the ability to join the round.</span>")
 		return 0
 
 	if(response_team_members.len > 6)

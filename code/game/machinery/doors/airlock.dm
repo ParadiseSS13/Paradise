@@ -365,7 +365,7 @@ About the new airlock wires panel:
 			else /*if(src.justzap)*/
 				return
 		else if(user.hallucination > 50 && prob(10) && src.operating == 0)
-			to_chat(user, "\red <B>You feel a powerful shock course through your body!</B>")
+			to_chat(user, "<span class='danger'>You feel a powerful shock course through your body!</span>")
 			user.adjustStaminaLoss(50)
 			user.AdjustStunned(5)
 			return
