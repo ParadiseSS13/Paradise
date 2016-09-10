@@ -120,7 +120,7 @@ Class Procs:
 	var/speed_process = 0 // Process as fast as possible?
 
 /obj/machinery/initialize()
-//	addAtProcessing() //Testing this in new conveyors
+	addAtProcessing()
 	. = ..()
 	power_change()
 
@@ -128,19 +128,11 @@ Class Procs:
 	if(use_power)
 		myArea = get_area_master(src)
 
-/*	machines += src
-	if(!speed_process)
-		machine_processing += src
-	else
-		fast_processing += src */ //Also testing in NEW conveyors
-
-/obj/machinery/new() //new for trying to get the conveyors working with machinery, not world
 	machines += src
 	if(!speed_process)
 		machine_processing += src
 	else
 		fast_processing += src
-	. = ..()
 
 /obj/machinery/Destroy()
 	if(myArea)

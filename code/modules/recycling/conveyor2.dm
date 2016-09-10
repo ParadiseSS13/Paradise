@@ -217,17 +217,17 @@
 		id = newid
 	update()
 
-/*	spawn(5)		// allow map load
+	spawn(5)		// allow map load
 		conveyors = list()
 		for(var/obj/machinery/conveyor/C in machines) //This works if it's: `C in world` , but that's bad practice. Best to try to fix it.
 			if(C.id == id)
-				conveyors += C */ //Moving this to initialise to see if it gets around the bug... do we need the spawn thing? Let's find out.
+				conveyors += C  //Moving this to initialise to see if it gets around the bug... do we need the spawn thing? Let's find out.
 
-/obj/machinery/conveyor_switch/initialize() //This whole thing is new
+/*/obj/machinery/conveyor_switch/initialize() //This whole thing is new
 	conveyors = list()
-	for(var/obj/machinery/conveyor/C in machines)
+	for(var/obj/machinery/conveyor/C in world) //This works if it's: `C in world` , but that's bad practice. Best to try to fix it so it's in machines
 		if(C.id == id)
-			conveyors += C
+			conveyors += C*/
 
 
 // update the icon depending on the position
