@@ -6,6 +6,8 @@ var/global/ts_count_alive_station = 0
 var/global/ts_death_last = 0
 var/global/ts_death_window = 9000 // 15 minutes
 var/global/list/ts_spiderlist = list()
+var/global/list/ts_egg_list = list()
+var/global/list/ts_spiderling_list = list()
 
 // --------------------------------------------------------------------------------
 // --------------------- TERROR SPIDERS: DEFAULTS ---------------------------------
@@ -62,6 +64,8 @@ var/global/list/ts_spiderlist = list()
 	// desired: 20hp/minute unmolested, 40hp/min on food boost, assuming one tick every 2 seconds
 	//          90/kill means bonus 30hp/kill regenerated over the next 1-2 minutes
 
+	var/degenerate = 0 // if 1, they slowly degen until they all die off. Used by high-level abilities only.
+
 	// Vision
 	idle_vision_range = 10
 	aggro_vision_range = 10
@@ -70,7 +74,7 @@ var/global/list/ts_spiderlist = list()
 	vision_type = new /datum/vision_override/nightvision/thermals/ling_augmented_eyesight
 	see_invisible = 5
 
-	// player control by ghosts
+	// spider control by ghosts
 	var/ai_playercontrol_allowingeneral = 1 // if 0, no spiders are player controllable. Default set in code, can be changed by queens.
 	var/ai_playercontrol_allowtype = 1 // if 0, this specific class of spider is not player-controllable. Default set in code for each class, cannot be changed.
 
@@ -97,6 +101,9 @@ var/global/list/ts_spiderlist = list()
 	var/killcount = 0
 	var/hasdroppedloot = 0
 
+	var/datum/action/innate/terrorspider/web/web_action
+	var/datum/action/innate/terrorspider/wrap/wrap_action
+
 	// Breathing, Pressure & Fire
 	// - No breathing / cannot be suffocated (spiders can hold their breath, look it up)
 	// - No pressure damage either - they have effectively exoskeletons
@@ -108,10 +115,8 @@ var/global/list/ts_spiderlist = list()
 	heat_damage_per_tick = 5 //amount of damage applied if animal's body temperature is higher than maxbodytemp
 
 	// DEBUG OPTIONS & COMMANDS
+	var/spider_growinstantly = 0 // DEBUG OPTION, DO NOT ENABLE THIS ON LIVE. IT IS USED TO TEST NEST GROWTH/SETUP AI.
 	var/spider_debug = 0
-
-	var/datum/action/innate/terrorspider/web/web_action
-	var/datum/action/innate/terrorspider/wrap/wrap_action
 
 
 // --------------------------------------------------------------------------------
@@ -195,6 +200,8 @@ var/global/list/ts_spiderlist = list()
 			msgs += "<span class='warning'>It has many injuries.</span>"
 		else if(health > (maxHealth*0.25))
 			msgs += "<span class='warning'>It is barely clinging on to life!</span>"
+		if(degenerate)
+			msgs += "<span class='warning'>It appears to be dying.</span>"
 		else if(health < maxHealth && regen_points > regen_points_per_kill)
 			msgs += "<span class='notice'>It appears to be regenerating quickly</span>"
 		if(killcount == 1)
@@ -223,7 +230,6 @@ var/global/list/ts_spiderlist = list()
 		ts_count_alive_awaymission++
 	else
 		ts_count_alive_station++
-	// after 30 seconds, assuming nobody took control of it yet, offer it to ghosts.
 	spawn(150) // deciseconds!
 		CheckFaction()
 	spawn(300) // deciseconds!
@@ -238,12 +244,15 @@ var/global/list/ts_spiderlist = list()
 			var/image/alert_overlay = image('icons/mob/terrorspider.dmi', icon_state)
 			notify_ghosts("[src] has appeared in [get_area(src)].", enter_link = "<a href=?src=\ref[src];activate=1>(Click to control)</a>", source = src, alert_overlay = alert_overlay, attack_not_jump = 1)
 
+
 /mob/living/simple_animal/hostile/poison/terror_spider/Destroy()
 	ts_spiderlist -= src
 	return ..()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/Life()
 	if(stat != DEAD)
+		if(degenerate > 0)
+			adjustToxLoss(rand(1,10))
 		if(regen_points < regen_points_max)
 			regen_points += regen_points_per_tick
 		if((bruteloss > 0) || (fireloss > 0))
@@ -298,6 +307,8 @@ var/global/list/ts_spiderlist = list()
 			to_chat(T, "<span class='terrorspider'>TerrorSense: [msgtext]</span>")
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/CheckFaction()
+	// If we're somehow being mind-controlled, resist or perish.
+	// Note: you cannot use if(faction == initial(faction)) here, because that ALWAYS returns true even when it shouldn't.
 	if(faction.len != 1 || (!("terrorspiders" in faction)) || master_commander != null)
 		visible_message("<span class='danger'>[src] writhes in pain!</span>")
 		log_runtime(EXCEPTION("Terror spider created with incorrect faction list at: [atom_loc_line(src)]"))
@@ -323,3 +334,4 @@ var/global/list/ts_spiderlist = list()
 		visible_message("<span class='danger'>\the [src] pries open the door!</span>")
 		playsound(src.loc, "sparks", 100, 1)
 		D.open(1)
+
