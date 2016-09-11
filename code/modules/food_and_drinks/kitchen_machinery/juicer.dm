@@ -25,6 +25,7 @@
 		"orange" = "orangejuice",
 		"lime" = "limejuice",
 		"poisonberries" = "poisonberryjuice",
+		"corn" = "cornoil",
 	)
 
 /obj/machinery/juicer/New()
