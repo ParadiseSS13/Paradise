@@ -447,7 +447,7 @@
 				feedback_inc("ban_appearance",1)
 				DB_ban_record(BANTYPE_APPEARANCE, M, -1, reason)
 				appearance_fullban(M, "[reason]; By [usr.ckey] on [time2text(world.realtime)]")
-				add_note(M.ckey, "Appearance banned - [reason]", null, usr, 0)
+				add_note(M.ckey, "Appearance banned - [reason]", null, usr.ckey, 0)
 				message_admins("\blue [key_name_admin(usr)] appearance banned [key_name_admin(M)]", 1)
 				to_chat(M, "\red<BIG><B>You have been appearance banned by [usr.client.ckey].</B></BIG>")
 				to_chat(M, "<span class='danger'>The reason is: [reason]</span>")
@@ -811,7 +811,7 @@
 							msg = job
 						else
 							msg += ", [job]"
-					add_note(M.ckey, "Banned  from [msg] - [reason]", null, usr, 0)
+					add_note(M.ckey, "Banned  from [msg] - [reason]", null, usr.ckey, 0)
 					message_admins("\blue [key_name_admin(usr)] banned [key_name_admin(M)] from [msg] for [mins] minutes", 1)
 					to_chat(M, "\red<BIG><B>You have been jobbanned by [usr.client.ckey] from: [msg].</B></BIG>")
 					to_chat(M, "<span class='danger'>The reason is: [reason]</span>")
@@ -831,7 +831,7 @@
 							jobban_fullban(M, job, "[reason]; By [usr.ckey] on [time2text(world.realtime)]")
 							if(!msg)	msg = job
 							else		msg += ", [job]"
-						add_note(M.ckey, "Banned  from [msg] - [reason]", null, usr, 0)
+						add_note(M.ckey, "Banned  from [msg] - [reason]", null, usr.ckey, 0)
 						message_admins("\blue [key_name_admin(usr)] banned [key_name_admin(M)] from [msg]", 1)
 						to_chat(M, "\red<BIG><B>You have been jobbanned by [usr.client.ckey] from: [msg].</B></BIG>")
 						to_chat(M, "<span class='danger'>The reason is: [reason]</span>")

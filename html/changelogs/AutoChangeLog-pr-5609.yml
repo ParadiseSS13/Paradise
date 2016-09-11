@@ -1,0 +1,4 @@
+author: Improvedname
+delete-after: True
+changes: 
+  - rscadd: "Adds 4 epinephrine autoinjectors to nanomedplus vending machines"
