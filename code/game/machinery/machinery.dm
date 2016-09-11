@@ -128,11 +128,14 @@ Class Procs:
 	if(use_power)
 		myArea = get_area_master(src)
 
-	machines += src
+	machines += src //Moved this to New
 	if(!speed_process)
 		machine_processing += src
 	else
 		fast_processing += src
+
+/obj/machinery/New() //new
+	machines += src
 
 /obj/machinery/Destroy()
 	if(myArea)
