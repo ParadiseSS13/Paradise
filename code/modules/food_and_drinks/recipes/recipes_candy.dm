@@ -74,7 +74,7 @@
 	result = /obj/item/weapon/reagent_containers/food/snacks/candy/taffy
 
 /datum/recipe/candy/nougat
-	reagents = list("sugar" = 5, "cornoil" = 5)
+	reagents = list("sugar" = 5, "corn_starch" = 5)
 	items = list(/obj/item/weapon/reagent_containers/food/snacks/egg)
 	result = /obj/item/weapon/reagent_containers/food/snacks/candy/nougat
 
@@ -90,7 +90,7 @@
 	result = /obj/item/weapon/reagent_containers/food/snacks/candy/cotton
 
 /datum/recipe/candy/gummybear
-	reagents = list("sugar" = 5, "water" = 5, "cornoil" = 5)
+	reagents = list("sugar" = 5, "water" = 5, "corn_starch" = 5)
 	items = list(
 		/obj/item/weapon/kitchen/mould/bear,
 		)
@@ -98,7 +98,7 @@
 	byproduct = /obj/item/weapon/kitchen/mould/bear
 
 /datum/recipe/candy/gummyworm
-	reagents = list("sugar" = 5, "water" = 5, "cornoil" = 5)
+	reagents = list("sugar" = 5, "water" = 5, "corn_starch" = 5)
 	items = list(
 		/obj/item/weapon/kitchen/mould/worm,
 		)
@@ -106,7 +106,7 @@
 	byproduct = /obj/item/weapon/kitchen/mould/worm
 
 /datum/recipe/candy/jellybean
-	reagents = list("sugar" = 5, "water" = 5, "cornoil" = 5)
+	reagents = list("sugar" = 5, "water" = 5, "corn_starch" = 5)
 	items = list(
 		/obj/item/weapon/kitchen/mould/bean,
 		)
@@ -114,7 +114,7 @@
 	byproduct = /obj/item/weapon/kitchen/mould/bean
 
 /datum/recipe/candy/jawbreaker
-	reagents = list("sugar" = 10, "cornoil" = 5)
+	reagents = list("sugar" = 10, "corn_starch" = 5)
 	items = list(
 		/obj/item/weapon/kitchen/mould/ball,
 		)
@@ -131,7 +131,7 @@
 	byproduct = /obj/item/weapon/kitchen/mould/cane
 
 /datum/recipe/candy/gum
-	reagents = list("sugar" = 5, "water" = 5, "cornoil" = 5)
+	reagents = list("sugar" = 5, "water" = 5, "corn_starch" = 5)
 	items = list()
 	result = /obj/item/weapon/reagent_containers/food/snacks/candy/gum
 
@@ -159,7 +159,7 @@
 	byproduct = /obj/item/weapon/kitchen/mould/coin
 
 /datum/recipe/candy/sucker
-	reagents = list("sugar" = 10, "cornoil" = 5)
+	reagents = list("sugar" = 10, "corn_starch" = 5)
 	items = list(
 		/obj/item/weapon/kitchen/mould/loli,
 		)
