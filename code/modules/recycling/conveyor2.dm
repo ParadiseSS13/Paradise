@@ -122,6 +122,8 @@
 				step(A,movedir)
 		CHECK_TICK
 
+
+
 // attack with item, place item on conveyor
 /obj/machinery/conveyor/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/weapon/crowbar))
@@ -145,6 +147,7 @@
 			I.loc = src.loc
 	else
 		return ..()
+
 
 // attack with hand, move pulled object onto conveyor
 /obj/machinery/conveyor/attack_hand(mob/user as mob)
@@ -219,15 +222,9 @@
 
 	spawn(5)		// allow map load
 		conveyors = list()
-		for(var/obj/machinery/conveyor/C in machines) //This works if it's: `C in world` , but that's bad practice. Best to try to fix it.
+		for(var/obj/machinery/conveyor/C in machines)
 			if(C.id == id)
-				conveyors += C  //Moving this to initialise to see if it gets around the bug... do we need the spawn thing? Let's find out.
-
-/*/obj/machinery/conveyor_switch/initialize() //This whole thing is new
-	conveyors = list()
-	for(var/obj/machinery/conveyor/C in world) //This works if it's: `C in world` , but that's bad practice. Best to try to fix it so it's in machines
-		if(C.id == id)
-			conveyors += C*/
+				conveyors += C
 
 
 // update the icon depending on the position
@@ -313,6 +310,16 @@
 		user << "<span class='notice'>You deattach the conveyor switch.</span>"
 		qdel(src)
 
+	else if(istype(I, /obj/item/device/multitool))
+		update_multitool_menu(user)
+		return 1
+
+
+/obj/machinery/conveyor_switch/multitool_menu(var/mob/user, var/obj/item/device/multitool/P)
+	return {"
+ 	<ul>
+ 	<li><b>One direction only:</b> <a href='?src=\ref[src];toggle_logic=1'>[convdir ? "On" : "Off"]</a></li>
+ 	</ul>"}
 
 
 //

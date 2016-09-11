@@ -127,8 +127,6 @@ Class Procs:
 /obj/machinery/proc/addAtProcessing()
 	if(use_power)
 		myArea = get_area_master(src)
-
-	machines += src //Moved this to New
 	if(!speed_process)
 		machine_processing += src
 	else
@@ -136,6 +134,7 @@ Class Procs:
 
 /obj/machinery/New() //new
 	machines += src
+	..()
 
 /obj/machinery/Destroy()
 	if(myArea)
