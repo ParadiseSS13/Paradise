@@ -16,11 +16,15 @@
 	..()
 	if(buckled_mob)
 		switch(buckled_mob.dir)
-			if(NORTH || SOUTH)
+			if(SOUTH)
 				buckled_mob.pixel_y = 4
-
-			if(EAST || WEST)
+			if(NORTH)
+				buckled_mob.pixel_y = 4
+			if(EAST)
 				buckled_mob.pixel_y = 2
+			if(WEST)
+				buckled_mob.pixel_y = 2
+
 
 
 
@@ -82,8 +86,3 @@
 	name = "green tank"
 	icon_state ="tank_green"
 	desc = "A tank belonging to the green army"
-
-/obj/vehicle/tank/tank_grey
-	name = "grey tank"
-	icon_state = "tank_grey"
-	desc = "A tank belonging to the grey army"
