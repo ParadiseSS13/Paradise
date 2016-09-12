@@ -585,21 +585,21 @@ var/list/uplink_items = list()
 /datum/uplink_item/ammo/pistolap
 	name = "Magazine - 10mm Armour Piercing"
 	desc = "An additional 8-round 10mm magazine for use in the syndicate pistol, loaded with rounds that are less effective at injuring the target but penetrate protective gear."
-	reference = "10MM"
+	reference = "10MMAP"
 	item = /obj/item/ammo_box/magazine/m10mm/ap
 	cost = 2
 
 /datum/uplink_item/ammo/pistolfire
 	name = "Magazine - 10mm Incendiary"
 	desc = "An additional 8-round 10mm magazine for use in the syndicate pistol, loaded with incendiary rounds which ignite the target."
-	reference = "10MM"
+	reference = "10MMFIRE"
 	item = /obj/item/ammo_box/magazine/m10mm/fire
 	cost = 2
 
 /datum/uplink_item/ammo/pistolhp
 	name = "Magazine - 10mm Hollow Point"
 	desc = "An additional 8-round 10mm magazine for use in the syndicate pistol, loaded with rounds which are more damaging but ineffective against armour."
-	reference = "10MM"
+	reference = "10MMHP"
 	item = /obj/item/ammo_box/magazine/m10mm/hp
 	cost = 3
 
