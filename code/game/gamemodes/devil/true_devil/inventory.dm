@@ -14,9 +14,9 @@
 
 		var/image/I = image("icon" = r_hand.righthand_file, "icon_state" = "[t_state]")
 		I = center_image(I, r_hand.inhand_x_dimension, r_hand.inhand_y_dimension)
-		devil_overlays[R_HAND_LAYER] = I
+		devil_overlays[DEVIL_R_HAND_LAYER] = I
 	else
-		devil_overlays[R_HAND_LAYER] = null
+		devil_overlays[DEVIL_R_HAND_LAYER] = null
 	if(update_icons)
 		update_icons()
 
@@ -30,9 +30,9 @@
 
 		var/image/I = image("icon" = l_hand.lefthand_file, "icon_state" = "[t_state]")
 		I = center_image(I, l_hand.inhand_x_dimension, l_hand.inhand_y_dimension)
-		devil_overlays[L_HAND_LAYER] = I
+		devil_overlays[DEVIL_L_HAND_LAYER] = I
 	else
-		devil_overlays[L_HAND_LAYER] = null
+		devil_overlays[DEVIL_L_HAND_LAYER] = null
 	if(update_icons)
 		update_icons()
 

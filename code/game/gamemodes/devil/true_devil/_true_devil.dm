@@ -1,5 +1,5 @@
-#define DEVIL_HANDS_LAYER 1
-#define DEVIL_HEAD_LAYER 2
+#define DEVIL_R_HAND_LAYER 1
+#define DEVIL_L_HAND_LAYER 2
 #define DEVIL_TOTAL_LAYERS 2
 
 
@@ -200,3 +200,5 @@
 			b_loss *=2
 		adjustBruteLoss(b_loss)
 	return ..()
+
+#undef DEVIL_TOTAL_LAYERS
