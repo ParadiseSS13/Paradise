@@ -184,7 +184,7 @@ var/global/list/datum/stack_recipe/mime_recipes = list ( \
 	name = "bananium"
 	icon_state = "sheet-clown"
 	origin_tech = "materials=4"
-	sheettype = "clown"
+	sheettype = "bananium"
 	materials = list(MAT_BANANIUM=MINERAL_MATERIAL_AMOUNT)
 
 /obj/item/stack/sheet/mineral/bananium/New(var/loc, var/amount=null)
@@ -196,7 +196,7 @@ var/global/list/datum/stack_recipe/mime_recipes = list ( \
 	singular_name = "beret"
 	icon_state = "sheet-mime"
 	origin_tech = "materials=4"
-	sheettype = "mime"
+	sheettype = "tranquillite"
 	materials = list(MAT_TRANQUILLITE=MINERAL_MATERIAL_AMOUNT)
 
 /obj/item/stack/sheet/mineral/tranquillite/New(var/loc, var/amount=null)

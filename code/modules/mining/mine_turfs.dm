@@ -139,9 +139,9 @@ var/global/list/rockTurfEdgeCache = list(
 				if("Gibtonite")
 					M = new/turf/simulated/mineral/gibtonite(src)
 				if("Bananium")
-					M = new/turf/simulated/mineral/clown(src)
+					M = new/turf/simulated/mineral/bananium(src)
 				if("Tranquillite")
-					M = new/turf/simulated/mineral/mime(src)
+					M = new/turf/simulated/mineral/tranquillite(src)
 				if("BScrystal")
 					M = new/turf/simulated/mineral/bscrystal(src)
 			if(M)
@@ -238,7 +238,7 @@ var/global/list/rockTurfEdgeCache = list(
 	hidden = 1
 	scan_state = "rock_Plasma"
 
-/turf/simulated/mineral/clown
+/turf/simulated/mineral/bananium
 	name = "bananium deposit"
 	icon_state = "rock_Clown"
 	mineralType = /obj/item/weapon/ore/bananium
@@ -248,7 +248,7 @@ var/global/list/rockTurfEdgeCache = list(
 	spread = 0
 	hidden = 0
 
-/turf/simulated/mineral/mime
+/turf/simulated/mineral/tranquillite
 	name = "tranquillite deposit"
 	icon_state = "rock_Mime"
 	mineralType = /obj/item/weapon/ore/tranquillite
