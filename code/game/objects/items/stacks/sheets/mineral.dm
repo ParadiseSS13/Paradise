@@ -65,7 +65,7 @@ var/global/list/datum/stack_recipe/bananium_recipes = list ( \
 	new/datum/stack_recipe("bananium grenade casing", /obj/item/weapon/grenade/bananade/casing, 4, on_floor = 1), \
 	)
 
-var/global/list/datum/stack_recipe/mime_recipes = list ( \
+var/global/list/datum/stack_recipe/tranquillite_recipes = list ( \
 	new/datum/stack_recipe("silent tile", /obj/item/stack/tile/silent, 1, 4, 20), \
 	new/datum/stack_recipe("invisible wall", /obj/structure/barricade/mime, 5, one_per_turf = 1, on_floor = 1, time = 50), \
 	)
@@ -201,7 +201,7 @@ var/global/list/datum/stack_recipe/mime_recipes = list ( \
 
 /obj/item/stack/sheet/mineral/tranquillite/New(var/loc, var/amount=null)
 	..()
-	recipes = mime_recipes
+	recipes = tranquillite_recipes
 
 /obj/item/stack/sheet/mineral/enruranium
 	name = "enriched uranium"
