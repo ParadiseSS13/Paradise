@@ -483,8 +483,7 @@ var/list/uplink_items = list()
 	desc = "A box of two (2) grenades that wreak havoc with the atmosphere of the target area. Capable of engulfing a large area in lit plasma, or N2O. Deploy with extreme caution!"
 	reference = "AGG"
 	item = /obj/item/weapon/storage/box/syndie_kit/atmosgasgrenades
-	cost = 8
-	gamemodes = list(/datum/game_mode/nuclear)
+	cost = 11
 
 /datum/uplink_item/dangerous/emp
 	name = "EMP Grenades and Implanter Kit"
