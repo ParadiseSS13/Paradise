@@ -1,0 +1,4 @@
+author: Kyep
+delete-after: True
+changes: 
+  - rscadd: "SST and SIT now have their own radio frequency."
