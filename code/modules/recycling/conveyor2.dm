@@ -220,12 +220,10 @@
 		id = newid
 	update()
 
-	spawn(5)		// allow map load
-		conveyors = list()
-		for(var/obj/machinery/conveyor/C in machines)
-			if(C.id == id)
-				conveyors += C
-
+	conveyors = list()
+	for(var/obj/machinery/conveyor/C in machines)
+		if(C.id == id)
+			conveyors += C
 
 // update the icon depending on the position
 
@@ -253,7 +251,6 @@
 
 /obj/machinery/conveyor_switch/oneway
 	convdir = 1 //Set to 1 or -1 depending on which way you want the convayor to go. (In other words keep at 1 and set the proper dir on the belts.)
-	desc = "A conveyor control switch. It appears to only go in one direction."
 
 // attack with hand, switch position
 /obj/machinery/conveyor_switch/attack_hand(mob/user)
@@ -286,22 +283,6 @@
 		CHECK_TICK
 
 
-// attack with hand, switch position
-/obj/machinery/conveyor_switch/oneway/attack_hand(mob/user)
-	if(position == 0)
-		position = convdir
-	else
-		position = 0
-
-	operated = 1
-	update()
-
-	// find any switches with same id as this one, and set their positions to match us
-	for(var/obj/machinery/conveyor_switch/S in world)
-		if(S.id == src.id)
-			S.position = position
-			S.update()
-
 /obj/machinery/conveyor_switch/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/weapon/crowbar))
 		var/obj/item/conveyor_switch_construct/C = new/obj/item/conveyor_switch_construct(src.loc)
@@ -315,6 +296,12 @@
 		return 1
 
 
+/obj/machinery/conveyor_switch/multitool_topic(var/mob/user,var/list/href_list,var/obj/O)
+	..()
+	if("toggle_logic" in href_list)
+		convdir = !convdir //reverses?
+
+
 /obj/machinery/conveyor_switch/multitool_menu(var/mob/user, var/obj/item/device/multitool/P)
 	return {"
  	<ul>
@@ -322,9 +309,10 @@
  	</ul>"}
 
 
+
 //
 // CONVEYOR CONSTRUCTION STARTS HERE
-//   All new here.
+//
 
 /obj/item/conveyor_construct
 	icon = 'icons/obj/recycling.dmi'
@@ -382,4 +370,4 @@
 
 /obj/item/weapon/paper/conveyor
 	name = "paper- 'Nano-it-up U-build series, #9: Build your very own conveyor belt, in SPACE'"
-	info = "<h1>Congratulations!</h1><p>You are now the proud owner of the best conveyor set available for space mail order! We at Nano-it-up know you love to prepare your own structures without wasting time, so we have devised a special streamlined assembly procedure that puts all other mail-order products to shame!</p><p>Firstly, you need to link the conveyor switch assembly to each of the conveyor belt assemblies. After doing so, you simply need to install the belt assemblies onto the floor, et voila, belt built. Our special Nano-it-up smart switch will detected any linked assemblies as far as the eye can see! This convenience, you can only have it when you Nano-it-up. Stay nano!</p>"
+	info = "<h1>Congratulations!</h1><p>You are now the proud owner of the best conveyor set available for space mail order! We at Nano-it-up know you love to prepare your own structures without wasting time, so we have devised a special streamlined assembly procedure that puts all other mail-order products to shame!</p><p>Firstly, you need to link the conveyor switch assembly to each of the conveyor belt assemblies. After doing so, you simply need to install the belt assemblies onto the floor, et voila, belt built. Our special Nano-it-up smart switch will detected any linked assemblies as far as the eye can see! </p><p> Set single directional switches by using your multitool on the switch after you've installed the switch assembly.</p><p> This convenience, you can only have it when you Nano-it-up. Stay nano!</p>"
