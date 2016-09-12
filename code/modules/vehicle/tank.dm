@@ -80,4 +80,4 @@
 
 /obj/vehicle/tank/Destroy()
 	fire_cannon_action.Remove(buckled_mob)
-	..()
+	return ..()
