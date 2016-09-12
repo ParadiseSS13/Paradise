@@ -1,0 +1,4 @@
+author: Krausus
+delete-after: True
+changes: 
+  - tweak: "View Variables will now consistently view the variables of what it's intended to."
