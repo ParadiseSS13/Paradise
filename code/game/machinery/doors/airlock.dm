@@ -254,14 +254,14 @@
 /obj/machinery/door/airlock/plasma/BlockSuperconductivity() //we don't stop the heat~
 	return 0
 
-/obj/machinery/door/airlock/clown
+/obj/machinery/door/airlock/bananium
 	name = "Bananium Airlock"
 	icon = 'icons/obj/doors/Doorbananium.dmi'
 	mineral = "bananium"
 	doorOpen = 'sound/items/bikehorn.ogg'
 	doorClose = 'sound/items/bikehorn.ogg'
 
-/obj/machinery/door/airlock/mime
+/obj/machinery/door/airlock/tranquillite
 	name = "Tranquillite Airlock"
 	icon = 'icons/obj/doors/Doorfreezer.dmi'
 	mineral = "tranquillite"
