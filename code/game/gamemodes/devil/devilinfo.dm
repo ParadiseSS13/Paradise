@@ -188,7 +188,7 @@ var/global/list/lawlorify = list (
 	to_chat(owner.current,"<span class='warning'>Your powers weaken, have more contracts be signed to regain power.</span>")
 	if(istype(owner.current, /mob/living/carbon/human))
 		var/mob/living/carbon/human/H = owner.current
-		H.set_species("human")
+		H.set_species("Human")
 		H.regenerate_icons()
 	give_base_spells()
 	if(istype(owner.current.loc, /obj/effect/dummy/slaughter/))
@@ -211,7 +211,7 @@ var/global/list/lawlorify = list (
 	sleep(50)
 	if(istype(owner.current, /mob/living/carbon/human))
 		var/mob/living/carbon/human/H = owner.current
-		H.set_species("unathi")
+		H.set_species("Unathi")
 		H.underwear = "Nude"
 		H.undershirt = "Nude"
 		H.socks = "Nude"
@@ -420,7 +420,7 @@ var/global/list/lawlorify = list (
 			H.equip_to_slot_or_del(new /obj/item/weapon/storage/briefcase(H), slot_l_hand)
 			H.equip_to_slot_or_del(new /obj/item/weapon/pen(H), slot_l_store)
 			if(SOULVALUE >= BLOOD_THRESHOLD)
-				H.set_species("unathi")
+				H.set_species("Unathi")
 				H.underwear = "Nude"
 				H.undershirt = "Nude"
 				H.socks = "Nude"
