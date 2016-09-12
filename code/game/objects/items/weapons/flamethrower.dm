@@ -129,7 +129,7 @@
 	if(!ptank)
 		to_chat(user, "<span class='notice'>Attach a plasma tank first!</span>")
 		return
-	var/dat = text("<TT><B>Flamethrower (<A HREF='?src=\ref[src];light=1'>[lit ? "<font color='red'>Lit</font>" : "Unlit"]</a>)</B><BR>\n Tank Pressure: [ptank.air_contents.return_pressure()]<BR>\nAmount to throw: <A HREF='?src=\ref[src];amount=-100'>-</A> <A HREF='?src=\ref[src];amount=-10'>-</A> <A HREF='?src=\ref[src];amount=-1'>-</A> [throw_amount] <A HREF='?src=\ref[src];amount=1'>+</A> <A HREF='?src=\ref[src];amount=10'>+</A> <A HREF='?src=\ref[src];amount=100'>+</A><BR>\n<A HREF='?src=\ref[src];remove=1'>Remove plasmatank</A> - <A HREF='?src=\ref[src];close=1'>Close</A></TT>")
+	var/dat = text("<TT><B>Flamethrower (<A HREF='?src=[UID()];light=1'>[lit ? "<font color='red'>Lit</font>" : "Unlit"]</a>)</B><BR>\n Tank Pressure: [ptank.air_contents.return_pressure()]<BR>\nAmount to throw: <A HREF='?src=[UID()];amount=-100'>-</A> <A HREF='?src=[UID()];amount=-10'>-</A> <A HREF='?src=[UID()];amount=-1'>-</A> [throw_amount] <A HREF='?src=[UID()];amount=1'>+</A> <A HREF='?src=[UID()];amount=10'>+</A> <A HREF='?src=[UID()];amount=100'>+</A><BR>\n<A HREF='?src=[UID()];remove=1'>Remove plasmatank</A> - <A HREF='?src=[UID()];close=1'>Close</A></TT>")
 	user << browse(dat, "window=flamethrower;size=600x300")
 	onclose(user, "flamethrower")
 	return

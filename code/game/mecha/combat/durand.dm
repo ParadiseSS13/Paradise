@@ -59,7 +59,7 @@
 	var/output = {"<div class='wr'>
 						<div class='header'>Special</div>
 						<div class='links'>
-						<a href='?src=\ref[src];toggle_defence_mode=1'>Toggle defence mode</a>
+						<a href='?src=[UID()];toggle_defence_mode=1'>Toggle defence mode</a>
 						</div>
 						</div>
 						"}
