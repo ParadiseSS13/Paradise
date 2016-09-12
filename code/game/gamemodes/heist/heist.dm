@@ -12,9 +12,9 @@ var/global/list/raider_gear = list()
 /datum/game_mode/heist
 	name = "heist"
 	config_tag = "heist"
-	required_players = 3//CHANGE BADLY PLS
-	required_enemies = 3//CHANGEFORMERGEOHOGD
-	recommended_enemies = 3//CHAAAAAAAANGE. probably.
+	required_players = 1//CHANGE BADLY PLS
+	required_enemies = 1//CHANGEFORMERGEOHOGD
+	recommended_enemies = 1//CHAAAAAAAANGE. probably.
 	votable = 0
 
 	var/win_button_triggered = 0
@@ -145,27 +145,43 @@ var/global/list/raider_gear = list()
 
 /datum/game_mode/proc/forge_raider_objectives()
 	var/i = 1
-	var/max_objectives = pick(3, 4)
 	var/list/objs = list()
-	var/list/goals = list("kidnap", "loot", "assasinate")
-	while(i<= max_objectives)
+	var/list/goals = list("kidnap/loot", "kill/loot", "loot", "loot", "loot")//4.6% chance the raiders get no kill/kidnap objs
+	while(i <= 4)//4 objectives total
 		var/goal = pick(goals)
+		var/duplicate_obj = 0//for keeping objectives unique
 		var/datum/objective/heist/O
 
-		if(goal == "kidnap")
-			goals -= "kidnap"
-			O = new /datum/objective/heist/kidnap()
-		else if(goal == "loot")
-			O = new /datum/objective/heist/loot()
+		if(goal == "kidnap/loot")
+			if(prob(90))
+				O = new /datum/objective/heist/kidnap()
+			else
+				O = new /datum/objective/heist/loot()
+		else if(goal == "kill/loot")
+			if(prob(90))
+				O = new /datum/objective/heist/assasinate()
+			else
+				O = new /datum/objective/heist/loot()
 		else
-			O = new /datum/objective/heist/assasinate()
+			O = new /datum/objective/heist/loot()
+
+		goals -= goal
 		O.choose_target()
+
+		for(var/datum/objective/heist/H in objs)
+			if(H.target == O.target)//you can compare a string to a mind. Whoah.
+				duplicate_obj = 1
+				break
+		if(duplicate_obj)
+			continue//break the whole loop and start over. Without iterating.
+			//If there is a massive shortage of targets you'll eventually have four loot objectives
+
 		objs += O
 		i++
 	return objs
 
 /datum/game_mode/proc/greet_raider(var/datum/mind/raider)
-	to_chat(raider.current, "<span class='boldnotice'>You are a Space Pirate, from [pick("Tau Ceti", "Some ugly basement", "Placeholder Omega")]!</span>")
+	to_chat(raider.current, "<span class='boldnotice'>You are a Space Pirate, from Tau Ceti!</span>")
 	to_chat(raider.current, "<span class='warning'>You've been hired by a certain individual to disrupt the operation of [station_name()]</span>")
 	to_chat(raider.current, "<span class='warning'>Stay close to your crewmates and come up with a plan better than getting shot before boarding.</span>")
 	to_chat(raider.current, "<span class='warning'>Use :H to talk on your encrypted channel.</span>")
@@ -216,7 +232,7 @@ var/global/list/raider_gear = list()
 		else
 			win_msg += " and were repelled!"
 
-	to_chat(world, "<span class='boldannounce'>[win_msg]</span>")
+	to_chat(world, "<span class='revenbignotice'>[win_msg]</span>")
 	feedback_set_details("round_end_result","heist - [win_type] [win_group] victory")
 
 	var/count = 1
@@ -241,7 +257,7 @@ datum/game_mode/proc/auto_declare_completion_heist()
 		for(var/datum/mind/raider in raiders)
 			text += "<br>[raider.key] was [raider.name] ("
 			if(check_return)
-				if(!istype(get_area(raider.current), /area/shuttle/raider))
+				if(!istype(get_area(raider.current), /area/shuttle/raider) && !istype(get_area(raider.current), /area/raider_station))
 					text += "left behind)"
 					continue
 			if(raider.current)
@@ -260,8 +276,6 @@ datum/game_mode/proc/auto_declare_completion_heist()
 	return 1
 
 /datum/game_mode/heist/check_finished()
-	if(!(is_raider_crew_alive()))
-		return 1
 	if(win_button_triggered)
 		return 1
 	return ..()

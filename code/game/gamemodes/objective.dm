@@ -542,7 +542,7 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) \
 		target = pick(possible_targets)
 
 	if(target && target.current)
-		explanation_text = "A contractor from [pick("Tau Ceti", "Placeholder Omega")] has a need for [target.current.real_name], the [target.assigned_role]. Take them alive."
+		explanation_text = "A contractor from Tau Ceti has a need for [target.current.real_name], the [target.assigned_role]. Take them alive."
 	else
 		explanation_text = "Free Objective"
 	return target
@@ -564,24 +564,24 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) \
 	else
 		return 0
 
-/datum/objective/heist/loot //This objective isn't inherently evil. Most of this stuff can be obtained without bloodshed or straight up stealing. You can just trade for laser guns.
+/datum/objective/heist/loot //This objective isn't inherently evil. Most of this stuff can be obtained without bloodshed or even theft. You can just trade for laser guns.
 /datum/objective/heist/loot/choose_target()
 	var/loot = "an object"
 	var/tech = 1 //for objective explanation text, depends on whether you're stealing tech or just boring stuff
 	switch(rand(1,10))
 
 		if(1)
-			target = /obj/machinery/the_singularitygen
+			target = /obj/item/weapon/gun/energy/laser/captain
 			target_amount = 1
-			loot = "a gravitational singularity or tesla engine generator"
+			loot = "the captain's antique laser gun"
 		if(2)
-			target = /obj/machinery/nuclearbomb
+			target = /obj/item/weapon/disk/nuclear
 			target_amount = 1
-			loot = "a nuclear bomb"
+			loot = "the nuclear authentication disk"
 		if(3)
 			target = /obj/item/weapon/gun
-			target_amount = 6
-			loot = "six guns. Tasers and other non-lethal guns are acceptable"
+			target_amount = 8
+			loot = "eight guns. Tasers and other non-lethal guns are acceptable"
 		if(4)
 			target = /obj/item/weapon/gun/energy
 			target_amount = 4
@@ -613,27 +613,27 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) \
 		if(11)
 			target = /obj/item/clothing/shoes/magboots/advance
 			target_amount = 6
-			loot = "power cells"
+			loot = "six power cells"
 			tech = 0
 		if(12)
 			target = /obj/item/weapon/storage/toolbox
 			target_amount = 5
-			loot = "toolboxes"
+			loot = "five toolboxes"
 			tech = 0
 		if(13)
 			target = /obj/item/weapon/stock_parts/manipulator
 			target_amount = 10
-			loot = "manipulators"
+			loot = "ten manipulators"
 			tech = 0
 		if(14)
-			target = /obj/item/weapon/coin
-			target_amount = 10
-			loot = "coins"
+			target = /obj/item/clothing/suit/armor/laserproof
+			target_amount = 1
+			loot = "an ablative armor vest"
 			tech = 0
 		if(15)
 			target = /obj/item/device/pda
 			target_amount = 5
-			loot = "PDAs"
+			loot = "five PDAs"
 
 	explanation_text = "[tech ? "We have a buyer lined up for advanced NT technology." : "We're low on resources." ] Steal or trade for [loot]."
 
