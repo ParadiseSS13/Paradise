@@ -567,6 +567,7 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) \
 /datum/objective/heist/loot //This objective isn't inherently evil. Most of this stuff can be obtained without bloodshed or straight up stealing. You can just trade for laser guns.
 /datum/objective/heist/loot/choose_target()
 	var/loot = "an object"
+	var/tech = 1 //for objective explanation text, depends on whether you're stealing tech or just boring stuff
 	switch(rand(1,10))
 
 		if(1)
@@ -585,7 +586,7 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) \
 			target = /obj/item/weapon/gun/energy
 			target_amount = 4
 			loot = "four energy guns"
-		if(6)
+		if(5)
 			target = /obj/item/weapon/gun/energy/laser
 			target_amount = 2
 			loot = "two laser guns"
@@ -609,8 +610,32 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) \
 			target = /obj/item/clothing/shoes/magboots/advance
 			target_amount = 1
 			loot = "the Chief Engineer's advanced magnetic boots"
+		if(11)
+			target = /obj/item/clothing/shoes/magboots/advance
+			target_amount = 6
+			loot = "power cells"
+			tech = 0
+		if(12)
+			target = /obj/item/weapon/storage/toolbox
+			target_amount = 5
+			loot = "toolboxes"
+			tech = 0
+		if(13)
+			target = /obj/item/weapon/stock_parts/manipulator
+			target_amount = 10
+			loot = "manipulators"
+			tech = 0
+		if(14)
+			target = /obj/item/weapon/coin
+			target_amount = 10
+			loot = "coins"
+			tech = 0
+		if(15)
+			target = /obj/item/device/pda
+			target_amount = 5
+			loot = "PDAs"
 
-	explanation_text = "We have a buyer lined up for advanced NT technology. Steal or trade for [loot]."
+	explanation_text = "[tech ? "We have a buyer lined up for advanced NT technology." : "We're low on resources." ] Steal or trade for [loot]."
 
 /datum/objective/heist/loot/check_completion()
 	var/total_amount = 0
@@ -642,77 +667,6 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) \
 				if(total_amount >= target_amount)
 					return 1
 
-	return 0
-
-/datum/objective/heist/salvage
-/datum/objective/heist/salvage/choose_target()
-	switch(rand(1,8))
-		if(1)
-			target = "metal"
-			target_amount = 400
-		if(2)
-			target = "glass"
-			target_amount = 300
-		if(3)
-			target = "plasteel"
-			target_amount = 50
-		if(4)
-			target = "solid plasma"
-			target_amount = 50
-		if(5)
-			target = "silver"
-			target_amount = 30
-		if(6)
-			target = "gold"
-			target_amount = 10
-		if(7)
-			target = "uranium"
-			target_amount = 10
-		if(8)
-			target = "diamond"
-			target_amount = 10
-
-	explanation_text = "We're low on resources. Loot or trade for [target_amount] [target]."
-
-/datum/objective/heist/salvage/check_completion()
-	var/total_amount = 0
-
-	for(var/obj/item/O in locate(/area/shuttle/raider))
-		var/obj/item/stack/sheet/S
-		if(istype(O,/obj/item/stack/sheet))
-			if(O.name == target)
-				S = O
-				total_amount += S.get_amount()
-
-		for(var/obj/I in O.contents)
-			if(istype(I,/obj/item/stack/sheet))
-				if(I.name == target)
-					S = I
-					total_amount += S.get_amount()
-
-	for(var/obj/item/O in locate(/area/raider_station))
-		var/obj/item/stack/sheet/S
-		if(istype(O,/obj/item/stack/sheet))
-			if(O.name == target)
-				S = O
-				total_amount += S.get_amount()
-
-		for(var/obj/I in O.contents)
-			if(istype(I,/obj/item/stack/sheet))
-				if(I.name == target)
-					S = I
-					total_amount += S.get_amount()
-
-	var/datum/game_mode/heist/H = ticker.mode
-	for(var/datum/mind/raider in H.raiders)
-		if(raider.current)
-			for(var/obj/item/O in raider.current.get_contents())
-				if(istype(O,/obj/item/stack/sheet))
-					if(O.name == target)
-						var/obj/item/stack/sheet/S = O
-						total_amount += S.get_amount()
-
-	if(total_amount >= target_amount) return 1
 	return 0
 
 /datum/objective/heist/assasinate

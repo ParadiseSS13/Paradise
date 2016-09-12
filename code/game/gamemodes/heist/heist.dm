@@ -12,9 +12,9 @@ var/global/list/raider_gear = list()
 /datum/game_mode/heist
 	name = "heist"
 	config_tag = "heist"
-	required_players = 0//CHANGE BADLY PLS
-	required_enemies = 1//CHANGEFORMERGEOHOGD
-	recommended_enemies = 5//CHAAAAAAAANGE. probably.
+	required_players = 3//CHANGE BADLY PLS
+	required_enemies = 3//CHANGEFORMERGEOHOGD
+	recommended_enemies = 3//CHAAAAAAAANGE. probably.
 	votable = 0
 
 	var/win_button_triggered = 0
@@ -147,7 +147,7 @@ var/global/list/raider_gear = list()
 	var/i = 1
 	var/max_objectives = pick(3, 4)
 	var/list/objs = list()
-	var/list/goals = list("kidnap", "loot", "salvage", "assasinate")
+	var/list/goals = list("kidnap", "loot", "assasinate")
 	while(i<= max_objectives)
 		var/goal = pick(goals)
 		var/datum/objective/heist/O
@@ -157,8 +157,6 @@ var/global/list/raider_gear = list()
 			O = new /datum/objective/heist/kidnap()
 		else if(goal == "loot")
 			O = new /datum/objective/heist/loot()
-		else if(goal == "salvage")
-			O = new /datum/objective/heist/salvage()
 		else
 			O = new /datum/objective/heist/assasinate()
 		O.choose_target()
