@@ -68,15 +68,15 @@
 		if(NORTHEAST)
 			forwards = EAST
 			backwards = SOUTH
-		if(NORTHWEST)
+		if(SOUTHEAST)
 			forwards = NORTH
 			backwards = EAST
-		if(SOUTHEAST)
-			forwards = SOUTH
-			backwards = WEST
 		if(SOUTHWEST)
 			forwards = WEST
 			backwards = NORTH
+		if(NORTHWEST)
+			forwards = SOUTH
+			backwards = WEST
 	if(verted == -1)
 		var/temp = forwards
 		forwards = backwards
