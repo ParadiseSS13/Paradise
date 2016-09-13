@@ -310,26 +310,18 @@
 
 /obj/item/ammo_casing/caseless/foam_dart/update_icon()
 	..()
-	if((modified)&&(riot))
+	if(modified)
 		icon_state = "foamdart_empty"
-		desc = "Whose smart idea was it to use toys as crowd control? ... Although, this one doesn't look too safe."
+		if(riot)
+			desc = "Whose smart idea was it to use toys as crowd control? ... Although, this one doesn't look too safe."
+		else
+			desc = "Its nerf or nothing! ... Although, this one doesn't look too safe."
 		if(BB)
 			BB.icon_state = "foamdart_empty"
-	else if(modified)
-		icon_state = "foamdart_empty"
-		desc = "Its nerf or nothing! ... Although, this one doesn't look too safe."
-		if(BB)
-			BB.icon_state = "foamdart_empty"
-	else if(riot)
-		icon_state = "foamdart_riot"
-		desc = "Whose smart idea was it to use toys as crowd control? Ages 18 and up."
-		if(BB)
-			BB.icon_state = "foamdart_riot"
 	else
-		icon_state = "foamdart"
-		desc = "Its nerf or nothing! Ages 8 and up."
+		icon_state = initial(icon_state)
 		if(BB)
-			BB.icon_state = "foamdart"
+			BB.icon_state = initial(BB.icon_state)
 
 /obj/item/ammo_casing/caseless/foam_dart/attackby(obj/item/A, mob/user, params)
 	..()
