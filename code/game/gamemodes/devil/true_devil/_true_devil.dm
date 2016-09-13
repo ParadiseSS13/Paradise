@@ -23,10 +23,8 @@
 	var/list/devil_overlays[DEVIL_TOTAL_LAYERS]
 
 /mob/living/carbon/true_devil/New()
-	internal_organs += new /obj/item/organ/internal/brain/
-	for(var/X in internal_organs)
-		var/obj/item/organ/internal/I = X
-		I.insert(src)
+	var/obj/item/organ/internal/brain/B = new(src)
+	B.insert()
 	..()
 
 
