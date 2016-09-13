@@ -306,19 +306,30 @@
 	icon = 'icons/obj/guns/toy.dmi'
 	icon_state = "foamdart"
 	var/modified = 0
+	var/riot = 0
 
 /obj/item/ammo_casing/caseless/foam_dart/update_icon()
 	..()
-	if(modified)
+	if((modified)&&(riot))
+		icon_state = "foamdart_empty"
+		desc = "Whose smart idea was it to use toys as crowd control? ... Although, this one doesn't look too safe."
+		if(BB)
+			BB.icon_state = "foamdart_empty"
+	else if(modified)
 		icon_state = "foamdart_empty"
 		desc = "Its nerf or nothing! ... Although, this one doesn't look too safe."
 		if(BB)
 			BB.icon_state = "foamdart_empty"
+	else if(riot)
+		icon_state = "foamdart_riot"
+		desc = "Whose smart idea was it to use toys as crowd control? Ages 18 and up."
+		if(BB)
+			BB.icon_state = "foamdart_riot"
 	else
 		icon_state = "foamdart"
 		desc = "Its nerf or nothing! Ages 8 and up."
 		if(BB)
-			BB.icon_state = "foamdart_empty"
+			BB.icon_state = "foamdart"
 
 /obj/item/ammo_casing/caseless/foam_dart/attackby(obj/item/A, mob/user, params)
 	..()
@@ -351,6 +362,7 @@
 	desc = "Whose smart idea was it to use toys as crowd control? Ages 18 and up."
 	projectile_type = /obj/item/projectile/bullet/reusable/foam_dart/riot
 	icon_state = "foamdart_riot"
+	riot = 1
 
 /obj/item/ammo_casing/shotgun/dart/assassination
 	desc = "A specialist shotgun dart designed to inncapacitate and kill the target over time, so you can get very far away from your target"
