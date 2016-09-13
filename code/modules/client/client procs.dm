@@ -76,7 +76,9 @@
 		if(ismob(C)) 		//Old stuff can feed-in mobs instead of clients
 			var/mob/M = C
 			C = M.client
-		cmd_admin_pm(C,null, href_list["type"])
+		if(!C) // Might be a stealthmin ID, so pass it in straight
+			C = href_list["priv_msg"]
+		cmd_admin_pm(C, null, href_list["type"])
 		return
 
 	if(href_list["irc_msg"])
