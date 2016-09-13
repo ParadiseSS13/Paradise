@@ -312,10 +312,6 @@
 	..()
 	if(modified)
 		icon_state = "foamdart_empty"
-		if(riot)
-			desc = "Whose smart idea was it to use toys as crowd control? ... Although, this one doesn't look too safe."
-		else
-			desc = "Its nerf or nothing! ... Although, this one doesn't look too safe."
 		if(BB)
 			BB.icon_state = "foamdart_empty"
 	else
