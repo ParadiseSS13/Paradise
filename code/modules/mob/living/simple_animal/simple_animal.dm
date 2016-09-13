@@ -122,20 +122,21 @@
 			if(1 to 5)				healths.icon_state = "health6"
 			if(0)					healths.icon_state = "health7"
 
-/mob/living/simple_animal/Life()
-	. = ..()
-	handle_state_icons()
-
 /mob/living/simple_animal/proc/process_ai()
 	handle_automated_movement()
 	handle_automated_action()
 	handle_automated_speech()
 
-/mob/living/simple_animal/proc/handle_state_icons()
-	if(resting && icon_resting && stat != DEAD)
-		icon_state = icon_resting
-	else if(stat != DEAD)
-		icon_state = icon_living
+/mob/living/simple_animal/lay_down()
+	..()
+	handle_resting_state_icons()
+
+/mob/living/simple_animal/proc/handle_resting_state_icons()
+	if(icon_resting)
+		if(resting && stat != DEAD)
+			icon_state = icon_resting
+		else if(stat != DEAD)
+			icon_state = icon_living
 
 /mob/living/simple_animal/handle_regular_status_updates()
 	if(..()) //alive
@@ -581,13 +582,13 @@
 /mob/living/simple_animal/show_inv(mob/user as mob)
 	user.set_machine(src)
 	var/dat = {"<table>
-	<tr><td><B>Left Hand:</B></td><td><A href='?src=\ref[src];item=[slot_l_hand]'>[(l_hand && !(l_hand.flags&ABSTRACT)) ? l_hand : "<font color=grey>Empty</font>"]</A></td></tr>
-	<tr><td><B>Right Hand:</B></td><td><A href='?src=\ref[src];item=[slot_r_hand]'>[(r_hand && !(r_hand.flags&ABSTRACT)) ? r_hand : "<font color=grey>Empty</font>"]</A></td></tr>
+	<tr><td><B>Left Hand:</B></td><td><A href='?src=[UID()];item=[slot_l_hand]'>[(l_hand && !(l_hand.flags&ABSTRACT)) ? l_hand : "<font color=grey>Empty</font>"]</A></td></tr>
+	<tr><td><B>Right Hand:</B></td><td><A href='?src=[UID()];item=[slot_r_hand]'>[(r_hand && !(r_hand.flags&ABSTRACT)) ? r_hand : "<font color=grey>Empty</font>"]</A></td></tr>
 	<tr><td>&nbsp;</td></tr>"}
 	if(can_collar)
-		dat += "<tr><td><B>Collar:</B></td><td><A href='?src=\ref[src];[collar?"remove_inv":"add_inv"]=collar'>[(collar && !(collar.flags&ABSTRACT)) ? collar : "<font color=grey>Empty</font>"]</A></td></tr>"
+		dat += "<tr><td><B>Collar:</B></td><td><A href='?src=[UID()];[collar?"remove_inv":"add_inv"]=collar'>[(collar && !(collar.flags&ABSTRACT)) ? collar : "<font color=grey>Empty</font>"]</A></td></tr>"
 	dat += {"</table>
-	<A href='?src=\ref[user];mach_close=mob\ref[src]'>Close</A>
+	<A href='?src=[user.UID()];mach_close=mob\ref[src]'>Close</A>
 	"}
 
 	var/datum/browser/popup = new(user, "mob\ref[src]", "[src]", 440, 250)

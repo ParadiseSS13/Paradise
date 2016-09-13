@@ -463,6 +463,13 @@
 	item_color = "sundress"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 
+/obj/item/clothing/under/captainparade
+	name = "captain's parade uniform"
+	desc = "A captain's luxury-wear, for special occasions."
+	icon_state = "captain_parade"
+	item_state = "by_suit"
+	item_color = "captain_parade"
+
 /obj/item/clothing/under/roman
 	name = "roman armor"
 	desc = "An ancient Roman armor. Made of metallic strips and leather straps."
@@ -672,6 +679,8 @@
 	desc = "A soft brown jumpsuit made of synthetic feathers and strong conviction."
 	icon_state = "owl"
 	item_color = "owl"
+
+/obj/item/clothing/under/owl/super_hero
 	flags = NODROP
 
 /obj/item/clothing/under/griffin
@@ -679,6 +688,8 @@
 	desc = "A soft brown jumpsuit with a white feather collar made of synthetic feathers and a lust for mayhem."
 	icon_state = "griffin"
 	item_color = "griffin"
+
+/obj/item/clothing/under/griffin/super_hero
 	flags = NODROP
 
 /obj/item/clothing/under/noble_clothes

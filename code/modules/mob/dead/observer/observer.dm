@@ -16,7 +16,6 @@ var/list/image/ghost_darkness_images = list() //this is a list of images for thi
 	anchored = 1	//  don't get pushed around
 	invisibility = INVISIBILITY_OBSERVER
 	var/can_reenter_corpse
-	var/datum/hud/living/carbon/hud = null // hud
 	var/bootime = 0
 	var/started_as_observer //This variable is set to 1 when you enter the game as an observer.
 							//If you died in the game and are a ghsot - this will remain as null.
@@ -226,13 +225,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	statpanel("Status")
 	if(client.statpanel == "Status")
 		show_stat_station_time()
-		if(ticker)
-			if(ticker.mode)
-//				to_chat(world, "DEBUG: ticker not null")
-				if(ticker.mode.name == "AI malfunction")
-//					to_chat(world, "DEBUG: malf mode ticker test")
-					if(ticker.mode:malf_mode_declared)
-						stat(null, "Time left: [max(ticker.mode:AI_win_timeleft/(ticker.mode:apcs/3), 0)]")
 		show_stat_emergency_shuttle_eta()
 
 /mob/dead/observer/verb/reenter_corpse()
@@ -285,7 +277,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 				source.layer = FLOAT_LAYER
 				A.overlays += source
 				source.layer = old_layer
-	to_chat(src, "<span class='ghostalert'><a href=?src=\ref[src];reenter=1>(Click to re-enter)</a></span>")
+	to_chat(src, "<span class='ghostalert'><a href=?src=[UID()];reenter=1>(Click to re-enter)</a></span>")
 	if(sound)
 		src << sound(sound)
 
@@ -330,7 +322,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		return
 	var/mob/dead/observer/M = src
 	if(jobban_isbanned(M, "AntagHUD"))
-		to_chat(src, "\red <B>You have been banned from using this feature</B>")
+		to_chat(src, "<span class='danger'>You have been banned from using this feature</span>")
 		return
 	if(config.antag_hud_restricted && !M.has_enabled_antagHUD && !check_rights(R_ADMIN|R_MOD,0))
 		var/response = alert(src, "If you turn this on, you will not be able to take any part in the round.","Are you sure you want to turn this feature on?","Yes","No")
@@ -499,7 +491,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	var/pressure = environment.return_pressure()
 	var/total_moles = environment.total_moles()
 
-	to_chat(src, "\blue <B>Results:</B>")
+	to_chat(src, "<span class='boldnotice'>Results:</span>")
 	if(abs(pressure - ONE_ATMOSPHERE) < 10)
 		to_chat(src, "\blue Pressure: [round(pressure,0.1)] kPa")
 	else
@@ -558,18 +550,18 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if((!target) || (!ghost)) return
 	if(isAI(target)) // AI core/eye follow links
 		var/mob/living/silicon/ai/A = target
-		. = "<a href='byond://?src=\ref[ghost];follow=\ref[A]'>core</a>"
+		. = "<a href='byond://?src=[ghost.UID()];follow=\ref[A]'>core</a>"
 		if(A.client && A.eyeobj) // No point following clientless AI eyes
-			. += "|<a href='byond://?src=\ref[ghost];follow=\ref[A.eyeobj]'>eye</a>"
+			. += "|<a href='byond://?src=[ghost.UID()];follow=\ref[A.eyeobj]'>eye</a>"
 		return
 	else if(istype(target, /mob/dead/observer))
 		var/mob/dead/observer/O = target
-		. = "<a href='byond://?src=\ref[ghost];follow=\ref[target]'>follow</a>"
+		. = "<a href='byond://?src=[ghost.UID()];follow=\ref[target]'>follow</a>"
 		if(O.mind && O.mind.current)
-			. += "|<a href='byond://?src=\ref[ghost];follow=\ref[O.mind.current]'>body</a>"
+			. += "|<a href='byond://?src=[ghost.UID()];follow=\ref[O.mind.current]'>body</a>"
 		return
 	else
-		return "<a href='byond://?src=\ref[ghost];follow=\ref[target]'>follow</a>"
+		return "<a href='byond://?src=[ghost.UID()];follow=\ref[target]'>follow</a>"
 
 //BEGIN TELEPORT HREF CODE
 /mob/dead/observer/Topic(href, href_list)

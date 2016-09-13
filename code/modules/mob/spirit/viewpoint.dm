@@ -50,7 +50,7 @@ var/obj/cult_viewpoint/list/cult_viewpoints = list()
 	for(var/mob/spirit/mask/currentMask in spirits)
 		if(currentMask.is_active())
 			to_chat(owner, "\red \b You feel the reassuring presence of your god.")
-			to_chat(currentMask, "<span class='cultspeech'><span class='name'><a href='byond://?src=\ref[currentMask];track2=\ref[currentMask];track=\ref[usr]'>[get_display_name()]</a></span><span class='message'> has reached out to you.</span></span>")
+			to_chat(currentMask, "<span class='cultspeech'><span class='name'><a href='byond://?src=[currentMask.UID()];track2=\ref[currentMask];track=\ref[usr]'>[get_display_name()]</a></span><span class='message'> has reached out to you.</span></span>")
 
 			return
 	to_chat(owner, "\b You feel a chilling absence.")
@@ -85,7 +85,7 @@ var/obj/cult_viewpoint/list/cult_viewpoints = list()
 	to_chat(owner, "<span class='cultspeech'><b>You pray to Nar'Sie</b>: [input]</span>")
 
 	for(var/mob/spirit/spirit in spirits)
-		to_chat(spirit, "<span class='cultspeech'><span class='name'><a href='byond://?src=\ref[spirit];track2=\ref[spirit];track=\ref[usr]'>[get_display_name()]</a> prays : </span><span class='message'>[input]</span></span>")
+		to_chat(spirit, "<span class='cultspeech'><span class='name'><a href='byond://?src=[spirit.UID()];track2=\ref[spirit];track=\ref[usr]'>[get_display_name()]</a> prays : </span><span class='message'>[input]</span></span>")
 
 
 // PROCS

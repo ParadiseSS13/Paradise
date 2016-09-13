@@ -80,7 +80,7 @@
 	var/start = max(1, page_num - 3)
 	var/end = min(num_pages, page_num + 3)
 	for(var/i = start to end)
-		var/dat = "<a href='?src=\ref[src];page=[i]'>[i]</a>"
+		var/dat = "<a href='?src=[UID()];page=[i]'>[i]</a>"
 		if(i == page_num)
 			dat = "<font size=3><b>[dat]</b></font>"
 		if(i != end)

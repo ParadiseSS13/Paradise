@@ -11,7 +11,7 @@
 	icon_dead = "nymph_dead"
 	icon_resting = "nymph_sleep"
 	pass_flags = PASSTABLE | PASSMOB
-	small = 1
+	mob_size = MOB_SIZE_SMALL
 	ventcrawler = 2
 
 	maxHealth = 50

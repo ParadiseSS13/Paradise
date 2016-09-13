@@ -346,12 +346,12 @@
 			var/multiplier = L[2]
 			var/list/LL = get_design_cost_as_list(D,multiplier)
 			var/is_stack = (multiplier>1)
-			output += "<li[!can_build(D,multiplier,temp_metal,temp_glass)?" style='color: #f00;'":null]>[initial(D.name)][is_stack?" (x[multiplier])":null] - [i>1?"<a href='?src=\ref[src];queue_move=-1;index=[i]' class='arrow'>&uarr;</a>":null] [i<queue.len?"<a href='?src=\ref[src];queue_move=+1;index=[i]' class='arrow'>&darr;</a>":null] <a href='?src=\ref[src];remove_from_queue=[i]'>Remove</a></li>"
+			output += "<li[!can_build(D,multiplier,temp_metal,temp_glass)?" style='color: #f00;'":null]>[initial(D.name)][is_stack?" (x[multiplier])":null] - [i>1?"<a href='?src=[UID()];queue_move=-1;index=[i]' class='arrow'>&uarr;</a>":null] [i<queue.len?"<a href='?src=[UID()];queue_move=+1;index=[i]' class='arrow'>&darr;</a>":null] <a href='?src=[UID()];remove_from_queue=[i]'>Remove</a></li>"
 			temp_metal = max(temp_metal-LL[1],1)
 			temp_glass = max(temp_glass-LL[2],1)
 
 		output += "</ol>"
-		output += "<a href='?src=\ref[src];clear_queue=1'>Clear queue</a>"
+		output += "<a href='?src=[UID()];clear_queue=1'>Clear queue</a>"
 	output += "</div></td>"
 	return output
 
@@ -402,8 +402,8 @@
 	dat += "<b>Metal amount:</b> [materials.amount(MAT_METAL)] cm<sup>3</sup><br>"
 	dat += "<b>Glass amount:</b> [materials.amount(MAT_GLASS)] cm<sup>3</sup><br>"
 
-	dat += "<form name='search' action='?src=\ref[src]'> \
-	<input type='hidden' name='src' value='\ref[src]'> \
+	dat += "<form name='search' action='?src=[UID()]'> \
+	<input type='hidden' name='src' value='[UID()]'> \
 	<input type='hidden' name='search' value='to_search'> \
 	<input type='hidden' name='menu' value='[AUTOLATHE_SEARCH_MENU]'> \
 	<input type='text' name='to_search'> \
@@ -418,7 +418,7 @@
 			dat += "</tr><tr>"
 			line_length = 1
 
-		dat += "<td><A href='?src=\ref[src];category=[C];menu=[AUTOLATHE_CATEGORY_MENU]'>[C]</A></td>"
+		dat += "<td><A href='?src=[UID()];category=[C];menu=[AUTOLATHE_CATEGORY_MENU]'>[C]</A></td>"
 		line_length++
 
 	dat += "</tr></table></div>"
@@ -430,7 +430,7 @@
 /obj/machinery/autolathe/proc/category_win(mob/user,var/selected_category)
 	var/dat = "<table style='width:100%'><tr><td valign='top' style='margin-right: 300px'>"
 	dat += "<div class='statusDisplay'>"
-	dat += "<A href='?src=\ref[src];menu=[AUTOLATHE_MAIN_MENU]'>Return to main menu</A>"
+	dat += "<A href='?src=[UID()];menu=[AUTOLATHE_MAIN_MENU]'>Return to main menu</A>"
 	dat += "<h3>Browsing [selected_category]:</h3><br>"
 	dat += "<b>Total amount:</b> [materials.total_amount] / [materials.max_amount] cm<sup>3</sup><br>"
 	dat += "<b>Metal amount:</b> [materials.amount(MAT_METAL)] cm<sup>3</sup><br>"
@@ -443,16 +443,16 @@
 		if(disabled || !can_build(D))
 			dat += "<span class='linkOff'>[D.name]</span>"
 		else
-			dat += "<a href='?src=\ref[src];make=[D.id];multiplier=1'>[D.name]</a>"
+			dat += "<a href='?src=[UID()];make=[D.id];multiplier=1'>[D.name]</a>"
 
 		if(ispath(D.build_path, /obj/item/stack))
 			var/max_multiplier = min(D.maxstack, D.materials[MAT_METAL] ?round(materials.amount(MAT_METAL)/D.materials[MAT_METAL]):INFINITY,D.materials[MAT_GLASS]?round(materials.amount(MAT_GLASS)/D.materials[MAT_GLASS]):INFINITY)
 			if(max_multiplier>10 && !disabled)
-				dat += " <a href='?src=\ref[src];make=[D.id];multiplier=10'>x10</a>"
+				dat += " <a href='?src=[UID()];make=[D.id];multiplier=10'>x10</a>"
 			if(max_multiplier>25 && !disabled)
-				dat += " <a href='?src=\ref[src];make=[D.id];multiplier=25'>x25</a>"
+				dat += " <a href='?src=[UID()];make=[D.id];multiplier=25'>x25</a>"
 			if(max_multiplier > 0 && !disabled)
-				dat += " <a href='?src=\ref[src];make=[D.id];multiplier=[max_multiplier]'>x[max_multiplier]</a>"
+				dat += " <a href='?src=[UID()];make=[D.id];multiplier=[max_multiplier]'>x[max_multiplier]</a>"
 
 		dat += "[get_design_cost(D)]<br>"
 
@@ -465,7 +465,7 @@
 /obj/machinery/autolathe/proc/search_win(mob/user)
 	var/dat = "<table style='width:100%'><tr><td valign='top' style='margin-right: 300px'>"
 	dat += "<div class='statusDisplay'>"
-	dat += "<A href='?src=\ref[src];menu=[AUTOLATHE_MAIN_MENU]'>Return to main menu</A>"
+	dat += "<A href='?src=[UID()];menu=[AUTOLATHE_MAIN_MENU]'>Return to main menu</A>"
 	dat += "<h3>Search results:</h3><br>"
 	dat += "<b>Total amount:</b> [materials.total_amount] / [materials.max_amount] cm<sup>3</sup><br>"
 	dat += "<b>Metal amount:</b> [materials.amount(MAT_METAL)] cm<sup>3</sup><br>"
@@ -475,16 +475,16 @@
 		if(disabled || !can_build(D))
 			dat += "<span class='linkOff'>[D.name]</span>"
 		else
-			dat += "<a href='?src=\ref[src];make=[D.id];multiplier=1'>[D.name]</a>"
+			dat += "<a href='?src=[UID()];make=[D.id];multiplier=1'>[D.name]</a>"
 
 		if(ispath(D.build_path, /obj/item/stack))
 			var/max_multiplier = min(D.maxstack, D.materials[MAT_METAL] ?round(materials.amount(MAT_METAL)/D.materials[MAT_METAL]):INFINITY,D.materials[MAT_GLASS]?round(materials.amount(MAT_GLASS)/D.materials[MAT_GLASS]):INFINITY)
 			if(max_multiplier>10 && !disabled)
-				dat += " <a href='?src=\ref[src];make=[D.id];multiplier=10'>x10</a>"
+				dat += " <a href='?src=[UID()];make=[D.id];multiplier=10'>x10</a>"
 			if(max_multiplier>25 && !disabled)
-				dat += " <a href='?src=\ref[src];make=[D.id];multiplier=25'>x25</a>"
+				dat += " <a href='?src=[UID()];make=[D.id];multiplier=25'>x25</a>"
 			if(max_multiplier > 0 && !disabled)
-				dat += " <a href='?src=\ref[src];make=[D.id];multiplier=[max_multiplier]'>x[max_multiplier]</a>"
+				dat += " <a href='?src=[UID()];make=[D.id];multiplier=[max_multiplier]'>x[max_multiplier]</a>"
 
 		dat += "[get_design_cost(D)]<br>"
 

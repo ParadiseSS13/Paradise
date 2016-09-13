@@ -1,5 +1,4 @@
 //Different types of weather.
-// TODO: Tie into space manager
 
 /datum/weather/floor_is_lava //The Floor is Lava: Makes all turfs damage anyone on them unless they're standing on a solid object.
 	name = "the floor is lava"
@@ -17,7 +16,7 @@
 	end_duration = 0
 
 	area_type = /area
-	target_z = ZLEVEL_STATION
+	target_level = MAIN_STATION
 
 	overlay_layer = 2 //Covers floors only
 	immunity_type = "lava"
@@ -51,7 +50,7 @@
 	end_duration = 0
 
 	area_type = /area
-	target_z = ZLEVEL_STATION
+	target_level = MAIN_STATION
 
 /datum/weather/advanced_darkness/update_areas()
 	for(var/V in impacted_areas)
@@ -87,8 +86,8 @@
 	end_sound = 'sound/lavaland/ash_storm_end.ogg'
 	end_overlay = "light_ash"
 
-	area_type = /area/mine
-	target_z = ZLEVEL_ASTEROID
+	area_type = /area/mine/dangerous
+	target_level = MINING
 
 	immunity_type = "ash"
 

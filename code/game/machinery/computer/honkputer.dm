@@ -20,8 +20,7 @@
 /obj/machinery/computer/HONKputer/Topic(href, href_list)
 	if(..())
 		return 1
-	// TODO: Tie into space manager
-	if(!(src.z in config.station_levels))
+	if(is_away_level(src.z))
 		to_chat(usr, "<span class='danger'>Unable to establish a connection</span>: You're too far away from the station!")
 		return
 	usr.set_machine(src)
@@ -69,8 +68,7 @@
 /obj/machinery/computer/HONKputer/attack_hand(var/mob/user as mob)
 	if(..())
 		return
-	// TODO: Tie into space manager
-	if(src.z > ZLEVEL_DERELICT)
+	if(is_away_level(src.z))
 		to_chat(user, "<span class='danger'>Unable to establish a connection</span>: You're too far away from the station!")
 		return
 
@@ -84,13 +82,13 @@
 	switch(src.state)
 		if(STATE_DEFAULT)
 			if(src.authenticated)
-				dat += "<BR>\[ <A HREF='?src=\ref[src];operation=logout'>Log Out</A> \]"
-				dat += "<BR>\[ <A HREF='?src=\ref[src];operation=MessageHonkplanet'>Send an emergency message to Honkplanet</A> \]"
+				dat += "<BR>\[ <A HREF='?src=[UID()];operation=logout'>Log Out</A> \]"
+				dat += "<BR>\[ <A HREF='?src=[UID()];operation=MessageHonkplanet'>Send an emergency message to Honkplanet</A> \]"
 			else
-				dat += "<BR>\[ <A HREF='?src=\ref[src];operation=login'>Log In</A> \]"
+				dat += "<BR>\[ <A HREF='?src=[UID()];operation=login'>Log In</A> \]"
 
 
-	dat += "<BR>\[ [(src.state != STATE_DEFAULT) ? "<A HREF='?src=\ref[src];operation=main'>Main Menu</A> | " : ""]<A HREF='?src=\ref[user];mach_close=honkputer'>Close</A> \]"
+	dat += "<BR>\[ [(src.state != STATE_DEFAULT) ? "<A HREF='?src=[UID()];operation=main'>Main Menu</A> | " : ""]<A HREF='?src=[user.UID()];mach_close=honkputer'>Close</A> \]"
 	user << browse(dat, "window=honkputer;size=400x500")
 	onclose(user, "honkputer")
 

@@ -209,7 +209,7 @@
 	power_supply.give(5000)
 	if(!suppressed)
 		playsound(loc, 'sound/weapons/kenetic_reload.ogg', 60, 1)
-	else
+	else if(ismob(loc))
 		to_chat(loc, "<span class='warning'>[src] silently charges up.<span>")
 	update_icon()
 
@@ -552,13 +552,13 @@
 		dat += "<FONT color=blue><B>[temperature]</B> ([round(temperature-T0C)]&deg;C)</FONT>"
 	dat += "<BR>"
 	dat += "Target output temperature: "	//might be string idiocy, but at least it's easy to read
-	dat += "<A href='?src=\ref[src];temp=-100'>-</A> "
-	dat += "<A href='?src=\ref[src];temp=-10'>-</A> "
-	dat += "<A href='?src=\ref[src];temp=-1'>-</A> "
+	dat += "<A href='?src=[UID()];temp=-100'>-</A> "
+	dat += "<A href='?src=[UID()];temp=-10'>-</A> "
+	dat += "<A href='?src=[UID()];temp=-1'>-</A> "
 	dat += "[target_temperature] "
-	dat += "<A href='?src=\ref[src];temp=1'>+</A> "
-	dat += "<A href='?src=\ref[src];temp=10'>+</A> "
-	dat += "<A href='?src=\ref[src];temp=100'>+</A>"
+	dat += "<A href='?src=[UID()];temp=1'>+</A> "
+	dat += "<A href='?src=[UID()];temp=10'>+</A> "
+	dat += "<A href='?src=[UID()];temp=100'>+</A>"
 	dat += "<BR>"
 	dat += "Power cost: "
 	dat += "<FONT color=[powercostcolor]><B>[powercost]</B></FONT>"

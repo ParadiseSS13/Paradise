@@ -3,7 +3,7 @@
 /area/mine
 	icon_state = "mining"
 
-/area/mine/explored
+/area/mine/dangerous/explored
 	name = "Mine"
 	icon_state = "explored"
 	music = null
@@ -15,7 +15,7 @@
 	power_light = 0
 	ambientsounds = list('sound/ambience/ambimine.ogg')
 
-/area/mine/unexplored
+/area/mine/dangerous/unexplored
 	name = "Mine"
 	icon_state = "unexplored"
 	music = null

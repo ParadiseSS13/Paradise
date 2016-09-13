@@ -45,21 +45,21 @@
 				return -1
 			H.implanting = 1
 			to_chat(H, "<span class='notice'>You feel completely loyal to [user.name].</span>")
-			if(!(user.mind in ticker.mode:implanter))
-				ticker.mode:implanter[ref] = list()
-			implanters = ticker.mode:implanter[ref]
+			if(!(user.mind in ticker.mode.implanter))
+				ticker.mode.implanter[ref] = list()
+			implanters = ticker.mode.implanter[ref]
 			implanters.Add(H.mind)
 			ticker.mode.implanted.Add(H.mind)
 			ticker.mode.implanted[H.mind] = user.mind
-			//ticker.mode:implanter[user.mind] += H.mind
-			ticker.mode:implanter[ref] = implanters
+			//ticker.mode.implanter[user.mind] += H.mind
+			ticker.mode.implanter[ref] = implanters
 			ticker.mode.traitors += H.mind
-			H.mind.special_role = "traitor"
+			H.mind.special_role = SPECIAL_ROLE_TRAITOR
 			to_chat(H, "<span class='warning'><B>You're now completely loyal to [user.name]!</B> You now must lay down your life to protect them and assist in their goals at any cost.</span>")
 			var/datum/objective/protect/mindslave/MS = new
 			MS.owner = H.mind
-			MS.target = user:mind
-			MS.explanation_text = "Obey every order from and protect [user:real_name], the [user:mind:assigned_role=="MODE" ? (user:mind:special_role) : (user:mind:assigned_role)]."
+			MS.target = user.mind
+			MS.explanation_text = "Obey every order from and protect [user.real_name], the [user.mind.assigned_role=="MODE" ? (user.mind.special_role) : (user.mind.assigned_role)]."
 			H.mind.objectives += MS
 			for(var/datum/objective/objective in H.mind.objectives)
 				to_chat(H, "<B>Objective #1</B>: [objective.explanation_text]")

@@ -31,9 +31,13 @@
 //BS12: Species-restricted clothing check.
 /obj/item/clothing/mob_can_equip(M as mob, slot)
 
-	//if we can equip the item anyway, don't bother with species_restricted (aslo cuts down on spam)
+	//if we can't equip the item anyway, don't bother with species_restricted (also cuts down on spam)
 	if(!..())
 		return 0
+
+	// Skip species restriction checks on non-equipment slots
+	if(slot in list(slot_r_hand, slot_l_hand, slot_in_backpack, slot_l_store, slot_r_store))
+		return 1
 
 	if(species_restricted && istype(M,/mob/living/carbon/human))
 
@@ -85,10 +89,11 @@
 	slot_flags = SLOT_EARS
 	burn_state = FIRE_PROOF
 
-/obj/item/clothing/ears/attack_hand(mob/user as mob)
-	if(!user) return
+/obj/item/clothing/ears/attack_hand(mob/user)
+	if(!user)
+		return
 
-	if(src.loc != user || !istype(user,/mob/living/carbon/human))
+	if(loc != user || !ishuman(user))
 		..()
 		return
 
@@ -104,7 +109,7 @@
 	if(slot_flags & SLOT_TWOEARS )
 		O = (H.l_ear == src ? H.r_ear : H.l_ear)
 		user.unEquip(O)
-		if(!istype(src,/obj/item/clothing/ears/offear))
+		if(!istype(src, /obj/item/clothing/ears/offear))
 			qdel(O)
 			O = src
 	else
@@ -116,8 +121,9 @@
 		user.put_in_hands(O)
 		O.add_fingerprint(user)
 
-	if(istype(src,/obj/item/clothing/ears/offear))
+	if(istype(src, /obj/item/clothing/ears/offear))
 		qdel(src)
+
 
 /obj/item/clothing/ears/offear
 	name = "Other ear"
@@ -126,22 +132,13 @@
 	icon_state = "block"
 	slot_flags = SLOT_EARS | SLOT_TWOEARS
 
-	New(var/obj/O)
-		name = O.name
-		desc = O.desc
-		icon = O.icon
-		icon_state = O.icon_state
-		dir = O.dir
+/obj/item/clothing/ears/offear/New(var/obj/O)
+	name = O.name
+	desc = O.desc
+	icon = O.icon
+	icon_state = O.icon_state
+	dir = O.dir
 
-/obj/item/clothing/ears/earmuffs
-	name = "earmuffs"
-	desc = "Protects your hearing from loud noises, and quiet ones as well."
-	icon_state = "earmuffs"
-	item_state = "earmuffs"
-	flags = EARBANGPROTECT
-	strip_delay = 15
-	put_on_delay = 25
-	burn_state = FLAMMABLE
 
 //Glasses
 /obj/item/clothing/glasses

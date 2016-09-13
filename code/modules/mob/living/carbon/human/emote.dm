@@ -756,10 +756,10 @@
 							M = A
 							break
 				if(M)
-					message = "\red <B>[src]</B> slaps [M] across the face. Ouch!"
+					message = "<span class='danger'>[src] slaps [M] across the face. Ouch!</span>"
 					playsound(src.loc, 'sound/effects/snap.ogg', 50, 1)
 				else
-					message = "\red <B>[src]</B> slaps \himself!"
+					message = "<span class='danger'>[src] slaps \himself!</span>"
 					playsound(src.loc, 'sound/effects/snap.ogg', 50, 1)
 					src.adjustFireLoss(4)
 
@@ -819,6 +819,9 @@
 				src.gib()
 			else if(TOXIC_FARTS in mutations)
 				message = "<b>[src]</b> unleashes a [pick("horrible","terrible","foul","disgusting","awful")] fart."
+			else if(SUPER_FART in mutations)
+				message = "<b>[src]</b> unleashes a [pick("loud","deafening")] fart."
+				newtonian_move(dir)
 			else
 				message = "<b>[src]</b> [pick("passes wind","farts")]."
 			m_type = 2

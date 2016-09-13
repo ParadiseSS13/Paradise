@@ -93,10 +93,10 @@
 	var/t = "A gas flow meter. "
 
 	if(get_dist(user, src) > 3 && !(istype(user, /mob/living/silicon/ai) || istype(user, /mob/dead)))
-		t += "\blue <B>You are too far away to read it.</B>"
+		t += "<span class='boldnotice'>You are too far away to read it.</span>"
 
 	else if(stat & (NOPOWER|BROKEN))
-		t += "\red <B>The display is off.</B>"
+		t += "<span class='danger'>The display is off.</span>"
 
 	else if(target)
 		var/datum/gas_mixture/environment = target.return_air()
@@ -153,6 +153,6 @@
 	return {"
 	<b>Main</b>
 	<ul>
-		<li><b>Frequency:</b> <a href="?src=\ref[src];set_freq=-1">[format_frequency(frequency)] GHz</a> (<a href="?src=\ref[src];set_freq=[initial(frequency)]">Reset</a>)</li>
+		<li><b>Frequency:</b> <a href="?src=[UID()];set_freq=-1">[format_frequency(frequency)] GHz</a> (<a href="?src=[UID()];set_freq=[initial(frequency)]">Reset</a>)</li>
 		<li>[format_tag("ID Tag","id_tag")]</li>
 	</ul>"}

@@ -75,7 +75,7 @@
 			src.take_organ_damage(10)
 			Stun(3)
 	flash_eyes(affect_silicon = 1)
-	to_chat(src, "\red <B>*BZZZT*</B>")
+	to_chat(src, "<span class='danger'>*BZZZT*</span>")
 	to_chat(src, "\red Warning: Electromagnetic pulse detected.")
 	..()
 
@@ -143,18 +143,12 @@
 		stat(null, text("Systems nonfunctional"))
 
 
-// This is a pure virtual function, it should be overwritten by all subclasses
-/mob/living/silicon/proc/show_malf_ai()
-	return 0
-
-
 // This adds the basic clock, shuttle recall timer, and malf_ai info to all silicon lifeforms
 /mob/living/silicon/Stat()
 	if(statpanel("Status"))
 		show_stat_station_time()
 		show_stat_emergency_shuttle_eta()
 		show_system_integrity()
-		show_malf_ai()
 	..()
 
 //Silicon mob language procs
@@ -182,15 +176,15 @@
 	var/dat = "<b><font size = 5>Known Languages</font></b><br/><br/>"
 
 	if(default_language)
-		dat += "Current default language: [default_language] - <a href='byond://?src=\ref[src];default_lang=reset'>reset</a><br/><br/>"
+		dat += "Current default language: [default_language] - <a href='byond://?src=[UID()];default_lang=reset'>reset</a><br/><br/>"
 
 	for(var/datum/language/L in languages)
 		if(!(L.flags & NONGLOBAL))
 			var/default_str
 			if(L == default_language)
-				default_str = " - default - <a href='byond://?src=\ref[src];default_lang=reset'>reset</a>"
+				default_str = " - default - <a href='byond://?src=[UID()];default_lang=reset'>reset</a>"
 			else
-				default_str = " - <a href='byond://?src=\ref[src];default_lang=[L]'>set default</a>"
+				default_str = " - <a href='byond://?src=[UID()];default_lang=[L]'>set default</a>"
 
 			var/synth = (L in speech_synthesizer_langs)
 			dat += "<b>[L.name] (:[L.key])</b>[synth ? default_str : null]<br/>Speech Synthesizer: <i>[synth ? "YES" : "NOT SUPPORTED"]</i><br/>[L.desc]<br/><br/>"
@@ -248,7 +242,7 @@
 	set desc = "Sets an extended description of your character's features."
 	set category = "IC"
 
-	flavor_text =  sanitize(input(usr, "Please enter your new flavour text.", "Flavour text", null)  as text)
+	update_flavor_text()
 
 /mob/living/silicon/binarycheck()
 	return 1
@@ -332,7 +326,7 @@
 					to_chat(src, "\The [A.alarm_name()].")
 
 		if(alarm_raised)
-			to_chat(src, "<A HREF=?src=\ref[src];showalerts=1>\[Show Alerts\]</A>")
+			to_chat(src, "<A HREF=?src=[UID()];showalerts=1>\[Show Alerts\]</A>")
 
 		for(var/datum/alarm_handler/AH in queued_alarms)
 			var/list/alarms = queued_alarms[AH]
@@ -344,7 +338,7 @@
 /mob/living/silicon/ai/raised_alarm(var/datum/alarm/A)
 	var/cameratext = ""
 	for(var/obj/machinery/camera/C in A.cameras())
-		cameratext += "[(cameratext == "")? "" : "|"]<A HREF=?src=\ref[src];switchcamera=\ref[C]>[C.c_tag]</A>"
+		cameratext += "[(cameratext == "")? "" : "|"]<A HREF=?src=[UID()];switchcamera=\ref[C]>[C.c_tag]</A>"
 	to_chat(src, "[A.alarm_name()]! ([(cameratext)? cameratext : "No Camera"])")
 
 /mob/living/silicon/adjustToxLoss(var/amount)

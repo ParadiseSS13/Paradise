@@ -39,6 +39,10 @@
 	display_name = "a deck of cards"
 	path = /obj/item/toy/cards/deck
 
+/datum/gear/headphones
+	display_name = "a pair of headphones"
+	path = /obj/item/clothing/ears/headphones
+
 /datum/gear/blackbandana
 	display_name = "bandana, black"
 	path = /obj/item/clothing/mask/bandana/black

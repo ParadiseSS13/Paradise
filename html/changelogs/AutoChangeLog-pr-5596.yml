@@ -1,0 +1,4 @@
+author: Coldflame
+delete-after: True
+changes: 
+  - rscadd: "Adds three new variants of 10mm ammunition, AP, HP, and Incendiary. Currently admin-only."

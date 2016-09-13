@@ -95,7 +95,7 @@ var/list/sting_paths
 
 					if(!ownsthis)
 					{
-						body += "<a href='?src=\ref[src];P="+power+"'>Evolve</a>"
+						body += "<a href='?src=[UID()];P="+power+"'>Evolve</a>"
 					}
 					body += "</td><td align='center'>";
 
@@ -211,7 +211,7 @@ var/list/sting_paths
 					Hover over a power to see more information<br>
 					Current ability choices remaining: [changeling.geneticpoints]<br>
 					By rendering a lifeform to a husk, we gain enough power to alter and adapt our evolutions.<br>
-					(<a href='?src=\ref[src];readapt=1'>Readapt</a>)<br>
+					(<a href='?src=[UID()];readapt=1'>Readapt</a>)<br>
 					<p>
 				</td>
 			</tr>
@@ -376,6 +376,7 @@ var/list/sting_paths
 
 	var/mob/living/carbon/C = src		//only carbons have dna now, so we have to typecaste
 	mind.changeling.absorbed_dna |= C.dna
+	mind.changeling.trim_dna()
 	return 1
 
 //Used to dump the languages from the changeling datum into the actual mob.

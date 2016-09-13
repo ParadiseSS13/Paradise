@@ -51,7 +51,7 @@
 		set_light(0)
 		icon_state = "light_off"
 
-/turf/simulated/floor/light/ChangeTurf(turf/T)
+/turf/simulated/floor/light/BeforeChange()
 	set_light(0)
 	..()
 

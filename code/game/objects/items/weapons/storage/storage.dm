@@ -576,5 +576,5 @@
 		if(islist(thing))
 			list_to_object(thing, src)
 		else
-			log_debug("Non-list thing: [thing]. We are a [name]")
+			log_runtime(EXCEPTION("Non-list thing found in storage/deserialize."), src, list("Thing: [thing]"))
 	..()

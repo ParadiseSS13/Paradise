@@ -100,7 +100,7 @@
 	var/mutation=0
 
 	// Activation probability
-	var/activation_prob=45
+	var/activation_prob=100
 
 	// Possible activation messages
 	var/list/activation_messages=list()

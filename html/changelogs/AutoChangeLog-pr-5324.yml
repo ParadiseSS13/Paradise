@@ -1,5 +1,0 @@
-author: Krausus
-delete-after: True
-changes: 
-  - bugfix: "Fire will now totally consume you, rather than timidly hiding under your clothes."
-  - bugfix: "Admin freeze overlays should no longer disappear from humans until they're actually unfrozen."

@@ -82,13 +82,6 @@
 	user.put_in_inactive_hand(O)
 	return
 
-/obj/item/weapon/twohanded/mob_can_equip(mob/M, slot)
-	//Cannot equip wielded items.
-	if(wielded)
-		to_chat(M, "<span class='warning'>Unwield the [name] first!</span>")
-		return 0
-	return ..()
-
 /obj/item/weapon/twohanded/dropped(mob/user)
 	..()
 	//handles unwielding a twohanded weapon when dropped as well as clearing up the offhand
@@ -107,6 +100,12 @@
 		unwield(user)
 	else //Trying to wield it
 		wield(user)
+
+
+/obj/item/weapon/twohanded/equip_to_best_slot(mob/M)
+	if(..())
+		unwield(M)
+		return
 
 ///////////OFFHAND///////////////
 /obj/item/weapon/twohanded/offhand
@@ -130,8 +129,8 @@
 	return
 
 /obj/item/weapon/twohanded/required/mob_can_equip(M as mob, slot)
-	if(wielded)
-		to_chat(M, "<span class='warning'>[src.name] is too cumbersome to carry with anything but your hands!</span>")
+	if(wielded && !slot_flags)
+		to_chat(M, "<span class='warning'>[src] is too cumbersome to carry with anything but your hands!</span>")
 		return 0
 	return ..()
 
@@ -140,12 +139,18 @@
 	if(get_dist(src,user) > 1)
 		return 0
 	if(H != null)
-		to_chat(user, "<span class='notice'>[src.name] is too cumbersome to carry in one hand!</span>")
+		to_chat(user, "<span class='notice'>[src] is too cumbersome to carry in one hand!</span>")
 		return
-	var/obj/item/weapon/twohanded/offhand/O = new(user)
-	user.put_in_inactive_hand(O)
+	if(loc != user)
+		wield(user)
 	..()
-	wielded = 1
+
+/obj/item/weapon/twohanded/required/equipped(mob/user, slot)
+	..()
+	if(slot == slot_l_hand || slot == slot_r_hand)
+		wield(user)
+	else
+		unwield(user)
 
 /*
  * Fireaxe
@@ -365,6 +370,7 @@
 		if(!L.stat && prob(50))
 			var/mob/living/simple_animal/hostile/illusion/M = new(user.loc)
 			M.faction = user.faction.Copy()
+			M.attack_sound = hitsound
 			M.Copy_Parent(user, 100, user.health/2.5, 12, 30)
 			M.GiveTarget(L)
 
