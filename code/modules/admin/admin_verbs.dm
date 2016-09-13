@@ -74,7 +74,8 @@ var/list/admin_verbs_admin = list(
 	/client/proc/change_human_appearance_self,	/* Allows the human-based mob itself change its basic appearance */
 	/client/proc/debug_variables,
 	/client/proc/show_snpc_verbs,
-	/client/proc/reset_all_tcs			/*resets all telecomms scripts*/
+	/client/proc/reset_all_tcs,			/*resets all telecomms scripts*/
+	/client/proc/toggle_mentor_chat
 )
 var/list/admin_verbs_ban = list(
 	/client/proc/unban_panel,
@@ -195,6 +196,7 @@ var/list/admin_verbs_mentor = list(
 	/client/proc/cmd_admin_pm_context,	/*right-click adminPM interface*/
 	/client/proc/cmd_admin_pm_panel,	/*admin-pm list*/
 	/client/proc/cmd_admin_pm_by_key_panel	/*admin-pm list by key*/
+	// cmd_mentor_say is added/removed by the toggle_mentor_chat verb
 )
 var/list/admin_verbs_proccall = list(
 	/client/proc/callproc,
