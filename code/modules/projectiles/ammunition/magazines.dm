@@ -199,16 +199,16 @@
 	desc = "A gun magazine. Seems to be broken and can only hold one bullet. Pretty useless."
 	max_ammo = 1
 
+/obj/item/ammo_box/magazine/m10mm/empty/update_icon()
+	icon_state = "[initial(icon_state)]-[stored_ammo.len ? "8" : "0"]"
+
 /obj/item/ammo_box/magazine/m45
 	name = "handgun magazine (.45)"
 	icon_state = "45"
 	ammo_type = /obj/item/ammo_casing/c45
 	caliber = ".45"
 	max_ammo = 8
-
-/obj/item/ammo_box/magazine/m45/update_icon()
-	..()
-	icon_state = "[initial(icon_state)]-[ammo_count() ? "8" : "0"]"
+	multiple_sprites = 2
 
 /obj/item/ammo_box/magazine/wt550m9
 	name = "wt550 magazine (4.6x30mm)"
