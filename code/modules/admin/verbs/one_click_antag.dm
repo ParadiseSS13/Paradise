@@ -433,41 +433,44 @@ client/proc/one_click_antag()
 			spawn(0)
 				switch(alert(G,"Do you wish to be considered for a Space Pirate party about to be sent in?","Please answer in 30 seconds!","Yes","No"))
 					if("Yes")
-						if((world.time-time_passed)>300)
+						if((world.time-time_passed)>50)//change to 300
 							return
 						candidates += G
 					if("No")
 						return
 					else
 						return
-	sleep(300)
+	sleep(50)//change to 300
 
 	for(var/mob/dead/observer/G in candidates)
 		if(!G.key)
 			candidates.Remove(G)
+	for(var/mob/j in candidates)
+		if(!j || !j.client)
+			candidates.Remove(j)
+			continue
 
 	if(candidates.len)
 		var/raidernum = rand(3, 6)
-		for(var/obj/effect/landmark/L in /area/raider_station)
-			if(raidernum<=0)
+		for(var/obj/effect/landmark/L in world)
+			if(!candidates.len || !raidernum)
 				break
-			if(L.name == "raiderstart")
-				for(var/mob/j in candidates)
-					if(!j || !j.client)
-						candidates.Remove(j)
-						continue
-				candidates.Remove(theghost)
-				var/mob/living/carbon/human/M = makeBody(theghost)
-				var/datum/preferences/P = new
-				P.species = M.client.prefs.species
-				P.real_name = M.generate_name()
-				P.random_character()
-				P.copy_to(M)
-				theghost.name = M.real_name
-				M.equip_raider()
-				to_chat(M, "You're a Space Pirate hired by the Syndicate. \nYour current mission is: <span class='danger'>[input]</span>")
-				M.loc = raider_spawn[raidernum]
-				raidernum--
+			if(L.name != "raiderstart")
+				continue
+
+			theghost = pick(candidates)
+			candidates.Remove(theghost)
+			var/mob/living/carbon/human/M = new(get_turf(L))
+			M.key = theghost.key
+			var/datum/preferences/P = new
+			P.species = M.client.prefs.species
+			P.real_name = M.generate_name()
+			P.random_character()
+			P.copy_to(M)
+			theghost.name = M.real_name
+			M.equip_raider()
+			to_chat(M, "<span class='danger'>You're a Space Pirate hired by the Syndicate. \nYour current mission is: [input]</span>")
+			raidernum--
 	return 1
 
 
