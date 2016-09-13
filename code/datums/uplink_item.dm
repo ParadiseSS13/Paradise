@@ -550,7 +550,7 @@ var/list/uplink_items = list()
 	name = "Box of Riot Darts"
 	desc = "A box of 40 Donksoft foam riot darts, for reloading any compatible foam dart gun. Don't forget to share!"
 	reference = "FOAM"
-	item = /obj/item/ammo_box/foambox/riot
+	item = /obj/item/ammo_box/riot_foambox
 	cost = 2
 	gamemodes = list(/datum/game_mode/nuclear)
 	surplus = 0
@@ -791,7 +791,7 @@ var/list/uplink_items = list()
 	reference = "CHHUD"
 	item = /obj/item/clothing/glasses/hud/security/chameleon
 	cost = 2
-	
+
 /datum/uplink_item/stealthy_weapons/chameleonflag
 	name = "Chameleon Flag"
 	desc = "A flag that can be disguised as any other known flag. There is a heat sensitive bomb loaded into the pole that will be detonated if the flag is lit on fire."

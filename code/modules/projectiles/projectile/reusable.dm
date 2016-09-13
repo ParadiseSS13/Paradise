@@ -59,8 +59,36 @@
 	pen = null
 	return ..()
 
-/obj/item/projectile/bullet/reusable/foam_dart/riot
+/obj/item/projectile/bullet/reusable/riot_foam_dart
 	name = "riot foam dart"
-	icon_state = "foamdart_riot"
-	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/riot
+	desc = "I hope you're wearing eye protection."
+	damage = 0
 	stamina = 25
+	icon = 'icons/obj/guns/toy.dmi'
+	icon_state = "foamdart_riot"
+	ammo_type = /obj/item/ammo_casing/caseless/riot_foam_dart
+	range = 10
+	var/obj/item/weapon/pen/pen = null
+	edge = 0
+	embed = 0
+
+/obj/item/projectile/bullet/reusable/riot_foam_dart/handle_drop()
+	if(dropped)
+		return
+	dropped = 1
+	var/obj/item/ammo_casing/caseless/riot_foam_dart/newdart = new ammo_type(loc)
+	var/obj/item/ammo_casing/caseless/riot_foam_dart/old_dart = ammo_casing
+	newdart.modified = old_dart.modified
+	if(pen)
+		var/obj/item/projectile/bullet/reusable/riot_foam_dart/newdart_FD = newdart.BB
+		newdart_FD.pen = pen
+		pen.loc = newdart_FD
+		pen = null
+	newdart.BB.damage = damage
+	newdart.BB.nodamage = nodamage
+	newdart.BB.damage_type = damage_type
+	newdart.update_icon()
+
+/obj/item/projectile/bullet/reusable/riot_foam_dart/Destroy()
+	pen = null
+	return ..()
