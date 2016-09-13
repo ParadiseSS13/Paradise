@@ -12,9 +12,9 @@ var/global/list/raider_gear = list()
 /datum/game_mode/heist
 	name = "heist"
 	config_tag = "heist"
-	required_players = 1//CHANGE BADLY PLS
-	required_enemies = 1//CHANGEFORMERGEOHOGD
-	recommended_enemies = 1//CHAAAAAAAANGE. probably.
+	required_players = 30
+	required_enemies = 3
+	recommended_enemies = 6
 	votable = 0
 
 	var/win_button_triggered = 0

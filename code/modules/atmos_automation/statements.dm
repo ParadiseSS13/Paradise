@@ -101,7 +101,7 @@ var/global/automation_types = subtypesof(/datum/automation)
 	return str
 
 /datum/automation/Topic(href,href_list)
-	if(parent.Topic("src=\ref[parent]", list("src" = parent)))//dumb hack to check sanity, empty topic shouldn't trigger a 1 on anything but sanity checks
+	if(parent.Topic("src=[parent.UID()]", list("src" = parent)))//dumb hack to check sanity, empty topic shouldn't trigger a 1 on anything but sanity checks
 		return 1
 
 	if(href_list["add"])
@@ -159,13 +159,13 @@ var/global/automation_types = subtypesof(/datum/automation)
 		return 1
 
 	GetText()
-		var/out="AND (<a href=\"?src=\ref[src];add=1\">Add</a>)"
+		var/out="AND (<a href=\"?src=[UID()];add=1\">Add</a>)"
 		if(children.len>0)
 			out += "<ul>"
 			for(var/datum/automation/stmt in children)
 				out += {"<li>
-							\[<a href="?src=\ref[src];reset=\ref[stmt]">Reset</a> |
-							<a href="?src=\ref[src];remove=\ref[stmt]">&times;</a>\]
+							\[<a href="?src=[UID()];reset=\ref[stmt]">Reset</a> |
+							<a href="?src=[UID()];remove=\ref[stmt]">&times;</a>\]
 							[stmt.GetText()]
 						</li>"}
 			out += "</ul>"
@@ -190,13 +190,13 @@ var/global/automation_types = subtypesof(/datum/automation)
 		return 0
 
 	GetText()
-		var/out="OR (<a href=\"?src=\ref[src];add=1\">Add</a>)"
+		var/out="OR (<a href=\"?src=[UID()];add=1\">Add</a>)"
 		if(children.len>0)
 			out += "<ul>"
 			for(var/datum/automation/stmt in children)
 				out += {"<li>
-							\[<a href="?src=\ref[src];reset=\ref[stmt]">Reset</a> |
-							<a href="?src=\ref[src];remove=\ref[stmt]">&times;</a>\]
+							\[<a href="?src=[UID()];reset=\ref[stmt]">Reset</a> |
+							<a href="?src=[UID()];remove=\ref[stmt]">&times;</a>\]
 							[stmt.GetText()]
 						</li>"}
 			out += "</ul>"
@@ -244,31 +244,31 @@ var/global/automation_types = subtypesof(/datum/automation)
 			condition = unpackChild(json["condition"])
 
 	GetText()
-		var/out="<b>IF</b> (<a href=\"?src=\ref[src];set_condition=1\">SET</a>):<blockquote>"
+		var/out="<b>IF</b> (<a href=\"?src=[UID()];set_condition=1\">SET</a>):<blockquote>"
 		if(condition)
 			out += condition.GetText()
 		else
 			out += "<i>Not set</i>"
 		out += "</blockquote>"
-		out += "<b>THEN:</b> (<a href=\"?src=\ref[src];add=then\">Add</a>)"
+		out += "<b>THEN:</b> (<a href=\"?src=[UID()];add=then\">Add</a>)"
 		if(children_then.len>0)
 			out += "<ul>"
 			for(var/datum/automation/stmt in children_then)
 				out += {"<li>
-							\[<a href="?src=\ref[src];reset=\ref[stmt];context=then">Reset</a> |
-							<a href="?src=\ref[src];remove=\ref[stmt];context=then">&times;</a>\]
+							\[<a href="?src=[UID()];reset=\ref[stmt];context=then">Reset</a> |
+							<a href="?src=[UID()];remove=\ref[stmt];context=then">&times;</a>\]
 							[stmt.GetText()]
 						</li>"}
 			out += "</ul>"
 		else
 			out += "<blockquote><i>(No statements to run)</i></blockquote>"
-		out += "<b>ELSE:</b> (<a href=\"?src=\ref[src];add=else\">Add</a>)"
+		out += "<b>ELSE:</b> (<a href=\"?src=[UID()];add=else\">Add</a>)"
 		if(children_then.len>0)
 			out += "<ul>"
 			for(var/datum/automation/stmt in children_else)
 				out += {"<li>
-							\[<a href="?src=\ref[src];reset=\ref[stmt];context=else">Reset</a> |
-							<a href="?src=\ref[src];remove=\ref[stmt];context=else">&times;</a>\]
+							\[<a href="?src=[UID()];reset=\ref[stmt];context=else">Reset</a> |
+							<a href="?src=[UID()];remove=\ref[stmt];context=else">&times;</a>\]
 							[stmt.GetText()]
 						</li>"}
 			out += "</ul>"
@@ -395,13 +395,13 @@ var/global/automation_types = subtypesof(/datum/automation)
 		var/datum/automation/left =children[1]
 		var/datum/automation/right=children[2]
 
-		var/out = "<a href=\"?src=\ref[src];set_field=1\">(Set Left)</a> ("
+		var/out = "<a href=\"?src=[UID()];set_field=1\">(Set Left)</a> ("
 		if(left==null)
 			out += "-----"
 		else
 			out += left.GetText()
 
-		out += ")  is <a href=\"?src=\ref[src];set_comparator=left\">[comparator]</a>: <a href=\"?src=\ref[src];set_field=2\">(Set Right)</a> ("
+		out += ")  is <a href=\"?src=[UID()];set_comparator=left\">[comparator]</a>: <a href=\"?src=[UID()];set_field=2\">(Set Right)</a> ("
 
 		if(right==null)
 			out += "-----"
@@ -448,7 +448,7 @@ var/global/automation_types = subtypesof(/datum/automation)
 		value = text2num(json["value"])
 
 	GetText()
-		return "<a href=\"?src=\ref[src];set_value=1\">[value]</a>"
+		return "<a href=\"?src=[UID()];set_value=1\">[value]</a>"
 
 	Topic(href,href_list)
 		if(href_list["set_value"])

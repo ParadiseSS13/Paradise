@@ -122,7 +122,7 @@
 
 
 /obj/item/mecha_parts/mecha_equipment/gravcatapult/get_equip_info()
-	return "[..()] [mode==1?"([locked||"Nothing"])":null] \[<a href='?src=\ref[src];mode=1'>S</a>|<a href='?src=\ref[src];mode=2'>P</a>\]"
+	return "[..()] [mode==1?"([locked||"Nothing"])":null] \[<a href='?src=[UID()];mode=1'>S</a>|<a href='?src=[UID()];mode=2'>P</a>\]"
 
 /obj/item/mecha_parts/mecha_equipment/gravcatapult/Topic(href, href_list)
 	..()
@@ -201,7 +201,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/repair_droid/get_equip_info()
 	if(!chassis) return
-	return "<span style=\"color:[equip_ready?"#0f0":"#f00"];\">*</span>&nbsp; [name] - <a href='?src=\ref[src];toggle_repairs=1'>[equip_ready?"A":"Dea"]ctivate</a>"
+	return "<span style=\"color:[equip_ready?"#0f0":"#f00"];\">*</span>&nbsp; [name] - <a href='?src=[UID()];toggle_repairs=1'>[equip_ready?"A":"Dea"]ctivate</a>"
 
 
 /obj/item/mecha_parts/mecha_equipment/repair_droid/Topic(href, href_list)
@@ -304,7 +304,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay/get_equip_info()
 	if(!chassis) return
-	return "<span style=\"color:[equip_ready?"#0f0":"#f00"];\">*</span>&nbsp; [name] - <a href='?src=\ref[src];toggle_relay=1'>[equip_ready?"A":"Dea"]ctivate</a>"
+	return "<span style=\"color:[equip_ready?"#0f0":"#f00"];\">*</span>&nbsp; [name] - <a href='?src=[UID()];toggle_relay=1'>[equip_ready?"A":"Dea"]ctivate</a>"
 
 
 /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay/process()
@@ -372,7 +372,7 @@
 /obj/item/mecha_parts/mecha_equipment/generator/get_equip_info()
 	var/output = ..()
 	if(output)
-		return "[output] \[[fuel_name]: [round(fuel_amount,0.1)] cm<sup>3</sup>\] - <a href='?src=\ref[src];toggle=1'>[equip_ready?"A":"Dea"]ctivate</a>"
+		return "[output] \[[fuel_name]: [round(fuel_amount,0.1)] cm<sup>3</sup>\] - <a href='?src=[UID()];toggle=1'>[equip_ready?"A":"Dea"]ctivate</a>"
 
 /obj/item/mecha_parts/mecha_equipment/generator/action(target)
 	if(chassis)

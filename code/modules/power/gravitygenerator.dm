@@ -229,9 +229,9 @@ var/const/GRAV_NEEDS_WRENCH = 3
 
 	var/dat = "Gravity Generator Breaker: "
 	if(breaker)
-		dat += "<span class='linkOn'>ON</span> <A href='?src=\ref[src];gentoggle=1'>OFF</A>"
+		dat += "<span class='linkOn'>ON</span> <A href='?src=[UID()];gentoggle=1'>OFF</A>"
 	else
-		dat += "<A href='?src=\ref[src];gentoggle=1'>ON</A> <span class='linkOn'>OFF</span> "
+		dat += "<A href='?src=[UID()];gentoggle=1'>ON</A> <span class='linkOn'>OFF</span> "
 
 	dat += "<br>Generator Status:<br><div class='statusDisplay'>"
 	if(charging_state != POWER_IDLE)

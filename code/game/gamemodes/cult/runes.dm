@@ -564,7 +564,7 @@ var/list/sacrificed = list()
 			to_chat(H.current, "<span class='cultspeech'><span class='name'>[cultName]: </span><span class='message'>[input]</span></span>")
 
 	for(var/mob/spirit/spirit in spirits)
-		to_chat(spirit, "<span class='cultspeech'><span class='name'><a href='byond://?src=\ref[spirit];track2=\ref[spirit];track=\ref[usr]'>[displayName]: </a></span><span class='message'>[input]</span></span>")
+		to_chat(spirit, "<span class='cultspeech'><span class='name'><a href='byond://?src=[spirit.UID()];track2=\ref[spirit];track=\ref[usr]'>[displayName]: </a></span><span class='message'>[input]</span></span>")
 
 
 	for(var/mob/dead/observer/G in player_list)

@@ -421,7 +421,7 @@ var/list/advance_cures = 	list(
 /mob/verb/test()
 
 	for(var/datum/disease/D in disease_master.processing)
-		to_chat(src, "<a href='?_src_=vars;Vars=\ref[D]'>[D.name] - [D.holder]</a>")
+		to_chat(src, "<a href='?_src_=vars;Vars=[D.UID()]'>[D.name] - [D.holder]</a>")
 */
 
 

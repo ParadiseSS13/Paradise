@@ -70,58 +70,58 @@
 		dat += "<center>Your comptuer will automatically be loaded with any programs you can use after the transaction is complete."
 		dat += "<center><b>Some programs will require additional components to be installed!</center></b><hr /><br>"
 		dat += "<center><b>HDD (Required)</b> : Added</center><br>"
-		dat += "<center><b>Card Reader</b> : <A href='?src=\ref[src];choice=single_add'>Single (50)</a> | <A href='?src=\ref[src];choice=dual_add'>Dual (125)</a><br>"
-		dat += "<center><b>Floppy Drive</b>: <A href='?src=\ref[src];choice=floppy_add'>Add (50)</a><br>"
-		dat += "<center><b>Radio Network card</b> <A href='?src=\ref[src];choice=radio_add'>Add (50)</a><br>"
-		dat += "<center><b>Camera Card</b> <A href='?src=\ref[src];choice=camnet_add'>Add (100)</a><br>"
-		dat += "<center><b> Network card</b> <A href='?src=\ref[src];choice=area_add'>Area (75)</a> <A href='?src=\ref[src];choice=prox_add'>Adjacent (50)</a><A href='?src=\ref[src];choice=cable_add'>Powernet (25)</a><br>"
-		dat += "<hr /><center> Power source upgrade</center> <A href='?src=\ref[src];choice=high_add'>Extended (175)</a> <A href='?src=\ref[src];choice=super_add'>Unreal (250)</a>"
+		dat += "<center><b>Card Reader</b> : <A href='?src=[UID()];choice=single_add'>Single (50)</a> | <A href='?src=[UID()];choice=dual_add'>Dual (125)</a><br>"
+		dat += "<center><b>Floppy Drive</b>: <A href='?src=[UID()];choice=floppy_add'>Add (50)</a><br>"
+		dat += "<center><b>Radio Network card</b> <A href='?src=[UID()];choice=radio_add'>Add (50)</a><br>"
+		dat += "<center><b>Camera Card</b> <A href='?src=[UID()];choice=camnet_add'>Add (100)</a><br>"
+		dat += "<center><b> Network card</b> <A href='?src=[UID()];choice=area_add'>Area (75)</a> <A href='?src=[UID()];choice=prox_add'>Adjacent (50)</a><A href='?src=[UID()];choice=cable_add'>Powernet (25)</a><br>"
+		dat += "<hr /><center> Power source upgrade</center> <A href='?src=[UID()];choice=high_add'>Extended (175)</a> <A href='?src=[UID()];choice=super_add'>Unreal (250)</a>"
 
 	if(vendmode == 0 || vendmode == 1)
 		dat += "<hr /><br><center>Cart</center><br>"
 		dat += "<b>Total: [total()]</b><br>"
 		if(cardreader == 1)
-			dat += "<A href='?src=\ref[src];choice=single_rem'>Card Reader: (single) (50)</a><br>"
+			dat += "<A href='?src=[UID()];choice=single_rem'>Card Reader: (single) (50)</a><br>"
 		else if(cardreader == 2)
-			dat += "<A href='?src=\ref[src];choice=dual_rem'>Card Reader: (double) (125)</a><br>"
+			dat += "<A href='?src=[UID()];choice=dual_rem'>Card Reader: (double) (125)</a><br>"
 		else
 			dat += "Card Reader: None<br>"
 		if(floppy == 0)
 			dat += "Floppy Drive: None<br>"
 		else
-			dat += "<A href='?src=\ref[src];choice=floppy_rem'>Floppy Drive: Added (50)</a><br>"
+			dat += "<A href='?src=[UID()];choice=floppy_rem'>Floppy Drive: Added (50)</a><br>"
 		if(radionet == 1)
-			dat += "<A href='?src=\ref[src];choice=radio_rem'>Radio Card: Added (50)</a><br>"
+			dat += "<A href='?src=[UID()];choice=radio_rem'>Radio Card: Added (50)</a><br>"
 		else
 			dat += "Radio Card: None<br>"
 		if(camera == 1)
-			dat += "<A href='?src=\ref[src];choice=camnet_rem'>Camera Card: Added (100)</a><br>"
+			dat += "<A href='?src=[UID()];choice=camnet_rem'>Camera Card: Added (100)</a><br>"
 		else
 			dat += "Camera Card: None<br>"
 		if(network == 1)
-			dat += "<A href='?src=\ref[src];choice=area_rem'>Network card: Area (75)</a><br>"
+			dat += "<A href='?src=[UID()];choice=area_rem'>Network card: Area (75)</a><br>"
 		else if(network == 2)
-			dat += "<A href='?src=\ref[src];choice=prox_rem'>Network card: Adjacent (50)</a><br>"
+			dat += "<A href='?src=[UID()];choice=prox_rem'>Network card: Adjacent (50)</a><br>"
 		else if(network == 3)
-			dat += "<A href='?src=\ref[src];choice=cable_rem'>Network card: Powernet (25)</a><br>"
+			dat += "<A href='?src=[UID()];choice=cable_rem'>Network card: Powernet (25)</a><br>"
 		else
 			dat += "Network card: None<br>"
 		if(power == 0)
 			dat += "Power source: Regular<br>"
 		else if(power == 1)
-			dat += "<A href='?src=\ref[src];choice=high_rem'>Power source: Extended (175)</a><br>"
+			dat += "<A href='?src=[UID()];choice=high_rem'>Power source: Extended (175)</a><br>"
 		else
-			dat += "<A href='?src=\ref[src];choice=super_rem'>Power source: Unreal (250)</a><br>"
+			dat += "<A href='?src=[UID()];choice=super_rem'>Power source: Unreal (250)</a><br>"
 
 	if(vendmode == 0)
-		dat += "<br><A href='?src=\ref[src];choice=vend'>Vend Laptop</a>"
+		dat += "<br><A href='?src=[UID()];choice=vend'>Vend Laptop</a>"
 
 	if(vendmode == 1)
 		dat += "Please swipe your card to complete the transaction"
 
 	if(vendmode == 3)
 		dat += "Please swipe your card to finish returning your computer<br>"
-		dat += "<a href='?src=\ref[src];choice=cancel'>Cancel</a>"
+		dat += "<a href='?src=[UID()];choice=cancel'>Cancel</a>"
 
 
 

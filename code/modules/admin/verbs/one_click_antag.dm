@@ -13,14 +13,14 @@ client/proc/one_click_antag()
 /datum/admins/proc/one_click_antag()
 
 	var/dat = {"<B>One-click Antagonist</B><br>
-		<a href='?src=\ref[src];makeAntag=1'>Make Traitors</a><br>
-		<a href='?src=\ref[src];makeAntag=2'>Make Changelings</a><br>
-		<a href='?src=\ref[src];makeAntag=3'>Make Revolutionaries</a><br>
-		<a href='?src=\ref[src];makeAntag=4'>Make Cult</a><br>
-		<a href='?src=\ref[src];makeAntag=5'>Make Wizard (Requires Ghosts)</a><br>
-		<a href='?src=\ref[src];makeAntag=6'>Make Vampires</a><br>
-		<a href='?src=\ref[src];makeAntag=7'>Make Raiders</a><br>
-		<a href='?src=\ref[src];makeAntag=8'>Make Abductor Team (Requires Ghosts)</a><br>
+		<a href='?src=[UID()];makeAntag=1'>Make Traitors</a><br>
+		<a href='?src=[UID()];makeAntag=2'>Make Changelings</a><br>
+		<a href='?src=[UID()];makeAntag=3'>Make Revolutionaries</a><br>
+		<a href='?src=[UID()];makeAntag=4'>Make Cult</a><br>
+		<a href='?src=[UID()];makeAntag=5'>Make Wizard (Requires Ghosts)</a><br>
+		<a href='?src=[UID()];makeAntag=6'>Make Vampires</a><br>
+		<a href='?src=[UID()];makeAntag=7'>Make Vox Raiders (Requires Ghosts)</a><br>
+		<a href='?src=[UID()];makeAntag=8'>Make Abductor Team (Requires Ghosts)</a><br>
 		"}
 	usr << browse(dat, "window=oneclickantag;size=400x400")
 	return
@@ -433,14 +433,14 @@ client/proc/one_click_antag()
 			spawn(0)
 				switch(alert(G,"Do you wish to be considered for a Space Pirate party about to be sent in?","Please answer in 30 seconds!","Yes","No"))
 					if("Yes")
-						if((world.time-time_passed)>50)//change to 300
+						if((world.time-time_passed)>300)
 							return
 						candidates += G
 					if("No")
 						return
 					else
 						return
-	sleep(50)//change to 300
+	sleep(300)
 
 	for(var/mob/dead/observer/G in candidates)
 		if(!G.key)

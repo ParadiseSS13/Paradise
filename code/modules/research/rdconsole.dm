@@ -669,7 +669,7 @@ proc/CallMaterialName(ID)
 	data["menu"] = menu
 	data["submenu"] = submenu
 	data["wait_message"] = wait_message
-	data["src_ref"] = "\ref[src]"
+	data["src_ref"] = UID()
 
 	data["linked_destroy"] = linked_destroy ? 1 : 0
 	data["linked_lathe"] = linked_lathe ? 1 : 0
@@ -887,7 +887,7 @@ proc/CallMaterialName(ID)
 			dat += "</tr><tr>"
 			line_length = 1
 
-		dat += "<td><A href='?src=\ref[src];category=[C];menu=[menu_num]'>[C]</A></td>"
+		dat += "<td><A href='?src=[UID()];category=[C];menu=[menu_num]'>[C]</A></td>"
 		line_length++
 
 	dat += "</tr></table></div>"

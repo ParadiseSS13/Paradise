@@ -103,6 +103,7 @@ var/const/PUBLIC_HIGH_FREQ	= 1489
 var/const/RADIO_HIGH_FREQ	= 1600
 
 var/const/SYND_FREQ = 1213
+var/const/SYNDTEAM_FREQ = 1244
 var/const/DTH_FREQ = 1341
 var/const/AI_FREQ	= 1343
 var/const/ERT_FREQ = 1345
@@ -132,6 +133,7 @@ var/list/radiochannels = list(
 	"Response Team" = ERT_FREQ,
 	"Special Ops" 	= DTH_FREQ,
 	"Syndicate" 	= SYND_FREQ,
+	"SyndTeam" 		= SYNDTEAM_FREQ,
 	"Supply" 		= SUP_FREQ,
 	"Service" 		= SRV_FREQ,
 	"AI Private"	= AI_FREQ,
@@ -143,7 +145,7 @@ var/list/radiochannels = list(
 var/list/CENT_FREQS = list(ERT_FREQ, DTH_FREQ)
 
 // Antag channels, i.e. Syndicate
-var/list/ANTAG_FREQS = list(SYND_FREQ)
+var/list/ANTAG_FREQS = list(SYND_FREQ, SYNDTEAM_FREQ)
 
 //Department channels, arranged lexically
 var/list/DEPT_FREQS = list(AI_FREQ, COMM_FREQ, ENG_FREQ, MED_FREQ, SEC_FREQ, SCI_FREQ, SRV_FREQ, SUP_FREQ)
