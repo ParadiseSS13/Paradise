@@ -455,13 +455,15 @@ var/list/intents = list(I_HELP,I_DISARM,I_GRAB,I_HARM)
 					A.attack_not_jump = attack_not_jump
 					A.jump_target = source
 					if(!alert_overlay)
-						var/old_layer = source.layer
-						source.layer = FLOAT_LAYER
-						A.overlays += source
-						source.layer = old_layer
-					else
-						alert_overlay.layer = FLOAT_LAYER
-						A.overlays += alert_overlay
+						if(source)
+							alert_overlay = image(source.icon, source.icon_state)
+						else
+							var/old_layer = source.layer
+							source.layer = FLOAT_LAYER
+							A.overlays += source
+							source.layer = old_layer
+					alert_overlay.layer = FLOAT_LAYER
+					A.overlays += alert_overlay
 
 /mob/proc/switch_to_camera(var/obj/machinery/camera/C)
 	if(!C.can_use() || stat || (get_dist(C, src) > 1 || machine != src || blinded || !canmove))

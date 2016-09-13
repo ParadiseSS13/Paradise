@@ -6,8 +6,7 @@
 	icon_state = "swarmer_unactivated"
 
 /obj/item/unactivated_swarmer/New()
-	var/image/alert_overlay = image('icons/mob/swarmer.dmi', "swarmer")
-	notify_ghosts("An unactivated swarmer has been created in [get_area(src)]!", enter_link = "<a href=?src=[UID()];ghostjoin=1>(Click to enter)</a>", source = src, alert_overlay = alert_overlay, attack_not_jump = 1)
+	notify_ghosts("An unactivated swarmer has been created in [get_area(src)]!", enter_link = "<a href=?src=[UID()];ghostjoin=1>(Click to enter)</a>", source = src, attack_not_jump = 1)
 	..()
 
 /obj/item/unactivated_swarmer/Topic(href, href_list)
