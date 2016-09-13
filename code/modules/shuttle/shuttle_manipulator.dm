@@ -1,8 +1,3 @@
-#define SHUTTLE_MANIPULATOR_STATUS 1
-#define SHUTTLE_MANIPULATOR_TEMPLATE 2
-#define SHUTTLE_MANIPULATOR_MOD 3
-#define NUM_SHUTTLE_MANIPULATOR_TABS 3
-
 
 /obj/machinery/shuttle_manipulator
 	name = "shuttle manipulator"
@@ -15,7 +10,7 @@
 	icon = 'icons/obj/machines/shuttle_manipulator.dmi'
 	icon_state = "holograph_on"
 
-	var/current_tab = SHUTTLE_MANIPULATOR_STATUS
+	var/selected_menu_key = "stat"
 	var/busy
 	// UI state variables
 	var/datum/map_template/shuttle/selected
@@ -49,15 +44,25 @@
 	attack_hand(user)
 
 /obj/machinery/shuttle_manipulator/attack_hand(mob/user as mob)
-	user.set_machine(src)
-	interact(user)
+	ui_interact(user)
 
-/obj/machinery/shuttle_manipulator/interact(mob/user)
+/obj/machinery/shuttle_manipulator/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
+
+		// this is the data which will be sent to the ui
+	var/data[0]
+	data["selectedMenuKey"] = selected_menu_key
+
+	data["templates"] = list()
+	var/list/templates = data["templates"]
+	data["templates_tabs"] = list()
+	data["selected"] = list()
+
 
 	for(var/shuttle_id in shuttle_templates)
 		var/datum/map_template/shuttle/S = shuttle_templates[shuttle_id]
 
 		if(!templates[S.port_id])
+			data["templates_tabs"] += S.port_id
 			templates[S.port_id] = list(
 				"port_id" = S.port_id,
 				"templates" = list())
@@ -70,12 +75,16 @@
 		L["admin_notes"] = S.admin_notes
 
 		if(selected == S)
-			shuttle_data["selected"] = L
+			data["selected"] = L
 
 		templates[S.port_id]["templates"] += list(L)
 
+	data["templates_tabs"] = sortList(data["templates_tabs"])
 
-		// Status panel
+	data["existing_shuttle"] = null
+
+	// Status panel
+	data["shuttles"] = list()
 	for(var/i in shuttle_master.mobile)
 		var/obj/docking_port/mobile/M = i
 		var/list/L = list()
@@ -83,62 +92,30 @@
 		L["id"] = M.id
 		L["timer"] = M.timer
 		L["timeleft"] = M.getTimerStr()
-		L["mode"] = capitalize(M.mode)
+		var/can_fast_travel = FALSE
+		if(M.timer && M.timeLeft() >= 50)
+			can_fast_travel = TRUE
+		L["can_fast_travel"] = can_fast_travel
+		L["mode"] = M.mode
 		L["status"] = M.getStatusText()
 		if(M == existing_shuttle)
-			shuttle_data["existing_shuttle"] = L
+			data["existing_shuttle"] = L
 
-		shuttle_data["shuttles"] += list(L)
+		data["shuttles"] += list(L)
 
-	var/dat = ""
-	dat += "<center>"
-	dat += "<a href='?src=\ref[src];tabchange=1;tab=[SHUTTLE_MANIPULATOR_STATUS]' [current_tab == SHUTTLE_MANIPULATOR_STATUS ? "class='linkOn'" : ""]>Status</a>"
-	dat += "<a href='?src=\ref[src];tabchange=1;tab=[SHUTTLE_MANIPULATOR_TEMPLATE]' [current_tab == SHUTTLE_MANIPULATOR_TEMPLATE ? "class='linkOn'" : ""]>Templates</a>"
-	dat += "<a href='?src=\ref[src];tabchange=1;tab=[SHUTTLE_MANIPULATOR_MOD]' [current_tab == SHUTTLE_MANIPULATOR_MOD ? "class='linkOn'" : ""]>Modification</a>"
-	dat += "</center>"
-	dat += "<HR>"
+	// update the ui if it exists, returns null if no ui is passed/found
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
+	if(!ui)
+		// the ui does not exist, so we'll create a new() one
+        // for a list of parameters and their descriptions see the code docs in \code\modules\nano\nanoui.dm
+		ui = new(user, src, ui_key, "shuttle_manipulator.tmpl", "Shuttle Manipulator", 660, 700)
+		// when the ui is first opened this is the data it will use
+		ui.set_initial_data(data)
+		// open the new ui window
+		ui.open()
+		// auto update every Master Controller tick
+		ui.set_auto_update(1)
 
-	if(busy)
-		dat += "<div class='statusDisplay'>Shuttle Manipulation in progress...</div>"
-	else
-		dat += "<div class='statusDisplay'>"
-
-		switch(current_tab)
-			if(SHUTTLE_MANIPULATOR_STATUS)
-				dat += "<div class='block'>"
-				for(var/list/shuttle in shuttle_data["shuttles"])
-					dat += "<div class='line'>"
-					dat += "<span class='statusLabel'>[shuttle["name"]] [shuttle["id"]]: [shuttle["mode"]] [shuttle["status"]] [shuttle["timer"]] </span>"
-					dat += "<a href='?src=\ref[src];jump_to=[shuttle["id"]]'>Jump To</a>"
-					dat += "<a href='?src=\ref[src];fast_travel=[shuttle["id"]]'>Fast Travel</a>"
-					dat += "</div>"
-				dat += "</div>"
-			if(SHUTTLE_MANIPULATOR_TEMPLATE)
-				dat += "<div class='block'>"
-				for(var/list/shuttle in shuttle_data["shuttles"])
-					dat += "<div class='line'>"
-					dat += "<span class='statusLabel'> [shuttle["name"]] <br>[shuttle["description"]]<br> [shuttle["admin_notes"]] <br></span>"
-					dat += "<A href='?src=\ref[src];load=[shuttle["id"]]'>Load Template</A>"
-					dat += "<A href='?src=\ref[src];select_template=[shuttle["id"]]'>Select Template</A>"
-					dat += "<a href='?src=\ref[src];preview=[shuttle["id"]]'>Preview Template</A>"
-					dat += "<br></div>"
-				dat += "</div>"
-			if(SHUTTLE_MANIPULATOR_MOD)
-				dat += "<div class='block'>"
-				for(var/list/shuttle in shuttle_data["shuttles"])
-					dat += "<div class='line'>"
-					dat += "<span class='statusLabel'>[shuttle["name"]] [shuttle["id"]] <br>[shuttle["description"]]<br> [shuttle["admin_notes"]] <br> </span>"
-					dat += "<A href='?src=\ref[src];move=[shuttle["id"]]'>Send to port</A>"
-					dat += "<a href='?src=\ref[src];jump_to=[shuttle["id"]]'>Jump To</A>"
-					dat += "<br></div>"
-				dat += "</div>"
-		dat += "</div>"
-
-	var/datum/browser/popup = new(user, "shuttle manipulator", "Shuttle Manipulator", 500, 500)
-	popup.set_content(dat)
-	popup.open()
-
-	return
 
 /obj/machinery/shuttle_manipulator/Topic(href, href_list)
 	if(..())
@@ -187,14 +164,6 @@
 			var/mdp = action_load(S)
 			if(mdp)
 				user.forceMove(get_turf(mdp))
-	if(href_list["tabchange"])
-		var/newtab = text2num(href_list["tab"])
-		// I am NOT making this take like 10 lines
-		if(!(newtab in list(1,2,3)))
-			log_debug("[newtab] is not a valid tab ID!")
-			return
-		. = TRUE
-		current_tab = round(newtab)
 
 /obj/machinery/shuttle_manipulator/proc/action_load(
 	datum/map_template/shuttle/loading_template)

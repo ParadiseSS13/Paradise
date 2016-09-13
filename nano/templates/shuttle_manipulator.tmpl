@@ -1,0 +1,77 @@
+<!--
+Title: Shuttle Manipulator UI
+-->
+
+<h3>Operations</h3>
+<div class="item">
+	{{:helper.link('Status', 'link', {'selectMenuKey' : 'stat'}, data.selectedMenuKey == 'stat' ? 'selected' : null)}}
+	{{:helper.link('Templates', 'link', {'selectMenuKey' : 'stemp'}, data.selectedMenuKey == 'stemp' ? 'selected' : null)}}
+	{{:helper.link('Modification', 'link', {'selectMenuKey' : 'mod'}, data.selectedMenuKey == 'mod' ? 'selected' : null)}}
+</div>
+
+<div class="item">&nbsp;</div>
+
+<!-- Shuttle Status Tab -->
+{{if !data.selectedMenuKey || data.selectedMenuKey == 'stat'}}
+
+	<div class="itemLabelNarrow">
+		
+		{{for data.shuttles}}
+			Name: {{value.name}}
+			ID: {{value.shuttle_id}}
+			Shuttle Timer: {{value.timeleft}}
+			Shuttle Mode: {{value.mode}}
+			Shuttle Status: {{value.status}}
+			{{:helper.link('Jump to', 'exclamation-circle', {'jump_to' : 1, 'id' : value.shuttle_id} : null)}}
+			{{:helper.link('Fast Travel', 'exclamation-circle', {'fast_travel' : 1},: null)}}
+		{{/for}}
+	</div>
+<!-- Shuttle template tab -->
+{{else data.selectedMenuKey == 'stemp'}}
+	<div class="itemLabelNarrow">
+		
+		{{for data.templates}} 
+			{{if description}}
+				Description: {{data.description}}
+          	{{/if}}
+         	{{if admin_notes}}
+				Admin Notes: {{data.admin_notes}}
+          	{{/if}}
+
+			{{:helper.link('select template', 'exclamation-circle', {'use_template' : 1}: null)}}
+		{{/for}}
+	</div>
+<!-- Shuttle Modification tab -->
+{{else data.selectedMenuKey == 'mod'}}
+	<div class="itemLabelNarrow">
+
+		{{if data.selected.description}}
+			Description: {{data.selected.description}}
+		{{/if}}
+		{{if data.selected.admin_notes}}
+			Admin Notes: {{data.selected.admin_notes}}
+		{{/if}}
+		
+		
+	
+		{{:helper.link('Jump to', 'exclamation-circle', {'jump_to' : 1, 'id' : data.selected.shuttle_id} : null)}}
+		
+
+		{{if data.existing_shuttle}}
+			Existing Shuttle: {{data.existing_shuttle.name}}
+			Status: {{data.existing_shuttle.status}}
+			{{if data.existing_shuttle.timer}}
+				({{data.existing_shuttle.timeleft}})
+			{{/if}}
+		{{/if}}
+		
+		{{:helper.link('Preview', 'exclamation-circle', {'preview' : 1, 'id' : data.selected.shuttle_id} : null)}}
+		{{:helper.link('Load', 'exclamation-circle', {'load' : 1, 'id' : data.selected.shuttle_id} : null)}}
+
+
+
+
+
+
+	</div>
+
