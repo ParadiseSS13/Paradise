@@ -1,46 +1,24 @@
-/obj/effect/proc_holder/spell/targeted/summon_pitchfork
+/obj/effect/proc_holder/spell/targeted/conjure_item/pitchfork
 	name = "Summon Pitchfork"
 	desc = "A devil's weapon of choice.  Use this to summon/unsummon your pitchfork."
-	invocation_type = "none"
-	include_user = 1
-	range = -1
-	clothes_req = 0
-	var/obj/item/pitchfork
-	var/pitchfork_type = /obj/item/weapon/twohanded/pitchfork/demonic/
-
-	school = "conjuration"
-	charge_max = 150
-	cooldown_min = 10
+	item_type = /obj/item/weapon/twohanded/pitchfork/demonic/
 	action_icon_state = "pitchfork"
 	action_background_icon_state = "bg_demon"
 
-/obj/effect/proc_holder/spell/targeted/summon_pitchfork/cast(list/targets, mob/user = usr)
-	if (pitchfork)
-		qdel(pitchfork)
-	else
-		for(var/mob/living/carbon/C in targets)
-			if(C.drop_item())
-				pitchfork = new pitchfork_type
-				C.put_in_hands(pitchfork)
+/obj/effect/proc_holder/spell/targeted/conjure_item/pitchfork/greater
+	item_type = /obj/item/weapon/twohanded/pitchfork/demonic/greater
 
-/obj/effect/proc_holder/spell/targeted/summon_pitchfork/Destroy()
-	if(pitchfork)
-		qdel(pitchfork)
-		pitchfork = null
-	return ..()
+/obj/effect/proc_holder/spell/targeted/conjure_item/pitchfork/ascended
+	item_type = /obj/item/weapon/twohanded/pitchfork/demonic/ascended
 
-/obj/effect/proc_holder/spell/targeted/summon_pitchfork/greater
-	pitchfork_type = /obj/item/weapon/twohanded/pitchfork/demonic/greater
-
-/obj/effect/proc_holder/spell/targeted/summon_pitchfork/ascended
-	pitchfork_type = /obj/item/weapon/twohanded/pitchfork/demonic/ascended
-
-/obj/effect/proc_holder/spell/targeted/summon_pitchfork/violin
-	pitchfork_type = /obj/item/device/violin/golden //Oh my god this is the most ghetto code reuse ever.
+/obj/effect/proc_holder/spell/targeted/conjure_item/violin
+	item_type = /obj/item/device/violin/golden
+	desc = "A devil's instrument of choice.  Use this to summon/unsummon your golden violin."
 	invocation_type = "whisper"
 	invocation = "I aint have this much fun since Georgia."
 	action_icon_state = "golden_violin"
 	name = "Summon golden violin"
+	action_background_icon_state = "bg_demon"
 
 
 /obj/effect/proc_holder/spell/targeted/summon_contract
@@ -93,6 +71,7 @@
 	clothes_req = 0
 	invocation = "Your very soul will catch fire!"
 	invocation_type = "shout"
+	proj_type = /obj/effect/proc_holder/spell/turf/fireball/infernal
 	range = 2
 	action_background_icon_state = "bg_demon"
 

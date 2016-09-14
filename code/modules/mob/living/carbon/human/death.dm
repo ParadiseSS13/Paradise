@@ -49,7 +49,7 @@
 		if(animation)	qdel(animation)
 		if(src)			qdel(src)
 
-/mob/living/carbon/human/dust(visual_only = FALSE)
+/mob/living/carbon/human/dust()
 	death(1)
 	notransform = 1
 	canmove = 0
@@ -57,7 +57,8 @@
 	invisibility = 101
 	dust_animation()
 	spawn(15)
-		if(src)			qdel(src)
+		if(src)
+			qdel(src)
 
 /mob/living/carbon/human/dust_animation()
 	var/atom/movable/overlay/animation = null

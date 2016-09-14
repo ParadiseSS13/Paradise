@@ -56,7 +56,7 @@
 				add_devil_objectives(devil, objective_count) //This has to be in a separate loop, as we need devil names to be generated before we give objectives in devil agent.
 				devil.announceDevilLaws()
 				var/obj_count = 1
-				to_chat(devil.current, "\blue Your current objectives:")
+				to_chat(devil.current, "<span class='notice'> Your current objectives:")
 				for(var/datum/objective/objective in devil.objectives)
 					to_chat(devil.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
 					obj_count++

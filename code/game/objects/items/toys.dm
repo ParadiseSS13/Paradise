@@ -1166,7 +1166,7 @@ obj/item/toy/cards/deck/syndicate/black
 		playsound(loc, 'sound/machines/click.ogg', 20, 1)
 		cooldown = TRUE
 		for(var/message in messages)
-			user.loc.visible_message("<span class='danger'>\icon[src] [message]</span>")
+			user.loc.visible_message("<span class='danger'>[bicon(src)] [message]</span>")
 			sleep(10)
 		spawn(20)
 			cooldown = FALSE

@@ -284,6 +284,7 @@
 #include "code\datums\spells\charge.dm"
 #include "code\datums\spells\cluwne.dm"
 #include "code\datums\spells\conjure.dm"
+#include "code\datums\spells\conjure_item.dm"
 #include "code\datums\spells\construct_spells.dm"
 #include "code\datums\spells\devil.dm"
 #include "code\datums\spells\devil_boons.dm"

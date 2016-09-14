@@ -248,7 +248,7 @@
 
 	proj_icon_state = "fireball"
 	proj_name = "a fireball"
-	proj_type = "/obj/effect/proc_holder/spell/turf/fireball"
+	proj_type = /obj/effect/proc_holder/spell/turf/fireball
 
 	proj_lifespan = 200
 	proj_step_delay = 1

@@ -1045,7 +1045,7 @@
 						RemoveSpell(/obj/effect/proc_holder/spell/targeted/infernal_jaunt)
 						RemoveSpell(/obj/effect/proc_holder/spell/dumbfire/fireball/hellish)
 						RemoveSpell(/obj/effect/proc_holder/spell/targeted/summon_contract)
-						RemoveSpell(/obj/effect/proc_holder/spell/targeted/summon_pitchfork)
+						RemoveSpell(/obj/effect/proc_holder/spell/targeted/conjure_item/pitchfork)
 						message_admins("[key_name_admin(usr)] has de-devil'ed [current].")
 						if(issilicon(current))
 							var/mob/living/silicon/S = current
@@ -1063,7 +1063,6 @@
 				ticker.mode.add_devil_objectives(src, 2)
 				announceDevilLaws()
 			if("sintouched")
-				ticker.mode.sintouched += src
 				var/mob/living/carbon/human/H = current
 				H.influenceSin()
 				message_admins("[key_name_admin(usr)] has sintouch'ed [current].")

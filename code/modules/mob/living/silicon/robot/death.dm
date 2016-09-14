@@ -22,7 +22,7 @@
 		if(animation)	qdel(animation)
 		if(src)			qdel(src)
 
-/mob/living/silicon/robot/dust(visual_only = FALSE)
+/mob/living/silicon/robot/dust()
 	death(1)
 	notransform = 1
 	canmove = 0
@@ -32,7 +32,8 @@
 		qdel(mmi)	//Delete the MMI first so that it won't go popping out.
 	dead_mob_list -= src
 	spawn(15)
-		if(src && !visual_only)			qdel(src)
+		if(src)			
+			qdel(src)
 
 /mob/living/silicon/robot/dust_animation()
 	var/atom/movable/overlay/animation = null
