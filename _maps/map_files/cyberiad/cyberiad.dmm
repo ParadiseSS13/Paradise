@@ -2639,7 +2639,7 @@
 "aYM" = (/obj/machinery/atmospherics/unary/vent_pump{dir = 8; on = 1},/turf/simulated/floor/wood,/area/library)
 "aYN" = (/obj/structure/morgue,/obj/effect/landmark{name = "revenantspawn"},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/chapel/office)
 "aYO" = (/obj/machinery/atmospherics/unary/vent_scrubber{dir = 1; on = 1; scrub_N2O = 1; scrub_Toxins = 1},/obj/machinery/light_switch{pixel_y = -25},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/chapel/office)
-"aYP" = (/obj/machinery/power/apc{dir = 8; name = "Chapel Office APC"; pixel_x = -25},/obj/structure/cable,/turf/simulated/floor/plasteel{icon_state = "grimy"},/area/chapel/office)
+"aYP" = (/obj/machinery/power/apc{dir = 8; name = "Chapel Office APC"; pixel_x = -25},/obj/structure/cable,/obj/structure/table/woodentable,/obj/item/clothing/under/burial,/obj/item/clothing/under/burial,/obj/item/clothing/under/burial,/obj/item/clothing/under/burial,/obj/item/clothing/under/burial,/obj/item/clothing/under/burial,/turf/simulated/floor/plasteel{icon_state = "grimy"},/area/chapel/office)
 "aYQ" = (/obj/machinery/newscaster{pixel_x = 0; pixel_y = -28},/turf/simulated/floor/plasteel{icon_state = "grimy"},/area/chapel/office)
 "aYR" = (/obj/machinery/firealarm{dir = 4; pixel_x = 24},/turf/simulated/floor/plasteel{icon_state = "grimy"},/area/chapel/office)
 "aYS" = (/obj/machinery/camera{c_tag = "Chapel North"; dir = 2; network = list("SS13")},/obj/machinery/atmospherics/unary/vent_scrubber{dir = 4; on = 1},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/chapel/main)
