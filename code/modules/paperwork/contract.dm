@@ -217,7 +217,7 @@
 		else
 			response = alert(target.current, "A devil is offering you another chance at life, at the price of your soul, do you accept?", "Infernal Resurrection", "Yes", "No")
 		if(response == "Yes")
-			M.revive()
+			H.revive()
 			add_logs(user, H, "infernally revived via contract")
 			user.visible_message("<span class='notice'>With a sudden blaze, [H] stands back up.</span>")
 			H.fakefire()
