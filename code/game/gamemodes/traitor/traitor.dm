@@ -224,6 +224,7 @@
 	killer.verbs += /mob/living/silicon/ai/proc/choose_modules
 	killer.malf_picker = new /datum/module_picker
 
+
 /datum/game_mode/proc/auto_declare_completion_traitor()
 	if(traitors.len)
 		var/text = "<FONT size = 2><B>The traitors were:</B></FONT>"

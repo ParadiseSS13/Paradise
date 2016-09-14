@@ -1032,6 +1032,7 @@
 					message_admins("[key_name_admin(usr)] has given [key_name_admin(current)] the nuclear authorization code")
 				else
 					to_chat(usr, "\red No valid nuke found!")
+
 	else if(href_list["devil"])
 		switch(href_list["devil"])
 			if("clear")
@@ -1066,6 +1067,7 @@
 				var/mob/living/carbon/human/H = current
 				H.influenceSin()
 				message_admins("[key_name_admin(usr)] has sintouch'ed [current].")
+
 	else if(href_list["traitor"])
 		switch(href_list["traitor"])
 			if("clear")
