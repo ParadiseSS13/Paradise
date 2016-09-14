@@ -30,7 +30,7 @@ var/global/list/whiteness = list (
 				src.visible_message("<span class='warning'>The [weapon] seems unusually robust this time.</span>", "<span class='notice'>The [weapon] is your unmaking!</span>")
 				return 2.5 // Will take four hits with a normal toolbox.
 		if(BANE_HARVEST)
-			if(istype(weapon,/obj/item/weapon/reagent_containers/food/snacks/grown/))
+			if(istype(weapon,/obj/item/weapon/reagent_containers/food/snacks/grown/) || istype(weapon,/obj/item/weapon/grown))
 				src.visible_message("<span class='warning'>The spirits of the harvest aid in the exorcism.</span>", "<span class='notice'>The harvest spirits are harming you.</span>")
 				src.Weaken(2)
 				qdel(weapon)

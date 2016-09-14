@@ -42,7 +42,7 @@
 	..()
 	mind.announceDevilLaws()
 	var/obj_count = 1
-	to_chat(src, "<span class='notice'>Your current objectives:")
+	to_chat(src, "<span class='notice'>Your current objectives:</span>")
 	for(var/datum/objective/objective in mind.objectives)
 		to_chat(src, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
 		obj_count++

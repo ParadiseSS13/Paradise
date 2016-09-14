@@ -239,6 +239,9 @@
 	if(!user.dna)
 		return -1
 	user.mutations.Add(HULK)
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		H.update_body()
 	var/obj/item/organ/internal/hivelord_core/organ = new /obj/item/organ/internal/hivelord_core
 	organ.insert(user)
 	return ..()
