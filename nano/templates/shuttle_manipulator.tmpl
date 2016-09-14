@@ -17,11 +17,11 @@ Title: Shuttle Manipulator UI
 	<div class="itemLabelNarrow">
 		
 		{{for data.shuttles}}
-			Name: {{value.name}}
-			ID: {{value.shuttle_id}}
-			Shuttle Timer: {{value.timeleft}}
-			Shuttle Mode: {{value.mode}}
-			Shuttle Status: {{value.status}}
+			Name: {{:value.name}}
+			ID: {{:value.shuttle_id}}
+			Shuttle Timer: {{:value.timeleft}}
+			Shuttle Mode: {{:value.mode}}
+			Shuttle Status: {{:value.status}}
 			{{:helper.link('Jump to', 'exclamation-circle', {'jump_to' : 1, 'id' : value.shuttle_id} : null)}}
 			{{:helper.link('Fast Travel', 'exclamation-circle', {'fast_travel' : 1},: null)}}
 		{{/for}}
@@ -31,12 +31,12 @@ Title: Shuttle Manipulator UI
 	<div class="itemLabelNarrow">
 		
 		{{for data.templates}} 
-			{{if description}}
-				Description: {{data.description}}
-          	{{/if}}
-         	{{if admin_notes}}
-				Admin Notes: {{data.admin_notes}}
-          	{{/if}}
+			{{if data.description}}
+				Description: {{:data.description}}
+			{{/if}}
+			{{if data.admin_notes}}
+				Admin Notes: {{:data.admin_notes}}
+			{{/if}}
 
 			{{:helper.link('select template', 'exclamation-circle', {'use_template' : 1}: null)}}
 		{{/for}}
@@ -46,10 +46,10 @@ Title: Shuttle Manipulator UI
 	<div class="itemLabelNarrow">
 
 		{{if data.selected.description}}
-			Description: {{data.selected.description}}
+			Description: {{:data.selected.description}}
 		{{/if}}
 		{{if data.selected.admin_notes}}
-			Admin Notes: {{data.selected.admin_notes}}
+			Admin Notes: {{:data.selected.admin_notes}}
 		{{/if}}
 		
 		
@@ -58,20 +58,16 @@ Title: Shuttle Manipulator UI
 		
 
 		{{if data.existing_shuttle}}
-			Existing Shuttle: {{data.existing_shuttle.name}}
-			Status: {{data.existing_shuttle.status}}
+			Existing Shuttle: {{:data.existing_shuttle.name}}
+			Status: {{:data.existing_shuttle.status}}
 			{{if data.existing_shuttle.timer}}
-				({{data.existing_shuttle.timeleft}})
+				({{:data.existing_shuttle.timeleft}})
 			{{/if}}
 		{{/if}}
 		
 		{{:helper.link('Preview', 'exclamation-circle', {'preview' : 1, 'id' : data.selected.shuttle_id} : null)}}
 		{{:helper.link('Load', 'exclamation-circle', {'load' : 1, 'id' : data.selected.shuttle_id} : null)}}
 
-
-
-
-
-
 	</div>
+{{/if}}
 
