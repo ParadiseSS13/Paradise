@@ -200,18 +200,24 @@
 
 /obj/item/weapon/paper/contract/infernal/revive/attack(mob/M, mob/living/user)
 	if (target == M.mind && M.stat == DEAD && M.mind.soulOwner == M.mind)
+		if(!ishuman(M))
+			return
 		var/mob/living/carbon/human/H = M
-		var/mob/dead/observer/ghost = H.get_ghost()
+		var/mob/dead/observer/ghost = M.get_ghost(1)
 		var/response = "No"
 		if(ghost)
+			if(!ghost.client)
+				return
 			ghost.notify_cloning("A devil has offered you revival, at the cost of your soul.",'sound/effects/genetics.ogg', H)
 			response = alert(ghost, "A devil is offering you another chance at life, at the price of your soul, do you accept?", "Infernal Resurrection", "Yes", "No")
 			if(!ghost)
 				return		//handle logouts that happen whilst the alert is waiting for a response.
+			if(response == "Yes")
+				ghost.reenter_corpse()
 		else
 			response = alert(target.current, "A devil is offering you another chance at life, at the price of your soul, do you accept?", "Infernal Resurrection", "Yes", "No")
 		if(response == "Yes")
-			H.revive(1,0)
+			M.revive()
 			add_logs(user, H, "infernally revived via contract")
 			user.visible_message("<span class='notice'>With a sudden blaze, [H] stands back up.</span>")
 			H.fakefire()
