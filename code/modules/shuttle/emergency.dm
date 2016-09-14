@@ -5,6 +5,7 @@
 	icon_keyboard = "tech_key"
 	var/auth_need = 3
 	var/list/authorized = list()
+	var/canrecall = TRUE
 
 /obj/machinery/computer/emergency_shuttle/attackby(obj/item/weapon/card/W, mob/user, params)
 	if(stat & (BROKEN|NOPOWER))

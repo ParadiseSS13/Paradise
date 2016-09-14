@@ -43,6 +43,23 @@
 		return
 	attack_hand(user)
 
+/proc/shuttlemode2str(mode)
+	switch(mode)
+		if(SHUTTLE_IDLE)
+			. = "idle"
+		if(SHUTTLE_RECALL)
+			. = "recalled"
+		if(SHUTTLE_CALL)
+			. = "called"
+		if(SHUTTLE_DOCKED)
+			. = "docked"
+		if(SHUTTLE_STRANDED)
+			. = "stranded"
+		if(SHUTTLE_ESCAPE)
+			. = "escape"
+	if(!.)
+		throw EXCEPTION("shuttlemode2str(): invalid mode")
+
 /obj/machinery/shuttle_manipulator/attack_hand(mob/user as mob)
 	ui_interact(user)
 
@@ -96,7 +113,7 @@
 		if(M.timer && M.timeLeft() >= 50)
 			can_fast_travel = TRUE
 		L["can_fast_travel"] = can_fast_travel
-		L["mode"] = M.mode
+		L["mode"] = capitalize(shuttlemode2str(M.mode))
 		L["status"] = M.getStatusText()
 		if(M == existing_shuttle)
 			data["existing_shuttle"] = L
@@ -121,27 +138,47 @@
 	if(..())
 		return
 
-	for(var/thing in href_list)
-		log_debug("[thing]: [href_list[thing]]")
-
 	var/mob/user = usr
 
 	// Preload some common parameters
 	var/shuttle_id = href_list["shuttle_id"]
 	var/datum/map_template/shuttle/S = shuttle_templates[shuttle_id]
 
+
+	if(href_list["selectMenuKey"])
+		selected_menu_key = href_list["selectMenuKey"]
+		return 1 // return 1 forces an update to all Nano uis attached to src
+
 	if(href_list["select_template"])
 		if(S)
 			existing_shuttle = shuttle_master.getShuttle(S.port_id)
 			selected = S
 			. = TRUE
+
 	if(href_list["jump_to"])
-		. = TRUE
+
+		if(href_list["type"] == "mobile")
+			for(var/i in shuttle_master.mobile)
+				var/obj/docking_port/mobile/M = i
+				if(M.id == href_list["id"])
+					user.forceMove(get_turf(M))
+					. = TRUE
+					break
+
+
+	if(href_list["fast_travel"])
+
 		for(var/i in shuttle_master.mobile)
 			var/obj/docking_port/mobile/M = i
-			if(M.id == href_list["id"])
-				user.forceMove(get_turf(M))
+			if(M.id == href_list["id"] && M.timer && M.timeLeft() >= 50)
+				M.setTimer(50)
+				. = TRUE
+				message_admins("[key_name_admin(usr)] fast travelled \
+					[M]")
+				log_admin("[key_name(usr)] fast travelled [M]")
+				feedback_add_details("shuttle_fasttravel", M.name)
 				break
+
 
 	if(href_list["preview"])
 		if(S)

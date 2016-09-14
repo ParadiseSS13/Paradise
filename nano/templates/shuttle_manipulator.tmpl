@@ -13,32 +13,43 @@ Title: Shuttle Manipulator UI
 
 <!-- Shuttle Status Tab -->
 {{if !data.selectedMenuKey || data.selectedMenuKey == 'stat'}}
-
-	<div class="itemLabelNarrow">
-		
-		{{for data.shuttles}}
+	{{for data.shuttles}}
+		<div class='statusDisplay'>
+			<div class='itemLabel'>
 			Name: {{:value.name}}
-			ID: {{:value.shuttle_id}}
+			</div>
+			<div class='itemContentWide'>
+			ID: {{:value.id}}
+			</div>
+			<div class='itemContentWide'>
 			Shuttle Timer: {{:value.timeleft}}
+			</div>
+			<div class='itemContentWide'>
 			Shuttle Mode: {{:value.mode}}
+			</div>
+			<div class='itemContentWide'>
 			Shuttle Status: {{:value.status}}
-			{{:helper.link('Jump to', 'exclamation-circle', {'jump_to' : 1, 'id' : value.shuttle_id} : null)}}
-			{{:helper.link('Fast Travel', 'exclamation-circle', {'fast_travel' : 1},: null)}}
-		{{/for}}
-	</div>
+			</div>
+			<div class='itemContentWide'>
+			{{:helper.link('Jump to', 'space-shuttle', {'jump_to' : 1, 'type' : 'mobile', 'id' : data.selected.shuttle_id}, null)}}
+			{{:helper.link('Fast Travel', 'rocket', {'fast_travel' : 1}, null)}}
+			</div>
+		</div>
+	{{/for}}
 <!-- Shuttle template tab -->
 {{else data.selectedMenuKey == 'stemp'}}
 	<div class="itemLabelNarrow">
 		
 		{{for data.templates}} 
+			Name: {{:value.name}}
 			{{if data.description}}
-				Description: {{:data.description}}
+				Description: {{:value.description}}
 			{{/if}}
 			{{if data.admin_notes}}
-				Admin Notes: {{:data.admin_notes}}
+				Admin Notes: {{:value.admin_notes}}
 			{{/if}}
 
-			{{:helper.link('select template', 'exclamation-circle', {'use_template' : 1}: null)}}
+			{{:helper.link('select template', 'space-shuttle', {'select_template' : 1, 'shuttle_id' : data.shuttle_id}, null)}}
 		{{/for}}
 	</div>
 <!-- Shuttle Modification tab -->
@@ -54,7 +65,7 @@ Title: Shuttle Manipulator UI
 		
 		
 	
-		{{:helper.link('Jump to', 'exclamation-circle', {'jump_to' : 1, 'id' : data.selected.shuttle_id} : null)}}
+		{{:helper.link('Jump to', 'space-shuttle', {'jump_to' : 1, 'type' : 'mobile', 'id' : data.selected.shuttle_id}, null)}}
 		
 
 		{{if data.existing_shuttle}}
@@ -65,9 +76,8 @@ Title: Shuttle Manipulator UI
 			{{/if}}
 		{{/if}}
 		
-		{{:helper.link('Preview', 'exclamation-circle', {'preview' : 1, 'id' : data.selected.shuttle_id} : null)}}
-		{{:helper.link('Load', 'exclamation-circle', {'load' : 1, 'id' : data.selected.shuttle_id} : null)}}
+		{{:helper.link('Preview', 'exclamation-circle', {'preview' : 1, 'shuttle_id' : data.selected.shuttle_id}, null)}}
+		{{:helper.link('Load', 'exclamation-circle', {'load' : 1, 'shuttle_id' : data.selected.shuttle_id}, null)}}
 
 	</div>
 {{/if}}
-
