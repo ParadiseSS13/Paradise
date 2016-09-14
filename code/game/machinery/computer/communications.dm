@@ -273,6 +273,16 @@
 			src.emagged = 0
 			setMenuState(usr,COMM_SCREEN_MAIN)
 
+		if("RestartNanoMob")
+			if(mob_hunt_server)
+				var/loading_msg = pick("Respawning spawns", "Reticulating splines", "Flipping hat",
+									"Capturing all of them", "Fixing minor text issues", "Being the very best",
+									"Nerfing this", "Not communicating with playerbase", "Coding a ripoff in a 2D spaceman game")
+				to_chat(usr, "Restarting Nano-Mob Hunter GO! game server. [loading_msg]...")
+				mob_hunt_server.manual_reboot()
+			else
+				to_chat(usr, "Nano-Mob Hunter GO! game server is offline for extended maintenance. Contact your Central Command administrators for more info if desired.")
+
 		if("AcceptDocking")
 			to_chat(usr, "Docking request accepted!")
 			trade_dock_timelimit = world.time + 1200
