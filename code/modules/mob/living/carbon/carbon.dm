@@ -359,23 +359,6 @@
 /mob/living/carbon/proc/setDNA(var/datum/dna/newDNA)
 	dna = newDNA
 
-/mob/living/carbon/revive()
-	..()
-	if(handcuffed && !initial(handcuffed))
-		drop_specific_item(handcuffed)
-	handcuffed = initial(handcuffed)
-	update_handcuffed()
-
-	if(legcuffed && !initial(legcuffed))
-		unEquip(legcuffed)
-	legcuffed = initial(legcuffed)
-	update_inv_legcuffed()
-
-	if(reagents)
-		for(var/datum/reagent/R in reagents.reagent_list)
-			reagents.clear_reagents()
-		reagents.addiction_list.Cut()
-
 var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump, /obj/machinery/atmospherics/unary/vent_scrubber)
 
 /mob/living/handle_ventcrawl(var/atom/clicked_on) // -- TLE -- Merged by Carn
