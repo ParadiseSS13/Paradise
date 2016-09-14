@@ -177,7 +177,7 @@ var/time_last_changed_position = 0
 	user.set_machine(src)
 
 	var/data[0]
-	data["src"] = "\ref[src]"
+	data["src"] = UID()
 	data["station_name"] = station_name()
 	data["mode"] = mode
 	data["printing"] = printing

@@ -50,7 +50,7 @@
 		return
 
 	var/dat
-	dat = replacetext(file2text('html/chess.html'), "\[hsrc]", "\ref[src]")
+	dat = replacetext(file2text('html/chess.html'), "\[hsrc]", UID())
 	var/datum/asset/simple/chess/assets = get_asset_datum(/datum/asset/simple/chess)
 	assets.send(user)
 

@@ -1,0 +1,4 @@
+author: FreeStylaLT
+delete-after: True
+changes: 
+  - tweak: "Updated Cyberiad's AI Sat to latest tg version, lots of changes there - basically an entirely new Satellite."

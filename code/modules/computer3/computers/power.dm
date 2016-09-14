@@ -22,7 +22,7 @@
 			return
 		var/list/L = computer.net.get_machines(/obj/machinery/power/apc)
 		var/t = ""
-		t += "<A href='?src=\ref[src]'>Refresh</A><br /><br />"
+		t += "<A href='?src=[UID()]'>Refresh</A><br /><br />"
 		if(!L || !L.len)
 			t += "No connection"
 		else

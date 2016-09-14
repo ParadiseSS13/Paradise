@@ -286,13 +286,13 @@
 	return
 
 /obj/item/robot_parts/robot_suit/proc/Interact(mob/user)
-			var/t1 = text("Designation: <A href='?src=\ref[];Name=1'>[(created_name ? "[created_name]" : "Default Cyborg")]</a><br>\n",src)
-			t1 += text("Master AI: <A href='?src=\ref[];Master=1'>[(forced_ai ? "[forced_ai.name]" : "Automatic")]</a><br><br>\n",src)
+			var/t1 = "Designation: <A href='?src=[UID()];Name=1'>[(created_name ? "[created_name]" : "Default Cyborg")]</a><br>\n"
+			t1 += "Master AI: <A href='?src=[UID()];Master=1'>[(forced_ai ? "[forced_ai.name]" : "Automatic")]</a><br><br>\n"
 
-			t1 += text("LawSync Port: <A href='?src=\ref[];Law=1'>[(lawsync ? "Open" : "Closed")]</a><br>\n",src)
-			t1 += text("AI Connection Port: <A href='?src=\ref[];AI=1'>[(aisync ? "Open" : "Closed")]</a><br>\n",src)
-			t1 += text("Servo Motor Functions: <A href='?src=\ref[];Loco=1'>[(locomotion ? "Unlocked" : "Locked")]</a><br>\n",src)
-			t1 += text("Panel Lock: <A href='?src=\ref[];Panel=1'>[(panel_locked ? "Engaged" : "Disengaged")]</a><br>\n",src)
+			t1 += "LawSync Port: <A href='?src=[UID()];Law=1'>[(lawsync ? "Open" : "Closed")]</a><br>\n"
+			t1 += "AI Connection Port: <A href='?src=[UID()];AI=1'>[(aisync ? "Open" : "Closed")]</a><br>\n"
+			t1 += "Servo Motor Functions: <A href='?src=[UID()];Loco=1'>[(locomotion ? "Unlocked" : "Locked")]</a><br>\n"
+			t1 += "Panel Lock: <A href='?src=[UID()];Panel=1'>[(panel_locked ? "Engaged" : "Disengaged")]</a><br>\n"
 			var/datum/browser/popup = new(user, "robotdebug", "Cyborg Boot Debug", 310, 220)
 			popup.set_content(t1)
 			popup.open()

@@ -230,8 +230,8 @@
 		else
 			dat = {"<b>Ingredients:</b><br>[dat]"}
 		dat += {"<HR><BR>\
-<A href='?src=\ref[src];action=cook'>Turn on!</A><BR>\
-<A href='?src=\ref[src];action=dispose'>Eject ingredients!</A><BR>\
+<A href='?src=[UID()];action=cook'>Turn on!</A><BR>\
+<A href='?src=[UID()];action=dispose'>Eject ingredients!</A><BR>\
 "}
 
 	var/datum/browser/popup = new(user, name, name, 400, 400)

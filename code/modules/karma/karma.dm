@@ -183,54 +183,52 @@ You've gained <b>[totalkarma]</b> total karma in your time here.<br>"}
 
 /client/proc/karmashopmenu()
 	var/dat = "<html><body><center>"
-	dat += "<a href='?src=\ref[src];karmashop=tab;tab=0' [karma_tab == 0 ? "class='linkOn'" : ""]>Job Unlocks</a>"
-	dat += "<a href='?src=\ref[src];karmashop=tab;tab=1' [karma_tab == 1 ? "class='linkOn'" : ""]>Species Unlocks</a>"
-	dat += "<a href='?src=\ref[src];karmashop=tab;tab=2' [karma_tab == 2 ? "class='linkOn'" : ""]>Item Unlocks</a>"
+	dat += "<a href='?src=[UID()];karmashop=tab;tab=0' [karma_tab == 0 ? "class='linkOn'" : ""]>Job Unlocks</a>"
+	dat += "<a href='?src=[UID()];karmashop=tab;tab=1' [karma_tab == 1 ? "class='linkOn'" : ""]>Species Unlocks</a>"
+	dat += "<a href='?src=[UID()];karmashop=tab;tab=2' [karma_tab == 2 ? "class='linkOn'" : ""]>Item Unlocks</a>"
 	dat += "</center>"
 	dat += "<HR>"
 
 	switch(karma_tab)
 		if(0) // Job Unlocks
 			dat += {"
-			<a href='?src=\ref[src];karmashop=shop;KarmaBuy=1'>Unlock Barber -- 5KP</a><br>
-			<a href='?src=\ref[src];karmashop=shop;KarmaBuy=2'>Unlock Brig Physician -- 5KP</a><br>
-			<a href='?src=\ref[src];karmashop=shop;KarmaBuy=3'>Unlock Nanotrasen Representative -- 20KP</a><br>
-			<a href='?src=\ref[src];karmashop=shop;KarmaBuy=5'>Unlock Blueshield -- 25KP</a><br>
-			<a href='?src=\ref[src];karmashop=shop;KarmaBuy=9'>Unlock Security Pod Pilot -- 25KP</a><br>
-			<a href='?src=\ref[src];karmashop=shop;KarmaBuy=6'>Unlock Mechanic -- 25KP</a><br>
-			<a href='?src=\ref[src];karmashop=shop;KarmaBuy=7'>Unlock Magistrate -- 30KP</a><br>
+			<a href='?src=[UID()];karmashop=shop;KarmaBuy=1'>Unlock Barber -- 5KP</a><br>
+			<a href='?src=[UID()];karmashop=shop;KarmaBuy=2'>Unlock Brig Physician -- 5KP</a><br>
+			<a href='?src=[UID()];karmashop=shop;KarmaBuy=3'>Unlock Nanotrasen Representative -- 20KP</a><br>
+			<a href='?src=[UID()];karmashop=shop;KarmaBuy=5'>Unlock Blueshield -- 25KP</a><br>
+			<a href='?src=[UID()];karmashop=shop;KarmaBuy=9'>Unlock Security Pod Pilot -- 25KP</a><br>
+			<a href='?src=[UID()];karmashop=shop;KarmaBuy=6'>Unlock Mechanic -- 25KP</a><br>
+			<a href='?src=[UID()];karmashop=shop;KarmaBuy=7'>Unlock Magistrate -- 30KP</a><br>
 			"}
 
 		if(1) // Species Unlocks
 			dat += {"
-			<a href='?src=\ref[src];karmashop=shop;KarmaBuy2=13'>Unlock Skrell -- 5KP</a><br>
-			<a href='?src=\ref[src];karmashop=shop;KarmaBuy2=3'>Unlock Grey -- 10KP</a><br>
-			<a href='?src=\ref[src];karmashop=shop;KarmaBuy2=1'>Unlock Machine People -- 15KP</a><br>
-			<a href='?src=\ref[src];karmashop=shop;KarmaBuy2=7'>Unlock Drask -- 15KP</a><br>
-			<a href='?src=\ref[src];karmashop=shop;KarmaBuy2=5'>Unlock Slime People -- 15KP</a><br>
-			<a href='?src=\ref[src];karmashop=shop;KarmaBuy2=14'>Unlock Vulpkanin -- 30KP</a><br>
-			<a href='?src=\ref[src];karmashop=shop;KarmaBuy2=8'>Unlock Unathi -- 30KP</a><br>
-			<a href='?src=\ref[src];karmashop=shop;KarmaBuy2=9'>Unlock Tajaran -- 30KP</a><br>
-			<a href='?src=\ref[src];karmashop=shop;KarmaBuy2=10'>Unlock Diona -- 40KP</a><br>
-			<a href='?src=\ref[src];karmashop=shop;KarmaBuy2=2'>Unlock Kidan -- 45KP</a><br>
-			<a href='?src=\ref[src];karmashop=shop;KarmaBuy2=4'>Unlock Vox -- 45KP</a><br>
-			<a href='?src=\ref[src];karmashop=shop;KarmaBuy2=12'>Unlock Wryn -- 50KP</a><br>
-			<a href='?src=\ref[src];karmashop=shop;KarmaBuy2=11'>Unlock Nucleation -- 100KP</a><br>
-			<a href='?src=\ref[src];karmashop=shop;KarmaBuy2=6'>Unlock Plasmaman -- 100KP</a><br>
-
+			<a href='?src=[UID()];karmashop=shop;KarmaBuy2=13'>Unlock Skrell -- 5KP</a><br>
+			<a href='?src=[UID()];karmashop=shop;KarmaBuy2=3'>Unlock Grey -- 10KP</a><br>
+			<a href='?src=[UID()];karmashop=shop;KarmaBuy2=1'>Unlock Machine People -- 15KP</a><br>
+			<a href='?src=[UID()];karmashop=shop;KarmaBuy2=7'>Unlock Drask -- 15KP</a><br>
+			<a href='?src=[UID()];karmashop=shop;KarmaBuy2=5'>Unlock Slime People -- 15KP</a><br>
+			<a href='?src=[UID()];karmashop=shop;KarmaBuy2=14'>Unlock Vulpkanin -- 30KP</a><br>
+			<a href='?src=[UID()];karmashop=shop;KarmaBuy2=8'>Unlock Unathi -- 30KP</a><br>
+			<a href='?src=[UID()];karmashop=shop;KarmaBuy2=9'>Unlock Tajaran -- 30KP</a><br>
+			<a href='?src=[UID()];karmashop=shop;KarmaBuy2=10'>Unlock Diona -- 40KP</a><br>
+			<a href='?src=[UID()];karmashop=shop;KarmaBuy2=2'>Unlock Kidan -- 45KP</a><br>
+			<a href='?src=[UID()];karmashop=shop;KarmaBuy2=4'>Unlock Vox -- 45KP</a><br>
+			<a href='?src=[UID()];karmashop=shop;KarmaBuy2=12'>Unlock Wryn -- 50KP</a><br>
+			<a href='?src=[UID()];karmashop=shop;KarmaBuy2=11'>Unlock Nucleation -- 100KP</a><br>
+			<a href='?src=[UID()];karmashop=shop;KarmaBuy2=6'>Unlock Plasmaman -- 100KP</a><br>
 			"}
 
 		if(2) // Item Unlocks
 			dat += {"
-			<a href='?src=\ref[src];karmashop=shop;KarmaBuy3=4001'>Unlock Dio Brando's costume -- 5KP</a><br>
-			<a href='?src=\ref[src];karmashop=shop;KarmaBuy3=4002'>Unlock Sneaking suit -- 5KP</a><br>
-			<a href='?src=\ref[src];karmashop=shop;KarmaBuy3=4003'>Unlock Adeptus Mechanicus -- 5KP</a>(for Engineering only)<br>
-			<a href='?src=\ref[src];karmashop=shop;KarmaBuy3=4005'>Unlock Simon Coat -- 5KP</a>(for Heads only)<br>
-			<a href='?src=\ref[src];karmashop=shop;KarmaBuy3=9001'>Unlock Kamina Cape -- 10KP</a><br>
-			<a href='?src=\ref[src];karmashop=shop;KarmaBuy3=4006'>Unlock H.E.V. -- 10KP</a>(for Engineering only)<br>
-			<a href='?src=\ref[src];karmashop=shop;KarmaBuy3=4008'>Unlock Alchemist Outfit -- 10KP</a>(for Chemist and Librarian only)<br>
-			<a href='?src=\ref[src];karmashop=shop;KarmaBuy3=1'>Unlock DIO Set -- 15KP</a><br>
-
+			<a href='?src=[UID()];karmashop=shop;KarmaBuy3=4001'>Unlock Dio Brando's costume -- 5KP</a><br>
+			<a href='?src=[UID()];karmashop=shop;KarmaBuy3=4002'>Unlock Sneaking suit -- 5KP</a><br>
+			<a href='?src=[UID()];karmashop=shop;KarmaBuy3=4003'>Unlock Adeptus Mechanicus -- 5KP</a>(for Engineering only)<br>
+			<a href='?src=[UID()];karmashop=shop;KarmaBuy3=4005'>Unlock Simon Coat -- 5KP</a>(for Heads only)<br>
+			<a href='?src=[UID()];karmashop=shop;KarmaBuy3=9001'>Unlock Kamina Cape -- 10KP</a><br>
+			<a href='?src=[UID()];karmashop=shop;KarmaBuy3=4006'>Unlock H.E.V. -- 10KP</a>(for Engineering only)<br>
+			<a href='?src=[UID()];karmashop=shop;KarmaBuy3=4008'>Unlock Alchemist Outfit -- 10KP</a>(for Chemist and Librarian only)<br>
+			<a href='?src=[UID()];karmashop=shop;KarmaBuy3=1'>Unlock DIO Set -- 15KP</a><br>
 			"}
 
 	dat += "<br><B>PLEASE NOTE THAT PEOPLE WHO TRY TO GAME THE KARMA SYSTEM WILL END UP ON THE WALL OF SHAME. THIS INCLUDES BUT IS NOT LIMITED TO TRADES, OOC KARMA BEGGING, CODE EXPLOITS, ETC.</B>"

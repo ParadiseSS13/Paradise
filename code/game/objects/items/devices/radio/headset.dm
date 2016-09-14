@@ -96,6 +96,12 @@
 	icon_state = "syndie_headset"
 	item_state = "syndie_headset"
 
+/obj/item/device/radio/headset/syndicate/syndteam
+	ks1type = /obj/item/device/encryptionkey/syndteam
+
+/obj/item/device/radio/headset/syndicate/alt/syndteam
+	ks1type = /obj/item/device/encryptionkey/syndteam
+
 /obj/item/device/radio/headset/binary
 	origin_tech = "syndicate=3"
 	ks1type = /obj/item/device/encryptionkey/binary

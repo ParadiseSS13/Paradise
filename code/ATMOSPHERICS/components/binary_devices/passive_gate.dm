@@ -89,9 +89,9 @@
 	return 1
 
 /obj/machinery/atmospherics/binary/passive_gate/interact(mob/user as mob)
-	var/dat = {"<b>Power: </b><a href='?src=\ref[src];power=1'>[on?"On":"Off"]</a><br>
+	var/dat = {"<b>Power: </b><a href='?src=[UID()];power=1'>[on?"On":"Off"]</a><br>
 				<b>Desirable output pressure: </b>
-				[round(target_pressure,0.1)]kPa | <a href='?src=\ref[src];set_press=1'>Change</a>
+				[round(target_pressure,0.1)]kPa | <a href='?src=[UID()];set_press=1'>Change</a>
 				"}
 
 	var/datum/browser/popup = new(user, "atmo_pump", name, 400, 400)

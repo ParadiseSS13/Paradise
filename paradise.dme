@@ -68,6 +68,7 @@
 #include "code\__HELPERS\text.dm"
 #include "code\__HELPERS\time.dm"
 #include "code\__HELPERS\type2type.dm"
+#include "code\__HELPERS\unique_ids.dm"
 #include "code\__HELPERS\unsorted.dm"
 #include "code\_DATASTRUCTURES\heap.dm"
 #include "code\_DATASTRUCTURES\linked_lists.dm"

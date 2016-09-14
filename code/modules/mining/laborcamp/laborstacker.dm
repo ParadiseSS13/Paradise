@@ -44,16 +44,16 @@
 	if(emagged) //Shit's broken
 		dat += text("<b>QU&#t0A In%aL*D</b><br>")
 	else if(istype(inserted_id)) //There's an ID in there.
-		dat += text("ID: [inserted_id.registered_name] <A href='?src=\ref[src];choice=eject'>Eject ID.</A><br>")
+		dat += text("ID: [inserted_id.registered_name] <A href='?src=[UID()];choice=eject'>Eject ID.</A><br>")
 		dat += text("Points Collected:[inserted_id.points]<br>")
 		dat += text("Point Quota: [inserted_id.goal] - Reach your quota to earn your release<br>")
-		dat += text("Unclaimed Collection Points: [machine.points].  <A href='?src=\ref[src];choice=claim'>Claim points.</A><br>")
+		dat += text("Unclaimed Collection Points: [machine.points].  <A href='?src=[UID()];choice=claim'>Claim points.</A><br>")
 	else	//No ID in sight.  Complain about it.
-		dat += text("No ID inserted.  <A href='?src=\ref[src];choice=insert'>Insert ID.</A><br>")
+		dat += text("No ID inserted.  <A href='?src=[UID()];choice=insert'>Insert ID.</A><br>")
 	if(check_auth())
-		dat += text("<A href='?src=\ref[src];choice=station'>Proceed to station.</A><br>")
+		dat += text("<A href='?src=[UID()];choice=station'>Proceed to station.</A><br>")
 		if(use_release_door)
-			dat += text("<A href='?src=\ref[src];choice=release'>Open release door.</A><br>")
+			dat += text("<A href='?src=[UID()];choice=release'>Open release door.</A><br>")
 	if(machine)
 		dat += text("<HR><b>Mineral Value List:</b><BR>[machine.get_ore_values()]")
 

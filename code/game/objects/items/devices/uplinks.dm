@@ -69,10 +69,10 @@ var/list/world_uplinks = list()
 			if(I.job && I.job.len)
 				if(!(I.job.Find(job)))
 					continue
-			dat += "<A href='byond://?src=\ref[src];buy_item=[I.reference];cost=[I.cost]'>[I.name]</A> ([I.cost])<BR>"
+			dat += "<A href='byond://?src=[UID()];buy_item=[I.reference];cost=[I.cost]'>[I.name]</A> ([I.cost])<BR>"
 			category_items++
 
-	dat += "<A href='byond://?src=\ref[src];buy_item=random'>Random Item (??)</A><br>"
+	dat += "<A href='byond://?src=[UID()];buy_item=random'>Random Item (??)</A><br>"
 	dat += "<HR>"
 	return dat
 
