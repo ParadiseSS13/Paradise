@@ -67,7 +67,7 @@
 	if(istext(whom))
 		if(cmptext(copytext(whom,1,2),"@"))
 			whom = findStealthKey(whom)
-		C = directory[C]
+		C = directory[whom]
 	else if(istype(whom,/client))
 		C = whom
 

@@ -424,7 +424,7 @@ var/list/intents = list(I_HELP,I_DISARM,I_GRAB,I_HARM)
 				if(subject != M)
 					follow = "([ghost_follow_link(subject, ghost=M)]) "
 				if(M.stat != DEAD && check_rights(R_ADMIN|R_MOD,0,M))
-					follow = "([admin_jump_link(subject, M.client.holder)]) "
+					follow = "([admin_jump_link(subject)]) "
 				var/mob/dead/observer/DM
 				if(istype(subject, /mob/dead/observer))
 					DM = subject

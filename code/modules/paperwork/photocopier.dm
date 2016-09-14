@@ -27,16 +27,16 @@
 
 	var/dat = "Photocopier<BR><BR>"
 	if(copyitem || (ass && (ass.loc == src.loc)))
-		dat += "<a href='byond://?src=\ref[src];remove=1'>Remove Item</a><BR>"
+		dat += "<a href='byond://?src=[UID()];remove=1'>Remove Item</a><BR>"
 		if(toner)
-			dat += "<a href='byond://?src=\ref[src];copy=1'>Copy</a><BR>"
+			dat += "<a href='byond://?src=[UID()];copy=1'>Copy</a><BR>"
 			dat += "Printing: [copies] copies."
-			dat += "<a href='byond://?src=\ref[src];min=1'>-</a> "
-			dat += "<a href='byond://?src=\ref[src];add=1'>+</a><BR><BR>"
+			dat += "<a href='byond://?src=[UID()];min=1'>-</a> "
+			dat += "<a href='byond://?src=[UID()];add=1'>+</a><BR><BR>"
 	else if(toner)
 		dat += "Please insert something to copy.<BR><BR>"
 	if(istype(user,/mob/living/silicon))
-		dat += "<a href='byond://?src=\ref[src];aipic=1'>Print photo from database</a><BR><BR>"
+		dat += "<a href='byond://?src=[UID()];aipic=1'>Print photo from database</a><BR><BR>"
 	dat += "Current toner level: [toner]"
 	if(!toner)
 		dat +="<BR>Please insert a new toner cartridge!"

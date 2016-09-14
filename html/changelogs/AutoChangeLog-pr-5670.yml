@@ -1,0 +1,4 @@
+author: Krausus
+delete-after: True
+changes: 
+  - bugfix: "Fixed never being able to properly respond to a PM from a stealthed admin."
