@@ -178,10 +178,7 @@
 	ammo_type = /obj/item/ammo_casing/c10mm
 	caliber = "10mm"
 	max_ammo = 8
-
-/obj/item/ammo_box/magazine/m10mm/update_icon()
-	..()
-	icon_state = "[initial(icon_state)]-[Ceiling(ammo_count(0)/8)*8]"
+	multiple_sprites = 2
 
 /obj/item/ammo_box/magazine/m10mm/fire
 	name = "pistol magazine (10mm incendiary)"
