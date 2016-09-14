@@ -43,15 +43,15 @@
 		prefs.SetChangelog(src,changelog_hash)
 
 /client/verb/forum()
-	set name = "forum"
-	set desc = "Visit the forum."
+	set name = "Discord"
+	set desc = "Visit our Discord channel."
 	set hidden = 1
 	if(config.forumurl)
-		if(alert("This will open the forum in your browser. Are you sure?",,"Yes","No")=="No")
+		if(alert("This will open the invite link in your browser. Are you sure?",,"Yes","No")=="No")
 			return
 		src << link(config.forumurl)
 	else
-		to_chat(src, "<span class='danger'>The forum URL is not set in the server configuration.</span>")
+		to_chat(src, "<span class='danger'>The Discord URL is not set in the server configuration.</span>")
 	return
 
 /client/verb/rules()

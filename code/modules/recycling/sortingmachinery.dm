@@ -36,7 +36,7 @@
 			playsound(loc, 'sound/machines/twobeep.ogg', 100, 1)
 
 	else if(istype(W, /obj/item/weapon/pen))
-		var/str = copytext(sanitize(input(user,"Label text?","Set label","")),1,MAX_NAME_LEN)
+		var/str = copytext(sanitize_local(input(user,"Label text?","Set label","")),1,MAX_NAME_LEN)
 		if(!str || !length(str))
 			to_chat(user, "<span class='notice'>Invalid text.</span>")
 			return
@@ -90,7 +90,7 @@
 			playsound(loc, 'sound/machines/twobeep.ogg', 100, 1)
 
 	else if(istype(W, /obj/item/weapon/pen))
-		var/str = copytext(sanitize(input(user,"Label text?","Set label","")),1,MAX_NAME_LEN)
+		var/str = copytext(sanitize_local(input(user,"Label text?","Set label","")),1,MAX_NAME_LEN)
 		if(!str || !length(str))
 			to_chat(user, "<span class='notice'>Invalid text.</span>")
 			return
