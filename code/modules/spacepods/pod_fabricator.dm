@@ -99,7 +99,8 @@
 
 /obj/machinery/spod_part_fabricator/proc/output_parts_list(set_name)
 	var/output = ""
-	for(var/datum/design/D in files.known_designs)
+	for(var/v in files.known_designs)
+		var/datum/design/D = files.known_designs[v]
 		if(D.build_type & PODFAB)
 			if(!(set_name in D.category))
 				continue
@@ -178,7 +179,8 @@
 
 /obj/machinery/spod_part_fabricator/proc/add_part_set_to_queue(set_name)
 	if(set_name in part_sets)
-		for(var/datum/design/D in files.known_designs)
+		for(var/v in files.known_designs)
+			var/datum/design/D = files.known_designs[v]
 			if(D.build_type & PODFAB)
 				if(set_name in D.category)
 					add_to_queue(D)
@@ -238,7 +240,8 @@
 	if(!files)
 		return
 	var/output
-	for(var/datum/tech/T in files.known_tech)
+	for(var/v in files.known_tech)
+		var/datum/tech/T = files.known_tech[v]
 		if(T && T.level > 1)
 			var/diff
 			switch(T.id)
@@ -266,11 +269,7 @@
 	for(var/obj/machinery/computer/rdconsole/RDC in localarea.contents)
 		if(!RDC.sync)
 			continue
-		for(var/datum/tech/T in RDC.files.known_tech)
-			files.AddTech2Known(T)
-		for(var/datum/design/D in RDC.files.known_designs)
-			files.AddDesign2Known(D)
-		files.RefreshResearch()
+		RDC.files.push_data(files)
 		temp = "Processed equipment designs.<br>"
 		//check if the tech coefficients have changed
 		temp += update_tech()
@@ -364,21 +363,17 @@
 				screen = "parts"
 	if(href_list["part"])
 		var/T = filter.getStr("part")
-		for(var/datum/design/D in files.known_designs)
-			if(D.build_type & PODFAB)
-				if(D.id == T)
-					if(!processing_queue)
-						build_part(D)
-					else
-						add_to_queue(D)
-					break
+		var/datum/design/D = files.known_designs[T]
+		if(D && D.build_type & PODFAB)
+			if(!processing_queue)
+				build_part(D)
+			else
+				add_to_queue(D)
 	if(href_list["add_to_queue"])
 		var/T = filter.getStr("add_to_queue")
-		for(var/datum/design/D in files.known_designs)
-			if(D.build_type & PODFAB)
-				if(D.id == T)
-					add_to_queue(D)
-					break
+		var/datum/design/D = files.known_designs[T]
+		if(D && D.build_type & PODFAB)
+			add_to_queue(D)
 		return update_queue_on_page()
 	if(href_list["remove_from_queue"])
 		remove_from_queue(filter.getNum("remove_from_queue"))
@@ -411,15 +406,13 @@
 		sync()
 	if(href_list["part_desc"])
 		var/T = filter.getStr("part_desc")
-		for(var/datum/design/D in files.known_designs)
-			if(D.build_type & PODFAB)
-				if(D.id == T)
-					var/obj/part = D.build_path
-					temp = {"<h1>[initial(part.name)] description:</h1>
-								[initial(part.desc)]<br>
-								<a href='?src=[UID()];clear_temp=1'>Return</a>
-								"}
-					break
+		var/datum/design/D = files.known_designs[T]
+		if(D && D.build_type & PODFAB)
+			var/obj/part = D.build_path
+			temp = {"<h1>[initial(part.name)] description:</h1>
+						[initial(part.desc)]<br>
+						<a href='?src=[UID()];clear_temp=1'>Return</a>
+						"}
 
 	if(href_list["remove_mat"] && href_list["material"])
 		var/amount = text2num(href_list["remove_mat"])

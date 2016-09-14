@@ -53,6 +53,11 @@ research holder datum.
 	var/list/known_designs = list()			//List of available designs (at base reliability).
 
 /datum/research/New()		//Insert techs into possible_tech here. Known_tech automatically updated.
+	// MON DIEU!!!
+	// These are semi-global, but not TOTALLY global?
+	// Using research disks, you can get techs/designs from one research datum
+	// onto another. What consequences this could have, I am presently unsure, but
+	// I imagine nothing good.
 	for(var/T in subtypesof(/datum/tech))
 		possible_tech += new T(src)
 	for(var/D in subtypesof(/datum/design))
@@ -65,47 +70,43 @@ research holder datum.
 //Input: datum/tech; Output: 0/1 (false/true)
 /datum/research/proc/TechHasReqs(var/datum/tech/T)
 	if(T.req_tech.len == 0)
-		return 1
-	var/matches = 0
+		return TRUE
 	for(var/req in T.req_tech)
-		for(var/datum/tech/known in known_tech)
-			if((req == known.id) && (known.level >= T.req_tech[req]))
-				matches++
-				break
-	if(matches == T.req_tech.len)
-		return 1
-	else
-		return 0
+		var/datum/tech/known = known_tech[req]
+		if(!known || known.level < T.req_tech[req])
+			return FALSE
+	return TRUE
 
 //Checks to see if design has all the required pre-reqs.
 //Input: datum/design; Output: 0/1 (false/true)
 /datum/research/proc/DesignHasReqs(var/datum/design/D)
 	if(D.req_tech.len == 0)
-		return 1
-	for(var/datum/tech/T in known_tech)
-		if((D.req_tech[T.id]) && (T.level < D.req_tech[T.id]))
-			return 0
-	return 1
+		return TRUE
+	for(var/req in D.req_tech)
+		var/datum/tech/known = known_tech[req]
+		if(!known || known.level < D.req_tech[req])
+			return FALSE
+	return TRUE
 
 //Adds a tech to known_tech list. Checks to make sure there aren't duplicates and updates existing tech's levels if needed.
 //Input: datum/tech; Output: Null
 /datum/research/proc/AddTech2Known(var/datum/tech/T)
-	for(var/datum/tech/known in known_tech)
-		if(T.id == known.id)
-			if(T.level > known.level)
-				known.level = T.level
-			return
-	known_tech += T
-	return
+	if(known_tech[T.id])
+		var/datum/tech/known = known_tech[T.id]
+		if(T.level > known.level)
+			known.level = T.level
+		return
+	known_tech[T.id] = T
 
 /datum/research/proc/AddDesign2Known(var/datum/design/D)
-	for(var/datum/design/known in known_designs)
-		if(D.id == known.id)
-			if(D.reliability > known.reliability)
-				known.reliability = D.reliability
-			return
-	known_designs += D
-	return
+	if(known_designs[D.id])
+		// NOTE: This is for reliability only - This is on the chopping block
+		var/datum/design/known = known_designs[D.id]
+		if(D.reliability > known.reliability)
+			known.reliability = D.reliability
+		return
+	// Global datums make me nervous
+	known_designs[D.id] = D
 
 //Refreshes known_tech and known_designs list. Then updates the reliability vars of the designs in the known_designs list.
 //Input/Output: n/a
@@ -116,25 +117,30 @@ research holder datum.
 	for(var/datum/design/PD in possible_designs)
 		if(DesignHasReqs(PD))
 			AddDesign2Known(PD)
-	for(var/datum/tech/T in known_tech)
+	for(var/v in known_tech)
+		var/datum/tech/T = known_tech[v]
 		T = Clamp(T.level, 0, 20)
-	for(var/datum/design/D in known_designs)
+	for(var/v in known_designs)
+		var/datum/design/D = known_designs[v]
+		// NOTE: reliability stuff, axe this later
 		D.CalcReliability(known_tech)
-	return
 
 //Refreshes the levels of a given tech.
 //Input: Tech's ID and Level; Output: null
 /datum/research/proc/UpdateTech(var/ID, var/level)
-	for(var/datum/tech/KT in known_tech)
-		if(KT.id == ID)
-			if(KT.level <= level)
-				KT.level = max((KT.level + 1), (level - 1))
-	return
+	var/datum/tech/KT = known_tech[ID]
+	if(KT)
+		if(KT.level <= level)
+			// Will bump the tech to (value_of_target - 1) automatically -
+			// after that it'll only bump it up by 1 until it's greater
+			// than the source tech
+			KT.level = max((KT.level + 1), (level - 1))
 
 /datum/research/proc/UpdateDesigns(var/obj/item/I, var/list/temp_tech)
 	for(var/T in temp_tech)
 		if(temp_tech[T] - 1 >= known_tech[T])
 			for(var/datum/design/D in known_designs)
+				// NOTE: icky reliability stuff
 				if(D.req_tech[T])
 					D.reliability = min(100, D.reliability + 1)
 					if(D.build_path == I.type)
@@ -143,19 +149,27 @@ research holder datum.
 							D.reliability = min(100, D.reliability + rand(3, 5))
 
 /datum/research/proc/FindDesignByID(var/id)
-	for(var/datum/design/D in known_designs)
-		if(D.id == id)
-			return D
+	return known_designs[id]
+
+// A common task is for one research datum to copy over its techs and designs
+// and update them on another research datum.
+// Arguments:
+// `other` - The research datum to send designs and techs to
+/datum/research/proc/push_data(datum/research/other)
+	for(var/v in known_tech)
+		var/datum/tech/T = known_tech[v]
+		other.AddTech2Known(T)
+	for(var/v in known_designs)
+		var/datum/design/D = known_designs[v]
+		other.AddDesign2Known(D)
+	other.RefreshResearch()
+
 
 //Autolathe files
-/datum/research/autolathe/New()
-	for(var/T in subtypesof(/datum/tech))
-		possible_tech += new T(src)
-	for(var/path in subtypesof(/datum/design))
-		var/datum/design/D = new path(src)
-		possible_designs += D
-		if((D.build_type & AUTOLATHE) && ("initial" in D.category))  //autolathe starts without hacked designs
-			AddDesign2Known(D)
+/datum/research/autolathe
+
+/datum/research/autolathe/DesignHasReqs(var/datum/design/D)
+	return D && (D.build_type & AUTOLATHE) && ("initial" in D.category)
 
 /datum/research/autolathe/AddDesign2Known(var/datum/design/D)
 	if(!(D.build_type & AUTOLATHE))
@@ -167,7 +181,7 @@ research holder datum.
 **	Includes all the various technoliges and what they make.  **
 ***************************************************************/
 
-datum/tech	//Datum of individual technologies.
+/datum/tech	//Datum of individual technologies.
 	var/name = "name"					//Name of the technology.
 	var/desc = "description"			//General description of what it does and what it makes.
 	var/id = "id"						//An easily referenced ID. Must be alphanumeric, lower-case, and no symbols.

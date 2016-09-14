@@ -76,7 +76,9 @@
 							refreshParts and the hasReq procs that get called by this are laggy and do not need to be called by every server on the map every tick */
 		var/updateRD = 0
 		files.known_designs = list()
-		for(var/datum/tech/T in files.known_tech)
+		for(var/v in files.known_tech)
+			var/datum/tech/T = files.known_tech[v]
+			// Slowly decrease research if health drops below 0
 			if(prob(1))
 				updateRD++
 				T.level--
@@ -105,11 +107,7 @@
 // Backup files to CentComm to help admins recover data after griefer attacks
 /obj/machinery/r_n_d/server/proc/griefProtection()
 	for(var/obj/machinery/r_n_d/server/centcom/C in machines)
-		for(var/datum/tech/T in files.known_tech)
-			C.files.AddTech2Known(T)
-		for(var/datum/design/D in files.known_designs)
-			C.files.AddDesign2Known(D)
-		C.files.RefreshResearch()
+		files.push_data(C.files)
 
 /obj/machinery/r_n_d/server/proc/produce_heat(heat_amt)
 	if(!(stat & (NOPOWER|BROKEN))) // Blatantly stolen from space heater.

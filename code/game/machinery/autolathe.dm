@@ -243,7 +243,8 @@
 	if(href_list["search"])
 		matching_designs.Cut()
 
-		for(var/datum/design/D in files.known_designs)
+		for(var/v in files.known_designs)
+			var/datum/design/D = files.known_designs[v]
 			if(findtext(D.name,href_list["to_search"]))
 				matching_designs.Add(D)
 
@@ -445,7 +446,8 @@
 	dat += "<b>Metal amount:</b> [materials.amount(MAT_METAL)] cm<sup>3</sup><br>"
 	dat += "<b>Glass amount:</b> [materials.amount(MAT_GLASS)] cm<sup>3</sup><br>"
 
-	for(var/datum/design/D in files.known_designs)
+	for(var/v in files.known_designs)
+		var/datum/design/D = files.known_designs[v]
 		if(!(selected_category in D.category))
 			continue
 
@@ -518,8 +520,8 @@
 	if(hack)
 		for(var/datum/design/D in files.possible_designs)
 			if((D.build_type & AUTOLATHE) && ("hacked" in D.category))
-				files.known_designs += D
+				files.AddDesign2Known(D)
 	else
 		for(var/datum/design/D in files.known_designs)
 			if("hacked" in D.category)
-				files.known_designs -= D
+				files.known_designs -= D.id
