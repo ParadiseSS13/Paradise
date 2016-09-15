@@ -28,7 +28,7 @@
 /obj/machinery/conveyor/auto/New(loc, newdir)
 	..(loc, newdir)
 	operating = 1
-	setmove()
+	update_move_direction()
 
 /obj/machinery/conveyor/auto/update()
 	if(stat & BROKEN)
@@ -68,15 +68,15 @@
 		if(NORTHEAST)
 			forwards = EAST
 			backwards = SOUTH
+		if(NORTHWEST)
+			forwards = SOUTH
+			backwards = WEST
 		if(SOUTHEAST)
 			forwards = NORTH
 			backwards = EAST
 		if(SOUTHWEST)
 			forwards = WEST
 			backwards = NORTH
-		if(NORTHWEST)
-			forwards = SOUTH
-			backwards = WEST
 	if(verted == -1)
 		var/temp = forwards
 		forwards = backwards
@@ -87,12 +87,6 @@
 		movedir = backwards
 	update()
 
-/obj/machinery/conveyor/proc/setmove()
-	if(operating == 1)
-		movedir = forwards
-	else
-		movedir = backwards
-	update()
 
 /obj/machinery/conveyor/proc/update()
 	if(stat & BROKEN)
@@ -225,6 +219,7 @@
 			if(C.id == id)
 				conveyors += C
 
+
 // update the icon depending on the position
 
 /obj/machinery/conveyor_switch/proc/update()
@@ -246,7 +241,7 @@
 
 	for(var/obj/machinery/conveyor/C in conveyors)
 		C.operating = position
-		C.setmove()
+		C.update_move_direction()
 		CHECK_TICK
 
 /obj/machinery/conveyor_switch/oneway
@@ -254,7 +249,7 @@
 
 // attack with hand, switch position
 /obj/machinery/conveyor_switch/attack_hand(mob/user)
-	if(!allowed(user)) //this is in Para but not TG. I don't think there's any which are coded anyway.
+	if(!allowed(user)) //this is in Para but not TG. I don't think there's any which are set anyway.
 		to_chat(user, "<span class='warning'>Access denied.</span>")
 		return
 	add_fingerprint(user)
