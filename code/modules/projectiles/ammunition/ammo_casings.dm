@@ -310,8 +310,8 @@
 /obj/item/ammo_casing/caseless/foam_dart/update_icon()
 	..()
 	if(modified)
-		desc = "This foam dart doesn't look too safe"
 		icon_state = "foamdart_empty"
+		desc = "Its nerf or nothing! ... Although, this one doesn't look too safe."
 		if(BB)
 			BB.icon_state = "foamdart_empty"
 	else
