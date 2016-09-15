@@ -234,7 +234,7 @@ proc/CallMaterialName(ID)
 
 	else if(href_list["clear_tech"]) //Erase data on the technology disk.
 		if(t_disk)
-			t_disk.stored = null
+			t_disk.wipe_tech()
 
 	else if(href_list["eject_tech"]) //Eject the technology disk.
 		if(t_disk)
@@ -246,7 +246,7 @@ proc/CallMaterialName(ID)
 	else if(href_list["copy_tech"]) //Copy some technology data from the research holder to the disk.
 		for(var/datum/tech/T in files.known_tech)
 			if(href_list["copy_tech_ID"] == T.id)
-				t_disk.stored = T
+				t_disk.load_tech(T)
 				break
 		menu = 2
 		submenu = 0
@@ -261,7 +261,7 @@ proc/CallMaterialName(ID)
 
 	else if(href_list["clear_design"]) //Erases data on the design disk.
 		if(d_disk)
-			d_disk.blueprint = null
+			d_disk.wipe_blueprint()
 
 	else if(href_list["eject_design"]) //Eject the design disk.
 		if(d_disk)
@@ -284,7 +284,7 @@ proc/CallMaterialName(ID)
 				if(D.build_type & (AUTOLATHE|PROTOLATHE|CRAFTLATHE)) // Specifically excludes circuit imprinter and mechfab
 					D.build_type = autolathe_friendly ? (D.build_type | AUTOLATHE) : D.build_type
 					D.category |= "Imported"
-				d_disk.blueprint = D
+				d_disk.load_blueprint(D)
 				break
 		menu = 2
 		submenu = 0

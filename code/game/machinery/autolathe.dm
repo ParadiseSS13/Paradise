@@ -129,17 +129,26 @@
 	if(stat)
 		return 1
 
-	if(istype(O, /obj/item/weapon/disk/design_disk))
-		user.visible_message("[user] begins to load \the [O] in \the [src]...",
-			"You begin to load a design from \the [O]...",
-			"You hear the chatter of a floppy drive.")
-		busy = 1
-		var/obj/item/weapon/disk/design_disk/D = O
-		if(do_after(user, 14.4, target = src))
-			files.AddDesign2Known(D.blueprint)
-
-		busy = 0
-		return
+	// Disks in general
+	if(istype(O, /obj/item/weapon/disk))
+		if(istype(O, /obj/item/weapon/disk/design_disk))
+			var/obj/item/weapon/disk/design_disk/D = O
+			if(D.blueprint)
+				user.visible_message("[user] begins to load \the [O] in \the [src]...",
+					"You begin to load a design from \the [O]...",
+					"You hear the chatter of a floppy drive.")
+				playsound(get_turf(src), "sound/goonstation/machines/printer_dotmatrix.ogg", 50, 1)
+				busy = 1
+				if(do_after(user, 14.4, target = src))
+					files.AddDesign2Known(D.blueprint)
+				busy = 0
+			else
+				to_chat(user, "<span class='warning'>That disk does not have a design on it!</span>")
+			return 1
+		else
+			// So that people who are bad at computers don't shred their disks
+			to_chat(user, "<span class='warning'>This is not the correct type of disk for the autolathe!</span>")
+			return 1
 
 	var/material_amount = materials.get_item_material_amount(O)
 	if(!material_amount)
