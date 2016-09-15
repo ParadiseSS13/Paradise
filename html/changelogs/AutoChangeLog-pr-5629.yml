@@ -1,0 +1,6 @@
+author: Crazylemon64
+delete-after: True
+changes: 
+  - tweak: "Research data disks now have a description and name attached to them automatically, to make working with them less obnoxious."
+  - tweak: "Loading design disks now has a sound effect."
+  - tweak: "You can no longer feed non-design disks into the autolathe and destroy them on accident."
