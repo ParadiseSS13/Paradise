@@ -455,11 +455,9 @@ var/list/intents = list(I_HELP,I_DISARM,I_GRAB,I_HARM)
 					A.attack_not_jump = attack_not_jump
 					A.jump_target = source
 					if(!alert_overlay)
-						var/old_layer = source.layer
-						source.layer = FLOAT_LAYER
-						A.overlays += source
-						source.layer = old_layer
-					else
+						if(source)
+							alert_overlay = image(source.icon, source.icon_state)
+					if(alert_overlay)
 						alert_overlay.layer = FLOAT_LAYER
 						A.overlays += alert_overlay
 

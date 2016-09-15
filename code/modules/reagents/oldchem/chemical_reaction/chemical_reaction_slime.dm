@@ -510,7 +510,7 @@
 	feedback_add_details("slime_cores_used","[type]")
 	var/obj/effect/golemrune/Z = new /obj/effect/golemrune
 	Z.forceMove(get_turf(holder.my_atom))
-	notify_ghosts("Golem rune created in [get_area(Z)].", source = Z)
+	notify_ghosts("Golem rune created in [get_area(Z)].", source = Z, attack_not_jump = 1)
 
 //Bluespace
 /datum/chemical_reaction/slimefloor2
