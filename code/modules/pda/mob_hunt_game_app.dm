@@ -17,6 +17,7 @@
 	var/hacked = 0		//if set, this cartridge is able to spawn trap mobs from its collection (set via emag_act on the cartridge)
 	var/catch_mod = 0	//used to adjust the likelihood of a mob running from this client, a negative value means it is less likely to run (support for temporary bonuses)
 	var/wild_captures = 0		//used to track the total number of mobs captured from the wild (does not count card mobs) by this client
+	var/scan_range = 3			//maximum distance (in tiles) from which the client can reveal nearby mobs
 
 /datum/data/pda/app/mob_hunter_game/start()
 	..()
@@ -24,18 +25,20 @@
 
 /datum/data/pda/app/mob_hunter_game/stop()
 	..()
+	disconnect("Program Terminated")
 	processing_objects.Remove(pda)
 
 /datum/data/pda/app/mob_hunter_game/proc/scan_nearby()
 	if(!mob_hunt_server || !connected)
 		return
-	for(var/turf/T in range(3, get_turf(pda)))
-		for(var/obj/O in T.contents)
-			if(!istype(O, /obj/effect/nanomob))
-				continue
-			var/obj/effect/nanomob/N = O
-			//reveal the mob
-			N.reveal()
+	for(var/turf/T in range(scan_range, get_turf(pda)))
+		for(var/obj/effect/nanomob/N in T.contents)
+			if(src in N.clients_encountered)
+				//hide the mob
+				N.conceal()
+			else
+				//reveal the mob
+				N.reveal()
 
 /datum/data/pda/app/mob_hunter_game/proc/reconnect()
 	if(!mob_hunt_server || !mob_hunt_server.server_status || connected)
@@ -47,10 +50,20 @@
 		pda.audible_message("[bicon(pda)] Connection established. Capture all of the mobs, [pda.owner ? pda.owner : "hunter"]!", null, 2)
 	return 1
 
+/datum/data/pda/app/mob_hunter_game/proc/get_player()
+	if(!pda)
+		return null
+	if(ishuman(pda.loc))
+		var/mob/living/carbon/human/H = pda.loc
+		return H
+	return null
+
 /datum/data/pda/app/mob_hunter_game/proc/disconnect(reason = null)
 	if(!mob_hunt_server || !connected)
 		return
 	mob_hunt_server.connected_clients -= src
+	for(var/obj/effect/nanomob/N in (mob_hunt_server.normal_spawns + mob_hunt_server.trap_spawns))
+		N.conceal(list(get_player()))
 	connected = 0
 	//show a disconnect message if we were disconnected involuntarily (reason argument provided)
 	if(pda && reason)
@@ -105,8 +118,6 @@
 	if(mob_info.is_shiny)
 		entry["sprite"] = "[mob_info.icon_state_shiny].png"
 	data["entry"] = entry
-	for(var/a in entry)
-		log_debug("[a] = [entry[a]]")
 
 /datum/data/pda/app/mob_hunter_game/proc/assign_nickname()
 	if(!my_collection.len)

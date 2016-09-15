@@ -3,9 +3,9 @@ var/global/datum/controller/process/mob_hunt/mob_hunt_server
 /datum/controller/process/mob_hunt
 	var/max_normal_spawns = 15		//change this to adjust the number of normal spawns that can exist at one time. trapped spawns (from traitors) don't count towards this
 	var/list/normal_spawns = list()
+	var/max_trap_spawns = 15		//change this to adjust the number of trap spawns that can exist at one time. traps spawned beyond this point clear the oldest traps
 	var/list/trap_spawns = list()
 	var/list/connected_clients = list()
-	var/server_instability = 0		//tracks the instability of the game server. trapped mobs and users increase instability, which causes random kicks and eventually crashing
 	var/server_status = 1			//1 is online, 0 is offline
 
 /datum/controller/process/mob_hunt/setup()
@@ -23,24 +23,12 @@ var/global/datum/controller/process/mob_hunt/mob_hunt_server
 /datum/controller/process/mob_hunt/doWork()
 	if(server_status == 0)
 		return
+	client_mob_update()
 	if(normal_spawns.len < max_normal_spawns)
 		spawn_mob()
-	check_stability()
-	if(server_instability >= 75)
-		if(server_instability >= 100)
-			server_crash()
-		else if(prob(server_instability - 50))
-			server_crash()
 
-	if(server_instability >= 25 && connected_clients.len >= 5)
-		if(prob(server_instability))
-			var/datum/data/pda/app/mob_hunter_game/client = pick(connected_clients)
-			client.disconnect("Server Communication Error")
-
-/datum/controller/process/mob_hunt/proc/check_stability()
-	server_instability = connected_clients.len + (trap_spawns.len * 5)
-
-/datum/controller/process/mob_hunt/proc/server_crash()
+//leaving this here in case admins want to use it for a random mini-event or something
+/datum/controller/process/mob_hunt/proc/server_crash(recover_time = 3000)
 	server_status = 0
 	for(var/datum/data/pda/app/mob_hunter_game/client in connected_clients)
 		client.disconnect("Server Crash")
@@ -52,13 +40,27 @@ var/global/datum/controller/process/mob_hunt/mob_hunt_server
 	normal_spawns.Cut()
 	trap_spawns.Cut()
 	connected_clients.Cut()
-	//set a timer to automatically recover in 5 minutes (can be manually restarted if you get impatient too)
-	addtimer(src, "auto_recover", 3000, TRUE)
+	if(!isnum(recover_time))
+		recover_time = 3000
+	if(recover_time > 0)	//when provided with a negative or zero valued recover_time argument, the server won't auto-restart but can be manually rebooted still
+		//set a timer to automatically recover after recover_time has passed (can be manually restarted if you get impatient too)
+		addtimer(src, "auto_recover", recover_time, TRUE)
+
+/datum/controller/process/mob_hunt/proc/client_mob_update()
+	var/list/ex_players = list()
+	for(var/datum/data/pda/app/mob_hunter_game/client in connected_clients)
+		var/mob/living/carbon/human/H = client.get_player()
+		if(connected_clients[client])
+			if(!H || H != connected_clients[client])
+				ex_players |= connected_clients[client]
+		connected_clients[client] = H
+	if(ex_players.len)	//to make sure we don't do this if we didn't lose any player since the last update
+		for(var/obj/effect/nanomob/N in (normal_spawns + trap_spawns))
+			N.conceal(ex_players)
 
 /datum/controller/process/mob_hunt/proc/auto_recover()
 	if(server_status != 0)
 		return
-	server_instability = 0
 	server_status = 1
 	while(normal_spawns.len < max_normal_spawns)		//repopulate the server's spawns completely if we auto-recover from crash
 		spawn_mob()
@@ -68,7 +70,6 @@ var/global/datum/controller/process/mob_hunt/mob_hunt_server
 		N.despawn()
 	for(var/obj/effect/nanomob/N in normal_spawns)
 		N.despawn()
-	check_stability()
 	server_status = 1
 
 /datum/controller/process/mob_hunt/proc/spawn_mob()
@@ -81,6 +82,7 @@ var/global/datum/controller/process/mob_hunt/mob_hunt_server
 		return 0
 	var/obj/effect/nanomob/new_mob = new /obj/effect/nanomob(mob_info.spawn_point, mob_info)
 	normal_spawns += new_mob
+	new_mob.reveal()
 	return 1
 
 /datum/controller/process/mob_hunt/proc/register_trap(datum/mob_hunt/mob_info)
@@ -90,5 +92,8 @@ var/global/datum/controller/process/mob_hunt/mob_hunt_server
 		return register_spawn(mob_info)
 	var/obj/effect/nanomob/new_mob = new /obj/effect/nanomob(mob_info.spawn_point, mob_info)
 	trap_spawns += new_mob
-	check_stability()
+	new_mob.reveal()
+	if(trap_spawns.len > max_trap_spawns)
+		var/obj/effect/nanomob/old_trap = trap_spawns[1]
+		old_trap.despawn()
 	return 1
