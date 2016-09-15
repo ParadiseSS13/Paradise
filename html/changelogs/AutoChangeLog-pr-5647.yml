@@ -1,0 +1,5 @@
+author: Krausus
+delete-after: True
+changes: 
+  - tweak: "Admins can now use the 'msay' command to speak directly to all mentors."
+  - rscadd: "Added a new command, \"Toggle Mentor Chat\", to give mentors temporary access to 'msay'."
