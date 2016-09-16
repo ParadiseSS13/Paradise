@@ -6,12 +6,13 @@
 
 	species.equip(src)
 
-	//ALL BASIC EQUIPMENT WILL GET REPLACED WITH COOL SHIT BEFORE THIS GETS MERGED, I JUST NEED SPRITE SLAVES
-	//ALSO, THIS WILL HANDLE DIFFERENT SPECIES LIKE VOX AND PLASMAMEN, BECAUSE IT'S A BIT TOO SPECIFIC TO BE HANDLED UNDER THE SPECIES' equip()
-	equip_or_collect(new /obj/item/clothing/under/color/black(src), slot_w_uniform)
+	equip_or_collect(new /obj/item/clothing/under/syndicate(src), slot_w_uniform)
 	equip_or_collect(new /obj/item/clothing/shoes/combat(src), slot_shoes)
 	equip_or_collect(new /obj/item/clothing/gloves/color/black(src), slot_gloves)
-	equip_or_collect(new /obj/item/weapon/storage/backpack/duffel(src), slot_back)
+	if(prob(50))
+		equip_or_collect(new /obj/item/weapon/storage/backpack(src), slot_back)
+	else
+		equip_or_collect(new /obj/item/weapon/storage/backpack/satchel(src), slot_back)
 	equip_or_collect(new /obj/item/device/flashlight(src), slot_r_store)
 	equip_or_collect(new /obj/item/weapon/storage/box/raider(src), slot_in_backpack)
 
