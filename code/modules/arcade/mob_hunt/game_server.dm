@@ -7,6 +7,7 @@ var/global/datum/controller/process/mob_hunt/mob_hunt_server
 	var/list/trap_spawns = list()
 	var/list/connected_clients = list()
 	var/server_status = 1			//1 is online, 0 is offline
+	var/reset_cooldown = 0			//number of controller cycles before the manual_reboot proc can be used again (ignored if server is offline so you can always boot back up)
 
 /datum/controller/process/mob_hunt/setup()
 	name = "Nano-Mob Hunter GO Server"
@@ -21,6 +22,8 @@ var/global/datum/controller/process/mob_hunt/mob_hunt_server
 	return ..()
 
 /datum/controller/process/mob_hunt/doWork()
+	if(reset_cooldown)		//if reset_cooldown is set (we are on cooldown, duh), reduce the remaining cooldown every cycle
+		reset_cooldown--
 	if(server_status == 0)
 		return
 	client_mob_update()
@@ -66,11 +69,15 @@ var/global/datum/controller/process/mob_hunt/mob_hunt_server
 		spawn_mob()
 
 /datum/controller/process/mob_hunt/proc/manual_reboot()
+	if(server_status && reset_cooldown)
+		return 0
 	for(var/obj/effect/nanomob/N in trap_spawns)
 		N.despawn()
 	for(var/obj/effect/nanomob/N in normal_spawns)
 		N.despawn()
 	server_status = 1
+	reset_cooldown = 25		//25 controller cycle cooldown for manual restarts
+	return 1
 
 /datum/controller/process/mob_hunt/proc/spawn_mob()
 	var/list/nanomob_types = subtypesof(/datum/mob_hunt)
