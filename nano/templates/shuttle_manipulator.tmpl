@@ -31,53 +31,90 @@ Title: Shuttle Manipulator UI
 			Shuttle Status: {{:value.status}}
 			</div>
 			<div class='itemContentWide'>
-			{{:helper.link('Jump to', 'space-shuttle', {'jump_to' : 1, 'type' : 'mobile', 'id' : data.selected.shuttle_id}, null)}}
-			{{:helper.link('Fast Travel', 'rocket', {'fast_travel' : 1}, null)}}
+			{{:helper.link('Jump to', 'space-shuttle', {'jump_to' : 1, 'type' : 'mobile', 'id' : value.id}, null)}}
+			{{:helper.link('Fast Travel', 'rocket', {'fast_travel' : 1, 'id' : value.id}, null)}}
 			</div>
 		</div>
 	{{/for}}
 <!-- Shuttle template tab -->
 {{else data.selectedMenuKey == 'stemp'}}
-	<div class="itemLabelNarrow">
-		
-		{{for data.templates}} 
-			Name: {{:value.name}}
-			{{if data.description}}
-				Description: {{:value.description}}
-			{{/if}}
-			{{if data.admin_notes}}
-				Admin Notes: {{:value.admin_notes}}
-			{{/if}}
-
-			{{:helper.link('select template', 'space-shuttle', {'select_template' : 1, 'shuttle_id' : data.shuttle_id}, null)}}
-		{{/for}}
+	<div class="item">
+	{{for data.templates_tabs}}
+		{{:helper.link(value, 'space-shuttle', {'select_template_category' : value}, (data.existing_shuttle && data.existing_shuttle.id == value) ? 'selected' : null)}}
+	{{/for}}
 	</div>
+	{{if data.existing_shuttle}}
+		<div class="item">&nbsp;</div>
+		{{for data.templates[data.existing_shuttle.id].templates}}
+			<div class='statusDisplay'>
+				<div class='itemLabelWide'>
+					Name: {{:value.name}}
+				</div>
+				{{if value.description}}
+					<div class='itemContent'>
+						Description: {{:value.description}}
+					</div>
+				{{/if}}
+				{{if value.admin_notes}}
+					<div class='itemContent'>
+						Admin Notes: {{:value.admin_notes}}
+					</div>
+				{{/if}}
+
+				<div class='item'>
+					{{:helper.link('select template', 'space-shuttle', {'select_template' : 1, 'shuttle_id' : value.shuttle_id}, (data.existing_shuttle.shuttle_id == value.shuttle_id) ? 'selected' : null)}}
+				</div>
+			</div>
+		{{/for}}
+	{{/if}}
 <!-- Shuttle Modification tab -->
 {{else data.selectedMenuKey == 'mod'}}
-	<div class="itemLabelNarrow">
-
-		{{if data.selected.description}}
-			Description: {{:data.selected.description}}
-		{{/if}}
-		{{if data.selected.admin_notes}}
-			Admin Notes: {{:data.selected.admin_notes}}
-		{{/if}}
-		
-		
-	
-		{{:helper.link('Jump to', 'space-shuttle', {'jump_to' : 1, 'type' : 'mobile', 'id' : data.selected.shuttle_id}, null)}}
-		
-
+	<div class="statusDisplay">
 		{{if data.existing_shuttle}}
-			Existing Shuttle: {{:data.existing_shuttle.name}}
-			Status: {{:data.existing_shuttle.status}}
-			{{if data.existing_shuttle.timer}}
-				({{:data.existing_shuttle.timeleft}})
-			{{/if}}
+			<div class='itemGroup'>
+				<div class='itemLabelWide'>
+					Existing Shuttle: {{:data.existing_shuttle.name}}
+				</div>
+				<div class='item'>
+					Status: {{:data.existing_shuttle.status}}
+				</div>
+				{{if data.existing_shuttle.timer}}
+					<div class='item'>
+						({{:data.existing_shuttle.timeleft}})
+					</div>
+				{{/if}}
+				<div class='item'>
+					{{:helper.link('Jump to', 'space-shuttle', {'jump_to' : 1, 'type' : 'mobile', 'id' : data.existing_shuttle.id}, null)}}
+				</div>
+			</div>
+		{{else}}
+			<h3>No shuttle selected</h3>
 		{{/if}}
-		
-		{{:helper.link('Preview', 'exclamation-circle', {'preview' : 1, 'shuttle_id' : data.selected.shuttle_id}, null)}}
-		{{:helper.link('Load', 'exclamation-circle', {'load' : 1, 'shuttle_id' : data.selected.shuttle_id}, null)}}
 
+
+		{{if data.selected}}
+			<div class='itemGroup'>
+				<div class='itemLabelWide'>
+					Name: {{:data.selected.name}}
+				</div>
+				{{if data.selected.description}}
+					<div class='itemContent'>
+						Description: {{:data.selected.description}}
+					</div>
+				{{/if}}
+				{{if data.selected.admin_notes}}
+					<div class='itemContent'>
+						Admin Notes: {{:data.selected.admin_notes}}
+					</div>
+				{{/if}}
+
+				<div class='item'>
+					{{:helper.link('Preview', 'exclamation-circle', {'preview' : 1, 'shuttle_id' : data.selected.shuttle_id}, null)}}
+					{{:helper.link('Load', 'exclamation-circle', {'load' : 1, 'shuttle_id' : data.selected.shuttle_id}, null)}}
+				</div>
+			</div>
+		{{else}}
+			<h3>No template selected</h3>
+		{{/if}}
 	</div>
 {{/if}}

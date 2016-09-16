@@ -5,7 +5,6 @@
 	icon_keyboard = "tech_key"
 	var/auth_need = 3
 	var/list/authorized = list()
-	var/canrecall = TRUE
 
 /obj/machinery/computer/emergency_shuttle/attackby(obj/item/weapon/card/W, mob/user, params)
 	if(stat & (BROKEN|NOPOWER))
@@ -92,6 +91,9 @@
 	var/datum/announcement/priority/emergency_shuttle_called = new(0, new_sound = sound('sound/AI/shuttlecalled.ogg'))
 	var/datum/announcement/priority/emergency_shuttle_recalled = new(0, new_sound = sound('sound/AI/shuttlerecalled.ogg'))
 
+	var/canRecall = TRUE//no bad condom, do not recall the crew transfer shuttle!
+
+
 /obj/docking_port/mobile/emergency/register()
 	if(!..())
 		return 0 //shuttle master not initialized
@@ -146,6 +148,9 @@
 	emergency_shuttle_called.Announce("The emergency shuttle has been called. [redAlert ? "Red Alert state confirmed: Dispatching priority shuttle. " : "" ]It will arrive in [timeLeft(600)] minutes.[reason][shuttle_master.emergencyLastCallLoc ? "\n\nCall signal traced. Results can be viewed on any communications console." : "" ]")
 
 /obj/docking_port/mobile/emergency/cancel(area/signalOrigin)
+	if(!canRecall)
+		return
+
 	if(mode != SHUTTLE_CALL)
 		return
 

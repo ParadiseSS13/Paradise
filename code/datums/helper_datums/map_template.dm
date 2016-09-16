@@ -113,6 +113,7 @@
 	if(!config.disable_space_ruins) // so we don't unnecessarily clutter start-up
 		preloadRuinTemplates()
 	preloadShelterTemplates()
+	preloadShuttleTemplates()
 
 /proc/preloadRuinTemplates()
 	// Still supporting bans by filename

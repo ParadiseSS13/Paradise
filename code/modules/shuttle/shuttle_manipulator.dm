@@ -72,14 +72,16 @@
 	data["templates"] = list()
 	var/list/templates = data["templates"]
 	data["templates_tabs"] = list()
-	data["selected"] = list()
-
+	data["selected"] = null
 
 	for(var/shuttle_id in shuttle_templates)
 		var/datum/map_template/shuttle/S = shuttle_templates[shuttle_id]
 
 		if(!templates[S.port_id])
 			data["templates_tabs"] += S.port_id
+			// The first found shuttle type will be our default
+			if(!existing_shuttle)
+				existing_shuttle = shuttle_master.getShuttle(S.port_id)
 			templates[S.port_id] = list(
 				"port_id" = S.port_id,
 				"templates" = list())
@@ -148,6 +150,12 @@
 	if(href_list["selectMenuKey"])
 		selected_menu_key = href_list["selectMenuKey"]
 		return 1 // return 1 forces an update to all Nano uis attached to src
+
+	if(href_list["select_template_category"])
+		var/chosen_shuttle_id = href_list["select_template_category"]
+		selected = null
+		existing_shuttle = shuttle_master.getShuttle(chosen_shuttle_id)
+		return 1
 
 	if(href_list["select_template"])
 		if(S)
