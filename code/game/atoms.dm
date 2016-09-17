@@ -200,7 +200,8 @@
 			f_name += "oil-stained [name][infix]."
 
 	to_chat(user, "[bicon(src)] That's [f_name] [suffix]")
-	to_chat(user, desc)
+	if(desc)
+		to_chat(user, desc)
 
 	if(reagents && is_open_container()) //is_open_container() isn't really the right proc for this, but w/e
 		to_chat(user, "It contains:")

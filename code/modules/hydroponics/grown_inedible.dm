@@ -96,7 +96,7 @@
 /obj/item/weapon/grown/nettle/death/afterattack(mob/living/carbon/M, mob/user)
 	if(istype(M, /mob/living))
 		to_chat(M, "<span class='danger'>You are stunned by the powerful acid of the Deathnettle!</span>")
-		add_logs(M, user, "attacked", src)
+		add_logs(user, M, "attacked", src)
 
 		M.eye_blurry += force/7
 		if(prob(20))

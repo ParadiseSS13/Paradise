@@ -28,7 +28,7 @@
 
 	playsound(loc, 'sound/weapons/Egloves.ogg', 50, 1, -1)
 
-	add_logs(M, user, "stunned", src, "(INTENT: [uppertext(user.a_intent)])")
+	add_logs(user, M, "stunned", src, "(INTENT: [uppertext(user.a_intent)])")
 
 /obj/item/borg/overdrive
 	name = "Overdrive"

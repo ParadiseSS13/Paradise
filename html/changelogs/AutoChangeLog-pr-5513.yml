@@ -1,4 +1,0 @@
-author: Kyep
-delete-after: True
-changes: 
-  - bugfix: "Fixes 'SSD!' warning appearing in attack logs for admins, when the target player was dead and had ghosted out of their body"

@@ -42,7 +42,7 @@
 		var/dat as text
 		dat += "[src.name] Wires:<BR>"
 		for(var/wire in src.wires)
-			dat += text("[wire] Wire: <A href='?src=\ref[src];wire=[wire];cut=1'>[src.wires[wire] ? "Mend" : "Cut"]</A> <A href='?src=\ref[src];wire=[wire];pulse=1'>Pulse</A><BR>")
+			dat += text("[wire] Wire: <A href='?src=[UID()];wire=[wire];cut=1'>[src.wires[wire] ? "Mend" : "Cut"]</A> <A href='?src=[UID()];wire=[wire];pulse=1'>Pulse</A><BR>")
 
 		dat += text("The red light is [src.disabled ? "off" : "on"].<BR>")
 		dat += text("The green light is [src.shocked ? "off" : "on"].<BR>")

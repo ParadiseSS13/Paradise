@@ -167,7 +167,7 @@
 
 	t += "<BR>"
 	t += "<HR>"
-	t += "<A href='?src=\ref[src]'>Refresh</A> <A href='?src=\ref[src];close=1'>Close</A>"
+	t += "<A href='?src=[UID()]'>Refresh</A> <A href='?src=[UID()];close=1'>Close</A>"
 
 	user << browse(t, "window=teg;size=460x300")
 	onclose(user, "teg")
