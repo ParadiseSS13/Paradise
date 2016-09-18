@@ -142,7 +142,6 @@
 		"/obj/item/device/analyzer/plant_analyzer",
 		"/obj/item/weapon/minihoe",
 		"/obj/item/weapon/hatchet",
-		"/obj/item/weapon/reagent_containers/glass/fertilizer",
 		"/obj/item/weapon/reagent_containers/glass/bottle",
 		"/obj/item/weapon/plantspray",
 //		"/obj/item/weapon/reagent_containers/syringe",
