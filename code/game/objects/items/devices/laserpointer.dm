@@ -102,7 +102,7 @@
 	if(iscarbon(target))
 		var/mob/living/carbon/C = target
 		if(user.zone_sel.selecting == "eyes")
-			add_logs(C, user, "shone in the eyes", object="laser pointer")
+			add_logs(user, C, "shone in the eyes", object="laser pointer")
 
 			var/severity = 1
 			if(prob(33))

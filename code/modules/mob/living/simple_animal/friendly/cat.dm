@@ -14,6 +14,7 @@
 	speak_chance = 1
 	turns_per_move = 5
 	see_in_dark = 6
+	mob_size = MOB_SIZE_SMALL
 	simplespecies = /mob/living/simple_animal/pet/cat
 	childtype = /mob/living/simple_animal/pet/cat/kitten
 	butcher_results = list(/obj/item/weapon/reagent_containers/food/snacks/meat = 3)

@@ -1,4 +1,0 @@
-author: Fethas
-delete-after: True
-changes: 
-  - bugfix: "The whitelist will respect addons better, didn't even have to make a ban appeal.."

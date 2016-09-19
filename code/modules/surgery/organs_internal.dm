@@ -1,5 +1,5 @@
 /datum/surgery/organ_manipulation
-	name = "organ manipulation"
+	name = "Organ Manipulation"
 	steps = list(/datum/surgery_step/generic/cut_open,/datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/open_encased/saw,
 	/datum/surgery_step/open_encased/retract, /datum/surgery_step/internal/manipulate_organs, /datum/surgery_step/glue_bone, /datum/surgery_step/set_bone,/datum/surgery_step/finish_bone,/datum/surgery_step/generic/cauterize)
 	possible_locs = list("chest","head")
@@ -11,13 +11,13 @@
 	requires_organic_bodypart = 1
 
 /datum/surgery/organ_manipulation_boneless
-	name = "organ manipulation"
+	name = "Organ Manipulation"
 	possible_locs = list("chest","head","groin", "eyes", "mouth")
 	steps = list(/datum/surgery_step/generic/cut_open,/datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/internal/manipulate_organs,/datum/surgery_step/generic/cauterize)
 	requires_organic_bodypart = 1
 
 /datum/surgery/organ_manipulation/alien
-	name = "alien organ manipulation"
+	name = "Alien Organ Manipulation"
 	possible_locs = list("chest", "head", "groin", "eyes", "mouth")
 	allowed_mob = list(/mob/living/carbon/alien/humanoid)
 	steps = list(/datum/surgery_step/saw_carapace,/datum/surgery_step/cut_carapace, /datum/surgery_step/retract_carapace,/datum/surgery_step/internal/manipulate_organs)
@@ -27,11 +27,12 @@
 	if(istype(target,/mob/living/carbon/human))
 		var/mob/living/carbon/human/H = target
 		var/obj/item/organ/external/affected = H.get_organ(user.zone_sel.selecting)
-		if(affected && (affected.status & ORGAN_ROBOT))
+		if(!affected)
+			// I'd like to see you do surgery on LITERALLY NOTHING
 			return 0
-		if(target.get_species() == "Machine")//i know organ robot might be enough but i am not taking chances...
+		if(affected.status & ORGAN_ROBOT)
 			return 0
-		if(affected && !affected.encased) //no bone, problem.
+		if(!affected.encased) //no bone, problem.
 			return 0
 		return 1
 
@@ -42,6 +43,9 @@
 
 		if(affected && (affected.status & ORGAN_ROBOT))
 			return 0//no operating on robotic limbs in an organic surgery
+		if(!affected)
+			// I'd like to see you do surgery on LITERALLY NOTHING
+			return 0
 
 		if(affected && affected.encased) //no bones no problem.
 			return 0
@@ -64,7 +68,10 @@
 		return 0
 
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	return affected && affected.open_enough_for_surgery()
+	if(affected)
+		return 1
+
+	return 0
 
 
 
@@ -233,11 +240,14 @@
 			user.visible_message("<span class='notice'> [user] has separated and extracts [target]'s [I] with \the [tool].</span>" , \
 			"<span class='notice'> You have separated and extracted [target]'s [I] with \the [tool].</span>")
 
-			add_logs(target,user, "surgically removed [I.name] from", addition="INTENT: [uppertext(user.a_intent)]")
+			add_logs(user, target, "surgically removed [I.name] from", addition="INTENT: [uppertext(user.a_intent)]")
 			spread_germs_to_organ(I, user)
 			I.status |= ORGAN_CUT_AWAY
-			I.remove(target)
-			I.loc = get_turf(target)
+			var/obj/item/thing = I.remove(target)
+			if(!istype(thing))
+				thing.forceMove(get_turf(target))
+			else
+				user.put_in_hands(thing)
 		else
 			user.visible_message("<span class='notice'>[user] can't seem to extract anything from [target]'s [parse_zone(target_zone)]!</span>",
 				"<span class='notice'>You can't extract anything from [target]'s [parse_zone(target_zone)]!</span>")

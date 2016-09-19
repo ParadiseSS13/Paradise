@@ -145,6 +145,9 @@
 /datum/action/item_action/startchainsaw
 	name = "Pull The Starting Cord"
 
+/datum/action/item_action/print_report
+	name = "Print Forensic Report"
+
 /datum/action/item_action/toggle_gunlight
 	name = "Toggle Gunlight"
 
@@ -216,6 +219,9 @@
 /datum/action/item_action/halt
 	name = "HALT!"
 
+/datum/action/item_action/selectphrase
+	name = "Change Phrase"
+
 /datum/action/item_action/hoot
 	name = "Hoot"
 
@@ -240,6 +246,15 @@
 	..()
 	name = "Adjust [target.name]"
 	button.name = name
+
+/datum/action/item_action/pontificate
+	name = "Pontificate Evilly"
+
+/datum/action/item_action/tip_fedora
+	name = "Tip Fedora"
+
+/datum/action/item_action/flip_cap
+	name = "Flip Cap"
 
 /datum/action/item_action/switch_hud
 	name = "Switch HUD"

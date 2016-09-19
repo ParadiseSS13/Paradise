@@ -1,5 +1,0 @@
-author: Crazylemon64
-delete-after: True
-changes: 
-  - bugfix: "Makes teleportation checks more consistent, which will ensure that teleporting in the away mission no longer works."
-  - bugfix: "People on the space ruins level no longer count as dead for assassinate objectives."

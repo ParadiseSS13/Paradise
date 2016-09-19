@@ -232,9 +232,8 @@ var/round_start_time = 0
 
 	votetimer()
 
-	for(var/mob/M in mob_list)
-		if(istype(M,/mob/new_player))
-			var/mob/new_player/N = M
+	for(var/mob/new_player/N in mob_list)
+		if(N.client)
 			N.new_player_panel_proc()
 
 	return 1
@@ -340,7 +339,8 @@ var/round_start_time = 0
 		if(player.ready && player.mind)
 			if(player.mind.assigned_role == "AI")
 				player.close_spawn_windows()
-				player.AIize()
+				var/mob/living/silicon/ai/ai_character = player.AIize()
+				ai_character.moveToAILandmark()
 			else if(!player.mind.assigned_role)
 				continue
 			else

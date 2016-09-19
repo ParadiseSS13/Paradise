@@ -8,8 +8,8 @@
 
 /mob/living/carbon/human/interactive/away/hotel/doSetup()
 	..()
-	MYID.access += access_syndicate
-	RPID.access += access_syndicate
+	MYID.access = list(access_syndicate)
+	RPID.access = list(access_syndicate)
 
 /mob/living/carbon/human/interactive/away/hotel/guard
 	default_job = /datum/job/officer

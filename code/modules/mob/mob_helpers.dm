@@ -34,8 +34,8 @@
 			return 1
 	return 0
 
-proc/isSSD(mob/M)
-	return istype(M) && M.player_logged
+proc/isLivingSSD(mob/M)
+	return istype(M) && M.player_logged && M.stat != DEAD
 
 proc/isAntag(A)
 	if(istype(A, /mob/living/carbon))

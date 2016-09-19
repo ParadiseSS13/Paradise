@@ -99,6 +99,7 @@
 	if(ticker && ticker.current_state > GAME_STATE_SETTING_UP)
 		to_chat(world, "<span class='danger'>[message]</span>")
 		log_to_dd(message)
+
 // Helper procs for building detailed log lines
 
 /proc/datum_info_line(var/datum/d)

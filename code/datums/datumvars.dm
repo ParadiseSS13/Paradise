@@ -7,12 +7,12 @@
 
 
 	if(!usr.client || !usr.client.holder)
-		to_chat(usr, "\red You need to be an administrator to access this.")
+		to_chat(usr, "<span class='warning'>You need to be an administrator to access this.</span>")
 		return
 
 
 	var/title = ""
-	var/body = ""
+	var/list/body = list()
 
 	if(!D)	return
 	if(istype(D, /atom))
@@ -53,7 +53,7 @@
 										location.href=alist\[0\].href;
 									}
 								}
-							}catch(err) {   }
+							}catch(err) {	 }
 						}
 						return
 					}
@@ -74,7 +74,7 @@
 										return
 									}
 								}
-							}catch(err) {  }
+							}catch(err) {	}
 						}
 						return
 					}
@@ -95,7 +95,7 @@
 										return
 									}
 								}
-							}catch(err) {  }
+							}catch(err) {	}
 						}
 						return
 					}
@@ -121,7 +121,7 @@
 									vars_ol.removeChild(li);
 									i--;
 								}
-							}catch(err) {   }
+							}catch(err) {	 }
 						}
 					}
 					var lis_new = vars_ol.getElementsByTagName("li");
@@ -319,7 +319,7 @@ body
 }
 </style>"}
 	html += "</head><body>"
-	html += body
+	html += body.Join("")
 
 	html += {"
 		<script type='text/javascript'>
@@ -335,7 +335,7 @@ body
 	return
 
 /client/proc/debug_variable(name, value, level, var/datum/DA = null)
-	var/html = ""
+	var/list/html = list()
 
 	if(DA)
 		html += "<li style='backgroundColor:white'>(<a href='?_src_=vars;datumedit=\ref[DA];varnameedit=[name]'>E</a>) (<a href='?_src_=vars;datumchange=\ref[DA];varnamechange=[name]'>C</a>) (<a href='?_src_=vars;datummass=\ref[DA];varnamemass=[name]'>M</a>) "
@@ -379,14 +379,17 @@ body
 
 		if(L.len > 0 && !(name == "underlays" || name == "overlays" || name == "vars" || L.len > 500))
 			// not sure if this is completely right...
-			if(0)   //(L.vars.len > 0)
+			if(0)	 //(L.vars.len > 0)
 				html += "<ol>"
 				html += "</ol>"
 			else
 				html += "<ul>"
 				var/index = 1
 				for(var/entry in L)
-					html += debug_variable(index, L[index], level + 1)
+					if(istext(entry))
+						html += debug_variable(entry, L[entry], level + 1)
+					else
+						html += debug_variable(index, L[index], level + 1)
 					index++
 				html += "</ul>"
 
@@ -411,7 +414,7 @@ body
 		*/
 	html += "</li>"
 
-	return html
+	return html.Join("")
 
 /client/proc/view_var_Topic(href, href_list, hsrc)
 	//This should all be moved over to datum/admins/Topic() or something ~Carn
@@ -920,7 +923,7 @@ body
 			to_chat(usr, "Mob doesn't know that language.")
 
 	else if(href_list["addverb"])
-		if(!check_rights(R_DEBUG))      return
+		if(!check_rights(R_DEBUG))			return
 
 		var/mob/living/H = locate(href_list["addverb"])
 
@@ -952,7 +955,7 @@ body
 			log_admin("[key_name(usr)] has given [key_name(H)] the verb [verb]")
 
 	else if(href_list["remverb"])
-		if(!check_rights(R_DEBUG))      return
+		if(!check_rights(R_DEBUG))			return
 
 		var/mob/H = locate(href_list["remverb"])
 
@@ -1050,7 +1053,7 @@ body
 
 		var/Text = href_list["adjustDamage"]
 
-		var/amount =  input("Deal how much damage to mob? (Negative values here heal)","Adjust [Text]loss",0) as num
+		var/amount =	input("Deal how much damage to mob? (Negative values here heal)","Adjust [Text]loss",0) as num
 
 		if(!L)
 			to_chat(usr, "Mob doesn't exist anymore")

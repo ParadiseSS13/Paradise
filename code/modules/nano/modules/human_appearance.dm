@@ -30,6 +30,8 @@
 		if(can_change(APPEARANCE_RACE) && (href_list["race"] in valid_species))
 			if(owner.change_species(href_list["race"]))
 				cut_and_generate_data()
+				// Species change creates new organs - runtimes ahoy if we forget this
+				head_organ = owner.get_organ("head")
 				return 1
 	if(href_list["gender"])
 		if(can_change(APPEARANCE_GENDER))
@@ -102,7 +104,15 @@
 					return 1
 	if(href_list["eye_color"])
 		if(can_change(APPEARANCE_EYE_COLOR))
-			var/new_eyes = input("Please select eye color.", "Eye Color", rgb(owner.r_eyes, owner.g_eyes, owner.b_eyes)) as color|null
+			var/obj/item/organ/internal/eyes/eyes_organ = owner.get_int_organ(/obj/item/organ/internal/eyes)
+			var/eyes_red = 0
+			var/eyes_green = 0
+			var/eyes_blue = 0
+			if(eyes_organ)
+				eyes_red = eyes_organ.eye_colour[1]
+				eyes_green = eyes_organ.eye_colour[2]
+				eyes_blue = eyes_organ.eye_colour[3]
+			var/new_eyes = input("Please select eye color.", "Eye Color", rgb(eyes_red, eyes_green, eyes_blue)) as color|null
 			if(new_eyes && can_still_topic(state))
 				var/r_eyes = hex2num(copytext(new_eyes, 2, 4))
 				var/g_eyes = hex2num(copytext(new_eyes, 4, 6))
@@ -158,7 +168,7 @@
 	if(data["change_race"])
 		var/species[0]
 		for(var/specimen in valid_species)
-			species[++species.len] =  list("specimen" = specimen)
+			species[++species.len] =	list("specimen" = specimen)
 		data["species"] = species
 
 	data["change_gender"] = can_change(APPEARANCE_GENDER)
@@ -171,7 +181,7 @@
 		for(var/head_accessory_style in valid_head_accessories)
 			head_accessory_styles[++head_accessory_styles.len] = list("headaccessorystyle" = head_accessory_style)
 		data["head_accessory_styles"] = head_accessory_styles
-		data["head_accessory_style"] = head_organ.ha_style
+		data["head_accessory_style"] = (head_organ ? head_organ.ha_style : "None")
 
 	data["change_hair"] = can_change(APPEARANCE_HAIR)
 	if(data["change_hair"])
@@ -179,7 +189,7 @@
 		for(var/hair_style in valid_hairstyles)
 			hair_styles[++hair_styles.len] = list("hairstyle" = hair_style)
 		data["hair_styles"] = hair_styles
-		data["hair_style"] = head_organ.h_style
+		data["hair_style"] = (head_organ ? head_organ.h_style : "Skinhead")
 
 	data["change_facial_hair"] = can_change(APPEARANCE_FACIAL_HAIR)
 	if(data["change_facial_hair"])
@@ -187,7 +197,7 @@
 		for(var/facial_hair_style in valid_facial_hairstyles)
 			facial_hair_styles[++facial_hair_styles.len] = list("facialhairstyle" = facial_hair_style)
 		data["facial_hair_styles"] = facial_hair_styles
-		data["facial_hair_style"] = head_organ.f_style
+		data["facial_hair_style"] = (head_organ ? head_organ.f_style : "Shaved")
 
 	data["change_markings"] = can_change_markings()
 	if(data["change_markings"])
@@ -233,6 +243,9 @@
 	return owner && (flags & APPEARANCE_SKIN) && (owner.species.bodyflags & HAS_SKIN_COLOR)
 
 /datum/nano_module/appearance_changer/proc/can_change_head_accessory()
+	if(!head_organ)
+		log_runtime(EXCEPTION("Missing head!"), owner)
+		return 0
 	return owner && (flags & APPEARANCE_HEAD_ACCESSORY) && (head_organ.species.bodyflags & HAS_HEAD_ACCESSORY)
 
 /datum/nano_module/appearance_changer/proc/can_change_markings()

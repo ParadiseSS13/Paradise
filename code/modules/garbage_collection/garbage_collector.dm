@@ -60,8 +60,6 @@ var/global/datum/controller/process/garbage_collector/garbageCollector
 			queue.Cut(1, 2)
 
 			remainingForceDelPerTick--
-			// Sleep check more aggressively when force deleting.
-			calls_since_last_scheck += 9
 		else // Otherwise, it was GC'd - remove it from the queue
 			queue.Cut(1, 2)
 			soft_dels++
@@ -165,3 +163,4 @@ var/global/datum/controller/process/garbage_collector/garbageCollector
 
 /proc/gcwarning(msg)
 	log_to_dd("## GC WARNING: [msg]")
+	log_runtime(EXCEPTION(msg))

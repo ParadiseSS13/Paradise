@@ -132,6 +132,11 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "book_berner_1"
 
+/obj/item/clothing/glasses/sunglasses/fake/fluff/kaki //Rapidvalj: Kakicharakiti
+	name = "broken thermonocle"
+	desc = "A weathered Vox thermonocle, doesn't seem to work anymore."
+	icon_state = "thermoncle"
+
 /obj/item/weapon/lighter/zippo/fluff/purple // GodOfOreos: Jason Conrad
 	name = "purple engraved zippo"
 	desc = "All craftsspacemanship is of the highest quality. It is encrusted with refined plasma sheets. On the item is an image of a dwarf and the words 'Strike the Earth!' etched onto the side."
@@ -278,6 +283,12 @@
 //////////// Gloves ////////////
 
 //////////// Eye Wear ////////////
+/obj/item/clothing/glasses/hud/security/sunglasses/fluff/eyepro //T0EPIC4U: Ty Omaha
+	name = "Tacticool EyePro"
+	desc = "Tacticool ballistic glasses, for making all operators look badass."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "eyepro"
+	item_state = "eyepro"
 
 //////////// Hats ////////////
 /obj/item/clothing/head/fluff/heather_winceworth // Regens: Heather Winceworth
@@ -325,6 +336,16 @@
 		var/mob/living/carbon/human/H = loc
 		if(H.head == src)
 			H.slurring = max(3, H.slurring) //always slur
+
+/obj/item/clothing/head/beret/fluff/linda //Epic_Charger: Linda Clark
+	name = "Green beret"
+	desc = "A beret, an artist's favorite headwear. This one has two holes cut on the edges."
+	icon_state = "linda_beret"
+
+/obj/item/clothing/head/fluff/kaki //Rapidvalj: Kakicharakiti
+	name = "sleek fancy leader hat"
+	desc = "A uniquely colored vox leader hat. Has some signs of wear."
+	icon_state = "kakicharakiti"
 
 //////////// Suits ////////////
 /obj/item/clothing/suit/storage/labcoat/fluff/aeneas_rinil //Socialsystem: Lynn Fea
@@ -391,6 +412,16 @@
 	desc = "A greatcoat with Nanotrasen colors."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "stobarico_jacket"
+
+
+/obj/item/clothing/suit/hooded/hoodie/fluff/linda // Epic_Charger: Linda Clark
+	name = "Green Nanotrasen Hoodie"
+	desc = "A green hoodie with the Nanotrasen logo on the back. It looks weathered."
+	icon_state = "linda_hoodie"
+	hoodtype = /obj/item/clothing/head/hood/fluff/linda
+
+/obj/item/clothing/head/hood/fluff/linda //Epic_Charger: Linda Clark
+	icon_state = "greenhood"
 
 //////////// Uniforms ////////////
 /obj/item/clothing/under/fluff/kharshai // Kharshai: Athena Castile

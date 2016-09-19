@@ -331,6 +331,7 @@
 		new /datum/data/mining_equipment("Drone Melee Upgrade", /obj/item/device/mine_bot_ugprade,      			   			   400),
 		new /datum/data/mining_equipment("Drone Health Upgrade",/obj/item/device/mine_bot_ugprade/health,      			   	       400),
 		new /datum/data/mining_equipment("Drone Ranged Upgrade",/obj/item/device/mine_bot_ugprade/cooldown,      			   	   600),
+		new /datum/data/mining_equipment("Kinetic Crusher", 	/obj/item/weapon/twohanded/required/mining_hammer,               	   	750),
 		new /datum/data/mining_equipment("Drone AI Upgrade",    /obj/item/slimepotion/sentience/mining,      			   	      1000),
 		new /datum/data/mining_equipment("GAR mesons",			/obj/item/clothing/glasses/meson/gar,							   500),
 		new /datum/data/mining_equipment("Brute First-Aid Kit",	/obj/item/weapon/storage/firstaid/brute,						   600),
@@ -458,7 +459,7 @@
 	..()
 
 /obj/machinery/mineral/equipment_vendor/proc/RedeemVoucher(obj/item/weapon/mining_voucher/voucher, mob/redeemer)
-	var/selection = input(redeemer, "Pick your equipment", "Mining Voucher Redemption") as null|anything in list("Kinetic Accelerator", "Resonator", "Mining Drone", "Advanced Scanner")
+	var/selection = input(redeemer, "Pick your equipment", "Mining Voucher Redemption") as null|anything in list("Kinetic Accelerator", "Resonator", "Mining Drone", "Advanced Scanner", "Crusher")
 	if(!selection || !Adjacent(redeemer) || voucher.loc != redeemer)
 		return
 	switch(selection)
@@ -470,6 +471,8 @@
 			new /obj/item/weapon/storage/box/drone_kit(src.loc)
 		if("Advanced Scanner")
 			new /obj/item/device/t_scanner/adv_mining_scanner(src.loc)
+		if("Crusher")
+			new /obj/item/weapon/twohanded/required/mining_hammer(loc)
 	qdel(voucher)
 
 /obj/machinery/mineral/equipment_vendor/ex_act(severity, target)
@@ -650,7 +653,7 @@
 			playsound(src,'sound/weapons/resonator_blast.ogg',50,1)
 			if(creator)
 				for(var/mob/living/L in src.loc)
-					add_logs(L, creator, "used a resonator field on", object="resonator")
+					add_logs(creator, L, "used a resonator field on", object="resonator")
 					to_chat(L, "<span class='danger'>The [src.name] ruptured with you in it!</span>")
 					L.adjustBruteLoss(resonance_damage)
 			else
@@ -690,6 +693,8 @@
 	qdel(src)
 
 /**********************Mining drone**********************/
+#define MINEDRONE_COLLECT 1
+#define MINEDRONE_ATTACK 2
 
 /mob/living/simple_animal/hostile/mining_drone
 	name = "nanotrasen minebot"
@@ -698,7 +703,6 @@
 	icon_state = "mining_drone"
 	icon_living = "mining_drone"
 	status_flags = CANSTUN|CANWEAKEN|CANPUSH
-	stop_automated_movement_when_pulled = 1
 	mouse_opacity = 1
 	faction = list("neutral")
 	a_intent = I_HARM
@@ -715,6 +719,7 @@
 	melee_damage_upper = 15
 	environment_smash = 0
 	check_friendly_fire = 1
+	stop_automated_movement_when_pulled = 1
 	attacktext = "drills"
 	attack_sound = 'sound/weapons/circsawhit.ogg'
 	ranged = 1
@@ -727,18 +732,43 @@
 	wanted_objects = list(/obj/item/weapon/ore/diamond, /obj/item/weapon/ore/gold, /obj/item/weapon/ore/silver,
 						  /obj/item/weapon/ore/plasma,  /obj/item/weapon/ore/uranium,    /obj/item/weapon/ore/iron,
 						  /obj/item/weapon/ore/bananium, /obj/item/weapon/ore/tranquillite, /obj/item/weapon/ore/glass)
+	healable = 0
+	var/mode = MINEDRONE_COLLECT
+	var/light_on = 0
 
-/mob/living/simple_animal/hostile/mining_drone/attackby(obj/item/I as obj, mob/user as mob, params)
+	var/datum/action/innate/minedrone/toggle_light/toggle_light_action
+	var/datum/action/innate/minedrone/toggle_meson_vision/toggle_meson_vision_action
+	var/datum/action/innate/minedrone/toggle_mode/toggle_mode_action
+	var/datum/action/innate/minedrone/dump_ore/dump_ore_action
+
+/mob/living/simple_animal/hostile/mining_drone/New()
+	..()
+	toggle_light_action = new()
+	toggle_light_action.Grant(src)
+	toggle_meson_vision_action = new()
+	toggle_meson_vision_action.Grant(src)
+	toggle_mode_action = new()
+	toggle_mode_action.Grant(src)
+	dump_ore_action = new()
+	dump_ore_action.Grant(src)
+
+	SetCollectBehavior()
+
+/mob/living/simple_animal/hostile/mining_drone/sentience_act()
+	AIStatus = AI_OFF
+	check_friendly_fire = 0
+
+/mob/living/simple_animal/hostile/mining_drone/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/weapon/weldingtool))
 		var/obj/item/weapon/weldingtool/W = I
 		if(W.welding && !stat)
-			if(FindTarget())//if the bot has anything to shoot at, to prevent combat repair cheesing
+			if(AIStatus != AI_OFF && AIStatus != AI_IDLE)
 				to_chat(user, "<span class='info'>[src] is moving around too much to repair!</span>")
 				return
 			if(maxHealth == health)
 				to_chat(user, "<span class='info'>[src] is at full integrity.</span>")
 			else
-				adjustHealth(-10)//actually repairs the bot, not damages it
+				adjustBruteLoss(-10)
 				to_chat(user, "<span class='info'>You repair some of the armor on [src].</span>")
 			return
 	if(istype(I, /obj/item/device/mining_scanner) || istype(I, /obj/item/device/t_scanner/adv_mining_scanner))
@@ -751,27 +781,23 @@
 	..()
 	visible_message("<span class='danger'>[src] is destroyed!</span>")
 	new /obj/effect/decal/cleanable/blood/gibs/robot(src.loc)
-	DropOre()
+	DropOre(0)
 	qdel(src)
 	return
 
-/mob/living/simple_animal/hostile/mining_drone/New()
-	..()
-	SetCollectBehavior()
-
 /mob/living/simple_animal/hostile/mining_drone/attack_hand(mob/living/carbon/human/M)
 	if(M.a_intent == I_HELP)
-		switch(search_objects)
-			if(0)
-				SetCollectBehavior()
+		toggle_mode()
+		switch(mode)
+			if(MINEDRONE_COLLECT)
 				to_chat(M, "<span class='info'>[src] has been set to search and store loose ore.</span>")
-			if(2)
-				SetOffenseBehavior()
+			if(MINEDRONE_ATTACK)
 				to_chat(M, "<span class='info'>[src] has been set to attack hostile wildlife.</span>")
 		return
 	..()
 
 /mob/living/simple_animal/hostile/mining_drone/proc/SetCollectBehavior()
+	mode = MINEDRONE_COLLECT
 	idle_vision_range = 9
 	search_objects = 2
 	wander = 1
@@ -779,8 +805,10 @@
 	minimum_distance = 1
 	retreat_distance = null
 	icon_state = "mining_drone"
+	to_chat(src, "<span class='info'>You are set to collect mode. You can now collect loose ore.</span>")
 
 /mob/living/simple_animal/hostile/mining_drone/proc/SetOffenseBehavior()
+	mode = MINEDRONE_ATTACK
 	idle_vision_range = 7
 	search_objects = 0
 	wander = 0
@@ -788,9 +816,10 @@
 	retreat_distance = 1
 	minimum_distance = 2
 	icon_state = "mining_drone_offense"
+	to_chat(src, "<span class='info'>You are set to attack mode. You can now attack from range.</span>")
 
 /mob/living/simple_animal/hostile/mining_drone/AttackingTarget()
-	if(istype(target, /obj/item/weapon/ore))
+	if(istype(target, /obj/item/weapon/ore) && mode ==  MINEDRONE_COLLECT)
 		CollectOre()
 		return
 	..()
@@ -805,18 +834,84 @@
 			O.forceMove(src)
 	return
 
-/mob/living/simple_animal/hostile/mining_drone/proc/DropOre()
+/mob/living/simple_animal/hostile/mining_drone/proc/DropOre(message = 1)
 	if(!contents.len)
+		if(message)
+			to_chat(src, "<span class='notice'>You attempt to dump your stored ore, but you have none.</span>")
 		return
+	if(message)
+		to_chat(src, "<span class='notice'>You dump your stored ore.</span>")
 	for(var/obj/item/weapon/ore/O in contents)
 		contents -= O
 		O.forceMove(loc)
 	return
 
-/mob/living/simple_animal/hostile/mining_drone/adjustHealth()
-	if(search_objects)
+/mob/living/simple_animal/hostile/mining_drone/adjustHealth(amount)
+	if(mode != MINEDRONE_ATTACK && amount > 0)
 		SetOffenseBehavior()
-	..()
+	. = ..()
+
+/mob/living/simple_animal/hostile/mining_drone/proc/toggle_mode()
+	switch(mode)
+		if(MINEDRONE_COLLECT)
+			SetOffenseBehavior()
+		if(MINEDRONE_ATTACK)
+			SetCollectBehavior()
+		else //This should never happen.
+			mode = MINEDRONE_COLLECT
+			SetCollectBehavior()
+
+//Actions for sentient minebots
+
+/datum/action/innate/minedrone
+	check_flags = AB_CHECK_CONSCIOUS
+	background_icon_state = "bg_default"
+
+/datum/action/innate/minedrone/toggle_light
+	name = "Toggle Light"
+	button_icon_state = "mech_lights_off"
+
+/datum/action/innate/minedrone/toggle_light/Activate()
+	var/mob/living/simple_animal/hostile/mining_drone/user = owner
+
+	if(user.light_on)
+		user.set_light(0)
+	else
+		user.set_light(6)
+	user.light_on = !user.light_on
+	to_chat(user, "<span class='notice'>You toggle your light [user.light_on ? "on" : "off"].</span>")
+
+/datum/action/innate/minedrone/toggle_meson_vision
+	name = "Toggle Meson Vision"
+	button_icon_state = "meson"
+
+/datum/action/innate/minedrone/toggle_meson_vision/Activate()
+	var/mob/living/simple_animal/hostile/mining_drone/user = owner
+
+	if(user.sight & SEE_TURFS)
+		user.sight &= ~SEE_TURFS
+		user.see_invisible = SEE_INVISIBLE_LIVING
+	else
+		user.sight |= SEE_TURFS
+		user.see_invisible = SEE_INVISIBLE_MINIMUM
+
+	to_chat(user, "<span class='notice'>You toggle your meson vision [(user.sight & SEE_TURFS) ? "on" : "off"].</span>")
+
+/datum/action/innate/minedrone/toggle_mode
+	name = "Toggle Mode"
+	button_icon_state = "mech_cycle_equip_off"
+
+/datum/action/innate/minedrone/toggle_mode/Activate()
+	var/mob/living/simple_animal/hostile/mining_drone/user = owner
+	user.toggle_mode()
+
+/datum/action/innate/minedrone/dump_ore
+	name = "Dump Ore"
+	button_icon_state = "mech_eject"
+
+/datum/action/innate/minedrone/dump_ore/Activate()
+	var/mob/living/simple_animal/hostile/mining_drone/user = owner
+	user.DropOre()
 
 
 /**********************Minebot Upgrades**********************/
@@ -829,8 +924,8 @@
 	icon_state = "door_electronics"
 	icon = 'icons/obj/doors/door_assembly.dmi'
 
-/obj/item/device/mine_bot_ugprade/afterattack(mob/living/simple_animal/hostile/mining_drone/M, mob/user)
-	if(!istype(M))
+/obj/item/device/mine_bot_ugprade/afterattack(mob/living/simple_animal/hostile/mining_drone/M, mob/user, proximity)
+	if(!istype(M) || !proximity)
 		return
 	upgrade_bot(M, user)
 
@@ -878,6 +973,10 @@
 	icon_state = "door_electronics"
 	icon = 'icons/obj/doors/door_assembly.dmi'
 	sentience_type = SENTIENCE_MINEBOT
+	origin_tech = "programming=6"
+
+#undef MINEDRONE_COLLECT
+#undef MINEDRONE_ATTACK
 
 /**********************Mining drone kit**********************/
 
@@ -1108,3 +1207,104 @@
 	C.preserved = 1
 	to_chat(user, "<span class='notice'>You inject the hivelord core with the stabilizer. It will no longer go inert.</span>")
 	qdel(src)
+
+/*********************Mining Hammer****************/
+/obj/item/weapon/twohanded/required/mining_hammer
+	icon = 'icons/obj/mining.dmi'
+	icon_state = "mining_hammer1"
+	item_state = "mining_hammer1"
+	name = "proto-kinetic crusher"
+	desc = "An early design of the proto-kinetic accelerator, it is little more than an combination of various mining tools cobbled together, forming a high-tech club.\
+	  While it is an effective mining tool, it did little to aid any but the most skilled and/or suicidal miners against local fauna. \
+	 \n<span class='info'>Mark a mob with the destabilizing force, then hit them in melee to activate it for extra damage. Extra damage if backstabbed in this fashion. \
+	 This weapon is only particularly effective against large creatures.</span>"
+	force = 20 //As much as a bone spear, but this is significantly more annoying to carry around due to requiring the use of both hands at all times
+	w_class = 4
+	slot_flags = SLOT_BACK
+	force_unwielded = 20 //It's never not wielded so these are the same
+	force_wielded = 20
+	throwforce = 5
+	throw_speed = 4
+	light_range = 4
+	armour_penetration = 10
+	materials = list(MAT_METAL=1150, MAT_GLASS=2075)
+	hitsound = 'sound/weapons/bladeslice.ogg'
+	attack_verb = list("smashes", "crushes", "cleaves", "chops", "pulps")
+	sharp = 1
+	edge = 1
+	var/charged = 1
+	var/charge_time = 16
+	var/atom/mark = null
+	var/marked_image = null
+
+/obj/item/projectile/destabilizer
+	name = "destabilizing force"
+	icon_state = "pulse1"
+	damage = 0 //We're just here to mark people. This is still a melee weapon.
+	damage_type = BRUTE
+	flag = "bomb"
+	range = 6
+	var/obj/item/weapon/twohanded/required/mining_hammer/hammer_synced =  null
+
+/obj/item/projectile/destabilizer/on_hit(atom/target, blocked = 0, hit_zone)
+	if(hammer_synced)
+		if(hammer_synced.mark == target)
+			return ..()
+		if(isliving(target))
+			if(hammer_synced.mark && hammer_synced.marked_image)
+				hammer_synced.mark.underlays -= hammer_synced.marked_image
+				hammer_synced.marked_image = null
+			var/mob/living/L = target
+			if(L.mob_size >= MOB_SIZE_LARGE)
+				hammer_synced.mark = L
+				var/image/I = image('icons/effects/effects.dmi', loc = L, icon_state = "shield2",pixel_y = (-L.pixel_y),pixel_x = (-L.pixel_x))
+				L.underlays += I
+				hammer_synced.marked_image = I
+		var/target_turf = get_turf(target)
+		if(istype(target_turf, /turf/simulated/mineral))
+			var/turf/simulated/mineral/M = target_turf
+			new /obj/effect/overlay/temp/kinetic_blast(M)
+			M.gets_drilled(firer)
+	..()
+
+/obj/item/weapon/twohanded/required/mining_hammer/afterattack(atom/target, mob/user, proximity_flag)
+	if(!proximity_flag && charged)//Mark a target, or mine a tile.
+		var/turf/proj_turf = get_turf(src)
+		if(!istype(proj_turf, /turf))
+			return
+		var/datum/gas_mixture/environment = proj_turf.return_air()
+		var/pressure = environment.return_pressure()
+		if(pressure > 50)
+			playsound(user, 'sound/weapons/empty.ogg', 100, 1)
+			return
+		var/obj/item/projectile/destabilizer/D = new /obj/item/projectile/destabilizer(user.loc)
+		D.preparePixelProjectile(target,get_turf(target), user)
+		D.hammer_synced = src
+		playsound(user, 'sound/weapons/plasma_cutter.ogg', 100, 1)
+		D.fire()
+		charged = 0
+		icon_state = "mining_hammer1_uncharged"
+		spawn(charge_time)
+			Recharge()
+		return
+	if(proximity_flag && target == mark && isliving(target))
+		var/mob/living/L = target
+		new /obj/effect/overlay/temp/kinetic_blast(get_turf(L))
+		mark = 0
+		if(L.mob_size >= MOB_SIZE_LARGE)
+			L.underlays -= marked_image
+			qdel(marked_image)
+			marked_image = null
+			var/backstab = check_target_facings(user, L)
+			var/def_check = L.getarmor(type = "bomb")
+			if(backstab == FACING_INIT_FACING_TARGET_TARGET_FACING_PERPENDICULAR || backstab == FACING_SAME_DIR)
+				L.apply_damage(80, BRUTE, blocked = def_check)
+				playsound(user, 'sound/weapons/Kenetic_accel.ogg', 100, 1) //Seriously who spelled it wrong
+			else
+				L.apply_damage(50, BRUTE, blocked = def_check)
+
+/obj/item/weapon/twohanded/required/mining_hammer/proc/Recharge()
+	if(!charged)
+		charged = 1
+		icon_state = "mining_hammer1"
+		playsound(loc, 'sound/weapons/kenetic_reload.ogg', 60, 1)

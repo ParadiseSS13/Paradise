@@ -29,7 +29,7 @@
 /mob/living/captive_brain/say_understands(var/mob/other, var/datum/language/speaking = null)
 	var/mob/living/simple_animal/borer/B = src.loc
 	if(!istype(B))
-		log_to_dd("Trapped mind found without a borer!")
+		log_runtime(EXCEPTION("Trapped mind found without a borer!"), src)
 		return 0
 	return B.host.say_understands(other, speaking)
 
@@ -76,7 +76,7 @@
 	attacktext = "nips"
 	friendly = "prods"
 	wander = 0
-	small = 1
+	mob_size = MOB_SIZE_TINY
 	density = 0
 	pass_flags = PASSTABLE
 	ventcrawler = 2

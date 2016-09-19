@@ -3,6 +3,7 @@
 	real_name = "alien larva"
 	icon_state = "larva0"
 	pass_flags = PASSTABLE | PASSMOB
+	mob_size = MOB_SIZE_SMALL
 
 	maxHealth = 30
 	health = 30
@@ -115,7 +116,7 @@
 				"<span class='userdanger'>[M] [M.attacktext] [src]!</span>")
 		var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
 		adjustBruteLoss(damage)
-		add_logs(src, M, "attacked", admin=0)
+		add_logs(M, src, "attacked", admin=0)
 		updatehealth()
 
 

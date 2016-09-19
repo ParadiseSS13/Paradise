@@ -639,7 +639,7 @@
 					M.adjustFireLoss(rand(0,15))
 					M.update_revive()
 					M.stat = UNCONSCIOUS
-					add_logs(M, M, "revived", object="strange reagent")
+					add_logs(M, M, "revived", object="strange reagent") //Yes, the logs say you revived yourself.
 	..()
 
 /datum/reagent/strange_reagent/on_mob_life(mob/living/M)
@@ -1008,3 +1008,54 @@
 	M.adjustBrainLoss(-15*REM)
 	M.adjustCloneLoss(-3*REM)
 	..()
+
+
+/datum/reagent/omnizine_diluted
+	name = "Diluted Omnizine"
+	id = "weak_omnizine"
+	description = "Slowly heals all damage types. A far weaker substitute than actual omnizine."
+	reagent_state = LIQUID
+	color = "#DCDCDC"
+	overdose_threshold = 30
+	metabolization_rate = 0.1
+
+/datum/reagent/omnizine_diluted/on_mob_life(mob/living/M)
+	M.adjustToxLoss(-0.5*REM)
+	M.adjustOxyLoss(-0.5*REM)
+	M.adjustBruteLoss(-0.5*REM)
+	M.adjustFireLoss(-0.5*REM)
+	..()
+
+/datum/reagent/omnizine_diluted/overdose_process(mob/living/M, severity)
+	var/effect = ..()
+	if(severity == 1) //lesser
+		M.stuttering += 1
+		if(effect <= 1)
+			M.visible_message("<span class='warning'>[M] suddenly cluches their gut!</span>")
+			M.emote("scream")
+			M.Stun(4)
+			M.Weaken(4)
+		else if(effect <= 3)
+			M.visible_message("<span class='warning'>[M] completely spaces out for a moment.</span>")
+			M.confused += 15
+		else if(effect <= 5)
+			M.visible_message("<span class='warning'>[M] stumbles and staggers.</span>")
+			M.Dizzy(5)
+			M.Weaken(3)
+		else if(effect <= 7)
+			M.visible_message("<span class='warning'>[M] shakes uncontrollably.</span>")
+			M.Jitter(30)
+	else if(severity == 2) // greater
+		if(effect <= 2)
+			M.visible_message("<span class='warning'>[M] suddenly cluches their gut!</span>")
+			M.emote("scream")
+			M.Stun(7)
+			M.Weaken(7)
+		else if(effect <= 5)
+			M.visible_message("<span class='warning'>[M] jerks bolt upright, then collapses!</span>")
+			M.Paralyse(5)
+			M.Weaken(4)
+		else if(effect <= 8)
+			M.visible_message("<span class='warning'>[M] stumbles and staggers.</span>")
+			M.Dizzy(5)
+			M.Weaken(3)

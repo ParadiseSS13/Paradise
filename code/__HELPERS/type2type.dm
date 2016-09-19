@@ -79,7 +79,7 @@
 		if(4.0) return EAST
 		if(8.0) return WEST
 		else
-			log_to_dd("UNKNOWN DIRECTION: [direction]")
+			log_runtime(EXCEPTION("UNKNOWN DIRECTION: [direction]"))
 
 /proc/dir2text(direction)
 	switch(direction)

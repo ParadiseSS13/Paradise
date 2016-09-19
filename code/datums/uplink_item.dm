@@ -180,6 +180,14 @@ var/list/uplink_items = list()
 	cost = 13
 	job = list("Chaplain")
 
+/datum/uplink_item/jobspecific/missionary_kit
+	name = "Missionary Starter Kit"
+	desc = "A box containing a missionary staff, missionary robes, and bible. The robes and staff can be linked to allow you to convert victims at range for a short time to do your bidding. The bible is for bible stuff."
+	reference = "MK"
+	item = /obj/item/weapon/storage/box/syndie_kit/missionary_set
+	cost = 15
+	job = list("Chaplain")
+
 /datum/uplink_item/jobspecific/artistic_toolbox
 	name = "Artistic Toolbox"
 	desc = "An accursed toolbox that grants its followers extreme power at the cost of requiring repeated sacrifices to it. If sacrifices are not provided, it will turn on its follower."
@@ -309,7 +317,7 @@ var/list/uplink_items = list()
 	item = /obj/item/clothing/under/contortionist
 	cost = 6
 	job = list("Life Support Specialist")
-	
+
 /datum/uplink_item/dangerous/energizedfireaxe
 	name = "Energized Fire Axe"
 	desc = "A fire axe with a massive electrical charge built into it. It can release this charge on its first victim and will be rather plain after that."

@@ -51,8 +51,6 @@
 	var/broken_description
 
 	var/open = 0
-	var/stage = 0
-	var/cavity = 0
 	var/sabotaged = 0 //If a prosthetic limb is emagged, it will detonate when it fails.
 	var/encased       // Needs to be opened with a saw to access the organs.
 
@@ -75,6 +73,10 @@
 		for(var/obj/item/organ/internal/O in internal_organs)
 			internal_organs -= O
 			O.remove(owner,special = 1)
+			qdel(O)
+
+	if(owner)
+		owner.organs_by_name[limb_name] = null
 
 	if(children)
 		for(var/obj/item/organ/external/C in children)
@@ -87,38 +89,35 @@
 	return ..()
 
 /obj/item/organ/external/attackby(obj/item/weapon/W as obj, mob/user as mob)
-	switch(stage)
+	switch(open)
 		if(0)
 			if(istype(W,/obj/item/weapon/scalpel))
 				spread_germs_to_organ(src,user)
-				user.visible_message("<span class='danger'><b>[user]</b> cuts [src] open with [W]!")
-				stage++
+				user.visible_message("<span class='danger'><b>[user]</b> cuts [src] open with [W]!</span>")
+				open++
 				return
 		if(1)
 			if(istype(W,/obj/item/weapon/retractor))
 				spread_germs_to_organ(src,user)
-				user.visible_message("<span class='danger'><b>[user]</b> cracks [src] open like an egg with [W]!")
-				stage++
+				user.visible_message("<span class='danger'><b>[user]</b> cracks [src] open like an egg with [W]!</span>")
+				open++
 				return
 		if(2)
 			if(istype(W,/obj/item/weapon/hemostat))
 				spread_germs_to_organ(src,user)
 				if(contents.len)
 					var/obj/item/removing = pick(contents)
-					removing.loc = get_turf(user.loc)
 					var/obj/item/organ/internal/O = removing
 					if(istype(O))
 						O.status |= ORGAN_CUT_AWAY
 						if(!O.sterile)
 							spread_germs_to_organ(O,user) // This wouldn't be any cleaner than the actual surgery
-						O.forceMove(get_turf(src))
-					if(!(user.l_hand && user.r_hand))
-						user.put_in_hands(removing)
-					user.visible_message("<span class='danger'><b>[user]</b> extracts [removing] from [src] with [W]!")
+					user.put_in_hands(removing)
+					user.visible_message("<span class='danger'><b>[user]</b> extracts [removing] from [src] with [W]!</span>")
 				else
-					user.visible_message("<span class='danger'><b>[user]</b> fishes around fruitlessly in [src] with [W].")
+					user.visible_message("<span class='danger'><b>[user]</b> fishes around fruitlessly in [src] with [W].</span>")
 				return
-	..()
+	. = ..()
 
 
 /obj/item/organ/external/update_health()
@@ -139,14 +138,12 @@
 	status = status & ~ORGAN_DESTROYED
 	forceMove(owner)
 	if(istype(owner))
+		if(!isnull(owner.organs_by_name[limb_name]))
+			log_debug("Duplicate organ in slot \"[limb_name]\", mob '[target]'")
 		owner.organs_by_name[limb_name] = src
 		owner.organs |= src
-		for(var/obj/item/organ/organ in src)
-			if(istype(src, /obj/item/organ/internal))
-				var/obj/item/organ/internal/I = organ
-				if(target.get_organ_slot(I.slot))
-					continue // Just leave it inside its limb, so brains with brainmobs in them don't get voided.
-			organ.replaced(owner,src)
+		for(var/atom/movable/stuff in src)
+			stuff.attempt_become_organ(src, owner)
 
 	if(parent_organ)
 		parent = owner.organs_by_name[src.parent_organ]
@@ -160,6 +157,12 @@
 				qdel(W)
 				break
 			parent.update_damages()
+
+/obj/item/organ/external/attempt_become_organ(obj/item/organ/external/parent,mob/living/carbon/human/H)
+	if(parent_organ != parent.limb_name)
+		return 0
+	replaced(H)
+	return 1
 
 /****************************************************
 			   DAMAGE PROCS
@@ -409,7 +412,7 @@ This function completely restores a damaged organ to perfect condition.
 		last_dam = brute_dam + burn_dam
 	if(germ_level)
 		return 1
-	if(!wound_cleanup_timer)
+	if(!wound_cleanup_timer && wounds.len)
 		wound_cleanup_timer = addtimer(src, "cleanup_wounds", SecondsToTicks(600), 1, wounds)
 
 	if(update_icon())
@@ -691,7 +694,8 @@ Note that amputating the affected organ does in fact remove the infection from t
 				"<span class='danger'>You hear the [gore_sound].</span>")
 
 	var/mob/living/carbon/human/victim = owner //Keep a reference for post-removed().
-	remove(null, ignore_children)
+	// Let people make limbs become fun things when removed
+	var/atom/movable/dropped_part = remove(null, ignore_children)
 	victim.traumatic_shock += 30
 
 	wounds.Cut()
@@ -726,12 +730,12 @@ Note that amputating the affected organ does in fact remove the infection from t
 			if(!clean)
 				// Throw limb around.
 				if(src && istype(loc,/turf))
-					throw_at(get_edge_target_turf(src,pick(alldirs)),rand(1,3),30)
+					dropped_part.throw_at(get_edge_target_turf(src,pick(alldirs)),rand(1,3),30)
 				dir = 2
-			return
+			return dropped_part
 		else
 			qdel(src) // If you flashed away to ashes, YOU FLASHED AWAY TO ASHES
-			return
+			return null
 
 /****************************************************
 			   HELPERS
@@ -903,7 +907,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	var/is_robotic = status & ORGAN_ROBOT
 	var/mob/living/carbon/human/victim = owner
 
-	..()
+	. = ..()
 
 	status |= ORGAN_DESTROYED
 	victim.bad_external_organs -= src
@@ -914,14 +918,14 @@ Note that amputating the affected organ does in fact remove the infection from t
 	// Attached organs also fly off.
 	if(!ignore_children)
 		for(var/obj/item/organ/external/O in children)
-			O.remove(victim)
-			if(O)
-				O.forceMove(src)
+			var/atom/movable/thing = O.remove(victim)
+			if(thing)
+				thing.forceMove(src)
 
 	// Grab all the internal giblets too.
 	for(var/obj/item/organ/internal/organ in internal_organs)
-		organ.remove(victim)
-		organ.forceMove(src)
+		var/atom/movable/thing = organ.remove(victim)
+		thing.forceMove(src)
 
 	release_restraints(victim)
 	victim.organs -= src
