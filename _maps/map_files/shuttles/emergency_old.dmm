@@ -32,7 +32,7 @@
 "aF" = (/obj/structure/stool/bed/chair{dir = 8},/obj/structure/closet/walllocker/emerglocker{pixel_x = 28},/turf/simulated/shuttle/floor{icon_state = "floor3"},/area/xenos_station/transit)
 "aG" = (/obj/structure/stool/bed/chair{dir = 8},/turf/simulated/shuttle/floor{icon_state = "floor3"},/area/space)
 "aH" = (/obj/structure/grille,/obj/structure/window/full/shuttle{icon_state = "15"},/turf/simulated/floor/plating,/area/xenos_station/transit)
-"aI" = (/obj/docking_port/mobile/emergency{dir = 4; dwidth = 11; height = 13; width = 24},/obj/machinery/door/airlock/shuttle{aiControlDisabled = 1; hackProof = 1; id_tag = "s_docking_airlock"; name = "Shuttle Hatch"},/turf/simulated/shuttle/floor,/area/xenos_station/transit)
+"aI" = (/obj/docking_port/mobile/emergency{dir = 4; dwidth = 9; height = 13; width = 24},/obj/machinery/door/airlock/shuttle{aiControlDisabled = 1; hackProof = 1; id_tag = "s_docking_airlock"; name = "Shuttle Hatch"},/turf/simulated/shuttle/floor,/area/xenos_station/transit)
 "aJ" = (/obj/structure/stool/bed/chair{dir = 4},/obj/item/device/radio/intercom{dir = 8; name = "station intercom (General)"; pixel_x = -28},/obj/machinery/light/spot{tag = "icon-tube1 (WEST)"; icon_state = "tube1"; dir = 8},/turf/simulated/shuttle/floor{icon_state = "floor3"},/area/xenos_station/transit)
 "aK" = (/obj/structure/stool/bed/chair{dir = 8},/obj/structure/closet/walllocker/emerglocker{pixel_x = 28},/obj/machinery/light/spot{tag = "icon-tube1 (EAST)"; icon_state = "tube1"; dir = 4},/turf/simulated/shuttle/floor{icon_state = "floor3"},/area/xenos_station/transit)
 "aL" = (/obj/structure/table,/obj/item/weapon/storage/firstaid/fire,/obj/item/weapon/storage/firstaid/regular{pixel_x = 2; pixel_y = 3},/obj/item/weapon/extinguisher,/obj/item/weapon/crowbar,/obj/machinery/light/spot{tag = "icon-tube1 (WEST)"; icon_state = "tube1"; dir = 8},/turf/simulated/shuttle/floor{icon_state = "floor3"},/area/xenos_station/transit)
@@ -49,20 +49,19 @@
 "aW" = (/obj/structure/stool/bed/roller,/turf/simulated/shuttle/floor{icon_state = "floor3"},/area/xenos_station/transit)
 "aX" = (/obj/structure/stool/bed/chair,/turf/simulated/shuttle/floor4,/area/xenos_station/transit)
 "aY" = (/turf/simulated/shuttle/floor4,/area/xenos_station/transit)
-"aZ" = (/turf/simulated/shuttle/floor{icon_state = "floor3"},/area/space)
-"ba" = (/obj/structure/stool/bed/roller,/obj/machinery/vending/wallmed1{layer = 3.3; name = "Emergency NanoMed"; pixel_x = 28; pixel_y = 0; req_access_txt = "0"},/obj/machinery/light/spot{tag = "icon-tube1 (EAST)"; icon_state = "tube1"; dir = 4},/turf/simulated/shuttle/floor{icon_state = "floor3"},/area/xenos_station/transit)
-"bb" = (/obj/machinery/status_display{pixel_x = -30; pixel_y = 0},/obj/machinery/light/spot{tag = "icon-tube1 (WEST)"; icon_state = "tube1"; dir = 8},/turf/simulated/shuttle/floor4,/area/xenos_station/transit)
-"bc" = (/obj/item/device/radio/intercom{dir = 4; name = "station intercom (General)"; pixel_x = 28},/turf/simulated/shuttle/floor4,/area/xenos_station/transit)
-"bd" = (/obj/structure/table,/obj/item/weapon/storage/firstaid/regular{pixel_x = 2; pixel_y = 6},/obj/item/weapon/storage/firstaid/regular{pixel_x = -2; pixel_y = 4},/obj/item/bodybag/cryobag{pixel_x = 5},/obj/item/device/radio/intercom{dir = 4; name = "station intercom (General)"; pixel_x = 28},/obj/item/weapon/storage/firstaid/o2{layer = 2.8; pixel_x = 4; pixel_y = 6},/turf/simulated/shuttle/floor{icon_state = "floor3"},/area/xenos_station/transit)
-"be" = (/obj/structure/stool/bed/chair{dir = 1},/turf/simulated/shuttle/floor4,/area/xenos_station/transit)
-"bf" = (/turf/space,/turf/simulated/shuttle/wall{icon_state = "swall_f5"; dir = 2},/area/xenos_station/transit)
-"bg" = (/obj/structure/window/reinforced{dir = 1},/obj/structure/shuttle/engine/heater,/turf/simulated/floor/plating/airless,/area/xenos_station/transit)
-"bh" = (/turf/simulated/shuttle/wall{icon_state = "swall11"; dir = 2},/area/xenos_station/transit)
-"bi" = (/turf/simulated/shuttle/wall{icon_state = "swall7"; dir = 2},/area/xenos_station/transit)
-"bj" = (/obj/structure/shuttle/engine/heater,/obj/structure/window/reinforced{dir = 1},/turf/simulated/floor/plating/airless,/area/xenos_station/transit)
-"bk" = (/turf/space,/turf/simulated/shuttle/wall{icon_state = "swall_f9"; dir = 2},/area/xenos_station/transit)
-"bl" = (/obj/structure/shuttle/engine/propulsion,/turf/space,/area/xenos_station/transit)
-"bm" = (/turf/space,/turf/simulated/shuttle/wall{icon_state = "swall_f9"; dir = 2},/area/space)
+"aZ" = (/obj/structure/stool/bed/roller,/obj/machinery/vending/wallmed1{layer = 3.3; name = "Emergency NanoMed"; pixel_x = 28; pixel_y = 0; req_access_txt = "0"},/obj/machinery/light/spot{tag = "icon-tube1 (EAST)"; icon_state = "tube1"; dir = 4},/turf/simulated/shuttle/floor{icon_state = "floor3"},/area/xenos_station/transit)
+"ba" = (/obj/machinery/status_display{pixel_x = -30; pixel_y = 0},/obj/machinery/light/spot{tag = "icon-tube1 (WEST)"; icon_state = "tube1"; dir = 8},/turf/simulated/shuttle/floor4,/area/xenos_station/transit)
+"bb" = (/obj/item/device/radio/intercom{dir = 4; name = "station intercom (General)"; pixel_x = 28},/turf/simulated/shuttle/floor4,/area/xenos_station/transit)
+"bc" = (/obj/structure/table,/obj/item/weapon/storage/firstaid/regular{pixel_x = 2; pixel_y = 6},/obj/item/weapon/storage/firstaid/regular{pixel_x = -2; pixel_y = 4},/obj/item/bodybag/cryobag{pixel_x = 5},/obj/item/device/radio/intercom{dir = 4; name = "station intercom (General)"; pixel_x = 28},/obj/item/weapon/storage/firstaid/o2{layer = 2.8; pixel_x = 4; pixel_y = 6},/turf/simulated/shuttle/floor{icon_state = "floor3"},/area/xenos_station/transit)
+"bd" = (/obj/structure/stool/bed/chair{dir = 1},/turf/simulated/shuttle/floor4,/area/xenos_station/transit)
+"be" = (/turf/space,/turf/simulated/shuttle/wall{icon_state = "swall_f5"; dir = 2},/area/xenos_station/transit)
+"bf" = (/obj/structure/window/reinforced{dir = 1},/obj/structure/shuttle/engine/heater,/turf/simulated/floor/plating/airless,/area/xenos_station/transit)
+"bg" = (/turf/simulated/shuttle/wall{icon_state = "swall11"; dir = 2},/area/xenos_station/transit)
+"bh" = (/turf/simulated/shuttle/wall{icon_state = "swall7"; dir = 2},/area/xenos_station/transit)
+"bi" = (/obj/structure/shuttle/engine/heater,/obj/structure/window/reinforced{dir = 1},/turf/simulated/floor/plating/airless,/area/xenos_station/transit)
+"bj" = (/turf/space,/turf/simulated/shuttle/wall{icon_state = "swall_f9"; dir = 2},/area/xenos_station/transit)
+"bk" = (/obj/structure/shuttle/engine/propulsion,/turf/space,/area/xenos_station/transit)
+"bl" = (/turf/space,/turf/simulated/shuttle/wall{icon_state = "swall_f9"; dir = 2},/area/space)
 
 (1,1,1) = {"
 aaaaaaaaaaabacadaaaaaaaaaa
@@ -85,8 +84,8 @@ aqaLamamamamamamamamamaMaq
 aNamamamamaOamaOamamamaMac
 aqaPaQaRacaSacaSacaTaPaQaq
 aqaUaVaVaWaqaaaqaXaYaXaXaq
-acaVaZaZbaaqaaaqbbaYaYbcaq
-aqaUaVaVbdaqaaaqbebebebeaq
-bfaybgbgbgbhaabibjbjbjaybk
-aabfblblblbmaabfblblblbkaa
+acaVaVaVaZaqaaaqbaaYaYbbaq
+aqaUaVaVbcaqaaaqbdbdbdbdaq
+beaybfbfbfbgaabhbibibiaybj
+aabebkbkbkblaabebkbkbkbjaa
 "}

@@ -289,7 +289,7 @@
 				var/obj/docking_port/mobile/M = P
 				found++
 				if(found > 1)
-					qdel(P, force=TRUE)
+					qdel(P)
 					world.log << "Map warning: Shuttle Template [S.mappath] \
 						has multiple mobile docking ports."
 				else if(!M.timid)
