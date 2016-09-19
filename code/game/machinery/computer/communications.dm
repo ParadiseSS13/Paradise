@@ -275,13 +275,15 @@
 
 		if("RestartNanoMob")
 			if(mob_hunt_server)
-				var/loading_msg = pick("Respawning spawns", "Reticulating splines", "Flipping hat",
-									"Capturing all of them", "Fixing minor text issues", "Being the very best",
-									"Nerfing this", "Not communicating with playerbase", "Coding a ripoff in a 2D spaceman game")
-				to_chat(usr, "Restarting Nano-Mob Hunter GO! game server. [loading_msg]...")
-				mob_hunt_server.manual_reboot()
+				if(mob_hunt_server.manual_reboot())
+					var/loading_msg = pick("Respawning spawns", "Reticulating splines", "Flipping hat",
+										"Capturing all of them", "Fixing minor text issues", "Being the very best",
+										"Nerfing this", "Not communicating with playerbase", "Coding a ripoff in a 2D spaceman game")
+					to_chat(usr, "<span class='notice'>Restarting Nano-Mob Hunter GO! game server. [loading_msg]...</span>")
+				else
+					to_chat(usr, "<span class='warning'>Nano-Mob Hunter GO! game server reboot failed due to recent restart. Please wait before re-attempting.</span>")
 			else
-				to_chat(usr, "Nano-Mob Hunter GO! game server is offline for extended maintenance. Contact your Central Command administrators for more info if desired.")
+				to_chat(usr, "<span class='danger'>Nano-Mob Hunter GO! game server is offline for extended maintenance. Contact your Central Command administrators for more info if desired.</span>")
 
 		if("AcceptDocking")
 			to_chat(usr, "Docking request accepted!")

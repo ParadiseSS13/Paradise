@@ -34,7 +34,7 @@
 	var/base_health = 5						//base health of the mob for battling (effectively max health at level 0)
 	var/attack_multiplier = 1				//how much additional damage per level the mob deals (level * attack_multiplier)
 	var/health_multiplier = 1				//how much additional health per level the mob gets (level * health_multiplier) for calculating max health
-	var/health = list(0, 0)					//health[1] is the mob's current health, health[2] is the mob's max health (calculated in New())
+	var/health = list("current" = 0, "max" = 0)
 
 	//SPAWN PREFERENCES AND VARIABLES
 	//A note on mob spawn preferences: The mob types also have preferences, which are handled prior to per-mob preferences, so ultimately you use a combined set of preferences
@@ -61,7 +61,7 @@
 		level = rand(min_level, max_level)
 	if(prob(1) && prob(1))
 		is_shiny = 1
-	health[2] = base_health + (level * health_multiplier)
+	health["max"] = base_health + (level * health_multiplier)
 	if(primary_type)
 		primary_type = new primary_type()
 	if(secondary_type)
@@ -152,28 +152,27 @@
 	var/list/possible_turfs = list()
 	//setup, sets all turfs in spawn_area to weight 1
 	for(var/turf/T in spawn_area)
-		if(T.z > 1)		//mobs will only consider station-level turfs for spawning. Largely here so we won't have to worry about mapping errors or mobs on the derelict solars
+		if(!is_station_level(T.z))		//mobs will only consider station-level turfs for spawning. Largely here so we won't have to worry about mapping errors or mobs on the derelict solars
 			continue
 		possible_turfs[T] = 1
-	//primary type preferences
-	if(primary_type)
-		for(var/turf/T in primary_type.turf_whitelist)
+		//primary type preferences
+		if(primary_type)
+			if(is_type_in_list(T, primary_type.turf_whitelist))
+				possible_turfs[T] += 4
+			if(is_type_in_list(T, primary_type.turf_blacklist))
+				possible_turfs[T] -= 2
+		//secondary type preferences
+		if(secondary_type)
+			if(is_type_in_list(T, secondary_type.turf_whitelist))
+				possible_turfs[T] += 4
+			if(is_type_in_list(T, secondary_type.turf_blacklist))
+				possible_turfs[T] -= 2
+		//mob preferences
+		if(is_type_in_list(T, turf_whitelist))
 			possible_turfs[T] += 4
-		for(var/turf/T in primary_type.turf_blacklist)
+		if(is_type_in_list(T, turf_blacklist))
 			possible_turfs[T] -= 2
-	//secondary type preferences
-	if(secondary_type)
-		for(var/turf/T in secondary_type.turf_whitelist)
-			possible_turfs[T] += 4
-		for(var/turf/T in secondary_type.turf_blacklist)
-			possible_turfs[T] -= 2
-	//mob preferences
-	for(var/turf/T in turf_whitelist)
-		possible_turfs[T] += 4
-	for(var/turf/T in turf_blacklist)
-		possible_turfs[T] -= 2
-	//weight check, remove negative or zero weight turfs from the list, then return the list
-	for(var/T in possible_turfs)
+		//weight check, remove negative or zero weight turfs from the list, then return the list
 		if(possible_turfs[T] < 1)
 			possible_turfs -= T
 	return possible_turfs
@@ -210,9 +209,9 @@
 	var/message = ""
 	var/multiplier = calc_dam_multiplier(attack_type)
 	var/total_damage = raw_damage * multiplier
-	if(!health[1])	//it's already downed, quit hitting it
+	if(!health["current"])	//it's already downed, quit hitting it
 		return null
-	health[1] = max(health[1] - total_damage, 0)
+	health["current"] = max(health["current"] - total_damage, 0)
 	switch(multiplier)
 		if(0)
 			message += "The attack is completely ineffective! "
@@ -224,7 +223,7 @@
 			message += "It's super effective! "
 		if(4)
 			message += "It's ultra effective! "
-	if(!health[1])
+	if(!health["current"])
 		message += "[nickname ? nickname : mob_name] is downed!"
 	return message
 
@@ -236,7 +235,7 @@
 		message += "[nickname ? nickname : mob_name] can't get any stronger right now!"
 	else
 
-		health[2] = base_health + (level * health_multiplier)
+		health["max"] = base_health + (level * health_multiplier)
 		message += "[nickname ? nickname : mob_name] has reached level [level]!"
 
 /datum/mob_hunt/proc/get_type1()
