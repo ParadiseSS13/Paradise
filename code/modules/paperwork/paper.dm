@@ -452,7 +452,8 @@
 
 /obj/item/weapon/paper/fire_act()
 	..()
-	info = "[stars(info)]"
+	if(burn_state >= FLAMMABLE) //Only render paper that's burnable to be hard to read.
+		info = "[stars(info)]"
 
 /obj/item/weapon/paper/proc/stamp(var/obj/item/weapon/stamp/S)
 	stamps += (!stamps || stamps == "" ? "<HR>" : "") + "<img src=large_[S.icon_state].png>"

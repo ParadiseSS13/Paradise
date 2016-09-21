@@ -300,6 +300,3 @@
 	user.mutations.Add(XRAY)
 	user.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/view_range(null))
 	return ..()
-
-/obj/item/weapon/paper/contract/infernal/fire_act()
-	return  //Nope.
