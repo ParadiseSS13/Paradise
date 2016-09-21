@@ -80,7 +80,7 @@
     /obj/item/device/assembly/timer = 12,
     /obj/item/device/assembly/igniter = 12,
     /obj/item/device/flashlight = 12,
-    /obj/item/weapon/weldingtool/small = 12,
+    /obj/item/weapon/weldingtool/mini = 12,
     /obj/item/stack/sheet/mineral/diamond = 15,
     /obj/item/stack/sheet/metal{amount = 20} = 15,
     /obj/item/stack/sheet/rglass = 15,
