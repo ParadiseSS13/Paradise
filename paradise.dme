@@ -2088,6 +2088,7 @@
 #include "hyntatmta\code\game\jobs\job\prisoner.dm"
 #include "hyntatmta\code\game\machinery\transformer.dm"
 #include "hyntatmta\code\game\machinery\kitchen\processor.dm"
+#include "hyntatmta\code\game\machinery\kitchen\smartfridge.dm"
 #include "hyntatmta\code\game\objects\items\weapons\vape.dm"
 #include "hyntatmta\code\game\objects\items\weapons\storage\belt.dm"
 #include "hyntatmta\code\game\objects\items\weapons\storage\boxes.dm"
