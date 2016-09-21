@@ -274,7 +274,7 @@
 				if(check_container_volume(10)) return 0
 				else beaker.reagents.add_reagent("eznutrient",10)
 			else
-				new/obj/item/weapon/reagent_containers/glass/fertilizer/ez(src.loc)
+				new/obj/item/weapon/reagent_containers/glass/bottle/fertilizer/ez(src.loc)
 			if(check_cost(10/efficiency)) return 0
 		if("l4z")
 			if(check_cost(20/efficiency, 1)) return 0
@@ -282,7 +282,7 @@
 				if(check_container_volume(10)) return 0
 				else beaker.reagents.add_reagent("left4zed",10)
 			else
-				new/obj/item/weapon/reagent_containers/glass/fertilizer/l4z(src.loc)
+				new/obj/item/weapon/reagent_containers/glass/bottle/fertilizer/l4z(src.loc)
 			if(check_cost(20/efficiency)) return 0
 		if("rh")
 			if(check_cost(25/efficiency, 1)) return 0
@@ -290,7 +290,7 @@
 				if(check_container_volume(10)) return 0
 				else beaker.reagents.add_reagent("robustharvest",10)
 			else
-				new/obj/item/weapon/reagent_containers/glass/fertilizer/rh(src.loc)
+				new/obj/item/weapon/reagent_containers/glass/bottle/fertilizer/rh(src.loc)
 			if(check_cost(25/efficiency)) return 0
 		//Leather
 		if("wallet")
