@@ -64,7 +64,7 @@
     /obj/item/weapon/reagent_containers/food/drinks/bottle/whiskey = 30,
     /obj/item/weapon/reagent_containers/food/drinks/cans/cola = 30,
     /obj/item/weapon/reagent_containers/food/drinks/cans/grape_juice = 30,
-    /obj/item/weapon/reagent_containers/food/drinks/cans/soda = 30,
+    /obj/item/weapon/reagent_containers/food/drinks/cans/sodawater = 30,
     /obj/item/stack/tape_roll = 20,
     /obj/item/weapon/hatchet = 20,
     /obj/item/clothing/gloves/color/yellow = 30,
