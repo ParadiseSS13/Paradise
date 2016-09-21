@@ -315,10 +315,9 @@
 		if(BB)
 			BB.icon_state = "foamdart_empty"
 	else
-		icon_state = "foamdart"
-		desc = "Its nerf or nothing! Ages 8 and up."
+		icon_state = initial(icon_state)
 		if(BB)
-			BB.icon_state = "foamdart_empty"
+			BB.icon_state = initial(BB.icon_state)
 
 /obj/item/ammo_casing/caseless/foam_dart/attackby(obj/item/A, mob/user, params)
 	..()
