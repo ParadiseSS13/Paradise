@@ -483,7 +483,7 @@
 	typename = "Paper Shredder"
 
 /obj/machinery/programmable/unary/trainer
-	name =  "\improper Boxing Trainer"
+	name =  "Boxing Trainer"
 	default = new/datum/cargoprofile/unary/trainer()
 	profiles = list()
 	overrides = list()

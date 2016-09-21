@@ -48,7 +48,7 @@
 		overlays += "mini-light"
 
 /obj/item/weapon/gun/energy/gun/hos
-	name = "\improper X-01 MultiPhase Energy Gun"
+	name = "X-01 MultiPhase Energy Gun"
 	desc = "This is a expensive, modern recreation of a antique laser gun. This gun has several unique firemodes, but lacks the ability to recharge over time."
 	icon_state = "hoslaser"
 	force = 10

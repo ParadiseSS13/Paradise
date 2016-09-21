@@ -26,7 +26,7 @@
 	burn_state = FIRE_PROOF
 
 /obj/item/clothing/shoes/combat/swat //overpowered boots for death squads
-	name = "\improper SWAT shoes"
+	name = "SWAT shoes"
 	desc = "High speed, no drag combat boots."
 	permeability_coefficient = 0.01
 	armor = list(melee = 40, bullet = 30, laser = 25, energy = 25, bomb = 50, bio = 30, rad = 30)

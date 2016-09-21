@@ -371,7 +371,7 @@
 			for(var/obj/item/weapon/implant/I in H)
 				if(I.implanted && is_type_in_list(I, known_implants))
 					var/implantSubData[0]
-					implantSubData["name"] = sanitize(I.name)
+					implantSubData["name"] = sanitize_local(I.name)
 					implantData.Add(list(implantSubData))
 			occupantData["implant"] = implantData
 			occupantData["implant_len"] = implantData.len

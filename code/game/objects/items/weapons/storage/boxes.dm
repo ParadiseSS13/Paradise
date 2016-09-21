@@ -125,7 +125,7 @@
 		new /obj/item/weapon/reagent_containers/glass/beaker( src )
 
 /obj/item/weapon/storage/box/injectors
-	name = "\improper DNA injectors"
+	name = "DNA injectors"
 	desc = "This box contains injectors it seems."
 
 	New()
