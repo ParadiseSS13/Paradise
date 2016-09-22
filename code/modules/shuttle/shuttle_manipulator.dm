@@ -107,6 +107,7 @@
 	for(var/i in shuttle_master.mobile)
 		var/obj/docking_port/mobile/M = i
 		var/list/L = list()
+		to_chat(usr, "[M.id]")
 		L["name"] = M.name
 		L["id"] = M.id
 		L["timer"] = M.timer
@@ -268,7 +269,7 @@
 
 	// TODO indicate to the user that success happened, rather than just
 	// blanking the modification tab
-	existing_shuttle = preview_shuttle
+	existing_shuttle = null
 	preview_shuttle = null
 	preview_template = null
 	selected = null
@@ -323,6 +324,6 @@
 
 /obj/machinery/shuttle_manipulator/proc/unload_preview()
 	if(preview_shuttle)
-		to_chat(world, "unloading: [preview_shuttle]")
+		to_chat(usr, "unloading: [preview_shuttle]")
 		preview_shuttle.jumpToNullSpace()
 	preview_shuttle = null

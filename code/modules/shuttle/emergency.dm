@@ -102,9 +102,11 @@
 	return 1
 
 /obj/docking_port/mobile/emergency/Destroy()
-	if(i_know_what_im_doing)
-		// This'll make the shuttle subsystem use the backup shuttle.
+	// This'll make the shuttle subsystem use the backup shuttle.
+	if(src == shuttle_master.emergency)
+		// If we're the selected emergency shuttle
 		shuttle_master.emergencyDeregister()
+
 
 	. = ..()
 

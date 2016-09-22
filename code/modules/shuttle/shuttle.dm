@@ -22,18 +22,9 @@
 	// All shuttle templates are timid
 	var/timid = FALSE
 
-	var/i_know_what_im_doing = 0
-
 	//these objects are indestructable
 /obj/docking_port/Destroy()
-	// unless you assert that you know what you're doing. Horrible things
-	// may result.
-	if(!i_know_what_im_doing)
-		return QDEL_HINT_LETMELIVE
-	else
-		// If not removed immediately, it can interfere with the docking
-	// detection code, which is annoying and inconvinient.
-		return QDEL_HINT_HARDDEL_NOW
+	return QDEL_HINT_LETMELIVE
 
 /obj/docking_port/singularity_pull()
 	return
@@ -248,11 +239,10 @@
 	return 1
 
 /obj/docking_port/mobile/Destroy()
-	if(i_know_what_im_doing)
-		shuttle_master.mobile -= src
-		areaInstance = null
-		destination = null
-		previous = null
+	shuttle_master.mobile -= src
+	areaInstance = null
+	destination = null
+	previous = null
 	. = ..()
 
 //this is a hook for custom behaviour. Maybe at some point we could add checks to see if engines are intact
@@ -395,8 +385,7 @@
 		T0.CalculateAdjacentTurfs()
 		air_master.add_to_active(T0,1)
 
-		i_know_what_im_doing = TRUE
-	to_chat(world, "[src] moved to nullspace")
+	to_chat(usr, "[src] moved to nullspace")
 	qdel(src)
 
 //this is the main proc. It instantly moves our mobile port to stationary port S1
