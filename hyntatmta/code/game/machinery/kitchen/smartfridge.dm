@@ -12,7 +12,7 @@
 	icon_off = "drying_rack"
 	var/drying = 0
 
-/obj/machinery/smartfridge/drying_rack/interact(mob/user)
+/obj/machinery/smartfridge/drying_rack/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	var/dat = ..()
 	if(dat)
 		dat += "<br>"
