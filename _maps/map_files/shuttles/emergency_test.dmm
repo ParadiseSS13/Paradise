@@ -1,0 +1,25 @@
+"a" = (/turf/simulated/shuttle/wall{icon_state = "swall_f6"; dir = 2},/area/shuttle/escape)
+"b" = (/turf/simulated/shuttle/wall{icon_state = "swall12"; dir = 2},/area/shuttle/escape)
+"c" = (/turf/simulated/shuttle/wall{tag = "icon-swall_f10"; icon_state = "swall_f10"; dir = 2},/area/shuttle/escape)
+"d" = (/turf/simulated/shuttle/wall{icon_state = "swall3"; dir = 2},/area/shuttle/escape)
+"e" = (/turf/simulated/floor/bluegrid,/area/shuttle/escape)
+"f" = (/obj/machinery/door/airlock/cult,/obj/docking_port/mobile/emergency{height = 14; name = "CODERBUS BEEPBEEP"; timid = 1; width = 14},/turf/simulated/floor/bluegrid,/area/shuttle/escape)
+"g" = (/turf/simulated/shuttle/wall{icon_state = "swallc3"},/area/shuttle/escape)
+"h" = (/turf/simulated/shuttle/wall{icon_state = "swallc4"},/area/shuttle/escape)
+
+(1,1,1) = {"
+abbbbbbbbbbbbc
+deeeeeeeeeeeed
+deeeeeeeeeeeed
+deeeeeeeeeeeed
+feeeeeeeeeeeed
+deeeeeeeeeeeed
+deeeeeeeeeeeed
+deeeeeeeeeeeed
+deeeeeeeeeeeed
+deeeeeeeeeeeed
+deeeeeeeeeeeed
+deeeeeeeeeeeed
+deeeeeeeeeeeed
+gbbbbbbbbbbbbh
+"}

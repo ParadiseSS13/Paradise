@@ -160,9 +160,6 @@
 		if(!(initial(shuttle_type.suffix)))
 			continue
 
-
-
-
 		var/datum/map_template/shuttle/S = new shuttle_type()
 
 		shuttle_templates[S.shuttle_id] = S

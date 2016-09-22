@@ -1,6 +1,6 @@
 /datum/map_template/shuttle
 	name = "Base Shuttle Template"
-	var/prefix = "_maps/shuttles/"
+	var/prefix = "_maps/map_files/shuttles/"
 	var/suffix
 	var/port_id
 	var/shuttle_id
@@ -74,13 +74,19 @@
 
 /datum/map_template/shuttle/emergency/narnar
 	suffix = "narnar"
-	name = "Shuttle 667(WIP)"
+	name = "Shuttle 667"
 	description = "Looks like this shuttle may have wandered into the \
 		darkness between the stars on route to the station. Let's not think \
 		too hard about where all the bodies came from."
 	admin_notes = "Contains inactive \
 		constructs. Put players in constructs if you want them to move. \
 		Cloning pods in 'medbay' area are showcases and nonfunctional."
+
+
+/datum/map_template/shuttle/emergency/old
+	suffix = "old"
+	name = "Retired Station shuttle."
+	description = "an older model of the station shuttle."
 
 /datum/map_template/shuttle/ferry/base
 	suffix = "base"

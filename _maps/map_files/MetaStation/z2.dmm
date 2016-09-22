@@ -500,7 +500,7 @@
 "jF" = (/obj/structure/stool/bed/chair/sofa,/turf/simulated/shuttle/floor{icon_state = "floor4"},/area/shuttle/escape)
 "jG" = (/obj/structure/stool/bed/chair/sofa/corner,/turf/simulated/shuttle/floor{icon_state = "floor4"},/area/shuttle/escape)
 "jH" = (/obj/machinery/door/airlock/external{id_tag = "specops_away"; name = "Shuttle Hatch"; req_access_txt = "109"},/turf/unsimulated/floor{icon_state = "dark"},/area/centcom/evac)
-"jI" = (/obj/machinery/door/airlock/shuttle,/obj/docking_port/mobile/emergency/backup,/obj/docking_port/stationary{dir = 4; dwidth = 3; height = 8; id = "backup_away"; name = "Backup Shuttle Dock"; width = 8},/turf/unsimulated/floor{icon_state = "floor"},/area/shuttle/escape)
+"jI" = (/obj/machinery/door/airlock/shuttle,/obj/docking_port/mobile/emergency/backup{dwidth = 11; roundstart_move = null},/obj/docking_port/stationary{dir = 4; dwidth = 3; height = 8; id = "backup_away"; name = "Backup Shuttle Dock"; width = 8},/turf/unsimulated/floor{icon_state = "floor"},/area/shuttle/escape)
 "jJ" = (/obj/machinery/door/airlock/external{id_tag = "specops_away"; name = "Shuttle Hatch"; req_access_txt = "109"},/turf/unsimulated/floor{icon_state = "floor"},/area/centcom/control)
 "jK" = (/obj/machinery/light/spot,/turf/simulated/shuttle/floor{icon_state = "floor4"},/area/shuttle/escape)
 "jL" = (/turf/simulated/shuttle/wall{icon_state = "swall_s5"; dir = 2},/area/shuttle/escape)

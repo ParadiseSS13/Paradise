@@ -206,9 +206,15 @@
 		else if(S)
 			. = TRUE
 			// If successful, returns the mobile docking port
-			var/mdp = action_load(S)
+			var/obj/docking_port/mobile/mdp = action_load(S)
 			if(mdp)
 				user.forceMove(get_turf(mdp))
+				message_admins("[key_name_admin(usr)] loaded [mdp] \
+					with the shuttle manipulator.")
+				log_admin("[key_name(usr)] loaded [mdp] with the \
+					shuttle manipulator.</span>")
+				feedback_add_details("shuttle_manipulator", mdp.name)
+
 
 /obj/machinery/shuttle_manipulator/proc/action_load(
 	datum/map_template/shuttle/loading_template)
@@ -262,9 +268,9 @@
 
 	// TODO indicate to the user that success happened, rather than just
 	// blanking the modification tab
+	existing_shuttle = preview_shuttle
 	preview_shuttle = null
 	preview_template = null
-	existing_shuttle = null
 	selected = null
 
 	return preview_shuttle
@@ -317,5 +323,6 @@
 
 /obj/machinery/shuttle_manipulator/proc/unload_preview()
 	if(preview_shuttle)
+		to_chat(world, "unloading: [preview_shuttle]")
 		preview_shuttle.jumpToNullSpace()
 	preview_shuttle = null

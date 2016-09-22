@@ -396,6 +396,7 @@
 		air_master.add_to_active(T0,1)
 
 		i_know_what_im_doing = TRUE
+	to_chat(world, "[src] moved to nullspace")
 	qdel(src)
 
 //this is the main proc. It instantly moves our mobile port to stationary port S1
@@ -604,16 +605,14 @@
 					A.unlock()
 
 /obj/docking_port/mobile/proc/roadkill(list/L0, list/L1, dir)
-
-	//check for space pod to do TODO FETHAS DO IT
 	var/list/hurt_mobs = list()
 	for(var/i in 1 to L0.len)
 		var/turf/T0 = L0[i]
 		var/turf/T1 = L1[i]
 		if(!T0 || !T1)
 			continue
-		//if(T0.type == T0.baseturf)
-		//	continue//WOT DO?!
+		//if(T0.type == T0.baseturf)//wot?
+		//	continue
 		// The corresponding tile will not be changed, so no roadkill
 
 		for(var/atom/movable/AM in T1)
@@ -638,11 +637,12 @@
 						M.ex_act(2)
 
 			else //non-living mobs shouldn't be affected by shuttles, which is why this is an else
+				if(istype(AM, /obj/singularity))//it's a singularity, ignore it.
+					continue
 				if(!AM.anchored)
 					step(AM, dir)
 				else
-					if(AM.simulated) //lighting overlays are static
-						qdel(AM)
+					qdel(AM)
 
 //used by shuttle subsystem to check timers
 /obj/docking_port/mobile/proc/check()
