@@ -373,9 +373,10 @@
 		if(!T0)
 			continue
 
-		for(var/atom/AM in T0.GetAllContents())
+		for(var/AM in T0.GetAllContents())
 			if(istype(AM, /mob/dead))
 				continue
+			world << "[AM]"
 			qdel(AM)
 
 		T0.ChangeTurf(turf_type)

@@ -107,7 +107,6 @@
 	for(var/i in shuttle_master.mobile)
 		var/obj/docking_port/mobile/M = i
 		var/list/L = list()
-		to_chat(usr, "[M.id]")
 		L["name"] = M.name
 		L["id"] = M.id
 		L["timer"] = M.timer
@@ -245,6 +244,8 @@
 		var/m = "No dock found for preview shuttle, aborting."
 		WARNING(m)
 		throw EXCEPTION(m)
+
+	existing_shuttle.jumpToNullSpace()
 
 	var/result = preview_shuttle.canDock(D)
 	// truthy value means that it cannot dock for some reason
