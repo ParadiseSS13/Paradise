@@ -90,11 +90,8 @@
 		return 0
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
-		if(H.species.flags & NO_SCAN) //Prevents transforming slimes and killing them instantly
+		if(H.species.flags & LING_PROTECT)
 			to_chat(user, "<span class='warning'>This won't work on a creature with abnormal genetic material.</span>")
-			return 0
-		if(H.species.flags & NO_BLOOD)
-			to_chat(user, "<span class='warning'>This won't work on a creature without a circulatory system.</span>")
 			return 0
 		if(H.species.flags & NO_DNA)
 			to_chat(user, "<span class='warning'>This won't work on a creature without DNA.</span>")
