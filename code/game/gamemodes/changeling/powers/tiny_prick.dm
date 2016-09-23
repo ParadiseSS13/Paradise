@@ -90,7 +90,9 @@
 		return 0
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
-		if(H.isSynthetic()) //Prevents transforming slimes and killing them instantly
+		if(H.species.flags & NO_ABSORB)
+			to_chat(user, "<span class='warning'>This won't work on a creature with abnormal genetic material.</span>")
+		if(H.isSynthetic())
 			to_chat(user, "<span class='warning'>This won't work on a non-organic creature.</span>")
 			return 0
 	return 1

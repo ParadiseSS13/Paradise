@@ -18,7 +18,7 @@
 	var/mob/living/carbon/human/H = user
 
 	if(!istype(H) || !H.species.primitive_form)
-		to_chat(src, "<span class='warning'>We cannot perform this ability in this form!</span>")
+		to_chat(H, "<span class='warning'>We cannot perform this ability in this form!</span>")
 		return
 
 	H.visible_message("<span class='warning'>[H] transforms!</span>")

@@ -63,6 +63,7 @@
 #define TAIL_WAGGING    	1024
 #define NO_EYES				2048
 #define HAS_FUR				4096
+#define NO_ABSORB			8192
 
 //Species Diet Flags
 #define DIET_CARN		1

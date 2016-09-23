@@ -6,7 +6,7 @@
 	//language = "Clatter"
 	unarmed_type = /datum/unarmed_attack/punch
 
-	flags = IS_WHITELISTED | NO_BLOOD
+	flags = IS_WHITELISTED | NO_BLOOD | NO_ABSORB
 	dietflags = DIET_OMNI
 	reagent_tag = PROCESS_ORG
 
