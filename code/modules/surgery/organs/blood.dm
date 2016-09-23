@@ -231,7 +231,7 @@
 
 	var/datum/reagent/blood/injected = get_blood(container.reagents)
 
-	if (!istype(injected)) //Sanity..
+	if(!istype(injected)) //Sanity..
 		return
 
 	if(species && species.flags & NO_BLOOD)
