@@ -242,12 +242,12 @@
 	var/datum/reagent/blood/our = get_blood(vessel)
 
 	if(!istype(our)) // Do we not have blood?
-		vessel.add_reagent("blood", amount, injected.data) // This is only ran once, so we need to add back thier DNA.
+		vessel.add_reagent("blood", amount, injected.data) // This is only ran once, so we need to add back their DNA.
 		vessel.update_total()
 		..()
 		our = get_blood(vessel) // Get the new blood.
-		our.data["blood_DNA"] = src.dna.unique_enzymes // Give it the proper DNA we had before
-		our.data["blood_type"] = src.dna.b_type  // Proper blood type.
+		our.data["blood_DNA"] = dna.unique_enzymes // Give it the proper DNA we had before (src.dna)
+		our.data["blood_type"] = dna.b_type  // Proper blood type.
 		our.data["donor"] = src // Without this, it'd be random each time it was extracted or Null.
 		return
 
