@@ -104,12 +104,12 @@ var/global/list/obj/machinery/message_server/message_servers = list()
 					if(!Console.silent)
 						playsound(Console.loc, 'sound/machines/twobeep.ogg', 50, 1)
 						Console.audible_message(text("[bicon(Console)] *The Requests Console beeps: 'PRIORITY Alert in [sender]'"),,5)
-					Console.message_log += "<B><FONT color='red'>High Priority message from <A href='?src=\ref[Console];write=[sender]'>[sender]</A></FONT></B><BR>[authmsg]"
+					Console.message_log += "<B><FONT color='red'>High Priority message from <A href='?src=[Console.UID()];write=[sender]'>[sender]</A></FONT></B><BR>[authmsg]"
 				else
 					if(!Console.silent)
 						playsound(Console.loc, 'sound/machines/twobeep.ogg', 50, 1)
 						Console.audible_message(text("[bicon(Console)] *The Requests Console beeps: 'Message from [sender]'"),,4)
-					Console.message_log += "<B>Message from <A href='?src=\ref[Console];write=[sender]'>[sender]</A></B><BR>[authmsg]"
+					Console.message_log += "<B>Message from <A href='?src=[Console.UID()];write=[sender]'>[sender]</A></B><BR>[authmsg]"
 			Console.set_light(2)
 
 /obj/machinery/message_server/attack_hand(user as mob)
@@ -209,6 +209,7 @@ var/obj/machinery/blackbox_recorder/blackbox
 	var/list/msg_security = list()
 	var/list/msg_deathsquad = list()
 	var/list/msg_syndicate = list()
+	var/list/msg_syndteam = list()
 	var/list/msg_mining = list()
 	var/list/msg_cargo = list()
 	var/list/msg_service = list()
@@ -235,6 +236,7 @@ var/obj/machinery/blackbox_recorder/blackbox
 		BR.msg_security = msg_security
 		BR.msg_deathsquad = msg_deathsquad
 		BR.msg_syndicate = msg_syndicate
+		BR.msg_syndteam = msg_syndteam
 		BR.msg_mining = msg_mining
 		BR.msg_cargo = msg_cargo
 		BR.msg_service = msg_service
@@ -277,6 +279,7 @@ var/obj/machinery/blackbox_recorder/blackbox
 	feedback_add_details("radio_usage","SEC-[msg_security.len]")
 	feedback_add_details("radio_usage","DTH-[msg_deathsquad.len]")
 	feedback_add_details("radio_usage","SYN-[msg_syndicate.len]")
+	feedback_add_details("radio_usage","SYT-[msg_syndteam.len]")
 	feedback_add_details("radio_usage","MIN-[msg_mining.len]")
 	feedback_add_details("radio_usage","CAR-[msg_cargo.len]")
 	feedback_add_details("radio_usage","SRV-[msg_service.len]")

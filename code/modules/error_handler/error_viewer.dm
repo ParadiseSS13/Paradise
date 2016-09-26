@@ -141,9 +141,11 @@ var/global/datum/ErrorViewer/ErrorCache/error_cache = null
 	var/exception/exc
 	var/desc = ""
 	var/srcRef
+	var/srcUID
 	var/srcType
 	var/turf/srcLoc
 	var/usrRef
+	var/usrUID
 	var/turf/usrLoc
 	var/isSkipCount
 
@@ -163,10 +165,12 @@ var/global/datum/ErrorViewer/ErrorCache/error_cache = null
 			desc += "&nbsp;&nbsp;" + html_encode(line) + "<br>"
 	if(istype(e_src))
 		srcRef = "\ref[e_src]"
+		srcUID = e_src.UID()
 		srcType = e_src.type
 		srcLoc = get_turf(e_src)
 	if(usr)
 		usrRef = "\ref[usr]"
+		usrUID = usr.UID()
 		usrLoc = get_turf(usr)
 
 /datum/ErrorViewer/ErrorEntry/showTo(var/user, var/datum/ErrorViewer/back_to, var/linear)
@@ -175,19 +179,19 @@ var/global/datum/ErrorViewer/ErrorCache/error_cache = null
 	var/html = buildHeader(back_to, linear)
 	html += "<div class='runtime'>[html_encode(name)]<br>[desc]</div>"
 	if(srcRef)
-		html += "<br>src: <a href='?_src_=vars;Vars=[srcRef]'>VV</a>"
+		html += "<br>src: <a href='?_src_=vars;Vars=[srcUID]'>VV</a>"
 		if(ispath(srcType, /mob))
 			html += " <a href='?_src_=holder;adminplayeropts=[srcRef]'>PP</a>"
 			html += " <a href='?_src_=holder;adminplayerobservefollow=[srcRef]'>Follow</a>"
 		if(istype(srcLoc))
-			html += "<br>src.loc: <a href='?_src_=vars;Vars=\ref[srcLoc]'>VV</a>"
+			html += "<br>src.loc: <a href='?_src_=vars;Vars=[srcLoc.UID()]'>VV</a>"
 			html += " <a href='?_src_=holder;adminplayerobservecoodjump=1;X=[srcLoc.x];Y=[srcLoc.y];Z=[srcLoc.z]'>JMP</a>"
 	if(usrRef)
-		html += "<br>usr: <a href='?_src_=vars;Vars=[usrRef]'>VV</a>"
+		html += "<br>usr: <a href='?_src_=vars;Vars=[usrUID]'>VV</a>"
 		html += " <a href='?_src_=holder;adminplayeropts=[usrRef]'>PP</a>"
 		html += " <a href='?_src_=holder;adminplayerobservefollow=[usrRef]'>Follow</a>"
 		if(istype(usrLoc))
-			html += "<br>usr.loc: <a href='?_src_=vars;Vars=\ref[usrLoc]'>VV</a>"
+			html += "<br>usr.loc: <a href='?_src_=vars;Vars=[usrLoc.UID()]'>VV</a>"
 			html += " <a href='?_src_=holder;adminplayerobservecoodjump=1;X=[usrLoc.x];Y=[usrLoc.y];Z=[usrLoc.z]'>JMP</a>"
 	browseTo(user, html)
 

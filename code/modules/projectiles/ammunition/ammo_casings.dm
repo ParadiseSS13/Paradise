@@ -27,6 +27,15 @@
 	caliber = "10mm"
 	projectile_type = /obj/item/projectile/bullet/midbullet3
 
+/obj/item/ammo_casing/c10mm/ap
+	projectile_type = /obj/item/projectile/bullet/midbullet3/ap
+
+/obj/item/ammo_casing/c10mm/fire
+	projectile_type = /obj/item/projectile/bullet/midbullet3/fire
+
+/obj/item/ammo_casing/c10mm/hp
+	projectile_type = /obj/item/projectile/bullet/midbullet3/hp
+
 /obj/item/ammo_casing/c9mm
 	desc = "A 9mm bullet casing."
 	caliber = "9mm"
@@ -306,10 +315,9 @@
 		if(BB)
 			BB.icon_state = "foamdart_empty"
 	else
-		icon_state = "foamdart"
-		desc = "Its nerf or nothing! Ages 8 and up."
+		icon_state = initial(icon_state)
 		if(BB)
-			BB.icon_state = "foamdart_empty"
+			BB.icon_state = initial(BB.icon_state)
 
 /obj/item/ammo_casing/caseless/foam_dart/attackby(obj/item/A, mob/user, params)
 	..()

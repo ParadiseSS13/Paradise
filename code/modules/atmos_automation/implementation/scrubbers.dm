@@ -25,7 +25,7 @@
 		return 0
 
 	GetText()
-		return "Set Scrubber <a href=\"?src=\ref[src];set_scrubber=1\">[fmtString(scrubber)]</a> mode to <a href=\"?src=\ref[src];set_mode=1\">[mode?"Scrubbing":"Syphoning"]</a>."
+		return "Set Scrubber <a href=\"?src=[UID()];set_scrubber=1\">[fmtString(scrubber)]</a> mode to <a href=\"?src=[UID()];set_mode=1\">[mode?"Scrubbing":"Syphoning"]</a>."
 
 	Topic(href,href_list)
 		if(..()) return
@@ -67,7 +67,7 @@
 			parent.send_signal(list ("tag" = scrubber, "sigtype"="command", "power"=state),filter = RADIO_FROM_AIRALARM)
 
 	GetText()
-		return  "Set Scrubber <a href=\"?src=\ref[src];set_scrubber=1\">[fmtString(scrubber)]</a> power to <a href=\"?src=\ref[src];set_power=1\">[state ? "on" : "off"]</a>."
+		return  "Set Scrubber <a href=\"?src=[UID()];set_scrubber=1\">[fmtString(scrubber)]</a> power to <a href=\"?src=[UID()];set_power=1\">[state ? "on" : "off"]</a>."
 
 	Topic(href,href_list)
 		if(..()) return
@@ -129,9 +129,9 @@ var/global/list/gas_labels=list(
 			parent.send_signal(data,filter = RADIO_FROM_AIRALARM)
 
 	GetText()
-		var/txt = "Set Scrubber <a href=\"?src=\ref[src];set_scrubber=1\">[fmtString(scrubber)]</a> to scrub "
+		var/txt = "Set Scrubber <a href=\"?src=[UID()];set_scrubber=1\">[fmtString(scrubber)]</a> to scrub "
 		for(var/gas in gasses)
-			txt += " [gas_labels[gas]] (<a href=\"?src=\ref[src];tog_gas=[gas]\">[gasses[gas] ? "on" : "off"]</a>),"
+			txt += " [gas_labels[gas]] (<a href=\"?src=[UID()];tog_gas=[gas]\">[gasses[gas] ? "on" : "off"]</a>),"
 		return txt
 
 	Topic(href,href_list)
