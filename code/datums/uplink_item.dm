@@ -577,7 +577,7 @@ var/list/uplink_items = list()
 
 /datum/uplink_item/ammo/pistol
 	name = "Magazine - 10mm"
-	desc = "An additional 8-round 10mm magazine for use in the syndicate pistol, loaded with standard rounds that are weak but inexpensive."
+	desc = "An additional 8-round 10mm magazine for use in the syndicate pistol, loaded with rounds that are cheap but around half as effective as .357"
 	reference = "10MM"
 	item = /obj/item/ammo_box/magazine/m10mm
 	cost = 1
