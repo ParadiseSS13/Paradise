@@ -216,8 +216,7 @@
 				feedback_add_details("shuttle_manipulator", mdp.name)
 
 
-/obj/machinery/shuttle_manipulator/proc/action_load(
-	datum/map_template/shuttle/loading_template)
+/obj/machinery/shuttle_manipulator/proc/action_load(datum/map_template/shuttle/loading_template)
 	// Check for an existing preview
 	if(preview_shuttle && (loading_template != preview_template))
 		preview_shuttle.jumpToNullSpace()
@@ -245,14 +244,14 @@
 		WARNING(m)
 		throw EXCEPTION(m)
 
-	existing_shuttle.jumpToNullSpace()
-
 	var/result = preview_shuttle.canDock(D)
 	// truthy value means that it cannot dock for some reason
 	// but we can ignore the someone else docked error because we'll
 	// be moving into their place shortly
-	if(result && (result != 6))
+	if((result != SHUTTLE_CAN_DOCK) && (result != SHUTTLE_SOMEONE_ELSE_DOCKED))
+
 		var/m = "Unsuccessful dock of [preview_shuttle] ([result])."
+		message_admins("[m]")
 		WARNING(m)
 		return
 
@@ -277,8 +276,7 @@
 
 	return preview_shuttle
 
-/obj/machinery/shuttle_manipulator/proc/load_template(
-	datum/map_template/shuttle/S)
+/obj/machinery/shuttle_manipulator/proc/load_template(datum/map_template/shuttle/S)
 	// load shuttle template, centred at shuttle import landmark,
 	var/turf/landmark_turf = get_turf(locate("landmark*Shuttle Import"))
 	S.load(landmark_turf, centered = TRUE)

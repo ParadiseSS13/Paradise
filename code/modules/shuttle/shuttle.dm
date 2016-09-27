@@ -21,10 +21,17 @@
 	// A timid shuttle will not register itself with the shuttle subsystem
 	// All shuttle templates are timid
 	var/timid = FALSE
+	var/JUSTDOIT = FALSE //ITS A HACKY VAR FOR THIS SHIT OKAY
 
 	//these objects are indestructable
 /obj/docking_port/Destroy()
-	return QDEL_HINT_LETMELIVE
+	if(JUSTDOIT)
+		..()
+		. = QDEL_HINT_HARDDEL_NOW
+		JUSTDOIT = FALSE //THIS HURTS US PRECIOUS
+	else
+
+		return QDEL_HINT_LETMELIVE
 
 /obj/docking_port/singularity_pull()
 	return
@@ -239,10 +246,11 @@
 	return 1
 
 /obj/docking_port/mobile/Destroy()
-	shuttle_master.mobile -= src
-	areaInstance = null
-	destination = null
-	previous = null
+	if(JUSTDOIT)
+		shuttle_master.mobile -= src
+		areaInstance = null
+		destination = null
+		previous = null
 	. = ..()
 
 //this is a hook for custom behaviour. Maybe at some point we could add checks to see if engines are intact
@@ -252,37 +260,44 @@
 //this is to check if this shuttle can physically dock at dock S
 /obj/docking_port/mobile/proc/canDock(obj/docking_port/stationary/S)
 	if(!istype(S))
-		return 1
+		return SHUTTLE_NOT_A_DOCKING_PORT
 	if(istype(S, /obj/docking_port/stationary/transit))
-		return 0
+		return SHUTTLE_CAN_DOCK
 	//check dock is big enough to contain us
 	if(dwidth > S.dwidth)
-		return 2
+		return SHUTTLE_DWIDTH_TOO_LARGE
 	if(width-dwidth > S.width-S.dwidth)
-		return 3
+		return SHUTTLE_WIDTH_TOO_LARGE
 	if(dheight > S.dheight)
-		return 4
+		return SHUTTLE_DHEIGHT_TOO_LARGE
 	if(height-dheight > S.height-S.dheight)
-		return 5
+		return SHUTTLE_HEIGHT_TOO_LARGE
 	//check the dock isn't occupied
 	// by someone other than us
 	if(S.get_docked())
-		return 6
-	return 0
+		return SHUTTLE_SOMEONE_ELSE_DOCKED
+	return SHUTTLE_CAN_DOCK
+
+/obj/docking_port/mobile/proc/check_dock(obj/docking_port/stationary/S)
+	var/status = canDock(S)
+	if(status == SHUTTLE_CAN_DOCK)
+		return TRUE
+	else if(status == SHUTTLE_ALREADY_DOCKED)
+		// We're already docked there, don't need to do anything.
+		// Triggering shuttle movement code in place is weird
+		return FALSE
+	else
+		var/msg = "check_dock(): shuttle [src] cannot dock at [S], error: [status]"
+		message_admins(msg)
+		throw EXCEPTION(msg)
+		return FALSE
+
+
 //call the shuttle to destination S
 /obj/docking_port/mobile/proc/request(obj/docking_port/stationary/S)
-	var/status = canDock(S)
-	if(status == SHUTTLE_ALREADY_DOCKED)
-		// We're already docked there, don't need to do anything.
+
+	if(!check_dock(S))
 		return
-	else if(status)
-		. = status
-		spawn(0)
-			var/msg = "request(): shuttle [src] cannot dock at [S], \
-				error: [status]"
-			message_admins(msg)
-			throw EXCEPTION(msg)
-		return status	//we can't dock at S
 
 	switch(mode)
 		if(SHUTTLE_CALL)
@@ -349,6 +364,8 @@
 /obj/docking_port/mobile/proc/jumpToNullSpace()
 	// Destroys the docking port and the shuttle contents.
 	// Not in a fancy way, it just ceases.
+
+	JUSTDOIT = TRUE //GOD WHY WHY GOD
 	var/obj/docking_port/stationary/S0 = get_docked()
 	var/turf_type = /turf/space
 	var/area_type = /area/space
@@ -386,7 +403,6 @@
 		T0.CalculateAdjacentTurfs()
 		air_master.add_to_active(T0,1)
 
-	to_chat(usr, "[src] moved to nullspace")
 	qdel(src)
 
 //this is the main proc. It instantly moves our mobile port to stationary port S1
@@ -394,16 +410,8 @@
 /obj/docking_port/mobile/proc/dock(obj/docking_port/stationary/S1, force=FALSE)
 	// Crashing this ship with NO SURVIVORS
 	if(!force)
-		var/status = canDock(S1)
-		if(status == 7)
-			return SHUTTLE_ALREADY_DOCKED
-		else if(status)
-			spawn(0)
-				var/msg = "dock(): shuttle [src] cannot dock at [S1], \
-					error: [status]"
-				message_admins(msg)
-				throw EXCEPTION(msg)
-			return status
+		if(!check_dock(S1))
+			return -1
 
 		if(canMove())
 			return -1
@@ -549,7 +557,7 @@
 
 /obj/docking_port/mobile/proc/findTransitDock()
 	var/obj/docking_port/stationary/transit/T = shuttle_master.getDock("[id]_transit")
-	if(T && !canDock(T))
+	if(T && check_dock(T))
 		return T
 
 
@@ -760,7 +768,7 @@
 		for(var/obj/docking_port/stationary/S in shuttle_master.stationary)
 			if(!options.Find(S.id))
 				continue
-			if(M.canDock(S))
+			if(!M.check_dock(S))
 				continue
 			destination_found = 1
 			dat += "<A href='?src=[UID()];move=[S.id]'>Send to [S.name]</A><br>"
