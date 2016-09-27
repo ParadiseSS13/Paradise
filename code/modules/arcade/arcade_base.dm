@@ -12,13 +12,14 @@
 	var/freeplay = 0				//for debugging and admin kindness
 	var/token_price = 0
 	var/last_winner = null			//for letting people who to hunt down and steal prizes from
-	var/window_name = "arcade"		//in case you want to change the window name for certain machines
+	var/window_name = "arcade"		//the window name for arcade machines (also prevents New() from spawning a new machine, so make sure you change this for subtypes)
 
 /obj/machinery/arcade/New()
 	..()
-	var/choice = pick(subtypesof(/obj/machinery/arcade))
-	new choice(loc)
-	qdel(src)
+	if(window_name == "arcade")		//if the window_name is not changed, this will assume it is the base type and spawn a new subtype machine in its place.
+		var/choice = pick(subtypesof(/obj/machinery/arcade))
+		new choice(loc)
+		qdel(src)
 
 /obj/machinery/arcade/examine(mob/user)
 	..(user)
@@ -76,7 +77,7 @@
 			if(pay_with_cash(C, user))
 				tokens += 1
 			return
-	if(panel_open&& component_parts && istype(O, /obj/item/weapon/crowbar))
+	if(panel_open && component_parts && istype(O, /obj/item/weapon/crowbar))
 		default_deconstruction_crowbar(O)
 
 /obj/machinery/arcade/update_icon()
