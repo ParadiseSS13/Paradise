@@ -707,6 +707,7 @@
 					/obj/item/weapon/reagent_containers/food/drinks/bottle/wine = 5,
 					/obj/item/weapon/reagent_containers/food/drinks/bottle/cognac = 5,
 					/obj/item/weapon/reagent_containers/food/drinks/bottle/kahlua = 5,
+					/obj/item/weapon/reagent_containers/food/drinks/bottle/champagne = 5,
 					/obj/item/weapon/reagent_containers/food/drinks/cans/beer = 6,
 					/obj/item/weapon/reagent_containers/food/drinks/cans/ale = 6,
 					/obj/item/weapon/reagent_containers/food/drinks/cans/synthanol = 15,
