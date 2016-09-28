@@ -12,11 +12,11 @@
 	var/freeplay = 0				//for debugging and admin kindness
 	var/token_price = 0
 	var/last_winner = null			//for letting people who to hunt down and steal prizes from
-	var/window_name = "arcade"		//the window name for arcade machines (also prevents New() from spawning a new machine, so make sure you change this for subtypes)
+	var/window_name = "arcade"		//in case you want to change the window name for certain machines
 
 /obj/machinery/arcade/New()
 	..()
-	if(window_name == "arcade")		//if the window_name is not changed, this will assume it is the base type and spawn a new subtype machine in its place.
+	if(type == /obj/machinery/arcade)		//if you spawn the base-type, it will replace itself with a random subtype for randomness
 		var/choice = pick(subtypesof(/obj/machinery/arcade))
 		new choice(loc)
 		qdel(src)
