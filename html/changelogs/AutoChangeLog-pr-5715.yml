@@ -1,0 +1,4 @@
+author: FlattestGuitar
+delete-after: True
+changes: 
+  - tweak: "pAIs no longer turn into debris when wiped"
