@@ -281,10 +281,9 @@
 
 /obj/machinery/door/Move(new_loc, new_dir)
 	var/turf/T = loc
-	..()
+	. = ..()
 	move_update_air(T)
 
-	. = ..()
 	if(width > 1)
 		if(dir in list(EAST, WEST))
 			bound_width = width * world.icon_size
