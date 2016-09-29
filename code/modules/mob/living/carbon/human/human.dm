@@ -194,10 +194,8 @@
 		//it might be 'bubblewrapping' given that this rhymes with 'hugboxing'
 		if((tmob.a_intent == I_HELP || tmob.restrained()) && (a_intent == I_HELP || restrained()))
 			if((canmove && tmob.canmove) && (!tmob.buckled && !tmob.buckled_mob))
-			
-				if(locate(/obj/structure/table/, loc) && locate(/obj/structure/table/, tmob.loc) || !locate(/obj/structure/table/, loc) && !locate(/obj/structure/table/, tmob.loc))
+				if(!locate(/obj/structure/table/, loc) == !locate(/obj/structure/table/, tmob.loc))
 				//wont let them switch places if one is on a table and the other is not
-				
 					var/turf/oldloc = loc
 					loc = tmob.loc
 					tmob.loc = oldloc
