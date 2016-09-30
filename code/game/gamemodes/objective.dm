@@ -35,7 +35,7 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) \
 		return TARGET_INVALID_NOT_HUMAN
 	if(!possible_target.current.stat == DEAD)
 		return TARGET_INVALID_DEAD
-	if(possible_target.key == null)
+	if(!possible_target.key)
 		return TARGET_INVALID_NOCKEY
 
 /datum/objective/proc/find_target()
