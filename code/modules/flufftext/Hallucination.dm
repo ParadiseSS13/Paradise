@@ -565,13 +565,13 @@ var/list/non_fakeattack_weapons = list(/obj/item/weapon/gun/projectile, /obj/ite
 				person = H
 		people += H
 	if(person) //Basic talk
-		to_chat(target, target.hear_say(pick(speak_messages),language = pick(person.languages),speaker = person))
+		target.hear_say(pick(speak_messages),language = pick(person.languages),speaker = person)
 	else // Radio talk
 		var/list/humans = list()
 		for(var/mob/living/carbon/human/H in living_mob_list)
 			humans += H
 		person = pick(humans)
-		to_chat(target, target.hear_radio(pick(radio_messages),language = pick(person.languages),speaker = person, part_a = "<span class='[frequency_span_class(PUB_FREQ)]'><b>\[[get_frequency_name(PUB_FREQ)]\]</b> <span class='name'>", part_b = "</span> <span class='message'>"))
+		target.hear_radio(pick(radio_messages),language = pick(person.languages),speaker = person, part_a = "<span class='[frequency_span_class(PUB_FREQ)]'><b>\[[get_frequency_name(PUB_FREQ)]\]</b> <span class='name'>", part_b = "</span> <span class='message'>")
 	qdel(src)
 
 /obj/effect/hallucination/message
