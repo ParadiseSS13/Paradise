@@ -22,3 +22,9 @@
 	icon = 'icons/turf/walls/rusty_reinforced_wall.dmi'
 	icon_state = "rrust"
 	walltype = "rrust"
+
+/turf/simulated/wall/r_wall/coated			//Coated for heat resistance
+	name = "coated reinforced wall"
+	desc = "A huge chunk of reinforced metal used to seperate rooms. It seems to have additional plating to protect against heat."
+	icon = 'icons/turf/walls/coated_reinforced_wall.dmi'
+	max_temperature = INFINITY

@@ -1,5 +1,6 @@
 var/list/chatResources = list(
 	"goon/browserassets/js/jquery.min.js",
+	"goon/browserassets/js/jquery.mark.min.js",
 	"goon/browserassets/js/json2.min.js",
 	"goon/browserassets/js/browserOutput.js",
 	"goon/browserassets/css/fonts/fontawesome-webfont.eot",
@@ -34,6 +35,9 @@ var/list/chatResources = list(
 		spawn()
 			alert(owner.mob, "Updated chat window does not exist. If you are using a custom skin file please allow the game to update.")
 		broken = TRUE
+		return 0
+
+	if(!owner) // In case the client vanishes before winexists returns
 		return 0
 
 	if(winget(owner, "browseroutput", "is-disabled") == "false")
@@ -171,7 +175,8 @@ var/list/chatResources = list(
 	var/list/partial = splittext(iconData, "{")
 	return replacetext(copytext(partial[2], 3, -5), "\n", "")
 
-/proc/bicon(var/obj)
+/proc/bicon(var/obj, var/use_class = 1)
+	var/class = use_class ? "class='icon misc'" : null
 	if (!obj)
 		return
 
@@ -179,7 +184,7 @@ var/list/chatResources = list(
 		if (!bicon_cache["\ref[obj]"]) // Doesn't exist yet, make it.
 			bicon_cache["\ref[obj]"] = icon2base64(obj)
 
-		return "<img class='icon misc' src='data:image/png;base64,[bicon_cache["\ref[obj]"]]'>"
+		return "<img [class] src='data:image/png;base64,[bicon_cache["\ref[obj]"]]'>"
 
 	// Either an atom or somebody fucked up and is gonna get a runtime, which I'm fine with.
 	var/atom/A = obj
@@ -191,27 +196,47 @@ var/list/chatResources = list(
 			I = icon()
 			I.Insert(temp, dir = SOUTH)
 		bicon_cache[key] = icon2base64(I, key)
+	if(use_class)
+		class = "class='icon [A.icon_state]'"
 
-	return "<img class='icon [A.icon_state]' src='data:image/png;base64,[bicon_cache[key]]'>"
+	return "<img [class] src='data:image/png;base64,[bicon_cache[key]]'>"
 
-//Aliases for bicon
-/proc/bi(obj)
-	bicon(obj)
+/proc/is_valid_tochat_message(message)
+	return istext(message)
+
+/proc/is_valid_tochat_target(target)
+	return !istype(target, /savefile) && (ismob(target) || islist(target) || isclient(target) || target == world)
 
 var/to_chat_filename
 var/to_chat_line
 var/to_chat_src
 // Call using macro: to_chat(target, message)
 /proc/__to_chat(target, message)
-	if(istype(message, /image) || istype(message, /sound) || istype(target, /savefile) || !(ismob(target) || islist(target) || isclient(target) || target == world))
+	if(!is_valid_tochat_message(message) || !is_valid_tochat_target(target))
 		target << message
-		if(!istext(message))
-			message = "(non-text type)"
-		world.Error(new/exception("DEBUG: to_chat called with invalid message: [message]", to_chat_filename, to_chat_line), e_src = to_chat_src)
+
+		// Info about the "message"
+		if(isnull(message))
+			message = "(null)"
+		else if(istype(message, /datum))
+			var/datum/D = message
+			message = "([D.type]): '[D]'"
+		else if(!is_valid_tochat_message(message))
+			message = "(bad message) : '[message]'"
+
+		// Info about the target
+		var/targetstring = "'[target]'"
+		if(istype(target, /datum))
+			var/datum/D = target
+			targetstring += ", [D.type]"
+
+		// The final output
+		log_runtime(new/exception("DEBUG: to_chat called with invalid message/target.", to_chat_filename, to_chat_line), to_chat_src, list("Message: '[message]'", "Target: [targetstring]"))
 		return
 
-	else if(istext(message))
+	else if(is_valid_tochat_message(message))
 		if(istext(target))
+			log_runtime(EXCEPTION("Somehow, to_chat got a text as a target"))
 			return
 
 		message = replacetext(message, "\n", "<br>")

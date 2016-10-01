@@ -250,11 +250,11 @@
 				var/no_los
 				var/turf/last_turf = origin_turf
 				for(var/turf/target_turf in getline(origin_turf,neighbor))
-					if(!last_turf.Enter(target_turf) || target_turf.density)
+					if(!last_turf.Enter(thrown,target_turf) || target_turf.density)
 						no_los = 1
 						break
 					last_turf = target_turf
-				if(!no_los && !origin_turf.Enter(neighbor))
+				if(!no_los && !origin_turf.Enter(thrown, neighbor))
 					no_los = 1
 				if(no_los)
 					closed_turfs |= neighbor
@@ -376,7 +376,7 @@
 
 	// Bluespace tomato code copied over from grown.dm.
 	if(get_trait(TRAIT_TELEPORTING))
-		if(target.z in config.admin_levels)
+		if(!is_teleport_allowed(target.z))
 			return 1
 
 		//Plant potency determines radius of teleport.
@@ -406,8 +406,10 @@
 /datum/seed/proc/randomize()
 
 	roundstart = 0
-	seed_name = "strange plant"     // TODO: name generator.
+	// TODO: Better name generator
+	seed_name = "cultivar #[uid]"
 	display_name = "strange plants" // TODO: name generator.
+	base_name = seed_name
 	mysterious = 1
 	seed_noun = pick("spores","nodes","cuttings","seeds")
 	modular_icon = 1

@@ -16,6 +16,14 @@
 	var/list/loadedItems = list() //The items loaded into the cannon that will be fired out
 	var/pressureSetting = 1 //How powerful the cannon is - higher pressure = more gas but more powerful throws
 
+/obj/item/weapon/pneumatic_cannon/Destroy()
+	if(tank)
+		qdel(tank)
+		tank = null
+	for(var/obj/item/I in loadedItems)
+		qdel(I)
+	loadedItems.Cut()
+	return ..()
 
 /obj/item/weapon/pneumatic_cannon/examine(mob/user)
 	..()
@@ -110,7 +118,7 @@
 	if(!discharge)
 		user.visible_message("<span class='danger'>[user] fires \the [src]!</span>", \
 				    		 "<span class='danger'>You fire \the [src]!</span>")
-	add_logs(target, user, "fired at", src)
+	add_logs(user, target, "fired at", src)
 	playsound(src.loc, 'sound/weapons/sonic_jackhammer.ogg', 50, 1)
 	for(var/obj/item/ITD in loadedItems) //Item To Discharge
 		spawn(0)

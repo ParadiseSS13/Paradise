@@ -97,43 +97,21 @@ function linkify(text) {
 	});
 }
 
-//Actually turns the highlight term match into appropriate html
-function addHighlightMarkup(match) {
-	var extra = '';
-	if (opts.highlightColor) {
-		extra += ' style="background-color: '+opts.highlightColor+'"';
-	}
-	return '<span class="highlight"'+extra+'>'+match+'</span>';
+// Colorizes the highlight spans
+function setHighlightColor(match) {
+	match.style.background = opts.highlightColor
 }
 
 //Highlights words based on user settings
 function highlightTerms(el) {
-	if (el.children.length > 0) {
-		for(var h = 0; h < el.children.length; h++){
-			highlightTerms(el.children[h]);
-		}
+	var element = $(el)
+	if(!(element.mark)) { // mark.js isn't loaded; give up
+		return
 	}
-	if (el.childNodes.length > 0 && typeof el.childNodes[0].data !== 'undefined' && el.childNodes[0].data.length > 0) { //If element actually has text
-		var newText = '';
-		for (var c = 0; c < el.childNodes.length; c++) { //Each child element
-			if (el.childNodes[c].nodeType === 3) { //Is it text only?
-				var words = el.childNodes[c].data.split(' ');
-				for (var w = 0; w < words.length; w++) { //Each word in the text
-					var newWord = null;
-					for (var i = 0; i < opts.highlightTerms.length; i++) { //Each highlight term
-						if (opts.highlightTerms[i] && words[w].toLowerCase().indexOf(opts.highlightTerms[i].toLowerCase()) > -1) { //If a match is found
-							newWord = words[w].replace(new RegExp(opts.highlightTerms[i], 'gi'), addHighlightMarkup);
-							break;
-						}
-					}
-					newText += newWord ? newWord : words[w];
-					newText += w >= words.length ? '' : ' ';
-				}
-			} else { //Every other type of element
-				newText += outerHTML(el.childNodes[c]);
-			}
+	for (var i = 0; i < opts.highlightTerms.length; i++) { //Each highlight term
+		if(opts.highlightTerms[i]) {
+			element.mark(opts.highlightTerms[i], {"element" : "span", "each" : setHighlightColor});
 		}
-		el.innerHTML = newText;
 	}
 }
 
@@ -237,13 +215,7 @@ function output(message, flag) {
 		message = linkify(message);
 	}
 
-	opts.messageCount++;
-
-	//Pop the top message off if history limit reached
-	if (opts.messageCount >= opts.messageLimit) {
-		$messages.children('div.entry:first-child').remove();
-		opts.messageCount--; //I guess the count should only ever equal the limit
-	}
+	opts.messageCount++;	
 
 	//Actually append the message
 	var entry = document.createElement('div');
@@ -484,6 +456,20 @@ $(function() {
 		} else if (opts.noResponse) { //Previous ping attempt failed ohno
 			$('.connectionClosed[data-count="'+opts.noResponseCount+'"]:not(.restored)').addClass('restored').text('Your connection has been restored (probably)!');
 			opts.noResponse = false;
+		}
+		if (opts.messageCount > opts.messageLimit) { // Prune old messages beyond the message limit
+			var bodyHeight = $('body').height();
+			var messagesHeight = $messages.outerHeight();
+			var scrollPos = $(window).scrollTop();
+			var atBottom = (bodyHeight + scrollPos >= messagesHeight - opts.scrollSnapTolerance)
+
+			$messages.children().slice(0, opts.messageCount - opts.messageLimit).remove();
+			opts.messageCount = opts.messageLimit;
+			if (!atBottom) {
+				// If we weren't at the bottom, adjust scroll position to compensate for removed elements
+				var newPos = scrollPos - (messagesHeight - $messages.outerHeight())
+				$('body,html').scrollTop(newPos);
+			}
 		}
 	}, 2000); //2 seconds
 
@@ -834,6 +820,10 @@ $(function() {
 	});
 
 	$('#highlightTerm').click(function(e) {
+		if(!($().mark)) {
+			output('<span class="internal boldnshit">Highlighting is disabled. You are probably using Internet Explorer 8 and need to update.</span>', 'internal');
+			return;
+		}
 		if ($('.popup .highlightTerm').is(':visible')) {return;}
 		var termInputs = '';
 		for (var i = 0; i < opts.highlightLimit; i++) {

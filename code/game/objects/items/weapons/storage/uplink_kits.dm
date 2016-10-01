@@ -77,8 +77,7 @@
 				new /obj/item/weapon/melee/energy/sword/saber(src)
 				new /obj/item/weapon/melee/energy/sword/saber(src)
 				new /obj/item/weapon/dnainjector/telemut/darkbundle(src)
-				new /obj/item/clothing/head/chaplain_hood(src)
-				new /obj/item/clothing/suit/chaplain_hoodie(src)
+				new /obj/item/clothing/suit/hooded/chaplain_hoodie(src)
 				new /obj/item/weapon/card/id/syndicate(src)
 				return
 
@@ -196,3 +195,25 @@
 	new /obj/item/ammo_casing/shotgun/dart/assassination(src)
 	new /obj/item/ammo_casing/shotgun/dart/assassination(src)
 	new /obj/item/weapon/gun/projectile/revolver/doublebarrel/improvised/cane(src)
+
+
+/obj/item/weapon/storage/box/syndie_kit/atmosgasgrenades
+	name = "Atmos Grenades"
+
+/obj/item/weapon/storage/box/syndie_kit/atmosgasgrenades/New()
+	..()
+	new /obj/item/weapon/grenade/clusterbuster/plasma(src)
+	new /obj/item/weapon/grenade/clusterbuster/n2o(src)
+
+/obj/item/weapon/storage/box/syndie_kit/missionary_set
+	name = "Missionary Starter Kit"
+
+/obj/item/weapon/storage/box/syndie_kit/missionary_set/New()
+	..()
+	new /obj/item/weapon/nullrod/missionary_staff(src)
+	new /obj/item/clothing/suit/hooded/chaplain_hoodie/missionary_robe(src)
+	var/obj/item/weapon/storage/bible/B = new /obj/item/weapon/storage/bible(src)
+	if(prob(25))	//an omen of success to come?
+		B.deity_name = "Success"
+		B.icon_state = "greentext"
+		B.item_state = "greentext"

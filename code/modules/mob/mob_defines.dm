@@ -22,7 +22,7 @@
 	*/
 	var/obj/screen/zone_sel/zone_sel = null
 	var/obj/screen/leap_icon = null
-	var/obj/screen/healthdoll = null
+	var/obj/screen/healthdoll/healthdoll = null
 
 	var/use_me = 1 //Allows all mobs to use the me verb by default, will have to manually specify they cannot
 	var/damageoverlaytemp = 0
@@ -63,7 +63,6 @@
 	var/canmove = 1
 	var/lastpuke = 0
 	var/unacidable = 0
-	var/small = 0
 	var/can_strip = 1
 	var/list/pinned = list()            //List of things pinning this creature to walls (see living_defense.dm)
 	var/list/embedded = list()          //Embedded items, since simple mobs don't have organs.
@@ -94,7 +93,6 @@
 	var/intent = null//Living
 	var/shakecamera = 0
 	var/a_intent = I_HELP//Living
-	var/m_int = null//Living
 	var/m_intent = "run"//Living
 	var/lastKnownIP = null
 	var/atom/movable/buckled = null//Living

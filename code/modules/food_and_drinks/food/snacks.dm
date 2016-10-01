@@ -779,6 +779,17 @@
 	Post_Consume(mob/living/M)
 		M.reagents.add_reagent("omnizine", 15)
 
+/obj/item/weapon/reagent_containers/food/snacks/warmdonkpocket_weak
+	name = "Lightly Warm Donk-pocket"
+	desc = "The food of choice for the seasoned traitor. This one is lukewarm."
+	icon_state = "donkpocket"
+	filling_color = "#DEDEAB"
+
+/obj/item/weapon/reagent_containers/food/snacks/warmdonkpocket_weak/New()
+	..()
+	reagents.add_reagent("nutriment", 4)
+	reagents.add_reagent("weak_omnizine", 3)
+
 /obj/item/weapon/reagent_containers/food/snacks/syndidonkpocket
 	name = "Donk-pocket"
 	desc = "This donk-pocket is emitting a small amount of heat."

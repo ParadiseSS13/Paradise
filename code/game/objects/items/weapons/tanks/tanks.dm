@@ -35,6 +35,7 @@
 /obj/item/weapon/tank/Destroy()
 	if(air_contents)
 		qdel(air_contents)
+		air_contents = null
 
 	processing_objects.Remove(src)
 
@@ -82,7 +83,7 @@
 		icon = loc
 	if(!in_range(src, user))
 		if(icon == src)
-			to_chat(user, "\blue It's \a [bicon(icon)][src]! If you want any more information you'll need to get closer.")
+			to_chat(user, "<span class='notice'>It's \a [bicon(icon)][src]! If you want any more information you'll need to get closer.</span>")
 		return
 
 	var/celsius_temperature = air_contents.temperature-T0C

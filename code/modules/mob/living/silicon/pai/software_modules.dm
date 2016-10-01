@@ -56,7 +56,7 @@
 			while(!istype(M, /mob/living))
 				if(!M || !M.loc || count > 6)
 					//For a runtime where M ends up in nullspace (similar to bluespace but less colourful)
-					to_chat(src, "You are not being carried by anyone!")
+					to_chat(P, "You are not being carried by anyone!")
 					return 0
 				M = M.loc
 				count++
@@ -123,6 +123,7 @@
 	on_ui_interact(mob/living/silicon/pai/user, datum/nanoui/ui=null, force_open=1)
 
 		var/data[0]
+		data_core.get_manifest_json()
 		data["manifest"] = PDA_Manifest
 
 		ui = nanomanager.try_update_ui(user, user, id, ui, data, force_open)
@@ -499,7 +500,7 @@
 /mob/living/silicon/pai/proc/hackloop()
 	var/turf/T = get_turf_or_move(src.loc)
 	for(var/mob/living/silicon/ai/AI in player_list)
-		if(!T || !(T.z in config.contact_levels))
+		if(!T || !is_station_contact(T.z))
 			break
 		if(T.loc)
 			to_chat(AI, "<font color = red><b>Network Alert: Brute-force encryption crack in progress in [T.loc].</b></font>")
@@ -704,7 +705,7 @@
 		while(!isliving(held))
 			if(!held || !held.loc || count > 6)
 				//For a runtime where M ends up in nullspace (similar to bluespace but less colourful)
-				to_chat(src, "You are not being carried by anyone!")
+				to_chat(user, "You are not being carried by anyone!")
 				return 0
 			held = held.loc
 			count++

@@ -19,8 +19,6 @@
 	..()
 	spawn(5)
 		driver_sync()
-	machines += src
-	return
 
 
 /obj/machinery/computer/pod/proc/driver_sync()
@@ -43,7 +41,7 @@
 				loopings += ident_tag
 				loopings[ident_tag] = 0
 				break
-	for(var/obj/machinery/door/poddoor/M in world)
+	for(var/obj/machinery/door/poddoor/M in airlocks)
 		if(M.z != src.z)	continue
 		for(var/ident_tag in id_tags)
 			if((M.id_tag == ident_tag) && !(ident_tag in synced) && !(ident_tag in door_only_tags))
@@ -69,7 +67,7 @@
 			loopings[ident_tag] = 0
 			break
 	if(!(ident_tag in synced))
-		for(var/obj/machinery/door/poddoor/M in world)
+		for(var/obj/machinery/door/poddoor/M in airlocks)
 			if(M.z != src.z)	continue
 			if((M.id_tag == ident_tag) && !(ident_tag in synced) && !(ident_tag in door_only_tags))
 				door_only_tags += ident_tag
@@ -90,7 +88,7 @@
 		visible_message("Cannot locate any mass driver of that ID. Cancelling firing sequence!")
 		return
 
-	for(var/obj/machinery/door/poddoor/M in world)
+	for(var/obj/machinery/door/poddoor/M in airlocks)
 		if(M.z != src.z)	continue
 		if(M.id_tag == ident_tag)
 			spawn()
@@ -104,7 +102,7 @@
 			M.drive()
 
 	sleep(50)
-	for(var/obj/machinery/door/poddoor/M in world)
+	for(var/obj/machinery/door/poddoor/M in airlocks)
 		if(M.z != src.z)	continue
 		if(M.id_tag == ident_tag)
 			spawn()
@@ -121,44 +119,44 @@
 	if(..())
 		return
 
-	var/dat = "<HTML><BODY><TT><B>[name]</B>(<A href='?src=\ref[src];rename=1'>rename</A>)"
+	var/dat = "<HTML><BODY><TT><B>[name]</B>(<A href='?src=[UID()];rename=1'>rename</A>)"
 	user.set_machine(src)
-	dat += "<BR><A href = '?src=\ref[src];sync=1'>Reset Connections</A><BR>"
+	dat += "<BR><A href = '?src=[UID()];sync=1'>Reset Connections</A><BR>"
 	if(synced.len)
-		dat += "<BR><A href = '?src=\ref[src];massfire=1'><B>Fire All Connected Drivers</B></A><BR>"
+		dat += "<BR><A href = '?src=[UID()];massfire=1'><B>Fire All Connected Drivers</B></A><BR>"
 	if(istype(src,/obj/machinery/computer/pod/deathsquad))
-		dat += "<BR><A href = '?src=\ref[src];dstele=1'><B>Set Teleporter Destination Z-Level</B></A><BR>"
+		dat += "<BR><A href = '?src=[UID()];dstele=1'><B>Set Teleporter Destination Z-Level</B></A><BR>"
 	for(var/ident_tag in id_tags)
 		if(!(ident_tag in door_only_tags))
-			dat += "<BR><BR><B>[ident_tag]</B> <A href='?src=\ref[src];remove=1;driver=[ident_tag]'>remove</A>"
+			dat += "<BR><BR><B>[ident_tag]</B> <A href='?src=[UID()];remove=1;driver=[ident_tag]'>remove</A>"
 		if(ident_tag in synced)
 			var/d2 = ""
 			if(timings[ident_tag])	//door controls do not need timers.
-				d2 = "<A href='?src=\ref[src];time=0;driver=[ident_tag]'>Stop Time Launch</A>"
+				d2 = "<A href='?src=[UID()];time=0;driver=[ident_tag]'>Stop Time Launch</A>"
 			else
-				d2 = "<A href='?src=\ref[src];time=1;driver=[ident_tag]'>Initiate Time Launch</A>"
+				d2 = "<A href='?src=[UID()];time=1;driver=[ident_tag]'>Initiate Time Launch</A>"
 			var/second = times[ident_tag] % 60
 			var/minute = (times[ident_tag] - second) / 60
 			var/maxsecond = maxtimes[ident_tag] % 60
 			var/maxminute = (maxtimes[ident_tag] - maxsecond) / 60
-			dat += "<HR>\nTimer System: [d2]\nTime Left: [minute ? "[minute]:" : null][second]/[maxminute ? "[maxminute]:" : null][maxsecond] <A href='?src=\ref[src];tp=-30;driver=[ident_tag]'>-</A> <A href='?src=\ref[src];tp=-1;driver=[ident_tag]'>-</A> <A href='?src=\ref[src];tp=1;driver=[ident_tag]'>+</A> <A href='?src=\ref[src];tp=30;driver=[ident_tag]'>+</A>"
-			dat += "<BR>Set timer to loop: [loopings[ident_tag] ? "<A href = '?src=\ref[src];loop=0;driver=[ident_tag]'>Yes</A>" : "<A href = '?src=\ref[src];loop=1;driver=[ident_tag]'>No</A>"]"
+			dat += "<HR>\nTimer System: [d2]\nTime Left: [minute ? "[minute]:" : null][second]/[maxminute ? "[maxminute]:" : null][maxsecond] <A href='?src=[UID()];tp=-30;driver=[ident_tag]'>-</A> <A href='?src=[UID()];tp=-1;driver=[ident_tag]'>-</A> <A href='?src=[UID()];tp=1;driver=[ident_tag]'>+</A> <A href='?src=[UID()];tp=30;driver=[ident_tag]'>+</A>"
+			dat += "<BR>Set timer to loop: [loopings[ident_tag] ? "<A href = '?src=[UID()];loop=0;driver=[ident_tag]'>Yes</A>" : "<A href = '?src=[UID()];loop=1;driver=[ident_tag]'>No</A>"]"
 			var/temp = ""
 			var/list/L = list( 0.25, 0.5, 1, 2, 4, 8, 16 )
 			for(var/t in L)
 				if( powers[ident_tag] == t)
-					temp += "<B><A href = '?src=\ref[src];power=[t];driver=[ident_tag]'>[t]</A></B> "
+					temp += "<B><A href = '?src=[UID()];power=[t];driver=[ident_tag]'>[t]</A></B> "
 				else
-					temp += "<A href = '?src=\ref[src];power=[t];driver=[ident_tag]'>[t]</A> "
-			dat += "<HR>\nPower Level: [temp]<BR>\n<A href = '?src=\ref[src];launch=1;driver=[ident_tag]'><B>Fire Drive!</B></A><BR>\n<A href = '?src=\ref[src];door=1;driver=[ident_tag]'>Toggle Pod Doors</A><BR>"
+					temp += "<A href = '?src=[UID()];power=[t];driver=[ident_tag]'>[t]</A> "
+			dat += "<HR>\nPower Level: [temp]<BR>\n<A href = '?src=[UID()];launch=1;driver=[ident_tag]'><B>Fire Drive!</B></A><BR>\n<A href = '?src=[UID()];door=1;driver=[ident_tag]'>Toggle Pod Doors</A><BR>"
 
 	for(var/ident_tag in door_only_tags)
-		dat += "<BR><BR><B>[ident_tag]</B> <A href='?src=\ref[src];remove=1;driver=[ident_tag]'>remove</A>"
-		dat += "<BR>\n<A href = '?src=\ref[src];door=1;driver=[ident_tag]'>Toggle Pod Doors</A><BR>"
+		dat += "<BR><BR><B>[ident_tag]</B> <A href='?src=[UID()];remove=1;driver=[ident_tag]'>remove</A>"
+		dat += "<BR>\n<A href = '?src=[UID()];door=1;driver=[ident_tag]'>Toggle Pod Doors</A><BR>"
 
-	dat += "<BR><A href='?src=\ref[src];add=1'>add another id_tag</A>"
+	dat += "<BR><A href='?src=[UID()];add=1'>add another id_tag</A>"
 
-	dat += "<BR><BR><A href='?src=\ref[user];mach_close=computer'>Close</A></TT></BODY></HTML>"
+	dat += "<BR><BR><A href='?src=[user.UID()];mach_close=computer'>Close</A></TT></BODY></HTML>"
 	user << browse(dat, "window=computer;size=400x500")
 	add_fingerprint(usr)
 	onclose(user, "computer")
@@ -208,7 +206,9 @@
 			id_tags -= ident_tag
 		if(href_list["dstele"])
 			var/choices = list(0)
-			choices += accessable_z_levels
+			var/list/reachable_levels = levels_by_trait(REACHABLE)
+			for(var/datum/space_level/S in reachable_levels)
+				choices += S.zpos
 			var/obj/machinery/computer/pod/deathsquad/D = src
 			var/input = input("Enter the destination Z-Level. The mechs will arrive from the East. Leave 0 if you don't want to set a specific ZLevel", "Mass Driver Controls", 0) in choices
 			D.teleporter_dest = input
@@ -242,7 +242,7 @@
 			maxtimes[ident_tag] = min(max(round(maxtimes[ident_tag]), 0), 120)
 		if(href_list["door"])
 			var/ident_tag = href_list["driver"]
-			for(var/obj/machinery/door/poddoor/M in world)
+			for(var/obj/machinery/door/poddoor/M in airlocks)
 				if(M.z != src.z)	continue
 				if(M.id_tag == ident_tag)
 					spawn()
@@ -315,7 +315,7 @@
 			P.failchance = 0//So it has no fail chance when teleporting.
 			spawn_marauder.Remove(P.target)
 
-	for(var/obj/machinery/door/poddoor/M in world)
+	for(var/obj/machinery/door/poddoor/M in airlocks)
 		if(M.z != src.z)	continue
 		if(M.id_tag == ident_tag)
 			spawn()
@@ -328,7 +328,7 @@
 			M.drive()
 
 	sleep(50)
-	for(var/obj/machinery/door/poddoor/M in world)
+	for(var/obj/machinery/door/poddoor/M in airlocks)
 		if(M.z != src.z)	continue
 		if(M.id_tag == ident_tag)
 			spawn()

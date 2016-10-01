@@ -23,6 +23,12 @@
 	update_icon()
 	return
 
+/obj/item/weapon/melee/baton/Destroy()
+	if(bcell)
+		qdel(bcell)
+		bcell = null
+	return ..()
+
 /obj/item/weapon/melee/baton/CheckParts(list/parts_list)
 	..()
 	bcell = locate(/obj/item/weapon/stock_parts/cell) in contents
@@ -160,7 +166,7 @@
 		var/mob/living/carbon/human/H = L
 		H.forcesay(hit_appends)
 
-	add_logs(L, user, "stunned", object="stunbaton")
+	add_logs(user, L, "stunned", object="stunbaton")
 
 /obj/item/weapon/melee/baton/emp_act(severity)
 	if(bcell)

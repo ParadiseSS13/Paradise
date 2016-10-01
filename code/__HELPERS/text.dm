@@ -15,6 +15,10 @@
 
 // Run all strings to be used in an SQL query through this proc first to properly escape out injection attempts.
 /proc/sanitizeSQL(var/t as text)
+	if(isnull(t))
+		return null
+	if(!istext(t))
+		t = "[t]" // Just quietly assume any non-texts are supposed to be text
 	var/sqltext = dbcon.Quote(t);
 	return copytext(sqltext, 2, lentext(sqltext));//Quote() adds quotes around input, we already do that
 
@@ -390,3 +394,40 @@ proc/checkhtml(var/t)
 /proc/macro2html(text)
     var/static/regex/text_macro = new("(\\xFF.)(.*)$")
     return text_macro.Replace(text, /proc/replace_text_macro)
+
+/proc/dmm_encode(text)
+	// First, go through and nix out any of our escape sequences so we don't leave ourselves open to some escape sequence attack
+	// Some coder will probably despise me for this, years down the line
+
+	var/list/repl_chars = list("#?qt;", "#?lbr;", "#?rbr;")
+	for(var/char in repl_chars)
+		var/index = findtext(text, char)
+		var/keylength = length(char)
+		while(index)
+			log_runtime(EXCEPTION("Bad string given to dmm encoder! [text]"))
+			// Replace w/ underscore to prevent "&#3&#123;4;" from cheesing the radar
+			// Should probably also use canon text replacing procs
+			text = copytext(text, 1, index) + "_" + copytext(text, index+keylength)
+			index = findtext(text, char)
+
+	// Then, replace characters as normal
+	var/list/repl_chars_2 = list("\"" = "#?qt;", "{" = "#?lbr;", "}" = "#?rbr;")
+	for(var/char in repl_chars_2)
+		var/index = findtext(text, char)
+		var/keylength = length(char)
+		while(index)
+			text = copytext(text, 1, index) + repl_chars_2[char] + copytext(text, index+keylength)
+			index = findtext(text, char)
+	return text
+
+
+/proc/dmm_decode(text)
+	// Replace what we extracted above
+	var/list/repl_chars = list("#?qt;" = "\"", "#?lbr;" = "{", "#?rbr;" = "}")
+	for(var/char in repl_chars)
+		var/index = findtext(text, char)
+		var/keylength = length(char)
+		while(index)
+			text = copytext(text, 1, index) + repl_chars[char] + copytext(text, index+keylength)
+			index = findtext(text, char)
+	return text

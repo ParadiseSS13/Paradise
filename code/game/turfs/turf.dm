@@ -135,9 +135,6 @@
 		loopsanity--
 		A.HasProximity(M, 1)
 
-/turf/proc/adjacent_fire_act(turf/simulated/floor/source, temperature, volume)
-	return
-
 /turf/proc/levelupdate()
 	for(var/obj/O in src)
 		if(O.level == 1)
@@ -166,7 +163,9 @@
 	var/list/old_affecting_lights = affecting_lights
 	var/old_lighting_overlay = lighting_overlay
 	var/old_blueprint_data = blueprint_data
+	var/old_obscured = obscured
 
+	BeforeChange()
 	if(air_master)
 		air_master.remove_from_active(src)
 	var/turf/W = new path(src)
@@ -189,12 +188,20 @@
 		else
 			lighting_clear_overlays()
 
+	obscured = old_obscured
+
 	return W
+
+/turf/proc/BeforeChange()
+	return
 
 // I'm including `ignore_air` because BYOND lacks positional-only arguments
 /turf/proc/AfterChange(ignore_air, keep_cabling = FALSE) //called after a turf has been replaced in ChangeTurf()
 	levelupdate()
 	CalculateAdjacentTurfs()
+
+	if(air_master && !ignore_air)
+		air_master.add_to_active(src)
 
 	if(!keep_cabling && !can_have_cabling())
 		for(var/obj/structure/cable/C in contents)

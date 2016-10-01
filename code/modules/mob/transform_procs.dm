@@ -7,14 +7,6 @@
 	spawning = 1
 	return ..()
 
-/mob/living/carbon/human/AIize(move=1) // 'move' argument needs defining here too because BYOND is dumb
-	if(notransform)
-		return
-	for(var/t in organs)
-		qdel(t)
-
-	return ..(move)
-
 /mob/living/carbon/AIize()
 	if(notransform)
 		return
@@ -40,33 +32,13 @@
 	else
 		O.key = key
 
-	var/obj/loc_landmark
-	for(var/obj/effect/landmark/start/sloc in landmarks_list)
-		if(sloc.name != "AI")
-			continue
-		if(locate(/mob/living) in sloc.loc)
-			continue
-		loc_landmark = sloc
-	if(!loc_landmark)
-		for(var/obj/effect/landmark/tripai in landmarks_list)
-			if(tripai.name == "tripai")
-				if(locate(/mob/living) in tripai.loc)
-					continue
-				loc_landmark = tripai
-	if(!loc_landmark)
-		to_chat(O, "Oh god sorry we can't find an unoccupied AI spawn location, so we're spawning you on top of someone.")
-		for(var/obj/effect/landmark/start/sloc in landmarks_list)
-			if(sloc.name == "AI")
-				loc_landmark = sloc
-
-	O.loc = loc_landmark.loc
-
 	O.on_mob_init()
 
 	O.add_ai_verbs()
 
 	O.rename_self("AI",1)
-	spawn
+
+	spawn()
 		qdel(src)
 	return O
 

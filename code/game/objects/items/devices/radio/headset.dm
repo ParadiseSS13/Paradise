@@ -96,6 +96,12 @@
 	icon_state = "syndie_headset"
 	item_state = "syndie_headset"
 
+/obj/item/device/radio/headset/syndicate/syndteam
+	ks1type = /obj/item/device/encryptionkey/syndteam
+
+/obj/item/device/radio/headset/syndicate/alt/syndteam
+	ks1type = /obj/item/device/encryptionkey/syndteam
+
 /obj/item/device/radio/headset/binary
 	origin_tech = "syndicate=3"
 	ks1type = /obj/item/device/encryptionkey/binary
@@ -410,3 +416,9 @@
 			radio_text += ", "
 
 	radio_desc = radio_text
+
+/obj/item/device/radio/headset/proc/make_syndie() // Turns normal radios into Syndicate radios!
+	qdel(keyslot1)
+	keyslot1 = new /obj/item/device/encryptionkey/syndicate
+	syndie = 1
+	recalculateChannels()

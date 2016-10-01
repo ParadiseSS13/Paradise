@@ -28,17 +28,17 @@
 	add_fingerprint(usr)
 	var/dat
 	if(temp)
-		dat = "[src.temp]<BR><BR><A href='byond://?src=\ref[src];temp=1'>Clear</A>"
+		dat = "[src.temp]<BR><BR><A href='byond://?src=[UID()];temp=1'>Clear</A>"
 	else
 		dat = {"
 <B>Persistent Signal Locator</B><HR>
 Frequency:
-<A href='byond://?src=\ref[src];freq=-10'>-</A>
-<A href='byond://?src=\ref[src];freq=-2'>-</A> [format_frequency(src.frequency)]
-<A href='byond://?src=\ref[src];freq=2'>+</A>
-<A href='byond://?src=\ref[src];freq=10'>+</A><BR>
+<A href='byond://?src=[UID()];freq=-10'>-</A>
+<A href='byond://?src=[UID()];freq=-2'>-</A> [format_frequency(src.frequency)]
+<A href='byond://?src=[UID()];freq=2'>+</A>
+<A href='byond://?src=[UID()];freq=10'>+</A><BR>
 
-<A href='?src=\ref[src];refresh=1'>Refresh</A>"}
+<A href='?src=[UID()];refresh=1'>Refresh</A>"}
 	user << browse(dat, "window=radio")
 	onclose(user, "radio")
 	return
@@ -48,7 +48,7 @@ Frequency:
 		return 1
 
 	var/turf/current_location = get_turf(usr)//What turf is the user on?
-	if(!current_location ||( current_location.z in config.admin_levels))//If turf was not found or they're on z level 2.
+	if(!current_location || is_admin_level(current_location.z))//If turf was not found or they're in the admin zone
 		to_chat(usr, "<span class='warning'>\The [src] is malfunctioning.</span>")
 		return 1
 
@@ -74,7 +74,7 @@ Frequency:
 					temp += "[T.id]: [T.imp_in.x], [T.imp_in.y], [T.imp_in.z]<BR>"
 
 			temp += "<B>You are at \[[sr.x],[sr.y],[sr.z]\]</B>."
-			temp += "<BR><BR><A href='byond://?src=\ref[src];refresh=1'>Refresh</A><BR>"
+			temp += "<BR><BR><A href='byond://?src=[UID()];refresh=1'>Refresh</A><BR>"
 		else
 			temp += "<B><FONT color='red'>Processing error:</FONT></B> Unable to locate orbital position.<BR>"
 	else
@@ -107,7 +107,7 @@ Frequency:
 
 /obj/item/weapon/hand_tele/attack_self(mob/user as mob)
 	var/turf/current_location = get_turf(user)//What turf is the user on?
-	if(!current_location||(current_location.z in config.admin_levels)||current_location.z>=7)//If turf was not found or they're on z level 2 or >7 which does not currently exist.
+	if(!current_location||!is_teleport_allowed(current_location.z))//If turf was not found or they're somewhere teleproof
 		to_chat(user, "<span class='notice'>\The [src] is malfunctioning.</span>")
 		return
 	var/list/L = list(  )

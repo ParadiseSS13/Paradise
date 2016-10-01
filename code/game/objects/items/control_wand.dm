@@ -18,6 +18,12 @@
 	ID = new /obj/item/weapon/card/id
 	ID.access = get_region_accesses(region_access)
 
+/obj/item/weapon/door_remote/Destroy()
+	if(ID)
+		qdel(ID)
+		ID = null
+	return ..()
+
 /obj/item/weapon/door_remote/attack_self(mob/user)
 	switch(mode)
 		if(WAND_OPEN)

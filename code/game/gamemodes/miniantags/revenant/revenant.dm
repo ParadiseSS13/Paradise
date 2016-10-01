@@ -34,6 +34,7 @@
 	density = 0
 	flying = 1
 	anchored = 1
+	mob_size = MOB_SIZE_TINY
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 
 	var/essence = 75 //The resource of revenants. Max health is equal to three times this amount
@@ -99,7 +100,7 @@
 		if(istype(M, /mob/living/simple_animal/revenant))
 			to_chat(M, rendered)
 		if(isobserver(M))
-			to_chat(M, "<a href='?src=\ref[M];follow=\ref[src]'>(F)</a> [rendered]")
+			to_chat(M, "<a href='?src=[M.UID()];follow=\ref[src]'>(F)</a> [rendered]")
 	return
 
 /mob/living/simple_animal/revenant/Stat()
@@ -389,7 +390,7 @@
 		player_mind.active = 1
 		player_mind.transfer_to(R)
 		player_mind.assigned_role = "revenant"
-		player_mind.special_role = "Revenant"
+		player_mind.special_role = SPECIAL_ROLE_REVENANT
 		ticker.mode.traitors |= player_mind
 		message_admins("[key_of_revenant] has been [client_to_revive ? "re":""]made into a revenant by reforming ectoplasm.")
 		log_game("[key_of_revenant] was [client_to_revive ? "re":""]made as a revenant by reforming ectoplasm.")

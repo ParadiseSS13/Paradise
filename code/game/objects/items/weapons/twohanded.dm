@@ -82,13 +82,6 @@
 	user.put_in_inactive_hand(O)
 	return
 
-/obj/item/weapon/twohanded/mob_can_equip(mob/M, slot)
-	//Cannot equip wielded items.
-	if(wielded)
-		to_chat(M, "<span class='warning'>Unwield the [name] first!</span>")
-		return 0
-	return ..()
-
 /obj/item/weapon/twohanded/dropped(mob/user)
 	..()
 	//handles unwielding a twohanded weapon when dropped as well as clearing up the offhand
@@ -107,6 +100,12 @@
 		unwield(user)
 	else //Trying to wield it
 		wield(user)
+
+
+/obj/item/weapon/twohanded/equip_to_best_slot(mob/M)
+	if(..())
+		unwield(M)
+		return
 
 ///////////OFFHAND///////////////
 /obj/item/weapon/twohanded/offhand
@@ -130,8 +129,8 @@
 	return
 
 /obj/item/weapon/twohanded/required/mob_can_equip(M as mob, slot)
-	if(wielded)
-		to_chat(M, "<span class='warning'>[src.name] is too cumbersome to carry with anything but your hands!</span>")
+	if(wielded && !slot_flags)
+		to_chat(M, "<span class='warning'>[src] is too cumbersome to carry with anything but your hands!</span>")
 		return 0
 	return ..()
 
@@ -140,12 +139,18 @@
 	if(get_dist(src,user) > 1)
 		return 0
 	if(H != null)
-		user.visible_message("<span class='notice'>[src.name] is too cumbersome to carry in one hand!</span>")
+		to_chat(user, "<span class='notice'>[src] is too cumbersome to carry in one hand!</span>")
 		return
-	var/obj/item/weapon/twohanded/offhand/O = new(user)
-	user.put_in_inactive_hand(O)
+	if(loc != user)
+		wield(user)
 	..()
-	wielded = 1
+
+/obj/item/weapon/twohanded/required/equipped(mob/user, slot)
+	..()
+	if(slot == slot_l_hand || slot == slot_r_hand)
+		wield(user)
+	else
+		unwield(user)
 
 /*
  * Fireaxe
@@ -365,6 +370,7 @@
 		if(!L.stat && prob(50))
 			var/mob/living/simple_animal/hostile/illusion/M = new(user.loc)
 			M.faction = user.faction.Copy()
+			M.attack_sound = hitsound
 			M.Copy_Parent(user, 100, user.health/2.5, 12, 30)
 			M.GiveTarget(L)
 
@@ -693,3 +699,55 @@
 				Z.ex_act(2)
 				charged = 3
 				playsound(user, 'sound/weapons/marauder.ogg', 50, 1)
+
+// Energized Fire axe
+/obj/item/weapon/twohanded/energizedfireaxe
+	name = "energized fire axe"
+	desc = "Someone with a love for fire axes decided to turn one into a single-charge energy weapon. Seems excessive."
+	icon_state = "fireaxe0"
+	force = 5
+	throwforce = 15
+	sharp = 1
+	edge = 1
+	w_class = 5
+	armour_penetration = 20
+	slot_flags = SLOT_BACK
+	force_unwielded  = 5
+	force_wielded = 30
+	attack_verb = list("attacked", "chopped", "cleaved", "torn", "cut")
+	hitsound = 'sound/weapons/bladeslice.ogg'
+	var/charged = 1
+
+/obj/item/weapon/twohanded/energizedfireaxe/update_icon()
+	if(wielded)
+		icon_state = "fireaxe2"
+	else
+		icon_state = "fireaxe0"
+
+/obj/item/weapon/twohanded/energizedfireaxe/afterattack(atom/A, mob/user, proximity)
+	if(!proximity)
+		return
+	if(wielded)
+		if(istype(A, /mob/living))
+			var/mob/living/Z = A
+			if(charged)
+				charged--
+				Z.take_organ_damage(0,30)
+				user.visible_message("<span class='danger'>[user] slams the charged axe into [Z.name] with all their might!</span>")
+				playsound(loc, 'sound/magic/lightningbolt.ogg', 5, 1)
+				var/datum/effect/system/spark_spread/sparks = new /datum/effect/system/spark_spread
+				sparks.set_up(1, 1, src)
+				sparks.start()
+
+		if(A && wielded && (istype(A, /obj/structure/window) || istype(A, /obj/structure/grille)))
+			if(istype(A, /obj/structure/window))
+				var/obj/structure/window/W = A
+				W.destroy()
+				if(prob(4))
+					charged++
+					user.visible_message("<span class='notice'>The axe starts to emit an electric buzz!</span>")
+			else
+				qdel(A)
+				if(prob(4))
+					charged++
+					user.visible_message("<span class='notice'>The axe starts to emit an electric buzz!</span>")

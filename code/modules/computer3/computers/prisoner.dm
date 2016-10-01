@@ -23,7 +23,7 @@
 		var/dat
 		dat += "<B>Prisoner Implant Manager System</B><BR>"
 		if(screen == 0)
-			dat += "<HR><A href='?src=\ref[src];lock=1'>Unlock Console</A>"
+			dat += "<HR><A href='?src=[UID()];lock=1'>Unlock Console</A>"
 		else if(screen == 1)
 			dat += "<HR>Chemical Implants<BR>"
 			var/turf/Tr = null
@@ -32,9 +32,9 @@
 				if((Tr) && (Tr.z != computer.z))	continue//Out of range
 				if(!C.implanted) continue
 				dat += "[C.imp_in.name] | Remaining Units: [C.reagents.total_volume] | Inject: "
-				dat += "<A href='?src=\ref[src];inject1=\ref[C]'>(<font color=red>(1)</font>)</A>"
-				dat += "<A href='?src=\ref[src];inject5=\ref[C]'>(<font color=red>(5)</font>)</A>"
-				dat += "<A href='?src=\ref[src];inject10=\ref[C]'>(<font color=red>(10)</font>)</A><BR>"
+				dat += "<A href='?src=[UID()];inject1=\ref[C]'>(<font color=red>(1)</font>)</A>"
+				dat += "<A href='?src=[UID()];inject5=\ref[C]'>(<font color=red>(5)</font>)</A>"
+				dat += "<A href='?src=[UID()];inject10=\ref[C]'>(<font color=red>(10)</font>)</A><BR>"
 				dat += "********************************<BR>"
 			dat += "<HR>Tracking Implants<BR>"
 			for(var/obj/item/weapon/implant/tracking/T in world)
@@ -43,13 +43,13 @@
 				if(!T.implanted) continue
 				var/loc_display = "Unknown"
 				var/mob/living/carbon/M = T.imp_in
-				if(M.z == ZLEVEL_STATION && !istype(M.loc, /turf/space))
+				if(is_station_level(M.z) && !istype(M.loc, /turf/space))
 					var/turf/mob_loc = get_turf(M)
 					loc_display = mob_loc.loc
 				dat += "ID: [T.id] | Location: [loc_display]<BR>"
-				dat += "<A href='?src=\ref[src];warn=\ref[T]'>(<i>Send Message</i></font>)</A> |<BR>"
+				dat += "<A href='?src=[UID()];warn=\ref[T]'>(<i>Send Message</i></font>)</A> |<BR>"
 				dat += "********************************<BR>"
-			dat += "<HR><A href='?src=\ref[src];lock=1'>Lock Console</A>"
+			dat += "<HR><A href='?src=[UID()];lock=1'>Lock Console</A>"
 
 		popup.width = 400
 		popup.height = 500
@@ -98,5 +98,3 @@
 
 		interact()
 		return
-
-

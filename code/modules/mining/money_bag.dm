@@ -7,6 +7,8 @@
 	flags = CONDUCT
 	force = 10.0
 	throwforce = 0
+	burn_state = FLAMMABLE
+	burntime = 20
 	w_class = 4
 
 /obj/item/weapon/moneybag/attack_hand(user as mob)
@@ -42,23 +44,23 @@
 
 	var/dat = text("<b>The contents of the moneybag reveal...</b><br>")
 	if(amt_gold)
-		dat += text("Gold coins: [amt_gold] <A href='?src=\ref[src];remove=gold'>Remove one</A><br>")
+		dat += text("Gold coins: [amt_gold] <A href='?src=[UID()];remove=gold'>Remove one</A><br>")
 	if(amt_silver)
-		dat += text("Silver coins: [amt_silver] <A href='?src=\ref[src];remove=silver'>Remove one</A><br>")
+		dat += text("Silver coins: [amt_silver] <A href='?src=[UID()];remove=silver'>Remove one</A><br>")
 	if(amt_iron)
-		dat += text("Metal coins: [amt_iron] <A href='?src=\ref[src];remove=iron'>Remove one</A><br>")
+		dat += text("Metal coins: [amt_iron] <A href='?src=[UID()];remove=iron'>Remove one</A><br>")
 	if(amt_diamond)
-		dat += text("Diamond coins: [amt_diamond] <A href='?src=\ref[src];remove=diamond'>Remove one</A><br>")
+		dat += text("Diamond coins: [amt_diamond] <A href='?src=[UID()];remove=diamond'>Remove one</A><br>")
 	if(amt_plasma)
-		dat += text("Plasma coins: [amt_plasma] <A href='?src=\ref[src];remove=plasma'>Remove one</A><br>")
+		dat += text("Plasma coins: [amt_plasma] <A href='?src=[UID()];remove=plasma'>Remove one</A><br>")
 	if(amt_uranium)
-		dat += text("Uranium coins: [amt_uranium] <A href='?src=\ref[src];remove=uranium'>Remove one</A><br>")
+		dat += text("Uranium coins: [amt_uranium] <A href='?src=[UID()];remove=uranium'>Remove one</A><br>")
 	if(amt_clown)
-		dat += text("Bananium coins: [amt_clown] <A href='?src=\ref[src];remove=clown'>Remove one</A><br>")
+		dat += text("Bananium coins: [amt_clown] <A href='?src=[UID()];remove=clown'>Remove one</A><br>")
 	if(amt_mime)
-		dat += text("Tranquillite coins: [amt_mime] <A href='?src=\ref[src];remove=mime'>Remove one</A><br>")
+		dat += text("Tranquillite coins: [amt_mime] <A href='?src=[UID()];remove=mime'>Remove one</A><br>")
 	if(amt_adamantine)
-		dat += text("Adamantine coins: [amt_adamantine] <A href='?src=\ref[src];remove=adamantine'>Remove one</A><br>")
+		dat += text("Adamantine coins: [amt_adamantine] <A href='?src=[UID()];remove=adamantine'>Remove one</A><br>")
 	user << browse("[dat]", "window=moneybag")
 
 /obj/item/weapon/moneybag/attackby(obj/item/weapon/W as obj, mob/user as mob, params)

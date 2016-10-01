@@ -164,7 +164,7 @@ var/const/CALL_SHUTTLE_REASON_LENGTH = 12
 				continue
 
 		var/turf/T = get_turf(thing)
-		if(T && T.z == ZLEVEL_STATION)
+		if(T && is_station_level(T.z))
 			callShuttle = 0
 			break
 
@@ -209,7 +209,7 @@ var/const/CALL_SHUTTLE_REASON_LENGTH = 12
 		if(!M.roundstart_move)
 			continue
 		for(var/obj/docking_port/stationary/S in stationary)
-			if(S.z != ZLEVEL_STATION && findtext(S.id, M.id))
+			if(!is_station_level(S.z) && findtext(S.id, M.id))
 				S.width = M.width
 				S.height = M.height
 				S.dwidth = M.dwidth

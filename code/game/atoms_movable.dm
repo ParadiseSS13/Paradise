@@ -44,8 +44,8 @@
 // at which point object creations are a fair toss more seldom
 /atom/movable/proc/attempt_init()
 	var/turf/T = get_turf(src)
-	if(T && zlevels.is_zlevel_dirty(T.z))
-		zlevels.postpone_init(T.z, src)
+	if(T && space_manager.is_zlevel_dirty(T.z))
+		space_manager.postpone_init(T.z, src)
 	else if(auto_init)
 		initialize()
 
@@ -345,3 +345,22 @@
 	if(buckled_mob == mover)
 		return 1
 	return ..()
+
+/atom/movable/proc/get_spacemove_backup()
+	var/atom/movable/dense_object_backup
+	for(var/A in orange(1, get_turf(src)))
+		if(isarea(A))
+			continue
+		else if(isturf(A))
+			var/turf/turf = A
+			if(!turf.density)
+				continue
+			return turf
+		else
+			var/atom/movable/AM = A
+			if(!AM.CanPass(src) || AM.density)
+				if(AM.anchored)
+					return AM
+				dense_object_backup = AM
+				break
+	. = dense_object_backup

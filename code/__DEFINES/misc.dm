@@ -1,20 +1,3 @@
-
-
-
-//zlevel defines, can be overriden for different maps in the appropriate _maps file.
-#define ZLEVEL_STATION  1
-#define ZLEVEL_CENTCOMM 2
-#define ZLEVEL_TELECOMMS 3
-#define ZLEVEL_ENGI 4
-#define ZLEVEL_ASTEROID 5
-#define ZLEVEL_DERELICT 6
-#define ZLEVEL_EMPTY 7
-#define MAX_Z	7 // Used in space.dm to defince which Z-levels cannot be exited via space.
-#define TRANSITIONEDGE	7 //Distance from edge to move to another z-level
-
-///
-#define ENGINE_EJECT_Z	3
-
 //Object specific defines
 #define CANDLE_LUM 3 //For how bright candles are
 
@@ -35,6 +18,11 @@
 #define CLICK_CD_POINT 10
 #define CLICK_CD_RESIST 20
 
+//Sizes of mobs, used by mob/living/var/mob_size
+#define MOB_SIZE_TINY 0
+#define MOB_SIZE_SMALL 1
+#define MOB_SIZE_HUMAN 2
+#define MOB_SIZE_LARGE 3
 ///
 #define ROUNDSTART_LOGOUT_REPORT_TIME 6000 //Amount of time (in deciseconds) after the rounds starts, that the player disconnect report is issued.
 
@@ -175,6 +163,12 @@
 
 #define MAX_STACK_SIZE 50
 
+//check_target_facings() return defines
+#define FACING_FAILED											0
+#define FACING_SAME_DIR											1
+#define FACING_EACHOTHER										2
+#define FACING_INIT_FACING_TARGET_TARGET_FACING_PERPENDICULAR	3 //Do I win the most informative but also most stupid define award?
+
 //unmagic-strings for types of polls
 #define POLLTYPE_OPTION		"OPTION"
 #define POLLTYPE_TEXT		"TEXT"
@@ -270,6 +264,26 @@
 // Macro to get the current elapsed round time, rather than total world runtime
 #define ROUND_TIME (round_start_time ? (world.time - round_start_time) : 0)
 
+// Macro that returns true if it's too early in a round to freely ghost out
+#define TOO_EARLY_TO_GHOST (config && (ROUND_TIME < (config.round_abandon_penalty_period)))
+
 // Used by radios to indicate that they have sent a message via something other than subspace
 #define RADIO_CONNECTION_FAIL 0
 #define RADIO_CONNECTION_NON_SUBSPACE 1
+
+//Fire stuff, for burn_state
+#define LAVA_PROOF -2
+#define FIRE_PROOF -1
+#define FLAMMABLE 0
+#define ON_FIRE 1
+
+// Sound
+#define SOUND_MINIMUM_PRESSURE 10
+#define FALLOFF_SOUNDS 0.5
+
+
+// Bluespace shelter deploy checks
+#define SHELTER_DEPLOY_ALLOWED "allowed"
+#define SHELTER_DEPLOY_BAD_TURFS "bad turfs"
+#define SHELTER_DEPLOY_BAD_AREA "bad area"
+#define SHELTER_DEPLOY_ANCHORED_OBJECTS "anchored objects"

@@ -138,15 +138,15 @@
 
 /obj/item/weapon/storage/firstaid/adv/New()
 	..()
-	if(empty) return
-	new /obj/item/weapon/reagent_containers/hypospray/autoinjector( src )
-	new /obj/item/stack/medical/bruise_pack/advanced(src)
+	if(empty)
+		return
+	new /obj/item/stack/medical/bruise_pack(src)
 	new /obj/item/stack/medical/bruise_pack/advanced(src)
 	new /obj/item/stack/medical/bruise_pack/advanced(src)
 	new /obj/item/stack/medical/ointment/advanced(src)
 	new /obj/item/stack/medical/ointment/advanced(src)
-	new /obj/item/stack/medical/splint(src)
-	return
+	new /obj/item/weapon/reagent_containers/hypospray/autoinjector(src)
+	new /obj/item/device/healthanalyzer(src)
 
 /obj/item/weapon/storage/firstaid/adv/empty
 	empty = 1
@@ -275,16 +275,6 @@
 		new /obj/item/weapon/reagent_containers/food/pill/charcoal( src )
 		new /obj/item/weapon/reagent_containers/food/pill/charcoal( src )
 		new /obj/item/weapon/reagent_containers/food/pill/charcoal( src )
-
-/obj/item/weapon/storage/pill_bottle/dice
-	name = "pack of dice"
-	desc = "It's a small container with dice inside."
-
-	New()
-		..()
-		new /obj/item/weapon/dice( src )
-		new /obj/item/weapon/dice/d20( src )
-
 
 /obj/item/weapon/storage/pill_bottle/painkillers
 	name = "Pill Bottle (Salicylic Acid)"

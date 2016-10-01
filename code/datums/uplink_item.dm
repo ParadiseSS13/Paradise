@@ -180,6 +180,14 @@ var/list/uplink_items = list()
 	cost = 13
 	job = list("Chaplain")
 
+/datum/uplink_item/jobspecific/missionary_kit
+	name = "Missionary Starter Kit"
+	desc = "A box containing a missionary staff, missionary robes, and bible. The robes and staff can be linked to allow you to convert victims at range for a short time to do your bidding. The bible is for bible stuff."
+	reference = "MK"
+	item = /obj/item/weapon/storage/box/syndie_kit/missionary_set
+	cost = 15
+	job = list("Chaplain")
+
 /datum/uplink_item/jobspecific/artistic_toolbox
 	name = "Artistic Toolbox"
 	desc = "An accursed toolbox that grants its followers extreme power at the cost of requiring repeated sacrifices to it. If sacrifices are not provided, it will turn on its follower."
@@ -308,6 +316,14 @@ var/list/uplink_items = list()
 	reference = "AIRJ"
 	item = /obj/item/clothing/under/contortionist
 	cost = 6
+	job = list("Life Support Specialist")
+
+/datum/uplink_item/dangerous/energizedfireaxe
+	name = "Energized Fire Axe"
+	desc = "A fire axe with a massive electrical charge built into it. It can release this charge on its first victim and will be rather plain after that."
+	reference = "EFA"
+	item = /obj/item/weapon/twohanded/energizedfireaxe
+	cost = 10
 	job = list("Life Support Specialist")
 
 //Stimulants
@@ -461,6 +477,13 @@ var/list/uplink_items = list()
 	cost = 15
 	gamemodes = list(/datum/game_mode/nuclear)
 	surplus = 0
+
+/datum/uplink_item/dangerous/atmosgrenades
+	name = "Atmos Grenades"
+	desc = "A box of two (2) grenades that wreak havoc with the atmosphere of the target area. Capable of engulfing a large area in lit plasma, or N2O. Deploy with extreme caution!"
+	reference = "AGG"
+	item = /obj/item/weapon/storage/box/syndie_kit/atmosgasgrenades
+	cost = 6
 
 /datum/uplink_item/dangerous/emp
 	name = "EMP Grenades and Implanter Kit"
@@ -768,6 +791,13 @@ var/list/uplink_items = list()
 	reference = "CHHUD"
 	item = /obj/item/clothing/glasses/hud/security/chameleon
 	cost = 2
+	
+/datum/uplink_item/stealthy_weapons/chameleonflag
+	name = "Chameleon Flag"
+	desc = "A flag that can be disguised as any other known flag. There is a heat sensitive bomb loaded into the pole that will be detonated if the flag is lit on fire."
+	reference = "CHFLAG"
+	item = /obj/item/flag/chameleon
+	cost = 7
 
 // STEALTHY TOOLS
 
@@ -879,8 +909,8 @@ var/list/uplink_items = list()
 	cost = 1
 
 /datum/uplink_item/device_tools/surgerybag
-	name = "Syndicate Surgery Dufflebag"
-	desc = "The Syndicate surgery dufflebag is a toolkit containing all surgery tools, a straitjacket, and a muzzle."
+	name = "Syndicate Surgery Duffelbag"
+	desc = "The Syndicate surgery duffelbag is a toolkit containing all surgery tools, a straitjacket, and a muzzle."
 	reference = "SSDB"
 	item = /obj/item/weapon/storage/backpack/duffel/syndie/surgery
 	cost = 4

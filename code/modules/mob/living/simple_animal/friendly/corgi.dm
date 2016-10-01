@@ -6,7 +6,7 @@
 	icon_state = "corgi"
 	icon_living = "corgi"
 	icon_dead = "corgi_dead"
-	gender = MALE
+	gender = NEUTER
 	health = 30
 	maxHealth = 30
 	speak = list("YAP", "Woof!", "Bark!", "AUUUUUU")
@@ -33,6 +33,8 @@
 	..()
 	default_atmos_requirements = src.atmos_requirements
 	regenerate_icons()
+	if(gender == NEUTER)
+		gender = pick(MALE, FEMALE)
 
 /mob/living/simple_animal/pet/corgi/Life()
 	. = ..()
@@ -52,14 +54,14 @@
 
 	var/dat = {"<table>"}
 
-	dat += "<tr><td><B>Head:</B></td><td><A href='?src=\ref[src];[inventory_head?"remove_inv":"add_inv"]=head'>[(inventory_head && !(inventory_head.flags&ABSTRACT)) ? inventory_head : "<font color=grey>Empty</font>"]</A></td></tr>"
-	dat += "<tr><td><B>Back:</B></td><td><A href='?src=\ref[src];[inventory_back?"remove_inv":"add_inv"]=back'>[(inventory_back && !(inventory_back.flags&ABSTRACT)) ? inventory_back : "<font color=grey>Empty</font>"]</A></td></tr>"
+	dat += "<tr><td><B>Head:</B></td><td><A href='?src=[UID()];[inventory_head?"remove_inv":"add_inv"]=head'>[(inventory_head && !(inventory_head.flags&ABSTRACT)) ? inventory_head : "<font color=grey>Empty</font>"]</A></td></tr>"
+	dat += "<tr><td><B>Back:</B></td><td><A href='?src=[UID()];[inventory_back?"remove_inv":"add_inv"]=back'>[(inventory_back && !(inventory_back.flags&ABSTRACT)) ? inventory_back : "<font color=grey>Empty</font>"]</A></td></tr>"
 	if(can_collar)
 		dat += "<tr><td>&nbsp;</td></tr>"
-		dat += "<tr><td><B>Collar:</B></td><td><A href='?src=\ref[src];[collar?"remove_inv":"add_inv"]=collar'>[(collar && !(collar.flags&ABSTRACT)) ? collar : "<font color=grey>Empty</font>"]</A></td></tr>"
+		dat += "<tr><td><B>Collar:</B></td><td><A href='?src=[UID()];[collar?"remove_inv":"add_inv"]=collar'>[(collar && !(collar.flags&ABSTRACT)) ? collar : "<font color=grey>Empty</font>"]</A></td></tr>"
 
 	dat += {"</table>
-	<A href='?src=\ref[user];mach_close=mob\ref[src]'>Close</A>
+	<A href='?src=[user.UID()];mach_close=mob\ref[src]'>Close</A>
 	"}
 
 	var/datum/browser/popup = new(user, "mob\ref[src]", "[src]", 440, 500)
@@ -478,7 +480,7 @@
 			var/mob/tmob = AM
 			if(istype(tmob, /mob/living/carbon/human) && (FAT in tmob.mutations))
 				if(prob(70))
-					to_chat(src, "\red <B>You fail to push [tmob]'s fat ass out of the way.</B>")
+					to_chat(src, "<span class='danger'>You fail to push [tmob]'s fat ass out of the way.</span>")
 					now_pushing = 0
 					return
 			if(!(tmob.status_flags & CANPUSH))
@@ -540,6 +542,7 @@
 	shaved = 0
 	density = 0
 	pass_flags = PASSMOB
+	mob_size = MOB_SIZE_SMALL
 
 //puppies cannot wear anything.
 /mob/living/simple_animal/pet/corgi/puppy/Topic(href, href_list)

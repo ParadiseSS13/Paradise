@@ -19,7 +19,7 @@
 			var/obj/item/device/radio/beacon/chosen
 			var/list/possible = list()
 			for(var/obj/item/device/radio/beacon/W in world)
-				if(!(W.z in config.station_levels))
+				if(!is_station_level(W.z))
 					continue
 				possible += W
 

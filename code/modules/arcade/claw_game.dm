@@ -19,8 +19,7 @@
 								'icons/obj/arcade_images/prizeorbs.png')
 
 /obj/machinery/arcade/claw/New()
-	src.addAtProcessing()
-
+	..()
 	machine_image = pick("_1", "_2")
 	update_icon()
 
@@ -68,7 +67,7 @@
 	user << browse_rsc('page.css')
 	for(var/i=1, i<=img_resources.len, i++)
 		user << browse_rsc(img_resources[i])
-	var/my_game_html = replacetext(claw_game_html, "/* ref src */", "\ref[src]")
+	var/my_game_html = replacetext(claw_game_html, "/* ref src */", UID())
 	user << browse(my_game_html, "window=[window_name];size=700x600")
 
 /obj/machinery/arcade/claw/Topic(href, list/href_list)

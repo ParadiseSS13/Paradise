@@ -182,7 +182,7 @@
 			var/turf/T = get_turf(R)
 			if(!T)
 				continue
-			if((T.z in config.admin_levels) || T.z > 7)
+			if(!is_teleport_allowed(T.z))
 				continue
 			if(R.syndicate == 1 && emagged == 0)
 				continue
@@ -198,12 +198,12 @@
 				continue
 			else
 				var/mob/M = I.loc
-				if(M.stat == 2)
+				if(M.stat == DEAD)
 					if(M.timeofdeath + 6000 < world.time)
 						continue
 				var/turf/T = get_turf(M)
 				if(!T)	continue
-				if((T.z in config.admin_levels))	continue
+				if(!is_teleport_allowed(T.z))	continue
 				var/tmpname = M.real_name
 				if(areaindex[tmpname])
 					tmpname = "[tmpname] ([++areaindex[tmpname]])"
@@ -225,7 +225,7 @@
 			var/turf/T = get_turf(R)
 			if(!T || !R.teleporter_hub || !R.teleporter_console)
 				continue
-			if((T.z in config.admin_levels) || T.z > 7)
+			if(!is_teleport_allowed(T.z))
 				continue
 			var/tmpname = T.loc.name
 			if(areaindex[tmpname])
@@ -320,7 +320,7 @@
 	return power_station
 
 /obj/machinery/teleport/hub/Bumped(M as mob|obj)
-	if(z == ZLEVEL_CENTCOMM && !admin_usage)
+	if(!is_teleport_allowed(z) && !admin_usage)
 		to_chat(M, "You can't use this here.")
 		return
 	if(power_station && power_station.engaged && !panel_open)
@@ -398,7 +398,7 @@
 /obj/machinery/teleport/perma/Bumped(M as mob|obj)
 	if(stat & (BROKEN|NOPOWER))
 		return
-	if(z == ZLEVEL_CENTCOMM)
+	if(!is_teleport_allowed(z))
 		to_chat(M, "You can't use this here.")
 		return
 	if(target && !recalibrating && !panel_open)

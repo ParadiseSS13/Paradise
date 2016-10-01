@@ -6,7 +6,10 @@
 	icon = 'icons/obj/musician.dmi'
 	icon_state = "violin"
 	item_state = "violin"
+	attack_verb = list("strung", "fiddled", "tuned", "pitched")
 	force = 10
+	burn_state = FLAMMABLE
+	burntime = 20
 	hitsound = 'sound/weapons/smash.ogg'
 	var/datum/song/handheld/song
 
@@ -18,7 +21,7 @@
 	qdel(song)
 	song = null
 	return ..()
-	
+
 /obj/item/device/violin/initialize()
 	song.tempo = song.sanitize_tempo(song.tempo) // tick_lag isn't set when the map is loaded
 	..()

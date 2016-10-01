@@ -1,0 +1,4 @@
+author: Krausus
+delete-after: True
+changes: 
+  - bugfix: "Fixed full chat panes scrolling unpredictably when trying to view old messages."

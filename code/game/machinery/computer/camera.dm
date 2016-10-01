@@ -75,7 +75,7 @@
 
 	var/list/cameras = list()
 	for(var/obj/machinery/camera/C in cameranet.cameras)
-		if((z > MAX_Z || C.z > MAX_Z) && (C.z != z)) //can only recieve away mission cameras on away missions
+		if((is_away_level(src.z) || is_away_level(C.z)) && !atoms_share_level(C, src)) //can only recieve away mission cameras on away missions
 			continue
 		if(!can_access_camera(C))
 			continue
@@ -138,7 +138,10 @@
 		var/obj/machinery/camera/C = locate(href_list["switchTo"]) in cameranet.cameras
 		if(!C)
 			return 1
-
+		
+		if(!can_access_camera(C))
+			return 1 // No href exploits for you.
+		
 		switch_to_camera(usr, C)
 
 	else if(href_list["reset"])

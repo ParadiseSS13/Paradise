@@ -48,24 +48,20 @@
 	// This system will metaphorically snap in half (not postpone init everywhere)
 	// if given a multi-z template
 	// it might need to be adapted for that when that time comes
-	zlevels.add_dirt(placement.z)
+	space_manager.add_dirt(placement.z)
 	var/list/bounds = maploader.load_map(get_file(), min_x, min_y, placement.z, cropMap = 1)
 	if(!bounds)
 		return 0
 	if(bot_left == null || top_right == null)
-		log_debug("One of the late setup corners is bust")
-	else
-		log_debug("Late Setup from ([bot_left.x],[bot_left.y]) to ([top_right.x],[top_right.y])")
+		log_runtime(EXCEPTION("One of the late setup corners is bust"), src)
 
 	if(ST_bot_left == null || ST_top_right == null)
-		log_debug("One of the smoothing corners is bust")
-	else
-		log_debug("Tile smoothing from ([ST_bot_left.x],[ST_bot_left.y]) to ([ST_top_right.x],[ST_top_right.y])")
+		log_runtime(EXCEPTION("One of the smoothing corners is bust"), src)
 
 	late_setup_level(
 		block(bot_left, top_right),
 		block(ST_bot_left, ST_top_right))
-	zlevels.remove_dirt(placement.z)
+	space_manager.remove_dirt(placement.z)
 
 	log_game("[name] loaded at [min_x],[min_y],[placement.z]")
 	return 1
@@ -77,7 +73,7 @@
 		. = file(mappath)
 
 	if(!.)
-		log_to_dd("  The file of [src] appears to be empty/non-existent.")
+		log_runtime(EXCEPTION("  The file of [src] appears to be empty/non-existent."), src)
 
 /datum/map_template/proc/get_affected_turfs(turf/T, centered = 0)
 	var/turf/placement = T
@@ -116,7 +112,7 @@
 
 	if(!config.disable_space_ruins) // so we don't unnecessarily clutter start-up
 		preloadRuinTemplates()
-	//preloadShuttleTemplates()
+	preloadShelterTemplates()
 
 /proc/preloadRuinTemplates()
 	// Still supporting bans by filename
@@ -147,15 +143,12 @@
 		if(istype(R, /datum/map_template/ruin/space))
 			space_ruins_templates[R.name] = R
 
-/*
-/proc/preloadShuttleTemplates()
-	for(var/item in subtypesof(/datum/map_template/shuttle))
-		var/datum/map_template/shuttle/shuttle_type = item
-		if(!(initial(shuttle_type.suffix)))
+/proc/preloadShelterTemplates()
+	for(var/item in subtypesof(/datum/map_template/shelter))
+		var/datum/map_template/shelter/shelter_type = item
+		if(!(initial(shelter_type.mappath)))
 			continue
+		var/datum/map_template/shelter/S = new shelter_type()
 
-		var/datum/map_template/shuttle/S = new shuttle_type()
-
-		shuttle_templates[S.shuttle_id] = S
-		map_templates[S.shuttle_id] = S
-*/
+		shelter_templates[S.shelter_id] = S
+		map_templates[S.shelter_id] = S

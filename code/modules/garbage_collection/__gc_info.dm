@@ -43,9 +43,8 @@ that can't be. There are two main procs involved in this process:
 
 /datum/proc/Destroy()
   This is, effectively, a replacement for Del() (with some exceptions) which is also responsible for nulling out
-  references to or on the object it is called on. Like Del, the Destroy proc will always be called, even if the object
-  is getting destroyed by a direct del instead of qdel; in that case, isnull(gcDestroyed) will be true, and some
-  references can safely be ignored.
+  references to or on the object it is called on. Unlike Del, the Destroy proc will only be called by qdel; generally,
+  this should only happen to datums that are no longer referenced by anything, which shouldn't be an issue.
 
   The exceptions where Destroy cannot replace Del are for the same non-datum types mentioned under qdel, above. Those
   should use a Del proc for any necessary cleanup, as a Destroy proc on them will not automatically get called.

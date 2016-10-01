@@ -245,8 +245,8 @@ em						{font-style: normal;	font-weight: bold;}
 .deptradio				{color: #993399;}
 .comradio				{color: #193A7A;}
 .syndradio				{color: #6d3f40;}
-.dsquadradio			{color: #686868;}
-.resteamradio			{color: #18BC46;}
+.dsquadradio				{color: #686868;}
+.resteamradio				{color: #18BC46;}
 .airadio				{color: #FF00FF;}
 .centradio				{color: #5C5C8A;}
 .secradio				{color: #A30000;}
@@ -256,16 +256,16 @@ em						{font-style: normal;	font-weight: bold;}
 .supradio				{color: #5F4519;}
 .srvradio				{color: #6eaa2c;}
 .admin_channel			{color: #9A04D1;	font-weight: bold;}
-.mod_channel			{color: #402A14;	font-weight: bold;}
-.mod_channel_admin      {color: #402A14;	font-weight: bold;}
+.mentor_channel			{color: #775BFF;	font-weight: bold;}
+.mentor_channel_admin      {color: #9A04D1;	font-weight: bold;}
 .djradio				{color: #663300;}
-.binaryradio			{color: #0B0050;	font-family: 'Courier New', Courier, monospace;}
+.binaryradio				{color: #0B0050;	font-family: 'Courier New', Courier, monospace;}
 .mommiradio				{color: navy;}
 .alert					{color: #ff0000;}
-h1.alert, h2.alert		{color: #000000;}
+h1.alert, h2.alert			{color: #000000;}
 .ghostalert				{color: #5c00e6;	font-style: italic; font-weight: bold;}
 .emote					{					font-style: italic;}
-.selecteddna			{color: #FFFFFF; 	background-color: #001B1B}
+.selecteddna				{color: #FFFFFF; 	background-color: #001B1B}
 
 .attack					{color: #ff0000;}
 .moderate				{color: #CC0000;}
@@ -276,20 +276,20 @@ h1.alert, h2.alert		{color: #000000;}
 .boldwarning				{color: #ff0000;	font-style: italic;	font-weight: bold}
 .danger					{color: #ff0000;	font-weight: bold;}
 .userdanger				{color: #ff0000;	font-weight: bold;	font-size: 120%;}
-.biggerdanger			{color: #ff0000;	font-weight: bold; font-size: 150%;}
+.biggerdanger				{color: #ff0000;	font-weight: bold; font-size: 150%;}
 
 .info					{color: #0000CC;}
 .notice					{color: #000099;}
 .bnotice				{color: #000099; 	font-weight: bold;}
-.boldnotice			{color: #000099;	font-weight: bold;}
+.boldnotice				{color: #000099;	font-weight: bold;}
 .suicide				{color: #ff5050;	font-style: italic;}
-
+.green					{color: #03bb39;}
 .announce 				{color: #228b22;	font-weight: bold;}
-.boldannounce			{color: #ff0000;	font-weight: bold;}
-.greenannounce			{color: #00ff00;	font-weight: bold;}
+.boldannounce				{color: #ff0000;	font-weight: bold;}
+.greenannounce				{color: #00ff00;	font-weight: bold;}
 
 .alien					{color: #543354;}
-.noticealien			{color: #00c000;}
+.noticealien				{color: #00c000;}
 .alertalien				{color: #00c000; font-weight: bold;}
 
 .sinister				{color: #800080;	font-weight: bold;	font-style: italic;} /* /vg/ */
@@ -334,12 +334,12 @@ h1.alert, h2.alert		{color: #000000;}
 .orangei				{color: #ffa500; font-style: italic;}
 .orangeb				{color: #ffa500; font-weight: bold;}
 
-.revennotice			{color: #1d2953;}
-.revenboldnotice		{color: #1d2953;	font-weight: bold;}
-.revenbignotice			{color: #1d2953;	font-weight: bold; font-size: 3;}
+.revennotice				{color: #1d2953;}
+.revenboldnotice			{color: #1d2953;	font-weight: bold;}
+.revenbignotice				{color: #1d2953;	font-weight: bold; font-size: 3;}
 .revenminor				{color: #823abb}
-.revenwarning			{color: #760fbb;	font-style: italic;}
-.revendanger			{color: #760fbb;	font-weight: bold; font-size: 3;}
+.revenwarning				{color: #760fbb;	font-style: italic;}
+.revendanger				{color: #760fbb;	font-weight: bold; font-size: 3;}
 
 /* /vg/ */
 .good					{color: green;}

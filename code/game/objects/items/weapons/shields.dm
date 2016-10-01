@@ -2,6 +2,13 @@
 	name = "shield"
 	block_chance = 50
 
+/obj/item/weapon/shield/hit_reaction(mob/living/carbon/human/owner, attack_text, final_block_chance, damage, attack_type)
+	if(attack_type == THROWN_PROJECTILE_ATTACK)
+		final_block_chance += 30
+	if(attack_type == LEAP_ATTACK)
+		final_block_chance = 100
+	return ..()
+
 /obj/item/weapon/shield/riot
 	name = "riot shield"
 	desc = "A shield adept at blocking blunt objects from connecting with the torso of the shield wielder."
@@ -17,11 +24,6 @@
 	origin_tech = "materials=2"
 	attack_verb = list("shoved", "bashed")
 	var/cooldown = 0 //shield bash cooldown. based on world.time
-
-/obj/item/weapon/shield/hit_reaction(mob/living/carbon/human/owner, attack_text, final_block_chance, damage, attack_type)
-	if(attack_type == THROWN_PROJECTILE_ATTACK)
-		final_block_chance += 30
-	return ..()
 
 /obj/item/weapon/shield/riot/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/weapon/melee/baton))
@@ -44,6 +46,7 @@
 	icon_state = "buckler"
 	item_state = "buckler"
 	materials = list()
+	burn_state = FLAMMABLE
 	block_chance = 30
 
 /obj/item/weapon/shield/energy

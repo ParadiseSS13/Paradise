@@ -124,7 +124,7 @@ var/const/GRAV_NEEDS_WRENCH = 3
 		O.main_part = null
 		qdel(O)
 	for(var/area/A in world)
-		if(!(A.z in config.station_levels)) continue
+		if(!is_station_level(A.z)) continue
 		A.gravitychange(0,A)
 	shake_everyone()
 	return ..()
@@ -229,9 +229,9 @@ var/const/GRAV_NEEDS_WRENCH = 3
 
 	var/dat = "Gravity Generator Breaker: "
 	if(breaker)
-		dat += "<span class='linkOn'>ON</span> <A href='?src=\ref[src];gentoggle=1'>OFF</A>"
+		dat += "<span class='linkOn'>ON</span> <A href='?src=[UID()];gentoggle=1'>OFF</A>"
 	else
-		dat += "<A href='?src=\ref[src];gentoggle=1'>ON</A> <span class='linkOn'>OFF</span> "
+		dat += "<A href='?src=[UID()];gentoggle=1'>ON</A> <span class='linkOn'>OFF</span> "
 
 	dat += "<br>Generator Status:<br><div class='statusDisplay'>"
 	if(charging_state != POWER_IDLE)
@@ -301,7 +301,7 @@ var/const/GRAV_NEEDS_WRENCH = 3
 			investigate_log("was brought online and is now producing gravity for this level.", "gravity")
 			message_admins("The gravity generator was brought online. (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>[area.name]</a>)")
 			for(var/area/A in world)
-				if(!(A.z in config.station_levels)) continue
+				if(!is_station_level(A.z)) continue
 				A.gravitychange(1,A)
 	else
 		if(gravity_in_level() == 1)
@@ -309,7 +309,7 @@ var/const/GRAV_NEEDS_WRENCH = 3
 			investigate_log("was brought offline and there is now no gravity for this level.", "gravity")
 			message_admins("The gravity generator was brought offline with no backup generator. (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>[area.name]</a>)")
 			for(var/area/A in world)
-				if(!(A.z in config.station_levels)) continue
+				if(!is_station_level(A.z)) continue
 				A.gravitychange(0,A)
 
 	update_icon()
@@ -377,6 +377,7 @@ var/const/GRAV_NEEDS_WRENCH = 3
 				shake_camera(M, 15, 1)
 				M.playsound_local(our_turf, 'sound/effects/alert.ogg', 100, 1, 0.5)
 
+// TODO: Make the gravity generator cooperate with the space manager
 /obj/machinery/gravity_generator/main/proc/gravity_in_level()
 	var/turf/T = get_turf(src)
 	if(!T)

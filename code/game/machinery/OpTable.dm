@@ -100,6 +100,7 @@
 		C.client.perspective = EYE_PERSPECTIVE
 		C.client.eye = src
 	C.resting = 1
+	C.update_canmove()
 	C.loc = src.loc
 	if(user.pulling == C)
 		user.stop_pulling()

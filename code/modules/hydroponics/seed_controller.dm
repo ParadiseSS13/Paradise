@@ -37,10 +37,14 @@ var/global/datum/controller/plants/plant_controller // Set in New().
 /datum/controller/plants/New()
 	if(plant_controller && plant_controller != src)
 		log_debug("Rebuilding plant controller.")
-		del(plant_controller)
+		qdel(plant_controller)
 	plant_controller = src
 	setup()
 	process()
+
+/datum/controller/plants/Destroy()
+	..()
+	return QDEL_HINT_HARDDEL_NOW
 
 // Predefined/roundstart varieties use a string key to make it
 // easier to grab the new variety when mutating. Post-roundstart
@@ -92,9 +96,9 @@ var/global/datum/controller/plants/plant_controller // Set in New().
 // Proc for creating a random seed type.
 /datum/controller/plants/proc/create_random_seed(var/survive_on_station)
 	var/datum/seed/seed = new()
-	seed.randomize()
 	seed.uid = plant_controller.seeds.len + 1
 	seed.name = "[seed.uid]"
+	seed.randomize()
 	seeds[seed.name] = seed
 
 	if(survive_on_station)
@@ -102,8 +106,7 @@ var/global/datum/controller/plants/plant_controller // Set in New().
 			seed.consume_gasses["plasma"] = null
 			seed.consume_gasses["carbon_dioxide"] = null
 		if(seed.chems && !isnull(seed.chems["pacid"]))
-			seed.chems["pacid"] = null // Eating through the hull will make these plants completely inviable, albeit very dangerous.
-			seed.chems -= null // Setting to null does not actually remove the entry, which is weird.
+			seed.chems -= "pacid" // Eating through the hull will make these plants completely inviable, albeit very dangerous.
 		seed.set_trait(TRAIT_IDEAL_HEAT,293)
 		seed.set_trait(TRAIT_HEAT_TOLERANCE,20)
 		seed.set_trait(TRAIT_IDEAL_LIGHT,8)

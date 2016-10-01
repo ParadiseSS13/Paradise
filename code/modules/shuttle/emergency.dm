@@ -202,7 +202,7 @@
 			if(time_left <= 0 && !shuttle_master.emergencyNoEscape)
 				//move each escape pod to its corresponding transit dock
 				for(var/obj/docking_port/mobile/pod/M in shuttle_master.mobile)
-					if(M.z == ZLEVEL_STATION) //Will not launch from the mine/planet
+					if(is_station_level(M.z)) //Will not launch from the mine/planet
 						M.enterTransit()
 				//now move the actual emergency shuttle to its transit dock
 				for(var/area/shuttle/escape/E in world)
@@ -279,7 +279,7 @@
 	dwidth = 1
 	width = 3
 	height = 4
-	var/target_area = /area/mine/unexplored
+	var/target_area = /area/mine/dangerous/unexplored
 
 /obj/docking_port/stationary/random/initialize()
 	..()

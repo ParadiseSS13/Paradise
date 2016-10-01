@@ -80,7 +80,7 @@
 	user.set_machine(src)
 
 	var/data[0]
-	data["src"] = "\ref[src]"
+	data["src"] = UID()
 	data["id_inserted"] = !!held_card
 	data["id_card"] = held_card ? text("[held_card.registered_name], [held_card.assignment]") : "-----"
 	data["access_level"] = get_access_level(user)
@@ -292,6 +292,6 @@
 					"}
 
 				P.info = text
-				state("The terminal prints out a report.")
+				visible_message("<span class='notice'>[src] prints out a report.</span>")
 
 	return 1

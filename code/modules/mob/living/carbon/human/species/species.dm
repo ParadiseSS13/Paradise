@@ -90,6 +90,7 @@
 	var/blood_color = "#A10808" //Red.
 	var/flesh_color = "#FFC896" //Pink.
 	var/single_gib_type = /obj/effect/decal/cleanable/blood/gibs
+	var/remains_type = /obj/effect/decal/remains/human //What sort of remains is left behind when the species dusts
 	var/base_color      //Used when setting species.
 
 	//Used in icon caching.
@@ -192,10 +193,8 @@
 
 	for(var/index in has_organ)
 		var/organ = has_organ[index]
-		H.internal_organs |= new organ(H)
-
-	for(var/obj/item/organ/internal/I in H.internal_organs)
-		I.insert(H)
+		// organ new code calls `insert` on its own
+		new organ(H)
 
 	for(var/name in H.organs_by_name)
 		H.organs |= H.organs_by_name[name]
@@ -614,6 +613,8 @@
 		H.clear_alert("high")
 
 /datum/species/proc/handle_hud_icons(mob/living/carbon/human/H)
+	if(!H.client)
+		return
 	if(H.healths)
 		if(H.stat == DEAD)
 			H.healths.icon_state = "health7"
@@ -633,11 +634,15 @@
 						else					H.healths.icon_state = "health6"
 
 	if(H.healthdoll)
-		H.healthdoll.overlays.Cut()
 		if(H.stat == DEAD)
 			H.healthdoll.icon_state = "healthdoll_DEAD"
+			if(H.healthdoll.overlays.len)
+				H.healthdoll.overlays.Cut()
 		else
-			H.healthdoll.icon_state = "healthdoll_OVERLAY"
+			var/list/new_overlays = list()
+			var/list/cached_overlays = H.healthdoll.cached_healthdoll_overlays
+			// Use the dead health doll as the base, since we have proper "healthy" overlays now
+			H.healthdoll.icon_state = "healthdoll_DEAD"
 			for(var/obj/item/organ/external/O in H.organs)
 				var/damage = O.burn_dam + O.brute_dam
 				var/comparison = (O.max_damage/5)
@@ -652,8 +657,10 @@
 					icon_num = 4
 				if(damage > (comparison*4))
 					icon_num = 5
-				if(icon_num)
-					H.healthdoll.overlays += image('icons/mob/screen_gen.dmi',"[O.limb_name][icon_num]")
+				new_overlays += "[O.limb_name][icon_num]"
+			H.healthdoll.overlays += (new_overlays - cached_overlays)
+			H.healthdoll.overlays -= (cached_overlays - new_overlays)
+			H.healthdoll.cached_healthdoll_overlays = new_overlays
 
 	switch(H.nutrition)
 		if(NUTRITION_LEVEL_FULL to INFINITY)

@@ -373,7 +373,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 
 	for(var/I in singularities)
 		var/obj/singularity/S = I
-		if(S.z == ZLEVEL_CENTCOMM  || S.z >= MAX_Z)
+		if(!is_level_reachable(S.z))
 			continue
 		qdel(S)
 	log_admin("[key_name(src)] has deleted all Singularities and Tesla orbs.")
@@ -652,11 +652,12 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		if("strip")
 			//do nothing
 
+		// god is dead
 		if("as job...")
 			if(jobdatum)
 				dresscode = "[jobdatum.title]"
 				jobdatum.equip(M)
-				equip_special_id(M,jobdatum.access,jobdatum.title, jobdatum.idtype)
+				equip_special_id(M,jobdatum.get_access(),jobdatum.title, jobdatum.idtype)
 
 		if("standard space gear")
 			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/black(M), slot_shoes)
@@ -736,7 +737,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/black(M), slot_shoes)
 			var/obj/item/weapon/storage/backpack/backpack = new(M)
 			for(var/obj/item/I in backpack)
-				del(I)
+				qdel(I)
 			M.equip_to_slot_or_del(backpack, slot_back)
 			M.equip_to_slot_or_del(new /obj/item/weapon/mop(M), slot_r_hand)
 			var/obj/item/weapon/reagent_containers/glass/bucket/bucket = new(M)
@@ -780,11 +781,10 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/clown_shoes(M), slot_shoes)
 			M.equip_to_slot_or_del(new /obj/item/clothing/gloves/color/black(M), slot_gloves)
 			M.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/clown_hat(M), slot_wear_mask)
-			M.equip_to_slot_or_del(new /obj/item/clothing/head/chaplain_hood(M), slot_head)
 			M.equip_to_slot_or_del(new /obj/item/device/radio/headset(M), slot_l_ear)
 			M.equip_to_slot_or_del(new /obj/item/weapon/storage/belt/utility/full/multitool(M), slot_belt)
 			M.equip_to_slot_or_del(new /obj/item/clothing/glasses/thermal/monocle(M), slot_glasses)
-			M.equip_to_slot_or_del(new /obj/item/clothing/suit/chaplain_hoodie(M), slot_wear_suit)
+			M.equip_to_slot_or_del(new /obj/item/clothing/suit/hooded/chaplain_hoodie(M), slot_wear_suit)
 			M.equip_to_slot_or_del(new /obj/item/weapon/reagent_containers/food/snacks/grown/banana(M), slot_l_store)
 			M.equip_to_slot_or_del(new /obj/item/weapon/bikehorn(M), slot_r_store)
 			equip_special_id(M,list(access_clown, access_theatre, access_maint_tunnels), "Tunnel Clown", /obj/item/weapon/card/id)
@@ -913,11 +913,9 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			M.equip_to_slot_or_del(new /obj/item/device/flashlight(M), slot_in_backpack)
 			M.equip_to_slot_or_del(new /obj/item/device/radio/headset/syndicate(M), slot_l_ear)
 			M.equip_to_slot_or_del(new /obj/item/weapon/twohanded/dualsaber/red(M), slot_l_hand)
-			var/obj/item/clothing/head/chaplain_hood/hood = new(M)
-			hood.name = "dark lord hood"
-			M.equip_to_slot_or_del(hood, slot_head)
-			var/obj/item/clothing/suit/chaplain_hoodie/robe = new(M)
+			var/obj/item/clothing/suit/hooded/chaplain_hoodie/robe = new /obj/item/clothing/suit/hooded/chaplain_hoodie(M)
 			robe.name = "dark lord robes"
+			robe.hood.name = "dark lord hood"
 			M.equip_to_slot_or_del(robe, slot_wear_suit)
 			equip_special_id(M,get_all_accesses(), "Dark Lord", /obj/item/weapon/card/id/syndicate, "syndie")
 
@@ -1370,33 +1368,28 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	if(alert("Are you sure? This will start up the engine. Should only be used during debug!",,"Yes","No") != "Yes")
 		return
 
-	for(var/obj/machinery/power/emitter/E in world)
+	for(var/obj/machinery/power/emitter/E in machines)
 		if(E.anchored)
 			E.active = 1
 
-	for(var/obj/machinery/field/generator/F in world)
-		if(F.anchored)
-			F.Varedit_start = 1
-	spawn(30)
-		for(var/obj/machinery/the_singularitygen/G in world)
-			if(G.anchored)
-				var/obj/singularity/S = new /obj/singularity(get_turf(G), 50)
-				spawn(0)
-					qdel(G)
-				S.energy = 1750
-				S.current_size = 7
-				S.icon = 'icons/effects/224x224.dmi'
-				S.icon_state = "singularity_s7"
-				S.pixel_x = -96
-				S.pixel_y = -96
-				S.grav_pull = 0
-				//S.consume_range = 3
-				S.dissipate = 0
-				//S.dissipate_delay = 10
-				//S.dissipate_track = 0
-				//S.dissipate_strength = 10
+	for(var/obj/machinery/field/generator/F in machines)
+		if(F.active == 0)
+			F.active = 1
+			F.state = 2
+			F.power = 250
+			F.anchored = 1
+			F.warming_up = 3
+			F.start_fields()
+			F.update_icon()
 
-	for(var/obj/machinery/power/rad_collector/Rad in world)
+	spawn(30)
+		for(var/obj/machinery/the_singularitygen/G in machines)
+			if(G.anchored)
+				var/obj/singularity/S = new /obj/singularity(get_turf(G))
+				S.energy = 800
+				break
+
+	for(var/obj/machinery/power/rad_collector/Rad in machines)
 		if(Rad.anchored)
 			if(!Rad.P)
 				var/obj/item/weapon/tank/plasma/Plasma = new/obj/item/weapon/tank/plasma(Rad)
@@ -1408,7 +1401,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			if(!Rad.active)
 				Rad.toggle_power()
 
-	for(var/obj/machinery/power/smes/SMES in world)
+	for(var/obj/machinery/power/smes/SMES in machines)
 		if(SMES.anchored)
 			SMES.input_attempt = 1
 

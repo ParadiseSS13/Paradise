@@ -14,7 +14,7 @@ var/list/sacrificed = list()
 	for(var/obj/effect/rune/R in world)
 		if(R == src)
 			continue
-		if(R.word1 == cultwords["travel"] && R.word2 == cultwords["self"] && R.word3 == key && R.z != 2)
+		if(R.word1 == cultwords["travel"] && R.word2 == cultwords["self"] && R.word3 == key && is_teleport_allowed(R.z))
 			index++
 			allrunesloc.len = index
 			allrunesloc[index] = R.loc
@@ -113,7 +113,7 @@ var/list/sacrificed = list()
 		cult_log("[key_name_admin(usr)] tried to convert [key_name_admin(M)]")
 		if(is_convertable_to_cult(M.mind))
 			ticker.mode.add_cultist(M.mind)
-			M.mind.special_role = "Cultist"
+			M.mind.special_role = SPECIAL_ROLE_CULTIST
 			to_chat(M, "<font color=\"purple\"><b><i>Your blood pulses. Your head throbs. The world goes red. All at once you are aware of a horrible, horrible truth. The veil of reality has been ripped away and in the festering wound left behind something sinister takes root.</b></i></font>")
 			to_chat(M, "<font color=\"purple\"><b><i>Assist your new compatriots in their dark dealings. Their goal is yours, and yours is theirs. You serve the Dark One above all else. Bring It back.</b></i></font>")
 			return 1
@@ -400,7 +400,7 @@ var/list/sacrificed = list()
 	else
 		ticker.mode.cult+=D.mind
 
-	D.mind.special_role = "Cultist"
+	D.mind.special_role = SPECIAL_ROLE_CULTIST
 	to_chat(D, "<font color=\"purple\"><b><i>Your blood pulses. Your head throbs. The world goes red. All at once you are aware of a horrible, horrible truth. The veil of reality has been ripped away and in the festering wound left behind something sinister takes root.</b></i></font>")
 	to_chat(D, "<font color=\"purple\"><b><i>Assist your new compatriots in their dark dealings. Their goal is yours, and yours is theirs. You serve the Dark One above all else. Bring It back.</b></i></font>")
 
@@ -564,7 +564,7 @@ var/list/sacrificed = list()
 			to_chat(H.current, "<span class='cultspeech'><span class='name'>[cultName]: </span><span class='message'>[input]</span></span>")
 
 	for(var/mob/spirit/spirit in spirits)
-		to_chat(spirit, "<span class='cultspeech'><span class='name'><a href='byond://?src=\ref[spirit];track2=\ref[spirit];track=\ref[usr]'>[displayName]: </a></span><span class='message'>[input]</span></span>")
+		to_chat(spirit, "<span class='cultspeech'><span class='name'><a href='byond://?src=[spirit.UID()];track2=\ref[spirit];track=\ref[usr]'>[displayName]: </a></span><span class='message'>[input]</span></span>")
 
 
 	for(var/mob/dead/observer/G in player_list)
@@ -1004,10 +1004,10 @@ var/list/sacrificed = list()
 		var/obj/item/weapon/nullrod/N = locate() in T
 		if(N)
 			for(var/mob/O in viewers(T, null))
-				O.show_message(text("\red <B>[] invokes a talisman at [], but they are unaffected!</B>", usr, T), 1)
+				O.show_message(text("<span class='danger'>[] invokes a talisman at [], but they are unaffected!</span>", usr, T), 1)
 		else
 			for(var/mob/O in viewers(T, null))
-				O.show_message(text("\red <B>[] invokes a talisman at []</B>", usr, T), 1)
+				O.show_message(text("<span class='danger'>[] invokes a talisman at []</span>", usr, T), 1)
 
 			if(issilicon(T))
 				T.Weaken(10)

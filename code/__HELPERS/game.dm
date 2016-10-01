@@ -1,8 +1,8 @@
 /proc/dopage(src,target)
 	var/href_list
 	var/href
-	href_list = params2list("src=\ref[src]&[target]=1")
-	href = "src=\ref[src];[target]=1"
+	href_list = params2list("src=[src:UID()]&[target]=1")
+	href = "src=[src:UID()];[target]=1"
 	src:temphtml = null
 	src:Topic(href, href_list)
 	return null
@@ -435,14 +435,14 @@
 /proc/SecondsToTicks(var/seconds)
 	return seconds * 10
 
-proc/pollCandidates(var/Question, var/be_special_type, var/antag_age_check = 0, var/poll_time = 300)
+proc/pollCandidates(var/Question, var/be_special_type, var/antag_age_check = 0, var/poll_time = 300, var/ignore_respawnability = 0)
 	var/roletext = be_special_type ? get_roletext(be_special_type) : null
 	var/list/mob/dead/observer/candidates = list()
 	var/time_passed = world.time
 	if(!Question)
 		Question = "Would you like to be a special role?"
 
-	for(var/mob/dead/observer/G in player_list)
+	for(var/mob/dead/observer/G in (ignore_respawnability ? player_list : respawnable_list))
 		if(!G.key || !G.client)
 			continue
 		if(be_special_type)

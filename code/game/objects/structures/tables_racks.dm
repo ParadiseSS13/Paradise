@@ -211,7 +211,7 @@
 		G.affecting.Weaken(2)
 		G.affecting.visible_message("<span class='danger'>[G.assailant] pushes [G.affecting] onto [src].</span>", \
 									"<span class='userdanger'>[G.assailant] pushes [G.affecting] onto [src].</span>")
-		add_logs(G.affecting, G.assailant, "pushed onto a table")
+		add_logs(G.assailant, G.affecting, "pushed onto a table")
 		qdel(I)
 		return 1
 	qdel(I)
@@ -369,6 +369,8 @@
 	parts = /obj/item/weapon/table_parts/wood
 	health = 50
 	canSmoothWith = list(/obj/structure/table/woodentable, /obj/structure/table/woodentable/poker)
+	burn_state = FLAMMABLE
+	burntime = 20
 	var/canPokerize = 1
 
 /obj/structure/table/woodentable/attackby(obj/item/I as obj, mob/user as mob, params)

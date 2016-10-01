@@ -176,22 +176,22 @@
 		if(gene.is_active(src))
 			speech_problem_flag = 1
 			gene.OnMobLife(src)
-	if(gene_stability < 85)
+	if(gene_stability < GENETIC_DAMAGE_STAGE_1)
 		var/instability = DEFAULT_GENE_STABILITY - gene_stability
-		if(prob(instability / 10))
-			adjustFireLoss(min(6, instability / 12))
+		if(prob(instability * 0.1))
+			adjustFireLoss(min(5, instability * 0.67))
 			to_chat(src, "<span class='danger'>You feel like your skin is burning and bubbling off!</span>")
-		if(gene_stability < 70)
-			if(prob(instability / 12))
-				adjustCloneLoss(min(5, instability / 15))
+		if(gene_stability < GENETIC_DAMAGE_STAGE_2)
+			if(prob(instability * 0.83))
+				adjustCloneLoss(min(4, instability * 0.05))
 				to_chat(src, "<span class='danger'>You feel as if your body is warping.</span>")
-			if(prob(instability / 10))
-				adjustToxLoss(min(6, instability / 12))
+			if(prob(instability * 0.1))
+				adjustToxLoss(min(5, instability * 0.67))
 				to_chat(src, "<span class='danger'>You feel weak and nauseous.</span>")
-			if(gene_stability < 40 && prob(1))
+			if(gene_stability < GENETIC_DAMAGE_STAGE_3 && prob(1))
 				to_chat(src, "<span class='biggerdanger'>You feel incredibly sick... Something isn't right!</span>")
 				spawn(300)
-					if(gene_stability < 40)
+					if(gene_stability < GENETIC_DAMAGE_STAGE_3)
 						gib()
 
 	if(!(species.flags & RADIMMUNE))
@@ -487,14 +487,15 @@
 		return
 	if(RESIST_HEAT in mutations)
 		return
-	var/thermal_protection = get_thermal_protection()
+	if(on_fire)
+		var/thermal_protection = get_thermal_protection()
 
-	if(thermal_protection >= FIRE_IMMUNITY_SUIT_MAX_TEMP_PROTECT)
-		return
-	if(thermal_protection >= FIRE_SUIT_MAX_TEMP_PROTECT)
-		bodytemperature += 11
-	else
-		bodytemperature += BODYTEMP_HEATING_MAX
+		if(thermal_protection >= FIRE_IMMUNITY_SUIT_MAX_TEMP_PROTECT)
+			return
+		if(thermal_protection >= FIRE_SUIT_MAX_TEMP_PROTECT)
+			bodytemperature += 11
+		else
+			bodytemperature += (BODYTEMP_HEATING_MAX + (fire_stacks * 12))
 
 /mob/living/carbon/human/proc/get_thermal_protection()
 	var/thermal_protection = 0 //Simple check to estimate how protected we are against multiple temperatures
@@ -674,20 +675,10 @@
 	if(species.flags & CAN_BE_FAT)
 		if(FAT in mutations)
 			if(overeatduration < 100)
-				to_chat(src, "<span class='notice'>You feel fit again!</span>")
-				mutations.Remove(FAT)
-				update_mutantrace(0)
-				update_mutations(0)
-				update_inv_w_uniform(0)
-				update_inv_wear_suit()
+				becomeSlim()
 		else
 			if(overeatduration > 500)
-				to_chat(src, "<span class='alert'>You suddenly feel blubbery!</span>")
-				mutations.Add(FAT)
-				update_mutantrace(0)
-				update_mutations(0)
-				update_inv_w_uniform(0)
-				update_inv_wear_suit()
+				becomeFat()
 
 	// nutrition decrease
 	if(nutrition > 0 && stat != 2)
@@ -812,10 +803,6 @@
 		if(REGEN in mutations)
 			heal_overall_damage(0.1, 0.1)
 
-		if(!in_stasis)
-			handle_organs()
-			handle_blood()
-
 		if(paralysis)
 			blinded = 1
 			stat = UNCONSCIOUS
@@ -901,6 +888,10 @@
 		// If you're dirty, your gloves will become dirty, too.
 		if(gloves && germ_level > gloves.germ_level && prob(10))
 			gloves.germ_level += 1
+
+		if(!in_stasis)
+			handle_organs()
+			handle_blood()
 
 
 	else //dead
@@ -1104,7 +1095,7 @@
 
 
 	for(var/mob/living/carbon/human/H in range(decaylevel, src))
-		if(prob(5))
+		if(prob(2))
 			if(istype(loc,/obj/item/bodybag))
 				return
 			var/obj/item/clothing/mask/M = H.wear_mask
@@ -1112,6 +1103,9 @@
 				return
 			if(H.species && H.species.flags & NO_BREATHE)
 				return //no puking if you can't smell!
+			// Humans can lack a mind datum, y'know
+			if(H.mind && H.mind.assigned_role == "Detective")
+				return //too cool for puke
 			to_chat(H, "<spawn class='warning'>You smell something foul...")
 			H.fakevomit()
 

@@ -3,6 +3,7 @@
 	real_name = "alien larva"
 	icon_state = "larva0"
 	pass_flags = PASSTABLE | PASSMOB
+	mob_size = MOB_SIZE_SMALL
 
 	maxHealth = 30
 	health = 30
@@ -38,7 +39,7 @@
 			var/mob/tmob = AM
 			if(istype(tmob, /mob/living/carbon/human) && (FAT in tmob.mutations))
 				if(prob(70))
-					to_chat(src, "\red <B>You fail to push [tmob]'s fat ass out of the way.</B>")
+					to_chat(src, "<span class='danger'>You fail to push [tmob]'s fat ass out of the way.</span>")
 					now_pushing = 0
 					return
 				if(!(tmob.status_flags & CANPUSH))
@@ -115,7 +116,7 @@
 				"<span class='userdanger'>[M] [M.attacktext] [src]!</span>")
 		var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
 		adjustBruteLoss(damage)
-		add_logs(src, M, "attacked", admin=0)
+		add_logs(M, src, "attacked", admin=0)
 		updatehealth()
 
 

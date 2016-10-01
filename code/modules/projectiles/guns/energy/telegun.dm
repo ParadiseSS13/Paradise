@@ -23,7 +23,7 @@
 		var/turf/T = get_turf(R)
 		if(!T)
 			continue
-		if((T.z in config.admin_levels) || T.z > 7)
+		if(!is_teleport_allowed(T.z))
 			continue
 		if(R.syndicate == 1)
 			continue
