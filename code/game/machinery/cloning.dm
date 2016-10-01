@@ -197,15 +197,15 @@
 		return 0
 	if( clonemind.current && clonemind.current.stat != DEAD )	//mind is associated with a non-dead body
 		return 0
-	if(clonemind.active)	//somebody is using that mind
-		if( ckey(clonemind.key)!=R.ckey )
-			return 0
 	if(clonemind.damnation_type)
 		playsound(loc, pick('sound/goonstation/voice/male_scream.ogg', 'sound/goonstation/voice/female_scream.ogg'), 100, 1)
 		mess = 1
 		update_icon()
 		connected_message("<font face=\"REBUFFED\" color=#600A0A>If you keep trying to steal from me, you'll end up with me.</font>")
 		return 0
+	if(clonemind.active)	//somebody is using that mind
+		if( ckey(clonemind.key)!=R.ckey )
+			return 0
 	else
 		for(var/mob/M in player_list)
 			if(M.ckey == R.ckey)
