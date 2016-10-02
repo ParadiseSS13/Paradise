@@ -177,7 +177,7 @@ var/savefile/Banlist
 	for(var/A in Banlist.dir)
 		count++
 		Banlist.cd = "/base/[A]"
-		var/ref		= "\ref[src]"
+		var/ref		= UID()
 		var/key		= Banlist["key"]
 		var/id		= Banlist["id"]
 		var/ip		= Banlist["ip"]

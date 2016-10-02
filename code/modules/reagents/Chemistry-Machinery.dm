@@ -517,10 +517,10 @@
 					dat += "<TITLE>Chemmaster 3000</TITLE>Chemical infos:<BR><BR>Name:<BR>[A]<BR><BR>Description:<BR>Blood Type: [B]<br>DNA: [C]"
 				else
 					dat += "<TITLE>Chemmaster 3000</TITLE>Chemical infos:<BR><BR>Name:<BR>[href_list["name"]]<BR><BR>Description:<BR>[href_list["desc"]]"
-				dat += "<BR><BR><A href='?src=\ref[src];print_p=1;desc=[href_list["desc"]];name=[href_list["name"]]'>(Print Analysis)</A><BR>"
-				dat += "<A href='?src=\ref[src];main=1'>(Back)</A>"
+				dat += "<BR><BR><A href='?src=[UID()];print_p=1;desc=[href_list["desc"]];name=[href_list["name"]]'>(Print Analysis)</A><BR>"
+				dat += "<A href='?src=[UID()];main=1'>(Back)</A>"
 			else
-				dat += "<TITLE>Condimaster 3000</TITLE>Condiment infos:<BR><BR>Name:<BR>[href_list["name"]]<BR><BR>Description:<BR>[href_list["desc"]]<BR><BR><BR><A href='?src=\ref[src];main=1'>(Back)</A>"
+				dat += "<TITLE>Condimaster 3000</TITLE>Condiment infos:<BR><BR>Name:<BR>[href_list["name"]]<BR><BR>Description:<BR>[href_list["desc"]]<BR><BR><BR><A href='?src=[UID()];main=1'>(Back)</A>"
 			usr << browse(dat, "window=chem_master;size=575x400")
 			return
 
@@ -659,7 +659,7 @@
 				j++
 				if(j == 1)
 					dat += "<tr>"
-				dat += "<td><a href=\"?src=\ref[src]&pill_sprite=[i]\"><img src=\"pill[i].png\" /></a></td>"
+				dat += "<td><a href=\"?src=[UID()]&pill_sprite=[i]\"><img src=\"pill[i].png\" /></a></td>"
 				if(j == 5)
 					dat += "</tr>"
 					j = 0
@@ -673,7 +673,7 @@
 				j++
 				if(j == 1)
 					dat += "<tr>"
-				dat += "<td><a href=\"?src=\ref[src]&bottle_sprite=[i]\"><img src=\"[i].png\" /></a></td>"
+				dat += "<td><a href=\"?src=[UID()]&bottle_sprite=[i]\"><img src=\"[i].png\" /></a></td>"
 				if(j == 5)
 					dat += "</tr>"
 					j = 0
@@ -963,12 +963,12 @@
 	[beaker_contents]<hr>
 	"}
 		if(is_beaker_ready && !is_chamber_empty && !(stat & (NOPOWER|BROKEN)))
-			dat += "<A href='?src=\ref[src];action=grind'>Grind the reagents</a><BR>"
-			dat += "<A href='?src=\ref[src];action=juice'>Juice the reagents</a><BR><BR>"
+			dat += "<A href='?src=[UID()];action=grind'>Grind the reagents</a><BR>"
+			dat += "<A href='?src=[UID()];action=juice'>Juice the reagents</a><BR><BR>"
 		if(holdingitems && holdingitems.len > 0)
-			dat += "<A href='?src=\ref[src];action=eject'>Eject the reagents</a><BR>"
+			dat += "<A href='?src=[UID()];action=eject'>Eject the reagents</a><BR>"
 		if(beaker)
-			dat += "<A href='?src=\ref[src];action=detach'>Detach the beaker</a><BR>"
+			dat += "<A href='?src=[UID()];action=detach'>Detach the beaker</a><BR>"
 	else
 		dat += "Please wait..."
 	user << browse("<HEAD><TITLE>All-In-One Grinder</TITLE></HEAD><TT>[dat]</TT>", "window=reagentgrinder")

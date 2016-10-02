@@ -58,7 +58,7 @@
 	user.set_machine(src)
 	var/dat = "<center><table>"
 	for(var/obj/item/P in src)
-		dat += "<tr><td><a href='?src=\ref[src];retrieve=\ref[P]'>[P.name]</a></td></tr>"
+		dat += "<tr><td><a href='?src=[UID()];retrieve=\ref[P]'>[P.name]</a></td></tr>"
 	dat += "</table></center>"
 	var/datum/browser/popup = new(user, "filingcabinet", name, 350, 300)
 	popup.set_content(dat)

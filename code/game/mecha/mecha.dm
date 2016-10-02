@@ -866,7 +866,7 @@
 			to_chat(user, "<span class='danger'>Warning: Tracking Beacon detected. Enter at your own risk. Beacon Data:")
 			to_chat(user, "[B.get_mecha_info()]")
 		//Nothing like a big, red link to make the player feel powerful!
-		to_chat(user, "<a href='?src=\ref[user];ai_take_control=\ref[src]'><span class='userdanger'>ASSUME DIRECT CONTROL?</span></a><br>")
+		to_chat(user, "<a href='?src=[user.UID()];ai_take_control=\ref[src]'><span class='userdanger'>ASSUME DIRECT CONTROL?</span></a><br>")
 
 /obj/mecha/transfer_ai(var/interaction, mob/user, var/mob/living/silicon/ai/AI, var/obj/item/device/aicard/card)
 	if(!..())

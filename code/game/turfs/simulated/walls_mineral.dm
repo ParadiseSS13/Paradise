@@ -40,14 +40,14 @@
 	explosion_block = 3
 	canSmoothWith = list(/turf/simulated/wall/mineral/diamond, /obj/structure/falsewall/diamond)
 
-/turf/simulated/wall/mineral/clown
+/turf/simulated/wall/mineral/bananium
 	name = "bananium wall"
 	desc = "A wall with bananium plating. Honk!"
 	icon = 'icons/turf/walls/bananium_wall.dmi'
 	icon_state = "bananium"
 	walltype = "bananium"
-	mineral = "clown"
-	canSmoothWith = list(/turf/simulated/wall/mineral/clown, /obj/structure/falsewall/clown)
+	mineral = "bananium"
+	canSmoothWith = list(/turf/simulated/wall/mineral/bananium, /obj/structure/falsewall/bananium)
 
 /turf/simulated/wall/mineral/sandstone
 	name = "sandstone wall"

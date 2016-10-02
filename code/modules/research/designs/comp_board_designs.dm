@@ -214,7 +214,7 @@
 
 /datum/design/rdconsole
 	name = "Console Board (R&D Console)"
-	desc = "Allows for the construction of circuit boards used to build a new R&D console."
+	desc = "Allows for the construction of circuit boards used to build a new R&D console. Can be swiped with a Scientist level ID to manage access levels."
 	id = "rdconsole"
 	req_tech = list("programming" = 4)
 	build_type = IMPRINTER

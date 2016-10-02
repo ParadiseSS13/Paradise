@@ -61,20 +61,20 @@
 		dat += "<b>Charge:</b> [inserted_battery.stored_charge] / [inserted_battery.capacity]<BR>"
 		dat += "<b>Time left activated:</b> [round(max((time_end - last_process) / 10, 0))]<BR>"
 		if(activated)
-			dat += "<a href='?src=\ref[src];shutdown=1'>Shutdown</a><br>"
+			dat += "<a href='?src=[UID()];shutdown=1'>Shutdown</a><br>"
 		else
-			dat += "<A href='?src=\ref[src];startup=1'>Start</a><BR>"
+			dat += "<A href='?src=[UID()];startup=1'>Start</a><BR>"
 		dat += "<BR>"
 
-		dat += "<b>Activate duration (sec):</b> <A href='?src=\ref[src];changetime=-100;duration=1'>--</a> <A href='?src=\ref[src];changetime=-10;duration=1'>-</a> [duration/10] <A href='?src=\ref[src];changetime=10;duration=1'>+</a> <A href='?src=\ref[src];changetime=100;duration=1'>++</a><BR>"
-		dat += "<b>Activate interval (sec):</b> <A href='?src=\ref[src];changetime=-100;interval=1'>--</a> <A href='?src=\ref[src];changetime=-10;interval=1'>-</a> [interval/10] <A href='?src=\ref[src];changetime=10;interval=1'>+</a> <A href='?src=\ref[src];changetime=100;interval=1'>++</a><BR>"
+		dat += "<b>Activate duration (sec):</b> <A href='?src=[UID()];changetime=-100;duration=1'>--</a> <A href='?src=[UID()];changetime=-10;duration=1'>-</a> [duration/10] <A href='?src=[UID()];changetime=10;duration=1'>+</a> <A href='?src=[UID()];changetime=100;duration=1'>++</a><BR>"
+		dat += "<b>Activate interval (sec):</b> <A href='?src=[UID()];changetime=-100;interval=1'>--</a> <A href='?src=[UID()];changetime=-10;interval=1'>-</a> [interval/10] <A href='?src=[UID()];changetime=10;interval=1'>+</a> <A href='?src=[UID()];changetime=100;interval=1'>++</a><BR>"
 		dat += "<br>"
-		dat += "<A href='?src=\ref[src];ejectbattery=1'>Eject battery</a><BR>"
+		dat += "<A href='?src=[UID()];ejectbattery=1'>Eject battery</a><BR>"
 	else
 		dat += "Please insert battery<br>"
 
 	dat += "<hr>"
-	dat += "<a href='?src=\ref[src];refresh=1'>Refresh</a> <a href='?src=\ref[src];close=1'>Close</a>"
+	dat += "<a href='?src=[UID()];refresh=1'>Refresh</a> <a href='?src=[UID()];close=1'>Close</a>"
 
 	user << browse(dat, "window=anodevice;size=400x500")
 	onclose(user, "anodevice")
