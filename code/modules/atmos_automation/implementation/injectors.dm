@@ -24,7 +24,7 @@
 		return 0
 
 	GetText()
-		return "Set injector <a href=\"?src=\ref[src];set_injector=1\">[fmtString(injector)]</a> power to <a href=\"?src=\ref[src];toggle_state=1\">[state ? "on" : "off"]</a>."
+		return "Set injector <a href=\"?src=[UID()];set_injector=1\">[fmtString(injector)]</a> power to <a href=\"?src=[UID()];toggle_state=1\">[state ? "on" : "off"]</a>."
 
 	Topic(href,href_list)
 		if(..())
@@ -64,7 +64,7 @@
 		return 0
 
 	GetText()
-		return "Set injector <a href=\"?src=\ref[src];set_injector=1\">[fmtString(injector)]</a> transfer rate to <a href=\"?src=\ref[src];set_rate=1\">[rate]</a> L/s."
+		return "Set injector <a href=\"?src=[UID()];set_injector=1\">[fmtString(injector)]</a> transfer rate to <a href=\"?src=[UID()];set_rate=1\">[rate]</a> L/s."
 
 	Topic(href,href_list)
 		if(..())

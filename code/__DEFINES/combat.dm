@@ -60,6 +60,7 @@
 #define UNARMED_ATTACK 2
 #define PROJECTILE_ATTACK 3
 #define THROWN_PROJECTILE_ATTACK 4
+#define LEAP_ATTACK 5
 
 //Gun Stuff
  #define SAWN_INTACT  0

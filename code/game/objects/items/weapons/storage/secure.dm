@@ -104,7 +104,19 @@
 		message = text("[]", src.code)
 		if(!src.locked)
 			message = "*****"
-		dat += text("<HR>\n>[]<BR>\n<A href='?src=\ref[];type=1'>1</A>-<A href='?src=\ref[];type=2'>2</A>-<A href='?src=\ref[];type=3'>3</A><BR>\n<A href='?src=\ref[];type=4'>4</A>-<A href='?src=\ref[];type=5'>5</A>-<A href='?src=\ref[];type=6'>6</A><BR>\n<A href='?src=\ref[];type=7'>7</A>-<A href='?src=\ref[];type=8'>8</A>-<A href='?src=\ref[];type=9'>9</A><BR>\n<A href='?src=\ref[];type=R'>R</A>-<A href='?src=\ref[];type=0'>0</A>-<A href='?src=\ref[];type=E'>E</A><BR>\n</TT>", message, src, src, src, src, src, src, src, src, src, src, src, src)
+		dat += {"<HR>\n>[message]<BR>\n
+			<A href='?src=[UID()];type=1'>1</A>-
+			<A href='?src=[UID()];type=2'>2</A>-
+			<A href='?src=[UID()];type=3'>3</A><BR>\n
+			<A href='?src=[UID()];type=4'>4</A>-
+			<A href='?src=[UID()];type=5'>5</A>-
+			<A href='?src=[UID()];type=6'>6</A><BR>\n
+			<A href='?src=[UID()];type=7'>7</A>-
+			<A href='?src=[UID()];type=8'>8</A>-
+			<A href='?src=[UID()];type=9'>9</A><BR>\n
+			<A href='?src=[UID()];type=R'>R</A>-
+			<A href='?src=[UID()];type=0'>0</A>-
+			<A href='?src=[UID()];type=E'>E</A><BR>\n</TT>"}
 		user << browse(dat, "window=caselock;size=300x280")
 
 	Topic(href, href_list)

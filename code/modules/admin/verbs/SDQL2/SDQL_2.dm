@@ -94,7 +94,7 @@
 				if("select")
 					var/text = ""
 					for(var/datum/t in objs)
-						text += "<A HREF='?_src_=vars;Vars=\ref[t]'>\ref[t]</A>"
+						text += "<A HREF='?_src_=vars;Vars=[t.UID()]'>\ref[t]</A>"
 						if(istype(t, /atom))
 							var/atom/a = t
 
@@ -249,6 +249,11 @@
 
 	else if(ispath(type, /atom))
 		for(var/atom/d in location)
+			if(istype(d, type))
+				out += d
+
+	else if(location == world)
+		for(var/datum/d)
 			if(istype(d, type))
 				out += d
 

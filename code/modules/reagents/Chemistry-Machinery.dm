@@ -394,7 +394,7 @@
 	var/useramount = 30 // Last used amount
 	var/pillamount = 10
 	var/patchamount = 10
-	var/bottlesprite = "1" //yes, strings
+	var/bottlesprite = "bottle"
 	var/pillsprite = "1"
 	var/client/has_sprites = list()
 	var/printing = null
@@ -517,10 +517,10 @@
 					dat += "<TITLE>Chemmaster 3000</TITLE>Chemical infos:<BR><BR>Name:<BR>[A]<BR><BR>Description:<BR>Blood Type: [B]<br>DNA: [C]"
 				else
 					dat += "<TITLE>Chemmaster 3000</TITLE>Chemical infos:<BR><BR>Name:<BR>[href_list["name"]]<BR><BR>Description:<BR>[href_list["desc"]]"
-				dat += "<BR><BR><A href='?src=\ref[src];print_p=1;desc=[href_list["desc"]];name=[href_list["name"]]'>(Print Analysis)</A><BR>"
-				dat += "<A href='?src=\ref[src];main=1'>(Back)</A>"
+				dat += "<BR><BR><A href='?src=[UID()];print_p=1;desc=[href_list["desc"]];name=[href_list["name"]]'>(Print Analysis)</A><BR>"
+				dat += "<A href='?src=[UID()];main=1'>(Back)</A>"
 			else
-				dat += "<TITLE>Condimaster 3000</TITLE>Condiment infos:<BR><BR>Name:<BR>[href_list["name"]]<BR><BR>Description:<BR>[href_list["desc"]]<BR><BR><BR><A href='?src=\ref[src];main=1'>(Back)</A>"
+				dat += "<TITLE>Condimaster 3000</TITLE>Condiment infos:<BR><BR>Name:<BR>[href_list["name"]]<BR><BR>Description:<BR>[href_list["desc"]]<BR><BR><BR><A href='?src=[UID()];main=1'>(Back)</A>"
 			usr << browse(dat, "window=chem_master;size=575x400")
 			return
 
@@ -646,7 +646,7 @@
 				P.name = "[name] bottle"
 				P.pixel_x = rand(-7, 7) //random position
 				P.pixel_y = rand(-7, 7)
-				P.icon_state = "bottle"+bottlesprite
+				P.icon_state = bottlesprite
 				reagents.trans_to(P,30)
 			else
 				var/obj/item/weapon/reagent_containers/food/condiment/P = new/obj/item/weapon/reagent_containers/food/condiment(loc)
@@ -659,7 +659,7 @@
 				j++
 				if(j == 1)
 					dat += "<tr>"
-				dat += "<td><a href=\"?src=\ref[src]&pill_sprite=[i]\"><img src=\"pill[i].png\" /></a></td>"
+				dat += "<td><a href=\"?src=[UID()]&pill_sprite=[i]\"><img src=\"pill[i].png\" /></a></td>"
 				if(j == 5)
 					dat += "</tr>"
 					j = 0
@@ -667,14 +667,13 @@
 			usr << browse(dat, "window=chem_master_iconsel;size=225x193")
 			return
 		else if(href_list["change_bottle"])
-			#define MAX_BOTTLE_SPRITE 20 //max icon state of the bottle sprites
 			var/dat = "<table>"
 			var/j = 0
-			for(var/i = 1 to MAX_BOTTLE_SPRITE)
+			for(var/i in list("bottle", "small_bottle", "wide_bottle", "round_bottle"))
 				j++
 				if(j == 1)
 					dat += "<tr>"
-				dat += "<td><a href=\"?src=\ref[src]&bottle_sprite=[i]\"><img src=\"bottle[i].png\" /></a></td>"
+				dat += "<td><a href=\"?src=[UID()]&bottle_sprite=[i]\"><img src=\"[i].png\" /></a></td>"
 				if(j == 5)
 					dat += "</tr>"
 					j = 0
@@ -728,6 +727,7 @@
 			buffer_reagents_list[++buffer_reagents_list.len] = list("name" = R.name, "volume" = R.volume, "id" = R.id, "description" = R.description)
 
 	data["pillsprite"] = pillsprite
+	data["bottlesprite"] = bottlesprite
 	data["mode"] = mode
 
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
@@ -963,12 +963,12 @@
 	[beaker_contents]<hr>
 	"}
 		if(is_beaker_ready && !is_chamber_empty && !(stat & (NOPOWER|BROKEN)))
-			dat += "<A href='?src=\ref[src];action=grind'>Grind the reagents</a><BR>"
-			dat += "<A href='?src=\ref[src];action=juice'>Juice the reagents</a><BR><BR>"
+			dat += "<A href='?src=[UID()];action=grind'>Grind the reagents</a><BR>"
+			dat += "<A href='?src=[UID()];action=juice'>Juice the reagents</a><BR><BR>"
 		if(holdingitems && holdingitems.len > 0)
-			dat += "<A href='?src=\ref[src];action=eject'>Eject the reagents</a><BR>"
+			dat += "<A href='?src=[UID()];action=eject'>Eject the reagents</a><BR>"
 		if(beaker)
-			dat += "<A href='?src=\ref[src];action=detach'>Detach the beaker</a><BR>"
+			dat += "<A href='?src=[UID()];action=detach'>Detach the beaker</a><BR>"
 	else
 		dat += "Please wait..."
 	user << browse("<HEAD><TITLE>All-In-One Grinder</TITLE></HEAD><TT>[dat]</TT>", "window=reagentgrinder")

@@ -1,4 +1,0 @@
-author: Crazylemon
-delete-after: True
-changes: 
-  - bugfix: "The `to_chat` messages are now more descriptive when given a bad target"
