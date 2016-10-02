@@ -115,7 +115,7 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) \
 		var/turf/T = get_turf(target.current)
 		if(is_admin_level(T.z))
 			return 0
-		return 0
+		return 1
 	return 1
 
 
