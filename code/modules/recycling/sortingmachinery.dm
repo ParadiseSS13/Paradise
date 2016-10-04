@@ -232,7 +232,7 @@
 	desc = "A chute for big and small packages alike!"
 	density = 1
 	icon_state = "intake"
-
+	var/defaultTag = 1
 	var/c_mode = 0
 
 	New()
@@ -276,14 +276,10 @@
 													// travels through the pipes.
 		for(var/obj/structure/bigDelivery/O in src)
 			deliveryCheck = 1
-			if(O.sortTag == 0)
-				O.sortTag = 1
 		for(var/obj/item/smallDelivery/O in src)
 			deliveryCheck = 1
-			if(O.sortTag == 0)
-				O.sortTag = 1
 		if(deliveryCheck == 0)
-			H.destinationTag = 1
+			H.destinationTag = defaultTag
 
 		sleep(10)
 		playsound(src, 'sound/machines/disposalflush.ogg', 50, 0, 0)

@@ -418,8 +418,11 @@
 	for(var/obj/item/smallDelivery/O in src)
 		wrapcheck = 1
 
+	for(var/obj/structure/bigDelivery/O in src)
+		wrapcheck = 1
+
 	if(wrapcheck == 1)
-		H.tomail = 1
+		H.mail = 1
 
 	sleep(10)
 	if(last_sound < world.time + 1)
@@ -499,10 +502,11 @@
 	var/active = 0	// true if the holder is moving, otherwise inactive
 	dir = 0
 	var/count = 1000	//*** can travel 1000 steps before going inactive (in case of loops)
-	var/has_fat_guy = 0	// true if contains a fat person
+	var/tooBig = 0	// true if contains a fat person
 	var/destinationTag = 0 // changes if contains a delivery container
-	var/tomail = 0 //changes if contains wrapped package
-	var/hasmob = 0 //If it contains a mob
+	var/mail = 0 // changes if contains wrapped package or should be resorted
+	var/hasmob = 0 // If it contains a mob
+	var/mixed = 0 // Tags are mixed.
 
 	Destroy()
 		qdel(gas)
@@ -529,22 +533,40 @@
 
 		// now everything inside the disposal gets put into the holder
 		// note AM since can contain mobs or objs
+		var/lastTag = 0
+		var/check = 0
 		for(var/atom/movable/AM in D)
 			AM.loc = src
 			if(istype(AM, /mob/living/carbon/human))
 				var/mob/living/carbon/human/H = AM
 				if(FAT in H.mutations)		// is a human and fat?
-					has_fat_guy = 1			// set flag on holder
-			if(istype(AM, /obj/structure/bigDelivery) && !hasmob)
-				var/obj/structure/bigDelivery/T = AM
-				src.destinationTag = T.sortTag
-			if(istype(AM, /obj/item/smallDelivery) && !hasmob)
-				var/obj/item/smallDelivery/T = AM
-				src.destinationTag = T.sortTag
+					src.tooBig = 1			// set flag on holder
+			if(istype(AM, /obj/structure/bigDelivery))
+				src.mail = 1
+				if(!hasmob)
+					var/obj/structure/bigDelivery/T = AM
+					src.destinationTag = T.sortTag
+				else
+					src.mixed = 1
+			if(istype(AM, /obj/item/smallDelivery))
+				src.mail = 1
+				if(!hasmob)
+					var/obj/item/smallDelivery/T = AM
+					src.destinationTag = T.sortTag
+				else
+					src.mixed = 1
 			//Drones can mail themselves through maint.
 			if(istype(AM, /mob/living/silicon/robot/drone))
 				var/mob/living/silicon/robot/drone/drone = AM
 				src.destinationTag = drone.mail_destination
+			if(!check)
+				check = 1
+				lastTag = src.destinationTag
+			else if (!mixed)
+				if(src.destinationTag != lastTag)
+					mixed = 1
+		if(mixed)
+			src.destinationTag = 0 // destination tags are mixed. Send them back to cargo to be sorted correctly.
 
 
 	// start the movement process
@@ -571,7 +593,7 @@
 					if(!istype(H,/mob/living/silicon/robot/drone)) //Drones use the mailing code to move through the disposal system,
 						H.take_overall_damage(20, 0, "Blunt Trauma") */ //horribly maim any living creature jumping down disposals.  c'est la vie
 
-			if(has_fat_guy && prob(2)) // chance of becoming stuck per segment if contains a fat guy
+			if(tooBig && prob(2)) // chance of becoming stuck per segment if contains a large item
 				active = 0
 				// find the fat guys
 				for(var/mob/living/carbon/human/H in src)
@@ -618,8 +640,15 @@
 				if(M.client)	// if a client mob, update eye to follow this holder
 					M.client.eye = src
 
-		if(other.has_fat_guy)
-			has_fat_guy = 1
+		if(other.tooBig)
+			tooBig = 1
+		if(other.mail)
+			mail = 1
+		if(other.mixed)
+			mixed = 1
+		if(other.destinationTag != destinationTag)
+			destinationTag = 0
+			mixed = 1
 		qdel(other)
 
 
@@ -1047,7 +1076,6 @@
 	nextdir(var/fromdir, var/sortTag)
 		//var/flipdir = turn(fromdir, 180)
 		if(fromdir != sortdir)	// probably came from the negdir
-
 			if(src.sortType == sortTag) //if destination matches filtered type...
 				return sortdir		// exit through sortdirection
 			else
@@ -1055,6 +1083,7 @@
 		else				// came from sortdir
 							// so go with the flow to positive direction
 			return posdir
+
 
 	transfer(var/obj/structure/disposalholder/H)
 		var/nextdir = nextdir(H.dir, H.destinationTag)
@@ -1084,19 +1113,24 @@
 	var/posdir = 0
 	var/negdir = 0
 	var/sortdir = 0
+	var/sortMail = 1
+	var/sortMixed = 1
 
-	New()
-		..()
+	proc/updatedir()
 		posdir = dir
+		negdir = turn(posdir, 180)
+
 		if(icon_state == "pipe-j1s")
 			sortdir = turn(posdir, -90)
-			negdir = turn(posdir, 180)
 		else
 			icon_state = "pipe-j2s"
 			sortdir = turn(posdir, 90)
-			negdir = turn(posdir, 180)
+
 		dpdir = sortdir | posdir | negdir
 
+	New()
+		..()
+		updatedir()
 		update()
 		return
 
@@ -1106,11 +1140,10 @@
 	// if coming in from posdir, then flip around and go back to posdir
 	// if coming in from sortdir, go to posdir
 
-	nextdir(var/fromdir, var/istomail)
+	nextdir(var/fromdir, var/mail, var/mixed)
 		//var/flipdir = turn(fromdir, 180)
 		if(fromdir != sortdir)	// probably came from the negdir
-
-			if(istomail) //if destination matches filtered type...
+			if((mail && src.sortMail) || (mixed && src.sortMixed)) //If it's mail and the pipe is sorting mail, or if it's mixed and the pipe is sorting mixed...
 				return sortdir		// exit through sortdirection
 			else
 				return posdir
@@ -1119,7 +1152,7 @@
 			return posdir
 
 	transfer(var/obj/structure/disposalholder/H)
-		var/nextdir = nextdir(H.dir, H.tomail)
+		var/nextdir = nextdir(H.dir, H.mail, H.mixed)
 		H.dir = nextdir
 		var/turf/T = H.nextloc()
 		var/obj/structure/disposalpipe/P = H.findpipe(T)
