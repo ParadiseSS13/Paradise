@@ -568,7 +568,6 @@
 		faith -= 100
 	//if you made it this far: congratulations! you are now a religious zealot!
 	target.mind.make_zealot(missionary, convert_duration, team_color)
-	add_logs(missionary, target, "converted", src, "for [convert_duration/600] minutes")
 
 	target << sound('sound/misc/wololo.ogg', 0, 1, 25)
 	missionary.say("WOLOLO!")
