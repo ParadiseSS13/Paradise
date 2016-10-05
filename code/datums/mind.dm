@@ -1592,7 +1592,7 @@
 			jumpsuit.color = team_color
 			H.update_inv_w_uniform(0,0)
 
-	log_admin("[ckey(missionary.key)] has converted [ckey(current.key)] as a zealot.")
+	add_logs(missionary, current, "converted", addition = "for [convert_duration/600] minutes")
 	addtimer(src, "remove_zealot", convert_duration, FALSE, jumpsuit)	//deconverts after the timer expires
 
 	return 1
@@ -1601,7 +1601,7 @@
 	if(!zealot_master)	//if they aren't a zealot, we can't remove their zealot status, obviously. don't bother with the rest so we don't confuse them with the messages
 		return
 	ticker.mode.remove_traitor_mind(src)
-	log_admin("[ckey(current.key)] has deconverted and is no longer a zealot of [ckey(zealot_master.key)].")
+	add_logs(zealot_master, current, "lost control of", addition = "as their zealot master")
 	zealot_master = null
 
 	if(jumpsuit)

@@ -1,0 +1,4 @@
+author: Krausus
+delete-after: True
+changes: 
+  - bugfix: "Fixed camera monitors immobilizing you if you reconnect while using one."
