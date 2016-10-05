@@ -502,7 +502,7 @@
 	var/active = 0	// true if the holder is moving, otherwise inactive
 	dir = 0
 	var/count = 1000	//*** can travel 1000 steps before going inactive (in case of loops)
-	var/tooBig = 0	// true if contains a fat person
+	var/tooBig = 0	// true if the holder is too big and can get stuck
 	var/destinationTag = 0 // changes if contains a delivery container
 	var/mail = 0 // changes if contains wrapped package
 	var/hasmob = 0 // If it contains a mob
