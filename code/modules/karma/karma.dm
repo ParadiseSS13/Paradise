@@ -204,7 +204,7 @@ You've gained <b>[totalkarma]</b> total karma in your time here.<br>"}
 		if(1) // Species Unlocks
 			dat += {"
 			<a href='?src=[UID()];karmashop=shop;KarmaBuy2=13'>Unlock Skrell -- 5KP</a><br>
-			<a href='?src=[UID()];karmashop=shop;KarmaBuy2=3'>Unlock Grey -- 10KP</a><br>
+			<a href='?src=[UID()];karmashop=shop;KarmaBuy2=3'>Unlock Grey -- 15KP</a><br>
 			<a href='?src=[UID()];karmashop=shop;KarmaBuy2=1'>Unlock Machine People -- 15KP</a><br>
 			<a href='?src=[UID()];karmashop=shop;KarmaBuy2=7'>Unlock Drask -- 15KP</a><br>
 			<a href='?src=[UID()];karmashop=shop;KarmaBuy2=5'>Unlock Slime People -- 15KP</a><br>

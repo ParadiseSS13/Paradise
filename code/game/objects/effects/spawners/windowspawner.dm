@@ -40,3 +40,8 @@
 	name = "reinforced window spawner"
 	icon_state = "rwindow_spawner"
 	windowtospawn = /obj/structure/window/reinforced
+
+/obj/effect/spawner/window/prison
+	name = "prison window spawner"
+	icon_state = "rwindow_spawner"
+	windowtospawn = /obj/structure/window/reinforced/prison
