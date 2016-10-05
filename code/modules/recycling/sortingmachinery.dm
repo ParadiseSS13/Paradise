@@ -232,7 +232,7 @@
 	desc = "A chute for big and small packages alike!"
 	density = 1
 	icon_state = "intake"
-	var/defaultTag = 1
+	var/defaultTag = 1 // Where to send items to that are not wrapped/packaged.
 	var/c_mode = 0
 
 	New()
