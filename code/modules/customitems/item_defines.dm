@@ -475,6 +475,14 @@
 	displays_id = 0
 	strip_delay = 100
 
+/obj/item/clothing/under/fluff/aegis //PlagueWalker: A.E.G.I.S.
+	name = "gilded waistcoat"
+	desc = "This black, gold-trimmed, rather expensive-looking uniform laced with fine materials appears comfortable despite its stiffness."
+	icon_state = "aegisuniform"
+	item_state = "aegisuniform"
+	item_color = "aegisuniform"
+	displays_id = 0
+
 //////////// Masks ////////////
 
 /obj/item/clothing/mask/bandana/fluff/dar //sasanek12: Dar'Konr

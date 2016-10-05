@@ -274,7 +274,7 @@
 				if(istype(P))
 					if(P.resting || P.canmove)
 						P.close_up()
-				M.death(0)
+				M.death(0, 1)
 			removePersonality()
 	if(href_list["wires"])
 		var/t1 = text2num(href_list["wires"])
