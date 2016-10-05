@@ -504,9 +504,9 @@
 	var/count = 1000	//*** can travel 1000 steps before going inactive (in case of loops)
 	var/tooBig = 0	// true if contains a fat person
 	var/destinationTag = 0 // changes if contains a delivery container
-	var/mail = 0 // changes if contains wrapped package or should be resorted
+	var/mail = 0 // changes if contains wrapped package
 	var/hasmob = 0 // If it contains a mob
-	var/mixed = 0 // Tags are mixed.
+	var/mixed = 0 // Tags are mixed or contains items that should not be mailed.
 
 	Destroy()
 		qdel(gas)
@@ -566,7 +566,7 @@
 				if(src.destinationTag != lastTag)
 					mixed = 1
 		if(mixed)
-			src.destinationTag = 0 // destination tags are mixed. Send them back to cargo to be sorted correctly.
+			src.destinationTag = 0 // destination tags or unmailable items are mixed. Send them back to cargo to be sorted correctly.
 
 
 	// start the movement process
@@ -642,11 +642,11 @@
 
 		if(other.tooBig)
 			tooBig = 1
-		if(other.mail)
+		if(other.mail) // Carry over mailing.
 			mail = 1
-		if(other.mixed)
+		if(other.mixed) // Ditto.
 			mixed = 1
-		if(other.destinationTag != destinationTag)
+		if(other.destinationTag != destinationTag) // Check if tags are different.
 			destinationTag = 0
 			mixed = 1
 		qdel(other)
