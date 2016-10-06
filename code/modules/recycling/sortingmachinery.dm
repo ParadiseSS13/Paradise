@@ -278,11 +278,11 @@
 		for(var/obj/structure/bigDelivery/O in src)
 			deliveryCheck = 1
 			if(O.sortTag == 0)
-				O.sortTag = 1
+				O.sortTag = defaultDestinationTag
 		for(var/obj/item/smallDelivery/O in src)
 			deliveryCheck = 1
 			if(O.sortTag == 0)
-				O.sortTag = 1
+				O.sortTag = defaultDestinationTag
 		if(deliveryCheck == 0)
 			H.destinationTag = defaultDestinationTag
 
