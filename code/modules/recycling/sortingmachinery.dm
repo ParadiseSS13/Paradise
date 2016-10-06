@@ -267,7 +267,7 @@
 		else if(istype(AM, /mob))
 			var/mob/M = AM
 			M.loc = src
-		if(!flushing) // With how chutes operate, if multiple items get shoved in they will just end up shoving everything into one disposal holder, making the other n-1 holders empty.
+		if(!flushing) // With how chutes operate, if multiple items get shoved in they will just end up shoving everything into one disposal holder.
 			flush()
 
 	flush()
