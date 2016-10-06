@@ -1303,6 +1303,7 @@
 			playingSound = 0
 		else
 			sleep(20)
+			playingSound = 0
 
 		if(H)
 			for(var/atom/movable/AM in H)
