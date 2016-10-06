@@ -1277,6 +1277,7 @@
 	var/active = 0
 	var/turf/target	// this will be where the output objects are 'thrown' to.
 	var/mode = 0
+	var/ejecting = 0 // So we don't stack the alarm since it would sound unusual.
 
 	New()
 		..()
@@ -1294,8 +1295,11 @@
 	proc/expel(var/obj/structure/disposalholder/H)
 
 		flick("outlet-open", src)
-		playsound(src, 'sound/machines/warning-buzzer.ogg', 50, 0, 0)
+		if(!ejecting)
+			playsound(src, 'sound/machines/warning-buzzer.ogg', 50, 0, 0)
+			ejecting = 1
 		sleep(20)	//wait until correct animation frame
+		ejecting = 0
 		playsound(src, 'sound/machines/hiss.ogg', 50, 0, 0)
 
 		if(H)
