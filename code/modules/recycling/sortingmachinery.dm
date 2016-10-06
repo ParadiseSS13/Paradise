@@ -12,7 +12,7 @@
 
 
 /obj/structure/bigDelivery/attack_hand(mob/user as mob)
-	playsound(src.loc, 'sound/items/poster_ripped.ogg', 50, 1)
+	playsound(loc, 'sound/items/poster_ripped.ogg', 50, 1)
 	if(wrapped)
 		wrapped.loc = get_turf(src)
 		if(istype(wrapped, /obj/structure/closet))
@@ -75,7 +75,7 @@
 			user.put_in_hands(wrapped)
 		else
 			wrapped.loc = get_turf(src)
-	playsound(src.loc, 'sound/items/poster_ripped.ogg', 50, 1)
+	playsound(loc, 'sound/items/poster_ripped.ogg', 50, 1)
 	qdel(src)
 
 
@@ -184,7 +184,7 @@
 	user.visible_message("<span class='notice'>[user] wraps [target].</span>")
 	user.attack_log += text("\[[time_stamp()]\] <font color='blue'>Has used [name] on [target]</font>")
 
-	if(amount <= 0 && !src.loc) //if we used our last wrapping paper, drop a cardboard tube
+	if(amount <= 0 && !loc) //if we used our last wrapping paper, drop a cardboard tube
 		new /obj/item/weapon/c_tube( get_turf(user) )
 	return
 
@@ -221,10 +221,10 @@
 		return
 
 	Topic(href, href_list)
-		src.add_fingerprint(usr)
+		add_fingerprint(usr)
 		if(href_list["nextTag"])
 			var/n = text2num(href_list["nextTag"])
-			src.currTag = n
+			currTag = n
 		openwindow(usr)
 
 /obj/machinery/disposal/deliveryChute
@@ -234,11 +234,12 @@
 	icon_state = "intake"
 
 	var/c_mode = 0
+	var/defaultDestinationTag = 1 // The default destination to give objects going through.
 
 	New()
 		..()
 		spawn(5)
-			trunk = locate() in src.loc
+			trunk = locate() in loc
 			if(trunk)
 				trunk.linked = src	// link the pipe trunk to self
 
@@ -252,13 +253,13 @@
 		if(istype(AM, /obj/item/projectile))  return
 		switch(dir)
 			if(NORTH)
-				if(AM.loc.y != src.loc.y+1) return
+				if(AM.loc.y != loc.y+1) return
 			if(EAST)
-				if(AM.loc.x != src.loc.x+1) return
+				if(AM.loc.x != loc.x+1) return
 			if(SOUTH)
-				if(AM.loc.y != src.loc.y-1) return
+				if(AM.loc.y != loc.y-1) return
 			if(WEST)
-				if(AM.loc.x != src.loc.x-1) return
+				if(AM.loc.x != loc.x-1) return
 
 		if(istype(AM, /obj))
 			var/obj/O = AM
@@ -266,7 +267,7 @@
 		else if(istype(AM, /mob))
 			var/mob/M = AM
 			M.loc = src
-		src.flush()
+		flush()
 
 	flush()
 		flushing = 1
@@ -283,7 +284,7 @@
 			if(O.sortTag == 0)
 				O.sortTag = 1
 		if(deliveryCheck == 0)
-			H.destinationTag = 1
+			H.destinationTag = defaultDestinationTag
 
 		sleep(10)
 		playsound(src, 'sound/machines/disposalflush.ogg', 50, 0, 0)
@@ -307,23 +308,23 @@
 		if(istype(I, /obj/item/weapon/screwdriver))
 			if(c_mode==0)
 				c_mode=1
-				playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
+				playsound(loc, 'sound/items/Screwdriver.ogg', 50, 1)
 				to_chat(user, "You remove the screws around the power connection.")
 				return
 			else if(c_mode==1)
 				c_mode=0
-				playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
+				playsound(loc, 'sound/items/Screwdriver.ogg', 50, 1)
 				to_chat(user, "You attach the screws around the power connection.")
 				return
 		else if(istype(I,/obj/item/weapon/weldingtool) && c_mode==1)
 			var/obj/item/weapon/weldingtool/W = I
 			if(W.remove_fuel(0,user))
-				playsound(src.loc, 'sound/items/Welder2.ogg', 100, 1)
+				playsound(loc, 'sound/items/Welder2.ogg', 100, 1)
 				to_chat(user, "You start slicing the floorweld off the delivery chute.")
 				if(do_after(user,20, target = src))
 					if(!src || !W.isOn()) return
 					to_chat(user, "You sliced the floorweld off the delivery chute.")
-					var/obj/structure/disposalconstruct/C = new (src.loc)
+					var/obj/structure/disposalconstruct/C = new (loc)
 					C.ptype = 8 // 8 =  Delivery chute
 					C.update()
 					C.anchored = 1
