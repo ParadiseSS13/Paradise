@@ -235,7 +235,6 @@
 
 	var/c_mode = 0
 	var/defaultDestinationTag = 1 // The default destination to give objects going through.
-	var/playingSound = 0 // Just so we don't stack sounds and deafen players as a result.
 
 	New()
 		..()
@@ -268,7 +267,8 @@
 		else if(istype(AM, /mob))
 			var/mob/M = AM
 			M.loc = src
-		flush()
+		if(!flushing) // With how chutes operate, if multiple items get shoved in they will just end up shoving everything into one disposal holder, making the other n-1 holders empty.
+			flush()
 
 	flush()
 		flushing = 1
@@ -288,11 +288,8 @@
 			H.destinationTag = defaultDestinationTag
 
 		sleep(10)
-		if(!playingSound)
-			playsound(src, 'sound/machines/disposalflush.ogg', 50, 0, 0)
-			playingSound = 1
+		playsound(src, 'sound/machines/disposalflush.ogg', 50, 0, 0)
 		sleep(5) // wait for animation to finish
-		playingSound = 0
 		H.init(src)	// copy the contents of disposer to holder
 		air_contents = new() // The holder just took our gas; replace it
 		H.start(src) // start the holder processing movement
