@@ -510,10 +510,9 @@ var/list/intents = list(I_HELP,I_DISARM,I_GRAB,I_HARM)
 					search_pda = 0
 
 		//Fixes renames not being reflected in objective text
-		var/list/O = subtypesof(/datum/objective)
 		var/length
 		var/pos
-		for(var/datum/objective/objective in O)
+		for(var/datum/objective/objective in all_objectives)
 			if(objective.target != mind) continue
 			length = lentext(oldname)
 			pos = findtextEx(objective.explanation_text, oldname)
