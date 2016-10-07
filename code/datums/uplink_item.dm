@@ -791,7 +791,7 @@ var/list/uplink_items = list()
 	reference = "CHHUD"
 	item = /obj/item/clothing/glasses/hud/security/chameleon
 	cost = 2
-	
+
 /datum/uplink_item/stealthy_weapons/chameleonflag
 	name = "Chameleon Flag"
 	desc = "A flag that can be disguised as any other known flag. There is a heat sensitive bomb loaded into the pole that will be detonated if the flag is lit on fire."
@@ -1181,6 +1181,9 @@ var/list/uplink_items = list()
 	if(item)
 		if(findtext(item, /obj/item/organ/internal/cyberimp))
 			return new /obj/item/weapon/storage/box/cyber_implants(loc, item)
+			U.uses -= max(cost, 0)
+			U.used_TC += cost
+			feedback_add_details("traitor_uplink_items_bought", name) //this one and the line before copypasted because snowflaek code
 		else
 			return ..()
 
