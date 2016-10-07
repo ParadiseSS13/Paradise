@@ -707,6 +707,7 @@
 					/obj/item/weapon/reagent_containers/food/drinks/bottle/wine = 5,
 					/obj/item/weapon/reagent_containers/food/drinks/bottle/cognac = 5,
 					/obj/item/weapon/reagent_containers/food/drinks/bottle/kahlua = 5,
+					/obj/item/weapon/reagent_containers/food/drinks/bottle/champagne = 5,
 					/obj/item/weapon/reagent_containers/food/drinks/cans/beer = 6,
 					/obj/item/weapon/reagent_containers/food/drinks/cans/ale = 6,
 					/obj/item/weapon/reagent_containers/food/drinks/cans/synthanol = 15,
@@ -717,8 +718,6 @@
 					/obj/item/weapon/reagent_containers/food/drinks/cans/tonic = 8,
 					/obj/item/weapon/reagent_containers/food/drinks/cans/cola = 8,
 					/obj/item/weapon/reagent_containers/food/drinks/cans/sodawater = 15,
-					/obj/item/weapon/reagent_containers/food/drinks/drinkingglass = 30,
-					/obj/item/weapon/reagent_containers/food/drinks/drinkingglass/shotglass = 30,
 					/obj/item/weapon/reagent_containers/food/drinks/ice = 9)
 	contraband = list(/obj/item/weapon/reagent_containers/food/drinks/tea = 10)
 	vend_delay = 15
