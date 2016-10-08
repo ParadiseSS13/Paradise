@@ -47,6 +47,8 @@ research holder datum.
 /datum/research								//Holder for all the existing, archived, and known tech. Individual to console.
 
 									//Datum/tech go here.
+									// Possible is a list of direct datum references
+									// known is a list of id -> datum mappings
 	var/list/possible_tech = list()			//List of all tech in the game that players have access to (barring special events).
 	var/list/known_tech = list()				//List of locally known tech.
 	var/list/possible_designs = list()		//List of all designs (at base reliability).
@@ -91,7 +93,7 @@ research holder datum.
 //Adds a tech to known_tech list. Checks to make sure there aren't duplicates and updates existing tech's levels if needed.
 //Input: datum/tech; Output: Null
 /datum/research/proc/AddTech2Known(var/datum/tech/T)
-	if(known_tech[T.id])
+	if(T.id in known_tech)
 		var/datum/tech/known = known_tech[T.id]
 		if(T.level > known.level)
 			known.level = T.level
@@ -99,7 +101,7 @@ research holder datum.
 	known_tech[T.id] = T
 
 /datum/research/proc/AddDesign2Known(var/datum/design/D)
-	if(known_designs[D.id])
+	if(D.id in known_designs)
 		// NOTE: This is for reliability only - This is on the chopping block
 		var/datum/design/known = known_designs[D.id]
 		if(D.reliability > known.reliability)
@@ -119,7 +121,7 @@ research holder datum.
 			AddDesign2Known(PD)
 	for(var/v in known_tech)
 		var/datum/tech/T = known_tech[v]
-		T = Clamp(T.level, 0, 20)
+		T.level = Clamp(T.level, 0, 20)
 	for(var/v in known_designs)
 		var/datum/design/D = known_designs[v]
 		// NOTE: reliability stuff, axe this later

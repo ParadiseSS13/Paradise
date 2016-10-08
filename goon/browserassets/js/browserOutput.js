@@ -215,13 +215,7 @@ function output(message, flag) {
 		message = linkify(message);
 	}
 
-	opts.messageCount++;
-
-	//Pop the top message off if history limit reached
-	if (opts.messageCount >= opts.messageLimit) {
-		$messages.children('div.entry:first-child').remove();
-		opts.messageCount--; //I guess the count should only ever equal the limit
-	}
+	opts.messageCount++;	
 
 	//Actually append the message
 	var entry = document.createElement('div');
@@ -462,6 +456,20 @@ $(function() {
 		} else if (opts.noResponse) { //Previous ping attempt failed ohno
 			$('.connectionClosed[data-count="'+opts.noResponseCount+'"]:not(.restored)').addClass('restored').text('Your connection has been restored (probably)!');
 			opts.noResponse = false;
+		}
+		if (opts.messageCount > opts.messageLimit) { // Prune old messages beyond the message limit
+			var bodyHeight = $('body').height();
+			var messagesHeight = $messages.outerHeight();
+			var scrollPos = $(window).scrollTop();
+			var atBottom = (bodyHeight + scrollPos >= messagesHeight - opts.scrollSnapTolerance)
+
+			$messages.children().slice(0, opts.messageCount - opts.messageLimit).remove();
+			opts.messageCount = opts.messageLimit;
+			if (!atBottom) {
+				// If we weren't at the bottom, adjust scroll position to compensate for removed elements
+				var newPos = scrollPos - (messagesHeight - $messages.outerHeight())
+				$('body,html').scrollTop(newPos);
+			}
 		}
 	}, 2000); //2 seconds
 

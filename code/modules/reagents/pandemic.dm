@@ -122,7 +122,7 @@
 			if(name == null || wait)
 				return
 			var/obj/item/weapon/reagent_containers/glass/bottle/B = new/obj/item/weapon/reagent_containers/glass/bottle(loc)
-			B.icon_state = "bottle3"
+			B.icon_state = "round_bottle"
 			B.pixel_x = rand(-3, 3)
 			B.pixel_y = rand(-3, 3)
 			replicator_cooldown(50)
