@@ -296,10 +296,7 @@ proc/issyndicate(mob/living/M as mob)
 /datum/game_mode/nuclear/declare_completion()
 	var/disk_rescued = 1
 	for(var/obj/item/weapon/disk/nuclear/D in world)
-		var/disk_area = get_area(D)
-		if(!is_type_in_list(disk_area, centcom_areas))
-			if(disk_area == shuttle_master.emergency.areaInstance && shuttle_master.emergency.mode >= SHUTTLE_ESCAPE) //snowflaked into objectives because shitty bay shuttles had areas to auto-determine this
-				break
+		if(!D.onCentcom())
 			disk_rescued = 0
 			break
 	var/crew_evacuated = (shuttle_master.emergency.mode >= SHUTTLE_ESCAPE)
