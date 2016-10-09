@@ -195,7 +195,7 @@
 				to_chat(G, "Your user reset you, and your body was taken over by a ghost. Looks like they weren't happy with your performance.")
 				to_chat(src, "Your guardian has been successfully reset.")
 				message_admins("[key_name_admin(new_stand)] has taken control of ([key_name_admin(G)])")
-				G.ghostize(0)
+				G.ghostize()
 				G.key = new_stand.key
 			else
 				to_chat(src, "There were no ghosts willing to take control. Looks like you're stuck with your Guardian for now.")
