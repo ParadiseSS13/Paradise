@@ -161,8 +161,8 @@
 /obj/machinery/light_switch/multitool_menu(var/mob/user, var/obj/item/device/multitool/P)
 	return {"
 	<ul>
-	<li><b>Light Circuit Connection:</b> <a href='?src=\ref[src];toggle_light_connect=1'>[light_connect ? "On" : "Off"]</a></li>
-	<li><b>Logic Connection:</b> <a href='?src=\ref[src];toggle_logic=1'>[logic_connect ? "On" : "Off"]</a></li>
+	<li><b>Light Circuit Connection:</b> <a href='?src=[UID()];toggle_light_connect=1'>[light_connect ? "On" : "Off"]</a></li>
+	<li><b>Logic Connection:</b> <a href='?src=[UID()];toggle_logic=1'>[logic_connect ? "On" : "Off"]</a></li>
 	<li><b>Logic ID Tag:</b> [format_tag("Logic ID Tag", "logic_id_tag")]</li>
 	</ul>"}
 

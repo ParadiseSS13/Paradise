@@ -1,0 +1,4 @@
+author: FlattestGuitar
+delete-after: True
+changes: 
+  - bugfix: "fixes a hallucination runtime, actually making one more aspect of being high as f*** work for the first time in ages"

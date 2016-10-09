@@ -197,7 +197,7 @@ var/global/admin_ooc_colour = "#b82e00"
 				if(check_rights(R_ADMIN|R_MOD,0,target.mob))
 					admin_stuff += "/([key])"
 					if(target != src)
-						admin_stuff += " ([admin_jump_link(mob, target.holder)])"
+						admin_stuff += " ([admin_jump_link(mob)])"
 
 			if(target.mob in heard)
 				send = 1

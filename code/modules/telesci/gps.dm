@@ -37,7 +37,7 @@ var/list/GPS_list = list()
 	if(emped)
 		t += "ERROR"
 	else
-		t += "<BR><A href='?src=\ref[src];tag=1'>Set Tag</A> "
+		t += "<BR><A href='?src=[UID()];tag=1'>Set Tag</A> "
 		t += "<BR>Tag: [gpstag]"
 		if(locked_location && locked_location.loc)
 			t += "<BR>Bluespace coordinates saved: [locked_location.loc]"
