@@ -97,16 +97,17 @@
 	else if(processing)
 		to_chat(user, "<span class='warning'>The biogenerator is currently processing.</span>")
 	else if(istype(O, /obj/item/weapon/storage/bag/plants))
+		var/obj/item/weapon/storage/bag/plants/PB = O
 		var/i = 0
 		for(var/obj/item/weapon/reagent_containers/food/snacks/grown/G in contents)
 			i++
 		if(i >= max_items)
 			to_chat(user, "<span class='warning'>The biogenerator is already full! Activate it.</span>")
 		else
-			for(var/obj/item/weapon/reagent_containers/food/snacks/grown/G in O.contents)
+			for(var/obj/item/weapon/reagent_containers/food/snacks/grown/G in PB.contents)
 				if(i >= max_items)
 					break
-				G.forceMove(src)
+				PB.remove_from_storage(G, src)
 				i++
 			if(i < max_items)
 				to_chat(user, "<span class='info'>You empty the plant bag into the biogenerator.</span>")
