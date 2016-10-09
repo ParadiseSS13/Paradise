@@ -97,12 +97,7 @@ var/list/ai_verbs_default = list(
 
 	var/obj/machinery/camera/portable/builtInCamera
 
-	//var/obj/item/borg/sight/hud/sec/sechud = null
-	//var/obj/item/borg/sight/hud/med/healthhud = null
-
 	var/arrivalmsg = "$name, $rank, has arrived on the station."
-	med_hud = DATA_HUD_MEDICAL_BASIC
-	sec_hud = DATA_HUD_SECURITY_BASIC
 
 /mob/living/silicon/ai/proc/add_ai_verbs()
 	src.verbs |= ai_verbs_default
