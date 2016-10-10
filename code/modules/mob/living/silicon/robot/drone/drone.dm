@@ -43,6 +43,10 @@
 	remove_language("Galactic Common")
 	add_language("Drone Talk", 1)
 	add_language("Drone", 1)
+	
+	// Disable the microphone wire on Drones
+	if(radio)
+		radio.wires.CutWireIndex(WIRE_TRANSMIT)
 
 	if(camera && "Robots" in camera.network)
 		camera.network.Add("Engineering")
