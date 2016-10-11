@@ -32,7 +32,6 @@
 	var/sec_hud = DATA_HUD_SECURITY_ADVANCED //Determines the sec hud to use
 	var/d_hud = DATA_HUD_DIAGNOSTIC //There is only one kind of diag hud
 
-	var/local_transmit //If set, can only speak to others of the same type within a short range.
 	var/obj/item/device/radio/common_radio
 
 /mob/living/silicon/New()

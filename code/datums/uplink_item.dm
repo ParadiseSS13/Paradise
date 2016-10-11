@@ -483,7 +483,7 @@ var/list/uplink_items = list()
 	desc = "A box of two (2) grenades that wreak havoc with the atmosphere of the target area. Capable of engulfing a large area in lit plasma, or N2O. Deploy with extreme caution!"
 	reference = "AGG"
 	item = /obj/item/weapon/storage/box/syndie_kit/atmosgasgrenades
-	cost = 6
+	cost = 11
 
 /datum/uplink_item/dangerous/emp
 	name = "EMP Grenades and Implanter Kit"
@@ -1201,6 +1201,9 @@ var/list/uplink_items = list()
 /datum/uplink_item/cyber_implants/spawn_item(turf/loc, obj/item/device/uplink/U)
 	if(item)
 		if(findtext(item, /obj/item/organ/internal/cyberimp))
+			U.uses -= max(cost, 0)
+			U.used_TC += cost
+			feedback_add_details("traitor_uplink_items_bought", name) //this one and the line before copypasted because snowflaek code
 			return new /obj/item/weapon/storage/box/cyber_implants(loc, item)
 		else
 			return ..()
