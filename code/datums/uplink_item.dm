@@ -1201,10 +1201,10 @@ var/list/uplink_items = list()
 /datum/uplink_item/cyber_implants/spawn_item(turf/loc, obj/item/device/uplink/U)
 	if(item)
 		if(findtext(item, /obj/item/organ/internal/cyberimp))
-			return new /obj/item/weapon/storage/box/cyber_implants(loc, item)
 			U.uses -= max(cost, 0)
 			U.used_TC += cost
 			feedback_add_details("traitor_uplink_items_bought", name) //this one and the line before copypasted because snowflaek code
+			return new /obj/item/weapon/storage/box/cyber_implants(loc, item)
 		else
 			return ..()
 
