@@ -606,9 +606,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 /datum/supply_packs/engineering/engine/teg
 	name = "Thermo-Electric Generator Crate"
 	contains = list(
-		/obj/machinery/power/generator,
-		/obj/machinery/atmospherics/binary/circulator,
-		/obj/machinery/atmospherics/binary/circulator
+		/obj/machinery/power/generator
 	)
 	cost = 25
 	containertype = /obj/structure/closet/crate/secure

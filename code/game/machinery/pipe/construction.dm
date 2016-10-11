@@ -37,6 +37,7 @@
 #define PIPE_DP_VENT    			36
 #define PIPE_PASV_VENT				37
 #define PIPE_DTVALVE				38
+#define PIPE_CIRCULATOR				39
 
 /obj/item/pipe
 	name = "pipe"
@@ -150,9 +151,15 @@
 			src.pipe_type = PIPE_OMNI_MIXER
 		else if(istype(make_from, /obj/machinery/atmospherics/omni/filter))
 			src.pipe_type = PIPE_OMNI_FILTER
+		else if(istype(make_from, /obj/machinery/atmospherics/binary/circulator))
+			src.pipe_type = PIPE_CIRCULATOR
 		
 		var/obj/machinery/atmospherics/trinary/triP = make_from
 		if(istype(triP) && triP.flipped)
+			src.flipped = 1
+		
+		var/obj/machinery/atmospherics/binary/circulator/circP = make_from
+		if(istype(circP) && circP.side == circP.CIRC_RIGHT)
 			src.flipped = 1
 
 	else
@@ -214,6 +221,7 @@
 		"dual-port vent", \
 		"passive vent", \
 		"digital t-valve", \
+		"circulator/heat exchanger", \
 	)
 	name = nlist[pipe_type+1] + " fitting"
 	var/list/islist = list( \
@@ -256,10 +264,14 @@
 		"dual-port vent", \
 		"passive vent", \
 		"dtvalve", \
+		"circ", \
 		)
 	icon_state = islist[pipe_type + 1]
 	var/obj/machinery/atmospherics/trinary/triP = make_from
 	if(istype(triP) && triP.flipped)
+		icon_state = "m_[icon_state]"
+	var/obj/machinery/atmospherics/binary/circulator/circP = make_from
+	if(istype(circP) && circP.side == circP.CIRC_RIGHT)
 		icon_state = "m_[icon_state]"
 
 // called by turf to know if should treat as bent or not on placement
@@ -295,7 +307,7 @@
 	if(usr.stat || usr.restrained())
 		return
 
-	if(pipe_type in list(PIPE_GAS_FILTER, PIPE_GAS_MIXER, PIPE_TVALVE, PIPE_DTVALVE))
+	if(pipe_type in list(PIPE_GAS_FILTER, PIPE_GAS_MIXER, PIPE_TVALVE, PIPE_DTVALVE, PIPE_CIRCULATOR))
 		if(flipped)
 			icon_state = copytext(icon_state,3)
 		else
@@ -529,6 +541,14 @@
 			if(pipename)
 				P.name = pipename
 			P.construction(unflip(dir), pipe_dir, color)
+			
+		if(PIPE_CIRCULATOR) //circulator
+			var/obj/machinery/atmospherics/binary/circulator/C = new(src.loc)
+			if(flipped)
+				C.side = C.CIRC_RIGHT
+			if(pipename)
+				C.name = pipename
+			C.construction(C.dir, C.initialize_directions, color)
 
 		if(PIPE_SCRUBBER)		//scrubber
 			var/obj/machinery/atmospherics/unary/vent_scrubber/S = new(src.loc)
@@ -682,3 +702,4 @@
 #undef PIPE_DP_VENT
 #undef PIPE_PASV_VENT
 #undef PIPE_DTVALVE
+#undef PIPE_CIRCULATOR

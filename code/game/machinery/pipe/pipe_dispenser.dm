@@ -48,6 +48,7 @@
 <A href='?src=[UID()];make=34;dir=1'>Air Injector</A><BR>
 <A href='?src=[UID()];make=36;dir=1'>Dual-Port Vent Pump</A><BR>
 <A href='?src=[UID()];make=37;dir=1'>Passive Vent</A><BR>
+<A href='?src=[UID()];make=39;dir=1'>Circulator/Heat Exchanger</A><BR>
 <b>Heat exchange:</b><BR>
 <A href='?src=[UID()];make=2;dir=1'>Pipe</A><BR>
 <A href='?src=[UID()];make=3;dir=5'>Bent Pipe</A><BR>
