@@ -17,10 +17,6 @@
 	density = 1
 	
 	can_unwrench = 1
-	
-/obj/machinery/atmospherics/binary/circulator/New()
-	initialize()
-	..()
 
 /obj/machinery/atmospherics/binary/circulator/proc/return_transfer_air()
 	var/output_starting_pressure = air1.return_pressure()
