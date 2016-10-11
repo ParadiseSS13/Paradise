@@ -57,7 +57,19 @@ proc/issyndicate(mob/living/M as mob)
 /datum/game_mode/nuclear/pre_setup()
 	return 1
 
-
+/datum/game_mode/proc/remove_operative(datum/mind/operative_mind)
+	if(operative_mind in syndicates)
+		ticker.mode.syndicates -= operative_mind
+		operative_mind.special_role = null
+		for(var/datum/objective/nuclear/O in operative_mind.objectives)
+			operative_mind.objectives -= O
+		operative_mind.current.attack_log += "\[[time_stamp()]\] <span class='danger'>No longer nuclear operative</span>"
+		if(issilicon(operative_mind.current))
+			to_chat(operative_mind.current, "<span class='userdanger'>You have been turned into a robot! You are no longer a Syndicate operative.</span>")
+		else
+			to_chat(operative_mind.current, "<span class='userdanger'>You have been brainwashed! You are no longer a Syndicate operative.</span>")
+		ticker.mode.update_synd_icons_removed(operative_mind)		
+			
 ////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////
 
