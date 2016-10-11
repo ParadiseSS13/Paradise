@@ -456,11 +456,15 @@ var/list/intents = list(I_HELP,I_DISARM,I_GRAB,I_HARM)
 					A.jump_target = source
 					if(!alert_overlay)
 						var/old_layer = source.layer
+						var/old_plane = source.plane
 						source.layer = FLOAT_LAYER
+						source.plane = FLOAT_PLANE
 						A.overlays += source
 						source.layer = old_layer
+						source.plane = old_plane
 					else
 						alert_overlay.layer = FLOAT_LAYER
+						alert_overlay.plane = FLOAT_PLANE
 						A.overlays += alert_overlay
 
 /mob/proc/switch_to_camera(var/obj/machinery/camera/C)
