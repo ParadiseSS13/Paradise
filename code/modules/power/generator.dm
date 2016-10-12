@@ -24,38 +24,39 @@
 	desc = initial(desc) + " Its cold circulator is located on the [dir2text(cold_dir)] side, and its heat circulator is located on the [dir2text(hot_dir)] side."
 	
 /obj/machinery/power/generator/Destroy()
+	disconnect()
+	return ..()
+	
+/obj/machinery/power/generator/proc/disconnect()
 	if(cold_circ)
 		cold_circ.generator = null
 	if(hot_circ)
 		hot_circ.generator = null
-	return ..()
+	if(powernet)
+		disconnect_from_network()
 
 /obj/machinery/power/generator/initialize()
+	connect_to_network()
+	
 	var/obj/machinery/atmospherics/binary/circulator/circpath = /obj/machinery/atmospherics/binary/circulator
 	cold_circ = locate(circpath) in get_step(src, cold_dir)
 	hot_circ = locate(circpath) in get_step(src, hot_dir)
-	connect_to_network()
 
-	if(cold_circ)
-		switch(cold_dir)
-			if(EAST)
-				cold_circ.side = circpath.CIRC_RIGHT
-			if(WEST)
-				cold_circ.side = circpath.CIRC_LEFT
+	if(cold_circ && cold_circ.side == cold_dir)
 		cold_circ.generator = src
 		cold_circ.update_icon()
+	else
+		cold_circ = null
 
-	if(hot_circ)
-		switch(hot_dir)
-			if(EAST)
-				hot_circ.side = circpath.CIRC_RIGHT
-			if(WEST)
-				hot_circ.side = circpath.CIRC_LEFT
+	if(hot_circ && hot_circ.side == hot_dir)
 		hot_circ.generator = src
 		hot_circ.update_icon()
+	else
+		hot_circ = null
 
 	power_change()
 	update_icon()
+	updateDialog()
 	
 /obj/machinery/power/generator/power_change()
 	if(!anchored)
@@ -137,7 +138,7 @@
 		lastcirc = circ
 		update_icon()
 
-	src.updateDialog()
+	updateDialog()
 
 /obj/machinery/power/generator/attack_ai(mob/user)
 	return attack_hand(user)
@@ -156,7 +157,11 @@
 /obj/machinery/power/generator/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/weapon/wrench))
 		anchored = !anchored
-		initialize()
+		if(!anchored)
+			disconnect()
+			power_change()
+		else
+			initialize()
 		playsound(loc, 'sound/items/Ratchet.ogg', 50, 1)
 		to_chat(user, "<span class='notice'>You [anchored ? "secure" : "unsecure"] the bolts holding [src] to the floor.</span>")
 	else if(istype(W, /obj/item/device/multitool))
@@ -166,6 +171,7 @@
 		else
 			cold_dir = WEST
 			hot_dir = EAST
+		initialize()
 		to_chat(user, "<span class='notice'>You reverse the generator's circulator settings. The cold circulator is now on the [dir2text(cold_dir)] side, and the heat circulator is now on the [dir2text(hot_dir)] side.</span>")
 		update_desc()
 	else
@@ -175,6 +181,7 @@
 	var/t = ""
 	if(!powernet)
 		t += "<span class='bad'>Unable to connect to the power network!</span>"
+		t += "<BR><A href='?src=[UID()];check=1'>Retry</A>"
 	else if(cold_circ && hot_circ)
 		var/datum/gas_mixture/cold_circ_air1 = cold_circ.air1
 		var/datum/gas_mixture/cold_circ_air2 = cold_circ.air2
@@ -198,6 +205,7 @@
 		t += "</div>"
 	else
 		t += "<span class='bad'>Unable to locate all parts!</span>"
+		t += "<BR><A href='?src=[UID()];check=1'>Retry</A>"
 	if(include_link)
 		t += "<BR><A href='?src=[UID()];close=1'>Close</A>"
 
@@ -214,11 +222,14 @@
 
 /obj/machinery/power/generator/Topic(href, href_list)
 	if(..())
-		return 1
+		return 0
 	if( href_list["close"] )
 		usr << browse(null, "window=teg")
 		usr.unset_machine()
 		return 0
+	if( href_list["check"] )
+		if(!powernet || !cold_circ || !hot_circ)
+			initialize()
 	return 1
 
 /obj/machinery/power/generator/power_change()

@@ -8,13 +8,15 @@
 
 	var/side = CIRC_LEFT
 	
-	var/global/const/CIRC_LEFT = 1
-	var/global/const/CIRC_RIGHT = 2
+	var/global/const/CIRC_LEFT = WEST
+	var/global/const/CIRC_RIGHT = EAST
 
 	var/last_pressure_delta = 0
 	
 	var/obj/machinery/power/generator/generator
 
+	layer = 2.45 // Just above wires
+	
 	anchored = 1
 	density = 1
 	
