@@ -39,7 +39,7 @@ var/global/list/raider_gear = list()
 		return 0
 
 
-	raider_num = rand(required_enemies, min(recommended_enemies, candidates.len))//pick a random amount, from the minimum up to the maximum, if numbers permit
+	raider_num = min(3 + round((num_players()-30)/20), 6)//3 at 30 players, plus 1 per every 20. Not more than 6
 
 	//Grab candidates randomly until we have enough.
 	while(raider_num > 0)

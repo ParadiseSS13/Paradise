@@ -195,6 +195,5 @@
 				/obj/item/weapon/spacecash/c200 = 1,
 				/obj/item/weapon/airlock_electronics = 1,
 				/obj/item/weapon/gun/energy/kinetic_accelerator/super = 1,
-				/obj/item/pizzabox/margherita = 1,
-				/obj/item/pizzabox/meat = 1,
+				/obj/item/pizzabox = 3,
 				)
