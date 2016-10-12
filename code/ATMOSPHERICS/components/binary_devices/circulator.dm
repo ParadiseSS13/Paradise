@@ -12,11 +12,28 @@
 	var/global/const/CIRC_RIGHT = 2
 
 	var/last_pressure_delta = 0
+	
+	var/obj/machinery/power/generator/generator
 
 	anchored = 1
 	density = 1
 	
 	can_unwrench = 1
+	
+// Creating a custom circulator pipe subtype to be delivered through cargo	
+/obj/item/pipe/circulator
+	name = "circulator/heat exchanger fitting"
+
+/obj/item/pipe/circulator/New(loc)
+	var/obj/machinery/atmospherics/binary/circulator/C = new /obj/machinery/atmospherics/binary/circulator(null)
+	..(loc, make_from = C) 
+	
+/obj/machinery/atmospherics/binary/circulator/Destroy()
+	if(generator && generator.cold_circ == src)
+		generator.cold_circ = null
+	else if(generator && generator.hot_circ == src)
+		generator.hot_circ = null
+	return ..()
 
 /obj/machinery/atmospherics/binary/circulator/proc/return_transfer_air()
 	var/output_starting_pressure = air1.return_pressure()

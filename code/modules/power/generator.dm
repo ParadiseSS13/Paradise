@@ -15,6 +15,20 @@
 	var/lastgen = 0
 	var/lastgenlev = -1
 	var/lastcirc = "00"
+	
+/obj/machinery/power/generator/New()
+	..()
+	update_desc()
+	
+/obj/machinery/power/generator/proc/update_desc()
+	desc = initial(desc) + " Its cold circulator is located on the [dir2text(cold_dir)] side, and its heat circulator is located on the [dir2text(hot_dir)] side."
+	
+/obj/machinery/power/generator/Destroy()
+	if(cold_circ)
+		cold_circ.generator = null
+	if(hot_circ)
+		hot_circ.generator = null
+	return ..()
 
 /obj/machinery/power/generator/initialize()
 	var/obj/machinery/atmospherics/binary/circulator/circpath = /obj/machinery/atmospherics/binary/circulator
@@ -28,6 +42,7 @@
 				cold_circ.side = circpath.CIRC_RIGHT
 			if(WEST)
 				cold_circ.side = circpath.CIRC_LEFT
+		cold_circ.generator = src
 		cold_circ.update_icon()
 
 	if(hot_circ)
@@ -36,10 +51,17 @@
 				hot_circ.side = circpath.CIRC_RIGHT
 			if(WEST)
 				hot_circ.side = circpath.CIRC_LEFT
+		hot_circ.generator = src
 		hot_circ.update_icon()
 
+	power_change()
 	update_icon()
-	power_change()	
+	
+/obj/machinery/power/generator/power_change()
+	if(!anchored)
+		stat |= NOPOWER
+	else
+		..()
 	
 /obj/machinery/power/generator/update_icon()
 	if(stat & (NOPOWER|BROKEN))
@@ -53,6 +75,9 @@
 		overlays += image('icons/obj/power.dmi', "teg-oc[lastcirc]")
 
 /obj/machinery/power/generator/process()	
+	if(stat & (NOPOWER|BROKEN))
+		return
+
 	if(!cold_circ || !hot_circ)
 		return
 
@@ -134,6 +159,15 @@
 		initialize()
 		playsound(loc, 'sound/items/Ratchet.ogg', 50, 1)
 		to_chat(user, "<span class='notice'>You [anchored ? "secure" : "unsecure"] the bolts holding [src] to the floor.</span>")
+	else if(istype(W, /obj/item/device/multitool))
+		if(cold_dir == WEST)
+			cold_dir = EAST
+			hot_dir = WEST
+		else
+			cold_dir = WEST
+			hot_dir = EAST
+		to_chat(user, "<span class='notice'>You reverse the generator's circulator settings. The cold circulator is now on the [dir2text(cold_dir)] side, and the heat circulator is now on the [dir2text(hot_dir)] side.</span>")
+		update_desc()
 	else
 		..()	
 	
@@ -165,7 +199,7 @@
 	else
 		t += "<span class='bad'>Unable to locate all parts!</span>"
 	if(include_link)
-		t += "<BR><A href='?src=\ref[src];close=1'>Close</A>"
+		t += "<BR><A href='?src=[UID()];close=1'>Close</A>"
 
 	return t
 
@@ -180,7 +214,7 @@
 
 /obj/machinery/power/generator/Topic(href, href_list)
 	if(..())
-		return
+		return 1
 	if( href_list["close"] )
 		usr << browse(null, "window=teg")
 		usr.unset_machine()
