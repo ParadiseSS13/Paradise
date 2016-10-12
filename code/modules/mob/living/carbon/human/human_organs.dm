@@ -108,11 +108,13 @@
 			if((E.body_part == HAND_LEFT) || (E.body_part == ARM_LEFT))
 				if(!l_hand)
 					continue
-				unEquip(l_hand)
+				if(!unEquip(l_hand))
+					continue
 			else
 				if(!r_hand)
 					continue
-				unEquip(r_hand)
+				if(!unEquip(r_hand))
+					continue
 
 			var/emote_scream = pick("screams in pain and ", "lets out a sharp cry and ", "cries out and ")
 			custom_emote(1, "[(species.flags & NO_PAIN) ? "" : emote_scream ]drops what they were holding in their [E.name]!")
@@ -122,11 +124,13 @@
 			if((E.body_part == HAND_LEFT) || (E.body_part == ARM_LEFT))
 				if(!l_hand)
 					continue
-				unEquip(l_hand)
+				if(!unEquip(l_hand))
+					continue
 			else
 				if(!r_hand)
 					continue
-				unEquip(r_hand)
+				if(!unEquip(r_hand))
+					continue
 
 			custom_emote(1, "drops what they were holding, their [E.name] malfunctioning!")
 

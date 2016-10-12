@@ -119,6 +119,7 @@
 		equip_common(H,team_number)
 		equip_agent(H,team_number)
 		greet_agent(agent,team_number)
+		update_abductor_icons_added(agent)
 
 		scientist = scientists[team_number]
 		H = scientist.current
@@ -132,6 +133,8 @@
 		equip_common(H,team_number)
 		equip_scientist(H,team_number)
 		greet_scientist(scientist,team_number)
+		update_abductor_icons_added(scientist)
+		
 	return ..()
 
 //Used for create antag buttons
@@ -165,7 +168,7 @@
 	equip_common(H,team_number)
 	equip_agent(H,team_number)
 	greet_agent(agent,team_number)
-
+	update_abductor_icons_added(agent)
 
 	scientist = scientists[team_number]
 	H = scientist.current
@@ -179,6 +182,7 @@
 	equip_common(H,team_number)
 	equip_scientist(H,team_number)
 	greet_scientist(scientist,team_number)
+	update_abductor_icons_added(scientist)
 
 
 /datum/abductor //stores abductor's team and whether they're a scientist or agent; since species datums are global, we have to use this, instead.
@@ -337,6 +341,17 @@
 			else
 				return 0
 	return 0
+	
+/datum/game_mode/proc/remove_abductor(datum/mind/abductor_mind)
+	if(abductor_mind in abductors)
+		ticker.mode.abductors -= abductor_mind
+		abductor_mind.special_role = null
+		abductor_mind.current.attack_log += "\[[time_stamp()]\] <span class='danger'>No longer abductor</span>"
+		if(issilicon(abductor_mind.current))
+			to_chat(abductor_mind.current, "<span class='userdanger'>You have been turned into a robot! You are no longer an abductor.</span>")
+		else
+			to_chat(abductor_mind.current, "<span class='userdanger'>You have been brainwashed! You are no longer an abductor.</span>")
+		ticker.mode.update_abductor_icons_added(abductor_mind)	
 
 /datum/game_mode/proc/update_abductor_icons_added(datum/mind/alien_mind)
 	var/datum/atom_hud/antag/hud = huds[ANTAG_HUD_ABDUCTOR]
