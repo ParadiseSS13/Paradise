@@ -10,9 +10,9 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 	restricted_jobs = list("AI", "Cyborg")
 	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Blueshield", "Nanotrasen Representative", "Security Pod Pilot", "Magistrate", "Brig Physician", "Internal Affairs Agent", "Nanotrasen Navy Officer", "Special Operations Officer")
 	protected_species = list("Machine", "Slime People", "Plasmaman")
-	required_players = 15
+	required_players = 6
 	required_enemies = 1
-	recommended_enemies = 4
+	recommended_enemies = 2
 
 	var/const/prob_int_murder_target = 50 // intercept names the assassination target half the time
 	var/const/prob_right_murder_target_l = 25 // lower bound on probability of naming right assassination target
@@ -152,7 +152,7 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 		changeling_mind.current.remove_changeling_powers()
 		changeling_mind.memory = ""
 		changeling_mind.special_role = null
-		if(issilicon(changeling_mind.current))
+		if(issilicon(changeling_mind))
 			to_chat(changeling_mind.current, "<span class='userdanger'>You have been robotized!</span>")
 			to_chat(changeling_mind.current, "<span class='danger'>You must obey your silicon laws and master AI above all else. Your objectives will consider you to be dead.</span>")
 		else

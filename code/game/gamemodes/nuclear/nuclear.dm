@@ -7,11 +7,11 @@ proc/issyndicate(mob/living/M as mob)
 /datum/game_mode/nuclear
 	name = "nuclear emergency"
 	config_tag = "nuclear"
-	required_players = 30	// 30 players - 5 players to be the nuke ops = 25 players remaining
-	required_enemies = 5
-	recommended_enemies = 5
+	required_players = 8	// 30 players - 5 players to be the nuke ops = 25 players remaining
+	required_enemies = 2
+	recommended_enemies = 2
 
-	var/const/agents_possible = 5 //If we ever need more syndicate agents.
+	var/const/agents_possible = 2 //If we ever need more syndicate agents.
 
 	var/nukes_left = 1 // Call 3714-PRAY right now and order more nukes! Limited offer!
 	var/nuke_off_station = 0 //Used for tracking if the syndies actually haul the nuke to the station
@@ -57,19 +57,7 @@ proc/issyndicate(mob/living/M as mob)
 /datum/game_mode/nuclear/pre_setup()
 	return 1
 
-/datum/game_mode/proc/remove_operative(datum/mind/operative_mind)
-	if(operative_mind in syndicates)
-		ticker.mode.syndicates -= operative_mind
-		operative_mind.special_role = null
-		for(var/datum/objective/nuclear/O in operative_mind.objectives)
-			operative_mind.objectives -= O
-		operative_mind.current.attack_log += "\[[time_stamp()]\] <span class='danger'>No longer nuclear operative</span>"
-		if(issilicon(operative_mind.current))
-			to_chat(operative_mind.current, "<span class='userdanger'>You have been turned into a robot! You are no longer a Syndicate operative.</span>")
-		else
-			to_chat(operative_mind.current, "<span class='userdanger'>You have been brainwashed! You are no longer a Syndicate operative.</span>")
-		ticker.mode.update_synd_icons_removed(operative_mind)		
-			
+
 ////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////
 
