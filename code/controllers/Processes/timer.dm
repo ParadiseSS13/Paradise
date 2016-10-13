@@ -79,6 +79,11 @@ var/global/datum/controller/process/timer/timer_master
 	return event.id
 
 /proc/deltimer(id)
+	if(id == 0)
+		// No event will correspond to an id of 0 - the timer does not exist
+		// Save us a possibly expensive iteration through the timer list
+		// This would probably be more efficient in general if we used an associative list instead
+		return 0
 	for(var/datum/timedevent/event in timer_master.processing_timers)
 		if(event.id == id)
 			qdel(event)

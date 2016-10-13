@@ -1,0 +1,4 @@
+author: Crazylemon64
+delete-after: True
+changes: 
+  - bugfix: "The R&D console should now no longer freeze on the \"Syncing Database\" message or whatever."

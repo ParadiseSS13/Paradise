@@ -1,0 +1,4 @@
+author: FlattestGuitar
+delete-after: True
+changes: 
+  - bugfix: "NODROP items will no longer attempt to be dropped if your hand is broken"
