@@ -36,6 +36,10 @@
 		disconnect_from_network()
 
 /obj/machinery/power/generator/initialize()
+	..()
+	connect()
+	
+/obj/machinery/power/generator/proc/connect()
 	connect_to_network()
 	
 	var/obj/machinery/atmospherics/binary/circulator/circpath = /obj/machinery/atmospherics/binary/circulator
@@ -86,49 +90,49 @@
 
 	if(powernet)
 
-		//world << "cold_circ and hot_circ pass"
+		//log_debug("cold_circ and hot_circ pass")
 
 		var/datum/gas_mixture/cold_air = cold_circ.return_transfer_air()
 		var/datum/gas_mixture/hot_air = hot_circ.return_transfer_air()
 
-		//world << "hot_air = [hot_air]; cold_air = [cold_air];"
+		//log_debug("hot_air = [hot_air]; cold_air = [cold_air];")
 
 		if(cold_air && hot_air)
 
-			//world << "hot_air = [hot_air] temperature = [hot_air.temperature]; cold_air = [cold_air] temperature = [hot_air.temperature];"
+			//log_debug("hot_air = [hot_air] temperature = [hot_air.temperature]; cold_air = [cold_air] temperature = [hot_air.temperature];")
 
-			//world << "coldair and hotair pass"
+			//log_debug("coldair and hotair pass")
 			var/cold_air_heat_capacity = cold_air.heat_capacity()
 			var/hot_air_heat_capacity = hot_air.heat_capacity()
 
 			var/delta_temperature = hot_air.temperature - cold_air.temperature
 
-			//world << "delta_temperature = [delta_temperature]; cold_air_heat_capacity = [cold_air_heat_capacity]; hot_air_heat_capacity = [hot_air_heat_capacity]"
+			//log_debug("delta_temperature = [delta_temperature]; cold_air_heat_capacity = [cold_air_heat_capacity]; hot_air_heat_capacity = [hot_air_heat_capacity]")
 
 			if(delta_temperature > 0 && cold_air_heat_capacity > 0 && hot_air_heat_capacity > 0)
 				var/efficiency = 0.65
 
-				var/energy_transfer = delta_temperature*hot_air_heat_capacity*cold_air_heat_capacity/(hot_air_heat_capacity + cold_air_heat_capacity)
+				var/energy_transfer = delta_temperature * hot_air_heat_capacity * cold_air_heat_capacity / (hot_air_heat_capacity + cold_air_heat_capacity)
 
-				var/heat = energy_transfer*(1-efficiency)
-				lastgen = energy_transfer*efficiency
+				var/heat = energy_transfer * (1 - efficiency)
+				lastgen = energy_transfer * efficiency
 
-				//world << "lastgen = [lastgen]; heat = [heat]; delta_temperature = [delta_temperature]; hot_air_heat_capacity = [hot_air_heat_capacity]; cold_air_heat_capacity = [cold_air_heat_capacity];"
+				//log_debug("lastgen = [lastgen]; heat = [heat]; delta_temperature = [delta_temperature]; hot_air_heat_capacity = [hot_air_heat_capacity]; cold_air_heat_capacity = [cold_air_heat_capacity];")
 
 				hot_air.temperature = hot_air.temperature - energy_transfer / hot_air_heat_capacity
 				cold_air.temperature = cold_air.temperature + heat / cold_air_heat_capacity
 
-				//world << "POWER: [lastgen] W generated at [efficiency*100]% efficiency and sinks sizes [cold_air_heat_capacity], [hot_air_heat_capacity]"
+				//log_debug("POWER: [lastgen] W generated at [efficiency * 100]% efficiency and sinks sizes [cold_air_heat_capacity], [hot_air_heat_capacity]")
 
 				add_avail(lastgen)
 		// update icon overlays only if displayed level has changed
 
 		if(hot_air)
-			var/datum/gas_mixture/hot_circ_air1 = hot_circ.return_transfer_air()
+			var/datum/gas_mixture/hot_circ_air1 = hot_circ.air1
 			hot_circ_air1.merge(hot_air)
 
 		if(cold_air)
-			var/datum/gas_mixture/cold_circ_air1 = cold_circ.return_transfer_air()
+			var/datum/gas_mixture/cold_circ_air1 = cold_circ.air1
 			cold_circ_air1.merge(cold_air)
 
 	var/genlev = max(0, min( round(11 * lastgen / 100000), 11))
@@ -161,7 +165,7 @@
 			disconnect()
 			power_change()
 		else
-			initialize()
+			connect()
 		playsound(loc, 'sound/items/Ratchet.ogg', 50, 1)
 		to_chat(user, "<span class='notice'>You [anchored ? "secure" : "unsecure"] the bolts holding [src] to the floor.</span>")
 	else if(istype(W, /obj/item/device/multitool))
@@ -171,7 +175,7 @@
 		else
 			cold_dir = WEST
 			hot_dir = EAST
-		initialize()
+		connect()
 		to_chat(user, "<span class='notice'>You reverse the generator's circulator settings. The cold circulator is now on the [dir2text(cold_dir)] side, and the heat circulator is now on the [dir2text(hot_dir)] side.</span>")
 		update_desc()
 	else
@@ -229,7 +233,7 @@
 		return 0
 	if( href_list["check"] )
 		if(!powernet || !cold_circ || !hot_circ)
-			initialize()
+			connect()
 	return 1
 
 /obj/machinery/power/generator/power_change()

@@ -292,6 +292,10 @@
 
 	if( usr.stat || usr.restrained() )
 		return
+		
+	if(pipe_type == PIPE_CIRCULATOR)
+		flip()
+		return
 
 	src.dir = turn(src.dir, -90)
 
