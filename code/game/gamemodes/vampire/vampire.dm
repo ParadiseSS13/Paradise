@@ -325,6 +325,22 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 			else if(istype(p, /datum/vampire_passive))
 				var/datum/vampire_passive/power = p
 				to_chat(owner, "<span class='notice'>[power.gain_desc]</span>")
+				
+	
+/datum/game_mode/proc/remove_vampire(datum/mind/vampire_mind)
+	if(vampire_mind in vampires)
+		ticker.mode.vampires -= vampire_mind
+		vampire_mind.special_role = null
+		vampire_mind.current.attack_log += "\[[time_stamp()]\] <span class='danger'>De-vampired</span>"
+		if(vampire_mind.vampire)
+			vampire_mind.vampire.remove_vampire_powers()
+			qdel(vampire_mind.vampire)
+			vampire_mind.vampire = null	
+		if(issilicon(vampire_mind.current))
+			to_chat(vampire_mind.current, "<span class='userdanger'>You have been turned into a robot! You can feel your powers fading away...</span>")
+		else
+			to_chat(vampire_mind.current, "<span class='userdanger'>You have been brainwashed! You are no longer a vampire.</span>")
+		ticker.mode.update_vampire_icons_removed(vampire_mind)	
 
 //prepare for copypaste
 /datum/game_mode/proc/update_vampire_icons_added(datum/mind/vampire_mind)
