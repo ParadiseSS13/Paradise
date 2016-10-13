@@ -63,6 +63,7 @@
 /datum/game_mode/traitor/post_setup()
 	for(var/datum/mind/traitor in traitors)
 		forge_traitor_objectives(traitor)
+		update_traitor_icons_added(traitor)
 		spawn(rand(10,100))
 			finalize_traitor(traitor)
 			greet_traitor(traitor)
@@ -345,9 +346,19 @@
 		to_chat(traitor_mob, "We have received credible reports that [M.real_name] might be willing to help our cause. If you need assistance, consider contacting them.")
 		traitor_mob.mind.store_memory("<b>Potential Collaborator</b>: [M.real_name]")
 
+/datum/game_mode/proc/remove_traitor(datum/mind/traitor_mind)
+	if(traitor_mind in traitors)
+		ticker.mode.traitors -= traitor_mind
+		traitor_mind.special_role = null
+		traitor_mind.current.attack_log += "\[[time_stamp()]\] <span class='danger'>De-traitored</span>"
+		if(issilicon(traitor_mind.current))
+			to_chat(traitor_mind.current, "<span class='userdanger'>You have been turned into a robot! You are no longer a traitor.</span>")
+		else
+			to_chat(traitor_mind.current, "<span class='userdanger'>You have been brainwashed! You are no longer a traitor.</span>")
+		ticker.mode.update_traitor_icons_removed(traitor_mind)		
+		
 /datum/game_mode/proc/update_traitor_icons_added(datum/mind/traitor_mind)
 	var/datum/atom_hud/antag/tatorhud = huds[ANTAG_HUD_TRAITOR]
-	//var/ref = "\ref[traitor_mind]"
 	tatorhud.join_hud(traitor_mind.current)
 	set_antag_hud(traitor_mind.current, "hudsyndicate")
 
@@ -358,23 +369,27 @@
 
 
 /datum/game_mode/proc/remove_traitor_mind(datum/mind/traitor_mind, datum/mind/head)
-	//var/list/removal
-	var/ref = "\ref[head]"
-	if(ref in implanter)
-		implanter[ref] -= traitor_mind
-	implanted -= traitor_mind
-	traitors -= traitor_mind
-	if(traitor_mind.som)
-		var/datum/mindslaves/slaved = traitor_mind.som
-		slaved.serv -= traitor_mind
-		traitor_mind.special_role = null
-		traitor_mind.som = null
-		slaved.leave_serv_hud(traitor_mind)
-		for(var/datum/objective/protect/mindslave/MS in traitor_mind.objectives)
-			traitor_mind.objectives -= MS
+	if(traitor_mind in implanted)
+		//var/list/removal
+		var/ref = "\ref[head]"
+		if(ref in implanter)
+			implanter[ref] -= traitor_mind
+		implanted -= traitor_mind
+		traitors -= traitor_mind
+		if(traitor_mind.som)
+			var/datum/mindslaves/slaved = traitor_mind.som
+			slaved.serv -= traitor_mind
+			traitor_mind.special_role = null
+			traitor_mind.som = null
+			slaved.leave_serv_hud(traitor_mind)
+			for(var/datum/objective/protect/mindslave/MS in traitor_mind.objectives)
+				traitor_mind.objectives -= MS
 
-	update_traitor_icons_removed(traitor_mind)
-	to_chat(traitor_mind.current, "<span class='userdanger'>You are no longer a mindslave; you have complete and free control of your own faculties, once more!</span>")
+		update_traitor_icons_removed(traitor_mind)
+		if(issilicon(traitor_mind.current))
+			to_chat(traitor_mind.current, "<span class='userdanger'>You have been turned into a robot! You are no longer a mindslave.</span>")
+		else
+			to_chat(traitor_mind.current, "<span class='userdanger'>You are no longer a mindslave: you have complete and free control of your own faculties, once more!</span>")
 
 /datum/game_mode/proc/assign_exchange_role(var/datum/mind/owner)
 	//set faction

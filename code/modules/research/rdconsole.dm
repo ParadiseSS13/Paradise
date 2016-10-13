@@ -31,6 +31,18 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 */
 
+// Who likes #defines?
+// I don't!
+// but I gotta add 'em anyways because we have a bias against /const statements for some reason
+#define TECH_UPDATE_DELAY 50
+#define DESIGN_UPDATE_DELAY 50
+#define PROTOLATHE_CONSTRUCT_DELAY 32
+#define SYNC_RESEARCH_DELAY 30
+#define DECONSTRUCT_DELAY 24
+#define SYNC_DEVICE_DELAY 20
+#define RESET_RESEARCH_DELAY 20
+#define IMPRINTER_DELAY 16
+
 /obj/machinery/computer/rdconsole
 	name = "\improper R&D console"
 	icon_screen = "rdcomp"
@@ -50,6 +62,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	var/menu = 0 // Current menu.
 	var/submenu = 0
 	var/wait_message = 0
+	var/wait_message_timer = 0
 
 	var/id = 0			//ID of the computer (for server restrictions).
 	var/sync = 1		//If sync = 0, it doesn't show up on Server Control Console
@@ -139,6 +152,17 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	..()
 	SyncRDevices()
 
+/obj/machinery/computer/rdconsole/Destroy()
+	if(wait_message_timer)
+		deltimer(wait_message_timer)
+		wait_message_timer = 0
+	return ..()
+
+/*	Instead of calling this every tick, it is only being called when needed
+/obj/machinery/computer/rdconsole/process()
+	griefProtection()
+*/
+
 /obj/machinery/computer/rdconsole/attackby(var/obj/item/weapon/D as obj, var/mob/user as mob, params)
 
 	//Loading a disk into it.
@@ -206,9 +230,9 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		selected_category = "Viewing Category [href_list["category"]]"
 
 	else if(href_list["updt_tech"]) //Update the research holder with information from the technology disk.
-		wait_message = "Updating Database...."
-		spawn(50)
-			wait_message = 0
+		add_wait_message("Updating Database...", TECH_UPDATE_DELAY)
+		spawn(TECH_UPDATE_DELAY)
+			clear_wait_message()
 			files.AddTech2Known(t_disk.stored)
 			nanomanager.update_uis(src)
 			griefProtection() //Update centcom too
@@ -231,9 +255,9 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		submenu = 0
 
 	else if(href_list["updt_design"]) //Updates the research holder with design data from the design disk.
-		wait_message = "Updating Database...."
-		spawn(50)
-			wait_message = 0
+		add_wait_message("Updating Database...", DESIGN_UPDATE_DELAY)
+		spawn(DESIGN_UPDATE_DELAY)
+			clear_wait_message()
 			files.AddDesign2Known(d_disk.blueprint)
 			nanomanager.update_uis(src)
 			griefProtection() //Update centcom too
@@ -299,16 +323,16 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				var/choice = input("Proceeding will destroy loaded item.") in list("Proceed", "Cancel")
 				if(choice == "Cancel" || !linked_destroy) return
 				linked_destroy.busy = 1
-				wait_message = "Processing and Updating Database..."
+				add_wait_message("Processing and Updating Database...", DECONSTRUCT_DELAY)
 				nanomanager.update_uis(src)
 				flick("d_analyzer_process", linked_destroy)
-				spawn(24)
+				spawn(DECONSTRUCT_DELAY)
+					clear_wait_message()
 					if(linked_destroy)
 						linked_destroy.busy = 0
 						if(!linked_destroy.hacked)
 							if(!linked_destroy.loaded_item)
 								to_chat(usr, "<span class='danger'>The destructive analyzer appears to be empty.</span>")
-								wait_message = 0
 								menu = 0
 								submenu = 0
 								return
@@ -318,19 +342,16 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 									if(prob(linked_destroy.loaded_item.reliability))               //If deconstructed item is not reliable enough its just being wasted, else it is pocessed
 										files.UpdateTech(T, temp_tech[T])                          //Check if deconstructed item has research levels higher/same/one less than current ones
 								files.UpdateDesigns(linked_destroy.loaded_item, temp_tech, src)    //If if such reseach type found all the known designs are checked for having this research type in them
-								wait_message = 0                                                   //If design have it it gains some reliability
-								menu = 0
+								menu = 0                           //If design have it it gains some reliability
 								submenu = 0
 							else                                                                   //Same design always gain quality
-								wait_message = 0                                                   //Crit fail gives the same design a lot of reliability, like really a lot
-								menu = 2
+								menu = 2                           //Crit fail gives the same design a lot of reliability, like really a lot
 								submenu = 0
 							if(linked_lathe) //Also sends salvaged materials to a linked protolathe, if any.
 								for(var/material in linked_destroy.loaded_item.materials)
 									linked_lathe.materials.insert_amount(min((linked_lathe.materials.max_amount - linked_lathe.materials.total_amount), (linked_destroy.loaded_item.materials[material]*(linked_destroy.decon_mod/10))), material)
 							linked_destroy.loaded_item = null
 						else
-							wait_message = 0
 							menu = 0
 							submenu = 0
 						for(var/obj/I in linked_destroy.contents)
@@ -352,12 +373,13 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 						nanomanager.update_uis(src)
 
 	else if(href_list["sync"]) //Sync the research holder with all the R&D consoles in the game that aren't sync protected.
-		wait_message = "Updating Database...."
 		if(!sync)
 			to_chat(usr, "<span class='danger'>You must connect to the network first!</span>")
 		else
+			add_wait_message("Updating Database...", SYNC_RESEARCH_DELAY)
 			griefProtection() //Putting this here because I dont trust the sync process
-			spawn(30)
+			spawn(SYNC_RESEARCH_DELAY)
+				clear_wait_message()
 				if(src)
 					for(var/obj/machinery/r_n_d/server/S in world)
 						var/server_processed = 0
@@ -371,7 +393,6 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 							server_processed = 1
 						if(!istype(S, /obj/machinery/r_n_d/server/centcom) && server_processed)
 							S.produce_heat(100)
-					wait_message = 0
 					nanomanager.update_uis(src)
 
 	else if(href_list["togglesync"]) //Prevents the console from being synced by other consoles. Can still send data.
@@ -393,7 +414,6 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				for(var/M in being_built.materials)
 					power += round(being_built.materials[M] * amount / 5)
 				power = max(2000, power)
-				wait_message = "Constructing Prototype. Please Wait..."
 				if(linked_lathe.busy)
 					g2g = 0
 				var/key = usr.key	//so we don't lose the info during the spawn delay
@@ -404,7 +424,11 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 
 				if(g2g) //If input is incorrect, nothing happens
+					var/time_to_construct = PROTOLATHE_CONSTRUCT_DELAY * amount / coeff
 					var/enough_materials = 1
+
+					time_to_construct /= being_built.lathe_time_factor
+					add_wait_message("Constructing Prototype. Please Wait...", time_to_construct)
 					linked_lathe.busy = 1
 					flick("protolathe_n",linked_lathe)
 					use_power(power)
@@ -432,9 +456,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 					var/P = being_built.build_path //lets save these values before the spawn() just in case. Nobody likes runtimes.
 					var/O = being_built.locked
 
-					coeff *= being_built.lathe_time_factor
-
-					spawn(32*amount/coeff)
+					spawn(time_to_construct)
 						if(g2g) //And if we only fail the material requirements, we still spend time and power
 							for(var/i = 0, i<amount, i++)
 								var/obj/item/new_item = new P(src)
@@ -455,8 +477,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 									L.desc = "A locked box. It is locked to [lockbox_access]access."
 								else
 									new_item.loc = linked_lathe.loc
+						clear_wait_message()
 						linked_lathe.busy = 0
-						wait_message = 0
 						nanomanager.update_uis(src)
 
 	else if(href_list["imprint"]) //Causes the Circuit Imprinter to build something.
@@ -470,7 +492,6 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				for(var/M in being_built.materials)
 					power += round(being_built.materials[M] / 5)
 				power = max(2000, power)
-				wait_message = "Imprinting Circuit. Please Wait..."
 				if(linked_imprinter.busy)
 					g2g = 0
 				if(!(being_built.build_type & IMPRINTER))
@@ -478,6 +499,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 					message_admins("Circuit imprinter exploit attempted by [key_name(usr, usr.client)]!")
 
 				if(g2g) //Again, if input is wrong, do nothing
+					add_wait_message("Imprinting Circuit. Please Wait...", IMPRINTER_DELAY)
 					linked_imprinter.busy = 1
 					flick("circuit_imprinter_ani",linked_imprinter)
 					use_power(power)
@@ -498,13 +520,13 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 								linked_imprinter.reagents.remove_reagent(M, being_built.materials[M]/coeff)
 
 					var/P = being_built.build_path //lets save these values before the spawn() just in case. Nobody likes runtimes.
-					spawn(16)
+					spawn(IMPRINTER_DELAY)
 						if(g2g)
 							var/obj/item/new_item = new P(src)
 							new_item.reliability = 100
 							new_item.loc = linked_imprinter.loc
 						linked_imprinter.busy = 0
-						wait_message = 0
+						clear_wait_message()
 						nanomanager.update_uis(src)
 
 	else if(href_list["disposeI"] && linked_imprinter)  //Causes the circuit imprinter to dispose of a single reagent (all of it)
@@ -562,10 +584,10 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				qdel(sheet)
 
 	else if(href_list["find_device"]) //The R&D console looks for devices nearby to link up with.
-		wait_message = "Updating Database...."
-		spawn(20)
+		add_wait_message("Updating Database...", SYNC_DEVICE_DELAY)
+		spawn(SYNC_DEVICE_DELAY)
 			SyncRDevices()
-			wait_message = 0
+			clear_wait_message()
 			nanomanager.update_uis(src)
 
 	else if(href_list["disconnect"]) //The R&D console disconnects with a specific device.
@@ -584,11 +606,11 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		griefProtection()
 		var/choice = alert("Are you sure you want to reset the R&D console's database? Data lost cannot be recovered.", "R&D Console Database Reset", "Continue", "Cancel")
 		if(choice == "Continue")
-			wait_message = "Updating Database...."
+			add_wait_message("Updating Database...", RESET_RESEARCH_DELAY)
 			qdel(files)
 			files = new /datum/research(src)
-			spawn(20)
-				wait_message = 0
+			spawn(RESET_RESEARCH_DELAY)
+				clear_wait_message()
 				nanomanager.update_uis(src)
 
 	else if(href_list["search"]) //Search for designs with name matching pattern
@@ -841,24 +863,26 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		ui.set_initial_data(data)
 		ui.open()
 
-//helper proc, which return a table containing categories
-/obj/machinery/computer/rdconsole/proc/list_categories(var/list/categories, var/menu_num as num)
-	if(!categories)
-		return
+//helper proc that guarantees the wait message will not freeze the UI
+/obj/machinery/computer/rdconsole/proc/add_wait_message(message, delay)
+	wait_message = message
+	wait_message_timer = addtimer(src, "clear_wait_message", delay, TRUE)
 
-	var/line_length = 1
-	var/dat = "<table style='width:100%' align='center'><tr>"
+// This is here to guarantee that we never lock the console, so long as the timer
+// process is running
+// So long as the spawns never runtime, though, the timer should be stopped
+// before it gets the chance to fire
+// Since the timer process can have significant delays, you should call this
+// in the operations that take time, once they complete
+/obj/machinery/computer/rdconsole/proc/clear_wait_message()
+	wait_message = ""
+	if(wait_message_timer)
+		// This could be expensive, and will still be called
+		// if the timer calls this function
+		deltimer(wait_message_timer)
+		wait_message_timer = 0
+	nanomanager.update_uis(src)
 
-	for(var/C in categories)
-		if(line_length > 2)
-			dat += "</tr><tr>"
-			line_length = 1
-
-		dat += "<td><A href='?src=[UID()];category=[C];menu=[menu_num]'>[C]</A></td>"
-		line_length++
-
-	dat += "</tr></table></div>"
-	return dat
 
 /obj/machinery/computer/rdconsole/core
 	name = "core R&D console"
@@ -891,3 +915,12 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	id = 5
 	req_access = list()
 	circuit = /obj/item/weapon/circuitboard/rdconsole/public
+
+#undef TECH_UPDATE_DELAY
+#undef DESIGN_UPDATE_DELAY
+#undef PROTOLATHE_CONSTRUCT_DELAY
+#undef SYNC_RESEARCH_DELAY
+#undef DECONSTRUCT_DELAY
+#undef SYNC_DEVICE_DELAY
+#undef RESET_RESEARCH_DELAY
+#undef IMPRINTER_DELAY
