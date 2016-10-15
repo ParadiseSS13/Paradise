@@ -310,14 +310,6 @@
 				C.reagents.clear_reagents()
 			C.reagents.addiction_list.Cut()
 
-/mob/living/proc/update_revive() // handles revival through other means than cloning or adminbus (defib, IPC repair)
-	stat = CONSCIOUS
-	dead_mob_list -= src
-	living_mob_list |= src
-	mob_list |= src
-	SetEarDeaf(0)
-	timeofdeath = null
-
 /mob/living/proc/rejuvenate()
 	var/mob/living/carbon/human/human_mob = null //Get this declared for use later.
 
