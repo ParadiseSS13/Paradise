@@ -357,6 +357,7 @@
 	update_sleeping_effects()
 	if(updating)
 		update_stat()
+		update_canmove()
 
 /mob/living/AdjustSleeping(amount, bound_lower = 0, bound_upper = INFINITY, updating = 1)
 	var/new_value = directional_bounded_sum(sleeping, amount, bound_lower, bound_upper)
