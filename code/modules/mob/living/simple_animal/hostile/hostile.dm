@@ -199,6 +199,9 @@
 			FindTarget()
 
 /mob/living/simple_animal/hostile/proc/AttackingTarget()
+	if(target == src)
+		to_chat(src,"Why attack yourself?")
+		return
 	target.attack_animal(src)
 
 /mob/living/simple_animal/hostile/proc/Aggro()
