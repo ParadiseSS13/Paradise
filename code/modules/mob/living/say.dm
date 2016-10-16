@@ -283,8 +283,14 @@ proc/get_radio_key_from_channel(var/channel)
 /mob/living/proc/GetVoice()
 	return name
 
-/mob/living/emote(var/act, var/type, var/message) //emote code is terrible, this is so that anything that isn't
-	if(stat)	return 0                          //already snowflaked to shit can call the parent and handle emoting sanely
+/mob/living/emote(var/act, var/type, var/message) //emote code is terrible, this is so that anything that isn't already snowflaked to shit can call the parent and handle emoting sanely
+	if(client)
+		if(client.prefs.muted & MUTE_IC)
+			to_chat(src, "<span class='danger'>You cannot speak in IC (Muted).</span>")
+			return
+			
+	if(stat)									 
+		return 0
 
 	if(..(act, type, message))
 		return 1
