@@ -457,16 +457,15 @@
 	set name = "Eject occupant"
 	set category = "Object"
 	set src in oview(1)
+	
 	if(usr == occupant)//If the user is inside the tube...
-		if(usr.stat == 2)//and he's not dead....
-			return
-		to_chat(usr, "\blue Release sequence activated. This will take two minutes.")
+		to_chat(usr, "<span class='notice'>Release sequence activated. This will take two minutes.</span>")
 		sleep(600)
 		if(!src || !usr || !occupant || (occupant != usr)) //Check if someone's released/replaced/bombed him already
 			return
 		go_out()//and release him from the eternal prison.
 	else
-		if(usr.stat != 0)
+		if(usr.restrained() || usr.stat || usr.weakened || usr.stunned || usr.paralysis || usr.resting) //are you cuffed, dying, lying, stunned or other
 			return
 		go_out()
 	add_fingerprint(usr)
@@ -476,14 +475,18 @@
 	set name = "Move Inside"
 	set category = "Object"
 	set src in oview(1)
+	
 	for(var/mob/living/carbon/slime/M in range(1,usr))
 		if(M.Victim == usr)
 			to_chat(usr, "You're too busy getting your life sucked out of you.")
 			return
-	if(usr.stat != 0 || stat & (NOPOWER|BROKEN))
+			
+	if(stat & (NOPOWER|BROKEN))
 		return
+		
 	if(usr.restrained() || usr.stat || usr.weakened || usr.stunned || usr.paralysis || usr.resting) //are you cuffed, dying, lying, stunned or other
 		return
+		
 	put_mob(usr)
 	return
 
