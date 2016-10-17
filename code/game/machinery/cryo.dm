@@ -459,6 +459,8 @@
 	set src in oview(1)
 	
 	if(usr == occupant)//If the user is inside the tube...
+		if(usr.stat == DEAD)
+			return
 		to_chat(usr, "<span class='notice'>Release sequence activated. This will take two minutes.</span>")
 		sleep(600)
 		if(!src || !usr || !occupant || (occupant != usr)) //Check if someone's released/replaced/bombed him already
