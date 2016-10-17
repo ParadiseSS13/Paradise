@@ -68,6 +68,8 @@
 	if(..())
 		return 1
 
+	if(pulling && istype(pulling, /mob/living/carbon/human))
+		stop_pulling()
 	//Do we have a working jetpack?
 	var/obj/item/weapon/tank/jetpack/thrust
 	if(istype(back,/obj/item/weapon/tank/jetpack))
