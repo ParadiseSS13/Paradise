@@ -66,4 +66,4 @@ var/global/list/boo_phrases=list(
 				A:spookymode=1
 
 	if (shadowling_blocked_light_flicker)
-		to_chat(action.owner.client, "The nearby shadowling laughs at your unsuccessful attempt to flicker lights in it's presence.")
+		to_chat(action.owner.client, "The nearby shadowling laughs at your unsuccessful attempt to flicker lights in their presence.")
