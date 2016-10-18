@@ -9,6 +9,7 @@
 	hitsound_wall = "ricochet"
 
 /obj/item/projectile/bullet/weakbullet //beanbag, heavy stamina damage
+	name = "beanbag slug"
 	damage = 5
 	stamina = 80
 
@@ -37,6 +38,7 @@
 			A.volume += 5 //Because we can
 
 /obj/item/projectile/bullet/weakbullet2  //detective revolver instastuns, but multiple shots are better for keeping punks down
+	name = "rubber bullet"
 	damage = 5
 	weaken = 3
 	stamina = 60
@@ -130,6 +132,7 @@
 	damage = 35
 
 /obj/item/projectile/bullet/rpellet
+	name = "rubber pellet"
 	damage = 3
 	stamina = 25
 
