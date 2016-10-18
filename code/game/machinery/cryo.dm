@@ -467,7 +467,7 @@
 			return
 		go_out()//and release him from the eternal prison.
 	else
-		if(usr.restrained() || usr.stat || usr.weakened || usr.stunned || usr.paralysis || usr.resting) //are you cuffed, dying, lying, stunned or other
+		if(usr.incapacitated()) //are you cuffed, dying, lying, stunned or other
 			return
 		go_out()
 	add_fingerprint(usr)
@@ -486,7 +486,7 @@
 	if(stat & (NOPOWER|BROKEN))
 		return
 		
-	if(usr.restrained() || usr.stat || usr.weakened || usr.stunned || usr.paralysis || usr.resting) //are you cuffed, dying, lying, stunned or other
+	if(usr.incapacitated()) //are you cuffed, dying, lying, stunned or other
 		return
 		
 	put_mob(usr)

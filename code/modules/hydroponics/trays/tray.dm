@@ -384,7 +384,7 @@
 	set category = "Object"
 	set src in view(1)
 	
-	if(usr.stat || usr.restrained())
+	if(usr.incapacitated())
 		return
 
 	if(labelled)
@@ -400,7 +400,7 @@
 	set category = "Object"
 	set src in view(1)
 	
-	if(usr.stat || usr.restrained())
+	if(usr.incapacitated())
 		return
 
 	var/new_light = input("Specify a light level.") as null|anything in list(0,1,2,3,4,5,6,7,8,9,10)

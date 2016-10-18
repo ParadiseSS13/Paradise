@@ -455,7 +455,7 @@
 	set category = "Object"
 	set src in oview(1)
 	
-	if(usr.restrained() || usr.stat || usr.weakened || usr.stunned || usr.paralysis || usr.resting) //are you cuffed, dying, lying, stunned or other
+	if(usr.incapacitated()) //are you cuffed, dying, lying, stunned or other
 		return
 		
 	src.icon_state = "[base_icon]-open"
@@ -468,7 +468,7 @@
 	set category = "Object"
 	set src in oview(1)
 	
-	if(usr.restrained() || usr.stat || usr.weakened || usr.stunned || usr.paralysis || usr.resting) //are you cuffed, dying, lying, stunned or other
+	if(usr.incapacitated()) //are you cuffed, dying, lying, stunned or other
 		return
 		
 	if(beaker)
