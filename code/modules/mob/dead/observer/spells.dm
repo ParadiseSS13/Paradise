@@ -30,8 +30,11 @@ var/global/list/boo_phrases=list(
 	// First check if there are shadowlings nearby, because flickering lights will damage them.
 	var/shadowling_present = 0
 	for(var/mob/living/carbon/C in range(7, usr)) // (Range is Ghost Boo range (1) + Shadowling Veil range (5) + 1 for good measure)
-		if (istype(C,/datum/species/shadow/ling))
+		if (C.get_species() == "Shadowling")
 			shadowling_present = 1
+
+
+	var/shadowling_blocked_light_flicker = 0 // For feedback message later as to why lights didn't flicker
 
 	for(var/turf/T in targets)
 		for(var/atom/A in T.contents)
@@ -42,14 +45,15 @@ var/global/list/boo_phrases=list(
 				if(H && H.client)
 					to_chat(H, "<i>[pick(boo_phrases)]</i>")
 
-			// If no shadowling is nearby
-			if(! shadowling_present)
-
-				// Flicker unblessed lights in range
-				if(istype(A,/obj/machinery/light))
+			// Flicker unblessed lights in range
+			if(istype(A,/obj/machinery/light))
+				if(! shadowling_present)  // If no shadowling is nearby
 					var/obj/machinery/light/L = A
 					if(L)
 						L.flicker()
+
+				else  // If a shadowling is nearby
+					shadowling_blocked_light_flicker = 1 // Shadowling 2strong4boo
 
 			// OH GOD BLUE APC (single animation cycle)
 			if(istype(A, /obj/machinery/power/apc))
@@ -60,3 +64,6 @@ var/global/list/boo_phrases=list(
 
 			if(istype(A, /obj/machinery/ai_status_display))
 				A:spookymode=1
+
+	if (shadowling_blocked_light_flicker)
+		to_chat(action.owner.client, "The nearby shadowling laughs at your unsuccessful attempt to flicker lights in it's presence.")
