@@ -82,7 +82,6 @@
 
 	New()
 		..()
-
 		reagents.add_reagent("nutriment", 8)
 
 

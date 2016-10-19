@@ -4,16 +4,14 @@
 	icon_state = "meat"
 	health = 180
 	filling_color = "#FF1C1C"
+	bitesize = 3
+
 	New()
 		..()
 		reagents.add_reagent("protein", 3)
-		src.bitesize = 3
 
-/obj/item/weapon/reagent_containers/food/snacks/meat/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
-	if( \
-			istype(W, /obj/item/weapon/kitchen/knife) || \
-			istype(W, /obj/item/weapon/scalpel) \
-		)
+/obj/item/weapon/reagent_containers/food/snacks/meat/attackby(obj/item/weapon/W, mob/user, params)
+	if(istype(W, /obj/item/weapon/kitchen/knife) || istype(W, /obj/item/weapon/scalpel))
 		new /obj/item/weapon/reagent_containers/food/snacks/rawcutlet(src)
 		new /obj/item/weapon/reagent_containers/food/snacks/rawcutlet(src)
 		new /obj/item/weapon/reagent_containers/food/snacks/rawcutlet(src)
@@ -49,6 +47,7 @@
 /obj/item/weapon/reagent_containers/food/snacks/meat/ham
 	name = "Ham"
 	desc = "Taste like bacon."
+
 	New()
 		..()
 		reagents.add_reagent("porktonium", 10)
