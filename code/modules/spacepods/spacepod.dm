@@ -197,8 +197,7 @@
 /obj/spacepod/bullet_act(var/obj/item/projectile/P)
 	if(P.damage_type == BRUTE || P.damage_type == BURN)
 		deal_damage(P.damage)
-	else if(P.flag == "energy" && istype(P,/obj/item/projectile/ion)) //needed to make sure ions work properly
-		empulse(src, 1, 1)
+	P.on_hit(src)
 
 /obj/spacepod/blob_act()
 	deal_damage(30)
@@ -284,35 +283,27 @@
 /obj/spacepod/emp_act(severity)
 	occupant_sanity_check()
 	cargo_hold.emp_act(severity)
+	
+	if(battery && battery.charge > 0)
+		battery.use((battery.charge / 2) / severity)
+	deal_damage(80 / severity)
+	if(empcounter < (40 / severity))
+		empcounter = 40 / severity
+	processing_objects.Add(src)	
+	
 	switch(severity)
 		if(1)
 			if(pilot)
 				to_chat(pilot, "<span class='warning'>The pod console flashes 'Heavy EMP WAVE DETECTED'.</span>")
 			if(passengers)
 				for(var/mob/M in passengers)
-					to_chat(M, "<span class='warning'>The pod console flashes 'Heavy EMP WAVE DETECTED'.</span>")//warn the passengers
-
-
-			if(battery)
-				battery.charge = max(0, battery.charge - 5000) //Cell EMP act is too weak, this pod needs to be sapped.
-			src.deal_damage(100)
-			if(src.empcounter < 40)
-				src.empcounter = 40 //Disable movement for 40 ticks. Plenty long enough.
-			processing_objects.Add(src)
-
+					to_chat(M, "<span class='warning'>The pod console flashes 'Heavy EMP WAVE DETECTED'.</span>")
 		if(2)
 			if(pilot)
 				to_chat(pilot, "<span class='warning'>The pod console flashes 'EMP WAVE DETECTED'.</span>")
 			if(passengers)
 				for(var/mob/M in passengers)
-					to_chat(M, "<span class='warning'>The pod console flashes 'EMP WAVE DETECTED'.</span>")//warn the passengers
-
-			deal_damage(40)
-			if(battery)
-				battery.charge = max(0, battery.charge - 2500) //Cell EMP act is too weak, this pod needs to be sapped.
-			if(empcounter < 20)
-				empcounter = 20 //Disable movement for 20 ticks.
-			processing_objects.Add(src)
+					to_chat(M, "<span class='warning'>The pod console flashes 'EMP WAVE DETECTED'.</span>")
 
 /obj/spacepod/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(user.a_intent == I_HARM)

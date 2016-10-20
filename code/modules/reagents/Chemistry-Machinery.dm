@@ -829,7 +829,6 @@
 
 
 		//All types that you can put into the grinder to transfer the reagents to the beaker. !Put all recipes above this.!
-		/obj/item/weapon/reagent_containers/food/pill = list(),
 		/obj/item/weapon/reagent_containers/food = list(),
 		/obj/item/weapon/reagent_containers/honeycomb = list()
 	)
@@ -895,19 +894,18 @@
 		to_chat(usr, "<span class='warning'>The machine cannot hold anymore items.</span>")
 		return 1
 
-	//Fill machine with the plantbag!
+	//Fill machine with a plantbag!
 	if(istype(O, /obj/item/weapon/storage/bag/plants))
-
-		for(var/obj/item/weapon/reagent_containers/food/snacks/grown/G in O.contents)
-			O.contents -= G
-			G.forceMove(src)
+		var/obj/item/weapon/storage/bag/plants/PB = O
+		for(var/obj/item/weapon/reagent_containers/food/snacks/grown/G in PB.contents)
+			PB.remove_from_storage(G, src)
 			holdingitems += G
 			if(holdingitems && holdingitems.len >= limit) //Sanity checking so the blender doesn't overfill
 				to_chat(user, "<span class='notice>You fill the All-In-One grinder to the brim.</span>")
 				break
 
-		if(!O.contents.len)
-			to_chat(user, "<span class='notice'>You empty the plant bag into the All-In-One grinder.</span>")
+		if(!PB.contents.len)
+			to_chat(user, "<span class='notice'>You empty [PB] into the All-In-One grinder.</span>")
 
 		updateUsrDialog()
 		return 0

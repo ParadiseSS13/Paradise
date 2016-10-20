@@ -152,7 +152,7 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 		changeling_mind.current.remove_changeling_powers()
 		changeling_mind.memory = ""
 		changeling_mind.special_role = null
-		if(issilicon(changeling_mind))
+		if(issilicon(changeling_mind.current))
 			to_chat(changeling_mind.current, "<span class='userdanger'>You have been robotized!</span>")
 			to_chat(changeling_mind.current, "<span class='danger'>You must obey your silicon laws and master AI above all else. Your objectives will consider you to be dead.</span>")
 		else
