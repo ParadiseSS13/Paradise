@@ -30,7 +30,7 @@ Possible to do for anyone motivated enough:
 var/const/HOLOPAD_MODE = 0
 
 /obj/machinery/hologram/holopad
-	name = "\improper AI holopad"
+	name = "AI holopad"
 	desc = "It's a floor-mounted device for projecting holographic images. It is activated remotely."
 	icon_state = "holopad0"
 
