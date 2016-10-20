@@ -12,7 +12,7 @@
 	icon_state = "paint_red"
 
 /obj/spacepod
-	name = "\improper space pod"
+	name = "space pod"
 	desc = "A space pod meant for space travel."
 	icon = 'icons/goonstation/48x48/pods.dmi'
 	density = 1 //Dense. To raise the heat.
@@ -550,7 +550,7 @@ obj/spacepod/proc/add_equipment(mob/user, var/obj/item/device/spacepod_equipment
 // placeholder
 
 /obj/spacepod/sec
-	name = "\improper security spacepod"
+	name = "security spacepod"
 	desc = "An armed security spacepod with reinforced armor plating."
 	icon_state = "pod_mil"
 	health = 400

@@ -67,9 +67,9 @@
 		to_chat(user, "Timer set for [det_time] seconds.")
 
 /obj/item/weapon/grenade/plastic/afterattack(atom/movable/AM, mob/user, flag)
-	if (!flag)
+	if(!flag)
 		return
-	if (istype(AM, /mob/living/carbon))
+	if(istype(AM, /mob/living/carbon))
 		return
 	to_chat(user, "<span class='notice'>You start planting the [src]. The timer is set to [det_time]...</span>")
 
