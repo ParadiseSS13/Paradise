@@ -3,7 +3,7 @@
 	desc = "The patterns engraved on the wall seem to shift as you try to focus on them. You feel sick"
 	icon = 'icons/turf/walls/cult_wall.dmi'
 	icon_state = "cult"
-	walltype = "cult"
+	builtin_sheet = null
 	canSmoothWith = null
 
 /turf/simulated/wall/cult/narsie_act()
@@ -14,14 +14,12 @@
 	desc = "A rusted metal wall."
 	icon = 'icons/turf/walls/rusty_wall.dmi'
 	icon_state = "arust"
-	walltype = "arust"
 
 /turf/simulated/wall/r_wall/rust
 	name = "rusted reinforced wall"
 	desc = "A huge chunk of rusted reinforced metal."
 	icon = 'icons/turf/walls/rusty_reinforced_wall.dmi'
 	icon_state = "rrust"
-	walltype = "rrust"
 
 /turf/simulated/wall/r_wall/coated			//Coated for heat resistance
 	name = "coated reinforced wall"

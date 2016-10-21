@@ -9,7 +9,7 @@
 	damage_cap = 200
 	max_temperature = 6000
 	hardness = 10
-	walltype = "rwall"
+	sheet_type = /obj/item/stack/sheet/plasteel
 
 	var/d_state = 0
 	var/can_be_reinforced = 1
