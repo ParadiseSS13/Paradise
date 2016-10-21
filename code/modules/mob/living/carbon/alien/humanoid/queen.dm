@@ -23,11 +23,11 @@
 			break
 
 	real_name = src.name
-	internal_organs += new /obj/item/organ/internal/xenos/plasmavessel/queen
-	internal_organs += new /obj/item/organ/internal/xenos/acidgland
-	internal_organs += new /obj/item/organ/internal/xenos/eggsac
-	internal_organs += new /obj/item/organ/internal/xenos/resinspinner
-	internal_organs += new /obj/item/organ/internal/xenos/neurotoxin
+	alien_organs += new /obj/item/organ/internal/xenos/plasmavessel/queen
+	alien_organs += new /obj/item/organ/internal/xenos/acidgland
+	alien_organs += new /obj/item/organ/internal/xenos/eggsac
+	alien_organs += new /obj/item/organ/internal/xenos/resinspinner
+	alien_organs += new /obj/item/organ/internal/xenos/neurotoxin
 	..()
 
 

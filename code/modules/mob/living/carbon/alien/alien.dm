@@ -27,13 +27,15 @@
 	var/heat_protection = 0.5
 	var/leaping = 0
 	ventcrawler = 2
+	
+	var/list/alien_organs = list()
 
 /mob/living/carbon/alien/New()
 	verbs += /mob/living/verb/mob_sleep
 	verbs += /mob/living/verb/lay_down
-	internal_organs += new /obj/item/organ/internal/brain/xeno
-	internal_organs += new /obj/item/organ/internal/xenos/hivenode
-	for(var/obj/item/organ/internal/I in internal_organs)
+	alien_organs += new /obj/item/organ/internal/brain/xeno
+	alien_organs += new /obj/item/organ/internal/xenos/hivenode
+	for(var/obj/item/organ/internal/I in alien_organs)
 		I.insert(src)
 	..()
 
