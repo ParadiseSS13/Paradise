@@ -8,6 +8,14 @@
 
 /turf/simulated/wall/cult/narsie_act()
 	return
+	
+/turf/simulated/wall/cult/break_wall()
+	new /obj/effect/decal/cleanable/blood(src)
+	return (new /obj/structure/cultgirder(src))
+
+/turf/simulated/wall/cult/devastate_wall()
+	new /obj/effect/decal/cleanable/blood(src)
+	new /obj/effect/decal/remains/human(src)
 
 /turf/simulated/wall/rust
 	name = "rusted wall"
