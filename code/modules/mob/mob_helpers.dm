@@ -517,7 +517,8 @@ var/list/intents = list(I_HELP,I_DISARM,I_GRAB,I_HARM)
 		var/length
 		var/pos
 		for(var/datum/objective/objective in all_objectives)
-			if(objective.target != mind) continue
+			if(!mind || objective.target != mind)
+				continue
 			length = lentext(oldname)
 			pos = findtextEx(objective.explanation_text, oldname)
 			objective.explanation_text = copytext(objective.explanation_text, 1, pos)+newname+copytext(objective.explanation_text, pos+length)

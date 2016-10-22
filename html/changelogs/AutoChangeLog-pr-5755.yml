@@ -1,4 +1,0 @@
-author: Fox McCloud
-delete-after: True
-changes: 
-  - bugfix: "Fixes items being in two locations at once when loading things into the bio-generator or reagent grinder."

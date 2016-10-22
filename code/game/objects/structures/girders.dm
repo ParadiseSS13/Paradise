@@ -231,7 +231,6 @@
 	icon_state= "cultgirder"
 	anchored = 1
 	density = 1
-	layer = 2
 	var/health = 250
 
 /obj/structure/cultgirder/attackby(obj/item/W as obj, mob/user as mob, params)

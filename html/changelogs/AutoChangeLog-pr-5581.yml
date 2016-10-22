@@ -1,6 +1,0 @@
-author: Fox McCloud
-delete-after: True
-changes: 
-  - tweak: "Cloners will now put you inside the cloned body when it is fully grown as opposed to initially created"
-  - tweak: "Examining a cloner will tell you the clone progress"
-  - rscadd: "Observers can now see a visual countdown of the cloning status progression"
