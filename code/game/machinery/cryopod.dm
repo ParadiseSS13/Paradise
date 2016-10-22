@@ -481,6 +481,23 @@
 			src.add_fingerprint(M)
 
 
+/obj/machinery/cryopod/proc/take_occupant(var/mob/living/carbon/E)
+	if(src.occupant)
+		return
+	E.loc = src
+	if(orient_right)
+		icon_state = "[occupied_icon_state]-r"
+	else
+		icon_state = occupied_icon_state
+	to_chat(E, "<span class='notice'>[on_enter_occupant_message]</span>")
+	to_chat(E, "<span class='boldnotice'>If you ghost, log out or close your client now, your character will shortly be permanently removed from the round.</span>")
+	occupant = E
+	name = "[name] ([occupant.name])"
+	time_entered = world.time
+	log_admin("<span class='notice'>[key_name(E)] was taken into a stasis pod.</span>")
+	message_admins("[key_name_admin(E)] was taken into a stasis pod. (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
+	src.add_fingerprint(E)
+
 /obj/machinery/cryopod/MouseDrop_T(atom/movable/O as mob|obj, mob/user as mob)
 
 	if(O.loc == user) //no you can't pull things out of your ass
@@ -576,6 +593,9 @@
 		src.add_fingerprint(L)
 
 	return
+
+
+
 
 /obj/machinery/cryopod/verb/eject()
 	set name = "Eject Pod"
