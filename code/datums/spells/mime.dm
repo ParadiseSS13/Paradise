@@ -10,7 +10,8 @@
 	charge_max = 300
 	clothes_req = 0
 	range = 0
-
+	cast_sound = null
+	
 	action_icon_state = "mime"
 	action_background_icon_state = "bg_mime"
 

@@ -287,3 +287,19 @@
 #define SHELTER_DEPLOY_BAD_TURFS "bad turfs"
 #define SHELTER_DEPLOY_BAD_AREA "bad area"
 #define SHELTER_DEPLOY_ANCHORED_OBJECTS "anchored objects"
+
+// Medal names
+#define BOSS_KILL_MEDAL "Killer"
+#define ALL_KILL_MEDAL "Exterminator"	//Killing all of x type
+
+// Score names
+#define LEGION_SCORE "Legion Killed"
+#define COLOSSUS_SCORE "Colossus Killed"
+#define BUBBLEGUM_SCORE "Bubblegum Killed"
+#define DRAKE_SCORE "Drakes Killed"
+#define BIRD_SCORE "Hierophants Killed"
+#define BOSS_SCORE "Bosses Killed"
+#define TENDRIL_CLEAR_SCORE "Tendrils Killed"
+
+//Timing controller
+#define GLOBAL_PROC	"some_magic_bullshit"

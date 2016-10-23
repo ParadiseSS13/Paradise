@@ -2154,6 +2154,7 @@
 					else
 						var/atom/O = new path(target)
 						if(O)
+							O.admin_spawned = TRUE
 							O.dir = obj_dir
 							if(obj_name)
 								O.name = obj_name

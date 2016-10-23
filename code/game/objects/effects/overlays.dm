@@ -1,4 +1,3 @@
-
 /obj/effect/overlay
 	name = "overlay"
 	unacidable = 1
@@ -17,8 +16,8 @@
 	var/tmp/atom/BeamSource
 	New()
 		..()
-		spawn(10) qdel(src)
-
+		spawn(10) 
+			qdel(src)
 
 /obj/effect/overlay/temp
 	anchored = 1
@@ -30,6 +29,9 @@
 /obj/effect/overlay/temp/New()
 	if(randomdir)
 		dir = pick(cardinal)
+		
+	flick("[icon_state]", src) //Because we might be pulling it from a pool, flick whatever icon it uses so it starts at the start of the icon's animation.
+
 	spawn(duration)
 		qdel(src)
 

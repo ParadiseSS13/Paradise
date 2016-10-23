@@ -34,6 +34,8 @@ var/list/blacklisted_tesla_types = typecacheof(list(/obj/machinery/atmospherics,
 	var/produced_power
 	var/energy_to_raise = 32
 	var/energy_to_lower = -20
+	
+	
 
 /obj/singularity/energy_ball/Destroy()
 	if(orbiting && istype(orbiting, /obj/singularity/energy_ball))
@@ -44,6 +46,8 @@ var/list/blacklisted_tesla_types = typecacheof(list(/obj/machinery/atmospherics,
 	for(var/ball in orbiting_balls)
 		var/obj/singularity/energy_ball/EB = ball
 		qdel(EB)
+		
+	poi_list.Remove(src)
 
 	return ..()
 
@@ -125,6 +129,7 @@ var/list/blacklisted_tesla_types = typecacheof(list(/obj/machinery/atmospherics,
 /obj/singularity/energy_ball/orbit(obj/singularity/energy_ball/target)
 	if(istype(target))
 		target.orbiting_balls += src
+		poi_list.Remove(src)
 
 	. = ..()
 

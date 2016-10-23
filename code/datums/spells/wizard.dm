@@ -25,9 +25,12 @@
 	proj_trail_icon_state = "magicmd"
 
 	action_icon_state = "magicm"
+	
+	sound = "sound/magic/MAGIC_MISSILE.ogg"
 
 /obj/effect/proc_holder/spell/targeted/inflict_handler/magic_missile
 	amt_weakened = 3
+	sound = "sound/magic/MM_Hit.ogg"
 
 /obj/effect/proc_holder/spell/noclothes
 	name = "No Clothes"
@@ -52,6 +55,7 @@
 	cooldown_min = 300 //25 deciseconds reduction per rank
 
 	action_icon_state = "mutate"
+	sound = "sound/magic/Mutate.ogg"
 
 /obj/effect/proc_holder/spell/targeted/genetic/mutate/cast(list/targets)
 	for(var/mob/living/target in targets)
@@ -93,6 +97,8 @@
 
 	emp_heavy = 6
 	emp_light = 10
+	
+	sound = "sound/magic/Disable_Tech.ogg"
 
 /obj/effect/proc_holder/spell/targeted/turf_teleport/blink
 	name = "Blink"
@@ -117,6 +123,9 @@
 	centcom_cancast = 0 //prevent people from getting to centcom
 
 	action_icon_state = "blink"
+	
+	sound1 = "sound/magic/blink.ogg"
+	sound2 = "sound/magic/blink.ogg"
 
 /obj/effect/proc_holder/spell/targeted/area_teleport/teleport
 	name = "Teleport"
@@ -135,6 +144,9 @@
 	smoke_amt = 5
 
 	action_icon_state = "spell_teleport"
+	
+	sound1="sound/magic/Teleport_diss.ogg"
+	sound2="sound/magic/Teleport_app.ogg"
 
 /obj/effect/proc_holder/spell/aoe_turf/conjure/forcewall
 	name = "Forcewall"
@@ -152,6 +164,7 @@
 	summon_lifespan = 300
 
 	action_icon_state = "shield"
+	cast_sound = "sound/magic/ForceWall.ogg"
 
 /obj/effect/proc_holder/spell/aoe_turf/conjure/timestop
 	name = "Stop Time"
@@ -180,7 +193,8 @@
 
 	summon_type = list(/mob/living/simple_animal/hostile/carp)
 
-
+	cast_sound = "sound/magic/Summon_Karp.ogg"
+	
 /obj/effect/proc_holder/spell/aoe_turf/conjure/construct
 	name = "Artificer"
 	desc = "This spell conjures a construct which may be controlled by Shades"
@@ -195,6 +209,7 @@
 	summon_type = list(/obj/structure/constructshell)
 
 	action_icon_state = "artificer"
+	cast_sound = "sound/magic/SummonItems_generic.ogg"
 
 /obj/effect/proc_holder/spell/aoe_turf/conjure/creature
 	name = "Summon Creature Swarm"
@@ -209,6 +224,7 @@
 	range = 3
 
 	summon_type = list(/mob/living/simple_animal/hostile/creature)
+	cast_sound = "sound/magic/SummonItems_generic.ogg"
 
 /obj/effect/proc_holder/spell/targeted/trigger/blind
 	name = "Blind"
@@ -229,10 +245,12 @@
 /obj/effect/proc_holder/spell/targeted/inflict_handler/blind
 	amt_eye_blind = 10
 	amt_eye_blurry = 20
+	sound="sound/magic/Blind.ogg"
 
 /obj/effect/proc_holder/spell/targeted/genetic/blind
 	disabilities = BLIND
 	duration = 300
+	sound="sound/magic/Blind.ogg"
 
 /obj/effect/proc_holder/spell/dumbfire/fireball
 	name = "Fireball"
@@ -254,6 +272,7 @@
 	proj_step_delay = 1
 
 	action_icon_state = "fireball"
+	sound = "sound/magic/Fireball.ogg"
 
 /obj/effect/proc_holder/spell/turf/fireball/cast(var/turf/T)
 	explosion(T, -1, 0, 2, 3, 0, flame_range = 2)
@@ -282,12 +301,14 @@
 	var/maxthrow = 5
 
 	action_icon_state = "repulse"
+	sound = 'sound/magic/Repulse.ogg'
 
 /obj/effect/proc_holder/spell/aoe_turf/repulse/cast(list/targets)
 	var/mob/user = usr
 	var/list/thrownatoms = list()
 	var/atom/throwtarget
 	var/distfromcaster
+	playMagSound()
 	for(var/turf/T in targets) //Done this way so things don't get thrown all around hilariously.
 		for(var/atom/movable/AM in T)
 			thrownatoms += AM
@@ -314,3 +335,24 @@
 				M.Weaken(2)
 				to_chat(M, "<span class='userdanger'>You're thrown back by a mystical force!</span>")
 			spawn(0) AM.throw_at(throwtarget, ((Clamp((maxthrow - (Clamp(distfromcaster - 2, 0, distfromcaster))), 3, maxthrow))), 1)//So stuff gets tossed around at the same time.
+
+/obj/effect/proc_holder/spell/targeted/sacred_flame
+	name = "Sacred Flame"
+	desc = "Makes everyone around you more flammable, and lights yourself on fire."
+	charge_max = 60
+	clothes_req = 0
+	invocation = "FI'RAN DADISKO"
+	invocation_type = "shout"
+	max_targets = 0
+	range = 6
+	include_user = 1
+	selection_type = "view"
+	action_icon_state = "sacredflame"
+	sound = "sound/magic/Fireball.ogg"
+
+/obj/effect/proc_holder/spell/targeted/sacred_flame/cast(list/targets, mob/user = usr)
+	for(var/mob/living/L in targets)
+		L.adjust_fire_stacks(20)
+	if(isliving(user))
+		var/mob/living/U = user
+		U.IgniteMob()

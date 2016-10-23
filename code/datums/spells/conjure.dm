@@ -13,9 +13,11 @@
 	var/list/newVars = list() //vars of the summoned objects will be replaced with those where they meet
 	//should have format of list("emagged" = 1,"name" = "Wizard's Justicebot"), for example
 	var/delay = 1//Go Go Gadget Inheritance
+	
+	var/cast_sound = 'sound/items/welder.ogg'
 
-/obj/effect/proc_holder/spell/aoe_turf/conjure/cast(list/targets)
-
+/obj/effect/proc_holder/spell/aoe_turf/conjure/cast(list/targets,mob/living/user = usr)
+	playsound(get_turf(user), cast_sound, 50,1)
 	for(var/turf/T in targets)
 		if(T.density && !summon_ignore_density)
 			targets -= T
@@ -42,6 +44,7 @@
 				for(var/varName in newVars)
 					if(varName in summoned_object.vars)
 						summoned_object.vars[varName] = newVars[varName]
+				summoned_object.admin_spawned = TRUE
 
 				if(summon_lifespan)
 					spawn(summon_lifespan)

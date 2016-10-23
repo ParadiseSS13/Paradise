@@ -395,4 +395,4 @@
 				continue
 			valid_body_accessories += B
 
-	return valid_body_accessories
+	return valid_body_accessories	

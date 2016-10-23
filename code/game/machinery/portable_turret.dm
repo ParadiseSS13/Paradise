@@ -56,6 +56,12 @@
 
 	var/screen = 0 // Screen 0: main control, screen 1: access levels
 	var/one_access = 0 // Determines if access control is set to req_one_access or req_access
+	
+	var/faction = "neutral"
+	var/emp_vulnerable = 1 // Can be empd
+	var/scan_range = 7
+	var/always_up = 0		//Will stay active
+	var/has_cover = 1		//Hides the cover
 
 /obj/machinery/porta_turret/centcom
 	enabled = 0
@@ -460,7 +466,7 @@ var/list/turret_icons
 		take_damage(Proj.damage)
 
 /obj/machinery/porta_turret/emp_act(severity)
-	if(enabled)
+	if(enabled && emp_vulnerable)
 		//if the turret is on, the EMP no matter how severe disables the turret for a while
 		//and scrambles its settings, with a slight chance of having an emag effect
 		check_arrest = prob(50)
@@ -502,35 +508,43 @@ var/list/turret_icons
 	set background = BACKGROUND_ENABLED
 
 	if(stat & (NOPOWER|BROKEN))
-		//if the turret has no power or is broken, make the turret pop down if it hasn't already
-		popDown()
+		if(!always_up)
+			//if the turret has no power or is broken, make the turret pop down if it hasn't already
+			popDown()
 		return
 
 	if(!enabled)
-		//if the turret is off, make it pop down
-		popDown()
+		if(!always_up)
+			//if the turret is off, make it pop down
+			popDown()
 		return
 
 	var/list/targets = list()			//list of primary targets
 	var/list/secondarytargets = list()	//targets that are least important
 
-	for(var/obj/mecha/ME in view(7,src))
+	for(var/obj/mecha/ME in view(scan_range,src))
 		assess_and_assign(ME.occupant, targets, secondarytargets)
 
-	for(var/obj/spacepod/SP in view(7,src))
+	for(var/obj/spacepod/SP in view(scan_range,src))
 		assess_and_assign(SP.pilot, targets, secondarytargets)
 
-	for(var/obj/vehicle/T in view(7,src))
+	for(var/obj/vehicle/T in view(scan_range,src))
 		assess_and_assign(T.buckled_mob, targets, secondarytargets)
 
-	for(var/mob/living/C in view(7,src))	//loops through all living lifeforms in view
+	for(var/mob/living/C in view(scan_range,src))	//loops through all living lifeforms in view
 		assess_and_assign(C, targets, secondarytargets)
 
 	if(!tryToShootAt(targets))
 		if(!tryToShootAt(secondarytargets)) // if no valid targets, go for secondary targets
-			spawn()
-				popDown() // no valid targets, close the cover
+			if(!always_up)
+				spawn()
+					popDown() // no valid targets, close the cover
 
+/obj/machinery/porta_turret/proc/in_faction(mob/living/target)
+	if(!(faction in target.faction))
+		return 0
+	return 1			
+				
 /obj/machinery/porta_turret/proc/assess_and_assign(var/mob/living/L, var/list/targets, var/list/secondarytargets)
 	switch(assess_living(L))
 		if(TURRET_PRIORITY_TARGET)
@@ -557,11 +571,14 @@ var/list/turret_icons
 	if(L.stat && !emagged)		//if the perp is dead/dying, no need to bother really
 		return TURRET_NOT_TARGET	//move onto next potential victim!
 
-	if(get_dist(src, L) > 7)	//if it's too far away, why bother?
+	if(get_dist(src, L) > scan_range)	//if it's too far away, why bother?
 		return TURRET_NOT_TARGET
 
 	if(emagged)		// If emagged not even the dead get a rest
 		return L.stat ? TURRET_SECONDARY_TARGET : TURRET_PRIORITY_TARGET
+		
+	if(in_faction(L))
+		return TURRET_NOT_TARGET
 
 	if(lethal && locate(/mob/living/silicon/ai) in get_turf(L))		//don't accidentally kill the AI!
 		return TURRET_NOT_TARGET
@@ -648,8 +665,8 @@ var/list/turret_icons
 	return ..()
 
 /obj/machinery/porta_turret/proc/set_raised_raising(var/raised, var/raising)
-	src.raised = raised
-	src.raising = raising
+	raised = raised
+	raising = raising
 	density = raised || raising
 
 /obj/machinery/porta_turret/proc/target(var/mob/living/target)
@@ -657,8 +674,9 @@ var/list/turret_icons
 		return
 	if(target)
 		last_target = target
-		spawn()
-			popUp()				//pop the turret up if it's not already up.
+		if(has_cover)
+			spawn()
+				popUp()				//pop the turret up if it's not already up.
 		dir = get_dir(src, target)	//even if you can't shoot, follow the target
 		spawn()
 			shootAt(target)
@@ -666,7 +684,7 @@ var/list/turret_icons
 	return
 
 /obj/machinery/porta_turret/proc/shootAt(var/mob/living/target)
-	if(!raised) //the turret has to be raised in order to fire - makes sense, right?
+	if(!raised && has_cover) //the turret has to be raised in order to fire - makes sense, right?
 		return
 	//any emagged turrets will shoot extremely fast! This not only is deadly, but drains a lot power!
 	if(!emagged)	//if it hasn't been emagged, it has to obey a cooldown rate
@@ -718,9 +736,9 @@ var/list/turret_icons
 /obj/machinery/porta_turret/proc/setState(var/datum/turret_checks/TC)
 	if(controllock)
 		return
-	src.enabled = TC.enabled
-	src.lethal = TC.lethal
-	src.iconholder = TC.lethal
+	enabled = TC.enabled
+	lethal = TC.lethal
+	iconholder = TC.lethal
 
 	check_synth = TC.check_synth
 	check_access = TC.check_access
@@ -730,7 +748,7 @@ var/list/turret_icons
 	check_anomalies = TC.check_anomalies
 	ailock = TC.ailock
 
-	src.power_change()
+	power_change()
 
 /*
 		Portable turret constructions
@@ -943,3 +961,74 @@ var/list/turret_icons
 
 /atom/movable/porta_turret_cover
 	icon = 'icons/obj/turrets.dmi'
+	
+// Syndicate turrets
+/obj/machinery/porta_turret/syndicate
+	installation = null
+	always_up = 1
+	use_power = 0
+	has_cover = 0
+	scan_range = 9
+	projectile = /obj/item/projectile/bullet
+	eprojectile = /obj/item/projectile/bullet
+	shot_sound = 'sound/weapons/Gunshot.ogg'
+	eshot_sound = 'sound/weapons/Gunshot.ogg'
+	icon_state = "syndieturret0"
+	var/icon_state_initial = "syndieturret0"
+	var/icon_state_active = "syndieturret1"
+	var/icon_state_destroyed = "syndieturret2"
+	faction = "syndicate"
+	emp_vulnerable = 0
+	raised = 1
+	
+/obj/machinery/porta_turret/syndicate/New()
+	..()
+	if(req_one_access && req_one_access.len)
+		req_one_access.Cut()
+	req_access = list(access_syndicate)
+	one_access = 0
+	
+/obj/machinery/porta_turret/syndicate/update_icon()
+	if(stat & BROKEN)
+		icon_state = icon_state_destroyed
+	else if(enabled)
+		icon_state = icon_state_active
+	else
+		icon_state = icon_state_initial
+
+/obj/machinery/porta_turret/syndicate/setup()
+	return
+
+/obj/machinery/porta_turret/syndicate/assess_perp(mob/living/carbon/human/perp)
+	return 10 //Syndicate turrets shoot everything not in their faction
+
+/obj/machinery/porta_turret/syndicate/pod
+	health = 40
+	projectile = /obj/item/projectile/bullet/weakbullet3
+	eprojectile = /obj/item/projectile/bullet/weakbullet3
+	
+/obj/machinery/porta_turret/syndicate/interior
+	name = "machine gun turret (.45)"
+	desc = "Syndicate interior defense turret chambered for .45 rounds. Designed to down intruders without damaging the hull."
+	projectile = /obj/item/projectile/bullet/midbullet
+	eprojectile = /obj/item/projectile/bullet/midbullet
+
+/obj/machinery/porta_turret/syndicate/exterior
+	name = "machine gun turret (7.62)"
+	desc = "Syndicate exterior defense turret chambered for 7.62 rounds. Designed to down intruders with heavy calliber bullets."
+	projectile = /obj/item/projectile/bullet
+	eprojectile = /obj/item/projectile/bullet/midbullet
+
+/obj/machinery/porta_turret/syndicate/grenade
+	name = "mounted grenade launcher (40mm)"
+	desc = "Syndicate 40mm grenade launcher defense turret. If you've had this much time to look at it, you're probably already dead."
+	projectile = /obj/item/projectile/bullet/a40mm
+	eprojectile = /obj/item/projectile/bullet/midbullet
+
+/obj/machinery/porta_turret/syndicate/assault_pod
+	name = "machine gun turret (4.6x30mm)"
+	desc = "Syndicate exterior defense turret chambered for 4.6x30mm rounds. Designed to be fitted to assault pods, it uses low calliber bullets to save space."
+	health = 100
+	projectile = /obj/item/projectile/bullet/weakbullet3
+	eprojectile = /obj/item/projectile/bullet/midbullet
+

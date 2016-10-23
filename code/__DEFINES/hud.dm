@@ -47,3 +47,8 @@
 #define ANTAG_HUD_CHANGELING 15
 #define ANTAG_HUD_VAMPIRE 16
 #define ANTAG_HUD_ABDUCTOR 17 //For Fox
+
+// Notification action types
+#define NOTIFY_JUMP "jump"
+#define NOTIFY_ATTACK "attack"
+#define NOTIFY_FOLLOW "orbit"

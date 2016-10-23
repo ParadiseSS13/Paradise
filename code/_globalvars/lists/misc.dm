@@ -19,3 +19,5 @@ var/list/restricted_camera_networks = list( //Those networks can only be accesse
 	)
 
 var/list/mineral_turfs = list()
+
+var/list/ruin_landmarks = list()

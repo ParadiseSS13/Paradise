@@ -332,3 +332,10 @@
 	desc = "A cup with the british flag emblazoned on it."
 	icon_state = "britcup"
 	volume = 30
+	
+/obj/item/weapon/reagent_containers/food/drinks/mushroom_bowl
+	name = "mushroom bowl"
+	desc = "A bowl made out of mushrooms. Not food, though it might have contained some at some point."
+	icon = 'icons/obj/lavaland/ash_flora.dmi'
+	icon_state = "mushroom_bowl"
+	w_class = 2

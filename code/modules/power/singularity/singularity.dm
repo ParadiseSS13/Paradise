@@ -37,6 +37,7 @@
 	src.energy = starting_energy
 	..()
 	processing_objects.Add(src)
+	poi_list |= src
 	for(var/obj/machinery/power/singularity_beacon/singubeacon in world)
 		if(singubeacon.active)
 			target = singubeacon
@@ -45,6 +46,7 @@
 
 /obj/singularity/Destroy()
 	processing_objects.Remove(src)
+	poi_list.Remove(src)
 	singularities -= src
 	target = null
 	return ..()

@@ -73,9 +73,11 @@ var/engwords = list("travel", "blood", "join", "hell", "destroy", "technology", 
 	for(var/mob/living/silicon/ai/AI in player_list)
 		AI.client.images += blood
 	cult_viewpoints += src
+	poi_list |= src
 
 /obj/effect/rune/Destroy()
 	cult_viewpoints -= src
+	poi_list.Remove(src)
 	return ..()
 
 /obj/effect/rune/examine(mob/user)

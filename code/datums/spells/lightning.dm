@@ -14,6 +14,7 @@
 	var/ready = 0
 	var/image/halo = null
 	action_icon_state = "lightning"
+	var/sound/Snd // so far only way i can think of to stop a sound, thank MSO for the idea.
 
 /obj/effect/proc_holder/spell/targeted/lightning/lightnian
 	clothes_req = 0
@@ -31,8 +32,10 @@
 /obj/effect/proc_holder/spell/targeted/lightning/proc/StartChargeup(mob/user = usr)
 	ready = 1
 	to_chat(user, "<span class='notice'>You start gathering the power.</span>")
+	Snd = new/sound('sound/magic/lightning_chargeup.ogg',channel = 7)
 	halo = image("icon"='icons/effects/effects.dmi',"icon_state" ="electricity","layer" = EFFECTS_LAYER)
 	user.overlays.Add(halo)
+	playsound(get_turf(user), Snd, 50, 0)
 	start_time = world.time
 	if(do_mob(user,user,100,uninterruptible=1))
 		if(ready)
@@ -59,11 +62,14 @@ obj/effect/proc_holder/spell/targeted/lightning/proc/Reset(mob/user = usr)
 /obj/effect/proc_holder/spell/targeted/lightning/cast(list/targets, mob/user = usr)
 	ready = 0
 	var/mob/living/carbon/target = targets[1]
+	Snd=sound(null, repeat = 0, wait = 1, channel = Snd.channel) //byond, why you suck?
+	playsound(get_turf(user),Snd,50,0)// Sorry MrPerson, but the other ways just didn't do it the way i needed to work, this is the only way.
 	if(get_dist(user,target)>range)
 		to_chat(user, "<span class='notice'>They are too far away!</span>")
 		Reset(user)
 		return
 
+	playsound(get_turf(user), 'sound/magic/lightningbolt.ogg', 50, 1)
 	user.Beam(target,icon_state="lightning[rand(1,12)]",icon='icons/effects/effects.dmi',time=5)
 
 	var/energy = min(world.time - start_time,100)
@@ -75,10 +81,10 @@ obj/effect/proc_holder/spell/targeted/lightning/proc/Reset(mob/user = usr)
 	var/mob/living/carbon/current = target
 	if(bounces < 1)
 		current.electrocute_act(bolt_energy,"Lightning Bolt",safety=1)
-		playsound(get_turf(current), 'sound/machines/defib_zap.ogg', 50, 1, -1)
+		playsound(get_turf(current), 'sound/magic/LightningShock.ogg', 50, 1, -1)
 	else
 		current.electrocute_act(bolt_energy,"Lightning Bolt",safety=1)
-		playsound(get_turf(current), 'sound/machines/defib_zap.ogg', 50, 1, -1)
+		playsound(get_turf(current), 'sound/magic/LightningShock.ogg', 50, 1, -1)
 		var/list/possible_targets = new
 		for(var/mob/living/M in view_or_range(range,target,"view"))
 			if(user == M || target == M && los_check(current,M)) // || origin == M ? Not sure double shockings is good or not

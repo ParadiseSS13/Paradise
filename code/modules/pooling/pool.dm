@@ -19,8 +19,6 @@ and reset all of its vars to their default
 You can override your object's destroy to return QDEL_HINT_PUTINPOOL
 to ensure its always placed in this pool (this will only be acted on if qdel calls destroy, and destroy will not get called twice)
 
-For almost all pooling purposes, it is better to use the QDEL hint than to pool it directly with PlaceInPool
-
 */
 
 var/global/list/GlobalPool = list()
@@ -36,7 +34,7 @@ var/global/list/GlobalPool = list()
 //Or a list of arguments
 //Either way it gets passed to new
 
-/proc/PoolOrNew(get_type,second_arg)
+/proc/PoolOrNew(var/get_type,var/second_arg)
 	if(!get_type)
 		return
 
@@ -50,7 +48,7 @@ var/global/list/GlobalPool = list()
 				. = new get_type (second_arg)
 
 
-/proc/GetFromPool(get_type,second_arg)
+/proc/GetFromPool(var/get_type,var/second_arg)
 	if(!get_type)
 		return
 
@@ -62,6 +60,8 @@ var/global/list/GlobalPool = list()
 
 	var/datum/pooled = pop(GlobalPool[get_type])
 	if(pooled)
+		pooled.gcDestroyed = null
+		
 		var/atom/movable/AM
 		if(istype(pooled, /atom/movable))
 			AM = pooled
@@ -79,7 +79,7 @@ var/global/list/GlobalPool = list()
 		return pooled
 
 
-/proc/PlaceInPool(datum/diver, destroy = 1)
+/proc/PlaceInPool(var/datum/diver, destroy = 1)
 	if(!istype(diver))
 		return
 
@@ -91,12 +91,14 @@ var/global/list/GlobalPool = list()
 
 	GlobalPool[diver.type] |= diver
 
-	if(destroy)
+	if (destroy)
 		diver.Destroy()
+		
+	diver.gcDestroyed = 1
 
 	diver.ResetVars()
 
-var/list/exclude = list("animate_movement", "contents", "loc", "locs", "parent_type", "vars", "verbs", "type")
+var/list/exclude = list("animate_movement", "contents", "loc", "locs", "parent_type", "vars", "verbs", "type", "gc_destroyed")
 var/list/pooledvariables = list()
 //thanks to clusterfack @ /vg/station for these two procs
 /datum/proc/createVariables()
@@ -106,14 +108,20 @@ var/list/pooledvariables = list()
 	for(var/key in vars)
 		if(key in exclude)
 			continue
-		pooledvariables[type][key] = initial(vars[key])
+		if(islist(vars[key]))
+			pooledvariables[type][key] = list()
+		else
+			pooledvariables[type][key] = initial(vars[key])
 
 /datum/proc/ResetVars()
 	if(!pooledvariables[type])
 		createVariables(args)
 
 	for(var/key in pooledvariables[type])
-		vars[key] = pooledvariables[type][key]
+		if (islist(pooledvariables[type][key]))
+			vars[key] = list()
+		else
+			vars[key] = pooledvariables[type][key]
 
 /atom/movable/ResetVars()
 	..()

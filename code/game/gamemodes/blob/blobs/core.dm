@@ -14,6 +14,7 @@
 /obj/effect/blob/core/New(loc, var/h = 200, var/client/new_overmind = null, var/new_rate = 2, offspring)
 	blob_cores += src
 	processing_objects.Add(src)
+	poi_list |= src
 	adjustcolors(color) //so it atleast appears
 	if(!overmind)
 		create_overmind(new_overmind)
@@ -41,6 +42,7 @@
 		overmind.blob_core = null
 	overmind = null
 	processing_objects.Remove(src)
+	poi_list.Remove(src)
 	return ..()
 
 /obj/effect/blob/core/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume)

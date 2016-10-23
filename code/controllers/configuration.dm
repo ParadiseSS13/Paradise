@@ -547,6 +547,12 @@
 
 				if("round_abandon_penalty_period")
 					config.round_abandon_penalty_period = MinutesToTicks(text2num(value))
+					
+				if("medal_hub_address")
+					global.medal_hub = value
+					
+				if("medal_hub_password")
+					global.medal_pass = value
 
 				else
 					diary << "Unknown setting in configuration: '[name]'"

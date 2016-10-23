@@ -9,20 +9,17 @@
 	vehicle_move_delay = 1
 	var/static/image/atvcover = null
 
-
 /obj/vehicle/atv/New()
 	..()
 	if(!atvcover)
 		atvcover = image("icons/vehicles/4wheeler.dmi", "4wheeler_north")
 		atvcover.layer = MOB_LAYER + 0.1
 
-
-obj/vehicle/atv/post_buckle_mob(mob/living/M)
+/obj/vehicle/atv/post_buckle_mob(mob/living/M)
 	if(buckled_mob)
 		overlays += atvcover
 	else
 		overlays -= atvcover
-
 
 /obj/vehicle/atv/handle_vehicle_layer()
 	if(dir == SOUTH)
@@ -30,23 +27,20 @@ obj/vehicle/atv/post_buckle_mob(mob/living/M)
 	else
 		layer = OBJ_LAYER
 
-
 //TURRETS!
 /obj/vehicle/atv/turret
-	var/obj/machinery/gun_turret/vehicle_turret/turret = null
+	var/obj/machinery/porta_turret/syndicate/vehicle_turret/turret = null
 
-
-/obj/machinery/gun_turret/vehicle_turret
+/obj/machinery/porta_turret/syndicate/vehicle_turret
 	name = "mounted turret"
 	scan_range = 7
+	emp_vulnerable = 1
 	density = 0
-
 
 /obj/vehicle/atv/turret/New()
 	..()
 	turret = new(loc)
 	//turret.base = src
-
 
 /obj/vehicle/atv/turret/handle_vehicle_layer()
 	if(dir == SOUTH)
@@ -59,7 +53,6 @@ obj/vehicle/atv/post_buckle_mob(mob/living/M)
 			turret.layer = MOB_LAYER+0.1
 		else
 			turret.layer = OBJ_LAYER
-
 
 /obj/vehicle/atv/turret/handle_vehicle_offsets()
 	..()
