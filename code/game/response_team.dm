@@ -167,16 +167,13 @@ var/ert_request_answered = 0
 		if(prob(5))
 			facial_hair_style = pick(facial_hair_styles_list)
 
-	head_organ.r_facial = hex2num(copytext(hair_c, 2, 4))
-	head_organ.g_facial = hex2num(copytext(hair_c, 4, 6))
-	head_organ.b_facial = hex2num(copytext(hair_c, 6, 8))
-	head_organ.r_hair = hex2num(copytext(hair_c, 2, 4))
-	head_organ.g_hair = hex2num(copytext(hair_c, 4, 6))
-	head_organ.b_hair = hex2num(copytext(hair_c, 6, 8))
-	var/eyes_red = hex2num(copytext(eye_c, 2, 4))
-	var/eyes_green = hex2num(copytext(eye_c, 4, 6))
-	var/eyes_blue = hex2num(copytext(eye_c, 6, 8))
-	M.change_eye_color(eyes_red, eyes_green, eyes_blue)
+	head_organ.r_facial = color2R(hair_c)
+	head_organ.g_facial = color2G(hair_c)
+	head_organ.b_facial = color2B(hair_c)
+	head_organ.r_hair = color2R(hair_c)
+	head_organ.g_hair = color2G(hair_c)
+	head_organ.b_hair = color2B(hair_c)
+	M.change_eye_color(color2R(eye_c), color2G(eye_c), color2B(eye_c))
 	M.s_tone = skin_tone
 	head_organ.h_style = hair_style
 	head_organ.f_style = facial_hair_style
