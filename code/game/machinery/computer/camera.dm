@@ -87,7 +87,7 @@
 		access = user.get_access()
 	else if((isAI(user) || isrobot(user)) && CanUseTopic(user))
 		access = get_all_accesses() // Assume captain level access when AI
-	else if(isobserver(user) && check_rights(R_ADMIN,0)) 
+	else if(user.can_admin_interact())
 		access = get_all_accesses()
 	return access
 
