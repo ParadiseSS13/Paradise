@@ -41,8 +41,6 @@
 	M.death(1) //Kills the new mob
 	M.adjustOxyLoss(oxy_damage)
 	M.adjustBruteLoss(brute_damage)
-	M.adjustOxyLoss(oxy_damage)
-	M.adjustBruteLoss(brute_damage)
 	M.timeofdeath = timeofdeath
 	if(mob_species)
 		M.set_species(mob_species)

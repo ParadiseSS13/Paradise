@@ -158,21 +158,22 @@ Difficulty: Medium
 
 /obj/item/weapon/staff/storm/attack_self(mob/user)
 	if(storm_cooldown > world.time)
-		user << "<span class='warning'>The staff is still recharging!</span>"
+		to_chat(user, "<span class='warning'>The staff is still recharging!</span>")
 		return
 
 	var/area/user_area = get_area(user)
 	var/datum/weather/A
+	var/z_level_name = space_manager.levels_by_name[user.z]
 	for(var/V in weather_master.existing_weather)
 		var/datum/weather/W = V
-		if(W.target_z == user.z && W.area_type == user_area.type)
+		if(W.target_z == z_level_name && W.area_type == user_area.type)
 			A = W
 			break
 	if(A)
 
 		if(A.stage != END_STAGE)
 			if(A.stage == WIND_DOWN_STAGE)
-				user << "<span class='warning'>The storm is already ending! It would be a waste to use the staff now.</span>"
+				to_chat(user, "<span class='warning'>The storm is already ending! It would be a waste to use the staff now.</span>")
 				return
 			user.visible_message("<span class='warning'>[user] holds [src] skywards as an orange beam travels into the sky!</span>", \
 			"<span class='notice'>You hold [src] skyward, dispelling the storm!</span>")
@@ -183,7 +184,7 @@ Difficulty: Medium
 		A = new storm_type
 		A.name = "staff storm"
 		A.area_type = user_area.type
-		A.target_z = user.z
+		A.target_z = z_level_name
 		A.telegraph_duration = 100
 		A.end_duration = 100
 

@@ -316,7 +316,7 @@ var/list/turret_icons
 			req_access += required
 
 /obj/machinery/porta_turret/power_change()
-	if(powered())
+	if(powered() || !use_power)
 		stat &= ~NOPOWER
 		update_icon()
 	else
