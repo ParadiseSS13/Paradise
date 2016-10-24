@@ -709,12 +709,19 @@
 	if(!.) 				. = if_no_id	//to prevent null-names making the mob unclickable
 	return
 
-//gets ID card object from special clothes slot or null.
-/mob/living/carbon/human/proc/get_idcard()
+//gets ID card object from special clothes slot or, if applicable, hands as well
+/mob/living/carbon/human/proc/get_idcard(var/check_hands = FALSE)
 	var/obj/item/weapon/card/id/id = wear_id
 	var/obj/item/device/pda/pda = wear_id
 	if(istype(pda) && pda.id)
 		id = pda.id
+		
+	if(check_hands)
+		if(istype(get_active_hand(), /obj/item/weapon/card/id))
+			id = get_active_hand()
+		else if(istype(get_inactive_hand(), /obj/item/weapon/card/id))
+			id = get_inactive_hand()					
+
 	if(istype(id))
 		return id
 
@@ -1981,6 +1988,12 @@
 		var/obj/item/weapon/card/id/id = wear_id
 		if(istype(id) && id.is_untrackable())
 			return 0
+	if(wear_pda)
+		var/obj/item/device/pda/pda = wear_pda
+		if(istype(pda))
+			var/obj/item/weapon/card/id/id = pda.id
+			if(istype(id) && id.is_untrackable())
+				return 0		
 	if(istype(head, /obj/item/clothing/head))
 		var/obj/item/clothing/head/hat = head
 		if(hat.blockTracking)
@@ -1996,6 +2009,8 @@
 
 	if(wear_id)
 		. |= wear_id.GetAccess()
+	if(wear_pda)
+		. |= wear_pda.GetAccess()
 	if(istype(w_uniform, /obj/item/clothing/under))
 		var/obj/item/clothing/under/U = w_uniform
 		if(U.accessories)

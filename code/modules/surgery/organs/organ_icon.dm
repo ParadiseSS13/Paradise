@@ -159,11 +159,11 @@ var/global/list/limb_icon_cache = list()
 				gender = "f"
 			else
 				gender = "m"
-		new_icon_state = "[icon_name][gender ? "_[gender]" : ""]"
-
 		if(limb_name == "head")
 			var/obj/item/organ/external/head/head_organ = src
 			head_organ.handle_alt_icon()
+
+		new_icon_state = "[icon_name][gender ? "_[gender]" : ""]"
 
 		if(skeletal)
 			icon_file = 'icons/mob/human_races/r_skeleton.dmi'

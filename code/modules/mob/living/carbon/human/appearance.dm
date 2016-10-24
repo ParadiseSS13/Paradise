@@ -80,13 +80,13 @@
 
 		if(head_organ.alt_head && head_organ.alt_head != "None")
 			var/datum/sprite_accessory/body_markings/head/H = marking_styles_list[marking_style]
-			if(marking.name != "None" && (!H.heads_allowed || !(head_organ.alt_head in H.heads_allowed)))
+			if(marking.name != "None" && (!H.heads_allowed || (!("All" in H.heads_allowed) && !(head_organ.alt_head in H.heads_allowed))))
 				return
 		else
 			if(!head_organ.alt_head || head_organ.alt_head == "None")
 				head_organ.alt_head = "None"
 				var/datum/sprite_accessory/body_markings/head/H = marking_styles_list[marking_style]
-				if(H.heads_allowed )
+				if(H.heads_allowed && !("All" in H.heads_allowed))
 					return
 
 	if(location == "tail" && marking.name != "None")
@@ -450,7 +450,7 @@
 				if(!(S.models_allowed && (robohead.company in S.models_allowed))) //Make sure they don't get markings incompatible with their head.
 					continue
 			else if(H.alt_head && H.alt_head != "None") //If the user's got an alt head, validate markings for that head.
-				if(!("All" in M.heads_allowed) && !(H.alt_head in M.heads_allowed))
+				if(!M.heads_allowed || (!("All" in M.heads_allowed) && !(H.alt_head in M.heads_allowed)))
 					continue
 			else
 				if(M.heads_allowed && !("All" in M.heads_allowed))
