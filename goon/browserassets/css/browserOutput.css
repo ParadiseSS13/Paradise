@@ -362,3 +362,8 @@ h1.alert, h2.alert			{color: #000000;}
 /* HELPER CLASSES */
 .text-normal {font-weight: normal; font-style: normal;}
 .hidden {display: none; visibility: hidden;}
+
+/* MEGAFAUNA */
+.colossus				{color: #7F282A; font-size: 5;}
+.hierophant				{color: #660099; font-weight: bold; font-size: 4;}
+.hierophant_warning		{color: #660099; font-weight: bold; font-style: italic;}

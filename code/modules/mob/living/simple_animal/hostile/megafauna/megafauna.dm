@@ -1,7 +1,7 @@
 #define MEDAL_PREFIX "Boss"
 
 /mob/living/simple_animal/hostile/megafauna
-	name = "boss of this gym"
+	name = "megafauna"
 	desc = "Attack the weak point for massive damage."
 	health = 1000
 	maxHealth = 1000

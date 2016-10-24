@@ -2,10 +2,16 @@
 
 //this item is intended to give the effect of entering the mine, so that light gradually fades
 /obj/effect/light_emitter
-	name = "Light-emtter"
+	name = "Light emtter"
 	anchored = 1
+	invisibility = 101
 	unacidable = 1
-	light_range = 8
+	var/set_light = 8
+	var/set_cap = 0
+	
+/obj/effect/light_emitter/New()
+	..()
+	set_light(set_light, set_cap)
 
 /**********************Miner Lockers**************************/
 

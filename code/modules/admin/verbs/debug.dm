@@ -1506,8 +1506,8 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		var/datum/map_template/ruin/template = landmark.ruin_template
 		admin_forcemove(usr, get_turf(landmark))
 		
-		usr << "<span class='name'>[template.name]</span>"
-		usr << "<span class='italics'>[template.description]</span>"
+		to_chat(usr, "<span class='name'>[template.name]</span>")
+		to_chat(usr, "<span class='italics'>[template.description]</span>")
 		
 		log_admin("[key_name(usr)] jumped to ruin [ruinname]")
 		if(!isobserver(usr))
