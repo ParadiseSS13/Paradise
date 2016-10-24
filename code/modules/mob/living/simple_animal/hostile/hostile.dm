@@ -42,6 +42,8 @@
 	/obj/structure/rack,
 	/obj/structure/barricade) //turned into a typecache in New()
 	var/atom/targets_from = null //all range/attack/etc. calculations should be done from this atom, defaults to the mob itself, useful for Vehicles and such
+	var/list/emote_taunt = list()
+	var/taunt_chance = 0
 	
 /mob/living/simple_animal/hostile/New()
 	..()
@@ -78,6 +80,19 @@
 			if(AIShouldSleep(possible_targets))	// we try to acquire a new one
 				AIStatus = AI_IDLE				// otherwise we go idle
 	return 1
+	
+/mob/living/simple_animal/hostile/attacked_by(obj/item/I, mob/living/user)
+	if(stat == CONSCIOUS && !target && AIStatus != AI_OFF && !client && user)
+		FindTarget(list(user), 1)
+	return ..()
+
+/mob/living/simple_animal/hostile/bullet_act(obj/item/projectile/P)
+	if(stat == CONSCIOUS && !target && AIStatus != AI_OFF && !client)
+		if(P.firer && get_dist(src, P.firer) <= aggro_vision_range)
+			FindTarget(list(P.firer), 1)
+		Goto(P.starting, move_to_delay, 3)
+	return ..()	
+	
 //////////////HOSTILE MOB TARGETTING AND AGGRESSION////////////
 
 
@@ -97,46 +112,57 @@
 		. += Objects
 
 /mob/living/simple_animal/hostile/proc/FindTarget(var/list/possible_targets, var/HasTargetsList = 0)//Step 2, filter down possible targets to things we actually care about
-	var/list/Targets = list()
+	. = list()
 	if(!HasTargetsList)
 		possible_targets = ListTargets()
-	for(var/atom/A in possible_targets)
+	for(var/pos_targ in possible_targets)
+		var/atom/A = pos_targ
 		if(Found(A))//Just in case people want to override targetting
-			Targets = list(A)
+			. = list(A)
 			break
 		if(CanAttack(A))//Can we attack it?
-			Targets += A
+			. += A
 			continue
-	var/Target = PickTarget(Targets)
+	var/Target = PickTarget(.)
 	GiveTarget(Target)
 	return Target //We now have a target
+	
+/mob/living/simple_animal/hostile/proc/PossibleThreats()
+	. = list()
+	for(var/pos_targ in ListTargets())
+		var/atom/A = pos_targ
+		if(Found(A))
+			. = list(A)
+			break
+		if(CanAttack(A))
+			. += A
+			continue
 
 /mob/living/simple_animal/hostile/proc/Found(var/atom/A)//This is here as a potential override to pick a specific target if available
 	return
 
-/mob/living/simple_animal/hostile/proc/PickTarget(var/list/Targets)//Step 3, pick amongst the possible, attackable targets
-	if(!Targets.len)//We didnt find nothin!
-		return
+/mob/living/simple_animal/hostile/proc/PickTarget(list/Targets)//Step 3, pick amongst the possible, attackable targets
 	if(target != null)//If we already have a target, but are told to pick again, calculate the lowest distance between all possible, and pick from the lowest distance targets
-		for(var/atom/A in Targets)
+		for(var/pos_targ in Targets)
+			var/atom/A = pos_targ
 			var/target_dist = get_dist(targets_from, target)
 			var/possible_target_distance = get_dist(targets_from, A)
 			if(target_dist < possible_target_distance)
 				Targets -= A
-	var/chosen_target = safepick(Targets)//Pick the remaining targets (if any) at random
+	if(!Targets.len)//We didnt find nothin!
+		return
+	var/chosen_target = pick(Targets)//Pick the remaining targets (if any) at random
 	return chosen_target
 
 /mob/living/simple_animal/hostile/CanAttack(var/atom/the_target)//Can we actually attack a possible target?
+	if(!the_target)
+		return 0
 	if(see_invisible < the_target.invisibility)//Target's invisible to us, forget it
 		return 0
 	if(search_objects < 2)
 		if(isliving(the_target))
 			var/mob/living/L = the_target
-			var/faction_check = 0
-			for(var/F in faction)
-				if(F in L.faction)
-					faction_check = 1
-					break
+			var/faction_check = faction_check(L)
 			if(robust_searching)
 				if(L.stat > stat_attack || L.stat != stat_attack && stat_exclusive == 1)
 					return 0
@@ -177,9 +203,10 @@
 			return 1
 	return 0
 
-/mob/living/simple_animal/hostile/proc/GiveTarget(var/new_target)//Step 4, give us our selected target
+/mob/living/simple_animal/hostile/proc/GiveTarget(new_target)//Step 4, give us our selected target
 	target = new_target
 	if(target != null)
+		Aggro()
 		return 1
 
 /mob/living/simple_animal/hostile/proc/MoveToTarget(var/list/possible_targets)//Step 5, handle movement between us and our target
@@ -192,41 +219,41 @@
 			LoseTarget()
 			return 0
 		var/target_distance = get_dist(targets_from,target)
-		if(ranged)//We ranged? Shoot at em
+		if(ranged) //We ranged? Shoot at em
 			if(!target.Adjacent(targets_from) && ranged_cooldown <= world.time) //But make sure they're not in range for a melee attack and our range attack is off cooldown
 				OpenFire(target)
-		if(retreat_distance != null)//If we have a retreat distance, check if we need to run from our target
-			if(target_distance <= retreat_distance)//If target's closer than our retreat distance, run
+		if(retreat_distance != null) //If we have a retreat distance, check if we need to run from our target
+			if(target_distance <= retreat_distance) //If target's closer than our retreat distance, run
 				walk_away(src,target,retreat_distance,move_to_delay)
 			else
-				Goto(target,move_to_delay,minimum_distance)//Otherwise, get to our minimum distance so we chase them
+				Goto(target,move_to_delay,minimum_distance) //Otherwise, get to our minimum distance so we chase them
 		else
 			Goto(target,move_to_delay,minimum_distance)
 		if(target)
 			if(targets_from && isturf(targets_from.loc) && target.Adjacent(targets_from)) //If they're next to us, attack
 				AttackingTarget()
 			return 1
-		return 1
+		return 0
 	if(environment_smash)
-		if(target.loc != null && get_dist(targets_from, target.loc) <= vision_range)//We can't see our target, but he's in our vision range still
+		if(target.loc != null && get_dist(targets_from, target.loc) <= vision_range) //We can't see our target, but he's in our vision range still
 			if(ranged_ignores_vision && ranged_cooldown <= world.time) //we can't see our target... but we can fire at them!
 				OpenFire(target)
-			if(environment_smash >= 2)//If we're capable of smashing through walls, forget about vision completely after finding our target
+			if(environment_smash >= 2) //If we're capable of smashing through walls, forget about vision completely after finding our target
 				Goto(target,move_to_delay,minimum_distance)
 				FindHidden()
 				return 1
 			else
 				if(FindHidden())
 					return 1
-	LostTarget()
+	LoseTarget()
 	return 0
 
-/mob/living/simple_animal/hostile/proc/Goto(var/target, var/delay, var/minimum_distance)
+/mob/living/simple_animal/hostile/proc/Goto(target, delay, minimum_distance)
 	walk_to(src, target, minimum_distance, delay)
 
 /mob/living/simple_animal/hostile/adjustHealth(damage)
-	..(damage)
-	if(!stat && search_objects < 3)//Not unconscious, and we don't ignore mobs
+	. = ..()
+	if(!ckey && !stat && search_objects < 3 && damage > 0)//Not unconscious, and we don't ignore mobs
 		if(search_objects)//Turn off item searching and ignore whatever item we were looking at, we're more concerned with fight or flight
 			search_objects = 0
 			target = null
@@ -241,26 +268,25 @@
 
 /mob/living/simple_animal/hostile/proc/Aggro()
 	vision_range = aggro_vision_range
+	if(target && emote_taunt.len && prob(taunt_chance))
+		emote("me", 1, "[pick(emote_taunt)] at [target].")
+		taunt_chance = max(taunt_chance-7,2)
 
 /mob/living/simple_animal/hostile/proc/LoseAggro()
 	stop_automated_movement = 0
 	vision_range = idle_vision_range
+	taunt_chance = initial(taunt_chance)
 
 /mob/living/simple_animal/hostile/proc/LoseTarget()
 	target = null
 	walk(src, 0)
 	LoseAggro()
 
-/mob/living/simple_animal/hostile/proc/LostTarget()
-	walk(src, 0)
-	LoseAggro()
-
 //////////////END HOSTILE MOB TARGETTING AND AGGRESSION////////////
 
 /mob/living/simple_animal/hostile/death(gibbed)
-	LoseAggro()
-	..()
-	walk(src, 0)
+	LoseTarget()
+	..(gibbed)
 	
 /mob/living/simple_animal/hostile/proc/summon_backup(distance)
 	do_alert_animation(src)
@@ -275,7 +301,7 @@
 
 /mob/living/simple_animal/hostile/proc/OpenFire(atom/A)
 	if(check_friendly_fire)
-		for(var/turf/T in getline(src, target)) // Not 100% reliable but this is faster than simulating actual trajectory
+		for(var/turf/T in getline(src,A)) // Not 100% reliable but this is faster than simulating actual trajectory
 			for(var/mob/living/L in T)
 				if(L == src || L == A)
 					continue
@@ -293,7 +319,6 @@
 	else
 		Shoot(A)
 	ranged_cooldown = world.time + ranged_cooldown_time
-	return
 
 /mob/living/simple_animal/hostile/proc/Shoot(atom/targeted_atom)
 	if(targeted_atom == targets_from.loc || targeted_atom == targets_from)
@@ -304,18 +329,19 @@
 		var/obj/item/ammo_casing/casing = new casingtype(startloc)
 		playsound(src, projectilesound, 100, 1)
 		casing.fire(targeted_atom, src, zone_override = ran_zone())
-	else
-		var/obj/item/projectile/A = new projectiletype(loc)
+	else if(projectiletype)
+		var/obj/item/projectile/P = new projectiletype(startloc)
 		playsound(src, projectilesound, 100, 1)
-		A.current = target
-		A.firer = src
-		A.yo = targeted_atom.y - startloc.y
-		A.xo = targeted_atom.x - startloc.x
-		if(AIStatus == AI_OFF)//Don't want mindless mobs to have their movement screwed up firing in space
-			newtonian_move(get_dir(target, targets_from))
-		A.original = target
-		A.fire()
-		return A
+		P.current = startloc
+		P.starting = startloc
+		P.firer = src
+		P.yo = targeted_atom.y - startloc.y
+		P.xo = targeted_atom.x - startloc.x
+		if(AIStatus != AI_ON)//Don't want mindless mobs to have their movement screwed up firing in space
+			newtonian_move(get_dir(targeted_atom, targets_from))
+		P.original = targeted_atom
+		P.fire()
+		return P
 
 /mob/living/simple_animal/hostile/proc/DestroySurroundings()
 	if(environment_smash)
@@ -325,7 +351,8 @@
 			if(istype(T, /turf/simulated/wall) || istype(T, /turf/simulated/mineral))
 				if(T.Adjacent(targets_from))
 					T.attack_animal(src)
-			for(var/atom/A in T)
+			for(var/a in T)
+				var/atom/A = a
 				if(!A.Adjacent(targets_from))
 					continue
 				if(is_type_in_typecache(A, environment_target_typecache))
@@ -348,7 +375,7 @@
 			A.attack_animal(src)
 		return 1
 
-/mob/living/simple_animal/hostile/RangedAttack(var/atom/A, var/params) //Player firing
+/mob/living/simple_animal/hostile/RangedAttack(atom/A, params) //Player firing
 	if(ranged && ranged_cooldown <= world.time)
 		target = A
 		OpenFire(A)

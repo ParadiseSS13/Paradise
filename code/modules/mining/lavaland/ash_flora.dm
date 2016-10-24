@@ -149,7 +149,7 @@
 			H.visible_message("<span class='danger'>[H] steps on a cactus!</span>", \
 				"<span class='userdanger'>You step on a cactus!</span>")
 
-/obj/item/weapon/reagent_containers/food/snacks/ash_flora/
+/obj/item/weapon/reagent_containers/food/snacks/ash_flora
 	name = "mushroom shavings"
 	desc = "Some shavings from a tall mushroom. With enough, might serve as a bowl."
 	icon = 'icons/obj/lavaland/ash_flora.dmi'
@@ -162,9 +162,7 @@
 	pixel_x = rand(-4, 4)
 	pixel_y = rand(-4, 4)
 
-
 /obj/item/weapon/reagent_containers/food/snacks/ash_flora/shavings //for actual crafting
-
 
 /obj/item/weapon/reagent_containers/food/snacks/ash_flora/mushroom_leaf
 	name = "mushroom leaf"
@@ -172,14 +170,11 @@
 	list_reagents = list("nutriment" = 3, "vitfro" = 2, "nicotine" = 2)
 	icon_state = "mushroom_leaf"
 
-
-
 /obj/item/weapon/reagent_containers/food/snacks/ash_flora/mushroom_cap
 	name = "mushroom cap"
 	desc = "The cap of a large mushroom."
 	list_reagents = list("mindbreaker" = 2, "entpoly" = 4, "mushroomhallucinogen" = 2)
 	icon_state = "mushroom_cap"
-
 
 /obj/item/weapon/reagent_containers/food/snacks/ash_flora/mushroom_stem
 	name = "mushroom stem"
@@ -193,7 +188,6 @@
 	list_reagents = list("vitamin" = 2, "nutriment" = 2, "vitfro" = 4)
 	desc = "A cactus fruit covered in a thick, reddish skin. And some ash."
 	icon_state = "cactus_fruit"
-
 
 /obj/item/mushroom_bowl
 	name = "mushroom bowl"

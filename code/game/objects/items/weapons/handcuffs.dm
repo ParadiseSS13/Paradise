@@ -62,6 +62,15 @@
 		target.update_handcuffed()
 		return
 
+/obj/item/weapon/restraints/handcuffs/sinew
+	name = "sinew restraints"
+	desc = "A pair of restraints fashioned from long strands of flesh."
+	icon = 'icons/obj/mining.dmi'
+	icon_state = "sinewcuff"
+	item_state = "sinewcuff"
+	breakouttime = 300 //Deciseconds = 30s
+	cuffsound = 'sound/weapons/cablecuff.ogg'
+
 /obj/item/weapon/restraints/handcuffs/cable
 	name = "cable restraints"
 	desc = "Looks like some cables tied together. Could be used to tie something up."

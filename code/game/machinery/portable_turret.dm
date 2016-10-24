@@ -964,22 +964,33 @@ var/list/turret_icons
 	
 // Syndicate turrets
 /obj/machinery/porta_turret/syndicate
-	installation = null
-	always_up = 1
-	use_power = 0
-	has_cover = 0
-	scan_range = 9
 	projectile = /obj/item/projectile/bullet
 	eprojectile = /obj/item/projectile/bullet
 	shot_sound = 'sound/weapons/Gunshot.ogg'
 	eshot_sound = 'sound/weapons/Gunshot.ogg'
+	
 	icon_state = "syndieturret0"
 	var/icon_state_initial = "syndieturret0"
 	var/icon_state_active = "syndieturret1"
 	var/icon_state_destroyed = "syndieturret2"
+	
+	installation = null
+	always_up = 1
+	use_power = 0
+	has_cover = 0
+	raised = 1
+	scan_range = 9	
+	
 	faction = "syndicate"
 	emp_vulnerable = 0
-	raised = 1
+	
+	check_arrest = 0
+	check_records = 0
+	check_weapons = 0
+	check_access = 0
+	check_anomalies = 1	
+	check_synth	= 1
+	ailock = 1
 	
 /obj/machinery/porta_turret/syndicate/New()
 	..()

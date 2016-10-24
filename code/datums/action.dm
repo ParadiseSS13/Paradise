@@ -323,6 +323,11 @@
 	..()
 	name = "Toggle [target.name]"
 	button.name = name
+	
+/datum/action/item_action/organ_action/use/New(Target)
+	..()
+	name = "Use [target.name]"
+	button.name = name
 
 // for clothing accessories like holsters
 /datum/action/item_action/accessory

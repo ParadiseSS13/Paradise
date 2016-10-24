@@ -91,10 +91,6 @@
 	..()
 	icon_state = initial(icon_state)
 
-/mob/living/simple_animal/hostile/mimic/crate/LostTarget()
-	..()
-	icon_state = initial(icon_state)
-
 /mob/living/simple_animal/hostile/mimic/crate/death(gibbed)
 	var/obj/structure/closet/crate/C = new(get_turf(src))
 	// Put loot in crate

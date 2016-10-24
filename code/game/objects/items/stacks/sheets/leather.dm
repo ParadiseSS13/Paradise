@@ -110,6 +110,14 @@ var/global/list/datum/stack_recipe/human_recipes = list( \
 	icon_state = "sinew"
 	origin_tech = "biotech=4"	
 	
+var/global/list/datum/stack_recipe/sinew_recipes = list ( \
+	new/datum/stack_recipe("sinew restraints", /obj/item/weapon/restraints/handcuffs/sinew, 1, on_floor = 1), \
+	)
+
+/obj/item/stack/sheet/sinew/New(var/loc, var/amount=null)
+	recipes = sinew_recipes
+	return ..()
+	
 /obj/item/stack/sheet/animalhide/goliath_hide
 	name = "goliath hide plates"
 	desc = "Pieces of a goliath's rocky hide, these might be able to make your suit a bit more durable to attack from the local fauna."
