@@ -73,7 +73,7 @@ Difficulty: Hard
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/New()
 	..()
-	internal = new/obj/item/device/gps/internal/hierophant(src)
+	internal_gps = new/obj/item/device/gps/internal/hierophant(src)
 	spawned_rune = new(loc)
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/Life()

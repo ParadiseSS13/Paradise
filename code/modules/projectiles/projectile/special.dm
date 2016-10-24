@@ -300,6 +300,7 @@ obj/item/projectile/kinetic/New()
 	damage_type = BRUTE
 	damage = 5
 	range = 3
+	dismemberment = 20
 
 /obj/item/projectile/plasma/New()
 	var/turf/proj_turf = get_turf(src)

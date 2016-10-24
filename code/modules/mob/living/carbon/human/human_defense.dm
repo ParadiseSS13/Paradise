@@ -38,6 +38,7 @@ emp_act
 
 	var/obj/item/organ/external/organ = get_organ(check_zone(def_zone))
 	if(isnull(organ))
+		. = bullet_act(P, "chest") //act on chest instead
 		return
 
 	//Shrapnel
@@ -56,6 +57,18 @@ emp_act
 	organ.add_autopsy_data(P.name, P.damage) // Add the bullet's name to the autopsy data
 
 	return (..(P , def_zone))
+	
+/mob/living/carbon/human/check_projectile_dismemberment(obj/item/projectile/P, def_zone)
+	var/obj/item/organ/external/affecting = get_organ(check_zone(def_zone))
+	if(affecting && !affecting.cannot_amputate && affecting.get_damage() >= (affecting.max_damage - P.dismemberment))
+		var/damtype = DROPLIMB_EDGE
+		switch(P.damage_type)
+			if(BRUTE)
+				damtype = DROPLIMB_BLUNT
+			if(BURN)
+				damtype = DROPLIMB_BURN
+			
+		affecting.droplimb(FALSE, damtype)
 
 /mob/living/carbon/human/getarmor(var/def_zone, var/type)
 	var/armorval = 0

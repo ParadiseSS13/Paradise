@@ -54,6 +54,7 @@
 
 /obj/effect/overlay/temp/guardian/phase/out
 	icon_state = "phaseout"
+	
 
 /obj/effect/overlay/temp/emp
 	name = "emp sparks"
@@ -99,3 +100,74 @@
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "admin"
 	layer = 4.1
+
+	
+/obj/effect/overlay/temp/decoy
+	desc = "It's a decoy!"
+	duration = 15
+
+/obj/effect/overlay/temp/decoy/New(loc, atom/mimiced_atom)
+	..()
+	alpha = initial(alpha)
+	if(mimiced_atom)
+		name = mimiced_atom.name
+		appearance = mimiced_atom.appearance
+		dir = mimiced_atom.dir
+		mouse_opacity = 0
+
+/obj/effect/overlay/temp/decoy/fading/New(loc, atom/mimiced_atom)
+	..()
+	animate(src, alpha = 0, time = duration)
+	
+
+/obj/effect/overlay/temp/dir_setting
+	randomdir = FALSE
+
+/obj/effect/overlay/temp/dir_setting/New(loc, set_dir)
+	if(set_dir)
+		dir = set_dir
+	..()
+
+/obj/effect/overlay/temp/dir_setting/bloodsplatter
+	icon = 'icons/effects/blood.dmi'
+	duration = 5
+	randomdir = FALSE
+	layer = MOB_LAYER - 0.1
+	var/splatter_type = "splatter"
+
+/obj/effect/overlay/temp/dir_setting/bloodsplatter/New(loc, set_dir)
+	if(set_dir in diagonals)
+		icon_state = "[splatter_type][pick(1, 2, 6)]"
+	else
+		icon_state = "[splatter_type][pick(3, 4, 5)]"
+	..()
+	var/target_pixel_x = 0
+	var/target_pixel_y = 0
+	switch(set_dir)
+		if(NORTH)
+			target_pixel_y = 16
+		if(SOUTH)
+			target_pixel_y = -16
+			layer = MOB_LAYER + 0.1
+		if(EAST)
+			target_pixel_x = 16
+		if(WEST)
+			target_pixel_x = -16
+		if(NORTHEAST)
+			target_pixel_x = 16
+			target_pixel_y = 16
+		if(NORTHWEST)
+			target_pixel_x = -16
+			target_pixel_y = 16
+		if(SOUTHEAST)
+			target_pixel_x = 16
+			target_pixel_y = -16
+			layer = MOB_LAYER + 0.1
+		if(SOUTHWEST)
+			target_pixel_x = -16
+			target_pixel_y = -16
+			layer = MOB_LAYER + 0.1
+	animate(src, pixel_x = target_pixel_x, pixel_y = target_pixel_y, alpha = 0, time = duration)
+
+/obj/effect/overlay/temp/dir_setting/bloodsplatter/xenosplatter
+	splatter_type = "xsplatter"

@@ -3,6 +3,9 @@
 	var/targeted_by = null			// Used so cleanbots can't claim a mess.
 	var/noscoop = 0   //if it has this, don't let it be scooped up
 	var/noclear = 0    //if it has this, don't delete it when its' scooped up
+	
+/obj/effect/decal/cleanable/proc/can_bloodcrawl_in()
+	return FALSE
 
 /obj/effect/decal/cleanable/New()
 	if(random_icon_states && length(src.random_icon_states) > 0)

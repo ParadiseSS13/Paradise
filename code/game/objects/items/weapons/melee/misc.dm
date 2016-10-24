@@ -35,7 +35,7 @@
 	edge = 1
 	origin_tech = "combat=5"
 	attack_verb = list("lunged at", "stabbed")
-	hitsound = 'sound/weapons/slash.ogg'
+	hitsound = 'sound/weapons/rapierhit.ogg'
 	materials = list(MAT_METAL = 1000)
 
 /obj/item/weapon/melee/rapier/hit_reaction(mob/living/carbon/human/owner, attack_text, final_block_chance, damage, attack_type)

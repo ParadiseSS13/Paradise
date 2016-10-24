@@ -1833,3 +1833,5 @@ var/global/list/g_fancy_list_of_types = null
 	C.color = flash_color
 	spawn(0)
 		animate(C, color = initial(C.color), time = flash_time)
+		
+#define RANDOM_COLOUR (rgb(rand(0,255),rand(0,255),rand(0,255)))

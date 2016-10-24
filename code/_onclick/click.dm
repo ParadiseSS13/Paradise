@@ -333,7 +333,7 @@
 		else
 			is_buckled = 0*/
 
-	if( stat || buckled || !A || !x || !y || !A.x || !A.y ) return
+	if( !istype(A) || stat || buckled || !A || !x || !y || !A.x || !A.y ) return
 	var/dx = A.x - x
 	var/dy = A.y - y
 	if(!dx && !dy) return

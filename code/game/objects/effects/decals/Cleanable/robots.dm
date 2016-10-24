@@ -11,6 +11,9 @@
 
 /obj/effect/decal/cleanable/blood/gibs/robot/dry()	//pieces of robots do not dry up like
 	return
+	
+/obj/effect/decal/cleanable/blood/gibs/robot/can_bloodcrawl_in()
+	return FALSE
 
 /obj/effect/decal/cleanable/blood/gibs/robot/streak(var/list/directions)
 	spawn (0)
@@ -41,6 +44,9 @@
 	name = "motor oil"
 	desc = "It's black and greasy. Looks like Beepsky made another mess."
 	basecolor="#030303"
+
+/obj/effect/decal/cleanable/blood/oil/can_bloodcrawl_in()
+	return FALSE
 
 /obj/effect/decal/cleanable/blood/oil/dry()
 	return

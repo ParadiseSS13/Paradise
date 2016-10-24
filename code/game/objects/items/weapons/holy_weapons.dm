@@ -189,7 +189,7 @@
 	sharp = 1
 	edge = 1
 	attack_verb = list("chopped", "sliced", "cut", "reaped")
-	hitsound = 'sound/weapons/bladeslice.ogg'
+	hitsound = 'sound/weapons/rapierhit.ogg'
 
 /obj/item/weapon/nullrod/scythe/vibro
 	name = "high frequency blade"
@@ -197,6 +197,14 @@
 	item_state = "hfrequency1"
 	desc = "Bad references are the DNA of the soul."
 	attack_verb = list("chopped", "sliced", "cut", "zandatsu'd")
+	
+/obj/item/weapon/nullrod/scythe/spellblade
+	icon_state = "spellblade"
+	item_state = "spellblade"
+	icon = 'icons/obj/guns/magic.dmi'
+	name = "dormant spellblade"
+	desc = "The blade grants the wielder nearly limitless power...if they can figure out how to turn it on, that is."
+	hitsound = 'sound/weapons/rapierhit.ogg'
 
 /obj/item/weapon/nullrod/scythe/talking
 	name = "possessed blade"
@@ -204,7 +212,7 @@
 	item_state = "talking_sword"
 	desc = "When the station falls into chaos, it's nice to have a friend by your side."
 	attack_verb = list("chopped", "sliced", "cut")
-	hitsound = 'sound/weapons/bladeslice.ogg'
+	hitsound = 'sound/weapons/rapierhit.ogg'
 	var/possessed = FALSE
 
 /obj/item/weapon/nullrod/scythe/talking/attack_self(mob/living/user)
