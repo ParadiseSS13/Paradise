@@ -75,7 +75,7 @@
 								qdel(trail)
 
 				if(projectile.loc in range(target.loc,proj_trigger_range))
-					projectile.perform(list(target))
+					projectile.perform(list(target), user = user)
 					break
 
 				current_loc = projectile.loc

@@ -8,7 +8,7 @@
 	var/sound1 = "sound/weapons/ZapBang.ogg"
 	var/sound2 = "sound/weapons/ZapBang.ogg"	
 	
-/obj/effect/proc_holder/spell/targeted/area_teleport/perform(list/targets, recharge = 1)
+/obj/effect/proc_holder/spell/targeted/area_teleport/perform(list/targets, recharge = 1, mob/living/user = usr)
 	var/thearea = before_cast(targets)
 	if(!thearea || !cast_check(1))
 		revert_cast()

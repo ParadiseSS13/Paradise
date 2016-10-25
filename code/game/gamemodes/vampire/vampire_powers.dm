@@ -117,7 +117,7 @@
 		revert_cast(user)
 		return
 
-	perform(list(T))
+	perform(list(T), user = user)
 
 /obj/effect/proc_holder/spell/vampire/self/choose_targets(mob/user = usr)
 	perform(list(user))
@@ -131,7 +131,7 @@
 		revert_cast(user)
 		return
 
-	perform(targets)
+	perform(targets, user = user)
 
 /datum/vampire_passive
 	var/gain_desc
@@ -387,7 +387,7 @@
 	for(var/i = locs.len + 1 to num_bats)
 		locs += user.loc
 
-	perform(locs)
+	perform(locs, user = user)
 
 /obj/effect/proc_holder/spell/vampire/bats/cast(list/targets, mob/user = usr)
 	for(var/T in targets)
@@ -492,7 +492,7 @@
 		to_chat(user, "\red You cannot find darkness to step to.")
 		return
 
-	perform(turfs)
+	perform(turfs, user = user)
 
 /obj/effect/proc_holder/spell/vampire/shadowstep/cast(list/targets, mob/user = usr)
 	if(usr.buckled)

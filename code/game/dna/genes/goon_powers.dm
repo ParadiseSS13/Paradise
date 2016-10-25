@@ -296,7 +296,7 @@
 		revert_cast(user)
 		return
 
-	perform(targets)
+	perform(targets, user = user)
 
 /obj/effect/proc_holder/spell/targeted/eat/cast(list/targets, mob/user = usr)
 	if(!targets.len)
@@ -540,7 +540,7 @@
 		revert_cast(user)
 		return
 
-	perform(targets)
+	perform(targets, user = user)
 
 /obj/effect/proc_holder/spell/targeted/empath/cast(list/targets, mob/user = usr)
 	if(!ishuman(user))	return

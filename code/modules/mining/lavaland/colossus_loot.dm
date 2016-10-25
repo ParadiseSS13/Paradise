@@ -483,11 +483,12 @@
 	if(!isfloorturf(user.loc))
 		return
 	var/datum/mind/target_mind = user.mind
+	var/mob/living/current = user // Saving the current mob here to gib as usr seems to get confused after the mind's been transferred, due to delay in transfer_to
 	for(var/i in user)
 		if(istype(i, /obj/structure/closet/stasis))
 			var/obj/structure/closet/stasis/S = i
 			S.dump_contents(0)
 			qdel(S)
 			break
-	user.gib()
+	current.gib()
 	target_mind.RemoveSpell(/obj/effect/proc_holder/spell/targeted/exit_possession)

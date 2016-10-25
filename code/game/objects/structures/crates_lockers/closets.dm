@@ -49,30 +49,13 @@
 	return 1
 
 /obj/structure/closet/proc/dump_contents()
-	//Cham Projector Exception
-	for(var/obj/effect/dummy/chameleon/AD in src)
-		AD.forceMove(loc)
-
-	for(var/obj/I in src)
-		I.forceMove(loc)
-
-	for(var/mob/M in src)
-		moveMob(M, loc)
-		if(M.client)
-			M.client.eye = M.client.mob
-			M.client.perspective = MOB_PERSPECTIVE
-
-/obj/structure/closet/proc/moveMob(var/mob/M, var/atom/destination)
-	loc.Exited(M)
-	M.loc = destination
-	if(isturf(loc))
-		loc.Entered(M, src, ignoreRest = 1)
-	else
-		loc.Entered(M, src)
-	for(var/atom/movable/AM in loc)
-		if(istype(AM, /obj/item))
-			continue
-		AM.Crossed(M)
+	var/turf/T = get_turf(src)
+	for(var/atom/movable/AM in src)
+		AM.forceMove(T)
+		if(throwing) // you keep some momentum when getting out of a thrown closet
+			step(AM, dir)
+	if(throwing)
+		throwing = 0
 
 /obj/structure/closet/proc/open()
 	if(src.opened)
@@ -126,7 +109,7 @@
 			M.client.perspective = EYE_PERSPECTIVE
 			M.client.eye = src
 
-		moveMob(M, src)
+		M.forceMove(src)
 		itemcount++
 
 	src.icon_state = src.icon_closed

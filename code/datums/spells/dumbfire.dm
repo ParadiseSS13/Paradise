@@ -28,7 +28,7 @@
 		if(new_turf.density)
 			break
 		T = new_turf
-	perform(list(T))
+	perform(list(T), user = user)
 
 /obj/effect/proc_holder/spell/dumbfire/cast(list/targets, mob/user = usr)
 

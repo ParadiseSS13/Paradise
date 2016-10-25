@@ -375,7 +375,7 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 		revert_cast(user)
 		return
 
-	perform(targets)
+	perform(targets, user=user)
 
 	return
 
@@ -390,7 +390,7 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 		revert_cast()
 		return
 
-	perform(targets)
+	perform(targets, user=user)
 
 	return
 

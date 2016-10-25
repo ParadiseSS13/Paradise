@@ -15,7 +15,7 @@
 /obj/effect/proc_holder/spell/bloodcrawl/choose_targets(mob/user = usr)
 	for(var/obj/effect/decal/cleanable/target in range(range, get_turf(user)))
 		if(target.can_bloodcrawl_in())
-			perform(target)
+			perform(target, user = user)
 			return
 	revert_cast()
 	to_chat(user, "<span class='warning'>There must be a nearby source of blood!</span>")
