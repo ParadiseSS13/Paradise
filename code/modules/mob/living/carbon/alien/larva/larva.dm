@@ -24,7 +24,7 @@
 	regenerate_icons()
 	add_language("Xenomorph")
 	add_language("Hivemind")
-	internal_organs += new /obj/item/organ/internal/xenos/plasmavessel/larva
+	alien_organs += new /obj/item/organ/internal/xenos/plasmavessel/larva
 
 	..()
 
@@ -190,41 +190,6 @@
 				playsound(loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
 				visible_message("<span class='danger'>[M] has attempted to kick [src]!</span>", \
 						"<span class='userdanger'>[M] has attempted to kick [src]!</span>")
-	return
-
-/mob/living/carbon/alien/larva/attack_alien(mob/living/carbon/alien/humanoid/M as mob)
-	if(!ticker)
-		to_chat(M, "You cannot attack people before the game has started.")
-		return
-
-	if(istype(loc, /turf) && istype(loc.loc, /area/start))
-		to_chat(M, "No attacking people at spawn, you jackass.")
-		return
-
-	..()
-
-	switch(M.a_intent)
-
-		if(I_HELP)
-			sleeping = max(0,sleeping-5)
-			resting = 0
-			AdjustParalysis(-3)
-			AdjustStunned(-3)
-			AdjustWeakened(-3)
-			visible_message("<span class='notice'>[M.name] nuzzles [src] trying to wake it up!</span>")
-
-		else
-			if(health > 0)
-				M.do_attack_animation(src)
-				playsound(loc, 'sound/weapons/bite.ogg', 50, 1, -1)
-				var/damage = 1
-				visible_message("<span class='danger'>[M.name] bites [src]!</span>", \
-						"<span class='userdanger'>[M.name] bites [src]!</span>")
-				adjustBruteLoss(damage)
-				updatehealth()
-			else
-				to_chat(M, "<span class='warning'>[name] is too injured for that.</span>")
-	return
 
 /mob/living/carbon/alien/larva/restrained()
 	return 0

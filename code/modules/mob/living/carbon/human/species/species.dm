@@ -120,11 +120,11 @@
 	var/female_scream_sound = 'sound/goonstation/voice/female_scream.ogg'
 
 	//Default hair/headacc style vars.
-	var/default_hair = "Bald" 		//Default hair style for newly created humans unless otherwise set.
+	var/default_hair				//Default hair style for newly created humans unless otherwise set.
 	var/default_hair_colour
-	var/default_fhair = "Shaved"	//Default facial hair style for newly created humans unless otherwise set.
+	var/default_fhair				//Default facial hair style for newly created humans unless otherwise set.
 	var/default_fhair_colour
-	var/default_headacc = "None"	//Default head accessory style for newly created humans unless otherwise set.
+	var/default_headacc				//Default head accessory style for newly created humans unless otherwise set.
 	var/default_headacc_colour
 
 	//Defining lists of icon skin tones for species that have them.
