@@ -302,6 +302,3 @@
 #define BIRD_SCORE "Hierophants Killed"
 #define BOSS_SCORE "Bosses Killed"
 #define TENDRIL_CLEAR_SCORE "Tendrils Killed"
-
-//Timing controller
-#define GLOBAL_PROC	"some_magic_bullshit"
