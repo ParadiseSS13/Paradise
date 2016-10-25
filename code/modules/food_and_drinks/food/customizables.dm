@@ -79,11 +79,7 @@
 	trash = /obj/item/trash/plate
 	bitesize = 2
 	var/list/ingredients = list()
-
-	New()
-		..()
-		reagents.add_reagent("nutriment", 8)
-
+	list_reagents = list("nutriment" = 8)
 
 /obj/item/weapon/reagent_containers/food/snacks/customizable/pizza
 	name = "personal pizza"

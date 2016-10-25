@@ -293,6 +293,11 @@
 	)
 	result = /obj/item/weapon/reagent_containers/food/snacks/sliceable/bread
 
+/datum/recipe/oven/bread/make_food(obj/container)
+	var/obj/item/weapon/reagent_containers/food/snacks/sliceable/bread/being_cooked = ..(container)
+	being_cooked.reagents.del_reagent("egg")
+	return being_cooked
+
 /datum/recipe/oven/applepie
 	fruit = list("apple" = 1)
 	items = list(
@@ -377,6 +382,11 @@
 	)
 	result = /obj/item/weapon/reagent_containers/food/snacks/appletart
 
+/datum/recipe/oven/appletart/make_food(obj/container)
+	var/obj/item/weapon/reagent_containers/food/snacks/appletart/being_cooked = ..(container)
+	being_cooked.reagents.del_reagent("egg")
+	return being_cooked
+
 /datum/recipe/oven/cracker
 	reagents = list("sodiumchloride" = 1)
 	items = list(
@@ -391,6 +401,11 @@
 		/obj/item/weapon/reagent_containers/food/snacks/egg,
 	)
 	result = /obj/item/weapon/reagent_containers/food/snacks/sugarcookie
+
+/datum/recipe/oven/sugarcookie/make_food(obj/container)
+	var/obj/item/weapon/reagent_containers/food/snacks/sugarcookie/being_cooked = ..(container)
+	being_cooked.reagents.del_reagent("egg")
+	return being_cooked
 
 /datum/recipe/oven/flatbread
 	items = list(
