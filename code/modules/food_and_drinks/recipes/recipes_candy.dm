@@ -79,7 +79,7 @@
 	result = /obj/item/weapon/reagent_containers/food/snacks/candy/nougat
 
 /datum/recipe/candy/nougat/make_food(obj/container)
-	var/obj/item/weapon/reagent_containers/food/snacks/candy/nougat/being_cooked = ..(container)
+	var/obj/item/weapon/reagent_containers/food/snacks/candy/nougat/being_cooked = ..()
 	being_cooked.reagents.del_reagent("egg")
 	return being_cooked
 

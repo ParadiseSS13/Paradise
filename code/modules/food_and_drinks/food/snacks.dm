@@ -63,11 +63,11 @@
 		if(bitecount==0)
 			return
 		else if(bitecount==1)
-			to_chat(user, "\blue \The [src] was bitten by someone!")
+			to_chat(user, "<span class='notice'>[src] was bitten by someone!</span>")
 		else if(bitecount<=3)
-			to_chat(user, "\blue \The [src] was bitten [bitecount] times!")
+			to_chat(user, "<span class='notice'>[src] was bitten [bitecount] times!</span>")
 		else
-			to_chat(user, "\blue \The [src] was bitten multiple times!")
+			to_chat(user, "<span class='notice'>[src] was bitten multiple times!</span>")
 
 
 /obj/item/weapon/reagent_containers/food/snacks/attackby(obj/item/weapon/W, mob/user, params)
@@ -92,10 +92,10 @@
 			"<span class='notice'>You scoop up some [src] with \the [U]!" \
 		)
 
-		src.bitecount++
+		bitecount++
 		U.overlays.Cut()
 		var/image/I = new(U.icon, "loadedfood")
-		I.color = src.filling_color
+		I.color = filling_color
 		U.overlays += I
 
 		var/obj/item/weapon/reagent_containers/food/snacks/collected = new type
@@ -135,7 +135,7 @@
 	else if(W.w_class <= 2 && istype(src,/obj/item/weapon/reagent_containers/food/snacks/sliceable))
 		if(!iscarbon(user))
 			return 1
-		to_chat(user, "\red You slip [W] inside [src].")
+		to_chat(user, "<span class='warning'>You slip [W] inside [src].</span>")
 		user.unEquip(W)
 		if((user.client && user.s_active != src))
 			user.client.screen -= W
@@ -146,28 +146,28 @@
 	else
 		return 1
 	if( \
-			!isturf(src.loc) || \
-			!(locate(/obj/structure/table) in src.loc) && \
-			!(locate(/obj/machinery/optable) in src.loc) && \
-			!(locate(/obj/item/weapon/storage/bag/tray) in src.loc) \
+			!isturf(loc) || \
+			!(locate(/obj/structure/table) in loc) && \
+			!(locate(/obj/machinery/optable) in loc) && \
+			!(locate(/obj/item/weapon/storage/bag/tray) in loc) \
 		)
-		to_chat(user, "\red You cannot slice [src] here! You need a table or at least a tray to do it.")
+		to_chat(user, "<span class='warning'>You cannot slice [src] here! You need a table or at least a tray to do it.</span>")
 		return 1
 	var/slices_lost = 0
 	if(!inaccurate)
 		user.visible_message( \
-			"\blue [user] slices \the [src]!", \
-			"\blue You slice \the [src]!" \
+			"<span class='notice'>[user] slices [src]!</span>", \
+			"<span class='notice'>You slice [src]!</span>" \
 		)
 	else
 		user.visible_message( \
-			"\blue [user] crudely slices \the [src] with [W]!", \
-			"\blue You crudely slice \the [src] with your [W]!" \
+			"<span class='notice'>[user] crudely slices [src] with [W]!</span>", \
+			"<span class='notice'>You crudely slice [src] with your [W]</span>!" \
 		)
 		slices_lost = rand(1,min(1,round(slices_num/2)))
 	var/reagents_per_slice = reagents.total_volume/slices_num
 	for(var/i=1 to (slices_num-slices_lost))
-		var/obj/slice = new slice_path (src.loc)
+		var/obj/slice = new slice_path (loc)
 		reagents.trans_to(slice,reagents_per_slice)
 	qdel(src)
 
@@ -184,19 +184,19 @@
 		M.changeNext_move(CLICK_CD_MELEE)
 		if(iscorgi(M))
 			if(bitecount >= 4)
-				M.visible_message("[M] [pick("burps from enjoyment", "yaps for more", "woofs twice", "looks at the area where \the [src] was")].","<span class=\"notice\">You swallow up the last part of \the [src].")
-				playsound(src.loc,'sound/items/eatfood.ogg', rand(10,50), 1)
+				M.visible_message("[M] [pick("burps from enjoyment", "yaps for more", "woofs twice", "looks at the area where [src] was")].","<span class='notice'>You swallow up the last part of [src].</span>")
+				playsound(loc,'sound/items/eatfood.ogg', rand(10,50), 1)
 				var/mob/living/simple_animal/pet/corgi/C = M
 				C.adjustBruteLoss(-5)
 				C.adjustFireLoss(-5)
 				qdel(src)
 			else
-				M.visible_message("[M] takes a bite of \the [src].","<span class=\"notice\">You take a bite of \the [src].")
-				playsound(src.loc,'sound/items/eatfood.ogg', rand(10,50), 1)
+				M.visible_message("[M] takes a bite of [src].","<span class='notice'>You take a bite of [src].</span>")
+				playsound(loc,'sound/items/eatfood.ogg', rand(10,50), 1)
 				bitecount++
 		else if(ismouse(M))
 			var/mob/living/simple_animal/mouse/N = M
-			to_chat(N, text("\blue You nibble away at [src]."))
+			to_chat(N, text("<span class='notice'>You nibble away at [src].</span>"))
 			if(prob(50))
 				N.visible_message("[N] nibbles away at [src].", "")
 			//N.emote("nibbles away at the [src]")
@@ -752,8 +752,8 @@
 
 /obj/item/weapon/reagent_containers/food/snacks/pie/throw_impact(atom/hit_atom)
 	..()
-	new/obj/effect/decal/cleanable/pie_smudge(src.loc)
-	src.visible_message("\red [src.name] splats.","\red You hear a splat.")
+	new/obj/effect/decal/cleanable/pie_smudge(loc)
+	visible_message("<span class='warning'>[src] splats.</span>","<span class='warning'>You hear a splat.</span>")
 	qdel(src)
 
 /obj/item/weapon/reagent_containers/food/snacks/berryclafoutis
@@ -902,7 +902,7 @@
 
 /obj/item/weapon/reagent_containers/food/snacks/popcorn/On_Consume(mob/M, mob/user)
 	if(prob(unpopped))	//lol ...what's the point?
-		to_chat(user, "\red You bite down on an un-popped kernel!")
+		to_chat(user, "<span class='userdanger'>You bite down on an un-popped kernel!</span>")
 		unpopped = max(0, unpopped-1)
 	..()
 
@@ -1728,9 +1728,9 @@
 	if(istype(W,/obj/item/weapon/kitchen/rollingpin))
 		user.visible_message( \
 			"[user] flattens the dough with the rolling pin!", \
-			"\blue You flatten the dough with your rolling pin!" \
+			"<span class='notice'>You flatten the dough with your rolling pin!</span>" \
 			)
-		new /obj/item/weapon/reagent_containers/food/snacks/sliceable/flatdough(src.loc)
+		new /obj/item/weapon/reagent_containers/food/snacks/sliceable/flatdough(loc)
 		qdel(src)
 
 /////////////////////////////////////////////////Sliceable////////////////////////////////////////
@@ -2124,7 +2124,7 @@
 			"[user] cuts the raw cutlet with the knife!", \
 			"<span class ='notice'>You cut the raw cutlet with your knife!</span>" \
 			)
-		new /obj/item/weapon/reagent_containers/food/snacks/raw_bacon(src.loc)
+		new /obj/item/weapon/reagent_containers/food/snacks/raw_bacon(loc)
 		qdel(src)
 
 
@@ -2264,8 +2264,8 @@
 /obj/item/pizzabox/attack_hand(mob/user)
 	if(open && pizza)
 		user.put_in_hands(pizza)
-		to_chat(user, "\red You take the [src.pizza] out of the [src].")
-		src.pizza = null
+		to_chat(user, "<span class='warning'>You take the [pizza] out of the [src].</span>")
+		pizza = null
 		update_icon()
 		return
 
@@ -2278,7 +2278,7 @@
 		boxes -= box
 
 		user.put_in_hands( box )
-		to_chat(user, "\red You remove the topmost [src] from your hand.")
+		to_chat(user, "<span class='warning'>You remove the topmost [src] from your hand.</span>")
 		box.update_icon()
 		update_icon()
 		return
@@ -2311,16 +2311,16 @@
 
 				box.loc = src
 				box.boxes = list() // Clear the box boxes so we don't have boxes inside boxes. - Xzibit
-				src.boxes.Add( boxestoadd )
+				boxes.Add( boxestoadd )
 
 				box.update_icon()
 				update_icon()
 
-				to_chat(user, "\red You put the [box] ontop of the [src]!")
+				to_chat(user, "<span class='warning'>You put the [box] ontop of the [src]!</span>")
 			else
-				to_chat(user, "\red The stack is too high!")
+				to_chat(user, "<span class='warning'>The stack is too high!</span>")
 		else
-			to_chat(user, "\red Close the [box] first!")
+			to_chat(user, "<span class='warning'>Close the [box] first!</span>")
 
 		return
 
@@ -2329,18 +2329,18 @@
 		if(open)
 			user.drop_item()
 			I.loc = src
-			src.pizza = I
+			pizza = I
 
 			update_icon()
 
-			to_chat(user, "\red You put the [I] in the [src]!")
+			to_chat(user, "<span class='warning'>You put the [I] in the [src]!</span>")
 		else
-			to_chat(user, "\red You try to push the [I] through the lid but it doesn't work!")
+			to_chat(user, "<span class='warning'>You try to push the [I] through the lid but it doesn't work!</span>")
 		return
 
 	if(istype(I, /obj/item/weapon/pen/))
 
-		if( src.open )
+		if(open)
 			return
 
 		var/t = input("Enter what you want to add to the tag:", "Write", null, null) as text

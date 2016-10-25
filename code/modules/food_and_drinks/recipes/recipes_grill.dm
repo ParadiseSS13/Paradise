@@ -90,7 +90,7 @@
 	result = /obj/item/weapon/reagent_containers/food/snacks/fishfingers
 
 /datum/recipe/grill/fishfingers/make_food(obj/container)
-	var/obj/item/weapon/reagent_containers/food/snacks/fishfingers/being_cooked = ..(container)
+	var/obj/item/weapon/reagent_containers/food/snacks/fishfingers/being_cooked = ..()
 	being_cooked.reagents.del_reagent("egg")
 	return being_cooked
 

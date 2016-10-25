@@ -176,20 +176,22 @@
 		/obj/item/weapon/paper,
 	)
 	result = /obj/item/weapon/reagent_containers/food/snacks/fortunecookie
-	make_food(var/obj/container as obj)
+
+/datum/recipe/oven/fortunecookie/make_food(obj/container)
+	var/obj/item/weapon/paper/paper = locate() in container
+	paper.loc = null //prevent deletion
+	var/obj/item/weapon/reagent_containers/food/snacks/fortunecookie/being_cooked = ..()
+	paper.loc = being_cooked
+	being_cooked.trash = paper //so the paper is left behind as trash without special-snowflake(TM Nodrak) code ~carn
+	return being_cooked
+
+/datum/recipe/oven/fortunecookie/check_items(obj/container)
+	. = ..()
+	if(.)
 		var/obj/item/weapon/paper/paper = locate() in container
-		paper.loc = null //prevent deletion
-		var/obj/item/weapon/reagent_containers/food/snacks/fortunecookie/being_cooked = ..(container)
-		paper.loc = being_cooked
-		being_cooked.trash = paper //so the paper is left behind as trash without special-snowflake(TM Nodrak) code ~carn
-		return being_cooked
-	check_items(var/obj/container as obj)
-		. = ..()
-		if(.)
-			var/obj/item/weapon/paper/paper = locate() in container
-			if(!paper || !paper.info)
-				return -1
-		return .
+		if(!paper || !paper.info)
+			return -1
+	return .
 
 /datum/recipe/oven/pizzamargherita
 	fruit = list("tomato" = 1)
@@ -294,7 +296,7 @@
 	result = /obj/item/weapon/reagent_containers/food/snacks/sliceable/bread
 
 /datum/recipe/oven/bread/make_food(obj/container)
-	var/obj/item/weapon/reagent_containers/food/snacks/sliceable/bread/being_cooked = ..(container)
+	var/obj/item/weapon/reagent_containers/food/snacks/sliceable/bread/being_cooked = ..()
 	being_cooked.reagents.del_reagent("egg")
 	return being_cooked
 
@@ -383,7 +385,7 @@
 	result = /obj/item/weapon/reagent_containers/food/snacks/appletart
 
 /datum/recipe/oven/appletart/make_food(obj/container)
-	var/obj/item/weapon/reagent_containers/food/snacks/appletart/being_cooked = ..(container)
+	var/obj/item/weapon/reagent_containers/food/snacks/appletart/being_cooked = ..()
 	being_cooked.reagents.del_reagent("egg")
 	return being_cooked
 
@@ -403,7 +405,7 @@
 	result = /obj/item/weapon/reagent_containers/food/snacks/sugarcookie
 
 /datum/recipe/oven/sugarcookie/make_food(obj/container)
-	var/obj/item/weapon/reagent_containers/food/snacks/sugarcookie/being_cooked = ..(container)
+	var/obj/item/weapon/reagent_containers/food/snacks/sugarcookie/being_cooked = ..()
 	being_cooked.reagents.del_reagent("egg")
 	return being_cooked
 
