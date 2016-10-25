@@ -151,7 +151,6 @@ Made by Xhuis
 		new_thrall_mind.current.add_language("Shadowling Hivemind")
 		new_thrall_mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/lesser_glare(null))
 		new_thrall_mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/lesser_shadow_walk(null))
-		new_thrall_mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shadow_vision/thrall(null))
 		to_chat(new_thrall_mind.current, "<span class='shadowling'><b>You see the truth. Reality has been torn away and you realize what a fool you've been.</b></span>")
 		to_chat(new_thrall_mind.current, "<span class='shadowling'><b>The shadowlings are your masters.</b> Serve them above all else and ensure they complete their goals.</span>")
 		to_chat(new_thrall_mind.current, "<span class='shadowling'>You may not harm other thralls or the shadowlings. However, you do not need to obey other thralls.</span>")
@@ -306,6 +305,7 @@ Made by Xhuis
 	hot_env_multiplier = 1.5
 
 	silent_steps = 1
+	grant_vision_toggle = 0
 
 /datum/species/shadow/ling/handle_life(var/mob/living/carbon/human/H)
 	if(!H.weakeyes)
@@ -316,11 +316,13 @@ Made by Xhuis
 		var/turf/T = H.loc
 		light_amount = T.get_lumcount() * 10
 		if(light_amount > LIGHT_DAM_THRESHOLD && !H.incorporeal_move) //Can survive in very small light levels. Also doesn't take damage while incorporeal, for shadow walk purposes
+			H.throw_alert("lightexposure", /obj/screen/alert/lightexposure)
 			H.take_overall_damage(0, LIGHT_DAMAGE_TAKEN)
 			if(H.stat != DEAD)
 				to_chat(H, "<span class='userdanger'>The light burns you!</span>")//Message spam to say "GET THE FUCK OUT"
 				H << 'sound/weapons/sear.ogg'
 		else if(light_amount < LIGHT_HEAL_THRESHOLD)
+			H.clear_alert("lightexposure")
 			H.heal_overall_damage(5, 5)
 			H.adjustToxLoss(-5)
 			H.adjustBrainLoss(-25) //Shad O. Ling gibbers, "CAN U BE MY THRALL?!!"
@@ -351,8 +353,10 @@ Made by Xhuis
 		var/turf/T = H.loc
 		light_amount = T.get_lumcount() * 10
 		if(light_amount > LIGHT_DAM_THRESHOLD && !H.incorporeal_move)
+			H.throw_alert("lightexposure", /obj/screen/alert/lightexposure)
 			H.take_overall_damage(0, LIGHT_DAMAGE_TAKEN/2)
 		else if(light_amount < LIGHT_HEAL_THRESHOLD)
+			H.clear_alert("lightexposure")
 			H.heal_overall_damage(2,2)
 			H.adjustToxLoss(-5)
 			H.adjustBrainLoss(-25)

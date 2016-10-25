@@ -125,17 +125,17 @@
 	invocation_type = "none"
 	range = 0
 
-/obj/effect/proc_holder/spell/aoe_turf/blood_speech/cast(list/targets)
-	var/input = stripped_input(usr, "Please choose a message to tell your acolytes.", "Voice of Blood", "")
+/obj/effect/proc_holder/spell/aoe_turf/blood_speech/cast(list/targets, mob/user = usr)
+	var/input = stripped_input(user, "Please choose a message to tell your acolytes.", "Voice of Blood", "")
 	if(!input)
-		revert_cast(usr)
-	cult_log("[key_name_admin(usr)]says : [input]")
-	flicker_mask(usr)
+		revert_cast(user)
+	cult_log("[key_name_admin(user)]says : [input]")
+	flicker_mask(user)
 	for(var/datum/mind/H in ticker.mode.cult)
 		if(H.current)
-			to_chat(H.current, "<span class='cultspeech'><font size=3><span class='name'>[usr.name]: </span><span class='message'>[input]</span></font></span>")
+			to_chat(H.current, "<span class='cultspeech'><font size=3><span class='name'>[user.name]: </span><span class='message'>[input]</span></font></span>")
 	for(var/mob/spirit/spirit in spirits)
-		to_chat(spirit, "<span class='cultspeech'><font size=3><span class='name'>[usr.name]: </span><span class='message'>[input]</span></font></span>")
+		to_chat(spirit, "<span class='cultspeech'><font size=3><span class='name'>[user.name]: </span><span class='message'>[input]</span></font></span>")
 
 
 /obj/effect/proc_holder/spell/aoe_turf/shatter_lights
@@ -149,11 +149,11 @@
 	invocation_type = "none"
 	range = 0
 
-/obj/effect/proc_holder/spell/aoe_turf/shatter_lights/cast(list/targets)
-	cult_log("[key_name_admin(usr)] used Spread Shadows.")
-	flicker_mask(usr)
+/obj/effect/proc_holder/spell/aoe_turf/shatter_lights/cast(list/targets, mob/user = usr)
+	cult_log("[key_name_admin(user)] used Spread Shadows.")
+	flicker_mask(user)
 	spawn(0)
-		for(var/area/A in range(3,get_turf(usr)))
+		for(var/area/A in range(3,get_turf(user)))
 			for(var/obj/machinery/light/L in A)
 				L.on = 1
 				L.broken()
@@ -189,25 +189,25 @@
 								"Construct"="construct")
 
 
-/obj/effect/proc_holder/spell/aoe_turf/conjure/create_talisman/cast(list/targets)
+/obj/effect/proc_holder/spell/aoe_turf/conjure/create_talisman/cast(list/targets, mob/user = usr)
 
 	var/talisman = input("Pick a talisman type", "Talisman", null, null) as null|anything in talismans
 	var/imbue_value = talismans[talisman]
 	if(!talisman)
-		to_chat(usr, "You choose not to create a talisman.")
-		revert_cast(usr)
+		to_chat(user, "You choose not to create a talisman.")
+		revert_cast(user)
 		return
 
-	cult_log("[key_name_admin(usr,0)] created a talisman of type [talisman].")
-	flicker_mask(usr)
+	cult_log("[key_name_admin(user,0)] created a talisman of type [talisman].")
+	flicker_mask(user)
 
 	switch(talisman)
 
 		if("Teleport")
 			var/target_rune = input("Pick a teleport target", "Teleport Rune", null, null) as null|anything in engwords
 			if(!target_rune)
-				to_chat(usr, "You choose not to create a talisman.")
-				revert_cast(usr)
+				to_chat(user, "You choose not to create a talisman.")
+				revert_cast(user)
 				return
 			summon_type = list(/obj/item/weapon/paper/talisman)
 			newVars = list("imbue" = "[target_rune]", "info" = "[target_rune]")

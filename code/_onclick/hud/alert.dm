@@ -182,6 +182,16 @@ The box in your backpack has an oxygen tank and gas mask in it."
 	name = "High Pressure"
 	desc = "The air around you is hazardously thick. A fire suit would protect you."
 	icon_state = "highpressure"
+	
+/obj/screen/alert/lightexposure
+	name = "Light Exposure"
+	desc = "You're exposed to light."
+	icon_state = "lightexposure"
+	
+/obj/screen/alert/nolight
+	name = "No Light"
+	desc = "You're not exposed to any light."
+	icon_state = "nolight"
 
 /obj/screen/alert/blind
 	name = "Blind"

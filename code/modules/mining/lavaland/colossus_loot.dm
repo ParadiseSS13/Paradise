@@ -211,7 +211,7 @@
 			NewTerrainFloors = /turf/simulated/floor/mineral/abductor
 			NewTerrainWalls = /turf/simulated/wall/mineral/abductor
 			NewTerrainChairs = /obj/structure/stool/bed/abductor //ayys apparently don't have chairs. An entire species of people who only recline.
-			NewTerrainTables = /obj/machinery/optable/abductor
+			NewTerrainTables = /obj/structure/table/abductor
 
 /obj/machinery/anomalous_crystal/theme_warp/ActivationReaction(mob/user, method)
 	if(..())
@@ -239,7 +239,9 @@
 					qdel(Stuff)
 					continue
 				if(istype(Stuff, /obj/structure/table) && NewTerrainTables)
-					new NewTerrainTables(Stuff.loc)
+					var/obj/structure/table/Original = Stuff
+					var/obj/structure/table/T = new NewTerrainTables(Original.loc)
+					T.dir = Original.dir
 					qdel(Stuff)
 					continue
 			affected_targets += A

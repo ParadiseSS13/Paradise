@@ -37,7 +37,7 @@
 			projectile.dir = get_dir(target,projectile)
 			projectile.name = proj_name
 
-			var/current_loc = usr.loc
+			var/current_loc = user.loc
 
 			projectile.loc = current_loc
 

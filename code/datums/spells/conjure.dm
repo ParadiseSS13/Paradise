@@ -23,7 +23,7 @@
 			targets -= T
 	playsound(get_turf(src), 'sound/items/welder.ogg', 50, 1)
 
-	if(do_after(usr,delay, target = usr))
+	if(do_after(user,delay, target = user))
 		for(var/i=0,i<summon_amt,i++)
 			if(!targets.len)
 				break
@@ -32,8 +32,8 @@
 			if(summon_ignore_prev_spawn_points)
 				targets -= spawn_place
 			if(ispath(summoned_object_type,/turf))
-				if(istype(get_turf(usr),/turf/simulated/shuttle))
-					to_chat(usr, "\red You can't build things on shuttles!")
+				if(istype(get_turf(user),/turf/simulated/shuttle))
+					to_chat(user, "\red You can't build things on shuttles!")
 					break
 				var/turf/O = spawn_place
 				var/N = summoned_object_type

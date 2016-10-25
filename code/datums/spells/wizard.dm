@@ -57,7 +57,7 @@
 	action_icon_state = "mutate"
 	sound = "sound/magic/Mutate.ogg"
 
-/obj/effect/proc_holder/spell/targeted/genetic/mutate/cast(list/targets)
+/obj/effect/proc_holder/spell/targeted/genetic/mutate/cast(list/targets, mob/user = usr)
 	for(var/mob/living/target in targets)
 		target.dna.SetSEState(HULKBLOCK, 1)
 		genemutcheck(target, HULKBLOCK, null, MUTCHK_FORCED)

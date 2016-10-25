@@ -25,7 +25,7 @@ var/global/list/boo_phrases=list(
 	invocation_type = "none"
 	range = 1 // Or maybe 3?
 
-/obj/effect/proc_holder/spell/aoe_turf/boo/cast(list/targets)
+/obj/effect/proc_holder/spell/aoe_turf/boo/cast(list/targets, mob/user = usr)
 	for(var/turf/T in targets)
 		for(var/atom/A in T.contents)
 
