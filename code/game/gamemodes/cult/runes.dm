@@ -110,7 +110,7 @@ var/list/sacrificed = list()
 		M.visible_message("\red [M] writhes in pain as the markings below him glow a bloody red.", \
 		"\red AAAAAAHHHH!.", \
 		"\red You hear an anguished scream.")
-		cult_log("[key_name_admin(usr)] tried to convert [key_name_admin(M)]")
+		cult_log("[key_name(usr)] tried to convert [key_name(M)]")
 		if(is_convertable_to_cult(M.mind))
 			ticker.mode.add_cultist(M.mind)
 			M.mind.special_role = SPECIAL_ROLE_CULTIST
@@ -169,7 +169,7 @@ var/list/sacrificed = list()
 		if(R.word1==cultwords["travel"] && R.word2==cultwords["blood"] && R.word3==cultwords["self"])
 			for(var/mob/living/carbon/D in R.loc)
 				if(D.stat!=2)
-					cult_log("[key_name_admin(usr)] has drained blood from [key_name_admin(D)]")
+					cult_log("[key_name(usr)] has drained blood from [key_name(D)]")
 					var/bdrain = rand(1,25)
 					to_chat(D, "\red You feel weakened.")
 					D.take_overall_damage(bdrain, 0)
@@ -533,7 +533,7 @@ var/list/sacrificed = list()
 			return 0
 
 	// record this
-	//cult_log("[key_name(usr,0)] says : [input]")
+	//cult_log("[key_name(usr,0)] says: [input]")
 
 
 	var/F = investigate_subject2file("cult")
@@ -932,7 +932,7 @@ var/list/sacrificed = list()
 			var/obj/item/weapon/nullrod/N = locate() in M
 			if(N)
 				continue
-			cult_log(": Blood Boil damaged [key_name_admin(M)].")
+			cult_log("Blood Boil damaged [key_name(M)].")
 			M.take_overall_damage(51,51)
 			to_chat(M, "\red Your blood boils!")
 			if(prob(5))

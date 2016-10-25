@@ -152,7 +152,7 @@ var/engwords = list("travel", "blood", "join", "hell", "destroy", "technology", 
 
 	var/word_string = get_word_string()
 	if(word_string in effect_dictionary)
-		cult_log("of type [effect_dictionary[word_string]] activated by [key_name_admin(user)].")
+		cult_log("Rune of type [effect_dictionary[word_string]] activated by [key_name(user)].")
 		return call(src,effect_dictionary[word_string])()
 	return fizzle()
 

@@ -81,7 +81,7 @@ var/obj/cult_viewpoint/list/cult_viewpoints = list()
 	if(!input)
 		return
 
-	cult_log("[key_name(usr,0)](Pray):[input]")
+	cult_log("[key_name(usr,0)] (Pray): [input]")
 	to_chat(owner, "<span class='cultspeech'><b>You pray to Nar'Sie</b>: [input]</span>")
 
 	for(var/mob/spirit/spirit in spirits)

@@ -231,10 +231,10 @@
 	action_icon_state = "darksight"
 
 /obj/effect/proc_holder/spell/targeted/shadow_vision/cast(list/targets, mob/user = usr)
-	for(var/mob/living/L in targets)
-		if(!istype(L) || !ishuman(L))
+	for(var/mob/living/target in targets)
+		if(!istype(target) || !ishuman(target))
 			return
-		var/mob/living/carbon/human/H = L
+		var/mob/living/carbon/human/H = target
 		if(!H.vision_type)
 			to_chat(H, "<span class='notice'>You shift the nerves in your eyes, allowing you to see in the dark.</span>")
 			H.vision_type = new vision_path
@@ -471,7 +471,7 @@
 						qdel(CM)
 					M.mind.RemoveSpell(/obj/effect/proc_holder/spell/targeted/shadowling_hatch)
 					M.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shadowling_ascend(null))
-					if(M == target)
+					if(M == user)
 						to_chat(M, "<span class='shadowling'><i>You project this power to the rest of the shadowlings.</i></span>")
 					else
 						to_chat(M, "<span class='shadowling'><b>[target.real_name] has coalesced the strength of the thralls. You can draw upon it at any time to ascend. (Shadowling Evolution Tab)</b></span>")//Tells all the other shadowlings
@@ -583,10 +583,11 @@
 	var/list/nearbyTargets
 	action_icon_state = "drain_life"
 
-/obj/effect/proc_holder/spell/aoe_turf/drainLife/cast(list/targets, var/mob/living/carbon/human/U = usr)
-	if(!shadowling_check(U))
+/obj/effect/proc_holder/spell/aoe_turf/drainLife/cast(list/targets, mob/user = usr)
+	if(!shadowling_check(user))
 		charge_counter = charge_max
 		return
+	var/mob/living/carbon/human/U = usr
 	targetsDrained = 0
 	nearbyTargets = list()
 	for(var/turf/T in targets)

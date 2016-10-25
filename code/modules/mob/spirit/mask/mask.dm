@@ -17,7 +17,7 @@
 	var/obj/cult_viewpoint/cultist = pick_cultist()
 	if(cultist)
 		follow_cultist(cultist.owner)
-		cult_log("[key_name_admin(src)] started following [key_name_admin(cultist)].")
+		cult_log("[key_name(src)] started following [key_name(cultist)].")
 		to_chat(src, "You start following [cultist.get_display_name()].")
 
 
@@ -32,7 +32,7 @@
 			var/newUrge = stripped_input(usr, "", "Set Urge", "")
 			cultist.set_urge(newUrge)
 			to_chat(src, "You urge [cultist.owner.name] to [newUrge].")
-			cult_log("controlled by [key_name_admin(src)] has urged [key_name_admin(cultist.owner)] to [newUrge].")
+			cult_log("The mask controlled by [key_name(src)] has urged [key_name(cultist.owner)] to [newUrge].")
 
 /mob/spirit/mask/verb/set_cult_name()
 	set category = "Mask"
@@ -47,7 +47,7 @@
 		cultist.set_cult_name(newName)
 		to_chat(src, "You grant [cultist.owner.name] the secret name of [newName].")
 		if(cultist.owner)
-			cult_log("[key_name_admin(src)] has set [key_name_admin(cultist.owner)] to \'[newName]\'")
+			cult_log("[key_name(src)] has set [key_name(cultist.owner)] to \'[newName]\'")
 
 
 /mob/spirit/mask/verb/urge_cult()
@@ -59,7 +59,7 @@
 	for(var/obj/cult_viewpoint/viewpoint in cult_viewpoints)
 		viewpoint.set_urge(newUrge)
 	to_chat(src, "You urge the entire cult to [newUrge].")
-	cult_log("[key_name_admin(src)] has urged the entire cult to [newUrge]")
+	cult_log("[key_name(src)] has urged the entire cult to [newUrge]")
 
 
 /mob/spirit/mask/verb/set_favor_for_cultist()
@@ -75,13 +75,13 @@
 			switch(emotion)
 				if("Pleased")
 					cultist.set_favor(1)
-					cult_log("[key_name_admin(src)] is pleased with [key_name_admin(cultist.owner)]")
+					cult_log("[key_name(src)] is pleased with [key_name(cultist.owner)]")
 				if("Displeased")
 					cultist.set_favor(-1)
-					cult_log("[key_name_admin(src)] is displeased with [key_name_admin(cultist.owner)]")
+					cult_log("[key_name(src)] is displeased with [key_name(cultist.owner)]")
 				if("Indifference")
 					cultist.set_favor(0)
-					cult_log("[key_name_admin(src)] is indifferent too [key_name_admin(cultist.owner)]")
+					cult_log("[key_name(src)] is indifferent too [key_name(cultist.owner)]")
 
 
 /mob/spirit/mask/proc/set_name()
@@ -129,7 +129,7 @@
 	var/input = stripped_input(user, "Please choose a message to tell your acolytes.", "Voice of Blood", "")
 	if(!input)
 		revert_cast(user)
-	cult_log("[key_name_admin(user)]says : [input]")
+	cult_log("[key_name(user)] says: [input]")
 	flicker_mask(user)
 	for(var/datum/mind/H in ticker.mode.cult)
 		if(H.current)
@@ -150,7 +150,7 @@
 	range = 0
 
 /obj/effect/proc_holder/spell/aoe_turf/shatter_lights/cast(list/targets, mob/user = usr)
-	cult_log("[key_name_admin(user)] used Spread Shadows.")
+	cult_log("[key_name(user)] used Spread Shadows.")
 	flicker_mask(user)
 	spawn(0)
 		for(var/area/A in range(3,get_turf(user)))
@@ -198,7 +198,7 @@
 		revert_cast(user)
 		return
 
-	cult_log("[key_name_admin(user,0)] created a talisman of type [talisman].")
+	cult_log("[key_name(user)] created a talisman of type [talisman].")
 	flicker_mask(user)
 
 	switch(talisman)
