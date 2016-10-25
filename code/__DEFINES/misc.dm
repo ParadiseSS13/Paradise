@@ -17,6 +17,8 @@
 #define CLICK_CD_TKSTRANGLE 10
 #define CLICK_CD_POINT 10
 #define CLICK_CD_RESIST 20
+#define CLICK_CD_CLICK_ABILITY 6
+#define CLICK_CD_RAPID 2
 
 //Sizes of mobs, used by mob/living/var/mob_size
 #define MOB_SIZE_TINY 0

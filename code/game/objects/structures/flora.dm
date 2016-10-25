@@ -36,6 +36,14 @@
 	..()
 	icon_state = "tree_[rand(1, 6)]"
 
+/obj/structure/flora/tree/palm
+	icon = 'icons/misc/beach2.dmi'
+	icon_state = "palm1"
+
+/obj/structure/flora/tree/palm/New()
+	..()
+	icon_state = pick("palm1","palm2")
+	pixel_x = 0	
 
 //grass
 /obj/structure/flora/grass

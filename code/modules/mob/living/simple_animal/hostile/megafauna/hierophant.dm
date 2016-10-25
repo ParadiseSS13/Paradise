@@ -601,7 +601,7 @@ Difficulty: Hard
 	if(prob(50))
 		icon_state = "hierophant2"
 
-/turf/unsimulated/indestructible/riveted/hierophant
+/turf/simulated/indestructible/riveted/hierophant
 	name = "wall"
 	desc = "A wall made out of smooth, cold stone."
 	icon = 'icons/turf/walls/hierophant_wall.dmi'

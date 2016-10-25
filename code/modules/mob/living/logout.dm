@@ -1,4 +1,6 @@
 /mob/living/Logout()
+	if(ranged_ability && client)
+		ranged_ability.remove_mousepointer(client)
 	..()
 	if(mind)
 		if(!key) //key and mind have become seperated. I believe this is for when a staff member aghosts.

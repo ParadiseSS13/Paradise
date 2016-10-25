@@ -192,14 +192,17 @@
 *   Item Adding
 ********************/
 
+/obj/machinery/smartfridge/default_deconstruction_screwdriver(mob/user, obj/item/weapon/screwdriver/S)
+	. = ..(user, icon_state, icon_state, S)
+	
+	overlays.Cut()
+	if(panel_open)
+		overlays += image(icon, "[initial(icon_state)]-panel")
+	
+	return .
+
 /obj/machinery/smartfridge/attackby(var/obj/item/O as obj, var/mob/user as mob)
-	if(istype(O, /obj/item/weapon/screwdriver) && anchored)
-		playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
-		panel_open = !panel_open
-		to_chat(user, "You [panel_open ? "open" : "close"] the maintenance panel.")
-		overlays.Cut()
-		if(panel_open)
-			overlays += image(icon, "[initial(icon_state)]-panel")
+	if(default_deconstruction_screwdriver(user, O))
 		return
 
 	if(exchange_parts(user, O))

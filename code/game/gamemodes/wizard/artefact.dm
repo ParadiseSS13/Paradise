@@ -60,7 +60,7 @@
 				switch(href_list["school"])
 					if("destruction")
 						M.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/projectile/magic_missile(null))
-						M.mind.AddSpell(new /obj/effect/proc_holder/spell/dumbfire/fireball(null))
+						M.mind.AddSpell(new /obj/effect/proc_holder/spell/fireball(null))
 						to_chat(M, "<B>Your service has not gone unrewarded, however. Studying under [H.real_name], you have learned powerful, destructive spells. You are able to cast magic missile and fireball.")
 					if("bluespace")
 						M.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/area_teleport/teleport(null))

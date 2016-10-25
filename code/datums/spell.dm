@@ -3,8 +3,52 @@
 
 /obj/effect/proc_holder
 	var/panel = "Debug"//What panel the proc holder needs to go on.
+	var/active = FALSE //Used by toggle based abilities.
+	var/ranged_mousepointer
 
 var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin verb for now
+
+/obj/effect/proc_holder/proc/InterceptClickOn(mob/living/user, params, atom/A)
+	if(user.ranged_ability != src)
+		to_chat(user, "<span class='warning'><b>[user.ranged_ability.name]</b> has been disabled.")
+		user.ranged_ability.remove_ranged_ability(user)
+		return TRUE //TRUE for failed, FALSE for passed.
+	user.next_click = world.time + CLICK_CD_CLICK_ABILITY
+	user.face_atom(A)
+	return FALSE
+
+/obj/effect/proc_holder/proc/add_ranged_ability(mob/living/user, var/msg)
+	if(!user || !user.client)
+		return
+	if(user.ranged_ability && user.ranged_ability != src)
+		to_chat(user, "<span class='warning'><b>[user.ranged_ability.name]</b> has been replaced by <b>[name]</b>.")
+		user.ranged_ability.remove_ranged_ability(user)
+	user.ranged_ability = src
+	user.client.click_intercept = user.ranged_ability
+	add_mousepointer(user.client)
+	active = TRUE
+	if(msg)
+		to_chat(user, msg)
+	update_icon()
+
+/obj/effect/proc_holder/proc/add_mousepointer(client/C)
+	if(C && ranged_mousepointer && C.mouse_pointer_icon == initial(C.mouse_pointer_icon))
+		C.mouse_pointer_icon = ranged_mousepointer
+
+/obj/effect/proc_holder/proc/remove_mousepointer(client/C)
+	if(C && ranged_mousepointer && C.mouse_pointer_icon == ranged_mousepointer)
+		C.mouse_pointer_icon = initial(C.mouse_pointer_icon)
+
+/obj/effect/proc_holder/proc/remove_ranged_ability(mob/living/user, var/msg)
+	if(!user || !user.client || (user.ranged_ability && user.ranged_ability != src)) //To avoid removing the wrong ability
+		return
+	user.ranged_ability = null
+	user.client.click_intercept = null
+	remove_mousepointer(user.client)
+	active = FALSE
+	if(msg)
+		to_chat(user, msg)
+	update_icon()
 
 /obj/effect/proc_holder/spell
 	name = "Spell"
@@ -178,7 +222,7 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 	if(prob(critfailchance))
 		critfail(targets)
 	else
-		cast(targets)
+		cast(targets, user = user)
 	after_cast(targets)
 
 /obj/effect/proc_holder/spell/proc/before_cast(list/targets)
@@ -224,7 +268,7 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 				smoke.set_up(smoke_amt, 0, location) // same here
 				smoke.start()
 
-/obj/effect/proc_holder/spell/proc/cast(list/targets)
+/obj/effect/proc_holder/spell/proc/cast(list/targets, mob/user = usr)
 	return
 
 /obj/effect/proc_holder/spell/proc/critfail(list/targets)

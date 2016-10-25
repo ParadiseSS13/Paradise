@@ -18,6 +18,33 @@
 		..()
 		spawn(10) 
 			qdel(src)
+			
+/obj/effect/overlay/palmtree_r
+	name = "Palm tree"
+	icon = 'icons/misc/beach2.dmi'
+	icon_state = "palm1"
+	density = 1
+	layer = 5
+	anchored = 1
+
+/obj/effect/overlay/palmtree_l
+	name = "Palm tree"
+	icon = 'icons/misc/beach2.dmi'
+	icon_state = "palm2"
+	density = 1
+	layer = 5
+	anchored = 1
+
+/obj/effect/overlay/coconut
+	name = "Coconuts"
+	icon = 'icons/misc/beach.dmi'
+	icon_state = "coconuts"
+
+/obj/effect/overlay/adminoverlay
+	name = "adminoverlay"
+	icon = 'icons/effects/effects.dmi'
+	icon_state = "admin"
+	layer = 4.1
 
 /obj/effect/overlay/temp
 	anchored = 1
@@ -55,7 +82,6 @@
 /obj/effect/overlay/temp/guardian/phase/out
 	icon_state = "phaseout"
 	
-
 /obj/effect/overlay/temp/emp
 	name = "emp sparks"
 	icon = 'icons/effects/effects.dmi'
@@ -63,9 +89,22 @@
 
 /obj/effect/overlay/temp/emp/pulse
 	name = "emp pulse"
-	icon_state = "emp pulse"
+	icon_state = "emppulse"
 	duration = 8
 	randomdir = 0
+	
+/obj/effect/overlay/temp/heal //color is white by default, set to whatever is needed
+	name = "healing glow"
+	icon = 'icons/effects/effects.dmi'
+	icon_state = "heal"
+	duration = 15
+
+/obj/effect/overlay/temp/heal/New(loc, colour)
+	..()
+	pixel_x = rand(-12, 12)
+	pixel_y = rand(-9, 0)
+	if(colour)
+		color = colour
 
 /obj/effect/overlay/temp/kinetic_blast
 	name = "kinetic explosion"
@@ -73,34 +112,6 @@
 	icon_state = "kinetic_blast"
 	layer = 4.1
 	duration = 4
-
-/obj/effect/overlay/palmtree_r
-	name = "Palm tree"
-	icon = 'icons/misc/beach2.dmi'
-	icon_state = "palm1"
-	density = 1
-	layer = 5
-	anchored = 1
-
-/obj/effect/overlay/palmtree_l
-	name = "Palm tree"
-	icon = 'icons/misc/beach2.dmi'
-	icon_state = "palm2"
-	density = 1
-	layer = 5
-	anchored = 1
-
-/obj/effect/overlay/coconut
-	name = "Coconuts"
-	icon = 'icons/misc/beach.dmi'
-	icon_state = "coconuts"
-
-/obj/effect/overlay/adminoverlay
-	name = "adminoverlay"
-	icon = 'icons/effects/effects.dmi'
-	icon_state = "admin"
-	layer = 4.1
-
 	
 /obj/effect/overlay/temp/decoy
 	desc = "It's a decoy!"
@@ -118,8 +129,17 @@
 /obj/effect/overlay/temp/decoy/fading/New(loc, atom/mimiced_atom)
 	..()
 	animate(src, alpha = 0, time = duration)
-	
 
+/obj/effect/overlay/temp/cult
+	icon = 'icons/effects/effects.dmi'
+	randomdir = 0
+	duration = 10
+
+/obj/effect/overlay/temp/cult/sparks
+	randomdir = 1
+	name = "blood sparks"
+	icon_state = "bloodsparkles"	
+	
 /obj/effect/overlay/temp/dir_setting
 	randomdir = FALSE
 
