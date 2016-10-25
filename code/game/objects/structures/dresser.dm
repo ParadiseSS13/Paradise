@@ -18,20 +18,37 @@
 			return
 		switch(choice)
 			if("Underwear")
-				var/new_undies = input(user, "Select your underwear", "Changing")  as null|anything in underwear_list
-				if(new_undies)
-					H.underwear = new_undies
+				var/list/valid_underwear = list()
+				for(var/underwear in underwear_list)
+					var/datum/sprite_accessory/S = underwear_list[underwear]
+					if(!(H.species.name in S.species_allowed))
+						continue
+					valid_underwear[underwear] = underwear_list[underwear]
+				var/new_underwear = input(user, "Choose your underwear:", "Changing") as null|anything in valid_underwear
+				if(new_underwear)
+					H.underwear = new_underwear
 
 			if("Undershirt")
-				var/new_undershirt = input(user, "Select your undershirt", "Changing") as null|anything in undershirt_list
+				var/list/valid_undershirts = list()
+				for(var/undershirt in undershirt_list)
+					var/datum/sprite_accessory/S = undershirt_list[undershirt]
+					if(!(H.species.name in S.species_allowed))
+						continue
+					valid_undershirts[undershirt] = undershirt_list[undershirt]
+				var/new_undershirt = input(user, "Choose your undershirt:", "Changing") as null|anything in valid_undershirts
 				if(new_undershirt)
 					H.undershirt = new_undershirt
 
 			if("Socks")
-				var/new_socks = input(user, "Select your socks", "Changing") as null|anything in socks_list
+				var/list/valid_sockstyles = list()
+				for(var/sockstyle in socks_list)
+					var/datum/sprite_accessory/S = socks_list[sockstyle]
+					if(!(H.species.name in S.species_allowed))
+						continue
+					valid_sockstyles[sockstyle] = socks_list[sockstyle]
+				var/new_socks = input(user, "Choose your socks:", "Changing")  as null|anything in valid_sockstyles
 				if(new_socks)
-					H.socks= new_socks
-
+					H.socks = new_socks
 
 		add_fingerprint(H)
 		H.update_body()
