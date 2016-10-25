@@ -433,6 +433,15 @@
 	item_state = "castile_dress"
 	item_color = "castile_dress"
 
+/obj/item/clothing/under/fluff/elishirt // FlattestGuitar9: Eli Randolph
+	name = "casual dress shirt"
+	desc = "A soft, white dress shirt paired up with black suit pants. The set looks comfortable."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "elishirt"
+	item_state = "elishirt"
+	item_color = "elishirt"
+	displays_id = 0
+
 /obj/item/clothing/under/psysuit/fluff/isaca_sirius_1 // Xilia: Isaca Sirius
 	name = "Isaca's suit"
 	desc = "Black, comfortable and nicely fitting suit. Made not to hinder the wearer in any way. Made of some exotic fabric. And some strange glowing jewel at the waist. Name labels says; Property of Isaca Sirius; The Seeder."
