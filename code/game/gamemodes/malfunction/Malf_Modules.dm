@@ -30,7 +30,7 @@
 	set name = "Doomsday Device"
 
 	to_chat(src, "<span class='notice'>Nuclear device armed.</span>")
-	command_announcement.Announce("Hostile runtimes detected in all station systems, please deactivate your AI to prevent possible damage to its morality core.", "Anomaly Alert", new_sound = 'sound/AI/aimalf.ogg')
+	event_announcement.Announce("Hostile runtimes detected in all station systems, please deactivate your AI to prevent possible damage to its morality core.", "Anomaly Alert", new_sound = 'sound/AI/aimalf.ogg')
 	set_security_level("delta")
 	nuking = 1
 	var/obj/machinery/doomsday_device/DOOM = new /obj/machinery/doomsday_device(src)

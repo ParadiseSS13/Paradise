@@ -1,7 +1,8 @@
 /var/datum/announcement/minor/minor_announcement = new()
 /var/datum/announcement/priority/priority_announcement = new(do_log = 0)
-/var/datum/announcement/priority/command/command_announcement = new(do_log = 0, do_newscast = 1)
-/var/datum/announcement/priority/enemy/communications_announcement = new(do_log = 0, do_newscast = 1)
+/var/datum/announcement/priority/command/command_announcement = new(do_log = 0, do_newscast = 0)
+/var/datum/announcement/priority/command/event/event_announcement = new(do_log = 0, do_newscast = 0)
+/var/datum/announcement/priority/enemy/communications_announcement = new(do_log = 0, do_newscast = 0)
 
 
 /datum/announcement
@@ -13,7 +14,6 @@
 	var/channel_name = "Station Announcements"
 	var/announcement_type = "Announcement"
 	var/admin_announcement = 0 // Admin announcements are received regardless of being in range of a radio, unless you're in the lobby to prevent metagaming
-	var/disable_newscasts = 1 // Bay also adds announcements to their newscaster system - set this to 0 to also use that system
 	var/language = "Galactic Common"
 
 /datum/announcement/New(var/do_log = 0, var/new_sound = null, var/do_newscast = 0)
@@ -36,6 +36,10 @@
 	admin_announcement = 1
 	title = "[command_name()] Update"
 	announcement_type = "[command_name()] Update"
+	
+/datum/announcement/priority/command/event/New(var/do_log = 1, var/new_sound = sound('sound/misc/notice2.ogg'), var/do_newscast = 0)
+	..(do_log, new_sound, do_newscast)
+	admin_announcement = 0
 
 /datum/announcement/priority/enemy/New(var/do_log = 1, var/new_sound = sound('sound/AI/intercept2.ogg'), var/do_newscast = 0)
 	..(do_log, new_sound, do_newscast)
@@ -92,7 +96,7 @@
 		for(var/obj/item/device/radio/R in global_radios)
 			receivers |= R.send_announcement()
 		for(var/mob/M in receivers)
-			if(!M.client || M.stat || isdeaf(M))
+			if(!istype(M) || !M.client || M.stat || isdeaf(M))
 				receivers -= M
 				continue
 			if(!M.say_understands(null, message_language))
@@ -112,7 +116,7 @@
 	
 /datum/announcement/proc/Format_Message(message, message_title, message_announcer, from)
 	var/formatted_message
-	formatted_message += "<h2 class='alert'>[title]</h2>"
+	formatted_message += "<h2 class='alert'>[message_title]</h2>"
 	formatted_message += "<br><span class='alert'>[message]</span>"
 	if(message_announcer)
 		formatted_message += "<br><span class='alert'> -[message_announcer]</span>"
@@ -137,7 +141,7 @@
 
 /datum/announcement/priority/command/Format_Message(message, message_title, message_announcer, from)
 	var/formatted_message
-	formatted_message += "<h1 class='alert'>[command_name()] Update</h1>"
+	formatted_message += "<h1 class='alert'>[message_title]</h1>"
 	if(message_title)
 		formatted_message += "<br><h2 class='alert'>[message_title]</h2>"
 	formatted_message += "<br><span class='alert'>[message]</span><br>"
@@ -163,8 +167,6 @@
 	return formatted_message
 
 /datum/announcement/proc/NewsCast(message as text, message_title as text)
-	if(disable_newscasts)
-		return
 	if(!newscast)
 		return
 

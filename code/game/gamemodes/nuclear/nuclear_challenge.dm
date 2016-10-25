@@ -35,7 +35,7 @@
 		return
 
 	var/war_declaration = "[user.real_name] has declared his intent to utterly destroy [station_name()] with a nuclear device, and dares the crew to try and stop them."
-	command_announcement.Announce(war_declaration, "Declaration of War", 'sound/effects/siren.ogg')
+	event_announcement.Announce(war_declaration, "Declaration of War", 'sound/effects/siren.ogg')
 	to_chat(user, "You've attracted the attention of powerful forces within the syndicate. A bonus bundle of telecrystals has been granted to your team. Great things await you if you complete the mission.")
 
 	for(var/obj/machinery/computer/shuttle/syndicate/S in machines)
