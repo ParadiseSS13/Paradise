@@ -52,13 +52,13 @@
 	else
 		overlays += image('icons/obj/kitchen.dmi', "gridle")
 
-/obj/machinery/gibber/relaymove(mob/user as mob)
+/obj/machinery/gibber/relaymove(mob/user)
 	if(locked)
 		return
 
 	go_out()
 
-/obj/machinery/gibber/attack_hand(mob/user as mob)
+/obj/machinery/gibber/attack_hand(mob/user)
 	if(stat & (NOPOWER|BROKEN))
 		return
 
@@ -73,7 +73,7 @@
 	else
 		startgibbing(user)
 
-/obj/machinery/gibber/attackby(obj/item/P as obj, mob/user as mob, params)
+/obj/machinery/gibber/attackby(obj/item/P, mob/user, params)
 	if(istype(P, /obj/item/weapon/grab))
 		var/obj/item/weapon/grab/G = P
 		if(G.state < 2)
@@ -352,7 +352,7 @@
 	feedinTopanim()
 	return 1
 
-/obj/machinery/gibber/autogibber/proc/ejectclothes(var/mob/living/carbon/human/H)
+/obj/machinery/gibber/autogibber/proc/ejectclothes(mob/living/carbon/human/H)
 	if(!istype(H))	return 0
 	if(H != occupant)	return 0 //only using H as a shortcut to typecast
 	for(var/obj/O in H)

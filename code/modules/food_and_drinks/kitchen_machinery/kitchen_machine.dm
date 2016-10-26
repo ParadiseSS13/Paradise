@@ -56,7 +56,7 @@
 *   Item Adding
 ********************/
 
-/obj/machinery/kitchen_machine/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
+/obj/machinery/kitchen_machine/attackby(obj/item/O, mob/user, params)
 	if(operating)
 		return
 	if(!broken && dirty < 100)
@@ -163,10 +163,10 @@
 		return 1
 	updateUsrDialog()
 
-/obj/machinery/kitchen_machine/attack_ai(mob/user as mob)
+/obj/machinery/kitchen_machine/attack_ai(mob/user)
 	return 0
 
-/obj/machinery/kitchen_machine/attack_hand(mob/user as mob)
+/obj/machinery/kitchen_machine/attack_hand(mob/user)
 	user.set_machine(src)
 	interact(user)
 
@@ -174,7 +174,7 @@
 *   Machine Menu	*
 ********************/
 
-/obj/machinery/kitchen_machine/interact(mob/user as mob) // The microwave Menu
+/obj/machinery/kitchen_machine/interact(mob/user) // The microwave Menu
 	if(panel_open || !anchored)
 		return
 	var/dat = ""
@@ -305,7 +305,7 @@
 			new byproduct(loc)
 		return
 
-/obj/machinery/kitchen_machine/proc/wzhzhzh(var/seconds as num)
+/obj/machinery/kitchen_machine/proc/wzhzhzh(seconds)
 	for(var/i=1 to seconds)
 		if(stat & (NOPOWER|BROKEN))
 			return 0

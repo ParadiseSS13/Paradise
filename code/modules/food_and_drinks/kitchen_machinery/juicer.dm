@@ -35,7 +35,7 @@
 	return
 
 
-/obj/machinery/juicer/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
+/obj/machinery/juicer/attackby(obj/item/O, mob/user, params)
 	if(istype(O,/obj/item/weapon/reagent_containers/glass) || \
 		istype(O,/obj/item/weapon/reagent_containers/food/drinks/drinkingglass))
 		if(beaker)
@@ -60,14 +60,14 @@
 	updateUsrDialog()
 	return 0
 
-/obj/machinery/juicer/attack_ai(mob/user as mob)
+/obj/machinery/juicer/attack_ai(mob/user)
 	return 0
 
-/obj/machinery/juicer/attack_hand(mob/user as mob)
+/obj/machinery/juicer/attack_hand(mob/user)
 	user.set_machine(src)
 	interact(user)
 
-/obj/machinery/juicer/interact(mob/user as mob) // The microwave Menu
+/obj/machinery/juicer/interact(mob/user) // The microwave Menu
 	var/is_chamber_empty = 0
 	var/is_beaker_ready = 0
 	var/processing_chamber = ""
