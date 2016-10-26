@@ -303,7 +303,8 @@
 		return FALSE
 
 	var/list/targets = list(target)
-	perform(targets,user = user)
+	perform(targets, user = user)
+	remove_ranged_ability(user)
 
 	return TRUE
 
