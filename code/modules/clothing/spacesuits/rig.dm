@@ -189,8 +189,8 @@
 		to_chat(H, "<span class='notice'>You deploy your hardsuit helmet, sealing you off from the world.</span>")
 	H.update_inv_head()
 
-/obj/item/clothing/suit/space/rig/attackby(obj/item/W as obj, mob/living/user as mob, params)
-	if(!istype(user))
+/obj/item/clothing/suit/space/rig/attackby(obj/item/W, mob/user, params)
+	if(!isliving(user))
 		return
 
 	if(istype(W,/obj/item/weapon/screwdriver) && can_modify(user))
