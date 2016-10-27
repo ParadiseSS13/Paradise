@@ -23,7 +23,7 @@
 	icon_state = "chocolatebar"
 	filling_color = "#7D5F46"
 	bitesize = 2
-	list_reagents = list("nutriment" = 2, "chocolate" = 2)
+	list_reagents = list("nutriment" = 2, "chocolate" = 4)
 
 /obj/item/weapon/reagent_containers/food/snacks/candy/caramel
 	name = "Caramel"
@@ -142,7 +142,7 @@
 	icon_state = "candycane"
 	filling_color = "#F2F2F2"
 	bitesize = 2
-	list_reagents = list("minttoxin" = 4, "sugar" = 5)
+	list_reagents = list("minttoxin" = 1, "sugar" = 5)
 
 /obj/item/weapon/reagent_containers/food/snacks/candy/gummybear
 	name = "gummy bear"
