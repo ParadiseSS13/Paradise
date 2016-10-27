@@ -42,7 +42,7 @@
 				user.show_message("<span class='notice'>You [open ? "open" : "close"] the service panel.</span>", 1)
 			return
 
-		if((istype(W, /obj/item/device/multitool)) && (open == 1)&& (!l_hacking))
+		if((istype(W, /obj/item/device/multitool)) && (open == 1) && (!l_hacking))
 			user.show_message("<span class='danger'>Now attempting to reset internal memory, please hold.</span>", 1)
 			l_hacking = 1
 			if(do_after(usr, 100, target = src))
@@ -177,7 +177,7 @@
 	item_state = "sec-case"
 	flags = CONDUCT
 	hitsound = "swing_hit"
-	force = 8.0
+	force = 8
 	throw_speed = 2
 	throw_range = 4
 	w_class = 4
@@ -187,8 +187,8 @@
 
 /obj/item/weapon/storage/secure/briefcase/New()
 		..()
-		new /obj/item/weapon/paper(src)
-		new /obj/item/weapon/pen(src)
+	handle_item_insertion(new /obj/item/weapon/paper, 1)
+	handle_item_insertion(new /obj/item/weapon/pen, 1)
 
 /obj/item/weapon/storage/secure/briefcase/attack_hand(mob/user as mob)
 	if((loc == user) && (locked == 1))
@@ -209,7 +209,7 @@
 
 //Syndie variant of Secure Briefcase. Contains space cash, slightly more robust.
 /obj/item/weapon/storage/secure/briefcase/syndie
-	force = 15.0
+	force = 15
 
 /obj/item/weapon/storage/secure/briefcase/syndie/New()
 	for(var/i = 0, i < storage_slots - 2, i++)
