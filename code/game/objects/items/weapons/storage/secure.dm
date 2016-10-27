@@ -186,7 +186,7 @@
 	attack_verb = list("bashed", "battered", "bludgeoned", "thrashed", "whacked")
 
 /obj/item/weapon/storage/secure/briefcase/New()
-		..()
+	..()
 	handle_item_insertion(new /obj/item/weapon/paper, 1)
 	handle_item_insertion(new /obj/item/weapon/pen, 1)
 
@@ -212,9 +212,9 @@
 	force = 15
 
 /obj/item/weapon/storage/secure/briefcase/syndie/New()
+	..()	
 	for(var/i = 0, i < storage_slots - 2, i++)
 		handle_item_insertion(new /obj/item/weapon/spacecash/c1000, 1)
-	return ..()
 
 // -----------------------------
 //        Secure Safe
