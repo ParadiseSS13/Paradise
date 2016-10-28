@@ -3,7 +3,6 @@
 /datum/cult_info
 	var/name = "Cult of Nar'Sie"
 	var/theme = "blood"
-	var/dam_type = BRUTE
 	var/tome_icon = "tome"
 	//God Entity
 	var/entity_name = "Nar'Sie"
@@ -50,7 +49,6 @@
 /datum/cult_info/fire
 	name = "Cult of Pyr'Kaeus"
 	theme = "fire"
-	dam_type = BURN
 	tome_icon = "firetome"
 
 	entity_name = "Pyr'Kaeus"

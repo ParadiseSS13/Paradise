@@ -328,37 +328,6 @@
 	overlays += image(icon,"glow-[icon_state]",overlay_layer)
 	set_light(2, -2, l_color = "#FFFFFF")
 
-////////////////Powers//////////////////
-
-
-/*
-/client/proc/summon_cultist()
-	set category = "Behemoth"
-	set name = "Summon Cultist (300)"
-	set desc = "Teleport a cultist to your location"
-	if (istype(usr,/mob/living/simple_animal/hostile/constructbehemoth))
-
-		if(usr.energy<300)
-			to_chat(usr, "\red You do not have enough power stored!")
-			return
-
-		if(usr.stat)
-			return
-
-		usr.energy -= 300
-	var/list/mob/living/cultists = new
-	for(var/datum/mind/H in ticker.mode.cult)
-		if (istype(H.current,/mob/living))
-			cultists+=H.current
-			var/mob/cultist = input("Choose the one who you want to summon", "Followers of Geometer") as null|anything in (cultists - usr)
-			if(!cultist)
-				return
-			if (cultist == usr) //just to be sure.
-				return
-			cultist.loc = usr.loc
-			usr.visible_message("/red [cultist] appears in a flash of red light as [usr] glows with power")*/
-
-
 ///ui stuff
 
 /mob/living/simple_animal/hostile/construct/armoured/handle_hud_icons_health()

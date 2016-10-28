@@ -159,7 +159,7 @@
 	if(current_charges)
 		owner.visible_message("<span class='danger'>\The [attack_text] is deflected in a burst of blood-red sparks!</span>")
 		current_charges--
-		new /obj/effect/overlay/temp/cult/sparks(get_turf(owner))
+		PoolOrNew( /obj/effect/overlay/temp/cult/sparks, get_turf(owner))
 		if(!current_charges)
 			owner.visible_message("<span class='danger'>The runed shield around [owner] suddenly disappears!</span>")
 			owner.update_inv_wear_suit()
@@ -174,7 +174,7 @@
 	flags_inv = HIDEJUMPSUIT
 	allowed = list(/obj/item/weapon/tome,/obj/item/weapon/melee/cultblade)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
-	armor = list(melee = -100, bullet = -100, laser = -100,energy = -100, bomb = -100, bio = -100, rad = -100)
+	armor = list(melee = -50, bullet = -50, laser = -100,energy = -50, bomb = -50, bio = -50, rad = -50)
 	slowdown = -1
 	hoodtype = /obj/item/clothing/head/berserkerhood
 
@@ -239,7 +239,7 @@
 		to_chat(user, "<span class='notice'>We have exhausted our ability to curse the shuttle.</span>")
 		return
 	if(shuttle_master.emergency.mode == SHUTTLE_CALL)
-		var/cursetime = 1500
+		var/cursetime = 1800
 		var/timer = shuttle_master.emergency.timeLeft(1) + cursetime
 		shuttle_master.emergency.setTimer(timer)
 		to_chat(user,"<span class='danger'>You shatter the orb! A dark essence spirals into the air, then disappears.</span>")
@@ -264,7 +264,7 @@
 	desc = "This relic teleports you forward a medium distance."
 	icon = 'icons/obj/cult.dmi'
 	icon_state ="shifter"
-	var/uses = 2
+	var/uses = 4
 
 /obj/item/device/cult_shift/examine(mob/user)
 	..()
@@ -317,14 +317,14 @@
 		if(uses <= 0)
 			icon_state ="shifter_drained"
 		playsound(mobloc, "sparks", 50, 1)
-		new /obj/effect/overlay/temp/cult/phase/out(mobloc)
+		PoolOrNew(/obj/effect/overlay/temp/cult/phase/out, mobloc)
 
 		var/atom/movable/pulled = handle_teleport_grab(destination, C)
 		C.forceMove(destination)
 		if(pulled)
 			C.start_pulling(pulled) //forcemove resets pulls, so we need to re-pull
 
-		new /obj/effect/overlay/temp/cult/phase(destination)
+		PoolOrNew(/obj/effect/overlay/temp/cult/phase, destination)
 		playsound(destination, 'sound/effects/phasein.ogg', 25, 1)
 		playsound(destination, "sparks", 50, 1)
 

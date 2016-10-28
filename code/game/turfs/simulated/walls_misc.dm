@@ -12,7 +12,6 @@
 	if(ticker.mode)//game hasn't started offically don't do shit..
 		new /obj/effect/overlay/temp/cult/turf(src)
 		icon_state = ticker.mode.cultdat.cult_wall_icon_state
-		walltype = ticker.mode.cultdat.cult_wall_icon_state
 
 /turf/simulated/wall/cult/artificer
 	name = "runed stone wall"
@@ -21,7 +20,7 @@
 
 /turf/simulated/wall/cult/narsie_act()
 	return
-	
+
 /turf/simulated/wall/cult/break_wall()
 	new /obj/effect/decal/cleanable/blood(src)
 	return (new /obj/structure/cultgirder(src))

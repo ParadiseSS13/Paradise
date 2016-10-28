@@ -304,17 +304,18 @@
 	cultist_name = "Talisman of Construction"
 	cultist_desc = "Use this talisman on at least twenty-five metal sheets to create an empty construct shell or on plasteel to make runed metal"
 	invocation = "Ethra p'ni dedol!"
+	uses = 25
 
 /obj/item/weapon/paper/talisman/construction/attack_self(mob/living/user)
 	if(iscultist(user))
-		to_chat(user, "<span class='warning'>To use this talisman, place it upon a stack of metal sheets.</span>")
+		to_chat(user, "<span class='warning'>To use this talisman, place it upon a stack of metal sheets or plasteel sheets!.</span>")
 	else
 		to_chat(user, "<span class='warning'>You see strange symbols on the paper. Are they supposed to mean something?</span>")
 
 
 /obj/item/weapon/paper/talisman/construction/attack(obj/M,mob/living/user)
 	if(iscultist(user))
-		to_chat(user, "<span class='cultitalic'>This talisman will only work on a stack of metal sheets!</span>")
+		to_chat(user, "<span class='cultitalic'>This talisman will only work on a stack of metal sheets or plasteel sheets!!</span>")
 		log_game("Construct talisman failed - not a valid target")
 
 /obj/item/weapon/paper/talisman/construction/afterattack(obj/item/stack/sheet/target, mob/user, proximity_flag, click_parameters)
@@ -328,13 +329,15 @@
 				user << sound('sound/magic/Staff_Chaos.ogg',0,1,25)
 				qdel(src)
 		if(istype(target, /obj/item/stack/sheet/plasteel))
-			var/quantity = target.amount
-			var/turf/T = get_turf(target)
+			var/quantity = min(target.amount, uses)
+			uses -= quantity
 			new /obj/item/stack/sheet/runed_metal(T,quantity)
 			target.use(quantity)
 			to_chat(user, "<span class='warning'>The talisman clings to the plasteel, transforming it into runed metal!</span>")
 			user << sound('sound/magic/Staff_Chaos.ogg',0,1,25)
-			qdel(src)
+			invoke(user, 1)
+			if(uses <= 0)
+				qdel(src)
 		else
 			to_chat(user, "<span class='warning'>The talisman must be used on metal or plasteel!</span>")
 

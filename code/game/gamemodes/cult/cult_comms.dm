@@ -2,7 +2,7 @@
 	name = "Communion"
 	button_icon_state = "cult_comms"
 	background_icon_state = "bg_cult"
-	check_flags = AB_CHECK_RESTRAINED|AB_CHECK_STUNNED|AB_CHECK_LYING
+	check_flags = AB_CHECK_STUNNED|AB_CHECK_LYING
 
 /datum/action/innate/cultcomm/IsAvailable()
 	if(!iscultist(owner))
@@ -34,6 +34,6 @@
 		if(iscultist(M))
 			to_chat(M, my_message)
 		else if(M in dead_mob_list)
-			to_chat(M, "<a href='?src=\ref[M];follow=\ref[user]'>(F)</a> [my_message]")
+			to_chat(M, "<span class='cultspeech'> <a href='?src=\ref[M];follow=\ref[user]'>(F)</a> [my_message] </span>")
 
 	log_say("[user.real_name]/[user.key] : [message]")

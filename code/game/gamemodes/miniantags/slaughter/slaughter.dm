@@ -52,18 +52,21 @@
 	del_on_death = 1
 	deathmessage = "screams in anger as it collapses into a puddle of viscera!"
 
+	var/datum/action/innate/demon/whisper/whisper_action
+
 
 /mob/living/simple_animal/slaughter/New()
 	..()
 	var/obj/effect/proc_holder/spell/bloodcrawl/bloodspell = new
 	AddSpell(bloodspell)
+	whisper_action = new()
+	whisper_action.Grant(src)
 	if(istype(loc, /obj/effect/dummy/slaughter))
 		bloodspell.phased = 1
 	if(mind)
 		to_chat(src, src.playstyle_string)
 		to_chat(src, "<B><span class ='notice'>You are not currently in the same plane of existence as the station. Ctrl+Click a blood pool to manifest.</span></B>")
 		src << 'sound/misc/demon_dies.ogg'
-		mind.current.verbs += /mob/living/simple_animal/slaughter/verb/slaughterWhisper
 		if(!(vialspawned))
 			var/datum/objective/slaughter/objective = new
 			var/datum/objective/demonFluff/fluffObjective = new
@@ -171,17 +174,21 @@
 //Paradise Port:I added this cuase..SPOOPY DEMON IN YOUR BRAIN
 
 
-/mob/living/simple_animal/slaughter/verb/slaughterWhisper()
-	set name = "Whisper"
-	set desc = "Whisper to a mortal"
-	set category = "Daemon"
+/datum/action/innate/demon/whisper
+	name = "Demonic Whisper"
+	button_icon_state = "cult_comms"
+	background_icon_state = "bg_demon"
 
+/datum/action/innate/demon/whisper/IsAvailable()
+	return ..()
+
+/datum/action/innate/demon/whisper/Activate()
 	var/list/choices = list()
 	for(var/mob/living/carbon/C in living_mob_list)
 		if(C.stat != 2 && C.client && C.stat != DEAD)
 			choices += C
 
-	var/mob/living/carbon/M = input(src,"Who do you wish to talk to?") in null|choices
+	var/mob/living/carbon/M = input(src,"Who do you wish to talk to?") in null|choices //runtime happens here.
 	spawn(0)
 		var/msg = stripped_input(usr, "What do you wish to tell [M]?", null, "")
 		if(!(msg))

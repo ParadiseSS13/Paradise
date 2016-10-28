@@ -884,6 +884,42 @@ var/list/teleport_runes = list()
 	qdel(src)
 	explosion(T, -1, 0, 1, 5)
 
+//Deals brute damage to all targets on the rune and heals the invoker for each target drained.
+/obj/effect/rune/leeching
+	cultist_name = "Drain Life"
+	cultist_desc = "drains the life of all targets on the rune, restoring life to the user."
+	invocation = "Yu'gular faras desdae. Umathar uf'kal thenar!"
+	icon_state = "3"
+
+/obj/effect/rune/leeching/can_invoke(mob/living/user)
+	if(world.time <= user.next_move)
+		return list()
+	var/turf/T = get_turf(src)
+	var/list/potential_targets = list()
+	for(var/mob/living/carbon/M in T.contents - user)
+		if(M.stat != DEAD)
+			potential_targets += M
+	if(!potential_targets.len)
+		to_chat(user, "<span class='cultitalic'>There must be at least one valid target on the rune!</span>")
+		log_game("Leeching rune failed - no valid targets")
+		return list()
+	return ..()
+
+/obj/effect/rune/leeching/invoke(var/list/invokers)
+	var/mob/living/user = invokers[1]
+	user.changeNext_move(CLICK_CD_MELEE)
+	..()
+	var/turf/T = get_turf(src)
+	for(var/mob/living/carbon/M in T.contents - user)
+		if(M.stat != DEAD)
+			var/drained_amount = rand(10,20)
+			M.apply_damage(drained_amount, BRUTE, "chest")
+			user.adjustBruteLoss(-drained_amount)
+			to_chat(M, "<span class='cultitalic'>You feel extremely weak.</span>")
+	user.Beam(T,icon_state="drainbeam",icon='icons/effects/effects.dmi',time=5)
+	user.visible_message("<span class='warning'>Blood flows from the rune into [user]!</span>", \
+	"<span class='cult'>Blood flows into you, healing your wounds and revitalizing your spirit.</span>")
+
 
 //Rite of Spectral Manifestation: Summons a ghost on top of the rune as a cultist human with no items. User must stand on the rune at all times, and takes damage for each summoned ghost.
 /obj/effect/rune/manifest

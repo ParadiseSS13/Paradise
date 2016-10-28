@@ -1,38 +1,29 @@
-/proc/make_bit_triplet()
-  var/list/num_sample  = list(1, 2, 3, 4, 5, 6, 7, 8, 9)
-  var/result = 0
-  for(var/i = 0, i < 3, i++)
-    var/num = pick(num_sample)
-    num_sample -= num
-    result += (1 << num)
-  return result
-
-/proc/get_uristrune_cult(word)
+/proc/get_rune_cult(word)
 	var/animated
 
-	if(word)
+	if(word && !(ticker.mode.cultdat.theme == "fire"))
 		animated = 1
 	else
 		animated = 0
 
 	var/bits = make_bit_triplet()
 
-	return get_uristrune(bits, animated)
+	return get_rune(bits, animated)
 
 
-var/list/uristrune_cache = list()
+var/list/rune_cache = list()
 var/runetype = "rune"
 
-/proc/get_uristrune(symbol_bits, animated = 0)
+/proc/get_rune(symbol_bits, animated = 0)
 	var/lookup = "[symbol_bits]-[animated]"
 
 	if(ticker.mode.cultdat.theme == "fire")
 		runetype = "fire-rune"
 
-	if(lookup in uristrune_cache)
-		return uristrune_cache[lookup]
+	if(lookup in rune_cache)
+		return rune_cache[lookup]
 
-	var/icon/I = icon('icons/effects/uristrunes.dmi', "blank")
+	var/icon/I = icon('icons/effects/uristrunes.dmi', "[runetype]-179")
 
 	for(var/i = 0, i < 10, i++)
 		if(symbol_bits & (1 << i))
@@ -93,6 +84,6 @@ var/runetype = "rune"
 		result.Insert(I3, "", frame = 7, delay = 2)
 		result.Insert(I2, "", frame = 8, delay = 2)
 
-	uristrune_cache[lookup] = result
+	rune_cache[lookup] = result
 
 	return result

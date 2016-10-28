@@ -10,7 +10,7 @@
 	return
 
 /obj/effect/rune/proc/check_icon()
-	icon = get_uristrune_cult(invocation)
+	icon = get_rune_cult(invocation)
 
 /obj/item/weapon/tome
 	name = "arcane tome"
@@ -242,7 +242,7 @@
 				if(!("eldergod" in cult_mode.objectives) || !("slughter" in cult_mode.objectives))
 					to_chat(user, "<span class='warning'>[cult_mode.cultdat.entity_name]'s power does not wish to be unleashed!</span>")
 					return
-				var/confirm_final = alert(user, "This is the FINAL step to summon Nar-Sie, it is a long, painful ritual and the crew will be alerted to your presence", "Are you prepared for the final battle?", "My life for Nar-Sie!", "No")
+				var/confirm_final = alert(user, "This is the FINAL step to summon your dietys power, it is a long, painful ritual and the crew will be alerted to your presence", "Are you prepared for the final battle?", "My life for Nar-Sie!", "No")
 				if(confirm_final == "No")
 					to_chat(user, "<span class='cult'>You decide to prepare further before scribing the rune.</span>")
 					return
@@ -255,6 +255,22 @@
 				N.icon_state = "shield-cult"
 				N.health = 60
 				shields |= N
+		else//the game mode is not cult..but we ARE a cultist...ALL ON THE ADMINBUS
+			if(!canbypass == 1)//not an admin-tome, check things
+				var/confirm_final = alert(user, "This is the FINAL step to summon your dietys power, it is a long, painful ritual and the crew will be alerted to your presence", "Are you prepared for the final battle?", "My life for Nar-Sie!", "No")
+				if(confirm_final == "No")
+					to_chat(user, "<span class='cult'>You decide to prepare further before scribing the rune.</span>")
+					return
+				command_announcement.Announce("Figments from an eldritch god are being summoned somwhere on the station from an unknown dimension. Disrupt the ritual at all costs!","Central Command Higher Dimensionsal Affairs", 'sound/AI/spanomalies.ogg')
+				for(var/B in spiral_range_turfs(1, user, 1))
+					var/turf/T = B
+					var/obj/machinery/shield/N = new(T)
+					N.name = "Rune-Scriber's Shield"
+					N.desc = "A potent shield summoned by cultists to protect them while they prepare the final ritual"
+					N.icon_state = "shield-cult"
+					N.health = 60
+					shields |= N
+
 	var/mob/living/carbon/human/H = user
 	var/dam_zone = pick("head", "chest", "groin", "l_arm", "l_hand", "r_arm", "r_hand", "l_leg", "l_foot", "r_leg", "r_foot")
 	var/obj/item/organ/external/affecting = H.get_organ(ran_zone(dam_zone))

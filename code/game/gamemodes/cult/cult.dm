@@ -41,9 +41,9 @@ var/global/list/all_cults = list()
 	config_tag = "cult"
 	restricted_jobs = list("Chaplain","AI", "Cyborg", "Internal Affairs Agent", "Security Officer", "Warden", "Detective", "Security Pod Pilot", "Head of Security", "Captain", "Head of Personnel", "Blueshield", "Nanotrasen Representative", "Magistrate", "Brig Physician", "Nanotrasen Navy Officer", "Special Operations Officer")
 	protected_jobs = list()
-	required_players = 1//30
-	required_enemies = 1//3
-	recommended_enemies = 1//4
+	required_players = 30
+	required_enemies = 3
+	recommended_enemies = 4
 
 	var/datum/mind/sacrifice_target = null
 	var/finished = 0
@@ -198,7 +198,7 @@ var/global/list/all_cults = list()
 /datum/game_mode/proc/remove_cultist(datum/mind/cult_mind, show_message = 1)
 	if(cult_mind in cult)
 		cult -= cult_mind
-		to_chat(cult_mind.current, "\red <FONT size = 3><B>An unfamiliar white light flashes through your mind, cleansing the taint of the dark-one and the memories of your time as his servant with it.</B></FONT>")
+		to_chat(cult_mind.current, "<span class='danger'>An unfamiliar white light flashes through your mind, cleansing the taint of the dark-one and the memories of your time as his servant with it.</span>")
 		cult_mind.current.faction -= "cult"
 		cult_mind.memory = ""
 		cult_mind.special_role = null
@@ -279,11 +279,11 @@ var/global/list/all_cults = list()
 	if(!check_cult_victory())
 		feedback_set_details("round_end_result","win - cult win")
 		feedback_set("round_end_result",acolytes_survived)
-		to_chat(world, "\red <FONT size = 3><B> The cult wins! It has succeeded in serving its dark masters!</B></FONT>")
+		to_chat(world, "<span class='danger'> <FONT size = 3> The cult wins! It has succeeded in serving its dark masters!</FONT></span>")
 	else
 		feedback_set_details("round_end_result","loss - staff stopped the cult")
 		feedback_set("round_end_result",acolytes_survived)
-		to_chat(world, "\red <FONT size = 3><B> The staff managed to stop the cult!</B></FONT>")
+		to_chat(world, "<span class='warning'> <FONT size = 3>The staff managed to stop the cult!</FONT></span>")
 
 	var/text = "<b>Cultists escaped:</b> [acolytes_survived]"
 

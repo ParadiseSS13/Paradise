@@ -14,8 +14,6 @@
 	playsound(src, death_sound, 50, 1)
 	qdel(src)
 
-/obj/structure/cult/attackby(obj/item/I, mob/user, params)
-
 
 //Noncult As we may have this on maps
 /obj/structure/cult/talisman
@@ -53,17 +51,14 @@
 	if(istype(I, /obj/item/weapon/tome) && iscultist(user))
 		anchored = !anchored
 		to_chat(user, "<span class='notice'>You [anchored ? "":"un"]secure \the [src] [anchored ? "to":"from"] the floor.</span>")
+		playsound(loc, 'sound/hallucinations/wail.ogg', 75, 1)
 		if(!anchored)
 			icon_state = "[initial(icon_state)]_off"
 		else
 			icon_state = initial(icon_state)
+	else
+	 return ..()
 
-	..()
-	if(I.force)
-		health = Clamp(health - I.force, 0, initial(health))
-		user.changeNext_move(CLICK_CD_MELEE)
-		if(health <= 0)
-			destroy_structure()
 
 /obj/structure/cult/proc/getETA()
 	var/time = (cooldowntime - world.time)/600
@@ -122,6 +117,9 @@
 		if(!iscarbon(G.affecting))
 			to_chat(user, "<span class='warning'>You may only dunk carbon-based creatures!</span>")
 			return 0
+		if(G.affecting == LAVA_PROOF)
+			to_chat(user, "<span class='warning'>Is immune to the lava!</span>")
+			return 0
 		if(G.affecting.stat == DEAD)
 			to_chat(user, "<span class='warning'>[G.affecting] is dead!</span>")
 			return 0
@@ -164,6 +162,14 @@
 		to_chat(user, "<span class='cultitalic'>You work the forge as dark knowledge guides your hands, creating [N]!</span>")
 
 
+var/list/blacklisted_pylon_turfs = typecacheof(list(
+	/turf/simulated/floor/engine/cult,
+	/turf/space,
+	/turf/unsimulated/floor/lava,
+	/turf/unsimulated/floor/chasm,
+	/turf/simulated/wall,
+	))
+
 /obj/structure/cult/cultpylon
 	name = "pylon"
 	desc = "A floating crystal that slowly heals those faithful to a cult."
@@ -194,7 +200,7 @@
 		for(var/mob/living/L in range(5, src))
 			if(iscultist(L) || istype(L, /mob/living/simple_animal/shade) || istype(L, /mob/living/simple_animal/hostile/construct))
 				if(L.health != L.maxHealth)
-					new /obj/effect/overlay/temp/heal(get_turf(src), "#960000")//not working
+					PoolOrNew(/obj/effect/overlay/temp/heal, list(get_turf(src)), "#960000")
 					if(ishuman(L))
 						L.adjustBruteLoss(-1, 0)
 						L.adjustFireLoss(-1, 0)
@@ -206,16 +212,30 @@
 			//CHECK_TICK
 	if(last_corrupt <= world.time)
 		var/list/validturfs = list()
+		var/list/cultturfs = list()
 		for(var/T in circleviewturfs(src, 5))
-			if(istype(T, /turf/simulated/floor/engine/cult) || istype(T, /turf/space) || istype(T, /turf/simulated/wall) || istype(T, /turf/simulated/shuttle))
+			if(istype(T, /turf/simulated/floor/engine/cult))
+				cultturfs |= T
 				continue
-			validturfs |= T
+			if(is_type_in_typecache(T, blacklisted_pylon_turfs))
+				continue
+			else
+				validturfs |= T
+
+		last_corrupt = world.time + corrupt_delay
+
 		var/turf/T = safepick(validturfs)
 		if(T)
 			T.ChangeTurf(/turf/simulated/floor/engine/cult)
-			last_corrupt = world.time + corrupt_delay
 		else
-			last_corrupt = world.time + corrupt_delay*2
+			var/turf/simulated/floor/engine/cult/F = safepick(cultturfs)
+			if(F)
+				PoolOrNew(/obj/effect/overlay/temp/cult/turf/open/floor, F)
+			else
+				// Are we in space or something? No cult turfs or
+				// convertable turfs?
+				last_corrupt = world.time + corrupt_delay*2
+
 
 
 /obj/structure/cult/culttome

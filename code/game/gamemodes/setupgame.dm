@@ -156,6 +156,6 @@
 	if(!picked_cult)//shouldn't happen BUT JUST TO BE SURE LET US KNOW
 		log_startup_progress(" Failed to select a cult datum, Shank a coder!")
 	else
-		log_startup_progress(" Crab'sie has risen!")
+		log_startup_progress(" [picked_cult] has risen!")
 	//todo:add adminonly datum var, check for said var here...
 	return picked_cult
