@@ -78,16 +78,13 @@ var/list/robot_verbs_default = list(
 
 	var/updating = 0 //portable camera camerachunk update
 
-	hud_possible = list(SPECIALROLE_HUD, DIAG_STAT_HUD, DIAG_HUD, DIAG_BATT_HUD,NATIONS_HUD)
+	hud_possible = list(SPECIALROLE_HUD, DIAG_STAT_HUD, DIAG_HUD, DIAG_BATT_HUD, NATIONS_HUD)
 
 	var/magpulse = 0
 	var/ionpulse = 0 // Jetpack-like effect.
 	var/ionpulse_on = 0 // Jetpack-like effect.
 	var/datum/effect/system/ion_trail_follow/ion_trail // Ionpulse effect.
-
-	var/obj/item/borg/sight/hud/sec/sechud = null
-	var/obj/item/borg/sight/hud/med/healthhud = null
-
+	
 	var/datum/action/item_action/toggle_research_scanner/scanner = null
 
 /mob/living/silicon/robot/New(loc,var/syndie = 0,var/unfinished = 0, var/alien = 0)
