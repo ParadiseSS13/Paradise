@@ -182,22 +182,39 @@
 /datum/action/innate/demon/whisper/IsAvailable()
 	return ..()
 
-/datum/action/innate/demon/whisper/Activate()
-	var/list/choices = list()
-	for(var/mob/living/carbon/C in living_mob_list)
-		if(C.stat != 2 && C.client && C.stat != DEAD)
-			choices += C
+/datum/action/innate/demon/whisper/proc/choose_targets(mob/user = usr)//yes i am copying from telepathy..hush...
+	var/list/targets = new /list()
+	var/list/validtargets = new /list()
+	for(var/mob/M in view(user.client.view, user))
+		if(M && M.mind)
+			if(M == user)
+				continue
 
-	var/mob/living/carbon/M = input(src,"Who do you wish to talk to?") in null|choices //runtime happens here.
-	spawn(0)
-		var/msg = stripped_input(usr, "What do you wish to tell [M]?", null, "")
-		if(!(msg))
-			return
-		log_say("Slaughter Demon Transmit: [key_name(usr)]->[key_name(M)]: [msg]")
-		to_chat(usr, "<span class='info'><b>You whisper to [M]: </b>[msg]</span>")
-		to_chat(M, "<span class='deadsay'><b>Suddenly a strange, demonic voice resonates in your head... </b></span><i><span class='danger'> [msg]</span></I>")
-		for(var/mob/dead/observer/G in player_list)
-			G.show_message("<i>Demonic message from <b>[usr]</b> ([ghost_follow_link(usr, ghost=G)]) to <b>[M]</b> ([ghost_follow_link(M, ghost=G)]): [msg]</i>")
+			validtargets += M
+
+	if(!validtargets.len)
+		to_chat(usr, "<span class='warning'>There are no valid targets!</span>")
+		return
+
+	targets += input("Choose the target to talk to.", "Targeting") as null|mob in validtargets
+
+	if(!targets.len || !targets[1])
+		return
+
+/datum/action/innate/demon/whisper/Activate()
+	var/list/choice = choose_targets()
+
+	if(!choice.len)
+		return
+
+	var/msg = stripped_input(usr, "What do you wish to tell [choice]?", null, "")
+	if(!(msg))
+		return
+	log_say("Slaughter Demon Transmit: [key_name(usr)]->[key_name(choice)]: [msg]")
+	to_chat(usr, "<span class='info'><b>You whisper to [choice]: </b>[msg]</span>")
+	to_chat(choice, "<span class='deadsay'><b>Suddenly a strange, demonic voice resonates in your head... </b></span><i><span class='danger'> [msg]</span></I>")
+	for(var/mob/dead/observer/G in player_list)
+		G.show_message("<i>Demonic message from <b>[usr]</b> ([ghost_follow_link(usr, ghost=G)]) to <b>[choice]</b> ([ghost_follow_link(choice, ghost=G)]): [msg]</i>")
 
 
 //////////The Loot

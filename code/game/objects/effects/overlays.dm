@@ -124,6 +124,7 @@
 
 /obj/effect/overlay/temp/heal //color is white by default, set to whatever is needed
 	name = "healing glow"
+	icon = 'icons/effects/effects.dmi'
 	icon_state = "heal"
 	duration = 15
 

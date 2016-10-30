@@ -159,7 +159,7 @@
 	if(current_charges)
 		owner.visible_message("<span class='danger'>\The [attack_text] is deflected in a burst of blood-red sparks!</span>")
 		current_charges--
-		PoolOrNew( /obj/effect/overlay/temp/cult/sparks, get_turf(owner))
+		new /obj/effect/overlay/temp/cult/sparks(get_turf(owner))
 		if(!current_charges)
 			owner.visible_message("<span class='danger'>The runed shield around [owner] suddenly disappears!</span>")
 			owner.update_inv_wear_suit()
@@ -317,7 +317,7 @@
 		if(uses <= 0)
 			icon_state ="shifter_drained"
 		playsound(mobloc, "sparks", 50, 1)
-		PoolOrNew(/obj/effect/overlay/temp/cult/phase/out, mobloc)
+		new /obj/effect/overlay/temp/cult/phase/out(mobloc)
 
 		var/atom/movable/pulled = handle_teleport_grab(destination, C)
 		C.forceMove(destination)
