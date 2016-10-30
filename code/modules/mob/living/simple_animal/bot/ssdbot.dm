@@ -26,6 +26,7 @@
 	var/soundeffects = 0
 	var/automatic_mode = 1 // if 1, players cannot reconfigure it
 	buckle_lying = 1
+	force_threshold = 20
 
 /mob/living/simple_animal/bot/mulebot/ssdbot/New()
 	..()
@@ -53,6 +54,8 @@
 /mob/living/simple_animal/bot/mulebot/ssdbot/buzz(type)
 	if(soundeffects)
 		..(type)
+/mob/living/simple_animal/bot/mulebot/ssdbot/emp_act(severity)
+	return
 
 /mob/living/simple_animal/bot/mulebot/ssdbot/interact(mob/user)
 	if(automatic_mode)
