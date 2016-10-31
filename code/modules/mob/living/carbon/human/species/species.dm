@@ -332,7 +332,7 @@
 			if(SA_pp > atmos_requirements["sa_para"]) // Enough to make us paralysed for a bit
 				H.Paralyse(3) // 3 gives them one second to wake up and run away a bit!
 				if(SA_pp > atmos_requirements["sa_sleep"]) // Enough to make us sleep as well
-					H.sleeping = max(H.sleeping + 2, 10)
+					H.AdjustSleeping(2, bound_lower = 0, bound_upper = 10)
 			else if(SA_pp > 0.01)	// There is sleeping gas in their lungs, but only a little, so give them a bit of a warning
 				if(prob(20))
 					spawn(0)
@@ -509,7 +509,7 @@
 		if(tinted_weldhelh)
 			H.overlay_fullscreen("tint", /obj/screen/fullscreen/impaired, 2)
 		if(H.tinttotal >= TINT_BLIND)
-			H.eye_blind = max(H.eye_blind, 1)
+			H.EyeBlind(1)
 	else
 		H.clear_fullscreen("tint")
 

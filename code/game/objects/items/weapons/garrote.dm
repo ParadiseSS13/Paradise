@@ -91,7 +91,7 @@
 			G.state = GRAB_NECK
 			G.hud.icon_state = "kill"
 			G.hud.name = "kill"
-			M.silent += 1
+			M.AdjustSilence(1)
 
 	garrote_time = world.time + 10
 	processing_objects.Add(src)
@@ -152,7 +152,7 @@
 		return
 
 
-	strangling.silent = max(strangling.silent,  3) // Non-improvised effects
+	strangling.Silence(3) // Non-improvised effects
 	strangling.apply_damage(4, OXY, "head")
 
 

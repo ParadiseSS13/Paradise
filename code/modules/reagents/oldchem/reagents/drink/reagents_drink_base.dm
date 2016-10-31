@@ -14,9 +14,9 @@
 /datum/reagent/drink/on_mob_life(mob/living/M)
 	M.nutrition += nutriment_factor
 	if(adj_dizzy)
-		M.dizziness = max(0, M.dizziness + adj_dizzy)
+		M.AdjustDizzy(adj_dizzy)
 	if(adj_drowsy)
-		M.drowsyness = max(0, M.drowsyness + adj_drowsy)
+		M.AdjustDrowsy(adj_drowsy)
 	if(adj_sleepy)
 		M.AdjustSleeping(adj_sleepy)
 	if(adj_temp_hot)

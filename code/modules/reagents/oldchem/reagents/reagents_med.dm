@@ -41,7 +41,7 @@
 	overdose_threshold = 40
 
 /datum/reagent/synaptizine/on_mob_life(mob/living/M)
-	M.drowsyness = max(0, M.drowsyness-5)
+	M.AdjustDrowsy(-5)
 	M.AdjustParalysis(-1)
 	M.AdjustStunned(-1)
 	M.AdjustWeakened(-1)
