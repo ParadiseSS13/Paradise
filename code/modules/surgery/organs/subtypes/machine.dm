@@ -142,10 +142,10 @@
 /obj/item/organ/internal/optical_sensor/surgeryize()
 	if(!owner)
 		return
-	owner.disabilities &= ~NEARSIGHTED
-	owner.disabilities &= ~BLIND
-	owner.eye_blurry = 0
-	owner.eye_blind = 0
+	owner.CureNearsighted()
+	owner.CureBlind()
+	owner.SetEyeBlurry(0)
+	owner.SetEyeBlind(0)
 
 
 // Used for an MMI or posibrain being installed into a human.

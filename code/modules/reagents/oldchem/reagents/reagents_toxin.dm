@@ -326,7 +326,7 @@
 /datum/reagent/spores/on_mob_life(mob/living/M)
 	M.adjustToxLoss(1)
 	M.damageoverlaytemp = 60
-	M.eye_blurry = max(M.eye_blurry, 3)
+	M.EyeBlurry(3)
 	..()
 
 /datum/reagent/beer2	//disguised as normal beer for use by emagged brobots
@@ -385,25 +385,25 @@
 				to_chat(victim, "<span class='danger'>Your [safe_thing] protect you from most of the pepperspray!</span>")
 				if(prob(5))
 					victim.emote("scream")
-				victim.eye_blurry = max(M.eye_blurry, 3)
-				victim.eye_blind = max(M.eye_blind, 1)
-				victim.confused = max(M.confused, 3)
+				victim.EyeBlurry(3)
+				victim.EyeBlind(1)
+				victim.Confused(3)
 				victim.damageoverlaytemp = 60
 				victim.Weaken(3)
 				victim.drop_item()
 				return
 			else if( eyes_covered ) // Eye cover is better than mouth cover
 				to_chat(victim, "<span class='danger'>Your [safe_thing] protects your eyes from the pepperspray!</span>")
-				victim.eye_blurry = max(M.eye_blurry, 3)
+				victim.EyeBlurry(3)
 				victim.damageoverlaytemp = 30
 				return
 			else // Oh dear :D
 				if(prob(5))
 					victim.emote("scream")
 				to_chat(victim, "<span class='danger'>You're sprayed directly in the eyes with pepperspray!</span>")
-				victim.eye_blurry = max(M.eye_blurry, 5)
-				victim.eye_blind = max(M.eye_blind, 2)
-				victim.confused = max(M.confused, 6)
+				victim.EyeBlurry(5)
+				victim.EyeBlind(2)
+				victim.Confused(6)
 				victim.damageoverlaytemp = 75
 				victim.Weaken(5)
 				victim.drop_item()

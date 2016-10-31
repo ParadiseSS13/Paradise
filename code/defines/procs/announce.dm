@@ -96,7 +96,7 @@
 		for(var/obj/item/device/radio/R in global_radios)
 			receivers |= R.send_announcement()
 		for(var/mob/M in receivers)
-			if(!istype(M) || !M.client || M.stat || isdeaf(M))
+			if(!istype(M) || !M.client || M.stat || !M.can_hear())
 				receivers -= M
 				continue
 			if(!M.say_understands(null, message_language))

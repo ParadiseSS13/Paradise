@@ -352,7 +352,8 @@
 				else valid_limbs -= processing_dismember
 
 			if(!istype(l_ear, /obj/item/clothing/ears/earmuffs) && !istype(r_ear, /obj/item/clothing/ears/earmuffs))
-				adjustEarDamage(30, 120)
+				AdjustEarDamage(30)
+				AdjustEarDeaf(120)
 			if(prob(70) && !shielded)
 				Paralyse(10)
 
@@ -376,7 +377,8 @@
 					else valid_limbs -= processing_dismember
 
 			if(!istype(l_ear, /obj/item/clothing/ears/earmuffs) && !istype(r_ear, /obj/item/clothing/ears/earmuffs))
-				adjustEarDamage(15,60)
+				AdjustEarDamage(15)
+				AdjustEarDeaf(60)
 			if(prob(50) && !shielded)
 				Paralyse(10)
 
@@ -491,8 +493,7 @@
 						O.show_message(text("<span class='danger'>The [M.name] has shocked []!</span>", src), 1)
 
 				Weaken(power)
-				if(stuttering < power)
-					stuttering = power
+				Stuttering(power)
 				Stun(power)
 
 				var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
@@ -1739,7 +1740,7 @@
 	if(last_special > world.time)
 		return
 
-	if(stat || paralysis || stunned || weakened || lying || restrained() || buckled)
+	if(!canmove)
 		to_chat(src, "You cannot leap in your current state.")
 		return
 
@@ -1793,7 +1794,7 @@
 	if(last_special > world.time)
 		return
 
-	if(stat || paralysis || stunned || weakened || lying)
+	if(!canmove)
 		to_chat(src, "\red You cannot do that in your current state.")
 		return
 

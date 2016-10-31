@@ -48,9 +48,9 @@
 
 /datum/reagent/drink/cold/nuka_cola/on_mob_life(mob/living/M)
 	M.Jitter(20)
-	M.druggy = max(M.druggy, 30)
-	M.dizziness +=5
-	M.drowsyness = 0
+	M.Druggy(30)
+	M.AdjustDizzy(5)
+	M.SetDrowsy(0)
 	M.status_flags |= GOTTAGOFAST
 	..()
 

@@ -167,7 +167,7 @@
 	M.adjustBruteLoss(-2*REM)
 	M.adjustFireLoss(-2*REM)
 	if(prob(50))
-		M.losebreath -= 1
+		M.AdjustLoseBreath(-1)
 	..()
 
 /datum/reagent/omnizine/overdose_process(mob/living/M, severity)
@@ -181,7 +181,7 @@
 			M.Weaken(4)
 		else if(effect <= 3)
 			M.visible_message("<span class='warning'>[M] completely spaces out for a moment.</span>")
-			M.confused += 15
+			M.AdjustConfused(15)
 		else if(effect <= 5)
 			M.visible_message("<span class='warning'>[M] stumbles and staggers.</span>")
 			M.Dizzy(5)
@@ -317,7 +317,7 @@
 
 /datum/reagent/salbutamol/on_mob_life(mob/living/M)
 	M.adjustOxyLoss(-6*REM)
-	M.losebreath = max(0, M.losebreath-4)
+	M.AdjustLoseBreath(-4)
 	..()
 
 /datum/chemical_reaction/salbutamol
@@ -341,8 +341,8 @@
 /datum/reagent/perfluorodecalin/on_mob_life(mob/living/carbon/human/M)
 	M.adjustOxyLoss(-25*REM)
 	if(volume >= 4)
-		M.losebreath = max(M.losebreath, 6)
-		M.silent = max(M.silent, 6)
+		M.LoseBreath(6)
+		M.Silence(6)
 	if(prob(33))
 		M.adjustBruteLoss(-1*REM)
 		M.adjustFireLoss(-1*REM)
@@ -369,13 +369,12 @@
 	addiction_chance = 25
 
 /datum/reagent/ephedrine/on_mob_life(mob/living/M)
-	M.drowsyness = max(0, M.drowsyness-5)
+	M.AdjustDrowsy(-5)
 	M.AdjustParalysis(-1)
 	M.AdjustStunned(-1)
 	M.AdjustWeakened(-1)
 	M.adjustStaminaLoss(-1*REM)
-	if(M.losebreath > 5)
-		M.losebreath = max(5, M.losebreath-1)
+	M.AdjustLoseBreath(-1, bound_lower = 5)
 	if(M.oxyloss > 75)
 		M.adjustOxyLoss(-1)
 	if(M.health < 0 || M.health > 0 && prob(33))
@@ -422,14 +421,14 @@
 	addiction_chance = 10
 
 /datum/reagent/diphenhydramine/on_mob_life(mob/living/M)
-	M.jitteriness = max(0, M.jitteriness-20)
+	M.AdjustJitter(-20)
 	M.reagents.remove_reagent("histamine",3)
 	M.reagents.remove_reagent("itching_powder",3)
 	if(prob(7))
 		M.emote("yawn")
 	if(prob(3))
 		M.Stun(2)
-		M.drowsyness += 1
+		M.AdjustDrowsy(1)
 		M.visible_message("<span class='notice'>[M] looks a bit dazed.</span>")
 	..()
 
@@ -453,16 +452,16 @@
 	shock_reduction = 50
 
 /datum/reagent/morphine/on_mob_life(mob/living/M)
-	M.jitteriness = max(0, M.jitteriness-25)
+	M.AdjustJitter(-25)
 	switch(current_cycle)
 		if(1 to 15)
 			if(prob(7))
 				M.emote("yawn")
 		if(16 to 35)
-			M.drowsyness = max(M.drowsyness, 20)
+			M.Drowsy(20)
 		if(36 to INFINITY)
 			M.Paralyse(15)
-			M.drowsyness = max(M.drowsyness, 20)
+			M.Drowsy(20)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		if(H.traumatic_shock < 100)
@@ -476,16 +475,16 @@
 			var/obj/item/organ/internal/eyes/E = H.get_int_organ(/obj/item/organ/internal/eyes)
 			if(istype(E))
 				E.damage = max(E.damage-1, 0)
-		M.eye_blurry = max(M.eye_blurry-1 , 0)
-		M.adjustEarDamage(-1,0)
+		M.AdjustEyeBlurry(-1)
+		M.AdjustEarDamage(-1)
 	if(prob(50))
-		M.disabilities &= ~NEARSIGHTED
+		M.CureNearsighted()
 	if(prob(30))
-		M.disabilities &= ~BLIND
-		M.eye_blind = 0
+		M.CureBlind()
+		M.SetEyeBlind(0)
 	if(M.ear_damage <= 25)
 		if(prob(30))
-			M.setEarDamage(-1,0)
+			M.SetEarDeaf(0)
 	..()
 
 /datum/chemical_reaction/oculine
@@ -515,12 +514,11 @@
 	overdose_threshold = 25
 
 /datum/reagent/atropine/on_mob_life(mob/living/M)
-	M.dizziness += 1
-	M.confused = max(M.confused, 5)
+	M.AdjustDizzy(1)
+	M.Confused(5)
 	if(prob(4))
 		M.emote("collapse")
-	if(M.losebreath > 5)
-		M.losebreath = max(5, M.losebreath-5)
+	M.AdjustLoseBreath(-5, bound_lower = 5)
 	if(M.oxyloss > 65)
 		M.adjustOxyLoss(-10*REM)
 	if(M.health < -25)
@@ -550,7 +548,7 @@
 	overdose_threshold = 20
 
 /datum/reagent/epinephrine/on_mob_life(mob/living/M)
-	M.drowsyness = max(0, M.drowsyness-5)
+	M.AdjustDrowsy(-5)
 	if(prob(20))
 		M.AdjustParalysis(-1)
 	if(prob(20))
@@ -562,8 +560,7 @@
 	if(prob(5))
 		M.adjustBrainLoss(-1)
 	holder.remove_reagent("histamine", 15)
-	if(M.losebreath > 3)
-		M.losebreath--
+	M.AdjustLoseBreath(-1, bound_lower = 3)
 	if(M.oxyloss > 35)
 		M.adjustOxyLoss(-10*REM)
 	if(M.health < -10 && M.health > -65)
@@ -694,7 +691,7 @@
 	color = "#D1D1F1"
 
 /datum/reagent/mutadone/on_mob_life(mob/living/carbon/human/M)
-	M.jitteriness = 0
+	M.SetJitter(0)
 	var/needs_update = M.mutations.len > 0 || M.disabilities > 0
 
 	if(needs_update)
@@ -733,7 +730,7 @@
 	color = "#009CA8"
 
 /datum/reagent/antihol/on_mob_life(mob/living/M)
-	M.slurring = 0
+	M.SetSlur(0)
 	M.AdjustDrunk(-4)
 	M.reagents.remove_all_type(/datum/reagent/ethanol, 8, 0, 1)
 	if(M.toxloss <= 25)
@@ -763,10 +760,10 @@
 		M.adjustBruteLoss(-10*REM)
 		M.adjustFireLoss(-10*REM)
 		M.setStaminaLoss(0)
-		M.slowed = 0
-		M.dizziness = max(0,M.dizziness-10)
-		M.drowsyness = max(0,M.drowsyness-10)
-		M.confused = 0
+		M.SetSlowed(0)
+		M.AdjustDizzy(-10)
+		M.AdjustDrowsy(-10)
+		M.SetConfused(0)
 		M.SetSleeping(0)
 		var/status = CANSTUN | CANWEAKEN | CANPARALYSE
 		M.status_flags &= ~status
@@ -811,7 +808,7 @@
 	if(prob(33))
 		M.adjustStaminaLoss(2.5*REM)
 		M.adjustToxLoss(1*REM)
-		M.losebreath++
+		M.AdjustLoseBreath(1)
 
 /datum/reagent/insulin
 	name = "Insulin"
@@ -882,11 +879,11 @@
 	M.reagents.remove_reagent("bath_salts", 5)
 	M.reagents.remove_reagent("lsd", 5)
 	M.reagents.remove_reagent("thc", 5)
-	M.druggy -= 5
-	M.hallucination -= 5
-	M.jitteriness -= 5
+	M.AdjustDruggy(-5)
+	M.AdjustHallucinate(-5)
+	M.AdjustJitter(-5)
 	if(prob(50))
-		M.drowsyness = max(M.drowsyness, 3)
+		M.Drowsy(3)
 	if(prob(10))
 		M.emote("drool")
 	if(prob(20))
@@ -910,16 +907,16 @@
 	color = "#96DEDE"
 
 /datum/reagent/ether/on_mob_life(mob/living/M)
-	M.jitteriness = max(M.jitteriness-25,0)
+	M.AdjustJitter(-25)
 	switch(current_cycle)
 		if(1 to 15)
 			if(prob(7))
 				M.emote("yawn")
 		if(16 to 35)
-			M.drowsyness = max(M.drowsyness, 20)
+			M.Drowsy(20)
 		if(36 to INFINITY)
 			M.Paralyse(15)
-			M.drowsyness = max(M.drowsyness, 20)
+			M.Drowsy(20)
 	..()
 
 /datum/chemical_reaction/ether
@@ -960,7 +957,7 @@
 		M.AdjustParalysis(-1)
 		M.AdjustStunned(-1)
 		M.AdjustWeakened(-1)
-		M.confused = max(0, M.confused-5)
+		M.AdjustConfused(-5)
 	for(var/datum/reagent/R in M.reagents.reagent_list)
 		if(R != src)
 			if(R.id == "ultralube" || R.id == "lube")
@@ -1037,7 +1034,7 @@
 			M.Weaken(4)
 		else if(effect <= 3)
 			M.visible_message("<span class='warning'>[M] completely spaces out for a moment.</span>")
-			M.confused += 15
+			M.AdjustConfused(15)
 		else if(effect <= 5)
 			M.visible_message("<span class='warning'>[M] stumbles and staggers.</span>")
 			M.Dizzy(5)

@@ -264,27 +264,27 @@
 	process_flags = ORGANIC | SYNTHETIC
 
 /datum/reagent/holywater/on_mob_life(mob/living/M)
-	M.jitteriness = max(M.jitteriness-5,0)
+	M.AdjustJitter(-5)
 	if(current_cycle >= 30)		// 12 units, 60 seconds @ metabolism 0.4 units & tick rate 2.0 sec
-		M.stuttering = min(M.stuttering+4, 20)
+		M.AdjustStuttering(4, bound_lower = 0, bound_upper = 20)
 		M.Dizzy(5)
 		if(iscultist(M) && prob(5))
 			M.say(pick("Av'te Nar'sie","Pa'lid Mors","INO INO ORA ANA","SAT ANA!","Daim'niodeis Arc'iai Le'eones","Egkau'haom'nai en Chaous","Ho Diak'nos tou Ap'iron","R'ge Na'sie","Diabo us Vo'iscum","Si gn'um Co'nu"))
 	if(current_cycle >= 75 && prob(33))	// 30 units, 150 seconds
-		M.confused += 3
+		M.AdjustConfused(3)
 		if(isvampirethrall(M))
 			ticker.mode.remove_vampire_mind(M.mind)
 			holder.remove_reagent(id, volume)
-			M.jitteriness = 0
-			M.stuttering = 0
-			M.confused = 0
+			M.SetJitter(0)
+			M.SetStuttering(0)
+			M.SetConfused(0)
 			return
 		if(iscultist(M))
 			ticker.mode.remove_cultist(M.mind)
 			holder.remove_reagent(id, volume)	// maybe this is a little too perfect and a max() cap on the statuses would be better??
-			M.jitteriness = 0
-			M.stuttering = 0
-			M.confused = 0
+			M.SetJitter(0)
+			M.SetStuttering(0)
+			M.SetConfused(0)
 			return
 	if(ishuman(M) && M.mind && M.mind.vampire && !M.mind.vampire.get_ability(/datum/vampire_passive/full) && prob(80))
 		switch(current_cycle)
