@@ -411,11 +411,12 @@
 			var/mob/living/carbon/human/M = src.loc
 			to_chat(M, "\red The Optical Thermal Scanner overloads and blinds you!")
 			if(M.glasses == src)
-				M.eye_blind = 3
-				M.eye_blurry = 5
-				M.disabilities |= NEARSIGHTED
-				spawn(100)
-					M.disabilities &= ~NEARSIGHTED
+				M.EyeBlind(3)
+				M.EyeBlurry(5)
+				if(!(M.disabilities & NEARSIGHTED))
+					M.BecomeNearsighted()
+					spawn(100)
+						M.CureNearsighted()
 		..()
 
 /obj/item/clothing/glasses/thermal/syndi	//These are now a traitor item, concealed as mesons.	-Pete

@@ -114,9 +114,9 @@
 
 /datum/light_source/proc/parse_light_color()
 	if(light_color)
-		lum_r = GetRedPart(light_color) / 255
-		lum_g = GetGreenPart(light_color) / 255
-		lum_b = GetBluePart(light_color) / 255
+		lum_r = color2R(light_color) / 255
+		lum_g = color2G(light_color) / 255
+		lum_b = color2B(light_color) / 255
 	else
 		lum_r = 1
 		lum_g = 1
@@ -195,7 +195,7 @@
 
 	effect_str.Cut()
 	effect_turf.Cut()
-	
+
 /datum/light_source/proc/forget_turf(turf/T)
 	var/idx = effect_turf.Find(T)
 	effect_turf.Cut(idx, idx + 1)

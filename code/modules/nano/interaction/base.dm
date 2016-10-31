@@ -17,7 +17,7 @@
 	else if(incapacitated())
 		return STATUS_UPDATE					// update only (orange visibility)
 	return STATUS_INTERACTIVE
-	
+
 /mob/dead/observer/shared_nano_interaction()
 	if(check_rights(R_ADMIN, 0, src))
 		return STATUS_INTERACTIVE				// Admins are more equal

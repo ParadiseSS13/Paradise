@@ -88,13 +88,15 @@
 
 			f_loss += 60
 
-			adjustEarDamage(30,120)
+			AdjustEarDamage(30)
+			AdjustEarDeaf(120)
 
 		if(3.0)
 			b_loss += 30
 			if(prob(50))
 				Paralyse(1)
-			adjustEarDamage(15,60)
+			AdjustEarDamage(15)
+			AdjustEarDeaf(60)
 
 	adjustBruteLoss(b_loss)
 	adjustFireLoss(f_loss)

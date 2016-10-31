@@ -30,7 +30,7 @@
 	if(severity == 1)
 		if(effect <= 2)
 			M.visible_message("<span class='warning'>[M] looks nervous!</span>")
-			M.confused += 15
+			M.AdjustConfused(15)
 			M.adjustToxLoss(2)
 			M.Jitter(10)
 			M.emote("twitch_s")
@@ -55,7 +55,7 @@
 			M.Jitter(10)
 			M.adjustToxLoss(5)
 			M.Weaken(1)
-			M.confused += 33
+			M.AdjustConfused(33)
 		else if(effect <= 7)
 			M.emote("collapse")
 			to_chat(M, "<span class='warning'>Your heart is pounding!</span>")
@@ -90,7 +90,7 @@
 	if(prob(4))
 		to_chat(M, "<span class='notice'>You feel kinda awful!</span>")
 		M.adjustToxLoss(1)
-		M.jitteriness += 30
+		M.AdjustJitter(30)
 		M.emote(pick("groan", "moan"))
 	..()
 
@@ -99,7 +99,7 @@
 	if(severity == 1)
 		if(effect <= 2)
 			M.visible_message("<span class='warning'>[M] looks confused!</span>")
-			M.confused += 20
+			M.AdjustConfused(20)
 			M.Jitter(20)
 			M.emote("scream")
 		else if(effect <= 4)
@@ -123,7 +123,7 @@
 			M.adjustToxLoss(2)
 			M.adjustBrainLoss(8)
 			M.Weaken(3)
-			M.confused += 25
+			M.AdjustConfused(25)
 			M.emote("scream")
 			M.reagents.add_reagent("jagged_crystals", 5)
 		else if(effect <= 7)
@@ -160,7 +160,7 @@
 
 
 /datum/reagent/krokodil/on_mob_life(mob/living/M)
-	M.jitteriness -= 40
+	M.AdjustJitter(-40)
 	if(prob(25))
 		M.adjustBrainLoss(1)
 	if(prob(15))
@@ -241,8 +241,8 @@
 	if(prob(5))
 		M.emote(pick("twitch_s","blink_r","shiver"))
 	if(current_cycle >= 25)
-		M.jitteriness += 5
-	M.drowsyness = max(0, M.drowsyness-10)
+		M.AdjustJitter(5)
+	M.AdjustDrowsy(-10)
 	M.AdjustParalysis(-2.5)
 	M.AdjustStunned(-2.5)
 	M.AdjustWeakened(-2.5)
@@ -262,7 +262,7 @@
 	if(severity == 1)
 		if(effect <= 2)
 			M.visible_message("<span class='warning'>[M] can't seem to control their legs!</span>")
-			M.confused += 20
+			M.AdjustConfused(20)
 			M.Weaken(4)
 		else if(effect <= 4)
 			M.visible_message("<span class='warning'>[M]'s hands flip out and flail everywhere!</span>")
@@ -296,7 +296,7 @@
 	for(var/mob/living/carbon/C in range(T, 1))
 		if(C.can_breathe_gas())
 			C.emote("gasp")
-			C.losebreath++
+			C.AdjustLoseBreath(1)
 			C.reagents.add_reagent("toxin", 10)
 			C.reagents.add_reagent("neurotoxin2", 20)
 
@@ -342,15 +342,15 @@
 		M.SetWeakened(0)
 	if(check < 30)
 		M.emote(pick("twitch", "twitch_s", "scream", "drool", "grumble", "mumble"))
-	M.druggy = max(M.druggy, 15)
+	M.Druggy(15)
 	if(check < 20)
-		M.confused += 10
+		M.AdjustConfused(10)
 	if(check < 8)
 		M.reagents.add_reagent(pick("methamphetamine", "crank", "neurotoxin"), rand(1,5))
 		M.visible_message("<span class='warning'>[M] scratches at something under their skin!</span>")
 		M.adjustBruteLoss(5)
 	else if(check < 16)
-		M.hallucination += 30
+		M.AdjustHallucinate(30)
 	else if(check < 24)
 		to_chat(M, "<span class='userdanger'>They're coming for you!</span>")
 	else if(check < 28)
@@ -373,7 +373,7 @@
 	if(severity == 1)
 		if(effect <= 2)
 			M.visible_message("<span class='danger'>[M] flails around like a lunatic!</span>")
-			M.confused += 25
+			M.AdjustConfused(25)
 			M.Jitter(10)
 			M.emote("scream")
 			M.reagents.add_reagent("jagged_crystals", 5)
@@ -383,7 +383,7 @@
 			M.adjustToxLoss(2)
 			M.adjustBrainLoss(1)
 			M.Stun(3)
-			M.eye_blurry = max(M.eye_blurry, 7)
+			M.EyeBlurry(7)
 			M.reagents.add_reagent("jagged_crystals", 5)
 		else if(effect <= 7)
 			M.emote("faint")
@@ -394,7 +394,7 @@
 			M.adjustToxLoss(2)
 			M.adjustBrainLoss(1)
 			M.Stun(3)
-			M.eye_blurry = max(M.eye_blurry, 7)
+			M.EyeBlurry(7)
 			M.reagents.add_reagent("jagged_crystals", 5)
 		else if(effect <= 4)
 			M.visible_message("<span class='danger'>[M] convulses violently and falls to the floor!</span>")
@@ -479,7 +479,7 @@
 		to_chat(M, "<span class='danger'>You cannot breathe!</span>")
 		M.adjustOxyLoss(15)
 		M.Stun(1)
-		M.losebreath++
+		M.AdjustLoseBreath(1)
 	..()
 
 /datum/reagent/thc
@@ -497,10 +497,10 @@
 	if(prob(5))
 		to_chat(M, "[pick("You feel hungry.","Your stomach rumbles.","You feel cold.","You feel warm.")]")
 	if(prob(4))
-		M.confused = max(M.confused, 10)
+		M.Confused(10)
 	if(volume >= 50 && prob(25))
 		if(prob(10))
-			M.drowsyness = max(M.drowsyness, 10)
+			M.Drowsy(10)
 	..()
 
 /datum/reagent/fliptonium
@@ -545,7 +545,7 @@
 	if(current_cycle == 50)
 		M.SpinAnimation(speed = 4, loops = -1)
 
-	M.drowsyness = max(0, M.drowsyness-6)
+	M.AdjustDrowsy(-6)
 	M.AdjustParalysis(-1.5)
 	M.AdjustStunned(-1.5)
 	M.AdjustWeakened(-1.5)
@@ -561,7 +561,7 @@
 	if(severity == 1)
 		if(effect <= 2)
 			M.visible_message("<span class='warning'>[M] can't seem to control their legs!</span>")
-			M.confused += 33
+			M.AdjustConfused(33)
 			M.Weaken(2)
 		else if(effect <= 4)
 			M.visible_message("<span class='warning'>[M]'s hands flip out and flail everywhere!</span>")
@@ -655,7 +655,7 @@
 
 
 /datum/reagent/surge/on_mob_life(mob/living/M)
-	M.druggy = max(M.druggy, 15)
+	M.Druggy(15)
 	var/high_message = pick("You feel calm.", "You feel collected.", "You feel like you need to relax.")
 	if(prob(1))
 		if(prob(1))

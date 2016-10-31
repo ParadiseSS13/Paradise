@@ -136,17 +136,17 @@
 
 /mob/living/proc/handle_silent()
 	if(silent)
-		silent = max(silent-1, 0)
+		AdjustSilence(-1)
 	return silent
 
 /mob/living/proc/handle_drugged()
 	if(druggy)
-		druggy = max(druggy-1, 0)
+		AdjustDruggy(-1)
 	return druggy
 
 /mob/living/proc/handle_slurring()
 	if(slurring)
-		slurring = max(slurring-1, 0)
+		AdjustSlur(-1)
 	return slurring
 
 /mob/living/proc/handle_paralysed()
@@ -164,7 +164,7 @@
 
 /mob/living/proc/handle_slowed()
 	if(slowed)
-		slowed = max(slowed-1, 0)
+		AdjustSlowed(-1)
 	return slowed
 
 /mob/living/proc/handle_drunk()
@@ -175,19 +175,20 @@
 /mob/living/proc/handle_disabilities()
 	//Eyes
 	if(disabilities & BLIND || stat)	//blindness from disability or unconsciousness doesn't get better on its own
-		eye_blind = max(eye_blind, 1)
+		EyeBlind(1)
 	else if(eye_blind)			//blindness, heals slowly over time
-		eye_blind = max(eye_blind-1,0)
+		AdjustEyeBlind(-1)
 	else if(eye_blurry)			//blurry eyes heal slowly
-		eye_blurry = max(eye_blurry-1, 0)
+		AdjustEyeBlurry(-1)
 
 	//Ears
 	if(disabilities & DEAF)		//disabled-deaf, doesn't get better on its own
-		setEarDamage(-1, max(ear_deaf, 1))
+		EarDeaf(1)
 	else
 		// deafness heals slowly over time, unless ear_damage is over 100
 		if(ear_damage < 100)
-			adjustEarDamage(-0.05,-1)
+			AdjustEarDamage(-0.05)
+			AdjustEarDeaf(-1)
 
 //this handles hud updates. Calls update_vision() and handle_hud_icons()
 /mob/living/proc/handle_regular_hud_updates()

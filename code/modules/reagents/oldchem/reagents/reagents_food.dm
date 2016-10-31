@@ -370,9 +370,9 @@
 	overdose_threshold = 200 // Hyperglycaemic shock
 
 /datum/reagent/sugar/on_mob_life(mob/living/M)
-	M.drowsyness = max(0, M.drowsyness-5)
+	M.AdjustDrowsy(-5)
 	if(current_cycle >= 90)
-		M.jitteriness += 2
+		M.AdjustJitter(2)
 	if(prob(50))
 		M.AdjustParalysis(-1)
 		M.AdjustStunned(-1)
@@ -391,4 +391,3 @@
 	M.Weaken(4 * severity)
 	if(prob(8))
 		M.adjustToxLoss(severity)
-
