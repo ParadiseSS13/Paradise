@@ -248,7 +248,7 @@
 				S.emp_act(1)
 			if(iscarbon(target))
 				var/mob/living/carbon/C = target
-				C.silent += 5
+				C.AdjustSilence(5)
 				C.stuttering += 15
 				C.cultslurring += 20
 				C.Jitter(15)
@@ -295,7 +295,7 @@
 		to_chat(user, "<span class='cultitalic'>You disturb [target] with visons of the end!</span>")
 		if(iscarbon(target))
 			var/mob/living/carbon/H = target
-			H.reagents.add_reagent("lsd", 10)
+			H.AdjustHallucinate(30)
 		qdel(src)
 
 
