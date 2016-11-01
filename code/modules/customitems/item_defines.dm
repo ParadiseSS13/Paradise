@@ -336,7 +336,7 @@
 	if(ishuman(loc))
 		var/mob/living/carbon/human/H = loc
 		if(H.head == src)
-			H.slurring = max(3, H.slurring) //always slur
+			H.Slur(3) //always slur
 
 /obj/item/clothing/head/beret/fluff/linda //Epic_Charger: Linda Clark
 	name = "Green beret"
@@ -432,6 +432,15 @@
 	icon_state = "castile_dress"
 	item_state = "castile_dress"
 	item_color = "castile_dress"
+
+/obj/item/clothing/under/fluff/elishirt // FlattestGuitar9: Eli Randolph
+	name = "casual dress shirt"
+	desc = "A soft, white dress shirt paired up with black suit pants. The set looks comfortable."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "elishirt"
+	item_state = "elishirt"
+	item_color = "elishirt"
+	displays_id = 0
 
 /obj/item/clothing/under/psysuit/fluff/isaca_sirius_1 // Xilia: Isaca Sirius
 	name = "Isaca's suit"

@@ -62,7 +62,7 @@
 
 	if(sleeping)
 		Paralyse(3)
-		sleeping--
+		AdjustSleeping(-1)
 
 	if(resting)
 		Weaken(5)
@@ -90,7 +90,7 @@
 			stat = UNCONSCIOUS
 
 			if(!paralysis > 0)
-				eye_blind = 0
+				SetEyeBlind(0)
 
 		else
 			stat = CONSCIOUS
@@ -98,7 +98,7 @@
 		diag_hud_set_health()
 		diag_hud_set_status()
 	else //dead
-		eye_blind = 1
+		SetEyeBlind(0)
 
 	//update the state of modules and components here
 	if(stat != CONSCIOUS)

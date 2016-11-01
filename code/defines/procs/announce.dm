@@ -62,7 +62,7 @@
 
 /datum/announcement/proc/Message(message as text, message_title as text)
 	for(var/mob/M in player_list)
-		if(!istype(M,/mob/new_player) && !isdeaf(M))
+		if(M.can_hear())
 			to_chat(M, "<h2 class='alert'>[title]</h2>")
 			to_chat(M, "<span class='alert'>[message]</span>")
 			if(announcer)
@@ -88,7 +88,7 @@
 	command += "<br><span class='alert'>[message]</span><br>"
 	command += "<br>"
 	for(var/mob/M in player_list)
-		if(!istype(M,/mob/new_player) && !isdeaf(M))
+		if(M.can_hear())
 			to_chat(M, command)
 
 /datum/announcement/priority/enemy/Message(message as text, message_title as text, from as text)
@@ -100,7 +100,7 @@
 	command += "<br><span class='alert'>[message]</span><br>"
 	command += "<br>"
 	for(var/mob/M in player_list)
-		if(!istype(M,/mob/new_player) && !isdeaf(M))
+		if(M.can_hear())
 			to_chat(M, command)
 
 /datum/announcement/priority/security/Message(message as text, message_title as text)
@@ -125,7 +125,7 @@
 	if(!message_sound)
 		return
 	for(var/mob/M in player_list)
-		if(!istype(M,/mob/new_player) && !isdeaf(M))
+		if(M.can_hear())
 			M << message_sound
 
 /datum/announcement/proc/Sound(var/message_sound)

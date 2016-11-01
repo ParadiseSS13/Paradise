@@ -41,7 +41,7 @@
 	if(prob(10))
 		to_chat(M, "<span class='notice'>Your eyes itch.</span>")
 		M.emote(pick("blink", "sneeze"))
-		M.eye_blurry += 3
+		M.AdjustEyeBlurry(3)
 	if(prob(10))
 		M.visible_message("<span class='danger'>[M] scratches at an itch.</span>")
 		M.adjustBruteLoss(1)
@@ -141,7 +141,7 @@
 		if(prob(4))
 			M.visible_message("<span class='danger'><B>[M]</B> starts convulsing violently!</span>", "You feel as if your body is tearing itself apart!")
 			M.Weaken(15)
-			M.jitteriness += 1000
+			M.AdjustJitter(1000)
 			spawn(rand(20, 100))
 				M.gib()
 
@@ -159,19 +159,19 @@
 			current_cycle++
 			return
 		if(5 to 8)
-			M.dizziness += 1
-			M.confused = max(M.confused, 10)
+			M.AdjustDizzy(1)
+			M.Confused(10)
 		if(9 to 12)
-			M.drowsyness  = max(M.drowsyness, 10)
-			M.dizziness += 1
-			M.confused = max(M.confused, 20)
+			M.Drowsy(10)
+			M.AdjustDizzy(1)
+			M.Confused(20)
 		if(13)
 			M.emote("faint")
 		if(14 to INFINITY)
 			M.Paralyse(10)
-			M.drowsyness  = max(M.drowsyness, 20)
+			M.Drowsy(20)
 
-	M.jitteriness = max(0, M.jitteriness-30)
+	M.AdjustJitter(-30)
 	if(M.getBrainLoss() <= 80)
 		M.adjustBrainLoss(1)
 	else
@@ -207,7 +207,7 @@
 		M.emote("drool")
 	if(prob(10))
 		to_chat(M, "<span class='danger'>You cannot breathe!</span>")
-		M.losebreath += 1
+		M.AdjustLoseBreath(1)
 		M.emote("gasp")
 	if(prob(8))
 		to_chat(M, "<span class='danger'>You feel horrendously weak!</span>")
@@ -261,7 +261,7 @@
 		to_chat(M, "<span class='danger'>AHHHHHH!</span>")
 		M.adjustBruteLoss(5)
 		M.Weaken(5)
-		M.jitteriness += 6
+		M.AdjustJitter(6)
 		M.visible_message("<span class='danger'>[M] falls to the floor, scratching themselves violently!</span>")
 		M.emote("scream")
 	..()
@@ -364,11 +364,11 @@
 	if(prob(10))
 		to_chat(M, "<span class='danger'>You cannot breathe!</span>")
 		M.adjustOxyLoss(10)
-		M.losebreath++
+		M.AdjustLoseBreath(1)
 	if(prob(10))
 		to_chat(M, "<span class='danger'>Your chest is burning with pain!</span>")
 		M.adjustOxyLoss(10)
-		M.losebreath++
+		M.AdjustLoseBreath(1)
 		M.Stun(3)
 		M.Weaken(2)
 		if(ishuman(M))
@@ -425,12 +425,12 @@
 			M.Weaken(20)
 			if(prob(10))
 				M.emote(pick("drool", "tremble", "gasp"))
-				M.losebreath++
+				M.AdjustLoseBreath(1)
 			if(prob(9))
 				to_chat(M, "<span class='danger'>You can't [pick("move", "feel your legs", "feel your face", "feel anything")]!</span>")
 			if(prob(7))
 				to_chat(M, "<span class='danger'>You can't breathe!</span>")
-				M.losebreath += 3
+				M.AdjustLoseBreath(3)
 	..()
 
 /datum/reagent/sodium_thiopental
@@ -445,15 +445,15 @@
 	switch(current_cycle)
 		if(1)
 			M.emote("drool")
-			M.confused = max(M.confused, 5)
+			M.Confused(5)
 		if(2 to 4)
-			M.drowsyness = max(M.drowsyness, 20)
+			M.Drowsy(20)
 		if(5)
 			M.emote("faint")
 			M.Weaken(5)
 		if(6 to INFINITY)
 			M.Paralyse(20)
-	M.jitteriness = max(0, M.jitteriness-50)
+	M.AdjustJitter(-50)
 	if(prob(10))
 		M.emote("drool")
 		M.adjustBrainLoss(1)
@@ -474,7 +474,7 @@
 			if(prob(25))
 				M.emote("yawn")
 		if(6 to 9)
-			M.eye_blurry += 5
+			M.AdjustEyeBlurry(5)
 			if(prob(35))
 				M.emote("yawn")
 		if(10)
@@ -502,20 +502,20 @@
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
 /datum/reagent/sulfonal/on_mob_life(mob/living/M)
-	M.jitteriness = max(0, M.jitteriness-30)
+	M.AdjustJitter(-30)
 	switch(current_cycle)
 		if(1 to 10)
 			if(prob(7))
 				M.emote("yawn")
 		if(11 to 20)
-			M.drowsyness  = max(M.drowsyness, 20)
+			M.Drowsy(20)
 		if(21)
 			M.emote("faint")
 		if(22 to INFINITY)
 			if(prob(20))
 				M.emote("faint")
 				M.Paralyse(5)
-			M.drowsyness  = max(M.drowsyness, 20)
+			M.Drowsy(20)
 	M.adjustToxLoss(1)
 	..()
 
@@ -570,7 +570,7 @@
 
 /datum/reagent/coniine/on_mob_life(mob/living/M)
 	M.adjustToxLoss(2)
-	M.losebreath += 5
+	M.AdjustLoseBreath(5)
 	..()
 
 /datum/reagent/curare
@@ -590,7 +590,7 @@
 			if(prob(20))
 				M.emote(pick("drool", "pale", "gasp"))
 		if(6 to 10)
-			M.eye_blurry += 5
+			M.AdjustEyeBlurry(5)
 			if(prob(8))
 				to_chat(M, "<span class='danger'>You feel [pick("weak", "horribly weak", "numb", "like you can barely move", "tingly")].</span>")
 				M.Stun(1)
@@ -598,12 +598,12 @@
 				M.emote(pick("drool","pale", "gasp"))
 		if(11 to INFINITY)
 			M.Stun(30)
-			M.drowsyness  = max(M.drowsyness, 20)
+			M.Drowsy(20)
 			if(prob(20))
 				M.emote(pick("drool", "faint", "pale", "gasp", "collapse"))
 			else if(prob(8))
 				to_chat(M, "<span class='danger'>You can't [pick("breathe", "move", "feel your legs", "feel your face", "feel anything")]!</span>")
-				M.losebreath++
+				M.AdjustLoseBreath(1)
 	..()
 
 /datum/reagent/sarin
@@ -636,22 +636,22 @@
 /datum/reagent/sarin/on_mob_life(mob/living/M)
 	switch(current_cycle)
 		if(1 to 15)
-			M.jitteriness += 20
+			M.AdjustJitter(20)
 			if(prob(20))
 				M.emote(pick("twitch","twitch_s","quiver"))
 		if(16 to 30)
 			if(prob(25))
 				M.emote(pick("twitch","twitch","drool","quiver","tremble"))
-			M.eye_blurry += 5
-			M.stuttering = max(M.stuttering, 5)
+			M.AdjustEyeBlurry(5)
+			M.Stuttering(5)
 			if(prob(10))
-				M.confused = max(M.confused, 15)
+				M.Confused(15)
 			if(prob(15))
 				M.Stun(1)
 				M.emote("scream")
 		if(30 to 60)
-			M.eye_blurry += 5
-			M.stuttering = max(M.stuttering, 5)
+			M.AdjustEyeBlurry(5)
+			M.Stuttering(5)
 			if(prob(10))
 				M.Stun(1)
 				M.emote(pick("twitch","twitch","drool","shake","tremble"))
@@ -660,15 +660,15 @@
 			if(prob(5))
 				M.Weaken(3)
 				M.visible_message("<span class='warning'>[M] has a seizure!</span>")
-				M.jitteriness = 1000
+				M.SetJitter(1000)
 			if(prob(5))
 				to_chat(M, "<span class='warning'>You can't breathe!</span>")
 				M.emote(pick("gasp", "choke", "cough"))
-				M.losebreath++
+				M.AdjustLoseBreath(1)
 		if(61 to INFINITY)
 			if(prob(15))
 				M.emote(pick("gasp", "choke", "cough","twitch", "shake", "tremble","quiver","drool", "twitch","collapse"))
-			M.losebreath = max(5, M.losebreath + 5)
+			M.LoseBreath(5)
 			M.adjustToxLoss(1)
 			M.adjustBrainLoss(1)
 			M.Weaken(4)
@@ -754,16 +754,16 @@
 /datum/reagent/capulettium/on_mob_life(mob/living/M)
 	switch(current_cycle)
 		if(1 to 5)
-			M.eye_blurry += 10
+			M.AdjustEyeBlurry(10)
 		if(6 to 10)
-			M.drowsyness  = max(M.drowsyness, 10)
+			M.Drowsy(10)
 		if(11)
 			M.Paralyse(10)
 			M.visible_message("<B>[M]</B> seizes up and falls limp, their eyes dead and lifeless...") //so you can't trigger deathgasp emote on people. Edge case, but necessary.
 		if(12 to 60)
 			M.Paralyse(10)
 		if(61 to INFINITY)
-			M.eye_blurry += 10
+			M.AdjustEyeBlurry(10)
 	..()
 
 /datum/reagent/capulettium_plus
@@ -783,7 +783,7 @@
 	mix_message = "The solution begins to slosh about violently by itself."
 
 /datum/reagent/capulettium_plus/on_mob_life(mob/living/M)
-	M.silent = max(M.silent, 2)
+	M.Silence(2)
 	..()
 
 /datum/reagent/toxic_slurry

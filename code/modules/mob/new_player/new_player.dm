@@ -565,3 +565,7 @@
 
 /mob/new_player/is_ready()
 	return ready && ..()
+
+// No hearing announcements
+/mob/new_player/can_hear()
+	return 0

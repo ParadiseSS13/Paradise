@@ -57,13 +57,12 @@
 
 	if(stat == DEAD)	//DEAD. BROWN BREAD. SWIMMING WITH THE SPESS CARP
 		blinded = 1
-		silent = 0
+		SetSilence(0)
 	else				//ALIVE. LIGHTS ARE ON
 		if(health < config.health_threshold_dead || !get_int_organ(/obj/item/organ/internal/brain))
 			death()
 			blinded = 1
-			stat = DEAD
-			silent = 0
+			SetSilence(0)
 			return 1
 
 		//UNCONSCIOUS. NO-ONE IS HOME
@@ -80,7 +79,7 @@
 			blinded = 1
 			stat = UNCONSCIOUS
 		else if(sleeping)
-			sleeping = max(sleeping-1, 0)
+			AdjustSleeping(-1)
 			blinded = 1
 			stat = UNCONSCIOUS
 			if( prob(10) && health )
@@ -98,18 +97,18 @@
 		if(disabilities & BLIND)		//disabled-blind, doesn't get better on its own
 			blinded = 1
 		else if(eye_blind)			//blindness, heals slowly over time
-			eye_blind = max(eye_blind-1,0)
+			AdjustEyeBlind(-1)
 			blinded = 1
 		else if(eye_blurry)	//blurry eyes heal slowly
-			eye_blurry = max(eye_blurry-1, 0)
+			AdjustEyeBlurry(-1)
 
 		//Ears
 		if(disabilities & DEAF)		//disabled-deaf, doesn't get better on its own
-			setEarDamage(-1, max(ear_deaf, 1))
+			EarDeaf(1)
 		else if(ear_deaf)			//deafness, heals slowly over time
-			adjustEarDamage(0,-1)
+			AdjustEarDeaf(-1)
 		else if(ear_damage < 25)	//ear damage heals slowly under this threshold. otherwise you'll need earmuffs
-			adjustEarDamage(-0.05, 0)
+			AdjustEarDamage(-0.05)
 
 		//Other
 		if(stunned)
@@ -123,11 +122,11 @@
 				update_icons()
 
 		if(stuttering)
-			stuttering = max(stuttering-1, 0)
+			AdjustStuttering(-1)
 
 		if(silent)
-			silent = max(silent-1, 0)
+			AdjustSilence(-1)
 
 		if(druggy)
-			druggy = max(druggy-1, 0)
+			AdjustDruggy(-1)
 	return 1

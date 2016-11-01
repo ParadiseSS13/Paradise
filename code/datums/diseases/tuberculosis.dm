@@ -44,7 +44,7 @@
 				affected_mob.AdjustSleeping(5)
 			if(prob(2))
 				to_chat(affected_mob, "<span class='userdanger'>You feel your mind relax and your thoughts drift!</span>")
-				affected_mob.confused = min(100, affected_mob.confused + 8)
+				affected_mob.AdjustConfused(8, bound_lower = 0, bound_upper = 100)
 			if(prob(10))
 				affected_mob.vomit(20)
 			if(prob(3))
@@ -55,4 +55,3 @@
 				to_chat(affected_mob, "<span class='danger'>[pick("You feel uncomfortably hot...", "You feel like unzipping your jumpsuit", "You feel like taking off some clothes...")]</span>")
 				affected_mob.bodytemperature += 40
 	return
-
