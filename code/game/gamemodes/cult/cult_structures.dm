@@ -200,7 +200,7 @@ var/list/blacklisted_pylon_turfs = typecacheof(list(
 		for(var/mob/living/L in range(5, src))
 			if(iscultist(L) || istype(L, /mob/living/simple_animal/shade) || istype(L, /mob/living/simple_animal/hostile/construct))
 				if(L.health != L.maxHealth)
-					new /obj/effect/overlay/temp/heal(list(get_turf(src)), "#960000")
+					new /obj/effect/overlay/temp/heal(get_turf(src), "#960000")
 					if(ishuman(L))
 						L.adjustBruteLoss(-1, 0)
 						L.adjustFireLoss(-1, 0)
