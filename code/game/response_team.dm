@@ -73,7 +73,6 @@ var/ert_request_answered = 0
 	return 0
 
 /mob/dead/observer/proc/JoinResponseTeam()
-
 	if(!send_emergency_team)
 		to_chat(src, "No emergency response team is currently being sent.")
 		return 0
@@ -82,35 +81,23 @@ var/ert_request_answered = 0
 		to_chat(src, "<span class='warning'>You are jobbanned from the emergency reponse team!</span>")
 		return 0
 
-	var/player_age_check = check_client_age(src.client, responseteam_age)
+	var/player_age_check = check_client_age(client, responseteam_age)
 	if(player_age_check && config.use_age_restriction_for_antags)
 		to_chat(src, "<span class='warning'>This role is not yet available to you. You need to wait another [player_age_check] days.</span>")
 		return 0
 
-	if(src.has_enabled_antagHUD == 1 && config.antag_hud_restricted)
+	if(has_enabled_antagHUD == 1 && config.antag_hud_restricted)
 		to_chat(src, "<span class='boldnotice'>Upon using the antagHUD you forfeited the ability to join the round.</span>")
 		return 0
 
 	if(response_team_members.len > 6)
 		to_chat(src, "The emergency response team is already full!")
 		return 0
-
-	for(var/obj/effect/landmark/L in landmarks_list)
-		if(L.name == "Response Team")
-			L.name = null
-			if(!src.client)
-				return
-			spawn(-1)
-				var/client/C = src.client
-				var/mob/living/carbon/human/new_commando = C.create_response_team(L.loc)
-				qdel(L)
-				new_commando.mind.key = src.key
-				new_commando.key = src.key
-				new_commando.update_icons()
-			return 1
+		
+	return 1
 
 /proc/trigger_armed_response_team(var/datum/response_team/response_team_type)
-
+	response_team_members = list()
 	active_team = response_team_type
 
 	send_emergency_team = 1
@@ -118,24 +105,41 @@ var/ert_request_answered = 0
 	if(!ert_candidates.len)
 		active_team.cannot_send_team()
 		send_emergency_team = 0
-		return
-	var/teamsize = 0
+		return 0
+	
 	// Respawnable players get first dibs
-	for(var/mob/dead/observer/M in (ert_candidates & respawnable_list))
-		teamsize += M.JoinResponseTeam()
+	for(var/mob/dead/observer/M in ert_candidates)
+		if((M in respawnable_list) && M.JoinResponseTeam())
+			response_team_members |= M
 	// If there's still open slots, non-respawnable players can fill them
 	for(var/mob/dead/observer/M in (ert_candidates - respawnable_list))
-		teamsize += M.JoinResponseTeam()
-	send_emergency_team = 0
-	if (!teamsize)
+		if(M.JoinResponseTeam())
+			response_team_members |= M
+			
+	if(!response_team_members.len)
 		active_team.cannot_send_team()
-		return
-	active_team.announce_team()
+		send_emergency_team = 0
+		return 0
 
-/client/proc/create_response_team(obj/spawn_location)
+	var/index = 1
+	for(var/mob/M in response_team_members)
+		if(index > emergencyresponseteamspawn.len)
+			index = 1
+			
+		var/client/C = M.client
+		var/mob/living/carbon/human/new_commando = C.create_response_team(emergencyresponseteamspawn[index])
+		new_commando.mind.key = M.key
+		new_commando.key = M.key
+		new_commando.update_icons()
+		index++
+			
+	send_emergency_team = 0
+	active_team.announce_team()
+	return 1
+
+/client/proc/create_response_team(var/turf/spawn_location)
 	var/mob/living/carbon/human/M = new(null)
 	var/obj/item/organ/external/head/head_organ = M.get_organ("head")
-	response_team_members |= M
 
 	var/new_gender = alert(src, "Please select your gender.", "ERT Character Generation", "Male", "Female")
 
@@ -157,33 +161,23 @@ var/ert_request_answered = 0
 	var/hair_c = pick("#8B4513","#000000","#FF4500","#FFD700") // Brown, black, red, blonde
 	var/eye_c = pick("#000000","#8B4513","1E90FF") // Black, brown, blue
 	var/skin_tone = pick(-50, -30, -10, 0, 0, 0, 10) // Caucasian/black
-	var/hair_style = "Bald"
-	var/facial_hair_style = "Shaved"
-	if(M.gender == MALE)
-		hair_style = pick(hair_styles_male_list)
-		facial_hair_style = pick(facial_hair_styles_list)
-	else
-		hair_style = pick(hair_styles_female_list)
-		if(prob(5))
-			facial_hair_style = pick(facial_hair_styles_list)
 
-	head_organ.r_facial = hex2num(copytext(hair_c, 2, 4))
-	head_organ.g_facial = hex2num(copytext(hair_c, 4, 6))
-	head_organ.b_facial = hex2num(copytext(hair_c, 6, 8))
-	head_organ.r_hair = hex2num(copytext(hair_c, 2, 4))
-	head_organ.g_hair = hex2num(copytext(hair_c, 4, 6))
-	head_organ.b_hair = hex2num(copytext(hair_c, 6, 8))
-	var/eyes_red = hex2num(copytext(eye_c, 2, 4))
-	var/eyes_green = hex2num(copytext(eye_c, 4, 6))
-	var/eyes_blue = hex2num(copytext(eye_c, 6, 8))
-	M.change_eye_color(eyes_red, eyes_green, eyes_blue)
+	head_organ.r_facial = color2R(hair_c)
+	head_organ.g_facial = color2G(hair_c)
+	head_organ.b_facial = color2B(hair_c)
+	head_organ.r_hair = color2R(hair_c)
+	head_organ.g_hair = color2G(hair_c)
+	head_organ.b_hair = color2B(hair_c)
+	M.change_eye_color(color2R(eye_c), color2G(eye_c), color2B(eye_c))
 	M.s_tone = skin_tone
-	head_organ.h_style = hair_style
-	head_organ.f_style = facial_hair_style
+	head_organ.h_style = random_hair_style(M.gender, head_organ.species.name) 
+	head_organ.f_style = random_facial_hair_style(M.gender, head_organ.species.name) 
 
 	M.real_name = "[pick("Corporal", "Sergeant", "Staff Sergeant", "Sergeant First Class", "Master Sergeant", "Sergeant Major")] [pick(last_names)]"
 	M.name = M.real_name
 	M.age = rand(23,35)
+	M.regenerate_icons()
+	M.update_body()
 
 	//Creates mind stuff.
 	M.mind = new
@@ -193,7 +187,7 @@ var/ert_request_answered = 0
 	M.mind.special_role = SPECIAL_ROLE_ERT
 	if(!(M.mind in ticker.minds))
 		ticker.minds += M.mind //Adds them to regular mind list.
-	M.loc = spawn_location
+	M.forceMove(spawn_location)
 
 	active_team.equip_officer(class, M)
 

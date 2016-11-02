@@ -344,7 +344,6 @@
 	desc = "An easily-compressable wall used for temporary shelter."
 	icon = 'icons/turf/walls/survival_pod_walls.dmi'
 	icon_state = "smooth"
-	walltype = "shuttle"
 	smooth = SMOOTH_MORE // To Do: Add in Diagnaol Smooth Support
 	canSmoothWith = list(/turf/simulated/wall/survival, /obj/machinery/door/airlock/survival_pod)
 

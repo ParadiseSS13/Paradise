@@ -1,4 +1,7 @@
-/mob/living/silicon/robot/drone/say(var/message, var/datum/language/speaking = null)			
+/mob/living/silicon/robot/drone/say(var/message, var/datum/language/speaking = null)
+	if(copytext(message, 1, 2) == "*")
+		return emote(copytext(message, 2))
+		
 	if(!speaking)
 		speaking = parse_language(message)
 		if(!speaking)

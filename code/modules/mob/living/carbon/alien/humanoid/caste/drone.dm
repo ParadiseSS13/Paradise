@@ -12,9 +12,9 @@
 	if(src.name == "alien drone")
 		src.name = text("alien drone ([rand(1, 1000)])")
 	src.real_name = src.name
-	internal_organs += new /obj/item/organ/internal/xenos/plasmavessel/drone
-	internal_organs += new /obj/item/organ/internal/xenos/acidgland
-	internal_organs += new /obj/item/organ/internal/xenos/resinspinner
+	alien_organs += new /obj/item/organ/internal/xenos/plasmavessel/drone
+	alien_organs += new /obj/item/organ/internal/xenos/acidgland
+	alien_organs += new /obj/item/organ/internal/xenos/resinspinner
 	..()
 
 //Drones use the same base as generic humanoids.
