@@ -46,8 +46,6 @@
 
 	var/step_count = 0
 
-	var/hellbound = 0
-
 	var/list/butcher_results = null
 
 	var/list/weather_immunities = list()

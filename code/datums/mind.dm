@@ -1613,6 +1613,11 @@
 	to_chat(current, "<span class='warning'>You seem to have forgotten the events of the past 10 minutes or so, and your head aches a bit as if someone beat it savagely with a stick.</span>")
 	to_chat(current, "<span class='warning'>This means you don't remember who you were working for or what you were doing.</span>")
 
+/datum/mind/proc/is_revivable() //Note, this ONLY checks the mind.
+	if(damnation_type)
+		return FALSE
+	return TRUE
+
 //Initialisation procs
 /mob/proc/mind_initialize()
 	if(mind)
