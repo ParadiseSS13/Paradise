@@ -144,6 +144,9 @@ proc/issyndicate(mob/living/M as mob)
 	var/mob/living/carbon/human/M = synd_mind.current
 	var/obj/item/organ/external/head/head_organ = M.get_organ("head")
 
+	M.mutations = list()
+	M.disabilities = 0
+	M.overeatduration = 0
 	M.set_species("Human",1)
 	M.dna.ready_dna(M) // Quadriplegic Nuke Ops won't be participating in the paralympics
 
