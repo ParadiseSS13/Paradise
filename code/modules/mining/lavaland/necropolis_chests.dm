@@ -144,18 +144,12 @@
 	var/turf/T = get_turf(src)
 	var/list/contents = T.GetAllContents()
 	var/mob/dead/observer/current_spirits = list()
-	var/list/followers = list()
 	
 	for(var/mob/dead/observer/O in player_list)
 		if(is_type_in_list(O.following, contents))
-			followers += O
-
-	for(var/thing in followers)
-		if (isobserver(thing))
-			var/mob/dead/observer/G = thing
 			ghost_counter++
-			G.invisibility = 0
-			current_spirits |= G
+			O.invisibility = 0
+			current_spirits |= O
 
 	for(var/mob/dead/observer/G in spirits - current_spirits)
 		G.invisibility = initial(G.invisibility)
