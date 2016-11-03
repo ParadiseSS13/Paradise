@@ -44,6 +44,8 @@
 	implant_color = "#000000"
 	origin_tech = "materials=6;programming=4;biotech=6;magnets=5"
 	vision_flags = SEE_MOBS | SEE_OBJS | SEE_TURFS
+	dark_view = 8
+	see_invisible = SEE_INVISIBLE_MINIMUM
 
 /obj/item/organ/internal/cyberimp/eyes/thermals
 	name = "Thermals implant"
