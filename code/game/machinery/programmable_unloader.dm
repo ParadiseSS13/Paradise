@@ -297,7 +297,7 @@
 			O.loc = loc
 		for(var/mob/M in contents)
 			M.loc = loc
-			M.reset_view(null)
+			M.reset_perspective(null)
 			to_chat(M, "<span class='notice'>The machine turns off, and you fall out.</span>")
 
 		return

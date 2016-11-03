@@ -1129,7 +1129,7 @@
 		occupant = H
 		H.stop_pulling()
 		H.forceMove(src)
-		H.reset_view(src)
+		H.reset_perspective(src)
 		add_fingerprint(H)
 		//GrantActions(H, human_occupant=1)
 		forceMove(loc)
@@ -1178,7 +1178,7 @@
 			to_chat(user, "<span class='notice'>\the [mmi_as_oc] is stuck to your hand, you cannot put it in \the [src]</span>")
 			return 0
 		var/mob/brainmob = mmi_as_oc.brainmob
-		brainmob.reset_view(src)
+		brainmob.reset_perspective(src)
 		occupant = brainmob
 		brainmob.forceMove(src) //should allow relaymove
 		brainmob.canmove = 1
@@ -1263,7 +1263,7 @@
 			var/obj/item/device/mmi/mmi = mob_container
 			if(mmi.brainmob)
 				L.loc = mmi
-				L.reset_view()
+				L.reset_perspective()
 			mmi.mecha = null
 			mmi.update_icon()
 			L.canmove = 0

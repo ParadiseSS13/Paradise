@@ -488,7 +488,7 @@ var/list/slot_equipment_priority = list( \
 		//END HUMAN
 
 // If you're looking for `reset_perspective`, that's a synonym for this proc.
-/mob/proc/reset_view(atom/A)
+/mob/proc/reset_perspective(atom/A)
 	if(client)
 		if(istype(A, /atom/movable))
 			client.perspective = EYE_PERSPECTIVE
@@ -502,7 +502,7 @@ var/list/slot_equipment_priority = list( \
 				client.eye = loc
 		return 1
 
-/mob/living/reset_view(atom/A)
+/mob/living/reset_perspective(atom/A)
 	. = ..()
 	if(.)
 		// Above check means the mob has a client
@@ -514,7 +514,7 @@ var/list/slot_equipment_priority = list( \
 			clear_fullscreen("remote_view", 0)
 		update_pipe_vision()
 
-/mob/dead/reset_view(atom/A)
+/mob/dead/reset_perspective(atom/A)
 	if(client)
 		if(ismob(client.eye) && (client.eye != src))
 			// Note to self: Use `client.eye` for ghost following in place
@@ -819,7 +819,7 @@ var/list/slot_equipment_priority = list( \
 /mob/verb/cancel_camera()
 	set name = "Cancel Camera View"
 	set category = "OOC"
-	reset_view(null)
+	reset_perspective(null)
 	unset_machine()
 	if(istype(src, /mob/living))
 		if(src:cameraFollow)

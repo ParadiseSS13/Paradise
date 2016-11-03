@@ -77,7 +77,7 @@
 				user.unset_machine()
 			return null
 
-		user.reset_view(S.current)
+		user.reset_perspective(S.current)
 		return 1
 
 	/*

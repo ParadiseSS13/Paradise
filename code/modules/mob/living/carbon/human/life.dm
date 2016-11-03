@@ -894,7 +894,7 @@
 
 /mob/living/carbon/human/handle_vision()
 	if(machine)
-		if(!machine.check_eye(src))		reset_view(null)
+		if(!machine.check_eye(src))		reset_perspective(null)
 	else
 		var/isRemoteObserve = 0
 		if((REMOTE_VIEW in mutations) && remoteview_target)
@@ -919,7 +919,7 @@
 
 		if(!isRemoteObserve && client && !client.adminobs)
 			remoteview_target = null
-			reset_view(null)
+			reset_perspective(null)
 
 	species.handle_vision(src)
 

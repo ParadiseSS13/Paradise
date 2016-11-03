@@ -1347,7 +1347,7 @@
 
 // check if mob has client, if so restore client view on eject
 /mob/pipe_eject(var/direction)
-	reset_view(null)
+	reset_perspective(null)
 
 /obj/effect/decal/cleanable/blood/gibs/pipe_eject(var/direction)
 	var/list/dirs

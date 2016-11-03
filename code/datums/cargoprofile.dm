@@ -643,7 +643,7 @@
 			//this is necessarily damaging
 			var/damage = rand(1,5)
 			to_chat(M, "<span class='danger'>The unloading machine grabs you with a hard metallic claw!</span>")
-			M.reset_view(master)
+			M.reset_perspective(master)
 			M.loc = master
 			master.types[M.type] = src
 			M.apply_damage(damage) // todo: ugly

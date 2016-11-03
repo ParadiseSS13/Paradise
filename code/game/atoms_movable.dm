@@ -156,7 +156,7 @@
 		unbuckle_mob(buckled_mob,force=1)
 	. = ..()
 	if(client)
-		reset_view(destination)
+		reset_perspective(destination)
 	update_canmove() //if the mob was asleep inside a container and then got forceMoved out we need to make them fall.
 
 //called when src is thrown into hit_atom

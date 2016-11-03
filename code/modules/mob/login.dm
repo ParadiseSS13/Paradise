@@ -43,7 +43,7 @@
 	sight |= SEE_SELF
 	..()
 
-	reset_view(loc)
+	reset_perspective(loc)
 
 
 	if(ckey in deadmins)

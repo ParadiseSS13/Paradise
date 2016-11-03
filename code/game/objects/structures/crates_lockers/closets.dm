@@ -62,7 +62,7 @@
 /obj/structure/closet/proc/moveMob(var/mob/M, var/atom/destination)
 	loc.Exited(M)
 	M.loc = destination
-	M.reset_view(destination)
+	M.reset_perspective(destination)
 	if(isturf(loc))
 		loc.Entered(M, src, ignoreRest = 1)
 	else

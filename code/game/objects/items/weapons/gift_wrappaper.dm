@@ -55,7 +55,7 @@
 
 	for(var/mob/M in src) //Should only be one but whatever.
 		M.loc = src.loc
-		M.reset_view(null)
+		M.reset_perspective(null)
 
 	qdel(src)
 

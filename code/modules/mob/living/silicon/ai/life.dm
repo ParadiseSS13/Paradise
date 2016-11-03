@@ -11,7 +11,7 @@
 	var/turf/T = get_turf(src)
 	if(stat != CONSCIOUS) //ai's fucked
 		cameraFollow = null
-		reset_view(null)
+		reset_perspective(null)
 		unset_machine()
 
 	updatehealth()

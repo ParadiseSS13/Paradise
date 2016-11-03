@@ -92,7 +92,7 @@
 			for(var/mob/O in mob_list)
 				if(O.client && O.client.eye == src)
 					O.unset_machine()
-					O.reset_view(null)
+					O.reset_perspective(null)
 					to_chat(O, "The screen bursts into static.")
 			..()
 
@@ -279,7 +279,7 @@
 	for(var/mob/O in player_list)
 		if(O.client && O.client.eye == src)
 			O.unset_machine()
-			O.reset_view(null)
+			O.reset_perspective(null)
 			to_chat(O, "The screen bursts into static.")
 
 /obj/machinery/camera/proc/triggerCameraAlarm(var/duration = 0)

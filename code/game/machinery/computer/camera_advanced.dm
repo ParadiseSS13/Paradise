@@ -74,7 +74,7 @@
 	// This should be able to be excised once the full view refactor rolls out
 	user.remote_view = 1
 	user.remote_control = eyeobj
-	user.reset_view(eyeobj)
+	user.reset_perspective(eyeobj)
 
 /mob/camera/aiEye/remote
 	name = "Inactive Camera Eye"
@@ -137,7 +137,7 @@
 	remote_eye.origin.current_user = null
 	remote_eye.origin.jump_action.Remove(C)
 	remote_eye.eye_user = null
-	C.reset_view(null)
+	C.reset_perspective(null)
 	if(C.client)
 		C.client.images -= remote_eye.user_image
 		for(var/datum/camerachunk/chunk in remote_eye.visibleCameraChunks)

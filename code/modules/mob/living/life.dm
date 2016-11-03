@@ -230,10 +230,10 @@
 
 	if(machine)
 		if(!machine.check_eye(src))
-			reset_view(null)
+			reset_perspective(null)
 	else
 		if(!remote_view && !client.adminobs)
-			reset_view(null)
+			reset_perspective(null)
 
 /mob/living/proc/update_sight()
 	return

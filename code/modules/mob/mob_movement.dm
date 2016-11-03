@@ -148,7 +148,7 @@
 		view = world.view //Reset the view
 		winset(src, "mapwindow.map", "icon-size=[src.reset_stretch]")
 		viewingCanvas = 0
-		mob.reset_view()
+		mob.reset_perspective()
 		if(mob.hud_used)
 			mob.hud_used.show_hud(HUD_STYLE_STANDARD)
 
