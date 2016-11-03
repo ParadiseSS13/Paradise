@@ -6,7 +6,6 @@
 	//slot_flags = SLOT_EYES
 	//var/vision_flags = 0
 	//var/darkness_view = 0//Base human is 2
-	//var/invisa_view = 0
 	var/prescription = 0
 	var/prescription_upgradable = 0
 	var/see_darkness = 1
@@ -360,7 +359,9 @@
 		to_chat(usr, "You push the [src] up out of your face.")
 		flash_protect = 0
 		tint = 0
-	usr.update_inv_glasses()
+	var/mob/living/carbon/user = usr
+	user.update_inv_glasses()
+	user.update_tint()
 
 	for(var/X in actions)
 		var/datum/action/A = X

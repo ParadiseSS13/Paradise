@@ -363,9 +363,6 @@
 		var/obj/item/device/pda/holder = card.loc
 		holder.pai = null
 
-	if(client)
-		client.perspective = EYE_PERSPECTIVE
-		client.eye = src
 	forceMove(get_turf(card))
 
 	card.forceMove(src)
@@ -487,9 +484,7 @@
 	visible_message("<span class=notice>[src] neatly folds inwards, compacting down to a rectangular card.</span>", "<span class=notice>You neatly fold inwards, compacting down to a rectangular card.</span>")
 
 	stop_pulling()
-	if(client)
-		client.perspective = EYE_PERSPECTIVE
-		client.eye = card
+	reset_view(card)
 
 // If we are being held, handle removing our holder from their inv.
 	var/obj/item/weapon/holder/H = loc

@@ -65,6 +65,7 @@
 	var/max_equip = 3
 	var/datum/events/events
 	var/turf/crashing = null
+	var/occupant_sight_flags = 0
 
 
 	var/stepsound = 'sound/mecha/mechstep.ogg'
@@ -1178,12 +1179,8 @@
 			return 0
 		var/mob/brainmob = mmi_as_oc.brainmob
 		brainmob.reset_view(src)
-	/*
-		brainmob.client.eye = src
-		brainmob.client.perspective = EYE_PERSPECTIVE
-	*/
 		occupant = brainmob
-		brainmob.loc = src //should allow relaymove
+		brainmob.forceMove(src) //should allow relaymove
 		brainmob.canmove = 1
 		mmi_as_oc.loc = src
 		mmi_as_oc.mecha = src
@@ -1440,3 +1437,8 @@
 
 /obj/mecha/speech_bubble(var/bubble_state = "",var/bubble_loc = src, var/list/bubble_recipients = list())
 	flick_overlay(image('icons/mob/talk.dmi', bubble_loc, bubble_state,MOB_LAYER+1), bubble_recipients, 30)
+
+/obj/mecha/update_remote_sight(mob/living/user)
+	if(occupant_sight_flags)
+		if(user == occupant)
+			user.sight |= occupant_sight_flags

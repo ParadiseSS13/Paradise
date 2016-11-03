@@ -8,6 +8,8 @@
 	w_class = 1
 
 	var/vision_flags = 0
+	var/dark_view = 0
+	var/see_invisible = 0
 	var/list/eye_colour = list(0,0,0)
 	var/list/old_eye_colour = list(0,0,0)
 	var/flash_protect = 0
@@ -18,15 +20,11 @@
 	..()
 	if(aug_message && !special)
 		to_chat(owner, "<span class='notice'>[aug_message]</span>")
-	M.sight |= vision_flags
+	M.update_sight()
 
 /obj/item/organ/internal/cyberimp/eyes/remove(var/mob/living/carbon/M, var/special = 0)
 	. = ..()
-	M.sight ^= vision_flags
-
-/obj/item/organ/internal/cyberimp/eyes/on_life()
-	..()
-	owner.sight |= vision_flags
+	M.update_sight()
 
 /obj/item/organ/internal/cyberimp/eyes/emp_act(severity)
 	if(!owner)

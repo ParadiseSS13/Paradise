@@ -1164,3 +1164,10 @@ var/list/ai_verbs_default = list(
 	view_core() //A BYOND bug requires you to be viewing your core before your verbs update
 	verbs += /mob/living/silicon/ai/proc/choose_modules
 	malf_picker = new /datum/module_picker
+
+/mob/living/silicon/ai/reset_view(atom/A)
+	if(camera_light_on)
+		light_cameras()
+	if(istype(A, /obj/machinery/camera))
+		current = A
+	. = ..()

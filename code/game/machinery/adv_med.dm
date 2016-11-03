@@ -93,9 +93,6 @@
 		if(M.abiotic())
 			to_chat(user, "<span class='notice'>Subject cannot have abiotic items on.</span>")
 			return
-		/*if(M.client)
-			M.client.perspective = EYE_PERSPECTIVE
-			M.client.eye = src*///THIS IS FUCKING POINTLESS BECAUSE OF ON-LIFE() FUCKING RESET_VIEW() AHHHHHHHHHHGGGGGGGGGG
 		M.forceMove(src)
 		occupant = M
 		icon_state = "body_scanner_1"
@@ -159,9 +156,6 @@
 /obj/machinery/bodyscanner/proc/go_out()
 	if(!occupant || locked)
 		return
-	if(occupant.client)
-		occupant.client.eye = occupant.client.mob
-		occupant.client.perspective = MOB_PERSPECTIVE
 	occupant.forceMove(loc)
 	occupant = null
 	icon_state = "body_scanner_0"

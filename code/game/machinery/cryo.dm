@@ -406,9 +406,6 @@
 /obj/machinery/atmospherics/unary/cryo_cell/proc/go_out()
 	if(!occupant)
 		return
-	if(occupant.client)
-		occupant.client.eye = occupant.client.mob
-		occupant.client.perspective = MOB_PERSPECTIVE
 	occupant.forceMove(get_step(loc, SOUTH))	//this doesn't account for walls or anything, but i don't forsee that being a problem.
 	if(occupant.bodytemperature < 261 && occupant.bodytemperature >= 70) //Patch by Aranclanos to stop people from taking burn damage after being ejected
 		occupant.bodytemperature = 261
@@ -431,9 +428,6 @@
 	if(!node)
 		to_chat(usr, "\red The cell is not correctly connected to its pipe network!")
 		return
-	if(M.client)
-		M.client.perspective = EYE_PERSPECTIVE
-		M.client.eye = src
 	M.stop_pulling()
 	M.forceMove(src)
 	if(M.health > -100 && (M.health < 0 || M.sleeping))
@@ -494,3 +488,9 @@
 
 /datum/data/function/proc/display()
 	return
+
+/obj/machinery/atmospherics/components/unary/cryo_cell/get_remote_view_fullscreens(mob/user)
+	user.overlay_fullscreen("remote_view", /obj/screen/fullscreen/impaired, 1)
+
+/obj/machinery/atmospherics/components/unary/cryo_cell/update_remote_sight(mob/living/user)
+	return //we don't see the pipe network while inside cryo.

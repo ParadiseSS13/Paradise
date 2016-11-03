@@ -46,6 +46,7 @@
 
 	var/siemens_coeff = 1 //base electrocution coefficient
 
+	var/invis_sight = SEE_INVISIBLE_LIVING
 	var/darksight = 2
 	var/hazard_high_pressure = HAZARD_HIGH_PRESSURE   // Dangerously high pressure.
 	var/warning_high_pressure = WARNING_HIGH_PRESSURE // High pressure warning.
@@ -506,15 +507,6 @@
 			H.see_invisible = SEE_INVISIBLE_LIVING
 			H.seer = 0
 
-	//This checks how much the mob's eyewear impairs their vision
-	if(H.tinttotal >= TINT_IMPAIR)
-		if(tinted_weldhelh)
-			H.overlay_fullscreen("tint", /obj/screen/fullscreen/impaired, 2)
-		if(H.tinttotal >= TINT_BLIND)
-			H.EyeBlind(1)
-	else
-		H.clear_fullscreen("tint")
-
 	var/minimum_darkness_view = INFINITY
 	if(H.glasses)
 		if(istype(H.glasses, /obj/item/clothing/glasses))
@@ -684,3 +676,37 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 	if(!(organ_slot in has_organ))
 		return null
 	return has_organ[organ_slot]
+
+
+/datum/species/proc/update_sight(mob/living/carbon/human/H)
+	H.sight = initial(H.sight)
+	H.see_in_dark = darksight
+	H.see_invisible = invis_sight
+
+	if(H.client.eye != H)
+		var/atom/A = H.client.eye
+		if(A.update_remote_sight(H)) //returns 1 if we override all other sight updates.
+			return
+
+	for(var/obj/item/organ/internal/cyberimp/eyes/E in H.internal_organs)
+		H.sight |= E.vision_flags
+		if(E.dark_view)
+			H.see_in_dark = E.dark_view
+		if(E.see_invisible)
+			H.see_invisible = min(H.see_invisible, E.see_invisible)
+
+	if(H.glasses)
+		var/obj/item/clothing/glasses/G = H.glasses
+		H.sight |= G.vision_flags
+		H.see_in_dark = max(G.darkness_view, H.see_in_dark)
+		if(G.invis_override)
+			H.see_invisible = G.invis_override
+		else
+			H.see_invisible = min(G.invis_view, H.see_invisible)
+
+	if(XRAY in H.mutations)
+		H.sight |= (SEE_TURFS|SEE_MOBS|SEE_OBJS)
+		H.see_in_dark = max(H.see_in_dark, 8)
+
+	if(H.see_override)	//Override all
+		H.see_invisible = H.see_override
