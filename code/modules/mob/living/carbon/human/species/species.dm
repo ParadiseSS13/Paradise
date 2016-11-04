@@ -577,8 +577,6 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 
 
 /datum/species/proc/update_sight(mob/living/carbon/human/H)
-	if(!H.client)
-		return 1
 	H.sight = initial(H.sight)
 	H.see_in_dark = darksight
 	H.see_invisible = invis_sight
