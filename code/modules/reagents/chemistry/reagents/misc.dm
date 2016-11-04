@@ -177,8 +177,6 @@
 	reagent_state = LIQUID
 	color = "#322D00"
 
-
-// Ported from Bay as part of the Botany Update
 // Allows you to make planks from any plant that has this reagent in it.
 // Also vines with this reagent are considered dense.
 /datum/reagent/woodpulp
@@ -187,8 +185,6 @@
 	description = "A mass of wood fibers."
 	reagent_state = LIQUID
 	color = "#B97A57"
-
-var/list/random_color_list = list("#00aedb","#a200ff","#f47835","#d41243","#d11141","#00b159","#00aedb","#f37735","#ffc425","#008744","#0057e7","#d62d20","#ffa700")
 
 /datum/reagent/oil
 	name = "Oil"
@@ -270,13 +266,6 @@ var/list/random_color_list = list("#00aedb","#a200ff","#f47835","#d41243","#d111
 	if(T)
 		T.color = pick(random_color_list)
 	..()
-
-/datum/reagent/corgium
-	name = "Corgium"
-	id = "corgium"
-	description = "Corgi in liquid form. Don't ask."
-	reagent_state = LIQUID
-	color = "#F9A635"
 
 /datum/reagent/hair_dye
 	name = "Quantum Hair Dye"
@@ -409,6 +398,17 @@ var/list/random_color_list = list("#00aedb","#a200ff","#f47835","#d41243","#d111
 					break
 	..()
 
+/datum/reagent/royal_bee_jelly
+	name = "royal bee jelly"
+	id = "royal_bee_jelly"
+	description = "Royal Bee Jelly, if injected into a Queen Space Bee said bee will split into two bees."
+	color = "#00ff80"
+
+/datum/reagent/royal_bee_jelly/on_mob_life(mob/living/M)
+	if(prob(2))
+		M.say(pick("Bzzz...","BZZ BZZ","Bzzzzzzzzzzz..."))
+	..()
+
 ///Alchemical Reagents
 
 /datum/reagent/eyenewt
@@ -445,14 +445,3 @@ var/list/random_color_list = list("#00aedb","#a200ff","#f47835","#d41243","#d111
 	description = "Ewwwwwwwww."
 	reagent_state = LIQUID
 	color = "#857400"
-
-/datum/reagent/royal_bee_jelly
-	name = "royal bee jelly"
-	id = "royal_bee_jelly"
-	description = "Royal Bee Jelly, if injected into a Queen Space Bee said bee will split into two bees."
-	color = "#00ff80"
-
-/datum/reagent/royal_bee_jelly/on_mob_life(mob/living/M)
-	if(prob(2))
-		M.say(pick("Bzzz...","BZZ BZZ","Bzzzzzzzzzzz..."))
-	..()

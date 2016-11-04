@@ -122,26 +122,23 @@
 				qdel(ate_heart)
 	..()
 
-//virus-specific symptom reagents
+/datum/reagent/concentrated_initro
+	name = "Concentrated Initropidril"
+	id = "concentrated_initro"
+	description = "A guaranteed heart-stopper!"
+	reagent_state = LIQUID
+	color = "#AB1CCF"
+	metabolization_rate = 0.4
 
-/datum/reagent/synaphydramine
-	name = "Diphen-Synaptizine"
-	id = "synaphydramine"
-	description = "Reduces drowsiness and hallucinations while also purging histamine from the body."
-	color = "#EC536D" // rgb: 236, 83, 109
+/datum/reagent/concentrated_initro/on_mob_life(mob/living/M)
+	if(volume >=5)
+		if(ishuman(M))
+			var/mob/living/carbon/human/H = M
+			if(!H.heart_attack)
+				H.heart_attack = 1 // rip in pepperoni
 
-/datum/reagent/synaphydramine/on_mob_life(mob/living/M)
-	M.AdjustDrowsy(-5)
-	if(holder.has_reagent("lsd"))
-		holder.remove_reagent("lsd", 5)
-	if(holder.has_reagent("histamine"))
-		holder.remove_reagent("histamine", 5)
-	M.AdjustHallucinate(-10)
-	if(prob(30))
-		M.adjustToxLoss(1)
-	..()
+//virus foods
 
-//virus food
 /datum/reagent/virus_food
 	name = "Virus Food"
 	id = "virusfood"
@@ -165,7 +162,7 @@
 	id = "sugarvirusfood"
 	color = "#41B0C0" // rgb: 65,176,192
 
-/datum/reagent/diphenhydramine/diphenhydraminevirusfood
+/datum/reagent/medicine/diphenhydramine/diphenhydraminevirusfood
 	name = "virus rations"
 	id = "diphenhydraminevirusfood"
 	description = "mutates blood"

@@ -732,21 +732,6 @@
 				H.heart_attack = 1 // rip in pepperoni
 	..()
 
-/datum/reagent/concentrated_initro
-	name = "Concentrated Initropidril"
-	id = "concentrated_initro"
-	description = "A guaranteed heart-stopper!"
-	reagent_state = LIQUID
-	color = "#AB1CCF"
-	metabolization_rate = 0.4
-
-/datum/reagent/concentrated_initro/on_mob_life(mob/living/M)
-	if(volume >=5)
-		if(ishuman(M))
-			var/mob/living/carbon/human/H = M
-			if(!H.heart_attack)
-				H.heart_attack = 1 // rip in pepperoni
-
 /datum/reagent/pancuronium
 	name = "Pancuronium"
 	id = "pancuronium"

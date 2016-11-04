@@ -1,4 +1,4 @@
-/datum/reagent/adminordrazine //An OP chemical for admins
+/datum/reagent/medicine/adminordrazine //An OP chemical for admins
 	name = "Adminordrazine"
 	id = "adminordrazine"
 	description = "It's magic. We don't have to explain it."
@@ -7,7 +7,7 @@
 	process_flags = ORGANIC | SYNTHETIC	//Adminbuse knows no bounds!
 	admin_only = 1
 
-/datum/reagent/adminordrazine/on_mob_life(mob/living/carbon/M)
+/datum/reagent/medicine/adminordrazine/on_mob_life(mob/living/carbon/M)
 	M.setCloneLoss(0)
 	M.setOxyLoss(0)
 	M.radiation = 0
@@ -54,7 +54,7 @@
 			D.cure()
 	..()
 
-/datum/reagent/adminordrazine/nanites
+/datum/reagent/medicine/adminordrazine/nanites
 	name = "Nanites"
 	id = "nanites"
 	description = "Nanomachines that aid in rapid cellular regeneration."

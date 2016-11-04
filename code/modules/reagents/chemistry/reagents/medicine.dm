@@ -1,4 +1,8 @@
-/datum/reagent/hydrocodone
+/datum/reagent/medicine
+	name = "Medicine"
+	id = "medicine"
+
+/datum/reagent/medicine/hydrocodone
 	name = "Hydrocodone"
 	id = "hydrocodone"
 	description = "An extremely effective painkiller; may have long term abuse consequences."
@@ -7,14 +11,14 @@
 	metabolization_rate = 0.3 // Lasts 1.5 minutes for 15 units
 	shock_reduction = 200
 
-/datum/reagent/hydrocodone/on_mob_life(mob/living/M)
+/datum/reagent/medicine/hydrocodone/on_mob_life(mob/living/M)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		if(H.traumatic_shock < 100)
 			H.shock_stage = 0
 	..()
 
-/datum/reagent/sterilizine
+/datum/reagent/medicine/sterilizine
 	name = "Sterilizine"
 	id = "sterilizine"
 	description = "Sterilizes wounds in preparation for surgery."
@@ -22,17 +26,17 @@
 	color = "#C8A5DC" // rgb: 200, 165, 220
 
 	//makes you squeaky clean
-/datum/reagent/sterilizine/reaction_mob(mob/living/M, method=TOUCH, volume)
+/datum/reagent/medicine/sterilizine/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(method == TOUCH)
 		M.germ_level -= min(volume*20, M.germ_level)
 
-/datum/reagent/sterilizine/reaction_obj(obj/O, volume)
+/datum/reagent/medicine/sterilizine/reaction_obj(obj/O, volume)
 	O.germ_level -= min(volume*20, O.germ_level)
 
-/datum/reagent/sterilizine/reaction_turf(turf/T, volume)
+/datum/reagent/medicine/sterilizine/reaction_turf(turf/T, volume)
 	T.germ_level -= min(volume*20, T.germ_level)
 
-/datum/reagent/synaptizine
+/datum/reagent/medicine/synaptizine
 	name = "Synaptizine"
 	id = "synaptizine"
 	description = "Synaptizine is used to treat neuroleptic shock. Can be used to help remove disabling symptoms such as paralysis."
@@ -40,7 +44,7 @@
 	color = "#FA46FA"
 	overdose_threshold = 40
 
-/datum/reagent/synaptizine/on_mob_life(mob/living/M)
+/datum/reagent/medicine/synaptizine/on_mob_life(mob/living/M)
 	M.AdjustDrowsy(-5)
 	M.AdjustParalysis(-1)
 	M.AdjustStunned(-1)
@@ -50,7 +54,7 @@
 		M.adjustBrainLoss(-1.0)
 	..()
 
-/datum/reagent/synaptizine/overdose_process(mob/living/M, severity)
+/datum/reagent/medicine/synaptizine/overdose_process(mob/living/M, severity)
 	var/effect = ..()
 	if(severity == 1)
 		if(effect <= 1)
@@ -71,14 +75,14 @@
 		if(effect <= 15)
 			M.adjustToxLoss(1)
 
-/datum/reagent/mitocholide
+/datum/reagent/medicine/mitocholide
 	name = "Mitocholide"
 	id = "mitocholide"
 	description = "A specialized drug that stimulates the mitochondria of cells to encourage healing of internal organs."
 	reagent_state = LIQUID
 	color = "#C8A5DC" // rgb: 200, 165, 220
 
-/datum/reagent/mitocholide/on_mob_life(mob/living/M)
+/datum/reagent/medicine/mitocholide/on_mob_life(mob/living/M)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 
@@ -89,12 +93,12 @@
 				I.damage = max(I.damage-0.4, 0)
 	..()
 
-/datum/reagent/mitocholide/reaction_obj(obj/O, volume)
+/datum/reagent/medicine/mitocholide/reaction_obj(obj/O, volume)
 	if(istype(O, /obj/item/organ))
 		var/obj/item/organ/Org = O
 		Org.rejuvenate()
 
-/datum/reagent/cryoxadone
+/datum/reagent/medicine/cryoxadone
 	name = "Cryoxadone"
 	id = "cryoxadone"
 	description = "A plasma mixture with almost magical healing powers. Its main limitation is that the targets body temperature must be under 265K for it to metabolise correctly."
@@ -102,7 +106,7 @@
 	color = "#0000C8" // rgb: 200, 165, 220
 	heart_rate_decrease = 1
 
-/datum/reagent/cryoxadone/on_mob_life(mob/living/M)
+/datum/reagent/medicine/cryoxadone/on_mob_life(mob/living/M)
 	if(M.bodytemperature < 265)
 		M.adjustCloneLoss(-4)
 		M.adjustOxyLoss(-10)
@@ -112,7 +116,7 @@
 		M.status_flags &= ~DISFIGURED
 	..()
 
-/datum/reagent/rezadone
+/datum/reagent/medicine/rezadone
 	name = "Rezadone"
 	id = "rezadone"
 	description = "A powder derived from fish toxin, Rezadone can effectively treat genetic damage as well as restoring minor wounds. Overdose will cause intense nausea and minor toxin damage."
@@ -120,7 +124,7 @@
 	color = "#669900" // rgb: 102, 153, 0
 	overdose_threshold = 30
 
-/datum/reagent/rezadone/on_mob_life(mob/living/M)
+/datum/reagent/medicine/rezadone/on_mob_life(mob/living/M)
 	M.setCloneLoss(0) //Rezadone is almost never used in favor of cryoxadone. Hopefully this will change that.
 	M.adjustCloneLoss(-1) //What? We just set cloneloss to 0. Why? Simple; this is so external organs properly unmutate.
 	M.adjustBruteLoss(-1)
@@ -128,12 +132,12 @@
 	M.status_flags &= ~DISFIGURED
 	..()
 
-/datum/reagent/rezadone/overdose_process(mob/living/M, severity)
+/datum/reagent/medicine/rezadone/overdose_process(mob/living/M, severity)
 	M.adjustToxLoss(1)
 	M.Dizzy(5)
 	M.Jitter(5)
 
-/datum/reagent/spaceacillin
+/datum/reagent/medicine/spaceacillin
 	name = "Spaceacillin"
 	id = "spaceacillin"
 	description = "An all-purpose antibiotic agent extracted from space fungus."
@@ -142,7 +146,7 @@
 	metabolization_rate = 0.2
 
 
-/datum/reagent/silver_sulfadiazine
+/datum/reagent/medicine/silver_sulfadiazine
 	name = "Silver Sulfadiazine"
 	id = "silver_sulfadiazine"
 	description = "This antibacterial compound is used to treat burn victims."
@@ -150,7 +154,7 @@
 	color = "#F0C814"
 	metabolization_rate = 3
 
-/datum/reagent/silver_sulfadiazine/reaction_mob(mob/living/M, method=TOUCH, volume, show_message = 1)
+/datum/reagent/medicine/silver_sulfadiazine/reaction_mob(mob/living/M, method=TOUCH, volume, show_message = 1)
 	if(iscarbon(M))
 		if(method == TOUCH)
 			M.adjustFireLoss(-volume)
@@ -162,11 +166,11 @@
 				to_chat(M, "<span class='warning'>You feel sick...</span>")
 	..()
 
-/datum/reagent/silver_sulfadiazine/on_mob_life(mob/living/M)
+/datum/reagent/medicine/silver_sulfadiazine/on_mob_life(mob/living/M)
 	M.adjustFireLoss(-2*REM)
 	..()
 
-/datum/reagent/styptic_powder
+/datum/reagent/medicine/styptic_powder
 	name = "Styptic Powder"
 	id = "styptic_powder"
 	description = "Styptic (aluminium sulfate) powder helps control bleeding and heal physical wounds."
@@ -174,7 +178,7 @@
 	color = "#C8A5DC"
 	metabolization_rate = 3
 
-/datum/reagent/styptic_powder/reaction_mob(mob/living/M, method=TOUCH, volume, show_message = 1)
+/datum/reagent/medicine/styptic_powder/reaction_mob(mob/living/M, method=TOUCH, volume, show_message = 1)
 	if(iscarbon(M))
 		if(method == TOUCH)
 			M.adjustBruteLoss(-volume)
@@ -187,11 +191,11 @@
 				to_chat(M, "<span class='warning'>You feel gross!</span>")
 	..()
 
-/datum/reagent/styptic_powder/on_mob_life(mob/living/M)
+/datum/reagent/medicine/styptic_powder/on_mob_life(mob/living/M)
 	M.adjustBruteLoss(-2*REM)
 	..()
 
-/datum/reagent/salglu_solution
+/datum/reagent/medicine/salglu_solution
 	name = "Saline-Glucose Solution"
 	id = "salglu_solution"
 	description = "This saline and glucose solution can help stabilize critically injured patients and cleanse wounds."
@@ -200,7 +204,7 @@
 	penetrates_skin = 1
 	metabolization_rate = 0.15
 
-/datum/reagent/salglu_solution/on_mob_life(mob/living/M)
+/datum/reagent/medicine/salglu_solution/on_mob_life(mob/living/M)
 	if(prob(33))
 		M.adjustBruteLoss(-2*REM)
 		M.adjustFireLoss(-2*REM)
@@ -210,14 +214,14 @@
 			H.vessel.add_reagent("blood", 1)
 	..()
 
-/datum/reagent/synthflesh
+/datum/reagent/medicine/synthflesh
 	name = "Synthflesh"
 	id = "synthflesh"
 	description = "A resorbable microfibrillar collagen and protein mixture that can rapidly heal injuries when applied topically."
 	reagent_state = LIQUID
 	color = "#FFEBEB"
 
-/datum/reagent/synthflesh/reaction_mob(mob/living/M, method=TOUCH, volume, show_message = 1)
+/datum/reagent/medicine/synthflesh/reaction_mob(mob/living/M, method=TOUCH, volume, show_message = 1)
 	if(iscarbon(M))
 		if(method == TOUCH)
 			M.adjustBruteLoss(-1.5*volume)
@@ -226,19 +230,19 @@
 				to_chat(M, "<span class='notice'>The synthetic flesh integrates itself into your wounds, healing you.</span>")
 	..()
 
-/datum/reagent/synthflesh/reaction_turf(turf/T, volume) //let's make a mess!
+/datum/reagent/medicine/synthflesh/reaction_turf(turf/T, volume) //let's make a mess!
 	if(volume >= 5 && !istype(T, /turf/space))
 		new /obj/effect/decal/cleanable/blood/gibs/cleangibs(T)
 		playsound(T, 'sound/effects/splat.ogg', 50, 1, -3)
 
-/datum/reagent/charcoal
+/datum/reagent/medicine/charcoal
 	name = "Charcoal"
 	id = "charcoal"
 	description = "Activated charcoal helps to absorb toxins."
 	reagent_state = LIQUID
 	color = "#000000"
 
-/datum/reagent/charcoal/on_mob_life(mob/living/M)
+/datum/reagent/medicine/charcoal/on_mob_life(mob/living/M)
 	M.adjustToxLoss(-1.5*REM)
 	if(prob(50))
 		for(var/datum/reagent/R in M.reagents.reagent_list)
@@ -246,7 +250,7 @@
 				M.reagents.remove_reagent(R.id,1)
 	..()
 
-/datum/reagent/omnizine
+/datum/reagent/medicine/omnizine
 	name = "Omnizine"
 	id = "omnizine"
 	description = "Omnizine is a highly potent healing medication that can be used to treat a wide range of injuries."
@@ -256,7 +260,7 @@
 	overdose_threshold = 30
 	addiction_chance = 5
 
-/datum/reagent/omnizine/on_mob_life(mob/living/M)
+/datum/reagent/medicine/omnizine/on_mob_life(mob/living/M)
 	M.adjustToxLoss(-1*REM)
 	M.adjustOxyLoss(-1*REM)
 	M.adjustBruteLoss(-2*REM)
@@ -265,7 +269,7 @@
 		M.AdjustLoseBreath(-1)
 	..()
 
-/datum/reagent/omnizine/overdose_process(mob/living/M, severity)
+/datum/reagent/medicine/omnizine/overdose_process(mob/living/M, severity)
 	var/effect = ..()
 	if(severity == 1) //lesser
 		M.stuttering += 1
@@ -299,7 +303,7 @@
 			M.Dizzy(5)
 			M.Weaken(3)
 
-/datum/reagent/calomel
+/datum/reagent/medicine/calomel
 	name = "Calomel"
 	id = "calomel"
 	description = "This potent purgative rids the body of impurities. It is highly toxic however and close supervision is required."
@@ -307,7 +311,7 @@
 	color = "#22AB35"
 	metabolization_rate = 0.8
 
-/datum/reagent/calomel/on_mob_life(mob/living/M)
+/datum/reagent/medicine/calomel/on_mob_life(mob/living/M)
 	for(var/datum/reagent/R in M.reagents.reagent_list)
 		if(R != src)
 			M.reagents.remove_reagent(R.id,5)
@@ -317,26 +321,26 @@
 		M.fakevomit()
 	..()
 
-/datum/reagent/potass_iodide
+/datum/reagent/medicine/potass_iodide
 	name = "Potassium Iodide"
 	id = "potass_iodide"
 	description = "Potassium Iodide is a medicinal drug used to counter the effects of radiation poisoning."
 	reagent_state = LIQUID
 	color = "#B4DCBE"
 
-/datum/reagent/potass_iodide/on_mob_life(mob/living/M)
+/datum/reagent/medicine/potass_iodide/on_mob_life(mob/living/M)
 	if(prob(80))
 		M.radiation = max(0, M.radiation-1)
 	..()
 
-/datum/reagent/pen_acid
+/datum/reagent/medicine/pen_acid
 	name = "Pentetic Acid"
 	id = "pen_acid"
 	description = "Pentetic Acid is an aggressive chelation agent. May cause tissue damage. Use with caution."
 	reagent_state = LIQUID
 	color = "#C8A5DC"
 
-/datum/reagent/pen_acid/on_mob_life(mob/living/M)
+/datum/reagent/medicine/pen_acid/on_mob_life(mob/living/M)
 	for(var/datum/reagent/R in M.reagents.reagent_list)
 		if(R != src)
 			M.reagents.remove_reagent(R.id,4)
@@ -348,7 +352,7 @@
 		M.adjustFireLoss(1*REM)
 	..()
 
-/datum/reagent/sal_acid
+/datum/reagent/medicine/sal_acid
 	name = "Salicylic Acid"
 	id = "sal_acid"
 	description = "This is a is a standard salicylate pain reliever and fever reducer."
@@ -358,7 +362,7 @@
 	shock_reduction = 25
 	overdose_threshold = 25
 
-/datum/reagent/sal_acid/on_mob_life(mob/living/M)
+/datum/reagent/medicine/sal_acid/on_mob_life(mob/living/M)
 	if(prob(55))
 		M.adjustBruteLoss(-2*REM)
 	if(ishuman(M))
@@ -367,7 +371,7 @@
 			H.shock_stage = 0
 	..()
 
-/datum/reagent/salbutamol
+/datum/reagent/medicine/salbutamol
 	name = "Salbutamol"
 	id = "salbutamol"
 	description = "Salbutamol is a common bronchodilation medication for asthmatics. It may help with other breathing problems as well."
@@ -375,12 +379,12 @@
 	color = "#00FFFF"
 	metabolization_rate = 0.2
 
-/datum/reagent/salbutamol/on_mob_life(mob/living/M)
+/datum/reagent/medicine/salbutamol/on_mob_life(mob/living/M)
 	M.adjustOxyLoss(-6*REM)
 	M.AdjustLoseBreath(-4)
 	..()
 
-/datum/reagent/perfluorodecalin
+/datum/reagent/medicine/perfluorodecalin
 	name = "Perfluorodecalin"
 	id = "perfluorodecalin"
 	description = "This experimental perfluoronated solvent has applications in liquid breathing and tissue oxygenation. Use with caution."
@@ -389,7 +393,7 @@
 	metabolization_rate = 0.2
 	addiction_chance = 20
 
-/datum/reagent/perfluorodecalin/on_mob_life(mob/living/carbon/human/M)
+/datum/reagent/medicine/perfluorodecalin/on_mob_life(mob/living/carbon/human/M)
 	M.adjustOxyLoss(-25*REM)
 	if(volume >= 4)
 		M.LoseBreath(6)
@@ -399,7 +403,7 @@
 		M.adjustFireLoss(-1*REM)
 	..()
 
-/datum/reagent/ephedrine
+/datum/reagent/medicine/ephedrine
 	name = "Ephedrine"
 	id = "ephedrine"
 	description = "Ephedrine is a plant-derived stimulant."
@@ -409,7 +413,7 @@
 	overdose_threshold = 35
 	addiction_chance = 25
 
-/datum/reagent/ephedrine/on_mob_life(mob/living/M)
+/datum/reagent/medicine/ephedrine/on_mob_life(mob/living/M)
 	M.AdjustDrowsy(-5)
 	M.AdjustParalysis(-1)
 	M.AdjustStunned(-1)
@@ -424,7 +428,7 @@
 		M.adjustFireLoss(-1)
 	..()
 
-/datum/reagent/ephedrine/overdose_process(mob/living/M, severity)
+/datum/reagent/medicine/ephedrine/overdose_process(mob/living/M, severity)
 	var/effect = ..()
 	if(severity == 1)
 		if(effect <= 1)
@@ -445,7 +449,7 @@
 		if(effect <= 15)
 			M.emote("collapse")
 
-/datum/reagent/diphenhydramine
+/datum/reagent/medicine/diphenhydramine
 	name = "Diphenhydramine"
 	id = "diphenhydramine"
 	description = "Anti-allergy medication. May cause drowsiness, do not operate heavy machinery while using this."
@@ -453,7 +457,7 @@
 	color = "#5BCBE1"
 	addiction_chance = 10
 
-/datum/reagent/diphenhydramine/on_mob_life(mob/living/M)
+/datum/reagent/medicine/diphenhydramine/on_mob_life(mob/living/M)
 	M.AdjustJitter(-20)
 	M.reagents.remove_reagent("histamine",3)
 	M.reagents.remove_reagent("itching_powder",3)
@@ -465,7 +469,7 @@
 		M.visible_message("<span class='notice'>[M] looks a bit dazed.</span>")
 	..()
 
-/datum/reagent/morphine
+/datum/reagent/medicine/morphine
 	name = "Morphine"
 	id = "morphine"
 	description = "A strong but highly addictive opiate painkiller with sedative side effects."
@@ -475,7 +479,7 @@
 	addiction_chance = 50
 	shock_reduction = 50
 
-/datum/reagent/morphine/on_mob_life(mob/living/M)
+/datum/reagent/medicine/morphine/on_mob_life(mob/living/M)
 	M.AdjustJitter(-25)
 	switch(current_cycle)
 		if(1 to 15)
@@ -492,7 +496,7 @@
 			H.shock_stage = 0
 	..()
 
-/datum/reagent/oculine/on_mob_life(mob/living/M)
+/datum/reagent/medicine/oculine/on_mob_life(mob/living/M)
 	if(prob(80))
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
@@ -511,7 +515,7 @@
 			M.SetEarDeaf(0)
 	..()
 
-/datum/reagent/oculine
+/datum/reagent/medicine/oculine
 	name = "Oculine"
 	id = "oculine"
 	description = "Oculine is a saline eye medication with mydriatic and antibiotic effects."
@@ -520,7 +524,7 @@
 	metabolization_rate = 0.4
 	var/cycle_amount = 0
 
-/datum/reagent/atropine
+/datum/reagent/medicine/atropine
 	name = "Atropine"
 	id = "atropine"
 	description = "Atropine is a potent cardiac resuscitant but it can causes confusion, dizzyness and hyperthermia."
@@ -529,7 +533,7 @@
 	metabolization_rate = 0.2
 	overdose_threshold = 25
 
-/datum/reagent/atropine/on_mob_life(mob/living/M)
+/datum/reagent/medicine/atropine/on_mob_life(mob/living/M)
 	M.AdjustDizzy(1)
 	M.Confused(5)
 	if(prob(4))
@@ -546,7 +550,7 @@
 	M.reagents.remove_reagent("sarin", 20)
 	..()
 
-/datum/reagent/epinephrine
+/datum/reagent/medicine/epinephrine
 	name = "Epinephrine"
 	id = "epinephrine"
 	description = "Epinephrine is a potent neurotransmitter, used in medical emergencies to halt anaphylactic shock and prevent cardiac arrest."
@@ -555,7 +559,7 @@
 	metabolization_rate = 0.2
 	overdose_threshold = 20
 
-/datum/reagent/epinephrine/on_mob_life(mob/living/M)
+/datum/reagent/medicine/epinephrine/on_mob_life(mob/living/M)
 	M.AdjustDrowsy(-5)
 	if(prob(20))
 		M.AdjustParalysis(-1)
@@ -577,7 +581,7 @@
 		M.adjustFireLoss(-1*REM)
 	..()
 
-/datum/reagent/epinephrine/overdose_process(mob/living/M, severity)
+/datum/reagent/medicine/epinephrine/overdose_process(mob/living/M, severity)
 	var/effect = ..()
 	if(severity == 1)
 		if(effect <= 1)
@@ -598,7 +602,7 @@
 		if(effect <= 15)
 			M.emote("collapse")
 
-/datum/reagent/strange_reagent
+/datum/reagent/medicine/strange_reagent
 	name = "Strange Reagent"
 	id = "strange_reagent"
 	description = "A glowing green fluid highly reminiscent of nuclear waste."
@@ -606,7 +610,7 @@
 	color = "#A0E85E"
 	metabolization_rate = 0.2
 
-/datum/reagent/strange_reagent/reaction_mob(mob/living/M, method=TOUCH, volume)
+/datum/reagent/medicine/strange_reagent/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(isanimal(M))
 		if(method == TOUCH)
 			var/mob/living/simple_animal/SM = M
@@ -638,31 +642,23 @@
 					add_logs(M, M, "revived", object="strange reagent") //Yes, the logs say you revived yourself.
 	..()
 
-/datum/reagent/strange_reagent/on_mob_life(mob/living/M)
+/datum/reagent/medicine/strange_reagent/on_mob_life(mob/living/M)
 	if(prob(10))
 		M.adjustBruteLoss(2*REM)
 		M.adjustToxLoss(2*REM)
 	..()
 
-/datum/reagent/life
-	name = "Life"
-	id = "life"
-	description = "Can create a life form, however it is not guaranteed to be friendly. May want to have Security on hot standby."
-	reagent_state = LIQUID
-	color = "#C8A5DC"
-	metabolization_rate = 0.2
-
-/datum/reagent/mannitol/on_mob_life(mob/living/M)
+/datum/reagent/medicine/mannitol/on_mob_life(mob/living/M)
 	M.adjustBrainLoss(-3)
 	..()
 
-/datum/reagent/mannitol
+/datum/reagent/medicine/mannitol
 	name = "Mannitol"
 	id = "mannitol"
 	description = "Mannitol is a sugar alcohol that can help alleviate cranial swelling."
 	color = "#D1D1F1"
 
-/datum/reagent/mutadone/on_mob_life(mob/living/carbon/human/M)
+/datum/reagent/medicine/mutadone/on_mob_life(mob/living/carbon/human/M)
 	M.SetJitter(0)
 	var/needs_update = M.mutations.len > 0 || M.disabilities > 0
 
@@ -680,19 +676,19 @@
 			H.update_mutations()
 	..()
 
-/datum/reagent/mutadone
+/datum/reagent/medicine/mutadone
 	name = "Mutadone"
 	id = "mutadone"
 	description = "Mutadone is an experimental bromide that can cure genetic abnomalities."
 	color = "#5096C8"
 
-/datum/reagent/antihol
+/datum/reagent/medicine/antihol
 	name = "Antihol"
 	id = "antihol"
 	description = "A medicine which quickly eliminates alcohol in the body."
 	color = "#009CA8"
 
-/datum/reagent/antihol/on_mob_life(mob/living/M)
+/datum/reagent/medicine/antihol/on_mob_life(mob/living/M)
 	M.SetSlur(0)
 	M.AdjustDrunk(-4)
 	M.reagents.remove_all_type(/datum/reagent/ethanol, 8, 0, 1)
@@ -700,14 +696,14 @@
 		M.adjustToxLoss(-2.0)
 	..()
 
-/datum/reagent/stimulants
+/datum/reagent/medicine/stimulants
 	name = "Stimulants"
 	id = "stimulants"
 	description = "Increases run speed and eliminates stuns, can heal minor damage. If overdosed it will deal toxin damage and stun."
 	color = "#C8A5DC"
 	metabolization_rate = 0.4
 
-/datum/reagent/stimulants/on_mob_life(mob/living/M)
+/datum/reagent/medicine/stimulants/on_mob_life(mob/living/M)
 	if(volume > 5)
 		M.adjustOxyLoss(-5*REM)
 		M.adjustToxLoss(-5*REM)
@@ -729,7 +725,7 @@
 			M.Stun(3)
 	..()
 
-/datum/reagent/stimulants/on_mob_delete(mob/living/M)
+/datum/reagent/medicine/stimulants/on_mob_delete(mob/living/M)
 	M.status_flags |= CANSTUN | CANWEAKEN | CANPARALYSE
 	..()
 
@@ -764,25 +760,25 @@
 		M.adjustToxLoss(1*REM)
 		M.AdjustLoseBreath(1)
 
-/datum/reagent/insulin
+/datum/reagent/medicine/insulin
 	name = "Insulin"
 	id = "insulin"
 	description = "A hormone generated by the pancreas responsible for metabolizing carbohydrates and fat in the bloodstream."
 	reagent_state = LIQUID
 	color = "#C8A5DC"
 
-/datum/reagent/insulin/on_mob_life(mob/living/M)
+/datum/reagent/medicine/insulin/on_mob_life(mob/living/M)
 	M.reagents.remove_reagent("sugar", 5)
 	..()
 
 
-/datum/reagent/simethicone
+/datum/reagent/medicine/simethicone
 	name = "Simethicone"
 	id = "simethicone"
 	description = "This strange liquid seems to have no bubbles on the surface."
 	color = "#14AA46"
 
-/datum/reagent/teporone
+/datum/reagent/medicine/teporone
 	name = "Teporone"
 	id = "teporone"
 	description = "This experimental plasma-based compound seems to regulate body temperature."
@@ -791,21 +787,21 @@
 	addiction_chance = 20
 	overdose_threshold = 50
 
-/datum/reagent/teporone/on_mob_life(mob/living/M)
+/datum/reagent/medicine/teporone/on_mob_life(mob/living/M)
 	if(M.bodytemperature > 310)
 		M.bodytemperature = max(310, M.bodytemperature - (40 * TEMPERATURE_DAMAGE_COEFFICIENT))
 	else if(M.bodytemperature < 311)
 		M.bodytemperature = min(310, M.bodytemperature + (40 * TEMPERATURE_DAMAGE_COEFFICIENT))
 	..()
 
-/datum/reagent/haloperidol
+/datum/reagent/medicine/haloperidol
 	name = "Haloperidol"
 	id = "haloperidol"
 	description = "Haloperidol is a powerful antipsychotic and sedative. Will help control psychiatric problems, but may cause brain damage."
 	reagent_state = LIQUID
 	color = "#FFDCFF"
 
-/datum/reagent/haloperidol/on_mob_life(mob/living/M)
+/datum/reagent/medicine/haloperidol/on_mob_life(mob/living/M)
 	M.reagents.remove_reagent("crank", 5)
 	M.reagents.remove_reagent("methamphetamine", 5)
 	M.reagents.remove_reagent("space_drugs", 5)
@@ -827,14 +823,14 @@
 		M.adjustBrainLoss(1)
 	..()
 
-/datum/reagent/ether
+/datum/reagent/medicine/ether
 	name = "Ether"
 	id = "ether"
 	description = "A strong anesthetic and sedative."
 	reagent_state = LIQUID
 	color = "#96DEDE"
 
-/datum/reagent/ether/on_mob_life(mob/living/M)
+/datum/reagent/medicine/ether/on_mob_life(mob/living/M)
 	M.AdjustJitter(-25)
 	switch(current_cycle)
 		if(1 to 15)
@@ -847,12 +843,32 @@
 			M.Drowsy(20)
 	..()
 
+//virus-specific symptom reagents
+
+/datum/reagent/medicine/synaphydramine
+	name = "Diphen-Synaptizine"
+	id = "synaphydramine"
+	description = "Reduces drowsiness and hallucinations while also purging histamine from the body."
+	color = "#EC536D" // rgb: 236, 83, 109
+
+/datum/reagent/medicine/synaphydramine/on_mob_life(mob/living/M)
+	M.AdjustDrowsy(-5)
+	if(holder.has_reagent("lsd"))
+		holder.remove_reagent("lsd", 5)
+	if(holder.has_reagent("histamine"))
+		holder.remove_reagent("histamine", 5)
+	M.AdjustHallucinate(-10)
+	if(prob(30))
+		M.adjustToxLoss(1)
+	..()
+
+
 //////////////////////////////
 //		Synth-Meds			//
 //////////////////////////////
 
 //Degreaser: Mild Purgative / Lube Remover
-/datum/reagent/degreaser
+/datum/reagent/medicine/degreaser
 	name = "Degreaser"
 	id = "degreaser"
 	description = "An industrial degreaser which can be used to clean residual build-up from machinery and surfaces."
@@ -860,12 +876,12 @@
 	color = "#CC7A00"
 	process_flags = SYNTHETIC
 
-/datum/reagent/degreaser/reaction_turf(turf/simulated/T, volume)
+/datum/reagent/medicine/degreaser/reaction_turf(turf/simulated/T, volume)
 	if(volume >= 1 && istype(T))
 		if(T.wet)
 			T.MakeDry(TURF_WET_LUBE)
 
-/datum/reagent/degreaser/on_mob_life(mob/living/M)
+/datum/reagent/medicine/degreaser/on_mob_life(mob/living/M)
 	if(prob(50))		//Same effects as coffee, to help purge ill effects like paralysis
 		M.AdjustParalysis(-1)
 		M.AdjustStunned(-1)
@@ -881,7 +897,7 @@
 	..()
 
 //Liquid Solder: Mannitol
-/datum/reagent/liquid_solder
+/datum/reagent/medicine/liquid_solder
 	name = "Liquid Solder"
 	id = "liquid_solder"
 	description = "A solution formulated to clean and repair damaged connections in posibrains while in use."
@@ -889,7 +905,7 @@
 	color = "#D7B395"
 	process_flags = SYNTHETIC
 
-/datum/reagent/liquid_solder/on_mob_life(mob/living/M)
+/datum/reagent/medicine/liquid_solder/on_mob_life(mob/living/M)
 	M.adjustBrainLoss(-3)
 	..()
 
@@ -910,7 +926,7 @@
 	..()
 
 
-/datum/reagent/omnizine_diluted
+/datum/reagent/medicine/omnizine_diluted
 	name = "Diluted Omnizine"
 	id = "weak_omnizine"
 	description = "Slowly heals all damage types. A far weaker substitute than actual omnizine."
@@ -919,14 +935,14 @@
 	overdose_threshold = 30
 	metabolization_rate = 0.1
 
-/datum/reagent/omnizine_diluted/on_mob_life(mob/living/M)
+/datum/reagent/medicine/omnizine_diluted/on_mob_life(mob/living/M)
 	M.adjustToxLoss(-0.5*REM)
 	M.adjustOxyLoss(-0.5*REM)
 	M.adjustBruteLoss(-0.5*REM)
 	M.adjustFireLoss(-0.5*REM)
 	..()
 
-/datum/reagent/omnizine_diluted/overdose_process(mob/living/M, severity)
+/datum/reagent/medicine/omnizine_diluted/overdose_process(mob/living/M, severity)
 	var/effect = ..()
 	if(severity == 1) //lesser
 		M.stuttering += 1
