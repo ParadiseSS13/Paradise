@@ -58,26 +58,3 @@
 	name = "Nanites"
 	id = "nanites"
 	description = "Nanomachines that aid in rapid cellular regeneration."
-
-
-// For random item spawning. Takes a list of paths, and returns the same list without anything that contains admin only reagents
-
-/proc/adminReagentCheck(var/list/incoming)
-	var/list/outgoing[0]
-	for(var/tocheck in incoming)
-		if(ispath(tocheck))
-			var/check = new tocheck
-			if(istype(check, /atom))
-				var/atom/reagentCheck = check
-				var/datum/reagents/reagents = reagentCheck.reagents
-				var/admin = 0
-				for(var/reag in reagents.reagent_list)
-					var/datum/reagent/reagent = reag
-					if(reagent.admin_only)
-						admin = 1
-						break
-				if(!(admin))
-					outgoing += tocheck
-			else
-				outgoing += tocheck
-	return outgoing

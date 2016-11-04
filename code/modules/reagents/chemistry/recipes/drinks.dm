@@ -676,3 +676,103 @@
 	required_reagents = list("spacemountainwind" = 1, "coffee" = 1)
 	result_amount = 2
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/reagent/ginsonic
+	name = "Gin and sonic"
+	id = "ginsonic"
+	description = "GOTTA GET CRUNK FAST BUT LIQUOR TOO SLOW"
+	reagent_state = LIQUID
+	color = "#1111CF"
+
+/datum/chemical_reaction/ginsonic
+	name = "ginsonic"
+	id = "ginsonic"
+	result = "ginsonic"
+	required_reagents = list("gintonic" = 1, "methamphetamine" = 1)
+	result_amount = 2
+	mix_message = "The drink turns electric blue and starts quivering violently."
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/applejack
+	name = "applejack"
+	id = "applejack"
+	result = "applejack"
+	required_reagents = list("cider" = 2)
+	max_temp = 270
+	result_amount = 1
+	mix_message = "The drink darkens as the water freezes, leaving the concentrated cider behind."
+	mix_sound = null
+
+/datum/chemical_reaction/jackrose
+	name = "jackrose"
+	id = "jackrose"
+	result = "jackrose"
+	required_reagents = list("applejack" = 4, "lemonjuice" = 1)
+	result_amount = 5
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/synthanol
+	name = "Synthanol"
+	id = "synthanol"
+	result = "synthanol"
+	required_reagents = list("lube" = 1, "plasma" = 1, "fuel" = 1)
+	result_amount = 3
+	mix_message = "The chemicals mix to create shiny, blue substance."
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/synthanol/robottears
+	name = "Robot Tears"
+	id = "robottears"
+	result = "robottears"
+	required_reagents = list("synthanol" = 1, "oil" = 1, "sodawater" = 1)
+	result_amount = 3
+	mix_message = "The ingredients combine into a stiff, dark goo."
+
+/datum/chemical_reaction/synthanol/trinary
+	name = "Trinary"
+	id = "trinary"
+	result = "trinary"
+	required_reagents = list("synthanol" = 1, "limejuice" = 1, "orangejuice" = 1)
+	result_amount = 3
+	mix_message = "The ingredients mix into a colorful substance."
+
+/datum/chemical_reaction/synthanol/servo
+	name = "Servo"
+	id = "servo"
+	result = "servo"
+	required_reagents = list("synthanol" = 2, "cream" = 1, "hot_coco" = 1)
+	result_amount = 4
+	mix_message = "The ingredients mix into a dark brown substance."
+
+/datum/chemical_reaction/synthanol/uplink
+	name = "Uplink"
+	id = "uplink"
+	result = "uplink"
+	required_reagents = list("rum" = 1, "vodka" = 1, "tequila" = 1, "whiskey" = 1, "synthanol" = 1)
+	result_amount = 5
+	mix_message = "The chemicals mix to create a shiny, orange substance."
+
+/datum/chemical_reaction/synthanol/synthnsoda
+	name = "Synth 'n Soda"
+	id = "synthnsoda"
+	result = "synthnsoda"
+	required_reagents = list("synthanol" = 1, "cola" = 1)
+	result_amount = 2
+	mix_message = "The chemicals mix to create a smooth, fizzy substance."
+
+/datum/chemical_reaction/synthanol/synthignon
+	name = "Synthignon"
+	id = "synthignon"
+	result = "synthignon"
+	required_reagents = list("synthanol" = 1, "wine" = 1)
+	result_amount = 2
+	mix_message = "The chemicals mix to create a fine, red substance."
+
+/datum/chemical_reaction/triple_citrus
+	name = "triple_citrus"
+	id = "triple_citrus"
+	result = "triple_citrus"
+	required_reagents = list("lemonjuice" = 1, "limejuice" = 1, "orangejuice" = 1)
+	result_amount = 3
+	mix_message = "The citrus juices begin to blend together."
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'

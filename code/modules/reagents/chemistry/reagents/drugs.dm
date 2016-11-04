@@ -1,8 +1,118 @@
-#define SOLID 1
-#define LIQUID 2
-#define GAS 3
+/datum/reagent/serotrotium
+	name = "Serotrotium"
+	id = "serotrotium"
+	description = "A chemical compound that promotes concentrated production of the serotonin neurotransmitter in humans."
+	reagent_state = LIQUID
+	color = "#202040" // rgb: 20, 20, 40
+	metabolization_rate = 0.25 * REAGENTS_METABOLISM
 
-#define REM REAGENTS_EFFECT_MULTIPLIER
+/datum/reagent/serotrotium/on_mob_life(mob/living/M)
+	if(ishuman(M))
+		if(prob(7))
+			M.emote(pick("twitch","drool","moan","gasp"))
+	..()
+
+
+/datum/reagent/lithium
+	name = "Lithium"
+	id = "lithium"
+	description = "A chemical element."
+	reagent_state = SOLID
+	color = "#808080" // rgb: 128, 128, 128
+
+/datum/reagent/lithium/on_mob_life(mob/living/M)
+	if(isturf(M.loc) && !istype(M.loc, /turf/space))
+		if(M.canmove && !M.restrained())
+			step(M, pick(cardinal))
+	if(prob(5)) M.emote(pick("twitch","drool","moan"))
+	..()
+
+
+/datum/reagent/hippies_delight
+	name = "Hippie's Delight"
+	id = "hippiesdelight"
+	description = "You just don't get it maaaan."
+	reagent_state = LIQUID
+	color = "#664300" // rgb: 102, 67, 0
+	metabolization_rate = 0.2 * REAGENTS_METABOLISM
+
+/datum/reagent/hippies_delight/on_mob_life(mob/living/M)
+	M.Druggy(50)
+	switch(current_cycle)
+		if(1 to 5)
+			if(!M.stuttering) M.stuttering = 1
+			M.Dizzy(10)
+			if(prob(10)) M.emote(pick("twitch","giggle"))
+		if(5 to 10)
+			if(!M.stuttering) M.stuttering = 1
+			M.Jitter(20)
+			M.Dizzy(20)
+			M.Druggy(45)
+			if(prob(20)) M.emote(pick("twitch","giggle"))
+		if(10 to INFINITY)
+			if(!M.stuttering) M.stuttering = 1
+			M.Jitter(40)
+			M.Dizzy(40)
+			M.Druggy(60)
+			if(prob(30)) M.emote(pick("twitch","giggle"))
+	..()
+
+/datum/reagent/lsd
+	name = "Lysergic acid diethylamide"
+	id = "lsd"
+	description = "A highly potent hallucinogenic substance. Far out, maaaan."
+	reagent_state = LIQUID
+	color = "#0000D8"
+
+/datum/reagent/lsd/on_mob_life(mob/living/M)
+	M.Druggy(15)
+	M.AdjustHallucinate(10)
+	..()
+
+/datum/reagent/space_drugs
+	name = "Space drugs"
+	id = "space_drugs"
+	description = "An illegal chemical compound used as drug."
+	reagent_state = LIQUID
+	color = "#9087A2"
+	metabolization_rate = 0.2
+	addiction_chance = 65
+	heart_rate_decrease = 1
+
+/datum/reagent/space_drugs/on_mob_life(mob/living/M)
+	M.Druggy(15)
+	if(isturf(M.loc) && !istype(M.loc, /turf/space))
+		if(M.canmove && !M.restrained())
+			step(M, pick(cardinal))
+	if(prob(7)) M.emote(pick("twitch","drool","moan","giggle"))
+	..()
+
+/datum/reagent/psilocybin
+	name = "Psilocybin"
+	id = "psilocybin"
+	description = "A strong psycotropic derived from certain species of mushroom."
+	color = "#E700E7" // rgb: 231, 0, 231
+
+/datum/reagent/psilocybin/on_mob_life(mob/living/M)
+	M.Druggy(30)
+	switch(current_cycle)
+		if(1 to 5)
+			M.Stuttering(1)
+			M.Dizzy(5)
+			if(prob(10)) M.emote(pick("twitch","giggle"))
+		if(5 to 10)
+			M.Stuttering(1)
+			M.Jitter(10)
+			M.Dizzy(10)
+			M.Druggy(35)
+			if(prob(20)) M.emote(pick("twitch","giggle"))
+		if(10 to INFINITY)
+			M.Stuttering(1)
+			M.Jitter(20)
+			M.Dizzy(20)
+			M.Druggy(40)
+			if(prob(30)) M.emote(pick("twitch","giggle"))
+	..()
 
 /datum/reagent/nicotine
 	name = "Nicotine"
@@ -133,22 +243,6 @@
 			M.adjustBruteLoss(5)
 			M.emote("twitch_s")
 
-/datum/chemical_reaction/crank
-	name = "Crank"
-	id = "crank"
-	result = "crank"
-	required_reagents = list("diphenhydramine" = 1, "ammonia" = 1, "lithium" = 1, "sacid" = 1, "fuel" = 1)
-	result_amount = 5
-	mix_message = "The mixture violently reacts, leaving behind a few crystalline shards."
-	mix_sound = 'sound/goonstation/effects/crystalshatter.ogg'
-	min_temp = 390
-
-/datum/chemical_reaction/crank/on_reaction(datum/reagents/holder, created_volume)
-	var/turf/T = get_turf(holder.my_atom)
-	for(var/turf/turf in range(1,T))
-		new /obj/effect/hotspot(turf)
-	explosion(T,0,0,2)
-
 /datum/reagent/krokodil
 	name = "Krokodil"
 	id = "krokodil"
@@ -216,16 +310,6 @@
 			M.emote("shiver")
 			M.bodytemperature -= 70
 
-/datum/chemical_reaction/krokodil
-	name = "Krokodil"
-	id = "krokodil"
-	result = "krokodil"
-	required_reagents = list("diphenhydramine" = 1, "morphine" = 1, "cleaner" = 1, "potassium" = 1, "phosphorus" = 1, "fuel" = 1)
-	result_amount = 6
-	mix_message = "The mixture dries into a pale blue powder."
-	min_temp = 380
-	mix_sound = 'sound/goonstation/misc/fuse.ogg'
-
 /datum/reagent/methamphetamine
 	name = "Methamphetamine"
 	id = "methamphetamine"
@@ -253,7 +337,7 @@
 		M.adjustBrainLoss(1.0)
 	..()
 
-/datum/reagent/methamphetamine/reagent_deleted(mob/living/M)
+/datum/reagent/methamphetamine/on_mob_delete(mob/living/M)
 	M.status_flags &= ~GOTTAGOREALLYFAST
 	..()
 
@@ -281,32 +365,6 @@
 			M.Weaken(10)
 		else if(effect <= 7)
 			M.emote("laugh")
-
-/datum/chemical_reaction/methamphetamine
-	name = "methamphetamine"
-	id = "methamphetamine"
-	result = "methamphetamine"
-	required_reagents = list("ephedrine" = 1, "iodine" = 1, "phosphorus" = 1, "hydrogen" = 1)
-	result_amount = 4
-	min_temp = 374
-
-/datum/chemical_reaction/methamphetamine/on_reaction(datum/reagents/holder)
-	var/turf/T = get_turf(holder.my_atom)
-	T.visible_message("<span class='warning'>The solution generates a strong vapor!</span>")
-	for(var/mob/living/carbon/C in range(T, 1))
-		if(C.can_breathe_gas())
-			C.emote("gasp")
-			C.AdjustLoseBreath(1)
-			C.reagents.add_reagent("toxin", 10)
-			C.reagents.add_reagent("neurotoxin2", 20)
-
-/datum/chemical_reaction/saltpetre
-	name = "saltpetre"
-	id = "saltpetre"
-	result = "saltpetre"
-	required_reagents = list("potassium" = 1, "nitrogen" = 1, "oxygen" = 3)
-	result_amount = 3
-	mix_sound = 'sound/goonstation/misc/fuse.ogg'
 
 /datum/reagent/saltpetre
 	name = "Saltpetre"
@@ -411,32 +469,6 @@
 			M.reagents.add_reagent("jagged_crystals", 5)
 			M.emote("twitch")
 
-/datum/chemical_reaction/bath_salts
-	name = "bath_salts"
-	id = "bath_salts"
-	result = "bath_salts"
-	required_reagents = list("????" = 1, "saltpetre" = 1, "msg" = 1, "cleaner" = 1, "enzyme" = 1, "mugwort" = 1, "mercury" = 1)
-	result_amount = 6
-	min_temp = 374
-	mix_message = "Tiny cubic crystals precipitate out of the mixture. Huh."
-	mix_sound = 'sound/goonstation/misc/fuse.ogg'
-
-/datum/chemical_reaction/jenkem
-	name = "Jenkem"
-	id = "jenkem"
-	result = "jenkem"
-	required_reagents = list("toiletwater" = 1, "ammonia" = 1, "water" = 1)
-	result_amount = 3
-	mix_message = "The mixture ferments into a filthy morass."
-	mix_sound = 'sound/effects/blobattack.ogg'
-
-/datum/chemical_reaction/jenkem/on_reaction(datum/reagents/holder)
-	var/turf/T = get_turf(holder.my_atom)
-	T.visible_message("<span class='warning'>The solution generates a strong vapor!</span>")
-	for(var/mob/living/carbon/C in range(T, 1))
-		if(C.can_breathe_gas())
-			C.reagents.add_reagent("jenkem", 25)
-
 /datum/reagent/jenkem
 	name = "Jenkem"
 	id = "jenkem"
@@ -451,13 +483,6 @@
 		M.emote(pick("twitch_s","drool","moan"))
 		M.adjustToxLoss(1)
 	..()
-
-/datum/chemical_reaction/aranesp
-	name = "Aranesp"
-	id = "aranesp"
-	result = "aranesp"
-	required_reagents = list("epinephrine" = 1, "atropine" = 1, "insulin" = 1)
-	result_amount = 3
 
 /datum/reagent/aranesp
 	name = "Aranesp"
@@ -514,14 +539,6 @@
 	process_flags = ORGANIC | SYNTHETIC		//Flipping for everyone!
 	addiction_chance = 10
 
-/datum/chemical_reaction/fliptonium
-	name = "fliptonium"
-	id = "fliptonium"
-	result = "fliptonium"
-	required_reagents = list("ephedrine" = 1, "liquid_dark_matter" = 1, "chocolate" = 1, "ginsonic" = 1)
-	result_amount = 4
-	mix_message = "The mixture swirls around excitedly!"
-
 /datum/reagent/fliptonium/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(method == INGEST || method == TOUCH)
 		M.SpinAnimation(speed = 12, loops = -1)
@@ -553,7 +570,7 @@
 	M.SetSleeping(0)
 	..()
 
-/datum/reagent/fliptonium/reagent_deleted(mob/living/M)
+/datum/reagent/fliptonium/on_mob_delete(mob/living/M)
 	M.SpinAnimation(speed = 12, loops = -1)
 
 /datum/reagent/fliptonium/overdose_process(mob/living/M, severity)
@@ -592,19 +609,10 @@
 	description = "Ultra-Lube is an enhanced lubricant which induces effect similar to Methamphetamine in synthetic users by drastically reducing internal friction and increasing cooling capabilities."
 	reagent_state = LIQUID
 	color = "#1BB1FF"
-
 	process_flags = SYNTHETIC
 	overdose_threshold = 20
 	addiction_chance = 60
 	metabolization_rate = 0.6
-
-/datum/chemical_reaction/lube/ultra
-	name = "Ultra-Lube"
-	id = "ultralube"
-	result = "ultralube"
-	required_reagents = list("lube" = 2, "formaldehyde" = 1, "cryostylane" = 1)
-	result_amount = 2
-	mix_message = "The mixture darkens and appears to partially vaporize into a chilling aerosol."
 
 /datum/reagent/lube/ultra/on_mob_life(mob/living/M)
 	var/high_message = pick("You feel your servos whir!", "You feel like you need to go faster.", "You feel like you were just overclocked!")
@@ -624,7 +632,7 @@
 		M.emote(pick("twitch", "shiver"))
 	..()
 
-/datum/reagent/lube/ultra/reagent_deleted(mob/living/M)
+/datum/reagent/lube/ultra/on_mob_delete(mob/living/M)
 	M.status_flags &= ~GOTTAGOREALLYFAST
 	..()
 
@@ -682,11 +690,3 @@
 		B.icon = I
 		M.adjustFireLoss(rand(1,5)*REM)
 		M.adjustBruteLoss(rand(1,5)*REM)
-
-/datum/chemical_reaction/surge
-	name = "Surge"
-	id = "surge"
-	result = "surge"
-	required_reagents = list("thermite" = 3, "uranium" = 1, "fluorosurfactant" = 1, "sacid" = 1)
-	result_amount = 6
-	mix_message = "The mixture congeals into a metallic green gel that crackles with electrical activity."

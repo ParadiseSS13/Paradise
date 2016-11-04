@@ -1,8 +1,417 @@
-#define SOLID 1
-#define LIQUID 2
-#define GAS 3
+/datum/reagent/toxin
+	name = "Toxin"
+	id = "toxin"
+	description = "A Toxic chemical."
+	reagent_state = LIQUID
+	color = "#CF3600" // rgb: 207, 54, 0
 
-#define REM REAGENTS_EFFECT_MULTIPLIER
+/datum/reagent/toxin/on_mob_life(mob/living/M)
+	M.adjustToxLoss(2)
+	..()
+
+/datum/reagent/spider_venom
+	name = "Spider venom"
+	id = "spidertoxin"
+	description = "A toxic venom injected by spacefaring arachnids."
+	reagent_state = LIQUID
+	color = "#CF3600" // rgb: 207, 54, 0
+
+/datum/reagent/spider_venom/on_mob_life(mob/living/M)
+	M.adjustToxLoss(1.5)
+	..()
+
+/datum/reagent/plasticide
+	name = "Plasticide"
+	id = "plasticide"
+	description = "Liquid plastic, do not eat."
+	reagent_state = LIQUID
+	color = "#CF3600" // rgb: 207, 54, 0
+
+/datum/reagent/plasticide/on_mob_life(mob/living/M)
+	M.adjustToxLoss(1.5)
+	..()
+
+
+/datum/reagent/minttoxin
+	name = "Mint Toxin"
+	id = "minttoxin"
+	description = "Useful for dealing with undesirable customers."
+	reagent_state = LIQUID
+	color = "#CF3600" // rgb: 207, 54, 0
+
+/datum/reagent/minttoxin/on_mob_life(mob/living/M)
+	if(FAT in M.mutations)
+		M.gib()
+	..()
+
+/datum/reagent/slimejelly
+	name = "Slime Jelly"
+	id = "slimejelly"
+	description = "A gooey semi-liquid produced from one of the deadliest lifeforms in existence. SO REAL."
+	reagent_state = LIQUID
+	color = "#801E28" // rgb: 128, 30, 40
+
+/datum/reagent/slimejelly/on_mob_life(mob/living/M)
+	if(prob(10))
+		to_chat(M, "<span class='danger'>Your insides are burning!</span>")
+		M.adjustToxLoss(rand(20,60)*REM)
+	else if(prob(40))
+		M.adjustBruteLoss(-5*REM)
+	..()
+
+/datum/reagent/slimetoxin
+	name = "Mutation Toxin"
+	id = "mutationtoxin"
+	description = "A corruptive toxin produced by slimes."
+	reagent_state = LIQUID
+	color = "#13BC5E" // rgb: 19, 188, 94
+
+/datum/reagent/slimetoxin/on_mob_life(mob/living/M)
+	if(ishuman(M))
+		var/mob/living/carbon/human/human = M
+		if(human.species.name != "Shadow")
+			to_chat(M, "<span class='danger'>Your flesh rapidly mutates!</span>")
+			to_chat(M, "<span class='danger'>You are now a Shadow Person, a mutant race of darkness-dwelling humanoids.</span>")
+			to_chat(M, "<span class='danger'>Your body reacts violently to light. \green However, it naturally heals in darkness.</span>")
+			to_chat(M, "<span class='danger'>Aside from your new traits, you are mentally unchanged and retain your prior obligations.</span>")
+			human.set_species("Shadow")
+	..()
+
+/datum/reagent/aslimetoxin
+	name = "Advanced Mutation Toxin"
+	id = "amutationtoxin"
+	description = "An advanced corruptive toxin produced by slimes."
+	reagent_state = LIQUID
+	color = "#13BC5E" // rgb: 19, 188, 94
+
+/datum/reagent/aslimetoxin/reaction_mob(mob/living/M, method=TOUCH, volume)
+	if(method != TOUCH)
+		M.ForceContractDisease(new /datum/disease/transformation/slime(0))
+
+
+/datum/reagent/mercury
+	name = "Mercury"
+	id = "mercury"
+	description = "A chemical element."
+	reagent_state = LIQUID
+	color = "#484848" // rgb: 72, 72, 72
+	metabolization_rate = 0.2
+	penetrates_skin = 1
+
+/datum/reagent/mercury/on_mob_life(mob/living/M)
+	if(prob(70))
+		M.adjustBrainLoss(1)
+	..()
+
+/datum/reagent/chlorine
+	name = "Chlorine"
+	id = "chlorine"
+	description = "A chemical element."
+	reagent_state = GAS
+	color = "#808080" // rgb: 128, 128, 128
+	penetrates_skin = 1
+	process_flags = ORGANIC | SYNTHETIC
+
+/datum/reagent/chlorine/on_mob_life(mob/living/M)
+	M.adjustFireLoss(1)
+	..()
+
+/datum/reagent/fluorine
+	name = "Fluorine"
+	id = "fluorine"
+	description = "A highly-reactive chemical element."
+	reagent_state = GAS
+	color = "#6A6054"
+	penetrates_skin = 1
+	process_flags = ORGANIC | SYNTHETIC
+
+/datum/reagent/fluorine/on_mob_life(mob/living/M)
+	M.adjustFireLoss(1)
+	M.adjustToxLoss(1*REM)
+	..()
+
+/datum/reagent/radium
+	name = "Radium"
+	id = "radium"
+	description = "Radium is an alkaline earth metal. It is extremely radioactive."
+	reagent_state = SOLID
+	color = "#C7C7C7" // rgb: 199,199,199
+	metabolization_rate = 0.4
+	penetrates_skin = 1
+
+/datum/reagent/radium/on_mob_life(mob/living/M)
+	if(M.radiation < 80)
+		M.apply_effect(4, IRRADIATE, negate_armor = 1)
+	..()
+
+/datum/reagent/radium/reaction_turf(turf/T, volume)
+	if(volume >= 3 && !istype(T, /turf/space))
+		new /obj/effect/decal/cleanable/greenglow(T)
+
+/datum/reagent/mutagen
+	name = "Unstable mutagen"
+	id = "mutagen"
+	description = "Might cause unpredictable mutations. Keep away from children."
+	reagent_state = LIQUID
+	color = "#04DF27"
+	metabolization_rate = 0.3
+
+/datum/reagent/mutagen/reaction_mob(mob/living/M, method=TOUCH, volume)
+	if(!..())
+		return
+	if(!M.dna)
+		return //No robots, AIs, aliens, Ians or other mobs should be affected by this.
+	if((method==TOUCH && prob(33)) || method==INGEST)
+		randmutb(M)
+		domutcheck(M, null)
+		M.UpdateAppearance()
+
+/datum/reagent/mutagen/on_mob_life(mob/living/M)
+	if(!M.dna)
+		return //No robots, AIs, aliens, Ians or other mobs should be affected by this.
+	M.apply_effect(2*REM, IRRADIATE, negate_armor = 1)
+	if(prob(4))
+		randmutb(M)
+	..()
+
+
+/datum/reagent/uranium
+	name ="Uranium"
+	id = "uranium"
+	description = "A silvery-white metallic chemical element in the actinide series, weakly radioactive."
+	reagent_state = SOLID
+	color = "#B8B8C0" // rgb: 184, 184, 192
+
+/datum/reagent/uranium/on_mob_life(mob/living/M)
+	M.apply_effect(2, IRRADIATE, negate_armor = 1)
+	..()
+
+/datum/reagent/uranium/reaction_turf(turf/T, volume)
+	if(volume >= 3 && !istype(T, /turf/space))
+		new /obj/effect/decal/cleanable/greenglow(T)
+
+
+/datum/reagent/lexorin
+	name = "Lexorin"
+	id = "lexorin"
+	description = "Lexorin temporarily stops respiration. Causes tissue damage."
+	reagent_state = LIQUID
+	color = "#52685D"
+	metabolization_rate = 0.2
+
+/datum/reagent/lexorin/on_mob_life(mob/living/M)
+	M.adjustToxLoss(1)
+	..()
+
+
+/datum/reagent/sacid
+	name = "Sulphuric acid"
+	id = "sacid"
+	description = "A strong mineral acid with the molecular formula H2SO4."
+	reagent_state = LIQUID
+	color = "#00D72B"
+	process_flags = ORGANIC | SYNTHETIC
+
+/datum/reagent/sacid/on_mob_life(mob/living/M)
+	M.adjustFireLoss(1)
+	..()
+
+/datum/reagent/sacid/reaction_mob(mob/living/M, method=TOUCH, volume)
+	if(method == TOUCH)
+		if(ishuman(M))
+			var/mob/living/carbon/human/H = M
+
+			if(volume > 25)
+
+				if(H.wear_mask)
+					to_chat(H, "<span class='danger'>Your mask protects you from the acid!</span>")
+					return
+
+				if(H.head)
+					to_chat(H, "<span class='danger'>Your helmet protects you from the acid!</span>")
+					return
+
+				if(!M.unacidable)
+					if(prob(75))
+						var/obj/item/organ/external/affecting = H.get_organ("head")
+						if(affecting)
+							affecting.take_damage(5, 10)
+							H.UpdateDamageIcon()
+							H.emote("scream")
+					else
+						M.take_organ_damage(5,10)
+			else
+				M.take_organ_damage(5,10)
+
+	if(method == INGEST)
+		if(ishuman(M))
+			var/mob/living/carbon/human/H = M
+
+			if(volume < 10)
+				to_chat(M, "<span class='danger'>The greenish acidic substance stings you, but isn't concentrated enough to harm you!</span>")
+
+			if(volume >=10 && volume <=25)
+				if(!H.unacidable)
+					M.take_organ_damage(0,min(max(volume-10,2)*2,20))
+					M.emote("scream")
+
+
+			if(volume > 25)
+				if(!M.unacidable)
+					if(prob(75))
+						var/obj/item/organ/external/affecting = H.get_organ("head")
+						if(affecting)
+							affecting.take_damage(0, 20)
+							H.UpdateDamageIcon()
+							H.emote("scream")
+					else
+						M.take_organ_damage(0,20)
+
+/datum/reagent/sacid/reaction_obj(obj/O, volume)
+	if((istype(O,/obj/item) || istype(O,/obj/effect/glowshroom)) && prob(40))
+		if(!O.unacidable)
+			var/obj/effect/decal/cleanable/molten_item/I = new/obj/effect/decal/cleanable/molten_item(O.loc)
+			I.desc = "Looks like this was \an [O] some time ago."
+			O.visible_message("<span class='warning'>[O] melts.</span>")
+			qdel(O)
+
+
+/datum/reagent/hellwater
+	name = "Hell Water"
+	id = "hell_water"
+	description = "YOUR FLESH! IT BURNS!"
+	process_flags = ORGANIC | SYNTHETIC		//Admin-bus has no brakes! KILL THEM ALL.
+	metabolization_rate = 1
+
+/datum/reagent/hellwater/on_mob_life(mob/living/M)
+	M.fire_stacks = min(5, M.fire_stacks + 3)
+	M.IgniteMob()			//Only problem with igniting people is currently the commonly availible fire suits make you immune to being on fire
+	M.adjustToxLoss(1)
+	M.adjustFireLoss(1)		//Hence the other damages... ain't I a bastard?
+	M.adjustBrainLoss(5)
+	..()
+
+
+/datum/reagent/carpotoxin
+	name = "Carpotoxin"
+	id = "carpotoxin"
+	description = "A deadly neurotoxin produced by the dreaded spess carp."
+	reagent_state = LIQUID
+	color = "#003333" // rgb: 0, 51, 51
+
+/datum/reagent/carpotoxin/on_mob_life(mob/living/M)
+	M.adjustToxLoss(2*REM)
+	..()
+
+/datum/reagent/staminatoxin
+	name = "Tirizene"
+	id = "tirizene"
+	description = "A toxin that affects the stamina of a person when injected into the bloodstream."
+	reagent_state = LIQUID
+	color = "#6E2828"
+	data = 13
+
+/datum/reagent/staminatoxin/on_mob_life(mob/living/M)
+	M.adjustStaminaLoss(REM * data)
+	data = max(data - 1, 3)
+	..()
+
+
+/datum/reagent/spore
+	name = "Spore Toxin"
+	id = "spore"
+	description = "A natural toxin produced by blob spores that inhibits vision when ingested."
+	color = "#9ACD32"
+
+/datum/reagent/spores/on_mob_life(mob/living/M)
+	M.adjustToxLoss(1)
+	M.damageoverlaytemp = 60
+	M.EyeBlurry(3)
+	..()
+
+/datum/reagent/beer2	//disguised as normal beer for use by emagged brobots
+	name = "Beer"
+	id = "beer2"
+	description = "An alcoholic beverage made from malted grains, hops, yeast, and water."
+	color = "#664300" // rgb: 102, 67, 0
+	metabolization_rate = 1.5 * REAGENTS_METABOLISM
+
+/datum/reagent/beer2/on_mob_life(mob/living/M)
+	switch(current_cycle)
+		if(1 to 50)
+			M.AdjustSleeping(1)
+		if(51 to INFINITY)
+			M.AdjustSleeping(1)
+			M.adjustToxLoss((current_cycle - 50)*REM)
+	..()
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/datum/reagent/condensedcapsaicin
+	name = "Condensed Capsaicin"
+	id = "condensedcapsaicin"
+	description = "This shit goes in pepperspray."
+	reagent_state = LIQUID
+	color = "#B31008" // rgb: 179, 16, 8
+
+/datum/reagent/condensedcapsaicin/reaction_mob(mob/living/M, method=TOUCH, volume)
+	if(method == TOUCH)
+		if(ishuman(M))
+			var/mob/living/carbon/human/victim = M
+			var/mouth_covered = 0
+			var/eyes_covered = 0
+			var/obj/item/safe_thing = null
+			if( victim.wear_mask )
+				if( victim.wear_mask.flags & MASKCOVERSEYES )
+					eyes_covered = 1
+					safe_thing = victim.wear_mask
+				if( victim.wear_mask.flags & MASKCOVERSMOUTH )
+					mouth_covered = 1
+					safe_thing = victim.wear_mask
+			if( victim.head )
+				if( victim.head.flags & MASKCOVERSEYES )
+					eyes_covered = 1
+					safe_thing = victim.head
+				if( victim.head.flags & MASKCOVERSMOUTH )
+					mouth_covered = 1
+					safe_thing = victim.head
+			if(victim.glasses)
+				eyes_covered = 1
+				if( !safe_thing )
+					safe_thing = victim.glasses
+			if( eyes_covered && mouth_covered )
+				to_chat(victim, "<span class='danger'>Your [safe_thing] protects you from the pepperspray!</span>")
+				return
+			else if( mouth_covered )	// Reduced effects if partially protected
+				to_chat(victim, "<span class='danger'>Your [safe_thing] protect you from most of the pepperspray!</span>")
+				if(prob(5))
+					victim.emote("scream")
+				victim.EyeBlurry(3)
+				victim.EyeBlind(1)
+				victim.Confused(3)
+				victim.damageoverlaytemp = 60
+				victim.Weaken(3)
+				victim.drop_item()
+				return
+			else if( eyes_covered ) // Eye cover is better than mouth cover
+				to_chat(victim, "<span class='danger'>Your [safe_thing] protects your eyes from the pepperspray!</span>")
+				victim.EyeBlurry(3)
+				victim.damageoverlaytemp = 30
+				return
+			else // Oh dear :D
+				if(prob(5))
+					victim.emote("scream")
+				to_chat(victim, "<span class='danger'>You're sprayed directly in the eyes with pepperspray!</span>")
+				victim.EyeBlurry(5)
+				victim.EyeBlind(2)
+				victim.Confused(6)
+				victim.damageoverlaytemp = 75
+				victim.Weaken(5)
+				victim.drop_item()
+
+/datum/reagent/condensedcapsaicin/on_mob_life(mob/living/M)
+	if(prob(5))
+		M.visible_message("<span class='warning'>[M] [pick("dry heaves!","coughs!","splutters!")]</span>")
+	..()
 
 /datum/reagent/polonium
 	name = "Polonium"
@@ -105,15 +514,6 @@
 		M.reagents.add_reagent("histamine",rand(5,15))
 	..()
 
-/datum/chemical_reaction/formaldehyde
-	name = "formaldehyde"
-	id = "formaldehyde"
-	result = "formaldehyde"
-	required_reagents = list("ethanol" = 1, "oxygen" = 1, "silver" = 1)
-	result_amount = 3
-	min_temp = 420
-	mix_message = "Ugh, it smells like the morgue in here."
-
 /datum/reagent/venom
 	name = "Venom"
 	id = "venom"
@@ -182,16 +582,6 @@
 	M.adjustToxLoss(1)
 	..()
 
-/datum/chemical_reaction/neurotoxin2
-	name = "neurotoxin2"
-	id = "neurotoxin2"
-	result = "neurotoxin2"
-	required_reagents = list("space_drugs" = 1)
-	result_amount = 1
-	min_temp = 674
-	mix_sound = null
-	no_message = 1
-
 /datum/reagent/cyanide
 	name = "Cyanide"
 	id = "cyanide"
@@ -214,23 +604,6 @@
 		M.Stun(2)
 		M.adjustToxLoss(2)
 	..()
-
-/datum/chemical_reaction/cyanide
-	name = "Cyanide"
-	id = "cyanide"
-	result = "cyanide"
-	required_reagents = list("oil" = 1, "ammonia" = 1, "oxygen" = 1)
-	result_amount = 3
-	min_temp = 380
-	mix_message = "The mixture gives off a faint scent of almonds."
-	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
-
-/datum/chemical_reaction/cyanide/on_reaction(datum/reagents/holder)
-	var/turf/T = get_turf(holder.my_atom)
-	T.visible_message("<span class='warning'>The solution generates a strong vapor!</span>")
-	for(var/mob/living/carbon/C in range(T, 1))
-		if(C.can_breathe_gas())
-			C.reagents.add_reagent("cyanide", 7)
 
 /datum/reagent/itching_powder
 	name = "Itching Powder"
@@ -265,15 +638,6 @@
 		M.visible_message("<span class='danger'>[M] falls to the floor, scratching themselves violently!</span>")
 		M.emote("scream")
 	..()
-
-/datum/chemical_reaction/itching_powder
-	name = "Itching Powder"
-	id = "itching_powder"
-	result = "itching_powder"
-	required_reagents = list("fuel" = 1, "ammonia" = 1, "fungus" = 1)
-	result_amount = 3
-	mix_message = "The mixture congeals and dries up, leaving behind an abrasive powder."
-	mix_sound = 'sound/effects/blobattack.ogg'
 
 /datum/reagent/facid/on_mob_life(mob/living/M)
 	M.adjustToxLoss(1*REM)
@@ -338,15 +702,6 @@
 			O.visible_message("<span class='warning'>[O] melts.</span>")
 			qdel(O)
 
-/datum/chemical_reaction/facid
-	name = "Fluorosulfuric Acid"
-	id = "facid"
-	result = "facid"
-	required_reagents = list("sacid" = 1, "fluorine" = 1, "hydrogen" = 1, "potassium" = 1)
-	result_amount = 4
-	min_temp = 380
-	mix_message = "The mixture deepens to a dark blue, and slowly begins to corrode its container."
-
 /datum/reagent/initropidril
 	name = "Initropidril"
 	id = "initropidril"
@@ -376,15 +731,6 @@
 			if(!H.heart_attack)
 				H.heart_attack = 1 // rip in pepperoni
 	..()
-
-/datum/chemical_reaction/initropidril
-	name = "Initropidril"
-	id = "initropidril"
-	result = "initropidril"
-	required_reagents = list("crank" = 1, "histamine" = 1, "krokodil" = 1, "bath_salts" = 1, "atropine" = 1, "nicotine" = 1, "morphine" = 1)
-	result_amount = 4
-	mix_message = "A sweet and sugary scent drifts from the unpleasant milky substance."
-
 
 /datum/reagent/concentrated_initro
 	name = "Concentrated Initropidril"
@@ -492,15 +838,6 @@
 	color = "#6BA688"
 	metabolization_rate = 0.1
 
-/datum/chemical_reaction/sulfonal
-	name = "sulfonal"
-	id = "sulfonal"
-	result = "sulfonal"
-	required_reagents = list("acetone" = 1, "diethylamine" = 1, "sulfur" = 1)
-	result_amount = 3
-	mix_message = "The mixture gives off quite a stench."
-	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
-
 /datum/reagent/sulfonal/on_mob_life(mob/living/M)
 	M.AdjustJitter(-30)
 	switch(current_cycle)
@@ -526,7 +863,7 @@
 	reagent_state = LIQUID
 	color = "#D9D9D9"
 
-/datum/reagent/amanitin/reagent_deleted(mob/living/M)
+/datum/reagent/amanitin/on_mob_delete(mob/living/M)
 	M.adjustToxLoss(current_cycle*rand(2,4))
 	..()
 
@@ -537,13 +874,6 @@
 	reagent_state = SOLID
 	color = "#D1DED1"
 	metabolization_rate = 0.2
-
-/datum/chemical_reaction/lipolicide
-	name = "lipolicide"
-	id = "lipolicide"
-	result = "lipolicide"
-	required_reagents = list("mercury" = 1, "diethylamine" = 1, "ephedrine" = 1)
-	result_amount = 3
 
 /datum/reagent/lipolicide/on_mob_life(mob/living/M)
 	if(!M.nutrition)
@@ -615,23 +945,6 @@
 	metabolization_rate = 0.1
 	penetrates_skin = 1
 	overdose_threshold = 25
-
-/datum/chemical_reaction/sarin
-	name = "sarin"
-	id = "sarin"
-	result = "sarin"
-	required_reagents = list("chlorine" = 1, "fuel" = 1, "oxygen" = 1, "phosphorus" = 1, "fluorine" = 1, "hydrogen" = 1, "acetone" = 1, "atrazine" = 1)
-	result_amount = 3
-	mix_message = "The mixture yields a colorless, odorless liquid."
-	min_temp = 374
-	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
-
-/datum/chemical_reaction/sarin/on_reaction(datum/reagents/holder)
-	var/turf/T = get_turf(holder.my_atom)
-	T.visible_message("<span class='warning'>The solution generates a strong vapor!</span>")
-	for(var/mob/living/carbon/C in range(T, 2))
-		if(C.can_breathe_gas())
-			C.reagents.add_reagent("sarin", 4)
 
 /datum/reagent/sarin/on_mob_life(mob/living/M)
 	switch(current_cycle)
@@ -727,14 +1040,6 @@
 		D.adjustHealth(100)
 		..()
 
-/datum/chemical_reaction/atrazine
-	name = "atrazine"
-	id = "atrazine"
-	result = "atrazine"
-	required_reagents = list("chlorine" = 1, "hydrogen" = 1, "nitrogen" = 1)
-	result_amount = 3
-	mix_message = "The mixture gives off a harsh odor"
-
 /datum/reagent/capulettium
 	name = "Capulettium"
 	id = "capulettium"
@@ -742,14 +1047,6 @@
 	reagent_state = LIQUID
 	color = "#60A584"
 	heart_rate_stop = 1
-
-/datum/chemical_reaction/capulettium
-	name = "capulettium"
-	id = "capulettium"
-	result = "capulettium"
-	required_reagents = list("neurotoxin2" = 1, "chlorine" = 1, "hydrogen" = 1)
-	result_amount = 1
-	mix_message = "The smell of death wafts up from the solution."
 
 /datum/reagent/capulettium/on_mob_life(mob/living/M)
 	switch(current_cycle)
@@ -773,14 +1070,6 @@
 	reagent_state = LIQUID
 	color = "#60A584"
 	heart_rate_stop = 1
-
-/datum/chemical_reaction/capulettium_plus
-	name = "capulettium_plus"
-	id = "capulettium_plus"
-	result = "capulettium_plus"
-	required_reagents = list("capulettium" = 1, "ephedrine" = 1, "methamphetamine" = 1)
-	result_amount = 3
-	mix_message = "The solution begins to slosh about violently by itself."
 
 /datum/reagent/capulettium_plus/on_mob_life(mob/living/M)
 	M.Silence(2)
@@ -869,19 +1158,3 @@
 		M.electrocute_act(rand(5,20), "Teslium in their body", 1, 1) //Override because it's caused from INSIDE of you
 		playsound(M, "sparks", 50, 1)
 	..()
-
-/datum/chemical_reaction/teslium
-	name = "Teslium"
-	id = "teslium"
-	result = "teslium"
-	required_reagents = list("plasma" = 1, "silver" = 1, "blackpowder" = 1)
-	result_amount = 3
-	mix_message = "<span class='danger'>A jet of sparks flies from the mixture as it merges into a flickering slurry.</span>"
-	min_temp = 400
-	mix_sound = null
-
-/datum/chemical_reaction/teslium/on_reaction(datum/reagents/holder, created_volume)
-	var/location = get_turf(holder.my_atom)
-	var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
-	s.set_up(6, 1, location)
-	s.start()

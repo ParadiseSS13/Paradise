@@ -54,7 +54,7 @@
 	M.status_flags |= GOTTAGOFAST
 	..()
 
-/datum/reagent/drink/cold/nuka_cola/reagent_deleted(mob/living/M)
+/datum/reagent/drink/cold/nuka_cola/on_mob_delete(mob/living/M)
 	M.status_flags &= ~GOTTAGOFAST
 	..()
 

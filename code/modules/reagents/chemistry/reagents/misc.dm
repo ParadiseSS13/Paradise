@@ -1,7 +1,192 @@
-#define SOLID 1
-#define LIQUID 2
-#define GAS 3
-#define REM REAGENTS_EFFECT_MULTIPLIER
+/*/datum/reagent/silicate
+	name = "Silicate"
+	id = "silicate"
+	description = "A compound that can be used to reinforce glass."
+	reagent_state = LIQUID
+	color = "#C7FFFF" // rgb: 199, 255, 255
+
+/datum/reagent/silicate/reaction_obj(obj/O, volume)
+	if(istype(O, /obj/structure/window))
+		if(O:silicate <= 200)
+
+			O:silicate += volume
+			O:health += volume * 3
+
+			if(!O:silicateIcon)
+				var/icon/I = icon(O.icon,O.icon_state,O.dir)
+
+				var/r = (volume / 100) + 1
+				var/g = (volume / 70) + 1
+				var/b = (volume / 50) + 1
+				I.SetIntensity(r,g,b)
+				O.icon = I
+				O:silicateIcon = I
+			else
+				var/icon/I = O:silicateIcon
+
+				var/r = (volume / 100) + 1
+				var/g = (volume / 70) + 1
+				var/b = (volume / 50) + 1
+				I.SetIntensity(r,g,b)
+				O.icon = I
+				O:silicateIcon = I */
+
+
+/datum/reagent/oxygen
+	name = "Oxygen"
+	id = "oxygen"
+	description = "A colorless, odorless gas."
+	reagent_state = GAS
+	color = "#808080" // rgb: 128, 128, 128
+
+
+/datum/reagent/nitrogen
+	name = "Nitrogen"
+	id = "nitrogen"
+	description = "A colorless, odorless, tasteless gas."
+	reagent_state = GAS
+	color = "#808080" // rgb: 128, 128, 128
+
+
+/datum/reagent/hydrogen
+	name = "Hydrogen"
+	id = "hydrogen"
+	description = "A colorless, odorless, nonmetallic, tasteless, highly combustible diatomic gas."
+	reagent_state = GAS
+	color = "#808080" // rgb: 128, 128, 128
+
+
+/datum/reagent/potassium
+	name = "Potassium"
+	id = "potassium"
+	description = "A soft, low-melting solid that can easily be cut with a knife. Reacts violently with water."
+	reagent_state = SOLID
+	color = "#A0A0A0" // rgb: 160, 160, 160
+
+
+/datum/reagent/sulfur
+	name = "Sulfur"
+	id = "sulfur"
+	description = "A chemical element."
+	reagent_state = SOLID
+	color = "#BF8C00" // rgb: 191, 140, 0
+
+
+/datum/reagent/sodium
+	name = "Sodium"
+	id = "sodium"
+	description = "A chemical element."
+	reagent_state = SOLID
+	color = "#808080" // rgb: 128, 128, 128
+
+
+/datum/reagent/phosphorus
+	name = "Phosphorus"
+	id = "phosphorus"
+	description = "A chemical element."
+	reagent_state = SOLID
+	color = "#832828" // rgb: 131, 40, 40
+
+
+/datum/reagent/carbon
+	name = "Carbon"
+	id = "carbon"
+	description = "A chemical element."
+	reagent_state = SOLID
+	color = "#1C1300" // rgb: 30, 20, 0
+
+/datum/reagent/carbon/reaction_turf(turf/T, volume)
+	if(!istype(T, /turf/space) && !(locate(/obj/effect/decal/cleanable/dirt) in T)) // Only add one dirt per turf.  Was causing people to crash.
+		new /obj/effect/decal/cleanable/dirt(T)
+
+/datum/reagent/gold
+	name = "Gold"
+	id = "gold"
+	description = "Gold is a dense, soft, shiny metal and the most malleable and ductile metal known."
+	reagent_state = SOLID
+	color = "#F7C430" // rgb: 247, 196, 48
+
+
+/datum/reagent/silver
+	name = "Silver"
+	id = "silver"
+	description = "A lustrous metallic element regarded as one of the precious metals."
+	reagent_state = SOLID
+	color = "#D0D0D0" // rgb: 208, 208, 208
+
+
+/datum/reagent/aluminum
+	name = "Aluminum"
+	id = "aluminum"
+	description = "A silvery white and ductile member of the boron group of chemical elements."
+	reagent_state = SOLID
+	color = "#A8A8A8" // rgb: 168, 168, 168
+
+
+/datum/reagent/silicon
+	name = "Silicon"
+	id = "silicon"
+	description = "A tetravalent metalloid, silicon is less reactive than its chemical analog carbon."
+	reagent_state = SOLID
+	color = "#A8A8A8" // rgb: 168, 168, 168
+
+
+/datum/reagent/copper
+	name = "Copper"
+	id = "copper"
+	description = "A highly ductile metal."
+	color = "#6E3B08" // rgb: 110, 59, 8
+
+
+/datum/reagent/iron
+	name = "Iron"
+	id = "iron"
+	description = "Pure iron is a metal."
+	reagent_state = SOLID
+	color = "#C8A5DC" // rgb: 200, 165, 220
+
+/datum/reagent/iron/on_mob_life(mob/living/M)
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		if(!H.species.exotic_blood && !(H.species.flags & NO_BLOOD))
+			H.vessel.add_reagent("blood", 0.8)
+	..()
+
+
+//foam
+/datum/reagent/fluorosurfactant
+	name = "Fluorosurfactant"
+	id = "fluorosurfactant"
+	description = "A perfluoronated sulfonic acid that forms a foam when mixed with water."
+	reagent_state = LIQUID
+	color = "#9E6B38" // rgb: 158, 107, 56
+
+// metal foaming agent
+// this is lithium hydride. Add other recipies (e.g. LiH + H2O -> LiOH + H2) eventually
+/datum/reagent/ammonia
+	name = "Ammonia"
+	id = "ammonia"
+	description = "A caustic substance commonly used in fertilizer or household cleaners."
+	reagent_state = GAS
+	color = "#404030" // rgb: 64, 64, 48
+
+/datum/reagent/diethylamine
+	name = "Diethylamine"
+	id = "diethylamine"
+	description = "A secondary amine, useful as a plant nutrient and as building block for other compounds."
+	reagent_state = LIQUID
+	color = "#322D00"
+
+
+// Ported from Bay as part of the Botany Update
+// Allows you to make planks from any plant that has this reagent in it.
+// Also vines with this reagent are considered dense.
+/datum/reagent/woodpulp
+	name = "Wood Pulp"
+	id = "woodpulp"
+	description = "A mass of wood fibers."
+	reagent_state = LIQUID
+	color = "#B97A57"
 
 var/list/random_color_list = list("#00aedb","#a200ff","#f47835","#d41243","#d11141","#00b159","#00aedb","#f37735","#ffc425","#008744","#0057e7","#d62d20","#ffa700")
 
@@ -64,64 +249,12 @@ var/list/random_color_list = list("#00aedb","#a200ff","#f47835","#d41243","#d111
 	M.adjustToxLoss(1.5)
 	..()
 
-/datum/chemical_reaction/acetone
-	name = "acetone"
-	id = "acetone"
-	result = "acetone"
-	required_reagents = list("oil" = 1, "fuel" = 1, "oxygen" = 1)
-	result_amount = 3
-	mix_message = "The smell of paint thinner assaults you as the solution bubbles."
-
-/datum/chemical_reaction/carpet
-	name = "carpet"
-	id = "carpet"
-	result = "carpet"
-	required_reagents = list("fungus" = 1, "blood" = 1)
-	result_amount = 2
-	mix_message = "The substance turns thick and stiff, yet soft."
-
-
-/datum/chemical_reaction/oil
-	name = "Oil"
-	id = "oil"
-	result = "oil"
-	required_reagents = list("fuel" = 1, "carbon" = 1, "hydrogen" = 1)
-	result_amount = 3
-	mix_message = "An iridescent black chemical forms in the container."
-
-/datum/chemical_reaction/phenol
-	name = "phenol"
-	id = "phenol"
-	result = "phenol"
-	required_reagents = list("water" = 1, "chlorine" = 1, "oil" = 1)
-	result_amount = 3
-	mix_message = "The mixture bubbles and gives off an unpleasant medicinal odor."
-	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
-
-/datum/chemical_reaction/ash
-	name = "Ash"
-	id = "ash"
-	result = "ash"
-	required_reagents = list("oil" = 1)
-	result_amount = 0.5
-	min_temp = 480
-	mix_sound = null
-	no_message = 1
-
 /datum/reagent/colorful_reagent
 	name = "Colorful Reagent"
 	id = "colorful_reagent"
 	description = "It's pure liquid colors. That's a thing now."
 	reagent_state = LIQUID
 	color = "#FFFFFF"
-
-/datum/chemical_reaction/colorful_reagent
-	name = "colorful_reagent"
-	id = "colorful_reagent"
-	result = "colorful_reagent"
-	required_reagents = list("plasma" = 1, "radium" = 1, "space_drugs" = 1, "cryoxadone" = 1, "triple_citrus" = 1, "stabilizing_agent" = 1)
-	result_amount = 6
-	mix_message = "The substance flashes multiple colors and emits the smell of a pocket protector."
 
 /datum/reagent/colorful_reagent/reaction_mob(mob/living/simple_animal/M, method=TOUCH, volume)
     if(isanimal(M))
@@ -138,14 +271,6 @@ var/list/random_color_list = list("#00aedb","#a200ff","#f47835","#d41243","#d111
 		T.color = pick(random_color_list)
 	..()
 
-/datum/chemical_reaction/corgium
-	name = "corgium"
-	id = "corgium"
-	result = null
-	required_reagents = list("nutriment" = 1, "colorful_reagent" = 1, "strange_reagent" = 1, "blood" = 1)
-	result_amount = 3
-	min_temp = 374
-
 /datum/reagent/corgium
 	name = "Corgium"
 	id = "corgium"
@@ -153,38 +278,12 @@ var/list/random_color_list = list("#00aedb","#a200ff","#f47835","#d41243","#d111
 	reagent_state = LIQUID
 	color = "#F9A635"
 
-/datum/chemical_reaction/corgium/on_reaction(datum/reagents/holder, created_volume)
-	var/location = get_turf(holder.my_atom)
-	new /mob/living/simple_animal/pet/corgi(location)
-	..()
-
-/datum/chemical_reaction/flaptonium
-	name = "Flaptonium"
-	id = "flaptonium"
-	result = null
-	required_reagents = list("egg" = 1, "colorful_reagent" = 1, "chicken_soup" = 1, "strange_reagent" = 1, "blood" = 1)
-	result_amount = 5
-	min_temp = 374
-	mix_message = "The substance turns an airy sky-blue and foams up into a new shape."
-
-/datum/chemical_reaction/flaptonium/on_reaction(datum/reagents/holder, created_volume)
-	var/location = get_turf(holder.my_atom)
-	new /mob/living/simple_animal/parrot(location)
-	..()
-
 /datum/reagent/hair_dye
 	name = "Quantum Hair Dye"
 	id = "hair_dye"
 	description = "A rather tubular and gnarly way of coloring totally bodacious hair. Duuuudddeee."
 	reagent_state = LIQUID
 	color = "#960096"
-
-/datum/chemical_reaction/hair_dye
-	name = "hair_dye"
-	id = "hair_dye"
-	result = "hair_dye"
-	required_reagents = list("colorful_reagent" = 1, "hairgrownium" = 1)
-	result_amount = 2
 
 /datum/reagent/hair_dye/reaction_mob(mob/living/M, volume)
 	if(ishuman(M))
@@ -208,14 +307,6 @@ var/list/random_color_list = list("#00aedb","#a200ff","#f47835","#d41243","#d111
 	color = "#5DDA5D"
 	penetrates_skin = 1
 
-/datum/chemical_reaction/hairgrownium
-	name = "hairgrownium"
-	id = "hairgrownium"
-	result = "hairgrownium"
-	required_reagents = list("carpet" = 1, "synthflesh" = 1, "ephedrine" = 1)
-	result_amount = 3
-	mix_message = "The liquid becomes slightly hairy."
-
 /datum/reagent/hairgrownium/reaction_mob(mob/living/M, volume)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
@@ -233,15 +324,6 @@ var/list/random_color_list = list("#00aedb","#a200ff","#f47835","#d41243","#d111
 	reagent_state = LIQUID
 	color = "#5DD95D"
 	penetrates_skin = 1
-
-
-/datum/chemical_reaction/super_hairgrownium
-	name = "Super Hairgrownium"
-	id = "super_hairgrownium"
-	result = "super_hairgrownium"
-	required_reagents = list("iron" = 1, "methamphetamine" = 1, "hairgrownium" = 1)
-	result_amount = 3
-	mix_message = "The liquid becomes amazingly furry and smells peculiar."
 
 /datum/reagent/super_hairgrownium/reaction_mob(mob/living/M, volume)
 	if(ishuman(M))
@@ -275,14 +357,6 @@ var/list/random_color_list = list("#00aedb","#a200ff","#f47835","#d41243","#d111
 	reagent_state = GAS
 	color = "#D06E27"
 
-/datum/chemical_reaction/fartonium
-	name = "Fartonium"
-	id = "fartonium"
-	result = "fartonium"
-	required_reagents = list("fake_cheese" = 1, "beans" = 1, "????" = 1, "egg" = 1)
-	result_amount = 2
-	mix_message = "The substance makes a little 'toot' noise and starts to smell pretty bad."
-
 /datum/reagent/fartonium/on_mob_life(mob/living/M)
 	if(prob(66))
 		M.emote("fart")
@@ -298,49 +372,6 @@ var/list/random_color_list = list("#00aedb","#a200ff","#f47835","#d41243","#d111
 			M.emote("scream")
 			M.adjustBruteLoss(4)
 	..()
-
-/datum/chemical_reaction/soapification
-	name = "Soapification"
-	id = "soapification"
-	result = null
-	required_reagents = list("liquidgibs" = 10, "lye"  = 10) // requires two scooped gib tiles
-	min_temp = 374
-	result_amount = 1
-
-
-/datum/chemical_reaction/soapification/on_reaction(datum/reagents/holder, created_volume)
-	var/location = get_turf(holder.my_atom)
-	new /obj/item/weapon/soap/homemade(location)
-
-/datum/chemical_reaction/candlefication
-	name = "Candlefication"
-	id = "candlefication"
-	result = null
-	required_reagents = list("liquidgibs" = 5, "oxygen"  = 5) //
-	min_temp = 374
-	result_amount = 1
-
-/datum/chemical_reaction/candlefication/on_reaction(datum/reagents/holder, created_volume)
-	var/location = get_turf(holder.my_atom)
-	new /obj/item/candle(location)
-
-/datum/chemical_reaction/meatification
-	name = "Meatification"
-	id = "meatification"
-	result = null
-	required_reagents = list("liquidgibs" = 10, "nutriment" = 10, "carbon" = 10)
-	result_amount = 1
-
-/datum/chemical_reaction/meatification/on_reaction(datum/reagents/holder, created_volume)
-	var/location = get_turf(holder.my_atom)
-	new /obj/item/weapon/reagent_containers/food/snacks/meat/slab/meatproduct(location)
-
-/datum/chemical_reaction/lye
-	name = "lye"
-	id = "lye"
-	result = "lye"
-	required_reagents = list("sodium" = 1, "hydrogen" = 1, "oxygen" = 1)
-	result_amount = 3
 
 /datum/reagent/hugs
 	name = "Pure hugs"
@@ -377,14 +408,6 @@ var/list/random_color_list = list("#00aedb","#a200ff","#f47835","#d41243","#d111
 					playsound(get_turf(M), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 					break
 	..()
-
-/datum/chemical_reaction/love
-	name = "pure love"
-	id = "love"
-	result = "love"
-	required_reagents = list("hugs" = 1, "chocolate" = 1)
-	result_amount = 2
-	mix_message = "The substance gives off a lovely scent!"
 
 ///Alchemical Reagents
 
@@ -433,10 +456,3 @@ var/list/random_color_list = list("#00aedb","#a200ff","#f47835","#d41243","#d111
 	if(prob(2))
 		M.say(pick("Bzzz...","BZZ BZZ","Bzzzzzzzzzzz..."))
 	..()
-
-/datum/chemical_reaction/royal_bee_jelly
-	name = "royal bee jelly"
-	id = "royal_bee_jelly"
-	result = "royal_bee_jelly"
-	required_reagents = list("mutagen" = 10, "honey" = 40)
-	result_amount = 5

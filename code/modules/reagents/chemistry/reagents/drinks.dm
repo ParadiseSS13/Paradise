@@ -283,3 +283,150 @@
 		M.adjustBruteLoss(-1)
 		M.adjustFireLoss(-1)
 	..()
+
+/datum/reagent/ginsonic/on_mob_life(mob/living/M)
+	M.AdjustDrowsy(-5)
+	if(prob(25))
+		M.AdjustParalysis(-1)
+		M.AdjustStunned(-1)
+		M.AdjustWeakened(-1)
+	if(prob(8))
+		M.reagents.add_reagent("methamphetamine",1.2)
+		var/sonic_message = pick("Gotta go fast!", "Time to speed, keed!", "I feel a need for speed!", "Let's juice.", "Juice time.", "Way Past Cool!")
+		if(prob(50))
+			M.say("[sonic_message]")
+		else
+			to_chat(M, "<span class='notice'>[sonic_message ]</span>")
+	..()
+
+/datum/reagent/ethanol/applejack
+	name = "Applejack"
+	id = "applejack"
+	description = "A highly concentrated alcoholic beverage made by repeatedly freezing cider and removing the ice."
+	color = "#997A00"
+	alcohol_perc = 0.4
+
+/datum/reagent/ethanol/jackrose
+	name = "Jack Rose"
+	id = "jackrose"
+	description = "A classic cocktail that had fallen out of fashion, but never out of taste,"
+	color = "#664300"
+	alcohol_perc = 0.4
+
+/datum/reagent/ethanol/dragons_breath //inaccessible to players, but here for admin shennanigans
+	name = "Dragon's Breath"
+	id = "dragonsbreath"
+	description = "Possessing this stuff probably breaks the Geneva convention."
+	reagent_state = LIQUID
+	color = "#DC0000"
+	alcohol_perc = 1
+
+/datum/reagent/ethanol/dragons_breath/reaction_mob(mob/living/M, method=TOUCH, volume)
+	if(method == INGEST && prob(20))
+		if(M.on_fire)
+			M.adjust_fire_stacks(3)
+
+/datum/reagent/ethanol/dragons_breath/on_mob_life(mob/living/M)
+	if(M.reagents.has_reagent("milk"))
+		to_chat(M, "<span class='notice'>The milk stops the burning. Ahhh.</span>")
+		M.reagents.del_reagent("milk")
+		M.reagents.del_reagent("dragonsbreath")
+		return
+	if(prob(8))
+		to_chat(M, "<span class='userdanger'>Oh god! Oh GODD!!</span>")
+	if(prob(50))
+		to_chat(M, "<span class='danger'>Your throat burns terribly!</span>")
+		M.emote(pick("scream","cry","choke","gasp"))
+		M.Stun(1)
+	if(prob(8))
+		to_chat(M, "<span class='danger'>Why!? WHY!?</span>")
+	if(prob(8))
+		to_chat(M, "<span class='danger'>ARGHHHH!</span>")
+	if(prob(2 * volume))
+		to_chat(M, "<span class='userdanger'>OH GOD OH GOD PLEASE NO!!</b></span>")
+		if(M.on_fire)
+			M.adjust_fire_stacks(5)
+		if(prob(50))
+			to_chat(M, "<span class='userdanger'>IT BURNS!!!!</span>")
+			M.visible_message("<span class='danger'>[M] is consumed in flames!</span>")
+			M.dust()
+			return
+	..()
+
+// ROBOT ALCOHOL PAST THIS POINT
+// WOOO!
+
+
+/datum/reagent/ethanol/synthanol
+	name = "Synthanol"
+	id = "synthanol"
+	description = "A runny liquid with conductive capacities. Its effects on synthetics are similar to those of alcohol on organics."
+	reagent_state = LIQUID
+	color = "#1BB1FF"
+	process_flags = ORGANIC | SYNTHETIC
+	metabolization_rate = 0.4
+	alcohol_perc = 0.5
+
+/datum/reagent/ethanol/synthanol/on_mob_life(mob/living/M)
+	if(!M.isSynthetic())
+		holder.remove_reagent(id, 3.6) //gets removed from organics very fast
+		if(prob(25))
+			holder.remove_reagent(id, 15)
+			M.fakevomit()
+	..()
+
+/datum/reagent/ethanol/synthanol/reaction_mob(mob/living/M, method=TOUCH, volume)
+	if(M.isSynthetic())
+		return
+	if(method == INGEST)
+		to_chat(M, pick("<span class = 'danger'>That was awful!</span>", "<span class = 'danger'>Yuck!</span>"))
+
+/datum/reagent/ethanol/synthanol/robottears
+	name = "Robot Tears"
+	id = "robottears"
+	description = "An oily substance that an IPC could technically consider a 'drink'."
+	reagent_state = LIQUID
+	color = "#363636"
+	alcohol_perc = 0.25
+
+/datum/reagent/ethanol/synthanol/trinary
+	name = "Trinary"
+	id = "trinary"
+	description = "A fruit drink meant only for synthetics, however that works."
+	reagent_state = LIQUID
+	color = "#adb21f"
+	alcohol_perc = 0.2
+
+/datum/reagent/ethanol/synthanol/servo
+	name = "Servo"
+	id = "servo"
+	description = "A drink containing some organic ingredients, but meant only for synthetics."
+	reagent_state = LIQUID
+	color = "#5b3210"
+	alcohol_perc = 0.25
+
+/datum/reagent/ethanol/synthanol/uplink
+	name = "Uplink"
+	id = "uplink"
+	description = "A potent mix of alcohol and synthanol. Will only work on synthetics."
+	reagent_state = LIQUID
+	color = "#e7ae04"
+	alcohol_perc = 0.15
+
+/datum/reagent/ethanol/synthanol/synthnsoda
+	name = "Synth 'n Soda"
+	id = "synthnsoda"
+	description = "The classic drink adjusted for a robot's tastes."
+	reagent_state = LIQUID
+	color = "#7204e7"
+	alcohol_perc = 0.25
+
+/datum/reagent/ethanol/synthanol/synthignon
+	name = "Synthignon"
+	id = "synthignon"
+	description = "Someone mixed wine and alcohol for robots. Hope you're proud of yourself."
+	reagent_state = LIQUID
+	color = "#d004e7"
+	alcohol_perc = 0.25
+
+// ROBOT ALCOHOL ENDS

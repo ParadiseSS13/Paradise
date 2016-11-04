@@ -1,8 +1,146 @@
-#define SOLID 1
-#define LIQUID 2
-#define GAS 3
+/datum/reagent/hydrocodone
+	name = "Hydrocodone"
+	id = "hydrocodone"
+	description = "An extremely effective painkiller; may have long term abuse consequences."
+	reagent_state = LIQUID
+	color = "#C805DC"
+	metabolization_rate = 0.3 // Lasts 1.5 minutes for 15 units
+	shock_reduction = 200
 
-#define REM REAGENTS_EFFECT_MULTIPLIER
+/datum/reagent/hydrocodone/on_mob_life(mob/living/M)
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		if(H.traumatic_shock < 100)
+			H.shock_stage = 0
+	..()
+
+/datum/reagent/sterilizine
+	name = "Sterilizine"
+	id = "sterilizine"
+	description = "Sterilizes wounds in preparation for surgery."
+	reagent_state = LIQUID
+	color = "#C8A5DC" // rgb: 200, 165, 220
+
+	//makes you squeaky clean
+/datum/reagent/sterilizine/reaction_mob(mob/living/M, method=TOUCH, volume)
+	if(method == TOUCH)
+		M.germ_level -= min(volume*20, M.germ_level)
+
+/datum/reagent/sterilizine/reaction_obj(obj/O, volume)
+	O.germ_level -= min(volume*20, O.germ_level)
+
+/datum/reagent/sterilizine/reaction_turf(turf/T, volume)
+	T.germ_level -= min(volume*20, T.germ_level)
+
+/datum/reagent/synaptizine
+	name = "Synaptizine"
+	id = "synaptizine"
+	description = "Synaptizine is used to treat neuroleptic shock. Can be used to help remove disabling symptoms such as paralysis."
+	reagent_state = LIQUID
+	color = "#FA46FA"
+	overdose_threshold = 40
+
+/datum/reagent/synaptizine/on_mob_life(mob/living/M)
+	M.AdjustDrowsy(-5)
+	M.AdjustParalysis(-1)
+	M.AdjustStunned(-1)
+	M.AdjustWeakened(-1)
+	M.SetSleeping(0)
+	if(prob(50))
+		M.adjustBrainLoss(-1.0)
+	..()
+
+/datum/reagent/synaptizine/overdose_process(mob/living/M, severity)
+	var/effect = ..()
+	if(severity == 1)
+		if(effect <= 1)
+			M.visible_message("<span class='warning'>[M] suddenly and violently vomits!</span>")
+			M.fakevomit(no_text = 1)
+		else if(effect <= 3)
+			M.emote(pick("groan","moan"))
+		if(effect <= 8)
+			M.adjustToxLoss(1)
+	else if(severity == 2)
+		if(effect <= 2)
+			M.visible_message("<span class='warning'>[M] suddenly and violently vomits!</span>")
+			M.fakevomit(no_text = 1)
+		else if(effect <= 5)
+			M.visible_message("<span class='warning'>[M] staggers and drools, their eyes bloodshot!</span>")
+			M.Dizzy(8)
+			M.Weaken(4)
+		if(effect <= 15)
+			M.adjustToxLoss(1)
+
+/datum/reagent/mitocholide
+	name = "Mitocholide"
+	id = "mitocholide"
+	description = "A specialized drug that stimulates the mitochondria of cells to encourage healing of internal organs."
+	reagent_state = LIQUID
+	color = "#C8A5DC" // rgb: 200, 165, 220
+
+/datum/reagent/mitocholide/on_mob_life(mob/living/M)
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+
+		//Mitocholide is hard enough to get, it's probably fair to make this all internal organs
+		for(var/name in H.internal_organs)
+			var/obj/item/organ/internal/I = H.get_int_organ(name)
+			if(I.damage > 0)
+				I.damage = max(I.damage-0.4, 0)
+	..()
+
+/datum/reagent/mitocholide/reaction_obj(obj/O, volume)
+	if(istype(O, /obj/item/organ))
+		var/obj/item/organ/Org = O
+		Org.rejuvenate()
+
+/datum/reagent/cryoxadone
+	name = "Cryoxadone"
+	id = "cryoxadone"
+	description = "A plasma mixture with almost magical healing powers. Its main limitation is that the targets body temperature must be under 265K for it to metabolise correctly."
+	reagent_state = LIQUID
+	color = "#0000C8" // rgb: 200, 165, 220
+	heart_rate_decrease = 1
+
+/datum/reagent/cryoxadone/on_mob_life(mob/living/M)
+	if(M.bodytemperature < 265)
+		M.adjustCloneLoss(-4)
+		M.adjustOxyLoss(-10)
+		M.adjustToxLoss(-3)
+		M.adjustBruteLoss(-12)
+		M.adjustFireLoss(-12)
+		M.status_flags &= ~DISFIGURED
+	..()
+
+/datum/reagent/rezadone
+	name = "Rezadone"
+	id = "rezadone"
+	description = "A powder derived from fish toxin, Rezadone can effectively treat genetic damage as well as restoring minor wounds. Overdose will cause intense nausea and minor toxin damage."
+	reagent_state = SOLID
+	color = "#669900" // rgb: 102, 153, 0
+	overdose_threshold = 30
+
+/datum/reagent/rezadone/on_mob_life(mob/living/M)
+	M.setCloneLoss(0) //Rezadone is almost never used in favor of cryoxadone. Hopefully this will change that.
+	M.adjustCloneLoss(-1) //What? We just set cloneloss to 0. Why? Simple; this is so external organs properly unmutate.
+	M.adjustBruteLoss(-1)
+	M.adjustFireLoss(-1)
+	M.status_flags &= ~DISFIGURED
+	..()
+
+/datum/reagent/rezadone/overdose_process(mob/living/M, severity)
+	M.adjustToxLoss(1)
+	M.Dizzy(5)
+	M.Jitter(5)
+
+/datum/reagent/spaceacillin
+	name = "Spaceacillin"
+	id = "spaceacillin"
+	description = "An all-purpose antibiotic agent extracted from space fungus."
+	reagent_state = LIQUID
+	color = "#0AB478"
+	metabolization_rate = 0.2
+
 
 /datum/reagent/silver_sulfadiazine
 	name = "Silver Sulfadiazine"
@@ -108,49 +246,6 @@
 				M.reagents.remove_reagent(R.id,1)
 	..()
 
-/datum/chemical_reaction/charcoal
-	name = "Charcoal"
-	id = "charcoal"
-	result = "charcoal"
-	required_reagents = list("ash" = 1, "sodiumchloride" = 1)
-	result_amount = 2
-	mix_message = "The mixture yields a fine black powder."
-	min_temp = 380
-	mix_sound = 'sound/goonstation/misc/fuse.ogg'
-
-/datum/chemical_reaction/silver_sulfadiazine
-	name = "Silver Sulfadiazine"
-	id = "silver_sulfadiazine"
-	result = "silver_sulfadiazine"
-	required_reagents = list("ammonia" = 1, "silver" = 1, "sulfur" = 1, "oxygen" = 1, "chlorine" = 1)
-	result_amount = 5
-	mix_message = "A strong and cloying odor begins to bubble from the mixture."
-	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
-
-/datum/chemical_reaction/salglu_solution
-	name = "Saline-Glucose Solution"
-	id = "salglu_solution"
-	result = "salglu_solution"
-	required_reagents = list("sodiumchloride" = 1, "water" = 1, "sugar" = 1)
-	result_amount = 3
-
-/datum/chemical_reaction/synthflesh
-	name = "Synthflesh"
-	id = "synthflesh"
-	result = "synthflesh"
-	required_reagents = list("blood" = 1, "carbon" = 1, "styptic_powder" = 1)
-	result_amount = 3
-	mix_message = "The mixture knits together into a fibrous, bloody mass."
-	mix_sound = 'sound/effects/blobattack.ogg'
-
-/datum/chemical_reaction/styptic_powder
-	name = "Styptic Powder"
-	id = "styptic_powder"
-	result = "styptic_powder"
-	required_reagents = list("aluminum" = 1, "hydrogen" = 1, "oxygen" = 1, "sacid" = 1)
-	result_amount = 4
-	mix_message = "The solution yields an astringent powder."
-
 /datum/reagent/omnizine
 	name = "Omnizine"
 	id = "omnizine"
@@ -222,15 +317,6 @@
 		M.fakevomit()
 	..()
 
-/datum/chemical_reaction/calomel
-	name = "Calomel"
-	id = "calomel"
-	result = "calomel"
-	required_reagents = list("mercury" = 1, "chlorine" = 1)
-	result_amount = 2
-	min_temp = 374
-	mix_message = "Stinging vapors rise from the solution."
-
 /datum/reagent/potass_iodide
 	name = "Potassium Iodide"
 	id = "potass_iodide"
@@ -242,14 +328,6 @@
 	if(prob(80))
 		M.radiation = max(0, M.radiation-1)
 	..()
-
-/datum/chemical_reaction/potass_iodide
-	name = "Potassium Iodide"
-	id = "potass_iodide"
-	result = "potass_iodide"
-	required_reagents = list("potassium" = 1, "iodine" = 1)
-	result_amount = 2
-	mix_message = "The solution settles calmly and emits gentle fumes."
 
 /datum/reagent/pen_acid
 	name = "Pentetic Acid"
@@ -269,15 +347,6 @@
 		M.adjustBruteLoss(1*REM)
 		M.adjustFireLoss(1*REM)
 	..()
-	return
-
-/datum/chemical_reaction/pen_acid
-	name = "Pentetic Acid"
-	id = "pen_acid"
-	result = "pen_acid"
-	required_reagents = list("fuel" = 1, "chlorine" = 1, "ammonia" = 1, "formaldehyde" = 1, "sodium" = 1, "cyanide" = 1)
-	result_amount = 6
-	mix_message = "The substance becomes very still, emitting a curious haze."
 
 /datum/reagent/sal_acid
 	name = "Salicylic Acid"
@@ -298,15 +367,6 @@
 			H.shock_stage = 0
 	..()
 
-/datum/chemical_reaction/sal_acid
-	name = "Salicyclic Acid"
-	id = "sal_acid"
-	result = "sal_acid"
-	required_reagents = list("sodium" = 1, "phenol" = 1, "carbon" = 1, "oxygen" = 1, "sacid" = 1)
-	result_amount = 5
-	mix_message = "The mixture crystallizes."
-	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
-
 /datum/reagent/salbutamol
 	name = "Salbutamol"
 	id = "salbutamol"
@@ -319,15 +379,6 @@
 	M.adjustOxyLoss(-6*REM)
 	M.AdjustLoseBreath(-4)
 	..()
-
-/datum/chemical_reaction/salbutamol
-	name = "Salbutamol"
-	id = "salbutamol"
-	result = "salbutamol"
-	required_reagents = list("sal_acid" = 1, "lithium" = 1, "aluminum" = 1, "bromine" = 1, "ammonia" = 1)
-	result_amount = 5
-	mix_message = "The solution bubbles freely, creating a head of bluish foam."
-	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
 /datum/reagent/perfluorodecalin
 	name = "Perfluorodecalin"
@@ -347,16 +398,6 @@
 		M.adjustBruteLoss(-1*REM)
 		M.adjustFireLoss(-1*REM)
 	..()
-
-/datum/chemical_reaction/perfluorodecalin
-	name = "Perfluorodecalin"
-	id = "perfluorodecalin"
-	result = "perfluorodecalin"
-	required_reagents = list("hydrogen" = 1, "fluorine" = 1, "oil" = 1)
-	result_amount = 3
-	min_temp = 370
-	mix_message = "The mixture rapidly turns into a dense pink liquid."
-	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
 /datum/reagent/ephedrine
 	name = "Ephedrine"
@@ -404,14 +445,6 @@
 		if(effect <= 15)
 			M.emote("collapse")
 
-/datum/chemical_reaction/ephedrine
-	name = "Ephedrine"
-	id = "ephedrine"
-	result = "ephedrine"
-	required_reagents = list("sugar" = 1, "oil" = 1, "hydrogen" = 1, "diethylamine" = 1)
-	result_amount = 4
-	mix_message = "The solution fizzes and gives off toxic fumes."
-
 /datum/reagent/diphenhydramine
 	name = "Diphenhydramine"
 	id = "diphenhydramine"
@@ -431,15 +464,6 @@
 		M.AdjustDrowsy(1)
 		M.visible_message("<span class='notice'>[M] looks a bit dazed.</span>")
 	..()
-
-/datum/chemical_reaction/diphenhydramine
-	name = "Diphenhydramine"
-	id = "diphenhydramine"
-	result = "diphenhydramine"
-	required_reagents = list("oil" = 1, "carbon" = 1, "bromine" = 1, "diethylamine" = 1, "ethanol" = 1)
-	result_amount = 4
-	mix_message = "The mixture fizzes gently."
-	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
 /datum/reagent/morphine
 	name = "Morphine"
@@ -487,14 +511,6 @@
 			M.SetEarDeaf(0)
 	..()
 
-/datum/chemical_reaction/oculine
-	name = "Oculine"
-	id = "oculine"
-	result = "oculine"
-	required_reagents = list("atropine" = 1, "spaceacillin" = 1, "salglu_solution" = 1)
-	result_amount = 3
-	mix_message = "The mixture settles, becoming a milky white."
-
 /datum/reagent/oculine
 	name = "Oculine"
 	id = "oculine"
@@ -529,14 +545,6 @@
 		M.adjustToxLoss(1)
 	M.reagents.remove_reagent("sarin", 20)
 	..()
-
-/datum/chemical_reaction/atropine
-	name = "Atropine"
-	id = "atropine"
-	result = "atropine"
-	required_reagents = list("ethanol" = 1, "acetone" = 1, "diethylamine" = 1, "phenol" = 1, "sacid" = 1)
-	result_amount = 5
-	mix_message = "A horrid smell like something died drifts from the mixture."
 
 /datum/reagent/epinephrine
 	name = "Epinephrine"
@@ -590,15 +598,6 @@
 		if(effect <= 15)
 			M.emote("collapse")
 
-/datum/chemical_reaction/epinephrine
-	name = "Epinephrine"
-	id = "epinephrine"
-	result = "epinephrine"
-	required_reagents = list("phenol" = 1, "acetone" = 1, "diethylamine" = 1, "oxygen" = 1, "chlorine" = 1, "hydrogen" = 1)
-	result_amount = 6
-	mix_message = "Tiny white crystals precipitate out of the solution."
-	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
-
 /datum/reagent/strange_reagent
 	name = "Strange Reagent"
 	id = "strange_reagent"
@@ -645,14 +644,6 @@
 		M.adjustToxLoss(2*REM)
 	..()
 
-/datum/chemical_reaction/strange_reagent
-	name = "Strange Reagent"
-	id = "strange_reagent"
-	result = "strange_reagent"
-	required_reagents = list("omnizine" = 1, "holywater" = 1, "mutagen" = 1)
-	result_amount = 3
-	mix_message = "The substance begins moving on its own somehow."
-
 /datum/reagent/life
 	name = "Life"
 	id = "life"
@@ -661,28 +652,9 @@
 	color = "#C8A5DC"
 	metabolization_rate = 0.2
 
-/datum/chemical_reaction/life
-	name = "Life"
-	id = "life"
-	result = null
-	required_reagents = list("strange_reagent" = 1, "synthflesh" = 1, "blood" = 1)
-	result_amount = 3
-	min_temp = 374
-
-/datum/chemical_reaction/life/on_reaction(datum/reagents/holder, created_volume)
-	chemical_mob_spawn(holder, 1, "Life")
-
 /datum/reagent/mannitol/on_mob_life(mob/living/M)
 	M.adjustBrainLoss(-3)
 	..()
-
-/datum/chemical_reaction/mannitol
-	name = "Mannitol"
-	id = "mannitol"
-	result = "mannitol"
-	required_reagents = list("sugar" = 1, "hydrogen" = 1, "water" = 1)
-	result_amount = 3
-	mix_message = "The mixture bubbles slowly, making a slightly sweet odor."
 
 /datum/reagent/mannitol
 	name = "Mannitol"
@@ -708,15 +680,6 @@
 			H.update_mutations()
 	..()
 
-/datum/chemical_reaction/mutadone
-	name = "Mutadone"
-	id = "mutadone"
-	result = "mutadone"
-	required_reagents = list("mutagen" = 1, "acetone" = 1, "bromine" = 1)
-	result_amount = 3
-	mix_message = "A foul astringent liquid emerges from the reaction."
-
-
 /datum/reagent/mutadone
 	name = "Mutadone"
 	id = "mutadone"
@@ -736,15 +699,6 @@
 	if(M.toxloss <= 25)
 		M.adjustToxLoss(-2.0)
 	..()
-
-/datum/chemical_reaction/antihol
-	name = "antihol"
-	id = "antihol"
-	result = "antihol"
-	required_reagents = list("ethanol" = 1, "charcoal" = 1)
-	result_amount = 2
-	mix_message = "A minty and refreshing smell drifts from the effervescent mixture."
-	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
 /datum/reagent/stimulants
 	name = "Stimulants"
@@ -775,7 +729,7 @@
 			M.Stun(3)
 	..()
 
-/datum/reagent/stimulants/reagent_deleted(mob/living/M)
+/datum/reagent/stimulants/on_mob_delete(mob/living/M)
 	M.status_flags |= CANSTUN | CANWEAKEN | CANPARALYSE
 	..()
 
@@ -800,7 +754,7 @@
 	M.adjustStaminaLoss(-5*REM)
 	..()
 
-/datum/reagent/medicine/stimulative_agent/reagent_deleted(mob/living/M)
+/datum/reagent/medicine/stimulative_agent/on_mob_delete(mob/living/M)
 	M.status_flags &= ~GOTTAGOFAST
 	..()
 
@@ -828,14 +782,6 @@
 	description = "This strange liquid seems to have no bubbles on the surface."
 	color = "#14AA46"
 
-/datum/chemical_reaction/Simethicone
-	name = "Simethicone"
-	id = "simethicone"
-	result = "simethicone"
-	required_reagents = list("hydrogen" = 1, "chlorine" = 1, "silicon" = 1, "oxygen" = 1)
-	result_amount = 4
-
-
 /datum/reagent/teporone
 	name = "Teporone"
 	id = "teporone"
@@ -851,15 +797,6 @@
 	else if(M.bodytemperature < 311)
 		M.bodytemperature = min(310, M.bodytemperature + (40 * TEMPERATURE_DAMAGE_COEFFICIENT))
 	..()
-
-/datum/chemical_reaction/teporone
-	name = "Teporone"
-	id = "teporone"
-	result = "teporone"
-	required_reagents = list("acetone" = 1, "silicon" = 1, "plasma" = 1)
-	result_amount = 2
-	mix_message = "The mixture turns an odd lavender color."
-	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
 /datum/reagent/haloperidol
 	name = "Haloperidol"
@@ -890,15 +827,6 @@
 		M.adjustBrainLoss(1)
 	..()
 
-/datum/chemical_reaction/haloperidol
-	name = "Haloperidol"
-	id = "haloperidol"
-	result = "haloperidol"
-	required_reagents = list("chlorine" = 1, "fluorine" = 1, "aluminum" = 1, "potass_iodide" = 1, "oil" = 1)
-	result_amount = 4
-	mix_message = "The chemicals mix into an odd pink slush."
-
-
 /datum/reagent/ether
 	name = "Ether"
 	id = "ether"
@@ -919,14 +847,6 @@
 			M.Drowsy(20)
 	..()
 
-/datum/chemical_reaction/ether
-	name = "Ether"
-	id = "ether"
-	result = "ether"
-	required_reagents = list("sacid" = 1, "ethanol" = 1, "oxygen" = 1)
-	result_amount = 1
-	mix_message = "The mixture yields a pungent odor, which makes you tired."
-
 //////////////////////////////
 //		Synth-Meds			//
 //////////////////////////////
@@ -939,13 +859,6 @@
 	reagent_state = LIQUID
 	color = "#CC7A00"
 	process_flags = SYNTHETIC
-
-/datum/chemical_reaction/degreaser
-	name = "Degreaser"
-	id = "degreaser"
-	result = "degreaser"
-	required_reagents = list("oil" = 1, "sterilizine" = 1)
-	result_amount = 2
 
 /datum/reagent/degreaser/reaction_turf(turf/simulated/T, volume)
 	if(volume >= 1 && istype(T))
@@ -979,16 +892,6 @@
 /datum/reagent/liquid_solder/on_mob_life(mob/living/M)
 	M.adjustBrainLoss(-3)
 	..()
-
-/datum/chemical_reaction/liquid_solder
-	name = "Liquid Solder"
-	id = "liquid_solder"
-	result = "liquid_solder"
-	required_reagents = list("ethanol" = 1, "copper" = 1, "silver" = 1)
-	result_amount = 3
-	min_temp = 370
-	mix_message = "The solution gently swirls with a metallic sheen."
-
 
 /datum/reagent/medicine/syndicate_nanites //Used exclusively by Syndicate medical cyborgs
 	name = "Restorative Nanites"
