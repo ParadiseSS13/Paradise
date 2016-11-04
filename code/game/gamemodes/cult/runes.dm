@@ -149,6 +149,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 		for(var/M in invokers)
 			var/mob/living/L = M
 			L.say(invocation)
+			L.changeNext_move(CLICK_CD_MELEE)//THIS IS WHY WE CAN'T HAVE NICE THINGS
 	var/oldtransform = transform
 	spawn(0) //animate is a delay, we want to avoid being delayed
 		animate(transform = matrix()*2, alpha = 0, time = 5) //fade out
