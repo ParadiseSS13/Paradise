@@ -402,6 +402,14 @@
 		qdel(blood_DNA)
 		return 1
 
+// This lets a remote eye have impairments separate from the user - like an unfocused camera being blurry
+/atom/proc/get_remote_view_fullscreens(mob/living/user)
+	return
+
+// This lets a remote eye give different sight flags than that of the owner
+/atom/proc/update_remote_sight(mob/living/user)
+	return
+
 /atom/proc/add_vomit_floor(mob/living/carbon/M as mob, var/toxvomit = 0)
 	if( istype(src, /turf/simulated) )
 		var/obj/effect/decal/cleanable/vomit/this = new /obj/effect/decal/cleanable/vomit(src)

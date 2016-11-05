@@ -60,8 +60,9 @@
 	return ..()
 
 /mob/living/simple_animal/hostile/poison/bees/death(gibbed)
-	beegent = null
-	..()
+	. = ..()
+	if(.)
+		beegent = null
 
 /mob/living/simple_animal/hostile/poison/bees/examine(mob/user)
 	..()
@@ -145,11 +146,12 @@
 	..()
 
 /mob/living/simple_animal/hostile/poison/bees/worker/death(gibbed)
-	if(beehome)
-		if(beehome.bees)
-			beehome.bees.Remove(src)
-		beehome = null
-	..()
+	. = ..()
+	if(.)
+		if(beehome)
+			if(beehome.bees)
+				beehome.bees.Remove(src)
+			beehome = null
 
 /mob/living/simple_animal/hostile/poison/bees/worker/examine(mob/user)
 	..()

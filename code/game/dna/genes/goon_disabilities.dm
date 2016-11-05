@@ -19,7 +19,7 @@
 	..()
 	block=MUTEBLOCK
 
-/datum/dna/gene/disability/mute/OnSay(var/mob/M, var/message)
+/datum/dna/gene/disability/mute/OnSay(var/mob/living/M, var/message)
 	return ""
 
 ////////////////////////////////////////
@@ -39,7 +39,7 @@
 	block=RADBLOCK
 
 
-/datum/dna/gene/disability/radioactive/can_activate(var/mob/M,var/flags)
+/datum/dna/gene/disability/radioactive/can_activate(var/mob/living/M,var/flags)
 	if(!..())
 		return 0
 	if(ishuman(M))
@@ -58,7 +58,7 @@
 		L.apply_effect(5, IRRADIATE)
 	return
 
-/datum/dna/gene/disability/radioactive/OnDrawUnderlays(var/mob/M,var/g,var/fat)
+/datum/dna/gene/disability/radioactive/OnDrawUnderlays(var/mob/living/M,var/g,var/fat)
 	return "rads[fat]_s"
 
 ////////////////////////////////////////
@@ -90,7 +90,7 @@
 	..()
 	block=CHAVBLOCK
 
-/datum/dna/gene/disability/speech/chav/OnSay(var/mob/M, var/message)
+/datum/dna/gene/disability/speech/chav/OnSay(var/mob/living/M, var/message)
 	// THIS ENTIRE THING BEGS FOR REGEX
 	message = replacetext(message,"dick","prat")
 	message = replacetext(message,"comdom","knob'ead")
@@ -129,19 +129,19 @@
 	..()
 	block=SWEDEBLOCK
 
-/datum/dna/gene/disability/speech/swedish/OnSay(var/mob/M, var/message)
+/datum/dna/gene/disability/speech/swedish/OnSay(var/mob/living/M, var/message)
 	// svedish
 	message = replacetextEx(message,"W","V")
 	message = replacetextEx(message,"w","v")
 	message = replacetextEx(message,"J","Y")
 	message = replacetextEx(message,"j","y")
-	message = replacetextEx(message,"A",pick("Å","Ä","Æ","A"))
-	message = replacetextEx(message,"a",pick("å","ä","æ","a"))
+	message = replacetextEx(message,"A",pick("ï¿½","ï¿½","ï¿½","A"))
+	message = replacetextEx(message,"a",pick("ï¿½","ï¿½","ï¿½","a"))
 	message = replacetextEx(message,"BO","BJO")
 	message = replacetextEx(message,"Bo","Bjo")
 	message = replacetextEx(message,"bo","bjo")
-	message = replacetextEx(message,"O",pick("Ö","Ø","O"))
-	message = replacetextEx(message,"o",pick("ö","ø","o"))
+	message = replacetextEx(message,"O",pick("ï¿½","ï¿½","O"))
+	message = replacetextEx(message,"o",pick("ï¿½","ï¿½","o"))
 	if(prob(30))
 		message += " Bork[pick("",", bork",", bork, bork")]!"
 	return message
@@ -159,7 +159,7 @@
 	..()
 	block=SCRAMBLEBLOCK
 
-/datum/dna/gene/disability/unintelligable/OnSay(var/mob/M, var/message)
+/datum/dna/gene/disability/unintelligable/OnSay(var/mob/living/M, var/message)
 	var/prefix=copytext(message,1,2)
 	if(prefix == ";")
 		message = copytext(message,2)
@@ -223,7 +223,7 @@
 	..()
 	block=HORNSBLOCK
 
-/datum/dna/gene/disability/horns/OnDrawUnderlays(var/mob/M,var/g,var/fat)
+/datum/dna/gene/disability/horns/OnDrawUnderlays(var/mob/living/M,var/g,var/fat)
 	return "horns_s"
 
 ////////////////////////////////////////////////////////////////////////

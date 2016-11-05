@@ -8,6 +8,11 @@ Brief flashes of fire/space/bombs/c4/dangerous shit (done)
 Items that are rare/traitorous/don't exist appearing in your inventory slots (done)
 Strange audio (should be rare) (done)
 Gunshots/explosions/opening doors/less rare audio (done)
+Nearby characters saying things they aren't actually saying
+
+In extreme cases of hallucination:
+	A horrifying entity that slowly approaches you with ominous sounds - if it reaches
+	you, you suffer a heart attack
 
 */
 
@@ -478,7 +483,7 @@ Gunshots/explosions/opening doors/less rare audio (done)
 				if(weapon_name)
 					my_target << sound(pick('sound/weapons/genhit1.ogg', 'sound/weapons/genhit2.ogg', 'sound/weapons/genhit3.ogg'))
 					my_target.show_message("<span class='danger'>[src.name] has attacked [my_target] with [weapon_name]!</span>", 1)
-					my_target.staminaloss += 30
+					my_target.adjustStaminaLoss(30)
 					if(prob(20))
 						my_target.AdjustEyeBlurry(3)
 					if(prob(33))
@@ -487,7 +492,7 @@ Gunshots/explosions/opening doors/less rare audio (done)
 				else
 					my_target << sound(pick('sound/weapons/punch1.ogg','sound/weapons/punch2.ogg','sound/weapons/punch3.ogg','sound/weapons/punch4.ogg'))
 					my_target.show_message("<span class='userdanger'>[src.name] has punched [my_target]!</span>", 1)
-					my_target.staminaloss += 30
+					my_target.adjustStaminaLoss(30)
 					if(prob(33))
 						if(!locate(/obj/effect/overlay) in my_target.loc)
 							fake_blood(my_target)

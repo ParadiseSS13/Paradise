@@ -491,7 +491,7 @@
 
 
 /datum/reagent/thc/on_mob_life(mob/living/M)
-	M.stuttering += rand(0,2)
+	M.AdjustStuttering(rand(0,2))
 	if(prob(5))
 		M.emote(pick("laugh","giggle","smile"))
 	if(prob(5))
@@ -666,10 +666,10 @@
 
 /datum/reagent/surge/overdose_process(mob/living/M, severity)
 	//Hit them with the same effects as an electrode!
-	M.Stun(5)
-	M.Weaken(5)
 	M.Jitter(20)
-	M.apply_effect(STUTTER, 5)
+	M.Stun(5)
+	M.Stuttering(5)
+	M.Weaken(5)
 	if(prob(10))
 		to_chat(M, "<span class='danger'>You experience a violent electrical discharge!</span>")
 		playsound(get_turf(M), 'sound/effects/eleczap.ogg', 75, 1)

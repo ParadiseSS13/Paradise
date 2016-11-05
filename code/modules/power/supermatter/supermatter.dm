@@ -189,7 +189,7 @@
 		var/obj/item/organ/internal/eyes/eyes = l.get_int_organ(/obj/item/organ/internal/eyes)
 		if(!istype(eyes))
 			continue
-		l.Hallucinate(min(200, l.hallucination + power * config_hallucination_power * sqrt( 1 / max(1,get_dist(l, src)))))
+		l.Hallucinate(min(200, l.hallucination + power * config_hallucination_power * sqrt(1 / max(1,get_dist(l, src)))))
 
 	for(var/mob/living/l in range(src, round((power / 100) ** 0.25)))
 		var/rads = (power / 10) * sqrt( 1 / max(get_dist(l, src),1) )

@@ -192,7 +192,7 @@
 
 	src.timeofdeath = M.timeofdeath
 
-	var/obj/item/organ/external/S = M.get_organ(user.zone_sel.selecting)
+	var/obj/item/organ/external/S = M.get_organ(user.zone_selected)
 	if(!S)
 		to_chat(usr, "<b>You can't scan this body part.</b>")
 		return

@@ -94,11 +94,9 @@
 				occupant.adjustToxLoss(-1)
 				occupant.adjustBruteLoss(-1)
 				occupant.updatehealth()
-				if(occupant.health >= 0 && computer.cradle.occupant.stat == 2)
-					occupant.stat = 0
+				if(occupant.health >= 0 && computer.cradle.occupant.stat == DEAD)
+					occupant.update_revive()
 					occupant.lying = 0
-					dead_mob_list -= occupant
-					living_mob_list += occupant
 					update_icon()
 
 				i++

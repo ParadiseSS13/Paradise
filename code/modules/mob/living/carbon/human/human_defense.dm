@@ -41,7 +41,7 @@ emp_act
 		return
 
 	//Shrapnel
-	if(P.damage_type == BRUTE)
+	if(P.damage_type == BRUTE && (status_flags & GODMODE))
 		var/armor = getarmor_organ(organ, "bullet")
 		if((P.embed && prob(20 + max(P.damage - armor, -10))))
 			var/obj/item/weapon/shard/shrapnel/SP = new()
@@ -197,7 +197,7 @@ emp_act
 
 			qdel(src)
 
-	var/obj/item/organ/external/affecting = get_organ(ran_zone(user.zone_sel.selecting))
+	var/obj/item/organ/external/affecting = get_organ(ran_zone(user.zone_selected))
 	if(!affecting || affecting.is_stump() || (affecting.status & ORGAN_DESTROYED))
 		to_chat(user, "<span class='danger'>They are missing that limb!</span>")
 		return 1
@@ -220,7 +220,7 @@ emp_act
 	var/armor = run_armor_check(affecting, "melee", "Your armor has protected your [hit_area].", "Your armor has softened hit to your [hit_area].", armour_penetration = I.armour_penetration)
 	var/weapon_sharp = is_sharp(I)
 	var/weapon_edge = has_edge(I)
-	if((weapon_sharp || weapon_edge) && prob(getarmor(user.zone_sel.selecting, "melee")))
+	if((weapon_sharp || weapon_edge) && prob(getarmor(user.zone_selected, "melee")))
 		weapon_sharp = 0
 		weapon_edge = 0
 

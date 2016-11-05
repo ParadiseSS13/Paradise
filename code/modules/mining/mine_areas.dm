@@ -3,6 +3,8 @@
 /area/mine
 	icon_state = "mining"
 
+/area/mine/dangerous
+
 /area/mine/dangerous/explored
 	name = "Mine"
 	icon_state = "explored"

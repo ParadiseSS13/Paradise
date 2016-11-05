@@ -560,6 +560,8 @@
 			switch(name)
 				if("health_threshold_crit")
 					config.health_threshold_crit = value
+				if("health_threshold_softcrit")
+					config.health_threshold_softcrit = value
 				if("health_threshold_dead")
 					config.health_threshold_dead = value
 				if("revival_pod_plants")

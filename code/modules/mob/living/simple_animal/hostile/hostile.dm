@@ -220,10 +220,11 @@
 //////////////END HOSTILE MOB TARGETTING AND AGGRESSION////////////
 
 /mob/living/simple_animal/hostile/death(gibbed)
-	LoseAggro()
-	mouse_opacity = 1
-	..()
-	walk(src, 0)
+	. = ..()
+	if(.)
+		LoseAggro()
+		mouse_opacity = 1
+		walk(src, 0)
 
 /mob/living/simple_animal/hostile/proc/OpenFire(var/the_target)
 	var/target = the_target

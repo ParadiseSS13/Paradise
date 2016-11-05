@@ -10,11 +10,11 @@
 /datum/reagent/adminordrazine/on_mob_life(mob/living/carbon/M)
 	M.setCloneLoss(0)
 	M.setOxyLoss(0)
-	M.radiation = 0
 	M.adjustBruteLoss(-5)
 	M.adjustFireLoss(-5)
 	M.adjustToxLoss(-5)
 	M.setBrainLoss(0)
+	M.radiation = 0
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		for(var/name in H.internal_organs)

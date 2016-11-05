@@ -91,7 +91,8 @@
 	return 1
 
 /mob/living/silicon/bullet_act(var/obj/item/projectile/Proj)
-
+	if(status_flags & GODMODE)
+		return
 
 	if(!Proj.nodamage)
 		switch(Proj.damage_type)
@@ -105,7 +106,7 @@
 	return 2
 
 /mob/living/silicon/apply_effect(var/effect = 0,var/effecttype = STUN, var/blocked = 0)
-	return 0//The only effect that can hit them atm is flashes and they still directly edit so this works for now
+	return 0// FIXME: The only effect that can hit them atm is flashes and they still directly edit so this works for now
 /*
 	if(!effect || (blocked >= 2))	return 0
 	switch(effecttype)
@@ -118,11 +119,11 @@
 		if(IRRADIATE)
 			radiation += min((effect - (effect*getarmor(null, "rad"))), 0)//Rads auto check armor
 		if(STUTTER)
-			stuttering = max(stuttering,(effect/(blocked+1)))
+			Stuttering(effect/(blocked+1))
 		if(EYE_BLUR)
-			eye_blurry = max(eye_blurry,(effect/(blocked+1)))
+			EyeBlurry(effect/(blocked+1)
 		if(DROWSY)
-			drowsyness = max(drowsyness,(effect/(blocked+1)))
+			Drowsy(effect/(blocked+1))
 	updatehealth()
 	return 1*/
 

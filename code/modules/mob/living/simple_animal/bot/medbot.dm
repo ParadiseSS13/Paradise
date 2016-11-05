@@ -278,15 +278,14 @@
 
 	if(stunned)
 		icon_state = "medibota"
-		stunned--
+		AdjustStunned(-1)
 
 		oldpatient = patient
 		patient = null
 		mode = BOT_IDLE
 
-		if(stunned <= 0)
+		if(!stunned)
 			update_icon()
-			stunned = 0
 		return
 
 	if(frustration > 8)
@@ -414,7 +413,7 @@
 
 /mob/living/simple_animal/bot/medbot/examinate(atom/A as mob|obj|turf in view())
 	..()
-	if(!is_blind(src))
+	if(can_see())
 		chemscan(src, A)
 
 /mob/living/simple_animal/bot/medbot/proc/medicate_patient(mob/living/carbon/C)
@@ -518,7 +517,7 @@
 
 /mob/living/simple_animal/bot/medbot/bullet_act(obj/item/projectile/Proj)
 	if(Proj.flag == "taser")
-		stunned = min(stunned+10,20)
+		AdjustStunned(10, bound_lower = 0, bound_upper = 20)
 	..()
 
 /mob/living/simple_animal/bot/medbot/explode()

@@ -149,18 +149,17 @@
 			H.updatehealth()
 	return
 
-/obj/structure/proc/can_touch(var/mob/user)
-	if(!user)
+/obj/structure/proc/can_touch(var/mob/living/user)
+	if(!istype(user))
 		return 0
 	if(!Adjacent(user))
 		return 0
 	if(user.restrained() || user.buckled)
 		to_chat(user, "<span class='notice'>You need your hands and legs free for this.</span>")
 		return 0
-	if(user.stat || user.paralysis || user.sleeping || user.lying || user.weakened)
+	if(user.incapacitated())
 		return 0
 	if(issilicon(user))
 		to_chat(user, "<span class='notice'>You need hands for this.</span>")
 		return 0
 	return 1
-

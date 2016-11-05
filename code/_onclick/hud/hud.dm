@@ -22,9 +22,9 @@
 	var/obj/screen/blobhealthdisplay
 	var/obj/screen/vampire_blood_display
 	var/obj/screen/alien_plasma_display
+	var/obj/screen/leap_icon
 	var/obj/screen/nightvisionicon
-	var/obj/screen/action_intent
-	var/obj/screen/move_intent
+
 	var/obj/screen/module_store_icon
 
 	var/list/static_inventory = list()		//the screen objects which are static
@@ -33,10 +33,20 @@
 	var/list/infodisplay = list()			//the screen objects that display mob info (health, alien plasma, etc...)
 	var/list/inv_slots[slots_amt]			// /obj/screen/inventory objects, ordered by their slot ID.
 
+
 	var/obj/screen/movable/action_button/hide_toggle/hide_actions_toggle
 	var/action_buttons_hidden = 0
 
+	var/obj/screen/action_intent
+	var/obj/screen/move_intent
+	var/obj/screen/zone_select
+
+	var/obj/screen/pull_icon
+	var/obj/screen/throw_icon
+
 	var/obj/screen/internals
+	var/obj/screen/healths = null
+	var/obj/screen/healthdoll/healthdoll = null
 
 /mob/proc/create_mob_hud()
 	if(client && !hud_used)
@@ -82,11 +92,11 @@
 		infodisplay.Cut()
 
 	//clear mob refs to screen objects
-	mymob.throw_icon = null
-	mymob.healths = null
-	mymob.healthdoll = null
-	mymob.pullin = null
-	mymob.zone_sel = null
+	throw_icon = null
+	healths = null
+	healthdoll = null
+	pull_icon = null
+	zone_select = null
 
 	//clear the rest of our reload_fullscreen
 	lingchemdisplay = null

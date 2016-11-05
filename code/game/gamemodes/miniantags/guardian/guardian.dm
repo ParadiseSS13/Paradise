@@ -71,16 +71,17 @@
 			Recall()
 
 /mob/living/simple_animal/hostile/guardian/death(gibbed)
-	..()
-	to_chat(summoner, "<span class='danger'><B>Your [name] died somehow!</span></B>")
-	summoner.death()
+	. = ..()
+	if(.)
+		to_chat(summoner, "<span class='danger'><B>Your [name] died somehow!</span></B>")
+		summoner.death()
 
 
-/mob/living/simple_animal/hostile/guardian/handle_hud_icons_health()
+/mob/living/simple_animal/hostile/guardian/update_health_hud()
 	if(summoner)
 		var/resulthealth
 		if(iscarbon(summoner))
-			resulthealth = round((abs(config.health_threshold_dead - summoner.health) / abs(config.health_threshold_dead - summoner.maxHealth)) * 100)
+			resulthealth = round((abs(summoner.min_health - summoner.health) / abs(summoner.min_health - summoner.maxHealth)) * 100)
 		else
 			resulthealth = round((summoner.health / summoner.maxHealth) * 100)
 		hud_used.guardianhealthdisplay.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#efeeef'>[resulthealth]%</font></div>"

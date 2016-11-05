@@ -365,13 +365,6 @@ var/list/intents = list(I_HELP,I_DISARM,I_GRAB,I_HARM)
 	update_canmove()
 	to_chat(src, "<span class='notice'>You are now [resting ? "resting" : "getting up"].</span>")
 
-/proc/is_blind(A)
-	if(iscarbon(A))
-		var/mob/living/carbon/C = A
-		if(C.disabilities & BLIND || C.blinded)
-			return 1
-	return 0
-
 /proc/get_multitool(mob/user as mob)
 	// Get tool
 	var/obj/item/device/multitool/P
@@ -462,7 +455,7 @@ var/list/intents = list(I_HELP,I_DISARM,I_GRAB,I_HARM)
 						A.overlays += alert_overlay
 
 /mob/proc/switch_to_camera(var/obj/machinery/camera/C)
-	if(!C.can_use() || stat || (get_dist(C, src) > 1 || machine != src || blinded || !canmove))
+	if(!C.can_use() || stat || (get_dist(C, src) > 1 || machine != src || !can_see() || !canmove))
 		return 0
 	check_eye(src)
 	return 1
@@ -546,3 +539,8 @@ var/list/intents = list(I_HELP,I_DISARM,I_GRAB,I_HARM)
 			return
 
 		rename_character(oldname, newname)
+
+/mob/proc/store_log(message)
+	if(mind)
+		mind.attack_log += (message + " (as [src])")
+	attack_log += message

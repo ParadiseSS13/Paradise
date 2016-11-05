@@ -242,8 +242,9 @@ var/global/chicken_count = 0
 	chicken_count += 1
 
 /mob/living/simple_animal/chicken/death(gibbed)
-	..()
-	chicken_count -= 1
+	. = ..()
+	if(.)
+		chicken_count -= 1
 
 /mob/living/simple_animal/chicken/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
 	if(istype(O, /obj/item/weapon/reagent_containers/food/snacks/grown)) //feedin' dem chickens

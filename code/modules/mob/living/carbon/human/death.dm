@@ -1,5 +1,44 @@
+/mob/living/carbon/human/death(gibbed)
+	. = ..()
+	if(!.)	return
+
+	heart_attack = 0
+
+	//Handle species-specific deaths.
+	if(species) species.handle_death(src)
+
+	//Handle brain slugs.
+	var/obj/item/organ/external/head = get_organ("head")
+	var/mob/living/simple_animal/borer/B
+
+	if(istype(head))
+		for(var/I in head.implants)
+			if(istype(I,/mob/living/simple_animal/borer))
+				B = I
+	if(B)
+		if(B.controlling && B.host == src)
+			B.detatch()
+
+		verbs -= /mob/living/carbon/proc/release_control
+
+	callHook("death", list(src, gibbed))
+
+	if(ishuman(LAssailant))
+		var/mob/living/carbon/human/H=LAssailant
+		if(H.mind)
+			H.mind.kills += "[name] ([ckey])"
+
+	if(ticker && ticker.mode)
+		sql_report_death(src)
+		ticker.mode.check_win()		//Calls the rounds wincheck, mainly for wizard, malf, and changeling now
+
+	if(wearing_rig)
+		wearing_rig.notify_ai("<span class='danger'>Warning: user death event. Mobility control passed to integrated intelligence system.</span>")
+
+
 /mob/living/carbon/human/gib()
-	death(1)
+	if(!death(1) && stat != DEAD)
+		return
 	var/atom/movable/overlay/animation = null
 	notransform = 1
 	canmove = 0
@@ -50,7 +89,8 @@
 		if(src)			qdel(src)
 
 /mob/living/carbon/human/dust()
-	death(1)
+	if(!death(1) && stat != DEAD)
+		return
 	var/atom/movable/overlay/animation = null
 	notransform = 1
 	canmove = 0
@@ -70,7 +110,8 @@
 		if(src)			qdel(src)
 
 /mob/living/carbon/human/melt()
-	death(1)
+	if(!death(1) && stat != DEAD)
+		return
 	var/atom/movable/overlay/animation = null
 	notransform = 1
 	canmove = 0
@@ -89,65 +130,13 @@
 		if(animation)	qdel(animation)
 		if(src)			qdel(src)
 
-/mob/living/carbon/human/death(gibbed)
-	if(stat == DEAD)	return
-	if(healths)		healths.icon_state = "health5"
-
-	if(!gibbed)
-		emote("deathgasp") //let the world KNOW WE ARE DEAD
-
-	stat = DEAD
-	SetDizzy(0)
-	SetJitter(0)
-	heart_attack = 0
-
-	//Handle species-specific deaths.
-	if(species) species.handle_death(src)
-
-	//Handle brain slugs.
-	var/obj/item/organ/external/head = get_organ("head")
-	var/mob/living/simple_animal/borer/B
-
-	if(istype(head))
-		for(var/I in head.implants)
-			if(istype(I,/mob/living/simple_animal/borer))
-				B = I
-	if(B)
-		if(B.controlling && B.host == src)
-			B.detatch()
-
-		verbs -= /mob/living/carbon/proc/release_control
-
-	callHook("death", list(src, gibbed))
-
-	if(ishuman(LAssailant))
-		var/mob/living/carbon/human/H=LAssailant
-		if(H.mind)
-			H.mind.kills += "[name] ([ckey])"
-
-	if(!gibbed)
-		update_canmove()
-
-	timeofdeath = world.time
-	med_hud_set_health()
-	med_hud_set_status()
-	if(mind)	mind.store_memory("Time of death: [worldtime2text(timeofdeath)]", 0)
-	if(ticker && ticker.mode)
-//		log_to_dd("k")
-		sql_report_death(src)
-		ticker.mode.check_win()		//Calls the rounds wincheck, mainly for wizard, malf, and changeling now
-
-	if(wearing_rig)
-		wearing_rig.notify_ai("<span class='danger'>Warning: user death event. Mobility control passed to integrated intelligence system.</span>")
-
-	return ..(gibbed)
 
 /mob/living/carbon/human/update_revive()
 	..()
 	// Update healthdoll
-	if(healthdoll)
+	if(hud_used && hud_used.healthdoll)
 		// We're alive again, so re-build the entire healthdoll
-		healthdoll.cached_healthdoll_overlays.Cut()
+		hud_used.healthdoll.cached_healthdoll_overlays.Cut()
 
 /mob/living/carbon/human/proc/makeSkeleton()
 	var/obj/item/organ/external/head/H = get_organ("head")

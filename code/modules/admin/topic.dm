@@ -1624,13 +1624,14 @@
 			if(prob(80))	T.break_tile_to_plating()
 			else			T.break_tile()
 
+		// Hwat
 		if(M.health == 1)
 			M.gib()
 		else
 			M.adjustBruteLoss( min( 99 , (M.health - 1) )    )
 			M.Stun(20)
 			M.Weaken(20)
-			M.stuttering = 20
+			M.Stuttering(20)
 
 	else if(href_list["CentcommReply"])
 		if(!check_rights(R_ADMIN))

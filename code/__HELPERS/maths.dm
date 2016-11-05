@@ -87,7 +87,6 @@ var/gaussian_next
 #undef ACCURACY
 
 
-
 // oof, what a mouthful
 // Used in status_procs' "adjust" to let them modify a status effect by a given
 // amount, without inadverdently increasing it in the wrong direction

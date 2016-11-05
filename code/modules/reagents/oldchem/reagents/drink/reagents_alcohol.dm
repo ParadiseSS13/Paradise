@@ -620,7 +620,7 @@
 	heart_rate_decrease = 1
 
 /datum/reagent/ethanol/neurotoxin/on_mob_life(mob/living/M)
-	M.weakened = max(M.weakened, 3)
+	M.Weaken(3)
 	if(current_cycle >=55)
 		M.Druggy(55)
 	if(current_cycle >=200)
@@ -672,7 +672,7 @@
 
 /datum/reagent/ethanol/driestmartini/on_mob_life(mob/living/M)
 	if(current_cycle >= 55 && current_cycle < 115)
-		M.stuttering += 10
+		M.AdjustStuttering(10)
 	..()
 
 /datum/reagent/ethanol/kahlua

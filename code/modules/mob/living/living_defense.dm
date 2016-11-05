@@ -255,7 +255,3 @@
 	else*///This is an example of how you can make special types of grabs simply based on direction.
 	if(!supress_message)
 		visible_message("<span class='warning'>[user] has grabbed [src] passively!</span>")
-
-/mob/living/incapacitated()
-	if(stat || paralysis || stunned || weakened || restrained())
-		return 1

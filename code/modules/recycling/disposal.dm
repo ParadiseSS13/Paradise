@@ -158,28 +158,27 @@
 
 // mouse drop another mob or self
 //
-/obj/machinery/disposal/MouseDrop_T(mob/target, mob/user)
+/obj/machinery/disposal/MouseDrop_T(mob/living/target, mob/living/user)
 	if(!istype(target) || target.buckled || get_dist(user, src) > 1 || get_dist(user, target) > 1 || user.stat || istype(user, /mob/living/silicon/ai))
 		return
 	if(isanimal(user) && target != user) return //animals cannot put mobs other than themselves into disposal
 	src.add_fingerprint(user)
 	var/target_loc = target.loc
 	var/msg
-	for(var/mob/V in viewers(usr))
-		if(target == user && !user.stat && !user.weakened && !user.stunned && !user.paralysis)
-			V.show_message("[usr] starts climbing into the disposal.", 3)
-		if(target != user && !user.restrained() && !user.stat && !user.weakened && !user.stunned && !user.paralysis)
-			if(target.anchored) return
-			V.show_message("[usr] starts stuffing [target.name] into the disposal.", 3)
+	if(target == user && !user.incapacitated(ignore_restraints = 1, ignore_grab = 1, ignore_lying = 1))
+		visible_message("[usr] starts climbing into the disposal.")
+	else if(target != user && !user.incapacitated())
+		if(target.anchored) return
+		visible_message("[usr] starts stuffing [target.name] into the disposal.")
 	if(!do_after(usr, 20, target = target))
 		return
 	if(target_loc != target.loc)
 		return
-	if(target == user && !user.stat && !user.weakened && !user.stunned && !user.paralysis)	// if drop self, then climbed in
+	if(target == user && !user.incapacitated(ignore_restraints = 1, ignore_grab = 1, ignore_lying = 1))	// if drop self, then climbed in
 											// must be awake, not stunned or whatever
 		msg = "[user.name] climbs into the [src]."
 		to_chat(user, "You climb into the [src].")
-	else if(target != user && !user.restrained() && !user.stat && !user.weakened && !user.stunned && !user.paralysis)
+	else if(target != user && !user.incapacitated())
 		msg = "[user.name] stuffs [target.name] into the [src]!"
 		to_chat(user, "You stuff [target.name] into the [src]!")
 
@@ -193,11 +192,7 @@
 		target.client.perspective = EYE_PERSPECTIVE
 		target.client.eye = src
 	target.loc = src
-
-	for(var/mob/C in viewers(src))
-		if(C == user)
-			continue
-		C.show_message(msg, 3)
+	user.visible_message(msg)
 
 	update()
 	return

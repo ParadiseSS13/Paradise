@@ -22,12 +22,12 @@
 	using = new /obj/screen/bot/radio()
 	static_inventory += using
 
-	mymob.healths = new /obj/screen/healths/bot()
-	mymob.healths.screen_loc = ui_borg_health
-	infodisplay += mymob.healths
+	healths = new /obj/screen/healths/bot()
+	healths.screen_loc = ui_borg_health
+	infodisplay += healths
 
-	mymob.pullin = new /obj/screen/pull()
-	mymob.pullin.icon = 'icons/mob/screen_bot.dmi'
-	mymob.pullin.update_icon(mymob)
-	mymob.pullin.screen_loc = ui_bot_pull
-	static_inventory += mymob.pullin
+	pull_icon = new /obj/screen/pull()
+	pull_icon.icon = 'icons/mob/screen_bot.dmi'
+	pull_icon.update_icon(mymob)
+	pull_icon.screen_loc = ui_bot_pull
+	static_inventory += pull_icon

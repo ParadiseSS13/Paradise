@@ -38,6 +38,8 @@
 
 	var/memory
 
+	var/list/attack_log = list()
+
 	var/assigned_role
 	var/special_role
 	var/list/restricted_roles = list()
@@ -47,7 +49,7 @@
 	var/role_alt_title
 
 	var/datum/job/assigned_job
-	var/list/kills=list()
+	var/list/kills = list()
 	var/list/datum/objective/objectives = list()
 	var/list/datum/objective/special_verbs = list()
 
@@ -69,14 +71,14 @@
 	// the world.time since the mob has been brigged, or -1 if not at all
 	var/brigged_since = -1
 
-	New(var/key)
-		src.key = key
-
 	//put this here for easier tracking ingame
 	var/datum/money_account/initial_account
 
 	//zealot_master is a reference to the mob that converted them into a zealot (for ease of investigation and such)
 	var/mob/living/carbon/human/zealot_master = null
+
+/datum/mind/New(var/key)
+	src.key = key
 
 /datum/mind/proc/transfer_to(mob/living/new_character)
 	var/datum/atom_hud/antag/hud_to_transfer = antag_hud //we need this because leave_hud() will clear this list

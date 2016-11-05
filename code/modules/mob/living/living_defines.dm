@@ -3,17 +3,21 @@
 
 	//Health and life related vars
 	var/maxHealth = 100 //Maximum health that should be possible.
+	var/min_health = 0 // Health that the mob should die at
 	var/health = 100 	//A mob's health
 
+	// Whether or not a mob should call `emote("deathgasp")` before dying
+	var/deathgasp_on_death = FALSE
 
 	//Damage related vars, NOTE: THESE SHOULD ONLY BE MODIFIED BY PROCS
 	var/bruteloss = 0	//Brutal damage caused by brute force (punching, being clubbed by a toolbox ect... this also accounts for pressure damage)
-	var/oxyloss = 0	//Oxygen depravation damage (no air in lungs)
+	var/oxyloss = 0	//Oxygen deprivation damage (no air in lungs)
 	var/toxloss = 0	//Toxic damage caused by being poisoned or radiated
 	var/fireloss = 0	//Burn damage caused by being way too hot, too cold or burnt.
 	var/cloneloss = 0	//Damage caused by being cloned or ejected from the cloner early. slimes also deal cloneloss damage to victims
 	var/brainloss = 0	//'Retardation' damage caused by someone hitting you in the head with a bible or being infected with brainrot.
 	var/staminaloss = 0 //Stamina damage, or exhaustion. You recover it slowly naturally, and are stunned if it gets too high. Holodeck and hallucinations deal this.
+
 
 
 	var/last_special = 0 //Used by the resist verb, likely used to prevent players from bypassing next_move by logging in/out.

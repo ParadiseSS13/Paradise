@@ -1,3 +1,20 @@
+/mob/living/silicon/robot/death(gibbed)
+	. = ..()
+	if(!.)	return
+	if(camera && camera.status)
+		camera.toggle_cam(src, 0)
+
+	update_headlamp(1) //So borg lights are disabled when killed.
+
+	if(in_contents_of(/obj/machinery/recharge_station))//exit the recharge station
+		var/obj/machinery/recharge_station/RC = loc
+		RC.go_out()
+
+	update_icons()
+
+	sql_report_cyborg_death(src)
+
+
 /mob/living/silicon/robot/gib()
 	//robots don't die when gibbed. instead they drop their MMI'd brain
 	var/atom/movable/overlay/animation = null
@@ -43,29 +60,3 @@
 	spawn(15)
 		if(animation)	qdel(animation)
 		if(src)			qdel(src)
-
-
-/mob/living/silicon/robot/death(gibbed)
-	if(stat == DEAD)	return
-	if(!gibbed)
-		emote("deathgasp")
-	stat = DEAD
-	update_canmove()
-	if(camera)
-		camera.status = 0
-	update_headlamp(1) //So borg lights are disabled when killed.
-
-	if(in_contents_of(/obj/machinery/recharge_station))//exit the recharge station
-		var/obj/machinery/recharge_station/RC = loc
-		RC.go_out()
-
-	sight |= SEE_TURFS|SEE_MOBS|SEE_OBJS
-	see_in_dark = 8
-	see_invisible = SEE_INVISIBLE_LEVEL_TWO
-	update_icons()
-	timeofdeath = world.time
-	if(mind)	mind.store_memory("Time of death: [worldtime2text(timeofdeath)]", 0)
-
-	sql_report_cyborg_death(src)
-
-	return ..(gibbed)

@@ -322,10 +322,15 @@ Class Procs:
 /obj/machinery/CouldNotUseTopic(var/mob/user)
 	usr.unset_machine()
 
-/obj/machinery/proc/dropContents()//putting for swarmers, occupent code commented out, someone can use later.
+/obj/machinery/proc/dropContents()
 	var/turf/T = get_turf(src)
-	for(var/atom/movable/AM in contents)
-		AM.forceMove(T)
+	for(var/mob/living/L in src)
+		L.loc = T
+		L.reset_perspective(null)
+		L.update_canmove()
+		. += L
+	// Rest of the stuff doesn't get `forceMove`
+	T.contents += contents
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 

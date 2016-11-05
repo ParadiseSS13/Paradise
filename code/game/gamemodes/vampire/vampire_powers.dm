@@ -185,7 +185,7 @@
 				to_chat(target, "<span class='warning'>You find yourself unable to move and barely able to speak.</span>")
 				target.Weaken(10)
 				target.Stun(10)
-				target.stuttering = 10
+				target.Stuttering(10)
 		else
 			revert_cast(usr)
 			to_chat(usr, "<span class='warning'>You broke your gaze.</span>")
@@ -224,7 +224,7 @@
 			continue
 		target.Stun(5)
 		target.Weaken(5)
-		target.stuttering = 20
+		target.Stuttering(20)
 		to_chat(target, "<span class='warning'>You are blinded by [usr]'s glare.</span>")
 
 /obj/effect/proc_holder/spell/vampire/self/shapeshift
@@ -253,7 +253,7 @@
 	for(var/mob/living/carbon/C in hearers(4))
 		if(C == usr)
 			continue
-		if(ishuman(C) && (C:l_ear || C:r_ear) && istype((C:l_ear || C:r_ear), /obj/item/clothing/ears/earmuffs))
+		if(!C.can_hear())
 			continue
 		if(!affects(C))
 			continue

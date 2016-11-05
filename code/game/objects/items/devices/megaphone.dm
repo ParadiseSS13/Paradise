@@ -19,7 +19,7 @@
 	if(!ishuman(user))
 		to_chat(user, "\red You don't know how to use this!")
 		return
-	if(user.silent)
+	if(!user.can_speak())
 		to_chat(user, "<span class='warning'>You find yourself unable to speak at all.</span>")
 		return
 	if(ishuman(user))

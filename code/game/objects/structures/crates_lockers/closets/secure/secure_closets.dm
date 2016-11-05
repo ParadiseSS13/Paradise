@@ -60,7 +60,7 @@
 		src.locked = !src.locked
 		playsound(src.loc, 'sound/machines/click.ogg', 15, 1, -3)
 		for(var/mob/O in viewers(user, 3))
-			if((O.client && !( O.blinded )))
+			if((O.client && O.can_see()))
 				to_chat(O, "<span class='notice'>The locker has been [locked ? null : "un"]locked by [user].</span>")
 		update_icon()
 	else

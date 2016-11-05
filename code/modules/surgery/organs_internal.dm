@@ -26,7 +26,7 @@
 /datum/surgery/organ_manipulation/can_start(mob/user, mob/living/carbon/target)
 	if(istype(target,/mob/living/carbon/human))
 		var/mob/living/carbon/human/H = target
-		var/obj/item/organ/external/affected = H.get_organ(user.zone_sel.selecting)
+		var/obj/item/organ/external/affected = H.get_organ(user.zone_selected)
 		if(!affected)
 			// I'd like to see you do surgery on LITERALLY NOTHING
 			return 0
@@ -39,7 +39,7 @@
 /datum/surgery/organ_manipulation_boneless/can_start(mob/user, mob/living/carbon/target)
 	if(istype(target,/mob/living/carbon/human))
 		var/mob/living/carbon/human/H = target
-		var/obj/item/organ/external/affected = H.get_organ(user.zone_sel.selecting)
+		var/obj/item/organ/external/affected = H.get_organ(user.zone_selected)
 
 		if(affected && (affected.status & ORGAN_ROBOT))
 			return 0//no operating on robotic limbs in an organic surgery
@@ -212,11 +212,11 @@
 				if(I.robotic < 2 && !istype (tool, /obj/item/stack/nanopaste))
 					user.visible_message("<span class='notice'> [user] treats damage to [target]'s [I.name] with [tool_name].</span>", \
 					"<span class='notice'> You treat damage to [target]'s [I.name] with [tool_name].</span>" )
-					I.damage = 0
+					I.set_damage(0)
 				else if(I.robotic >= 2 && istype (tool, /obj/item/stack/nanopaste))
 					user.visible_message("<span class='notice'> [user] treats damage to [target]'s [I.name] with [tool_name].</span>", \
 					"<span class='notice'> You treat damage to [target]'s [I.name] with [tool_name].</span>" )
-					I.damage = 0
+					I.set_damage(0)
 		//return 1
 	else if(current_type == "insert")
 		I = tool

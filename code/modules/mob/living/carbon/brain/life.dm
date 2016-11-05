@@ -1,4 +1,4 @@
-/mob/living/carbon/brain/handle_mutations_and_radiation()
+/mob/living/carbon/brain/handle_radiation()
 	if(radiation)
 		if(radiation > 100)
 			radiation -= 3
@@ -47,21 +47,6 @@
 		//adjustFireLoss(2.5*discomfort)
 		adjustFireLoss(5.0*discomfort)
 
-/mob/living/carbon/brain/handle_regular_status_updates()
-	updatehealth()
-
-	if(stat == DEAD)
-		blinded = 1
-		SetSilence(0)
-	else
-		if(!container && (health < config.health_threshold_dead || ((world.time - timeofhostdeath) > config.revival_brain_life)))
-			death()
-			blinded = 1
-			SetSilence(0)
-			return 1
-
-		. = 1
-
 /mob/living/carbon/brain/handle_vision()
 	..()
 
@@ -77,7 +62,6 @@
 		sight &= ~SEE_OBJS
 		see_in_dark = 2
 		see_invisible = SEE_INVISIBLE_LIVING
-	handle_hud_icons_health()
 
 /mob/living/carbon/brain/breathe()
 	return

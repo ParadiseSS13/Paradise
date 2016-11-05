@@ -13,6 +13,12 @@
 	var/max_grown = 200
 	var/time_of_birth
 
+	// Messages
+	death_message = "lets out a waning high-pitched cry."
+
+	// Sounds
+	death_sound = null
+
 //This is fine right now, if we're adding organ specific damage this needs to be updated
 /mob/living/carbon/alien/larva/New()
 	var/datum/reagents/R = new/datum/reagents(100)
@@ -71,7 +77,7 @@
 		amount_grown = min(amount_grown + 1, max_grown)
 	..(amount)
 
-
+//NOTE: Oh no, copypasta
 /mob/living/carbon/alien/larva/ex_act(severity)
 	..()
 
@@ -192,6 +198,7 @@
 				playsound(loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
 				visible_message("<span class='danger'>[M] has attempted to kick [src]!</span>", \
 						"<span class='userdanger'>[M] has attempted to kick [src]!</span>")
+
 
 /mob/living/carbon/alien/larva/restrained()
 	return 0

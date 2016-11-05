@@ -48,10 +48,11 @@
 	ranged = 1
 
 /mob/living/simple_animal/hostile/hivebot/death(gibbed)
-	var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
-	s.set_up(3, 1, src)
-	s.start()
-	..()
+	. = ..()
+	if(.)
+		var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+		s.set_up(3, 1, src)
+		s.start()
 
 /mob/living/simple_animal/hostile/hivebot/tele//this still needs work
 	name = "Beacon"

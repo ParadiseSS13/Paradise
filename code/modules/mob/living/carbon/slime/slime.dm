@@ -67,14 +67,17 @@
 	..()
 
 /mob/living/carbon/slime/Destroy()
+	//NOTE: There's probably a more elegant way to go about this
 	for(var/obj/machinery/computer/camera_advanced/xenobio/X in machines)
 		if(src in X.stored_slimes)
 			X.stored_slimes -= src
 	return ..()
 
+// TODO: Make this consistent with other mobs (use update_icons)
 /mob/living/carbon/slime/regenerate_icons()
-	icon_state = "[colour] [is_adult ? "adult" : "baby"] slime"
-	overlays.len = 0
+	// Oh nooooo
+	icon_state = "[colour] [is_adult ? "adult" : "baby"] slime[stat == DEAD ? " dead" : ""]"
+	overlays.Cut()
 	if(mood)
 		overlays += image('icons/mob/slimes.dmi', icon_state = "aslime-[mood]")
 	..()

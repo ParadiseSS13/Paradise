@@ -142,29 +142,31 @@
 	set category = null
 	set name = "Enter DNA Scanner"
 
-	if(usr.stat != 0)
+	var/mob/living/user = usr
+	if(!istype(user))
 		return
-	if(usr.incapacitated()) //are you cuffed, dying, lying, stunned or other
+	if(user.incapacitated())
 		return
-	if(!ishuman(usr)) //Make sure they're a mob that has dna
-		to_chat(usr, "<span class='notice'>Try as you might, you can not climb up into the [src].</span>")
+	if(!ishuman(user)) //Make sure they're a mob that has dna
+		to_chat(user, "<span class='notice'>Try as you might, you can not climb up into the [src].</span>")
 		return
-	if(src.occupant)
-		to_chat(usr, "<span class='boldnotice'>The [src] is already occupied!</span>")
+	if(occupant)
+		to_chat(user, "<span class='boldnotice'>The [src] is already occupied!</span>")
 		return
-	if(usr.abiotic())
-		to_chat(usr, "<span class='boldnotice'>Subject cannot have abiotic items on.</span>")
+	if(user.abiotic())
+		to_chat(user, "<span class='boldnotice'>Subject cannot have abiotic items on.</span>")
 		return
-	usr.stop_pulling()
-	usr.client.perspective = EYE_PERSPECTIVE
-	usr.client.eye = src
-	usr.forceMove(src)
-	src.occupant = usr
-	src.icon_state = "scanner_occupied"
-	src.add_fingerprint(usr)
+	user.stop_pulling()
+	user.client.perspective = EYE_PERSPECTIVE
+	user.client.eye = src
+	user.forceMove(src)
+	occupant = user
+	icon_state = "scanner_occupied"
+	add_fingerprint(user)
 	return
 
-/obj/machinery/dna_scannernew/MouseDrop_T(atom/movable/O as mob|obj, mob/user as mob)
+/obj/machinery/dna_scannernew/MouseDrop_T(atom/movable/O as mob|obj, mob/living/user as mob)
+	// god is dead
 	if(!istype(O))
 		return
 	if(O.loc == user) //no you can't pull things out of your ass
@@ -173,7 +175,7 @@
 		return
 	if(O.anchored || get_dist(user, src) > 1 || get_dist(user, O) > 1 || user.contents.Find(src)) // is the mob anchored, too far away from you, or are you too far away from the source
 		return
-	if(!ismob(O)) //humans only
+	if(!ishuman(O)) //humans only
 		return
 	if(istype(O, /mob/living/simple_animal) || istype(O, /mob/living/silicon)) //animals and robutts dont fit
 		return
@@ -534,7 +536,7 @@
 			occupantData["isViableSubject"] = 0
 		occupantData["health"] = connected.occupant.health
 		occupantData["maxHealth"] = connected.occupant.maxHealth
-		occupantData["minHealth"] = config.health_threshold_dead
+		occupantData["minHealth"] = connected.occupant.min_health
 		occupantData["uniqueEnzymes"] = connected.occupant.dna.unique_enzymes
 		occupantData["uniqueIdentity"] = connected.occupant.dna.uni_identity
 		occupantData["structuralEnzymes"] = connected.occupant.dna.struc_enzymes

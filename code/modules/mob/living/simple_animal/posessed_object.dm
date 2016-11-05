@@ -92,8 +92,6 @@
 	forceMove(possessed_loc)
 	possessed_item.forceMove(src) // We'll keep the actual item inside of us until we die.
 
-	zone_sel = new /obj/screen/zone_sel(src) // Create a new zone selection item so the human attacks have something to reference.
-
 	name = possessed_item.name // Take on all the attributes of the item we've possessed.
 	real_name = name
 	desc = possessed_item.desc

@@ -19,7 +19,7 @@
 
 			//make vine zero start off fully matured
 			var/obj/effect/plant/vine = new(T,seed)
-			vine.health = vine.max_health
+			vine.health = vine.maxHealth
 			vine.mature_time = 0
 			vine.process()
 
@@ -51,7 +51,7 @@
 	pass_flags = PASSTABLE
 
 	var/health = 10
-	var/max_health = 100
+	var/maxHealth = 100
 	var/growth_threshold = 0
 	var/growth_type = 0
 	var/max_growth = 0
@@ -104,10 +104,10 @@
 		return
 
 	name = seed.display_name
-	max_health = round(seed.get_trait(TRAIT_ENDURANCE)/2)
+	maxHealth = round(seed.get_trait(TRAIT_ENDURANCE)/2)
 	if(seed.get_trait(TRAIT_SPREAD)==2)
 		max_growth = VINE_GROWTH_STAGES
-		growth_threshold = max_health/VINE_GROWTH_STAGES
+		growth_threshold = maxHealth/VINE_GROWTH_STAGES
 		icon = 'icons/obj/hydroponics_vines.dmi'
 		growth_type = 2 // Vines by default.
 		if(seed.get_trait(TRAIT_CARNIVOROUS) == 2)
@@ -119,7 +119,7 @@
 				growth_type = 4 // Mold
 	else
 		max_growth = seed.growth_stages
-		growth_threshold = max_health/seed.growth_stages
+		growth_threshold = maxHealth/seed.growth_stages
 
 	if(max_growth > 2 && prob(50))
 		max_growth-- //Ensure some variation in final sprite, makes the carpet of crap look less wonky.
@@ -274,4 +274,4 @@
 		die_off()
 
 /obj/effect/plant/proc/is_mature()
-	return (health >= (max_health/3) && world.time > mature_time)
+	return (health >= (maxHealth/3) && world.time > mature_time)

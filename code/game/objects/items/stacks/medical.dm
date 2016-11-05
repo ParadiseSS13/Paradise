@@ -24,7 +24,7 @@
 
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		var/obj/item/organ/external/affecting = H.get_organ(user.zone_sel.selecting)
+		var/obj/item/organ/external/affecting = H.get_organ(user.zone_selected)
 
 		if(!H.can_inject(user, 1))
 			return 1
@@ -48,7 +48,7 @@
 		if(!(critter.healable))
 			to_chat(user, "<span class='notice'>You cannot use [src] on [critter]!</span>")
 			return
-		else if (critter.health == critter.maxHealth)
+		else if (critter.health >= critter.maxHealth)
 			to_chat(user, "<span class='notice'>[critter] is at full health.</span>")
 			return
 		else if(heal_brute < 1)
@@ -83,7 +83,7 @@
 
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		var/obj/item/organ/external/affecting = H.get_organ(user.zone_sel.selecting)
+		var/obj/item/organ/external/affecting = H.get_organ(user.zone_selected)
 
 		if(affecting.open == 0)
 			var/bandaged = affecting.bandage()
@@ -129,7 +129,7 @@
 
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		var/obj/item/organ/external/affecting = H.get_organ(user.zone_sel.selecting)
+		var/obj/item/organ/external/affecting = H.get_organ(user.zone_selected)
 
 		if(affecting.open == 0)
 			if(!affecting.salve())
@@ -194,7 +194,7 @@
 
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		var/obj/item/organ/external/affecting = H.get_organ(user.zone_sel.selecting)
+		var/obj/item/organ/external/affecting = H.get_organ(user.zone_selected)
 		var/limb = affecting.name
 		if(!(affecting.limb_name in list("l_arm", "r_arm", "l_hand", "r_hand", "l_leg", "r_leg", "l_foot", "r_foot")))
 			to_chat(user, "<span class='danger'>You can't apply a splint there!</span>")

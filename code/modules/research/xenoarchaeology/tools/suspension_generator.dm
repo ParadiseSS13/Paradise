@@ -306,7 +306,7 @@
 
 	for(var/mob/M in T)
 		to_chat(M, "<span class='info'>You no longer feel like floating.</span>")
-		M.SetWeakened(min(M.weakened, 3))
+		M.Weaken(3)
 
 	src.visible_message("\blue [bicon(src)] [src] deactivates with a gentle shudder.")
 	qdel(suspension_field)

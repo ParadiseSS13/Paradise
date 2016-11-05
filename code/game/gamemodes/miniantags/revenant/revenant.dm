@@ -164,30 +164,31 @@
 	death()
 
 /mob/living/simple_animal/revenant/death()
-	..()
-	if(!revealed)
-		return
-	ghost_darkness_images -= ghostimage
-	updateallghostimages()
+	. = ..()
+	if(.)
+		if(!revealed)
+			return
+		ghost_darkness_images -= ghostimage
+		updateallghostimages()
 
-	to_chat(src, "<span class='revendanger'>NO! No... it's too late, you can feel your essence breaking apart...</span>")
-	notransform = 1
-	revealed = 1
-	invisibility = 0
-	playsound(src, 'sound/effects/screech.ogg', 100, 1)
-	visible_message("<span class='warning'>[src] lets out a waning screech as violet mist swirls around its dissolving body!</span>")
-	icon_state = "revenant_draining"
-	for(var/i = alpha, i > 0, i -= 10)
-		sleep(0.1)
-		alpha = i
-	visible_message("<span class='danger'>[src]'s body breaks apart into a fine pile of blue dust.</span>")
-	var/obj/item/weapon/ectoplasm/revenant/R = new (get_turf(src))
-	var/reforming_essence = essence_regen_cap //retain the gained essence capacity
-	R.essence = max(reforming_essence - 15 * perfectsouls, 75) //minus any perfect souls
-	R.client_to_revive = src.client //If the essence reforms, the old revenant is put back in the body
-	ghostize()
-	qdel(src)
-	return
+		to_chat(src, "<span class='revendanger'>NO! No... it's too late, you can feel your essence breaking apart...</span>")
+		notransform = 1
+		revealed = 1
+		invisibility = 0
+		playsound(src, 'sound/effects/screech.ogg', 100, 1)
+		visible_message("<span class='warning'>[src] lets out a waning screech as violet mist swirls around its dissolving body!</span>")
+		icon_state = "revenant_draining"
+		for(var/i = alpha, i > 0, i -= 10)
+			sleep(0.1)
+			alpha = i
+		visible_message("<span class='danger'>[src]'s body breaks apart into a fine pile of blue dust.</span>")
+		var/obj/item/weapon/ectoplasm/revenant/R = new (get_turf(src))
+		var/reforming_essence = essence_regen_cap //retain the gained essence capacity
+		R.essence = max(reforming_essence - 15 * perfectsouls, 75) //minus any perfect souls
+		R.client_to_revive = src.client //If the essence reforms, the old revenant is put back in the body
+		ghostize()
+		qdel(src)
+		return
 
 /mob/living/simple_animal/revenant/attackby(obj/item/W, mob/living/user, params)
 	if(istype(W, /obj/item/weapon/nullrod))

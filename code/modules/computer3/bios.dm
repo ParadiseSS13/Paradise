@@ -14,7 +14,7 @@
 		Call in topic() and interact().
 	*/
 	proc/interactable(var/mob/user)
-		if( !src || !user || stat || user.stat || user.lying || user.blinded )
+		if(!src || !user || stat || user.stat || user.lying || !user.can_see())
 			return 0
 		if(!program)
 			return 0

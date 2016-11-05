@@ -10,6 +10,8 @@
 	var/max_damage = 30
 	var/component_disabled = 0
 	var/mob/living/silicon/robot/owner
+	// Used to track state of working -> not working
+	var/is_operating = 1
 
 // The actual device object that has to be installed for this.
 /datum/robot_component/var/external_type = null
@@ -21,12 +23,14 @@
 	src.owner = R
 
 /datum/robot_component/proc/install()
+	activate_functionality()
+
 /datum/robot_component/proc/uninstall()
+	deactivate_functionality()
 
 /datum/robot_component/proc/destroy()
 	if(wrapped)
 		qdel(wrapped)
-
 
 	wrapped = new/obj/item/broken_device
 
@@ -41,6 +45,7 @@
 	electronics_damage += electronics
 
 	if(brute_damage + electronics_damage >= max_damage) destroy()
+	update_functionality()
 
 /datum/robot_component/proc/heal_damage(brute, electronics)
 	if(installed != 1)
@@ -49,9 +54,13 @@
 
 	brute_damage = max(0, brute_damage - brute)
 	electronics_damage = max(0, electronics_damage - electronics)
+	update_functionality()
 
 /datum/robot_component/proc/is_powered()
 	return (installed == 1) && (brute_damage + electronics_damage < max_damage) && (powered)
+
+/datum/robot_component/proc/is_functioning()
+	return installed == 1 && toggled && is_powered() && !component_disabled
 
 
 /datum/robot_component/proc/consume_power()
@@ -59,6 +68,20 @@
 		powered = 0
 		return
 	powered = 1
+
+/datum/robot_component/proc/activate_functionality()
+
+/datum/robot_component/proc/deactivate_functionality()
+
+// There, now we don't need to poll to apply component effects anymore
+/datum/robot_component/proc/update_functionality()
+	var/old_operating = is_operating
+	is_operating = is_functioning()
+	if(old_operating != is_operating)
+		if(is_operating)
+			activate_functionality()
+		else
+			deactivate_functionality()
 
 /datum/robot_component/armour
 	name = "armour plating"
@@ -69,6 +92,12 @@
 	name = "actuator"
 	external_type = /obj/item/robot_parts/robot_component/actuator
 	max_damage = 50
+
+/datum/robot_component/actuator/activate_functionality()
+	owner.update_stat()
+
+/datum/robot_component/actuator/deactivate_functionality()
+	owner.update_stat()
 
 /datum/robot_component/cell
 	name = "power cell"
@@ -83,6 +112,12 @@
 	external_type = /obj/item/robot_parts/robot_component/radio
 	max_damage = 40
 
+/datum/robot_component/radio/activate_functionality()
+	owner.radio.on = 1
+
+/datum/robot_component/radio/deactivate_functionality()
+	owner.radio.on = 0
+
 /datum/robot_component/binary_communication
 	name = "binary communication device"
 	external_type = /obj/item/robot_parts/robot_component/binary_communication_device
@@ -92,6 +127,12 @@
 	name = "camera"
 	external_type = /obj/item/robot_parts/robot_component/camera
 	max_damage = 40
+
+/datum/robot_component/camera/activate_functionality()
+	owner.update_blind_effects()
+
+/datum/robot_component/camera/deactivate_functionality()
+	owner.update_blind_effects()
 
 /datum/robot_component/diagnosis_unit
 	name = "self-diagnosis unit"
@@ -111,13 +152,15 @@
 
 /mob/living/silicon/robot/proc/is_component_functioning(module_name)
 	var/datum/robot_component/C = components[module_name]
-	return C && C.installed == 1 && C.toggled && C.is_powered() && !C.component_disabled
+	return C && C.is_functioning()
 
 /mob/living/silicon/robot/proc/disable_component(module_name, duration)
 	var/datum/robot_component/D = get_component(module_name)
 	D.component_disabled++
+	D.update_functionality()
 	spawn(duration)
 		D.component_disabled--
+		D.update_functionality()
 
 // Returns component by it's string name
 /mob/living/silicon/robot/proc/get_component(var/component_name)

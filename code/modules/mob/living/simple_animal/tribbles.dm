@@ -120,7 +120,8 @@ var/global/totaltribbles = 0   //global variable so it updates for all tribbles,
 		to_chat(user, "<span class='notice'>You fuse some recently cut tubes together, it should be able to reproduce again.</span>")
 
 
-
+// NOTE: If you're lifting this from another cage, why not make both a subtype of
+// a common class?
 //|| Tribble Cage - Lovingly lifted from the lamarr-cage ||
 /obj/structure/tribble_cage
 	name = "Lab Cage"
@@ -195,10 +196,7 @@ var/global/totaltribbles = 0   //global variable so it updates for all tribbles,
 	if(src.destroyed)
 		return
 	else
-		to_chat(usr, text("\blue You kick the lab cage."))
-		for(var/mob/O in oviewers())
-			if((O.client && !( O.blinded )))
-				to_chat(O, text("\red [] kicks the lab cage.", usr))
+		visible_message("<span class='warning'>[usr] kicks the lab cage.</span>","<span class='notice'>You kick the lab cage.</span>")
 		src.health -= 2
 		healthcheck()
 		return

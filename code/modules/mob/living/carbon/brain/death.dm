@@ -1,22 +1,18 @@
 /mob/living/carbon/brain/death(gibbed)
-	if(stat == DEAD)	return
+	. = ..()
+	if(!.)	return
 	if(!gibbed && container && istype(container, /obj/item/device/mmi))//If not gibbed but in a container.
-		for(var/mob/O in viewers(container, null))
-			O.show_message(text("<span class='danger'>[]'s MMI flatlines!</span>", src), 1, "\red You hear something flatline.", 2)
+		visible_message("<span class='danger'>[src]'s MMI flatlines!</span>", "<span class='warning'>You hear something flatline.</span>")
 		container.icon_state = "mmi_dead"
-	stat = DEAD
 
 	sight |= SEE_TURFS|SEE_MOBS|SEE_OBJS
 	see_in_dark = 8
 	see_invisible = SEE_INVISIBLE_LEVEL_TWO
 
-	timeofdeath = world.time
-	if(mind)	mind.store_memory("Time of death: [worldtime2text(timeofdeath)]", 0)	//mind. ?
-
-	return ..(gibbed)
 
 /mob/living/carbon/brain/gib()
-	death(1)
+	if(!death(1) && stat != DEAD)
+		return
 	var/atom/movable/overlay/animation = null
 	notransform = 1
 	canmove = 0

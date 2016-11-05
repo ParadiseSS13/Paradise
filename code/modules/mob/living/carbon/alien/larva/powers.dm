@@ -1,4 +1,4 @@
-
+// NOTE: Copypasta - Hiding should at some point be generalized
 /mob/living/carbon/alien/larva/verb/hide()
 	set name = "Hide"
 	set desc = "Allows to hide beneath tables or certain items. Toggled on or off."
@@ -9,16 +9,10 @@
 
 	if(layer != TURF_LAYER+0.2)
 		layer = TURF_LAYER+0.2
-		to_chat(src, text("<span class='noticealien'>You are now hiding.</span>"))
-		for(var/mob/O in oviewers(src, null))
-			if((O.client && !( O.blinded )))
-				to_chat(O, text("<B>[] scurries to the ground!</B>", src))
+		visible_message("<span class='warning'>[src] scurries to the ground!</span>","<span class='noticealien'>You are now hiding.</span>")
 	else
 		layer = MOB_LAYER
-		to_chat(src, text("\green You have stopped hiding."))
-		for(var/mob/O in oviewers(src, null))
-			if((O.client && !( O.blinded )))
-				to_chat(O, text("[] slowly peaks up from the ground...", src))
+		visible_message("<span class='warning'>[src] slowly peeks up from the ground...</span>","<span class='noticealien'>You have stopped hiding.</span>")
 
 /mob/living/carbon/alien/larva/verb/evolve()
 	set name = "Evolve"

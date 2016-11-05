@@ -43,7 +43,7 @@
 	. = ..()
 	if(stat == UNCONSCIOUS)
 		if(ckey || prob(1))
-			stat = CONSCIOUS
+			WakeUp()
 			icon_state = "mouse_[mouse_color]"
 			wander = 1
 		else if(prob(5))
@@ -53,7 +53,7 @@
 	..()
 
 	if(prob(0.5))
-		stat = UNCONSCIOUS
+		KnockOut()
 		icon_state = "mouse_[mouse_color]_sleep"
 		wander = 0
 		speak_chance = 0
@@ -68,11 +68,13 @@
 	desc = "It's a small [mouse_color] rodent, often seen hiding in maintenance areas and making a nuisance of itself."
 
 /mob/living/simple_animal/mouse/proc/splat()
-	src.health = 0
-	src.stat = DEAD
-	src.icon_dead = "mouse_[mouse_color]_splat"
-	src.icon_state = "mouse_[mouse_color]_splat"
+	health = 0
+	death()
+	icon_dead = "mouse_[mouse_color]_splat"
+	icon_state = "mouse_[mouse_color]_splat"
 	layer = MOB_LAYER
+
+	// Yuck >:(
 	if(client)
 		client.time_died_as_mouse = world.time
 
@@ -86,14 +88,14 @@
 /mob/living/simple_animal/mouse/Move(var/dir)
 
 	var/turf/target_turf = get_step(src,dir)
-	//CanReachThrough(src.loc, target_turf, src)
+	//CanReachThrough(loc, target_turf, src)
 	var/can_fit_under = 0
 	if(target_turf.ZCanPass(get_turf(src),1))
 		can_fit_under = 1
 
 	..(dir)
 	if(can_fit_under)
-		src.loc = target_turf
+		loc = target_turf
 	for(var/d in cardinal)
 		var/turf/O = get_step(T,d)
 		//Simple pass check.
@@ -117,10 +119,11 @@
 	..()
 
 /mob/living/simple_animal/mouse/death(gibbed)
-	layer = MOB_LAYER
-	if(client)
-		client.time_died_as_mouse = world.time
-	..()
+	. = ..()
+	if(.)
+		layer = MOB_LAYER
+		if(client)
+			client.time_died_as_mouse = world.time
 
 /*
  * Mouse types

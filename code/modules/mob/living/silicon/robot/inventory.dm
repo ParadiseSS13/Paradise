@@ -17,6 +17,7 @@
 	if(istype(O,/obj/item/borg/sight))
 		var/obj/item/borg/sight/S = O
 		sight_mode &= ~S.sight_mode
+		update_sight() // immediate effect
 
 	if(client)
 		client.screen -= O
@@ -37,6 +38,7 @@
 		inv3.icon_state = "inv3"
 	if(hud_used)
 		hud_used.update_robot_modules_display()
+	update_items()
 	return 1
 
 /mob/living/silicon/robot/proc/activate_module(var/obj/item/O)
@@ -59,8 +61,6 @@
 		O.plane = HUD_PLANE
 		O.screen_loc = inv1.screen_loc
 		contents += O
-		if(istype(module_state_1,/obj/item/borg/sight))
-			sight_mode |= module_state_1:sight_mode
 	else if(!module_state_2)
 		O.mouse_opacity = initial(O.mouse_opacity)
 		module_state_2 = O
@@ -68,8 +68,6 @@
 		O.plane = HUD_PLANE
 		O.screen_loc = inv2.screen_loc
 		contents += O
-		if(istype(module_state_2,/obj/item/borg/sight))
-			sight_mode |= module_state_2:sight_mode
 	else if(!module_state_3)
 		O.mouse_opacity = initial(O.mouse_opacity)
 		module_state_3 = O
@@ -77,11 +75,20 @@
 		O.plane = HUD_PLANE
 		O.screen_loc = inv3.screen_loc
 		contents += O
-		if(istype(module_state_3,/obj/item/borg/sight))
-			sight_mode |= module_state_3:sight_mode
 	else
-		to_chat(src, "You need to disable a module first!")
-	src.update_icons()
+		to_chat(src, "<span class='warning'>You need to disable a module first!</span>")
+		return
+	// If this returned 1, then the thing we tried to equip immediately fell off
+	// Aren't instant updates fun?
+	if(update_module_damage())
+		return
+	// If we got here, `O` equipped successfully
+	if(istype(O, /obj/item/borg/sight))
+		var/obj/item/borg/sight/S = O
+		sight_mode |= S.sight_mode
+		update_sight()
+	update_items()
+	update_icons()
 
 /mob/living/silicon/robot/proc/uneq_active()
 	uneq_module(module_active)

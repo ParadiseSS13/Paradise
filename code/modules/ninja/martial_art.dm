@@ -95,7 +95,7 @@
 		var/I = 0
 		while(I < 20) // Loop to process the silence for the person being strangled so we don't have to add 20 silence all at once.
 			if(G == A.get_active_hand() && G.state >= GRAB_NECK) // Grab must be in the user's active hand for the duration of the strangle.
-				D.silent += 1
+				D.AdjustSilence(1)
 				D.adjustOxyLoss(1)
 			else
 				D.visible_message("<span class='warning'>[A] loses his grip on [D]'s neck!</span>", \

@@ -45,7 +45,7 @@
 			//nothing
 		if(21 to INFINITY)
 			if(prob(current_cycle-10))
-				M.disabilities &= ~NEARSIGHTED
+				M.CureNearsighted()
 	..()
 
 /datum/reagent/drink/doctor_delight

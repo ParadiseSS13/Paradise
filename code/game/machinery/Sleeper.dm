@@ -144,7 +144,7 @@
 		occupantData["stat"] = occupant.stat
 		occupantData["health"] = occupant.health
 		occupantData["maxHealth"] = occupant.maxHealth
-		occupantData["minHealth"] = config.health_threshold_dead
+		occupantData["minHealth"] = occupant.min_health
 		occupantData["bruteLoss"] = occupant.getBruteLoss()
 		occupantData["oxyLoss"] = occupant.getOxyLoss()
 		occupantData["toxLoss"] = occupant.getToxLoss()
@@ -538,15 +538,16 @@
 	set name = "Enter Sleeper"
 	set category = "Object"
 	set src in oview(1)
-	if(usr.stat != 0 || !(ishuman(usr)))
+	if(!(ishuman(usr)))
+		return
+	var/mob/living/carbon/human/user = usr
+	if(user.incapacitated()) //are you cuffed, dying, lying, stunned or other
 		return
 	if(src.occupant)
 		to_chat(usr, "<span class='boldnotice'>The sleeper is already occupied!</span>")
 		return
 	if(panel_open)
 		to_chat(usr, "<span class='boldnotice'>Close the maintenance panel first.</span>")
-		return
-	if(usr.incapacitated()) //are you cuffed, dying, lying, stunned or other
 		return
 	for(var/mob/living/carbon/slime/M in range(1,usr))
 		if(M.Victim == usr)

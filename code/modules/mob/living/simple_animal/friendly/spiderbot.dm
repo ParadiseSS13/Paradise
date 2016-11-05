@@ -44,7 +44,6 @@
 	del_on_death = 1
 
 /mob/living/simple_animal/spiderbot/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
-
 	if(istype(O, /obj/item/device/mmi) || istype(O, /obj/item/device/mmi/posibrain))
 		var/obj/item/device/mmi/B = O
 		if(src.mmi) //There's already a brain in it.
@@ -128,19 +127,7 @@
 			return 0
 
 	else
-		if(O.force)
-			var/damage = O.force
-			if(O.damtype == STAMINA)
-				damage = 0
-			adjustBruteLoss(damage)
-			for(var/mob/M in viewers(src, null))
-				if((M.client && !( M.blinded )))
-					M.show_message("\red \b [src] has been attacked with the [O] by [user]. ")
-		else
-			to_chat(usr, "\red This weapon is ineffective, it does no damage.")
-			for(var/mob/M in viewers(src, null))
-				if((M.client && !( M.blinded )))
-					M.show_message("\red [user] gently taps [src] with the [O]. ")
+		..()
 
 /mob/living/simple_animal/spiderbot/emag_act(user as mob)
 	if(emagged)
@@ -164,9 +151,7 @@
 		src.name = "Spider-bot ([M.brainmob.name])"
 
 /mob/living/simple_animal/spiderbot/proc/explode() //When emagged.
-	for(var/mob/M in viewers(src, null))
-		if((M.client && !( M.blinded )))
-			M.show_message("\red [src] makes an odd warbling noise, fizzles, and explodes.")
+	visible_message("<span class='danger'>[src] makes an odd warbling noise, fizzles, and explodes.</span>")
 	explosion(get_turf(loc), -1, -1, 3, 5)
 	eject_brain()
 	death()
@@ -208,13 +193,14 @@
 	..()
 
 /mob/living/simple_animal/spiderbot/death(gibbed)
-	if(camera)
-		camera.status = 0
+	. = ..()
+	if(.)
+		if(camera)
+			camera.status = 0
 
-	if(held_item)
-		held_item.forceMove(src.loc)
-		held_item = null
-	..()
+		if(held_item)
+			held_item.forceMove(src.loc)
+			held_item = null
 
 //Cannibalized from the parrot mob. ~Zuhayr
 

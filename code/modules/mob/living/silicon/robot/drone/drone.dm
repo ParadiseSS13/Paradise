@@ -15,8 +15,10 @@
 	req_access = list(access_engine, access_robotics)
 	ventcrawler = 2
 	magpulse = 1
-	
+
 	default_language = "Drone"
+	modules_stick_when_hurt = 1
+	mob_size = MOB_SIZE_TINY
 
 	// We need to keep track of a few module items so we don't need to do list operations
 	// every time we need them. These get set in New() after the module is chosen.
@@ -43,7 +45,7 @@
 	remove_language("Galactic Common")
 	add_language("Drone Talk", 1)
 	add_language("Drone", 1)
-	
+
 	// Disable the microphone wire on Drones
 	if(radio)
 		radio.wires.CutWireIndex(WIRE_TRANSMIT)
@@ -205,31 +207,21 @@
 //For some goddamn reason robots have this hardcoded. Redefining it for our fragile friends here.
 /mob/living/silicon/robot/drone/updatehealth()
 	if(status_flags & GODMODE)
-		health = 35
-		stat = CONSCIOUS
+		health = maxHealth
+		if(stat != CONSCIOUS)
+			update_revive()
 		return
-	health = 35 - (getBruteLoss() + getFireLoss())
+	health = maxHealth - (getBruteLoss() + getFireLoss())
+	update_stat()
 	return
 
-//Easiest to check this here, then check again in the robot proc.
-//Standard robots use config for crit, which is somewhat excessive for these guys.
-//Drones killed by damage will gib.
-/mob/living/silicon/robot/drone/handle_regular_status_updates()
-
-	if(health <= -35 && src.stat != DEAD)
-		timeofdeath = world.time
-		death() //Possibly redundant, having trouble making death() cooperate.
-		gib()
-		return
-	return ..() // If you don't return anything here, you won't update status effects, like weakening
 
 /mob/living/silicon/robot/drone/death(gibbed)
-
-	if(module)
-		var/obj/item/weapon/gripper/G = locate(/obj/item/weapon/gripper) in module
-		if(G) G.drop_item()
-
-	..(gibbed)
+	. = ..()
+	if(.)
+		if(module)
+			var/obj/item/weapon/gripper/G = locate(/obj/item/weapon/gripper) in module
+			if(G) G.drop_item()
 
 
 //CONSOLE PROCS

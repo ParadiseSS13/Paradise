@@ -197,9 +197,10 @@
 	return
 
 /mob/living/simple_animal/hostile/asteroid/goldgrub/death(gibbed)
-	alerted = 0
-	Reward()
-	..()
+	. = ..()
+	if(.)
+		alerted = 0
+		Reward()
 
 /mob/living/simple_animal/hostile/asteroid/goldgrub/adjustHealth(damage)
 	idle_vision_range = 9

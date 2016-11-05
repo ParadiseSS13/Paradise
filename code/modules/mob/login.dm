@@ -28,9 +28,8 @@
 	player_list |= src
 	update_Login_details()
 	world.update_status()
-
-	client.images = null				//remove the images such as AIs being unable to see runes
 	client.screen = list()				//remove hud items just in case
+	client.images = null				//remove the images such as AIs being unable to see runes
 	if(client.click_intercept)
 		client.click_intercept.quit() // Let's not keep any old click_intercepts
 

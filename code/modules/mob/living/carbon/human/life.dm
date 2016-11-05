@@ -1,8 +1,5 @@
 //This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:32
 
-#define TINT_IMPAIR 2			//Threshold of tint level to apply weld mask overlay
-#define TINT_BLIND 3			//Threshold of tint level to obscure vision fully
-
 /mob/living/carbon/human
 
 	var/pressure_alert = 0
@@ -12,11 +9,9 @@
 	var/exposedtimenow = 0
 	var/firstexposed = 0
 	var/heartbeat = 0
-	var/tinttotal = 0				// Total level of visually impairing items
 
 /mob/living/carbon/human/Life()
 	fire_alert = 0 //Reset this here, because both breathe() and handle_environment() have a chance to set it.
-	tinttotal = tintcheck() //here as both hud updates and status updates call it
 	life_tick++
 
 	in_stasis = 0
@@ -27,8 +22,8 @@
 			in_stasis = 1
 
 	voice = GetVoice()
-
-	if(..() && !in_stasis)
+	. = ..()
+	if(. && !in_stasis)
 
 		if(check_mutations)
 			domutcheck(src,null)
@@ -44,6 +39,12 @@
 
 		if(!client)
 			species.handle_npc(src)
+
+		handle_organs()
+		handle_blood()
+		// If you're dirty, your gloves will become dirty, too.
+		if(gloves && germ_level > gloves.germ_level && prob(10))
+			gloves.germ_level += 1
 
 	if(stat == DEAD)
 		handle_decay()
@@ -78,6 +79,7 @@
 
 
 /mob/living/carbon/human/handle_disabilities()
+	..()
 	if(disabilities & EPILEPSY)
 		if((prob(1) && paralysis < 1))
 			visible_message("<span class='danger'>[src] starts having a seizure!</span>","<span class='alert'>You have a seizure!</span>")
@@ -94,7 +96,6 @@
 			drop_item()
 			emote("cough")
 	if(disabilities & TOURETTES)
-		speech_problem_flag = 1
 		if((prob(10) && paralysis <= 1))
 			Stun(10)
 			switch(rand(1, 3))
@@ -109,55 +110,49 @@
 			animate(pixel_x = initial(pixel_x) , pixel_y = initial(pixel_y), time = 1)
 
 	if(disabilities & NERVOUS)
-		speech_problem_flag = 1
 		if(prob(10))
 			Stuttering(10)
 
-	if(getBrainLoss() >= 60 && stat != DEAD)
-		speech_problem_flag = 1
-		if(prob(3))
-			var/list/s1 = list("IM A PONY NEEEEEEIIIIIIIIIGH",
-							   "without oxigen blob don't evoluate?",
-							   "CAPTAINS A COMDOM",
-							   "[pick("", "that damn traitor")] [pick("joerge", "george", "gorge", "gdoruge")] [pick("mellens", "melons", "mwrlins")] is grifing me HAL;P!!!",
-							   "can u give me [pick("telikesis","halk","eppilapse")]?",
-							   "THe saiyans screwed",
-							   "Bi is THE BEST OF BOTH WORLDS>",
-							   "I WANNA PET TEH monkeyS",
-							   "stop grifing me!!!!",
-							   "SOTP IT#")
+	if(stat != DEAD)
+		if(getBrainLoss() >= 100) //you lapse into a coma and die without immediate aid; RIP. -Fox
+			Weaken(20)
+			AdjustLoseBreath(10)
+			AdjustSilence(2)
+		else if(getBrainLoss() >= 60)
+			if(prob(3))
+				var/list/s1 = list("IM A PONY NEEEEEEIIIIIIIIIGH",
+								   "without oxigen blob don't evoluate?",
+								   "CAPTAINS A COMDOM",
+								   "[pick("", "that damn traitor")] [pick("joerge", "george", "gorge", "gdoruge")] [pick("mellens", "melons", "mwrlins")] is grifing me HAL;P!!!",
+								   "can u give me [pick("telikesis","halk","eppilapse")]?",
+								   "THe saiyans screwed",
+								   "Bi is THE BEST OF BOTH WORLDS>",
+								   "I WANNA PET TEH monkeyS",
+								   "stop grifing me!!!!",
+								   "SOTP IT#")
 
-			var/list/s2 = list("FUS RO DAH",
-							   "fucking 4rries!",
-							   "stat me",
-							   ">my face",
-							   "roll it easy!",
-							   "waaaaaagh!!!",
-							   "red wonz go fasta",
-							   "FOR TEH EMPRAH",
-							   "lol2cat",
-							   "dem dwarfs man, dem dwarfs",
-							   "SPESS MAHREENS",
-							   "hwee did eet fhor khayosss",
-							   "lifelike texture ;_;",
-							   "luv can bloooom",
-							   "PACKETS!!!")
-			switch(pick(1,2,3))
-				if(1)
-					say(pick(s1))
-				if(2)
-					say(pick(s2))
-				if(3)
-					emote("drool")
-
-	if(getBrainLoss() >= 100 && stat != 2) //you lapse into a coma and die without immediate aid; RIP. -Fox
-		Weaken(20)
-		AdjustLoseBreath(10)
-		AdjustSilence(2)
-
-	if(getBrainLoss() >= 120 && stat != 2) //they died from stupidity--literally. -Fox
-		visible_message("<span class='alert'><B>[src]</B> goes limp, their facial expression utterly blank.</span>")
-		death()
+				var/list/s2 = list("FUS RO DAH",
+								   "fucking 4rries!",
+								   "stat me",
+								   ">my face",
+								   "roll it easy!",
+								   "waaaaaagh!!!",
+								   "red wonz go fasta",
+								   "FOR TEH EMPRAH",
+								   "lol2cat",
+								   "dem dwarfs man, dem dwarfs",
+								   "SPESS MAHREENS",
+								   "hwee did eet fhor khayosss",
+								   "lifelike texture ;_;",
+								   "luv can bloooom",
+								   "PACKETS!!!")
+				switch(pick(1,2,3))
+					if(1)
+						say(pick(s1))
+					if(2)
+						say(pick(s2))
+					if(3)
+						emote("drool")
 
 /mob/living/carbon/human/proc/handle_stasis_bag()
 	// Handle side effects from stasis bag
@@ -169,13 +164,22 @@
 		// as cloneloss
 		adjustCloneLoss(0.1)
 
-/mob/living/carbon/human/handle_mutations_and_radiation()
+// /mob/living/carbon/human/handle_mutations_and_radiation()
+// & knuckles
+
+/mob/living/carbon/human/handle_mutations()
 	for(var/datum/dna/gene/gene in dna_genes)
 		if(!gene.block)
 			continue
 		if(gene.is_active(src))
-			speech_problem_flag = 1
 			gene.OnMobLife(src)
+
+	if(REGEN in mutations)
+		heal_overall_damage(0.1, 0.1)
+
+/mob/living/carbon/human/handle_gene_stability()
+	if(status_flags & GODMODE)
+		return
 	if(gene_stability < GENETIC_DAMAGE_STAGE_1)
 		var/instability = DEFAULT_GENE_STABILITY - gene_stability
 		if(prob(instability * 0.1))
@@ -194,7 +198,8 @@
 					if(gene_stability < GENETIC_DAMAGE_STAGE_3)
 						gib()
 
-	if(!(species.flags & RADIMMUNE))
+/mob/living/carbon/human/handle_radiation()
+	if(!(species.flags & RADIMMUNE) && !(status_flags & GODMODE))
 		if(radiation)
 
 			if(get_int_organ(/obj/item/organ/internal/nucleation/resonant_crystal))
@@ -265,8 +270,7 @@
 					if(istype(O)) O.add_autopsy_data("Radiation Poisoning", damage)
 
 /mob/living/carbon/human/breathe()
-
-	if((NO_BREATH in mutations) || (species && (species.flags & NO_BREATHE)) || reagents.has_reagent("lexorin"))
+	if((NO_BREATH in mutations) || (species && (species.flags & NO_BREATHE)) || reagents.has_reagent("lexorin") || (status_flags & GODMODE))
 		adjustOxyLoss(-5)
 		oxygen_alert = 0
 		toxins_alert = 0
@@ -324,7 +328,7 @@
 // USED IN DEATHWHISPERS
 /mob/living/carbon/human/proc/isInCrit()
 	// Health is in deep shit and we're not already dead
-	return health <= 0 && stat != 2
+	return health <= 0 && stat != DEAD
 
 
 /mob/living/carbon/human/get_breath_from_internal(volume_needed) //making this call the parent would be far too complicated
@@ -681,7 +685,7 @@
 				becomeFat()
 
 	// nutrition decrease
-	if(nutrition > 0 && stat != 2)
+	if(nutrition > 0 && stat != DEAD)
 		nutrition = max (0, nutrition - HUNGER_FACTOR)
 
 	if(nutrition > 450)
@@ -694,13 +698,8 @@
 				overeatduration -= 1 // Those with obesity gene take twice as long to unfat
 			else
 				overeatduration -= 2
-
-	if(drowsyness)
+	if(drowsy)
 		AdjustDrowsy(-1)
-		EyeBlurry(2)
-		if(prob(5))
-			AdjustSleeping(1)
-			Paralyse(5)
 
 	AdjustConfused(-1)
 	// decrement dizziness counter, clamped to 0
@@ -784,6 +783,14 @@
 		AdjustDrunk(-0.5)
 	return
 
+/mob/living/carbon/human/handle_drowsy()
+	. = ..()
+	// `EyeBlurry` should probably be worked into setting drowsy, somehow
+	EyeBlurry(2)
+	if(prob(5))
+		AdjustSleeping(1)
+		Paralyse(5)
+
 /mob/living/carbon/human/proc/has_booze() //checks if the human has ethanol or its subtypes inside
 	for(var/A in reagents.reagent_list)
 		var/datum/reagent/R = A
@@ -791,85 +798,33 @@
 			return 1
 	return 0
 
-/mob/living/carbon/human/handle_regular_status_updates()
-	if(status_flags & GODMODE)
-		return 0
-
+/mob/living/carbon/human/handle_status_effects()
 	. = ..()
 
-	if(.) //alive
-		if(REGEN in mutations)
-			heal_overall_damage(0.1, 0.1)
+	if(sleeping && !paralysis)
+		if(mind)
+			if(mind.vampire)
+				if(istype(loc, /obj/structure/closet/coffin))
+					adjustBruteLoss(-1)
+					adjustFireLoss(-1)
+					adjustToxLoss(-1)
 
-		if(paralysis)
-			blinded = 1
-			stat = UNCONSCIOUS
+/mob/living/carbon/human/handle_eyes_update()
+	//blindness
+	if(!(disabilities & BLIND) && !eyes_missing) // Disabled-blind, doesn't get better on its own
+		if(eye_blind)		       // Blindness, heals slowly over time
+			AdjustEyeBlind(-1)
 
-		else if(sleeping)
-			speech_problem_flag = 1
-
-			blinded = 1
-			stat = UNCONSCIOUS
-
-			if(mind)
-				if(mind.vampire)
-					if(istype(loc, /obj/structure/closet/coffin))
-						adjustBruteLoss(-1)
-						adjustFireLoss(-1)
-						adjustToxLoss(-1)
-
-		else if(status_flags & FAKEDEATH)
-			blinded = 1
-			stat = UNCONSCIOUS
-
-		if(embedded_flag && !(mob_master.current_cycle % 10))
-			var/list/E
-			E = get_visible_implants(0)
-			if(!E.len)
-				embedded_flag = 0
-
-
-		//Vision //god knows why this is here
-		var/obj/item/organ/vision
-		if(species.vision_organ)
-			vision = get_int_organ(species.vision_organ)
-
-		if(!species.vision_organ) // Presumably if a species has no vision organs, they see via some other means.
-			SetEyeBlind(0)
-			blinded =    0
-			SetEyeBlurry(0)
-
-		else if(!vision || vision.is_broken())   // Vision organs cut out or broken? Permablind.
-			EyeBlind(1)
-			blinded =    1
-			EyeBlurry(1)
-
-		else
-			//blindness
-			if(disabilities & BLIND) // Disabled-blind, doesn't get better on its own
-				blinded =    1
-
-			else if(eye_blind)		       // Blindness, heals slowly over time
-				AdjustEyeBlind(-1)
-				blinded =    1
-
-			else if(istype(glasses, /obj/item/clothing/glasses/sunglasses/blindfold))	//resting your eyes with a blindfold heals blurry eyes faster
+		else if(!eyes_permablurry)
+			if(istype(glasses, /obj/item/clothing/glasses/sunglasses/blindfold))	//resting your eyes with a blindfold heals blurry eyes faster
 				AdjustEyeBlurry(-3)
-				blinded =    1
-
-			//blurry sight
-			if(vision.is_bruised())   // Vision organs impaired? Permablurry.
-				EyeBlurry(1)
-
-			if(eye_blurry)	           // Blurry eyes heal slowly
+			else	           // Blurry eyes heal slowly
 				AdjustEyeBlurry(-1)
 
-
-		//Ears
-		if(disabilities & DEAF)	//disabled-deaf, doesn't get better on its own
-			EarDeaf(1)
-
-		else if(ear_deaf)			//deafness, heals slowly over time
+/mob/living/carbon/human/handle_ears_update()
+	//Ears
+	if(!(disabilities & DEAF))	//disabled-deaf, doesn't get better on its own
+		if(ear_deaf)			//deafness, heals slowly over time
 			AdjustEarDeaf(-1)
 
 		else if(istype(l_ear, /obj/item/clothing/ears/earmuffs) || istype(r_ear, /obj/item/clothing/ears/earmuffs))	//resting your ears with earmuffs heals ear damage faster
@@ -878,24 +833,6 @@
 
 		else if(ear_damage < 25)	//ear damage heals slowly under this threshold. otherwise you'll need earmuffs
 			AdjustEarDamage(-0.05)
-
-		if(flying)
-			animate(src, pixel_y = pixel_y + 5 , time = 10, loop = 1, easing = SINE_EASING)
-			animate(pixel_y = pixel_y - 5, time = 10, loop = 1, easing = SINE_EASING)
-
-		// If you're dirty, your gloves will become dirty, too.
-		if(gloves && germ_level > gloves.germ_level && prob(10))
-			gloves.germ_level += 1
-
-		if(!in_stasis)
-			handle_organs()
-			handle_blood()
-
-
-	else //dead
-		blinded = 1
-		SetSilence(0)
-
 
 /mob/living/carbon/human/handle_vision()
 	if(machine)
@@ -928,8 +865,8 @@
 
 	species.handle_vision(src)
 
-/mob/living/carbon/human/handle_hud_icons()
-	species.handle_hud_icons(src)
+/mob/living/carbon/human/update_health_hud()
+	species.update_health_hud(src)
 
 /mob/living/carbon/human/handle_random_events()
 	// Puke if toxloss is too high
@@ -972,13 +909,13 @@
 				hud_used.lingchemdisplay.invisibility = 101
 
 /mob/living/carbon/human/handle_shock()
-	..()
 	if(status_flags & GODMODE)
 		return 0	//godmode
 	if(species && species.flags & NO_PAIN)
 		return
+	..()
 
-	if(health <= config.health_threshold_softcrit)// health 0 makes you immediately collapse
+	if(health <= softcrit_health)// health 0 makes you immediately collapse
 		shock_stage = max(shock_stage, 61)
 
 	if(traumatic_shock >= 100)
@@ -1156,32 +1093,11 @@
 */
 
 
-/mob/living/carbon/human/handle_silent()
-	if(..())
-		speech_problem_flag = 1
-	return silent
-
-/mob/living/carbon/human/handle_slurring()
-	if(..())
-		speech_problem_flag = 1
-	return slurring
-
-/mob/living/carbon/human/handle_stunned()
-	if(..())
-		speech_problem_flag = 1
-	return stunned
-
-/mob/living/carbon/human/handle_stuttering()
-	if(..())
-		speech_problem_flag = 1
-	return stuttering
-
-
 /mob/living/carbon/human/proc/handle_heartattack()
 	if(!heart_attack)
 		return
 	else
-		AdjustLoseBreath(2, bound_lower = 0, bound_upper = 3)
+		LoseBreath(3)
 		adjustOxyLoss(5)
 		adjustBruteLoss(1)
 

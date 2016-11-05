@@ -21,7 +21,8 @@
 	embed = 0
 
 /obj/item/projectile/bullet/weakbullet/booze/on_hit(atom/target, blocked = 0)
-	if(..(target, blocked))
+	. = ..(target, blocked)
+	if(.)
 		var/mob/living/M = target
 		M.AdjustDizzy(20)
 		M.AdjustSlur(20)

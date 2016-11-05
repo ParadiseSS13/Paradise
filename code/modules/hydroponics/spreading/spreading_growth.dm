@@ -46,12 +46,12 @@
 	var/turf/simulated/T = get_turf(src)
 	if(istype(T))
 		health -= seed.handle_environment(T,T.return_air(),null,null,1)
-	if(health < max_health)
+	if(health < maxHealth)
 		health += rand(3,5)
 		refresh_icon()
-		if(health > max_health)
-			health = max_health
-	else if(health == max_health && !plant)
+		if(health > maxHealth)
+			health = maxHealth
+	else if(health == maxHealth && !plant)
 		plant = new(T,seed)
 		plant.dir = src.dir
 		plant.transform = src.transform
@@ -91,7 +91,7 @@
 
 	// We shouldn't have spawned if the controller doesn't exist.
 	check_health()
-	if(neighbors.len || health != max_health)
+	if(neighbors.len || health != maxHealth)
 		plant_controller.add_plant(src)
 
 /obj/effect/plant/proc/die_off()

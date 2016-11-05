@@ -58,6 +58,9 @@
 		animate(src, pixel_y = pixel_y + 5 , time = 10, loop = 1, easing = SINE_EASING)
 		animate(pixel_y = pixel_y - 5, time = 10, loop = 1, easing = SINE_EASING)
 
+/mob/proc/update_sight()
+	return
+
 /mob/proc/update_stat()
 	return
 

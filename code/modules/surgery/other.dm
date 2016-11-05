@@ -16,7 +16,7 @@
 /datum/surgery/infection/can_start(mob/user, mob/living/carbon/target)
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
-		var/obj/item/organ/external/affected = H.get_organ(user.zone_sel.selecting)
+		var/obj/item/organ/external/affected = H.get_organ(user.zone_selected)
 		if(!affected)
 			return 0
 		if(affected.status & ORGAN_ROBOT)
@@ -27,7 +27,7 @@
 /datum/surgery/bleeding/can_start(mob/user, mob/living/carbon/target)
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
-		var/obj/item/organ/external/affected = H.get_organ(user.zone_sel.selecting)
+		var/obj/item/organ/external/affected = H.get_organ(user.zone_selected)
 		if(!affected) return 0
 
 		var/internal_bleeding = 0
@@ -234,7 +234,7 @@
 	if(!is_thrall(target))
 		return 0
 	var/obj/item/organ/internal/brain/B = target.get_int_organ(/obj/item/organ/internal/brain)
-	var/obj/item/organ/external/affected = target.get_organ(user.zone_sel.selecting)
+	var/obj/item/organ/external/affected = target.get_organ(user.zone_selected)
 	if(!B)
 		// No brain to remove the tumor from
 		return 0
@@ -250,7 +250,7 @@
 	if(!is_thrall(target))
 		return 0
 	var/obj/item/organ/internal/brain/B = target.get_int_organ(/obj/item/organ/internal/brain)
-	var/obj/item/organ/external/affected = target.get_organ(user.zone_sel.selecting)
+	var/obj/item/organ/external/affected = target.get_organ(user.zone_selected)
 	if(!B)
 		// No brain to remove the tumor from
 		return 0

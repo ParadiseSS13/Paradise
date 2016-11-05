@@ -173,7 +173,7 @@
 /datum/reagent/omnizine/overdose_process(mob/living/M, severity)
 	var/effect = ..()
 	if(severity == 1) //lesser
-		M.stuttering += 1
+		M.AdjustStuttering(1)
 		if(effect <= 1)
 			M.visible_message("<span class='warning'>[M] suddenly cluches their gut!</span>")
 			M.emote("scream")
@@ -474,7 +474,7 @@
 			var/mob/living/carbon/human/H = M
 			var/obj/item/organ/internal/eyes/E = H.get_int_organ(/obj/item/organ/internal/eyes)
 			if(istype(E))
-				E.damage = max(E.damage-1, 0)
+				E.set_damage(E.damage-1)
 		M.AdjustEyeBlurry(-1)
 		M.AdjustEarDamage(-1)
 	if(prob(50))
@@ -760,11 +760,11 @@
 		M.adjustBruteLoss(-10*REM)
 		M.adjustFireLoss(-10*REM)
 		M.setStaminaLoss(0)
-		M.SetSlowed(0)
 		M.AdjustDizzy(-10)
 		M.AdjustDrowsy(-10)
 		M.SetConfused(0)
 		M.SetSleeping(0)
+		M.SetSlowed(0)
 		var/status = CANSTUN | CANWEAKEN | CANPARALYSE
 		M.status_flags &= ~status
 	else
@@ -1026,7 +1026,7 @@
 /datum/reagent/omnizine_diluted/overdose_process(mob/living/M, severity)
 	var/effect = ..()
 	if(severity == 1) //lesser
-		M.stuttering += 1
+		M.AdjustStuttering(1)
 		if(effect <= 1)
 			M.visible_message("<span class='warning'>[M] suddenly cluches their gut!</span>")
 			M.emote("scream")

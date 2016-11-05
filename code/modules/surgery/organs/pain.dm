@@ -1,11 +1,11 @@
-mob/var/list/pain_stored = list()
-mob/var/last_pain_message = ""
-mob/var/next_pain_time = 0
+/mob/var/list/pain_stored = list()
+/mob/var/last_pain_message = ""
+/mob/var/next_pain_time = 0
 
 // partname is the name of a body part
 // amount is a num from 1 to 100
-mob/living/carbon/proc/pain(var/partname, var/amount, var/force, var/burning = 0)
-	if(stat >= 2) return
+/mob/living/carbon/proc/pain(var/partname, var/amount, var/force, var/burning = 0)
+	if(stat == DEAD) return
 	if(reagents.has_reagent("sal_acid"))
 		return
 	if(reagents.has_reagent("morphine"))
@@ -18,7 +18,7 @@ mob/living/carbon/proc/pain(var/partname, var/amount, var/force, var/burning = 0
 		if(paralysis)
 			AdjustParalysis(-round(amount/10))
 	if(amount > 50 && prob(amount / 5))
-		src:drop_item()
+		drop_item()
 	var/msg
 	if(burning)
 		switch(amount)

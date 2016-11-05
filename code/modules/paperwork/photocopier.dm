@@ -309,7 +309,7 @@
 	src.add_fingerprint(user)
 	if(target == user && !user.incapacitated())
 		visible_message("<span class='warning'>[usr] jumps onto the photocopier!</span>")
-	else if(target != user && !user.restrained() && !user.stat && !user.weakened && !user.stunned && !user.paralysis)
+	else if(target != user && !user.incapacitated())
 		if(target.anchored) return
 		if(!ishuman(user)) return
 		visible_message("<span class='warning'>[usr] drags [target.name] onto the photocopier!</span>")

@@ -5,24 +5,18 @@
 	pressure_resistance = 8
 	var/datum/mind/mind
 
-	var/stat = 0 //Whether a mob is alive or dead. TODO: Move this to living - Nodrak
+	var/stat = CONSCIOUS //Whether a mob is among the living or the dead.
+
+	var/lying = 0
+	var/zone_selected = null
 
 	var/obj/screen/hands = null
-	var/obj/screen/pullin = null
-	var/obj/screen/i_select = null
-	var/obj/screen/m_select = null
-	var/obj/screen/healths = null
-	var/obj/screen/throw_icon = null
-
 	/*A bunch of this stuff really needs to go under their own defines instead of being globally attached to mob.
 	A variable should only be globally attached to turfs/objects/whatever, when it is in fact needed as such.
 	The current method unnecessarily clusters up the variable list, especially for humans (although rearranging won't really clean it up a lot but the difference will be noticable for other mobs).
 	I'll make some notes on where certain variable defines should probably go.
 	Changing this around would probably require a good look-over the pre-existing code.
 	*/
-	var/obj/screen/zone_sel/zone_sel = null
-	var/obj/screen/leap_icon = null
-	var/obj/screen/healthdoll/healthdoll = null
 
 	var/use_me = 1 //Allows all mobs to use the me verb by default, will have to manually specify they cannot
 	var/damageoverlaytemp = 0
@@ -30,6 +24,7 @@
 	var/lastattacker = null
 	var/lastattacked = null
 	var/attack_log = list( )
+	// Would be better if this supported more than 1 thing
 	var/obj/machinery/machine = null
 	var/other_mobs = null
 	var/memory = ""
@@ -38,16 +33,18 @@
 	var/notransform = null	//Carbon
 	var/other = 0.0
 	var/hand = null
+	/*
+	Cult-specific vars
+	*/
+
+	var/bhunger = 0			//Carbon
+	var/ajourn = 0
+
 	var/real_name = null
 	var/flavor_text = ""
 	var/med_record = ""
 	var/sec_record = ""
 	var/gen_record = ""
-	var/blinded = null
-	var/bhunger = 0			//Carbon
-	var/ajourn = 0
-	var/lying = 0
-	var/lying_prev = 0
 	var/canmove = 1
 	var/lastpuke = 0
 	var/unacidable = 0
@@ -66,6 +63,7 @@
 
 	var/bodytemperature = 310.055	//98.7 F
 	var/flying = 0
+	var/spinning = 0
 	var/charges = 0.0
 	var/nutrition = 400.0//Carbon
 
@@ -84,7 +82,13 @@
 	var/obj/item/clothing/mask/wear_mask = null//Carbon
 
 	var/seer = 0 //for cult//Carbon, probably Human
+
+	// To let a mob permanently have a different see_invisible level
 	var/see_override = 0
+
+	// A list of observers looking at this mob - used to let ghosts see what exactly
+	// someone is doing
+	var/list/observers = list()
 
 	var/datum/hud/hud_used = null
 

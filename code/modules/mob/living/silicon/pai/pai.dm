@@ -141,7 +141,7 @@
 	return 1
 
 /mob/living/silicon/pai/blob_act()
-	if(src.stat != 2)
+	if(src.stat != DEAD)
 		src.adjustBruteLoss(60)
 		src.updatehealth()
 		return 1
@@ -188,19 +188,18 @@
 
 /mob/living/silicon/pai/ex_act(severity)
 	..()
-
+	if(stat == DEAD)
+		return
+	// This all looks like overkill past 3.0
 	switch(severity)
 		if(1.0)
-			if(src.stat != 2)
-				adjustBruteLoss(100)
-				adjustFireLoss(100)
+			adjustBruteLoss(100)
+			adjustFireLoss(100)
 		if(2.0)
-			if(src.stat != 2)
-				adjustBruteLoss(60)
-				adjustFireLoss(60)
+			adjustBruteLoss(60)
+			adjustFireLoss(60)
 		if(3.0)
-			if(src.stat != 2)
-				adjustBruteLoss(30)
+			adjustBruteLoss(30)
 
 	return
 
@@ -234,27 +233,21 @@
 	switch(M.a_intent)
 
 		if(I_HELP)
-			for(var/mob/O in viewers(src, null))
-				if((O.client && !( O.blinded )))
-					O.show_message(text("\blue [M] caresses [src]'s casing with its scythe like arm."), 1)
+			visible_message("<span class='notice'>[M] caresses [src]'s casing with its scythe like arm.</span>")
 
 		else //harm
 			M.do_attack_animation(src)
 			var/damage = rand(10, 20)
 			if(prob(90))
 				playsound(src.loc, 'sound/weapons/slash.ogg', 25, 1, -1)
-				for(var/mob/O in viewers(src, null))
-					if((O.client && !( O.blinded )))
-						O.show_message(text("<span class='danger'>[] has slashed at []!</span>", M, src), 1)
+				visible_message("<span class='danger'>[M] has slashed at [src]!</span>")
 				if(prob(8))
 					flash_eyes(affect_silicon = 1)
 				src.adjustBruteLoss(damage)
 				src.updatehealth()
 			else
 				playsound(src.loc, 'sound/weapons/slashmiss.ogg', 25, 1, -1)
-				for(var/mob/O in viewers(src, null))
-					if((O.client && !( O.blinded )))
-						O.show_message(text("<span class='danger'>[] took a swipe at []!</span>", M, src), 1)
+				visible_message("<span class='danger'>[M] took a swipe at [src]!</span>")
 	return
 
 /mob/living/silicon/pai/proc/switchCamera(var/obj/machinery/camera/C)
@@ -263,7 +256,7 @@
 		src.unset_machine()
 		src.reset_view(null)
 		return 0
-	if(stat == 2 || !C.status || !(src.network in C.network)) return 0
+	if(stat == DEAD || !C.status || !(src.network in C.network)) return 0
 
 	// ok, we're alive, camera is good and in our network...
 
@@ -337,7 +330,7 @@
 	set category = "pAI Commands"
 	set name = "Unfold Chassis"
 
-	if(stat || sleeping || paralysis || weakened)
+	if(incapacitated())
 		return
 
 	if(loc != card)
@@ -375,7 +368,7 @@
 	set category = "pAI Commands"
 	set name = "Collapse Chassis"
 
-	if(stat || sleeping || paralysis || weakened)
+	if(incapacitated())
 		return
 
 	if(loc == card)

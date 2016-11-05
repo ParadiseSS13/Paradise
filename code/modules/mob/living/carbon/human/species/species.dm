@@ -505,13 +505,7 @@
 			H.seer = 0
 
 	//This checks how much the mob's eyewear impairs their vision
-	if(H.tinttotal >= TINT_IMPAIR)
-		if(tinted_weldhelh)
-			H.overlay_fullscreen("tint", /obj/screen/fullscreen/impaired, 2)
-		if(H.tinttotal >= TINT_BLIND)
-			H.EyeBlind(1)
-	else
-		H.clear_fullscreen("tint")
+	H.update_tint_effects()
 
 	var/minimum_darkness_view = INFINITY
 	if(H.glasses)
@@ -580,69 +574,45 @@
 	if(!H.client)
 		return 1
 
-	if(H.blinded || H.eye_blind)
-		H.overlay_fullscreen("blind", /obj/screen/fullscreen/blind)
-		H.throw_alert("blind", /obj/screen/alert/blind)
-	else
-		H.clear_fullscreen("blind")
-		H.clear_alert("blind")
+	H.update_blind_effects()
 
+	H.update_blurry_effects()
+	H.update_druggy_effects()
 
-	if(H.disabilities & NEARSIGHTED)	//this looks meh but saves a lot of memory by not requiring to add var/prescription
-		if(H.glasses)					//to every /obj/item
-			var/obj/item/clothing/glasses/G = H.glasses
-			if(G.prescription)
-				H.clear_fullscreen("nearsighted")
-			else
-				H.overlay_fullscreen("nearsighted", /obj/screen/fullscreen/impaired, 1)
-		else
-			H.overlay_fullscreen("nearsighted", /obj/screen/fullscreen/impaired, 1)
-	else
-		H.clear_fullscreen("nearsighted")
-
-	if(H.eye_blurry)
-		H.overlay_fullscreen("blurry", /obj/screen/fullscreen/blurry)
-	else
-		H.clear_fullscreen("blurry")
-
-	if(H.druggy)
-		H.overlay_fullscreen("high", /obj/screen/fullscreen/high)
-		H.throw_alert("high", /obj/screen/alert/high)
-	else
-		H.clear_fullscreen("high")
-		H.clear_alert("high")
-
-/datum/species/proc/handle_hud_icons(mob/living/carbon/human/H)
-	if(!H.client)
+/datum/species/proc/update_health_hud(mob/living/carbon/human/H)
+	if(!H.client || !H.hud_used)
 		return
-	if(H.healths)
+	if(H.hud_used.healths)
+		var/obj/screen/healths = H.hud_used.healths
 		if(H.stat == DEAD)
-			H.healths.icon_state = "health7"
+			healths.icon_state = "health7"
 		else
 			switch(H.hal_screwyhud)
-				if(1)	H.healths.icon_state = "health6"
-				if(2)	H.healths.icon_state = "health7"
-				if(5)	H.healths.icon_state = "health0"
+				if(1)	healths.icon_state = "health6"
+				if(2)	healths.icon_state = "health7"
+				if(5)	healths.icon_state = "health0"
 				else
-					switch(100 - ((flags & NO_PAIN) ? 0 : H.traumatic_shock) - H.staminaloss)
-						if(100 to INFINITY)		H.healths.icon_state = "health0"
-						if(80 to 100)			H.healths.icon_state = "health1"
-						if(60 to 80)			H.healths.icon_state = "health2"
-						if(40 to 60)			H.healths.icon_state = "health3"
-						if(20 to 40)			H.healths.icon_state = "health4"
-						if(0 to 20)				H.healths.icon_state = "health5"
-						else					H.healths.icon_state = "health6"
+					var/visible_health = 100 - ((flags & NO_PAIN) ? 0 : H.traumatic_shock) - H.staminaloss
+					switch(visible_health)
+						if(100 to INFINITY)		healths.icon_state = "health0"
+						if(80 to 100)			healths.icon_state = "health1"
+						if(60 to 80)			healths.icon_state = "health2"
+						if(40 to 60)			healths.icon_state = "health3"
+						if(20 to 40)			healths.icon_state = "health4"
+						if(0 to 20)				healths.icon_state = "health5"
+						else					healths.icon_state = "health6"
 
-	if(H.healthdoll)
+	// NOTE: This should probably be in its own proc, possibly on the healthdoll screen object itself
+	if(H.hud_used.healthdoll)
+		var/obj/screen/healthdoll/healthdoll = H.hud_used.healthdoll
+		healthdoll.icon_state = "healthdoll_DEAD"
 		if(H.stat == DEAD)
-			H.healthdoll.icon_state = "healthdoll_DEAD"
-			if(H.healthdoll.overlays.len)
-				H.healthdoll.overlays.Cut()
+			if(healthdoll.overlays.len)
+				healthdoll.overlays.Cut()
 		else
 			var/list/new_overlays = list()
-			var/list/cached_overlays = H.healthdoll.cached_healthdoll_overlays
+			var/list/cached_overlays = healthdoll.cached_healthdoll_overlays
 			// Use the dead health doll as the base, since we have proper "healthy" overlays now
-			H.healthdoll.icon_state = "healthdoll_DEAD"
 			for(var/obj/item/organ/external/O in H.organs)
 				var/damage = O.burn_dam + O.brute_dam
 				var/comparison = (O.max_damage/5)
@@ -658,9 +628,9 @@
 				if(damage > (comparison*4))
 					icon_num = 5
 				new_overlays += "[O.limb_name][icon_num]"
-			H.healthdoll.overlays += (new_overlays - cached_overlays)
-			H.healthdoll.overlays -= (cached_overlays - new_overlays)
-			H.healthdoll.cached_healthdoll_overlays = new_overlays
+			healthdoll.overlays += (new_overlays - cached_overlays)
+			healthdoll.overlays -= (cached_overlays - new_overlays)
+			healthdoll.cached_healthdoll_overlays = new_overlays
 
 	switch(H.nutrition)
 		if(NUTRITION_LEVEL_FULL to INFINITY)

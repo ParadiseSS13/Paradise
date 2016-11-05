@@ -9,6 +9,14 @@
 	if(..())
 		handle_nutrition()
 		handle_targets()
+
+		// Slimes slowly heal
+		if(prob(30))
+			adjustOxyLoss(-1)
+			adjustToxLoss(-1)
+			adjustFireLoss(-1)
+			adjustCloneLoss(-1)
+			adjustBruteLoss(-1)
 		if(!ckey)
 			handle_speech_and_mood()
 
@@ -24,7 +32,7 @@
 
 	AIproc = 1
 
-	while(AIproc && stat != 2 && (attacked || hungry || rabid || Victim))
+	while(AIproc && stat != DEAD && (attacked || hungry || rabid || Victim))
 		if(Victim) // can't eat AND have this little process at the same time
 			break
 
@@ -153,82 +161,16 @@
 
 	if(reagents)
 		reagents.metabolize(src)
-	src.updatehealth()
+	updatehealth()
 
 	return //TODO: DEFERRED
 
-/mob/living/carbon/slime/handle_regular_status_updates()
 
-	if(is_adult)
-		health = 200 - (getOxyLoss() + getToxLoss() + getFireLoss() + getBruteLoss() + getCloneLoss())
-	else
-		health = 150 - (getOxyLoss() + getToxLoss() + getFireLoss() + getBruteLoss() + getCloneLoss())
 
-	if(health < config.health_threshold_dead && stat != 2)
-		death()
-		return
+/mob/living/carbon/slime/handle_status_effects()
+	. = ..()
 
-	else if(src.health <= config.health_threshold_crit)
-
-		if(!src.reagents.has_reagent("epinephrine"))
-			src.adjustOxyLoss(10)
-
-		if(src.stat != DEAD)
-			src.stat = UNCONSCIOUS
-
-	if(prob(30)) //I think this is meant to allow slimes to starve to death
-		adjustOxyLoss(-1)
-		adjustToxLoss(-1)
-		adjustFireLoss(-1)
-		adjustCloneLoss(-1)
-		adjustBruteLoss(-1)
-
-	if(src.stat == DEAD)
-		src.lying = 1
-		src.blinded = 1
-	else
-		if(src.paralysis || src.stunned || src.weakened || (status_flags && FAKEDEATH)) //Stunned etc.
-			if(src.stunned > 0)
-				AdjustStunned(-1)
-				src.stat = 0
-			if(src.weakened > 0)
-				AdjustWeakened(-1)
-				src.lying = 0
-				src.stat = 0
-			if(src.paralysis > 0)
-				AdjustParalysis(-1)
-				src.blinded = 0
-				src.lying = 0
-				src.stat = 0
-
-		else
-			src.lying = 0
-			src.stat = 0
-
-	if(src.stuttering) src.stuttering = 0
-
-	if(src.eye_blind)
-		src.SetEyeBlind(0)
-		src.blinded = 1
-
-	if(src.ear_deaf > 0) SetEarDeaf(0)
-	if(src.ear_damage < 25)
-		SetEarDamage(0)
-
-	src.density = !( src.lying )
-
-	if(src.disabilities & BLIND)
-		src.blinded = 1
-	if(src.disabilities & DEAF)
-		EarDeaf(1)
-
-	if(src.eye_blurry > 0)
-		SetEyeBlurry(0)
-
-	if(src.druggy > 0)
-		SetDruggy(0)
-
-	return 1
+	SetDruggy(0)
 
 /mob/living/carbon/slime/proc/handle_nutrition()
 

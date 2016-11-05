@@ -730,7 +730,7 @@ obj/spacepod/proc/add_equipment(mob/user, var/obj/item/device/spacepod_equipment
 
 	var/fukkendisk = user.GetTypeInAllContents(/obj/item/weapon/disk/nuclear)
 
-	if(user.incapacitated()) //are you cuffed, dying, lying, stunned or other
+	if(user.incapacitated())
 		return 0
 	if(!ishuman(user))
 		return 0

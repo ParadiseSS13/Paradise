@@ -1,3 +1,12 @@
+/mob/New()
+	mob_list += src
+	if(stat == DEAD)
+		dead_mob_list += src
+	else
+		living_mob_list += src
+	prepare_huds()
+	..()
+
 /mob/Destroy()//This makes sure that mobs with clients/keys are not just deleted from the game.
 	mob_list -= src
 	dead_mob_list -= src
@@ -20,15 +29,6 @@
 			AA.viewers -= src
 		viewing_alternate_appearances = null
 	return ..()
-
-/mob/New()
-	mob_list += src
-	if(stat == DEAD)
-		dead_mob_list += src
-	else
-		living_mob_list += src
-	prepare_huds()
-	..()
 
 /atom/proc/prepare_huds()
 	for(var/hud in hud_possible)
@@ -62,22 +62,24 @@
 	if(!client)	return
 
 	if(type)
-		if(type & 1 && !can_see())//Vision related
+		if((type & 1) && !can_see())//Vision related
 			if(!( alt ))
 				return
 			else
 				msg = alt
 				type = alt_type
-		if(type & 2 && !can_hear())//Hearing related
+		if((type & 2) && !can_hear())//Hearing related
 			if(!( alt ))
 				return
 			else
 				msg = alt
 				type = alt_type
-				if(type & 1 && !can_see())
+				if((type & 1) && !can_see())
 					return
 	// Added voice muffling for Issue 41.
-	if(stat == UNCONSCIOUS || (sleeping > 0 && stat != DEAD))
+	if(stat == UNCONSCIOUS)
+		if(!(type & 2)) // non-audible
+			return
 		to_chat(src, "<I>... You can almost hear someone talking ...</I>")
 	else
 		to_chat(src, msg)
@@ -521,7 +523,7 @@ var/list/slot_equipment_priority = list( \
 	set name = "Examine"
 	set category = "IC"
 
-	if((is_blind(src) || usr.stat) && !isobserver(src))
+	if((!can_see() || usr.stat) && !isobserver(src))
 		to_chat(src, "<span class='notice'>Something is there but you can't see it.</span>")
 		return 1
 
@@ -887,8 +889,7 @@ var/list/slot_equipment_priority = list( \
 
 		src.pulling = AM
 		AM.pulledby = src
-		if(pullin)
-			pullin.update_icon(src)
+		update_pull_hud_icon()
 		if(ismob(AM))
 			var/mob/M = AM
 			if(!iscarbon(src))
@@ -904,8 +905,7 @@ var/list/slot_equipment_priority = list( \
 	if(pulling)
 		pulling.pulledby = null
 		pulling = null
-		if(pullin)
-			pullin.update_icon(src)
+		update_pull_hud_icon()
 
 /mob/proc/can_use_hands()
 	return
@@ -1018,7 +1018,7 @@ var/list/slot_equipment_priority = list( \
 	if(!canmove)						return 0
 	if(client.moving)					return 0
 	if(world.time < client.move_delay)	return 0
-	if(stat==2)							return 0
+	if(stat==DEAD)							return 0
 	if(anchored)						return 0
 	if(notransform)						return 0
 	if(restrained())					return 0
@@ -1067,14 +1067,14 @@ var/list/slot_equipment_priority = list( \
 /mob/proc/get_species()
 	return ""
 
-/mob/proc/get_visible_implants(var/class = 0)
-	var/list/visible_implants = list()
-	for(var/obj/item/O in embedded)
-		if(O.w_class > class)
-			visible_implants += O
-	return visible_implants
+/mob/proc/get_visible_implants()
+	return embedded.Copy()
 
-mob/proc/yank_out_object()
+// There is no system in place for damaging mobs if they have stuff embedded in them
+/mob/proc/get_damaging_implants()
+	return list()
+
+/mob/proc/yank_out_object()
 	set category = "Object"
 	set name = "Yank out object"
 	set desc = "Remove an embedded item at the cost of bleeding and pain."
@@ -1323,3 +1323,45 @@ mob/proc/yank_out_object()
 		if(F in target.faction)
 			return 1
 	return 0
+
+/mob/proc/reset_perspective(atom/A)
+	if(client)
+		if(istype(A, /atom/movable))
+			client.perspective = EYE_PERSPECTIVE
+			client.eye = A
+		else
+			// Focus on the original mob
+			if(isturf(loc))
+				client.eye = client.mob
+				client.perspective = MOB_PERSPECTIVE
+			else
+				client.perspective = EYE_PERSPECTIVE
+				client.eye = loc
+		return 1
+
+/mob/living/reset_perspective(atom/A)
+	if(..())
+		update_sight()
+		if(client.eye != src)
+			var/atom/AT = client.eye
+			AT.get_remote_view_fullscreens(src)
+		else
+			clear_fullscreen("remote_view", 0)
+		update_pipe_vision()
+
+/mob/dead/reset_perspective(atom/A)
+	if(client)
+		// Were we looking at a mob?
+		if(ismob(client.eye) && (client.eye != src))
+			var/mob/target = client.eye
+			if(target.observers)
+				// If so, remove this ghost from their "Observers" list
+				target.observers -= src
+				// If this empties the list, null it out
+				var/list/L = target.observers
+				if(!L.len)
+					target.observers = null
+	if(..())
+		if(hud_used)
+			client.screen = list()
+			hud_used.show_hud(hud_used.hud_version)

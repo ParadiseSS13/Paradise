@@ -90,8 +90,9 @@
 	UpdateMushroomCap()
 
 /mob/living/simple_animal/hostile/mushroom/death(gibbed)
-	..()
-	UpdateMushroomCap()
+	. = ..()
+	if(.)
+		UpdateMushroomCap()
 
 /mob/living/simple_animal/hostile/mushroom/proc/UpdateMushroomCap()
 	overlays.Cut()

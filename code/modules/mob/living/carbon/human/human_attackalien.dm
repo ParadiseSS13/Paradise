@@ -21,7 +21,7 @@
 				visible_message("<span class='danger'>[M] has lunged at [src]!</span>")
 				return 0
 
-			var/obj/item/organ/external/affecting = get_organ(ran_zone(M.zone_sel.selecting))
+			var/obj/item/organ/external/affecting = get_organ(ran_zone(M.zone_selected))
 			var/armor_block = run_armor_check(affecting, "melee")
 
 			playsound(loc, 'sound/weapons/slice.ogg', 25, 1, -1)
@@ -36,7 +36,7 @@
 		if(I_DISARM)
 			M.do_attack_animation(src)
 			if(prob(80))
-				var/obj/item/organ/external/affecting = get_organ(ran_zone(M.zone_sel.selecting))
+				var/obj/item/organ/external/affecting = get_organ(ran_zone(M.zone_selected))
 				playsound(loc, 'sound/weapons/pierce.ogg', 25, 1, -1)
 				apply_effect(5, WEAKEN, run_armor_check(affecting, "melee"))
 				visible_message("<span class='danger'>[M] has tackled down [src]!</span>")

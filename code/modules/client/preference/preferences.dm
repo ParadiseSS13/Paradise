@@ -2087,23 +2087,23 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 	if(disabilities & DISABILITY_FLAG_NEARSIGHTED)
 		character.dna.SetSEState(GLASSESBLOCK,1,1)
-		character.disabilities|=NEARSIGHTED
+		character.BecomeNearsighted()
 
 	if(disabilities & DISABILITY_FLAG_EPILEPTIC)
 		character.dna.SetSEState(EPILEPSYBLOCK,1,1)
-		character.disabilities|=EPILEPSY
+		character.BecomeEpilepsy()
 
 	if(disabilities & DISABILITY_FLAG_DEAF)
 		character.dna.SetSEState(DEAFBLOCK,1,1)
-		character.disabilities|=DEAF
+		character.BecomeDeaf()
 
 	if(disabilities & DISABILITY_FLAG_BLIND)
 		character.dna.SetSEState(BLINDBLOCK,1,1)
-		character.disabilities|=BLIND
+		character.BecomeBlind()
 
 	if(disabilities & DISABILITY_FLAG_MUTE)
 		character.dna.SetSEState(MUTEBLOCK,1,1)
-		character.disabilities |= MUTE
+		character.BecomeMute()
 
 	S.handle_dna(character)
 

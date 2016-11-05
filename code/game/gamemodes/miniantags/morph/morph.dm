@@ -125,16 +125,17 @@
 	morph_time = world.time + MORPH_COOLDOWN
 
 /mob/living/simple_animal/hostile/morph/death(gibbed)
-	if(morphed)
-		visible_message("<span class='warning'>[src] twists and dissolves into a pile of green flesh!</span>", \
-						"<span class='userdanger'>Your skin ruptures! Your flesh breaks apart! No disguise can ward off de--</span>")
-		restore()
-	if(gibbed)
-		for(var/atom/movable/AM in src)
-			AM.forceMove(loc)
-			if(prob(90))
-				step(AM, pick(alldirs))
-	..(gibbed)
+	. = ..()
+	if(.)
+		if(morphed)
+			visible_message("<span class='warning'>[src] twists and dissolves into a pile of green flesh!</span>", \
+							"<span class='userdanger'>Your skin ruptures! Your flesh breaks apart! No disguise can ward off de--</span>")
+			restore()
+		if(gibbed)
+			for(var/atom/movable/AM in src)
+				AM.forceMove(loc)
+				if(prob(90))
+					step(AM, pick(alldirs))
 
 /mob/living/simple_animal/hostile/morph/Aggro() // automated only
 	..()
@@ -168,4 +169,3 @@
 				eat(I)
 			return
 	target.attack_animal(src)
-

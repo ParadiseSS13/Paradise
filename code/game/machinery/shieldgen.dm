@@ -7,8 +7,8 @@
 		opacity = 0
 		anchored = 1
 		unacidable = 1
-		var/const/max_health = 200
-		var/health = max_health //The shield can only take so much beating (prevents perma-prisons)
+		var/const/maxHealth = 200
+		var/health = maxHealth //The shield can only take so much beating (prevents perma-prisons)
 
 /obj/machinery/shield/New()
 	src.dir = pick(1,2,3,4)
@@ -132,8 +132,8 @@
 		anchored = 0
 		pressure_resistance = 2*ONE_ATMOSPHERE
 		req_access = list(access_engine)
-		var/const/max_health = 100
-		var/health = max_health
+		var/const/maxHealth = 100
+		var/health = maxHealth
 		var/active = 0
 		var/malfunction = 0 //Malfunction causes parts of the shield to slowly dissapate
 		var/list/deployed_shields = list()
@@ -253,7 +253,7 @@
 		if(do_after(user, 30, target = src))
 			if(!src || !coil) return
 			coil.use(1)
-			health = max_health
+			health = maxHealth
 			malfunction = 0
 			to_chat(user, "\blue You repair the [src]!")
 			update_icon()

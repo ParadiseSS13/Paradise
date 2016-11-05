@@ -153,8 +153,7 @@
 				"<span class='userdanger'>The [M.name] has shocked [src]!</span>")
 
 				Weaken(power)
-				if(stuttering < power)
-					stuttering = power
+				Stuttering(power)
 				Stun(power)
 
 				var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
@@ -244,6 +243,7 @@
 						playsound(loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
 						visible_message("<span class='danger'>[M] has attempted to disarm [src]!</span>")
 	return
+
 
 /mob/living/carbon/alien/humanoid/restrained()
 	if(handcuffed)

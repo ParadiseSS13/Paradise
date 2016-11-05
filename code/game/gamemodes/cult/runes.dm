@@ -844,7 +844,7 @@ var/list/sacrificed = list()
 			C.show_message("\red The world around you suddenly becomes quiet.", 3)
 			affected++
 			if(prob(1))
-				C.disabilities |= DEAF
+				C.BecomeDeaf()
 		if(affected)
 			usr.say("Sti[pick("'","`")] kaliedir!")
 			to_chat(usr, "\red The world becomes quiet as the deafening rune dissipates into fine dust.")
@@ -989,7 +989,7 @@ var/list/sacrificed = list()
 				var/mob/living/carbon/C = L
 				C.flash_eyes()
 				if(C.stuttering < 1 && (!(HULK in C.mutations)))
-					C.stuttering = 1
+					C.Stuttering(1)
 				C.Weaken(1)
 				C.Stun(1)
 				C.show_message("\red The rune explodes in a bright flash.", 3)

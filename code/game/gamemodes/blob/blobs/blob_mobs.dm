@@ -91,24 +91,25 @@
 	loc.visible_message("<span class='warning'>The corpse of [H.name] suddenly rises!</span>")
 
 /mob/living/simple_animal/hostile/blob/blobspore/death(gibbed)
-	..()
-	// On death, create a small smoke of harmful gas (s-Acid)
-	var/datum/effect/system/chem_smoke_spread/S = new
-	var/turf/location = get_turf(src)
+	. = ..()
+	if(.)
+		// On death, create a small smoke of harmful gas (s-Acid)
+		var/datum/effect/system/chem_smoke_spread/S = new
+		var/turf/location = get_turf(src)
 
-	// Create the reagents to put into the air
-	create_reagents(8)
+		// Create the reagents to put into the air
+		create_reagents(8)
 
-	if(overmind && overmind.blob_reagent_datum)
-		reagents.add_reagent(overmind.blob_reagent_datum.id, 8)
-	else
-		reagents.add_reagent("spore", 8)
+		if(overmind && overmind.blob_reagent_datum)
+			reagents.add_reagent(overmind.blob_reagent_datum.id, 8)
+		else
+			reagents.add_reagent("spore", 8)
 
-	// Attach the smoke spreader and setup/start it.
-	S.attach(location)
-	S.set_up(reagents, 1, 1, location, 15, 1) // only 1-2 smoke cloud
-	S.start()
-	qdel(src)
+		// Attach the smoke spreader and setup/start it.
+		S.attach(location)
+		S.set_up(reagents, 1, 1, location, 15, 1) // only 1-2 smoke cloud
+		S.start()
+		qdel(src)
 
 /mob/living/simple_animal/hostile/blob/blobspore/Destroy()
 	if(factory)
@@ -169,5 +170,5 @@
 	return
 
 /mob/living/simple_animal/hostile/blob/blobbernaut/death(gibbed)
-	..()
+	. = ..()
 	flick("blobbernaut_death", src)
