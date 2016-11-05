@@ -66,8 +66,8 @@
 			return 1
 
 		//UNCONSCIOUS. NO-ONE IS HOME
-		if( (getOxyLoss() > 50) || (config.health_threshold_crit >= health) )
-			if( health <= 20 && prob(1) )
+		if((getOxyLoss() > 50) || (config.health_threshold_crit >= health))
+			if(health <= 20 && prob(1))
 				spawn(0)
 					emote("gasp")
 			if(!reagents.has_reagent("epinephrine"))
@@ -75,14 +75,12 @@
 			Paralyse(3)
 
 		if(paralysis)
-			AdjustParalysis(-1)
 			blinded = 1
 			stat = UNCONSCIOUS
 		else if(sleeping)
-			AdjustSleeping(-1)
 			blinded = 1
 			stat = UNCONSCIOUS
-			if( prob(10) && health )
+			if(prob(10) && health)
 				spawn(0)
 					emote("hiss")
 		//CONSCIOUS
@@ -109,17 +107,6 @@
 			AdjustEarDeaf(-1)
 		else if(ear_damage < 25)	//ear damage heals slowly under this threshold. otherwise you'll need earmuffs
 			AdjustEarDamage(-0.05)
-
-		//Other
-		if(stunned)
-			AdjustStunned(-1)
-			if(!stunned)
-				update_icons()
-
-		if(weakened)
-			weakened = max(weakened-1,0)
-			if(!weakened)
-				update_icons()
 
 		if(stuttering)
 			AdjustStuttering(-1)
