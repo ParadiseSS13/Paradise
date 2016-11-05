@@ -117,14 +117,14 @@
 
 /mob/living/proc/handle_stunned()
 	if(stunned)
-		AdjustStunned(-1)
+		AdjustStunned(-1, updating = 1, force = 1)
 		if(!stunned)
 			update_icons()
 	return stunned
 
 /mob/living/proc/handle_weakened()
 	if(weakened)
-		AdjustWeakened(-1)
+		AdjustWeakened(-1, updating = 1, force = 1)
 		if(!weakened)
 			update_icons()
 	return weakened
@@ -151,7 +151,7 @@
 
 /mob/living/proc/handle_paralysed()
 	if(paralysis)
-		AdjustParalysis(-1)
+		AdjustParalysis(-1, updating = 1, force = 1)
 	return paralysis
 
 /mob/living/proc/handle_sleeping()

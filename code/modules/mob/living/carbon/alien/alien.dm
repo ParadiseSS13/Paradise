@@ -27,7 +27,7 @@
 	var/heat_protection = 0.5
 	var/leaping = 0
 	ventcrawler = 2
-	
+
 	var/list/alien_organs = list()
 
 /mob/living/carbon/alien/New()
@@ -163,8 +163,8 @@
 
 	show_stat_emergency_shuttle_eta()
 
-/mob/living/carbon/alien/SetStunned(amount)
-	..(amount)
+/mob/living/carbon/alien/SetStunned(amount, updating = 1, force = 0)
+	..()
 	if(!(status_flags & CANSTUN) && amount)
 		// add some movement delay
 		move_delay_add = min(move_delay_add + round(amount / 2), 10) // a maximum delay of 10
