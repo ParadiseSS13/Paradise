@@ -63,7 +63,6 @@
 			user.unset_machine()
 	else
 		give_eye_control(user)
-		eyeobj.setLoc(eyeobj.loc)
 
 
 /obj/machinery/computer/camera_advanced/proc/give_eye_control(mob/user)
@@ -75,6 +74,7 @@
 	user.remote_view = 1
 	user.remote_control = eyeobj
 	user.reset_perspective(eyeobj)
+	eyeobj.setLoc(eyeobj.loc)
 
 /mob/camera/aiEye/remote
 	name = "Inactive Camera Eye"

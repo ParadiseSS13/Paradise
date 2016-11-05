@@ -56,7 +56,7 @@
 
 /obj/item/device/camera_bug/check_eye(var/mob/user as mob)
 	if(user.stat || loc != user || !user.canmove || !user.has_vision() || !current)
-		user.reset_view(null)
+		user.reset_perspective(null)
 		user.unset_machine()
 		return null
 
