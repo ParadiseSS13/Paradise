@@ -1,0 +1,6 @@
+author: Fox McCloud
+delete-after: True
+changes: 
+  - bugfix: "Fixes hunters not being weakened when crashing into a shield/wall"
+  - bugfix: "Fixes xeno stuns half the time intended"
+  - bugfix: "Fixes stopping, dropping, and rolling not properly weakening Xenos/Hulks"
