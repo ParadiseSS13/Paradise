@@ -400,9 +400,7 @@
 	var/printing = null
 
 /obj/machinery/chem_master/New()
-	var/datum/reagents/R = new/datum/reagents(100)
-	reagents = R
-	R.my_atom = src
+	create_reagents(100)
 	overlays += "waitlight"
 
 /obj/machinery/chem_master/ex_act(severity)
