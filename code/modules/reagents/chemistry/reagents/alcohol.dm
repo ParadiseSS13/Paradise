@@ -42,6 +42,9 @@
 	nutriment_factor = 2 * FOOD_METABOLISM
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.2
+	drink_icon ="beerglass"
+	drink_name = "Beer glass"
+	drink_desc = "A freezing pint of beer"
 
 /datum/reagent/ethanol/cider
 	name = "Cider"
@@ -49,6 +52,9 @@
 	description = "An alcoholic beverage derived from apples."
 	color = "#174116"
 	alcohol_perc = 0.2
+	drink_icon = "rewriter"
+	drink_name = "Cider"
+	drink_desc = "a refreshing glass of traditional cider"
 
 /datum/reagent/ethanol/whiskey
 	name = "Whiskey"
@@ -57,6 +63,9 @@
 	color = "#664300" // rgb: 102, 67, 0
 	dizzy_adj = 4
 	alcohol_perc = 0.4
+	drink_icon = "whiskeyglass"
+	drink_name = "Glass of whiskey"
+	drink_desc = "The silky, smokey whiskey goodness inside the glass makes the drink look very classy."
 
 /datum/reagent/ethanol/specialwhiskey
 	name = "Special Blend Whiskey"
@@ -72,6 +81,9 @@
 	color = "#664300" // rgb: 102, 67, 0
 	dizzy_adj = 3
 	alcohol_perc = 0.5
+	drink_icon = "ginvodkaglass"
+	drink_name = "Glass of gin"
+	drink_desc = "A crystal clear glass of Griffeater gin."
 
 /datum/reagent/ethanol/absinthe
 	name = "Absinthe"
@@ -81,6 +93,9 @@
 	overdose_threshold = 30
 	dizzy_adj = 5
 	alcohol_perc = 0.7
+	drink_icon = "absinthebottle"
+	drink_name = "Glass of Absinthe"
+	drink_desc = "The green fairy is going to get you now!"
 
 //copy paste from LSD... shoot me
 /datum/reagent/ethanol/absinthe/on_mob_life(mob/living/M)
@@ -98,6 +113,9 @@
 	overdose_threshold = 30
 	alcohol_perc = 0.4
 	dizzy_adj = 5
+	drink_icon = "rumglass"
+	drink_name = "Glass of Rum"
+	drink_desc = "Now you want to Pray for a pirate suit, don't you?"
 
 /datum/reagent/ethanol/rum/overdose_process(mob/living/M, severity)
 	M.adjustToxLoss(1)
@@ -108,6 +126,9 @@
 	description = "If it's good enough for Spesscuba, it's good enough for you."
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.2
+	drink_icon = "mojito"
+	drink_name = "Glass of Mojito"
+	drink_desc = "Fresh from Spesscuba."
 
 /datum/reagent/ethanol/vodka
 	name = "Vodka"
@@ -115,6 +136,9 @@
 	description = "Number one drink AND fueling choice for Russians worldwide."
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.4
+	drink_icon = "ginvodkaglass"
+	drink_name = "Glass of vodka"
+	drink_desc = "The glass contain wodka. Xynta."
 
 /datum/reagent/ethanol/sake
 	name = "Sake"
@@ -122,6 +146,9 @@
 	description = "Anime's favorite drink."
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.2
+	drink_icon = "ginvodkaglass"
+	drink_name = "Glass of Sake"
+	drink_desc = "A glass of Sake."
 
 /datum/reagent/ethanol/tequila
 	name = "Tequila"
@@ -129,6 +156,9 @@
 	description = "A strong and mildly flavoured, mexican produced spirit. Feeling thirsty hombre?"
 	color = "#A8B0B7" // rgb: 168, 176, 183
 	alcohol_perc = 0.4
+	drink_icon = "tequilaglass"
+	drink_name = "Glass of Tequila"
+	drink_desc = "Now all that's missing is the weird colored shades!"
 
 /datum/reagent/ethanol/vermouth
 	name = "Vermouth"
@@ -136,6 +166,9 @@
 	description = "You suddenly feel a craving for a martini..."
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.2
+	drink_icon = "vermouthglass"
+	drink_name = "Glass of Vermouth"
+	drink_desc = "You wonder why you're even drinking this straight."
 
 /datum/reagent/ethanol/wine
 	name = "Wine"
@@ -144,6 +177,9 @@
 	color = "#7E4043" // rgb: 126, 64, 67
 	dizzy_adj = 2
 	alcohol_perc = 0.2
+	drink_icon = "wineglass"
+	drink_name = "Glass of wine"
+	drink_desc = "A very classy looking drink."
 
 /datum/reagent/ethanol/cognac
 	name = "Cognac"
@@ -152,6 +188,9 @@
 	color = "#664300" // rgb: 102, 67, 0
 	dizzy_adj = 4
 	alcohol_perc = 0.4
+	drink_icon = "cognacglass"
+	drink_name = "Glass of cognac"
+	drink_desc = "Damn, you feel like some kind of French aristocrat just by holding this."
 
 /datum/reagent/ethanol/suicider //otherwise known as "I want to get so smashed my liver gives out and I die from alcohol poisoning".
 	name = "Suicider"
@@ -160,6 +199,9 @@
 	color = "#CF3811"
 	dizzy_adj = 20
 	alcohol_perc = 1 //because that's a thing it's supposed to do, I guess
+	drink_icon = "suicider"
+	drink_name = "Suicider"
+	drink_desc = "You've really hit rock bottom now... your liver packed its bags and left last night."
 
 /datum/reagent/ethanol/ale
 	name = "Ale"
@@ -167,6 +209,9 @@
 	description = "A dark alchoholic beverage made by malted barley and yeast."
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.1
+	drink_icon = "aleglass"
+	drink_name = "Ale glass"
+	drink_desc = "A freezing pint of delicious Ale"
 
 /datum/reagent/ethanol/thirteenloko
 	name = "Thirteen Loko"
@@ -176,6 +221,9 @@
 	color = "#102000" // rgb: 16, 32, 0
 	alcohol_perc = 0.3
 	heart_rate_increase = 1
+	drink_icon = "thirteen_loko_glass"
+	drink_name = "Glass of Thirteen Loko"
+	drink_desc = "This is a glass of Thirteen Loko, it appears to be of the highest quality. The drink, not the glass"
 
 /datum/reagent/ethanol/thirteenloko/on_mob_life(mob/living/M)
 	M.nutrition += nutriment_factor
@@ -196,6 +244,9 @@
 	reagent_state = LIQUID
 	color = "#895C4C" // rgb: 137, 92, 76
 	alcohol_perc = 0.2
+	drink_icon = "glass_brown"
+	drink_name = "Glass of bilk"
+	drink_desc = "A brew of milk and beer. For those alcoholics who fear osteoporosis."
 
 /datum/reagent/ethanol/atomicbomb
 	name = "Atomic Bomb"
@@ -204,6 +255,9 @@
 	reagent_state = LIQUID
 	color = "#666300" // rgb: 102, 99, 0
 	alcohol_perc = 0.2
+	drink_icon = "atomicbombglass"
+	drink_name = "Atomic Bomb"
+	drink_desc = "Nanotrasen cannot take legal responsibility for your actions after imbibing."
 
 /datum/reagent/ethanol/threemileisland
 	name = "THree Mile Island Iced Tea"
@@ -212,6 +266,9 @@
 	reagent_state = LIQUID
 	color = "#666340" // rgb: 102, 99, 64
 	alcohol_perc = 0.2
+	drink_icon = "threemileislandglass"
+	drink_name = "Three Mile Island Ice Tea"
+	drink_desc = "A glass of this is sure to prevent a meltdown."
 
 /datum/reagent/ethanol/goldschlager
 	name = "Goldschlager"
@@ -220,6 +277,9 @@
 	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.4
+	drink_icon = "ginvodkaglass"
+	drink_name = "Glass of goldschlager"
+	drink_desc = "100 proof that teen girls will drink anything with gold in it."
 
 /datum/reagent/ethanol/patron
 	name = "Patron"
@@ -228,6 +288,9 @@
 	reagent_state = LIQUID
 	color = "#585840" // rgb: 88, 88, 64
 	alcohol_perc = 0.4
+	drink_icon = "patronglass"
+	drink_name = "Glass of Patron"
+	drink_desc = "Drinking patron in the bar, with all the subpar ladies."
 
 /datum/reagent/ethanol/gintonic
 	name = "Gin and Tonic"
@@ -236,6 +299,9 @@
 	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.4
+	drink_icon = "gintonicglass"
+	drink_name = "Gin and Tonic"
+	drink_desc = "A mild but still great cocktail. Drink up, like a true Englishman."
 
 /datum/reagent/ethanol/cuba_libre
 	name = "Cuba Libre"
@@ -244,6 +310,9 @@
 	reagent_state = LIQUID
 	color = "#3E1B00" // rgb: 62, 27, 0
 	alcohol_perc = 0.2
+	drink_icon = "cubalibreglass"
+	drink_name = "Cuba Libre"
+	drink_desc = "A classic mix of rum and cola."
 
 /datum/reagent/ethanol/whiskey_cola
 	name = "Whiskey Cola"
@@ -252,6 +321,9 @@
 	reagent_state = LIQUID
 	color = "#3E1B00" // rgb: 62, 27, 0
 	alcohol_perc = 0.3
+	drink_icon = "whiskeycolaglass"
+	drink_name = "Whiskey Cola"
+	drink_desc = "An innocent-looking mixture of cola and Whiskey. Delicious."
 
 /datum/reagent/ethanol/martini
 	name = "Classic Martini"
@@ -260,6 +332,9 @@
 	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.5
+	drink_icon = "martiniglass"
+	drink_name = "Classic Martini"
+	drink_desc = "Damn, the bartender even stirred it, not shook it."
 
 /datum/reagent/ethanol/vodkamartini
 	name = "Vodka Martini"
@@ -268,6 +343,9 @@
 	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.4
+	drink_icon = "martiniglass"
+	drink_name = "Vodka martini"
+	drink_desc ="A bastardisation of the classic martini. Still great."
 
 /datum/reagent/ethanol/white_russian
 	name = "White Russian"
@@ -276,6 +354,9 @@
 	reagent_state = LIQUID
 	color = "#A68340" // rgb: 166, 131, 64
 	alcohol_perc = 0.3
+	drink_icon = "whiterussianglass"
+	drink_name = "White Russian"
+	drink_desc = "A very nice looking drink. But that's just, like, your opinion, man."
 
 /datum/reagent/ethanol/screwdrivercocktail
 	name = "Screwdriver"
@@ -284,6 +365,9 @@
 	reagent_state = LIQUID
 	color = "#A68310" // rgb: 166, 131, 16
 	alcohol_perc = 0.3
+	drink_icon = "screwdriverglass"
+	drink_name = "Screwdriver"
+	drink_desc = "A simple, yet superb mixture of Vodka and orange juice. Just the thing for the tired engineer."
 
 /datum/reagent/ethanol/booger
 	name = "Booger"
@@ -292,6 +376,9 @@
 	reagent_state = LIQUID
 	color = "#A68310" // rgb: 166, 131, 16
 	alcohol_perc = 0.2
+	drink_icon = "booger"
+	drink_name = "Booger"
+	drink_desc = "Ewww..."
 
 /datum/reagent/ethanol/bloody_mary
 	name = "Bloody Mary"
@@ -300,6 +387,9 @@
 	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.2
+	drink_icon = "bloodymaryglass"
+	drink_name = "Bloody Mary"
+	drink_desc = "Tomato juice, mixed with Vodka and a lil' bit of lime. Tastes like liquid murder."
 
 /datum/reagent/ethanol/gargle_blaster
 	name = "Pan-Galactic Gargle Blaster"
@@ -308,6 +398,9 @@
 	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.7 //ouch
+	drink_icon = "gargleblasterglass"
+	drink_name = "Pan-Galactic Gargle Blaster"
+	drink_desc = "Does... does this mean that Arthur and Ford are on the station? Oh joy."
 
 /datum/reagent/ethanol/brave_bull
 	name = "Brave Bull"
@@ -316,6 +409,9 @@
 	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.3
+	drink_icon = "bravebullglass"
+	drink_name = "Brave Bull"
+	drink_desc = "Tequila and Coffee liquor, brought together in a mouthwatering mixture. Drink up."
 
 /datum/reagent/ethanol/tequila_sunrise
 	name = "Tequila Sunrise"
@@ -324,6 +420,9 @@
 	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.3
+	drink_icon = "tequilasunriseglass"
+	drink_name = "Tequila Sunrise"
+	drink_desc = "Oh great, now you feel nostalgic about sunrises back on Terra..."
 
 /datum/reagent/ethanol/toxins_special
 	name = "Toxins Special"
@@ -332,6 +431,9 @@
 	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.5
+	drink_icon = "toxinsspecialglass"
+	drink_name = "Toxins Special"
+	drink_desc = "Whoah, this thing is on FIRE"
 
 /datum/reagent/ethanol/toxins_special/on_mob_life(mob/living/M)
 	if(M.bodytemperature < 330)
@@ -345,6 +447,9 @@
 	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.5
+	drink_icon = "beepskysmashglass"
+	drink_name = "Beepsky Smash"
+	drink_desc = "Heavy, hot and strong. Just like the Iron fist of the LAW."
 
 /datum/reagent/ethanol/beepsky_smash/on_mob_life(mob/living/M)
 	M.Stun(1)
@@ -357,6 +462,9 @@
 	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.3
+	drink_icon = "irishcreamglass"
+	drink_name = "Irish Cream"
+	drink_desc = "It's cream, mixed with whiskey. What else would you expect from the Irish?"
 
 /datum/reagent/ethanol/manly_dorf
 	name = "The Manly Dorf"
@@ -365,6 +473,9 @@
 	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.2
+	drink_icon = "manlydorfglass"
+	drink_name = "The Manly Dorf"
+	drink_desc = "A manly concotion made from Ale and Beer. Intended for true men only."
 
 /datum/reagent/ethanol/longislandicedtea
 	name = "Long Island Iced Tea"
@@ -373,6 +484,9 @@
 	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.5
+	drink_icon = "longislandicedteaglass"
+	drink_name = "Long Island Iced Tea"
+	drink_desc = "The liquor cabinet, brought together in a delicious mix. Intended for middle-aged alcoholic women only."
 
 /datum/reagent/ethanol/moonshine
 	name = "Moonshine"
@@ -381,6 +495,9 @@
 	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.8 //yeeehaw
+	drink_icon = "glass_clear"
+	drink_name = "Moonshine"
+	drink_desc = "You've really hit rock bottom now... your liver packed its bags and left last night."
 
 /datum/reagent/ethanol/b52
 	name = "B-52"
@@ -389,6 +506,9 @@
 	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.3
+	drink_icon = "b52glass"
+	drink_name = "B-52"
+	drink_desc = "Kahlua, Irish Cream, and congac. You will get bombed."
 
 /datum/reagent/ethanol/irishcoffee
 	name = "Irish Coffee"
@@ -397,6 +517,9 @@
 	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.2
+	drink_icon = "irishcoffeeglass"
+	drink_name = "Irish Coffee"
+	drink_desc = "Coffee and alcohol. More fun than a Mimosa to drink in the morning."
 
 /datum/reagent/ethanol/margarita
 	name = "Margarita"
@@ -405,6 +528,9 @@
 	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.3
+	drink_icon = "margaritaglass"
+	drink_name = "Margarita"
+	drink_desc = "On the rocks with salt on the rim. Arriba~!"
 
 /datum/reagent/ethanol/black_russian
 	name = "Black Russian"
@@ -413,6 +539,9 @@
 	reagent_state = LIQUID
 	color = "#360000" // rgb: 54, 0, 0
 	alcohol_perc = 0.4
+	drink_icon = "blackrussianglass"
+	drink_name = "Black Russian"
+	drink_desc = "For the lactose-intolerant. Still as classy as a White Russian."
 
 /datum/reagent/ethanol/manhattan
 	name = "Manhattan"
@@ -421,6 +550,9 @@
 	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.4
+	drink_icon = "manhattanglass"
+	drink_name = "Manhattan"
+	drink_desc = "The Detective's undercover drink of choice. He never could stomach gin..."
 
 /datum/reagent/ethanol/manhattan_proj
 	name = "Manhattan Project"
@@ -429,6 +561,9 @@
 	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.4
+	drink_icon = "proj_manhattanglass"
+	drink_name = "Manhattan Project"
+	drink_desc = "A scienitst drink of choice, for thinking how to blow up the station."
 
 /datum/reagent/ethanol/whiskeysoda
 	name = "Whiskey Soda"
@@ -437,6 +572,9 @@
 	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.3
+	drink_icon = "whiskeysodaglass2"
+	drink_name = "Whiskey Soda"
+	drink_desc = "Ultimate refreshment."
 
 /datum/reagent/ethanol/antifreeze
 	name = "Anti-freeze"
@@ -445,6 +583,9 @@
 	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.2
+	drink_icon = "antifreeze"
+	drink_name = "Anti-freeze"
+	drink_desc = "The ultimate refreshment."
 
 /datum/reagent/ethanol/antifreeze/on_mob_life(mob/living/M)
 	if(M.bodytemperature < 330)
@@ -458,6 +599,9 @@
 	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.2
+	drink_icon = "b&p"
+	drink_name = "Barefoot"
+	drink_desc = "Barefoot and pregnant"
 
 /datum/reagent/ethanol/snowwhite
 	name = "Snow White"
@@ -466,6 +610,9 @@
 	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.2
+	drink_icon = "snowwhite"
+	drink_name = "Snow White"
+	drink_desc = "A cold refreshment."
 
 /datum/reagent/ethanol/demonsblood
 	name = "Demons Blood"
@@ -475,6 +622,9 @@
 	color = "#664300" // rgb: 102, 67, 0
 	dizzy_adj = 10
 	alcohol_perc = 0.4
+	drink_icon = "demonsblood"
+	drink_name = "Demons Blood"
+	drink_desc = "Just looking at this thing makes the hair at the back of your neck stand up."
 
 /datum/reagent/ethanol/vodkatonic
 	name = "Vodka and Tonic"
@@ -484,6 +634,9 @@
 	color = "#664300" // rgb: 102, 67, 0
 	dizzy_adj = 4
 	alcohol_perc = 0.3
+	drink_icon = "vodkatonicglass"
+	drink_name = "Vodka and Tonic"
+	drink_desc = "For when a gin and tonic isn't russian enough."
 
 /datum/reagent/ethanol/ginfizz
 	name = "Gin Fizz"
@@ -493,6 +646,9 @@
 	color = "#664300" // rgb: 102, 67, 0
 	dizzy_adj = 4
 	alcohol_perc = 0.4
+	drink_icon = "ginfizzglass"
+	drink_name = "Gin Fizz"
+	drink_desc = "Refreshingly lemony, deliciously dry."
 
 /datum/reagent/ethanol/bahama_mama
 	name = "Bahama mama"
@@ -501,6 +657,9 @@
 	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.2
+	drink_icon = "bahama_mama"
+	drink_name = "Bahama Mama"
+	drink_desc = "Tropic cocktail"
 
 /datum/reagent/ethanol/singulo
 	name = "Singulo"
@@ -510,6 +669,9 @@
 	color = "#2E6671" // rgb: 46, 102, 113
 	dizzy_adj = 15
 	alcohol_perc = 0.7
+	drink_icon = "singulo"
+	drink_name = "Singulo"
+	drink_desc = "A blue-space beverage."
 
 /datum/reagent/ethanol/sbiten
 	name = "Sbiten"
@@ -518,6 +680,9 @@
 	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.4
+	drink_icon = "sbitenglass"
+	drink_name = "Sbiten"
+	drink_desc = "A spicy mix of Vodka and Spice. Very hot."
 
 /datum/reagent/ethanol/sbiten/on_mob_life(mob/living/M)
 	if(M.bodytemperature < 360)
@@ -531,6 +696,9 @@
 	reagent_state = LIQUID
 	color = "#A68310" // rgb: 166, 131, 16
 	alcohol_perc = 0.3
+	drink_icon = "devilskiss"
+	drink_name = "Devils Kiss"
+	drink_desc = "Creepy time!"
 
 /datum/reagent/ethanol/red_mead
 	name = "Red Mead"
@@ -539,6 +707,9 @@
 	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.2
+	drink_icon = "red_meadglass"
+	drink_name = "Red Mead"
+	drink_desc = "A True Vikings Beverage, though its color is strange."
 
 /datum/reagent/ethanol/mead
 	name = "Mead"
@@ -547,6 +718,9 @@
 	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.2
+	drink_icon = "meadglass"
+	drink_name = "Mead"
+	drink_desc = "A Vikings Beverage, though a cheap one."
 
 /datum/reagent/ethanol/iced_beer
 	name = "Iced Beer"
@@ -555,6 +729,9 @@
 	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.2
+	drink_icon = "iced_beerglass"
+	drink_name = "Iced Beer"
+	drink_desc = "A beer so frosty, the air around it freezes."
 
 /datum/reagent/ethanol/iced_beer/on_mob_life(mob/living/M)
 	if(M.bodytemperature > 270)
@@ -568,6 +745,9 @@
 	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.2
+	drink_icon = "grogglass"
+	drink_name = "Grog"
+	drink_desc = "A fine and cepa drink for Space."
 
 /datum/reagent/ethanol/aloe
 	name = "Aloe"
@@ -576,6 +756,9 @@
 	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.2
+	drink_icon = "aloe"
+	drink_name = "Aloe"
+	drink_desc = "Very, very, very good."
 
 /datum/reagent/ethanol/andalusia
 	name = "Andalusia"
@@ -584,6 +767,9 @@
 	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.4
+	drink_icon = "andalusia"
+	drink_name = "Andalusia"
+	drink_desc = "A nice, strange named drink."
 
 /datum/reagent/ethanol/alliescocktail
 	name = "Allies Cocktail"
@@ -592,6 +778,9 @@
 	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.5
+	drink_icon = "alliescocktail"
+	drink_name = "Allies cocktail"
+	drink_desc = "A drink made from your allies."
 
 /datum/reagent/ethanol/acid_spit
 	name = "Acid Spit"
@@ -600,6 +789,9 @@
 	reagent_state = LIQUID
 	color = "#365000" // rgb: 54, 80, 0
 	alcohol_perc = 0.3
+	drink_icon = "acidspitglass"
+	drink_name = "Acid Spit"
+	drink_desc = "A drink from Nanotrasen. Made from live aliens."
 
 /datum/reagent/ethanol/amasec
 	name = "Amasec"
@@ -608,6 +800,9 @@
 	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.3
+	drink_icon = "amasecglass"
+	drink_name = "Amasec"
+	drink_desc = "Always handy before COMBAT!!!"
 
 /datum/reagent/ethanol/neurotoxin
 	name = "Neuro-toxin"
@@ -618,6 +813,9 @@
 	dizzy_adj = 6
 	alcohol_perc = 0.7
 	heart_rate_decrease = 1
+	drink_icon = "neurotoxinglass"
+	drink_name = "Neurotoxin"
+	drink_desc = "A drink that is guaranteed to knock you silly."
 
 /datum/reagent/ethanol/neurotoxin/on_mob_life(mob/living/M)
 	M.weakened = max(M.weakened, 3)
@@ -635,6 +833,9 @@
 	color = "#2E6671" // rgb: 46, 102, 113
 	alcohol_perc = 0.7
 	dizzy_adj = 5
+	drink_icon = "changelingsting"
+	drink_name = "Changeling Sting"
+	drink_desc = "A stingy drink."
 
 /datum/reagent/ethanol/irishcarbomb
 	name = "Irish Car Bomb"
@@ -644,6 +845,9 @@
 	color = "#2E6671" // rgb: 46, 102, 113
 	alcohol_perc = 0.3
 	dizzy_adj = 5
+	drink_icon = "irishcarbomb"
+	drink_name = "Irish Car Bomb"
+	drink_desc = "An irish car bomb."
 
 /datum/reagent/ethanol/syndicatebomb
 	name = "Syndicate Bomb"
@@ -652,6 +856,9 @@
 	reagent_state = LIQUID
 	color = "#2E6671" // rgb: 46, 102, 113
 	alcohol_perc = 0.2
+	drink_icon = "syndicatebomb"
+	drink_name = "Syndicate Bomb"
+	drink_desc = "A syndicate bomb."
 
 /datum/reagent/ethanol/erikasurprise
 	name = "Erika Surprise"
@@ -660,6 +867,9 @@
 	reagent_state = LIQUID
 	color = "#2E6671" // rgb: 46, 102, 113
 	alcohol_perc = 0.2
+	drink_icon = "erikasurprise"
+	name = "Erika Surprise"
+	drink_desc = "The surprise is, it's green!"
 
 /datum/reagent/ethanol/driestmartini
 	name = "Driest Martini"
@@ -669,6 +879,9 @@
 	color = "#2E6671" // rgb: 46, 102, 113
 	alcohol_perc = 0.5
 	dizzy_adj = 10
+	drink_icon = "driestmartiniglass"
+	drink_name = "Driest Martini"
+	drink_desc = "Only for the experienced. You think you see sand floating in the glass."
 
 /datum/reagent/ethanol/driestmartini/on_mob_life(mob/living/M)
 	if(current_cycle >= 55 && current_cycle < 115)
@@ -681,6 +894,9 @@
 	description = "A widely known, Mexican coffee-flavoured liqueur. In production since 1936!"
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.2
+	drink_icon = "kahluaglass"
+	drink_name = "Glass of RR coffee Liquor"
+	drink_desc = "DAMN, THIS THING LOOKS ROBUST"
 
 /datum/reagent/ethanol/kahlua/on_mob_life(mob/living/M)
 	M.AdjustDizzy(-5)
@@ -688,3 +904,187 @@
 	M.AdjustSleeping(-2)
 	M.Jitter(5)
 	..()
+
+/datum/reagent/ginsonic
+	name = "Gin and sonic"
+	id = "ginsonic"
+	description = "GOTTA GET CRUNK FAST BUT LIQUOR TOO SLOW"
+	reagent_state = LIQUID
+	color = "#1111CF"
+	drink_icon = "ginsonic"
+	drink_name = "Gin and Sonic"
+	drink_desc = "An extremely high amperage drink. Absolutely not for the true Englishman."
+
+/datum/reagent/ginsonic/on_mob_life(mob/living/M)
+	M.AdjustDrowsy(-5)
+	if(prob(25))
+		M.AdjustParalysis(-1)
+		M.AdjustStunned(-1)
+		M.AdjustWeakened(-1)
+	if(prob(8))
+		M.reagents.add_reagent("methamphetamine",1.2)
+		var/sonic_message = pick("Gotta go fast!", "Time to speed, keed!", "I feel a need for speed!", "Let's juice.", "Juice time.", "Way Past Cool!")
+		if(prob(50))
+			M.say("[sonic_message]")
+		else
+			to_chat(M, "<span class='notice'>[sonic_message ]</span>")
+	..()
+
+/datum/reagent/ethanol/applejack
+	name = "Applejack"
+	id = "applejack"
+	description = "A highly concentrated alcoholic beverage made by repeatedly freezing cider and removing the ice."
+	color = "#997A00"
+	alcohol_perc = 0.4
+	drink_icon = "cognacglass"
+	drink_name = "Glass of applejack"
+	drink_desc = "When cider isn't strong enough, you gotta jack it."
+
+/datum/reagent/ethanol/jackrose
+	name = "Jack Rose"
+	id = "jackrose"
+	description = "A classic cocktail that had fallen out of fashion, but never out of taste,"
+	color = "#664300"
+	alcohol_perc = 0.4
+	drink_icon = "patronglass"
+	drink_name = "Jack Rose"
+	drink_desc = "Drinking this makes you feel like you belong in a luxury hotel bar during the 1920s."
+
+/datum/reagent/ethanol/dragons_breath //inaccessible to players, but here for admin shennanigans
+	name = "Dragon's Breath"
+	id = "dragonsbreath"
+	description = "Possessing this stuff probably breaks the Geneva convention."
+	reagent_state = LIQUID
+	color = "#DC0000"
+	alcohol_perc = 1
+
+/datum/reagent/ethanol/dragons_breath/reaction_mob(mob/living/M, method=TOUCH, volume)
+	if(method == INGEST && prob(20))
+		if(M.on_fire)
+			M.adjust_fire_stacks(3)
+
+/datum/reagent/ethanol/dragons_breath/on_mob_life(mob/living/M)
+	if(M.reagents.has_reagent("milk"))
+		to_chat(M, "<span class='notice'>The milk stops the burning. Ahhh.</span>")
+		M.reagents.del_reagent("milk")
+		M.reagents.del_reagent("dragonsbreath")
+		return
+	if(prob(8))
+		to_chat(M, "<span class='userdanger'>Oh god! Oh GODD!!</span>")
+	if(prob(50))
+		to_chat(M, "<span class='danger'>Your throat burns terribly!</span>")
+		M.emote(pick("scream","cry","choke","gasp"))
+		M.Stun(1)
+	if(prob(8))
+		to_chat(M, "<span class='danger'>Why!? WHY!?</span>")
+	if(prob(8))
+		to_chat(M, "<span class='danger'>ARGHHHH!</span>")
+	if(prob(2 * volume))
+		to_chat(M, "<span class='userdanger'>OH GOD OH GOD PLEASE NO!!</b></span>")
+		if(M.on_fire)
+			M.adjust_fire_stacks(5)
+		if(prob(50))
+			to_chat(M, "<span class='userdanger'>IT BURNS!!!!</span>")
+			M.visible_message("<span class='danger'>[M] is consumed in flames!</span>")
+			M.dust()
+			return
+	..()
+
+// ROBOT ALCOHOL PAST THIS POINT
+// WOOO!
+
+
+/datum/reagent/ethanol/synthanol
+	name = "Synthanol"
+	id = "synthanol"
+	description = "A runny liquid with conductive capacities. Its effects on synthetics are similar to those of alcohol on organics."
+	reagent_state = LIQUID
+	color = "#1BB1FF"
+	process_flags = ORGANIC | SYNTHETIC
+	metabolization_rate = 0.4
+	alcohol_perc = 0.5
+	drink_icon = "synthanolglass"
+	drink_name = "Glass of Synthanol"
+	drink_desc = "The equivalent of alcohol for synthetic crewmembers. They'd find it awful if they had tastebuds too."
+
+/datum/reagent/ethanol/synthanol/on_mob_life(mob/living/M)
+	if(!M.isSynthetic())
+		holder.remove_reagent(id, 3.6) //gets removed from organics very fast
+		if(prob(25))
+			holder.remove_reagent(id, 15)
+			M.fakevomit()
+	..()
+
+/datum/reagent/ethanol/synthanol/reaction_mob(mob/living/M, method=TOUCH, volume)
+	if(M.isSynthetic())
+		return
+	if(method == INGEST)
+		to_chat(M, pick("<span class = 'danger'>That was awful!</span>", "<span class = 'danger'>Yuck!</span>"))
+
+/datum/reagent/ethanol/synthanol/robottears
+	name = "Robot Tears"
+	id = "robottears"
+	description = "An oily substance that an IPC could technically consider a 'drink'."
+	reagent_state = LIQUID
+	color = "#363636"
+	alcohol_perc = 0.25
+	drink_icon = "robottearsglass"
+	drink_name = "Glass of Robot Tears"
+	drink_desc = "No robots were hurt in the making of this drink."
+
+/datum/reagent/ethanol/synthanol/trinary
+	name = "Trinary"
+	id = "trinary"
+	description = "A fruit drink meant only for synthetics, however that works."
+	reagent_state = LIQUID
+	color = "#adb21f"
+	alcohol_perc = 0.2
+	drink_icon = "trinaryglass"
+	drink_name = "Glass of Trinary"
+	drink_desc = "Colorful drink made for synthetic crewmembers. It doesn't seem like it would taste well."
+
+/datum/reagent/ethanol/synthanol/servo
+	name = "Servo"
+	id = "servo"
+	description = "A drink containing some organic ingredients, but meant only for synthetics."
+	reagent_state = LIQUID
+	color = "#5b3210"
+	alcohol_perc = 0.25
+	drink_icon = "servoglass"
+	drink_name = "Glass of Servo"
+	drink_desc = "Chocolate - based drink made for IPCs. Not sure if anyone's actually tried out the recipe."
+
+/datum/reagent/ethanol/synthanol/uplink
+	name = "Uplink"
+	id = "uplink"
+	description = "A potent mix of alcohol and synthanol. Will only work on synthetics."
+	reagent_state = LIQUID
+	color = "#e7ae04"
+	alcohol_perc = 0.15
+	drink_icon = "uplinkglass"
+	drink_name = "Glass of Uplink"
+	drink_desc = "An exquisite mix of the finest liquoirs and synthanol. Meant only for synthetics."
+
+/datum/reagent/ethanol/synthanol/synthnsoda
+	name = "Synth 'n Soda"
+	id = "synthnsoda"
+	description = "The classic drink adjusted for a robot's tastes."
+	reagent_state = LIQUID
+	color = "#7204e7"
+	alcohol_perc = 0.25
+	drink_icon = "synthnsodaglass"
+	drink_name = "Glass of Synth 'n Soda"
+	drink_desc = "Classic drink altered to fit the tastes of a robot. Bad idea to drink if you're made of carbon."
+
+/datum/reagent/ethanol/synthanol/synthignon
+	name = "Synthignon"
+	id = "synthignon"
+	description = "Someone mixed wine and alcohol for robots. Hope you're proud of yourself."
+	reagent_state = LIQUID
+	color = "#d004e7"
+	alcohol_perc = 0.25
+	drink_icon = "synthignonglass"
+	drink_name = "Glass of Synthignon"
+	drink_desc = "Someone mixed good wine and robot booze. Romantic, but atrocious."
+
+// ROBOT ALCOHOL ENDS

@@ -35,6 +35,9 @@
 	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	metabolization_rate = 0.2 * REAGENTS_METABOLISM
+	drink_icon = "hippiesdelightglass"
+	drink_name = "Hippie's Delight"
+	drink_desc = "A drink enjoyed by people during the 1960's."
 
 /datum/reagent/hippies_delight/on_mob_life(mob/living/M)
 	M.Druggy(50)

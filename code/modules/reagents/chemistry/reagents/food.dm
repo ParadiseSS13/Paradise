@@ -427,6 +427,9 @@
 	description = "A refreshing mixed drink of orange, lemon and lime juice."
 	reagent_state = LIQUID
 	color = "#23A046"
+	drink_icon = "triplecitrus"
+	drink_name = "Glass of Triplecitrus Juice"
+	drink_desc = "As colorful and healthy as it is delicious."
 
 /datum/reagent/triple_citrus/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(method == INGEST)
@@ -481,6 +484,9 @@
 	reagent_state = LIQUID
 	nutriment_factor = 5 * REAGENTS_METABOLISM		//same as pure cocoa powder, because it makes no sense that chocolate won't fill you up and make you fat
 	color = "#2E2418"
+	drink_icon = "chocolateglass"
+	drink_name = "Glass of chocolate"
+	drink_desc = "Tasty"
 
 /datum/reagent/chocolate/on_mob_life(mob/living/M)
 	M.nutrition += nutriment_factor

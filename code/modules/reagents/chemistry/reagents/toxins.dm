@@ -335,6 +335,9 @@
 	description = "An alcoholic beverage made from malted grains, hops, yeast, and water."
 	color = "#664300" // rgb: 102, 67, 0
 	metabolization_rate = 1.5 * REAGENTS_METABOLISM
+	drink_icon ="beerglass"
+	drink_name = "Beer glass"
+	drink_desc = "A freezing pint of beer"
 
 /datum/reagent/beer2/on_mob_life(mob/living/M)
 	switch(current_cycle)

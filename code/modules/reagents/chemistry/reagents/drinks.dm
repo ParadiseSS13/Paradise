@@ -3,6 +3,9 @@
 	id = "orangejuice"
 	description = "Both delicious AND rich in Vitamin C, what more do you need?"
 	color = "#E78108" // rgb: 231, 129, 8
+	drink_icon = "glass_orange"
+	drink_name = "Glass of Orange juice"
+	drink_desc = "Vitamins! Yay!"
 
 /datum/reagent/drink/orangejuicde/on_mob_life(mob/living/M)
 	if(M.getOxyLoss() && prob(30))
@@ -14,6 +17,9 @@
 	id = "tomatojuice"
 	description = "Tomatoes made into juice. What a waste of big, juicy tomatoes, huh?"
 	color = "#731008" // rgb: 115, 16, 8
+	drink_icon = "glass_red"
+	drink_name = "Glass of Tomato juice"
+	drink_desc = "Are you sure this is tomato juice?"
 
 /datum/reagent/drink/tomatojuice/on_mob_life(mob/living/M)
 	if(M.getFireLoss() && prob(20))
@@ -25,6 +31,9 @@
 	id = "limejuice"
 	description = "The sweet-sour juice of limes."
 	color = "#365E30" // rgb: 54, 94, 48
+	drink_icon = "glass_green"
+	drink_name = "Glass of Lime juice"
+	drink_desc = "A glass of sweet-sour lime juice."
 
 /datum/reagent/drink/limejuice/on_mob_life(mob/living/M)
 	if(M.getToxLoss() && prob(20))
@@ -36,6 +45,9 @@
 	id = "carrotjuice"
 	description = "It is just like a carrot but without crunching."
 	color = "#973800" // rgb: 151, 56, 0
+	drink_icon = "carrotjuice"
+	drink_name = "Glass of  carrot juice"
+	drink_desc = "It is just like a carrot but without crunching."
 
 /datum/reagent/drink/carrotjuicde/on_mob_life(mob/living/M)
 	M.AdjustEyeBlurry(-1)
@@ -54,6 +66,9 @@
 	description = "A gulp a day keeps the MediBot away. That's probably for the best."
 	reagent_state = LIQUID
 	color = "#FF8CFF" // rgb: 255, 140, 255
+	drink_icon = "doctorsdelightglass"
+	drink_name = "Doctor's Delight"
+	drink_desc = "A healthy mixture of juices, guaranteed to keep you healthy until the next toolboxing takes place."
 
 /datum/reagent/drink/doctors_delight/on_mob_life(mob/living/M)
 	if(M.getToxLoss() && prob(20))
@@ -65,12 +80,18 @@
 	id = "berryjuice"
 	description = "A delicious blend of several different kinds of berries."
 	color = "#863333" // rgb: 134, 51, 51
+	drink_icon = "berryjuice"
+	drink_name = "Glass of berry juice"
+	drink_desc = "Berry juice. Or maybe its jam. Who cares?"
 
 /datum/reagent/drink/poisonberryjuice
 	name = "Poison Berry Juice"
 	id = "poisonberryjuice"
 	description = "A tasty juice blended from various kinds of very deadly and toxic berries."
 	color = "#863353" // rgb: 134, 51, 83
+	drink_icon = "poisonberryjuice"
+	drink_name = "Glass of poison berry juice"
+	drink_desc = "A glass of deadly juice."
 
 /datum/reagent/drink/poisonberryjuice/on_mob_life(mob/living/M)
 	M.adjustToxLoss(1)
@@ -87,6 +108,9 @@
 	id = "lemonjuice"
 	description = "This juice is VERY sour."
 	color = "#863333" // rgb: 175, 175, 0
+	drink_icon = "lemonglass"
+	drink_name = "Glass of lemonjuice"
+	drink_desc = "Sour..."
 
 /datum/reagent/drink/grapejuice
 	name = "Grape Juice"
@@ -99,6 +123,9 @@
 	id = "banana"
 	description = "The raw essence of a banana."
 	color = "#863333" // rgb: 175, 175, 0
+	drink_icon = "banana"
+	drink_name = "Glass of banana juice"
+	drink_desc = "The raw essence of a banana. HONK"
 
 /datum/reagent/drink/banana/on_mob_life(mob/living/M)
 	M.nutrition += nutriment_factor
@@ -111,6 +138,9 @@
 	name = "Nothing"
 	id = "nothing"
 	description = "Absolutely nothing."
+	drink_icon = "nothing"
+	drink_name = "Nothing"
+	drink_desc = "Absolutely nothing."
 
 /datum/reagent/drink/nothing/on_mob_life(mob/living/M)
 	M.nutrition += nutriment_factor
@@ -125,12 +155,18 @@
 	description = "Juice of the potato. Bleh."
 	nutriment_factor = 2 * FOOD_METABOLISM
 	color = "#302000" // rgb: 48, 32, 0
+	drink_icon = "glass_brown"
+	drink_name = "Glass of  potato juice"
+	drink_desc = "Who in the hell requests this? Gross!"
 
 /datum/reagent/drink/milk
 	name = "Milk"
 	id = "milk"
 	description = "An opaque white liquid produced by the mammary glands of mammals."
 	color = "#DFDFDF" // rgb: 223, 223, 223
+	drink_icon = "glass_white"
+	drink_name = "Glass of milk"
+	drink_desc = "White and nutritious goodness!"
 
 /datum/reagent/drink/milk/on_mob_life(mob/living/M)
 	if(M.getBruteLoss() && prob(20))
@@ -144,12 +180,16 @@
 	id = "soymilk"
 	description = "An opaque white liquid made from soybeans."
 	color = "#DFDFC7" // rgb: 223, 223, 199
+	drink_name = "Glass of soy milk"
+	drink_desc = "White and nutritious soy goodness!"
 
 /datum/reagent/drink/milk/cream
 	name = "Cream"
 	id = "cream"
 	description = "The fatty, still liquid part of milk. Why don't you mix this with sum scotch, eh?"
 	color = "#DFD7AF" // rgb: 223, 215, 175
+	drink_name = "Glass of cream"
+	drink_desc = "Ewwww..."
 
 /datum/reagent/drink/milk/chocolate_milk
 	name = "Chocolate milk"
@@ -164,6 +204,9 @@
 	nutriment_factor = 2 * FOOD_METABOLISM
 	color = "#403010" // rgb: 64, 48, 16
 	adj_temp_hot = 5
+	drink_icon = "hot_coco"
+	drink_name = "Glass of hot coco"
+	drink_desc = "Delicious and cozy"
 
 /datum/reagent/drink/coffee
 	name = "Coffee"
@@ -177,6 +220,9 @@
 	overdose_threshold = 45
 	addiction_chance = 1 // It's true.
 	heart_rate_increase = 1
+	drink_icon = "glass_brown"
+	drink_name = "Glass of coffee"
+	drink_desc = "Don't drop it, or you'll send scalding liquid and glass shards everywhere."
 
 /datum/reagent/drink/coffee/on_mob_life(mob/living/M)
 	if(holder.has_reagent("frostoil"))
@@ -198,6 +244,9 @@
 	color = "#102838" // rgb: 16, 40, 56
 	adj_temp_hot = 0
 	adj_temp_cool = 5
+	drink_icon = "icedcoffeeglass"
+	drink_name = "Iced Coffee"
+	drink_desc = "A drink to perk you up and refresh you!"
 
 /datum/reagent/drink/coffee/soy_latte
 	name = "Soy Latte"
@@ -206,6 +255,9 @@
 	color = "#664300" // rgb: 102, 67, 0
 	adj_sleepy = 0
 	adj_temp_hot = 5
+	drink_icon = "soy_latte"
+	drink_name = "Soy Latte"
+	drink_desc = "A nice and refrshing beverage while you are reading."
 
 /datum/reagent/drink/coffee/soy_latte/on_mob_life(mob/living/M)
 	..()
@@ -220,6 +272,9 @@
 	color = "#664300" // rgb: 102, 67, 0
 	adj_sleepy = 0
 	adj_temp_hot = 5
+	drink_icon = "cafe_latte"
+	drink_name = "Cafe Latte"
+	drink_desc = "A nice, strong and refreshing beverage while you are reading."
 
 /datum/reagent/drink/coffee/cafe_latte/on_mob_life(mob/living/M)
 	..()
@@ -232,6 +287,8 @@
 	id = "cafe_mocha"
 	description = "The perfect blend of coffe, milk, and chocolate."
 	color = "#673629"
+	drink_name = "Cafe Mocha"
+	drink_desc = "The perfect blend of coffe, milk, and chocolate."
 
 /datum/reagent/drink/tea
 	name = "Tea"
@@ -242,6 +299,9 @@
 	adj_drowsy = -1
 	adj_sleepy = -3
 	adj_temp_hot = 20
+	drink_icon = "glass_brown"
+	drink_name = "Glass of Tea"
+	drink_desc = "A glass of hot tea. Perhaps a cup with a handle would have been smarter?"
 
 /datum/reagent/drink/tea/on_mob_life(mob/living/M)
 	if(M.getToxLoss() && prob(20))
@@ -255,6 +315,9 @@
 	color = "#104038" // rgb: 16, 64, 56
 	adj_temp_hot = 0
 	adj_temp_cool = 5
+	drink_icon = "icetea"
+	drink_name = "Iced Tea"
+	drink_desc = "No relation to a certain rap artist/ actor."
 
 /datum/reagent/drink/bananahonk
 	name = "Banana Mama"
@@ -262,6 +325,9 @@
 	description = "A drink from Clown Heaven."
 	nutriment_factor = 1 * FOOD_METABOLISM
 	color = "#664300" // rgb: 102, 67, 0
+	drink_icon = "bananahonkglass"
+	drink_name = "Banana Honk"
+	drink_desc = "A drink from Banana Heaven."
 
 /datum/reagent/drink/bananahonk/on_mob_life(mob/living/M)
 	M.nutrition += nutriment_factor
@@ -276,6 +342,9 @@
 	description = "A drink from Mime Heaven."
 	nutriment_factor = 1 * FOOD_METABOLISM
 	color = "#664300" // rgb: 102, 67, 0
+	drink_icon = "silencerglass"
+	drink_name = "Silencer"
+	drink_desc = "A drink from mime Heaven."
 
 /datum/reagent/drink/silencer/on_mob_life(mob/living/M)
 	M.nutrition += nutriment_factor
@@ -283,150 +352,3 @@
 		M.adjustBruteLoss(-1)
 		M.adjustFireLoss(-1)
 	..()
-
-/datum/reagent/ginsonic/on_mob_life(mob/living/M)
-	M.AdjustDrowsy(-5)
-	if(prob(25))
-		M.AdjustParalysis(-1)
-		M.AdjustStunned(-1)
-		M.AdjustWeakened(-1)
-	if(prob(8))
-		M.reagents.add_reagent("methamphetamine",1.2)
-		var/sonic_message = pick("Gotta go fast!", "Time to speed, keed!", "I feel a need for speed!", "Let's juice.", "Juice time.", "Way Past Cool!")
-		if(prob(50))
-			M.say("[sonic_message]")
-		else
-			to_chat(M, "<span class='notice'>[sonic_message ]</span>")
-	..()
-
-/datum/reagent/ethanol/applejack
-	name = "Applejack"
-	id = "applejack"
-	description = "A highly concentrated alcoholic beverage made by repeatedly freezing cider and removing the ice."
-	color = "#997A00"
-	alcohol_perc = 0.4
-
-/datum/reagent/ethanol/jackrose
-	name = "Jack Rose"
-	id = "jackrose"
-	description = "A classic cocktail that had fallen out of fashion, but never out of taste,"
-	color = "#664300"
-	alcohol_perc = 0.4
-
-/datum/reagent/ethanol/dragons_breath //inaccessible to players, but here for admin shennanigans
-	name = "Dragon's Breath"
-	id = "dragonsbreath"
-	description = "Possessing this stuff probably breaks the Geneva convention."
-	reagent_state = LIQUID
-	color = "#DC0000"
-	alcohol_perc = 1
-
-/datum/reagent/ethanol/dragons_breath/reaction_mob(mob/living/M, method=TOUCH, volume)
-	if(method == INGEST && prob(20))
-		if(M.on_fire)
-			M.adjust_fire_stacks(3)
-
-/datum/reagent/ethanol/dragons_breath/on_mob_life(mob/living/M)
-	if(M.reagents.has_reagent("milk"))
-		to_chat(M, "<span class='notice'>The milk stops the burning. Ahhh.</span>")
-		M.reagents.del_reagent("milk")
-		M.reagents.del_reagent("dragonsbreath")
-		return
-	if(prob(8))
-		to_chat(M, "<span class='userdanger'>Oh god! Oh GODD!!</span>")
-	if(prob(50))
-		to_chat(M, "<span class='danger'>Your throat burns terribly!</span>")
-		M.emote(pick("scream","cry","choke","gasp"))
-		M.Stun(1)
-	if(prob(8))
-		to_chat(M, "<span class='danger'>Why!? WHY!?</span>")
-	if(prob(8))
-		to_chat(M, "<span class='danger'>ARGHHHH!</span>")
-	if(prob(2 * volume))
-		to_chat(M, "<span class='userdanger'>OH GOD OH GOD PLEASE NO!!</b></span>")
-		if(M.on_fire)
-			M.adjust_fire_stacks(5)
-		if(prob(50))
-			to_chat(M, "<span class='userdanger'>IT BURNS!!!!</span>")
-			M.visible_message("<span class='danger'>[M] is consumed in flames!</span>")
-			M.dust()
-			return
-	..()
-
-// ROBOT ALCOHOL PAST THIS POINT
-// WOOO!
-
-
-/datum/reagent/ethanol/synthanol
-	name = "Synthanol"
-	id = "synthanol"
-	description = "A runny liquid with conductive capacities. Its effects on synthetics are similar to those of alcohol on organics."
-	reagent_state = LIQUID
-	color = "#1BB1FF"
-	process_flags = ORGANIC | SYNTHETIC
-	metabolization_rate = 0.4
-	alcohol_perc = 0.5
-
-/datum/reagent/ethanol/synthanol/on_mob_life(mob/living/M)
-	if(!M.isSynthetic())
-		holder.remove_reagent(id, 3.6) //gets removed from organics very fast
-		if(prob(25))
-			holder.remove_reagent(id, 15)
-			M.fakevomit()
-	..()
-
-/datum/reagent/ethanol/synthanol/reaction_mob(mob/living/M, method=TOUCH, volume)
-	if(M.isSynthetic())
-		return
-	if(method == INGEST)
-		to_chat(M, pick("<span class = 'danger'>That was awful!</span>", "<span class = 'danger'>Yuck!</span>"))
-
-/datum/reagent/ethanol/synthanol/robottears
-	name = "Robot Tears"
-	id = "robottears"
-	description = "An oily substance that an IPC could technically consider a 'drink'."
-	reagent_state = LIQUID
-	color = "#363636"
-	alcohol_perc = 0.25
-
-/datum/reagent/ethanol/synthanol/trinary
-	name = "Trinary"
-	id = "trinary"
-	description = "A fruit drink meant only for synthetics, however that works."
-	reagent_state = LIQUID
-	color = "#adb21f"
-	alcohol_perc = 0.2
-
-/datum/reagent/ethanol/synthanol/servo
-	name = "Servo"
-	id = "servo"
-	description = "A drink containing some organic ingredients, but meant only for synthetics."
-	reagent_state = LIQUID
-	color = "#5b3210"
-	alcohol_perc = 0.25
-
-/datum/reagent/ethanol/synthanol/uplink
-	name = "Uplink"
-	id = "uplink"
-	description = "A potent mix of alcohol and synthanol. Will only work on synthetics."
-	reagent_state = LIQUID
-	color = "#e7ae04"
-	alcohol_perc = 0.15
-
-/datum/reagent/ethanol/synthanol/synthnsoda
-	name = "Synth 'n Soda"
-	id = "synthnsoda"
-	description = "The classic drink adjusted for a robot's tastes."
-	reagent_state = LIQUID
-	color = "#7204e7"
-	alcohol_perc = 0.25
-
-/datum/reagent/ethanol/synthanol/synthignon
-	name = "Synthignon"
-	id = "synthignon"
-	description = "Someone mixed wine and alcohol for robots. Hope you're proud of yourself."
-	reagent_state = LIQUID
-	color = "#d004e7"
-	alcohol_perc = 0.25
-
-// ROBOT ALCOHOL ENDS

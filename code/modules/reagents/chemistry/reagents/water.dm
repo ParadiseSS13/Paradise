@@ -15,6 +15,9 @@
 	color = "#0064C8" // rgb: 0, 100, 200
 	var/cooling_temperature = 2
 	process_flags = ORGANIC | SYNTHETIC
+	drink_icon = "glass_clear"
+	drink_name = "Glass of Water"
+	drink_desc = "The father of all refreshments."
 
 /datum/reagent/water/reaction_mob(mob/living/M, method=TOUCH, volume)
 // Put out fire
@@ -133,6 +136,9 @@
 	id = "blood"
 	reagent_state = LIQUID
 	color = "#C80000" // rgb: 200, 0, 0
+	drink_icon = "glass_red"
+	drink_name = "Glass of Tomato juice"
+	drink_desc = "Are you sure this is tomato juice?"
 
 /datum/reagent/blood/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(data && data["viruses"])
@@ -262,6 +268,9 @@
 	reagent_state = LIQUID
 	color = "#0064C8" // rgb: 0, 100, 200
 	process_flags = ORGANIC | SYNTHETIC
+	drink_icon = "glass_clear"
+	drink_name = "Glass of Water"
+	drink_desc = "The father of all refreshments."
 
 /datum/reagent/holywater/on_mob_life(mob/living/M)
 	M.AdjustJitter(-5)

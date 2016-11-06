@@ -4,6 +4,9 @@
 	description = "A highly flammable blend of basic hydrocarbons, mostly Acetylene. Useful for both welding and organic chemistry, and can be fortified into a heavier oil."
 	reagent_state = LIQUID
 	color = "#060606"
+	drink_icon = "dr_gibb_glass"
+	drink_name = "Glass of welder fuel"
+	drink_desc = "Unless you are an industrial tool, this is probably not safe for consumption."
 
 /datum/reagent/fuel/reaction_mob(mob/living/M, method=TOUCH, volume)//Splashing people with welding fuel to make them easy to ignite!
 	if(method == TOUCH)
