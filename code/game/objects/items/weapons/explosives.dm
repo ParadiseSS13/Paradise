@@ -109,6 +109,8 @@
 				message_say = "FOR THE REVOLOUTION!"
 			else if(role == "death commando" || role == ROLE_ERT)
 				message_say = "FOR NANOTRASEN!"
+			else if(role == ROLE_DEVIL)
+				message_say = "FOR INFERNO!"
 	user.say(message_say)
 	target = user
 	sleep(10)

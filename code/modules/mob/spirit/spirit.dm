@@ -68,3 +68,6 @@ mob/spirit/Topic(href, href_list)
 		if(A && target)
 			A.follow_cultist(target)
 		return
+
+/mob/spirit/is_literate()
+	return 1

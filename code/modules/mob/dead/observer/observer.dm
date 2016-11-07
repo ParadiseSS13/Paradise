@@ -679,3 +679,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		mind.transfer_to(new_char)
 	else
 		new_char.key = key
+
+/mob/dead/observer/is_literate()
+	return 1

@@ -114,6 +114,11 @@
 	reagent_state = SOLID
 	color = "#D0D0D0" // rgb: 208, 208, 208
 
+/datum/reagent/silver/reaction_mob(mob/living/M, method=TOUCH, volume)
+	if(M.has_bane(BANE_SILVER))
+		M.reagents.add_reagent("toxin", volume)
+	. = ..()
+
 
 /datum/reagent/aluminum
 	name = "Aluminum"
@@ -144,6 +149,11 @@
 	description = "Pure iron is a metal."
 	reagent_state = SOLID
 	color = "#C8A5DC" // rgb: 200, 165, 220
+
+/datum/reagent/iron/reaction_mob(mob/living/M, method=TOUCH, volume)
+	if(M.has_bane(BANE_IRON) && holder && holder.chem_temp < 150) //If the target is weak to cold iron, then poison them.
+		M.reagents.add_reagent("toxin", volume)
+	..()
 
 /datum/reagent/iron/on_mob_life(mob/living/M)
 	if(ishuman(M))

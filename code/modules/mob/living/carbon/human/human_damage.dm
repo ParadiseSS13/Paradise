@@ -17,7 +17,7 @@
 	//TODO: fix husking
 	if(((maxHealth - total_burn) < config.health_threshold_dead) && stat == DEAD)
 		ChangeToHusk()
-	if(species.can_revive_by_healing)
+	if(species.can_revive_by_healing && !(mind && mind.is_revivable()))
 		var/obj/item/organ/internal/brain/B = get_int_organ(/obj/item/organ/internal/brain)
 		if(B)
 			if((health >= (config.health_threshold_dead + config.health_threshold_crit) * 0.5) && stat == DEAD && getBrainLoss()<120)

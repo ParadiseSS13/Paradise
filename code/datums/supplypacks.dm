@@ -1211,7 +1211,9 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 					/obj/item/weapon/storage/bible/booze,
 					/obj/item/weapon/storage/bible/booze,
 					/obj/item/clothing/suit/hooded/chaplain_hoodie,
-					/obj/item/clothing/suit/hooded/chaplain_hoodie)
+					/obj/item/clothing/suit/hooded/chaplain_hoodie,
+					/obj/item/clothing/under/burial,
+					/obj/item/clothing/under/burial)
 	cost = 40
 	containername = "religious supplies crate"
 
@@ -1237,6 +1239,19 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 					/obj/item/weapon/clipboard)
 	cost = 15
 	containername = "bureaucracy crate"
+
+/datum/supply_packs/misc/book_crate
+	name = "Research Crate"
+	contains = list(/obj/item/weapon/book/codex_gigas)
+	cost = 15
+	containername = "book crate"
+
+/datum/supply_packs/misc/book_crate/New()
+	contains += pick(subtypesof(/obj/item/weapon/book/manual))
+	contains += pick(subtypesof(/obj/item/weapon/book/manual))
+	contains += pick(subtypesof(/obj/item/weapon/book/manual))
+	contains += pick(subtypesof(/obj/item/weapon/book/manual))
+	..()
 
 /datum/supply_packs/misc/toner
 	name = "Toner Cartridges Crate"

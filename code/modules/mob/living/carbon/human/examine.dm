@@ -214,6 +214,8 @@
 
 	if(suiciding)
 		msg += "<span class='warning'>[t_He] appears to have commited suicide... there is no hope of recovery.</span>\n"
+	if(stat == DEAD && mind &&  mind.damnation_type)
+		msg += "<span class='warning'>[t_his] soul seems to have been ripped out of [t_his] body.  Revival is impossible.</span>\n"
 
 	if(DWARF in mutations)
 		msg += "[t_He] [t_is] a halfling!\n"

@@ -616,3 +616,9 @@ proc/dd_sortedObjectList(list/incoming)
 
 /datum/alarm/dd_SortValue()
 	return "[sanitize(last_name)]"
+
+//Return a list with no duplicate entries
+/proc/uniqueList(list/L)
+	. = list()
+	for(var/i in L)
+		. |= i

@@ -30,26 +30,27 @@
 //Dusting robots does not eject the MMI, so it's a bit more powerful than gib() /N
 /mob/proc/dust()
 	death(1)
-	var/atom/movable/overlay/animation = null
-	notransform = 1
-	canmove = 0
 	icon = null
 	invisibility = 101
+	dust_animation()
+	dead_mob_list -= src
+	if(client)
+		respawnable_list += src
+		if(src)
+			qdel(src)
 
+/mob/proc/dust_animation()
+	var/atom/movable/overlay/animation = null
 	animation = new(loc)
 	animation.icon_state = "blank"
 	animation.icon = 'icons/mob/mob.dmi'
 	animation.master = src
 
-//	flick("dust-m", animation)
+	//	flick("dust-m", animation)
 	new /obj/effect/decal/cleanable/ash(loc)
-
-	dead_mob_list -= src
-	if(client)
-		respawnable_list += src
 	spawn(15)
 		if(animation)	qdel(animation)
-		if(src)			qdel(src)
+	
 
 /mob/proc/melt()
 	death(1)

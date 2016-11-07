@@ -51,11 +51,17 @@
 
 /mob/living/carbon/human/dust()
 	death(1)
-	var/atom/movable/overlay/animation = null
 	notransform = 1
 	canmove = 0
 	icon = null
 	invisibility = 101
+	dust_animation()
+	spawn(15)
+		if(src)
+			qdel(src)
+
+/mob/living/carbon/human/dust_animation()
+	var/atom/movable/overlay/animation = null
 
 	animation = new(loc)
 	animation.icon_state = "blank"
@@ -64,10 +70,10 @@
 
 	flick("dust-h", animation)
 	new species.remains_type(get_turf(src))
-
 	spawn(15)
 		if(animation)	qdel(animation)
-		if(src)			qdel(src)
+	
+
 
 /mob/living/carbon/human/melt()
 	death(1)
@@ -139,7 +145,9 @@
 
 	if(wearing_rig)
 		wearing_rig.notify_ai("<span class='danger'>Warning: user death event. Mobility control passed to integrated intelligence system.</span>")
-
+	if(mind && mind.devilinfo)
+		spawn(0)
+			mind.devilinfo.beginResurrectionCheck(src)
 	return ..(gibbed)
 
 /mob/living/carbon/human/update_revive()

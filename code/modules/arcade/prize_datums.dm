@@ -250,6 +250,12 @@ var/global/datum/prizes/global_prizes = new
 	typepath = /obj/item/toy/AI
 	cost = 75
 
+/datum/prize_item/codex_gigas
+	name = "Toy Codex Gigas"
+	desc = "For helping you come up with writing ideas for your diabolical adventures."
+	typepath = /obj/item/toy/codex_gigas/
+	cost = 75
+
 /datum/prize_item/tommygun
 	name = "Tommygun"
 	desc = "A replica tommygun that fires foam darts."

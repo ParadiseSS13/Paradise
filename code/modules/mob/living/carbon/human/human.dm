@@ -2137,3 +2137,49 @@
 	update_icons()
 
 	..()
+
+/mob/living/carbon/human/proc/influenceSin()
+	var/datum/objective/sintouched/O
+	switch(rand(1,7))//traditional seven deadly sins... except lust.
+		if(1) // acedia
+			log_game("[src] was influenced by the sin of Acedia.")
+			O = new /datum/objective/sintouched/acedia
+		if(2) // Gluttony
+			log_game("[src] was influenced by the sin of gluttony.")
+			O = new /datum/objective/sintouched/gluttony
+		if(3) // Greed
+			log_game("[src] was influenced by the sin of greed.")
+			O = new /datum/objective/sintouched/greed
+		if(4) // sloth
+			log_game("[src] was influenced by the sin of sloth.")
+			O = new /datum/objective/sintouched/sloth
+		if(5) // Wrath
+			log_game("[src] was influenced by the sin of wrath.")
+			O = new /datum/objective/sintouched/wrath
+		if(6) // Envy
+			log_game("[src] was influenced by the sin of envy.")
+			O = new /datum/objective/sintouched/envy
+		if(7) // Pride
+			log_game("[src] was influenced by the sin of pride.")
+			O = new /datum/objective/sintouched/pride
+	ticker.mode.sintouched += src.mind
+	src.mind.objectives += O
+	var/obj_count = 1
+	to_chat(src, "<span class='notice> Your current objectives:")
+	for(var/datum/objective/objective in src.mind.objectives)
+		to_chat(src, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
+		obj_count++
+
+/mob/living/carbon/human/is_literate()
+	return brainloss<100
+
+
+/mob/living/carbon/human/fakefire(var/fire_icon = "Generic_mob_burning")
+	if(!overlays_standing[FIRE_LAYER])
+		overlays_standing[FIRE_LAYER] = image("icon"=fire_dmi, "icon_state"=fire_icon)
+		update_icons()
+
+/mob/living/carbon/human/fakefireextinguish()
+	overlays_standing[FIRE_LAYER] = null
+		update_icons()
+

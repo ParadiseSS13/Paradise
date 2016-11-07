@@ -35,15 +35,16 @@
 #define DATA_HUD_DIAGNOSTIC			5
 #define DATA_HUD_HYDROPONIC			6
 //NATIONS
-#define GAME_HUD_NATIONS	7
+#define GAME_HUD_NATIONS			7
 //antag HUD defines
-#define ANTAG_HUD_CULT		8
-#define ANTAG_HUD_REV		9
-#define ANTAG_HUD_OPS		10
-#define ANTAG_HUD_WIZ		11
-#define ANTAG_HUD_SHADOW    12
-#define ANTAG_HUD_TRAITOR 13
-#define ANTAG_HUD_NINJA 14 //For Daves Rework
-#define ANTAG_HUD_CHANGELING 15
-#define ANTAG_HUD_VAMPIRE 16
-#define ANTAG_HUD_ABDUCTOR 17 //For Fox
+#define ANTAG_HUD_CULT				8
+#define ANTAG_HUD_REV				9
+#define ANTAG_HUD_OPS				10
+#define ANTAG_HUD_WIZ				11
+#define ANTAG_HUD_SHADOW    		12
+#define ANTAG_HUD_TRAITOR			13
+#define ANTAG_HUD_NINJA 			14 //For Daves Rework
+#define ANTAG_HUD_CHANGELING		15
+#define ANTAG_HUD_VAMPIRE			16
+#define ANTAG_HUD_ABDUCTOR			17 //For Fox
+#define ANTAG_HUD_DEVIL				18

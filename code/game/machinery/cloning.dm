@@ -205,7 +205,15 @@
 	clonemind = locate(R.mind)
 	if(!istype(clonemind))	//not a mind
 		return 0
-	if( clonemind.current && clonemind.current.stat != DEAD )	//mind is associated with a non-dead body
+	if(clonemind.current && clonemind.current.stat != DEAD )	//mind is associated with a non-dead body
+		return 0
+	if(clonemind.damnation_type)
+		playsound(loc, pick('sound/goonstation/voice/male_scream.ogg', 'sound/goonstation/voice/female_scream.ogg'), 100, 1)
+		mess = 1
+		update_icon()
+		connected_message("<font color=600A0A>If you keep trying to steal from me, you'll end up with me</font>")
+		return 0
+	if(!clonemind.is_revivable()) //Other reasons for being unrevivable
 		return 0
 	if(clonemind.active)	//somebody is using that mind
 		if(ckey(clonemind.key) != R.ckey)

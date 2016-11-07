@@ -63,6 +63,9 @@
 	var/antag_hud_icon_state = null //this mind's ANTAG_HUD should have this icon_state
 	var/datum/atom_hud/antag/antag_hud = null //this mind's antag HUD
 	var/datum/mindslaves/som //stands for slave or master...hush..
+	var/datum/devilinfo/devilinfo //Information about the devil, if any.
+ 	var/damnation_type = 0
+ 	var/datum/mind/soulOwner //who owns the soul.  Under normal circumstances, this will point to src
 
 	var/rev_cooldown = 0
 
@@ -77,6 +80,10 @@
 
 	//zealot_master is a reference to the mob that converted them into a zealot (for ease of investigation and such)
 	var/mob/living/carbon/human/zealot_master = null
+
+/datum/mind/New(var/key)
+	src.key = key
+	soulOwner = src
 
 /datum/mind/proc/transfer_to(mob/living/new_character)
 	var/datum/atom_hud/antag/hud_to_transfer = antag_hud //we need this because leave_hud() will clear this list
@@ -347,7 +354,24 @@
 
 
 		sections["Abductor"] = text
+	/** DEVIL ***/
+	if(istype(current, /mob/living/carbon/human) || istype(current, /mob/living/carbon/true_devil) || istype(current, /mob/living/silicon/robot))
+		text = "devil"
+		if(ticker.mode.config_tag == "devil")
+			text = uppertext(text)
+		text = "<i><b>[text]</b></i>: "
+		if(src in ticker.mode.devils)
+			text += "<b>DEVIL</b>|sintouched|<a href='?src=\ref[src];devil=clear'>human</a>"
+		else if(src in ticker.mode.sintouched)
+			text += "devil|<b>SINTOUCHED</b>|<a href='?src=\ref[src];devil=clear'>human</a>"
+		else
+			text += "<a href='?src=\ref[src];devil=devil'>devil</a>|<a href='?src=\ref[src];devil=sintouched'>sintouched</a>|<b>HUMAN</b>"
 
+		if(current && current.client && (ROLE_DEVIL in current.client.prefs.be_special))
+			text += "|Enabled in Prefs"
+		else
+			text += "|Disabled in Prefs"
+		sections["devil"] = text
 	/** TRAITOR ***/
 	text = "traitor"
 	if(ticker.mode.config_tag=="traitor" || ticker.mode.config_tag=="traitorchan" || ticker.mode.config_tag=="traitorvamp")
@@ -1009,6 +1033,41 @@
 				else
 					to_chat(usr, "\red No valid nuke found!")
 
+	else if(href_list["devil"])
+		switch(href_list["devil"])
+			if("clear")
+				if(src in ticker.mode.devils)
+					if(istype(current,/mob/living/carbon/true_devil/))
+						to_chat(usr,"<span class='warning'>This cannot be used on true or arch-devils.</span>")
+					else
+						ticker.mode.devils -= src
+						special_role = null
+						to_chat(current,"<span class='userdanger'>Your infernal link has been severed! You are no longer a devil!</span>")
+						RemoveSpell(/obj/effect/proc_holder/spell/targeted/infernal_jaunt)
+						RemoveSpell(/obj/effect/proc_holder/spell/dumbfire/fireball/hellish)
+						RemoveSpell(/obj/effect/proc_holder/spell/targeted/summon_contract)
+						RemoveSpell(/obj/effect/proc_holder/spell/targeted/conjure_item/pitchfork)
+						message_admins("[key_name_admin(usr)] has de-devil'ed [current].")
+						if(issilicon(current))
+							var/mob/living/silicon/S = current
+							S.laws.clear_sixsixsix_laws()
+						devilinfo = null
+						log_admin("[key_name(usr)] has de-devil'ed [current].")
+				else if(src in ticker.mode.sintouched)
+					ticker.mode.sintouched -= src
+					message_admins("[key_name_admin(usr)] has de-sintouch'ed [current].")
+					log_admin("[key_name(usr)] has de-sintouch'ed [current].")
+			if("devil")
+				ticker.mode.devils += src
+				special_role = "devil"
+				ticker.mode.finalize_devil(src)
+				ticker.mode.add_devil_objectives(src, 2)
+				announceDevilLaws()
+			if("sintouched")
+				var/mob/living/carbon/human/H = current
+				H.influenceSin()
+				message_admins("[key_name_admin(usr)] has sintouch'ed [current].")
+
 	else if(href_list["traitor"])
 		switch(href_list["traitor"])
 			if("clear")
@@ -1465,6 +1524,16 @@
 		var/obj/effect/proc_holder/spell/S = X
 		S.action.Grant(new_character)
 
+/datum/mind/proc/disrupt_spells(delay, list/exceptions = New())
+	for(var/X in spell_list)
+		var/obj/effect/proc_holder/spell/S = X
+		for(var/type in exceptions)
+			if(istype(S, type))
+				continue
+		S.charge_counter = delay
+		spawn(0)
+			S.start_recharge()
+
 /datum/mind/proc/get_ghost(even_if_they_cant_reenter)
 	for(var/mob/dead/observer/G in dead_mob_list)
 		if(G.mind == src)
@@ -1543,6 +1612,11 @@
 
 	to_chat(current, "<span class='warning'>You seem to have forgotten the events of the past 10 minutes or so, and your head aches a bit as if someone beat it savagely with a stick.</span>")
 	to_chat(current, "<span class='warning'>This means you don't remember who you were working for or what you were doing.</span>")
+
+/datum/mind/proc/is_revivable() //Note, this ONLY checks the mind.
+	if(damnation_type)
+		return FALSE
+	return TRUE
 
 //Initialisation procs
 /mob/proc/mind_initialize()
