@@ -677,13 +677,6 @@
 	result_amount = 2
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
-/datum/reagent/ginsonic
-	name = "Gin and sonic"
-	id = "ginsonic"
-	description = "GOTTA GET CRUNK FAST BUT LIQUOR TOO SLOW"
-	reagent_state = LIQUID
-	color = "#1111CF"
-
 /datum/chemical_reaction/ginsonic
 	name = "ginsonic"
 	id = "ginsonic"

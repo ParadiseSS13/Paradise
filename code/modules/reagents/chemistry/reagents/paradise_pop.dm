@@ -1,4 +1,3 @@
-
 /*
 	Paradise Pop reagents
 	Created through the bottler machine via bottler_recipes, not through standard reactions

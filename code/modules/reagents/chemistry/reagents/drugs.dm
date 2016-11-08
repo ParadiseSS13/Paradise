@@ -27,39 +27,6 @@
 	if(prob(5)) M.emote(pick("twitch","drool","moan"))
 	..()
 
-
-/datum/reagent/hippies_delight
-	name = "Hippie's Delight"
-	id = "hippiesdelight"
-	description = "You just don't get it maaaan."
-	reagent_state = LIQUID
-	color = "#664300" // rgb: 102, 67, 0
-	metabolization_rate = 0.2 * REAGENTS_METABOLISM
-	drink_icon = "hippiesdelightglass"
-	drink_name = "Hippie's Delight"
-	drink_desc = "A drink enjoyed by people during the 1960's."
-
-/datum/reagent/hippies_delight/on_mob_life(mob/living/M)
-	M.Druggy(50)
-	switch(current_cycle)
-		if(1 to 5)
-			if(!M.stuttering) M.stuttering = 1
-			M.Dizzy(10)
-			if(prob(10)) M.emote(pick("twitch","giggle"))
-		if(5 to 10)
-			if(!M.stuttering) M.stuttering = 1
-			M.Jitter(20)
-			M.Dizzy(20)
-			M.Druggy(45)
-			if(prob(20)) M.emote(pick("twitch","giggle"))
-		if(10 to INFINITY)
-			if(!M.stuttering) M.stuttering = 1
-			M.Jitter(40)
-			M.Dizzy(40)
-			M.Druggy(60)
-			if(prob(30)) M.emote(pick("twitch","giggle"))
-	..()
-
 /datum/reagent/lsd
 	name = "Lysergic acid diethylamide"
 	id = "lsd"
@@ -368,13 +335,6 @@
 			M.Weaken(10)
 		else if(effect <= 7)
 			M.emote("laugh")
-
-/datum/reagent/saltpetre
-	name = "Saltpetre"
-	id = "saltpetre"
-	description = "Volatile."
-	reagent_state = LIQUID
-	color = "#60A584" // rgb: 96, 165, 132
 
 /datum/reagent/bath_salts
 	name = "Bath Salts"

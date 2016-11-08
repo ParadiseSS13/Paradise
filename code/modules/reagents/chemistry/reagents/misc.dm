@@ -245,6 +245,13 @@
 	M.adjustToxLoss(1.5)
 	..()
 
+/datum/reagent/saltpetre
+	name = "Saltpetre"
+	id = "saltpetre"
+	description = "Volatile."
+	reagent_state = LIQUID
+	color = "#60A584" // rgb: 96, 165, 132
+
 /datum/reagent/colorful_reagent
 	name = "Colorful Reagent"
 	id = "colorful_reagent"

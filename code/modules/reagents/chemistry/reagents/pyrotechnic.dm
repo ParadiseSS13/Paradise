@@ -14,32 +14,6 @@
 		return
 	..()
 
-/datum/reagent/fuel/unholywater		//if you somehow managed to extract this from someone, dont splash it on yourself and have a smoke
-	name = "Unholy Water"
-	id = "unholywater"
-	description = "Something that shouldn't exist on this plane of existance."
-	process_flags = ORGANIC | SYNTHETIC //ethereal means everything processes it.
-	metabolization_rate = 1
-
-/datum/reagent/fuel/unholywater/on_mob_life(mob/living/M)
-	M.adjustBrainLoss(3)
-	if(iscultist(M))
-		M.status_flags |= GOTTAGOFAST
-		M.AdjustDrowsy(-5)
-		M.AdjustParalysis(-2)
-		M.AdjustStunned(-2)
-		M.AdjustWeakened(-2)
-	else
-		M.adjustToxLoss(2)
-		M.adjustFireLoss(2)
-		M.adjustOxyLoss(2)
-		M.adjustBruteLoss(2)
-	..()
-
-/datum/reagent/fuel/unholywater/on_mob_delete(mob/living/M)
-	M.status_flags &= ~GOTTAGOFAST
-	..()
-
 /datum/reagent/plasma
 	name = "Plasma"
 	id = "plasma"

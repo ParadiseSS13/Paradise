@@ -272,4 +272,3 @@
 	result_amount = 3
 	min_temp = 370
 	mix_message = "The solution gently swirls with a metallic sheen."
-

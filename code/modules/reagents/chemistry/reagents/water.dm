@@ -339,6 +339,46 @@
 			qdel(R)
 	T.Bless()
 
+/datum/reagent/fuel/unholywater		//if you somehow managed to extract this from someone, dont splash it on yourself and have a smoke
+	name = "Unholy Water"
+	id = "unholywater"
+	description = "Something that shouldn't exist on this plane of existance."
+	process_flags = ORGANIC | SYNTHETIC //ethereal means everything processes it.
+	metabolization_rate = 1
+
+/datum/reagent/fuel/unholywater/on_mob_life(mob/living/M)
+	M.adjustBrainLoss(3)
+	if(iscultist(M))
+		M.status_flags |= GOTTAGOFAST
+		M.AdjustDrowsy(-5)
+		M.AdjustParalysis(-2)
+		M.AdjustStunned(-2)
+		M.AdjustWeakened(-2)
+	else
+		M.adjustToxLoss(2)
+		M.adjustFireLoss(2)
+		M.adjustOxyLoss(2)
+		M.adjustBruteLoss(2)
+	..()
+
+/datum/reagent/fuel/unholywater/on_mob_delete(mob/living/M)
+	M.status_flags &= ~GOTTAGOFAST
+	..()
+
+/datum/reagent/hellwater
+	name = "Hell Water"
+	id = "hell_water"
+	description = "YOUR FLESH! IT BURNS!"
+	process_flags = ORGANIC | SYNTHETIC		//Admin-bus has no brakes! KILL THEM ALL.
+	metabolization_rate = 1
+
+/datum/reagent/hellwater/on_mob_life(mob/living/M)
+	M.fire_stacks = min(5, M.fire_stacks + 3)
+	M.IgniteMob()			//Only problem with igniting people is currently the commonly availible fire suits make you immune to being on fire
+	M.adjustToxLoss(1)
+	M.adjustFireLoss(1)		//Hence the other damages... ain't I a bastard?
+	M.adjustBrainLoss(5)
+	..()
 
 /datum/reagent/liquidgibs
 	name = "Liquid gibs"

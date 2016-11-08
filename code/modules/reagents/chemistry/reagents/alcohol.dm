@@ -825,6 +825,38 @@
 		M.adjustToxLoss(2)
 	..()
 
+/datum/reagent/ethanol/hippies_delight
+	name = "Hippie's Delight"
+	id = "hippiesdelight"
+	description = "You just don't get it maaaan."
+	reagent_state = LIQUID
+	color = "#664300" // rgb: 102, 67, 0
+	metabolization_rate = 0.2 * REAGENTS_METABOLISM
+	drink_icon = "hippiesdelightglass"
+	drink_name = "Hippie's Delight"
+	drink_desc = "A drink enjoyed by people during the 1960's."
+
+/datum/reagent/ethanol/hippies_delight/on_mob_life(mob/living/M)
+	M.Druggy(50)
+	switch(current_cycle)
+		if(1 to 5)
+			if(!M.stuttering) M.stuttering = 1
+			M.Dizzy(10)
+			if(prob(10)) M.emote(pick("twitch","giggle"))
+		if(5 to 10)
+			if(!M.stuttering) M.stuttering = 1
+			M.Jitter(20)
+			M.Dizzy(20)
+			M.Druggy(45)
+			if(prob(20)) M.emote(pick("twitch","giggle"))
+		if(10 to INFINITY)
+			if(!M.stuttering) M.stuttering = 1
+			M.Jitter(40)
+			M.Dizzy(40)
+			M.Druggy(60)
+			if(prob(30)) M.emote(pick("twitch","giggle"))
+	..()
+
 /datum/reagent/ethanol/changelingsting
 	name = "Changeling Sting"
 	id = "changelingsting"
@@ -993,7 +1025,6 @@
 // ROBOT ALCOHOL PAST THIS POINT
 // WOOO!
 
-
 /datum/reagent/ethanol/synthanol
 	name = "Synthanol"
 	id = "synthanol"
@@ -1086,5 +1117,3 @@
 	drink_icon = "synthignonglass"
 	drink_name = "Glass of Synthignon"
 	drink_desc = "Someone mixed good wine and robot booze. Romantic, but atrocious."
-
-// ROBOT ALCOHOL ENDS

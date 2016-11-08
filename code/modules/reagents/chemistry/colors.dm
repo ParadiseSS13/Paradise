@@ -29,5 +29,3 @@ var/list/random_color_list = list("#00aedb","#a200ff","#f47835","#d41243","#d111
 		else
 			color = BlendRGB(reagent_color, color, vol_temp/vol_counter)
 	return color
-
-
