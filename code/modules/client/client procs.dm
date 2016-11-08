@@ -234,7 +234,13 @@
 	return 1
 
 /client/proc/handle_spam_prevention(var/message, var/mute_type, var/throttle = 0)
-	if(config.automute_on && !holder && last_message == message)
+	if(throttle)
+		if((last_message_time + throttle > world.time) && !check_rights(R_ADMIN, 0))
+			var/wait_time = round(((last_message_time + throttle) - world.time) / 10, 1)
+			to_chat(src, "<span class='danger'>You are sending messages to quickly. Please wait [wait_time] [wait_time == 1 ? "second" : "seconds"] before sending another message.</span>")
+			return 1		
+		last_message_time = world.time
+	if(config.automute_on && !check_rights(R_ADMIN, 0) && last_message == message)
 		last_message_count++
 		if(last_message_count >= SPAM_TRIGGER_AUTOMUTE)
 			to_chat(src, "<span class='danger'>You have exceeded the spam filter limit for identical messages. An auto-mute was applied.</span>")
@@ -243,12 +249,6 @@
 		if(last_message_count >= SPAM_TRIGGER_WARNING)
 			to_chat(src, "<span class='danger'>You are nearing the spam filter limit for identical messages.</span>")
 			return 0
-	else if(throttle)
-		if((last_message_time + throttle > world.time) && !check_rights(R_ADMIN, 0))
-			var/wait_time = round(((last_message_time + throttle) - world.time) / 10, 1)
-			to_chat(src, "<span class='danger'>You are sending messages to quickly. Please wait [wait_time] [wait_time == 1 ? "second" : "seconds"] before sending another message.</span>")
-			return 1		
-		last_message_time = world.time
 	else
 		last_message = message
 		last_message_count = 0
