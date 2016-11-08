@@ -396,7 +396,8 @@
 
 /proc/togglebuildmode(mob/M as mob in player_list)
 	set name = "Toggle Build Mode"
-	set category = "Special Verbs"
+	set category = "Event"
+
 	if(M.client)
 		if(istype(M.client.click_intercept,/datum/click_intercept/buildmode))
 			var/datum/click_intercept/buildmode/B = M.client.click_intercept
