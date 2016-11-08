@@ -405,7 +405,7 @@
 			log_admin("[key_name(usr)] has left build mode.")
 		else
 			new/datum/click_intercept/buildmode(M.client)
-			message_admins("[key_name(usr)] has entered build mode.")
+			message_admins("[key_name_admin(usr)] has entered build mode.")
 			log_admin("[key_name(usr)] has entered build mode.")
 
 /datum/click_intercept/buildmode/InterceptClickOn(user,params,atom/object) //Click Intercept
