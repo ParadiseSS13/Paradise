@@ -287,3 +287,6 @@
 #define SHELTER_DEPLOY_BAD_TURFS "bad turfs"
 #define SHELTER_DEPLOY_BAD_AREA "bad area"
 #define SHELTER_DEPLOY_ANCHORED_OBJECTS "anchored objects"
+
+// The cooldown on OOC messages such as OOC, LOOC, praying and adminhelps
+#define OOC_COOLDOWN 20
