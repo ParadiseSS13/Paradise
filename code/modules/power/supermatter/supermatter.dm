@@ -122,7 +122,7 @@
 						if(ishuman(mob))
 							//Hilariously enough, running into a closet should make you get hit the hardest.
 							var/mob/living/carbon/human/H = mob
-							H.hallucination += max(50, min(300, DETONATION_HALLUCINATION * sqrt(1 / (get_dist(mob, src) + 1)) ) )
+							H.AdjustHallucinate(max(50, min(300, DETONATION_HALLUCINATION * sqrt(1 / (get_dist(mob, src) + 1)))))
 						var/rads = DETONATION_RADS * sqrt( 1 / (get_dist(mob, src) + 1) )
 						mob.apply_effect(rads, IRRADIATE)
 
@@ -189,7 +189,7 @@
 		var/obj/item/organ/internal/eyes/eyes = l.get_int_organ(/obj/item/organ/internal/eyes)
 		if(!istype(eyes))
 			continue
-		l.hallucination = max(0, min(200, l.hallucination + power * config_hallucination_power * sqrt( 1 / max(1,get_dist(l, src)) ) ) )
+		l.Hallucinate(min(200, l.hallucination + power * config_hallucination_power * sqrt( 1 / max(1,get_dist(l, src)))))
 
 	for(var/mob/living/l in range(src, round((power / 100) ** 0.25)))
 		var/rads = (power / 10) * sqrt( 1 / max(get_dist(l, src),1) )

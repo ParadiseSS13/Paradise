@@ -144,7 +144,7 @@
 
 	if(usr.stat != 0)
 		return
-	if(usr.restrained() || usr.stat || usr.weakened || usr.stunned || usr.paralysis || usr.resting) //are you cuffed, dying, lying, stunned or other
+	if(usr.incapacitated()) //are you cuffed, dying, lying, stunned or other
 		return
 	if(!ishuman(usr)) //Make sure they're a mob that has dna
 		to_chat(usr, "<span class='notice'>Try as you might, you can not climb up into the [src].</span>")
@@ -169,7 +169,7 @@
 		return
 	if(O.loc == user) //no you can't pull things out of your ass
 		return
-	if(user.restrained() || user.stat || user.weakened || user.stunned || user.paralysis || user.resting) //are you cuffed, dying, lying, stunned or other
+	if(user.incapacitated()) //are you cuffed, dying, lying, stunned or other
 		return
 	if(O.anchored || get_dist(user, src) > 1 || get_dist(user, O) > 1 || user.contents.Find(src)) // is the mob anchored, too far away from you, or are you too far away from the source
 		return
