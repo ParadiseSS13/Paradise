@@ -128,7 +128,6 @@
 	drink_desc = "The raw essence of a banana. HONK"
 
 /datum/reagent/drink/banana/on_mob_life(mob/living/M)
-	M.nutrition += nutriment_factor
 	if((ishuman(M) && M.job in list("Clown") ) || issmall(M))
 		M.adjustBruteLoss(-1)
 		M.adjustFireLoss(-1)
@@ -143,7 +142,6 @@
 	drink_desc = "Absolutely nothing."
 
 /datum/reagent/drink/nothing/on_mob_life(mob/living/M)
-	M.nutrition += nutriment_factor
 	if(ishuman(M) && M.job in list("Mime"))
 		M.adjustBruteLoss(-1)
 		M.adjustFireLoss(-1)
@@ -330,7 +328,6 @@
 	drink_desc = "A drink from Banana Heaven."
 
 /datum/reagent/drink/bananahonk/on_mob_life(mob/living/M)
-	M.nutrition += nutriment_factor
 	if((ishuman(M) && M.job in list("Clown") ) || issmall(M))
 		M.adjustBruteLoss(-1)
 		M.adjustFireLoss(-1)
@@ -347,7 +344,6 @@
 	drink_desc = "A drink from mime Heaven."
 
 /datum/reagent/drink/silencer/on_mob_life(mob/living/M)
-	M.nutrition += nutriment_factor
 	if(ishuman(M) && M.job in list("Mime"))
 		M.adjustBruteLoss(-1)
 		M.adjustFireLoss(-1)

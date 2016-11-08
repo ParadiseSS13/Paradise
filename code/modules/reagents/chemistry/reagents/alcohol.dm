@@ -226,7 +226,6 @@
 	drink_desc = "This is a glass of Thirteen Loko, it appears to be of the highest quality. The drink, not the glass"
 
 /datum/reagent/ethanol/thirteenloko/on_mob_life(mob/living/M)
-	M.nutrition += nutriment_factor
 	M.AdjustDrowsy(-7)
 	M.AdjustSleeping(-2)
 	if(M.bodytemperature > 310)
