@@ -1,4 +1,0 @@
-author: Twinmold93
-delete-after: True
-changes: 
-  - bugfix: "Fixes a runtime issue caused by using the detective's scanner on the space hotel cleaver."
