@@ -214,7 +214,6 @@ You've gained <b>[totalkarma]</b> total karma in your time here.<br>"}
 			<a href='?src=[UID()];karmashop=shop;KarmaBuy2=6'>Unlock Plasmaman -- 40KP</a><br>
 			<a href='?src=[UID()];karmashop=shop;KarmaBuy2=13'>Unlock Skrell -- 45KP</a><br>
 			<a href='?src=[UID()];karmashop=shop;KarmaBuy2=5'>Unlock Slime People -- 50KP</a><br>
-			<a href='?src=[UID()];karmashop=shop;KarmaBuy2=10'>Unlock Diona -- 50KP</a><br>
 			<a href='?src=[UID()];karmashop=shop;KarmaBuy2=9'>Unlock Tajaran -- 60KP</a><br>
 			<a href='?src=[UID()];karmashop=shop;KarmaBuy2=11'>Unlock Nucleation -- 70KP</a><br>
 			<a href='?src=[UID()];karmashop=shop;KarmaBuy2=14'>Unlock Vulpkanin -- 75KP</a><br>
