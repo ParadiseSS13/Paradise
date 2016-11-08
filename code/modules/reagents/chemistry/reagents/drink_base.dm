@@ -1,9 +1,8 @@
-/datum/reagent/drink
+/datum/reagent/consumable/drink
 	name = "Drink"
 	id = "drink"
 	description = "Uh, some kind of drink."
 	reagent_state = LIQUID
-	nutriment_factor = 1 * REAGENTS_METABOLISM
 	color = "#E78108" // rgb: 231, 129, 8
 	var/adj_dizzy = 0
 	var/adj_drowsy = 0
@@ -11,8 +10,7 @@
 	var/adj_temp_hot = 0
 	var/adj_temp_cool = 0
 
-/datum/reagent/drink/on_mob_life(mob/living/M)
-	M.nutrition += nutriment_factor
+/datum/reagent/consumable/drink/on_mob_life(mob/living/M)
 	if(adj_dizzy)
 		M.AdjustDizzy(adj_dizzy)
 	if(adj_drowsy)

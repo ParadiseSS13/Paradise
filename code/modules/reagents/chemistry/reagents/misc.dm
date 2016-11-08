@@ -416,6 +416,40 @@
 		M.say(pick("Bzzz...","BZZ BZZ","Bzzzzzzzzzzz..."))
 	..()
 
+/datum/reagent/toxin/coffeepowder
+	name = "Coffee Grounds"
+	id = "coffeepowder"
+	description = "Finely ground Coffee beans, used to make coffee."
+	reagent_state = SOLID
+	color = "#5B2E0D" // rgb: 91, 46, 13
+
+/datum/reagent/toxin/teapowder
+	name = "Ground Tea Leaves"
+	id = "teapowder"
+	description = "Finely shredded Tea leaves, used for making tea."
+	reagent_state = SOLID
+	color = "#7F8400" // rgb: 127, 132, 0
+
+//Reagents used for plant fertilizers.
+/datum/reagent/toxin/fertilizer
+	name = "fertilizer"
+	id = "fertilizer"
+	description = "A chemical mix good for growing plants with."
+	reagent_state = LIQUID
+	color = "#664330" // rgb: 102, 67, 48
+
+/datum/reagent/toxin/fertilizer/eznutrient
+	name = "EZ Nutrient"
+	id = "eznutrient"
+
+/datum/reagent/toxin/fertilizer/left4zed
+	name = "Left-4-Zed"
+	id = "left4zed"
+
+/datum/reagent/toxin/fertilizer/robustharvest
+	name = "Robust Harvest"
+	id = "robustharvest"
+
 ///Alchemical Reagents
 
 /datum/reagent/eyenewt

@@ -139,17 +139,13 @@
 
 //virus foods
 
-/datum/reagent/virus_food
+/datum/reagent/consumable/virus_food
 	name = "Virus Food"
 	id = "virusfood"
 	description = "A mixture of water, milk, and oxygen. Virus cells can use this mixture to reproduce."
 	reagent_state = LIQUID
 	nutriment_factor = 2 * REAGENTS_METABOLISM
 	color = "#899613" // rgb: 137, 150, 19
-
-/datum/reagent/virus_food/on_mob_life(mob/living/M)
-	M.nutrition += nutriment_factor * REAGENTS_EFFECT_MULTIPLIER
-	..()
 
 /datum/reagent/mutagen/mutagenvirusfood
 	name = "mutagenic agar"

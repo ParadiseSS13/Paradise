@@ -1,7 +1,6 @@
 #define SOLID 1
 #define LIQUID 2
 #define GAS 3
-#define FOOD_METABOLISM 0.4
 #define REM REAGENTS_EFFECT_MULTIPLIER
 
 /datum/reagent
@@ -12,7 +11,6 @@
 	var/reagent_state = SOLID
 	var/list/data = null
 	var/volume = 0
-	var/nutriment_factor = 0
 	var/metabolization_rate = REAGENTS_METABOLISM
 	//var/list/viruses = list()
 	var/color = "#000000" // rgb: 0, 0, 0 (does not support alpha channels - yet!)

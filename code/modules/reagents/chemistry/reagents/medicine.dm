@@ -691,7 +691,7 @@
 /datum/reagent/medicine/antihol/on_mob_life(mob/living/M)
 	M.SetSlur(0)
 	M.AdjustDrunk(-4)
-	M.reagents.remove_all_type(/datum/reagent/ethanol, 8, 0, 1)
+	M.reagents.remove_all_type(/datum/reagent/consumable/ethanol, 8, 0, 1)
 	if(M.toxloss <= 25)
 		M.adjustToxLoss(-2.0)
 	..()

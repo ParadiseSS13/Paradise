@@ -1,8 +1,8 @@
-/datum/reagent/drink/cold
+/datum/reagent/consumable/drink/cold
 	name = "Cold drink"
 	adj_temp_cool = 5
 
-/datum/reagent/drink/cold/tonic
+/datum/reagent/consumable/drink/cold/tonic
 	name = "Tonic Water"
 	id = "tonic"
 	description = "It tastes strange but at least the quinine keeps the Space Malaria at bay."
@@ -14,7 +14,7 @@
 	drink_name = "Glass of Tonic Water"
 	drink_desc = "Quinine tastes funny, but at least it'll keep that Space Malaria away."
 
-/datum/reagent/drink/cold/sodawater
+/datum/reagent/consumable/drink/cold/sodawater
 	name = "Soda Water"
 	id = "sodawater"
 	description = "A can of club soda. Why not make a scotch and soda?"
@@ -25,7 +25,7 @@
 	drink_name = "Glass of Soda Water"
 	drink_desc = "Soda water. Why not make a scotch and soda?"
 
-/datum/reagent/drink/cold/ice
+/datum/reagent/consumable/drink/cold/ice
 	name = "Ice"
 	id = "ice"
 	description = "Frozen water, your dentist wouldn't like you chewing this."
@@ -36,11 +36,11 @@
 	drink_name = "Glass of ice"
 	drink_desc = "Generally, you're supposed to put something else in there too..."
 
-/datum/reagent/drink/cold/ice/on_mob_life(mob/living/M)
+/datum/reagent/consumable/drink/cold/ice/on_mob_life(mob/living/M)
 	M.bodytemperature = max(M.bodytemperature - 5 * TEMPERATURE_DAMAGE_COEFFICIENT, 0)
 	..()
 
-/datum/reagent/drink/cold/space_cola
+/datum/reagent/consumable/drink/cold/space_cola
 	name = "Cola"
 	id = "cola"
 	description = "A refreshing beverage."
@@ -51,7 +51,7 @@
 	drink_name = "Glass of Space Cola"
 	drink_desc = "A glass of refreshing Space Cola"
 
-/datum/reagent/drink/cold/nuka_cola
+/datum/reagent/consumable/drink/cold/nuka_cola
 	name = "Nuka Cola"
 	id = "nuka_cola"
 	description = "Cola, cola never changes."
@@ -61,7 +61,7 @@
 	drink_name = "Nuka Cola"
 	drink_desc = "Don't cry, Don't raise your eye, It's only nuclear wasteland"
 
-/datum/reagent/drink/cold/nuka_cola/on_mob_life(mob/living/M)
+/datum/reagent/consumable/drink/cold/nuka_cola/on_mob_life(mob/living/M)
 	M.Jitter(20)
 	M.Druggy(30)
 	M.AdjustDizzy(5)
@@ -69,11 +69,11 @@
 	M.status_flags |= GOTTAGOFAST
 	..()
 
-/datum/reagent/drink/cold/nuka_cola/on_mob_delete(mob/living/M)
+/datum/reagent/consumable/drink/cold/nuka_cola/on_mob_delete(mob/living/M)
 	M.status_flags &= ~GOTTAGOFAST
 	..()
 
-/datum/reagent/drink/cold/spacemountainwind
+/datum/reagent/consumable/drink/cold/spacemountainwind
 	name = "Space Mountain Wind"
 	id = "spacemountainwind"
 	description = "Blows right through you like a space wind."
@@ -84,7 +84,7 @@
 	drink_name = "Glass of Space Mountain Wind"
 	drink_desc = "Space Mountain Wind. As you know, there are no mountains in space, only wind."
 
-/datum/reagent/drink/cold/dr_gibb
+/datum/reagent/consumable/drink/cold/dr_gibb
 	name = "Dr. Gibb"
 	id = "dr_gibb"
 	description = "A delicious blend of 42 different flavours"
@@ -94,7 +94,7 @@
 	drink_name = "Glass of Dr. Gibb"
 	drink_desc = "Dr. Gibb. Not as dangerous as the name might imply."
 
-/datum/reagent/drink/cold/space_up
+/datum/reagent/consumable/drink/cold/space_up
 	name = "Space-Up"
 	id = "space_up"
 	description = "Tastes like a hull breach in your mouth."
@@ -104,14 +104,14 @@
 	drink_name = "Glass of Space-up"
 	drink_desc = "Space-up. It helps keep your cool."
 
-/datum/reagent/drink/cold/lemon_lime
+/datum/reagent/consumable/drink/cold/lemon_lime
 	name = "Lemon Lime"
 	description = "A tangy substance made of 0.5% natural citrus!"
 	id = "lemon_lime"
 	color = "#878F00" // rgb: 135, 40, 0
 	adj_temp_cool = 8
 
-/datum/reagent/drink/cold/lemonade
+/datum/reagent/consumable/drink/cold/lemonade
 	name = "Lemonade"
 	description = "Oh the nostalgia..."
 	id = "lemonade"
@@ -120,7 +120,7 @@
 	drink_name = "Lemonade"
 	drink_desc = "Oh the nostalgia..."
 
-/datum/reagent/drink/cold/kiraspecial
+/datum/reagent/consumable/drink/cold/kiraspecial
 	name = "Kira Special"
 	description = "Long live the guy who everyone had mistaken for a girl. Baka!"
 	id = "kiraspecial"
@@ -129,7 +129,7 @@
 	drink_name = "Kira Special"
 	drink_desc = "Long live the guy who everyone had mistaken for a girl. Baka!"
 
-/datum/reagent/drink/cold/brownstar
+/datum/reagent/consumable/drink/cold/brownstar
 	name = "Brown Star"
 	description = "It's not what it sounds like..."
 	id = "brownstar"
@@ -139,7 +139,7 @@
 	drink_name = "Brown Star"
 	drink_desc = "Its not what it sounds like..."
 
-/datum/reagent/drink/cold/milkshake
+/datum/reagent/consumable/drink/cold/milkshake
 	name = "Milkshake"
 	description = "Glorious brainfreezing mixture."
 	id = "milkshake"
@@ -149,7 +149,7 @@
 	drink_name = "Milkshake"
 	drink_desc = "Glorious brainfreezing mixture."
 
-/datum/reagent/drink/cold/rewriter
+/datum/reagent/consumable/drink/cold/rewriter
 	name = "Rewriter"
 	description = "The secert of the sanctuary of the Libarian..."
 	id = "rewriter"
@@ -158,6 +158,6 @@
 	drink_name = "Rewriter"
 	drink_desc = "The secert of the sanctuary of the Libarian..."
 
-/datum/reagent/drink/cold/rewriter/on_mob_life(mob/living/M)
+/datum/reagent/consumable/drink/cold/rewriter/on_mob_life(mob/living/M)
 	M.Jitter(5)
 	..()
