@@ -174,13 +174,7 @@
 		if((tail_marks > 0) && (tail_marks <= number_tail_marks))
 			H.m_styles["tail"] = marking_styles_list[tail_marks]
 
-		H.force_update_limbs()
-		H.update_eyes()
-		H.update_hair()
-		H.update_fhair()
-		H.update_markings()
-		H.update_tail_layer()
-		H.update_head_accessory()
+		H.regenerate_icons()
 
 		return 1
 	else

@@ -196,7 +196,7 @@
 
 //Human Overlays Indexes/////////
 #define MUTANTRACE_LAYER		1
-#define TAIL_UNDERLIMBS_LAYER	2
+#define TAIL_UNDERLIMBS_LAYER	2	//Tail split-rendering.
 #define LIMBS_LAYER				3
 #define MARKINGS_LAYER			4
 #define UNDERWEAR_LAYER			5
@@ -211,21 +211,24 @@
 #define BELT_LAYER				14	//Possible make this an overlay of somethign required to wear a belt?
 #define SUIT_STORE_LAYER		15
 #define BACK_LAYER				16
-#define HAIR_LAYER				17	//TODO: make part of head layer?
-#define HEAD_ACCESSORY_LAYER	18
-#define FHAIR_LAYER				19
-#define TAIL_LAYER				20	//bs12 specific. this hack is probably gonna come back to haunt me
-#define GLASSES_LAYER			21
-#define FACEMASK_LAYER			22
-#define HEAD_LAYER				23
-#define COLLAR_LAYER			24
-#define HANDCUFF_LAYER			25
-#define LEGCUFF_LAYER			26
-#define L_HAND_LAYER			27
-#define R_HAND_LAYER			28
-#define TARGETED_LAYER			29	//BS12: Layer for the target overlay from weapon targeting system
-#define FIRE_LAYER				30	//If you're on fire
-#define TOTAL_LAYERS			30
+#define HEAD_ACCESSORY_LAYER	17
+#define FHAIR_LAYER				18
+#define GLASSES_LAYER			19
+#define HAIR_LAYER				20	//TODO: make part of head layer?
+#define HEAD_ACC_OVER_LAYER		21	//Select-layer rendering.
+#define FHAIR_OVER_LAYER		22	//Select-layer rendering.
+#define GLASSES_OVER_LAYER		23	//Select-layer rendering.
+#define TAIL_LAYER				24	//bs12 specific. this hack is probably gonna come back to haunt me
+#define FACEMASK_LAYER			25
+#define HEAD_LAYER				26
+#define COLLAR_LAYER			27
+#define HANDCUFF_LAYER			28
+#define LEGCUFF_LAYER			29
+#define L_HAND_LAYER			30
+#define R_HAND_LAYER			31
+#define TARGETED_LAYER			32	//BS12: Layer for the target overlay from weapon targeting system
+#define FIRE_LAYER				33	//If you're on fire
+#define TOTAL_LAYERS			33
 
 ///Access Region Codes///
 #define REGION_ALL			0
