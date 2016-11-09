@@ -289,4 +289,4 @@
 #define SHELTER_DEPLOY_ANCHORED_OBJECTS "anchored objects"
 
 // The cooldown on OOC messages such as OOC, LOOC, praying and adminhelps
-#define OOC_COOLDOWN 10
+#define OOC_COOLDOWN 5
