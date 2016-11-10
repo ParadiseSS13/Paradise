@@ -323,6 +323,55 @@
 		to_chat(user, "You do not know how to operate this airlock's mechanism.")
 		return
 
+//Cult Doors
+/obj/machinery/door/airlock/cult
+	name = "engraved airlock"
+	icon = 'icons/obj/doors/Doorcult.dmi'
+	hackProof = 1
+	aiControlDisabled = 1
+	var/friendly = FALSE
+	var/openingoverlaytype = /obj/effect/overlay/temp/cult/door/unruned
+
+/obj/machinery/door/airlock/cult/narsie_act()
+	return
+
+/obj/machinery/door/airlock/cult/friendly //non cutlist can use
+	friendly = TRUE
+
+/obj/machinery/door/airlock/cult/runed
+	name = "runed airlock"
+	icon = 'icons/obj/doors/Doorcultruned.dmi'
+	openingoverlaytype = /obj/effect/overlay/temp/cult/door/unruned
+
+/obj/machinery/door/airlock/cult/bumpopen(mob/living/M as mob)
+
+	if(friendly || iscultist(M) || istype(M, /mob/living/simple_animal/shade) || istype(M,/mob/living/simple_animal/hostile/construct))
+		new openingoverlaytype(loc)
+		..(M)
+	else
+		new /obj/effect/overlay/temp/cult/sac(loc)
+		var/atom/throwtarget
+		throwtarget = get_edge_target_turf(src, get_dir(src, get_step_away(M, src)))
+		M << pick(sound('sound/hallucinations/turn_around1.ogg',0,1,50), sound('sound/hallucinations/turn_around2.ogg',0,1,50))
+		M.Weaken(2)
+		M.throw_at(throwtarget, 5, 1,src)
+		return
+
+/obj/machinery/door/airlock/cult/attackby(C as obj, mob/M as mob, params)
+
+	if(friendly || iscultist(M) || istype(M, /mob/living/simple_animal/shade) || istype(M,/mob/living/simple_animal/hostile/construct))
+		new openingoverlaytype(loc)
+		..(M)
+	else
+		new /obj/effect/overlay/temp/cult/sac(loc)
+		var/atom/throwtarget
+		throwtarget = get_edge_target_turf(src, get_dir(src, get_step_away(M, src)))
+		M << pick(sound('sound/hallucinations/turn_around1.ogg',0,1,50), sound('sound/hallucinations/turn_around2.ogg',0,1,50))
+		M.Weaken(2)
+		M.throw_at(throwtarget, 5, 1,src)
+		return
+
+
 
 /*
 About the new airlock wires panel:
@@ -1097,3 +1146,13 @@ About the new airlock wires panel:
 		electrified_until = 0
 		open()
 		safe = TRUE
+
+/obj/machinery/door/airlock/narsie_act()
+	var/turf/T = get_turf(src)
+	var/runed = prob(20)
+	if(prob(20))
+		if(runed)
+			new/obj/machinery/door/airlock/cult(T)
+		else
+			new/obj/machinery/door/airlock/cult/runed(T)
+		qdel(src)
