@@ -56,6 +56,7 @@
 	icon = 'icons/obj/items.dmi'
 	icon_state = "bola_cult"
 	breakouttime = 45
+	weaken = 1
 
 /obj/item/clothing/head/culthood
 	name = "cult hood"
@@ -63,7 +64,7 @@
 	desc = "A hood worn by the followers of a cult."
 	flags_inv = HIDEFACE
 	flags = HEADCOVERSEYES
-	armor = list(melee = 30, bullet = 10, laser = 5,energy = 5, bomb = 0, bio = 0, rad = 0)
+	armor = list(melee = 30, bullet = 10, laser = 5, energy = 5, bomb = 0, bio = 0, rad = 0)
 	cold_protection = HEAD
 	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
 
@@ -81,7 +82,7 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	hoodtype = /obj/item/clothing/head/culthood
 	allowed = list(/obj/item/weapon/tome,/obj/item/weapon/melee/cultblade)
-	armor = list(melee = 50, bullet = 30, laser = 50,energy = 20, bomb = 25, bio = 10, rad = 0)
+	armor = list(melee = 50, bullet = 30, laser = 50, energy = 20, bomb = 25, bio = 10, rad = 0)
 	flags_inv = HIDEJUMPSUIT
 
 /obj/item/clothing/suit/hooded/cultrobes/alt
@@ -96,7 +97,7 @@
 	desc = "A helm worn by the followers of Nar-Sie."
 	flags_inv = HIDEFACE
 	flags = HEADCOVERSEYES | HEADCOVERSMOUTH | BLOCKHAIR
-	armor = list(melee = 30, bullet = 30, laser = 30,energy = 20, bomb = 0, bio = 0, rad = 0)
+	armor = list(melee = 30, bullet = 30, laser = 30, energy = 20, bomb = 0, bio = 0, rad = 0)
 
 /obj/item/clothing/suit/magusred
 	name = "magus robes"
@@ -105,7 +106,7 @@
 	item_state = "magusred"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	allowed = list(/obj/item/weapon/tome,/obj/item/weapon/melee/cultblade)
-	armor = list(melee = 50, bullet = 30, laser = 50,energy = 20, bomb = 25, bio = 10, rad = 0)
+	armor = list(melee = 50, bullet = 30, laser = 50, energy = 20, bomb = 25, bio = 10, rad = 0)
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
 
 /obj/item/clothing/head/helmet/space/cult
@@ -113,7 +114,7 @@
 	desc = "A space worthy helmet used by the followers of a cult."
 	icon_state = "cult_helmet"
 	item_state = "cult_helmet"
-	armor = list(melee = 60, bullet = 50, laser = 30,energy = 15, bomb = 30, bio = 30, rad = 30)
+	armor = list(melee = 60, bullet = 50, laser = 30, energy = 15, bomb = 30, bio = 30, rad = 30)
 
 /obj/item/clothing/suit/space/cult
 	name = "cult armour"
@@ -123,7 +124,7 @@
 	w_class = 3
 	allowed = list(/obj/item/weapon/tome,/obj/item/weapon/melee/cultblade,/obj/item/weapon/tank)
 	slowdown = 1
-	armor = list(melee = 60, bullet = 50, laser = 30,energy = 15, bomb = 30, bio = 30, rad = 30)
+	armor = list(melee = 60, bullet = 50, laser = 30, energy = 15, bomb = 30, bio = 30, rad = 30)
 
 /obj/item/clothing/suit/hooded/cultrobes/cult_shield
 	name = "empowered cultist armor"
@@ -131,7 +132,7 @@
 	icon_state = "cult_armour"
 	item_state = "cult_armour"
 	w_class = 4
-	armor = list(melee = 50, bullet = 40, laser = 50,energy = 30, bomb = 50, bio = 30, rad = 30)
+	armor = list(melee = 50, bullet = 40, laser = 50, energy = 30, bomb = 50, bio = 30, rad = 30)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	allowed = list(/obj/item/weapon/tome,/obj/item/weapon/melee/cultblade)
 	var/current_charges = 3
@@ -141,7 +142,7 @@
 	name = "empowered cultist armor"
 	desc = "Empowered garb which creates a powerful shield around the user."
 	icon_state = "cult_hoodalt"
-	armor = list(melee = 50, bullet = 40, laser = 50,energy = 30, bomb = 50, bio = 30, rad = 30)
+	armor = list(melee = 50, bullet = 40, laser = 50, energy = 30, bomb = 50, bio = 30, rad = 30)
 	body_parts_covered = HEAD
 	flags_inv = HIDEFACE
 	flags =  NODROP | HEADCOVERSEYES
@@ -174,7 +175,7 @@
 	flags_inv = HIDEJUMPSUIT
 	allowed = list(/obj/item/weapon/tome,/obj/item/weapon/melee/cultblade)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
-	armor = list(melee = -50, bullet = -50, laser = -100,energy = -50, bomb = -50, bio = -50, rad = -50)
+	armor = list(melee = -50, bullet = -50, laser = -100, energy = -50, bomb = -50, bio = -50, rad = -50)
 	slowdown = -1
 	hoodtype = /obj/item/clothing/head/berserkerhood
 
@@ -185,7 +186,7 @@
 	icon_state = "culthood"
 	flags_inv = HIDEFACE
 	flags = HEADCOVERSEYES
-	armor = list(melee = -100, bullet = -100, laser = -100,energy = -100, bomb = -100, bio = -100, rad = -100)
+	armor = list(melee = -100, bullet = -100, laser = -100, energy = -100, bomb = -100, bio = -100, rad = -100)
 
 /obj/item/weapon/whetstone/cult
 	name = "eldritch whetstone"
@@ -324,7 +325,7 @@
 		if(pulled)
 			C.start_pulling(pulled) //forcemove resets pulls, so we need to re-pull
 
-		PoolOrNew(/obj/effect/overlay/temp/cult/phase, destination)
+		new /obj/effect/overlay/temp/cult/phase(destination)
 		playsound(destination, 'sound/effects/phasein.ogg', 25, 1)
 		playsound(destination, "sparks", 50, 1)
 
