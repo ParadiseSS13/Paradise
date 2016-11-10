@@ -1,4 +1,4 @@
-/obj/item/weapon/reagent_containers/food/snacks/breadslice/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/item/weapon/reagent_containers/food/snacks/breadslice/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/weapon/reagent_containers/food/snacks) && !(W.flags & NODROP))
 		var/obj/item/weapon/reagent_containers/food/snacks/customizable/sandwich/S = new(get_turf(user))
 		S.attackby(W,user, params)
@@ -6,13 +6,13 @@
 	else
 		..()
 
-/obj/item/weapon/reagent_containers/food/snacks/bun/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/item/weapon/reagent_containers/food/snacks/bun/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/weapon/reagent_containers/food/snacks) && !(W.flags & NODROP))
 		var/obj/item/weapon/reagent_containers/food/snacks/customizable/burger/S = new(get_turf(user))
 		S.attackby(W,user, params)
 		qdel(src)
 
-/obj/item/weapon/reagent_containers/food/snacks/sliceable/flatdough/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/item/weapon/reagent_containers/food/snacks/sliceable/flatdough/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/weapon/reagent_containers/food/snacks) && !(W.flags & NODROP))
 		var/obj/item/weapon/reagent_containers/food/snacks/customizable/pizza/S = new(get_turf(user))
 		S.attackby(W,user, params)
@@ -21,7 +21,7 @@
 		..()
 
 
-/obj/item/weapon/reagent_containers/food/snacks/boiledspagetti/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/item/weapon/reagent_containers/food/snacks/boiledspagetti/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/weapon/reagent_containers/food/snacks) && !(W.flags & NODROP))
 		var/obj/item/weapon/reagent_containers/food/snacks/customizable/pasta/S = new(get_turf(user))
 		S.attackby(W,user, params)
@@ -30,7 +30,7 @@
 		..()
 
 
-/obj/item/trash/plate/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/item/trash/plate/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/weapon/reagent_containers/food/snacks) && !(W.flags & NODROP))
 		var/obj/item/weapon/reagent_containers/food/snacks/customizable/fullycustom/S = new(get_turf(user))
 		S.attackby(W,user, params)
@@ -44,7 +44,7 @@
 	icon = 'icons/obj/food/food.dmi'
 	icon_state = "soup"
 
-/obj/item/trash/bowl/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/item/trash/bowl/attackby(obj/item/W, mob/user, params)
 
 	if(istype(W, /obj/item/weapon/reagent_containers/food/snacks) && !(W.flags & NODROP))
 		var/obj/item/weapon/reagent_containers/food/snacks/customizable/soup/S = new(get_turf(user))
@@ -54,7 +54,6 @@
 		..()
 
 /obj/item/weapon/reagent_containers/food/snacks/customizable/sandwich
-	/obj/item/weapon/reagent_containers/food/snacks/customizable
 	name = "sandwich"
 	desc = "A sandwich! A timeless classic."
 	icon_state = "breadslice"
@@ -79,12 +78,7 @@
 	trash = /obj/item/trash/plate
 	bitesize = 2
 	var/list/ingredients = list()
-
-	New()
-		..()
-
-		reagents.add_reagent("nutriment", 8)
-
+	list_reagents = list("nutriment" = 8)
 
 /obj/item/weapon/reagent_containers/food/snacks/customizable/pizza
 	name = "personal pizza"
@@ -323,7 +317,7 @@
 	toptype = new /obj/item/weapon/reagent_containers/food/snacks/bun()
 
 /obj/item/weapon/reagent_containers/food/snacks/customizable/attackby(obj/item/I, mob/user, params)
-	if(src.contents.len > sandwich_limit)
+	if(contents.len > sandwich_limit)
 		to_chat(user, "<span class='warning'>If you put anything else in or on [src] it's going to make a mess.</span>")
 		return
 	if(!istype(I, /obj/item/weapon/reagent_containers/food/snacks))
@@ -351,7 +345,7 @@
 	for(var/obj/item/O in ingredients)
 		i++
 		if(!fullycustom)
-			var/image/I = new(src.icon, "[baseicon]_filling")
+			var/image/I = new(icon, "[baseicon]_filling")
 			if(istype(O, /obj/item/weapon/reagent_containers/food/snacks))
 				var/obj/item/weapon/reagent_containers/food/snacks/food = O
 				if(!food.filling_color == "#FFFFFF")
@@ -372,7 +366,7 @@
 			overlays += O.overlays
 
 	if(top)
-		var/image/T = new(src.icon, "[baseicon]_top")
+		var/image/T = new(icon, "[baseicon]_top")
 		T.pixel_x = pick(list(-1,0,1))
 		T.pixel_y = (ingredients.len * 2)+1
 		overlays += T
@@ -388,24 +382,6 @@
 
 	to_chat(user, "<span class='notice'> You think you can see [whatsinside] in there.</span>")
 
-/*
-/obj/item/weapon/reagent_containers/food/snacks/customizable/attack(mob/M as mob, mob/user as mob, def_zone) //SNOOOOOOOWFLAAAAAAAAAAAAAAAAAKES
-
-	var/obj/item/shard
-	for(var/obj/item/O in contents)
-		if(istype(O,/obj/item/weapon/shard))
-			shard = O
-			break
-
-	var/mob/living/H
-	if(istype(M,/mob/living))
-		H = M
-
-	if(H && shard && M == user) //This needs a check for feeding the food to other people, but that could be abusable.
-		to_chat(H, "\red You lacerate your mouth on a [shard.name] in the sandwich!")
-		H.adjustBruteLoss(5) //TODO: Target head if human.
-	..()
-*/
 
 /obj/item/weapon/reagent_containers/food/snacks/customizable/proc/newname()
 	var/unsorteditems[0]
@@ -487,7 +463,7 @@
 		sendback = "[pick(list("absurd","colossal","enormous","ridiculous","massive","oversized","cardiac-arresting","pipe-clogging","edible but sickening","sickening","gargantuan","mega","belly-burster","chest-burster"))] [basename]"
 	return sendback
 
-/obj/item/weapon/reagent_containers/food/snacks/customizable/proc/sortlist(var/list/unsorted, var/highest)
+/obj/item/weapon/reagent_containers/food/snacks/customizable/proc/sortlist(list/unsorted, highest)
 	var/sorted[0]
 	for(var/i = 1, i<= highest, i++)
 		for(var/it in unsorted)

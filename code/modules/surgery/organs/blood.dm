@@ -101,7 +101,7 @@
 				else
 					adjustOxyLoss(round((BLOOD_VOLUME_NORMAL - blood_volume) * 0.02, 1))
 				if(prob(5))
-					eye_blurry = max(eye_blurry, 6)
+					EyeBlurry(6)
 					var/word = pick("dizzy","woozy","faint")
 					to_chat(src, "<span class='warning'>You feel very [word].</span>")
 			if(BLOOD_VOLUME_SURVIVE to BLOOD_VOLUME_BAD)

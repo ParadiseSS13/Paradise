@@ -38,8 +38,8 @@
 	color = "#973800" // rgb: 151, 56, 0
 
 /datum/reagent/drink/carrotjuicde/on_mob_life(mob/living/M)
-	M.eye_blurry = max(M.eye_blurry-1 , 0)
-	M.eye_blind = max(M.eye_blind-1 , 0)
+	M.AdjustEyeBlurry(-1)
+	M.AdjustEyeBlind(-1)
 	switch(current_cycle)
 		if(1 to 20)
 			//nothing

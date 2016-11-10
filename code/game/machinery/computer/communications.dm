@@ -1,8 +1,11 @@
-
 #define COMM_SCREEN_MAIN		1
 #define COMM_SCREEN_STAT		2
 #define COMM_SCREEN_MESSAGES	3
 #define COMM_SCREEN_SECLEVEL	4
+
+#define COMM_AUTHENTICATION_NONE	0
+#define COMM_AUTHENTICATION_MIN		1
+#define COMM_AUTHENTICATION_MAX		2
 
 // The communications computer
 /obj/machinery/computer/communications
@@ -13,7 +16,7 @@
 	req_access = list(access_heads)
 	circuit = /obj/item/weapon/circuitboard/communications
 	var/prints_intercept = 1
-	var/authenticated = 0
+	var/authenticated = COMM_AUTHENTICATION_NONE
 	var/list/messagetitle = list()
 	var/list/messagetext = list()
 	var/currmsg = 0
@@ -39,16 +42,16 @@
 	crew_announcement.newscast = 1
 
 /obj/machinery/computer/communications/proc/is_authenticated(var/mob/user, var/message = 1)
-	if(authenticated == 2)
-		return 2
+	if(authenticated == COMM_AUTHENTICATION_MAX)
+		return COMM_AUTHENTICATION_MAX
 	else if(user.can_admin_interact())
-		return 2
+		return COMM_AUTHENTICATION_MAX
 	else if(authenticated)
-		return 1
+		return COMM_AUTHENTICATION_MIN
 	else
 		if(message)
 			to_chat(user, "<span class='warning'>Access denied.</span>")
-		return 0
+		return COMM_AUTHENTICATION_NONE
 
 /obj/machinery/computer/communications/Topic(href, href_list)
 	if(..(href, href_list))
@@ -62,23 +65,23 @@
 		if(!ishuman(usr))
 			to_chat(usr, "<span class='warning'>Access denied.</span>")
 			return
-		var/mob/living/carbon/human/M = usr
-		var/obj/item/card = M.get_active_hand()
-		var/obj/item/weapon/card/id/I = (card && card.GetID())||M.wear_id||M.wear_pda
-		if(istype(I, /obj/item/device/pda))
-			var/obj/item/device/pda/pda = I
-			I = pda.id
-		if(I && istype(I))
-			if(src.check_access(I))
-				authenticated = 1
-			if(access_captain in I.access)
-				authenticated = 2
-				crew_announcement.announcer = GetNameAndAssignmentFromId(I)
+
+		var/list/access = usr.get_access()
+		if(allowed(usr))
+			authenticated = COMM_AUTHENTICATION_MIN
+			
+		if(access_captain in access)
+			authenticated = COMM_AUTHENTICATION_MAX
+			var/mob/living/carbon/human/H = usr
+			var/obj/item/weapon/card/id = H.get_idcard(TRUE)
+			if(istype(id))
+				crew_announcement.announcer = GetNameAndAssignmentFromId(id)
+			
 		nanomanager.update_uis(src)
 		return
 
 	if(href_list["logout"])
-		authenticated = 0
+		authenticated = COMM_AUTHENTICATION_NONE
 		crew_announcement.announcer = ""
 		setMenuState(usr,COMM_SCREEN_MAIN)
 		nanomanager.update_uis(src)
@@ -131,13 +134,13 @@
 				to_chat(usr, "<span class='warning'>You need to swipe your ID.</span>")
 
 		if("announce")
-			if(is_authenticated(usr) == 2)
+			if(is_authenticated(usr) == COMM_AUTHENTICATION_MAX)
 				if(message_cooldown)
 					to_chat(usr, "<span class='warning'>Please allow at least one minute to pass between announcements.</span>")
 					nanomanager.update_uis(src)
 					return
 				var/input = input(usr, "Please write a message to announce to the station crew.", "Priority Announcement")
-				if(!input || message_cooldown || ..() || !(is_authenticated(usr) == 2))
+				if(!input || message_cooldown || ..() || !(is_authenticated(usr) == COMM_AUTHENTICATION_MAX))
 					nanomanager.update_uis(src)
 					return
 				crew_announcement.Announce(input)
@@ -213,13 +216,13 @@
 			setMenuState(usr,COMM_SCREEN_STAT)
 
 		if("nukerequest")
-			if(is_authenticated(usr) == 2)
+			if(is_authenticated(usr) == COMM_AUTHENTICATION_MAX)
 				if(centcomm_message_cooldown)
 					to_chat(usr, "<span class='warning'>Arrays recycling. Please stand by.</span>")
 					nanomanager.update_uis(src)
 					return
 				var/input = stripped_input(usr, "Please enter the reason for requesting the nuclear self-destruct codes. Misuse of the nuclear request system will not be tolerated under any circumstances.  Transmission does not guarantee a response.", "Self Destruct Code Request.","") as text|null
-				if(!input || ..() || !(is_authenticated(usr) == 2))
+				if(!input || ..() || !(is_authenticated(usr) == COMM_AUTHENTICATION_MAX))
 					nanomanager.update_uis(src)
 					return
 				Nuke_request(input, usr)
@@ -232,13 +235,13 @@
 			setMenuState(usr,COMM_SCREEN_MAIN)
 
 		if("MessageCentcomm")
-			if(is_authenticated(usr) == 2)
+			if(is_authenticated(usr) == COMM_AUTHENTICATION_MAX)
 				if(centcomm_message_cooldown)
 					to_chat(usr, "<span class='warning'>Arrays recycling. Please stand by.</span>")
 					nanomanager.update_uis(src)
 					return
 				var/input = stripped_input(usr, "Please choose a message to transmit to Centcomm via quantum entanglement.  Please be aware that this process is very expensive, and abuse will lead to... termination.  Transmission does not guarantee a response.", "To abort, send an empty message.", "") as text|null
-				if(!input || ..() || !(is_authenticated(usr) == 2))
+				if(!input || ..() || !(is_authenticated(usr) == COMM_AUTHENTICATION_MAX))
 					nanomanager.update_uis(src)
 					return
 				Centcomm_announce(input, usr)
@@ -251,13 +254,13 @@
 
 		// OMG SYNDICATE ...LETTERHEAD
 		if("MessageSyndicate")
-			if((is_authenticated(usr) == 2) && (src.emagged))
+			if((is_authenticated(usr) == COMM_AUTHENTICATION_MAX) && (src.emagged))
 				if(centcomm_message_cooldown)
 					to_chat(usr, "Arrays recycling.  Please stand by.")
 					nanomanager.update_uis(src)
 					return
 				var/input = stripped_input(usr, "Please choose a message to transmit to \[ABNORMAL ROUTING CORDINATES\] via quantum entanglement.  Please be aware that this process is very expensive, and abuse will lead to... termination. Transmission does not guarantee a response.", "To abort, send an empty message.", "") as text|null
-				if(!input || ..() || !(is_authenticated(usr) == 2))
+				if(!input || ..() || !(is_authenticated(usr) == COMM_AUTHENTICATION_MAX))
 					nanomanager.update_uis(src)
 					return
 				Syndicate_announce(input, usr)
@@ -518,7 +521,7 @@
 		return ..()
 
 	shuttle_master.emergency.request(null, 0.3, null, "All communication consoles, boards, and AI's have been destroyed.")
-	log_game("All the AIs, comm consoles and boards are destroyed. Shuttle called.")
-	message_admins("All the AIs, comm consoles and boards are destroyed. Shuttle called.", 1)
+	log_game("All the AI's, communication consoles and boards are destroyed. Shuttle called.")
+	message_admins("All the AI's, communication consoles and boards are destroyed. Shuttle called.", 1)
 
 	return ..()

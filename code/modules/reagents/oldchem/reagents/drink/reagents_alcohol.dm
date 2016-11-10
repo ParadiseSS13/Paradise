@@ -13,7 +13,7 @@
 /datum/reagent/ethanol/on_mob_life(mob/living/M)
 	M.nutrition += nutriment_factor
 	M.AdjustDrunk(alcohol_perc)
-	M.dizziness += dizzy_adj
+	M.AdjustDizzy(dizzy_adj)
 	..()
 
 
@@ -84,7 +84,7 @@
 
 //copy paste from LSD... shoot me
 /datum/reagent/ethanol/absinthe/on_mob_life(mob/living/M)
-	M.hallucination += 5
+	M.AdjustHallucinate(5)
 	..()
 
 /datum/reagent/ethanol/absinthe/overdose_process(mob/living/M, severity)
@@ -97,10 +97,7 @@
 	color = "#664300" // rgb: 102, 67, 0
 	overdose_threshold = 30
 	alcohol_perc = 0.4
-
-/datum/reagent/ethanol/rum/on_mob_life(mob/living/M)
-	M.dizziness +=5
-	..()
+	dizzy_adj = 5
 
 /datum/reagent/ethanol/rum/overdose_process(mob/living/M, severity)
 	M.adjustToxLoss(1)
@@ -182,7 +179,7 @@
 
 /datum/reagent/ethanol/thirteenloko/on_mob_life(mob/living/M)
 	M.nutrition += nutriment_factor
-	M.drowsyness = max(0, M.drowsyness-7)
+	M.AdjustDrowsy(-7)
 	M.AdjustSleeping(-2)
 	if(M.bodytemperature > 310)
 		M.bodytemperature = max(310, M.bodytemperature - (5 * TEMPERATURE_DAMAGE_COEFFICIENT))
@@ -625,7 +622,7 @@
 /datum/reagent/ethanol/neurotoxin/on_mob_life(mob/living/M)
 	M.weakened = max(M.weakened, 3)
 	if(current_cycle >=55)
-		M.druggy = max(M.druggy, 55)
+		M.Druggy(55)
 	if(current_cycle >=200)
 		M.adjustToxLoss(2)
 	..()
@@ -637,10 +634,7 @@
 	reagent_state = LIQUID
 	color = "#2E6671" // rgb: 46, 102, 113
 	alcohol_perc = 0.7
-
-/datum/reagent/ethanol/changelingsting/on_mob_life(mob/living/M)
-	M.dizziness +=5
-	..()
+	dizzy_adj = 5
 
 /datum/reagent/ethanol/irishcarbomb
 	name = "Irish Car Bomb"
@@ -649,10 +643,7 @@
 	reagent_state = LIQUID
 	color = "#2E6671" // rgb: 46, 102, 113
 	alcohol_perc = 0.3
-
-/datum/reagent/ethanol/irishcarbomb/on_mob_life(mob/living/M)
-	M.dizziness +=5
-	..()
+	dizzy_adj = 5
 
 /datum/reagent/ethanol/syndicatebomb
 	name = "Syndicate Bomb"
@@ -677,9 +668,9 @@
 	nutriment_factor = 1 * FOOD_METABOLISM
 	color = "#2E6671" // rgb: 46, 102, 113
 	alcohol_perc = 0.5
+	dizzy_adj = 10
 
 /datum/reagent/ethanol/driestmartini/on_mob_life(mob/living/M)
-	M.dizziness +=10
 	if(current_cycle >= 55 && current_cycle < 115)
 		M.stuttering += 10
 	..()
@@ -692,8 +683,8 @@
 	alcohol_perc = 0.2
 
 /datum/reagent/ethanol/kahlua/on_mob_life(mob/living/M)
-	M.dizziness = max(0, M.dizziness-5)
-	M.drowsyness = max(0, M.drowsyness-3)
+	M.AdjustDizzy(-5)
+	M.AdjustDrowsy(-3)
 	M.AdjustSleeping(-2)
 	M.Jitter(5)
 	..()

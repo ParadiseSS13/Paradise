@@ -52,12 +52,12 @@
 
 	if(stat == DEAD)
 		blinded = 1
-		silent = 0
+		SetSilence(0)
 	else
 		if(!container && (health < config.health_threshold_dead || ((world.time - timeofhostdeath) > config.revival_brain_life)))
 			death()
-			blinded =1
-			silent = 0
+			blinded = 1
+			SetSilence(0)
 			return 1
 
 		. = 1
