@@ -329,6 +329,7 @@
 	icon = 'icons/obj/doors/Doorcult.dmi'
 	hackProof = 1
 	aiControlDisabled = 1
+	assembly_type = /obj/structure/door_assembly/door_assembly_cult
 	var/friendly = FALSE
 	var/openingoverlaytype = /obj/effect/overlay/temp/cult/door/unruned
 
@@ -342,6 +343,7 @@
 	name = "runed airlock"
 	icon = 'icons/obj/doors/Doorcultruned.dmi'
 	openingoverlaytype = /obj/effect/overlay/temp/cult/door/unruned
+	assembly_type = /obj/structure/door_assembly/door_assembly_cultruned
 
 /obj/machinery/door/airlock/cult/bumpopen(mob/living/M as mob)
 
