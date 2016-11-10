@@ -1768,7 +1768,6 @@ var/global/list/g_fancy_list_of_types = null
 			//you might be thinking of adding more steps to this, or making it use a loop and a counter var
 			//	not worth it.
 
-
 /proc/make_bit_triplet()
   var/list/num_sample  = list(1, 2, 3, 4, 5, 6, 7, 8, 9)
   var/result = 0
