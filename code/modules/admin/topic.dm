@@ -1597,11 +1597,11 @@
 			to_chat(usr, "This can only be used on instances of type /mob/living")
 			return
 
-		if(alert(src.owner, "Are you sure you wish to hit [key_name(M)] with Bluespace Artillery?",  "Confirm Firing?" , "Yes" , "No") != "Yes")
+		if(alert(owner, "Are you sure you wish to hit [key_name(M)] with Bluespace Artillery?",  "Confirm Firing?" , "Yes" , "No") != "Yes")
 			return
 
 		if(BSACooldown)
-			to_chat(src.owner, "Standby. Reload cycle in progress. Gunnery crews ready in five seconds!")
+			to_chat(owner, "Standby. Reload cycle in progress. Gunnery crews ready in five seconds!")
 			return
 
 		BSACooldown = 1
@@ -1609,28 +1609,23 @@
 			BSACooldown = 0
 
 		to_chat(M, "You've been hit by bluespace artillery!")
-		log_admin("[key_name(M)] has been hit by Bluespace Artillery fired by [key_name(src.owner)]")
-		message_admins("[key_name_admin(M)] has been hit by Bluespace Artillery fired by [key_name_admin(src.owner)]")
-
-		var/obj/effect/stop/S
-		S = new /obj/effect/stop
-		S.victim = M
-		S.loc = M.loc
-		spawn(20)
-			qdel(S)
+		log_admin("[key_name(M)] has been hit by Bluespace Artillery fired by [key_name(owner)]")
+		message_admins("[key_name_admin(M)] has been hit by Bluespace Artillery fired by [key_name_admin(owner)]")
 
 		var/turf/simulated/floor/T = get_turf(M)
 		if(istype(T))
-			if(prob(80))	T.break_tile_to_plating()
-			else			T.break_tile()
+			if(prob(80))
+				T.break_tile_to_plating()
+			else
+				T.break_tile()
 
-		if(M.health == 1)
+		if(M.health <= 1)
 			M.gib()
 		else
-			M.adjustBruteLoss( min( 99 , (M.health - 1) )    )
+			M.adjustBruteLoss(min(99,(M.health - 1)))
 			M.Stun(20)
 			M.Weaken(20)
-			M.stuttering = 20
+			M.Stuttering(20)
 
 	else if(href_list["CentcommReply"])
 		if(!check_rights(R_ADMIN))
