@@ -152,7 +152,6 @@
 			H.vessel.add_reagent("blood", 0.8)
 	..()
 
-
 //foam
 /datum/reagent/fluorosurfactant
 	name = "Fluorosurfactant"
@@ -383,9 +382,6 @@
 	reagent_state = LIQUID
 	color = "#FF83A5"
 
-/datum/reagent/love/reaction_mob(mob/living/M, method=TOUCH, volume)
-	to_chat(M, "<span class='notice'>You feel loved!</span>")
-
 /datum/reagent/love/on_mob_life(mob/living/M)
 	if(M.a_intent == I_HARM)
 		M.a_intent = I_HELP
@@ -404,6 +400,9 @@
 					playsound(get_turf(M), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 					break
 	..()
+
+/datum/reagent/love/reaction_mob(mob/living/M, method=TOUCH, volume)
+	to_chat(M, "<span class='notice'>You feel loved!</span>")
 
 /datum/reagent/royal_bee_jelly
 	name = "royal bee jelly"

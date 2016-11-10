@@ -124,6 +124,11 @@
 	reagent_state = LIQUID
 	color = "#B31008" // rgb: 179, 16, 8
 
+/datum/reagent/consumable/condensedcapsaicin/on_mob_life(mob/living/M)
+	if(prob(5))
+		M.visible_message("<span class='warning'>[M] [pick("dry heaves!","coughs!","splutters!")]</span>")
+	..()
+
 /datum/reagent/consumable/condensedcapsaicin/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(method == TOUCH)
 		if(ishuman(M))
@@ -178,11 +183,6 @@
 				victim.damageoverlaytemp = 75
 				victim.Weaken(5)
 				victim.drop_item()
-
-/datum/reagent/consumable/condensedcapsaicin/on_mob_life(mob/living/M)
-	if(prob(5))
-		M.visible_message("<span class='warning'>[M] [pick("dry heaves!","coughs!","splutters!")]</span>")
-	..()
 
 /datum/reagent/consumable/frostoil
 	name = "Frost Oil"
@@ -446,10 +446,10 @@
 /datum/reagent/consumable/mugwort/on_mob_life(mob/living/M)
 	if(ishuman(M) && M.mind)
 		if(M.mind.special_role == SPECIAL_ROLE_WIZARD)
-			M.adjustToxLoss(-1*REM)
-			M.adjustOxyLoss(-1*REM)
-			M.adjustBruteLoss(-1*REM)
-			M.adjustFireLoss(-1*REM)
+			M.adjustToxLoss(-1*REAGENTS_EFFECT_MULTIPLIER)
+			M.adjustOxyLoss(-1*REAGENTS_EFFECT_MULTIPLIER)
+			M.adjustBruteLoss(-1*REAGENTS_EFFECT_MULTIPLIER)
+			M.adjustFireLoss(-1*REAGENTS_EFFECT_MULTIPLIER)
 	..()
 
 /datum/reagent/consumable/porktonium
@@ -708,7 +708,6 @@
 	description = "A gross and unidentifiable substance."
 	reagent_state = LIQUID
 	color = "#63DE63"
-	metabolization_rate = 0.4
 
 /datum/reagent/questionmark/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(method == INGEST)
@@ -725,10 +724,6 @@
 	color = "#F5F5F5"
 	metabolization_rate = 0.2
 
-/datum/reagent/msg/reaction_mob(mob/living/M, method=TOUCH, volume)
-	if(method == INGEST)
-		to_chat(M, "<span class='notice'>That tasted amazing!</span>")
-
 /datum/reagent/msg/on_mob_life(mob/living/M)
 	if(prob(5))
 		if(prob(10))
@@ -737,6 +732,10 @@
 			to_chat(M, "<span class='warning'>A horrible migraine overpowers you.</span>")
 			M.Stun(rand(2,5))
 	..()
+
+/datum/reagent/msg/reaction_mob(mob/living/M, method=TOUCH, volume)
+	if(method == INGEST)
+		to_chat(M, "<span class='notice'>That tasted amazing!</span>")
 
 /datum/reagent/cholesterol
 	name = "cholesterol"
@@ -790,16 +789,16 @@
 	color = "#8EAE7B"
 	process_flags = ORGANIC | SYNTHETIC		//Because apparently ghosts in the shell
 
-/datum/reagent/ectoplasm/reaction_mob(mob/living/M, method=TOUCH, volume)
-	if(method == INGEST)
-		var/spooky_eat = pick("Ugh, why did you eat that? Your mouth feels haunted. Haunted with bad flavors.", "Ugh, why did you eat that? It has the texture of ham aspic.  From the 1950s.  Left out in the sun.", "Ugh, why did you eat that? It tastes like a ghost fart.", "Ugh, why did you eat that? It tastes like flavor died.")
-		to_chat(M, "<span class='warning'>[spooky_eat]</span>")
-
 /datum/reagent/ectoplasm/on_mob_life(mob/living/M)
 	var/spooky_message = pick("You notice something moving out of the corner of your eye, but nothing is there...", "Your eyes twitch, you feel like something you can't see is here...", "You've got the heebie-jeebies.", "You feel uneasy.", "You shudder as if cold...", "You feel something gliding across your back...")
 	if(prob(8))
 		to_chat(M, "<span class='warning'>[spooky_message]</span>")
 	..()
+
+/datum/reagent/ectoplasm/reaction_mob(mob/living/M, method=TOUCH, volume)
+	if(method == INGEST)
+		var/spooky_eat = pick("Ugh, why did you eat that? Your mouth feels haunted. Haunted with bad flavors.", "Ugh, why did you eat that? It has the texture of ham aspic.  From the 1950s.  Left out in the sun.", "Ugh, why did you eat that? It tastes like a ghost fart.", "Ugh, why did you eat that? It tastes like flavor died.")
+		to_chat(M, "<span class='warning'>[spooky_eat]</span>")
 
 /datum/reagent/ectoplasm/reaction_turf(turf/T, volume)
 	if(volume >= 10 && !istype(T, /turf/space))

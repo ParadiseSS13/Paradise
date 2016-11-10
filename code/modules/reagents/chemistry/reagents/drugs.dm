@@ -102,7 +102,7 @@
 		M.AdjustParalysis(-1)
 		M.AdjustStunned(-1)
 		M.AdjustWeakened(-1)
-		M.adjustStaminaLoss(-1*REM)
+		M.adjustStaminaLoss(-1*REAGENTS_EFFECT_MULTIPLIER)
 	..()
 
 /datum/reagent/nicotine/overdose_process(mob/living/M, severity)
@@ -477,7 +477,6 @@
 	reagent_state = LIQUID
 	color = "#0FBE0F"
 
-
 /datum/reagent/thc/on_mob_life(mob/living/M)
 	M.stuttering += rand(0,2)
 	if(prob(5))
@@ -501,11 +500,6 @@
 	overdose_threshold = 15
 	process_flags = ORGANIC | SYNTHETIC		//Flipping for everyone!
 	addiction_chance = 10
-
-/datum/reagent/fliptonium/reaction_mob(mob/living/M, method=TOUCH, volume)
-	if(method == INGEST || method == TOUCH)
-		M.SpinAnimation(speed = 12, loops = -1)
-	..()
 
 /datum/reagent/fliptonium/on_mob_life(mob/living/M)
 	if(current_cycle == 5)
@@ -531,6 +525,11 @@
 	M.AdjustWeakened(-1.5)
 	M.adjustStaminaLoss(-1.5)
 	M.SetSleeping(0)
+	..()
+
+/datum/reagent/fliptonium/reaction_mob(mob/living/M, method=TOUCH, volume)
+	if(method == INGEST || method == TOUCH)
+		M.SpinAnimation(speed = 12, loops = -1)
 	..()
 
 /datum/reagent/fliptonium/on_mob_delete(mob/living/M)
@@ -651,5 +650,5 @@
 		B.pixel_x = rand(-20, 0)
 		B.pixel_y = rand(-20, 0)
 		B.icon = I
-		M.adjustFireLoss(rand(1,5)*REM)
-		M.adjustBruteLoss(rand(1,5)*REM)
+		M.adjustFireLoss(rand(1,5)*REAGENTS_EFFECT_MULTIPLIER)
+		M.adjustBruteLoss(rand(1,5)*REAGENTS_EFFECT_MULTIPLIER)

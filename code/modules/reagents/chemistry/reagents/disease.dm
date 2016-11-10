@@ -128,7 +128,6 @@
 	description = "A guaranteed heart-stopper!"
 	reagent_state = LIQUID
 	color = "#AB1CCF"
-	metabolization_rate = 0.4
 
 /datum/reagent/concentrated_initro/on_mob_life(mob/living/M)
 	if(volume >=5)

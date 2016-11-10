@@ -54,9 +54,9 @@
 /datum/reagent/slimejelly/on_mob_life(mob/living/M)
 	if(prob(10))
 		to_chat(M, "<span class='danger'>Your insides are burning!</span>")
-		M.adjustToxLoss(rand(20,60)*REM)
+		M.adjustToxLoss(rand(20,60)*REAGENTS_EFFECT_MULTIPLIER)
 	else if(prob(40))
-		M.adjustBruteLoss(-5*REM)
+		M.adjustBruteLoss(-5*REAGENTS_EFFECT_MULTIPLIER)
 	..()
 
 /datum/reagent/slimetoxin
@@ -127,7 +127,7 @@
 
 /datum/reagent/fluorine/on_mob_life(mob/living/M)
 	M.adjustFireLoss(1)
-	M.adjustToxLoss(1*REM)
+	M.adjustToxLoss(1*REAGENTS_EFFECT_MULTIPLIER)
 	..()
 
 /datum/reagent/radium
@@ -136,7 +136,6 @@
 	description = "Radium is an alkaline earth metal. It is extremely radioactive."
 	reagent_state = SOLID
 	color = "#C7C7C7" // rgb: 199,199,199
-	metabolization_rate = 0.4
 	penetrates_skin = 1
 
 /datum/reagent/radium/on_mob_life(mob/living/M)
@@ -169,7 +168,7 @@
 /datum/reagent/mutagen/on_mob_life(mob/living/M)
 	if(!M.dna)
 		return //No robots, AIs, aliens, Ians or other mobs should be affected by this.
-	M.apply_effect(2*REM, IRRADIATE, negate_armor = 1)
+	M.apply_effect(2*REAGENTS_EFFECT_MULTIPLIER, IRRADIATE, negate_armor = 1)
 	if(prob(4))
 		randmutb(M)
 	..()
@@ -283,7 +282,7 @@
 	color = "#003333" // rgb: 0, 51, 51
 
 /datum/reagent/carpotoxin/on_mob_life(mob/living/M)
-	M.adjustToxLoss(2*REM)
+	M.adjustToxLoss(2*REAGENTS_EFFECT_MULTIPLIER)
 	..()
 
 /datum/reagent/staminatoxin
@@ -295,7 +294,7 @@
 	data = 13
 
 /datum/reagent/staminatoxin/on_mob_life(mob/living/M)
-	M.adjustStaminaLoss(REM * data)
+	M.adjustStaminaLoss(REAGENTS_EFFECT_MULTIPLIER * data)
 	data = max(data - 1, 3)
 	..()
 
@@ -328,10 +327,9 @@
 			M.AdjustSleeping(1)
 		if(51 to INFINITY)
 			M.AdjustSleeping(1)
-			M.adjustToxLoss((current_cycle - 50)*REM)
+			M.adjustToxLoss((current_cycle - 50)*REAGENTS_EFFECT_MULTIPLIER)
 	..()
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /datum/reagent/polonium
 	name = "Polonium"
 	id = "polonium"
@@ -344,7 +342,6 @@
 /datum/reagent/polonium/on_mob_life(mob/living/M)
 	M.apply_effect(8, IRRADIATE, negate_armor = 1)
 	..()
-
 
 /datum/reagent/histamine
 	name = "Histamine"
@@ -428,7 +425,7 @@
 	penetrates_skin = 1
 
 /datum/reagent/formaldehyde/on_mob_life(mob/living/M)
-	M.adjustToxLoss(1*REM)
+	M.adjustToxLoss(1*REAGENTS_EFFECT_MULTIPLIER)
 	if(prob(10))
 		M.reagents.add_reagent("histamine",rand(5,15))
 	..()
@@ -511,7 +508,7 @@
 	penetrates_skin = 1
 
 /datum/reagent/cyanide/on_mob_life(mob/living/M)
-	M.adjustToxLoss(1.5*REM)
+	M.adjustToxLoss(1.5*REAGENTS_EFFECT_MULTIPLIER)
 	if(prob(5))
 		M.emote("drool")
 	if(prob(10))
@@ -558,11 +555,6 @@
 		M.emote("scream")
 	..()
 
-/datum/reagent/facid/on_mob_life(mob/living/M)
-	M.adjustToxLoss(1*REM)
-	M.adjustFireLoss(1)
-	..()
-
 /datum/reagent/facid
 	name = "Fluorosulfuric Acid"
 	id = "facid"
@@ -570,6 +562,11 @@
 	reagent_state = LIQUID
 	color = "#4141D2"
 	process_flags = ORGANIC | SYNTHETIC
+
+/datum/reagent/facid/on_mob_life(mob/living/M)
+	M.adjustToxLoss(1*REAGENTS_EFFECT_MULTIPLIER)
+	M.adjustFireLoss(1)
+	..()
 
 /datum/reagent/facid/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(method == TOUCH || method == INGEST)
@@ -627,7 +624,6 @@
 	description = "A highly potent cardiac poison - can kill within minutes."
 	reagent_state = LIQUID
 	color = "#7F10C0"
-	metabolization_rate = 0.4
 
 /datum/reagent/initropidril/on_mob_life(mob/living/M)
 	if(prob(33))
@@ -907,8 +903,7 @@
 	M.adjustToxLoss(2)
 	..()
 
-			// Clear off wallrot fungi
-/datum/reagent/atrazine/reaction_turf(turf/simulated/wall/W, volume)
+/datum/reagent/atrazine/reaction_turf(turf/simulated/wall/W, volume) // Clear off wallrot fungi
 	if(istype(W) && W.rotting)
 		W.rotting = 0
 		for(var/obj/effect/overlay/O in W)
@@ -1033,17 +1028,16 @@
 	color = "#993333"
 	process_flags = ORGANIC | SYNTHETIC
 
+/datum/reagent/ants/on_mob_life(mob/living/M)
+	M.adjustBruteLoss(2)
+	..()
+
 /datum/reagent/ants/reaction_mob(mob/living/M, method=TOUCH, volume) //NOT THE ANTS
 	if(iscarbon(M))
 		if(method == TOUCH || method==INGEST)
 			to_chat(M, "<span class='warning'>OH SHIT ANTS!!!!</span>")
 			M.emote("scream")
 			M.adjustBruteLoss(4)
-
-
-/datum/reagent/ants/on_mob_life(mob/living/M)
-	M.adjustBruteLoss(2)
-	..()
 
 /datum/reagent/teslium //Teslium. Causes periodic shocks, and makes shocks against the target much more effective.
 	name = "Teslium"

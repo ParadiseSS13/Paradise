@@ -145,7 +145,6 @@
 	color = "#0AB478"
 	metabolization_rate = 0.2
 
-
 /datum/reagent/medicine/silver_sulfadiazine
 	name = "Silver Sulfadiazine"
 	id = "silver_sulfadiazine"
@@ -153,6 +152,10 @@
 	reagent_state = LIQUID
 	color = "#F0C814"
 	metabolization_rate = 3
+
+/datum/reagent/medicine/silver_sulfadiazine/on_mob_life(mob/living/M)
+	M.adjustFireLoss(-2*REAGENTS_EFFECT_MULTIPLIER)
+	..()
 
 /datum/reagent/medicine/silver_sulfadiazine/reaction_mob(mob/living/M, method=TOUCH, volume, show_message = 1)
 	if(iscarbon(M))
@@ -166,10 +169,6 @@
 				to_chat(M, "<span class='warning'>You feel sick...</span>")
 	..()
 
-/datum/reagent/medicine/silver_sulfadiazine/on_mob_life(mob/living/M)
-	M.adjustFireLoss(-2*REM)
-	..()
-
 /datum/reagent/medicine/styptic_powder
 	name = "Styptic Powder"
 	id = "styptic_powder"
@@ -177,6 +176,10 @@
 	reagent_state = LIQUID
 	color = "#C8A5DC"
 	metabolization_rate = 3
+
+/datum/reagent/medicine/styptic_powder/on_mob_life(mob/living/M)
+	M.adjustBruteLoss(-2*REAGENTS_EFFECT_MULTIPLIER)
+	..()
 
 /datum/reagent/medicine/styptic_powder/reaction_mob(mob/living/M, method=TOUCH, volume, show_message = 1)
 	if(iscarbon(M))
@@ -191,10 +194,6 @@
 				to_chat(M, "<span class='warning'>You feel gross!</span>")
 	..()
 
-/datum/reagent/medicine/styptic_powder/on_mob_life(mob/living/M)
-	M.adjustBruteLoss(-2*REM)
-	..()
-
 /datum/reagent/medicine/salglu_solution
 	name = "Saline-Glucose Solution"
 	id = "salglu_solution"
@@ -206,8 +205,8 @@
 
 /datum/reagent/medicine/salglu_solution/on_mob_life(mob/living/M)
 	if(prob(33))
-		M.adjustBruteLoss(-2*REM)
-		M.adjustFireLoss(-2*REM)
+		M.adjustBruteLoss(-2*REAGENTS_EFFECT_MULTIPLIER)
+		M.adjustFireLoss(-2*REAGENTS_EFFECT_MULTIPLIER)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		if(!H.species.exotic_blood && !(H.species.flags & NO_BLOOD) && prob(33))
@@ -243,7 +242,7 @@
 	color = "#000000"
 
 /datum/reagent/medicine/charcoal/on_mob_life(mob/living/M)
-	M.adjustToxLoss(-1.5*REM)
+	M.adjustToxLoss(-1.5*REAGENTS_EFFECT_MULTIPLIER)
 	if(prob(50))
 		for(var/datum/reagent/R in M.reagents.reagent_list)
 			if(R != src)
@@ -261,10 +260,10 @@
 	addiction_chance = 5
 
 /datum/reagent/medicine/omnizine/on_mob_life(mob/living/M)
-	M.adjustToxLoss(-1*REM)
-	M.adjustOxyLoss(-1*REM)
-	M.adjustBruteLoss(-2*REM)
-	M.adjustFireLoss(-2*REM)
+	M.adjustToxLoss(-1*REAGENTS_EFFECT_MULTIPLIER)
+	M.adjustOxyLoss(-1*REAGENTS_EFFECT_MULTIPLIER)
+	M.adjustBruteLoss(-2*REAGENTS_EFFECT_MULTIPLIER)
+	M.adjustFireLoss(-2*REAGENTS_EFFECT_MULTIPLIER)
 	if(prob(50))
 		M.AdjustLoseBreath(-1)
 	..()
@@ -316,7 +315,7 @@
 		if(R != src)
 			M.reagents.remove_reagent(R.id,5)
 	if(M.health > 20)
-		M.adjustToxLoss(5*REM)
+		M.adjustToxLoss(5*REAGENTS_EFFECT_MULTIPLIER)
 	if(prob(6))
 		M.fakevomit()
 	..()
@@ -346,10 +345,10 @@
 			M.reagents.remove_reagent(R.id,4)
 	M.radiation = max(0, M.radiation-7)
 	if(prob(75))
-		M.adjustToxLoss(-4*REM)
+		M.adjustToxLoss(-4*REAGENTS_EFFECT_MULTIPLIER)
 	if(prob(33))
-		M.adjustBruteLoss(1*REM)
-		M.adjustFireLoss(1*REM)
+		M.adjustBruteLoss(1*REAGENTS_EFFECT_MULTIPLIER)
+		M.adjustFireLoss(1*REAGENTS_EFFECT_MULTIPLIER)
 	..()
 
 /datum/reagent/medicine/sal_acid
@@ -364,7 +363,7 @@
 
 /datum/reagent/medicine/sal_acid/on_mob_life(mob/living/M)
 	if(prob(55))
-		M.adjustBruteLoss(-2*REM)
+		M.adjustBruteLoss(-2*REAGENTS_EFFECT_MULTIPLIER)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		if(H.traumatic_shock < 100)
@@ -380,7 +379,7 @@
 	metabolization_rate = 0.2
 
 /datum/reagent/medicine/salbutamol/on_mob_life(mob/living/M)
-	M.adjustOxyLoss(-6*REM)
+	M.adjustOxyLoss(-6*REAGENTS_EFFECT_MULTIPLIER)
 	M.AdjustLoseBreath(-4)
 	..()
 
@@ -394,13 +393,13 @@
 	addiction_chance = 20
 
 /datum/reagent/medicine/perfluorodecalin/on_mob_life(mob/living/carbon/human/M)
-	M.adjustOxyLoss(-25*REM)
+	M.adjustOxyLoss(-25*REAGENTS_EFFECT_MULTIPLIER)
 	if(volume >= 4)
 		M.LoseBreath(6)
 		M.Silence(6)
 	if(prob(33))
-		M.adjustBruteLoss(-1*REM)
-		M.adjustFireLoss(-1*REM)
+		M.adjustBruteLoss(-1*REAGENTS_EFFECT_MULTIPLIER)
+		M.adjustFireLoss(-1*REAGENTS_EFFECT_MULTIPLIER)
 	..()
 
 /datum/reagent/medicine/ephedrine
@@ -418,7 +417,7 @@
 	M.AdjustParalysis(-1)
 	M.AdjustStunned(-1)
 	M.AdjustWeakened(-1)
-	M.adjustStaminaLoss(-1*REM)
+	M.adjustStaminaLoss(-1*REAGENTS_EFFECT_MULTIPLIER)
 	M.AdjustLoseBreath(-1, bound_lower = 5)
 	if(M.oxyloss > 75)
 		M.adjustOxyLoss(-1)
@@ -496,6 +495,13 @@
 			H.shock_stage = 0
 	..()
 
+/datum/reagent/medicine/oculine
+	name = "Oculine"
+	id = "oculine"
+	description = "Oculine is a saline eye medication with mydriatic and antibiotic effects."
+	reagent_state = LIQUID
+	color = "#C8A5DC"
+
 /datum/reagent/medicine/oculine/on_mob_life(mob/living/M)
 	if(prob(80))
 		if(ishuman(M))
@@ -515,15 +521,6 @@
 			M.SetEarDeaf(0)
 	..()
 
-/datum/reagent/medicine/oculine
-	name = "Oculine"
-	id = "oculine"
-	description = "Oculine is a saline eye medication with mydriatic and antibiotic effects."
-	reagent_state = LIQUID
-	color = "#C8A5DC"
-	metabolization_rate = 0.4
-	var/cycle_amount = 0
-
 /datum/reagent/medicine/atropine
 	name = "Atropine"
 	id = "atropine"
@@ -540,11 +537,11 @@
 		M.emote("collapse")
 	M.AdjustLoseBreath(-5, bound_lower = 5)
 	if(M.oxyloss > 65)
-		M.adjustOxyLoss(-10*REM)
+		M.adjustOxyLoss(-10*REAGENTS_EFFECT_MULTIPLIER)
 	if(M.health < -25)
 		M.adjustToxLoss(-1)
-		M.adjustBruteLoss(-3*REM)
-		M.adjustFireLoss(-3*REM)
+		M.adjustBruteLoss(-3*REAGENTS_EFFECT_MULTIPLIER)
+		M.adjustFireLoss(-3*REAGENTS_EFFECT_MULTIPLIER)
 	else if(M.health > -60)
 		M.adjustToxLoss(1)
 	M.reagents.remove_reagent("sarin", 20)
@@ -574,11 +571,11 @@
 	holder.remove_reagent("histamine", 15)
 	M.AdjustLoseBreath(-1, bound_lower = 3)
 	if(M.oxyloss > 35)
-		M.adjustOxyLoss(-10*REM)
+		M.adjustOxyLoss(-10*REAGENTS_EFFECT_MULTIPLIER)
 	if(M.health < -10 && M.health > -65)
-		M.adjustToxLoss(-1*REM)
-		M.adjustBruteLoss(-1*REM)
-		M.adjustFireLoss(-1*REM)
+		M.adjustToxLoss(-1*REAGENTS_EFFECT_MULTIPLIER)
+		M.adjustBruteLoss(-1*REAGENTS_EFFECT_MULTIPLIER)
+		M.adjustFireLoss(-1*REAGENTS_EFFECT_MULTIPLIER)
 	..()
 
 /datum/reagent/medicine/epinephrine/overdose_process(mob/living/M, severity)
@@ -609,6 +606,12 @@
 	reagent_state = LIQUID
 	color = "#A0E85E"
 	metabolization_rate = 0.2
+
+/datum/reagent/medicine/strange_reagent/on_mob_life(mob/living/M)
+	if(prob(10))
+		M.adjustBruteLoss(2*REAGENTS_EFFECT_MULTIPLIER)
+		M.adjustToxLoss(2*REAGENTS_EFFECT_MULTIPLIER)
+	..()
 
 /datum/reagent/medicine/strange_reagent/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(isanimal(M))
@@ -642,21 +645,21 @@
 					add_logs(M, M, "revived", object="strange reagent") //Yes, the logs say you revived yourself.
 	..()
 
-/datum/reagent/medicine/strange_reagent/on_mob_life(mob/living/M)
-	if(prob(10))
-		M.adjustBruteLoss(2*REM)
-		M.adjustToxLoss(2*REM)
-	..()
-
-/datum/reagent/medicine/mannitol/on_mob_life(mob/living/M)
-	M.adjustBrainLoss(-3)
-	..()
-
 /datum/reagent/medicine/mannitol
 	name = "Mannitol"
 	id = "mannitol"
 	description = "Mannitol is a sugar alcohol that can help alleviate cranial swelling."
 	color = "#D1D1F1"
+
+/datum/reagent/medicine/mannitol/on_mob_life(mob/living/M)
+	M.adjustBrainLoss(-3)
+	..()
+
+/datum/reagent/medicine/mutadone
+	name = "Mutadone"
+	id = "mutadone"
+	description = "Mutadone is an experimental bromide that can cure genetic abnomalities."
+	color = "#5096C8"
 
 /datum/reagent/medicine/mutadone/on_mob_life(mob/living/carbon/human/M)
 	M.SetJitter(0)
@@ -675,12 +678,6 @@
 			var/mob/living/carbon/human/H = M
 			H.update_mutations()
 	..()
-
-/datum/reagent/medicine/mutadone
-	name = "Mutadone"
-	id = "mutadone"
-	description = "Mutadone is an experimental bromide that can cure genetic abnomalities."
-	color = "#5096C8"
 
 /datum/reagent/medicine/antihol
 	name = "Antihol"
@@ -701,14 +698,13 @@
 	id = "stimulants"
 	description = "Increases run speed and eliminates stuns, can heal minor damage. If overdosed it will deal toxin damage and stun."
 	color = "#C8A5DC"
-	metabolization_rate = 0.4
 
 /datum/reagent/medicine/stimulants/on_mob_life(mob/living/M)
 	if(volume > 5)
-		M.adjustOxyLoss(-5*REM)
-		M.adjustToxLoss(-5*REM)
-		M.adjustBruteLoss(-10*REM)
-		M.adjustFireLoss(-10*REM)
+		M.adjustOxyLoss(-5*REAGENTS_EFFECT_MULTIPLIER)
+		M.adjustToxLoss(-5*REAGENTS_EFFECT_MULTIPLIER)
+		M.adjustBruteLoss(-10*REAGENTS_EFFECT_MULTIPLIER)
+		M.adjustFireLoss(-10*REAGENTS_EFFECT_MULTIPLIER)
 		M.setStaminaLoss(0)
 		M.SetSlowed(0)
 		M.AdjustDizzy(-10)
@@ -740,14 +736,14 @@
 /datum/reagent/medicine/stimulative_agent/on_mob_life(mob/living/M)
 	M.status_flags |= GOTTAGOFAST
 	if(M.health < 50 && M.health > 0)
-		M.adjustOxyLoss(-1*REM)
-		M.adjustToxLoss(-1*REM)
-		M.adjustBruteLoss(-1*REM)
-		M.adjustFireLoss(-1*REM)
+		M.adjustOxyLoss(-1*REAGENTS_EFFECT_MULTIPLIER)
+		M.adjustToxLoss(-1*REAGENTS_EFFECT_MULTIPLIER)
+		M.adjustBruteLoss(-1*REAGENTS_EFFECT_MULTIPLIER)
+		M.adjustFireLoss(-1*REAGENTS_EFFECT_MULTIPLIER)
 	M.AdjustParalysis(-3)
 	M.AdjustStunned(-3)
 	M.AdjustWeakened(-3)
-	M.adjustStaminaLoss(-5*REM)
+	M.adjustStaminaLoss(-5*REAGENTS_EFFECT_MULTIPLIER)
 	..()
 
 /datum/reagent/medicine/stimulative_agent/on_mob_delete(mob/living/M)
@@ -756,8 +752,8 @@
 
 /datum/reagent/medicine/stimulative_agent/overdose_process(mob/living/M, severity)
 	if(prob(33))
-		M.adjustStaminaLoss(2.5*REM)
-		M.adjustToxLoss(1*REM)
+		M.adjustStaminaLoss(2.5*REAGENTS_EFFECT_MULTIPLIER)
+		M.adjustToxLoss(1*REAGENTS_EFFECT_MULTIPLIER)
 		M.AdjustLoseBreath(1)
 
 /datum/reagent/medicine/insulin
@@ -770,7 +766,6 @@
 /datum/reagent/medicine/insulin/on_mob_life(mob/living/M)
 	M.reagents.remove_reagent("sugar", 5)
 	..()
-
 
 /datum/reagent/medicine/simethicone
 	name = "Simethicone"
@@ -843,72 +838,6 @@
 			M.Drowsy(20)
 	..()
 
-//virus-specific symptom reagents
-
-/datum/reagent/medicine/synaphydramine
-	name = "Diphen-Synaptizine"
-	id = "synaphydramine"
-	description = "Reduces drowsiness and hallucinations while also purging histamine from the body."
-	color = "#EC536D" // rgb: 236, 83, 109
-
-/datum/reagent/medicine/synaphydramine/on_mob_life(mob/living/M)
-	M.AdjustDrowsy(-5)
-	if(holder.has_reagent("lsd"))
-		holder.remove_reagent("lsd", 5)
-	if(holder.has_reagent("histamine"))
-		holder.remove_reagent("histamine", 5)
-	M.AdjustHallucinate(-10)
-	if(prob(30))
-		M.adjustToxLoss(1)
-	..()
-
-
-//////////////////////////////
-//		Synth-Meds			//
-//////////////////////////////
-
-//Degreaser: Mild Purgative / Lube Remover
-/datum/reagent/medicine/degreaser
-	name = "Degreaser"
-	id = "degreaser"
-	description = "An industrial degreaser which can be used to clean residual build-up from machinery and surfaces."
-	reagent_state = LIQUID
-	color = "#CC7A00"
-	process_flags = SYNTHETIC
-
-/datum/reagent/medicine/degreaser/reaction_turf(turf/simulated/T, volume)
-	if(volume >= 1 && istype(T))
-		if(T.wet)
-			T.MakeDry(TURF_WET_LUBE)
-
-/datum/reagent/medicine/degreaser/on_mob_life(mob/living/M)
-	if(prob(50))		//Same effects as coffee, to help purge ill effects like paralysis
-		M.AdjustParalysis(-1)
-		M.AdjustStunned(-1)
-		M.AdjustWeakened(-1)
-		M.AdjustConfused(-5)
-	for(var/datum/reagent/R in M.reagents.reagent_list)
-		if(R != src)
-			if(R.id == "ultralube" || R.id == "lube")
-				//Flushes lube and ultra-lube even faster than other chems
-				M.reagents.remove_reagent(R.id, 5)
-			else
-				M.reagents.remove_reagent(R.id,1)
-	..()
-
-//Liquid Solder: Mannitol
-/datum/reagent/medicine/liquid_solder
-	name = "Liquid Solder"
-	id = "liquid_solder"
-	description = "A solution formulated to clean and repair damaged connections in posibrains while in use."
-	reagent_state = LIQUID
-	color = "#D7B395"
-	process_flags = SYNTHETIC
-
-/datum/reagent/medicine/liquid_solder/on_mob_life(mob/living/M)
-	M.adjustBrainLoss(-3)
-	..()
-
 /datum/reagent/medicine/syndicate_nanites //Used exclusively by Syndicate medical cyborgs
 	name = "Restorative Nanites"
 	id = "syndicate_nanites"
@@ -917,14 +846,13 @@
 	color = "#555555"
 
 /datum/reagent/medicine/syndicate_nanites/on_mob_life(mob/living/M)
-	M.adjustBruteLoss(-5*REM) //A ton of healing - this is a 50 telecrystal investment.
-	M.adjustFireLoss(-5*REM)
-	M.adjustOxyLoss(-15*REM)
-	M.adjustToxLoss(-5*REM)
-	M.adjustBrainLoss(-15*REM)
-	M.adjustCloneLoss(-3*REM)
+	M.adjustBruteLoss(-5*REAGENTS_EFFECT_MULTIPLIER) //A ton of healing - this is a 50 telecrystal investment.
+	M.adjustFireLoss(-5*REAGENTS_EFFECT_MULTIPLIER)
+	M.adjustOxyLoss(-15*REAGENTS_EFFECT_MULTIPLIER)
+	M.adjustToxLoss(-5*REAGENTS_EFFECT_MULTIPLIER)
+	M.adjustBrainLoss(-15*REAGENTS_EFFECT_MULTIPLIER)
+	M.adjustCloneLoss(-3*REAGENTS_EFFECT_MULTIPLIER)
 	..()
-
 
 /datum/reagent/medicine/omnizine_diluted
 	name = "Diluted Omnizine"
@@ -936,10 +864,10 @@
 	metabolization_rate = 0.1
 
 /datum/reagent/medicine/omnizine_diluted/on_mob_life(mob/living/M)
-	M.adjustToxLoss(-0.5*REM)
-	M.adjustOxyLoss(-0.5*REM)
-	M.adjustBruteLoss(-0.5*REM)
-	M.adjustFireLoss(-0.5*REM)
+	M.adjustToxLoss(-0.5*REAGENTS_EFFECT_MULTIPLIER)
+	M.adjustOxyLoss(-0.5*REAGENTS_EFFECT_MULTIPLIER)
+	M.adjustBruteLoss(-0.5*REAGENTS_EFFECT_MULTIPLIER)
+	M.adjustFireLoss(-0.5*REAGENTS_EFFECT_MULTIPLIER)
 	..()
 
 /datum/reagent/medicine/omnizine_diluted/overdose_process(mob/living/M, severity)
@@ -975,3 +903,68 @@
 			M.visible_message("<span class='warning'>[M] stumbles and staggers.</span>")
 			M.Dizzy(5)
 			M.Weaken(3)
+
+//virus-specific symptom reagents
+
+/datum/reagent/medicine/synaphydramine
+	name = "Diphen-Synaptizine"
+	id = "synaphydramine"
+	description = "Reduces drowsiness and hallucinations while also purging histamine from the body."
+	color = "#EC536D" // rgb: 236, 83, 109
+
+/datum/reagent/medicine/synaphydramine/on_mob_life(mob/living/M)
+	M.AdjustDrowsy(-5)
+	if(holder.has_reagent("lsd"))
+		holder.remove_reagent("lsd", 5)
+	if(holder.has_reagent("histamine"))
+		holder.remove_reagent("histamine", 5)
+	M.AdjustHallucinate(-10)
+	if(prob(30))
+		M.adjustToxLoss(1)
+	..()
+
+//////////////////////////////
+//		Synth-Meds			//
+//////////////////////////////
+
+//Degreaser: Mild Purgative / Lube Remover
+/datum/reagent/medicine/degreaser
+	name = "Degreaser"
+	id = "degreaser"
+	description = "An industrial degreaser which can be used to clean residual build-up from machinery and surfaces."
+	reagent_state = LIQUID
+	color = "#CC7A00"
+	process_flags = SYNTHETIC
+
+/datum/reagent/medicine/degreaser/on_mob_life(mob/living/M)
+	if(prob(50))		//Same effects as coffee, to help purge ill effects like paralysis
+		M.AdjustParalysis(-1)
+		M.AdjustStunned(-1)
+		M.AdjustWeakened(-1)
+		M.AdjustConfused(-5)
+	for(var/datum/reagent/R in M.reagents.reagent_list)
+		if(R != src)
+			if(R.id == "ultralube" || R.id == "lube")
+				//Flushes lube and ultra-lube even faster than other chems
+				M.reagents.remove_reagent(R.id, 5)
+			else
+				M.reagents.remove_reagent(R.id,1)
+	..()
+
+/datum/reagent/medicine/degreaser/reaction_turf(turf/simulated/T, volume)
+	if(volume >= 1 && istype(T))
+		if(T.wet)
+			T.MakeDry(TURF_WET_LUBE)
+
+//Liquid Solder: Mannitol
+/datum/reagent/medicine/liquid_solder
+	name = "Liquid Solder"
+	id = "liquid_solder"
+	description = "A solution formulated to clean and repair damaged connections in posibrains while in use."
+	reagent_state = LIQUID
+	color = "#D7B395"
+	process_flags = SYNTHETIC
+
+/datum/reagent/medicine/liquid_solder/on_mob_life(mob/living/M)
+	M.adjustBrainLoss(-3)
+	..()

@@ -22,7 +22,7 @@
 	color = "#7A2B94"
 
 /datum/reagent/plasma/on_mob_life(mob/living/M)
-	M.adjustToxLoss(1*REM)
+	M.adjustToxLoss(1*REAGENTS_EFFECT_MULTIPLIER)
 	if(holder.has_reagent("epinephrine"))
 		holder.remove_reagent("epinephrine", 2)
 	if(iscarbon(M))
@@ -171,14 +171,14 @@
 	color = "#FF9999"
 	process_flags = ORGANIC | SYNTHETIC
 
-/datum/reagent/phlogiston/reaction_mob(mob/living/M, method=TOUCH, volume)
-	M.IgniteMob()
-	..()
-
 /datum/reagent/phlogiston/on_mob_life(mob/living/M)
 	M.adjust_fire_stacks(1)
 	var/burndmg = max(0.3*M.fire_stacks, 0.3)
 	M.adjustFireLoss(burndmg)
+	..()
+
+/datum/reagent/phlogiston/reaction_mob(mob/living/M, method=TOUCH, volume)
+	M.IgniteMob()
 	..()
 
 /datum/reagent/napalm

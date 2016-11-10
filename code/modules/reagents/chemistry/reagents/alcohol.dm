@@ -15,7 +15,6 @@
 	M.AdjustDizzy(dizzy_adj)
 	..()
 
-
 /datum/reagent/consumable/ethanol/reaction_obj(obj/O, volume)
 	if(istype(O,/obj/item/weapon/paper))
 		var/obj/item/weapon/paper/paperaffected = O
@@ -1030,7 +1029,6 @@
 	reagent_state = LIQUID
 	color = "#1BB1FF"
 	process_flags = ORGANIC | SYNTHETIC
-	metabolization_rate = 0.4
 	alcohol_perc = 0.5
 	drink_icon = "synthanolglass"
 	drink_name = "Glass of Synthanol"

@@ -9,7 +9,7 @@
 
 /datum/reagent/consumable/drink/orangejuicde/on_mob_life(mob/living/M)
 	if(M.getOxyLoss() && prob(30))
-		M.adjustOxyLoss(-1*REM)
+		M.adjustOxyLoss(-1*REAGENTS_EFFECT_MULTIPLIER)
 	..()
 
 /datum/reagent/consumable/drink/tomatojuice
