@@ -371,6 +371,7 @@
 	description = "YOUR FLESH! IT BURNS!"
 	process_flags = ORGANIC | SYNTHETIC		//Admin-bus has no brakes! KILL THEM ALL.
 	metabolization_rate = 1
+	can_synth = 0
 
 /datum/reagent/hellwater/on_mob_life(mob/living/M)
 	M.fire_stacks = min(5, M.fire_stacks + 3)

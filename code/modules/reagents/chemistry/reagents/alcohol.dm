@@ -986,6 +986,7 @@
 	reagent_state = LIQUID
 	color = "#DC0000"
 	alcohol_perc = 1
+	can_synth = 0
 
 /datum/reagent/consumable/ethanol/dragons_breath/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(method == INGEST && prob(20))

@@ -23,6 +23,7 @@
 	//By default, all reagents will ONLY affect organics, not synthetics. Re-define in the reagent's definition if the reagent is meant to affect synths
 	var/process_flags = ORGANIC
 	var/admin_only = 0
+	var/can_synth = 1 //whether or not a mech syringe gun and synthesize this reagent
 	var/overdose_threshold = 0
 	var/addiction_chance = 0
 	var/addiction_stage = 1

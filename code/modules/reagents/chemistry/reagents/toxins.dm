@@ -65,6 +65,7 @@
 	description = "A corruptive toxin produced by slimes."
 	reagent_state = LIQUID
 	color = "#13BC5E" // rgb: 19, 188, 94
+	can_synth = 0
 
 /datum/reagent/slimetoxin/on_mob_life(mob/living/M)
 	if(ishuman(M))
@@ -83,6 +84,7 @@
 	description = "An advanced corruptive toxin produced by slimes."
 	reagent_state = LIQUID
 	color = "#13BC5E" // rgb: 19, 188, 94
+	can_synth = 0
 
 /datum/reagent/aslimetoxin/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(method != TOUCH)
@@ -338,6 +340,7 @@
 	color = "#CF3600"
 	metabolization_rate = 0.1
 	penetrates_skin = 1
+	can_synth = 0
 
 /datum/reagent/polonium/on_mob_life(mob/living/M)
 	M.apply_effect(8, IRRADIATE, negate_armor = 1)
@@ -438,6 +441,7 @@
 	color = "#CF3600"
 	metabolization_rate = 0.2
 	overdose_threshold = 40
+	can_synth = 0
 
 /datum/reagent/venom/on_mob_life(mob/living/M)
 	if(prob(25))
@@ -624,6 +628,7 @@
 	description = "A highly potent cardiac poison - can kill within minutes."
 	reagent_state = LIQUID
 	color = "#7F10C0"
+	can_synth = 0
 
 /datum/reagent/initropidril/on_mob_life(mob/living/M)
 	if(prob(33))
@@ -686,6 +691,7 @@
 	reagent_state = LIQUID
 	color = "#5F8BE1"
 	metabolization_rate = 0.7
+	can_synth = 0
 
 /datum/reagent/sodium_thiopental/on_mob_life(mob/living/M)
 	switch(current_cycle)
@@ -713,6 +719,7 @@
 	color = "#646EA0"
 	metabolization_rate = 0.8
 	penetrates_skin = 1
+	can_synth = 0
 
 /datum/reagent/ketamine/on_mob_life(mob/living/M)
 	switch(current_cycle)
@@ -797,6 +804,7 @@
 	reagent_state = LIQUID
 	color = "#C2D8CD"
 	metabolization_rate = 0.05
+	can_synth = 0
 
 /datum/reagent/coniine/on_mob_life(mob/living/M)
 	M.adjustToxLoss(2)
