@@ -386,9 +386,7 @@
 	var/DBQuery/query_donor_select = dbcon.NewQuery("SELECT ckey, tier, active FROM `[format_table_name("donators")]` WHERE ckey = '[ckey]'")
 	query_donor_select.Execute()
 	while(query_donor_select.NextRow())
-		log_to_dd("Donor Query Result: [json_encode(query_donor_select.item)]")
 		if(!text2num(query_donor_select.item[3]))
-			log_to_dd("Donor inactive, removing benefits.")
 			// Inactive donator.
 			donator_level = DONATOR_LEVEL_NONE
 			return
