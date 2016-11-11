@@ -143,11 +143,11 @@
 	if(cooldowntime > world.time)
 		to_chat(user, "<span class='cultitalic'>The magic in [src] is weak, it will be ready to use again in [getETA()].</span>")
 		return
-	var/choice =  input(user,"You study the schematics etched on the force...","Forge") as null|anything in list("Shielded Hardsuit", "Flagellant's Robe","Cultist Hardsuit")
+	var/choice =  input(user,"You study the schematics etched on the force...","Forge") as null|anything in list("Shielded Robe", "Flagellant's Robe","Cultist Hardsuit")
 	var/pickedtype
 	var/otheritem //ie:helmet..
 	switch(choice)
-		if("Shielded Hardsuit")
+		if("Shielded Robe")
 			pickedtype = /obj/item/clothing/suit/hooded/cultrobes/cult_shield
 		if("Flagellant's Robe")
 			pickedtype = /obj/item/clothing/suit/hooded/cultrobes/berserker
@@ -202,8 +202,8 @@ var/list/blacklisted_pylon_turfs = typecacheof(list(
 				if(L.health != L.maxHealth)
 					new /obj/effect/overlay/temp/heal(get_turf(src), "#960000")
 					if(ishuman(L))
-						L.adjustBruteLoss(-1, 0)
-						L.adjustFireLoss(-1, 0)
+						L.adjustBruteLoss(-1)
+						L.adjustFireLoss(-1)
 						L.updatehealth()
 					if(istype(L, /mob/living/simple_animal/shade) || istype(L, /mob/living/simple_animal/hostile/construct))
 						var/mob/living/simple_animal/M = L

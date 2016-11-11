@@ -127,7 +127,7 @@
 	armor = list(melee = 60, bullet = 50, laser = 30, energy = 15, bomb = 30, bio = 30, rad = 30)
 
 /obj/item/clothing/suit/hooded/cultrobes/cult_shield
-	name = "empowered cultist armor"
+	name = "empowered cultist robe"
 	desc = "Empowered garb which creates a powerful shield around the user."
 	icon_state = "cult_armour"
 	item_state = "cult_armour"
@@ -139,7 +139,7 @@
 	hoodtype = /obj/item/clothing/head/cult_hoodie
 
 /obj/item/clothing/head/cult_hoodie
-	name = "empowered cultist armor"
+	name = "empowered cultist robe"
 	desc = "Empowered garb which creates a powerful shield around the user."
 	icon_state = "cult_hoodalt"
 	armor = list(melee = 50, bullet = 40, laser = 50, energy = 30, bomb = 50, bio = 30, rad = 30)
