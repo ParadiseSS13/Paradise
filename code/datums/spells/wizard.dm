@@ -304,7 +304,6 @@
 
 	var/list/targets = list(target)
 	perform(targets, user = user)
-	remove_ranged_ability(user)
 
 	return TRUE
 
@@ -320,6 +319,7 @@
 	FB.preparePixelProjectile(target, get_turf(target), user)
 	FB.fire()
 	user.newtonian_move(get_dir(U, T))
+	remove_ranged_ability(user)
 
 	return 1
 
