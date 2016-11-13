@@ -840,9 +840,9 @@
 			SetEyeBlurry(0)
 
 		else if(!vision || vision.is_broken())   // Vision organs cut out or broken? Permablind.
-			EyeBlind(1)
+			EyeBlind(2)
 			blinded =    1
-			EyeBlurry(1)
+			EyeBlurry(2)
 
 		else
 			//blindness
@@ -859,7 +859,7 @@
 
 			//blurry sight
 			if(vision.is_bruised())   // Vision organs impaired? Permablurry.
-				EyeBlurry(1)
+				EyeBlurry(2)
 
 			if(eye_blurry)	           // Blurry eyes heal slowly
 				AdjustEyeBlurry(-1)
