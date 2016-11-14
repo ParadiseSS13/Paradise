@@ -12,77 +12,53 @@
 	var/icon_on = "drying_rack_on"
 	var/icon_off = "drying_rack"
 	var/drying = 0
-/obj/machinery/drying_rack/RefreshParts()
-	for(var/obj/item/weapon/stock_parts/matter_bin/B in component_parts)
-		max_n_of_items = 1500 * B.rating
-
-/obj/machinery/drying_rack/power_change()
-	..()
-	update_icon()
-
-/obj/machinery/drying_rack/update_icon()
-	if(!stat)
-		icon_state = icon_on
-	else
-		icon_state = icon_off
-
-
 
 /*******************
 *   Item Adding
 ********************/
 
-/obj/machinery/drying_rack/attackby(obj/item/O, mob/user, params)
+/obj/machinery/drying_rack/attackby(obj/item/O, mob/user)
 	if(default_deconstruction_screwdriver(user, "drying_rack_open", "drying_rack", O))
-		return
-
-	if(exchange_parts(user, O))
-		return
-
-	if(default_unfasten_wrench(user, O))
-		power_change()
 		return
 
 	if(default_deconstruction_crowbar(O))
 		updateUsrDialog()
 		return
 
-	if(!stat)
+	if(contents.len >= max_n_of_items)
+		user << "<span class='warning'>\The [src] is full!</span>"
+		return 0
 
-		if(contents.len >= max_n_of_items)
-			user << "<span class='warning'>\The [src] is full!</span>"
-			return 0
+	if(accept_check(O))
+		load(O)
+		user.visible_message("[user] has added \the [O] to \the [src].", "<span class='notice'>You add \the [O] to \the [src].</span>")
+		updateUsrDialog()
+		return 1
 
-		if(accept_check(O))
-			load(O)
-			user.visible_message("[user] has added \the [O] to \the [src].", "<span class='notice'>You add \the [O] to \the [src].</span>")
-			updateUsrDialog()
-			return 1
+	if(istype(O, /obj/item/weapon/storage/bag))
+		var/obj/item/weapon/storage/P = O
+		var/loaded = 0
+		for(var/obj/G in P.contents)
+			if(contents.len >= max_n_of_items)
+				break
+			if(accept_check(G))
+				load(G)
+				loaded++
+		updateUsrDialog()
 
-		if(istype(O, /obj/item/weapon/storage/bag))
-			var/obj/item/weapon/storage/P = O
-			var/loaded = 0
-			for(var/obj/G in P.contents)
-				if(contents.len >= max_n_of_items)
-					break
-				if(accept_check(G))
-					load(G)
-					loaded++
-			updateUsrDialog()
-
-			if(loaded)
-				if(contents.len >= max_n_of_items)
-					user.visible_message("[user] loads \the [src] with \the [O].", \
-									 "<span class='notice'>You fill \the [src] with \the [O].</span>")
-				else
-					user.visible_message("[user] loads \the [src] with \the [O].", \
-										 "<span class='notice'>You load \the [src] with \the [O].</span>")
-				if(O.contents.len > 0)
-					user << "<span class='warning'>Some items are refused.</span>"
-				return 1
+		if(loaded)
+			if(contents.len >= max_n_of_items)
+				user.visible_message("[user] loads \the [src] with \the [O].", \
+								 "<span class='notice'>You fill \the [src] with \the [O].</span>")
 			else
-				user << "<span class='warning'>There is nothing in [O] to put in [src]!</span>"
-				return 0
+				user.visible_message("[user] loads \the [src] with \the [O].", \
+									 "<span class='notice'>You load \the [src] with \the [O].</span>")
+			if(O.contents.len > 0)
+				user << "<span class='warning'>Some items are refused.</span>"
+			return 1
+		else
+			user << "<span class='warning'>There is nothing in [O] to put in [src]!</span>"
+			return 0
 
 	if(user.a_intent != "harm")
 		user << "<span class='warning'>\The [src] smartly refuses [O].</span>"
@@ -94,7 +70,7 @@
 
 
 /obj/machinery/drying_rack/proc/accept_check(obj/item/O)
-	if(istype(O,/obj/item/weapon/reagent_containers/food/snacks/grown/) || istype(O,/obj/item/seeds/) || istype(O,/obj/item/weapon/grown/))
+	if(istype(O,/obj/item/weapon/reagent_containers/food/snacks/) || istype(O,/obj/item/seeds/) || istype(O,/obj/item/weapon/grown/))
 		return 1
 	return 0
 
@@ -115,12 +91,9 @@
 
 /obj/machinery/drying_rack/attack_hand(mob/user)
 	user.set_machine(src)
-	ui_interact(user)
+	interact(user)
 
-/obj/machinery/drying_rack/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	if(stat)
-		return 0
-
+/obj/machinery/drying_rack/interact(mob/user)
 	var/dat = "<TT><b>Select an item:</b><br>"
 
 	if (contents.len == 0)
@@ -152,10 +125,10 @@
 				dat += "(<a href='?src=\ref[src];vend=[itemName];amount=[N]'>All</A>)"
 
 			dat += "<br>"
-			dat += "<br>"
+		dat += "<br>"
 		dat += "<a href='byond://?src=\ref[src];dry=1'>Toggle Drying</A> "
-	user << browse("<HEAD><TITLE>[src] supplies</TITLE></HEAD><TT>[dat]</TT>", "window=drying_rack")
-	onclose(user, "drying_rack")
+		user << browse("<HEAD><TITLE>[src] supplies</TITLE></HEAD><TT>[dat]</TT>", "window=drying_rack")
+	return
 
 /obj/machinery/drying_rack/Topic(var/href, var/list/href_list)
 	if(..())
@@ -174,15 +147,7 @@
 			i--
 	if(href_list["dry"])
 		toggle_drying()
-	src.updateUsrDialog()
-
-/obj/machinery/drying_rack/power_change()
-	if(powered() && anchored)
-		stat &= ~NOPOWER
-	else
-		stat |= NOPOWER
-		toggle_drying(1)
-	update_icon()
+	updateUsrDialog()
 
 /obj/machinery/drying_rack/load() //For updating the filled overlay
 	..()
@@ -215,10 +180,8 @@
 /obj/machinery/drying_rack/proc/toggle_drying(forceoff = 0)
 	if(drying || forceoff)
 		drying = 0
-		use_power = 1
 	else
 		drying = 1
-		use_power = 2
 	update_icon()
 
 /obj/machinery/drying_rack/proc/rack_dry()
