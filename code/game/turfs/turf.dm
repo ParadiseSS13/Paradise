@@ -164,15 +164,6 @@
 	var/old_obscured = obscured
 	var/old_corners = corners
 
-	if(!lighting_corners_initialised && global.lighting_corners_initialised)
-		if(!corners)
-			corners = list(null, null, null, null)
-		for(var/i = 1 to 4)
-			if(corners[i]) // Already have a corner on this direction.
-				continue
-
-			corners[i] = new/datum/lighting_corner(src, LIGHTING_CORNER_DIAGONAL[i])
-
 	BeforeChange()
 	if(air_master)
 		air_master.remove_from_active(src)

@@ -6,21 +6,21 @@
 	var/datum/light_source/light
 	var/list/light_sources
 
-/atom/proc/set_light(l_range, l_power, l_color)
+#define NONSENSICAL_VALUE -99999
+/atom/proc/set_light(var/l_range, var/l_power, var/l_color = NONSENSICAL_VALUE)
 	if(l_power != null)
 		light_power = l_power
 	if(l_range != null)
 		light_range = l_range
-	if(l_color != null)
+	if(l_color != NONSENSICAL_VALUE)
 		light_color = l_color
 
 	update_light()
 
+#undef NONSENSICAL_VALUE
+
 /atom/proc/update_light()
 	set waitfor = FALSE
-
-	if(!global.lighting_corners_initialised)
-		sleep(20)
 
 	if(!light_power || !light_range)
 		if(light)
@@ -76,11 +76,19 @@
 		new_loc.reconsider_lights()
 
 /atom/proc/set_opacity(var/new_opacity)
-	var/old_opacity = opacity
 	opacity = new_opacity
 	var/turf/T = loc
-	if(old_opacity != new_opacity && istype(T))
+	if (!isturf(T))
+		return
+
+	if (new_opacity == TRUE)
+		T.has_opaque_atom = TRUE
 		T.reconsider_lights()
+	else
+		var/old_has_opaque_atom = T.has_opaque_atom
+		T.recalc_atom_opacity()
+		if (old_has_opaque_atom != T.has_opaque_atom)
+			T.reconsider_lights()
 
 // This code makes the light be queued for update when it is moved.
 // Entered() should handle it, however Exited() can do it if it is being moved to nullspace (as there would be no Entered() call in that situation).
