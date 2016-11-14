@@ -11,7 +11,6 @@ var/global/datum/controller/process/lighting/lighting_controller
 	lighting_controller = src
 
 	create_all_lighting_overlays()
-	create_all_lighting_corners()
 	// Pre-process lighting once before the round starts. Wait 30 seconds so the away mission has time to load.
 	spawn(300)
 		doWork()
