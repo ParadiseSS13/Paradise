@@ -190,6 +190,12 @@ var/global/datum/prizes/global_prizes = new
 	typepath = /obj/item/weapon/spellbook/oneuse/fake_gib
 	cost = 100
 
+/datum/prize_item/nanomob_booster
+	name = "Nano-Mob Hunter Trading Card Booster Pack"
+	desc = "Contains 6 random Nano-Mob Hunter Trading Cards. May contain a holographic card!"
+	typepath = /obj/item/weapon/storage/box/nanomob_booster_pack
+	cost = 100
+
 /datum/prize_item/capgun
 	name = "Capgun Revolver"
 	desc = "Do you feel lucky... punk?"

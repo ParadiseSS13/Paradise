@@ -10,6 +10,7 @@
 	var/slices_num
 	var/eatverb
 	var/wrapped = 0
+	var/dry = 0
 	var/dried_type = null
 	var/cooktype[0]
 
@@ -72,7 +73,7 @@
 
 /obj/item/weapon/reagent_containers/food/snacks/attackby(obj/item/weapon/W, mob/user, params)
 	if(istype(W,/obj/item/weapon/pen))
-		var/n_name = sanitize(copytext(input(usr, "What would you like to name this dish?", "Food Renaming", null)  as text, 1, MAX_NAME_LEN))
+		var/n_name = sanitize_local(copytext(input(usr, "What would you like to name this dish?", "Food Renaming", null)  as text, 1, MAX_NAME_LEN))
 		if((loc == usr && usr.stat == 0))
 			name = "[n_name]"
 		return
@@ -2643,7 +2644,7 @@
 	list_reagents = list("ectoplasm" = 10)
 
 /obj/item/weapon/reagent_containers/food/snacks/liquidfood
-	name = "\improper LiquidFood Ration"
+	name = "LiquidFood Ration"
 	desc = "A prepackaged grey slurry of all the essential nutrients for a spacefarer on the go. Should this be crunchy?"
 	icon_state = "liquidfood"
 	trash = /obj/item/trash/liquidfood

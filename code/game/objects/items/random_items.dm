@@ -254,7 +254,7 @@
 // -------------------------------------
 
 /obj/structure/largecrate/evil
-	name = "\improper Mysterious Crate"
+	name = "Mysterious Crate"
 	desc = "What could it be?"
 
 	attackby(obj/item/weapon/W as obj, mob/user as mob, params)
