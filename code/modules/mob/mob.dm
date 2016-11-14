@@ -62,7 +62,7 @@
 	if(!client)	return
 
 	if(type)
-		if(type & 1 && !can_see())//Vision related
+		if(type & 1 && !has_vision())//Vision related
 			if(!( alt ))
 				return
 			else
@@ -74,7 +74,7 @@
 			else
 				msg = alt
 				type = alt_type
-				if(type & 1 && !can_see())
+				if(type & 1 && !has_vision())
 					return
 	// Added voice muffling for Issue 41.
 	if(stat == UNCONSCIOUS || (sleeping > 0 && stat != DEAD))
