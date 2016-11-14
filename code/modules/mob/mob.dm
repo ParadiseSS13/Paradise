@@ -62,22 +62,22 @@
 	if(!client)	return
 
 	if(type)
-		if(type & 1 && (disabilities & BLIND || blinded || paralysis) )//Vision related
+		if(type & 1 && !has_vision())//Vision related
 			if(!( alt ))
 				return
 			else
 				msg = alt
 				type = alt_type
-		if(type & 2 && (disabilities & DEAF || ear_deaf))//Hearing related
+		if(type & 2 && !can_hear())//Hearing related
 			if(!( alt ))
 				return
 			else
 				msg = alt
 				type = alt_type
-				if((type & 1 && disabilities & BLIND))
+				if(type & 1 && !has_vision())
 					return
 	// Added voice muffling for Issue 41.
-	if(stat == UNCONSCIOUS || (sleeping > 0 && stat != 2))
+	if(stat == UNCONSCIOUS || (sleeping > 0 && stat != DEAD))
 		to_chat(src, "<I>... You can almost hear someone talking ...</I>")
 	else
 		to_chat(src, msg)
@@ -161,13 +161,6 @@
 
 /mob/proc/Life()
 //	handle_typing_indicator()
-	return
-
-
-/mob/proc/restrained()
-	return
-
-/mob/proc/incapacitated()
 	return
 
 //This proc is called whenever someone clicks an inventory ui slot.
@@ -1031,36 +1024,6 @@ var/list/slot_equipment_priority = list( \
 	if(restrained())					return 0
 	return 1
 
-//Updates canmove, lying and icons. Could perhaps do with a rename but I can't think of anything to describe it.
-/mob/proc/update_canmove(delay_action_updates = 0)
-	var/ko = weakened || paralysis || stat || (status_flags & FAKEDEATH)
-	var/buckle_lying = !(buckled && !buckled.buckle_lying)
-	if(ko || resting || stunned)
-		drop_r_hand()
-		drop_l_hand()
-	else
-		lying = 0
-		canmove = 1
-	if(buckled)
-		lying = 90 * buckle_lying
-	else
-		if((ko || resting) && !lying)
-			fall(ko)
-
-	canmove = !(ko || resting || stunned || buckled)
-	density = !lying
-	if(lying)
-		if(layer == initial(layer))
-			layer = MOB_LAYER - 0.2
-	else
-		if(layer == MOB_LAYER - 0.2)
-			layer = initial(layer)
-
-	update_transform()
-	if(!delay_action_updates)
-		update_action_buttons_icon()
-	return canmove
-
 /mob/proc/fall(var/forced)
 	drop_l_hand()
 	drop_r_hand()
@@ -1100,77 +1063,6 @@ var/list/slot_equipment_priority = list( \
 
 /mob/proc/activate_hand(selhand)
 	return
-
-/mob/proc/Jitter(amount)
-	jitteriness = max(jitteriness, amount, 0)
-
-/mob/proc/Dizzy(amount)
-	dizziness = max(dizziness, amount, 0)
-
-/mob/proc/AdjustDrunk(amount)
-	drunk = max(drunk + amount, 0)
-
-/mob/proc/Stun(amount)
-	SetStunned(max(stunned, amount))
-
-/mob/proc/SetStunned(amount) //if you REALLY need to set stun to a set amount without the whole "can't go below current stunned"
-	if(status_flags & CANSTUN)
-		stunned = max(amount, 0)
-		update_canmove()
-	else if(stunned)
-		stunned = 0
-		update_canmove()
-
-/mob/proc/AdjustStunned(amount)
-	SetStunned(stunned + amount)
-
-/mob/proc/Weaken(amount)
-	SetWeakened(max(weakened, amount))
-
-/mob/proc/SetWeakened(amount)
-	if(status_flags & CANWEAKEN)
-		weakened = max(amount, 0)
-		update_canmove()	//updates lying, canmove and icons
-	else if(weakened)
-		weakened = 0
-		update_canmove()
-
-/mob/proc/AdjustWeakened(amount)
-	SetWeakened(weakened + amount)
-
-/mob/proc/Paralyse(amount)
-	SetParalysis(max(paralysis, amount))
-
-/mob/proc/SetParalysis(amount)
-	if(status_flags & CANPARALYSE)
-		paralysis = max(amount, 0)
-		update_canmove()
-	else if(paralysis)
-		paralysis = 0
-		update_canmove()
-
-/mob/proc/AdjustParalysis(amount)
-	SetParalysis(paralysis + amount)
-
-/mob/proc/Sleeping(amount)
-	SetSleeping(max(sleeping, amount))
-
-/mob/proc/SetSleeping(amount)
-	sleeping = max(amount, 0)
-	update_canmove()
-
-/mob/proc/AdjustSleeping(amount)
-	SetSleeping(sleeping + amount)
-
-/mob/proc/Resting(amount)
-	SetResting(max(resting, amount))
-
-/mob/proc/SetResting(amount)
-	resting = max(amount, 0)
-	update_canmove()
-
-/mob/proc/AdjustResting(amount)
-	SetResting(resting + amount)
 
 /mob/proc/get_species()
 	return ""
@@ -1364,13 +1256,6 @@ mob/proc/yank_out_object()
 				visible_message("<span class='warning'>[src] pukes all over \himself!</span>","<span class='warning'>You puke all over yourself!</span>")
 			location.add_vomit_floor(src, 1)
 		playsound(location, 'sound/effects/splat.ogg', 50, 1)
-
-
-/mob/proc/adjustEarDamage()
-	return
-
-/mob/proc/setEarDamage()
-	return
 
 /mob/proc/AddSpell(obj/effect/proc_holder/spell/S)
 	mob_spell_list += S

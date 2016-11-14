@@ -15,7 +15,7 @@
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
 /datum/reagent/ginsonic/on_mob_life(mob/living/M)
-	M.drowsyness = max(0, M.drowsyness-5)
+	M.AdjustDrowsy(-5)
 	if(prob(25))
 		M.AdjustParalysis(-1)
 		M.AdjustStunned(-1)

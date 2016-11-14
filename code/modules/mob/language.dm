@@ -605,7 +605,7 @@
 	return ..()
 
 // Can we speak this language, as opposed to just understanding it?
-/mob/proc/can_speak(datum/language/speaking)
+/mob/proc/can_speak_language(datum/language/speaking)
 
 	return (universal_speak || (speaking && speaking.flags & INNATE) || speaking in src.languages)
 

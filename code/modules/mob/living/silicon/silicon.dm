@@ -152,7 +152,7 @@
 
 //Silicon mob language procs
 
-/mob/living/silicon/can_speak(datum/language/speaking)
+/mob/living/silicon/can_speak_language(datum/language/speaking)
 	return universal_speak || (speaking in src.speech_synthesizer_langs)	//need speech synthesizer support to vocalize a language
 
 /mob/living/silicon/add_language(var/language, var/can_speak=1)
@@ -355,8 +355,8 @@
 
 /////////////////////////////////// EAR DAMAGE ////////////////////////////////////
 
-/mob/living/silicon/adjustEarDamage()
+/mob/living/silicon/SetEarDamage()
 	return
 
-/mob/living/silicon/setEarDamage()
+/mob/living/silicon/SetEarDeaf()
 	return

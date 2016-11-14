@@ -38,8 +38,24 @@
 		var/turf/T = V
 		areas |= T.loc
 	return areas
-
 // Like view but bypasses luminosity check
+
+/proc/GetRedPart(const/hexa)
+	return hex2num(copytext(hexa, 2, 4))
+
+/proc/GetGreenPart(const/hexa)
+	return hex2num(copytext(hexa, 4, 6))
+
+/proc/GetBluePart(const/hexa)
+	return hex2num(copytext(hexa, 6, 8))
+
+/proc/GetHexColors(const/hexa)
+	return list(
+		GetRedPart(hexa),
+		GetGreenPart(hexa),
+		GetBluePart(hexa),
+		)
+
 
 /proc/hear(var/range, var/atom/source)
 	var/lum = source.luminosity
@@ -400,23 +416,6 @@
 			continue
 		mobs_found += M
 	return mobs_found
-
-/proc/GetRedPart(const/hexa)
-	return hex2num(copytext(hexa,2,4))
-
-/proc/GetGreenPart(const/hexa)
-	return hex2num(copytext(hexa,4,6))
-
-/proc/GetBluePart(const/hexa)
-	return hex2num(copytext(hexa,6,8))
-
-/proc/GetHexColors(const/hexa)
-	return list(
-			GetRedPart(hexa),
-			GetGreenPart(hexa),
-			GetBluePart(hexa)
-		)
-
 
 /proc/alone_in_area(var/area/the_area, var/mob/must_be_alone, var/check_type = /mob/living/carbon)
 	var/area/our_area = get_area_master(the_area)

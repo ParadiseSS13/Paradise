@@ -454,8 +454,10 @@
 	set name = "Eject Sleeper"
 	set category = "Object"
 	set src in oview(1)
-	if(usr.stat != 0)
+	
+	if(usr.incapacitated()) //are you cuffed, dying, lying, stunned or other
 		return
+		
 	src.icon_state = "[base_icon]-open"
 	src.go_out()
 	add_fingerprint(usr)
@@ -465,8 +467,10 @@
 	set name = "Remove Beaker"
 	set category = "Object"
 	set src in oview(1)
-	if(usr.stat != 0)
+	
+	if(usr.incapacitated()) //are you cuffed, dying, lying, stunned or other
 		return
+		
 	if(beaker)
 		filtering = 0
 		beaker.forceMove(usr.loc)
@@ -546,7 +550,7 @@
 	if(panel_open)
 		to_chat(usr, "<span class='boldnotice'>Close the maintenance panel first.</span>")
 		return
-	if(usr.restrained() || usr.stat || usr.weakened || usr.stunned || usr.paralysis || usr.resting) //are you cuffed, dying, lying, stunned or other
+	if(usr.incapacitated()) //are you cuffed, dying, lying, stunned or other
 		return
 	for(var/mob/living/carbon/slime/M in range(1,usr))
 		if(M.Victim == usr)
