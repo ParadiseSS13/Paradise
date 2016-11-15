@@ -1,4 +1,0 @@
-author: "KasparoVy"
-delete-after: True
-changes: 
-  - bugfix: "Adding cable to multiple computer frames at the same time while not having the correct amount of cables will no longer cause busted coils with a negative number of cables."
