@@ -1,5 +1,5 @@
 /mob/living/update_blind_effects()
-	if(!can_see())
+	if(!has_vision())
 		overlay_fullscreen("blind", /obj/screen/fullscreen/blind)
 		throw_alert("blind", /obj/screen/alert/blind)
 		return 1
@@ -43,7 +43,7 @@
 	return !(ear_deaf || (disabilities & DEAF))
 
 // Whether the mob is able to see
-/mob/living/can_see()
+/mob/living/has_vision()
 	return !(eye_blind || (disabilities & BLIND) || stat)
 
 // Whether the mob is capable of talking

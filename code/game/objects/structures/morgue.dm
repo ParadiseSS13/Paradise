@@ -12,7 +12,7 @@
 
 /obj/structure/morgue
 	name = "morgue"
-	desc = "Used to keep bodies in untill someone fetches them."
+	desc = "Used to keep bodies in until someone fetches them."
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "morgue1"
 	density = 1

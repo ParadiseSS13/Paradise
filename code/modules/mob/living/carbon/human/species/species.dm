@@ -305,7 +305,7 @@
 		if(!H.co2overloadtime) // If it's the first breath with too much CO2 in it, lets start a counter, then have them pass out after 12s or so.
 			H.co2overloadtime = world.time
 		else if(world.time - H.co2overloadtime > 120)
-			H.Paralyse(3)
+			H.Paralyse(5)
 			H.adjustOxyLoss(3) // Lets hurt em a little, let them know we mean business
 			if(world.time - H.co2overloadtime > 300) // They've been in here 30s now, lets start to kill them for their own good!
 				H.adjustOxyLoss(8)
@@ -314,6 +314,7 @@
 				H.emote("cough")
 	else
 		H.clear_alert("co2")
+		H.co2overloadtime = 0
 		if(atmos_requirements["min_co2"]) //species breathes this gas, so they got their air
 			H.failed_last_breath = 0
 			H.adjustOxyLoss(-5)
@@ -332,7 +333,8 @@
 			if(SA_pp > atmos_requirements["sa_para"]) // Enough to make us paralysed for a bit
 				H.Paralyse(3) // 3 gives them one second to wake up and run away a bit!
 				if(SA_pp > atmos_requirements["sa_sleep"]) // Enough to make us sleep as well
-					H.AdjustSleeping(2, bound_lower = 0, bound_upper = 10)
+					// This value is large because breaths are taken only once every 4 life ticks.
+					H.AdjustSleeping(8, bound_lower = 0, bound_upper = 10)
 			else if(SA_pp > 0.01)	// There is sleeping gas in their lungs, but only a little, so give them a bit of a warning
 				if(prob(20))
 					spawn(0)

@@ -20,7 +20,7 @@
 	jump_action.Grant(user)
 
 /obj/machinery/computer/camera_advanced/check_eye(mob/user)
-	if((stat & (NOPOWER|BROKEN)) || !Adjacent(user) || !user.can_see() || user.incapacitated())
+	if((stat & (NOPOWER|BROKEN)) || !Adjacent(user) || !user.has_vision() || user.incapacitated())
 		user.unset_machine()
 		return 0
 	return 1
