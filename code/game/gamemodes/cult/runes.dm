@@ -118,8 +118,9 @@ structure_check() searches for nearby cultist structures required for the invoca
 	//This proc determines if the rune can be invoked at the time. If there are multiple required cultists, it will find all nearby cultists.
 	var/list/invokers = list() //people eligible to invoke the rune
 	var/list/chanters = list() //people who will actually chant the rune when passed to invoke()
-	chanters |= user
-	invokers |= user
+	if(user)
+		chanters |= user
+		invokers |= user
 	if(req_cultists > 1 || allow_excess_invokers)
 		for(var/mob/living/L in range(1, src))
 			if(iscultist(L))
@@ -127,7 +128,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 					continue
 				if(ishuman(L))
 					var/mob/living/carbon/human/H = L
-					if((H.disabilities & MUTE) || H.silent)
+					if(!H.can_speak())
 						continue
 				if(L.stat)
 					continue
@@ -150,10 +151,13 @@ structure_check() searches for nearby cultist structures required for the invoca
 			var/mob/living/L = M
 			L.say(invocation)
 			L.changeNext_move(CLICK_CD_MELEE)//THIS IS WHY WE CAN'T HAVE NICE THINGS
-	var/oldtransform = transform
-	spawn(0) //animate is a delay, we want to avoid being delayed
-		animate(transform = matrix()*2, alpha = 0, time = 5) //fade out
-		animate(transform = oldtransform, alpha = 255, time = 0)
+	do_invoke_glow()
+
+/obj/effect/rune/proc/do_invoke_glow()
+    var/oldtransform = transform
+    spawn(0) //animate is a delay, we want to avoid being delayed
+        animate(src, transform = matrix()*2, alpha = 0, time = 5) //fade out
+        animate(transform = oldtransform, alpha = 255, time = 0)
 
 /obj/effect/rune/proc/fail_invoke(var/mob/living/user)
 	//This proc contains the effects of a rune if it is not invoked correctly, through either invalid wording or not enough cultists. By default, it's just a basic fizzle.
@@ -313,6 +317,9 @@ var/list/teleport_runes = list()
 	invocation = "Mah'weyh pleggh at e'ntrath!"
 	icon_state = "3"
 	req_cultists = 2
+
+/obj/effect/rune/convert/do_invoke_glow()
+	return
 
 /obj/effect/rune/convert/invoke(var/list/invokers)
 	var/list/convertees = list()
@@ -864,6 +871,9 @@ var/list/teleport_runes = list()
 	icon_state = "4"
 	construct_invoke = 0
 	req_cultists = 3
+
+/obj/effect/rune/blood_boil/do_invoke_glow()
+	return
 
 /obj/effect/rune/blood_boil/invoke(var/list/invokers)
 	..()
