@@ -236,10 +236,9 @@
 /obj/item/device/fluff/cardgage_helmet_kit/afterattack(atom/target, mob/user, proximity)
 	if(!proximity || !ishuman(user) || user.lying)
 		return
-	var/mob/living/carbon/human/H = user
 
 	if(istype(target, /obj/item/clothing/head/welding))
-		to_chat(H, "<span class='notice'>You modify the appearance of [target].</span>")
+		to_chat(user, "<span class='notice'>You modify the appearance of [target].</span>")
 
 		var/obj/item/clothing/head/welding/flamedecal/P = new(get_turf(target))
 		transfer_fingerprints_to(P)
