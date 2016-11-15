@@ -225,6 +225,29 @@
 		to_chat(target, "<span class='notice'>You comb your tail with the [src].</span>")
 		used = 1
 
+/obj/item/device/fluff/cardgage_helmet_kit //captain cardgage: Richard Ulery
+	name = "welding helmet modkit"
+	desc = "Some spraypaint and a stencil, perfect for painting flames onto a welding helmet!"
+	icon_state = "modkit"
+	w_class = 2
+	force = 0
+	throwforce = 0
+
+/obj/item/device/fluff/cardgage_helmet_kit/afterattack(atom/target, mob/user, proximity)
+	if(!proximity || !ishuman(user) || user.lying)
+		return
+	var/mob/living/carbon/human/H = user
+
+	if(istype(target, /obj/item/clothing/head/welding))
+		to_chat(H, "<span class='notice'>You modify the appearance of [target].</span>")
+
+		var/obj/item/clothing/head/welding/flamedecal/P = new(get_turf(target))
+		transfer_fingerprints_to(P)
+		qdel(target)
+		qdel(src)
+		return
+	to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
+
 #define USED_MOD_HELM 1
 #define USED_MOD_SUIT 2
 
