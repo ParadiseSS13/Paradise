@@ -54,7 +54,7 @@
 			update_wiz_icons_added(wizard)
 
 	..()
-	
+
 /datum/game_mode/proc/remove_wizard(datum/mind/wizard_mind)
 	if(wizard_mind in wizards)
 		ticker.mode.wizards -= wizard_mind
@@ -66,8 +66,8 @@
 			to_chat(wizard_mind.current, "<span class='userdanger'>You have been turned into a robot! You can feel your magical powers fading away...</span>")
 		else
 			to_chat(wizard_mind.current, "<span class='userdanger'>You have been brainwashed! You are no longer a wizard.</span>")
-		ticker.mode.update_wiz_icons_removed(wizard_mind)		
-	
+		ticker.mode.update_wiz_icons_removed(wizard_mind)
+
 /datum/game_mode/proc/update_wiz_icons_added(datum/mind/wiz_mind)
 	var/datum/atom_hud/antag/wizhud = huds[ANTAG_HUD_WIZ]
 	wizhud.join_hud(wiz_mind.current)
@@ -80,9 +80,59 @@
 	set_antag_hud(wiz_mind.current, null)
 
 /datum/game_mode/proc/forge_wizard_objectives(var/datum/mind/wizard)
-	var/datum/objective/wizchaos/wiz_objective = new
-	wiz_objective.owner = wizard
-	wizard.objectives += wiz_objective
+	switch(rand(1,100))
+		if(1 to 30)
+			var/datum/objective/assassinate/kill_objective = new
+			kill_objective.owner = wizard
+			kill_objective.find_target()
+			wizard.objectives += kill_objective
+
+			var/datum/objective/steal/steal_objective = new
+			steal_objective.owner = wizard
+			steal_objective.find_target()
+			wizard.objectives += steal_objective
+
+			if(!(locate(/datum/objective/escape) in wizard.objectives))
+				var/datum/objective/escape/escape_objective = new
+				escape_objective.owner = wizard
+				wizard.objectives += escape_objective
+		if(31 to 60)
+			var/datum/objective/assassinate/kill_objective = new
+			kill_objective.owner = wizard
+			kill_objective.find_target()
+			wizard.objectives += kill_objective
+
+			var/datum/objective/steal/steal_objective = new
+			steal_objective.owner = wizard
+			steal_objective.find_target()
+			wizard.objectives += steal_objective
+
+			if(!(locate(/datum/objective/survive) in wizard.objectives))
+				var/datum/objective/survive/survive_objective = new
+				survive_objective.owner = wizard
+				wizard.objectives += survive_objective
+
+		if(61 to 85)
+			var/datum/objective/assassinate/kill_objective = new
+			kill_objective.owner = wizard
+			kill_objective.find_target()
+			wizard.objectives += kill_objective
+
+			if(!(locate(/datum/objective/hijack) in wizard.objectives))
+				var/datum/objective/hijack/hijack_objective = new
+				hijack_objective.owner = wizard
+				wizard.objectives += hijack_objective
+
+		else
+			var/datum/objective/steal/steal_objective = new
+			steal_objective.owner = wizard
+			steal_objective.find_target()
+			wizard.objectives += steal_objective
+
+			if(!(locate(/datum/objective/hijack) in wizard.objectives))
+				var/datum/objective/hijack/hijack_objective = new
+				hijack_objective.owner = wizard
+				wizard.objectives += hijack_objective
 	return
 
 
