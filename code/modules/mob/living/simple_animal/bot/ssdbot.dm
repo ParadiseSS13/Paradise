@@ -144,7 +144,7 @@
 			start_home()
 		return
 	for(var/mob/living/carbon/human/H in mob_list)
-		if(H.z == z && isLivingSSD(H) && !H.anchored && H.loc != home_turf && !(H in ignored_ssds) && !istype(get_turf(H), /turf/space) && !H.buckled)
+		if(H.z == z && isLivingSSD(H) && !H.anchored && !H.handcuffed && H.loc != home_turf && !(H in ignored_ssds) && !istype(get_turf(H), /turf/space) && !H.buckled)
 			ignored_ssds += H
 			target = get_turf(H)
 			speak("Getting directions to [H] at <b>[get_area(src)]</b>.")
@@ -184,7 +184,7 @@
 			if(auto_pickup)
 				var/atom/movable/AM
 				for(var/mob/living/carbon/human/H in loc)
-					if(H.z == z && isLivingSSD(H) && !H.anchored && H.loc != home_turf && !(H in ignored_ssds) && !istype(get_turf(H), /turf/space) && !H.buckled)
+					if(H.z == z && isLivingSSD(H) && !H.anchored && !H.handcuffed && H.loc != home_turf && !(H in ignored_ssds) && !istype(get_turf(H), /turf/space) && !H.buckled)
 						AM = H
 						break
 				if(AM)
