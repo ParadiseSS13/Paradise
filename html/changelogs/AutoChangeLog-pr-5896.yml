@@ -1,4 +1,0 @@
-author: "KasparoVy"
-delete-after: True
-changes: 
-  - bugfix: "The DNA SE injectors one can find in the abandoned mining crates now correctly activate/deactivate the powers they may contain."
