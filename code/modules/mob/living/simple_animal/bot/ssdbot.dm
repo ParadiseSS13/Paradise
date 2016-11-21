@@ -27,6 +27,7 @@
 	var/automatic_mode = 1 // if 1, players cannot reconfigure it
 	buckle_lying = 1
 	force_threshold = 20
+	var/list/areas_to_ignore = list(/area/medical/virology, /area/toxins/xenobiology, /area/security/prison, /area/security/permabrig)
 
 /mob/living/simple_animal/bot/mulebot/ssdbot/New()
 	..()
@@ -144,7 +145,17 @@
 			start_home()
 		return
 	for(var/mob/living/carbon/human/H in mob_list)
-		if(H.z == z && isLivingSSD(H) && !H.anchored && !H.handcuffed && H.loc != home_turf && !(H in ignored_ssds) && !istype(get_turf(H), /turf/space) && !H.buckled)
+		if(H.z == z && isLivingSSD(H) && !H.anchored && !H.weakened && !H.stunned && !H.handcuffed && H.loc != home_turf && !(H in ignored_ssds) && !istype(get_turf(H), /turf/space) && !H.buckled)
+			if(H.mind)
+				if(H.mind.assigned_role in command_positions)
+					continue
+			var/valid_area = 1
+			for(var/area/A in areas_to_ignore)
+				if(istype(get_area(H), A))
+					valid_area = 0
+					break
+			if(!valid_area)
+				continue
 			ignored_ssds += H
 			target = get_turf(H)
 			speak("Getting directions to [H] at <b>[get_area(src)]</b>.")
@@ -184,7 +195,7 @@
 			if(auto_pickup)
 				var/atom/movable/AM
 				for(var/mob/living/carbon/human/H in loc)
-					if(H.z == z && isLivingSSD(H) && !H.anchored && !H.handcuffed && H.loc != home_turf && !(H in ignored_ssds) && !istype(get_turf(H), /turf/space) && !H.buckled)
+					if(H.z == z && isLivingSSD(H) && !H.anchored && !H.weakened && !H.stunned && !H.handcuffed && H.loc != home_turf && !(H in ignored_ssds) && !istype(get_turf(H), /turf/space) && !H.buckled)
 						AM = H
 						break
 				if(AM)
