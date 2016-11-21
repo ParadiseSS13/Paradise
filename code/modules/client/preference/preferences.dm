@@ -222,7 +222,6 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	max_gear_slots = config.max_loadout_points
 	if(C.donator_level >= DONATOR_LEVEL_ONE)
 		max_gear_slots += 5
-		log_to_dd("Added 5 gear slots to [C.ckey], now [max_gear_slots]")
 
 	var/loaded_preferences_successfully = load_preferences(C)
 	if(loaded_preferences_successfully)
@@ -481,6 +480,10 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 			var/firstcat = 1
 			for(var/category in loadout_categories)
+				var/datum/loadout_category/LC = loadout_categories[category]
+				if(LC.donor_only)
+					if(user.client.donator_level < DONATOR_LEVEL_TWO) // level two donators get the donator loadout, so don't show it to anyone with less than that
+						continue
 				if(firstcat)
 					firstcat = 0
 				else
@@ -1106,6 +1109,10 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			if(TG.display_name in gear)
 				gear -= TG.display_name
 			else
+				if(TG.donor_only)
+					if(user.client.donator_level < DONATOR_LEVEL_TWO) // donator items are locked to > tier 2
+						//they normally can't even get this far- but just in case of href exploits, we check them here
+						return
 				var/total_cost = 0
 				var/list/type_blacklist = list()
 				for(var/gear_name in gear)
