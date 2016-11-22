@@ -67,6 +67,8 @@
 			Your character moves slower.
 	*	Slurring				*
 			Your character cannot enunciate clearly.
+	*	CultSlurring			*
+			Your character cannot enunciate clearly while mumbling about elder codes.
 	*	Stunned					*
 			Your character is unable to move, and drops stuff in their hands. They keep standing, though.
 	* Stuttering			*
@@ -108,6 +110,7 @@
 
 /mob // On `/mob` for now, to support legacy code
 	var/confused = 0
+	var/cultslurring = 0
 	var/dizziness = 0
 	var/drowsyness = 0
 	var/druggy = 0
@@ -376,6 +379,18 @@
 	SetSlowed(new_value, updating)
 
 // SLURRING
+
+/mob/living/Slur(amount)
+	SetSlur(max(slurring, amount))
+
+/mob/living/SetSlur(amount)
+	slurring = max(amount, 0)
+
+/mob/living/AdjustSlur(amount, bound_lower = 0, bound_upper = INFINITY)
+	var/new_value = directional_bounded_sum(slurring, amount, bound_lower, bound_upper)
+	SetSlur(new_value)
+
+// CULTSLURRING
 
 /mob/living/Slur(amount)
 	SetSlur(max(slurring, amount))

@@ -109,7 +109,7 @@
 
 /mob/living/simple_animal/slaughter/cult //Summoned as part of the cult objective "Bring the Slaughter"
 	name = "harbringer of the slaughter"
-	real_name = "harbringer of the slaughter"
+	real_name = "harbringer of the Slaughter"
 	desc = "An awful creature from beyond the realms of madness."
 	maxHealth = 500
 	health = 500
@@ -145,7 +145,7 @@
 	var/mob/living/victim = pick(victims)
 	to_chat(victim, "<span class='userdanger'>You feel an awful sense of being watched...</span>")
 	victim.Stun(3) //HUE
-	var/area/A = victim.loc.loc
+	var/area/A = get_area(victim)
 	if(!A)
 		to_chat(usr, "<span class='warning'>You could not locate any sapient heretics for the Slaughter.</span>")
 		return 0
@@ -168,7 +168,7 @@
 
 		S.key = C.key
 		S.mind.assigned_role = "Harbringer of the Slaughter"
-		S.mind.special_role = "Harbringer of the Slaugther"
+		S.mind.special_role = "Harbringer of the Slaughter"
 		to_chat(S, playstyle_string)
 		ticker.mode.add_cultist(S.mind)
 		var/obj/effect/proc_holder/spell/targeted/sense_victims/SV = new

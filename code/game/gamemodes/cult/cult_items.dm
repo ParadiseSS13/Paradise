@@ -268,7 +268,7 @@
 	var/uses = 4
 
 /obj/item/device/cult_shift/examine(mob/user)
-	..()
+	. = ..()
 	if(uses)
 		to_chat(user, "<span class='cult'>It has [uses] uses remaining.</span>")
 	else

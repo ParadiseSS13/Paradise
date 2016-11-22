@@ -564,7 +564,7 @@ var/list/teleport_runes = list()
 	var/mob/living/user = invokers[1]
 	if(istype(ticker.mode.name, "cult"))
 		var/datum/game_mode/cult/cult_mode = ticker.mode
-		if(!("slaughter" in cult_mode.objectives))
+		if(!(CULT_SLAUGHTER in cult_mode.objectives))
 			message_admins("[usr.real_name]([user.ckey]) tried to summon demons when the objective was wrong")
 			for(var/M in invokers)
 				var/mob/living/L = M

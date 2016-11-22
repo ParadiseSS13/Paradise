@@ -165,7 +165,7 @@
 			for(var/mob/living/carbon/human/player in player_list)
 				if(is_secure_level(player.z)) //We can't sacrifice people that are on the centcom z-level
 					continue
-				if(player.mind && !(player.mind in cult))
+				if(player.mind && !(player.mind in cult) && (player.stat != DEAD))//make DAMN sure they are not dead
 					possible_targets += player.mind
 
 		if(possible_targets.len > 0)
@@ -183,7 +183,7 @@
 				if(L.mind in cult)
 					living_cultists++
 				else
-					if(istype(L, /mob/living/carbon))
+					if(istype(L, /mob/living/carbon/human))
 						living_crew++
 
 		var/total = living_crew + living_cultists
@@ -211,7 +211,7 @@
 	else
 		return pick(possible_objectives)
 
-/datum/game_mode/cult/proc/pick_bonus_objective()
+/datum/game_mode/cult/proc/pick_bonus_objective()//did we summon demons? TIME FOR THE BONUS STAGE
 	var/list/possible_objectives = list()
 
 	var/living_crew = 0
@@ -240,20 +240,18 @@
 
 		if("hijack")
 			for(var/mob/living/L in player_list)
-				if(L.stat != DEAD)
-					if(!(L.mind in cult))
-						var/area/A = get_area(L)
-						if(is_type_in_list(A.loc, centcom_areas))
-							escaped_shuttle++
+				if(L.stat != DEAD && !(L.mind in cult))
+					var/area/A = get_area(L)
+					if(is_type_in_list(A.loc, centcom_areas))
+						escaped_shuttle++
 			if(!escaped_shuttle)
 				bonus = 1
 
 		if("massacre")
 			for(var/mob/living/carbon/C in player_list)
-				if(C.stat != DEAD)
-					if(!(C.mind in cult))
-						var/turf/T = get_turf(C)
-						if(is_station_level(T.z))	//we're only interested in the remaining humans on the station
-							survivors++
+				if(C.stat != DEAD && !(C.mind in cult))
+					var/turf/T = get_turf(C)
+					if(is_station_level(T.z))	//we're only interested in the remaining humans on the station
+						survivors++
 			if(survivors < massacre_target)
 				bonus = 1

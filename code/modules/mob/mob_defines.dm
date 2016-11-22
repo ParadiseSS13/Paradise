@@ -107,7 +107,6 @@
 
 	var/datum/dna/dna = null//Carbon
 	var/radiation = 0 //Carbon
-	var/cultslurring = 0 
 
 	var/list/mutations = list() //Carbon -- Doohl
 	//see: setup.dm for list of mutations

@@ -42,7 +42,7 @@
 
 //Cult versions cuase fuck map conflicts
 /obj/structure/cult/examine(mob/user)
-	..()
+	. = ..()
 	if(iscultist(user) && cooldowntime > world.time)
 		to_chat(user, "<span class='cultitalic'>The magic in [src] is weak, it will be ready to use again in [getETA()].</span>")
 	to_chat(user, "<span class='notice'>\The [src] is [anchored ? "":"not "]secured to the floor.</span>")
@@ -86,7 +86,7 @@
 	if(cooldowntime > world.time)
 		to_chat(user, "<span class='cultitalic'>The magic in [src] is weak, it will be ready to use again in [getETA()].</span>")
 		return
-	var/choice = input(user,"You study the rituals on the alter...","Alter") as null|anything in list("Cultist Dagger", "Eldritch Whetstone","Zealot's Blindfold","Flask of Unholy Water")
+	var/choice = input(user,"You study the rituals on the altar...","Altar") as null|anything in list("Cultist Dagger", "Eldritch Whetstone","Zealot's Blindfold","Flask of Unholy Water")
 	var/pickedtype
 	switch(choice)
 		if("Eldritch Whetstone")
@@ -129,8 +129,10 @@
 		if(!C.stat)
 			C.emote("scream")
 		user.changeNext_move(CLICK_CD_MELEE)
-		C.apply_damage(30, BURN, "head") //30 fire damage because it's FUCKING LAVA
-		C.status_flags |= DISFIGURED //Your face is unrecognizable because it's FUCKING LAVA
+		var/obj/item/organ/external/head/head = C.get_organ("head")
+		if(head)
+			C.apply_damage(30, BURN, "head") //30 fire damage because it's FUCKING LAVA
+			head.disfigure("burn") //Your face is unrecognizable because it's FUCKING LAVA
 		return 1
 
 /obj/structure/cult/cultforge/attack_hand(mob/living/user)
@@ -209,7 +211,6 @@ var/list/blacklisted_pylon_turfs = typecacheof(list(
 						var/mob/living/simple_animal/M = L
 						if(M.health < M.maxHealth)
 							M.adjustHealth(-1)
-			//CHECK_TICK
 	if(last_corrupt <= world.time)
 		var/list/validturfs = list()
 		var/list/cultturfs = list()

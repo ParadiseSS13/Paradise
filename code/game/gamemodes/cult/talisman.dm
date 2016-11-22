@@ -249,8 +249,8 @@
 			if(iscarbon(target))
 				var/mob/living/carbon/C = target
 				C.AdjustSilence(5)
-				C.stuttering += 15
-				C.cultslurring += 20
+				C.AdjustStuttering(15)
+				C.AdjustCultSlur(20)
 				C.Jitter(15)
 		user.drop_item()
 		qdel(src)

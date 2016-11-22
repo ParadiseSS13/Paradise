@@ -113,6 +113,7 @@
 	handle_sleeping()
 	handle_slowed()
 	handle_drunk()
+	handle_cultslurring()
 
 
 /mob/living/proc/handle_stunned()
@@ -148,6 +149,11 @@
 	if(slurring)
 		AdjustSlur(-1)
 	return slurring
+
+/mob/living/proc/handle_cultslurring()
+	if(cultslurring)
+		AdjustCultSlur(-1)
+	return cultslurring
 
 /mob/living/proc/handle_paralysed()
 	if(paralysis)
