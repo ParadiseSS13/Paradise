@@ -123,7 +123,7 @@
 		if(G.affecting.stat == DEAD)
 			to_chat(user, "<span class='warning'>[G.affecting] is dead!</span>")
 			return 0
-		var/mob/living/carbon/C = G.affecting
+		var/mob/living/carbon/human/C = G.affecting
 		C.visible_message("<span class='danger'>[user] dunks [C]'s face into [src]'s lava!</span>", \
 						"<span class='userdanger'>[user] dunks your face into [src]'s lava!</span>")
 		if(!C.stat)
