@@ -1,0 +1,4 @@
+author: "Twinmold93"
+delete-after: True
+changes: 
+  - bugfix: "Runtime caused by lack of settlers in the Orion arcade game."
