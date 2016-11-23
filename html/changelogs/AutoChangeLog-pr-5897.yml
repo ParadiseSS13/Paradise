@@ -1,0 +1,4 @@
+author: "FlattestNerd"
+delete-after: True
+changes: 
+  - tweak: "the e20 will now get logged when it goes BEWM, as it should."
