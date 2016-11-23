@@ -25,17 +25,17 @@
 
 /mob/new_player/proc/new_player_panel_proc()
 	var/real_name = client.prefs.real_name
-	var/output = "<center><p><a href='byond://?src=\ref[src];show_preferences=1'>Setup Character</A><br /><i>[real_name]</i></p>"
+	var/output = "<center><p><a href='byond://?src=[UID()];show_preferences=1'>Setup Character</A><br /><i>[real_name]</i></p>"
 
 	if(!ticker || ticker.current_state <= GAME_STATE_PREGAME)
-		if(!ready)	output += "<p><a href='byond://?src=\ref[src];ready=1'>Declare Ready</A></p>"
-		else	output += "<p><b>You are ready</b> (<a href='byond://?src=\ref[src];ready=2'>Cancel</A>)</p>"
+		if(!ready)	output += "<p><a href='byond://?src=[UID()];ready=1'>Declare Ready</A></p>"
+		else	output += "<p><b>You are ready</b> (<a href='byond://?src=[UID()];ready=2'>Cancel</A>)</p>"
 
 	else
-		output += "<p><a href='byond://?src=\ref[src];manifest=1'>View the Crew Manifest</A></p>"
-		output += "<p><a href='byond://?src=\ref[src];late_join=1'>Join Game!</A></p>"
+		output += "<p><a href='byond://?src=[UID()];manifest=1'>View the Crew Manifest</A></p>"
+		output += "<p><a href='byond://?src=[UID()];late_join=1'>Join Game!</A></p>"
 
-	output += "<p><a href='byond://?src=\ref[src];observe=1'>Observe</A></p>"
+	output += "<p><a href='byond://?src=[UID()];observe=1'>Observe</A></p>"
 
 	if(!IsGuestKey(src.key))
 		establish_db_connection()
@@ -52,9 +52,9 @@
 				break
 
 			if(newpoll)
-				output += "<p><b><a href='byond://?src=\ref[src];showpoll=1'>Show Player Polls</A> (NEW!)</b></p>"
+				output += "<p><b><a href='byond://?src=[UID()];showpoll=1'>Show Player Polls</A> (NEW!)</b></p>"
 			else
-				output += "<p><a href='byond://?src=\ref[src];showpoll=1'>Show Player Polls</A></p>"
+				output += "<p><a href='byond://?src=[UID()];showpoll=1'>Show Player Polls</A></p>"
 
 	output += "</center>"
 
@@ -458,7 +458,7 @@
 		dat += "<fieldset style='border: 2px solid [color]; display: inline'>"
 		dat += "<legend align='center' style='color: [color]'>[jobcat]</legend>"
 		for(var/datum/job/job in categorizedJobs[jobcat]["jobs"])
-			dat += "<a href='byond://?src=\ref[src];SelectedJob=[job.title]'>[job.title] ([job.current_positions]) (Active: [activePlayers[job]])</a><br>"
+			dat += "<a href='byond://?src=[UID()];SelectedJob=[job.title]'>[job.title] ([job.current_positions]) (Active: [activePlayers[job]])</a><br>"
 		dat += "</fieldset><br>"
 
 	dat += "</td></tr></table></center>"
@@ -565,3 +565,7 @@
 
 /mob/new_player/is_ready()
 	return ready && ..()
+
+// No hearing announcements
+/mob/new_player/can_hear()
+	return 0

@@ -266,7 +266,7 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 	var/linkedSender
 	if(istype(source, /obj/machinery/requests_console))
 		var/obj/machinery/requests_console/sender = source
-		linkedSender = "<a href='?src=\ref[src];write=[ckey(sender.department)]'[sender.department]</a>"
+		linkedSender = "<a href='?src=[UID()];write=[ckey(sender.department)]'[sender.department]</a>"
 	else
 		capitalize(source)
 		linkedSender = source

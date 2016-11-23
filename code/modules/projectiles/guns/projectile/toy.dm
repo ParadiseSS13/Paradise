@@ -92,8 +92,8 @@
 /obj/item/weapon/gun/projectile/shotgun/toy/tommygun
 	name = "tommy gun"
 	desc = "Looks almost like the real thing! Great for practicing Drive-bys. Ages 8 and up."
-	icon = 'icons/obj/guns/projectile.dmi'
-	icon_state = "tommy"
+	icon = 'icons/obj/guns/toy.dmi'
+	icon_state = "tommygun"
 	item_state = "shotgun"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/toy/tommygun
 	w_class = 2

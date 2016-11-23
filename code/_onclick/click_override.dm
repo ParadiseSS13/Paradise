@@ -62,7 +62,7 @@
 		to_chat(user, "<span class='warning'>There is no cable here to power the gloves.</span>")
 		return
 	user.visible_message("<span class='warning'>[user.name] fires an arc of electricity at [L]!</span>", "<span class='warning'>You fire an arc of electricity at [L]!</span>", "You hear the loud crackle of electricity!")
-	var/datum/powernet/PN = C.get_powernet()
+	playsound(user.loc, 'sound/effects/eleczap.ogg', 75, 1)
 	user.Beam(L,icon_state="lightning[rand(1,12)]",icon='icons/effects/effects.dmi',time=5)
-	electrocute_mob(L, PN, user)
+	electrocute_mob(L, C, user)
 	last_shocked = world.time

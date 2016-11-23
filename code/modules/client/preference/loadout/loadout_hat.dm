@@ -112,3 +112,8 @@
 /datum/gear/hat/red_beret
 	display_name = "beret, red"
 	path = /obj/item/clothing/head/beret
+
+/datum/gear/hat/sci_beret
+	display_name = "science beret"
+	path = /obj/item/clothing/head/beret/sci
+	allowed_roles = list("Research Director", "Scientist")

@@ -447,7 +447,7 @@
 				feedback_inc("ban_appearance",1)
 				DB_ban_record(BANTYPE_APPEARANCE, M, -1, reason)
 				appearance_fullban(M, "[reason]; By [usr.ckey] on [time2text(world.realtime)]")
-				add_note(M.ckey, "Appearance banned - [reason]", null, usr, 0)
+				add_note(M.ckey, "Appearance banned - [reason]", null, usr.ckey, 0)
 				message_admins("\blue [key_name_admin(usr)] appearance banned [key_name_admin(M)]", 1)
 				to_chat(M, "\red<BIG><B>You have been appearance banned by [usr.client.ckey].</B></BIG>")
 				to_chat(M, "<span class='danger'>The reason is: [reason]</span>")
@@ -488,17 +488,17 @@
 //Regular jobs
 	//Command (Blue)
 		jobs += "<table cellpadding='1' cellspacing='0' width='100%'>"
-		jobs += "<tr align='center' bgcolor='ccccff'><th colspan='[length(command_positions)]'><a href='?src=\ref[src];jobban3=commanddept;jobban4=\ref[M]'>Command Positions</a></th></tr><tr align='center'>"
+		jobs += "<tr align='center' bgcolor='ccccff'><th colspan='[length(command_positions)]'><a href='?src=[UID()];jobban3=commanddept;jobban4=\ref[M]'>Command Positions</a></th></tr><tr align='center'>"
 		for(var/jobPos in command_positions)
 			if(!jobPos)	continue
 			var/datum/job/job = job_master.GetJob(jobPos)
 			if(!job) continue
 
 			if(jobban_isbanned(M, job.title))
-				jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=[job.title];jobban4=\ref[M]'><font color=red>[replacetext(job.title, " ", "&nbsp")]</font></a></td>"
+				jobs += "<td width='20%'><a href='?src=[UID()];jobban3=[job.title];jobban4=\ref[M]'><font color=red>[replacetext(job.title, " ", "&nbsp")]</font></a></td>"
 				counter++
 			else
-				jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=[job.title];jobban4=\ref[M]'>[replacetext(job.title, " ", "&nbsp")]</a></td>"
+				jobs += "<td width='20%'><a href='?src=[UID()];jobban3=[job.title];jobban4=\ref[M]'>[replacetext(job.title, " ", "&nbsp")]</a></td>"
 				counter++
 
 			if(counter >= 6) //So things dont get squiiiiished!
@@ -509,17 +509,17 @@
 	//Security (Red)
 		counter = 0
 		jobs += "<table cellpadding='1' cellspacing='0' width='100%'>"
-		jobs += "<tr bgcolor='ffddf0'><th colspan='[length(security_positions)]'><a href='?src=\ref[src];jobban3=securitydept;jobban4=\ref[M]'>Security Positions</a></th></tr><tr align='center'>"
+		jobs += "<tr bgcolor='ffddf0'><th colspan='[length(security_positions)]'><a href='?src=[UID()];jobban3=securitydept;jobban4=\ref[M]'>Security Positions</a></th></tr><tr align='center'>"
 		for(var/jobPos in security_positions)
 			if(!jobPos)	continue
 			var/datum/job/job = job_master.GetJob(jobPos)
 			if(!job) continue
 
 			if(jobban_isbanned(M, job.title))
-				jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=[job.title];jobban4=\ref[M]'><font color=red>[replacetext(job.title, " ", "&nbsp")]</font></a></td>"
+				jobs += "<td width='20%'><a href='?src=[UID()];jobban3=[job.title];jobban4=\ref[M]'><font color=red>[replacetext(job.title, " ", "&nbsp")]</font></a></td>"
 				counter++
 			else
-				jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=[job.title];jobban4=\ref[M]'>[replacetext(job.title, " ", "&nbsp")]</a></td>"
+				jobs += "<td width='20%'><a href='?src=[UID()];jobban3=[job.title];jobban4=\ref[M]'>[replacetext(job.title, " ", "&nbsp")]</a></td>"
 				counter++
 
 			if(counter >= 5) //So things dont get squiiiiished!
@@ -530,17 +530,17 @@
 	//Engineering (Yellow)
 		counter = 0
 		jobs += "<table cellpadding='1' cellspacing='0' width='100%'>"
-		jobs += "<tr bgcolor='fff5cc'><th colspan='[length(engineering_positions)]'><a href='?src=\ref[src];jobban3=engineeringdept;jobban4=\ref[M]'>Engineering Positions</a></th></tr><tr align='center'>"
+		jobs += "<tr bgcolor='fff5cc'><th colspan='[length(engineering_positions)]'><a href='?src=[UID()];jobban3=engineeringdept;jobban4=\ref[M]'>Engineering Positions</a></th></tr><tr align='center'>"
 		for(var/jobPos in engineering_positions)
 			if(!jobPos)	continue
 			var/datum/job/job = job_master.GetJob(jobPos)
 			if(!job) continue
 
 			if(jobban_isbanned(M, job.title))
-				jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=[job.title];jobban4=\ref[M]'><font color=red>[replacetext(job.title, " ", "&nbsp")]</font></a></td>"
+				jobs += "<td width='20%'><a href='?src=[UID()];jobban3=[job.title];jobban4=\ref[M]'><font color=red>[replacetext(job.title, " ", "&nbsp")]</font></a></td>"
 				counter++
 			else
-				jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=[job.title];jobban4=\ref[M]'>[replacetext(job.title, " ", "&nbsp")]</a></td>"
+				jobs += "<td width='20%'><a href='?src=[UID()];jobban3=[job.title];jobban4=\ref[M]'>[replacetext(job.title, " ", "&nbsp")]</a></td>"
 				counter++
 
 			if(counter >= 5) //So things dont get squiiiiished!
@@ -551,17 +551,17 @@
 	//Medical (White)
 		counter = 0
 		jobs += "<table cellpadding='1' cellspacing='0' width='100%'>"
-		jobs += "<tr bgcolor='ffeef0'><th colspan='[length(medical_positions)]'><a href='?src=\ref[src];jobban3=medicaldept;jobban4=\ref[M]'>Medical Positions</a></th></tr><tr align='center'>"
+		jobs += "<tr bgcolor='ffeef0'><th colspan='[length(medical_positions)]'><a href='?src=[UID()];jobban3=medicaldept;jobban4=\ref[M]'>Medical Positions</a></th></tr><tr align='center'>"
 		for(var/jobPos in medical_positions)
 			if(!jobPos)	continue
 			var/datum/job/job = job_master.GetJob(jobPos)
 			if(!job) continue
 
 			if(jobban_isbanned(M, job.title))
-				jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=[job.title];jobban4=\ref[M]'><font color=red>[replacetext(job.title, " ", "&nbsp")]</font></a></td>"
+				jobs += "<td width='20%'><a href='?src=[UID()];jobban3=[job.title];jobban4=\ref[M]'><font color=red>[replacetext(job.title, " ", "&nbsp")]</font></a></td>"
 				counter++
 			else
-				jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=[job.title];jobban4=\ref[M]'>[replacetext(job.title, " ", "&nbsp")]</a></td>"
+				jobs += "<td width='20%'><a href='?src=[UID()];jobban3=[job.title];jobban4=\ref[M]'>[replacetext(job.title, " ", "&nbsp")]</a></td>"
 				counter++
 
 			if(counter >= 5) //So things dont get squiiiiished!
@@ -572,17 +572,17 @@
 	//Science (Purple)
 		counter = 0
 		jobs += "<table cellpadding='1' cellspacing='0' width='100%'>"
-		jobs += "<tr bgcolor='e79fff'><th colspan='[length(science_positions)]'><a href='?src=\ref[src];jobban3=sciencedept;jobban4=\ref[M]'>Science Positions</a></th></tr><tr align='center'>"
+		jobs += "<tr bgcolor='e79fff'><th colspan='[length(science_positions)]'><a href='?src=[UID()];jobban3=sciencedept;jobban4=\ref[M]'>Science Positions</a></th></tr><tr align='center'>"
 		for(var/jobPos in science_positions)
 			if(!jobPos)	continue
 			var/datum/job/job = job_master.GetJob(jobPos)
 			if(!job) continue
 
 			if(jobban_isbanned(M, job.title))
-				jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=[job.title];jobban4=\ref[M]'><font color=red>[replacetext(job.title, " ", "&nbsp")]</font></a></td>"
+				jobs += "<td width='20%'><a href='?src=[UID()];jobban3=[job.title];jobban4=\ref[M]'><font color=red>[replacetext(job.title, " ", "&nbsp")]</font></a></td>"
 				counter++
 			else
-				jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=[job.title];jobban4=\ref[M]'>[replacetext(job.title, " ", "&nbsp")]</a></td>"
+				jobs += "<td width='20%'><a href='?src=[UID()];jobban3=[job.title];jobban4=\ref[M]'>[replacetext(job.title, " ", "&nbsp")]</a></td>"
 				counter++
 
 			if(counter >= 5) //So things dont get squiiiiished!
@@ -593,17 +593,17 @@
 	//Support (Grey)
 		counter = 0
 		jobs += "<table cellpadding='1' cellspacing='0' width='100%'>"
-		jobs += "<tr bgcolor='dddddd'><th colspan='[length(support_positions)]'><a href='?src=\ref[src];jobban3=supportdept;jobban4=\ref[M]'>Support Positions</a></th></tr><tr align='center'>"
+		jobs += "<tr bgcolor='dddddd'><th colspan='[length(support_positions)]'><a href='?src=[UID()];jobban3=supportdept;jobban4=\ref[M]'>Support Positions</a></th></tr><tr align='center'>"
 		for(var/jobPos in support_positions)
 			if(!jobPos)	continue
 			var/datum/job/job = job_master.GetJob(jobPos)
 			if(!job) continue
 
 			if(jobban_isbanned(M, job.title))
-				jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=[job.title];jobban4=\ref[M]'><font color=red>[replacetext(job.title, " ", "&nbsp")]</font></a></td>"
+				jobs += "<td width='20%'><a href='?src=[UID()];jobban3=[job.title];jobban4=\ref[M]'><font color=red>[replacetext(job.title, " ", "&nbsp")]</font></a></td>"
 				counter++
 			else
-				jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=[job.title];jobban4=\ref[M]'>[replacetext(job.title, " ", "&nbsp")]</a></td>"
+				jobs += "<td width='20%'><a href='?src=[UID()];jobban3=[job.title];jobban4=\ref[M]'>[replacetext(job.title, " ", "&nbsp")]</a></td>"
 				counter++
 
 			if(counter >= 5) //So things dont get squiiiiished!
@@ -614,17 +614,17 @@
 	//Non-Human (Green)
 		counter = 0
 		jobs += "<table cellpadding='1' cellspacing='0' width='100%'>"
-		jobs += "<tr bgcolor='ccffcc'><th colspan='[length(nonhuman_positions)+1]'><a href='?src=\ref[src];jobban3=nonhumandept;jobban4=\ref[M]'>Non-human Positions</a></th></tr><tr align='center'>"
+		jobs += "<tr bgcolor='ccffcc'><th colspan='[length(nonhuman_positions)+1]'><a href='?src=[UID()];jobban3=nonhumandept;jobban4=\ref[M]'>Non-human Positions</a></th></tr><tr align='center'>"
 		for(var/jobPos in nonhuman_positions)
 			if(!jobPos)	continue
 			var/datum/job/job = job_master.GetJob(jobPos)
 			if(!job) continue
 
 			if(jobban_isbanned(M, job.title))
-				jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=[job.title];jobban4=\ref[M]'><font color=red>[replacetext(job.title, " ", "&nbsp")]</font></a></td>"
+				jobs += "<td width='20%'><a href='?src=[UID()];jobban3=[job.title];jobban4=\ref[M]'><font color=red>[replacetext(job.title, " ", "&nbsp")]</font></a></td>"
 				counter++
 			else
-				jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=[job.title];jobban4=\ref[M]'>[replacetext(job.title, " ", "&nbsp")]</a></td>"
+				jobs += "<td width='20%'><a href='?src=[UID()];jobban3=[job.title];jobban4=\ref[M]'>[replacetext(job.title, " ", "&nbsp")]</a></td>"
 				counter++
 
 			if(counter >= 5) //So things dont get squiiiiished!
@@ -633,29 +633,29 @@
 
 		//Drone
 		if(jobban_isbanned(M, "Drone"))
-			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=Drone;jobban4=\ref[M]'><font color=red>Drone</font></a></td>"
+			jobs += "<td width='20%'><a href='?src=[UID()];jobban3=Drone;jobban4=\ref[M]'><font color=red>Drone</font></a></td>"
 		else
-			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=Drone;jobban4=\ref[M]'>Drone</a></td>"
+			jobs += "<td width='20%'><a href='?src=[UID()];jobban3=Drone;jobban4=\ref[M]'>Drone</a></td>"
 
 		//pAI
 		if(jobban_isbanned(M, "pAI"))
-			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=pAI;jobban4=\ref[M]'><font color=red>pAI</font></a></td>"
+			jobs += "<td width='20%'><a href='?src=[UID()];jobban3=pAI;jobban4=\ref[M]'><font color=red>pAI</font></a></td>"
 		else
-			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=pAI;jobban4=\ref[M]'>pAI</a></td>"
+			jobs += "<td width='20%'><a href='?src=[UID()];jobban3=pAI;jobban4=\ref[M]'>pAI</a></td>"
 
 		jobs += "</tr></table>"
 
 	//Antagonist (Orange)
 		var/isbanned_dept = jobban_isbanned(M, "Syndicate")
 		jobs += "<table cellpadding='1' cellspacing='0' width='100%'>"
-		jobs += "<tr bgcolor='ffeeaa'><th colspan='10'><a href='?src=\ref[src];jobban3=Syndicate;jobban4=\ref[M]'>Antagonist Positions</a></th></tr><tr align='center'>"
+		jobs += "<tr bgcolor='ffeeaa'><th colspan='10'><a href='?src=[UID()];jobban3=Syndicate;jobban4=\ref[M]'>Antagonist Positions</a></th></tr><tr align='center'>"
 
 		counter = 0
 		for(var/role in antag_roles)
 			if(jobban_isbanned(M, role) || isbanned_dept)
-				jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=[role];jobban4=\ref[M]'><font color=red>[replacetext(role, " ", "&nbsp")]</font></a></td>"
+				jobs += "<td width='20%'><a href='?src=[UID()];jobban3=[role];jobban4=\ref[M]'><font color=red>[replacetext(role, " ", "&nbsp")]</font></a></td>"
 			else
-				jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=[role];jobban4=\ref[M]'>[replacetext(role, " ", "&nbsp")]</a></td>"
+				jobs += "<td width='20%'><a href='?src=[UID()];jobban3=[role];jobban4=\ref[M]'>[replacetext(role, " ", "&nbsp")]</a></td>"
 			counter++
 
 			if(counter >= 5) //So things dont get squiiiiished!
@@ -670,9 +670,9 @@
 		counter = 0
 		for(var/role in other_roles)
 			if(jobban_isbanned(M, role) || isbanned_dept)
-				jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=[role];jobban4=\ref[M]'><font color=red>[replacetext(role, " ", "&nbsp")]</font></a></td>"
+				jobs += "<td width='20%'><a href='?src=[UID()];jobban3=[role];jobban4=\ref[M]'><font color=red>[replacetext(role, " ", "&nbsp")]</font></a></td>"
 			else
-				jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=[role];jobban4=\ref[M]'>[replacetext(role, " ", "&nbsp")]</a></td>"
+				jobs += "<td width='20%'><a href='?src=[UID()];jobban3=[role];jobban4=\ref[M]'>[replacetext(role, " ", "&nbsp")]</a></td>"
 			counter++
 
 			if(counter >= 5) //So things dont get squiiiiished!
@@ -683,17 +683,17 @@
 	//Whitelisted positions
 		counter = 0
 		jobs += "<table cellpadding='1' cellspacing='0' width='100%'>"
-		jobs += "<tr bgcolor='dddddd'><th colspan='[length(whitelisted_positions)]'><a href='?src=\ref[src];jobban3=whitelistdept;jobban4=\ref[M]'>Whitelisted Positions</a></th></tr><tr align='center'>"
+		jobs += "<tr bgcolor='dddddd'><th colspan='[length(whitelisted_positions)]'><a href='?src=[UID()];jobban3=whitelistdept;jobban4=\ref[M]'>Whitelisted Positions</a></th></tr><tr align='center'>"
 		for(var/jobPos in whitelisted_positions)
 			if(!jobPos)	continue
 			var/datum/job/job = job_master.GetJob(jobPos)
 			if(!job) continue
 
 			if(jobban_isbanned(M, job.title))
-				jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=[job.title];jobban4=\ref[M]'><font color=red>[replacetext(job.title, " ", "&nbsp")]</font></a></td>"
+				jobs += "<td width='20%'><a href='?src=[UID()];jobban3=[job.title];jobban4=\ref[M]'><font color=red>[replacetext(job.title, " ", "&nbsp")]</font></a></td>"
 				counter++
 			else
-				jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=[job.title];jobban4=\ref[M]'>[replacetext(job.title, " ", "&nbsp")]</a></td>"
+				jobs += "<td width='20%'><a href='?src=[UID()];jobban3=[job.title];jobban4=\ref[M]'>[replacetext(job.title, " ", "&nbsp")]</a></td>"
 				counter++
 
 			if(counter >= 5) //So things dont get squiiiiished!
@@ -811,7 +811,7 @@
 							msg = job
 						else
 							msg += ", [job]"
-					add_note(M.ckey, "Banned  from [msg] - [reason]", null, usr, 0)
+					add_note(M.ckey, "Banned  from [msg] - [reason]", null, usr.ckey, 0)
 					message_admins("\blue [key_name_admin(usr)] banned [key_name_admin(M)] from [msg] for [mins] minutes", 1)
 					to_chat(M, "\red<BIG><B>You have been jobbanned by [usr.client.ckey] from: [msg].</B></BIG>")
 					to_chat(M, "<span class='danger'>The reason is: [reason]</span>")
@@ -831,7 +831,7 @@
 							jobban_fullban(M, job, "[reason]; By [usr.ckey] on [time2text(world.realtime)]")
 							if(!msg)	msg = job
 							else		msg += ", [job]"
-						add_note(M.ckey, "Banned  from [msg] - [reason]", null, usr, 0)
+						add_note(M.ckey, "Banned  from [msg] - [reason]", null, usr.ckey, 0)
 						message_admins("\blue [key_name_admin(usr)] banned [key_name_admin(M)] from [msg]", 1)
 						to_chat(M, "\red<BIG><B>You have been jobbanned by [usr.client.ckey] from: [msg].</B></BIG>")
 						to_chat(M, "<span class='danger'>The reason is: [reason]</span>")
@@ -1067,9 +1067,9 @@
 			return alert(usr, "The game has already started.", null, null, null, null)
 		var/dat = {"<B>What mode do you wish to play?</B><HR>"}
 		for(var/mode in config.modes)
-			dat += {"<A href='?src=\ref[src];c_mode2=[mode]'>[config.mode_names[mode]]</A><br>"}
-		dat += {"<A href='?src=\ref[src];c_mode2=secret'>Secret</A><br>"}
-		dat += {"<A href='?src=\ref[src];c_mode2=random'>Random</A><br>"}
+			dat += {"<A href='?src=[UID()];c_mode2=[mode]'>[config.mode_names[mode]]</A><br>"}
+		dat += {"<A href='?src=[UID()];c_mode2=secret'>Secret</A><br>"}
+		dat += {"<A href='?src=[UID()];c_mode2=random'>Random</A><br>"}
 		dat += {"Now: [master_mode]"}
 		usr << browse(dat, "window=c_mode")
 
@@ -1082,8 +1082,8 @@
 			return alert(usr, "The game mode has to be secret!", null, null, null, null)
 		var/dat = {"<B>What game mode do you want to force secret to be? Use this if you want to change the game mode, but want the players to believe it's secret. This will only work if the current game mode is secret.</B><HR>"}
 		for(var/mode in config.modes)
-			dat += {"<A href='?src=\ref[src];f_secret2=[mode]'>[config.mode_names[mode]]</A><br>"}
-		dat += {"<A href='?src=\ref[src];f_secret2=secret'>Random (default)</A><br>"}
+			dat += {"<A href='?src=[UID()];f_secret2=[mode]'>[config.mode_names[mode]]</A><br>"}
+		dat += {"<A href='?src=[UID()];f_secret2=secret'>Random (default)</A><br>"}
 		dat += {"Now: [secret_force_mode]"}
 		usr << browse(dat, "window=f_secret")
 
@@ -1597,11 +1597,11 @@
 			to_chat(usr, "This can only be used on instances of type /mob/living")
 			return
 
-		if(alert(src.owner, "Are you sure you wish to hit [key_name(M)] with Bluespace Artillery?",  "Confirm Firing?" , "Yes" , "No") != "Yes")
+		if(alert(owner, "Are you sure you wish to hit [key_name(M)] with Bluespace Artillery?",  "Confirm Firing?" , "Yes" , "No") != "Yes")
 			return
 
 		if(BSACooldown)
-			to_chat(src.owner, "Standby. Reload cycle in progress. Gunnery crews ready in five seconds!")
+			to_chat(owner, "Standby. Reload cycle in progress. Gunnery crews ready in five seconds!")
 			return
 
 		BSACooldown = 1
@@ -1609,28 +1609,23 @@
 			BSACooldown = 0
 
 		to_chat(M, "You've been hit by bluespace artillery!")
-		log_admin("[key_name(M)] has been hit by Bluespace Artillery fired by [key_name(src.owner)]")
-		message_admins("[key_name_admin(M)] has been hit by Bluespace Artillery fired by [key_name_admin(src.owner)]")
-
-		var/obj/effect/stop/S
-		S = new /obj/effect/stop
-		S.victim = M
-		S.loc = M.loc
-		spawn(20)
-			qdel(S)
+		log_admin("[key_name(M)] has been hit by Bluespace Artillery fired by [key_name(owner)]")
+		message_admins("[key_name_admin(M)] has been hit by Bluespace Artillery fired by [key_name_admin(owner)]")
 
 		var/turf/simulated/floor/T = get_turf(M)
 		if(istype(T))
-			if(prob(80))	T.break_tile_to_plating()
-			else			T.break_tile()
+			if(prob(80))
+				T.break_tile_to_plating()
+			else
+				T.break_tile()
 
-		if(M.health == 1)
+		if(M.health <= 1)
 			M.gib()
 		else
-			M.adjustBruteLoss( min( 99 , (M.health - 1) )    )
+			M.adjustBruteLoss(min(99,(M.health - 1)))
 			M.Stun(20)
 			M.Weaken(20)
-			M.stuttering = 20
+			M.Stuttering(20)
 
 	else if(href_list["CentcommReply"])
 		if(!check_rights(R_ADMIN))
@@ -1837,7 +1832,7 @@
 
 			for(var/page = 1, page <= B.amount + 1, page++)
 				var/obj/pageobj = B.contents[page]
-				data += "<A href='?src=\ref[src];AdminFaxViewPage=[page];paper_bundle=\ref[B]'>Page [page] - [pageobj.name]</A><BR>"
+				data += "<A href='?src=[UID()];AdminFaxViewPage=[page];paper_bundle=\ref[B]'>Page [page] - [pageobj.name]</A><BR>"
 
 			usr << browse(data, "window=[B.name]")
 		else
@@ -2491,18 +2486,20 @@
 				feedback_inc("admin_secrets_fun_used",1)
 				feedback_add_details("admin_secrets_fun_used","LO")
 				message_admins("[key_name_admin(usr)] has broke a lot of lights", 1)
-				lightsout(1,2)
+				var/datum/event/electrical_storm/E = new /datum/event/electrical_storm
+				E.lightsoutAmount = 2
 			if("blackout")
 				feedback_inc("admin_secrets_fun_used",1)
 				feedback_add_details("admin_secrets_fun_used","BO")
 				message_admins("[key_name_admin(usr)] broke all lights", 1)
-				lightsout(0,0)
+				for(var/obj/machinery/light/L in machines)
+					L.broken()
 			if("whiteout")
 				feedback_inc("admin_secrets_fun_used",1)
 				feedback_add_details("admin_secrets_fun_used","WO")
-				for(var/obj/machinery/light/L in world)
-					L.fix()
 				message_admins("[key_name_admin(usr)] fixed all lights", 1)
+				for(var/obj/machinery/light/L in machines)
+					L.fix()
 			if("floorlava")
 				feedback_inc("admin_secrets_fun_used", 1)
 				feedback_add_details("admin_secrets_fun_used", "LF")
@@ -3005,13 +3002,10 @@
 		else
 			error_viewer.showTo(usr, null, href_list["viewruntime_linear"])
 
-/proc/admin_jump_link(var/atom/target, var/source)
+/proc/admin_jump_link(var/atom/target)
 	if(!target) return
 	// The way admin jump links handle their src is weirdly inconsistent...
-	if(istype(source, /datum/admins))
-		source = "src=\ref[source]"
-	else
-		source = "_src_=holder"
+	var/source = "_src_=holder"
 
 	if(isAI(target)) // AI core/eye follow links
 		var/mob/living/silicon/ai/A = target

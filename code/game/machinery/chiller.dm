@@ -80,20 +80,20 @@
 		var/dat
 		dat = "Power cell: "
 		if(cell)
-			dat += "<A href='byond://?src=\ref[src];op=cellremove'>Installed</A><BR>"
+			dat += "<A href='byond://?src=[UID()];op=cellremove'>Installed</A><BR>"
 		else
-			dat += "<A href='byond://?src=\ref[src];op=cellinstall'>Removed</A><BR>"
+			dat += "<A href='byond://?src=[UID()];op=cellinstall'>Removed</A><BR>"
 
 
 		// AUTOFIXED BY fix_string_idiocy.py
 		// C:\Users\Rob\Documents\Projects\vgstation13\code\ATMOSPHERICS\chiller.dm:95: dat += "Power Level: [cell ? round(cell.percent(),1) : 0]%<BR><BR>"
 		dat += {"Power Level: [cell ? round(cell.percent(),1) : 0]%<BR><BR>
 			Set Temperature:
-			<A href='?src=\ref[src];op=temp;val=-5'>-</A>
-			<A href='?src=\ref[src];op=temp;val=-1'>-</A>
+			<A href='?src=[UID()];op=temp;val=-5'>-</A>
+			<A href='?src=[UID()];op=temp;val=-1'>-</A>
 			[temp]&deg;C
-			<A href='?src=\ref[src];op=temp;val=1'>+</A>
-			<A href='?src=\ref[src];op=temp;val=5'>+</A><BR>"}
+			<A href='?src=[UID()];op=temp;val=1'>+</A>
+			<A href='?src=[UID()];op=temp;val=5'>+</A><BR>"}
 		// END AUTOFIX
 		user.set_machine(src)
 		user << browse("<HEAD><TITLE>Air Conditioner Control Panel</TITLE></HEAD><TT>[dat]</TT>", "window=aircond")

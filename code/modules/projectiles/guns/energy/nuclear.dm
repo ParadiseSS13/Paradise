@@ -49,7 +49,7 @@
 
 /obj/item/weapon/gun/energy/gun/hos
 	name = "\improper X-01 MultiPhase Energy Gun"
-	desc = "This is a expensive, modern recreation of a antique laser gun. This gun has several unique firemodes, but lacks the ability to recharge over time."
+	desc = "This is an expensive, modern recreation of an antique laser gun. This gun has several unique firemodes, but lacks the ability to recharge over time."
 	icon_state = "hoslaser"
 	force = 10
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode/hos, /obj/item/ammo_casing/energy/laser/hos, /obj/item/ammo_casing/energy/disabler)
@@ -59,6 +59,7 @@
 	name = "advanced stun revolver"
 	desc = "An advanced stun revolver with the capacity to shoot both electrodes and lasers."
 	icon_state = "bsgun"
+	item_state = "gun"
 	force = 7
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode/hos, /obj/item/ammo_casing/energy/laser/hos)
 	ammo_x_offset = 1

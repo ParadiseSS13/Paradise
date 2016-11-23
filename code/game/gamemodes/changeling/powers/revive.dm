@@ -17,10 +17,14 @@
 	user.SetStunned(0)
 	user.SetWeakened(0)
 	user.radiation = 0
-	user.eye_blind = 0
-	user.eye_blurry = 0
-	user.setEarDamage(0,0)
+	user.SetEyeBlind(0)
+	user.SetEyeBlurry(0)
+	user.SetEarDamage(0)
+	user.SetEarDeaf(0)
 	user.heal_overall_damage(user.getBruteLoss(), user.getFireLoss())
+	user.CureBlind()
+	user.CureDeaf()
+	user.CureNearsighted()
 	user.reagents.clear_reagents()
 	user.germ_level = 0
 	user.next_pain_time = 0

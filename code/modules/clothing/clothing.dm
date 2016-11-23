@@ -31,9 +31,13 @@
 //BS12: Species-restricted clothing check.
 /obj/item/clothing/mob_can_equip(M as mob, slot)
 
-	//if we can equip the item anyway, don't bother with species_restricted (aslo cuts down on spam)
+	//if we can't equip the item anyway, don't bother with species_restricted (also cuts down on spam)
 	if(!..())
 		return 0
+
+	// Skip species restriction checks on non-equipment slots
+	if(slot in list(slot_r_hand, slot_l_hand, slot_in_backpack, slot_l_store, slot_r_store))
+		return 1
 
 	if(species_restricted && istype(M,/mob/living/carbon/human))
 

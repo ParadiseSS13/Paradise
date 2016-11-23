@@ -582,13 +582,13 @@
 /mob/living/simple_animal/show_inv(mob/user as mob)
 	user.set_machine(src)
 	var/dat = {"<table>
-	<tr><td><B>Left Hand:</B></td><td><A href='?src=\ref[src];item=[slot_l_hand]'>[(l_hand && !(l_hand.flags&ABSTRACT)) ? l_hand : "<font color=grey>Empty</font>"]</A></td></tr>
-	<tr><td><B>Right Hand:</B></td><td><A href='?src=\ref[src];item=[slot_r_hand]'>[(r_hand && !(r_hand.flags&ABSTRACT)) ? r_hand : "<font color=grey>Empty</font>"]</A></td></tr>
+	<tr><td><B>Left Hand:</B></td><td><A href='?src=[UID()];item=[slot_l_hand]'>[(l_hand && !(l_hand.flags&ABSTRACT)) ? l_hand : "<font color=grey>Empty</font>"]</A></td></tr>
+	<tr><td><B>Right Hand:</B></td><td><A href='?src=[UID()];item=[slot_r_hand]'>[(r_hand && !(r_hand.flags&ABSTRACT)) ? r_hand : "<font color=grey>Empty</font>"]</A></td></tr>
 	<tr><td>&nbsp;</td></tr>"}
 	if(can_collar)
-		dat += "<tr><td><B>Collar:</B></td><td><A href='?src=\ref[src];[collar?"remove_inv":"add_inv"]=collar'>[(collar && !(collar.flags&ABSTRACT)) ? collar : "<font color=grey>Empty</font>"]</A></td></tr>"
+		dat += "<tr><td><B>Collar:</B></td><td><A href='?src=[UID()];[collar?"remove_inv":"add_inv"]=collar'>[(collar && !(collar.flags&ABSTRACT)) ? collar : "<font color=grey>Empty</font>"]</A></td></tr>"
 	dat += {"</table>
-	<A href='?src=\ref[user];mach_close=mob\ref[src]'>Close</A>
+	<A href='?src=[user.UID()];mach_close=mob\ref[src]'>Close</A>
 	"}
 
 	var/datum/browser/popup = new(user, "mob\ref[src]", "[src]", 440, 250)
@@ -706,8 +706,8 @@
 /mob/living/simple_animal/proc/sentience_act() //Called when a simple animal gains sentience via gold slime potion
 	return
 
-/mob/living/simple_animal/adjustEarDamage()
+/mob/living/simple_animal/SetEarDamage()
 	return
 
-/mob/living/simple_animal/setEarDamage()
+/mob/living/simple_animal/SetEarDeaf()
 	return

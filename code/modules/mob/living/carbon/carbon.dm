@@ -158,13 +158,13 @@
 		"<span class='userdanger'>You feel a powerful shock coursing through your body!</span>", \
 		"<span class='italics'>You hear a heavy electrical crack.</span>" \
 	)
-	jitteriness += 1000 //High numbers for violent convulsions
+	AdjustJitter(1000) //High numbers for violent convulsions
 	do_jitter_animation(jitteriness)
-	stuttering += 2
+	AdjustStuttering(2)
 	if(!tesla_shock || (tesla_shock && siemens_coeff > 0.5))
 		Stun(2)
 	spawn(20)
-		jitteriness = max(jitteriness - 990, 10) //Still jittery, but vastly less
+		AdjustJitter(-1000, bound_lower = 10) //Still jittery, but vastly less
 		if(!tesla_shock || (tesla_shock && siemens_coeff > 0.5))
 			Stun(3)
 			Weaken(3)
@@ -268,7 +268,7 @@
 				if(istype(src,/mob/living/carbon/human) && src:w_uniform)
 					var/mob/living/carbon/human/H = src
 					H.w_uniform.add_fingerprint(M)
-				src.sleeping = max(0,src.sleeping-5)
+				AdjustSleeping(-5)
 				if(src.sleeping == 0)
 					src.resting = 0
 				AdjustParalysis(-3)
@@ -327,8 +327,8 @@
 				E.damage += rand(12, 16)
 
 		if(E.damage > E.min_bruised_damage)
-			eye_blind += damage
-			eye_blurry += damage * rand(3, 6)
+			AdjustEyeBlind(damage)
+			AdjustEyeBlurry(damage * rand(3, 6))
 
 			if(E.damage > (E.min_bruised_damage + E.min_broken_damage) / 2)
 				if(!(E.status & ORGAN_ROBOT))
@@ -541,7 +541,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 				var/start_T_descriptor = "<font color='#6b5d00'>tile at [start_T.x], [start_T.y], [start_T.z] in area [get_area(start_T)]</font>"
 				var/end_T_descriptor = "<font color='#6b4400'>tile at [end_T.x], [end_T.y], [end_T.z] in area [get_area(end_T)]</font>"
 
-				add_logs(throwable_mob, src, "thrown", addition="from [start_T_descriptor] with the target [end_T_descriptor]")
+				add_logs(src, throwable_mob, "thrown", addition="from [start_T_descriptor] with the target [end_T_descriptor]")
 
 	else if(!(I.flags & ABSTRACT)) //can't throw abstract items
 		thrown_thing = I
@@ -591,27 +591,27 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 	user.set_machine(src)
 
 	var/dat = {"<table>
-	<tr><td><B>Left Hand:</B></td><td><A href='?src=\ref[src];item=[slot_l_hand]'>[(l_hand && !(l_hand.flags&ABSTRACT)) ? l_hand : "<font color=grey>Empty</font>"]</A></td></tr>
-	<tr><td><B>Right Hand:</B></td><td><A href='?src=\ref[src];item=[slot_r_hand]'>[(r_hand && !(r_hand.flags&ABSTRACT)) ? r_hand : "<font color=grey>Empty</font>"]</A></td></tr>
+	<tr><td><B>Left Hand:</B></td><td><A href='?src=[UID()];item=[slot_l_hand]'>[(l_hand && !(l_hand.flags&ABSTRACT)) ? l_hand : "<font color=grey>Empty</font>"]</A></td></tr>
+	<tr><td><B>Right Hand:</B></td><td><A href='?src=[UID()];item=[slot_r_hand]'>[(r_hand && !(r_hand.flags&ABSTRACT)) ? r_hand : "<font color=grey>Empty</font>"]</A></td></tr>
 	<tr><td>&nbsp;</td></tr>"}
 
-	dat += "<tr><td><B>Back:</B></td><td><A href='?src=\ref[src];item=[slot_back]'>[(back && !(back.flags&ABSTRACT)) ? back : "<font color=grey>Empty</font>"]</A>"
+	dat += "<tr><td><B>Back:</B></td><td><A href='?src=[UID()];item=[slot_back]'>[(back && !(back.flags&ABSTRACT)) ? back : "<font color=grey>Empty</font>"]</A>"
 	if(istype(wear_mask, /obj/item/clothing/mask) && istype(back, /obj/item/weapon/tank))
-		dat += "&nbsp;<A href='?src=\ref[src];internal=[slot_back]'>[internal ? "Disable Internals" : "Set Internals"]</A>"
+		dat += "&nbsp;<A href='?src=[UID()];internal=[slot_back]'>[internal ? "Disable Internals" : "Set Internals"]</A>"
 
 	dat += "</td></tr><tr><td>&nbsp;</td></tr>"
 
-	dat += "<tr><td><B>Head:</B></td><td><A href='?src=\ref[src];item=[slot_head]'>[(head && !(head.flags&ABSTRACT)) ? head : "<font color=grey>Empty</font>"]</A></td></tr>"
+	dat += "<tr><td><B>Head:</B></td><td><A href='?src=[UID()];item=[slot_head]'>[(head && !(head.flags&ABSTRACT)) ? head : "<font color=grey>Empty</font>"]</A></td></tr>"
 
-	dat += "<tr><td><B>Mask:</B></td><td><A href='?src=\ref[src];item=[slot_wear_mask]'>[(wear_mask && !(wear_mask.flags&ABSTRACT)) ? wear_mask : "<font color=grey>Empty</font>"]</A></td></tr>"
+	dat += "<tr><td><B>Mask:</B></td><td><A href='?src=[UID()];item=[slot_wear_mask]'>[(wear_mask && !(wear_mask.flags&ABSTRACT)) ? wear_mask : "<font color=grey>Empty</font>"]</A></td></tr>"
 
 	if(handcuffed)
-		dat += "<tr><td><B>Handcuffed:</B> <A href='?src=\ref[src];item=[slot_handcuffed]'>Remove</A></td></tr>"
+		dat += "<tr><td><B>Handcuffed:</B> <A href='?src=[UID()];item=[slot_handcuffed]'>Remove</A></td></tr>"
 	if(legcuffed)
-		dat += "<tr><td><A href='?src=\ref[src];item=[slot_legcuffed]'>Legcuffed</A></td></tr>"
+		dat += "<tr><td><A href='?src=[UID()];item=[slot_legcuffed]'>Legcuffed</A></td></tr>"
 
 	dat += {"</table>
-	<A href='?src=\ref[user];mach_close=mob\ref[src]'>Close</A>
+	<A href='?src=[user.UID()];mach_close=mob\ref[src]'>Close</A>
 	"}
 
 	var/datum/browser/popup = new(user, "mob\ref[src]", "[src]", 440, 500)
@@ -742,7 +742,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 
 /mob/living/carbon/resist_fire()
 	fire_stacks -= 5
-	weakened = max(weakened, 3)//We dont check for CANWEAKEN, I don't care how immune to weakening you are, if you're rolling on the ground, you're busy.
+	Weaken(3, 1, 1) //We dont check for CANWEAKEN, I don't care how immune to weakening you are, if you're rolling on the ground, you're busy.
 	update_canmove()
 	spin(32,2)
 	visible_message("<span class='danger'>[src] rolls on the floor, trying to put themselves out!</span>", \

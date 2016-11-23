@@ -76,7 +76,7 @@ var/const/HOLOPAD_MODE = 0
 			var/area/area = get_area(src)
 			for(var/mob/living/silicon/ai/AI in living_mob_list)
 				if(!AI.client)	continue
-				to_chat(AI, "<span class='info'>Your presence is requested at <a href='?src=\ref[AI];jumptoholopad=\ref[src]'>\the [area]</a>.</span>")
+				to_chat(AI, "<span class='info'>Your presence is requested at <a href='?src=[AI.UID()];jumptoholopad=\ref[src]'>\the [area]</a>.</span>")
 		else
 			to_chat(user, "<span class='notice'>A request for AI presence was already sent recently.</span>")
 
@@ -90,12 +90,15 @@ var/const/HOLOPAD_MODE = 0
 		user.eyeobj.setLoc(get_turf(src))
 	else if(!hologram)//If there is no hologram, possibly make one.
 		activate_holo(user)
-	else if(master==user)//If there is a hologram, remove it. But only if the user is the master. Otherwise do nothing.
+	else if(master == user)//If there is a hologram, remove it. But only if the user is the master. Otherwise do nothing.
 		clear_holo()
 	return
 
 /obj/machinery/hologram/holopad/proc/activate_holo(mob/living/silicon/ai/user)
 	if(!(stat & NOPOWER) && user.eyeobj.loc == src.loc)//If the projector has power and client eye is on it.
+		if(user.holo)
+			var/obj/machinery/hologram/holopad/current = user.holo
+			current.clear_holo()
 		if(!hologram)//If there is not already a hologram.
 			create_holo(user)//Create one.
 			src.visible_message("A holographic image of [user] flicks to life right before your eyes!")

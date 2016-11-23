@@ -274,10 +274,13 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 					A.icon = ui_style2icon(client.prefs.UI_style)
 				A.desc = message
 				var/old_layer = source.layer
+				var/old_plane = source.plane
 				source.layer = FLOAT_LAYER
+				source.plane = FLOAT_PLANE
 				A.overlays += source
 				source.layer = old_layer
-	to_chat(src, "<span class='ghostalert'><a href=?src=\ref[src];reenter=1>(Click to re-enter)</a></span>")
+				source.plane = old_plane
+	to_chat(src, "<span class='ghostalert'><a href=?src=[UID()];reenter=1>(Click to re-enter)</a></span>")
 	if(sound)
 		src << sound(sound)
 
@@ -550,18 +553,18 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if((!target) || (!ghost)) return
 	if(isAI(target)) // AI core/eye follow links
 		var/mob/living/silicon/ai/A = target
-		. = "<a href='byond://?src=\ref[ghost];follow=\ref[A]'>core</a>"
+		. = "<a href='byond://?src=[ghost.UID()];follow=\ref[A]'>core</a>"
 		if(A.client && A.eyeobj) // No point following clientless AI eyes
-			. += "|<a href='byond://?src=\ref[ghost];follow=\ref[A.eyeobj]'>eye</a>"
+			. += "|<a href='byond://?src=[ghost.UID()];follow=\ref[A.eyeobj]'>eye</a>"
 		return
 	else if(istype(target, /mob/dead/observer))
 		var/mob/dead/observer/O = target
-		. = "<a href='byond://?src=\ref[ghost];follow=\ref[target]'>follow</a>"
+		. = "<a href='byond://?src=[ghost.UID()];follow=\ref[target]'>follow</a>"
 		if(O.mind && O.mind.current)
-			. += "|<a href='byond://?src=\ref[ghost];follow=\ref[O.mind.current]'>body</a>"
+			. += "|<a href='byond://?src=[ghost.UID()];follow=\ref[O.mind.current]'>body</a>"
 		return
 	else
-		return "<a href='byond://?src=\ref[ghost];follow=\ref[target]'>follow</a>"
+		return "<a href='byond://?src=[ghost.UID()];follow=\ref[target]'>follow</a>"
 
 //BEGIN TELEPORT HREF CODE
 /mob/dead/observer/Topic(href, href_list)

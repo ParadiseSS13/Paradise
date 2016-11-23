@@ -953,7 +953,7 @@
 	desc = "A device that shoots resonant plasma bursts at extreme velocity. The blasts are capable of crushing rock and demolishing solid obstacles."
 	id = "mech_plasma_cutter"
 	build_type = MECHFAB
-	req_tech = list("powerstorage"= 3, "engineering" = 3, "materials" = 3, "combat" = 1, "plasma" = 2)
+	req_tech = list("powerstorage"= 3, "engineering" = 3, "materials" = 3, "combat" = 1, "plasmatech" = 2)
 	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/energy/plasma
 	materials = list(MAT_METAL=1500, MAT_GLASS=500, MAT_PLASMA=200)
 	construction_time = 100
@@ -1013,7 +1013,7 @@
 	id = "borg_upgrade_disablercooler"
 	build_type = MECHFAB
 	build_path = /obj/item/borg/upgrade/disablercooler
-	req_tech = list("combat" = 5, "power" = 4)
+	req_tech = list("combat" = 5, "powerstorage" = 4)
 	materials = list(MAT_METAL=80000 , MAT_GLASS=6000 , MAT_GOLD= 2000, MAT_DIAMOND = 500)
 	construction_time = 120
 	category = list("Cyborg Upgrade Modules")

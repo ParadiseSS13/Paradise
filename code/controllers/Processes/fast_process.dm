@@ -6,7 +6,7 @@
 
 /datum/controller/process/fast_process/statProcess()
 	..()
-	stat(null, "[fast_processing.len] fast machines")
+	stat(null, "[fast_processing.len] fast processes")
 
 /datum/controller/process/fast_process/doWork()
 	for(last_object in fast_processing)

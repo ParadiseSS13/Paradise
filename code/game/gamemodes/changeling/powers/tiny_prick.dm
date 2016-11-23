@@ -57,7 +57,7 @@
 	to_chat(user, "<span class='notice'>We stealthily sting [target.name].</span>")
 	if(target.mind && target.mind.changeling)
 		to_chat(target, "<span class='warning'>You feel a tiny prick.</span>")
-		add_logs(target, user, "unsuccessfully stung")
+		add_logs(user, target, "unsuccessfully stung")
 	return 1
 
 
@@ -102,7 +102,7 @@
 	return 1
 
 /obj/effect/proc_holder/changeling/sting/transformation/sting_action(var/mob/user, var/mob/target)
-	add_logs(target, user, "stung", object="transformation sting", addition=" new identity is [selected_dna.real_name]")
+	add_logs(user, target, "stung", object="transformation sting", addition=" new identity is [selected_dna.real_name]")
 	var/datum/dna/NewDNA = selected_dna
 	if(issmall(target))
 		to_chat(user, "<span class='notice'>Our genes cry out as we sting [target.name]!</span>")
@@ -137,7 +137,7 @@ obj/effect/proc_holder/changeling/sting/extract_dna
 		return user.mind.changeling.can_absorb_dna(user, target)
 
 /obj/effect/proc_holder/changeling/sting/extract_dna/sting_action(var/mob/user, var/mob/living/carbon/human/target)
-	add_logs(target, user, "stung", object="extraction sting")
+	add_logs(user, target, "stung", object="extraction sting")
 	if(!(user.mind.changeling.has_dna(target.dna)))
 		user.mind.changeling.absorb_dna(target, user)
 	feedback_add_details("changeling_powers","ED")
@@ -152,8 +152,8 @@ obj/effect/proc_holder/changeling/sting/mute
 	dna_cost = 2
 
 /obj/effect/proc_holder/changeling/sting/mute/sting_action(var/mob/user, var/mob/living/carbon/target)
-	add_logs(target, user, "stung", object="mute sting")
-	target.silent += 30
+	add_logs(user, target, "stung", object="mute sting")
+	target.AdjustSilence(30)
 	feedback_add_details("changeling_powers","MS")
 	return 1
 
@@ -165,12 +165,12 @@ obj/effect/proc_holder/changeling/sting/blind
 	chemical_cost = 25
 	dna_cost = 1
 
-/obj/effect/proc_holder/changeling/sting/blind/sting_action(var/mob/user, var/mob/target)
-	add_logs(target, user, "stung", object="blind sting")
+/obj/effect/proc_holder/changeling/sting/blind/sting_action(var/mob/living/user, var/mob/living/target)
+	add_logs(user, target, "stung", object="blind sting")
 	to_chat(target, "<span class='danger'>Your eyes burn horrifically!</span>")
-	target.disabilities |= NEARSIGHTED
-	target.eye_blind = 20
-	target.eye_blurry = 40
+	target.BecomeNearsighted()
+	target.EyeBlind(20)
+	target.EyeBlurry(40)
 	feedback_add_details("changeling_powers","BS")
 	return 1
 
@@ -183,10 +183,10 @@ obj/effect/proc_holder/changeling/sting/LSD
 	dna_cost = 1
 
 /obj/effect/proc_holder/changeling/sting/LSD/sting_action(var/mob/user, var/mob/living/carbon/target)
-	add_logs(target, user, "stung", object="LSD sting")
+	add_logs(user, target, "stung", object="LSD sting")
 	spawn(rand(300,600))
 		if(target)
-			target.hallucination = max(400, target.hallucination)
+			target.Hallucinate(400)
 	feedback_add_details("changeling_powers","HS")
 	return 1
 
@@ -199,10 +199,9 @@ obj/effect/proc_holder/changeling/sting/cryo //Enable when mob cooling is fixed 
 	dna_cost = 2
 
 /obj/effect/proc_holder/changeling/sting/cryo/sting_action(var/mob/user, var/mob/target)
-	add_logs(target, user, "stung", object="cryo sting")
+	add_logs(user, target, "stung", object="cryo sting")
 	if(target.reagents)
 		target.reagents.add_reagent("frostoil", 30)
 		target.reagents.add_reagent("ice", 30)
 	feedback_add_details("changeling_powers","CS")
 	return 1
-

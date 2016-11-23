@@ -221,7 +221,7 @@
 			update_inv_belt(redraw_mob)
 		if(slot_wear_id)
 			wear_id = W
-			if(!hud_list.len)
+			if(hud_list.len)
 				sec_hud_set_ID()
 			update_inv_wear_id(redraw_mob)
 		if(slot_wear_pda)

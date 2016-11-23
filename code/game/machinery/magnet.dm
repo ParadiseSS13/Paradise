@@ -253,9 +253,9 @@
 		var/dat = "<B>Magnetic Control Console</B><BR><BR>"
 		if(!autolink)
 			dat += {"
-			Frequency: <a href='?src=\ref[src];operation=setfreq'>[frequency]</a><br>
-			Code: <a href='?src=\ref[src];operation=setfreq'>[code]</a><br>
-			<a href='?src=\ref[src];operation=probe'>Probe Generators</a><br>
+			Frequency: <a href='?src=[UID()];operation=setfreq'>[frequency]</a><br>
+			Code: <a href='?src=[UID()];operation=setfreq'>[code]</a><br>
+			<a href='?src=[UID()];operation=probe'>Probe Generators</a><br>
 			"}
 
 		if(magnets.len >= 1)
@@ -264,11 +264,11 @@
 			var/i = 0
 			for(var/obj/machinery/magnetic_module/M in magnets)
 				i++
-				dat += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;< \[[i]\] (<a href='?src=\ref[src];radio-op=togglepower'>[M.on ? "On":"Off"]</a>) | Electricity level: <a href='?src=\ref[src];radio-op=minuselec'>-</a> [M.electricity_level] <a href='?src=\ref[src];radio-op=pluselec'>+</a>; Magnetic field: <a href='?src=\ref[src];radio-op=minusmag'>-</a> [M.magnetic_field] <a href='?src=\ref[src];radio-op=plusmag'>+</a><br>"
+				dat += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;< \[[i]\] (<a href='?src=[UID()];radio-op=togglepower'>[M.on ? "On":"Off"]</a>) | Electricity level: <a href='?src=[UID()];radio-op=minuselec'>-</a> [M.electricity_level] <a href='?src=[UID()];radio-op=pluselec'>+</a>; Magnetic field: <a href='?src=[UID()];radio-op=minusmag'>-</a> [M.magnetic_field] <a href='?src=[UID()];radio-op=plusmag'>+</a><br>"
 
-		dat += "<br>Speed: <a href='?src=\ref[src];operation=minusspeed'>-</a> [speed] <a href='?src=\ref[src];operation=plusspeed'>+</a><br>"
-		dat += "Path: {<a href='?src=\ref[src];operation=setpath'>[path]</a>}<br>"
-		dat += "Moving: <a href='?src=\ref[src];operation=togglemoving'>[moving ? "Enabled":"Disabled"]</a>"
+		dat += "<br>Speed: <a href='?src=[UID()];operation=minusspeed'>-</a> [speed] <a href='?src=[UID()];operation=plusspeed'>+</a><br>"
+		dat += "Path: {<a href='?src=[UID()];operation=setpath'>[path]</a>}<br>"
+		dat += "Moving: <a href='?src=[UID()];operation=togglemoving'>[moving ? "Enabled":"Disabled"]</a>"
 
 
 		user << browse(dat, "window=magnet;size=400x500")

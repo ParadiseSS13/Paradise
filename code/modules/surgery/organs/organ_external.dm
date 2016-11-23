@@ -413,7 +413,7 @@ This function completely restores a damaged organ to perfect condition.
 	if(germ_level)
 		return 1
 	if(!wound_cleanup_timer && wounds.len)
-		wound_cleanup_timer = addtimer(src, "cleanup_wounds", SecondsToTicks(600), unique = 1, wounds)
+		wound_cleanup_timer = addtimer(src, "cleanup_wounds", SecondsToTicks(600), 1, wounds)
 
 	if(update_icon())
 		owner.UpdateDamageIcon(1)
@@ -860,11 +860,13 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 /obj/item/organ/external/proc/mutate()
 	src.status |= ORGAN_MUTATED
-	if(owner) owner.update_body()
+	if(owner)
+		owner.update_body(1, 1) //Forces all bodyparts to update in order to correctly render the deformed sprite.
 
 /obj/item/organ/external/proc/unmutate()
 	src.status &= ~ORGAN_MUTATED
-	if(owner) owner.update_body()
+	if(owner)
+		owner.update_body(1, 1) //Forces all bodyparts to update in order to correctly return them to normal.
 
 /obj/item/organ/external/proc/get_damage()	//returns total damage
 	return max(brute_dam + burn_dam - perma_injury, perma_injury)	//could use health?

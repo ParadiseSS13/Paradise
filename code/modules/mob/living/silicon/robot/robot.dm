@@ -78,16 +78,13 @@ var/list/robot_verbs_default = list(
 
 	var/updating = 0 //portable camera camerachunk update
 
-	hud_possible = list(SPECIALROLE_HUD, DIAG_STAT_HUD, DIAG_HUD, DIAG_BATT_HUD,NATIONS_HUD)
+	hud_possible = list(SPECIALROLE_HUD, DIAG_STAT_HUD, DIAG_HUD, DIAG_BATT_HUD, NATIONS_HUD)
 
 	var/magpulse = 0
 	var/ionpulse = 0 // Jetpack-like effect.
 	var/ionpulse_on = 0 // Jetpack-like effect.
 	var/datum/effect/system/ion_trail_follow/ion_trail // Ionpulse effect.
-
-	var/obj/item/borg/sight/hud/sec/sechud = null
-	var/obj/item/borg/sight/hud/med/healthhud = null
-
+	
 	var/datum/action/item_action/toggle_research_scanner/scanner = null
 
 /mob/living/silicon/robot/New(loc,var/syndie = 0,var/unfinished = 0, var/alien = 0)
@@ -733,18 +730,18 @@ var/list/robot_verbs_default = list(
 		else
 			to_chat(user, "Unable to locate a radio.")
 
-	else if(istype(W, /obj/item/weapon/card/id)||istype(W, /obj/item/device/pda))			// trying to unlock the interface with an ID card
+	else if(istype(W, /obj/item/weapon/card/id) || istype(W, /obj/item/device/pda))			// trying to unlock the interface with an ID card
 		if(emagged)//still allow them to open the cover
-			to_chat(user, "The interface seems slightly damaged")
+			to_chat(user, "The interface seems slightly damaged.")
 		if(opened)
 			to_chat(user, "You must close the cover to swipe an ID card.")
 		else
-			if(allowed(usr))
+			if(allowed(W))
 				locked = !locked
 				to_chat(user, "You [ locked ? "lock" : "unlock"] [src]'s interface.")
 				update_icons()
 			else
-				to_chat(user, "\red Access denied.")
+				to_chat(user, "<span class='warning'>Access denied.</span>")
 
 	else if(istype(W, /obj/item/borg/upgrade/))
 		var/obj/item/borg/upgrade/U = W
@@ -960,29 +957,15 @@ var/list/robot_verbs_default = list(
 			user.visible_message("<span class='notice'>[user] pets [src]!</span>", \
 								"<span class='notice'>You pet [src]!</span>")
 
-/mob/living/silicon/robot/proc/allowed(mob/M)
-	//check if it doesn't require any access at all
-	if(check_access(null))
+/mob/living/silicon/robot/proc/allowed(obj/item/I)
+	var/obj/dummy = new /obj(null) // Create a dummy object to check access on as to avoid having to snowflake check_access on every mob
+	dummy.req_access = req_access
+	
+	if(dummy.check_access(I))
+		qdel(dummy)
 		return 1
-	if(istype(M, /mob/living/carbon/human))
-		var/mob/living/carbon/human/H = M
-		//if they are holding or wearing a card that has access, that works
-		if(check_access(H.get_active_hand()) || check_access(H.wear_id))
-			return 1
-	return 0
-
-/mob/living/silicon/robot/proc/check_access(obj/item/weapon/card/id/I)
-	if(!istype(req_access, /list)) //something's very wrong
-		return 1
-
-	var/list/L = req_access
-	if(!L.len) //no requirements
-		return 1
-	if(!I || !istype(I, /obj/item/weapon/card/id) || !I.access) //not ID or no access
-		return 0
-	for(var/req in req_access)
-		if(req in I.access) //have one of the required accesses
-			return 1
+		
+	qdel(dummy)
 	return 0
 
 /mob/living/silicon/robot/update_icons()
@@ -1030,15 +1013,15 @@ var/list/robot_verbs_default = list(
 	if(!module)
 		pick_module()
 		return
-	var/dat = {"<A HREF='?src=\ref[src];mach_close=robotmod'>Close</A>
+	var/dat = {"<A HREF='?src=[UID()];mach_close=robotmod'>Close</A>
 	<BR>
 	<BR>
 	<B>Activated Modules</B>
 	<BR>
 	<table border='0'>
-	<tr><td>Module 1:</td><td>[module_state_1 ? "<A HREF=?src=\ref[src];mod=\ref[module_state_1]>[module_state_1]<A>" : "No Module"]</td></tr>
-	<tr><td>Module 2:</td><td>[module_state_2 ? "<A HREF=?src=\ref[src];mod=\ref[module_state_2]>[module_state_2]<A>" : "No Module"]</td></tr>
-	<tr><td>Module 3:</td><td>[module_state_3 ? "<A HREF=?src=\ref[src];mod=\ref[module_state_3]>[module_state_3]<A>" : "No Module"]</td></tr>
+	<tr><td>Module 1:</td><td>[module_state_1 ? "<A HREF=?src=[UID()];mod=\ref[module_state_1]>[module_state_1]<A>" : "No Module"]</td></tr>
+	<tr><td>Module 2:</td><td>[module_state_2 ? "<A HREF=?src=[UID()];mod=\ref[module_state_2]>[module_state_2]<A>" : "No Module"]</td></tr>
+	<tr><td>Module 3:</td><td>[module_state_3 ? "<A HREF=?src=[UID()];mod=\ref[module_state_3]>[module_state_3]<A>" : "No Module"]</td></tr>
 	</table><BR>
 	<B>Installed Modules</B><BR><BR>
 
@@ -1049,18 +1032,18 @@ var/list/robot_verbs_default = list(
 		else if(activated(obj))
 			dat += text("<tr><td>[obj]</td><td><B>Activated</B></td></tr>")
 		else
-			dat += text("<tr><td>[obj]</td><td><A HREF=?src=\ref[src];act=\ref[obj]>Activate</A></td></tr>")
+			dat += text("<tr><td>[obj]</td><td><A HREF=?src=[UID()];act=\ref[obj]>Activate</A></td></tr>")
 	if(emagged)
 		if(activated(module.emag))
 			dat += text("<tr><td>[module.emag]</td><td><B>Activated</B></td></tr>")
 		else
-			dat += text("<tr><td>[module.emag]</td><td><A HREF=?src=\ref[src];act=\ref[module.emag]>Activate</A></td></tr>")
+			dat += text("<tr><td>[module.emag]</td><td><A HREF=?src=[UID()];act=\ref[module.emag]>Activate</A></td></tr>")
 	dat += "</table>"
 /*
 		if(activated(obj))
-			dat += text("[obj]: \[<B>Activated</B> | <A HREF=?src=\ref[src];deact=\ref[obj]>Deactivate</A>\]<BR>")
+			dat += text("[obj]: \[<B>Activated</B> | <A HREF=?src=[UID()];deact=\ref[obj]>Deactivate</A>\]<BR>")
 		else
-			dat += text("[obj]: \[<A HREF=?src=\ref[src];act=\ref[obj]>Activate</A> | <B>Deactivated</B>\]<BR>")
+			dat += text("[obj]: \[<A HREF=?src=[UID()];act=\ref[obj]>Activate</A> | <B>Deactivated</B>\]<BR>")
 */
 	var/datum/browser/popup = new(src, "robotmod", "Modules")
 	popup.set_content(dat)
@@ -1301,7 +1284,7 @@ var/list/robot_verbs_default = list(
 		return
 	switch(notifytype)
 		if(1) //New Cyborg
-			to_chat(connected_ai, "<br><br><span class='notice'>NOTICE - New cyborg connection detected: <a href='byond://?src=\ref[connected_ai];track2=\ref[connected_ai];track=\ref[src]'>[name]</a></span><br>")
+			to_chat(connected_ai, "<br><br><span class='notice'>NOTICE - New cyborg connection detected: <a href='byond://?src=[connected_ai.UID()];track2=\ref[connected_ai];track=\ref[src]'>[name]</a></span><br>")
 		if(2) //New Module
 			to_chat(connected_ai, "<br><br><span class='notice'>NOTICE - Cyborg module change detected: [name] has loaded the [designation] module.</span><br>")
 		if(3) //New Name
