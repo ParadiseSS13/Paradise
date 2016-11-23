@@ -22,7 +22,7 @@
 		error_on_humanize = "Terror spiders that are part of an away mission cannot be controlled by ghosts."
 	else if(!ai_playercontrol_allowtype)
 		error_on_humanize = "This specific type of terror spider is not player-controllable."
-	else if(health == 0)
+	else if(stat == DEAD)
 		error_on_humanize = "Dead spiders are not player-controllable."
 	if(jobban_isbanned(user, "Syndicate") || jobban_isbanned(user, "alien"))
 		to_chat(user,"You are jobbanned from role of syndicate and/or alien lifeform.")

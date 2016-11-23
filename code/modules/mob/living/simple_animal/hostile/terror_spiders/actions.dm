@@ -16,6 +16,7 @@
 
 /datum/action/innate/terrorspider/wrap/Activate()
 	var/mob/living/simple_animal/hostile/poison/terror_spider/user = owner
+	user.FindWrapTarget()
 	user.DoWrap()
 
 
@@ -49,8 +50,8 @@
 		if(prob(80))
 			to_chat(mover, "<span class='danger'>You get stuck in \the [src] for a moment.</span>")
 			var/mob/living/M = mover
-			M.Stun(5) // 5 seconds.
-			M.Weaken(5) // 5 seconds.
+			M.Stun(4) // 8 seconds.
+			M.Weaken(4) // 8 seconds.
 			return 1
 		else
 			return 0
@@ -64,23 +65,23 @@
 // ---------- WRAP
 
 
-
-/mob/living/simple_animal/hostile/poison/terror_spider/proc/DoWrap()
+/mob/living/simple_animal/hostile/poison/terror_spider/proc/FindWrapTarget()
 	if(!cocoon_target)
 		var/list/choices = list()
 		for(var/mob/living/L in oview(1,src))
 			if(Adjacent(L))
 				if(L.stat == DEAD)
 					choices += L
-		for(var/obj/O in loc)
+		for(var/obj/O in oview(1,src))
 			if(Adjacent(O) && !O.anchored)
 				if(!istype(O, /obj/effect/spider/terrorweb) && !istype(O, /obj/effect/spider/cocoon))
 					choices += O
-		if(ckey)
-			if(choices.len)
-				cocoon_target = input(src,"What do you wish to cocoon?") in null|choices
-			else
-				to_chat(src, "<span class='danger'>There is nothing nearby you can wrap.</span>")
+		if(choices.len)
+			cocoon_target = input(src,"What do you wish to cocoon?") in null|choices
+		else
+			to_chat(src, "<span class='danger'>There is nothing nearby you can wrap.</span>")
+
+/mob/living/simple_animal/hostile/poison/terror_spider/proc/DoWrap()
 	if(cocoon_target && busy != SPINNING_COCOON)
 		busy = SPINNING_COCOON
 		visible_message("<span class='notice'>\the [src] begins to secrete a sticky substance around \the [cocoon_target].</span>")

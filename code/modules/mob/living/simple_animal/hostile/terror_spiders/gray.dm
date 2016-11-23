@@ -33,7 +33,7 @@
 	else
 		var/inject_target = pick("chest","head")
 		if(L.stunned || L.can_inject(null,0,inject_target,0))
-			L.silent = max(L.silent, 20) // instead of having a venom that only lasts seconds, we just add the silence directly.
+			L.Silence(20) // instead of having a venom that only lasts seconds, we just add the silence directly.
 			visible_message("<span class='danger'>[src] buries grey fangs deep into the [inject_target] of [target]!</span>")
 		else
 			visible_message("<span class='danger'>[src] bites [target], but cannot inject venom into their [inject_target]!</span>")
