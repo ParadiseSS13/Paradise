@@ -27,6 +27,8 @@
 	var/level = 0							//actual level of this mob (don't set this, it gets overwritten in New())
 	var/min_level = 1						//minimum level of this mob (used for randomizing the actual level)
 	var/max_level = 1						//maximum level of this mob (used for randomizing the actual level)
+	var/exp = 0								//number of battles the mob has won towards the next level (resets to 0 on level-up)
+	var/exp_to_level = 3					//number of battles the mob must win to level up (in case we want to make some mobs harder or easier to level)
 	//the types of the mob will be used for battles to determine damage resistance or weakness (mob_type_datums.dm)
 	var/datum/mob_type/primary_type			//Make sure you set this or the mob will be unable to deal damage and will take absurd damage in battles
 	var/datum/mob_type/secondary_type		//Don't set if not a dual-type mob so the mob will only calculate damage based on primary type
@@ -34,7 +36,8 @@
 	var/base_health = 5						//base health of the mob for battling (effectively max health at level 0)
 	var/attack_multiplier = 1				//how much additional damage per level the mob deals (level * attack_multiplier)
 	var/health_multiplier = 1				//how much additional health per level the mob gets (level * health_multiplier) for calculating max health
-	var/health = list("current" = 0, "max" = 0)
+	var/cur_health = 0
+	var/max_health = 0
 
 	//SPAWN PREFERENCES AND VARIABLES
 	//A note on mob spawn preferences: The mob types also have preferences, which are handled prior to per-mob preferences, so ultimately you use a combined set of preferences
@@ -61,7 +64,8 @@
 		level = rand(min_level, max_level)
 	if(prob(1) && prob(1))
 		is_shiny = 1
-	health["max"] = base_health + (level * health_multiplier)
+	max_health = base_health + (level * health_multiplier)
+	cur_health = max_health
 	if(primary_type)
 		primary_type = new primary_type()
 	if(secondary_type)
@@ -177,7 +181,7 @@
 			possible_turfs -= T
 	return possible_turfs
 
-/datum/mob_hunt/proc/calc_dam_multiplier(datum/mob_type/attack_type)
+/datum/mob_hunt/proc/calc_def_multiplier(datum/mob_type/attack_type)
 	if(!primary_type)
 		return 99		//typeless mobs are weak to everything since they shouldn't exist
 	if(!attack_type)	//typeless attacks will return a multiplier of 1 in case we want to use this for calculating unmodified damage for some reason (UI maybe?)
@@ -207,36 +211,59 @@
 
 /datum/mob_hunt/proc/take_damage(raw_damage, datum/mob_type/attack_type)
 	var/message = ""
-	var/multiplier = calc_dam_multiplier(attack_type)
+	var/multiplier = calc_def_multiplier(attack_type)
 	var/total_damage = raw_damage * multiplier
-	if(!health["current"])	//it's already downed, quit hitting it
+	if(!cur_health)	//it's already downed, quit hitting it
 		return null
-	health["current"] = max(health["current"] - total_damage, 0)
-	switch(multiplier)
-		if(0)
-			message += "The attack is completely ineffective! "
-		if(0.25)
-			message += "It's barely effective... "
-		if(0.5)
-			message += "It's not very effective... "
-		if(2)
-			message += "It's super effective! "
-		if(4)
-			message += "It's ultra effective! "
-	if(!health["current"])
+	if(!total_damage)
+		message += "The attack is completely ineffective! "
+	else
+		cur_health = max(cur_health - total_damage, 0)
+		switch(multiplier)
+			if(0)
+				message += "The attack is completely ineffective! "
+			if(0.25)
+				message += "It's barely effective... "
+			if(0.5)
+				message += "It's not very effective... "
+			if(2)
+				message += "It's super effective! "
+			if(4)
+				message += "It's ultra effective! "
+			if(99)
+				message += pick("REKT! ", "DUNKED! ", "DEFENSE BREAK! ", "WOMBO-COMBO'D!")
+	if(!cur_health)
 		message += "[nickname ? nickname : mob_name] is downed!"
+	return message
+
+/datum/mob_hunt/proc/get_raw_damage()
+	return (level * attack_multiplier)
+
+/datum/mob_hunt/proc/get_attack_type()
+	var/datum/mob_type/attack_type = primary_type
+	if(secondary_type && prob(40))
+		attack_type = secondary_type
+	return attack_type
+
+/datum/mob_hunt/proc/gain_exp()
+	exp++
+	var/message = "[nickname ? nickname : mob_name] gained EXP! ([exp] / [exp_to_level] EXP)"
+	if(exp >= exp_to_level)
+		message = levelup()
 	return message
 
 /datum/mob_hunt/proc/levelup()
 	var/message = ""
 	level++
+	exp = 0
 	if(level > max_level)		//This is where we would trigger an evolution, when those are added (need to add evolved forms first)
 		level = max_level		//for now though, we'll just cap them back at their max_level
 		message += "[nickname ? nickname : mob_name] can't get any stronger right now!"
 	else
-
-		health["max"] = base_health + (level * health_multiplier)
+		max_health = base_health + (level * health_multiplier)
+		cur_health = max_health		//full heal on level-up
 		message += "[nickname ? nickname : mob_name] has reached level [level]!"
+	return message
 
 /datum/mob_hunt/proc/get_type1()
 	if(!primary_type)

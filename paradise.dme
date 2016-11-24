@@ -1058,6 +1058,7 @@
 #include "code\modules\arcade\claw_game.dm"
 #include "code\modules\arcade\prize_counter.dm"
 #include "code\modules\arcade\prize_datums.dm"
+#include "code\modules\arcade\mob_hunt\battle_computer.dm"
 #include "code\modules\arcade\mob_hunt\game_server.dm"
 #include "code\modules\arcade\mob_hunt\mob_avatar.dm"
 #include "code\modules\arcade\mob_hunt\mob_cards.dm"
