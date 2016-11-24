@@ -55,7 +55,7 @@
 			mob_hunt_server.blue_terminal = null
 	if(avatar)
 		qdel(avatar)
-	..()
+	return ..()
 
 /obj/machinery/computer/mob_battle_terminal/attackby(obj/item/O, mob/user)
 	if(istype(O, /obj/item/weapon/nanomob_card))

@@ -39,5 +39,5 @@
 
 /obj/item/weapon/storage/box/nanomob_booster_pack/New()
 	..()
-	for(var/i = 1; i < 6; i++)
+	for(var/i in 1 to 6)
 		new /obj/item/weapon/nanomob_card/booster(src)
