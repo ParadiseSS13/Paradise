@@ -38,18 +38,6 @@
 	icon_state = "goldtophatred"
 	item_state = "goldtophatred"
 
-//black pete hat
-/obj/item/clothing/head/fluff/blackpetehat
-	name = "Black Hat"
-	desc = "All that soot from the massive explosions had finally done its job."
-	icon_state = "blackpetehat"
-	item_state = "blackpetehat"
-	flags = BLOCKHAIR
-	species_fit = list("Vox")
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/head.dmi'
-		)
-
 //medieval guard helm
 /obj/item/clothing/head/fluff/guardhelm
 	name = "Plastic Guard helm"
