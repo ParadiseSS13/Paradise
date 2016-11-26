@@ -141,6 +141,9 @@
 	qdel(ion_trail)
 	ion_trail = null
 	occupant_sanity_check()
+	if(pilot)
+		pilot.forceMove(get_turf(src))
+		pilot = null
 	if(passengers)
 		for(var/mob/M in passengers)
 			M.forceMove(get_turf(src))
@@ -226,26 +229,36 @@
 	health = max(0, health - damage)
 	var/percentage = (health / initial(health)) * 100
 	occupant_sanity_check()
-	if(passengers && oldhealth > health && percentage <= 25 && percentage > 0)
+	if(passengers | pilot && oldhealth > health && percentage <= 25 && percentage > 0)
 		var/sound/S = sound('sound/effects/engine_alert2.ogg')
 		S.wait = 0 //No queue
 		S.channel = 0 //Any channel
 		S.volume = 50
-		for(var/mob/M in passengers)
-			M << S
-	if(passengers && oldhealth > health && !health)
+		if(pilot)
+			pilot << S
+		if(passengers)
+			for(var/mob/M in passengers)
+				M << S
+	if(passengers | pilot && oldhealth > health && !health)
 		var/sound/S = sound('sound/effects/engine_alert1.ogg')
 		S.wait = 0
 		S.channel = 0
 		S.volume = 50
-		for(var/mob/M in passengers)
-			M << S
+		if(pilot)
+			pilot << S
+		if(passengers)
+			for(var/mob/M in passengers)
+				M << S
 	if(!health)
 		spawn(0)
+			if(pilot)
+				to_chat(pilot, "<span class='userdanger'>Critical damage to the vessel detected, core explosion imminent!</span>")
 			if(passengers)
 				for(var/mob/M in passengers)
 					to_chat(M, "<span class='userdanger'>Critical damage to the vessel detected, core explosion imminent!</span>")
 			for(var/i = 10, i >= 0; --i)
+				if(pilot)
+					to_chat(pilot, "<span class='warning'>[i]</span>")
 				if(passengers)
 					for(var/mob/M in passengers)
 						to_chat(M, "<span class='warning'>[i]</span>")
@@ -266,12 +279,13 @@
 	occupant_sanity_check()
 	switch(severity)
 		if(1)
-			for(var/mob/M in passengers)
-				var/mob/living/carbon/human/H = M
-				if(H)
-					H.forceMove(get_turf(src))
-					H.ex_act(severity + 1)
-					to_chat(H, "<span class='warning'>You are forcefully thrown from \the [src]!</span>")
+			if(passengers || pilot)
+				for(var/mob/M in passengers | pilot)
+					var/mob/living/carbon/human/H = M
+					if(H)
+						H.forceMove(get_turf(src))
+						H.ex_act(severity + 1)
+						to_chat(H, "<span class='warning'>You are forcefully thrown from \the [src]!</span>")
 			qdel(ion_trail)
 			qdel(src)
 		if(2)
@@ -283,14 +297,14 @@
 /obj/spacepod/emp_act(severity)
 	occupant_sanity_check()
 	cargo_hold.emp_act(severity)
-	
+
 	if(battery && battery.charge > 0)
 		battery.use((battery.charge / 2) / severity)
 	deal_damage(80 / severity)
 	if(empcounter < (40 / severity))
 		empcounter = 40 / severity
-	processing_objects.Add(src)	
-	
+	processing_objects.Add(src)
+
 	switch(severity)
 		if(1)
 			if(pilot)
