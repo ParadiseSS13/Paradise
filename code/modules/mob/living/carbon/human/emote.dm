@@ -378,7 +378,7 @@
 			message = "<B>[src]</B> faints."
 			if(src.sleeping)
 				return //Can't faint while asleep
-			AdjustSleeping(1)
+			AdjustSleeping(2)
 			m_type = 1
 
 		if("cough", "coughs")
