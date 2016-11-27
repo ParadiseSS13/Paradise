@@ -32,7 +32,7 @@ var/global/admin_ooc_colour = "#b82e00"
 		if(prefs.muted & MUTE_OOC)
 			to_chat(src, "<span class='danger'>You cannot use OOC (muted).</span>")
 			return
-		if(handle_spam_prevention(msg, MUTE_OOC))
+		if(handle_spam_prevention(msg, MUTE_OOC, OOC_COOLDOWN))
 			return
 		if(findtext(msg, "byond://"))
 			to_chat(src, "<B>Advertising other servers is not allowed.</B>")
@@ -176,7 +176,7 @@ var/global/admin_ooc_colour = "#b82e00"
 		if(prefs.muted & MUTE_OOC)
 			to_chat(src, "<span class='danger'>You cannot use LOOC (muted).</span>")
 			return
-		if(handle_spam_prevention(msg,MUTE_OOC))
+		if(handle_spam_prevention(msg, MUTE_OOC, OOC_COOLDOWN))
 			return
 		if(findtext(msg, "byond://"))
 			to_chat(src, "<B>Advertising other servers is not allowed.</B>")

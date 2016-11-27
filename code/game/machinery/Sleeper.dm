@@ -454,8 +454,10 @@
 	set name = "Eject Sleeper"
 	set category = "Object"
 	set src in oview(1)
-	if(usr.stat != 0)
+	
+	if(usr.incapacitated()) //are you cuffed, dying, lying, stunned or other
 		return
+		
 	src.icon_state = "[base_icon]-open"
 	src.go_out()
 	add_fingerprint(usr)
@@ -465,8 +467,10 @@
 	set name = "Remove Beaker"
 	set category = "Object"
 	set src in oview(1)
-	if(usr.stat != 0)
+	
+	if(usr.incapacitated()) //are you cuffed, dying, lying, stunned or other
 		return
+		
 	if(beaker)
 		filtering = 0
 		beaker.forceMove(usr.loc)

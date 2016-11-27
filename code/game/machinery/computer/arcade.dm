@@ -930,7 +930,8 @@
 	if(specific && specific != dont_remove)
 		safe2remove = list(specific)
 	else
-		removed = pick(safe2remove)
+		if(safe2remove.len >= 1) //need to make sure we even have anyone to remove
+			removed = pick(safe2remove)
 
 	if(removed)
 		if(lings_aboard && prob(40*lings_aboard)) //if there are 2 lings you're twice as likely to get one, obviously
