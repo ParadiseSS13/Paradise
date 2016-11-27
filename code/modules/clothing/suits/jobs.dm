@@ -17,7 +17,7 @@
 
 //Brig Physician
 /obj/item/clothing/suit/storage/brigdoc
-	name = "brig physician vest"
+	name = "NTSF Medic's vest"
 	desc = "A vest often worn by doctors caring for inmates."
 	icon_state = "brigphysician-vest"
 	item_state = "brigphysician-vest"
