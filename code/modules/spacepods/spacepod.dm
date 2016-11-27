@@ -229,39 +229,15 @@
 	health = max(0, health - damage)
 	var/percentage = (health / initial(health)) * 100
 	occupant_sanity_check()
-	if(passengers | pilot && oldhealth > health && percentage <= 25 && percentage > 0)
-		var/sound/S = sound('sound/effects/engine_alert2.ogg')
-		S.wait = 0 //No queue
-		S.channel = 0 //Any channel
-		S.volume = 50
-		if(pilot)
-			pilot << S
-		if(passengers)
-			for(var/mob/M in passengers)
-				M << S
-	if(passengers | pilot && oldhealth > health && !health)
-		var/sound/S = sound('sound/effects/engine_alert1.ogg')
-		S.wait = 0
-		S.channel = 0
-		S.volume = 50
-		if(pilot)
-			pilot << S
-		if(passengers)
-			for(var/mob/M in passengers)
-				M << S
+	if(oldhealth > health && percentage <= 25 && percentage > 0)
+		play_sound_to_riders('sound/effects/engine_alert2.ogg')
+	else if(oldhealth > health)
+		play_sound_to_riders('sound/effects/engine_alert1.ogg')
 	if(!health)
 		spawn(0)
-			if(pilot)
-				to_chat(pilot, "<span class='userdanger'>Critical damage to the vessel detected, core explosion imminent!</span>")
-			if(passengers)
-				for(var/mob/M in passengers)
-					to_chat(M, "<span class='userdanger'>Critical damage to the vessel detected, core explosion imminent!</span>")
+			message_to_riders("<span class='userdanger'>Critical damage to the vessel detected, core explosion imminent!</span>")
 			for(var/i = 10, i >= 0; --i)
-				if(pilot)
-					to_chat(pilot, "<span class='warning'>[i]</span>")
-				if(passengers)
-					for(var/mob/M in passengers)
-						to_chat(M, "<span class='warning'>[i]</span>")
+				message_to_riders("<span class='warning'>[i]</span>")
 				if(i == 0)
 					explosion(loc, 2, 4, 8)
 					qdel(src)
@@ -307,17 +283,25 @@
 
 	switch(severity)
 		if(1)
-			if(pilot)
-				to_chat(pilot, "<span class='warning'>The pod console flashes 'Heavy EMP WAVE DETECTED'.</span>")
-			if(passengers)
-				for(var/mob/M in passengers)
-					to_chat(M, "<span class='warning'>The pod console flashes 'Heavy EMP WAVE DETECTED'.</span>")
+			message_to_riders("<span class='warning'>The pod console flashes 'Heavy EMP WAVE DETECTED'.</span>")
 		if(2)
-			if(pilot)
-				to_chat(pilot, "<span class='warning'>The pod console flashes 'EMP WAVE DETECTED'.</span>")
-			if(passengers)
-				for(var/mob/M in passengers)
-					to_chat(M, "<span class='warning'>The pod console flashes 'EMP WAVE DETECTED'.</span>")
+			message_to_riders("<span class='warning'>The pod console flashes 'EMP WAVE DETECTED'.</span>")
+
+/obj/spacepod/proc/play_sound_to_riders(mysound)
+	if(length(passengers | pilot) == 0)
+		return
+	var/sound/S = sound(mysound)
+	S.wait = 0 //No queue
+	S.channel = 0 //Any channel
+	S.volume = 50
+	for(var/mob/M in passengers | pilot)
+		M << S
+
+/obj/spacepod/proc/message_to_riders(mymessage)
+	if(length(passengers | pilot) == 0)
+		return
+	for(var/mob/M in passengers | pilot)
+		to_chat(M, mymessage)
 
 /obj/spacepod/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(user.a_intent == I_HARM)
