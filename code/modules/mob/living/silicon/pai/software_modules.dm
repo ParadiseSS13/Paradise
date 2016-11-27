@@ -547,8 +547,7 @@
 		else
 			var/datum/gas_mixture/env = T.return_air()
 			data["reading"] = 1
-			var/pres = env.return_pressure() * 10
-			data["pressure"] = "[round(pres/10)].[pres%10]"
+			data["pressure"] = env.return_pressure()
 			data["temperature"] = round(env.temperature)
 			data["temperatureC"] = round(env.temperature-T0C)
 

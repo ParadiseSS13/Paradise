@@ -269,8 +269,12 @@ client/proc/one_click_antag()
 	return 1
 
 /datum/admins/proc/makeAliens()
-	alien_infestation(3)
-	return 1
+	var/datum/event/alien_infestation/E = new /datum/event/alien_infestation
+	E.spawncount = 3
+	// TODO The fact we have to do this rather than just have events start
+	// when we ask them to, is bad.
+	E.processing = TRUE
+	return TRUE
 
 /*
 /datum/admins/proc/makeSpaceNinja()

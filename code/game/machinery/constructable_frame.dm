@@ -69,21 +69,23 @@
 					playsound(src.loc, 'sound/items/Deconstruct.ogg', 50, 1)
 					to_chat(user, "<span class='notice'>You start to add cables to the frame.</span>")
 					if(do_after(user, 20, target = src))
-						if(C.amount >= 5 && state == 1)
-							C.use(5)
+						if(state == 1 && C.amount >= 5 && C.use(5))
 							to_chat(user, "<span class='notice'>You add cables to the frame.</span>")
 							state = 2
 							icon_state = "box_1"
+						else
+							to_chat(user, "<span class='warning'>At some point during construction you lost some cable. Make sure you have five lengths before trying again.</span>")
+							return
 				else
-					to_chat(user, "<span class='warning'>You need five length of cable to wire the frame.</span>")
+					to_chat(user, "<span class='warning'>You need five lengths of cable to wire the frame.</span>")
 					return
 			else if(istype(P, /obj/item/stack/sheet/glass))
 				var/obj/item/stack/sheet/glass/G = P
-				if(G.amount<5)
-					to_chat(user, "\red You do not have enough glass to build a display case.")
+				if(G.amount < 5)
+					to_chat(user, "<span class='warning'>You do not have enough glass to build a display case.</span>")
 					return
 				G.use(5)
-				to_chat(user, "\blue You add the glass to the frame.")
+				to_chat(user, "<span class='notice'>You add the glass to the frame.</span>")
 				playsound(get_turf(src), 'sound/items/Deconstruct.ogg', 50, 1)
 				new /obj/structure/displaycase_frame(src.loc)
 				qdel(src)

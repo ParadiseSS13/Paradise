@@ -254,6 +254,7 @@
 				src.overrides = null
 				P.emag_overrides = src.emag_overrides
 				src.emag_overrides = null
+				default_deconstruction_crowbar(I, 1)
 				return
 		else
 			..(I,user)

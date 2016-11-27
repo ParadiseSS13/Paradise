@@ -3,7 +3,6 @@
 	desc = "A huge chunk of metal used to seperate rooms."
 	icon = 'icons/turf/walls/wall.dmi'
 	icon_state = "wall"
-	var/mineral = "metal"
 	var/rotting = 0
 
 	var/damage = 0
@@ -22,9 +21,11 @@
 	thermal_conductivity = WALL_HEAT_TRANSFER_COEFFICIENT
 	heat_capacity = 312500 //a little over 5 cm thick , 312500 for 1 m by 2.5 m by 0.25 m plasteel wall
 
-	var/walltype = "metal"
 	var/hardness = 40 //lower numbers are harder. Used to determine the probability of a hulk smashing through.
 	var/engraving, engraving_quality //engraving on the wall
+	
+	var/sheet_type = /obj/item/stack/sheet/metal
+	var/obj/item/stack/sheet/builtin_sheet = null
 
 	canSmoothWith = list(
 	/turf/simulated/wall,
@@ -36,6 +37,10 @@
 	/turf/simulated/wall/r_wall/coated)
 	smooth = SMOOTH_TRUE
 
+/turf/simulated/wall/New()
+	..()
+	builtin_sheet = new sheet_type	
+	
 /turf/simulated/wall/BeforeChange()
 	for(var/obj/effect/E in src)
 		// such quality code
@@ -43,8 +48,8 @@
 			qdel(E)
 	. = ..()
 
+	
 //Appearance
-
 /turf/simulated/wall/examine(mob/user)
 	. = ..(user)
 
@@ -117,46 +122,14 @@
 	if(radiated_temperature > max_temperature)
 		take_damage(rand(10, 20) * (radiated_temperature / max_temperature))
 
-/turf/simulated/wall/proc/dismantle_wall(devastated=0, explode=0)
-	if(istype(src,/turf/simulated/wall/r_wall))
-		if(!devastated)
-			playsound(src, 'sound/items/Welder.ogg', 100, 1)
-			new /obj/structure/girder/reinforced(src)
-			new /obj/item/stack/sheet/plasteel( src )
-		else
-			new /obj/item/stack/sheet/metal( src )
-			new /obj/item/stack/sheet/metal( src )
-			new /obj/item/stack/sheet/plasteel( src )
-	else if(istype(src,/turf/simulated/wall/cult))
-		if(!devastated)
-			playsound(src, 'sound/items/Welder.ogg', 100, 1)
-			new /obj/effect/decal/cleanable/blood(src)
-			new /obj/structure/cultgirder(src)
-		else
-			new /obj/effect/decal/cleanable/blood(src)
-			new /obj/effect/decal/remains/human(src)
-
+/turf/simulated/wall/proc/dismantle_wall(devastated = 0, explode = 0)
+	if(devastated)
+		devastate_wall()
 	else
-		if(!devastated)
-			playsound(src, 'sound/items/Welder.ogg', 100, 1)
-			new /obj/structure/girder(src)
-			if(mineral == "metal")
-				new /obj/item/stack/sheet/metal( src )
-				new /obj/item/stack/sheet/metal( src )
-			else
-				var/M = text2path("/obj/item/stack/sheet/mineral/[mineral]")
-				new M( src )
-				new M( src )
-		else
-			if(mineral == "metal")
-				new /obj/item/stack/sheet/metal( src )
-				new /obj/item/stack/sheet/metal( src )
-				new /obj/item/stack/sheet/metal( src )
-			else
-				var/M = text2path("/obj/item/stack/sheet/mineral/[mineral]")
-				new M( src )
-				new M( src )
-				new /obj/item/stack/sheet/metal( src )
+		playsound(src, 'sound/items/Welder.ogg', 100, 1)
+		var/newgirder = break_wall()
+		if(newgirder) //maybe we don't /want/ a girder!
+			transfer_fingerprints_to(newgirder)
 
 	for(var/obj/O in src.contents) //Eject contents!
 		if(istype(O,/obj/structure/sign/poster))
@@ -166,6 +139,16 @@
 			O.loc = src
 
 	ChangeTurf(/turf/simulated/floor/plating)
+	
+/turf/simulated/wall/proc/break_wall()
+	builtin_sheet.amount = 2
+	builtin_sheet.loc = src
+	return (new /obj/structure/girder(src))
+
+/turf/simulated/wall/proc/devastate_wall()
+	builtin_sheet.amount = 2
+	builtin_sheet.loc = src
+	new /obj/item/stack/sheet/metal(src)
 
 /turf/simulated/wall/ex_act(severity)
 	switch(severity)
@@ -176,7 +159,7 @@
 			if(prob(50))
 				take_damage(rand(150, 250))
 			else
-				dismantle_wall(1,1)
+				dismantle_wall(1, 1)
 		if(3.0)
 			take_damage(rand(0, 250))
 		else
@@ -216,8 +199,9 @@
 			O.mouse_opacity = 0
 
 /turf/simulated/wall/proc/thermitemelt(mob/user as mob)
-	if(mineral == "diamond")
+	if(istype(sheet_type, /obj/item/stack/sheet/mineral/diamond))
 		return
+		
 	var/obj/effect/overlay/O = new/obj/effect/overlay( src )
 	O.name = "Thermite"
 	O.desc = "Looks hot."
@@ -236,7 +220,6 @@
 
 	spawn(100)
 		if(O)	qdel(O)
-//	F.sd_LumReset()		//TODO: ~Carn
 	return
 
 //Interactions
@@ -292,7 +275,8 @@
 		return
 
 	//get the user's location
-	if(!istype(user.loc, /turf))	return	//can't do this stuff whilst inside objects and such
+	if(!istype(user.loc, /turf))	
+		return	//can't do this stuff whilst inside objects and such
 
 	if(rotting)
 		if(istype(W, /obj/item/weapon/weldingtool) )
@@ -370,7 +354,7 @@
 		to_chat(user, "<span class='notice'>You begin slicing through the outer plating.</span>")
 		playsound(src, 'sound/items/Welder.ogg', 100, 1)
 
-		if(do_after(user, mineral == "diamond" ? 120 : 60, target = src))
+		if(do_after(user, istype(sheet_type, /obj/item/stack/sheet/mineral/diamond) ? 120 : 60, target = src))
 			to_chat(user, "<span class='notice'>You remove the outer plating.</span>")
 			dismantle_wall()
 			visible_message("<span class='warning'>[user] slices apart \the [src]!</span>","<span class='warning'>You hear metal being sliced apart.</span>")
@@ -380,7 +364,7 @@
 
 		to_chat(user, "<span class='notice'>You begin to drill though the wall.</span>")
 
-		if(do_after(user, mineral == "diamond" ? 120 : 60, target = src))
+		if(do_after(user, istype(sheet_type, /obj/item/stack/sheet/mineral/diamond) ? 120 : 60, target = src))
 			to_chat(user, "<span class='notice'>Your drill tears though the last of the reinforced plating.</span>")
 			dismantle_wall()
 			visible_message("<span class='warning'>[user] drills through \the [src]!</span>","<span class='warning'>You hear the grinding of metal.</span>")
@@ -389,7 +373,7 @@
 
 		to_chat(user, "<span class='notice'>You begin to disintegrates the wall.</span>")
 
-		if(do_after(user, mineral == "diamond" ? 60 : 30, target = src))
+		if(do_after(user, istype(sheet_type, /obj/item/stack/sheet/mineral/diamond) ? 60 : 30, target = src))
 			to_chat(user, "<span class='notice'>Your jackhammer disintegrate the reinforced plating.</span>")
 			dismantle_wall()
 			visible_message("<span class='warning'>[user] disintegrates \the [src]!</span>","<span class='warning'>You hear the grinding of metal.</span>")
@@ -401,7 +385,7 @@
 		to_chat(user, "<span class='notice'>You stab \the [EB] into the wall and begin to slice it apart.</span>")
 		playsound(src, "sparks", 50, 1)
 
-		if(do_after(user, mineral == "diamond" ? 140 : 70, target = src))
+		if(do_after(user, istype(sheet_type, /obj/item/stack/sheet/mineral/diamond) ? 140 : 70, target = src))
 			EB.spark_system.start()
 			playsound(src, "sparks", 50, 1)
 			playsound(src, 'sound/weapons/blade1.ogg', 50, 1)

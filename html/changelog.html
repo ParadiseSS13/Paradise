@@ -55,6 +55,157 @@
 		
 		-->
 		<div class="commit sansserif">
+			<h2 class="date">23 November 2016</h2>
+			<h3 class="author">Fethas updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixes human jetpacks..maybe...</li>
+			</ul>
+			<h3 class="author">FlattestNerd updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">the e20 will now get logged when it goes BEWM, as it should.</li>
+			</ul>
+			<h3 class="author">Fox McCloud updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixes double-breaking news newscaster</li>
+			</ul>
+
+			<h2 class="date">22 November 2016</h2>
+			<h3 class="author">KasparoVy updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">You now stutter when you're in shock/crit and when you've got the nervous disability as you used to.</li>
+			</ul>
+			<h3 class="author">Twinmold93 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Runtime caused by lack of settlers in the Orion arcade game.</li>
+			</ul>
+
+			<h2 class="date">20 November 2016</h2>
+			<h3 class="author">KasparoVy updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">The DNA SE injectors one can find in the abandoned mining crates now correctly activate/deactivate the powers they may contain.</li>
+			</ul>
+
+			<h2 class="date">15 November 2016</h2>
+			<h3 class="author">KasparoVy updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Adding cable to multiple computer frames at the same time while not having the correct amount of cables will no longer cause busted coils with a negative number of cables.</li>
+			</ul>
+
+			<h2 class="date">13 November 2016</h2>
+			<h3 class="author">Fox McCloud updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixes BSA having peculiar results.</li>
+			</ul>
+
+			<h2 class="date">07 November 2016</h2>
+			<h3 class="author">Crazylemon updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">Status effects should work a little more consistently now</li>
+			</ul>
+			<h3 class="author">Crazylemon64 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">The mech-mounted plasma cutter can now be constructed again</li>
+				<li class="bugfix">Space pod lasers can now be constructed again</li>
+			</ul>
+			<h3 class="author">Fox McCloud updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixes hunters not being weakened when crashing into a shield/wall</li>
+				<li class="bugfix">Fixes xeno stuns half the time intended</li>
+				<li class="bugfix">Fixes stopping, dropping, and rolling not properly weakening Xenos/Hulks</li>
+			</ul>
+			<h3 class="author">KasparoVy updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixes a bug where changing your alt head required two icon updates to show.</li>
+				<li class="bugfix">Fixes a bug where you couldn't choose head marking styles that would ordinarily be available regardless of your alt head.</li>
+				<li class="bugfix">Fixes a bug where Tajara couldn't choose undergarments.</li>
+				<li class="bugfix">Resolves an issue with the Vulpkanin Jagged hairstyle missing a pixel.</li>
+			</ul>
+			<h3 class="author">Twinmold93 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixes a runtime issue caused by using the detective's scanner on the space hotel cleaver.</li>
+				<li class="bugfix">Scrubber pipe missing segment behind the operating theatres.</li>
+			</ul>
+
+			<h2 class="date">23 October 2016</h2>
+			<h3 class="author">KasparoVy updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">Refactors markings. Now split into head, body and tail markings.</li>
+				<li class="tweak">Refactors morph again. Changes made while morphing are now reflected instantly on your sprite.</li>
+				<li class="tweak">Darkens Vulpkanin and Tajara for improved colour fidelity. Species base colour changed to compensate. Add 27 to R, G and B values if Vulp, 15 if Taj to keep the same colour on your character.</li>
+				<li class="tweak">Darkens Vulpkanin facial fur patterns for improved colour fidelity. Add 23 to the R, G and B values of your facial hair/head accessory to keep the same colour on your character.</li>
+				<li class="tweak">Darkens Unathi frills and horns. Add 27 to the R, G and B values of your frills and 21 for horns to keep the same colour on your character.</li>
+				<li class="tweak">Vulpkanin tails are now split-rendered. Tails overlap hair when facing north, but are overlapped by hair when facing all other directions. No other differences, only affects the fluffy husky tail.</li>
+				<li class="tweak">The heads of tiger markings have been isolated and can now be coloured independently.</li>
+				<li class="tweak">Hair can now cover facial hair, and glasses are no longer covered by facial hair and head accessories. Means that two-piece Vulpkanin facial fur patterns won't almost entirely cover whatever glasses they're wearing.</li>
+				<li class="tweak">Tajaran head and facial hair have been darkened. Add 28 to the R, G and B values of your Tajara head/facial hair to keep the same colour on your character.</li>
+				<li class="tweak">Vulpkanin head hair and one facial hair style has been darkened. Refer to PR notes for darkening factors.</li>
+				<li class="tweak">The HAS_MARKINGS flag now represents all marking locations. The HAS_location_MARKINGS flags are for specific locations (head, body, tail).</li>
+				<li class="tweak">Improves the quality of some Vulpkanin/Tajara/Unathi mask sprites.</li>
+				<li class="bugfix">Naked Humans and Skrell will no longer have exposed flesh poking out their wrists when facing east or west. Male Humans now no longer lack a butt pixel when facing east or west.</li>
+				<li class="bugfix">Mutated limbs now render correctly as soon as they're mutated.</li>
+				<li class="bugfix">Mobs will now correctly appear as fat/skinny.</li>
+				<li class="bugfix">Species with TAIL_OVERLAPPED will no longer wag tail at max speed when facing north.</li>
+				<li class="bugfix">Species with TAIL_OVERLAPPED and body accessories won't crash the game when they wag.</li>
+				<li class="bugfix">Tiger Head and Face markings adjusted so they don't look ugly on certain species' ears.</li>
+				<li class="bugfix">Fixes issue where Unathi dorsal stripe didn't render.</li>
+				<li class="bugfix">Tajaran ears are no longer in their hair sprites, but on their actual heads.</li>
+				<li class="bugfix">The adminbus body accessory now overrides the TAIL_OVERLAPPED flag and will now be rendered correctly on a body regardless of species bodyflags.</li>
+				<li class="bugfix">Changing a person's species via CMA will no longer result in a mob with all the same cosmetic attributes as the old species.</li>
+				<li class="bugfix">Dressers now have species fitting checks for undergarments. Drask are now able to wear undershirts and underwear like they were originally meant to.</li>
+				<li class="rscadd">Adds some head markings for Tajara and Vulpkanin.</li>
+				<li class="rscadd">Adds body marking(s) for Tajara, Vulpkanin, Unathi and Drask.</li>
+				<li class="rscadd">Adds tail markings for Vox and Vulpkanin.</li>
+				<li class="rscadd">Adds 5 Tajaran hairstyles.</li>
+				<li class="rscadd">Adds a tweaked version of an existing Vox hairstyle. Shouldn't clip with certain jackets as much.</li>
+				<li class="rscadd">Adds a hairstyle for Humans, Unathi and Vulpkanin.</li>
+				<li class="rscadd">Adds a facial hairstyle for Vulpkanin.</li>
+				<li class="rscadd">Adds secondary hair (head and facial) themes. Skrell can now colour their tentacle cloths independently, the beads in the Tajaran/Hippie braid hairstyles can be coloured and the same with the webbing in Unathi frills. Can be changed at nanomirrors, via morph and CMA.</li>
+				<li class="rscadd">Adds alternate heads. Unathi can now choose a head with a sharp snout. Can be changed via morph and CMA.</li>
+				<li class="rscadd">Helper procs to convert a hex colour into either R, G, or B.</li>
+				<li class="rscadd">Markings, body accessories, head accessories, alt heads and their colours (if they have colours) can now be randomized at the character preferences screen.</li>
+				<li class="rscadd">Adds a system that attempts to fit mobs with alternate heads with appropriate mask sprites. The sprites just need to be suffixed with the alt_head suffix in sprite_accessories.dm.</li>
+				<li class="imageadd">Adds mask sprites tweaked to fit the new Unathi alternate head to go along with the new alt. head mask fitting system.</li>
+			</ul>
+
+			<h2 class="date">15 October 2016</h2>
+			<h3 class="author">Crazylemon64 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">The R&D console should now no longer freeze on the "Syncing Database" message or whatever.</li>
+				<li class="bugfix">Borg coolers and SMES boards can be made again</li>
+				<li class="bugfix">Maroon now works</li>
+			</ul>
+			<h3 class="author">FlattestGuitar updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">pAIs no longer turn into debris when wiped</li>
+				<li class="bugfix">SNPCs no longer get targeted by assasinate objectives</li>
+				<li class="bugfix">fixes a hallucination runtime, actually making one more aspect of being high as f*** work for the first time in ages</li>
+				<li class="bugfix">NODROP items will no longer attempt to be dropped if your hand is broken</li>
+			</ul>
+			<h3 class="author">Fox McCloud updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">Cloners will now put you inside the cloned body when it is fully grown as opposed to initially created</li>
+				<li class="tweak">Examining a cloner will tell you the clone progress</li>
+				<li class="rscadd">Observers can now see a visual countdown of the cloning status progression</li>
+				<li class="tweak">Atmos grenades cost increased from 6 to 11</li>
+				<li class="rscadd">Mice now have sprites when worn</li>
+				<li class="bugfix">Fixes various ghost alerts having barely visible icons</li>
+				<li class="bugfix">Fixes items being in two locations at once when loading things into the bio-generator or reagent grinder.</li>
+			</ul>
+			<h3 class="author">GeneralChaos81 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Ability to place and remove conveyor belts and levers.</li>
+			</ul>
+			<h3 class="author">KasparoVy updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Botany, viro and xenobio bottles will no longer be invisible.</li>
+			</ul>
+			<h3 class="author">Krausus updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixed full chat panes scrolling unpredictably when trying to view old messages.</li>
+				<li class="bugfix">Fixed camera monitors immobilizing you if you reconnect while using one.</li>
+				<li class="bugfix">Fixed selecting datum types through SDQL2 never returning any datums.</li>
+			</ul>
+
 			<h2 class="date">16 September 2016</h2>
 			<h3 class="author">Aurorablade updated:</h3>
 			<ul class="changes bgimages16">

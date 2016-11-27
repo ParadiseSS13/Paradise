@@ -220,8 +220,13 @@
 	icon_state="catwalk[dirs]"
 
 /turf/simulated/floor/plating/airless/catwalk/attackby(obj/item/C, mob/user, params)
+	if(istype(C, /obj/item/stack/rods))
+		return 1
+	else if(istype(C, /obj/item/stack/tile))
+		return 1	
+	
 	if(..())
-		return
+		return 1
 
 	if(!broken && isscrewdriver(C))
 		to_chat(user, "<span class='notice'>You unscrew the catwalk's rods.</span>")

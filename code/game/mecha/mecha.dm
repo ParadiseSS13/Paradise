@@ -563,7 +563,9 @@
 			dam_coeff = B.damage_coeff
 			break
 
-	if(prob(deflect_chance & deflection) && (Proj.damage_type == BRUTE || Proj.damage_type == BURN))
+	if(prob(deflect_chance * deflection) && (Proj.damage_type == BRUTE || Proj.damage_type == BURN))
+		visible_message("<span class='danger'>[src]'s armour deflects [Proj]!</span>")
+	else
 		visible_message("<span class='danger'>[src] is hit by [Proj].</span>")
 		take_damage(Proj.damage * dam_coeff, Proj.flag)
 		check_for_internal_damage(list(MECHA_INT_FIRE,MECHA_INT_TEMP_CONTROL,MECHA_INT_TANK_BREACH,MECHA_INT_CONTROL_LOST,MECHA_INT_SHORT_CIRCUIT))

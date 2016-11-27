@@ -78,9 +78,13 @@
 
 
 /obj/item/weapon/tank/examine(mob/user)
+	if(!..(user, 0))
+		return
+		
 	var/obj/icon = src
 	if(istype(loc, /obj/item/assembly))
 		icon = loc
+		
 	if(!in_range(src, user))
 		if(icon == src)
 			to_chat(user, "<span class='notice'>It's \a [bicon(icon)][src]! If you want any more information you'll need to get closer.</span>")
@@ -102,7 +106,7 @@
 	else
 		descriptive = "furiously hot"
 
-	to_chat(user, "\blue \The [bicon(icon)][src] feels [descriptive]")
+	to_chat(user, "<span class='notice'>\The [bicon(icon)][src] feels [descriptive]</span>")
 
 	return
 
