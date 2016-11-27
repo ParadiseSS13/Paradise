@@ -231,7 +231,7 @@
 	occupant_sanity_check()
 	if(oldhealth > health && percentage <= 25 && percentage > 0)
 		play_sound_to_riders('sound/effects/engine_alert2.ogg')
-	else if(oldhealth > health)
+	if(oldhealth > health && !health)
 		play_sound_to_riders('sound/effects/engine_alert1.ogg')
 	if(!health)
 		spawn(0)
