@@ -1,20 +1,16 @@
 /*
-	Paradise Pop reagents
-	Created through the bottler machine via bottler_recipes, not through standard reactions
-	Eventually will have special effects (minor mostly) tied to their reagents, but for now are purely for flavor
-
-	Make sure to yell at me to finish giving them effects later
-	-FalseIncarnate
+	Stratus Sorbet reagents
+	Created through the bottler machine via bottler_recipes, not through standard reactions.
 */
 
 
 //Paradise Punch: No effect, aside from maybe messages about how tasty it is or something
-/datum/reagent/consumable/drink/paradise_punch
-	name = "Paradise Punch"
-	id = "paradise_punch"
-	description = "Tastes just how you'd think Paradise would if you could bottle it."
+/datum/reagent/consumable/drink/stratus_sorbet
+	name = "Stratus Sorbet"
+	id = "stratus_sorbet"
+	description = "Tastes just like mom used to make."
 	reagent_state = LIQUID
-	color = "#cc0044"
+	color = "#C80008"
 
 //Apple-pocalypse: Low chance to cause a goonchem vortex that pulls things within a very small radius (2 tiles?) towards the drinker
 /datum/reagent/consumable/drink/apple_pocalypse
