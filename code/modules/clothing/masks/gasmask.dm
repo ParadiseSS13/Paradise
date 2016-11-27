@@ -190,8 +190,8 @@
 // **** Security gas mask ****
 
 /obj/item/clothing/mask/gas/sechailer
-	name = "security gas mask"
-	desc = "A standard issue Security gas mask with integrated 'Compli-o-nator 3000' device, plays over a dozen pre-recorded compliance phrases designed to get scumbags to stand still whilst you taze them. Do not tamper with the device."
+	name = "\improper NTSF gas mask"
+	desc = "A standard issue NTSF gas mask with integrated 'Compli-o-nator 3000' device, plays over a dozen pre-recorded compliance phrases designed to get scumbags to stand still whilst you taze them. Do not tamper with the device."
 	icon_state = "sechailer"
 	var/phrase = 1
 	var/aggressiveness = 1
@@ -199,7 +199,7 @@
 	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/adjust, /datum/action/item_action/selectphrase)
 
 /obj/item/clothing/mask/gas/sechailer/hos
-	name = "\improper HOS SWAT mask"
+	name = "\improper Commander SWAT mask"
 	desc = "A close-fitting tactical mask with an especially aggressive Compli-o-nator 3000. It has a tan stripe."
 	icon_state = "hosmask"
 	aggressiveness = 3
@@ -233,7 +233,7 @@
 	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/selectphrase)
 
 /obj/item/clothing/mask/gas/sechailer/cyborg
-	name = "security hailer"
+	name = "\improper NTSF hailer"
 	desc = "A set of recognizable pre-recorded messages for cyborgs to use when apprehending criminals."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "taperecorder_idle"

@@ -326,7 +326,7 @@
 	icon_state = "winterhood_captain"
 
 /obj/item/clothing/suit/hooded/wintercoat/security
-	name = "security winter coat"
+	name = "\improper NTSF winter coat"
 	icon_state = "wintercoat_sec"
 	armor = list(melee = 10, bullet = 10, laser = 10, energy = 5, bomb = 15, bio = 0, rad = 0)
 	allowed = list(/obj/item/weapon/gun/energy, /obj/item/weapon/reagent_containers/spray/pepper, /obj/item/weapon/gun/projectile, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/weapon/melee/baton, /obj/item/weapon/restraints/handcuffs, /obj/item/device/flashlight/seclite, /obj/item/weapon/melee/classic_baton/telescopic)
@@ -703,7 +703,7 @@
 		)
 
 /obj/item/clothing/suit/jacket/pilot
-	name = "security bomber jacket"
+	name = "pilot bomber jacket"
 	desc = "A stylish and worn-in armoured black bomber jacket emblazoned with the NT Security crest on the left breast. Looks rugged."
 	icon_state = "bombersec"
 	item_state = "bombersec"
