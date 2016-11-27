@@ -241,6 +241,8 @@ var/global/totaltribbles = 0   //global variable so it updates for all tribbles,
 	icon_state = "furglovesico"
 	item_state = "furgloves"
 	transfer_prints = TRUE
+	transfer_blood = TRUE
+	siemens_coefficient = 0
 
 // Equivalent to a winter coat's hood
 /obj/item/clothing/head/furcap
