@@ -67,14 +67,14 @@
 
 //Security
 /obj/item/clothing/head/HoS
-	name = "Commander cap"
+	name = "\improper Commander cap"
 	desc = "The robust standard-issue cap of the NTSF Commander. For showing the officers who's in charge."
 	icon_state = "hoscap"
 	armor = list(melee = 40, bullet = 30, laser = 25, energy = 10, bomb = 25, bio = 10, rad = 0)
 	strip_delay = 80
 
 /obj/item/clothing/head/HoS/beret
-	name = "Commander beret"
+	name = "\improper Commander beret"
 	desc = "A robust beret for the NTSF Commander, for looking stylish while not sacrificing protection."
 	icon_state = "beret_hos_black"
 
@@ -94,7 +94,7 @@
 	strip_delay = 60
 
 /obj/item/clothing/head/beret/sec
-	name = "NTSF beret"
+	name = "\improper NTSF beret"
 	desc = "A beret with the NTSF insignia emblazoned on it. For officers that are more inclined towards style than safety."
 	icon_state = "beret_officer"
 	armor = list(melee = 30, bullet = 25, laser = 25, energy = 10, bomb = 25, bio = 0, rad = 0)

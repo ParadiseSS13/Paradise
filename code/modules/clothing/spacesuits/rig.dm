@@ -475,7 +475,7 @@
 
 	//Security
 /obj/item/clothing/head/helmet/space/rig/security
-	name = "NTSF hardsuit helmet"
+	name = "\improper NTSF hardsuit helmet"
 	desc = "A special helmet designed for work in a hazardous, low pressure environment. Has an additional layer of armor."
 	icon_state = "rig0-sec"
 	item_state = "sec_helm"
@@ -484,7 +484,7 @@
 
 /obj/item/clothing/suit/space/rig/security
 	icon_state = "rig-sec"
-	name = "NTSF hardsuit"
+	name = "\improper NTSF hardsuit"
 	desc = "A special suit that protects against hazardous, low pressure environments. Has an additional layer of armor."
 	item_state = "sec_hardsuit"
 	armor = list(melee = 30, bullet = 15, laser = 30, energy = 10, bomb = 10, bio = 100, rad = 50)
@@ -530,7 +530,7 @@
 
 
 /obj/item/clothing/head/helmet/space/rig/security/hos
-	name = "NTSF commander's hardsuit helmet"
+	name = "\improper NTSF commander's hardsuit helmet"
 	desc = "a special bulky helmet designed for work in a hazardous, low pressure environment. Has an additional layer of armor."
 	icon_state = "rig0-hos"
 	item_color = "hos"
@@ -540,7 +540,7 @@
 
 /obj/item/clothing/suit/space/rig/security/hos
 	icon_state = "rig-hos"
-	name = "NTSF commander's hardsuit"
+	name = "\improper NTSF commander's hardsuit"
 	desc = "A special bulky suit that protects against hazardous, low pressure environments. Has an additional layer of armor."
 	armor = list(melee = 45, bullet = 25, laser = 30, energy = 10, bomb = 25, bio = 100, rad = 50)
 	sprite_sheets = null

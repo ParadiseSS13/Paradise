@@ -28,7 +28,7 @@
 	flags_size = null
 
 /obj/item/clothing/under/rank/security
-	name = "NTSF Officer's jumpsuit"
+	name = "\improper NTSF Officer's jumpsuit"
 	desc = "It's made of a slightly sturdier material than standard jumpsuits, to allow for robust protection."
 	icon_state = "security"
 	item_state = "r_suit"
@@ -38,7 +38,7 @@
 	strip_delay = 50
 
 /obj/item/clothing/under/rank/security/skirt
-	name = "NTSF Officer's jumpskirt"
+	name = "\improper NTSF Officer's jumpskirt"
 	desc = "Standard feminine fashion for NTSF Officers.  It's made of sturdier material than the standard jumpskirts."
 	icon_state = "secredf"
 	item_state = "r_suit"
@@ -55,7 +55,7 @@
 	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/security2
-	name = "NTSF Officer's uniform"
+	name = "\improper NTSF Officer's uniform"
 	desc = "It's made of a slightly sturdier material, to allow for robust protection."
 	icon_state = "redshirt2"
 	item_state = "r_suit"
@@ -95,7 +95,7 @@
  */
 /obj/item/clothing/under/rank/head_of_security
 	desc = "It's a jumpsuit worn by those few with the dedication to achieve the position of \"NTSF Commander\". It has additional armor to protect the wearer."
-	name = "NTSF Commander's jumpsuit"
+	name = "\improper NTSF Commander's jumpsuit"
 	icon_state = "hos"
 	item_state = "r_suit"
 	item_color = "hosred"
@@ -105,7 +105,7 @@
 
 /obj/item/clothing/under/rank/head_of_security/skirt
 	desc = "It's a fashionable jumpskirt worn by those few with the dedication to achieve the position of \"NTSF Commander\". It has additional armor to protect the wearer."
-	name = "NTSF Commander's jumpskirt"
+	name = "\improper NTSF Commander's jumpskirt"
 	icon_state = "hosredf"
 	item_state = "r_suit"
 	item_color = "hosredf"
@@ -119,7 +119,7 @@
 //Jensen cosplay gear
 /obj/item/clothing/under/rank/head_of_security/jensen
 	desc = "You never asked for anything that stylish."
-	name = "NTSF Commander's jumpsuit"
+	name = "\improper NTSF Commander's jumpsuit"
 	icon_state = "jensen"
 	item_state = "jensen"
 	item_color = "jensen"
@@ -150,7 +150,7 @@
 //TG Station
 
 /obj/item/clothing/under/rank/security/formal
-	name = "NTSF formal suit"
+	name = "\improper NTSF formal suit"
 	desc = "A formal security suit for officers complete with nanotrasen belt buckle."
 	icon_state = "security_formal"
 	item_state = "gy_suit"
@@ -164,7 +164,7 @@
 	item_color = "warden_formal"
 
 /obj/item/clothing/under/rank/head_of_security/formal
-	name = "NTSF Commander's suit"
+	name = "\improper NTSF Commander's suit"
 	desc = "A security suit decorated for those few with the dedication to achieve the position of NTSF Commander."
 	icon_state = "hos_formal"
 	item_state = "gy_suit"
@@ -174,7 +174,7 @@
 //Brig Physician
 /obj/item/clothing/under/rank/security/brigphys
 	desc = "Jumpsuit for NTSF Medic it has both medical and security protection."
-	name = "NTSF Medic's jumpsuit"
+	name = "\improper NTSF Medic's jumpsuit"
 	icon_state = "brig_phys"
 	item_state = "brig_phys"
 	item_color = "brig_phys"
@@ -185,7 +185,7 @@
 //Pod Pilot
 /obj/item/clothing/under/rank/security/pod_pilot
 	desc = "Suit for your regular pilot."
-	name = "NTSF pilot's jumpsuit"
+	name = "\improper NTSF pilot's jumpsuit"
 	icon_state = "pod_pilot"
 	item_state = "pod_pilot"
 	item_color = "pod_pilot"
