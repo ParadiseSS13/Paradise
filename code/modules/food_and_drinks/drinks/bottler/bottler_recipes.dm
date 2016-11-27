@@ -22,14 +22,14 @@ There is no excuse to do this wrong now that there is an example for you. --Fals
 */
 
 
-/datum/bottler_recipe/Paradise_Punch
-	name = "Paradise Punch"
-	description = "Tastes just how you'd think Paradise would if you could bottle it."
+/datum/bottler_recipe/Stratus_Sorbet
+	name = "Stratus Sorbet"
+	description = "Tastes just like mom used to make."
 	ingredients = list(/obj/item/weapon/reagent_containers/food/snacks/grown,
 					/obj/item/weapon/reagent_containers/food/snacks/grown,
 					/obj/item/weapon/reagent_containers/food/snacks/grown)
-	tags = list("grapes", "banana", "cherries")
-	result = "paradise_punch"
+	tags = list("cherries", "cherries", "cherries")
+	result = "stratus_sorbet"
 
 /datum/bottler_recipe/Applepocalypse
 	name = "Apple-pocalypse"
