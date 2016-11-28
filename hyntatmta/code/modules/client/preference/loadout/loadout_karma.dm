@@ -73,7 +73,7 @@
 	allowed_roles = list("Chemist", "Librarian")
 
 /datum/gear/karma/dornan
-	display_name = "sergeant's helmet"
-	wl_id = "4010"
+	display_name = "sergeant helmet"
+	wl_id = "0001"
 	path = /obj/item/clothing/head/atmta/dornan
 	allowed_roles = list("Head of Security", "Warden")
