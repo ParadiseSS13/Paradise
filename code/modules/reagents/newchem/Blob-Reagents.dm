@@ -61,7 +61,7 @@
 		volume = ..()
 		M.apply_damage(0.4*volume, BRUTE)
 		M.apply_damage(1*volume, OXY)
-		M.losebreath += round(0.3*volume)
+		M.AdjustLoseBreath(round(0.3*volume))
 
 
 /datum/reagent/blob/kinetic //does semi-random brute damage

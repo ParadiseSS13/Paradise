@@ -288,6 +288,10 @@
 		if((O in user) && is_type_in_list(O,own_blacklist))
 			continue
 		if(is_type_in_list(O,types_allowed))
+			if(isanimal(O))
+				var/mob/living/simple_animal/SA = O
+				if(!SA.gold_core_spawnable)
+					continue
 			possible_targets += O
 
 	targets += input("Choose the target of your hunger.", "Targeting") as null|anything in possible_targets

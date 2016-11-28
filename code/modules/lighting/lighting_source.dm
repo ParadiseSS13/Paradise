@@ -207,6 +207,7 @@
 #define LUM_FALLOFF(C, T) (1 - CLAMP01(sqrt((C.x - T.x) ** 2 + (C.y - T.y) ** 2 + LIGHTING_HEIGHT) / max(1, light_range)))
 
 /datum/light_source/proc/apply_lum()
+	var/static/update_gen = 1
 	applied = 1
 
 	// Keep track of the last applied lum values so that the lighting can be reversed
@@ -215,10 +216,13 @@
 	applied_lum_b = lum_b
 
 	FOR_DVIEW(var/turf/T, light_range, source_turf, INVISIBILITY_LIGHTING)
-		for(var/datum/lighting_corner/C in T.get_corners())
-			if(effect_str.Find(C))
-				continue
+		if (!T.lighting_corners_initialised)
+			T.generate_missing_corners()
 
+		for(var/datum/lighting_corner/C in T.get_corners())
+			if(C.update_gen == update_gen)
+				continue
+			C.update_gen = update_gen
 			C.affecting += src
 
 			if(!C.active)
@@ -231,6 +235,7 @@
 
 		T.affecting_lights += src
 		affecting_turfs    += T
+	update_gen++
 
 /datum/light_source/proc/remove_lum()
 	applied = FALSE
@@ -260,6 +265,8 @@
 	var/list/datum/lighting_corner/corners = list()
 	var/list/turf/turfs                    = list()
 	FOR_DVIEW(var/turf/T, light_range, source_turf, 0)
+		if (!T.lighting_corners_initialised)
+			T.generate_missing_corners()
 		corners |= T.get_corners()
 		turfs   += T
 

@@ -123,8 +123,6 @@ log transactions
 		to_chat(user, "\red Artificial unit recognized. Artificial units do not currently receive monetary compensation, as per Nanotrasen regulation #1005.")
 		return
 	if(get_dist(src,user) <= 1)
-		//check to see if the user has low security enabled
-		scan_user(user)
 		add_fingerprint(user)
 
 		//js replicated from obj/machinery/computer/card
@@ -252,55 +250,59 @@ log transactions
 					var/new_sec_level = max( min(text2num(href_list["new_security_level"]), 2), 0)
 					authenticated_account.security_level = new_sec_level
 			if("attempt_auth")
-				if(linked_db && !ticks_left_locked_down)
-					var/tried_account_num = text2num(href_list["account_num"])
-					if(!tried_account_num)
-						tried_account_num = held_card.associated_account_number
-					var/tried_pin = text2num(href_list["account_pin"])
+				if(linked_db)
+					// check if they have low security enabled
+					scan_user(usr)
+				
+					if(!ticks_left_locked_down && held_card)
+						var/tried_account_num = text2num(href_list["account_num"])
+						if(!tried_account_num)
+							tried_account_num = held_card.associated_account_number
+						var/tried_pin = text2num(href_list["account_pin"])
 
-					authenticated_account = attempt_account_access(tried_account_num, tried_pin, held_card && held_card.associated_account_number == tried_account_num ? 2 : 1)
-					if(!authenticated_account)
-						number_incorrect_tries++
-						if(previous_account_number == tried_account_num)
-							if(number_incorrect_tries > max_pin_attempts)
-								//lock down the atm
-								ticks_left_locked_down = 30
-								playsound(src, 'sound/machines/buzz-two.ogg', 50, 1)
+						authenticated_account = attempt_account_access(tried_account_num, tried_pin, held_card && held_card.associated_account_number == tried_account_num ? 2 : 1)
+						if(!authenticated_account)
+							number_incorrect_tries++
+							if(previous_account_number == tried_account_num)
+								if(number_incorrect_tries > max_pin_attempts)
+									//lock down the atm
+									ticks_left_locked_down = 30
+									playsound(src, 'sound/machines/buzz-two.ogg', 50, 1)
 
-								//create an entry in the account transaction log
-								var/datum/money_account/failed_account = linked_db.get_account(tried_account_num)
-								if(failed_account)
-									var/datum/transaction/T = new()
-									T.target_name = failed_account.owner_name
-									T.purpose = "Unauthorised login attempt"
-									T.source_terminal = machine_id
-									T.date = current_date_string
-									T.time = worldtime2text()
-									failed_account.transaction_log.Add(T)
+									//create an entry in the account transaction log
+									var/datum/money_account/failed_account = linked_db.get_account(tried_account_num)
+									if(failed_account)
+										var/datum/transaction/T = new()
+										T.target_name = failed_account.owner_name
+										T.purpose = "Unauthorised login attempt"
+										T.source_terminal = machine_id
+										T.date = current_date_string
+										T.time = worldtime2text()
+										failed_account.transaction_log.Add(T)
+								else
+									to_chat(usr, "\red [bicon(src)] Incorrect pin/account combination entered, [max_pin_attempts - number_incorrect_tries] attempts remaining.")
+									previous_account_number = tried_account_num
+									playsound(src, 'sound/machines/buzz-sigh.ogg', 50, 1)
 							else
-								to_chat(usr, "\red [bicon(src)] Incorrect pin/account combination entered, [max_pin_attempts - number_incorrect_tries] attempts remaining.")
-								previous_account_number = tried_account_num
-								playsound(src, 'sound/machines/buzz-sigh.ogg', 50, 1)
+								to_chat(usr, "\red [bicon(src)] incorrect pin/account combination entered.")
+								number_incorrect_tries = 0
 						else
-							to_chat(usr, "\red [bicon(src)] incorrect pin/account combination entered.")
-							number_incorrect_tries = 0
-					else
-						playsound(src, 'sound/machines/twobeep.ogg', 50, 1)
-						ticks_left_timeout = 120
-						view_screen = NO_SCREEN
+							playsound(src, 'sound/machines/twobeep.ogg', 50, 1)
+							ticks_left_timeout = 120
+							view_screen = NO_SCREEN
 
-						//create a transaction log entry
-						var/datum/transaction/T = new()
-						T.target_name = authenticated_account.owner_name
-						T.purpose = "Remote terminal access"
-						T.source_terminal = machine_id
-						T.date = current_date_string
-						T.time = worldtime2text()
-						authenticated_account.transaction_log.Add(T)
+							//create a transaction log entry
+							var/datum/transaction/T = new()
+							T.target_name = authenticated_account.owner_name
+							T.purpose = "Remote terminal access"
+							T.source_terminal = machine_id
+							T.date = current_date_string
+							T.time = worldtime2text()
+							authenticated_account.transaction_log.Add(T)
 
-						to_chat(usr, "\blue [bicon(src)] Access granted. Welcome user '[authenticated_account.owner_name].'")
+							to_chat(usr, "\blue [bicon(src)] Access granted. Welcome user '[authenticated_account.owner_name].'")
 
-					previous_account_number = tried_account_num
+						previous_account_number = tried_account_num
 			if("withdrawal")
 				var/amount = max(text2num(href_list["funds_amount"]),0)
 				if(amount <= 0)
@@ -404,3 +406,5 @@ log transactions
 					T.date = current_date_string
 					T.time = worldtime2text()
 					authenticated_account.transaction_log.Add(T)
+					
+					view_screen = NO_SCREEN
