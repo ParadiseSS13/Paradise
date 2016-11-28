@@ -224,7 +224,7 @@ mob/living/carbon/human/proc/cum(mob/living/carbon/human/H as mob, mob/living/ca
 	H.druggy = 60
 	H.multiorgasms += 1
 	if (H.multiorgasms == 1)
-		add_logs(P, H, "came on")
+		add_logs(H, P, "came on")
 	H.erpcooldown = rand(200, 450)
 	if (H.multiorgasms > H.potenzia / 3)
 		if (H.staminaloss < P.potenzia * 4)
@@ -252,7 +252,7 @@ mob/living/carbon/human/proc/fuck(mob/living/carbon/human/H as mob, mob/living/c
 			if (H.lastfucked != P || H.lfhole != hole)
 				H.lastfucked = P
 				H.lfhole = hole
-				add_logs(P, H, "licked")
+				add_logs(H, P, "licked")
 
 			if (prob(5) && P.stat != DEAD)
 				H.visible_message("<font color=purple><B>[H] [message]</B></font>")
@@ -282,7 +282,7 @@ mob/living/carbon/human/proc/fuck(mob/living/carbon/human/H as mob, mob/living/c
 			if (H.lastfucked != P || H.lfhole != hole)
 				H.lastfucked = P
 				H.lfhole = hole
-				add_logs(P, H, "fingered")
+				add_logs(H, P, "fingered")
 
 			if (prob(5) && P.stat != DEAD)
 				H.visible_message("<font color=purple><B>[H] [message]</B></font>")
@@ -311,7 +311,7 @@ mob/living/carbon/human/proc/fuck(mob/living/carbon/human/H as mob, mob/living/c
 						message = pick("м[ya]гко обхватывает член [P] губами.", "приступает сосать член [P].")
 						H.lastfucked = P
 						H.lfhole = hole
-						add_logs(P, H, "sucked")
+						add_logs(H, P, "sucked")
 
 				if("Unathi")
 					message = pick("облизывает член [P].", "стимулирует орган [P] [ya]зыком.", "трёт член [P] о свой [ya]зык.", "проталкивает член [P] себе в пасть, стара[ya]сь не зацепить его зубами.", "стимулирует член [P] [ya]зыком.")
@@ -321,7 +321,7 @@ mob/living/carbon/human/proc/fuck(mob/living/carbon/human/H as mob, mob/living/c
 						message = pick("кончиком [ya]зыка касаетс[ya] члена [P].", "приступает облизывать член [P].")
 						H.lastfucked = P
 						H.lfhole = hole
-						add_logs(P, H, "sucked")
+						add_logs(H, P, "sucked")
 
 				if("Tajaran", "Vulpkanin")
 					message = pick("вылизывает член [P].", "обводит своим шершавым [ya]зычком вокруг члена [P].", "проталкивает член [P] себе в пасть, стара[ya]сь не зацепить его зубами.", "стимулирует член [P] [ya]зыком.")
@@ -331,7 +331,7 @@ mob/living/carbon/human/proc/fuck(mob/living/carbon/human/H as mob, mob/living/c
 						message = pick("кончиком [ya]зыка касаетс[ya] члена [P].", "приступает вылизывать член [P].")
 						H.lastfucked = P
 						H.lfhole = hole
-						add_logs(P, H, "sucked")
+						add_logs(H, P, "sucked")
 
 				if("Vox", "Vox Armalis")
 					message = pick("облизывает член [P].", "стимулирует орган [P] [ya]зыком.", "трёт член [P] о свой [ya]зык.", "проталкивает член [P] себе в глотку, стара[ya]сь не зацепить его клювом.", "стимулирует член [P] [ya]зыком.")
@@ -341,7 +341,7 @@ mob/living/carbon/human/proc/fuck(mob/living/carbon/human/H as mob, mob/living/c
 						message = pick("кончиком [ya]зыка касаетс[ya] члена [P].", "приступает облизывать член [P].")
 						H.lastfucked = P
 						H.lfhole = hole
-						add_logs(P, H, "sucked")
+						add_logs(H, P, "sucked")
 
 				if("Slime People")
 					message = pick("отсасывает [P].", "сосет член [P].", "стимулирует член [P] [ya]зыком.")
@@ -351,7 +351,7 @@ mob/living/carbon/human/proc/fuck(mob/living/carbon/human/H as mob, mob/living/c
 						message = pick("м[ya]гко обхватывает член [P] губами, обволакива[ya] его слизью.", "приступает сосать член [P].")
 						H.lastfucked = P
 						H.lfhole = hole
-						add_logs(P, H, "sucked")
+						add_logs(H, P, "sucked")
 
 				if("Kidan")
 					return
@@ -397,7 +397,7 @@ mob/living/carbon/human/proc/fuck(mob/living/carbon/human/H as mob, mob/living/c
 				message = pick("всаживает свой член по самые [ya]йца в [P].", "вводит свой орган любви в лоно [P].", "погружает свой корень похоти внутрь [P].", "проникает в [P].")
 				H.lastfucked = P
 				H.lfhole = hole
-				add_logs(P, H, "fucked")
+				add_logs(H, P, "fucked")
 
 			if (prob(5) && P.stat != DEAD)
 				H.visible_message("<font color=purple><B>[H] [message]</B></font>")
@@ -443,7 +443,7 @@ mob/living/carbon/human/proc/fuck(mob/living/carbon/human/H as mob, mob/living/c
 				message = pick(" безжалостно прорывает анальное отверстие [P].", "всаживает член [P] в очко.")
 				H.lastfucked = P
 				H.lfhole = hole
-				add_logs(P, H, "fucked in anus")
+				add_logs(H, P, "fucked in anus")
 
 			if (prob(5) && P.stat != DEAD)
 				H.visible_message("<font color=purple><B>[H] [message]</B></font>")
@@ -490,7 +490,7 @@ mob/living/carbon/human/proc/fuck(mob/living/carbon/human/H as mob, mob/living/c
 				message = pick(" бесцеремонно проталкивает свой член [P] в глотку.")
 				H.lastfucked = P
 				H.lfhole = hole
-				add_logs(P, H, "fucked in mouth")
+				add_logs(H, P, "fucked in mouth")
 
 			if (prob(5) && H.stat != DEAD)
 				H.visible_message("<font color=purple><B>[H][message]</B></font>")
@@ -525,7 +525,7 @@ mob/living/carbon/human/proc/fuck(mob/living/carbon/human/H as mob, mob/living/c
 				message = pick("осторожно насаживаетс[ya] на половой орган [P]")
 				H.lastfucked = P
 				H.lfhole = hole
-				add_logs(P, H, "fucked")
+				add_logs(H, P, "fucked")
 
 			if (prob(5) && P.stat != DEAD)
 				H.visible_message("<font color=purple><B>[H] [message].</B></font>")
