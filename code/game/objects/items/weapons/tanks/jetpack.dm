@@ -119,6 +119,12 @@
 	throw_range = 8
 	w_class = 3
 
+/obj/item/weapon/tank/jetpack/oxygen/red
+	name = "Security Jetpack (Oxygen)"
+	desc = "A red tank of compressed oxygen for use as propulsion in zero-gravity areas. Use with caution."
+	icon_state = "jetpack-red"
+	item_state = "jetpack-red"
+
 /obj/item/weapon/tank/jetpack/oxygenblack
 	name = "Jetpack (Oxygen)"
 	desc = "A black tank of compressed oxygen for use as propulsion in zero-gravity areas. Use with caution."
