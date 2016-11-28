@@ -134,7 +134,9 @@
 	trash = /obj/item/trash/candy
 	filling_color = "#7D5F46"
 	bitesize = 3
-	list_reagents = list("nutriment" = 2, "chocolate" = 5)
+	junkiness = 25
+	list_reagents = list("nutriment" = 1, "chocolate" = 1)
+
 
 /obj/item/weapon/reagent_containers/food/snacks/candy/candycane
 	name = "candy cane"

@@ -66,7 +66,7 @@
 					if(mind) //Handles vampires "eating" blood that isn't their own.
 						if(mind in ticker.mode.vampires)
 							for(var/datum/reagent/blood/BL in vessel.reagent_list)
-								if(nutrition >= 450)
+								if(nutrition >= NUTRITION_LEVEL_WELL_FED)
 									break //We don't want blood tranfusions making vampires fat.
 								if(BL.data["donor"] != src)
 									nutrition += (15 * REAGENTS_METABOLISM)

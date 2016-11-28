@@ -300,7 +300,7 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 		H.vessel.remove_reagent("blood", 25)
 		if(ishuman(owner))
 			var/mob/living/carbon/human/V = owner
-			V.nutrition = min(450, V.nutrition + (blood / 2))
+			V.nutrition = min(NUTRITION_LEVEL_WELL_FED, V.nutrition + (blood / 2))
 
 	draining = null
 	to_chat(owner, "<span class='notice'>You stop draining [H.name] of blood.</span>")
@@ -325,8 +325,8 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 			else if(istype(p, /datum/vampire_passive))
 				var/datum/vampire_passive/power = p
 				to_chat(owner, "<span class='notice'>[power.gain_desc]</span>")
-				
-	
+
+
 /datum/game_mode/proc/remove_vampire(datum/mind/vampire_mind)
 	if(vampire_mind in vampires)
 		ticker.mode.vampires -= vampire_mind
@@ -335,12 +335,12 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 		if(vampire_mind.vampire)
 			vampire_mind.vampire.remove_vampire_powers()
 			qdel(vampire_mind.vampire)
-			vampire_mind.vampire = null	
+			vampire_mind.vampire = null
 		if(issilicon(vampire_mind.current))
 			to_chat(vampire_mind.current, "<span class='userdanger'>You have been turned into a robot! You can feel your powers fading away...</span>")
 		else
 			to_chat(vampire_mind.current, "<span class='userdanger'>You have been brainwashed! You are no longer a vampire.</span>")
-		ticker.mode.update_vampire_icons_removed(vampire_mind)	
+		ticker.mode.update_vampire_icons_removed(vampire_mind)
 
 //prepare for copypaste
 /datum/game_mode/proc/update_vampire_icons_added(datum/mind/vampire_mind)

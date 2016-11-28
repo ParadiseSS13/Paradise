@@ -47,7 +47,7 @@
 		qdel(src)
 		return 0
 
-	if(istype(M, /mob/living/carbon))
+	if(iscarbon(M))
 		var/mob/living/carbon/C = M
 		if(C.eat(src, user))
 			bitecount++
@@ -263,6 +263,7 @@
 	icon_state = "chips"
 	trash = /obj/item/trash/chips
 	filling_color = "#E8C31E"
+	junkiness = 20
 	list_reagents = list("nutriment" = 3, "sodiumchloride" = 1)
 
 /obj/item/weapon/reagent_containers/food/snacks/cornchips
@@ -913,7 +914,8 @@
 	trash = /obj/item/trash/sosjerky
 	filling_color = "#631212"
 	bitesize = 2
-	list_reagents = list("protein" = 4)
+	junkiness = 25
+	list_reagents = list("protein" = 1, "sugar" = 3)
 
 /obj/item/weapon/reagent_containers/food/snacks/pistachios
 	name = "Pistachios"
@@ -921,7 +923,8 @@
 	desc = "A snack of deliciously salted pistachios. A perfectly valid choice..."
 	trash = /obj/item/trash/pistachios
 	filling_color = "#BAD145"
-	list_reagents = list("plantmatter" = 6, "sodiumchloride" = 1)
+	junkiness = 20
+	list_reagents = list("plantmatter" = 2, "sodiumchloride" = 1, "sugar" = 4)
 
 /obj/item/weapon/reagent_containers/food/snacks/no_raisin
 	name = "4no Raisins"
@@ -929,7 +932,8 @@
 	desc = "Best raisins in the universe. Not sure why."
 	trash = /obj/item/trash/raisins
 	filling_color = "#343834"
-	list_reagents = list("plantmatter" = 6)
+	junkiness = 25
+	list_reagents = list("plantmatter" = 2, "sugar" = 4)
 
 /obj/item/weapon/reagent_containers/food/snacks/spacetwinkie
 	name = "Space Twinkie"
@@ -937,6 +941,7 @@
 	desc = "Guaranteed to survive longer then you will."
 	filling_color = "#FFE591"
 	bitesize = 2
+	junkiness = 25
 	list_reagents = list("sugar" = 4)
 
 /obj/item/weapon/reagent_containers/food/snacks/cheesiehonkers
@@ -946,35 +951,40 @@
 	trash = /obj/item/trash/cheesie
 	filling_color = "#FFA305"
 	bitesize = 2
-	list_reagents = list("nutriment" = 4, "fake_cheese" = 2)
+	junkiness = 25
+	list_reagents = list("nutriment" = 1, "fake_cheese" = 2, "sugar" = 3)
 
 /obj/item/weapon/reagent_containers/food/snacks/chinese/chowmein
 	name = "chow mein"
 	desc = "What is in this anyways?"
 	icon_state = "chinese1"
 	bitesize = 2
-	list_reagents = list("nutriment" = 6, "beans" = 3, "msg" = 4)
+	junkiness = 25
+	list_reagents = list("nutriment" = 1, "beans" = 3, "msg" = 4, "sugar" = 2)
 
 /obj/item/weapon/reagent_containers/food/snacks/chinese/tao
 	name = "Admiral Yamamoto carp"
 	desc = "Tastes like chicken."
 	icon_state = "chinese2"
 	bitesize = 2
-	list_reagents = list("nutriment" = 4, "protein" = 2, "msg" = 4)
+	junkiness = 25
+	list_reagents = list("nutriment" = 1, "protein" = 1, "msg" = 4, "sugar" = 4)
 
 /obj/item/weapon/reagent_containers/food/snacks/chinese/newdles
 	name = "chinese newdles"
 	desc = "Made fresh, weekly!"
 	icon_state = "chinese3"
 	bitesize = 2
-	list_reagents = list("nutriment" = 6, "msg" = 4)
+	junkiness = 25
+	list_reagents = list("nutriment" = 1, "msg" = 4, "sugar" = 3)
 
 /obj/item/weapon/reagent_containers/food/snacks/chinese/rice
 	name = "fried rice"
 	desc = "A timeless classic."
 	icon_state = "chinese4"
 	bitesize = 2
-	list_reagents = list("nutriment" = 3, "rice" = 3, "msg" = 4)
+	junkiness = 20
+	list_reagents = list("nutriment" = 1, "rice" = 3, "msg" = 4, "sugar" = 2)
 
 /obj/item/weapon/reagent_containers/food/snacks/syndicake
 	name = "Syndi-Cakes"
@@ -2659,4 +2669,5 @@
 	trash = /obj/item/trash/tastybread
 	filling_color = "#A66829"
 	bitesize = 2
+	junkiness = 20
 	list_reagents = list("nutriment" = 6)
