@@ -526,7 +526,7 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) \
 
 /datum/objective/heist/kidnap
 /datum/objective/heist/kidnap/choose_target()
-	var/list/roles = list("Head of Security","Head of Personnel", "Captain", "Nanotrasen Representative")
+	var/list/roles = list("Head of Security", "Head of Personnel", "Captain", "Nanotrasen Representative")
 	var/list/possible_targets = list()
 	var/list/priority_targets = list()
 
@@ -613,7 +613,7 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) \
 			target_amount = 1
 			loot = "the Chief Engineer's advanced magnetic boots"
 		if(11)
-			target = /obj/item/clothing/shoes/magboots/advance
+			target = /obj/item/weapon/stock_parts/cell
 			target_amount = 6
 			loot = "six power cells"
 			tech = 0
