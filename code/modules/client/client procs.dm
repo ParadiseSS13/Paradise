@@ -309,11 +309,11 @@
 							src.DB_item_unlock("5001",3)
 							src.DB_item_unlock("6001",3)
 							src.DB_item_unlock("7001",3)
-					if("4010")
+					if("0002")
 						if(karma < 30)
 							to_chat(usr, "IDIOT! You do not have enough karma!")
 						else
-							src.DB_item_unlock("4010", 30)
+							src.DB_item_unlock("0002", 30)
 
 	switch(href_list["_src_"])
 		if("holder")	hsrc = holder
