@@ -74,6 +74,6 @@
 
 /datum/gear/karma/dornan
 	display_name = "sergeant helmet"
-	wl_id = "1001"
+	wl_id = "0001"
 	path = /obj/item/clothing/head/atmta/dornan
 	allowed_roles = list("Head of Security", "Warden")
