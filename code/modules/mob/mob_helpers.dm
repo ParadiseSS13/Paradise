@@ -75,12 +75,6 @@ proc/iscuffed(A)
 			return 1
 	return 0
 
-proc/isdeaf(A)
-	if(istype(A, /mob))
-		var/mob/M = A
-		return (M.disabilities & DEAF) || M.ear_deaf
-	return 0
-
 proc/hassensorlevel(A, var/level)
 	var/mob/living/carbon/human/H = A
 	if(istype(H) && istype(H.w_uniform, /obj/item/clothing/under))
@@ -456,11 +450,15 @@ var/list/intents = list(I_HELP,I_DISARM,I_GRAB,I_HARM)
 					A.jump_target = source
 					if(!alert_overlay)
 						var/old_layer = source.layer
+						var/old_plane = source.plane
 						source.layer = FLOAT_LAYER
+						source.plane = FLOAT_PLANE
 						A.overlays += source
 						source.layer = old_layer
+						source.plane = old_plane
 					else
 						alert_overlay.layer = FLOAT_LAYER
+						alert_overlay.plane = FLOAT_PLANE
 						A.overlays += alert_overlay
 
 /mob/proc/switch_to_camera(var/obj/machinery/camera/C)
@@ -510,11 +508,11 @@ var/list/intents = list(I_HELP,I_DISARM,I_GRAB,I_HARM)
 					search_pda = 0
 
 		//Fixes renames not being reflected in objective text
-		var/list/O = subtypesof(/datum/objective)
 		var/length
 		var/pos
-		for(var/datum/objective/objective in O)
-			if(objective.target != mind) continue
+		for(var/datum/objective/objective in all_objectives)
+			if(!mind || objective.target != mind)
+				continue
 			length = lentext(oldname)
 			pos = findtextEx(objective.explanation_text, oldname)
 			objective.explanation_text = copytext(objective.explanation_text, 1, pos)+newname+copytext(objective.explanation_text, pos+length)

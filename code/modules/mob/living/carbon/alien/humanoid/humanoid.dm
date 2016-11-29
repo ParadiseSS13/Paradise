@@ -16,9 +16,7 @@
 
 //This is fine right now, if we're adding organ specific damage this needs to be updated
 /mob/living/carbon/alien/humanoid/New()
-	var/datum/reagents/R = new/datum/reagents(1000)
-	reagents = R
-	R.my_atom = src
+	create_reagents(1000)
 	if(name == "alien")
 		name = text("alien ([rand(1, 1000)])")
 	real_name = name
@@ -96,13 +94,15 @@
 
 			f_loss += 60
 
-			adjustEarDamage(30, 120)
+			AdjustEarDamage(30)
+			AdjustEarDeaf(120)
 
 		if(3.0)
 			b_loss += 30
 			if(prob(50) && !shielded)
 				Paralyse(1)
-			adjustEarDamage(15,60)
+			AdjustEarDamage(15)
+			AdjustEarDeaf(60)
 
 	adjustBruteLoss(b_loss)
 	adjustFireLoss(f_loss)
@@ -242,70 +242,6 @@
 						playsound(loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
 						visible_message("<span class='danger'>[M] has attempted to disarm [src]!</span>")
 	return
-
-/*Code for aliens attacking aliens. Because aliens act on a hivemind, I don't see them as very aggressive with each other.
-As such, they can either help or harm other aliens. Help works like the human help command while harm is a simple nibble.
-In all, this is a lot like the monkey code. /N
-*/
-
-/mob/living/carbon/alien/humanoid/attack_alien(mob/living/carbon/alien/humanoid/M as mob)
-	if(!ticker)
-		to_chat(M, "You cannot attack people before the game has started.")
-		return
-
-	if(istype(loc, /turf) && istype(loc.loc, /area/start))
-		to_chat(M, "No attacking people at spawn, you jackass.")
-		return
-
-	..()
-
-	switch(M.a_intent)
-
-		if(I_HELP)
-			sleeping = max(0,sleeping-5)
-			resting = 0
-			AdjustParalysis(-3)
-			AdjustStunned(-3)
-			AdjustWeakened(-3)
-			visible_message("<span class='notice'>[M.name] nuzzles [src] trying to wake it up!</span>")
-
-		else
-			if(health > 0)
-				M.do_attack_animation(src)
-				playsound(loc, 'sound/weapons/bite.ogg', 50, 1, -1)
-				var/damage = rand(1, 3)
-				visible_message("<span class='danger'>[M.name] bites [src]!!</span>", \
-						"<span class='userdanger'>[M.name] bites [src]!!</span>")
-
-				adjustBruteLoss(damage)
-				updatehealth()
-			else
-				to_chat(M, "<span class='warning'>[name] is too injured for that.</span>")
-	return
-
-
-/mob/living/carbon/alien/humanoid/attack_larva(mob/living/carbon/alien/larva/L as mob)
-
-	switch(L.a_intent)
-		if(I_HELP)
-			visible_message("<span class='notice'>[L] rubs its head against [src].</span>")
-
-
-		else
-			if(health > 0)
-				L.do_attack_animation(src)
-				playsound(loc, 'sound/weapons/bite.ogg', 50, 1, -1)
-				var/damage = rand(1, 3)
-				visible_message("<span class='danger'>[L.name] bites [src]!!</span>", \
-						"<span class='userdanger'>[L.name] bites [src]!!</span>")
-
-				adjustBruteLoss(damage)
-				updatehealth()
-			else
-				to_chat(L, "<span class='warning'>[name] is too injured for that.</span>")
-	return
-
-
 
 /mob/living/carbon/alien/humanoid/restrained()
 	if(handcuffed)

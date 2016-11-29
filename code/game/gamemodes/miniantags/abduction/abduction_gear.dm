@@ -466,7 +466,7 @@ Congratulations! You are now trained for xenobiology research!"}
 		L.Sleeping(60)
 		add_logs(user, L, "put to sleep")
 	else
-		L.drowsyness += 1
+		L.AdjustDrowsy(1)
 		to_chat(user, "<span class='warning'>Sleep inducement works fully only on stunned specimens! </span>")
 		L.visible_message("<span class='danger'>[user] tried to induce sleep in [L] with [src]!</span>", \
 							"<span class='userdanger'>You suddenly feel drowsy!</span>")

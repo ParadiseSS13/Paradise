@@ -706,8 +706,8 @@
 /mob/living/simple_animal/proc/sentience_act() //Called when a simple animal gains sentience via gold slime potion
 	return
 
-/mob/living/simple_animal/adjustEarDamage()
+/mob/living/simple_animal/SetEarDamage()
 	return
 
-/mob/living/simple_animal/setEarDamage()
+/mob/living/simple_animal/SetEarDeaf()
 	return

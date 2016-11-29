@@ -1,6 +1,5 @@
 
 var/global/BSACooldown = 0
-var/global/floorIsLava = 0
 var/global/nologevent = 0
 
 ////////////////////////////////

@@ -78,16 +78,13 @@ var/list/robot_verbs_default = list(
 
 	var/updating = 0 //portable camera camerachunk update
 
-	hud_possible = list(SPECIALROLE_HUD, DIAG_STAT_HUD, DIAG_HUD, DIAG_BATT_HUD,NATIONS_HUD)
+	hud_possible = list(SPECIALROLE_HUD, DIAG_STAT_HUD, DIAG_HUD, DIAG_BATT_HUD, NATIONS_HUD)
 
 	var/magpulse = 0
 	var/ionpulse = 0 // Jetpack-like effect.
 	var/ionpulse_on = 0 // Jetpack-like effect.
 	var/datum/effect/system/ion_trail_follow/ion_trail // Ionpulse effect.
-
-	var/obj/item/borg/sight/hud/sec/sechud = null
-	var/obj/item/borg/sight/hud/med/healthhud = null
-
+	
 	var/datum/action/item_action/toggle_research_scanner/scanner = null
 
 /mob/living/silicon/robot/New(loc,var/syndie = 0,var/unfinished = 0, var/alien = 0)
@@ -733,18 +730,18 @@ var/list/robot_verbs_default = list(
 		else
 			to_chat(user, "Unable to locate a radio.")
 
-	else if(istype(W, /obj/item/weapon/card/id)||istype(W, /obj/item/device/pda))			// trying to unlock the interface with an ID card
+	else if(istype(W, /obj/item/weapon/card/id) || istype(W, /obj/item/device/pda))			// trying to unlock the interface with an ID card
 		if(emagged)//still allow them to open the cover
-			to_chat(user, "The interface seems slightly damaged")
+			to_chat(user, "The interface seems slightly damaged.")
 		if(opened)
 			to_chat(user, "You must close the cover to swipe an ID card.")
 		else
-			if(allowed(usr))
+			if(allowed(W))
 				locked = !locked
 				to_chat(user, "You [ locked ? "lock" : "unlock"] [src]'s interface.")
 				update_icons()
 			else
-				to_chat(user, "\red Access denied.")
+				to_chat(user, "<span class='warning'>Access denied.</span>")
 
 	else if(istype(W, /obj/item/borg/upgrade/))
 		var/obj/item/borg/upgrade/U = W
@@ -960,29 +957,15 @@ var/list/robot_verbs_default = list(
 			user.visible_message("<span class='notice'>[user] pets [src]!</span>", \
 								"<span class='notice'>You pet [src]!</span>")
 
-/mob/living/silicon/robot/proc/allowed(mob/M)
-	//check if it doesn't require any access at all
-	if(check_access(null))
+/mob/living/silicon/robot/proc/allowed(obj/item/I)
+	var/obj/dummy = new /obj(null) // Create a dummy object to check access on as to avoid having to snowflake check_access on every mob
+	dummy.req_access = req_access
+	
+	if(dummy.check_access(I))
+		qdel(dummy)
 		return 1
-	if(istype(M, /mob/living/carbon/human))
-		var/mob/living/carbon/human/H = M
-		//if they are holding or wearing a card that has access, that works
-		if(check_access(H.get_active_hand()) || check_access(H.wear_id))
-			return 1
-	return 0
-
-/mob/living/silicon/robot/proc/check_access(obj/item/weapon/card/id/I)
-	if(!istype(req_access, /list)) //something's very wrong
-		return 1
-
-	var/list/L = req_access
-	if(!L.len) //no requirements
-		return 1
-	if(!I || !istype(I, /obj/item/weapon/card/id) || !I.access) //not ID or no access
-		return 0
-	for(var/req in req_access)
-		if(req in I.access) //have one of the required accesses
-			return 1
+		
+	qdel(dummy)
 	return 0
 
 /mob/living/silicon/robot/update_icons()

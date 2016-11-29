@@ -142,7 +142,7 @@
 				message = uppertext(message)
 				verb = "yells loudly"
 
-	if(locate(/obj/item/organ/internal/cyberimp/brain/clown_voice) in internal_organs)
+	if((COMIC in mutations) || (locate(/obj/item/organ/internal/cyberimp/brain/clown_voice) in internal_organs))
 		message = "<span class='sans'>[message]</span>"
 
 	returns[1] = message

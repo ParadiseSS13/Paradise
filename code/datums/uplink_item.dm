@@ -483,7 +483,7 @@ var/list/uplink_items = list()
 	desc = "A box of two (2) grenades that wreak havoc with the atmosphere of the target area. Capable of engulfing a large area in lit plasma, or N2O. Deploy with extreme caution!"
 	reference = "AGG"
 	item = /obj/item/weapon/storage/box/syndie_kit/atmosgasgrenades
-	cost = 6
+	cost = 11
 
 /datum/uplink_item/dangerous/emp
 	name = "EMP Grenades and Implanter Kit"
@@ -577,10 +577,31 @@ var/list/uplink_items = list()
 
 /datum/uplink_item/ammo/pistol
 	name = "Magazine - 10mm"
-	desc = "An additional 8-round 10mm magazine for use in the syndicate pistol. These subsonic rounds are dirt cheap but are half as effective as .357 rounds."
+	desc = "An additional 8-round 10mm magazine for use in the syndicate pistol, loaded with rounds that are cheap but around half as effective as .357"
 	reference = "10MM"
 	item = /obj/item/ammo_box/magazine/m10mm
 	cost = 1
+
+/datum/uplink_item/ammo/pistolap
+	name = "Magazine - 10mm Armour Piercing"
+	desc = "An additional 8-round 10mm magazine for use in the syndicate pistol, loaded with rounds that are less effective at injuring the target but penetrate protective gear."
+	reference = "10MMAP"
+	item = /obj/item/ammo_box/magazine/m10mm/ap
+	cost = 2
+
+/datum/uplink_item/ammo/pistolfire
+	name = "Magazine - 10mm Incendiary"
+	desc = "An additional 8-round 10mm magazine for use in the syndicate pistol, loaded with incendiary rounds which ignite the target."
+	reference = "10MMFIRE"
+	item = /obj/item/ammo_box/magazine/m10mm/fire
+	cost = 2
+
+/datum/uplink_item/ammo/pistolhp
+	name = "Magazine - 10mm Hollow Point"
+	desc = "An additional 8-round 10mm magazine for use in the syndicate pistol, loaded with rounds which are more damaging but ineffective against armour."
+	reference = "10MMHP"
+	item = /obj/item/ammo_box/magazine/m10mm/hp
+	cost = 3
 
 /datum/uplink_item/ammo/revolver
 	name = "Speed Loader - .357"
@@ -791,7 +812,7 @@ var/list/uplink_items = list()
 	reference = "CHHUD"
 	item = /obj/item/clothing/glasses/hud/security/chameleon
 	cost = 2
-	
+
 /datum/uplink_item/stealthy_weapons/chameleonflag
 	name = "Chameleon Flag"
 	desc = "A flag that can be disguised as any other known flag. There is a heat sensitive bomb loaded into the pole that will be detonated if the flag is lit on fire."
@@ -1180,6 +1201,9 @@ var/list/uplink_items = list()
 /datum/uplink_item/cyber_implants/spawn_item(turf/loc, obj/item/device/uplink/U)
 	if(item)
 		if(findtext(item, /obj/item/organ/internal/cyberimp))
+			U.uses -= max(cost, 0)
+			U.used_TC += cost
+			feedback_add_details("traitor_uplink_items_bought", name) //this one and the line before copypasted because snowflaek code
 			return new /obj/item/weapon/storage/box/cyber_implants(loc, item)
 		else
 			return ..()

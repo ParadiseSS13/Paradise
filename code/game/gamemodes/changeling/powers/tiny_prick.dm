@@ -153,7 +153,7 @@ obj/effect/proc_holder/changeling/sting/mute
 
 /obj/effect/proc_holder/changeling/sting/mute/sting_action(var/mob/user, var/mob/living/carbon/target)
 	add_logs(user, target, "stung", object="mute sting")
-	target.silent += 30
+	target.AdjustSilence(30)
 	feedback_add_details("changeling_powers","MS")
 	return 1
 
@@ -165,12 +165,12 @@ obj/effect/proc_holder/changeling/sting/blind
 	chemical_cost = 25
 	dna_cost = 1
 
-/obj/effect/proc_holder/changeling/sting/blind/sting_action(var/mob/user, var/mob/target)
+/obj/effect/proc_holder/changeling/sting/blind/sting_action(var/mob/living/user, var/mob/living/target)
 	add_logs(user, target, "stung", object="blind sting")
 	to_chat(target, "<span class='danger'>Your eyes burn horrifically!</span>")
-	target.disabilities |= NEARSIGHTED
-	target.eye_blind = 20
-	target.eye_blurry = 40
+	target.BecomeNearsighted()
+	target.EyeBlind(20)
+	target.EyeBlurry(40)
 	feedback_add_details("changeling_powers","BS")
 	return 1
 
@@ -186,7 +186,7 @@ obj/effect/proc_holder/changeling/sting/LSD
 	add_logs(user, target, "stung", object="LSD sting")
 	spawn(rand(300,600))
 		if(target)
-			target.hallucination = max(400, target.hallucination)
+			target.Hallucinate(400)
 	feedback_add_details("changeling_powers","HS")
 	return 1
 

@@ -189,7 +189,7 @@
 			if(SA_pp > SA_para_min) // Enough to make us paralysed for a bit
 				H.Paralyse(3) // 3 gives them one second to wake up and run away a bit!
 				if(SA_pp > SA_sleep_min) // Enough to make us sleep as well
-					H.sleeping = min(H.sleeping+2, 10)
+					H.AdjustSleeping(8, bound_lower = 0, bound_upper = 10)
 			else if(SA_pp > 0.15)	// There is sleeping gas in their lungs, but only a little, so give them a bit of a warning
 				if(prob(20))
 					spawn(0)

@@ -58,9 +58,9 @@
 	var/time = 40
 
 /datum/food_processor_process/proc/process_food(loc, what, obj/machinery/processor/processor)
-	if(src.output && loc && processor)
+	if(output && loc && processor)
 		for(var/i = 0, i < processor.rating_amount, i++)
-			new src.output(loc)
+			new output(loc)
 	if(what)
 		qdel(what)
 
@@ -154,9 +154,9 @@
 		return P
 	return 0
 
-/obj/machinery/processor/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
+/obj/machinery/processor/attackby(obj/item/O, mob/user, params)
 
-	if(src.processing)
+	if(processing)
 		to_chat(user, "<span class='warning'>\the [src] is already processing something!</span>")
 		return 1
 
@@ -191,25 +191,25 @@
 	what.loc = src
 	return
 
-/obj/machinery/processor/attack_hand(var/mob/user as mob)
+/obj/machinery/processor/attack_hand(mob/user)
 	if(stat & (NOPOWER|BROKEN)) //no power or broken
 		return
 
-	if(src.processing)
+	if(processing)
 		to_chat(user, "<span class='warning'>\the [src] is already processing something!</span>")
 		return 1
 
-	if(src.contents.len == 0)
+	if(contents.len == 0)
 		to_chat(user, "<span class='warning'>\the [src] is empty.</span>")
 		return 1
-	src.processing = 1
+	processing = 1
 	user.visible_message("[user] turns on [src].", \
 		"<span class='notice'>You turn on [src].</span>", \
 		"<span class='italics'>You hear a food processor.</span>")
-	playsound(src.loc, 'sound/machines/blender.ogg', 50, 1)
+	playsound(loc, 'sound/machines/blender.ogg', 50, 1)
 	use_power(500)
 	var/total_time = 0
-	for(var/O in src.contents)
+	for(var/O in contents)
 		var/datum/food_processor_process/P = select_recipe(O)
 		if(!P)
 			log_debug("The [O] in processor([src]) does not have a suitable recipe, but it was somehow put inside of the processor anyways.")
@@ -217,14 +217,14 @@
 		total_time += P.time
 	sleep(total_time / rating_speed)
 
-	for(var/O in src.contents)
+	for(var/O in contents)
 		var/datum/food_processor_process/P = select_recipe(O)
 		if(!P)
 			log_debug("The [O] in processor([src]) does not have a suitable recipe, but it was somehow put inside of the processor anyways.")
 			continue
-		P.process_food(src.loc, O, src)
-	src.processing = 0
+		P.process_food(loc, O, src)
+	processing = 0
 
-	src.visible_message("<span class='notice'>\the [src] has finished processing.</span>", \
+	visible_message("<span class='notice'>\the [src] has finished processing.</span>", \
 		"<span class='notice'>\the [src] has finished processing.</span>", \
 		"<span class='notice'>You hear a food processor stopping.</span>")
