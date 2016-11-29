@@ -66,12 +66,12 @@
 /datum/gear/accessory/holobadge
 	display_name = "holobadge, pin"
 	path = /obj/item/clothing/accessory/holobadge
-	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Security Pod Pilot")
+	allowed_roles = list("NTSF Commander", "Warden", "NTSF Officer", "NTSF Pilot")
 
 /datum/gear/accessory/holobadge_n
 	display_name = "holobadge, cord"
 	path = /obj/item/clothing/accessory/holobadge/cord
-	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Security Pod Pilot")
+	allowed_roles = list("NTSF Commander", "Warden", "NTSF Officer", "NTSF Pilot")
 
 /datum/gear/accessory/tieblue
 	display_name = "tie, blue"
@@ -92,4 +92,4 @@
 /datum/gear/accessory/stethoscope
 	display_name = "stethoscope"
 	path = /obj/item/clothing/accessory/stethoscope
-	allowed_roles = list("Chief Medical Officer", "Medical Doctor", "Paramedic", "Brig Physician")
+	allowed_roles = list("Chief Medical Officer", "Medical Doctor", "Paramedic", "NTSF Medic")

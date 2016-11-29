@@ -66,7 +66,7 @@
 /datum/gear/uniform/skirt/job/med
 	display_name = "skirt, medical"
 	path = /obj/item/clothing/under/rank/medical/skirt
-	allowed_roles = list("Chief Medical Officer","Medical Doctor","Chemist","Psychiatrist","Paramedic","Brig Physician")
+	allowed_roles = list("Chief Medical Officer","Medical Doctor","Chemist","Psychiatrist","Paramedic","NTSF medic")
 
 /datum/gear/uniform/skirt/job/sci
 	display_name = "skirt, scientist"
@@ -86,15 +86,15 @@
 /datum/gear/uniform/skirt/job/warden
 	display_name = "skirt, warden"
 	path = /obj/item/clothing/under/rank/warden/skirt
-	allowed_roles = list("Head of Security", "Warden")
+	allowed_roles = list("NTSF Commander", "Warden")
 
 /datum/gear/uniform/skirt/job/security
-	display_name = "skirt, security"
+	display_name = "skirt, officer"
 	path = /obj/item/clothing/under/rank/security/skirt
-	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer")
+	allowed_roles = list("NTSF Commander", "Warden", "NTSF Investigator", "NTSF Officer")
 
 /datum/gear/uniform/skirt/job/head_of_security
-	display_name = "skirt, hos"
+	display_name = "skirt, commander"
 	path = /obj/item/clothing/under/rank/head_of_security/skirt
 	allowed_roles = list("Head of Security")
 
@@ -102,24 +102,24 @@
 	subtype_path = /datum/gear/uniform/sec
 
 /datum/gear/uniform/sec/formal
-	display_name = "security uniform, formal"
+	display_name = "NTSF uniform, formal"
 	path = /obj/item/clothing/under/rank/security/formal
-	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer", "Security Pod Pilot")
+	allowed_roles = list("NTSF Commander", "Warden", "NTSF Investigator", "NTSF Officer", "NTSF Pilot")
 
 /datum/gear/uniform/sec/secorporate
-	display_name = "security uniform, corporate"
+	display_name = "NTSF uniform, corporate"
 	path = /obj/item/clothing/under/rank/security/corp
-	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Security Pod Pilot")
+	allowed_roles = list("NTSF Commander", "Warden", "NTSF Officer", "NTSF Pilot")
 
 /datum/gear/uniform/sec/dispatch
-	display_name = "security uniform, dispatch"
+	display_name = "NTSF uniform, dispatch"
 	path = /obj/item/clothing/under/rank/dispatch
-	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Security Pod Pilot")
+	allowed_roles = list("NTSF Commander", "Warden", "NTSF Officer", "NTSF Pilot")
 
 /datum/gear/uniform/sec/casual
-	display_name = "security uniform, casual"
+	display_name = "NTSF uniform, casual"
 	path = /obj/item/clothing/under/rank/security2
-	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Detective", "Security Pod Pilot")
+	allowed_roles = list("NTSF Commander", "Warden", "NTSF Officer", "NTSF Investigator", "NTSF Pilot")
 
 /datum/gear/uniform/shorts
 	subtype_path = /datum/gear/uniform/shorts
