@@ -7,14 +7,14 @@
 		return
 	var/msg = "<html><head><title>Playtime Report</title></head><body>Playtime:<BR><UL>"
 	for(var/client/C in clients)
-		msg += "<LI> - [key_name_admin(C)]: <A href='?_src_=holder;getplaytimewindow=\ref[C.mob]'>" + C.get_exp_living() + "</a></LI>"
+		msg += "<LI> - [key_name_admin(C)]: <A href='?_src_=holder;getplaytimewindow=[UID(C.mob)]'>" + C.get_exp_living() + "</a></LI>"
 	msg += "</UL></BODY></HTML>"
 	src << browse(msg, "window=Player_playtime_check")
 
 
 /datum/admins/proc/cmd_show_exp_panel(var/client/C)
 	if(!C)
-		to_chat(usr, "ERROR: Mob not found.")
+		to_chat(usr, "ERROR: Client not found.")
 		return
 	if(!check_rights(R_ADMIN))
 		return
@@ -67,11 +67,11 @@
 		return "[key] has no records."
 	var/return_text = "<UL>"
 	var/list/exp_data = list()
-	for(var/cat in exp_jobsmap)
-		if(text2num(play_records[cat]))
-			exp_data[cat] = text2num(play_records[cat])
+	for(var/category in exp_jobsmap)
+		if(text2num(play_records[category]))
+			exp_data[category] = text2num(play_records[category])
 		else
-			exp_data[cat] = 0
+			exp_data[category] = 0
 	for(var/dep in exp_data)
 		if(exp_data[dep] > 0)
 			if(dep == EXP_TYPE_EXEMPT)
@@ -94,15 +94,13 @@
 				var/xp_req = job.get_exp_req_amount()
 				jobs_locked += "[job.title] [get_exp_format(text2num(play_records[job.get_exp_req_type()]))] / [get_exp_format(xp_req)] as [job.get_exp_req_type()])"
 	if(jobs_unlocked.len)
-		return_text += "<BR><BR>Jobs Unlocked:<UL> "
-		for(var/text in jobs_unlocked)
-			return_text += "<LI>[text]</LI>"
-		return_text += "</UL>"
+		return_text += "<BR><BR>Jobs Unlocked:<UL><LI>"
+		return_text += jobs_unlocked.Join("</LI><LI>")
+		return_text += "</LI></UL>"
 	if(jobs_locked.len)
-		return_text += "<BR><BR>Jobs Not Unlocked:<UL>"
-		for(var/text in jobs_locked)
-			return_text += "<LI>[text]</LI>"
-		return_text += "</UL>"
+		return_text += "<BR><BR>Jobs Not Unlocked:<UL><LI>"
+		return_text += jobs_locked.Join("</LI><LI>")
+		return_text += "</LI></UL>"
 	return return_text
 
 
@@ -156,12 +154,12 @@
 		play_records[EXP_TYPE_LIVING] += minutes
 		if(announce_changes)
 			to_chat(mob,"<span class='notice'>You got: [minutes] Living EXP!")
-		for(var/cat in exp_jobsmap)
-			if(exp_jobsmap[cat]["titles"])
-				if(mob.mind.assigned_role in exp_jobsmap[cat]["titles"])
-					play_records[cat] += minutes
+		for(var/category in exp_jobsmap)
+			if(exp_jobsmap[category]["titles"])
+				if(mob.mind.assigned_role in exp_jobsmap[category]["titles"])
+					play_records[category] += minutes
 					if(announce_changes)
-						to_chat(mob,"<span class='notice'>You got: [minutes] [cat] EXP!")
+						to_chat(mob,"<span class='notice'>You got: [minutes] [category] EXP!")
 		if(mob.mind.special_role)
 			play_records[EXP_TYPE_SPECIAL] += minutes
 			if(announce_changes)
