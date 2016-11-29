@@ -10,7 +10,7 @@
 	icon_state = "ambulance"
 	var/turf/home_turf = null
 	var/idle_cycles = 0
-	var/move_steps = 10
+	var/move_steps = 5
 	locked = 1
 	remote_disabled = 1
 	allow_pai = 0
@@ -22,12 +22,15 @@
 	radio_channel = "Supply"
 	var/trapped = 0
 	var/trappedcycles = 0
-	var/speaks = 0
+	var/speaks = 0 // debug setting.
 	var/soundeffects = 0
 	var/automatic_mode = 1 // if 1, players cannot reconfigure it
 	buckle_lying = 1
 	force_threshold = 20
 	var/list/areas_to_ignore = list(/area/medical/virology, /area/toxins/xenobiology, /area/security/prison, /area/security/permabrig)
+	var/pickup_delay = 60 // 60 cycles, 120 seconds
+	var/list/previous_targets = list()
+	var/mob/targetssd = null
 
 /mob/living/simple_animal/bot/mulebot/ssdbot/New()
 	..()
@@ -45,7 +48,7 @@
 
 /mob/living/simple_animal/bot/mulebot/ssdbot/door_opened(obj/machinery/door/D)
 	..()
-	spawn(10)
+	spawn(30)
 		D.close()
 
 /mob/living/simple_animal/bot/mulebot/ssdbot/speak(msg, chan)
@@ -90,6 +93,7 @@
 /mob/living/simple_animal/bot/mulebot/ssdbot/bot_reset()
 	..()
 	target = null
+	targetssd = null
 	idle_cycles = 0
 	trapped = 0
 	trappedcycles = 0
@@ -105,13 +109,19 @@
 		num_steps--
 		if(mode == BOT_IDLE)
 			idle_cycles++
-			if(idle_cycles > 9)
+			if(idle_cycles > pickup_delay)
 				idle_cycles = 0
-				acquire_ssd_target()
+				var/list/current_targets = list_ssd_targets()
+				for(var/mob/living/carbon/human/T in current_targets)
+					if(T in previous_targets)
+						set_ssd_target(T)
+						break
+				speak("Current targets: [current_targets.len]. Prev targets: [previous_targets.len].")
+				previous_targets = current_targets
 		else if(mode == BOT_NO_ROUTE)
 			if(loc == home_turf)
-				if(target)
-					speak("No route to [target] at <b>[get_area(target)]</b>.")
+				if(targetssd)
+					speak("No route to [targetssd] at <b>[get_area(target)]</b>.")
 				else
 					speak("No route.")
 				bot_reset()
@@ -129,23 +139,26 @@
 					trapped = 1
 					trappedcycles = 0
 				else
-					speak("No route to [target] at <b>[get_area(target)]</b>. Aborting and returning home.")
+					speak("No route to [targetssd] at <b>[get_area(target)]</b>. Aborting and returning home.")
 					start_home()
 		else
 			spawn(0)
+				if(targetssd)
+					if(bot_can_pick_up(targetssd))
+						target = get_turf(targetssd)
+					else
+						speak("[targetssd] is no longer valid.")
+						start_home()
 				for(var/i=num_steps,i>0,i--)
 					sleep(2)
 					process_bot()
 
-/mob/living/simple_animal/bot/mulebot/ssdbot/proc/acquire_ssd_target()
-	if(load)
-		if(loc == home_turf)
-			at_target()
-		else
-			start_home()
-		return
+/mob/living/simple_animal/bot/mulebot/ssdbot/proc/list_ssd_targets()
+	var/list/possible_targets = list()
 	for(var/mob/living/carbon/human/H in mob_list)
-		if(H.z == z && isLivingSSD(H) && !H.anchored && !H.weakened && !H.stunned && !H.handcuffed && H.loc != home_turf && !(H in ignored_ssds) && !istype(get_turf(H), /turf/space) && !H.buckled)
+		if(bot_can_pick_up(H))
+			if(H in ignored_ssds)
+				continue
 			if(H.mind)
 				if(H.mind.assigned_role in command_positions)
 					continue
@@ -156,16 +169,22 @@
 					break
 			if(!valid_area)
 				continue
-			ignored_ssds += H
-			target = get_turf(H)
-			speak("Getting directions to [H] at <b>[get_area(src)]</b>.")
-			var/area/dest_area = get_area(target)
-			destination = format_text(dest_area.name)
-			start()
-			return
-	start_home()
+			possible_targets += H
+	return possible_targets
 
+/mob/living/simple_animal/bot/mulebot/ssdbot/proc/set_ssd_target(var/mob/living/carbon/human/H)
+	ignored_ssds += H
+	target = get_turf(H)
+	targetssd = H
+	speak("Getting directions to [H] at <b>[get_area(H)]</b>.")
+	var/area/dest_area = get_area(target)
+	destination = format_text(dest_area.name)
+	start()
 
+/mob/living/simple_animal/bot/mulebot/ssdbot/proc/bot_can_pick_up(var/mob/living/carbon/human/H)
+	if(H.z == z && isLivingSSD(H) && !H.anchored && !H.stunned && !H.handcuffed && H.loc != home_turf && !istype(get_turf(H), /turf/space) && !H.buckled && !H.pulledby && !H.grabbed_by)
+		return 1
+	return 0
 
 /mob/living/simple_animal/bot/mulebot/ssdbot/at_target()
 	if(!reached_target)
@@ -188,14 +207,14 @@
 			if(Y)
 				if(N in ignored_ssds)
 					ignored_ssds -= N
-				Y.take_occupant(N)
+				Y.take_occupant(N, 1)
 			else
 				speak("No free cryopod for [N].")
 		else
 			if(auto_pickup)
 				var/atom/movable/AM
 				for(var/mob/living/carbon/human/H in loc)
-					if(H.z == z && isLivingSSD(H) && !H.anchored && !H.weakened && !H.stunned && !H.handcuffed && H.loc != home_turf && !(H in ignored_ssds) && !istype(get_turf(H), /turf/space) && !H.buckled)
+					if(bot_can_pick_up(H))
 						AM = H
 						break
 				if(AM)
@@ -204,12 +223,12 @@
 					speak("Picking up [load] at <b>[get_area(src)]</b>.")
 		if(loc == home_turf)
 			bot_reset()
-			acquire_ssd_target()
 		else
 			start_home()
 	return
 
 /mob/living/simple_animal/bot/mulebot/ssdbot/start_home()
+	targetssd = null
 	mode = BOT_BLOCKED
 	target = get_turf(home_turf)
 	var/area/dest_area = get_area(target)

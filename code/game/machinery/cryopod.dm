@@ -101,7 +101,7 @@
 
 		visible_message("<span class='notice'>The console beeps happily as it disgorges \the [I].</span>")
 
-		I.loc = get_turf(src)
+		I.forceMove(get_turf(src))
 		frozen_items -= I
 
 	else if(href_list["allitems"])
@@ -117,7 +117,7 @@
 		visible_message("<span class='notice'>The console beeps happily as it disgorges the desired objects.</span>")
 
 		for(var/obj/item/I in frozen_items)
-			I.loc = get_turf(src)
+			I.forceMove(get_turf(src))
 			frozen_items -= I
 
 	src.updateUsrDialog()
@@ -275,7 +275,7 @@
 	//Drop all items into the pod.
 	for(var/obj/item/W in occupant)
 		occupant.unEquip(W)
-		W.loc = src
+		W.forceMove(src)
 
 		if(W.contents.len) //Make sure we catch anything not handled by qdel() on the items.
 			var/preserve = null
@@ -288,7 +288,7 @@
 			for(var/obj/item/O in W.contents)
 				if(istype(O,/obj/item/weapon/tank)) //Stop eating pockets, you fuck!
 					continue
-				O.loc = src
+				O.forceMove(src)
 
 	//Delete all items not on the preservation list.
 	var/list/items = src.contents
@@ -317,7 +317,7 @@
 				control_computer.frozen_items += W
 				W.loc = null
 			else
-				W.loc = src.loc
+				W.forceMove(src.loc)
 
 	//Update any existing objectives involving this mob.
 	for(var/datum/objective/O in all_objectives)
@@ -442,49 +442,19 @@
 					to_chat(user, "<span class='boldnotice'>\The [src] is in use.</span>")
 					return
 
-				M.loc = src
-
-				if(M.client)
-					M.client.perspective = EYE_PERSPECTIVE
-					M.client.eye = src
-
-				time_till_despawn = initial(time_till_despawn) / willing
+				take_occupant(M, willing)
 
 			else //because why the fuck would you keep going if the mob isn't in the pod
 				to_chat(user, "<span class='notice'>You stop putting [M] into the cryopod.</span>")
 				return
 
-			if(orient_right)
-				icon_state = "[occupied_icon_state]-r"
-			else
-				icon_state = occupied_icon_state
-
-			to_chat(M, "<span class='notice'>[on_enter_occupant_message]</span>")
-			to_chat(M, "<span class='boldnotice'>If you ghost, log out or close your client now, your character will shortly be permanently removed from the round.</span>")
-
-			occupant = M
-			name = "[name] ([occupant.name])"
-			time_entered = world.time
-
-			if(findtext("[M.key]","@",1,2))
-				var/FT = replacetext(M.key, "@", "")
-				for(var/mob/dead/observer/Gh in respawnable_list) //this may not be foolproof but it seemed like a better option than 'in world'
-					if(Gh.key == FT)
-						if(Gh.client && Gh.client.holder) //just in case someone has a byond name with @ at the start, which I don't think is even possible but whatever
-							to_chat(Gh, "<span style='color: #800080;font-weight: bold;font-size:4;'>Warning: Your body has entered cryostorage.</span>")
-
-			// Book keeping!
-			log_admin("<span class='notice'>[key_name(M)] has entered a stasis pod.</span>")
-			message_admins("[key_name_admin(M)] has entered a stasis pod. (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
-
-			//Despawning occurs when process() is called with an occupant without a client.
-			src.add_fingerprint(M)
-
-
-/obj/machinery/cryopod/proc/take_occupant(var/mob/living/carbon/E)
+/obj/machinery/cryopod/proc/take_occupant(var/mob/living/carbon/E, var/willing_factor = 1)
 	if(src.occupant)
 		return
-	E.loc = src
+	if(!E)
+		return
+	E.forceMove(src)
+	time_till_despawn = initial(time_till_despawn) / willing_factor
 	if(orient_right)
 		icon_state = "[occupied_icon_state]-r"
 	else
@@ -494,9 +464,17 @@
 	occupant = E
 	name = "[name] ([occupant.name])"
 	time_entered = world.time
-	log_admin("<span class='notice'>[key_name(E)] was taken into a stasis pod.</span>")
-	message_admins("[key_name_admin(E)] was taken into a stasis pod. (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
+	if(findtext("[E.key]","@",1,2))
+		var/FT = replacetext(E.key, "@", "")
+		for(var/mob/dead/observer/Gh in respawnable_list) //this may not be foolproof but it seemed like a better option than 'in world'
+			if(Gh.key == FT)
+				if(Gh.client && Gh.client.holder) //just in case someone has a byond name with @ at the start, which I don't think is even possible but whatever
+					to_chat(Gh, "<span style='color: #800080;font-weight: bold;font-size:4;'>Warning: Your body has entered cryostorage.</span>")
+	log_admin("<span class='notice'>[key_name(E)] entered a stasis pod.</span>")
+	message_admins("[key_name_admin(E)] entered a stasis pod. (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 	src.add_fingerprint(E)
+
+
 
 /obj/machinery/cryopod/MouseDrop_T(atom/movable/O as mob|obj, mob/user as mob)
 
@@ -557,44 +535,11 @@
 			if(src.occupant)
 				to_chat(user, "<span class='boldnotice'>\The [src] is in use.</span>")
 				return
-			L.loc = src
-			time_till_despawn = initial(time_till_despawn) / willing
-
-			if(L.client)
-				L.client.perspective = EYE_PERSPECTIVE
-				L.client.eye = src
+			take_occupant(L, willing)
 		else
 			to_chat(user, "<span class='notice'>You stop [L == user ? "climbing into the cryo pod." : "putting [L] into the cryo pod."]</span>")
 			return
-
-		if(orient_right)
-			icon_state = "[occupied_icon_state]-r"
-		else
-			icon_state = occupied_icon_state
-
-		to_chat(L, "<span class='notice'>[on_enter_occupant_message]</span>")
-		to_chat(L, "<span class='boldnotice'>If you ghost, log out or close your client now, your character will shortly be permanently removed from the round.</span>")
-		occupant = L
-		name = "[name] ([occupant.name])"
-		time_entered = world.time
-
-		if(findtext("[L.key]","@",1,2))
-			var/FT = replacetext(L.key, "@", "")
-			for(var/mob/dead/observer/Gh in respawnable_list) //this may not be foolproof but it seemed like a better option than 'in world'
-				if(Gh.key == FT)
-					if(Gh.client && Gh.client.holder) //just in case someone has a byond name with @ at the start, which I don't think is even possible but whatever
-						to_chat(Gh, "<span style='color: #800080;font-weight: bold;font-size:4;'>Warning: Your body has entered cryostorage.</span>")
-
-		// Book keeping!
-		log_admin("[key_name_admin(L)] has entered a stasis pod. (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
-		message_admins("<span class='notice'>[key_name_admin(L)] has entered a stasis pod.</span>")
-
-		//Despawning occurs when process() is called with an occupant without a client.
-		src.add_fingerprint(L)
-
 	return
-
-
 
 
 /obj/machinery/cryopod/verb/eject()
@@ -620,7 +565,7 @@
 	if(announce) items -= announce
 
 	for(var/obj/item/W in items)
-		W.loc = get_turf(src)
+		W.forceMove(get_turf(src))
 
 	src.go_out()
 	add_fingerprint(usr)
@@ -659,7 +604,7 @@
 		usr.stop_pulling()
 		usr.client.perspective = EYE_PERSPECTIVE
 		usr.client.eye = src
-		usr.loc = src
+		usr.forceMove(src)
 		src.occupant = usr
 		time_till_despawn = initial(time_till_despawn) / willing_time_divisor
 
@@ -686,7 +631,7 @@
 		occupant.client.eye = src.occupant.client.mob
 		occupant.client.perspective = MOB_PERSPECTIVE
 
-	occupant.loc = get_turf(src)
+	occupant.forceMove(get_turf(src))
 	occupant = null
 
 	if(orient_right)
@@ -737,7 +682,7 @@
 	qdel(R.mmi)
 	for(var/obj/item/I in R.module) // the tools the borg has; metal, glass, guns etc
 		for(var/obj/item/O in I) // the things inside the tools, if anything; mainly for janiborg trash bags
-			O.loc = R
+			O.forceMove(R)
 		qdel(I)
 	qdel(R.module)
 
