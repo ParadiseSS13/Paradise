@@ -1,5 +1,0 @@
-author: "KasparoVy"
-delete-after: True
-changes: 
-  - bugfix: "Head, body and tail markings are now loaded correctly from genes (UI)."
-  - bugfix: "Changes to a person's skin-tone gene are now immediately apparent."
