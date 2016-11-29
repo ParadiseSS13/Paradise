@@ -1,6 +1,0 @@
-author: "KasparoVy"
-delete-after: True
-changes: 
-  - bugfix: "Pressing the light switch in one OR will no longer turn off the lights for both."
-  - tweak: "The fire alarms in each OR now work independently of each-other."
-  - rscadd: "The second operating room now has its own APC and wiring."
