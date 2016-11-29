@@ -143,6 +143,21 @@ The box in your backpack has an oxygen tank and gas mask in it."
 	desc = "You ate too much food, lardass. Run around the station and lose some weight."
 	icon_state = "fat"
 
+/obj/screen/alert/full
+	name = "Full"
+	desc = "You feel full and satisfied, but you shouldn't eat much more."
+	icon_state = "full"
+
+/obj/screen/alert/well_fed
+	name = "Well Fed"
+	desc = "You feel quite satisfied, but you may be able to eat a bit more."
+	icon_state = "well_fed"
+
+/obj/screen/alert/fed
+	name = "Fed"
+	desc = "You feel moderately satisfied, but a bit more food may not hurt."
+	icon_state = "fed"
+
 /obj/screen/alert/hungry
 	name = "Hungry"
 	desc = "Some food would be good right about now."
