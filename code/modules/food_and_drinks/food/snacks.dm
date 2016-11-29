@@ -2434,13 +2434,6 @@
 	icon_state = "cutlet"
 	list_reagents = list("protein" = 2)
 
-/obj/item/weapon/reagent_containers/food/snacks/rawmeatball
-	name = "raw meatball"
-	desc = "A raw meatball."
-	icon = 'icons/obj/food/food_ingredients.dmi'
-	icon_state = "rawmeatball"
-	list_reagents = list("protein" = 2)
-
 /obj/item/weapon/reagent_containers/food/snacks/flatbread
 	name = "flatbread"
 	desc = "Bland but filling."

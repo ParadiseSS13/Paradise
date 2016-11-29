@@ -671,12 +671,6 @@ datum/recipe/microwave/slimesandwich
 	)
 	result = /obj/item/weapon/reagent_containers/food/snacks/taco
 
-/datum/recipe/microwave/meatball
-	items = list(
-		/obj/item/weapon/reagent_containers/food/snacks/rawmeatball
-	)
-	result = /obj/item/weapon/reagent_containers/food/snacks/meatball
-
 /datum/recipe/microwave/fries
 	items = list(
 		/obj/item/weapon/reagent_containers/food/snacks/rawsticks
