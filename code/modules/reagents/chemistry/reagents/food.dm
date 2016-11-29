@@ -383,6 +383,7 @@
 	id = "rice"
 	description = "Enjoy the great taste of nothing."
 	reagent_state = SOLID
+	nutriment_factor = 3 * REAGENTS_METABOLISM
 	color = "#FFFFFF" // rgb: 0, 0, 0
 
 /datum/reagent/consumable/cherryjelly
@@ -441,9 +442,10 @@
 	description = "A sweet substance produced by bees through partial digestion. Bee barf."
 	reagent_state = LIQUID
 	color = "#d3a308"
+	nutriment_factor = 15 * REAGENTS_METABOLISM
 
 /datum/reagent/consumable/honey/on_mob_life(mob/living/M)
-	M.reagents.add_reagent("sugar", 0.4)
+	M.reagents.add_reagent("sugar", 3)
 	if(prob(20))
 		M.adjustBruteLoss(-3)
 		M.adjustFireLoss(-1)

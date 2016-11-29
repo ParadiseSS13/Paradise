@@ -37,7 +37,7 @@
 	name = "Beer"
 	id = "beer"
 	description = "An alcoholic beverage made from malted grains, hops, yeast, and water."
-	nutriment_factor = 2 * REAGENTS_METABOLISM
+	nutriment_factor = 1 * REAGENTS_METABOLISM
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.2
 	drink_icon ="beerglass"
@@ -49,6 +49,7 @@
 	id = "cider"
 	description = "An alcoholic beverage derived from apples."
 	color = "#174116"
+	nutriment_factor = 1 * REAGENTS_METABOLISM
 	alcohol_perc = 0.2
 	drink_icon = "rewriter"
 	drink_name = "Cider"
@@ -217,6 +218,7 @@
 	description = "A potent mixture of caffeine and alcohol."
 	reagent_state = LIQUID
 	color = "#102000" // rgb: 16, 32, 0
+	nutriment_factor = 1 * REAGENTS_METABOLISM
 	alcohol_perc = 0.3
 	heart_rate_increase = 1
 	drink_icon = "thirteen_loko_glass"
@@ -240,6 +242,7 @@
 	description = "This appears to be beer mixed with milk. Disgusting."
 	reagent_state = LIQUID
 	color = "#895C4C" // rgb: 137, 92, 76
+	nutriment_factor = 2 * REAGENTS_METABOLISM
 	alcohol_perc = 0.2
 	drink_icon = "glass_brown"
 	drink_name = "Glass of bilk"
@@ -714,6 +717,7 @@
 	description = "A Vikings drink, though a cheap one."
 	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
+	nutriment_factor = 1 * REAGENTS_METABOLISM
 	alcohol_perc = 0.2
 	drink_icon = "meadglass"
 	drink_name = "Mead"
