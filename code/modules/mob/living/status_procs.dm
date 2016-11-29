@@ -411,7 +411,7 @@
 /mob/living/SetStuttering(amount, force = 0)
 	//From mob/living/apply_effect: "Stuttering is often associated with Stun"
 	if(status_flags & CANSTUN || force)
-		stuttering = max(stuttering, 0)
+		stuttering = max(amount, 0)
 
 /mob/living/AdjustStuttering(amount, bound_lower = 0, bound_upper = INFINITY, force = 0)
 	var/new_value = directional_bounded_sum(stuttering, amount, bound_lower, bound_upper)
