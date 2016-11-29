@@ -1014,7 +1014,7 @@ so that different stomachs can handle things in different ways VB*/
 	if(toEat.consume_sound)
 		playsound(loc, toEat.consume_sound, rand(10,50), 1)
 	if(toEat.reagents.total_volume)
-		var/fraction = min(toEat.bitesize/reagents.total_volume, 1)
+		var/fraction = min(toEat.bitesize/toEat.reagents.total_volume, 1)
 		toEat.reagents.reaction(src, toEat.apply_type, fraction)
 		toEat.reagents.trans_to(src, toEat.bitesize*toEat.transfer_efficiency)
 

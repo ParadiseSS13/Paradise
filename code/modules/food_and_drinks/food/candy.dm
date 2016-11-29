@@ -22,7 +22,6 @@
 	desc = "Such sweet, fattening food."
 	icon_state = "chocolatebar"
 	filling_color = "#7D5F46"
-	bitesize = 2
 	list_reagents = list("nutriment" = 2, "chocolate" = 4)
 
 /obj/item/weapon/reagent_containers/food/snacks/candy/caramel
@@ -30,7 +29,6 @@
 	desc = "Chewy and dense, yet it practically melts in your mouth!"
 	icon_state = "caramel"
 	filling_color = "#DB944D"
-	bitesize = 2
 	list_reagents = list("cream" = 2, "sugar" = 2)
 
 
@@ -39,7 +37,6 @@
 	desc = "A hard, brittle candy with a distinctive taste."
 	icon_state = "toffee"
 	filling_color = "#7D5F46"
-	bitesize = 2
 	list_reagents = list("nutriment" = 3, "sugar" = 3)
 
 /obj/item/weapon/reagent_containers/food/snacks/candy/nougat
@@ -47,7 +44,6 @@
 	desc = "A soft, chewy candy commonly found in candybars."
 	icon_state = "nougat"
 	filling_color = "#7D5F46"
-	bitesize = 2
 	list_reagents = list("nutriment" = 3, "sugar" = 3)
 
 /obj/item/weapon/reagent_containers/food/snacks/candy/taffy
@@ -55,7 +51,6 @@
 	desc = "Old fashioned saltwater taffy. Chewy!"
 	icon_state = "candy1"
 	filling_color = "#7D5F46"
-	bitesize = 2
 	list_reagents = list("nutriment" = 3, "sugar" = 3)
 
 /obj/item/weapon/reagent_containers/food/snacks/candy/taffy/New()
@@ -111,7 +106,6 @@
 	desc = "It's a handful of candy corn. Cannot be stored in a detective's hat, alas."
 	icon_state = "candycorn"
 	filling_color = "#FFFCB0"
-	bitesize = 2
 	list_reagents = list("nutriment" = 4, "sugar" = 2)
 
 // ***********************************************************
@@ -143,7 +137,6 @@
 	desc = "A festive mint candy cane."
 	icon_state = "candycane"
 	filling_color = "#F2F2F2"
-	bitesize = 2
 	list_reagents = list("minttoxin" = 1, "sugar" = 5)
 
 /obj/item/weapon/reagent_containers/food/snacks/candy/gummybear
@@ -183,7 +176,6 @@
 	desc = "Not legal tender. Tasty though."
 	icon_state = "candy_cash"
 	filling_color = "#302000"
-	bitesize = 2
 	list_reagents = list("nutriment" = 2, "chocolate" = 4)
 
 /obj/item/weapon/reagent_containers/food/snacks/candy/coin

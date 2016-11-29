@@ -14,7 +14,7 @@
 	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "fishfillet"
 	filling_color = "#FFDEFE"
-	bitesize = 3
+	bitesize = 6
 	list_reagents = list("protein" = 3, "vitamin" = 2)
 
 /obj/item/weapon/reagent_containers/food/snacks/salmonsteak
@@ -33,7 +33,7 @@
 	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "fishfillet"
 	filling_color = "#FFDEFE"
-	bitesize = 3
+	bitesize = 6
 	list_reagents = list("protein" = 3, "vitamin" = 2)
 
 /obj/item/weapon/reagent_containers/food/snacks/fishfingers
@@ -42,7 +42,7 @@
 	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "fishfingers"
 	filling_color = "#FFDEFE"
-	bitesize = 3
+	bitesize = 1
 	list_reagents = list("nutriment" = 4)
 
 /obj/item/weapon/reagent_containers/food/snacks/fishburger

@@ -69,6 +69,7 @@
 	icon_state = "breadslice"
 	var/baseicon = "sandwich"
 	var/basename = "sandwich"
+	bitesize = 4
 	var/top = 1	//Do we have a top?
 	var/obj/item/toptype
 	var/add_overlays = 1	//Do we stack?
@@ -76,7 +77,6 @@
 	var/sandwich_limit = 40
 	var/fullycustom = 0
 	trash = /obj/item/trash/plate
-	bitesize = 2
 	var/list/ingredients = list()
 	list_reagents = list("nutriment" = 8)
 

@@ -6,7 +6,7 @@
 	volume = 50 //Sets the default container amount for all food items.
 	var/filling_color = "#FFFFFF" //Used by sandwiches.
 	var/junkiness = 0  //for junk food. used to lower human satiety.
-	var/bitesize = 1
+	var/bitesize = 2
 	var/consume_sound = 'sound/items/eatfood.ogg'
 	var/apply_type = INGEST
 	var/apply_method = "swallow"
