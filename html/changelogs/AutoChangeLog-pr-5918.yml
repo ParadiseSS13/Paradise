@@ -1,4 +1,0 @@
-author: "Allfd"
-delete-after: True
-changes: 
-  - bugfix: "Fixes an issue with the processing of GitHub changelog emoji in the php webhook."
