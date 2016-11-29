@@ -7,7 +7,7 @@
 		return
 	var/msg = "<html><head><title>Playtime Report</title></head><body>Playtime:<BR><UL>"
 	for(var/client/C in clients)
-		msg += "<LI> - [key_name_admin(C)]: <A href='?_src_=holder;getplaytimewindow=[UID(C.mob)]'>" + C.get_exp_living() + "</a></LI>"
+		msg += "<LI> - [key_name_admin(C)]: <A href='?_src_=holder;getplaytimewindow=[C.mob.UID()]'>" + C.get_exp_living() + "</a></LI>"
 	msg += "</UL></BODY></HTML>"
 	src << browse(msg, "window=Player_playtime_check")
 
