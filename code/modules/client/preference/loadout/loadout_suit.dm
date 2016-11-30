@@ -17,9 +17,9 @@
 	subtype_cost_overlap = FALSE
 
 /datum/gear/suit/coat/job/sec
-	display_name = "winter coat, security"
+	display_name = "winter coat, NTSF"
 	path = /obj/item/clothing/suit/hooded/wintercoat/security
-	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer", "Security Pod Pilot")
+	allowed_roles = list("NTSF Commander", "Warden", "NTSF Investigator", "NTSF Officer", "NTSF Pilot")
 
 /datum/gear/suit/coat/job/captain
 	display_name = "winter coat, captain"
@@ -29,7 +29,7 @@
 /datum/gear/suit/coat/job/med
 	display_name = "winter coat, medical"
 	path = /obj/item/clothing/suit/hooded/wintercoat/medical
-	allowed_roles = list("Chief Medical Officer", "Medical Doctor", "Chemist", "Psychiatrist", "Paramedic", "Virologist", "Brig Physician")
+	allowed_roles = list("Chief Medical Officer", "Medical Doctor", "Chemist", "Psychiatrist", "Paramedic", "Virologist", "NTSF Medic")
 
 /datum/gear/suit/coat/job/sci
 	display_name = "winter coat, science"
@@ -101,9 +101,9 @@
 	path = /obj/item/clothing/suit/jacket/miljacket/white
 
 /datum/gear/suit/secjacket
-	display_name = "security jacket"
+	display_name = "NTSF jacket"
 	path = /obj/item/clothing/suit/armor/secjacket
-	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer", "Security Pod Pilot")
+	allowed_roles = list("NTSF Commander", "Warden", "NTSF Investigator", "NTSF Officer", "NTSF Pilot")
 
 /datum/gear/suit/poncho
 	display_name = "poncho, classic"

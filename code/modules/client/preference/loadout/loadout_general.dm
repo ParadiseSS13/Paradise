@@ -29,7 +29,7 @@
 /datum/gear/sechud
 	display_name = "a classic security HUD"
 	path = /obj/item/clothing/glasses/hud/security
-	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Security Pod Pilot", "Internal Affairs Agent")
+	allowed_roles = list("NTSF Commander", "Warden", "NTSF Officer", "NTSF Pilot", "Internal Affairs Agent")
 
 /datum/gear/matches
 	display_name = "a box of matches"
