@@ -90,3 +90,6 @@
 	// Their chat window, sort of important.
 	// See /goon/code/datums/browserOutput.dm
 	var/datum/chatOutput/chatOutput
+
+	// Donator stuff.
+	var/donator_level = DONATOR_LEVEL_NONE

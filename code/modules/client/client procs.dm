@@ -305,6 +305,8 @@
 		admins += src
 		holder.owner = src
 
+	donator_check()
+
 	//preferences datum - also holds some persistant data for the client (because we may as well keep these datums to a minimum)
 	prefs = preferences_datums[ckey]
 	if(!prefs)
@@ -378,10 +380,27 @@
 	return ..()
 
 
+/client/proc/donator_check()
+	if(IsGuestKey(key))
+		return
+
+	establish_db_connection()
+	if(!dbcon.IsConnected())
+		return
+
+	//Donator stuff.
+	var/DBQuery/query_donor_select = dbcon.NewQuery("SELECT ckey, tier, active FROM `[format_table_name("donators")]` WHERE ckey = '[ckey]'")
+	query_donor_select.Execute()
+	while(query_donor_select.NextRow())
+		if(!text2num(query_donor_select.item[3]))
+			// Inactive donator.
+			donator_level = DONATOR_LEVEL_NONE
+			return
+		donator_level = text2num(query_donor_select.item[2])
+		break
 
 /client/proc/log_client_to_db()
-
-	if( IsGuestKey(src.key) )
+	if(IsGuestKey(key))
 		return
 
 	establish_db_connection()
