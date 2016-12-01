@@ -147,6 +147,7 @@
 		triggered = 1
 		visible_message("<span class='notice'>You hear a quiet click.</span>")
 		spawn(40)
+
 			var/cap = 0
 			if(result > MAX_EX_LIGHT_RANGE && result != 20)
 				cap = 1
@@ -155,6 +156,13 @@
 				result = 24
 			var/turf/epicenter = get_turf(src)
 			explosion(epicenter, round(result*0.25), round(result*0.5), round(result), round(result*1.5), 1, cap)
+
+			var/turf/bombturf = get_turf(src)
+			var/area/A = get_area(bombturf)
+			bombers += "E20 detonated at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z]) with a roll of [result]. Triggered by: [key_name(user)]"
+			message_admins("E20 detonated at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a> with a roll of [result]. Triggered by: [key_name_admin(user)]")
+			log_game("E20 detonated at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z]) with a roll of [result]. Triggered by: [key_name(user)]")
+
 
 /obj/item/weapon/dice/update_icon()
 	overlays.Cut()

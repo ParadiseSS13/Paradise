@@ -25,20 +25,11 @@
 		for(var/i = 1, i <= amount, i++)
 			new content_mob(loc)
 		already_opened = 1
-	..()
+	. = ..()
 
 /obj/structure/closet/critter/close()
 	..()
 	return 1
-
-/obj/structure/closet/critter/attack_hand(mob/user as mob)
-	src.add_fingerprint(user)
-
-	if(src.loc == user.loc)
-		to_chat(user, "<span class='notice'>It won't budge!</span>")
-		toggle()
-	else
-		toggle()
 
 /obj/structure/closet/critter/corgi
 	name = "corgi crate"
