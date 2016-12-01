@@ -385,8 +385,11 @@
 				var/heal_fire = occupant.getFireLoss() ? min(efficiency, 20*(efficiency**2) / occupant.getFireLoss()) : 0
 				occupant.heal_organ_damage(heal_brute,heal_fire)
 		if(beaker && next_trans == 0)
+			var/proportion = 10 * min(1/beaker.volume, 1)
+			// Yes, this means you can get more bang for your buck with a beaker of SF vs a patch
+			// But it also means a giant beaker of SF won't heal people ridiculously fast 4 cheap
+			beaker.reagents.reaction(occupant, TOUCH, proportion)
 			beaker.reagents.trans_to(occupant, 1, 10)
-			beaker.reagents.reaction(occupant)
 	next_trans++
 	if(next_trans == 10)
 		next_trans = 0
@@ -446,7 +449,7 @@
 	set name = "Eject occupant"
 	set category = "Object"
 	set src in oview(1)
-	
+
 	if(usr == occupant)//If the user is inside the tube...
 		if(usr.stat == DEAD)
 			return
@@ -466,18 +469,18 @@
 	set name = "Move Inside"
 	set category = "Object"
 	set src in oview(1)
-	
+
 	for(var/mob/living/carbon/slime/M in range(1,usr))
 		if(M.Victim == usr)
 			to_chat(usr, "You're too busy getting your life sucked out of you.")
 			return
-			
+
 	if(stat & (NOPOWER|BROKEN))
 		return
-		
+
 	if(usr.incapacitated()) //are you cuffed, dying, lying, stunned or other
 		return
-		
+
 	put_mob(usr)
 	return
 

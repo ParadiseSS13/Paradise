@@ -446,6 +446,11 @@
 /obj/item/clothing/head/hood/fluff/linda //Epic_Charger: Linda Clark
 	icon_state = "greenhood"
 
+/obj/item/clothing/suit/armor/shodanscoat // RazekPraxis: SHODAN
+	name = "SHODAN's Captain's Coat"
+	desc = "A black coat with gold trim and an old US Chevron printed on the back. Edgy."
+	icon_state = "shodancoat"
+
 //////////// Uniforms ////////////
 /obj/item/clothing/under/fluff/kharshai // Kharshai: Athena Castile
 	name = "Castile formal outfit"

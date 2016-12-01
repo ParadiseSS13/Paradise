@@ -327,7 +327,7 @@
 	// Coffee is really bad for you with busted kidneys.
 	// This should probably be expanded in some way, but fucked if I know
 	// what else kidneys can process in our reagent list.
-	var/datum/reagent/coffee = locate(/datum/reagent/drink/coffee) in owner.reagents.reagent_list
+	var/datum/reagent/coffee = locate(/datum/reagent/consumable/drink/coffee) in owner.reagents.reagent_list
 	if(coffee)
 		if(is_bruised())
 			owner.adjustToxLoss(0.1 * PROCESS_ACCURACY)
@@ -416,7 +416,7 @@
 		if(src.damage >= src.min_bruised_damage)
 			for(var/datum/reagent/R in owner.reagents.reagent_list)
 				// Ethanol and all drinks are bad
-				if(istype(R, /datum/reagent/ethanol))
+				if(istype(R, /datum/reagent/consumable/ethanol))
 					owner.adjustToxLoss(0.1 * PROCESS_ACCURACY)
 
 			// Can't cope with toxins at all

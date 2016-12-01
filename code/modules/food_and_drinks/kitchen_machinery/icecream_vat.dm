@@ -24,10 +24,7 @@
 
 
 /obj/machinery/icemachine/New()
-	var/datum/reagents/R = new/datum/reagents(500)
-	reagents = R
-	R.my_atom = src
-
+	create_reagents(500)
 
 /obj/machinery/icemachine/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/weapon/reagent_containers/glass))
