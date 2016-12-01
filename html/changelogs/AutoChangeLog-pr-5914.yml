@@ -1,0 +1,5 @@
+author: "KasparoVy"
+delete-after: True
+changes: 
+  - tweak: "The character preview icon in character creation is now more detailed and less blurry."
+  - bugfix: "ID cards now show tails, body accessories and tail markings correctly."
