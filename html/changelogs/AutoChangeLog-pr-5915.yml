@@ -1,0 +1,5 @@
+author: "Twinmold93"
+delete-after: True
+changes: 
+  - bugfix: "Pilots of spacepods will no longer be sent to the void when the space pod is destroyed in any method."
+  - bugfix: "Pilots of spacepods will now get the same warnings for damage/core destruction that passengers get."
