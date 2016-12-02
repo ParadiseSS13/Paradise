@@ -88,7 +88,7 @@
 	D.visible_message("<span class='warning'>[A] pounds [D] on the chest!</span>", \
 				  	"<span class='userdanger'>[A] slams your chest! You can't breathe!</span>")
 	playsound(get_turf(A), 'sound/effects/hit_punch.ogg', 50, 1, -1)
-	D.losebreath += 5
+	D.AdjustLoseBreath(5)
 	D.adjustOxyLoss(10)
 	return 1
 
@@ -97,7 +97,7 @@
 				  	"<span class='userdanger'>[A] karate chops your neck, rendering you unable to speak for a short time!</span>")
 	playsound(get_turf(A), 'sound/effects/hit_punch.ogg', 50, 1, -1)
 	D.apply_damage(5, BRUTE)
-	D.silent += 10
+	D.AdjustSilence(10)
 	return 1
 
 datum/martial_art/krav_maga/grab_act(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)

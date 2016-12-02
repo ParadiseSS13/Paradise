@@ -279,11 +279,11 @@ Gunshots/explosions/opening doors/less rare audio (done)
 /obj/effect/hallucination/simple/singularity/proc/Eat(atom/OldLoc, Dir)
 	var/target_dist = get_dist(src,target)
 	if(target_dist<=3) //"Eaten"
-		target.sleeping = 20
+		target.Sleeping(20)
 		target.hal_crit = 1
 		target.hal_screwyhud = 1
 		spawn(rand(50,100))
-			target.sleeping = 0
+			target.SetSleeping(0)
 			target.hal_crit = 0
 			target.hal_screwyhud = 0
 
@@ -480,7 +480,7 @@ Gunshots/explosions/opening doors/less rare audio (done)
 					my_target.show_message("<span class='danger'>[src.name] has attacked [my_target] with [weapon_name]!</span>", 1)
 					my_target.staminaloss += 30
 					if(prob(20))
-						my_target.eye_blurry += 3
+						my_target.AdjustEyeBlurry(3)
 					if(prob(33))
 						if(!locate(/obj/effect/overlay) in my_target.loc)
 							fake_blood(my_target)
@@ -752,11 +752,11 @@ var/list/non_fakeattack_weapons = list(/obj/item/weapon/gun/projectile, /obj/ite
 						halimage = null
 		if("death")
 			//Fake death
-			src.sleeping = 20
+			Sleeping(20)
 			hal_crit = 1
 			hal_screwyhud = 1
 			spawn(rand(50,100))
-				src.sleeping = 0
+				SetSleeping(0)
 				hal_crit = 0
 				hal_screwyhud = 0
 		if("husks")

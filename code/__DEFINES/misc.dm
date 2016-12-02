@@ -208,14 +208,14 @@
 #define GLOVES_LAYER			11
 #define EARS_LAYER				12
 #define SUIT_LAYER				13
-#define GLASSES_LAYER			14
-#define BELT_LAYER				15	//Possible make this an overlay of somethign required to wear a belt?
-#define SUIT_STORE_LAYER		16
-#define BACK_LAYER				17
-#define TAIL_LAYER				18	//bs12 specific. this hack is probably gonna come back to haunt me
-#define HAIR_LAYER				19	//TODO: make part of head layer?
-#define HEAD_ACCESSORY_LAYER	20
-#define FHAIR_LAYER				21
+#define BELT_LAYER				14	//Possible make this an overlay of somethign required to wear a belt?
+#define SUIT_STORE_LAYER		15
+#define BACK_LAYER				16
+#define HAIR_LAYER				17	//TODO: make part of head layer?
+#define HEAD_ACCESSORY_LAYER	18
+#define FHAIR_LAYER				19
+#define TAIL_LAYER				20	//bs12 specific. this hack is probably gonna come back to haunt me
+#define GLASSES_LAYER			21
 #define FACEMASK_LAYER			22
 #define HEAD_LAYER				23
 #define COLLAR_LAYER			24
@@ -287,3 +287,11 @@
 #define SHELTER_DEPLOY_BAD_TURFS "bad turfs"
 #define SHELTER_DEPLOY_BAD_AREA "bad area"
 #define SHELTER_DEPLOY_ANCHORED_OBJECTS "anchored objects"
+
+// Client donator levels
+#define DONATOR_LEVEL_NONE 0
+#define DONATOR_LEVEL_ONE 1
+#define DONATOR_LEVEL_TWO 2
+
+// The cooldown on OOC messages such as OOC, LOOC, praying and adminhelps
+#define OOC_COOLDOWN 5

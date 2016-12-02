@@ -80,10 +80,10 @@
 			beaker = null
 	return ..()
 
-/obj/machinery/atmospherics/unary/cryo_cell/MouseDrop_T(atom/movable/O as mob|obj, mob/user as mob)
+/obj/machinery/atmospherics/unary/cryo_cell/MouseDrop_T(atom/movable/O as mob|obj, mob/living/user as mob)
 	if(O.loc == user) //no you can't pull things out of your ass
 		return
-	if(user.restrained() || user.stat || user.weakened || user.stunned || user.paralysis || user.resting) //are you cuffed, dying, lying, stunned or other
+	if(user.incapacitated()) //are you cuffed, dying, lying, stunned or other
 		return
 	if(get_dist(user, src) > 1 || get_dist(user, O) > 1 || user.contents.Find(src)) // is the mob anchored, too far away from you, or are you too far away from the source
 		return
@@ -134,7 +134,6 @@
 	if(air_contents)
 		temperature_archived = air_contents.temperature
 		heat_gas_contents()
-		expel_gas()
 
 		if(occupant)
 			process_occupant()
@@ -372,7 +371,7 @@
 		occupant.bodytemperature += 2*(air_contents.temperature - occupant.bodytemperature)*current_heat_capacity/(current_heat_capacity + air_contents.heat_capacity())
 		occupant.bodytemperature = max(occupant.bodytemperature, air_contents.temperature) // this is so ugly i'm sorry for doing it i'll fix it later i promise
 		if(occupant.bodytemperature < T0C)
-			occupant.sleeping = max(5/efficiency, (1/occupant.bodytemperature)*2000/efficiency)
+			occupant.Sleeping(max(5/efficiency, (1/occupant.bodytemperature)*2000/efficiency))
 			occupant.Paralyse(max(5/efficiency, (1/occupant.bodytemperature)*3000/efficiency))
 			if(air_contents.oxygen > 2)
 				if(occupant.getOxyLoss()) occupant.adjustOxyLoss(-1)
@@ -386,8 +385,11 @@
 				var/heal_fire = occupant.getFireLoss() ? min(efficiency, 20*(efficiency**2) / occupant.getFireLoss()) : 0
 				occupant.heal_organ_damage(heal_brute,heal_fire)
 		if(beaker && next_trans == 0)
+			var/proportion = 10 * min(1/beaker.volume, 1)
+			// Yes, this means you can get more bang for your buck with a beaker of SF vs a patch
+			// But it also means a giant beaker of SF won't heal people ridiculously fast 4 cheap
+			beaker.reagents.reaction(occupant, TOUCH, proportion)
 			beaker.reagents.trans_to(occupant, 1, 10)
-			beaker.reagents.reaction(occupant)
 	next_trans++
 	if(next_trans == 10)
 		next_trans = 0
@@ -400,16 +402,6 @@
 	if(combined_heat_capacity > 0)
 		var/combined_energy = T20C*current_heat_capacity + air_heat_capacity*air_contents.temperature
 		air_contents.temperature = combined_energy/combined_heat_capacity
-
-/obj/machinery/atmospherics/unary/cryo_cell/proc/expel_gas()
-	if(air_contents.total_moles() < 1)
-		return
-	var/datum/gas_mixture/expel_gas = new
-	var/remove_amount = air_contents.total_moles()/100
-	expel_gas = air_contents.remove(remove_amount)
-	expel_gas.temperature = T20C // Lets expel hot gas and see if that helps people not die as they are removed
-	loc.assume_air(expel_gas)
-	air_update_turf()
 
 /obj/machinery/atmospherics/unary/cryo_cell/proc/go_out()
 	if(!occupant)
@@ -457,16 +449,17 @@
 	set name = "Eject occupant"
 	set category = "Object"
 	set src in oview(1)
+
 	if(usr == occupant)//If the user is inside the tube...
-		if(usr.stat == 2)//and he's not dead....
+		if(usr.stat == DEAD)
 			return
-		to_chat(usr, "\blue Release sequence activated. This will take two minutes.")
+		to_chat(usr, "<span class='notice'>Release sequence activated. This will take two minutes.</span>")
 		sleep(600)
 		if(!src || !usr || !occupant || (occupant != usr)) //Check if someone's released/replaced/bombed him already
 			return
 		go_out()//and release him from the eternal prison.
 	else
-		if(usr.stat != 0)
+		if(usr.incapacitated()) //are you cuffed, dying, lying, stunned or other
 			return
 		go_out()
 	add_fingerprint(usr)
@@ -476,14 +469,18 @@
 	set name = "Move Inside"
 	set category = "Object"
 	set src in oview(1)
+
 	for(var/mob/living/carbon/slime/M in range(1,usr))
 		if(M.Victim == usr)
 			to_chat(usr, "You're too busy getting your life sucked out of you.")
 			return
-	if(usr.stat != 0 || stat & (NOPOWER|BROKEN))
+
+	if(stat & (NOPOWER|BROKEN))
 		return
-	if(usr.restrained() || usr.stat || usr.weakened || usr.stunned || usr.paralysis || usr.resting) //are you cuffed, dying, lying, stunned or other
+
+	if(usr.incapacitated()) //are you cuffed, dying, lying, stunned or other
 		return
+
 	put_mob(usr)
 	return
 

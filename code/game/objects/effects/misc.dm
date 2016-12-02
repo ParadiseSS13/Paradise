@@ -55,13 +55,6 @@
 	anchored = 1.0
 	unacidable = 1
 
-/obj/effect/stop
-	var/victim = null
-	icon_state = "empty"
-	name = "Geas"
-	desc = "You can't resist."
-	// name = ""
-
 /obj/effect/projection
 	name = "Projection"
 	desc = "This looks like a projection of something."

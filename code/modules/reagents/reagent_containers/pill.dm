@@ -80,12 +80,6 @@
 	icon_state = "pill8"
 	list_reagents = list("haloperidol" = 15)
 
-/obj/item/weapon/reagent_containers/food/pill/paroxetine
-	name = "Paroxetine pill"
-	desc = "Heavy anti-depressant."
-	icon_state = "pill8"
-	list_reagents = list("paroxetine" = 15)
-
 /obj/item/weapon/reagent_containers/food/pill/happy
 	name = "Happy pill"
 	desc = "Happy happy joy joy!"

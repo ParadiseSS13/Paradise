@@ -33,18 +33,11 @@
 	var/obj/machinery/machine = null
 	var/other_mobs = null
 	var/memory = ""
-	var/disabilities = 0	//Carbon
 	var/atom/movable/pulling = null
 	var/next_move = null
 	var/notransform = null	//Carbon
 	var/other = 0.0
 	var/hand = null
-	var/eye_blind = 0	//Carbon
-	var/eye_blurry = 0	//Carbon
-	var/ear_deaf = 0	//Carbon
-	var/ear_damage = 0	//Carbon
-	var/stuttering = 0	//Carbon
-	var/slurring = 0	//Carbon
 	var/real_name = null
 	var/flavor_text = ""
 	var/med_record = ""
@@ -53,11 +46,6 @@
 	var/blinded = null
 	var/bhunger = 0			//Carbon
 	var/ajourn = 0
-	var/druggy = 0			//Carbon
-	var/confused = 0		//Carbon
-	var/drunk = 0
-	var/sleeping = 0		//Carbon
-	var/resting = 0			//Carbon
 	var/lying = 0
 	var/lying_prev = 0
 	var/canmove = 1
@@ -77,19 +65,11 @@
 
 
 	var/bodytemperature = 310.055	//98.7 F
-	var/drowsyness = 0.0//Carbon
-	var/dizziness = 0//Carbon
-	var/jitteriness = 0//Carbon
 	var/flying = 0
 	var/charges = 0.0
 	var/nutrition = 400.0//Carbon
 
 	var/overeatduration = 0		// How long this guy is overeating //Carbon
-	var/paralysis = 0
-	var/stunned = 0
-	var/weakened = 0
-	var/slowed = 0
-	var/losebreath = 0 //Carbon
 	var/intent = null//Living
 	var/shakecamera = 0
 	var/a_intent = I_HELP//Living

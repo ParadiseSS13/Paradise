@@ -107,13 +107,14 @@ var/global/list/limb_icon_cache = list()
 		overlays |= lip_icon
 		mob_icon.Blend(lip_icon, ICON_OVERLAY)
 
-	if(owner.m_style)
-		var/datum/sprite_accessory/marking_style = marking_styles_list[owner.m_style]
-		if(marking_style && marking_style.species_allowed && (species.name in marking_style.species_allowed) && marking_style.marking_location == "head")
-			var/icon/markings_s = new/icon("icon" = marking_style.icon, "icon_state" = "[marking_style.icon_state]_s")
-			if(marking_style.do_colouration)
-				markings_s.Blend(rgb(owner.r_markings, owner.g_markings, owner.b_markings), ICON_ADD)
-			overlays |= markings_s
+	var/head_marking = owner.m_styles["head"]
+	if(head_marking && head_marking != "None")
+		var/datum/sprite_accessory/head_marking_style = marking_styles_list[head_marking]
+		if(head_marking_style && head_marking_style.species_allowed && (species.name in head_marking_style.species_allowed) && head_marking_style.marking_location == "head")
+			var/icon/h_marking_s = new/icon("icon" = head_marking_style.icon, "icon_state" = "[head_marking_style.icon_state]_s")
+			if(head_marking_style.do_colouration)
+				h_marking_s.Blend(owner.m_colours["head"], ICON_ADD)
+			overlays |= h_marking_s
 
 	if(ha_style)
 		var/datum/sprite_accessory/head_accessory_style = head_accessory_styles_list[ha_style]
@@ -158,6 +159,10 @@ var/global/list/limb_icon_cache = list()
 				gender = "f"
 			else
 				gender = "m"
+		if(limb_name == "head" && !is_stump() && !(status & ORGAN_DESTROYED))
+			var/obj/item/organ/external/head/head_organ = src
+			head_organ.handle_alt_icon()
+
 		new_icon_state = "[icon_name][gender ? "_[gender]" : ""]"
 
 		if(skeletal)

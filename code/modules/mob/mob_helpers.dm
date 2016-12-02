@@ -75,12 +75,6 @@ proc/iscuffed(A)
 			return 1
 	return 0
 
-proc/isdeaf(A)
-	if(istype(A, /mob))
-		var/mob/M = A
-		return (M.disabilities & DEAF) || M.ear_deaf
-	return 0
-
 proc/hassensorlevel(A, var/level)
 	var/mob/living/carbon/human/H = A
 	if(istype(H) && istype(H.w_uniform, /obj/item/clothing/under))
@@ -517,7 +511,8 @@ var/list/intents = list(I_HELP,I_DISARM,I_GRAB,I_HARM)
 		var/length
 		var/pos
 		for(var/datum/objective/objective in all_objectives)
-			if(objective.target != mind) continue
+			if(!mind || objective.target != mind)
+				continue
 			length = lentext(oldname)
 			pos = findtextEx(objective.explanation_text, oldname)
 			objective.explanation_text = copytext(objective.explanation_text, 1, pos)+newname+copytext(objective.explanation_text, pos+length)

@@ -27,7 +27,6 @@
 		if(mode.kickoff)
 			to_chat(user, "<span class='warning'>You have been locked out from this console!</span>")
 
-
 /obj/machinery/computer/robotics/proc/is_authenticated(var/mob/user as mob)
 	if(isobserver(user) && check_rights(R_ADMIN, 0, user))
 		return 1
@@ -116,8 +115,7 @@
 
 		message_admins("<span class='notice'>[key_name_admin(usr)] [target.canmove ? "locked down" : "released"] [key_name_admin(target)]!</span>")
 		log_game("[key_name(usr)] [target.canmove ? "locked down" : "released"] [key_name(target)]!")
-		target.canmove = !target.canmove
-		target.lockcharge = !target.lockcharge
+		target.SetLockdown(!target.lockcharge)
 		to_chat(target, "[!target.lockcharge ? "<span class='notice'>Your lockdown has been lifted!</span>" : "<span class='alert'>You have been locked down!</span>"]")
 		if(target.connected_ai)
 			to_chat(target.connected_ai, "[!target.lockcharge ? "<span class='notice'>NOTICE - Cyborg lockdown lifted</span>" : "<span class='alert'>ALERT - Cyborg lockdown detected</span>"]: <a href='?src=[target.connected_ai.UID()];track=[html_encode(target.name)]'>[target.name]</a></span><br>")
