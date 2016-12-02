@@ -2,7 +2,7 @@
 	name = "Messenger"
 	icon = "comments-o"
 	notify_icon = "comments"
-	title = "SpaceMessenger V4.1.0"
+	title = "SpaceMessenger V4.1.1"
 	template = "pda_messenger"
 
 	var/toff = 0 //If 1, messenger disabled

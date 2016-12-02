@@ -1733,7 +1733,6 @@
 #include "code\modules\pda\app.dm"
 #include "code\modules\pda\cart.dm"
 #include "code\modules\pda\cart_apps.dm"
-#include "code\modules\pda\chatroom.dm"
 #include "code\modules\pda\core_apps.dm"
 #include "code\modules\pda\messenger.dm"
 #include "code\modules\pda\messenger_plugins.dm"

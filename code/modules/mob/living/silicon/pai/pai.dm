@@ -110,8 +110,6 @@
 		pda.name = pda.owner + " (" + pda.ownjob + ")"
 		var/datum/data/pda/app/messenger/M = pda.find_program(/datum/data/pda/app/messenger)
 		M.toff = 1
-		var/datum/data/pda/app/chatroom/C = pda.find_program(/datum/data/pda/app/chatroom)
-		C.toff = 1
 	..()
 
 /mob/living/silicon/pai/Login()
