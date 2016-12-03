@@ -238,7 +238,7 @@
 		if((last_message_time + throttle > world.time) && !check_rights(R_ADMIN, 0))
 			var/wait_time = round(((last_message_time + throttle) - world.time) / 10, 1)
 			to_chat(src, "<span class='danger'>You are sending messages to quickly. Please wait [wait_time] [wait_time == 1 ? "second" : "seconds"] before sending another message.</span>")
-			return 1		
+			return 1
 		last_message_time = world.time
 	if(config.automute_on && !check_rights(R_ADMIN, 0) && last_message == message)
 		last_message_count++
@@ -437,7 +437,7 @@
 	var/watchreason = check_watchlist(ckey)
 	if(watchreason)
 		message_admins("<font color='red'><B>Notice: </B></font><font color='blue'>[key_name_admin(src)] is on the watchlist and has just connected - Reason: [watchreason]</font>")
-		send2adminirc("Watchlist - [key_name(src)] is on the watchlist and has just connected - Reason: [watchreason]")
+		send2irc(config.admin_notify_irc, "Watchlist - [key_name(src)] is on the watchlist and has just connected - Reason: [watchreason]")
 
 	//Just the standard check to see if it's actually a number
 	if(sql_id)
