@@ -3,19 +3,15 @@
 	unset_machine()
 	player_list -= src
 	log_access("Logout: [key_name(src)]")
-	// `holder` is nil'd out by now, so we check the `admin_datums` array directly
-	//Only report this stuff if we are currently playing.
-	if(admin_datums[ckey] && ticker && ticker.current_state == GAME_STATE_PLAYING)
-		var/datum/admins/temp_admin = admin_datums[ckey]
-		// Triggers on people with banhammer power only - no mentors tripping the alarm
-		if(temp_admin.rights & R_BAN)
+	if(admin_datums[src.ckey])
+		if(ticker && ticker.current_state == GAME_STATE_PLAYING) //Only report this stuff if we are currently playing.
+			var/admins_number = admins.len
+
 			message_admins("Admin logout: [key_name_admin(src)]")
-			var/list/admincounter = staff_countup(R_BAN)
-			if(admincounter[1] == 0) // No active admins
-				send2irc(config.admin_notify_irc, "[key_name(src)] logged out - No active admins, [admincounter[2]] non-admin staff, [admincounter[3]] inactive staff.")
-
+			if(admins_number == 0) //Apparently the admin logging out is no longer an admin at this point, so we have to check this towards 0 and not towards 1. Awell.
+				send2adminirc("[key_name(src)] logged out - no more admins online.")
 	..()
-
-	callHook("mob_logout", list("client" = client, "mob" = src))
-
+	
+	callHook("mob_logout", list("client" = client, "mob" = src))	
+	
 	return 1

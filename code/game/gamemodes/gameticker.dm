@@ -209,9 +209,12 @@ var/round_start_time = 0
 	//start_events() //handles random events and space dust.
 	//new random event system is handled from the MC.
 
-	var/list/admins_number = staff_countup(R_BAN)
-	if(admins_number[1] == 0 && admins_number[3] == 0)
-		send2irc(config.admin_notify_irc, "Round has started with no admins online.")
+	var/admins_number = 0
+	for(var/client/C)
+		if(C.holder)
+			admins_number++
+	if(admins_number == 0)
+		send2adminirc("Round has started with no admins online.")
 	auto_toggle_ooc(0) // Turn it off
 	round_start_time = world.time
 
