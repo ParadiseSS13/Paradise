@@ -671,8 +671,8 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) \
 
 	return 0
 
-/datum/objective/heist/assasinate
-/datum/objective/heist/assasinate/choose_target()
+/datum/objective/heist/assassinate
+/datum/objective/heist/assassinate/choose_target()
 	var/list/possible_targets = list()
 
 	for(var/datum/mind/possible_target in ticker.minds)
@@ -687,7 +687,7 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) \
 		explanation_text = "Free Objective"
 	return target
 
-/datum/objective/heist/assasinate/check_completion()
+/datum/objective/heist/assassinate/check_completion()
 	if(target && target.current)
 		if(target.current.stat == DEAD)
 			return 1

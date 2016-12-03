@@ -159,7 +159,7 @@ var/global/list/raider_gear = list()
 				O = new /datum/objective/heist/loot()
 		else if(goal == "kill/loot")
 			if(prob(90))
-				O = new /datum/objective/heist/assasinate()
+				O = new /datum/objective/heist/assassinate()
 			else
 				O = new /datum/objective/heist/loot()
 		else
