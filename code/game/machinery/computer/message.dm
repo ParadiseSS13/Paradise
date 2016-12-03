@@ -145,7 +145,7 @@
 			if(!auth)
 				dat += "<br><hr><dd><span class='notice'>Please authenticate with the server in order to show additional options.</span>"
 			else
-				dat += "<br><hr><dd><span class='warning'>Reg, #514 forbids sending messages to a Head of Staff containing Erotic Rendering Properties.</span>"
+				dat += "<br><hr><dd><span class='warning'>Reg, #514 forbids sending messages containing Erotic Rendering Properties.</span>"
 
 		//Message Logs
 		if(1)
