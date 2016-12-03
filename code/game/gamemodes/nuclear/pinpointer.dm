@@ -179,7 +179,7 @@
 /obj/item/weapon/pinpointer/nukeop
 	var/mode = 0	//Mode 0 locates disk, mode 1 locates the shuttle
 	var/obj/docking_port/mobile/home = null
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_BELT | SLOT_PDA
 
 /obj/item/weapon/pinpointer/nukeop/attack_self(mob/user as mob)
 	if(!active)
