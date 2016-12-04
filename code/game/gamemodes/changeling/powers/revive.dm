@@ -8,7 +8,7 @@
 	if(user.stat == DEAD)
 		dead_mob_list -= user
 		living_mob_list |= user
-	user.stat = CONSCIOUS
+
 	user.setToxLoss(0)
 	user.setOxyLoss(0)
 	user.setCloneLoss(0)
@@ -63,6 +63,9 @@
 			IO.damage = 0
 			IO.trace_chemicals = list()
 		H.updatehealth()
+
+	user.stat = CONSCIOUS
+
 	to_chat(user, "<span class='notice'>We have regenerated.</span>")
 
 	user.regenerate_icons()
