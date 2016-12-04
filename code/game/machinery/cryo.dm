@@ -122,7 +122,14 @@
 	..()
 	if(autoeject)
 		if(occupant)
-			if(occupant.health >= 100)
+			var/mech_damage = 0
+			if(istype(occupant, /mob/living/carbon/human))
+				var/mob/living/carbon/human/H = occupant
+				for(var/obj/item/organ/external/O in H.organs)
+					if(O.status & ORGAN_ROBOT)
+						mech_damage += O.brute_dam
+						mech_damage += O.burn_dam
+			if(occupant.health >= (100 - mech_damage))
 				on = 0
 				go_out()
 				playsound(src.loc, 'sound/machines/ding.ogg', 50, 1)
