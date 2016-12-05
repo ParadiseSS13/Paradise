@@ -565,6 +565,8 @@
 
 	if(prob(deflect_chance * deflection) && (Proj.damage_type == BRUTE || Proj.damage_type == BURN))
 		visible_message("<span class='danger'>[src]'s armour deflects [Proj]!</span>")
+	else if (Proj.damage_type == STAMINA)
+		visible_message("<span class='danger'>[src]'s armour is undamaged by [Proj]!</span>")
 	else
 		visible_message("<span class='danger'>[src] is hit by [Proj].</span>")
 		take_damage(Proj.damage * dam_coeff, Proj.flag)
