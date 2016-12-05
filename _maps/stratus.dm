@@ -14,16 +14,16 @@ z7 = empty
 
 #if !defined(MAP_FILE)
 
-        #include "map_files\cyberiad\cyberiad.dmm"
-        #include "map_files\cyberiad\z2.dmm"
-        #include "map_files\cyberiad\z3.dmm"
-        #include "map_files\cyberiad\z4.dmm"
-        #include "map_files\cyberiad\z5.dmm"
-        #include "map_files\cyberiad\z6.dmm"
-        #include "map_files\cyberiad\z7.dmm"
+        #include "map_files\stratus\stratus.dmm"
+        #include "map_files\stratus\z2.dmm"
+        #include "map_files\stratus\z3.dmm"
+        #include "map_files\stratus\z4.dmm"
+        #include "map_files\stratus\z5.dmm"
+        #include "map_files\stratus\z6.dmm"
+        #include "map_files\stratus\z7.dmm"
 
-        #define MAP_FILE "cyberiad.dmm"
-        #define MAP_NAME "NSS Cyberiad"
+        #define MAP_FILE "stratus.dmm"
+        #define MAP_NAME "NTDSF-13 Stratus"
         #define MAP_TRANSITION_CONFIG list(\
 DECLARE_LEVEL(MAIN_STATION, CROSSLINKED, list(STATION_LEVEL,STATION_CONTACT,REACHABLE,AI_OK)),\
 DECLARE_LEVEL(CENTCOMM, SELFLOOPING, list(ADMIN_LEVEL, BLOCK_TELEPORT, IMPEDES_MAGIC)),\
