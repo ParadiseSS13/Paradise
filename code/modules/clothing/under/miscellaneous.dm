@@ -99,7 +99,7 @@
 	displays_id = 0
 
 /obj/item/clothing/under/rank/centcom/blueshield
-	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Lieutenant\" and bears \"N.S.S. Cyberiad\" on the left shounder."
+	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Lieutenant\" and bears \"N.T.D.S.F. Stratus\" on the left shounder."
 	name = "\improper Nanotrasen Navy Uniform"
 	icon_state = "officer"
 	item_state = "g_suit"
@@ -108,7 +108,7 @@
 	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/centcom/representative
-	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Ensign\" and bears \"N.S.S. Cyberiad\" on the left shounder."
+	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Ensign\" and bears \"N.T.D.S.F. Stratus\" on the left shounder."
 	name = "\improper Nanotrasen Navy Uniform"
 	icon_state = "officer"
 	item_state = "g_suit"
