@@ -33,7 +33,7 @@ var/global/dmm_suite/preloader/_preloader = new
  *
  * If you need to freeze init while you're working, you can use the spacial allocator's
  * "add_dirt" and "remove_dirt" which will put initializations on hold until you say
- * the word. This is important for loading large maps such as the cyberiad, where
+ * the word. This is important for loading large maps such as the stratus, where
  * atmos will attempt to start before it's ready, causing runtimes galore if init is
  * allowed to romp unchecked.
  */

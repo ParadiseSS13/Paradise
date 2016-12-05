@@ -677,7 +677,7 @@
 				dat += "Authorized personnel only<br>"
 				dat += "<A href='?src=[UID()];request=1]'>Request Authorization</A><br>"
 		if(docking_request)
-			dat += "<A href='?src=[UID()];request=1]'>Request docking at NSS Cyberiad</A><br>"
+			dat += "<A href='?src=[UID()];request=1]'>Request docking at NTDSF Stratus</A><br>"
 	dat += "<a href='?src=[user.UID()];mach_close=computer'>Close</a>"
 
 	var/datum/browser/popup = new(user, "computer", M ? M.name : "shuttle", 300, 200)
@@ -803,7 +803,7 @@ var/global/trade_dockrequest_timelimit = 0
 	docking_request = 1
 	var/possible_destinations_dock
 	var/possible_destinations_nodock
-	var/docking_request_message = "A trading ship has requested docking aboard the NSS Cyberiad for trading. This request can be accepted or denied using a communications console."
+	var/docking_request_message = "A trading ship has requested docking aboard the NTDSF Stratus for trading. This request can be accepted or denied using a communications console."
 
 /obj/machinery/computer/shuttle/trade/attack_hand(mob/user)
 	if(world.time < trade_dock_timelimit)
@@ -829,7 +829,7 @@ var/global/trade_dockrequest_timelimit = 0
 	possible_destinations_dock = "trade_sol_base;trade_sol_offstation;trade_dock"
 	possible_destinations_nodock = "trade_sol_base;trade_sol_offstation"
 	shuttleId = "trade_sol"
-	docking_request_message = "A trading ship of Sol origin has requested docking aboard the NSS Cyberiad for trading. This request can be accepted or denied using a communications console."
+	docking_request_message = "A trading ship of Sol origin has requested docking aboard the NTDSF Stratus for trading. This request can be accepted or denied using a communications console."
 
 #undef DOCKING_PORT_HIGHLIGHT
 
