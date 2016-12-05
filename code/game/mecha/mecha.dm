@@ -563,10 +563,10 @@
 			dam_coeff = B.damage_coeff
 			break
 
-	if(prob(deflect_chance * deflection) && (Proj.damage_type == BRUTE || Proj.damage_type == BURN))
-		visible_message("<span class='danger'>[src]'s armour deflects [Proj]!</span>")
-	else if (Proj.damage_type == STAMINA)
+	if(Proj.damage_type != BRUTE && Proj.damage_type != BURN)
 		visible_message("<span class='danger'>[src]'s armour is undamaged by [Proj]!</span>")
+	else if(prob(deflect_chance * deflection))
+		visible_message("<span class='danger'>[src]'s armour deflects [Proj]!</span>")
 	else
 		visible_message("<span class='danger'>[src] is hit by [Proj].</span>")
 		take_damage(Proj.damage * dam_coeff, Proj.flag)
