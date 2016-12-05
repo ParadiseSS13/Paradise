@@ -5,10 +5,6 @@
 
 //Revive from regenerative stasis
 /obj/effect/proc_holder/changeling/revive/sting_action(var/mob/living/carbon/user)
-	if(user.stat == DEAD)
-		dead_mob_list -= user
-		living_mob_list |= user
-	user.stat = CONSCIOUS
 	user.setToxLoss(0)
 	user.setOxyLoss(0)
 	user.setCloneLoss(0)
@@ -63,12 +59,13 @@
 			IO.damage = 0
 			IO.trace_chemicals = list()
 		H.updatehealth()
+
 	to_chat(user, "<span class='notice'>We have regenerated.</span>")
 
 	user.regenerate_icons()
 
 	user.status_flags &= ~(FAKEDEATH)
-	user.update_canmove()
+	user.update_revive() //Handle waking up the changeling after the regenerative stasis has completed.
 	user.mind.changeling.purchasedpowers -= src
 	user.med_hud_set_status()
 	user.med_hud_set_health()

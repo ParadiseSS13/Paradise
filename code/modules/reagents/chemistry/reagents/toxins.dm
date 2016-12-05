@@ -326,9 +326,9 @@
 /datum/reagent/beer2/on_mob_life(mob/living/M)
 	switch(current_cycle)
 		if(1 to 50)
-			M.AdjustSleeping(1)
+			M.Sleeping(2)
 		if(51 to INFINITY)
-			M.AdjustSleeping(1)
+			M.Sleeping(2)
 			M.adjustToxLoss((current_cycle - 50)*REAGENTS_EFFECT_MULTIPLIER)
 	..()
 
