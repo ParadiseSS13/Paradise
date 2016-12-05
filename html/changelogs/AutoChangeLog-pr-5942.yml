@@ -1,4 +1,0 @@
-author: "KasparoVy"
-delete-after: True
-changes: 
-  - bugfix: "Resolves an issue where cloned vampires could no longer drain blood, burn in the chapel or use their powers properly."
