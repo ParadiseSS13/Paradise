@@ -15,7 +15,7 @@
 
 /datum/nations/brigston
 	default_name = "Brigston"
-	default_leader = "Head of Security"
+	default_leader = "NTSF Commander"
 
 /datum/nations/cargonia
 	default_name = "Cargonia"

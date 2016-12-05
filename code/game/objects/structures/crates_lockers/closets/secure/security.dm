@@ -88,7 +88,7 @@
 
 /obj/structure/closet/secure_closet/hos
 	name = "head of security's locker"
-	req_access = list(access_hos)
+	req_access = list(access_commander)
 	icon_state = "hossecure1"
 	icon_closed = "hossecure"
 	icon_locked = "hossecure1"

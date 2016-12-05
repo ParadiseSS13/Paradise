@@ -1,6 +1,6 @@
-/datum/job/hos
-	title = "Head of Security"
-	flag = HOS
+/datum/job/commander
+	title = "NTSF Commander"
+	flag = COMMANDER
 	department_flag = ENGSEC
 	total_positions = 1
 	spawn_positions = 1
@@ -11,11 +11,11 @@
 	access = list(access_security, access_sec_doors, access_brig, access_armory, access_court,
 			            access_forensics_lockers, access_pilot, access_morgue, access_maint_tunnels, access_all_personal_lockers,
 			            access_research, access_engine, access_mining, access_medical, access_construction, access_mailsorting,
-			            access_heads, access_hos, access_RC_announce, access_keycard_auth, access_gateway, access_weapons)
+			            access_heads, access_commander, access_RC_announce, access_keycard_auth, access_gateway, access_weapons)
 	minimal_access = list(access_eva, access_security, access_sec_doors, access_brig, access_armory, access_court,
 			            access_forensics_lockers, access_morgue, access_maint_tunnels, access_all_personal_lockers,
 			            access_research, access_engine, access_mining, access_medical, access_construction, access_mailsorting,
-			            access_heads, access_hos, access_RC_announce, access_keycard_auth, access_gateway, access_pilot, access_weapons)
+			            access_heads, access_commander, access_RC_announce, access_keycard_auth, access_gateway, access_pilot, access_weapons)
 	minimal_player_age = 21
 
 	equip(var/mob/living/carbon/human/H)
@@ -32,10 +32,11 @@
 		H.equip_or_collect(new /obj/item/clothing/gloves/color/black/hos(H), slot_gloves)
 		H.equip_or_collect(new /obj/item/clothing/head/HoS(H), slot_head)
 		H.equip_or_collect(new /obj/item/clothing/glasses/hud/security/sunglasses(H), slot_glasses)
-		H.equip_or_collect(new /obj/item/weapon/gun/energy/gun(H), slot_s_store)
+		H.equip_or_collect(new /obj/item/weapon/gun/projectile/automatic/pistol/deagle(H), slot_s_store)
 		H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H), slot_in_backpack)
 		H.equip_or_collect(new /obj/item/weapon/restraints/handcuffs(H), slot_in_backpack)
 		H.equip_or_collect(new /obj/item/weapon/melee/classic_baton/telescopic(H), slot_in_backpack)
+		H.equip_or_collect(new /obj/item/clothing/accessory/holster(H), slot_in_backpack)
 		var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(H)
 		L.imp_in = H
 		L.implanted = 1
@@ -45,12 +46,12 @@
 
 
 /datum/job/warden
-	title = "Warden"
+	title = "NTSF Warden"
 	flag = WARDEN
 	department_flag = ENGSEC
 	total_positions = 1
 	spawn_positions = 1
-	supervisors = "the head of security"
+	supervisors = "the NTSF commander"
 	selection_color = "#ffeeee"
 	idtype = /obj/item/weapon/card/id/security
 	access = list(access_security, access_sec_doors, access_brig, access_armory, access_court, access_maint_tunnels, access_morgue, access_weapons)
@@ -84,19 +85,17 @@
 
 
 
-/datum/job/detective
-	title = "Detective"
-	flag = DETECTIVE
+/datum/job/investigator
+	title = "NTSF Investigator"
+	flag = INVESTIGATOR
 	department_flag = ENGSEC
 	total_positions = 1
 	spawn_positions = 1
-	supervisors = "the head of security"
+	supervisors = "the NTSF commander"
 	selection_color = "#ffeeee"
-	alt_titles = list("Forensic Technician")
 	idtype = /obj/item/weapon/card/id/security
 	access = list(access_security, access_sec_doors, access_forensics_lockers, access_morgue, access_maint_tunnels, access_court, access_weapons)
 	minimal_access = list(access_sec_doors, access_forensics_lockers, access_morgue, access_maint_tunnels, access_court, access_weapons)
-	alt_titles = list("Forensic Technician")
 	minimal_player_age = 14
 	equip(var/mob/living/carbon/human/H)
 		if(!H)	return 0
@@ -137,12 +136,12 @@
 
 
 /datum/job/officer
-	title = "Security Officer"
+	title = "NTSF Officer"
 	flag = OFFICER
 	department_flag = ENGSEC
 	total_positions = 5
 	spawn_positions = 5
-	supervisors = "the head of security"
+	supervisors = "the NTSF commander"
 	selection_color = "#ffeeee"
 	idtype = /obj/item/weapon/card/id/security
 	access = list(access_security, access_sec_doors, access_brig, access_court, access_maint_tunnels, access_morgue, access_weapons)
@@ -172,12 +171,12 @@
 		return 1
 
 /datum/job/brigdoc
-	title = "Brig Physician"
+	title = "NTSF Medic"
 	flag = BRIGDOC
 	department_flag = KARMA
 	total_positions = 1
 	spawn_positions = 1
-	supervisors = "the head of security"
+	supervisors = "the NTSF commander"
 	selection_color = "#ffeeee"
 	idtype = /obj/item/weapon/card/id/security
 	access = list(access_medical, access_morgue, access_surgery, access_chemistry, access_virology, access_genetics)
@@ -205,12 +204,12 @@
 		return 1
 
 /datum/job/pilot
-	title = "Security Pod Pilot"
+	title = "NTSF Pilot"
 	flag = PILOT
 	department_flag = KARMA
 	total_positions = 1
 	spawn_positions = 1
-	supervisors = "the head of security"
+	supervisors = "the NTSF commander"
 	selection_color = "#ffeeee"
 	idtype = /obj/item/weapon/card/id/security
 	access = list(access_security, access_sec_doors, access_brig, access_court, access_maint_tunnels, access_morgue, access_weapons, access_pilot, access_external_airlocks)

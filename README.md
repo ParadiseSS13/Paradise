@@ -1,20 +1,20 @@
-# Paradise
+# Stratus Outpost
 
-[Website](http://www.nanotrasen.se/) - [Code](https://github.com/ParadiseSS13/Paradise) - [IRC](http://www.nanotrasen.se/phpBB3/viewtopic.php?f=10&t=1113)
+[Website](http://ntdsf13.boards.net/) - [Code](https://github.com/StratusSS13/Stratus) - [Discord](https://discord.gg/EbGYM7T)
 
 ---
 
 ### GETTING THE CODE
 The simplest way to obtain the code is using the github .zip feature.
 
-Click [here](https://github.com/ParadiseSS13/Paradise/archive/master.zip) to get the latest code as a .zip file, then unzip it to wherever you want.
+Click [here](https://github.com/StratusSS13/Stratus/archive/master.zip) to get the latest code as a .zip file, then unzip it to wherever you want.
 
 The more complicated and easier to update method is using git.  
 You'll need to download git or some client from [here](http://git-scm.com/).  
 When that's installed, right click in any folder and click on "Git Bash".  
 When that opens, type in:
 
-    git clone https://github.com/ParadiseSS13/Paradise.git
+    git clone https://github.com/StratusSS13/Stratus.git
 
 (hint: hold down ctrl and press insert to paste into git bash)
 
@@ -27,13 +27,13 @@ First, you'll need BYOND installed.
 You can get it from [here](http://www.byond.com/).
 
 This is a sourcecode-only release, so the next step is to compile the server files.  
-Open paradise.dme by double-clicking it, open the Build menu, and click compile.  
+Open stratus.dme by double-clicking it, open the Build menu, and click compile.  
 This'll take a little while, and if everything's done right,
 you'll get a message like this:
 
-    saving paradise.dmb (DEBUG mode)
+    saving stratus.dmb (DEBUG mode)
 
-    paradise.dmb - 0 errors, 0 warnings
+    stratus.dmb - 0 errors, 0 warnings
 
 If you see any errors or warnings,
 something has gone wrong - possibly a corrupt download or the files extracted wrong,
@@ -57,7 +57,7 @@ There are a bunch more admin ranks, but these two should be enough for most serv
 assuming you have trustworthy admins.
 
 Finally, to start the server,
-run Dream Daemon and enter the path to your compiled paradise.dmb file.  
+run Dream Daemon and enter the path to your compiled stratus.dmb file.  
 Make sure to set the port to the one you specified in the config.txt,
 and set the Security box to 'Trusted'.  
 Then press GO and the server should start up and be ready to join.
@@ -93,7 +93,7 @@ For a basic setup, simply copy every file from config/example to config.
 
 The SQL backend for the library and stats tracking requires a MySQL server.  
 Your server details go in /config/dbconfig.txt,
-and the SQL schema is in /SQL/paradise_schema.sql or /SQL/paradise_schema_prefix.sql,
+and the SQL schema is in /SQL/stratus_schema.sql or /SQL/stratus_schema_prefix.sql,
 depending on if you want table prefixes.  
 More detailed setup instructions are located on /tg/station's wiki: http://www.tgstation13.org/wiki/Downloading_the_source_code#Setting_up_the_database
 
@@ -108,7 +108,7 @@ along with the bot/relay script itself.
 
 ### LICENSE
 
-Paradise is licensed under the GNU Affero General Public License version 3.
+Stratus is licensed under the GNU Affero General Public License version 3.
 As of 5th January 2015 any new contributions are licensed under the AGPL as well,
 if you wish to submit code under the GPL v3 then commits and files must be marked as such
 in comments. If you wish to use our code in a closed source manner you may use anything
@@ -121,9 +121,9 @@ including addons and modifications you have made.
 See [this](https://www.gnu.org/licenses/why-affero-gpl.html) for more information.
 
 Any files located in the
-`Paradise/goon`,
-`Paradise/icons/goonstation`, or
-`Paradise/sound/goonstation`
+`stratus/goon`,
+`stratus/icons/goonstation`, or
+`stratus/sound/goonstation`
 directories, or any subdirectories of mentioned directories are licensed under the
 Creative Commons 3.0 BY-NC-SA license
 (https://creativecommons.org/licenses/by-nc-sa/3.0)

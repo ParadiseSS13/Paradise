@@ -43,19 +43,19 @@
 	path = /obj/item/clothing/head/fedora/brownfedora
 
 /datum/gear/hat/beretsec
-	display_name = "security beret"
+	display_name = "NTSF beret"
 	path = /obj/item/clothing/head/beret/sec
-	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Security Pod Pilot")
+	allowed_roles = list("NTSF Commander", "Warden", "NTSF Officer", "NTSF Pilot")
 
 /datum/gear/hat/capcsec
-	display_name = "security corporate cap"
+	display_name = "NTSF corporate cap"
 	path = /obj/item/clothing/head/soft/sec/corp
-	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Security Pod Pilot")
+	allowed_roles = list("NTSF Commander", "Warden", "NTSF Officer", "NTSF Pilot")
 
 /datum/gear/hat/capsec
-	display_name = "security cap"
+	display_name = "NTSF cap"
 	path = /obj/item/clothing/head/soft/sec
-	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Security Pod Pilot")
+	allowed_roles = list("HNTSF Commander", "Warden", "NTSF Officer", "NTSF Pilot")
 
 /datum/gear/hat/capred
 	display_name = "cap, red"
