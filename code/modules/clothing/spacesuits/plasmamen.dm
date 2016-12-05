@@ -264,22 +264,22 @@
 //SECURITY
 
 /obj/item/clothing/suit/space/eva/plasmaman/security
-	name = "plasmaman security suit"
+	name = "plasmaman NTSF suit"
 	icon_state = "plasmamanSecurity_suit"
 	armor = list(melee = 15, bullet = 15, laser = 15, energy = 10, bomb = 10, bio = 100, rad = 50)
 
 /obj/item/clothing/head/helmet/space/eva/plasmaman/security
-	name = "plasmaman security helmet"
+	name = "plasmaman NTSF helmet"
 	icon_state = "plasmamanSecurity_helmet0"
 	base_state = "plasmamanSecurity_helmet"
 	armor = list(melee = 15, bullet = 15, laser = 15, energy = 10, bomb = 10, bio = 100, rad = 50)
 
 /obj/item/clothing/suit/space/eva/plasmaman/security/hos
-	name = "plasmaman head of security suit"
+	name = "plasmaman commander suit"
 	icon_state = "plasmaman_HoS"
 
 /obj/item/clothing/head/helmet/space/eva/plasmaman/security/hos
-	name = "plasmaman head of security helmet"
+	name = "plasmaman commander helmet"
 	icon_state = "plasmaman_HoS_helmet0"
 	base_state = "plasmaman_HoS_helmet"
 

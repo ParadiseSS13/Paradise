@@ -25,7 +25,7 @@ var/time_last_changed_position = 0
 		/datum/job/cyborg,
 		/datum/job/captain,
 		/datum/job/hop,
-		/datum/job/hos,
+		/datum/job/commander,
 		/datum/job/chief_engineer,
 		/datum/job/rd,
 		/datum/job/cmo,

@@ -1,4 +1,4 @@
-// DM Environment file for paradise.dme.
+// DM Environment file for stratus.dme.
 // All manual changes should be made outside the BEGIN_ and END_ blocks.
  // New source code should be placed in .dm files: choose File/New --> Code File.
 // BEGIN_INTERNALS
@@ -1857,8 +1857,8 @@
 #include "code\modules\reagents\chemistry\reagents\medicine.dm"
 #include "code\modules\reagents\chemistry\reagents\misc.dm"
 #include "code\modules\reagents\chemistry\reagents\paint.dm"
-#include "code\modules\reagents\chemistry\reagents\paradise_pop.dm"
 #include "code\modules\reagents\chemistry\reagents\pyrotechnic.dm"
+#include "code\modules\reagents\chemistry\reagents\stratus.dm"
 #include "code\modules\reagents\chemistry\reagents\toxins.dm"
 #include "code\modules\reagents\chemistry\reagents\water.dm"
 #include "code\modules\reagents\chemistry\recipes\drinks.dm"
