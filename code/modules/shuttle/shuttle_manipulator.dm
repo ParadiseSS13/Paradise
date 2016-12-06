@@ -295,7 +295,7 @@
 				var/obj/docking_port/mobile/M = P
 				found++
 				if(found > 1)
-					qdel(P)
+					qdel(P, force=TRUE)
 					world.log << "Map warning: Shuttle Template [S.mappath] \
 						has multiple mobile docking ports."
 				else if(!M.timid)
@@ -323,6 +323,5 @@
 
 /obj/machinery/shuttle_manipulator/proc/unload_preview()
 	if(preview_shuttle)
-		to_chat(usr, "unloading: [preview_shuttle]")
 		preview_shuttle.jumpToNullSpace()
 	preview_shuttle = null

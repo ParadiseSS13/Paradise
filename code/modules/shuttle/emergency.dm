@@ -101,14 +101,15 @@
 	shuttle_master.emergency = src
 	return 1
 
-/obj/docking_port/mobile/emergency/Destroy()
-	// This'll make the shuttle subsystem use the backup shuttle.
-	if(src == shuttle_master.emergency)
-		// If we're the selected emergency shuttle
-		shuttle_master.emergencyDeregister()
+/obj/docking_port/mobile/emergency/Destroy(force)
+	if(force)
+		// This'll make the shuttle subsystem use the backup shuttle.
+		if(src == shuttle_master.emergency)
+			// If we're the selected emergency shuttle
+			shuttle_master.emergencyDeregister()
 
 
-	. = ..()
+	return ..()
 
 /obj/docking_port/mobile/emergency/timeLeft(divisor)
 	if(divisor <= 0)

@@ -21,14 +21,12 @@
 	// A timid shuttle will not register itself with the shuttle subsystem
 	// All shuttle templates are timid
 	var/timid = FALSE
-	var/JUSTDOIT = FALSE //ITS A HACKY VAR FOR THIS SHIT OKAY
 
 	//these objects are indestructable
-/obj/docking_port/Destroy()
-	if(JUSTDOIT)
+/obj/docking_port/Destroy(force)
+	if(force)
 		..()
 		. = QDEL_HINT_HARDDEL_NOW
-		JUSTDOIT = FALSE //THIS HURTS US PRECIOUS
 	else
 
 		return QDEL_HINT_LETMELIVE
@@ -245,13 +243,13 @@
 
 	return 1
 
-/obj/docking_port/mobile/Destroy()
-	if(JUSTDOIT)
+/obj/docking_port/mobile/Destroy(force)
+	if(force)
 		shuttle_master.mobile -= src
 		areaInstance = null
 		destination = null
 		previous = null
-	. = ..()
+	return ..()
 
 //this is a hook for custom behaviour. Maybe at some point we could add checks to see if engines are intact
 /obj/docking_port/mobile/proc/canMove()
@@ -275,6 +273,7 @@
 	//check the dock isn't occupied
 	// by someone other than us
 	if(S.get_docked())
+		to_chat(world, "[S.getDockedId()]")
 		return SHUTTLE_SOMEONE_ELSE_DOCKED
 	return SHUTTLE_CAN_DOCK
 
@@ -364,8 +363,6 @@
 /obj/docking_port/mobile/proc/jumpToNullSpace()
 	// Destroys the docking port and the shuttle contents.
 	// Not in a fancy way, it just ceases.
-
-	JUSTDOIT = TRUE //GOD WHY WHY GOD
 	var/obj/docking_port/stationary/S0 = get_docked()
 	var/turf_type = /turf/space
 	var/area_type = /area/space
@@ -393,7 +390,6 @@
 		for(var/AM in T0.GetAllContents())
 			if(istype(AM, /mob/dead))
 				continue
-			world << "[AM]"
 			qdel(AM)
 
 		T0.ChangeTurf(turf_type)
@@ -403,7 +399,7 @@
 		T0.CalculateAdjacentTurfs()
 		air_master.add_to_active(T0,1)
 
-	qdel(src)
+	qdel(src,force=TRUE)
 
 //this is the main proc. It instantly moves our mobile port to stationary port S1
 //it handles all the generic behaviour, such as sanity checks, closing doors on the shuttle, stunning mobs, etc
