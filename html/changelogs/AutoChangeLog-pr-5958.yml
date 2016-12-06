@@ -1,5 +1,0 @@
-author: "Markolie"
-delete-after: True
-changes: 
-  - bugfix: "The track button on the AI crew monitor now works."
-  - bugfix: "Permanent door electrification by alt-clicking a door as an AI or setting it manually now works again."
