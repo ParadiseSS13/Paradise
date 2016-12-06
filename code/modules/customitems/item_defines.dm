@@ -655,3 +655,8 @@
 	suit_adjusted = 1
 	species_fit = null
 	sprite_sheets = null
+
+/obj/item/weapon/storage/backpack/fluff/krich_back //lizardzsi: Krichahka
+	name = "Voxcaster"
+	desc = "Battered, Sol-made military radio backpack that had its speakers fried from playing Vox opera. The words 'Swift-Talon' are crudely scratched onto its side."
+	icon_state = "voxcaster_fluff"
