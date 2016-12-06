@@ -1594,6 +1594,7 @@
 		dna.real_name = real_name
 
 	species.handle_post_spawn(src)
+	species.handle_dna(src) //Give them whatever special dna business they got.
 
 	spawn(0)
 		overlays.Cut()

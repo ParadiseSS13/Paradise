@@ -619,7 +619,7 @@
 				numbers += H.mind.initial_account.account_number
 				numbers += H.mind.initial_account.remote_access_pin
 			if(numbers.len>0)
-				to_chat(usr, "<span class='notice'>b>Numbers</b>: You sense the number[numbers.len>1?"s":""] [english_list(numbers)] [numbers.len>1?"are":"is"] important to [M.name].</span>")
+				to_chat(usr, "<span class='notice'><b>Numbers</b>: You sense the number[numbers.len>1?"s":""] [english_list(numbers)] [numbers.len>1?"are":"is"] important to [M.name].</span>")
 		to_chat(usr, "<span class='notice'><b>Thoughts</b>: [M.name] is currently [thoughts].</span>")
 
 		if(EMPATH in M.mutations)

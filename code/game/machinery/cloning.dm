@@ -205,7 +205,7 @@
 	clonemind = locate(R.mind)
 	if(!istype(clonemind))	//not a mind
 		return 0
-	if( clonemind.current && clonemind.current.stat != DEAD )	//mind is associated with a non-dead body
+	if(clonemind.current && clonemind.current.stat != DEAD)	//mind is associated with a non-dead body
 		return 0
 	if(clonemind.active)	//somebody is using that mind
 		if(ckey(clonemind.key) != R.ckey)
@@ -229,12 +229,21 @@
 	spawn(30)
 		eject_wait = 0
 
+	if(!R.dna)
+		R.dna = new /datum/dna()
+
 	var/mob/living/carbon/human/H = new /mob/living/carbon/human(src, R.dna.species)
 	occupant = H
 
 	if(!R.dna.real_name)	//to prevent null names
-		R.dna.real_name = "clone ([rand(0,999)])"
-	H.real_name = R.dna.real_name
+		R.dna.real_name = H.real_name
+	else
+		H.real_name = R.dna.real_name
+
+	H.dna = R.dna.Clone()
+
+	for(var/datum/language/L in R.languages)
+		H.add_language(L.name)
 
 	//Get the clone body ready
 	H.adjustCloneLoss(190) //new damage var so you can't eject a clone early then stab them to abuse the current damage system --NeoFite
@@ -256,30 +265,22 @@
 			beginning to regenerate in a cloning pod. You will
 			become conscious when it is complete.</span>"})
 
-	if(!R.dna)
-		H.dna = new /datum/dna()
-		H.dna.real_name = H.real_name
-		H.dna.ready_dna(H)
-	else
-		H.dna = R.dna.Clone()
+	domutcheck(H, null, MUTCHK_FORCED) //Ensures species that get powers by the species proc handle_dna keep them
+
 	if(efficiency > 2 && efficiency < 5 && prob(25))
 		randmutb(H)
 	if(efficiency > 5 && prob(20))
 		randmutg(H)
 	if(efficiency < 3 && prob(50))
 		randmutb(H)
+
 	H.dna.UpdateSE()
 	H.dna.UpdateUI()
 
-	H.set_species(R.dna.species)
 	H.sync_organ_dna(1) // It's literally a fresh body as you can get, so all organs properly belong to it
 	H.UpdateAppearance()
 
-	H.update_body()
 	update_icon()
-
-	for(var/datum/language/L in R.languages)
-		H.add_language(L.name)
 
 	H.suiciding = 0
 	attempting = 0
