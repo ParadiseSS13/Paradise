@@ -247,6 +247,7 @@
 	if(grab_ghost_when == CLONER_FRESH_CLONE)
 		clonemind.transfer_to(H)
 		H.ckey = R.ckey
+		update_clone_antag(H) //Since the body's got the mind, update their antag stuff right now. Otherwise, wait until they get kicked out (as per the CLONER_MATURE_CLONE business) to do it.
 		to_chat(H, {"<span class='notice'><b>Consciousness slowly creeps over you
 			as your body regenerates.</b><br><i>So this is what cloning
 			feels like?</i></span>"})
@@ -254,26 +255,6 @@
 		to_chat(clonemind.current, {"<span class='notice'>Your body is
 			beginning to regenerate in a cloning pod. You will
 			become conscious when it is complete.</span>"})
-
-	// -- Mode/mind specific stuff goes here
-	callHook("clone", list(H))
-
-	if((H.mind in ticker.mode:revolutionaries) || (H.mind in ticker.mode:head_revolutionaries))
-		ticker.mode.update_rev_icons_added() //So the icon actually appears
-	if(H.mind in ticker.mode.syndicates)
-		ticker.mode.update_synd_icons_added()
-	if(H.mind in ticker.mode.cult)
-		ticker.mode.add_cult_viewpoint(H)
-		ticker.mode.add_cultist(occupant.mind)
-		ticker.mode.update_cult_icons_added() //So the icon actually appears
-	if(("\ref[H.mind]" in ticker.mode.implanter) || (H.mind in ticker.mode.implanted))
-		ticker.mode.update_traitor_icons_added(H.mind) //So the icon actually appears
-	if(("\ref[H.mind]" in ticker.mode.vampire_thralls) || (H.mind in ticker.mode.vampire_enthralled))
-		ticker.mode.update_vampire_icons_added(H.mind)
- 	if(("\ref[H.mind]" in ticker.mode.shadowling_thralls) || (H.mind in ticker.mode.shadows))
- 		ticker.mode.update_shadow_icons_added(H.mind)
-
-	// -- End mode specific stuff
 
 	if(!R.dna)
 		H.dna = new /datum/dna()
@@ -420,6 +401,28 @@
 	locked = 0
 	go_out()
 
+/obj/machinery/clonepod/proc/update_clone_antag(var/mob/living/carbon/human/H)
+	// Check to see if the clone's mind is an antagonist of any kind and handle them accordingly to make sure they get their spells, HUD/whatever else back.
+	callHook("clone", list(H))
+	if((H.mind in ticker.mode:revolutionaries) || (H.mind in ticker.mode:head_revolutionaries))
+		ticker.mode.update_rev_icons_added() //So the icon actually appears
+	if(H.mind in ticker.mode.syndicates)
+		ticker.mode.update_synd_icons_added()
+	if(H.mind in ticker.mode.cult)
+		ticker.mode.add_cult_viewpoint(H)
+		ticker.mode.add_cultist(occupant.mind)
+		ticker.mode.update_cult_icons_added() //So the icon actually appears
+	if((H.mind in ticker.mode.implanter) || (H.mind in ticker.mode.implanted))
+		ticker.mode.update_traitor_icons_added(H.mind) //So the icon actually appears
+	if(H.mind.vampire)
+		H.mind.vampire.update_owner(H)
+	if((H.mind in ticker.mode.vampire_thralls) || (H.mind in ticker.mode.vampire_enthralled))
+		ticker.mode.update_vampire_icons_added(H.mind)
+	if(H.mind in ticker.mode.changelings)
+		ticker.mode.update_change_icons_added(H.mind)
+ 	if((H.mind in ticker.mode.shadowling_thralls) || (H.mind in ticker.mode.shadows))
+ 		ticker.mode.update_shadow_icons_added(H.mind)
+
 //Put messages in the connected computer's temp var for display.
 /obj/machinery/clonepod/proc/connected_message(message)
 	if((isnull(connected)) || (!istype(connected, /obj/machinery/computer/cloning)))
@@ -461,6 +464,7 @@
 	if(grab_ghost_when == CLONER_MATURE_CLONE)
 		clonemind.transfer_to(occupant)
 		occupant.grab_ghost()
+		update_clone_antag(occupant)
 		to_chat(occupant, "<span class='notice'><b>There is a bright flash!</b><br>\
 			<i>You feel like a new being.</i></span>")
 		occupant.flash_eyes(visual = 1)
