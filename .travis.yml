@@ -10,7 +10,7 @@ env:
     - BYOND_MAJOR="510"
     - BYOND_MINOR="1346"
   matrix:
-    - DM_MAPFILE="cyberiad"
+    - DM_MAPFILE="stratus"
     - DM_MAPFILE="metastation"
     - DM_MAPFILE="test_away_missions"
 
