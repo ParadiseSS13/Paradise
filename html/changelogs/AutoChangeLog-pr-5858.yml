@@ -1,0 +1,4 @@
+author: "Markolie"
+delete-after: True
+changes: 
+  - tweak: "Verbs have been cleaned up: all karma verbs can now be found under \"OOC\" instead of \"Special Verbs\". Most admin verbs have been moved out of \"Special Verbs\" as well."
