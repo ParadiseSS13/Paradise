@@ -240,6 +240,7 @@
 /obj/machinery/iv_drip/verb/set_transfer_rate()
 	set name = "Set transfer amount"
 	set category = "Object"
+	set src in view(1)
 
 	if(usr.stat || !usr.canmove || usr.restrained())
 		return
