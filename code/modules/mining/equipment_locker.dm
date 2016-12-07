@@ -105,6 +105,18 @@
 						i++
 
 /obj/machinery/mineral/ore_redemption/attackby(var/obj/item/weapon/W, var/mob/user, params)
+	if(default_deconstruction_screwdriver(user, "ore_redemption-open", "ore_redemption", W))
+		updateUsrDialog()
+		return
+	if(exchange_parts(user, W))
+		return
+	if(panel_open)
+		if(istype(W, /obj/item/weapon/crowbar))
+			empty_content()
+			default_deconstruction_crowbar(W)
+		return
+	if(default_unfasten_wrench(user, W))
+		return
 	if(!powered())
 		return
 	if(istype(W,/obj/item/weapon/card/id))
@@ -116,23 +128,6 @@
 			inserted_id = I
 			interact(user)
 		return
-
-	if(default_deconstruction_screwdriver(user, "ore_redemption-open", "ore_redemption", W))
-		updateUsrDialog()
-		return
-
-	if(exchange_parts(user, W))
-		return
-
-	if(panel_open)
-		if(istype(W, /obj/item/weapon/crowbar))
-			empty_content()
-			default_deconstruction_crowbar(W)
-		return
-
-	if(default_unfasten_wrench(user, W))
-		return
-
 	..()
 
 /obj/machinery/mineral/ore_redemption/proc/SmeltMineral(var/obj/item/weapon/ore/O)
@@ -437,6 +432,13 @@
 	return
 
 /obj/machinery/mineral/equipment_vendor/attackby(obj/item/I as obj, mob/user as mob, params)
+	if(default_deconstruction_screwdriver(user, "mining-open", "mining", I))
+		updateUsrDialog()
+		return
+	if(panel_open)
+		if(istype(I, /obj/item/weapon/crowbar))
+			default_deconstruction_crowbar(I)
+		return 1
 	if(!powered())
 		return
 	if(istype(I, /obj/item/weapon/mining_voucher))
@@ -451,13 +453,6 @@
 			inserted_id = C
 			interact(user)
 		return
-	if(default_deconstruction_screwdriver(user, "mining-open", "mining", I))
-		updateUsrDialog()
-		return
-	if(panel_open)
-		if(istype(I, /obj/item/weapon/crowbar))
-			default_deconstruction_crowbar(I)
-		return 1
 	..()
 
 /obj/machinery/mineral/equipment_vendor/proc/RedeemVoucher(obj/item/weapon/mining_voucher/voucher, mob/redeemer)
