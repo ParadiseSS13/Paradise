@@ -1,0 +1,5 @@
+author: "TullyBurnalot"
+delete-after: True
+changes: 
+  - bugfix: "Unpowered Mining Vendors no longer accept IDs"
+  - bugfix: "Ore Redemption Machine and Mining Vendor can now be deconstructed if unpowered"
