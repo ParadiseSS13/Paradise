@@ -117,17 +117,18 @@
 		return
 	if(default_unfasten_wrench(user, W))
 		return
-	if(!powered())
-		return
 	if(istype(W,/obj/item/weapon/card/id))
-		var/obj/item/weapon/card/id/I = usr.get_active_hand()
-		if(istype(I) && !istype(inserted_id))
-			if(!user.drop_item())
-				return
-			I.loc = src
-			inserted_id = I
-			interact(user)
-		return
+		if(!powered())
+			return
+		else
+			var/obj/item/weapon/card/id/I = usr.get_active_hand()
+			if(istype(I) && !istype(inserted_id))
+				if(!user.drop_item())
+					return
+				I.loc = src
+				inserted_id = I
+				interact(user)
+			return
 	..()
 
 /obj/machinery/mineral/ore_redemption/proc/SmeltMineral(var/obj/item/weapon/ore/O)
@@ -439,20 +440,24 @@
 		if(istype(I, /obj/item/weapon/crowbar))
 			default_deconstruction_crowbar(I)
 		return 1
-	if(!powered())
-		return
 	if(istype(I, /obj/item/weapon/mining_voucher))
-		RedeemVoucher(I, user)
-		return
+		if(!powered())
+			return
+		else
+			RedeemVoucher(I, user)
+			return
 	if(istype(I,/obj/item/weapon/card/id))
-		var/obj/item/weapon/card/id/C = usr.get_active_hand()
-		if(istype(C) && !istype(inserted_id))
-			if(!usr.drop_item())
-				return
-			C.loc = src
-			inserted_id = C
-			interact(user)
-		return
+		if(!powered())
+			return
+		else
+			var/obj/item/weapon/card/id/C = usr.get_active_hand()
+			if(istype(C) && !istype(inserted_id))
+				if(!usr.drop_item())
+					return
+				C.loc = src
+				inserted_id = C
+				interact(user)
+			return
 	..()
 
 /obj/machinery/mineral/equipment_vendor/proc/RedeemVoucher(obj/item/weapon/mining_voucher/voucher, mob/redeemer)
