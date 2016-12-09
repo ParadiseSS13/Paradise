@@ -26,6 +26,7 @@
 	var/mob/living/carbon/oldpatient = null
 	var/oldloc = null
 	var/last_found = 0
+	var/last_warning = 0
 	var/last_newpatient_speak = 0 //Don't spam the "HEY I'M COMING" messages
 	var/injection_amount = 15 //How much reagent do we inject at a time?
 	var/heal_threshold = 10 //Start healing when they have this much damage in a category
@@ -253,6 +254,13 @@
 			oldpatient = user
 
 /mob/living/simple_animal/bot/medbot/process_scan(mob/living/carbon/human/H)
+	if(buckled)
+		if((last_warning + 300) < world.time)
+			var/message = ("<span class='danger'>Movement restrained! Unit on standby!</span>")
+			speak(message)
+			playsound(loc, 'sound/machines/buzz-two.ogg', 50, 0)
+			last_warning = world.time
+		return
 	if(H.stat == 2)
 		return
 
