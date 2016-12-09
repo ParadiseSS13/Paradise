@@ -539,9 +539,9 @@ var/global/nologevent = 0
 	world.Reboot("Initiated by [usr.client.holder.fakekey ? "Admin" : usr.key].", "end_error", "admin reboot - by [usr.key] [usr.client.holder.fakekey ? "(stealth)" : ""]", delay)
 
 /datum/admins/proc/announce()
-	set category = "Special Verbs"
+	set category = "Admin"
 	set name = "Announce"
-	set desc="Announce your desires to the world"
+	set desc = "Announce your desires to the world"
 
 	if(!check_rights(R_ADMIN))
 		return

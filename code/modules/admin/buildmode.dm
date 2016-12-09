@@ -396,7 +396,8 @@
 
 /proc/togglebuildmode(mob/M as mob in player_list)
 	set name = "Toggle Build Mode"
-	set category = "Special Verbs"
+	set category = "Event"
+
 	if(M.client)
 		if(istype(M.client.click_intercept,/datum/click_intercept/buildmode))
 			var/datum/click_intercept/buildmode/B = M.client.click_intercept
@@ -404,7 +405,7 @@
 			log_admin("[key_name(usr)] has left build mode.")
 		else
 			new/datum/click_intercept/buildmode(M.client)
-			message_admins("[key_name(usr)] has entered build mode.")
+			message_admins("[key_name_admin(usr)] has entered build mode.")
 			log_admin("[key_name(usr)] has entered build mode.")
 
 /datum/click_intercept/buildmode/InterceptClickOn(user,params,atom/object) //Click Intercept

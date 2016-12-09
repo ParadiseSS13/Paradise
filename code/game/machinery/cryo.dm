@@ -122,7 +122,7 @@
 	..()
 	if(autoeject)
 		if(occupant)
-			if(occupant.health >= 100)
+			if(!occupant.has_organic_damage())
 				on = 0
 				go_out()
 				playsound(src.loc, 'sound/machines/ding.ogg', 50, 1)

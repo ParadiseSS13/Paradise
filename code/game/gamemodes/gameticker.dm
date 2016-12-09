@@ -411,7 +411,7 @@ var/round_start_time = 0
 					var/dat
 					dat += {"<html><head><title>Karma Reminder</title></head><body><h1><B>Karma Reminder</B></h1><br>
 					You have not yet spent your karma for the round, surely there is a player who was worthy of receiving<br>
-					your reward? Look under 'Special Verbs' for the 'Award Karma' button, and use it once a round for best results!</table></body></html>"}
+					your reward? Look under 'OOC' for the 'Award Karma' button, and use it once a round for best results!</table></body></html>"}
 					player << browse(dat, "window=karmareminder;size=400x300")
 
 

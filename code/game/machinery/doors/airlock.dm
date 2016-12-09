@@ -481,7 +481,8 @@ About the new airlock wires panel:
 			shockedby += text("\[[time_stamp()]\] - EMP)")
 		message = "The door is now electrified [duration == -1 ? "permanently" : "for [duration] second\s"]."
 		electrified_until = duration == -1 ? -1 : world.time + SecondsToTicks(duration)
-		electrified_timer = addtimer(src, "electrify", SecondsToTicks(duration), 1, 0)
+		if(duration != -1)
+			electrified_timer = addtimer(src, "electrify", SecondsToTicks(duration), 1, 0)
 
 	if(feedback && message)
 		to_chat(usr, message)

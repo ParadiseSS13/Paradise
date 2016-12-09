@@ -534,7 +534,7 @@ var/list/admin_verbs_snpc = list(
 #undef AUTOBANTIME
 
 /client/proc/drop_bomb() // Some admin dickery that can probably be done better -- TLE
-	set category = "Special Verbs"
+	set category = "Event"
 	set name = "Drop Bomb"
 	set desc = "Cause an explosion of varying strength at your location."
 
