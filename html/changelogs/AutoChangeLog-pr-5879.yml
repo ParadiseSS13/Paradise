@@ -1,0 +1,6 @@
+author: "KasparoVy"
+delete-after: True
+changes: 
+  - rscadd: "You can now define whether a hair style will cover glasses or not. Only long hair styles should cover glasses (default behaviour)."
+  - rscadd: "You can now define whether a facial hair style/head accessory will be rendered on top of hair or not."
+  - bugfix: "Glasses no longer render on top of all hair styles, only sufficiently short ones."
