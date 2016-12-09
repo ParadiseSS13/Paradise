@@ -23,7 +23,7 @@
 // ---------- WEB
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/Web()
-	visible_message("<span class='notice'>\the [src] begins to secrete a sticky substance.</span>")
+	visible_message("<span class='notice'>[src] begins to secrete a sticky substance.</span>")
 	if(do_after(src, 40, target = loc))
 		new /obj/effect/spider/terrorweb(loc)
 
@@ -42,13 +42,12 @@
 		icon_state = "stickyweb2"
 
 
-/obj/effect/spider/terrorweb/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
-	if(air_group || (height==0)) return 1
+/obj/effect/spider/terrorweb/CanPass(atom/movable/mover, turf/target)
 	if(istype(mover, /mob/living/simple_animal/hostile/poison/terror_spider))
 		return 1
-	if(istype(mover, /mob/living))
+	if(isliving(mover))
 		if(prob(80))
-			to_chat(mover, "<span class='danger'>You get stuck in \the [src] for a moment.</span>")
+			to_chat(mover, "<span class='danger'>You get stuck in [src] for a moment.</span>")
 			var/mob/living/M = mover
 			M.Stun(4) // 8 seconds.
 			M.Weaken(4) // 8 seconds.
@@ -84,7 +83,7 @@
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/DoWrap()
 	if(cocoon_target && busy != SPINNING_COCOON)
 		busy = SPINNING_COCOON
-		visible_message("<span class='notice'>\the [src] begins to secrete a sticky substance around \the [cocoon_target].</span>")
+		visible_message("<span class='notice'>[src] begins to secrete a sticky substance around [cocoon_target].</span>")
 		stop_automated_movement = 1
 		walk(src,0)
 		if(do_after(src, 40, target = cocoon_target.loc))
@@ -94,15 +93,11 @@
 					var/large_cocoon = 0
 					C.pixel_x = cocoon_target.pixel_x
 					C.pixel_y = cocoon_target.pixel_y
-					for(var/obj/item/I in C.loc)
-						I.loc = C
-					for(var/obj/structure/S in C.loc)
-						if(!S.anchored)
-							S.loc = C
-							large_cocoon = 1
-					for(var/obj/machinery/M in C.loc)
-						if(!M.anchored)
-							M.loc = C
+					for(var/obj/O in C.loc)
+						if(istype(O, /obj/item))
+							O.loc = C
+						else if(istype(O, /obj/machinery) || istype(O, /obj/structure))
+							O.loc = C
 							large_cocoon = 1
 					for(var/mob/living/L in C.loc)
 						if(istype(L, /mob/living/simple_animal/hostile/poison/terror_spider))
@@ -117,7 +112,7 @@
 						L.loc = C
 						C.pixel_x = L.pixel_x
 						C.pixel_y = L.pixel_y
-						visible_message("<span class='danger'>\the [src] sticks a proboscis into \the [L] and sucks a viscous substance out.</span>")
+						visible_message("<span class='danger'>[src] sticks a proboscis into [L] and sucks a viscous substance out.</span>")
 						break
 					if(large_cocoon)
 						C.icon_state = pick("cocoon_large1","cocoon_large2","cocoon_large3")

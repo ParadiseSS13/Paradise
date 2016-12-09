@@ -12,7 +12,7 @@ var/global/list/ts_spiderlist = list()
 // --------------------------------------------------------------------------------
 // Because: http://tvtropes.org/pmwiki/pmwiki.php/Main/SpidersAreScary
 
-/mob/living/simple_animal/hostile/poison/terror_spider/
+/mob/living/simple_animal/hostile/poison/terror_spider
 	// Name / Description
 	name = "terror spider"
 	desc = "The generic parent of all other terror spider types. If you see this in-game, it is a bug."
@@ -196,11 +196,9 @@ var/global/list/ts_spiderlist = list()
 		else if(health > (maxHealth*0.25))
 			msgs += "<span class='warning'>It is barely clinging on to life!</span>"
 		else if(health < maxHealth && regen_points > regen_points_per_kill)
-			msgs += "<span class='notice'>It appears to be regenerating quickly</span>"
-		if(killcount == 1)
-			msgs += "<span class='warning'>It is soaked in the blood of its prey.</span>"
-		if(killcount > 1)
-			msgs += "<span class='warning'>It is soaked with the blood of [killcount] prey it has killed.</span>"
+			msgs += "<span class='notice'>It appears to be regenerating quickly.</span>"
+		if(killcount >= 1)
+			msgs += "<span class='warning'>It has blood dribbling from its mouth.</span>"
 	to_chat(usr,msgs.Join("<BR>"))
 
 
@@ -244,7 +242,8 @@ var/global/list/ts_spiderlist = list()
 	return ..()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/Life()
-	if(stat != DEAD)
+	. = ..()
+	if(!.) // if mob is alive
 		if(regen_points < regen_points_max)
 			regen_points += regen_points_per_tick
 		if((bruteloss > 0) || (fireloss > 0))
@@ -262,7 +261,7 @@ var/global/list/ts_spiderlist = list()
 			// 2% chance every cycle to decompose
 			visible_message("<span class='notice'>\The dead body of the [src] decomposes!</span>")
 			gib()
-	..()
+
 
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/handle_dying()

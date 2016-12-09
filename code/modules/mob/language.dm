@@ -430,7 +430,7 @@
 
 
 /datum/language/terrorspider
-	name = "TerrorSpider"
+	name = "Spider Hivemind"
 	desc = "Terror spiders have a limited ability to commune over a psychic hivemind, similar to xenomorphs."
 	speech_verb = "chitters"
 	ask_verb = "chitters"
@@ -572,7 +572,7 @@
 	flags = RESTRICTED | HIVEMIND
 	drone_only = 1
 	follow = 1
-	
+
 /datum/language/drone
 	name = "Drone"
 	desc = "An encrypted stream of data converted to speech patterns."
