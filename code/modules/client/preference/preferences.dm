@@ -213,15 +213,14 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 /datum/preferences/New(client/C)
 	b_type = pick(4;"O-", 36;"O+", 3;"A-", 28;"A+", 1;"B-", 20;"B+", 1;"AB-", 5;"AB+")
 
+	max_gear_slots = config.max_loadout_points
 	if(istype(C))
 		if(!IsGuestKey(C.key))
 			unlock_content = C.IsByondMember()
 			if(unlock_content)
 				max_save_slots = MAX_SAVE_SLOTS_MEMBER
-
-	max_gear_slots = config.max_loadout_points
-	if(C.donator_level >= DONATOR_LEVEL_ONE)
-		max_gear_slots += 5
+			if(C.donator_level >= DONATOR_LEVEL_ONE)
+				max_gear_slots += 5
 
 	var/loaded_preferences_successfully = load_preferences(C)
 	if(loaded_preferences_successfully)
