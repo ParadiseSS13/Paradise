@@ -390,7 +390,7 @@
 		for(var/AM in T0.GetAllContents())
 			if(istype(AM, /mob/dead))
 				continue
-			qdel(AM)
+			qdel(AM,force=TRUE)
 
 		T0.ChangeTurf(turf_type)
 
