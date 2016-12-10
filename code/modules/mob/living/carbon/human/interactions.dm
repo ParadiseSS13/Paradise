@@ -58,6 +58,14 @@
 /datum/species/monkey/skrell
 	genitals = 0
 
+/datum/species/human/machine
+	genitals = 0
+	anus = 0 //kiss my metal ass
+
+/datum/species/human/diona
+	genitals = 0
+	anus = 0
+
 /mob/living/carbon/human/proc/is_nude()
 	return (!wear_suit && !w_uniform && underwear == "Nude") ? 1 : 0
 
@@ -353,10 +361,16 @@ mob/living/carbon/human/proc/fuck(mob/living/carbon/human/H as mob, mob/living/c
 						H.lfhole = hole
 						add_logs(H, P, "sucked")
 
+				if("Diona")
+					return
+
 				if("Kidan")
 					return
 
 				if("Wryn")
+					return
+
+				if("Machine")
 					return
 
 			if (H.lust < 6)

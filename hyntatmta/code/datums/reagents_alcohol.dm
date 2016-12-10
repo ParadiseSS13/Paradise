@@ -1,4 +1,4 @@
-/datum/reagent/ethanol/champagne
+/datum/reagent/consumable/ethanol/champagne
 	name = "Champagne"
 	id = "champagne"
 	description = "Fizzy wine used in celebrations."
