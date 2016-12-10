@@ -252,6 +252,11 @@
 			if(istype(d, type))
 				out += d
 
+	else if(location == world)
+		for(var/datum/d)
+			if(istype(d, type))
+				out += d
+
 	else
 		for(var/datum/d in location)
 			if(istype(d, type))

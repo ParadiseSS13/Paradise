@@ -118,10 +118,13 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		files.push_data(C.files)
 
 /obj/machinery/computer/rdconsole/proc/Maximize()
-	files.known_tech=files.possible_tech
-	for(var/datum/tech/KT in files.known_tech)
+	for(var/datum/tech/T in files.possible_tech)
+		files.known_tech[T.id] = T
+	for(var/v in files.known_tech)
+		var/datum/tech/KT = files.known_tech[v]
 		if(KT.level < KT.max_level)
 			KT.level=KT.max_level
+	files.RefreshResearch()
 
 /obj/machinery/computer/rdconsole/New()
 	..()
@@ -280,16 +283,13 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	else if(href_list["maxresearch"]) //Eject the item inside the destructive analyzer.
 		if(!check_rights(R_ADMIN))
 			return
-		wait_message = "Updating Database...."
 		if(alert("Are you sure you want to maximize research levels?","Confirmation","Yes","No")=="No")
 			return
 		log_admin("[key_name(usr)] has maximized the research levels.")
 		message_admins("[key_name_admin(usr)] has maximized the research levels.")
-		spawn(30)
-			Maximize()
-			wait_message = ""
-			nanomanager.update_uis(src)
-			griefProtection() //Update centcomm too
+		Maximize()
+		nanomanager.update_uis(src)
+		griefProtection() //Update centcomm too
 
 	else if(href_list["deconstruct"]) //Deconstruct the item in the destructive analyzer and update the research holder.
 		if(linked_destroy)

@@ -43,6 +43,8 @@ var/global/dmm_suite/preloader/_preloader = new
 	if(isfile(tfile))
 		fname = "[tfile]"
 		tfile = file2text(tfile)
+		if(length(tfile) == 0)
+			throw EXCEPTION("Map path '[fname]' does not exist!")
 
 	if(!x_offset)
 		x_offset = 1
