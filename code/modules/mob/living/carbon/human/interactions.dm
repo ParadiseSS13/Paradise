@@ -100,7 +100,7 @@
 	var/dat = "<B><HR><FONT size=3>INTERACTIONS - [H.partner]</FONT></B><BR><HR>"
 	var/ya = "&#1103;"
 
-	dat +=  {"Х <A href='?src=\ref[usr];interaction=bow'>ќтвесить поклон.</A><BR>"}
+	dat +=  {"Х <A href='?src=[UID()];interaction=bow'>ќтвесить поклон.</A><BR>"}
 	//if (Adjacent(P))
 	//	dat +=  {"Х <A href='?src=\ref[src];interaction=handshake'>ѕоприветствовать.</A><BR>"}
 	//else
@@ -108,57 +108,57 @@
 	if (hashands)
 		dat +=  {"<font size=3><B>–уки:</B></font><BR>"}
 		if (Adjacent(P))
-			dat +=  {"Х <A href='?src=\ref[usr];interaction=handshake'>ѕожать руку.</A><BR>"}
-			dat +=  {"Х <A href='?src=\ref[usr];interaction=hug'>ќбнимашки!</A><BR>"}
-			dat +=  {"Х <A href='?src=\ref[usr];interaction=cheer'>ѕохлопать по плечу</A><BR>"}
-			dat +=  {"Х <A href='?src=\ref[usr];interaction=five'>ƒать п[ya]ть.</A><BR>"}
+			dat +=  {"Х <A href='?src=[UID()];interaction=handshake'>ѕожать руку.</A><BR>"}
+			dat +=  {"Х <A href='?src=[UID()];interaction=hug'>ќбнимашки!</A><BR>"}
+			dat +=  {"Х <A href='?src=[UID()];interaction=cheer'>ѕохлопать по плечу</A><BR>"}
+			dat +=  {"Х <A href='?src=[UID()];interaction=five'>ƒать п[ya]ть.</A><BR>"}
 			if (hashands_p)
 				dat +=  {"Х <A href='?src=\ref[src];interaction=give'>ѕередать предмет.</A><BR>"}
-			dat +=  {"Х <A href='?src=\ref[usr];interaction=slap'><font color=red>ƒать пощечину!</font></A><BR>"}
+			dat +=  {"Х <A href='?src=[UID()];interaction=slap'><font color=red>ƒать пощечину!</font></A><BR>"}
 			if (isnude_p)
 				if (hasanus_p)
-					dat += {"Х <A href='?src=\ref[usr];interaction=assslap'>Ўлепнуть по заднице</A><BR>"}
+					dat += {"Х <A href='?src=[UID()];interaction=assslap'>Ўлепнуть по заднице</A><BR>"}
 				if (hasvagina_p)
-					dat += {"Х <A href='?src=\ref[usr];interaction=fingering'>ѕросунуть пальчик...</A><BR>"}
+					dat += {"Х <A href='?src=[UID()];interaction=fingering'>ѕросунуть пальчик...</A><BR>"}
 			if (P.species.name == "Tajaran")
-				dat +=  {"Х <A href='?src=\ref[usr];interaction=pull'><font color=red>ƒЄрнуть за хвост!</font></A><BR>"}
+				dat +=  {"Х <A href='?src=[UID()];interaction=pull'><font color=red>ƒЄрнуть за хвост!</font></A><BR>"}
 				if(P.can_inject(H, 1))
-					dat +=  {"Х <A href='?src=\ref[usr];interaction=pet'>ѕогладить.</A><BR>"}
-			dat +=  {"Х <A href='?src=\ref[usr];interaction=knock'><font color=red>ƒать подзатыльник.</font></A><BR>"}
-		dat +=  {"Х <A href='?src=\ref[usr];interaction=fuckyou'><font color=red>ѕоказать средний палец.</font></A><BR>"}
-		dat +=  {"Х <A href='?src=\ref[usr];interaction=threaten'><font color=red>ѕогрозить кулаком.</font></A><BR>"}
+					dat +=  {"Х <A href='?src=[UID()];interaction=pet'>ѕогладить.</A><BR>"}
+			dat +=  {"Х <A href='?src=[UID()];interaction=knock'><font color=red>ƒать подзатыльник.</font></A><BR>"}
+		dat +=  {"Х <A href='?src=[UID()];interaction=fuckyou'><font color=red>ѕоказать средний палец.</font></A><BR>"}
+		dat +=  {"Х <A href='?src=[UID()];interaction=threaten'><font color=red>ѕогрозить кулаком.</font></A><BR>"}
 
 	if (mouthfree)
 		dat += {"<font size=3><B>Ћицо:</B></font><BR>"}
-		dat += {"Х <A href='?src=\ref[usr];interaction=kiss'>ѕоцеловать.</A><BR>"}
+		dat += {"Х <A href='?src=[UID()];interaction=kiss'>ѕоцеловать.</A><BR>"}
 		if (Adjacent(P))
 			if (mouthfree_p)
 				if (H.species.name == "Tajaran")
-					dat += {"Х <A href='?src=\ref[usr];interaction=lick'>Ћизнуть в щеку.</A><BR>"}
+					dat += {"Х <A href='?src=[UID()];interaction=lick'>Ћизнуть в щеку.</A><BR>"}
 			if (isnude_p)
 				if (haspenis_p)
-					dat += {"Х <A href='?src=\ref[usr];interaction=blowjob'><font color=purple>—делать минет.</font></A><BR>"}
+					dat += {"Х <A href='?src=[UID()];interaction=blowjob'><font color=purple>—делать минет.</font></A><BR>"}
 				if (hasvagina_p)
-					dat += {"Х <A href='?src=\ref[usr];interaction=vaglick'><font color=purple>¬ылизать.</font></A><BR>"}
+					dat += {"Х <A href='?src=[UID()];interaction=vaglick'><font color=purple>¬ылизать.</font></A><BR>"}
 				if (hasanus_p)
-					dat += {"Х <A href='?src=\ref[usr];interaction=asslick'><font color=purple>ќтполировать черный ход?!</font></A><BR>"}
-			dat +=  {"Х <A href='?src=\ref[usr];interaction=spit'><font color=red>ѕлюнуть.</font></A><BR>"}
-		dat +=  {"Х <A href='?src=\ref[usr];interaction=tongue'><font color=red>ѕоказать [ya]зык.</font></A><BR>"}
+					dat += {"Х <A href='?src=[UID()];interaction=asslick'><font color=purple>ќтполировать черный ход?!</font></A><BR>"}
+			dat +=  {"Х <A href='?src=[UID()];interaction=spit'><font color=red>ѕлюнуть.</font></A><BR>"}
+		dat +=  {"Х <A href='?src=[UID()];interaction=tongue'><font color=red>ѕоказать [ya]зык.</font></A><BR>"}
 
 	if (isnude && usr.loc == H.partner.loc)
 		if (haspenis && hashands)
 			dat += {"<font size=3><B>„лен:</B></font><BR>"}
 			if (isnude_p)
 				if (hasvagina_p)
-					dat += {"Х <A href='?src=\ref[usr];interaction=vaginal'><font color=purple>“рахнуть вагинально.</font></A><BR>"}
+					dat += {"Х <A href='?src=[UID()];interaction=vaginal'><font color=purple>“рахнуть вагинально.</font></A><BR>"}
 				if (hasanus_p)
-					dat += {"Х <A href='?src=\ref[usr];interaction=anal'><font color=purple>“рахнуть анально.</font></A><BR>"}
+					dat += {"Х <A href='?src=[UID()];interaction=anal'><font color=purple>“рахнуть анально.</font></A><BR>"}
 				if (mouthfree_p)
-					dat += {"Х <A href='?src=\ref[usr];interaction=oral'><font color=purple>“рахнуть орально.</font></A><BR>"}
+					dat += {"Х <A href='?src=[UID()];interaction=oral'><font color=purple>“рахнуть орально.</font></A><BR>"}
 	if (isnude && usr.loc == H.partner.loc && hashands)
 		if (hasvagina && haspenis_p)
 			dat += {"<font size=3><B>Ћоно:</B></font><BR>"}
-			dat += {"Х <A href='?src=\ref[usr];interaction=mount'><font color=purple>ќседлать!</font></A><BR><HR>"}
+			dat += {"Х <A href='?src=[UID()];interaction=mount'><font color=purple>ќседлать!</font></A><BR><HR>"}
 
 	var/datum/browser/popup = new(usr, "interactions", "Interactions", 340, 480)
 	popup.set_content(dat)
