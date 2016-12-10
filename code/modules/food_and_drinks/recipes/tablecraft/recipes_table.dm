@@ -31,7 +31,7 @@
 /datum/crafting_recipe/cherrysandwich
 	name = "Cherry Jelly Sandwich"
 	reqs = list(
-		/datum/reagent/cherryjelly = 5,
+		/datum/reagent/consumable/cherryjelly = 5,
 		/obj/item/weapon/reagent_containers/food/snacks/breadslice = 2,
 	)
 	result = /obj/item/weapon/reagent_containers/food/snacks/jellysandwich/cherry
@@ -49,7 +49,7 @@
 /datum/crafting_recipe/jellyburger
 	name = "Cherry Jelly Burger"
 	reqs = list(
-		/datum/reagent/cherryjelly = 5,
+		/datum/reagent/consumable/cherryjelly = 5,
 		/obj/item/weapon/reagent_containers/food/snacks/bun = 1,
 	)
 	result = /obj/item/weapon/reagent_containers/food/snacks/jellyburger/cherry

@@ -7,13 +7,15 @@
 ////////////////////////////////////////////////////////////////////////////////
 var/global/list/frozen_mob_list = list()
 /client/proc/freeze(var/mob/living/M as mob in mob_list)
-	set category = "Special Verbs"
+	set category = "Admin"
 	set name = "Freeze"
-	if(!holder)
-		to_chat(src, "<font color='red'>Error: Freeze: Only administrators may use this command.</font>")
+		
+	if(!check_rights(R_ADMIN))
 		return
-	if(!istype(M))	return
-	if(!check_rights(R_ADMIN))	return
+		
+	if(!istype(M))	
+		return	
+
 	if(M in frozen_mob_list)
 		M.admin_unFreeze(src)
 	else
@@ -83,14 +85,15 @@ var/global/list/frozen_mob_list = list()
 //////////////////////////Freeze Mech
 
 /client/proc/freezemecha(var/obj/mecha/O as obj in mechas_list)
-	set category = "Special Verbs"
+	set category = "Admin"
 	set name = "Freeze Mech"
-	if(!holder)
-		to_chat(src, "Only administrators may use this command.")
-		return
+
+	if(!check_rights(R_ADMIN))
+		return	
+	
 	var/obj/mecha/M = O
 	if(!istype(M,/obj/mecha))
-		to_chat(src, "<span class='danger'>This can only be used on Mechs!</span>")
+		to_chat(src, "<span class='danger'>This can only be used on mechs!</span>")
 		return
 	else
 		if(usr)

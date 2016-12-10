@@ -68,45 +68,53 @@
 			return 1
 	return 0
 
-//helper for getting the appropriate health status
-/proc/RoundHealth(health)
+//helper for getting the appropriate health status UPDATED BY PUCKABOO2 TO INCLUDE NEGATIVES.
+proc/RoundHealth(health)
 	switch(health)
 		if(100 to INFINITY)
 			return "health100"
-		if(93 to 100)
-			return "health93"
-		if(86 to 93)
-			return "health86"
-		if(78 to 86)
-			return "health78"
-		if(71 to 78)
-			return "health71"
-		if(64 to 71)
-			return "health64"
-		if(56 to 64)
-			return "health56"
-		if(49 to 56)
-			return "health49"
-		if(42 to 49)
-			return "health42"
-		if(35 to 42)
-			return "health35"
-		if(28 to 35)
-			return "health28"
-		if(21 to 28)
-			return "health21"
-		if(14 to 21)
-			return "health14"
-		if(7 to 14)
-			return "health7"
-		if(1 to 7)
-			return "health1"
-		if(-50 to 1)
+		if(95 to 100)		
+			return "health95" //For telling patients to eat a warm donk pocket and go on with their shift.
+		if(90 to 95)
+			return "health90"
+		if(80 to 90)
+			return "health80"
+		if(70 to 80)
+			return "health70"
+		if(60 to 70)
+			return "health60"
+		if(50 to 60)
+			return "health50"
+		if(40 to 50)
+			return "health40"
+		if(30 to 40)
+			return "health30"
+		if(20 to 30)
+			return "health20"
+		if(10 to 20)
+			return "health10"
+		if(0 to 10)
 			return "health0"
-		if(-85 to -50)
+		if(-10 to 0) 		
+			return "health-0" //Hard crit begins here. The health bar will turn a brilliant red as usual, but deducted health will be black.
+		if(-20 to -10)
+			return "health-10"
+		if(-30 to -20)
+			return "health-20"
+		if(-40 to -30)
+			return "health-30"
+		if(-50 to -40)
+			return "health-40"
+		if(-60 to -50)
 			return "health-50"
-		if(-99 to -85)
-			return "health-85"
+		if(-70 to -60)
+			return "health-60"
+		if(-80 to -70)
+			return "health-70"
+		if(-90 to -80)
+			return "health-80"
+		if(-100 to -90)		
+			return "health-90" //HURRY UP, DOC!
 		else
 			return "health-100"
 	return "0"

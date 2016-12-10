@@ -72,6 +72,7 @@
 	spawn(0) //Some mutations have sleeps in them, like monkey
 		if(!(NOCLONE in M.mutations) && !(H && (H.species.flags & NO_DNA))) // prevents drained people from having their DNA changed
 			var/prev_ue = M.dna.unique_enzymes
+			var/mutflags = 0
 			// UI in syringe.
 			if(buf.types & DNA2_BUF_UI)
 				if(!block) //isolated block?
@@ -88,12 +89,13 @@
 					M.dna.SetUIValue(block,src.GetValue())
 					M.UpdateAppearance()
 			if(buf.types & DNA2_BUF_SE)
+				mutflags = MUTCHK_FORCED
 				if(!block) //isolated block?
 					M.dna.SE = buf.dna.SE.Copy()
 					M.dna.UpdateSE()
 				else
 					M.dna.SetSEValue(block,src.GetValue())
-				domutcheck(M, null, 0)
+				domutcheck(M, null, mutflags)
 				M.update_mutations()
 			if(H)
 				H.sync_organ_dna(assimilate = 0, old_ue = prev_ue)

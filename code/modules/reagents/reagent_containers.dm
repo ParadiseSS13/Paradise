@@ -29,9 +29,7 @@
 	..()
 	if(!possible_transfer_amounts)
 		verbs -= /obj/item/weapon/reagent_containers/verb/set_APTFT
-	var/datum/reagents/R = new/datum/reagents(volume)
-	reagents = R
-	R.my_atom = src
+	create_reagents(volume)
 	processing_objects.Add(src)
 	if(spawned_disease)
 		var/datum/disease/F = new spawned_disease(0)

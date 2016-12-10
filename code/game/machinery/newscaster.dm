@@ -981,7 +981,7 @@ obj/item/weapon/newspaper/attackby(obj/item/weapon/W as obj, mob/user as mob, pa
 /obj/machinery/newscaster/proc/newsAlert(var/news_call)   //This isn't Agouri's work, for it is ugly and vile.
 	if(news_call)
 
-		atom_say("Breaking news from [news_call]!")
+		atom_say("[news_call]!")
 		src.alert = 1
 		src.update_icon()
 		spawn(300)

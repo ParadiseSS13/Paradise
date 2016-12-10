@@ -539,9 +539,9 @@ var/global/nologevent = 0
 	world.Reboot("Initiated by [usr.client.holder.fakekey ? "Admin" : usr.key].", "end_error", "admin reboot - by [usr.key] [usr.client.holder.fakekey ? "(stealth)" : ""]", delay)
 
 /datum/admins/proc/announce()
-	set category = "Special Verbs"
+	set category = "Admin"
 	set name = "Announce"
-	set desc="Announce your desires to the world"
+	set desc = "Announce your desires to the world"
 
 	if(!check_rights(R_ADMIN))
 		return
@@ -1001,3 +1001,22 @@ var/gamma_ship_location = 1 // 0 = station , 1 = space
 		qdel(frommob)
 
 		return 1
+
+// Returns a list of the number of admins in various categories
+// result[1] is the number of staff that match the rank mask and are active
+// result[2] is the number of staff that do not match the rank mask
+// result[3] is the number of staff that match the rank mask and are inactive
+/proc/staff_countup(rank_mask = R_BAN)
+	var/list/result = list(0, 0, 0)
+	for(var/client/X in admins)
+		if(rank_mask && !check_rights_for(X, rank_mask))
+			result[2]++
+			continue
+		if(X.holder.fakekey)
+			result[2]++
+			continue
+		if(X.is_afk())
+			result[3]++
+			continue
+		result[1]++
+	return result

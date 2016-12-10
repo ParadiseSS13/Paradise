@@ -61,7 +61,6 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 #define MAX_SAVE_SLOTS 20 // Save slots for regular players
 #define MAX_SAVE_SLOTS_MEMBER 20 // Save slots for BYOND members
 
-#define MAX_GEAR_COST config.max_loadout_points
 
 #define TAB_CHAR 0
 #define TAB_GAME 1
@@ -73,6 +72,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	var/default_slot = 1				//Holder so it doesn't default to slot 1, rather the last one used
 //	var/savefile_version = 0
 	var/max_save_slots = MAX_SAVE_SLOTS
+	var/max_gear_slots = 0
 
 	//non-preference stuff
 	var/warns = 0
@@ -212,11 +212,16 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 /datum/preferences/New(client/C)
 	b_type = pick(4;"O-", 36;"O+", 3;"A-", 28;"A+", 1;"B-", 20;"B+", 1;"AB-", 5;"AB+")
+
+	max_gear_slots = config.max_loadout_points
 	if(istype(C))
 		if(!IsGuestKey(C.key))
 			unlock_content = C.IsByondMember()
 			if(unlock_content)
 				max_save_slots = MAX_SAVE_SLOTS_MEMBER
+			if(C.donator_level >= DONATOR_LEVEL_ONE)
+				max_gear_slots += 5
+
 	var/loaded_preferences_successfully = load_preferences(C)
 	if(loaded_preferences_successfully)
 		if(load_character(C))
@@ -249,7 +254,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 	switch(current_tab)
 		if(TAB_CHAR) // Character Settings
-			dat += "<div class='statusDisplay' style='max-width: 128px; position: absolute; left: 150px; top: 150px'><img src=previewicon.png height=64 width=64><img src=previewicon2.png height=64 width=64></div>"
+			dat += "<div class='statusDisplay' style='max-width: 128px; position: absolute; left: 150px; top: 150px'><img src=previewicon.png class='charPreview'><img src=previewicon2.png class='charPreview'></div>"
 			dat += "<table width='100%'><tr><td width='405px' height='25px' valign='top'>"
 			dat += "<b>Name: </b>"
 			dat += "<a href='?_src_=prefs;preference=name;task=input'><b>[real_name]</b></a>"
@@ -428,6 +433,8 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 				dat += "<b>OOC notes:</b> <a href='?_src_=prefs;preference=metadata;task=input'><b>Edit</b></a><br>"
 			if(unlock_content)
 				dat += "<b>BYOND Membership Publicity:</b> <a href='?_src_=prefs;preference=publicity'><b>[(toggles & MEMBER_PUBLIC) ? "Public" : "Hidden"]</b></a><br>"
+			if(user.client.donator_level >= DONATOR_LEVEL_ONE)
+				dat += "<b>Donator Publicity:</b> <a href='?_src_=prefs;preference=donor_public'><b>[(toggles & DONATOR_PUBLIC) ? "Public" : "Hidden"]</b></a><br>"
 
 			dat += "<b>Randomized character slot:</b> <a href='?_src_=prefs;preference=randomslot'><b>[randomslot ? "Yes" : "No"]</b></a><br>"
 			dat += "<b>Ghost ears:</b> <a href='?_src_=prefs;preference=ghost_ears'><b>[(toggles & CHAT_GHOSTEARS) ? "Nearest Creatures" : "All Speech"]</b></a><br>"
@@ -464,14 +471,18 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						total_cost += G.cost
 
 			var/fcolor =  "#3366CC"
-			if(total_cost < MAX_GEAR_COST)
+			if(total_cost < max_gear_slots)
 				fcolor = "#E67300"
 			dat += "<table align='center' width='100%'>"
-			dat += "<tr><td colspan=4><center><b><font color='[fcolor]'>[total_cost]/[MAX_GEAR_COST]</font> loadout points spent.</b> \[<a href='?_src_=prefs;preference=gear;clear_loadout=1'>Clear Loadout</a>\]</center></td></tr>"
+			dat += "<tr><td colspan=4><center><b><font color='[fcolor]'>[total_cost]/[max_gear_slots]</font> loadout points spent.</b> \[<a href='?_src_=prefs;preference=gear;clear_loadout=1'>Clear Loadout</a>\]</center></td></tr>"
 			dat += "<tr><td colspan=4><center><b>"
 
 			var/firstcat = 1
 			for(var/category in loadout_categories)
+				var/datum/loadout_category/LC = loadout_categories[category]
+				if(LC.donor_only)
+					if(user.client.donator_level < DONATOR_LEVEL_TWO) // level two donators get the donator loadout, so don't show it to anyone with less than that
+						continue
 				if(firstcat)
 					firstcat = 0
 				else
@@ -1097,6 +1108,10 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			if(TG.display_name in gear)
 				gear -= TG.display_name
 			else
+				if(TG.donor_only)
+					if(user.client.donator_level < DONATOR_LEVEL_TWO) // donator items are locked to > tier 2
+						//they normally can't even get this far- but just in case of href exploits, we check them here
+						return
 				var/total_cost = 0
 				var/list/type_blacklist = list()
 				for(var/gear_name in gear)
@@ -1108,7 +1123,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 							type_blacklist += G.subtype_path
 						total_cost += G.cost
 
-				if((total_cost + TG.cost) <= MAX_GEAR_COST)
+				if((total_cost + TG.cost) <= max_gear_slots)
 					gear += TG.display_name
 
 		else if(href_list["gear"] && href_list["tweak"])
@@ -1874,6 +1889,10 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 				if("publicity")
 					if(unlock_content)
 						toggles ^= MEMBER_PUBLIC
+
+				if("donor_public")
+					if(user.client.donator_level >= DONATOR_LEVEL_ONE)
+						toggles ^= DONATOR_PUBLIC
 
 				if("gender")
 					if(gender == MALE)

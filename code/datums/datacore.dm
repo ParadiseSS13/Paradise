@@ -150,7 +150,10 @@ proc/get_id_photo(var/mob/living/carbon/human/H)
 	preview_icon.Blend(temp, ICON_OVERLAY)
 
 	//Tail
-	if(H.species.tail && H.species.flags & HAS_TAIL)
+	if(H.body_accessory && istype(H.body_accessory, /datum/body_accessory/tail))
+		temp = new/icon("icon" = H.body_accessory.icon, "icon_state" = H.body_accessory.icon_state)
+		preview_icon.Blend(temp, ICON_OVERLAY)
+	else if(H.species.tail && H.species.bodyflags & HAS_TAIL)
 		temp = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "[H.species.tail]_s")
 		preview_icon.Blend(temp, ICON_OVERLAY)
 
@@ -173,6 +176,17 @@ proc/get_id_photo(var/mob/living/carbon/human/H)
 	if(H.species.bodyflags & HAS_SKIN_COLOR)
 		preview_icon.Blend(rgb(H.r_skin, H.g_skin, H.b_skin), ICON_ADD)
 
+	//Tail Markings
+	var/icon/t_marking_s
+	if(H.species.bodyflags & HAS_TAIL_MARKINGS)
+		var/tail_marking = H.m_styles["tail"]
+		var/datum/sprite_accessory/tail_marking_style = marking_styles_list[tail_marking]
+		if(tail_marking_style && tail_marking_style.species_allowed)
+			t_marking_s = new/icon("icon" = tail_marking_style.icon, "icon_state" = "[tail_marking_style.icon_state]_s")
+			t_marking_s.Blend(H.m_colours["tail"], ICON_ADD)
+			if(!(H.body_accessory && istype(H.body_accessory, /datum/body_accessory/body)))
+				preview_icon.Blend(t_marking_s, ICON_OVERLAY)
+
 	var/icon/face_s = new/icon("icon" = 'icons/mob/human_face.dmi', "icon_state" = "bald_s")
 	if(!(H.species.bodyflags & NO_EYES))
 		var/icon/eyes_s = new/icon("icon" = 'icons/mob/human_face.dmi', "icon_state" = H.species ? H.species.eyes : "eyes_s")
@@ -190,7 +204,7 @@ proc/get_id_photo(var/mob/living/carbon/human/H)
 		// I'll want to make a species-specific proc for this sooner or later
 		// But this'll do for now
 		if(head_organ.species.name == "Slime People")
-			hair_s.Blend(rgb(H.r_skin, H.g_skin, H.b_skin, 160), ICON_ADD)
+			hair_s.Blend(rgb(H.r_skin, H.g_skin, H.b_skin, 160), ICON_AND)
 		else
 			hair_s.Blend(rgb(head_organ.r_hair, head_organ.g_hair, head_organ.b_hair), ICON_ADD)
 
@@ -378,9 +392,22 @@ proc/get_id_photo(var/mob/living/carbon/human/H)
 		else
 			clothes_s = new /icon('icons/mob/uniform.dmi', "grey_s")
 			clothes_s.Blend(new /icon('icons/mob/feet.dmi', "black"), ICON_UNDERLAY)
+
 	preview_icon.Blend(face_s, ICON_OVERLAY) // Why do we do this twice
 	if(clothes_s)
 		preview_icon.Blend(clothes_s, ICON_OVERLAY)
+	//Bus body accessories that go over clothes.
+	if(H.body_accessory && istype(H.body_accessory, /datum/body_accessory/body))
+		temp = new/icon("icon" = H.body_accessory.icon, "icon_state" = H.body_accessory.icon_state)
+		if(H.body_accessory.pixel_x_offset)
+			temp.Shift(EAST, H.body_accessory.pixel_x_offset)
+		if(H.body_accessory.pixel_y_offset)
+			temp.Shift(NORTH, H.body_accessory.pixel_y_offset)
+		if(H.species.bodyflags & HAS_SKIN_COLOR)
+			temp.Blend(rgb(H.r_skin, H.g_skin, H.b_skin), H.body_accessory.blend_mode)
+		if(t_marking_s)
+			temp.Blend(t_marking_s, ICON_OVERLAY)
+		preview_icon.Blend(temp, ICON_OVERLAY)
 	qdel(face_s)
 	qdel(clothes_s)
 

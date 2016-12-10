@@ -65,19 +65,23 @@
 
 /datum/sprite_accessory/hair
 	icon = 'icons/mob/human_face.dmi'	  // default icon for all hairs
+	var/glasses_over //Hair styles with hair that don't overhang the arms of glasses should have glasses_over set to a positive value.
 
 /datum/sprite_accessory/hair/bald
 	name = "Bald"
 	icon_state = "bald"
 	species_allowed = list("Human", "Unathi", "Vox", "Diona", "Kidan", "Grey", "Plasmaman", "Skeleton", "Vulpkanin", "Tajaran")
+	glasses_over = 1
 
 /datum/sprite_accessory/hair/short
 	name = "Short Hair"	  // try to capatilize the names please~
 	icon_state = "hair_a" // you do not need to define _s or _l sub-states, game automatically does this for you
+	glasses_over = 1
 
 /datum/sprite_accessory/hair/cut
 	name = "Cut Hair"
 	icon_state = "hair_c"
+	glasses_over = 1
 
 /datum/sprite_accessory/hair/long
 	name = "Shoulder-length Hair"
@@ -123,6 +127,7 @@
 	name = "Ponytail male"
 	icon_state = "hair_ponytailm"
 	gender = MALE
+	glasses_over = 1
 
 /datum/sprite_accessory/hair/ponytail2
 	name = "Ponytail female"
@@ -132,16 +137,19 @@
 /datum/sprite_accessory/hair/ponytail3
 	name = "Ponytail alt"
 	icon_state = "hair_ponytail3"
+	glasses_over = 1
 
 /datum/sprite_accessory/hair/sideponytail
 	name = "Side Ponytail"
 	icon_state = "hair_stail"
 	gender = FEMALE
+	glasses_over = 1
 
 /datum/sprite_accessory/hair/highponytail
 	name = "High Ponytail"
 	icon_state = "hair_highponytail"
 	gender = FEMALE
+	glasses_over = 1
 
 /datum/sprite_accessory/hair/wisp
 	name = "Wisp"
@@ -157,11 +165,13 @@
 	icon_state = "hair_pompadour"
 	gender = MALE
 	species_allowed = list("Human", "Slime People", "Unathi")
+	glasses_over = 1
 
 /datum/sprite_accessory/hair/quiff
 	name = "Quiff"
 	icon_state = "hair_quiff"
 	gender = MALE
+	glasses_over = 1
 
 /datum/sprite_accessory/hair/bedhead
 	name = "Bedhead"
@@ -197,6 +207,7 @@
 	name = "Bowl"
 	icon_state = "hair_bowlcut"
 	gender = MALE
+	glasses_over = 1
 
 /datum/sprite_accessory/hair/braid2
 	name = "Long Braid"
@@ -219,20 +230,24 @@
 	icon_state = "hair_buzzcut"
 	gender = MALE
 	species_allowed = list("Human", "Slime People", "Unathi")
+	glasses_over = 1
 
 /datum/sprite_accessory/hair/crew
 	name = "Crewcut"
 	icon_state = "hair_crewcut"
 	gender = MALE
+	glasses_over = 1
 
 /datum/sprite_accessory/hair/combover
 	name = "Combover"
 	icon_state = "hair_combover"
 	gender = MALE
+	glasses_over = 1
 
 /datum/sprite_accessory/hair/devillock
 	name = "Devil Lock"
 	icon_state = "hair_devilock"
+	glasses_over = 1
 
 /datum/sprite_accessory/hair/dreadlocks
 	name = "Dreadlocks"
@@ -249,6 +264,7 @@
 /datum/sprite_accessory/hair/afro2
 	name = "Afro 2"
 	icon_state = "hair_afro2"
+	glasses_over = 1
 
 /datum/sprite_accessory/hair/afro_large
 	name = "Big Afro"
@@ -259,6 +275,7 @@
 	name = "Flat Top"
 	icon_state = "hair_sergeant"
 	gender = MALE
+	glasses_over = 1
 
 /datum/sprite_accessory/hair/emo
 	name = "Emo"
@@ -276,31 +293,37 @@
 	name = "Hitop"
 	icon_state = "hair_hitop"
 	gender = MALE
+	glasses_over = 1
 
 /datum/sprite_accessory/hair/mohawk
 	name = "Mohawk"
 	icon_state = "hair_d"
 	species_allowed = list("Human", "Slime People", "Unathi")
+	glasses_over = 1
 
 /datum/sprite_accessory/hair/jensen
 	name = "Adam Jensen Hair"
 	icon_state = "hair_jensen"
 	gender = MALE
+	glasses_over = 1
 
 /datum/sprite_accessory/hair/cia
 	name = "CIA"
 	icon_state = "hair_cia"
 	gender = MALE
+	glasses_over = 1
 
 /datum/sprite_accessory/hair/mulder
 	name = "Mulder"
 	icon_state = "hair_mulder"
 	gender = MALE
+	glasses_over = 1
 
 /datum/sprite_accessory/hair/gelled
 	name = "Gelled Back"
 	icon_state = "hair_gelled"
 	gender = FEMALE
+	glasses_over = 1
 
 /datum/sprite_accessory/hair/gentle
 	name = "Gentle"
@@ -311,6 +334,7 @@
 	name = "Spiky"
 	icon_state = "hair_spikey"
 	species_allowed = list("Human", "Slime People", "Unathi")
+	glasses_over = 1
 
 /datum/sprite_accessory/hair/kusanagi
 	name = "Kusanagi Hair"
@@ -320,6 +344,7 @@
 	name = "Pigtails"
 	icon_state = "hair_kagami"
 	gender = FEMALE
+	glasses_over = 1
 
 /datum/sprite_accessory/hair/himecut
 	name = "Hime Cut"
@@ -335,6 +360,7 @@
 	name = "Odango"
 	icon_state = "hair_odango"
 	gender = FEMALE
+	glasses_over = 1
 
 /datum/sprite_accessory/hair/ombre
 	name = "Ombre"
@@ -349,11 +375,13 @@
 /datum/sprite_accessory/hair/skinhead
 	name = "Skinhead"
 	icon_state = "hair_skinhead"
+	glasses_over = 1
 
 /datum/sprite_accessory/hair/balding
 	name = "Balding Hair"
 	icon_state = "hair_e"
 	gender = MALE // turnoff!
+	glasses_over = 1
 
 /datum/sprite_accessory/hair/longemo
 	name = "Long Emo"
@@ -385,6 +413,7 @@
 	name = "Unshaven Mohawk"
 	icon_state = "hair_unshavenmohawk"
 	gender = MALE
+	glasses_over = 1
 
 /datum/sprite_accessory/hair/drills
 	name = "Twincurls"
@@ -401,6 +430,7 @@
 
 /datum/sprite_accessory/hair/ipc
 	species_allowed = list("Machine")
+	glasses_over = 1
 
 /datum/sprite_accessory/hair/ipc/ipc_screen_pink
 	name = "Pink IPC Screen"
@@ -547,6 +577,7 @@
 
 /datum/sprite_accessory/hair/unathi
 	species_allowed = list("Unathi")
+	glasses_over = 1
 
 /datum/sprite_accessory/hair/unathi/una_horns
 	name = "Unathi Horns"
@@ -593,6 +624,7 @@
 
 /datum/sprite_accessory/hair/tajara
 	species_allowed = list("Tajaran")
+	glasses_over = 1
 
 /datum/sprite_accessory/hair/tajara/taj_hair_clean
 	name = "Tajara Clean"
@@ -601,11 +633,13 @@
 /datum/sprite_accessory/hair/tajara/taj_hair_bangs
 	name = "Tajara Bangs"
 	icon_state = "hair_bangs"
+	glasses_over = null
 
 /datum/sprite_accessory/hair/tajara/taj_hair_braid
 	name = "Tajara Braid"
 	icon_state = "hair_tbraid"
 	secondary_theme = "beads"
+	glasses_over = null
 
 /datum/sprite_accessory/hair/tajara/taj_hair_shaggy
 	name = "Tajara Shaggy"
@@ -642,22 +676,27 @@
 /datum/sprite_accessory/hair/tajara/taj_hair_curls
 	name = "Tajara Curly"
 	icon_state = "hair_curly"
+	glasses_over = null
 
 /datum/sprite_accessory/hair/tajara/taj_hair_retro
 	name = "Tajaran Ladies' Retro"
 	icon_state = "hair_ladies_retro"
+	glasses_over = null
 
 /datum/sprite_accessory/hair/tajara/taj_hair_victory
 	name = "Tajara Victory Curls"
 	icon_state = "hair_victory"
+	glasses_over = null
 
 /datum/sprite_accessory/hair/tajara/taj_hair_bob
 	name = "Tajara Bob"
 	icon_state = "hair_tbob"
+	glasses_over = null
 
 /datum/sprite_accessory/hair/tajara/taj_hair_fingercurl
 	name = "Tajara Finger Curls"
 	icon_state = "hair_fingerwave"
+	glasses_over = null
 
 /datum/sprite_accessory/hair/vulpkanin
 	species_allowed = list("Vulpkanin")
@@ -694,6 +733,7 @@
 /datum/sprite_accessory/hair/vulpkanin/vulp_hair_bun
 	name = "Bun"
 	icon_state = "bun"
+	glasses_over = 1
 
 /datum/sprite_accessory/hair/vulpkanin/vulp_hair_jagged
 	name = "Jagged"
@@ -706,6 +746,7 @@
 /datum/sprite_accessory/hair/vulpkanin/vulp_hair_hawk
 	name = "Hawk"
 	icon_state = "hawk"
+	glasses_over = 1
 
 /datum/sprite_accessory/hair/vulpkanin/vulp_hair_anita
 	name = "Anita"
@@ -718,6 +759,7 @@
 /datum/sprite_accessory/hair/vulpkanin/vulp_hair_spike
 	name = "Spike"
 	icon_state = "spike"
+	glasses_over = 1
 
 /datum/sprite_accessory/hair/vulpkanin/vulp_hair_braided
 	name = "Braided"
@@ -726,6 +768,7 @@
 
 /datum/sprite_accessory/hair/vox
 	species_allowed = list("Vox")
+	glasses_over = 1
 
 /datum/sprite_accessory/hair/vox/vox_quills_short
 	name = "Short Vox Quills"
@@ -787,6 +830,7 @@
 
 /datum/sprite_accessory/hair/wryn
 	species_allowed = list("Wryn")
+	glasses_over = 1
 
 /datum/sprite_accessory/hair/wryn/wry_antennae_default
 	name = "Antennae"
@@ -794,6 +838,7 @@
 
 /datum/sprite_accessory/hair/nucleation
 	species_allowed = list("Nucleation")
+	glasses_over = 1
 
 /datum/sprite_accessory/hair/nucleation/nuc_crystals
 	name = "Nucleation Crystals"
@@ -835,6 +880,7 @@
 /datum/sprite_accessory/facial_hair
 	icon = 'icons/mob/human_face.dmi'
 	gender = MALE // barf (unless you're a dorf, dorfs dig chix /w beards :P)
+	var/over_hair
 
 /datum/sprite_accessory/facial_hair/shaved
 	name = "Shaved"
@@ -1024,6 +1070,7 @@
 /datum/sprite_accessory/facial_hair/unathi
 	species_allowed = list("Unathi")
 	gender = NEUTER
+	over_hair = 1
 
 /datum/sprite_accessory/facial_hair/unathi/una_spines_long
 	name = "Long Spines"
@@ -1594,6 +1641,7 @@
 	icon = 'icons/mob/body_accessory.dmi'
 	species_allowed = list("Unathi", "Vulpkanin", "Tajaran", "Machine")
 	icon_state = "accessory_none"
+	var/over_hair
 
 /datum/sprite_accessory/head_accessory/none
 	name = "None"
@@ -1602,6 +1650,7 @@
 
 /datum/sprite_accessory/head_accessory/unathi
 	species_allowed = list("Unathi")
+	over_hair = 1
 
 /datum/sprite_accessory/head_accessory/unathi/simple
 	name = "Simple"
@@ -1701,6 +1750,7 @@
 
 /datum/sprite_accessory/head_accessory/ipc
 	species_allowed = list("Machine")
+	over_hair = 1
 
 /datum/sprite_accessory/head_accessory/ipc/ipc_antennae
 	name = "Antennae"

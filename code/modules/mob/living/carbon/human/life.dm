@@ -787,7 +787,7 @@
 /mob/living/carbon/human/proc/has_booze() //checks if the human has ethanol or its subtypes inside
 	for(var/A in reagents.reagent_list)
 		var/datum/reagent/R = A
-		if(istype(R, /datum/reagent/ethanol))
+		if(istype(R, /datum/reagent/consumable/ethanol))
 			return 1
 	return 0
 

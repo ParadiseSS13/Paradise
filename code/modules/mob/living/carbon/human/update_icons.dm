@@ -395,6 +395,7 @@ var/global/list/damage_icon_parts = list()
 /mob/living/carbon/human/proc/update_head_accessory(var/update_icons=1)
 	//Reset our head accessory
 	overlays_standing[HEAD_ACCESSORY_LAYER]	= null
+	overlays_standing[HEAD_ACC_OVER_LAYER]	= null
 
 	var/obj/item/organ/external/head/head_organ = get_organ("head")
 	if(!head_organ || head_organ.is_stump() || (head_organ.status & ORGAN_DESTROYED) )
@@ -408,9 +409,8 @@ var/global/list/damage_icon_parts = list()
 
 	//base icons
 	var/icon/head_accessory_standing	= new /icon('icons/mob/body_accessory.dmi',"accessory_none_s")
-
 	if(head_organ.ha_style && (head_organ.species.bodyflags & HAS_HEAD_ACCESSORY))
-		var/datum/sprite_accessory/head_accessory_style = head_accessory_styles_list[head_organ.ha_style]
+		var/datum/sprite_accessory/head_accessory/head_accessory_style = head_accessory_styles_list[head_organ.ha_style]
 		if(head_accessory_style && head_accessory_style.species_allowed)
 			if(head_organ.species.name in head_accessory_style.species_allowed)
 				var/icon/head_accessory_s = new/icon("icon" = head_accessory_style.icon, "icon_state" = "[head_accessory_style.icon_state]_s")
@@ -418,10 +418,13 @@ var/global/list/damage_icon_parts = list()
 					head_accessory_s.Blend(rgb(head_organ.r_headacc, head_organ.g_headacc, head_organ.b_headacc), ICON_ADD)
 				head_accessory_standing = head_accessory_s //head_accessory_standing.Blend(head_accessory_s, ICON_OVERLAY)
 														   //Having it this way preserves animations. Useful for animated antennae.
+
+				if(head_accessory_style.over_hair) //Select which layer to use based on the properties of the head accessory style.
+					overlays_standing[HEAD_ACC_OVER_LAYER]	= image(head_accessory_standing)
+				else
+					overlays_standing[HEAD_ACCESSORY_LAYER] = image(head_accessory_standing)
 		else
 			//warning("Invalid ha_style for [species.name]: [ha_style]")
-
-	overlays_standing[HEAD_ACCESSORY_LAYER]	= image(head_accessory_standing)
 
 	if(update_icons)   update_icons()
 
@@ -446,7 +449,7 @@ var/global/list/damage_icon_parts = list()
 	//var/icon/debrained_s = new /icon("icon"='icons/mob/human_face.dmi', "icon_state" = "debrained_s")
 
 	if(head_organ.h_style && !(head && (head.flags & BLOCKHEADHAIR) && !(isSynthetic())))
-		var/datum/sprite_accessory/hair_style = hair_styles_list[head_organ.h_style]
+		var/datum/sprite_accessory/hair/hair_style = hair_styles_list[head_organ.h_style]
 		//if(!src.get_int_organ(/obj/item/organ/internal/brain) && src.get_species() != "Machine" )//make it obvious we have NO BRAIN
 		//	hair_standing.Blend(debrained_s, ICON_OVERLAY)
 		if(hair_style && hair_style.species_allowed)
@@ -477,7 +480,8 @@ var/global/list/damage_icon_parts = list()
 //FACIAL HAIR OVERLAY
 /mob/living/carbon/human/proc/update_fhair(var/update_icons=1)
 	//Reset our facial hair
-	overlays_standing[FHAIR_LAYER] = null
+	overlays_standing[FHAIR_LAYER]		= null
+	overlays_standing[FHAIR_OVER_LAYER]	= null
 
 	var/obj/item/organ/external/head/head_organ = get_organ("head")
 	if(!head_organ || head_organ.is_stump() || (head_organ.status & ORGAN_DESTROYED))
@@ -493,7 +497,7 @@ var/global/list/damage_icon_parts = list()
 	var/icon/face_standing	= new /icon('icons/mob/human_face.dmi',"bald_s")
 
 	if(head_organ.f_style)
-		var/datum/sprite_accessory/facial_hair_style = facial_hair_styles_list[head_organ.f_style]
+		var/datum/sprite_accessory/facial_hair/facial_hair_style = facial_hair_styles_list[head_organ.f_style]
 		if(facial_hair_style && facial_hair_style.species_allowed)
 			if((head_organ.species.name in facial_hair_style.species_allowed) || (head_organ.species.flags & ALL_RPARTS)) //If the head's species is in the list of allowed species for the hairstyle, or the head's species is one flagged to have bodies comprised wholly of cybernetics...
 				var/icon/facial_s = new/icon("icon" = facial_hair_style.icon, "icon_state" = "[facial_hair_style.icon_state]_s")
@@ -509,10 +513,13 @@ var/global/list/damage_icon_parts = list()
 					facial_s.Blend(facial_secondary_s, ICON_OVERLAY)
 
 				face_standing.Blend(facial_s, ICON_OVERLAY)
+
+				if(facial_hair_style.over_hair) //Select which layer to use based on the properties of the facial hair style.
+					overlays_standing[FHAIR_OVER_LAYER] = image(face_standing)
+				else
+					overlays_standing[FHAIR_LAYER] = image(face_standing)
 		else
 			//warning("Invalid f_style for [species.name]: [f_style]")
-
-	overlays_standing[FHAIR_LAYER] = image(face_standing)
 
 	if(update_icons)   update_icons()
 
@@ -736,6 +743,8 @@ var/global/list/damage_icon_parts = list()
 
 
 /mob/living/carbon/human/update_inv_glasses(var/update_icons=1)
+	overlays_standing[GLASSES_LAYER] = null
+	overlays_standing[GLASSES_OVER_LAYER] = null
 
 	if(client && hud_used)
 		var/obj/screen/inventory/inv = hud_used.inv_slots[slot_glasses]
@@ -743,20 +752,26 @@ var/global/list/damage_icon_parts = list()
 			inv.update_icon()
 
 	if(glasses)
+		var/image/new_glasses
+		var/obj/item/organ/external/head/head_organ = get_organ("head")
 		if(client && hud_used && hud_used.hud_shown)
 			if(hud_used.inventory_shown)			//if the inventory is open ...
 				glasses.screen_loc = ui_glasses		//...draw the item in the inventory screen
 			client.screen += glasses				//Either way, add the item to the HUD
 
 		if(glasses.icon_override)
-			overlays_standing[GLASSES_LAYER] = image("icon" = glasses.icon_override, "icon_state" = "[glasses.icon_state]")
-		else if(glasses.sprite_sheets && glasses.sprite_sheets[species.name])
-			overlays_standing[GLASSES_LAYER]= image("icon" = glasses.sprite_sheets[species.name], "icon_state" = "[glasses.icon_state]")
+			new_glasses = image("icon" = glasses.icon_override, "icon_state" = "[glasses.icon_state]")
+		else if(glasses.sprite_sheets && glasses.sprite_sheets[head_organ.species.name])
+			new_glasses = image("icon" = glasses.sprite_sheets[head_organ.species.name], "icon_state" = "[glasses.icon_state]")
 		else
-			overlays_standing[GLASSES_LAYER]= image("icon" = 'icons/mob/eyes.dmi', "icon_state" = "[glasses.icon_state]")
+			new_glasses = image("icon" = 'icons/mob/eyes.dmi', "icon_state" = "[glasses.icon_state]")
 
-	else
-		overlays_standing[GLASSES_LAYER]	= null
+		var/datum/sprite_accessory/hair/hair_style = hair_styles_list[head_organ.h_style]
+		if(hair_style && hair_style.glasses_over) //Select which layer to use based on the properties of the hair style. Hair styles with hair that don't overhang the arms of the glasses should have glasses_over set to a positive value.
+			overlays_standing[GLASSES_OVER_LAYER] = new_glasses
+		else
+			overlays_standing[GLASSES_LAYER] = new_glasses
+
 	if(update_icons)   update_icons()
 
 /mob/living/carbon/human/update_inv_ears(var/update_icons=1)

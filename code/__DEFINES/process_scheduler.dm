@@ -16,3 +16,6 @@
 
 // Sleep check macro
 #define SCHECK if(world.tick_usage >= next_sleep_usage) defer()
+
+//Timing Controller
+#define GLOBAL_PROC	"some_magic_bullshit"

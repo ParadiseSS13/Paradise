@@ -225,6 +225,28 @@
 		to_chat(target, "<span class='notice'>You comb your tail with the [src].</span>")
 		used = 1
 
+/obj/item/device/fluff/cardgage_helmet_kit //captain cardgage: Richard Ulery
+	name = "welding helmet modkit"
+	desc = "Some spraypaint and a stencil, perfect for painting flames onto a welding helmet!"
+	icon_state = "modkit"
+	w_class = 2
+	force = 0
+	throwforce = 0
+
+/obj/item/device/fluff/cardgage_helmet_kit/afterattack(atom/target, mob/user, proximity)
+	if(!proximity || !ishuman(user) || user.lying)
+		return
+
+	if(istype(target, /obj/item/clothing/head/welding))
+		to_chat(user, "<span class='notice'>You modify the appearance of [target].</span>")
+
+		var/obj/item/clothing/head/welding/flamedecal/P = new(get_turf(target))
+		transfer_fingerprints_to(P)
+		qdel(target)
+		qdel(src)
+		return
+	to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
+
 #define USED_MOD_HELM 1
 #define USED_MOD_SUIT 2
 
@@ -423,6 +445,11 @@
 
 /obj/item/clothing/head/hood/fluff/linda //Epic_Charger: Linda Clark
 	icon_state = "greenhood"
+
+/obj/item/clothing/suit/armor/shodanscoat // RazekPraxis: SHODAN
+	name = "SHODAN's Captain's Coat"
+	desc = "A black coat with gold trim and an old US Chevron printed on the back. Edgy."
+	icon_state = "shodancoat"
 
 //////////// Uniforms ////////////
 /obj/item/clothing/under/fluff/kharshai // Kharshai: Athena Castile
@@ -628,3 +655,8 @@
 	suit_adjusted = 1
 	species_fit = null
 	sprite_sheets = null
+
+/obj/item/weapon/storage/backpack/fluff/krich_back //lizardzsi: Krichahka
+	name = "Voxcaster"
+	desc = "Battered, Sol-made military radio backpack that had its speakers fried from playing Vox opera. The words 'Swift-Talon' are crudely scratched onto its side."
+	icon_state = "voxcaster_fluff"

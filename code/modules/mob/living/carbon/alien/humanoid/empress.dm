@@ -31,9 +31,7 @@
 		overlays += I
 
 /mob/living/carbon/alien/humanoid/empress/New()
-	var/datum/reagents/R = new/datum/reagents(100)
-	reagents = R
-	R.my_atom = src
+	create_reagents(100)
 
 	//there should only be one queen
 	for(var/mob/living/carbon/alien/humanoid/empress/E in living_mob_list)

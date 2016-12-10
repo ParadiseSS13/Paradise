@@ -300,7 +300,7 @@
 /obj/machinery/conveyor_switch/multitool_menu(var/mob/user, var/obj/item/device/multitool/P)
 	return {"
  	<ul>
- 	<li><b>One direction only:</b> <a href='?src=\ref[src];toggle_logic=1'>[convdir ? "On" : "Off"]</a></li>
+ 	<li><b>One direction only:</b> <a href='?src=[UID()];toggle_logic=1'>[convdir ? "On" : "Off"]</a></li>
  	</ul>"}
 
 

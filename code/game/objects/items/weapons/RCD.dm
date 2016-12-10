@@ -207,9 +207,9 @@ RCD
 						var/obj/machinery/door/airlock/T = new door_type(A)
 						T.autoclose = 1
 						if(one_access)
-							T.req_one_access = door_accesses
+							T.req_one_access = door_accesses.Copy()
 						else
-							T.req_access = door_accesses
+							T.req_access = door_accesses.Copy()
 						return 1
 					return 0
 				return 0

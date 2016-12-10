@@ -32,7 +32,7 @@ var/global/admin_ooc_colour = "#b82e00"
 		if(prefs.muted & MUTE_OOC)
 			to_chat(src, "<span class='danger'>You cannot use OOC (muted).</span>")
 			return
-		if(handle_spam_prevention(msg, MUTE_OOC))
+		if(handle_spam_prevention(msg, MUTE_OOC, OOC_COOLDOWN))
 			return
 		if(findtext(msg, "byond://"))
 			to_chat(src, "<B>Advertising other servers is not allowed.</B>")
@@ -61,16 +61,24 @@ var/global/admin_ooc_colour = "#b82e00"
 	for(var/client/C in clients)
 		if(C.prefs.toggles & CHAT_OOC)
 			var/display_name = src.key
+
 			if(prefs.unlock_content)
 				if(prefs.toggles & MEMBER_PUBLIC)
 					var/icon/byond = icon('icons/member_content.dmi', "blag")
 					display_name = "[bicon(byond)][display_name]"
+
+			if(donator_level >= DONATOR_LEVEL_ONE)
+				if((prefs.toggles & DONATOR_PUBLIC))
+					var/icon/donator = icon('icons/ooc_tag_16x.dmi', "donator")
+					display_name = "[bicon(donator)][display_name]"
+
 			if(holder)
 				if(holder.fakekey)
 					if(C.holder)
 						display_name = "[holder.fakekey]/([src.key])"
 					else
 						display_name = holder.fakekey
+
 			to_chat(C, "<font color='[display_colour]'><span class='ooc'><span class='prefix'>OOC:</span> <EM>[display_name]:</EM> <span class='message'>[msg]</span></span></font>")
 
 /proc/toggle_ooc()
@@ -168,7 +176,7 @@ var/global/admin_ooc_colour = "#b82e00"
 		if(prefs.muted & MUTE_OOC)
 			to_chat(src, "<span class='danger'>You cannot use LOOC (muted).</span>")
 			return
-		if(handle_spam_prevention(msg,MUTE_OOC))
+		if(handle_spam_prevention(msg, MUTE_OOC, OOC_COOLDOWN))
 			return
 		if(findtext(msg, "byond://"))
 			to_chat(src, "<B>Advertising other servers is not allowed.</B>")

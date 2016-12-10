@@ -368,6 +368,9 @@
 	if(declare_crit && C.health <= 0) //Critical condition! Call for help!
 		declare(C)
 
+	if(!C.has_organic_damage())
+		return 0
+
 	//If they're injured, we're using a beaker, and don't have one of our WONDERCHEMS.
 	if((reagent_glass) && (use_beaker) && ((C.getBruteLoss() >= heal_threshold) || (C.getToxLoss() >= heal_threshold) || (C.getToxLoss() >= heal_threshold) || (C.getOxyLoss() >= (heal_threshold + 15))))
 		for(var/datum/reagent/R in reagent_glass.reagents.reagent_list)
