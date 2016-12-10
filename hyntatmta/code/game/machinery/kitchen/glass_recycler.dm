@@ -23,13 +23,13 @@
 
 	attack_hand(mob/user as mob)
 		var/dat = "<b>Glass Left</b>: [glass_amt]<br>"
-		dat += "<A href='?src=\ref[src];type=drinking'>Drinking Glass</A><br>"
-		dat += "<A href='?src=\ref[src];type=shot'>Shot Glass</A><br>"
-		dat += "<A href='?src=\ref[src];type=wine'>Wine Glass</A><br>"
-		dat += "<A href='?src=\ref[src];type=cocktail'>Cocktail Glass</A><br>"
-		dat += "<A href='?src=\ref[src];type=flute'>Champagne Flute</A><br>"
-		dat += "<A href='?src=\ref[src];type=pitcher'>Pitcher</A><br>"
-		dat += "<HR><A href='?src=\ref[src];refresh=1'>Refresh</A>"
+		dat += "<A href='?src=[UID()];type=drinking'>Drinking Glass</A><br>"
+		dat += "<A href='?src=[UID()];type=shot'>Shot Glass</A><br>"
+		dat += "<A href='?src=[UID()];type=wine'>Wine Glass</A><br>"
+		dat += "<A href='?src=[UID()];type=cocktail'>Cocktail Glass</A><br>"
+		dat += "<A href='?src=[UID()];type=flute'>Champagne Flute</A><br>"
+		dat += "<A href='?src=[UID()];type=pitcher'>Pitcher</A><br>"
+		dat += "<HR><A href='?src=[UID()];refresh=1'>Refresh</A>"
 		dat += "<BR><BR><A href='?action=mach_close&window=glass'>Close</A>"
 		user << browse(dat, "window=glass;size=220x240")
 		onclose(user, "glass")
