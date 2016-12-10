@@ -141,6 +141,9 @@
 	qdel(ion_trail)
 	ion_trail = null
 	occupant_sanity_check()
+	if(pilot)
+		pilot.forceMove(get_turf(src))
+		pilot = null
 	if(passengers)
 		for(var/mob/M in passengers)
 			M.forceMove(get_turf(src))
@@ -197,8 +200,7 @@
 /obj/spacepod/bullet_act(var/obj/item/projectile/P)
 	if(P.damage_type == BRUTE || P.damage_type == BURN)
 		deal_damage(P.damage)
-	else if(P.flag == "energy" && istype(P,/obj/item/projectile/ion)) //needed to make sure ions work properly
-		empulse(src, 1, 1)
+	P.on_hit(src)
 
 /obj/spacepod/blob_act()
 	deal_damage(30)
@@ -227,29 +229,15 @@
 	health = max(0, health - damage)
 	var/percentage = (health / initial(health)) * 100
 	occupant_sanity_check()
-	if(passengers && oldhealth > health && percentage <= 25 && percentage > 0)
-		var/sound/S = sound('sound/effects/engine_alert2.ogg')
-		S.wait = 0 //No queue
-		S.channel = 0 //Any channel
-		S.volume = 50
-		for(var/mob/M in passengers)
-			M << S
-	if(passengers && oldhealth > health && !health)
-		var/sound/S = sound('sound/effects/engine_alert1.ogg')
-		S.wait = 0
-		S.channel = 0
-		S.volume = 50
-		for(var/mob/M in passengers)
-			M << S
+	if(oldhealth > health && percentage <= 25 && percentage > 0)
+		play_sound_to_riders('sound/effects/engine_alert2.ogg')
+	if(oldhealth > health && !health)
+		play_sound_to_riders('sound/effects/engine_alert1.ogg')
 	if(!health)
 		spawn(0)
-			if(passengers)
-				for(var/mob/M in passengers)
-					to_chat(M, "<span class='userdanger'>Critical damage to the vessel detected, core explosion imminent!</span>")
+			message_to_riders("<span class='userdanger'>Critical damage to the vessel detected, core explosion imminent!</span>")
 			for(var/i = 10, i >= 0; --i)
-				if(passengers)
-					for(var/mob/M in passengers)
-						to_chat(M, "<span class='warning'>[i]</span>")
+				message_to_riders("<span class='warning'>[i]</span>")
 				if(i == 0)
 					explosion(loc, 2, 4, 8)
 					qdel(src)
@@ -267,12 +255,13 @@
 	occupant_sanity_check()
 	switch(severity)
 		if(1)
-			for(var/mob/M in passengers)
-				var/mob/living/carbon/human/H = M
-				if(H)
-					H.forceMove(get_turf(src))
-					H.ex_act(severity + 1)
-					to_chat(H, "<span class='warning'>You are forcefully thrown from \the [src]!</span>")
+			if(passengers || pilot)
+				for(var/mob/M in passengers | pilot)
+					var/mob/living/carbon/human/H = M
+					if(H)
+						H.forceMove(get_turf(src))
+						H.ex_act(severity + 1)
+						to_chat(H, "<span class='warning'>You are forcefully thrown from \the [src]!</span>")
 			qdel(ion_trail)
 			qdel(src)
 		if(2)
@@ -284,35 +273,35 @@
 /obj/spacepod/emp_act(severity)
 	occupant_sanity_check()
 	cargo_hold.emp_act(severity)
+
+	if(battery && battery.charge > 0)
+		battery.use((battery.charge / 2) / severity)
+	deal_damage(80 / severity)
+	if(empcounter < (40 / severity))
+		empcounter = 40 / severity
+	processing_objects.Add(src)
+
 	switch(severity)
 		if(1)
-			if(pilot)
-				to_chat(pilot, "<span class='warning'>The pod console flashes 'Heavy EMP WAVE DETECTED'.</span>")
-			if(passengers)
-				for(var/mob/M in passengers)
-					to_chat(M, "<span class='warning'>The pod console flashes 'Heavy EMP WAVE DETECTED'.</span>")//warn the passengers
-
-
-			if(battery)
-				battery.charge = max(0, battery.charge - 5000) //Cell EMP act is too weak, this pod needs to be sapped.
-			src.deal_damage(100)
-			if(src.empcounter < 40)
-				src.empcounter = 40 //Disable movement for 40 ticks. Plenty long enough.
-			processing_objects.Add(src)
-
+			message_to_riders("<span class='warning'>The pod console flashes 'Heavy EMP WAVE DETECTED'.</span>")
 		if(2)
-			if(pilot)
-				to_chat(pilot, "<span class='warning'>The pod console flashes 'EMP WAVE DETECTED'.</span>")
-			if(passengers)
-				for(var/mob/M in passengers)
-					to_chat(M, "<span class='warning'>The pod console flashes 'EMP WAVE DETECTED'.</span>")//warn the passengers
+			message_to_riders("<span class='warning'>The pod console flashes 'EMP WAVE DETECTED'.</span>")
 
-			deal_damage(40)
-			if(battery)
-				battery.charge = max(0, battery.charge - 2500) //Cell EMP act is too weak, this pod needs to be sapped.
-			if(empcounter < 20)
-				empcounter = 20 //Disable movement for 20 ticks.
-			processing_objects.Add(src)
+/obj/spacepod/proc/play_sound_to_riders(mysound)
+	if(length(passengers | pilot) == 0)
+		return
+	var/sound/S = sound(mysound)
+	S.wait = 0 //No queue
+	S.channel = 0 //Any channel
+	S.volume = 50
+	for(var/mob/M in passengers | pilot)
+		M << S
+
+/obj/spacepod/proc/message_to_riders(mymessage)
+	if(length(passengers | pilot) == 0)
+		return
+	for(var/mob/M in passengers | pilot)
+		to_chat(M, mymessage)
 
 /obj/spacepod/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(user.a_intent == I_HARM)

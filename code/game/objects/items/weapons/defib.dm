@@ -292,7 +292,8 @@
 		defib.on = 0
 		loc = defib
 		defib.update_icon()
-	return	unwield()
+		update_icon()
+	return unwield(user)
 
 /obj/item/weapon/twohanded/shockpaddles/proc/check_defib_exists(mainunit, var/mob/living/carbon/human/M, var/obj/O)
 	if(!mainunit || !istype(mainunit, /obj/item/weapon/defibrillator))	//To avoid weird issues from admin spawns
@@ -407,8 +408,9 @@
 							H.adjustBruteLoss(tobehealed)
 							user.visible_message("<span class='boldnotice'>[defib] pings: Resuscitation successful.</span>")
 							playsound(get_turf(src), 'sound/machines/defib_success.ogg', 50, 0)
-							H.stat = 1
-							H.update_revive()
+							H.update_revive(FALSE)
+							H.KnockOut(FALSE)
+							H.Paralyse(5)
 							H.emote("gasp")
 							if(tplus > tloss)
 								H.setBrainLoss( max(0, min(99, ((tlimit - tplus) / tlimit * 100))))
@@ -526,8 +528,9 @@
 							H.adjustBruteLoss(tobehealed)
 							user.visible_message("<span class='notice'>[user] pings: Resuscitation successful.</span>")
 							playsound(get_turf(src), 'sound/machines/defib_success.ogg', 50, 0)
-							H.stat = UNCONSCIOUS
-							H.update_revive()
+							H.update_revive(FALSE)
+							H.KnockOut(FALSE)
+							H.Paralyse(5)
 							H.emote("gasp")
 							if(tplus > tloss)
 								H.setBrainLoss( max(0, min(99, ((tlimit - tplus) / tlimit * 100))))

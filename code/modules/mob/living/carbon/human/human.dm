@@ -31,9 +31,7 @@
 		if(mind)
 			mind.name = real_name
 
-	var/datum/reagents/R = new/datum/reagents(330)
-	reagents = R
-	R.my_atom = src
+	create_reagents(330)
 
 	prev_gender = gender // Debug for plural genders
 	make_blood()
@@ -352,7 +350,8 @@
 				else valid_limbs -= processing_dismember
 
 			if(!istype(l_ear, /obj/item/clothing/ears/earmuffs) && !istype(r_ear, /obj/item/clothing/ears/earmuffs))
-				adjustEarDamage(30, 120)
+				AdjustEarDamage(30)
+				AdjustEarDeaf(120)
 			if(prob(70) && !shielded)
 				Paralyse(10)
 
@@ -376,7 +375,8 @@
 					else valid_limbs -= processing_dismember
 
 			if(!istype(l_ear, /obj/item/clothing/ears/earmuffs) && !istype(r_ear, /obj/item/clothing/ears/earmuffs))
-				adjustEarDamage(15,60)
+				AdjustEarDamage(15)
+				AdjustEarDeaf(60)
 			if(prob(50) && !shielded)
 				Paralyse(10)
 
@@ -491,8 +491,7 @@
 						O.show_message(text("<span class='danger'>The [M.name] has shocked []!</span>", src), 1)
 
 				Weaken(power)
-				if(stuttering < power)
-					stuttering = power
+				Stuttering(power)
 				Stun(power)
 
 				var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
@@ -709,12 +708,19 @@
 	if(!.) 				. = if_no_id	//to prevent null-names making the mob unclickable
 	return
 
-//gets ID card object from special clothes slot or null.
-/mob/living/carbon/human/proc/get_idcard()
+//gets ID card object from special clothes slot or, if applicable, hands as well
+/mob/living/carbon/human/proc/get_idcard(var/check_hands = FALSE)
 	var/obj/item/weapon/card/id/id = wear_id
 	var/obj/item/device/pda/pda = wear_id
 	if(istype(pda) && pda.id)
 		id = pda.id
+
+	if(check_hands)
+		if(istype(get_active_hand(), /obj/item/weapon/card/id))
+			id = get_active_hand()
+		else if(istype(get_inactive_hand(), /obj/item/weapon/card/id))
+			id = get_inactive_hand()
+
 	if(istype(id))
 		return id
 
@@ -854,12 +860,7 @@
 										modified = 1
 
 										spawn()
-											if(istype(usr,/mob/living/carbon/human))
-												//var/mob/living/carbon/human/U = usr
-												sec_hud_set_security_status()
-											if(istype(usr,/mob/living/silicon/robot))
-												//var/mob/living/silicon/robot/U = usr
-												sec_hud_set_security_status()
+											sec_hud_set_security_status()
 
 			if(!modified)
 				to_chat(usr, "\red Unable to locate a data core entry for this person.")
@@ -984,12 +985,7 @@
 										PDA_Manifest.Cut()
 
 									spawn()
-										if(istype(usr,/mob/living/carbon/human))
-											//var/mob/living/carbon/human/U = usr
-											sec_hud_set_security_status()
-										if(istype(usr,/mob/living/silicon/robot))
-											//var/mob/living/silicon/robot/U = usr
-											sec_hud_set_security_status()
+										sec_hud_set_security_status()
 
 			if(!modified)
 				to_chat(usr, "\red Unable to locate a data core entry for this person.")
@@ -1482,7 +1478,6 @@
 		to_chat(usr, "\blue [self ? "Your" : "[src]'s"] pulse is [src.get_pulse(GETPULSE_HAND)].")
 
 /mob/living/carbon/human/proc/set_species(var/new_species, var/default_colour, var/delay_icon_update = 0)
-
 	var/datum/species/oldspecies = species
 	if(!dna)
 		if(!new_species)
@@ -1535,9 +1530,9 @@
 
 	if(species.base_color && default_colour)
 		//Apply colour.
-		r_skin = hex2num(copytext(species.base_color, 2, 4))
-		g_skin = hex2num(copytext(species.base_color, 4, 6))
-		b_skin = hex2num(copytext(species.base_color, 6, 8))
+		r_skin = color2R(species.base_color)
+		g_skin = color2G(species.base_color)
+		b_skin = color2B(species.base_color)
 	else
 		r_skin = 0
 		g_skin = 0
@@ -1552,36 +1547,46 @@
 	var/obj/item/organ/external/head/H = get_organ("head")
 	if(species.default_hair)
 		H.h_style = species.default_hair
+	else
+		H.h_style = "Bald"
 	if(species.default_fhair)
 		H.f_style = species.default_fhair
+	else
+		H.f_style = "Shaved"
 	if(species.default_headacc)
 		H.ha_style = species.default_headacc
+	else
+		H.ha_style = "None"
 
 	if(species.default_hair_colour)
 		//Apply colour.
-		H.r_hair = hex2num(copytext(species.default_hair_colour, 2, 4))
-		H.g_hair = hex2num(copytext(species.default_hair_colour, 4, 6))
-		H.b_hair = hex2num(copytext(species.default_hair_colour, 6, 8))
+		H.r_hair = color2R(species.default_hair_colour)
+		H.g_hair = color2G(species.default_hair_colour)
+		H.b_hair = color2B(species.default_hair_colour)
 	else
 		H.r_hair = 0
 		H.g_hair = 0
 		H.b_hair = 0
 	if(species.default_fhair_colour)
-		H.r_facial = hex2num(copytext(species.default_fhair_colour, 2, 4))
-		H.g_facial = hex2num(copytext(species.default_fhair_colour, 4, 6))
-		H.b_facial = hex2num(copytext(species.default_fhair_colour, 6, 8))
+		H.r_facial = color2R(species.default_fhair_colour)
+		H.g_facial = color2G(species.default_fhair_colour)
+		H.b_facial = color2B(species.default_fhair_colour)
 	else
 		H.r_facial = 0
 		H.g_facial = 0
 		H.b_facial = 0
 	if(species.default_headacc_colour)
-		H.r_headacc = hex2num(copytext(species.default_headacc_colour, 2, 4))
-		H.g_headacc = hex2num(copytext(species.default_headacc_colour, 4, 6))
-		H.b_headacc = hex2num(copytext(species.default_headacc_colour, 6, 8))
+		H.r_headacc = color2R(species.default_headacc_colour)
+		H.g_headacc = color2G(species.default_headacc_colour)
+		H.b_headacc = color2B(species.default_headacc_colour)
 	else
 		H.r_headacc = 0
 		H.g_headacc = 0
 		H.b_headacc = 0
+
+	m_styles = DEFAULT_MARKING_STYLES //Wipes out markings, setting them all to "None".
+	m_colours = DEFAULT_MARKING_COLOURS //Defaults colour to #00000 for all markings.
+	body_accessory = null
 
 	if(!dna)
 		dna = new /datum/dna(null)
@@ -1683,16 +1688,13 @@
 		if(!head_organ)
 			return
 		if(!robohead.is_monitor) //If they've got a prosthetic head and it isn't a monitor, they've no screen to adjust. Instead, let them change the colour of their optics!
-			var/optic_colour = input(src, "Select optic colour", rgb(r_markings, g_markings, b_markings)) as color|null
+			var/optic_colour = input(src, "Select optic colour", m_colours["head"]) as color|null
 			if(incapacitated())
 				to_chat(src, "<span class='warning'>You were interrupted while changing the colour of your optics.</span>")
 				return
 			if(optic_colour)
-				r_markings = hex2num(copytext(optic_colour, 2, 4))
-				g_markings = hex2num(copytext(optic_colour, 4, 6))
-				b_markings = hex2num(copytext(optic_colour, 6, 8))
+				change_markings(optic_colour, "head")
 
-			update_markings()
 		else if(robohead.is_monitor) //Means that the character's head is a monitor (has a screen). Time to customize.
 			var/list/hair = list()
 			for(var/i in hair_styles_list)
@@ -1700,14 +1702,12 @@
 				if((head_organ.species.name in tmp_hair.species_allowed) && (robohead.company in tmp_hair.models_allowed)) //Populate the list of available monitor styles only with styles that the monitor-head is allowed to use.
 					hair += i
 
-			var/new_style = input(src, "Select a monitor display", "Monitor Display", head_organ.h_style)	as null|anything in hair
+			var/new_style = input(src, "Select a monitor display", "Monitor Display", head_organ.h_style) as null|anything in hair
 			if(incapacitated())
 				to_chat(src, "<span class='warning'>You were interrupted while changing your monitor display.</span>")
 				return
 			if(new_style)
-				head_organ.h_style = new_style
-
-		update_hair()
+				change_hair(new_style)
 
 //Putting a couple of procs here that I don't know where else to dump.
 //Mostly going to be used for Vox and Vox Armalis, but other human mobs might like them (for adminbuse).
@@ -1738,7 +1738,7 @@
 	if(last_special > world.time)
 		return
 
-	if(stat || paralysis || stunned || weakened || lying || restrained() || buckled)
+	if(!canmove)
 		to_chat(src, "You cannot leap in your current state.")
 		return
 
@@ -1792,7 +1792,7 @@
 	if(last_special > world.time)
 		return
 
-	if(stat || paralysis || stunned || weakened || lying)
+	if(!canmove)
 		to_chat(src, "\red You cannot do that in your current state.")
 		return
 
@@ -1987,6 +1987,12 @@
 		var/obj/item/weapon/card/id/id = wear_id
 		if(istype(id) && id.is_untrackable())
 			return 0
+	if(wear_pda)
+		var/obj/item/device/pda/pda = wear_pda
+		if(istype(pda))
+			var/obj/item/weapon/card/id/id = pda.id
+			if(istype(id) && id.is_untrackable())
+				return 0
 	if(istype(head, /obj/item/clothing/head))
 		var/obj/item/clothing/head/hat = head
 		if(hat.blockTracking)
@@ -2002,6 +2008,8 @@
 
 	if(wear_id)
 		. |= wear_id.GetAccess()
+	if(wear_pda)
+		. |= wear_pda.GetAccess()
 	if(istype(w_uniform, /obj/item/clothing/under))
 		var/obj/item/clothing/under/U = w_uniform
 		if(U.accessories)

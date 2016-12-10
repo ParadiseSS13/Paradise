@@ -233,19 +233,25 @@
 		return 0
 	return 1
 
-/client/proc/handle_spam_prevention(var/message, var/mute_type)
-	if(config.automute_on && !holder && src.last_message == message)
-		src.last_message_count++
-		if(src.last_message_count >= SPAM_TRIGGER_AUTOMUTE)
-			to_chat(src, "\red You have exceeded the spam filter limit for identical messages. An auto-mute was applied.")
-			cmd_admin_mute(src.mob, mute_type, 1)
+/client/proc/handle_spam_prevention(var/message, var/mute_type, var/throttle = 0)
+	if(throttle)
+		if((last_message_time + throttle > world.time) && !check_rights(R_ADMIN, 0))
+			var/wait_time = round(((last_message_time + throttle) - world.time) / 10, 1)
+			to_chat(src, "<span class='danger'>You are sending messages to quickly. Please wait [wait_time] [wait_time == 1 ? "second" : "seconds"] before sending another message.</span>")
 			return 1
-		if(src.last_message_count >= SPAM_TRIGGER_WARNING)
-			to_chat(src, "\red You are nearing the spam filter limit for identical messages.")
+		last_message_time = world.time
+	if(config.automute_on && !check_rights(R_ADMIN, 0) && last_message == message)
+		last_message_count++
+		if(last_message_count >= SPAM_TRIGGER_AUTOMUTE)
+			to_chat(src, "<span class='danger'>You have exceeded the spam filter limit for identical messages. An auto-mute was applied.</span>")
+			cmd_admin_mute(mob, mute_type, 1)
+			return 1
+		if(last_message_count >= SPAM_TRIGGER_WARNING)
+			to_chat(src, "<span class='danger'>You are nearing the spam filter limit for identical messages.</span>")
 			return 0
 	else
 		last_message = message
-		src.last_message_count = 0
+		last_message_count = 0
 		return 0
 
 //This stops files larger than UPLOAD_LIMIT being sent from client to server via input(), client.Import() etc.
@@ -298,6 +304,8 @@
 	if(holder)
 		admins += src
 		holder.owner = src
+
+	donator_check()
 
 	//preferences datum - also holds some persistant data for the client (because we may as well keep these datums to a minimum)
 	prefs = preferences_datums[ckey]
@@ -372,10 +380,27 @@
 	return ..()
 
 
+/client/proc/donator_check()
+	if(IsGuestKey(key))
+		return
+
+	establish_db_connection()
+	if(!dbcon.IsConnected())
+		return
+
+	//Donator stuff.
+	var/DBQuery/query_donor_select = dbcon.NewQuery("SELECT ckey, tier, active FROM `[format_table_name("donators")]` WHERE ckey = '[ckey]'")
+	query_donor_select.Execute()
+	while(query_donor_select.NextRow())
+		if(!text2num(query_donor_select.item[3]))
+			// Inactive donator.
+			donator_level = DONATOR_LEVEL_NONE
+			return
+		donator_level = text2num(query_donor_select.item[2])
+		break
 
 /client/proc/log_client_to_db()
-
-	if( IsGuestKey(src.key) )
+	if(IsGuestKey(key))
 		return
 
 	establish_db_connection()
@@ -412,7 +437,7 @@
 	var/watchreason = check_watchlist(ckey)
 	if(watchreason)
 		message_admins("<font color='red'><B>Notice: </B></font><font color='blue'>[key_name_admin(src)] is on the watchlist and has just connected - Reason: [watchreason]</font>")
-		send2adminirc("Watchlist - [key_name(src)] is on the watchlist and has just connected - Reason: [watchreason]")
+		send2irc(config.admin_notify_irc, "Watchlist - [key_name(src)] is on the watchlist and has just connected - Reason: [watchreason]")
 
 	//Just the standard check to see if it's actually a number
 	if(sql_id)

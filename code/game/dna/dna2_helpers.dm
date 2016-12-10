@@ -138,9 +138,9 @@
 		H.g_skin		= dna.GetUIValueRange(DNA_UI_SKIN_G,	255)
 		H.b_skin		= dna.GetUIValueRange(DNA_UI_SKIN_B,	255)
 
-		H.r_markings	= dna.GetUIValueRange(DNA_UI_MARK_R,	255)
-		H.g_markings	= dna.GetUIValueRange(DNA_UI_MARK_G,	255)
-		H.b_markings	= dna.GetUIValueRange(DNA_UI_MARK_B,	255)
+		H.m_colours["head"] = rgb(dna.GetUIValueRange(DNA_UI_HEAD_MARK_R, 255), dna.GetUIValueRange(DNA_UI_HEAD_MARK_G, 255), dna.GetUIValueRange(DNA_UI_HEAD_MARK_B, 255))
+		H.m_colours["body"] = rgb(dna.GetUIValueRange(DNA_UI_BODY_MARK_R, 255), dna.GetUIValueRange(DNA_UI_BODY_MARK_G, 255), dna.GetUIValueRange(DNA_UI_BODY_MARK_B, 255))
+		H.m_colours["tail"] = rgb(dna.GetUIValueRange(DNA_UI_TAIL_MARK_R, 255), dna.GetUIValueRange(DNA_UI_TAIL_MARK_G, 255), dna.GetUIValueRange(DNA_UI_TAIL_MARK_B, 255))
 
 		H.s_tone   = 35 - dna.GetUIValueRange(DNA_UI_SKIN_TONE, 220) // Value can be negative.
 
@@ -149,17 +149,20 @@
 		else
 			H.change_gender(MALE, 0)
 
-		//Markings
-		var/marks = dna.GetUIValueRange(DNA_UI_MARK_STYLE,marking_styles_list.len)
-		if((0 < marks) && (marks <= marking_styles_list.len))
-			H.m_style = marking_styles_list[marks]
+		//Head Markings
+		var/head_marks = dna.GetUIValueRange(DNA_UI_HEAD_MARK_STYLE, marking_styles_list.len)
+		if((head_marks > 0) && (head_marks <= marking_styles_list.len))
+			H.m_styles["head"] = marking_styles_list[head_marks]
+		//Body Markings
+		var/body_marks = dna.GetUIValueRange(DNA_UI_BODY_MARK_STYLE, marking_styles_list.len)
+		if((body_marks > 0) && (body_marks <= marking_styles_list.len))
+			H.m_styles["body"] = marking_styles_list[body_marks]
+		//Tail Markings
+		var/tail_marks = dna.GetUIValueRange(DNA_UI_TAIL_MARK_STYLE, marking_styles_list.len)
+		if((tail_marks > 0) && (tail_marks <= marking_styles_list.len))
+			H.m_styles["tail"] = marking_styles_list[tail_marks]
 
-		H.force_update_limbs()
-		H.update_eyes()
-		H.update_hair()
-		H.update_fhair()
-		H.update_markings()
-		H.update_head_accessory()
+		H.regenerate_icons()
 
 		return 1
 	else
@@ -178,7 +181,7 @@
 
 	//Hair
 	var/hair = GetUIValueRange(DNA_UI_HAIR_STYLE,hair_styles_list.len)
-	if((0 < hair) && (hair <= hair_styles_list.len))
+	if((hair > 0) && (hair <= hair_styles_list.len))
 		head_organ.h_style = hair_styles_list[hair]
 
 	head_organ.r_hair		= GetUIValueRange(DNA_UI_HAIR_R,	255)
@@ -187,7 +190,7 @@
 
 	//Facial Hair
 	var/beard = GetUIValueRange(DNA_UI_BEARD_STYLE,facial_hair_styles_list.len)
-	if((0 < beard) && (beard <= facial_hair_styles_list.len))
+	if((beard > 0) && (beard <= facial_hair_styles_list.len))
 		head_organ.f_style = facial_hair_styles_list[beard]
 
 	head_organ.r_facial		= GetUIValueRange(DNA_UI_BEARD_R,	255)
@@ -196,7 +199,7 @@
 
 	//Head Accessories
 	var/headacc = GetUIValueRange(DNA_UI_HACC_STYLE,head_accessory_styles_list.len)
-	if((0 < headacc) && (headacc <= head_accessory_styles_list.len))
+	if((headacc > 0) && (headacc <= head_accessory_styles_list.len))
 		head_organ.ha_style = head_accessory_styles_list[headacc]
 
 	head_organ.r_headacc		= GetUIValueRange(DNA_UI_HACC_R,	255)

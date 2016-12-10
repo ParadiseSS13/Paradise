@@ -255,20 +255,20 @@
 /obj/machinery/disposal/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	var/data[0]
 
-	var/pressure = 100 * air_contents.return_pressure() / (SEND_PRESSURE)
+	var/pressure = Clamp(100* air_contents.return_pressure() / (SEND_PRESSURE), 0, 100)
 	var/pressure_round = round(pressure,1)
 
 	data["isAI"] = isAI(user)
 	data["flushing"] = flush
 	data["mode"] = mode
 	if(mode <= 0)
-		data["pumpstatus"] = ""
+		data["pumpstatus"] = "N/A"
 	else if(mode == 1)
-		data["pumpstatus"] = "(pressurizing)"
+		data["pumpstatus"] = "Pressurizing"
 	else if(mode == 2)
-		data["pumpstatus"] = "(ready)"
+		data["pumpstatus"] = "Ready"
 	else
-		data["pumpstatus"] = "(idle)"
+		data["pumpstatus"] = "Idle"
 	data["pressure"] = pressure_round
 
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)

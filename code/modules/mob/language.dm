@@ -559,6 +559,17 @@
 	flags = RESTRICTED | HIVEMIND
 	drone_only = 1
 	follow = 1
+	
+/datum/language/drone
+	name = "Drone"
+	desc = "An encrypted stream of data converted to speech patterns."
+	speech_verb = "states"
+	ask_verb = "queries"
+	exclaim_verb = "declares"
+	key = "]"
+	flags = RESTRICTED
+	follow = 1
+	syllables = list ("beep", "boop")
 
 /datum/language/swarmer
 	name = "Swarmer"
@@ -594,7 +605,7 @@
 	return ..()
 
 // Can we speak this language, as opposed to just understanding it?
-/mob/proc/can_speak(datum/language/speaking)
+/mob/proc/can_speak_language(datum/language/speaking)
 
 	return (universal_speak || (speaking && speaking.flags & INNATE) || speaking in src.languages)
 

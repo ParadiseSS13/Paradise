@@ -13,9 +13,7 @@
 
 	..()
 
-	var/datum/reagents/R = new/datum/reagents(50)
-	reagents = R
-	R.my_atom = src
+	create_reagents(50)
 
 	//Handle some post-spawn var stuff.
 	if(planttype)
@@ -98,7 +96,7 @@
 		to_chat(M, "<span class='danger'>You are stunned by the powerful acid of the Deathnettle!</span>")
 		add_logs(user, M, "attacked", src)
 
-		M.eye_blurry += force/7
+		M.AdjustEyeBlurry(force/7)
 		if(prob(20))
 			M.Paralyse(force / 6)
 			M.Weaken(force / 15)

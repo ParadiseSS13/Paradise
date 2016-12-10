@@ -285,7 +285,7 @@
 /obj/item/weapon/nullrod/whip/afterattack(atom/movable/AM, mob/user, proximity)
 	if(!proximity)
 		return
-	if(istype(AM, /mob/living/carbon/human))
+	if(ishuman(AM))
 		var/mob/living/carbon/human/H = AM
 		if(is_shadow(H))
 			var/phrase = pick("Die monster! You don't belong in this world!!!", "You steal men's souls and make them your slaves!!!", "Your words are as empty as your soul!!!", "Mankind ill needs a savior such as you!!!")
@@ -399,7 +399,7 @@
 
 
 /obj/item/weapon/nullrod/rosary/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
-	if(!istype(M))
+	if(!iscarbon(M))
 		return ..()
 
 	if(!user.mind || user.mind.assigned_role != "Chaplain")
@@ -414,7 +414,7 @@
 
 	praying = 1
 	if(do_after(user, 150, target = M))
-		if(istype(M, /mob/living/carbon/human)) // This probably should not work on vulps. They're unholy abominations.
+		if(ishuman(M)) // This probably should not work on vulps. They're unholy abominations.
 			var/mob/living/carbon/human/target = M
 
 			if(target.mind)
@@ -443,15 +443,15 @@
 		praying = 0
 
 /obj/item/weapon/nullrod/rosary/process()
-	if(istype(loc, /mob/living/carbon/human))
+	if(ishuman(loc))
 		var/mob/living/carbon/human/holder = loc
 
 		if(src == holder.l_hand || src == holder.r_hand) // Holding this in your hand will
-			for(var/mob/living/carbon/human/M in range(5))
-				if(M.mind.vampire && !M.mind.vampire.get_ability(/datum/vampire_passive/full))
-					M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
+			for(var/mob/living/carbon/human/H in range(5))
+				if(H.mind.vampire && !H.mind.vampire.get_ability(/datum/vampire_passive/full))
+					H.mind.vampire.nullified = max(5, H.mind.vampire.nullified + 2)
 					if(prob(10))
-						to_chat(M, "<span class='userdanger'>Being in the presence of [holder]'s [src] is interfering with your powers!</span>")
+						to_chat(H, "<span class='userdanger'>Being in the presence of [holder]'s [src] is interfering with your powers!</span>")
 
 /obj/item/weapon/nullrod/missionary_staff
 	name = "holy staff"
@@ -503,7 +503,7 @@
 		return 0
 
 /obj/item/weapon/nullrod/missionary_staff/afterattack(mob/living/carbon/human/target, mob/living/carbon/human/missionary, flag, params)
-	if(!istype(target) || !istype(missionary))		//ishuman checks effectively
+	if(!ishuman(target) || !ishuman(missionary)) //ishuman checks
 		return
 	if(target == missionary)	//you can't convert yourself, that would raise too many questions about your own dedication to the cause
 		return
@@ -533,7 +533,7 @@
 
 /obj/item/weapon/nullrod/missionary_staff/proc/do_convert(mob/living/carbon/human/target, mob/living/carbon/human/missionary)
 	var/convert_duration = 6000		//10 min
-	if(!target || !istype(target) || !missionary || !istype(missionary))
+	if(!target || !ishuman(target) || !missionary || !ishuman(missionary))
 		return
 	if(ismindslave(target) || target.mind.zealot_master)	//mindslaves and zealots override the staff because the staff is just a temporary mindslave
 		to_chat(missionary, "<span class='warning'>Your faith is strong, but their mind is already slaved to someone else's ideals. Perhaps an inquisition would reveal more...</span>")
