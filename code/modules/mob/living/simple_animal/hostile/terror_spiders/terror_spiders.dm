@@ -124,9 +124,9 @@ var/global/list/ts_spiderlist = list()
 	if(istype(target, /mob/living/simple_animal/hostile/poison/terror_spider))
 		var/mob/living/simple_animal/hostile/poison/terror_spider/T = target
 		if(T.spider_tier > spider_tier)
-			visible_message("<span class='notice'>[src] bows in respect for the terrifying presence of [target]</span>")
+			visible_message("<span class='notice'>[src] bows in respect for the terrifying presence of [target].</span>")
 		else if(T.spider_tier == spider_tier)
-			visible_message("<span class='notice'>[src] harmlessly nuzzles [target].</span>")
+			visible_message("<span class='notice'>[src] nuzzles [target].</span>")
 		else if(T.spider_tier < spider_tier && spider_tier >= 4)
 			visible_message("<span class='notice'>[src] gives [target] a stern look.</span>")
 		else
@@ -183,7 +183,7 @@ var/global/list/ts_spiderlist = list()
 	..()
 	var/list/msgs = list()
 	if(stat == DEAD)
-		msgs += "<span class='deadsay'>It appears to be dead.</span>\n"
+		msgs += "<span class='notice'>It appears to be dead.</span>\n"
 	else
 		if(key)
 			msgs += "<span class='warning'>Its eyes regard you with a curious intelligence.</span>"
@@ -205,9 +205,9 @@ var/global/list/ts_spiderlist = list()
 /mob/living/simple_animal/hostile/poison/terror_spider/New()
 	..()
 	ts_spiderlist += src
-	add_language("TerrorSpider")
+	add_language("Spider Hivemind")
 	add_language("Galactic Common")
-	default_language = all_languages["TerrorSpider"]
+	default_language = all_languages["Spider Hivemind"]
 
 	web_action = new()
 	web_action.Grant(src)
@@ -310,19 +310,18 @@ var/global/list/ts_spiderlist = list()
 	if(D.operating)
 		return
 	if(!D.density)
-		to_chat(src, "Closing doors does not help us.")
+		to_chat(src, "<span class='warning'>Closing doors does not help us.</span>")
 	else if(D.welded)
-		to_chat(src, "The door is welded shut.")
+		to_chat(src, "<span class='warning'>The door is welded shut.</span>")
 	else if(D.locked)
-		to_chat(src, "The door is bolted shut.")
-	else if( (!istype(D.req_access) || !D.req_access.len) && (!istype(D.req_one_access) || !D.req_one_access.len) && (D.req_access_txt == "0") && (D.req_one_access_txt == "0") )
-		//visible_message("<span class='danger'>\the [src] opens the public-access door [D]!</span>")
+		to_chat(src, "<span class='warning'>The door is bolted shut.</span>")
+	else if(D.allowed(src))
 		D.open(1)
 	else if(D.arePowerSystemsOn() && (spider_opens_doors != 2))
-		to_chat(src, "The door's motors resist your efforts to force it.")
+		to_chat(src, "<span class='warning'>The door's motors resist your efforts to force it.</span>")
 	else if(!spider_opens_doors)
-		to_chat(src, "Your type of spider is not strong enough to force open doors.")
+		to_chat(src, "<span class='warning'>Your type of spider is not strong enough to force open doors.</span>")
 	else
-		visible_message("<span class='danger'>\the [src] pries open the door!</span>")
+		visible_message("<span class='danger'>[src] pries open the door!</span>")
 		playsound(src.loc, "sparks", 100, 1)
 		D.open(1)
