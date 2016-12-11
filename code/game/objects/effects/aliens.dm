@@ -79,12 +79,10 @@
 
 
 /obj/structure/alien/resin/bullet_act(obj/item/projectile/Proj)
-	if(Proj.damage_type != BRUTE && Proj.damage_type != BURN)
-		..()
-	else
+	if(Proj.damage_type == BRUTE || Proj.damage_type == BURN)
 		health -= Proj.damage
-		..()
-		healthcheck()
+	..()
+	healthcheck()
 
 
 /obj/structure/alien/resin/ex_act(severity)
