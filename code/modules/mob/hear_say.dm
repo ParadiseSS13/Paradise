@@ -198,6 +198,9 @@
 /mob/proc/knows_codewords()
 	if(mind && (mind.knows_codewords))
 		return 1
+	if(isobserver(src))
+		if(antagHUD || check_rights(R_ADMIN, 0, src))
+			return 1
 	return 0
 
 /mob/proc/format_say_codewords(var/thetext)
