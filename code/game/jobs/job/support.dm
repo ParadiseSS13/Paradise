@@ -106,8 +106,8 @@
 	supervisors = "the head of personnel"
 	selection_color = "#dddddd"
 	idtype = /obj/item/weapon/card/id/supply
-	access = list(access_maint_tunnels, access_mailsorting, access_cargo, access_cargo_bot, access_qm, access_mint, access_mining, access_mining_station, access_mineral_storeroom)
-	minimal_access = list(access_maint_tunnels, access_mailsorting, access_cargo, access_cargo_bot, access_qm, access_mint, access_mining, access_mining_station, access_mineral_storeroom)
+	access = list(access_maint_tunnels, access_mailsorting, access_cargo, access_cargo_bot, access_qm, access_heads, access_RC_announce, access_mint, access_sec_doors,  access_eva, access_mining, access_mining_station, access_mineral_storeroom)
+	minimal_access = list(access_maint_tunnels, access_mailsorting, access_cargo, access_cargo_bot, access_qm, access_heads, access_RC_announce, access_mint, access_sec_doors,  access_eva, access_mining, access_mining_station, access_mineral_storeroom)
 
 
 	equip(var/mob/living/carbon/human/H)
@@ -116,7 +116,7 @@
 			if(2) H.equip_or_collect(new /obj/item/weapon/storage/backpack(H), slot_back)
 			if(3) H.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel_norm(H), slot_back)
 			if(4) H.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel(H), slot_back)
-		H.equip_or_collect(new /obj/item/device/radio/headset/headset_cargo(H), slot_l_ear)
+		H.equip_or_collect(new /obj/item/device/radio/headset/heads/qm(H), slot_l_ear)
 		H.equip_or_collect(new /obj/item/clothing/under/rank/cargo(H), slot_w_uniform)
 		H.equip_or_collect(new /obj/item/clothing/shoes/brown(H), slot_shoes)
 		H.equip_or_collect(new /obj/item/device/pda/quartermaster(H), slot_wear_pda)
