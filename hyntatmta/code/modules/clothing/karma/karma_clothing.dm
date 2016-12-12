@@ -189,3 +189,24 @@
 		usr.visible_message("[usr] screams ferociously: <font color='red' size='4'><b>[phrase_text]</b></font>")
 		playsound(src.loc, "sound/voice/dornan/[phrase_sound].ogg", 80, 0, 4)
 		cooldown = world.time
+
+// SLASTENA
+/obj/item/clothing/under/atmta/slastena
+	name = "Slastena's dress"
+	desc = "Pink and cyan. Cute and formal."
+	icon_state = "slastena"
+	item_state = "slastena"
+	item_color = "slastena"
+
+/obj/item/clothing/shoes/atmta/slastena
+	name = "Slastena's shoes"
+	desc = "Well... That's pink ballet shoes."
+	icon_state = "slastena"
+	item_state = "slastena"
+
+/obj/item/clothing/head/atmta/slastena
+	name = "Slastena's hair"
+	desc = "Made of genuine cotton candy"
+	icon_state = "slastena"
+	item_state = "slastena"
+	flags = BLOCKHAIR

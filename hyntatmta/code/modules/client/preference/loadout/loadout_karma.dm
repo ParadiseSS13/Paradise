@@ -77,3 +77,21 @@
 	wl_id = "0002"
 	path = /obj/item/clothing/head/atmta/dornan
 	allowed_roles = list("Head of Security", "Warden")
+
+/datum/gear/karma/slastena_dress
+	display_name = "slastena's dress"
+	wl_id = "5002"
+	path = /obj/item/clothing/under/atmta/slastena
+	allowed_roles = list("Civilian", "Chef")
+
+/datum/gear/karma/slastena_wig
+	display_name = "slastena's hair wig"
+	wl_id = "0003"
+	path = /obj/item/clothing/head/atmta/slastena
+	allowed_roles = list("Civilian", "Chef")
+
+/datum/gear/karma/slastena_shoes
+	display_name = "slastena's shoes"
+	wl_id = "7002"
+	path = /obj/item/clothing/shoes/atmta/slastena
+	allowed_roles = list("Civilian", "Chef")

@@ -230,6 +230,7 @@ You've gained <b>[totalkarma]</b> total karma in your time here.<br>"}
 			<a href='?src=[UID()];karmashop=shop;KarmaBuy3=4006'>Unlock H.E.V. -- 10KP</a>(for Engineering only)<br>
 			<a href='?src=[UID()];karmashop=shop;KarmaBuy3=4008'>Unlock Alchemist Outfit -- 10KP</a>(for Chemist and Librarian only)<br>
 			<a href='?src=[UID()];karmashop=shop;KarmaBuy3=1'>Unlock DIO Set -- 15KP</a><br>
+			<a href='?src=[UID()];karmashop=shop;KarmaBuy3=2'>Unlock Slastena Set -- 15KP</a>(for Chef and Civilians only)<br>
 			<a href='?src=[UID()];karmashop=shop;KarmaBuy3=0002'>Unlock Sergeant's Helmet -- 30KP</a>(for Head of Security and Warden only)<br>
 			"}
 
