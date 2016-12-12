@@ -1,0 +1,4 @@
+author: "Kyep"
+delete-after: True
+changes: 
+  - bugfix: "Xenomorph resin walls no longer take damage from disabler beams. Only proper BRUTE or BURN damage hurts them now."
