@@ -315,6 +315,14 @@
 						else
 							src.DB_item_unlock("0002", 30)
 
+					if("2")
+						if(karma < 15)
+							to_chat(usr, "You do not have enough karma!")
+						else
+							src.DB_item_unlock("0003", 5)
+							src.DB_item_unlock("5002", 5)
+							src.DB_item_unlock("7002", 5)
+
 	switch(href_list["_src_"])
 		if("holder")	hsrc = holder
 		if("usr")		hsrc = mob
@@ -339,7 +347,7 @@
 		if((last_message_time + throttle > world.time) && !check_rights(R_ADMIN, 0))
 			var/wait_time = round(((last_message_time + throttle) - world.time) / 10, 1)
 			to_chat(src, "<span class='danger'>You are sending messages to quickly. Please wait [wait_time] [wait_time == 1 ? "second" : "seconds"] before sending another message.</span>")
-			return 1		
+			return 1
 		last_message_time = world.time
 	if(config.automute_on && !check_rights(R_ADMIN, 0) && last_message == message)
 		last_message_count++
