@@ -39,8 +39,6 @@
 	return
 
 /obj/machinery/shuttle_manipulator/attack_ghost(user as mob)
-	if(!is_admin(user))
-		return
 	attack_hand(user)
 
 /proc/shuttlemode2str(mode)
@@ -60,7 +58,7 @@
 	if(!.)
 		throw EXCEPTION("shuttlemode2str(): invalid mode")
 
-/obj/machinery/shuttle_manipulator/attack_hand(mob/user as mob)
+/obj/machinery/shuttle_manipulator/attack_hand(mob/user)
 	ui_interact(user)
 
 /obj/machinery/shuttle_manipulator/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
@@ -84,7 +82,8 @@
 				existing_shuttle = shuttle_master.getShuttle(S.port_id)
 			templates[S.port_id] = list(
 				"port_id" = S.port_id,
-				"templates" = list())
+				"templates" = list()
+				)
 
 		var/list/L = list()
 		L["name"] = S.name

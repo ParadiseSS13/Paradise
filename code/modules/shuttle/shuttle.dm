@@ -390,7 +390,7 @@
 		for(var/AM in T0.GetAllContents())
 			if(istype(AM, /mob/dead))
 				continue
-			qdel(AM,force=TRUE)
+			qdel(AM, force=TRUE)
 
 		T0.ChangeTurf(turf_type)
 
@@ -399,7 +399,7 @@
 		T0.CalculateAdjacentTurfs()
 		air_master.add_to_active(T0,1)
 
-	qdel(src,force=TRUE)
+	qdel(src, force=TRUE)
 
 //this is the main proc. It instantly moves our mobile port to stationary port S1
 //it handles all the generic behaviour, such as sanity checks, closing doors on the shuttle, stunning mobs, etc
@@ -605,37 +605,34 @@
 		var/turf/T1 = L1[i]
 		if(!T0 || !T1)
 			continue
-		//if(T0.type == T0.baseturf)//wot?
-		//	continue
-		// The corresponding tile will not be changed, so no roadkill
 
 		for(var/atom/movable/AM in T1)
+			if(AM.pulledby)
+				AM.pulledby.stop_pulling()
 			if(ismob(AM))
-				if(isliving(AM) && !(AM in hurt_mobs))
-					hurt_mobs |= AM
-					var/mob/living/M = AM
-					if(M.buckled)
-						M.buckled.unbuckle_mob(M, 1)
-					if(M.pulledby)
-						M.pulledby.stop_pulling()
-					M.stop_pulling()
-					M.visible_message("<span class='warning'>[M] is hit by \
-							a hyperspace ripple[M.anchored ? "":" and is thrown clear"]!</span>",
-							"<span class='userdanger'>You feel an immense \
-							crushing pressure as the space around you ripples.</span>")
-					if(M.anchored)
-						M.gib()
+				var/mob/M = AM
+				if(M.buckled)
+					M.buckled.unbuckle_mob(M, 1)
+				if(isliving(AM))
+					var/mob/living/L = AM
+					L.stop_pulling()
+					if(L.anchored)
+						L.gib()
 					else
-						step(M, dir)
-						M.Paralyse(10)
-						M.ex_act(2)
+						if(!(L in hurt_mobs))
+							hurt_mobs |= L
+							L.visible_message("<span class='warning'>[L] is hit by \
+									a hyperspace ripple[L.anchored ? "":" and is thrown clear"]!</span>",
+									"<span class='userdanger'>You feel an immense \
+									crushing pressure as the space around you ripples.</span>")
+							L.Paralyse(10)
+							L.ex_act(2)
 
-			else //non-living mobs shouldn't be affected by shuttles, which is why this is an else
-				if(istype(AM, /obj/singularity))//it's a singularity, ignore it.
-					continue
-				if(!AM.anchored)
-					step(AM, dir)
-				else
+			// Move unanchored atoms
+			if(!AM.anchored)
+				step(AM, dir)
+			else
+				if(AM.simulated) // Don't qdel lighting overlays, they are static
 					qdel(AM)
 
 //used by shuttle subsystem to check timers

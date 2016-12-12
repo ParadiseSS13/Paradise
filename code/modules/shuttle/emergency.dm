@@ -91,7 +91,7 @@
 	var/datum/announcement/priority/emergency_shuttle_called = new(0, new_sound = sound('sound/AI/shuttlecalled.ogg'))
 	var/datum/announcement/priority/emergency_shuttle_recalled = new(0, new_sound = sound('sound/AI/shuttlerecalled.ogg'))
 
-	var/canRecall = TRUE//no bad condom, do not recall the crew transfer shuttle!
+	var/canRecall = TRUE //no bad condom, do not recall the crew transfer shuttle!
 
 
 /obj/docking_port/mobile/emergency/register()
@@ -104,7 +104,7 @@
 /obj/docking_port/mobile/emergency/Destroy(force)
 	if(force)
 		// This'll make the shuttle subsystem use the backup shuttle.
-		if(src == shuttle_master.emergency)
+		if(shuttle_master.emergency == src)
 			// If we're the selected emergency shuttle
 			shuttle_master.emergencyDeregister()
 
@@ -314,7 +314,6 @@
 	roundstart_move = "backup_away"
 
 /obj/docking_port/mobile/emergency/backup/register()
-
 	var/current_emergency = shuttle_master.emergency
 	..()
 	shuttle_master.emergency = current_emergency
