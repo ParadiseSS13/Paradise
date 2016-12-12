@@ -1,0 +1,4 @@
+author: "TullyBurnalot"
+delete-after: True
+changes: 
+  - bugfix: "Throwing mobs behind you force moves them to behind you before actually throwing them, preventing throw-shoving"
