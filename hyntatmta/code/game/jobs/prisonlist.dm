@@ -26,8 +26,8 @@ var/list/bwhitelist
 
 	output += {"<td width='35%' align='center'><h1>Whitelist</h1></td>
 		<td width='65%' align='center' bgcolor='#f9f9f9'>
-		<form method='GET' action='?src=\ref[src]'>
-		<input type='hidden' name='src' value='\ref[src]'>
+		<form method='GET' action='?src=[UID()]'>
+		<input type='hidden' name='src' value='[UID()]'>
 		<table width='100%'><tr>
 		<td><b>Ckey:</b> <input type='text' name='ckeyname'></td>
 		<td><input type='submit' name='addtowhitelist' value='Add to Whitelist'></td>
@@ -35,8 +35,8 @@ var/list/bwhitelist
 		</tr>
 		</td>
 		</table>
-		<form method='GET' action='?src=\ref[src]'><b>Search</b>
-		<input type='hidden' name='src' value='\ref[src]'>
+		<form method='GET' action='?src=[UID()]'><b>Search</b>
+		<input type='hidden' name='src' value='[UID()]'>
 		<b>Ckey:</b> <input type='text' name='whitelistsearchckey' value='[ckeyname]'>
 		<input type='submit' value='search'>
 		</form>"}
@@ -54,15 +54,15 @@ var/list/bwhitelist
 		var/ckey = select_query.item[1]
 		output += {"<tr bgcolor='lightgrey'>
 		<td align='center'><b>[ckey]</b></td>
-		<td align='center'>["<b><a href=\"byond://?src=\ref[src];remove=[ckey];\">Remove</a></b>"]</td>
+		<td align='center'>["<b><a href=\"byond://?src=[UID()];remove=[ckey];\">Remove</a></b>"]</td>
 		</tr>"}
 
 	if(ckeyname)
 		output = "<div align='center'><table width='90%'><tr>"
 		output += {"<td width='35%' align='center'><h1>Whitelist</h1></td>
 		<td width='65%' align='center' bgcolor='#f9f9f9'>
-		<form method='GET' action='?src=\ref[src]'>
-		<input type='hidden' name='src' value='\ref[src]'>
+		<form method='GET' action='?src=[UID()]'>
+		<input type='hidden' name='src' value='[UID()]'>
 		<table width='100%'><tr>
 		<td><b>Ckey:</b> <input type='text' name='ckeyname'></td>
 		<td><input type='submit' name='addtowhitelist' value='Add to Whitelist'></td>
@@ -70,8 +70,8 @@ var/list/bwhitelist
 		</tr>
 		</td>
 		</table>
-		<form method='GET' action='?src=\ref[src]'><b>Search</b>
-		<input type='hidden' name='src' value='\ref[src]'>
+		<form method='GET' action='?src=[UID()]'><b>Search</b>
+		<input type='hidden' name='src' value='[UID()]'>
 		<b>Ckey:</b> <input type='text' name='whitelistsearchckey' value='[ckeyname]'>
 		<input type='submit' value='search'>
 		</form>"}
@@ -91,7 +91,7 @@ var/list/bwhitelist
 
 			output += {"<tr bgcolor='lightgrey'>
 				<td align='center'><b>[ckey]</b></td>
-				<td align='center'>["<b><a href=\"byond://?src=\ref[src];remove=[ckeyname];\">Remove</a></b>"]</td>
+				<td align='center'>["<b><a href=\"byond://?src=[UID()];remove=[ckeyname];\">Remove</a></b>"]</td>
 				</tr>"}
 
 	output += "</table></div>"
