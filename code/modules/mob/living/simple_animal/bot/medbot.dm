@@ -256,8 +256,7 @@
 /mob/living/simple_animal/bot/medbot/process_scan(mob/living/carbon/human/H)
 	if(buckled)
 		if((last_warning + 300) < world.time)
-			var/message = ("<span class='danger'>Movement restrained! Unit on standby!</span>")
-			speak(message)
+			speak("<span class='danger'>Movement restrained! Unit on standby!</span>")
 			playsound(loc, 'sound/machines/buzz-two.ogg', 50, 0)
 			last_warning = world.time
 		return
