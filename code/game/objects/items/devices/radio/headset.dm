@@ -218,6 +218,13 @@
 	item_state = "headset"
 	ks2type = /obj/item/device/encryptionkey/heads/hop
 
+/obj/item/device/radio/headset/heads/qm
+    name = "quartermaster's radio headset"
+    desc = "A headset used by the Quartermaster department."
+    icon_state = "cargo_headset"
+    item_state = "headset"
+    ks2type = /obj/item/device/encryptionkey/heads/qm
+
 /obj/item/device/radio/headset/headset_cargo
 	name = "supply radio headset"
 	desc = "A headset used by the cargo department."

@@ -26,18 +26,20 @@
 # +MENTOR = The ability to answer questions.
 # +EVERYTHING (or +HOST or +ALL) = Simply gives you everything without having to type every flag.
 
-Admin Observer
-Mentor			+MENTOR
-Moderator		+MOD
-
-Admin Candidate	+ADMIN
-Trial Admin		+@ +SPAWN +REJUV +VAREDIT +BAN
-Badmin			+@ +POSSESS +BUILDMODE +SERVER +FUN
-Game Admin		+@ +STEALTH +SOUNDS +DEBUG +PERMISSIONS
-Game Master		+EVERYTHING
-Head Admin		+EVERYTHING
-Retired Admin	+ADMIN +STEALTH
-
 Host			+EVERYTHING
+Head Admin		+EVERYTHING
+Game Master		+EVERYTHING
+Game Admin		+@ +STEALTH +SOUNDS +DEBUG +PERMISSIONS
+Badmin			+@ +POSSESS +BUILDMODE +SERVER +FUN
+Trial Admin		+@ +SPAWN +REJUV +VAREDIT +BAN
+Admin Candidate	        +ADMIN
+Admin Observer
+Retired Admin	        +ADMIN +STEALTH
 
-Developer		+DEBUG +VAREDIT +SERVER +SPAWN +REJUV +POSSESS +BUILDMODE
+Moderator		+MOD
+Mentor			+MENTOR
+
+Head Developer		+DEBUG +VAREDIT +SERVER +SPAWN +REJUV +POSSESS +BUILDMODE +FUN
+Mapper		        +VAREDIT +SPAWN +REJUV +POSSESS +BUILDMODE +FUN
+Coder		        +DEBUG +VAREDIT +SERVER
+Lore
