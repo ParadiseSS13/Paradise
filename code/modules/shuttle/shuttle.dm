@@ -271,10 +271,15 @@
 	if(height-dheight > S.height-S.dheight)
 		return SHUTTLE_HEIGHT_TOO_LARGE
 	//check the dock isn't occupied
-	// by someone other than us
-	if(S.get_docked())
-		to_chat(world, "[S.getDockedId()]")
-		return SHUTTLE_SOMEONE_ELSE_DOCKED
+	var/currently_docked = S.get_docked()
+	if(currently_docked)
+		// by someone other than us
+		if(currently_docked != src)
+			return SHUTTLE_SOMEONE_ELSE_DOCKED
+		else
+		// This isn't an error, per se, but we can't let the shuttle code
+		// attempt to move us where we currently are, it will get weird.
+			return SHUTTLE_ALREADY_DOCKED		
 	return SHUTTLE_CAN_DOCK
 
 /obj/docking_port/mobile/proc/check_dock(obj/docking_port/stationary/S)
@@ -341,24 +346,7 @@
 	else
 		WARNING("shuttle \"[id]\" could not enter transit space. S0=[S0 ? S0.id : "null"] S1=[S1 ? S1.id : "null"]")
 
-//default shuttleRotate
-/atom/proc/shuttleRotate(rotation)
-	//rotate our direction
-	dir = angle2dir(rotation+dir2angle(dir))
 
-	//rotate the pixel offsets too.
-	if(pixel_x || pixel_y)
-		if(rotation < 0)
-			rotation += 360
-		for(var/turntimes=rotation/90;turntimes>0;turntimes--)
-			var/oldPX = pixel_x
-			var/oldPY = pixel_y
-			pixel_x = oldPY
-			pixel_y = (oldPX*(-1))
-
-/atom/proc/postDock()
-	if(smooth)
-		smooth_icon(src)
 
 /obj/docking_port/mobile/proc/jumpToNullSpace()
 	// Destroys the docking port and the shuttle contents.
@@ -382,22 +370,11 @@
 		for(var/turf/T0 in L0)
 			A0.contents += T0
 
-	for(var/i=1, i<=L0.len, ++i)
-		var/turf/T0 = L0[i]
+	for(var/i in L0)
+		var/turf/T0 = i
 		if(!T0)
 			continue
-
-		for(var/AM in T0.GetAllContents())
-			if(istype(AM, /mob/dead))
-				continue
-			qdel(AM, force=TRUE)
-
-		T0.ChangeTurf(turf_type)
-
-		//T0.redraw_lighting()
-		air_master.remove_from_active(T0)
-		T0.CalculateAdjacentTurfs()
-		air_master.add_to_active(T0,1)
+		T0.empty(turf_type)
 
 	qdel(src, force=TRUE)
 
@@ -449,8 +426,6 @@
 	//move or squish anything in the way ship at destination
 	roadkill(L0, L1, S1.dir)
 
-	var/list/door_unlock_list = list()
-
 	for(var/i in 1 to L0.len)
 		var/turf/T0 = L0[i]
 		if(!T0)
@@ -468,49 +443,8 @@
 			Ts1.copy_air_with_tile(T0)
 
 		//move mobile to new location
-
-
-
 		for(var/atom/movable/AM in T0)
-			if(rotation)
-				AM.shuttleRotate(rotation)
-
-			if(istype(AM,/obj))
-				var/obj/O = AM
-				if(istype(O, /obj/docking_port/stationary))
-					continue
-				O.forceMove(T1)
-
-				//close open doors
-				if(istype(O, /obj/machinery/door))
-					var/obj/machinery/door/Door = O
-					spawn(-1)
-						if(Door)
-							if(istype(Door, /obj/machinery/door/airlock))
-								var/obj/machinery/door/airlock/A = Door
-								A.close(0,1)
-								if(A.id_tag == "s_docking_airlock")
-									A.lock()
-									door_unlock_list += A
-							else
-								Door.close()
-			else if(istype(AM,/mob))
-				var/mob/M = AM
-				if(!M.move_on_shuttle)
-					continue
-				M.forceMove(T1)
-
-				//docking turbulence
-				if(M.client)
-					spawn(0)
-						if(M.buckled)
-							shake_camera(M, 2, 1) // turn it down a bit come on
-						else
-							shake_camera(M, 7, 1)
-				if(istype(M, /mob/living/carbon))
-					if(!M.buckled)
-						M.Weaken(3)
-
+			AM.onShuttleMove(T1, rotation)
 
 		if(rotation)
 			T1.shuttleRotate(rotation)
@@ -528,27 +462,14 @@
 
 	for(var/A1 in L1)
 		var/turf/T1 = A1
-		T1.postDock()
+		T1.postDock(S1)
 		for(var/atom/movable/M in T1)
-			M.postDock()
+			M.postDock(S1)
 
 	loc = S1.loc
 	dir = S1.dir
 
 	unlockPortDoors(S1)
-	if(S1 && !S1.lock_shuttle_doors)
-		for(var/obj/machinery/door/airlock/A in door_unlock_list)
-			spawn(-1)
-				A.unlock()
-
-/*
-	if(istype(S1, /obj/docking_port/stationary/transit))
-		var/d = turn(dir, 180 + travelDir)
-		for(var/turf/space/transit/T in S1.return_ordered_turfs())
-			T.pushdirection = d
-			T.update_icon()
-*/
-
 
 
 /obj/docking_port/mobile/proc/findTransitDock()
