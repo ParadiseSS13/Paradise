@@ -1,29 +1,35 @@
 *Access*
-Fixed Some Of Engineering Access's (Atmospheric Tech, Mechanic,)
-Fixed All Support Access's (Bartender, Chef, Botanist, Quartermaster (now a Head), Cargo Tech, Shaft Miner) to places that they was not ment to go...or to open >.>
-Fixed Medical Access's (Medical Doctor, Chemist, Geneticist, Virologist, Psychiatrist,)
-Fixed Science Access's (Roboticist)
-Fixed Security Access's (Brig Physician, Security Pod Pilot)
+Fixed Some Of Engineering Access's (Atmospheric Tech, Mechanic,)*
+Fixed All Support Access's (Bartender, Chef, Botanist, Quartermaster (now a Head), Cargo Tech, Shaft Miner) to places that they was not ment to go...or to open >.>*
+Fixed Medical Access's (Medical Doctor, Chemist, Geneticist, Virologist, Psychiatrist,)*
+Fixed Science Access's (Roboticist)*
+Fixed Security Access's (Brig Physician, Security Pod Pilot)*
 
 
 *Station Fixes*
 Fixed Civ Podbay and revamped it*
 Moved the mineing office to the outpost also made the warehouse bit bigger*
 Fixed and placed input and output for the ore redemption machine*
-placed a APC in the fore Man.....as there was not one in there, in turn making some doors unpowered*
+placed a APC in the fore maintenance .....as there was not one in there, in turn making some doors unpowered*
 Fixed the wiring in Engineering due to one of them was crossing over and making more power then there was*
 Fixed Research shuttle area...due to it was warping 1/4 of the shuttle*
 Fixed CE privacy shutters due to the other ones was bad* 
+Fixed RD privacy shutters due to the other ones was bad
+Fixed HOS privacy shutters due to the other ones was bad
 Changed slimes to non hostile tester ones*
 Added engineering cart to...well...engineering and one to Mechanics*
 Added ambulance and key to medbay storage*
-Blast Door Fix on Moonoutpost
+Blast Door Fix on Moonoutpost19*
+Fixed a Step Issue from the looks of it was my doing, but without me knowing about it ...i replaced the red wire with yellow and down a long line from the station to the AI sat..in turn something happened without me editing a var
 
 *Items*
-Added a new heads Headset..Quartermasters and Quartermaster also gets a heads key
+Added a new heads Headset..Quartermasters and Quartermaster also gets a heads key*
 
 *Admin*
-Admin Ranks been updated with Head Dev, Mapper, Coder, Lore Ranks
+Admin Ranks been updated with Head Dev, Mapper, Coder, Lore Ranks*
 
 TODO
-AI sat wiring  
+AI sat wiring 
+CMO privacy Shutters
+HOP Shutters 
+gravity gen smes. not changing on start up
