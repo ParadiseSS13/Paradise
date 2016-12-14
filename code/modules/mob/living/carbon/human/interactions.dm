@@ -113,7 +113,7 @@
 			dat +=  {"Х <A href='?src=[UID()];interaction=cheer'>ѕохлопать по плечу</A><BR>"}
 			dat +=  {"Х <A href='?src=[UID()];interaction=five'>ƒать п[ya]ть.</A><BR>"}
 			if (hashands_p)
-				dat +=  {"Х <A href='?src=\ref[src];interaction=give'>ѕередать предмет.</A><BR>"}
+				dat +=  {"Х <A href='?src=[UID()];interaction=give'>ѕередать предмет.</A><BR>"}
 			dat +=  {"Х <A href='?src=[UID()];interaction=slap'><font color=red>ƒать пощечину!</font></A><BR>"}
 			if (isnude_p)
 				if (hasanus_p)

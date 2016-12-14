@@ -5,31 +5,31 @@
 
 /datum/gear/karma/dio
 	display_name = "dio headband"
-	cost = 3
+	cost = 1
 	wl_id = "0001"
 	path = /obj/item/clothing/head/atmta/dio
 
 /datum/gear/karma/dio_jacket
 	display_name = "dio jacket"
-	cost = 3
+	cost = 1
 	wl_id = "4007"
 	path = /obj/item/clothing/suit/atmta/dio
 
 /datum/gear/karma/dio_pants
 	display_name = "dio pants"
-	cost = 3
+	cost = 1
 	wl_id = "5001"
 	path = /obj/item/clothing/under/atmta/dio
 
 /datum/gear/karma/dio_wrist
 	display_name = "dio wristbands"
-	cost = 3
+	cost = 1
 	wl_id = "6001"
 	path = /obj/item/clothing/gloves/atmta/dio
 
 /datum/gear/karma/dio_shoes
 	display_name = "dio shoes"
-	cost = 3
+	cost = 1
 	wl_id = "7001"
 	path = /obj/item/clothing/shoes/atmta/dio
 
@@ -79,19 +79,22 @@
 	allowed_roles = list("Head of Security", "Warden")
 
 /datum/gear/karma/slastena_dress
-	display_name = "slastena's dress"
+	display_name = "slastena dress"
+	cost = 1
 	wl_id = "5002"
 	path = /obj/item/clothing/under/atmta/slastena
 	allowed_roles = list("Civilian", "Chef")
 
 /datum/gear/karma/slastena_wig
-	display_name = "slastena's hair wig"
+	display_name = "slastena hair wig"
+	cost = 1
 	wl_id = "0003"
 	path = /obj/item/clothing/head/atmta/slastena
 	allowed_roles = list("Civilian", "Chef")
 
 /datum/gear/karma/slastena_shoes
-	display_name = "slastena's shoes"
+	display_name = "slastena shoes"
+	cost = 1
 	wl_id = "7002"
 	path = /obj/item/clothing/shoes/atmta/slastena
 	allowed_roles = list("Civilian", "Chef")
