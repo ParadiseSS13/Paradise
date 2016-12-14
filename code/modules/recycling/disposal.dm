@@ -253,6 +253,13 @@
 	return
 
 /obj/machinery/disposal/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "disposal_bin.tmpl", "Waste Disposal Unit", 395, 250)
+		ui.open()
+		ui.set_auto_update(1)
+
+/obj/machinery/disposal/ui_data(mob/user, datum/topic_state/state = default_state)
 	var/data[0]
 
 	var/pressure = Clamp(100* air_contents.return_pressure() / (SEND_PRESSURE), 0, 100)
@@ -271,13 +278,7 @@
 		data["pumpstatus"] = "Idle"
 	data["pressure"] = pressure_round
 
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-
-	if(!ui)
-		ui = new(user, src, ui_key, "disposal_bin.tmpl", "Waste Disposal Unit", 395, 250)
-		ui.set_initial_data(data)
-		ui.open()
-		ui.set_auto_update(1)
+	return data
 
 /obj/machinery/disposal/Topic(href, href_list)
 	if(usr.loc == src)

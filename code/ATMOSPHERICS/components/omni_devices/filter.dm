@@ -108,22 +108,16 @@
 
 	return 1
 
-/obj/machinery/atmospherics/omni/filter/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null)
+/obj/machinery/atmospherics/omni/filter/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, force_open = 0)
 	usr.set_machine(src)
 
-	var/list/data = new()
-
-	data = build_uidata()
-
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data)
-
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "omni_filter.tmpl", "Omni Filter Control", 330, 330)
-		ui.set_initial_data(data)
 		ui.open()
 
-/obj/machinery/atmospherics/omni/filter/proc/build_uidata()
-	var/list/data = new()
+/obj/machinery/atmospherics/omni/filter/ui_data(mob/user, datum/topic_state/state)
+	var/data[0]
 
 	data["power"] = on
 	data["config"] = configuring
