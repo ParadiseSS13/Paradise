@@ -1,0 +1,59 @@
+################################
+# Example Changelog File
+#
+# Note: This file, and files beginning with ".", and files that don't end in ".yml" will not be read. If you change this file, you will look really dumb.
+#
+# Your changelog will be merged with a master changelog. (New stuff added only, and only on the date entry for the day it was merged.)
+# When it is, any changes listed below will disappear.
+#
+# Valid Prefixes: 
+#   bugfix
+#   wip (For works in progress)
+#   tweak
+#   soundadd
+#   sounddel
+#   rscadd (general adding of nice things)
+#   rscdel (general deleting of nice things)
+#   imageadd
+#   imagedel
+#   spellcheck (typo fixes)
+#   experiment
+#################################
+
+# Your name. Remove the quotation mark and put in your name when copy+pasting the example changelog.
+author: Ltmayday
+
+# Optional: Remove this file after generating master changelog.  Useful for PR changelogs that won't get used again.
+delete-after: True
+
+# Any changes you've made.  See valid prefix list above.
+# INDENT WITH TWO SPACES.  NOT TABS.  SPACES.
+# SCREW THIS UP AND IT WON'T WORK.
+# Also, this gets changed to [] after reading.  Just remove the brackets when you add new shit.
+# Please surround your changes in  double quotes ("). It works without them, but if you use certain characters it screws up compiling. The quotes will not show up in the changelog.
+changes: 
+  - rscadd: "Fixed and placed input and output for the ore redemption machine."
+  - rscadd: "placed a APC in the fore maintenance .....as there was not one in there, in turn making some doors unpowered."
+  - rscadd: "Added engineering cart to...well...engineering and one to Mechanics."
+  - rscadd: "Added ambulance and key to medbay storage."
+  - rscadd: "Added a new heads Headset..Quartermasters and Quartermaster also gets a heads key."
+  - tweak: "Fixed Civ Podbay and revamped it."
+  - tweak: "Moved the mining office to the outpost also made the warehouse bit bigger."
+  - tweak: "Admin Ranks been updated with Head Dev, Mapper, Coder, Lore Ranks."
+  - tweak: "Made the sec gear room smaller and walled it off, added in a interview room next door to the wardens office"
+  - bugfix: "Fixed Some Of Engineering Access's For Atmospheric Tech, Mechanic,."
+  - bugfix: "Fixed All Support Access's For Bartender, Chef, Botanist, Quartermaster Who Is Now A Head, Cargo Tech, Shaft Miner."
+  - bugfix: "Fixed Medical Access's For Medical Doctor, Chemist, Geneticist, Virologist, Psychiatrist."
+  - bugfix: "Fixed Science Access's For Roboticist."
+  - bugfix: "Fixed Security Access's For Brig Physician, Security Pod Pilot."
+  - bugfix: "Fixed the wiring in Engineering due to one of them was crossing over and making more power then there was."
+  - bugfix: "Fixed Research shuttle area...due to it was warping 1/4 of the shuttle, also fixed the shuttle door access"
+  - bugfix: "Fixed CE,RD,HOS,CMO,HOP privacy shutters due to the other ones was bad."
+  - bugfix: "Changed slimes to non hostile tester ones."
+  - bugfix: "Blast Door Fix on Moonoutpost19."
+  - bugfix: "Fixed a Step Issue from the looks of it was my doing, but without me knowing about it ...i replaced the red wire with yellow and down a long line from the station to the AI sat..in turn something happened without me editing a var."
+  
+  Mapping TODO List:
+  - tweak: "AI sat wiring"
+  - bugfix: "gravity gen smes. not changing on start up"
+  
