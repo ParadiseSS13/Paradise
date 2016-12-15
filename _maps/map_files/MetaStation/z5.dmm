@@ -327,7 +327,7 @@
 "go" = (/obj/machinery/portable_atmospherics/scrubber,/turf/simulated/floor/plating,/area/research_outpost/power)
 "gp" = (/obj/structure/transit_tube{icon_state = "N-S"},/turf/simulated/wall,/area/research_outpost/entry)
 "gq" = (/obj/effect/spawner/window/reinforced{useFull = 1; tag = "fullReinWin"},/obj/machinery/door/firedoor{dir = 2},/turf/simulated/floor/plating,/area/research_outpost/entry)
-"gr" = (/obj/machinery/door/airlock/external{id_tag = "science_away"; name = "Research Outpost Dock Airlock"; req_access_txt = "13"},/turf/simulated/floor/plating,/area/research_outpost/entry)
+"gr" = (/obj/machinery/door/airlock/external{id_tag = "science_away"; name = "Research Outpost Dock Airlock"; req_access_txt = "0"},/turf/simulated/floor/plating,/area/research_outpost/entry)
 "gs" = (/obj/structure/sign/science,/turf/simulated/wall,/area/research_outpost/entry)
 "gt" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/obj/machinery/door/firedoor{dir = 4; layer = 2.6; name = "Firelock"},/obj/machinery/door/airlock/glass_research{name = "Outpost Primary Access"; req_access_txt = "65"},/turf/simulated/floor/plasteel,/area/research_outpost/entry)
 "gu" = (/obj/machinery/door/firedoor{dir = 4; layer = 2.6; name = "Firelock"},/obj/machinery/door/airlock/glass_research{name = "Outpost Primary Access"; req_access_txt = "65"},/turf/simulated/floor/plasteel,/area/research_outpost/entry)
