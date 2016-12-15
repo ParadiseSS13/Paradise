@@ -1130,8 +1130,8 @@ About the new airlock wires panel:
 		throwtarget = get_edge_target_turf(src, get_dir(src, get_step_away(M, src)))
 		M << pick(sound('sound/hallucinations/turn_around1.ogg',0,1,50), sound('sound/hallucinations/turn_around2.ogg',0,1,50))
 		M.Weaken(2)
-		M.throw_at(throwtarget, 5, 1,src)
 		spawn(0)
+		M.throw_at(throwtarget, 5, 1,src)
 		return 0
 
 /obj/machinery/door/airlock/cult/narsie_act()
