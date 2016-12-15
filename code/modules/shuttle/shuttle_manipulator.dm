@@ -35,9 +35,6 @@
 	overlays += hologram_projection
 	overlays += hologram_ship
 
-/obj/machinery/shuttle_manipulator/process()
-	return
-
 /obj/machinery/shuttle_manipulator/attack_ghost(user as mob)
 	attack_hand(user)
 
