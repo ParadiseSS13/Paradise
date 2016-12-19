@@ -18,8 +18,6 @@
 		attack_self(mob/user as mob)
 			if(ishuman(user))
 				var/mob/living/carbon/human/H = user
-				if(H.mind.assigned_role != "Janitor")
-					return
 				if(armed)
 					armed = 0
 					to_chat(user, "\blue You disarm \the [src].")
