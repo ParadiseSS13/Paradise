@@ -2106,6 +2106,7 @@
 #include "hyntatmta\code\game\objects\items\weapons\storage\belt.dm"
 #include "hyntatmta\code\game\objects\items\weapons\storage\boxes.dm"
 #include "hyntatmta\code\game\objects\structures\watercloset.dm"
+#include "hyntatmta\code\modules\admin\verbs\atmta_secrets.dm"
 #include "hyntatmta\code\modules\admin\verbs\striketeam_doom.dm"
 #include "hyntatmta\code\modules\client\preference\loadout\loadout_karma.dm"
 #include "hyntatmta\code\modules\clothing\clothing.dm"
