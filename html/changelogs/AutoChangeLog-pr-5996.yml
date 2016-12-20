@@ -1,0 +1,4 @@
+author: "TullyBurnalot"
+delete-after: True
+changes: 
+  - bugfix: "Proximity Wet Floor Sign Mines can no longer appear in Surplus Crates"
