@@ -104,7 +104,7 @@ Doesn't work on other aliens/AI.*/
 			to_chat(src, "<span class='noticealien'>Target is too far away.</span>")
 	return
 
-/mob/living/carbon/alien/humanoid/proc/neurotoxin(mob/user) // ok
+/mob/living/carbon/alien/humanoid/proc/neurotoxin() // ok
 	set name = "Spit Neurotoxin (50)"
 	set desc = "Spits neurotoxin at someone, paralyzing them for a short time."
 	set category = "Alien"
@@ -125,7 +125,7 @@ Doesn't work on other aliens/AI.*/
 		A.xo = U.x - T.x
 		A.fire()
 		A.newtonian_move(get_dir(U, T))
-		user.newtonian_move(get_dir(U, T))
+		newtonian_move(get_dir(U, T))
 	return
 
 /mob/living/carbon/alien/humanoid/proc/resin() // -- TLE
