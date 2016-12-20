@@ -207,6 +207,7 @@ var/list/uplink_items = list()
 	item = /obj/item/weapon/caution/proximity_sign
 	cost = 4
 	job = list("Janitor")
+	surplus = 0
 
 //Medical
 
