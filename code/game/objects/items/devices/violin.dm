@@ -38,5 +38,8 @@
 
 	song.ui_interact(user, ui_key, ui, force_open)
 
+/obj/item/device/violin/ui_data(mob/user, datum/topic_state/state = default_state)
+	return song.ui_data(user, state)
+
 /obj/item/device/violin/Topic(href, href_list)
 	song.Topic(href, href_list)
