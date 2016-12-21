@@ -61,7 +61,7 @@
 	if(mob_info.is_trap)		//traps work even if you ran into them before, which is why this is before the clients_encountered check
 		if(client.hacked)		//hacked copies of the game (copies capable of setting traps) are protected from traps
 			return
-		if(istype(P.loc, /mob/living/carbon))
+		if(iscarbon(P.loc))
 			var/mob/living/carbon/C = P.loc
 			//Strike them down with a lightning bolt to complete the illusion (copied from the surge reagent overdose, probably could make this a general-use proc in the future)
 			playsound(get_turf(C), 'sound/effects/eleczap.ogg', 75, 1)

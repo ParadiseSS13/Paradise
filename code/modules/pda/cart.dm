@@ -53,8 +53,7 @@
 /obj/item/weapon/cartridge/atmos
 	name = "BreatheDeep Cartridge"
 	icon_state = "cart-a"
-	programs = list(
-		new/datum/data/pda/utility/scanmode/gas)
+	programs = list(new/datum/data/pda/utility/scanmode/gas)
 
 /obj/item/weapon/cartridge/medical
 	name = "Med-U Cartridge"
@@ -66,8 +65,7 @@
 /obj/item/weapon/cartridge/chemistry
 	name = "ChemWhiz Cartridge"
 	icon_state = "cart-chem"
-	programs = list(
-		new/datum/data/pda/utility/scanmode/reagent)
+	programs = list(new/datum/data/pda/utility/scanmode/reagent)
 
 /obj/item/weapon/cartridge/security
 	name = "R.O.B.U.S.T. Cartridge"
@@ -94,30 +92,25 @@
 	name = "CustodiPRO Cartridge"
 	desc = "The ultimate in clean-room design."
 	icon_state = "cart-j"
-	programs = list(
-		new/datum/data/pda/app/janitor)
+	programs = list(new/datum/data/pda/app/janitor)
 
 /obj/item/weapon/cartridge/lawyer
 	name = "P.R.O.V.E. Cartridge"
 	icon_state = "cart-s"
-	programs = list(
-		new/datum/data/pda/app/crew_records/security)
+	programs = list(new/datum/data/pda/app/crew_records/security)
 
 /obj/item/weapon/cartridge/clown
 	name = "Honkworks 5.0"
 	icon_state = "cart-clown"
 	charges = 5
-	programs = list(
-		new/datum/data/pda/utility/honk)
-	messenger_plugins = list(
-		new/datum/data/pda/messenger_plugin/virus/clown)
+	programs = list(new/datum/data/pda/utility/honk)
+	messenger_plugins = list(new/datum/data/pda/messenger_plugin/virus/clown)
 
 /obj/item/weapon/cartridge/mime
 	name = "Gestur-O 1000"
 	icon_state = "cart-mi"
 	charges = 5
-	messenger_plugins = list(
-		new/datum/data/pda/messenger_plugin/virus/mime)
+	messenger_plugins = list(new/datum/data/pda/messenger_plugin/virus/mime)
 
 /*
 /obj/item/weapon/cartridge/botanist
@@ -129,8 +122,7 @@
 /obj/item/weapon/cartridge/signal
 	name = "generic signaler cartridge"
 	desc = "A data cartridge with an integrated radio signaler module."
-	programs = list(
-		new/datum/data/pda/app/signaller)
+	programs = list(new/datum/data/pda/app/signaller)
 
 /obj/item/weapon/cartridge/signal/initialize()
 	radio = new /obj/item/radio/integrated/signal(src)
@@ -162,8 +154,7 @@
 /obj/item/weapon/cartridge/head
 	name = "Easy-Record DELUXE"
 	icon_state = "cart-h"
-	programs = list(
-		new/datum/data/pda/app/status_display)
+	programs = list(new/datum/data/pda/app/status_display)
 
 /obj/item/weapon/cartridge/hop
 	name = "HumanResources9001"
@@ -303,10 +294,8 @@
 	icon_state = "cart"
 	var/initial_remote_door_id = "smindicate" //Make sure this matches the syndicate shuttle's shield/door id!!	//don't ask about the name, testing.
 	charges = 4
-	programs = list(
-		new/datum/data/pda/utility/toggle_door)
-	messenger_plugins = list(
-		new/datum/data/pda/messenger_plugin/virus/detonate)
+	programs = list(new/datum/data/pda/utility/toggle_door)
+	messenger_plugins = list(new/datum/data/pda/messenger_plugin/virus/detonate)
 
 /obj/item/weapon/cartridge/syndicate/New()
 	var/datum/data/pda/utility/toggle_door/D = programs[1]
@@ -317,8 +306,7 @@
 	name = "Nano-Mob Hunter GO! Cartridge"
 	desc = "The hit new PDA game that lets you track down and capture your favorite Nano-Mobs living in your world!"
 	icon_state = "cart-eye"
-	programs = list(
-		new/datum/data/pda/app/mob_hunter_game)
+	programs = list(new/datum/data/pda/app/mob_hunter_game)
 	var/emagged = 0
 
 /obj/item/weapon/cartridge/mob_hunt_game/attackby(obj/item/O, mob/user, params)

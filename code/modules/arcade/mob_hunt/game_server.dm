@@ -17,17 +17,10 @@ var/global/datum/controller/process/mob_hunt/mob_hunt_server
 	start_delay = 20
 	mob_hunt_server = src
 
-/datum/controller/process/mob_hunt/Destroy()
-	for(var/datum/data/pda/app/mob_hunter_game/client in connected_clients)
-		client.disconnect("Server Destruction")
-	if(mob_hunt_server && mob_hunt_server == src)
-		mob_hunt_server = null
-	return ..()
-
 /datum/controller/process/mob_hunt/doWork()
 	if(reset_cooldown)		//if reset_cooldown is set (we are on cooldown, duh), reduce the remaining cooldown every cycle
 		reset_cooldown--
-	if(server_status == 0)
+	if(!server_status)
 		return
 	client_mob_update()
 	if(normal_spawns.len < max_normal_spawns)
