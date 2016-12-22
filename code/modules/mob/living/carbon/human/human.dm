@@ -49,9 +49,6 @@
 		dna.real_name = real_name
 		sync_organ_dna(1)
 
-	if(species)
-		species.handle_dna(src)
-
 	UpdateAppearance()
 
 /mob/living/carbon/human/OpenCraftingMenu()
