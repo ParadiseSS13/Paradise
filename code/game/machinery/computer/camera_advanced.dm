@@ -59,7 +59,10 @@
 		if(camera_location)
 			eyeobj.initialized = 1
 			give_eye_control(user)
+			eyeobj.setLoc(camera_location)
 		else
+			// An abberant case - silent failure is obnoxious
+			to_chat(user, "<span class='warning'>ERROR: No linked and active camera network found.</span>")
 			user.unset_machine()
 	else
 		give_eye_control(user)
