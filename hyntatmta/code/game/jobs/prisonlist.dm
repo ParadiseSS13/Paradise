@@ -13,7 +13,7 @@ var/list/bwhitelist
 	if(!usr.client)
 		return
 
-	if(!check_rights(R_WHITELIST))	return
+	if(!check_rights(R_SERVER))	return
 
 	establish_db_connection()
 	if(!dbcon.IsConnected())
