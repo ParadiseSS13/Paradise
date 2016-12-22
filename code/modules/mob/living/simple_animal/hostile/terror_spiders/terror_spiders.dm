@@ -156,7 +156,7 @@ var/global/list/ts_spiderlist = list()
 			return
 		else if(G.reagents && (iscarbon(G)))
 			var/can_poison = 1
-			if(istype(G, /mob/living/carbon/human/))
+			if(ishuman(G))
 				var/mob/living/carbon/human/H = G
 				if(!(H.species.reagent_tag & PROCESS_ORG) || (H.species.flags & NO_POISON))
 					can_poison = 0
@@ -222,19 +222,20 @@ var/global/list/ts_spiderlist = list()
 	else
 		ts_count_alive_station++
 	// after 30 seconds, assuming nobody took control of it yet, offer it to ghosts.
-	spawn(150) // deciseconds!
-		CheckFaction()
-	spawn(300) // deciseconds!
-		if(spider_awaymission)
-			return
-		if(stat == DEAD)
-			return
-		if(ckey)
-			var/image/alert_overlay = image('icons/mob/terrorspider.dmi', icon_state)
-			notify_ghosts("[src] has appeared in [get_area(src)]. (already player-controlled)", source = src, alert_overlay = alert_overlay)
-		else if(ai_playercontrol_allowingeneral && ai_playercontrol_allowtype)
-			var/image/alert_overlay = image('icons/mob/terrorspider.dmi', icon_state)
-			notify_ghosts("[src] has appeared in [get_area(src)].", enter_link = "<a href=?src=\ref[src];activate=1>(Click to control)</a>", source = src, alert_overlay = alert_overlay, attack_not_jump = 1)
+	addtimer(src, "CheckFaction", 150)
+	addtimer(src, "announcetoghosts", 300)
+
+/mob/living/simple_animal/hostile/poison/terror_spider/proc/announcetoghosts()
+	if(spider_awaymission)
+		return
+	if(stat == DEAD)
+		return
+	if(ckey)
+		var/image/alert_overlay = image('icons/mob/terrorspider.dmi', icon_state)
+		notify_ghosts("[src] has appeared in [get_area(src)]. (already player-controlled)", source = src, alert_overlay = alert_overlay)
+	else if(ai_playercontrol_allowingeneral && ai_playercontrol_allowtype)
+		var/image/alert_overlay = image('icons/mob/terrorspider.dmi', icon_state)
+		notify_ghosts("[src] has appeared in [get_area(src)].", enter_link = "<a href=?src=\ref[src];activate=1>(Click to control)</a>", source = src, alert_overlay = alert_overlay, attack_not_jump = 1)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/Destroy()
 	ts_spiderlist -= src
