@@ -403,14 +403,11 @@
 	if(IsGuestKey(key))
 		return
 
-	// Isn't the ckey sanitized by default?
-	var/sql_ckey = sanitizeSQL(ckey)
-
 	establish_db_connection()
 	if(!dbcon.IsConnected())
 		return
 
-	var/DBQuery/query = dbcon.NewQuery("SELECT id, datediff(Now(),firstseen) as age FROM [format_table_name("player")] WHERE ckey = '[sql_ckey]'")
+	var/DBQuery/query = dbcon.NewQuery("SELECT id, datediff(Now(),firstseen) as age FROM [format_table_name("player")] WHERE ckey = '[ckey]'")
 	query.Execute()
 	var/sql_id = 0
 	player_age = 0	// New players won't have an entry so knowing we have a connection we set this to zero to be updated if their is a record.
@@ -492,9 +489,7 @@
 
 	var/oldcid = cidcheck[ckey]
 	if(!oldcid)
-		// We don't have their cached CID on hand, so ask the DB
-		var/sql_ckey = sanitizeSQL(ckey)
-		var/DBQuery/query_cidcheck = dbcon.NewQuery("SELECT computerid FROM [format_table_name("player")] WHERE ckey = '[sql_ckey]'")
+		var/DBQuery/query_cidcheck = dbcon.NewQuery("SELECT computerid FROM [format_table_name("player")] WHERE ckey = '[ckey]'")
 		query_cidcheck.Execute()
 
 		var/lastcid = computer_id
@@ -552,10 +547,9 @@
 
 /client/proc/note_randomizer_user()
 	var/const/adminckey = "CID-Error"
-	var/sql_ckey = sanitizeSQL(ckey)
 
 	// Check for notes in the last day - only 1 note per 24 hours
-	var/DBQuery/query_get_notes = dbcon.NewQuery("SELECT id from [format_table_name("notes")] WHERE ckey = '[sql_ckey]' AND adminckey = '[adminckey]' AND timestamp + INTERVAL 1 DAY < NOW()")
+	var/DBQuery/query_get_notes = dbcon.NewQuery("SELECT id from [format_table_name("notes")] WHERE ckey = '[ckey]' AND adminckey = '[adminckey]' AND timestamp + INTERVAL 1 DAY < NOW()")
 	if(!query_get_notes.Execute())
 		var/err = query_get_notes.ErrorMsg()
 		log_game("SQL ERROR obtaining id from notes table. Error : \[[err]\]\n")
@@ -564,7 +558,7 @@
 		return
 
 	// Only add a note if their most recent note isn't from the randomizer blocker, either
-	query_get_notes = dbcon.NewQuery("SELECT adminckey FROM [format_table_name("notes")] WHERE ckey = '[sql_ckey]' ORDER BY timestamp DESC LIMIT 1")
+	query_get_notes = dbcon.NewQuery("SELECT adminckey FROM [format_table_name("notes")] WHERE ckey = '[ckey]' ORDER BY timestamp DESC LIMIT 1")
 	if(!query_get_notes.Execute())
 		var/err = query_get_notes.ErrorMsg()
 		log_game("SQL ERROR obtaining adminckey from notes table. Error : \[[err]\]\n")
