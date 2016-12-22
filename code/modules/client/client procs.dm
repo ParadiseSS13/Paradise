@@ -273,6 +273,7 @@
 	//CONNECT//
 	///////////
 /client/New(TopicData)
+	var/tdata = TopicData //save this for later use
 	chatOutput = new /datum/chatOutput(src) // Right off the bat.
 	TopicData = null							//Prevent calls to client.Topic from connect
 
@@ -340,7 +341,7 @@
 			winset(src, null, "command=\".configure graphics-hwmode off\"")
 			winset(src, null, "command=\".configure graphics-hwmode on\"")
 
-	log_client_to_db()
+	log_client_to_db(tdata)
 
 	if(ckey in clientmessages)
 		for(var/message in clientmessages[ckey])
@@ -399,7 +400,7 @@
 		donator_level = text2num(query_donor_select.item[2])
 		break
 
-/client/proc/log_client_to_db()
+/client/proc/log_client_to_db(connectiontopic)
 	if(IsGuestKey(key))
 		return
 
@@ -435,7 +436,7 @@
 		admin_rank = holder.rank
 	// Admins don't get slammed by this, I guess
 	else
-		if(check_randomizer())
+		if(check_randomizer(connectiontopic))
 			return
 
 	//Log all the alts
@@ -478,16 +479,20 @@
 #undef MIN_CLIENT_VERSION
 
 // Returns true if a randomizer is being used
-/client/proc/check_randomizer()
+/client/proc/check_randomizer(topic)
 	. = FALSE
+	topic = params2list(topic)
 	if(!config.check_randomizer)
 		return
 	// Stash o' ckeys
 	var/static/cidcheck = list()
+	var/static/tokens = list()
 	// Ckeys that failed the test, stored to send acceptance messages only for atoners
 	var/static/cidcheck_failedckeys = list()
+	var/static/cidcheck_spoofckeys = list()
 
 	var/oldcid = cidcheck[ckey]
+
 	if(!oldcid)
 		var/DBQuery/query_cidcheck = dbcon.NewQuery("SELECT computerid FROM [format_table_name("player")] WHERE ckey = '[ckey]'")
 		query_cidcheck.Execute()
@@ -503,28 +508,30 @@
 			// Disable the reconnect button to force a CID change
 			winset(src, "reconnectbutton", "is-disable=true")
 
-			log_access("Failed Login: [key] [computer_id] [address] - CID randomizer check")
-
-			var/url = winget(src, null, "url")
-			// Javascript trick to make them reconnect in a new window
-			src << browse("<a id='link' href=byond://[url]>byond://[url]</a>\
-			<script type='text/javascript'>\
-				document.getElementById(\"link\").click();\
-				window.location=\"byond://winset?command=.quit\"\
-			</script>", "border=0;titlebar=0;size=1x1")
+			tokens[ckey] = cid_check_reconnect()
 			sleep(10) // Since browse is non-instant, and kinda async
 
-			to_chat(src, "<pre class=\"system system\">If you didn't reconnect automatically, please do so now. ;)</pre>")
+			to_chat(src, "<pre class=\"system system\">you're a huge nerd. wakka wakka doodle doop nobody's ever gonna see this, the chat system shouldn't be online by this point</pre>")
 			del(src)
 			return TRUE
 	else
+		if (!topic || !topic["token"] || !tokens[ckey] || topic["token"] != tokens[ckey])
+			if (!cidcheck_spoofckeys[ckey])
+				message_admins("<span class='adminnotice'>[key_name(src)] appears to have attempted to spoof a cid randomizer check.</span>")
+				cidcheck_spoofckeys[ckey] = TRUE
+			cidcheck[ckey] = computer_id
+			tokens[ckey] = cid_check_reconnect()
+
+			sleep(10) //browse is queued, we don't want them to disconnect before getting the browse() command.
+			del(src)
+			return TRUE
 		// We DO have their cached CID handy - compare it, now
 		if(oldcid != computer_id)
 			// Change detected, they are randomizing
 			cidcheck -= ckey	// To allow them to try again after removing CID randomization
 
-			to_chat("<span class='userdanger'>Connection Error:</span>")
-			to_chat("<span class='danger'>Invalid ComputerID(spoofed). Please remove the ComputerID spoofer from your BYOND installation and try again.</span>")
+			to_chat(src, "<span class='userdanger'>Connection Error:</span>")
+			to_chat(src, "<span class='danger'>Invalid ComputerID(spoofed). Please remove the ComputerID spoofer from your BYOND installation and try again.</span>")
 
 			if(!cidcheck_failedckeys[ckey])
 				message_admins("<span class='adminnotice'>[key_name(src)] has been detected as using a CID randomizer. Connection rejected.</span>")
@@ -543,6 +550,9 @@
 				message_admins("<span class='adminnotice'>[key_name_admin(src)] has been allowed to connect after showing they removed their cid randomizer</span>")
 				send2irc(config.cidrandomizer_irc, "[key_name(src)] has been allowed to connect after showing they removed their cid randomizer.")
 				cidcheck_failedckeys -= ckey
+			if (cidcheck_spoofckeys[ckey])
+				message_admins("<span class='adminnotice'>[key_name_admin(src)] has been allowed to connect after appearing to have attempted to spoof a cid randomizer check because it <i>appears</i> they aren't spoofing one this time</span>")
+				cidcheck_spoofckeys -= ckey
 			cidcheck -= ckey
 
 /client/proc/note_randomizer_user()
@@ -567,6 +577,23 @@
 		if(query_get_notes.item[1] == adminckey)
 			return
 	add_note(ckey, "Detected as using a cid randomizer.", null, adminckey, logged = 0)
+
+/client/proc/cid_check_reconnect()
+	var/token = md5("[rand(0,9999)][world.time][rand(0,9999)][ckey][rand(0,9999)][address][rand(0,9999)][computer_id][rand(0,9999)]")
+	. = token
+	log_access("Failed Login: [key] [computer_id] [address] - CID randomizer check")
+	var/url = winget(src, null, "url")
+	//special javascript to make them reconnect under a new window.
+	src << browse("<a id='link' href='byond://[url]?token=[token]'>\
+		byond://[url]?token=[token]\
+	</a>\
+	<script type='text/javascript'>\
+		document.getElementById(\"link\").click();\
+		window.location=\"byond://winset?command=.quit\"\
+	</script>",
+	"border=0;titlebar=0;size=1x1")
+	to_chat(src, "<a href='byond://[url]?token=[token]'>You will be automatically taken to the game, if not, click here to be taken manually</a>. Except you can't, since the chat window doesn't exist yet.")
+
 //checks if a client is afk
 //3000 frames = 5 minutes
 /client/proc/is_afk(duration=3000)
