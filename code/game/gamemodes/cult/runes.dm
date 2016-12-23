@@ -210,6 +210,8 @@ var/list/sacrificed = list()
 
 /obj/effect/rune/proc/seer()
 	if(usr.loc==src.loc)
+		// No. Bad cultcode. Bad.
+		var/mob/living/carbon/human/H = usr
 		if(usr.seer==1)
 			usr.say("Rash'tla sektath mal[pick("'","`")]zua. Zasan therium viortia.")
 			to_chat(usr, "\red The world beyond fades from your vision.")
@@ -224,6 +226,7 @@ var/list/sacrificed = list()
 			to_chat(usr, "\red The world beyond opens to your eyes.")
 			usr.see_invisible = SEE_INVISIBLE_OBSERVER
 			usr.seer = 1
+		H.update_sight()
 		return
 	return fizzle()
 
@@ -840,7 +843,7 @@ var/list/sacrificed = list()
 			var/obj/item/weapon/nullrod/N = locate() in C
 			if(N)
 				continue
-			C.adjustEarDamage(0,50)
+			C.AdjustEarDeaf(50)
 			C.show_message("\red The world around you suddenly becomes quiet.", 3)
 			affected++
 			if(prob(1))
@@ -859,7 +862,7 @@ var/list/sacrificed = list()
 			var/obj/item/weapon/nullrod/N = locate() in C
 			if(N)
 				continue
-			C.adjustEarDamage(0,30)
+			C.AdjustEarDeaf(30)
 			//talismans is weaker.
 			C.show_message("\red The world around you suddenly becomes quiet.", 3)
 			affected++
@@ -880,12 +883,12 @@ var/list/sacrificed = list()
 			var/obj/item/weapon/nullrod/N = locate() in C
 			if(N)
 				continue
-			C.eye_blurry += 50
-			C.eye_blind += 20
+			C.AdjustEyeBlurry(50)
+			C.AdjustEyeBlind(20)
 			if(prob(5))
-				C.disabilities |= NEARSIGHTED
+				C.BecomeNearsighted()
 				if(prob(10))
-					C.disabilities |= BLIND
+					C.BecomeBlind()
 			C.show_message("\red Suddenly you see red flash that blinds you.", 3)
 			affected++
 		if(affected)
@@ -902,8 +905,8 @@ var/list/sacrificed = list()
 			var/obj/item/weapon/nullrod/N = locate() in C
 			if(N)
 				continue
-			C.eye_blurry += 30
-			C.eye_blind += 10
+			C.AdjustEyeBlurry(30)
+			C.AdjustEyeBlind(10)
 			//talismans is weaker.
 			affected++
 			C.show_message("\red You feel a sharp pain in your eyes, and the world disappears into darkness..", 3)
@@ -1016,7 +1019,7 @@ var/list/sacrificed = list()
 				var/mob/living/carbon/C = T
 				C.flash_eyes()
 				if(!(HULK in C.mutations))
-					C.silent += 15
+					C.AdjustSilence(15)
 				C.Weaken(10)
 				C.Stun(10)
 		return

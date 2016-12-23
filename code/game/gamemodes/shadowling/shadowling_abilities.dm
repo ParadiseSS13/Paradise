@@ -46,7 +46,7 @@
 		else //Only alludes to the shadowling if the target is close by
 			to_chat(target, "<span class='userdanger'>Red lights suddenly dance in your vision, and you are mesmerized by the heavenly lights...</span>")
 		target.Stun(10)
-		M.silent += 10
+		M.AdjustSilence(10)
 
 
 /obj/effect/proc_holder/spell/targeted/lesser_glare
@@ -79,7 +79,7 @@
 		else
 			to_chat(target, "<span class='userdanger'>Red lights suddenly dance in your vision, and you are mesmerized by their heavenly beauty...</span>")
 		target.Stun(3) //Roughly 30% as long as the normal one
-		M.silent += 3
+		M.AdjustSilence(3)
 
 
 /obj/effect/proc_holder/spell/aoe_turf/veil
@@ -519,7 +519,7 @@
 /datum/reagent/shadowling_blindness_smoke/on_mob_life(mob/living/M)
 	if(!is_shadow_or_thrall(M))
 		to_chat(M, "<span class='warning'><b>You breathe in the black smoke, and your eyes burn horribly!</b></span>")
-		M.eye_blind = 5
+		M.EyeBlind(5)
 		if(prob(25))
 			M.visible_message("<b>[M]</b> claws at their eyes!")
 			M.Stun(3)
@@ -556,8 +556,8 @@
 			if(iscarbon(target))
 				var/mob/living/carbon/M = target
 				to_chat(M, "<span class='danger'><b>A spike of pain drives into your head and scrambles your thoughts!</b></span>")
-				M.confused += 10
-				M.setEarDamage(M.ear_damage + 3)
+				M.AdjustConfused(10)
+				M.AdjustEarDamage(3)
 			else if(issilicon(target))
 				var/mob/living/silicon/S = target
 				to_chat(S, "<span class='warning'><b>ERROR $!(@ ERROR )#^! SENSORY OVERLOAD \[$(!@#</b></span>")

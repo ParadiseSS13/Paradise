@@ -148,7 +148,7 @@
 		view = world.view //Reset the view
 		winset(src, "mapwindow.map", "icon-size=[src.reset_stretch]")
 		viewingCanvas = 0
-		mob.reset_view()
+		mob.reset_perspective()
 		if(mob.hud_used)
 			mob.hud_used.show_hud(HUD_STYLE_STANDARD)
 
@@ -161,11 +161,6 @@
 	if(moving)  return 0
 
 	if(!mob)	return
-
-	if(locate(/obj/effect/stop/, mob.loc))
-		for(var/obj/effect/stop/S in mob.loc)
-			if(S.victim == mob)
-				return
 
 	if(mob.stat==DEAD)	return
 

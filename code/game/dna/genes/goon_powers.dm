@@ -148,15 +148,15 @@
 
 	action_icon_state = "genetic_cryo"
 
-/obj/effect/proc_holder/spell/targeted/cryokinesis/cast(list/targets, mob/user = usr)
+/obj/effect/proc_holder/spell/targeted/cryokinesis/cast(list/targets)
 	if(!targets.len)
-		to_chat(user, "<span class='notice'>No target found in range.</span>")
+		to_chat(usr, "<span class='notice'>No target found in range.</span>")
 		return
 
 	var/mob/living/carbon/C = targets[1]
 
 	if(!iscarbon(C))
-		to_chat(user, "<span class='warning'>This will only work on normal organic beings.</span>")
+		to_chat(usr, "<span class='warning'>This will only work on normal organic beings.</span>")
 		return
 
 	if(RESIST_COLD in C.mutations)
@@ -169,15 +169,15 @@
 			if(istype(H.wear_suit, /obj/item/clothing/suit/space))
 				handle_suit = 1
 				if(H.internal)
-					H.visible_message("<span class='warning'>[user] sprays a cloud of fine ice crystals, engulfing [H]!</span>",
-										"<span class='notice'>[user] sprays a cloud of fine ice crystals over your [H.head]'s visor.</span>")
-					log_admin("[key_name(user)] has used cryokinesis on [key_name(C)] while wearing internals and a suit")
-					msg_admin_attack("[key_name_admin(user)] has cast cryokinesis on [key_name_admin(C)]")
+					H.visible_message("<span class='warning'>[usr] sprays a cloud of fine ice crystals, engulfing [H]!</span>",
+										"<span class='notice'>[usr] sprays a cloud of fine ice crystals over your [H.head]'s visor.</span>")
+					log_admin("[key_name(usr)] has used cryokinesis on [key_name(C)] while wearing internals and a suit")
+					msg_admin_attack("[key_name_admin(usr)] has cast cryokinesis on [key_name_admin(C)]")
 				else
-					H.visible_message("<span class='warning'>[user] sprays a cloud of fine ice crystals engulfing, [H]!</span>",
-										"<span class='warning'>[user] sprays a cloud of fine ice crystals cover your [H.head]'s visor and make it into your air vents!.</span>")
-					log_admin("[key_name(user)] has used cryokinesis on [key_name(C)]")
-					msg_admin_attack("[key_name_admin(user)] has cast cryokinesis on [key_name_admin(C)]")
+					H.visible_message("<span class='warning'>[usr] sprays a cloud of fine ice crystals engulfing, [H]!</span>",
+										"<span class='warning'>[usr] sprays a cloud of fine ice crystals cover your [H.head]'s visor and make it into your air vents!.</span>")
+					log_admin("[key_name(usr)] has used cryokinesis on [key_name(C)]")
+					msg_admin_attack("[key_name_admin(usr)] has cast cryokinesis on [key_name_admin(C)]")
 					H.bodytemperature = max(0, H.bodytemperature - 50)
 					H.adjustFireLoss(5)
 	if(!handle_suit)
@@ -185,11 +185,11 @@
 		C.adjustFireLoss(10)
 		C.ExtinguishMob()
 
-		C.visible_message("\red [user] sprays a cloud of fine ice crystals, engulfing [C]!")
-		log_admin("[key_name(user)] has used cryokinesis on [key_name(C)] without internals or a suit")
-		msg_admin_attack("[key_name_admin(user)] has cast cryokinesis on [key_name_admin(C)]")
+		C.visible_message("\red [usr] sprays a cloud of fine ice crystals, engulfing [C]!")
+		log_admin("[key_name(usr)] has used cryokinesis on [key_name(C)] without internals or a suit")
+		msg_admin_attack("[key_name_admin(usr)] has cast cryokinesis on [key_name_admin(C)]")
 
-	//playsound(user.loc, 'bamf.ogg', 50, 0)
+	//playsound(usr.loc, 'bamf.ogg', 50, 0)
 
 	new/obj/effect/self_deleting(C.loc, icon('icons/effects/genetics.dmi', "cryokinesis"))
 
@@ -288,6 +288,10 @@
 		if((O in user) && is_type_in_list(O,own_blacklist))
 			continue
 		if(is_type_in_list(O,types_allowed))
+			if(isanimal(O))
+				var/mob/living/simple_animal/SA = O
+				if(!SA.gold_core_spawnable)
+					continue
 			possible_targets += O
 
 	targets += input("Choose the target of your hunger.", "Targeting") as null|anything in possible_targets
@@ -296,9 +300,10 @@
 		revert_cast(user)
 		return
 
-	perform(targets, user = user)
+	perform(targets)
 
-/obj/effect/proc_holder/spell/targeted/eat/cast(list/targets, mob/user = usr)
+/obj/effect/proc_holder/spell/targeted/eat/cast(list/targets)
+	var/mob/user = usr
 	if(!targets.len)
 		to_chat(user, "<span class='notice'>No target found in range.</span>")
 		return
@@ -384,60 +389,60 @@
 
 	action_icon_state = "genetic_jump"
 
-/obj/effect/proc_holder/spell/targeted/leap/cast(list/targets, mob/user = usr)
+/obj/effect/proc_holder/spell/targeted/leap/cast(list/targets)
 	var/failure = 0
-	if(istype(user.loc,/mob/) || user.lying || user.stunned || user.buckled || user.stat)
-		to_chat(user, "<span class='warning'>You can't jump right now!</span>")
+	if(istype(usr.loc,/mob/) || usr.lying || usr.stunned || usr.buckled || usr.stat)
+		to_chat(usr, "<span class='warning'>You can't jump right now!</span>")
 		return
 
-	if(istype(user.loc,/turf/))
-		if(user.restrained())//Why being pulled while cuffed prevents you from moving
-			for(var/mob/M in range(user, 1))
-				if(M.pulling == user)
-					if(!M.restrained() && M.stat == 0 && M.canmove && user.Adjacent(M))
+	if(istype(usr.loc,/turf/))
+		if(usr.restrained())//Why being pulled while cuffed prevents you from moving
+			for(var/mob/M in range(usr, 1))
+				if(M.pulling == usr)
+					if(!M.restrained() && M.stat == 0 && M.canmove && usr.Adjacent(M))
 						failure = 1
 					else
 						M.stop_pulling()
 
-		if(user.pinned.len)
+		if(usr.pinned.len)
 			failure = 1
 
-		user.visible_message("<span class='danger'>[user.name]</b> takes a huge leap!</span>")
-		playsound(user.loc, 'sound/weapons/thudswoosh.ogg', 50, 1)
+		usr.visible_message("<span class='danger'>[usr.name]</b> takes a huge leap!</span>")
+		playsound(usr.loc, 'sound/weapons/thudswoosh.ogg', 50, 1)
 		if(failure)
-			user.Weaken(5)
-			user.Stun(5)
-			user.visible_message("<span class='warning'>[user] attempts to leap away but is slammed back down to the ground!</span>",
+			usr.Weaken(5)
+			usr.Stun(5)
+			usr.visible_message("<span class='warning'>[usr] attempts to leap away but is slammed back down to the ground!</span>",
 								"<span class='warning'>You attempt to leap away but are suddenly slammed back down to the ground!</span>",
 								"<span class='notice'>You hear the flexing of powerful muscles and suddenly a crash as a body hits the floor.</span>")
 			return 0
-		var/prevLayer = user.layer
-		var/prevFlying = user.flying
-		user.layer = 9
+		var/prevLayer = usr.layer
+		var/prevFlying = usr.flying
+		usr.layer = 9
 
-		user.flying = 1
+		usr.flying = 1
 		for(var/i=0, i<10, i++)
-			step(user, user.dir)
-			if(i < 5) user.pixel_y += 8
-			else user.pixel_y -= 8
+			step(usr, usr.dir)
+			if(i < 5) usr.pixel_y += 8
+			else usr.pixel_y -= 8
 			sleep(1)
-		user.flying = prevFlying
+		usr.flying = prevFlying
 
-		if(FAT in user.mutations && prob(66))
-			user.visible_message("<span class='danger'>[user.name]</b> crashes due to their heavy weight!</span>")
-			//playsound(user.loc, 'zhit.wav', 50, 1)
-			user.AdjustWeakened(10)
-			user.AdjustStunned(5)
+		if(FAT in usr.mutations && prob(66))
+			usr.visible_message("<span class='danger'>[usr.name]</b> crashes due to their heavy weight!</span>")
+			//playsound(usr.loc, 'zhit.wav', 50, 1)
+			usr.AdjustWeakened(10)
+			usr.AdjustStunned(5)
 
-		user.layer = prevLayer
+		usr.layer = prevLayer
 
-	if(istype(user.loc,/obj/))
-		var/obj/container = user.loc
-		to_chat(user, "<span class='warning'>You leap and slam your head against the inside of [container]! Ouch!</span>")
-		user.AdjustParalysis(3)
-		user.AdjustWeakened(5)
-		container.visible_message("<span class='danger'>[user.loc]</b> emits a loud thump and rattles a bit.</span>")
-		playsound(user.loc, 'sound/effects/bang.ogg', 50, 1)
+	if(istype(usr.loc,/obj/))
+		var/obj/container = usr.loc
+		to_chat(usr, "<span class='warning'>You leap and slam your head against the inside of [container]! Ouch!</span>")
+		usr.AdjustParalysis(3)
+		usr.AdjustWeakened(5)
+		container.visible_message("<span class='danger'>[usr.loc]</b> emits a loud thump and rattles a bit.</span>")
+		playsound(usr.loc, 'sound/effects/bang.ogg', 50, 1)
 		var/wiggle = 6
 		while(wiggle > 0)
 			wiggle--
@@ -483,21 +488,21 @@
 
 	action_icon_state = "genetic_poly"
 
-/obj/effect/proc_holder/spell/targeted/polymorph/cast(list/targets, mob/user = usr)
+/obj/effect/proc_holder/spell/targeted/polymorph/cast(list/targets)
 	var/mob/living/M=targets[1]
 	if(!ishuman(M))
-		to_chat(user, "<span class='warning'>You can only change your appearance to that of another human.</span>")
+		to_chat(usr, "<span class='warning'>You can only change your appearance to that of another human.</span>")
 		return
 
-	if(!ishuman(user))
+	if(!ishuman(usr))
 		return
 
-	user.visible_message("<span class='warning'>[user]'s body shifts and contorts.</span>")
+	usr.visible_message("<span class='warning'>[usr]'s body shifts and contorts.</span>")
 
 	spawn(10)
-		if(M && user)
-			playsound(user.loc, 'sound/goonstation/effects/gib.ogg', 50, 1)
-			var/mob/living/carbon/human/H = user
+		if(M && usr)
+			playsound(usr.loc, 'sound/goonstation/effects/gib.ogg', 50, 1)
+			var/mob/living/carbon/human/H = usr
 			var/mob/living/carbon/human/target = M
 			H.UpdateAppearance(target.dna.UI)
 			H.real_name = target.real_name
@@ -540,29 +545,29 @@
 		revert_cast(user)
 		return
 
-	perform(targets, user = user)
+	perform(targets)
 
-/obj/effect/proc_holder/spell/targeted/empath/cast(list/targets, mob/user = usr)
-	if(!ishuman(user))	return
+/obj/effect/proc_holder/spell/targeted/empath/cast(list/targets)
+	if(!ishuman(usr))	return
 
 
 	for(var/mob/living/carbon/M in targets)
 		if(!iscarbon(M))
-			to_chat(user, "<span class='warning'>You may only use this on other organic beings.</span>")
+			to_chat(usr, "<span class='warning'>You may only use this on other organic beings.</span>")
 			return
 
 		if(PSY_RESIST in M.mutations)
-			to_chat(user, "<span class='warning'>You can't see into [M.name]'s mind at all!</span>")
+			to_chat(usr, "<span class='warning'>You can't see into [M.name]'s mind at all!</span>")
 			return
 
 		if(M.stat == 2)
-			to_chat(user, "<span class='warning'>[M.name] is dead and cannot have their mind read.</span>")
+			to_chat(usr, "<span class='warning'>[M.name] is dead and cannot have their mind read.</span>")
 			return
 		if(M.health < 0)
-			to_chat(user, "<span class='warning'>[M.name] is dying, and their thoughts are too scrambled to read.</span>")
+			to_chat(usr, "<span class='warning'>[M.name] is dying, and their thoughts are too scrambled to read.</span>")
 			return
 
-		to_chat(user, "<span class='notice'>Mind Reading of <b>[M.name]:</b></span>")
+		to_chat(usr, "<span class='notice'>Mind Reading of <b>[M.name]:</b></span>")
 		var/pain_condition = M.health
 		// lower health means more pain
 		var/list/randomthoughts = list("what to have for lunch","the future","the past","money",
@@ -579,33 +584,33 @@
 
 		switch(pain_condition)
 			if(81 to INFINITY)
-				to_chat(user, "<span class='notice'><b>Condition</b>: [M.name] feels good.</span>")
+				to_chat(usr, "<span class='notice'><b>Condition</b>: [M.name] feels good.</span>")
 			if(61 to 80)
-				to_chat(user, "<span class='notice'><b>Condition</b>: [M.name] is suffering mild pain.</span>")
+				to_chat(usr, "<span class='notice'><b>Condition</b>: [M.name] is suffering mild pain.</span>")
 			if(41 to 60)
-				to_chat(user, "<span class='notice'><b>Condition</b>: [M.name] is suffering significant pain.</span>")
+				to_chat(usr, "<span class='notice'><b>Condition</b>: [M.name] is suffering significant pain.</span>")
 			if(21 to 40)
-				to_chat(user, "<span class='notice'><b>Condition</b>: [M.name] is suffering severe pain.</span>")
+				to_chat(usr, "<span class='notice'><b>Condition</b>: [M.name] is suffering severe pain.</span>")
 			else
-				to_chat(user, "<span class='notice'><b>Condition</b>: [M.name] is suffering excruciating pain.</span>")
+				to_chat(usr, "<span class='notice'><b>Condition</b>: [M.name] is suffering excruciating pain.</span>")
 				thoughts = "haunted by their own mortality"
 
 		switch(M.a_intent)
 			if(I_HELP)
-				to_chat(user, "<span class='notice'><b>Mood</b>: You sense benevolent thoughts from [M.name].</span>")
+				to_chat(usr, "<span class='notice'><b>Mood</b>: You sense benevolent thoughts from [M.name].</span>")
 			if(I_DISARM)
-				to_chat(user, "<span class='notice'><b>Mood</b>: You sense cautious thoughts from [M.name].</span>")
+				to_chat(usr, "<span class='notice'><b>Mood</b>: You sense cautious thoughts from [M.name].</span>")
 			if(I_GRAB)
-				to_chat(user, "<span class='notice'><b>Mood</b>: You sense hostile thoughts from [M.name].</span>")
+				to_chat(usr, "<span class='notice'><b>Mood</b>: You sense hostile thoughts from [M.name].</span>")
 			if(I_HARM)
-				to_chat(user, "<span class='notice'><b>Mood</b>: You sense cruel thoughts from [M.name].</span>")
+				to_chat(usr, "<span class='notice'><b>Mood</b>: You sense cruel thoughts from [M.name].</span>")
 				for(var/mob/living/L in view(7,M))
 					if(L == M)
 						continue
 					thoughts = "thinking about punching [L.name]"
 					break
 			else
-				to_chat(user, "<span class='notice'><b>Mood</b>: You sense strange thoughts from [M.name].</span>")
+				to_chat(usr, "<span class='notice'><b>Mood</b>: You sense strange thoughts from [M.name].</span>")
 
 		if(istype(M,/mob/living/carbon/human))
 			var/numbers[0]
@@ -614,11 +619,11 @@
 				numbers += H.mind.initial_account.account_number
 				numbers += H.mind.initial_account.remote_access_pin
 			if(numbers.len>0)
-				to_chat(user, "<span class='notice'>b>Numbers</b>: You sense the number[numbers.len>1?"s":""] [english_list(numbers)] [numbers.len>1?"are":"is"] important to [M.name].</span>")
-		to_chat(user, "<span class='notice'><b>Thoughts</b>: [M.name] is currently [thoughts].</span>")
+				to_chat(usr, "<span class='notice'><b>Numbers</b>: You sense the number[numbers.len>1?"s":""] [english_list(numbers)] [numbers.len>1?"are":"is"] important to [M.name].</span>")
+		to_chat(usr, "<span class='notice'><b>Thoughts</b>: [M.name] is currently [thoughts].</span>")
 
 		if(EMPATH in M.mutations)
-			to_chat(M, "<span class='warning'>You sense [user.name] reading your mind.</span>")
+			to_chat(M, "<span class='warning'>You sense [usr.name] reading your mind.</span>")
 		else if(prob(5) || M.mind.assigned_role=="Chaplain")
 			to_chat(M, "<span class='warning'>You sense someone intruding upon your thoughts...</span>")
 		return
@@ -655,16 +660,16 @@
 	invocation_emote_self = invocation
 	..(user)
 
-/obj/effect/proc_holder/spell/aoe_turf/superfart/cast(list/targets, mob/user = usr)
-	var/UT = get_turf(user)
+/obj/effect/proc_holder/spell/aoe_turf/superfart/cast(list/targets)
+	var/UT = get_turf(usr)
 
-	if(do_after(user, 30, target = user))
+	if(do_after(usr, 30, target = usr))
 		playsound(UT, 'sound/goonstation/effects/superfart.ogg', 50, 0)
-		user.visible_message("<span class='warning'><b>[user]</b> unleashes a [pick("tremendous","gigantic","colossal")] fart!</span>", "<span class='warning'>You hear a [pick("tremendous","gigantic","colossal")] fart.</span>")
+		usr.visible_message("<span class='warning'><b>[usr]</b> unleashes a [pick("tremendous","gigantic","colossal")] fart!</span>", "<span class='warning'>You hear a [pick("tremendous","gigantic","colossal")] fart.</span>")
 		for(var/T in targets)
 			for(var/mob/living/M in T)
 				shake_camera(M, 10, 5)
-				if(M == user)
+				if(M == usr)
 					continue
 				to_chat(M, "<span class='warning'>You are sent flying!</span>")
 				M.Weaken(5)
@@ -672,4 +677,4 @@
 				step_away(M, UT, 15)
 				step_away(M, UT, 15)
 	else
-		to_chat(user, "<span class='warning'>You were interrupted and couldn't fart! Rude!</span>")
+		to_chat(usr, "<span class='warning'>You were interrupted and couldn't fart! Rude!</span>")

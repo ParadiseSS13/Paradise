@@ -15,9 +15,7 @@
 
 //This is fine right now, if we're adding organ specific damage this needs to be updated
 /mob/living/carbon/alien/larva/New()
-	var/datum/reagents/R = new/datum/reagents(100)
-	reagents = R
-	R.my_atom = src
+	create_reagents(100)
 	if(name == "alien larva")
 		name = "alien larva ([rand(1, 1000)])"
 	real_name = name
@@ -88,13 +86,15 @@
 
 			f_loss += 60
 
-			adjustEarDamage(30,120)
+			AdjustEarDamage(30)
+			AdjustEarDeaf(120)
 
 		if(3.0)
 			b_loss += 30
 			if(prob(50))
 				Paralyse(1)
-			adjustEarDamage(15,60)
+			AdjustEarDamage(15)
+			AdjustEarDeaf(60)
 
 	adjustBruteLoss(b_loss)
 	adjustFireLoss(f_loss)

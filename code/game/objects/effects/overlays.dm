@@ -191,3 +191,17 @@
 
 /obj/effect/overlay/temp/dir_setting/bloodsplatter/xenosplatter
 	splatter_type = "xsplatter"
+
+/obj/effect/overlay/wall_rot
+	name = "Wallrot"
+	desc = "Ick..."
+	icon = 'icons/effects/wallrot.dmi'
+	anchored = 1
+	density = 1
+	layer = 5
+	mouse_opacity = 0
+
+/obj/effect/overlay/wall_rot/New()
+	..()
+	pixel_x += rand(-10, 10)
+	pixel_y += rand(-10, 10)

@@ -189,15 +189,11 @@
 		to_chat(H, "<span class='notice'>You deploy your hardsuit helmet, sealing you off from the world.</span>")
 	H.update_inv_head()
 
-/obj/item/clothing/suit/space/rig/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/item/clothing/suit/space/rig/attackby(obj/item/W, mob/user, params)
 	if(!isliving(user))
 		return
 
-	if(istype(src.loc,/mob/living))
-		to_chat(user, "How do you propose to modify a hardsuit while it is being worn?")
-		return
-
-	if(istype(W,/obj/item/weapon/screwdriver))
+	if(istype(W,/obj/item/weapon/screwdriver) && can_modify(user))
 		if(!helmet)
 			to_chat(user, "\The [src] does not have a helmet installed.")
 		else
@@ -213,7 +209,7 @@
 			boots = null
 		return
 
-	else if(istype(W,/obj/item/clothing/head/helmet/space))
+	else if(istype(W,/obj/item/clothing/head/helmet/space) && can_modify(user))
 		if(!attached_helmet)
 			to_chat(user, "\The [src] does not have a helmet mount.")
 			return
@@ -226,7 +222,7 @@
 			src.helmet = W
 		return
 
-	else if(istype(W,/obj/item/clothing/shoes/magboots))
+	else if(istype(W,/obj/item/clothing/shoes/magboots) && can_modify(user))
 		if(!attached_boots)
 			to_chat(user, "\The [src] does not have boot mounts.")
 			return
@@ -242,6 +238,13 @@
 		return ..()
 
 	..()
+	
+/obj/item/clothing/suit/space/rig/proc/can_modify(mob/living/user)
+	if(isliving(loc))
+		to_chat(user, "<span class='info'>You can not modify the hardsuit while it is being worn.</span>")
+		return 0
+		
+	return 1
 
 //Engineering rig
 /obj/item/clothing/head/helmet/space/rig/engineering

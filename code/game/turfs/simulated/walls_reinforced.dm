@@ -29,8 +29,8 @@
 			if( WT.remove_fuel(0,user) )
 				to_chat(user, "<span class='notice'>You burn away the fungi with \the [WT].</span>")
 				playsound(src, 'sound/items/Welder.ogg', 10, 1)
-				for(var/obj/effect/E in src) if(E.name == "Wallrot")
-					qdel(E)
+				for(var/obj/effect/overlay/wall_rot/WR in src)
+					qdel(WR)
 				rotting = 0
 				return
 		else if(!is_sharp(W) && W.force >= 10 || W.force >= 20)

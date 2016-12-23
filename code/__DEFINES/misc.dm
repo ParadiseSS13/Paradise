@@ -283,12 +283,19 @@
 #define SOUND_MINIMUM_PRESSURE 10
 #define FALLOFF_SOUNDS 0.5
 
-
 // Bluespace shelter deploy checks
 #define SHELTER_DEPLOY_ALLOWED "allowed"
 #define SHELTER_DEPLOY_BAD_TURFS "bad turfs"
 #define SHELTER_DEPLOY_BAD_AREA "bad area"
 #define SHELTER_DEPLOY_ANCHORED_OBJECTS "anchored objects"
+
+// Client donator levels
+#define DONATOR_LEVEL_NONE 0
+#define DONATOR_LEVEL_ONE 1
+#define DONATOR_LEVEL_TWO 2
+
+// The cooldown on OOC messages such as OOC, LOOC, praying and adminhelps
+#define OOC_COOLDOWN 5
 
 // Medal names
 #define BOSS_KILL_MEDAL "Killer"

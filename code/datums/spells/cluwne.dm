@@ -16,7 +16,7 @@
 	adjustBrainLoss(80)
 	nutrition = 9000
 	overeatduration = 9000
-	confused = 30
+	Confused(30)
 	if(mind)
 		mind.assigned_role = "Cluwne"
 
@@ -44,8 +44,8 @@
 	adjustBrainLoss(-120)
 	nutrition = NUTRITION_LEVEL_STARVING
 	overeatduration = 0
-	confused = 0
-	jitteriness = 0
+	SetConfused(0)
+	SetJitter(0)
 	if(mind)
 		mind.assigned_role = "Lawyer"
 

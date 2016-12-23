@@ -1,4 +1,4 @@
- ////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
 /// (Mixing)Glass.
 ////////////////////////////////////////////////////////////////////////////////
 /obj/item/weapon/reagent_containers/glass
@@ -331,7 +331,7 @@
 	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
 	slot_flags = SLOT_HEAD
 	flags = OPENCONTAINER
-	
+
 /obj/item/weapon/reagent_containers/glass/bucket/equipped(mob/user, slot)
     ..()
     if(slot == slot_head && reagents.total_volume)

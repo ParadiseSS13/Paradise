@@ -1,8 +1,5 @@
 //This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:32
 
-#define TINT_IMPAIR 2			//Threshold of tint level to apply weld mask overlay
-#define TINT_BLIND 3			//Threshold of tint level to obscure vision fully
-
 /mob/living/carbon/human
 
 	var/pressure_alert = 0
@@ -12,11 +9,9 @@
 	var/exposedtimenow = 0
 	var/firstexposed = 0
 	var/heartbeat = 0
-	var/tinttotal = 0				// Total level of visually impairing items
 
 /mob/living/carbon/human/Life()
 	fire_alert = 0 //Reset this here, because both breathe() and handle_environment() have a chance to set it.
-	tinttotal = tintcheck() //here as both hud updates and status updates call it
 	life_tick++
 
 	in_stasis = 0
@@ -86,8 +81,8 @@
 
 	// If we have the gene for being crazy, have random events.
 	if(dna.GetSEState(HALLUCINATIONBLOCK))
-		if(prob(1) && hallucination < 1)
-			hallucination += 20
+		if(prob(1))
+			Hallucinate(20)
 
 	if(disabilities & COUGHING)
 		if((prob(5) && paralysis <= 1))
@@ -111,9 +106,9 @@
 	if(disabilities & NERVOUS)
 		speech_problem_flag = 1
 		if(prob(10))
-			stuttering = max(10, stuttering)
+			Stuttering(10)
 
-	if(getBrainLoss() >= 60 && stat != 2)
+	if(getBrainLoss() >= 60 && stat != DEAD)
 		speech_problem_flag = 1
 		if(prob(3))
 			var/list/s1 = list("IM A PONY NEEEEEEIIIIIIIIIGH",
@@ -152,8 +147,8 @@
 
 	if(getBrainLoss() >= 100 && stat != 2) //you lapse into a coma and die without immediate aid; RIP. -Fox
 		Weaken(20)
-		losebreath += 10
-		silent += 2
+		AdjustLoseBreath(10)
+		AdjustSilence(2)
 
 	if(getBrainLoss() >= 120 && stat != 2) //they died from stupidity--literally. -Fox
 		visible_message("<span class='alert'><B>[src]</B> goes limp, their facial expression utterly blank.</span>")
@@ -281,10 +276,10 @@
 	var/datum/gas_mixture/breath
 
 	if(health <= config.health_threshold_crit)
-		losebreath++
+		AdjustLoseBreath(1)
 
 	if(losebreath > 0)
-		losebreath--
+		AdjustLoseBreath(-1)
 		if(prob(10))
 			spawn emote("gasp")
 		if(istype(loc, /obj/))
@@ -696,20 +691,20 @@
 				overeatduration -= 2
 
 	if(drowsyness)
-		drowsyness--
-		eye_blurry = max(2, eye_blurry)
+		AdjustDrowsy(-1)
+		EyeBlurry(2)
 		if(prob(5))
-			sleeping += 1
+			AdjustSleeping(1)
 			Paralyse(5)
 
-	confused = max(0, confused - 1)
+	AdjustConfused(-1)
 	// decrement dizziness counter, clamped to 0
 	if(resting)
-		dizziness = max(0, dizziness - 15)
-		jitteriness = max(0, jitteriness - 15)
+		AdjustDizzy(-15)
+		AdjustJitter(-15)
 	else
-		dizziness = max(0, dizziness - 3)
-		jitteriness = max(0, jitteriness - 3)
+		AdjustDizzy(-3)
+		AdjustJitter(-3)
 
 	if(species && species.flags & NO_INTORGANS) return
 
@@ -744,8 +739,7 @@
 				alcohol_strength *= 5
 
 		if(alcohol_strength >= slur_start) //slurring
-			if(!slurring) slurring = 1
-			slurring = drunk
+			Slur(drunk)
 		if(alcohol_strength >= brawl_start) //the drunken martial art
 			if(!istype(martial_art, /datum/martial_art/drunk_brawling))
 				var/datum/martial_art/drunk_brawling/F = new
@@ -754,18 +748,17 @@
 			if(istype(martial_art, /datum/martial_art/drunk_brawling))
 				martial_art.remove(src)
 		if(alcohol_strength >= confused_start && prob(33)) //confused walking
-			if(!confused) confused = 1
-			confused = max(confused+(3/sober_str),0)
+			if(!confused) Confused(1)
+			AdjustConfused(3/sober_str)
 		if(alcohol_strength >= blur_start) //blurry eyes
-			eye_blurry = max(eye_blurry, 10/sober_str)
-			drowsyness  = max(drowsyness, 0)
+			EyeBlurry(10/sober_str)
 		if(!isSynthetic()) //stuff only for non-synthetics
 			if(alcohol_strength >= vomit_start) //vomiting
 				if(prob(8))
 					fakevomit()
 			if(alcohol_strength >= pass_out)
-				Paralyse(5 / sober_str)
-				drowsyness = max(drowsyness, 30/sober_str)
+				Paralyse(5/sober_str)
+				Drowsy(30/sober_str)
 				if(L)
 					L.take_damage(0.1, 1)
 				adjustToxLoss(0.1)
@@ -789,7 +782,7 @@
 /mob/living/carbon/human/proc/has_booze() //checks if the human has ethanol or its subtypes inside
 	for(var/A in reagents.reagent_list)
 		var/datum/reagent/R = A
-		if(istype(R, /datum/reagent/ethanol))
+		if(istype(R, /datum/reagent/consumable/ethanol))
 			return 1
 	return 0
 
@@ -837,14 +830,14 @@
 			vision = get_int_organ(species.vision_organ)
 
 		if(!species.vision_organ) // Presumably if a species has no vision organs, they see via some other means.
-			eye_blind =  0
+			SetEyeBlind(0)
 			blinded =    0
-			eye_blurry = 0
+			SetEyeBlurry(0)
 
 		else if(!vision || vision.is_broken())   // Vision organs cut out or broken? Permablind.
-			eye_blind =  1
+			EyeBlind(2)
 			blinded =    1
-			eye_blurry = 1
+			EyeBlurry(2)
 
 		else
 			//blindness
@@ -852,34 +845,34 @@
 				blinded =    1
 
 			else if(eye_blind)		       // Blindness, heals slowly over time
-				eye_blind =  max(eye_blind-1,0)
+				AdjustEyeBlind(-1)
 				blinded =    1
 
 			else if(istype(glasses, /obj/item/clothing/glasses/sunglasses/blindfold))	//resting your eyes with a blindfold heals blurry eyes faster
-				eye_blurry = max(eye_blurry-3, 0)
+				AdjustEyeBlurry(-3)
 				blinded =    1
 
 			//blurry sight
 			if(vision.is_bruised())   // Vision organs impaired? Permablurry.
-				eye_blurry = 1
+				EyeBlurry(2)
 
 			if(eye_blurry)	           // Blurry eyes heal slowly
-				eye_blurry = max(eye_blurry-1, 0)
+				AdjustEyeBlurry(-1)
 
 
 		//Ears
 		if(disabilities & DEAF)	//disabled-deaf, doesn't get better on its own
-			setEarDamage(-1, max(ear_deaf, 1))
+			EarDeaf(1)
 
 		else if(ear_deaf)			//deafness, heals slowly over time
-			adjustEarDamage(0,-1)
+			AdjustEarDeaf(-1)
 
 		else if(istype(l_ear, /obj/item/clothing/ears/earmuffs) || istype(r_ear, /obj/item/clothing/ears/earmuffs))	//resting your ears with earmuffs heals ear damage faster
-			adjustEarDamage(-0.15,0)
-			setEarDamage(-1, max(ear_deaf, 1))
+			AdjustEarDamage(-0.15)
+			EarDeaf(1)
 
 		else if(ear_damage < 25)	//ear damage heals slowly under this threshold. otherwise you'll need earmuffs
-			adjustEarDamage(-0.05,0)
+			AdjustEarDamage(-0.05)
 
 		if(flying)
 			animate(src, pixel_y = pixel_y + 5 , time = 10, loop = 1, easing = SINE_EASING)
@@ -896,12 +889,12 @@
 
 	else //dead
 		blinded = 1
-		silent = 0
+		SetSilence(0)
 
 
 /mob/living/carbon/human/handle_vision()
 	if(machine)
-		if(!machine.check_eye(src))		reset_view(null)
+		if(!machine.check_eye(src))		reset_perspective(null)
 	else
 		var/isRemoteObserve = 0
 		if((REMOTE_VIEW in mutations) && remoteview_target)
@@ -926,7 +919,7 @@
 
 		if(!isRemoteObserve && client && !client.adminobs)
 			remoteview_target = null
-			reset_view(null)
+			reset_perspective(null)
 
 	species.handle_vision(src)
 
@@ -995,8 +988,8 @@
 
 	if(shock_stage >= 30)
 		if(shock_stage == 30) custom_emote(1,"is having trouble keeping their eyes open.")
-		eye_blurry = max(2, eye_blurry)
-		stuttering = max(stuttering, 5)
+		EyeBlurry(2)
+		Stuttering(5)
 
 	if(shock_stage == 40)
 		to_chat(src, "<font color='red'><b>"+pick("The pain is excrutiating!", "Please, just end the pain!", "Your whole body is going numb!"))
@@ -1183,8 +1176,7 @@
 	if(!heart_attack)
 		return
 	else
-		if(losebreath < 3)
-			losebreath += 2
+		AdjustLoseBreath(2, bound_lower = 0, bound_upper = 3)
 		adjustOxyLoss(5)
 		adjustBruteLoss(1)
 

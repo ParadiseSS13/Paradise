@@ -49,10 +49,10 @@
 	var/datum/gas_mixture/breath
 
 	if(health <= config.health_threshold_crit)
-		losebreath++
+		AdjustLoseBreath(1)
 
 	if(losebreath > 0)
-		losebreath--
+		AdjustLoseBreath(-1)
 		if(prob(10))
 			spawn emote("gasp")
 		if(istype(loc, /obj/))
@@ -165,7 +165,7 @@
 			if(SA_partialpressure > SA_para_min)
 				Paralyse(3)
 				if(SA_partialpressure > SA_sleep_min)
-					sleeping = max(sleeping+2, 10)
+					AdjustSleeping(2, bound_lower = 0, bound_upper = 10)
 			else if(SA_partialpressure > 0.01)
 				if(prob(20))
 					spawn(0) emote(pick("giggle","laugh"))
@@ -319,30 +319,27 @@
 						C.pixel_x -= pixel_x_diff
 						C.pixel_y -= pixel_y_diff
 			src = oldsrc
-		dizziness = max(dizziness - restingpwr, 0)
+		AdjustDizzy(-restingpwr)
 
 	if(drowsyness)
-		drowsyness = max(drowsyness - restingpwr, 0)
-		eye_blurry = max(2, eye_blurry)
+		AdjustDrowsy(-restingpwr)
+		EyeBlurry(2)
 		if(prob(5))
-			sleeping += 1
+			AdjustSleeping(1)
 			Paralyse(5)
 
 	if(confused)
-		confused = max(0, confused - 1)
+		AdjustConfused(-1)
 
 	//Jitteryness
 	if(jitteriness)
 		do_jitter_animation(jitteriness)
-		jitteriness = max(jitteriness - restingpwr, 0)
+		AdjustJitter(-restingpwr)
 
 	if(hallucination)
 		spawn handle_hallucinations()
 
-		if(hallucination<=2)
-			hallucination = 0
-		else
-			hallucination -= 2
+		AdjustHallucinate(-2)
 
 /mob/living/carbon/handle_sleeping()
 	if(..())
@@ -352,8 +349,8 @@
 			spawn(0)
 				emote("snore")
 	// Keep SSD people asleep
-	if(player_logged && sleeping < 2)
-		sleeping = 2
+	if(player_logged)
+		Sleeping(2)
 	return sleeping
 
 
@@ -412,27 +409,33 @@
 	return 1
 
 /mob/living/carbon/update_sight()
+	if(!client)
+		return
 	if(stat == DEAD)
-		sight |= SEE_TURFS
-		sight |= SEE_MOBS
-		sight |= SEE_OBJS
-		see_in_dark = 8
-		see_invisible = SEE_INVISIBLE_LEVEL_TWO
-	else
-		sight &= ~(SEE_TURFS|SEE_MOBS|SEE_OBJS)
-		if(XRAY in mutations)
-			sight |= SEE_TURFS
-			sight |= SEE_MOBS
-			sight |= SEE_OBJS
-			see_in_dark = 8
-			see_invisible = SEE_INVISIBLE_LEVEL_TWO
+		grant_death_vision()
+		return
 
-		else
-			see_in_dark = 2
-			see_invisible = SEE_INVISIBLE_LIVING
+	see_invisible = initial(see_invisible)
+	see_in_dark = initial(see_in_dark)
+	sight = initial(sight)
 
-		if(see_override)
-			see_invisible = see_override
+	if(XRAY in mutations)
+		grant_xray_vision()
+
+	if(client.eye != src)
+		var/atom/A = client.eye
+		if(A.update_remote_sight(src)) //returns 1 if we override all other sight updates.
+			return
+
+	for(var/obj/item/organ/internal/cyberimp/eyes/E in internal_organs)
+		sight |= E.vision_flags
+		if(E.dark_view)
+			see_in_dark = max(see_in_dark,E.dark_view)
+		if(E.see_invisible)
+			see_invisible = min(see_invisible, E.see_invisible)
+
+	if(see_override)
+		see_invisible = see_override
 
 
 /mob/living/carbon/handle_hud_icons()

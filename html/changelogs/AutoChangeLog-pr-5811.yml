@@ -1,7 +1,0 @@
-author: KasparoVy
-delete-after: True
-changes: 
-  - bugfix: "Fixes a bug where changing your alt head required two icon updates to show."
-  - bugfix: "Fixes a bug where you couldn't choose head marking styles that would ordinarily be available regardless of your alt head."
-  - bugfix: "Fixes a bug where Tajara couldn't choose undergarments."
-  - bugfix: "Resolves an issue with the Vulpkanin Jagged hairstyle missing a pixel."

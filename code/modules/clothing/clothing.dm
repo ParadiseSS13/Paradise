@@ -151,6 +151,8 @@
 	var/emagged = 0
 	var/vision_flags = 0
 	var/darkness_view = 0//Base human is 2
+	var/invis_override = 0
+	var/invis_view = SEE_INVISIBLE_LIVING
 	var/invisa_view = 0
 	var/color_view = null//overrides client.color while worn
 	strip_delay = 20			//	   but seperated to allow items to protect but not impair vision, like space helmets
@@ -343,6 +345,7 @@ BLIND     // can't see anything
 				src.loc = user
 				user.wear_mask = null
 				user.put_in_hands(src)
+	H.wear_mask_update(src, toggle_off = mask_adjusted)
 	usr.update_inv_wear_mask()
 	usr.update_inv_head()
 	for(var/X in actions)
@@ -707,4 +710,3 @@ BLIND     // can't see anything
 		for(var/obj/item/clothing/accessory/A in accessories)
 			A.emp_act(severity)
 	..()
-
