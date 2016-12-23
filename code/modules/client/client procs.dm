@@ -481,6 +481,8 @@
 // Returns true if a randomizer is being used
 /client/proc/check_randomizer(topic)
 	. = FALSE
+	if(connection != "seeker")					//Invalid connection type.
+		return null
 	topic = params2list(topic)
 	if(!config.check_randomizer)
 		return
