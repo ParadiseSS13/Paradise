@@ -96,12 +96,9 @@
 		user.visible_message("[user] climbs on the operating table.","You climb on the operating table.")
 	else
 		visible_message("<span class='alert'>[C] has been laid on the operating table by [user].</span>")
-	if(C.client)
-		C.client.perspective = EYE_PERSPECTIVE
-		C.client.eye = src
 	C.resting = 1
 	C.update_canmove()
-	C.loc = src.loc
+	C.forceMove(loc)
 	if(user.pulling == C)
 		user.stop_pulling()
 	for(var/obj/O in src)

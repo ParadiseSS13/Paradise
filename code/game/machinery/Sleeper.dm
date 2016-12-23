@@ -344,9 +344,6 @@
 				return
 			if(!G || !G:affecting) return
 			var/mob/M = G:affecting
-			if(M.client)
-				M.client.perspective = EYE_PERSPECTIVE
-				M.client.eye = src
 			M.forceMove(src)
 			src.occupant = M
 			src.icon_state = "[base_icon]"
@@ -421,9 +418,6 @@
 		toggle_filter()
 	if(!occupant)
 		return
-	if(occupant.client)
-		occupant.client.eye = occupant.client.mob
-		occupant.client.perspective = MOB_PERSPECTIVE
 	occupant.forceMove(loc)
 	occupant = null
 	icon_state = "[base_icon]-open"
@@ -522,10 +516,6 @@
 			to_chat(user, "<span class='boldnotice'>>The sleeper is already occupied!</span>")
 			return
 		if(!L) return
-
-		if(L.client)
-			L.client.perspective = EYE_PERSPECTIVE
-			L.client.eye = src
 		L.forceMove(src)
 		src.occupant = L
 		src.icon_state = "[base_icon]"
@@ -563,8 +553,6 @@
 			to_chat(usr, "<span class='boldnotice'>The sleeper is already occupied!</span>")
 			return
 		usr.stop_pulling()
-		usr.client.perspective = EYE_PERSPECTIVE
-		usr.client.eye = src
 		usr.forceMove(src)
 		src.occupant = usr
 		src.icon_state = "[base_icon]"

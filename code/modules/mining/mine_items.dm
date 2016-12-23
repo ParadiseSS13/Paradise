@@ -251,9 +251,6 @@
 /obj/item/device/mobcapsule/proc/dump_contents(mob/user)
 	if(captured)
 		captured.forceMove(get_turf(src))
-		if(captured.client)
-			captured.client.eye = captured.client.mob
-			captured.client.perspective = MOB_PERSPECTIVE
 		captured = null
 
 /obj/item/device/mobcapsule/attack_self(mob/user)
