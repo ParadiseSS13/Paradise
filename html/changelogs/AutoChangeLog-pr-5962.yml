@@ -1,6 +1,0 @@
-author: "KasparoVy"
-delete-after: True
-changes: 
-  - bugfix: "Characters will now be correctly assigned their species' genetic quirks at spawn."
-  - bugfix: "Cloning will now correctly assign a characters species' genetic quirks."
-  - bugfix: "Changing a character's species (via C.M.A. or whatever might call the set_species proc) will now correctly assign their species' genetic quirks."
