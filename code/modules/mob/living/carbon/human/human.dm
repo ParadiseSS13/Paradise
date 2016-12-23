@@ -49,9 +49,6 @@
 		dna.real_name = real_name
 		sync_organ_dna(1)
 
-	if(species)
-		species.handle_dna(src)
-
 	UpdateAppearance()
 
 /mob/living/carbon/human/OpenCraftingMenu()
@@ -1594,6 +1591,7 @@
 		dna.real_name = real_name
 
 	species.handle_post_spawn(src)
+	species.handle_dna(src) //Give them whatever special dna business they got.
 
 	spawn(0)
 		overlays.Cut()
