@@ -1,0 +1,6 @@
+author: "Fox McCloud"
+delete-after: True
+changes: 
+  - bugfix: "Fixes X-Ray not doing anything"
+  - bugfix: "Fixes nightvision not granting what its name implies"
+  - bugfix: "Fixes species/human darksight doing absolutely nothing"
