@@ -35,6 +35,13 @@
 	return 0
 
 /obj/machinery/computer/robotics/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "robot_control.tmpl", "Robotic Control Console", 400, 500)
+		ui.open()
+		ui.set_auto_update(1)
+
+/obj/machinery/computer/robotics/ui_data(mob/user, datum/topic_state/state = default_state)
 	var/data[0]
 	var/list/robots = get_cyborgs(user)
 	if(robots.len)
@@ -43,14 +50,7 @@
 	// Also applies for cyborgs. Hides the manual self-destruct button.
 	data["is_ai"] = issilicon(user)
 	data["allowed"] = is_authenticated(user)
-
-
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if(!ui)
-		ui = new(user, src, ui_key, "robot_control.tmpl", "Robotic Control Console", 400, 500)
-		ui.set_initial_data(data)
-		ui.open()
-		ui.set_auto_update(1)
+	return data
 
 /obj/machinery/computer/robotics/Topic(href, href_list)
 	if(..())

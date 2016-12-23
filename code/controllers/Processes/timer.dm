@@ -6,7 +6,7 @@ var/global/datum/controller/process/timer/timer_master
 
 /datum/controller/process/timer/setup()
 	name = "timer"
-	schedule_interval = 5 //every 0.5 seconds
+	schedule_interval = 1 //every 0.1 seconds--2 server ticks
 	timer_master = src
 	log_startup_progress("Timer process starting up.")
 
@@ -30,7 +30,10 @@ var/global/datum/controller/process/timer/timer_master
 /datum/controller/process/timer/proc/runevent(datum/timedevent/event)
 	set waitfor = 0
 	if(event.thingToCall)
-		call(event.thingToCall, event.procToCall)(arglist(event.argList))
+		if(event.thingToCall == GLOBAL_PROC && istext(event.procToCall))
+			call("/proc/[event.procToCall]")(arglist(event.argList))
+		else
+			call(event.thingToCall, event.procToCall)(arglist(event.argList))
 
 /datum/timedevent
 	var/thingToCall
@@ -42,8 +45,7 @@ var/global/datum/controller/process/timer/timer_master
 	var/static/nextid = 1
 
 /datum/timedevent/New()
-	id = nextid
-	nextid++
+	id = nextid++
 
 /datum/timedevent/Destroy()
 	timer_master.processing_timers -= src
@@ -53,7 +55,7 @@ var/global/datum/controller/process/timer/timer_master
 /proc/addtimer(thingToCall, procToCall, wait, unique = FALSE, ...)
 	if(!timer_master) //can't run timers before the mc has been created
 		return
-	if(!thingToCall || !procToCall || wait <= 0)
+	if(!thingToCall || !procToCall)
 		return
 	if(timer_master.disabled)
 		timer_master.disabled = 0
@@ -71,11 +73,17 @@ var/global/datum/controller/process/timer/timer_master
 
 	// Check for dupes if unique = 1.
 	if(unique)
-		if(event.hash in timer_master.hashes)
-			return
+		var/datum/timedevent/hash_event = timer_master.hashes[event.hash]
+		if(hash_event)
+			return hash_event.id
+	timer_master.hashes[event.hash] = event
+	if(wait <= 0)
+		timer_master.runevent(event)
+		timer_master.hashes -= event.hash
+		return
 	// If we are unique (or we're not checking that), add the timer and return the id.
 	timer_master.processing_timers += event
-	timer_master.hashes += event.hash
+
 	return event.id
 
 /proc/deltimer(id)

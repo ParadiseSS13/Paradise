@@ -31,9 +31,7 @@
 		if(mind)
 			mind.name = real_name
 
-	var/datum/reagents/R = new/datum/reagents(330)
-	reagents = R
-	R.my_atom = src
+	create_reagents(330)
 
 	prev_gender = gender // Debug for plural genders
 	make_blood()
@@ -50,9 +48,6 @@
 		dna.ready_dna(src)
 		dna.real_name = real_name
 		sync_organ_dna(1)
-
-	if(species)
-		species.handle_dna(src)
 
 	UpdateAppearance()
 
@@ -716,15 +711,26 @@
 	var/obj/item/device/pda/pda = wear_id
 	if(istype(pda) && pda.id)
 		id = pda.id
-		
+
 	if(check_hands)
 		if(istype(get_active_hand(), /obj/item/weapon/card/id))
 			id = get_active_hand()
 		else if(istype(get_inactive_hand(), /obj/item/weapon/card/id))
-			id = get_inactive_hand()					
+			id = get_inactive_hand()
 
 	if(istype(id))
 		return id
+
+
+
+/mob/living/carbon/human/update_sight()
+	if(!client)
+		return
+	if(stat == DEAD)
+		grant_death_vision()
+		return
+
+	species.update_sight(src)
 
 //Removed the horrible safety parameter. It was only being used by ninja code anyways.
 //Now checks siemens_coefficient of the affected area by default
@@ -1596,6 +1602,7 @@
 		dna.real_name = real_name
 
 	species.handle_post_spawn(src)
+	species.handle_dna(src) //Give them whatever special dna business they got.
 
 	spawn(0)
 		overlays.Cut()
@@ -1994,7 +2001,7 @@
 		if(istype(pda))
 			var/obj/item/weapon/card/id/id = pda.id
 			if(istype(id) && id.is_untrackable())
-				return 0		
+				return 0
 	if(istype(head, /obj/item/clothing/head))
 		var/obj/item/clothing/head/hat = head
 		if(hat.blockTracking)

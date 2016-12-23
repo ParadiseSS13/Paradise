@@ -14,6 +14,10 @@
 	var/list/watchers = list() //who's using the console, associated with the camera they're on.
 
 /obj/machinery/computer/security/New() // Lists existing networks and their required access. Format: available_networks[<name>] = list(<access>)
+	generate_network_access()
+	..()
+	
+/obj/machinery/computer/security/proc/generate_network_access()
 	available_networks["SS13"] =              list(access_hos,access_captain)
 	available_networks["Telecomms"] =         list(access_hos,access_captain)
 	available_networks["Research Outpost"] =  list(access_rd,access_hos,access_captain)
@@ -35,8 +39,6 @@
 	available_networks["ERT"] =               list(access_cent_specops_commander,access_cent_commander)
 	available_networks["CentComm"] =          list(access_cent_security,access_cent_commander)
 	available_networks["Thunderdome"] =       list(access_cent_thunder,access_cent_commander)
-
-	..()
 	
 /obj/machinery/computer/security/Destroy()
 	if(watchers.len)
@@ -45,16 +47,17 @@
 	return ..()
 
 /obj/machinery/computer/security/check_eye(mob/user)
-	var/obj/machinery/camera/C = watchers[user]
-	if(!can_access_camera(C, user))
-		user.unset_machine()
-		return
 	if(!(user in watchers))
 		user.unset_machine()
 		return
 	if(!watchers[user])
 		user.unset_machine()
 		return
+	var/obj/machinery/camera/C = watchers[user]
+	if(!can_access_camera(C, user))
+		user.unset_machine()
+		return
+	return 1
 			
 /obj/machinery/computer/security/on_unset_machine(mob/user)
 	watchers.Remove(user)
@@ -85,21 +88,32 @@
 	var/list/access = list()
 	if(ishuman(user))
 		access = user.get_access()
-	else if((isAI(user) || isrobot(user)) && CanUseTopic(user))
+	else if((isAI(user) || isrobot(user)) && CanUseTopic(user, default_state) == STATUS_INTERACTIVE)
 		access = get_all_accesses() // Assume captain level access when AI
 	else if(user.can_admin_interact())
 		access = get_all_accesses()
 	return access
 
 /obj/machinery/computer/security/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "sec_camera.tmpl", "Camera Console", 900, 800)
+
+		// adding a template with the key "mapContent" enables the map ui functionality
+		ui.add_template("mapContent", "sec_camera_map_content.tmpl")
+		// adding a template with the key "mapHeader" replaces the map header content
+		ui.add_template("mapHeader", "sec_camera_map_header.tmpl")
+
+		ui.open()
+		
+/obj/machinery/computer/security/ui_data(mob/user, datum/topic_state/state = default_state)
 	var/data[0]
-	data["current"] = null
 
 	var/list/cameras = list()
 	for(var/obj/machinery/camera/C in cameranet.cameras)
-		if((is_away_level(src.z) || is_away_level(C.z)) && !atoms_share_level(C, src)) //can only recieve away mission cameras on away missions
+		if((is_away_level(z) || is_away_level(C.z)) && !atoms_share_level(C, src)) //can only recieve away mission cameras on away missions
 			continue
-		if(!can_access_camera(C))
+		if(!can_access_camera(C, user))
 			continue
 
 		cameras[++cameras.len] = C.nano_structure()
@@ -114,7 +128,6 @@
 	data["cameras"] = cameras
 	
 	var/list/access = get_user_access(user)
-
 	if(emagged)
 		access = get_all_accesses() // Assume captain level access when emagged
 		data["emagged"] = 1
@@ -133,22 +146,12 @@
 	if(networks_list.len)
 		data["networks"] = networks_list
 
+	data["current"] = null
 	if(watchers[user])
 		var/obj/machinery/camera/watched = watchers[user]
-		data["current"] = watched.nano_structure()
-
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if(!ui)
-		ui = new(user, src, ui_key, "sec_camera.tmpl", "Camera Console", 900, 800)
-
-		// adding a template with the key "mapContent" enables the map ui functionality
-		ui.add_template("mapContent", "sec_camera_map_content.tmpl")
-		// adding a template with the key "mapHeader" replaces the map header content
-		ui.add_template("mapHeader", "sec_camera_map_header.tmpl")
-
-		ui.set_initial_data(data)
-		ui.open()
-		ui.set_auto_update(1)
+		data["current"] = watched.nano_structure() 
+		
+	return data
 
 /obj/machinery/computer/security/Topic(href, href_list)
 	if(..())
@@ -182,7 +185,7 @@
 
 // Check if camera is accessible when jumping
 /obj/machinery/computer/security/proc/can_access_camera(var/obj/machinery/camera/C, var/mob/M)
-	if(!CanUseTopic(M) || M.incapacitated() || !M.can_see())
+	if(CanUseTopic(M, default_state) != STATUS_INTERACTIVE || M.incapacitated() || M.blinded)
 		return 0
 		
 	if(isrobot(M))
@@ -206,16 +209,16 @@
 
 // Switching to cameras
 /obj/machinery/computer/security/proc/switch_to_camera(var/mob/user, var/obj/machinery/camera/C)
-	if(!can_access_camera(C, usr))
-		usr.unset_machine()
+	if(!can_access_camera(C, user))
+		user.unset_machine()
 		return 1
 	
-	if(isAI(usr))
-		var/mob/living/silicon/ai/A = usr
+	if(isAI(user))
+		var/mob/living/silicon/ai/A = user
 		A.eyeobj.setLoc(get_turf(C))
 		A.client.eye = A.eyeobj
 	else
-		usr.reset_perspective(C)
+		user.reset_perspective(C)
 	watchers[user] = C
 	use_power(50)
 
@@ -246,7 +249,7 @@
 		for(var/obj/machinery/camera/camera in get_area(A))
 			if(!camera.can_use())
 				continue
-			if(!can_access_camera(camera))
+			if(!can_access_camera(camera, user))
 				continue
 			var/dist = get_dist(camera,A)
 			if(dist < best_dist)
@@ -256,7 +259,7 @@
 	if(isnull(jump_to))
 		return
 		
-	if(can_access_camera(jump_to))
+	if(can_access_camera(jump_to, user))
 		switch_to_camera(user, jump_to)
 
 // Camera control: mouse.

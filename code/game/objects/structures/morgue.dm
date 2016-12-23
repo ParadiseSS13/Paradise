@@ -12,7 +12,7 @@
 
 /obj/structure/morgue
 	name = "morgue"
-	desc = "Used to keep bodies in untill someone fetches them."
+	desc = "Used to keep bodies in until someone fetches them."
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "morgue1"
 	density = 1
@@ -153,6 +153,10 @@
 	to_chat(CM, "<span class='alert'>You attempt to slide yourself out of \the [src]...</span>")
 	src.attack_hand(CM)
 
+
+/obj/structure/morgue/get_remote_view_fullscreens(mob/user)
+	if(user.stat == DEAD || !(user.sight & (SEEOBJS|SEEMOBS)))
+		user.overlay_fullscreen("remote_view", /obj/screen/fullscreen/impaired, 2)
 
 /*
  * Morgue tray
@@ -392,6 +396,10 @@
 
 	to_chat(CM, "<span class='alert'>You attempt to slide yourself out of \the [src]...</span>")
 	src.attack_hand(CM)
+
+/obj/structure/crematorium/get_remote_view_fullscreens(mob/user)
+	if(user.stat == DEAD || !(user.sight & (SEEOBJS|SEEMOBS)))
+		user.overlay_fullscreen("remote_view", /obj/screen/fullscreen/impaired, 2)
 
 /*
  * Crematorium tray

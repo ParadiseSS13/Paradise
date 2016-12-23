@@ -427,7 +427,7 @@ var/list/ai_verbs_default = list(
 /mob/living/silicon/ai/check_eye(var/mob/user as mob)
 	if(!current)
 		return null
-	user.reset_view(current)
+	user.reset_perspective(current)
 	return 1
 
 /mob/living/silicon/ai/blob_act()
@@ -606,7 +606,7 @@ var/list/ai_verbs_default = list(
 		adjustBruteLoss(damage)
 		updatehealth()
 
-/mob/living/silicon/ai/reset_view(atom/A)
+/mob/living/silicon/ai/reset_perspective(atom/A)
 	if(current)
 		current.set_light(0)
 	if(istype(A,/obj/machinery/camera))
@@ -1164,3 +1164,10 @@ var/list/ai_verbs_default = list(
 	view_core() //A BYOND bug requires you to be viewing your core before your verbs update
 	verbs += /mob/living/silicon/ai/proc/choose_modules
 	malf_picker = new /datum/module_picker
+
+/mob/living/silicon/ai/reset_perspective(atom/A)
+	if(camera_light_on)
+		light_cameras()
+	if(istype(A, /obj/machinery/camera))
+		current = A
+	. = ..()

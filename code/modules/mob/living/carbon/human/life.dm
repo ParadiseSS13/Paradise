@@ -1,8 +1,5 @@
 //This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:32
 
-#define TINT_IMPAIR 2			//Threshold of tint level to apply weld mask overlay
-#define TINT_BLIND 3			//Threshold of tint level to obscure vision fully
-
 /mob/living/carbon/human
 
 	var/pressure_alert = 0
@@ -12,11 +9,9 @@
 	var/exposedtimenow = 0
 	var/firstexposed = 0
 	var/heartbeat = 0
-	var/tinttotal = 0				// Total level of visually impairing items
 
 /mob/living/carbon/human/Life()
 	fire_alert = 0 //Reset this here, because both breathe() and handle_environment() have a chance to set it.
-	tinttotal = tintcheck() //here as both hud updates and status updates call it
 	life_tick++
 
 	in_stasis = 0
@@ -787,7 +782,7 @@
 /mob/living/carbon/human/proc/has_booze() //checks if the human has ethanol or its subtypes inside
 	for(var/A in reagents.reagent_list)
 		var/datum/reagent/R = A
-		if(istype(R, /datum/reagent/ethanol))
+		if(istype(R, /datum/reagent/consumable/ethanol))
 			return 1
 	return 0
 
@@ -840,9 +835,9 @@
 			SetEyeBlurry(0)
 
 		else if(!vision || vision.is_broken())   // Vision organs cut out or broken? Permablind.
-			EyeBlind(1)
+			EyeBlind(2)
 			blinded =    1
-			EyeBlurry(1)
+			EyeBlurry(2)
 
 		else
 			//blindness
@@ -859,7 +854,7 @@
 
 			//blurry sight
 			if(vision.is_bruised())   // Vision organs impaired? Permablurry.
-				EyeBlurry(1)
+				EyeBlurry(2)
 
 			if(eye_blurry)	           // Blurry eyes heal slowly
 				AdjustEyeBlurry(-1)
@@ -899,7 +894,7 @@
 
 /mob/living/carbon/human/handle_vision()
 	if(machine)
-		if(!machine.check_eye(src))		reset_view(null)
+		if(!machine.check_eye(src))		reset_perspective(null)
 	else
 		var/isRemoteObserve = 0
 		if((REMOTE_VIEW in mutations) && remoteview_target)
@@ -924,7 +919,7 @@
 
 		if(!isRemoteObserve && client && !client.adminobs)
 			remoteview_target = null
-			reset_view(null)
+			reset_perspective(null)
 
 	species.handle_vision(src)
 

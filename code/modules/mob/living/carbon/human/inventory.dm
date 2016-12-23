@@ -111,6 +111,13 @@
 		update_inv_gloves()
 	else if(I == glasses)
 		glasses = null
+		var/obj/item/clothing/glasses/G = I
+		if(G.tint)
+			update_tint()
+		if(G.prescription)
+			clear_fullscreen("nearsighted")
+		if(G.vision_flags || G.darkness_view || G.invis_override || G.invis_view)
+			update_sight()
 		update_inv_glasses()
 	else if(I == head)
 		head = null
@@ -118,6 +125,7 @@
 			update_hair()	//rebuild hair
 			update_fhair()
 			update_head_accessory()
+		head_update(I)
 		update_inv_head()
 	else if(I == r_ear)
 		r_ear = null
@@ -140,6 +148,7 @@
 		if(internal)
 			internal = null
 			update_internals_hud_icon(0)
+		wear_mask_update(I, toggle_off = FALSE)
 		sec_hud_set_ID()
 		update_inv_wear_mask()
 	else if(I == wear_id)
@@ -203,6 +212,7 @@
 				update_head_accessory(redraw_mob)
 			if(hud_list.len)
 				sec_hud_set_ID()
+			wear_mask_update(W, toggle_off = TRUE)
 			update_inv_wear_mask(redraw_mob)
 		if(slot_handcuffed)
 			handcuffed = W
@@ -247,6 +257,14 @@
 			update_inv_ears(redraw_mob)
 		if(slot_glasses)
 			glasses = W
+			var/obj/item/clothing/glasses/G = W
+			if(G.tint)
+				update_tint()
+			if(G.prescription)
+				if(disabilities & NEARSIGHTED)
+					overlay_fullscreen("nearsighted", /obj/screen/fullscreen/impaired, 1)
+			if(G.vision_flags || G.darkness_view || G.invis_override || G.invis_view)
+				update_sight()
 			update_inv_glasses(redraw_mob)
 		if(slot_gloves)
 			gloves = W
@@ -257,6 +275,7 @@
 				update_hair(redraw_mob)	//rebuild hair
 				update_fhair(redraw_mob)
 				update_head_accessory(redraw_mob)
+			head_update(W)
 			update_inv_head(redraw_mob)
 		if(slot_shoes)
 			shoes = W

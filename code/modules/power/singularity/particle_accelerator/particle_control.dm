@@ -2,7 +2,7 @@
 
 /obj/machinery/particle_accelerator/control_box
 	name = "Particle Accelerator Control Console"
-	desc = "This controls the density of the particles."
+	desc = "This part controls the density of the particles."
 	icon = 'icons/obj/machines/particle_accelerator.dmi'
 	icon_state = "control_box"
 	reference = "control_box"

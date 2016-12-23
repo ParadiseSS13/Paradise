@@ -117,14 +117,14 @@
 
 /mob/living/proc/handle_stunned()
 	if(stunned)
-		AdjustStunned(-1)
+		AdjustStunned(-1, updating = 1, force = 1)
 		if(!stunned)
 			update_icons()
 	return stunned
 
 /mob/living/proc/handle_weakened()
 	if(weakened)
-		AdjustWeakened(-1)
+		AdjustWeakened(-1, updating = 1, force = 1)
 		if(!weakened)
 			update_icons()
 	return weakened
@@ -151,7 +151,7 @@
 
 /mob/living/proc/handle_paralysed()
 	if(paralysis)
-		AdjustParalysis(-1)
+		AdjustParalysis(-1, updating = 1, force = 1)
 	return paralysis
 
 /mob/living/proc/handle_sleeping()
@@ -230,13 +230,31 @@
 
 	if(machine)
 		if(!machine.check_eye(src))
-			reset_view(null)
+			reset_perspective(null)
 	else
 		if(!remote_view && !client.adminobs)
-			reset_view(null)
+			reset_perspective(null)
 
 /mob/living/proc/update_sight()
 	return
+
+// Gives a mob the vision of being dead
+/mob/living/proc/grant_death_vision()
+	sight |= SEE_TURFS
+	sight |= SEE_MOBS
+	sight |= SEE_OBJS
+	see_in_dark = 8
+	see_invisible = SEE_INVISIBLE_OBSERVER
+
+// See through walls, dark, etc.
+// basically the same as death vision except you can't
+// see ghosts
+/mob/living/proc/grant_xray_vision()
+	sight |= SEE_TURFS
+	sight |= SEE_MOBS
+	sight |= SEE_OBJS
+	see_in_dark = 8
+	see_invisible = SEE_INVISIBLE_LEVEL_TWO
 
 /mob/living/proc/handle_hud_icons()
 	handle_hud_icons_health()
