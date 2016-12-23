@@ -1467,3 +1467,4 @@ var/list/robot_verbs_default = list(
 		borked_part.installed = 1
 		borked_part.wrapped = new borked_part.external_type
 		borked_part.heal_damage(brute,burn)
+		borked_part.install()
