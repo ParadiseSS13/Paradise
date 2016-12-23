@@ -630,10 +630,10 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 			if(hat.darkness_view) // Pick the lowest of the two darkness_views between the glasses and helmet.
 				lesser_darkview_bonus = min(hat.darkness_view,lesser_darkview_bonus)
 
-			if(!hat.see_darkness)
-				H.see_invisible = SEE_INVISIBLE_MINIMUM
+			if(hat.helmet_goggles_invis_view)
+				H.see_invisible = min(hat.helmet_goggles_invis_view, H.see_invisible)
 
-	if(istype(H.back, /obj/item/weapon/rig)) ///ahhhg so snowflakey
+	if(istype(H.back, /obj/item/weapon/rig)) ///aghhh so snowflakey
 		var/obj/item/weapon/rig/rig = H.back
 		if(rig.visor)
 			if(!rig.helmet || (H.head && rig.helmet == H.head))
@@ -644,8 +644,7 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 						if(G.vision_flags)		// MESONS
 							H.sight |= G.vision_flags
 
-						if(!G.see_darkness)
-							H.see_invisible = SEE_INVISIBLE_MINIMUM
+						H.see_invisible = min(G.invis_view, H.see_invisible)
 
 	if(lesser_darkview_bonus != INFINITY)
 		H.see_in_dark = max(lesser_darkview_bonus, H.see_in_dark)
@@ -660,6 +659,7 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 	if(XRAY in H.mutations)
 		H.sight |= (SEE_TURFS|SEE_MOBS|SEE_OBJS)
 		H.see_in_dark = max(H.see_in_dark, 8)
+		H.see_invisible = SEE_INVISIBLE_MINIMUM
 
 	if(H.see_override)	//Override all
 		H.see_invisible = H.see_override
