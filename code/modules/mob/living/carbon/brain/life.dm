@@ -62,22 +62,5 @@
 
 		. = 1
 
-/mob/living/carbon/brain/handle_vision()
-	..()
-
-	if(stat == 2 || (XRAY in src.mutations))
-		sight |= SEE_TURFS
-		sight |= SEE_MOBS
-		sight |= SEE_OBJS
-		see_in_dark = 8
-		see_invisible = SEE_INVISIBLE_LEVEL_TWO
-	else if(stat != 2)
-		sight &= ~SEE_TURFS
-		sight &= ~SEE_MOBS
-		sight &= ~SEE_OBJS
-		see_in_dark = 2
-		see_invisible = SEE_INVISIBLE_LIVING
-	handle_hud_icons_health()
-
 /mob/living/carbon/brain/breathe()
 	return

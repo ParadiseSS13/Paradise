@@ -35,11 +35,9 @@
 			Paralyse(3)
 
 		if(paralysis)
-			AdjustParalysis(-2)
 			blinded = 1
 			stat = UNCONSCIOUS
 		else if(sleeping)
-			AdjustSleeping(-1)
 			blinded = 1
 			stat = UNCONSCIOUS
 			if( prob(10) && health )
@@ -69,13 +67,6 @@
 			AdjustEarDeaf(-1)
 		else if(ear_damage < 25)	//ear damage heals slowly under this threshold.
 			AdjustEarDamage(-0.05)
-
-		//Other
-		if(stunned)
-			AdjustStunned(-1)
-
-		if(weakened)
-			AdjustWeakened(-1)
 
 		if(stuttering)
 			AdjustStuttering(-1)

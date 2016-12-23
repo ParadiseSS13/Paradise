@@ -84,7 +84,7 @@ var/list/robot_verbs_default = list(
 	var/ionpulse = 0 // Jetpack-like effect.
 	var/ionpulse_on = 0 // Jetpack-like effect.
 	var/datum/effect/system/ion_trail_follow/ion_trail // Ionpulse effect.
-	
+
 	var/datum/action/item_action/toggle_research_scanner/scanner = null
 
 /mob/living/silicon/robot/New(loc,var/syndie = 0,var/unfinished = 0, var/alien = 0)
@@ -960,11 +960,11 @@ var/list/robot_verbs_default = list(
 /mob/living/silicon/robot/proc/allowed(obj/item/I)
 	var/obj/dummy = new /obj(null) // Create a dummy object to check access on as to avoid having to snowflake check_access on every mob
 	dummy.req_access = req_access
-	
+
 	if(dummy.check_access(I))
 		qdel(dummy)
 		return 1
-		
+
 	qdel(dummy)
 	return 0
 
@@ -1456,3 +1456,15 @@ var/list/robot_verbs_default = list(
 			disable_component("comms", 160)
 		if(2)
 			disable_component("comms", 60)
+/mob/living/silicon/robot/rejuvenate()
+	..()
+	var/brute = 1000
+	var/burn = 1000
+	var/list/datum/robot_component/borked_parts = get_damaged_components(brute,burn,1)
+	for(var/datum/robot_component/borked_part in borked_parts)
+		brute = borked_part.brute_damage
+		burn = borked_part.electronics_damage
+		borked_part.installed = 1
+		borked_part.wrapped = new borked_part.external_type
+		borked_part.heal_damage(brute,burn)
+		borked_part.install()

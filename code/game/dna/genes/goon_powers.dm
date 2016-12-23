@@ -288,6 +288,10 @@
 		if((O in user) && is_type_in_list(O,own_blacklist))
 			continue
 		if(is_type_in_list(O,types_allowed))
+			if(isanimal(O))
+				var/mob/living/simple_animal/SA = O
+				if(!SA.gold_core_spawnable)
+					continue
 			possible_targets += O
 
 	targets += input("Choose the target of your hunger.", "Targeting") as null|anything in possible_targets
@@ -615,7 +619,7 @@
 				numbers += H.mind.initial_account.account_number
 				numbers += H.mind.initial_account.remote_access_pin
 			if(numbers.len>0)
-				to_chat(usr, "<span class='notice'>b>Numbers</b>: You sense the number[numbers.len>1?"s":""] [english_list(numbers)] [numbers.len>1?"are":"is"] important to [M.name].</span>")
+				to_chat(usr, "<span class='notice'><b>Numbers</b>: You sense the number[numbers.len>1?"s":""] [english_list(numbers)] [numbers.len>1?"are":"is"] important to [M.name].</span>")
 		to_chat(usr, "<span class='notice'><b>Thoughts</b>: [M.name] is currently [thoughts].</span>")
 
 		if(EMPATH in M.mutations)

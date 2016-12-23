@@ -149,38 +149,20 @@
 		else
 			H.change_gender(MALE, 0)
 
-		var/number_head_marks = 0
-		var/number_body_marks = 0
-		var/number_tail_marks = 0
-		for(var/m in marking_styles_list)
-			var/datum/sprite_accessory/body_markings/marking = marking_styles_list[m]
-			if(marking.marking_location == "head")
-				number_head_marks++
-			else if(marking.marking_location == "body")
-				number_body_marks++
-			else if(marking.marking_location == "tail")
-				number_tail_marks++
-
 		//Head Markings
 		var/head_marks = dna.GetUIValueRange(DNA_UI_HEAD_MARK_STYLE, marking_styles_list.len)
-		if((head_marks > 0) && (head_marks <= number_head_marks))
+		if((head_marks > 0) && (head_marks <= marking_styles_list.len))
 			H.m_styles["head"] = marking_styles_list[head_marks]
 		//Body Markings
 		var/body_marks = dna.GetUIValueRange(DNA_UI_BODY_MARK_STYLE, marking_styles_list.len)
-		if((body_marks > 0) && (body_marks <= number_body_marks))
+		if((body_marks > 0) && (body_marks <= marking_styles_list.len))
 			H.m_styles["body"] = marking_styles_list[body_marks]
 		//Tail Markings
 		var/tail_marks = dna.GetUIValueRange(DNA_UI_TAIL_MARK_STYLE, marking_styles_list.len)
-		if((tail_marks > 0) && (tail_marks <= number_tail_marks))
+		if((tail_marks > 0) && (tail_marks <= marking_styles_list.len))
 			H.m_styles["tail"] = marking_styles_list[tail_marks]
 
-		H.force_update_limbs()
-		H.update_eyes()
-		H.update_hair()
-		H.update_fhair()
-		H.update_markings()
-		H.update_tail_layer()
-		H.update_head_accessory()
+		H.regenerate_icons()
 
 		return 1
 	else

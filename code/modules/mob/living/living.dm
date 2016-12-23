@@ -287,6 +287,10 @@
 	adjustFireLoss(burn)
 	src.updatehealth()
 
+/mob/living/proc/has_organic_damage()
+	return (maxHealth - health)
+
+
 /mob/living/proc/restore_all_organs()
 	return
 
@@ -320,9 +324,9 @@
 	setBrainLoss(0)
 	setStaminaLoss(0)
 	SetSleeping(0)
-	SetParalysis(0)
-	SetStunned(0)
-	SetWeakened(0)
+	SetParalysis(0, 1, 1)
+	SetStunned(0, 1, 1)
+	SetWeakened(0, 1, 1)
 	SetSlowed(0)
 	SetLoseBreath(0)
 	SetDizzy(0)

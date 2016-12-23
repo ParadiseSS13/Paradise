@@ -1,5 +1,3 @@
-/var/global/sent_aliens_to_station = 0
-
 /datum/event/alien_infestation
 	announceWhen	= 400
 	var/spawncount = 1
@@ -7,8 +5,8 @@
 
 /datum/event/alien_infestation/setup()
 	announceWhen = rand(announceWhen, announceWhen + 50)
-	spawncount = rand(1, 2)
-	sent_aliens_to_station = 1
+	if(prob(50))
+		spawncount++
 
 /datum/event/alien_infestation/announce()
 	if(successSpawn)
