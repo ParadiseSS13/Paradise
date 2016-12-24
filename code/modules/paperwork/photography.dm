@@ -235,7 +235,7 @@ var/list/SpookyGhosts = list("ghost","shade","shade2","ghost-narsie","horror","s
 					continue
 			else//not invisable, not a spookyghost add it.
 				var/disguised = null
-				if(user.viewing_alternate_appearances && user.viewing_alternate_appearances.len && ishuman(A) && A:alternate_appearances && A:alternate_appearances.len) //This whole thing and the stuff below just checks if the atom is a Solid Snake cosplayer.
+				if(user.viewing_alternate_appearances && user.viewing_alternate_appearances.len && ishuman(A) && A.alternate_appearances && A.alternate_appearances.len) //This whole thing and the stuff below just checks if the atom is a Solid Snake cosplayer.
 					for(var/datum/alternate_appearance/alt_appearance in user.viewing_alternate_appearances)
 						if(alt_appearance.owner == A) //If it turns out they are, don't blow their cover. That'd be rude.
 							atoms.Add(image(alt_appearance.img, A.loc, layer = 4, dir = A.dir)) //Render their disguise.
