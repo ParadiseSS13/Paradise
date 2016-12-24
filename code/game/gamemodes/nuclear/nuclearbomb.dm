@@ -175,6 +175,13 @@ var/bomb_set
 	return
 
 /obj/machinery/nuclearbomb/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "nuclear_bomb.tmpl", "Nuke Control Panel", 450, 550, state = physical_state)
+		ui.open()
+		ui.set_auto_update(1)
+
+/obj/machinery/nuclearbomb/ui_data(mob/user, datum/topic_state/state)
 	var/data[0]
 	data["is_syndicate"] = is_syndicate
 	data["hacking"] = 0
@@ -201,12 +208,7 @@ var/bomb_set
 		if(yes_code)
 			data["message"] = "*****"
 
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if(!ui)
-		ui = new(user, src, ui_key, "nuclear_bomb.tmpl", "Nuke Control Panel", 450, 550, state = physical_state)
-		ui.set_initial_data(data)
-		ui.open()
-		ui.set_auto_update(1)
+	return data
 
 /obj/machinery/nuclearbomb/verb/make_deployable()
 	set category = "Object"

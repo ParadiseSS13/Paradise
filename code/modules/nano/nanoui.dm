@@ -46,7 +46,7 @@ nanoui is used to open and update nano browser uis
 	// the map z level to display
 	var/map_z_level = 1
 	// initial data, containing the full data structure, must be sent to the ui (the data structure cannot be extended later on)
-	var/list/initial_data[0]
+	var/list/initial_data = null // Initialize as null for proper ! usage in initial set up
 	// set to 1 to update the ui automatically every master_controller tick
 	var/is_auto_updating = 0
 	// the current status/visibility of the ui
@@ -405,18 +405,33 @@ nanoui is used to open and update nano browser uis
 /datum/nanoui/proc/open()
 	if(!user.client)
 		return
+
 	var/window_size = ""
 	if(width && height)
 		window_size = "size=[width]x[height];"
+
 	update_status(0)
 	if(status == STATUS_CLOSE)
 		return
+
+	if(!initial_data)
+		set_initial_data(src_object.ui_data(user, state)) // Get the UI data.
 
 	user << browse(get_html(), "window=[window_id];[window_size][window_options]")
 	winset(user, "mapwindow.map", "focus=true") // return keyboard focus to map
 	on_close_winset()
 	//onclose(user, window_id)
 	nanomanager.ui_opened(src)
+
+/**
+ * Reinitialize the UI with
+ */
+/datum/nanoui/proc/reinitialize(template, list/data)
+	if(template)
+		add_template("main", template)
+	if(data)
+		set_initial_data(data)
+	open()
 
  /**
   * Close this UI

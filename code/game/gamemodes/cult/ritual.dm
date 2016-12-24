@@ -6,13 +6,20 @@ var/runedec = 0
 var/engwords = list("travel", "blood", "join", "hell", "destroy", "technology", "self", "see", "other", "hide")
 
 /client/proc/check_words() // -- Urist
-	set category = "Special Verbs"
+	set category = "Admin"
 	set name = "Check Rune Words"
 	set desc = "Check the rune-word meaning"
+	
+	if(!check_rights(R_ADMIN))
+		return	
+	
 	if(!cultwords["travel"])
 		runerandom()
 	for(var/word in engwords)
 		to_chat(usr, "[cultwords[word]] is [word]")
+		
+	log_and_message_admins("checked the rune words.")
+	feedback_add_details("admin_verb","CRW") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!	
 
 /proc/runerandom() //randomizes word meaning
 	var/list/runewords=list("ire","ego","nahlizet","certum","veri","jatkaa","mgar","balaq", "karazet", "geeri") ///"orkan" and "allaq" removed.
@@ -100,6 +107,11 @@ var/engwords = list("travel", "blood", "join", "hell", "destroy", "technology", 
 		return
 	return
 
+// This is for the seer rune, so you don't get permanent ghost sight
+/obj/effect/rune/Uncrossed(atom/movable/O)
+	if(isliving(O))
+		var/mob/living/L = O
+		L.update_sight()
 
 /obj/effect/rune/proc/get_word_string()
 	if(word1 == cultwords["travel"])
