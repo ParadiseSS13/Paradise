@@ -257,6 +257,9 @@
 		if(noir_mode)
 			if(color_view && user.client && !user.client.color)
 				animate(user.client, color = color_view, time = 10)
+	else
+		if(user.client && user.client.color)
+			animate(usr.client, color = null, time = 10)
 	..(user, slot)
 
 /obj/item/clothing/glasses/sunglasses/noir/dropped(mob/living/carbon/human/user)
