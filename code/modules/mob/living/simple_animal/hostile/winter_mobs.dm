@@ -23,6 +23,8 @@
 /mob/living/simple_animal/hostile/winter/snowman
 	name = "snowman"
 	desc = "A very angry snowman. Doesn't look like it wants to play around..."
+	maxHealth = 75		//slightly beefier to account for it's need to get in your face
+	health = 75
 	icon_state = "snowman"
 	icon_living = "snowman"
 	icon_dead = "snowman-dead"
@@ -34,7 +36,7 @@
 
 
 /mob/living/simple_animal/hostile/winter/snowman/death(gibbed)
-	if(prob(50))		//50% chance to drop weapon on death, if it has one to drop
+	if(prob(50) && !ranged)		//50% chance to drop candy cane sword on death, if it has one to drop
 		loot = list(/obj/item/weapon/melee/candy_sword)
 	if(prob(20))	//chance to become a stationary snowman structure instead of a corpse
 		loot.Add(/obj/structure/snowman)
@@ -45,6 +47,8 @@
 		..()
 
 /mob/living/simple_animal/hostile/winter/snowman/ranged
+	maxHealth = 50
+	health = 50
 	ranged = 1
 	retreat_distance = 5
 	minimum_distance = 5
@@ -57,7 +61,8 @@
 	icon_living = "reindeer"
 	icon_dead = "reindeer-dead"
 	butcher_results = list(/obj/item/weapon/reagent_containers/food/snacks/meat = 3)
-
+	maxHealth = 80
+	health = 80
 	melee_damage_lower = 5
 	melee_damage_upper = 10
 	gold_core_spawnable = CHEM_MOB_SPAWN_HOSTILE
@@ -83,17 +88,21 @@
 			qdel(src)	//hide the body
 
 /mob/living/simple_animal/hostile/winter/santa/stage_1		//stage 1: slow melee
+	maxHealth = 150
+	health = 150
 	desc = "GET THE FAT MAN!"
 	next_stage = /mob/living/simple_animal/hostile/winter/santa/stage_2
 	death_message = "<span class='danger'>HO HO HO! YOU THOUGHT IT WOULD BE THIS EASY?!?</span>"
 	speed = 2
-	melee_damage_lower = 5
-	melee_damage_upper = 15
+	melee_damage_lower = 10
+	melee_damage_upper = 20
 
 /mob/living/simple_animal/hostile/winter/santa/stage_2		//stage 2: slow ranged
 	desc = "GET THE FAT MAN AGAIN!"
 	next_stage = /mob/living/simple_animal/hostile/winter/santa/stage_3
 	death_message = "<span class='danger'>YOU'VE BEEN VERY NAUGHTY! PREPARE TO DIE!</span>"
+	maxHealth = 200		//DID YOU REALLY BELIEVE IT WOULD BE THIS EASY!??!!
+	health = 200
 	ranged = 1
 	projectiletype = /obj/item/projectile/ornament
 	retreat_distance = 5
@@ -103,6 +112,8 @@
 	desc = "WHY WON'T HE DIE ALREADY!?"
 	next_stage = /mob/living/simple_animal/hostile/winter/santa/stage_4
 	death_message = "<span class='danger'>FACE MY FINAL FORM AND KNOW DESPAIR!</span>"
+	maxHealth = 250
+	health = 250
 	ranged = 1
 	rapid = 1
 	speed = 0	//he's lost some weight from the fighting
@@ -113,13 +124,13 @@
 /mob/living/simple_animal/hostile/winter/santa/stage_4		//stage 4: fast spinebreaker
 	name = "Final Form Santa"
 	desc = "WHAT THE HELL IS HE!?! WHY WON'T HE STAY DEAD!?!"
-	maxHealth = 200
-	health = 200
+	maxHealth = 300		//YOU FACE JARAX- I MEAN SANTA!
+	health = 300
 	speed = 0	//he's lost some weight from the fighting
 
 	environment_smash = 2		//naughty walls must be punished too
-	melee_damage_lower = 15
-	melee_damage_upper = 25		//that's gonna leave a mark, for sure
+	melee_damage_lower = 20
+	melee_damage_upper = 30		//that's gonna leave a mark, for sure
 
 /mob/living/simple_animal/hostile/winter/santa/stage_4/death(gibbed)
 	to_chat(world, "<span class='notice'><hr></span>")
