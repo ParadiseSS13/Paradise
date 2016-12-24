@@ -24,6 +24,7 @@
 /obj/machinery/particle_accelerator/control_box/New()
 	wires = new(src)
 	connected_parts = list()
+	update_icon()
 	..()
 
 /obj/machinery/particle_accelerator/control_box/Destroy()
@@ -62,9 +63,12 @@
 
 /obj/machinery/particle_accelerator/control_box/update_icon()
 	if(active)
-		icon_state = "[reference]p1"
+		icon_state = "[reference]p[strength]"
 	else
-		if(use_power)
+		if(stat & NOPOWER)
+			icon_state = "[reference]w"
+			return
+		else if(use_power)
 			if(assembled)
 				icon_state = "[reference]p"
 			else
@@ -89,7 +93,7 @@
 		to_chat(usr, "<span class='error'>ERROR: Request timed out. Check wire contacts.</span>")
 		return
 
-	if( href_list["close"] )
+	if(href_list["close"])
 		usr << browse(null, "window=pacontrol")
 		usr.unset_machine()
 		return
@@ -152,6 +156,11 @@
 		use_power = 0
 	else if(!stat && construction_state <= 3)
 		use_power = 1
+	src.update_icon()
+	for(var/obj/structure/particle_accelerator/part in connected_parts)
+		part.strength = null
+		part.powered = 0
+		part.update_icon()
 	return
 
 

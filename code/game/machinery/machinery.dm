@@ -420,6 +420,9 @@ Class Procs:
 		if(do_after(user, time, target = src))
 			to_chat(user, "<span class='notice'>You've [anchored ? "un" : ""]secured [name].</span>")
 			anchored = !anchored
+			if(istype(src, /obj/machinery))
+				var/obj/machinery/M = src
+				M.power_change() //Turn on or off the machine depending on the status of power in the new area.
 			playsound(src.loc, 'sound/items/Deconstruct.ogg', 50, 1)
 		return 1
 	return 0

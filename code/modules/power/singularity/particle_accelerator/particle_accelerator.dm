@@ -366,6 +366,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 				user.visible_message("[user.name] secures the [src.name] to the floor.", \
 					"You secure the external bolts.")
 				temp_state++
+				power_change()
 		if(1)
 			if(iswrench(O))
 				playsound(src.loc, 'sound/items/Ratchet.ogg', 75, 1)
@@ -373,6 +374,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 				user.visible_message("[user.name] detaches the [src.name] from the floor.", \
 					"You remove the external bolts.")
 				temp_state--
+				power_change()
 			else if(iscoil(O))
 				if(O:use(1))
 					user.visible_message("[user.name] adds wires to the [src.name].", \
