@@ -82,7 +82,7 @@
 "bD" = (/obj/structure/table,/obj/item/weapon/reagent_containers/food/snacks/beans,/turf/simulated/floor/plasteel{tag = "icon-bar"; icon_state = "bar"},/area/ruin/unpowered)
 "bE" = (/obj/structure/stool/bed/chair{dir = 8},/turf/simulated/floor/plasteel{tag = "icon-bar"; icon_state = "bar"},/area/ruin/unpowered)
 "bF" = (/obj/machinery/seed_extractor,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
-"bG" = (/obj/machinery/power/apc{dir = 8; name = "Bunker APC"; keep_preset_name = 1; pixel_x = -24; pixel_y = 0},/obj/structure/cable{icon_state = "0-4"; d2 = 4},/turf/simulated/floor/plasteel,/area/ruin/unpowered)
+"bG" = (/obj/machinery/power/apc/noalarm{dir = 8; name = "Bunker APC"; keep_preset_name = 1; pixel_x = -24; pixel_y = 0},/obj/structure/cable{icon_state = "0-4"; d2 = 4},/turf/simulated/floor/plasteel,/area/ruin/unpowered)
 "bH" = (/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_y = 0; tag = ""},/turf/simulated/floor/plasteel,/area/ruin/unpowered)
 "bI" = (/obj/structure/cable{d1 = 1; d2 = 8; icon_state = "1-8"; tag = ""},/turf/simulated/floor/plasteel,/area/ruin/unpowered)
 "bJ" = (/obj/structure/reagent_dispensers/watertank,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
