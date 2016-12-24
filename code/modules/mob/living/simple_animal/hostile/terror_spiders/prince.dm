@@ -6,8 +6,6 @@
 // -------------: AI: no special ai
 // -------------: SPECIAL: massive health
 // -------------: TO FIGHT IT: a squad of at least 4 people with laser rifles.
-// -------------: CONCEPT: http://tvtropes.org/pmwiki/pmwiki.php/Main/LightningBruiser
-// -------------: CONCEPT: http://tvtropes.org/pmwiki/pmwiki.php/Main/WakeupCallBoss
 // -------------: SPRITES FROM: Travelling Merchant, http://nanotrasen.se/phpBB3/memberlist.php?mode=viewprofile&u=2766
 
 /mob/living/simple_animal/hostile/poison/terror_spider/prince

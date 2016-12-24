@@ -7,7 +7,6 @@
 // -------------: AI: uses very powerful fangs to wreck people in melee
 // -------------: SPECIAL: the more you hurt it, the harder it bites you
 // -------------: TO FIGHT IT: shoot it from range. Kite it.
-// -------------: CONCEPT: http://tvtropes.org/pmwiki/pmwiki.php/Main/MightyGlacier
 // -------------: SPRITES FROM: FoS, http://nanotrasen.se/phpBB3/memberlist.php?mode=viewprofile&u=386
 
 /mob/living/simple_animal/hostile/poison/terror_spider/red
