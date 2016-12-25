@@ -255,10 +255,11 @@
                             0, 0, 1, 0,\
                             0, 0, 0, 1)
 
-#define MATRIX_GREYSCALE list(0.3, 0.3, 0.3, 0,\
-                              0.3, 0.3, 0.3, 0,\
-                              0.3, 0.3, 0.3, 0,\
-                              0,   0,   0,   1)
+#define MATRIX_GREYSCALE list(0.33, 0.33, 0.33, 0,\
+                              0.33, 0.33, 0.33, 0,\
+                              0.33, 0.33, 0.33, 0,\
+                              0.00, 0.00, 0.00, 1,\
+                              0.00, 0.00, 0.00, 0)
 //Gun trigger guards
 #define TRIGGER_GUARD_ALLOW_ALL -1
 #define TRIGGER_GUARD_NONE 0
