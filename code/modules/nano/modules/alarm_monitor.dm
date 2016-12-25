@@ -80,11 +80,11 @@
 					lost_sources[++lost_sources.len] = AS.source_name
 
 			categories[categories.len]["alarms"] += list(list(
-					"name" = sanitize(A.alarm_name()),
+					"name" = sanitize_local(A.alarm_name()),
 					"origin_lost" = A.origin == null,
 					"has_cameras" = cameras.len,
 					"cameras" = cameras,
-					"lost_sources" = lost_sources.len ? sanitize(english_list(lost_sources, nothing_text = "", and_text = ", ")) : ""))
+					"lost_sources" = lost_sources.len ? sanitize_local(english_list(lost_sources, nothing_text = "", and_text = ", ")) : ""))
 	data["categories"] = categories
 
 	return data

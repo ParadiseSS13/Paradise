@@ -1,5 +1,5 @@
 /obj/item/weapon/gun/projectile/revolver
-	name = "\improper .357 revolver"
+	name = ".357 revolver"
 	desc = "A suspicious revolver. Uses .357 ammo."
 	icon_state = "revolver"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder
@@ -86,7 +86,7 @@
 
 /obj/item/weapon/gun/projectile/revolver/detective
 	desc = "A cheap Martian knock-off of a classic law enforcement firearm. Uses .38-special rounds."
-	name = "\improper .38 Mars Special"
+	name = ".38 Mars Special"
 	icon_state = "detective"
 	origin_tech = "combat=2;materials=2"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev38
@@ -143,13 +143,13 @@
 				to_chat(user, "<span class='notice'>You remove the modifications on [src]. Now it will fire .38 rounds.</span>")
 
 /obj/item/weapon/gun/projectile/revolver/mateba
-	name = "\improper Unica 6 auto-revolver"
+	name = "Unica 6 auto-revolver"
 	desc = "A retro high-powered autorevolver typically used by officers of the New Russia military. Uses .357 ammo."	//>10mm hole >.357
 	icon_state = "mateba"
 	origin_tech = "combat=2;materials=2"
 
 /obj/item/weapon/gun/projectile/revolver/golden
-	name = "\improper Golden revolver"
+	name = "Golden revolver"
 	desc = "This ain't no game, ain't never been no show, And I'll gladly gun down the oldest lady you know. Uses .357 ammo."
 	icon_state = "goldrevolver"
 	fire_sound = 'sound/weapons/resonator_blast.ogg'
@@ -167,7 +167,7 @@
 // You can spin the chamber to randomize the position of the bullet.
 
 /obj/item/weapon/gun/projectile/revolver/russian
-	name = "\improper Russian Revolver"
+	name = "Russian Revolver"
 	desc = "A Russian-made revolver for drinking games. Uses .357 ammo, and has a mechanism that spins the chamber before each trigger pull."
 	origin_tech = "combat=2;materials=2"
 	mag_type = /obj/item/ammo_box/magazine/internal/rus357

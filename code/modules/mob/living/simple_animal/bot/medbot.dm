@@ -1,6 +1,6 @@
 //Medbot
 /mob/living/simple_animal/bot/medbot
-	name = "\improper Medibot"
+	name = "Medibot"
 	desc = "A little medical robot. He looks somewhat underwhelmed."
 	icon = 'icons/obj/aibots.dmi'
 	icon_state = "medibot0"
@@ -62,7 +62,7 @@
 	skin = "fish"
 
 /mob/living/simple_animal/bot/medbot/mysterious
-	name = "\improper Mysterious Medibot"
+	name = "Mysterious Medibot"
 	desc = "International Medibot of mystery."
 	skin = "bezerk"
 	treatment_oxy = "perfluorodecalin"

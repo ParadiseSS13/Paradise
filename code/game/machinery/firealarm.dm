@@ -277,7 +277,7 @@ Just a object used in constructing fire alarms
 	materials = list(MAT_METAL=50, MAT_GLASS=50)
 
 /obj/machinery/partyalarm
-	name = "\improper PARTY BUTTON"
+	name = "PARTY BUTTON"
 	desc = "Cuban Pete is in the house!"
 	icon = 'icons/obj/monitors.dmi'
 	icon_state = "fire0"

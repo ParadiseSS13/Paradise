@@ -11,6 +11,7 @@
 	burntime = 20
 	var/datum/song/handheld/song
 	hitsound = 'sound/effects/guitarsmash.ogg'
+	slot_flags = SLOT_BACK
 
 /obj/item/device/guitar/New()
 	song = new("guitar", src)

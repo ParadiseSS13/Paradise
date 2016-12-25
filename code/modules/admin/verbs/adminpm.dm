@@ -148,10 +148,10 @@
 					else
 						adminhelp(reply)													//sender has left, adminhelp instead
 				return
-
-	recieve_message = "<span class='[recieve_span]'>[type] from-<b>[recieve_pm_type][key_name(src, C, C.holder ? 1 : 0, type)]</b>: [msg]</span>"
+	msg = sanitize_local(msg)
+	recieve_message = "<span class='[recieve_span]'>[type] from-<b>[recieve_pm_type][key_name(src, C, C.holder ? 1 : 0, type)]</b>: [msg] </span>"
 	to_chat(C, recieve_message)
-	to_chat(src, "<font color='blue'>[send_pm_type][type] to-<b>[key_name(C, src, holder ? 1 : 0, type)]</b>: [msg]</font>")
+	to_chat(src, "<font color='blue'>[send_pm_type][type] to-<b>[key_name(C, src, holder ? 1 : 0, type)]</b>: [msg] </font>")
 
 	/*if(holder && !C.holder)
 		C.last_pm_recieved = world.time
@@ -190,14 +190,12 @@
 	if(!msg)
 		return
 
-	sanitize(msg)
-
 	if(length(msg) > 400) // TODO: if message length is over 400, divide it up into seperate messages, the message length restriction is based on IRC limitations.  Probably easier to do this on the bots ends.
 		to_chat(src, "\red Your message was not sent because it was more then 400 characters find your message below for ease of copy/pasting")
 		to_chat(src, "\blue [msg]")
 		return
 
-	send2adminirc("PlayerPM from [key_name(src)]: [html_decode(msg)]")
+	send2adminirc("PlayerPM from [key_name(src)]: [lhtml_decode(msg)]")
 
 	to_chat(src, "<font color='blue'>IRC PM to-<b>IRC-Admins</b>: [msg]</font>")
 

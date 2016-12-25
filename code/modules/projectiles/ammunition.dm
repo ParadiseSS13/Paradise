@@ -59,7 +59,7 @@
 			if(BB)
 				if(initial(BB.name) == "bullet")
 					var/tmp_label = ""
-					var/label_text = sanitize(input(user, "Inscribe some text into \the [initial(BB.name)]","Inscription",tmp_label))
+					var/label_text = sanitize_local(input(user, "Inscribe some text into \the [initial(BB.name)]","Inscription",tmp_label))
 					if(length(label_text) > 20)
 						to_chat(user, "<span class='warning''>The inscription can be at most 20 characters long.</span>")
 					else

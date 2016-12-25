@@ -109,7 +109,7 @@
 			return
 		if((!in_range(src, usr) && loc != user))
 			return
-		t = sanitize(copytext(t,1,MAX_MESSAGE_LEN))
+		t = sanitize_local(copytext(t,1,MAX_MESSAGE_LEN))
 		if(t)
 			name = text("Morgue- '[]'", t)
 			overlays += image(icon, "morgue_label")
@@ -312,7 +312,7 @@
 			return
 		if((!in_range(src, usr) > 1 && loc != user))
 			return
-		t = sanitize(copytext(t,1,MAX_MESSAGE_LEN))
+		t = sanitize_local(copytext(t,1,MAX_MESSAGE_LEN))
 		if(t)
 			name = text("Crematorium- '[]'", t)
 		else
