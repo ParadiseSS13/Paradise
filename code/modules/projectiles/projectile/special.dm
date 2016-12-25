@@ -352,7 +352,7 @@ obj/item/projectile/kinetic/New()
 	name = "snowball"
 	icon_state = "snowball"
 	hitsound = 'sound/items/dodgeball.ogg'
-	damage = 3
+	damage = 4
 	damage_type = BURN
 
 /obj/item/projectile/snowball/on_hit(atom/target)	//chilling
@@ -366,7 +366,7 @@ obj/item/projectile/kinetic/New()
 	name = "ornament"
 	icon_state = "ornament-1"
 	hitsound = 'sound/effects/Glasshit.ogg'
-	damage = 5
+	damage = 7
 	damage_type = BRUTE
 
 /obj/item/projectile/ornament/New()
