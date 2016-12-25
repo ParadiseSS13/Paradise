@@ -1,0 +1,5 @@
+author: "KasparoVy"
+delete-after: True
+changes: 
+  - bugfix: "Cameras will no longer be able to take photos of stuff outside your line of sight."
+  - tweak: "Cameras will now render disguises as you see them."
