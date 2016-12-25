@@ -44,3 +44,20 @@
 #define R_MAXPERMISSION 32768 //This holds the maximum value for a permission. It is used in iteration, so keep it updated.
 
 #define R_HOST			65535
+
+#define ADMIN_QUE(user) "(<a href='?_src_=holder;adminmoreinfo=[user.UID()]'>?</a>)"
+#define ADMIN_FLW(user) "(<a href='?_src_=holder;adminplayerobservefollow=[user.UID()]'>FLW</a>)"
+#define ADMIN_PP(user) "(<a href='?_src_=holder;adminplayeropts=[user.UID()]'>PP</a>)"
+#define ADMIN_VV(atom) "(<a href='?_src_=vars;Vars=[atom.UID()]'>VV</a>)"
+#define ADMIN_SM(user) "(<a href='?_src_=holder;subtlemessage=[user.UID()]'>SM</a>)"
+#define ADMIN_TP(user) "(<a href='?_src_=holder;traitor=[user.UID()]'>TP</a>)"
+#define ADMIN_BSA(user) "(<a href='?_src_=holder;BlueSpaceArtillery=[user.UID()]'>BSA</a>)"
+#define ADMIN_CENTCOM_REPLY(user) "(<a href='?_src_=holder;CentcommReply=[user.UID()]'>RPLY</a>)"
+#define ADMIN_SYNDICATE_REPLY(user) "(<a href='?_src_=holder;SyndicateReply=[user.UID()]'>RPLY</a>)"
+#define ADMIN_SC(user) "(<a href='?_src_=holder;adminspawncookie=[user.UID()]'>SC</a>)"
+#define ADMIN_LOOKUP(user) "[key_name_admin(user)][ADMIN_QUE(user)]"
+#define ADMIN_LOOKUPFLW(user) "[key_name_admin(user)][ADMIN_QUE(user)] [ADMIN_FLW(user)]"
+#define ADMIN_FULLMONTY(user) "[key_name_admin(user)] [ADMIN_QUE(user)] [ADMIN_PP(user)] [ADMIN_VV(user)] [ADMIN_SM(user)] [ADMIN_FLW(user)] [ADMIN_TP(user)]"
+#define ADMIN_JMP(src) "(<a href='?_src_=holder;adminplayerobservecoodjump=1;X=[src.x];Y=[src.y];Z=[src.z]'>JMP</a>)"
+#define COORD(src) "[src ? "([src.x],[src.y],[src.z])" : "nonexistent location"]"
+#define ADMIN_COORDJMP(src) "[src ? "[COORD(src)] [ADMIN_JMP(src)]" : "nonexistent location"]"

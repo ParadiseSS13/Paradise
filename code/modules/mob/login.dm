@@ -43,12 +43,7 @@
 	sight |= SEE_SELF
 	..()
 
-	if(loc && !isturf(loc))
-		client.eye = loc
-		client.perspective = EYE_PERSPECTIVE
-	else
-		client.eye = src
-		client.perspective = MOB_PERSPECTIVE
+	reset_perspective(loc)
 
 
 	if(ckey in deadmins)

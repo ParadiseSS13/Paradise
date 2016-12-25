@@ -45,7 +45,7 @@
 /obj/machinery/computer/security/check_eye(var/mob/user as mob)
 	if((get_dist(user, src) > 1 || !( user.canmove ) || user.blinded || !( current ) || !( current.status )) && (!istype(user, /mob/living/silicon)))
 		return null
-	user.reset_view(current)
+	user.reset_perspective(current)
 	return 1
 
 // Network configuration
@@ -70,6 +70,17 @@
 	if(user.stat)
 		return
 
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "sec_camera.tmpl", "Camera Console", 900, 800)
+		// adding a template with the key "mapContent" enables the map ui functionality
+		ui.add_template("mapContent", "sec_camera_map_content.tmpl")
+		// adding a template with the key "mapHeader" replaces the map header content
+		ui.add_template("mapHeader", "sec_camera_map_header.tmpl")
+		ui.open()
+		ui.set_auto_update(1)
+
+/obj/machinery/computer/security/ui_data(mob/user, datum/topic_state/state = default_state)
 	var/data[0]
 	data["current"] = null
 
@@ -115,18 +126,7 @@
 	if(current)
 		data["current"] = current.nano_structure()
 
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if(!ui)
-		ui = new(user, src, ui_key, "sec_camera.tmpl", "Camera Console", 900, 800)
-
-		// adding a template with the key "mapContent" enables the map ui functionality
-		ui.add_template("mapContent", "sec_camera_map_content.tmpl")
-		// adding a template with the key "mapHeader" replaces the map header content
-		ui.add_template("mapHeader", "sec_camera_map_header.tmpl")
-
-		ui.set_initial_data(data)
-		ui.open()
-		ui.set_auto_update(1)
+	return data
 
 /obj/machinery/computer/security/Topic(href, href_list)
 	if(..())
@@ -138,10 +138,10 @@
 		var/obj/machinery/camera/C = locate(href_list["switchTo"]) in cameranet.cameras
 		if(!C)
 			return 1
-		
+
 		if(!can_access_camera(C))
 			return 1 // No href exploits for you.
-		
+
 		switch_to_camera(usr, C)
 
 	else if(href_list["reset"])

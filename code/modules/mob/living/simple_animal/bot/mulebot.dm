@@ -393,9 +393,8 @@
 		passenger = M
 		load = M
 		can_buckle = FALSE
-		if(M.client)
-			M.client.perspective = EYE_PERSPECTIVE
-			M.client.eye = src
+		// Not sure why this is done
+		reset_perspective(src)
 		return TRUE
 	return FALSE
 
@@ -423,9 +422,7 @@
 
 	if(ismob(load))
 		var/mob/M = load
-		if(M.client)
-			M.client.perspective = MOB_PERSPECTIVE
-			M.client.eye = M
+		M.reset_perspective(null)
 	unbuckle_mob()
 
 	if(load)
@@ -452,9 +449,7 @@
 		AM.pixel_y = initial(AM.pixel_y)
 		if(ismob(AM))
 			var/mob/M = AM
-			if(M.client)
-				M.client.perspective = MOB_PERSPECTIVE
-				M.client.eye = M
+			M.reset_perspective(null)
 
 /mob/living/simple_animal/bot/mulebot/call_bot()
 	..()

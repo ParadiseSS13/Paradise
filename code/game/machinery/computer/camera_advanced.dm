@@ -41,61 +41,73 @@
 		return
 	if(!iscarbon(user))
 		return
-	var/mob/living/carbon/L = user
-
-	if(!current_user)
-		user.set_machine(src)
-		if(!eyeobj)
-			CreateEye()
-		GrantActions(user)
-		current_user = user
-		eyeobj.user = user
-		eyeobj.name = "Camera Eye ([user.name])"
-		L.remote_view = 1
-		L.remote_control = eyeobj
-		L.client.perspective = EYE_PERSPECTIVE
-		if(!eyeobj.initialized)
-			for(var/obj/machinery/camera/C in cameranet.cameras)
-				if(!C.can_use())
-					continue
-				if(C.network&networks)
-					eyeobj.setLoc(get_turf(C))
-					break
-			eyeobj.initialized = 1
-		else
-			eyeobj.setLoc(eyeobj.loc)
-	else
+	if(current_user)
 		to_chat(user, "The console is already in use!")
+		return
+
+	user.set_machine(src)
+	if(!eyeobj)
+		CreateEye()
+	if(!eyeobj.initialized)
+		var/camera_location
+		for(var/obj/machinery/camera/C in cameranet.cameras)
+			if(!C.can_use())
+				continue
+			if(C.network&networks)
+				camera_location = get_turf(C)
+				break
+		if(camera_location)
+			eyeobj.initialized = 1
+			give_eye_control(user)
+			eyeobj.setLoc(camera_location)
+		else
+			// An abberant case - silent failure is obnoxious
+			to_chat(user, "<span class='warning'>ERROR: No linked and active camera network found.</span>")
+			user.unset_machine()
+	else
+		give_eye_control(user)
+
+
+/obj/machinery/computer/camera_advanced/proc/give_eye_control(mob/user)
+	GrantActions(user)
+	current_user = user
+	eyeobj.eye_user = user
+	eyeobj.name = "Camera Eye ([user.name])"
+	// This should be able to be excised once the full view refactor rolls out
+	user.remote_view = 1
+	user.remote_control = eyeobj
+	user.reset_perspective(eyeobj)
+	eyeobj.setLoc(eyeobj.loc)
 
 /mob/camera/aiEye/remote
 	name = "Inactive Camera Eye"
 	var/sprint = 10
 	var/cooldown = 0
 	var/acceleration = 1
-	var/mob/living/carbon/human/user = null
+	var/mob/living/carbon/human/eye_user = null
 	var/obj/machinery/computer/camera_advanced/origin
 	var/initialized = 0
 	var/visible_icon = 0
 	var/image/user_image = null
 
 /mob/camera/aiEye/remote/GetViewerClient()
-	if(user)
-		return user.client
+	if(eye_user)
+		return eye_user.client
 	return null
 
 /mob/camera/aiEye/remote/setLoc(T)
-	if(user)
-		if(!isturf(user.loc))
+	if(eye_user)
+		if(!isturf(eye_user.loc))
 			return
 		T = get_turf(T)
 		loc = T
 		cameranet.visibility(src)
-		if(user.client)
+		if(eye_user.client)
 			if(visible_icon)
-				user.client.images -= user_image
+				eye_user.client.images -= user_image
 				user_image = image(icon,loc,icon_state,FLY_LAYER)
-				user.client.images += user_image
-			user.client.eye = src
+				eye_user.client.images += user_image
+			eye_user.client.eye = src
 
 /mob/camera/aiEye/remote/relaymove(mob/user,direct)
 	var/initial = initial(sprint)
@@ -127,10 +139,9 @@
 	C.remote_view = 0
 	remote_eye.origin.current_user = null
 	remote_eye.origin.jump_action.Remove(C)
-	remote_eye.user = null
+	remote_eye.eye_user = null
+	C.reset_perspective(null)
 	if(C.client)
-		C.client.perspective = MOB_PERSPECTIVE
-		C.client.eye = src
 		C.client.images -= remote_eye.user_image
 		for(var/datum/camerachunk/chunk in remote_eye.visibleCameraChunks)
 			C.client.images -= chunk.obscured

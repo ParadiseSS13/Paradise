@@ -203,9 +203,6 @@
 /obj/machinery/abductor/experiment/proc/eject_abductee()
 	if(!occupant)
 		return
-	if(occupant.client)
-		occupant.client.eye = occupant.client.mob
-		occupant.client.perspective = MOB_PERSPECTIVE
 	occupant.forceMove(get_turf(src))
 	occupant = null
 	icon_state = "experiment-open"

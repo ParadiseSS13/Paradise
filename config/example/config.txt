@@ -248,6 +248,9 @@ GHOST_INTERACTION
 ## IRC channel to send adminhelps to.  Leave blank to disable adminhelps-to-irc.
 #ADMIN_IRC #admin
 
+## IRC channel to send direct messages to admins to. Leave blank to disable.
+#ADMIN_NOTIFY_IRC #paradiseStaff
+
 ## Path to the python2 executable on the system.  Leave blank for default.
 ## Default is "python" on Windows, "/usr/bin/env python2" on UNIX.
 #PYTHON_PATH pythonw
