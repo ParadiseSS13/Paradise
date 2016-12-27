@@ -3128,7 +3128,7 @@
 "bih" = (/obj/machinery/computer/communications,/turf/simulated/shuttle/floor,/area/shuttle/escape)
 "bii" = (/turf/simulated/floor/plating,/area/hallway/secondary/exit)
 "bij" = (/obj/structure/stool/bed/chair/comfy/black{dir = 1},/turf/simulated/shuttle/floor,/area/shuttle/escape)
-"bik" = (/turf/space,/area/space)
+"bik" = (/turf/simulated/wall,/area/space)
 "bil" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,/obj/machinery/atmospherics/pipe/simple/hidden/supply,/obj/machinery/camera{c_tag = "Arrivals Auxiliary Docking North"; dir = 8; network = list("SS13")},/turf/simulated/floor/plasteel,/area/hallway/secondary/entry)
 "bim" = (/turf/simulated/floor/wood,/area/security/vacantoffice)
 "bin" = (/obj/machinery/atmospherics/unary/vent_pump/on{dir = 4},/obj/structure/stool/bed/chair/office/dark{dir = 4},/turf/simulated/floor/wood,/area/security/vacantoffice)
