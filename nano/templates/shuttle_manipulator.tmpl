@@ -62,7 +62,7 @@ Title: Shuttle Manipulator UI
 				{{/if}}
 
 				<div class='item'>
-					{{:helper.link('select template', 'space-shuttle', {'select_template' : 1, 'shuttle_id' : value.shuttle_id}, (data.selected && data.selected.shuttle_id == value.shuttle_id) ? 'selected' : null)}}
+					{{:helper.link(value.shuttle_id, 'space-shuttle', {'select_template' : 1, 'shuttle_id' : value.shuttle_id}, (data.selected && data.selected.shuttle_id == value.shuttle_id) ? 'selected' : null)}}
 				</div>
 			</div>
 		{{/for}}
