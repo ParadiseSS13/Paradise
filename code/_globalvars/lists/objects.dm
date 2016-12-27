@@ -23,6 +23,7 @@ var/global/list/rcd_list = list() //list of Rapid Construction Devices.
 var/global/list/apcs = list()
 var/global/list/air_alarms = list()
 var/global/list/power_monitors = list()
+var/global/list/all_vent_pumps = list()
 
 var/global/list/navbeacons = list()					//list of all bot nagivation beacons, used for patrolling.
 var/global/list/deliverybeacons = list()			//list of all MULEbot delivery beacons.
