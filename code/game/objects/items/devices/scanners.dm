@@ -227,13 +227,13 @@ REAGENT SCANNER
 				user.show_message(text("\red Internal bleeding detected. Advanced scanner required for location."), 1)
 				break
 		if(H.vessel)
-			var/blood_type = H.get_blood_name()
-			var/blood_volume = round(H.vessel.get_reagent_amount(blood_type))
-			var/blood_percent =  blood_volume / BLOOD_VOLUME_NORMAL
+			var/blood_type = H.get_blood_id()
+			var/blood_volume = round(H.blood_volumet(blood_type))
+			var/blood_percent =  H.blood_volume / BLOOD_VOLUME_NORMAL
 			blood_percent *= 100
-			if(blood_volume <= 500)
+			if(H.blood_volume <= 500)
 				user.show_message("\red <b>Warning: Blood Level LOW: [blood_percent]% [blood_volume]cl")
-			else if(blood_volume <= 336)
+			else if(H.blood_volume <= 336)
 				user.show_message("\red <b>Warning: Blood Level CRITICAL: [blood_percent]% [blood_volume]cl")
 			else
 				user.show_message("\blue Blood Level Normal: [blood_percent]% [blood_volume]cl")

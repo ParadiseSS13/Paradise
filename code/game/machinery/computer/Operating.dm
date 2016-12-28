@@ -142,9 +142,9 @@
 			var/blood_type = occupant.get_blood_name()
 			occupantData["pulse"] = occupant.get_pulse(GETPULSE_TOOL)
 			occupantData["hasBlood"] = 1
-			occupantData["bloodLevel"] = round(occupant.vessel.get_reagent_amount(blood_type))
+			occupantData["bloodLevel"] = round(occupant.blood_volume)
 			occupantData["bloodMax"] = occupant.max_blood
-			occupantData["bloodPercent"] = round(100*(occupant.vessel.get_reagent_amount(blood_type)/occupant.max_blood), 0.01) //copy pasta ends here
+			occupantData["bloodPercent"] = round(100*(occupant.blood_volume/occupant.max_blood), 0.01) //copy pasta ends here
 
 			occupantData["bloodType"]=occupant.b_type
 		if(occupant.surgeries.len)

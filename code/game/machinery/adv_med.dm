@@ -360,13 +360,11 @@
 		var/bloodData[0]
 		bloodData["hasBlood"] = 0
 		if(ishuman(H) && H.vessel && !(H.species && H.species.flags & NO_BLOOD))
-			var/blood_type = H.get_blood_name()
-			var/blood_volume = round(H.vessel.get_reagent_amount(blood_type))
 			bloodData["hasBlood"] = 1
-			bloodData["volume"] = blood_volume
-			bloodData["percent"] = round(((blood_volume / BLOOD_VOLUME_NORMAL)*100))
+			bloodData["volume"] = H,blood_volume
+			bloodData["percent"] = round(((H.blood_volume / BLOOD_VOLUME_NORMAL)*100))
 			bloodData["pulse"] = H.get_pulse(GETPULSE_TOOL)
-			bloodData["bloodLevel"] = blood_volume
+			bloodData["bloodLevel"] = H.blood_volume
 			bloodData["bloodMax"] = H.max_blood
 		occupantData["blood"] = bloodData
 

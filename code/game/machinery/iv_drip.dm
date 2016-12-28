@@ -163,7 +163,7 @@
 
 			// If attached is losing too much blood, beep.
 			var/blood_type = attached.get_blood_name()
-			if(T.vessel.get_reagent_amount(blood_type) < BLOOD_VOLUME_SAFE && prob(5))
+			if(T.blood_volume < BLOOD_VOLUME_SAFE && prob(5))
 				visible_message("[src] beeps loudly.")
 				playsound(loc, 'sound/machines/twobeep.ogg', 50, 1)
 

@@ -268,7 +268,7 @@
 			L.adjustBruteLoss(DOOR_CRUSH_DAMAGE)
 		var/turf/simulated/location = src.loc
 		if(istype(location, /turf/simulated)) //add_blood doesn't work for borgs/xenos, but add_blood_floor does.
-			location.add_blood_floor(L)
+			L.add_splatter_floor(location)
 
 /obj/machinery/door/proc/requiresID()
 	return 1

@@ -34,7 +34,6 @@
 	create_reagents(330)
 
 	prev_gender = gender // Debug for plural genders
-	make_blood()
 
 	martial_art = default_martial_art
 
@@ -1308,9 +1307,7 @@
 /mob/living/carbon/human/revive()
 
 	if(species && !(species.flags & NO_BLOOD))
-		var/blood_reagent = get_blood_name()
-		vessel.add_reagent(blood_reagent, max_blood-vessel.total_volume)
-		fixblood()
+		restore_blood()
 
 	//Fix up all organs and replace lost ones.
 	restore_all_organs() //Rejuvenate and reset all existing organs.
@@ -1514,10 +1511,6 @@
 		if(oldspecies.default_genes.len)
 			oldspecies.handle_dna(src,1) // Remove any genes that belong to the old species
 
-	if(vessel)
-		vessel = null
-	make_blood()
-
 	maxHealth = species.total_health
 
 	toxins_alert = 0
@@ -1608,7 +1601,7 @@
 		overlays.Cut()
 		update_mutantrace(1)
 		regenerate_icons()
-		fixblood()
+		restore_blood()
 
 	if(!delay_icon_update)
 		UpdateAppearance()
