@@ -84,11 +84,11 @@
 
 //Drops the item in our left hand
 /mob/proc/drop_l_hand()
-	return drop_slot(slot_l_hand) //All needed checks are in unEquip
+	return drop_slot(slot_l_hand) //All needed checks are in drop_slot
 
 //Drops the item in our right hand
 /mob/proc/drop_r_hand()
-	return drop_slot(slot_r_hand) //Why was this not calling unEquip in the first place jesus fuck.
+	return drop_slot(slot_r_hand) //All needed checks are in drop_slot
 
 //Drops the item in our active hand.
 /mob/proc/drop_item() //THIS. DOES. NOT. NEED. AN. ARGUMENT.

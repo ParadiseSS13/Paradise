@@ -81,7 +81,7 @@
 	. = ..()
 	var/obj/item/organ/O = I
 	if(istype(O) && O.owner == src)
-		log_debug("Something tried to call `unEquip` on [src]'s giblets. [atom_loc_line(src)]")
+		log_runtime(EXCEPTION("Something tried to call `unEquip` on [src]'s giblets. [atom_loc_line(src)]"))
 		. = 0 // keep a good grip on your heart
 
 /mob/living/carbon/human/unEquip(obj/item/I)

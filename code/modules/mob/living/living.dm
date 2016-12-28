@@ -306,6 +306,23 @@
 
 /mob/living/proc/revive()
 	rejuvenate()
+	if(iscarbon(src))
+		var/mob/living/carbon/C = src
+
+		if(C.handcuffed && !initial(C.handcuffed))
+			C.unEquip(C.handcuffed)
+		C.handcuffed = initial(C.handcuffed)
+		C.update_handcuffed()
+
+		if(C.legcuffed && !initial(C.legcuffed))
+			C.unEquip(C.legcuffed)
+		C.legcuffed = initial(C.legcuffed)
+		C.update_inv_legcuffed()
+
+		if(C.reagents)
+			for(var/datum/reagent/R in C.reagents.reagent_list)
+				C.reagents.clear_reagents()
+			C.reagents.addiction_list.Cut()
 
 /mob/living/proc/rejuvenate()
 	var/mob/living/carbon/human/human_mob = null //Get this declared for use later.
