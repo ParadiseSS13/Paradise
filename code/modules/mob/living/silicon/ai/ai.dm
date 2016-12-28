@@ -603,7 +603,7 @@ var/list/ai_verbs_default = list(
 		if(M.attack_sound)
 			playsound(loc, M.attack_sound, 50, 1, 1)
 		visible_message("<span class='danger'><B>[M]</B> [M.attacktext] [src]!")
-		add_logs(M, src, "attacked", admin=0)
+		add_logs(M, src, "attacked", admin=0, print_attack_log = 0)
 		var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
 		adjustBruteLoss(damage)
 		updatehealth()

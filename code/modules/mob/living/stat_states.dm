@@ -6,7 +6,7 @@
 		return 0
 	else if(stat == UNCONSCIOUS)
 		return 0
-	add_logs(src, null, "fallen unconscious at [atom_loc_line(get_turf(src))]", admin=0)
+	add_logs(src, null, "fallen unconscious at [atom_loc_line(get_turf(src))]", admin=0, print_attack_log = 0)
 	stat = UNCONSCIOUS
 	if(updating)
 	// 	update_blind_effects()
@@ -19,7 +19,7 @@
 		return 0
 	else if(stat == CONSCIOUS)
 		return 0
-	add_logs(src, null, "woken up at [atom_loc_line(get_turf(src))]", admin=0)
+	add_logs(src, null, "woken up at [atom_loc_line(get_turf(src))]", admin=0, print_attack_log = 0)
 	stat = CONSCIOUS
 	if(updating)
 		// update_blind_effects()
@@ -40,7 +40,7 @@
 		return
 	if(!can_be_revived())
 		return
-	add_logs(src, null, "came back to life at [atom_loc_line(get_turf(src))]", admin=0)
+	add_logs(src, null, "came back to life at [atom_loc_line(get_turf(src))]", admin=0, print_attack_log = 0)
 	stat = CONSCIOUS
 	dead_mob_list -= src
 	living_mob_list += src
