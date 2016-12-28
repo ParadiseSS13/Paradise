@@ -113,12 +113,19 @@ var/global/list/image/splatter_cache=list()
 	icon_state = "1"
 	random_icon_states = list("1","2","3","4","5")
 	amount = 0
-	var/list/drips = list()
+	var/drips = 1
 
-/obj/effect/decal/cleanable/blood/drip/New()
-	..()
-	spawn(1)
-		drips |= icon_state
+/obj/effect/decal/cleanable/trail_holder //not a child of blood on purpose
+	name = "blood"
+	icon_state = "ltrails_1"
+	desc = "Your instincts say you shouldn't be following these."
+	gender = PLURAL
+	density = 0
+	layer = 2
+	random_icon_states = null
+	var/list/existing_dirs = list()
+	blood_DNA = list()
+
 
 /obj/effect/decal/cleanable/blood/writing
 	icon_state = "tracks"

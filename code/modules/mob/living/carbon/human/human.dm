@@ -34,7 +34,7 @@
 	create_reagents(330)
 
 	prev_gender = gender // Debug for plural genders
-	make_blood()
+	restore_blood()
 
 	martial_art = default_martial_art
 
@@ -1308,9 +1308,7 @@
 /mob/living/carbon/human/revive()
 
 	if(species && !(species.flags & NO_BLOOD))
-		var/blood_reagent = get_blood_name()
-		vessel.add_reagent(blood_reagent, max_blood-vessel.total_volume)
-		fixblood()
+		restore_blood()
 
 	//Fix up all organs and replace lost ones.
 	restore_all_organs() //Rejuvenate and reset all existing organs.
@@ -1382,18 +1380,6 @@
 	to_chat(world, "Mob took [tdamage] tox damage")
 */
 //returns 1 if made bloody, returns 0 otherwise
-
-/mob/living/carbon/human/add_blood(mob/living/carbon/human/M as mob)
-	if(!..())
-		return 0
-	//if this blood isn't already in the list, add it
-	if(blood_DNA[M.dna.unique_enzymes])
-		return 0 //already bloodied with this blood. Cannot add more.
-	blood_DNA[M.dna.unique_enzymes] = M.dna.b_type
-	hand_blood_color = blood_color
-	src.update_inv_gloves()
-	verbs += /mob/living/carbon/human/proc/bloody_doodle
-	return 1 //we applied blood to the item
 
 /mob/living/carbon/human/clean_blood(var/clean_feet)
 	.=..()
@@ -1514,10 +1500,7 @@
 		if(oldspecies.default_genes.len)
 			oldspecies.handle_dna(src,1) // Remove any genes that belong to the old species
 
-	if(vessel)
-		vessel = null
-	make_blood()
-
+	restore_blood()
 	maxHealth = species.total_health
 
 	toxins_alert = 0
@@ -1608,7 +1591,7 @@
 		overlays.Cut()
 		update_mutantrace(1)
 		regenerate_icons()
-		fixblood()
+		restore_blood()
 
 	if(!delay_icon_update)
 		UpdateAppearance()

@@ -361,40 +361,116 @@
 		A.fingerprintshidden |= fingerprintshidden.Copy()    //admin
 	A.fingerprintslast = fingerprintslast
 
+var/list/blood_splatter_icons = list()
 
-//returns 1 if made bloody, returns 0 otherwise
-/atom/proc/add_blood(mob/living/carbon/human/M as mob)
+/atom/proc/blood_splatter_index()
+	return "\ref[initial(icon)]-[initial(icon_state)]"
 
-	if(!blood_DNA || !istype(blood_DNA, /list))	//if our list of DNA doesn't exist yet (or isn't a list) initialise it.
-		blood_DNA = list()
+//returns the mob's dna info as a list, to be inserted in an object's blood_DNA list
+/mob/living/proc/get_blood_dna_list()
+	if(get_blood_id() != "blood")
+		return
+	return list("ANIMAL DNA" = "Y-")
 
-	blood_color = "#A10808"
-	if(istype(M))
-		if(M.species.flags & NO_BLOOD)
-			return 0
-		M.check_dna()
-		blood_color = M.species.blood_color
+/mob/living/carbon/get_blood_dna_list()
+	if(get_blood_id() != "blood")
+		return
+	var/list/blood_dna = list()
+	if(dna)
+		var/mob/living/carbon/human/H = src
+		blood_dna[dna.unique_enzymes] = H.b_type
+	else
+		blood_dna["UNKNOWN DNA"] = "X*"
+	return blood_dna
 
-	. = 1
-	return 1
+/mob/living/carbon/alien/get_blood_dna_list()
+	return list("UNKNOWN DNA" = "X*")
 
-/atom/proc/add_blood_list(mob/living/carbon/M)
+//to add a mob's dna info into an object's blood_DNA list.
+/atom/proc/transfer_mob_blood_dna(mob/living/L)
 	// Returns 0 if we have that blood already
-	if(!istype(blood_DNA, /list))	//if our list of DNA doesn't exist yet (or isn't a list) initialise it.
+	var/new_blood_dna = L.get_blood_dna_list()
+	if(!new_blood_dna)
+		return 0
+	if(!blood_DNA)	//if our list of DNA doesn't exist yet, initialise it.
 		blood_DNA = list()
-	//if this blood isn't already in the list, add it
-	if(blood_DNA[M.dna.unique_enzymes])
-		return 0 //already bloodied with this blood. Cannot add more.
-	var/blood_type = "X*"
-	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
-		blood_type = H.b_type
-	blood_DNA[M.dna.unique_enzymes] = blood_type
+	var/old_length = blood_DNA.len
+	blood_DNA |= new_blood_dna
+	if(blood_DNA.len == old_length)
+		return 0
 	return 1
 
-// Only adds blood on the floor -- Skie
-/atom/proc/add_blood_floor(mob/living/carbon/M)
-	return //why the fuck this is at an atom level but only works on simulated turfs I don't know
+//to add blood dna info to the object's blood_DNA list
+/atom/proc/transfer_blood_dna(list/blood_dna)
+	if(!blood_DNA)
+		blood_DNA = list()
+	var/old_length = blood_DNA.len
+	blood_DNA |= blood_dna
+	if(blood_DNA.len > old_length)
+		return 1//some new blood DNA was added
+
+
+//to add blood from a mob onto something, and transfer their dna info
+/atom/proc/add_mob_blood(mob/living/M)
+	var/list/blood_dna = M.get_blood_dna_list()
+	if(!blood_dna)
+		return 0
+	return add_blood(blood_dna)
+
+//to add blood onto something, with blood dna info to include.
+/atom/proc/add_blood(list/blood_dna)
+	return 0
+
+/obj/add_blood(list/blood_dna)
+	return transfer_blood_dna(blood_dna)
+
+/obj/item/add_blood(list/blood_dna)
+	var/blood_count = !blood_DNA ? 0 : blood_DNA.len
+	if(!..())
+		return 0
+	if(!blood_count)//apply the blood-splatter overlay if it isn't already in there
+		add_blood_overlay(blood_DNA[blood_color])
+	return 1 //we applied blood to the item
+
+/obj/item/proc/add_blood_overlay(var/bloodcolor)
+	if(initial(icon) && initial(icon_state))
+		//try to find a pre-processed blood-splatter. otherwise, make a new one
+		var/index = blood_splatter_index()
+		var/icon/blood_splatter_icon = blood_splatter_icons[index]
+		if(!blood_splatter_icon)
+			blood_splatter_icon = icon(initial(icon), initial(icon_state), , 1)		//we only want to apply blood-splatters to the initial icon_state for each object
+			blood_splatter_icon.Blend(bloodcolor, ICON_ADD) 			//fills the icon_state with white (except where it's transparent)
+			blood_splatter_icon.Blend(icon('icons/effects/blood.dmi', "itemblood"), ICON_MULTIPLY) //adds blood and the remaining white areas become transparant
+			blood_splatter_icon = fcopy_rsc(blood_splatter_icon)
+			blood_splatter_icons[index] = blood_splatter_icon
+		overlays += blood_splatter_icon
+
+/obj/item/clothing/gloves/add_blood(list/blood_dna)
+	. = ..()
+	transfer_blood = rand(2, 4)
+
+/turf/add_blood(list/blood_dna)
+	var/obj/effect/decal/cleanable/blood/splatter/B = locate() in src
+	if(!B)
+		B = new /obj/effect/decal/cleanable/blood/splatter(src)
+	B.transfer_blood_dna(blood_dna) //give blood info to the blood decal.
+	return 1 //we bloodied the floor
+
+/mob/living/carbon/human/add_blood(list/blood_dna)
+	if(wear_suit)
+		wear_suit.add_blood(blood_dna)
+		update_inv_wear_suit()
+	else if(w_uniform)
+		w_uniform.add_blood(blood_dna)
+		update_inv_w_uniform()
+	if(gloves)
+		var/obj/item/clothing/gloves/G = gloves
+		G.add_blood(blood_dna)
+	else
+		transfer_blood_dna(blood_dna)
+	bloody_hands = rand(2, 4)
+	update_inv_gloves()	//handles bloody hands overlays and updating
+	return 1
 
 /atom/proc/clean_blood()
 	src.germ_level = 0

@@ -68,7 +68,7 @@
 /obj/item/projectile/bullet/spike/on_hit(atom/target, blocked = 0)
 	if((blocked != 100) && istype(target, /mob/living/carbon/human))
 		var/mob/living/carbon/human/H = target
-		H.drip(500)
+		H.bleed(500)
 	..()
 
 //This gun only functions for armalis. The on-sprite is too huge to render properly on other sprites.

@@ -702,6 +702,10 @@
 	H.apply_damage(0.5*damage, BRUTE, "r_arm", run_armor_check("r_arm", "melee"))
 
 	var/obj/effect/decal/cleanable/blood/B = new(loc)
+
+	var/turf/T = get_turf(src)
+	T.add_mob_blood(H)
+
 	B.blood_DNA = list()
 	B.blood_DNA[H.dna.unique_enzymes] = H.dna.b_type
 	currentDNA = B.blood_DNA
@@ -710,9 +714,9 @@
 
 	currentBloodColor = "#A10808"
 	if(istype(H))
-		var/datum/reagent/blood/bld = H.get_blood(H.vessel)
-		if(bld.data["blood_colour"])
-			currentBloodColor = bld.data["blood_colour"]
+		if(B.blood_DNA)
+			transfer_blood_dna(B.blood_DNA)
+			currentBloodColor = B.blood_DNA["blood_colour"]
 			return
 	B.basecolor = currentBloodColor
 	B.update_icon()

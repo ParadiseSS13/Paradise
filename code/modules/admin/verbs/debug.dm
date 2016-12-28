@@ -836,7 +836,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			equip_special_id(M,list(access_maint_tunnels), "Survivor", /obj/item/weapon/card/id)
 			for(var/obj/item/carried_item in M.contents)
 				if(!istype(carried_item, /obj/item/weapon/implant))
-					carried_item.add_blood(M)
+					carried_item.add_mob_blood(M)
 
 		if("greytide")
 			M.equip_to_slot_or_del(new /obj/item/clothing/under/color/grey(M), slot_w_uniform)
@@ -902,7 +902,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			M.equip_to_slot_or_del(fire_axe, slot_r_hand)
 			for(var/obj/item/carried_item in M.contents)
 				if(!istype(carried_item, /obj/item/weapon/implant))
-					carried_item.add_blood(M)//Oh yes, there will be blood...
+					carried_item.add_mob_blood(M)//Oh yes, there will be blood...
 
 		if("dark lord")
 			M.equip_to_slot_or_del(new /obj/item/clothing/under/color/black(M), slot_w_uniform)

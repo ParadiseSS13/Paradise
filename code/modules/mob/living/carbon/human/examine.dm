@@ -432,6 +432,10 @@
 	if(display_gloves)
 		msg += "<span class='warning'><b>[src] has blood running from under [t_his] gloves!</b></span>\n"
 
+	if(blood_volume < BLOOD_VOLUME_SAFE)
+		msg += "[t_He] [t_has] pale skin.\n"
+	if(bleedsuppress)
+		msg += "[t_He] [t_is] bandaged with something.\n"
 
 	for(var/implant in get_visible_implants(0))
 		msg += "<span class='warning'><b>[src] has \a [implant] sticking out of [t_his] flesh!</span>\n"

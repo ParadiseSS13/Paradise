@@ -389,6 +389,7 @@
 	stat = CONSCIOUS
 	update_fire()
 	regenerate_icons()
+	restore_blood()
 	if(human_mob)
 		human_mob.update_eyes()
 		human_mob.update_dna()
@@ -456,6 +457,9 @@
 				if(isliving(pulling))
 					var/mob/living/M = pulling
 					var/ok = 1
+					if(M.lying && !M.buckled)
+						if(M.getBruteLoss() > M.maxHealth * 0.75)
+							M.makeTrail(T)
 					if(locate(/obj/item/weapon/grab, M.grabbed_by))
 						if(prob(75))
 							var/obj/item/weapon/grab/G = pick(M.grabbed_by)
@@ -501,6 +505,49 @@
 	if(istype(T))
 		return 1
 	return 0
+
+/mob/living/proc/makeTrail(turf/T)
+	if(!has_gravity(src))
+		return
+	var/blood_exists = 0
+
+	for(var/obj/effect/decal/cleanable/trail_holder/C in loc) //checks for blood splatter already on the floor
+		blood_exists = 1
+	if(isturf(src.loc))
+		var/trail_type = getTrail()
+		if(trail_type)
+			var/brute_ratio = round(getBruteLoss()/maxHealth, 0.1)
+			if(blood_volume && blood_volume > max(BLOOD_VOLUME_NORMAL*(1 - brute_ratio * 0.25), 0))//don't leave trail if blood volume below a threshold
+				blood_volume = max(blood_volume - max(1, brute_ratio * 2), 0) 					//that depends on our brute damage.
+				var/newdir = get_dir(T, src.loc)
+				if(newdir != src.dir)
+					newdir = newdir | src.dir
+					if(newdir == 3) //N + S
+						newdir = NORTH
+					else if(newdir == 12) //E + W
+						newdir = EAST
+				if((newdir in cardinal) && (prob(50)))
+					newdir = turn(get_dir(T, src.loc), 180)
+				if(!blood_exists)
+					new /obj/effect/decal/cleanable/trail_holder(src.loc)
+				for(var/obj/effect/decal/cleanable/trail_holder/TH in src.loc)
+					if((!(newdir in TH.existing_dirs) || trail_type == "trails_1" || trail_type == "trails_2") && TH.existing_dirs.len <= 16) //maximum amount of overlays is 16 (all light & heavy directions filled)
+						TH.existing_dirs += newdir
+						TH.overlays.Add(image('icons/effects/blood.dmi',trail_type,dir = newdir))
+						TH.color = blood_DNA["blood_colour"]
+						TH.transfer_mob_blood_dna(src)
+
+/mob/living/carbon/human/makeTrail(turf/T)
+	if((species.flags & NO_BLOOD) || !bleed_rate || bleedsuppress)
+		return
+	..()
+
+/mob/living/proc/getTrail()
+	if(getBruteLoss() < 150)
+		return pick("ltrails_1", "ltrails_2")
+	else
+		return pick("trails_1", "trails_2")
+
 
 /*//////////////////////
 	START RESIST PROCS

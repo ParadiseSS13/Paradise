@@ -208,9 +208,7 @@
 		M.adjustBruteLoss(-2*REAGENTS_EFFECT_MULTIPLIER)
 		M.adjustFireLoss(-2*REAGENTS_EFFECT_MULTIPLIER)
 	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
-		if(!H.species.exotic_blood && !(H.species.flags & NO_BLOOD) && prob(33))
-			H.vessel.add_reagent("blood", 1)
+		M.blood_volume += 1
 	..()
 
 /datum/reagent/medicine/synthflesh

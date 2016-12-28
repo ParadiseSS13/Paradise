@@ -110,31 +110,6 @@
 					if(!(prob(30) && M.slip("icy floor", 4, 2, 1, 1)))
 						M.inertia_dir = 0
 
-
-//returns 1 if made bloody, returns 0 otherwise
-/turf/simulated/add_blood(mob/living/carbon/human/M)
-	if(!..())
-		return 0
-
-	if(!istype(M)) // To avoid non-humans from causing runtimes whena dding blood to the floor
-		return 0
-	var/obj/effect/decal/cleanable/blood/B = locate() in contents	//check for existing blood splatter
-	if(!B)
-		blood_splatter(src,M.get_blood(M.vessel),1)
-		B = locate(/obj/effect/decal/cleanable/blood) in contents
-	B.add_blood_list(M)
-	return 1 //we bloodied the floor
-
-// Only adds blood on the floor -- Skie
-/turf/simulated/add_blood_floor(mob/living/carbon/M as mob)
-	if(ishuman(M))
-		blood_splatter(src,M,1)
-	if( istype(M, /mob/living/carbon/alien ))
-		var/obj/effect/decal/cleanable/blood/xeno/this = new /obj/effect/decal/cleanable/blood/xeno(src)
-		this.blood_DNA["UNKNOWN BLOOD"] = "X*"
-	else if( istype(M, /mob/living/silicon/robot ))
-		new /obj/effect/decal/cleanable/blood/oil(src)
-
 /turf/simulated/ChangeTurf(var/path)
 	. = ..()
 	smooth_icon_neighbors(src)
