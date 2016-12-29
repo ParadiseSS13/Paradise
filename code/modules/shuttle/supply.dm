@@ -631,11 +631,11 @@
 	data["can_launch"] = !shuttle_master.supply.canMove()
 	return data
 
-/obj/machinery/computer/supplycomp/proc/is_authorized(user)
+/obj/machinery/computer/supplycomp/proc/is_authorized(mob/user)
 	if(allowed(user))
 		return 1
 
-	if(isobserver(user) && check_rights(R_ADMIN, 0))
+	if(user.can_admin_interact())
 		return 1
 
 	return 0
