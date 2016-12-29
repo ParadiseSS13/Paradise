@@ -828,7 +828,7 @@
 		return !locked
 
 /obj/machinery/alarm/proc/is_locked(mob/user as mob, href_list)
-	if(isobserver(user) && check_rights(R_ADMIN, 0, user))
+	if(user.can_admin_interact())
 		return 0
 	else if(is_auth_rcon(href_list))
 		return 0

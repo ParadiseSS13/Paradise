@@ -1098,3 +1098,45 @@ About the new airlock wires panel:
 		electrified_until = 0
 		open()
 		safe = TRUE
+
+//////////////////////////////////
+/*
+	Cult Airlocks
+*/
+
+/obj/machinery/door/airlock/cult
+	name = "cult airlock"
+	icon = 'icons/obj/doors/doorcult.dmi'
+	assembly_type = /obj/structure/door_assembly/door_assembly_cult
+	hackProof = 1
+	aiControlDisabled = 1
+	var/friendly = FALSE
+
+/obj/machinery/door/airlock/cult/New()
+	..()
+
+/obj/machinery/door/airlock/cult/canAIControl(mob/user)
+	return (iscultist(user))
+
+/obj/machinery/door/airlock/cult/allowed(mob/M)
+	if(!density)
+		return 1
+	if(friendly || \
+			iscultist(M) || \
+			istype(M, /mob/living/simple_animal/shade) || \
+			istype(M, /mob/living/simple_animal/construct))
+		return 1
+	else
+		var/atom/throwtarget
+		throwtarget = get_edge_target_turf(src, get_dir(src, get_step_away(M, src)))
+		M << pick(sound('sound/hallucinations/turn_around1.ogg',0,1,50), sound('sound/hallucinations/turn_around2.ogg',0,1,50))
+		M.Weaken(2)
+		spawn(0)
+			M.throw_at(throwtarget, 5, 1,src)
+		return 0
+
+/obj/machinery/door/airlock/cult/narsie_act()
+	return
+
+/obj/machinery/door/airlock/cult/friendly
+	friendly = TRUE

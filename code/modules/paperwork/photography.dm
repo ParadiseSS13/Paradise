@@ -207,7 +207,7 @@ var/list/SpookyGhosts = list("ghost","shade","shade2","ghost-narsie","horror","s
 	..()
 
 
-/obj/item/device/camera/proc/get_icon(list/turfs, turf/center,mob/user)
+/obj/item/device/camera/proc/get_icon(list/turfs, turf/center, mob/user)
 
 	//Bigger icon base to capture those icons that were shifted to the next tile
 	//i.e. pretty much all wall-mounted machinery
@@ -218,11 +218,11 @@ var/list/SpookyGhosts = list("ghost","shade","shade2","ghost-narsie","horror","s
 
 	var/atoms[] = list()
 	for(var/turf/the_turf in turfs)
-		// Add outselves to the list of stuff to draw
+		// Add ourselves to the list of stuff to draw
 		atoms.Add(the_turf);
 		// As well as anything that isn't invisible.
 		for(var/atom/A in the_turf)
-			if(A.invisibility )
+			if(A.invisibility)
 				if(see_ghosts && istype(A,/mob/dead/observer))
 					var/mob/dead/observer/O = A
 					if(O.following)
@@ -234,7 +234,16 @@ var/list/SpookyGhosts = list("ghost","shade","shade2","ghost-narsie","horror","s
 				else//its not a ghost
 					continue
 			else//not invisable, not a spookyghost add it.
-				atoms.Add(A)
+				var/disguised = null
+				if(user.viewing_alternate_appearances && user.viewing_alternate_appearances.len && ishuman(A) && A.alternate_appearances && A.alternate_appearances.len) //This whole thing and the stuff below just checks if the atom is a Solid Snake cosplayer.
+					for(var/datum/alternate_appearance/alt_appearance in user.viewing_alternate_appearances)
+						if(alt_appearance.owner == A) //If it turns out they are, don't blow their cover. That'd be rude.
+							atoms.Add(image(alt_appearance.img, A.loc, layer = 4, dir = A.dir)) //Render their disguise.
+							atoms.Remove(A) //Don't blow their cover.
+							disguised = 1
+							continue
+				if(!disguised) //If they aren't, treat them normally.
+					atoms.Add(A)
 
 
 	// Sort the atoms into their layers
@@ -320,14 +329,10 @@ var/list/SpookyGhosts = list("ghost","shade","shade2","ghost-narsie","horror","s
 		on = 1
 
 /obj/item/device/camera/proc/can_capture_turf(turf/T, mob/user)
-	var/mob/dummy = new(T)	//Go go visibility check dummy
 	var/viewer = user
 	if(user.client)		//To make shooting through security cameras possible
 		viewer = user.client.eye
-	var/can_see = (dummy in viewers(world.view, viewer)) != null
-
-	dummy.loc = null
-	dummy = null	//Alas, nameless creature	//garbage collect it instead
+	var/can_see = (T in view(viewer)) //No x-ray vision cameras.
 	return can_see
 
 /obj/item/device/camera/proc/captureimage(atom/target, mob/user, flag)
@@ -350,7 +355,7 @@ var/list/SpookyGhosts = list("ghost","shade","shade2","ghost-narsie","horror","s
 	printpicture(user, P)
 
 /obj/item/device/camera/proc/createpicture(atom/target, mob/user, list/turfs, mobs, flag)
-	var/icon/photoimage = get_icon(turfs, target,user)
+	var/icon/photoimage = get_icon(turfs, target, user)
 
 	var/icon/small_img = icon(photoimage)
 	var/icon/tiny_img = icon(photoimage)
@@ -532,13 +537,13 @@ var/list/SpookyGhosts = list("ghost","shade","shade2","ghost-narsie","horror","s
 		if(get_dist(src, M) <= canhear_range)
 			talk_into(M, msg)
 		for(var/obj/machinery/computer/security/telescreen/T in machines)
-			if(T.current == camera)
+			if(T.watchers[M] == camera)
 				T.audible_message("<span class='game radio'><span class='name'>(Newscaster) [M]</span> says, '[msg]'", hearing_distance = 2)
 
 /obj/item/device/videocam/hear_message(mob/M as mob, msg)
 	if(camera && on)
 		for(var/obj/machinery/computer/security/telescreen/T in machines)
-			if(T.current == camera)
+			if(T.watchers[M] == camera)
 				T.audible_message("<span class='game radio'><span class='name'>(Newscaster) [M]</span> [msg]", hearing_distance = 2)
 
 

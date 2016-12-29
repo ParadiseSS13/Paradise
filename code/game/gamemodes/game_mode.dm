@@ -137,7 +137,7 @@
 					break
 
 /datum/game_mode/proc/check_finished() //to be called by ticker
-	if(shuttle_master.emergency.mode >= SHUTTLE_ENDGAME || station_was_nuked)
+	if((shuttle_master.emergency && shuttle_master.emergency.mode >= SHUTTLE_ENDGAME) || station_was_nuked)
 		return 1
 	return 0
 

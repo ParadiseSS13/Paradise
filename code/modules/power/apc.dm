@@ -896,7 +896,7 @@
 	return 1
 
 /obj/machinery/power/apc/proc/is_authenticated(mob/user as mob)
-	if(isobserver(user) && check_rights(R_ADMIN, 0, user))
+	if(user.can_admin_interact())
 		return 1
 	if(isAI(user) || isrobot(user))
 		return 1
@@ -904,7 +904,7 @@
 		return !locked
 
 /obj/machinery/power/apc/proc/is_locked(mob/user as mob)
-	if(isobserver(user) && check_rights(R_ADMIN, 0, user))
+	if(user.can_admin_interact())
 		return 0
 	if(isAI(user) || isrobot(user))
 		return 0

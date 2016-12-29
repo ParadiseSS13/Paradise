@@ -1,15 +1,3 @@
-/obj/item/clothing/glasses
-	name = "glasses"
-	icon = 'icons/obj/clothing/glasses.dmi'
-	//w_class = 2
-	//flags = GLASSESCOVERSEYES
-	//slot_flags = SLOT_EYES
-	//var/vision_flags = 0
-	//var/darkness_view = 0//Base human is 2
-	var/prescription = 0
-	var/prescription_upgradable = 0
-	var/see_darkness = 1
-
 /obj/item/clothing/glasses/New()
 	. = ..()
 	if(prescription_upgradable && prescription)
@@ -49,8 +37,8 @@
 	item_state = "glasses"
 	origin_tech = "magnets=2;engineering=2"
 	vision_flags = SEE_TURFS
+	invis_view = SEE_INVISIBLE_MINIMUM //don't render darkness while wearing these
 	prescription_upgradable = 1
-	see_darkness = 0 //don't render darkness while wearing mesons
 	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi',
@@ -112,7 +100,7 @@
 	icon_state = "nvpurple"
 	item_state = "glasses"
 	darkness_view = 8
-	see_darkness = 0
+	invis_view = SEE_INVISIBLE_MINIMUM //don't render darkness while wearing these
 
 /obj/item/clothing/glasses/janitor
 	name = "Janitorial Goggles"
@@ -131,7 +119,7 @@
 	item_state = "glasses"
 	origin_tech = "magnets=2"
 	darkness_view = 8
-	see_darkness = 0
+	invis_view = SEE_INVISIBLE_MINIMUM //don't render darkness while wearing these
 	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi',
@@ -400,7 +388,6 @@
 	item_state = "glasses"
 	origin_tech = "magnets=3"
 	vision_flags = SEE_MOBS
-	invisa_view = 2
 	flash_protect = -1
 	species_fit = list("Vox")
 	sprite_sheets = list(

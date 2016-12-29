@@ -42,6 +42,17 @@
 #define SHUTTLE_ESCAPE 5
 #define SHUTTLE_ENDGAME 6
 
+// Shuttle return values
+#define SHUTTLE_CAN_DOCK "can_dock"
+#define SHUTTLE_NOT_A_DOCKING_PORT "not_a_docking_port"
+#define SHUTTLE_DWIDTH_TOO_LARGE "docking_width_too_large"
+#define SHUTTLE_WIDTH_TOO_LARGE "width_too_large"
+#define SHUTTLE_DHEIGHT_TOO_LARGE "docking_height_too_large"
+#define SHUTTLE_HEIGHT_TOO_LARGE "height_too_large"
+#define SHUTTLE_ALREADY_DOCKED "we_are_already_docked"
+#define SHUTTLE_SOMEONE_ELSE_DOCKED "someone_else_docked"
+
+
 
 /*
 	Logic

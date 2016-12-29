@@ -1,0 +1,33 @@
+"a" = (/turf/space,/area/space)
+"b" = (/turf/space,/obj/structure/shuttle/engine/propulsion{tag = "icon-propulsion (EAST)"; icon_state = "propulsion"; dir = 4},/turf/simulated/shuttle/wall{icon_state = "swall_f6"; dir = 2},/area/shuttle/transport)
+"c" = (/turf/simulated/shuttle/wall{icon_state = "swall12"; dir = 2},/area/shuttle/transport)
+"d" = (/obj/structure/shuttle/window,/obj/structure/grille,/turf/simulated/shuttle/plating,/area/shuttle/transport)
+"e" = (/obj/structure/grille,/obj/structure/shuttle/window,/turf/simulated/shuttle/plating,/area/shuttle/transport)
+"f" = (/turf/space,/turf/simulated/shuttle/wall{icon_state = "swall_f10"; dir = 2},/area/shuttle/transport)
+"g" = (/turf/simulated/floor/plasteel{icon_state = "freezerfloor"},/turf/simulated/shuttle/wall/interior{tag = "icon-swall_f9"; icon_state = "swall_f9"},/area/shuttle/transport)
+"h" = (/obj/structure/stool/bed/chair{dir = 4},/obj/machinery/light/spot{tag = "icon-tube1 (NORTH)"; icon_state = "tube1"; dir = 1},/turf/simulated/floor/plasteel{icon_state = "freezerfloor"},/area/shuttle/transport)
+"i" = (/obj/machinery/computer/shuttle/ferry/request,/turf/simulated/floor/plasteel{icon_state = "freezerfloor"},/area/shuttle/transport)
+"j" = (/obj/structure/closet/secure_closet/freezer/meat,/obj/item/weapon/grenade/chem_grenade/meat,/obj/item/weapon/grenade/clusterbuster/meat,/obj/item/weapon/reagent_containers/food/snacks/meat/corgi,/obj/item/weapon/reagent_containers/food/snacks/meat/ham,/obj/item/weapon/reagent_containers/food/snacks/meat/human,/obj/item/weapon/reagent_containers/food/snacks/meat/monkey,/obj/item/weapon/reagent_containers/food/snacks/meat/pug,/obj/item/weapon/reagent_containers/food/snacks/meat/slab/meatproduct,/obj/item/weapon/reagent_containers/food/snacks/meat/syntiflesh,/turf/simulated/floor/plasteel{icon_state = "freezerfloor"},/area/shuttle/transport)
+"k" = (/turf/simulated/floor/plasteel{icon_state = "freezerfloor"},/area/shuttle/transport)
+"l" = (/obj/machinery/light/spot{tag = "icon-tube1 (NORTH)"; icon_state = "tube1"; dir = 1},/obj/machinery/gibber,/turf/simulated/floor/plasteel{icon_state = "freezerfloor"},/area/shuttle/transport)
+"m" = (/obj/structure/table/reinforced,/turf/simulated/floor/plasteel{icon_state = "freezerfloor"},/area/shuttle/transport)
+"n" = (/obj/structure/stool/bed/chair,/turf/simulated/floor/plasteel{icon_state = "freezerfloor"},/area/shuttle/transport)
+"o" = (/obj/machinery/light/spot{tag = "icon-tube1 (NORTH)"; icon_state = "tube1"; dir = 1},/obj/structure/stool/bed/chair,/turf/simulated/floor/plasteel{icon_state = "freezerfloor"},/area/shuttle/transport)
+"p" = (/obj/machinery/door/airlock/shuttle{id_tag = "s_docking_airlock"},/turf/simulated/shuttle/floor,/area/shuttle/transport)
+"q" = (/obj/item/stack/sheet/animalhide/cat,/obj/item/stack/sheet/animalhide/corgi,/obj/item/stack/sheet/animalhide/human,/obj/item/stack/sheet/animalhide/lizard,/obj/item/stack/sheet/animalhide/monkey,/obj/item/stack/sheet/animalhide/xeno,/turf/simulated/floor/plasteel{icon_state = "freezerfloor"},/area/shuttle/transport)
+"r" = (/obj/machinery/door/airlock/shuttle{id_tag = "s_docking_airlock"},/obj/docking_port/mobile{dir = 8; dwidth = 2; height = 12; id = "ferry"; name = "ferry shuttle"; roundstart_move = "ferry_away"; timid = 1; width = 5},/turf/simulated/shuttle/floor,/area/shuttle/transport)
+"s" = (/turf/space,/obj/structure/shuttle/engine/propulsion{tag = "icon-propulsion (EAST)"; icon_state = "propulsion"; dir = 4},/turf/simulated/shuttle/wall{icon_state = "swall_f5"; dir = 2},/area/shuttle/transport)
+"t" = (/turf/simulated/floor/plasteel{icon_state = "freezerfloor"},/turf/simulated/shuttle/wall/interior{tag = "icon-swall_f10"; icon_state = "swall_f10"},/area/shuttle/transport)
+"u" = (/obj/machinery/light/spot,/obj/structure/closet/chefcloset,/turf/simulated/floor/plasteel{icon_state = "freezerfloor"},/area/shuttle/transport)
+"v" = (/obj/structure/kitchenspike,/turf/simulated/floor/plasteel{icon_state = "freezerfloor"},/area/shuttle/transport)
+"w" = (/obj/machinery/light/spot,/turf/simulated/floor/plasteel{icon_state = "freezerfloor"},/area/shuttle/transport)
+"x" = (/obj/machinery/door/airlock/freezer{name = "Meat tadeship backroom"; req_access = "28"},/turf/simulated/floor/plasteel{icon_state = "freezerfloor"},/area/shuttle/transport)
+"y" = (/turf/space,/turf/simulated/shuttle/wall{icon_state = "swall_f9"; dir = 2},/area/shuttle/transport)
+
+(1,1,1) = {"
+abccdccceccf
+bghijklmknod
+pkkkqkkmkkkr
+stuvvvwxkkwd
+asccdccceccy
+"}
