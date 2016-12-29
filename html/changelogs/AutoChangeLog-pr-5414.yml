@@ -1,6 +1,0 @@
-author: "Fethas"
-delete-after: True
-changes: 
-  - rscadd: "Alternate shuttle/ferry template system from TG"
-  - rscadd: "Shuttle Manipulator"
-  - rscadd: "Better shuttle kills"

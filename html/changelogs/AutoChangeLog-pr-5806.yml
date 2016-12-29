@@ -1,5 +1,0 @@
-author: "Markolie"
-delete-after: True
-changes: 
-  - tweak: "The camera console has been refactored so there's no longer a delay when switching cameras."
-  - bugfix: "The camera console should no longer lag for several seconds."
