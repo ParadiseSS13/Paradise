@@ -1,0 +1,29 @@
+"a" = (/turf/space,/area/space)
+"b" = (/turf/space,/obj/structure/shuttle/engine/propulsion{tag = "icon-propulsion (EAST)"; icon_state = "propulsion"; dir = 4},/turf/simulated/shuttle/wall{icon_state = "swall_f6"; dir = 2},/area/shuttle/transport)
+"c" = (/turf/simulated/shuttle/wall{icon_state = "swall12"; dir = 2},/area/shuttle/transport)
+"d" = (/obj/structure/shuttle/window,/obj/structure/grille,/turf/simulated/shuttle/plating,/area/shuttle/transport)
+"e" = (/obj/structure/grille,/obj/structure/shuttle/window,/turf/simulated/shuttle/plating,/area/shuttle/transport)
+"f" = (/turf/space,/turf/simulated/shuttle/wall{icon_state = "swall_f10"; dir = 2},/area/shuttle/transport)
+"g" = (/turf/simulated/shuttle/floor,/turf/simulated/shuttle/wall/interior{tag = "icon-swall_f9"; icon_state = "swall_f9"},/area/shuttle/transport)
+"h" = (/obj/structure/stool/bed/chair{dir = 4},/obj/machinery/light/spot{tag = "icon-tube1 (NORTH)"; icon_state = "tube1"; dir = 1},/turf/simulated/shuttle/floor,/area/shuttle/transport)
+"i" = (/obj/machinery/computer/shuttle/ferry/request,/turf/simulated/shuttle/floor,/area/shuttle/transport)
+"j" = (/obj/structure/stool/bed/chair,/turf/simulated/shuttle/floor,/area/shuttle/transport)
+"k" = (/obj/structure/stool/bed/chair,/obj/machinery/light/spot{tag = "icon-tube1 (NORTH)"; icon_state = "tube1"; dir = 1},/turf/simulated/shuttle/floor,/area/shuttle/transport)
+"l" = (/obj/machinery/door/airlock/shuttle{id_tag = "s_docking_airlock"},/turf/simulated/shuttle/floor,/area/shuttle/transport)
+"m" = (/turf/simulated/shuttle/floor,/area/shuttle/transport)
+"n" = (/obj/machinery/door/airlock/shuttle{id_tag = "s_docking_airlock"},/obj/docking_port/mobile{dir = 8; dwidth = 2; height = 12; id = "ferry"; name = "ferry shuttle"; roundstart_move = "ferry_away"; timid = 1; width = 5},/turf/simulated/shuttle/floor,/area/shuttle/transport)
+"o" = (/turf/space,/obj/structure/shuttle/engine/propulsion{tag = "icon-propulsion (EAST)"; icon_state = "propulsion"; dir = 4},/turf/simulated/shuttle/wall{icon_state = "swall_f5"; dir = 2},/area/shuttle/transport)
+"p" = (/turf/simulated/shuttle/floor,/turf/simulated/shuttle/wall/interior{tag = "icon-swall_f10"; icon_state = "swall_f10"},/area/shuttle/transport)
+"q" = (/obj/structure/closet/crate,/obj/machinery/light/spot,/turf/simulated/shuttle/floor,/area/shuttle/transport)
+"r" = (/obj/structure/closet/crate,/turf/simulated/shuttle/floor,/area/shuttle/transport)
+"s" = (/obj/structure/stool/bed/chair{dir = 1},/turf/simulated/shuttle/floor,/area/shuttle/transport)
+"t" = (/obj/structure/stool/bed/chair{dir = 1},/obj/machinery/light/spot,/turf/simulated/shuttle/floor,/area/shuttle/transport)
+"u" = (/turf/space,/turf/simulated/shuttle/wall{icon_state = "swall_f9"; dir = 2},/area/shuttle/transport)
+
+(1,1,1) = {"
+abccdccceccf
+bghijjkjjjkd
+lmmmmmmmmmmn
+opqrsstssstd
+aoccdccceccu
+"}
