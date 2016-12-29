@@ -22,7 +22,6 @@
 "av" = (/obj/item/flag/cult,/turf/simulated/floor/engine/cult,/area/shuttle/escape)
 "aw" = (/obj/machinery/status_display{pixel_y = 30},/obj/machinery/light/spot{tag = "icon-tube1 (NORTH)"; icon_state = "tube1"; dir = 1},/turf/simulated/floor/engine/cult,/area/shuttle/escape)
 "ax" = (/obj/structure/stool/bed/chair{dir = 4},/obj/structure/closet/walllocker/emerglocker{pixel_x = -28},/obj/effect/decal/remains/human{desc = "This guy seemed to have died in terrible way! Half his remains are dust."; icon_state = "remains"; name = "Human remains"},/turf/simulated/floor/engine/cult,/area/shuttle/escape)
-"ay" = (/obj/machinery/door/airlock/cult/friendly,/turf/simulated/floor/plating,/area/shuttle/escape)
 "az" = (/obj/structure/cult/talisman,/turf/simulated/floor/engine/cult,/area/shuttle/escape)
 "aA" = (/obj/structure/closet/walllocker/emerglocker{pixel_x = 28},/turf/simulated/floor/engine/cult,/area/shuttle/escape)
 "aB" = (/obj/structure/stool/bed/chair{dir = 1},/obj/effect/decal/remains/human{desc = "This guy seemed to have died in terrible way! Half his remains are dust."; icon_state = "remains"; name = "Human remains"},/turf/simulated/floor/engine/cult,/area/shuttle/escape)
@@ -43,9 +42,7 @@
 "aQ" = (/obj/effect/decal/cleanable/blood/writing,/obj/effect/decal/cleanable/blood/writing,/turf/simulated/floor/engine/cult,/area/shuttle/escape)
 "aR" = (/turf/simulated/shuttle/wall{icon_state = "swall3"; dir = 2},/obj/effect/spawner/window/reinforced{color = "red"},/turf/simulated/wall/cult,/area/shuttle/escape)
 "aS" = (/obj/machinery/status_display{pixel_y = -30},/obj/machinery/light/spot,/turf/simulated/floor/engine/cult,/area/shuttle/escape)
-"aT" = (/obj/machinery/door/airlock/cult/friendly,/turf/simulated/shuttle/floor{icon_state = "floor3"},/area/shuttle/escape)
 "aU" = (/obj/effect/spawner/window/reinforced{color = "red"},/turf/simulated/shuttle/wall{tag = "icon-swall14"; icon_state = "swall14"; dir = 2},/area/shuttle/escape)
-"aV" = (/obj/machinery/door/airlock/cult/friendly,/turf/simulated/shuttle/floor4,/area/shuttle/escape)
 "aW" = (/obj/structure/dresser,/turf/simulated/floor/engine/cult,/area/shuttle/escape)
 "aX" = (/obj/structure/table,/obj/item/weapon/storage/firstaid/o2{layer = 2.8; pixel_x = 4; pixel_y = 6},/obj/item/weapon/storage/firstaid/regular{pixel_x = 2; pixel_y = 6},/obj/item/weapon/storage/firstaid/regular{pixel_x = -2; pixel_y = 4},/obj/item/bodybag/cryobag{pixel_x = 5},/turf/simulated/floor/engine/cult,/area/shuttle/escape)
 "aY" = (/obj/effect/decal/cleanable/blood/tracks/footprints,/turf/simulated/floor/engine/cult,/area/shuttle/escape)
@@ -70,7 +67,7 @@ aaaaababalajajajamababaaaa
 aaaaabanaoajajapaqajabaaaa
 ababababababarabababababab
 abasatauacavajavajajawajab
-abaxajajayajajajajajazaAab
+abaxajajarajajajajajazaAab
 arajaBaCacajajajajajajajaD
 ababababacajajajajajajajab
 aEajajajajajaFajajajajajab
@@ -80,10 +77,11 @@ acajajaFaIaIaMaIaIaFajajac
 acajajajaHaNaIaOaHajajajac
 abaPajajaFaHaQaHaFajajajaR
 arajajajajaSaFaSajajajajac
-abababaTababacaUacaVacacab
+abababarababacaUacaracacab
 arajajajaWabaaabaXaYaYaZab
 baajajajbbabaaabbcbcbdaZab
 abajajbebfabaaabbgbcbdaZab
 ababbhbhbhabaaabbibibiabab
 aaabbjbjbjabaaabbjbjbjabaa
 "}
+
