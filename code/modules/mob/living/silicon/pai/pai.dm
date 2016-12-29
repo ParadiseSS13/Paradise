@@ -137,7 +137,7 @@
 /mob/living/silicon/pai/check_eye(var/mob/user as mob)
 	if(!src.current)
 		return null
-	user.reset_view(src.current)
+	user.reset_perspective(src.current)
 	return 1
 
 /mob/living/silicon/pai/blob_act()
@@ -261,7 +261,7 @@
 	usr:cameraFollow = null
 	if(!C)
 		src.unset_machine()
-		src.reset_view(null)
+		src.reset_perspective(null)
 		return 0
 	if(stat == 2 || !C.status || !(src.network in C.network)) return 0
 
@@ -269,7 +269,7 @@
 
 	src.set_machine(src)
 	src:current = C
-	src.reset_view(C)
+	src.reset_perspective(C)
 	return 1
 
 /mob/living/silicon/pai/verb/reset_record_view()
@@ -288,7 +288,7 @@
 /mob/living/silicon/pai/cancel_camera()
 	set category = "pAI Commands"
 	set name = "Cancel Camera View"
-	src.reset_view(null)
+	src.reset_perspective(null)
 	src.unset_machine()
 	src:cameraFollow = null
 
@@ -297,7 +297,7 @@
 /mob/living/silicon/pai/proc/pai_network_change()
 	set category = "pAI Commands"
 	set name = "Change Camera Network"
-	src.reset_view(null)
+	src.reset_perspective(null)
 	src.unset_machine()
 	src:cameraFollow = null
 	var/cameralist[0]
@@ -363,9 +363,6 @@
 		var/obj/item/device/pda/holder = card.loc
 		holder.pai = null
 
-	if(client)
-		client.perspective = EYE_PERSPECTIVE
-		client.eye = src
 	forceMove(get_turf(card))
 
 	card.forceMove(src)
@@ -487,9 +484,7 @@
 	visible_message("<span class=notice>[src] neatly folds inwards, compacting down to a rectangular card.</span>", "<span class=notice>You neatly fold inwards, compacting down to a rectangular card.</span>")
 
 	stop_pulling()
-	if(client)
-		client.perspective = EYE_PERSPECTIVE
-		client.eye = card
+	reset_perspective(card)
 
 // If we are being held, handle removing our holder from their inv.
 	var/obj/item/weapon/holder/H = loc

@@ -1028,7 +1028,7 @@ body
 			to_chat(usr, "Mob doesn't exist anymore")
 			return
 
-		if(!(locateUID(rem_organ) in M.internal_organs))
+		if(!(rem_organ in M.internal_organs))
 			to_chat(usr, "Mob does not have that organ.")
 			return
 

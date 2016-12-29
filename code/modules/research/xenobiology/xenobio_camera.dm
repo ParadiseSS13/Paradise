@@ -76,7 +76,7 @@
 	origin.feed_slime_action.Remove(C)
 	origin.monkey_recycle_action.Remove(C)
 	//All of this stuff below could probably be a proc for all advanced cameras, only the action removal needs to be camera specific
-	remote_eye.user = null
+	remote_eye.eye_user = null
 	if(C.client)
 		C.client.perspective = MOB_PERSPECTIVE
 		C.client.eye = src

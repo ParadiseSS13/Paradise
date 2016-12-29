@@ -41,6 +41,14 @@
 
 
 /obj/item/device/aicard/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/topic_state/state = inventory_state)
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "aicard.tmpl", "[name]", 600, 400, state = state)
+		ui.open()
+		ui.set_auto_update(1)
+
+
+/obj/item/device/aicard/ui_data(mob/user, datum/topic_state/state = inventory_state)
 	var/data[0]
 
 	var/mob/living/silicon/ai/AI = locate() in src
@@ -59,12 +67,7 @@
 		data["laws"] = laws
 		data["has_laws"] = laws.len
 
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if(!ui)
-		ui = new(user, src, ui_key, "aicard.tmpl", "[name]", 600, 400, state = state)
-		ui.set_initial_data(data)
-		ui.open()
-		ui.set_auto_update(1)
+	return data
 
 
 /obj/item/device/aicard/Topic(href, href_list, nowindow, state)

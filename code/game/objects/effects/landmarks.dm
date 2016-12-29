@@ -39,23 +39,23 @@
 		if("prisonwarp")
 			prisonwarp += loc
 			qdel(src)
-			
+
 		if("prisonsecuritywarp")
 			prisonsecuritywarp += loc
 			qdel(src)
-			
+
 		if("tdome1")
 			tdome1	+= loc
-			
+
 		if("tdome2")
 			tdome2 += loc
-			
+
 		if("tdomeadmin")
 			tdomeadmin	+= loc
-			
+
 		if("tdomeobserve")
 			tdomeobserve += loc
-			
+
 		if("aroomwarp")
 			aroomwarp += loc
 
@@ -80,7 +80,7 @@
 		if("ERT Director")
 			ertdirector += loc
 			qdel(src)
-			
+
 		if("Response Team")
 			emergencyresponseteamspawn += loc
 			qdel(src)
