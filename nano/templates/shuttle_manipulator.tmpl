@@ -40,7 +40,7 @@ Title: Shuttle Manipulator UI
 {{else data.selectedMenuKey == 'stemp'}}
 	<div class="item">
 	{{for data.templates_tabs}}
-		{{:helper.link(value.shuttle_id, 'space-shuttle', {'select_template' : 1, 'shuttle_id' : value.shuttle_id}, (data.existing_shuttle.shuttle_id == value.shuttle_id) ? 'selected' : null)}}
+		{{:helper.link(value, 'space-shuttle', {'select_template_category' : value}, (data.existing_shuttle.id == value) ? 'selected' : null)}}
 	{{/for}}
 	</div>
 	{{if data.existing_shuttle}}
@@ -67,6 +67,7 @@ Title: Shuttle Manipulator UI
 			</div>
 		{{/for}}
 	{{/if}}
+
 <!-- Shuttle Modification tab -->
 {{else data.selectedMenuKey == 'mod'}}
 	<div class="statusDisplay">
