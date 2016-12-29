@@ -32,11 +32,11 @@
 "aF" = (/obj/machinery/status_display{pixel_y = 30},/obj/machinery/light/spot{tag = "icon-tube1 (NORTH)"; icon_state = "tube1"; dir = 1},/turf/simulated/shuttle/floor,/area/shuttle/escape)
 "aG" = (/obj/structure/stool/bed/chair{dir = 4},/obj/structure/closet/walllocker/emerglocker{pixel_x = -28},/turf/simulated/shuttle/floor4,/area/shuttle/escape)
 "aH" = (/turf/simulated/shuttle/floor4,/area/shuttle/escape)
-"aI" = (/obj/machinery/door/airlock/glass_security{name = "Escape Shuttle Cell"; req_access_txt = "2"},/turf/simulated/floor/plating,/area/shuttle/escape)
+"aI" = (/obj/machinery/door/airlock/shuttle{aiControlDisabled = 1; hackProof = 1; id_tag = "s_docking_airlock"; name = "Shuttle Hatch"},/turf/simulated/shuttle/floor4,/area/shuttle/escape)
 "aJ" = (/turf/simulated/shuttle/floor{icon_state = "floor3"},/area/shuttle/escape)
 "aK" = (/obj/structure/grille,/obj/structure/window/full/shuttle{icon_state = "8"},/turf/simulated/floor/plating,/area/shuttle/escape)
 "aL" = (/obj/structure/stool/bed/chair{dir = 8},/obj/structure/closet/walllocker/emerglocker{pixel_x = 28},/turf/simulated/shuttle/floor{icon_state = "floor3"},/area/shuttle/escape)
-"aM" = (/obj/machinery/door/airlock/shuttle{aiControlDisabled = 1; hackProof = 1; id_tag = "s_docking_airlock"; name = "Shuttle Hatch"},/turf/simulated/floor/plating,/area/shuttle/escape)
+"aM" = (/obj/machinery/door/airlock/shuttle{aiControlDisabled = 1; hackProof = 1; id_tag = "s_docking_airlock"; name = "Shuttle Hatch"},/turf/simulated/shuttle/floor{icon_state = "floor2"},/area/shuttle/escape)
 "aN" = (/obj/structure/stool/bed/chair{dir = 1},/turf/simulated/shuttle/floor4,/area/shuttle/escape)
 "aO" = (/obj/structure/stool/bed/chair{dir = 8},/obj/item/device/radio/intercom{dir = 4; name = "station intercom (General)"; pixel_x = 28},/turf/simulated/shuttle/floor4,/area/shuttle/escape)
 "aP" = (/turf/simulated/shuttle/wall{tag = "icon-swall7"; icon_state = "swall7"; dir = 2},/area/shuttle/escape)
@@ -48,12 +48,12 @@
 "aV" = (/obj/machinery/door/airlock/shuttle{aiControlDisabled = 1; hackProof = 1; id_tag = "s_docking_airlock"; name = "Shuttle Hatch"},/turf/simulated/shuttle/floor,/area/shuttle/escape)
 "aW" = (/obj/machinery/status_display{pixel_y = -30},/obj/machinery/light/spot,/turf/simulated/shuttle/floor,/area/shuttle/escape)
 "aX" = (/obj/structure/noticeboard,/turf/simulated/shuttle/wall{icon_state = "swall12"; dir = 2},/area/shuttle/escape)
-"aY" = (/obj/machinery/door/airlock/shuttle{aiControlDisabled = 1; hackProof = 1; id_tag = null; name = "Shuttle Cargo Hatch"},/turf/simulated/shuttle/floor{icon_state = "floor3"},/area/shuttle/escape)
+"aY" = (/obj/machinery/door/airlock/glass_security{name = "Escape Shuttle Cell"; req_access_txt = "2"},/turf/simulated/shuttle/floor4,/area/shuttle/escape)
 "aZ" = (/turf/simulated/shuttle/wall{tag = "icon-swall14"; icon_state = "swall14"; dir = 2},/area/shuttle/escape)
-"ba" = (/obj/machinery/door/airlock/glass_security{name = "Escape Shuttle Cell"; req_access_txt = "2"},/obj/machinery/door/airlock/glass_medical{id_tag = null; name = "Escape Shuttle Infirmary"; req_access_txt = "0"},/turf/simulated/shuttle/floor4,/area/shuttle/escape)
+"ba" = (/obj/machinery/door/airlock/shuttle{aiControlDisabled = 1; hackProof = 1; id_tag = null; name = "Shuttle Cargo Hatch"},/turf/simulated/shuttle/floor{icon_state = "floor2"},/area/shuttle/escape)
 "bb" = (/obj/structure/grille,/obj/structure/window/full/shuttle{icon_state = "14"},/turf/simulated/floor/plating,/area/shuttle/escape)
 "bc" = (/obj/structure/grille,/obj/structure/window/full/shuttle{icon_state = "17"},/turf/simulated/floor/plating,/area/shuttle/escape)
-"bd" = (/obj/machinery/door/airlock/shuttle{aiControlDisabled = 1; hackProof = 1; id_tag = "s_docking_airlock"; name = "Shuttle Hatch"},/turf/space,/area/shuttle/escape)
+"bd" = (/obj/machinery/door/airlock/glass_medical{id_tag = null; name = "Escape Shuttle Infirmary"; req_access_txt = "0"},/turf/simulated/shuttle/floor{icon_state = "floor3"},/area/shuttle/escape)
 "be" = (/turf/simulated/shuttle/floor{icon_state = "floor2"},/area/shuttle/escape)
 "bf" = (/obj/structure/closet/crate,/turf/simulated/shuttle/floor{icon_state = "floor2"},/area/shuttle/escape)
 "bg" = (/obj/structure/table,/obj/item/weapon/storage/firstaid/o2{layer = 2.8; pixel_x = 4; pixel_y = 6},/obj/item/weapon/storage/firstaid/regular{pixel_x = 2; pixel_y = 6},/obj/item/weapon/storage/firstaid/regular{pixel_x = -2; pixel_y = 4},/obj/item/bodybag/cryobag{pixel_x = 5},/turf/simulated/shuttle/floor{icon_state = "floor3"},/area/shuttle/escape)
@@ -83,8 +83,8 @@ aaaaabaeaoamamamapagadaaaa
 aaaaaqarasamamatauamaqaaaa
 abavawavavavaxavayavawavad
 aqazaAaBacaCamaDaEaCaFaDaq
-aqaGaHaHaIaJamaDaKaCamaLaq
-aMaHaNaOaEaCamaDaKaCamaDac
+aqaGaHaHaYaJamaDaKaCamaLaq
+aIaHaNaOaEaCamaDaKaCamaDac
 aPavavavaQaCamaDaQaCamaDaq
 aRamamamamamamamamamamaDaq
 aqaSamaDaEaCamaDaEaCamaTaq
@@ -93,10 +93,11 @@ aKaCamaDaKaCamaDaKaCamaDaK
 aQaCamaDaQaCamaDaQaCamaDaQ
 aqaUamamamamamamamamamamaq
 aVamamamamaWamaWamamamamac
-aPavaXaYavaZacaZacbabbbcaq
-bdbebebebfaqaaaqbgaJaJbhaq
+aPavaXbaavaZacaZacbdbbbcaq
+aMbebebebfaqaaaqbgaJaJbhaq
 acbibebebjaqaaaqbkaJaJblaq
 aqbmbnboboaqaaaqbpbpbpaJaq
 bqaybrbrbrbsaabtbububuaybv
 aabqbwbwbwbvaabqbwbwbwbvaa
 "}
+
