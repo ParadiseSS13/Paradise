@@ -13,14 +13,14 @@ client/proc/one_click_antag()
 /datum/admins/proc/one_click_antag()
 
 	var/dat = {"<B>One-click Antagonist</B><br>
-		<a href='?src=\ref[src];makeAntag=1'>Make Traitors</a><br>
-		<a href='?src=\ref[src];makeAntag=2'>Make Changelings</a><br>
-		<a href='?src=\ref[src];makeAntag=3'>Make Revolutionaries</a><br>
-		<a href='?src=\ref[src];makeAntag=4'>Make Cult</a><br>
-		<a href='?src=\ref[src];makeAntag=5'>Make Wizard (Requires Ghosts)</a><br>
-		<a href='?src=\ref[src];makeAntag=6'>Make Vampires</a><br>
-		<a href='?src=\ref[src];makeAntag=7'>Make Vox Raiders (Requires Ghosts)</a><br>
-		<a href='?src=\ref[src];makeAntag=8'>Make Abductor Team (Requires Ghosts)</a><br>
+		<a href='?src=[UID()];makeAntag=1'>Make Traitors</a><br>
+		<a href='?src=[UID()];makeAntag=2'>Make Changelings</a><br>
+		<a href='?src=[UID()];makeAntag=3'>Make Revolutionaries</a><br>
+		<a href='?src=[UID()];makeAntag=4'>Make Cult</a><br>
+		<a href='?src=[UID()];makeAntag=5'>Make Wizard (Requires Ghosts)</a><br>
+		<a href='?src=[UID()];makeAntag=6'>Make Vampires</a><br>
+		<a href='?src=[UID()];makeAntag=7'>Make Vox Raiders (Requires Ghosts)</a><br>
+		<a href='?src=[UID()];makeAntag=8'>Make Abductor Team (Requires Ghosts)</a><br>
 		"}
 	usr << browse(dat, "window=oneclickantag;size=400x400")
 	return
@@ -269,8 +269,12 @@ client/proc/one_click_antag()
 	return 1
 
 /datum/admins/proc/makeAliens()
-	alien_infestation(3)
-	return 1
+	var/datum/event/alien_infestation/E = new /datum/event/alien_infestation
+	E.spawncount = 3
+	// TODO The fact we have to do this rather than just have events start
+	// when we ask them to, is bad.
+	E.processing = TRUE
+	return TRUE
 
 /*
 /datum/admins/proc/makeSpaceNinja()

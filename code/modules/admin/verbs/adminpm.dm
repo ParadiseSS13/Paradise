@@ -67,7 +67,7 @@
 	if(istext(whom))
 		if(cmptext(copytext(whom,1,2),"@"))
 			whom = findStealthKey(whom)
-		C = directory[C]
+		C = directory[whom]
 	else if(istype(whom,/client))
 		C = whom
 
@@ -99,7 +99,7 @@
 				adminhelp(msg)	//admin we are replying to has vanished, adminhelp instead
 			return
 
-	if(src.handle_spam_prevention(msg,MUTE_ADMINHELP))
+	if(handle_spam_prevention(msg, MUTE_ADMINHELP, OOC_COOLDOWN))
 		return
 
 	//clean the message if it's not sent by a high-rank admin

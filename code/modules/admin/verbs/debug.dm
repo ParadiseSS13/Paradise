@@ -92,7 +92,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			log_admin("[key_name(src)] called [procname]() with [lst.len ? "the arguments [list2params(lst)]":"no arguments"]")
 			returnval = call(procname)(arglist(lst)) // Pass the lst as an argument list to the proc
 
-		to_chat(usr, "<font color='blue'>[procname] returned: [returnval ? returnval : "null"]</font>")
+		to_chat(usr, "<font color='blue'>[procname] returned: [!isnull(returnval) ? returnval : "null"]</font>")
 		feedback_add_details("admin_verb","APC") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/callproc_datum(var/A as null|area|mob|obj|turf)
@@ -122,7 +122,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 
 	spawn()
 		var/returnval = call(A,procname)(arglist(lst)) // Pass the lst as an argument list to the proc
-		to_chat(usr, "<span class='notice'>[procname] returned: [returnval ? returnval : "null"]</span>")
+		to_chat(usr, "<span class='notice'>[procname] returned: [!isnull(returnval) ? returnval : "null"]</span>")
 
 	feedback_add_details("admin_verb","DPC") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
@@ -934,11 +934,11 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			for(var/obj/item/briefcase_item in sec_briefcase)
 				qdel(briefcase_item)
 			for(var/i=3, i>0, i--)
-				sec_briefcase.contents += new /obj/item/weapon/spacecash/c1000
-			sec_briefcase.contents += new /obj/item/weapon/gun/energy/kinetic_accelerator/crossbow
-			sec_briefcase.contents += new /obj/item/weapon/gun/projectile/revolver/mateba
-			sec_briefcase.contents += new /obj/item/ammo_box/a357
-			sec_briefcase.contents += new /obj/item/weapon/grenade/plastic/c4
+				sec_briefcase.handle_item_insertion(new /obj/item/weapon/spacecash/c1000, 1)
+			sec_briefcase.handle_item_insertion(new /obj/item/weapon/gun/energy/kinetic_accelerator/crossbow, 1)
+			sec_briefcase.handle_item_insertion(new /obj/item/weapon/gun/projectile/revolver/mateba, 1)
+			sec_briefcase.handle_item_insertion(new /obj/item/ammo_box/a357, 1)
+			sec_briefcase.handle_item_insertion(new /obj/item/weapon/grenade/plastic/c4, 1)
 			// briefcase must be unlocked by setting the code.
 			M.equip_to_slot_or_del(sec_briefcase, slot_l_hand)
 			var/obj/item/weapon/implant/dust/DUST = new /obj/item/weapon/implant/dust(M)

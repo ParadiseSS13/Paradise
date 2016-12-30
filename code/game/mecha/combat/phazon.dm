@@ -71,8 +71,8 @@
 	var/output = {"<div class='wr'>
 						<div class='header'>Special</div>
 						<div class='links'>
-						<a href='?src=\ref[src];phasing=1'><span id="phasing_command">[phasing?"Dis":"En"]able phasing</span></a><br>
-						<a href='?src=\ref[src];switch_damtype=1'>Change melee damage type</a><br>
+						<a href='?src=[UID()];phasing=1'><span id="phasing_command">[phasing?"Dis":"En"]able phasing</span></a><br>
+						<a href='?src=[UID()];switch_damtype=1'>Change melee damage type</a><br>
 						</div>
 						</div>
 						"}

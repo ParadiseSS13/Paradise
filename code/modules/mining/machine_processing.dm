@@ -25,9 +25,9 @@
 	if(machine.ore_iron || machine.ore_glass || machine.ore_plasma || machine.ore_uranium || machine.ore_gold || machine.ore_silver || machine.ore_diamond || machine.ore_clown || machine.ore_mime || machine.ore_adamantine)
 		if(machine.ore_iron)
 			if(machine.selected_iron==1)
-				dat += text("<A href='?src=\ref[src];sel_iron=no'><font color='green'>Smelting</font></A> ")
+				dat += text("<A href='?src=[UID()];sel_iron=no'><font color='green'>Smelting</font></A> ")
 			else
-				dat += text("<A href='?src=\ref[src];sel_iron=yes'><font color='red'>Not smelting</font></A> ")
+				dat += text("<A href='?src=[UID()];sel_iron=yes'><font color='red'>Not smelting</font></A> ")
 			dat += text("Iron: [machine.ore_iron]<br>")
 		else
 			machine.selected_iron = 0
@@ -35,9 +35,9 @@
 		//sand - glass
 		if(machine.ore_glass)
 			if(machine.selected_glass==1)
-				dat += text("<A href='?src=\ref[src];sel_glass=no'><font color='green'>Smelting</font></A> ")
+				dat += text("<A href='?src=[UID()];sel_glass=no'><font color='green'>Smelting</font></A> ")
 			else
-				dat += text("<A href='?src=\ref[src];sel_glass=yes'><font color='red'>Not smelting</font></A> ")
+				dat += text("<A href='?src=[UID()];sel_glass=yes'><font color='red'>Not smelting</font></A> ")
 			dat += text("Sand: [machine.ore_glass]<br>")
 		else
 			machine.selected_glass = 0
@@ -45,9 +45,9 @@
 		//plasma
 		if(machine.ore_plasma)
 			if(machine.selected_plasma==1)
-				dat += text("<A href='?src=\ref[src];sel_plasma=no'><font color='green'>Smelting</font></A> ")
+				dat += text("<A href='?src=[UID()];sel_plasma=no'><font color='green'>Smelting</font></A> ")
 			else
-				dat += text("<A href='?src=\ref[src];sel_plasma=yes'><font color='red'>Not smelting</font></A> ")
+				dat += text("<A href='?src=[UID()];sel_plasma=yes'><font color='red'>Not smelting</font></A> ")
 			dat += text("Plasma: [machine.ore_plasma]<br>")
 		else
 			machine.selected_plasma = 0
@@ -55,9 +55,9 @@
 		//uranium
 		if(machine.ore_uranium)
 			if(machine.selected_uranium==1)
-				dat += text("<A href='?src=\ref[src];sel_uranium=no'><font color='green'>Smelting</font></A> ")
+				dat += text("<A href='?src=[UID()];sel_uranium=no'><font color='green'>Smelting</font></A> ")
 			else
-				dat += text("<A href='?src=\ref[src];sel_uranium=yes'><font color='red'>Not smelting</font></A> ")
+				dat += text("<A href='?src=[UID()];sel_uranium=yes'><font color='red'>Not smelting</font></A> ")
 			dat += text("Uranium: [machine.ore_uranium]<br>")
 		else
 			machine.selected_uranium = 0
@@ -65,9 +65,9 @@
 		//gold
 		if(machine.ore_gold)
 			if(machine.selected_gold==1)
-				dat += text("<A href='?src=\ref[src];sel_gold=no'><font color='green'>Smelting</font></A> ")
+				dat += text("<A href='?src=[UID()];sel_gold=no'><font color='green'>Smelting</font></A> ")
 			else
-				dat += text("<A href='?src=\ref[src];sel_gold=yes'><font color='red'>Not smelting</font></A> ")
+				dat += text("<A href='?src=[UID()];sel_gold=yes'><font color='red'>Not smelting</font></A> ")
 			dat += text("Gold: [machine.ore_gold]<br>")
 		else
 			machine.selected_gold = 0
@@ -75,9 +75,9 @@
 		//silver
 		if(machine.ore_silver)
 			if(machine.selected_silver==1)
-				dat += text("<A href='?src=\ref[src];sel_silver=no'><font color='green'>Smelting</font></A> ")
+				dat += text("<A href='?src=[UID()];sel_silver=no'><font color='green'>Smelting</font></A> ")
 			else
-				dat += text("<A href='?src=\ref[src];sel_silver=yes'><font color='red'>Not smelting</font></A> ")
+				dat += text("<A href='?src=[UID()];sel_silver=yes'><font color='red'>Not smelting</font></A> ")
 			dat += text("Silver: [machine.ore_silver]<br>")
 		else
 			machine.selected_silver = 0
@@ -85,9 +85,9 @@
 		//diamond
 		if(machine.ore_diamond)
 			if(machine.selected_diamond==1)
-				dat += text("<A href='?src=\ref[src];sel_diamond=no'><font color='green'>Smelting</font></A> ")
+				dat += text("<A href='?src=[UID()];sel_diamond=no'><font color='green'>Smelting</font></A> ")
 			else
-				dat += text("<A href='?src=\ref[src];sel_diamond=yes'><font color='red'>Not smelting</font></A> ")
+				dat += text("<A href='?src=[UID()];sel_diamond=yes'><font color='red'>Not smelting</font></A> ")
 			dat += text("Diamond: [machine.ore_diamond]<br>")
 		else
 			machine.selected_diamond = 0
@@ -95,9 +95,9 @@
 		//bananium
 		if(machine.ore_clown)
 			if(machine.selected_clown==1)
-				dat += text("<A href='?src=\ref[src];sel_clown=no'><font color='green'>Smelting</font></A> ")
+				dat += text("<A href='?src=[UID()];sel_clown=no'><font color='green'>Smelting</font></A> ")
 			else
-				dat += text("<A href='?src=\ref[src];sel_clown=yes'><font color='red'>Not smelting</font></A> ")
+				dat += text("<A href='?src=[UID()];sel_clown=yes'><font color='red'>Not smelting</font></A> ")
 			dat += text("Bananium: [machine.ore_clown]<br>")
 		else
 			machine.selected_clown = 0
@@ -105,9 +105,9 @@
 		//tranquillite
 		if(machine.ore_mime)
 			if(machine.selected_mime==1)
-				dat += text("<A href='?src=\ref[src];sel_mime=no'><font color='green'>Smelting</font></A> ")
+				dat += text("<A href='?src=[UID()];sel_mime=no'><font color='green'>Smelting</font></A> ")
 			else
-				dat += text("<A href='?src=\ref[src];sel_mime=yes'><font color='red'>Not smelting</font></A> ")
+				dat += text("<A href='?src=[UID()];sel_mime=yes'><font color='red'>Not smelting</font></A> ")
 			dat += text("Tranquillite: [machine.ore_mime]<br>")
 		else
 			machine.selected_mime = 0
@@ -116,9 +116,9 @@
 		//On or off
 		dat += text("Machine is currently ")
 		if(machine.on==1)
-			dat += text("<A href='?src=\ref[src];set_on=off'>On</A> ")
+			dat += text("<A href='?src=[UID()];set_on=off'>On</A> ")
 		else
-			dat += text("<A href='?src=\ref[src];set_on=on'>Off</A> ")
+			dat += text("<A href='?src=[UID()];set_on=on'>Off</A> ")
 	else
 		dat+="---No Materials Loaded---"
 

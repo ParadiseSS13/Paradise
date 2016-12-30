@@ -18,7 +18,6 @@ var/global/list/global_map = null
 	//3 - AI satellite
 	//5 - empty space
 
-var/list/monkeystart = list()
 var/list/wizardstart = list()
 var/list/newplayer_start = list()
 var/list/latejoin = list()
@@ -26,10 +25,9 @@ var/list/latejoin_gateway = list()
 var/list/latejoin_cryo = list()
 var/list/latejoin_cyborg = list()
 var/list/prisonwarp = list()	//prisoners go to these
-var/list/holdingfacility = list()	//captured people go here
 var/list/xeno_spawn = list()//Aliens spawn at these.
 var/list/ertdirector = list()
-//	list/mazewarp = list()
+var/list/emergencyresponseteamspawn  = list()
 var/list/tdome1 = list()
 var/list/tdome2 = list()
 var/list/team_alpha = list()
@@ -53,3 +51,4 @@ var/list/datum/map_template/ruins_templates = list()
 var/list/datum/map_template/space_ruins_templates = list()
 //var/list/datum/map_template/lava_ruins_templates = list()
 var/list/datum/map_template/shelter_templates = list()
+var/list/datum/map_template/shuttle_templates = list()

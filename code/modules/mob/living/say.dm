@@ -29,7 +29,8 @@ var/list/department_radio_keys = list(
 	  ":U" = "Supply",		"#U" = "Supply",		".U" = "Supply",
 	  ":Z" = "Service",		"#Z" = "Service",		".Z" = "Service",
 	  ":P" = "AI Private",	"#P" = "AI Private",	".P" = "AI Private",
-	  ":-" = "Special Ops",	"#-" = "Special Ops",	".-" = "Special Ops"
+	  ":-" = "Special Ops",	"#-" = "Special Ops",	".-" = "Special Ops",
+	  ":_" = "SyndTeam",	"#_" = "SyndTeam",		"._" = "SyndTeam"
 )
 
 
@@ -78,9 +79,6 @@ proc/get_radio_key_from_channel(var/channel)
 			message = stutter(message)
 		verb = "stammers"
 		speech_problem_flag = 1
-
-	if(COMIC in mutations)
-		message = "<span class='sans'>[message]</span>"
 
 	if(!IsVocal())
 		message = ""
@@ -282,8 +280,14 @@ proc/get_radio_key_from_channel(var/channel)
 /mob/living/proc/GetVoice()
 	return name
 
-/mob/living/emote(var/act, var/type, var/message) //emote code is terrible, this is so that anything that isn't
-	if(stat)	return 0                          //already snowflaked to shit can call the parent and handle emoting sanely
+/mob/living/emote(var/act, var/type, var/message) //emote code is terrible, this is so that anything that isn't already snowflaked to shit can call the parent and handle emoting sanely
+	if(client)
+		if(client.prefs.muted & MUTE_IC)
+			to_chat(src, "<span class='danger'>You cannot speak in IC (Muted).</span>")
+			return
+			
+	if(stat)									 
+		return 0
 
 	if(..(act, type, message))
 		return 1

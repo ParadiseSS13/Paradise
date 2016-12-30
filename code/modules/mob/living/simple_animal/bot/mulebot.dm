@@ -285,31 +285,31 @@
 		dat += "<b>Power level:</b> [cell ? cell.percent() : 0]%"
 
 		if(locked && !ai && !check_rights(R_ADMIN, 0, user))
-			dat += "&nbsp;<br /><div class='notice'>Controls are locked</div><A href='?src=\ref[src];op=unlock'>Unlock Controls</A>"
+			dat += "&nbsp;<br /><div class='notice'>Controls are locked</div><A href='?src=[UID()];op=unlock'>Unlock Controls</A>"
 		else
-			dat += "&nbsp;<br /><div class='notice'>Controls are unlocked</div><A href='?src=\ref[src];op=lock'>Lock Controls</A><BR><BR>"
+			dat += "&nbsp;<br /><div class='notice'>Controls are unlocked</div><A href='?src=[UID()];op=lock'>Lock Controls</A><BR><BR>"
 
-			dat += "<A href='?src=\ref[src];op=power'>Toggle Power</A><BR>"
-			dat += "<A href='?src=\ref[src];op=stop'>Stop</A><BR>"
-			dat += "<A href='?src=\ref[src];op=go'>Proceed</A><BR>"
-			dat += "<A href='?src=\ref[src];op=home'>Return to Home</A><BR>"
-			dat += "<A href='?src=\ref[src];op=destination'>Set Destination</A><BR>"
-			dat += "<A href='?src=\ref[src];op=setid'>Set Bot ID</A><BR>"
-			dat += "<A href='?src=\ref[src];op=sethome'>Set Home</A><BR>"
-			dat += "<A href='?src=\ref[src];op=autoret'>Toggle Auto Return Home</A> ([auto_return ? "On":"Off"])<BR>"
-			dat += "<A href='?src=\ref[src];op=autopick'>Toggle Auto Pickup Crate</A> ([auto_pickup ? "On":"Off"])<BR>"
-			dat += "<A href='?src=\ref[src];op=report'>Toggle Delivery Reporting</A> ([report_delivery ? "On" : "Off"])<BR>"
+			dat += "<A href='?src=[UID()];op=power'>Toggle Power</A><BR>"
+			dat += "<A href='?src=[UID()];op=stop'>Stop</A><BR>"
+			dat += "<A href='?src=[UID()];op=go'>Proceed</A><BR>"
+			dat += "<A href='?src=[UID()];op=home'>Return to Home</A><BR>"
+			dat += "<A href='?src=[UID()];op=destination'>Set Destination</A><BR>"
+			dat += "<A href='?src=[UID()];op=setid'>Set Bot ID</A><BR>"
+			dat += "<A href='?src=[UID()];op=sethome'>Set Home</A><BR>"
+			dat += "<A href='?src=[UID()];op=autoret'>Toggle Auto Return Home</A> ([auto_return ? "On":"Off"])<BR>"
+			dat += "<A href='?src=[UID()];op=autopick'>Toggle Auto Pickup Crate</A> ([auto_pickup ? "On":"Off"])<BR>"
+			dat += "<A href='?src=[UID()];op=report'>Toggle Delivery Reporting</A> ([report_delivery ? "On" : "Off"])<BR>"
 			if(load)
-				dat += "<A href='?src=\ref[src];op=unload'>Unload Now</A><BR>"
+				dat += "<A href='?src=[UID()];op=unload'>Unload Now</A><BR>"
 			dat += "<div class='notice'>The maintenance hatch is closed.</div>"
 	else
 		if(!ai)
 			dat += "<div class='notice'>The maintenance hatch is open.</div><BR>"
 			dat += "<b>Power cell:</b> "
 			if(cell)
-				dat += "<A href='?src=\ref[src];op=cellremove'>Installed</A><BR>"
+				dat += "<A href='?src=[UID()];op=cellremove'>Installed</A><BR>"
 			else
-				dat += "<A href='?src=\ref[src];op=cellinsert'>Removed</A><BR>"
+				dat += "<A href='?src=[UID()];op=cellinsert'>Removed</A><BR>"
 
 			dat += wires.GetInteractWindow()
 		else
@@ -393,9 +393,8 @@
 		passenger = M
 		load = M
 		can_buckle = FALSE
-		if(M.client)
-			M.client.perspective = EYE_PERSPECTIVE
-			M.client.eye = src
+		// Not sure why this is done
+		reset_perspective(src)
 		return TRUE
 	return FALSE
 
@@ -423,9 +422,7 @@
 
 	if(ismob(load))
 		var/mob/M = load
-		if(M.client)
-			M.client.perspective = MOB_PERSPECTIVE
-			M.client.eye = M
+		M.reset_perspective(null)
 	unbuckle_mob()
 
 	if(load)
@@ -452,9 +449,7 @@
 		AM.pixel_y = initial(AM.pixel_y)
 		if(ismob(AM))
 			var/mob/M = AM
-			if(M.client)
-				M.client.perspective = MOB_PERSPECTIVE
-				M.client.eye = M
+			M.reset_perspective(null)
 
 /mob/living/simple_animal/bot/mulebot/call_bot()
 	..()

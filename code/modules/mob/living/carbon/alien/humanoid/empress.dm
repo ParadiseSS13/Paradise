@@ -31,9 +31,7 @@
 		overlays += I
 
 /mob/living/carbon/alien/humanoid/empress/New()
-	var/datum/reagents/R = new/datum/reagents(100)
-	reagents = R
-	R.my_atom = src
+	create_reagents(100)
 
 	//there should only be one queen
 	for(var/mob/living/carbon/alien/humanoid/empress/E in living_mob_list)
@@ -44,11 +42,11 @@
 			break
 
 	real_name = src.name
-	internal_organs += new /obj/item/organ/internal/xenos/plasmavessel/queen
-	internal_organs += new /obj/item/organ/internal/xenos/acidgland
-	internal_organs += new /obj/item/organ/internal/xenos/eggsac
-	internal_organs += new /obj/item/organ/internal/xenos/resinspinner
-	internal_organs += new /obj/item/organ/internal/xenos/neurotoxin
+	alien_organs += new /obj/item/organ/internal/xenos/plasmavessel/queen
+	alien_organs += new /obj/item/organ/internal/xenos/acidgland
+	alien_organs += new /obj/item/organ/internal/xenos/eggsac
+	alien_organs += new /obj/item/organ/internal/xenos/resinspinner
+	alien_organs += new /obj/item/organ/internal/xenos/neurotoxin
 	..()
 
 /mob/living/carbon/alien/humanoid/empress

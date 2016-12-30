@@ -147,6 +147,18 @@
 
 	return 1
 
+/mob/living/forceMove(atom/destination)
+	stop_pulling()
+	if(buckled)
+		buckled.unbuckle_mob(src,force=1)
+	// in lieu of "unbuckle_all_mobs"
+	if(buckled_mob)
+		unbuckle_mob(buckled_mob,force=1)
+	. = ..()
+	if(client)
+		reset_perspective(destination)
+	update_canmove() //if the mob was asleep inside a container and then got forceMoved out we need to make them fall.
+
 //called when src is thrown into hit_atom
 /atom/movable/proc/throw_impact(atom/hit_atom, var/speed)
 	if(istype(hit_atom,/mob/living))
@@ -179,7 +191,7 @@
 	if(has_gravity(src))
 		return 1
 
-	if(pulledby)
+	if(pulledby && !pulledby.pulling)
 		return 1
 
 	if(locate(/obj/structure/lattice) in range(1, get_turf(src))) //Not realistic but makes pushing things in space easier

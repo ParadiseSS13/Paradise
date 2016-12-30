@@ -113,19 +113,19 @@
 /obj/machinery/programmable/proc/printlist(var/list/L)
 	var/dat
 	for(var/datum/cargoprofile/p in L)
-		dat += "[p.name]: <A href='?src=\ref[src];operation=[p.id]'>[p.enabled?"<B>YES</B>":"NO"]</A><BR>"
+		dat += "[p.name]: <A href='?src=[UID()];operation=[p.id]'>[p.enabled?"<B>YES</B>":"NO"]</A><BR>"
 	return dat
 
 /obj/machinery/programmable/proc/buildMenu()
 	var/dat
 	dat += "<B>PROGRAMMABLE UNLOADER</B><BR><TT>"
-	dat += "POWER: <A href='?src=\ref[src];operation=start'>[on ? "ON" : "OFF"]</A><BR>"
-	dat += "INLET: <A href='?src=\ref[src];operation=inlet'>[capitalize(dir2text(indir))]</A> "
-	dat += "OUTLET: <A href='?src=\ref[src];operation=outlet'>[capitalize(dir2text(outdir))]</A>"
-	dat += " (<A href='?src=\ref[src];operation=swapdir'>SWAP</A>)</TT><HR>"
+	dat += "POWER: <A href='?src=[UID()];operation=start'>[on ? "ON" : "OFF"]</A><BR>"
+	dat += "INLET: <A href='?src=[UID()];operation=inlet'>[capitalize(dir2text(indir))]</A> "
+	dat += "OUTLET: <A href='?src=[UID()];operation=outlet'>[capitalize(dir2text(outdir))]</A>"
+	dat += " (<A href='?src=[UID()];operation=swapdir'>SWAP</A>)</TT><HR>"
 	if(default)
 		dat += "MAIN PROGRAM: "
-		dat += "<TT>[default.name]: <A href='?src=\ref[src];operation=default'>[default.enabled ? "<B>YES</B>" : "NO"]</A><BR>"
+		dat += "<TT>[default.name]: <A href='?src=[UID()];operation=default'>[default.enabled ? "<B>YES</B>" : "NO"]</A><BR>"
 	if(profiles.len)
 		if(!default || !default.enabled)
 			dat += printlist(profiles)
@@ -254,6 +254,7 @@
 				src.overrides = null
 				P.emag_overrides = src.emag_overrides
 				src.emag_overrides = null
+				default_deconstruction_crowbar(I, 1)
 				return
 		else
 			..(I,user)
@@ -296,10 +297,8 @@
 			O.loc = loc
 		for(var/mob/M in contents)
 			M.loc = loc
-			if(M.client)
-				M.client.eye = M.client.mob
-				M.client.perspective = MOB_PERSPECTIVE
-				to_chat(M, "\blue The machine turns off, and you fall out.")
+			M.reset_perspective(null)
+			to_chat(M, "<span class='notice'>The machine turns off, and you fall out.</span>")
 
 		return
 
@@ -439,11 +438,11 @@
 	buildMenu()
 		var/dat
 		dat += "<B>PROGRAMMABLE PROCESSOR</B><BR><TT>"
-		dat += "POWER: <A href='?src=\ref[src];operation=start'>[on ? "ON" : "OFF"]</A><BR>"
-		dat += "INLET: <A href='?src=\ref[src];operation=inlet'>[capitalize(dir2text(indir))]</A><BR>"
+		dat += "POWER: <A href='?src=[UID()];operation=start'>[on ? "ON" : "OFF"]</A><BR>"
+		dat += "INLET: <A href='?src=[UID()];operation=inlet'>[capitalize(dir2text(indir))]</A><BR>"
 		if(default)
 			dat += "MAIN PROGRAM: "
-			dat += "<TT>[default.name]: <A href='?src=\ref[src];operation=default'>[default.enabled ? "<B>YES</B>" : "NO"]</A><BR>"
+			dat += "<TT>[default.name]: <A href='?src=[UID()];operation=default'>[default.enabled ? "<B>YES</B>" : "NO"]</A><BR>"
 		if(profiles.len)
 			if(!default || !default.enabled)
 				dat += printlist(profiles)
@@ -608,10 +607,10 @@
 			return "NONE<BR>"
 		var/dat = "[P.name]"
 		if(level == 0 || (level == 1 && !default))
-			dat += " <A href='?src=\ref[src];operation=promote;id=[P.id];level=[level]'>PROMOTE</A>"
+			dat += " <A href='?src=[UID()];operation=promote;id=[P.id];level=[level]'>PROMOTE</A>"
 		if(level > 0)
-			dat += " <A href='?src=\ref[src];operation=demote;id=[P.id];level=[level]'>DEMOTE</A>"
-		dat += " <A href='?src=\ref[src];operation=delete;id=[P.id];level=[level]'>REMOVE</A>"
+			dat += " <A href='?src=[UID()];operation=demote;id=[P.id];level=[level]'>DEMOTE</A>"
+		dat += " <A href='?src=[UID()];operation=delete;id=[P.id];level=[level]'>REMOVE</A>"
 		dat += "<BR>"
 		return dat
 
@@ -619,20 +618,20 @@
 		var/dat
 		dat = "MAIN FUNCTION<BR><TT>"
 		dat += format(default,2)
-		dat += "</TT>- CAUTION -<BR>\[<A href='?src=\ref[src];operation=deleteall'>DELETE NON-MAIN ALGORITHMS</A>\]<BR>"
-		dat += "\[<A href='?src=\ref[src];operation=reset'>MASTER RESET</A>\]<HR>"
+		dat += "</TT>- CAUTION -<BR>\[<A href='?src=[UID()];operation=deleteall'>DELETE NON-MAIN ALGORITHMS</A>\]<BR>"
+		dat += "\[<A href='?src=[UID()];operation=reset'>MASTER RESET</A>\]<HR>"
 
 		dat += "OVERRIDES:<BR><TT>"
 		for(var/datum/cargoprofile/P in overrides)
 			dat += format(P,1)
 		dat += "</TT><BR>"
-		dat += "- CAUTION -<BR>\[<A href='?src=\ref[src];operation=deleteoverrides'>DELETE ALL OVERRIDES</A>\]<HR>"
+		dat += "- CAUTION -<BR>\[<A href='?src=[UID()];operation=deleteoverrides'>DELETE ALL OVERRIDES</A>\]<HR>"
 
 		dat += "</TT> TERTIARY PROFILES:<BR><TT>"
 		for(var/datum/cargoprofile/P in profiles)
 			dat += format(P,0)
 		dat += "</TT><BR>"
-		dat += "- CAUTION -<BR>\[<A href='?src=\ref[src];operation=deleteprofiles'>DELETE TERTIARY PROFILES</A>\]"
+		dat += "- CAUTION -<BR>\[<A href='?src=[UID()];operation=deleteprofiles'>DELETE TERTIARY PROFILES</A>\]"
 
 		user << browse("<HEAD><TITLE>Circuit Reprogramming</TITLE></HEAD>[dat]", "window=progcircuit")
 		onclose(user, "progcircuit")

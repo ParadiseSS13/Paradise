@@ -105,34 +105,30 @@
 						i++
 
 /obj/machinery/mineral/ore_redemption/attackby(var/obj/item/weapon/W, var/mob/user, params)
-	if(!powered())
-		return
-	if(istype(W,/obj/item/weapon/card/id))
-		var/obj/item/weapon/card/id/I = usr.get_active_hand()
-		if(istype(I) && !istype(inserted_id))
-			if(!user.drop_item())
-				return
-			I.loc = src
-			inserted_id = I
-			interact(user)
-		return
-
 	if(default_deconstruction_screwdriver(user, "ore_redemption-open", "ore_redemption", W))
 		updateUsrDialog()
 		return
-
 	if(exchange_parts(user, W))
 		return
-
 	if(panel_open)
 		if(istype(W, /obj/item/weapon/crowbar))
 			empty_content()
 			default_deconstruction_crowbar(W)
 		return
-
 	if(default_unfasten_wrench(user, W))
 		return
-
+	if(istype(W,/obj/item/weapon/card/id))
+		if(!powered())
+			return
+		else
+			var/obj/item/weapon/card/id/I = usr.get_active_hand()
+			if(istype(I) && !istype(inserted_id))
+				if(!user.drop_item())
+					return
+				I.forceMove(src)
+				inserted_id = I
+				interact(user)
+			return
 	..()
 
 /obj/machinery/mineral/ore_redemption/proc/SmeltMineral(var/obj/item/weapon/ore/O)
@@ -158,28 +154,28 @@
 	dat += text("Current unclaimed points: [points]<br>")
 
 	if(istype(inserted_id))
-		dat += text("You have [inserted_id.mining_points] mining points collected. <A href='?src=\ref[src];choice=eject'>Eject ID.</A><br>")
-		dat += text("<A href='?src=\ref[src];choice=claim'>Claim points.</A><br>")
+		dat += text("You have [inserted_id.mining_points] mining points collected. <A href='?src=[UID()];choice=eject'>Eject ID.</A><br>")
+		dat += text("<A href='?src=[UID()];choice=claim'>Claim points.</A><br>")
 	else
-		dat += text("No ID inserted.  <A href='?src=\ref[src];choice=insert'>Insert ID.</A><br>")
+		dat += text("No ID inserted.  <A href='?src=[UID()];choice=insert'>Insert ID.</A><br>")
 
 	for(var/O in stack_list)
 		s = stack_list[O]
 		if(s.amount > 0)
 			if(O == stack_list[1])
 				dat += "<br>"		//just looks nicer
-			dat += text("[capitalize(s.name)]: [s.amount] <A href='?src=\ref[src];release=[s.type]'>Release</A><br>")
+			dat += text("[capitalize(s.name)]: [s.amount] <A href='?src=[UID()];release=[s.type]'>Release</A><br>")
 
 	if((/obj/item/stack/sheet/metal in stack_list) && (/obj/item/stack/sheet/mineral/plasma in stack_list))
 		var/obj/item/stack/sheet/metalstack = stack_list[/obj/item/stack/sheet/metal]
 		var/obj/item/stack/sheet/plasmastack = stack_list[/obj/item/stack/sheet/mineral/plasma]
 		if(min(metalstack.amount, plasmastack.amount))
-			dat += text("Plasteel Alloy (Metal + Plasma): <A href='?src=\ref[src];plasteel=1'>Smelt</A><BR>")
+			dat += text("Plasteel Alloy (Metal + Plasma): <A href='?src=[UID()];plasteel=1'>Smelt</A><BR>")
 	if((/obj/item/stack/sheet/glass in stack_list) && (/obj/item/stack/sheet/mineral/plasma in stack_list))
 		var/obj/item/stack/sheet/glassstack = stack_list[/obj/item/stack/sheet/glass]
 		var/obj/item/stack/sheet/plasmastack = stack_list[/obj/item/stack/sheet/mineral/plasma]
 		if(min(glassstack.amount, plasmastack.amount))
-			dat += "Plasma Glass (Glass + Plasma): <A href='?src=\ref[src];plasglass=1'>Smelt</A><BR>"
+			dat += "Plasma Glass (Glass + Plasma): <A href='?src=[UID()];plasglass=1'>Smelt</A><BR>"
 
 	dat += text("<br><div class='statusDisplay'><b>Mineral Value List:</b><BR>[get_ore_values()]</div>")
 
@@ -393,13 +389,13 @@
 	var/dat
 	dat +="<div class='statusDisplay'>"
 	if(istype(inserted_id))
-		dat += "You have [inserted_id.mining_points] mining points collected. <A href='?src=\ref[src];choice=eject'>Eject ID.</A><br>"
+		dat += "You have [inserted_id.mining_points] mining points collected. <A href='?src=[UID()];choice=eject'>Eject ID.</A><br>"
 	else
-		dat += "No ID inserted.  <A href='?src=\ref[src];choice=insert'>Insert ID.</A><br>"
+		dat += "No ID inserted.  <A href='?src=[UID()];choice=insert'>Insert ID.</A><br>"
 	dat += "</div>"
 	dat += "<br><b>Equipment point cost list:</b><BR><table border='0' width='200'>"
 	for(var/datum/data/mining_equipment/prize in prize_list)
-		dat += "<tr><td>[prize.equipment_name]</td><td>[prize.cost]</td><td><A href='?src=\ref[src];purchase=\ref[prize]'>Purchase</A></td></tr>"
+		dat += "<tr><td>[prize.equipment_name]</td><td>[prize.cost]</td><td><A href='?src=[UID()];purchase=\ref[prize]'>Purchase</A></td></tr>"
 	dat += "</table>"
 	var/datum/browser/popup = new(user, "miningvendor", "Mining Equipment Vendor", 400, 350)
 	popup.set_content(dat)
@@ -437,18 +433,6 @@
 	return
 
 /obj/machinery/mineral/equipment_vendor/attackby(obj/item/I as obj, mob/user as mob, params)
-	if(istype(I, /obj/item/weapon/mining_voucher))
-		RedeemVoucher(I, user)
-		return
-	if(istype(I,/obj/item/weapon/card/id))
-		var/obj/item/weapon/card/id/C = usr.get_active_hand()
-		if(istype(C) && !istype(inserted_id))
-			if(!usr.drop_item())
-				return
-			C.loc = src
-			inserted_id = C
-			interact(user)
-		return
 	if(default_deconstruction_screwdriver(user, "mining-open", "mining", I))
 		updateUsrDialog()
 		return
@@ -456,6 +440,24 @@
 		if(istype(I, /obj/item/weapon/crowbar))
 			default_deconstruction_crowbar(I)
 		return 1
+	if(istype(I, /obj/item/weapon/mining_voucher))
+		if(!powered())
+			return
+		else
+			RedeemVoucher(I, user)
+			return
+	if(istype(I,/obj/item/weapon/card/id))
+		if(!powered())
+			return
+		else
+			var/obj/item/weapon/card/id/C = usr.get_active_hand()
+			if(istype(C) && !istype(inserted_id))
+				if(!usr.drop_item())
+					return
+				C.forceMove(src)
+				inserted_id = C
+				interact(user)
+			return
 	..()
 
 /obj/machinery/mineral/equipment_vendor/proc/RedeemVoucher(obj/item/weapon/mining_voucher/voucher, mob/redeemer)

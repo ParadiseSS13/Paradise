@@ -175,9 +175,9 @@
 
 	if(state >= GRAB_KILL)
 		//affecting.apply_effect(STUTTER, 5) //would do this, but affecting isn't declared as mob/living for some stupid reason.
-		affecting.stuttering = max(affecting.stuttering, 5) //It will hamper your voice, being choked and all.
+		affecting.Stuttering(5) //It will hamper your voice, being choked and all.
 		affecting.Weaken(5)	//Should keep you down unless you get help.
-		affecting.losebreath = max(affecting.losebreath + 2, 3)
+		affecting.AdjustLoseBreath(2, bound_lower = 0, bound_upper = 3)
 
 	adjust_position()
 
@@ -290,7 +290,7 @@
 		msg_admin_attack("[key_name(assailant)] strangled (kill intent) [key_name(affecting)]")
 
 		assailant.next_move = world.time + 10
-		affecting.losebreath += 1
+		affecting.AdjustLoseBreath(1)
 		affecting.set_dir(WEST)
 	adjust_position()
 
