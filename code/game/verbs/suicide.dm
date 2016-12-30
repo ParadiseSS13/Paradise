@@ -49,7 +49,7 @@
 
 	updatehealth()
 
-/mob/living/carbon/human/verb/suicide()
+///mob/living/carbon/human/verb/suicide()
 	set hidden = 1
 
 	if(stat == DEAD)
