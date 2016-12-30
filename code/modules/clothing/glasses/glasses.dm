@@ -259,10 +259,10 @@
 
 	if(slot == slot_glasses)
 		if(noir_mode)
-			if(color_view && user.client && (!user.client.color || difference))
+			if(color_view && user.client && (!user.client.color || difference.len))
 				animate(user.client, color = color_view, time = 10)
 	else
-		if(user.client && user.client.color && !difference)
+		if(user.client && user.client.color && !difference.len)
 			animate(user.client, color = initial(user.client.color), time = 10)
 	..(user, slot)
 
@@ -270,7 +270,7 @@
 	var/list/difference = difflist(user.client.color, color_view)
 
 	if(istype(user) && user.glasses == src)
-		if(user.client && user.client.color && !difference)
+		if(user.client && user.client.color && !difference.len)
 			animate(user.client, color = initial(user.client.color), time = 10)
 	..(user)
 

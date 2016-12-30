@@ -116,8 +116,7 @@
 	else
 		result = first - second
 
-	if(result.len)
-		return result
+	return result
 
 /*
  * Returns list containing entries that are in either list but not both.
