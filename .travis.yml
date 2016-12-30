@@ -30,7 +30,7 @@ before_script:
   - ./install-byond.sh
 script:
   - source $HOME/BYOND-${BYOND_MAJOR}.${BYOND_MINOR}/byond/bin/byondsetup
-  - bash dm.sh -M${DM_MAPFILE} paradise.dme
+  - bash dm.sh -M${DM_MAPFILE} stratus.dme
 
 matrix:
   include:

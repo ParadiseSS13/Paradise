@@ -13,8 +13,8 @@
 /datum/game_mode/revolution
 	name = "revolution"
 	config_tag = "revolution"
-	restricted_jobs = list("Security Officer", "Warden", "Detective", "Internal Affairs Agent", "AI", "Cyborg","Captain", "Head of Personnel", "Head of Security", "Chief Engineer", "Research Director", "Chief Medical Officer", "Blueshield", "Nanotrasen Representative", "Security Pod Pilot", "Magistrate", "Brig Physician")
 	required_players = 20
+	restricted_jobs = list("NTSF Officer", "NTSF Warden", "NTSF Investigator", "Internal Affairs Agent", "AI", "Cyborg","Captain", "Head of Personnel", "NTSF Commander", "Chief Engineer", "Research Director", "Chief Medical Officer", "Blueshield", "Nanotrasen Navy Officer", "Nanotrasen Representative", "NTSF Pilot", "Magistrate", "NTSF Medic")
 	required_enemies = 1
 	recommended_enemies = 3
 

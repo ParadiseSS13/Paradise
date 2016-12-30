@@ -116,7 +116,7 @@
 	item_state = "medicalpack"
 
 /obj/item/weapon/storage/backpack/security
-	name = "security backpack"
+	name = "\improper NTSF backpack"
 	desc = "It's a very robust backpack."
 	icon_state = "securitypack"
 	item_state = "securitypack"
@@ -224,7 +224,7 @@
 	burn_state = FIRE_PROOF
 
 /obj/item/weapon/storage/backpack/satchel_sec
-	name = "security satchel"
+	name = "\improper NTSF satchel"
 	desc = "A robust satchel for security related needs."
 	icon_state = "satchel-sec"
 
@@ -359,7 +359,7 @@
 	burn_state = FIRE_PROOF
 
 /obj/item/weapon/storage/backpack/duffel/security
-	name = "security duffelbag"
+	name = "\improper NTSF duffelbag"
 	desc = "A duffelbag built with robust fabric!"
 	icon_state = "duffel-security"
 	item_state = "duffel-security"

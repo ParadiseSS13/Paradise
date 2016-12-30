@@ -107,14 +107,14 @@
 	ks1type = /obj/item/device/encryptionkey/binary
 
 /obj/item/device/radio/headset/headset_sec
-	name = "security radio headset"
+	name = "\improper NTSF radio headset"
 	desc = "This is used by your elite security force."
 	icon_state = "sec_headset"
 	item_state = "headset"
 	ks2type = /obj/item/device/encryptionkey/headset_sec
 
 /obj/item/device/radio/headset/headset_sec/alt
-	name = "security bowman headset"
+	name = "\improper NTSF bowman headset"
 	desc = "This is used by your elite security force. Protects ears from flashbangs."
 	flags = EARBANGPROTECT
 	icon_state = "sec_headset_alt"
@@ -184,14 +184,14 @@
 	ks2type = /obj/item/device/encryptionkey/heads/rd
 
 /obj/item/device/radio/headset/heads/hos
-	name = "head of security's headset"
+	name = "\improper commander's headset"
 	desc = "The headset of the man who protects your worthless lives."
 	icon_state = "com_headset"
 	item_state = "headset"
 	ks2type = /obj/item/device/encryptionkey/heads/hos
 
 /obj/item/device/radio/headset/heads/hos/alt
-	name = "\proper the head of security's bowman headset"
+	name = "\improper commander's bowman headset"
 	desc = "The headset of the man in charge of keeping order and protecting the station. Protects ears from flashbangs."
 	flags = EARBANGPROTECT
 	icon_state = "com_headset_alt"

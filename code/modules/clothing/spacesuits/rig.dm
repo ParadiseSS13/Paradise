@@ -238,12 +238,12 @@
 		return ..()
 
 	..()
-	
+
 /obj/item/clothing/suit/space/rig/proc/can_modify(mob/living/user)
 	if(isliving(loc))
 		to_chat(user, "<span class='info'>You can not modify the hardsuit while it is being worn.</span>")
 		return 0
-		
+
 	return 1
 
 //Engineering rig
@@ -475,7 +475,7 @@
 
 	//Security
 /obj/item/clothing/head/helmet/space/rig/security
-	name = "security hardsuit helmet"
+	name = "\improper NTSF hardsuit helmet"
 	desc = "A special helmet designed for work in a hazardous, low pressure environment. Has an additional layer of armor."
 	icon_state = "rig0-sec"
 	item_state = "sec_helm"
@@ -484,7 +484,7 @@
 
 /obj/item/clothing/suit/space/rig/security
 	icon_state = "rig-sec"
-	name = "security hardsuit"
+	name = "\improper NTSF hardsuit"
 	desc = "A special suit that protects against hazardous, low pressure environments. Has an additional layer of armor."
 	item_state = "sec_hardsuit"
 	armor = list(melee = 30, bullet = 15, laser = 30, energy = 10, bomb = 10, bio = 100, rad = 50)
@@ -530,7 +530,7 @@
 
 
 /obj/item/clothing/head/helmet/space/rig/security/hos
-	name = "head of security's hardsuit helmet"
+	name = "\improper NTSF commander's hardsuit helmet"
 	desc = "a special bulky helmet designed for work in a hazardous, low pressure environment. Has an additional layer of armor."
 	icon_state = "rig0-hos"
 	item_color = "hos"
@@ -540,7 +540,7 @@
 
 /obj/item/clothing/suit/space/rig/security/hos
 	icon_state = "rig-hos"
-	name = "head of security's hardsuit"
+	name = "\improper NTSF commander's hardsuit"
 	desc = "A special bulky suit that protects against hazardous, low pressure environments. Has an additional layer of armor."
 	armor = list(melee = 45, bullet = 25, laser = 30, energy = 10, bomb = 25, bio = 100, rad = 50)
 	sprite_sheets = null

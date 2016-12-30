@@ -28,7 +28,7 @@
 	flags_size = null
 
 /obj/item/clothing/under/rank/security
-	name = "security officer's jumpsuit"
+	name = "\improper NTSF Officer's jumpsuit"
 	desc = "It's made of a slightly sturdier material than standard jumpsuits, to allow for robust protection."
 	icon_state = "security"
 	item_state = "r_suit"
@@ -38,8 +38,8 @@
 	strip_delay = 50
 
 /obj/item/clothing/under/rank/security/skirt
-	name = "security officer's jumpskirt"
-	desc = "Standard feminine fashion for Security Officers.  It's made of sturdier material than the standard jumpskirts."
+	name = "\improper NTSF Officer's jumpskirt"
+	desc = "Standard feminine fashion for NTSF Officers.  It's made of sturdier material than the standard jumpskirts."
 	icon_state = "secredf"
 	item_state = "r_suit"
 	item_color = "secredf"
@@ -47,7 +47,7 @@
 
 /obj/item/clothing/under/rank/dispatch
 	name = "dispatcher's uniform"
-	desc = "A dress shirt and khakis with a security patch sewn on."
+	desc = "A dress shirt and khakis with a NTSF patch sewn on."
 	icon_state = "dispatch"
 	item_state = "dispatch"
 	item_color = "dispatch"
@@ -55,7 +55,7 @@
 	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/security2
-	name = "security officer's uniform"
+	name = "\improper NTSF Officer's uniform"
 	desc = "It's made of a slightly sturdier material, to allow for robust protection."
 	icon_state = "redshirt2"
 	item_state = "r_suit"
@@ -94,8 +94,8 @@
  * Head of Security
  */
 /obj/item/clothing/under/rank/head_of_security
-	desc = "It's a jumpsuit worn by those few with the dedication to achieve the position of \"Head of Security\". It has additional armor to protect the wearer."
-	name = "head of security's jumpsuit"
+	desc = "It's a jumpsuit worn by those few with the dedication to achieve the position of \"NTSF Commander\". It has additional armor to protect the wearer."
+	name = "\improper NTSF Commander's jumpsuit"
 	icon_state = "hos"
 	item_state = "r_suit"
 	item_color = "hosred"
@@ -104,8 +104,8 @@
 	strip_delay = 60
 
 /obj/item/clothing/under/rank/head_of_security/skirt
-	desc = "It's a fashionable jumpskirt worn by those few with the dedication to achieve the position of \"Head of Security\". It has additional armor to protect the wearer."
-	name = "head of security's jumpskirt"
+	desc = "It's a fashionable jumpskirt worn by those few with the dedication to achieve the position of \"NTSF Commander\". It has additional armor to protect the wearer."
+	name = "\improper NTSF Commander's jumpskirt"
 	icon_state = "hosredf"
 	item_state = "r_suit"
 	item_color = "hosredf"
@@ -119,7 +119,7 @@
 //Jensen cosplay gear
 /obj/item/clothing/under/rank/head_of_security/jensen
 	desc = "You never asked for anything that stylish."
-	name = "head of security's jumpsuit"
+	name = "\improper NTSF Commander's jumpsuit"
 	icon_state = "jensen"
 	item_state = "jensen"
 	item_color = "jensen"
@@ -150,7 +150,7 @@
 //TG Station
 
 /obj/item/clothing/under/rank/security/formal
-	name = "security suit"
+	name = "\improper NTSF formal suit"
 	desc = "A formal security suit for officers complete with nanotrasen belt buckle."
 	icon_state = "security_formal"
 	item_state = "gy_suit"
@@ -164,8 +164,8 @@
 	item_color = "warden_formal"
 
 /obj/item/clothing/under/rank/head_of_security/formal
-	name = "head of security's suit"
-	desc = "A security suit decorated for those few with the dedication to achieve the position of Head of Security."
+	name = "\improper NTSF Commander's suit"
+	desc = "A security suit decorated for those few with the dedication to achieve the position of NTSF Commander."
 	icon_state = "hos_formal"
 	item_state = "gy_suit"
 	item_color = "hos_formal"
@@ -173,8 +173,8 @@
 
 //Brig Physician
 /obj/item/clothing/under/rank/security/brigphys
-	desc = "Jumpsuit for Brig Physician it has both medical and security protection."
-	name = "brig physician's jumpsuit"
+	desc = "Jumpsuit for NTSF Medic it has both medical and security protection."
+	name = "\improper NTSF Medic's jumpsuit"
 	icon_state = "brig_phys"
 	item_state = "brig_phys"
 	item_color = "brig_phys"
@@ -184,8 +184,8 @@
 
 //Pod Pilot
 /obj/item/clothing/under/rank/security/pod_pilot
-	desc = "Suit for your regular pod pilot."
-	name = "pod pilot's jumpsuit"
+	desc = "Suit for your regular pilot."
+	name = "\improper NTSF pilot's jumpsuit"
 	icon_state = "pod_pilot"
 	item_state = "pod_pilot"
 	item_color = "pod_pilot"
