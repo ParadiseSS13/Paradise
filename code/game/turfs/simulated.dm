@@ -120,10 +120,11 @@
 		return 0
 	var/obj/effect/decal/cleanable/blood/B = locate() in contents	//check for existing blood splatter
 	if(!B)
-		blood_splatter(src,M.get_blood(M.vessel),1)
-		B = locate(/obj/effect/decal/cleanable/blood) in contents
-	B.add_blood_list(M)
-	return 1 //we bloodied the floor
+		B = blood_splatter(src,M.get_blood(M.vessel),1)
+	if(B)
+		B.add_blood_list(M)
+		return 1 //we bloodied the floor
+	return 0 // Clean floors club
 
 // Only adds blood on the floor -- Skie
 /turf/simulated/add_blood_floor(mob/living/carbon/M as mob)
