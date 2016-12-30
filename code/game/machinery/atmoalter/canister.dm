@@ -131,7 +131,7 @@ var/datum/canister_icons/canister_icon_container = new()
 		var/list/LL = L[i]
 		LL = LL.Copy() //make sure we don't edit the datum list
 		LL.Add(list("active" = decals[LL["icon"]])) //"active" used by nanoUI
-		possibledecals[i] = LL
+		possibledecals.Add(LL)
 
 /obj/machinery/portable_atmospherics/canister/proc/check_change()
 	var/old_flag = update_flag
