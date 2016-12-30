@@ -38,6 +38,7 @@
 
 
 /obj/effect/spider/terrorweb/New()
+	..()
 	if(prob(50))
 		icon_state = "stickyweb2"
 

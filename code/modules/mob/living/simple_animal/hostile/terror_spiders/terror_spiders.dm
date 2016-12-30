@@ -235,7 +235,7 @@ var/global/list/ts_spiderlist = list()
 		notify_ghosts("[src] has appeared in [get_area(src)]. (already player-controlled)", source = src, alert_overlay = alert_overlay)
 	else if(ai_playercontrol_allowingeneral && ai_playercontrol_allowtype)
 		var/image/alert_overlay = image('icons/mob/terrorspider.dmi', icon_state)
-		notify_ghosts("[src] has appeared in [get_area(src)].", enter_link = "<a href=?src=\ref[src];activate=1>(Click to control)</a>", source = src, alert_overlay = alert_overlay, attack_not_jump = 1)
+		notify_ghosts("[src] has appeared in [get_area(src)].", enter_link = "<a href=?src=[UID()];activate=1>(Click to control)</a>", source = src, alert_overlay = alert_overlay, attack_not_jump = 1)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/Destroy()
 	ts_spiderlist -= src
@@ -243,8 +243,13 @@ var/global/list/ts_spiderlist = list()
 	return ..()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/Life()
-	. = ..()
-	if(!.) // if mob is alive
+	..()
+	if(stat == DEAD)
+		if(prob(2))
+			// 2% chance every cycle to decompose
+			visible_message("<span class='notice'>\The dead body of the [src] decomposes!</span>")
+			gib()
+	else
 		if(regen_points < regen_points_max)
 			regen_points += regen_points_per_tick
 		if((bruteloss > 0) || (fireloss > 0))
@@ -257,11 +262,7 @@ var/global/list/ts_spiderlist = list()
 					regen_points -= regen_points_per_hp
 		if(prob(5))
 			CheckFaction()
-	else if(stat == DEAD)
-		if(prob(2))
-			// 2% chance every cycle to decompose
-			visible_message("<span class='notice'>\The dead body of the [src] decomposes!</span>")
-			gib()
+
 
 
 
