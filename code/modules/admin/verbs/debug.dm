@@ -607,6 +607,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		"dark lord",
 		"assassin",
 		"spy",
+		"ninja",
 		"vox",
 		"death commando",
 		"syndicate agent",
@@ -977,6 +978,24 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			equip_special_id(M,list(access_maint_tunnels), "Spy", /obj/item/weapon/card/id/syndicate, "syndie")
 
 
+		if("ninja")
+			M.equip_to_slot_or_del(new /obj/item/clothing/under/syndicate/combat(M), slot_w_uniform)
+			M.equip_to_slot_or_del(new /obj/item/weapon/rig/light/ninja(M), slot_back)
+			M.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/voice/space_ninja(M), slot_wear_mask)
+
+			M.equip_to_slot_or_del(new /obj/item/weapon/implanter/storageninja(M), slot_r_store)
+			M.equip_to_slot_or_del(new /obj/item/weapon/ninjitsu_scroll, slot_l_store)
+
+			M.equip_or_collect(new /obj/item/weapon/storage/belt/utility/full/multitool(M), slot_belt)
+			M.equip_to_slot_or_del(new /obj/item/clothing/glasses/hud/security/night(M), slot_glasses)
+			M.equip_to_slot_or_del(new /obj/item/device/radio/headset/syndicate(M), slot_l_ear)
+			var/obj/item/weapon/implant/explosive/E = new/obj/item/weapon/implant/explosive(M)
+			E.implant(M)
+			M.equip_to_slot_or_del(new /obj/item/weapon/pinpointer/advpinpointer(M), slot_wear_pda)
+			equip_special_id(M,list(access_maint_tunnels, access_syndicate), "Ninja", /obj/item/weapon/card/id/syndicate, "syndie", use_wallet = 1)
+			M.faction |= "spiders"
+
+
 		if("vox")
 			if(istype(M, /mob/living/carbon/human/voxarmalis)) // have to do this, they cannot wear normal vox gear!
 				M.equip_to_slot_or_del(new /obj/item/clothing/under/vox_grey(M), slot_w_uniform)
@@ -1344,7 +1363,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	message_admins("\blue [key_name_admin(usr)] changed the equipment of [key_name_admin(M)] to [dresscode].", 1)
 	return
 
-/client/proc/equip_special_id(var/mob/living/carbon/human/H, var/list/theaccess = null, var/jobtext, var/obj/item/weapon/card/id/id_type = /obj/item/weapon/card/id, var/special_icon = null)
+/client/proc/equip_special_id(var/mob/living/carbon/human/H, var/list/theaccess = null, var/jobtext, var/obj/item/weapon/card/id/id_type = /obj/item/weapon/card/id, var/special_icon = null, var/use_wallet = 0)
 	if(!check_rights(R_EVENT))
 		return
 
@@ -1355,7 +1374,12 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	W.access = theaccess
 	W.assignment = "[jobtext]"
 	W.registered_name = H.real_name
-	H.equip_to_slot_or_del(W, slot_wear_id)
+	if(use_wallet)
+		var/obj/item/weapon/storage/wallet/L = new /obj/item/weapon/storage/wallet
+		H.equip_to_slot_or_del(L, slot_wear_id)
+		W.loc = L
+	else
+		H.equip_to_slot_or_del(W, slot_wear_id)
 
 /client/proc/startSinglo()
 	set category = "Debug"
