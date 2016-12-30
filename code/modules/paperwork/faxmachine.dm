@@ -110,6 +110,9 @@ var/list/alldepartments = list()
 	if(href_list["paper"])
 		if(copyitem)
 			copyitem.forceMove(get_turf(src))
+			if(ishuman(usr))
+				if(!usr.get_active_hand())
+					usr.put_in_hands(copyitem)
 			to_chat(usr, "<span class='notice'>You eject \the [copyitem] from \the [src].</span>")
 			copyitem = null
 		else
