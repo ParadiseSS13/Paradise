@@ -1,4 +1,0 @@
-author: "KasparoVy"
-delete-after: True
-changes: 
-  - bugfix: "Taking off noir glasses while noir mode is on will now give you your colour vision back."
