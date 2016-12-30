@@ -154,7 +154,7 @@
 	var/invis_override = 0
 
 	var/emagged = 0
-	var/color_view = null//overrides client.color while worn
+	var/list/color_view = null//overrides client.color while worn
 	var/prescription = 0
 	var/prescription_upgradable = 0
 	strip_delay = 20			//	   but seperated to allow items to protect but not impair vision, like space helmets
