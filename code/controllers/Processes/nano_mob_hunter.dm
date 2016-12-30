@@ -109,9 +109,9 @@ var/global/datum/controller/process/mob_hunt/mob_hunt_server
 		red_terminal.audible_message("Battle starting!", null, 5)
 		blue_terminal.audible_message("Battle starting!", null, 5)
 		if(battle_turn == "Red")
-			red_terminal.audible_message("Red Player's Turn!", null, 2)
+			red_terminal.audible_message("Red Player's Turn!", null, 5)
 		else if(battle_turn == "Blue")
-			blue_terminal.audible_message("Blue Player's Turn!", null, 2)
+			blue_terminal.audible_message("Blue Player's Turn!", null, 5)
 
 /datum/controller/process/mob_hunt/proc/launch_attack(team, raw_damage, datum/mob_type/attack_type)
 	if(!team || !raw_damage)

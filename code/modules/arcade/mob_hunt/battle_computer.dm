@@ -27,15 +27,13 @@
 	team = "Blue"
 	avatar_y_offset = 1
 
-/obj/machinery/computer/mob_battle_terminal/red/New()
+/obj/machinery/computer/mob_battle_terminal/red/initialize()
 	..()
-	if(mob_hunt_server && !mob_hunt_server.red_terminal)
-		mob_hunt_server.red_terminal = src
+	check_connection()
 
-/obj/machinery/computer/mob_battle_terminal/blue/New()
+/obj/machinery/computer/mob_battle_terminal/blue/initialize()
 	..()
-	if(mob_hunt_server && !mob_hunt_server.blue_terminal)
-		mob_hunt_server.blue_terminal = src
+	check_connection()
 
 /obj/machinery/computer/mob_battle_terminal/update_icon()
 	if(card)
@@ -115,6 +113,7 @@
 	return
 
 /obj/machinery/computer/mob_battle_terminal/interact(mob/user)
+	check_connection()
 	var/dat = ""
 	dat += "<table border='1' style='width:75%'>"
 	dat += "<tr>"
@@ -130,7 +129,7 @@
 		dat += "</tr>"
 		if(ready && mob_hunt_server.battle_turn)	//offer the surrender option if they are in a battle (ready), but don't have a card loaded
 			dat += "<tr>"
-			dat += "<td><a href='?src=\ref[src];surrender=1'>Surrender!</a></td>"
+			dat += "<td><a href='?src=[UID()];surrender=1'>Surrender!</a></td>"
 			dat += "</tr>"
 	else
 		dat += "<table>"
@@ -160,21 +159,21 @@
 		dat += "<table border='1'>"
 		dat += "<tr>"
 		if(mob_info.cur_health)
-			dat += "<td><a href='?src=\ref[src];attack=1'>Attack!</a></td>"
+			dat += "<td><a href='?src=[UID()];attack=1'>Attack!</a></td>"
 		else
 			dat += "<td>Incapacitated!</td>"
-		dat += "<td><a href='?src=\ref[src];eject=1'>Recall!</a></td>"
+		dat += "<td><a href='?src=[UID()];eject=1'>Recall!</a></td>"
 		dat += "</tr>"
 		dat += "</table>"
 		dat += "</td>"
 		dat += "</tr>"
 		if(!ready)
 			dat += "<tr>"
-			dat += "<td><a href='?src=\ref[src];ready=1'>Battle!</a></td>"
+			dat += "<td><a href='?src=[UID()];ready=1'>Battle!</a></td>"
 			dat += "</tr>"
 		if(ready && !mob_hunt_server.battle_turn)
 			dat += "<tr>"
-			dat += "<td><a href='?src=\ref[src];ready=2'>Cancel Battle!</a></td>"
+			dat += "<td><a href='?src=[UID()];ready=2'>Cancel Battle!</a></td>"
 			dat += "</tr>"
 	dat += "</table>"
 
@@ -183,6 +182,9 @@
 	popup.open()
 
 /obj/machinery/computer/mob_battle_terminal/Topic(href, href_list)
+	if(..())
+		return 1
+
 	if(href_list["attack"])
 		do_attack()
 
@@ -201,6 +203,14 @@
 			audible_message("[team] Player cancels their battle challenge.", null, 5)
 
 	updateUsrDialog()
+
+/obj/machinery/computer/mob_battle_terminal/proc/check_connection()
+	if(team == "Red")
+		if(mob_hunt_server && !mob_hunt_server.red_terminal)
+			mob_hunt_server.red_terminal = src
+	else if(team == "Blue")
+		if(mob_hunt_server && !mob_hunt_server.blue_terminal)
+			mob_hunt_server.blue_terminal = src
 
 /obj/machinery/computer/mob_battle_terminal/proc/do_attack()
 	if(!ready)		//no attacking if you arent ready to fight (duh)
