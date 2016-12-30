@@ -181,6 +181,7 @@ update_flag
 	if(src.destroyed)
 		src.overlays = 0
 		src.icon_state = text("[]-1", src.canister_color["prim"])//yes, I KNOW the colours don't reflect when the can's borked, whatever.
+		return
 
 	if(icon_state != src.canister_color["prim"])
 		icon_state = src.canister_color["prim"]
