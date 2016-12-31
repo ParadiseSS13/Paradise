@@ -247,7 +247,7 @@
 		ui.open()
 		ui.set_auto_update(1)
 
-/obj/machinery/disposal/ui_data(mob/user, datum/topic_state/state = default_state)
+/obj/machinery/disposal/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/data[0]
 
 	var/pressure = Clamp(100* air_contents.return_pressure() / (SEND_PRESSURE), 0, 100)

@@ -129,7 +129,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 	// auto update every Master Controller tick
 	ui.set_auto_update(auto_update)
 
-/obj/item/device/pda/ui_data(mob/user, datum/topic_state/state = inventory_state)
+/obj/item/device/pda/ui_data(mob/user, ui_key = "main", datum/topic_state/state = inventory_state)
 	var/data[0]
 
 	data["owner"] = owner					// Who is your daddy...

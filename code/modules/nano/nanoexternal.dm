@@ -48,7 +48,7 @@
  *
  * @return list()
  */
-/datum/proc/ui_data(mob/user, datum/topic_state/state = default_state)
+/datum/proc/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	return list()
 
 // Used by the Nano UI Manager (/datum/nanomanager) to track UIs opened by this mob

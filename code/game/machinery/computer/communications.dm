@@ -334,7 +334,7 @@
 		// open the new ui window
 		ui.open()
 
-/obj/machinery/computer/communications/ui_data(mob/user, datum/topic_state/state = default_state)
+/obj/machinery/computer/communications/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/data[0]
 	data["is_ai"]         = isAI(user)||isrobot(user)
 	data["menu_state"]    = data["is_ai"] ? ai_menu_state : menu_state

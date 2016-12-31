@@ -58,7 +58,7 @@ var/global/list/default_pai_software = list()
 		ui.open()
 		ui.set_auto_update(1)
 
-/mob/living/silicon/pai/ui_data(mob/user, datum/topic_state/state = self_state)
+/mob/living/silicon/pai/ui_data(mob/user, ui_key = "main", datum/topic_state/state = self_state)
 	var/data[0]
 
 	// Software we have bought

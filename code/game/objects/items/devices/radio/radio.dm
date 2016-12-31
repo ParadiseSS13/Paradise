@@ -114,7 +114,7 @@ var/global/list/default_medbay_channels = list(
 		ui.open()
 		ui.set_auto_update(1)
 
-/obj/item/device/radio/ui_data(mob/user, datum/topic_state/state = default_state)
+/obj/item/device/radio/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/data[0]
 
 	data["mic_status"] = broadcasting
@@ -757,7 +757,7 @@ var/global/list/default_medbay_channels = list(
 		ui.open()
 		ui.set_auto_update(1)
 
-/obj/item/device/radio/borg/ui_data(mob/user, datum/topic_state/state = default_state)
+/obj/item/device/radio/borg/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/data[0]
 
 	data["mic_status"] = broadcasting

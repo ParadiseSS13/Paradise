@@ -14,7 +14,7 @@
 
 	// Vars for pAI nanoUI handling
 	var/autoupdate = 0
-	var/template_file = ""
+	var/template_file = "oops"
 	var/ui_title = "somebody forgot to set this"
 	var/ui_width = 450
 	var/ui_height = 600

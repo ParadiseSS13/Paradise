@@ -31,7 +31,7 @@
 		// should make the UI auto-update; doesn't seem to?
 		ui.set_auto_update(1)
 
-/datum/nano_module/crew_monitor/ui_data(mob/user, datum/topic_state/state = default_state)
+/datum/nano_module/crew_monitor/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/data[0]
 	var/turf/T = get_turf(nano_host())
 
