@@ -47,7 +47,7 @@
 		reagents.add_reagent("nutriment", 7)
 
 /obj/item/weapon/reagent_containers/food/snacks/shubacarp
-	name = "Fur coat Space Carp" //P E R E V O D C H I K
+	name = "Dressed Space Carp" //P E R E V O D C H I K
 	desc = "Traditional salad served for New Year celebrations. Another one"
 	icon = 'hyntatmta/icons/obj/food/food.dmi'
 	icon_state = "shubacarp"
