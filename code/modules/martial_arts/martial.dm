@@ -177,6 +177,11 @@
 /obj/item/weapon/ninjitsu_scroll/attack_self(mob/living/carbon/human/user as mob)
 	if(!istype(user) || !user)
 		return
+	learn_ninjitsu(user)
+
+/obj/item/weapon/ninjitsu_scroll/proc/learn_ninjitsu(mob/living/carbon/human/user as mob)
+	if(!istype(user) || !user)
+		return
 	to_chat(user, "<span class='sciradio'>You have learned the ancient martial art of the Space Ninja! \
 					Your hand-to-hand combat has become much more effective, and you are now able to deflect any projectiles directed toward you. \
 					However, you are also unable to use any ranged weaponry. \
@@ -185,7 +190,6 @@
 	theninjitsu.teach(user)
 	user.drop_item()
 	visible_message("<span class='warning'>[src] lights up in fire and quickly burns to ash.</span>")
-	new /obj/effect/decal/cleanable/ash(get_turf(src))
 	qdel(src)
 
 /obj/item/weapon/twohanded/bostaff

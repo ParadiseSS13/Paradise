@@ -238,7 +238,7 @@
 /obj/item/weapon/gun/energy/kinetic_accelerator/crossbow/ninja
 	name = "ninja shuriken crossbow"
 	ammo_type = list(/obj/item/ammo_casing/energy/dart/shuriken)
-	overheat_time = 100 // 10 second recharge time, as its more powerful than the normal ebow, and we want to discourage ranged combat for ninjas.
+	overheat_time = 200 // 20 second recharge time, as its more powerful than the normal ebow, and we want to discourage ranged combat for ninjas.
 
 /obj/item/weapon/gun/energy/kinetic_accelerator/crossbow/large
 	name = "energy crossbow"

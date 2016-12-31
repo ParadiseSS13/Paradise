@@ -87,10 +87,9 @@
 	req_access = list(access_syndicate)
 
 	initial_modules = list(
-		/obj/item/rig_module/teleporter,
 		/obj/item/rig_module/stealth_field,
+		/obj/item/rig_module/teleporter,
 		/obj/item/rig_module/mounted/energy_blade,
-		/obj/item/rig_module/mounted/egun,
 		/obj/item/rig_module/vision,
 		/obj/item/rig_module/voice,
 		/obj/item/rig_module/chem_dispenser,
@@ -101,6 +100,13 @@
 		)
 
 	..()
+
+/obj/item/weapon/rig/light/ninja/emp_act(severity)
+	cell.charge = 0
+	if(selected_module)
+		selected_module.deactivate()
+	..()
+
 
 /obj/item/clothing/gloves/rig/light/ninja
 	name = "insulated gloves"

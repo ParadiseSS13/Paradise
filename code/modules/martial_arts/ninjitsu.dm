@@ -1,11 +1,11 @@
 
-//Used by the Space Ninja. Uses combos.Basic attacks bypass armor and never miss
+//Used by the Space Ninja.
 #define WRIST_WRENCH_COMBO "DD"
 
 /datum/martial_art/ninjitsu
 	name = "Ninjitsu"
 	deflection_chance = 75
-	help_verb = /mob/living/carbon/human/proc/ninjitsu_help
+	help_verb = null // /mob/living/carbon/human/proc/ninjitsu_help
 
 /datum/martial_art/ninjitsu/proc/check_streak(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
 	if(findtext(streak,WRIST_WRENCH_COMBO))
@@ -57,6 +57,7 @@
 		return 1
 	return ..()
 
+/*
 /mob/living/carbon/human/proc/ninjitsu_help()
 	set name = "Recall Teachings"
 	set desc = "Remember the martial techniques of the Spider clan."
@@ -65,3 +66,4 @@
 	to_chat(usr, "<b><i>You retreat inward and recall the teachings of Ninjitsu...</i></b>")
 
 	to_chat(usr, "<span class='notice'>Wrist Wrench</span>: Disarm Disarm. Forces opponent to drop item in hand.")
+*/

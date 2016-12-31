@@ -992,7 +992,9 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			var/obj/item/weapon/implant/explosive/E = new/obj/item/weapon/implant/explosive(M)
 			E.implant(M)
 			M.equip_to_slot_or_del(new /obj/item/weapon/pinpointer/advpinpointer(M), slot_wear_pda)
-			equip_special_id(M,list(access_maint_tunnels, access_syndicate), "Ninja", /obj/item/weapon/card/id/syndicate, "syndie", use_wallet = 1)
+			equip_special_id(M,list(access_maint_tunnels, access_syndicate), "Ninja", /obj/item/weapon/card/id/syndicate, "syndie")
+			var/obj/item/weapon/ninjitsu_scroll/R = new /obj/item/weapon/ninjitsu_scroll(M)
+			R.learn_ninjitsu(M)
 			M.faction |= "spiders"
 
 
@@ -1363,7 +1365,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	message_admins("\blue [key_name_admin(usr)] changed the equipment of [key_name_admin(M)] to [dresscode].", 1)
 	return
 
-/client/proc/equip_special_id(var/mob/living/carbon/human/H, var/list/theaccess = null, var/jobtext, var/obj/item/weapon/card/id/id_type = /obj/item/weapon/card/id, var/special_icon = null, var/use_wallet = 0)
+/client/proc/equip_special_id(var/mob/living/carbon/human/H, var/list/theaccess = null, var/jobtext, var/obj/item/weapon/card/id/id_type = /obj/item/weapon/card/id, var/special_icon = null)
 	if(!check_rights(R_EVENT))
 		return
 
@@ -1374,12 +1376,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	W.access = theaccess
 	W.assignment = "[jobtext]"
 	W.registered_name = H.real_name
-	if(use_wallet)
-		var/obj/item/weapon/storage/wallet/L = new /obj/item/weapon/storage/wallet
-		H.equip_to_slot_or_del(L, slot_wear_id)
-		W.loc = L
-	else
-		H.equip_to_slot_or_del(W, slot_wear_id)
+	H.equip_to_slot_or_del(W, slot_wear_id)
 
 /client/proc/startSinglo()
 	set category = "Debug"
