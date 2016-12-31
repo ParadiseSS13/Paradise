@@ -61,6 +61,12 @@ var/global/list/default_pai_software = list()
 /mob/living/silicon/pai/ui_data(mob/user, ui_key = "main", datum/topic_state/state = self_state)
 	var/data[0]
 
+	if(ui_key != "main")
+		var/datum/pai_software/S = software[ui_key]
+		if(S && !S.toggle)
+			return S.on_ui_data(user, state)
+		log_runtime(EXCEPTION("Unrecognized/invalid pAI UI state '[ui_key]'"), src)
+		return
 	// Software we have bought
 	var/bought_software[0]
 	// Software we have not bought
