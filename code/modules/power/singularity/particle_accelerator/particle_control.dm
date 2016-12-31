@@ -157,17 +157,19 @@
 	else if(!stat && construction_state <= 3)
 		use_power = 1
 	update_icon()
-	for(var/obj/structure/particle_accelerator/part in connected_parts)
-		part.strength = null
-		part.powered = 0
-		part.update_icon()
+
+	if((stat & NOPOWER) || (!stat && construction_state <= 3)) //Only update the part icons if something's changed (i.e. any of the above condition sets are met).
+		for(var/obj/structure/particle_accelerator/part in connected_parts)
+			part.strength = null
+			part.powered = 0
+			part.update_icon()
 	return
 
 
 /obj/machinery/particle_accelerator/control_box/process()
 	if(active)
 		//a part is missing!
-		if( length(connected_parts) < 6 )
+		if(length(connected_parts) < 6)
 			investigate_log("lost a connected part; It <font color='red'>powered down</font>.","singulo")
 			toggle_power()
 			return
