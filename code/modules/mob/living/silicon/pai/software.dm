@@ -41,7 +41,12 @@ var/global/list/default_pai_software = list()
 	if(ui_key != "main")
 		var/datum/pai_software/S = software[ui_key]
 		if(S && !S.toggle)
-			S.on_ui_interact(src, ui, force_open)
+			ui = nanomanager.try_update_ui(user, src, S.id, ui, force_open)
+			if(!ui)
+				ui = new(user, src, S.id, S.template_file, S.ui_title, S.ui_width, S.ui_height, state = state)
+				ui.open()
+				if(S.autoupdate)
+					ui.set_auto_update(1)
 		else
 			if(ui)
 				ui.set_status(STATUS_CLOSE, 0)

@@ -19,9 +19,6 @@
 	var/ui_width = 450
 	var/ui_height = 600
 
-/datum/pai_software/proc/on_ui_interact(mob/living/silicon/pai/user, datum/nanoui/ui=null, force_open=1)
-		return
-
 /datum/pai_software/proc/on_ui_data(mob/living/silicon/pai/user, datum/topic_state/state = self_state)
 	return list()
 
@@ -38,6 +35,10 @@
 	toggle = 0
 	default = 1
 
+	template_file = "pai_directives.tmpl"
+	ui_title = "pAI Directives"
+	autoupdate = 1
+
 /datum/pai_software/directives/on_ui_data(mob/living/silicon/pai/user, datum/topic_state/state = self_state)
 	var/data[0]
 
@@ -47,14 +48,6 @@
 	data["supplemental"] = user.pai_laws
 
 	return data
-
-/datum/pai_software/directives/on_ui_interact(mob/living/silicon/pai/user, datum/nanoui/ui=null, force_open=1)
-	ui = nanomanager.try_update_ui(user, user, id, ui, force_open)
-	if(!ui)
-		// Don't copy-paste this unless you're making a pAI software module!
-		ui = new(user, user, id, "pai_directives.tmpl", "pAI Directives", 450, 600)
-		ui.open()
-		ui.set_auto_update(1)
 
 /datum/pai_software/directives/Topic(href, href_list)
 	var/mob/living/silicon/pai/P = usr
@@ -96,6 +89,11 @@
 	toggle = 0
 	default = 1
 
+	template_file = "pai_radio.tmpl"
+	ui_title = "Radio Configuration"
+	ui_width = 300
+	ui_height = 150
+
 /datum/pai_software/radio_config/on_ui_data(mob/living/silicon/pai/user, datum/topic_state/state = self_state)
 	var/data[0]
 
@@ -114,12 +112,6 @@
 
 	return data
 
-/datum/pai_software/radio_config/on_ui_interact(mob/living/silicon/pai/user, datum/nanoui/ui = null, force_open = 1)
-	ui = nanomanager.try_update_ui(user, user, id, ui, force_open)
-	if(!ui)
-		ui = new(user, user, id, "pai_radio.tmpl", "Radio Configuration", 300, 150)
-		ui.open()
-
 /datum/pai_software/radio_config/Topic(href, href_list)
 	var/mob/living/silicon/pai/P = usr
 	if(!istype(P)) return
@@ -133,6 +125,10 @@
 	id = "manifest"
 	toggle = 0
 
+	autoupdate = 1
+	template_file = "pai_manifest.tmpl"
+	ui_title = "Crew Manifest"
+
 /datum/pai_software/crew_manifest/on_ui_data(mob/living/silicon/pai/user, datum/topic_state/state = self_state)
 	var/data[0]
 
@@ -141,19 +137,15 @@
 
 	return data
 
-/datum/pai_software/crew_manifest/on_ui_interact(mob/living/silicon/pai/user, datum/nanoui/ui=null, force_open=1)
-	ui = nanomanager.try_update_ui(user, user, id, ui, force_open)
-	if(!ui)
-		// Don't copy-paste this unless you're making a pAI software module!
-		ui = new(user, user, id, "pai_manifest.tmpl", "Crew Manifest", 450, 600)
-		ui.open()
-		ui.set_auto_update(1)
-
 /datum/pai_software/messenger
 	name = "Digital Messenger"
 	ram_cost = 5
 	id = "messenger"
 	toggle = 0
+
+	autoupdate = 1
+	template_file = "pai_messenger.tmpl"
+	ui_title = "Digital Messenger"
 
 /datum/pai_software/messenger/on_ui_data(mob/living/silicon/pai/user, datum/topic_state/state = self_state)
 	var/data[0]
@@ -204,14 +196,6 @@
 
 	return data
 
-/datum/pai_software/messenger/on_ui_interact(mob/living/silicon/pai/user, datum/nanoui/ui=null, force_open=1)
-	ui = nanomanager.try_update_ui(user, user, id, ui, force_open)
-	if(!ui)
-		// Don't copy-paste this unless you're making a pAI software module!
-		ui = new(user, user, id, "pai_messenger.tmpl", "Digital Messenger", 450, 600)
-		ui.open()
-		ui.set_auto_update(1)
-
 /datum/pai_software/messenger/Topic(href, href_list)
 	var/mob/living/silicon/pai/P = usr
 	if(!istype(P)) return
@@ -247,6 +231,10 @@
 	ram_cost = 5
 	id = "chatroom"
 	toggle = 0
+
+	autoupdate = 1
+	template_file = "pai_chatroom.tmpl"
+	ui_title = "Digital Chatroom"
 
 /datum/pai_software/chatroom/on_ui_data(mob/living/silicon/pai/user, datum/topic_state/state = self_state)
 	var/data[0]
@@ -285,14 +273,6 @@
 		data["users"] = users
 
 	return data
-
-/datum/pai_software/chatroom/on_ui_interact(mob/living/silicon/pai/user, datum/nanoui/ui=null, force_open=1)
-	ui = nanomanager.try_update_ui(user, user, id, ui, force_open)
-	if(!ui)
-		// Don't copy-paste this unless you're making a pAI software module!
-		ui = new(user, user, id, "pai_chatroom.tmpl", "Digital Chatroom", 450, 600)
-		ui.open()
-		ui.set_auto_update(1)
 
 /datum/pai_software/chatroom/Topic(href, href_list)
 	var/mob/living/silicon/pai/P = usr
@@ -369,6 +349,11 @@
 	id = "med_records"
 	toggle = 0
 
+	autoupdate = 1
+	template_file = "pai_medrecords.tmpl"
+	ui_title = "Medical Records"
+
+
 /datum/pai_software/med_records/on_ui_data(mob/living/silicon/pai/user, datum/topic_state/state = self_state)
 	var/data[0]
 
@@ -388,14 +373,6 @@
 	data["could_not_find"] = user.medical_cannotfind
 
 	return data
-
-/datum/pai_software/med_records/on_ui_interact(mob/living/silicon/pai/user, datum/nanoui/ui=null, force_open=1)
-	ui = nanomanager.try_update_ui(user, user, id, ui, force_open)
-	if(!ui)
-		// Don't copy-paste this unless you're making a pAI software module!
-		ui = new(user, user, id, "pai_medrecords.tmpl", "Medical Records", 450, 600)
-		ui.open()
-		ui.set_auto_update(1)
 
 /datum/pai_software/med_records/Topic(href, href_list)
 	var/mob/living/silicon/pai/P = usr
@@ -425,6 +402,11 @@
 	id = "sec_records"
 	toggle = 0
 
+	autoupdate = 1
+	template_file = "pai_secrecords.tmpl"
+	ui_title = "Security Records"
+
+
 /datum/pai_software/sec_records/on_ui_data(mob/living/silicon/pai/user, datum/topic_state/state = self_state)
 	var/data[0]
 
@@ -444,14 +426,6 @@
 	data["could_not_find"] = user.security_cannotfind
 
 	return data
-
-/datum/pai_software/sec_records/on_ui_interact(mob/living/silicon/pai/user, datum/nanoui/ui=null, force_open=1)
-	ui = nanomanager.try_update_ui(user, user, id, ui, force_open)
-	if(!ui)
-		// Don't copy-paste this unless you're making a pAI software module!
-		ui = new(user, user, id, "pai_secrecords.tmpl", "Security Records", 450, 600)
-		ui.open()
-		ui.set_auto_update(1)
 
 /datum/pai_software/sec_records/Topic(href, href_list)
 	var/mob/living/silicon/pai/P = usr
@@ -485,6 +459,12 @@
 	id = "door_jack"
 	toggle = 0
 
+	autoupdate = 1
+	template_file = "pai_doorjack.tmpl"
+	ui_title = "Door Jack"
+	ui_width = 300
+	ui_height = 150
+
 /datum/pai_software/door_jack/on_ui_data(mob/living/silicon/pai/user, datum/topic_state/state = self_state)
 	var/data[0]
 
@@ -496,14 +476,6 @@
 	data["aborted"] = user.hack_aborted
 
 	return data
-
-/datum/pai_software/door_jack/on_ui_interact(mob/living/silicon/pai/user, datum/nanoui/ui=null, force_open=1)
-	ui = nanomanager.try_update_ui(user, user, id, ui, force_open)
-	if(!ui)
-		// Don't copy-paste this unless you're making a pAI software module!
-		ui = new(user, user, id, "pai_doorjack.tmpl", "Door Jack", 300, 150)
-		ui.open()
-		ui.set_auto_update(1)
 
 /datum/pai_software/door_jack/Topic(href, href_list)
 	var/mob/living/silicon/pai/P = usr
@@ -563,6 +535,12 @@
 	id = "atmos_sense"
 	toggle = 0
 
+	template_file = "pai_atmosphere.tmpl"
+	ui_title = "Atmosphere Sensor"
+	ui_width = 350
+	ui_height = 300
+
+
 /datum/pai_software/atmosphere_sensor/on_ui_data(mob/living/silicon/pai/user, datum/topic_state/state = self_state)
 	var/data[0]
 
@@ -606,13 +584,6 @@
 		data["gas"] = gases
 
 		return data
-
-/datum/pai_software/atmosphere_sensor/on_ui_interact(mob/living/silicon/pai/user, datum/nanoui/ui=null, force_open=1)
-	ui = nanomanager.try_update_ui(user, user, id, ui, force_open)
-	if(!ui)
-		// Don't copy-paste this unless you're making a pAI software module!
-		ui = new(user, user, id, "pai_atmosphere.tmpl", "Atmosphere Sensor", 350, 300)
-		ui.open()
 
 /datum/pai_software/sec_hud
 	name = "Security HUD"
@@ -682,6 +653,11 @@
 	id = "signaller"
 	toggle = 0
 
+	template_file = "pai_signaller.tmpl"
+	ui_title = "Signaller"
+	ui_width = 320
+	ui_height = 150
+
 /datum/pai_software/signaller/on_ui_data(mob/living/silicon/pai/user, datum/topic_state/state = self_state)
 	var/data[0]
 
@@ -689,13 +665,6 @@
 	data["code"] = user.sradio.code
 
 	return data
-
-/datum/pai_software/signaller/on_ui_interact(mob/living/silicon/pai/user, datum/nanoui/ui=null, force_open=1)
-	ui = nanomanager.try_update_ui(user, user, id, ui, force_open)
-	if(!ui)
-		// Don't copy-paste this unless you're making a pAI software module!
-		ui = new(user, user, id, "pai_signaller.tmpl", "Signaller", 320, 150)
-		ui.open()
 
 /datum/pai_software/signaller/Topic(href, href_list)
 	var/mob/living/silicon/pai/P = usr
@@ -727,6 +696,11 @@
 	id = "bioscan"
 	toggle = 0
 
+	template_file = "pai_bioscan.tmpl"
+	ui_title = "Host Bioscan"
+	ui_width = 400
+	ui_height = 350
+
 /datum/pai_software/host_scan/on_ui_data(mob/living/silicon/pai/user, datum/topic_state/state = self_state)
 	var/data[0]
 	var/mob/living/held = user.loc
@@ -752,11 +726,3 @@
 		data["holder"] = 0
 
 	return data
-
-/datum/pai_software/host_scan/on_ui_interact(mob/living/silicon/pai/user, datum/nanoui/ui=null, force_open=1)
-	ui = nanomanager.try_update_ui(user, user, id, ui, force_open)
-	if(!ui)
-		// Don't copy-paste this unless you're making a pAI software module!
-		ui = new(user, user, id, "pai_bioscan.tmpl", "Host Bioscan", 400, 350)
-		ui.open()
-		//.set_auto_update(1)
