@@ -7,13 +7,23 @@
 	var/id = ""
 	// Whether this software is a toggle or not
 	// Toggled software should override toggle() and is_active()
-	// Non-toggled software should override on_ui_interact() and Topic()
+	// Non-toggled software should override on_ui_data() and Topic()
 	var/toggle = 1
 	// Whether pAIs should automatically receive this module at no cost
 	var/default = 0
 
+	// Vars for pAI nanoUI handling
+	var/autoupdate = 0
+	var/template_file = ""
+	var/ui_title = "somebody forgot to set this"
+	var/ui_width = 450
+	var/ui_height = 600
+
 /datum/pai_software/proc/on_ui_interact(mob/living/silicon/pai/user, datum/nanoui/ui=null, force_open=1)
 		return
+
+/datum/pai_software/proc/on_ui_data(mob/living/silicon/pai/user, datum/topic_state/state = self_state)
+	return list()
 
 /datum/pai_software/proc/toggle(mob/living/silicon/pai/user)
 		return
@@ -28,7 +38,7 @@
 	toggle = 0
 	default = 1
 
-/datum/pai_software/directives/on_ui_interact(mob/living/silicon/pai/user, datum/nanoui/ui=null, force_open=1)
+/datum/pai_software/directives/on_ui_data(mob/living/silicon/pai/user, datum/topic_state/state = self_state)
 	var/data[0]
 
 	data["master"] = user.master
@@ -36,11 +46,13 @@
 	data["prime"] = user.pai_law0
 	data["supplemental"] = user.pai_laws
 
-	ui = nanomanager.try_update_ui(user, user, id, ui, data, force_open)
+	return data
+
+/datum/pai_software/directives/on_ui_interact(mob/living/silicon/pai/user, datum/nanoui/ui=null, force_open=1)
+	ui = nanomanager.try_update_ui(user, user, id, ui, force_open)
 	if(!ui)
 		// Don't copy-paste this unless you're making a pAI software module!
 		ui = new(user, user, id, "pai_directives.tmpl", "pAI Directives", 450, 600)
-		ui.set_initial_data(data)
 		ui.open()
 		ui.set_auto_update(1)
 
@@ -84,12 +96,11 @@
 	toggle = 0
 	default = 1
 
-/datum/pai_software/radio_config/on_ui_interact(mob/living/silicon/pai/user, datum/nanoui/ui = null, force_open = 1)
+/datum/pai_software/radio_config/on_ui_data(mob/living/silicon/pai/user, datum/topic_state/state = self_state)
 	var/data[0]
 
 	data["listening"] = user.radio.broadcasting
 	data["frequency"] = format_frequency(user.radio.frequency)
-
 	var/channels[0]
 	for(var/ch_name in user.radio.channels)
 		var/ch_stat = user.radio.channels[ch_name]
@@ -101,10 +112,12 @@
 
 	data["channels"] = channels
 
-	ui = nanomanager.try_update_ui(user, user, id, ui, data, force_open)
+	return data
+
+/datum/pai_software/radio_config/on_ui_interact(mob/living/silicon/pai/user, datum/nanoui/ui = null, force_open = 1)
+	ui = nanomanager.try_update_ui(user, user, id, ui, force_open)
 	if(!ui)
 		ui = new(user, user, id, "pai_radio.tmpl", "Radio Configuration", 300, 150)
-		ui.set_initial_data(data)
 		ui.open()
 
 /datum/pai_software/radio_config/Topic(href, href_list)
@@ -120,16 +133,19 @@
 	id = "manifest"
 	toggle = 0
 
-/datum/pai_software/crew_manifest/on_ui_interact(mob/living/silicon/pai/user, datum/nanoui/ui=null, force_open=1)
+/datum/pai_software/crew_manifest/on_ui_data(mob/living/silicon/pai/user, datum/topic_state/state = self_state)
 	var/data[0]
+
 	data_core.get_manifest_json()
 	data["manifest"] = PDA_Manifest
 
-	ui = nanomanager.try_update_ui(user, user, id, ui, data, force_open)
+	return data
+
+/datum/pai_software/crew_manifest/on_ui_interact(mob/living/silicon/pai/user, datum/nanoui/ui=null, force_open=1)
+	ui = nanomanager.try_update_ui(user, user, id, ui, force_open)
 	if(!ui)
 		// Don't copy-paste this unless you're making a pAI software module!
 		ui = new(user, user, id, "pai_manifest.tmpl", "Crew Manifest", 450, 600)
-		ui.set_initial_data(data)
 		ui.open()
 		ui.set_auto_update(1)
 
@@ -139,14 +155,16 @@
 	id = "messenger"
 	toggle = 0
 
-/datum/pai_software/messenger/on_ui_interact(mob/living/silicon/pai/user, datum/nanoui/ui=null, force_open=1)
+/datum/pai_software/messenger/on_ui_data(mob/living/silicon/pai/user, datum/topic_state/state = self_state)
 	var/data[0]
 
 	if(!user.pda)
-		return
+		log_runtime(EXCEPTION("pAI found without PDA."), user)
+		return data
 	var/datum/data/pda/app/messenger/M = user.pda.find_program(/datum/data/pda/app/messenger)
 	if(!M)
-		return
+		log_runtime(EXCEPTION("pAI PDA lacks a messenger program"), user)
+		return data
 
 	data["receiver_off"] = M.toff
 	data["ringer_off"] = M.notify_silent
@@ -184,11 +202,13 @@
 
 	data["messages"] = messages
 
-	ui = nanomanager.try_update_ui(user, user, id, ui, data, force_open)
+	return data
+
+/datum/pai_software/messenger/on_ui_interact(mob/living/silicon/pai/user, datum/nanoui/ui=null, force_open=1)
+	ui = nanomanager.try_update_ui(user, user, id, ui, force_open)
 	if(!ui)
 		// Don't copy-paste this unless you're making a pAI software module!
 		ui = new(user, user, id, "pai_messenger.tmpl", "Digital Messenger", 450, 600)
-		ui.set_initial_data(data)
 		ui.open()
 		ui.set_auto_update(1)
 
@@ -228,14 +248,16 @@
 	id = "chatroom"
 	toggle = 0
 
-/datum/pai_software/chatroom/on_ui_interact(mob/living/silicon/pai/user, datum/nanoui/ui=null, force_open=1)
+/datum/pai_software/chatroom/on_ui_data(mob/living/silicon/pai/user, datum/topic_state/state = self_state)
 	var/data[0]
 
 	if(!user.pda)
-		return
+		log_runtime(EXCEPTION("pAI found without PDA."), user)
+		return data
 	var/datum/data/pda/app/chatroom/M = user.pda.find_program(/datum/data/pda/app/chatroom)
 	if(!M)
-		return
+		log_runtime(EXCEPTION("pAI PDA lacks a chatroom program"), user)
+		return data
 
 	data["receiver_off"] = M.toff
 	data["ringer_off"] = M.notify_silent
@@ -262,11 +284,13 @@
 			users += "<span class='average'>[ch.pda.owner]</span>"
 		data["users"] = users
 
-	ui = nanomanager.try_update_ui(user, user, id, ui, data, force_open)
+	return data
+
+/datum/pai_software/chatroom/on_ui_interact(mob/living/silicon/pai/user, datum/nanoui/ui=null, force_open=1)
+	ui = nanomanager.try_update_ui(user, user, id, ui, force_open)
 	if(!ui)
 		// Don't copy-paste this unless you're making a pAI software module!
 		ui = new(user, user, id, "pai_chatroom.tmpl", "Digital Chatroom", 450, 600)
-		ui.set_initial_data(data)
 		ui.open()
 		ui.set_auto_update(1)
 
@@ -345,7 +369,7 @@
 	id = "med_records"
 	toggle = 0
 
-/datum/pai_software/med_records/on_ui_interact(mob/living/silicon/pai/user, datum/nanoui/ui=null, force_open=1)
+/datum/pai_software/med_records/on_ui_data(mob/living/silicon/pai/user, datum/topic_state/state = self_state)
 	var/data[0]
 
 	var/records[0]
@@ -363,11 +387,13 @@
 	data["medical"] = M ? M.fields : null
 	data["could_not_find"] = user.medical_cannotfind
 
-	ui = nanomanager.try_update_ui(user, user, id, ui, data, force_open)
+	return data
+
+/datum/pai_software/med_records/on_ui_interact(mob/living/silicon/pai/user, datum/nanoui/ui=null, force_open=1)
+	ui = nanomanager.try_update_ui(user, user, id, ui, force_open)
 	if(!ui)
 		// Don't copy-paste this unless you're making a pAI software module!
 		ui = new(user, user, id, "pai_medrecords.tmpl", "Medical Records", 450, 600)
-		ui.set_initial_data(data)
 		ui.open()
 		ui.set_auto_update(1)
 
@@ -399,7 +425,7 @@
 	id = "sec_records"
 	toggle = 0
 
-/datum/pai_software/sec_records/on_ui_interact(mob/living/silicon/pai/user, datum/nanoui/ui=null, force_open=1)
+/datum/pai_software/sec_records/on_ui_data(mob/living/silicon/pai/user, datum/topic_state/state = self_state)
 	var/data[0]
 
 	var/records[0]
@@ -417,11 +443,13 @@
 	data["security"] = S ? S.fields : null
 	data["could_not_find"] = user.security_cannotfind
 
-	ui = nanomanager.try_update_ui(user, user, id, ui, data, force_open)
+	return data
+
+/datum/pai_software/sec_records/on_ui_interact(mob/living/silicon/pai/user, datum/nanoui/ui=null, force_open=1)
+	ui = nanomanager.try_update_ui(user, user, id, ui, force_open)
 	if(!ui)
 		// Don't copy-paste this unless you're making a pAI software module!
 		ui = new(user, user, id, "pai_secrecords.tmpl", "Security Records", 450, 600)
-		ui.set_initial_data(data)
 		ui.open()
 		ui.set_auto_update(1)
 
@@ -457,7 +485,7 @@
 	id = "door_jack"
 	toggle = 0
 
-/datum/pai_software/door_jack/on_ui_interact(mob/living/silicon/pai/user, datum/nanoui/ui=null, force_open=1)
+/datum/pai_software/door_jack/on_ui_data(mob/living/silicon/pai/user, datum/topic_state/state = self_state)
 	var/data[0]
 
 	data["cable"] = user.cable != null
@@ -467,11 +495,13 @@
 	data["progress_b"] = user.hackprogress % 10
 	data["aborted"] = user.hack_aborted
 
-	ui = nanomanager.try_update_ui(user, user, id, ui, data, force_open)
+	return data
+
+/datum/pai_software/door_jack/on_ui_interact(mob/living/silicon/pai/user, datum/nanoui/ui=null, force_open=1)
+	ui = nanomanager.try_update_ui(user, user, id, ui, force_open)
 	if(!ui)
 		// Don't copy-paste this unless you're making a pAI software module!
 		ui = new(user, user, id, "pai_doorjack.tmpl", "Door Jack", 300, 150)
-		ui.set_initial_data(data)
 		ui.open()
 		ui.set_auto_update(1)
 
@@ -533,7 +563,7 @@
 	id = "atmos_sense"
 	toggle = 0
 
-/datum/pai_software/atmosphere_sensor/on_ui_interact(mob/living/silicon/pai/user, datum/nanoui/ui=null, force_open=1)
+/datum/pai_software/atmosphere_sensor/on_ui_data(mob/living/silicon/pai/user, datum/topic_state/state = self_state)
 	var/data[0]
 
 	var/turf/T = get_turf_or_move(user.loc)
@@ -575,11 +605,13 @@
 			gases[++gases.len] = other
 		data["gas"] = gases
 
-	ui = nanomanager.try_update_ui(user, user, id, ui, data, force_open)
+		return data
+
+/datum/pai_software/atmosphere_sensor/on_ui_interact(mob/living/silicon/pai/user, datum/nanoui/ui=null, force_open=1)
+	ui = nanomanager.try_update_ui(user, user, id, ui, force_open)
 	if(!ui)
 		// Don't copy-paste this unless you're making a pAI software module!
 		ui = new(user, user, id, "pai_atmosphere.tmpl", "Atmosphere Sensor", 350, 300)
-		ui.set_initial_data(data)
 		ui.open()
 
 /datum/pai_software/sec_hud
@@ -650,17 +682,19 @@
 	id = "signaller"
 	toggle = 0
 
-/datum/pai_software/signaller/on_ui_interact(mob/living/silicon/pai/user, datum/nanoui/ui=null, force_open=1)
+/datum/pai_software/signaller/on_ui_data(mob/living/silicon/pai/user, datum/topic_state/state = self_state)
 	var/data[0]
 
 	data["frequency"] = format_frequency(user.sradio.frequency)
 	data["code"] = user.sradio.code
 
-	ui = nanomanager.try_update_ui(user, user, id, ui, data, force_open)
+	return data
+
+/datum/pai_software/signaller/on_ui_interact(mob/living/silicon/pai/user, datum/nanoui/ui=null, force_open=1)
+	ui = nanomanager.try_update_ui(user, user, id, ui, force_open)
 	if(!ui)
 		// Don't copy-paste this unless you're making a pAI software module!
 		ui = new(user, user, id, "pai_signaller.tmpl", "Signaller", 320, 150)
-		ui.set_initial_data(data)
 		ui.open()
 
 /datum/pai_software/signaller/Topic(href, href_list)
@@ -693,8 +727,7 @@
 	id = "bioscan"
 	toggle = 0
 
-
-/datum/pai_software/host_scan/on_ui_interact(mob/living/silicon/pai/user, datum/nanoui/ui=null, force_open=1)
+/datum/pai_software/host_scan/on_ui_data(mob/living/silicon/pai/user, datum/topic_state/state = self_state)
 	var/data[0]
 	var/mob/living/held = user.loc
 	var/count = 0
@@ -718,10 +751,12 @@
 	else
 		data["holder"] = 0
 
-	ui = nanomanager.try_update_ui(user, user, id, ui,data , force_open)
+	return data
+
+/datum/pai_software/host_scan/on_ui_interact(mob/living/silicon/pai/user, datum/nanoui/ui=null, force_open=1)
+	ui = nanomanager.try_update_ui(user, user, id, ui, force_open)
 	if(!ui)
 		// Don't copy-paste this unless you're making a pAI software module!
 		ui = new(user, user, id, "pai_bioscan.tmpl", "Host Bioscan", 400, 350)
-		ui.set_initial_data(data)
 		ui.open()
 		//.set_auto_update(1)
