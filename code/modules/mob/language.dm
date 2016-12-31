@@ -428,6 +428,19 @@
 	flags = RESTRICTED | HIVEMIND
 	follow = 1
 
+
+/datum/language/terrorspider
+	name = "TerrorSpider"
+	desc = "Terror spiders have a limited ability to commune over a psychic hivemind, similar to xenomorphs."
+	speech_verb = "chitters"
+	ask_verb = "chitters"
+	exclaim_verb = "chitters"
+	colour = "terrorspider"
+	key = "ts"
+	flags = RESTRICTED | HIVEMIND
+	follow = 1
+
+
 /datum/language/ling
 	name = "Changeling"
 	desc = "Although they are normally wary and suspicious of each other, changelings can commune over a distance."
