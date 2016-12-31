@@ -125,6 +125,11 @@
 			update_hair()	//rebuild hair
 			update_fhair()
 			update_head_accessory()
+		// Bandanas and paper hats go on the head but are not head clothing
+		if(istype(I,/obj/item/clothing/head))
+			var/obj/item/clothing/head/hat = I
+			if(hat.vision_flags || hat.darkness_view || hat.helmet_goggles_invis_view)
+				update_sight()
 		head_update(I)
 		update_inv_head()
 	else if(I == r_ear)
@@ -275,6 +280,11 @@
 				update_hair(redraw_mob)	//rebuild hair
 				update_fhair(redraw_mob)
 				update_head_accessory(redraw_mob)
+			// paper + bandanas
+			if(istype(W, /obj/item/clothing/head))
+				var/obj/item/clothing/head/hat = W
+				if(hat.vision_flags || hat.darkness_view || hat.helmet_goggles_invis_view)
+					update_sight()
 			head_update(W)
 			update_inv_head(redraw_mob)
 		if(slot_shoes)

@@ -102,7 +102,7 @@
 	return text
 
 /obj/machinery/computer/attack_ghost(user as mob)
-	return src.attack_hand(user)
+	return attack_hand(user)
 
 /obj/machinery/computer/attack_hand(user as mob)
 	/* Observers can view computers, but not actually use them via Topic*/
@@ -130,7 +130,7 @@
 				A.icon_state = "4"
 			qdel(src)
 	else
-		src.attack_hand(user)
+		attack_hand(user)
 	return
 
 /obj/machinery/computer/attack_alien(mob/living/user)

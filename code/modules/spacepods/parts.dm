@@ -30,7 +30,7 @@
 	var/turf/T
 	var/obj/item/pod_parts/pod_frame/linked
 	var/obj/item/pod_parts/pod_frame/pointer
-	var/connectedparts =  list()
+	var/list/connectedparts =  list()
 	neededparts -= src
 	//log_admin("Starting with [src]")
 	linked = src
@@ -44,7 +44,8 @@
 				connectedparts += pointer
 			linked = pointer
 			pointer = null
-	//log_admin("Parts left: [neededparts.len]") //len not working
+	if(connectedparts.len < 4)
+		return 0
 	for(var/i = 1; i <=4; i++)
 		var/obj/item/pod_parts/pod_frame/F = connectedparts[i]
 		if(F.type in neededparts) //if one of the items can be founded in neededparts

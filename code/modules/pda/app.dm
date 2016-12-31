@@ -1,6 +1,6 @@
 // Base class for anything that can show up on home screen
 /datum/data/pda
-	var/icon = "tasks"
+	var/icon = "tasks"		//options comes from http://fontawesome.io/icons/
 	var/notify_icon = "exclamation-circle"
 	var/notify_silent = 0
 	var/hidden = 0				// program not displayed in main menu
@@ -12,6 +12,16 @@
 	return ..()
 
 /datum/data/pda/proc/start()
+	return
+
+/datum/data/pda/proc/stop()
+	return
+
+/datum/data/pda/proc/program_process()
+	return
+
+/datum/data/pda/proc/program_hit_check()
+	return
 
 /datum/data/pda/proc/notify(message, blink = 1)
 	if(message)
@@ -56,6 +66,8 @@
 		title = name
 
 /datum/data/pda/app/start()
+	if(pda.current_app)
+		pda.current_app.stop()
 	pda.current_app = src
 	return 1
 
