@@ -19,6 +19,10 @@
     . = ..()
     invisibility = 101
 
+/obj/effect/landmark/shuttle_import/onShuttleMove()
+    // Unless you're THIS landmark
+    return 0
+
 /obj/machinery/door/onShuttleMove()
     . = ..()
     if(!.)
