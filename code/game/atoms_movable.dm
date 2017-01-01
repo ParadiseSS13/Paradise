@@ -148,12 +148,6 @@
 	return 1
 
 /mob/living/forceMove(atom/destination)
-	stop_pulling()
-	if(buckled)
-		buckled.unbuckle_mob(src,force=1)
-	// in lieu of "unbuckle_all_mobs"
-	if(buckled_mob)
-		unbuckle_mob(buckled_mob,force=1)
 	. = ..()
 	if(client)
 		reset_perspective(destination)
