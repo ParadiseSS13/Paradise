@@ -148,10 +148,30 @@
 	return 1
 
 /mob/living/forceMove(atom/destination)
+	if(buckled)
+		addtimer(src, "checkBuckled", 1, TRUE)
+	if(buckled_mob)
+		addtimer(src, "checkBuckledMob", 1, TRUE)
+	if(pulling)
+		addtimer(src, "checkPull", 1, TRUE)
 	. = ..()
 	if(client)
 		reset_perspective(destination)
 	update_canmove() //if the mob was asleep inside a container and then got forceMoved out we need to make them fall.
+
+/mob/living/proc/checkBuckled()
+	if(!(buckled in loc))
+		buckled.unbuckle_mob(src, force=1)
+
+/mob/living/proc/checkBuckledMob()
+	// in lieu of "unbuckle_all_mobs"
+	if(!(buckled_mob in loc))
+		unbuckle_mob(buckled_mob, force=1)
+
+/mob/living/proc/checkPull()
+	if(!(pulling in orange(1)))
+		stop_pulling()
+
 
 //called when src is thrown into hit_atom
 /atom/movable/proc/throw_impact(atom/hit_atom, var/speed)
