@@ -44,6 +44,7 @@
  * The ui_data proc is used to get data for the interface
  *
  * @param user /mob The mob who is viewing this ui
+ * @param ui_key string A string key to use for this ui. Allows for multiple unique uis on one obj/mob (defaut value "main")
  * @param state /datum/topic_state Current topic state of the UI
  *
  * @return list()
