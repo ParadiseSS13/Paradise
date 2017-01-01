@@ -18,11 +18,24 @@
 	density = 1
 	dir = EAST
 	var/obj/structure/m_tray/connected = null
+	var/list/status_descriptors = list(
+	"The tray is currently extended.",
+	"The tray is currently empty.",
+	"The tray contains an unviable body.",
+	"The tray contains a body that is responsive to revival techniques.",
+	"The tray contains something that is not a body.",
+	"The tray contains a body that might be responsive."
+	)
 	anchored = 1.0
+
+/obj/structure/morgue/initialize()
+	. = ..()
+	update()
 
 /obj/structure/morgue/proc/update()
 	if(connected)
 		icon_state = "morgue0"
+		desc = initial(desc) + "\n[status_descriptors[1]]"
 	else
 		if(contents.len)
 
@@ -36,13 +49,21 @@
 
 				if(M.client)
 					icon_state = "morgue3"
+					desc = initial(desc) + "\n[status_descriptors[4]]"
 				else if(G && G.client) //There is a ghost and it is connected to the server
 					icon_state = "morgue5"
+					desc = initial(desc) + "\n[status_descriptors[6]]"
 				else
 					icon_state = "morgue2"
+					desc = initial(desc) + "\n[status_descriptors[3]]"
 
-			else icon_state = "morgue4"
-		else icon_state = "morgue1"
+
+			else
+				icon_state = "morgue4"
+				desc = initial(desc) + "\n[status_descriptors[5]]"
+		else
+			icon_state = "morgue1"
+			desc = initial(desc) + "\n[status_descriptors[2]]"
 	return
 
 
