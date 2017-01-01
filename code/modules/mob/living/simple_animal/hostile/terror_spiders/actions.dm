@@ -25,7 +25,11 @@
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/Web()
 	visible_message("<span class='notice'>[src] begins to secrete a sticky substance.</span>")
 	if(do_after(src, 40, target = loc))
-		new /obj/effect/spider/terrorweb(loc)
+		var/obj/effect/spider/terrorweb/T = locate() in get_turf(src)
+		if(T)
+			to_chat(src, "<span class='danger'>There is already a web here.</span>")
+		else
+			new /obj/effect/spider/terrorweb(loc)
 
 /obj/effect/spider/terrorweb
 	name = "terror web"
