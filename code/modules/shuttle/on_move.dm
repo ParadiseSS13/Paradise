@@ -13,6 +13,12 @@
         return 0
     . = ..()
 
+/obj/effect/landmark/onShuttleMove()
+    // Drop invisibility juuust enough to get moved
+    invisibility = 100
+    . = ..()
+    invisibility = 101
+
 /obj/machinery/door/onShuttleMove()
     . = ..()
     if(!.)
