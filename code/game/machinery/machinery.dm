@@ -154,7 +154,7 @@ Class Procs:
 	if(use_power && stat == 0)
 		use_power(7500/severity)
 
-	new/obj/effect/overlay/temp/emp(src.loc)
+	new/obj/effect/overlay/temp/emp(loc)
 	..()
 
 /obj/machinery/ex_act(severity)
@@ -184,9 +184,9 @@ Class Procs:
 /obj/machinery/proc/auto_use_power()
 	if(!powered(power_channel))
 		return 0
-	if(src.use_power == 1)
+	if(use_power == 1)
 		use_power(idle_power_usage,power_channel, 1)
-	else if(src.use_power >= 2)
+	else if(use_power >= 2)
 		use_power(active_power_usage,power_channel, 1)
 	return 1
 
@@ -229,7 +229,7 @@ Class Procs:
 			if(!(href_list["set_tag"] in vars))
 				to_chat(usr, "<span class='warning'>Something went wrong: Unable to find [href_list["set_tag"]] in vars!</span>")
 				return 1
-			var/current_tag = src.vars[href_list["set_tag"]]
+			var/current_tag = vars[href_list["set_tag"]]
 			var/newid = copytext(reject_bad_text(input(usr, "Specify the new value", src, current_tag) as null|text),1,MAX_MESSAGE_LEN)
 			if(newid)
 				vars[href_list["set_tag"]] = newid
@@ -355,13 +355,13 @@ Class Procs:
 			return 1
 
 	if(panel_open)
-		src.add_fingerprint(user)
+		add_fingerprint(user)
 		return 0
 
 	if(!interact_offline && stat & (NOPOWER|BROKEN|MAINT))
 		return 1
 
-	src.add_fingerprint(user)
+	add_fingerprint(user)
 
 	return ..()
 
@@ -379,8 +379,8 @@ Class Procs:
 
 /obj/machinery/proc/default_deconstruction_crowbar(var/obj/item/weapon/crowbar/C, var/ignore_panel = 0)
 	if(istype(C) && (panel_open || ignore_panel))
-		playsound(src.loc, 'sound/items/Crowbar.ogg', 50, 1)
-		var/obj/machinery/constructable_frame/machine_frame/M = new /obj/machinery/constructable_frame/machine_frame(src.loc)
+		playsound(loc, 'sound/items/Crowbar.ogg', 50, 1)
+		var/obj/machinery/constructable_frame/machine_frame/M = new /obj/machinery/constructable_frame/machine_frame(loc)
 		M.state = 2
 		M.icon_state = "box_1"
 		for(var/obj/item/I in component_parts)
@@ -393,7 +393,7 @@ Class Procs:
 
 /obj/machinery/proc/default_deconstruction_screwdriver(var/mob/user, var/icon_state_open, var/icon_state_closed, var/obj/item/weapon/screwdriver/S)
 	if(istype(S))
-		playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
+		playsound(loc, 'sound/items/Screwdriver.ogg', 50, 1)
 		if(!panel_open)
 			panel_open = 1
 			icon_state = icon_state_open
@@ -407,7 +407,7 @@ Class Procs:
 
 /obj/machinery/proc/default_change_direction_wrench(var/mob/user, var/obj/item/weapon/wrench/W)
 	if(panel_open && istype(W))
-		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
+		playsound(loc, 'sound/items/Ratchet.ogg', 50, 1)
 		dir = turn(dir,-90)
 		to_chat(user, "<span class='notice'>You rotate [src].</span>")
 		return 1
@@ -416,11 +416,14 @@ Class Procs:
 /obj/proc/default_unfasten_wrench(mob/user, obj/item/weapon/wrench/W, time = 20)
 	if(istype(W))
 		to_chat(user, "<span class='notice'>Now [anchored ? "un" : ""]securing [name].</span>")
-		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
+		playsound(loc, 'sound/items/Ratchet.ogg', 50, 1)
 		if(do_after(user, time, target = src))
 			to_chat(user, "<span class='notice'>You've [anchored ? "un" : ""]secured [name].</span>")
 			anchored = !anchored
-			playsound(src.loc, 'sound/items/Deconstruct.ogg', 50, 1)
+			if(istype(src, /obj/machinery))
+				var/obj/machinery/M = src
+				M.power_change() //Turn on or off the machine depending on the status of power in the new area.
+			playsound(loc, 'sound/items/Deconstruct.ogg', 50, 1)
 		return 1
 	return 0
 
@@ -506,7 +509,7 @@ Class Procs:
 	if(check_access && !allowed(perp))
 		threatcount += 4
 
-	if(auth_weapons && !src.allowed(perp))
+	if(auth_weapons && !allowed(perp))
 		if(istype(perp.l_hand, /obj/item/weapon/gun) || istype(perp.l_hand, /obj/item/weapon/melee))
 			threatcount += 4
 
