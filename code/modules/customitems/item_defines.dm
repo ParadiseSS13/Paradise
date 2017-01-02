@@ -313,7 +313,7 @@
 	icon_state = "eyepro"
 	item_state = "eyepro"
 
-/obj/item/clothing/glasses/hud/security/sunglasses/fluff/voxyhud //LP Spartan: Kaskreyarawkta
+/obj/item/clothing/glasses/hud/security/sunglasses/fluff/voxxyhud //LP Spartan: Kaskreyarawkta
 	name = "VoxxyHUD"
 	desc = "A worn down visor from a vox raider's gear, crudely ripped from its helmet and linked into the security systems of the station. The word 'Kask' is scratched into the side."
 	icon_state = "hud-spartan"
