@@ -29,7 +29,11 @@
 		animation.density = 0
 		animation.anchored = 1
 		animation.icon = 'icons/mob/mob.dmi'
-		animation.icon_state = "jaunt"
+		if(istype(src, /mob/living/simple_animal/slaughter))
+			var/mob/living/simple_animal/slaughter/D = src
+			animation.icon_state = D.icon_jauntdown
+		else
+			animation.icon_state = "jaunt"
 		animation.layer = 5
 		animation.master = holder
 		animation.dir = dir
@@ -84,6 +88,8 @@
 					kidnapped.adjustBruteLoss(1000)
 					kidnapped.forceMove(src)
 					demon.consumed_mobs.Add(kidnapped)
+					if(istype(src, /mob/living/simple_animal/slaughter/panda))
+						new /obj/item/weapon/reagent_containers/food/snacks/weirdcheesewedge(holder)
 				else
 					kidnapped.ghostize()
 					qdel(kidnapped)
@@ -120,7 +126,12 @@
 	animation.density = 0
 	animation.anchored = 1
 	animation.icon = 'icons/mob/mob.dmi'
-	animation.icon_state = "jauntup" //Paradise Port:I reversed the jaunt animation so it looks like its rising up
+	if(istype(src, /mob/living/simple_animal/slaughter))
+		var/mob/living/simple_animal/slaughter/D = src
+		animation.icon_state = D.icon_jauntup
+		world << "HiT"
+	else
+		animation.icon_state = "jauntup"
 	animation.layer = 5
 	animation.master = B.loc
 	animation.dir = dir
