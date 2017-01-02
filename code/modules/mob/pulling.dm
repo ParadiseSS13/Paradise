@@ -36,6 +36,6 @@
 		if(pullin)
 			pullin.update_icon(src)
 
-/mob/living/proc/checkPull()
+/mob/living/proc/check_pull()
 	if(pulling && !(pulling in orange(1)))
 		stop_pulling()
