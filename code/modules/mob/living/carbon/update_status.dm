@@ -12,6 +12,4 @@
 				KnockOut()
 		else
 			if(stat == UNCONSCIOUS)
-				// updating=FALSE because `WakeUp` will handle canmove up for us
-				StopResting(updating=FALSE)
 				WakeUp()
