@@ -1,5 +1,0 @@
-author: "KasparoVy"
-delete-after: True
-changes: 
-  - bugfix: "Particle Accelerators ordered from Cargo can now function."
-  - bugfix: "Wrenching powerless machines in a powered area will no longer require you to toggle the lights (or whatever you did before to sort this)."
