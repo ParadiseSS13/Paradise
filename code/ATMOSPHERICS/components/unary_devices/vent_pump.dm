@@ -100,8 +100,7 @@
 
 	overlays += icon_manager.get_atmos_icon("device", , , vent_icon)
 
-	pipe_image = image(src, loc, layer = 20, dir = dir) //the 20 puts it above Byond's darkness (not its opacity view)
-	pipe_image.plane = HUD_PLANE
+	update_pipe_image()
 
 /obj/machinery/atmospherics/unary/vent_pump/update_underlays()
 	if(..())
