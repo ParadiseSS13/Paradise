@@ -128,7 +128,7 @@
 			S.fields["ma_crim"]		= "[pick(commited_crime_major)]"
 			S.fields["ma_crim_d"]	= "Convicted by NT to Permabrig Sentence"
 
-		if(check_prisonlist(ckey(H.mind.key)))
+		if(!check_prisonlist(ckey(H.mind.key)))
 			S.fields["notes"]		= "Disposable prisoner for every need our station got."
 		else if(H.sec_record && !jobban_isbanned(H, "Records"))
 			S.fields["notes"] = H.sec_record
