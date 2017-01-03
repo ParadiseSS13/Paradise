@@ -361,7 +361,7 @@
 		bloodData["hasBlood"] = 0
 		if(ishuman(H) && H.vessel && !(H.species && H.species.flags & NO_BLOOD))
 			bloodData["hasBlood"] = 1
-			bloodData["volume"] = H,blood_volume
+			bloodData["volume"] = H.blood_volume
 			bloodData["percent"] = round(((H.blood_volume / BLOOD_VOLUME_NORMAL)*100))
 			bloodData["pulse"] = H.get_pulse(GETPULSE_TOOL)
 			bloodData["bloodLevel"] = H.blood_volume
@@ -524,14 +524,11 @@
 			if(occupant.has_brain_worms())
 				dat += "Large growth detected in frontal lobe, possibly cancerous. Surgical removal is recommended.<br>"
 
-			if(occupant.vessel)
-				var/blood_type = occupant.get_blood_name()
-				var/blood_volume = round(occupant.vessel.get_reagent_amount(blood_type))
-				var/blood_percent =  blood_volume / BLOOD_VOLUME_NORMAL
-				blood_percent *= 100
+			var/blood_percent =  round((occupant.blood_volume / BLOOD_VOLUME_NORMAL))
+			blood_percent *= 100
 
-				extra_font = (blood_volume > 448 ? "<font color='blue'>" : "<font color='red'>")
-				dat += "[extra_font]\tBlood Level %: [blood_percent] ([blood_volume] units)</font><br>"
+			extra_font = (occupant.blood_volume > 448 ? "<font color='blue'>" : "<font color='red'>")
+			dat += "[extra_font]\tBlood Level %: [blood_percent] ([occupant.blood_volume] units)</font><br>"
 
 			if(occupant.reagents)
 				dat += "Epinephrine units: [occupant.reagents.get_reagent_amount("Epinephrine")] units<BR>"

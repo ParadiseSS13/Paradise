@@ -27,32 +27,8 @@
 			blood_volume = round(vessel.get_reagent_amount(blood_reagent))
 			if(blood_volume < max_blood && blood_volume)
 				blood_volume += 0.1 // regenerate blood VERY slowly
-				//if(reagents.has_reagent(blood_reagent))
-				//	vessel.add_reagent(blood_reagent, 0.4)
 		else
-		/*
-			blood_volume = round(vessel.get_reagent_amount("blood"))
-			//Blood regeneration if there is some space
-			if(blood_volume < max_blood && blood_volume)
-				var/datum/reagent/blood/B = locate() in vessel.reagent_list //Grab some blood
-				if(B) // Make sure there's some blood at all
-					if(mind) //Handles vampires "eating" blood that isn't their own.
-						if(mind in ticker.mode.vampires)
-							for(var/datum/reagent/blood/BL in vessel.reagent_list)
-								if(nutrition >= 450)
-									break //We don't want blood tranfusions making vampires fat.
-								if(BL.data["donor"] != src)
-									nutrition += (15 * REAGENTS_METABOLISM)
-									BL.volume -= REAGENTS_METABOLISM
-									if(BL.volume <= 0)
-										qdel(BL)
-									break //Only process one blood per tick, to maintain the same metabolism as nutriment for non-vampires.
-					if(B.data["donor"] != src) //If it's not theirs, then we look for theirs
-						for(var/datum/reagent/blood/D in vessel.reagent_list)
-							if(D.data["donor"] == src)
-								B = D
-								break
-			*/
+
 			blood_volume += 0.1 // regenerate blood VERY slowly
 
 
@@ -159,7 +135,7 @@
 						if((D.spread_flags & SPECIAL) || (D.spread_flags & NON_CONTAGIOUS))
 							continue
 						C.ForceContractDisease(D)
-				if(!(blood_data["blood_type"] in get_safe_blood(C.dna.blood_type)))//xif ot
+				if(!(blood_data["blood_type"] in get_safe_blood(b_type)))
 					C.reagents.add_reagent("toxin", amount * 0.5)
 					return 1
 
@@ -196,10 +172,11 @@
 			blood_data["ckey"] = ckey
 		if(!suiciding)
 			blood_data["cloneable"] = 1
-		blood_data["blood_type"] = copytext(dna.blood_type,1,0)//to dix
+		blood_data["blood_type"] = b_type
 		blood_data["gender"] = gender
 		blood_data["real_name"] = real_name
 		blood_data["features"] = dna.features
+		blood_data["blood_color"] = species.blood_color
 		blood_data["factions"] = faction
 		return blood_data
 
@@ -212,8 +189,8 @@
 		return "blood"
 
 /mob/living/carbon/human/get_blood_id()
-	if(dna.species.exotic_blood)//tofix
-		return dna.species.exotic_blood
+	if(species.exotic_blood)//tofix
+		return species.exotic_blood
 	else if((species && species.flags & NO_BLOOD) || (disabilities & NOCLONE))
 		return
 	return "blood"
@@ -282,7 +259,7 @@
 /mob/living/carbon/alien/add_splatter_floor(turf/T, small_drip)
 	if(!T)
 		T = get_turf(src)
-	var/obj/effect/decal/cleanable/xenoblood/B = locate() in T.contents
+	var/obj/effect/decal/cleanable/blood/xeno/B = locate() in T.contents
 	if(!B)
 		B = new(T)
 	B.blood_DNA["UNKNOWN DNA"] = "X*"
@@ -290,6 +267,6 @@
 /mob/living/silicon/robot/add_splatter_floor(turf/T, small_drip)
 	if(!T)
 		T = get_turf(src)
-	var/obj/effect/decal/cleanable/oil/B = locate() in T.contents
+	var/obj/effect/decal/cleanable/blood/oil/B = locate() in T.contents
 	if(!B)//I DEFINED YOUR TYPE JACKASS
 		B = new(T)

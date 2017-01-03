@@ -303,7 +303,7 @@ var/list/organ_cache = list()
 	loc = get_turf(owner)
 	processing_objects |= src
 	var/datum/reagent/blood/organ_blood
-	if(reagents) organ_blood = reagents.get_reagent_from_id(owner.get_blood_name())
+	if(reagents) organ_blood = reagents.get_reagent_from_id(owner.get_blood_id())
 	if((!organ_blood || !organ_blood.data["blood_DNA"]) && (owner && !(owner.species.flags & NO_BLOOD)))
 		owner.vessel.trans_to(src, 5, 1, 1)
 

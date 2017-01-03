@@ -73,7 +73,6 @@
 		H.update_fhair()
 
 		if(blood_on_castoff)
-			var/turf/simulated/T = get_turf(H)
 			H.add_splatter_floor()
 			playsound(H.loc, 'sound/effects/splat.ogg', 50, 1) //So real sounds
 

@@ -228,7 +228,7 @@ REAGENT SCANNER
 				break
 		if(H.vessel)
 			var/blood_type = H.get_blood_id()
-			var/blood_volume = round(H.blood_volumet(blood_type))
+			var/blood_volume = round(H.blood_volume(blood_type))
 			var/blood_percent =  H.blood_volume / BLOOD_VOLUME_NORMAL
 			blood_percent *= 100
 			if(H.blood_volume <= 500)

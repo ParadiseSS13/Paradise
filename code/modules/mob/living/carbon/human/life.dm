@@ -1034,7 +1034,7 @@
 
 	var/temp = PULSE_NORM
 
-	if(blood_volume <= BLOOD_VOLUME_BAD))//how much blood do we have
+	if(blood_volume <= BLOOD_VOLUME_BAD)//how much blood do we have
 		temp = PULSE_THREADY	//not enough :(
 
 	if(status_flags & FAKEDEATH)
