@@ -2087,6 +2087,10 @@
 	name = "Vox Nightling Tattoo"
 	icon_state = "markings_tattoo_nightling_vox"
 
+/datum/sprite_accessory/body_markings/tattoo/vox/tiger_body_vox
+	name = "Vox Tiger-stripe Tattoo"
+	icon_state = "markings_tattoo_tiger_vox"
+
 /datum/sprite_accessory/body_markings/tail
 	species_allowed = list()
 	icon_state = "accessory_none"
