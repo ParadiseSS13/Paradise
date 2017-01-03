@@ -8,10 +8,13 @@
 /atom/movable/lighting_overlay/onShuttleMove()
     return 0
 
-/obj/onShuttleMove()
-    if(invisibility >= 101)
-        return 0
-    . = ..()
+/obj/effect/landmark/shuttle_import/onShuttleMove()
+    // Used for marking where to preview/load shuttles
+    return 0
+
+/obj/docking_port/onShuttleMove()
+    // Stationary ports shouldn't move, mobile ones move themselves
+    return 0
 
 /obj/machinery/door/onShuttleMove()
     . = ..()
