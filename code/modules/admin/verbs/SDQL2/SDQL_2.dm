@@ -78,22 +78,23 @@
 			if("where" in query_tree)
 				var/objs_temp = objs
 				objs = list()
-				for(var/datum/d in objs_temp)
+				for(var/d in objs_temp)
 					if(SDQL_expression(d, query_tree["where"]))
 						objs += d
 
 			switch(query_tree[1])
 				if("call")
-					for(var/datum/d in objs)
+					for(var/d in objs)
 						SDQL_var(d, query_tree["call"][1], source = d)
 
 				if("delete")
-					for(var/datum/d in objs)
+					for(var/d in objs)
 						qdel(d)
 
 				if("select")
 					var/text = ""
-					for(var/datum/t in objs)
+					for(var/o in objs)
+						var/datum/t = o
 						text += "<A HREF='?_src_=vars;Vars=[t.UID()]'>\ref[t]</A>"
 						if(istype(t, /atom))
 							var/atom/a = t
@@ -115,7 +116,7 @@
 				if("update")
 					if("set" in query_tree)
 						var/list/set_list = query_tree["set"]
-						for(var/datum/d in objs)
+						for(var/d in objs)
 							for(var/list/sets in set_list)
 								var/datum/temp = d
 								var/i = 0
@@ -251,6 +252,12 @@
 		for(var/atom/d in location)
 			if(istype(d, type))
 				out += d
+
+	else if(ispath(type, /client))
+		for(var/client/C)
+			if((location != world) && !(C.mob in location))
+				continue
+			out += C
 
 	else if(location == world)
 		for(var/datum/d)
