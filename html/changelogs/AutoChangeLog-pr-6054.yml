@@ -1,4 +1,0 @@
-author: "Krausus"
-delete-after: True
-changes: 
-  - bugfix: "The syndicate nuke and pinpointer locker will once again spawn into their ship, rather than into space near the station."
