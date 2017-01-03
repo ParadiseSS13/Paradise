@@ -79,6 +79,8 @@ proc/get_radio_key_from_channel(var/channel)
 			message = stutter(message)
 		verb = "stammers"
 		speech_problem_flag = 1
+	if(salty)
+		verb = "salts"
 
 	if(!IsVocal())
 		message = ""
