@@ -1,5 +1,0 @@
-author: "Kyep"
-delete-after: True
-changes: 
-  - rscadd: "Added tracking for how much playtime each player has."
-  - rscadd: "Added the ability to lock jobs based on playtime. E.g: must play for 10 hours to unlock HoS."
