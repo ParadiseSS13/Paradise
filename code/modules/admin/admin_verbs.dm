@@ -75,6 +75,7 @@ var/list/admin_verbs_admin = list(
 	/client/proc/debug_variables,
 	/client/proc/show_snpc_verbs,
 	/client/proc/reset_all_tcs,			/*resets all telecomms scripts*/
+	/client/proc/cmd_admin_check_player_exp, /* shows players by playtime */
 	/client/proc/toggle_mentor_chat
 )
 var/list/admin_verbs_ban = list(

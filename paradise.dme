@@ -465,6 +465,7 @@
 #include "code\game\gamemodes\wizard\wizard.dm"
 #include "code\game\jobs\access.dm"
 #include "code\game\jobs\job_controller.dm"
+#include "code\game\jobs\job_exp.dm"
 #include "code\game\jobs\job_objective.dm"
 #include "code\game\jobs\jobs.dm"
 #include "code\game\jobs\whitelist.dm"
