@@ -135,7 +135,7 @@
 						if((D.spread_flags & SPECIAL) || (D.spread_flags & NON_CONTAGIOUS))
 							continue
 						C.ForceContractDisease(D)
-				if(!(blood_data["blood_type"] in get_safe_blood(b_type)))
+				if(!(blood_data["blood_type"] in get_safe_blood(C.b_type)))
 					C.reagents.add_reagent("toxin", amount * 0.5)
 					return 1
 
@@ -172,10 +172,10 @@
 			blood_data["ckey"] = ckey
 		if(!suiciding)
 			blood_data["cloneable"] = 1
-		blood_data["blood_type"] = b_type
+		blood_data["blood_type"] = copytext(b_type,1,0)
 		blood_data["gender"] = gender
 		blood_data["real_name"] = real_name
-		blood_data["features"] = dna.features
+		//blood_data["features"] = dna.features
 		blood_data["blood_color"] = species.blood_color
 		blood_data["factions"] = faction
 		return blood_data

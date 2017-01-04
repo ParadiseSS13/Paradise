@@ -377,7 +377,7 @@ var/list/blood_splatter_icons = list()
 		return
 	var/list/blood_dna = list()
 	if(dna)
-		blood_dna[dna.unique_enzymes] = blood_type
+		blood_dna[dna.unique_enzymes] = b_type
 	else
 		blood_dna["UNKNOWN DNA"] = "X*"
 	return blood_dna
