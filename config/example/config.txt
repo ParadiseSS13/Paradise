@@ -160,6 +160,9 @@ GUEST_JOBBAN
 ## Uncomment this to stop people connecting to your server without a registered ckey. (i.e. guest-* are all blocked from connecting)
 GUEST_BAN
 
+## Comment to disable checking for the cid randomizer dll. (disabled if database isn't enabled or connected)
+CHECK_RANDOMIZER
+
 ## the whitelist
 #USEWHITELIST
 
@@ -257,6 +260,9 @@ GHOST_INTERACTION
 
 ## IRC channel to send direct messages to admins to. Leave blank to disable.
 #ADMIN_NOTIFY_IRC #paradiseStaff
+
+## IRC channel to log CID randomizer blocker hits to. Leave blank to silence
+#CIDRANDOMIZER_IRC #cidrandomizer
 
 ## Path to the python2 executable on the system.  Leave blank for default.
 ## Default is "python" on Windows, "/usr/bin/env python2" on UNIX.
