@@ -21,6 +21,12 @@
 	damage_type = BRUTE
 	nodamage = 0
 
+/obj/item/projectile/magic/death/on_hit(var/mob/living/carbon/G)
+	. = ..()
+	if(ismob(G))
+		G.gib()
+		visible_message("<span class='danger'>[G] explodes violently!")
+
 /obj/item/projectile/magic/fireball/Range()
 	var/turf/T1 = get_step(src,turn(dir, -45))
 	var/turf/T2 = get_step(src,turn(dir, 45))

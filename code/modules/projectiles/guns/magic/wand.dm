@@ -67,7 +67,8 @@
 	var/message ="<span class='warning'>You irradiate yourself with pure energy! "
 	message += pick("Do not pass go. Do not collect 200 zorkmids.</span>","You feel more confident in your spell casting skills.</span>","You Die...</span>","Do you want your possessions identified?</span>")
 	to_chat(user, message)
-	user.adjustFireLoss(500)
+	user.gib()
+	visible_message("<span class='danger'>[user] has paid the ultimate price for innapropriate wand discipline!")
 	charges--
 	..()
 
