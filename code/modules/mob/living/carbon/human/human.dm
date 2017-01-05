@@ -34,6 +34,7 @@
 	create_reagents(330)
 
 	prev_gender = gender // Debug for plural genders
+	restore_blood()
 
 	martial_art = default_martial_art
 
@@ -1511,6 +1512,7 @@
 		if(oldspecies.default_genes.len)
 			oldspecies.handle_dna(src,1) // Remove any genes that belong to the old species
 
+	restore_blood()
 	maxHealth = species.total_health
 
 	toxins_alert = 0
