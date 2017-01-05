@@ -50,7 +50,6 @@
 	minimal_access = list(access_eva, access_engine, access_engine_equip, access_tech_storage, access_maint_tunnels, access_external_airlocks, access_construction, access_mineral_storeroom)
 	alt_titles = list("Maintenance Technician","Engine Technician","Electrician")
 	minimal_player_age = 7
-
 	equip(var/mob/living/carbon/human/H)
 		if(!H)	return 0
 		H.equip_or_collect(new /obj/item/device/radio/headset/headset_eng(H), slot_l_ear)
@@ -83,7 +82,6 @@
 	alt_titles = list("Atmospheric Technician")
 
 	minimal_player_age = 7
-
 	equip(var/mob/living/carbon/human/H)
 		if(!H)	return 0
 		H.equip_or_collect(new /obj/item/device/radio/headset/headset_eng(H), slot_l_ear)

@@ -20,8 +20,12 @@
 		icon_state = "[((x + y) ^ ~(x * y) + z) % 25]"
 	update_starlight()
 
-/turf/space/Destroy()
-	return QDEL_HINT_LETMELIVE
+/turf/space/Destroy(force)
+	if(force)
+		. = ..()
+	else
+		return QDEL_HINT_LETMELIVE
+
 
 /turf/space/BeforeChange()
 	..()

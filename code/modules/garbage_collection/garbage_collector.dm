@@ -16,6 +16,8 @@ var/global/datum/controller/process/garbage_collector/garbageCollector
 // Whether a datum was hard-deleted by the GC; 0 if not, 1 if it was queued, -1 if directly deleted
 /datum/var/hard_deleted = 0
 
+
+
 /datum/controller/process/garbage_collector
 	var/list/queue = new
 	var/del_everything = 0
@@ -24,6 +26,11 @@ var/global/datum/controller/process/garbage_collector/garbageCollector
 	var/dels_count = 0
 	var/hard_dels = 0
 	var/soft_dels = 0
+
+	// all types that did not respect qdel(A, force=TRUE) and returned one
+	// of the immortality qdel hints
+	var/list/noforcerespect = list()
+
 
 /datum/controller/process/garbage_collector/proc/addTrash(var/datum/D)
 	if(!istype(D) || del_everything)
@@ -86,7 +93,7 @@ var/global/datum/controller/process/garbage_collector/garbageCollector
 	dels_count++
 
 // Effectively replaces del for any datum-based type
-/proc/qdel(var/datum/D)
+/proc/qdel(datum/D, force=FALSE)
 	if(isnull(D))
 		return
 
@@ -105,7 +112,7 @@ var/global/datum/controller/process/garbage_collector/garbageCollector
 		var/hint
 		D.gcDestroyed = world.time
 		try
-			hint = D.Destroy()
+			hint = D.Destroy(force)
 		catch(var/exception/e)
 			if(istype(e))
 				log_runtime(e, D, "Caught by qdel() destroying [D.type]")
@@ -124,10 +131,19 @@ var/global/datum/controller/process/garbage_collector/garbageCollector
 		switch(hint)
 			if(QDEL_HINT_QUEUE)     //qdel should queue the object for deletion
 				garbageCollector.addTrash(D)
-			if(QDEL_HINT_LETMELIVE)   //qdel should let the object live after calling destroy.
-				return
-			if(QDEL_HINT_IWILLGC)   //functionally the same as the above. qdel should assume the object will gc on its own, and not check it.
-				return
+			if (QDEL_HINT_LETMELIVE, QDEL_HINT_IWILLGC)	//qdel should let the object live after calling destory.
+				if(!force)
+					return
+				// Returning LETMELIVE after being told to force destroy
+				// indicates the objects Destroy() does not respect force
+				if(!("[D.type]" in garbageCollector.noforcerespect))
+					garbageCollector.noforcerespect += "[D.type]"
+					gcwarning("WARNING: [D.type] has been force deleted, but is \
+						returning an immortal QDEL_HINT, indicating it does \
+						not respect the force flag for qdel(). It has been \
+						placed in the queue, further instances of this type \
+						will also be queued.")
+				garbageCollector.addTrash(D)
 			if(QDEL_HINT_HARDDEL_NOW)  //qdel should assume this object won't gc, and hard del it post haste.
 				D.hard_deleted = -1 // -1 means "this hard del skipped the queue", used for profiling
 				del(D)
@@ -157,7 +173,7 @@ var/global/datum/controller/process/garbage_collector/garbageCollector
  * Like Del(), but for qdel.
  * Called BEFORE qdel moves shit.
  */
-/datum/proc/Destroy()
+/datum/proc/Destroy(force=FALSE)
 	tag = null
 	return QDEL_HINT_QUEUE // Garbage Collect everything.
 

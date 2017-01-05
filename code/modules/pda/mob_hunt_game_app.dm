@@ -88,7 +88,7 @@
 		wild_captures++
 	return 1
 
-/datum/data/pda/app/mob_hunter_game/update_ui(mob/user as mob, list/data)
+/datum/data/pda/app/mob_hunter_game/update_ui(mob/user, list/data)
 	if(!mob_hunt_server || !(src in mob_hunt_server.connected_clients))
 		data["connected"] = 0
 	else

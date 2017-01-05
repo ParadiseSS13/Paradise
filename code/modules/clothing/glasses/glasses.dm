@@ -243,26 +243,35 @@
 		return 1
 
 /obj/item/clothing/glasses/sunglasses/noir/proc/toggle_noir()
+	var/list/difference = difflist(usr.client.color, color_view)
+
 	if(!noir_mode)
-		if(color_view && usr.client && !usr.client.color)
+		if(color_view && usr.client && (!usr.client.color || difference))
 			animate(usr.client, color = color_view, time = 10)
 			noir_mode = 1
 	else
-		if(usr.client && usr.client.color)
-			animate(usr.client, color = null, time = 10)
+		if(usr.client && usr.client.color && !difference)
+			animate(usr.client, color = initial(usr.client.color), time = 10)
 			noir_mode = 0
 
 /obj/item/clothing/glasses/sunglasses/noir/equipped(mob/user, slot)
+	var/list/difference = difflist(user.client.color, color_view)
+
 	if(slot == slot_glasses)
 		if(noir_mode)
-			if(color_view && user.client && !user.client.color)
+			if(color_view && user.client && (!user.client.color || difference.len))
 				animate(user.client, color = color_view, time = 10)
+	else
+		if(user.client && user.client.color && !difference.len)
+			animate(user.client, color = initial(user.client.color), time = 10)
 	..(user, slot)
 
 /obj/item/clothing/glasses/sunglasses/noir/dropped(mob/living/carbon/human/user)
+	var/list/difference = difflist(user.client.color, color_view)
+
 	if(istype(user) && user.glasses == src)
-		if(user.client && user.client.color)
-			animate(user.client, color = null, time = 10)
+		if(user.client && user.client.color && !difference.len)
+			animate(user.client, color = initial(user.client.color), time = 10)
 	..(user)
 
 /obj/item/clothing/glasses/sunglasses/yeah

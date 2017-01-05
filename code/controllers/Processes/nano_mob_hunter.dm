@@ -8,23 +8,19 @@ var/global/datum/controller/process/mob_hunt/mob_hunt_server
 	var/list/connected_clients = list()
 	var/server_status = 1			//1 is online, 0 is offline
 	var/reset_cooldown = 0			//number of controller cycles before the manual_reboot proc can be used again (ignored if server is offline so you can always boot back up)
+	var/obj/machinery/computer/mob_battle_terminal/red_terminal
+	var/obj/machinery/computer/mob_battle_terminal/blue_terminal
+	var/battle_turn = null
 
 /datum/controller/process/mob_hunt/setup()
 	name = "Nano-Mob Hunter GO Server"
 	start_delay = 20
 	mob_hunt_server = src
 
-/datum/controller/process/mob_hunt/Destroy()
-	for(var/datum/data/pda/app/mob_hunter_game/client in connected_clients)
-		client.disconnect("Server Destruction")
-	if(mob_hunt_server && mob_hunt_server == src)
-		mob_hunt_server = null
-	return ..()
-
 /datum/controller/process/mob_hunt/doWork()
 	if(reset_cooldown)		//if reset_cooldown is set (we are on cooldown, duh), reduce the remaining cooldown every cycle
 		reset_cooldown--
-	if(server_status == 0)
+	if(!server_status)
 		return
 	client_mob_update()
 	if(normal_spawns.len < max_normal_spawns)
@@ -104,3 +100,58 @@ var/global/datum/controller/process/mob_hunt/mob_hunt_server
 		var/obj/effect/nanomob/old_trap = trap_spawns[1]
 		old_trap.despawn()
 	return 1
+
+/datum/controller/process/mob_hunt/proc/start_check()
+	if(battle_turn)		//somehow we got called mid-battle, so lets just stop now
+		return
+	if(red_terminal && red_terminal.ready && blue_terminal && blue_terminal.ready)
+		battle_turn = pick("Red", "Blue")
+		red_terminal.audible_message("Battle starting!", null, 5)
+		blue_terminal.audible_message("Battle starting!", null, 5)
+		if(battle_turn == "Red")
+			red_terminal.audible_message("Red Player's Turn!", null, 5)
+		else if(battle_turn == "Blue")
+			blue_terminal.audible_message("Blue Player's Turn!", null, 5)
+
+/datum/controller/process/mob_hunt/proc/launch_attack(team, raw_damage, datum/mob_type/attack_type)
+	if(!team || !raw_damage)
+		return
+	var/obj/machinery/computer/mob_battle_terminal/target = null
+	if(team == "Red")
+		target = blue_terminal
+	else if(team == "Blue")
+		target = red_terminal
+	else
+		return
+	target.receive_attack(raw_damage, attack_type)
+
+/datum/controller/process/mob_hunt/proc/end_battle(loser, surrender = 0)
+	var/obj/machinery/computer/mob_battle_terminal/winner_terminal = null
+	var/obj/machinery/computer/mob_battle_terminal/loser_terminal = null
+	if(loser == "Red")
+		loser_terminal = red_terminal
+		winner_terminal = blue_terminal
+	else if (loser == "Blue")
+		loser_terminal = blue_terminal
+		winner_terminal = red_terminal
+	battle_turn = null
+	winner_terminal.ready = 0
+	loser_terminal.ready = 0
+	if(surrender)	//surrender doesn't give exp, to avoid people just farming exp without actually doing a battle
+		winner_terminal.audible_message("Your rival surrendered!", null, 2)
+	else
+		var/progress_message =  winner_terminal.mob_info.gain_exp()
+		winner_terminal.audible_message("[winner_terminal.team] Player wins!", null, 5)
+		winner_terminal.audible_message(progress_message, null, 2)
+
+/datum/controller/process/mob_hunt/proc/end_turn()
+	red_terminal.updateUsrDialog()
+	blue_terminal.updateUsrDialog()
+	if(!battle_turn)
+		return
+	if(battle_turn == "Red")
+		battle_turn = "Blue"
+		blue_terminal.audible_message("Blue's turn.", null, 5)
+	else if(battle_turn == "Blue")
+		battle_turn = "Red"
+		blue_terminal.audible_message("Red's turn.", null, 5)

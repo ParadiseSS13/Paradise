@@ -42,6 +42,9 @@
 	var/minimal_player_age = 0
 	var/prisonlist_job = 0
 
+	var/exp_requirements = 0
+	var/exp_type = ""
+
 	var/admin_only = 0
 	var/spawn_ert = 0
 

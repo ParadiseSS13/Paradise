@@ -131,7 +131,7 @@ var/datum/canister_icons/canister_icon_container = new()
 		var/list/LL = L[i]
 		LL = LL.Copy() //make sure we don't edit the datum list
 		LL.Add(list("active" = decals[LL["icon"]])) //"active" used by nanoUI
-		possibledecals[i] = LL
+		possibledecals.Add(LL)
 
 /obj/machinery/portable_atmospherics/canister/proc/check_change()
 	var/old_flag = update_flag
@@ -181,6 +181,7 @@ update_flag
 	if(src.destroyed)
 		src.overlays = 0
 		src.icon_state = text("[]-1", src.canister_color["prim"])//yes, I KNOW the colours don't reflect when the can's borked, whatever.
+		return
 
 	if(icon_state != src.canister_color["prim"])
 		icon_state = src.canister_color["prim"]

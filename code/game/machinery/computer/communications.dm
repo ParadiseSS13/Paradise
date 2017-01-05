@@ -471,8 +471,10 @@
 
 	if(seclevel2num(get_security_level()) >= SEC_LEVEL_RED) // There is a serious threat we gotta move no time to give them five minutes.
 		shuttle_master.emergency.request(null, 0.5, null, " Automatic Crew Transfer", 1)
+		shuttle_master.emergency.canRecall = FALSE
 	else
 		shuttle_master.emergency.request(null, 1, null, " Automatic Crew Transfer", 0)
+		shuttle_master.emergency.canRecall = FALSE
 	if(user)
 		log_game("[key_name(user)] has called the shuttle.")
 		message_admins("[key_name_admin(user)] has called the shuttle - [formatJumpTo(user)].", 1)

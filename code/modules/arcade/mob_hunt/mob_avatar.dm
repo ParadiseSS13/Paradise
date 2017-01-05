@@ -61,7 +61,7 @@
 	if(mob_info.is_trap)		//traps work even if you ran into them before, which is why this is before the clients_encountered check
 		if(client.hacked)		//hacked copies of the game (copies capable of setting traps) are protected from traps
 			return
-		if(istype(P.loc, /mob/living/carbon))
+		if(iscarbon(P.loc))
 			var/mob/living/carbon/C = P.loc
 			//Strike them down with a lightning bolt to complete the illusion (copied from the surge reagent overdose, probably could make this a general-use proc in the future)
 			playsound(get_turf(C), 'sound/effects/eleczap.ogg', 75, 1)
@@ -122,3 +122,41 @@
 			if((A in clients_encountered) && mob_hunt_server.connected_clients[A])
 				hiding_from |= mob_hunt_server.connected_clients[A]
 	hide_alt_appearance("nanomob_avatar", hiding_from)
+
+//		BATTLE MOB AVATARS
+
+/obj/effect/nanomob/battle
+	name = "Nano-Mob Battle Avatar"
+	desc = "A new challenger approaches!"
+	invisibility = 0
+	icon_state = "placeholder"
+	var/obj/machinery/computer/mob_battle_terminal/my_terminal
+
+/obj/effect/nanomob/battle/New(loc, datum/mob_hunt/new_info)
+	if(new_info)
+		mob_info = new_info
+		update_self()
+
+/obj/effect/nanomob/battle/update_self()
+	if(!mob_info)
+		name = "Nano-Mob Battle Avatar"
+		desc = "A new challenger approaches"
+		icon_state = "placeholder"
+	else
+		name = mob_info.mob_name
+		desc = "A tamed [name] (level [mob_info.level]) ready for battle!"
+		if(mob_info.is_shiny)
+			icon_state = mob_info.icon_state_shiny
+		else
+			icon_state = mob_info.icon_state_normal
+
+/obj/effect/nanomob/battle/attempt_capture(obj/item/device/pda/P, catch_mod = 0)
+	//you can't capture battle avatars, since they belong to someone already
+	return
+
+//battle avatars are always visible, so we can ignore reveal and conceal calls for them
+/obj/effect/nanomob/battle/reveal()
+	return
+
+/obj/effect/nanomob/battle/conceal()
+	return
