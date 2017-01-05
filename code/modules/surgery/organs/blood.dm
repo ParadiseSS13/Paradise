@@ -127,7 +127,7 @@
 	var/list/blood_data = get_blood_data(blood_id)
 
 	if(iscarbon(AM))
-		var/mob/living/carbon/C = AM
+		var/mob/living/carbon/human/C = AM
 		if(blood_id == C.get_blood_id())//both mobs have the same blood substance
 			if(blood_id == "blood") //normal blood
 				if(blood_data["viruses"])
@@ -149,7 +149,7 @@
 /mob/living/proc/get_blood_data(blood_id)
 	return
 
-/mob/living/carbon/get_blood_data(blood_id)
+/mob/living/carbon/human/get_blood_data(blood_id)
 	if(blood_id == "blood") //actual blood reagent
 		var/blood_data = list()
 		//set the blood data

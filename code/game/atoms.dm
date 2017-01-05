@@ -372,7 +372,7 @@ var/list/blood_splatter_icons = list()
 		return
 	return list("ANIMAL DNA" = "Y-")
 
-/mob/living/carbon/get_blood_dna_list()
+/mob/living/carbon/human/get_blood_dna_list()
 	if(get_blood_id() != "blood")
 		return
 	var/list/blood_dna = list()
