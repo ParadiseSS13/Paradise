@@ -282,7 +282,7 @@
 
 // Other computer monitors.
 /obj/machinery/computer/security/telescreen
-	name = "\improper Telescreen"
+	name = "Telescreen"
 	desc = "Used for watching camera networks."
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "telescreen"

@@ -104,7 +104,33 @@
 		S.fields["ma_crim"]		= "None"
 		S.fields["ma_crim_d"]	= "No major crime convictions."
 		S.fields["notes"]		= "No notes."
-		if(H.sec_record && !jobban_isbanned(H, "Records"))
+		if(!check_prisonlist(ckey(H.mind.key)))
+			var/list/commited_crime_major = list("Public Enemy",
+                 "Bank Robber",
+                 "Murderer",
+                 "Maniac",
+                 "Terrorist",
+                 "Gang Boss",
+                 "None",
+                 "None",
+                 "Smuggler",
+                 "Kidnapper")
+			var/commited_crime_minor = list("Arsonist",
+	                "Blackmailer",
+	                "Shoplifter",
+	                "Hijacker",
+	                "Pickpocket",
+	                "Thief",
+	                "Vandal")
+			S.fields["criminal"]	= "Incarcerated"
+			S.fields["mi_crim"]		= "[pick(commited_crime_minor)]"
+			S.fields["mi_crim_d"]	= "Do not try to release."
+			S.fields["ma_crim"]		= "[pick(commited_crime_major)]"
+			S.fields["ma_crim_d"]	= "Convicted by NT to Permabrig Sentence"
+
+		if(check_prisonlist(ckey(H.mind.key)))
+			S.fields["notes"]		= "Disposable prisoner for every need our station got."
+		else if(H.sec_record && !jobban_isbanned(H, "Records"))
 			S.fields["notes"] = H.sec_record
 		else
 			S.fields["notes"] = "No notes."

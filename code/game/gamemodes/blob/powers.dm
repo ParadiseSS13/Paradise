@@ -63,7 +63,7 @@
 
 /mob/camera/blob/verb/create_resource()
 	set category = "Blob"
-	set name = "Create Resource Blob (40)"
+	set name = "Create Resource Blob (50)"
 	set desc = "Create a resource tower which will generate points for you."
 
 
@@ -82,8 +82,8 @@
 		to_chat(src, "Unable to use this blob, find a normal one.")
 		return
 
-	for(var/obj/effect/blob/resource/blob in orange(4, T))
-		to_chat(src, "There is a resource blob nearby, move more than 4 tiles away from it!")
+	for(var/obj/effect/blob/resource/blob in orange(5, T))
+		to_chat(src, "There is a resource blob nearby, move more than 5 tiles away from it!")
 		return
 
 	if(!can_buy(40))

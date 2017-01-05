@@ -87,7 +87,7 @@
 "bI" = (/obj/structure/stool/bed/chair{dir = 4},/turf/simulated/floor/plasteel,/area/ruin/onehalf/drone_bay)
 "bJ" = (/obj/structure/girder,/turf/unsimulated/floor/plating/airless,/area/ruin/onehalf/hallway)
 "bK" = (/obj/structure/closet/emcloset,/turf/simulated/floor/plasteel/airless{icon_state = "damaged4"},/area/ruin/onehalf/hallway)
-"bL" = (/obj/machinery/vending/coffee{name = "\improper Solar's Best Hot Drinks"},/turf/simulated/floor/plasteel/airless{icon_state = "damaged1"},/area/ruin/onehalf/hallway)
+"bL" = (/obj/machinery/vending/coffee{name = "Solar's Best Hot Drinks"},/turf/simulated/floor/plasteel/airless{icon_state = "damaged1"},/area/ruin/onehalf/hallway)
 "bM" = (/obj/machinery/vending/snack,/turf/simulated/floor/plasteel/airless{icon_state = "damaged2"},/area/ruin/onehalf/hallway)
 "bN" = (/obj/structure/disposalpipe/trunk{dir = 1},/obj/machinery/disposal,/turf/simulated/floor/plasteel/airless,/area/ruin/onehalf/hallway)
 "bO" = (/obj/structure/girder/reinforced,/obj/item/stack/sheet/plasteel,/turf/simulated/floor/plating/airless,/area/ruin/onehalf/hallway)

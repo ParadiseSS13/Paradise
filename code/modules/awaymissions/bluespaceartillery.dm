@@ -33,7 +33,7 @@
 	data["reloadtime_mins"] = mins
 	data["reloadtime_secs"] = (seconds < 10) ? "0[seconds]" : seconds
 	if(targetarea)
-		var/areaname = sanitize(targetarea.name)
+		var/areaname = sanitize_local(targetarea.name)
 		data["target"] = "Locked on to [areaname]"
 	else
 		data["target"] = "No Lock"

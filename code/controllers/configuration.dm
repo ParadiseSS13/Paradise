@@ -187,6 +187,8 @@
 
 	var/max_loadout_points = 5 // How many points can be spent on extra items in character setup
 
+	var/prisonlist_enabled = 0
+
 /datum/configuration/New()
 	var/list/L = subtypesof(/datum/game_mode)
 	for(var/T in L)
@@ -573,6 +575,9 @@
 
 				if("round_abandon_penalty_period")
 					config.round_abandon_penalty_period = MinutesToTicks(text2num(value))
+
+				if("prisonlist_enabled")
+					config.prisonlist_enabled = 1
 
 				else
 					diary << "Unknown setting in configuration: '[name]'"
