@@ -323,7 +323,6 @@
 							src.DB_item_unlock("0003", 5)
 							src.DB_item_unlock("5002", 5)
 							src.DB_item_unlock("7002", 5)
->>>>>>> master
 
 	switch(href_list["_src_"])
 		if("holder")	hsrc = holder
