@@ -48,7 +48,7 @@
 				continue
 			if(findtext(message," snores.")) //Because we have so many sleeping people.
 				break
-			if(M.stat == 2 && (M.client.prefs.toggles & CHAT_GHOSTSIGHT) && !(M in viewers(src,null)))
+			if(M.stat == DEAD && M.get_preference(CHAT_GHOSTSIGHT) && !(M in viewers(src,null)))
 				M.show_message(message)
 
 
@@ -118,8 +118,8 @@
 			if(istype(M, /mob/new_player))
 				continue
 
-			if(check_rights(R_ADMIN|R_MOD, 0, M) && (M.client.prefs.toggles & CHAT_DEAD)) // Show the emote to admins/mods
+			if(check_rights(R_ADMIN|R_MOD, 0, M) && M.get_preference(CHAT_DEAD)) // Show the emote to admins/mods
 				to_chat(M, message)
 
-			else if(M.stat == DEAD && (M.client.prefs.toggles & CHAT_DEAD)) // Show the emote to regular ghosts with deadchat toggled on
+			else if(M.stat == DEAD && M.get_preference(CHAT_DEAD)) // Show the emote to regular ghosts with deadchat toggled on
 				M.show_message(message, 2)

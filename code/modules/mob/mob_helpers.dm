@@ -411,7 +411,7 @@ var/list/intents = list(I_HELP,I_DISARM,I_GRAB,I_HARM)
 				name = realname
 
 	for(var/mob/M in player_list)
-		if(M.client && ((!istype(M, /mob/new_player) && M.stat == DEAD) || check_rights(R_ADMIN|R_MOD,0,M)) && (M.client.prefs.toggles & CHAT_DEAD))
+		if(M.client && ((!istype(M, /mob/new_player) && M.stat == DEAD) || check_rights(R_ADMIN|R_MOD,0,M)) && M.get_preference(CHAT_DEAD))
 			var/follow
 			var/lname
 			if(subject)
@@ -546,3 +546,12 @@ var/list/intents = list(I_HELP,I_DISARM,I_GRAB,I_HARM)
 			return
 
 		rename_character(oldname, newname)
+
+/mob/proc/get_preference(toggleflag)
+	if(!client)
+		return FALSE
+	if(!client.prefs)
+		log_runtime(EXCEPTION("Mob '[src]', ckey '[ckey]' is missing a prefs datum on the client!"))
+		return FALSE
+	// Cast to 1/0
+	return !!(client.prefs.toggles & toggleflag)
