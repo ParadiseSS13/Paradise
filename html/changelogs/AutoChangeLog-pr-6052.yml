@@ -1,0 +1,4 @@
+author: "Crazylemon64"
+delete-after: True
+changes: 
+  - tweak: "Morgue trays now have descriptions that correspond to each of the morgue light states"
