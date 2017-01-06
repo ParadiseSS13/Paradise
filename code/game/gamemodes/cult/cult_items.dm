@@ -45,7 +45,7 @@
 /obj/item/weapon/melee/cultblade/dagger/afterattack(mob/living/target as mob, mob/living/carbon/human/user as mob)
 	..()
 	var/mob/living/carbon/human/bleeder = target
-	if(!(cooldown > world.time) && ((bleeder.stat != DEAD) || !(bleeder.species.flags & NO_BLOOD)))
+	if(!(cooldown > world.time) && ((bleeder.stat != DEAD) && !(bleeder.species.flags & NO_BLOOD)))
 		user.visible_message("<span class='danger'>The runes on the blade absorb the blood of [target]!</span>")
 		bleeder.drip(5000)
 		cooldown = world.time + 2400

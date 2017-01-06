@@ -74,7 +74,7 @@
 	invocation_type = "none"
 	range = 0
 
-	summon_type = list(/obj/structure/cult/itemspawner/pylon)
+	summon_type = list(/obj/structure/cult/functional/pylon)
 
 
 /obj/effect/proc_holder/spell/aoe_turf/conjure/lesserforcewall
