@@ -1,5 +1,0 @@
-author: "KasparoVy"
-delete-after: True
-changes: 
-  - bugfix: "Grey sprites have been tidied up and no longer have any random pixels hanging off."
-  - rscadd: "Grey species-fitted tattoo sprites and the last Vox species-fitted tattoo sprite."
