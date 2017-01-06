@@ -1,0 +1,4 @@
+author: "Crazylemon64"
+delete-after: True
+changes: 
+  - bugfix: "The chem dispenser's UI now displays the remaining energy again"
