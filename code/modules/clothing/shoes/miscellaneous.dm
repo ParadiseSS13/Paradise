@@ -212,3 +212,15 @@
 	righthand_file = 'icons/goonstation/mob/inhands/clothing_righthand.dmi'
 	flags = NODROP
 	shoe_sound = "clownstep"
+
+/obj/item/clothing/shoes/singery
+	name = "yellow performer's boots"
+	desc = "These boots were made for dancing."
+	icon_state = "ysing"
+	put_on_delay = 50
+
+/obj/item/clothing/shoes/singerb
+	name = "blue performer's boots"
+	desc = "These boots were made for dancing."
+	icon_state = "bsing"
+	put_on_delay = 50
