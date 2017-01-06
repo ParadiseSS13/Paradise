@@ -514,7 +514,7 @@ var/list/SpookyGhosts = list("ghost","shade","shade2","ghost-narsie","horror","s
 		if(on==0)
 			src.icon_state = icon_off
 			camera.c_tag = null
-			camera.network = null
+			camera.network = list()
 		else
 			src.icon_state = icon_on
 			camera.network = list("news")
