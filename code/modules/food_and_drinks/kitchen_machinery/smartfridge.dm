@@ -287,7 +287,7 @@
 	ui_interact(user)
 
 //Drag pill bottle to fridge to empty it into the fridge
-/obj/machinery/smartfridge/MouseDrop_T(obj/over_object as obj, mob/user)
+/obj/machinery/smartfridge/MouseDrop_T(obj/over_object, mob/user)
 	if(!istype(over_object, /obj/item/weapon/storage/pill_bottle)) //Only pill bottles, please
 		return
 
@@ -308,7 +308,7 @@
 		to_chat(user, "<span class='notice'>Some items are refused.</span>")
 	nanomanager.update_uis(src)
 
-/obj/machinery/smartfridge/secure/emag_act(user as mob)
+/obj/machinery/smartfridge/secure/emag_act(mob/user)
 	emagged = 1
 	locked = -1
 	to_chat(user, "You short out the product lock on [src].")
