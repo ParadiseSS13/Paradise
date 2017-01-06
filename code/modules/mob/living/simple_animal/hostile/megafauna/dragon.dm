@@ -264,8 +264,8 @@ Difficulty: Medium
 
 /mob/living/simple_animal/hostile/megafauna/dragon/lesser
 	name = "lesser ash drake"
-	maxHealth = 300
-	health = 300
+	maxHealth = 200
+	health = 200
 	faction = list("neutral")
 	melee_damage_upper = 30
 	melee_damage_lower = 30

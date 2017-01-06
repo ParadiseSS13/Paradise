@@ -70,6 +70,8 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 
 	var/ghost = 0 // Skip life check.
 	var/clothes_req = 1 //see if it requires clothes
+	var/human_req = 0 //spell can only be cast by humans
+	var/nonabstract_req = 0 //spell can only be cast by mobs that are physical entities
 	var/stat_allowed = 0 //see if it requires being conscious/alive, need to set to 1 for ghostpells
 	var/invocation = "HURP DURP" //what is uttered when the wizard casts the spell
 	var/invocation_emote_self = null
@@ -102,11 +104,11 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 	var/sound = null //The sound the spell makes when it is cast
 
 /obj/effect/proc_holder/spell/proc/cast_check(skipcharge = 0, mob/living/user = usr) //checks if the spell can be cast based on its settings; skipcharge is used when an additional cast_check is called inside the spell
-
 	if(((!user.mind) || !(src in user.mind.spell_list)) && !(src in user.mob_spell_list))
 		to_chat(user, "<span class='warning'>You shouldn't have this spell! Something's wrong.</span>")
 		return 0
-	if(istype(user, /mob/living/carbon/human))
+
+	if(ishuman(user))
 		var/mob/living/carbon/human/caster = user
 		if(caster.remoteview_target)
 			caster.remoteview_target = null
@@ -129,25 +131,30 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 
 	if(!ghost)
 		if(user.stat && !stat_allowed)
-			to_chat(user, "Not when you're incapacitated.")
+			to_chat(user, "<span class='notice'>You can't cast this spell while incapacitated.</span>")
 			return 0
-
 		if(ishuman(user) && (invocation_type == "whisper" || invocation_type == "shout") && user.is_muzzled())
 			to_chat(user, "Mmmf mrrfff!")
 			return 0
-	var/obj/effect/proc_holder/spell/noclothes/spell = locate() in (user.mob_spell_list | (user.mind ? user.mind.spell_list : list()))
-	if(clothes_req && !(spell && istype(spell)))//clothes check
-		if(!istype(user, /mob/living/carbon/human))
-			to_chat(user, "You aren't a human, Why are you trying to cast a human spell, silly non-human? Casting human spells is for humans.")
+
+	var/obj/effect/proc_holder/spell/noclothes/clothes_spell = locate() in (user.mob_spell_list | (user.mind ? user.mind.spell_list : list()))
+	if((ishuman(user) && clothes_req) && !(clothes_spell && istype(clothes_spell)))//clothes check
+		var/mob/living/carbon/human/H = user
+		if(!istype(H.wear_suit, /obj/item/clothing/suit/wizrobe) && !istype(H.wear_suit, /obj/item/clothing/suit/space/rig/wizard))
+			to_chat(user, "<span class='notice'>I don't feel strong enough without my robe.</span>")
 			return 0
-		if(!istype(user:wear_suit, /obj/item/clothing/suit/wizrobe) && !istype(user:wear_suit, /obj/item/clothing/suit/space/rig/wizard))
-			to_chat(user, "I don't feel strong enough without my robe.")
+		if(!istype(H.shoes, /obj/item/clothing/shoes/sandal))
+			to_chat(user, "<span class='notice'>I don't feel strong enough without my sandals.</span>")
 			return 0
-		if(!istype(user:shoes, /obj/item/clothing/shoes/sandal))
-			to_chat(user, "I don't feel strong enough without my sandals.")
-			return 0
-		if(!istype(user:head, /obj/item/clothing/head/wizard) && !istype(user:head, /obj/item/clothing/head/helmet/space/rig/wizard))
+		if(!istype(H.head, /obj/item/clothing/head/wizard) && !istype(H.head, /obj/item/clothing/head/helmet/space/rig/wizard))
 			to_chat(user, "<span class='notice'>I don't feel strong enough without my hat.</span>")
+			return 0
+	else if(!ishuman(user))
+		if(clothes_req || human_req)
+			to_chat(user, "<span class='notice'>This spell can only be cast by humans!</span>")
+			return 0
+		if(nonabstract_req && (isbrain(user) || ispAI(user)))
+			to_chat(user, "<span class='notice'>This spell can only be cast by physical beings!</span>")
 			return 0
 
 	if(!skipcharge)
@@ -426,7 +433,6 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 		return 0
 
 	if(ishuman(user))
-
 		var/mob/living/carbon/human/H = user
 
 		if((invocation_type == "whisper" || invocation_type == "shout") && H.is_muzzled())
@@ -442,8 +448,8 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 			if(!istype(H.head, /obj/item/clothing/head/wizard) && !istype(H.head, /obj/item/clothing/head/helmet/space/rig/wizard))
 				return 0
 	else
-		if(clothes_req)
+		if(clothes_req  || human_req)
 			return 0
-		if(isbrain(user) || ispAI(user))
+		if(nonabstract_req && (isbrain(user) || ispAI(user)))
 			return 0
 	return 1

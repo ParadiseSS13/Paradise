@@ -10,6 +10,7 @@
 	range = -1
 	cooldown_min = 100 //50 deciseconds reduction per rank
 	include_user = 1
+	nonabstract_req = 1
 	centcom_cancast = 0 //Prevent people from getting to centcom
 
 	var phaseshift = 0
