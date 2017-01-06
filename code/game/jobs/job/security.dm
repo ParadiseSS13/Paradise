@@ -96,7 +96,7 @@
 	idtype = /obj/item/weapon/card/id/security
 	access = list(access_security, access_sec_doors, access_forensics_lockers, access_morgue, access_maint_tunnels, access_court, access_weapons)
 	minimal_access = list(access_sec_doors, access_forensics_lockers, access_morgue, access_maint_tunnels, access_court, access_weapons)
-	alt_titles = list("Forensic Technician","Crime Scene Investigatior")
+	alt_titles = list("Forensic Technician","Crime Scene Investigator")
 	minimal_player_age = 14
 	equip(var/mob/living/carbon/human/H)
 		if(!H)	return 0
