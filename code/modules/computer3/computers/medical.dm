@@ -45,7 +45,6 @@
 		if(!computer.cardslot)
 			computer.Crash(MISSING_PERIPHERAL)
 			return
-		usr.set_machine(src)
 		scan = computer.cardslot.reader
 		if(!interactable())
 			return

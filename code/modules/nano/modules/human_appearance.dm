@@ -211,6 +211,13 @@
 	return 0
 
 /datum/nano_module/appearance_changer/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/topic_state/state = default_state)
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "appearance_changer.tmpl", "[src]", 800, 450, state = state)
+		ui.open()
+		ui.set_auto_update(1)
+
+/datum/nano_module/appearance_changer/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	generate_data(check_whitelist, whitelist, blacklist)
 	var/data[0]
 
@@ -302,12 +309,8 @@
 	data["change_head_marking_color"] = can_change_markings("head")
 	data["change_body_marking_color"] = can_change_markings("body")
 	data["change_tail_marking_color"] = can_change_markings("tail")
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if(!ui)
-		ui = new(user, src, ui_key, "appearance_changer.tmpl", "[src]", 800, 450, state = state)
-		ui.set_initial_data(data)
-		ui.open()
-		ui.set_auto_update(1)
+
+	return data
 
 /datum/nano_module/appearance_changer/proc/update_dna()
 	if(owner && (flags & APPEARANCE_UPDATE_DNA))

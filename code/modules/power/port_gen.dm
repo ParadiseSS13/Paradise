@@ -321,7 +321,15 @@
 	if(IsBroken())
 		return
 
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "pacman.tmpl", src.name, 500, 560)
+		ui.open()
+		ui.set_auto_update(1)
+
+/obj/machinery/power/port_gen/pacman/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/data[0]
+
 	data["active"] = active
 	if(istype(user, /mob/living/silicon/ai))
 		data["is_ai"] = 1
@@ -329,6 +337,7 @@
 		data["is_ai"] = 1
 	else
 		data["is_ai"] = 0
+
 	data["output_set"] = power_output
 	data["output_max"] = max_power_output
 	data["output_safe"] = max_safe_output
@@ -342,12 +351,7 @@
 	data["fuel_usage"] = active ? round((power_output / time_per_sheet) * 1000) : 0
 	data["fuel_type"] = sheet_name
 
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if(!ui)
-		ui = new(user, src, ui_key, "pacman.tmpl", src.name, 500, 560)
-		ui.set_initial_data(data)
-		ui.open()
-		ui.set_auto_update(1)
+	return data
 
 /obj/machinery/power/port_gen/pacman/Topic(href, href_list)
 	if(..())

@@ -130,18 +130,19 @@
 
 
 /obj/machinery/poolcontroller/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "poolcontroller.tmpl", "Pool Controller Interface", 520, 410)
+		ui.open()
+
+/obj/machinery/poolcontroller/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/data[0]
 
 	data["currentTemp"] = temperature
 	data["emagged"] = emagged
 	data["TempColor"] = temperaturecolor
 
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if(!ui)
-		ui = new(user, src, ui_key, "poolcontroller.tmpl", "Pool Controller Interface", 520, 410)
-		ui.set_initial_data(data)
-		ui.open()
-
+	return data
 
 
 /obj/machinery/poolcontroller/Topic(href, href_list)

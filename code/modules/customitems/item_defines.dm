@@ -313,6 +313,11 @@
 	icon_state = "eyepro"
 	item_state = "eyepro"
 
+/obj/item/clothing/glasses/hud/security/sunglasses/fluff/voxxyhud //LP Spartan: Kaskreyarawkta
+	name = "VoxxyHUD"
+	desc = "A worn down visor from a vox raider's gear, crudely ripped from its helmet and linked into the security systems of the station. The word 'Kask' is scratched into the side."
+	icon_state = "hud-spartan"
+
 //////////// Hats ////////////
 /obj/item/clothing/head/fluff/heather_winceworth // Regens: Heather Winceworth
 	name= "Heather's rose"
@@ -655,3 +660,8 @@
 	suit_adjusted = 1
 	species_fit = null
 	sprite_sheets = null
+
+/obj/item/weapon/storage/backpack/fluff/krich_back //lizardzsi: Krichahka
+	name = "Voxcaster"
+	desc = "Battered, Sol-made military radio backpack that had its speakers fried from playing Vox opera. The words 'Swift-Talon' are crudely scratched onto its side."
+	icon_state = "voxcaster_fluff"

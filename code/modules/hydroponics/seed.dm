@@ -634,14 +634,20 @@
 					chems[rid] = gene_chem.Copy()
 					continue
 
+				// Normally a length 2 list - but sometimes, it's length 1 - poisonberries, etc.
+				// This means the reagent does not scale with potency.
+				// Index 1 is the base value, index 2 is the potency per u of reagent
+				var/list/rgnt_list = chems[rid]
+				rgnt_list.len = max(gene_chem.len, rgnt_list.len)
+
 				for(var/i=1;i<=gene_chem.len;i++)
 
 					if(isnull(gene_chem[i])) gene_chem[i] = 0
 
-					if(chems[rid][i])
-						chems[rid][i] = max(1,round((gene_chem[i] + chems[rid][i])/2))
+					if(rgnt_list[i])
+						rgnt_list[i] = max(1,round((gene_chem[i] + rgnt_list[i])/2))
 					else
-						chems[rid][i] = gene_chem[i]
+						rgnt_list[i] = gene_chem[i]
 
 			var/list/new_gasses = gene.values["[TRAIT_EXUDE_GASSES]"]
 			if(islist(new_gasses))

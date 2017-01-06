@@ -80,11 +80,11 @@
 /obj/item/weapon/tank/examine(mob/user)
 	if(!..(user, 0))
 		return
-		
+
 	var/obj/icon = src
 	if(istype(loc, /obj/item/assembly))
 		icon = loc
-		
+
 	if(!in_range(src, user))
 		if(icon == src)
 			to_chat(user, "<span class='notice'>It's \a [bicon(icon)][src]! If you want any more information you'll need to get closer.</span>")
@@ -141,14 +141,24 @@
 	ui_interact(user)
 
 /obj/item/weapon/tank/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
+	// update the ui if it exists, returns null if no ui is passed/found
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		// the ui does not exist, so we'll create a new() one
+        // for a list of parameters and their descriptions see the code docs in \code\modules\nano\nanoui.dm
+		ui = new(user, src, ui_key, "tanks.tmpl", "Tank", 500, 300)
+		// open the new ui window
+		ui.open()
+		// auto update every Master Controller tick
+		ui.set_auto_update(1)
 
+/obj/item/weapon/tank/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/using_internal
-	if(istype(loc,/mob/living/carbon))
-		var/mob/living/carbon/location = loc
-		if(location.internal==src)
+	if(iscarbon(loc))
+		var/mob/living/carbon/C = loc
+		if(C.internal == src)
 			using_internal = 1
 
-	// this is the data which will be sent to the ui
 	var/data[0]
 	data["tankPressure"] = round(air_contents.return_pressure() ? air_contents.return_pressure() : 0)
 	data["releasePressure"] = round(distribute_pressure ? distribute_pressure : 0)
@@ -170,18 +180,7 @@
 				if(H.head && (H.head.flags & AIRTIGHT))
 					data["maskConnected"] = 1
 
-	// update the ui if it exists, returns null if no ui is passed/found
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if(!ui)
-		// the ui does not exist, so we'll create a new() one
-        // for a list of parameters and their descriptions see the code docs in \code\modules\nano\nanoui.dm
-		ui = new(user, src, ui_key, "tanks.tmpl", "Tank", 500, 300)
-		// when the ui is first opened this is the data it will use
-		ui.set_initial_data(data)
-		// open the new ui window
-		ui.open()
-		// auto update every Master Controller tick
-		ui.set_auto_update(1)
+	return data
 
 /obj/item/weapon/tank/Topic(href, href_list)
 	if(..())

@@ -21,8 +21,8 @@ var/global/sent_syndicate_infiltration_team = 0
 	var/pick_manually = 0
 	if(alert("Pick the team members manually? If you select yes, you pick from ghosts. If you select no, ghosts get offered the chance to join.",,"Yes","No")=="Yes")
 		pick_manually = 1
-	var/list/teamsizeoptions = list(1,2,3,4,5)
-	var/teamsize = input(src, "How many team members, not counting the team leader?") as null|anything in teamsizeoptions
+	var/list/teamsizeoptions = list(2,3,4,5,6)
+	var/teamsize = input(src, "How many team members, including the team leader?") as null|anything in teamsizeoptions
 	if(!(teamsize in teamsizeoptions))
 		alert("Invalid team size specified. Aborting.")
 		return
@@ -102,11 +102,11 @@ var/global/sent_syndicate_infiltration_team = 0
 			to_chat(new_syndicate_infiltrator, "<span class='danger'>As team leader, it is up to you to organize your team! Give the job to someone else if you can't handle it. Only your ID opens the exit door.</span>")
 		else
 			to_chat(new_syndicate_infiltrator, "<span class='danger'>Your team leader is: [team_leader]. They are in charge!</span>")
-			teamsize--
+		teamsize--
 		to_chat(new_syndicate_infiltrator, "<span class='notice'>You have more helpful information stored in your Notes.</span>")
 		new_syndicate_infiltrator.mind.store_memory("<B>Mission:</B> [input] ")
 		new_syndicate_infiltrator.mind.store_memory("<B>Team Leader:</B> [team_leader] ")
-		new_syndicate_infiltrator.mind.store_memory("<B>Starting Equipment:</B> <BR>- Chameleon Jumpsuit ((right click to Change Color))<BR> - Agent ID card ((disguise as another job))<BR> - Uplink Implant ((top left of screen)) <BR> - Dust Implant ((destroys your body on death)) <BR> - Combat Gloves ((insulated, disguised as black gloves)) <BR> - Anything bought with your uplink implant")
+		new_syndicate_infiltrator.mind.store_memory("<B>Starting Equipment:</B> <BR>- Syndicate Headset ((.h for your radio))<BR>- Chameleon Jumpsuit ((right click to Change Color))<BR> - Agent ID card ((disguise as another job))<BR> - Uplink Implant ((top left of screen)) <BR> - Dust Implant ((destroys your body on death)) <BR> - Combat Gloves ((insulated, disguised as black gloves)) <BR> - Anything bought with your uplink implant")
 		var/datum/atom_hud/antag/opshud = huds[ANTAG_HUD_OPS]
 		opshud.join_hud(new_syndicate_infiltrator.mind.current)
 		ticker.mode.set_antag_hud(new_syndicate_infiltrator.mind.current, "hudoperative")
@@ -145,8 +145,7 @@ var/global/sent_syndicate_infiltration_team = 0
 	var/datum/preferences/A = new() //Randomize appearance
 	A.real_name = syndicate_infiltrator_name
 	A.copy_to(new_syndicate_infiltrator)
-
-	new_syndicate_infiltrator.dna.ready_dna(new_syndicate_infiltrator) //Creates DNA.
+	new_syndicate_infiltrator.dna.ready_dna(new_syndicate_infiltrator)
 
 	//Creates mind stuff.
 	new_syndicate_infiltrator.mind_initialize()
@@ -154,7 +153,6 @@ var/global/sent_syndicate_infiltration_team = 0
 	new_syndicate_infiltrator.mind.special_role = "Syndicate Infiltrator"
 	ticker.mode.traitors |= new_syndicate_infiltrator.mind //Adds them to extra antag list
 	new_syndicate_infiltrator.equip_syndicate_infiltrator(syndicate_leader_selected, uplink_tc, is_mgmt)
-	qdel(spawn_location)
 	return new_syndicate_infiltrator
 
 // ---------------------------------------------------------------------------------------------------------
@@ -180,9 +178,6 @@ var/global/sent_syndicate_infiltration_team = 0
 		U.hidden_uplink.uses = 500
 	else
 		U.hidden_uplink.uses = num_tc
-	// Storage
-	//var/obj/item/weapon/implant/storage/T = new /obj/item/weapon/implant/storage(src)
-	//T.implant(src)
 	// Dust
 	var/obj/item/weapon/implant/dust/D = new /obj/item/weapon/implant/dust(src)
 	D.implant(src)
@@ -196,7 +191,7 @@ var/global/sent_syndicate_infiltration_team = 0
 	// Other gear
 	equip_to_slot_or_del(new /obj/item/clothing/shoes/syndigaloshes(src), slot_shoes)
 
-	var/obj/item/weapon/card/id/syndicate/W = new(src) //Untrackable by AI
+	var/obj/item/weapon/card/id/syndicate/W = new(src)
 	if (flag_mgmt)
 		W.icon_state = "commander"
 	else
