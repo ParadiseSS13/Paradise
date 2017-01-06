@@ -55,18 +55,18 @@
 
 /obj/item/weapon/paper/talisman/supply/invoke(mob/living/user, successfuluse = 1)
 	var/dat = list()
-	dat = jointext(dat, "<B>There are [uses] bloody runes on the parchment.</B><BR>")
-	dat = jointext(dat, "Please choose the chant to be imbued into the fabric of reality.<BR>")
-	dat = jointext(dat, "<HR>")
-	dat = jointext(dat, "<A href='?src=[UID()];rune=newtome'>N'ath reth sh'yro eth d'raggathnor!</A> - Summons an arcane tome, used to scribe runes and communicate with other cultists.<BR>")
-	dat = jointext(dat, "<A href='?src=[UID()];rune=teleport'>Sas'so c'arta forbici!</A> - Allows you to move to a selected teleportation rune.<BR>")
-	dat = jointext(dat, "<A href='?src=[UID()];rune=emp'>Ta'gh fara'qha fel d'amar det!</A> - Allows you to destroy technology in a short range.<BR>")
-	dat = jointext(dat, "<A href='?src=[UID()];rune=runestun'>Fuu ma'jin!</A> - Allows you to stun a person by attacking them with the talisman.<BR>")
-	dat = jointext(dat, "<A href='?src=[UID()];rune=veiling'>Kla'atu barada nikt'o!</A> - Two use talisman, first use makes all nearby runes invisible, second use reveals nearby hidden runes.<BR>")
-	dat = jointext(dat, "<A href='?src=[UID()];rune=soulstone'>Kal'om neth!</A> - Summons a soul stone, used to capure the spirits of dead or dying humans.<BR>")
-	dat = jointext(dat, "<A href='?src=[UID()];rune=construct'>Daa'ig osk!</A> - Summons a construct shell for use with soulstone-captured souls. It is too large to carry on your person.<BR>")
+	dat += "<B>There are [uses] bloody runes on the parchment.</B><BR>"
+	dat += "Please choose the chant to be imbued into the fabric of reality.<BR>"
+	dat += "<HR>"
+	dat += "<A href='?src=[UID()];rune=newtome'>N'ath reth sh'yro eth d'raggathnor!</A> - Summons an arcane tome, used to scribe runes and communicate with other cultists.<BR>"
+	dat += "<A href='?src=[UID()];rune=teleport'>Sas'so c'arta forbici!</A> - Allows you to move to a selected teleportation rune.<BR>"
+	dat += "<A href='?src=[UID()];rune=emp'>Ta'gh fara'qha fel d'amar det!</A> - Allows you to destroy technology in a short range.<BR>"
+	dat += "<A href='?src=[UID()];rune=runestun'>Fuu ma'jin!</A> - Allows you to stun a person by attacking them with the talisman.<BR>"
+	dat += "<A href='?src=[UID()];rune=veiling'>Kla'atu barada nikt'o!</A> - Two use talisman, first use makes all nearby runes invisible, second use reveals nearby hidden runes.<BR>"
+	dat += "<A href='?src=[UID()];rune=soulstone'>Kal'om neth!</A> - Summons a soul stone, used to capure the spirits of dead or dying humans.<BR>"
+	dat += "<A href='?src=[UID()];rune=construct'>Daa'ig osk!</A> - Summons a construct shell for use with soulstone-captured souls. It is too large to carry on your person.<BR>"
 	var/datum/browser/popup = new(user, "talisman", "", 400, 400)
-	popup.set_content(dat)
+	popup.set_content(jointext(dat, ""))
 	popup.open()
 	return 0
 
@@ -331,6 +331,7 @@
 				qdel(src)
 				return
 		if(istype(target, /obj/item/stack/sheet/plasteel))
+			var/turf/T = get_turf(target)
 			var/quantity = min(target.amount, uses)
 			uses -= quantity
 			new /obj/item/stack/sheet/runed_metal(T,quantity)
