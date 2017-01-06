@@ -430,7 +430,7 @@
 		ui = new(user, src, ui_key, "order_console.tmpl", name, ORDER_SCREEN_WIDTH, ORDER_SCREEN_HEIGHT)
 		ui.open()
 
-/obj/machinery/computer/ordercomp/ui_data(mob/user, datum/topic_state/state = default_state)
+/obj/machinery/computer/ordercomp/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/data[0]
 	data["last_viewed_group"] = last_viewed_group
 
@@ -579,7 +579,7 @@
 		ui = new(user, src, ui_key, "supply_console.tmpl", name, SUPPLY_SCREEN_WIDTH, SUPPLY_SCREEN_HEIGHT)
 		ui.open()
 
-/obj/machinery/computer/supplycomp/ui_data(mob/user, datum/topic_state/state = default_state)
+/obj/machinery/computer/supplycomp/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/data[0]
 	data["last_viewed_group"] = last_viewed_group
 

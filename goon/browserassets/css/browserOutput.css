@@ -291,6 +291,8 @@ h1.alert, h2.alert			{color: #000000;}
 .alien					{color: #543354;}
 .noticealien				{color: #00c000;}
 .alertalien				{color: #00c000; font-weight: bold;}
+.terrorspider				{color: #320E32;}
+
 
 .sinister				{color: #800080;	font-weight: bold;	font-style: italic;} /* /vg/ */
 .blob					{color: #006221;	font-weight: bold;	font-style: italic;}
@@ -320,6 +322,9 @@ h1.alert, h2.alert			{color: #000000;}
 .say_quote				{font-family: Georgia, Verdana, sans-serif;}
 .cult					{color: #800080; font-weight: bold; font-style: italic;}
 .cultspeech				{color: #7F0000; font-style: italic;}
+.cultitalic				{color: #960000; font-style: italic;}
+.cultlarge				{color: #960000; font-weight: bold; font-size: 3;}
+.narsie					{color: #960000; font-weight: bold; font-size: 15;}
 .interface				{color: #330033;}
 .big					{font-size: 150%;}
 .reallybig				{font-size: 175%;}

@@ -9,14 +9,14 @@ var/obj/machinery/gateway/centerstation/the_gateway = null
 	unacidable = 1
 	var/active = 0
 
+/obj/machinery/gateway/initialize()
+	..()
+	update_icon()
+	update_density_from_dir()
 
-/obj/machinery/gateway/New()
-	if(!the_gateway)
-		the_gateway = src
-	spawn(25)
-		update_icon()
-		if(dir == 2)
-			density = 0
+/obj/machinery/gateway/proc/update_density_from_dir()
+	if(dir == 2)
+		density = 0
 
 
 /obj/machinery/gateway/update_icon()
@@ -40,13 +40,18 @@ var/obj/machinery/gateway/centerstation/the_gateway = null
 	var/obj/machinery/gateway/centeraway/awaygate = null
 
 /obj/machinery/gateway/centerstation/New()
+	..()
 	if(!the_gateway)
 		the_gateway = src
-	spawn(25)
-		update_icon()
-		wait = world.time + config.gateway_delay	//+ thirty minutes default
-		awaygate = locate(/obj/machinery/gateway/centeraway) in world
 
+/obj/machinery/gateway/centerstation/initialize()
+	..()
+	update_icon()
+	wait = world.time + config.gateway_delay	//+ thirty minutes default
+	awaygate = locate(/obj/machinery/gateway/centeraway) in world
+
+/obj/machinery/gateway/centerstation/update_density_from_dir()
+	return
 
 /obj/machinery/gateway/centerstation/Destroy()
 	if(the_gateway == src)
@@ -61,7 +66,7 @@ var/obj/machinery/gateway/centerstation/the_gateway = null
 
 
 
-obj/machinery/gateway/centerstation/process()
+/obj/machinery/gateway/centerstation/process()
 	if(stat & (NOPOWER))
 		if(active) toggleoff()
 		return
@@ -165,11 +170,14 @@ obj/machinery/gateway/centerstation/process()
 	var/obj/machinery/gateway/centeraway/stationgate = null
 
 
-/obj/machinery/gateway/centeraway/New()
-	spawn(25)
-		update_icon()
-		stationgate = locate(/obj/machinery/gateway/centerstation) in world
+/obj/machinery/gateway/centeraway/initialize()
+	..()
+	update_icon()
+	stationgate = locate(/obj/machinery/gateway/centerstation) in world
 
+
+/obj/machinery/gateway/centeraway/update_density_from_dir()
+	return
 
 /obj/machinery/gateway/centeraway/update_icon()
 	if(active)

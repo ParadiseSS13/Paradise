@@ -566,6 +566,16 @@ About the new airlock wires panel:
 		ui.open()
 		ui.set_auto_update(1)
 
+/obj/machinery/door/airlock/attack_ai(mob/user as mob)
+	ui_interact(user)
+
+/obj/machinery/door/airlock/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "door_control.tmpl", "Door Controls - [src]", 600, 375)
+		ui.open()
+		ui.set_auto_update(1)
+
 /obj/machinery/door/airlock/ui_data(mob/user, datum/topic_state/state = default_state)
 	var/data[0]
 

@@ -31,7 +31,6 @@
 "aE" = (/obj/structure/stool/bed/chair{dir = 4},/obj/structure/closet/walllocker/emerglocker{pixel_x = -28},/turf/simulated/shuttle/floor{icon_state = "floor3"},/area/shuttle/escape)
 "aF" = (/obj/structure/grille,/obj/structure/window/full/shuttle{icon_state = "8"},/turf/simulated/floor/plating,/area/shuttle/escape)
 "aG" = (/obj/structure/stool/bed/chair{dir = 8},/obj/structure/closet/walllocker/emerglocker{pixel_x = 28},/turf/simulated/shuttle/floor{icon_state = "floor3"},/area/shuttle/escape)
-"aH" = (/obj/machinery/door/airlock/shuttle{aiControlDisabled = 1; hackProof = 1; id_tag = "s_docking_airlock"; name = "Shuttle Hatch"},/turf/simulated/floor/plating,/area/shuttle/escape)
 "aI" = (/turf/simulated/shuttle/floor{icon_state = "floor3"},/area/shuttle/escape)
 "aJ" = (/obj/structure/grille,/obj/structure/window/full/shuttle{icon_state = "15"},/turf/simulated/floor/plating,/area/shuttle/escape)
 "aK" = (/obj/docking_port/mobile/emergency{dir = 4; dwidth = 9; height = 13; timid = 1; width = 24},/obj/machinery/door/airlock/shuttle{aiControlDisabled = 1; hackProof = 1; id_tag = "s_docking_airlock"; name = "Shuttle Hatch"},/turf/simulated/shuttle/floor,/area/shuttle/escape)
@@ -76,7 +75,7 @@ aaaaarasatananauavanaraaaa
 abawaxawawawayawazawaxawad
 araAaBaCaDaAanaCaDaAaBaCar
 araEanaCaFaAanaCaFaAanaGar
-aHaIanaCaFaAanaCaFaAanaCac
+aWaIanaCaFaAanaCaFaAanaCac
 araAanaCaJaAanaCaJaAanaCar
 aKananananananananananaCar
 araLanaCaDaAanaCaDaAanaMar
@@ -92,3 +91,4 @@ arbfaIaIbgaraaaYbhbhbhbhar
 biazbjbjbjbkaablbmbmbmazbn
 aabibobobobnaabibobobobnaa
 "}
+
