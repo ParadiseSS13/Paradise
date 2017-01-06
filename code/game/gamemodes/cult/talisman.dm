@@ -134,7 +134,7 @@
 		log_game("Teleport talisman failed - no other teleport runes")
 		return ..(user, 0)
 
-	if(is_level_reachable(user.z))
+	if(!is_level_reachable(user.z))
 		to_chat(user, "<span class='cultitalic'>You are not in the right dimension!</span>")
 		log_game("Teleport talisman failed - user in away mission")
 		return ..(user, 0)
@@ -329,6 +329,7 @@
 				to_chat(user, "<span class='warning'>The talisman clings to the metal and twists it into a construct shell!</span>")
 				user << sound('sound/magic/Staff_Chaos.ogg',0,1,25)
 				qdel(src)
+				return
 		if(istype(target, /obj/item/stack/sheet/plasteel))
 			var/quantity = min(target.amount, uses)
 			uses -= quantity
@@ -341,7 +342,6 @@
 				qdel(src)
 		else
 			to_chat(user, "<span class='warning'>The talisman must be used on metal or plasteel!</span>")
-
 
 //Talisman of Shackling: Applies special cuffs directly from the talisman
 /obj/item/weapon/paper/talisman/shackle

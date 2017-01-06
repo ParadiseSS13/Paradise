@@ -3,24 +3,12 @@
 	density = 1
 	anchored = 1
 	icon = 'icons/obj/cult.dmi'
-	var/cooldowntime = 0
-	var/health = 100
-	var/death_message = "<span class='warning'>The structure falls apart.</span>" //The message shown when the structure is destroyed
-	var/death_sound = 'sound/items/bikehorn.ogg'
-
-
-/obj/structure/cult/proc/destroy_structure()
-	visible_message(death_message)
-	playsound(src, death_sound, 50, 1)
-	qdel(src)
-
 
 //Noncult As we may have this on maps
 /obj/structure/cult/talisman
 	name = "Altar"
 	desc = "A bloodstained altar dedicated to Nar-Sie"
 	icon_state = "talismanaltar"
-
 
 /obj/structure/cult/forge
 	name = "Daemon forge"
@@ -34,14 +22,24 @@
 	light_range = 5
 	light_color = "#3e0000"
 
-
 /obj/structure/cult/tome
 	name = "Desk"
 	desc = "A desk covered in arcane manuscripts and tomes in unknown languages. Looking at the text makes your skin crawl"
 	icon_state = "tomealtar"
 
 //Cult versions cuase fuck map conflicts
-/obj/structure/cult/examine(mob/user)
+/obj/structure/cult/itemspawner/
+	var/cooldowntime = 0
+	var/health = 100
+	var/death_message = "<span class='warning'>The structure falls apart.</span>" //The message shown when the structure is destroyed
+	var/death_sound = 'sound/items/bikehorn.ogg'
+
+/obj/structure/cult/itemspawner/proc/destroy_structure()
+	visible_message(death_message)
+	playsound(src, death_sound, 50, 1)
+	qdel(src)
+
+/obj/structure/cult/itemspawner/examine(mob/user)
 	. = ..()
 	if(iscultist(user) && cooldowntime > world.time)
 		to_chat(user, "<span class='cultitalic'>The magic in [src] is weak, it will be ready to use again in [getETA()].</span>")
@@ -60,7 +58,7 @@
 		return ..()
 
 
-/obj/structure/cult/proc/getETA()
+/obj/structure/cult/itemspawner/proc/getETA()
 	var/time = (cooldowntime - world.time)/600
 	var/eta = "[round(time, 1)] minutes"
 	if(time <= 1)
@@ -68,7 +66,7 @@
 		eta = "[round(time, 1)] seconds"
 	return eta
 
-/obj/structure/cult/culttalisman
+/obj/structure/cult/itemspawner/talisman
 	name = "altar"
 	desc = "A bloodstained altar dedicated to a cult."
 	icon_state = "talismanaltar"
@@ -76,7 +74,7 @@
 	death_message = "<span class='warning'>The altar breaks into splinters, releasing a cascade of spirits into the air!</span>"
 	death_sound = 'sound/effects/altar_break.ogg'
 
-/obj/structure/cult/culttalisman/attack_hand(mob/living/user)
+/obj/structure/cult/itemspawner/talisman/attack_hand(mob/living/user)
 	if(!iscultist(user))
 		to_chat(user, "<span class='warning'>You're pretty sure you know exactly what this is used for and you can't seem to touch it.</span>")
 		return
@@ -103,7 +101,7 @@
 		to_chat(user, "<span class='cultitalic'>You kneel before the altar and your faith is rewarded with an [N]!</span>")
 
 
-/obj/structure/cult/cultforge
+/obj/structure/cult/itemspawner/forge
 	name = "daemon forge"
 	desc = "A forge used in crafting the unholy weapons used by the armies of a cult."
 	icon_state = "forge"
@@ -111,7 +109,7 @@
 	death_message = "<span class='warning'>The forge falls apart, its lava cooling and winking away!</span>"
 	death_sound = 'sound/effects/forge_destroy.ogg'
 
-/obj/structure/cult/cultforge/attackby(obj/item/I, mob/user, params)
+/obj/structure/cult/itemspawner/forge/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/weapon/grab))
 		var/obj/item/weapon/grab/G = I
 		if(!iscarbon(G.affecting))
@@ -135,7 +133,7 @@
 			head.disfigure("burn") //Your face is unrecognizable because it's FUCKING LAVA
 		return 1
 
-/obj/structure/cult/cultforge/attack_hand(mob/living/user)
+/obj/structure/cult/itemspawner/forge/attack_hand(mob/living/user)
 	if(!iscultist(user))
 		to_chat(user, "<span class='warning'>The heat radiating from [src] pushes you back.</span>")
 		return
@@ -172,7 +170,7 @@ var/list/blacklisted_pylon_turfs = typecacheof(list(
 	/turf/simulated/wall,
 	))
 
-/obj/structure/cult/cultpylon
+/obj/structure/cult/itemspawner/pylon
 	name = "pylon"
 	desc = "A floating crystal that slowly heals those faithful to a cult."
 	icon_state = "pylon"
@@ -186,15 +184,15 @@ var/list/blacklisted_pylon_turfs = typecacheof(list(
 	var/corrupt_delay = 50
 	var/last_corrupt = 0
 
-/obj/structure/cult/cultpylon/New()
+/obj/structure/cult/itemspawner/pylon/New()
 	processing_objects |= src
 	..()
 
-/obj/structure/cult/cultpylon/Destroy()
+/obj/structure/cult/itemspawner/pylon/Destroy()
 	processing_objects.Remove(src)
 	return ..()
 
-/obj/structure/cult/cultpylon/process()
+/obj/structure/cult/itemspawner/pylon/process()
 	if(!anchored)
 		return
 	if(last_heal <= world.time)
@@ -239,7 +237,7 @@ var/list/blacklisted_pylon_turfs = typecacheof(list(
 
 
 
-/obj/structure/cult/culttome
+/obj/structure/cult/itemspawner/tome
 	name = "archives"
 	desc = "A desk covered in arcane manuscripts and tomes in unknown languages. Looking at the text makes your skin crawl."
 	icon_state = "tomealtar"
@@ -247,7 +245,7 @@ var/list/blacklisted_pylon_turfs = typecacheof(list(
 	death_message = "<span class='warning'>The desk breaks apart, its books falling to the floor.</span>"
 	death_sound = 'sound/effects/wood_break.ogg'
 
-/obj/structure/cult/culttome/attack_hand(mob/living/user)
+/obj/structure/cult/itemspawner/tome/attack_hand(mob/living/user)
 	if(!iscultist(user))
 		to_chat(user, "<span class='warning'>All of these books seem to be gibberish.</span>")
 		return
