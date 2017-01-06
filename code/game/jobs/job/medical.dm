@@ -235,7 +235,7 @@
 	idtype = /obj/item/weapon/card/id/medical
 	access = list(access_paramedic, access_medical, access_sec_doors, access_maint_tunnels, access_external_airlocks, access_morgue)
 	minimal_access=list(access_paramedic, access_medical, access_sec_doors, access_maint_tunnels, access_external_airlocks, access_morgue)
-	alt_titles = list("EMT","Medical Assitant")
+	alt_titles = list("EMT")
 	minimal_player_age = 3
 
 
