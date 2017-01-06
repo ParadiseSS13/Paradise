@@ -97,7 +97,7 @@
 	health = 150 //Sturdy
 	death_message = "<span class='warning'>The altar breaks into splinters, releasing a cascade of spirits into the air!</span>"
 	death_sound = 'sound/effects/altar_break.ogg'
-	heathen_message = "<span class='warning'>There is a forboding aura to the alter and you want nothing to do with it.</span>"
+	heathen_message = "<span class='warning'>There is a foreboding aura to the altar and you want nothing to do with it.</span>"
 	selection_prompt = "You study the rituals on the altar..."
 	selection_title = "Altar"
 	creation_message = "<span class='cultitalic'>You kneel before the altar and your faith is rewarded with an %ITEM%!</span>"
@@ -111,10 +111,10 @@
 	health = 300 //Made of metal
 	death_message = "<span class='warning'>The forge falls apart, its lava cooling and winking away!</span>"
 	death_sound = 'sound/effects/forge_destroy.ogg'
-	heathen_message = "<span class='warning'>Your hand feels like its melting off as you try to touch the forge.</span>"
+	heathen_message = "<span class='warning'>Your hand feels like it's melting off as you try to touch the forge.</span>"
 	selection_prompt = "You study the schematics etched on the forge..."
 	selection_title = "Forge"
-	creation_message = "<span class='cultitalic'>You work the forge as dark knowledge guides your hands, creating  %ITEM%!</span>"
+	creation_message = "<span class='cultitalic'>You work the forge as dark knowledge guides your hands, creating %ITEM%!</span>"
 	choosable_items = list("Shielded Robe" = /obj/item/clothing/suit/hooded/cultrobes/cult_shield, "Flagellant's Robe" = /obj/item/clothing/suit/hooded/cultrobes/berserker, \
 							"Cultist Hardsuit" = /obj/item/weapon/storage/box/cult)
 
