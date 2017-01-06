@@ -17,6 +17,8 @@
 			            access_research, access_robotics, access_xenobiology, access_ai_upload,
 			            access_RC_announce, access_keycard_auth, access_tcomsat, access_gateway, access_xenoarch, access_minisat, access_maint_tunnels, access_mineral_storeroom)
 	minimal_player_age = 21
+	exp_requirements = 600
+	exp_type = EXP_TYPE_CREW
 
 	// All science-y guys get bonuses for maxing out their tech.
 	required_objectives=list(

@@ -276,6 +276,18 @@
 			src.emagged = 0
 			setMenuState(usr,COMM_SCREEN_MAIN)
 
+		if("RestartNanoMob")
+			if(mob_hunt_server)
+				if(mob_hunt_server.manual_reboot())
+					var/loading_msg = pick("Respawning spawns", "Reticulating splines", "Flipping hat",
+										"Capturing all of them", "Fixing minor text issues", "Being the very best",
+										"Nerfing this", "Not communicating with playerbase", "Coding a ripoff in a 2D spaceman game")
+					to_chat(usr, "<span class='notice'>Restarting Nano-Mob Hunter GO! game server. [loading_msg]...</span>")
+				else
+					to_chat(usr, "<span class='warning'>Nano-Mob Hunter GO! game server reboot failed due to recent restart. Please wait before re-attempting.</span>")
+			else
+				to_chat(usr, "<span class='danger'>Nano-Mob Hunter GO! game server is offline for extended maintenance. Contact your Central Command administrators for more info if desired.</span>")
+
 		if("AcceptDocking")
 			to_chat(usr, "Docking request accepted!")
 			trade_dock_timelimit = world.time + 1200
@@ -322,7 +334,7 @@
 		// open the new ui window
 		ui.open()
 
-/obj/machinery/computer/communications/ui_data(mob/user, datum/topic_state/state = default_state)
+/obj/machinery/computer/communications/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/data[0]
 	data["is_ai"]         = isAI(user)||isrobot(user)
 	data["menu_state"]    = data["is_ai"] ? ai_menu_state : menu_state

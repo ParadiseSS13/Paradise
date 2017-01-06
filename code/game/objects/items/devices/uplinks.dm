@@ -198,7 +198,7 @@ var/list/world_uplinks = list()
 		// open the new ui window
 		ui.open()
 
-/obj/item/device/uplink/hidden/ui_data(mob/user, datum/topic_state/state = inventory_state)
+/obj/item/device/uplink/hidden/ui_data(mob/user, ui_key = "main", datum/topic_state/state = inventory_state)
 	var/data[0]
 
 	data["welcome"] = welcome

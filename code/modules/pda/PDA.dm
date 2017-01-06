@@ -129,7 +129,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 	// auto update every Master Controller tick
 	ui.set_auto_update(auto_update)
 
-/obj/item/device/pda/ui_data(mob/user, datum/topic_state/state = inventory_state)
+/obj/item/device/pda/ui_data(mob/user, ui_key = "main", datum/topic_state/state = inventory_state)
 	var/data[0]
 
 	data["owner"] = owner					// Who is your daddy...
@@ -427,6 +427,9 @@ var/global/list/obj/item/device/pda/PDAs = list()
 			user.drop_item()
 			C.forceMove(src)
 			to_chat(user, "<span class='notice'>You slide \the [C] into \the [src].</span>")
+	else if(istype(C, /obj/item/weapon/nanomob_card))
+		if(cartridge && istype(cartridge, /obj/item/weapon/cartridge/mob_hunt_game))
+			cartridge.attackby(C, user, params)
 
 /obj/item/device/pda/attack(mob/living/C as mob, mob/living/user as mob)
 	if(istype(C, /mob/living/carbon) && scanmode)
@@ -498,3 +501,12 @@ var/global/list/obj/item/device/pda/PDAs = list()
 	else
 		close(usr)
 	return 0
+
+/obj/item/device/pda/process()
+	if(current_app)
+		current_app.program_process()
+
+/obj/item/device/pda/hit_check(speed)
+	if(current_app)
+		current_app.program_hit_check()
+	..()
