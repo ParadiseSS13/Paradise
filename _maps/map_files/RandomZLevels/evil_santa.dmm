@@ -73,7 +73,7 @@
 "bu" = (/obj/machinery/vending/cola,/turf/simulated/floor/plasteel,/area/awaymission/challenge/main)
 "bv" = (/obj/structure/reagent_dispensers/fueltank,/turf/simulated/floor/plasteel,/area/awaymission/challenge/main)
 "bw" = (/obj/machinery/autolathe,/turf/simulated/floor/plasteel,/area/awaymission/challenge/main)
-"bx" = (/obj/machinery/gun_turret/interior{density = 0; desc = "Winterized interior defense turret chambered for .45 rounds and mounted on a wall. Designed to down intruders without damaging the hull."; faction = "winter"; name = "wall mounted machine gun turret (.45)"; pixel_y = 27},/turf/simulated/floor/plasteel,/area/awaymission/challenge/main)
+"bx" = (/obj/machinery/porta_turret/syndicate/interior{density = 0; desc = "Winterized interior defense turret chambered for .45 rounds and mounted on a wall. Designed to down intruders without damaging the hull."; faction = "winter"; name = "wall mounted machine gun turret (.45)"; pixel_y = 27},/turf/simulated/floor/plasteel,/area/awaymission/challenge/main)
 "by" = (/obj/structure/table,/obj/item/weapon/rcd_ammo,/obj/item/weapon/rcd_ammo,/obj/item/weapon/rcd_ammo,/obj/item/weapon/storage/toolbox/mechanical,/turf/simulated/floor/plasteel,/area/awaymission/challenge/main)
 "bz" = (/obj/item/clothing/head/cone,/turf/simulated/floor/snow{carbon_dioxide = 21.8366; nitrogen = 0; oxygen = 82.1472; temperature = 73},/area/awaymission/challenge/main)
 "bA" = (/mob/living/simple_animal/walrus,/turf/simulated/floor/snow{carbon_dioxide = 21.8366; nitrogen = 0; oxygen = 82.1472; temperature = 73},/area/awaymission/challenge/main)

@@ -77,6 +77,17 @@
 				OpenFire()
 		else
 			devour(L)
+			
+/mob/living/simple_animal/hostile/megafauna/onShuttleMove()
+	var/turf/oldloc = loc
+	. = ..()
+	if(!.)
+		return
+	var/turf/newloc = loc
+	message_admins("Megafauna [src] \
+		(<A HREF='?_src_=holder;adminplayerobservefollow=[UID()]'>FLW</A>) \
+		moved via shuttle from ([oldloc.x], [oldloc.y], [oldloc.z]) to \
+		([newloc.x], [newloc.y], [newloc.z])")
 
 /mob/living/simple_animal/hostile/megafauna/proc/devour(mob/living/L)
 	if(!L)
