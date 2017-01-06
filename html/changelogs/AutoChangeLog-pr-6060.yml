@@ -1,0 +1,4 @@
+author: "Kyep"
+delete-after: True
+changes: 
+  - bugfix: "Mobs in vents no longer see vents/scrubbers as unwelded when they are welded, and vice versa."
