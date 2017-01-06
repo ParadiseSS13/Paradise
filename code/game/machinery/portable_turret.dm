@@ -200,7 +200,7 @@ var/list/turret_icons
 		ui.open()
 		ui.set_auto_update(1)
 
-/obj/machinery/porta_turret/ui_data(mob/user, datum/topic_state/state = default_state)
+/obj/machinery/porta_turret/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/data[0]
 	data["access"] = !isLocked(user)
 	data["screen"] = screen

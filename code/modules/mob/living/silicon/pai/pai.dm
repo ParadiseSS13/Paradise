@@ -114,8 +114,6 @@
 		C.toff = 1
 	..()
 
-/mob/living/silicon/pai/Login()
-	..()
 
 // this function shows the information about being silenced as a pAI in the Status panel
 /mob/living/silicon/pai/proc/show_silenced()

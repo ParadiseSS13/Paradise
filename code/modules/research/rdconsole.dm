@@ -652,7 +652,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		ui = new(user, src, ui_key, "r_n_d.tmpl", src.name, 800, 550)
 		ui.open()
 
-/obj/machinery/computer/rdconsole/ui_data(mob/user, datum/topic_state/state = default_state)
+/obj/machinery/computer/rdconsole/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/data[0]
 
 	files.RefreshResearch()

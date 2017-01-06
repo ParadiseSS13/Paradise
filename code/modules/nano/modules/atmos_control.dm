@@ -39,7 +39,7 @@
 		ui.set_auto_update(1)
 	ui_ref = ui
 
-/datum/nano_module/atmos_control/ui_data(mob/user, datum/topic_state/state = default_state)
+/datum/nano_module/atmos_control/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/data[0]
 	data["alarms"] = air_alarm_repository.air_alarm_data(monitored_alarms)
 	return data

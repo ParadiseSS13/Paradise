@@ -48,7 +48,7 @@
 		ui.set_auto_update(1)
 
 
-/obj/item/device/aicard/ui_data(mob/user, datum/topic_state/state = inventory_state)
+/obj/item/device/aicard/ui_data(mob/user, ui_key = "main", datum/topic_state/state = inventory_state)
 	var/data[0]
 
 	var/mob/living/silicon/ai/AI = locate() in src

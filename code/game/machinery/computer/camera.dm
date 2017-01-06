@@ -1,14 +1,14 @@
 /obj/machinery/computer/security
 	name = "security camera console"
 	desc = "Used to access the various cameras networks on the station."
-	
+
 	icon_keyboard = "security_key"
 	icon_screen = "cameras"
 	light_color = LIGHT_COLOR_RED
 	circuit = /obj/item/weapon/circuitboard/camera
-	
+
 	var/mapping = 0 // For the overview file (overview.dm), not used on this page
-	
+
 	var/list/network = list()
 	var/list/available_networks = list()
 	var/list/watchers = list() //who's using the console, associated with the camera they're on.
@@ -16,7 +16,7 @@
 /obj/machinery/computer/security/New() // Lists existing networks and their required access. Format: available_networks[<name>] = list(<access>)
 	generate_network_access()
 	..()
-	
+
 /obj/machinery/computer/security/proc/generate_network_access()
 	available_networks["SS13"] =              list(access_hos,access_captain)
 	available_networks["Telecomms"] =         list(access_hos,access_captain)
@@ -39,7 +39,7 @@
 	available_networks["ERT"] =               list(access_cent_specops_commander,access_cent_commander)
 	available_networks["CentComm"] =          list(access_cent_security,access_cent_commander)
 	available_networks["Thunderdome"] =       list(access_cent_thunder,access_cent_commander)
-	
+
 /obj/machinery/computer/security/Destroy()
 	if(watchers.len)
 		for(var/mob/M in watchers)
@@ -58,11 +58,11 @@
 		user.unset_machine()
 		return
 	return 1
-			
+
 /obj/machinery/computer/security/on_unset_machine(mob/user)
 	watchers.Remove(user)
 	user.reset_perspective(null)
-	
+
 /obj/machinery/computer/security/attack_hand(mob/user)
 	if(stat || ..())
 		user.unset_machine()
@@ -83,7 +83,7 @@
 		attack_hand(user)
 	else
 		attack_hand(user)
-		
+
 /obj/machinery.computer/security/proc/get_user_access(mob/user)
 	var/list/access = list()
 	if(ishuman(user))
@@ -105,8 +105,8 @@
 		ui.add_template("mapHeader", "sec_camera_map_header.tmpl")
 
 		ui.open()
-		
-/obj/machinery/computer/security/ui_data(mob/user, datum/topic_state/state = default_state)
+
+/obj/machinery/computer/security/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/data[0]
 
 	var/list/cameras = list()
@@ -126,7 +126,7 @@
 				cameras.Swap(j, j + 1)
 
 	data["cameras"] = cameras
-	
+
 	var/list/access = get_user_access(user)
 	if(emagged)
 		access = get_all_accesses() // Assume captain level access when emagged
@@ -149,8 +149,8 @@
 	data["current"] = null
 	if(watchers[user])
 		var/obj/machinery/camera/watched = watchers[user]
-		data["current"] = watched.nano_structure() 
-		
+		data["current"] = watched.nano_structure()
+
 	return data
 
 /obj/machinery/computer/security/Topic(href, href_list)
@@ -162,7 +162,7 @@
 		var/obj/machinery/camera/C = locate(href_list["switchTo"]) in cameranet.cameras
 		if(!C)
 			return 1
-		
+
 		switch_to_camera(usr, C)
 
 	else if(href_list["reset"])
@@ -180,31 +180,31 @@
 				else
 					network += net
 					break
-	
+
 	nanomanager.update_uis(src)
 
 // Check if camera is accessible when jumping
 /obj/machinery/computer/security/proc/can_access_camera(var/obj/machinery/camera/C, var/mob/M)
 	if(CanUseTopic(M, default_state) != STATUS_INTERACTIVE || M.incapacitated() || M.blinded)
 		return 0
-		
+
 	if(isrobot(M))
 		var/list/viewing = viewers(src)
 		if(!viewing.Find(M))
 			return 0
-			
+
 	if(isAI(M))
 		var/mob/living/silicon/ai/A = M
 		if(!A.is_in_chassis())
 			return 0
-			
+
 	if(!issilicon(M) && !Adjacent(M))
 		return 0
-				
+
 	var/list/shared_networks = network & C.network
 	if(!shared_networks.len || !C.can_use())
 		return 0
-		
+
 	return 1
 
 // Switching to cameras
@@ -212,7 +212,7 @@
 	if(!can_access_camera(C, user))
 		user.unset_machine()
 		return 1
-	
+
 	if(isAI(user))
 		var/mob/living/silicon/ai/A = user
 		A.eyeobj.setLoc(get_turf(C))
@@ -226,12 +226,12 @@
 /obj/machinery/computer/security/proc/jump_on_click(var/mob/user, var/A)
 	if(user.machine != src)
 		return
-		
+
 	var/obj/machinery/camera/jump_to
-	
+
 	if(istype(A, /obj/machinery/camera))
 		jump_to = A
-		
+
 	else if(ismob(A))
 		if(ishuman(A))
 			var/mob/living/carbon/human/H = A
@@ -239,11 +239,11 @@
 		else if(isrobot(A))
 			var/mob/living/silicon/robot/R = A
 			jump_to = R.camera
-			
+
 	else if(isobj(A))
 		var/obj/O = A
 		jump_to = locate() in O
-		
+
 	else if(isturf(A))
 		var/best_dist = INFINITY
 		for(var/obj/machinery/camera/camera in get_area(A))
@@ -255,10 +255,10 @@
 			if(dist < best_dist)
 				best_dist = dist
 				jump_to = camera
-				
+
 	if(isnull(jump_to))
 		return
-		
+
 	if(can_access_camera(jump_to, user))
 		switch_to_camera(user, jump_to)
 

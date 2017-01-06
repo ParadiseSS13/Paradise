@@ -75,7 +75,7 @@
 		ui = new(user, src, ui_key, "keycard_auth.tmpl", "Keycard Authentication Device UI", 540, 320)
 		ui.open()
 
-/obj/machinery/keycard_auth/ui_data(mob/user, datum/topic_state/state = default_state)
+/obj/machinery/keycard_auth/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/data[0]
 	data["screen"] = screen
 	data["event"] = event
