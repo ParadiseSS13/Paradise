@@ -192,19 +192,7 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) \
 	if(shuttle_master.emergency.areaInstance != A)
 		return 0
 
-	for(var/mob/living/player in player_list)
-		if(player.mind && player.mind != owner)
-			if(player.stat != DEAD)
-				if(issilicon(player)) //Borgs are technically dead anyways
-					continue
-				if(isanimal(player)) //Poly does not own the shuttle
-					continue
-				if(player.mind.special_role && !(player.mind.special_role == SPECIAL_ROLE_ERT)) //Is antag, and not ERT
-					continue
-
-				if(get_area(player) == A)
-					return 0
-	return 1
+	return shuttle_master.emergency.is_hijacked()
 
 /datum/objective/hijackclone
 	explanation_text = "Hijack the emergency shuttle by ensuring only you (or your copies) escape."
