@@ -1,0 +1,4 @@
+author: "Crazylemon64"
+delete-after: True
+changes: 
+  - tweak: "You can now opt out of all requests on a role for a round"
