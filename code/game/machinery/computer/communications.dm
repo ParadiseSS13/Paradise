@@ -69,14 +69,14 @@
 		var/list/access = usr.get_access()
 		if(allowed(usr))
 			authenticated = COMM_AUTHENTICATION_MIN
-			
+
 		if(access_captain in access)
 			authenticated = COMM_AUTHENTICATION_MAX
 			var/mob/living/carbon/human/H = usr
 			var/obj/item/weapon/card/id = H.get_idcard(TRUE)
 			if(istype(id))
 				crew_announcement.announcer = GetNameAndAssignmentFromId(id)
-			
+
 		nanomanager.update_uis(src)
 		return
 
@@ -276,6 +276,18 @@
 			src.emagged = 0
 			setMenuState(usr,COMM_SCREEN_MAIN)
 
+		if("RestartNanoMob")
+			if(mob_hunt_server)
+				if(mob_hunt_server.manual_reboot())
+					var/loading_msg = pick("Respawning spawns", "Reticulating splines", "Flipping hat",
+										"Capturing all of them", "Fixing minor text issues", "Being the very best",
+										"Nerfing this", "Not communicating with playerbase", "Coding a ripoff in a 2D spaceman game")
+					to_chat(usr, "<span class='notice'>Restarting Nano-Mob Hunter GO! game server. [loading_msg]...</span>")
+				else
+					to_chat(usr, "<span class='warning'>Nano-Mob Hunter GO! game server reboot failed due to recent restart. Please wait before re-attempting.</span>")
+			else
+				to_chat(usr, "<span class='danger'>Nano-Mob Hunter GO! game server is offline for extended maintenance. Contact your Central Command administrators for more info if desired.</span>")
+
 		if("AcceptDocking")
 			to_chat(usr, "Docking request accepted!")
 			trade_dock_timelimit = world.time + 1200
@@ -313,7 +325,16 @@
 	ui_interact(user)
 
 /obj/machinery/computer/communications/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null)
-	// this is the data which will be sent to the ui
+	// update the ui if it exists, returns null if no ui is passed/found
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui)
+	if(!ui)
+		// the ui does not exist, so we'll create a new() one
+        // for a list of parameters and their descriptions see the code docs in \code\modules\nano\nanoui.dm
+		ui = new(user, src, ui_key, "comm_console.tmpl", "Communications Console", 400, 500)
+		// open the new ui window
+		ui.open()
+
+/obj/machinery/computer/communications/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/data[0]
 	data["is_ai"]         = isAI(user)||isrobot(user)
 	data["menu_state"]    = data["is_ai"] ? ai_menu_state : menu_state
@@ -377,16 +398,8 @@
 	else
 		data["dock_request"] = 0
 
-	// update the ui if it exists, returns null if no ui is passed/found
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data)
-	if(!ui)
-		// the ui does not exist, so we'll create a new() one
-        // for a list of parameters and their descriptions see the code docs in \code\modules\nano\nanoui.dm
-		ui = new(user, src, ui_key, "comm_console.tmpl", "Communications Console", 400, 500)
-		// when the ui is first opened this is the data it will use
-		ui.set_initial_data(data)
-		// open the new ui window
-		ui.open()
+	return data
+
 
 /obj/machinery/computer/communications/proc/setCurrentMessage(var/mob/user,var/value)
 	if(isAI(user) || isrobot(user))
@@ -458,8 +471,10 @@
 
 	if(seclevel2num(get_security_level()) >= SEC_LEVEL_RED) // There is a serious threat we gotta move no time to give them five minutes.
 		shuttle_master.emergency.request(null, 0.5, null, " Automatic Crew Transfer", 1)
+		shuttle_master.emergency.canRecall = FALSE
 	else
 		shuttle_master.emergency.request(null, 1, null, " Automatic Crew Transfer", 0)
+		shuttle_master.emergency.canRecall = FALSE
 	if(user)
 		log_game("[key_name(user)] has called the shuttle.")
 		message_admins("[key_name_admin(user)] has called the shuttle - [formatJumpTo(user)].", 1)

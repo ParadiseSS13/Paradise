@@ -148,11 +148,15 @@
 	flags = GLASSESCOVERSEYES
 	slot_flags = SLOT_EYES
 	materials = list(MAT_GLASS = 250)
-	var/emagged = 0
 	var/vision_flags = 0
-	var/darkness_view = 0//Base human is 2
-	var/invisa_view = 0
-	var/color_view = null//overrides client.color while worn
+	var/darkness_view = 0 //Base human is 2
+	var/invis_view = SEE_INVISIBLE_LIVING
+	var/invis_override = 0
+
+	var/emagged = 0
+	var/list/color_view = null//overrides client.color while worn
+	var/prescription = 0
+	var/prescription_upgradable = 0
 	strip_delay = 20			//	   but seperated to allow items to protect but not impair vision, like space helmets
 	put_on_delay = 25
 	burn_state = FIRE_PROOF
@@ -275,8 +279,8 @@ BLIND     // can't see anything
 	var/blockTracking // Do we block AI tracking?
 	var/HUDType = null
 	var/darkness_view = 0
+	var/helmet_goggles_invis_view = 0
 	var/vision_flags = 0
-	var/see_darkness = 1
 	var/can_toggle = null
 
 //Mask
@@ -343,6 +347,7 @@ BLIND     // can't see anything
 				src.loc = user
 				user.wear_mask = null
 				user.put_in_hands(src)
+	H.wear_mask_update(src, toggle_off = mask_adjusted)
 	usr.update_inv_wear_mask()
 	usr.update_inv_head()
 	for(var/X in actions)
@@ -707,4 +712,3 @@ BLIND     // can't see anything
 		for(var/obj/item/clothing/accessory/A in accessories)
 			A.emp_act(severity)
 	..()
-

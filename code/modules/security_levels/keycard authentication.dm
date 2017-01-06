@@ -3,7 +3,7 @@
 	desc = "This device is used to trigger station functions, which require more than one ID card to authenticate."
 	icon = 'icons/obj/monitors.dmi'
 	icon_state = "auth_off"
-	
+
 	var/active = 0 //This gets set to 1 on all devices except the one where the initial request was made.
 	var/event = ""
 	var/screen = 1
@@ -15,13 +15,13 @@
 	var/mob/event_triggered_by
 	var/mob/event_confirmed_by
 	var/ert_reason = "Reason for ERT"
-	
+
 	anchored = 1
 	use_power = 1
 	idle_power_usage = 2
 	active_power_usage = 6
 	power_channel = ENVIRON
-	
+
 	req_access = list(access_keycard_auth)
 
 /obj/machinery/keycard_auth/attack_ai(mob/user as mob)
@@ -54,7 +54,7 @@
 		icon_state = "auth_off"
 	else
 		stat |= NOPOWER
-		
+
 /obj/machinery/keycard_auth/attack_ghost(mob/user)
 	ui_interact(user)
 
@@ -70,25 +70,26 @@
 
 	user.set_machine(src)
 
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "keycard_auth.tmpl", "Keycard Authentication Device UI", 540, 320)
+		ui.open()
+
+/obj/machinery/keycard_auth/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/data[0]
 	data["screen"] = screen
 	data["event"] = event
 	data["ertreason"] = ert_reason
-
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if(!ui)
-		ui = new(user, src, ui_key, "keycard_auth.tmpl", "Keycard Authentication Device UI", 540, 320)
-		ui.set_initial_data(data)
-		ui.open()
+	return data
 
 /obj/machinery/keycard_auth/Topic(href, href_list)
 	if(..())
 		return 1
-		
+
 	if(busy)
 		to_chat(usr, "This device is busy.")
 		return
-		
+
 	if(href_list["triggerevent"])
 		event = href_list["triggerevent"]
 		screen = 2

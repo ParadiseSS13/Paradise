@@ -1,16 +1,3 @@
-/obj/item/clothing/glasses
-	name = "glasses"
-	icon = 'icons/obj/clothing/glasses.dmi'
-	//w_class = 2
-	//flags = GLASSESCOVERSEYES
-	//slot_flags = SLOT_EYES
-	//var/vision_flags = 0
-	//var/darkness_view = 0//Base human is 2
-	//var/invisa_view = 0
-	var/prescription = 0
-	var/prescription_upgradable = 0
-	var/see_darkness = 1
-
 /obj/item/clothing/glasses/New()
 	. = ..()
 	if(prescription_upgradable && prescription)
@@ -50,8 +37,8 @@
 	item_state = "glasses"
 	origin_tech = "magnets=2;engineering=2"
 	vision_flags = SEE_TURFS
+	invis_view = SEE_INVISIBLE_MINIMUM //don't render darkness while wearing these
 	prescription_upgradable = 1
-	see_darkness = 0 //don't render darkness while wearing mesons
 	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi',
@@ -113,7 +100,7 @@
 	icon_state = "nvpurple"
 	item_state = "glasses"
 	darkness_view = 8
-	see_darkness = 0
+	invis_view = SEE_INVISIBLE_MINIMUM //don't render darkness while wearing these
 
 /obj/item/clothing/glasses/janitor
 	name = "Janitorial Goggles"
@@ -132,7 +119,7 @@
 	item_state = "glasses"
 	origin_tech = "magnets=2"
 	darkness_view = 8
-	see_darkness = 0
+	invis_view = SEE_INVISIBLE_MINIMUM //don't render darkness while wearing these
 	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi',
@@ -256,26 +243,35 @@
 		return 1
 
 /obj/item/clothing/glasses/sunglasses/noir/proc/toggle_noir()
+	var/list/difference = difflist(usr.client.color, color_view)
+
 	if(!noir_mode)
-		if(color_view && usr.client && !usr.client.color)
+		if(color_view && usr.client && (!usr.client.color || difference))
 			animate(usr.client, color = color_view, time = 10)
 			noir_mode = 1
 	else
-		if(usr.client && usr.client.color)
-			animate(usr.client, color = null, time = 10)
+		if(usr.client && usr.client.color && !difference)
+			animate(usr.client, color = initial(usr.client.color), time = 10)
 			noir_mode = 0
 
 /obj/item/clothing/glasses/sunglasses/noir/equipped(mob/user, slot)
+	var/list/difference = difflist(user.client.color, color_view)
+
 	if(slot == slot_glasses)
 		if(noir_mode)
-			if(color_view && user.client && !user.client.color)
+			if(color_view && user.client && (!user.client.color || difference.len))
 				animate(user.client, color = color_view, time = 10)
+	else
+		if(user.client && user.client.color && !difference.len)
+			animate(user.client, color = initial(user.client.color), time = 10)
 	..(user, slot)
 
 /obj/item/clothing/glasses/sunglasses/noir/dropped(mob/living/carbon/human/user)
+	var/list/difference = difflist(user.client.color, color_view)
+
 	if(istype(user) && user.glasses == src)
-		if(user.client && user.client.color)
-			animate(user.client, color = null, time = 10)
+		if(user.client && user.client.color && !difference.len)
+			animate(user.client, color = initial(user.client.color), time = 10)
 	..(user)
 
 /obj/item/clothing/glasses/sunglasses/yeah
@@ -360,7 +356,9 @@
 		to_chat(usr, "You push the [src] up out of your face.")
 		flash_protect = 0
 		tint = 0
-	usr.update_inv_glasses()
+	var/mob/living/carbon/user = usr
+	user.update_inv_glasses()
+	user.update_tint()
 
 	for(var/X in actions)
 		var/datum/action/A = X
@@ -399,7 +397,6 @@
 	item_state = "glasses"
 	origin_tech = "magnets=3"
 	vision_flags = SEE_MOBS
-	invisa_view = 2
 	flash_protect = -1
 	species_fit = list("Vox")
 	sprite_sheets = list(

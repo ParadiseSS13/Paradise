@@ -113,6 +113,16 @@
 	repeat = 0
 
 /datum/song/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
+	if(!instrumentObj)
+		return
+
+	ui = nanomanager.try_update_ui(user, instrumentObj, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, instrumentObj, ui_key, "song.tmpl", instrumentObj.name, 700, 500)
+		ui.open()
+		ui.set_auto_update(1)
+
+/datum/song/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/data[0]
 
 	data["lines"] = lines
@@ -125,15 +135,7 @@
 	data["minTempo"] = world.tick_lag
 	data["maxTempo"] = 600
 
-	if(!instrumentObj)
-		return
-
-	ui = nanomanager.try_update_ui(user, instrumentObj, ui_key, ui, data, force_open)
-	if(!ui)
-		ui = new(user, instrumentObj, ui_key, "song.tmpl", instrumentObj.name, 700, 500)
-		ui.set_initial_data(data)
-		ui.open()
-		ui.set_auto_update(1)
+	return data
 
 /datum/song/Topic(href, href_list)
 	if(!in_range(instrumentObj, usr) || (issilicon(usr) && instrumentObj.loc != usr) || !isliving(usr) || !usr.canmove || usr.restrained())
@@ -293,6 +295,9 @@
 		return
 
 	song.ui_interact(user, ui_key, ui, force_open)
+
+/obj/structure/piano/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+	return song.ui_data(user, ui_key, state)
 
 /obj/structure/piano/Topic(href, href_list)
 	song.Topic(href, href_list)

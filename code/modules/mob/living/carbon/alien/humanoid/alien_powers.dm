@@ -125,6 +125,7 @@ Doesn't work on other aliens/AI.*/
 		A.xo = U.x - T.x
 		A.fire()
 		A.newtonian_move(get_dir(U, T))
+		newtonian_move(get_dir(U, T))
 	return
 
 /mob/living/carbon/alien/humanoid/proc/resin() // -- TLE

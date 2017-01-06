@@ -205,7 +205,7 @@
 	clonemind = locate(R.mind)
 	if(!istype(clonemind))	//not a mind
 		return 0
-	if( clonemind.current && clonemind.current.stat != DEAD )	//mind is associated with a non-dead body
+	if(clonemind.current && clonemind.current.stat != DEAD)	//mind is associated with a non-dead body
 		return 0
 	if(clonemind.active)	//somebody is using that mind
 		if(ckey(clonemind.key) != R.ckey)
@@ -229,12 +229,21 @@
 	spawn(30)
 		eject_wait = 0
 
+	if(!R.dna)
+		R.dna = new /datum/dna()
+
 	var/mob/living/carbon/human/H = new /mob/living/carbon/human(src, R.dna.species)
 	occupant = H
 
 	if(!R.dna.real_name)	//to prevent null names
-		R.dna.real_name = "clone ([rand(0,999)])"
-	H.real_name = R.dna.real_name
+		R.dna.real_name = H.real_name
+	else
+		H.real_name = R.dna.real_name
+
+	H.dna = R.dna.Clone()
+
+	for(var/datum/language/L in R.languages)
+		H.add_language(L.name)
 
 	//Get the clone body ready
 	H.adjustCloneLoss(190) //new damage var so you can't eject a clone early then stab them to abuse the current damage system --NeoFite
@@ -247,6 +256,7 @@
 	if(grab_ghost_when == CLONER_FRESH_CLONE)
 		clonemind.transfer_to(H)
 		H.ckey = R.ckey
+		update_clone_antag(H) //Since the body's got the mind, update their antag stuff right now. Otherwise, wait until they get kicked out (as per the CLONER_MATURE_CLONE business) to do it.
 		to_chat(H, {"<span class='notice'><b>Consciousness slowly creeps over you
 			as your body regenerates.</b><br><i>So this is what cloning
 			feels like?</i></span>"})
@@ -255,50 +265,22 @@
 			beginning to regenerate in a cloning pod. You will
 			become conscious when it is complete.</span>"})
 
-	// -- Mode/mind specific stuff goes here
-	callHook("clone", list(H))
+	domutcheck(H, null, MUTCHK_FORCED) //Ensures species that get powers by the species proc handle_dna keep them
 
-	if((H.mind in ticker.mode:revolutionaries) || (H.mind in ticker.mode:head_revolutionaries))
-		ticker.mode.update_rev_icons_added() //So the icon actually appears
-	if(H.mind in ticker.mode.syndicates)
-		ticker.mode.update_synd_icons_added()
-	if(H.mind in ticker.mode.cult)
-		ticker.mode.add_cult_viewpoint(H)
-		ticker.mode.add_cultist(occupant.mind)
-		ticker.mode.update_cult_icons_added() //So the icon actually appears
-	if(("\ref[H.mind]" in ticker.mode.implanter) || (H.mind in ticker.mode.implanted))
-		ticker.mode.update_traitor_icons_added(H.mind) //So the icon actually appears
-	if(("\ref[H.mind]" in ticker.mode.vampire_thralls) || (H.mind in ticker.mode.vampire_enthralled))
-		ticker.mode.update_vampire_icons_added(H.mind)
- 	if(("\ref[H.mind]" in ticker.mode.shadowling_thralls) || (H.mind in ticker.mode.shadows))
- 		ticker.mode.update_shadow_icons_added(H.mind)
-
-	// -- End mode specific stuff
-
-	if(!R.dna)
-		H.dna = new /datum/dna()
-		H.dna.real_name = H.real_name
-		H.dna.ready_dna(H)
-	else
-		H.dna = R.dna.Clone()
 	if(efficiency > 2 && efficiency < 5 && prob(25))
 		randmutb(H)
 	if(efficiency > 5 && prob(20))
 		randmutg(H)
 	if(efficiency < 3 && prob(50))
 		randmutb(H)
+
 	H.dna.UpdateSE()
 	H.dna.UpdateUI()
 
-	H.set_species(R.dna.species)
 	H.sync_organ_dna(1) // It's literally a fresh body as you can get, so all organs properly belong to it
 	H.UpdateAppearance()
 
-	H.update_body()
 	update_icon()
-
-	for(var/datum/language/L in R.languages)
-		H.add_language(L.name)
 
 	H.suiciding = 0
 	attempting = 0
@@ -420,6 +402,27 @@
 	locked = 0
 	go_out()
 
+/obj/machinery/clonepod/proc/update_clone_antag(var/mob/living/carbon/human/H)
+	// Check to see if the clone's mind is an antagonist of any kind and handle them accordingly to make sure they get their spells, HUD/whatever else back.
+	callHook("clone", list(H))
+	if((H.mind in ticker.mode:revolutionaries) || (H.mind in ticker.mode:head_revolutionaries))
+		ticker.mode.update_rev_icons_added() //So the icon actually appears
+	if(H.mind in ticker.mode.syndicates)
+		ticker.mode.update_synd_icons_added()
+	if(H.mind in ticker.mode.cult)
+		ticker.mode.add_cultist(occupant.mind)
+		ticker.mode.update_cult_icons_added() //So the icon actually appears
+	if((H.mind in ticker.mode.implanter) || (H.mind in ticker.mode.implanted))
+		ticker.mode.update_traitor_icons_added(H.mind) //So the icon actually appears
+	if(H.mind.vampire)
+		H.mind.vampire.update_owner(H)
+	if((H.mind in ticker.mode.vampire_thralls) || (H.mind in ticker.mode.vampire_enthralled))
+		ticker.mode.update_vampire_icons_added(H.mind)
+	if(H.mind in ticker.mode.changelings)
+		ticker.mode.update_change_icons_added(H.mind)
+ 	if((H.mind in ticker.mode.shadowling_thralls) || (H.mind in ticker.mode.shadows))
+ 		ticker.mode.update_shadow_icons_added(H.mind)
+
 //Put messages in the connected computer's temp var for display.
 /obj/machinery/clonepod/proc/connected_message(message)
 	if((isnull(connected)) || (!istype(connected, /obj/machinery/computer/cloning)))
@@ -461,6 +464,7 @@
 	if(grab_ghost_when == CLONER_MATURE_CLONE)
 		clonemind.transfer_to(occupant)
 		occupant.grab_ghost()
+		update_clone_antag(occupant)
 		to_chat(occupant, "<span class='notice'><b>There is a bright flash!</b><br>\
 			<i>You feel like a new being.</i></span>")
 		occupant.flash_eyes(visual = 1)

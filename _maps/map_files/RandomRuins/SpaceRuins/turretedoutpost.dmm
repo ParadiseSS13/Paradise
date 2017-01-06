@@ -20,7 +20,7 @@
 "t" = (/obj/item/weapon/rack_parts,/obj/machinery/light{dir = 1},/turf/simulated/floor/plasteel{icon_state = "vault"; dir = 8},/area/ruin/unpowered)
 "u" = (/obj/machinery/door/airlock/glass,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
 "v" = (/obj/machinery/door/airlock,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
-"w" = (/obj/machinery/power/apc{dir = 2; name = "Outpost APC"; keep_preset_name = 1; pixel_y = -24},/turf/simulated/floor/plasteel,/area/ruin/unpowered)
+"w" = (/obj/machinery/power/apc/noalarm{dir = 2; name = "Outpost APC"; keep_preset_name = 1; pixel_y = -24},/turf/simulated/floor/plasteel,/area/ruin/unpowered)
 "x" = (/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/unpowered)
 "y" = (/obj/structure/dispenser/oxygen,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/unpowered)
 "z" = (/obj/structure/table/reinforced,/obj/item/clothing/head/ushanka,/turf/simulated/floor/plasteel{dir = 4; icon_state = "darkredfull"},/area/ruin/unpowered)

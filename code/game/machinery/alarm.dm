@@ -696,8 +696,14 @@
 	data["danger"] = danger
 	return data
 
-/obj/machinery/alarm/proc/get_nano_data(mob/user, href_list)
+/obj/machinery/alarm/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/data[0]
+	var/list/href_list = state.href_list()
+
+	if(href_list)
+		data["remote_connection"] = href_list["remote_connection"]
+		data["remote_access"] = href_list["remote_access"]
+
 	data["name"] = sanitize(name)
 	data["air"] = ui_air_status()
 	data["alarmActivated"] = alarmActivated || danger_level == 2
@@ -807,22 +813,9 @@
 	return thresholds
 
 /obj/machinery/alarm/ui_interact(mob/user, ui_key = "main", datum/nanoui/ui = null, force_open = 1, var/master_ui = null, var/datum/topic_state/state = default_state)
-	var/list/href = state.href_list(user)
-	var/remote_connection = 0
-	var/remote_access = 0
-	if(href)
-		remote_connection = href["remote_connection"]	// Remote connection means we're non-adjacent/connecting from another computer
-		remote_access = href["remote_access"]			// Remote access means we also have the privilege to alter the air alarm.
-
-	var/list/data = get_nano_data(user, href)
-
-	data["remote_connection"] = remote_connection
-	data["remote_access"] = remote_access
-
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "air_alarm.tmpl", name, 570, 410, state = state)
-		ui.set_initial_data(data)
 		ui.open()
 		ui.set_auto_update(1)
 
@@ -835,7 +828,7 @@
 		return !locked
 
 /obj/machinery/alarm/proc/is_locked(mob/user as mob, href_list)
-	if(isobserver(user) && check_rights(R_ADMIN, 0, user))
+	if(user.can_admin_interact())
 		return 0
 	else if(is_auth_rcon(href_list))
 		return 0

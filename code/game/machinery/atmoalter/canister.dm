@@ -88,8 +88,8 @@ var/datum/canister_icons/canister_icon_container = new()
 		"quart" = "none")
 		oldcolor = new /list()
 		decals = list("cold" = 0, "hot" = 0, "plasma" = 0)
-		colorcontainer = new /list(4)
-		possibledecals = new /list(3)
+		colorcontainer = list()
+		possibledecals = list()
 		update_icon()
 
 /obj/machinery/portable_atmospherics/canister/proc/init_data_vars()
@@ -123,7 +123,7 @@ var/datum/canister_icons/canister_icon_container = new()
 			L.Add(list("anycolor" = 1))
 		colorcontainer[C] = L
 
-	possibledecals = new /list(3)
+	possibledecals = list()
 
 	var/i
 	var/list/L = canister_icon_container.possibledecals
@@ -131,7 +131,7 @@ var/datum/canister_icons/canister_icon_container = new()
 		var/list/LL = L[i]
 		LL = LL.Copy() //make sure we don't edit the datum list
 		LL.Add(list("active" = decals[LL["icon"]])) //"active" used by nanoUI
-		possibledecals[i] = LL
+		possibledecals.Add(LL)
 
 /obj/machinery/portable_atmospherics/canister/proc/check_change()
 	var/old_flag = update_flag
@@ -181,6 +181,7 @@ update_flag
 	if(src.destroyed)
 		src.overlays = 0
 		src.icon_state = text("[]-1", src.canister_color["prim"])//yes, I KNOW the colours don't reflect when the can's borked, whatever.
+		return
 
 	if(icon_state != src.canister_color["prim"])
 		icon_state = src.canister_color["prim"]
@@ -382,10 +383,23 @@ update_flag
 /obj/machinery/portable_atmospherics/canister/attack_hand(var/mob/user as mob)
 	return src.ui_interact(user)
 
-/obj/machinery/portable_atmospherics/canister/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
+/obj/machinery/portable_atmospherics/canister/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/topic_state/state = physical_state)
 	if(src.destroyed)
 		return
 
+	// update the ui if it exists, returns null if no ui is passed/found
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		// the ui does not exist, so we'll create a new() one
+        // for a list of parameters and their descriptions see the code docs in \code\modules\nano\nanoui.dm
+		ui = new(user, src, ui_key, "canister.tmpl", "Canister", 480, 400, state = state)
+		// open the new ui window
+		ui.open()
+		// auto update every Master Controller tick
+		ui.set_auto_update(1)
+
+
+/obj/machinery/portable_atmospherics/canister/ui_data(mob/user, datum/topic_state/state)
 	init_data_vars() //set up var/colorcontainer and var/possibledecals
 
 	// this is the data which will be sent to the ui
@@ -394,8 +408,10 @@ update_flag
 	data["menu"] = menu ? 1 : 0
 	data["canLabel"] = can_label ? 1 : 0
 	data["canister_color"] = canister_color
-	data["colorContainer"] = colorcontainer
-	data["possibleDecals"] = possibledecals
+	data["colorContainer"] = colorcontainer.Copy()
+	colorcontainer.Cut()
+	data["possibleDecals"] = possibledecals.Copy()
+	possibledecals.Cut()
 	data["portConnected"] = connected_port ? 1 : 0
 	data["tankPressure"] = round(air_contents.return_pressure() ? air_contents.return_pressure() : 0)
 	data["releasePressure"] = round(release_pressure ? release_pressure : 0)
@@ -407,22 +423,7 @@ update_flag
 	if(holding)
 		data["holdingTank"] = list("name" = holding.name, "tankPressure" = round(holding.air_contents.return_pressure()))
 
-	// update the ui if it exists, returns null if no ui is passed/found
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if(!ui)
-		// the ui does not exist, so we'll create a new() one
-        // for a list of parameters and their descriptions see the code docs in \code\modules\nano\nanoui.dm
-		ui = new(user, src, ui_key, "canister.tmpl", "Canister", 480, 400, state = physical_state)
-		// when the ui is first opened this is the data it will use
-		ui.set_initial_data(data)
-		// open the new ui window
-		ui.open()
-		// auto update every Master Controller tick
-		ui.set_auto_update(1)
-
-	//Disregard these, avoid cluttering up the VV window
-	colorcontainer = new /list(4)
-	possibledecals = new /list(3)
+	return data
 
 /obj/machinery/portable_atmospherics/canister/Topic(href, href_list)
 	if(..())

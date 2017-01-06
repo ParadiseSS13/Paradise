@@ -7,18 +7,26 @@
 	var/last_fire = 0
 	var/reload_cooldown = 180 // 3 minute cooldown
 	var/area/targetarea
-	
+
 	light_color = LIGHT_COLOR_LIGHTBLUE
 
 /obj/machinery/computer/artillerycontrol/attack_ai(user as mob)
 	to_chat(user, "<span class='warning'>Access denied.</span>")
 	return
-	
+
 /obj/machinery/computer/artillerycontrol/attack_hand(user as mob)
 	ui_interact(user)
-	
+
 /obj/machinery/computer/artillerycontrol/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "bluespace_artillery.tmpl", "Bluespace Control", 400, 260)
+		ui.open()
+		ui.set_auto_update(1)
+
+/obj/machinery/computer/artillerycontrol/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/data[0]
+
 	var/time_to_wait = round(reload_cooldown - ((world.time / 10) - last_fire), 1)
 	var/mins = round(time_to_wait / 60)
 	var/seconds = time_to_wait - (60*mins)
@@ -30,32 +38,26 @@
 	else
 		data["target"] = "No Lock"
 
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
+	return data
 
-	if(!ui)
-		ui = new(user, src, ui_key, "bluespace_artillery.tmpl", "Bluespace Control", 400, 260)
-		ui.set_initial_data(data)
-		ui.open()
-		ui.set_auto_update(1)
-		
 /obj/machinery/computer/artillerycontrol/Topic(href, href_list)
 	if(..())
 		return 1
-		
-	if(href_list["area"])	
+
+	if(href_list["area"])
 		var/A
 		A = input("Select the target area.", "Select Area", A) in ghostteleportlocs|null
 		var/area/thearea = ghostteleportlocs[A]
 		if(..() || !istype(thearea))
 			return
-			
+
 		targetarea = thearea
-		
+
 	if(href_list["fire"])
 		var/delta = (world.time / 10) - last_fire
 		if(reload_cooldown > delta)
 			return 1
-			
+
 		command_announcement.Announce("Bluespace artillery fire detected. Brace for impact.")
 		message_admins("[key_name_admin(usr)] has launched an artillery strike.", 1)
 		var/list/L = list()
@@ -64,7 +66,7 @@
 		var/loc = pick(L)
 		explosion(loc,2,5,11)
 		last_fire = world.time / 10
-		
+
 	nanomanager.update_uis(src)
 
 /obj/structure/artilleryplaceholder

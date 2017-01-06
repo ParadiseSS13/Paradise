@@ -1,0 +1,91 @@
+<div class="item">
+	<div class="itemLabel">
+		<table>
+			<tr>
+				<td>
+					Connection Status:
+				</td>
+				{{if data.connected}}
+					<td>
+						<span class="good">Connected</span>
+					</td>
+					<td>
+						{{:helper.link('Disconnect', 'sign-out', {'choice': 'Disconnect'})}}
+					</td>
+				{{else}}
+					<td>
+						<span class="bad">No Connection</span>
+					</td>
+					<td>
+						{{:helper.link('Connect', 'sign-in', {'choice': 'Reconnect'})}}
+					</td>
+				{{/if}}
+			</tr>
+		</table>
+	</div>
+</div>
+<hr>
+<div class="itemLabel">My Collection:</div>
+{{if data.no_collection}}
+	<div class="statusDisplayRecords">
+		<div class="item">
+			<span class="average">Your collection is empty! Go capture some Nano-Mobs!</span>
+		</div>
+	</div>
+	<br>
+	Wild mobs captured: {{:data.wild_captures}}
+{{else}}
+	<div class="statusDisplayRecords">
+		<div class="item">
+			<div class="itemContent" style="width: 100%;">
+				{{if data.entry}}
+					{{if data.entry.nickname}}
+						<span class="good">Name: </span> <span class="average"> {{:data.entry.nickname}}</span><br>
+					{{/if}}
+					<span class="good">Species: </span> <span class="average">{{:data.entry.real_name}} </span><br>
+					<span class="good">Level: </span>  <span class="average">{{:data.entry.level}} </span><br>
+					<span class="good">Primary Type: </span>  <span class="average">{{:data.entry.type1}} </span><br>
+					{{if data.entry.type2}}
+						<span class="good">Secondary Type: </span>  <span class="average">{{:data.entry.type2}} </span><br>
+					{{/if}}
+					{{if data.entry.sprite}}
+						<img src='{{:data.entry.sprite}}'>
+					{{else}}
+						<span class="bad">Mob Image Missing!</span>
+					{{/if}}
+				{{else}}
+					<span class="bad">
+						Mob Data Missing!<br><br>
+					</span>
+				{{/if}}
+			</div>
+		</div>
+	</div>
+	<br>
+	Wild mobs captured: {{:data.wild_captures}}
+	<div class="item">
+		<table>
+			<tr>
+				<td>
+					{{:helper.link('Previous Mob', 'arrow-left', {'choice': 'Prev'})}}
+				</td>
+				<td>
+					{{:helper.link('Transfer Mob', 'exchange', {'choice': 'Transfer'})}}
+				</td>
+				<td>
+					{{:helper.link('Rename Mob', 'pencil', {'choice': 'Rename'})}}
+				</td>
+				<td>
+					{{:helper.link('Release Mob', 'tree', {'choice': 'Release'})}}
+				</td>
+				<td>
+					{{:helper.link('Next Mob', 'arrow-right', {'choice': 'Next'})}}
+				</td>
+			</tr>
+		</table>
+		{{if data.entry.is_hacked}}
+			<br>
+			{{:helper.link('Set Trap', 'bolt', {'choice': 'Set_Trap'})}}
+		{{/if}}
+	</div>
+{{/if}}

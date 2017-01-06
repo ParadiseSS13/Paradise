@@ -130,7 +130,15 @@
 	if(user.stat || user.restrained())
 		return
 
+	// update the ui if it exists, returns null if no ui is passed/found
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui)
+	if(!ui)
+		ui = new(user, src, ui_key, "chem_heater.tmpl", "ChemHeater", 350, 270)
+		ui.open()
+
+/obj/machinery/chem_heater/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/data[0]
+
 	data["targetTemp"] = desired_temp
 	data["isActive"] = on
 	data["isBeakerLoaded"] = beaker ? 1 : 0
@@ -140,15 +148,10 @@
 	data["beakerMaxVolume"] = beaker ? beaker.volume : null
 
 	//copy-pasted from chem dispenser
-	var beakerContents[0]
+	var/beakerContents[0]
 	if(beaker)
 		for(var/datum/reagent/R in beaker.reagents.reagent_list)
 			beakerContents.Add(list(list("name" = R.name, "volume" = R.volume))) // list in a list because Byond merges the first list...
 	data["beakerContents"] = beakerContents
 
-	// update the ui if it exists, returns null if no ui is passed/found
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data)
-	if(!ui)
-		ui = new(user, src, ui_key, "chem_heater.tmpl", "ChemHeater", 350, 270)
-		ui.set_initial_data(data)
-		ui.open()
+	return data

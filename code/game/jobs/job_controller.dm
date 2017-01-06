@@ -123,6 +123,9 @@ var/global/datum/controller/occupations/job_master
 			if(job.admin_only) // No admin positions either.
 				continue
 
+			if(job.available_in_playtime(player.client))
+				continue
+
 			if(jobban_isbanned(player, job.title))
 				Debug("GRJ isbanned failed, Player: [player], Job: [job.title]")
 				continue

@@ -201,3 +201,12 @@ I use this to standardize shadowling dethrall code
 		return null
 	var/obj/item/organ/internal/O = get_int_organ(organ_name)
 	return O.parent_organ
+
+/mob/living/carbon/human/has_organic_damage()
+	var/odmg = 0
+	for(var/obj/item/organ/external/O in organs)
+		if(O.status & ORGAN_ROBOT)
+			odmg += O.brute_dam
+			odmg += O.burn_dam
+	return (health < (100 - odmg))
+

@@ -91,12 +91,25 @@
 	var/datum/announcement/priority/emergency_shuttle_called = new(0, new_sound = sound('sound/AI/shuttlecalled.ogg'))
 	var/datum/announcement/priority/emergency_shuttle_recalled = new(0, new_sound = sound('sound/AI/shuttlerecalled.ogg'))
 
+	var/canRecall = TRUE //no bad condom, do not recall the crew transfer shuttle!
+
+
 /obj/docking_port/mobile/emergency/register()
 	if(!..())
 		return 0 //shuttle master not initialized
 
 	shuttle_master.emergency = src
 	return 1
+
+/obj/docking_port/mobile/emergency/Destroy(force)
+	if(force)
+		// This'll make the shuttle subsystem use the backup shuttle.
+		if(shuttle_master.emergency == src)
+			// If we're the selected emergency shuttle
+			shuttle_master.emergencyDeregister()
+
+
+	return ..()
 
 /obj/docking_port/mobile/emergency/timeLeft(divisor)
 	if(divisor <= 0)
@@ -138,6 +151,9 @@
 	emergency_shuttle_called.Announce("The emergency shuttle has been called. [redAlert ? "Red Alert state confirmed: Dispatching priority shuttle. " : "" ]It will arrive in [timeLeft(600)] minutes.[reason][shuttle_master.emergencyLastCallLoc ? "\n\nCall signal traced. Results can be viewed on any communications console." : "" ]")
 
 /obj/docking_port/mobile/emergency/cancel(area/signalOrigin)
+	if(!canRecall)
+		return
+
 	if(mode != SHUTTLE_CALL)
 		return
 
@@ -286,3 +302,19 @@
 	var/list/turfs = get_area_turfs(target_area)
 	var/turf/T = pick(turfs)
 	src.loc = T
+
+/obj/docking_port/mobile/emergency/backup
+	name = "backup shuttle"
+	id = "backup"
+	dwidth = 2
+	width = 8
+	height = 8
+	dir = 4
+
+	roundstart_move = "backup_away"
+
+/obj/docking_port/mobile/emergency/backup/register()
+	var/current_emergency = shuttle_master.emergency
+	..()
+	shuttle_master.emergency = current_emergency
+	shuttle_master.backup_shuttle = src

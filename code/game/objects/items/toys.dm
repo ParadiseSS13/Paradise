@@ -281,6 +281,22 @@
 			to_chat(M, "<span class='danger'>You step on the snap pop!</span>")
 			pop_burst(2, 0)
 
+/obj/item/toy/snappop/phoenix
+	name = "phoenix snap pop"
+	desc = "Wow! And wow! And wow!"
+	ash_type = /obj/effect/decal/cleanable/ash/snappop_phoenix
+
+/obj/effect/decal/cleanable/ash/snappop_phoenix
+	var/respawn_time = 300
+
+/obj/effect/decal/cleanable/ash/snappop_phoenix/New()
+	. = ..()
+	addtimer(src, "respawn", respawn_time)
+
+/obj/effect/decal/cleanable/ash/snappop_phoenix/proc/respawn()
+	new /obj/item/toy/snappop/phoenix(get_turf(src))
+	qdel(src)
+
 
 /*
  * Mech prizes

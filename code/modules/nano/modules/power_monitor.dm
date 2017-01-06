@@ -12,6 +12,13 @@
 		powermonitor = nano_host()
 
 /datum/nano_module/power_monitor/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/topic_state/state = default_state)
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "power_monitor.tmpl", "Power Monitoring Console", 800, 700, state = state)
+		ui.open()
+		ui.set_auto_update(1)
+
+/datum/nano_module/power_monitor/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/data[0]
 
 	data["powermonitor"] = powermonitor
@@ -28,12 +35,7 @@
 		data["powerdemand"] = powermonitor.powernet.load
 		data["apcs"] = apc_repository.apc_data(powermonitor)
 
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if(!ui)
-		ui = new(user, src, ui_key, "power_monitor.tmpl", "Power Monitoring Console", 800, 700, state = state)
-		ui.set_initial_data(data)
-		ui.open()
-		ui.set_auto_update(1)
+	return data
 
 /datum/nano_module/power_monitor/Topic(href, href_list)
 	if(..())

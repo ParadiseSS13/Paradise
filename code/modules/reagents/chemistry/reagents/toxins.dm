@@ -913,11 +913,9 @@
 
 /datum/reagent/atrazine/reaction_turf(turf/simulated/wall/W, volume) // Clear off wallrot fungi
 	if(istype(W) && W.rotting)
+		for(var/obj/effect/overlay/wall_rot/WR in W)
+			qdel(WR)
 		W.rotting = 0
-		for(var/obj/effect/overlay/O in W)
-			if(O.name == "Wallrot") // This is so awful
-				qdel(O)
-
 		W.visible_message("<span class='warning'>The fungi are completely dissolved by the solution!</span>")
 
 /datum/reagent/atrazine/reaction_obj(obj/O, volume)

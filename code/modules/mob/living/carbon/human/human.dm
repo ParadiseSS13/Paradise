@@ -49,9 +49,6 @@
 		dna.real_name = real_name
 		sync_organ_dna(1)
 
-	if(species)
-		species.handle_dna(src)
-
 	UpdateAppearance()
 
 /mob/living/carbon/human/OpenCraftingMenu()
@@ -723,6 +720,17 @@
 
 	if(istype(id))
 		return id
+
+
+
+/mob/living/carbon/human/update_sight()
+	if(!client)
+		return
+	if(stat == DEAD)
+		grant_death_vision()
+		return
+
+	species.update_sight(src)
 
 //Removed the horrible safety parameter. It was only being used by ninja code anyways.
 //Now checks siemens_coefficient of the affected area by default
@@ -1594,6 +1602,7 @@
 		dna.real_name = real_name
 
 	species.handle_post_spawn(src)
+	species.handle_dna(src) //Give them whatever special dna business they got.
 
 	spawn(0)
 		overlays.Cut()
