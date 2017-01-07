@@ -473,7 +473,7 @@ var/list/teleport_runes = list()
 	if(used)
 		return
 	var/mob/living/user = invokers[1]
-	if(ticker.mode.name == "cult")
+	if(GAMEMODE_IS_CULT)
 		var/datum/game_mode/cult/cult_mode = ticker.mode
 		if(!is_station_level(user.z))
 			message_admins("[user.real_name]([user.ckey]) tried to summon an eldritch horror off station")
@@ -562,7 +562,7 @@ var/list/teleport_runes = list()
 	if(used)
 		return
 	var/mob/living/user = invokers[1]
-	if(ticker.mode.name == "cult")
+	if(GAMEMODE_IS_CULT)
 		var/datum/game_mode/cult/cult_mode = ticker.mode
 		if(!(CULT_SLAUGHTER in cult_mode.objectives))
 			message_admins("[usr.real_name]([user.ckey]) tried to summon demons when the objective was wrong")

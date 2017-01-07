@@ -195,7 +195,7 @@
 
 /obj/item/weapon/tome/proc/finale_runes_ok(mob/living/user, obj/effect/rune/rune_to_scribe)
 	var/datum/game_mode/cult/cult_mode = ticker.mode
-	if(ticker.mode.name == "cult")
+	if(GAMEMODE_IS_CULT)
 		if(!canbypass == 1)//not an admin-tome, check things
 			if(!cult_mode.narsie_condition_cleared)
 				to_chat(user, "<span class='warning'>There is still more to do before unleashing [cult_mode.cultdat.entity_name] power!</span>")
