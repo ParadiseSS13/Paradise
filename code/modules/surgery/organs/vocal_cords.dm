@@ -307,7 +307,8 @@ var/static/regex/multispin_words = regex("like a record baby")
 			var/mob/living/L = V
 			if(L.m_intent != "walk")
 				L.m_intent = "walk"
-				L.hud_used.move_intent.icon_state = "walking"
+				if(L.hud_used)
+					L.hud_used.move_intent.icon_state = "walking"
 		next_command = world.time + cooldown_meme
 
 	//RUN
@@ -316,7 +317,8 @@ var/static/regex/multispin_words = regex("like a record baby")
 			var/mob/living/L = V
 			if(L.m_intent != "run")
 				L.m_intent = "run"
-				L.hud_used.move_intent.icon_state = "running"
+				if(L.hud_used)
+					L.hud_used.move_intent.icon_state = "running"
 		next_command = world.time + cooldown_meme
 
 	//HELP INTENT
