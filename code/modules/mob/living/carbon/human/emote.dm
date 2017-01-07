@@ -221,6 +221,16 @@
 			if(!src.restrained())
 				message = "<B>[src]</B> is strumming the air and headbanging like a safari chimp."
 				m_type = 1
+				
+		if("dance")
+			if(!src.restrained())
+				message = "<B>[src]</B> dances around happily."
+				m_type = 1
+				
+		if("jump")
+			if(!src.restrained())
+				message = "<B>[src]</B> jumps!"
+				m_type = 1
 
 		if("blink", "blinks")
 			message = "<B>[src]</B> blinks."
@@ -841,9 +851,9 @@
 					M.reagents.add_reagent("jenkem", 1)
 
 		if("help")
-			var/emotelist = "aflap(s), airguitar, blink(s), blink(s)_r, blush(es), bow(s)-(none)/mob, burp(s), choke(s), chuckle(s), clap(s), collapse(s), cough(s),cry, cries, custom, dap(s)(none)/mob," \
-			+ " deathgasp(s), drool(s), eyebrow,fart(s), faint(s), flap(s), flip(s), frown(s), gasp(s), giggle(s), glare(s)-(none)/mob, grin(s), groan(s), grumble(s), handshake-mob, hug(s)-(none)/mob," \
-			+ " glare(s)-(none)/mob, grin(s), johnny, laugh(s), look(s)-(none)/mob, moan(s), mumble(s), nod(s), pale(s), point(s)-atom, quiver(s), raise(s), salute(s)-(none)/mob, scream(s), shake(s)," \
+			var/emotelist = "aflap(s), airguitar, blink(s), blink(s)_r, blush(es), bow(s)-(none)/mob, burp(s), choke(s), chuckle(s), clap(s), collapse(s), cough(s),cry, cries, custom, dance, dap(s)(none)/mob," \
+			+ " deathgasp(s), drool(s), eyebrow, fart(s), faint(s), flap(s), flip(s), frown(s), gasp(s), giggle(s), glare(s)-(none)/mob, grin(s), groan(s), grumble(s), grin(s)," \
+			+ " handshake-mob, hug(s)-(none)/mob, johnny, jump, laugh(s), look(s)-(none)/mob, moan(s), mumble(s), nod(s), pale(s), point(s)-atom, quiver(s), raise(s), salute(s)-(none)/mob, scream(s), shake(s)," \
 			+ " shiver(s), shrug(s), sigh(s), signal(s)-#1-10,slap(s)-(none)/mob, smile(s),snap(s), sneeze(s), sniff(s), snore(s), stare(s)-(none)/mob, swag(s), tremble(s), twitch(es), twitch(es)_s," \
 			+ " wag(s), wave(s),  whimper(s), wink(s), yawn(s)"
 			if(species.name == "Machine")

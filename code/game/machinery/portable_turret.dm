@@ -449,7 +449,7 @@ var/list/turret_icons
 			return
 
 	health -= force
-	if(force > 5 && prob(45))
+	if(force > 5 && prob(45) && spark_system)
 		spark_system.start()
 	if(health <= 0)
 		die()	//the death process :(
@@ -504,7 +504,8 @@ var/list/turret_icons
 /obj/machinery/porta_turret/proc/die()	//called when the turret dies, ie, health <= 0
 	health = 0
 	stat |= BROKEN	//enables the BROKEN bit
-	spark_system.start()	//creates some sparks because they look cool
+	if(spark_system)
+		spark_system.start()	//creates some sparks because they look cool
 	update_icon()
 
 /obj/machinery/porta_turret/process()
