@@ -28,7 +28,7 @@
 	var/mob/living/carbon/human/target = G.affecting
 	var/datum/changeling/changeling = user.mind.changeling
 
-	to_chat(user, "<span class='notice'>We tighen our grip. We must hold still....</span>")
+	to_chat(user, "<span class='notice'>We tighten our grip. We must hold still....</span>")
 	target.do_jitter_animation(500)
 	user.do_jitter_animation(500)
 
