@@ -73,7 +73,6 @@
 	status_flags = CANPUSH
 	attacktext = "nips"
 	friendly = "prods"
-	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
 	wander = 0
 	mob_size = MOB_SIZE_TINY
 	density = 0
