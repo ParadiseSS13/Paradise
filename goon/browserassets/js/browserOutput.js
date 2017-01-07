@@ -255,12 +255,8 @@ function output(message, flag) {
 	}
 
 	// Meme stuff
-	if (opts.enableTwitchify && flag != 'preventEmotes') {
-		var messageHTML = $.parseHTML(message);
-		var $message = $(messageHTML);
-		if ($message.has(".ooc").length) {
-			message = twitchify(message);
-		}
+	if (opts.enableTwitchify && flag == 'allowEmotes') {
+		message = twitchify(message);
 	}
 
 	opts.messageCount++;
