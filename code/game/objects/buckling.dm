@@ -113,3 +113,7 @@
 				"<span class='italics'>You hear metal clanking.</span>")
 		add_fingerprint(user)
 	return M
+
+/mob/living/proc/check_buckled()
+	if(buckled && !(buckled in loc))
+		buckled.unbuckle_mob(src, force=1)

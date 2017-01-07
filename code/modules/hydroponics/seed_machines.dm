@@ -166,7 +166,7 @@
 		ui.open()
 		ui.set_auto_update(1)
 
-/obj/machinery/botany/extractor/ui_data(mob/user, datum/topic_state/state = default_state)
+/obj/machinery/botany/extractor/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/data[0]
 
 	var/list/geneMasks[0]
@@ -318,7 +318,7 @@
 		ui.open()
 		ui.set_auto_update(1)
 
-/obj/machinery/botany/editor/ui_data(mob/user, datum/topic_state/state = default_state)
+/obj/machinery/botany/editor/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/data[0]
 
 	data["activity"] = active

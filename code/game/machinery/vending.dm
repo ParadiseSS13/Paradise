@@ -416,7 +416,7 @@
 		ui = new(user, src, ui_key, "vending_machine.tmpl", src.name, 440, 600)
 		ui.open()
 
-/obj/machinery/vending/ui_data(mob/user, datum/topic_state/state = default_state)
+/obj/machinery/vending/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/list/data = list()
 	if(currently_vending)
 		data["mode"] = 1

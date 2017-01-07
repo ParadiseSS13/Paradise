@@ -144,6 +144,20 @@ obj/structure/door_assembly/multi_tile/Move()
 		bound_width = world.icon_size
 		bound_height = width * world.icon_size
 
+/obj/structure/door_assembly/door_assembly_cult
+	icon = 'icons/obj/doors/Doorcult.dmi'
+	base_icon_state = "construction"
+	base_name = "engraved airlock"
+	airlock_type = "/cult"
+	glass = -1
+
+
+/obj/structure/door_assembly/door_assembly_cultruned
+	icon = 'icons/obj/doors/Doorcultruned.dmi'
+	base_icon_state = "construction"
+	base_name = "runed airlock"
+	airlock_type = "/cult/runed"
+	glass = -1
 
 
 /obj/structure/door_assembly/attackby(obj/item/W as obj, mob/user as mob, params)

@@ -150,9 +150,8 @@
 	to_chat(world, "<b>The crew's final score is:</b>")
 	to_chat(world, "<b><font size='4'>[score_crewscore]</font></b>")
 	for(var/mob/E in player_list)
-		if(E.client)
-			if(E.client.prefs && !(E.client.prefs.toggles & DISABLE_SCOREBOARD))
-				E.scorestats()
+		if(E.client && !E.get_preference(DISABLE_SCOREBOARD))
+			E.scorestats()
 
 // A recursive function to properly determine the wealthiest escapee
 /datum/controller/gameticker/proc/get_score_container_worth(atom/C, level=0)

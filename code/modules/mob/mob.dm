@@ -894,45 +894,6 @@ var/list/slot_equipment_priority = list( \
 	if(!Adjacent(usr)) return
 	show_inv(usr)
 
-//this and stop_pulling really ought to be /mob/living procs
-/mob/proc/start_pulling(atom/movable/AM)
-	if(src == AM) // Trying to pull yourself is a shortcut to stop pulling
-		stop_pulling()
-		return
-	if(!AM || !isturf(AM.loc))	//if there's no object or the object being pulled is inside something: abort!
-		return
-	if(!(AM.anchored))
-		AM.add_fingerprint(src)
-
-		// If we're pulling something then drop what we're currently pulling and pull this instead.
-		if(pulling)
-			// Are we trying to pull something we are already pulling? Then just stop here, no need to continue.
-			if(AM == pulling)
-				return
-			stop_pulling()
-
-		src.pulling = AM
-		AM.pulledby = src
-		if(pullin)
-			pullin.update_icon(src)
-		if(ismob(AM))
-			var/mob/M = AM
-			if(!iscarbon(src))
-				M.LAssailant = null
-			else
-				M.LAssailant = usr
-
-/mob/verb/stop_pulling()
-
-	set name = "Stop Pulling"
-	set category = "IC"
-
-	if(pulling)
-		pulling.pulledby = null
-		pulling = null
-		if(pullin)
-			pullin.update_icon(src)
-
 /mob/proc/can_use_hands()
 	return
 

@@ -62,7 +62,7 @@ var/list/alldepartments = list()
 		ui = new(user, src, ui_key, "faxmachine.tmpl", "Fax Machine UI", 540, 450)
 		ui.open()
 
-/obj/machinery/photocopier/faxmachine/ui_data(mob/user, datum/topic_state/state = default_state)
+/obj/machinery/photocopier/faxmachine/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/data[0]
 
 	if(scan)
