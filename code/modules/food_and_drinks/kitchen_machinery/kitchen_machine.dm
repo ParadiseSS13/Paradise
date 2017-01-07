@@ -32,8 +32,7 @@
 ********************/
 
 /obj/machinery/kitchen_machine/New()
-	reagents = new/datum/reagents(100)
-	reagents.my_atom = src
+	create_reagents(100)
 	if(!available_recipes)
 		available_recipes = new
 		acceptable_items = new
@@ -56,7 +55,7 @@
 *   Item Adding
 ********************/
 
-/obj/machinery/kitchen_machine/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
+/obj/machinery/kitchen_machine/attackby(obj/item/O, mob/user, params)
 	if(operating)
 		return
 	if(!broken && dirty < 100)
@@ -77,8 +76,8 @@
 
 	default_deconstruction_crowbar(O)
 
-	if(src.broken > 0)
-		if(src.broken == 2 && istype(O, /obj/item/weapon/screwdriver)) // If it's broken and they're using a screwdriver
+	if(broken > 0)
+		if(broken == 2 && istype(O, /obj/item/weapon/screwdriver)) // If it's broken and they're using a screwdriver
 			user.visible_message( \
 				"<span class='notice'>[user] starts to fix part of \the [src].</span>", \
 				"<span class='notice'>You start to fix part of \the [src].</span>" \
@@ -88,8 +87,8 @@
 					"<span class='notice'>[user] fixes part of \the [src].</span>", \
 					"<span class='notice'>You have fixed part of \the [src].</span>" \
 				)
-				src.broken = 1 // Fix it a bit
-		else if(src.broken == 1 && istype(O, /obj/item/weapon/wrench)) // If it's broken and they're doing the wrench
+				broken = 1 // Fix it a bit
+		else if(broken == 1 && istype(O, /obj/item/weapon/wrench)) // If it's broken and they're doing the wrench
 			user.visible_message( \
 				"<span class='notice'>[user] starts to fix part of \the [src].</span>", \
 				"<span class='notice'>You start to fix part of \the [src].</span>" \
@@ -99,14 +98,14 @@
 					"<span class='notice'>[user] fixes \the [src].</span>", \
 					"<span class='notice'>You have fixed \the [src].</span>" \
 				)
-				src.icon_state = off_icon
-				src.broken = 0 // Fix it!
-				src.dirty = 0 // just to be sure
-				src.flags = OPENCONTAINER
+				icon_state = off_icon
+				broken = 0 // Fix it!
+				dirty = 0 // just to be sure
+				flags = OPENCONTAINER
 		else
 			to_chat(user, "<span class='alert'>It's broken!</span>")
 			return 1
-	else if(src.dirty==100) // The machine is all dirty so can't be used!
+	else if(dirty==100) // The machine is all dirty so can't be used!
 		if(istype(O, /obj/item/weapon/reagent_containers/spray/cleaner) || istype(O, /obj/item/weapon/soap)) // If they're trying to clean it then let them
 			user.visible_message( \
 				"<span class='notice'>[user] starts to clean \the [src].</span>", \
@@ -117,10 +116,10 @@
 					"<span class='notice'>[user]  has cleaned \the [src].</span>", \
 					"<span class='notice'>You have cleaned \the [src].</span>" \
 				)
-				src.dirty = 0 // It's clean!
-				src.broken = 0 // just to be sure
-				src.icon_state = off_icon
-				src.flags = OPENCONTAINER
+				dirty = 0 // It's clean!
+				broken = 0 // just to be sure
+				icon_state = off_icon
+				flags = OPENCONTAINER
 		else //Otherwise bad luck!!
 			to_chat(user, "<span class='alert'>It's dirty!</span>")
 			return 1
@@ -161,12 +160,12 @@
 	else
 		to_chat(user, "<span class='alert'>You have no idea what you can cook with this [O].</span>")
 		return 1
-	src.updateUsrDialog()
+	updateUsrDialog()
 
-/obj/machinery/kitchen_machine/attack_ai(mob/user as mob)
+/obj/machinery/kitchen_machine/attack_ai(mob/user)
 	return 0
 
-/obj/machinery/kitchen_machine/attack_hand(mob/user as mob)
+/obj/machinery/kitchen_machine/attack_hand(mob/user)
 	user.set_machine(src)
 	interact(user)
 
@@ -174,15 +173,15 @@
 *   Machine Menu	*
 ********************/
 
-/obj/machinery/kitchen_machine/interact(mob/user as mob) // The microwave Menu
+/obj/machinery/kitchen_machine/interact(mob/user) // The microwave Menu
 	if(panel_open || !anchored)
 		return
 	var/dat = ""
-	if(src.broken > 0)
+	if(broken > 0)
 		dat = {"<TT>Bzzzzttttt</TT>"}
-	else if(src.operating)
-		dat = {"<TT>[pick(src.cook_verbs)] in progress!<BR>Please wait...!</TT>"}
-	else if(src.dirty==100)
+	else if(operating)
+		dat = {"<TT>[pick(cook_verbs)] in progress!<BR>Please wait...!</TT>"}
+	else if(dirty==100)
 		dat = {"<TT>This [src] is dirty!<BR>Please clean it before use!</TT>"}
 	else
 		var/list/items_counts = new
@@ -237,7 +236,7 @@
 	var/datum/browser/popup = new(user, name, name, 400, 400)
 	popup.set_content(dat)
 	popup.open(0)
-	onclose(user, "[src.name]")
+	onclose(user, "[name]")
 	return
 
 
@@ -298,14 +297,14 @@
 		byproduct = recipe.get_byproduct()
 		stop()
 		if(cooked)
-			cooked.forceMove(src.loc)
+			cooked.forceMove(loc)
 		for(var/i=1,i<efficiency,i++)
 			cooked = new cooked.type(loc)
 		if(byproduct)
 			new byproduct(loc)
 		return
 
-/obj/machinery/kitchen_machine/proc/wzhzhzh(var/seconds as num)
+/obj/machinery/kitchen_machine/proc/wzhzhzh(seconds)
 	for(var/i=1 to seconds)
 		if(stat & (NOPOWER|BROKEN))
 			return 0
@@ -323,54 +322,54 @@
 	return 0
 
 /obj/machinery/kitchen_machine/proc/start()
-	src.visible_message("<span class='notice'>\The [src] turns on.</span>", "<span class='notice'>You hear \a [src].</span>")
-	src.operating = 1
-	src.icon_state = on_icon
-	src.updateUsrDialog()
+	visible_message("<span class='notice'>\The [src] turns on.</span>", "<span class='notice'>You hear \a [src].</span>")
+	operating = 1
+	icon_state = on_icon
+	updateUsrDialog()
 
 /obj/machinery/kitchen_machine/proc/abort()
-	src.operating = 0 // Turn it off again aferwards
-	src.icon_state = off_icon
-	src.updateUsrDialog()
+	operating = 0 // Turn it off again aferwards
+	icon_state = off_icon
+	updateUsrDialog()
 
 /obj/machinery/kitchen_machine/proc/stop()
-	playsound(src.loc, 'sound/machines/ding.ogg', 50, 1)
-	src.operating = 0 // Turn it off again aferwards
-	src.icon_state = off_icon
-	src.updateUsrDialog()
+	playsound(loc, 'sound/machines/ding.ogg', 50, 1)
+	operating = 0 // Turn it off again aferwards
+	icon_state = off_icon
+	updateUsrDialog()
 
 /obj/machinery/kitchen_machine/proc/dispose()
 	for(var/obj/O in contents)
-		O.forceMove(src.loc)
-	if(src.reagents.total_volume)
-		src.dirty++
-	src.reagents.clear_reagents()
+		O.forceMove(loc)
+	if(reagents.total_volume)
+		dirty++
+	reagents.clear_reagents()
 	to_chat(usr, "<span class='notice'>You dispose of \the [src]'s contents.</span>")
-	src.updateUsrDialog()
+	updateUsrDialog()
 
 /obj/machinery/kitchen_machine/proc/muck_start()
-	playsound(src.loc, 'sound/effects/splat.ogg', 50, 1) // Play a splat sound
-	src.icon_state = dirty_icon // Make it look dirty!!
+	playsound(loc, 'sound/effects/splat.ogg', 50, 1) // Play a splat sound
+	icon_state = dirty_icon // Make it look dirty!!
 
 /obj/machinery/kitchen_machine/proc/muck_finish()
-	playsound(src.loc, 'sound/machines/ding.ogg', 50, 1)
-	src.visible_message("<span class='alert'>\The [src] gets covered in muck!</span>")
-	src.dirty = 100 // Make it dirty so it can't be used util cleaned
-	src.flags = null //So you can't add condiments
-	src.icon_state = dirty_icon // Make it look dirty too
-	src.operating = 0 // Turn it off again aferwards
-	src.updateUsrDialog()
+	playsound(loc, 'sound/machines/ding.ogg', 50, 1)
+	visible_message("<span class='alert'>\The [src] gets covered in muck!</span>")
+	dirty = 100 // Make it dirty so it can't be used util cleaned
+	flags = null //So you can't add condiments
+	icon_state = dirty_icon // Make it look dirty too
+	operating = 0 // Turn it off again aferwards
+	updateUsrDialog()
 
 /obj/machinery/kitchen_machine/proc/broke()
 	var/datum/effect/system/spark_spread/s = new
 	s.set_up(2, 1, src)
 	s.start()
-	src.icon_state = broken_icon // Make it look all busted up and shit
-	src.visible_message("<span class='alert'>The [src] breaks!</span>") //Let them know they're stupid
-	src.broken = 2 // Make it broken so it can't be used util fixed
-	src.flags = null //So you can't add condiments
-	src.operating = 0 // Turn it off again aferwards
-	src.updateUsrDialog()
+	icon_state = broken_icon // Make it look all busted up and shit
+	visible_message("<span class='alert'>The [src] breaks!</span>") //Let them know they're stupid
+	broken = 2 // Make it broken so it can't be used util fixed
+	flags = null //So you can't add condiments
+	operating = 0 // Turn it off again aferwards
+	updateUsrDialog()
 
 /obj/machinery/kitchen_machine/proc/fail()
 	var/obj/item/weapon/reagent_containers/food/snacks/badrecipe/ffuu = new(src)
@@ -382,7 +381,7 @@
 			if(id)
 				amount+=O.reagents.get_reagent_amount(id)
 		qdel(O)
-	src.reagents.clear_reagents()
+	reagents.clear_reagents()
 	ffuu.reagents.add_reagent("carbon", amount)
 	ffuu.reagents.add_reagent("????", amount/10)
 	ffuu.forceMove(get_turf(src))
@@ -392,8 +391,8 @@
 		return
 
 	usr.set_machine(src)
-	if(src.operating)
-		src.updateUsrDialog()
+	if(operating)
+		updateUsrDialog()
 		return
 
 	switch(href_list["action"])

@@ -174,6 +174,13 @@ FIRE ALARM
 	ui_interact(user)
 
 /obj/machinery/firealarm/ui_interact(mob/user, ui_key = "main", datum/nanoui/ui = null, force_open = 1, var/master_ui = null, var/datum/topic_state/state = default_state)
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "firealarm.tmpl", name, 400, 400, state = state)
+		ui.open()
+		ui.set_auto_update(1)
+
+/obj/machinery/firealarm/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/data[0]
 
 	var/area/A = get_area(src)
@@ -186,16 +193,7 @@ FIRE ALARM
 	var/minute = round(time / 60)
 
 	data["time_left"] = "[minute ? "[minute]:" : ""][add_zero(num2text(second), 2)]"
-
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if(!ui)
-		ui = new(user, src, ui_key, "firealarm.tmpl", name, 400, 400, state = state)
-		ui.set_initial_data(data)
-		ui.open()
-		ui.set_auto_update(1)
-
-
-
+	return data
 
 /obj/machinery/firealarm/Topic(href, href_list)
 	if(..())

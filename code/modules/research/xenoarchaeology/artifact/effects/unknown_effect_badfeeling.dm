@@ -37,7 +37,7 @@
 					to_chat(H, "<font color='red'>[pick(messages)]</font>")
 
 			if(prob(50))
-				H.dizziness += rand(3,5)
+				H.AdjustDizzy(rand(3,5))
 
 /datum/artifact_effect/badfeeling/DoEffectAura()
 	if(holder)
@@ -50,7 +50,7 @@
 					to_chat(H, "<font color='red' size='[num2text(rand(1,5))]'><b>[pick(drastic_messages)]</b></font>")
 
 			if(prob(10))
-				H.dizziness += rand(3,5)
+				H.AdjustDizzy(rand(3,5))
 		return 1
 
 /datum/artifact_effect/badfeeling/DoEffectPulse()
@@ -64,7 +64,7 @@
 					to_chat(H, "<font color='red'>[pick(messages)]</font>")
 
 			if(prob(50))
-				H.dizziness += rand(3,5)
+				H.AdjustDizzy(rand(3,5))
 			else if(prob(25))
-				H.dizziness += rand(5,15)
+				H.AdjustDizzy(rand(5,15))
 		return 1

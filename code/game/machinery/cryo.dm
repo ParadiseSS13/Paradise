@@ -80,10 +80,10 @@
 			beaker = null
 	return ..()
 
-/obj/machinery/atmospherics/unary/cryo_cell/MouseDrop_T(atom/movable/O as mob|obj, mob/user as mob)
+/obj/machinery/atmospherics/unary/cryo_cell/MouseDrop_T(atom/movable/O as mob|obj, mob/living/user as mob)
 	if(O.loc == user) //no you can't pull things out of your ass
 		return
-	if(user.restrained() || user.stat || user.weakened || user.stunned || user.paralysis || user.resting) //are you cuffed, dying, lying, stunned or other
+	if(user.incapacitated()) //are you cuffed, dying, lying, stunned or other
 		return
 	if(get_dist(user, src) > 1 || get_dist(user, O) > 1 || user.contents.Find(src)) // is the mob anchored, too far away from you, or are you too far away from the source
 		return
@@ -122,7 +122,7 @@
 	..()
 	if(autoeject)
 		if(occupant)
-			if(occupant.health >= 100)
+			if(!occupant.has_organic_damage())
 				on = 0
 				go_out()
 				playsound(src.loc, 'sound/machines/ding.ogg', 50, 1)
@@ -179,7 +179,18 @@
   * @return nothing
   */
 /obj/machinery/atmospherics/unary/cryo_cell/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	// this is the data which will be sent to the ui
+	// update the ui if it exists, returns null if no ui is passed/found
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		// the ui does not exist, so we'll create a new() one
+        // for a list of parameters and their descriptions see the code docs in \code\modules\nano\nanoui.dm
+		ui = new(user, src, ui_key, "cryo.tmpl", "Cryo Cell Control System", 520, 420)
+		// open the new ui window
+		ui.open()
+		// auto update every Master Controller tick
+		ui.set_auto_update(1)
+
+/obj/machinery/atmospherics/unary/cryo_cell/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/data[0]
 	data["isOperating"] = on
 	data["hasOccupant"] = occupant ? 1 : 0
@@ -206,13 +217,6 @@
 		data["cellTemperatureStatus"] = "average"
 
 	data["isBeakerLoaded"] = beaker ? 1 : 0
-	/* // Removing beaker contents list from front-end, replacing with a total remaining volume
-	var beakerContents[0]
-	if(beaker && beaker.reagents && beaker.reagents.reagent_list.len)
-		for(var/datum/reagent/R in beaker.reagents.reagent_list)
-			beakerContents.Add(list(list("name" = R.name, "volume" = R.volume))) // list in a list because Byond merges the first list...
-	data["beakerContents"] = beakerContents
-	*/
 	data["beakerLabel"] = null
 	data["beakerVolume"] = 0
 	if(beaker)
@@ -222,19 +226,7 @@
 				data["beakerVolume"] += R.volume
 
 	data["autoeject"] = autoeject
-
-	// update the ui if it exists, returns null if no ui is passed/found
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if(!ui)
-		// the ui does not exist, so we'll create a new() one
-        // for a list of parameters and their descriptions see the code docs in \code\modules\nano\nanoui.dm
-		ui = new(user, src, ui_key, "cryo.tmpl", "Cryo Cell Control System", 520, 420)
-		// when the ui is first opened this is the data it will use
-		ui.set_initial_data(data)
-		// open the new ui window
-		ui.open()
-		// auto update every Master Controller tick
-		ui.set_auto_update(1)
+	return data
 
 /obj/machinery/atmospherics/unary/cryo_cell/Topic(href, href_list)
 	if(usr == occupant)
@@ -371,7 +363,7 @@
 		occupant.bodytemperature += 2*(air_contents.temperature - occupant.bodytemperature)*current_heat_capacity/(current_heat_capacity + air_contents.heat_capacity())
 		occupant.bodytemperature = max(occupant.bodytemperature, air_contents.temperature) // this is so ugly i'm sorry for doing it i'll fix it later i promise
 		if(occupant.bodytemperature < T0C)
-			occupant.sleeping = max(5/efficiency, (1/occupant.bodytemperature)*2000/efficiency)
+			occupant.Sleeping(max(5/efficiency, (1/occupant.bodytemperature)*2000/efficiency))
 			occupant.Paralyse(max(5/efficiency, (1/occupant.bodytemperature)*3000/efficiency))
 			if(air_contents.oxygen > 2)
 				if(occupant.getOxyLoss()) occupant.adjustOxyLoss(-1)
@@ -385,8 +377,11 @@
 				var/heal_fire = occupant.getFireLoss() ? min(efficiency, 20*(efficiency**2) / occupant.getFireLoss()) : 0
 				occupant.heal_organ_damage(heal_brute,heal_fire)
 		if(beaker && next_trans == 0)
+			var/proportion = 10 * min(1/beaker.volume, 1)
+			// Yes, this means you can get more bang for your buck with a beaker of SF vs a patch
+			// But it also means a giant beaker of SF won't heal people ridiculously fast 4 cheap
+			beaker.reagents.reaction(occupant, TOUCH, proportion)
 			beaker.reagents.trans_to(occupant, 1, 10)
-			beaker.reagents.reaction(occupant)
 	next_trans++
 	if(next_trans == 10)
 		next_trans = 0
@@ -403,9 +398,6 @@
 /obj/machinery/atmospherics/unary/cryo_cell/proc/go_out()
 	if(!occupant)
 		return
-	if(occupant.client)
-		occupant.client.eye = occupant.client.mob
-		occupant.client.perspective = MOB_PERSPECTIVE
 	occupant.forceMove(get_step(loc, SOUTH))	//this doesn't account for walls or anything, but i don't forsee that being a problem.
 	if(occupant.bodytemperature < 261 && occupant.bodytemperature >= 70) //Patch by Aranclanos to stop people from taking burn damage after being ejected
 		occupant.bodytemperature = 261
@@ -428,9 +420,6 @@
 	if(!node)
 		to_chat(usr, "\red The cell is not correctly connected to its pipe network!")
 		return
-	if(M.client)
-		M.client.perspective = EYE_PERSPECTIVE
-		M.client.eye = src
 	M.stop_pulling()
 	M.forceMove(src)
 	if(M.health > -100 && (M.health < 0 || M.sleeping))
@@ -446,16 +435,17 @@
 	set name = "Eject occupant"
 	set category = "Object"
 	set src in oview(1)
+
 	if(usr == occupant)//If the user is inside the tube...
-		if(usr.stat == 2)//and he's not dead....
+		if(usr.stat == DEAD)
 			return
-		to_chat(usr, "\blue Release sequence activated. This will take two minutes.")
+		to_chat(usr, "<span class='notice'>Release sequence activated. This will take two minutes.</span>")
 		sleep(600)
 		if(!src || !usr || !occupant || (occupant != usr)) //Check if someone's released/replaced/bombed him already
 			return
 		go_out()//and release him from the eternal prison.
 	else
-		if(usr.stat != 0)
+		if(usr.incapacitated()) //are you cuffed, dying, lying, stunned or other
 			return
 		go_out()
 	add_fingerprint(usr)
@@ -465,14 +455,18 @@
 	set name = "Move Inside"
 	set category = "Object"
 	set src in oview(1)
+
 	for(var/mob/living/carbon/slime/M in range(1,usr))
 		if(M.Victim == usr)
 			to_chat(usr, "You're too busy getting your life sucked out of you.")
 			return
-	if(usr.stat != 0 || stat & (NOPOWER|BROKEN))
+
+	if(stat & (NOPOWER|BROKEN))
 		return
-	if(usr.restrained() || usr.stat || usr.weakened || usr.stunned || usr.paralysis || usr.resting) //are you cuffed, dying, lying, stunned or other
+
+	if(usr.incapacitated()) //are you cuffed, dying, lying, stunned or other
 		return
+
 	put_mob(usr)
 	return
 
@@ -486,3 +480,9 @@
 
 /datum/data/function/proc/display()
 	return
+
+/obj/machinery/atmospherics/components/unary/cryo_cell/get_remote_view_fullscreens(mob/user)
+	user.overlay_fullscreen("remote_view", /obj/screen/fullscreen/impaired, 1)
+
+/obj/machinery/atmospherics/components/unary/cryo_cell/update_remote_sight(mob/living/user)
+	return //we don't see the pipe network while inside cryo.

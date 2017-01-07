@@ -115,7 +115,7 @@
 			if(do_after(user, 50, target = H))
 				playsound(loc, "sound/weapons/bladeslice.ogg", 50, 1, -1)
 				user.visible_message("<span class='danger'>[user] abruptly stops cutting [M]'s hair and slices their throat!</span>", "<span class='danger'>You stop cutting [M]'s hair and slice their throat!</span>") //Just a little off the top.
-				H.losebreath += 10 //30 Oxy damage over time
+				H.AdjustLoseBreath(10) //30 Oxy damage over time
 				H.apply_damage(18, BRUTE, "head", sharp =1, edge =1, used_weapon = "scissors")
 				var/turf/location = get_turf(H)
 				if(istype(location, /turf/simulated))

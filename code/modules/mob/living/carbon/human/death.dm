@@ -97,8 +97,8 @@
 		emote("deathgasp") //let the world KNOW WE ARE DEAD
 
 	stat = DEAD
-	dizziness = 0
-	jitteriness = 0
+	SetDizzy(0)
+	SetJitter(0)
 	heart_attack = 0
 
 	//Handle species-specific deaths.
@@ -155,11 +155,19 @@
 
 	if(istype(H))
 		if(H.f_style)
-			H.f_style = "Shaved"
+			H.f_style = initial(H.f_style)
 		if(H.h_style)
-			H.h_style = "Bald"
+			H.h_style = initial(H.h_style)
+		if(H.ha_style)
+			H.ha_style = initial(H.ha_style)
+		if(H.alt_head)
+			H.alt_head = initial(H.alt_head)
+			H.handle_alt_icon()
+	m_styles = DEFAULT_MARKING_STYLES
 	update_fhair(0)
 	update_hair(0)
+	update_head_accessory(0)
+	update_markings(0)
 
 	mutations.Add(SKELETON)
 	mutations.Add(NOCLONE)

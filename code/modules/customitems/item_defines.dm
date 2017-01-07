@@ -14,7 +14,7 @@
 	var/used = 0
 
 /obj/item/device/fluff/tattoo_gun // Generic tattoo gun, make subtypes for different folks
-	name = "dispoable tattoo pen"
+	name = "disposable tattoo pen"
 	desc = "A cheap plastic tattoo application pen."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "tatgun"
@@ -22,7 +22,7 @@
 	throwforce = 0
 	w_class = 1
 	var/tattoo_name = "tiger stripe tattoo" // Tat name for visible messages
-	var/tattoo_icon = "Tiger Body" // body_accessory.dmi, new icons defined in sprite_accessories.dm
+	var/tattoo_icon = "Tiger-stripe Tattoo" // body_accessory.dmi, new icons defined in sprite_accessories.dm
 	var/tattoo_r = 1 // RGB values for the body markings
 	var/tattoo_g = 1
 	var/tattoo_b = 1
@@ -47,8 +47,13 @@
 		to_chat(user, "<span class= 'notice'>[target] has no skin, how do you expect to tattoo them?</span>")
 		return
 
-	if(target.m_style != "None")
+	if(target.m_styles["body"] != "None")
 		to_chat(user, "<span class= 'notice'>[target] already has body markings, any more would look silly!</span>")
+		return
+
+	var/datum/sprite_accessory/body_markings/tattoo/temp_tatt = marking_styles_list[tattoo_icon]
+	if(!(target.species.name in temp_tatt.species_allowed))
+		to_chat(user, "<span class= 'notice'>You can't think of a way to make the [tattoo_name] design work on [target == user ? "your" : "[target]'s"] body type.</span>")
 		return
 
 	if(target == user)
@@ -61,12 +66,8 @@
 		user.visible_message("<span class='notice'>[user] finishes the [tattoo_name] on [target].</span>", "<span class='notice'>You finish the [tattoo_name].</span>")
 
 	if(!used) // No exploiting do_after to tattoo multiple folks.
-		target.m_style = tattoo_icon
-		target.r_markings = tattoo_r
-		target.g_markings = tattoo_g
-		target.b_markings = tattoo_b
-
-		target.update_markings()
+		target.change_markings(tattoo_icon, "body")
+		target.change_marking_color(rgb(tattoo_r, tattoo_g, tattoo_b), "body")
 
 		playsound(src.loc, 'sound/items/Welder2.ogg', 20, 1)
 		used = 1
@@ -98,9 +99,9 @@
 	if(!used)
 		var/ink_color = input("Please select an ink color.", "Tattoo Ink Color", rgb(tattoo_r, tattoo_g, tattoo_b)) as color|null
 		if(ink_color && !(user.incapacitated() || used) )
-			tattoo_r = hex2num(copytext(ink_color, 2, 4))
-			tattoo_g = hex2num(copytext(ink_color, 4, 6))
-			tattoo_b = hex2num(copytext(ink_color, 6, 8))
+			tattoo_r = color2R(ink_color)
+			tattoo_g = color2G(ink_color)
+			tattoo_b = color2B(ink_color)
 
 			to_chat(user, "<span class='notice'>You change the color setting on the [src].</span>")
 
@@ -224,6 +225,28 @@
 		to_chat(target, "<span class='notice'>You comb your tail with the [src].</span>")
 		used = 1
 
+/obj/item/device/fluff/cardgage_helmet_kit //captain cardgage: Richard Ulery
+	name = "welding helmet modkit"
+	desc = "Some spraypaint and a stencil, perfect for painting flames onto a welding helmet!"
+	icon_state = "modkit"
+	w_class = 2
+	force = 0
+	throwforce = 0
+
+/obj/item/device/fluff/cardgage_helmet_kit/afterattack(atom/target, mob/user, proximity)
+	if(!proximity || !ishuman(user) || user.lying)
+		return
+
+	if(istype(target, /obj/item/clothing/head/welding))
+		to_chat(user, "<span class='notice'>You modify the appearance of [target].</span>")
+
+		var/obj/item/clothing/head/welding/flamedecal/P = new(get_turf(target))
+		transfer_fingerprints_to(P)
+		qdel(target)
+		qdel(src)
+		return
+	to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
+
 #define USED_MOD_HELM 1
 #define USED_MOD_SUIT 2
 
@@ -290,6 +313,11 @@
 	icon_state = "eyepro"
 	item_state = "eyepro"
 
+/obj/item/clothing/glasses/hud/security/sunglasses/fluff/voxxyhud //LP Spartan: Kaskreyarawkta
+	name = "VoxxyHUD"
+	desc = "A worn down visor from a vox raider's gear, crudely ripped from its helmet and linked into the security systems of the station. The word 'Kask' is scratched into the side."
+	icon_state = "hud-spartan"
+
 //////////// Hats ////////////
 /obj/item/clothing/head/fluff/heather_winceworth // Regens: Heather Winceworth
 	name= "Heather's rose"
@@ -335,7 +363,7 @@
 	if(ishuman(loc))
 		var/mob/living/carbon/human/H = loc
 		if(H.head == src)
-			H.slurring = max(3, H.slurring) //always slur
+			H.Slur(3) //always slur
 
 /obj/item/clothing/head/beret/fluff/linda //Epic_Charger: Linda Clark
 	name = "Green beret"
@@ -423,6 +451,11 @@
 /obj/item/clothing/head/hood/fluff/linda //Epic_Charger: Linda Clark
 	icon_state = "greenhood"
 
+/obj/item/clothing/suit/armor/shodanscoat // RazekPraxis: SHODAN
+	name = "SHODAN's Captain's Coat"
+	desc = "A black coat with gold trim and an old US Chevron printed on the back. Edgy."
+	icon_state = "shodancoat"
+
 //////////// Uniforms ////////////
 /obj/item/clothing/under/fluff/kharshai // Kharshai: Athena Castile
 	name = "Castile formal outfit"
@@ -431,6 +464,15 @@
 	icon_state = "castile_dress"
 	item_state = "castile_dress"
 	item_color = "castile_dress"
+
+/obj/item/clothing/under/fluff/elishirt // FlattestGuitar9: Eli Randolph
+	name = "casual dress shirt"
+	desc = "A soft, white dress shirt paired up with black suit pants. The set looks comfortable."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "elishirt"
+	item_state = "elishirt"
+	item_color = "elishirt"
+	displays_id = 0
 
 /obj/item/clothing/under/psysuit/fluff/isaca_sirius_1 // Xilia: Isaca Sirius
 	name = "Isaca's suit"
@@ -618,3 +660,8 @@
 	suit_adjusted = 1
 	species_fit = null
 	sprite_sheets = null
+
+/obj/item/weapon/storage/backpack/fluff/krich_back //lizardzsi: Krichahka
+	name = "Voxcaster"
+	desc = "Battered, Sol-made military radio backpack that had its speakers fried from playing Vox opera. The words 'Swift-Talon' are crudely scratched onto its side."
+	icon_state = "voxcaster_fluff"

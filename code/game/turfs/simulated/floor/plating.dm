@@ -133,6 +133,11 @@
 	name = "engraved floor"
 	icon_state = "cult"
 
+/turf/simulated/floor/engine/cult/New()
+	..()
+	if(ticker.mode)//only do this if the round is going..otherwise..fucking asteroid..
+		icon_state = ticker.mode.cultdat.cult_floor_icon_state
+
 /turf/simulated/floor/engine/cult/narsie_act()
 	return
 
@@ -220,8 +225,13 @@
 	icon_state="catwalk[dirs]"
 
 /turf/simulated/floor/plating/airless/catwalk/attackby(obj/item/C, mob/user, params)
+	if(istype(C, /obj/item/stack/rods))
+		return 1
+	else if(istype(C, /obj/item/stack/tile))
+		return 1	
+	
 	if(..())
-		return
+		return 1
 
 	if(!broken && isscrewdriver(C))
 		to_chat(user, "<span class='notice'>You unscrew the catwalk's rods.</span>")

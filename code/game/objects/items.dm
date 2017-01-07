@@ -474,10 +474,10 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 				if(!(eyes.status & ORGAN_ROBOT) || !(eyes.status & ORGAN_ASSISTED))  //robot eyes bleeding might be a bit silly
 					to_chat(M, "<span class='danger'>Your eyes start to bleed profusely!</span>")
 			if(prob(50))
-				if(M.stat != 2)
+				if(M.stat != DEAD)
 					to_chat(M, "<span class='danger'>You drop what you're holding and clutch at your eyes!</span>")
 					M.drop_item()
-				M.eye_blurry += 10
+				M.AdjustEyeBlurry(10)
 				M.Paralyse(1)
 				M.Weaken(2)
 			if(eyes.damage >= eyes.min_broken_damage)
@@ -488,7 +488,7 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 			H.UpdateDamageIcon()
 	else
 		M.take_organ_damage(7)
-	M.eye_blurry += rand(3,4)
+	M.AdjustEyeBlurry(rand(3,4))
 	return
 
 /obj/item/clean_blood()

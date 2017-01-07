@@ -66,16 +66,21 @@
 		if("main" in href_list)
 			state = STATE_DEFAULT
 		if("login" in href_list)
-			var/mob/M = usr
-			var/obj/item/I = M.get_active_hand()
+			if(!ishuman(usr))
+				to_chat(usr, "<span class='warning'>Access denied.</span>")
+				return
+			var/mob/living/carbon/human/H = usr
+			var/obj/item/I = H.get_active_hand()
 			if(I)
 				I = I.GetID()
 			if(istype(I,/obj/item/weapon/card/id) && check_access(I))
 				authenticated = 1
 				if(access_captain in I.GetAccess())
 					authenticated = 2
-					crew_announcement.announcer = GetNameAndAssignmentFromId(I)
-
+					var/obj/item/weapon/card/id = H.get_idcard(TRUE)
+					if(istype(id))
+						crew_announcement.announcer = GetNameAndAssignmentFromId(id)
+						
 		if("logout" in href_list)
 			authenticated = 0
 			crew_announcement.announcer = ""

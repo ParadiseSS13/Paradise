@@ -33,11 +33,11 @@ Bonus
 			if(3, 4)
 				to_chat(M, "<span class='warning'>[pick("You hear a ringing in your ear.", "Your ears pop.")]</span>")
 			if(5)
-				if(!(M.ear_deaf))
+				if(!(M.disabilities & DEAF))
 					to_chat(M, "<span class='userdanger'>Your ears pop and begin ringing loudly!</span>")
-					M.setEarDamage(-1,INFINITY) //Shall be enough
+					M.BecomeDeaf()
 					spawn(200)
 						if(M)
 							to_chat(M, "<span class='warning'>The ringing in your ears fades...</span>")
-							M.setEarDamage(-1,0)
+							M.CureDeaf()
 	return

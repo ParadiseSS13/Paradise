@@ -10,7 +10,7 @@
 
 //Returns an integer given a hex input
 /proc/hex2num(hex)
-	if(!( istext(hex) ))
+	if(!(istext(hex)))
 		return
 
 	var/num = 0
@@ -58,6 +58,27 @@
 	while(length(hex) < placeholder)
 		hex = "0[hex]"
 	return hex || "0"
+
+//Returns an integer value for R of R/G/B given a hex color input.
+/proc/color2R(hex)
+	if(!(istext(hex)))
+		return
+
+	return hex2num(copytext(hex, 2, 4)) //Returning R
+
+//Returns an integer value for G of R/G/B given a hex color input.
+/proc/color2G(hex)
+	if(!(istext(hex)))
+		return
+
+	return hex2num(copytext(hex, 4, 6)) //Returning G
+
+//Returns an integer value for B of R/G/B given a hex color input.
+/proc/color2B(hex)
+	if(!(istext(hex)))
+		return
+
+	return hex2num(copytext(hex, 6, 8)) //Returning B
 
 /proc/text2numlist(text, delimiter="\n")
 	var/list/num_list = list()

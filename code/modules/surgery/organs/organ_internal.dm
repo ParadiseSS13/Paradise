@@ -307,7 +307,7 @@
 			owner.drip(10)
 		if(prob(4))
 			spawn owner.custom_emote(1, "gasps for air!")
-			owner.losebreath += 5
+			owner.AdjustLoseBreath(5)
 
 /obj/item/organ/internal/kidneys
 	name = "kidneys"
@@ -327,7 +327,7 @@
 	// Coffee is really bad for you with busted kidneys.
 	// This should probably be expanded in some way, but fucked if I know
 	// what else kidneys can process in our reagent list.
-	var/datum/reagent/coffee = locate(/datum/reagent/drink/coffee) in owner.reagents.reagent_list
+	var/datum/reagent/coffee = locate(/datum/reagent/consumable/drink/coffee) in owner.reagents.reagent_list
 	if(coffee)
 		if(is_bruised())
 			owner.adjustToxLoss(0.1 * PROCESS_ACCURACY)
@@ -357,10 +357,10 @@
 /obj/item/organ/internal/eyes/surgeryize()
 	if(!owner)
 		return
-	owner.disabilities &= ~NEARSIGHTED
-	owner.disabilities &= ~BLIND
-	owner.eye_blurry = 0
-	owner.eye_blind = 0
+	owner.CureNearsighted()
+	owner.CureBlind()
+	owner.SetEyeBlurry(0)
+	owner.SetEyeBlind(0)
 
 
 /obj/item/organ/internal/liver
@@ -416,7 +416,7 @@
 		if(src.damage >= src.min_bruised_damage)
 			for(var/datum/reagent/R in owner.reagents.reagent_list)
 				// Ethanol and all drinks are bad
-				if(istype(R, /datum/reagent/ethanol))
+				if(istype(R, /datum/reagent/consumable/ethanol))
 					owner.adjustToxLoss(0.1 * PROCESS_ACCURACY)
 
 			// Can't cope with toxins at all
@@ -493,6 +493,7 @@
 	slot = "brain_tumor"
 	health = 3
 	var/organhonked = 0
+	var/suffering_delay = 900
 
 /obj/item/organ/internal/honktumor/New()
 	..()
@@ -535,11 +536,11 @@
 		return
 
 	if(organhonked < world.time)
-		organhonked = world.time+900
+		organhonked = world.time + suffering_delay
 		to_chat(owner, "<font color='red' size='7'>HONK</font>")
-		owner.sleeping = 0
-		owner.stuttering = 20
-		owner.adjustEarDamage(0, 30)
+		owner.SetSleeping(0)
+		owner.Stuttering(20)
+		owner.AdjustEarDeaf(30)
 		owner.Weaken(3)
 		owner << 'sound/items/AirHorn.ogg'
 		if(prob(30))

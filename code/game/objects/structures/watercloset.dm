@@ -420,8 +420,7 @@
 			H.lip_style = null //Washes off lipstick
 			H.lip_color = initial(H.lip_color)
 			H.regenerate_icons()
-		user.drowsyness -= rand(2,3) //Washing your face wakes you up if you're falling asleep
-		user.drowsyness = Clamp(user.drowsyness, 0, INFINITY)
+		user.AdjustDrowsy(-rand(2,3)) //Washing your face wakes you up if you're falling asleep
 	else
 		user.clean_blood()
 
@@ -459,4 +458,3 @@
 	icon_state = "puddle-splash"
 	..()
 	icon_state = "puddle"
-

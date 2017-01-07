@@ -24,7 +24,7 @@ NanoStateManager = function ()
         
         if (_data == null || !_data.hasOwnProperty('config') || !_data.hasOwnProperty('data'))
         {
-            reportError('Error: Initial data did not load correctly.');
+            reportError('Error: Initial data did not load correctly.' + JSON.stringify(_data));
         }
 
         var stateKey = 'default';

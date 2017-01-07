@@ -553,8 +553,8 @@
 	to_chat(user, "The device is a solid button, there's nothing you can do with it!")
 
 /obj/machinery/readybutton/attack_hand(mob/user as mob)
-	if(user.stat || stat & (NOPOWER|BROKEN))
-		to_chat(user, "This device is not powered.")
+	if(user.stat || stat & (BROKEN))
+		to_chat(user, "This device is not functioning.")
 		return
 
 	currentarea = get_area(src.loc)

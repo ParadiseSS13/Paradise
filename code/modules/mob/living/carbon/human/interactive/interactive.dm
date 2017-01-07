@@ -167,7 +167,7 @@
 
 /client/proc/customiseSNPC(mob/living/carbon/human/interactive/T in npc_master.botPool_l)
 	set name = "Customize SNPC"
-	set desc = "Customise the SNPC"
+	set desc = "Customize the SNPC"
 	set category = "Debug"
 
 	if(!holder)
@@ -403,7 +403,7 @@
 	if(!hud_used)
 		hud_used = new /datum/hud/human(src)
 
-/mob/living/carbon/human/interactive/New()
+/mob/living/carbon/human/interactive/New(var/new_loc, var/new_species = null)
 	..()
 	snpc_list += src
 
@@ -916,7 +916,7 @@
 				TARGET = null
 				return 1
 
-	if(!(get_turf(src) in validHome))
+	if(!(get_turf(src) in validHome) && validHome.len)
 		tryWalk(pick(get_area_turfs(job2area(myjob))))
 		return 1
 	return 0

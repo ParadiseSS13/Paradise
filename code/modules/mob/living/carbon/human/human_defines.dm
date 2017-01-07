@@ -4,10 +4,8 @@ var/global/default_martial_art = new/datum/martial_art
 	hud_possible = list(HEALTH_HUD,STATUS_HUD,ID_HUD,WANTED_HUD,IMPLOYAL_HUD,IMPCHEM_HUD,IMPTRACK_HUD,SPECIALROLE_HUD,NATIONS_HUD)
 
 	//Marking colour and style
-	var/r_markings = 0
-	var/g_markings = 0
-	var/b_markings = 0
-	var/m_style = "None"
+	var/list/m_colours = DEFAULT_MARKING_COLOURS //All colours set to #000000.
+	var/list/m_styles = DEFAULT_MARKING_STYLES //All markings set to None.
 
 	var/s_tone = 0	//Skin tone
 

@@ -142,7 +142,7 @@
 	if(length(message) >= 2)
 		var/language_prefix = trim_right(lowertext(copytext(message, 1 ,4)))
 		var/datum/language/L = language_keys[language_prefix]
-		if(can_speak(L))
+		if(can_speak_language(L))
 			return L
 
 	return null

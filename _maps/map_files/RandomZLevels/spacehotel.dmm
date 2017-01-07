@@ -523,7 +523,7 @@
 "kc" = (/obj/machinery/door/airlock{name = "Supply Closet"},/turf/unsimulated/floor/carpet,/area/awaymission/spacehotel)
 "kd" = (/obj/machinery/door/airlock/glass{name = "Gateway"},/turf/unsimulated/floor/carpet,/area/awaymission/spacehotel)
 "ke" = (/obj/item/weapon/melee/cultblade,/turf/unsimulated/floor{name = "engraved floor"; icon_state = "cult"},/area/awaymission/spacehotel)
-"kf" = (/obj/item/weapon/kitchen/knife/butcher{blood_DNA = 1e+009},/obj/effect/decal/cleanable/blood/old,/turf/unsimulated/floor{name = "engraved floor"; icon_state = "cult"},/area/awaymission/spacehotel)
+"kf" = (/obj/item/weapon/kitchen/knife/butcher{blood_DNA = list("1e+009" = "O-")},/obj/effect/decal/cleanable/blood/old,/turf/unsimulated/floor{name = "engraved floor"; icon_state = "cult"},/area/awaymission/spacehotel)
 "kg" = (/obj/machinery/light{dir = 8},/obj/structure/stool/bed/chair/sofa/left{icon_state = "sofaend_left"; dir = 4},/turf/unsimulated/floor/carpet,/area/awaymission/spacehotel)
 "kh" = (/obj/effect/hotel_controller,/turf/unsimulated/floor/carpet,/area/awaymission/spacehotel)
 "ki" = (/obj/item/weapon/pen,/obj/structure/table/reinforced,/turf/unsimulated/floor/carpet,/area/awaymission/spacehotel/reception)

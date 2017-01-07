@@ -82,7 +82,7 @@ var/const/VOX_PATH = "sound/vox_fem/"
 			for(var/mob/M in player_list)
 				if(M.client)
 					var/turf/T = get_turf(M)
-					if(T && T.z == z_level && !isdeaf(M))
+					if(T && T.z == z_level && M.can_hear())
 						M << voice
 		else
 			only_listener << voice

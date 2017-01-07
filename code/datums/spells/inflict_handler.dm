@@ -50,8 +50,8 @@
 		target.Paralyse(amt_paralysis)
 		target.Stun(amt_stunned)
 
-		target.eye_blind += amt_eye_blind
-		target.eye_blurry += amt_eye_blurry
+		target.AdjustEyeBlind(amt_eye_blind)
+		target.AdjustEyeBlurry(amt_eye_blurry)
 		//summoning
 		if(summon_type)
 			new summon_type(target.loc, target)

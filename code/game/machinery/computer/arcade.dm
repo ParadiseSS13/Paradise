@@ -448,7 +448,7 @@
 				if(ORION_TRAIL_RAIDERS)
 					if(prob(50))
 						to_chat(usr, "<span class='userdanger'>You hear battle shouts. The tramping of boots on cold metal. Screams of agony. The rush of venting air. Are you going insane?</span>")
-						M.hallucination += 30
+						M.AdjustHallucinate(30)
 					else
 						to_chat(usr, "<span class='userdanger'>Something strikes you from behind! It hurts like hell and feel like a blunt weapon, but nothing is there...</span>")
 						M.take_organ_damage(30)
@@ -930,7 +930,8 @@
 	if(specific && specific != dont_remove)
 		safe2remove = list(specific)
 	else
-		removed = pick(safe2remove)
+		if(safe2remove.len >= 1) //need to make sure we even have anyone to remove
+			removed = pick(safe2remove)
 
 	if(removed)
 		if(lings_aboard && prob(40*lings_aboard)) //if there are 2 lings you're twice as likely to get one, obviously

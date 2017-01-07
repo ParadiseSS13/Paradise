@@ -583,7 +583,7 @@ steam.start() -- spawns the effect
 //		if(M.wear_suit, /obj/item/clothing/suit/wizrobe && (M.hat, /obj/item/clothing/head/wizard) && (M.shoes, /obj/item/clothing/shoes/sandal))  // I'll work on it later
 		else
 			M.drop_item()
-			M:sleeping += 5
+			M.AdjustSleeping(5)
 			if(M.coughedtime != 1)
 				M.coughedtime = 1
 				M.emote("cough")
@@ -600,7 +600,7 @@ steam.start() -- spawns the effect
 			return
 		else
 			M.drop_item()
-			M:sleeping += 5
+			M.AdjustSleeping(5)
 			if(M.coughedtime != 1)
 				M.coughedtime = 1
 				M.emote("cough")

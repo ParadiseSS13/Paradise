@@ -253,7 +253,7 @@
 					to_chat(human, "<span class='warning'>You suddenly feel [pick("sick and tired", "tired and confused", "nauseated", "dizzy")].</span>")
 					human.adjustStaminaLoss(stamdamage)
 					human.adjustToxLoss(toxdamage)
-					human.confused = min(human.confused+confusion, maxconfusion)
+					human.AdjustConfused(confusion, bound_lower = 0, bound_upper = maxconfusion)
 					new/obj/effect/overlay/temp/revenant(human.loc)
 				if(!istype(T, /turf/simulated/shuttle) && !istype(T, /turf/simulated/wall/rust) && !istype(T, /turf/simulated/wall/r_wall) && istype(T, /turf/simulated/wall) && prob(15))
 					new/obj/effect/overlay/temp/revenant(T)

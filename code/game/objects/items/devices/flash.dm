@@ -81,7 +81,7 @@
 		if(M.weakeyes)
 			M.Weaken(3) //quick weaken bypasses eye protection but has no eye flash
 		if(M.flash_eyes(1, 1))
-			M.confused += power
+			M.AdjustConfused(power)
 			terrible_conversion_proc(M, user)
 			M.Stun(1)
 			visible_message("<span class='disarm'>[user] blinds [M] with the flash!</span>")
@@ -96,7 +96,7 @@
 			to_chat(M, "<span class='danger'>[user] fails to blind you with the flash!</span>")
 	else
 		if(M.flash_eyes())
-			M.confused += power
+			M.AdjustConfused(power)
 
 /obj/item/device/flash/attack(mob/living/M, mob/user)
 	if(!try_use_flash(user))

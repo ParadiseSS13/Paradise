@@ -11,7 +11,6 @@
 	var/calibrating
 	var/turf/target //Used for one-time-use teleport cards (such as clown planet coordinates.)
 						 //Setting this to 1 will set src.locked to null after a player enters the portal and will not allow hand-teles to open portals to that location.
-	var/data[0]
 
 /obj/machinery/computer/teleporter/New()
 	src.id = "[rand(1000, 9999)]"
@@ -67,11 +66,17 @@
 	ui_interact(user)
 
 /obj/machinery/computer/teleporter/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	if(..())
-		return
 	if(stat & (NOPOWER|BROKEN))
 		return
 
+	// Set up the Nano UI
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "teleporter_console.tmpl", "Teleporter Console UI", 400, 400)
+		ui.open()
+
+/obj/machinery/computer/teleporter/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+	var/data[0]
 	data["powerstation"] = power_station
 	if(power_station)
 		data["teleporterhub"] = power_station.teleporter_hub
@@ -86,13 +91,7 @@
 	data["target"] = (!target) ? "None" : sanitize(targetarea.name)
 	data["calibrating"] = calibrating
 	data["locked"] = locked
-
-	// Set up the Nano UI
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if(!ui)
-		ui = new(user, src, ui_key, "teleporter_console.tmpl", "Teleporter Console UI", 400, 400)
-		ui.set_initial_data(data)
-		ui.open()
+	return data
 
 /obj/machinery/computer/teleporter/Topic(href, href_list)
 	if(..())

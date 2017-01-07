@@ -159,11 +159,15 @@
 	gendered_icon = 1
 	encased = "skull"
 	var/can_intake_reagents = 1
+	var/alt_head = "None"
 
 	//Hair colour and style
 	var/r_hair = 0
 	var/g_hair = 0
 	var/b_hair = 0
+	var/r_hair_sec = 0
+	var/g_hair_sec = 0
+	var/b_hair_sec = 0
 	var/h_style = "Bald"
 
 	//Head accessory colour and style
@@ -176,6 +180,9 @@
 	var/r_facial = 0
 	var/g_facial = 0
 	var/b_facial = 0
+	var/r_facial_sec = 0
+	var/g_facial_sec = 0
+	var/b_facial_sec = 0
 	var/f_style = "Shaved"
 
 /obj/item/organ/external/head/remove()
@@ -197,6 +204,8 @@
 			if(owner)//runtimer no runtiming
 				owner.update_hair()
 				owner.update_fhair()
+				owner.update_head_accessory()
+				owner.update_markings()
 	. = ..()
 
 /obj/item/organ/external/head/replaced()
@@ -212,6 +221,17 @@
 				disfigure("brute")
 		if(burn_dam > 40)
 			disfigure("burn")
+
+/obj/item/organ/external/head/proc/handle_alt_icon()
+	if(alt_head && alt_heads_list[alt_head])
+		var/datum/sprite_accessory/alt_heads/alternate_head = alt_heads_list[alt_head]
+		if(alternate_head.icon_state)
+			icon_name = alternate_head.icon_state
+		else //If alternate_head.icon_state doesn't exist, that means alternate_head is "None", so default icon_name back to "head".
+			icon_name = initial(icon_name)
+	else //If alt_head is null, set it to "None" and default icon_name for sanity.
+		alt_head = initial(alt_head)
+		icon_name = initial(icon_name)
 
 /obj/item/organ/external/head/set_dna(datum/dna/new_dna)
 	..()

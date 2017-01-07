@@ -15,8 +15,6 @@
 	var/brainloss = 0	//'Retardation' damage caused by someone hitting you in the head with a bible or being infected with brainrot.
 	var/staminaloss = 0 //Stamina damage, or exhaustion. You recover it slowly naturally, and are stunned if it gets too high. Holodeck and hallucinations deal this.
 
-	var/hallucination = 0 //Directly affects how long a mob will hallucinate for
-
 
 	var/last_special = 0 //Used by the resist verb, likely used to prevent players from bypassing next_move by logging in/out.
 
@@ -32,7 +30,6 @@
 
 	var/update_slimes = 1
 	var/implanting = 0 //Used for the mind-slave implant
-	var/silent = 0 		//Can't talk. Value goes down every life proc. //NOTE TO FUTURE CODERS: DO NOT INITIALIZE NUMERICAL VARS AS NULL OR I WILL MURDER YOU.
 	var/floating = 0
 	var/mob_size = MOB_SIZE_HUMAN
 	var/nightvision = 0

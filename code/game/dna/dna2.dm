@@ -30,19 +30,27 @@
 #define DNA_UI_HACC_R		11
 #define DNA_UI_HACC_G		12
 #define DNA_UI_HACC_B		13
-#define DNA_UI_MARK_R		14
-#define DNA_UI_MARK_G		15
-#define DNA_UI_MARK_B		16
-#define DNA_UI_EYES_R		17
-#define DNA_UI_EYES_G		18
-#define DNA_UI_EYES_B		19
-#define DNA_UI_GENDER		20
-#define DNA_UI_BEARD_STYLE	21
-#define DNA_UI_HAIR_STYLE	22
+#define DNA_UI_HEAD_MARK_R	14
+#define DNA_UI_HEAD_MARK_G	15
+#define DNA_UI_HEAD_MARK_B	16
+#define DNA_UI_BODY_MARK_R	17
+#define DNA_UI_BODY_MARK_G	18
+#define DNA_UI_BODY_MARK_B	19
+#define DNA_UI_TAIL_MARK_R	20
+#define DNA_UI_TAIL_MARK_G	21
+#define DNA_UI_TAIL_MARK_B	22
+#define DNA_UI_EYES_R		23
+#define DNA_UI_EYES_G		24
+#define DNA_UI_EYES_B		25
+#define DNA_UI_GENDER		26
+#define DNA_UI_BEARD_STYLE	27
+#define DNA_UI_HAIR_STYLE	28
 /*#define DNA_UI_BACC_STYLE	23*/
-#define DNA_UI_HACC_STYLE	23
-#define DNA_UI_MARK_STYLE	24
-#define DNA_UI_LENGTH		24 // Update this when you add something, or you WILL break shit.
+#define DNA_UI_HACC_STYLE	29
+#define DNA_UI_HEAD_MARK_STYLE	30
+#define DNA_UI_BODY_MARK_STYLE	31
+#define DNA_UI_TAIL_MARK_STYLE	32
+#define DNA_UI_LENGTH		32 // Update this when you add something, or you WILL break shit.
 
 #define DNA_SE_LENGTH 55 // Was STRUCDNASIZE, size 27. 15 new blocks added = 42, plus room to grow.
 
@@ -128,16 +136,18 @@ var/global/list/bad_blocks[0]
 	var/obj/item/organ/external/head/H = character.get_organ("head")
 	var/obj/item/organ/internal/eyes/eyes_organ = character.get_int_organ(/obj/item/organ/internal/eyes)
 
-
 	/*// Body Accessory
 	if(!character.body_accessory)
 		character.body_accessory = null
 	var/bodyacc	= character.body_accessory*/
 
 	// Markings
-	if(!character.m_style)
-		character.m_style = "None"
-	var/marks	= marking_styles_list.Find(character.m_style)
+	if(!character.m_styles)
+		character.m_styles = DEFAULT_MARKING_STYLES
+
+	var/head_marks	= marking_styles_list.Find(character.m_styles["head"])
+	var/body_marks	= marking_styles_list.Find(character.m_styles["body"])
+	var/tail_marks	= marking_styles_list.Find(character.m_styles["tail"])
 
 	head_traits_to_dna(H)
 	eye_color_to_dna(eyes_organ)
@@ -146,15 +156,25 @@ var/global/list/bad_blocks[0]
 	SetUIValueRange(DNA_UI_SKIN_G,	character.g_skin,		255,	1)
 	SetUIValueRange(DNA_UI_SKIN_B,	character.b_skin,		255,	1)
 
-	SetUIValueRange(DNA_UI_MARK_R,	character.r_markings,	255,	1)
-	SetUIValueRange(DNA_UI_MARK_G,	character.g_markings,	255,	1)
-	SetUIValueRange(DNA_UI_MARK_B,	character.b_markings,	255,	1)
+	SetUIValueRange(DNA_UI_HEAD_MARK_R,	color2R(character.m_colours["head"]),	255,	1)
+	SetUIValueRange(DNA_UI_HEAD_MARK_G,	color2G(character.m_colours["head"]),	255,	1)
+	SetUIValueRange(DNA_UI_HEAD_MARK_B,	color2B(character.m_colours["head"]),	255,	1)
 
-	SetUIValueRange(DNA_UI_SKIN_TONE, 35-character.s_tone,	220,	1) // Value can be negative.
+	SetUIValueRange(DNA_UI_BODY_MARK_R,	color2R(character.m_colours["body"]),	255,	1)
+	SetUIValueRange(DNA_UI_BODY_MARK_G,	color2G(character.m_colours["body"]),	255,	1)
+	SetUIValueRange(DNA_UI_BODY_MARK_B,	color2B(character.m_colours["body"]),	255,	1)
 
-	SetUIState(DNA_UI_GENDER,		character.gender!=MALE,		1)
+	SetUIValueRange(DNA_UI_TAIL_MARK_R,	color2R(character.m_colours["tail"]),	255,	1)
+	SetUIValueRange(DNA_UI_TAIL_MARK_G,	color2G(character.m_colours["tail"]),	255,	1)
+	SetUIValueRange(DNA_UI_TAIL_MARK_B,	color2B(character.m_colours["tail"]),	255,	1)
+
+	SetUIValueRange(DNA_UI_SKIN_TONE,	35-character.s_tone,	220,	1) // Value can be negative.
+
+	SetUIState(DNA_UI_GENDER, character.gender!=MALE, 1)
 	/*SetUIValueRange(DNA_UI_BACC_STYLE,	bodyacc,	facial_hair_styles_list.len,	1)*/
-	SetUIValueRange(DNA_UI_MARK_STYLE,	marks,		marking_styles_list.len,		1)
+	SetUIValueRange(DNA_UI_HEAD_MARK_STYLE,	head_marks,		marking_styles_list.len,		1)
+	SetUIValueRange(DNA_UI_BODY_MARK_STYLE,	body_marks,		marking_styles_list.len,		1)
+	SetUIValueRange(DNA_UI_TAIL_MARK_STYLE,	tail_marks,		marking_styles_list.len,		1)
 
 
 	UpdateUI()

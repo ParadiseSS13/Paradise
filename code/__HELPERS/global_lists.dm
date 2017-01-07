@@ -18,6 +18,8 @@
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/undershirt, undershirt_list, undershirt_m, undershirt_f)
 	//socks
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/socks, socks_list, socks_m, socks_f)
+	//alt heads
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/alt_heads, alt_heads_list)
 
 	init_subtypes(/datum/surgery_step, surgery_steps)
 
@@ -47,6 +49,9 @@
 			whitelisted_species += S.name
 
 	init_subtypes(/datum/crafting_recipe, crafting_recipes)
+
+	all_cults = typesof(/datum/cult_info)
+
 	return 1
 
 /* // Uncomment to debug chemical reaction list.

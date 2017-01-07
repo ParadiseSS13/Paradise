@@ -144,36 +144,28 @@ proc/issyndicate(mob/living/M as mob)
 	var/mob/living/carbon/human/M = synd_mind.current
 	var/obj/item/organ/external/head/head_organ = M.get_organ("head")
 
+	M.mutations = list()
+	M.disabilities = 0
+	M.overeatduration = 0
 	M.set_species("Human",1)
 	M.dna.ready_dna(M) // Quadriplegic Nuke Ops won't be participating in the paralympics
 
 	var/hair_c = pick("#8B4513","#000000","#FF4500","#FFD700") // Brown, black, red, blonde
 	var/eye_c = pick("#000000","#8B4513","1E90FF") // Black, brown, blue
 	var/skin_tone = pick(-50, -30, -10, 0, 0, 0, 10) // Caucasian/black
-	var/hair_style = "Bald"
-	var/facial_hair_style = "Shaved"
-	if(M.gender == MALE)
-		hair_style = pick(hair_styles_male_list)
-		facial_hair_style = pick(facial_hair_styles_list)
-	else
-		hair_style = pick(hair_styles_female_list)
-		if(prob(5))
-			facial_hair_style = pick(facial_hair_styles_list)
-
-	head_organ.r_facial = hex2num(copytext(hair_c, 2, 4))
-	head_organ.g_facial = hex2num(copytext(hair_c, 4, 6))
-	head_organ.b_facial = hex2num(copytext(hair_c, 6, 8))
-	head_organ.r_hair = hex2num(copytext(hair_c, 2, 4))
-	head_organ.g_hair = hex2num(copytext(hair_c, 4, 6))
-	head_organ.b_hair = hex2num(copytext(hair_c, 6, 8))
-	var/eyes_red = hex2num(copytext(eye_c, 2, 4))
-	var/eyes_green = hex2num(copytext(eye_c, 4, 6))
-	var/eyes_blue = hex2num(copytext(eye_c, 6, 8))
-	M.change_eye_color(eyes_red, eyes_green, eyes_blue)
+	head_organ.r_facial = color2R(hair_c)
+	head_organ.g_facial = color2G(hair_c)
+	head_organ.b_facial = color2B(hair_c)
+	head_organ.r_hair = color2R(hair_c)
+	head_organ.g_hair = color2G(hair_c)
+	head_organ.b_hair = color2B(hair_c)
+	M.change_eye_color(color2R(eye_c), color2G(eye_c), color2B(eye_c))
 	M.s_tone = skin_tone
-	head_organ.h_style = hair_style
-	head_organ.f_style = facial_hair_style
+	head_organ.h_style = random_hair_style(M.gender, head_organ.species.name) 
+	head_organ.f_style = random_facial_hair_style(M.gender, head_organ.species.name) 
 	M.body_accessory = null
+	M.regenerate_icons()
+	M.update_body()
 
 /datum/game_mode/proc/prepare_syndicate_leader(var/datum/mind/synd_mind, var/nuke_code)
 	var/leader_title = pick("Czar", "Boss", "Commander", "Chief", "Kingpin", "Director", "Overlord")

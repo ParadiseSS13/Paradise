@@ -13,19 +13,23 @@
 	origin_tech = "magnets=1;biotech=1"
 	var/form_title
 	var/last_data
+	var/print_cooldown = 0
+	var/cooldown_length = 50 // Five seconds
 
 /obj/item/device/analyzer/plant_analyzer/proc/print_report_verb()
 	set name = "Print Plant Report"
 	set category = "Object"
 	set src = usr
 
-	if(usr.stat || usr.restrained() || usr.lying)
+	if(usr.incapacitated())
 		return
+
 	print_report(usr)
 
 /obj/item/device/analyzer/plant_analyzer/Topic(href, href_list)
 	if(..())
-		return
+		return 1
+		
 	if(href_list["print"])
 		print_report(usr)
 
@@ -33,6 +37,11 @@
 	if(!last_data)
 		to_chat(user, "There is no scan data to print.")
 		return
+	if(print_cooldown > world.time)
+		to_chat(user, "<span class='warning'>The printer is still cooling down.</span>")
+		return
+	print_cooldown = world.time + cooldown_length	
+
 	playsound(loc, "sound/goonstation/machines/printer_thermal.ogg", 50, 1)
 	var/obj/item/weapon/paper/P = new /obj/item/weapon/paper(get_turf(src))
 	P.name = "paper - [form_title]"

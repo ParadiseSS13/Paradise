@@ -261,19 +261,6 @@
 	var/obj/item/organ/external/def_zone = ran_zone(t)
 	return def_zone
 
-
-//damage/heal the mob ears and adjust the deaf amount
-/mob/living/adjustEarDamage(damage, deaf)
-	ear_damage = max(0, ear_damage + damage)
-	ear_deaf = max(0, ear_deaf + deaf)
-
-//pass a negative argument to skip one of the variable
-/mob/living/setEarDamage(damage, deaf)
-	if(damage >= 0)
-		ear_damage = damage
-	if(deaf >= 0)
-		ear_deaf = deaf
-
 // heal ONE external organ, organ gets randomly selected from damaged ones.
 /mob/living/proc/heal_organ_damage(var/brute, var/burn)
 	adjustBruteLoss(-brute)
@@ -300,6 +287,10 @@
 	adjustFireLoss(burn)
 	src.updatehealth()
 
+/mob/living/proc/has_organic_damage()
+	return (maxHealth - health)
+
+
 /mob/living/proc/restore_all_organs()
 	return
 
@@ -323,14 +314,6 @@
 				C.reagents.clear_reagents()
 			C.reagents.addiction_list.Cut()
 
-/mob/living/proc/update_revive() // handles revival through other means than cloning or adminbus (defib, IPC repair)
-	stat = CONSCIOUS
-	dead_mob_list -= src
-	living_mob_list |= src
-	mob_list |= src
-	setEarDamage(-1,0)
-	timeofdeath = 0
-
 /mob/living/proc/rejuvenate()
 	var/mob/living/carbon/human/human_mob = null //Get this declared for use later.
 
@@ -341,25 +324,33 @@
 	setBrainLoss(0)
 	setStaminaLoss(0)
 	SetSleeping(0)
-	SetParalysis(0)
-	SetStunned(0)
-	SetWeakened(0)
-	slowed = 0
-	losebreath = 0
-	dizziness = 0
-	jitteriness = 0
-	confused = 0
-	drowsyness = 0
+	SetParalysis(0, 1, 1)
+	SetStunned(0, 1, 1)
+	SetWeakened(0, 1, 1)
+	SetSlowed(0)
+	SetLoseBreath(0)
+	SetDizzy(0)
+	SetJitter(0)
+	SetConfused(0)
+	SetDrowsy(0)
 	radiation = 0
-	druggy = 0
-	hallucination = 0
+	SetDruggy(0)
+	SetHallucinate(0)
+	blinded = 0
 	nutrition = 400
 	bodytemperature = 310
-	disabilities = 0
-	blinded = 0
-	eye_blind = 0
-	eye_blurry = 0
-	setEarDamage(0,0)
+	CureBlind()
+	CureNearsighted()
+	CureMute()
+	CureDeaf()
+	CureTourettes()
+	CureEpilepsy()
+	CureCoughing()
+	CureNervous()
+	SetEyeBlind(0)
+	SetEyeBlurry(0)
+	SetEarDamage(0)
+	SetEarDeaf(0)
 	heal_overall_damage(1000, 1000)
 	ExtinguishMob()
 	fire_stacks = 0
@@ -684,7 +675,7 @@
 
 /mob/living/narsie_act()
 	if(client)
-		makeNewConstruct(/mob/living/simple_animal/construct/harvester, src, null, 1)
+		makeNewConstruct(/mob/living/simple_animal/hostile/construct/harvester, src, null, 1)
 	spawn_dust()
 	gib()
 	return

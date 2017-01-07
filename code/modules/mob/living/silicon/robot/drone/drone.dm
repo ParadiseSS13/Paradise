@@ -285,6 +285,7 @@
 
 	if(player.mob && player.mob.mind)
 		player.mob.mind.transfer_to(src)
+		player.mob.mind.assigned_role = "Drone"
 
 	lawupdate = 0
 	to_chat(src, "<b>Systems rebooted</b>. Loading base pattern maintenance protocol... <b>loaded</b>.")

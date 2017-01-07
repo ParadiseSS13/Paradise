@@ -1,3 +1,8 @@
+#define POWER_RESTORATION_OFF 0
+#define POWER_RESTORATION_START 1
+#define POWER_RESTORATION_SEARCH_APC 2
+#define POWER_RESTORATION_APC_FOUND 3
+
 /mob/living/silicon/ai/Life()
 	//doesn't call parent because it's a horrible mess
 	if(stat == DEAD)
@@ -6,7 +11,7 @@
 	var/turf/T = get_turf(src)
 	if(stat != CONSCIOUS) //ai's fucked
 		cameraFollow = null
-		reset_view(null)
+		reset_perspective(null)
 		unset_machine()
 
 	updatehealth()
@@ -16,11 +21,16 @@
 		death()
 		return 0
 
-	if(malfhack)
-		if(malfhack.aidisabled)
-			to_chat(src, "<span class='danger'>ERROR: APC access disabled, hack attempt canceled.</span>")
-			malfhacking = 0
-			malfhack = null
+	if(!eyeobj || qdeleted(eyeobj) || !eyeobj.loc)
+		view_core()
+
+	if(machine)
+		machine.check_eye(src)
+
+	if(malfhack && malfhack.aidisabled)
+		to_chat(src, "<span class='danger'>ERROR: APC access disabled, hack attempt canceled.</span>")
+		malfhacking = 0
+		malfhack = null
 
 	if(aiRestorePowerRoutine)
 		adjustOxyLoss(1)
@@ -29,46 +39,29 @@
 
 	handle_stunned()
 
-	var/is_blind = 0 //THIS WAS JUST FUCKING 'blind' WHICH CONFLICTED WITH A NORMAL VARIABLE
 	var/area/my_area = get_area(src)
-	if(istype(my_area))
-		if(!my_area.power_equip && !is_type_in_list(loc, list(/obj/item, /obj/mecha)))
-			is_blind = 1 //HOW THE FUCK DID THAT EVEN COMPILE JESUS CHRIST
 
-	if(!is_blind)
-		sight |= SEE_TURFS
-		sight |= SEE_MOBS
-		sight |= SEE_OBJS
-
-		see_in_dark = 8
-		see_invisible = SEE_INVISIBLE_LEVEL_TWO
-
-		if(see_override)
-			see_invisible = see_override
+	if(!lacks_power())
 
 		if(aiRestorePowerRoutine == 2)
 			to_chat(src, "Alert cancelled. Power has been restored without our assistance.")
 			aiRestorePowerRoutine = 0
 			clear_fullscreen("blind")
+			update_sight()
 		else if(aiRestorePowerRoutine == 3)
 			to_chat(src, "Alert cancelled. Power has been restored.")
 			aiRestorePowerRoutine = 0
 			clear_fullscreen("blind")
+			update_sight()
 
 
 	else
-		sight &= ~SEE_TURFS
-		sight &= ~SEE_MOBS
-		sight &= ~SEE_OBJS
-
 		overlay_fullscreen("blind", /obj/screen/fullscreen/blind)
 
-		see_in_dark = 0
-		see_invisible = SEE_INVISIBLE_LIVING
-
-		if(((!my_area.power_equip) || istype(T, /turf/space)) && !is_type_in_list(loc, list(/obj/item, /obj/mecha)))
+		if(lacks_power())
 			if(!aiRestorePowerRoutine)
 				aiRestorePowerRoutine = 1
+				update_sight()
 				to_chat(src, "<span class='danger'>You have lost power!</span>")
 				if(!is_special_character(src))
 					set_zeroth_law("")
@@ -78,7 +71,7 @@
 					sleep(50)
 					my_area = get_area(src)
 					T = get_turf(src)
-					if(my_area && my_area.power_equip && !istype(T, /turf/space))
+					if(!lacks_power())
 						to_chat(src, "Alert cancelled. Power has been restored without our assistance.")
 						aiRestorePowerRoutine = 0
 						return
@@ -115,12 +108,11 @@
 							aiRestorePowerRoutine = 2
 							return
 
-						if(my_area.power_equip)
-							if(!istype(T, /turf/space))
-								to_chat(src, "Alert cancelled. Power has been restored without our assistance.")
-								aiRestorePowerRoutine = 0
-								clear_fullscreen("blind")
-								return
+						if(!lacks_power())
+							to_chat(src, "Alert cancelled. Power has been restored without our assistance.")
+							aiRestorePowerRoutine = 0
+							clear_fullscreen("blind")
+							return
 
 						switch(PRP)
 							if(1)
@@ -171,3 +163,16 @@
 		var/client/C = client
 		for(var/mob/living/carbon/human/H in view(eyeobj, 14))
 			C.images += H.hud_list[NATIONS_HUD]
+
+/mob/living/silicon/ai/update_sight()
+	see_invisible = initial(see_invisible)
+	see_in_dark = initial(see_in_dark)
+	sight = initial(sight)
+	if(aiRestorePowerRoutine)
+		sight = sight&~SEE_TURFS
+		sight = sight&~SEE_MOBS
+		sight = sight&~SEE_OBJS
+		see_in_dark = 0
+
+	if(see_override)
+		see_invisible = see_override

@@ -237,7 +237,7 @@
 			computer.update_icon()
 			for(var/mob/living/L in viewers(1))
 				if(!istype(L,/mob/living/silicon/ai) && L.machine == src)
-					L.reset_view(null)
+					L.reset_perspective(null)
 
 
 	Reset()
@@ -245,7 +245,7 @@
 		current = null
 		for(var/mob/living/L in viewers(1))
 			if(!istype(L,/mob/living/silicon/ai) && L.machine == src)
-				L.reset_view(null)
+				L.reset_perspective(null)
 
 	interact()
 		if(!interactable())
@@ -265,7 +265,7 @@
 				return
 
 		if(computer.camnet.verify_machine(current))
-			usr.reset_view(current)
+			usr.reset_perspective(current)
 
 		if(world.time - last_camera_refresh > 50 || !camera_list)
 			last_camera_refresh = world.time
@@ -302,13 +302,13 @@
 			var/obj/machinery/camera/C = locate(href_list["show"])
 			if(istype(C) && C.status)
 				current = C
-				usr.reset_view(C)
+				usr.reset_perspective(C)
 				interact()
 				return
 
 		if("keyselect" in href_list)
 			current = null
-			usr.reset_view(null)
+			usr.reset_perspective(null)
 			key = input(usr,"Select a camera network key:", "Key Select", null) as null|anything in computer.list_files(/datum/file/camnet_key)
 			camera_list = null
 			update_icon()

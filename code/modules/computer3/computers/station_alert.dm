@@ -11,7 +11,6 @@
 	var/alarms = list("Fire"=list(), "Atmosphere"=list(), "Power"=list())
 
 	interact(mob/user)
-		usr.set_machine(src)
 		if(!interactable())
 			return
 		var/dat = "<HEAD><TITLE>Current Station Alerts</TITLE><META HTTP-EQUIV='Refresh' CONTENT='10'></HEAD><BODY>\n"

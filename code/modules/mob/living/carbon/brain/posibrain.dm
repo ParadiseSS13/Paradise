@@ -185,7 +185,7 @@
 	src.brainmob.loc = src
 	src.brainmob.container = src
 	src.brainmob.stat = 0
-	src.brainmob.silent = 0
+	src.brainmob.SetSilence(0)
 	dead_mob_list -= src.brainmob
 
 	..()

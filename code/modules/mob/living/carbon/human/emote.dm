@@ -10,7 +10,7 @@
 		act = copytext(act, 1, t1)
 
 	var/muzzled = is_muzzled()
-	if(disabilities & MUTE || silent)
+	if(!can_speak())
 		muzzled = 1
 	//var/m_type = 1
 
@@ -313,7 +313,7 @@
 					M = null
 
 				if(M)
-					if(lying || weakened)
+					if(lying)
 						message = "<B>[src]</B> flops and flails around on the floor."
 					else
 						message = "<B>[src]</B> flips in [M]'s general direction."
@@ -378,7 +378,7 @@
 			message = "<B>[src]</B> faints."
 			if(src.sleeping)
 				return //Can't faint while asleep
-			src.sleeping += 1
+			AdjustSleeping(2)
 			m_type = 1
 
 		if("cough", "coughs")
@@ -868,7 +868,7 @@
 		for(var/mob/M in dead_mob_list)
 			if(!M.client || istype(M, /mob/new_player))
 				continue //skip monkeys, leavers and new players
-			if(M.stat == DEAD && (M.client.prefs.toggles & CHAT_GHOSTSIGHT) && !(M in viewers(src,null)))
+			if(M.stat == DEAD && M.get_preference(CHAT_GHOSTSIGHT) && !(M in viewers(src,null)))
 				M.show_message(message)
 
 		switch(m_type)

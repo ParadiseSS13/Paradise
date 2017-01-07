@@ -148,3 +148,14 @@
 	// Populate the syndicate coalition:
 	for(var/datum/faction/syndicate/S in ticker.factions)
 		ticker.syndicate_coalition.Add(S)
+
+/proc/setupcult()
+	var/random_cult = pick(all_cults)
+	var/picked_cult = new random_cult() //this seems redundent as fuck
+	log_startup_progress("Summoning eldritch horrors...")
+	if(!picked_cult)//shouldn't happen BUT JUST TO BE SURE LET US KNOW
+		log_startup_progress(" Failed to select a cult datum, Shank a coder!")
+	else
+		log_startup_progress(" [picked_cult] has risen!")
+	//todo:add adminonly datum var, check for said var here...
+	return picked_cult

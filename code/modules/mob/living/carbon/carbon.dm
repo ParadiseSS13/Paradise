@@ -158,13 +158,13 @@
 		"<span class='userdanger'>You feel a powerful shock coursing through your body!</span>", \
 		"<span class='italics'>You hear a heavy electrical crack.</span>" \
 	)
-	jitteriness += 1000 //High numbers for violent convulsions
+	AdjustJitter(1000) //High numbers for violent convulsions
 	do_jitter_animation(jitteriness)
-	stuttering += 2
+	AdjustStuttering(2)
 	if(!tesla_shock || (tesla_shock && siemens_coeff > 0.5))
 		Stun(2)
 	spawn(20)
-		jitteriness = max(jitteriness - 990, 10) //Still jittery, but vastly less
+		AdjustJitter(-1000, bound_lower = 10) //Still jittery, but vastly less
 		if(!tesla_shock || (tesla_shock && siemens_coeff > 0.5))
 			Stun(3)
 			Weaken(3)
@@ -268,7 +268,7 @@
 				if(istype(src,/mob/living/carbon/human) && src:w_uniform)
 					var/mob/living/carbon/human/H = src
 					H.w_uniform.add_fingerprint(M)
-				src.sleeping = max(0,src.sleeping-5)
+				AdjustSleeping(-5)
 				if(src.sleeping == 0)
 					src.resting = 0
 				AdjustParalysis(-3)
@@ -327,8 +327,8 @@
 				E.damage += rand(12, 16)
 
 		if(E.damage > E.min_bruised_damage)
-			eye_blind += damage
-			eye_blurry += damage * rand(3, 6)
+			AdjustEyeBlind(damage)
+			AdjustEyeBlurry(damage * rand(3, 6))
 
 			if(E.damage > (E.min_bruised_damage + E.min_broken_damage) / 2)
 				if(!(E.status & ORGAN_ROBOT))
@@ -454,8 +454,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 	totalMembers |= pipeline.other_atmosmch
 	for(var/obj/machinery/atmospherics/A in totalMembers)
 		if(!A.pipe_image)
-			A.pipe_image = image(A, A.loc, layer = 20, dir = A.dir) //the 20 puts it above Byond's darkness (not its opacity view)
-			A.pipe_image.plane = HUD_PLANE
+			A.update_pipe_image()
 		pipes_shown += A.pipe_image
 		client.images += A.pipe_image
 
@@ -537,6 +536,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 			thrown_thing = throwable_mob
 			var/turf/start_T = get_turf(loc) //Get the start and target tile for the descriptors
 			var/turf/end_T = get_turf(target)
+			throwable_mob.forceMove(start_T)
 			if(start_T && end_T)
 				var/start_T_descriptor = "<font color='#6b5d00'>tile at [start_T.x], [start_T.y], [start_T.z] in area [get_area(start_T)]</font>"
 				var/end_T_descriptor = "<font color='#6b4400'>tile at [end_T.x], [end_T.y], [end_T.z] in area [get_area(end_T)]</font>"
@@ -742,7 +742,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 
 /mob/living/carbon/resist_fire()
 	fire_stacks -= 5
-	weakened = max(weakened, 3)//We dont check for CANWEAKEN, I don't care how immune to weakening you are, if you're rolling on the ground, you're busy.
+	Weaken(3, 1, 1) //We dont check for CANWEAKEN, I don't care how immune to weakening you are, if you're rolling on the ground, you're busy.
 	update_canmove()
 	spin(32,2)
 	visible_message("<span class='danger'>[src] rolls on the floor, trying to put themselves out!</span>", \
@@ -1038,3 +1038,49 @@ so that different stomachs can handle things in different ways VB*/
 /mob/living/carbon/proc/update_internals_hud_icon(internal_state = 0)
 	if(hud_used && hud_used.internals)
 		hud_used.internals.icon_state = "internal[internal_state]"
+
+//to recalculate and update the mob's total tint from tinted equipment it's wearing.
+/mob/living/carbon/proc/update_tint()
+	if(!tinted_weldhelh)
+		return
+	var/tinttotal = get_total_tint()
+	if(tinttotal >= TINT_BLIND)
+		overlay_fullscreen("tint", /obj/screen/fullscreen/blind)
+	else if(tinttotal >= TINT_IMPAIR)
+		overlay_fullscreen("tint", /obj/screen/fullscreen/impaired, 2)
+	else
+		clear_fullscreen("tint", 0)
+
+/mob/living/carbon/proc/get_total_tint()
+	. = 0
+	if(istype(head, /obj/item/clothing/head))
+		var/obj/item/clothing/head/HT = head
+		. += HT.tint
+	if(wear_mask)
+		. += wear_mask.tint
+
+/mob/living/carbon/human/get_total_tint()
+	. = ..()
+	if(glasses)
+		var/obj/item/clothing/glasses/G = glasses
+		. += G.tint
+
+
+//handle stuff to update when a mob equips/unequips a mask.
+/mob/living/proc/wear_mask_update(obj/item/clothing/C, toggle_off = 1)
+	update_inv_wear_mask()
+
+/mob/living/carbon/wear_mask_update(obj/item/clothing/C, toggle_off = 1)
+	if(C.tint || initial(C.tint))
+		update_tint()
+	update_inv_wear_mask()
+
+//handle stuff to update when a mob equips/unequips a headgear.
+/mob/living/carbon/proc/head_update(obj/item/I, forced)
+	if(istype(I, /obj/item/clothing))
+		var/obj/item/clothing/C = I
+		if(C.tint || initial(C.tint))
+			update_tint()
+	if(I.flags_inv & HIDEMASK || forced)
+		update_inv_wear_mask()
+	update_inv_head()

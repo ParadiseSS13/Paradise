@@ -16,7 +16,7 @@ In all, this is a lot like the monkey code. /N
 
 	switch(M.a_intent)
 		if(I_HELP)
-			sleeping = max(0,sleeping-5)
+			AdjustSleeping(-5)
 			resting = 0
 			AdjustParalysis(-3)
 			AdjustStunned(-3)

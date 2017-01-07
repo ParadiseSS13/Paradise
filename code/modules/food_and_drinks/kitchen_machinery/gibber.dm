@@ -52,13 +52,13 @@
 	else
 		overlays += image('icons/obj/kitchen.dmi', "gridle")
 
-/obj/machinery/gibber/relaymove(mob/user as mob)
+/obj/machinery/gibber/relaymove(mob/user)
 	if(locked)
 		return
 
 	go_out()
 
-/obj/machinery/gibber/attack_hand(mob/user as mob)
+/obj/machinery/gibber/attack_hand(mob/user)
 	if(stat & (NOPOWER|BROKEN))
 		return
 
@@ -73,7 +73,7 @@
 	else
 		startgibbing(user)
 
-/obj/machinery/gibber/attackby(obj/item/P as obj, mob/user as mob, params)
+/obj/machinery/gibber/attackby(obj/item/P, mob/user, params)
 	if(istype(P, /obj/item/weapon/grab))
 		var/obj/item/weapon/grab/G = P
 		if(G.state < 2)
@@ -126,7 +126,7 @@
 		return
 
 	user.visible_message("<span class='danger'>[user] starts to put [victim] into the gibber!</span>")
-	src.add_fingerprint(user)
+	add_fingerprint(user)
 	if(do_after(user, 30, target = victim) && user.Adjacent(src) && victim.Adjacent(user) && !occupant)
 		user.visible_message("<span class='danger'>[user] stuffs [victim] into the gibber!</span>")
 
@@ -155,7 +155,7 @@
 		return
 
 	for(var/obj/O in src)
-		O.loc = src.loc
+		O.loc = loc
 
 	occupant.forceMove(get_turf(src))
 	occupant = null
@@ -212,11 +212,11 @@
 
 /obj/machinery/gibber/proc/startgibbing(var/mob/user, var/UserOverride=0)
 	if(!istype(user) && !UserOverride)
-		log_debug("Some shit just went down with the gibber at X[x], Y[y], Z[z] with an invalid user. (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[src.x];Y=[src.y];Z=[src.z]'>JMP</a>)")
+		log_debug("Some shit just went down with the gibber at X[x], Y[y], Z[z] with an invalid user. (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 		return
 
 	if(UserOverride)
-		msg_admin_attack("[key_name_admin(occupant)] was gibbed by an autogibber (\the [src]) (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[src.x];Y=[src.y];Z=[src.z]'>JMP</a>)")
+		msg_admin_attack("[key_name_admin(occupant)] was gibbed by an autogibber (\the [src]) (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 
 	if(operating)
 		return
@@ -236,7 +236,7 @@
 	var/slab_name = occupant.name
 	var/slab_count = 3
 	var/slab_type = /obj/item/weapon/reagent_containers/food/snacks/meat/human //gibber can only gib humans on paracode, no need to check meat type
-	var/slab_nutrition = src.occupant.nutrition / 15
+	var/slab_nutrition = occupant.nutrition / 15
 
 	slab_nutrition /= slab_count
 
@@ -352,7 +352,7 @@
 	feedinTopanim()
 	return 1
 
-/obj/machinery/gibber/autogibber/proc/ejectclothes(var/mob/living/carbon/human/H)
+/obj/machinery/gibber/autogibber/proc/ejectclothes(mob/living/carbon/human/H)
 	if(!istype(H))	return 0
 	if(H != occupant)	return 0 //only using H as a shortcut to typecast
 	for(var/obj/O in H)
@@ -367,7 +367,7 @@
 		if(O.flags & NODROP)
 			qdel(O) //they are already dead by now
 		H.unEquip(O)
-		O.loc = src.loc
+		O.loc = loc
 		O.throw_at(get_edge_target_turf(src,gib_throw_dir),rand(1,5),15)
 		sleep(1)
 
@@ -375,7 +375,7 @@
 		if(C.flags & NODROP)
 			qdel(C)
 		H.unEquip(C)
-		C.loc = src.loc
+		C.loc = loc
 		C.throw_at(get_edge_target_turf(src,gib_throw_dir),rand(1,5),15)
 		sleep(1)
 
@@ -385,7 +385,7 @@
 	var/spats = 0 //keeps track of how many items get spit out. Don't show a message if none are found.
 	for(var/obj/O in src)
 		if(istype(O))
-			O.loc = src.loc
+			O.loc = loc
 			O.throw_at(get_edge_target_turf(src,gib_throw_dir),rand(1,5),15)
 			spats++
 			sleep(1)

@@ -157,11 +157,17 @@
 	degrade_upper = 70 - (tier * 10)	//Tier 1: 60, Tier 4: 30
 
 /obj/machinery/botany/extractor/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-
 	if(!user)
 		return
 
-	var/list/data = list()
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "botany_isolator.tmpl", "Lysis-isolation Centrifuge UI", 470, 450)
+		ui.open()
+		ui.set_auto_update(1)
+
+/obj/machinery/botany/extractor/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+	var/data[0]
 
 	var/list/geneMasks[0]
 	for(var/gene_tag in plant_controller.gene_tag_list)
@@ -190,12 +196,7 @@
 		data["hasGenetics"] = 0
 		data["sourceName"] = 0
 
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if(!ui)
-		ui = new(user, src, ui_key, "botany_isolator.tmpl", "Lysis-isolation Centrifuge UI", 470, 450)
-		ui.set_initial_data(data)
-		ui.open()
-		ui.set_auto_update(1)
+	return data
 
 /obj/machinery/botany/Topic(href, href_list)
 
@@ -308,11 +309,17 @@
 	degrade_upper = 11 - tier		//Tier 1: 10, Tier 4: 6
 
 /obj/machinery/botany/editor/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-
 	if(!user)
 		return
 
-	var/list/data = list()
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "botany_editor.tmpl", "Bioballistic Delivery UI", 470, 450)
+		ui.open()
+		ui.set_auto_update(1)
+
+/obj/machinery/botany/editor/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+	var/data[0]
 
 	data["activity"] = active
 
@@ -340,12 +347,7 @@
 	else
 		data["loaded"] = 0
 
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if(!ui)
-		ui = new(user, src, ui_key, "botany_editor.tmpl", "Bioballistic Delivery UI", 470, 450)
-		ui.set_initial_data(data)
-		ui.open()
-		ui.set_auto_update(1)
+	return data
 
 /obj/machinery/botany/editor/Topic(href, href_list)
 

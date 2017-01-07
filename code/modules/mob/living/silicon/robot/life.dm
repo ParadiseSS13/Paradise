@@ -62,7 +62,7 @@
 
 	if(sleeping)
 		Paralyse(3)
-		sleeping--
+		AdjustSleeping(-1)
 
 	if(resting)
 		Weaken(5)
@@ -90,7 +90,7 @@
 			stat = UNCONSCIOUS
 
 			if(!paralysis > 0)
-				eye_blind = 0
+				SetEyeBlind(0)
 
 		else
 			stat = CONSCIOUS
@@ -98,7 +98,7 @@
 		diag_hud_set_health()
 		diag_hud_set_status()
 	else //dead
-		eye_blind = 1
+		SetEyeBlind(0)
 
 	//update the state of modules and components here
 	if(stat != CONSCIOUS)
@@ -120,32 +120,38 @@
 	return 1
 
 /mob/living/silicon/robot/update_sight()
-	if(stat == DEAD || sight_mode & BORGXRAY)
+	if(!client)
+		return
+	if(stat == DEAD)
+		grant_death_vision()
+		return
+
+	see_invisible = initial(see_invisible)
+	see_in_dark = initial(see_in_dark)
+	sight = initial(sight)
+
+	if(client.eye != src)
+		var/atom/A = client.eye
+		if(A.update_remote_sight(src)) //returns 1 if we override all other sight updates.
+			return
+
+	if(sight_mode & BORGMESON)
 		sight |= SEE_TURFS
+		see_invisible = min(see_invisible, SEE_INVISIBLE_MINIMUM)
+		see_in_dark = 1
+
+	if(sight_mode & BORGXRAY)
+		sight |= (SEE_TURFS|SEE_MOBS|SEE_OBJS)
+		see_invisible = SEE_INVISIBLE_LIVING
+		see_in_dark = 8
+
+	if(sight_mode & BORGTHERM)
 		sight |= SEE_MOBS
-		sight |= SEE_OBJS
+		see_invisible = min(see_invisible, SEE_INVISIBLE_LIVING)
 		see_in_dark = 8
-		see_invisible = SEE_INVISIBLE_LEVEL_TWO
-	else
-		see_in_dark = 8
-		if(sight_mode & BORGMESON && sight_mode & BORGTHERM)
-			sight |= SEE_TURFS
-			sight |= SEE_MOBS
-			see_invisible = SEE_INVISIBLE_MINIMUM
-		else if(sight_mode & BORGMESON)
-			sight |= SEE_TURFS
-			see_invisible = SEE_INVISIBLE_MINIMUM
-			see_in_dark = 1
-		else if(sight_mode & BORGTHERM)
-			sight |= SEE_MOBS
-			see_invisible = SEE_INVISIBLE_LEVEL_TWO
-		else if(stat != DEAD)
-			sight &= ~SEE_MOBS
-			sight &= ~SEE_TURFS
-			sight &= ~SEE_OBJS
-			see_invisible = SEE_INVISIBLE_LEVEL_TWO
-		if(see_override)
-			see_invisible = see_override
+
+	if(see_override)
+		see_invisible = see_override
 
 /mob/living/silicon/robot/handle_hud_icons()
 	update_items()

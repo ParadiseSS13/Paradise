@@ -34,10 +34,6 @@
 		update_icon()
 		chamber_round(0)
 
-	if(unique_rename)
-		if(istype(A, /obj/item/weapon/pen))
-			rename_gun(user)
-
 /obj/item/weapon/gun/projectile/revolver/attack_self(mob/living/user)
 	var/num_unloaded = 0
 	chambered = null

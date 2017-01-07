@@ -647,7 +647,13 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 /obj/machinery/computer/rdconsole/ui_interact(mob/user, ui_key="main", var/datum/nanoui/ui = null, var/force_open = 1)
 	user.set_machine(src)
-	var/data = list()
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "r_n_d.tmpl", src.name, 800, 550)
+		ui.open()
+
+/obj/machinery/computer/rdconsole/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+	var/data[0]
 
 	files.RefreshResearch()
 
@@ -857,11 +863,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				loaded_chemical["volume"] = R.volume
 				loaded_chemical["id"] = R.id
 
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if(!ui)
-		ui = new(user, src, ui_key, "r_n_d.tmpl", src.name, 800, 550)
-		ui.set_initial_data(data)
-		ui.open()
+	return data
 
 //helper proc that guarantees the wait message will not freeze the UI
 /obj/machinery/computer/rdconsole/proc/add_wait_message(message, delay)

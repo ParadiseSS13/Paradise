@@ -28,7 +28,7 @@
 
 	//non-verbal languages are garbled if you can't see the speaker. Yes, this includes if they are inside a closet.
 	if(language && (language.flags & NONVERBAL))
-		if(disabilities & BLIND || blinded) //blind people can't see dumbass
+		if(!has_vision()) //blind people can't see dumbass
 			message = stars(message)
 
 		if(!speaker || !(speaker in view(src)))
@@ -65,7 +65,7 @@
 		if(client.prefs.toggles & CHAT_GHOSTEARS && speaker in view(src))
 			message = "<b>[message]</b>"
 
-	if(disabilities & DEAF || ear_deaf)
+	if(!can_hear())
 		if(!language || !(language.flags & INNATE)) // INNATE is the flag for audible-emote-language, so we don't want to show an "x talks but you cannot hear them" message if it's set
 			if(speaker == src)
 				to_chat(src, "<span class='warning'>You cannot hear yourself speak!</span>")
@@ -95,7 +95,7 @@
 
 	//non-verbal languages are garbled if you can't see the speaker. Yes, this includes if they are inside a closet.
 	if(language && (language.flags & NONVERBAL))
-		if(disabilities & BLIND || blinded) //blind people can't see dumbass
+		if(!has_vision()) //blind people can't see dumbass
 			message = stars(message)
 
 		if(!speaker || !(speaker in view(src)))
@@ -182,7 +182,7 @@
 		formatted = language.format_message_radio(message, verb)
 	else
 		formatted = "[verb], <span class=\"body\">\"[message]\"</span>"
-	if(disabilities & DEAF || ear_deaf)
+	if(!can_hear())
 		if(prob(20))
 			to_chat(src, "<span class='warning'>You feel your headset vibrate but can hear nothing from it!</span>")
 	else if(track)

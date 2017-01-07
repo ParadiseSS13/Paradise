@@ -254,6 +254,7 @@
 				src.overrides = null
 				P.emag_overrides = src.emag_overrides
 				src.emag_overrides = null
+				default_deconstruction_crowbar(I, 1)
 				return
 		else
 			..(I,user)
@@ -296,10 +297,8 @@
 			O.loc = loc
 		for(var/mob/M in contents)
 			M.loc = loc
-			if(M.client)
-				M.client.eye = M.client.mob
-				M.client.perspective = MOB_PERSPECTIVE
-				to_chat(M, "\blue The machine turns off, and you fall out.")
+			M.reset_perspective(null)
+			to_chat(M, "<span class='notice'>The machine turns off, and you fall out.</span>")
 
 		return
 

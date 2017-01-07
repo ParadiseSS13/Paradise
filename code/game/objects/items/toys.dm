@@ -38,9 +38,7 @@
 	item_state = "balloon-empty"
 
 /obj/item/toy/balloon/New()
-	var/datum/reagents/R = new/datum/reagents(10)
-	reagents = R
-	R.my_atom = src
+	create_reagents(10)
 
 /obj/item/toy/balloon/attack(mob/living/carbon/human/M as mob, mob/user as mob)
 	return
@@ -282,6 +280,22 @@
 		if(issilicon(H) || M.m_intent == "run")
 			to_chat(M, "<span class='danger'>You step on the snap pop!</span>")
 			pop_burst(2, 0)
+
+/obj/item/toy/snappop/phoenix
+	name = "phoenix snap pop"
+	desc = "Wow! And wow! And wow!"
+	ash_type = /obj/effect/decal/cleanable/ash/snappop_phoenix
+
+/obj/effect/decal/cleanable/ash/snappop_phoenix
+	var/respawn_time = 300
+
+/obj/effect/decal/cleanable/ash/snappop_phoenix/New()
+	. = ..()
+	addtimer(src, "respawn", respawn_time)
+
+/obj/effect/decal/cleanable/ash/snappop_phoenix/proc/respawn()
+	new /obj/item/toy/snappop/phoenix(get_turf(src))
+	qdel(src)
 
 
 /*

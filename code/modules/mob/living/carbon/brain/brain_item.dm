@@ -21,7 +21,8 @@
 /obj/item/organ/internal/brain/surgeryize()
 	if(!owner)
 		return
-	owner.setEarDamage(0,0) //Yeah, didn't you...hear? The ears are totally inside the brain.
+	owner.SetEarDeaf(0)
+	owner.SetEarDamage(0) //Yeah, didn't you...hear? The ears are totally inside the brain.
 
 /obj/item/organ/internal/brain/xeno
 	name = "xenomorph brain"

@@ -47,7 +47,7 @@
 	icon_state = "healthhudnight"
 	item_state = "glasses"
 	darkness_view = 8
-	see_darkness = 0
+	invis_view = SEE_INVISIBLE_MINIMUM //don't render darkness while wearing these
 	prescription_upgradable = 0
 
 /obj/item/clothing/glasses/hud/diagnostic
@@ -66,7 +66,7 @@
 	icon_state = "diagnostichudnight"
 	item_state = "glasses"
 	darkness_view = 8
-	see_darkness = 0
+	invis_view = SEE_INVISIBLE_MINIMUM //don't render darkness while wearing these
 	prescription_upgradable = 0
 
 /obj/item/clothing/glasses/hud/security
@@ -95,14 +95,13 @@
 	icon_state = "jensenshades"
 	item_state = "jensenshades"
 	vision_flags = SEE_MOBS
-	invisa_view = 2
 
 /obj/item/clothing/glasses/hud/security/night
 	name = "\improper Night Vision Security HUD"
 	desc = "An advanced heads-up display which provides id data and vision in complete darkness."
 	icon_state = "securityhudnight"
 	darkness_view = 8
-	see_darkness = 0
+	invis_view = SEE_INVISIBLE_MINIMUM //don't render darkness while wearing these
 	prescription_upgradable = 0
 
 /obj/item/clothing/glasses/hud/security/sunglasses
@@ -133,5 +132,5 @@
 	icon_state = "hydroponichudnight"
 	item_state = "glasses"
 	darkness_view = 8
-	see_darkness = 0
+	invis_view = SEE_INVISIBLE_MINIMUM //don't render darkness while wearing these
 	prescription_upgradable = 0

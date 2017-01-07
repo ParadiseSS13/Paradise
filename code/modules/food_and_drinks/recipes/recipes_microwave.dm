@@ -205,10 +205,11 @@
 	reagents = list("water" = 5, "vodka" = 5)
 	fruit = list("amanita" = 3)
 	result = /obj/item/weapon/reagent_containers/food/snacks/amanitajelly
-	make_food(var/obj/container as obj)
-		var/obj/item/weapon/reagent_containers/food/snacks/amanitajelly/being_cooked = ..(container)
-		being_cooked.reagents.del_reagent("amanitin")
-		return being_cooked
+
+/datum/recipe/microwave/amanitajelly/make_food(obj/container)
+	var/obj/item/weapon/reagent_containers/food/snacks/amanitajelly/being_cooked = ..()
+	being_cooked.reagents.del_reagent("amanitin")
+	return being_cooked
 
 /datum/recipe/microwave/meatballsoup
 	reagents = list("water" = 10)
@@ -538,10 +539,11 @@ datum/recipe/microwave/slimesandwich
 /datum/recipe/microwave/herbsalad
 	fruit = list("ambrosia" = 3, "apple" = 1)
 	result = /obj/item/weapon/reagent_containers/food/snacks/herbsalad
-	make_food(var/obj/container as obj)
-		var/obj/item/weapon/reagent_containers/food/snacks/herbsalad/being_cooked = ..(container)
-		being_cooked.reagents.del_reagent("toxin")
-		return being_cooked
+
+/datum/recipe/microwave/herbsalad/make_food(obj/container)
+	var/obj/item/weapon/reagent_containers/food/snacks/herbsalad/being_cooked = ..()
+	being_cooked.reagents.del_reagent("toxin")
+	return being_cooked
 
 /datum/recipe/microwave/aesirsalad
 	fruit = list("ambrosiadeus" = 3, "goldapple" = 1)
@@ -553,10 +555,11 @@ datum/recipe/microwave/slimesandwich
 		/obj/item/weapon/reagent_containers/food/snacks/meatball,
 	)
 	result = /obj/item/weapon/reagent_containers/food/snacks/validsalad
-	make_food(var/obj/container as obj)
-		var/obj/item/weapon/reagent_containers/food/snacks/validsalad/being_cooked = ..(container)
-		being_cooked.reagents.del_reagent("toxin")
-		return being_cooked
+
+/datum/recipe/microwave/validsalad/make_food(obj/container)
+	var/obj/item/weapon/reagent_containers/food/snacks/validsalad/being_cooked = ..()
+	being_cooked.reagents.del_reagent("toxin")
+	return being_cooked
 
 ////////////////////////////FOOD ADDITTIONS///////////////////////////////
 
