@@ -359,7 +359,7 @@
 
 		var/bloodData[0]
 		bloodData["hasBlood"] = 0
-		if(ishuman(H) && H.vessel && !(H.species && H.species.flags & NO_BLOOD))
+		if(ishuman(H) && !(H.species && H.species.flags & NO_BLOOD))
 			bloodData["hasBlood"] = 1
 			bloodData["volume"] = H.blood_volume
 			bloodData["percent"] = round(((H.blood_volume / BLOOD_VOLUME_NORMAL)*100))

@@ -32,10 +32,10 @@
 				if(prob(50))
 					M.adjustBruteLoss(-1)
 				if(H.species.exotic_blood)
-					H.vessel.add_reagent(H.species.exotic_blood, 0.4)
+					H.blood_volume += 0.4 //will need exoic blood handling
 				else
 					if(!(H.species.flags & NO_BLOOD))
-						H.vessel.add_reagent("blood", 0.4)
+						H.blood_volume += 0.4
 	..()
 
 /datum/reagent/consumable/nutriment/protein			// Meat-based protein, digestable by carnivores and omnivores, worthless to herbivores
@@ -66,10 +66,10 @@
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		if(H.species.exotic_blood)
-			H.vessel.add_reagent(H.species.exotic_blood, 0.5)
+			H.blood_volume += 0.5
 		else
 			if(!(H.species.flags & NO_BLOOD))
-				H.vessel.add_reagent("blood", 0.5)
+				H.blood_volume += 0.5
 	..()
 
 /datum/reagent/consumable/soysauce
