@@ -505,32 +505,35 @@
 // Candybar Flavors
 // ***********************************************************
 
-/obj/item/weapon/reagent_containers/food/snacks/candy/candybar/rice
+/obj/item/weapon/reagent_containers/food/snacks/candy/confectionery
+	list_reagents = list("nutriment" = 1, "chocolate" = 1)
+
+/obj/item/weapon/reagent_containers/food/snacks/candy/confectionery/rice
 	name = "Asteroid Crunch Bar"
 	desc = "Crunchy rice deposits in delicious chocolate! A favorite of miners galaxy-wide."
 	icon_state = "asteroidcrunch"
 	trash = /obj/item/trash/candy
 	filling_color = "#7D5F46"
 
-/obj/item/weapon/reagent_containers/food/snacks/candy/candybar/toffee
+/obj/item/weapon/reagent_containers/food/snacks/candy/confectionery/toffee
 	name = "Yum-baton Bar"
 	desc = "Chocolate and toffee in the shape of a baton. Security sure knows how to pound these down!"
 	icon_state = "yumbaton"
 	filling_color = "#7D5F46"
 
-/obj/item/weapon/reagent_containers/food/snacks/candy/candybar/caramel
+/obj/item/weapon/reagent_containers/food/snacks/candy/confectionery/caramel
 	name = "Malper Bar"
 	desc = "A chocolate syringe filled with a caramel injection. Just what the doctor ordered!"
 	icon_state = "malper"
 	filling_color = "#7D5F46"
 
-/obj/item/weapon/reagent_containers/food/snacks/candy/candybar/caramel_nougat
+/obj/item/weapon/reagent_containers/food/snacks/candy/confectionery/caramel_nougat
 	name = "Toxins Test Bar"
 	desc = "An explosive combination of chocolate, caramel, and nougat. Research has never been so tasty!"
 	icon_state = "toxinstest"
 	filling_color = "#7D5F46"
 
-/obj/item/weapon/reagent_containers/food/snacks/candy/candybar/nougat
+/obj/item/weapon/reagent_containers/food/snacks/candy/confectionery/nougat
 	name = "Tool-erone Bar"
 	desc = "Chocolate-covered nougat, shaped like a wrench. Great for an engineer on the go!"
 	icon_state = "toolerone"
