@@ -20,7 +20,7 @@
 	var/health = 80			//the turret's health
 	var/locked = 1			//if the turret's behaviour control access is locked
 	var/controllock = 0		//if the turret responds to control panels
-
+	
 	var/installation = /obj/item/weapon/gun/energy/gun/turret		//the type of weapon installed
 	var/gun_charge = 0		//the charge of the gun inserted
 	var/projectile = null	//holder for bullettype
@@ -57,7 +57,8 @@
 	var/screen = 0 // Screen 0: main control, screen 1: access levels
 	var/one_access = 0 // Determines if access control is set to req_one_access or req_access
 	
-	var/faction = "neutral"
+	var/syndicate = 0		//is the turret a syndicate turret?
+	var/faction = ""
 	var/emp_vulnerable = 1 // Can be empd
 	var/scan_range = 7
 	var/always_up = 0		//Will stay active
@@ -105,7 +106,7 @@
 	one_access = 0
 
 /obj/machinery/porta_turret/proc/setup()
-	var/obj/item/weapon/gun/energy/E= new installation	//All energy-based weapons are applicable
+	var/obj/item/weapon/gun/energy/E = new installation	//All energy-based weapons are applicable
 	var/obj/item/ammo_casing/shottype = E.ammo_type[1]
 
 	projectile = shottype.projectile_type
@@ -212,10 +213,10 @@ var/list/turret_icons
 	data["screen"] = screen
 	data["locked"] = locked
 	data["enabled"] = enabled
-	data["is_lethal"] = 1
+	data["is_lethal"] = !syndicate ? 1 : 0
 	data["lethal"] = lethal
 
-	if(data["access"])
+	if(data["access"] && !syndicate)
 		var/settings[0]
 		settings[++settings.len] = list("category" = "Neutralize All Non-Synthetics", "setting" = "check_synth", "value" = check_synth)
 		settings[++settings.len] = list("category" = "Check Weapon Authorization", "setting" = "check_weapons", "value" = check_weapons)
@@ -225,18 +226,19 @@ var/list/turret_icons
 		settings[++settings.len] = list("category" = "Check Misc. Lifeforms", "setting" = "check_anomalies", "value" = check_anomalies)
 		data["settings"] = settings
 
-	data["one_access"] = one_access
-	var/accesses[0]
-	var/list/access_list = get_all_accesses()
-	for(var/access in access_list)
-		var/name = get_access_desc(access)
-		var/active
-		if(one_access)
-			active = (access in req_one_access)
-		else
-			active = (access in req_access)
-		accesses[++accesses.len] = list("name" = name, "active" = active, "number" = access)
-	data["accesses"] = accesses
+	if(!syndicate)
+		data["one_access"] = one_access
+		var/accesses[0]
+		var/list/access_list = get_all_accesses()
+		for(var/access in access_list)
+			var/name = get_access_desc(access)
+			var/active
+			if(one_access)
+				active = (access in req_one_access)
+			else
+				active = (access in req_access)
+			accesses[++accesses.len] = list("name" = name, "active" = active, "number" = access)
+		data["accesses"] = accesses
 	return data
 
 /obj/machinery/porta_turret/proc/HasController()
@@ -265,6 +267,8 @@ var/list/turret_icons
 		var/value = text2num(href_list["value"])
 		if(href_list["command"] == "enable")
 			enabled = value
+		else if(syndicate)
+			return 1
 		else if(href_list["command"] == "screen")
 			screen = value
 		else if(href_list["command"] == "lethal")
@@ -282,11 +286,12 @@ var/list/turret_icons
 		else if(href_list["command"] == "check_anomalies")
 			check_anomalies = value
 
-	if(href_list["one_access"])
-		toggle_one_access(href_list["one_access"])
+	if(!syndicate)
+		if(href_list["one_access"])
+			toggle_one_access(href_list["one_access"])
 
-	if(href_list["access"])
-		toggle_access(href_list["access"])
+		if(href_list["access"])
+			toggle_access(href_list["access"])
 
 	return 1
 
@@ -327,7 +332,7 @@ var/list/turret_icons
 
 
 /obj/machinery/porta_turret/attackby(obj/item/I, mob/user)
-	if(stat & BROKEN)
+	if((stat & BROKEN) && !syndicate)
 		if(istype(I, /obj/item/weapon/crowbar))
 			//If the turret is destroyed, you can remove it with a crowbar to
 			//try and salvage its components
@@ -450,7 +455,6 @@ var/list/turret_icons
 		die()	//the death process :(
 
 /obj/machinery/porta_turret/bullet_act(obj/item/projectile/Proj)
-
 	if(Proj.damage_type == STAMINA)
 		return
 
@@ -566,7 +570,7 @@ var/list/turret_icons
 	if(!L)
 		return TURRET_NOT_TARGET
 
-	if(!emagged && (issilicon(L) || isbot(L)))	// Don't target silica
+	if(!emagged && !syndicate && (issilicon(L) || isbot(L)))	// Don't target silica
 		return TURRET_NOT_TARGET
 
 	if(L.stat && !emagged)		//if the perp is dead/dying, no need to bother really
@@ -665,10 +669,10 @@ var/list/turret_icons
 
 	return ..()
 
-/obj/machinery/porta_turret/proc/set_raised_raising(var/raised, var/raising)
-	raised = raised
-	raising = raising
-	density = raised || raising
+/obj/machinery/porta_turret/proc/set_raised_raising(var/is_raised, var/is_raising)
+	raised = is_raised
+	raising = is_raising
+	density = is_raised || is_raising
 
 /obj/machinery/porta_turret/proc/target(var/mob/living/target)
 	if(disabled)
@@ -975,6 +979,7 @@ var/list/turret_icons
 	var/icon_state_active = "syndieturret1"
 	var/icon_state_destroyed = "syndieturret2"
 	
+	syndicate = 1
 	installation = null
 	always_up = 1
 	use_power = 0
@@ -985,6 +990,7 @@ var/list/turret_icons
 	faction = "syndicate"
 	emp_vulnerable = 0
 	
+	lethal = 1
 	check_arrest = 0
 	check_records = 0
 	check_weapons = 0
