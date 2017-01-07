@@ -21,12 +21,8 @@
 /obj/item/projectile/magic/death/on_hit(var/mob/living/carbon/G)
 	. = ..()
 	if(isliving(G))
-		if(G.stat != DEAD)
-			G.adjustBruteLoss(300)
-			visible_message("<span class='danger'>[G] falls backward as life is drained from them!")
-		else
-			G.gib()
-			visible_message("<span class='danger'>[G] explodes violently as the magical energies course through their corpse!")
+		G.adjustBruteLoss(3000)
+		visible_message("<span class='danger'>[G] topples backwards as the death bolt impacts them!</span>")
 
 /obj/item/projectile/magic/fireball/Range()
 	var/turf/T1 = get_step(src,turn(dir, -45))
