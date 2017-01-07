@@ -242,7 +242,7 @@
 	set category = "Object"
 	set src in view(1)
 
-	if(usr.stat || !usr.canmove || usr.restrained())
+	if(usr.incapacitated())
 		return
 	var/default = 5
 	var/N = input("Amount per transfer from this:", "[src]", default) as null|anything in possible_transfer_amounts
