@@ -213,7 +213,7 @@ var/list/turret_icons
 	data["screen"] = screen
 	data["locked"] = locked
 	data["enabled"] = enabled
-	data["is_lethal"] = !syndicate ? 1 : 0
+	data["lethal_control"] = !syndicate ? 1 : 0
 	data["lethal"] = lethal
 
 	if(data["access"] && !syndicate)
