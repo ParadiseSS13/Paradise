@@ -24,7 +24,7 @@ var/global/list/image/splatter_cache=list()
 /obj/effect/decal/cleanable/blood/New()
 	..()
 	update_icon()
-	if(ticker && ticker.mode && istype(ticker.mode.name, "cult"))
+	if(ticker && ticker.mode && ticker.mode.name == "cult")
 		var/datum/game_mode/cult/mode_ticker = ticker.mode
 		var/turf/T = get_turf(src)
 		if(T && (is_station_level(T.z)))//F I V E   T I L E S

@@ -476,7 +476,7 @@ var/list/teleport_runes = list()
 	if(istype(ticker.mode.name, "cult"))
 		var/datum/game_mode/cult/cult_mode = ticker.mode
 		if(!is_station_level(user.z))
-			message_admins("[user.real_name]([user.ckey]) tried to summon Nar-Sie off station")
+			message_admins("[user.real_name]([user.ckey]) tried to summon an eldritch horror off station")
 			for(var/M in invokers)
 				var/mob/living/L = M
 				to_chat(L, "<span class='cultlarge'><i>\"YOUR SOUL BURNS WITH YOUR ARROGANCE!!!\"</i></span>")
@@ -490,7 +490,7 @@ var/list/teleport_runes = list()
 		if(!cult_mode.eldergod)
 			for(var/M in invokers)
 				to_chat(M, "<span class='warning'>[ticker.mode.cultdat.entity_name] is already on this plane!</span>")
-			log_game("Summon Nar-Sie rune failed - already summoned")
+			log_game("Summon god rune failed - already summoned")
 			return
 		//BEGIN THE SUMMONING
 		used = 1
