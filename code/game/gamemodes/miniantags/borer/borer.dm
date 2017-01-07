@@ -23,7 +23,7 @@
 		to_chat(B.host, "<i><span class='alien'>The captive mind of [src] whispers, \"[message]\"</span></i>")
 
 		for(var/mob/M in mob_list)
-			if(M.mind && (isobserver(M))
+			if(M.mind && isobserver(M))
 				to_chat(M, "<i>Thought-speech, <b>[src]</b> -> <b>[B.truename]:</b> [message]</i>")
 
 /mob/living/captive_brain/say_understands(var/mob/other, var/datum/language/speaking = null)
@@ -699,7 +699,7 @@
 
 		new /obj/effect/decal/cleanable/vomit(get_turf(src))
 		playsound(loc, 'sound/effects/splat.ogg', 50, 1)
-		new /mob/living/simple_animal/borer(get_turf(src))
+		new /mob/living/simple_animal/borer(get_turf(src),B.generation + 1)
 
 	else
 		to_chat(src, "You do not have enough chemicals stored to reproduce.")
