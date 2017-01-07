@@ -325,10 +325,10 @@ var/list/teleport_runes = list()
 /obj/effect/rune/convert/invoke(var/list/invokers)
 	var/list/convertees = list()
 	var/turf/T = get_turf(src)
-	var/convert_time = 30
+	var/convert_time = 300
 
 	if(invokers.len == 2)
-		convert_time  = 15
+		convert_time  = 150
 	else if(invokers.len > 3)
 		convert_time = 0
 
