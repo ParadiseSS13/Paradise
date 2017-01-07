@@ -316,8 +316,7 @@ var/list/teleport_runes = list()
 	cultist_desc = "converts a normal crewmember on top of it to the cult. Does not work on loyalty-implanted crew."
 	invocation = "Mah'weyh pleggh at e'ntrath!"
 	icon_state = "3"
-	req_cultists = 1
-	allow_excess_invokers = 1
+	req_cultists = 2
 
 /obj/effect/rune/convert/do_invoke_glow()
 	return
@@ -325,12 +324,6 @@ var/list/teleport_runes = list()
 /obj/effect/rune/convert/invoke(var/list/invokers)
 	var/list/convertees = list()
 	var/turf/T = get_turf(src)
-	var/convert_time = 300
-
-	if(invokers.len == 2)
-		convert_time  = 150
-	else if(invokers.len > 3)
-		convert_time = 0
 
 	for(var/mob/living/M in T.contents)
 		if(!iscultist(M) && !isloyal(M))
@@ -349,9 +342,7 @@ var/list/teleport_runes = list()
 		log_game("Convert rune failed - convertee could not be converted")
 		return
 	..()
-	if(!do_after(usr, convert_time, target = src))
-		to_chat(usr, "<span class='warning'>The victim was moved!</span>")
-		return
+
 	new_cultist.visible_message("<span class='warning'>[new_cultist] writhes in pain as the markings below them glow a bloody red!</span>", \
 					  			"<span class='cultlarge'><i>AAAAAAAAAAAAAA-</i></span>")
 	ticker.mode.add_cultist(new_cultist.mind, 1)

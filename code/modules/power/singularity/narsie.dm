@@ -123,6 +123,8 @@
 
 
 /obj/singularity/narsie/proc/acquire(var/mob/food)
+	if(food == target)
+		return
 	to_chat(target, "<span class='cultlarge'>[uppertext(ticker.mode.cultdat.entity_name)] HAS LOST INTEREST IN YOU</span>")
 	target = food
 	if(ishuman(target))

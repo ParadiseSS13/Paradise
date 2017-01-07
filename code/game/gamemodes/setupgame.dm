@@ -153,5 +153,5 @@
 	var/random_cult = pick(all_cults)
 	var/picked_cult = new random_cult() //this seems redundent as fuck
 	if(!picked_cult)//shouldn't happen BUT JUST TO BE SURE LET US KNOW
-		log_startup_progress(" Failed to select a cult datum, Shank a coder!")
+		warning(" Failed to select a cult datum, Shank a coder!")
 	return picked_cult
