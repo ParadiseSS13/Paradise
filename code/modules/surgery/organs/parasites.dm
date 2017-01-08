@@ -61,7 +61,7 @@
 	switch(current_cycle)
 		if(1) // immediately
 			to_chat(owner,"<span class='danger'>Your spider bite wound hurts horribly! </span>")
-			if(istype(get_area(owner), /area/awaycontent) || istype(get_area(owner), /area/awaymission/))
+			if(istype(get_area(owner), /area/awaycontent) || istype(get_area(owner), /area/awaymission))
 				awaymission_infection = 1
 		if(15) // 30 seconds... enough time for the nerve agent to kick in, the pain to be blocked, and healing to begin
 			to_chat(owner,"<span class='notice'>The pain has faded, and stopped bleeding, though the skin around it has turned black.</span>")

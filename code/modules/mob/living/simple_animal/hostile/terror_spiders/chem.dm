@@ -43,9 +43,7 @@
 	color = "#CF3600"
 	metabolization_rate = 2
 
-/datum/reagent/terror_queen_toxin/on_mob_life(mob/living/M as mob)
-	if(!M)
-		M = holder.my_atom
+/datum/reagent/terror_queen_toxin/on_mob_life(mob/living/M)
 	// make them hallucinate a lot, like a changeling sting
 	M.hallucination = min(400, M.hallucination+50)
 

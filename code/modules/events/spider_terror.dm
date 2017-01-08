@@ -34,7 +34,7 @@
 			spider_type = /mob/living/simple_animal/hostile/poison/terror_spider/queen
 			spawncount = 1
 
-	while((spawncount >= 1) && vents.len)
+	while(spawncount >= 1 && vents.len)
 		var/obj/vent = pick(vents)
 		var/obj/effect/spider/spiderling/terror_spiderling/S = new(vent.loc)
 		S.name = "evil-looking spiderling"

@@ -103,7 +103,7 @@
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/proc/MassFlicker()
 	var/list/target_lights = list()
 	for(var/mob/living/carbon/human/H in player_list)
-		if(H.z != src.z)
+		if(H.z != z)
 			continue
 		if(H.stat == DEAD)
 			continue
@@ -212,7 +212,7 @@
 
 
 /obj/item/projectile/terrorqueenspit/on_hit(mob/living/carbon/target)
-	if(istype(target, /mob))
+	if(ismob(target))
 		var/mob/living/L = target
 		if(L.reagents)
 			if(L.can_inject(null, 0, "chest", 0))
