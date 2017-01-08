@@ -516,7 +516,6 @@
 				return istype(H.glasses, /obj/item/clothing/glasses/hud/health) || istype(H.glasses, /obj/item/clothing/glasses/hud/health/health_advanced) ||  istype(CIH,/obj/item/organ/internal/cyberimp/eyes/hud/medical)
 			else
 				return 0
-	else if(istype(M, /mob/living/silicon))
 		switch(hudtype)
 			if("security")
 				return 1
