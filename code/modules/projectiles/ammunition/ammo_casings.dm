@@ -345,11 +345,53 @@
 		to_chat(user, "<span class='notice'>You remove [FD.pen] from [src].</span>")
 		FD.pen = null
 
-/obj/item/ammo_casing/caseless/foam_dart/riot
+/obj/item/ammo_casing/caseless/riot_foam_dart
 	name = "riot foam dart"
 	desc = "Whose smart idea was it to use toys as crowd control? Ages 18 and up."
-	projectile_type = /obj/item/projectile/bullet/reusable/foam_dart/riot
+	caliber = "foam_force"
+	icon = 'icons/obj/guns/toy.dmi'
 	icon_state = "foamdart_riot"
+	projectile_type = /obj/item/projectile/bullet/reusable/riot_foam_dart
+	var/modified = 0
+
+/obj/item/ammo_casing/caseless/riot_foam_dart/update_icon()
+	..()
+	if(modified)
+		icon_state = "foamdart_empty"
+		desc = "Whose smart idea was it to use toys as crowd control? ... Although, this one doesn't look too safe."
+		if(BB)
+			BB.icon_state = "foamdart_empty"
+	else
+		icon_state = "foamdart_riot"
+		desc = "Whose smart idea was it to use toys as crowd control?"
+		if(BB)
+			BB.icon_state = "foamdart_empty"
+
+/obj/item/ammo_casing/caseless/riot_foam_dart/attackby(obj/item/A, mob/user, params)
+	..()
+	var/obj/item/projectile/bullet/reusable/riot_foam_dart/FD = BB
+	if(istype(A, /obj/item/weapon/screwdriver) && !modified)
+		modified = 1
+		FD.damage_type = BRUTE
+		update_icon()
+	else if((istype(A, /obj/item/weapon/pen)) && modified && !FD.pen)
+		if(!user.unEquip(A))
+			return
+		A.loc = FD
+		FD.pen = A
+		FD.damage = 5
+		FD.nodamage = 0
+		to_chat(user, "<span class='notice'>You insert [A] into [src].</span>")
+	return
+
+/obj/item/ammo_casing/caseless/riot_foam_dart/attack_self(mob/living/user)
+	var/obj/item/projectile/bullet/reusable/riot_foam_dart/FD = BB
+	if(FD.pen)
+		FD.damage = initial(FD.damage)
+		FD.nodamage = initial(FD.nodamage)
+		user.put_in_hands(FD.pen)
+		to_chat(user, "<span class='notice'>You remove [FD.pen] from [src].</span>")
+		FD.pen = null
 
 /obj/item/ammo_casing/shotgun/dart/assassination
 	desc = "A specialist shotgun dart designed to inncapacitate and kill the target over time, so you can get very far away from your target"

@@ -98,9 +98,12 @@
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart
 	max_ammo = 40
 
-/obj/item/ammo_box/foambox/riot
+/obj/item/ammo_box/riot_foambox
+	name = "ammo box (Riot Foam Darts)"
+	icon = 'icons/obj/guns/toy.dmi'
 	icon_state = "foambox_riot"
-	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/riot
+	ammo_type = /obj/item/ammo_casing/caseless/riot_foam_dart
+	max_ammo = 40
 
 /obj/item/ammo_box/caps
 	name = "speed loader (caps)"
