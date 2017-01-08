@@ -42,11 +42,11 @@ var/global/list/syndicate_codewords = list()
 
 	if(!syndicate_code_phrase)
 		var/list/new_phrases = generate_code_phrase()
-		syndicate_code_phrase = n_jointext(new_phrases, ", ") + "."
+		syndicate_code_phrase = jointext(new_phrases, ", ") + "."
 		syndicate_codewords += new_phrases
 	if(!syndicate_code_response)
 		var/list/new_responses = generate_code_phrase()
-		syndicate_code_response = n_jointext(new_responses, ", ") + "."
+		syndicate_code_response = jointext(new_responses, ", ") + "."
 		syndicate_codewords += new_responses
 
 
