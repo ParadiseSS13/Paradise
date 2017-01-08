@@ -65,6 +65,7 @@
 	var/max_equip = 3
 	var/datum/events/events
 	var/turf/crashing = null
+	var/occupant_sight_flags = 0
 
 
 	var/stepsound = 'sound/mecha/mechstep.ogg'
@@ -1128,7 +1129,7 @@
 		occupant = H
 		H.stop_pulling()
 		H.forceMove(src)
-		H.reset_view(src)
+		H.reset_perspective(src)
 		add_fingerprint(H)
 		//GrantActions(H, human_occupant=1)
 		forceMove(loc)
@@ -1177,13 +1178,9 @@
 			to_chat(user, "<span class='notice'>\the [mmi_as_oc] is stuck to your hand, you cannot put it in \the [src]</span>")
 			return 0
 		var/mob/brainmob = mmi_as_oc.brainmob
-		brainmob.reset_view(src)
-	/*
-		brainmob.client.eye = src
-		brainmob.client.perspective = EYE_PERSPECTIVE
-	*/
+		brainmob.reset_perspective(src)
 		occupant = brainmob
-		brainmob.loc = src //should allow relaymove
+		brainmob.forceMove(src) //should allow relaymove
 		brainmob.canmove = 1
 		mmi_as_oc.loc = src
 		mmi_as_oc.mecha = src
@@ -1266,7 +1263,7 @@
 			var/obj/item/device/mmi/mmi = mob_container
 			if(mmi.brainmob)
 				L.loc = mmi
-				L.reset_view()
+				L.reset_perspective()
 			mmi.mecha = null
 			mmi.update_icon()
 			L.canmove = 0
@@ -1440,3 +1437,8 @@
 
 /obj/mecha/speech_bubble(var/bubble_state = "",var/bubble_loc = src, var/list/bubble_recipients = list())
 	flick_overlay(image('icons/mob/talk.dmi', bubble_loc, bubble_state,MOB_LAYER+1), bubble_recipients, 30)
+
+/obj/mecha/update_remote_sight(mob/living/user)
+	if(occupant_sight_flags)
+		if(user == occupant)
+			user.sight |= occupant_sight_flags

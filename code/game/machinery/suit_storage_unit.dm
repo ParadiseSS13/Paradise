@@ -430,27 +430,21 @@
 
 
 /obj/machinery/suit_storage_unit/proc/eject_occupant(mob/user as mob)
-	if(src.islocked)
+	if(islocked)
 		return
 
-	if(!src.OCCUPANT)
+	if(!OCCUPANT)
 		return
-//	for(var/obj/O in src)
-//		O.loc = src.loc
 
-	if(src.OCCUPANT.client)
-		if(user != OCCUPANT)
-			to_chat(OCCUPANT, "<font color='blue'>The machine kicks you out!</font>")
-		if(user.loc != src.loc)
-			to_chat(OCCUPANT, "<font color='blue'>You leave the not-so-cozy confines of the SSU.</font>")
-
-		src.OCCUPANT.client.eye = src.OCCUPANT.client.mob
-		src.OCCUPANT.client.perspective = MOB_PERSPECTIVE
-	src.OCCUPANT.loc = src.loc
-	src.OCCUPANT = null
-	if(!src.isopen)
-		src.isopen = 1
-	src.update_icon()
+	if(user != OCCUPANT)
+		to_chat(OCCUPANT, "<font color='blue'>The machine kicks you out!</font>")
+	if(user.loc != loc)
+		to_chat(OCCUPANT, "<font color='blue'>You leave the not-so-cozy confines of the SSU.</font>")
+	OCCUPANT.forceMove(loc)
+	OCCUPANT = null
+	if(!isopen)
+		isopen = 1
+	update_icon()
 	return
 
 
@@ -487,9 +481,7 @@
 	visible_message("[usr] starts squeezing into the suit storage unit!")
 	if(do_after(usr, 10, target = usr))
 		usr.stop_pulling()
-		usr.client.perspective = EYE_PERSPECTIVE
-		usr.client.eye = src
-		usr.loc = src
+		usr.forceMove(src)
 //		usr.metabslow = 1
 		src.OCCUPANT = usr
 		src.isopen = 0 //Close the thing after the guy gets inside
@@ -532,10 +524,7 @@
 		if(do_after(user, 20, target = G:affecting))
 			if(!G || !G.affecting) return //derpcheck
 			var/mob/M = G.affecting
-			if(M.client)
-				M.client.perspective = EYE_PERSPECTIVE
-				M.client.eye = src
-			M.loc = src
+			M.forceMove(src)
 			src.OCCUPANT = M
 			src.isopen = 0 //close ittt
 
@@ -690,10 +679,7 @@
 		if(do_after(user, 20, target = G:affecting))
 			if(!G || !G.affecting) return
 			var/mob/M = G.affecting
-			if(M.client)
-				M.client.perspective = EYE_PERSPECTIVE
-				M.client.eye = src
-			M.loc = src
+			M.forceMove(src)
 			src.occupant = M
 
 			src.add_fingerprint(user)
@@ -999,16 +985,12 @@
 	if(!occupant)
 		return
 
-	if(occupant.client)
-		occupant.client.eye = occupant.client.mob
-		occupant.client.perspective = MOB_PERSPECTIVE
-
-	occupant.loc = get_turf(occupant)
+	occupant.forceMove(loc)
 	occupant = null
 
 	add_fingerprint(usr)
-	src.updateUsrDialog()
-	src.update_icon()
+	updateUsrDialog()
+	update_icon()
 
 	return
 /*

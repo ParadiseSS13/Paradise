@@ -133,6 +133,11 @@
 	name = "engraved floor"
 	icon_state = "cult"
 
+/turf/simulated/floor/engine/cult/New()
+	..()
+	if(ticker.mode)//only do this if the round is going..otherwise..fucking asteroid..
+		icon_state = ticker.mode.cultdat.cult_floor_icon_state
+
 /turf/simulated/floor/engine/cult/narsie_act()
 	return
 

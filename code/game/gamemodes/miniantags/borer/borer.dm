@@ -446,7 +446,7 @@
 
 	controlling = 0
 
-	reset_view(null)
+	reset_perspective(null)
 	machine = null
 
 	host.verbs -= /mob/living/carbon/proc/release_control
@@ -562,10 +562,10 @@
 
 	src.forceMove(get_turf(host))
 
-	reset_view(null)
+	reset_perspective(null)
 	machine = null
 
-	host.reset_view(null)
+	host.reset_perspective(null)
 	host.machine = null
 
 	var/mob/living/H = host

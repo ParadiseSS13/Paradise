@@ -37,21 +37,36 @@ var/global/list/default_pai_software = list()
 
 	ui_interact(src)
 
-/mob/living/silicon/pai/ui_interact(mob/user, ui_key = "main", datum/nanoui/ui = null, force_open = 1)
-	if(user != src)
-		if(ui) ui.set_status(STATUS_CLOSE, 0)
+/mob/living/silicon/pai/ui_interact(mob/user, ui_key = "main", datum/nanoui/ui = null, force_open = 1, datum/topic_state/state = self_state)
+	if(ui_key != "main")
+		var/datum/pai_software/S = software[ui_key]
+		if(S && !S.toggle)
+			ui = nanomanager.try_update_ui(user, src, S.id, ui, force_open)
+			if(!ui)
+				ui = new(user, src, S.id, S.template_file, S.ui_title, S.ui_width, S.ui_height, state = state)
+				ui.open()
+				if(S.autoupdate)
+					ui.set_auto_update(1)
+		else
+			if(ui)
+				ui.set_status(STATUS_CLOSE, 0)
 		return
+
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "pai_interface.tmpl", "pAI Software Interface", 450, 600, state = state)
+		ui.open()
+		ui.set_auto_update(1)
+
+/mob/living/silicon/pai/ui_data(mob/user, ui_key = "main", datum/topic_state/state = self_state)
+	var/data[0]
 
 	if(ui_key != "main")
 		var/datum/pai_software/S = software[ui_key]
 		if(S && !S.toggle)
-			S.on_ui_interact(src, ui, force_open)
-		else
-			if(ui) ui.set_status(STATUS_CLOSE, 0)
+			return S.on_ui_data(user, state)
+		log_runtime(EXCEPTION("Unrecognized/invalid pAI UI state '[ui_key]'"), src)
 		return
-
-	var/data[0]
-
 	// Software we have bought
 	var/bought_software[0]
 	// Software we have not bought
@@ -84,12 +99,7 @@ var/global/list/default_pai_software = list()
 	data["emotions"] = emotions
 	data["current_emotion"] = card.current_emotion
 
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if(!ui)
-		ui = new(user, src, ui_key, "pai_interface.tmpl", "pAI Software Interface", 450, 600)
-		ui.set_initial_data(data)
-		ui.open()
-		ui.set_auto_update(1)
+	return data
 
 /mob/living/silicon/pai/Topic(href, href_list)
 	if(..())

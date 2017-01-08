@@ -110,6 +110,9 @@
 #define CHEM_MOB_SPAWN_HOSTILE   1
 #define CHEM_MOB_SPAWN_FRIENDLY  2
 
+#define TINT_IMPAIR 2			//Threshold of tint level to apply weld mask overlay
+#define TINT_BLIND 3			//Threshold of tint level to obscure vision fully
+
 #define isliving(A)		(istype((A), /mob/living))
 #define iscarbon(A)		(istype((A), /mob/living/carbon))
 #define ishuman(A)		(istype((A), /mob/living/carbon/human))

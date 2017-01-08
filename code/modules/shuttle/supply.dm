@@ -425,6 +425,12 @@
 	ui_interact(user)
 
 /obj/machinery/computer/ordercomp/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null)
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui)
+	if(!ui)
+		ui = new(user, src, ui_key, "order_console.tmpl", name, ORDER_SCREEN_WIDTH, ORDER_SCREEN_HEIGHT)
+		ui.open()
+
+/obj/machinery/computer/ordercomp/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/data[0]
 	data["last_viewed_group"] = last_viewed_group
 
@@ -474,11 +480,7 @@
 	data["at_station"] = shuttle_master.supply.getDockedId() == "supply_home"
 	data["timeleft"] = shuttle_master.supply.timeLeft(600)
 
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data)
-	if(!ui)
-		ui = new(user, src, ui_key, "order_console.tmpl", name, ORDER_SCREEN_WIDTH, ORDER_SCREEN_HEIGHT)
-		ui.set_initial_data(data)
-		ui.open()
+	return data
 
 /obj/machinery/computer/ordercomp/Topic(href, href_list)
 	if(..())
@@ -572,7 +574,12 @@
 		return
 
 /obj/machinery/computer/supplycomp/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null)
-	// data to send to ui
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui)
+	if(!ui)
+		ui = new(user, src, ui_key, "supply_console.tmpl", name, SUPPLY_SCREEN_WIDTH, SUPPLY_SCREEN_HEIGHT)
+		ui.open()
+
+/obj/machinery/computer/supplycomp/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/data[0]
 	data["last_viewed_group"] = last_viewed_group
 
@@ -622,18 +629,13 @@
 	data["at_station"] = shuttle_master.supply.getDockedId() == "supply_home"
 	data["timeleft"] = shuttle_master.supply.timeLeft(600)
 	data["can_launch"] = !shuttle_master.supply.canMove()
+	return data
 
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data)
-	if(!ui)
-		ui = new(user, src, ui_key, "supply_console.tmpl", name, SUPPLY_SCREEN_WIDTH, SUPPLY_SCREEN_HEIGHT)
-		ui.set_initial_data(data)
-		ui.open()
-
-/obj/machinery/computer/supplycomp/proc/is_authorized(user)
+/obj/machinery/computer/supplycomp/proc/is_authorized(mob/user)
 	if(allowed(user))
 		return 1
 
-	if(isobserver(user) && check_rights(R_ADMIN, 0))
+	if(user.can_admin_interact())
 		return 1
 
 	return 0

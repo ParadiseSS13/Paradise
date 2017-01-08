@@ -76,10 +76,16 @@
 /obj/machinery/computer/account_database/attack_hand(mob/user as mob)
 	ui_interact(user)
 
-/obj/machinery/computer/account_database/ui_interact(mob/user, ui_key="main", var/datum/nanoui/ui = null, var/force_open = 1)
+/obj/machinery/computer/account_database/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	user.set_machine(src)
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "accounts_terminal.tmpl", src.name, 400, 640)
+		ui.open()
 
+/obj/machinery/computer/account_database/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/data[0]
+
 	data["src"] = UID()
 	data["id_inserted"] = !!held_card
 	data["id_card"] = held_card ? text("[held_card.registered_name], [held_card.assignment]") : "-----"
@@ -122,11 +128,7 @@
 	if(accounts.len > 0)
 		data["accounts"] = accounts
 
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if(!ui)
-		ui = new(user, src, ui_key, "accounts_terminal.tmpl", src.name, 400, 640)
-		ui.set_initial_data(data)
-		ui.open()
+	return data
 
 /obj/machinery/computer/account_database/Topic(href, href_list)
 	if(..())

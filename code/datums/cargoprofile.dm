@@ -643,9 +643,7 @@
 			//this is necessarily damaging
 			var/damage = rand(1,5)
 			to_chat(M, "<span class='danger'>The unloading machine grabs you with a hard metallic claw!</span>")
-			if(M.client)
-				M.client.eye = master
-				M.client.perspective = EYE_PERSPECTIVE
+			M.reset_perspective(master)
 			M.loc = master
 			master.types[M.type] = src
 			M.apply_damage(damage) // todo: ugly
@@ -699,10 +697,7 @@
 			//this is necessarily damaging
 			var/damage = rand(1,5)
 			to_chat(M, "<span class='danger'>The unloading machine grabs you with a hard metallic claw!</span>")
-			if(M.client)
-				M.client.eye = master
-				M.client.perspective = EYE_PERSPECTIVE
-			M.loc = master
+			M.forceMove(master)
 			master.types[M.type] = src
 			M.apply_damage(damage) // todo: ugly
 			M.visible_message("\red [M.name] gets pulled into the machine!")
@@ -710,11 +705,8 @@
 
 	outlet_reaction(var/atom/W,var/turf/D)
 		var/mob/living/M = W
-		M.loc = master.loc
+		M.forceMove(master.loc)
 		M.dir = master.outdir
-		if(M.client)
-			M.client.eye = M.client.mob
-			M.client.perspective = MOB_PERSPECTIVE
 
 		D = get_step(D,master.outdir) // throw attempt
 		eject_speed = rand(0,4)

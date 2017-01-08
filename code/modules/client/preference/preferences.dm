@@ -82,6 +82,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 	//game-preferences
 	var/lastchangelog = ""				//Saved changlog filesize to detect if there was a change
+	var/exp
 	var/ooccolor = "#b82e00"
 	var/be_special = list()				//Special role selection
 	var/UI_style = "Midnight"
@@ -592,6 +593,10 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			continue
 		if(jobban_isbanned(user, rank))
 			HTML += "<del>[rank]</del></td><td><b> \[BANNED]</b></td></tr>"
+			continue
+		var/available_in_playtime = job.available_in_playtime(user.client)
+		if(available_in_playtime)
+			HTML += "<del>[rank]</del></td><td> \[ " + get_exp_format(available_in_playtime) + " as " + job.get_exp_req_type()  + " \]</td></tr>"
 			continue
 		if(!job.player_old_enough(user.client))
 			var/available_in_days = job.available_in_days(user.client)
@@ -2098,37 +2103,6 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 					I.robotize()
 
 	character.dna.b_type = b_type
-	if(disabilities & DISABILITY_FLAG_FAT && character.species.flags & CAN_BE_FAT)
-		character.dna.SetSEState(FATBLOCK,1,1)
-		character.mutations += FAT
-		character.mutations += OBESITY
-		character.overeatduration = 600
-
-	if(disabilities & DISABILITY_FLAG_NEARSIGHTED)
-		character.dna.SetSEState(GLASSESBLOCK,1,1)
-		character.disabilities|=NEARSIGHTED
-
-	if(disabilities & DISABILITY_FLAG_EPILEPTIC)
-		character.dna.SetSEState(EPILEPSYBLOCK,1,1)
-		character.disabilities|=EPILEPSY
-
-	if(disabilities & DISABILITY_FLAG_DEAF)
-		character.dna.SetSEState(DEAFBLOCK,1,1)
-		character.disabilities|=DEAF
-
-	if(disabilities & DISABILITY_FLAG_BLIND)
-		character.dna.SetSEState(BLINDBLOCK,1,1)
-		character.disabilities|=BLIND
-
-	if(disabilities & DISABILITY_FLAG_MUTE)
-		character.dna.SetSEState(MUTEBLOCK,1,1)
-		character.disabilities |= MUTE
-
-	S.handle_dna(character)
-
-	if(character.dna.dirtySE)
-		character.dna.UpdateSE()
-	domutcheck(character)
 
 	// Wheelchair necessary?
 	var/obj/item/organ/external/l_foot = character.get_organ("l_foot")
@@ -2168,6 +2142,38 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			character.change_gender(MALE)
 
 	character.change_eye_color(r_eyes, g_eyes, b_eyes)
+
+	if(disabilities & DISABILITY_FLAG_FAT && character.species.flags & CAN_BE_FAT)
+		character.dna.SetSEState(FATBLOCK,1,1)
+		character.mutations += FAT
+		character.mutations += OBESITY
+		character.overeatduration = 600
+
+	if(disabilities & DISABILITY_FLAG_NEARSIGHTED)
+		character.dna.SetSEState(GLASSESBLOCK,1,1)
+		character.disabilities |= NEARSIGHTED
+
+	if(disabilities & DISABILITY_FLAG_EPILEPTIC)
+		character.dna.SetSEState(EPILEPSYBLOCK,1,1)
+		character.disabilities |= EPILEPSY
+
+	if(disabilities & DISABILITY_FLAG_DEAF)
+		character.dna.SetSEState(DEAFBLOCK,1,1)
+		character.disabilities |= DEAF
+
+	if(disabilities & DISABILITY_FLAG_BLIND)
+		character.dna.SetSEState(BLINDBLOCK,1,1)
+		character.disabilities |= BLIND
+
+	if(disabilities & DISABILITY_FLAG_MUTE)
+		character.dna.SetSEState(MUTEBLOCK,1,1)
+		character.disabilities |= MUTE
+
+	S.handle_dna(character)
+
+	if(character.dna.dirtySE)
+		character.dna.UpdateSE()
+	domutcheck(character, null, MUTCHK_FORCED)
 
 	character.dna.ready_dna(character, flatten_SE = 0)
 	character.sync_organ_dna(assimilate=1)
