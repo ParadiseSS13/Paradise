@@ -36,8 +36,7 @@
 	..()
 	name = initial(name)
 	home_turf = get_turf(src)
-	var/datum/job/captain/J = new/datum/job/captain
-	access_card.access = J.get_access()
+	access_card.access = get_all_accesses()
 	prev_access = access_card.access
 
 /mob/living/simple_animal/bot/mulebot/ssdbot/MouseDrop_T(atom/movable/AM, mob/user)
@@ -182,9 +181,27 @@
 	start()
 
 /mob/living/simple_animal/bot/mulebot/ssdbot/proc/bot_can_pick_up(var/mob/living/carbon/human/H)
-	if(H.z == z && isLivingSSD(H) && !H.anchored && !H.stunned && !H.handcuffed && H.loc != home_turf && !istype(get_turf(H), /turf/space) && !H.buckled && !H.pulledby && !H.grabbed_by)
-		return 1
-	return 0
+	if(H.z != z)
+		return 0
+	if(!isLivingSSD(H))
+		return 0
+	if(H.anchored)
+		return 0
+	if(H.stunned)
+		return 0
+	if(H.handcuffed)
+		return 0
+	if(H.loc == home_turf)
+		return 0
+	if(istype(get_turf(H), /turf/space))
+		return 0
+	if(H.buckled)
+		return 0
+	if(H.pulledby)
+		return 0
+	if(H.grabbed_by)
+		return 0
+	return 1
 
 /mob/living/simple_animal/bot/mulebot/ssdbot/at_target()
 	if(!reached_target)
@@ -196,7 +213,7 @@
 		if(load)
 			speak("Unloading [load].")
 			var/mob/living/carbon/human/N = passenger
-			unload(2) // south
+			unload(SOUTH)
 
 			sleep(20)
 			var/obj/machinery/cryopod/Y
@@ -246,7 +263,6 @@
 
 /mob/living/simple_animal/bot/mulebot/ssdbot/RunOver(mob/living/carbon/human/H)
 	H.Weaken(5)
-	return // this version doesn't hurt people even if it runs into them
 
 /mob/living/simple_animal/bot/mulebot/ssdbot/update_icon()
 	return
