@@ -358,19 +358,19 @@ var/global/datum/controller/occupations/job_master
 
 		Debug("DO, Running AC2")
 
-		// For those who wanted to be civilians if their preferences were filled, here you go.
+		// Antags, who have to get in, come first
+		for(var/mob/new_player/player in unassigned)
+			if(player.mind.special_role)
+				GiveRandomJob(player)
+				if(player in unassigned)
+					AssignRole(player, "Civilian")
+
+		// Then we assign what we can to everyone else.
 		for(var/mob/new_player/player in unassigned)
 			if(player.client.prefs.alternate_option == BE_ASSISTANT)
 				Debug("AC2 Assistant located, Player: [player]")
 				AssignRole(player, "Civilian")
-
-		for(var/mob/new_player/player in unassigned)
-			if(player.mind.special_role)
-				GiveRandomJob(player)
-
-		//For ones returning to lobby
-		for(var/mob/new_player/player in unassigned)
-			if(player.client.prefs.alternate_option == RETURN_TO_LOBBY)
+			else if(player.client.prefs.alternate_option == RETURN_TO_LOBBY)
 				player.ready = 0
 				unassigned -= player
 		return 1

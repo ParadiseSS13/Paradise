@@ -1,4 +1,0 @@
-author: "Krausus"
-delete-after: True
-changes: 
-  - bugfix: "SDQL2 can now directly manipulate clients."

@@ -353,8 +353,7 @@ emp_act
 			if(M)
 				src.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been hit with a [I], thrown by [key_name(M)]</font>")
 				M.attack_log += text("\[[time_stamp()]\] <font color='red'>Hit [key_name(src)] with a thrown [I]</font>")
-				if(!istype(src,/mob/living/simple_animal/mouse))
-					msg_admin_attack("[key_name_admin(src)] was hit by a [I], thrown by [key_name_admin(M)]")
+				msg_admin_attack("[key_name_admin(src)] was hit by a [I], thrown by [key_name_admin(M)]", print_attack_log = I.throwforce)
 
 		//thrown weapon embedded object code.
 		if(dtype == BRUTE && istype(I))

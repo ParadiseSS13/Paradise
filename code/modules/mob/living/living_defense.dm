@@ -147,7 +147,7 @@
 	else
 
 		step_away(src,M)
-		add_logs(M.occupant, src, "pushed", object=M, admin=0)
+		add_logs(M.occupant, src, "pushed", object=M, admin=0, print_attack_log = 0)
 		M.occupant_message("<span class='warning'>You push [src] out of the way.</span>")
 		visible_message("<span class='warning'>[M] pushes [src] out of the way.</span>")
 		return
