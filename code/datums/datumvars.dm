@@ -616,8 +616,9 @@ body
 			return
 		to_chat(M, "Control of your mob has been offered to dead players.")
 		log_admin("[key_name(usr)] has offered control of ([key_name(M)]) to ghosts.")
-		message_admins("[key_name_admin(usr)] has offered control of ([key_name_admin(M)]) to ghosts")
-		var/list/mob/dead/observer/candidates = pollCandidates("Do you want to play as [M.real_name]?", poll_time = 100)
+		var/minhours = input(usr, "Minimum hours required to play [M]?", "Set Min Hrs", 10) as num
+		message_admins("[key_name_admin(usr)] has offered control of ([key_name_admin(M)]) to ghosts with [minhours] hrs playtime")
+		var/list/mob/dead/observer/candidates = pollCandidates("Do you want to play as [M.real_name]?", poll_time = 100, min_hours = minhours)
 		var/mob/dead/observer/theghost = null
 
 		if(candidates.len)
