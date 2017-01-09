@@ -451,6 +451,12 @@
 	add_fingerprint(usr)
 	return
 
+/obj/machinery/bodyscanner/narsie_act()
+	go_out()
+	new /obj/effect/gibspawner/generic(get_turf(loc)) //I REPLACE YOUR TECHNOLOGY WITH FLESH!
+	color = "red"//force the icon to red
+	light_color = LIGHT_COLOR_RED
+
 /obj/machinery/atmospherics/unary/cryo_cell/verb/move_inside()
 	set name = "Move Inside"
 	set category = "Object"

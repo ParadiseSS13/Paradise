@@ -46,7 +46,6 @@
 ///Checks to see if the game can be setup and ran with the current number of players or whatnot.
 /datum/game_mode/proc/can_start()
 	var/playerC = 0
-	cultdat = setupcult()
 	for(var/mob/new_player/player in player_list)
 		if((player.client)&&(player.ready))
 			playerC++
@@ -63,6 +62,7 @@
 ///pre_setup()
 ///Attempts to select players for special roles the mode might have.
 /datum/game_mode/proc/pre_setup()
+	cultdat = setupcult()
 	return 1
 
 

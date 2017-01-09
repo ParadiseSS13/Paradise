@@ -328,8 +328,8 @@
 		else if(is_sacrifice_target(occupant.mind))
 			var/datum/game_mode/cult/cult_mode = ticker.mode
 			O.owner.objectives -= O
+			to_chat(O.owner.current, "<span class='cultitalic'>Our god's chosen gift has gone past our reach, we have a new goal...Objectives Updated!</span>")
 			qdel(O)
-			to_chat(O.owner.current, "<span class='cultitalic'>Our gods chosen gift has gone passed our reach, we have a new goal..Objectives Updated!</span>")
 			cult_mode.pick_objective()
 		else if(O.target && istype(O.target,/datum/mind))
 			if(O.target == occupant.mind)

@@ -196,7 +196,7 @@
 /obj/item/weapon/tome/proc/finale_runes_ok(mob/living/user, obj/effect/rune/rune_to_scribe)
 	var/datum/game_mode/cult/cult_mode = ticker.mode
 	if(GAMEMODE_IS_CULT)
-		if(!canbypass == 1)//not an admin-tome, check things
+		if(!canbypass)//not an admin-tome, check things
 			if(!cult_mode.narsie_condition_cleared)
 				to_chat(user, "<span class='warning'>There is still more to do before unleashing [cult_mode.cultdat.entity_name] power!</span>")
 				return 0
@@ -210,14 +210,14 @@
 				to_chat(user, "<span class='warning'>[cult_mode.cultdat.entity_name]'s power does not wish to be unleashed!</span>")
 				return 0
 		var/confirm_final = alert(user, "This is the FINAL step to summon your dietys power, it is a long, painful ritual and the crew will be alerted to your presence", "Are you prepared for the final battle?", "My life for [cult_mode.cultdat.entity_name]!", "No")
-		if(confirm_final == "No")
+		if(confirm_final == "No" || confirm_final == null)
 			to_chat(user, "<span class='cult'>You decide to prepare further before scribing the rune.</span>")
 			return 0
 		else
 			return 1
 	else//the game mode is not cult..but we ARE a cultist...ALL ON THE ADMINBUS
 		var/confirm_final = alert(user, "This is the FINAL step to summon your dietys power, it is a long, painful ritual and the crew will be alerted to your presence", "Are you prepared for the final battle?", "My life for [cult_mode.cultdat.entity_name]!", "No")
-		if(confirm_final == "No")
+		if(confirm_final == "No" || confirm_final == null)
 			to_chat(user, "<span class='cult'>You decide to prepare further before scribing the rune.</span>")
 			return 0
 		else
