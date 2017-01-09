@@ -154,6 +154,14 @@
 	icon_on = "guessipon"
 	icon_off = "guessip"
 
+/obj/item/weapon/lighter/zippo/fluff/duckchan // Duckchan: Rybys Romney
+	name = "Monogrammed Zippo"
+	desc = " A shiny purple zippo lighter, engraved with Rybys Romney and BuzzPing's name, with a festive green flame."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "rybysfluff"
+	icon_on = "rybysfluffopen"
+	icon_off = "rybysfluff"
+
 /obj/item/weapon/fluff/dogwhistle //phantasmicdream: Zeke Varloss
 	name = "Sax's whistle"
 	desc = "This whistle seems to have a strange aura about it. Maybe you should blow on it?"
