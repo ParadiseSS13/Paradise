@@ -1,0 +1,4 @@
+author: "Crazylemon64"
+delete-after: True
+changes: 
+  - tweak: "The operating table now checks for both either `lying` or `resting` - so surgery will work no matter what on unconscious people lying on your table."
