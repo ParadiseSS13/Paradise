@@ -946,8 +946,7 @@ var/list/slot_equipment_priority = list( \
 			add_spell_to_statpanel(S)
 
 
-	if(client && client.holder)
-
+	if(is_admin(src))
 		if(statpanel("DI"))	//not looking at that panel
 			stat("Loc", "([x], [y], [z]) [loc]")
 			stat("CPU", "[world.cpu]")
