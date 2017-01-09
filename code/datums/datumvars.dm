@@ -6,7 +6,7 @@
 	//set src in world
 
 
-	if(!usr.client || !usr.client.holder)
+	if(!is_admin(usr))
 		to_chat(usr, "<span class='warning'>You need to be an administrator to access this.</span>")
 		return
 
