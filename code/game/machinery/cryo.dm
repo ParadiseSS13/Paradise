@@ -451,7 +451,7 @@
 	add_fingerprint(usr)
 	return
 
-/obj/machinery/bodyscanner/narsie_act()
+/obj/machinery/atmospherics/unary/cryo_cell/narsie_act()
 	go_out()
 	new /obj/effect/gibspawner/generic(get_turf(loc)) //I REPLACE YOUR TECHNOLOGY WITH FLESH!
 	color = "red"//force the icon to red
