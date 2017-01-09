@@ -581,6 +581,9 @@
 		sleep(1)
 		qdel(src)
 
+/obj/machinery/light/proc/isfunctional()
+	return status == LIGHT_OK
+
 // the light item
 // can be tube or bulb subtypes
 // will fit into empty /obj/machinery/light of the corresponding type

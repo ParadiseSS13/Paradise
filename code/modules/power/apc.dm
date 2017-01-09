@@ -1367,6 +1367,8 @@
 		cell.use(20)
 		spawn(0)
 			for(var/obj/machinery/light/L in area)
+				if(!L.isfunctional())
+					continue
 				if(prob(chance))
 					L.on = 1
 					L.broken()
