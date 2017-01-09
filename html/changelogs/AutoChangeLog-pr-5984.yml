@@ -1,0 +1,4 @@
+author: "Kyep"
+delete-after: True
+changes: 
+  - bugfix: "Antags should no longer get bounced to lobby at round start in certain rare situations."
