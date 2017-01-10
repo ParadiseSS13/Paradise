@@ -312,7 +312,6 @@
 		/datum/action/innate/robot_sight/meson,
 	)
 
-
 /obj/item/weapon/robot_module/miner/New()
 	..()
 	modules += new /obj/item/weapon/storage/bag/ore/cyborg(src)
