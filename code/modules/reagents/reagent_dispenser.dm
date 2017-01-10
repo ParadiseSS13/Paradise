@@ -202,20 +202,33 @@
 	..()
 	reagents.add_reagent("condensedcapsaicin",1000)
 
-
 /obj/structure/reagent_dispensers/water_cooler
-	name = "Water-Cooler"
-	desc = "A machine that dispenses water to drink"
+	name = "water cooler"
+	desc = "A machine that dispenses water to drink."
 	amount_per_transfer_from_this = 5
-	icon = 'icons/obj/vending.dmi'
+	icon = 'icons/goonstation/objects/objects.dmi'
 	icon_state = "water_cooler"
 	possible_transfer_amounts = null
 	anchored = 1
+	var/number_of_cups = 15
+
 
 /obj/structure/reagent_dispensers/water_cooler/New()
 	..()
 	reagents.add_reagent("water",500)
 
+/obj/structure/reagent_dispensers/water_cooler/examine(mob/user)
+	..()
+	to_chat(user, "<span class='notice'>And has [number_of_cups] cup[number_of_cups == 1 ? "" : "s"] left in the holder.</span>")
+
+/obj/structure/reagent_dispensers/water_cooler/attack_hand(mob/user as mob)
+	if(!number_of_cups)
+		to_chat(user, "<span class='warning'>The [src] is out of cups!</span>")
+	else
+		number_of_cups--
+		user.put_in_hands( new /obj/item/weapon/reagent_containers/food/drinks/sillycup(src) )
+		if(number_of_cups <= 0)
+			icon_state = "water_cooler_nocups"
 
 /obj/structure/reagent_dispensers/beerkeg
 	name = "beer keg"
