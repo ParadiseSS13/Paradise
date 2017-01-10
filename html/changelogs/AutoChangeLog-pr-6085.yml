@@ -1,9 +1,0 @@
-author: "Fox McCloud"
-delete-after: True
-changes: 
-  - rscadd: "different alert levels for how full you are from starving all the way to fat"
-  - rscadd: "There is now satiety and nutrition; being satisfied and full has a number of positive benefits; being unsatisfied and hungry has negative side effects"
-  - rscadd: "Some foods have vitamins in them which provide little nutrition, but greatly increase your satisfaction"
-  - tweak: "Some food reagents have had their nutritional values tweaked"
-  - tweak: "reagent numbers tweaked on most food items"
-  - bugfix: "Fixes the floral gun not properly working on Diona"
