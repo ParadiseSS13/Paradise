@@ -976,21 +976,17 @@ var/list/robot_verbs_default = list(
 	else
 		overlays -= "eyes"
 
-	if(opened && custom_sprite == 1) //Custom borgs also have custom panels, heh
-		if(wiresexposed)
-			overlays += "[src.ckey]-openpanel +w"
-		else if(cell)
-			overlays += "[src.ckey]-openpanel +c"
-		else
-			overlays += "[src.ckey]-openpanel -c"
-
 	if(opened)
+		var/panelprefix = "ov"
+		if(custom_sprite) //Custom borgs also have custom panels, heh
+			panelprefix = "[ckey]"
+
 		if(wiresexposed)
-			overlays += "ov-openpanel +w"
+			overlays += "[panelprefix]-openpanel +w"
 		else if(cell)
-			overlays += "ov-openpanel +c"
+			overlays += "[panelprefix]-openpanel +c"
 		else
-			overlays += "ov-openpanel -c"
+			overlays += "[panelprefix]-openpanel -c"
 
 	var/combat = list("Combat","Peacekeeper")
 	if(modtype in combat)
