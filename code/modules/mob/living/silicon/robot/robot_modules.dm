@@ -437,7 +437,7 @@
 	name = "alien hunter module"
 	module_type = "Standard"
 	module_actions = list(
-		/datum/action/innate/robot_sight/thermal,
+		/datum/action/innate/robot_sight/thermal/alien,
 	)
 
 /obj/item/weapon/robot_module/alien/hunter/New()
