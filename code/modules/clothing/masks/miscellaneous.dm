@@ -143,6 +143,8 @@
 	name = "joy mask"
 	desc = "Express your happiness or hide your sorrows with this face with tears of joy cutout."
 	icon_state = "joy"
+	flags = MASKCOVERSMOUTH
+	flags_inv = HIDEFACE
 
 /obj/item/clothing/mask/pig
 	name = "pig mask"

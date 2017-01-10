@@ -79,9 +79,9 @@
 	name = "cueball helmet"
 	desc = "A large, featureless white orb meant to be worn on your head. How do you even see out of this thing?"
 	icon_state = "cueball"
+	item_state = "cueball"
 	flags = HEADCOVERSEYES | HEADCOVERSMOUTH | BLOCKHAIR
-	item_state="cueball"
-	flags_inv = 0
+	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 
 /obj/item/clothing/head/snowman
 	name = "snowman head"
@@ -89,7 +89,7 @@
 	icon_state = "snowman_h"
 	item_state = "snowman_h"
 	flags = HEADCOVERSEYES | HEADCOVERSMOUTH | BLOCKHAIR
-	flags_inv = 0
+	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 
 /obj/item/clothing/head/that
 	name = "sturdy top-hat"
