@@ -1,5 +1,7 @@
 /datum/action/innate/robot_sight
 	var/sight_mode = null
+	icon_icon = 'icons/obj/decals.dmi'
+	button_icon_state = "securearea"
 
 /datum/action/innate/robot_sight/Activate()
 	var/mob/living/silicon/robot/R = owner
@@ -17,10 +19,14 @@
 	name = "X-ray Vision"
 	sight_mode = BORGXRAY
 
-/datum/action/innate/sight/thermal
+/datum/action/innate/robot_sight/thermal
 	name = "Thermal Vision"
 	sight_mode = BORGTHERM
+	icon_icon = 'icons/obj/clothing/glasses.dmi'
+	button_icon_state = "thermal"
 
 /datum/action/innate/robot_sight/meson
 	name = "Meson Vision"
 	sight_mode = BORGMESON
+	icon_icon = 'icons/obj/clothing/glasses.dmi'
+	button_icon_state = "meson"
