@@ -249,6 +249,13 @@
 			I.overlays += image(icon = 'icons/mob/robots.dmi' , icon_state = "eyes-robot") //gotta look realistic
 			H.add_alt_appearance("standard_borg_disguise", I, silicon_mob_list+H) //you look like a robot to robots! (including yourself because you're totally a robot)
 
+/obj/item/clothing/suit/snowman
+	name = "snowman outfit"
+	desc = "Two white spheres covered in white glitter. 'Tis the season."
+	icon_state = "snowman"
+	item_state = "snowman"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO
+	flags_inv = HIDEJUMPSUIT
 
 /obj/item/clothing/suit/poncho
 	name = "poncho"
@@ -278,6 +285,44 @@
 	icon_state = "ponchoshame"
 	item_state = "ponchoshame"
 	flags = NODROP
+
+/obj/item/clothing/suit/hooded/carp_costume
+	name = "carp costume"
+	desc = "A costume made from 'synthetic' carp scales, it smells."
+	icon_state = "carp_casual"
+	item_state = "labcoat"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS
+	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT	//Space carp like space, so you should too
+	allowed = list(/obj/item/weapon/tank/emergency_oxygen)
+	hoodtype = /obj/item/clothing/head/hooded/carp_hood
+
+/obj/item/clothing/head/hooded/carp_hood
+	name = "carp hood"
+	desc = "A hood attached to a carp costume."
+	icon_state = "carp_casual"
+	body_parts_covered = HEAD
+	cold_protection = HEAD
+	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
+	flags = NODROP|BLOCKHAIR
+	flags_inv = HIDEEARS
+
+/obj/item/clothing/suit/hooded/bee_costume // It's Hip!
+	name = "bee costume"
+	desc = "Bee the true Queen!"
+	icon_state = "bee"
+	item_state = "labcoat"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+	flags = THICKMATERIAL
+	hoodtype = /obj/item/clothing/head/hooded/bee_hood
+
+/obj/item/clothing/head/hooded/bee_hood
+	name = "bee hood"
+	desc = "A hood attached to a bee costume."
+	icon_state = "bee"
+	body_parts_covered = HEAD
+	flags = THICKMATERIAL|NODROP|BLOCKHAIR
+	flags_inv = HIDEEARS
 
 /obj/item/clothing/suit/bloated_human	//OH MY GOD WHAT HAVE YOU DONE!?!?!?
 	name = "bloated human suit"
