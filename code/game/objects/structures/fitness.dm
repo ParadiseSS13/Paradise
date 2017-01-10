@@ -16,11 +16,12 @@
 	playsound(src.loc, pick(src.hit_sounds), 50, 1)
 
 /obj/structure/punching_bag/attackby(obj/item/I as obj, mob/user as mob, params)
-	user.changeNext_move(CLICK_CD_MELEE)
-	user.do_attack_animation(src)
-
 	if(istype(I, /obj/item/weapon))
+		user.changeNext_move(CLICK_CD_MELEE)
+		user.do_attack_animation(src)
+
 		flick("[icon_state]2", src)
+
 		if(I.hitsound)
 			playsound(src.loc, I.hitsound, 50, 1)
 		else
