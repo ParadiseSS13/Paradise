@@ -384,6 +384,18 @@
 	icon_state = "kakicharakiti"
 
 //////////// Suits ////////////
+/obj/item/clothing/suit/fluff/dusty_jacket //ComputerlessCitizen: Screech
+	name = "Dusty Jacket"
+	desc = "A worn leather jacket. Some burn holes have been patched."
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "dusty_jacket"
+	ignore_suitadjust = 1
+	actions_types = list()
+	adjust_flavour = null
+	species_fit = null
+	sprite_sheets = null
+
 /obj/item/clothing/suit/storage/labcoat/fluff/aeneas_rinil //Socialsystem: Lynn Fea
 	name = "Robotics labcoat"
 	desc = "A labcoat with a few markings denoting it as the labcoat of roboticist."
