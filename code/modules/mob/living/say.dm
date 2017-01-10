@@ -395,8 +395,21 @@ proc/get_radio_key_from_channel(var/channel)
 		return
 
 	var/atom/whisper_loc = get_whisper_loc()
-	var/list/listening = hearers(message_range, whisper_loc)
+	var/list/listening = hear(message_range, whisper_loc)
 	listening |= src
+
+	var/list/hearturfs = list()
+
+	//Pass whispers on to anything inside the immediate listeners.
+	// This comes before the ghosts do so that ghosts don't act as whisper relays
+	for(var/atom/L in listening)
+		if(ismob(L))
+			for(var/mob/C in L.contents)
+				if(isliving(C))
+					listening += C
+			hearturfs += get_turf(L)
+		if(isobj(L))
+			hearturfs += get_turf(L)
 
 	//ghosts
 	for(var/mob/M in dead_mob_list)	//does this include players who joined as observers as well?
@@ -405,11 +418,14 @@ proc/get_radio_key_from_channel(var/channel)
 		if(M.stat == DEAD && M.client && M.get_preference(CHAT_GHOSTEARS))
 			listening |= M
 
-	//Pass whispers on to anything inside the immediate listeners.
-	for(var/mob/L in listening)
-		for(var/mob/C in L.contents)
-			if(isliving(C))
-				listening += C
+	// This, in tandem with "hearturfs", lets nested mobs hear whispers that are in range
+	// Grifted from saycode above.
+	for(var/mob/M in player_list)
+		if(!M.client || isnewplayer(M))
+			continue //skip monkeys and leavers
+		if(get_turf(M) in hearturfs)
+			listening |= M
+
 
 	//pass on the message to objects that can hear us.
 	for(var/obj/O in view(message_range, whisper_loc))
