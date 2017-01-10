@@ -81,6 +81,8 @@
 	else
 		to_chat(src, "You need to disable a module first!")
 	if(istype(activated_thingy,/obj/item/borg/sight))
+		var/obj/item/borg/sight/such_a_thing = activated_thingy
+		sight_mode |= such_a_thing.sight_mode
 		update_sight()
 	update_icons()
 
