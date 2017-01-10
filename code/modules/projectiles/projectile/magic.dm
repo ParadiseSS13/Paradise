@@ -10,9 +10,6 @@
 /obj/item/projectile/magic/death
 	name = "bolt of death"
 	icon_state = "pulse1_bl"
-	damage_type = BURN //OXY does not kill IPCs
-	damage = 50000
-	nodamage = 0
 
 /obj/item/projectile/magic/fireball
 	name = "bolt of fireball"
@@ -20,6 +17,12 @@
 	damage = 10
 	damage_type = BRUTE
 	nodamage = 0
+
+/obj/item/projectile/magic/death/on_hit(var/mob/living/carbon/G)
+	. = ..()
+	if(isliving(G))
+		G.adjustFireLoss(3000)
+		visible_message("<span class='danger'>[G] topples backwards as the death bolt impacts them!</span>")
 
 /obj/item/projectile/magic/fireball/Range()
 	var/turf/T1 = get_step(src,turn(dir, -45))
