@@ -338,9 +338,7 @@ emp_act
 		if(ismob(I.thrower))
 			var/mob/M = I.thrower
 			if(M)
-				src.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been hit with a [I], thrown by [key_name(M)]</font>")
-				M.attack_log += text("\[[time_stamp()]\] <font color='red'>Hit [key_name(src)] with a thrown [I]</font>")
-				msg_admin_attack("[key_name_admin(src)] was hit by a [I], thrown by [key_name_admin(M)]", print_attack_log = I.throwforce)
+				add_logs(M, src, "hit", I, " (thrown)", print_attack_log = I.throwforce)
 
 		//thrown weapon embedded object code.
 		if(dtype == BRUTE && istype(I))

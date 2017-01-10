@@ -337,7 +337,7 @@
 	SetDruggy(0)
 	SetHallucinate(0)
 	blinded = 0
-	nutrition = 400
+	nutrition = NUTRITION_LEVEL_FED + 50
 	bodytemperature = 310
 	CureBlind()
 	CureNearsighted()
