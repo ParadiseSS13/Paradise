@@ -29,24 +29,24 @@
 	items = list(
 		/obj/item/weapon/reagent_containers/food/snacks/dough
 	)
-	result = /obj/item/weapon/reagent_containers/food/snacks/donut/slimejelly
+	result = /obj/item/weapon/reagent_containers/food/snacks/donut/jelly/slimejelly
 
 /datum/recipe/microwave/jellydonut/cherry
 	reagents = list("cherryjelly" = 5, "sugar" = 5)
 	items = list(
 		/obj/item/weapon/reagent_containers/food/snacks/dough
 	)
-	result = /obj/item/weapon/reagent_containers/food/snacks/donut/cherryjelly
+	result = /obj/item/weapon/reagent_containers/food/snacks/donut/jelly/cherryjelly
 
 /datum/recipe/microwave/donut
 	reagents = list("sugar" = 5)
 	items = list(
 		/obj/item/weapon/reagent_containers/food/snacks/dough
 	)
-	result = /obj/item/weapon/reagent_containers/food/snacks/donut/normal
+	result = /obj/item/weapon/reagent_containers/food/snacks/donut
 
 /datum/recipe/microwave/donut/sprinkles
-	reagents = list("sugar" = 5, "sprinkles" = 3)
+	reagents = list("sugar" = 5, "sprinkles" = 2)
 	items = list(
 		/obj/item/weapon/reagent_containers/food/snacks/dough
 	)
@@ -670,12 +670,6 @@ datum/recipe/microwave/slimesandwich
 		/obj/item/weapon/reagent_containers/food/snacks/cheesewedge
 	)
 	result = /obj/item/weapon/reagent_containers/food/snacks/taco
-
-/datum/recipe/microwave/meatball
-	items = list(
-		/obj/item/weapon/reagent_containers/food/snacks/rawmeatball
-	)
-	result = /obj/item/weapon/reagent_containers/food/snacks/meatball
 
 /datum/recipe/microwave/fries
 	items = list(
