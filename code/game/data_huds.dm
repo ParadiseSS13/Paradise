@@ -69,7 +69,7 @@
 	return 0
 
 //helper for getting the appropriate health status UPDATED BY PUCKABOO2 TO INCLUDE NEGATIVES.
-proc/RoundHealth(health)
+/proc/RoundHealth(health)
 	switch(health)
 		if(100 to INFINITY)
 			return "health100"
