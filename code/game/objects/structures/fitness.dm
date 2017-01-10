@@ -9,14 +9,38 @@
 	'sound/weapons/punch1.ogg', 'sound/weapons/punch2.ogg', 'sound/weapons/punch3.ogg', 'sound/weapons/punch4.ogg')
 
 /obj/structure/punching_bag/attack_hand(mob/user as mob)
-	user.changeNext_move(CLICK_CD_MELEE)
-	user.do_attack_animation(src)
+	if(anchored)
+		user.changeNext_move(CLICK_CD_MELEE)
+		user.do_attack_animation(src)
 
-	flick("[icon_state]2", src)
-	playsound(src.loc, pick(src.hit_sounds), 50, 1)
+		flick("[icon_state]2", src)
+		playsound(src.loc, pick(src.hit_sounds), 50, 1)
 
 /obj/structure/punching_bag/attackby(obj/item/I as obj, mob/user as mob, params)
-	if(istype(I, /obj/item/weapon))
+	if(istype(I, /obj/item/weapon/wrench))
+		if(!anchored && !isinspace())
+			playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
+			if(do_after(user,20, target = src))
+				anchored = 1
+				icon_state = "punchingbag"
+				user.visible_message( \
+					"[user] bolts \the [src] to the ceiling.", \
+					"<span class='notice'> You bolt \the [src]'s to the ceiling.</span>", \
+					"You hear ratchet.")
+				return
+
+		else if(anchored)
+			playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
+			if(do_after(user,20, target = src))
+				anchored = 0
+				icon_state = "punchingbag3"
+				user.visible_message( \
+					"[user] unbolts \the [src] from the ceiling.", \
+					"<span class='notice'> You unbolt \the [src]'s from the ceiling.</span>", \
+					"You hear ratchet.")
+				return
+
+	if(istype(I, /obj/item/weapon) && anchored)
 		user.changeNext_move(CLICK_CD_MELEE)
 		user.do_attack_animation(src)
 
