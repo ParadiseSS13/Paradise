@@ -494,6 +494,9 @@
 		if(mind.assigned_role == "Clown")				//give them a clownname if they are a clown
 			new_character.real_name = pick(clown_names)	//I hate this being here of all places but unfortunately dna is based on real_name!
 			new_character.rename_self("clown")
+		else if(mind.assigned_role == "Mime")
+			new_character.real_name = pick(mime_names)
+			new_character.rename_self("mime")
 		else if(new_character.species == "Diona")
 			new_character.real_name = pick(diona_names)	//I hate this being here of all places but unfortunately dna is based on real_name!
 			new_character.rename_self("diona")
