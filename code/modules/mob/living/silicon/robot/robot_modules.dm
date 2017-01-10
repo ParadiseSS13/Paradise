@@ -9,6 +9,7 @@
 	var/list/modules = list()
 	var/obj/item/emag = null
 	var/list/subsystems = list()
+	var/list/module_actions = list()
 
 	var/module_type = "NoMod" // For icon usage
 
@@ -92,11 +93,18 @@
 	R.add_language("Orluum", 0)
 	R.add_language("Clownish",0)
 
-/obj/item/weapon/robot_module/proc/add_subsystems(mob/living/silicon/robot/R)
+/obj/item/weapon/robot_module/proc/add_subsystems_and_actions(mob/living/silicon/robot/R)
 	R.verbs |= subsystems
+	for(var/A in module_actions)
+		var/datum/action/act = new A()
+		A.grant(R)
+		R.module_actions += A
 
-/obj/item/weapon/robot_module/proc/remove_subsystems(mob/living/silicon/robot/R)
+/obj/item/weapon/robot_module/proc/remove_subsystems_and_actions(mob/living/silicon/robot/R)
 	R.verbs -= subsystems
+	for(var/datum/action/A in R.module_actions)
+		A.Remove(R)
+	R.module_actions.cut()
 
 /obj/item/weapon/robot_module/standard
 	name = "standard robot module"
