@@ -1,0 +1,5 @@
+author: "TullyBurnalot"
+delete-after: True
+changes: 
+  - bugfix: "Wand of Death now reliably kills people by adding 300 Burn Damage. This includes self-casting"
+  - rscadd: "Minor flavour text visible on impact of target"
