@@ -1,0 +1,4 @@
+author: "TullyBurnalot"
+delete-after: True
+changes: 
+  - tweak: "pAI HUDs are now visual-only, restricting their access to editable records"
