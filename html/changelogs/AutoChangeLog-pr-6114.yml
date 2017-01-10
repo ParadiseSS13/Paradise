@@ -1,0 +1,4 @@
+author: "uraniummeltdown"
+delete-after: True
+changes: 
+  - rscadd: "Mimes can now choose name on entry just like Clowns"
