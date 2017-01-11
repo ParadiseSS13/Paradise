@@ -15,6 +15,10 @@
 	var/atom_say_verb = "says"
 	var/dont_save = 0 // For atoms that are temporary by necessity - like lighting overlays
 
+	// A list of datums that desire to interact with this atom - used so that automated processes
+	// don't step on one another's toes, if they are doing an action that takes time
+	var/list/interaction_queue = list()
+
 	///Chemistry.
 	var/datum/reagents/reagents = null
 
