@@ -86,6 +86,7 @@ var/list/robot_verbs_default = list(
 	var/datum/effect/system/ion_trail_follow/ion_trail // Ionpulse effect.
 
 	var/datum/action/item_action/toggle_research_scanner/scanner = null
+	var/list/module_actions = list()
 
 /mob/living/silicon/robot/New(loc,var/syndie = 0,var/unfinished = 0, var/alien = 0)
 	spark_system = new /datum/effect/system/spark_spread()
@@ -371,7 +372,7 @@ var/list/robot_verbs_default = list(
 	//languages
 	module.add_languages(src)
 	//subsystems
-	module.add_subsystems(src)
+	module.add_subsystems_and_actions(src)
 
 	//Custom_sprite check and entry
 	if(custom_sprite == 1)
@@ -1424,7 +1425,7 @@ var/list/robot_verbs_default = list(
 	//languages
 	module.add_languages(src)
 	//subsystems
-	module.add_subsystems(src)
+	module.add_subsystems_and_actions(src)
 
 	status_flags &= ~CANPUSH
 
@@ -1443,7 +1444,7 @@ var/list/robot_verbs_default = list(
 	//languages
 	module.add_languages(src)
 	//subsystems
-	module.add_subsystems(src)
+	module.add_subsystems_and_actions(src)
 
 	status_flags &= ~CANPUSH
 
