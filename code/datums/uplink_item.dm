@@ -86,6 +86,10 @@ var/list/uplink_items = list()
 	if(!(istype(user, /mob/living/carbon/human)))
 		return 0
 
+	if(!isAntag(user) && prob(80))//80% chance to trigger this
+		U.apply_punishment(user)
+		return
+
 	// If the uplink's holder is in the user's contents
 	if((U.loc in user.contents || (in_range(U.loc, user) && istype(U.loc.loc, /turf))))
 		user.set_machine(U)

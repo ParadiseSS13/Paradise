@@ -295,6 +295,36 @@ var/list/world_uplinks = list()
 		else
 			to_chat(user, "<span class='notice'>This teleporter is already used, or is currently being used.</span>")
 
+
+/obj/item/device/uplink/hidden/proc/apply_punishment(mob/user)//for when the wrong people use the uplink, called in uplink_item.dm
+	var/list/punishments = list("gib", "fire", "braindeath", "poison", "corgi")
+	if(!ishuman(user))
+		return
+	var/mob/living/carbon/human/H = user
+
+	if(H.get_species() == "Machine")
+		punishments -= list("poison", "corgi")//they won't work with machines
+
+	var/punishment = pick(punishments)
+	to_chat(world, punishment)
+
+	visible_message("<span class='danger'>[src]'s speakers blast: \"UNAUTHORISED USAGE DETECTED; DEPLOYING COUNTERMEASURES!\"")
+	playsound(H.loc, 'sound/effects/alert.ogg', 75, 1)
+
+	switch(punishment)
+		if("gib")//good old gib
+			for(var/obj/item/W in H)//unequip all items, so their stupidity doesn't get some important stuff deleted
+				H.unEquip(W)
+			H.gib()
+		if("fire")//set them on fire
+			var/turf/simulated/T = get_turf(H)
+			new /obj/effect/hotspot(T)
+			H.adjustFireLoss(150)
+		if("breaindeath")//just give them braindamage
+			H.adjustBrainLoss(125)
+		if("poison")//give them a ton of poison
+			H.reagents.add_reagent("Initropidril", 40)
+
 // PRESET UPLINKS
 // A collection of preset uplinks.
 //
