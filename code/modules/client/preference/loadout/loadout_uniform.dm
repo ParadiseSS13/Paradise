@@ -98,6 +98,19 @@
 	path = /obj/item/clothing/under/rank/head_of_security/skirt
 	allowed_roles = list("Head of Security")
 
+/datum/gear/uniform/job/medical/scrubs
+	subtype_path = /datum/gear/uniform/job/medical/scrubs
+
+/datum/gear/uniform/job/medical/scrubs/purple
+	display_name = "medical scrubs, purple"
+	path = /obj/item/clothing/under/rank/medical/purple
+	allowed_roles = list("Chief Medical Officer", "Medical Doctor")
+
+/datum/gear/uniform/job/medical/scrubs/green
+	display_name = "medical scrubs, green"
+	path = /obj/item/clothing/under/rank/medical/green
+	allowed_roles = list("Chief Medical Officer", "Medical Doctor")
+
 /datum/gear/uniform/sec
 	subtype_path = /datum/gear/uniform/sec
 
