@@ -25,7 +25,7 @@
 				icon_state = "punchingbag"
 				user.visible_message( \
 					"[user] bolts \the [src] to the ceiling.", \
-					"<span class='notice'> You bolt \the [src]'s to the ceiling.</span>", \
+					"<span class='notice'> You bolt \the [src] to the ceiling.</span>", \
 					"You hear ratchet.")
 				return
 
@@ -36,7 +36,7 @@
 				icon_state = "punchingbag3"
 				user.visible_message( \
 					"[user] unbolts \the [src] from the ceiling.", \
-					"<span class='notice'> You unbolt \the [src]'s from the ceiling.</span>", \
+					"<span class='notice'> You unbolt \the [src] from the ceiling.</span>", \
 					"You hear ratchet.")
 				return
 
