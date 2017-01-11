@@ -517,8 +517,6 @@
 	description = "Some cheese. Pour it out to make it solid."
 	reagent_state = SOLID
 	color = "#FFFF00"
-	metabolization_rate = 0 //heheheh
-	nutriment_factor = 0
 
 /datum/reagent/consumable/cheese/on_mob_life(mob/living/M)
 	if(prob(3))
@@ -548,9 +546,7 @@
 	description = "Hell, I don't even know if this IS cheese. Whatever it is, it ain't normal. If you want to, pour it out to make it solid."
 	reagent_state = SOLID
 	color = "#50FF00"
-	metabolization_rate = 0 //heheheh
 	addiction_chance = 5
-	nutriment_factor = 0
 
 /datum/reagent/consumable/weird_cheese/on_mob_life(mob/living/M)
 	if(prob(5))
