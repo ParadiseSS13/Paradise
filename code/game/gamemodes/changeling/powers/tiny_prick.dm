@@ -80,11 +80,10 @@
 	selected_dna = changeling.select_dna("Select the target DNA: ", "Target DNA")
 	if(!selected_dna)
 		return
-	if(selected_dna)
-		var/datum/species/newspecies = all_species[selected_dna.species]
-		if((newspecies.flags & NOTRANSSTING) || newspecies.is_small)
-			to_chat(user, "<span class='warning'>The selected DNA is incompatible with our sting.</span>")
-			return FALSE
+	var/datum/species/newspecies = all_species[selected_dna.species]
+	if((newspecies.flags & NOTRANSSTING) || newspecies.is_small)
+		to_chat(user, "<span class='warning'>The selected DNA is incompatible with our sting.</span>")
+		return
 	..()
 
 /obj/effect/proc_holder/changeling/sting/transformation/can_sting(var/mob/user, var/mob/target)
