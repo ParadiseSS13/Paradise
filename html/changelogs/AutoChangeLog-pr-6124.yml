@@ -1,4 +1,0 @@
-author: "Markolie"
-delete-after: True
-changes: 
-  - bugfix: "simple_animals now have an attack cooldown when attacking mechas."
