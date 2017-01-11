@@ -1,0 +1,4 @@
+author: "uraniummeltdown"
+delete-after: True
+changes: 
+  - bugfix: "Atmos Console Boards now show in Computer Boards of Circuit Imprinter"
