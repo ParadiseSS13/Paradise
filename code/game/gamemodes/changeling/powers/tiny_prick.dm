@@ -88,6 +88,11 @@
 	if((HUSK in target.mutations) || (!ishuman(target)))
 		to_chat(user, "<span class='warning'>Our sting appears ineffective against its DNA.</span>")
 		return FALSE
+	if(selected_dna)
+		var/datum/species/newspecies = all_species[selected_dna.species]
+		if((newspecies.flags & NOTRANSSTING) || newspecies.is_small)
+			to_chat(user, "<span class='warning'>The selected DNA is incompatible with our sting.</span>")
+			return FALSE
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
 		if(H.species.flags & NO_DNA)
@@ -97,10 +102,6 @@
 
 /obj/effect/proc_holder/changeling/sting/transformation/sting_action(var/mob/user, var/mob/target)
 	add_logs(user, target, "stung", object="transformation sting", addition=" new identity is [selected_dna.real_name]")
-	var/datum/species/newspecies = all_species[selected_dna.species]
-	if(newspecies.flags & NOTRANSSTING)
-		to_chat(user, "<span class='warning'>The selected DNA is incompatible with our sting.</span>")
-		return FALSE
 	var/datum/dna/NewDNA = selected_dna
 	if(issmall(target))
 		to_chat(user, "<span class='notice'>Our genes cry out as we sting [target.name]!</span>")
