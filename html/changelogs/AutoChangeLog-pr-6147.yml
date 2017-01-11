@@ -1,0 +1,4 @@
+author: "Crazylemon64"
+delete-after: True
+changes: 
+  - bugfix: "It's no longer opposite day for the karma reminder preference"
