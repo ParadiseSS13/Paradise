@@ -87,14 +87,14 @@
 		return air2
 
 /obj/machinery/atmospherics/binary/circulator/proc/get_inlet_side()
-	if(dir==1||dir==2)
+	if(dir==SOUTH||dir==NORTH)
 		if(sides_inverted==0)
 			return "South"
 		else
 			return "North"
 
 /obj/machinery/atmospherics/binary/circulator/proc/get_outlet_side()
-	if(dir==1||dir==2)
+	if(dir==SOUTH||dir==NORTH)
 		if(sides_inverted==0)
 			return "North"
 		else
