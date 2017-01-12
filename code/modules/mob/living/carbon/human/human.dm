@@ -805,10 +805,12 @@
 						unEquip(pocket_item)
 						if(thief_mode)
 							usr.put_in_hands(pocket_item)
+						add_logs(usr, src, "stripped", addition="of [pocket_item]", print_attack_log = isLivingSSD(src))
 				else
 					if(place_item)
 						usr.unEquip(place_item)
 						equip_to_slot_if_possible(place_item, pocket_id, 0, 1)
+						add_logs(usr, src, "equipped", addition="with [pocket_item]", print_attack_log = isLivingSSD(src))
 
 				// Update strip window
 				if(usr.machine == src && in_range(src, usr))
@@ -817,6 +819,7 @@
 				// Display a warning if the user mocks up if they don't have pickpocket gloves.
 				if(!thief_mode)
 					to_chat(src, "<span class='warning'>You feel your [pocket_side] pocket being fumbled with!</span>")
+				add_logs(usr, src, "attempted to strip", addition="of [pocket_item]", print_attack_log = isLivingSSD(src))
 
 		if(href_list["set_sensor"])
 			if(istype(w_uniform, /obj/item/clothing/under))
