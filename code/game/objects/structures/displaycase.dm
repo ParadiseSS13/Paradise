@@ -266,11 +266,14 @@ var/global/list/captain_display_cases = list()
 			to_chat(user, "<span class='warning'>It's locked, you can't put anything into it.</span>")
 			return
 		if(!occupant)
-			to_chat(user, "<span class='notice'>You insert \the [W] into \the [src], and it floats as the hoverfield activates.</span>")
-			user.drop_item()
-			W.forceMove(src)
-			occupant=W
-			update_icon()
+			if(user.drop_item())
+				to_chat(user, "<span class='notice'>You insert \the [W] into \the [src], and it floats as the hoverfield activates.</span>")
+				W.forceMove(src)
+				occupant=W
+				update_icon()
+			else
+				to_chat(user, "<span class='notice'>That tool is attached to you!</span>")
+				return
 
 /obj/structure/displaycase/attack_hand(mob/user as mob)
 	if(destroyed || (!locked && user.a_intent == I_HARM))
