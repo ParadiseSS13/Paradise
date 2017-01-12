@@ -1,4 +1,0 @@
-author: "TullyBurnalot"
-delete-after: True
-changes: 
-  - bugfix: "Graffiti now have hidden (Admin-only) fingerprints added to them"
