@@ -418,7 +418,7 @@
 /proc/SecondsToTicks(var/seconds)
 	return seconds * 10
 
-proc/pollCandidates(var/Question, var/be_special_type, var/antag_age_check = 0, var/poll_time = 300, var/ignore_respawnability = 0, var/min_hours = 0)
+proc/pollCandidates(var/Question, var/be_special_type, var/antag_age_check = 0, var/poll_time = 300, var/ignore_respawnability = 0, var/min_hours = 0, var/flashwindow = TRUE)
 	var/roletext = be_special_type ? get_roletext(be_special_type) : null
 	var/list/mob/dead/observer/candidates = list()
 	var/time_passed = world.time
@@ -444,7 +444,8 @@ proc/pollCandidates(var/Question, var/be_special_type, var/antag_age_check = 0, 
 			continue
 		spawn(0)
 			G << 'sound/misc/notice2.ogg'//Alerting them to their consideration
-
+			if(flashwindow)
+				window_flash(G.client)
 			switch(alert(G,Question,"Please answer in [poll_time/10] seconds!","Yes","No","Not This Round"))
 				if("Yes")
 					to_chat(G, "<span class='notice'>Choice registered: Yes.</span>")
@@ -471,3 +472,8 @@ proc/pollCandidates(var/Question, var/be_special_type, var/antag_age_check = 0, 
 			candidates.Remove(G)
 
 	return candidates
+
+/proc/window_flash(var/client_or_usr)
+	if (!client_or_usr)
+		return
+	winset(client_or_usr, "mainwindow", "flash=5")
