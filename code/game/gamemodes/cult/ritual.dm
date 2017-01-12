@@ -36,7 +36,7 @@
 	canbypass = 1
 
 /obj/item/weapon/tome/New()
-	if(!ticker)
+	if(!ticker.mode)
 		icon_state = "tome"
 	else
 		icon_state = ticker.mode.cultdat.tome_icon
