@@ -267,7 +267,7 @@ var/global/list/captain_display_cases = list()
 			return
 		if(!occupant)
 			if(!user.drop_item())
-				to_chat(user, "<span class='notice'>The [W] is stuck to you. You cannot put it in the [src]!</span>")
+				to_chat(user, "<span class='notice'>[W] is stuck to you. You cannot put it in [src]!</span>")
 				return
 			to_chat(user, "<span class='notice'>You insert \the [W] into \the [src], and it floats as the hoverfield activates.</span>")
 			user.drop_item()
