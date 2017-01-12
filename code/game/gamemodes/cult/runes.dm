@@ -324,6 +324,7 @@ var/list/teleport_runes = list()
 /obj/effect/rune/convert/invoke(var/list/invokers)
 	var/list/convertees = list()
 	var/turf/T = get_turf(src)
+
 	for(var/mob/living/M in T.contents)
 		if(!iscultist(M) && !isloyal(M))
 			convertees.Add(M)
@@ -341,6 +342,7 @@ var/list/teleport_runes = list()
 		log_game("Convert rune failed - convertee could not be converted")
 		return
 	..()
+
 	new_cultist.visible_message("<span class='warning'>[new_cultist] writhes in pain as the markings below them glow a bloody red!</span>", \
 					  			"<span class='cultlarge'><i>AAAAAAAAAAAAAA-</i></span>")
 	ticker.mode.add_cultist(new_cultist.mind, 1)
@@ -473,48 +475,47 @@ var/list/teleport_runes = list()
 	if(used)
 		return
 	var/mob/living/user = invokers[1]
-	if(istype(ticker.mode.name, "cult"))
-		var/datum/game_mode/cult/cult_mode = ticker.mode
-		if(!is_station_level(user.z))
-			message_admins("[key_name_admin(user)] tried to summon Nar-Sie off station")
-			for(var/M in invokers)
-				var/mob/living/L = M
-				to_chat(L, "<span class='cultlarge'><i>\"YOUR SOUL BURNS WITH YOUR ARROGANCE!!!\"</i></span>")
-				if(L.reagents)
-					L.reagents.add_reagent("hell_water", 10)
-				L.Weaken(7)
-				L.Stun(7)
-			fail_invoke()
-			log_game("Summon Nar-Sie rune failed - off station Z level")
-			return
-		if(!cult_mode.eldergod)
-			for(var/M in invokers)
-				to_chat(M, "<span class='warning'>[ticker.mode.cultdat.entity_name] is already on this plane!</span>")
-			log_game("Summon Nar-Sie rune failed - already summoned")
-			return
-		//BEGIN THE SUMMONING
-		used = 1
-		color = rgb(255, 0, 0)
-		..()
-		world << 'sound/effects/dimensional_rend.ogg'
-		to_chat(world, "<span class='cultitalic'><b>The veil... <span class='big'>is...</span> <span class='reallybig'>TORN!!!--</span></b></span>")
-		icon_state = "rune_large_distorted"
-		var/turf/T = get_turf(src)
-		sleep(40)
-		new /obj/singularity/narsie/large(T) //Causes Nar-Sie to spawn even if the rune has been removed
-		cult_mode.eldergod = 0
+	var/datum/game_mode/cult/cult_mode = ticker.mode
+	if(!is_station_level(user.z))
+		message_admins("[key_name_admin(user)] tried to summon an eldritch horror off station")
+		for(var/M in invokers)
+			var/mob/living/L = M
+			to_chat(L, "<span class='cultlarge'><i>\"YOUR SOUL BURNS WITH YOUR ARROGANCE!!!\"</i></span>")
+			if(L.reagents)
+				L.reagents.add_reagent("hell_water", 10)
+			L.Weaken(7)
+			L.Stun(7)
+		fail_invoke()
+		log_game("Summon Nar-Sie rune failed - off station Z level")
+		return
+	if(!cult_mode.eldergod)
+		for(var/M in invokers)
+			to_chat(M, "<span class='warning'>[ticker.mode.cultdat.entity_name] is already on this plane!</span>")
+		log_game("Summon god rune failed - already summoned")
+		return
+	//BEGIN THE SUMMONING
+	used = 1
+	color = rgb(255, 0, 0)
+	..()
+	world << 'sound/effects/dimensional_rend.ogg'
+	to_chat(world, "<span class='cultitalic'><b>The veil... <span class='big'>is...</span> <span class='reallybig'>TORN!!!--</span></b></span>")
+	icon_state = "rune_large_distorted"
+	var/turf/T = get_turf(src)
+	sleep(40)
+	new /obj/singularity/narsie/large(T) //Causes Nar-Sie to spawn even if the rune has been removed
+	cult_mode.eldergod = 0
 
 /obj/effect/rune/narsie/attackby(obj/I, mob/user, params)	//Since the narsie rune takes a long time to make, add logging to removal.
 	if((istype(I, /obj/item/weapon/tome) && iscultist(user)))
 		user.visible_message("<span class='warning'>[user.name] begins erasing the [src]...</span>", "<span class='notice'>You begin erasing the [src]...</span>")
 		if(do_after(user, 50, target = src))	//Prevents accidental erasures.
-			log_game("Summon Narsie rune erased by [key_name(user)] with a tome")
+			log_game("Summon Narsie rune erased by [user.mind.key] (ckey) with a tome")
 			message_admins("[key_name_admin(user)] erased a Narsie rune with a tome")
 			..()
 			return
 	else
 		if(istype(I, /obj/item/weapon/nullrod))	//Begone foul magiks. You cannot hinder me.
-			log_game("Summon Narsie rune erased by [key_name(user)] using a null rod")
+			log_game("Summon Narsie rune erased by [user.mind.key] (ckey) using a null rod")
 			message_admins("[key_name_admin(user)] erased a Narsie rune with a null rod")
 			..()
 	return
@@ -546,13 +547,13 @@ var/list/teleport_runes = list()
 	if((istype(I, /obj/item/weapon/tome) && iscultist(user)))
 		user.visible_message("<span class='warning'>[user.name] begins erasing the [src]...</span>", "<span class='notice'>You begin erasing the [src]...</span>")
 		if(do_after(user, 50, target = src))	//Prevents accidental erasures.
-			log_game("Summon demon rune erased by [key_name(user)] with a tome")
+			log_game("Summon demon rune erased by [user.mind.key] (ckey) with a tome")
 			message_admins("[key_name_admin(user)] erased a demon rune with a tome")
 			..()
 			return
 	else
 		if(istype(I, /obj/item/weapon/nullrod))	//Begone foul magiks. You cannot hinder me.
-			log_game("Summon demon rune erased by [key_name(user)] using a null rod")
+			log_game("Summon demon rune erased by [user.mind.key] (ckey) using a null rod")
 			message_admins("[key_name_admin(user)] erased a demon rune with a null rod")
 			..()
 	return
@@ -562,56 +563,55 @@ var/list/teleport_runes = list()
 	if(used)
 		return
 	var/mob/living/user = invokers[1]
-	if(istype(ticker.mode.name, "cult"))
-		var/datum/game_mode/cult/cult_mode = ticker.mode
-		if(!(CULT_SLAUGHTER in cult_mode.objectives))
-			message_admins("[key_name_admin(user)] tried to summon demons when the objective was wrong")
-			for(var/M in invokers)
-				var/mob/living/L = M
-				to_chat(L, "<span class='cultlarge'><i>\"YOUR SOUL BURNS WITH YOUR ARROGANCE!!!\"</i></span>")
-				if(L.reagents)
-					L.reagents.add_reagent("hell_water", 10)
-				L.Weaken(7)
-				L.Stun(7)
-			fail_invoke()
-			log_game("Summon Demons rune failed - improper objective")
+	var/datum/game_mode/cult/cult_mode = ticker.mode
+	if(!(CULT_SLAUGHTER in cult_mode.objectives))
+		message_admins("[usr.real_name]([user.ckey]) tried to summon demons when the objective was wrong")
+		for(var/M in invokers)
+			var/mob/living/L = M
+			to_chat(L, "<span class='cultlarge'><i>\"YOUR SOUL BURNS WITH YOUR ARROGANCE!!!\"</i></span>")
+			if(L.reagents)
+				L.reagents.add_reagent("hell_water", 10)
+			L.Weaken(7)
+			L.Stun(7)
+		fail_invoke()
+		log_game("Summon Demons rune failed - improper objective")
+		return
+	if(!is_station_level(user.z))
+		message_admins("[user.real_name]([user.ckey]) tried to summon demons off station")
+		for(var/M in invokers)
+			var/mob/living/L = M
+			to_chat(L, "<span class='cultlarge'><i>\"YOUR SOUL BURNS WITH YOUR ARROGANCE!!!\"</i></span>")
+			if(L.reagents)
+				L.reagents.add_reagent("hell_water", 10)
+			L.Weaken(7)
+			L.Stun(7)
+		fail_invoke()
+		log_game("Summon demons rune failed - off station Z level")
+		return
+	if(cult_mode.demons_summoned)
+		for(var/M in invokers)
+			to_chat(M, "<span class='warning'>Demons are already on this plane!</span>")
+			log_game("Summon Demons rune failed - already summoned")
 			return
-		if(!is_station_level(user.z))
-			message_admins("[key_name_admin(user)] tried to summon demons off station")
-			for(var/M in invokers)
-				var/mob/living/L = M
-				to_chat(L, "<span class='cultlarge'><i>\"YOUR SOUL BURNS WITH YOUR ARROGANCE!!!\"</i></span>")
-				if(L.reagents)
-					L.reagents.add_reagent("hell_water", 10)
-				L.Weaken(7)
-				L.Stun(7)
-			fail_invoke()
-			log_game("Summon demons rune failed - off station Z level")
-			return
-		if(cult_mode.demons_summoned)
-			for(var/M in invokers)
-				to_chat(M, "<span class='warning'>Demons are already on this plane!</span>")
-				log_game("Summon Demons rune failed - already summoned")
-				return
-		//BEGIN THE SLAUGHTER
-		used = 1
-		for(var/mob/living/M in range(1,src))
-			if(iscultist(M))
-				M.say("TOK-LYR RQA-NAP SHA-NEX!!")
-		world << 'sound/effects/dimensional_rend.ogg'
-		to_chat(world, "<span class='userdanger'>A hellish cacaphony bombards from all around as something awful tears through the world...</span>")
-		icon_state = "rune_large_distorted"
-		sleep(55)
-		to_chat(world, "<span class='cultlarge'><i>\"LIBREATE TE EX INFERIS!\"</i></span>")//Fethas note:I COULDN'T HELP IT OKAY?!
-		visible_message("<span class='warning'>[src] melts away into blood, and three horrific figures emerge from within!</span>")
-		var/turf/T = get_turf(src)
-		new /mob/living/simple_animal/slaughter/cult(T)
-		new /mob/living/simple_animal/slaughter/cult(T, pick(NORTH, EAST, SOUTH, WEST))
-		new /mob/living/simple_animal/slaughter/cult(T, pick(NORTHEAST, SOUTHEAST, NORTHWEST, SOUTHWEST))
-		cult_mode.demons_summoned = 1
-		shuttle_master.emergency.request(null, 0.5,null)
-		cult_mode.third_phase()
-		qdel(src)
+	//BEGIN THE SLAUGHTER
+	used = 1
+	for(var/mob/living/M in range(1,src))
+		if(iscultist(M))
+			M.say("TOK-LYR RQA-NAP SHA-NEX!!")
+	world << 'sound/effects/dimensional_rend.ogg'
+	to_chat(world, "<span class='userdanger'>A hellish cacaphony bombards from all around as something awful tears through the world...</span>")
+	icon_state = "rune_large_distorted"
+	sleep(55)
+	to_chat(world, "<span class='cultlarge'><i>\"LIBREATE TE EX INFERIS!\"</i></span>")//Fethas note:I COULDN'T HELP IT OKAY?!
+	visible_message("<span class='warning'>[src] melts away into blood, and three horrific figures emerge from within!</span>")
+	var/turf/T = get_turf(src)
+	new /mob/living/simple_animal/slaughter/cult(T)
+	new /mob/living/simple_animal/slaughter/cult(T, pick(NORTH, EAST, SOUTH, WEST))
+	new /mob/living/simple_animal/slaughter/cult(T, pick(NORTHEAST, SOUTHEAST, NORTHWEST, SOUTHWEST))
+	cult_mode.demons_summoned = 1
+	shuttle_master.emergency.request(null, 0.5,null)
+	cult_mode.third_phase()
+	qdel(src)
 
 
 //Rite of Resurrection: Requires two corpses. Revives one and gibs the other.

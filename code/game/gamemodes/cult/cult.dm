@@ -99,6 +99,7 @@ var/global/list/all_cults = list()
 		cult += cultist
 		cultist.restricted_roles = restricted_jobs
 		cultist.special_role = SPECIAL_ROLE_CULTIST
+	..()
 	return (cult.len>0)
 
 
