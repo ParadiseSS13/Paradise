@@ -7,6 +7,7 @@
 	force = 30
 	throwforce = 10
 	sharp = 1
+	edge = 1
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 

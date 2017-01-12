@@ -97,6 +97,7 @@ Made by Xhuis
 		shadow.special_role = SPECIAL_ROLE_SHADOWLING
 		shadow.restricted_roles = restricted_jobs
 		shadowlings--
+	..()
 	return 1
 
 
