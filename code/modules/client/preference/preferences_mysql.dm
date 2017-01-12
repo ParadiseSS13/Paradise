@@ -14,7 +14,8 @@
 					nanoui_fancy,
 					show_ghostitem_attack,
 					lastchangelog,
-					exp
+					exp,
+					windowflashing
 					FROM [format_table_name("player")]
 					WHERE ckey='[C.ckey]'"}
 					)
@@ -42,6 +43,7 @@
 		show_ghostitem_attack = text2num(query.item[12])
 		lastchangelog = query.item[13]
 		exp = query.item[14]
+		windowflashing = text2num(query.item[15])
 
 	//Sanitize
 	ooccolor		= sanitize_hexcolor(ooccolor, initial(ooccolor))
@@ -57,6 +59,7 @@
 	show_ghostitem_attack = sanitize_integer(show_ghostitem_attack, 0, 1, initial(show_ghostitem_attack))
 	lastchangelog	= sanitize_text(lastchangelog, initial(lastchangelog))
 	exp	= sanitize_text(exp, initial(exp))
+	windowflashing = sanitize_integer(windowflashing, 0, 1, initial(windowflashing))
 	return 1
 
 /datum/preferences/proc/save_preferences(client/C)

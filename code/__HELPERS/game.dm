@@ -418,7 +418,7 @@
 /proc/SecondsToTicks(var/seconds)
 	return seconds * 10
 
-proc/pollCandidates(var/Question, var/be_special_type, var/antag_age_check = 0, var/poll_time = 300, var/ignore_respawnability = 0, var/min_hours = 0, var/flashwindow = TRUE)
+proc/pollCandidates(Question, be_special_type, antag_age_check = 0, poll_time = 300, ignore_respawnability = 0, min_hours = 0, flashwindow = TRUE)
 	var/roletext = be_special_type ? get_roletext(be_special_type) : null
 	var/list/mob/dead/observer/candidates = list()
 	var/time_passed = world.time
@@ -473,7 +473,9 @@ proc/pollCandidates(var/Question, var/be_special_type, var/antag_age_check = 0, 
 
 	return candidates
 
-/proc/window_flash(var/client_or_usr)
-	if (!client_or_usr)
+/proc/window_flash(client_or_usr)
+	if(!client_or_usr)
+		return
+	if(!client_or_usr.client.prefs.windowflashing)
 		return
 	winset(client_or_usr, "mainwindow", "flash=5")
