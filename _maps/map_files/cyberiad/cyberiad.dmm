@@ -8780,7 +8780,7 @@
 "dmR" = (/obj/machinery/camera{c_tag = "Mini Satellite Access"; dir = 4; network = list("SS13","MiniSat")},/obj/structure/closet/emcloset,/turf/simulated/floor/plasteel{dir = 9; icon_state = "blue"},/area/engine/engineering)
 "dmS" = (/obj/item/device/radio/intercom{dir = 1; name = "station intercom (General)"; pixel_y = 25},/turf/simulated/floor/plasteel{dir = 1; icon_state = "blue"},/area/engine/engineering)
 "dmT" = (/obj/machinery/firealarm{dir = 2; pixel_y = 24},/obj/structure/transit_tube{dir = 4; icon_state = "Block"},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/engine/engineering)
-"dmU" = (/turf/simulated/floor/plasteel{icon_state = "dark"},/obj/machinery/status_display{density = 0; layer = 4; pixel_x = 0; pixel_y = 32},/obj/structure/transit_tube/station,/obj/structure/transit_tube_pod{dir = 4},/turf/simulated/floor/plasteel{tag = "icon-siding8 (NORTH)"; icon_state = "siding8"; dir = 1},/area/engine/engineering)
+"dmU" = (/turf/simulated/floor/plasteel{icon_state = "dark"},/obj/machinery/status_display{density = 0; layer = 4; pixel_x = 0; pixel_y = 32},/obj/structure/transit_tube/station,/obj/structure/transit_tube_pod{dir = 8},/turf/simulated/floor/plasteel{tag = "icon-siding8 (NORTH)"; icon_state = "siding8"; dir = 1},/area/engine/engineering)
 "dmV" = (/obj/effect/spawner/window/reinforced,/obj/structure/transit_tube,/turf/simulated/floor/plating,/area/engine/engineering)
 "dmW" = (/obj/structure/transit_tube,/turf/space,/area/space)
 "dmX" = (/obj/structure/transit_tube{icon_state = "E-W-Pass"},/obj/structure/lattice,/turf/space,/area/space)
