@@ -288,7 +288,7 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 			return
 		old_bloodtotal = bloodtotal
 		old_bloodusable = bloodusable
-		if(BLOOD_VOLUME_BAD)
+		if(H.blood_volume == BLOOD_VOLUME_BAD)
 			to_chat(owner, "<span class='warning'>They've got no blood left to give.</span>")
 			break
 		if(H.stat < DEAD)

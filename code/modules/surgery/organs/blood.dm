@@ -15,7 +15,7 @@
 
 // Takes care blood loss and regeneration
 /mob/living/carbon/human/proc/handle_blood()
-	var/blood_volume
+	var/list/blood_data = get_blood_data(get_blood_id())//PROCCEPTION
 	if(species && species.flags & NO_BLOOD)
 		bleed_rate = 0
 		return
@@ -25,30 +25,15 @@
 			if(blood_volume < max_blood && blood_volume)
 				blood_volume += 0.1 // regenerate blood VERY slowly
 		else
-		//commented section is vampire stuff i NEED to fix
-				/*
-			blood_volume = round(vessel.get_reagent_amount("blood"))
 			//Blood regeneration if there is some space
 			if(blood_volume < max_blood && blood_volume)
-				var/datum/reagent/blood/B = locate() in vessel.reagent_list //Grab some blood
-				if(B) // Make sure there's some blood at all
-					if(mind) //Handles vampires "eating" blood that isn't their own.
-						if(mind in ticker.mode.vampires)
-							for(var/datum/reagent/blood/BL in vessel.reagent_list)
-								if(nutrition >= 450)
-									break //We don't want blood tranfusions making vampires fat.
-								if(BL.data["donor"] != src)
-									nutrition += (15 * REAGENTS_METABOLISM)
-									BL.volume -= REAGENTS_METABOLISM
-									if(BL.volume <= 0)
-										qdel(BL)
-									break //Only process one blood per tick, to maintain the same metabolism as nutriment for non-vampires.
-					if(B.data["donor"] != src) //If it's not theirs, then we look for theirs
-						for(var/datum/reagent/blood/D in vessel.reagent_list)
-							if(D.data["donor"] == src)
-								B = D
-								break
-			*/
+				if(mind) //Handles vampires "eating" blood that isn't their own.
+					if(mind in ticker.mode.vampires)
+						if(nutrition >= 450)
+							return //We don't want blood tranfusions making vampires fat.
+						if(blood_data["donor"] != src)
+							nutrition += (15 * REAGENTS_METABOLISM)
+							return //Only process one blood per tick, to maintain the same metabolism as nutriment for non-vampires.
 			blood_volume += 0.1 // regenerate blood VERY slowly
 
 

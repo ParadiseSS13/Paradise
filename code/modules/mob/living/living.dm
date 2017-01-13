@@ -512,7 +512,7 @@
 
 	for(var/obj/effect/decal/cleanable/trail_holder/C in loc) //checks for blood splatter already on the floor
 		blood_exists = 1
-	if (isturf(src.loc))
+	if(isturf(src.loc))
 		var/trail_type = getTrail()
 		if(trail_type)
 			var/brute_ratio = round(getBruteLoss()/maxHealth, 0.1)

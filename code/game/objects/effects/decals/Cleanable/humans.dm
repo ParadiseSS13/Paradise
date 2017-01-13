@@ -115,11 +115,6 @@ var/global/list/image/splatter_cache=list()
 	amount = 0
 	var/drips = 1
 
-/obj/effect/decal/cleanable/blood/drip/New()
-	..()
-	spawn(1)
-		drips |= icon_state
-
 /obj/effect/decal/cleanable/trail_holder //not a child of blood on purpose
 	name = "blood"
 	icon_state = "ltrails_1"
