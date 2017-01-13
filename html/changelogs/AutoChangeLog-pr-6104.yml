@@ -1,0 +1,4 @@
+author: "TullyBurnalot"
+delete-after: True
+changes: 
+  - rscadd: "Jobs receive links to SOP and their Department SOP at roundstart. Space Law and Legal SOP links added to Security members, Magistrate and IAAs"
