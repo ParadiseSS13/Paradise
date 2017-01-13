@@ -1,4 +1,0 @@
-author: "TullyBurnalot"
-delete-after: True
-changes: 
-  - bugfix: "Cyborg tools (and other non-droppable tools) cannot be transferred to an open, empty Display Case"
