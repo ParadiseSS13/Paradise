@@ -18,7 +18,6 @@
 
 	// For hiding gibs, making an even more devious trap (invisible autogibbers)
 	var/stealthmode = FALSE
-
 	var/list/victims = list()
 
 	use_power = 1
@@ -236,7 +235,7 @@
 	operating = 1
 	update_icon()
 	var/offset = prob(50) ? -2 : 2
-	animate(src, pixel_x = pixel_x + offset, time = 0.2, loop = 200) //start shaking
+	animate(src, pixel_x = pixel_x + offset, time = 0.2, loop = gibtime * 5) //start shaking
 
 	var/slab_name = occupant.name
 	var/slab_count = 3
@@ -275,7 +274,6 @@
 
 	occupant.emote("scream")
 	playsound(get_turf(src), 'sound/goonstation/effects/gib.ogg', 50, 1)
-
 	victims += "\[[time_stamp()]\] [occupant.name] ([occupant.ckey]) killed by [UserOverride ? "Autogibbing" : "[user] ([user.ckey])"]" //have to do this before ghostizing
 	occupant.death(1)
 	occupant.ghostize()
@@ -332,7 +330,7 @@
 	RefreshParts()
 
 /obj/machinery/gibber/autogibber/process()
-	if(!lturf || occupant || locked || dirty || operating || occupant || victim_targets.len)
+	if(!lturf || occupant || locked || dirty || operating || victim_targets.len)
 		return
 
 	if(acceptdir != lastacceptdir)
@@ -343,8 +341,7 @@
 			lturf = T
 
 	for(var/mob/living/carbon/human/H in lturf)
-		if(istype(H) && H.loc == lturf)
-			victim_targets += H
+		victim_targets += H
 
 	if(victim_targets.len)
 		visible_message({"<span class='danger'>\The [src] states, "Food detected!"</span>"})
