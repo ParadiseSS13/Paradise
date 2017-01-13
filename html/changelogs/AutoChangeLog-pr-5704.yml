@@ -1,9 +1,0 @@
-author: "uraniummeltdown"
-delete-after: True
-changes: 
-  - bugfix: "You can see what sting you have equipped as changeling."
-  - tweak: "All species except IPCs can now be changelings and be affected by their genetic abilities."
-  - tweak: "Arm Blade can now pry open powered airlocks"
-  - tweak: "Transformation Sting now costs 3 points and requires 50 chemicals"
-  - tweak: "You can no longer transform people into Vox with Transformation Sting."
-  - rscdel: "Removed Engorged Chemical Glands, Changelings now have the ability by default"
