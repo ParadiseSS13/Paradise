@@ -43,6 +43,7 @@
 #define RADIMMUNE		2048
 #define ALL_RPARTS		4096
 #define NOGUNS			8192
+#define NO_ABSORB		16384
 
 //Species clothing flags
 #define HAS_UNDERWEAR 	1

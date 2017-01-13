@@ -852,7 +852,7 @@
 	burn_mod = 2.5  // So they take 50% extra damage from brute/burn overall.
 	death_message = "gives one shrill beep before falling limp, their monitor flashing blue before completely shutting off..."
 
-	flags = IS_WHITELISTED | NO_BREATHE | NO_SCAN | NO_BLOOD | NO_PAIN | NO_DNA | NO_POISON | RADIMMUNE | ALL_RPARTS
+	flags = IS_WHITELISTED | NO_BREATHE | NO_SCAN | NO_BLOOD | NO_PAIN | NO_DNA | NO_POISON | RADIMMUNE | ALL_RPARTS | NO_ABSORB
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_SKIN_COLOR | HAS_HEAD_MARKINGS | HAS_HEAD_ACCESSORY
 	dietflags = 0		//IPCs can't eat, so no diet
