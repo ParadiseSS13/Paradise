@@ -317,7 +317,7 @@
 	var/lastacceptdir = NORTH
 	var/turf/lturf
 	var/consumption_delay = 3 SECONDS
-	var/target_found = 0
+	var/list/victim_targets = list()
 
 /obj/machinery/gibber/autogibber/New()
 	..()
@@ -332,7 +332,7 @@
 	RefreshParts()
 
 /obj/machinery/gibber/autogibber/process()
-	if(!lturf || occupant || locked || dirty || operating || occupant || target_found)
+	if(!lturf || occupant || locked || dirty || operating || occupant || victim_targets.len)
 		return
 
 	if(acceptdir != lastacceptdir)
@@ -343,11 +343,13 @@
 			lturf = T
 
 	for(var/mob/living/carbon/human/H in lturf)
-		if(istype(H) && H.loc == lturf && !(locate(/obj/machinery/gibber/autogibber) in H.interaction_queue))
-			target_found = 1
-			H.interaction_queue += src
-			visible_message({"<span class='danger'>\The [src] states, "Food detected!"</span>"})
-			sleep(consumption_delay)
+		if(istype(H) && H.loc == lturf)
+			victim_targets += H
+
+	if(victim_targets.len)
+		visible_message({"<span class='danger'>\The [src] states, "Food detected!"</span>"})
+		sleep(consumption_delay)
+		for(var/mob/living/carbon/H in victim_targets)
 			if(H.loc == lturf) //still standing there
 				if(force_move_into_gibber(H))
 					locked = 1 // no escape
@@ -355,10 +357,8 @@
 					cleanbay()
 					startgibbing(null, 1)
 					locked = 0
-			if(H)
-				H.interaction_queue -= src
 			break
-	target_found = 0
+	victim_targets.Cut()
 
 /obj/machinery/gibber/autogibber/proc/force_move_into_gibber(var/mob/living/carbon/human/victim)
 	if(!istype(victim))	return 0
