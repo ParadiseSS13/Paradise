@@ -49,6 +49,12 @@
 	burn_state = FLAMMABLE
 	block_chance = 30
 
+/obj/item/weapon/shield/riot/buckler/kite
+    name = "Crusader Kite"
+    desc = "WE WILL TAKE JERUSALEM."
+    icon_state = "Crusadershield"
+    item_state = "Crusadershield"
+
 /obj/item/weapon/shield/energy
 	name = "energy combat shield"
 	desc = "A shield capable of stopping most melee attacks. Protects user from almost all energy projectiles. It can be retracted, expanded, and stored anywhere."

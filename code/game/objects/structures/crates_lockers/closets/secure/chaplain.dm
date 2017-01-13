@@ -1,3 +1,4 @@
+
 /obj/structure/closet/secure_closet/chaplain
 	name = "chapel wardrobe"
 	desc = "A lockable storage unit for Nanotrasen-approved religious attire."
@@ -20,6 +21,7 @@
 	new /obj/item/weapon/storage/backpack/cultpack (src)
 	new /obj/item/clothing/head/helmet/riot/knight/templar(src)
 	new /obj/item/clothing/suit/armor/riot/knight/templar(src)
+	new /obj/item/weapon/shield/riot/buckler/kite(src)
 	new /obj/item/weapon/storage/fancy/candle_box/eternal(src)
 	new /obj/item/weapon/storage/fancy/candle_box/eternal(src)
 	new /obj/item/weapon/storage/fancy/candle_box/eternal(src)
