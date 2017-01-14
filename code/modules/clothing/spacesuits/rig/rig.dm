@@ -42,7 +42,7 @@
 
 	//Component/device holders.
 	var/obj/item/weapon/tank/air_supply                       // Air tank, if any.
-	var/obj/item/clothing/shoes/boots = null                  // Deployable boots, if any.
+	var/obj/item/clothing/shoes/magboots/boots = null             // Deployable boots, if any.
 	var/obj/item/clothing/suit/space/new_rig/chest                // Deployable chestpiece, if any.
 	var/obj/item/clothing/head/helmet/space/new_rig/helmet = null // Deployable helmet, if any.
 	var/obj/item/clothing/gloves/rig/gloves = null            // Deployable gauntlets, if any.
@@ -126,14 +126,17 @@
 	if(helm_type)
 		helmet = new helm_type(src)
 		verbs |= /obj/item/weapon/rig/proc/toggle_helmet
+		helmet.item_color="[initial(icon_state)]_sealed" //For the lightswitching to know the correct string to manipulate
 	if(boot_type)
 		boots = new boot_type(src)
 		verbs |= /obj/item/weapon/rig/proc/toggle_boots
+		boots.magboot_state="[initial(icon_state)]_sealed" //For the magboot (de)activation to know the correct string to manipulate
 	if(chest_type)
 		chest = new chest_type(src)
 		if(allowed)
 			chest.allowed = allowed
 		chest.slowdown = offline_slowdown
+		chest.holder = src
 		verbs |= /obj/item/weapon/rig/proc/toggle_chest
 
 	for(var/obj/item/piece in list(gloves,helmet,boots,chest))
@@ -183,6 +186,10 @@
 /obj/item/weapon/rig/proc/reset()
 	offline = 2
 	flags &= ~NODROP
+	if(helmet&&helmet.on)
+		helmet.toggle_light(wearer)
+	if(boots&&boots.magpulse)
+		boots.attack_self(wearer)
 	for(var/obj/item/piece in list(helmet,boots,gloves,chest))
 		if(!piece) continue
 		piece.icon_state = "[initial(icon_state)]"
@@ -254,6 +261,7 @@
 			switch(msg_type)
 				if("boots")
 					to_chat(wearer, "<font color='blue'>\The [correct_piece] seal around your feet.</font>")
+					correct_piece.icon_state = "[initial(icon_state)]_sealed0" //Solution to not need a sprite for off, on, and unused magboots.
 					if(user != wearer)
 						to_chat(user, "<span class='notice'>\The [correct_piece] has been sealed.</span>")
 					wearer.update_inv_shoes()
@@ -269,6 +277,7 @@
 					wearer.update_inv_wear_suit()
 				if("helmet")
 					to_chat(wearer, "<font color='blue'>\The [correct_piece] hisses closed.</font>")
+					correct_piece.icon_state = "[initial(icon_state)]_sealed0" //Solution to not need a sprite for off, on, and unused helmet light.
 					if(user != wearer)
 						to_chat(user, "<span class='notice'>\The [correct_piece] has been sealed.</span>")
 					wearer.update_inv_head()
@@ -383,10 +392,14 @@
 	sealing = FALSE
 
 	if(failed_to_seal)
-		for(var/obj/item/piece in list(helmet, boots, gloves, chest))
+		for(var/obj/item/piece in list(gloves, chest))
 			if(!piece)
 				continue
 			piece.icon_state = "[initial(icon_state)]_sealed"
+		if(helmet)
+			helmet.icon_state = "[initial(icon_state)]_sealed[helmet.on]"
+		if(boots)
+			boots.icon_state = "[initial(icon_state)]_sealed[boots.magpulse]"
 		if(airtight)
 			update_component_sealed()
 		update_icon(1)
@@ -406,6 +419,10 @@
 	update_icon(1)
 
 /obj/item/weapon/rig/proc/update_component_sealed()
+	if(istype(boots) && !(flags & NODROP) && boots.magpulse) //If we have (active) boots and unsealed the suit, we deactivate the magboots.
+		boots.attack_self(wearer)
+	if(istype(helmet) && !(flags & NODROP) && helmet.on) //If we have an (active) headlamp and unsealed the suit, we deactivate the headlamp.
+		helmet.toggle_light(wearer)
 	for(var/obj/item/piece in list(helmet,boots,gloves,chest))
 		if(!(flags & NODROP))
 			piece.flags &= ~STOPSPRESSUREDMAGE
@@ -455,6 +472,11 @@
 			for(var/obj/item/rig_module/module in installed_modules)
 				module.deactivate()
 			offline = 2
+			//Commented out until boots/helmets stay disabled. Spacesuits don't have a power restriction on them.
+			/*if(istype(boots) && boots.magpulse) //If we have (active) boots and the suit went offline, we deactivate the magboots.
+				boots.attack_self(wearer)
+			if(istype(helmet) && !(flags & NODROP) && helmet.on) //If we have an (active) headlamp and the suit went offline, we deactivate the headlamp.
+				helmet.toggle_light(wearer)*/
 			chest.slowdown = offline_slowdown
 		return
 
@@ -581,7 +603,7 @@
 
 	if(module_list.len)
 		data["modules"] = module_list
-
+		
 	return data
 
 /obj/item/weapon/rig/update_icon(var/update_mob_icon)
@@ -705,15 +727,17 @@
 					if(isliving(uneq_piece.loc))
 						var/mob/living/L = uneq_piece.loc
 						L.unEquip(uneq_piece, 1)
-					uneq_piece.flags &= ~NODROP
+					//uneq_piece.flags &= ~NODROP
+					//Why would we want to make it able to remove the piece per hand?
 					uneq_piece.forceMove(src)
 		return 0
 
 	if(sealing || !cell || !cell.charge)
 		return 0
 
-	if(user == wearer && user.incapacitated()) // If the user isn't wearing the suit it's probably an AI.
-		return 0
+	if(!(deploy_mode==ONLY_RETRACT && force)) //This should be the case while stripping, stripping does trigger the if statement below.
+		if(user == wearer && user.incapacitated()) // If the user isn't wearing the suit it's probably an AI.
+			return 0
 
 	var/obj/item/check_slot
 	var/equip_to
@@ -752,7 +776,8 @@
 			if(to_strip)
 				to_strip.unEquip(use_obj, 1)
 
-			use_obj.flags &= ~NODROP
+			//use_obj.flags &= ~NODROP
+			//Why would we want to make it able to remove the piece per hand?
 			use_obj.forceMove(src)
 			if(wearer)
 				to_chat(wearer, "<span class='notice'>Your [use_obj] [use_obj.gender == PLURAL ? "retract" : "retracts"] swiftly.")
@@ -762,13 +787,15 @@
 				to_chat(wearer, "<span class='danger'>You are unable to deploy \the [piece] as \the [check_slot] [check_slot.gender == PLURAL ? "are" : "is"] in the way.</span>")
 				return
 			use_obj.forceMove(wearer)
-			use_obj.flags &= ~NODROP
+			//use_obj.flags &= ~NODROP
+			//Why would we want to make it able to remove the piece per hand?
 			if(!wearer.equip_to_slot_if_possible(use_obj, equip_to, 0, 1))
 				use_obj.forceMove(src)
 			else
 				if(wearer)
 					to_chat(wearer, "<span class='notice'>Your [use_obj.name] [use_obj.gender == PLURAL ? "deploy" : "deploys"] swiftly.</span>")
-				use_obj.flags |= NODROP
+				//use_obj.flags |= NODROP
+				//Parts should be inherently NODROP now, so if we don't remove the flag, we don't need to add it.
 
 	if(piece == "helmet" && helmet)
 		helmet.update_light(wearer)
@@ -777,17 +804,17 @@
 	if(!wearer || !user)
 		return 0
 
-	if(flags & NODROP)
-		if(wearer.head && wearer.head != helmet)
+	if(flags & NODROP) //We need to check if we have the part, the person is wearing something in the parts slot, and if yes, are they the same.
+		if(helmet && wearer.head && wearer.head != helmet)
 			to_chat(user, "<span class='danger'>\The [wearer.head] is blocking \the [src] from deploying!</span>")
 			return 0
-		if(wearer.gloves && wearer.gloves != gloves)
+		if(gloves && wearer.gloves && wearer.gloves != gloves)
 			to_chat(user, "<span class='danger'>\The [wearer.gloves] is preventing \the [src] from deploying!</span>")
 			return 0
-		if(wearer.shoes && wearer.shoes != boots)
+		if(boots && wearer.shoes && wearer.shoes != boots)
 			to_chat(user, "<span class='danger'>\The [wearer.shoes] is preventing \the [src] from deploying!</span>")
 			return 0
-		if(wearer.wear_suit && wearer.wear_suit != chest)
+		if(chest && wearer.wear_suit && wearer.wear_suit != chest)
 			to_chat(user, "<span class='danger'>\The [wearer.wear_suit] is preventing \the [src] from deploying!</span>")
 			return 0
 
