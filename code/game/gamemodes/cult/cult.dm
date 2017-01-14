@@ -106,14 +106,6 @@ var/global/list/all_cults = list()
 /datum/game_mode/cult/post_setup()
 	modePlayer += cult
 	acolytes_needed = acolytes_needed + round((num_players_started() / 10))
-	if("sacrifice" in objectives)
-		var/list/possible_targets = get_unconvertables()
-		if(!possible_targets.len)
-			for(var/mob/living/carbon/human/player in player_list)
-				if(player.mind && !(player.mind in cult))
-					possible_targets += player.mind
-		if(possible_targets.len > 0)
-			sacrifice_target = pick(possible_targets)
 
 	for(var/datum/mind/cult_mind in cult)
 		equip_cultist(cult_mind.current)
@@ -187,6 +179,8 @@ var/global/list/all_cults = list()
 		if(jobban_isbanned(cult_mind.current, ROLE_CULTIST))
 			replace_jobbaned_player(cult_mind.current, ROLE_CULTIST)
 		update_cult_icons_added(cult_mind)
+		var/datum/game_mode/cult/cult_mode = ticker.mode
+		cult_mode.check_numbers()
 		return 1
 
 
