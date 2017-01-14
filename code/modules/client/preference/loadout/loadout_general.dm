@@ -29,7 +29,12 @@
 /datum/gear/sechud
 	display_name = "a classic security HUD"
 	path = /obj/item/clothing/glasses/hud/security
-	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Security Pod Pilot", "Internal Affairs Agent")
+	allowed_roles = list("Captain," "Head of Security", "Warden", "Security Officer", "Security Pod Pilot", "Internal Affairs Agent", "Detective", "Brig Physician")
+
+/datum/gear/medhud
+	display_name = "a medical HUD"
+	path = /obj/item/clothing/glasses/hud/medical
+	allowed_roles = list("Chief Medical Officer", "Chemist", "Medical Doctor", "Virologist", "Geneticist", "Psychiatrist", "Paramedic", "Brig Physician")
 
 /datum/gear/matches
 	display_name = "a box of matches"
