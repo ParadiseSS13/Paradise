@@ -51,7 +51,7 @@ var/list/blob_nodes = list()
 
 	if(!infected_crew.len)
 		return 0
-
+	..()
 	return 1
 
 /datum/game_mode/blob/proc/get_blob_candidates()

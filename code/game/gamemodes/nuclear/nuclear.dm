@@ -55,6 +55,7 @@ proc/issyndicate(mob/living/M as mob)
 
 
 /datum/game_mode/nuclear/pre_setup()
+	..()
 	return 1
 
 /datum/game_mode/proc/remove_operative(datum/mind/operative_mind)
@@ -68,8 +69,8 @@ proc/issyndicate(mob/living/M as mob)
 			to_chat(operative_mind.current, "<span class='userdanger'>You have been turned into a robot! You are no longer a Syndicate operative.</span>")
 		else
 			to_chat(operative_mind.current, "<span class='userdanger'>You have been brainwashed! You are no longer a Syndicate operative.</span>")
-		ticker.mode.update_synd_icons_removed(operative_mind)		
-			
+		ticker.mode.update_synd_icons_removed(operative_mind)
+
 ////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////
 
@@ -161,8 +162,8 @@ proc/issyndicate(mob/living/M as mob)
 	head_organ.b_hair = color2B(hair_c)
 	M.change_eye_color(color2R(eye_c), color2G(eye_c), color2B(eye_c))
 	M.s_tone = skin_tone
-	head_organ.h_style = random_hair_style(M.gender, head_organ.species.name) 
-	head_organ.f_style = random_facial_hair_style(M.gender, head_organ.species.name) 
+	head_organ.h_style = random_hair_style(M.gender, head_organ.species.name)
+	head_organ.f_style = random_facial_hair_style(M.gender, head_organ.species.name)
 	M.body_accessory = null
 	M.regenerate_icons()
 	M.update_body()

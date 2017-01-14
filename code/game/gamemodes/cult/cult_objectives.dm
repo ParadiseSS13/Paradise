@@ -192,9 +192,6 @@
 			if(total < 15)
 				message_admins("There are [total] players, too little for the mass convert objective!")
 				log_admin("There are [total] players, too little for the mass convert objective!")
-			else if(total > 50)
-				message_admins("There are [total] players, too many for the mass convert objective!")
-				log_admin("There are [total] players, too many for the mass convert objective!")
 			else
 				possible_objectives |= "convert"
 				convert_target = round(total / 2)

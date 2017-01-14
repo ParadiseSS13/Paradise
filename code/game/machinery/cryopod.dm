@@ -705,6 +705,7 @@
 		for(var/obj/item/O in I) // the things inside the tools, if anything; mainly for janiborg trash bags
 			O.loc = R
 		qdel(I)
+	R.module.remove_subsystems_and_actions(R)
 	qdel(R.module)
 
 	return ..()
