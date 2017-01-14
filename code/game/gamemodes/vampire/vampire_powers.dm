@@ -479,8 +479,7 @@
 		if(T.y > world.maxy-outer_tele_radius || T.y < outer_tele_radius)
 			continue
 
-		var/atom/movable/lighting_overlay/L = locate(/atom/movable/lighting_overlay) in T
-		var/lightingcount = L.get_clamped_lum(0.5) * 10
+		var/lightingcount = T.get_lumcount(0.5) * 10
 
 		// LIGHTING CHECK
 		if(lightingcount > max_lum)
