@@ -35,9 +35,9 @@
 	. = ..()
 	if(.)
 		if(nutrition && stat != DEAD)
-			nutrition -= HUNGER_FACTOR/10
+			nutrition -= hunger_drain / 10
 			if(m_intent == "run")
-				nutrition -= HUNGER_FACTOR/10
+				nutrition -= hunger_drain / 10
 		if((FAT in mutations) && m_intent == "run" && bodytemperature <= 360)
 			bodytemperature += 2
 
@@ -942,7 +942,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 	var/fullness = nutrition + 10
 	if(istype(toEat, /obj/item/weapon/reagent_containers/food/snacks))
 		for(var/datum/reagent/consumable/C in reagents.reagent_list) //we add the nutrition value of what we're currently digesting
-			fullness += C.nutriment_factor * C.volume / C.metabolization_rate
+			fullness += C.nutriment_factor * C.volume / (C.metabolization_rate * metabolism_efficiency * digestion_ratio)
 	if(user == src)
 		if(istype(toEat, /obj/item/weapon/reagent_containers/food/drinks))
 			if(!selfDrink(toEat))

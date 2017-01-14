@@ -7,6 +7,9 @@
 
 	default_language = "Galactic Common"
 	flags = NO_BREATHE | NO_BLOOD | RADIMMUNE | NOGUNS
+
+	oxy_mod = 0
+
 	virus_immune = 1
 	dietflags = DIET_OMNI		//golems can eat anything because they are magic or something
 	reagent_tag = PROCESS_ORG
