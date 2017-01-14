@@ -113,6 +113,8 @@
 #define TINT_IMPAIR 2			//Threshold of tint level to apply weld mask overlay
 #define TINT_BLIND 3			//Threshold of tint level to obscure vision fully
 
+#define DEFAULT_QUICK_COOLDOWN  4
+
 #define isliving(A)		(istype((A), /mob/living))
 #define iscarbon(A)		(istype((A), /mob/living/carbon))
 #define ishuman(A)		(istype((A), /mob/living/carbon/human))

@@ -25,8 +25,8 @@
 	else
 		unholster(usr)
 
-/obj/item/clothing/accessory/holster/proc/holster(obj/item/I, mob/user as mob)
-	if(holstered)
+/obj/item/clothing/accessory/holster/proc/holster(obj/item/I, mob/living/user)
+	if(holstered && istype(user))
 		to_chat(user, "<span class='warning'>There is already a [holstered] holstered here!</span>")
 		return
 
@@ -35,14 +35,16 @@
 		return
 
 	var/obj/item/weapon/gun/W = I
-	if(!can_holster(W))
+	if(!can_holster(W) && istype(user))
 		to_chat(user, "<span class='warning'>This [W] won't fit in the [src]!</span>")
 		return
 
-	if(!user.canUnEquip(W, 0))
+	if(istype(user) && !user.canUnEquip(W, 0))
 		to_chat(user, "<span class='warning'>You can't let go of the [W]!<span>")
 		return
 
+	if(istype(user))
+		user.stop_aiming(no_message=1)
 	holstered = W
 	user.unEquip(holstered)
 	holstered.loc = src

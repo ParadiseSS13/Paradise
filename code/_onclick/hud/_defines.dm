@@ -83,6 +83,7 @@
 #define ui_gun1 "EAST-2:26,SOUTH+2:7"
 #define ui_gun2 "EAST-1:28,SOUTH+3:7"
 #define ui_gun3 "EAST-2:26,SOUTH+3:7"
+#define ui_gun4 "EAST-3:24,SOUTH+2:7"
 #define ui_gun_select "EAST-1:28,SOUTH+2:7"
 
 //Upper-middle right (damage indicators)

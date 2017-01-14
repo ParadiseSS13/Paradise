@@ -1,0 +1,4 @@
+#define TARGET_CAN_MOVE 1
+#define TARGET_CAN_RUN 2
+#define TARGET_CAN_CLICK 4
+#define TARGET_CAN_RADIO 8

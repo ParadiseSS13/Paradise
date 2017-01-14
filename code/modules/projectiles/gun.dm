@@ -16,6 +16,11 @@
 	needs_permit = 1
 	attack_verb = list("struck", "hit", "bashed")
 
+	var/burst = 1
+	var/burst_delay = 2
+	var/next_fire_time = 0
+	var/move_delay = 1
+
 	var/fire_sound = "gunshot"
 	var/fire_sound_text = "gunshot" //the fire sound that shows in chat messages: laser blast, gunshot, etc.
 	var/suppressed = 0					//whether or not a message is displayed when fired
@@ -82,9 +87,12 @@
 /obj/item/weapon/gun/proc/can_shoot()
 	return 1
 
-/obj/item/weapon/gun/proc/shoot_with_empty_chamber(mob/living/user as mob|obj)
-	to_chat(user, "<span class='danger'>*click*</span>")
-	playsound(user, 'sound/weapons/empty.ogg', 100, 1)
+/obj/item/weapon/gun/proc/shoot_with_empty_chamber(mob/living/user)
+	if(user)
+		user.visible_message("*click click*", "<span class='danger'>*click*</span>")
+	else
+		visible_message("*click click*")
+	playsound(src.loc, 'sound/weapons/empty.ogg', 100, 1)
 
 /obj/item/weapon/gun/proc/shoot_live_shot(mob/living/user as mob|obj, pointblank = 0, mob/pbtarget = null, message = 1)
 	if(recoil)
@@ -149,6 +157,10 @@
 
 	if(weapon_weight == WEAPON_HEAVY && user.get_inactive_hand())
 		to_chat(user, "<span class='userdanger'>You need both hands free to fire \the [src]!</span>")
+		return
+
+	if(user && user.client && user.aiming && user.aiming.active && user.aiming.aiming_at != target)
+		PreFire(target, user, params) //They're using the new gun system, locate what they're aiming at.
 		return
 
 	process_fire(target,user,1,params)

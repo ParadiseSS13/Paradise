@@ -117,7 +117,9 @@
 		if("Autoscroll")
 			auto_scroll = !auto_scroll
 
-/datum/data/pda/app/messenger/proc/create_message(var/mob/living/U, var/obj/item/device/pda/P)
+/datum/data/pda/app/messenger/proc/create_message(mob/living/U, obj/item/device/pda/P, tap = 1)
+	if(tap)
+		U.visible_message("<span class='notice'>[U] taps on \his PDA's screen.</span>")
 	var/t = input(U, "Please enter message", name, null) as text|null
 	if(!t)
 		return
