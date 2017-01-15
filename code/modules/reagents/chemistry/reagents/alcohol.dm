@@ -819,7 +819,10 @@
 	drink_desc = "A drink that is guaranteed to knock you silly."
 
 /datum/reagent/consumable/ethanol/neurotoxin/on_mob_life(mob/living/M)
-	M.Weaken(3)
+	if(prob(10))//just like real neurotox
+		M.emote("drool")
+	if(current_cycle == 10)
+		M.Weaken(3)
 	if(current_cycle >=55)
 		M.Druggy(55)
 	if(current_cycle >=200)
