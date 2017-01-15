@@ -372,12 +372,13 @@ var/list/blood_splatter_icons = list()
 		return
 	return list("ANIMAL DNA" = "Y-")
 
-/mob/living/carbon/human/get_blood_dna_list()
+/mob/living/carbon/get_blood_dna_list()
 	if(get_blood_id() != "blood")
 		return
 	var/list/blood_dna = list()
 	if(dna)
-		blood_dna[dna.unique_enzymes] = b_type
+		var/mob/living/carbon/human/H = src
+		blood_dna[dna.unique_enzymes] = H.b_type
 	else
 		blood_dna["UNKNOWN DNA"] = "X*"
 	return blood_dna

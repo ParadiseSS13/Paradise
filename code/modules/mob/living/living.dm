@@ -457,8 +457,9 @@
 				if(isliving(pulling))
 					var/mob/living/M = pulling
 					var/ok = 1
-					if(M.lying && !M.buckled && (prob(M.getBruteLoss()*200/M.maxHealth)))
-						M.makeTrail(T)
+					if(M.lying && !M.buckled)
+						if(M.getBruteLoss() > M.maxHealth * 0.75)
+							M.makeTrail(T)
 					if(locate(/obj/item/weapon/grab, M.grabbed_by))
 						if(prob(75))
 							var/obj/item/weapon/grab/G = pick(M.grabbed_by)
@@ -541,7 +542,7 @@
 	..()
 
 /mob/living/proc/getTrail()
-	if(getBruteLoss() < 300)
+	if(getBruteLoss() < maxHaelth)
 		return pick("ltrails_1", "ltrails_2")
 	else
 		return pick("trails_1", "trails_2")

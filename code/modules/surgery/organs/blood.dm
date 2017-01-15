@@ -179,7 +179,7 @@
 		blood_data["gender"] = gender
 		blood_data["real_name"] = real_name
 		//blood_data["features"] = dna.features
-		blood_data["blood_color"] = species.blood_color
+		blood_data["blood_colour"] = species.blood_color
 		blood_data["factions"] = faction
 		return blood_data
 
