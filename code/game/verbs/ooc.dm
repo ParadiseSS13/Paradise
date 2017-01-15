@@ -233,3 +233,14 @@ var/global/admin_ooc_colour = "#b82e00"
 	if(eyeobj)
 		return eyeobj
 	return src
+
+/client/proc/self_notes()
+	set name = "View Admin Notes"
+	set category = "OOC"
+	set desc = "View the notes that admins have written about you"
+	
+	if(!config.see_own_notes)
+		to_chat(usr, "<span class='notice'>Sorry, that function is not enabled on this server.</span>");
+		return
+	
+	see_own_notes()

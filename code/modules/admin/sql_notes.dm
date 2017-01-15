@@ -178,6 +178,33 @@
 		output += ruler
 	usr << browse(output, "window=show_notes;size=900x500")
 
+/proc/see_own_notes()
+	var/target_ckey = usr.client.ckey
+	if(!target_ckey)
+		return
+	
+	var/output
+	var/ruler
+	ruler = "<hr style='background:#000000; border:0; height:3px'>"
+	if(target_ckey)
+		var/target_sql_ckey = sanitizeSQL(target_ckey)
+		var/DBQuery/query_get_notes = dbcon.NewQuery("SELECT id, timestamp, notetext, adminckey, last_editor, server FROM [format_table_name("notes")] WHERE ckey = '[target_sql_ckey]' ORDER BY timestamp")
+		if(!query_get_notes.Execute())
+			var/err = query_get_notes.ErrorMsg()
+			log_game("SQL ERROR obtaining ckey, notetext, adminckey, last_editor, server from notes table. Error : \[[err]\]\n")
+			return
+		output += "<h2><center>Notes of [target_ckey]</center></h2>"
+		output += ruler
+		while(query_get_notes.NextRow())
+			var/timestamp = query_get_notes.item[2]
+			var/notetext = query_get_notes.item[3]
+			var/adminckey = query_get_notes.item[4]
+			var/server = query_get_notes.item[6]
+			output += "<b>[timestamp] | [server] | [adminckey]</b>"
+			output += "<br>[notetext]<hr style='background:#000000; border:0; height:1px'>"
+	usr << browse(output, "window=show_notes;size=900x500")
+
+
 /proc/show_player_info_irc(var/key as text)
 	var/target_sql_ckey = sanitizeSQL(key)
 	var/DBQuery/query_get_notes = dbcon.NewQuery("SELECT timestamp, notetext, adminckey, server FROM [format_table_name("notes")] WHERE ckey = '[target_sql_ckey]' ORDER BY timestamp")

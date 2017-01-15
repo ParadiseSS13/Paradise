@@ -128,6 +128,7 @@
 	var/ban_legacy_system = 0	//Defines whether the server uses the legacy banning system with the files in /data or the SQL system. Config option in config.txt
 	var/use_age_restriction_for_jobs = 0 //Do jobs use account age restrictions? --requires database
 	var/use_age_restriction_for_antags = 0 //Do antags use account age restrictions? --requires database
+	var/see_own_notes = 0 //Can players see their own admin notes (read-only)? Config option in config.txt
 
 	var/use_exp_tracking = 0
 	var/use_exp_restrictions = 0
@@ -573,6 +574,9 @@
 
 				if("round_abandon_penalty_period")
 					config.round_abandon_penalty_period = MinutesToTicks(text2num(value))
+
+				if("see_own_notes")
+					config.see_own_notes = 1
 
 				else
 					diary << "Unknown setting in configuration: '[name]'"
