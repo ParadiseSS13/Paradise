@@ -1,0 +1,6 @@
+author: "TullyBurnalot"
+delete-after: True
+changes: 
+  - bugfix: "Broken and Burned bulbs are no longer forced on with every overload."
+  - tweak: "Only non-broken and non-burned bulbs actually break and spark on an overload."
+  - bugfix: "Fixes a single syntax error in the Shadowling Ascendant descriptive text."
