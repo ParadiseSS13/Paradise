@@ -542,7 +542,7 @@
 	..()
 
 /mob/living/proc/getTrail()
-	if(getBruteLoss() < maxHaelth)
+	if(getBruteLoss() < 150)
 		return pick("ltrails_1", "ltrails_2")
 	else
 		return pick("trails_1", "trails_2")
