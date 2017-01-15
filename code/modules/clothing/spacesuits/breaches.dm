@@ -125,7 +125,7 @@ var/global/list/breach_burn_descriptors = list(
 		var/datum/breach/B = new()
 		breaches += B
 
-		B.class = min(amount,(5-max(damage-20,0))) //We cap the check at 25, this line could overshoot without the calculation if it gets enough dammage in one shot.
+		B.class = min(amount,(5 - max(damage - 20,0))) //We cap the check at 25, this line could overshoot without the calculation if it gets enough dammage in one shot.
 
 		B.damtype = damtype
 		B.update_descriptor()

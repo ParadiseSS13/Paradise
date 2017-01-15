@@ -76,6 +76,7 @@
 	var/airtight = 1 //If set, will adjust AIRTIGHT and STOPSPRESSUREDMAGE flags on components. Otherwise it should leave them untouched.
 
 	var/emp_protection = 0
+	var/has_emergency_release = 1 //Allows suit to be removed from outside.
 
 	// Wiring! How exciting.
 	var/datum/wires/rig/wires
@@ -186,9 +187,9 @@
 /obj/item/weapon/rig/proc/reset()
 	offline = 2
 	flags &= ~NODROP
-	if(helmet&&helmet.on)
+	if(helmet && helmet.on)
 		helmet.toggle_light(wearer)
-	if(boots&&boots.magpulse)
+	if(boots && boots.magpulse)
 		boots.attack_self(wearer)
 	for(var/obj/item/piece in list(helmet,boots,gloves,chest))
 		if(!piece) continue
@@ -472,11 +473,6 @@
 			for(var/obj/item/rig_module/module in installed_modules)
 				module.deactivate()
 			offline = 2
-			//Commented out until boots/helmets stay disabled. Spacesuits don't have a power restriction on them.
-			/*if(istype(boots) && boots.magpulse) //If we have (active) boots and the suit went offline, we deactivate the magboots.
-				boots.attack_self(wearer)
-			if(istype(helmet) && !(flags & NODROP) && helmet.on) //If we have an (active) headlamp and the suit went offline, we deactivate the headlamp.
-				helmet.toggle_light(wearer)*/
 			chest.slowdown = offline_slowdown
 		return
 
@@ -603,7 +599,7 @@
 
 	if(module_list.len)
 		data["modules"] = module_list
-		
+
 	return data
 
 /obj/item/weapon/rig/update_icon(var/update_mob_icon)
@@ -717,6 +713,8 @@
 			M.visible_message("<font color='blue'><b>[M] struggles into \the [src].</b></font>", "<font color='blue'><b>You struggle into \the [src].</b></font>")
 			wearer = M
 			wearer.wearing_rig = src
+			if(has_emergency_release)
+			 M.verbs |= /obj/item/weapon/rig/proc/emergency_release
 			update_icon()
 
 /obj/item/weapon/rig/proc/toggle_piece(var/piece, var/mob/living/user, var/deploy_mode, var/force)
@@ -727,15 +725,13 @@
 					if(isliving(uneq_piece.loc))
 						var/mob/living/L = uneq_piece.loc
 						L.unEquip(uneq_piece, 1)
-					//uneq_piece.flags &= ~NODROP
-					//Why would we want to make it able to remove the piece per hand?
 					uneq_piece.forceMove(src)
 		return 0
 
 	if(sealing || !cell || !cell.charge)
 		return 0
 
-	if(!(deploy_mode==ONLY_RETRACT && force)) //This should be the case while stripping, stripping does trigger the if statement below.
+	if(!(deploy_mode == ONLY_RETRACT && force)) //This should be the case while stripping, stripping does trigger the if statement below.
 		if(user == wearer && user.incapacitated()) // If the user isn't wearing the suit it's probably an AI.
 			return 0
 
@@ -824,6 +820,7 @@
 
 /obj/item/weapon/rig/dropped(var/mob/user)
 	..()
+	user.verbs -= /obj/item/weapon/rig/proc/emergency_release
 	for(var/piece in list("helmet","gauntlets","chest","boots"))
 		toggle_piece(piece, user, ONLY_RETRACT, 1)
 	if(wearer)
@@ -1023,6 +1020,38 @@
 	else
 		return null
 
+/obj/item/weapon/rig/proc/emergency_release()
+	set name = "Suit Emergency Release"
+	set desc = "Activate the suits emergency release system."
+	set category = "Object"
+	set src in oview(1)
+	var/obj/item/weapon/rig/T = get_rig()
+	return T.do_emergency_release(usr)
+
+/obj/item/weapon/rig/proc/do_emergency_release(var/mob/living/user)
+	if(!can_touch(user, wearer) || !has_emergency_release)
+		return can_touch(user,wearer)
+	usr.visible_message("<span class='warning'>[user] starts activating \the [src] emergency seals release!</span>")
+	if(!do_after(user,240, target = wearer))
+		to_chat(user, "<span class='notice'>You need to focus on activating the emergency release.</span>")
+		return 0
+	usr.visible_message("<span class='warning'>[user] activated \the [src] emergency seals release!</span>")
+	malfunctioning += 1
+	malfunction_delay = 30
+	unseal(user)
+	return 1
+
+/obj/item/weapon/rig/proc/can_touch(var/mob/user, var/mob/wearer)
+	if(!user)
+		return 0
+	if(!wearer.Adjacent(user))
+		return 0
+	if(user.restrained())
+		to_chat(user, "<span class='notice'>You need your hands free for this.</span>")
+		return 0
+	if(user.stat || user.paralysis || user.sleeping || user.lying || user.weakened)
+		return 0
+	return 1
 #undef ONLY_DEPLOY
 #undef ONLY_RETRACT
 #undef SEAL_DELAY

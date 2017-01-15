@@ -4,13 +4,13 @@
 	return damage
 
 /obj/item/weapon/rig/proc/update_armor()
-	var/multi=1					//Multiplicative modification to the armor, maybe add an additive later on
+	var/multi = 1					//Multiplicative modification to the armor, maybe add an additive later on
 	if(chest)
-		multi *= (100-chest.damage)/100			//If we have some breaches, lower the armor value.
+		multi *= (100 - chest.damage) / 100			//If we have some breaches, lower the armor value.
 
 	//TODO check for other armor mods, likely modules, which need to be coded.
 
-	for(var/obj/item/piece in list(gloves,helmet,boots,chest))
+	for(var/obj/item/piece in list(gloves, helmet, boots, chest))
 		if(!istype(piece))			//Do we have the piece
 			continue
 		if(islist(armor))				//Did we even give them some armor, if this is the case, the list should be initialized from New()
