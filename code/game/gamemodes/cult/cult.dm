@@ -321,7 +321,7 @@ var/global/list/all_cults = list()
 						feedback_add_details("cult_objective","cult_demons|FAIL")
 
 				if("convert")//convert half the crew
-					if(obj_count < objectives.len)
+					if(cult.len >= convert_target)
 						explanation = "Convert [convert_target] crewmembers ([cult.len] cultists at round end). <font color='green'><B>Success!</B></font>"
 						feedback_add_details("cult_objective","cult_convertion|SUCCESS")
 					else
@@ -329,7 +329,7 @@ var/global/list/all_cults = list()
 						feedback_add_details("cult_objective","cult_convertion|FAIL")
 
 				if("bloodspill")//cover a large portion of the station in blood
-					if(obj_count < objectives.len)
+					if(max_spilled_blood >= spilltarget)
 						explanation = "Cover [spilltarget] tiles of the station in blood (The peak number of covered tiles was: [max_spilled_blood]). <font color='green'><B>Success!</B></font>"
 						feedback_add_details("cult_objective","cult_bloodspill|SUCCESS")
 					else
