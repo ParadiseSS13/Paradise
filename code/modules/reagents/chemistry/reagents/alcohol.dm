@@ -819,11 +819,7 @@
 	drink_desc = "A drink that is guaranteed to knock you silly."
 
 /datum/reagent/consumable/ethanol/neurotoxin/on_mob_life(mob/living/M)
-	M.Weaken(3)
-	if(current_cycle >=55)
-		M.Druggy(55)
-	if(current_cycle >=200)
-		M.adjustToxLoss(2)
+	M.gib()
 	..()
 
 /datum/reagent/consumable/ethanol/hippies_delight
