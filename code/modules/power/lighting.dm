@@ -514,12 +514,14 @@
 	status = LIGHT_EMPTY
 	update()
 
-/obj/machinery/light/proc/broken(skip_sounds_and_sparks = 0)
-	if(status == LIGHT_EMPTY || status == LIGHT_BROKEN || status == LIGHT_BURNED)
+/obj/machinery/light/proc/broken(skip_sound_and_sparks = 0, overloaded = 0)
+	if(status == LIGHT_EMPTY || status == LIGHT_BROKEN)
 		return
-	if(!skip_sounds_and_sparks)
-		if(status == LIGHT_OK)
+
+	if(!skip_sound_and_sparks)
+		if(status == LIGHT_OK || status == LIGHT_BURNED)
 			playsound(src.loc, 'sound/effects/Glasshit.ogg', 75, 1)
+		if(on || overloaded)
 			var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 			s.set_up(3, 1, src)
 			s.start()

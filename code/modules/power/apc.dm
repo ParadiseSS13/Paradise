@@ -1368,7 +1368,7 @@
 		spawn(0)
 			for(var/obj/machinery/light/L in area)
 				if(prob(chance))
-					L.broken()
+					L.broken(0, 1)
 					stoplag()
 
 /obj/machinery/power/apc/proc/setsubsystem(val)
