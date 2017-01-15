@@ -168,7 +168,7 @@
 			connect()
 		playsound(loc, 'sound/items/Ratchet.ogg', 50, 1)
 		to_chat(user, "<span class='notice'>You [anchored ? "secure" : "unsecure"] the bolts holding [src] to the floor.</span>")
-	else if(istype(W, /obj/item/device/multitool))
+	else if(ismultitool(W))
 		if(cold_dir == WEST)
 			cold_dir = EAST
 			hot_dir = WEST

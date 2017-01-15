@@ -21,7 +21,7 @@
 	density = 1
 
 	can_unwrench = 1
-	var/sides_inverted = 0
+	var/side_inverted = 0
 
 // Creating a custom circulator pipe subtype to be delivered through cargo
 /obj/item/pipe/circulator
@@ -75,37 +75,37 @@
 	update_icon()
 
 /obj/machinery/atmospherics/binary/circulator/proc/get_inlet_air()
-	if(sides_inverted==0)
+	if(side_inverted==0)
 		return air2
 	else
 		return air1
 
 /obj/machinery/atmospherics/binary/circulator/proc/get_outlet_air()
-	if(sides_inverted==0)
+	if(side_inverted==0)
 		return air1
 	else
 		return air2
 
 /obj/machinery/atmospherics/binary/circulator/proc/get_inlet_side()
 	if(dir==SOUTH||dir==NORTH)
-		if(sides_inverted==0)
+		if(side_inverted==0)
 			return "South"
 		else
 			return "North"
 
 /obj/machinery/atmospherics/binary/circulator/proc/get_outlet_side()
 	if(dir==SOUTH||dir==NORTH)
-		if(sides_inverted==0)
+		if(side_inverted==0)
 			return "North"
 		else
 			return "South"
 
 /obj/machinery/atmospherics/binary/circulator/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/device/multitool))
-		if(sides_inverted == 0)
-			sides_inverted = 1
+	if(ismultitool(W))
+		if(side_inverted == 0)
+			side_inverted = 1
 		else
-			sides_inverted = 0
+			side_inverted = 0
 		to_chat(user, "<span class='notice'>You reverse the circulator's valve settings. The inlet of the circulator is now on the [get_inlet_side(dir)] side.</span>")
 		desc = "A gas circulator pump and heat exchanger. Its input port is on the [get_inlet_side(dir)] side, and its output port is on the [get_outlet_side(dir)] side."
 	else
