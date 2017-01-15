@@ -1370,7 +1370,6 @@
 				if(!L.isfunctional())
 					continue
 				if(prob(chance))
-					L.on = 1
 					L.broken()
 					stoplag()
 
