@@ -138,7 +138,8 @@
 					msg_admin_attack("[key_name_admin(user)] placed [key_name_admin(GM)] in a disposals unit. (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 		return
 
-	if(!I)	return
+	if(!I)
+		return
 
 	if(!user.drop_item())
 		return
@@ -530,14 +531,18 @@
 					has_fat_guy = 1			// set flag on holder
 			if(istype(AM, /obj/structure/bigDelivery) && !hasmob)
 				var/obj/structure/bigDelivery/T = AM
-				src.destinationTag = T.sortTag
+				destinationTag = T.sortTag
 			if(istype(AM, /obj/item/smallDelivery) && !hasmob)
 				var/obj/item/smallDelivery/T = AM
-				src.destinationTag = T.sortTag
+				destinationTag = T.sortTag
 			//Drones can mail themselves through maint.
 			if(istype(AM, /mob/living/silicon/robot/drone))
 				var/mob/living/silicon/robot/drone/drone = AM
-				src.destinationTag = drone.mail_destination
+				destinationTag = drone.mail_destination
+			if(istype(AM, /obj/item/shippingPackage) && !hasmob)
+				var/obj/item/shippingPackage/sp = AM
+				if(sp.sealed)	//only sealed packages get delivered to their intended destination
+					destinationTag = sp.sortTag
 
 
 	// start the movement process
@@ -987,7 +992,7 @@
 /obj/structure/disposalpipe/sortjunction
 
 	icon_state = "pipe-j1s"
-	var/sortType = 0	//Look at the list called TAGGERLOCATIONS in setup.dm
+	var/sortType = 0	//Look at the list called TAGGERLOCATIONS in /code/_globalvars/lists/flavor_misc.dm
 	var/posdir = 0
 	var/negdir = 0
 	var/sortdir = 0

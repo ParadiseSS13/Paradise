@@ -3,8 +3,8 @@ Title: Request Console
 Used In File(s): \code\game\machinery\requests_console.dm
 
 #define RCS_MAINMENU 0	// Main men
-#define RCS_RQASSIST 1	// Request supplies
-#define RCS_RQSUPPLY 2	// Request assistance
+#define RCS_RQSUPPLY 1	// Request supplies
+#define RCS_RQASSIST 2	// Request assistance
 #define RCS_SENDINFO 3	// Relay information
 #define RCS_SENTPASS 4	// Message sent successfully
 #define RCS_SENTFAIL 5	// Message sent unsuccessfully
@@ -102,6 +102,33 @@ Used In File(s): \code\game\machinery\requests_console.dm
 		{{:helper.link('Announce', 'signal', { 'sendAnnouncement' : 1 }, (data.announceAuth && data.message) ? null : 'disabled' )}}
 		{{:helper.link('Back', 'arrow-left', { 'setScreen' : 0 })}}
 	</div>
+{{else data.screen == 9}}
+	<div class="item"><h3>Print a Shipping Label.</h3></div>
+	<div class="statusDisplay" style="overflow: auto;">
+		<div class="item"><b>Destination:</b> {{:data.shipDest}}</div>
+		<div class="item"><b>Validated by:</b> {{:data.msgVerified}}</div>
+		<div class="item">{{:helper.link('Print Label', null, { 'printLabel' : 1 })}}</div>
+	</div>
+	<table class="block">
+	{{for data.ship_dept}}
+		<tr>
+			<td><div class="itemLabelWidest" align="right">{{:value}} -</div></td>
+			<td><div class="item">{{:helper.link('Select', null, { 'shipSelect' : value })}}</div></td>
+		</tr>
+	{{empty}}
+		<tr><td><div class="itemLabel">There are no available shipping destinations.</div></td></tr>
+	{{/for}}
+	</table><br>
+	<div class="item">{{:helper.link('Back', 'arrow-left', { 'setScreen' : 0 })}}</div>
+{{else data.screen == 10}}
+	<div class="statusDisplay" style="overflow: auto;">
+		{{for data.shipping_log}}
+			<div class="item">{{:value}}</div>
+		{{empty}}
+			<div class="item">No shipping labels have been printed.</div>
+		{{/for}}
+	</div>
+	<div class="item">{{:helper.link('Back', 'arrow-left', { 'setScreen' : 0 })}}</div>
 {{else}}
 	{{if data.newmessagepriority == 1}}
 		<div class="item"><font color='red'>There are new messages</font></div>
@@ -113,6 +140,9 @@ Used In File(s): \code\game\machinery\requests_console.dm
 	<div class="item">{{:helper.link('Request Assistance', 'gear', { 'setScreen' : 1 })}}</div>
 	<div class="item">{{:helper.link('Request Supplies', 'gear', { 'setScreen' : 2 })}}</div>
 	<div class="item">{{:helper.link('Relay Anonymous Information', 'gear', { 'setScreen' : 3})}}</div>
+	<br>
+	<div class="item">{{:helper.link('Print Shipping Label', 'gear', { 'setScreen' : 9})}}</div>
+	<div class="item">{{:helper.link('View Shipping Logs', 'gear', { 'setScreen' : 10})}}</div>
 	<br>
 	{{if data.announcementConsole}}
 		<div class="item">{{:helper.link('Send Station-wide Announcement', 'signal', { 'setScreen' : 8})}}</div>
