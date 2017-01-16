@@ -17,10 +17,10 @@
 	mix_sound = null
 	no_message = 1
 
-/datum/chemical_reaction/narcoleptizine
-	name = "Narcoleptizine"
-	id = "narcoleptizine"
-	result = "narcoleptizine"
+/datum/chemical_reaction/somnistimine
+	name = "Somnistimine"
+	id = "somnistimine"
+	result = "somnistimine"
 	required_reagents = list("ether" = 1, "capulettium" = 1, "fungus" = 1, "sarin" = 1)
 	result_amount = 4
 	min_temp = 400

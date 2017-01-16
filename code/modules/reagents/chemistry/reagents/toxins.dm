@@ -502,15 +502,15 @@
 	M.adjustToxLoss(1)
 	..()
 
-/datum/reagent/narcoleptizine
-	name = "Narcoleptizine"
-	id = "narcoleptizine"
+/datum/reagent/somnistimine
+	name = "Somnistimine"
+	id = "somnistimine"
 	description = "A powerful tranquilizer."
 	reagent_state = LIQUID
 	color = "#2E2E61"
 	metabolization_rate = 0.4
 
-/datum/reagent/narcoleptizine/on_mob_life(mob/living/M)
+/datum/reagent/somnistimine/on_mob_life(mob/living/M)
 	if(current_cycle>= 3)
 		M.Weaken(3)
 	..()
