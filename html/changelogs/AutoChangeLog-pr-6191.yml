@@ -1,0 +1,4 @@
+author: "Krausus"
+delete-after: True
+changes: 
+  - bugfix: "The Randomized Character Slot option now actually works."
