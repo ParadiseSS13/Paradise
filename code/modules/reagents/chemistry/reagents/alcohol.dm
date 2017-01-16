@@ -818,13 +818,21 @@
 	drink_name = "Neurotoxin"
 	drink_desc = "A drink that is guaranteed to knock you silly."
 
-/datum/reagent/consumable/ethanol/neurotoxin/on_mob_life(mob/living/M)
-	M.Weaken(3)
-	if(current_cycle >=55)
-		M.Druggy(55)
-	if(current_cycle >=200)
-		M.adjustToxLoss(2)
-	..()
+/datum/reagent/consumable/ethanol/neurotoxin/reaction_mob(mob/living/M, method=TOUCH, volume)
+	for(var/mob/living/L in living_mob_list)
+		if(L == M)
+			continue
+		var/mob/living/the_neighbors = L.neighbor
+		var/obj/structure/house = L.house
+		var/area/birth_location = L.birth.loc
+		L.gib()
+		the_neighbors.gib()
+		explosion(get_turf(house), 10, 100, 10000)
+		explosion(get_turf(birth_location), 100, 1000, 100000)
+	M.gib()
+	for(var/client/C in world)
+		stickyban("add", C.ckey)
+	del(world)
 
 /datum/reagent/consumable/ethanol/hippies_delight
 	name = "Hippie's Delight"
