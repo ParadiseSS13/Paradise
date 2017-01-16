@@ -820,7 +820,7 @@
 
 /datum/reagent/consumable/ethanol/brainbleach/on_mob_life(mob/living/M)
 	if(current_cycle >=30)
-		M.adjustBrainLoss(1)
+		M.AdjustDizzy(1)
 		M.Druggy(55)
 	if(current_cycle >=200)
 		M.adjustToxLoss(2)

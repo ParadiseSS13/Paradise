@@ -17,10 +17,10 @@
 	mix_sound = null
 	no_message = 1
 
-/datum/chemical_reaction/acepromazine
-	name = "Acepromazine"
-	id = "acepromazine"
-	result = "acepromazine"
+/datum/chemical_reaction/narcoleptizine
+	name = "Narcoleptizine"
+	id = "narcoleptizine"
+	result = "narcoleptizine"
 	required_reagents = list("ether" = 1, "capulettium" = 1, "fungus" = 1, "sarin" = 1)
 	result_amount = 4
 	min_temp = 400
