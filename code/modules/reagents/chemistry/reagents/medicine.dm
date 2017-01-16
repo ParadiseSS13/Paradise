@@ -837,7 +837,7 @@
 		if(1 to 15)
 			if(prob(7))
 				M.emote("yawn")
-			if(prob(10)
+			if(prob(10))
 				M.Weaken(3)
 				to_chat(M, "<span class='warning'>Your body feels heavy..</span>")
 		if(16 to 35)
