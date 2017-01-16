@@ -42,7 +42,7 @@
 
 /obj/item/weapon/gun/projectile/automatic/pistol/enforcer45
 	name = "Enforcer .45"
-	desc = "A pistol of modern design. Standard issue for Nanotrasen Asset Protection units."
+	desc = "A pistol of modern design."
 	icon_state = "enforcer"
 	force = 10
 	mag_type = /obj/item/ammo_box/magazine/m45/enforcer45
