@@ -325,5 +325,5 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 /obj/machinery/requests_console/proc/print_label(tag_name, tag_index)
 	var/obj/item/shippingPackage/sp = new /obj/item/shippingPackage(get_turf(src))
 	sp.sortTag = tag_index
-	sp.desc += " The label says \"Deliver to [tag_name]\"."
+	sp.update_desc()
 	print_cooldown = world.time + 600	//1 minute cooldown before you can print another label, but you can still configure the next one during this time

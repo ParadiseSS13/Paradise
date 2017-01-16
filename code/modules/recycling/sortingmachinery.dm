@@ -363,11 +363,10 @@
 	name = "Shipping package"
 	desc = "A pre-labeled package for shipping an item to coworkers."
 	icon = 'icons/obj/storage.dmi'
-	icon_state = "idOld"
+	icon_state = "shippack"
 	var/obj/item/wrapped = null
 	var/sortTag = 0
 	var/sealed = 0
-	var/original_name = "Shipping package"
 
 /obj/item/shippingPackage/attackby(obj/O, mob/user, params)
 	if(sealed)
@@ -377,7 +376,7 @@
 				to_chat(user, "<span class='notice'>Invalid text.</span>")
 				return
 			user.visible_message("<span class='notice'>[user] addresses [src] to [str].</span>")
-			name = "[original_name] (RE: [str])"
+			name = "Shipping package (RE: [str])"
 		return
 	if(wrapped)
 		to_chat(user, "<span class='notice'>[src] already contains \a [wrapped].</span>")
@@ -410,10 +409,19 @@
 				wrapped = null
 			if("Seal Package")
 				to_chat(user, "<span class='notice'>You seal [src], preparing it for delivery.</span>")
+				icon_state = "shippack_sealed"
 				sealed = 1
+				update_desc()
 	else
 		if(alert("Do you want to tear up the package?",, "Yes", "No") == "Yes")
 			to_chat(user, "<span class='notice'>You shred [src].</span>")
 			playsound(loc, 'sound/items/poster_ripped.ogg', 50, 1)
 			user.unEquip(src)
 			qdel(src)
+
+/obj/item/shippingPackage/proc/update_desc()
+	desc = "A pre-labeled package for shipping an item to coworkers."
+	if(sortTag)
+		desc += " The label says \"Deliver to [TAGGERLOCATIONS[sortTag]]\"."
+	if(!sealed)
+		desc += " The package is not sealed."
