@@ -1,4 +1,0 @@
-author: "Alexshreds"
-delete-after: True
-changes: 
-  - bugfix: "Can no longer exploit RCDs for metal"
