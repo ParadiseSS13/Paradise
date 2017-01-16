@@ -252,7 +252,8 @@ var/global/datum/controller/occupations/job_master
 		for(var/mob/new_player/player in player_list)
 			if(player.ready && player.mind && !player.mind.assigned_role)
 				unassigned += player
-				if(player.client.prefs.randomslot) player.client.prefs.random_character(player.client)
+				if(player.client.prefs.randomslot)
+					player.client.prefs.load_random_character_slot(player.client)
 		Debug("DO, Len: [unassigned.len]")
 		if(unassigned.len == 0)	return 0
 

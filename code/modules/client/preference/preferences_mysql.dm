@@ -500,21 +500,24 @@
 		return
 	return 1
 
-/*
-/datum/preferences/proc/random_character(client/C)
+/datum/preferences/proc/load_random_character_slot(client/C)
 	var/DBQuery/query = dbcon.NewQuery("SELECT slot FROM [format_table_name("characters")] WHERE ckey='[C.ckey]' ORDER BY slot")
+	var/list/saves = list()
+
+	if(!query.Execute())
+		var/err = query.ErrorMsg()
+		log_game("SQL ERROR during random character slot picking. Error : \[[err]\]\n")
+		message_admins("SQL ERROR during random character slot picking. Error : \[[err]\]\n")
+		return
 
 	while(query.NextRow())
-	var/list/saves = list()
-	for(var/i=1, i<=MAX_SAVE_SLOTS, i++)
-		if(i==text2num(query.item[1]))
-			saves += i
+		saves += text2num(query.item[1])
 
 	if(!saves.len)
 		load_character(C)
 		return 0
 	load_character(C,pick(saves))
-	return 1*/
+	return 1
 
 /datum/preferences/proc/SetChangelog(client/C,hash)
 	lastchangelog=hash
