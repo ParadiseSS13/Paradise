@@ -17,6 +17,16 @@
 	mix_sound = null
 	no_message = 1
 
+/datum/chemical_reaction/acepromazine
+	name = "Acepromazine"
+	id = "acepromazine"
+	result = "acepromazine"
+	required_reagents = list("ether" = 1, "capulettium" = 1, "fungus" = 1, "sarin" = 1)
+	result_amount = 4
+	min_temp = 400
+	mix_sound = null
+	no_message = 1
+
 /datum/chemical_reaction/cyanide
 	name = "Cyanide"
 	id = "cyanide"

@@ -557,10 +557,10 @@
 	result_amount = 3
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
-/datum/chemical_reaction/neurotoxin
-	name = "Neurotoxin"
-	id = "neurotoxin"
-	result = "neurotoxin"
+/datum/chemical_reaction/brainbleach
+	name = "Brain Bleach"
+	id = "brainbleach"
+	result = "brainbleach"
 	required_reagents = list("gargleblaster" = 1, "ether" = 1)
 	result_amount = 2
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
