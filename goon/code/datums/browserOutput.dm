@@ -59,10 +59,11 @@ var/list/chatResources = list(
 		for(var/asset in global.chatResources)
 			owner << browse_rsc(file(asset))
 
-		owner << browse(file("goon/browserassets/html/browserOutput.html"), "window=browseroutput")
-		sleep(20 SECONDS)
-		if(!owner || loaded)
-			break
+		for(var/subattempts = 1 to 3)
+			owner << browse(file2text("goon/browserassets/html/browserOutput.html"), "window=browseroutput")
+			sleep(10 SECONDS)
+			if(!owner || loaded)
+				return
 
 /datum/chatOutput/Topic(var/href, var/list/href_list)
 	if(usr.client != owner)
