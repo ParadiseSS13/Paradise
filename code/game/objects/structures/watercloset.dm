@@ -249,12 +249,16 @@
 /obj/machinery/shower/proc/wash(atom/movable/O as obj|mob)
 	if(!on) return
 
+	if(istype(O, /obj/item))
+		var/obj/item/I = O
+		I.extinguish()
+
 	O.water_act(100, convertHeat(), src)
 
 	if(isliving(O))
 		var/mob/living/L = O
 		L.ExtinguishMob()
-		L.fire_stacks = -20 //Douse ourselves with water to avoid fire more easily
+		L.adjust_fire_stacks(-20) //Douse ourselves with water to avoid fire more easily
 		to_chat(L, "<span class='warning'>You've been drenched in water!</span>")
 		if(iscarbon(O))
 			var/mob/living/carbon/M = O
@@ -416,8 +420,7 @@
 			H.lip_style = null //Washes off lipstick
 			H.lip_color = initial(H.lip_color)
 			H.regenerate_icons()
-		user.drowsyness -= rand(2,3) //Washing your face wakes you up if you're falling asleep
-		user.drowsyness = Clamp(user.drowsyness, 0, INFINITY)
+		user.AdjustDrowsy(-rand(2,3)) //Washing your face wakes you up if you're falling asleep
 	else
 		user.clean_blood()
 
@@ -455,4 +458,3 @@
 	icon_state = "puddle-splash"
 	..()
 	icon_state = "puddle"
-

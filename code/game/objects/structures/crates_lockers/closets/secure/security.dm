@@ -15,17 +15,21 @@
 		else
 			new /obj/item/weapon/storage/backpack/satchel_cap(src)
 		new /obj/item/weapon/book/manual/faxes(src)
+		new /obj/item/clothing/head/crown/fancy(src)
 		new /obj/item/weapon/storage/backpack/duffel/captain(src)
 		new /obj/item/clothing/suit/captunic(src)
 		new /obj/item/clothing/suit/captunic/capjacket(src)
+		new /obj/item/clothing/under/captainparade(src)
 		new /obj/item/clothing/head/caphat/parade(src)
-		new /obj/item/clothing/under/dress/dress_cap(src)
 		new /obj/item/clothing/under/rank/captain(src)
-		new /obj/item/clothing/suit/armor/vest/capcarapace(src)
+		new /obj/item/clothing/under/dress/dress_cap(src)
+		new /obj/item/clothing/suit/armor/vest/capcarapace/alt(src)
 		new /obj/item/weapon/cartridge/captain(src)
 		new /obj/item/clothing/shoes/brown(src)
+		new /obj/item/clothing/shoes/laceup(src)
 		new /obj/item/device/radio/headset/heads/captain/alt(src)
 		new /obj/item/clothing/gloves/color/captain(src)
+		new /obj/item/weapon/storage/belt/rapier(src)
 		new /obj/item/weapon/gun/energy/gun(src)
 		new /obj/item/weapon/door_remote/captain(src)
 
@@ -43,7 +47,6 @@
 
 	New()
 		..()
-		new /obj/item/weapon/book/manual/faxes(src)
 		new /obj/item/clothing/glasses/sunglasses(src)
 		new /obj/item/clothing/head/hopcap(src)
 		new /obj/item/weapon/cartridge/hop(src)
@@ -99,7 +102,6 @@
 			new /obj/item/weapon/storage/backpack/security(src)
 		else
 			new /obj/item/weapon/storage/backpack/satchel_sec(src)
-		new /obj/item/weapon/book/manual/faxes(src)
 		new /obj/item/weapon/cartridge/hos(src)
 		new /obj/item/device/radio/headset/heads/hos/alt(src)
 		new /obj/item/clothing/under/rank/head_of_security(src)
@@ -317,6 +319,8 @@
 	icon_opened = "cabinetdetective_open"
 	icon_broken = "cabinetdetective_broken"
 	icon_off = "cabinetdetective_broken"
+	burn_state = FLAMMABLE
+	burntime = 20
 
 	New()
 		..()
@@ -339,6 +343,7 @@
 		new /obj/item/clothing/accessory/holster/armpit(src)
 		new /obj/item/clothing/glasses/sunglasses/yeah(src)
 		new /obj/item/device/flashlight/seclite(src)
+		new /obj/item/clothing/accessory/black(src)
 
 /obj/structure/closet/secure_closet/detective/update_icon()
 	if(broken)

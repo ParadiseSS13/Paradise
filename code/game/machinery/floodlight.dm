@@ -19,6 +19,12 @@
 	src.cell = new(src)
 	..()
 
+/obj/machinery/floodlight/Destroy()
+	if(cell)
+		qdel(cell)
+		cell = null
+	return ..()
+
 /obj/machinery/floodlight/proc/updateicon()
 	icon_state = "flood[open ? "o" : ""][open && cell ? "b" : ""]0[on]"
 
@@ -31,7 +37,7 @@
 			set_light(0)
 			src.visible_message("<span class='warning'>[src] shuts down due to lack of power!</span>")
 			return
-			
+
 /obj/machinery/floodlight/attack_ai(mob/user as mob)
 	return
 

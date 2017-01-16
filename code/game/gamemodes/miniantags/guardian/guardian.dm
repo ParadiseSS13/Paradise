@@ -195,7 +195,7 @@
 				to_chat(G, "Your user reset you, and your body was taken over by a ghost. Looks like they weren't happy with your performance.")
 				to_chat(src, "Your guardian has been successfully reset.")
 				message_admins("[key_name_admin(new_stand)] has taken control of ([key_name_admin(G)])")
-				G.ghostize(0)
+				G.ghostize()
 				G.key = new_stand.key
 			else
 				to_chat(src, "There were no ghosts willing to take control. Looks like you're stuck with your Guardian for now.")
@@ -629,7 +629,8 @@
 	spawn(600)
 		if(src)
 			stored_obj.loc = get_turf(src.loc)
-			to_chat(spawner, "<span class='danger'><B>Failure! Your trap on \the [stored_obj] didn't catch anyone this time.</B></span>")
+			if(spawner)
+				to_chat(spawner, "<span class='danger'><B>Failure! Your trap on \the [stored_obj] didn't catch anyone this time.</B></span>")
 			qdel(src)
 
 /obj/item/weapon/guardian_bomb/proc/detonate(var/mob/living/user)

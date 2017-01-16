@@ -116,7 +116,7 @@ td.cost.toomuch {
 		</style>
 	</head>
 	<body>
-	<p style="float:right"><b>Tickets:</b> [tickets] | <a href='byond://?src=\ref[src];eject=1'>Eject Tickets</a></p>
+	<p style="float:right"><b>Tickets:</b> [tickets] | <a href='byond://?src=[UID()];eject=1'>Eject Tickets</a></p>
 	<h1>Arcade Ticket Exchange</h1>
 	<p>
 		<b>Exchange that pile of tickets for a pile of cool prizes!</b>
@@ -148,7 +148,7 @@ td.cost.toomuch {
 		"}
 		dat += {"
 			<td class="cost [cost_class]">
-				<a href="byond://?src=\ref[src];buy=[itemID]">[item.cost] Tickets</a>
+				<a href="byond://?src=[UID()];buy=[itemID]">[item.cost] Tickets</a>
 			</td>
 		</tr>
 		"}

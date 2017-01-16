@@ -48,27 +48,59 @@ proc/sql_report_karma(var/mob/spender, var/mob/receiver)
 
 var/list/karma_spenders = list()
 
+// Returns 1 if mob can give karma at all; if not, tells them why
+/mob/proc/can_give_karma()
+	if(!client)
+		return 0
+	if(!ticker || !player_list.len || (ticker.current_state == GAME_STATE_PREGAME))
+		to_chat(src, "<span class='warning'>You can't award karma until the game has started.</span>")
+		return 0
+	if(client.karma_spent || (key in karma_spenders))
+		to_chat(src, "<span class='warning'>You've already spent your karma for the round.</span>")
+		return 0
+	return 1
+
+// Returns 1 if mob can give karma to M; if not, tells them why
+/mob/proc/can_give_karma_to_mob(mob/M)
+	if(!can_give_karma())
+		return 0
+	if(!istype(M))
+		to_chat(src, "<span class='warning'>That's not a mob.</span>")
+		return 0
+	if(!M.client)
+		to_chat(src, "<span class='warning'>That mob has no client connected at the moment.</span>")
+		return 0
+	if(key == M.key)
+		to_chat(src, "<span class='warning'>You can't spend karma on yourself!</span>")
+		return 0
+	if(client.address == M.client.address)
+		message_admins("<span class='warning'>Illegal karma spending attempt detected from [key] to [M.key]. Using the same IP!</span>")
+		log_game("Illegal karma spending attempt detected from [key] to [M.key]. Using the same IP!")
+		to_chat(src, "<span class='warning'>You can't spend karma on someone connected from the same IP.</span>")
+		return 0
+	return 1
+	
+
 /mob/verb/spend_karma_list()
 	set name = "Award Karma"
 	set desc = "Let the gods know whether someone's been nice. Can only be used once per round."
-	set category = "Special Verbs"
+	set category = "OOC"
 
-	if(!ticker || !player_list.len)
-		to_chat(usr, "\red You can't award karma until the game has started.")
+	if(!can_give_karma())
 		return
 
-	if(ticker.current_state == GAME_STATE_PREGAME)
-		to_chat(usr, "\red You can't award karma until the game has started.")
-		return
-
-	var/list/karma_list = list("Cancel")
-	for(var/mob/M in player_list) if(M.client && M.mind)
-		if(isNonCrewAntag(M)) // Don't include special roles, because players use it to meta
+	var/list/karma_list = list()
+	for(var/mob/M in player_list)
+		if(!(M.client && M.mind))
 			continue
+		if(M == src)
+			continue
+		if(!isobserver(src) && isNonCrewAntag(M))
+			continue // Don't include special roles for non-observers, because players use it to meta
 		karma_list += M
 
-	if(!karma_list.len || karma_list.len == 1)
-		to_chat(usr, "\red There's no-one to spend your karma on.")
+	if(!karma_list.len)
+		to_chat(usr, "<span class='warning'>There's no-one to spend your karma on.</span>")
 		return
 
 	var/pickedmob = input("Who would you like to award Karma to?", "Award Karma", "Cancel") as null|mob in karma_list
@@ -76,68 +108,44 @@ var/list/karma_spenders = list()
 	if(isnull(pickedmob))
 		return
 
-	if(!istype(pickedmob, /mob))
-		to_chat(usr, "\red That's not a mob.")
-		return
-
 	spend_karma(pickedmob)
 
 /mob/verb/spend_karma(var/mob/M)
 	set name = "Award Karma to Player"
 	set desc = "Let the gods know whether someone's been nice. Can only be used once per round."
-	set category = "Special Verbs"
+	set category = "OOC"
 
 	if(!M)
 		to_chat(usr, "Please right click a mob to award karma directly, or use the 'Award Karma' verb to select a player from the player listing.")
 		return
-	if(!istype(M, /mob))
-		to_chat(usr, "\red That's not a mob.")
+	if(!can_give_karma_to_mob(M))
 		return
-	if(!M.client)
-		to_chat(usr, "\red That mob has no client connected at the moment.")
+	if(alert("Give [M.name] good karma?", "Karma", "Yes", "No") != "Yes")
 		return
-	if(src.client.karma_spent)
-		to_chat(usr, "\red You've already spent your karma for the round.")
-		return
-	for(var/a in karma_spenders)
-		if(a == src.key)
-			to_chat(usr, "\red You've already spent your karma for the round.")
-			return
-	if(M.key == src.key)
-		to_chat(usr, "\red You can't spend karma on yourself!")
-		return
-	if(M.client.address == src.client.address)
-		message_admins("\red Illegal karma spending detected from [src.key] to [M.key]. Using the same IP!")
-		log_game("\red Illegal karma spending detected from [src.key] to [M.key]. Using the same IP!")
-		to_chat(usr, "\red The karma system is not available to multi-accounters.")
-	var/choice = input("Give [M.name] good karma?", "Karma") in list("Good", "Cancel")
-	if(!choice || choice == "Cancel")
-		return
-	if(choice == "Good" && !(src.client.karma_spent))
-		if(src.client.karma_spent)
-			to_chat(usr, "\red You've already spent your karma for the round.")
-			return
-		M.client.karma += 1
-		to_chat(usr, "[choice] karma spent on [M.name].")
-		src.client.karma_spent = 1
-		karma_spenders.Add(src.key)
-	if(M.client.karma <= -2 || M.client.karma >= 2)
-		var/special_role = "None"
-		var/assigned_role = "None"
-		var/karma_diary = file("data/logs/karma_[time2text(world.realtime, "YYYY/MM-Month/DD-Day")].log")
-		if(M.mind)
-			if(M.mind.special_role)
-				special_role = M.mind.special_role
-			if(M.mind.assigned_role)
-				assigned_role = M.mind.assigned_role
-		karma_diary << "[M.name] ([M.key]) [assigned_role]/[special_role]: [M.client.karma] - [time2text(world.timeofday, "hh:mm:ss")] given by [src.key]"
+	if(!can_give_karma_to_mob(M))
+		return // Check again, just in case things changed while the alert box was up
+
+	M.client.karma += 1
+	to_chat(usr, "Good karma spent on [M.name].")
+	client.karma_spent = 1
+	karma_spenders += key
+
+	var/special_role = "None"
+	var/assigned_role = "None"
+	var/karma_diary = file("data/logs/karma_[time2text(world.realtime, "YYYY/MM-Month/DD-Day")].log")
+	if(M.mind)
+		if(M.mind.special_role)
+			special_role = M.mind.special_role
+		if(M.mind.assigned_role)
+			assigned_role = M.mind.assigned_role
+	karma_diary << "[M.name] ([M.key]) [assigned_role]/[special_role]: [M.client.karma] - [time2text(world.timeofday, "hh:mm:ss")] given by [key]"
 
 	sql_report_karma(src, M)
 
 /client/verb/check_karma()
 	set name = "Check Karma"
-	set category = "Special Verbs"
 	set desc = "Reports how much karma you have accrued."
+	set category = "OOC"
 
 	var/currentkarma=verify_karma()
 	to_chat(usr, {"<br>You have <b>[currentkarma]</b> available."})
@@ -175,33 +183,33 @@ You've gained <b>[totalkarma]</b> total karma in your time here.<br>"}
 
 /client/proc/karmashopmenu()
 	var/dat = "<html><body><center>"
-	dat += "<a href='?src=\ref[src];karmashop=tab;tab=0' [karma_tab == 0 ? "class='linkOn'" : ""]>Job Unlocks</a>"
-	dat += "<a href='?src=\ref[src];karmashop=tab;tab=1' [karma_tab == 1 ? "class='linkOn'" : ""]>Species Unlocks</a>"
-	dat += "<a href='?src=\ref[src];karmashop=tab;tab=2' [karma_tab == 2 ? "class='linkOn'" : ""]>Karma Refunds</a>"
+	dat += "<a href='?src=[UID()];karmashop=tab;tab=0' [karma_tab == 0 ? "class='linkOn'" : ""]>Job Unlocks</a>"
+	dat += "<a href='?src=[UID()];karmashop=tab;tab=1' [karma_tab == 1 ? "class='linkOn'" : ""]>Species Unlocks</a>"
+	dat += "<a href='?src=[UID()];karmashop=tab;tab=2' [karma_tab == 2 ? "class='linkOn'" : ""]>Karma Refunds</a>"
 	dat += "</center>"
 	dat += "<HR>"
 
 	switch(karma_tab)
 		if(0) // Job Unlocks
 			dat += {"
-			<a href='?src=\ref[src];karmashop=shop;KarmaBuy=1'>Unlock Barber -- 5KP</a><br>
-			<a href='?src=\ref[src];karmashop=shop;KarmaBuy=2'>Unlock Brig Physician -- 5KP</a><br>
-			<a href='?src=\ref[src];karmashop=shop;KarmaBuy=3'>Unlock Nanotrasen Representative -- 30KP</a><br>
-			<a href='?src=\ref[src];karmashop=shop;KarmaBuy=5'>Unlock Blueshield -- 30KP</a><br>
-			<a href='?src=\ref[src];karmashop=shop;KarmaBuy=9'>Unlock Security Pod Pilot -- 30KP</a><br>
-			<a href='?src=\ref[src];karmashop=shop;KarmaBuy=6'>Unlock Mechanic -- 30KP</a><br>
-			<a href='?src=\ref[src];karmashop=shop;KarmaBuy=7'>Unlock Magistrate -- 45KP</a><br>
+			<a href='?src=[UID()];karmashop=shop;KarmaBuy=1'>Unlock Barber -- 5KP</a><br>
+			<a href='?src=[UID()];karmashop=shop;KarmaBuy=2'>Unlock Brig Physician -- 5KP</a><br>
+			<a href='?src=[UID()];karmashop=shop;KarmaBuy=3'>Unlock Nanotrasen Representative -- 30KP</a><br>
+			<a href='?src=[UID()];karmashop=shop;KarmaBuy=5'>Unlock Blueshield -- 30KP</a><br>
+			<a href='?src=[UID()];karmashop=shop;KarmaBuy=9'>Unlock Security Pod Pilot -- 30KP</a><br>
+			<a href='?src=[UID()];karmashop=shop;KarmaBuy=6'>Unlock Mechanic -- 30KP</a><br>
+			<a href='?src=[UID()];karmashop=shop;KarmaBuy=7'>Unlock Magistrate -- 45KP</a><br>
 			"}
 
 		if(1) // Species Unlocks
 			dat += {"
-			<a href='?src=\ref[src];karmashop=shop;KarmaBuy2=1'>Unlock Machine People -- 15KP</a><br>
-			<a href='?src=\ref[src];karmashop=shop;KarmaBuy2=2'>Unlock Kidan -- 30KP</a><br>
-			<a href='?src=\ref[src];karmashop=shop;KarmaBuy2=3'>Unlock Grey -- 30KP</a><br>
-			<a href='?src=\ref[src];karmashop=shop;KarmaBuy2=7'>Unlock Drask -- 30KP</a><br>
-			<a href='?src=\ref[src];karmashop=shop;KarmaBuy2=4'>Unlock Vox -- 45KP</a><br>
-			<a href='?src=\ref[src];karmashop=shop;KarmaBuy2=5'>Unlock Slime People -- 45KP</a><br>
-			<a href='?src=\ref[src];karmashop=shop;KarmaBuy2=6'>Unlock Plasmaman -- 100KP</a><br>
+			<a href='?src=[UID()];karmashop=shop;KarmaBuy2=1'>Unlock Machine People -- 15KP</a><br>
+			<a href='?src=[UID()];karmashop=shop;KarmaBuy2=2'>Unlock Kidan -- 30KP</a><br>
+			<a href='?src=[UID()];karmashop=shop;KarmaBuy2=3'>Unlock Grey -- 30KP</a><br>
+			<a href='?src=[UID()];karmashop=shop;KarmaBuy2=7'>Unlock Drask -- 30KP</a><br>
+			<a href='?src=[UID()];karmashop=shop;KarmaBuy2=4'>Unlock Vox -- 45KP</a><br>
+			<a href='?src=[UID()];karmashop=shop;KarmaBuy2=5'>Unlock Slime People -- 45KP</a><br>
+			<a href='?src=[UID()];karmashop=shop;KarmaBuy2=6'>Unlock Plasmaman -- 100KP</a><br>
 			"}
 
 		if(2) // Karma Refunds
@@ -209,34 +217,34 @@ You've gained <b>[totalkarma]</b> total karma in your time here.<br>"}
 			var/list/purchased = checkpurchased()
 			if("Tajaran Ambassador" in purchased)
 				refundable += "Tajaran Ambassador"
-				dat += "<a href='?src=\ref[src];karmashop=shop;KarmaRefund=Tajaran Ambassador;KarmaRefundType=job;KarmaRefundCost=30'>Refund Tajaran Ambassador -- 30KP</a><br>"
+				dat += "<a href='?src=[UID()];karmashop=shop;KarmaRefund=Tajaran Ambassador;KarmaRefundType=job;KarmaRefundCost=30'>Refund Tajaran Ambassador -- 30KP</a><br>"
 			if("Unathi Ambassador" in purchased)
 				refundable += "Unathi Ambassador"
-				dat += "<a href='?src=\ref[src];karmashop=shop;KarmaRefund=Unathi Ambassador;KarmaRefundType=job;KarmaRefundCost=30'>Refund Unathi Ambassador -- 30KP</a><br>"
+				dat += "<a href='?src=[UID()];karmashop=shop;KarmaRefund=Unathi Ambassador;KarmaRefundType=job;KarmaRefundCost=30'>Refund Unathi Ambassador -- 30KP</a><br>"
 			if("Skrell Ambassador" in purchased)
 				refundable += "Skrell Ambassador"
-				dat += "<a href='?src=\ref[src];karmashop=shop;KarmaRefund=Skrell Ambassador;KarmaRefundType=job;KarmaRefundCost=30'>Refund Skrell Ambassador -- 30KP</a><br>"
+				dat += "<a href='?src=[UID()];karmashop=shop;KarmaRefund=Skrell Ambassador;KarmaRefundType=job;KarmaRefundCost=30'>Refund Skrell Ambassador -- 30KP</a><br>"
 			if("Diona Ambassador" in purchased)
 				refundable += "Diona Ambassador"
-				dat += "<a href='?src=\ref[src];karmashop=shop;KarmaRefund=Diona Ambassador;KarmaRefundType=job;KarmaRefundCost=30'>Refund Diona Ambassador -- 30KP</a><br>"
+				dat += "<a href='?src=[UID()];karmashop=shop;KarmaRefund=Diona Ambassador;KarmaRefundType=job;KarmaRefundCost=30'>Refund Diona Ambassador -- 30KP</a><br>"
 			if("Kidan Ambassador" in purchased)
 				refundable += "Kidan Ambassador"
-				dat += "<a href='?src=\ref[src];karmashop=shop;KarmaRefund=Kidan Ambassador;KarmaRefundType=job;KarmaRefundCost=30'>Refund Kidan Ambassador -- 30KP</a><br>"
+				dat += "<a href='?src=[UID()];karmashop=shop;KarmaRefund=Kidan Ambassador;KarmaRefundType=job;KarmaRefundCost=30'>Refund Kidan Ambassador -- 30KP</a><br>"
 			if("Slime People Ambassador" in purchased)
 				refundable += "Slime People Ambassador"
-				dat += "<a href='?src=\ref[src];karmashop=shop;KarmaRefund=Slime People Ambassador;KarmaRefundType=job;KarmaRefundCost=30'>Refund Slime People Ambassador -- 30KP</a><br>"
+				dat += "<a href='?src=[UID()];karmashop=shop;KarmaRefund=Slime People Ambassador;KarmaRefundType=job;KarmaRefundCost=30'>Refund Slime People Ambassador -- 30KP</a><br>"
 			if("Grey Ambassador" in purchased)
 				refundable += "Grey Ambassador"
-				dat += "<a href='?src=\ref[src];karmashop=shop;KarmaRefund=Grey Ambassador;KarmaRefundType=job;KarmaRefundCost=30'>Refund Grey Ambassador -- 30KP</a><br>"
+				dat += "<a href='?src=[UID()];karmashop=shop;KarmaRefund=Grey Ambassador;KarmaRefundType=job;KarmaRefundCost=30'>Refund Grey Ambassador -- 30KP</a><br>"
 			if("Vox Ambassador" in purchased)
 				refundable += "Vox Ambassador"
-				dat += "<a href='?src=\ref[src];karmashop=shop;KarmaRefund=Vox Ambassador;KarmaRefundType=job;KarmaRefundCost=30'>Refund Vox Ambassador -- 30KP</a><br>"
+				dat += "<a href='?src=[UID()];karmashop=shop;KarmaRefund=Vox Ambassador;KarmaRefundType=job;KarmaRefundCost=30'>Refund Vox Ambassador -- 30KP</a><br>"
 			if("Customs Officer" in purchased)
 				refundable += "Customs Officer"
-				dat += "<a href='?src=\ref[src];karmashop=shop;KarmaRefund=Customs Officer;KarmaRefundType=job;KarmaRefundCost=30'>Refund Customs Officer -- 30KP</a><br>"
+				dat += "<a href='?src=[UID()];karmashop=shop;KarmaRefund=Customs Officer;KarmaRefundType=job;KarmaRefundCost=30'>Refund Customs Officer -- 30KP</a><br>"
 			if("Nanotrasen Recruiter" in purchased)
 				refundable += "Nanotrasen Recruiter"
-				dat += "<a href='?src=\ref[src];karmashop=shop;KarmaRefund=Nanotrasen Recruiter;KarmaRefundType=job;KarmaRefundCost=10'>Refund Nanotrasen Recruiter -- 10KP</a><br>"
+				dat += "<a href='?src=[UID()];karmashop=shop;KarmaRefund=Nanotrasen Recruiter;KarmaRefundType=job;KarmaRefundCost=10'>Refund Nanotrasen Recruiter -- 10KP</a><br>"
 
 			if(!refundable.len)
 				dat += "You do not have any refundable karma purchases.<br>"

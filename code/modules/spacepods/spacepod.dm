@@ -1,5 +1,15 @@
 #define DAMAGE			1
 #define FIRE			2
+#define LIGHT			1
+#define WINDOW			2
+#define RIM	    		3
+#define PAINT			4
+
+/obj/item/weapon/pod_paint_bucket
+	name = "space pod paintkit"
+	desc = "Pimp your ride"
+	icon = 'icons/obj/items.dmi'
+	icon_state = "paint_red"
 
 /obj/spacepod
 	name = "\improper space pod"
@@ -36,7 +46,11 @@
 
 	var/next_firetime = 0
 
+	var/has_paint = 0
+
 	var/list/pod_overlays
+	var/list/pod_paint_effect
+	var/list/colors = new/list(4)
 	var/health = 250
 	var/empcounter = 0 //Used for disabling movement when hit by an EMP
 
@@ -54,12 +68,38 @@
 	var/move_delay = 2
 	var/next_move = 0
 
+/obj/spacepod/proc/apply_paint(mob/user as mob)
+	var/part_type
+	var/part = input(user, "Choose part", null) as null|anything in list("Lights","Rim","Paint","Windows")
+	switch(part)
+		if("Lights")
+			part_type = LIGHT
+		if("Rim")
+			part_type = RIM
+		if("Paint")
+			part_type = PAINT
+		if("Windows")
+			part_type = WINDOW
+		else
+	var/coloradd = input(user, "Choose a color", "Color") as color
+	colors[part_type] = coloradd
+	if(!has_paint)
+		has_paint = 1
+	update_icons()
+
+
 /obj/spacepod/New()
 	. = ..()
 	if(!pod_overlays)
 		pod_overlays = new/list(2)
 		pod_overlays[DAMAGE] = image(icon, icon_state="pod_damage")
 		pod_overlays[FIRE] = image(icon, icon_state="pod_fire")
+	if(!pod_paint_effect)
+		pod_paint_effect = new/list(4)
+		pod_paint_effect[LIGHT] = image(icon,icon_state = "LIGHTS")
+		pod_paint_effect[WINDOW] = image(icon,icon_state = "Windows")
+		pod_paint_effect[RIM] = image(icon,icon_state = "RIM")
+		pod_paint_effect[PAINT] = image(icon,icon_state = "PAINT")
 	bound_width = 64
 	bound_height = 64
 	dir = EAST
@@ -101,6 +141,9 @@
 	qdel(ion_trail)
 	ion_trail = null
 	occupant_sanity_check()
+	if(pilot)
+		pilot.forceMove(get_turf(src))
+		pilot = null
 	if(passengers)
 		for(var/mob/M in passengers)
 			M.forceMove(get_turf(src))
@@ -120,20 +163,44 @@
 		pod_overlays[DAMAGE] = image(icon, icon_state="pod_damage")
 		pod_overlays[FIRE] = image(icon, icon_state="pod_fire")
 
+	if(!pod_paint_effect)
+		pod_paint_effect = new/list(4)
+		pod_paint_effect[LIGHT] = image(icon,icon_state = "LIGHTS")
+		pod_paint_effect[WINDOW] = image(icon,icon_state = "Windows")
+		pod_paint_effect[RIM] = image(icon,icon_state = "RIM")
+		pod_paint_effect[PAINT] = image(icon,icon_state = "PAINT")
 	overlays.Cut()
 
+	if(has_paint)
+		var/image/to_add
+		if(!isnull(pod_paint_effect[LIGHT]))
+			to_add = pod_paint_effect[LIGHT]
+			to_add.color = colors[LIGHT]
+			overlays += to_add
+		if(!isnull(pod_paint_effect[WINDOW]))
+			to_add = pod_paint_effect[WINDOW]
+			to_add.color = colors[WINDOW]
+			overlays += to_add
+		if(!isnull(pod_paint_effect[RIM]))
+			to_add = pod_paint_effect[RIM]
+			to_add.color = colors[RIM]
+			overlays += to_add
+		if(!isnull(pod_paint_effect[PAINT]))
+			to_add = pod_paint_effect[PAINT]
+			to_add.color = colors[PAINT]
+			overlays += to_add
 	if(health <= round(initial(health)/2))
 		overlays += pod_overlays[DAMAGE]
 		if(health <= round(initial(health)/4))
 			overlays += pod_overlays[FIRE]
+
 
 	light_color = icon_light_color[src.icon_state]
 
 /obj/spacepod/bullet_act(var/obj/item/projectile/P)
 	if(P.damage_type == BRUTE || P.damage_type == BURN)
 		deal_damage(P.damage)
-	else if(P.flag == "energy" && istype(P,/obj/item/projectile/ion)) //needed to make sure ions work properly
-		empulse(src, 1, 1)
+	P.on_hit(src)
 
 /obj/spacepod/blob_act()
 	deal_damage(30)
@@ -145,7 +212,7 @@
 	else
 		var/damage = rand(user.melee_damage_lower, user.melee_damage_upper)
 		deal_damage(damage)
-		visible_message("\red <B>[user]</B> [user.attacktext] [src]!")
+		visible_message("<span class='danger'>[user]</span> [user.attacktext] [src]!")
 		user.attack_log += text("\[[time_stamp()]\] <font color='red'>attacked [src.name]</font>")
 	return
 
@@ -162,29 +229,15 @@
 	health = max(0, health - damage)
 	var/percentage = (health / initial(health)) * 100
 	occupant_sanity_check()
-	if(passengers && oldhealth > health && percentage <= 25 && percentage > 0)
-		var/sound/S = sound('sound/effects/engine_alert2.ogg')
-		S.wait = 0 //No queue
-		S.channel = 0 //Any channel
-		S.volume = 50
-		for(var/mob/M in passengers)
-			M << S
-	if(passengers && oldhealth > health && !health)
-		var/sound/S = sound('sound/effects/engine_alert1.ogg')
-		S.wait = 0
-		S.channel = 0
-		S.volume = 50
-		for(var/mob/M in passengers)
-			M << S
+	if(oldhealth > health && percentage <= 25 && percentage > 0)
+		play_sound_to_riders('sound/effects/engine_alert2.ogg')
+	if(oldhealth > health && !health)
+		play_sound_to_riders('sound/effects/engine_alert1.ogg')
 	if(!health)
 		spawn(0)
-			if(passengers)
-				for(var/mob/M in passengers)
-					to_chat(M, "<span class='userdanger'>Critical damage to the vessel detected, core explosion imminent!</span>")
+			message_to_riders("<span class='userdanger'>Critical damage to the vessel detected, core explosion imminent!</span>")
 			for(var/i = 10, i >= 0; --i)
-				if(passengers)
-					for(var/mob/M in passengers)
-						to_chat(M, "<span class='warning'>[i]</span>")
+				message_to_riders("<span class='warning'>[i]</span>")
 				if(i == 0)
 					explosion(loc, 2, 4, 8)
 					qdel(src)
@@ -202,12 +255,13 @@
 	occupant_sanity_check()
 	switch(severity)
 		if(1)
-			for(var/mob/M in passengers)
-				var/mob/living/carbon/human/H = M
-				if(H)
-					H.forceMove(get_turf(src))
-					H.ex_act(severity + 1)
-					to_chat(H, "<span class='warning'>You are forcefully thrown from \the [src]!</span>")
+			if(passengers || pilot)
+				for(var/mob/M in passengers | pilot)
+					var/mob/living/carbon/human/H = M
+					if(H)
+						H.forceMove(get_turf(src))
+						H.ex_act(severity + 1)
+						to_chat(H, "<span class='warning'>You are forcefully thrown from \the [src]!</span>")
 			qdel(ion_trail)
 			qdel(src)
 		if(2)
@@ -219,35 +273,35 @@
 /obj/spacepod/emp_act(severity)
 	occupant_sanity_check()
 	cargo_hold.emp_act(severity)
+
+	if(battery && battery.charge > 0)
+		battery.use((battery.charge / 2) / severity)
+	deal_damage(80 / severity)
+	if(empcounter < (40 / severity))
+		empcounter = 40 / severity
+	processing_objects.Add(src)
+
 	switch(severity)
 		if(1)
-			if(pilot)
-				to_chat(pilot, "<span class='warning'>The pod console flashes 'Heavy EMP WAVE DETECTED'.</span>")
-			if(passengers)
-				for(var/mob/M in passengers)
-					to_chat(M, "<span class='warning'>The pod console flashes 'Heavy EMP WAVE DETECTED'.</span>")//warn the passengers
-
-
-			if(battery)
-				battery.charge = max(0, battery.charge - 5000) //Cell EMP act is too weak, this pod needs to be sapped.
-			src.deal_damage(100)
-			if(src.empcounter < 40)
-				src.empcounter = 40 //Disable movement for 40 ticks. Plenty long enough.
-			processing_objects.Add(src)
-
+			message_to_riders("<span class='warning'>The pod console flashes 'Heavy EMP WAVE DETECTED'.</span>")
 		if(2)
-			if(pilot)
-				to_chat(pilot, "<span class='warning'>The pod console flashes 'EMP WAVE DETECTED'.</span>")
-			if(passengers)
-				for(var/mob/M in passengers)
-					to_chat(M, "<span class='warning'>The pod console flashes 'EMP WAVE DETECTED'.</span>")//warn the passengers
+			message_to_riders("<span class='warning'>The pod console flashes 'EMP WAVE DETECTED'.</span>")
 
-			deal_damage(40)
-			if(battery)
-				battery.charge = max(0, battery.charge - 2500) //Cell EMP act is too weak, this pod needs to be sapped.
-			if(empcounter < 20)
-				empcounter = 20 //Disable movement for 20 ticks.
-			processing_objects.Add(src)
+/obj/spacepod/proc/play_sound_to_riders(mysound)
+	if(length(passengers | pilot) == 0)
+		return
+	var/sound/S = sound(mysound)
+	S.wait = 0 //No queue
+	S.channel = 0 //Any channel
+	S.volume = 50
+	for(var/mob/M in passengers | pilot)
+		M << S
+
+/obj/spacepod/proc/message_to_riders(mymessage)
+	if(length(passengers | pilot) == 0)
+		return
+	for(var/mob/M in passengers | pilot)
+		to_chat(M, mymessage)
 
 /obj/spacepod/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(user.a_intent == I_HARM)
@@ -321,7 +375,7 @@
 					repair_damage(10)
 					to_chat(user, "\blue You mend some [pick("dents","bumps","damage")] with \the [WT]")
 				return
-			to_chat(user, "\blue <b>\The [src] is fully repaired!</b>")
+			to_chat(user, "<span class='boldnotice'>\The [src] is fully repaired!</span>")
 			return
 
 		if(istype(W, /obj/item/device/lock_buster))
@@ -482,6 +536,12 @@ obj/spacepod/proc/add_equipment(mob/user, var/obj/item/device/spacepod_equipment
 /obj/spacepod/civilian
 	icon_state = "pod_civ"
 	desc = "A sleek civilian space pod."
+
+/obj/spacepod/civilian/attackby(obj/item/W as obj, mob/user as mob, params)
+	..()
+	if(istype(W, /obj/item/weapon/pod_paint_bucket))
+		apply_paint(user)
+		return
 
 /obj/spacepod/random
 	icon_state = "pod_civ"
@@ -977,3 +1037,7 @@ obj/spacepod/proc/add_equipment(mob/user, var/obj/item/device/spacepod_equipment
 
 #undef DAMAGE
 #undef FIRE
+#undef WINDOW
+#undef LIGHT
+#undef RIM
+#undef PAINT

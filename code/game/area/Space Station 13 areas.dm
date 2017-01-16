@@ -67,8 +67,7 @@ var/list/teleportlocs = list()
 		if(AR.no_teleportlocs) continue
 		if(teleportlocs.Find(AR.name)) continue
 		var/turf/picked = safepick(get_area_turfs(AR.type))
-		// TODO: Tie into space manager
-		if(picked && (picked.z == ZLEVEL_STATION))
+		if(picked && is_station_level(picked.z))
 			teleportlocs += AR.name
 			teleportlocs[AR.name] = AR
 
@@ -309,6 +308,10 @@ var/list/ghostteleportlocs = list()
 	name = "\improper Syndicate Elite Shuttle"
 	icon_state = "shuttlered2"
 
+/area/shuttle/syndicate_sit
+	name = "\improper Syndicate SIT Shuttle"
+	icon_state = "shuttlered"
+
 /area/shuttle/assault_pod
 	name = "Steel Rain"
 	icon_state = "shuttle"
@@ -441,7 +444,7 @@ var/list/ghostteleportlocs = list()
 	icon_state = "shuttle"
 
 /area/shuttle/syndicate
-	name = "Syndicate Infiltrator"
+	name = "Syndicate Nuclear Team Shuttle"
 	icon_state = "shuttle"
 
 /area/shuttle/trade
@@ -525,6 +528,10 @@ var/list/ghostteleportlocs = list()
 
 /area/syndicate_mothership/elite_squad
 	name = "\improper Syndicate Elite Squad"
+	icon_state = "syndie-elite"
+
+/area/syndicate_mothership/infteam
+	name = "\improper Syndicate Infiltrators"
 	icon_state = "syndie-elite"
 
 /area/syndicate_depot
@@ -1546,6 +1553,14 @@ var/list/ghostteleportlocs = list()
 /area/medical/surgery
 	name = "\improper Surgery"
 	icon_state = "surgery"
+
+/area/medical/surgery1
+	name = "\improper Surgery 1"
+	icon_state = "surgery1"
+
+/area/medical/surgery2
+	name = "\improper Surgery 2"
+	icon_state = "surgery2"
 
 /area/medical/surgeryobs
 	name = "\improper Surgery Observation"

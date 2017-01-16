@@ -256,7 +256,7 @@ var/global/list/round_voters = list() //Keeps track of the individuals voting fo
 
 		log_vote(text)
 		to_chat(world, {"<font color='purple'><b>[text]</b>
-			<a href='?src=\ref[src];vote=open'>Click here or type vote to place your vote.</a>
+			<a href='?src=[UID()];vote=open'>Click here or type vote to place your vote.</a>
 			You have [config.vote_period/10] seconds to vote.</font>"})
 		switch(vote_type)
 			if("crew_transfer")
@@ -308,34 +308,34 @@ var/global/list/round_voters = list() //Keeps track of the individuals voting fo
 	if(mode)
 		dat += "<div id='vote_div'>[vote_html(C)]</div><hr>"
 		if(admin)
-			dat += "(<a href='?src=\ref[src];vote=cancel'>Cancel Vote</a>) "
+			dat += "(<a href='?src=[UID()];vote=cancel'>Cancel Vote</a>) "
 	else
 		dat += "<div id='vote_div'><h2>Start a vote:</h2><hr><ul><li>"
 		//restart
 		if(admin || config.allow_vote_restart)
-			dat += "<a href='?src=\ref[src];vote=restart'>Restart</a>"
+			dat += "<a href='?src=[UID()];vote=restart'>Restart</a>"
 		else
 			dat += "<font color='grey'>Restart (Disallowed)</font>"
 		dat += "</li><li>"
 		if(admin || config.allow_vote_restart)
-			dat += "<a href='?src=\ref[src];vote=crew_transfer'>Crew Transfer</a>"
+			dat += "<a href='?src=[UID()];vote=crew_transfer'>Crew Transfer</a>"
 		else
 			dat += "<font color='grey'>Crew Transfer (Disallowed)</font>"
 		if(admin)
-			dat += "\t(<a href='?src=\ref[src];vote=toggle_restart'>[config.allow_vote_restart?"Allowed":"Disallowed"]</a>)"
+			dat += "\t(<a href='?src=[UID()];vote=toggle_restart'>[config.allow_vote_restart?"Allowed":"Disallowed"]</a>)"
 		dat += "</li><li>"
 		//gamemode
 		if(admin || config.allow_vote_mode)
-			dat += "<a href='?src=\ref[src];vote=gamemode'>GameMode</a>"
+			dat += "<a href='?src=[UID()];vote=gamemode'>GameMode</a>"
 		else
 			dat += "<font color='grey'>GameMode (Disallowed)</font>"
 		if(admin)
-			dat += "\t(<a href='?src=\ref[src];vote=toggle_gamemode'>[config.allow_vote_mode?"Allowed":"Disallowed"]</a>)"
+			dat += "\t(<a href='?src=[UID()];vote=toggle_gamemode'>[config.allow_vote_mode?"Allowed":"Disallowed"]</a>)"
 
 		dat += "</li>"
 		//custom
 		if(admin)
-			dat += "<li><a href='?src=\ref[src];vote=custom'>Custom</a></li>"
+			dat += "<li><a href='?src=[UID()];vote=custom'>Custom</a></li>"
 		dat += "</ul></div><hr>"
 	var/datum/browser/popup = new(C.mob, "vote", "Voting Panel", nref=src)
 	popup.set_content(dat)
@@ -356,9 +356,9 @@ var/global/list/round_voters = list() //Keeps track of the individuals voting fo
 		if(!votes)
 			votes = 0
 		if(current_votes[C.ckey] == i)
-			. += "<li><b><a href='?src=\ref[src];vote=[i]'>[choices[i]] ([votes] vote\s)</a></b></li>"
+			. += "<li><b><a href='?src=[UID()];vote=[i]'>[choices[i]] ([votes] vote\s)</a></b></li>"
 		else
-			. += "<li><a href='?src=\ref[src];vote=[i]'>[choices[i]] ([votes] vote\s)</a></li>"
+			. += "<li><a href='?src=[UID()];vote=[i]'>[choices[i]] ([votes] vote\s)</a></li>"
 
 	. += "</ul>"
 

@@ -1,3 +1,9 @@
+// I'd use consts here, but our coding standard is silly and demonizes usage
+// of that.
+#define BOTTOM_LEFT_CHUNK 	1
+#define BOTTOM_RIGHT_CHUNK 	2
+#define TOP_LEFT_CHUNK 			3
+#define TOP_RIGHT_CHUNK			4
 /datum/space_chunk
 	var/x
 	var/y
@@ -22,3 +28,8 @@
 
 /datum/space_chunk/proc/return_turfs()
 	return
+
+#undef BOTTOM_LEFT_CHUNK
+#undef BOTTOM_RIGHT_CHUNK
+#undef TOP_LEFT_CHUNK
+#undef TOP_RIGHT_CHUNK

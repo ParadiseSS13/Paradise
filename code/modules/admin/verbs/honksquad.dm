@@ -64,7 +64,7 @@ var/global/sent_honksquad = 0
 			//So they don't forget their code or mission.
 			new_honksquad.mind.store_memory("<B>Mission:</B> \red [input].")
 
-			to_chat(new_honksquad, "\blue You are a HONKsquad. [!honk_leader_selected?"commando":"<B>LEADER</B>"] in the service of Clown Planet. You are called in cases of exteme low levels of HONK. You are NOT authorized to kill. \nYour current mission is: \red<B>[input]</B>")
+			to_chat(new_honksquad, "\blue You are a HONKsquad. [!honk_leader_selected?"commando":"<B>LEADER</B>"] in the service of Clown Planet. You are called in cases of exteme low levels of HONK. You are NOT authorized to kill. \nYour current mission is: <span class='danger'>[input]</span>")
 
 			honksquad_number--
 
@@ -92,7 +92,7 @@ var/global/sent_honksquad = 0
 	//Creates mind stuff.
 	new_honksquad.mind_initialize()
 	new_honksquad.mind.assigned_role = "MODE"
-	new_honksquad.mind.special_role = "HONKsquad"
+	new_honksquad.mind.special_role = SPECIAL_ROLE_HONKSQUAD
 	ticker.mode.traitors |= new_honksquad.mind//Adds them to current traitor list. Which is really the extra antagonist list.
 	new_honksquad.equip_honksquad(honk_leader_selected)
 	return new_honksquad

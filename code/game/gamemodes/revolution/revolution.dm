@@ -111,7 +111,7 @@
 		to_chat(rev_mind.current, "<span class='userdanger'>You are a member of the revolutionaries' leadership!</span>")
 	for(var/datum/objective/objective in rev_mind.objectives)
 		to_chat(rev_mind.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
-		rev_mind.special_role = "Head Revolutionary"
+		rev_mind.special_role = SPECIAL_ROLE_HEAD_REV
 		obj_count++
 
 /////////////////////////////////////////////////////////////////////////////////
@@ -241,12 +241,12 @@
 	revolutionaries += rev_mind
 	if(iscarbon(rev_mind.current))
 		var/mob/living/carbon/carbon_mob = rev_mind.current
-		carbon_mob.silent = max(carbon_mob.silent, 5)
+		carbon_mob.Silence(5)
 		carbon_mob.flash_eyes(1, 1)
 	rev_mind.current.Stun(5)
 	to_chat(rev_mind.current, "<span class='danger'><FONT size = 3> You are now a revolutionary! Help your cause. Do not harm your fellow freedom fighters. You can identify your comrades by the red \"R\" icons, and your leaders by the blue \"R\" icons. Help them kill the heads to win the revolution!</FONT></span>")
 	rev_mind.current.attack_log += "\[[time_stamp()]\] <font color='red'>Has been converted to the revolution!</font>"
-	rev_mind.special_role = "Revolutionary"
+	rev_mind.special_role = SPECIAL_ROLE_REV
 	update_rev_icons_added(rev_mind)
 	if(jobban_isbanned(rev_mind.current, ROLE_REV))
 		replace_jobbaned_player(rev_mind.current, ROLE_REV)
@@ -314,8 +314,7 @@
 /datum/game_mode/revolution/proc/check_heads_victory()
 	for(var/datum/mind/rev_mind in head_revolutionaries)
 		var/turf/T = get_turf(rev_mind.current)
-		// TODO: Tie into space manager
-		if((rev_mind) && (rev_mind.current) && (rev_mind.current.stat != 2) && rev_mind.current.client && T && (T.z == ZLEVEL_STATION))
+		if((rev_mind) && (rev_mind.current) && (rev_mind.current.stat != DEAD) && rev_mind.current.client && T && is_station_level(T.z))
 			if(ishuman(rev_mind.current))
 				return 0
 	return 1
@@ -335,7 +334,7 @@
 
 /datum/game_mode/proc/auto_declare_completion_revolution()
 	var/list/targets = list()
-	if(head_revolutionaries.len || istype(ticker.mode,/datum/game_mode/revolution))
+	if(head_revolutionaries.len || GAMEMODE_IS_REVOLUTION)
 		var/num_revs = 0
 		var/num_survivors = 0
 		for(var/mob/living/carbon/survivor in living_mob_list)
@@ -352,14 +351,14 @@
 		text += "<br>"
 		to_chat(world, text)
 
-	if(revolutionaries.len || istype(ticker.mode,/datum/game_mode/revolution))
+	if(revolutionaries.len || GAMEMODE_IS_REVOLUTION)
 		var/text = "<br><font size=3><b>The revolutionaries were:</b></font>"
 		for(var/datum/mind/rev in revolutionaries)
 			text += printplayer(rev, 1)
 		text += "<br>"
 		to_chat(world, text)
 
-	if( head_revolutionaries.len || revolutionaries.len || istype(ticker.mode,/datum/game_mode/revolution) )
+	if( head_revolutionaries.len || revolutionaries.len || GAMEMODE_IS_REVOLUTION )
 		var/text = "<br><font size=3><b>The heads of staff were:</b></font>"
 		var/list/heads = get_all_heads()
 		for(var/datum/mind/head in heads)

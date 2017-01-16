@@ -2,7 +2,7 @@
 	if(stat == DEAD)	return
 	if(!gibbed && container && istype(container, /obj/item/device/mmi))//If not gibbed but in a container.
 		for(var/mob/O in viewers(container, null))
-			O.show_message(text("\red <B>[]'s MMI flatlines!</B>", src), 1, "\red You hear something flatline.", 2)
+			O.show_message(text("<span class='danger'>[]'s MMI flatlines!</span>", src), 1, "\red You hear something flatline.", 2)
 		container.icon_state = "mmi_dead"
 	stat = DEAD
 
@@ -10,8 +10,8 @@
 	see_in_dark = 8
 	see_invisible = SEE_INVISIBLE_LEVEL_TWO
 
-	timeofdeath = worldtime2text()
-	if(mind)	mind.store_memory("Time of death: [timeofdeath]", 0)	//mind. ?
+	timeofdeath = world.time
+	if(mind)	mind.store_memory("Time of death: [worldtime2text(timeofdeath)]", 0)	//mind. ?
 
 	return ..(gibbed)
 

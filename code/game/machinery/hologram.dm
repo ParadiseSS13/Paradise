@@ -76,7 +76,7 @@ var/const/HOLOPAD_MODE = 0
 			var/area/area = get_area(src)
 			for(var/mob/living/silicon/ai/AI in living_mob_list)
 				if(!AI.client)	continue
-				to_chat(AI, "<span class='info'>Your presence is requested at <a href='?src=\ref[AI];jumptoholopad=\ref[src]'>\the [area]</a>.</span>")
+				to_chat(AI, "<span class='info'>Your presence is requested at <a href='?src=[AI.UID()];jumptoholopad=\ref[src]'>\the [area]</a>.</span>")
 		else
 			to_chat(user, "<span class='notice'>A request for AI presence was already sent recently.</span>")
 
@@ -90,12 +90,15 @@ var/const/HOLOPAD_MODE = 0
 		user.eyeobj.setLoc(get_turf(src))
 	else if(!hologram)//If there is no hologram, possibly make one.
 		activate_holo(user)
-	else if(master==user)//If there is a hologram, remove it. But only if the user is the master. Otherwise do nothing.
+	else if(master == user)//If there is a hologram, remove it. But only if the user is the master. Otherwise do nothing.
 		clear_holo()
 	return
 
 /obj/machinery/hologram/holopad/proc/activate_holo(mob/living/silicon/ai/user)
 	if(!(stat & NOPOWER) && user.eyeobj.loc == src.loc)//If the projector has power and client eye is on it.
+		if(user.holo)
+			var/obj/machinery/hologram/holopad/current = user.holo
+			current.clear_holo()
 		if(!hologram)//If there is not already a hologram.
 			create_holo(user)//Create one.
 			src.visible_message("A holographic image of [user] flicks to life right before your eyes!")
@@ -108,21 +111,8 @@ var/const/HOLOPAD_MODE = 0
 /*This is the proc for special two-way communication between AI and holopad/people talking near holopad.
 For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 /obj/machinery/hologram/holopad/hear_talk(mob/living/M, text, verb, datum/language/speaking)
-	if(M&&hologram&&master)//Master is mostly a safety in case lag hits or something.
-		if(!master.say_understands(M, speaking))//The AI will be able to understand most mobs talking through the holopad.
-			if(speaking)
-				text = speaking.scramble(text)
-			else
-				text = stars(text)
-		var/name_used = M.GetVoice()
-		//This communication is imperfect because the holopad "filters" voices and is only designed to connect to the master only.
-		var/rendered
-		if(speaking)
-			rendered = "<i><span class='game say'>Holopad received, <span class='name'>[name_used]</span> [speaking.format_message(text, verb)]</span></i>"
-		else
-			rendered = "<i><span class='game say'>Holopad received, <span class='name'>[name_used]</span> [verb], <span class='message'>\"[text]\"</span></span></i>"
-		master.show_message(rendered, 2)
-	return
+	if(M && hologram && master)//Master is mostly a safety in case lag hits or something.
+		master.relay_speech(M, text, verb, speaking)
 
 /obj/machinery/hologram/holopad/hear_message(mob/living/M, text)
 	if(M&&hologram&&master)//Master is mostly a safety in case lag hits or something.

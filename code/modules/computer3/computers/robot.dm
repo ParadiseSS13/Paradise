@@ -31,17 +31,16 @@
 
 
 	interact()
-		// TODO: Tie into space manager
-		if(!interactable() || computer.z > ZLEVEL_DERELICT)
+		if(!interactable() || is_away_level(computer.z))
 			return
 		var/dat
 		if(src.temp)
-			dat = "<TT>[src.temp]</TT><BR><BR><A href='?src=\ref[src];temp=1'>Clear Screen</A>"
+			dat = "<TT>[src.temp]</TT><BR><BR><A href='?src=[UID()];temp=1'>Clear Screen</A>"
 		else
 			if(screen == 0)
 				//dat += "<h3>Cyborg Control Console</h3><BR>"
-				dat += "<A href='?src=\ref[src];screen=1'>1. Cyborg Status</A><BR>"
-				dat += "<A href='?src=\ref[src];screen=2'>2. Emergency Full Destruct</A><BR>"
+				dat += "<A href='?src=[UID()];screen=1'>1. Cyborg Status</A><BR>"
+				dat += "<A href='?src=[UID()];screen=2'>2. Emergency Full Destruct</A><BR>"
 			if(screen == 1)
 				for(var/mob/living/silicon/robot/R in mob_list)
 					if(istype(usr, /mob/living/silicon/ai))
@@ -75,28 +74,28 @@
 						dat += " Independent from AI |"
 					if(istype(usr, /mob/living/silicon))
 						if(issilicon(usr) && is_special_character(usr) && !R.emagged)
-							dat += "<A href='?src=\ref[src];magbot=\ref[R]'>(<i>Hack</i>)</A> "
-					dat += "<A href='?src=\ref[src];stopbot=\ref[R]'>(<i>[R.canmove ? "Lockdown" : "Release"]</i>)</A> "
-					dat += "<A href='?src=\ref[src];killbot=\ref[R]'>(<i>Destroy</i>)</A>"
+							dat += "<A href='?src=[UID()];magbot=\ref[R]'>(<i>Hack</i>)</A> "
+					dat += "<A href='?src=[UID()];stopbot=\ref[R]'>(<i>[R.canmove ? "Lockdown" : "Release"]</i>)</A> "
+					dat += "<A href='?src=[UID()];killbot=\ref[R]'>(<i>Destroy</i>)</A>"
 					dat += "<BR>"
-				dat += "<A href='?src=\ref[src];screen=0'>(Return to Main Menu)</A><BR>"
+				dat += "<A href='?src=[UID()];screen=0'>(Return to Main Menu)</A><BR>"
 			if(screen == 2)
 				if(!src.status)
 					dat += {"<BR><B>Emergency Robot Self-Destruct</B><HR>\nStatus: Off<BR>
 					\n<BR>
-					\nCountdown: [src.timeleft]/60 <A href='?src=\ref[src];reset=1'>\[Reset\]</A><BR>
+					\nCountdown: [src.timeleft]/60 <A href='?src=[UID()];reset=1'>\[Reset\]</A><BR>
 					\n<BR>
-					\n<A href='?src=\ref[src];killall'>Start Sequence</A><BR>
+					\n<A href='?src=[UID()];killall'>Start Sequence</A><BR>
 					\n<BR>
-					\n<A href='?src=\ref[usr];close'>Close</A>"}
+					\n<A href='?src=[usr.UID()];close'>Close</A>"}
 				else
 					dat = {"<B>Emergency Robot Self-Destruct</B><HR>\nStatus: Activated<BR>
 					\n<BR>
 					\nCountdown: [src.timeleft]/60 \[Reset\]<BR>
-					\n<BR>\n<A href='?src=\ref[src];stop=1'>Stop Sequence</A><BR>
+					\n<BR>\n<A href='?src=[UID()];stop=1'>Stop Sequence</A><BR>
 					\n<BR>
-					\n<A href='?src=\ref[usr];mach_close=computer'>Close</A>"}
-				dat += "<A href='?src=\ref[src];screen=0'>(Return to Main Menu)</A><BR>"
+					\n<A href='?src=[usr.UID()];mach_close=computer'>Close</A>"}
+				dat += "<A href='?src=[UID()];screen=0'>(Return to Main Menu)</A><BR>"
 
 		popup.set_content(dat)
 		popup.open()
@@ -108,8 +107,8 @@
 
 		if("killall" in href_list)
 			src.temp = {"Destroy Robots?<BR>
-			<BR><B><A href='?src=\ref[src];do_killall'>\[Swipe ID to initiate destruction sequence\]</A></B><BR>
-			<A href='?src=\ref[src];temp=1'>Cancel</A>"}
+			<BR><B><A href='?src=[UID()];do_killall'>\[Swipe ID to initiate destruction sequence\]</A></B><BR>
+			<A href='?src=[UID()];temp=1'>Cancel</A>"}
 
 		if("do_killall" in href_list)
 			var/obj/item/weapon/card/id/I = usr.get_active_hand()
@@ -131,8 +130,8 @@
 		if("stop" in href_list)
 			src.temp = {"
 			Stop Robot Destruction Sequence?<BR>
-			<BR><A href='?src=\ref[src];stop2=1'>Yes</A><BR>
-			<A href='?src=\ref[src];temp=1'>No</A>"}
+			<BR><A href='?src=[UID()];stop2=1'>Yes</A><BR>
+			<A href='?src=[UID()];temp=1'>No</A>"}
 
 		if("stop2" in href_list)
 			src.stop = 1

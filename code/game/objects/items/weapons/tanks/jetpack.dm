@@ -143,7 +143,7 @@
 	air_contents.carbon_dioxide = (6*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C)
 
 /obj/item/weapon/tank/jetpack/carbondioxide/examine(mob/user)
-	if(!..(0))
+	if(!..(user, 0))
 		return
 
 	if(air_contents.carbon_dioxide < 10)

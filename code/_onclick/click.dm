@@ -62,7 +62,7 @@
 		CtrlClickOn(A)
 		return
 
-	if(stat || paralysis || stunned || weakened)
+	if(incapacitated(ignore_restraints = 1, ignore_grab = 1, ignore_lying = 1))
 		return
 
 	face_atom(A)
@@ -221,7 +221,7 @@
 	A.ShiftClick(src)
 	return
 /atom/proc/ShiftClick(var/mob/user)
-	if(user.client && user.client.eye == user)
+	if(user.client && get_turf(user.client.eye) == get_turf(user))
 		user.examinate(src)
 	return
 
@@ -263,12 +263,13 @@
 
 /atom/proc/AltClick(var/mob/user)
 	var/turf/T = get_turf(src)
-	if(T && user.TurfAdjacent(T))
-		if(user.listed_turf == T)
-			user.listed_turf = null
-		else
+	if(T)
+		if(user.TurfAdjacent(T))
 			user.listed_turf = T
 			user.client.statpanel = T.name
+			// If we had a method to force a `Stat` update, it would go here
+		else
+			user.listed_turf = null
 	return
 
 /mob/proc/TurfAdjacent(var/turf/T)

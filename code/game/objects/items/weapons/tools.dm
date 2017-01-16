@@ -241,12 +241,20 @@
 		if(!(S.status & ORGAN_ROBOT) || user.a_intent != I_HELP || S.open == 2)
 			return ..()
 
+		if(!isOn())		//why wasn't this being checked already?
+			to_chat(user, "<span class='warning'>Turn on [src] before attempting repairs!</span>")
+			return 1
+
 		if(S.brute_dam)
 			if(S.brute_dam < ROBOLIMB_SELF_REPAIR_CAP)
-				if(remove_fuel(0,null))
-					playsound(src.loc, 'sound/items/Welder2.ogg', 50, 1)
-					S.heal_damage(15,0,0,1)
-					user.visible_message("<span class='alert'>\The [user] patches some dents on \the [M]'s [S.name] with \the [src].</span>")
+				if(get_fuel() >= 1)
+					if(H == user)
+						if(!do_mob(user, H, 10))
+							return 1
+					if(remove_fuel(1,null))
+						playsound(src.loc, 'sound/items/Welder2.ogg', 50, 1)
+						S.heal_damage(15,0,0,1)
+						user.visible_message("<span class='alert'>\The [user] patches some dents on \the [M]'s [S.name] with \the [src].</span>")
 				else if(S.open != 2)
 					to_chat(user, "<span class='warning'>Need more welding fuel!</span>")
 					return 1

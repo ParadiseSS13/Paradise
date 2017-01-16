@@ -18,10 +18,7 @@
 	var/turf/T = get_turf(src)
 	if(!T)
 		return 0
-	// TODO: Tie into space manager
-	if(T.z == ZLEVEL_CENTCOMM) //dont detect mobs on centcomm
-		return 0
-	if(T.z >= MAX_Z)
+	if(!is_level_reachable(T.z))
 		return 0
 	if(user != null && src == user)
 		return 0
@@ -91,22 +88,6 @@
 //affects them once clothing is factored in. ~Errorage
 /mob/living/proc/calculate_affecting_pressure(var/pressure)
 	return 0
-
-
-//sort of a legacy burn method for /electrocute, /shock, and the e_chair
-/mob/living/proc/burn_skin(burn_amount)
-	if(istype(src, /mob/living/carbon/human))
-		var/mob/living/carbon/human/H = src	//make this damage method divide the damage to be done among all the body parts, then burn each body part for that much damage. will have better effect then just randomly picking a body part
-		var/divided_damage = (burn_amount)/(H.organs.len)
-		var/extradam = 0	//added to when organ is at max dam
-		for(var/obj/item/organ/external/affecting in H.organs)
-			if(!affecting)	continue
-			if(affecting.take_damage(0, divided_damage+extradam))	//TODO: fix the extradam stuff. Or, ebtter yet...rewrite this entire proc ~Carn
-				H.UpdateDamageIcon()
-		H.updatehealth()
-		return 1
-	else if(istype(src, /mob/living/silicon/ai))
-		return 0
 
 /mob/living/proc/adjustBodyTemp(actual, desired, incrementboost)
 	var/temperature = actual
@@ -280,19 +261,6 @@
 	var/obj/item/organ/external/def_zone = ran_zone(t)
 	return def_zone
 
-
-//damage/heal the mob ears and adjust the deaf amount
-/mob/living/adjustEarDamage(damage, deaf)
-	ear_damage = max(0, ear_damage + damage)
-	ear_deaf = max(0, ear_deaf + deaf)
-
-//pass a negative argument to skip one of the variable
-/mob/living/setEarDamage(damage, deaf)
-	if(damage >= 0)
-		ear_damage = damage
-	if(deaf >= 0)
-		ear_deaf = deaf
-
 // heal ONE external organ, organ gets randomly selected from damaged ones.
 /mob/living/proc/heal_organ_damage(var/brute, var/burn)
 	adjustBruteLoss(-brute)
@@ -319,6 +287,10 @@
 	adjustFireLoss(burn)
 	src.updatehealth()
 
+/mob/living/proc/has_organic_damage()
+	return (maxHealth - health)
+
+
 /mob/living/proc/restore_all_organs()
 	return
 
@@ -342,14 +314,6 @@
 				C.reagents.clear_reagents()
 			C.reagents.addiction_list.Cut()
 
-/mob/living/proc/update_revive() // handles revival through other means than cloning or adminbus (defib, IPC repair)
-	stat = CONSCIOUS
-	dead_mob_list -= src
-	living_mob_list |= src
-	mob_list |= src
-	setEarDamage(-1,0)
-	timeofdeath = 0
-
 /mob/living/proc/rejuvenate()
 	var/mob/living/carbon/human/human_mob = null //Get this declared for use later.
 
@@ -360,25 +324,33 @@
 	setBrainLoss(0)
 	setStaminaLoss(0)
 	SetSleeping(0)
-	SetParalysis(0)
-	SetStunned(0)
-	SetWeakened(0)
-	slowed = 0
-	losebreath = 0
-	dizziness = 0
-	jitteriness = 0
-	confused = 0
-	drowsyness = 0
+	SetParalysis(0, 1, 1)
+	SetStunned(0, 1, 1)
+	SetWeakened(0, 1, 1)
+	SetSlowed(0)
+	SetLoseBreath(0)
+	SetDizzy(0)
+	SetJitter(0)
+	SetConfused(0)
+	SetDrowsy(0)
 	radiation = 0
-	druggy = 0
-	hallucination = 0
-	nutrition = 400
-	bodytemperature = 310
-	disabilities = 0
+	SetDruggy(0)
+	SetHallucinate(0)
 	blinded = 0
-	eye_blind = 0
-	eye_blurry = 0
-	setEarDamage(0,0)
+	nutrition = NUTRITION_LEVEL_FED + 50
+	bodytemperature = 310
+	CureBlind()
+	CureNearsighted()
+	CureMute()
+	CureDeaf()
+	CureTourettes()
+	CureEpilepsy()
+	CureCoughing()
+	CureNervous()
+	SetEyeBlind(0)
+	SetEyeBlurry(0)
+	SetEarDamage(0)
+	SetEarDeaf(0)
 	heal_overall_damage(1000, 1000)
 	ExtinguishMob()
 	fire_stacks = 0
@@ -670,7 +642,7 @@
 			who.unEquip(what)
 			if(silent)
 				put_in_hands(what)
-			add_logs(who, src, "stripped", addition="of [what]")
+			add_logs(src, who, "stripped", addition="of [what]", print_attack_log = isLivingSSD(who))
 
 // The src mob is trying to place an item on someone
 // Override if a certain mob should be behave differently when placing items (can't, for example)
@@ -689,7 +661,7 @@
 			if(what && Adjacent(who))
 				unEquip(what)
 				who.equip_to_slot_if_possible(what, where, 0, 1)
-				add_logs(who, src, "equipped", what)
+				add_logs(src, who, "equipped", what, print_attack_log = isLivingSSD(who))
 
 
 /mob/living/singularity_act()
@@ -703,7 +675,7 @@
 
 /mob/living/narsie_act()
 	if(client)
-		makeNewConstruct(/mob/living/simple_animal/construct/harvester, src, null, 1)
+		makeNewConstruct(/mob/living/simple_animal/hostile/construct/harvester, src, null, 1)
 	spawn_dust()
 	gib()
 	return

@@ -92,6 +92,12 @@
 		A.blob_act()
 		qdel(src)
 
+/obj/machinery/recharge_station/narsie_act()
+	go_out()
+	new /obj/effect/gibspawner/generic(get_turf(loc)) //I REPLACE YOUR TECHNOLOGY WITH FLESH!
+	qdel(src)
+
+
 /obj/machinery/recharge_station/attack_animal(var/mob/living/simple_animal/M)//Stop putting hostile mobs in things guise
 	if(M.environment_smash)
 		M.do_attack_animation(src)
@@ -166,17 +172,12 @@
 					H.updatehealth()
 
 /obj/machinery/recharge_station/proc/go_out()
-	if(!( src.occupant ))
+	if(!occupant)
 		return
-	//for(var/obj/O in src)
-	//	O.loc = src.loc
-	if(src.occupant.client)
-		src.occupant.client.eye = src.occupant.client.mob
-		src.occupant.client.perspective = MOB_PERSPECTIVE
-	src.occupant.loc = src.loc
-	src.occupant = null
+	occupant.forceMove(loc)
+	occupant = null
 	build_icon()
-	src.use_power = 1
+	use_power = 1
 	return
 
 /obj/machinery/recharge_station/proc/restock_modules()
@@ -300,9 +301,6 @@
 		return
 
 	user.stop_pulling()
-	if(user && user.client)
-		user.client.perspective = EYE_PERSPECTIVE
-		user.client.eye = src
 	user.forceMove(src)
 	occupant = user
 

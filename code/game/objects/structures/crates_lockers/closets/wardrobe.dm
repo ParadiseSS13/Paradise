@@ -168,8 +168,8 @@
 
 /obj/structure/closet/wardrobe/atmospherics_yellow
 	name = "atmospherics wardrobe"
-	icon_state = "yellow"
-	icon_closed = "yellow"
+	icon_state = "atmostech"
+	icon_closed = "atmostech"
 
 /obj/structure/closet/wardrobe/atmospherics_yellow/New()
 	..()
@@ -193,8 +193,8 @@
 
 /obj/structure/closet/wardrobe/engineering_yellow
 	name = "engineering wardrobe"
-	icon_state = "yellow"
-	icon_closed = "yellow"
+	icon_state = "engineer"
+	icon_closed = "engineer"
 
 /obj/structure/closet/wardrobe/engineering_yellow/New()
 	..()

@@ -139,7 +139,7 @@
 	feedback_add_details("admin_verb","DIRN") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/cmd_admin_godmode(mob/M as mob in mob_list)
-	set category = "Special Verbs"
+	set category = "Admin"
 	set name = "Godmode"
 
 	if(!check_rights(R_ADMIN))
@@ -235,19 +235,19 @@ proc/cmd_admin_mute(mob/M as mob, mute_type, automute = 0)
 			if(g.antagHUD)
 				g.antagHUD = 0						// Disable it on those that have it enabled
 				g.has_enabled_antagHUD = 2				// We'll allow them to respawn
-				to_chat(g, "\red <B>The Administrator has disabled AntagHUD </B>")
+				to_chat(g, "<span class='danger'>The Administrator has disabled AntagHUD </span>")
 		config.antag_hud_allowed = 0
-		to_chat(src, "\red <B>AntagHUD usage has been disabled</B>")
+		to_chat(src, "<span class='danger'>AntagHUD usage has been disabled</span>")
 		action = "disabled"
 	else
 		for(var/mob/dead/observer/g in get_ghosts())
 			if(!g.client.holder)						// Add the verb back for all non-admin ghosts
 				g.verbs += /mob/dead/observer/verb/toggle_antagHUD
-				to_chat(g, "\blue <B>The Administrator has enabled AntagHUD </B>")// Notify all observers they can now use AntagHUD
+				to_chat(g, "<span class='boldnotice'>The Administrator has enabled AntagHUD </span>")// Notify all observers they can now use AntagHUD
 
 		config.antag_hud_allowed = 1
 		action = "enabled"
-		to_chat(src, "\blue <B>AntagHUD usage has been enabled</B>")
+		to_chat(src, "<span class='boldnotice'>AntagHUD usage has been enabled</span>")
 
 
 	log_admin("[key_name(usr)] has [action] antagHUD usage for observers")
@@ -264,19 +264,19 @@ proc/cmd_admin_mute(mob/M as mob, mute_type, automute = 0)
 	var/action=""
 	if(config.antag_hud_restricted)
 		for(var/mob/dead/observer/g in get_ghosts())
-			to_chat(g, "\blue <B>The administrator has lifted restrictions on joining the round if you use AntagHUD</B>")
+			to_chat(g, "<span class='boldnotice'>The administrator has lifted restrictions on joining the round if you use AntagHUD</span>")
 		action = "lifted restrictions"
 		config.antag_hud_restricted = 0
-		to_chat(src, "\blue <B>AntagHUD restrictions have been lifted</B>")
+		to_chat(src, "<span class='boldnotice'>AntagHUD restrictions have been lifted</span>")
 	else
 		for(var/mob/dead/observer/g in get_ghosts())
-			to_chat(g, "\red <B>The administrator has placed restrictions on joining the round if you use AntagHUD</B>")
-			to_chat(g, "\red <B>Your AntagHUD has been disabled, you may choose to re-enabled it but will be under restrictions </B>")
+			to_chat(g, "<span class='danger'>The administrator has placed restrictions on joining the round if you use AntagHUD</span>")
+			to_chat(g, "<span class='danger'>Your AntagHUD has been disabled, you may choose to re-enabled it but will be under restrictions </span>")
 			g.antagHUD = 0
 			g.has_enabled_antagHUD = 0
 		action = "placed restrictions"
 		config.antag_hud_restricted = 1
-		to_chat(src, "\red <B>AntagHUD restrictions have been enabled</B>")
+		to_chat(src, "<span class='danger'>AntagHUD restrictions have been enabled</span>")
 
 	log_admin("[key_name(usr)] has [action] on joining the round if they use AntagHUD")
 	message_admins("Admin [key_name_admin(usr)] has [action] on joining the round if they use AntagHUD", 1)
@@ -287,7 +287,7 @@ Works kind of like entering the game with a new character. Character receives a 
 Traitors and the like can also be revived with the previous role mostly intact.
 /N */
 /client/proc/respawn_character()
-	set category = "Special Verbs"
+	set category = "Event"
 	set name = "Respawn Character"
 	set desc = "Respawn a person that has been gibbed/dusted/killed. They must be a ghost for this to work and preferably should not have a body to go back into."
 
@@ -416,6 +416,8 @@ Traitors and the like can also be revived with the previous role mostly intact.
 						call(/datum/game_mode/proc/add_law_zero)(new_character)
 				if("AI")
 					new_character = new_character.AIize()
+					var/mob/living/silicon/ai/ai_character = new_character
+					ai_character.moveToAILandmark()
 					if(new_character.mind.special_role=="traitor")
 						call(/datum/game_mode/proc/add_law_zero)(new_character)
 				//Add aliens.
@@ -518,7 +520,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	feedback_add_details("admin_verb","IONC") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/cmd_admin_rejuvenate(mob/living/M as mob in mob_list)
-	set category = "Special Verbs"
+	set category = "Event"
 	set name = "Rejuvenate"
 
 	if(!check_rights(R_REJUVINATE))
@@ -657,7 +659,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		return
 
 /client/proc/cmd_admin_emp(atom/O as obj|mob|turf in view())
-	set category = "Special Verbs"
+	set category = "Event"
 	set name = "EM Pulse"
 
 	if(!check_rights(R_DEBUG|R_EVENT))
@@ -680,7 +682,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		return
 
 /client/proc/cmd_admin_gib(mob/M as mob in mob_list)
-	set category = "Special Verbs"
+	set category = "Admin"
 	set name = "Gib"
 
 	if(!check_rights(R_ADMIN|R_EVENT))
@@ -720,7 +722,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		feedback_add_details("admin_verb","GIBS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/cmd_admin_check_contents(mob/living/M as mob in mob_list)
-	set category = "Special Verbs"
+	set category = "Admin"
 	set name = "Check Contents"
 
 	if(!check_rights(R_ADMIN))
@@ -732,7 +734,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	feedback_add_details("admin_verb","CC") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/toggle_view_range()
-	set category = "Special Verbs"
+	set category = "Admin"
 	set name = "Change View Range"
 	set desc = "switches between 1x and custom views"
 
@@ -804,13 +806,13 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	message_admins("[key_name_admin(usr)] has [shuttle_master.emergencyNoEscape ? "denied" : "allowed"] the shuttle to be called.")
 
 /client/proc/cmd_admin_attack_log(mob/M as mob in mob_list)
-	set category = "Special Verbs"
+	set category = "Admin"
 	set name = "Attack Log"
 
 	if(!check_rights(R_ADMIN))
 		return
 
-	to_chat(usr, text("\red <b>Attack Log for []</b>", mob))
+	to_chat(usr, text("<span class='danger'>Attack Log for []</span>", mob))
 	for(var/t in M.attack_log)
 		to_chat(usr, t)
 	feedback_add_details("admin_verb","ATTL") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
@@ -873,7 +875,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	set name = "Reset Telecomms Scripts"
 	set desc = "Blanks all telecomms scripts from all telecomms servers"
 
-	if(!check_rights(R_ADMIN, 1, src))
+	if(!check_rights(R_ADMIN))
 		return
 
 	var/confirm = alert(src, "You sure you want to blank all NTSL scripts?", "Confirm", "Yes", "No")

@@ -32,14 +32,15 @@
 		slaved.masters += vampire
 		vampire.som = slaved //we MIGT want to mindslave someone
 		vampire.restricted_roles = restricted_jobs
-		return ..()
+		..()
+		return 1
 	else
 		return 0
 
 /datum/game_mode/traitor/vampire/post_setup()
 	for(var/datum/mind/vampire in vampires)
 		grant_vampire_powers(vampire.current)
-		vampire.special_role = "Vampire"
+		vampire.special_role = SPECIAL_ROLE_VAMPIRE
 		forge_vampire_objectives(vampire)
 		greet_vampire(vampire)
 	..()

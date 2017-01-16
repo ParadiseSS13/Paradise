@@ -147,6 +147,19 @@
 
 	return 1
 
+/mob/living/forceMove(atom/destination)
+	if(buckled)
+		addtimer(src, "check_buckled", 1, TRUE)
+	if(buckled_mob)
+		addtimer(buckled_mob, "check_buckled", 1, TRUE)
+	if(pulling)
+		addtimer(src, "check_pull", 1, TRUE)
+	. = ..()
+	if(client)
+		reset_perspective(destination)
+	update_canmove() //if the mob was asleep inside a container and then got forceMoved out we need to make them fall.
+
+
 //called when src is thrown into hit_atom
 /atom/movable/proc/throw_impact(atom/hit_atom, var/speed)
 	if(istype(hit_atom,/mob/living))
@@ -179,7 +192,7 @@
 	if(has_gravity(src))
 		return 1
 
-	if(pulledby)
+	if(pulledby && !pulledby.pulling)
 		return 1
 
 	if(locate(/obj/structure/lattice) in range(1, get_turf(src))) //Not realistic but makes pushing things in space easier
@@ -345,3 +358,22 @@
 	if(buckled_mob == mover)
 		return 1
 	return ..()
+
+/atom/movable/proc/get_spacemove_backup()
+	var/atom/movable/dense_object_backup
+	for(var/A in orange(1, get_turf(src)))
+		if(isarea(A))
+			continue
+		else if(isturf(A))
+			var/turf/turf = A
+			if(!turf.density)
+				continue
+			return turf
+		else
+			var/atom/movable/AM = A
+			if(!AM.CanPass(src) || AM.density)
+				if(AM.anchored)
+					return AM
+				dense_object_backup = AM
+				break
+	. = dense_object_backup

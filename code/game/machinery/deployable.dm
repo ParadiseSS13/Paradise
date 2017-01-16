@@ -111,7 +111,7 @@ for reference:
 /obj/structure/barricade/blob_act()
 	src.health -= 25
 	if(src.health <= 0)
-		visible_message("\red <B>The blob eats through \the [src]!</B>")
+		visible_message("<span class='danger'>The blob eats through \the [src]!</span>")
 		qdel(src)
 	return
 
@@ -267,7 +267,7 @@ for reference:
 
 	proc/explode()
 
-		visible_message("\red <B>[src] blows apart!</B>")
+		visible_message("<span class='danger'>[src] blows apart!</span>")
 		var/turf/Tsec = get_turf(src)
 
 	/*	var/obj/item/stack/rods/ =*/

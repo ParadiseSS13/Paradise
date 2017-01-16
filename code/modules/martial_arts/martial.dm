@@ -53,7 +53,7 @@
 
 	D.apply_damage(damage, BRUTE, affecting, armor_block)
 
-	add_logs(D, A, "punched")
+	add_logs(A, D, "punched")
 
 	if((D.stat != DEAD) && damage >= A.species.punchstunthreshold)
 		D.visible_message("<span class='danger'>[A] has weakened [D]!!</span>", \

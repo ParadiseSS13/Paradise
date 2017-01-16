@@ -15,7 +15,7 @@
 			A.copy_to(H)
 
 		ticker.mode.traitors += H.mind
-		H.mind.special_role = "traitor"
+		H.mind.special_role = SPECIAL_ROLE_TRAITOR
 
 		var/datum/objective/hijack/hijack_objective = new
 		hijack_objective.owner = H.mind

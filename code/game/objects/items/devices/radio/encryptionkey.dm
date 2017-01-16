@@ -21,6 +21,12 @@
 	origin_tech = "syndicate=3"
 	syndie = 1 //Signifies that it de-crypts Syndicate transmissions
 
+/obj/item/device/encryptionkey/syndteam
+	icon_state = "cypherkey"
+	channels = list("SyndTeam" = 1, "Syndicate" = 1)
+	origin_tech = "syndicate=4"
+	syndie = 1 //Signifies that it de-crypts Syndicate transmissions
+
 /obj/item/device/encryptionkey/binary
 	name = "binary translator key"
 	desc = "An encryption key for a radio headset. To access the binary channel, use :b."

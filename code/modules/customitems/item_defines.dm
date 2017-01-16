@@ -14,7 +14,7 @@
 	var/used = 0
 
 /obj/item/device/fluff/tattoo_gun // Generic tattoo gun, make subtypes for different folks
-	name = "dispoable tattoo pen"
+	name = "disposable tattoo pen"
 	desc = "A cheap plastic tattoo application pen."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "tatgun"
@@ -22,7 +22,7 @@
 	throwforce = 0
 	w_class = 1
 	var/tattoo_name = "tiger stripe tattoo" // Tat name for visible messages
-	var/tattoo_icon = "Tiger Body" // body_accessory.dmi, new icons defined in sprite_accessories.dm
+	var/tattoo_icon = "Tiger-stripe Tattoo" // body_accessory.dmi, new icons defined in sprite_accessories.dm
 	var/tattoo_r = 1 // RGB values for the body markings
 	var/tattoo_g = 1
 	var/tattoo_b = 1
@@ -47,8 +47,13 @@
 		to_chat(user, "<span class= 'notice'>[target] has no skin, how do you expect to tattoo them?</span>")
 		return
 
-	if(target.m_style != "None")
+	if(target.m_styles["body"] != "None")
 		to_chat(user, "<span class= 'notice'>[target] already has body markings, any more would look silly!</span>")
+		return
+
+	var/datum/sprite_accessory/body_markings/tattoo/temp_tatt = marking_styles_list[tattoo_icon]
+	if(!(target.species.name in temp_tatt.species_allowed))
+		to_chat(user, "<span class= 'notice'>You can't think of a way to make the [tattoo_name] design work on [target == user ? "your" : "[target]'s"] body type.</span>")
 		return
 
 	if(target == user)
@@ -61,12 +66,8 @@
 		user.visible_message("<span class='notice'>[user] finishes the [tattoo_name] on [target].</span>", "<span class='notice'>You finish the [tattoo_name].</span>")
 
 	if(!used) // No exploiting do_after to tattoo multiple folks.
-		target.m_style = tattoo_icon
-		target.r_markings = tattoo_r
-		target.g_markings = tattoo_g
-		target.b_markings = tattoo_b
-
-		target.update_markings()
+		target.change_markings(tattoo_icon, "body")
+		target.change_marking_color(rgb(tattoo_r, tattoo_g, tattoo_b), "body")
 
 		playsound(src.loc, 'sound/items/Welder2.ogg', 20, 1)
 		used = 1
@@ -98,9 +99,9 @@
 	if(!used)
 		var/ink_color = input("Please select an ink color.", "Tattoo Ink Color", rgb(tattoo_r, tattoo_g, tattoo_b)) as color|null
 		if(ink_color && !(user.incapacitated() || used) )
-			tattoo_r = hex2num(copytext(ink_color, 2, 4))
-			tattoo_g = hex2num(copytext(ink_color, 4, 6))
-			tattoo_b = hex2num(copytext(ink_color, 6, 8))
+			tattoo_r = color2R(ink_color)
+			tattoo_g = color2G(ink_color)
+			tattoo_b = color2B(ink_color)
 
 			to_chat(user, "<span class='notice'>You change the color setting on the [src].</span>")
 
@@ -132,6 +133,11 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "book_berner_1"
 
+/obj/item/clothing/glasses/sunglasses/fake/fluff/kaki //Rapidvalj: Kakicharakiti
+	name = "broken thermonocle"
+	desc = "A weathered Vox thermonocle, doesn't seem to work anymore."
+	icon_state = "thermoncle"
+
 /obj/item/weapon/lighter/zippo/fluff/purple // GodOfOreos: Jason Conrad
 	name = "purple engraved zippo"
 	desc = "All craftsspacemanship is of the highest quality. It is encrusted with refined plasma sheets. On the item is an image of a dwarf and the words 'Strike the Earth!' etched onto the side."
@@ -147,6 +153,14 @@
 	icon_state = "guessip"
 	icon_on = "guessipon"
 	icon_off = "guessip"
+
+/obj/item/weapon/lighter/zippo/fluff/duckchan // Duckchan: Rybys Romney
+	name = "Monogrammed Zippo"
+	desc = " A shiny purple zippo lighter, engraved with Rybys Romney and BuzzPing's name, with a festive green flame."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "rybysfluff"
+	icon_on = "rybysfluffopen"
+	icon_off = "rybysfluff"
 
 /obj/item/weapon/fluff/dogwhistle //phantasmicdream: Zeke Varloss
 	name = "Sax's whistle"
@@ -219,6 +233,28 @@
 		to_chat(target, "<span class='notice'>You comb your tail with the [src].</span>")
 		used = 1
 
+/obj/item/device/fluff/cardgage_helmet_kit //captain cardgage: Richard Ulery
+	name = "welding helmet modkit"
+	desc = "Some spraypaint and a stencil, perfect for painting flames onto a welding helmet!"
+	icon_state = "modkit"
+	w_class = 2
+	force = 0
+	throwforce = 0
+
+/obj/item/device/fluff/cardgage_helmet_kit/afterattack(atom/target, mob/user, proximity)
+	if(!proximity || !ishuman(user) || user.lying)
+		return
+
+	if(istype(target, /obj/item/clothing/head/welding))
+		to_chat(user, "<span class='notice'>You modify the appearance of [target].</span>")
+
+		var/obj/item/clothing/head/welding/flamedecal/P = new(get_turf(target))
+		transfer_fingerprints_to(P)
+		qdel(target)
+		qdel(src)
+		return
+	to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
+
 #define USED_MOD_HELM 1
 #define USED_MOD_SUIT 2
 
@@ -278,6 +314,17 @@
 //////////// Gloves ////////////
 
 //////////// Eye Wear ////////////
+/obj/item/clothing/glasses/hud/security/sunglasses/fluff/eyepro //T0EPIC4U: Ty Omaha
+	name = "Tacticool EyePro"
+	desc = "Tacticool ballistic glasses, for making all operators look badass."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "eyepro"
+	item_state = "eyepro"
+
+/obj/item/clothing/glasses/hud/security/sunglasses/fluff/voxxyhud //LP Spartan: Kaskreyarawkta
+	name = "VoxxyHUD"
+	desc = "A worn down visor from a vox raider's gear, crudely ripped from its helmet and linked into the security systems of the station. The word 'Kask' is scratched into the side."
+	icon_state = "hud-spartan"
 
 //////////// Hats ////////////
 /obj/item/clothing/head/fluff/heather_winceworth // Regens: Heather Winceworth
@@ -306,7 +353,49 @@
 	icon_state = "beret_hos"
 	item_state = "beret_hos"
 
+/obj/item/clothing/head/pirate/fluff/stumpy //MrFroztee: Stumpy
+	name = "The Sobriety Skullcap"
+	desc = "A hat suited for the king of the pirates"
+	icon_state = "pirate"
+	item_state = "pirate"
+
+/obj/item/clothing/head/pirate/fluff/stumpy/New()
+	..()
+	processing_objects.Add(src)
+
+/obj/item/clothing/head/pirate/fluff/stumpy/Destroy()
+	processing_objects.Remove(src)
+	return ..()
+
+/obj/item/clothing/head/pirate/fluff/stumpy/process()
+	if(ishuman(loc))
+		var/mob/living/carbon/human/H = loc
+		if(H.head == src)
+			H.Slur(3) //always slur
+
+/obj/item/clothing/head/beret/fluff/linda //Epic_Charger: Linda Clark
+	name = "Green beret"
+	desc = "A beret, an artist's favorite headwear. This one has two holes cut on the edges."
+	icon_state = "linda_beret"
+
+/obj/item/clothing/head/fluff/kaki //Rapidvalj: Kakicharakiti
+	name = "sleek fancy leader hat"
+	desc = "A uniquely colored vox leader hat. Has some signs of wear."
+	icon_state = "kakicharakiti"
+
 //////////// Suits ////////////
+/obj/item/clothing/suit/fluff/dusty_jacket //ComputerlessCitizen: Screech
+	name = "Dusty Jacket"
+	desc = "A worn leather jacket. Some burn holes have been patched."
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "dusty_jacket"
+	ignore_suitadjust = 1
+	actions_types = list()
+	adjust_flavour = null
+	species_fit = null
+	sprite_sheets = null
+
 /obj/item/clothing/suit/storage/labcoat/fluff/aeneas_rinil //Socialsystem: Lynn Fea
 	name = "Robotics labcoat"
 	desc = "A labcoat with a few markings denoting it as the labcoat of roboticist."
@@ -372,6 +461,21 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "stobarico_jacket"
 
+
+/obj/item/clothing/suit/hooded/hoodie/fluff/linda // Epic_Charger: Linda Clark
+	name = "Green Nanotrasen Hoodie"
+	desc = "A green hoodie with the Nanotrasen logo on the back. It looks weathered."
+	icon_state = "linda_hoodie"
+	hoodtype = /obj/item/clothing/head/hood/fluff/linda
+
+/obj/item/clothing/head/hood/fluff/linda //Epic_Charger: Linda Clark
+	icon_state = "greenhood"
+
+/obj/item/clothing/suit/armor/shodanscoat // RazekPraxis: SHODAN
+	name = "SHODAN's Captain's Coat"
+	desc = "A black coat with gold trim and an old US Chevron printed on the back. Edgy."
+	icon_state = "shodancoat"
+
 //////////// Uniforms ////////////
 /obj/item/clothing/under/fluff/kharshai // Kharshai: Athena Castile
 	name = "Castile formal outfit"
@@ -380,6 +484,15 @@
 	icon_state = "castile_dress"
 	item_state = "castile_dress"
 	item_color = "castile_dress"
+
+/obj/item/clothing/under/fluff/elishirt // FlattestGuitar9: Eli Randolph
+	name = "casual dress shirt"
+	desc = "A soft, white dress shirt paired up with black suit pants. The set looks comfortable."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "elishirt"
+	item_state = "elishirt"
+	item_color = "elishirt"
+	displays_id = 0
 
 /obj/item/clothing/under/psysuit/fluff/isaca_sirius_1 // Xilia: Isaca Sirius
 	name = "Isaca's suit"
@@ -424,7 +537,20 @@
 	displays_id = 0
 	strip_delay = 100
 
+/obj/item/clothing/under/fluff/aegis //PlagueWalker: A.E.G.I.S.
+	name = "gilded waistcoat"
+	desc = "This black, gold-trimmed, rather expensive-looking uniform laced with fine materials appears comfortable despite its stiffness."
+	icon_state = "aegisuniform"
+	item_state = "aegisuniform"
+	item_color = "aegisuniform"
+	displays_id = 0
+
 //////////// Masks ////////////
+
+/obj/item/clothing/mask/bandana/fluff/dar //sasanek12: Dar'Konr
+	name = "camo bandana"
+	desc = "It's a worn-out bandana in camo paint"
+	icon_state = "bandcamo"
 
 //////////// Shoes ////////////
 
@@ -554,3 +680,8 @@
 	suit_adjusted = 1
 	species_fit = null
 	sprite_sheets = null
+
+/obj/item/weapon/storage/backpack/fluff/krich_back //lizardzsi: Krichahka
+	name = "Voxcaster"
+	desc = "Battered, Sol-made military radio backpack that had its speakers fried from playing Vox opera. The words 'Swift-Talon' are crudely scratched onto its side."
+	icon_state = "voxcaster_fluff"

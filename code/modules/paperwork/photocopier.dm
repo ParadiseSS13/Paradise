@@ -27,16 +27,16 @@
 
 	var/dat = "Photocopier<BR><BR>"
 	if(copyitem || (ass && (ass.loc == src.loc)))
-		dat += "<a href='byond://?src=\ref[src];remove=1'>Remove Item</a><BR>"
+		dat += "<a href='byond://?src=[UID()];remove=1'>Remove Item</a><BR>"
 		if(toner)
-			dat += "<a href='byond://?src=\ref[src];copy=1'>Copy</a><BR>"
+			dat += "<a href='byond://?src=[UID()];copy=1'>Copy</a><BR>"
 			dat += "Printing: [copies] copies."
-			dat += "<a href='byond://?src=\ref[src];min=1'>-</a> "
-			dat += "<a href='byond://?src=\ref[src];add=1'>+</a><BR><BR>"
+			dat += "<a href='byond://?src=[UID()];min=1'>-</a> "
+			dat += "<a href='byond://?src=[UID()];add=1'>+</a><BR><BR>"
 	else if(toner)
 		dat += "Please insert something to copy.<BR><BR>"
 	if(istype(user,/mob/living/silicon))
-		dat += "<a href='byond://?src=\ref[src];aipic=1'>Print photo from database</a><BR><BR>"
+		dat += "<a href='byond://?src=[UID()];aipic=1'>Print photo from database</a><BR><BR>"
 	dat += "Current toner level: [toner]"
 	if(!toner)
 		dat +="<BR>Please insert a new toner cartridge!"
@@ -79,8 +79,10 @@
 		updateUsrDialog()
 	else if(href_list["remove"])
 		if(copyitem)
-			copyitem.loc = usr.loc
-			usr.put_in_hands(copyitem)
+			copyitem.forceMove(get_turf(src))
+			if(ishuman(usr))
+				if(!usr.get_active_hand())
+					usr.put_in_hands(copyitem)
 			to_chat(usr, "<span class='notice'>You take \the [copyitem] out of \the [src].</span>")
 			copyitem = null
 			updateUsrDialog()
@@ -125,7 +127,7 @@
 		if(!copyitem)
 			user.drop_item()
 			copyitem = O
-			O.loc = src
+			O.forceMove(src)
 			to_chat(user, "<span class='notice'>You insert \the [O] into \the [src].</span>")
 			flick(insert_anim, src)
 			updateUsrDialog()
@@ -150,10 +152,10 @@
 		if(ismob(G.affecting) && G.affecting != ass)
 			var/mob/GM = G.affecting
 			visible_message("<span class='warning'>[usr] drags [GM.name] onto the photocopier!</span>")
-			GM.loc = get_turf(src)
+			GM.forceMove(get_turf(src))
 			ass = GM
 			if(copyitem)
-				copyitem.loc = src.loc
+				copyitem.forceMove(get_turf(src))
 				copyitem = null
 		updateUsrDialog()
 	return
@@ -290,10 +292,10 @@
 			W = copy(W)
 		else if(istype(W, /obj/item/weapon/photo))
 			W = photocopy(W)
-		W.loc = p
+		W.forceMove(p)
 		p.amount++
 	p.amount--
-	p.loc = src.loc
+	p.forceMove(get_turf(src))
 	p.update_icon()
 	p.icon_state = "paper_words"
 	p.name = bundle.name
@@ -313,10 +315,10 @@
 		if(target.anchored) return
 		if(!ishuman(user)) return
 		visible_message("<span class='warning'>[usr] drags [target.name] onto the photocopier!</span>")
-	target.loc = get_turf(src)
+	target.forceMove(get_turf(src))
 	ass = target
 	if(copyitem)
-		copyitem.loc = src.loc
+		copyitem.forceMove(get_turf(src))
 		visible_message("<span class='notice'>[copyitem] is shoved out of the way by [ass]!</span>")
 		copyitem = null
 	updateUsrDialog()

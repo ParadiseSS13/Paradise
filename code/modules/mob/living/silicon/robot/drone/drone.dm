@@ -13,9 +13,10 @@
 	lawupdate = 0
 	density = 0
 	req_access = list(access_engine, access_robotics)
-	local_transmit = 1
 	ventcrawler = 2
 	magpulse = 1
+	
+	default_language = "Drone"
 
 	// We need to keep track of a few module items so we don't need to do list operations
 	// every time we need them. These get set in New() after the module is chosen.
@@ -39,7 +40,13 @@
 	..()
 
 	remove_language("Robot Talk")
+	remove_language("Galactic Common")
 	add_language("Drone Talk", 1)
+	add_language("Drone", 1)
+	
+	// Disable the microphone wire on Drones
+	if(radio)
+		radio.wires.CutWireIndex(WIRE_TRANSMIT)
 
 	if(camera && "Robots" in camera.network)
 		camera.network.Add("Engineering")
@@ -278,13 +285,14 @@
 
 	if(player.mob && player.mob.mind)
 		player.mob.mind.transfer_to(src)
+		player.mob.mind.assigned_role = "Drone"
 
 	lawupdate = 0
 	to_chat(src, "<b>Systems rebooted</b>. Loading base pattern maintenance protocol... <b>loaded</b>.")
 	full_law_reset()
 	to_chat(src, "<br><b>You are a maintenance drone, a tiny-brained robotic repair machine</b>.")
 	to_chat(src, "You have no individual will, no personality, and no drives or urges other than your laws.")
-	to_chat(src, "Use <b>;</b> to talk to other drones, and <b>say</b> to speak silently to your nearby fellows.")
+	to_chat(src, "Use <b>:d</b> to talk to other drones, and <b>say</b> to speak silently in a language only your fellows understand.")
 	to_chat(src, "Remember, you are <b>lawed against interference with the crew</b>. Also remember, <b>you DO NOT take orders from the AI.</b>")
 	to_chat(src, "<b>Don't invade their worksites, don't steal their resources, don't tell them about the changeling in the toilets.</b>")
 	to_chat(src, "<b>Make sure crew members do not notice you.</b>.")

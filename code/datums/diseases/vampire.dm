@@ -20,12 +20,12 @@
 
 	if(prob(10))
 		affected_mob.emote(pick("cough","groan", "gasp"))
-		affected_mob.losebreath++
+		affected_mob.AdjustLoseBreath(1)
 
 	if(prob(15))
 		if(prob(33))
 			to_chat(affected_mob, "<span class='danger'>You feel sickly and weak.</span>")
-			affected_mob.slowed += 3
+			affected_mob.AdjustSlowed(3)
 		affected_mob.adjustToxLoss(toxdamage)
 
 	if(prob(5))

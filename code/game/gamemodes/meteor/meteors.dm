@@ -36,8 +36,7 @@
 	var/Me = pickweight(meteortypes)
 	var/obj/effect/meteor/M = new Me(pickedstart)
 	M.dest = pickedgoal
-	// TODO: Tie into space manager
-	M.z_original = ZLEVEL_STATION
+	M.z_original = level_name_to_num(MAIN_STATION)
 	spawn(0)
 		walk_towards(M, M.dest, 1)
 	return
@@ -103,7 +102,6 @@
 	var/dropamt = 2
 
 /obj/effect/meteor/Move()
-	// TODO: Tie into space manager
 	if(z != z_original || loc == dest)
 		qdel(src)
 		return

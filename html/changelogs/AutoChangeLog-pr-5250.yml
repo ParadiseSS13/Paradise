@@ -1,4 +1,0 @@
-author: Krausus
-delete-after: True
-changes: 
-  - bugfix: "Probably fixed some very specific items messing up View Variables for no adequately explicable reason."

@@ -98,8 +98,8 @@
 
 	// Set releasetime
 	releasetime = world.timeofday + timetoset
-	if(!(src in machines))
-		addAtProcessing()
+	if(!(src in machine_processing))
+		machine_processing += src
 
 	for(var/obj/machinery/door/window/brigdoor/door in targets)
 		if(door.density)
@@ -199,9 +199,9 @@
 
 	// Start/Stop timer
 	if(timing)
-		dat += "<a href='?src=\ref[src];timing=0'>Stop Timer and open door</a><br/>"
+		dat += "<a href='?src=[UID()];timing=0'>Stop Timer and open door</a><br/>"
 	else
-		dat += "<a href='?src=\ref[src];timing=1'>Activate Timer and close door</a><br/>"
+		dat += "<a href='?src=[UID()];timing=1'>Activate Timer and close door</a><br/>"
 
 	// Time Left display (uses releasetime)
 	dat += "Time Left: [(minute ? text("[minute]:") : null)][second] <br/>"
@@ -209,21 +209,21 @@
 
 	// Set Timer display (uses timetoset)
 	if(timing)
-		dat += "Set Timer: [(setminute ? text("[setminute]:") : null)][setsecond]  <a href='?src=\ref[src];change=1'>Set</a><br/>"
+		dat += "Set Timer: [(setminute ? text("[setminute]:") : null)][setsecond]  <a href='?src=[UID()];change=1'>Set</a><br/>"
 	else
 		dat += "Set Timer: [(setminute ? text("[setminute]:") : null)][setsecond]<br/>"
 
 	// Controls
-	dat += "<a href='?src=\ref[src];tp=-60'>-</a> <a href='?src=\ref[src];tp=-1'>-</a> <a href='?src=\ref[src];tp=1'>+</a> <A href='?src=\ref[src];tp=60'>+</a><br/>"
+	dat += "<a href='?src=[UID()];tp=-60'>-</a> <a href='?src=[UID()];tp=-1'>-</a> <a href='?src=[UID()];tp=1'>+</a> <A href='?src=[UID()];tp=60'>+</a><br/>"
 
 	// Mounted flash controls
 	for(var/obj/machinery/flasher/F in targets)
 		if(F.last_flash && (F.last_flash + 150) > world.time)
-			dat += "<br/><A href='?src=\ref[src];fc=1'>Flash Charging</A>"
+			dat += "<br/><A href='?src=[UID()];fc=1'>Flash Charging</A>"
 		else
-			dat += "<br/><A href='?src=\ref[src];fc=1'>Activate Flash</A>"
+			dat += "<br/><A href='?src=[UID()];fc=1'>Activate Flash</A>"
 
-	dat += "<br/><br/><a href='?src=\ref[user];mach_close=computer'>Close</a>"
+	dat += "<br/><br/><a href='?src=[user.UID()];mach_close=computer'>Close</a>"
 
 	var/datum/browser/popup = new(user, "door_timer", name, 400, 500)
 	popup.set_content(dat)

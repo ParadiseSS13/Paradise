@@ -285,14 +285,14 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 
 	  /* --- Loop through the receivers and categorize them --- */
 
-		if(R.client && R.client.holder && !(R.client.prefs.toggles & CHAT_RADIO)) //Adminning with 80 people on can be fun when you're trying to talk and all you can hear is radios.
+		if(is_admin(R) && !R.get_preference(CHAT_RADIO)) //Adminning with 80 people on can be fun when you're trying to talk and all you can hear is radios.
 			continue
 
 		if(istype(R, /mob/new_player)) // we don't want new players to hear messages. rare but generates runtimes.
 			continue
 
 		// Ghosts hearing all radio chat don't want to hear syndicate intercepts, they're duplicates
-		if(data == 3 && istype(R, /mob/dead/observer) && R.client && (R.client.prefs.toggles & CHAT_GHOSTRADIO))
+		if(data == 3 && istype(R, /mob/dead/observer) && R.get_preference(CHAT_GHOSTRADIO))
 			continue
 
 		// --- Check for compression ---
@@ -373,6 +373,8 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 					blackbox.msg_deathsquad += blackbox_msg
 				if(SYND_FREQ)
 					blackbox.msg_syndicate += blackbox_msg
+				if(SYNDTEAM_FREQ)
+					blackbox.msg_syndteam += blackbox_msg
 				if(SUP_FREQ)
 					blackbox.msg_cargo += blackbox_msg
 				if(SRV_FREQ)
@@ -423,8 +425,9 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 
   /* ###### Prepare the radio connection ###### */
 
+	var/mob/living/carbon/human/H
 	if(!M)
-		var/mob/living/carbon/human/H = new
+		H = new
 		M = H
 
 	var/datum/radio_frequency/connection = radio_controller.return_frequency(frequency)
@@ -439,7 +442,7 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 	if(data == 1)
 		for(var/obj/item/device/radio/intercom/R in connection.devices["[RADIO_CHAT]"])
 			var/turf/position = get_turf(R)
-			// TODO: Tie into space manager
+			// TODO: Make the radio system cooperate with the space manager
 			if(position && position.z == level)
 				receive |= R.send_hear(display_freq, level)
 
@@ -452,7 +455,7 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 			if(istype(R, /obj/item/device/radio/headset))
 				continue
 			var/turf/position = get_turf(R)
-			// TODO: Tie into space manager
+			// TODO: Make the radio system cooperate with the space manager
 			if(position && position.z == level)
 				receive |= R.send_hear(display_freq)
 
@@ -464,7 +467,7 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 			var/datum/radio_frequency/antag_connection = radio_controller.return_frequency(freq)
 			for(var/obj/item/device/radio/R in antag_connection.devices["[RADIO_CHAT]"])
 				var/turf/position = get_turf(R)
-				// TODO: Tie into space manager
+				// TODO: Make the radio system cooperate with the space manager
 				if(position && position.z == level)
 					receive |= R.send_hear(freq)
 
@@ -474,7 +477,7 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 	else
 		for(var/obj/item/device/radio/R in connection.devices["[RADIO_CHAT]"])
 			var/turf/position = get_turf(R)
-			// TODO: Tie into space manager
+			// TODO: Make the radio system cooperate with the space manager
 			if(position && position.z == level)
 				receive |= R.send_hear(display_freq)
 
@@ -492,7 +495,7 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 
 	  /* --- Loop through the receivers and categorize them --- */
 
-		if(R.client && !(R.client.prefs.toggles & CHAT_RADIO)) //Adminning with 80 people on can be fun when you're trying to talk and all you can hear is radios.
+		if(R.client && !R.get_preference(CHAT_RADIO)) //Adminning with 80 people on can be fun when you're trying to talk and all you can hear is radios.
 			continue
 
 
@@ -557,6 +560,8 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 					blackbox.msg_deathsquad += blackbox_msg
 				if(SYND_FREQ)
 					blackbox.msg_syndicate += blackbox_msg
+				if(SYNDTEAM_FREQ)
+					blackbox.msg_syndteam += blackbox_msg
 				if(SUP_FREQ)
 					blackbox.msg_cargo += blackbox_msg
 				if(SRV_FREQ)
@@ -596,12 +601,15 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 			for(var/mob/R in heard_gibberish)
 				R.show_message(rendered, 2)
 
+	if(H)
+		qdel(H)
+
 //Use this to test if an obj can communicate with a Telecommunications Network
 
 /atom/proc/test_telecomms()
 	var/datum/signal/signal = src.telecomms_process()
 	var/turf/position = get_turf(src)
-	// TODO: Tie into space manager
+	// TODO: Make the radio system cooperate with the space manager
 	return (position.z in signal.data["level"]) && signal.data["done"]
 
 /atom/proc/telecomms_process(var/do_sleep = 1)
@@ -620,7 +628,7 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 		"type" = 4, // determines what type of radio input it is: test broadcast
 		"reject" = 0,
 		"done" = 0,
-		// TODO: Tie into space manager
+		// TODO: Make the radio system cooperate with the space manager
 		"level" = pos.z // The level it is being broadcasted at.
 	)
 	signal.frequency = PUB_FREQ// Common channel

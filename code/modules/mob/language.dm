@@ -428,6 +428,19 @@
 	flags = RESTRICTED | HIVEMIND
 	follow = 1
 
+
+/datum/language/terrorspider
+	name = "Spider Hivemind"
+	desc = "Terror spiders have a limited ability to commune over a psychic hivemind, similar to xenomorphs."
+	speech_verb = "chitters"
+	ask_verb = "chitters"
+	exclaim_verb = "chitters"
+	colour = "terrorspider"
+	key = "ts"
+	flags = RESTRICTED | HIVEMIND
+	follow = 1
+
+
 /datum/language/ling
 	name = "Changeling"
 	desc = "Although they are normally wary and suspicious of each other, changelings can commune over a distance."
@@ -534,7 +547,7 @@
 		if(drone_only && !istype(S,/mob/living/silicon/robot/drone))
 			continue
 		else if(istype(S , /mob/living/silicon/ai))
-			message_start = "<i><span class='game say'>[name], <a href='byond://?src=\ref[S];track=\ref[speaker]'><span class='name'>[speaker.name]</span></a>"
+			message_start = "<i><span class='game say'>[name], <a href='byond://?src=[S.UID()];track=\ref[speaker]'><span class='name'>[speaker.name]</span></a>"
 		else if(!S.binarycheck())
 			continue
 
@@ -559,6 +572,17 @@
 	flags = RESTRICTED | HIVEMIND
 	drone_only = 1
 	follow = 1
+
+/datum/language/drone
+	name = "Drone"
+	desc = "An encrypted stream of data converted to speech patterns."
+	speech_verb = "states"
+	ask_verb = "queries"
+	exclaim_verb = "declares"
+	key = "]"
+	flags = RESTRICTED
+	follow = 1
+	syllables = list ("beep", "boop")
 
 /datum/language/swarmer
 	name = "Swarmer"
@@ -594,7 +618,7 @@
 	return ..()
 
 // Can we speak this language, as opposed to just understanding it?
-/mob/proc/can_speak(datum/language/speaking)
+/mob/proc/can_speak_language(datum/language/speaking)
 
 	return (universal_speak || (speaking && speaking.flags & INNATE) || speaking in src.languages)
 
@@ -617,14 +641,14 @@
 	var/dat = "<b><font size = 5>Known Languages</font></b><br/><br/>"
 
 	if(default_language)
-		dat += "Current default language: [default_language] - <a href='byond://?src=\ref[src];default_lang=reset'>reset</a><br/><br/>"
+		dat += "Current default language: [default_language] - <a href='byond://?src=[UID()];default_lang=reset'>reset</a><br/><br/>"
 
 	for(var/datum/language/L in languages)
 		if(!(L.flags & NONGLOBAL))
 			if(L == default_language)
-				dat += "<b>[L.name] (:[L.key])</b> - default - <a href='byond://?src=\ref[src];default_lang=reset'>reset</a><br/>[L.desc]<br/><br/>"
+				dat += "<b>[L.name] (:[L.key])</b> - default - <a href='byond://?src=[UID()];default_lang=reset'>reset</a><br/>[L.desc]<br/><br/>"
 			else
-				dat += "<b>[L.name] (:[L.key])</b> - <a href=\"byond://?src=\ref[src];default_lang=[L]\">set default</a><br/>[L.desc]<br/><br/>"
+				dat += "<b>[L.name] (:[L.key])</b> - <a href=\"byond://?src=[UID()];default_lang=[L]\">set default</a><br/>[L.desc]<br/><br/>"
 
 	src << browse(dat, "window=checklanguage")
 

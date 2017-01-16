@@ -129,6 +129,7 @@
 	move_to_delay = 4
 	maxHealth = 400
 	health = 400
+	mob_size = MOB_SIZE_LARGE
 	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID
 
 /obj/item/projectile/neurotox

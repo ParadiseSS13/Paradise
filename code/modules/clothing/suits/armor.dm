@@ -7,6 +7,7 @@
 	max_heat_protection_temperature = ARMOR_MAX_TEMP_PROTECT
 	strip_delay = 60
 	put_on_delay = 40
+	burn_state = FIRE_PROOF
 	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
@@ -148,6 +149,7 @@
 	cold_protection = UPPER_TORSO|LOWER_TORSO|HANDS
 	heat_protection = UPPER_TORSO|LOWER_TORSO|HANDS
 	strip_delay = 70
+	burn_state = FLAMMABLE
 
 /obj/item/clothing/suit/armor/vest/warden/alt
 	name = "warden's jacket"
@@ -161,6 +163,12 @@
 	item_state = "armor"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 	armor = list(melee = 50, bullet = 40, laser = 50, energy = 10, bomb = 25, bio = 0, rad = 0)
+
+/obj/item/clothing/suit/armor/vest/capcarapace/alt
+	name = "captain's parade jacket"
+	desc = "For when an armoured vest isn't fashionable enough."
+	icon_state = "capformal"
+	item_state = "capspacesuit"
 
 /obj/item/clothing/suit/armor/riot
 	name = "Riot Suit"
@@ -235,7 +243,7 @@
 	blood_overlay_type = "armor"
 	flags_size = ONESIZEFITSALL
 	allowed = list(/obj/item/weapon/tank/emergency_oxygen,/obj/item/weapon/reagent_containers/spray/pepper,/obj/item/device/flashlight,/obj/item/weapon/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/weapon/melee/baton,/obj/item/weapon/restraints/handcuffs,/obj/item/weapon/storage/fancy/cigarettes,/obj/item/weapon/lighter,/obj/item/device/detective_scanner,/obj/item/device/taperecorder)
-
+	burn_state = FLAMMABLE
 
 //Reactive armor
 /obj/item/clothing/suit/armor/reactive

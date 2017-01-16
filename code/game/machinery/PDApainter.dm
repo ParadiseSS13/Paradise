@@ -39,6 +39,11 @@
 
 		src.colorlist += D
 
+/obj/machinery/pdapainter/Destroy()
+	if(storedpda)
+		qdel(storedpda)
+		storedpda = null
+	return ..()
 
 /obj/machinery/pdapainter/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
 	if(istype(O, /obj/item/device/pda))

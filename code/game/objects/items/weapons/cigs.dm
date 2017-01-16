@@ -59,6 +59,9 @@ LIGHTERS ARE IN LIGHTERS.DM
 		return ..()
 
 
+/obj/item/clothing/mask/cigarette/fire_act()
+	light()
+
 /obj/item/clothing/mask/cigarette/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	..()
 	if(istype(W, /obj/item/weapon/weldingtool))
@@ -110,7 +113,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 				to_chat(user, "<span class='notice'>[src] is full.</span>")
 
 
-/obj/item/clothing/mask/cigarette/proc/light(var/flavor_text = "[usr] lights the [name].")
+/obj/item/clothing/mask/cigarette/proc/light(flavor_text = null)
 	if(!src.lit)
 		src.lit = 1
 		damtype = "fire"
@@ -136,8 +139,9 @@ LIGHTERS ARE IN LIGHTERS.DM
 		reagents.handle_reactions()
 		icon_state = icon_on
 		item_state = icon_on
-		var/turf/T = get_turf(src)
-		T.visible_message(flavor_text)
+		if(flavor_text)
+			var/turf/T = get_turf(src)
+			T.visible_message(flavor_text)
 		set_light(2, 0.25, "#E38F46")
 		processing_objects.Add(src)
 
@@ -321,14 +325,15 @@ LIGHTERS ARE IN LIGHTERS.DM
 	..()
 	reagents.add_reagent("nicotine", chem_volume)
 
-/obj/item/clothing/mask/cigarette/pipe/light(var/flavor_text = "[usr] lights the [name].")
+/obj/item/clothing/mask/cigarette/pipe/light(flavor_text = null)
 	if(!src.lit)
 		src.lit = 1
 		damtype = "fire"
 		icon_state = icon_on
 		item_state = icon_on
-		var/turf/T = get_turf(src)
-		T.visible_message(flavor_text)
+		if(flavor_text)
+			var/turf/T = get_turf(src)
+			T.visible_message(flavor_text)
 		processing_objects.Add(src)
 
 /obj/item/clothing/mask/cigarette/pipe/process()

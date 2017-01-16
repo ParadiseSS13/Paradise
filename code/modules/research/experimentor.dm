@@ -169,7 +169,7 @@
 	user.set_machine(src)
 	var/dat = "<center>"
 	if(!linked_console)
-		dat += "<b><a href='byond://?src=\ref[src];function=search'>Scan for R&D Console</A></b><br>"
+		dat += "<b><a href='byond://?src=[UID()];function=search'>Scan for R&D Console</A></b><br>"
 	if(loaded_item)
 		dat += "<b>Loaded Item:</b> [loaded_item]<br>"
 		dat += "<b>Technology</b>:<br>"
@@ -177,19 +177,19 @@
 		for(var/T in D)
 			dat += "[T]<br>"
 		dat += "<br><br>Available tests:"
-		dat += "<br><b><a href='byond://?src=\ref[src];item=\ref[loaded_item];function=[SCANTYPE_POKE]'>Poke</A></b>"
-		dat += "<br><b><a href='byond://?src=\ref[src];item=\ref[loaded_item];function=[SCANTYPE_IRRADIATE];'>Irradiate</A></b>"
-		dat += "<br><b><a href='byond://?src=\ref[src];item=\ref[loaded_item];function=[SCANTYPE_GAS]'>Gas</A></b>"
-		dat += "<br><b><a href='byond://?src=\ref[src];item=\ref[loaded_item];function=[SCANTYPE_HEAT]'>Burn</A></b>"
-		dat += "<br><b><a href='byond://?src=\ref[src];item=\ref[loaded_item];function=[SCANTYPE_COLD]'>Freeze</A></b>"
-		dat += "<br><b><a href='byond://?src=\ref[src];item=\ref[loaded_item];function=[SCANTYPE_OBLITERATE]'>Destroy</A></b><br>"
+		dat += "<br><b><a href='byond://?src=[UID()];item=\ref[loaded_item];function=[SCANTYPE_POKE]'>Poke</A></b>"
+		dat += "<br><b><a href='byond://?src=[UID()];item=\ref[loaded_item];function=[SCANTYPE_IRRADIATE];'>Irradiate</A></b>"
+		dat += "<br><b><a href='byond://?src=[UID()];item=\ref[loaded_item];function=[SCANTYPE_GAS]'>Gas</A></b>"
+		dat += "<br><b><a href='byond://?src=[UID()];item=\ref[loaded_item];function=[SCANTYPE_HEAT]'>Burn</A></b>"
+		dat += "<br><b><a href='byond://?src=[UID()];item=\ref[loaded_item];function=[SCANTYPE_COLD]'>Freeze</A></b>"
+		dat += "<br><b><a href='byond://?src=[UID()];item=\ref[loaded_item];function=[SCANTYPE_OBLITERATE]'>Destroy</A></b><br>"
 		if(istype(loaded_item,/obj/item/weapon/relic))
-			dat += "<br><b><a href='byond://?src=\ref[src];item=\ref[loaded_item];function=[SCANTYPE_DISCOVER]'>Discover</A></b><br>"
-		dat += "<br><b><a href='byond://?src=\ref[src];function=eject'>Eject</A>"
+			dat += "<br><b><a href='byond://?src=[UID()];item=\ref[loaded_item];function=[SCANTYPE_DISCOVER]'>Discover</A></b><br>"
+		dat += "<br><b><a href='byond://?src=[UID()];function=eject'>Eject</A>"
 	else
 		dat += "<b>Nothing loaded.</b>"
-	dat += "<br><a href='byond://?src=\ref[src];function=refresh'>Refresh</A><br>"
-	dat += "<br><a href='byond://?src=\ref[src];close=1'>Close</A><br></center>"
+	dat += "<br><a href='byond://?src=[UID()];function=refresh'>Refresh</A><br>"
+	dat += "<br><a href='byond://?src=[UID()];close=1'>Close</A><br></center>"
 	var/datum/browser/popup = new(user, "experimentor","Experimentor", 700, 400, src)
 	popup.set_content(dat)
 	popup.open()
@@ -680,7 +680,7 @@
 	warn_admins(user, "Flash")
 
 /obj/item/weapon/relic/proc/petSpray(mob/user)
-	var/message = "<span class='danger'>[src] begans to shake, and in the distance the sound of rampaging animals arises!</span>"
+	var/message = "<span class='danger'>[src] begins to shake, and in the distance the sound of rampaging animals arises!</span>"
 	visible_message(message)
 	to_chat(user, message)
 	var/animals = rand(1,25)
@@ -729,7 +729,7 @@
 	to_chat(user, "<span class='notice'>The [src] begins to vibrate!</span>")
 	spawn(rand(10,30))
 		var/turf/userturf = get_turf(user)
-		if(src.loc == user && userturf.z != ZLEVEL_CENTCOMM) //Because Nuke Ops bringing this back on their shuttle, then looting the ERT area is 2fun4you!
+		if(src.loc == user && is_teleport_allowed(userturf.z)) //Because Nuke Ops bringing this back on their shuttle, then looting the ERT area is 2fun4you!
 			visible_message("<span class='notice'>The [src] twists and bends, relocating itself!</span>")
 			throwSmoke(userturf)
 			do_teleport(user, userturf, 8, asoundin = 'sound/effects/phasein.ogg')

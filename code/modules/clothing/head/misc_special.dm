@@ -23,6 +23,7 @@
 	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
 	flags_inv = (HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE)
 	actions_types = list(/datum/action/item_action/toggle)
+	burn_state = FIRE_PROOF
 	species_fit = list("Vox", "Unathi", "Tajaran", "Vulpkanin")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/head.dmi',
@@ -66,6 +67,8 @@
 		to_chat(usr, "You push the [src] up out of your face.")
 		flash_protect = 0
 		tint = 0
+	var/mob/living/carbon/C = usr
+	C.update_tint()
 	usr.update_inv_head()	//so our mob-overlays update
 
 	for(var/X in actions)

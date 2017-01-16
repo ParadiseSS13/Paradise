@@ -25,7 +25,8 @@
 
 /obj/structure/girder/proc/take_damage(var/amount)
 	health -= amount
-	if(health < 0)
+	if(health <= 0)
+		new /obj/item/stack/sheet/metal(get_turf(src))
 		qdel(src)
 
 /obj/structure/girder/attackby(obj/item/W as obj, mob/user as mob, params)
@@ -187,16 +188,16 @@
 	if(prob(40))
 		qdel(src)
 
-/obj/structure/girder/bullet_act(var/obj/item/projectile/Proj)
-	if(istype(Proj, /obj/item/projectile/beam))
-		health -= Proj.damage
-		..()
-		if(health <= 0)
-			new /obj/item/stack/sheet/metal(get_turf(src))
-			qdel(src)
+/obj/structure/girder/narsie_act()
+	if(prob(25))
+		new /obj/structure/cultgirder(loc)
+		qdel(src)
 
+/obj/structure/girder/bullet_act(var/obj/item/projectile/Proj)
 	if(istype(Proj ,/obj/item/projectile/beam/pulse))
 		src.ex_act(2)
+	else
+		take_damage(Proj.damage)
 	..()
 	return 0
 
@@ -235,7 +236,6 @@
 	icon_state= "cultgirder"
 	anchored = 1
 	density = 1
-	layer = 2
 	var/health = 250
 
 /obj/structure/cultgirder/attackby(obj/item/W as obj, mob/user as mob, params)

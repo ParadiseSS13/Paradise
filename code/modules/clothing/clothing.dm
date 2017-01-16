@@ -1,5 +1,6 @@
 /obj/item/clothing
 	name = "clothing"
+	burn_state = FLAMMABLE
 	var/list/species_restricted = null //Only these species can wear this kit.
 	var/rig_restrict_helmet = 0 // Stops the user from equipping a rig helmet without attaching it to the suit first.
 	var/scan_reagents = 0 //Can the wearer see reagents while it's equipped?
@@ -30,9 +31,13 @@
 //BS12: Species-restricted clothing check.
 /obj/item/clothing/mob_can_equip(M as mob, slot)
 
-	//if we can equip the item anyway, don't bother with species_restricted (aslo cuts down on spam)
+	//if we can't equip the item anyway, don't bother with species_restricted (also cuts down on spam)
 	if(!..())
 		return 0
+
+	// Skip species restriction checks on non-equipment slots
+	if(slot in list(slot_r_hand, slot_l_hand, slot_in_backpack, slot_l_store, slot_r_store))
+		return 1
 
 	if(species_restricted && istype(M,/mob/living/carbon/human))
 
@@ -82,11 +87,13 @@
 	w_class = 1
 	throwforce = 2
 	slot_flags = SLOT_EARS
+	burn_state = FIRE_PROOF
 
-/obj/item/clothing/ears/attack_hand(mob/user as mob)
-	if(!user) return
+/obj/item/clothing/ears/attack_hand(mob/user)
+	if(!user)
+		return
 
-	if(src.loc != user || !istype(user,/mob/living/carbon/human))
+	if(loc != user || !ishuman(user))
 		..()
 		return
 
@@ -102,7 +109,7 @@
 	if(slot_flags & SLOT_TWOEARS )
 		O = (H.l_ear == src ? H.r_ear : H.l_ear)
 		user.unEquip(O)
-		if(!istype(src,/obj/item/clothing/ears/offear))
+		if(!istype(src, /obj/item/clothing/ears/offear))
 			qdel(O)
 			O = src
 	else
@@ -114,8 +121,9 @@
 		user.put_in_hands(O)
 		O.add_fingerprint(user)
 
-	if(istype(src,/obj/item/clothing/ears/offear))
+	if(istype(src, /obj/item/clothing/ears/offear))
 		qdel(src)
+
 
 /obj/item/clothing/ears/offear
 	name = "Other ear"
@@ -124,21 +132,13 @@
 	icon_state = "block"
 	slot_flags = SLOT_EARS | SLOT_TWOEARS
 
-	New(var/obj/O)
-		name = O.name
-		desc = O.desc
-		icon = O.icon
-		icon_state = O.icon_state
-		dir = O.dir
+/obj/item/clothing/ears/offear/New(var/obj/O)
+	name = O.name
+	desc = O.desc
+	icon = O.icon
+	icon_state = O.icon_state
+	dir = O.dir
 
-/obj/item/clothing/ears/earmuffs
-	name = "earmuffs"
-	desc = "Protects your hearing from loud noises, and quiet ones as well."
-	icon_state = "earmuffs"
-	item_state = "earmuffs"
-	flags = EARBANGPROTECT
-	strip_delay = 15
-	put_on_delay = 25
 
 //Glasses
 /obj/item/clothing/glasses
@@ -148,13 +148,18 @@
 	flags = GLASSESCOVERSEYES
 	slot_flags = SLOT_EYES
 	materials = list(MAT_GLASS = 250)
-	var/emagged = 0
 	var/vision_flags = 0
-	var/darkness_view = 0//Base human is 2
-	var/invisa_view = 0
-	var/color_view = null//overrides client.color while worn
+	var/darkness_view = 0 //Base human is 2
+	var/invis_view = SEE_INVISIBLE_LIVING
+	var/invis_override = 0
+
+	var/emagged = 0
+	var/list/color_view = null//overrides client.color while worn
+	var/prescription = 0
+	var/prescription_upgradable = 0
 	strip_delay = 20			//	   but seperated to allow items to protect but not impair vision, like space helmets
 	put_on_delay = 25
+	burn_state = FIRE_PROOF
 	species_restricted = list("exclude","Kidan")
 /*
 SEE_SELF  // can see self, no matter what
@@ -274,8 +279,8 @@ BLIND     // can't see anything
 	var/blockTracking // Do we block AI tracking?
 	var/HUDType = null
 	var/darkness_view = 0
+	var/helmet_goggles_invis_view = 0
 	var/vision_flags = 0
-	var/see_darkness = 1
 	var/can_toggle = null
 
 //Mask
@@ -342,6 +347,7 @@ BLIND     // can't see anything
 				src.loc = user
 				user.wear_mask = null
 				user.put_in_hands(src)
+	H.wear_mask_update(src, toggle_off = mask_adjusted)
 	usr.update_inv_wear_mask()
 	usr.update_inv_head()
 	for(var/X in actions)
@@ -526,6 +532,7 @@ BLIND     // can't see anything
 	flash_protect = 2
 	strip_delay = 50
 	put_on_delay = 50
+	burn_state = FIRE_PROOF
 
 /obj/item/clothing/suit/space
 	name = "Space suit"
@@ -547,6 +554,7 @@ BLIND     // can't see anything
 	max_heat_protection_temperature = SPACE_SUIT_MAX_TEMP_PROTECT
 	strip_delay = 80
 	put_on_delay = 80
+	burn_state = FIRE_PROOF
 	species_restricted = list("exclude","Diona","Vox","Wryn")
 
 //Under clothing
@@ -704,4 +712,3 @@ BLIND     // can't see anything
 		for(var/obj/item/clothing/accessory/A in accessories)
 			A.emp_act(severity)
 	..()
-

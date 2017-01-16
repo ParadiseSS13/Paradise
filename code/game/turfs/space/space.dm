@@ -20,8 +20,23 @@
 		icon_state = "[((x + y) ^ ~(x * y) + z) % 25]"
 	update_starlight()
 
-/turf/space/Destroy()
-	return QDEL_HINT_LETMELIVE
+/turf/space/Destroy(force)
+	if(force)
+		. = ..()
+	else
+		return QDEL_HINT_LETMELIVE
+
+
+/turf/space/BeforeChange()
+	..()
+	var/datum/space_level/S = space_manager.get_zlev(z)
+	S.remove_from_transit(src)
+
+/turf/space/AfterChange(ignore_air, keep_cabling = FALSE)
+	..()
+	var/datum/space_level/S = space_manager.get_zlev(z)
+	S.add_to_transit(src)
+	S.apply_transition(src)
 
 /turf/space/proc/update_starlight()
 	if(!config.starlight)
@@ -69,7 +84,7 @@
 
 /turf/space/Entered(atom/movable/A as mob|obj, atom/OL, ignoreRest = 0)
 	..()
-	
+
 	if(destination_z && A && (src in A.locs))
 		A.x = destination_x
 		A.y = destination_y
@@ -199,3 +214,26 @@
 
 /turf/space/can_have_cabling()
 	return 0
+
+/turf/space/proc/set_transition_north(dest_z)
+	destination_x = x
+	destination_y = TRANSITION_BORDER_SOUTH + 1
+	destination_z = dest_z
+
+/turf/space/proc/set_transition_south(dest_z)
+	destination_x = x
+	destination_y = TRANSITION_BORDER_NORTH - 1
+	destination_z = dest_z
+
+/turf/space/proc/set_transition_east(dest_z)
+	destination_x = TRANSITION_BORDER_WEST + 1
+	destination_y = y
+	destination_z = dest_z
+
+/turf/space/proc/set_transition_west(dest_z)
+	destination_x = TRANSITION_BORDER_EAST - 1
+	destination_y = y
+	destination_z = dest_z
+
+/turf/space/proc/remove_transitions()
+	destination_z = initial(destination_z)

@@ -133,6 +133,8 @@
 /obj/item/weapon/implant/dust
 	name = "duster implant"
 	desc = "An alarm which monitors host vital signs, transmitting a radio message and dusting the corpse on death."
+	icon = 'icons/effects/blood.dmi'
+	icon_state = "remains"
 
 /obj/item/weapon/implant/dust/get_data()
 	var/dat = {"<b>Implant Specifications:</b><BR>

@@ -9,6 +9,7 @@
 	throw_speed = 4
 	throw_range = 20
 	origin_tech = "bluespace=4"
+	burn_state = FLAMMABLE
 
 /obj/item/weapon/teleportation_scroll/apprentice
 	name = "lesser scroll of teleportation"
@@ -21,7 +22,7 @@
 	dat += "Number of uses: [src.uses]<BR>"
 	dat += "<HR>"
 	dat += "<B>Four uses use them wisely:</B><BR>"
-	dat += "<A href='byond://?src=\ref[src];spell_teleport=1'>Teleport</A><BR>"
+	dat += "<A href='byond://?src=[UID()];spell_teleport=1'>Teleport</A><BR>"
 	dat += "Kind regards,<br>Wizards Federation<br><br>P.S. Don't forget to bring your gear, you'll need it to cast most spells.<HR>"
 	user << browse(dat, "window=scroll")
 	onclose(user, "scroll")

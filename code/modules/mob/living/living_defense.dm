@@ -142,7 +142,7 @@
 	else
 
 		step_away(src,M)
-		add_logs(M.occupant, src, "pushed", object=M, admin=0)
+		add_logs(M.occupant, src, "pushed", object=M, admin=0, print_attack_log = 0)
 		M.occupant_message("<span class='warning'>You push [src] out of the way.</span>")
 		visible_message("<span class='warning'>[M] pushes [src] out of the way.</span>")
 		return
@@ -151,9 +151,13 @@
 /mob/living/proc/IgniteMob()
 	if(fire_stacks > 0 && !on_fire)
 		on_fire = 1
+		visible_message("<span class='warning'>[src] catches fire!</span>", \
+						"<span class='userdanger'>You're set on fire!</span>")
 		set_light(light_range + 3,l_color = "#ED9200")
 		throw_alert("fire", /obj/screen/alert/fire)
 		update_fire()
+		return 1
+	return 0
 
 /mob/living/proc/ExtinguishMob()
 	if(on_fire)
@@ -167,14 +171,20 @@
 	return
 
 /mob/living/proc/adjust_fire_stacks(add_fire_stacks) //Adjusting the amount of fire_stacks we have on person
-    fire_stacks = Clamp(fire_stacks + add_fire_stacks, -20, 20)
+	fire_stacks = Clamp(fire_stacks + add_fire_stacks, -20, 20)
+	if(on_fire && fire_stacks <= 0)
+		ExtinguishMob()
 
 /mob/living/proc/handle_fire()
-	if(fire_stacks < 0)
-		fire_stacks++ //If we've doused ourselves in water to avoid fire, dry off slowly
-		fire_stacks = min(0, fire_stacks)//So we dry ourselves back to default, nonflammable.
+	if(fire_stacks < 0) //If we've doused ourselves in water to avoid fire, dry off slowly
+		fire_stacks = min(0, fire_stacks + 1)//So we dry ourselves back to default, nonflammable.
 	if(!on_fire)
 		return 1
+	if(fire_stacks > 0)
+		adjust_fire_stacks(-0.1) //the fire is slowly consumed
+	else
+		ExtinguishMob()
+		return
 	var/datum/gas_mixture/G = loc.return_air() // Check if we're standing in an oxygenless environment
 	if(G.oxygen < 1)
 		ExtinguishMob() //If there's no oxygen in the tile we're on, put out the fire
@@ -183,7 +193,7 @@
 	location.hotspot_expose(700, 50, 1)
 
 /mob/living/fire_act()
-	adjust_fire_stacks(0.5)
+	adjust_fire_stacks(3)
 	IgniteMob()
 
 //Mobs on Fire end
@@ -225,7 +235,7 @@
 			to_chat(user, "<span class='notice'>You already grabbed [src].</span>")
 			return
 
-	add_logs(src, user, "grabbed", addition="passively")
+	add_logs(user, src, "grabbed", addition="passively")
 
 	var/obj/item/weapon/grab/G = new /obj/item/weapon/grab(user, src)
 	if(buckled)

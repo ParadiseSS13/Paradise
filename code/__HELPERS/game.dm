@@ -1,8 +1,8 @@
 /proc/dopage(src,target)
 	var/href_list
 	var/href
-	href_list = params2list("src=\ref[src]&[target]=1")
-	href = "src=\ref[src];[target]=1"
+	href_list = params2list("src=[src:UID()]&[target]=1")
+	href = "src=[src:UID()];[target]=1"
 	src:temphtml = null
 	src:Topic(href, href_list)
 	return null
@@ -209,7 +209,7 @@
 			var/turf/ear = get_turf(M)
 			if(ear)
 				// Ghostship is magic: Ghosts can hear radio chatter from anywhere
-				if(speaker_coverage[ear] || (istype(M, /mob/dead/observer) && (M.client) && (M.client.prefs.toggles & CHAT_GHOSTRADIO)))
+				if(speaker_coverage[ear] || (istype(M, /mob/dead/observer) && M.get_preference(CHAT_GHOSTRADIO)))
 					. |= M		// Since we're already looping through mobs, why bother using |= ? This only slows things down.
 	return .
 
@@ -401,23 +401,6 @@
 		mobs_found += M
 	return mobs_found
 
-/proc/GetRedPart(const/hexa)
-	return hex2num(copytext(hexa,2,4))
-
-/proc/GetGreenPart(const/hexa)
-	return hex2num(copytext(hexa,4,6))
-
-/proc/GetBluePart(const/hexa)
-	return hex2num(copytext(hexa,6,8))
-
-/proc/GetHexColors(const/hexa)
-	return list(
-			GetRedPart(hexa),
-			GetGreenPart(hexa),
-			GetBluePart(hexa)
-		)
-
-
 /proc/alone_in_area(var/area/the_area, var/mob/must_be_alone, var/check_type = /mob/living/carbon)
 	var/area/our_area = get_area_master(the_area)
 	for(var/C in living_mob_list)
@@ -435,14 +418,14 @@
 /proc/SecondsToTicks(var/seconds)
 	return seconds * 10
 
-proc/pollCandidates(var/Question, var/be_special_type, var/antag_age_check = 0, var/poll_time = 300)
+proc/pollCandidates(var/Question, var/be_special_type, var/antag_age_check = 0, var/poll_time = 300, var/ignore_respawnability = 0, var/min_hours = 0)
 	var/roletext = be_special_type ? get_roletext(be_special_type) : null
 	var/list/mob/dead/observer/candidates = list()
 	var/time_passed = world.time
 	if(!Question)
 		Question = "Would you like to be a special role?"
 
-	for(var/mob/dead/observer/G in player_list)
+	for(var/mob/dead/observer/G in (ignore_respawnability ? player_list : respawnable_list))
 		if(!G.key || !G.client)
 			continue
 		if(be_special_type)
@@ -454,12 +437,15 @@ proc/pollCandidates(var/Question, var/be_special_type, var/antag_age_check = 0, 
 		if(roletext)
 			if(jobban_isbanned(G, roletext) || jobban_isbanned(G, "Syndicate"))
 				continue
+		if(min_hours)
+			if(G.client.get_exp_living_num() < min_hours * 60)
+				continue
 		if(G.has_enabled_antagHUD)
 			continue
 		spawn(0)
 			G << 'sound/misc/notice2.ogg'//Alerting them to their consideration
 
-			switch(alert(G,Question,"Please answer in [poll_time/10] seconds!","Yes","No"))
+			switch(alert(G,Question,"Please answer in [poll_time/10] seconds!","Yes","No","Not This Round"))
 				if("Yes")
 					to_chat(G, "<span class='notice'>Choice registered: Yes.</span>")
 					if((world.time-time_passed)>poll_time)//If more than 30 game seconds passed.
@@ -469,6 +455,11 @@ proc/pollCandidates(var/Question, var/be_special_type, var/antag_age_check = 0, 
 					candidates += G
 				if("No")
 					to_chat(G, "<span class='danger'>Choice registered: No.</span>")
+					return
+				if("Not This Round")
+					to_chat(G, "<span class='danger'>Choice registered: No.</span>")
+					to_chat(G, "<span class='notice'>You will no longer receive notifications for the role '[roletext]' for the rest of the round.</span>")
+					G.client.prefs.be_special -= be_special_type
 					return
 				else
 					return

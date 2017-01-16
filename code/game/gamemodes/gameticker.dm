@@ -4,6 +4,7 @@ var/round_start_time = 0
 /datum/controller/gameticker
 	var/const/restart_timeout = 600
 	var/current_state = GAME_STATE_PREGAME
+	var/force_ending = 0
 
 	var/hide_mode = 0 // leave here at 0 ! setup() will take care of it when needed for Secret mode -walter0o
 	var/datum/game_mode/mode = null
@@ -208,12 +209,9 @@ var/round_start_time = 0
 	//start_events() //handles random events and space dust.
 	//new random event system is handled from the MC.
 
-	var/admins_number = 0
-	for(var/client/C)
-		if(C.holder)
-			admins_number++
-	if(admins_number == 0)
-		send2adminirc("Round has started with no admins online.")
+	var/list/admins_number = staff_countup(R_BAN)
+	if(admins_number[1] == 0 && admins_number[3] == 0)
+		send2irc(config.admin_notify_irc, "Round has started with no admins online.")
 	auto_toggle_ooc(0) // Turn it off
 	round_start_time = world.time
 
@@ -231,9 +229,8 @@ var/round_start_time = 0
 
 	votetimer()
 
-	for(var/mob/M in mob_list)
-		if(istype(M,/mob/new_player))
-			var/mob/new_player/N = M
+	for(var/mob/new_player/N in mob_list)
+		if(N.client)
 			N.new_player_panel_proc()
 
 	return 1
@@ -266,8 +263,7 @@ var/round_start_time = 0
 				M.client.screen += cinematic
 			if(M.stat != DEAD)
 				var/turf/T = get_turf(M)
-				// TODO: Tie into space manager
-				if(T && T.z == ZLEVEL_STATION)
+				if(T && is_station_level(T.z))
 					M.death(0) //no mercy
 
 	//Now animate the cinematic
@@ -338,9 +334,10 @@ var/round_start_time = 0
 /datum/controller/gameticker/proc/create_characters()
 	for(var/mob/new_player/player in player_list)
 		if(player.ready && player.mind)
-			if(player.mind.assigned_role == "AI" || player.mind.special_role == "malfunctioning AI")
+			if(player.mind.assigned_role == "AI")
 				player.close_spawn_windows()
-				player.AIize()
+				var/mob/living/silicon/ai/ai_character = player.AIize()
+				ai_character.moveToAILandmark()
 			else if(!player.mind.assigned_role)
 				continue
 			else
@@ -384,7 +381,7 @@ var/round_start_time = 0
 	else
 		game_finished |= mode.check_finished()
 
-	if(!mode.explosion_in_progress && game_finished)
+	if((!mode.explosion_in_progress && game_finished) || force_ending)
 		current_state = GAME_STATE_FINISHED
 		auto_toggle_ooc(1) // Turn it on
 		spawn
@@ -410,11 +407,11 @@ var/round_start_time = 0
 
 		if(player.client)
 			if(player.client.karma_spent == 0)
-				if(player.client.prefs && !(player.client.prefs.toggles & DISABLE_KARMA_REMINDER))
+				if(!player.get_preference(DISABLE_KARMA_REMINDER))
 					var/dat
 					dat += {"<html><head><title>Karma Reminder</title></head><body><h1><B>Karma Reminder</B></h1><br>
 					You have not yet spent your karma for the round, surely there is a player who was worthy of receiving<br>
-					your reward? Look under 'Special Verbs' for the 'Award Karma' button, and use it once a round for best results!</table></body></html>"}
+					your reward? Look under 'OOC' for the 'Award Karma' button, and use it once a round for best results!</table></body></html>"}
 					player << browse(dat, "window=karmareminder;size=400x300")
 
 

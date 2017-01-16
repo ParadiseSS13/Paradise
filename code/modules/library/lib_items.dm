@@ -18,6 +18,8 @@
 	anchored = 1
 	density = 1
 	opacity = 1
+	burn_state = FLAMMABLE
+	burntime = 30
 	var/health = 50
 	var/tmp/busy = 0
 	var/list/allowed_books = list(/obj/item/weapon/book, /obj/item/weapon/spellbook, /obj/item/weapon/storage/bible, /obj/item/weapon/tome) //Things allowed in the bookcase
@@ -81,7 +83,7 @@
 
 /obj/structure/bookcase/attack_hand(var/mob/user as mob)
 	if(contents.len)
-		var/obj/item/weapon/book/choice = input("Which book would you like to remove from \the [src]?") in contents as obj|null
+		var/obj/item/weapon/book/choice = input("Which book would you like to remove from [src]?") as null|anything in contents
 		if(choice)
 			if(user.incapacitated() || user.lying || !Adjacent(user))
 				return
@@ -167,6 +169,7 @@
 	throw_range = 5
 	w_class = 3		 //upped to three because books are, y'know, pretty big. (and you could hide them inside eachother recursively forever)
 	attack_verb = list("bashed", "whacked", "educated")
+	burn_state = FLAMMABLE
 
 	var/dat			 // Actual page content
 	var/due_date = 0 // Game time in 1/10th seconds

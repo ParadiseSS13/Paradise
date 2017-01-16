@@ -3,6 +3,7 @@
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	unsuitable_atmos_damage = 15
 	faction = list("mining")
+	weather_immunities = list("lava","ash")
 	environment_smash = 2
 	minbodytemp = 0
 	heat_damage_per_tick = 20
@@ -15,6 +16,7 @@
 	var/icon_aggro = null // for swapping to when we get aggressive
 	see_in_dark = 8
 	see_invisible = SEE_INVISIBLE_MINIMUM
+	mob_size = MOB_SIZE_LARGE
 
 /mob/living/simple_animal/hostile/asteroid/Aggro()
 	..()
@@ -464,6 +466,9 @@
 				return
 		if(istype(target, /obj/mecha/working/ripley))
 			var/obj/mecha/D = target
+			if(D.icon_state != "ripley-open")
+				to_chat(user, "<span class='info'>You can't add armour onto the mech while someone is inside!</span>")
+				return
 			var/list/damage_absorption = D.damage_absorption
 			if(damage_absorption["brute"] > 0.3)
 				damage_absorption["brute"] = max(damage_absorption["brute"] - 0.1, 0.3)
@@ -472,17 +477,11 @@
 				damage_absorption["laser"] = damage_absorption["laser"] - 0.025
 				to_chat(user, "<span class='info'>You strengthen [target], improving its resistance against melee attacks.</span>")
 				qdel(src)
-				if(D.icon_state == "ripley-open")
-					D.overlays += image("icon"="mecha.dmi", "icon_state"="ripley-g-open")
-					D.desc = "Autonomous Power Loader Unit. Its armour is enhanced with some goliath hide plates."
-				else
-					to_chat(user, "<span class='info'>You can't add armour onto the mech while someone is inside!</span>")
+				D.overlays += image("icon"="mecha.dmi", "icon_state"="ripley-g-open")
+				D.desc = "Autonomous Power Loader Unit. Its armour is enhanced with some goliath hide plates."
 				if(damage_absorption.["brute"] == 0.3)
-					if(D.icon_state == "ripley-open")
-						D.overlays += image("icon"="mecha.dmi", "icon_state"="ripley-g-full-open")
-						D.desc = "Autonomous Power Loader Unit. It's wearing a fearsome carapace entirely composed of goliath hide plates - the pilot must be an experienced monster hunter."
-					else
-						to_chat(user, "<span class='warning'>You can't add armour onto the mech while someone is inside!</span>")
+					D.overlays += image("icon"="mecha.dmi", "icon_state"="ripley-g-full-open")
+					D.desc = "Autonomous Power Loader Unit. It's wearing a fearsome carapace entirely composed of goliath hide plates - the pilot must be an experienced monster hunter."
 			else
 				to_chat(user, "<span class='warning'>You can't improve [D] any further!</span>")
 				return

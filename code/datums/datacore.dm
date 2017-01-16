@@ -129,6 +129,7 @@
 proc/get_id_photo(var/mob/living/carbon/human/H)
 	var/icon/preview_icon = null
 	var/obj/item/organ/external/head/head_organ = H.get_organ("head")
+	var/obj/item/organ/internal/eyes/eyes_organ = H.get_int_organ(/obj/item/organ/internal/eyes)
 
 	var/g = "m"
 	if(H.gender == FEMALE)
@@ -140,11 +141,19 @@ proc/get_id_photo(var/mob/living/carbon/human/H)
 	var/icon/temp
 	temp = new /icon(icobase, "groin_[g]")
 	preview_icon.Blend(temp, ICON_OVERLAY)
-	temp = new /icon(icobase, "head_[g]")
+	var/head = "head"
+	if(head_organ.alt_head && head_organ.species.bodyflags & HAS_ALT_HEADS)
+		var/datum/sprite_accessory/alt_heads/alternate_head = alt_heads_list[head_organ.alt_head]
+		if(alternate_head.icon_state)
+			head = alternate_head.icon_state
+	temp = new /icon(icobase, "[head]_[g]")
 	preview_icon.Blend(temp, ICON_OVERLAY)
 
 	//Tail
-	if(H.species.tail && H.species.flags & HAS_TAIL)
+	if(H.body_accessory && istype(H.body_accessory, /datum/body_accessory/tail))
+		temp = new/icon("icon" = H.body_accessory.icon, "icon_state" = H.body_accessory.icon_state)
+		preview_icon.Blend(temp, ICON_OVERLAY)
+	else if(H.species.tail && H.species.bodyflags & HAS_TAIL)
 		temp = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "[H.species.tail]_s")
 		preview_icon.Blend(temp, ICON_OVERLAY)
 
@@ -167,10 +176,26 @@ proc/get_id_photo(var/mob/living/carbon/human/H)
 	if(H.species.bodyflags & HAS_SKIN_COLOR)
 		preview_icon.Blend(rgb(H.r_skin, H.g_skin, H.b_skin), ICON_ADD)
 
+	//Tail Markings
+	var/icon/t_marking_s
+	if(H.species.bodyflags & HAS_TAIL_MARKINGS)
+		var/tail_marking = H.m_styles["tail"]
+		var/datum/sprite_accessory/tail_marking_style = marking_styles_list[tail_marking]
+		if(tail_marking_style && tail_marking_style.species_allowed)
+			t_marking_s = new/icon("icon" = tail_marking_style.icon, "icon_state" = "[tail_marking_style.icon_state]_s")
+			t_marking_s.Blend(H.m_colours["tail"], ICON_ADD)
+			if(!(H.body_accessory && istype(H.body_accessory, /datum/body_accessory/body)))
+				preview_icon.Blend(t_marking_s, ICON_OVERLAY)
+
 	var/icon/face_s = new/icon("icon" = 'icons/mob/human_face.dmi', "icon_state" = "bald_s")
 	if(!(H.species.bodyflags & NO_EYES))
 		var/icon/eyes_s = new/icon("icon" = 'icons/mob/human_face.dmi', "icon_state" = H.species ? H.species.eyes : "eyes_s")
-		eyes_s.Blend(rgb(H.r_eyes, H.g_eyes, H.b_eyes), ICON_ADD)
+		if(!eyes_organ)
+			return
+		var/eye_red = eyes_organ.eye_colour[1]
+		var/eye_green = eyes_organ.eye_colour[2]
+		var/eye_blue = eyes_organ.eye_colour[3]
+		eyes_s.Blend(rgb(eye_red, eye_green, eye_blue), ICON_ADD)
 		face_s.Blend(eyes_s, ICON_OVERLAY)
 
 	var/datum/sprite_accessory/hair_style = hair_styles_list[head_organ.h_style]
@@ -179,9 +204,16 @@ proc/get_id_photo(var/mob/living/carbon/human/H)
 		// I'll want to make a species-specific proc for this sooner or later
 		// But this'll do for now
 		if(head_organ.species.name == "Slime People")
-			hair_s.Blend(rgb(H.r_skin, H.g_skin, H.b_skin, 160), ICON_ADD)
+			hair_s.Blend(rgb(H.r_skin, H.g_skin, H.b_skin, 160), ICON_AND)
 		else
 			hair_s.Blend(rgb(head_organ.r_hair, head_organ.g_hair, head_organ.b_hair), ICON_ADD)
+
+		if(hair_style.secondary_theme)
+			var/icon/hair_secondary_s = new/icon("icon" = hair_style.icon, "icon_state" = "[hair_style.icon_state]_[hair_style.secondary_theme]_s")
+			if(!hair_style.no_sec_colour)
+				hair_secondary_s.Blend(rgb(head_organ.r_hair_sec, head_organ.g_hair_sec, head_organ.b_hair_sec), ICON_ADD)
+			hair_s.Blend(hair_secondary_s, ICON_OVERLAY)
+
 		face_s.Blend(hair_s, ICON_OVERLAY)
 
 	//Head Accessory
@@ -199,15 +231,31 @@ proc/get_id_photo(var/mob/living/carbon/human/H)
 			facial_s.Blend(rgb(H.r_skin, H.g_skin, H.b_skin, 160), ICON_ADD)
 		else
 			facial_s.Blend(rgb(head_organ.r_facial, head_organ.g_facial, head_organ.b_facial), ICON_ADD)
+
+		if(facial_hair_style.secondary_theme)
+			var/icon/facial_secondary_s = new/icon("icon" = facial_hair_style.icon, "icon_state" = "[facial_hair_style.icon_state]_[facial_hair_style.secondary_theme]_s")
+			if(!facial_hair_style.no_sec_colour)
+				facial_secondary_s.Blend(rgb(head_organ.r_facial_sec, head_organ.g_facial_sec, head_organ.b_facial_sec), ICON_ADD)
+			facial_s.Blend(facial_secondary_s, ICON_OVERLAY)
+
 		face_s.Blend(facial_s, ICON_OVERLAY)
 
 	//Markings
-	if(H.species.bodyflags & HAS_MARKINGS)
-		var/datum/sprite_accessory/marking_style = marking_styles_list[H.m_style]
-		if(marking_style && marking_style.species_allowed)
-			var/icon/markings_s = new/icon("icon" = marking_style.icon, "icon_state" = "[marking_style.icon_state]_s")
-			markings_s.Blend(rgb(H.r_markings, H.g_markings, H.b_markings), ICON_ADD)
-			face_s.Blend(markings_s, ICON_OVERLAY)
+	if((H.species.bodyflags & HAS_HEAD_MARKINGS) || (H.species.bodyflags & HAS_BODY_MARKINGS))
+		if(H.species.bodyflags & HAS_BODY_MARKINGS) //Body markings.
+			var/body_marking = H.m_styles["body"]
+			var/datum/sprite_accessory/body_marking_style = marking_styles_list[body_marking]
+			if(body_marking_style && body_marking_style.species_allowed)
+				var/icon/b_marking_s = new/icon("icon" = body_marking_style.icon, "icon_state" = "[body_marking_style.icon_state]_s")
+				b_marking_s.Blend(H.m_colours["body"], ICON_ADD)
+				face_s.Blend(b_marking_s, ICON_OVERLAY)
+		if(H.species.bodyflags & HAS_HEAD_MARKINGS) //Head markings.
+			var/head_marking = H.m_styles["head"]
+			var/datum/sprite_accessory/head_marking_style = marking_styles_list[head_marking]
+			if(head_marking_style && head_marking_style.species_allowed)
+				var/icon/h_marking_s = new/icon("icon" = head_marking_style.icon, "icon_state" = "[head_marking_style.icon_state]_s")
+				h_marking_s.Blend(H.m_colours["head"], ICON_ADD)
+				face_s.Blend(h_marking_s, ICON_OVERLAY)
 
 	preview_icon.Blend(face_s, ICON_OVERLAY)
 
@@ -344,9 +392,22 @@ proc/get_id_photo(var/mob/living/carbon/human/H)
 		else
 			clothes_s = new /icon('icons/mob/uniform.dmi', "grey_s")
 			clothes_s.Blend(new /icon('icons/mob/feet.dmi', "black"), ICON_UNDERLAY)
+
 	preview_icon.Blend(face_s, ICON_OVERLAY) // Why do we do this twice
 	if(clothes_s)
 		preview_icon.Blend(clothes_s, ICON_OVERLAY)
+	//Bus body accessories that go over clothes.
+	if(H.body_accessory && istype(H.body_accessory, /datum/body_accessory/body))
+		temp = new/icon("icon" = H.body_accessory.icon, "icon_state" = H.body_accessory.icon_state)
+		if(H.body_accessory.pixel_x_offset)
+			temp.Shift(EAST, H.body_accessory.pixel_x_offset)
+		if(H.body_accessory.pixel_y_offset)
+			temp.Shift(NORTH, H.body_accessory.pixel_y_offset)
+		if(H.species.bodyflags & HAS_SKIN_COLOR)
+			temp.Blend(rgb(H.r_skin, H.g_skin, H.b_skin), H.body_accessory.blend_mode)
+		if(t_marking_s)
+			temp.Blend(t_marking_s, ICON_OVERLAY)
+		preview_icon.Blend(temp, ICON_OVERLAY)
 	qdel(face_s)
 	qdel(clothes_s)
 

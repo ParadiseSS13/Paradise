@@ -66,7 +66,7 @@
 					if(mind) //Handles vampires "eating" blood that isn't their own.
 						if(mind in ticker.mode.vampires)
 							for(var/datum/reagent/blood/BL in vessel.reagent_list)
-								if(nutrition >= 450)
+								if(nutrition >= NUTRITION_LEVEL_WELL_FED)
 									break //We don't want blood tranfusions making vampires fat.
 								if(BL.data["donor"] != src)
 									nutrition += (15 * REAGENTS_METABOLISM)
@@ -101,7 +101,7 @@
 				else
 					adjustOxyLoss(round((BLOOD_VOLUME_NORMAL - blood_volume) * 0.02, 1))
 				if(prob(5))
-					eye_blurry = max(eye_blurry, 6)
+					EyeBlurry(6)
 					var/word = pick("dizzy","woozy","faint")
 					to_chat(src, "<span class='warning'>You feel very [word].</span>")
 			if(BLOOD_VOLUME_SURVIVE to BLOOD_VOLUME_BAD)
@@ -231,6 +231,9 @@
 
 	var/datum/reagent/blood/injected = get_blood(container.reagents)
 
+	if(!istype(injected)) //Sanity..
+		return
+
 	if(species && species.flags & NO_BLOOD)
 		reagents.add_reagent("blood", amount, injected.data)
 		reagents.update_total()
@@ -238,8 +241,16 @@
 
 	var/datum/reagent/blood/our = get_blood(vessel)
 
-	if(!istype(injected) || !istype(our))
+	if(!istype(our)) // Do we not have blood?
+		vessel.add_reagent("blood", amount, injected.data) // This is only ran once, so we need to add back their DNA.
+		vessel.update_total()
+		..()
+		our = get_blood(vessel) // Get the new blood.
+		our.data["blood_DNA"] = dna.unique_enzymes // Give it the proper DNA we had before (src.dna)
+		our.data["blood_type"] = dna.b_type  // Proper blood type.
+		our.data["donor"] = src // Without this, it'd be random each time it was extracted or Null.
 		return
+
 	if(blood_incompatible(injected.data["blood_type"],our.data["blood_type"]) )
 		reagents.add_reagent("toxin",amount * 0.5)
 		reagents.update_total()
@@ -318,7 +329,7 @@ Large: Whether the splat should be big or not
 				R.reaction_turf(T, R.volume)
 			return
 	else if(source)
-		log_to_dd("Non-human or reagent blood source. Area: [get_area(source)], Name: [source]")
+		log_runtime(EXCEPTION("Non-human or reagent blood source. Area: [get_area(source)], Name: [source]"), source)
 
 	// Are we dripping or splattering?
 	var/list/drips = list()

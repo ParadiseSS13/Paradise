@@ -32,7 +32,10 @@
 	throwforce = 7.0
 	w_class = 2
 	materials = list(MAT_METAL=50)
-	attack_verb = list("bludgeoned", "whacked", "disciplined", "thrashed")
+	attack_verb = list("bludgeoned", "whacked", "disciplined", "thrashed", "Vaudevilled")
+
+/obj/item/weapon/cane/is_crutch()
+	return 1
 
 /obj/item/weapon/c_tube
 	name = "cardboard tube"
@@ -50,7 +53,7 @@
 	name = "desk fan"
 	icon = 'icons/obj/decorations.dmi'
 	icon_state = "fan"
-	desc = "A smal desktop fan. Button seems to be stuck in the 'on' position."
+	desc = "A small desktop fan. The button seems to be stuck in the 'on' position."
 
 /*
 /obj/item/weapon/game_kit
@@ -111,7 +114,7 @@
 	name = "newton cradle"
 	icon = 'icons/obj/decorations.dmi'
 	icon_state = "newton"
-	desc = "A device bored paper pushers use to remind themselves that the time did not stop yet. Contains gravity."
+	desc = "A device bored paper pushers use to remind themselves that time did not stop yet. Contains gravity."
 
 /obj/item/weapon/pai_cable
 	desc = "A flexible coated cable with a universal jack on one end."

@@ -1,7 +1,7 @@
 #define TESLA_DEFAULT_POWER 1738260
 #define TESLA_MINI_POWER 869130
 
-var/list/blacklisted_tesla_types = list(/obj/machinery/atmospherics,
+var/list/blacklisted_tesla_types = typecacheof(list(/obj/machinery/atmospherics,
 										/obj/machinery/power/emitter,
 										/obj/machinery/field/generator,
 										/mob/living/simple_animal,
@@ -15,7 +15,7 @@ var/list/blacklisted_tesla_types = list(/obj/machinery/atmospherics,
 										/obj/machinery/field/containment,
 										/obj/structure/disposalpipe,
 										/obj/structure/sign,
-										/obj/machinery/gateway)
+										/obj/machinery/gateway))
 
 /obj/singularity/energy_ball
 	name = "energy ball"
@@ -175,7 +175,7 @@ var/list/blacklisted_tesla_types = list(/obj/machinery/atmospherics,
 				closest_atom = A
 				closest_dist = dist
 
-		else if(closest_grounding_rod || is_type_in_list(A, blacklisted_tesla_types))
+		else if(closest_grounding_rod || is_type_in_typecache(A, blacklisted_tesla_types))
 			continue
 
 		else if(istype(A, /mob/living))

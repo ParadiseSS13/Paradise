@@ -151,9 +151,9 @@ datum/genesequence
 			var/this_genome_slot = manually_placed_genomes[sequence_num][curindex]
 			if(!this_genome_slot)
 				this_genome_slot = "- - - - -"
-			dat += "<td><a href='?src=\ref[src];sequence_num=[sequence_num];insertpos=[curindex]' style='background-color:[bgcolour]'>[this_genome_slot]</a></td>"
-		dat += "<td><a href='?src=\ref[src];reset=1;sequence_num=[sequence_num]'>Reset</a></td>"
-		//dat += "<td><a href='?src=\ref[src];clone=1;sequence_num=[sequence_num]'>Clone</a></td>"
+			dat += "<td><a href='?src=[UID()];sequence_num=[sequence_num];insertpos=[curindex]' style='background-color:[bgcolour]'>[this_genome_slot]</a></td>"
+		dat += "<td><a href='?src=[UID()];reset=1;sequence_num=[sequence_num]'>Reset</a></td>"
+		//dat += "<td><a href='?src=[UID()];clone=1;sequence_num=[sequence_num]'>Clone</a></td>"
 		dat += "</tr>"
 
 	//completed gene sequences
@@ -163,15 +163,15 @@ datum/genesequence
 		for(var/curindex = 1, curindex <= 7, curindex++)
 			var/this_genome_slot = cur_genesequence.full_genome_sequence[curindex]
 			dat += "<td style='background-color:#008000'>[this_genome_slot]</td>"
-		dat += "<td><a href='?src=\ref[src];wipe=1;sequence_num=[sequence_num]'>Wipe</a></td>"
-		dat += "<td><a href='?src=\ref[src];clone=1;sequence_num=[sequence_num]'>Clone</a></td>"
+		dat += "<td><a href='?src=[UID()];wipe=1;sequence_num=[sequence_num]'>Wipe</a></td>"
+		dat += "<td><a href='?src=[UID()];clone=1;sequence_num=[sequence_num]'>Clone</a></td>"
 		dat += "</tr>"
 
 	dat += "</table>"
 
 	dat += "<br>"
 	dat += "<hr>"
-	dat += "<a href='?src=\ref[src];close=1'>Close</a>"
+	dat += "<a href='?src=[UID()];close=1'>Close</a>"
 	user << browse(dat, "window=reconstitutor;size=600x500")
 	user.set_machine(src)
 	onclose(user, "reconstitutor")

@@ -34,12 +34,12 @@
 /mob/living/carbon/Move(NewLoc, direct)
 	. = ..()
 	if(.)
-		if(src.nutrition && src.stat != 2)
-			src.nutrition -= HUNGER_FACTOR/10
-			if(src.m_intent == "run")
-				src.nutrition -= HUNGER_FACTOR/10
-		if((FAT in src.mutations) && src.m_intent == "run" && src.bodytemperature <= 360)
-			src.bodytemperature += 2
+		if(nutrition && stat != DEAD)
+			nutrition -= HUNGER_FACTOR/10
+			if(m_intent == "run")
+				nutrition -= HUNGER_FACTOR/10
+		if((FAT in mutations) && m_intent == "run" && bodytemperature <= 360)
+			bodytemperature += 2
 
 		// Moving around increases germ_level faster
 		if(germ_level < GERM_LEVEL_MOVE_CAP && prob(8))
@@ -158,13 +158,13 @@
 		"<span class='userdanger'>You feel a powerful shock coursing through your body!</span>", \
 		"<span class='italics'>You hear a heavy electrical crack.</span>" \
 	)
-	jitteriness += 1000 //High numbers for violent convulsions
+	AdjustJitter(1000) //High numbers for violent convulsions
 	do_jitter_animation(jitteriness)
-	stuttering += 2
+	AdjustStuttering(2)
 	if(!tesla_shock || (tesla_shock && siemens_coeff > 0.5))
 		Stun(2)
 	spawn(20)
-		jitteriness = max(jitteriness - 990, 10) //Still jittery, but vastly less
+		AdjustJitter(-1000, bound_lower = 10) //Still jittery, but vastly less
 		if(!tesla_shock || (tesla_shock && siemens_coeff > 0.5))
 			Stun(3)
 			Weaken(3)
@@ -268,7 +268,7 @@
 				if(istype(src,/mob/living/carbon/human) && src:w_uniform)
 					var/mob/living/carbon/human/H = src
 					H.w_uniform.add_fingerprint(M)
-				src.sleeping = max(0,src.sleeping-5)
+				AdjustSleeping(-5)
 				if(src.sleeping == 0)
 					src.resting = 0
 				AdjustParalysis(-3)
@@ -327,8 +327,8 @@
 				E.damage += rand(12, 16)
 
 		if(E.damage > E.min_bruised_damage)
-			eye_blind += damage
-			eye_blurry += damage * rand(3, 6)
+			AdjustEyeBlind(damage)
+			AdjustEyeBlurry(damage * rand(3, 6))
 
 			if(E.damage > (E.min_bruised_damage + E.min_broken_damage) / 2)
 				if(!(E.status & ORGAN_ROBOT))
@@ -454,8 +454,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 	totalMembers |= pipeline.other_atmosmch
 	for(var/obj/machinery/atmospherics/A in totalMembers)
 		if(!A.pipe_image)
-			A.pipe_image = image(A, A.loc, layer = 20, dir = A.dir) //the 20 puts it above Byond's darkness (not its opacity view)
-			A.pipe_image.plane = HUD_PLANE
+			A.update_pipe_image()
 		pipes_shown += A.pipe_image
 		client.images += A.pipe_image
 
@@ -537,11 +536,12 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 			thrown_thing = throwable_mob
 			var/turf/start_T = get_turf(loc) //Get the start and target tile for the descriptors
 			var/turf/end_T = get_turf(target)
+			throwable_mob.forceMove(start_T)
 			if(start_T && end_T)
 				var/start_T_descriptor = "<font color='#6b5d00'>tile at [start_T.x], [start_T.y], [start_T.z] in area [get_area(start_T)]</font>"
 				var/end_T_descriptor = "<font color='#6b4400'>tile at [end_T.x], [end_T.y], [end_T.z] in area [get_area(end_T)]</font>"
 
-				add_logs(throwable_mob, src, "thrown", addition="from [start_T_descriptor] with the target [end_T_descriptor]")
+				add_logs(src, throwable_mob, "thrown", addition="from [start_T_descriptor] with the target [end_T_descriptor]")
 
 	else if(!(I.flags & ABSTRACT)) //can't throw abstract items
 		thrown_thing = I
@@ -551,12 +551,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 		visible_message("<span class='danger'>[src] has thrown [thrown_thing].</span>")
 		newtonian_move(get_dir(target, src))
 		thrown_thing.throw_at(target, thrown_thing.throw_range, thrown_thing.throw_speed, src)
-/*
-/mob/living/carbon/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume)
-	..()
-	src.IgniteMob()
-	bodytemperature = max(bodytemperature, BODYTEMP_HEAT_DAMAGE_LIMIT+10)
-*/
+
 /mob/living/carbon/can_use_hands()
 	if(handcuffed)
 		return 0
@@ -596,27 +591,27 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 	user.set_machine(src)
 
 	var/dat = {"<table>
-	<tr><td><B>Left Hand:</B></td><td><A href='?src=\ref[src];item=[slot_l_hand]'>[(l_hand && !(l_hand.flags&ABSTRACT)) ? l_hand : "<font color=grey>Empty</font>"]</A></td></tr>
-	<tr><td><B>Right Hand:</B></td><td><A href='?src=\ref[src];item=[slot_r_hand]'>[(r_hand && !(r_hand.flags&ABSTRACT)) ? r_hand : "<font color=grey>Empty</font>"]</A></td></tr>
+	<tr><td><B>Left Hand:</B></td><td><A href='?src=[UID()];item=[slot_l_hand]'>[(l_hand && !(l_hand.flags&ABSTRACT)) ? l_hand : "<font color=grey>Empty</font>"]</A></td></tr>
+	<tr><td><B>Right Hand:</B></td><td><A href='?src=[UID()];item=[slot_r_hand]'>[(r_hand && !(r_hand.flags&ABSTRACT)) ? r_hand : "<font color=grey>Empty</font>"]</A></td></tr>
 	<tr><td>&nbsp;</td></tr>"}
 
-	dat += "<tr><td><B>Back:</B></td><td><A href='?src=\ref[src];item=[slot_back]'>[(back && !(back.flags&ABSTRACT)) ? back : "<font color=grey>Empty</font>"]</A>"
+	dat += "<tr><td><B>Back:</B></td><td><A href='?src=[UID()];item=[slot_back]'>[(back && !(back.flags&ABSTRACT)) ? back : "<font color=grey>Empty</font>"]</A>"
 	if(istype(wear_mask, /obj/item/clothing/mask) && istype(back, /obj/item/weapon/tank))
-		dat += "&nbsp;<A href='?src=\ref[src];internal=[slot_back]'>[internal ? "Disable Internals" : "Set Internals"]</A>"
+		dat += "&nbsp;<A href='?src=[UID()];internal=[slot_back]'>[internal ? "Disable Internals" : "Set Internals"]</A>"
 
 	dat += "</td></tr><tr><td>&nbsp;</td></tr>"
 
-	dat += "<tr><td><B>Head:</B></td><td><A href='?src=\ref[src];item=[slot_head]'>[(head && !(head.flags&ABSTRACT)) ? head : "<font color=grey>Empty</font>"]</A></td></tr>"
+	dat += "<tr><td><B>Head:</B></td><td><A href='?src=[UID()];item=[slot_head]'>[(head && !(head.flags&ABSTRACT)) ? head : "<font color=grey>Empty</font>"]</A></td></tr>"
 
-	dat += "<tr><td><B>Mask:</B></td><td><A href='?src=\ref[src];item=[slot_wear_mask]'>[(wear_mask && !(wear_mask.flags&ABSTRACT)) ? wear_mask : "<font color=grey>Empty</font>"]</A></td></tr>"
+	dat += "<tr><td><B>Mask:</B></td><td><A href='?src=[UID()];item=[slot_wear_mask]'>[(wear_mask && !(wear_mask.flags&ABSTRACT)) ? wear_mask : "<font color=grey>Empty</font>"]</A></td></tr>"
 
 	if(handcuffed)
-		dat += "<tr><td><B>Handcuffed:</B> <A href='?src=\ref[src];item=[slot_handcuffed]'>Remove</A></td></tr>"
+		dat += "<tr><td><B>Handcuffed:</B> <A href='?src=[UID()];item=[slot_handcuffed]'>Remove</A></td></tr>"
 	if(legcuffed)
-		dat += "<tr><td><A href='?src=\ref[src];item=[slot_legcuffed]'>Legcuffed</A></td></tr>"
+		dat += "<tr><td><A href='?src=[UID()];item=[slot_legcuffed]'>Legcuffed</A></td></tr>"
 
 	dat += {"</table>
-	<A href='?src=\ref[user];mach_close=mob\ref[src]'>Close</A>
+	<A href='?src=[user.UID()];mach_close=mob\ref[src]'>Close</A>
 	"}
 
 	var/datum/browser/popup = new(user, "mob\ref[src]", "[src]", 440, 500)
@@ -747,7 +742,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 
 /mob/living/carbon/resist_fire()
 	fire_stacks -= 5
-	weakened = max(weakened, 3)//We dont check for CANWEAKEN, I don't care how immune to weakening you are, if you're rolling on the ground, you're busy.
+	Weaken(3, 1, 1) //We dont check for CANWEAKEN, I don't care how immune to weakening you are, if you're rolling on the ground, you're busy.
 	update_canmove()
 	spin(32,2)
 	visible_message("<span class='danger'>[src] rolls on the floor, trying to put themselves out!</span>", \
@@ -944,9 +939,10 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 /mob/living/carbon/proc/eat(var/obj/item/weapon/reagent_containers/food/toEat, mob/user)
 	if(!istype(toEat))
 		return 0
-	var/fullness = 0
+	var/fullness = nutrition + 10
 	if(istype(toEat, /obj/item/weapon/reagent_containers/food/snacks))
-		fullness = nutrition + (reagents.get_reagent_amount("nutriment") * 20) + (reagents.get_reagent_amount("protein") * 25) + (reagents.get_reagent_amount("plantmatter") * 25)
+		for(var/datum/reagent/consumable/C in reagents.reagent_list) //we add the nutrition value of what we're currently digesting
+			fullness += C.nutriment_factor * C.volume / C.metabolization_rate
 	if(user == src)
 		if(istype(toEat, /obj/item/weapon/reagent_containers/food/drinks))
 			if(!selfDrink(toEat))
@@ -962,18 +958,21 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 	return 1
 
 /mob/living/carbon/proc/selfFeed(var/obj/item/weapon/reagent_containers/food/toEat, fullness)
-	if(istype(toEat, /obj/item/weapon/reagent_containers/food/pill))
+	if(ispill(toEat))
 		to_chat(src, "<span class='notify'>You [toEat.apply_method] [toEat].</span>")
 	else
+		if(toEat.junkiness && satiety < -150 && nutrition > NUTRITION_LEVEL_STARVING + 50 )
+			to_chat(src, "<span class='notice'>You don't feel like eating any more junk food at the moment.</span>")
+			return 0
 		if(fullness <= 50)
 			to_chat(src, "<span class='warning'>You hungrily chew out a piece of [toEat] and gobble it!</span>")
-		else if(fullness > 50 && fullness <= 150)
+		else if(fullness > 50 && fullness < 150)
 			to_chat(src, "<span class='notice'>You hungrily begin to eat [toEat].</span>")
-		else if(fullness > 150 && fullness <= 350)
+		else if(fullness > 150 && fullness < 500)
 			to_chat(src, "<span class='notice'>You take a bite of [toEat].</span>")
-		else if(fullness > 350 && fullness <= 550)
+		else if(fullness > 500 && fullness < 600)
 			to_chat(src, "<span class='notice'>You unwillingly chew a bit of [toEat].</span>")
-		else if(fullness > (550 * (1 + overeatduration / 2000)))	// The more you eat - the more you can eat
+		else if(fullness > (600 * (1 + overeatduration / 2000)))	// The more you eat - the more you can eat
 			to_chat(src, "<span class='warning'>You cannot force any more of [toEat] to go down your throat.</span>")
 			return 0
 	return 1
@@ -982,7 +981,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 	return 1
 
 /mob/living/carbon/proc/forceFed(var/obj/item/weapon/reagent_containers/food/toEat, mob/user, fullness)
-	if(fullness <= (550 * (1 + overeatduration / 1000)))
+	if(ispill(toEat) || fullness <= (600 * (1 + overeatduration / 1000)))
 		if(!toEat.instant_application)
 			visible_message("<span class='warning'>[user] attempts to force [src] to [toEat.apply_method] [toEat].</span>")
 	else
@@ -1010,15 +1009,14 @@ so that different stomachs can handle things in different ways VB*/
 /mob/living/carbon/proc/consume(var/obj/item/weapon/reagent_containers/food/toEat)
 	if(!toEat.reagents)
 		return
+	if(satiety > -200)
+		satiety -= toEat.junkiness
 	if(toEat.consume_sound)
 		playsound(loc, toEat.consume_sound, rand(10,50), 1)
 	if(toEat.reagents.total_volume)
-		toEat.reagents.reaction(src, toEat.apply_type)
-		spawn(0)
-			if(toEat.reagents.total_volume > toEat.bitesize)
-				toEat.reagents.trans_to(src, toEat.bitesize*toEat.transfer_efficiency)
-			else
-				toEat.reagents.trans_to(src, toEat.reagents.total_volume*toEat.transfer_efficiency)
+		var/fraction = min(toEat.bitesize/toEat.reagents.total_volume, 1)
+		toEat.reagents.reaction(src, toEat.apply_type, fraction)
+		toEat.reagents.trans_to(src, toEat.bitesize*toEat.transfer_efficiency)
 
 /mob/living/carbon/get_access()
 	. = ..()
@@ -1043,3 +1041,49 @@ so that different stomachs can handle things in different ways VB*/
 /mob/living/carbon/proc/update_internals_hud_icon(internal_state = 0)
 	if(hud_used && hud_used.internals)
 		hud_used.internals.icon_state = "internal[internal_state]"
+
+//to recalculate and update the mob's total tint from tinted equipment it's wearing.
+/mob/living/carbon/proc/update_tint()
+	if(!tinted_weldhelh)
+		return
+	var/tinttotal = get_total_tint()
+	if(tinttotal >= TINT_BLIND)
+		overlay_fullscreen("tint", /obj/screen/fullscreen/blind)
+	else if(tinttotal >= TINT_IMPAIR)
+		overlay_fullscreen("tint", /obj/screen/fullscreen/impaired, 2)
+	else
+		clear_fullscreen("tint", 0)
+
+/mob/living/carbon/proc/get_total_tint()
+	. = 0
+	if(istype(head, /obj/item/clothing/head))
+		var/obj/item/clothing/head/HT = head
+		. += HT.tint
+	if(wear_mask)
+		. += wear_mask.tint
+
+/mob/living/carbon/human/get_total_tint()
+	. = ..()
+	if(glasses)
+		var/obj/item/clothing/glasses/G = glasses
+		. += G.tint
+
+
+//handle stuff to update when a mob equips/unequips a mask.
+/mob/living/proc/wear_mask_update(obj/item/clothing/C, toggle_off = 1)
+	update_inv_wear_mask()
+
+/mob/living/carbon/wear_mask_update(obj/item/clothing/C, toggle_off = 1)
+	if(C.tint || initial(C.tint))
+		update_tint()
+	update_inv_wear_mask()
+
+//handle stuff to update when a mob equips/unequips a headgear.
+/mob/living/carbon/proc/head_update(obj/item/I, forced)
+	if(istype(I, /obj/item/clothing))
+		var/obj/item/clothing/C = I
+		if(C.tint || initial(C.tint))
+			update_tint()
+	if(I.flags_inv & HIDEMASK || forced)
+		update_inv_wear_mask()
+	update_inv_head()

@@ -67,29 +67,29 @@
 	else
 		dat += "<b>Energy cell</b>: None<br>"
 	if(auth_card)
-		dat += "<A href='?src=\ref[src];ejectcard=1'>\[[auth_card]\]<a><br>"
+		dat += "<A href='?src=[UID()];ejectcard=1'>\[[auth_card]\]<a><br>"
 		if(!locked)
-			dat += "<b><A href='?src=\ref[src];toggle_field=1'>[suspension_field ? "Disable" : "Enable"] field</a></b><br>"
+			dat += "<b><A href='?src=[UID()];toggle_field=1'>[suspension_field ? "Disable" : "Enable"] field</a></b><br>"
 		else
 			dat += "<br>"
 	else
-		dat += "<A href='?src=\ref[src];insertcard=1'>\[------\]<a><br>"
+		dat += "<A href='?src=[UID()];insertcard=1'>\[------\]<a><br>"
 		if(!locked)
-			dat += "<b><A href='?src=\ref[src];toggle_field=1'>[suspension_field ? "Disable" : "Enable"] field</a></b><br>"
+			dat += "<b><A href='?src=[UID()];toggle_field=1'>[suspension_field ? "Disable" : "Enable"] field</a></b><br>"
 		else
 			dat += "Enter your ID to begin.<br>"
 
 	dat += "<hr>"
 	if(!locked)
 		dat += "<b>Select field mode</b><br>"
-		dat += "[field_type=="carbon"?"<b>":""			]<A href='?src=\ref[src];select_field=carbon'>Diffracted carbon dioxide laser</A></b><br>"
-		dat += "[field_type=="nitrogen"?"<b>":""		]<A href='?src=\ref[src];select_field=nitrogen'>Nitrogen tracer field</A></b><br>"
-		dat += "[field_type=="potassium"?"<b>":""		]<A href='?src=\ref[src];select_field=potassium'>Potassium refrigerant cloud</A></b><br>"
-		dat += "[field_type=="mercury"?"<b>":""	]<A href='?src=\ref[src];select_field=mercury'>Mercury dispersion wave</A></b><br>"
-		dat += "[field_type=="iron"?"<b>":""		]<A href='?src=\ref[src];select_field=iron'>Iron wafer conduction field</A></b><br>"
-		dat += "[field_type=="calcium"?"<b>":""	]<A href='?src=\ref[src];select_field=calcium'>Calcium binary deoxidiser</A></b><br>"
-		dat += "[field_type=="plasma"?"<b>":""	]<A href='?src=\ref[src];select_field=chlorine'>Chlorine diffusion emissions</A></b><br>"
-		dat += "[field_type=="plasma"?"<b>":""	]<A href='?src=\ref[src];select_field=plasma'>Plasma saturated field</A></b><br>"
+		dat += "[field_type=="carbon"?"<b>":""			]<A href='?src=[UID()];select_field=carbon'>Diffracted carbon dioxide laser</A></b><br>"
+		dat += "[field_type=="nitrogen"?"<b>":""		]<A href='?src=[UID()];select_field=nitrogen'>Nitrogen tracer field</A></b><br>"
+		dat += "[field_type=="potassium"?"<b>":""		]<A href='?src=[UID()];select_field=potassium'>Potassium refrigerant cloud</A></b><br>"
+		dat += "[field_type=="mercury"?"<b>":""	]<A href='?src=[UID()];select_field=mercury'>Mercury dispersion wave</A></b><br>"
+		dat += "[field_type=="iron"?"<b>":""		]<A href='?src=[UID()];select_field=iron'>Iron wafer conduction field</A></b><br>"
+		dat += "[field_type=="calcium"?"<b>":""	]<A href='?src=[UID()];select_field=calcium'>Calcium binary deoxidiser</A></b><br>"
+		dat += "[field_type=="plasma"?"<b>":""	]<A href='?src=[UID()];select_field=chlorine'>Chlorine diffusion emissions</A></b><br>"
+		dat += "[field_type=="plasma"?"<b>":""	]<A href='?src=[UID()];select_field=plasma'>Plasma saturated field</A></b><br>"
 	else
 		dat += "<br>"
 		dat += "<br>"
@@ -102,11 +102,11 @@
 	dat += "<hr>"
 	dat += "<font color='blue'><b>Always wear safety gear and consult a field manual before operation.</b></font><br>"
 	if(!locked)
-		dat += "<A href='?src=\ref[src];lock=1'>Lock console</A><br>"
+		dat += "<A href='?src=[UID()];lock=1'>Lock console</A><br>"
 	else
 		dat += "<br>"
-	dat += "<A href='?src=\ref[src];refresh=1'>Refresh console</A><br>"
-	dat += "<A href='?src=\ref[src];close=1'>Close console</A>"
+	dat += "<A href='?src=[UID()];refresh=1'>Refresh console</A><br>"
+	dat += "<A href='?src=[UID()];close=1'>Close console</A>"
 	user << browse(dat, "window=suspension;size=500x400")
 	onclose(user, "suspension")
 

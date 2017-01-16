@@ -132,7 +132,6 @@
 	..()
 	icon_living = icon_state
 	icon_dead = icon_state
-	icon_resting = icon_state
 	access_card = new /obj/item/weapon/card/id(src)
 //This access is so bots can be immediately set to patrol and leave Robotics, instead of having to be let out first.
 	access_card.access += access_robotics
@@ -255,7 +254,7 @@
 		return
 	apply_damage(M.melee_damage_upper, BRUTE)
 	visible_message("<span class='userdanger'>[M] has [M.attacktext] [src]!</span>")
-	add_logs(M, src, "attacked", admin=0)
+	add_logs(M, src, "attacked", admin=0, print_attack_log = 0)
 	if(prob(10))
 		new /obj/effect/decal/cleanable/blood/oil(loc)
 
@@ -852,8 +851,6 @@ Pass a positive integer as an argument to override a bot's default speed.
 				ejectpai(usr)
 	update_controls()
 
-/mob/living/simple_animal/bot/handle_state_icons()
-
 /mob/living/simple_animal/bot/proc/update_icon()
 	icon_state = "[initial(icon_state)][on]"
 
@@ -883,9 +880,9 @@ Pass a positive integer as an argument to override a bot's default speed.
 	var/hack
 	if(issilicon(user) || check_rights(R_ADMIN, 0, user)) //Allows silicons or admins to toggle the emag status of a bot.
 		hack += "[emagged == 2 ? "Software compromised! Unit may exhibit dangerous or erratic behavior." : "Unit operating normally. Release safety lock?"]<BR>"
-		hack += "Harm Prevention Safety System: <A href='?src=\ref[src];operation=hack'>[emagged ? "<span class='bad'>DANGER</span>" : "Engaged"]</A><BR>"
+		hack += "Harm Prevention Safety System: <A href='?src=[UID()];operation=hack'>[emagged ? "<span class='bad'>DANGER</span>" : "Engaged"]</A><BR>"
 	else if(!locked) //Humans with access can use this option to hide a bot from the AI's remote control panel and PDA control.
-		hack += "Remote network control radio: <A href='?src=\ref[src];operation=remote'>[remote_disabled ? "Disconnected" : "Connected"]</A><BR>"
+		hack += "Remote network control radio: <A href='?src=[UID()];operation=remote'>[remote_disabled ? "Disconnected" : "Connected"]</A><BR>"
 	return hack
 
 /mob/living/simple_animal/bot/proc/showpai(mob/user)
@@ -895,9 +892,9 @@ Pass a positive integer as an argument to override a bot's default speed.
 			eject += "Personality card status: "
 			if(paicard)
 				if(client)
-					eject += "<A href='?src=\ref[src];operation=ejectpai'>Active</A>"
+					eject += "<A href='?src=[UID()];operation=ejectpai'>Active</A>"
 				else
-					eject += "<A href='?src=\ref[src];operation=ejectpai'>Inactive</A>"
+					eject += "<A href='?src=[UID()];operation=ejectpai'>Inactive</A>"
 			else if(!allow_pai || key)
 				eject += "Unavailable"
 			else

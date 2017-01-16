@@ -97,16 +97,17 @@
 	else if(processing)
 		to_chat(user, "<span class='warning'>The biogenerator is currently processing.</span>")
 	else if(istype(O, /obj/item/weapon/storage/bag/plants))
+		var/obj/item/weapon/storage/bag/plants/PB = O
 		var/i = 0
 		for(var/obj/item/weapon/reagent_containers/food/snacks/grown/G in contents)
 			i++
 		if(i >= max_items)
 			to_chat(user, "<span class='warning'>The biogenerator is already full! Activate it.</span>")
 		else
-			for(var/obj/item/weapon/reagent_containers/food/snacks/grown/G in O.contents)
+			for(var/obj/item/weapon/reagent_containers/food/snacks/grown/G in PB.contents)
 				if(i >= max_items)
 					break
-				G.forceMove(src)
+				PB.remove_from_storage(G, src)
 				i++
 			if(i < max_items)
 				to_chat(user, "<span class='info'>You empty the plant bag into the biogenerator.</span>")
@@ -157,44 +158,44 @@
 				menustat = "menu"
 		if(beaker)
 			dat += "<div class='statusDisplay'>Biomass: [points] units.</div><BR>"
-			dat += "<A href='?src=\ref[src];activate=1'>Activate</A><A href='?src=\ref[src];detach=1'>Detach Container</A><BR>"
-			dat += "Put fertilizer in: <A href='?src=\ref[src];inbeaker=1'>[in_beaker ? "Beaker" : "Bottle"]</A>"
+			dat += "<A href='?src=[UID()];activate=1'>Activate</A><A href='?src=[UID()];detach=1'>Detach Container</A><BR>"
+			dat += "Put fertilizer in: <A href='?src=[UID()];inbeaker=1'>[in_beaker ? "Beaker" : "Bottle"]</A>"
 			dat += "<h3>Food:</h3>"
 			dat += "<div class='statusDisplay'>"
-			dat += "10 milk: <A href='?src=\ref[src];create=milk;amount=1'>Make</A> ([20/efficiency])<BR>"
-			dat += "10 cream: <A href='?src=\ref[src];create=cream;amount=1'>Make</A> ([30/efficiency])<BR>"
-			dat += "Monkey cube: <A href='?src=\ref[src];create=meat;amount=1'>Make</A> ([250/efficiency])"
+			dat += "10 milk: <A href='?src=[UID()];create=milk;amount=1'>Make</A> ([20/efficiency])<BR>"
+			dat += "10 cream: <A href='?src=[UID()];create=cream;amount=1'>Make</A> ([30/efficiency])<BR>"
+			dat += "Monkey cube: <A href='?src=[UID()];create=meat;amount=1'>Make</A> ([250/efficiency])"
 			dat += "</div>"
 			dat += "<h3>Nutrients:</h3>"
 			dat += "<div class='statusDisplay'>"
-			dat += "E-Z-Nutrient: <A href='?src=\ref[src];create=ez;amount=1'>Make</A><A href='?src=\ref[src];create=ez;amount=5'>x5</A> ([10/efficiency])<BR>"
-			dat += "Left 4 Zed: <A href='?src=\ref[src];create=l4z;amount=1'>Make</A><A href='?src=\ref[src];create=l4z;amount=5'>x5</A> ([20/efficiency])<BR>"
-			dat += "Robust Harvest: <A href='?src=\ref[src];create=rh;amount=1'>Make</A><A href='?src=\ref[src];create=rh;amount=5'>x5</A> ([25/efficiency])<BR>"
+			dat += "E-Z-Nutrient: <A href='?src=[UID()];create=ez;amount=1'>Make</A><A href='?src=[UID()];create=ez;amount=5'>x5</A> ([10/efficiency])<BR>"
+			dat += "Left 4 Zed: <A href='?src=[UID()];create=l4z;amount=1'>Make</A><A href='?src=[UID()];create=l4z;amount=5'>x5</A> ([20/efficiency])<BR>"
+			dat += "Robust Harvest: <A href='?src=[UID()];create=rh;amount=1'>Make</A><A href='?src=[UID()];create=rh;amount=5'>x5</A> ([25/efficiency])<BR>"
 			dat += "</div>"
 			dat += "<h3>Leather:</h3>"
 			dat += "<div class='statusDisplay'>"
-			dat += "Wallet: <A href='?src=\ref[src];create=wallet;amount=1'>Make</A> ([100/efficiency])<BR>"
-			dat += "Book bag: <A href='?src=\ref[src];create=bkbag;amount=1'>Make</A> ([200/efficiency])<BR>"
-			dat += "Plant bag: <A href='?src=\ref[src];create=ptbag;amount=1'>Make</A> ([200/efficiency])<BR>"
-			dat += "Rag: <A href='?src=\ref[src];create=rag;amount=1'>Make</A> ([200/efficiency])<BR>"
-			dat += "Mining satchel: <A href='?src=\ref[src];create=mnbag;amount=1'>Make</A> ([200/efficiency])<BR>"
-			dat += "Chemistry bag: <A href='?src=\ref[src];create=chbag;amount=1'>Make</A> ([200/efficiency])<BR>"
-			dat += "Botanical gloves: <A href='?src=\ref[src];create=gloves;amount=1'>Make</A> ([250/efficiency])<BR>"
-			dat += "Leather Satchel: <A href='?src=\ref[src];create=satchel;amount=1'>Make</A> ([400/efficiency])<BR>"
-			dat += "Cash Bag: <A href='?src=\ref[src];create=cashbag;amount=1'>Make</A> ([400/efficiency])<BR>"
-			dat += "Leather Jacket: <A href='?src=\ref[src];create=jacket;amount=1'>Make</A> ([500/efficiency])<BR>"
+			dat += "Wallet: <A href='?src=[UID()];create=wallet;amount=1'>Make</A> ([100/efficiency])<BR>"
+			dat += "Book bag: <A href='?src=[UID()];create=bkbag;amount=1'>Make</A> ([200/efficiency])<BR>"
+			dat += "Plant bag: <A href='?src=[UID()];create=ptbag;amount=1'>Make</A> ([200/efficiency])<BR>"
+			dat += "Rag: <A href='?src=[UID()];create=rag;amount=1'>Make</A> ([200/efficiency])<BR>"
+			dat += "Mining satchel: <A href='?src=[UID()];create=mnbag;amount=1'>Make</A> ([200/efficiency])<BR>"
+			dat += "Chemistry bag: <A href='?src=[UID()];create=chbag;amount=1'>Make</A> ([200/efficiency])<BR>"
+			dat += "Botanical gloves: <A href='?src=[UID()];create=gloves;amount=1'>Make</A> ([250/efficiency])<BR>"
+			dat += "Leather Satchel: <A href='?src=[UID()];create=satchel;amount=1'>Make</A> ([400/efficiency])<BR>"
+			dat += "Cash Bag: <A href='?src=[UID()];create=cashbag;amount=1'>Make</A> ([400/efficiency])<BR>"
+			dat += "Leather Jacket: <A href='?src=[UID()];create=jacket;amount=1'>Make</A> ([500/efficiency])<BR>"
 			dat += "</div>"
 			dat += "<h3>Belts</h3>"
 			dat += "<div class='statusDisplay'>"
-			dat += "Utility belt: <A href='?src=\ref[src];create=tbelt;amount=1'>Make</A> ([300/efficiency])<BR>"
-			dat += "Botanist belt: <A href='?src=\ref[src];create=bbelt;amount=1'>Make</A> ([300/efficiency])<BR>"
-			dat += "Security belt: <A href='?src=\ref[src];create=sbelt;amount=1'>Make</A> ([300/efficiency])<BR>"
-			dat += "Medical belt: <A href='?src=\ref[src];create=mbelt;amount=1'>Make</A> ([300/efficiency])<BR>"
-			dat += "Janitor belt: <A href='?src=\ref[src];create=jbelt;amount=1'>Make</A> ([300/efficiency])<BR>"
-			dat += "Bandolier: <A href='?src=\ref[src];create=band;amount=1'>Make</A> ([300/efficiency])<BR>"
+			dat += "Utility belt: <A href='?src=[UID()];create=tbelt;amount=1'>Make</A> ([300/efficiency])<BR>"
+			dat += "Botanist belt: <A href='?src=[UID()];create=bbelt;amount=1'>Make</A> ([300/efficiency])<BR>"
+			dat += "Security belt: <A href='?src=[UID()];create=sbelt;amount=1'>Make</A> ([300/efficiency])<BR>"
+			dat += "Medical belt: <A href='?src=[UID()];create=mbelt;amount=1'>Make</A> ([300/efficiency])<BR>"
+			dat += "Janitor belt: <A href='?src=[UID()];create=jbelt;amount=1'>Make</A> ([300/efficiency])<BR>"
+			dat += "Bandolier: <A href='?src=[UID()];create=band;amount=1'>Make</A> ([300/efficiency])<BR>"
 			dat += "</div>"
 			//dat += "<h3>Other:</h3>"
-			//dat += "Monkey: <A href='?src=\ref[src];create=monkey;amount=1'>Make</A> ([400/efficiency])<BR>"
+			//dat += "Monkey: <A href='?src=[UID()];create=monkey;amount=1'>Make</A> ([400/efficiency])<BR>"
 		else
 			dat += "<div class='statusDisplay'>No container inside. Please insert a container.</div>"
 
@@ -274,7 +275,7 @@
 				if(check_container_volume(10)) return 0
 				else beaker.reagents.add_reagent("eznutrient",10)
 			else
-				new/obj/item/weapon/reagent_containers/glass/fertilizer/ez(src.loc)
+				new/obj/item/weapon/reagent_containers/glass/bottle/fertilizer/ez(src.loc)
 			if(check_cost(10/efficiency)) return 0
 		if("l4z")
 			if(check_cost(20/efficiency, 1)) return 0
@@ -282,7 +283,7 @@
 				if(check_container_volume(10)) return 0
 				else beaker.reagents.add_reagent("left4zed",10)
 			else
-				new/obj/item/weapon/reagent_containers/glass/fertilizer/l4z(src.loc)
+				new/obj/item/weapon/reagent_containers/glass/bottle/fertilizer/l4z(src.loc)
 			if(check_cost(20/efficiency)) return 0
 		if("rh")
 			if(check_cost(25/efficiency, 1)) return 0
@@ -290,7 +291,7 @@
 				if(check_container_volume(10)) return 0
 				else beaker.reagents.add_reagent("robustharvest",10)
 			else
-				new/obj/item/weapon/reagent_containers/glass/fertilizer/rh(src.loc)
+				new/obj/item/weapon/reagent_containers/glass/bottle/fertilizer/rh(src.loc)
 			if(check_cost(25/efficiency)) return 0
 		//Leather
 		if("wallet")

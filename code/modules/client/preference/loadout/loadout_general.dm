@@ -39,6 +39,10 @@
 	display_name = "a deck of cards"
 	path = /obj/item/toy/cards/deck
 
+/datum/gear/headphones
+	display_name = "a pair of headphones"
+	path = /obj/item/clothing/ears/headphones
+
 /datum/gear/blackbandana
 	display_name = "bandana, black"
 	path = /obj/item/clothing/mask/bandana/black
@@ -70,3 +74,8 @@
 /datum/gear/skullbandana
 	display_name = "bandana, skull"
 	path = /obj/item/clothing/mask/bandana/skull
+
+/datum/gear/mob_hunt_game
+	display_name = "Nano-Mob Hunter GO! Cartridge"
+	path = /obj/item/weapon/cartridge/mob_hunt_game
+	cost = 2

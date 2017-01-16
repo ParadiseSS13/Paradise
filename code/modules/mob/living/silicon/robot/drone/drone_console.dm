@@ -38,12 +38,12 @@
 		dat += "<BR>[D.real_name] ([D.stat == 2 ? "<font color='red'>INACTIVE" : "<font color='green'>ACTIVE"]</FONT>)"
 		dat += "<font dize = 9><BR>Cell charge: [D.cell.charge]/[D.cell.maxcharge]."
 		dat += "<BR>Currently located in: [get_area(D)]."
-		dat += "<BR><A href='?src=\ref[src];resync=\ref[D]'>Resync</A> | <A href='?src=\ref[src];shutdown=\ref[D]'>Shutdown</A></font>"
+		dat += "<BR><A href='?src=[UID()];resync=\ref[D]'>Resync</A> | <A href='?src=[UID()];shutdown=\ref[D]'>Shutdown</A></font>"
 
-	dat += "<BR><BR><B>Request drone presence in area:</B> <A href='?src=\ref[src];setarea=1'>[drone_call_area]</A> (<A href='?src=\ref[src];ping=1'>Send ping</A>)"
+	dat += "<BR><BR><B>Request drone presence in area:</B> <A href='?src=[UID()];setarea=1'>[drone_call_area]</A> (<A href='?src=[UID()];ping=1'>Send ping</A>)"
 
 	dat += "<BR><BR><B>Drone fabricator</B>: "
-	dat += "[dronefab ? "<A href='?src=\ref[src];toggle_fab=1'>[(dronefab.produce_drones && !(dronefab.stat & NOPOWER)) ? "ACTIVE" : "INACTIVE"]</A>" : "<font color='red'><b>FABRICATOR NOT DETECTED.</b></font> (<A href='?src=\ref[src];search_fab=1'>search</a>)"]"
+	dat += "[dronefab ? "<A href='?src=[UID()];toggle_fab=1'>[(dronefab.produce_drones && !(dronefab.stat & NOPOWER)) ? "ACTIVE" : "INACTIVE"]</A>" : "<font color='red'><b>FABRICATOR NOT DETECTED.</b></font> (<A href='?src=[UID()];search_fab=1'>search</a>)"]"
 	user << browse(dat, "window=computer;size=400x500")
 	onclose(user, "computer")
 	return

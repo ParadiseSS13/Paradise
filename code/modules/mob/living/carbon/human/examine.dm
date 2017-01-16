@@ -253,10 +253,10 @@
 		if(5)
 			msg += "[t_He] looks absolutely soaked.\n"
 
-	if(nutrition < 100)
+	if(nutrition < NUTRITION_LEVEL_STARVING - 50)
 		msg += "[t_He] [t_is] severely malnourished.\n"
-	else if(nutrition >= 500)
-		if(user.nutrition < 100)
+	else if(nutrition >= NUTRITION_LEVEL_FAT)
+		if(user.nutrition < NUTRITION_LEVEL_STARVING - 50)
 			msg += "[t_He] [t_is] plump and delicious looking - Like a fat little piggy. A tasty piggy.\n"
 		else
 			msg += "[t_He] [t_is] quite chubby.\n"
@@ -468,8 +468,8 @@
 						if(R.fields["id"] == E.fields["id"])
 							criminal = R.fields["criminal"]
 
-			msg += "<span class = 'deptradio'>Criminal status:</span> <a href='?src=\ref[src];criminal=1'>\[[criminal]\]</a>\n"
-			msg += "<span class = 'deptradio'>Security records:</span> <a href='?src=\ref[src];secrecord=`'>\[View\]</a>  <a href='?src=\ref[src];secrecordadd=`'>\[Add comment\]</a>\n"
+			msg += "<span class = 'deptradio'>Criminal status:</span> <a href='?src=[UID()];criminal=1'>\[[criminal]\]</a>\n"
+			msg += "<span class = 'deptradio'>Security records:</span> <a href='?src=[UID()];secrecord=`'>\[View\]</a>  <a href='?src=[UID()];secrecordadd=`'>\[Add comment\]</a>\n"
 
 	if(hasHUD(user,"medical"))
 		var/perpname = "wot"
@@ -490,8 +490,8 @@
 					if(R.fields["id"] == E.fields["id"])
 						medical = R.fields["p_stat"]
 
-		msg += "<span class = 'deptradio'>Physical status:</span> <a href='?src=\ref[src];medical=1'>\[[medical]\]</a>\n"
-		msg += "<span class = 'deptradio'>Medical records:</span> <a href='?src=\ref[src];medrecord=`'>\[View\]</a> <a href='?src=\ref[src];medrecordadd=`'>\[Add comment\]</a>\n"
+		msg += "<span class = 'deptradio'>Physical status:</span> <a href='?src=[UID()];medical=1'>\[[medical]\]</a>\n"
+		msg += "<span class = 'deptradio'>Medical records:</span> <a href='?src=[UID()];medrecord=`'>\[View\]</a> <a href='?src=[UID()];medrecordadd=`'>\[Add comment\]</a>\n"
 
 
 	if(print_flavor_text()) msg += "[print_flavor_text()]\n"
@@ -516,7 +516,7 @@
 				return istype(H.glasses, /obj/item/clothing/glasses/hud/health) || istype(H.glasses, /obj/item/clothing/glasses/hud/health/health_advanced) ||  istype(CIH,/obj/item/organ/internal/cyberimp/eyes/hud/medical)
 			else
 				return 0
-	else if(istype(M, /mob/living/silicon))
+	else if(isrobot(M) || isAI(M)) //Stand-in/Stopgap to prevent pAIs from freely altering records, pending a more advanced Records system
 		switch(hudtype)
 			if("security")
 				return 1

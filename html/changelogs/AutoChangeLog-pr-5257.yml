@@ -1,4 +1,0 @@
-author: Krausus
-delete-after: True
-changes: 
-  - bugfix: "Fixed round-end antagonist report failing to print due to null objectives."

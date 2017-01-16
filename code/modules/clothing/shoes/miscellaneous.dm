@@ -6,6 +6,7 @@
 	permeability_coefficient = 0.05
 	flags = NOSLIP
 	origin_tech = "syndicate=3"
+	burn_state = FIRE_PROOF
 	var/list/clothing_choices = list()
 	silence_steps = 1
 
@@ -22,6 +23,7 @@
 	item_state = "jackboots"
 	armor = list(melee = 25, bullet = 25, laser = 25, energy = 25, bomb = 50, bio = 10, rad = 0)
 	strip_delay = 70
+	burn_state = FIRE_PROOF
 
 /obj/item/clothing/shoes/combat/swat //overpowered boots for death squads
 	name = "\improper SWAT shoes"
@@ -51,6 +53,7 @@
 	slowdown = SHOES_SLOWDOWN+1
 	strip_delay = 50
 	put_on_delay = 50
+	burn_state = FIRE_PROOF
 
 /obj/item/clothing/shoes/galoshes/dry
 	name = "absorbent galoshes"
@@ -82,6 +85,7 @@
 	item_color = "hosred"
 	strip_delay = 50
 	put_on_delay = 50
+	burn_state = FIRE_PROOF
 	var/footstep = 1
 	silence_steps = 1
 	shoe_sound = "jackboot"
@@ -152,6 +156,8 @@
 	desc = "A pair of costume boots fashioned after bird talons."
 	icon_state = "griffinboots"
 	item_state = "griffinboots"
+
+/obj/item/clothing/shoes/griffin/super_hero
 	flags = NODROP
 
 /obj/item/clothing/shoes/fluff/noble_boot
@@ -206,3 +212,15 @@
 	righthand_file = 'icons/goonstation/mob/inhands/clothing_righthand.dmi'
 	flags = NODROP
 	shoe_sound = "clownstep"
+
+/obj/item/clothing/shoes/singery
+	name = "yellow performer's boots"
+	desc = "These boots were made for dancing."
+	icon_state = "ysing"
+	put_on_delay = 50
+
+/obj/item/clothing/shoes/singerb
+	name = "blue performer's boots"
+	desc = "These boots were made for dancing."
+	icon_state = "bsing"
+	put_on_delay = 50

@@ -51,9 +51,9 @@
 		var/dat = "<TT><B>Soul Stone</B><BR>"
 		for(var/mob/living/simple_animal/shade/A in src)
 			dat += "Captured Soul: [A.name]<br>"
-			dat += {"<A href='byond://?src=\ref[src];choice=Summon'>Summon Shade</A>"}
+			dat += {"<A href='byond://?src=[UID()];choice=Summon'>Summon Shade</A>"}
 			dat += "<br>"
-			dat += {"<a href='byond://?src=\ref[src];choice=Close'> Close</a>"}
+			dat += {"<a href='byond://?src=[UID()];choice=Close'> Close</a>"}
 		user << browse(dat, "window=aicard")
 		onclose(user, "aicard")
 		return
@@ -104,6 +104,22 @@
 
 /obj/item/proc/transfer_soul(var/choice as text, var/target, var/mob/U as mob).
 	switch(choice)
+		if("FORCE")
+			var/obj/item/device/soulstone/C = src
+			if(!iscarbon(target))		//TODO: Add sacrifice stoning for non-organics, just because you have no body doesnt mean you dont have a soul
+				return 0
+			if(contents.len)
+				return 0
+			var/mob/living/carbon/T = target
+			if(T.client != null)
+				for(var/obj/item/W in T)
+					T.unEquip(W)
+				C.init_shade(T, U)
+				return 1
+			else
+				to_chat(U, "<span class='userdanger'>Capture failed!</span>: The soul has already fled its mortal frame. You attempt to bring it back...")
+				return C.getCultGhost(T,U)
+
 		if("VICTIM")
 			var/mob/living/carbon/human/T = target
 			var/obj/item/device/soulstone/C = src
@@ -114,37 +130,15 @@
 					to_chat(U, "<span class='danger'>Capture failed!</span>: Kill or maim the victim first!")
 				else
 					if(T.client == null)
-						to_chat(U, "<span class='danger'>Capture failed!</span>: The soul has already fled it's mortal frame.")
+						to_chat(U, "<span class='userdanger'>Capture failed!</span>: The soul has already fled its mortal frame. You attempt to bring it back...")
+						C.getCultGhost(T,U)
 					else
 						if(C.contents.len)
 							to_chat(U, "<span class='danger'>Capture failed!</span>: The soul stone is full! Use or free an existing soul to make room.")
 						else
 							for(var/obj/item/W in T)
 								T.unEquip(W)
-							new /obj/effect/decal/remains/human(T.loc) //Spawns a skeleton
-							T.invisibility = 101
-							var/atom/movable/overlay/animation = new /atom/movable/overlay( T.loc )
-							animation.icon_state = "blank"
-							animation.icon = 'icons/mob/mob.dmi'
-							animation.master = T
-							flick("dust-h", animation)
-							qdel(animation)
-							var/mob/living/simple_animal/shade/S = new /mob/living/simple_animal/shade( T.loc )
-							S.loc = C //put shade in stone
-							S.status_flags |= GODMODE //So they won't die inside the stone somehow
-							S.canmove = 0//Can't move out of the soul stone
-							S.faction |= "\ref[U]"
-							S.name = "Shade of [T.real_name]"
-							S.real_name = "Shade of [T.real_name]"
-							if(T.client)
-								T.client.mob = S
-							S.cancel_camera()
-							C.icon_state = "soulstone2"
-							C.name = "Soul Stone: [S.real_name]"
-							to_chat(S, "Your soul has been captured! You are now bound to [U.name]'s will, help them suceed in their goals at all costs.")
-							to_chat(U, "<span class='notice'>Capture successful!</span>: [T.real_name]'s soul has been ripped from their body and stored within the soul stone.")
-							to_chat(U, "The soulstone has been imprinted with [S.real_name]'s mind, it will no longer react to other souls.")
-							C.imprinted = "[S.name]"
+							C.init_shade(T, U, vic = 1)
 							qdel(T)
 		if("SHADE")
 			var/mob/living/simple_animal/shade/T = target
@@ -174,7 +168,7 @@
 				var/construct_class = alert(U, "Please choose which type of construct you wish to create.",,"Juggernaut","Wraith","Artificer")
 				switch(construct_class)
 					if("Juggernaut")
-						var/mob/living/simple_animal/construct/armoured/Z = new /mob/living/simple_animal/construct/armoured (get_turf(T.loc))
+						var/mob/living/simple_animal/hostile/construct/armoured/Z = new /mob/living/simple_animal/hostile/construct/armoured (get_turf(T.loc))
 						Z.key = A.key
 						Z.faction |= "\ref[U]"
 						if(iscultist(U))
@@ -190,7 +184,7 @@
 						qdel(C)
 
 					if("Wraith")
-						var/mob/living/simple_animal/construct/wraith/Z = new /mob/living/simple_animal/construct/wraith (get_turf(T.loc))
+						var/mob/living/simple_animal/hostile/construct/wraith/Z = new /mob/living/simple_animal/hostile/construct/wraith (get_turf(T.loc))
 						Z.key = A.key
 						Z.faction |= "\ref[U]"
 						if(iscultist(U))
@@ -206,7 +200,7 @@
 						qdel(C)
 
 					if("Artificer")
-						var/mob/living/simple_animal/construct/builder/Z = new /mob/living/simple_animal/construct/builder (get_turf(T.loc))
+						var/mob/living/simple_animal/hostile/construct/builder/Z = new /mob/living/simple_animal/hostile/construct/builder (get_turf(T.loc))
 						Z.key = A.key
 						Z.faction |= "\ref[U]"
 						if(iscultist(U))
@@ -224,10 +218,10 @@
 				to_chat(U, "<span class='danger'>Creation failed!</span>: The soul stone is empty! Go kill someone!")
 	return
 
-/proc/makeNewConstruct(var/mob/living/simple_animal/construct/ctype, var/mob/target, var/mob/stoner = null, cultoverride = 0)
+/proc/makeNewConstruct(var/mob/living/simple_animal/hostile/construct/ctype, var/mob/target, var/mob/stoner = null, cultoverride = 0)
 	if(jobban_isbanned(target, "cultist") || jobban_isbanned(target, "Syndicate"))
 		return
-	var/mob/living/simple_animal/construct/newstruct = new ctype(get_turf(target))
+	var/mob/living/simple_animal/hostile/construct/newstruct = new ctype(get_turf(target))
 	newstruct.faction |= "\ref[stoner]"
 	newstruct.key = target.key
 	if(stoner && iscultist(stoner) || cultoverride)
@@ -243,3 +237,60 @@
 	else
 		to_chat(newstruct, "<B>You are still bound to serve your creator, follow their orders and help them complete their goals at all costs.</B>")
 	newstruct.cancel_camera()
+
+
+/obj/item/device/soulstone/proc/init_shade(mob/living/carbon/human/T, mob/U, vic = 0)
+	new /obj/effect/decal/remains/human(T.loc) //Spawns a skeleton
+	T.invisibility = 101
+	var/atom/movable/overlay/animation = new /atom/movable/overlay( T.loc )
+	animation.icon_state = "blank"
+	animation.icon = 'icons/mob/mob.dmi'
+	animation.master = T
+	flick("dust-h", animation)
+	qdel(animation)
+	var/mob/living/simple_animal/shade/S = new /mob/living/simple_animal/shade(src)
+	S.status_flags |= GODMODE //So they won't die inside the stone somehow
+	S.canmove = 0//Can't move out of the soul stone
+	S.name = "Shade of [T.real_name]"
+	S.real_name = "Shade of [T.real_name]"
+	S.key = T.key
+	if(U)
+		S.faction |= "\ref[U]" //Add the master as a faction, allowing inter-mob cooperation
+	if(U && iscultist(U))
+		ticker.mode.add_cultist(S.mind, 0)
+	S.cancel_camera()
+	name = "soulstone: Shade of [T.real_name]"
+	icon_state = "soulstone2"
+	if(U && iswizard(U))
+		to_chat(S, "Your soul has been captured! You are now bound to [U.real_name]'s will. Help them succeed in their goals at all costs.")
+	else if(U && iscultist(U))
+		to_chat(S, "Your soul has been captured! You are now bound to the cult's will. Help them succeed in their goals at all costs.")
+	if(vic && U)
+		to_chat(U, "<span class='info'><b>Capture successful!</b>:</span> [T.real_name]'s soul has been ripped from their body and stored within the soul stone.")
+
+
+/obj/item/device/soulstone/proc/getCultGhost(mob/living/carbon/human/T, mob/U)
+	var/mob/dead/observer/chosen_ghost
+
+	for(var/mob/dead/observer/ghost in player_list) //We put them back in their body
+		if(ghost.mind && ghost.mind.current == T && ghost.client)
+			chosen_ghost = ghost
+			break
+
+	if(!chosen_ghost)	//Failing that, we grab a ghost
+		var/list/consenting_candidates = pollCandidates("Would you like to play as a Shade?", "Cultist", null, ROLE_CULTIST, poll_time = 100)
+		if(consenting_candidates.len)
+			chosen_ghost = pick(consenting_candidates)
+	if(!T)
+		return 0
+	if(!chosen_ghost)
+		to_chat(U, "<span class='danger'>There were no spirits willing to become a shade.</span>")
+		return 0
+	if(contents.len) //If they used the soulstone on someone else in the meantime
+		return 0
+	T.ckey = chosen_ghost.ckey
+	for(var/obj/item/W in T)
+		T.unEquip(W)
+	init_shade(T, U)
+	qdel(T)
+	return 1

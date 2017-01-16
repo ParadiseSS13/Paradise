@@ -45,11 +45,11 @@
 
 	dat += "<hr/><br/><b>[storage_name]</b><br/>"
 	dat += "<i>Welcome, [user.real_name].</i><br/><br/><hr/>"
-	dat += "<a href='?src=\ref[src];log=1'>View storage log</a>.<br>"
+	dat += "<a href='?src=[UID()];log=1'>View storage log</a>.<br>"
 	if(allow_items)
-		dat += "<a href='?src=\ref[src];view=1'>View objects</a>.<br>"
-		dat += "<a href='?src=\ref[src];item=1'>Recover object</a>.<br>"
-		dat += "<a href='?src=\ref[src];allitems=1'>Recover all objects</a>.<br>"
+		dat += "<a href='?src=[UID()];view=1'>View objects</a>.<br>"
+		dat += "<a href='?src=[UID()];item=1'>Recover object</a>.<br>"
+		dat += "<a href='?src=[UID()];allitems=1'>Recover all objects</a>.<br>"
 
 	user << browse(dat, "window=cryopod_console")
 	onclose(user, "cryopod_console")
@@ -174,7 +174,9 @@
 
 	var/mob/living/occupant = null       // Person waiting to be despawned.
 	var/orient_right = null       // Flips the sprite.
-	var/time_till_despawn = 9000 // 15 minutes-ish safe period before being despawned.
+	// 15 minutes-ish safe period before being despawned.
+	var/time_till_despawn = 9000 // This is reduced by 90% if a player manually enters cryo
+	var/willing_time_divisor = 10
 	var/time_entered = 0          // Used to keep track of the safe period.
 	var/obj/item/device/radio/intercom/announce //
 
@@ -301,6 +303,13 @@
 				preserve = 1
 				break
 
+		if(istype(W,/obj/item/device/pda))
+			var/obj/item/device/pda/P = W
+			if(P.id)
+				qdel(P.id)
+				P.id = null
+			qdel(P)
+
 		if(!preserve)
 			qdel(W)
 		else
@@ -382,7 +391,12 @@
 			announce.autosay("[occupant.real_name] [on_store_message]", "[on_store_name]")
 	visible_message("<span class='notice'>\The [src] hums and hisses as it moves [occupant.real_name] into storage.</span>")
 
-	// Delete the mob.
+	// Ghost and delete the mob.
+	if(!occupant.get_ghost(1))
+		if(TOO_EARLY_TO_GHOST)
+			occupant.ghostize(0) // Players despawned too early may not re-enter the game
+		else
+			occupant.ghostize(1)
 	qdel(occupant)
 	occupant = null
 	name = initial(name)
@@ -404,6 +418,7 @@
 
 		var/willing = null //We don't want to allow people to be forced into despawning.
 		var/mob/living/M = G:affecting
+		time_till_despawn = initial(time_till_despawn)
 
 		if(!istype(M) || M.stat == DEAD)
 			to_chat(user, "<span class='notice'>Dead people can not be put into cryo.</span>")
@@ -412,7 +427,7 @@
 		if(M.client)
 			if(alert(M,"Would you like to enter long-term storage?",,"Yes","No") == "Yes")
 				if(!M || !G || !G:affecting) return
-				willing = 1
+				willing = willing_time_divisor
 		else
 			willing = 1
 
@@ -427,11 +442,9 @@
 					to_chat(user, "<span class='boldnotice'>\The [src] is in use.</span>")
 					return
 
-				M.loc = src
+				M.forceMove(src)
 
-				if(M.client)
-					M.client.perspective = EYE_PERSPECTIVE
-					M.client.eye = src
+				time_till_despawn = initial(time_till_despawn) / willing
 
 			else //because why the fuck would you keep going if the mob isn't in the pod
 				to_chat(user, "<span class='notice'>You stop putting [M] into the cryopod.</span>")
@@ -468,7 +481,7 @@
 
 	if(O.loc == user) //no you can't pull things out of your ass
 		return
-	if(user.restrained() || user.stat || user.weakened || user.stunned || user.paralysis || user.resting) //are you cuffed, dying, lying, stunned or other
+	if(user.incapacitated()) //are you cuffed, dying, lying, stunned or other
 		return
 	if(get_dist(user, src) > 1 || get_dist(user, O) > 1 || user.contents.Find(src)) // is the mob anchored, too far away from you, or are you too far away from the source
 		return
@@ -483,7 +496,7 @@
 	if(!istype(user.loc, /turf) || !istype(O.loc, /turf)) // are you in a container/closet/pod/etc?
 		return
 	if(occupant)
-		to_chat(user, "\blue <B>The cryo pod is already occupied!</B>")
+		to_chat(user, "<span class='boldnotice'>The cryo pod is already occupied!</span>")
 		return
 
 
@@ -502,11 +515,12 @@
 
 
 	var/willing = null //We don't want to allow people to be forced into despawning.
+	time_till_despawn = initial(time_till_despawn)
 
 	if(L.client)
 		if(alert(L,"Would you like to enter cryosleep?",,"Yes","No") == "Yes")
 			if(!L) return
-			willing = 1
+			willing = willing_time_divisor
 	else
 		willing = 1
 
@@ -522,11 +536,8 @@
 			if(src.occupant)
 				to_chat(user, "<span class='boldnotice'>\The [src] is in use.</span>")
 				return
-			L.loc = src
-
-			if(L.client)
-				L.client.perspective = EYE_PERSPECTIVE
-				L.client.eye = src
+			L.forceMove(src)
+			time_till_despawn = initial(time_till_despawn) / willing
 		else
 			to_chat(user, "<span class='notice'>You stop [L == user ? "climbing into the cryo pod." : "putting [L] into the cryo pod."]</span>")
 			return
@@ -618,10 +629,9 @@
 			return
 
 		usr.stop_pulling()
-		usr.client.perspective = EYE_PERSPECTIVE
-		usr.client.eye = src
-		usr.loc = src
+		usr.forceMove(src)
 		src.occupant = usr
+		time_till_despawn = initial(time_till_despawn) / willing_time_divisor
 
 		if(orient_right)
 			icon_state = "[occupied_icon_state]-r"
@@ -642,11 +652,7 @@
 	if(!occupant)
 		return
 
-	if(occupant.client)
-		occupant.client.eye = src.occupant.client.mob
-		occupant.client.perspective = MOB_PERSPECTIVE
-
-	occupant.loc = get_turf(src)
+	occupant.forceMove(get_turf(src))
 	occupant = null
 
 	if(orient_right)
@@ -699,6 +705,7 @@
 		for(var/obj/item/O in I) // the things inside the tools, if anything; mainly for janiborg trash bags
 			O.loc = R
 		qdel(I)
+	R.module.remove_subsystems_and_actions(R)
 	qdel(R.module)
 
 	return ..()

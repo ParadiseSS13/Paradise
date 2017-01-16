@@ -28,17 +28,17 @@
 	wizards += wizard
 	modePlayer += wizard
 	wizard.assigned_role = "MODE" //So they aren't chosen for other jobs.
-	wizard.special_role = "Wizard"
+	wizard.special_role = SPECIAL_ROLE_WIZARD
 	wizard.original = wizard.current
 	if(wizardstart.len == 0)
-		to_chat(wizard.current, "<B>\red A starting location for you could not be found, please report this bug!</B>")
+		to_chat(wizard.current, "<span class='danger'>A starting location for you could not be found, please report this bug!</span>")
 		return 0
 	return 1
 
 /datum/game_mode/wizard/pre_setup()
 	for(var/datum/mind/wiz in wizards)
 		wiz.current.loc = pick(wizardstart)
-
+	..()
 	return 1
 
 
@@ -54,6 +54,19 @@
 			update_wiz_icons_added(wizard)
 
 	..()
+
+/datum/game_mode/proc/remove_wizard(datum/mind/wizard_mind)
+	if(wizard_mind in wizards)
+		ticker.mode.wizards -= wizard_mind
+		wizard_mind.special_role = null
+		wizard_mind.current.attack_log += "\[[time_stamp()]\] <span class='danger'>De-wizarded</span>"
+		wizard_mind.current.spellremove(wizard_mind.current)
+		wizard_mind.current.faction = list("Station")
+		if(issilicon(wizard_mind.current))
+			to_chat(wizard_mind.current, "<span class='userdanger'>You have been turned into a robot! You can feel your magical powers fading away...</span>")
+		else
+			to_chat(wizard_mind.current, "<span class='userdanger'>You have been brainwashed! You are no longer a wizard.</span>")
+		ticker.mode.update_wiz_icons_removed(wizard_mind)
 
 /datum/game_mode/proc/update_wiz_icons_added(datum/mind/wiz_mind)
 	var/datum/atom_hud/antag/wizhud = huds[ANTAG_HUD_WIZ]
@@ -93,7 +106,7 @@
 
 /datum/game_mode/proc/greet_wizard(var/datum/mind/wizard, var/you_are=1)
 	if(you_are)
-		to_chat(wizard.current, "<B>\red You are the Space Wizard!</B>")
+		to_chat(wizard.current, "<span class='danger'>You are the Space Wizard!</span>")
 	to_chat(wizard.current, "<B>The Space Wizards Federation has given you the following tasks:</B>")
 
 	var/obj_count = 1

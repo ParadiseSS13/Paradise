@@ -250,11 +250,11 @@
 				var/no_los
 				var/turf/last_turf = origin_turf
 				for(var/turf/target_turf in getline(origin_turf,neighbor))
-					if(!last_turf.Enter(target_turf) || target_turf.density)
+					if(!last_turf.Enter(thrown,target_turf) || target_turf.density)
 						no_los = 1
 						break
 					last_turf = target_turf
-				if(!no_los && !origin_turf.Enter(neighbor))
+				if(!no_los && !origin_turf.Enter(thrown, neighbor))
 					no_los = 1
 				if(no_los)
 					closed_turfs |= neighbor
@@ -376,8 +376,7 @@
 
 	// Bluespace tomato code copied over from grown.dm.
 	if(get_trait(TRAIT_TELEPORTING))
-		// TODO: Tie into space manager
-		if(target.z in config.admin_levels)
+		if(!is_teleport_allowed(target.z))
 			return 1
 
 		//Plant potency determines radius of teleport.
@@ -407,8 +406,10 @@
 /datum/seed/proc/randomize()
 
 	roundstart = 0
-	seed_name = "strange plant"     // TODO: name generator.
+	// TODO: Better name generator
+	seed_name = "cultivar #[uid]"
 	display_name = "strange plants" // TODO: name generator.
+	base_name = seed_name
 	mysterious = 1
 	seed_noun = pick("spores","nodes","cuttings","seeds")
 	modular_icon = 1
@@ -633,14 +634,20 @@
 					chems[rid] = gene_chem.Copy()
 					continue
 
+				// Normally a length 2 list - but sometimes, it's length 1 - poisonberries, etc.
+				// This means the reagent does not scale with potency.
+				// Index 1 is the base value, index 2 is the potency per u of reagent
+				var/list/rgnt_list = chems[rid]
+				rgnt_list.len = max(gene_chem.len, rgnt_list.len)
+
 				for(var/i=1;i<=gene_chem.len;i++)
 
 					if(isnull(gene_chem[i])) gene_chem[i] = 0
 
-					if(chems[rid][i])
-						chems[rid][i] = max(1,round((gene_chem[i] + chems[rid][i])/2))
+					if(rgnt_list[i])
+						rgnt_list[i] = max(1,round((gene_chem[i] + rgnt_list[i])/2))
 					else
-						chems[rid][i] = gene_chem[i]
+						rgnt_list[i] = gene_chem[i]
 
 			var/list/new_gasses = gene.values["[TRAIT_EXUDE_GASSES]"]
 			if(islist(new_gasses))

@@ -8,6 +8,7 @@
 	item_state = "gas_alt"
 	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
+	burn_state = FIRE_PROOF
 	species_fit = list("Vox", "Unathi", "Tajaran", "Vulpkanin")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/mask.dmi',
@@ -95,6 +96,7 @@
 	icon_state = "clown"
 	item_state = "clown_hat"
 	flags = MASKCOVERSMOUTH | MASKCOVERSEYES | BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | BLOCKHAIR
+	burn_state = FLAMMABLE
 
 /obj/item/clothing/mask/gas/clown_hat/attack_self(mob/user)
 
@@ -130,24 +132,28 @@
 	desc = "A feminine clown mask for the dabbling crossdressers or female entertainers."
 	icon_state = "sexyclown"
 	item_state = "sexyclown"
+	burn_state = FLAMMABLE
 
 /obj/item/clothing/mask/gas/mime
 	name = "mime mask"
 	desc = "The traditional mime's mask. It has an eerie facial posture."
 	icon_state = "mime"
 	item_state = "mime"
+	burn_state = FLAMMABLE
 
 /obj/item/clothing/mask/gas/monkeymask
 	name = "monkey mask"
 	desc = "A mask used when acting as a monkey."
 	icon_state = "monkeymask"
 	item_state = "monkeymask"
+	burn_state = FLAMMABLE
 
 /obj/item/clothing/mask/gas/sexymime
 	name = "sexy mime mask"
 	desc = "A traditional female mime's mask."
 	icon_state = "sexymime"
 	item_state = "sexymime"
+	burn_state = FLAMMABLE
 
 /obj/item/clothing/mask/gas/death_commando
 	name = "Death Commando Mask"
@@ -158,13 +164,18 @@
 	name = "cyborg visor"
 	desc = "Beep boop"
 	icon_state = "death"
+	burn_state = FLAMMABLE
 
 /obj/item/clothing/mask/gas/owl_mask
 	name = "owl mask"
 	desc = "Twoooo!"
 	icon_state = "owl"
-	flags = MASKCOVERSMOUTH | MASKCOVERSEYES | BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | NODROP
+	flags = MASKCOVERSMOUTH | MASKCOVERSEYES | BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT
+	burn_state = FLAMMABLE
 	actions_types = list(/datum/action/item_action/hoot)
+
+/obj/item/clothing/mask/gas/owl_mask/super_hero
+	flags = MASKCOVERSMOUTH | MASKCOVERSEYES | BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | NODROP
 
 /obj/item/clothing/mask/gas/owl_mask/attack_self()
 	hoot()
@@ -182,23 +193,26 @@
 	name = "security gas mask"
 	desc = "A standard issue Security gas mask with integrated 'Compli-o-nator 3000' device, plays over a dozen pre-recorded compliance phrases designed to get scumbags to stand still whilst you taze them. Do not tamper with the device."
 	icon_state = "sechailer"
-	var/aggressiveness = 2
+	var/phrase = 1
+	var/aggressiveness = 1
 	var/safety = 1
-	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/adjust)
+	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/adjust, /datum/action/item_action/selectphrase)
 
 /obj/item/clothing/mask/gas/sechailer/hos
 	name = "\improper HOS SWAT mask"
 	desc = "A close-fitting tactical mask with an especially aggressive Compli-o-nator 3000. It has a tan stripe."
 	icon_state = "hosmask"
 	aggressiveness = 3
-	actions_types = list(/datum/action/item_action/halt)
+	phrase = 12
+	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/selectphrase)
 
 /obj/item/clothing/mask/gas/sechailer/warden
 	name = "\improper Warden SWAT mask"
 	desc = "A close-fitting tactical mask with an especially aggressive Compli-o-nator 3000. It has a blue stripe."
 	icon_state = "wardenmask"
 	aggressiveness = 3
-	actions_types = list(/datum/action/item_action/halt)
+	phrase = 12
+	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/selectphrase)
 
 
 /obj/item/clothing/mask/gas/sechailer/swat
@@ -206,7 +220,8 @@
 	desc = "A close-fitting tactical mask with an especially aggressive Compli-o-nator 3000."
 	icon_state = "officermask"
 	aggressiveness = 3
-	actions_types = list(/datum/action/item_action/halt)
+	phrase = 12
+	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/selectphrase)
 
 /obj/item/clothing/mask/gas/sechailer/blue
 	name = "\improper blue SWAT mask"
@@ -214,40 +229,177 @@
 	icon_state = "blue_sechailer"
 	item_state = "blue_sechailer"
 	aggressiveness = 3
-	actions_types = list(/datum/action/item_action/halt)
+	phrase = 12
+	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/selectphrase)
 
 /obj/item/clothing/mask/gas/sechailer/cyborg
 	name = "security hailer"
 	desc = "A set of recognizable pre-recorded messages for cyborgs to use when apprehending criminals."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "taperecorder_idle"
-	aggressiveness = 1 //Borgs are nicecurity!
-	actions_types = list(/datum/action/item_action/halt)
+	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/selectphrase)
 
 /obj/item/clothing/mask/gas/sechailer/ui_action_click(mob/user, actiontype)
 	if(actiontype == /datum/action/item_action/halt)
 		halt()
-	else
+	else if(actiontype == /datum/action/item_action/adjust)
 		adjustmask(user)
+	else if(actiontype == /datum/action/item_action/selectphrase)
+		switch(aggressiveness)
+			if(1)
+				switch(phrase)
+					if(1)
+						to_chat(user, "<span class='notice'>You set the restrictor to: Stop in the name of the Law.</span>")
+						phrase = 2
+					if(2)
+						to_chat(user, "<span class='notice'>You set the restrictor to: Compliance is in your best interest.</span>")
+						phrase = 3
+					if(3)
+						to_chat(user, "<span class='notice'>You set the restrictor to: Prepare for justice.</span>")
+						phrase = 4
+					if(4)
+						to_chat(user, "<span class='notice'>You set the restrictor to: Running will only increase your sentence.</span>")
+						phrase = 5
+					if(5)
+						to_chat(user, "<span class='notice'>You set the restrictor to: Don't move, Creep!</span>")
+						phrase = 6
+					if(6)
+						to_chat(user, "<span class='notice'>You set the restrictor to: HALT! HALT! HALT! HALT!</span>")
+						phrase = 1
+					else
+						to_chat(user, "<span class='notice'>You set the restrictor to: HALT! HALT! HALT! HALT!</span>")
+						phrase = 1
+			if(2)
+				switch(phrase)
+					if(7)
+						to_chat(user, "<span class='notice'>You set the restrictor to: Dead or alive you're coming with me.</span>")
+						phrase = 8
+					if(8)
+						to_chat(user, "<span class='notice'>You set the restrictor to: God made today for the crooks we could not catch yesterday.</span>")
+						phrase = 9
+					if(9)
+						to_chat(user, "<span class='notice'>You set the restrictor to: Freeze, Scum Bag!</span>")
+						phrase = 10
+					if(10)
+						to_chat(user, "<span class='notice'>You set the restrictor to: Stop right there, criminal scum!</span>")
+						phrase = 11
+					if(11)
+						to_chat(user, "<span class='notice'>You set the restrictor to: Down on the floor, Creep!</span>")
+						phrase = 7
+					else
+						to_chat(user, "<span class='notice'>You set the restrictor to: Down on the floor, Creep!</span>")
+						phrase = 7
+			if(3)
+				switch(phrase)
+					if(12)
+						to_chat(user, "<span class='notice'>You set the restrictor to: Go ahead, make my day.</span>")
+						phrase = 13
+					if(13)
+						to_chat(user, "<span class='notice'>You set the restrictor to: Stop breaking the law, ass hole.</span>")
+						phrase = 14
+					if(14)
+						to_chat(user, "<span class='notice'>You set the restrictor to: You have the right to shut the fuck up.</span>")
+						phrase = 15
+					if(15)
+						to_chat(user, "<span class='notice'>You set the restrictor to: Shut up crime!</span>")
+						phrase = 16
+					if(16)
+						to_chat(user, "<span class='notice'>You set the restrictor to: Face the wrath of the golden bolt.</span>")
+						phrase = 17
+					if(17)
+						to_chat(user, "<span class='notice'>You set the restrictor to: I am, the LAW!</span>")
+						phrase = 18
+					if(18)
+						to_chat(user, "<span class='notice'>You set the restrictor to: Stop or I'll bash you.</span>")
+						phrase = 12
+					else
+						to_chat(user, "<span class='notice'>You set the restrictor to: Go ahead, make my day.</span>")
+						phrase = 13
+
+			if(4)
+				switch(phrase)
+					if(1)
+						to_chat(user, "<span class='notice'>You set the restrictor to: Stop in the name of the Law.</span>")
+						phrase = 2
+					if(2)
+						to_chat(user, "<span class='notice'>You set the restrictor to: Compliance is in your best interest.</span>")
+						phrase = 3
+					if(3)
+						to_chat(user, "<span class='notice'>You set the restrictor to: Prepare for justice.</span>")
+						phrase = 4
+					if(4)
+						to_chat(user, "<span class='notice'>You set the restrictor to: Running will only increase your sentence.</span>")
+						phrase = 5
+					if(5)
+						to_chat(user, "<span class='notice'>You set the restrictor to: Don't move, Creep!</span>")
+						phrase = 6
+					if(6)
+						to_chat(user, "<span class='notice'>You set the restrictor to: Down on the floor, Creep!</span>")
+						phrase = 7
+					if(7)
+						to_chat(user, "<span class='notice'>You set the restrictor to: Dead or alive you're coming with me.</span>")
+						phrase = 8
+					if(8)
+						to_chat(user, "<span class='notice'>You set the restrictor to: God made today for the crooks we could not catch yesterday.</span>")
+						phrase = 9
+					if(9)
+						to_chat(user, "<span class='notice'>You set the restrictor to: Freeze, Scum Bag!</span>")
+						phrase = 10
+					if(10)
+						to_chat(user, "<span class='notice'>You set the restrictor to: Stop right there, criminal scum!</span>")
+						phrase = 11
+					if(11)
+						to_chat(user, "<span class='notice'>You set the restrictor to: Stop or I'll bash you.</span>")
+						phrase = 12
+					if(12)
+						to_chat(user, "<span class='notice'>You set the restrictor to: Go ahead, make my day.</span>")
+						phrase = 13
+					if(13)
+						to_chat(user, "<span class='notice'>You set the restrictor to: Stop breaking the law, ass hole.</span>")
+						phrase = 14
+					if(14)
+						to_chat(user, "<span class='notice'>You set the restrictor to: You have the right to shut the fuck up.</span>")
+						phrase = 15
+					if(15)
+						to_chat(user, "<span class='notice'>You set the restrictor to: Shut up crime!</span>")
+						phrase = 16
+					if(16)
+						to_chat(user, "<span class='notice'>You set the restrictor to: Face the wrath of the golden bolt.</span>")
+						phrase = 17
+					if(17)
+						to_chat(user, "<span class='notice'>You set the restrictor to: I am, the LAW!</span>")
+						phrase = 18
+					if(18)
+						to_chat(user, "<span class='notice'>You set the restrictor to: HALT! HALT! HALT! HALT!</span>")
+						phrase = 1
+			else
+				to_chat(user, "<span class='notice'>It's broken.</span>")
 
 /obj/item/clothing/mask/gas/sechailer/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/weapon/screwdriver))
 		switch(aggressiveness)
 			if(1)
-				to_chat(user, "\blue You set the restrictor to the middle position.")
+				to_chat(user, "\blue You set the aggressiveness restrictor to the second position.")
 				aggressiveness = 2
+				phrase = 7
 			if(2)
-				to_chat(user, "\blue You set the restrictor to the last position.")
+				to_chat(user, "\blue You set the aggressiveness restrictor to the third position.")
 				aggressiveness = 3
+				phrase = 13
 			if(3)
-				to_chat(user, "\blue You set the restrictor to the first position.")
-				aggressiveness = 1
+				to_chat(user, "\blue You set the aggressiveness restrictor to the fourth position.")
+				aggressiveness = 4
+				phrase = 1
 			if(4)
+				to_chat(user, "\blue You set the aggressiveness restrictor to the first position.")
+				aggressiveness = 1
+				phrase = 1
+			if(5)
 				to_chat(user, "\red You adjust the restrictor but nothing happens, probably because its broken.")
 	else if(istype(W, /obj/item/weapon/wirecutters))
-		if(aggressiveness != 4)
+		if(aggressiveness != 5)
 			to_chat(user, "\red You broke it!")
-			aggressiveness = 4
+			aggressiveness = 5
 	else
 		..()
 
@@ -262,7 +414,6 @@
 		return
 
 /obj/item/clothing/mask/gas/sechailer/proc/halt()
-	var/phrase = 0	//selects which phrase to use
 	var/phrase_text = null
 	var/phrase_sound = null
 
@@ -274,15 +425,7 @@
 			playsound(src.loc, 'sound/voice/binsult.ogg', 100, 0, 4)
 			cooldown = world.time
 			return
-		switch(aggressiveness)		// checks if the user has unlocked the restricted phrases
-			if(1)
-				phrase = rand(1,5)	// set the upper limit as the phrase above the first 'bad cop' phrase, the mask will only play 'nice' phrases
-			if(2)
-				phrase = rand(1,11)	// default setting, set upper limit to last 'bad cop' phrase. Mask will play good cop and bad cop phrases
-			if(3)
-				phrase = rand(1,18)	// user has unlocked all phrases, set upper limit to last phrase. The mask will play all phrases
-			if(4)
-				phrase = rand(12,18)	// user has broke the restrictor, it will now only play shitcurity phrases
+
 
 		switch(phrase)	//sets the properties of the chosen phrase
 			if(1)				// good cop

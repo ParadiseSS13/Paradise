@@ -82,6 +82,7 @@
 	desc = "moustache is totally real."
 	icon_state = "fake-moustache"
 	flags_inv = HIDEFACE
+	actions_types = list(/datum/action/item_action/pontificate)
 	species_fit = list("Vox", "Unathi", "Tajaran", "Vulpkanin")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/mask.dmi',
@@ -90,12 +91,15 @@
 		"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi'
 		)
 
-/obj/item/clothing/mask/fakemoustache/verb/pontificate()
-	set name = "Pontificate Evilly"
-	set category = "Object"
-	set desc = "Devise evil plans of evilness."
+/obj/item/clothing/mask/fakemoustache/attack_self(mob/user)
+	pontificate(user)
 
-	usr.visible_message("<span class = 'danger'>\ [usr] twirls \his moustache and laughs [pick("fiendishly","maniacally","diabolically","evilly")]!</span>")
+/obj/item/clothing/mask/fakemoustache/item_action_slot_check(slot)
+	if(slot == slot_wear_mask)
+		return 1
+
+/obj/item/clothing/mask/fakemoustache/proc/pontificate(mob/user)
+	user.visible_message("<span class='danger'>\ [user] twirls \his moustache and laughs [pick("fiendishly","maniacally","diabolically","evilly")]!</span>")
 
 //scarves (fit in in mask slot)
 
@@ -134,6 +138,7 @@
 	flags = MASKCOVERSMOUTH
 	w_class = 2
 	gas_transfer_coefficient = 0.90
+
 
 /obj/item/clothing/mask/pig
 	name = "pig mask"
@@ -183,6 +188,58 @@
 		return
 	if(user.real_name == "[originalname][temporaryname]" || user.real_name == "A Horse With No Name") //if it's somehow changed while the mask is on it doesn't revert
 		user.real_name = originalname
+
+/obj/item/clothing/mask/face
+	flags = MASKCOVERSMOUTH
+	flags_inv = HIDEFACE
+
+/obj/item/clothing/mask/face/rat
+	name = "rat mask"
+	desc = "A mask made of soft vinyl and latex, representing the head of a rat."
+	icon_state = "rat"
+	item_state = "rat"
+
+/obj/item/clothing/mask/face/fox
+	name = "fox mask"
+	desc = "A mask made of soft vinyl and latex, representing the head of a fox."
+	icon_state = "fox"
+	item_state = "fox"
+
+/obj/item/clothing/mask/face/bee
+	name = "bee mask"
+	desc = "A mask made of soft vinyl and latex, representing the head of a bee."
+	icon_state = "bee"
+	item_state = "bee"
+
+/obj/item/clothing/mask/face/bear
+	name = "bear mask"
+	desc = "A mask made of soft vinyl and latex, representing the head of a bear."
+	icon_state = "bear"
+	item_state = "bear"
+
+/obj/item/clothing/mask/face/bat
+	name = "bat mask"
+	desc = "A mask made of soft vinyl and latex, representing the head of a bat."
+	icon_state = "bat"
+	item_state = "bat"
+
+/obj/item/clothing/mask/face/raven
+	name = "raven mask"
+	desc = "A mask made of soft vinyl and latex, representing the head of a raven."
+	icon_state = "raven"
+	item_state = "raven"
+
+/obj/item/clothing/mask/face/jackal
+	name = "jackal mask"
+	desc = "A mask made of soft vinyl and latex, representing the head of a jackal."
+	icon_state = "jackal"
+	item_state = "jackal"
+
+/obj/item/clothing/mask/face/tribal
+	name = "tribal mask"
+	desc = "A mask carved out of wood, detailed carefully by hand."
+	icon_state = "bumba"
+	item_state = "bumba"
 
 /obj/item/clothing/mask/fawkes
 	name = "Guy Fawkes mask"

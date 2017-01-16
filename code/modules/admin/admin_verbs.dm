@@ -37,7 +37,6 @@ var/list/admin_verbs_admin = list(
 	/client/proc/jumptoturf,			/*allows us to jump to a specific turf*/
 	/client/proc/admin_call_shuttle,	/*allows us to call the emergency shuttle*/
 	/client/proc/admin_cancel_shuttle,	/*allows us to cancel the emergency shuttle, sending it back to centcomm*/
-	/client/proc/check_words,			/*displays cult-words*/
 	/client/proc/check_ai_laws,			/*shows AI and borg laws*/
 	/client/proc/manage_silicon_laws,	/* Allows viewing and editing silicon laws. */
 	/client/proc/admin_memo,			/*admin memo system. show/delete/write. +SERVER needed to delete admin memos of others*/
@@ -49,10 +48,11 @@ var/list/admin_verbs_admin = list(
 	/datum/admins/proc/togglelooc,		/*toggles looc on/off for everyone*/
 	/datum/admins/proc/toggleoocdead,	/*toggles ooc on/off for everyone who is dead*/
 	/datum/admins/proc/toggledsay,		/*toggles dsay on/off for everyone*/
+	/datum/admins/proc/toggleemoji,     /*toggles using emoji in ooc for everyone*/
 	/client/proc/game_panel,			/*game panel, allows to change game-mode etc*/
 	/client/proc/cmd_admin_say,			/*admin-only ooc chat*/
 	/datum/admins/proc/PlayerNotes,
-	/client/proc/cmd_mod_say,
+	/client/proc/cmd_mentor_say,
 	/datum/admins/proc/show_player_notes,
 	/client/proc/free_slot,			/*frees slot for chosen job*/
 	/client/proc/toggleattacklogs,
@@ -74,7 +74,9 @@ var/list/admin_verbs_admin = list(
 	/client/proc/change_human_appearance_self,	/* Allows the human-based mob itself change its basic appearance */
 	/client/proc/debug_variables,
 	/client/proc/show_snpc_verbs,
-	/client/proc/reset_all_tcs			/*resets all telecomms scripts*/
+	/client/proc/reset_all_tcs,			/*resets all telecomms scripts*/
+	/client/proc/cmd_admin_check_player_exp, /* shows players by playtime */
+	/client/proc/toggle_mentor_chat
 )
 var/list/admin_verbs_ban = list(
 	/client/proc/unban_panel,
@@ -113,7 +115,8 @@ var/list/admin_verbs_event = list(
 
 var/list/admin_verbs_spawn = list(
 	/datum/admins/proc/spawn_atom,		/*allows us to spawn instances*/
-	/client/proc/respawn_character
+	/client/proc/respawn_character,
+	/client/proc/admin_deserialize
 	)
 var/list/admin_verbs_server = list(
 	/client/proc/ToRban,
@@ -151,8 +154,6 @@ var/list/admin_verbs_debug = list(
 	/client/proc/toggledebuglogs,
 	/client/proc/qdel_toggle,
 	/client/proc/gc_dump_hdl,
-	/client/proc/gc_toggle_profiling,
-	/client/proc/gc_show_del_report,
 	/client/proc/debugNatureMapGenerator,
 	/client/proc/check_bomb_impacts,
 	/client/proc/test_movable_UI,
@@ -161,7 +162,9 @@ var/list/admin_verbs_debug = list(
 	/proc/machine_upgrade,
 	/client/proc/map_template_load,
 	/client/proc/map_template_upload,
-	/client/proc/view_runtimes
+	/client/proc/view_runtimes,
+	/client/proc/admin_serialize,
+	/client/proc/admin_deserialize
 	)
 var/list/admin_verbs_possess = list(
 	/proc/possess,
@@ -182,7 +185,7 @@ var/list/admin_verbs_mod = list(
 	/client/proc/cmd_admin_pm_by_key_panel,	/*admin-pm list by key*/
 	/datum/admins/proc/PlayerNotes,
 	/client/proc/admin_ghost,			/*allows us to ghost/reenter body at will*/
-	/client/proc/cmd_mod_say,
+	/client/proc/cmd_mentor_say,
 	/datum/admins/proc/show_player_notes,
 	/client/proc/player_panel_new,
 	/client/proc/dsay,
@@ -194,6 +197,7 @@ var/list/admin_verbs_mentor = list(
 	/client/proc/cmd_admin_pm_context,	/*right-click adminPM interface*/
 	/client/proc/cmd_admin_pm_panel,	/*admin-pm list*/
 	/client/proc/cmd_admin_pm_by_key_panel	/*admin-pm list by key*/
+	// cmd_mentor_say is added/removed by the toggle_mentor_chat verb
 )
 var/list/admin_verbs_proccall = list(
 	/client/proc/callproc,
@@ -531,7 +535,7 @@ var/list/admin_verbs_snpc = list(
 #undef AUTOBANTIME
 
 /client/proc/drop_bomb() // Some admin dickery that can probably be done better -- TLE
-	set category = "Special Verbs"
+	set category = "Event"
 	set name = "Drop Bomb"
 	set desc = "Cause an explosion of varying strength at your location."
 

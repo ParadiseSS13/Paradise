@@ -30,11 +30,11 @@
 /obj/machinery/party/turntable/attack_hand(mob/user as mob)
 
 	var/t = "<B>Turntable Interface</B><br><br>"
-	//t += "<A href='?src=\ref[src];on=1'>On</A><br>"
-	t += "<A href='?src=\ref[src];off=1'>Off</A><br><br>"
-	t += "<A href='?src=\ref[src];on1=Testloop1'>One</A><br>"
-	t += "<A href='?src=\ref[src];on2=Testloop2'>TestLoop2</A><br>"
-	t += "<A href='?src=\ref[src];on3=Testloop3'>TestLoop3</A><br>"
+	//t += "<A href='?src=[UID()];on=1'>On</A><br>"
+	t += "<A href='?src=[UID()];off=1'>Off</A><br><br>"
+	t += "<A href='?src=[UID()];on1=Testloop1'>One</A><br>"
+	t += "<A href='?src=[UID()];on2=Testloop2'>TestLoop2</A><br>"
+	t += "<A href='?src=[UID()];on3=Testloop3'>TestLoop3</A><br>"
 
 	user << browse(t, "window=turntable;size=420x700")
 

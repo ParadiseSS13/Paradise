@@ -1,5 +1,5 @@
-// TODO: Tie into space manager
 //Used for all kinds of weather, ex. lavaland ash storms.
+// TODO: This could probably be better-integrated with the space manager
 var/global/datum/controller/process/weather/weather_master
 
 /datum/controller/process/weather
@@ -33,7 +33,7 @@ var/global/datum/controller/process/weather/weather_master
 		var/list/possible_weather_for_this_z = list()
 		for(var/V in existing_weather)
 			var/datum/weather/WE = V
-			if(WE.target_z == Z && WE.probability) //Another check so that it doesn't run extra weather
+			if(WE.target_level == Z && WE.probability) //Another check so that it doesn't run extra weather
 				possible_weather_for_this_z[WE] = WE.probability
 		var/datum/weather/W = pickweight(possible_weather_for_this_z)
 		run_weather(W.name)

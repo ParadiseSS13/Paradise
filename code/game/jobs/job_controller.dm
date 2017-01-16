@@ -123,6 +123,9 @@ var/global/datum/controller/occupations/job_master
 			if(job.admin_only) // No admin positions either.
 				continue
 
+			if(job.available_in_playtime(player.client))
+				continue
+
 			if(jobban_isbanned(player, job.title))
 				Debug("GRJ isbanned failed, Player: [player], Job: [job.title]")
 				continue
@@ -213,16 +216,10 @@ var/global/datum/controller/occupations/job_master
 	proc/FillAIPosition()
 		var/ai_selected = 0
 		var/datum/job/job = GetJob("AI")
-		if(!job)	return 0
-		if((job.title == "AI") && (config) && (!config.allow_ai))	return 0
-
-		if(ticker.mode.name == "AI malfunction")	// malf. AIs are pre-selected before jobs
-			for(var/datum/mind/mAI in ticker.mode.malf_ai)
-				AssignRole(mAI.current, "AI")
-				ai_selected++
-			if(ai_selected)	return 1
+		if(!job)
 			return 0
-
+		if((job.title == "AI") && (config) && (!config.allow_ai))
+			return 0
 		for(var/i = job.total_positions, i > 0, i--)
 			for(var/level = 1 to 3)
 				var/list/candidates = list()
@@ -361,19 +358,19 @@ var/global/datum/controller/occupations/job_master
 
 		Debug("DO, Running AC2")
 
-		// For those who wanted to be civilians if their preferences were filled, here you go.
+		// Antags, who have to get in, come first
+		for(var/mob/new_player/player in unassigned)
+			if(player.mind.special_role)
+				GiveRandomJob(player)
+				if(player in unassigned)
+					AssignRole(player, "Civilian")
+
+		// Then we assign what we can to everyone else.
 		for(var/mob/new_player/player in unassigned)
 			if(player.client.prefs.alternate_option == BE_ASSISTANT)
 				Debug("AC2 Assistant located, Player: [player]")
 				AssignRole(player, "Civilian")
-
-		for(var/mob/new_player/player in unassigned)
-			if(player.mind.special_role)
-				GiveRandomJob(player)
-
-		//For ones returning to lobby
-		for(var/mob/new_player/player in unassigned)
-			if(player.client.prefs.alternate_option == RETURN_TO_LOBBY)
+			else if(player.client.prefs.alternate_option == RETURN_TO_LOBBY)
 				player.ready = 0
 				unassigned -= player
 		return 1
@@ -485,7 +482,7 @@ var/global/datum/controller/occupations/job_master
 			H.mind.store_memory(remembered_info)
 
 		spawn(0)
-			to_chat(H, "\blue<b>Your account number is: [M.account_number], your account pin is: [M.remote_access_pin]</b>")
+			to_chat(H, "<span class='boldnotice'>Your account number is: [M.account_number], your account pin is: [M.remote_access_pin]</span>")
 
 		var/alt_title = null
 		if(H.mind)
@@ -540,6 +537,23 @@ var/global/datum/controller/occupations/job_master
 
 		to_chat(H, "<B>You are the [alt_title ? alt_title : rank].</B>")
 		to_chat(H, "<b>As the [alt_title ? alt_title : rank] you answer directly to [job.supervisors]. Special circumstances may change this.</b>")
+		to_chat(H, "<b>For more information on how the station works, see <a href=\"https://nanotrasen.se/wiki/index.php/Standard_Operating_Procedure\">Standard Operating Procedure (SOP)</a></b>")
+		if(job.is_service)
+			to_chat(H, "<b>As a member of Service, make sure to read up on your <a href=\"https://nanotrasen.se/wiki/index.php/Standard_Operating_Procedure_&#40;Service&#41\">Department SOP</a></b>")
+		if(job.is_supply)
+			to_chat(H, "<b>As a member of Supply, make sure to read up on your <a href=\"https://nanotrasen.se/wiki/index.php/Standard_Operating_Procedure_&#40;Supply&#41\">Department SOP</a></b>")
+		if(job.is_command)
+			to_chat(H, "<b>As an important member of Command, read up on your <a href=\"https://nanotrasen.se/wiki/index.php/Standard_Operating_Procedure_&#40;Command&#41\">Department SOP</a></b>")
+		if(job.is_legal)
+			to_chat(H, "<b>Your job requires complete knowledge of <a href=\"https://nanotrasen.se/wiki/index.php/Space_law\">Space Law</a> and <a href=\"https://nanotrasen.se/wiki/index.php/Legal_Standard_Operating_Procedure\">Legal Standard Operating Procedure</a></b>")
+		if(job.is_engineering)
+			to_chat(H, "<b>As a member of Engineering, make sure to read up on your <a href=\"https://nanotrasen.se/wiki/index.php/Standard_Operating_Procedure_&#40;Engineering&#41\">Department SOP</a></b>")
+		if(job.is_medical)
+			to_chat(H, "<b>As a member of Medbay, make sure to read up on your <a href=\"https://nanotrasen.se/wiki/index.php/Standard_Operating_Procedure_&#40;Medical&#41\">Department SOP</a></b>")
+		if(job.is_science)
+			to_chat(H, "<b>As a member of Science, make sure to read up on your <a href=\"https://nanotrasen.se/wiki/index.php/Standard_Operating_Procedure_&#40;Science&#41\">Department SOP</a></b>")
+		if(job.is_security)
+			to_chat(H, "<b>As a member of Security, you are to know <a href=\"https://nanotrasen.se/wiki/index.php/Space_law\">Space Law</a>, <a href=\"https://nanotrasen.se/wiki/index.php/Legal_Standard_Operating_Procedure\">Legal Standard Operating Procedure</a>, as well as your <a href=\"https://nanotrasen.se/wiki/index.php/Standard_Operating_Procedure_&#40;Security&#41\">Department SOP</a></b>")
 		if(job.req_admin_notify)
 			to_chat(H, "<b>You are playing a job that is important for the game progression. If you have to disconnect, please notify the admins via adminhelp.</b>")
 

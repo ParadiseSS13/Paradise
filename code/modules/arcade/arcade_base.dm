@@ -16,9 +16,10 @@
 
 /obj/machinery/arcade/New()
 	..()
-	var/choice = pick(subtypesof(/obj/machinery/arcade))
-	new choice(loc)
-	qdel(src)
+	if(type == /obj/machinery/arcade)		//if you spawn the base-type, it will replace itself with a random subtype for randomness
+		var/choice = pick(subtypesof(/obj/machinery/arcade))
+		new choice(loc)
+		qdel(src)
 
 /obj/machinery/arcade/examine(mob/user)
 	..(user)
@@ -76,7 +77,7 @@
 			if(pay_with_cash(C, user))
 				tokens += 1
 			return
-	if(panel_open&& component_parts && istype(O, /obj/item/weapon/crowbar))
+	if(panel_open && component_parts && istype(O, /obj/item/weapon/crowbar))
 		default_deconstruction_crowbar(O)
 
 /obj/machinery/arcade/update_icon()

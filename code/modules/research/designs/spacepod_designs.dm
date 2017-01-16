@@ -121,7 +121,7 @@
 	desc = "Allows for the construction of a spacepod mounted laser."
 	id = "podgun_laser"
 	build_type = PODFAB
-	req_tech = list("materials" = 3, "combat" = 3, "plasma" = 2)
+	req_tech = list("materials" = 3, "combat" = 3, "plasmatech" = 2)
 	build_path = /obj/item/device/spacepod_equipment/weaponry/laser
 	category = list("Pod_Weaponry")
 	materials = list(MAT_METAL=10000,MAT_GLASS=5000,MAT_GOLD=1000,MAT_SILVER=2000)

@@ -602,7 +602,7 @@
 	var/list/cat_dat = list()
 	for(var/category in categories)
 		cat_dat[category] = "<hr>"
-		dat += "<li><a [tab==category?"class=selected":""] href='byond://?src=\ref[src];page=[category]'>[category]</a></li>"
+		dat += "<li><a [tab==category?"class=selected":""] href='byond://?src=[UID()];page=[category]'>[category]</a></li>"
 
 	dat += "<li><a><b>Points remaining : [uses]</b></a></li>"
 	dat += "</ul>"
@@ -613,11 +613,11 @@
 		E = entries[i]
 		spell_info += E.GetInfo()
 		if(E.CanBuy(user,src))
-			spell_info+= "<a href='byond://?src=\ref[src];buy=[i]'>[E.buy_word]</A><br>"
+			spell_info+= "<a href='byond://?src=[UID()];buy=[i]'>[E.buy_word]</A><br>"
 		else
 			spell_info+= "<span>Can't [E.buy_word]</span><br>"
 		if(E.CanRefund(user,src))
-			spell_info+= "<a href='byond://?src=\ref[src];refund=[i]'>Refund</A><br>"
+			spell_info+= "<a href='byond://?src=[UID()];refund=[i]'>Refund</A><br>"
 		spell_info += "<hr>"
 		if(cat_dat[E.category])
 			cat_dat[E.category] += spell_info
@@ -640,7 +640,7 @@
 	if(!ishuman(H))
 		return 1
 
-	if(H.mind.special_role == "apprentice")
+	if(H.mind.special_role == SPECIAL_ROLE_WIZARD_APPRENTICE)
 		temp = "If you got caught sneaking a peak from your teacher's spellbook, you'd likely be expelled from the Wizard Academy. Better not."
 		return 1
 
@@ -689,7 +689,7 @@
 	for(var/obj/effect/proc_holder/spell/knownspell in user.mind.spell_list)
 		if(knownspell.type == S.type)
 			if(user.mind)
-				if(user.mind.special_role == "apprentice" || user.mind.special_role == "Wizard")
+				if(user.mind.special_role == SPECIAL_ROLE_WIZARD_APPRENTICE || user.mind.special_role == SPECIAL_ROLE_WIZARD)
 					to_chat(user, "<span class='notice'>You're already far more versed in this spell than this flimsy how-to book can provide.</span>")
 				else
 					to_chat(user, "<span class='notice'>You've already read this one.</span>")
@@ -747,7 +747,7 @@
 /obj/item/weapon/spellbook/oneuse/blind/recoil(mob/user as mob)
 	..()
 	to_chat(user, "<span class='warning'>You go blind!</span>")
-	user.eye_blind = 10
+	user.EyeBlind(10)
 
 /obj/item/weapon/spellbook/oneuse/mindswap
 	spell = /obj/effect/proc_holder/spell/targeted/mind_transfer

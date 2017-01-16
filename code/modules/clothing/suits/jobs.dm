@@ -38,7 +38,7 @@
 	item_state = "apron"
 	blood_overlay_type = "armor"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
-	allowed = list (/obj/item/weapon/reagent_containers/spray/plantbgone,/obj/item/device/analyzer/plant_analyzer,/obj/item/seeds,/obj/item/weapon/reagent_containers/glass/fertilizer,/obj/item/weapon/minihoe)
+	allowed = list (/obj/item/weapon/reagent_containers/spray/plantbgone,/obj/item/device/analyzer/plant_analyzer,/obj/item/seeds,/obj/item/weapon/reagent_containers/glass/bottle/fertilizer,/obj/item/weapon/minihoe)
 	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
@@ -189,6 +189,7 @@
 	item_state = "hazard"
 	blood_overlay_type = "armor"
 	allowed = list (/obj/item/device/flashlight, /obj/item/device/t_scanner, /obj/item/weapon/tank/emergency_oxygen)
+	burn_state = FIRE_PROOF
 	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi'

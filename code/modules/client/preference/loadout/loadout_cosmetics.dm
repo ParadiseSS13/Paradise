@@ -18,3 +18,7 @@
 /datum/gear/monocle
 	display_name = "monocle"
 	path = /obj/item/clothing/glasses/monocle
+
+/datum/gear/sunglasses
+	display_name = "cheap sunglasses"
+	path = /obj/item/clothing/glasses/sunglasses/fake

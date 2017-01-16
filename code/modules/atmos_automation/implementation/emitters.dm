@@ -20,7 +20,7 @@
 		return 0
 
 	GetText()
-		return "Set emitter <a href=\"?src=\ref[src];set_subject=1\">[fmtString(emitter)]</a> to <a href=\"?src=\ref[src];set_power=1\">[on?"on":"off"]</a>."
+		return "Set emitter <a href=\"?src=[UID()];set_subject=1\">[fmtString(emitter)]</a> to <a href=\"?src=[UID()];set_power=1\">[on?"on":"off"]</a>."
 
 	Topic(href,href_list)
 		if(..())

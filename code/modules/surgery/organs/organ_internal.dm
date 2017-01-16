@@ -15,6 +15,11 @@
 		insert(holder)
 	..()
 
+/obj/item/organ/internal/Destroy()
+	if(owner)
+		remove(owner, 1)
+	return ..()
+
 /obj/item/organ/internal/proc/insert(mob/living/carbon/M, special = 0, var/dont_remove_slot = 0)
 	if(!iscarbon(M) || owner == M)
 		return
@@ -34,7 +39,7 @@
 		var/mob/living/carbon/human/H = M
 		parent = H.get_organ(check_zone(parent_organ))
 		if(!istype(parent))
-			log_to_dd("[src] attempted to insert into a [parent], but [parent] wasn't an organ! Area: [get_area(M)]")
+			log_runtime(EXCEPTION("[src] attempted to insert into a [parent_organ], but [parent_organ] wasn't an organ! [atom_loc_line(M)]"), src)
 		else
 			parent.internal_organs |= src
 	//M.internal_organs_by_name[src] |= src(H,1)
@@ -43,8 +48,12 @@
 		var/datum/action/A = X
 		A.Grant(M)
 
-
+// Removes the given organ from its owner.
+// Returns the removed object, which is usually just itself
+// However, you MUST set the object's positiion yourself when you call this!
 /obj/item/organ/internal/remove(mob/living/carbon/M, special = 0)
+	if(!owner)
+		log_runtime(EXCEPTION("\'remove\' called on [src] without an owner! Mob: [M], [atom_loc_line(M)]"), src)
 	owner = null
 	if(M)
 		M.internal_organs -= src
@@ -56,14 +65,14 @@
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/external/parent = H.get_organ(check_zone(parent_organ))
 		if(!istype(parent))
-			log_to_dd("[src] attempted to remove from a [parent], but [parent] didn't exist! Area: [get_area(M)], Mob: [M]")
+			log_runtime(EXCEPTION("[src] attempted to remove from a [parent_organ], but [parent_organ] didn't exist! [atom_loc_line(M)]"), src)
 		else
 			parent.internal_organs -= src
 
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.Remove(M)
-
+	return src
 
 /obj/item/organ/internal/replaced(var/mob/living/carbon/human/target,var/obj/item/organ/external/affected)
     insert(target)
@@ -78,11 +87,6 @@
 /obj/item/organ/internal/proc/on_life()
 	return
 
-/obj/item/organ/internal/Destroy()
-	if(owner)
-		remove(owner, 1)
-	return ..()
-
 /obj/item/organ/internal/proc/prepare_eat()
 	if(status == ORGAN_ROBOT)
 		return //no eating cybernetic implants!
@@ -95,6 +99,12 @@
 	S.w_class = w_class
 
 	return S
+
+/obj/item/organ/internal/attempt_become_organ(obj/item/organ/external/parent,mob/living/carbon/human/H)
+	if(parent_organ != parent.limb_name)
+		return 0
+	insert(H)
+	return 1
 
 /obj/item/weapon/reagent_containers/food/snacks/organ
 	name = "appendix"
@@ -149,7 +159,7 @@
 		icon_state = "[icon_base]-off"
 
 /obj/item/organ/internal/heart/remove(mob/living/carbon/M, special = 0)
-	..()
+	. = ..()
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		if(H.stat == DEAD || H.heart_attack)
@@ -279,7 +289,7 @@
 ///obj/item/organ/internal/lungs/remove(mob/living/carbon/M, special = 0)
 //	owner.losebreath += 10
 	//insert oxy damage extream here.
-//	..()
+//	. = ..()
 
 
 /obj/item/organ/internal/lungs/process()
@@ -297,7 +307,7 @@
 			owner.drip(10)
 		if(prob(4))
 			spawn owner.custom_emote(1, "gasps for air!")
-			owner.losebreath += 5
+			owner.AdjustLoseBreath(5)
 
 /obj/item/organ/internal/kidneys
 	name = "kidneys"
@@ -317,7 +327,7 @@
 	// Coffee is really bad for you with busted kidneys.
 	// This should probably be expanded in some way, but fucked if I know
 	// what else kidneys can process in our reagent list.
-	var/datum/reagent/coffee = locate(/datum/reagent/drink/coffee) in owner.reagents.reagent_list
+	var/datum/reagent/coffee = locate(/datum/reagent/consumable/drink/coffee) in owner.reagents.reagent_list
 	if(coffee)
 		if(is_bruised())
 			owner.adjustToxLoss(0.1 * PROCESS_ACCURACY)
@@ -335,31 +345,22 @@
 	var/list/eye_colour = list(0,0,0)
 
 /obj/item/organ/internal/eyes/proc/update_colour()
-	if(!owner)
-		return
-	eye_colour = list(
-		owner.r_eyes ? owner.r_eyes : 0,
-		owner.g_eyes ? owner.g_eyes : 0,
-		owner.b_eyes ? owner.b_eyes : 0
-		)
+	dna.write_eyes_attributes(src)
 
 /obj/item/organ/internal/eyes/insert(mob/living/carbon/M, special = 0)
-// Apply our eye colour to the target.
-	if(istype(M) && eye_colour)
-		var/mob/living/carbon/human/eyes = M
-		eyes.r_eyes = eye_colour[1]
-		eyes.g_eyes = eye_colour[2]
-		eyes.b_eyes = eye_colour[3]
-		eyes.update_eyes()
 	..()
+	if(istype(M) && eye_colour)
+		var/mob/living/carbon/human/H = M
+		// Apply our eye colour to the target.
+		H.update_body()
 
 /obj/item/organ/internal/eyes/surgeryize()
 	if(!owner)
 		return
-	owner.disabilities &= ~NEARSIGHTED
-	owner.disabilities &= ~BLIND
-	owner.eye_blurry = 0
-	owner.eye_blind = 0
+	owner.CureNearsighted()
+	owner.CureBlind()
+	owner.SetEyeBlurry(0)
+	owner.SetEyeBlind(0)
 
 
 /obj/item/organ/internal/liver
@@ -415,7 +416,7 @@
 		if(src.damage >= src.min_bruised_damage)
 			for(var/datum/reagent/R in owner.reagents.reagent_list)
 				// Ethanol and all drinks are bad
-				if(istype(R, /datum/reagent/ethanol))
+				if(istype(R, /datum/reagent/consumable/ethanol))
 					owner.adjustToxLoss(0.1 * PROCESS_ACCURACY)
 
 			// Can't cope with toxins at all
@@ -436,7 +437,7 @@
 		A.cure()
 		inflamed = 1
 	update_icon()
-	..()
+	. = ..()
 
 /obj/item/organ/internal/appendix/insert(mob/living/carbon/M, special = 0)
 	..()
@@ -492,6 +493,7 @@
 	slot = "brain_tumor"
 	health = 3
 	var/organhonked = 0
+	var/suffering_delay = 900
 
 /obj/item/organ/internal/honktumor/New()
 	..()
@@ -508,7 +510,7 @@
 	organhonked = world.time
 
 /obj/item/organ/internal/honktumor/remove(mob/living/carbon/M, special = 0)
-	..()
+	. = ..()
 
 	M.mutations.Remove(CLUMSY)
 	M.mutations.Remove(COMICBLOCK)
@@ -534,11 +536,11 @@
 		return
 
 	if(organhonked < world.time)
-		organhonked = world.time+900
+		organhonked = world.time + suffering_delay
 		to_chat(owner, "<font color='red' size='7'>HONK</font>")
-		owner.sleeping = 0
-		owner.stuttering = 20
-		owner.adjustEarDamage(0, 30)
+		owner.SetSleeping(0)
+		owner.Stuttering(20)
+		owner.AdjustEarDeaf(30)
 		owner.Weaken(3)
 		owner << 'sound/items/AirHorn.ogg'
 		if(prob(30))
@@ -561,7 +563,7 @@
 /obj/item/organ/internal/honktumor/cursed
 
 /obj/item/organ/internal/honktumor/cursed/remove(mob/living/carbon/M, special = 0, clean_remove = 0)
-	..()
+	. = ..()
 	if(!clean_remove)
 		visible_message("<span class='warning'>[src] vanishes into dust, and a [M] emits a loud honk!</span>", "<span class='notice'>You hear a loud honk.</span>")
 		insert(M) //You're not getting away that easily!

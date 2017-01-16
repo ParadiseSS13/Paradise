@@ -29,7 +29,7 @@
 /mob/living/captive_brain/say_understands(var/mob/other, var/datum/language/speaking = null)
 	var/mob/living/simple_animal/borer/B = src.loc
 	if(!istype(B))
-		log_to_dd("Trapped mind found without a borer!")
+		log_runtime(EXCEPTION("Trapped mind found without a borer!"), src)
 		return 0
 	return B.host.say_understands(other, speaking)
 
@@ -76,7 +76,7 @@
 	attacktext = "nips"
 	friendly = "prods"
 	wander = 0
-	small = 1
+	mob_size = MOB_SIZE_TINY
 	density = 0
 	pass_flags = PASSTABLE
 	ventcrawler = 2
@@ -310,8 +310,8 @@
 		if(!host || !src || controlling)
 			return
 		else
-			to_chat(src, "\red <B>You plunge your probosci deep into the cortex of the host brain, interfacing directly with their nervous system.</B>")
-			to_chat(host, "\red <B>You feel a strange shifting sensation behind your eyes as an alien consciousness displaces yours.</B>")
+			to_chat(src, "<span class='danger'>You plunge your probosci deep into the cortex of the host brain, interfacing directly with their nervous system.</span>")
+			to_chat(host, "<span class='danger'>You feel a strange shifting sensation behind your eyes as an alien consciousness displaces yours.</span>")
 			var/borer_key = src.key
 			host.attack_log += text("\[[time_stamp()]\] <font color='blue'>[key_name(src)] has assumed control of [key_name(host)]</font>")
 			msg_admin_attack("[key_name_admin(src)] has assumed control of [key_name_admin(host)]")
@@ -446,7 +446,7 @@
 
 	controlling = 0
 
-	reset_view(null)
+	reset_perspective(null)
 	machine = null
 
 	host.verbs -= /mob/living/carbon/proc/release_control
@@ -502,12 +502,12 @@
 	var/mob/living/simple_animal/borer/B = has_brain_worms()
 
 	if(B && B.host_brain)
-		to_chat(src, "\red <B>You withdraw your probosci, releasing control of [B.host_brain]</B>")
+		to_chat(src, "<span class='danger'>You withdraw your probosci, releasing control of [B.host_brain]</span>")
 
 		B.detatch()
 
 	else
-		to_chat(src, "\red <B>ERROR NO BORER OR BRAINMOB DETECTED IN THIS MOB, THIS IS A BUG !</B>")
+		to_chat(src, "<span class='danger'>ERROR NO BORER OR BRAINMOB DETECTED IN THIS MOB, THIS IS A BUG !</span>")
 
 //Brain slug proc for tormenting the host.
 /mob/living/carbon/proc/punish_host()
@@ -521,8 +521,8 @@
 		return
 
 	if(B.host_brain.ckey)
-		to_chat(src, "\red <B>You send a punishing spike of psychic agony lancing into your host's brain.</B>")
-		to_chat(B.host_brain, "\red <B><FONT size=3>Horrific, burning agony lances through you, ripping a soundless scream from your trapped mind!</FONT></B>")
+		to_chat(src, "<span class='danger'>You send a punishing spike of psychic agony lancing into your host's brain.</span>")
+		to_chat(B.host_brain, "<span class='danger'><FONT size=3>Horrific, burning agony lances through you, ripping a soundless scream from your trapped mind!</FONT></span>")
 
 //Check for brain worms in head.
 /mob/proc/has_brain_worms()
@@ -544,8 +544,8 @@
 		return
 
 	if(B.chemicals >= 100)
-		to_chat(src, "\red <B>Your host twitches and quivers as you rapdly excrete several larvae from your sluglike body.</B>")
-		visible_message("\red <B>[src] heaves violently, expelling a rush of vomit and a wriggling, sluglike creature!</B>")
+		to_chat(src, "<span class='danger'>Your host twitches and quivers as you rapdly excrete several larvae from your sluglike body.</span>")
+		visible_message("<span class='danger'>[src] heaves violently, expelling a rush of vomit and a wriggling, sluglike creature!</span>")
 		B.chemicals -= 100
 
 		new /obj/effect/decal/cleanable/vomit(get_turf(src))
@@ -562,10 +562,10 @@
 
 	src.forceMove(get_turf(host))
 
-	reset_view(null)
+	reset_perspective(null)
 	machine = null
 
-	host.reset_view(null)
+	host.reset_perspective(null)
 	host.machine = null
 
 	var/mob/living/H = host

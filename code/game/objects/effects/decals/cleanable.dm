@@ -38,6 +38,7 @@
 	..()
 
 /obj/effect/decal/cleanable/fire_act()
-	reagents.chem_temp += 30
-	reagents.handle_reactions()
+	if(reagents)
+		reagents.chem_temp += 30
+		reagents.handle_reactions()
 	..()

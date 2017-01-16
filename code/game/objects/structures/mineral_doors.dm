@@ -219,6 +219,8 @@
 /obj/structure/mineral_door/wood
 	mineralType = "wood"
 	hardness = 1
+	burn_state = FLAMMABLE
+	burntime = 30
 
 	Open()
 		isSwitchingStates = 1

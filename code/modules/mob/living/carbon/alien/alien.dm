@@ -28,12 +28,14 @@
 	var/leaping = 0
 	ventcrawler = 2
 
+	var/list/alien_organs = list()
+
 /mob/living/carbon/alien/New()
-	verbs += /mob/living/carbon/verb/mob_sleep
+	verbs += /mob/living/verb/mob_sleep
 	verbs += /mob/living/verb/lay_down
-	internal_organs += new /obj/item/organ/internal/brain/xeno
-	internal_organs += new /obj/item/organ/internal/xenos/hivenode
-	for(var/obj/item/organ/internal/I in internal_organs)
+	alien_organs += new /obj/item/organ/internal/brain/xeno
+	alien_organs += new /obj/item/organ/internal/xenos/hivenode
+	for(var/obj/item/organ/internal/I in alien_organs)
 		I.insert(src)
 	..()
 
@@ -161,8 +163,8 @@
 
 	show_stat_emergency_shuttle_eta()
 
-/mob/living/carbon/alien/SetStunned(amount)
-	..(amount)
+/mob/living/carbon/alien/SetStunned(amount, updating = 1, force = 0)
+	..()
 	if(!(status_flags & CANSTUN) && amount)
 		// add some movement delay
 		move_delay_add = min(move_delay_add + round(amount / 2), 10) // a maximum delay of 10

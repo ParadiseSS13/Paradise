@@ -316,8 +316,7 @@
 	if(shuttle_master.supply.mode == SHUTTLE_CALL)
 		supplyData["shuttle_moving"] = 1
 
-	// TODO: Tie into space manager
-	if(shuttle_master.supply.z != ZLEVEL_STATION)
+	if(!is_station_level(shuttle_master.supply.z))
 		supplyData["shuttle_loc"] = "station"
 	else
 		supplyData["shuttle_loc"] = "centcom"

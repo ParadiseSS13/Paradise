@@ -23,6 +23,8 @@ var/global/list/undershirt_f = list()	 //stores only undershirt name
 var/global/list/socks_list = list()		//stores /datum/sprite_accessory/socks indexed by name
 var/global/list/socks_m = list()	 //stores only socks name
 var/global/list/socks_f = list()	 //stores only socks name
+	//Alt Heads
+var/global/list/alt_heads_list = list()	//stores /datum/sprite_accessory/alt_heads indexed by name
 	//Backpacks
 var/global/list/backbaglist = list("Nothing", "Backpack", "Satchel", "Satchel Alt")
 

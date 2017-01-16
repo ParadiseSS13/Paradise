@@ -46,7 +46,7 @@
 			else
 				feedback_add_details("handcuffs","H")
 
-			add_logs(C, user, "handcuffed", src)
+			add_logs(user, C, "handcuffed", src)
 		else
 			to_chat(user, "<span class='warning'>You fail to handcuff [C].</span>")
 
@@ -65,7 +65,7 @@
 /obj/item/weapon/restraints/handcuffs/cable
 	name = "cable restraints"
 	desc = "Looks like some cables tied together. Could be used to tie something up."
-	icon_state = "cuff_red"
+	icon_state = "cuff_white"
 	materials = list(MAT_METAL=150, MAT_GLASS=75)
 	breakouttime = 300 //Deciseconds = 30s
 	cuffsound = 'sound/weapons/cablecuff.ogg'
@@ -154,7 +154,7 @@
 					C.handcuffed = new /obj/item/weapon/restraints/handcuffs/cable/zipties/used(C)
 					C.update_handcuffed()
 					to_chat(user, "<span class='notice'>You handcuff [C].</span>")
-					add_logs(C, user, "ziptie-cuffed")
+					add_logs(user, C, "ziptie-cuffed")
 			else
 				to_chat(user, "<span class='warning'>You fail to handcuff [C].</span>")
 

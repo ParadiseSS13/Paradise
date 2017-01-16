@@ -8,7 +8,8 @@
 #define FILL_BUILDMODE 8
 #define LINK_BUILDMODE 9
 #define BOOM_BUILDMODE 10
-#define NUM_BUILDMODES 10
+#define SAVE_BUILDMODE 11
+#define NUM_BUILDMODES 11
 
 /obj/screen/buildmode
 	icon = 'icons/misc/buildmode.dmi'
@@ -81,8 +82,11 @@
 /obj/effect/buildmode_reticule/New(var/turf/t, var/client/c)
 	loc = t
 	I = image('icons/mob/blob.dmi', t, "marker",19.0,2) // Sprite reuse wooo
-	cl = c
-	cl.images += I
+	if(c)
+		cl = c
+		cl.images += I
+	else
+		log_runtime(EXCEPTION("Buildmode reticule created without a client!"), src)
 
 /obj/effect/buildmode_reticule/proc/deselect()
 	qdel(src)
@@ -174,6 +178,8 @@
 	var/light = -1
 	var/flash = -1
 	var/flames = -1
+	// Saving mode
+	var/use_json = TRUE
 
 /datum/click_intercept/buildmode/New(client/c)
 	..()
@@ -261,6 +267,13 @@
 			to_chat(user, "<span class='notice'>***********************************************************</span>")
 			to_chat(user, "<span class='notice'>Mouse Button on obj  = Kaboom</span>")
 			to_chat(user, "<span class='notice'>***********************************************************</span>")
+		if(SAVE_BUILDMODE)
+			to_chat(user, "<span class='notice'>***********************************************************</span>")
+			to_chat(user, "<span class='notice'>Left Mouse Button on turf/obj/mob      = Select corner</span>")
+			to_chat(user, "<span class='notice'>***********************************************************</span>")
+
+
+
 
 /datum/click_intercept/buildmode/proc/change_settings(mob/user)
 	switch(mode)
@@ -345,6 +358,9 @@
 			var/flames = input("Range of flames. -1 to none", text("Input"))  as num|null
 			if(flames == null) flames = -1
 
+		if(SAVE_BUILDMODE)
+			use_json = (alert("Would you like to use json (Default is \"Yes\")?",,"Yes","No") == "Yes")
+
 /datum/click_intercept/buildmode/proc/change_dir()
 	switch(build_dir)
 		if(NORTH)
@@ -380,7 +396,8 @@
 
 /proc/togglebuildmode(mob/M as mob in player_list)
 	set name = "Toggle Build Mode"
-	set category = "Special Verbs"
+	set category = "Event"
+
 	if(M.client)
 		if(istype(M.client.click_intercept,/datum/click_intercept/buildmode))
 			var/datum/click_intercept/buildmode/B = M.client.click_intercept
@@ -388,7 +405,7 @@
 			log_admin("[key_name(usr)] has left build mode.")
 		else
 			new/datum/click_intercept/buildmode(M.client)
-			message_admins("[key_name(usr)] has entered build mode.")
+			message_admins("[key_name_admin(usr)] has entered build mode.")
 			log_admin("[key_name(usr)] has entered build mode.")
 
 /datum/click_intercept/buildmode/InterceptClickOn(user,params,atom/object) //Click Intercept
@@ -429,22 +446,8 @@
 				log_admin("Build Mode: [key_name(user)] built an airlock at ([object.x],[object.y],[object.z])")
 				new/obj/machinery/door/airlock(get_turf(object))
 			else if(istype(object,/turf) && ctrl_click && left_click)
-				switch(build_dir)
-					if(NORTH)
-						var/obj/structure/window/reinforced/WIN = new/obj/structure/window/reinforced(get_turf(object))
-						WIN.dir = NORTH
-					if(SOUTH)
-						var/obj/structure/window/reinforced/WIN = new/obj/structure/window/reinforced(get_turf(object))
-						WIN.dir = SOUTH
-					if(EAST)
-						var/obj/structure/window/reinforced/WIN = new/obj/structure/window/reinforced(get_turf(object))
-						WIN.dir = EAST
-					if(WEST)
-						var/obj/structure/window/reinforced/WIN = new/obj/structure/window/reinforced(get_turf(object))
-						WIN.dir = WEST
-					if(NORTHWEST)
-						var/obj/structure/window/reinforced/WIN = new/obj/structure/window/reinforced(get_turf(object))
-						WIN.dir = NORTHWEST
+				var/obj/structure/window/reinforced/WIN = new/obj/structure/window/reinforced(get_turf(object))
+				WIN.set_dir(build_dir)
 				log_admin("Build Mode: [key_name(user)] built a window at ([object.x],[object.y],[object.z])")
 
 		if(ADV_BUILDMODE)
@@ -455,7 +458,7 @@
 					T.ChangeTurf(objholder)
 				else
 					var/obj/A = new objholder (get_turf(object))
-					A.dir = build_dir
+					A.set_dir(build_dir)
 					log_admin("Build Mode: [key_name(user)] modified [A]'s ([A.x],[A.y],[A.z]) dir to [build_dir]")
 			else if(right_click)
 				if(isobj(object))
@@ -544,7 +547,7 @@
 									T.ChangeTurf(objholder)
 								else
 									var/obj/A = new objholder(T)
-									A.dir = build_dir
+									A.set_dir(build_dir)
 						deselect_region()
 					return
 
@@ -613,7 +616,7 @@
 						var/obj/effect/buildmode_line/L2 = new(holder, P, M, "[M.name] to [P.name]") // Yes, reversed one so that you can see it from both sides.
 						L2.color = L.color
 						link_lines += L2
-				for(var/obj/machinery/door/poddoor/P in world)
+				for(var/obj/machinery/door/poddoor/P in airlocks)
 					if(P.id_tag == M.id)
 						var/obj/effect/buildmode_line/L = new(holder, M, P, "[M.name] to [P.name]")
 						L.color = M.normaldoorcontrol ? "#993333" : "#339933"
@@ -625,3 +628,27 @@
 						link_lines += L2
 		if(BOOM_BUILDMODE)
 			explosion(object, devastation, heavy, light, flash, null, null,flames)
+		if(SAVE_BUILDMODE)
+			if(!cornerA)
+				cornerA = select_tile(get_turf(object))
+				return
+			if(!cornerB)
+				cornerB = select_tile(get_turf(object))
+			if(left_click)
+				if(cornerA && cornerB)
+					var/turf/A = get_turf(cornerA)
+					var/turf/B = get_turf(cornerB)
+					deselect_region() // So we don't read our own reticules
+					var/map_name = input(holder, "Please select a name for your map", "Buildmode", "")
+					if(map_name == "")
+						return
+					var/map_flags = 0
+					if(use_json)
+						map_flags = 32 // Magic number defined in `writer.dm` that I can't use directly
+						// because #defines are for some reason our coding standard
+					var/our_map = maploader.save_map(A,B,map_name,map_flags)
+					holder << ftp(our_map) // send the map they've made! Or are stealing, whatever
+					to_chat(holder, "Map saving complete! [our_map]")
+					return
+
+			deselect_region()

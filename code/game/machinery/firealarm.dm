@@ -49,10 +49,17 @@ FIRE ALARM
 	else
 		icon_state = "fire0"
 
+/obj/machinery/firealarm/emag_act(mob/user)
+	if(!emagged)
+		emagged = 1
+		if(user)
+			user.visible_message("<span class='warning'>Sparks fly out of the [src]!</span>",
+								"<span class='notice'>You emag [src], disabling its thermal sensors.</span>")
+		playsound(loc, 'sound/effects/sparks4.ogg', 50, 1)
+
 /obj/machinery/firealarm/temperature_expose(datum/gas_mixture/air, temperature, volume)
-	if(detecting)
-		if(temperature > T0C+200)
-			alarm()			// added check of detector status here
+	if(!emagged && detecting && temperature > T0C + 200)
+		alarm()			// added check of detector status here
 
 /obj/machinery/firealarm/attack_ai(mob/user as mob)
 	src.add_hiddenprint(user)
@@ -148,11 +155,6 @@ FIRE ALARM
 		updateDialog()
 	last_process = world.timeofday
 
-	if(locate(/obj/effect/hotspot) in loc)
-		alarm()
-
-	return
-
 /obj/machinery/firealarm/power_change()
 	if(powered(ENVIRON))
 		stat &= ~NOPOWER
@@ -171,44 +173,14 @@ FIRE ALARM
 
 	ui_interact(user)
 
-/*
-	user.set_machine(src)
-	var/area/A = src.loc
-	var/d1
-	var/d2
-	if(ishuman(user) || issilicon(user) || isobserver(user))
-		A = A.loc
-
-		if(A.fire)
-			d1 = text("<A href='?src=\ref[];reset=1'>Reset - Lockdown</A>", src)
-		else
-			d1 = text("<A href='?src=\ref[];alarm=1'>Alarm - Lockdown</A>", src)
-		if(src.timing)
-			d2 = text("<A href='?src=\ref[];time=0'>Stop Time Lock</A>", src)
-		else
-			d2 = text("<A href='?src=\ref[];time=1'>Initiate Time Lock</A>", src)
-		var/second = round(src.time) % 60
-		var/minute = (round(src.time) - second) / 60
-		var/dat = "<HTML><HEAD></HEAD><BODY><TT><B>Fire alarm</B> [d1]\n<HR>The current alert level is: [get_security_level()]</b><br><br>\nTimer System: [d2]<BR>\nTime Left: [(minute ? "[minute]:" : null)][second] <A href='?src=\ref[src];tp=-30'>-</A> <A href='?src=\ref[src];tp=-1'>-</A> <A href='?src=\ref[src];tp=1'>+</A> <A href='?src=\ref[src];tp=30'>+</A>\n</TT></BODY></HTML>"
-		user << browse(dat, "window=firealarm")
-		onclose(user, "firealarm")
-	else
-		A = A.loc
-		if(A.fire)
-			d1 = text("<A href='?src=\ref[];reset=1'>[]</A>", src, stars("Reset - Lockdown"))
-		else
-			d1 = text("<A href='?src=\ref[];alarm=1'>[]</A>", src, stars("Alarm - Lockdown"))
-		if(src.timing)
-			d2 = text("<A href='?src=\ref[];time=0'>[]</A>", src, stars("Stop Time Lock"))
-		else
-			d2 = text("<A href='?src=\ref[];time=1'>[]</A>", src, stars("Initiate Time Lock"))
-		var/second = round(src.time) % 60
-		var/minute = (round(src.time) - second) / 60
-		var/dat = "<HTML><HEAD></HEAD><BODY><TT><B>[stars("Fire alarm")]</B> [d1]\n<HR><b>The current alert level is: [stars(get_security_level())]</b><br><br>\nTimer System: [d2]<BR>\nTime Left: [(minute ? text("[]:", minute) : null)][second] <A href='?src=\ref[src];tp=-30'>-</A> <A href='?src=\ref[src];tp=-1'>-</A> <A href='?src=\ref[src];tp=1'>+</A> <A href='?src=\ref[src];tp=30'>+</A>\n</TT></BODY></HTML>"
-		user << browse(dat, "window=firealarm")
-		onclose(user, "firealarm")*/
-
 /obj/machinery/firealarm/ui_interact(mob/user, ui_key = "main", datum/nanoui/ui = null, force_open = 1, var/master_ui = null, var/datum/topic_state/state = default_state)
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "firealarm.tmpl", name, 400, 400, state = state)
+		ui.open()
+		ui.set_auto_update(1)
+
+/obj/machinery/firealarm/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/data[0]
 
 	var/area/A = get_area(src)
@@ -221,16 +193,7 @@ FIRE ALARM
 	var/minute = round(time / 60)
 
 	data["time_left"] = "[minute ? "[minute]:" : ""][add_zero(num2text(second), 2)]"
-
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if(!ui)
-		ui = new(user, src, ui_key, "firealarm.tmpl", name, 400, 400, state = state)
-		ui.set_initial_data(data)
-		ui.open()
-		ui.set_auto_update(1)
-
-
-
+	return data
 
 /obj/machinery/firealarm/Topic(href, href_list)
 	if(..())
@@ -293,9 +256,7 @@ FIRE ALARM
 		pixel_x = (dir & 3)? 0 : (dir == 4 ? -24 : 24)
 		pixel_y = (dir & 3)? (dir ==1 ? -24 : 24) : 0
 
-	// TODO: Tie into space manager
-	// also hwat
-	if(z == ZLEVEL_STATION || ZLEVEL_ASTEROID == 5)
+	if(is_station_contact(src.z))
 		if(security_level)
 			src.overlays += image('icons/obj/monitors.dmi', "overlay_[get_security_level()]")
 		else
@@ -350,30 +311,30 @@ Just a object used in constructing fire alarms
 	if(istype(user, /mob/living/carbon/human) || istype(user, /mob/living/silicon/ai))
 
 		if(A.party)
-			d1 = text("<A href='?src=\ref[];reset=1'>No Party :(</A>", src)
+			d1 = "<A href='?src=[UID()];reset=1'>No Party :(</A>"
 		else
-			d1 = text("<A href='?src=\ref[];alarm=1'>PARTY!!!</A>", src)
+			d1 = "<A href='?src=[UID()];alarm=1'>PARTY!!!</A>"
 		if(timing)
-			d2 = text("<A href='?src=\ref[];time=0'>Stop Time Lock</A>", src)
+			d2 = "<A href='?src=[UID()];time=0'>Stop Time Lock</A>"
 		else
-			d2 = text("<A href='?src=\ref[];time=1'>Initiate Time Lock</A>", src)
+			d2 = "<A href='?src=[UID()];time=1'>Initiate Time Lock</A>"
 		var/second = time % 60
 		var/minute = (time - second) / 60
-		var/dat = text("<HTML><HEAD></HEAD><BODY><TT><B>Party Button</B> []\n<HR>\nTimer System: []<BR>\nTime Left: [][] <A href='?src=\ref[];tp=-30'>-</A> <A href='?src=\ref[];tp=-1'>-</A> <A href='?src=\ref[];tp=1'>+</A> <A href='?src=\ref[];tp=30'>+</A>\n</TT></BODY></HTML>", d1, d2, (minute ? text("[]:", minute) : null), second, src, src, src, src)
+		var/dat = text("<HTML><HEAD></HEAD><BODY><TT><B>Party Button</B> []\n<HR>\nTimer System: []<BR>\nTime Left: [][] <A href='?src=[UID()];tp=-30'>-</A> <A href='?src=[UID()];tp=-1'>-</A> <A href='?src=[UID()];tp=1'>+</A> <A href='?src=[UID()];tp=30'>+</A>\n</TT></BODY></HTML>", d1, d2, (minute ? text("[]:", minute) : null), second)
 		user << browse(dat, "window=partyalarm")
 		onclose(user, "partyalarm")
 	else
 		if(A.fire)
-			d1 = text("<A href='?src=\ref[];reset=1'>[]</A>", src, stars("No Party :("))
+			d1 = text("<A href='?src=[UID()];reset=1'>[]</A>", stars("No Party :("))
 		else
-			d1 = text("<A href='?src=\ref[];alarm=1'>[]</A>", src, stars("PARTY!!!"))
+			d1 = text("<A href='?src=[UID()];alarm=1'>[]</A>", stars("PARTY!!!"))
 		if(timing)
-			d2 = text("<A href='?src=\ref[];time=0'>[]</A>", src, stars("Stop Time Lock"))
+			d2 = text("<A href='?src=[UID()];time=0'>[]</A>", stars("Stop Time Lock"))
 		else
-			d2 = text("<A href='?src=\ref[];time=1'>[]</A>", src, stars("Initiate Time Lock"))
+			d2 = text("<A href='?src=[UID()];time=1'>[]</A>", stars("Initiate Time Lock"))
 		var/second = time % 60
 		var/minute = (time - second) / 60
-		var/dat = text("<HTML><HEAD></HEAD><BODY><TT><B>[]</B> []\n<HR>\nTimer System: []<BR>\nTime Left: [][] <A href='?src=\ref[];tp=-30'>-</A> <A href='?src=\ref[];tp=-1'>-</A> <A href='?src=\ref[];tp=1'>+</A> <A href='?src=\ref[];tp=30'>+</A>\n</TT></BODY></HTML>", stars("Party Button"), d1, d2, (minute ? text("[]:", minute) : null), second, src, src, src, src)
+		var/dat = text("<HTML><HEAD></HEAD><BODY><TT><B>[]</B> []\n<HR>\nTimer System: []<BR>\nTime Left: [][] <A href='?src=[UID()];tp=-30'>-</A> <A href='?src=[UID()];tp=-1'>-</A> <A href='?src=[UID()];tp=1'>+</A> <A href='?src=[UID()];tp=30'>+</A>\n</TT></BODY></HTML>", stars("Party Button"), d1, d2, (minute ? text("[]:", minute) : null), second)
 		user << browse(dat, "window=partyalarm")
 		onclose(user, "partyalarm")
 	return

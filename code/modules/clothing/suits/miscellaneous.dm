@@ -17,6 +17,7 @@
 	blood_overlay_type = "armor"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 	allowed = list (/obj/item/weapon/gun/energy/laser/bluetag)
+	burn_state = FIRE_PROOF
 	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
@@ -30,6 +31,7 @@
 	blood_overlay_type = "armor"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 	allowed = list (/obj/item/weapon/gun/energy/laser/redtag)
+	burn_state = FIRE_PROOF
 	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
@@ -136,6 +138,7 @@
 	w_class = 3
 	allowed = list(/obj/item/device/flashlight,/obj/item/weapon/tank/emergency_oxygen,/obj/item/toy)
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
+	burn_state = FIRE_PROOF
 
 
 /obj/item/clothing/suit/hastur
@@ -246,6 +249,13 @@
 			I.overlays += image(icon = 'icons/mob/robots.dmi' , icon_state = "eyes-robot") //gotta look realistic
 			H.add_alt_appearance("standard_borg_disguise", I, silicon_mob_list+H) //you look like a robot to robots! (including yourself because you're totally a robot)
 
+/obj/item/clothing/suit/snowman
+	name = "snowman outfit"
+	desc = "Two white spheres covered in white glitter. 'Tis the season."
+	icon_state = "snowman"
+	item_state = "snowman"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO
+	flags_inv = HIDEJUMPSUIT
 
 /obj/item/clothing/suit/poncho
 	name = "poncho"
@@ -275,6 +285,44 @@
 	icon_state = "ponchoshame"
 	item_state = "ponchoshame"
 	flags = NODROP
+
+/obj/item/clothing/suit/hooded/carp_costume
+	name = "carp costume"
+	desc = "A costume made from 'synthetic' carp scales, it smells."
+	icon_state = "carp_casual"
+	item_state = "labcoat"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS
+	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT	//Space carp like space, so you should too
+	allowed = list(/obj/item/weapon/tank/emergency_oxygen)
+	hoodtype = /obj/item/clothing/head/hooded/carp_hood
+
+/obj/item/clothing/head/hooded/carp_hood
+	name = "carp hood"
+	desc = "A hood attached to a carp costume."
+	icon_state = "carp_casual"
+	body_parts_covered = HEAD
+	cold_protection = HEAD
+	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
+	flags = NODROP|BLOCKHAIR
+	flags_inv = HIDEEARS
+
+/obj/item/clothing/suit/hooded/bee_costume // It's Hip!
+	name = "bee costume"
+	desc = "Bee the true Queen!"
+	icon_state = "bee"
+	item_state = "labcoat"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+	flags = THICKMATERIAL
+	hoodtype = /obj/item/clothing/head/hooded/bee_hood
+
+/obj/item/clothing/head/hooded/bee_hood
+	name = "bee hood"
+	desc = "A hood attached to a bee costume."
+	icon_state = "bee"
+	body_parts_covered = HEAD
+	flags = THICKMATERIAL|NODROP|BLOCKHAIR
+	flags_inv = HIDEEARS
 
 /obj/item/clothing/suit/bloated_human	//OH MY GOD WHAT HAVE YOU DONE!?!?!?
 	name = "bloated human suit"
@@ -407,7 +455,7 @@
 	name = "black hoodie"
 	desc = "It's a hoodie. It has a hood. Most hoodies do."
 	icon_state = "black_hoodie"
-	item_state = "labcoat"
+	item_state = "blueshieldcoat"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	hoodtype = /obj/item/clothing/head/hood
 	species_fit = list("Vox")
@@ -515,6 +563,7 @@
 	desc = "A long, thick black leather coat."
 	icon_state = "leathercoat"
 	item_state = "leathercoat"
+	burn_state = FIRE_PROOF
 
 /obj/item/clothing/suit/browncoat
 	name = "brown leather coat"
@@ -584,32 +633,6 @@
 	desc = "A cream coloured, genteel suit."
 	icon_state = "creamsuit"
 	item_state = "creamsuit"
-
-//stripper
-
-/obj/item/clothing/under/stripper/stripper_pink
-	name = "pink swimsuit"
-	desc = "A rather skimpy pink swimsuit."
-	icon_state = "stripper_p_under"
-	item_color = "stripper_p"
-
-/obj/item/clothing/under/stripper/stripper_green
-	name = "green swimsuit"
-	desc = "A rather skimpy green swimsuit."
-	icon_state = "stripper_g_under"
-	item_color = "stripper_g"
-
-/obj/item/clothing/suit/stripper/stripper_pink
-	name = "pink skimpy dress"
-	desc = "A rather skimpy pink dress."
-	icon_state = "stripper_p_over"
-	item_state = "stripper_p"
-
-/obj/item/clothing/suit/stripper/stripper_green
-	name = "green skimpy dress"
-	desc = "A rather skimpy green dress."
-	icon_state = "stripper_g_over"
-	item_state = "stripper_g"
 
 /obj/item/clothing/under/stripper/mankini
 	name = "the mankini"
@@ -748,6 +771,7 @@
 	ignore_suitadjust = 1
 	actions_types = list()
 	adjust_flavour = null
+	burn_state = FIRE_PROOF
 
 /obj/item/clothing/suit/officercoat
 	name = "Clown Officer's Coat"
@@ -784,6 +808,8 @@
 	armor = list(melee = 5, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
 	allowed = list(/obj/item/weapon/gun/energy,/obj/item/weapon/reagent_containers/spray/pepper,/obj/item/weapon/gun/projectile,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/weapon/melee/baton,/obj/item/weapon/restraints/handcuffs,/obj/item/device/flashlight/seclite)
 	actions_types = list(/datum/action/item_action/toggle_wings)
+
+/obj/item/clothing/suit/toggle/owlwings/super_hero
 	flags = NODROP
 
 /obj/item/clothing/suit/toggle/owlwings/griffinwings
@@ -791,6 +817,9 @@
 	desc = "A plush white cloak made of synthetic feathers. Soft to the touch, stylish, and a 2 meter wing span that will drive your captives mad."
 	icon_state = "griffin_wings"
 	item_state = "griffin_wings"
+
+/obj/item/clothing/suit/toggle/owlwings/griffinwings/super_hero
+	flags = NODROP
 
 /obj/item/clothing/suit/toggle/attack_self()
 	if(icon_state == initial(icon_state))
@@ -873,3 +902,45 @@
 				user.reagents.add_reagent("syndicate_nanites", 15)
 	else
 		processing_objects.Remove(src)
+
+//Syndicate Chaplain Robe (WOLOLO!)
+/obj/item/clothing/suit/hooded/chaplain_hoodie/missionary_robe
+	description_antag = "This robe is made of reinforced fibers, granting it superior protection. The robes also wirelessly generate power for the neurotransmitter in the linked missionary staff while being worn."
+	armor = list(melee = 10, bullet = 10, laser = 5, energy = 5, bomb = 0, bio = 0, rad = 15)
+	var/obj/item/weapon/nullrod/missionary_staff/linked_staff = null
+
+/obj/item/clothing/suit/hooded/chaplain_hoodie/missionary_robe/Destroy()
+	if(linked_staff)	//delink on destruction
+		linked_staff.robes = null
+		linked_staff = null
+	processing_objects -= src	//probably is cleared in a parent call already, but just in case we're gonna do it here
+	return ..()
+
+/obj/item/clothing/suit/hooded/chaplain_hoodie/missionary_robe/equipped(mob/living/carbon/human/H, slot)
+	if(!istype(H) || slot != slot_wear_suit)
+		processing_objects -= src
+		return
+	else
+		processing_objects |= src
+
+/obj/item/clothing/suit/hooded/chaplain_hoodie/missionary_robe/process()
+	if(!linked_staff)	//if we don't have a linked staff, the rest of this is useless
+		return
+
+	if(!ishuman(loc))		//if we somehow try to process while not on a human, remove ourselves from processing and return
+		processing_objects -= src
+		return
+
+	var/mob/living/carbon/human/H = loc
+
+	if(linked_staff.faith >= 100)	//if the linked staff is fully recharged, do nothing
+		return
+
+	if(!linked_staff in range(3, get_turf(src)))		//staff won't charge at range (to prevent it from being handed off / stolen and used)
+		if(prob(10))	//10% chance per process should avoid being too spammy, can tweak if it ends up still being too frequent.
+			to_chat(H, "<span class='warning'>Your staff is unable to charge at this range. Get closer!</span>")
+		return
+
+	linked_staff.faith += 5
+	if(linked_staff.faith >= 100)	//if this charge puts the staff at or above full, notify the wearer
+		to_chat(H, "<span class='notice'>Faith renewed; ready to convert new followers.</span>")

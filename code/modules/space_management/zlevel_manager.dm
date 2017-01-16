@@ -3,9 +3,14 @@ var/global/datum/zlev_manager/space_manager = new
 /datum/zlev_manager
 	// A list of z-levels
 	var/list/z_list = list()
+	var/list/levels_by_name = list()
 	var/list/heaps = list()
 
+	// Levels that need their transitions rebuilt
+	var/list/unbuilt_space_transitions = list()
+
 	var/datum/spacewalk_grid/linkage_map
+	var/initialized = 0
 
 // Populate our space level list
 // and prepare space transitions
@@ -14,18 +19,24 @@ var/global/datum/zlev_manager/space_manager = new
 	var/k = 1
 
 	// First take care of "Official" z levels, without visiting levels outside of the list
-	for(var/A in map_transition_config)
-		// `A` is the name
-		// `map_transition_config[A]` is the transition type
-		z_list["[k]"] = new /datum/space_level(k, A, transition_type = map_transition_config[A])
+	for(var/list/features in map_transition_config)
 		if(k > world.maxz)
-			CRASH("More map transitions defined than existent z levels - [num_official_z_levels]")
+			CRASH("More map attributes pre-defined than existent z levels - [num_official_z_levels]")
+		var/name = features["name"]
+		var/linking = features["linkage"]
+		var/list/attributes = features["attributes"]
+		attributes = attributes.Copy() // Clone the list so it can't be changed on accident
+
+		var/datum/space_level/S = new /datum/space_level(k, name, transition_type = linking, traits = attributes)
+		z_list["[k]"] = S
+		levels_by_name[name] = S
 		k++
 
 	// Then, we take care of unmanaged z levels
 	// They get the default linkage of SELFLOOPING
 	for(var/i = k, i <= world.maxz, i++)
 		z_list["[i]"] = new /datum/space_level(i)
+	initialized = 1
 
 
 /datum/zlev_manager/proc/get_zlev(z)
@@ -33,6 +44,11 @@ var/global/datum/zlev_manager/space_manager = new
 		throw EXCEPTION("Unmanaged z level: '[z]'")
 	else
 		return z_list["[z]"]
+
+/datum/zlev_manager/proc/get_zlev_by_name(A)
+	if(!(A in levels_by_name))
+		throw EXCEPTION("Non-existent z level: '[A]'")
+	return levels_by_name[A]
 
 /*
 * "Dirt" management
@@ -88,10 +104,14 @@ var/global/datum/zlev_manager/space_manager = new
 
 // Increments the max z-level by one
 // For convenience's sake returns the z-level added
-/datum/zlev_manager/proc/add_new_zlevel(name, linkage = SELFLOOPING)
+/datum/zlev_manager/proc/add_new_zlevel(name, linkage = SELFLOOPING, traits = list(BLOCK_TELEPORT))
+	if(name in levels_by_name)
+		throw EXCEPTION("Name already in use: [name]")
 	world.maxz++
 	var/our_z = world.maxz
-	z_list["[our_z]"] = new /datum/space_level(our_z,name, transition_type = linkage)
+	var/datum/space_level/S = new /datum/space_level(our_z, name, transition_type = linkage, traits = traits)
+	levels_by_name[name] = S
+	z_list["[our_z]"] = S
 	return our_z
 
 /datum/zlev_manager/proc/cut_levels_downto(new_maxz)

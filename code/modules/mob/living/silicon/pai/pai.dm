@@ -5,7 +5,7 @@
 
 	robot_talk_understand = 0
 	emote_type = 2		// pAIs emotes are heard, not seen, so they can be seen through a container (eg. person)
-	small = 1
+	mob_size = MOB_SIZE_TINY
 	pass_flags = PASSTABLE
 	density = 0
 	holder_type = /obj/item/weapon/holder/pai
@@ -114,8 +114,11 @@
 		C.toff = 1
 	..()
 
-/mob/living/silicon/pai/Login()
-	..()
+/mob/living/silicon/pai/update_icons()
+	if(stat == DEAD)
+		icon_state = "[chassis]_dead"
+	else
+		icon_state = resting ? "[chassis]_rest" : "[chassis]"
 
 // this function shows the information about being silenced as a pAI in the Status panel
 /mob/living/silicon/pai/proc/show_silenced()
@@ -137,7 +140,7 @@
 /mob/living/silicon/pai/check_eye(var/mob/user as mob)
 	if(!src.current)
 		return null
-	user.reset_view(src.current)
+	user.reset_perspective(src.current)
 	return 1
 
 /mob/living/silicon/pai/blob_act()
@@ -215,7 +218,7 @@
 		if(M.attack_sound)
 			playsound(loc, M.attack_sound, 50, 1, 1)
 		for(var/mob/O in viewers(src, null))
-			O.show_message("\red <B>[M]</B> [M.attacktext] [src]!", 1)
+			O.show_message("<span class='danger'>[M]</span> [M.attacktext] [src]!", 1)
 		M.attack_log += text("\[[time_stamp()]\] <font color='red'>attacked [src.name] ([src.ckey])</font>")
 		src.attack_log += text("\[[time_stamp()]\] <font color='orange'>was attacked by [M.name] ([M.ckey])</font>")
 		var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
@@ -245,7 +248,7 @@
 				playsound(src.loc, 'sound/weapons/slash.ogg', 25, 1, -1)
 				for(var/mob/O in viewers(src, null))
 					if((O.client && !( O.blinded )))
-						O.show_message(text("\red <B>[] has slashed at []!</B>", M, src), 1)
+						O.show_message(text("<span class='danger'>[] has slashed at []!</span>", M, src), 1)
 				if(prob(8))
 					flash_eyes(affect_silicon = 1)
 				src.adjustBruteLoss(damage)
@@ -254,14 +257,14 @@
 				playsound(src.loc, 'sound/weapons/slashmiss.ogg', 25, 1, -1)
 				for(var/mob/O in viewers(src, null))
 					if((O.client && !( O.blinded )))
-						O.show_message(text("\red <B>[] took a swipe at []!</B>", M, src), 1)
+						O.show_message(text("<span class='danger'>[] took a swipe at []!</span>", M, src), 1)
 	return
 
 /mob/living/silicon/pai/proc/switchCamera(var/obj/machinery/camera/C)
 	usr:cameraFollow = null
 	if(!C)
 		src.unset_machine()
-		src.reset_view(null)
+		src.reset_perspective(null)
 		return 0
 	if(stat == 2 || !C.status || !(src.network in C.network)) return 0
 
@@ -269,7 +272,7 @@
 
 	src.set_machine(src)
 	src:current = C
-	src.reset_view(C)
+	src.reset_perspective(C)
 	return 1
 
 /mob/living/silicon/pai/verb/reset_record_view()
@@ -288,7 +291,7 @@
 /mob/living/silicon/pai/cancel_camera()
 	set category = "pAI Commands"
 	set name = "Cancel Camera View"
-	src.reset_view(null)
+	src.reset_perspective(null)
 	src.unset_machine()
 	src:cameraFollow = null
 
@@ -297,7 +300,7 @@
 /mob/living/silicon/pai/proc/pai_network_change()
 	set category = "pAI Commands"
 	set name = "Change Camera Network"
-	src.reset_view(null)
+	src.reset_perspective(null)
 	src.unset_machine()
 	src:cameraFollow = null
 	var/cameralist[0]
@@ -363,9 +366,6 @@
 		var/obj/item/device/pda/holder = card.loc
 		holder.pai = null
 
-	if(client)
-		client.perspective = EYE_PERSPECTIVE
-		client.eye = src
 	forceMove(get_turf(card))
 
 	card.forceMove(src)
@@ -425,17 +425,17 @@
 	set category = "IC"
 
 	// Pass lying down or getting up to our pet human, if we're in a rig.
-	if(istype(src.loc,/obj/item/device/paicard))
+	if(stat == CONSCIOUS && istype(src.loc,/obj/item/device/paicard))
 		resting = 0
 		var/obj/item/weapon/rig/rig = src.get_rig()
 		if(istype(rig))
 			rig.force_rest(src)
 	else
 		resting = !resting
-		icon_state = resting ? "[chassis]_rest" : "[chassis]"
 		to_chat(src, "<span class='notice'>You are now [resting ? "resting" : "getting up"]</span>")
 
-	canmove = !resting
+	update_icons()
+	update_canmove()
 
 //Overriding this will stop a number of headaches down the track.
 /mob/living/silicon/pai/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
@@ -487,9 +487,7 @@
 	visible_message("<span class=notice>[src] neatly folds inwards, compacting down to a rectangular card.</span>", "<span class=notice>You neatly fold inwards, compacting down to a rectangular card.</span>")
 
 	stop_pulling()
-	if(client)
-		client.perspective = EYE_PERSPECTIVE
-		client.eye = card
+	reset_perspective(card)
 
 // If we are being held, handle removing our holder from their inv.
 	var/obj/item/weapon/holder/H = loc

@@ -29,6 +29,16 @@
 	if(!usr || usr != mob)	//stops us calling Topic for somebody else's client. Also helps prevent usr=null
 		return
 
+	// src should always be a UID; if it isn't, warn instead of failing entirely
+	if(href_list["src"])
+		hsrc = locateUID(href_list["src"])
+		// If there's a ]_ in the src, it's a UID, so don't try to locate it
+		if(!hsrc && !findtext(href_list["src"], "]_"))
+			hsrc = locate(href_list["src"])
+			if(hsrc)
+				var/hsrc_info = datum_info_line(hsrc) || "[hsrc]"
+				log_runtime(EXCEPTION("Got \\ref-based src in topic from [src] for [hsrc_info], should be UID: [href]"))
+
 	#if defined(TOPIC_DEBUGGING)
 	to_chat(world, "[src]'s Topic: [href] destined for [hsrc].")
 	#endif
@@ -56,8 +66,8 @@
 	//search the href for script injection
 	if( findtext(href,"<script",1,0) )
 		log_to_dd("Attempted use of scripts within a topic call, by [src]")
+		log_runtime(EXCEPTION("Attempted use of scripts within a topic call, by [src]"), src)
 		message_admins("Attempted use of scripts within a topic call, by [src]")
-		//del(usr)
 		return
 
 	//Admin PM
@@ -66,7 +76,9 @@
 		if(ismob(C)) 		//Old stuff can feed-in mobs instead of clients
 			var/mob/M = C
 			C = M.client
-		cmd_admin_pm(C,null, href_list["type"])
+		if(!C) // Might be a stealthmin ID, so pass it in straight
+			C = href_list["priv_msg"]
+		cmd_admin_pm(C, null, href_list["type"])
 		return
 
 	if(href_list["irc_msg"])
@@ -99,49 +111,49 @@
 							to_chat(usr, "You do not have enough karma!")
 							return
 						else
-							src.DB_job_unlock("Barber",5)
+							DB_job_unlock("Barber",5)
 							return
 					if("2")
 						if(karma <5)
 							to_chat(usr, "You do not have enough karma!")
 							return
 						else
-							src.DB_job_unlock("Brig Physician",5)
+							DB_job_unlock("Brig Physician",5)
 							return
 					if("3")
 						if(karma <30)
 							to_chat(usr, "You do not have enough karma!")
 							return
 						else
-							src.DB_job_unlock("Nanotrasen Representative",30)
+							DB_job_unlock("Nanotrasen Representative",30)
 							return
 					if("5")
 						if(karma <30)
 							to_chat(usr, "You do not have enough karma!")
 							return
 						else
-							src.DB_job_unlock("Blueshield",30)
+							DB_job_unlock("Blueshield",30)
 							return
 					if("6")
 						if(karma <30)
 							to_chat(usr, "You do not have enough karma!")
 							return
 						else
-							src.DB_job_unlock("Mechanic",30)
+							DB_job_unlock("Mechanic",30)
 							return
 					if("7")
 						if(karma <45)
 							to_chat(usr, "You do not have enough karma!")
 							return
 						else
-							src.DB_job_unlock("Magistrate",45)
+							DB_job_unlock("Magistrate",45)
 							return
 					if("9")
 						if(karma <30)
 							to_chat(usr, "You do not have enough karma!")
 							return
 						else
-							src.DB_job_unlock("Security Pod Pilot",30)
+							DB_job_unlock("Security Pod Pilot",30)
 							return
 			if(href_list["KarmaBuy2"])
 				var/karma=verify_karma()
@@ -151,55 +163,55 @@
 							to_chat(usr, "You do not have enough karma!")
 							return
 						else
-							src.DB_species_unlock("Machine",15)
+							DB_species_unlock("Machine",15)
 							return
 					if("2")
 						if(karma <30)
 							to_chat(usr, "You do not have enough karma!")
 							return
 						else
-							src.DB_species_unlock("Kidan",30)
+							DB_species_unlock("Kidan",30)
 							return
 					if("3")
 						if(karma <30)
 							to_chat(usr, "You do not have enough karma!")
 							return
 						else
-							src.DB_species_unlock("Grey",30)
+							DB_species_unlock("Grey",30)
 							return
 					if("4")
 						if(karma <45)
 							to_chat(usr, "You do not have enough karma!")
 							return
 						else
-							src.DB_species_unlock("Vox",45)
+							DB_species_unlock("Vox",45)
 							return
 					if("5")
 						if(karma <45)
 							to_chat(usr, "You do not have enough karma!")
 							return
 						else
-							src.DB_species_unlock("Slime People",45)
+							DB_species_unlock("Slime People",45)
 							return
 					if("6")
 						if(karma <100)
 							to_chat(usr, "You do not have enough karma!")
 							return
 						else
-							src.DB_species_unlock("Plasmaman",100)
+							DB_species_unlock("Plasmaman",100)
 							return
 					if("7")
 						if(karma <30)
 							to_chat(usr, "You do not have enough karma!")
 							return
 						else
-							src.DB_species_unlock("Drask",30)
+							DB_species_unlock("Drask",30)
 							return
 			if(href_list["KarmaRefund"])
 				var/type = href_list["KarmaRefundType"]
 				var/job = href_list["KarmaRefund"]
 				var/cost = href_list["KarmaRefundCost"]
-				src.karmarefund(type,job,cost)
+				karmarefund(type,job,cost)
 				return
 
 	switch(href_list["_src_"])
@@ -221,19 +233,25 @@
 		return 0
 	return 1
 
-/client/proc/handle_spam_prevention(var/message, var/mute_type)
-	if(config.automute_on && !holder && src.last_message == message)
-		src.last_message_count++
-		if(src.last_message_count >= SPAM_TRIGGER_AUTOMUTE)
-			to_chat(src, "\red You have exceeded the spam filter limit for identical messages. An auto-mute was applied.")
-			cmd_admin_mute(src.mob, mute_type, 1)
+/client/proc/handle_spam_prevention(var/message, var/mute_type, var/throttle = 0)
+	if(throttle)
+		if((last_message_time + throttle > world.time) && !check_rights(R_ADMIN, 0))
+			var/wait_time = round(((last_message_time + throttle) - world.time) / 10, 1)
+			to_chat(src, "<span class='danger'>You are sending messages to quickly. Please wait [wait_time] [wait_time == 1 ? "second" : "seconds"] before sending another message.</span>")
 			return 1
-		if(src.last_message_count >= SPAM_TRIGGER_WARNING)
-			to_chat(src, "\red You are nearing the spam filter limit for identical messages.")
+		last_message_time = world.time
+	if(config.automute_on && !check_rights(R_ADMIN, 0) && last_message == message)
+		last_message_count++
+		if(last_message_count >= SPAM_TRIGGER_AUTOMUTE)
+			to_chat(src, "<span class='danger'>You have exceeded the spam filter limit for identical messages. An auto-mute was applied.</span>")
+			cmd_admin_mute(mob, mute_type, 1)
+			return 1
+		if(last_message_count >= SPAM_TRIGGER_WARNING)
+			to_chat(src, "<span class='danger'>You are nearing the spam filter limit for identical messages.</span>")
 			return 0
 	else
 		last_message = message
-		src.last_message_count = 0
+		last_message_count = 0
 		return 0
 
 //This stops files larger than UPLOAD_LIMIT being sent from client to server via input(), client.Import() etc.
@@ -255,6 +273,7 @@
 	//CONNECT//
 	///////////
 /client/New(TopicData)
+	var/tdata = TopicData //save this for later use
 	chatOutput = new /datum/chatOutput(src) // Right off the bat.
 	TopicData = null							//Prevent calls to client.Topic from connect
 
@@ -272,8 +291,8 @@
 
 	// Change the way they should download resources.
 	if(config.resource_urls)
-		src.preload_rsc = pick(config.resource_urls)
-	else src.preload_rsc = 1 // If config.resource_urls is not set, preload like normal.
+		preload_rsc = pick(config.resource_urls)
+	else preload_rsc = 1 // If config.resource_urls is not set, preload like normal.
 
 	to_chat(src, "\red If the title screen is black, resources are still downloading. Please be patient until the title screen appears.")
 
@@ -287,6 +306,8 @@
 		admins += src
 		holder.owner = src
 
+	donator_check()
+
 	//preferences datum - also holds some persistant data for the client (because we may as well keep these datums to a minimum)
 	prefs = preferences_datums[ckey]
 	if(!prefs)
@@ -296,7 +317,8 @@
 	prefs.last_id = computer_id			//these are gonna be used for banning
 
 	. = ..()	//calls mob.Login()
-	chatOutput.start()
+	spawn() // Goonchat does some non-instant checks in start()
+		chatOutput.start()
 
 	if(custom_event_msg && custom_event_msg != "")
 		to_chat(src, "<h1 class='alert'>Custom Event</h1>")
@@ -319,7 +341,7 @@
 			winset(src, null, "command=\".configure graphics-hwmode off\"")
 			winset(src, null, "command=\".configure graphics-hwmode on\"")
 
-	log_client_to_db()
+	log_client_to_db(tdata)
 
 	if(ckey in clientmessages)
 		for(var/message in clientmessages[ckey])
@@ -359,19 +381,34 @@
 	return ..()
 
 
-
-/client/proc/log_client_to_db()
-
-	if( IsGuestKey(src.key) )
+/client/proc/donator_check()
+	if(IsGuestKey(key))
 		return
 
 	establish_db_connection()
 	if(!dbcon.IsConnected())
 		return
 
-	var/sql_ckey = sql_sanitize_text(src.ckey)
+	//Donator stuff.
+	var/DBQuery/query_donor_select = dbcon.NewQuery("SELECT ckey, tier, active FROM `[format_table_name("donators")]` WHERE ckey = '[ckey]'")
+	query_donor_select.Execute()
+	while(query_donor_select.NextRow())
+		if(!text2num(query_donor_select.item[3]))
+			// Inactive donator.
+			donator_level = DONATOR_LEVEL_NONE
+			return
+		donator_level = text2num(query_donor_select.item[2])
+		break
 
-	var/DBQuery/query = dbcon.NewQuery("SELECT id, datediff(Now(),firstseen) as age FROM [format_table_name("player")] WHERE ckey = '[sql_ckey]'")
+/client/proc/log_client_to_db(connectiontopic)
+	if(IsGuestKey(key))
+		return
+
+	establish_db_connection()
+	if(!dbcon.IsConnected())
+		return
+
+	var/DBQuery/query = dbcon.NewQuery("SELECT id, datediff(Now(),firstseen) as age FROM [format_table_name("player")] WHERE ckey = '[ckey]'")
 	query.Execute()
 	var/sql_id = 0
 	player_age = 0	// New players won't have an entry so knowing we have a connection we set this to zero to be updated if their is a record.
@@ -394,14 +431,22 @@
 		if(ckey != query_cid.item[1])
 			related_accounts_cid.Add("[query_cid.item[1]]")
 
+	var/admin_rank = "Player"
+	if(holder)
+		admin_rank = holder.rank
+	// Admins don't get slammed by this, I guess
+	else
+		if(check_randomizer(connectiontopic))
+			return
+
 	//Log all the alts
 	if(related_accounts_cid.len)
 		log_access("Alts: [key_name(src)]:[jointext(related_accounts_cid, " - ")]")
 
-	var/watchreason = check_watchlist(sql_ckey)
+	var/watchreason = check_watchlist(ckey)
 	if(watchreason)
 		message_admins("<font color='red'><B>Notice: </B></font><font color='blue'>[key_name_admin(src)] is on the watchlist and has just connected - Reason: [watchreason]</font>")
-		send2adminirc("Watchlist - [key_name(src)] is on the watchlist and has just connected - Reason: [watchreason]")
+		send2irc(config.admin_notify_irc, "Watchlist - [key_name(src)] is on the watchlist and has just connected - Reason: [watchreason]")
 
 	//Just the standard check to see if it's actually a number
 	if(sql_id)
@@ -410,13 +455,9 @@
 		if(!isnum(sql_id))
 			return
 
-	var/admin_rank = "Player"
-	if(src.holder)
-		admin_rank = src.holder.rank
-
-	var/sql_ip = sql_sanitize_text(src.address)
-	var/sql_computerid = sql_sanitize_text(src.computer_id)
-	var/sql_admin_rank = sql_sanitize_text(admin_rank)
+	var/sql_ip = sanitizeSQL(address)
+	var/sql_computerid = sanitizeSQL(computer_id)
+	var/sql_admin_rank = sanitizeSQL(admin_rank)
 
 
 	if(sql_id)
@@ -425,18 +466,135 @@
 		query_update.Execute()
 	else
 		//New player!! Need to insert all the stuff
-		var/DBQuery/query_insert = dbcon.NewQuery("INSERT INTO [format_table_name("player")] (id, ckey, firstseen, lastseen, ip, computerid, lastadminrank) VALUES (null, '[sql_ckey]', Now(), Now(), '[sql_ip]', '[sql_computerid]', '[sql_admin_rank]')")
+		var/DBQuery/query_insert = dbcon.NewQuery("INSERT INTO [format_table_name("player")] (id, ckey, firstseen, lastseen, ip, computerid, lastadminrank) VALUES (null, '[ckey]', Now(), Now(), '[sql_ip]', '[sql_computerid]', '[sql_admin_rank]')")
 		query_insert.Execute()
 
 	//Logging player access
 	var/serverip = "[world.internet_address]:[world.port]"
-	var/DBQuery/query_accesslog = dbcon.NewQuery("INSERT INTO `[format_table_name("connection_log")]`(`id`,`datetime`,`serverip`,`ckey`,`ip`,`computerid`) VALUES(null,Now(),'[serverip]','[sql_ckey]','[sql_ip]','[sql_computerid]');")
+	var/DBQuery/query_accesslog = dbcon.NewQuery("INSERT INTO `[format_table_name("connection_log")]`(`id`,`datetime`,`serverip`,`ckey`,`ip`,`computerid`) VALUES(null,Now(),'[serverip]','[ckey]','[sql_ip]','[sql_computerid]');")
 	query_accesslog.Execute()
-
 
 #undef TOPIC_SPAM_DELAY
 #undef UPLOAD_LIMIT
 #undef MIN_CLIENT_VERSION
+
+// Returns true if a randomizer is being used
+/client/proc/check_randomizer(topic)
+	. = FALSE
+	if(connection != "seeker")					//Invalid connection type.
+		return null
+	topic = params2list(topic)
+	if(!config.check_randomizer)
+		return
+	// Stash o' ckeys
+	var/static/cidcheck = list()
+	var/static/tokens = list()
+	// Ckeys that failed the test, stored to send acceptance messages only for atoners
+	var/static/cidcheck_failedckeys = list()
+	var/static/cidcheck_spoofckeys = list()
+
+	var/oldcid = cidcheck[ckey]
+
+	if(!oldcid)
+		var/DBQuery/query_cidcheck = dbcon.NewQuery("SELECT computerid FROM [format_table_name("player")] WHERE ckey = '[ckey]'")
+		query_cidcheck.Execute()
+
+		var/lastcid = computer_id
+		if(query_cidcheck.NextRow())
+			lastcid = query_cidcheck.item[1]
+
+		if(computer_id != lastcid)
+			// Their current CID does not match what the DB says - OFF WITH THEIR HEAD
+			cidcheck[ckey] = computer_id
+
+			// Disable the reconnect button to force a CID change
+			winset(src, "reconnectbutton", "is-disable=true")
+
+			tokens[ckey] = cid_check_reconnect()
+			sleep(10) // Since browse is non-instant, and kinda async
+
+			to_chat(src, "<pre class=\"system system\">you're a huge nerd. wakka wakka doodle doop nobody's ever gonna see this, the chat system shouldn't be online by this point</pre>")
+			del(src)
+			return TRUE
+	else
+		if (!topic || !topic["token"] || !tokens[ckey] || topic["token"] != tokens[ckey])
+			if (!cidcheck_spoofckeys[ckey])
+				message_admins("<span class='adminnotice'>[key_name(src)] appears to have attempted to spoof a cid randomizer check.</span>")
+				cidcheck_spoofckeys[ckey] = TRUE
+			cidcheck[ckey] = computer_id
+			tokens[ckey] = cid_check_reconnect()
+
+			sleep(10) //browse is queued, we don't want them to disconnect before getting the browse() command.
+			del(src)
+			return TRUE
+		// We DO have their cached CID handy - compare it, now
+		if(oldcid != computer_id)
+			// Change detected, they are randomizing
+			cidcheck -= ckey	// To allow them to try again after removing CID randomization
+
+			to_chat(src, "<span class='userdanger'>Connection Error:</span>")
+			to_chat(src, "<span class='danger'>Invalid ComputerID(spoofed). Please remove the ComputerID spoofer from your BYOND installation and try again.</span>")
+
+			if(!cidcheck_failedckeys[ckey])
+				message_admins("<span class='adminnotice'>[key_name(src)] has been detected as using a CID randomizer. Connection rejected.</span>")
+				send2irc(config.cidrandomizer_irc, "[key_name(src)] has been detected as using a CID randomizer. Connection rejected.")
+				cidcheck_failedckeys[ckey] = TRUE
+				note_randomizer_user()
+
+			log_access("Failed Login: [key] [computer_id] [address] - CID randomizer confirmed (oldcid: [oldcid])")
+
+			del(src)
+			return TRUE
+		else
+			// don't shoot, I'm innocent
+			if(cidcheck_failedckeys[ckey])
+				// Atonement
+				message_admins("<span class='adminnotice'>[key_name_admin(src)] has been allowed to connect after showing they removed their cid randomizer</span>")
+				send2irc(config.cidrandomizer_irc, "[key_name(src)] has been allowed to connect after showing they removed their cid randomizer.")
+				cidcheck_failedckeys -= ckey
+			if (cidcheck_spoofckeys[ckey])
+				message_admins("<span class='adminnotice'>[key_name_admin(src)] has been allowed to connect after appearing to have attempted to spoof a cid randomizer check because it <i>appears</i> they aren't spoofing one this time</span>")
+				cidcheck_spoofckeys -= ckey
+			cidcheck -= ckey
+
+/client/proc/note_randomizer_user()
+	var/const/adminckey = "CID-Error"
+
+	// Check for notes in the last day - only 1 note per 24 hours
+	var/DBQuery/query_get_notes = dbcon.NewQuery("SELECT id from [format_table_name("notes")] WHERE ckey = '[ckey]' AND adminckey = '[adminckey]' AND timestamp + INTERVAL 1 DAY < NOW()")
+	if(!query_get_notes.Execute())
+		var/err = query_get_notes.ErrorMsg()
+		log_game("SQL ERROR obtaining id from notes table. Error : \[[err]\]\n")
+		return
+	if(query_get_notes.NextRow())
+		return
+
+	// Only add a note if their most recent note isn't from the randomizer blocker, either
+	query_get_notes = dbcon.NewQuery("SELECT adminckey FROM [format_table_name("notes")] WHERE ckey = '[ckey]' ORDER BY timestamp DESC LIMIT 1")
+	if(!query_get_notes.Execute())
+		var/err = query_get_notes.ErrorMsg()
+		log_game("SQL ERROR obtaining adminckey from notes table. Error : \[[err]\]\n")
+		return
+	if(query_get_notes.NextRow())
+		if(query_get_notes.item[1] == adminckey)
+			return
+	add_note(ckey, "Detected as using a cid randomizer.", null, adminckey, logged = 0)
+
+/client/proc/cid_check_reconnect()
+	var/token = md5("[rand(0,9999)][world.time][rand(0,9999)][ckey][rand(0,9999)][address][rand(0,9999)][computer_id][rand(0,9999)]")
+	. = token
+	log_access("Failed Login: [key] [computer_id] [address] - CID randomizer check")
+	var/url = winget(src, null, "url")
+	//special javascript to make them reconnect under a new window.
+	src << browse("<a id='link' href='byond://[url]?token=[token]'>\
+		byond://[url]?token=[token]\
+	</a>\
+	<script type='text/javascript'>\
+		document.getElementById(\"link\").click();\
+		window.location=\"byond://winset?command=.quit\"\
+	</script>",
+	"border=0;titlebar=0;size=1x1")
+	to_chat(src, "<a href='byond://[url]?token=[token]'>You will be automatically taken to the game, if not, click here to be taken manually</a>. Except you can't, since the chat window doesn't exist yet.")
 
 //checks if a client is afk
 //3000 frames = 5 minutes

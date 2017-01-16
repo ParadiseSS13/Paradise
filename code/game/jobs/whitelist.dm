@@ -21,7 +21,7 @@ var/list/whitelist = list()
 	if(guest_jobbans(rank))
 		if(!config.usewhitelist)
 			return 1
-		if(check_rights(R_ADMIN, 0))
+		if(check_rights(R_ADMIN, 0, M))
 			return 1
 		if(!dbcon.IsConnected())
 			to_chat(usr, "\red Unable to connect to whitelist database. Please try again later.<br>")

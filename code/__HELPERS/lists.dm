@@ -58,11 +58,40 @@
 	return 0
 
 //Checks for specific types in a list
-/proc/is_type_in_list(var/atom/A, var/list/L)
+/proc/is_type_in_list(atom/A, list/L)
+	if(!L || !L.len || !A)
+		return 0
 	for(var/type in L)
 		if(istype(A, type))
 			return 1
 	return 0
+
+//Checks for specific types in specifically structured (Assoc "type" = TRUE) lists ('typecaches')
+/proc/is_type_in_typecache(atom/A, list/L)
+	if(!L || !L.len || !A)
+		return 0
+	return L[A.type]
+
+//Like typesof() or subtypesof(), but returns a typecache instead of a list
+/proc/typecacheof(path, ignore_root_path)
+	if(ispath(path))
+		var/list/types = ignore_root_path ? subtypesof(path) : typesof(path)
+		var/list/L = list()
+		for(var/T in types)
+			L[T] = TRUE
+		return L
+	else if(islist(path))
+		var/list/pathlist = path
+		var/list/L = list()
+		if(ignore_root_path)
+			for(var/P in pathlist)
+				for(var/T in subtypesof(P))
+					L[T] = TRUE
+		else
+			for(var/P in pathlist)
+				for(var/T in typesof(P))
+					L[T] = TRUE
+		return L
 
 //Removes any null entries from the list
 /proc/listclearnulls(list/list)
@@ -86,6 +115,7 @@
 				result += e
 	else
 		result = first - second
+
 	return result
 
 /*

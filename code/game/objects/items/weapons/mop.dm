@@ -11,6 +11,7 @@
 	throw_range = 7
 	w_class = 3
 	attack_verb = list("mopped", "bashed", "bludgeoned", "whacked")
+	burn_state = FLAMMABLE
 	var/mopping = 0
 	var/mopcount = 0
 	var/mopcap = 5
@@ -72,13 +73,13 @@
 /obj/item/weapon/mop/advanced
 	desc = "The most advanced tool in a custodian's arsenal. Just think of all the viscera you will clean up with this!"
 	name = "advanced mop"
-	mopcap = 10
+	mopcap = 15
 	icon_state = "advmop"
 	item_state = "mop"	//meh will do for now until TG makes one
 	force = 6
 	throwforce = 8
 	throw_range = 4
-	mopspeed = 20
+	mopspeed = 10
 
 /obj/item/weapon/mop/advanced/cyborg
 	mopcap = 40

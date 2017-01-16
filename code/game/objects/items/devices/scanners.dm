@@ -172,7 +172,7 @@ REAGENT SCANNER
 				user.show_message(text("\blue \t []: [][]\blue - []",	\
 				capitalize(org.name),					\
 				(org.brute_dam > 0)	?	"\red [org.brute_dam]"							:0,		\
-				(org.status & ORGAN_BLEEDING)?"\red <b>\[Bleeding\]</b>":"\t", 		\
+				(org.status & ORGAN_BLEEDING)?"<span class='danger'>\[Bleeding\]</span>":"\t", 		\
 				(org.burn_dam > 0)	?	"<font color='#FFA500'>[org.burn_dam]</font>"	:0),1)
 		else
 			user.show_message("\blue \t Limbs are OK.",1)
@@ -381,9 +381,7 @@ REAGENT SCANNER
 
 /obj/item/device/mass_spectrometer/New()
 	..()
-	var/datum/reagents/R = new/datum/reagents(5)
-	reagents = R
-	R.my_atom = src
+	create_reagents(5)
 
 /obj/item/device/mass_spectrometer/on_reagent_change()
 	if(reagents.total_volume)

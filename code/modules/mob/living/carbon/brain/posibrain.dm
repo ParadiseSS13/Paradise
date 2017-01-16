@@ -13,6 +13,7 @@
 	req_access = list(access_robotics)
 	mecha = null//This does not appear to be used outside of reference in mecha.dm.
 	var/silenced = 0 //if set to 1, they can't talk.
+	var/next_ping_at = 0
 
 
 /obj/item/device/mmi/posibrain/attack_self(mob/user as mob)
@@ -46,12 +47,14 @@
 /obj/item/device/mmi/posibrain/proc/request_player()
 	for(var/mob/dead/observer/O in player_list)
 		if(check_observer(O))
-			to_chat(O, "<span class='boldnotice'>\A [src] has been activated. (<a href='?src=\ref[O];jump=\ref[src]'>Teleport</a> | <a href='?src=\ref[src];signup=\ref[O]'>Sign Up</a>)</span>")
+			to_chat(O, "<span class='boldnotice'>\A [src] has been activated. (<a href='?src=[O.UID()];jump=\ref[src]'>Teleport</a> | <a href='?src=[UID()];signup=\ref[O]'>Sign Up</a>)</span>")
 
 /obj/item/device/mmi/posibrain/proc/check_observer(var/mob/dead/observer/O)
 	if(O.has_enabled_antagHUD == 1 && config.antag_hud_restricted)
 		return 0
 	if(jobban_isbanned(O, "Cyborg") || jobban_isbanned(O,"nonhumandept"))
+		return 0
+	if(!O.can_reenter_corpse)
 		return 0
 	if(O.client)
 		return 1
@@ -69,7 +72,7 @@
 
 // This should not ever happen, but let's be safe
 /obj/item/device/mmi/posibrain/dropbrain(var/turf/dropspot)
-	log_to_dd("[src] at [loc] attempted to drop brain without a contained brain.")
+	log_runtime(EXCEPTION("[src] at [loc] attempted to drop brain without a contained brain."), src)
 	return
 
 /obj/item/device/mmi/posibrain/transfer_identity(var/mob/living/carbon/H)
@@ -182,7 +185,7 @@
 	src.brainmob.loc = src
 	src.brainmob.container = src
 	src.brainmob.stat = 0
-	src.brainmob.silent = 0
+	src.brainmob.SetSilence(0)
 	dead_mob_list -= src.brainmob
 
 	..()
@@ -190,7 +193,12 @@
 /obj/item/device/mmi/posibrain/attack_ghost(var/mob/dead/observer/O)
 	if(searching)
 		volunteer(O)
-	else
+		return
+	if(brainmob && brainmob.key)
+		return // No point pinging a posibrain with a player already inside
+	if(check_observer(O) && (world.time >= next_ping_at))
+		next_ping_at = world.time + (20 SECONDS)
+		playsound(get_turf(src), 'sound/items/posiping.ogg', 80, 0)
 		var/turf/T = get_turf_or_move(src.loc)
 		for(var/mob/M in viewers(T))
 			M.show_message("\blue The positronic brain pings softly.")

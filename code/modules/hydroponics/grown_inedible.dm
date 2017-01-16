@@ -7,14 +7,13 @@
 	icon = 'icons/obj/weapons.dmi'
 	var/plantname
 	var/potency = 1
+	burn_state = FLAMMABLE
 
 /obj/item/weapon/grown/New(newloc,planttype)
 
 	..()
 
-	var/datum/reagents/R = new/datum/reagents(50)
-	reagents = R
-	R.my_atom = src
+	create_reagents(50)
 
 	//Handle some post-spawn var stuff.
 	if(planttype)
@@ -95,9 +94,9 @@
 /obj/item/weapon/grown/nettle/death/afterattack(mob/living/carbon/M, mob/user)
 	if(istype(M, /mob/living))
 		to_chat(M, "<span class='danger'>You are stunned by the powerful acid of the Deathnettle!</span>")
-		add_logs(M, user, "attacked", src)
+		add_logs(user, M, "attacked", src)
 
-		M.eye_blurry += force/7
+		M.AdjustEyeBlurry(force/7)
 		if(prob(20))
 			M.Paralyse(force / 6)
 			M.Weaken(force / 15)
@@ -170,8 +169,11 @@
 	to_chat(M, "<font color='green'>[user] smacks you with a [name]!</font><font color='yellow'><b>FLOWER POWER</b></font>")
 	to_chat(user, "<font color='green'> Your [name]'s </font><font color='yellow'><b>FLOWER POWER</b></font><font color='green'> strikes [M]</font>")
 	if(istype(M, /mob/living))
-		to_chat(M, "<span class='warning'>You are heated by the warmth of the of the [name]!</span>")
-		M.bodytemperature += potency/2 * TEMPERATURE_DAMAGE_COEFFICIENT
+		to_chat(M, "<span class='danger'>You are lit on fire from the intense heat of the [name]!</span>")
+		M.adjust_fire_stacks(potency / 20)
+		if(M.IgniteMob())
+			message_admins("[key_name_admin(user)] set [key_name_admin(M)] on fire")
+			log_game("[key_name(user)] set [key_name(M)] on fire")
 
 /obj/item/weapon/grown/novaflower/pickup(mob/living/carbon/human/user as mob)
 	if(!user.gloves)

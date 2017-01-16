@@ -76,6 +76,9 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 /obj/structure/window/blob_act()
 	destroy()
 
+/obj/structure/window/narsie_act()
+	color = "#7D1919"
+
 /obj/structure/window/singularity_pull(S, current_size)
 	if(current_size >= STAGE_FIVE)
 		destroy()
@@ -425,11 +428,6 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 		hit(round(exposed_volume / 1000), 0)
 	..()
 
-/obj/structure/window/plasmabasic/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume)
-	if(exposed_temperature > T0C + 32000)
-		hit(round(exposed_volume / 1000), 0)
-	..()
-
 /obj/structure/window/plasmabasic/BlockSuperconductivity()
 	return 1
 
@@ -455,9 +453,6 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 	air_update_turf(1)
 
 /obj/structure/window/plasmareinforced/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
-	return
-
-/obj/structure/window/plasmareinforced/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	return
 
 /obj/structure/window/plasmareinforced/BlockSuperconductivity()

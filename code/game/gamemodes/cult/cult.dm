@@ -1,9 +1,8 @@
 //This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:31
+var/global/list/all_cults = list()
 
 /datum/game_mode
 	var/list/datum/mind/cult = list()
-	var/list/allwords = list("travel","self","see","hell","blood","join","tech","destroy", "other", "hide")
-
 
 /proc/iscultist(mob/living/M as mob)
 	return istype(M) && M.mind && ticker && ticker.mode && (M.mind in ticker.mode.cult)
@@ -22,8 +21,20 @@
 		var/mob/living/carbon/human/H = mind.current
 		if(isloyal(H))
 			return 0
+	if(issilicon(mind.current))
+		return 0 //can't convert machines, that's ratvar's thing
+	if(isguardian(mind.current))
+		var/mob/living/simple_animal/hostile/guardian/G = mind.current
+		if(!iscultist(G.summoner))
+			return 0 //can't convert it unless the owner is converted
 	return 1
 
+/proc/is_sacrifice_target(datum/mind/mind)
+	if(istype(ticker.mode.name, "cult"))
+		var/datum/game_mode/cult/cult_mode = ticker.mode
+		if(mind == cult_mode.sacrifice_target)
+			return 1
+	return 0
 
 /datum/game_mode/cult
 	name = "cult"
@@ -37,17 +48,37 @@
 	var/datum/mind/sacrifice_target = null
 	var/finished = 0
 
-	var/list/startwords = list("blood","join","self","hell")
 
 	var/list/objectives = list()
 
 	var/eldergod = 1 //for the summon god objective
+	var/demons_summoned = 0
 
 	var/acolytes_needed = 4 //for the survive objective - base number of acolytes, increased by 1 for every 10 players
 	var/const/min_cultists_to_start = 3
 	var/const/max_cultists_to_start = 4
 	var/acolytes_survived = 0
 
+	var/narsie_condition_cleared = 0	//allows Nar-Sie to be summonned during cult rounds. set to 1 once the cult reaches the second phase.
+	var/current_objective = 1	//equals the number of cleared objectives + 1
+	var/prenarsie_objectives = 2 //how many objectives at most before the cult gets to summon narsie
+	var/list/bloody_floors = list()
+	var/spilltarget = 100	//how many floor tiles must be covered in blood to complete the bloodspill objective
+	var/convert_target = 0	//how many members the cult needs to reach to complete the convert objective
+	var/harvested = 0
+
+	var/list/sacrificed = list()	//contains the mind of the sacrifice target ONCE the sacrifice objective has been completed
+	var/mass_convert = 0	//set to 1 if the convert objective has been accomplised once that round
+	var/spilled_blood = 0	//set to 1 if the bloodspill objective has been accomplised once that round
+	var/max_spilled_blood = 0	//highest quantity of blood covered tiles during the round
+	var/bonus = 0	//set to 1 if the cult has completed the bonus (third phase) objective (harvest, hijack, massacre)
+
+	var/harvest_target = 10
+	var/massacre_target = 5
+
+	var/escaped_shuttle = 0
+	var/escaped_pod = 0
+	var/survivors = 0
 
 /datum/game_mode/cult/announce()
 	to_chat(world, "<B>The current game mode is - Cult!</B>")
@@ -55,16 +86,9 @@
 
 
 /datum/game_mode/cult/pre_setup()
-	if(prob(50))
-		objectives += "survive"
-		objectives += "sacrifice"
-	else
-		objectives += "eldergod"
-		objectives += "sacrifice"
-
 	if(config.protect_roles_from_antagonist)
 		restricted_jobs += protected_jobs
-
+	..()
 	var/list/cultists_possible = get_players_for_role(ROLE_CULTIST)
 
 	for(var/cultists_number = 1 to max_cultists_to_start)
@@ -74,7 +98,8 @@
 		cultists_possible -= cultist
 		cult += cultist
 		cultist.restricted_roles = restricted_jobs
-		cultist.special_role = "Cultist"
+		cultist.special_role = SPECIAL_ROLE_CULTIST
+	..()
 	return (cult.len>0)
 
 
@@ -92,10 +117,13 @@
 
 	for(var/datum/mind/cult_mind in cult)
 		equip_cultist(cult_mind.current)
-		grant_runeword(cult_mind.current)
+		cult_mind.current.faction |= "cult"
+		var/datum/action/innate/cultcomm/C = new()
+		C.Grant(cult_mind.current)
 		update_cult_icons_added(cult_mind)
-		to_chat(cult_mind.current, "\blue You are a member of the cult!")
-		memorize_cult_objectives(cult_mind)
+		to_chat(cult_mind.current, "<span class='cultitalic'>You catch a glimpse of the Realm of [ticker.mode.cultdat.entity_name], [ticker.mode.cultdat.entity_title3]. You now see how flimsy the world is, you see that it should be open to the knowledge of [ticker.mode.cultdat.entity_name].</span>")
+
+	first_phase()
 
 	..()
 
@@ -106,17 +134,19 @@
 		switch(objectives[obj_count])
 			if("survive")
 				explanation = "Our knowledge must live on. Make sure at least [acolytes_needed] acolytes escape on the shuttle to spread their work on an another station."
+			if("convert")
+				explanation = "We must increase our influence before we can summon [ticker.mode.cultdat.entity_name], Convert [convert_target] crew members. Take it slowly to avoid raising suspicions."
+			if("bloodspill")
+				explanation = "We must prepare this place for [ticker.mode.cultdat.entity_title1]'s coming. Spill blood and gibs over [spilltarget] floor tiles."
 			if("sacrifice")
 				if(sacrifice_target)
-					explanation = "Sacrifice [sacrifice_target.current.real_name], the [sacrifice_target.assigned_role]. You will need the sacrifice rune (hell blood join) and three acolytes to do so."
+					explanation = "Sacrifice [sacrifice_target.current.real_name], the [sacrifice_target.assigned_role]. You will need the sacrifice rune and three acolytes to do so."
 				else
 					explanation = "Free objective."
 			if("eldergod")
-				explanation = "Summon Nar-Sie via the use of the appropriate rune (Hell join self). It will only work if nine cultists stand on and around it."
+				explanation = "Summon [ticker.mode.cultdat.entity_name]. It will only work if nine cultists stand on and around it."
 		to_chat(cult_mind.current, "<B>Objective #[obj_count]</B>: [explanation]")
 		cult_mind.memory += "<B>Objective #[obj_count]</B>: [explanation]<BR>"
-	to_chat(cult_mind.current, "The convert rune is join blood self")
-	cult_mind.memory += "The convert rune is join blood self<BR>"
 
 
 /datum/game_mode/proc/equip_cultist(mob/living/carbon/human/mob)
@@ -128,8 +158,6 @@
 			to_chat(mob, "Your training has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself.")
 			mob.mutations.Remove(CLUMSY)
 
-	add_cult_viewpoint(mob) // give them a viewpoint
-
 	var/obj/item/weapon/paper/talisman/supply/T = new(mob)
 	var/list/slots = list (
 		"backpack" = slot_in_backpack,
@@ -140,37 +168,11 @@
 	)
 	var/where = mob.equip_in_one_of_slots(T, slots)
 	if(!where)
-		to_chat(mob, "Unfortunately, you weren't able to get a talisman. This is very bad and you should adminhelp immediately.")
+		to_chat(mob, "<span class='danger'>Unfortunately, you weren't able to get a talisman. This is very bad and you should adminhelp immediately.</span>")
 	else
-		to_chat(mob, "You have a talisman in your [where], one that will help you start the cult on this station. Use it well and remember - there are others.")
+		to_chat(mob, "<span class='cult'>You have a talisman in your [where], one that will help you start the cult on this station. Use it well and remember - there are others.</span>")
 		mob.update_icons()
 		return 1
-
-
-/datum/game_mode/cult/grant_runeword(mob/living/carbon/human/cult_mob, var/word)
-	if(!word)
-		if(startwords.len > 0)
-			word=pick(startwords)
-			startwords -= word
-	return ..(cult_mob,word)
-
-
-/datum/game_mode/proc/grant_runeword(mob/living/carbon/human/cult_mob, var/word)
-	if(!cultwords["travel"])
-		runerandom()
-	if(!word)
-		word=pick(allwords)
-	var/wordexp = "[cultwords[word]] is [word]..."
-	to_chat(cult_mob, "\red [pick("You remember something from the dark teachings of your master","You hear a dark voice on the wind","Black blood oozes into your vision and forms into symbols","You have a vision of a [pick("crow","raven","vulture","parrot")] it squawks","You catch a brief glimmer of the otherside")]... [wordexp]")
-	cult_mob.mind.store_memory("<B>You remember that</B> [wordexp]", 0, 0)
-
-
-/datum/game_mode/proc/add_cult_viewpoint(var/mob/target)
-	for(var/obj/cult_viewpoint/viewpoint in target)
-		return
-	var/obj/cult_viewpoint/viewpoint = new(target)
-	viewpoint.loc = target
-	return viewpoint
 
 
 /datum/game_mode/proc/add_cultist(datum/mind/cult_mind) //BASE
@@ -178,11 +180,13 @@
 		return 0
 	if(!(cult_mind in cult) && is_convertable_to_cult(cult_mind))
 		cult += cult_mind
-		add_cult_viewpoint(cult_mind.current)
-		update_cult_icons_added(cult_mind)
+		cult_mind.current.faction |= "cult"
+		var/datum/action/innate/cultcomm/C = new()
+		C.Grant(cult_mind.current)
 		cult_mind.current.attack_log += "\[[time_stamp()]\] <span class='danger'>Has been converted to the cult!</span>"
 		if(jobban_isbanned(cult_mind.current, ROLE_CULTIST))
 			replace_jobbaned_player(cult_mind.current, ROLE_CULTIST)
+		update_cult_icons_added(cult_mind)
 		return 1
 
 
@@ -195,50 +199,25 @@
 /datum/game_mode/proc/remove_cultist(datum/mind/cult_mind, show_message = 1)
 	if(cult_mind in cult)
 		cult -= cult_mind
-		to_chat(cult_mind.current, "\red <FONT size = 3><B>An unfamiliar white light flashes through your mind, cleansing the taint of the dark-one and the memories of your time as his servant with it.</B></FONT>")
+		to_chat(cult_mind.current, "<span class='danger'>An unfamiliar white light flashes through your mind, cleansing the taint of the dark-one and the memories of your time as his servant with it.</span>")
+		cult_mind.current.faction -= "cult"
 		cult_mind.memory = ""
 		cult_mind.special_role = null
-		// remove the cult viewpoint object
-		var/obj/viewpoint = getCultViewpoint(cult_mind.current)
-		qdel(viewpoint)
-
+		for(var/datum/action/innate/cultcomm/C in cult_mind.current.actions)
+			qdel(C)
 		update_cult_icons_removed(cult_mind)
 		if(show_message)
 			for(var/mob/M in viewers(cult_mind.current))
 				to_chat(M, "<FONT size = 3>[cult_mind.current] looks like they just reverted to their old faith!</FONT>")
 
 
-/datum/game_mode/proc/add_cult_icon_to_spirit(mob/spirit/currentSpirit)
-	if(!istype(currentSpirit))
-		return FALSE
-	if(currentSpirit.client)
-		var/datum/atom_hud/antag/maskhud = huds[ANTAG_HUD_CULT]
-		maskhud.join_hud(currentSpirit)
-		set_antag_hud(currentSpirit,"hudcultist")
-
-
-/datum/game_mode/proc/remove_cult_icon_from_spirit(mob/spirit/currentSpirit)
-	if(!istype(currentSpirit))
-		return FALSE
-	if(currentSpirit.client)
-		var/datum/atom_hud/antag/maskhud = huds[ANTAG_HUD_CULT]
-		maskhud.leave_hud(currentSpirit)
-		set_antag_hud(currentSpirit, null)
-
-
 /datum/game_mode/proc/update_cult_icons_added(datum/mind/cult_mind)
-	for(var/mob/spirit/currentSpirit in spirits)
-		add_cult_icon_to_spirit(currentSpirit,cult_mind)
-
 	var/datum/atom_hud/antag/culthud = huds[ANTAG_HUD_CULT]
 	culthud.join_hud(cult_mind.current)
 	set_antag_hud(cult_mind.current, "hudcultist")
 
 
 /datum/game_mode/proc/update_cult_icons_removed(datum/mind/cult_mind)
-
-	for(var/mob/spirit/currentSpirit in spirits)
-		remove_cult_icon_from_spirit(currentSpirit,cult_mind)
 
 	var/datum/atom_hud/antag/culthud = huds[ANTAG_HUD_CULT]
 	culthud.leave_hud(cult_mind.current)
@@ -259,8 +238,17 @@
 		cult_fail += check_survive() //the proc returns 1 if there are not enough cultists on the shuttle, 0 otherwise
 	if(objectives.Find("eldergod"))
 		cult_fail += eldergod //1 by default, 0 if the elder god has been summoned at least once
+	if(objectives.Find("slaughter"))
+		if(!demons_summoned)
+			cult_fail++
 	if(objectives.Find("sacrifice"))
 		if(sacrifice_target && !(sacrifice_target in sacrificed)) //if the target has been sacrificed, ignore this step. otherwise, add 1 to cult_fail
+			cult_fail++
+	if(objectives.Find("convert"))
+		if(cult.len < convert_target)
+			cult_fail++
+	if(objectives.Find("bloodspill"))
+		if(max_spilled_blood < spilltarget)
 			cult_fail++
 
 	return cult_fail //if any objectives aren't met, failure
@@ -287,15 +275,16 @@
 
 
 /datum/game_mode/cult/declare_completion()
+	bonus_check()
 
 	if(!check_cult_victory())
 		feedback_set_details("round_end_result","win - cult win")
 		feedback_set("round_end_result",acolytes_survived)
-		to_chat(world, "\red <FONT size = 3><B> The cult wins! It has succeeded in serving its dark masters!</B></FONT>")
+		to_chat(world, "<span class='danger'> <FONT size = 3> The cult wins! It has succeeded in serving its dark masters!</FONT></span>")
 	else
 		feedback_set_details("round_end_result","loss - staff stopped the cult")
 		feedback_set("round_end_result",acolytes_survived)
-		to_chat(world, "\red <FONT size = 3><B> The staff managed to stop the cult!</B></FONT>")
+		to_chat(world, "<span class='warning'> <FONT size = 3>The staff managed to stop the cult!</FONT></span>")
 
 	var/text = "<b>Cultists escaped:</b> [acolytes_survived]"
 
@@ -324,11 +313,59 @@
 							feedback_add_details("cult_objective","cult_sacrifice|FAIL|GIBBED")
 				if("eldergod")
 					if(!eldergod)
-						explanation = "Summon Nar-Sie. <font color='green'><B>Success!</B></font>"
+						explanation = "Summon [ticker.mode.cultdat.entity_name]. <font color='green'><B>Success!</B></font>"
 						feedback_add_details("cult_objective","cult_narsie|SUCCESS")
 					else
-						explanation = "Summon Nar-Sie. <font color='red'>Fail.</font>"
+						explanation = "Summon [ticker.mode.cultdat.entity_name]. <font color='red'>Fail.</font>"
 						feedback_add_details("cult_objective","cult_narsie|FAIL")
+				if("slaughter")
+					if(demons_summoned)
+						explanation = "Bring the Slaughter. <span class='greenannounce'>Success!</span>"
+						feedback_add_details("cult_objective","cult_demons|SUCCESS")
+					else
+						explanation = "Bring the Slaughter. <span class='boldannounce'>Fail.</span>"
+						feedback_add_details("cult_objective","cult_demons|FAIL")
+
+				if("convert")//convert half the crew
+					if(obj_count < objectives.len)
+						explanation = "Convert [convert_target] crewmembers ([cult.len] cultists at round end). <font color='green'><B>Success!</B></font>"
+						feedback_add_details("cult_objective","cult_convertion|SUCCESS")
+					else
+						explanation = "Convert [convert_target] crewmembers ([cult.len] total cultists). <font color='red'><B>Fail!</B></font>"
+						feedback_add_details("cult_objective","cult_convertion|FAIL")
+
+				if("bloodspill")//cover a large portion of the station in blood
+					if(obj_count < objectives.len)
+						explanation = "Cover [spilltarget] tiles of the station in blood (The peak number of covered tiles was: [max_spilled_blood]). <font color='green'><B>Success!</B></font>"
+						feedback_add_details("cult_objective","cult_bloodspill|SUCCESS")
+					else
+						explanation = "Cover [spilltarget] tiles of the station in blood (The peak number of covered tiles was: [max_spilled_blood]). <font color='red'><B>Fail!</B></font>"
+						feedback_add_details("cult_objective","cult_bloodspill|FAIL")
+
+				if("harvest")
+					if(harvested > harvest_target)
+						explanation = "Offer [harvest_target] humans for [ticker.mode.cultdat.entity_name]'s first meal of the day. ([harvested] eaten) <font color='green'><B>Success!</B></font>"
+						feedback_add_details("cult_objective","cult_harvest|SUCCESS")
+					else
+						explanation = "Offer [harvest_target] humans for [ticker.mode.cultdat.entity_name]'s first meal of the day. ([harvested] eaten) <font color='red'><B>Fail!</B></font>"
+						feedback_add_details("cult_objective","cult_harvest|FAIL")
+
+				if("hijack")
+					if(!escaped_shuttle)
+						explanation = "Do not let a single non-cultist board the Escape Shuttle. ([escaped_shuttle] escaped on the shuttle) ([escaped_pod] escaped on pods) <font color='green'><B>Success!</B></font>"
+						feedback_add_details("cult_objective","cult_hijack|SUCCESS")
+					else
+						explanation = "Do not let a single non-cultist board the Escape Shuttle. ([escaped_shuttle] escaped on the shuttle) ([escaped_pod] escaped on pods) <font color='red'><B>Fail!</B></font>"
+						feedback_add_details("cult_objective","cult_hijack|FAIL")
+
+				if("massacre")
+					if(survivors < massacre_target)
+						explanation = "Massacre the crew until less than [massacre_target] people are left on the station. ([survivors] humans left alive) <font color='green'><B>Success!</B></font>"
+						feedback_add_details("cult_objective","cult_massacre|SUCCESS")
+					else
+						explanation = "Massacre the crew until less than [massacre_target] people are left on the station. ([survivors] humans left alive) <font color='red'><B>Fail!</B></font>"
+						feedback_add_details("cult_objective","cult_massacre|FAIL")
+
 			text += "<br><B>Objective #[obj_count]</B>: [explanation]"
 
 	to_chat(world, text)
@@ -337,7 +374,7 @@
 
 
 /datum/game_mode/proc/auto_declare_completion_cult()
-	if( cult.len || (ticker && istype(ticker.mode,/datum/game_mode/cult)) )
+	if(cult.len || (ticker && GAMEMODE_IS_CULT))
 		var/text = "<FONT size = 2><B>The cultists were:</B></FONT>"
 		for(var/datum/mind/cultist in cult)
 

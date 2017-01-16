@@ -62,7 +62,7 @@
 	goal = locate(endx, endy, 1)
 	src.x = startx
 	src.y = starty
-	src.z = ZLEVEL_STATION
+	src.z = level_name_to_num(MAIN_STATION)
 	spawn(0)
 		walk_towards(src, goal, 1)
 	return

@@ -33,7 +33,6 @@
 	icon_living = "parrot_fly"
 	icon_dead = "parrot_dead"
 	pass_flags = PASSTABLE
-	small = 1
 	can_collar = 1
 
 	var/list/clean_speak = list(
@@ -54,6 +53,7 @@
 	response_harm   = "swats the"
 	stop_automated_movement = 1
 	universal_speak = 1
+	mob_size = MOB_SIZE_SMALL
 
 	var/parrot_state = PARROT_WANDER //Hunt for a perch when created
 	var/parrot_sleep_max = 25 //The time the parrot sits while perched before looking around. Mosly a way to avoid the parrot's AI in process_ai() being run every single tick.
@@ -131,13 +131,13 @@
 
 	var/dat = {"<table>"}
 
-	dat += "<tr><td><B>Headset:</B></td><td><A href='?src=\ref[src];[ears?"remove_inv":"add_inv"]=ears'>[(ears && !(ears.flags&ABSTRACT)) ? ears : "<font color=grey>Empty</font>"]</A></td></tr>"
+	dat += "<tr><td><B>Headset:</B></td><td><A href='?src=[UID()];[ears?"remove_inv":"add_inv"]=ears'>[(ears && !(ears.flags&ABSTRACT)) ? ears : "<font color=grey>Empty</font>"]</A></td></tr>"
 	if(can_collar)
 		dat += "<tr><td>&nbsp;</td></tr>"
-		dat += "<tr><td><B>Collar:</B></td><td><A href='?src=\ref[src];[collar?"remove_inv":"add_inv"]=collar'>[(collar && !(collar.flags&ABSTRACT)) ? collar : "<font color=grey>Empty</font>"]</A></td></tr>"
+		dat += "<tr><td><B>Collar:</B></td><td><A href='?src=[UID()];[collar?"remove_inv":"add_inv"]=collar'>[(collar && !(collar.flags&ABSTRACT)) ? collar : "<font color=grey>Empty</font>"]</A></td></tr>"
 
 	dat += {"</table>
-	<A href='?src=\ref[user];mach_close=mob\ref[src]'>Close</A>
+	<A href='?src=[user.UID()];mach_close=mob\ref[src]'>Close</A>
 	"}
 
 	var/datum/browser/popup = new(user, "mob\ref[src]", "[src]", 440, 500)

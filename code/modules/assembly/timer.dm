@@ -86,16 +86,16 @@
 		var/dat = {"
 		<TT>
 			<center><h2>Timing Unit</h2>
-			[minute]:[second] <a href='?src=\ref[src];time=1'>[timing?"Stop":"Start"]</a> <a href='?src=\ref[src];reset=1'>Reset</a><br>
-			Repeat: <a href='?src=\ref[src];repeat=1'>[repeat?"On":"Off"]</a><br>
+			[minute]:[second] <a href='?src=[UID()];time=1'>[timing?"Stop":"Start"]</a> <a href='?src=[UID()];reset=1'>Reset</a><br>
+			Repeat: <a href='?src=[UID()];repeat=1'>[repeat?"On":"Off"]</a><br>
 			Timer set for
-			<A href='?src=\ref[src];tp=-30'>-</A> <A href='?src=\ref[src];tp=-1'>-</A> [set_minute]:[set_second] <A href='?src=\ref[src];tp=1'>+</A> <A href='?src=\ref[src];tp=30'>+</A>
+			<A href='?src=[UID()];tp=-30'>-</A> <A href='?src=[UID()];tp=-1'>-</A> [set_minute]:[set_second] <A href='?src=[UID()];tp=1'>+</A> <A href='?src=[UID()];tp=30'>+</A>
 			</center>
 		</TT>
 		<BR><BR>
-		<A href='?src=\ref[src];refresh=1'>Refresh</A>
+		<A href='?src=[UID()];refresh=1'>Refresh</A>
 		<BR><BR>
-		<A href='?src=\ref[src];close=1'>Close</A>"}
+		<A href='?src=[UID()];close=1'>Close</A>"}
 		var/datum/browser/popup = new(user, "timer", name, 400, 400)
 		popup.set_content(dat)
 		popup.open(0)

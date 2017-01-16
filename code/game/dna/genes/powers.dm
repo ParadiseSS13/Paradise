@@ -8,7 +8,7 @@
 	deactivation_messages=list("You feel the need to breathe, once more.")
 	instability = GENE_INSTABILITY_MODERATE
 	mutation=NO_BREATH
-	activation_prob=10
+	activation_prob=25
 
 /datum/dna/gene/basic/nobreath/New()
 	block=NOBREATHBLOCK
@@ -116,7 +116,7 @@
 	deactivation_messages=list("Your muscles shrink.")
 	instability = GENE_INSTABILITY_MAJOR
 	mutation=HULK
-	activation_prob=5
+	activation_prob=15
 
 /datum/dna/gene/basic/hulk/New()
 	block=HULKBLOCK
@@ -156,10 +156,18 @@
 	deactivation_messages=list("the walls around you re-appear.")
 	instability = GENE_INSTABILITY_MAJOR
 	mutation=XRAY
-	activation_prob=10
+	activation_prob=15
 
 /datum/dna/gene/basic/xray/New()
 	block=XRAYBLOCK
+
+/datum/dna/gene/basic/xray/activate(mob/living/M, connected, flags)
+	..()
+	M.update_sight()
+
+/datum/dna/gene/basic/xray/deactivate(mob/living/M, connected, flags)
+	..()
+	M.update_sight()
 
 /datum/dna/gene/basic/tk
 	name="Telekenesis"
@@ -167,7 +175,7 @@
 	deactivation_messages = list("You feel dumber.")
 	instability = GENE_INSTABILITY_MAJOR
 	mutation=TK
-	activation_prob=10
+	activation_prob=15
 
 /datum/dna/gene/basic/tk/New()
 	block=TELEBLOCK

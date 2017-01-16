@@ -13,7 +13,11 @@
 		return 0
 
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	return affected && !(affected.status & ORGAN_ROBOT) && affected.encased && affected.open >= 2
+	if(!affected)
+		return 0
+	if(affected.status & ORGAN_ROBOT)
+		return 0
+	return 1
 
 
 /datum/surgery_step/open_encased/saw
@@ -25,12 +29,6 @@
 	)
 
 	time = 54
-
-/datum/surgery_step/open_encased/saw/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
-	if(!hasorgans(target))
-		return
-	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	return ..() && affected && affected.open == 2
 
 /datum/surgery_step/open_encased/saw/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 
@@ -78,12 +76,6 @@
 	)
 
 	time = 24
-
-/datum/surgery_step/open_encased/retract/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
-	if(!hasorgans(target))
-		return
-	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	return ..() && affected && affected.open == 2.5
 
 /datum/surgery_step/open_encased/retract/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 
@@ -136,13 +128,6 @@
 
 	time = 24
 
-/datum/surgery_step/open_encased/close/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
-
-	if(!hasorgans(target))
-		return
-	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	return ..() && affected && affected.open == 3
-
 /datum/surgery_step/open_encased/close/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 
 	if(!hasorgans(target))
@@ -192,13 +177,6 @@
 	)
 
 	time = 24
-
-/datum/surgery_step/open_encased/mend/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
-
-	if(!hasorgans(target))
-		return
-	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	return ..() && affected && affected.open == 2.5
 
 /datum/surgery_step/open_encased/mend/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 

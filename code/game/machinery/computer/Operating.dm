@@ -29,6 +29,14 @@
 			table.computer = src
 			break
 
+/obj/machinery/computer/operating/Destroy()
+	if(table)
+		table.computer = null
+		table = null
+	if(victim)
+		victim = null
+	return ..()
+
 /obj/machinery/computer/operating/attack_ai(mob/user)
 	add_fingerprint(user)
 	if(stat & (BROKEN|NOPOWER))
@@ -57,7 +65,7 @@
 //
 //	user.set_machine(src)
 //	var/dat = "<HEAD><TITLE>Operating Computer</TITLE><META HTTP-EQUIV='Refresh' CONTENT='10'></HEAD><BODY>\n"
-//	dat += "<A HREF='?src=\ref[user];mach_close=op'>Close</A><br><br>" //| <A HREF='?src=\ref[user];update=1'>Update</A>"
+//	dat += "<A HREF='?src=[user.UID()];mach_close=op'>Close</A><br><br>" //| <A HREF='?src=[user.UID()];update=1'>Update</A>"
 //	if(src.table && (src.table.check_victim()))
 //		src.victim = src.table.victim
 //		dat += {"
@@ -86,8 +94,17 @@
 //	onclose(user, "op")
 
 /obj/machinery/computer/operating/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)//ui is mostly copy pasta from the sleeper ui
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "op_computer.tmpl", "Patient Monitor", 650, 455)
+		ui.open()
+		ui.set_auto_update(1)
+
+/obj/machinery/computer/operating/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/data[0]
-	var/mob/living/carbon/human/occupant = src.table.victim
+	var/mob/living/carbon/human/occupant
+	if(table)
+		occupant = table.victim
 	data["hasOccupant"] = occupant ? 1 : 0
 	var/occupantData[0]
 
@@ -156,15 +173,7 @@
 	data["healthAlarm"]=healthAlarm
 	data["oxy"]=oxy
 
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if(!ui)
-		ui = new(user, src, ui_key, "op_computer.tmpl", "Patient Monitor", 650, 455)
-		ui.set_initial_data(data)
-		ui.open()
-		ui.set_auto_update(1)
-
-
-
+	return data
 
 
 /obj/machinery/computer/operating/Topic(href, href_list)

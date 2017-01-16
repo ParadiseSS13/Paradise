@@ -214,7 +214,7 @@
 
 /datum/design/rdconsole
 	name = "Console Board (R&D Console)"
-	desc = "Allows for the construction of circuit boards used to build a new R&D console."
+	desc = "Allows for the construction of circuit boards used to build a new R&D console. Can be swiped with a Scientist level ID to manage access levels."
 	id = "rdconsole"
 	req_tech = list("programming" = 4)
 	build_type = IMPRINTER
@@ -343,28 +343,31 @@
 	category = list("Computer Boards")
 
 datum/design/GAC
-	name = "Circuit Design (General Air Control)"
+	name = "Console Board (General Air Control)"
 	desc = "Allows for the construction of circuit boards used to build a General Air Control Computer."
 	id = "GAC"
 	req_tech = list("programming" = 3, "magnets" = 2)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/air_management
+	category = list("Computer Boards")
 
 datum/design/tank_control
-	name = "Circuit Design (Large Tank Control)"
+	name = "Console Board (Large Tank Control)"
 	desc = "Allows for the construction of circuit boards used to build a Large Tank Control Computer."
 	id = "tankcontrol"
 	req_tech = list("programming" = 3, "magnets" = 2)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/large_tank_control
+	category = list("Computer Boards")
 
 datum/design/AAC
-	name = "Circuit Design (Atmospheric Automations Console)"
-	desc = "Allows for the construction of circuit boards used to build an Atmospheric Autmations Console."
+	name = "Console Board (Atmospheric Automations Console)"
+	desc = "Allows for the construction of circuit boards used to build an Atmospheric Automations Console."
 	id = "AAC"
 	req_tech = list("programming" = 4, "magnets" = 2)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/atmos_automation
+	category = list("Computer Boards")

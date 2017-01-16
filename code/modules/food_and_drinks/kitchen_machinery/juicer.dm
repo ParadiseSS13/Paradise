@@ -35,7 +35,7 @@
 	return
 
 
-/obj/machinery/juicer/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
+/obj/machinery/juicer/attackby(obj/item/O, mob/user, params)
 	if(istype(O,/obj/item/weapon/reagent_containers/glass) || \
 		istype(O,/obj/item/weapon/reagent_containers/food/drinks/drinkingglass))
 		if(beaker)
@@ -46,9 +46,9 @@
 				return 0
 			O.forceMove(src)
 			beaker = O
-			src.verbs += /obj/machinery/juicer/verb/detach
+			verbs += /obj/machinery/juicer/verb/detach
 			update_icon()
-			src.updateUsrDialog()
+			updateUsrDialog()
 			return 0
 	if(!is_type_in_list(O, allowed_items))
 		to_chat(user, "It doesn't look like that contains any juice.")
@@ -57,24 +57,24 @@
 		to_chat(user, "<span class='notice'>\the [O] is stuck to your hand, you cannot put it in \the [src]</span>")
 		return 0
 	O.forceMove(src)
-	src.updateUsrDialog()
+	updateUsrDialog()
 	return 0
 
-/obj/machinery/juicer/attack_ai(mob/user as mob)
+/obj/machinery/juicer/attack_ai(mob/user)
 	return 0
 
-/obj/machinery/juicer/attack_hand(mob/user as mob)
+/obj/machinery/juicer/attack_hand(mob/user)
 	user.set_machine(src)
 	interact(user)
 
-/obj/machinery/juicer/interact(mob/user as mob) // The microwave Menu
+/obj/machinery/juicer/interact(mob/user) // The microwave Menu
 	var/is_chamber_empty = 0
 	var/is_beaker_ready = 0
 	var/processing_chamber = ""
 	var/beaker_contents = ""
 
 	for(var/i in allowed_items)
-		for(var/obj/item/O in src.contents)
+		for(var/obj/item/O in contents)
 			if(!istype(O,i))
 				continue
 			processing_chamber+= "some <B>[O]</B><BR>"
@@ -99,9 +99,9 @@
 [beaker_contents]<hr>
 "}
 	if(is_beaker_ready && !is_chamber_empty && !(stat & (NOPOWER|BROKEN)))
-		dat += "<A href='?src=\ref[src];action=juice'>Turn on!<BR>"
+		dat += "<A href='?src=[UID()];action=juice'>Turn on!<BR>"
 	if(beaker)
-		dat += "<A href='?src=\ref[src];action=detach'>Detach a beaker!<BR>"
+		dat += "<A href='?src=[UID()];action=detach'>Detach a beaker!<BR>"
 	var/datum/browser/popup = new(user, "juicer", name, 400, 400)
 	popup.set_content(dat)
 	popup.open(0)
@@ -119,7 +119,7 @@
 
 		if("detach")
 			detach()
-	src.updateUsrDialog()
+	updateUsrDialog()
 	return
 
 /obj/machinery/juicer/verb/detach()
@@ -130,8 +130,8 @@
 		return
 	if(!beaker)
 		return
-	src.verbs -= /obj/machinery/juicer/verb/detach
-	beaker.forceMove(src.loc)
+	verbs -= /obj/machinery/juicer/verb/detach
+	beaker.forceMove(loc)
 	beaker = null
 	update_icon()
 
@@ -159,8 +159,8 @@
 		return
 	if(!beaker || beaker.reagents.total_volume >= beaker.reagents.maximum_volume)
 		return
-	playsound(src.loc, 'sound/machines/juicer.ogg', 50, 1)
-	for(var/obj/item/weapon/reagent_containers/food/snacks/O in src.contents)
+	playsound(loc, 'sound/machines/juicer.ogg', 50, 1)
+	for(var/obj/item/weapon/reagent_containers/food/snacks/O in contents)
 		var/r_id = get_juice_id(O)
 		beaker.reagents.add_reagent(r_id,get_juice_amount(O))
 		qdel(O)

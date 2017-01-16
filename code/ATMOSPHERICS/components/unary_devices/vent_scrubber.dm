@@ -107,6 +107,7 @@
 		scrubber_icon = "scrubberweld"
 
 	overlays += icon_manager.get_atmos_icon("device", , , scrubber_icon)
+	update_pipe_image()
 
 /obj/machinery/atmospherics/unary/vent_scrubber/update_underlays()
 	if(..())
@@ -213,7 +214,7 @@
 	var/datum/gas_mixture/environment = tile.return_air()
 
 	if(scrubbing)
-		if((environment.toxins>0.001) || (environment.carbon_dioxide>0.001) || (environment.trace_gases.len>0))
+		if((scrub_O2 && environment.oxygen>0.001) || (scrub_N2 && environment.nitrogen>0.001) || (scrub_CO2 && environment.carbon_dioxide>0.001) || (scrub_Toxins && environment.toxins>0.001) || (environment.trace_gases.len>0))
 			var/transfer_moles = min(1, volume_rate/environment.volume)*environment.total_moles()
 
 			//Take a gas sample
@@ -339,9 +340,9 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/multitool_menu(var/mob/user,var/obj/item/device/multitool/P)
 	return {"
 	<ul>
-		<li><b>Frequency:</b> <a href="?src=\ref[src];set_freq=-1">[format_frequency(frequency)] GHz</a> (<a href="?src=\ref[src];set_freq=[1439]">Reset</a>)</li>
+		<li><b>Frequency:</b> <a href="?src=[UID()];set_freq=-1">[format_frequency(frequency)] GHz</a> (<a href="?src=[UID()];set_freq=[1439]">Reset</a>)</li>
 		<li>[format_tag("ID Tag","id_tag", "set_id")]</li>
-		<li><b>AAC Acces:</b> <a href="?src=\ref[src];toggleadvcontrol=1">[advcontrol ? "Allowed" : "Blocked"]</a>
+		<li><b>AAC Acces:</b> <a href="?src=[UID()];toggleadvcontrol=1">[advcontrol ? "Allowed" : "Blocked"]</a>
 	</ul>
 	"}
 

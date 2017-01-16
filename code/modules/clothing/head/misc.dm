@@ -79,9 +79,17 @@
 	name = "cueball helmet"
 	desc = "A large, featureless white orb meant to be worn on your head. How do you even see out of this thing?"
 	icon_state = "cueball"
+	item_state = "cueball"
 	flags = HEADCOVERSEYES | HEADCOVERSMOUTH | BLOCKHAIR
-	item_state="cueball"
-	flags_inv = 0
+	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
+
+/obj/item/clothing/head/snowman
+	name = "snowman head"
+	desc = "A ball of white styrofoam. So festive."
+	icon_state = "snowman_h"
+	item_state = "snowman_h"
+	flags = HEADCOVERSEYES | HEADCOVERSMOUTH | BLOCKHAIR
+	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 
 /obj/item/clothing/head/that
 	name = "sturdy top-hat"
@@ -177,21 +185,25 @@
 	desc = "There's a new sheriff in town. Pass the whiskey."
 
 /obj/item/clothing/head/fedora
-	name = "\improper fedora"
+	name = "fedora"
 	icon_state = "fedora"
 	item_state = "fedora"
 	desc = "A great hat ruined by being within fifty yards of you."
+	actions_types = list(/datum/action/item_action/tip_fedora)
 
-//TIPS FEDORA
-/obj/item/clothing/head/fedora/verb/tip_fedora()
-	set name = "Tip Fedora"
-	set category = "Object"
-	set desc = "Show that CIS SCUM who's boss."
+/obj/item/clothing/head/fedora/attack_self(mob/user)
+	tip_fedora(user)
 
-	usr.visible_message("[usr] tips their fedora.","You tip your fedora")
+/obj/item/clothing/head/fedora/item_action_slot_check(slot)
+	if(slot == slot_head)
+		return 1
+
+/obj/item/clothing/head/fedora/proc/tip_fedora(mob/user)
+	user.visible_message("[user] tips their fedora.", "You tip your fedora")
+
 
 /obj/item/clothing/head/fez
-	name = "\improper fez"
+	name = "fez"
 	icon_state = "fez"
 	item_state = "fez"
 	desc = "Put it on your monkey, make lots of cash money."
@@ -342,15 +354,24 @@
 	throw_range = 5
 	w_class = 2
 	attack_verb = list("warned", "cautioned", "smashed")
+	burn_state = FIRE_PROOF
+
+/obj/item/clothing/head/jester
+	name = "jester hat"
+	desc = "A hat with bells, to add some merryness to the suit."
+	icon_state = "jester_hat"
 
 /obj/item/clothing/head/griffin
 	name = "griffon head"
 	desc = "Why not 'eagle head'? Who knows."
 	icon_state = "griffinhat"
 	item_state = "griffinhat"
-	flags = BLOCKHAIR|NODROP
+	flags = BLOCKHAIR
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 	actions_types = list(/datum/action/item_action/caw)
+
+/obj/item/clothing/head/griffin/super_hero
+	flags = BLOCKHAIR|NODROP
 
 /obj/item/clothing/head/griffin/attack_self()
 	caw()
@@ -386,3 +407,14 @@
 	icon_state = "papersack_smile"
 	flags = BLOCKHAIR
 	flags_inv = HIDEFACE|HIDEEARS
+
+/obj/item/clothing/head/crown
+	name = "crown"
+	desc = "A crown fit for a king, a petty king maybe."
+	icon_state = "crown"
+	armor = list(melee = 15, bullet = 0, laser = 0, energy = 15, bomb = 0, bio = 0, rad = 0) //for a warrior king //energy cause gold is reflective //worse than sec helm overall
+
+/obj/item/clothing/head/crown/fancy
+	name = "magnificent crown"
+	desc = "A crown worn by only the highest emperors of the land."
+	icon_state = "fancycrown"

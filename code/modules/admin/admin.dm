@@ -1,6 +1,5 @@
 
 var/global/BSACooldown = 0
-var/global/floorIsLava = 0
 var/global/nologevent = 0
 
 ////////////////////////////////
@@ -42,7 +41,8 @@ var/global/nologevent = 0
 	body += "<body>Options panel for <b>[M]</b>"
 	if(M.client)
 		body += " played by <b>[M.client]</b> "
-		body += "\[<A href='?_src_=holder;editrights=rank;ckey=[M.ckey]'>[M.client.holder ? M.client.holder.rank : "Player"]</A>\]"
+		body += "\[<A href='?_src_=holder;editrights=rank;ckey=[M.ckey]'>[M.client.holder ? M.client.holder.rank : "Player"]</A>\] "
+		body += "\[<A href='?_src_=holder;getplaytimewindow=[M.UID()]'>" + M.client.get_exp_living() + "</a>\]"
 
 	if(istype(M, /mob/new_player))
 		body += " <B>Hasn't Entered Game</B> "
@@ -50,11 +50,11 @@ var/global/nologevent = 0
 		body += " \[<A href='?_src_=holder;revive=\ref[M]'>Heal</A>\] "
 
 	body += "<br><br>\[ "
-	body += "<a href='?_src_=vars;Vars=\ref[M]'>VV</a> - "
+	body += "<a href='?_src_=vars;Vars=[M.UID()]'>VV</a> - "
 	body += "<a href='?_src_=holder;traitor=\ref[M]'>TP</a> - "
-	body += "<a href='?src=\ref[usr];priv_msg=\ref[M]'>PM</a> - "
+	body += "<a href='?src=[usr.UID()];priv_msg=\ref[M]'>PM</a> - "
 	body += "<a href='?_src_=holder;subtlemessage=\ref[M]'>SM</a> - "
-	body += "[admin_jump_link(M, src)]\] </b><br>"
+	body += "[admin_jump_link(M)]\] </b><br>"
 
 	body += "<b>Mob type:</b> [M.type]<br>"
 	if(M.client)
@@ -257,12 +257,12 @@ var/global/nologevent = 0
 				<BR>Note that this panel allows full freedom over the news network, there are no constrictions except the few basic ones. Don't break things!</FONT>
 			"}
 			if(news_network.wanted_issue)
-				dat+= "<HR><A href='?src=\ref[src];ac_view_wanted=1'>Read Wanted Issue</A>"
+				dat+= "<HR><A href='?src=[UID()];ac_view_wanted=1'>Read Wanted Issue</A>"
 
-			dat+= {"<HR><BR><A href='?src=\ref[src];ac_create_channel=1'>Create Feed Channel</A>
-				<BR><A href='?src=\ref[src];ac_view=1'>View Feed Channels</A>
-				<BR><A href='?src=\ref[src];ac_create_feed_story=1'>Submit new Feed story</A>
-				<BR><BR><A href='?src=\ref[usr];mach_close=newscaster_main'>Exit</A>
+			dat+= {"<HR><BR><A href='?src=[UID()];ac_create_channel=1'>Create Feed Channel</A>
+				<BR><A href='?src=[UID()];ac_view=1'>View Feed Channels</A>
+				<BR><A href='?src=[UID()];ac_create_feed_story=1'>Submit new Feed story</A>
+				<BR><BR><A href='?src=[usr.UID()];mach_close=newscaster_main'>Exit</A>
 			"}
 
 			var/wanted_already = 0
@@ -270,10 +270,10 @@ var/global/nologevent = 0
 				wanted_already = 1
 
 			dat+={"<HR><B>Feed Security functions:</B><BR>
-				<BR><A href='?src=\ref[src];ac_menu_wanted=1'>[(wanted_already) ? ("Manage") : ("Publish")] \"Wanted\" Issue</A>
-				<BR><A href='?src=\ref[src];ac_menu_censor_story=1'>Censor Feed Stories</A>
-				<BR><A href='?src=\ref[src];ac_menu_censor_channel=1'>Mark Feed Channel with Nanotrasen D-Notice (disables and locks the channel.</A>
-				<BR><HR><A href='?src=\ref[src];ac_set_signature=1'>The newscaster recognises you as:<BR> <FONT COLOR='green'>[src.admincaster_signature]</FONT></A>
+				<BR><A href='?src=[UID()];ac_menu_wanted=1'>[(wanted_already) ? ("Manage") : ("Publish")] \"Wanted\" Issue</A>
+				<BR><A href='?src=[UID()];ac_menu_censor_story=1'>Censor Feed Stories</A>
+				<BR><A href='?src=[UID()];ac_menu_censor_channel=1'>Mark Feed Channel with Nanotrasen D-Notice (disables and locks the channel.</A>
+				<BR><HR><A href='?src=[UID()];ac_set_signature=1'>The newscaster recognises you as:<BR> <FONT COLOR='green'>[src.admincaster_signature]</FONT></A>
 			"}
 		if(1)
 			dat+= "Station Feed Channels<HR>"
@@ -282,38 +282,38 @@ var/global/nologevent = 0
 			else
 				for(var/datum/feed_channel/CHANNEL in news_network.network_channels)
 					if(CHANNEL.is_admin_channel)
-						dat+="<B><FONT style='BACKGROUND-COLOR: LightGreen'><A href='?src=\ref[src];ac_show_channel=\ref[CHANNEL]'>[CHANNEL.channel_name]</A></FONT></B><BR>"
+						dat+="<B><FONT style='BACKGROUND-COLOR: LightGreen'><A href='?src=[UID()];ac_show_channel=\ref[CHANNEL]'>[CHANNEL.channel_name]</A></FONT></B><BR>"
 					else
-						dat+="<B><A href='?src=\ref[src];ac_show_channel=\ref[CHANNEL]'>[CHANNEL.channel_name]</A> [(CHANNEL.censored) ? ("<FONT COLOR='red'>***</FONT>") : ()]<BR></B>"
-			dat+={"<BR><HR><A href='?src=\ref[src];ac_refresh=1'>Refresh</A>
-				<BR><A href='?src=\ref[src];ac_setScreen=[0]'>Back</A>
+						dat+="<B><A href='?src=[UID()];ac_show_channel=\ref[CHANNEL]'>[CHANNEL.channel_name]</A> [(CHANNEL.censored) ? ("<FONT COLOR='red'>***</FONT>") : ()]<BR></B>"
+			dat+={"<BR><HR><A href='?src=[UID()];ac_refresh=1'>Refresh</A>
+				<BR><A href='?src=[UID()];ac_setScreen=[0]'>Back</A>
 			"}
 
 		if(2)
 			dat+={"
 				Creating new Feed Channel...
-				<HR><B><A href='?src=\ref[src];ac_set_channel_name=1'>Channel Name</A>:</B> [src.admincaster_feed_channel.channel_name]<BR>
-				<B><A href='?src=\ref[src];ac_set_signature=1'>Channel Author</A>:</B> <FONT COLOR='green'>[src.admincaster_signature]</FONT><BR>
-				<B><A href='?src=\ref[src];ac_set_channel_lock=1'>Will Accept Public Feeds</A>:</B> [(src.admincaster_feed_channel.locked) ? ("NO") : ("YES")]<BR><BR>
-				<BR><A href='?src=\ref[src];ac_submit_new_channel=1'>Submit</A><BR><BR><A href='?src=\ref[src];ac_setScreen=[0]'>Cancel</A><BR>
+				<HR><B><A href='?src=[UID()];ac_set_channel_name=1'>Channel Name</A>:</B> [src.admincaster_feed_channel.channel_name]<BR>
+				<B><A href='?src=[UID()];ac_set_signature=1'>Channel Author</A>:</B> <FONT COLOR='green'>[src.admincaster_signature]</FONT><BR>
+				<B><A href='?src=[UID()];ac_set_channel_lock=1'>Will Accept Public Feeds</A>:</B> [(src.admincaster_feed_channel.locked) ? ("NO") : ("YES")]<BR><BR>
+				<BR><A href='?src=[UID()];ac_submit_new_channel=1'>Submit</A><BR><BR><A href='?src=[UID()];ac_setScreen=[0]'>Cancel</A><BR>
 			"}
 		if(3)
 			dat+={"
 				Creating new Feed Message...
-				<HR><B><A href='?src=\ref[src];ac_set_channel_receiving=1'>Receiving Channel</A>:</B> [src.admincaster_feed_channel.channel_name]<BR>
+				<HR><B><A href='?src=[UID()];ac_set_channel_receiving=1'>Receiving Channel</A>:</B> [src.admincaster_feed_channel.channel_name]<BR>
 				<B>Message Author:</B> <FONT COLOR='green'>[src.admincaster_signature]</FONT><BR>
-				<B><A href='?src=\ref[src];ac_set_new_message=1'>Message Body</A>:</B> [src.admincaster_feed_message.body] <BR>
-				<BR><A href='?src=\ref[src];ac_submit_new_message=1'>Submit</A><BR><BR><A href='?src=\ref[src];ac_setScreen=[0]'>Cancel</A><BR>
+				<B><A href='?src=[UID()];ac_set_new_message=1'>Message Body</A>:</B> [src.admincaster_feed_message.body] <BR>
+				<BR><A href='?src=[UID()];ac_submit_new_message=1'>Submit</A><BR><BR><A href='?src=[UID()];ac_setScreen=[0]'>Cancel</A><BR>
 			"}
 		if(4)
 			dat+={"
 					Feed story successfully submitted to [src.admincaster_feed_channel.channel_name].<BR><BR>
-					<BR><A href='?src=\ref[src];ac_setScreen=[0]'>Return</A><BR>
+					<BR><A href='?src=[UID()];ac_setScreen=[0]'>Return</A><BR>
 				"}
 		if(5)
 			dat+={"
 				Feed Channel [src.admincaster_feed_channel.channel_name] created successfully.<BR><BR>
-				<BR><A href='?src=\ref[src];ac_setScreen=[0]'>Return</A><BR>
+				<BR><A href='?src=[UID()];ac_setScreen=[0]'>Return</A><BR>
 			"}
 		if(6)
 			dat+="<B><FONT COLOR='maroon'>ERROR: Could not submit Feed story to Network.</B></FONT><HR><BR>"
@@ -321,7 +321,7 @@ var/global/nologevent = 0
 				dat+="<FONT COLOR='maroon'>Invalid receiving channel name.</FONT><BR>"
 			if(src.admincaster_feed_message.body == "" || src.admincaster_feed_message.body == "\[REDACTED\]")
 				dat+="<FONT COLOR='maroon'>Invalid message body.</FONT><BR>"
-			dat+="<BR><A href='?src=\ref[src];ac_setScreen=[3]'>Return</A><BR>"
+			dat+="<BR><A href='?src=[UID()];ac_setScreen=[3]'>Return</A><BR>"
 		if(7)
 			dat+="<B><FONT COLOR='maroon'>ERROR: Could not submit Feed Channel to Network.</B></FONT><HR><BR>"
 			if(src.admincaster_feed_channel.channel_name =="" || src.admincaster_feed_channel.channel_name == "\[REDACTED\]")
@@ -333,7 +333,7 @@ var/global/nologevent = 0
 					break
 			if(check)
 				dat+="<FONT COLOR='maroon'>Channel name already in use.</FONT><BR>"
-			dat+="<BR><A href='?src=\ref[src];ac_setScreen=[2]'>Return</A><BR>"
+			dat+="<BR><A href='?src=[UID()];ac_setScreen=[2]'>Return</A><BR>"
 		if(9)
 			dat+="<B>[src.admincaster_feed_channel.channel_name]: </B><FONT SIZE=1>\[created by: <FONT COLOR='maroon'>[src.admincaster_feed_channel.author]</FONT>\]</FONT><HR>"
 			if(src.admincaster_feed_channel.censored)
@@ -354,8 +354,8 @@ var/global/nologevent = 0
 							dat+="<img src='tmp_photo[i].png' width = '180'><BR><BR>"
 						dat+="<FONT SIZE=1>\[Story by <FONT COLOR='maroon'>[MESSAGE.author]</FONT>\]</FONT><BR>"
 			dat+={"
-				<BR><HR><A href='?src=\ref[src];ac_refresh=1'>Refresh</A>
-				<BR><A href='?src=\ref[src];ac_setScreen=[1]'>Back</A>
+				<BR><HR><A href='?src=[UID()];ac_refresh=1'>Refresh</A>
+				<BR><A href='?src=[UID()];ac_setScreen=[1]'>Back</A>
 			"}
 		if(10)
 			dat+={"
@@ -368,8 +368,8 @@ var/global/nologevent = 0
 				dat+="<I>No feed channels found active...</I><BR>"
 			else
 				for(var/datum/feed_channel/CHANNEL in news_network.network_channels)
-					dat+="<A href='?src=\ref[src];ac_pick_censor_channel=\ref[CHANNEL]'>[CHANNEL.channel_name]</A> [(CHANNEL.censored) ? ("<FONT COLOR='red'>***</FONT>") : ()]<BR>"
-			dat+="<BR><A href='?src=\ref[src];ac_setScreen=[0]'>Cancel</A>"
+					dat+="<A href='?src=[UID()];ac_pick_censor_channel=\ref[CHANNEL]'>[CHANNEL.channel_name]</A> [(CHANNEL.censored) ? ("<FONT COLOR='red'>***</FONT>") : ()]<BR>"
+			dat+="<BR><A href='?src=[UID()];ac_setScreen=[0]'>Cancel</A>"
 		if(11)
 			dat+={"
 				<B>Nanotrasen D-Notice Handler</B><HR>
@@ -381,13 +381,13 @@ var/global/nologevent = 0
 				dat+="<I>No feed channels found active...</I><BR>"
 			else
 				for(var/datum/feed_channel/CHANNEL in news_network.network_channels)
-					dat+="<A href='?src=\ref[src];ac_pick_d_notice=\ref[CHANNEL]'>[CHANNEL.channel_name]</A> [(CHANNEL.censored) ? ("<FONT COLOR='red'>***</FONT>") : ()]<BR>"
+					dat+="<A href='?src=[UID()];ac_pick_d_notice=\ref[CHANNEL]'>[CHANNEL.channel_name]</A> [(CHANNEL.censored) ? ("<FONT COLOR='red'>***</FONT>") : ()]<BR>"
 
-			dat+="<BR><A href='?src=\ref[src];ac_setScreen=[0]'>Back</A>"
+			dat+="<BR><A href='?src=[UID()];ac_setScreen=[0]'>Back</A>"
 		if(12)
 			dat+={"
 				<B>[src.admincaster_feed_channel.channel_name]: </B><FONT SIZE=1>\[ created by: <FONT COLOR='maroon'>[src.admincaster_feed_channel.author]</FONT> \]</FONT><BR>
-				<FONT SIZE=2><A href='?src=\ref[src];ac_censor_channel_author=\ref[src.admincaster_feed_channel]'>[(src.admincaster_feed_channel.author=="\[REDACTED\]") ? ("Undo Author censorship") : ("Censor channel Author")]</A></FONT><HR>
+				<FONT SIZE=2><A href='?src=[UID()];ac_censor_channel_author=\ref[src.admincaster_feed_channel]'>[(src.admincaster_feed_channel.author=="\[REDACTED\]") ? ("Undo Author censorship") : ("Censor channel Author")]</A></FONT><HR>
 			"}
 			if( isemptylist(src.admincaster_feed_channel.messages) )
 				dat+="<I>No feed messages found in channel...</I><BR>"
@@ -395,13 +395,13 @@ var/global/nologevent = 0
 				for(var/datum/feed_message/MESSAGE in src.admincaster_feed_channel.messages)
 					dat+={"
 						-[MESSAGE.body] <BR><FONT SIZE=1>\[Story by <FONT COLOR='maroon'>[MESSAGE.author]</FONT>\]</FONT><BR>
-						<FONT SIZE=2><A href='?src=\ref[src];ac_censor_channel_story_body=\ref[MESSAGE]'>[(MESSAGE.body == "\[REDACTED\]") ? ("Undo story censorship") : ("Censor story")]</A>  -  <A href='?src=\ref[src];ac_censor_channel_story_author=\ref[MESSAGE]'>[(MESSAGE.author == "\[REDACTED\]") ? ("Undo Author Censorship") : ("Censor message Author")]</A></FONT><BR>
+						<FONT SIZE=2><A href='?src=[UID()];ac_censor_channel_story_body=\ref[MESSAGE]'>[(MESSAGE.body == "\[REDACTED\]") ? ("Undo story censorship") : ("Censor story")]</A>  -  <A href='?src=[UID()];ac_censor_channel_story_author=\ref[MESSAGE]'>[(MESSAGE.author == "\[REDACTED\]") ? ("Undo Author Censorship") : ("Censor message Author")]</A></FONT><BR>
 					"}
-			dat+="<BR><A href='?src=\ref[src];ac_setScreen=[10]'>Back</A>"
+			dat+="<BR><A href='?src=[UID()];ac_setScreen=[10]'>Back</A>"
 		if(13)
 			dat+={"
 				<B>[src.admincaster_feed_channel.channel_name]: </B><FONT SIZE=1>\[ created by: <FONT COLOR='maroon'>[src.admincaster_feed_channel.author]</FONT> \]</FONT><BR>
-				Channel messages listed below. If you deem them dangerous to the station, you can <A href='?src=\ref[src];ac_toggle_d_notice=\ref[src.admincaster_feed_channel]'>Bestow a D-Notice upon the channel</A>.<HR>
+				Channel messages listed below. If you deem them dangerous to the station, you can <A href='?src=[UID()];ac_toggle_d_notice=\ref[src.admincaster_feed_channel]'>Bestow a D-Notice upon the channel</A>.<HR>
 			"}
 			if(src.admincaster_feed_channel.censored)
 				dat+={"
@@ -415,7 +415,7 @@ var/global/nologevent = 0
 					for(var/datum/feed_message/MESSAGE in src.admincaster_feed_channel.messages)
 						dat+="-[MESSAGE.body] <BR><FONT SIZE=1>\[Story by <FONT COLOR='maroon'>[MESSAGE.author]</FONT>\]</FONT><BR>"
 
-			dat+="<BR><A href='?src=\ref[src];ac_setScreen=[11]'>Back</A>"
+			dat+="<BR><A href='?src=[UID()];ac_setScreen=[11]'>Back</A>"
 		if(14)
 			dat+="<B>Wanted Issue Handler:</B>"
 			var/wanted_already = 0
@@ -427,21 +427,21 @@ var/global/nologevent = 0
 				dat+="<FONT SIZE=2><BR><I>A wanted issue is already in Feed Circulation. You can edit or cancel it below.</FONT></I>"
 			dat+={"
 				<HR>
-				<A href='?src=\ref[src];ac_set_wanted_name=1'>Criminal Name</A>: [src.admincaster_feed_message.author] <BR>
-				<A href='?src=\ref[src];ac_set_wanted_desc=1'>Description</A>: [src.admincaster_feed_message.body] <BR>
+				<A href='?src=[UID()];ac_set_wanted_name=1'>Criminal Name</A>: [src.admincaster_feed_message.author] <BR>
+				<A href='?src=[UID()];ac_set_wanted_desc=1'>Description</A>: [src.admincaster_feed_message.body] <BR>
 			"}
 			if(wanted_already)
 				dat+="<B>Wanted Issue created by:</B><FONT COLOR='green'> [news_network.wanted_issue.backup_author]</FONT><BR>"
 			else
 				dat+="<B>Wanted Issue will be created under prosecutor:</B><FONT COLOR='green'> [src.admincaster_signature]</FONT><BR>"
-			dat+="<BR><A href='?src=\ref[src];ac_submit_wanted=[end_param]'>[(wanted_already) ? ("Edit Issue") : ("Submit")]</A>"
+			dat+="<BR><A href='?src=[UID()];ac_submit_wanted=[end_param]'>[(wanted_already) ? ("Edit Issue") : ("Submit")]</A>"
 			if(wanted_already)
-				dat+="<BR><A href='?src=\ref[src];ac_cancel_wanted=1'>Take down Issue</A>"
-			dat+="<BR><A href='?src=\ref[src];ac_setScreen=[0]'>Cancel</A>"
+				dat+="<BR><A href='?src=[UID()];ac_cancel_wanted=1'>Take down Issue</A>"
+			dat+="<BR><A href='?src=[UID()];ac_setScreen=[0]'>Cancel</A>"
 		if(15)
 			dat+={"
 				<FONT COLOR='green'>Wanted issue for [src.admincaster_feed_message.author] is now in Network Circulation.</FONT><BR><BR>
-				<BR><A href='?src=\ref[src];ac_setScreen=[0]'>Return</A><BR>
+				<BR><A href='?src=[UID()];ac_setScreen=[0]'>Return</A><BR>
 			"}
 		if(16)
 			dat+="<B><FONT COLOR='maroon'>ERROR: Wanted Issue rejected by Network.</B></FONT><HR><BR>"
@@ -449,11 +449,11 @@ var/global/nologevent = 0
 				dat+="<FONT COLOR='maroon'>Invalid name for person wanted.</FONT><BR>"
 			if(src.admincaster_feed_message.body == "" || src.admincaster_feed_message.body == "\[REDACTED\]")
 				dat+="<FONT COLOR='maroon'>Invalid description.</FONT><BR>"
-			dat+="<BR><A href='?src=\ref[src];ac_setScreen=[0]'>Return</A><BR>"
+			dat+="<BR><A href='?src=[UID()];ac_setScreen=[0]'>Return</A><BR>"
 		if(17)
 			dat+={"
 				<B>Wanted Issue successfully deleted from Circulation</B><BR>
-				<BR><A href='?src=\ref[src];ac_setScreen=[0]'>Return</A><BR>
+				<BR><A href='?src=[UID()];ac_setScreen=[0]'>Return</A><BR>
 			"}
 		if(18)
 			dat+={"
@@ -467,11 +467,11 @@ var/global/nologevent = 0
 				dat+="<BR><img src='tmp_photow.png' width = '180'>"
 			else
 				dat+="None"
-			dat+="<BR><A href='?src=\ref[src];ac_setScreen=[0]'>Back</A><BR>"
+			dat+="<BR><A href='?src=[UID()];ac_setScreen=[0]'>Back</A><BR>"
 		if(19)
 			dat+={"
 				<FONT COLOR='green'>Wanted issue for [src.admincaster_feed_message.author] successfully edited.</FONT><BR><BR>
-				<BR><A href='?src=\ref[src];ac_setScreen=[0]'>Return</A><BR>
+				<BR><A href='?src=[UID()];ac_setScreen=[0]'>Return</A><BR>
 			"}
 		else
 			dat+="I'm sorry to break your immersion. This shit's bugged. Report this bug to Agouri, polyxenitopalidou@gmail.com"
@@ -490,7 +490,7 @@ var/global/nologevent = 0
 		var/r = t
 		if( findtext(r,"##") )
 			r = copytext( r, 1, findtext(r,"##") )//removes the description
-		dat += text("<tr><td>[t] (<A href='?src=\ref[src];removejobban=[r]'>unban</A>)</td></tr>")
+		dat += text("<tr><td>[t] (<A href='?src=[UID()];removejobban=[r]'>unban</A>)</td></tr>")
 	dat += "</table>"
 	usr << browse(dat, "window=ban;size=400x400")
 
@@ -500,17 +500,17 @@ var/global/nologevent = 0
 
 	var/dat = {"
 		<center><B>Game Panel</B></center><hr>\n
-		<A href='?src=\ref[src];c_mode=1'>Change Game Mode</A><br>
+		<A href='?src=[UID()];c_mode=1'>Change Game Mode</A><br>
 		"}
 	if(master_mode == "secret")
-		dat += "<A href='?src=\ref[src];f_secret=1'>(Force Secret Mode)</A><br>"
+		dat += "<A href='?src=[UID()];f_secret=1'>(Force Secret Mode)</A><br>"
 
 	dat += {"
 		<BR>
-		<A href='?src=\ref[src];create_object=1'>Create Object</A><br>
-		<A href='?src=\ref[src];quick_create_object=1'>Quick Create Object</A><br>
-		<A href='?src=\ref[src];create_turf=1'>Create Turf</A><br>
-		<A href='?src=\ref[src];create_mob=1'>Create Mob</A><br>
+		<A href='?src=[UID()];create_object=1'>Create Object</A><br>
+		<A href='?src=[UID()];quick_create_object=1'>Quick Create Object</A><br>
+		<A href='?src=[UID()];create_turf=1'>Create Turf</A><br>
+		<A href='?src=[UID()];create_mob=1'>Create Mob</A><br>
 		"}
 
 	usr << browse(dat, "window=admin2;size=210x280")
@@ -540,9 +540,9 @@ var/global/nologevent = 0
 	world.Reboot("Initiated by [usr.client.holder.fakekey ? "Admin" : usr.key].", "end_error", "admin reboot - by [usr.key] [usr.client.holder.fakekey ? "(stealth)" : ""]", delay)
 
 /datum/admins/proc/announce()
-	set category = "Special Verbs"
+	set category = "Admin"
 	set name = "Announce"
-	set desc="Announce your desires to the world"
+	set desc = "Announce your desires to the world"
 
 	if(!check_rights(R_ADMIN))
 		return
@@ -613,6 +613,19 @@ var/global/nologevent = 0
 	log_admin("[key_name(usr)] toggled Dead OOC.")
 	message_admins("[key_name_admin(usr)] toggled Dead OOC.", 1)
 	feedback_add_details("admin_verb","TDOOC") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
+/datum/admins/proc/toggleemoji()
+	set category = "Server"
+	set desc = "Toggle OOC Emoji"
+	set name = "Toggle OOC Emoji"
+
+	if(!check_rights(R_ADMIN))
+		return
+
+	config.disable_ooc_emoji = !(config.disable_ooc_emoji)
+	log_admin("[key_name(usr)] toggled OOC Emoji.")
+	message_admins("[key_name_admin(usr)] toggled OOC Emoji.", 1)
+	feedback_add_details("admin_verb", "TEMOJ")
 
 /datum/admins/proc/startnow()
 	set category = "Server"
@@ -737,10 +750,6 @@ var/global/nologevent = 0
 		return 1
 	if(M.mind in ticker.mode.cult)
 		if(ticker.mode.config_tag == "cult")
-			return 2
-		return 1
-	if(M.mind in ticker.mode.malf_ai)
-		if(ticker.mode.config_tag == "malfunction")
 			return 2
 		return 1
 	if(M.mind in ticker.mode.syndicates)
@@ -897,9 +906,6 @@ var/gamma_ship_location = 1 // 0 = station , 1 = space
 		toArea = locate(/area/shuttle/gamma/space)
 	fromArea.move_contents_to(toArea)
 
-	for(var/turf/simulated/floor/mech_bay_recharge_floor/F in toArea)
-		F.init_devices()
-
 	for(var/obj/machinery/power/apc/A in toArea)
 		A.init()
 
@@ -1009,3 +1015,22 @@ var/gamma_ship_location = 1 // 0 = station , 1 = space
 		qdel(frommob)
 
 		return 1
+
+// Returns a list of the number of admins in various categories
+// result[1] is the number of staff that match the rank mask and are active
+// result[2] is the number of staff that do not match the rank mask
+// result[3] is the number of staff that match the rank mask and are inactive
+/proc/staff_countup(rank_mask = R_BAN)
+	var/list/result = list(0, 0, 0)
+	for(var/client/X in admins)
+		if(rank_mask && !check_rights_for(X, rank_mask))
+			result[2]++
+			continue
+		if(X.holder.fakekey)
+			result[2]++
+			continue
+		if(X.is_afk())
+			result[3]++
+			continue
+		result[1]++
+	return result

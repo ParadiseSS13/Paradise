@@ -28,7 +28,7 @@
 
 	var/area_type = /area/space //Types of area to affect
 	var/list/impacted_areas = list() //Areas to be affected by the weather, calculated when the weather begins
-	var/target_z = ZLEVEL_STATION //The z-level to affect
+	var/target_level = MAIN_STATION //The z-level to affect
 
 	var/overlay_layer = 10 //Since it's above everything else, this is the layer used by default. 2 is below mobs and walls if you need to use that.
 	var/aesthetic = FALSE //If the weather has no purpose other than looks
@@ -52,13 +52,13 @@
 	stage = STARTUP_STAGE
 	for(var/V in get_areas(area_type))
 		var/area/A = V
-		if(A.z == target_z)
+		if(is_on_level_name(A,target_level))
 			impacted_areas |= A
 	weather_duration = rand(weather_duration_lower, weather_duration_upper)
 	update_areas()
 	for(var/V in player_list)
 		var/mob/M = V
-		if(M.z == target_z)
+		if(is_on_level_name(M,target_level))
 			if(telegraph_message)
 				to_chat(M, telegraph_message)
 			if(telegraph_sound)
@@ -72,7 +72,7 @@
 	update_areas()
 	for(var/V in player_list)
 		var/mob/M = V
-		if(M.z == target_z)
+		if(is_on_level_name(M,target_level))
 			if(weather_message)
 				to_chat(M, weather_message)
 			if(weather_sound)
@@ -87,7 +87,7 @@
 	update_areas()
 	for(var/V in player_list)
 		var/mob/M = V
-		if(M.z == target_z)
+		if(is_on_level_name(M,target_level))
 			if(end_message)
 				to_chat(M, end_message)
 			if(end_sound)
@@ -102,7 +102,7 @@
 	update_areas()
 
 /datum/weather/proc/can_impact(mob/living/L) //Can this weather impact a mob?
-	if(L.z != target_z)
+	if(!is_on_level_name(L,target_level))
 		return
 	if(immunity_type in L.weather_immunities)
 		return

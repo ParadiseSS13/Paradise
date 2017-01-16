@@ -212,9 +212,6 @@ var/global/totaltribbles = 0   //global variable so it updates for all tribbles,
 
 
 //||Fur and Fur Products ||
-/obj
-	var/f_amt = 0	// registers fur amount as an object variable
-
 
 /obj/item/stack/sheet/fur //basic fur sheets (very lumpy furry piles of sheets)
 	name = "pile of fur"
@@ -223,8 +220,8 @@ var/global/totaltribbles = 0   //global variable so it updates for all tribbles,
 	icon = 'icons/mob/tribbles.dmi'
 	icon_state = "sheet-fur"
 	origin_tech = "materials=2"
-	f_amt = 1000
 	max_amount = 50
+
 
 /obj/item/clothing/ears/earmuffs/tribblemuffs //earmuffs but with tribbles
 	name = "earmuffs"
@@ -232,29 +229,31 @@ var/global/totaltribbles = 0   //global variable so it updates for all tribbles,
 	icon = 'icons/mob/tribbles.dmi'
 	icon_state = "tribblemuffs"
 	item_state = "tribblemuffs"
-	f_amt = 2000
 
+/* The advanced cold protection of the non-coat items has been removed, so as not
+	to give patreon donors an unfair advantage - the winter coat provides equivalent
+	cold protection
+*/
 /obj/item/clothing/gloves/furgloves
 	desc = "These gloves are warm and furry."
 	name = "fur gloves"
 	icon = 'icons/mob/tribbles.dmi'
 	icon_state = "furglovesico"
 	item_state = "furgloves"
-	f_amt = 3000
+	transfer_prints = TRUE
+	transfer_blood = TRUE
+	siemens_coefficient = 0
 
-	cold_protection = HANDS
-	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
-
+// Equivalent to a winter coat's hood
 /obj/item/clothing/head/furcap
 	name = "fur cap"
 	desc = "A warm furry cap."
 	icon = 'icons/mob/tribbles.dmi'
 	icon_state = "furcap"
 	item_state = "furcap"
-	f_amt = 5000
 
 	cold_protection = HEAD
-	min_cold_protection_temperature = HELMET_MIN_TEMP_PROTECT
+	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
 
 /obj/item/clothing/shoes/furboots
 	name = "fur boots"
@@ -262,11 +261,8 @@ var/global/totaltribbles = 0   //global variable so it updates for all tribbles,
 	icon = 'icons/mob/tribbles.dmi'
 	icon_state = "furboots"
 	item_state = "furboots"
-	f_amt = 4000
 
-	cold_protection = FEET
-	min_cold_protection_temperature = SHOES_MIN_TEMP_PROTECT
-
+// As a donator piece of clothing, this is now in line with the winter coat
 /obj/item/clothing/suit/furcoat
 	name = "fur coat"
 	desc = "A trenchcoat made from fur. You could put an oxygen tank in one of the pockets."
@@ -274,11 +270,10 @@ var/global/totaltribbles = 0   //global variable so it updates for all tribbles,
 	icon_state = "furcoat"
 	item_state = "furcoat"
 	blood_overlay_type = "armor"
-	f_amt = 15000
-	body_parts_covered = UPPER_TORSO|LEGS|ARMS|LOWER_TORSO
+	body_parts_covered = UPPER_TORSO|ARMS|LOWER_TORSO
 	allowed = list (/obj/item/weapon/tank/emergency_oxygen)
-	cold_protection = UPPER_TORSO | LOWER_TORSO | LEGS | ARMS
-	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
+	cold_protection = UPPER_TORSO | LOWER_TORSO | ARMS
+	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
 
 /obj/item/clothing/suit/furcape
 	name = "fur cape"
@@ -287,7 +282,6 @@ var/global/totaltribbles = 0   //global variable so it updates for all tribbles,
 	icon_state = "furcape"
 	item_state = "furcape"
 	blood_overlay_type = "armor"
-	f_amt = 10000
-	body_parts_covered = UPPER_TORSO|LEGS|ARMS
-	cold_protection = UPPER_TORSO | LEGS | ARMS
-	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
+	body_parts_covered = UPPER_TORSO|ARMS
+	cold_protection = UPPER_TORSO | ARMS
+	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT

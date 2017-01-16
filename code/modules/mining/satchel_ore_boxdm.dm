@@ -78,7 +78,7 @@
 	if(amt_bluespace)
 		dat += text("Bluespace crystals: [amt_bluespace]<br>")
 
-	dat += text("<br><br><A href='?src=\ref[src];removeall=1'>Empty box</A>")
+	dat += text("<br><br><A href='?src=[UID()];removeall=1'>Empty box</A>")
 	var/datum/browser/popup = new(user, "orebox", name, 400, 400)
 	popup.set_content(dat)
 	popup.open(0)

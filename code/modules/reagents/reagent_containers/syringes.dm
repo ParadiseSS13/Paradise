@@ -105,7 +105,7 @@
 						time = 0
 					else
 						for(var/mob/O in viewers(world.view, user))
-							O.show_message(text("\red <B>[] is trying to take a blood sample from []!</B>", user, target), 1)
+							O.show_message(text("<span class='danger'>[] is trying to take a blood sample from []!</span>", user, target), 1)
 					if(!do_mob(user, target, time))
 						return
 
@@ -183,7 +183,7 @@
 
 			if(ismob(target) && target != user)
 				for(var/mob/O in viewers(world.view, user))
-					O.show_message(text("\red <B>[] is trying to inject []!</B>", user, target), 1)
+					O.show_message(text("<span class='danger'>[] is trying to inject []!</span>", user, target), 1)
 
 				if(!do_mob(user, target, 30)) return
 
@@ -338,7 +338,7 @@
 
 			if(ismob(target) && target != user)
 				for(var/mob/O in viewers(world.view, user))
-					O.show_message(text("\red <B>[] is trying to inject [] with a giant syringe!</B>", user, target), 1)
+					O.show_message(text("<span class='danger'>[] is trying to inject [] with a giant syringe!</span>", user, target), 1)
 				if(!do_mob(user, target, 300)) return
 				for(var/mob/O in viewers(world.view, user))
 					O.show_message(text("\red [] injects [] with a giant syringe!", user, target), 1)

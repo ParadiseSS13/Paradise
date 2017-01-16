@@ -15,7 +15,7 @@
 	return STATUS_UPDATE						// Ghosts can view updates
 
 /mob/living/silicon/pai/default_can_use_topic(var/src_object)
-	if(src_object == src && !stat)
+	if((src_object == src || src_object == radio) && stat == CONSCIOUS)
 		return STATUS_INTERACTIVE
 	else
 		return ..()
@@ -41,8 +41,7 @@
 	// Prevents the AI from using Topic on admin levels (by for example viewing through the court/thunderdome cameras)
 	// unless it's on the same level as the object it's interacting with.
 	var/turf/T = get_turf(src_object)
-	// TODO: Tie into space manager
-	if(!T || !(z == T.z || (T.z in config.player_levels)))
+	if(!T || !(atoms_share_level(src,T) || is_level_reachable(T.z)))
 		return STATUS_CLOSE
 
 	// If an object is in view then we can interact with it

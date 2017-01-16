@@ -23,6 +23,7 @@ var/global/list/moneytypes=list(
 	throw_speed = 1
 	throw_range = 2
 	w_class = 1
+	burn_state = FLAMMABLE
 	var/access = list()
 	access = access_crate_cash
 	var/worth = 1 // Per chip

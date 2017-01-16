@@ -201,7 +201,7 @@
 			if(player_spiders && !selecting_player)
 				selecting_player = 1
 				spawn()
-					var/list/candidates = pollCandidates("Do you want to play as a spider?", ROLE_ALIEN, 1)
+					var/list/candidates = pollCandidates("Do you want to play as a spider?", ROLE_GSPIDER, 1)
 
 					if(candidates.len)
 						var/mob/C = pick(candidates)
@@ -215,6 +215,7 @@
 	desc = "Green squishy mess."
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "greenshatter"
+	anchored = 1
 
 /obj/effect/spider/cocoon
 	name = "cocoon"

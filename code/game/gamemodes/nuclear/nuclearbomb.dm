@@ -175,6 +175,13 @@ var/bomb_set
 	return
 
 /obj/machinery/nuclearbomb/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "nuclear_bomb.tmpl", "Nuke Control Panel", 450, 550, state = physical_state)
+		ui.open()
+		ui.set_auto_update(1)
+
+/obj/machinery/nuclearbomb/ui_data(mob/user, datum/topic_state/state)
 	var/data[0]
 	data["is_syndicate"] = is_syndicate
 	data["hacking"] = 0
@@ -201,12 +208,7 @@ var/bomb_set
 		if(yes_code)
 			data["message"] = "*****"
 
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if(!ui)
-		ui = new(user, src, ui_key, "nuclear_bomb.tmpl", "Nuke Control Panel", 450, 550)
-		ui.set_initial_data(data)
-		ui.open()
-		ui.set_auto_update(1)
+	return data
 
 /obj/machinery/nuclearbomb/verb/make_deployable()
 	set category = "Object"
@@ -263,7 +265,7 @@ var/bomb_set
 					lastentered = text("[]", href_list["type"])
 					if(text2num(lastentered) == null)
 						var/turf/LOC = get_turf(usr)
-						message_admins("[key_name_admin(usr)] tried to exploit a nuclear bomb by entering non-numerical codes: <a href='?_src_=vars;Vars=\ref[src]'>[lastentered]</a>! ([LOC ? "<a href='?_src_=holder;adminplayerobservecoodjump=1;X=[LOC.x];Y=[LOC.y];Z=[LOC.z]'>JMP</a>" : "null"])", 0)
+						message_admins("[key_name_admin(usr)] tried to exploit a nuclear bomb by entering non-numerical codes: <a href='?_src_=vars;Vars=[UID()]'>[lastentered]</a>! ([LOC ? "<a href='?_src_=holder;adminplayerobservecoodjump=1;X=[LOC.x];Y=[LOC.y];Z=[LOC.z]'>JMP</a>" : "null"])", 0)
 						log_admin("EXPLOIT: [key_name(usr)] tried to exploit a nuclear bomb by entering non-numerical codes: [lastentered]!")
 					else
 						code += lastentered
@@ -353,8 +355,7 @@ var/bomb_set
 
 	var/off_station = 0
 	var/turf/bomb_location = get_turf(src)
-	// TODO: Tie into space manager
-	if( bomb_location && (bomb_location.z in config.station_levels) )
+	if( bomb_location && is_station_level(bomb_location.z) )
 		if( (bomb_location.x < (128-NUKERANGE)) || (bomb_location.x > (128+NUKERANGE)) || (bomb_location.y < (128-NUKERANGE)) || (bomb_location.y > (128+NUKERANGE)) )
 			off_station = 1
 	else
@@ -364,8 +365,7 @@ var/bomb_set
 		if(ticker.mode && ticker.mode.name == "nuclear emergency")
 			var/obj/docking_port/mobile/syndie_shuttle = shuttle_master.getShuttle("syndicate")
 			if(syndie_shuttle)
-				// TODO: Tie into space manager
-				ticker.mode:syndies_didnt_escape = (syndie_shuttle.z > ZLEVEL_STATION ? 0 : 1)	//muskets will make me change this, but it will do for now
+				ticker.mode:syndies_didnt_escape = is_station_level(syndie_shuttle.z)
 			ticker.mode:nuke_off_station = off_station
 		ticker.station_explosion_cinematic(off_station,null)
 		if(ticker.mode)
@@ -403,21 +403,27 @@ var/bomb_set
 
 /obj/item/weapon/disk/nuclear/process()
 	var/turf/disk_loc = get_turf(src)
-	// TODO: Tie into space manager
-	if(disk_loc.z != ZLEVEL_STATION && disk_loc.z != ZLEVEL_CENTCOMM)
+	if(!is_secure_level(disk_loc.z))
 		var/holder = get(src, /mob)
 		if(holder)
 			to_chat(holder, "<span class='danger'>You can't help but feel that you just lost something back there...</span>")
 		qdel(src)
 
-/obj/item/weapon/disk/nuclear/Destroy()
+/obj/item/weapon/disk/nuclear/Destroy(force)
+	var/turf/diskturf = get_turf(src)
+
+	if(force)
+		message_admins("[src] has been !!force deleted!! in ([diskturf ? "[diskturf.x], [diskturf.y] ,[diskturf.z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[diskturf.x];Y=[diskturf.y];Z=[diskturf.z]'>JMP</a>":"nonexistent location"]).")
+		log_game("[src] has been !!force deleted!! in ([diskturf ? "[diskturf.x], [diskturf.y] ,[diskturf.z]":"nonexistent location"]).")
+		processing_objects.Remove(src)
+		return ..()
+
 	if(blobstart.len > 0)
 		var/obj/item/weapon/disk/nuclear/NEWDISK = new(pick(blobstart))
 		transfer_fingerprints_to(NEWDISK)
-		var/turf/diskturf = get_turf(src)
 		message_admins("[src] has been destroyed at ([diskturf.x], [diskturf.y], [diskturf.z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[diskturf.x];Y=[diskturf.y];Z=[diskturf.z]'>JMP</a>). Moving it to ([NEWDISK.x], [NEWDISK.y], [NEWDISK.z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[NEWDISK.x];Y=[NEWDISK.y];Z=[NEWDISK.z]'>JMP</a>).")
 		log_game("[src] has been destroyed in ([diskturf.x], [diskturf.y], [diskturf.z]). Moving it to ([NEWDISK.x], [NEWDISK.y], [NEWDISK.z]).")
 		return QDEL_HINT_HARDDEL_NOW
 	else
 		error("[src] was supposed to be destroyed, but we were unable to locate a blobstart landmark to spawn a new one.")
-	return QDEL_HINT_LETMELIVE // Cancel destruction.
+	return QDEL_HINT_LETMELIVE // Cancel destruction unless forced.

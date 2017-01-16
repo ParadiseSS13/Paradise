@@ -154,7 +154,7 @@
 		if(istype(noms, /turf/simulated/wall))
 			W = noms
 			nomDelay *= 2
-			if(W.walltype == "rwall")
+			if(istype(W, /turf/simulated/wall/r_wall))
 				nomDelay *= 2
 		else
 			return

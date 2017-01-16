@@ -148,7 +148,7 @@
 		view = world.view //Reset the view
 		winset(src, "mapwindow.map", "icon-size=[src.reset_stretch]")
 		viewingCanvas = 0
-		mob.reset_view()
+		mob.reset_perspective()
 		if(mob.hud_used)
 			mob.hud_used.show_hud(HUD_STYLE_STANDARD)
 
@@ -162,17 +162,7 @@
 
 	if(!mob)	return
 
-	if(locate(/obj/effect/stop/, mob.loc))
-		for(var/obj/effect/stop/S in mob.loc)
-			if(S.victim == mob)
-				return
-
 	if(mob.stat==DEAD)	return
-
-// handle possible spirit movement
-	if(istype(mob,/mob/spirit))
-		var/mob/spirit/currentSpirit = mob
-		return currentSpirit.Spirit_Move(direct)
 
 	if(mob.notransform)	return//This is sota the goto stop mobs from moving var
 
@@ -408,44 +398,42 @@
 ///Called by /client/Move()
 ///For moving in space
 ///Return 1 for movement 0 for none
-/mob/Process_Spacemove(var/movement_dir = 0)
-
+/mob/Process_Spacemove(movement_dir = 0)
 	if(..())
 		return 1
+	var/atom/movable/backup = get_spacemove_backup()
+	if(backup)
+		if(istype(backup) && movement_dir && !backup.anchored)
+			if(backup.newtonian_move(turn(movement_dir, 180))) //You're pushing off something movable, so it moves
+				src << "<span class='info'>You push off of [backup] to propel yourself.</span>"
+		return 1
+	return 0
 
+/mob/get_spacemove_backup()
 	var/atom/movable/dense_object_backup
-	for(var/atom/A in orange(1, get_turf(src)))
+	for(var/A in orange(1, get_turf(src)))
 		if(isarea(A))
 			continue
-
 		else if(isturf(A))
 			var/turf/turf = A
-			if(istype(turf,/turf/space))
+			if(istype(turf, /turf/space))
 				continue
-
 			if(!turf.density && !mob_negates_gravity())
 				continue
-
-			return 1
-
+			return A
 		else
 			var/atom/movable/AM = A
 			if(AM == buckled) //Kind of unnecessary but let's just be sure
 				continue
-			if(AM.density)
+			if(!AM.CanPass(src) || AM.density)
 				if(AM.anchored)
-					return 1
+					return AM
 				if(pulling == AM)
 					continue
 				dense_object_backup = AM
+				break
+	. = dense_object_backup
 
-	if(movement_dir && dense_object_backup)
-		if(dense_object_backup.newtonian_move(turn(movement_dir, 180))) //You're pushing off something movable, so it moves
-			to_chat(src, "<span class='info'>You push off of [dense_object_backup] to propel yourself.</span>")
-
-
-		return 1
-	return 0
 
 /mob/proc/mob_has_gravity(turf/T)
 	return has_gravity(src, T)

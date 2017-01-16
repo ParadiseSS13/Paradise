@@ -58,14 +58,15 @@
 
 	for(var/mob/M in src)
 		moveMob(M, loc)
-		if(M.client)
-			M.client.eye = M.client.mob
-			M.client.perspective = MOB_PERSPECTIVE
 
 /obj/structure/closet/proc/moveMob(var/mob/M, var/atom/destination)
 	loc.Exited(M)
 	M.loc = destination
-	loc.Entered(M, ignoreRest = 1)
+	M.reset_perspective(destination)
+	if(isturf(loc))
+		loc.Entered(M, src, ignoreRest = 1)
+	else
+		loc.Entered(M, src)
 	for(var/atom/movable/AM in loc)
 		if(istype(AM, /obj/item))
 			continue
@@ -118,10 +119,6 @@
 			continue
 		if(M.buckled)
 			continue
-
-		if(M.client)
-			M.client.perspective = EYE_PERSPECTIVE
-			M.client.eye = src
 
 		moveMob(M, src)
 		itemcount++
@@ -192,8 +189,7 @@
 			return
 		var/obj/item/weapon/rcs/E = W
 		if(E.rcell && (E.rcell.charge >= E.chargecost))
-			// TODO: Tie into space manager
-			if(!(src.z in config.contact_levels))
+			if(!is_level_reachable(src.z))
 				to_chat(user, "<span class='warning'>The rapid-crate-sender can't locate any telepads!</span>")
 				return
 			if(E.mode == 0)
@@ -426,3 +422,7 @@
 	..()
 	visible_message("<span class='danger'>[src] is blown apart by the bolt of electricity!</span>", "<span class='danger'>You hear a metallic screeching sound.</span>")
 	qdel(src)
+
+/obj/structure/closet/get_remote_view_fullscreens(mob/user)
+	if(user.stat == DEAD || !(user.sight & (SEEOBJS|SEEMOBS)))
+		user.overlay_fullscreen("remote_view", /obj/screen/fullscreen/impaired, 1)

@@ -23,8 +23,7 @@
 			var/nukecode = rand(10000, 99999)
 			for(var/obj/machinery/nuclearbomb/bomb in world)
 				if(bomb && bomb.r_code)
-					// TODO: Tie into space manager
-					if(bomb.z == ZLEVEL_STATION)
+					if(is_station_level(bomb.z))
 						bomb.r_code = nukecode
 
 			intercepttext += "<FONT size = 3><B>Nanotrasen Update</B>: Biohazard Alert.</FONT><HR>"

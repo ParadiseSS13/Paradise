@@ -11,11 +11,10 @@
 	var/alarms = list("Fire"=list(), "Atmosphere"=list(), "Power"=list())
 
 	interact(mob/user)
-		usr.set_machine(src)
 		if(!interactable())
 			return
 		var/dat = "<HEAD><TITLE>Current Station Alerts</TITLE><META HTTP-EQUIV='Refresh' CONTENT='10'></HEAD><BODY>\n"
-		dat += "<A HREF='?src=\ref[user];mach_close=alerts'>Close</A><br><br>"
+		dat += "<A HREF='?src=[user.UID()];mach_close=alerts'>Close</A><br><br>"
 		for(var/cat in src.alarms)
 			dat += text("<B>[]</B><BR>\n", cat)
 			var/list/L = src.alarms[cat]

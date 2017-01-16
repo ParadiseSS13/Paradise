@@ -1010,6 +1010,50 @@ proc/get_mob_with_client_list()
 	else if(zone == "r_foot") return "right foot"
 	else return zone
 
+/*
+
+ Gets the turf this atom's *ICON* appears to inhabit
+ It takes into account:
+ * Pixel_x/y
+ * Matrix x/y
+
+ NOTE: if your atom has non-standard bounds then this proc
+ will handle it, but:
+ * if the bounds are even, then there are an even amount of "middle" turfs, the one to the EAST, NORTH, or BOTH is picked
+ (this may seem bad, but you're atleast as close to the center of the atom as possible, better than byond's default loc being all the way off)
+ * if the bounds are odd, the true middle turf of the atom is returned
+
+*/
+
+/proc/get_turf_pixel(atom/movable/AM)
+	if(!istype(AM))
+		return
+
+	//Find AM's matrix so we can use it's X/Y pixel shifts
+	var/matrix/M = matrix(AM.transform)
+
+	var/pixel_x_offset = AM.pixel_x + M.get_x_shift()
+	var/pixel_y_offset = AM.pixel_y + M.get_y_shift()
+
+	//Irregular objects
+	if(AM.bound_height != world.icon_size || AM.bound_width != world.icon_size)
+		var/icon/AMicon = icon(AM.icon, AM.icon_state)
+		pixel_x_offset += ((AMicon.Width()/world.icon_size)-1)*(world.icon_size*0.5)
+		pixel_y_offset += ((AMicon.Height()/world.icon_size)-1)*(world.icon_size*0.5)
+		qdel(AMicon)
+
+	//DY and DX
+	var/rough_x = round(round(pixel_x_offset,world.icon_size)/world.icon_size)
+	var/rough_y = round(round(pixel_y_offset,world.icon_size)/world.icon_size)
+
+	//Find coordinates
+	var/turf/T = get_turf(AM) //use AM's turfs, as it's coords are the same as AM's AND AM's coords are lost if it is inside another atom
+	var/final_x = T.x + rough_x
+	var/final_y = T.y + rough_y
+
+	if(final_x || final_y)
+		return locate(final_x, final_y, T.z)
+
 //Finds the distance between two atoms, in pixels
 //centered = 0 counts from turf edge to edge
 //centered = 1 counts from turf center to turf center
@@ -1178,7 +1222,7 @@ var/global/list/common_tools = list(
 
 //check if mob is lying down on something we can operate him on.
 /proc/can_operate(mob/living/carbon/M)
-	return (locate(/obj/machinery/optable, M.loc) && M.resting) || \
+	return (locate(/obj/machinery/optable, M.loc) && (M.lying || M.resting)) || \
 	(locate(/obj/structure/stool/bed/roller, M.loc) && 	\
 	(M.buckled || M.lying || M.weakened || M.stunned || M.paralysis || M.sleeping || M.stat)) && prob(75) || 	\
 	(locate(/obj/structure/table/, M.loc) && 	\
@@ -1291,7 +1335,7 @@ Standard way to write links -Sayu
 /proc/topic_link(var/datum/D, var/arglist, var/content)
 	if(istype(arglist,/list))
 		arglist = list2params(arglist)
-	return "<a href='?src=\ref[D];[arglist]'>[content]</a>"
+	return "<a href='?src=[D.UID()];[arglist]'>[content]</a>"
 
 
 
@@ -1355,20 +1399,19 @@ Standard way to write links -Sayu
 
 	return 1
 
-proc/check_target_facings(mob/living/initator, mob/living/target)
+/proc/check_target_facings(mob/living/initator, mob/living/target)
 	/*This can be used to add additional effects on interactions between mobs depending on how the mobs are facing each other, such as adding a crit damage to blows to the back of a guy's head.
 	Given how click code currently works (Nov '13), the initiating mob will be facing the target mob most of the time
 	That said, this proc should not be used if the change facing proc of the click code is overriden at the same time*/
-	if(!!isliving(target) || target.lying || istype(target, /mob/living/silicon/pai))
+	if(!ismob(target) || target.lying)
 	//Make sure we are not doing this for things that can't have a logical direction to the players given that the target would be on their side
-		return
-
+		return FACING_FAILED
 	if(initator.dir == target.dir) //mobs are facing the same direction
-		return 1
-	if(initator.dir + 4 == target.dir || initator.dir - 4 == target.dir) //mobs are facing each other
-		return 2
+		return FACING_SAME_DIR
+	if(is_A_facing_B(initator, target) && is_A_facing_B(target, initator)) //mobs are facing each other
+		return FACING_EACHOTHER
 	if(initator.dir + 2 == target.dir || initator.dir - 2 == target.dir || initator.dir + 6 == target.dir || initator.dir - 6 == target.dir) //Initating mob is looking at the target, while the target mob is looking in a direction perpendicular to the 1st
-		return 3
+		return FACING_INIT_FACING_TARGET_TARGET_FACING_PERPENDICULAR
 
 
 atom/proc/GetTypeInAllContents(typepath)
@@ -1469,6 +1512,36 @@ var/mob/dview/dview_mob = new
 		var/datum/B = A
 		return isnull(B.gcDestroyed)
 	if(istype(A, /client))
+		return 1
+	return 0
+
+
+//Get the dir to the RIGHT of dir if they were on a clock
+//NORTH --> NORTHEAST
+/proc/get_clockwise_dir(dir)
+	. = angle2dir(dir2angle(dir)+45)
+
+//Get the dir to the LEFT of dir if they were on a clock
+//NORTH --> NORTHWEST
+/proc/get_anticlockwise_dir(dir)
+	. = angle2dir(dir2angle(dir)-45)
+
+
+//Compare A's dir, the clockwise dir of A and the anticlockwise dir of A
+//To the opposite dir of the dir returned by get_dir(B,A)
+//If one of them is a match, then A is facing B
+/proc/is_A_facing_B(atom/A, atom/B)
+	if(!istype(A) || !istype(B))
+		return 0
+	if(isliving(A))
+		var/mob/living/LA = A
+		if(LA.lying)
+			return 0
+	var/goal_dir = angle2dir(dir2angle(get_dir(B, A)+180))
+	var/clockwise_A_dir = get_clockwise_dir(A.dir)
+	var/anticlockwise_A_dir = get_anticlockwise_dir(B.dir)
+
+	if(A.dir == goal_dir || clockwise_A_dir == goal_dir || anticlockwise_A_dir == goal_dir)
 		return 1
 	return 0
 
@@ -1738,3 +1811,12 @@ var/global/list/g_fancy_list_of_types = null
 			sleep(world.tick_lag*4)
 			//you might be thinking of adding more steps to this, or making it use a loop and a counter var
 			//	not worth it.
+
+/proc/make_bit_triplet()
+	var/list/num_sample  = list(1, 2, 3, 4, 5, 6, 7, 8, 9)
+	var/result = 0
+	for(var/i = 0, i < 3, i++)
+		var/num = pick(num_sample)
+		num_sample -= num
+		result += (1 << num)
+	return result

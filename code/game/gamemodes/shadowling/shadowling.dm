@@ -94,9 +94,10 @@ Made by Xhuis
 		shadows += shadow
 		possible_shadowlings -= shadow
 		modePlayer += shadow
-		shadow.special_role = "Shadowling"
+		shadow.special_role = SPECIAL_ROLE_SHADOWLING
 		shadow.restricted_roles = restricted_jobs
 		shadowlings--
+	..()
 	return 1
 
 
@@ -145,7 +146,7 @@ Made by Xhuis
 		return 0
 	if(!(new_thrall_mind in shadowling_thralls))
 		shadowling_thralls += new_thrall_mind
-		new_thrall_mind.special_role = "shadowling thrall"
+		new_thrall_mind.special_role = SPECIAL_ROLE_SHADOWLING_THRALL
 		update_shadow_icons_added(new_thrall_mind)
 		new_thrall_mind.current.attack_log += "\[[time_stamp()]\] <span class='danger'>Became a thrall</span>"
 		new_thrall_mind.current.add_language("Shadowling Hivemind")
@@ -311,7 +312,7 @@ Made by Xhuis
 	if(!H.weakeyes)
 		H.weakeyes = 1 //Makes them more vulnerable to flashes and flashbangs
 	var/light_amount = 0
-	H.nutrition = 450 //i aint never get hongry
+	H.nutrition = NUTRITION_LEVEL_WELL_FED //i aint never get hongry
 	if(isturf(H.loc))
 		var/turf/T = H.loc
 		light_amount = T.get_lumcount() * 10
@@ -346,7 +347,7 @@ Made by Xhuis
 	if(!H.weakeyes)
 		H.weakeyes = 1 //Makes them more vulnerable to flashes and flashbangs
 	var/light_amount = 0
-	H.nutrition = 450 //i aint never get hongry
+	H.nutrition = NUTRITION_LEVEL_WELL_FED //i aint never get hongry
 	if(isturf(H.loc))
 		var/turf/T = H.loc
 		light_amount = T.get_lumcount() * 10

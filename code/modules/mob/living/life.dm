@@ -113,18 +113,19 @@
 	handle_sleeping()
 	handle_slowed()
 	handle_drunk()
+	handle_cultslurring()
 
 
 /mob/living/proc/handle_stunned()
 	if(stunned)
-		AdjustStunned(-1)
+		AdjustStunned(-1, updating = 1, force = 1)
 		if(!stunned)
 			update_icons()
 	return stunned
 
 /mob/living/proc/handle_weakened()
 	if(weakened)
-		AdjustWeakened(-1)
+		AdjustWeakened(-1, updating = 1, force = 1)
 		if(!weakened)
 			update_icons()
 	return weakened
@@ -136,22 +137,27 @@
 
 /mob/living/proc/handle_silent()
 	if(silent)
-		silent = max(silent-1, 0)
+		AdjustSilence(-1)
 	return silent
 
 /mob/living/proc/handle_drugged()
 	if(druggy)
-		druggy = max(druggy-1, 0)
+		AdjustDruggy(-1)
 	return druggy
 
 /mob/living/proc/handle_slurring()
 	if(slurring)
-		slurring = max(slurring-1, 0)
+		AdjustSlur(-1)
 	return slurring
+
+/mob/living/proc/handle_cultslurring()
+	if(cultslurring)
+		AdjustCultSlur(-1)
+	return cultslurring
 
 /mob/living/proc/handle_paralysed()
 	if(paralysis)
-		AdjustParalysis(-1)
+		AdjustParalysis(-1, updating = 1, force = 1)
 	return paralysis
 
 /mob/living/proc/handle_sleeping()
@@ -164,7 +170,7 @@
 
 /mob/living/proc/handle_slowed()
 	if(slowed)
-		slowed = max(slowed-1, 0)
+		AdjustSlowed(-1)
 	return slowed
 
 /mob/living/proc/handle_drunk()
@@ -175,19 +181,20 @@
 /mob/living/proc/handle_disabilities()
 	//Eyes
 	if(disabilities & BLIND || stat)	//blindness from disability or unconsciousness doesn't get better on its own
-		eye_blind = max(eye_blind, 1)
+		EyeBlind(1)
 	else if(eye_blind)			//blindness, heals slowly over time
-		eye_blind = max(eye_blind-1,0)
+		AdjustEyeBlind(-1)
 	else if(eye_blurry)			//blurry eyes heal slowly
-		eye_blurry = max(eye_blurry-1, 0)
+		AdjustEyeBlurry(-1)
 
 	//Ears
 	if(disabilities & DEAF)		//disabled-deaf, doesn't get better on its own
-		setEarDamage(-1, max(ear_deaf, 1))
+		EarDeaf(1)
 	else
 		// deafness heals slowly over time, unless ear_damage is over 100
 		if(ear_damage < 100)
-			adjustEarDamage(-0.05,-1)
+			AdjustEarDamage(-0.05)
+			AdjustEarDeaf(-1)
 
 //this handles hud updates. Calls update_vision() and handle_hud_icons()
 /mob/living/proc/handle_regular_hud_updates()
@@ -229,13 +236,31 @@
 
 	if(machine)
 		if(!machine.check_eye(src))
-			reset_view(null)
+			reset_perspective(null)
 	else
 		if(!remote_view && !client.adminobs)
-			reset_view(null)
+			reset_perspective(null)
 
 /mob/living/proc/update_sight()
 	return
+
+// Gives a mob the vision of being dead
+/mob/living/proc/grant_death_vision()
+	sight |= SEE_TURFS
+	sight |= SEE_MOBS
+	sight |= SEE_OBJS
+	see_in_dark = 8
+	see_invisible = SEE_INVISIBLE_OBSERVER
+
+// See through walls, dark, etc.
+// basically the same as death vision except you can't
+// see ghosts
+/mob/living/proc/grant_xray_vision()
+	sight |= SEE_TURFS
+	sight |= SEE_MOBS
+	sight |= SEE_OBJS
+	see_in_dark = 8
+	see_invisible = SEE_INVISIBLE_LEVEL_TWO
 
 /mob/living/proc/handle_hud_icons()
 	handle_hud_icons_health()

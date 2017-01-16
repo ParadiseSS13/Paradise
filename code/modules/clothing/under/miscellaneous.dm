@@ -146,6 +146,7 @@
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
 	heat_protection = UPPER_TORSO | LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	max_heat_protection_temperature = SPACE_SUIT_MAX_TEMP_PROTECT
+	burn_state = FIRE_PROOF
 
 /obj/item/clothing/under/acj
 	name = "administrative cybernetic jumpsuit"
@@ -163,6 +164,7 @@
 	max_heat_protection_temperature = FIRE_IMMUNITY_SUIT_MAX_TEMP_PROTECT
 	slowdown = -10
 	siemens_coefficient = 0
+	burn_state = LAVA_PROOF
 
 /obj/item/clothing/under/johnny
 	name = "johnny~~ jumpsuit"
@@ -334,6 +336,7 @@
 	item_state = "gladiator"
 	item_color = "gladiator"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+	burn_state = FIRE_PROOF
 
 //dress
 
@@ -460,6 +463,13 @@
 	item_color = "sundress"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 
+/obj/item/clothing/under/captainparade
+	name = "captain's parade uniform"
+	desc = "A captain's luxury-wear, for special occasions."
+	icon_state = "captain_parade"
+	item_state = "by_suit"
+	item_color = "captain_parade"
+
 /obj/item/clothing/under/roman
 	name = "roman armor"
 	desc = "An ancient Roman armor. Made of metallic strips and leather straps."
@@ -467,6 +477,7 @@
 	item_color = "roman"
 	item_state = "armor"
 	strip_delay = 100
+	burn_state = FIRE_PROOF
 
 /obj/item/clothing/under/maid
 	name = "maid costume"
@@ -483,6 +494,26 @@
 	item_state = "janimaid"
 	item_color = "janimaid"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
+
+/obj/item/clothing/under/singery
+	name = "yellow performer's outfit"
+	desc = "Just looking at this makes you want to sing."
+	icon_state = "ysing"
+	item_state = "ysing"
+	item_color = "ysing"
+
+/obj/item/clothing/under/singerb
+	name = "blue performer's outfit"
+	desc = "Just looking at this makes you want to sing."
+	icon_state = "bsing"
+	item_state = "bsing"
+	item_color = "bsing"
+
+/obj/item/clothing/under/jester
+	name = "jester suit"
+	desc = "A jolly dress, well suited to entertain your master, nuncle."
+	icon_state = "jester"
+	item_color = "jester"
 
 /obj/item/clothing/under/flappers
 	name = "flappers"
@@ -668,6 +699,8 @@
 	desc = "A soft brown jumpsuit made of synthetic feathers and strong conviction."
 	icon_state = "owl"
 	item_color = "owl"
+
+/obj/item/clothing/under/owl/super_hero
 	flags = NODROP
 
 /obj/item/clothing/under/griffin
@@ -675,6 +708,8 @@
 	desc = "A soft brown jumpsuit with a white feather collar made of synthetic feathers and a lust for mayhem."
 	icon_state = "griffin"
 	item_color = "griffin"
+
+/obj/item/clothing/under/griffin/super_hero
 	flags = NODROP
 
 /obj/item/clothing/under/noble_clothes

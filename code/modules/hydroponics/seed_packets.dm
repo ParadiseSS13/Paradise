@@ -6,7 +6,7 @@ var/global/list/plant_seed_sprites = list()
 	icon = 'icons/obj/seeds.dmi'
 	icon_state = "blank"
 	w_class = 2
-
+	burn_state = FLAMMABLE
 	var/seed_type
 	var/datum/seed/seed
 	var/modified = 0

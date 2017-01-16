@@ -24,7 +24,7 @@
 /datum/dna/gene/disability/can_activate(var/mob/M,var/flags)
 	return 1 // Always set!
 
-/datum/dna/gene/disability/activate(var/mob/M, var/connected, var/flags)
+/datum/dna/gene/disability/activate(var/mob/living/M, var/connected, var/flags)
 	..()
 	if(mutation && !(mutation in M.mutations))
 		M.mutations.Add(mutation)
@@ -35,7 +35,7 @@
 	else
 		testing("[name] has no activation message.")
 
-/datum/dna/gene/disability/deactivate(var/mob/M, var/connected, var/flags)
+/datum/dna/gene/disability/deactivate(var/mob/living/M, var/connected, var/flags)
 	..()
 	if(mutation && (mutation in M.mutations))
 		M.mutations.Remove(mutation)
@@ -127,7 +127,7 @@
 
 /datum/dna/gene/disability/deaf/activate(var/mob/M, var/connected, var/flags)
 	..(M,connected,flags)
-	M.ear_deaf = 1
+	M.EarDeaf(1)
 
 /datum/dna/gene/disability/nearsighted
 	name="Nearsightedness"

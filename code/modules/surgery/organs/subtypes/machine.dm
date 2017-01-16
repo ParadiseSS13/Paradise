@@ -117,13 +117,6 @@
 	robotize()
 	..()
 
-/obj/item/organ/internal/cell/insert()
-	..()
-	// This is very ghetto way of rebooting an IPC. TODO better way.
-	if(owner && owner.stat == DEAD)
-		owner.stat = CONSCIOUS
-		owner.visible_message("<span class='danger'>\The [owner] twitches visibly!</span>")
-
 /obj/item/organ/internal/optical_sensor
 	name = "optical sensor"
 	organ_tag = "eyes"
@@ -149,10 +142,10 @@
 /obj/item/organ/internal/optical_sensor/surgeryize()
 	if(!owner)
 		return
-	owner.disabilities &= ~NEARSIGHTED
-	owner.disabilities &= ~BLIND
-	owner.eye_blurry = 0
-	owner.eye_blind = 0
+	owner.CureNearsighted()
+	owner.CureBlind()
+	owner.SetEyeBlurry(0)
+	owner.SetEyeBlind(0)
 
 
 // Used for an MMI or posibrain being installed into a human.
@@ -167,6 +160,28 @@
 	species = "Machine"
 	var/obj/item/device/mmi/stored_mmi
 
+
+/obj/item/organ/internal/brain/mmi_holder/Destroy()
+	if(stored_mmi)
+		qdel(stored_mmi)
+	return ..()
+
+/obj/item/organ/internal/brain/mmi_holder/insert(var/mob/living/target,special = 0)
+	..()
+	// To supersede the over-writing of the MMI's name from `insert`
+	update_from_mmi()
+
+/obj/item/organ/internal/brain/mmi_holder/remove(var/mob/living/user,special = 0)
+	if(!special)
+		if(stored_mmi)
+			. = stored_mmi
+			if(owner.mind)
+				owner.mind.transfer_to(stored_mmi.brainmob)
+			stored_mmi.forceMove(get_turf(src))
+			stored_mmi = null
+	..()
+	qdel(src)
+
 /obj/item/organ/internal/brain/mmi_holder/proc/update_from_mmi()
 	if(!stored_mmi)
 		return
@@ -174,27 +189,7 @@
 	desc = stored_mmi.desc
 	icon = stored_mmi.icon
 	icon_state = stored_mmi.icon_state
-
-/obj/item/organ/internal/brain/mmi_holder/remove(var/mob/living/user,special = 0)
-	if(!special)
-		if(stored_mmi)
-			stored_mmi.forceMove(get_turf(owner))
-			if(owner.mind)
-				owner.mind.transfer_to(stored_mmi.brainmob)
-	..()
-
-	var/mob/living/holder_mob = loc
-	if(istype(holder_mob))
-		holder_mob.unEquip(src)
-	qdel(src)
-
-/obj/item/organ/internal/brain/mmi_holder/New()
-	..()
-	// This is very ghetto way of rebooting an IPC. TODO better way.
-	spawn(1)
-		if(owner && owner.stat == DEAD)
-			owner.stat = CONSCIOUS
-			owner.visible_message("<span class='danger'>\The [owner] twitches visibly!</span>")
+	set_dna(stored_mmi.brainmob.dna)
 
 /obj/item/organ/internal/brain/mmi_holder/posibrain/New()
 	robotize()

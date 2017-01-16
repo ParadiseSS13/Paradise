@@ -16,7 +16,7 @@
 	name = "Machine Board (SMES)"
 	desc = "The circuit board for a SMES."
 	id = "smes"
-	req_tech = list("programming" = 4, "power" = 5, "engineering" = 4)
+	req_tech = list("programming" = 4, "powerstorage" = 5, "engineering" = 4)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/smes

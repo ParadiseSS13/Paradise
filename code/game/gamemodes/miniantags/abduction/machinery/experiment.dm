@@ -65,9 +65,9 @@
 			dat += "</td><td>"
 		else
 			dat += "ERR: Unable to retrieve image data for occupant."
-		dat += "<a href='?src=\ref[src];experiment=1'>Probe</a><br>"
-		dat += "<a href='?src=\ref[src];experiment=2'>Dissect</a><br>"
-		dat += "<a href='?src=\ref[src];experiment=3'>Analyze</a><br>"
+		dat += "<a href='?src=[UID()];experiment=1'>Probe</a><br>"
+		dat += "<a href='?src=[UID()];experiment=2'>Dissect</a><br>"
+		dat += "<a href='?src=[UID()];experiment=3'>Analyze</a><br>"
 		dat += "</td></tr></table>"
 	else
 		dat += "<span class='linkOff'>Experiment </span>"
@@ -87,8 +87,8 @@
 	dat += "<br>"
 	dat += "[flash]"
 	dat += "<br>"
-	dat += "<a href='?src=\ref[src];refresh=1'>Scan</a>"
-	dat += "<a href='?src=\ref[src];[occupant ? "eject=1'>Eject Occupant</a>" : "unoccupied=1'>Unoccupied</a>"]"
+	dat += "<a href='?src=[UID()];refresh=1'>Scan</a>"
+	dat += "<a href='?src=[UID()];[occupant ? "eject=1'>Eject Occupant</a>" : "unoccupied=1'>Unoccupied</a>"]"
 	var/datum/browser/popup = new(user, "experiment", "Probing Console", 300, 300)
 	popup.set_title_image(user.browse_rsc_icon(icon, icon_state))
 	popup.set_content(dat)
@@ -203,9 +203,6 @@
 /obj/machinery/abductor/experiment/proc/eject_abductee()
 	if(!occupant)
 		return
-	if(occupant.client)
-		occupant.client.eye = occupant.client.mob
-		occupant.client.perspective = MOB_PERSPECTIVE
 	occupant.forceMove(get_turf(src))
 	occupant = null
 	icon_state = "experiment-open"

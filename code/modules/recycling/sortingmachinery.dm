@@ -117,6 +117,7 @@
 	flags = NOBLUDGEON
 	amount = 25
 	max_amount = 25
+	burn_state = FLAMMABLE
 
 
 /obj/item/stack/packageWrap/afterattack(var/obj/target as obj, mob/user as mob, proximity)
@@ -205,7 +206,7 @@
 
 		dat += "<table style='width:100%; padding:4px;'><tr>"
 		for(var/i = 1, i <= TAGGERLOCATIONS.len, i++)
-			dat += "<td><a href='?src=\ref[src];nextTag=[i]'>[TAGGERLOCATIONS[i]]</a></td>"
+			dat += "<td><a href='?src=[UID()];nextTag=[i]'>[TAGGERLOCATIONS[i]]</a></td>"
 
 			if(i%4==0)
 				dat += "</tr><tr>"

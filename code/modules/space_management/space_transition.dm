@@ -1,9 +1,5 @@
 //This is realisation of the working torus-looping randomized-per-round space map, this kills the cube
 
-#define Z_LEVEL_NORTH 		"1"
-#define Z_LEVEL_SOUTH 		"2"
-#define Z_LEVEL_EAST 		"4"
-#define Z_LEVEL_WEST 		"8"
 
 /proc/get_opposite_direction(direction)
 	switch(direction)
@@ -16,14 +12,35 @@
 		if(Z_LEVEL_WEST)
 			return Z_LEVEL_EAST
 
-/datum/space_level
-	var/list/direction_cache = list()
+
+// Do this before setting up new connections, or the old ones will haunt you
+/datum/space_level/proc/reset_connections()
+	neighbors.Cut()
 
 /datum/space_level/proc/link_to_self()
+	reset_connections()
 	neighbors = list()
 	var/list/L = list(Z_LEVEL_NORTH,Z_LEVEL_SOUTH,Z_LEVEL_EAST,Z_LEVEL_WEST)
 	for(var/A in L)
 		neighbors[A] = src
+
+// Only call this when the `linkage_map` is already built
+/datum/space_level/proc/add_to_space_network(datum/spacewalk_grid/SW)
+	// Make sure we don't bring any noise data into the network
+	reset_connections()
+	xi = initial(xi)
+	yi = initial(yi)
+	var/datum/point/P = SW.get_empty_node()
+	P.set_space_level(src)
+
+/datum/space_level/proc/remove_from_space_network(datum/spacewalk_grid/SW)
+	var/datum/point/P = SW.get(xi,yi)
+	SW.release_node(P)
+	// Only do this when we're done, or we'll trample vars needed for releasing
+	// the level
+	xi = initial(xi)
+	yi = initial(yi)
+	reset_connections()
 
 // This proc takes another space level, and establishes a connection between the
 // two depending on how the `xi` and the `yi` values compare
@@ -41,26 +58,18 @@
 	else // yell about evil wizards, this shouldn't happen
 		log_debug("Two z levels attempted to link, but were not adjacent! Our z:([xi],[yi]). Other z:([S.xi],[S.yi])")
 
-// Do this before setting up new connections, or the old ones will haunt you
-/datum/space_level/proc/reset_connections()
-	neighbors.Cut()
-	direction_cache.Cut()
-
 // `direction` here is the direction from `src` to `S`
 /datum/space_level/proc/add_connection(datum/space_level/S, direction)
 	var/oppose = get_opposite_direction(direction)
 	neighbors[direction] = S
 	S.neighbors[oppose] = src
+	space_manager.unbuilt_space_transitions |= src
+	space_manager.unbuilt_space_transitions |= S
 
 
-// The "direction cache" will need updating if a
 /datum/space_level/proc/get_connection(direction)
 	if(direction in neighbors)
 		return neighbors[direction]
-	var/use_direction_cache = 0
-	if(use_direction_cache)
-		if(direction in direction_cache)
-			return direction_cache[direction]
 
 	// It's in a direction that loops - so we step as far in the opposite direction to get where to wrap to
 	var/datum/space_level/S = src
@@ -70,9 +79,6 @@
 		if(S.neighbors[oppose] == src) // we've got a tesseract, boys
 			CRASH("Tesseract formed when routing connections between z levels. Culprit: z level '[S.zpos]' to '[src.zpos]', direction [oppose]")
 		S = S.neighbors[oppose]
-
-	if(use_direction_cache)
-		direction_cache[direction] = S
 	return S
 
 
@@ -145,8 +151,6 @@
 // This looks around itself to see if it has any active nodes within the cardinal directions
 /datum/point/proc/has_no_neighbors(datum/spacewalk_grid/SW)
 	var/result = 1
-	if(spl)
-		return 1
 	if(!isnull(SW.get(x+1,y)))
 		result = 0
 	if(!isnull(SW.get(x-1,y)))
@@ -165,6 +169,7 @@
 		var/datum/space_level/S = spl.neighbors[direction]
 		var/oppose = get_opposite_direction(direction)
 		S.neighbors.Remove(oppose)
+		space_manager.unbuilt_space_transitions |= S
 	spl.reset_connections()
 	spl = initial(spl)
 
@@ -190,6 +195,14 @@
 /datum/spacewalk_grid/New()
 	var/datum/point/P = new(0,0)
 	add_available_node(P)
+
+/datum/spacewalk_grid/Destroy()
+	for(var/datum/point/P in filled_nodes)
+		release_node(P)
+	if(available_nodes.len > 1)
+		log_debug("Multiple nodes left behind after SW grid qdel: [available_nodes.len]")
+		for(var/datum/point/P in available_nodes)
+			log_debug("([P.x],[P.y])")
 
 /datum/spacewalk_grid/proc/add_available_node(datum/point/P)
 	var/hash = P.hash()
@@ -225,9 +238,12 @@
 	for(var/datum/point/P2 in P.neighbors)
 		var/isolated = P2.has_no_neighbors(src)
 		if(isolated)
-			available_nodes -= P2
-			all_nodes -= P2.hash()
-			qdel(P)
+			if(!P2.spl)
+				available_nodes -= P2
+				all_nodes -= P2.hash()
+				qdel(P)
+			else
+				log_debug("Isolated z level at ([P2.x],[P2.y]): [P2.spl.zpos]")
 	P.deactivate()
 	P.neighbors.Cut()
 
@@ -279,13 +295,19 @@
 /datum/spacewalk_grid/proc/get_height()
 	return 1 + max_y - min_y
 
-// This function is called repeatedly to build the map
+// This function chooses an available point next to any node in the grid
 /datum/spacewalk_grid/proc/get_empty_node()
 	var/datum/point/P = pick(available_nodes)
 	if(isnull(P))
 		throw EXCEPTION("The `available_nodes` list was either empty or contained a null entry")
 	consume_node(P)
 	return P
+
+// This function is called repeatedly to build the map
+/datum/spacewalk_grid/proc/add_level(datum/space_level/S)
+	var/datum/point/P = get_empty_node()
+	P.set_space_level(S)
+
 
 // This proc substantiates the grid of points used to determine routes between levels
 // Separating this from initialization gives us time in which we can add more crosslink z levels
@@ -307,75 +329,75 @@
 	// `grid` is a flat list of these same above points
 
 	// Each point represents a possible z level position
-	var/datum/spacewalk_grid/point_grid = new
-	// We do this so we can display the way the levels connect later
-	linkage_map = point_grid
-	var/datum/point/P
+	if(linkage_map)
+		qdel(linkage_map)
+	linkage_map = new
 
 	// Now, we pop entries in a random order from our list of space levels
 	// and assign its connections based on the grid
 	while(crosslinks.len)
 		D = pick(crosslinks)
 		crosslinks.Remove(D)
-		// We now choose a point in our imaginary grid adjacent to our current location
-		P = point_grid.get_empty_node()
-		// Let our z level know where in the imaginary grid it is
-		// This will also handle establishing neighborship with other z levels
-		P.set_space_level(D)
+		// Add it to our space grid
+		D.add_to_space_network(linkage_map)
 
-// A heavy proc - loops through all space turfs and sets its destination
-// based on its space level's linkage
-// Takes 0.6 seconds per call on my machine - could have each z level
-// have its own space turf cache, but I don't want to complicate this more
-// than is necessary
-/datum/zlev_manager/proc/setup_space_destinations()
+// Used to loop through turfs in world, now just goes through each level's
+// transit turf cache
+/datum/zlev_manager/proc/setup_space_destinations(force_all_rebuilds = FALSE)
 	var/timer = start_watch()
 	log_debug("Assigning space turf destinations...")
 	var/datum/space_level/D
 	var/datum/space_level/E
 	var/turf/space/S
-	for(var/A in z_list) //Define the transistions of the z levels
-		D = z_list[A]
-		if(!D.neighbors.len)
-			continue
-		// Left border
-		for(var/B in D.transit_west)
-			S = B
-			E = D.get_connection(Z_LEVEL_WEST)
-			S.destination_z = E.zpos
-			S.destination_x = world.maxx - TRANSITIONEDGE - 2
-			S.destination_y = S.y
+	var/list/levels_to_rebuild = unbuilt_space_transitions
 
-		// Right border
-		for(var/B in D.transit_east)
-			S = B
-			E = D.get_connection(Z_LEVEL_EAST)
-			S.destination_x = TRANSITIONEDGE + 2
-			S.destination_y = S.y
-			S.destination_z = E.zpos
+	if(force_all_rebuilds)
+		// Assuming we don't have like 9000 zlevels this shouldn't hurt
+		levels_to_rebuild = list()
+		for(var/A in z_list)
+			levels_to_rebuild.Add(z_list[A])
 
-		// Bottom border
-		for(var/B in D.transit_south)
-			S = B
-			E = D.get_connection(Z_LEVEL_SOUTH)
-			S.destination_x = S.x
-			S.destination_y = world.maxy - TRANSITIONEDGE - 2
-			S.destination_z = E.zpos
 
-		// Top border
-		for(var/B in D.transit_north)
-			S = B
-			E = D.get_connection(Z_LEVEL_NORTH)
-			S.destination_x = S.x
-			S.destination_y = TRANSITIONEDGE + 2
-			S.destination_z = E.zpos
+	for(var/foo in levels_to_rebuild) //Define the transitions of the z levels
+		D = foo
+		log_debug("Z level [D.zpos]")
+		switch(D.linkage)
+			if(UNAFFECTED)
+				for(var/B in D.transit_west | D.transit_east | D.transit_south | D.transit_north)
+					S = B
+					S.remove_transitions()
+			if(SELFLOOPING,CROSSLINKED)
+				// Left border
+				for(var/B in D.transit_west)
+					S = B
+					E = D.get_connection(Z_LEVEL_WEST)
+					S.set_transition_west(E.zpos)
+
+				// Right border
+				for(var/B in D.transit_east)
+					S = B
+					E = D.get_connection(Z_LEVEL_EAST)
+					S.set_transition_east(E.zpos)
+
+				// Bottom border
+				for(var/B in D.transit_south)
+					S = B
+					E = D.get_connection(Z_LEVEL_SOUTH)
+					S.set_transition_south(E.zpos)
+
+				// Top border
+				for(var/B in D.transit_north)
+					S = B
+					E = D.get_connection(Z_LEVEL_NORTH)
+					S.set_transition_north(E.zpos)
+		unbuilt_space_transitions -= D
 
 	log_debug("Assigning space turf destinations complete. Took [stop_watch(timer)]s.")
 
 // Nothing fancy, just does it all at once
 /datum/zlev_manager/proc/do_transition_setup()
 	route_linkage()
-	setup_space_destinations()
+	setup_space_destinations(force_all_rebuilds = TRUE)
 
 // A debugging proc that expresses the map's shape as a bunch of turfs
 /datum/zlev_manager/proc/map_as_turfs(turf/center)
@@ -404,9 +426,3 @@
 			else
 				our_spot = our_spot.ChangeTurf(/turf/simulated/floor/fakespace)
 			our_spot.desc = grid_desc
-
-
-#undef Z_LEVEL_NORTH
-#undef Z_LEVEL_SOUTH
-#undef Z_LEVEL_EAST
-#undef Z_LEVEL_WEST

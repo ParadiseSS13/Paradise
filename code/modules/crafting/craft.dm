@@ -233,11 +233,11 @@
 	if(busy)
 		dat += "<div class='statusDisplay'>Crafting in progress...</div>"
 	else
-		dat += "<A href='?src=\ref[src];backwardCat=1'><--</A>"
+		dat += "<A href='?src=[UID()];backwardCat=1'><--</A>"
 		dat += " [categories[prev_cat()]] |"
 		dat += " <B>[categories[viewing_category]]</B> "
 		dat += "| [categories[next_cat()]] "
-		dat += "<A href='?src=\ref[src];forwardCat=1'>--></A><BR><BR>"
+		dat += "<A href='?src=[UID()];forwardCat=1'>--></A><BR><BR>"
 
 		dat += "<div class='statusDisplay'>"
 
@@ -308,7 +308,7 @@
 	var/tool_text = ""
 	var/catalist_text = ""
 	if(check_contents(R, contents))
-		name_text ="<A href='?src=\ref[src];make=\ref[R]'>[R.name]</A>"
+		name_text ="<A href='?src=[UID()];make=\ref[R]'>[R.name]</A>"
 
 	else
 		name_text = "<span class='linkOff'>[R.name]</span>"

@@ -9,9 +9,12 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 1)
 	selection_color = "#ccccff"
 	idtype = /obj/item/weapon/card/id/gold
 	req_admin_notify = 1
+	is_command = 1
 	access = list() 			//See get_access()
 	minimal_access = list() 	//See get_access()
 	minimal_player_age = 30
+	exp_requirements = 600
+	exp_type = EXP_TYPE_CREW
 	equip(var/mob/living/carbon/human/H)
 		if(!H)	return 0
 		H.equip_or_collect(new /obj/item/device/radio/headset/heads/captain/alt(H), slot_l_ear)
@@ -19,7 +22,7 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 1)
 			if(2) H.equip_or_collect(new /obj/item/weapon/storage/backpack/captain(H), slot_back)
 			if(3) H.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel_cap(H), slot_back)
 			if(4) H.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel(H), slot_back)
-		H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H.back), slot_in_backpack)
+		H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H), slot_in_backpack)
 		var/obj/item/clothing/under/U = new /obj/item/clothing/under/rank/captain(H)
 		var/obj/item/clothing/accessory/medal/gold/captain/M = new /obj/item/clothing/accessory/medal/gold/captain(U)
 		U.accessories += M
@@ -30,11 +33,8 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 1)
 		H.equip_or_collect(new /obj/item/clothing/shoes/brown(H), slot_shoes)
 		H.equip_or_collect(new /obj/item/clothing/head/caphat(H), slot_head)
 		H.equip_or_collect(new /obj/item/clothing/glasses/sunglasses(H), slot_glasses)
-		if(H.backbag == 1)
-			H.equip_or_collect(new /obj/item/weapon/storage/box/ids(H), slot_r_hand)
-		else
-			H.equip_or_collect(new /obj/item/weapon/storage/box/ids(H.back), slot_in_backpack)
-			H.equip_or_collect(new /obj/item/weapon/melee/classic_baton/telescopic(H.back), slot_in_backpack)
+		H.equip_or_collect(new /obj/item/weapon/storage/box/ids(H), slot_in_backpack)
+		H.equip_or_collect(new /obj/item/weapon/melee/classic_baton/telescopic(H), slot_in_backpack)
 		var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(H)
 		L.imp_in = H
 		L.implanted = 1
@@ -58,7 +58,10 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 1)
 	selection_color = "#ddddff"
 	idtype = /obj/item/weapon/card/id/silver
 	req_admin_notify = 1
+	is_command = 1
 	minimal_player_age = 21
+	exp_requirements = 600
+	exp_type = EXP_TYPE_CREW
 	access = list(access_security, access_sec_doors, access_brig, access_court, access_forensics_lockers,
 			            access_medical, access_engine, access_change_ids, access_ai_upload, access_eva, access_heads,
 			            access_all_personal_lockers, access_maint_tunnels, access_bar, access_janitor, access_construction, access_morgue,
@@ -80,16 +83,13 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 1)
 			if(2) H.equip_or_collect(new /obj/item/weapon/storage/backpack(H), slot_back)
 			if(3) H.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel_norm(H), slot_back)
 			if(4) H.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel(H), slot_back)
-		H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H.back), slot_in_backpack)
 		H.equip_or_collect(new /obj/item/clothing/under/rank/head_of_personnel(H), slot_w_uniform)
 		H.equip_or_collect(new /obj/item/clothing/head/hopcap(H), slot_head)
 		H.equip_or_collect(new /obj/item/clothing/shoes/brown(H), slot_shoes)
 		H.equip_or_collect(new /obj/item/device/pda/heads/hop(H), slot_wear_pda)
-		if(H.backbag == 1)
-			H.equip_or_collect(new /obj/item/weapon/storage/box/ids(H), slot_r_hand)
-		else
-			H.equip_or_collect(new /obj/item/weapon/storage/box/ids(H.back), slot_in_backpack)
-			H.equip_or_collect(new /obj/item/weapon/melee/classic_baton/telescopic(H.back), slot_in_backpack)
+		H.equip_or_collect(new /obj/item/weapon/storage/box/ids(H), slot_in_backpack)
+		H.equip_or_collect(new /obj/item/weapon/melee/classic_baton/telescopic(H), slot_in_backpack)
+		H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H), slot_in_backpack)
 		return 1
 
 
@@ -103,6 +103,7 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 1)
 	selection_color = "#ddddff"
 	idtype = /obj/item/weapon/card/id/nanotrasen
 	req_admin_notify = 1
+	is_command = 1
 	minimal_player_age = 21
 	access = list(access_security, access_sec_doors, access_brig, access_court, access_forensics_lockers,
 			            access_medical, access_engine, access_change_ids, access_eva, access_heads,
@@ -124,13 +125,13 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 1)
 			if(2) H.equip_or_collect(new /obj/item/weapon/storage/backpack(H), slot_back)
 			if(3) H.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel_norm(H), slot_back)
 			if(4) H.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel(H), slot_back)
-		H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H.back), slot_in_backpack)
-		H.equip_or_collect(new /obj/item/weapon/melee/classic_baton/ntcane(H.back), slot_in_backpack)
-		H.equip_or_collect(new /obj/item/weapon/lighter/zippo/nt_rep(H.back), slot_in_backpack)
+		H.equip_or_collect(new /obj/item/weapon/melee/classic_baton/ntcane(H), slot_in_backpack)
+		H.equip_or_collect(new /obj/item/weapon/lighter/zippo/nt_rep(H), slot_in_backpack)
 		H.equip_or_collect(new /obj/item/clothing/under/rank/ntrep(H), slot_w_uniform)
 		H.equip_or_collect(new /obj/item/clothing/suit/storage/ntrep(H), slot_wear_suit)
 		H.equip_or_collect(new /obj/item/clothing/shoes/centcom(H), slot_shoes)
 		H.equip_or_collect(new /obj/item/device/pda/heads/ntrep(H), slot_wear_pda)
+		H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H), slot_in_backpack)
 		var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(H)
 		L.imp_in = H
 		L.implanted = 1
@@ -147,6 +148,7 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 1)
 	selection_color = "#ddddff"
 	idtype = /obj/item/weapon/card/id/nanotrasen
 	req_admin_notify = 1
+	is_command = 1
 	minimal_player_age = 21
 	access = list(access_security, access_sec_doors, access_brig, access_court, access_forensics_lockers,
 			            access_medical, access_engine, access_change_ids, access_eva, access_heads,
@@ -164,20 +166,15 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 1)
 			if(2) H.equip_or_collect(new /obj/item/weapon/storage/backpack/security(H), slot_back)
 			if(3) H.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel_norm(H), slot_back)
 			if(4) H.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel(H), slot_back)
-		H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H.back), slot_in_backpack)
 		H.equip_or_collect(new /obj/item/clothing/gloves/combat(H), slot_gloves)
 		H.equip_or_collect(new /obj/item/clothing/shoes/jackboots(H), slot_shoes)
 		H.equip_or_collect(new /obj/item/clothing/glasses/hud/health/health_advanced, slot_glasses)
 		H.equip_or_collect(new /obj/item/clothing/under/rank/blueshield(H), slot_w_uniform)
 		H.equip_or_collect(new /obj/item/clothing/suit/armor/vest/blueshield(H), slot_wear_suit)
 		H.equip_or_collect(new /obj/item/device/pda/heads/blueshield(H), slot_wear_pda)
-
-		if(H.backbag == 1)
-			H.equip_or_collect(new /obj/item/weapon/storage/box/deathimp(H), slot_r_hand)
-			H.equip_or_collect(new /obj/item/weapon/gun/energy/gun/blueshield(H), slot_l_hand)
-		else
-			H.equip_or_collect(new /obj/item/weapon/storage/box/deathimp(H.back), slot_in_backpack)
-			H.equip_or_collect(new /obj/item/weapon/gun/energy/gun/blueshield(H.back), slot_in_backpack)
+		H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H), slot_in_backpack)
+		H.equip_or_collect(new /obj/item/weapon/storage/box/deathimp(H), slot_in_backpack)
+		H.equip_or_collect(new /obj/item/weapon/gun/energy/gun/blueshield(H), slot_in_backpack)
 		var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(H)
 		L.imp_in = H
 		L.implanted = 1
@@ -194,6 +191,7 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 1)
 	selection_color = "#ddddff"
 	idtype = /obj/item/weapon/card/id/nanotrasen
 	req_admin_notify = 1
+	is_legal = 1
 	minimal_player_age = 30
 	access = list(access_security, access_sec_doors, access_brig, access_court, access_forensics_lockers,
 			            access_medical, access_engine, access_change_ids, access_eva, access_heads,
@@ -210,15 +208,15 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 1)
 			if(2) H.equip_or_collect(new /obj/item/weapon/storage/backpack(H), slot_back)
 			if(3) H.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel_norm(H), slot_back)
 			if(4) H.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel(H), slot_back)
-		H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H.back), slot_in_backpack)
 		H.equip_or_collect(new /obj/item/clothing/under/suit_jacket/really_black(H), slot_w_uniform)
 		H.equip_or_collect(new /obj/item/clothing/suit/judgerobe(H), slot_wear_suit)
 		H.equip_or_collect(new /obj/item/clothing/shoes/centcom(H), slot_shoes)
 		H.equip_or_collect(new /obj/item/clothing/head/powdered_wig(H), slot_head)
 		H.equip_or_collect(new /obj/item/clothing/glasses/hud/security/sunglasses(H), slot_glasses)
 		H.equip_or_collect(new /obj/item/device/pda/heads/magistrate(H), slot_wear_pda)
-		H.equip_or_collect(new /obj/item/weapon/melee/classic_baton/telescopic(H.back), slot_in_backpack)
+		H.equip_or_collect(new /obj/item/weapon/melee/classic_baton/telescopic(H), slot_in_backpack)
 		H.equip_or_collect(new /obj/item/device/flash(H), slot_r_store)
+		H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H), slot_in_backpack)
 		var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(H)
 		L.imp_in = H
 		L.implanted = 1
@@ -232,6 +230,7 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 1)
 	department_flag = SUPPORT
 	total_positions = 2
 	spawn_positions = 2
+	is_legal = 1
 	supervisors = "the magistrate"
 	selection_color = "#ddddff"
 	access = list(access_lawyer, access_court, access_sec_doors, access_maint_tunnels)
@@ -255,10 +254,7 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 1)
 		H.equip_or_collect(new /obj/item/weapon/storage/briefcase(H), slot_l_hand)
 		H.equip_or_collect(new /obj/item/device/laser_pointer(H), slot_l_store)
 		H.equip_or_collect(new /obj/item/device/flash(H), slot_r_store)
-		if(H.backbag == 1)
-			H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H), slot_r_hand)
-		else
-			H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H.back), slot_in_backpack)
+		H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H), slot_in_backpack)
 		var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(H)
 		L.imp_in = H
 		L.implanted = 1

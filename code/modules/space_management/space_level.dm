@@ -1,12 +1,14 @@
 /datum/space_level
 	var/name = "Your config settings failed, you need to fix this for the datum space levels to work"
 	var/zpos = 1
-	var/flags = 0 // We'll use this to keep track of whether you can teleport/etc
+	var/flags = list() // We'll use this to keep track of whether you can teleport/etc
 
 	// Map transition stuff
 	var/list/neighbors = list()
 	// # How this level connects with others. See __MAP_DEFINES.dm for defines
-	var/linkage = SELFLOOPING
+	// It's UNAFFECTED by default because none of the space turfs are normally linked up
+	// so we don't need to rebuild transitions if an UNAFFECTED level is requested
+	var/linkage = UNAFFECTED
 	// # imaginary placements on the grid - these reflect the point it is linked to
 	var/xi
 	var/yi
@@ -19,45 +21,117 @@
 	var/dirt_count = 0
 	var/list/init_list = list()
 
-/datum/space_level/New(z, name, transition_type = SELFLOOPING)
+/datum/space_level/New(z, name, transition_type = SELFLOOPING, traits = list(BLOCK_TELEPORT))
 	zpos = z
-	set_linkage(transition_type)
+	flags = traits
 	build_space_destination_arrays()
+	set_linkage(transition_type)
+
+/datum/space_level/Destroy()
+	if(linkage == CROSSLINKED)
+		if(space_manager.linkage_map)
+			remove_from_space_network(space_manager.linkage_map)
+
+	space_manager.unbuilt_space_transitions -= src
+	space_manager.z_list -= "[zpos]"
+	return ..()
 
 /datum/space_level/proc/build_space_destination_arrays()
-	var/timer = start_watch()
-	log_debug("Starting to build space destination arrays for z level '[zpos]'...")
-	for(var/turf/space/S in get_turfs())
+	// We skip `add_to_transit` here because we want to skip the checks in order to save time
+	// Bottom border
+	for(var/turf/space/S in block(locate(1,1,zpos),locate(world.maxx,TRANSITION_BORDER_SOUTH,zpos)))
+		transit_south |= S
 
-		// Bottom border
-		if(S.y <= TRANSITIONEDGE)
-			transit_south |= S
-			continue
+	// Top border
+	for(var/turf/space/S in block(locate(1,world.maxy,zpos),locate(world.maxx,TRANSITION_BORDER_NORTH,zpos)))
+		transit_north |= S
 
-		// Top border
-		if(S.y >= (world.maxy - TRANSITIONEDGE - 1))
-			transit_north |= S
-			continue
+	// Left border
+	for(var/turf/space/S in block(locate(1,TRANSITION_BORDER_SOUTH + 1,zpos),locate(TRANSITION_BORDER_WEST,TRANSITION_BORDER_NORTH - 1,zpos)))
+		transit_west |= S
 
-		// Left border
-		if(S.x <= TRANSITIONEDGE)
-			transit_west |= S
-			continue
+	// Right border
+	for(var/turf/space/S in block(locate(TRANSITION_BORDER_EAST,TRANSITION_BORDER_SOUTH + 1,zpos),locate(world.maxx,TRANSITION_BORDER_NORTH - 1,zpos)))
+		transit_east |= S
 
-		// Right border
-		if(S.x >= (world.maxx - TRANSITIONEDGE - 1))
-			transit_east |= S
-			continue
-	log_debug("Building space destination arrays complete, took [stop_watch(timer)]s.")
+/datum/space_level/proc/add_to_transit(turf/space/S)
+	if(S.y <= TRANSITION_BORDER_SOUTH)
+		transit_south |= S
+		return
+
+	// Top border
+	if(S.y >= TRANSITION_BORDER_NORTH)
+		transit_north |= S
+		return
+
+	// Left border
+	if(S.x <= TRANSITION_BORDER_WEST)
+		transit_west |= S
+		return
+
+	// Right border
+	if(S.x >= TRANSITION_BORDER_EAST)
+		transit_east |= S
+
+/datum/space_level/proc/remove_from_transit(turf/space/S)
+	if(S.y <= TRANSITION_BORDER_SOUTH)
+		transit_south -= S
+		return
+
+	// Top border
+	if(S.y >= TRANSITION_BORDER_NORTH)
+		transit_north -= S
+		return
+
+	// Left border
+	if(S.x <= TRANSITION_BORDER_WEST)
+		transit_west -= S
+		return
+
+	// Right border
+	if(S.x >= TRANSITION_BORDER_EAST)
+		transit_east -= S
+
+/datum/space_level/proc/apply_transition(turf/space/S)
+	if(src in space_manager.unbuilt_space_transitions)
+		return // Let the space manager handle this one
+	switch(linkage)
+		if(UNAFFECTED)
+			S.remove_transitions()
+		if(SELFLOOPING,CROSSLINKED)
+			var/datum/space_level/E = get_connection()
+			if(S in transit_north)
+				E = get_connection(Z_LEVEL_NORTH)
+				S.set_transition_north(E.zpos)
+			if(S in transit_south)
+				E = get_connection(Z_LEVEL_SOUTH)
+				S.set_transition_south(E.zpos)
+			if(S in transit_east)
+				E = get_connection(Z_LEVEL_EAST)
+				S.set_transition_east(E.zpos)
+			if(S in transit_west)
+				E = get_connection(Z_LEVEL_WEST)
+				S.set_transition_west(E.zpos)
+
 
 /datum/space_level/proc/get_turfs()
 	return block(locate(1, 1, zpos), locate(world.maxx, world.maxy, zpos))
 
 /datum/space_level/proc/set_linkage(transition_type)
-	linkage = transition_type
-	if(transition_type == SELFLOOPING)
-		link_to_self() // `link_to_self` is defined in space_transitions.dm
+	if(linkage == transition_type)
+		return
+	// Remove ourselves from the linkage map if we were cross-linked
+	if(linkage == CROSSLINKED)
+		if(space_manager.linkage_map)
+			remove_from_space_network(space_manager.linkage_map)
 
+	space_manager.unbuilt_space_transitions |= src
+	linkage = transition_type
+	switch(transition_type)
+		if(UNAFFECTED)
+			reset_connections()
+		if(SELFLOOPING)
+			link_to_self() // `link_to_self` is defined in space_transitions.dm
 
 /datum/space_level/proc/resume_init()
 	if(dirt_count > 0)

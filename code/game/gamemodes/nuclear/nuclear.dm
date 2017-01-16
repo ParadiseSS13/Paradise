@@ -50,13 +50,26 @@ proc/issyndicate(mob/living/M as mob)
 
 	for(var/datum/mind/synd_mind in syndicates)
 		synd_mind.assigned_role = "MODE" //So they aren't chosen for other jobs.
-		synd_mind.special_role = "Syndicate"//So they actually have a special role/N
+		synd_mind.special_role = SPECIAL_ROLE_NUKEOPS
 	return 1
 
 
 /datum/game_mode/nuclear/pre_setup()
+	..()
 	return 1
 
+/datum/game_mode/proc/remove_operative(datum/mind/operative_mind)
+	if(operative_mind in syndicates)
+		ticker.mode.syndicates -= operative_mind
+		operative_mind.special_role = null
+		for(var/datum/objective/nuclear/O in operative_mind.objectives)
+			operative_mind.objectives -= O
+		operative_mind.current.attack_log += "\[[time_stamp()]\] <span class='danger'>No longer nuclear operative</span>"
+		if(issilicon(operative_mind.current))
+			to_chat(operative_mind.current, "<span class='userdanger'>You have been turned into a robot! You are no longer a Syndicate operative.</span>")
+		else
+			to_chat(operative_mind.current, "<span class='userdanger'>You have been brainwashed! You are no longer a Syndicate operative.</span>")
+		ticker.mode.update_synd_icons_removed(operative_mind)
 
 ////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////
@@ -132,35 +145,28 @@ proc/issyndicate(mob/living/M as mob)
 	var/mob/living/carbon/human/M = synd_mind.current
 	var/obj/item/organ/external/head/head_organ = M.get_organ("head")
 
+	M.mutations = list()
+	M.disabilities = 0
+	M.overeatduration = 0
 	M.set_species("Human",1)
 	M.dna.ready_dna(M) // Quadriplegic Nuke Ops won't be participating in the paralympics
 
 	var/hair_c = pick("#8B4513","#000000","#FF4500","#FFD700") // Brown, black, red, blonde
 	var/eye_c = pick("#000000","#8B4513","1E90FF") // Black, brown, blue
 	var/skin_tone = pick(-50, -30, -10, 0, 0, 0, 10) // Caucasian/black
-	var/hair_style = "Bald"
-	var/facial_hair_style = "Shaved"
-	if(M.gender == MALE)
-		hair_style = pick(hair_styles_male_list)
-		facial_hair_style = pick(facial_hair_styles_list)
-	else
-		hair_style = pick(hair_styles_female_list)
-		if(prob(5))
-			facial_hair_style = pick(facial_hair_styles_list)
-
-	head_organ.r_facial = hex2num(copytext(hair_c, 2, 4))
-	head_organ.g_facial = hex2num(copytext(hair_c, 4, 6))
-	head_organ.b_facial = hex2num(copytext(hair_c, 6, 8))
-	head_organ.r_hair = hex2num(copytext(hair_c, 2, 4))
-	head_organ.g_hair = hex2num(copytext(hair_c, 4, 6))
-	head_organ.b_hair = hex2num(copytext(hair_c, 6, 8))
-	M.r_eyes = hex2num(copytext(eye_c, 2, 4))
-	M.g_eyes = hex2num(copytext(eye_c, 4, 6))
-	M.b_eyes = hex2num(copytext(eye_c, 6, 8))
+	head_organ.r_facial = color2R(hair_c)
+	head_organ.g_facial = color2G(hair_c)
+	head_organ.b_facial = color2B(hair_c)
+	head_organ.r_hair = color2R(hair_c)
+	head_organ.g_hair = color2G(hair_c)
+	head_organ.b_hair = color2B(hair_c)
+	M.change_eye_color(color2R(eye_c), color2G(eye_c), color2B(eye_c))
 	M.s_tone = skin_tone
-	head_organ.h_style = hair_style
-	head_organ.f_style = facial_hair_style
+	head_organ.h_style = random_hair_style(M.gender, head_organ.species.name)
+	head_organ.f_style = random_facial_hair_style(M.gender, head_organ.species.name)
 	M.body_accessory = null
+	M.regenerate_icons()
+	M.update_body()
 
 /datum/game_mode/proc/prepare_syndicate_leader(var/datum/mind/synd_mind, var/nuke_code)
 	var/leader_title = pick("Czar", "Boss", "Commander", "Chief", "Kingpin", "Director", "Overlord")
@@ -295,10 +301,7 @@ proc/issyndicate(mob/living/M as mob)
 /datum/game_mode/nuclear/declare_completion()
 	var/disk_rescued = 1
 	for(var/obj/item/weapon/disk/nuclear/D in world)
-		var/disk_area = get_area(D)
-		if(!is_type_in_list(disk_area, centcom_areas))
-			if(disk_area == shuttle_master.emergency.areaInstance && shuttle_master.emergency.mode >= SHUTTLE_ESCAPE) //snowflaked into objectives because shitty bay shuttles had areas to auto-determine this
-				break
+		if(!D.onCentcom())
 			disk_rescued = 0
 			break
 	var/crew_evacuated = (shuttle_master.emergency.mode >= SHUTTLE_ESCAPE)
@@ -360,7 +363,7 @@ proc/issyndicate(mob/living/M as mob)
 
 
 /datum/game_mode/proc/auto_declare_completion_nuclear()
-	if( syndicates.len || (ticker && istype(ticker.mode,/datum/game_mode/nuclear)) )
+	if(syndicates.len || GAMEMODE_IS_NUCLEAR)
 		var/text = "<br><FONT size=3><B>The syndicate operatives were:</B></FONT>"
 
 		var/purchases = ""

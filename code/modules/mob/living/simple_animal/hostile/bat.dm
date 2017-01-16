@@ -15,7 +15,7 @@
 	speed = 4
 	maxHealth = 20
 	health = 20
-
+	mob_size = MOB_SIZE_TINY
 	harm_intent_damage = 8
 	melee_damage_lower = 10
 	melee_damage_upper = 10

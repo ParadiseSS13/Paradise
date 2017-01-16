@@ -53,6 +53,8 @@
 
 	var/max_uses = 20
 	var/uses = 0
+	var/shards = 0
+	var/recycle = 3
 	var/emagged = 0
 	var/failmsg = ""
 	// How much to increase per each glass?
@@ -68,7 +70,7 @@
 
 /obj/item/device/lightreplacer/examine(mob/user)
 	if(..(user, 2))
-		to_chat(user, "It has [uses] lights remaining.")
+		to_chat(user, "It has [uses] lights and [shards] shards remaining.")
 
 /obj/item/device/lightreplacer/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/stack/sheet/glass))
@@ -89,14 +91,46 @@
 	if(istype(W, /obj/item/weapon/light))
 		var/obj/item/weapon/light/L = W
 		if(L.status == 0) // LIGHT OKAY
+			if(!user.drop_item())
+				to_chat(user, "[L] is stuck to your hand!")
+				return
 			if(uses < max_uses)
 				AddUses(1)
 				to_chat(user, "You insert the [L.name] into the [src.name]. You have [uses] lights remaining.")
 				user.drop_item()
 				qdel(L)
 				return
-		else
-			to_chat(user, "You need a working light.")
+		else if(L.status == 2 || L.status == 3)
+			if(!user.drop_item())
+				to_chat(user, "[L] is stuck to your hand!")
+				return
+			else
+				AddShards(1)
+				to_chat(user, "You insert [L] into [src]. You have [shards] shards remaining.")
+				user.drop_item()
+				qdel(L)
+				return
+
+	if(istype(W, /obj/item/weapon/storage))
+		var/obj/item/weapon/storage/S = W
+		var/found_lightbulbs = 0
+
+		for(var/obj/item/I in S.contents)
+			if(istype(I,/obj/item/weapon/light))
+				var/obj/item/weapon/light/L = I
+				found_lightbulbs = 1
+				if(uses >= max_uses)
+					to_chat(user, "<span class='warning'>[src] is full!</span>")
+					break
+				if(L.status == 0)
+					AddUses(1)
+					qdel(L)
+				else if(L.status == 2 || L.status == 3)
+					AddShards(1)
+					qdel(L)
+			to_chat(user, "<span class='notice'>You fill [src] with lights from [S].")
+		if(!found_lightbulbs)
+			to_chat(user, "<span class='warning'>[S] contains no bulbs.</span>")
 			return
 
 /obj/item/device/lightreplacer/emag_act(user as mob)
@@ -127,6 +161,14 @@
 // Negative numbers will subtract
 /obj/item/device/lightreplacer/proc/AddUses(var/amount = 1)
 	uses = min(max(uses + amount, 0), max_uses)
+
+/obj/item/device/lightreplacer/proc/AddShards(amount = 1)
+	shards += amount
+	var/recycled_lights = round(shards / recycle)
+	if(recycled_lights > 0)
+		AddUses(recycled_lights)
+	shards = shards % recycle
+	return recycled_lights
 
 /obj/item/device/lightreplacer/proc/Charge(var/mob/user)
 	charge += 1

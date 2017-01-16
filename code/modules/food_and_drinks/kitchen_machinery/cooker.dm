@@ -59,8 +59,8 @@
 
 // Burns the food with a chance of starting a fire - for if you try cooking something that's already been cooked that way
 // if burns = 0 then it'll just tell you that the item is already that foodtype and it would do nothing
-// if you wanted a different side effect set burns to 1 and override burn()
-/obj/machinery/cooker/proc/burn(mob/user, obj/item/weapon/reagent_containers/props)
+// if you wanted a different side effect set burns to 1 and override burn_food()
+/obj/machinery/cooker/proc/burn_food(mob/user, obj/item/weapon/reagent_containers/props)
 	var/obj/item/weapon/reagent_containers/food/snacks/badrecipe/burnt = new(get_turf(src))
 	setRegents(props, burnt)
 	to_chat(user, "<span class='warning'>You smell burning coming from the [src]!</span>")
@@ -130,7 +130,7 @@
 				return
 		if(istype(I, /obj/item/weapon/reagent_containers/food/snacks))
 			if(checkCooked(I))
-				burn(user, I)
+				burn_food(user, I)
 				turnoff(I)
 				return
 		var/obj/item/weapon/reagent_containers/food/snacks/newfood = gettype()

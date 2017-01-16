@@ -276,8 +276,8 @@ obj/item/device/flashlight/lamp/bananalamp
 											"<span class='userdanger'>[user] blinks \the [src] at \the [A].")
 		if(ismob(A))
 			var/mob/M = A
-			add_logs(M, user, "attacked", object="EMP-light")
-		to_chat(user, "\The [src] now has [emp_cur_charges] charge\s.")
+			add_logs(user, M, "attacked", object="EMP-light")
+		to_chat(user, "[src] now has [emp_cur_charges] charge\s.")
 		A.emp_act(1)
 	else
 		to_chat(user, "<span class='warning'>\The [src] needs time to recharge!</span>")

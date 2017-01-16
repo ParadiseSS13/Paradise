@@ -37,8 +37,7 @@
 					CC.post_status("alert", "outline")
 
 				for(var/obj/machinery/firealarm/FA in world)
-					// TODO: Tie into space manager
-					if((FA.z in config.contact_levels))
+					if(is_station_contact(FA.z))
 						FA.overlays = list()
 						FA.overlays += image('icons/obj/monitors.dmi', "overlay_green")
 
@@ -54,8 +53,7 @@
 					CC.post_status("alert", "outline")
 
 				for(var/obj/machinery/firealarm/FA in world)
-					// TODO: Tie into space manager
-					if((FA.z in config.contact_levels))
+					if(is_station_contact(FA.z))
 						FA.overlays = list()
 						FA.overlays += image('icons/obj/monitors.dmi', "overlay_blue")
 
@@ -67,8 +65,7 @@
 				security_level = SEC_LEVEL_RED
 
 				var/obj/machinery/door/airlock/highsecurity/red/R = locate(/obj/machinery/door/airlock/highsecurity/red) in world
-				// TODO: Tie into space manager
-				if(R && (R.z in config.station_levels))
+				if(R && is_station_level(R.z))
 					R.locked = 0
 					R.update_icon()
 
@@ -77,8 +74,7 @@
 					CC.post_status("alert", "redalert")
 
 				for(var/obj/machinery/firealarm/FA in world)
-					// TODO: Tie into space manager
-					if((FA.z in config.contact_levels))
+					if(is_station_contact(FA.z))
 						FA.overlays = list()
 						FA.overlays += image('icons/obj/monitors.dmi', "overlay_red")
 
@@ -89,15 +85,13 @@
 				move_gamma_ship()
 
 				if(security_level < SEC_LEVEL_RED)
-					for(var/obj/machinery/door/airlock/highsecurity/red/R in world)
-						// TODO: Tie into space manager
-						if((R.z in config.station_levels))
+					for(var/obj/machinery/door/airlock/highsecurity/red/R in airlocks)
+						if(is_station_level(R.z))
 							R.locked = 0
 							R.update_icon()
 
-				for(var/obj/machinery/door/airlock/hatch/gamma/H in world)
-					// TODO: Tie into space manager
-					if((H.z in config.station_levels))
+				for(var/obj/machinery/door/airlock/hatch/gamma/H in airlocks)
+					if(is_station_level(H.z))
 						H.locked = 0
 						H.update_icon()
 
@@ -106,8 +100,7 @@
 					CC.post_status("alert", "gammaalert")
 
 				for(var/obj/machinery/firealarm/FA in world)
-					// TODO: Tie into space manager
-					if((FA.z in config.contact_levels))
+					if(is_station_contact(FA.z))
 						FA.overlays = list()
 						FA.overlays += image('icons/obj/monitors.dmi', "overlay_gamma")
 						FA.update_icon()
@@ -121,8 +114,7 @@
 					CC.post_status("alert", "epsilonalert")
 
 				for(var/obj/machinery/firealarm/FA in world)
-					// TODO: Tie into space manager
-					if((FA.z in config.contact_levels))
+					if(is_station_contact(FA.z))
 						FA.overlays = list()
 						FA.overlays += image('icons/obj/monitors.dmi', "overlay_epsilon")
 
@@ -135,8 +127,7 @@
 					CC.post_status("alert", "deltaalert")
 
 				for(var/obj/machinery/firealarm/FA in world)
-					// TODO: Tie into space manager
-					if((FA.z in config.contact_levels))
+					if(is_station_contact(FA.z))
 						FA.overlays = list()
 						FA.overlays += image('icons/obj/monitors.dmi', "overlay_delta")
 

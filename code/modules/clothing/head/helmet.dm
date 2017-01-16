@@ -11,6 +11,7 @@
 	heat_protection = HEAD
 	max_heat_protection_temperature = HELMET_MAX_TEMP_PROTECT
 	strip_delay = 60
+	burn_state = FIRE_PROOF
 	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/helmet.dmi',
@@ -62,7 +63,7 @@
 	name = "night-vision helmet"
 	desc = "A helmet with a built-in pair of night vision goggles."
 	icon_state = "helmetNVG"
-	see_darkness = 0
+	helmet_goggles_invis_view = SEE_INVISIBLE_MINIMUM //don't render darkness while wearing these
 
 /obj/item/clothing/head/helmet/alt
 	name = "bulletproof helmet"

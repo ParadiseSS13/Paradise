@@ -12,13 +12,15 @@
 		animation.master = src
 
 		playsound(src.loc, 'sound/goonstation/effects/gib.ogg', 50, 1)
+	else
+		playsound(src.loc, 'sound/goonstation/effects/robogib.ogg', 50, 1)
 
 	for(var/obj/item/organ/internal/I in internal_organs)
 		if(isturf(loc))
-			I.remove(src)
-			I.forceMove(get_turf(src))
+			var/atom/movable/thing = I.remove(src)
+			thing.forceMove(get_turf(src))
 			spawn()
-				I.throw_at(get_edge_target_turf(src,pick(alldirs)),rand(1,3),5)
+				thing.throw_at(get_edge_target_turf(src,pick(alldirs)),rand(1,3),5)
 
 	for(var/obj/item/organ/external/E in src.organs)
 		if(istype(E, /obj/item/organ/external/chest))
@@ -38,7 +40,7 @@
 		flick("gibbed-h", animation)
 		hgibs(loc, viruses, dna)
 	else
-		new /obj/effect/decal/cleanable/blood/gibs/robot(src.loc)
+		new /obj/effect/decal/cleanable/blood/gibs/robot(loc)
 		var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 		s.set_up(3, 1, src)
 		s.start()
@@ -61,7 +63,7 @@
 	animation.master = src
 
 	flick("dust-h", animation)
-	new /obj/effect/decal/remains/human(loc)
+	new species.remains_type(get_turf(src))
 
 	spawn(15)
 		if(animation)	qdel(animation)
@@ -95,8 +97,8 @@
 		emote("deathgasp") //let the world KNOW WE ARE DEAD
 
 	stat = DEAD
-	dizziness = 0
-	jitteriness = 0
+	SetDizzy(0)
+	SetJitter(0)
 	heart_attack = 0
 
 	//Handle species-specific deaths.
@@ -126,10 +128,10 @@
 	if(!gibbed)
 		update_canmove()
 
-	timeofdeath = worldtime2text()
+	timeofdeath = world.time
 	med_hud_set_health()
 	med_hud_set_status()
-	if(mind)	mind.store_memory("Time of death: [timeofdeath]", 0)
+	if(mind)	mind.store_memory("Time of death: [worldtime2text(timeofdeath)]", 0)
 	if(ticker && ticker.mode)
 //		log_to_dd("k")
 		sql_report_death(src)
@@ -140,17 +142,32 @@
 
 	return ..(gibbed)
 
+/mob/living/carbon/human/update_revive()
+	..()
+	// Update healthdoll
+	if(healthdoll)
+		// We're alive again, so re-build the entire healthdoll
+		healthdoll.cached_healthdoll_overlays.Cut()
+
 /mob/living/carbon/human/proc/makeSkeleton()
 	var/obj/item/organ/external/head/H = get_organ("head")
 	if(SKELETON in src.mutations)	return
 
 	if(istype(H))
 		if(H.f_style)
-			H.f_style = "Shaved"
+			H.f_style = initial(H.f_style)
 		if(H.h_style)
-			H.h_style = "Bald"
+			H.h_style = initial(H.h_style)
+		if(H.ha_style)
+			H.ha_style = initial(H.ha_style)
+		if(H.alt_head)
+			H.alt_head = initial(H.alt_head)
+			H.handle_alt_icon()
+	m_styles = DEFAULT_MARKING_STYLES
 	update_fhair(0)
 	update_hair(0)
+	update_head_accessory(0)
+	update_markings(0)
 
 	mutations.Add(SKELETON)
 	mutations.Add(NOCLONE)

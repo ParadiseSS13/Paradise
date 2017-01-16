@@ -64,6 +64,13 @@
 	duration = 8
 	randomdir = 0
 
+/obj/effect/overlay/temp/kinetic_blast
+	name = "kinetic explosion"
+	icon = 'icons/obj/projectiles.dmi'
+	icon_state = "kinetic_blast"
+	layer = 4.1
+	duration = 4
+
 /obj/effect/overlay/palmtree_r
 	name = "Palm tree"
 	icon = 'icons/misc/beach2.dmi'
@@ -90,3 +97,75 @@
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "admin"
 	layer = 4.1
+
+/obj/effect/overlay/wall_rot
+	name = "Wallrot"
+	desc = "Ick..."
+	icon = 'icons/effects/wallrot.dmi'
+	anchored = 1
+	density = 1
+	layer = 5
+	mouse_opacity = 0
+
+/obj/effect/overlay/wall_rot/New()
+	..()
+	pixel_x += rand(-10, 10)
+	pixel_y += rand(-10, 10)
+/obj/effect/overlay/temp/cult
+	randomdir = 0
+	duration = 10
+
+
+	icon = 'icons/effects/effects.dmi'
+
+/obj/effect/overlay/temp/cult/sparks
+	randomdir = 1
+	name = "blood sparks"
+	icon_state = "bloodsparkles"
+
+/obj/effect/overlay/temp/cult/phase
+	name = "phase glow"
+	duration = 7
+	icon_state = "cultin"
+
+/obj/effect/overlay/temp/cult/phase/New(loc, set_dir)
+	..()
+	if(set_dir)
+		dir = set_dir
+
+/obj/effect/overlay/temp/cult/phase/out
+	icon_state = "cultout"
+
+/obj/effect/overlay/temp/heal //color is white by default, set to whatever is needed
+	name = "healing glow"
+	icon = 'icons/effects/effects.dmi'
+	icon_state = "heal"
+	duration = 15
+	
+/obj/effect/overlay/temp/heal/New(loc, colour)
+	..()
+	pixel_x = rand(-12, 12)
+	pixel_y = rand(-9, 0)
+	if(colour)
+		color = colour
+
+/obj/effect/overlay/temp/cult/sac
+	name = "maw of Nar-Sie"
+	icon_state = "sacconsume"
+
+/obj/effect/overlay/temp/cult/door
+	name = "unholy glow"
+	icon_state = "doorglow"
+	layer = 3.17 //above closed doors
+
+/obj/effect/overlay/temp/cult/door/unruned
+	icon_state = "unruneddoorglow"
+
+/obj/effect/overlay/temp/cult/turf
+	name = "unholy glow"
+	icon_state = "wallglow"
+	layer = TURF_LAYER + 0.07
+
+/obj/effect/overlay/temp/cult/turf/open/floor
+	icon_state = "floorglow"
+	duration = 5

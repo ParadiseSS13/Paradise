@@ -116,7 +116,7 @@
 		r_hand_obj.flags ^= NODROP
 
 /obj/item/organ/internal/cyberimp/brain/anti_drop/remove(var/mob/living/carbon/M, special = 0)
-	..()
+	. = ..()
 	if(active)
 		ui_action_click()
 
@@ -133,9 +133,9 @@
 	if(crit_fail)
 		return
 	if(owner.stunned > STUN_SET_AMOUNT)
-		owner.stunned = STUN_SET_AMOUNT
+		owner.SetStunned(STUN_SET_AMOUNT)
 	if(owner.weakened > STUN_SET_AMOUNT)
-		owner.weakened = STUN_SET_AMOUNT
+		owner.SetWeakened(STUN_SET_AMOUNT)
 
 /obj/item/organ/internal/cyberimp/brain/anti_stun/emp_act(severity)
 	if(crit_fail)
@@ -164,7 +164,7 @@
 	desc = "This implant with synthesize and pump into your bloodstream a small amount of nutriment when you are starving."
 	icon_state = "chest_implant"
 	implant_color = "#00AA00"
-	var/hunger_threshold = 150
+	var/hunger_threshold = NUTRITION_LEVEL_STARVING
 	var/synthesizing = 0
 	var/poison_amount = 5
 	slot = "stomach"
@@ -195,7 +195,7 @@
 	desc = "This implant will synthesize and pump into your bloodstream a small amount of nutriment when you are hungry."
 	icon_state = "chest_implant"
 	implant_color = "#006607"
-	hunger_threshold = 300
+	hunger_threshold = NUTRITION_LEVEL_HUNGRY
 	poison_amount = 10
 	origin_tech = "materials=5;programming=3;biotech=5"
 

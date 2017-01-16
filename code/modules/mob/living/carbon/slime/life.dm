@@ -208,25 +208,25 @@
 	if(src.stuttering) src.stuttering = 0
 
 	if(src.eye_blind)
-		src.eye_blind = 0
+		src.SetEyeBlind(0)
 		src.blinded = 1
 
-	if(src.ear_deaf > 0) src.ear_deaf = 0
+	if(src.ear_deaf > 0) SetEarDeaf(0)
 	if(src.ear_damage < 25)
-		src.ear_damage = 0
+		SetEarDamage(0)
 
 	src.density = !( src.lying )
 
 	if(src.disabilities & BLIND)
 		src.blinded = 1
 	if(src.disabilities & DEAF)
-		src.ear_deaf = 1
+		EarDeaf(1)
 
 	if(src.eye_blurry > 0)
-		src.eye_blurry = 0
+		SetEyeBlurry(0)
 
 	if(src.druggy > 0)
-		src.druggy = 0
+		SetDruggy(0)
 
 	return 1
 

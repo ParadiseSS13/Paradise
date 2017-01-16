@@ -96,8 +96,8 @@ var/list/possible_uplinker_IDs = list("Alfa","Bravo","Charlie","Delta","Echo","F
 	if(uplinkholder)
 		dat += "[uplinkholder.hidden_uplink.uses] telecrystals remain in this uplink.<BR>"
 		if(linkedboss)
-			dat += "Donate TC: <a href='byond://?src=\ref[src];donate1=1'>1</a> | <a href='byond://?src=\ref[src];donate5=1'>5</a>"
-		dat += "<br><a href='byond://?src=\ref[src];eject=1'>Eject Uplink</a>"
+			dat += "Donate TC: <a href='byond://?src=[UID()];donate1=1'>1</a> | <a href='byond://?src=[UID()];donate5=1'>5</a>"
+		dat += "<br><a href='byond://?src=[UID()];eject=1'>Eject Uplink</a>"
 
 
 	var/datum/browser/popup = new(user, "computer", "Telecrystal Upload/Recieve Station", 700, 500)
@@ -168,7 +168,7 @@ var/list/possible_uplinker_IDs = list("Alfa","Bravo","Charlie","Delta","Echo","F
 
 
 	var/dat = ""
-	dat += "<a href='byond://?src=\ref[src];scan=1'>Scan for TC stations.</a><BR>"
+	dat += "<a href='byond://?src=[UID()];scan=1'>Scan for TC stations.</a><BR>"
 	dat += "This [src] has [storedcrystals] telecrystals available for distribution. <BR>"
 	dat += "<BR><BR>"
 
@@ -178,11 +178,11 @@ var/list/possible_uplinker_IDs = list("Alfa","Bravo","Charlie","Delta","Echo","F
 		if(A.uplinkholder)
 			dat += "[A.uplinkholder.hidden_uplink.uses] telecrystals."
 		if(storedcrystals)
-			dat+= "<BR>Add TC: <a href ='?src=\ref[src];give1=\ref[A]'>1</a> | <a href ='?src=\ref[src];give5=\ref[A]'>5</a>"
+			dat+= "<BR>Add TC: <a href ='?src=[UID()];give1=\ref[A]'>1</a> | <a href ='?src=[UID()];give5=\ref[A]'>5</a>"
 		dat += "<BR>"
 
 	if(TCstations.len)
-		dat += "<BR><BR><a href='byond://?src=\ref[src];distrib=1'>Evenly distribute remaining TC.</a><BR><BR>"
+		dat += "<BR><BR><a href='byond://?src=[UID()];distrib=1'>Evenly distribute remaining TC.</a><BR><BR>"
 
 
 	for(var/entry in transferlog)

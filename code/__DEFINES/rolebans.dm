@@ -4,7 +4,6 @@ var/global/list/antag_roles = list(
 	ROLE_OPERATIVE,
 	ROLE_CHANGELING,
 	ROLE_WIZARD,
-	ROLE_MALF,
 	ROLE_REV,
 	ROLE_ALIEN,
 	ROLE_CULTIST,
@@ -13,12 +12,12 @@ var/global/list/antag_roles = list(
 	ROLE_SHADOWLING,
 	ROLE_RAIDER,
 	ROLE_VAMPIRE,
-	ROLE_MUTINEER,
 	ROLE_BORER,
 	ROLE_DEMON,
 	ROLE_REVENANT,
 	ROLE_GUARDIAN,
 	ROLE_MORPH,
+	ROLE_GSPIDER,
 )
 
 // Bannable other roles

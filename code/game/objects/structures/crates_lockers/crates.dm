@@ -84,8 +84,7 @@
 	if(istype(W, /obj/item/weapon/rcs) && !src.opened)
 		var/obj/item/weapon/rcs/E = W
 		if(E.rcell && (E.rcell.charge >= E.chargecost))
-			// TODO: Tie into space manager
-			if(!(src.z in config.player_levels))
+			if(!is_level_reachable(src.z)) // This is inconsistent with the closet sending code
 				to_chat(user, "<span class='warning'>The rapid-crate-sender can't locate any telepads!</span>")
 				return
 			if(E.mode == 0)

@@ -6,13 +6,13 @@
 	//set src in world
 
 
-	if(!usr.client || !usr.client.holder)
-		to_chat(usr, "\red You need to be an administrator to access this.")
+	if(!is_admin(usr))
+		to_chat(usr, "<span class='warning'>You need to be an administrator to access this.</span>")
 		return
 
 
 	var/title = ""
-	var/body = ""
+	var/list/body = list()
 
 	if(!D)	return
 	if(istype(D, /atom))
@@ -53,7 +53,7 @@
 										location.href=alist\[0\].href;
 									}
 								}
-							}catch(err) {   }
+							}catch(err) {	 }
 						}
 						return
 					}
@@ -74,7 +74,7 @@
 										return
 									}
 								}
-							}catch(err) {  }
+							}catch(err) {	}
 						}
 						return
 					}
@@ -95,7 +95,7 @@
 										return
 									}
 								}
-							}catch(err) {  }
+							}catch(err) {	}
 						}
 						return
 					}
@@ -121,7 +121,7 @@
 									vars_ol.removeChild(li);
 									i--;
 								}
-							}catch(err) {   }
+							}catch(err) {	 }
 						}
 					}
 					var lis_new = vars_ol.getElementsByTagName("li");
@@ -170,27 +170,27 @@
 	if(istype(D,/atom))
 		var/atom/A = D
 		if(isliving(A))
-			body += "<a href='?_src_=vars;rename=\ref[D]'><b>[D]</b></a>"
+			body += "<a href='?_src_=vars;rename=[D.UID()]'><b>[D]</b></a>"
 			if(A.dir)
-				body += "<br><font size='1'><a href='?_src_=vars;rotatedatum=\ref[D];rotatedir=left'><<</a> <a href='?_src_=vars;datumedit=\ref[D];varnameedit=dir'>[dir2text(A.dir)]</a> <a href='?_src_=vars;rotatedatum=\ref[D];rotatedir=right'>>></a></font>"
+				body += "<br><font size='1'><a href='?_src_=vars;rotatedatum=[D.UID()];rotatedir=left'><<</a> <a href='?_src_=vars;datumedit=[D.UID()];varnameedit=dir'>[dir2text(A.dir)]</a> <a href='?_src_=vars;rotatedatum=[D.UID()];rotatedir=right'>>></a></font>"
 			var/mob/living/M = A
-			body += "<br><font size='1'><a href='?_src_=vars;datumedit=\ref[D];varnameedit=ckey'>[M.ckey ? M.ckey : "No ckey"]</a> / <a href='?_src_=vars;datumedit=\ref[D];varnameedit=real_name'>[M.real_name ? M.real_name : "No real name"]</a></font>"
+			body += "<br><font size='1'><a href='?_src_=vars;datumedit=[D.UID()];varnameedit=ckey'>[M.ckey ? M.ckey : "No ckey"]</a> / <a href='?_src_=vars;datumedit=[D.UID()];varnameedit=real_name'>[M.real_name ? M.real_name : "No real name"]</a></font>"
 			body += {"
 			<br><font size='1'>
-			BRUTE:<font size='1'><a href='?_src_=vars;mobToDamage=\ref[D];adjustDamage=brute'>[M.getBruteLoss()]</a>
-			FIRE:<font size='1'><a href='?_src_=vars;mobToDamage=\ref[D];adjustDamage=fire'>[M.getFireLoss()]</a>
-			TOXIN:<font size='1'><a href='?_src_=vars;mobToDamage=\ref[D];adjustDamage=toxin'>[M.getToxLoss()]</a>
-			OXY:<font size='1'><a href='?_src_=vars;mobToDamage=\ref[D];adjustDamage=oxygen'>[M.getOxyLoss()]</a>
-			CLONE:<font size='1'><a href='?_src_=vars;mobToDamage=\ref[D];adjustDamage=clone'>[M.getCloneLoss()]</a>
-			BRAIN:<font size='1'><a href='?_src_=vars;mobToDamage=\ref[D];adjustDamage=brain'>[M.getBrainLoss()]</a>
+			BRUTE:<font size='1'><a href='?_src_=vars;mobToDamage=[D.UID()];adjustDamage=brute'>[M.getBruteLoss()]</a>
+			FIRE:<font size='1'><a href='?_src_=vars;mobToDamage=[D.UID()];adjustDamage=fire'>[M.getFireLoss()]</a>
+			TOXIN:<font size='1'><a href='?_src_=vars;mobToDamage=[D.UID()];adjustDamage=toxin'>[M.getToxLoss()]</a>
+			OXY:<font size='1'><a href='?_src_=vars;mobToDamage=[D.UID()];adjustDamage=oxygen'>[M.getOxyLoss()]</a>
+			CLONE:<font size='1'><a href='?_src_=vars;mobToDamage=[D.UID()];adjustDamage=clone'>[M.getCloneLoss()]</a>
+			BRAIN:<font size='1'><a href='?_src_=vars;mobToDamage=[D.UID()];adjustDamage=brain'>[M.getBrainLoss()]</a>
 			</font>
 
 
 			"}
 		else
-			body += "<a href='?_src_=vars;datumedit=\ref[D];varnameedit=name'><b>[D]</b></a>"
+			body += "<a href='?_src_=vars;datumedit=[D.UID()];varnameedit=name'><b>[D]</b></a>"
 			if(A.dir)
-				body += "<br><font size='1'><a href='?_src_=vars;rotatedatum=\ref[D];rotatedir=left'><<</a> <a href='?_src_=vars;datumedit=\ref[D];varnameedit=dir'>[dir2text(A.dir)]</a> <a href='?_src_=vars;rotatedatum=\ref[D];rotatedir=right'>>></a></font>"
+				body += "<br><font size='1'><a href='?_src_=vars;rotatedatum=[D.UID()];rotatedir=left'><<</a> <a href='?_src_=vars;datumedit=[D.UID()];varnameedit=dir'>[dir2text(A.dir)]</a> <a href='?_src_=vars;rotatedatum=[D.UID()];rotatedir=right'>>></a></font>"
 	else
 		body += "<b>[D]</b>"
 
@@ -216,7 +216,7 @@
 
 	body += "</div></td>"
 
-	body += "<td width='50%'><div align='center'><a href='?_src_=vars;datumrefresh=\ref[D]'>Refresh</a>"
+	body += "<td width='50%'><div align='center'><a href='?_src_=vars;datumrefresh=[D.UID()]'>Refresh</a>"
 
 	body += {"	<form>
 				<select name="file" size="1"
@@ -231,54 +231,54 @@
 			"}
 
 
-	body += "<option value='?_src_=vars;mark_object=\ref[D]'>Mark Object</option>"
-	body += "<option value='?_src_=vars;proc_call=\ref[D]'>Call Proc</option>"
-	body += "<option value='?_src_=vars;jump_to=\ref[D]'>Jump to Object</option>"
+	body += "<option value='?_src_=vars;mark_object=[D.UID()]'>Mark Object</option>"
+	body += "<option value='?_src_=vars;proc_call=[D.UID()]'>Call Proc</option>"
+	body += "<option value='?_src_=vars;jump_to=[D.UID()]'>Jump to Object</option>"
 	if(ismob(D))
-		body += "<option value='?_src_=vars;mob_player_panel=\ref[D]'>Show player panel</option>"
+		body += "<option value='?_src_=vars;mob_player_panel=[D.UID()]'>Show player panel</option>"
 
 	body += "<option value>---</option>"
 
 	if(ismob(D))
-		body += "<option value='?_src_=vars;give_spell=\ref[D]'>Give Spell</option>"
-		body += "<option value='?_src_=vars;give_disease=\ref[D]'>Give Disease</option>"
-		body += "<option value='?_src_=vars;godmode=\ref[D]'>Toggle Godmode</option>"
-		body += "<option value='?_src_=vars;build_mode=\ref[D]'>Toggle Build Mode</option>"
+		body += "<option value='?_src_=vars;give_spell=[D.UID()]'>Give Spell</option>"
+		body += "<option value='?_src_=vars;give_disease=[D.UID()]'>Give Disease</option>"
+		body += "<option value='?_src_=vars;godmode=[D.UID()]'>Toggle Godmode</option>"
+		body += "<option value='?_src_=vars;build_mode=[D.UID()]'>Toggle Build Mode</option>"
 
-		body += "<option value='?_src_=vars;make_skeleton=\ref[D]'>Make 2spooky</option>"
+		body += "<option value='?_src_=vars;make_skeleton=[D.UID()]'>Make 2spooky</option>"
 
-		body += "<option value='?_src_=vars;direct_control=\ref[D]'>Assume Direct Control</option>"
-		body += "<option value='?_src_=vars;offer_control=\ref[D]'>Offer Control to Ghosts</option>"
-		body += "<option value='?_src_=vars;drop_everything=\ref[D]'>Drop Everything</option>"
+		body += "<option value='?_src_=vars;direct_control=[D.UID()]'>Assume Direct Control</option>"
+		body += "<option value='?_src_=vars;offer_control=[D.UID()]'>Offer Control to Ghosts</option>"
+		body += "<option value='?_src_=vars;drop_everything=[D.UID()]'>Drop Everything</option>"
 
-		body += "<option value='?_src_=vars;regenerateicons=\ref[D]'>Regenerate Icons</option>"
-		body += "<option value='?_src_=vars;addlanguage=\ref[D]'>Add Language</option>"
-		body += "<option value='?_src_=vars;remlanguage=\ref[D]'>Remove Language</option>"
-		body += "<option value='?_src_=vars;addorgan=\ref[D]'>Add Organ</option>"
-		body += "<option value='?_src_=vars;remorgan=\ref[D]'>Remove Organ</option>"
+		body += "<option value='?_src_=vars;regenerateicons=[D.UID()]'>Regenerate Icons</option>"
+		body += "<option value='?_src_=vars;addlanguage=[D.UID()]'>Add Language</option>"
+		body += "<option value='?_src_=vars;remlanguage=[D.UID()]'>Remove Language</option>"
+		body += "<option value='?_src_=vars;addorgan=[D.UID()]'>Add Organ</option>"
+		body += "<option value='?_src_=vars;remorgan=[D.UID()]'>Remove Organ</option>"
 
-		body += "<option value='?_src_=vars;fix_nano=\ref[D]'>Fix NanoUI</option>"
+		body += "<option value='?_src_=vars;fix_nano=[D.UID()]'>Fix NanoUI</option>"
 
-		body += "<option value='?_src_=vars;addverb=\ref[D]'>Add Verb</option>"
-		body += "<option value='?_src_=vars;remverb=\ref[D]'>Remove Verb</option>"
+		body += "<option value='?_src_=vars;addverb=[D.UID()]'>Add Verb</option>"
+		body += "<option value='?_src_=vars;remverb=[D.UID()]'>Remove Verb</option>"
 		if(ishuman(D))
 			body += "<option value>---</option>"
-			body += "<option value='?_src_=vars;setspecies=\ref[D]'>Set Species</option>"
-			body += "<option value='?_src_=vars;makeai=\ref[D]'>Make AI</option>"
-			body += "<option value='?_src_=vars;makemask=\ref[D]'>Make Mask of Nar'sie</option>"
-			body += "<option value='?_src_=vars;makerobot=\ref[D]'>Make cyborg</option>"
-			body += "<option value='?_src_=vars;makemonkey=\ref[D]'>Make monkey</option>"
-			body += "<option value='?_src_=vars;makealien=\ref[D]'>Make alien</option>"
-			body += "<option value='?_src_=vars;makeslime=\ref[D]'>Make slime</option>"
-			body += "<option value='?_src_=vars;makesuper=\ref[D]'>Make superhero</option>"
+			body += "<option value='?_src_=vars;setspecies=[D.UID()]'>Set Species</option>"
+			body += "<option value='?_src_=vars;makeai=[D.UID()]'>Make AI</option>"
+			body += "<option value='?_src_=vars;makemask=[D.UID()]'>Make Mask of Nar'sie</option>"
+			body += "<option value='?_src_=vars;makerobot=[D.UID()]'>Make cyborg</option>"
+			body += "<option value='?_src_=vars;makemonkey=[D.UID()]'>Make monkey</option>"
+			body += "<option value='?_src_=vars;makealien=[D.UID()]'>Make alien</option>"
+			body += "<option value='?_src_=vars;makeslime=[D.UID()]'>Make slime</option>"
+			body += "<option value='?_src_=vars;makesuper=[D.UID()]'>Make superhero</option>"
 		body += "<option value>---</option>"
-		body += "<option value='?_src_=vars;gib=\ref[D]'>Gib</option>"
+		body += "<option value='?_src_=vars;gib=[D.UID()]'>Gib</option>"
 	if(isobj(D))
-		body += "<option value='?_src_=vars;delall=\ref[D]'>Delete all of type</option>"
+		body += "<option value='?_src_=vars;delall=[D.UID()]'>Delete all of type</option>"
 	if(isobj(D) || ismob(D) || isturf(D))
-		body += "<option value='?_src_=vars;addreagent=\ref[D]'>Add reagent</option>"
-		body += "<option value='?_src_=vars;explode=\ref[D]'>Trigger explosion</option>"
-		body += "<option value='?_src_=vars;emp=\ref[D]'>Trigger EM pulse</option>"
+		body += "<option value='?_src_=vars;addreagent=[D.UID()]'>Add reagent</option>"
+		body += "<option value='?_src_=vars;explode=[D.UID()]'>Trigger explosion</option>"
+		body += "<option value='?_src_=vars;emp=[D.UID()]'>Trigger EM pulse</option>"
 
 	body += "</select></form>"
 
@@ -319,7 +319,7 @@ body
 }
 </style>"}
 	html += "</head><body>"
-	html += body
+	html += body.Join("")
 
 	html += {"
 		<script type='text/javascript'>
@@ -330,15 +330,15 @@ body
 
 	html += "</body></html>"
 
-	usr << browse(html, "window=variables\ref[D];size=475x650")
+	usr << browse(html, "window=variables[D.UID()];size=475x650")
 
 	return
 
 /client/proc/debug_variable(name, value, level, var/datum/DA = null)
-	var/html = ""
+	var/list/html = list()
 
 	if(DA)
-		html += "<li style='backgroundColor:white'>(<a href='?_src_=vars;datumedit=\ref[DA];varnameedit=[name]'>E</a>) (<a href='?_src_=vars;datumchange=\ref[DA];varnamechange=[name]'>C</a>) (<a href='?_src_=vars;datummass=\ref[DA];varnamemass=[name]'>M</a>) "
+		html += "<li style='backgroundColor:white'>(<a href='?_src_=vars;datumedit=[DA.UID()];varnameedit=[name]'>E</a>) (<a href='?_src_=vars;datumchange=[DA.UID()];varnamechange=[name]'>C</a>) (<a href='?_src_=vars;datummass=[DA.UID()];varnamemass=[name]'>M</a>) "
 	else
 		html += "<li>"
 
@@ -356,10 +356,11 @@ body
 		#endif
 
 	else if(istype(value, /image))
+		var/image/I = value
 		#ifdef VARSICON
-		html += "<a href='?_src_=vars;Vars=\ref[value]'>[name] \ref[value]</a> = /image (<span class='value'>[value]</span>) [bicon(value, use_class=0)]"
+		html += "<a href='?_src_=vars;Vars=[I.UID()]'>[name] \ref[value]</a> = /image (<span class='value'>[value]</span>) [bicon(value, use_class=0)]"
 		#else
-		html += "<a href='?_src_=vars;Vars=\ref[value]'>[name] \ref[value]</a> = /image (<span class='value'>[value]</span>)"
+		html += "<a href='?_src_=vars;Vars=[I.UID()]'>[name] \ref[value]</a> = /image (<span class='value'>[value]</span>)"
 		#endif
 
 	else if(isfile(value))
@@ -367,11 +368,11 @@ body
 
 	else if(istype(value, /datum))
 		var/datum/D = value
-		html += "<a href='?_src_=vars;Vars=\ref[value]'>[name] \ref[value]</a> = [D.type]"
+		html += "<a href='?_src_=vars;Vars=[D.UID()]'>[name] \ref[value]</a> = [D.type]"
 
 	else if(istype(value, /client))
 		var/client/C = value
-		html += "<a href='?_src_=vars;Vars=\ref[value]'>[name] \ref[value]</a> = [C] [C.type]"
+		html += "<a href='?_src_=vars;Vars=[C.UID()]'>[name] \ref[value]</a> = [C] [C.type]"
 //
 	else if(istype(value, /list))
 		var/list/L = value
@@ -379,14 +380,17 @@ body
 
 		if(L.len > 0 && !(name == "underlays" || name == "overlays" || name == "vars" || L.len > 500))
 			// not sure if this is completely right...
-			if(0)   //(L.vars.len > 0)
+			if(0)	 //(L.vars.len > 0)
 				html += "<ol>"
 				html += "</ol>"
 			else
 				html += "<ul>"
 				var/index = 1
 				for(var/entry in L)
-					html += debug_variable(index, L[index], level + 1)
+					if(istext(entry))
+						html += debug_variable(entry, L[entry], level + 1)
+					else
+						html += debug_variable(index, L[index], level + 1)
 					index++
 				html += "</ul>"
 
@@ -405,26 +409,43 @@ body
 					idx=(block*4)+i
 					to_chat(bit=1, idx)
 					bv=value & bit
-					html += "<a href='?_src_=vars;togbit=[idx];var=[name];subject=\ref[DA]' title='bit [idx] ([bit])'>[bv?1:0]</a>"
+					html += "<a href='?_src_=vars;togbit=[idx];var=[name];subject=[DA.UID()]' title='bit [idx] ([bit])'>[bv?1:0]</a>"
 				html += "</span>"
 			html += "</div>"
 		*/
 	html += "</li>"
 
-	return html
+	return html.Join("")
 
 /client/proc/view_var_Topic(href, href_list, hsrc)
 	//This should all be moved over to datum/admins/Topic() or something ~Carn
 	if(!check_rights(R_ADMIN|R_MOD))
 		return
+
+	// Correct and warn about any VV topic links that aren't using UIDs
+	for(var/paramname in href_list)
+		if(findtext(href_list[paramname], "]_"))
+			continue // Contains UID-specific formatting, skip it
+		var/datum/D = locate(href_list[paramname])
+		if(!D)
+			continue
+		var/datuminfo = "[D]"
+		if(istype(D))
+			datuminfo = datum_info_line(D)
+			href_list[paramname] = D.UID()
+		else if(isclient(D))
+			var/client/C = D
+			href_list[paramname] = C.UID()
+		log_runtime(EXCEPTION("Found \\ref-based '[paramname]' param in VV topic for [datuminfo], should be UID: [href]"))
+
 	if(href_list["Vars"])
-		debug_variables(locate(href_list["Vars"]))
+		debug_variables(locateUID(href_list["Vars"]))
 
 	//~CARN: for renaming mobs (updates their name, real_name, mind.name, their ID/PDA and datacore records).
 	else if(href_list["rename"])
 		if(!check_rights(R_ADMIN))	return
 
-		var/mob/M = locate(href_list["rename"])
+		var/mob/M = locateUID(href_list["rename"])
 		if(!istype(M))
 			to_chat(usr, "This can only be used on instances of type /mob")
 			return
@@ -439,7 +460,7 @@ body
 	else if(href_list["varnameedit"] && href_list["datumedit"])
 		if(!check_rights(R_VAREDIT))	return
 
-		var/D = locate(href_list["datumedit"])
+		var/D = locateUID(href_list["datumedit"])
 		if(!istype(D,/datum) && !istype(D,/client))
 			to_chat(usr, "This can only be used on instances of types /client or /datum")
 			return
@@ -449,7 +470,7 @@ body
 	else if(href_list["togbit"])
 		if(!check_rights(R_VAREDIT))	return
 
-		var/atom/D = locate(href_list["subject"])
+		var/atom/D = locateUID(href_list["subject"])
 		if(!istype(D,/datum) && !istype(D,/client))
 			to_chat(usr, "This can only be used on instances of types /client or /datum")
 			return
@@ -464,7 +485,7 @@ body
 	else if(href_list["varnamechange"] && href_list["datumchange"])
 		if(!check_rights(R_VAREDIT))	return
 
-		var/D = locate(href_list["datumchange"])
+		var/D = locateUID(href_list["datumchange"])
 		if(!istype(D,/datum) && !istype(D,/client))
 			to_chat(usr, "This can only be used on instances of types /client or /datum")
 			return
@@ -474,7 +495,7 @@ body
 	else if(href_list["varnamemass"] && href_list["datummass"])
 		if(!check_rights(R_VAREDIT))	return
 
-		var/atom/A = locate(href_list["datummass"])
+		var/atom/A = locateUID(href_list["datummass"])
 		if(!istype(A))
 			to_chat(usr, "This can only be used on instances of type /atom")
 			return
@@ -484,7 +505,7 @@ body
 	else if(href_list["mob_player_panel"])
 		if(!check_rights(R_ADMIN|R_MOD))	return
 
-		var/mob/M = locate(href_list["mob_player_panel"])
+		var/mob/M = locateUID(href_list["mob_player_panel"])
 		if(!istype(M))
 			to_chat(usr, "This can only be used on instances of type /mob")
 			return
@@ -495,7 +516,7 @@ body
 	else if(href_list["give_spell"])
 		if(!check_rights(R_SERVER|R_EVENT))	return
 
-		var/mob/M = locate(href_list["give_spell"])
+		var/mob/M = locateUID(href_list["give_spell"])
 		if(!istype(M))
 			to_chat(usr, "This can only be used on instances of type /mob")
 			return
@@ -507,7 +528,7 @@ body
 	else if(href_list["give_disease"])
 		if(!check_rights(R_SERVER|R_EVENT))	return
 
-		var/mob/M = locate(href_list["give_disease"])
+		var/mob/M = locateUID(href_list["give_disease"])
 		if(!istype(M))
 			to_chat(usr, "This can only be used on instances of type /mob")
 			return
@@ -518,7 +539,7 @@ body
 	else if(href_list["godmode"])
 		if(!check_rights(R_REJUVINATE))	return
 
-		var/mob/M = locate(href_list["godmode"])
+		var/mob/M = locateUID(href_list["godmode"])
 		if(!istype(M))
 			to_chat(usr, "This can only be used on instances of type /mob")
 			return
@@ -529,7 +550,7 @@ body
 	else if(href_list["gib"])
 		if(!check_rights(R_ADMIN|R_EVENT))	return
 
-		var/mob/M = locate(href_list["gib"])
+		var/mob/M = locateUID(href_list["gib"])
 		if(!istype(M))
 			to_chat(usr, "This can only be used on instances of type /mob")
 			return
@@ -539,7 +560,7 @@ body
 	else if(href_list["build_mode"])
 		if(!check_rights(R_BUILDMODE))	return
 
-		var/mob/M = locate(href_list["build_mode"])
+		var/mob/M = locateUID(href_list["build_mode"])
 		if(!istype(M))
 			to_chat(usr, "This can only be used on instances of type /mob")
 			return
@@ -550,7 +571,7 @@ body
 	else if(href_list["drop_everything"])
 		if(!check_rights(R_DEBUG|R_ADMIN))	return
 
-		var/mob/M = locate(href_list["drop_everything"])
+		var/mob/M = locateUID(href_list["drop_everything"])
 		if(!istype(M))
 			to_chat(usr, "This can only be used on instances of type /mob")
 			return
@@ -561,7 +582,7 @@ body
 	else if(href_list["direct_control"])
 		if(!check_rights(R_DEBUG|R_ADMIN))	return
 
-		var/mob/M = locate(href_list["direct_control"])
+		var/mob/M = locateUID(href_list["direct_control"])
 		if(!istype(M))
 			to_chat(usr, "This can only be used on instances of type /mob")
 			return
@@ -572,7 +593,7 @@ body
 	else if(href_list["make_skeleton"])
 		if(!check_rights(R_SERVER|R_EVENT))	return
 
-		var/mob/living/carbon/human/H = locate(href_list["make_skeleton"])
+		var/mob/living/carbon/human/H = locateUID(href_list["make_skeleton"])
 		if(!istype(H))
 			to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human")
 			return
@@ -589,14 +610,15 @@ body
 	else if(href_list["offer_control"])
 		if(!check_rights(R_ADMIN))	return
 
-		var/mob/M = locate(href_list["offer_control"])
+		var/mob/M = locateUID(href_list["offer_control"])
 		if(!istype(M))
 			to_chat(usr, "This can only be used on instances of type /mob")
 			return
 		to_chat(M, "Control of your mob has been offered to dead players.")
 		log_admin("[key_name(usr)] has offered control of ([key_name(M)]) to ghosts.")
-		message_admins("[key_name_admin(usr)] has offered control of ([key_name_admin(M)]) to ghosts")
-		var/list/mob/dead/observer/candidates = pollCandidates("Do you want to play as [M.real_name]?", poll_time = 100)
+		var/minhours = input(usr, "Minimum hours required to play [M]?", "Set Min Hrs", 10) as num
+		message_admins("[key_name_admin(usr)] has offered control of ([key_name_admin(M)]) to ghosts with [minhours] hrs playtime")
+		var/list/mob/dead/observer/candidates = pollCandidates("Do you want to play as [M.real_name]?", poll_time = 100, min_hours = minhours)
 		var/mob/dead/observer/theghost = null
 
 		if(candidates.len)
@@ -612,7 +634,7 @@ body
 	else if(href_list["delall"])
 		if(!check_rights(R_DEBUG|R_SERVER))	return
 
-		var/obj/O = locate(href_list["delall"])
+		var/obj/O = locateUID(href_list["delall"])
 		if(!isobj(O))
 			to_chat(usr, "This can only be used on instances of type /obj")
 			return
@@ -655,7 +677,7 @@ body
 	else if(href_list["addreagent"]) /* Made on /TG/, credit to them. */
 		if(!check_rights(R_DEBUG|R_ADMIN))	return
 
-		var/atom/A = locate(href_list["addreagent"])
+		var/atom/A = locateUID(href_list["addreagent"])
 
 		if(!A.reagents)
 			var/amount = input(usr, "Specify the reagent size of [A]", "Set Reagent Size", 50) as num
@@ -685,7 +707,7 @@ body
 	else if(href_list["explode"])
 		if(!check_rights(R_DEBUG|R_EVENT))	return
 
-		var/atom/A = locate(href_list["explode"])
+		var/atom/A = locateUID(href_list["explode"])
 		if(!isobj(A) && !ismob(A) && !isturf(A))
 			to_chat(usr, "This can only be done to instances of type /obj, /mob and /turf")
 			return
@@ -696,7 +718,7 @@ body
 	else if(href_list["emp"])
 		if(!check_rights(R_DEBUG|R_EVENT))	return
 
-		var/atom/A = locate(href_list["emp"])
+		var/atom/A = locateUID(href_list["emp"])
 		if(!isobj(A) && !ismob(A) && !isturf(A))
 			to_chat(usr, "This can only be done to instances of type /obj, /mob and /turf")
 			return
@@ -707,7 +729,7 @@ body
 	else if(href_list["mark_object"])
 		if(!check_rights(0))	return
 
-		var/datum/D = locate(href_list["mark_object"])
+		var/datum/D = locateUID(href_list["mark_object"])
 		if(!istype(D))
 			to_chat(usr, "This can only be done to instances of type /datum")
 			return
@@ -719,7 +741,7 @@ body
 		if(!check_rights(R_PROCCALL))
 			return
 
-		var/T = locate(href_list["proc_call"])
+		var/T = locateUID(href_list["proc_call"])
 
 		if(T)
 			callproc_datum(T)
@@ -728,7 +750,7 @@ body
 		if(!check_rights(R_ADMIN))
 			return
 
-		var/atom/A = locate(href_list["jump_to"])
+		var/atom/A = locateUID(href_list["jump_to"])
 		var/turf/T = get_turf(A)
 		if(T)
 			usr.client.jumptoturf(T)
@@ -738,7 +760,7 @@ body
 	else if(href_list["rotatedatum"])
 		if(!check_rights(R_DEBUG|R_ADMIN))	return
 
-		var/atom/A = locate(href_list["rotatedatum"])
+		var/atom/A = locateUID(href_list["rotatedatum"])
 		if(!istype(A))
 			to_chat(usr, "This can only be done to instances of type /atom")
 			return
@@ -754,7 +776,7 @@ body
 	else if(href_list["makemonkey"])
 		if(!check_rights(R_SPAWN))	return
 
-		var/mob/living/carbon/human/H = locate(href_list["makemonkey"])
+		var/mob/living/carbon/human/H = locateUID(href_list["makemonkey"])
 		if(!istype(H))
 			to_chat(usr, "This can only be done to instances of type /mob/living/carbon/human")
 			return
@@ -768,7 +790,7 @@ body
 	else if(href_list["makerobot"])
 		if(!check_rights(R_SPAWN))	return
 
-		var/mob/living/carbon/human/H = locate(href_list["makerobot"])
+		var/mob/living/carbon/human/H = locateUID(href_list["makerobot"])
 		if(!istype(H))
 			to_chat(usr, "This can only be done to instances of type /mob/living/carbon/human")
 			return
@@ -782,7 +804,7 @@ body
 	else if(href_list["makealien"])
 		if(!check_rights(R_SPAWN))	return
 
-		var/mob/living/carbon/human/H = locate(href_list["makealien"])
+		var/mob/living/carbon/human/H = locateUID(href_list["makealien"])
 		if(!istype(H))
 			to_chat(usr, "This can only be done to instances of type /mob/living/carbon/human")
 			return
@@ -796,7 +818,7 @@ body
 	else if(href_list["makeslime"])
 		if(!check_rights(R_SPAWN))	return
 
-		var/mob/living/carbon/human/H = locate(href_list["makeslime"])
+		var/mob/living/carbon/human/H = locateUID(href_list["makeslime"])
 		if(!istype(H))
 			to_chat(usr, "This can only be done to instances of type /mob/living/carbon/human")
 			return
@@ -810,7 +832,7 @@ body
 	else if(href_list["makesuper"])
 		if(!check_rights(R_SPAWN))	return
 
-		var/mob/living/carbon/human/H = locate(href_list["makesuper"])
+		var/mob/living/carbon/human/H = locateUID(href_list["makesuper"])
 		if(!istype(H))
 			to_chat(usr, "This can only be done to instances of type /mob/living/carbon/human")
 			return
@@ -824,7 +846,7 @@ body
 	else if(href_list["makeai"])
 		if(!check_rights(R_SPAWN))	return
 
-		var/mob/living/carbon/human/H = locate(href_list["makeai"])
+		var/mob/living/carbon/human/H = locateUID(href_list["makeai"])
 		if(!istype(H))
 			to_chat(usr, "This can only be done to instances of type /mob/living/carbon/human")
 			return
@@ -837,7 +859,7 @@ body
 
 	else if(href_list["makemask"])
 		if(!check_rights(R_SPAWN)) return
-		var/mob/currentMob = locate(href_list["makemask"])
+		var/mob/currentMob = locateUID(href_list["makemask"])
 		if(alert("Confirm mob type change?",,"Transform","Cancel") != "Transform")	return
 		if(!currentMob)
 			to_chat(usr, "Mob doesn't exist anymore")
@@ -848,7 +870,7 @@ body
 	else if(href_list["setspecies"])
 		if(!check_rights(R_SPAWN))	return
 
-		var/mob/living/carbon/human/H = locate(href_list["setspecies"])
+		var/mob/living/carbon/human/H = locateUID(href_list["setspecies"])
 		if(!istype(H))
 			to_chat(usr, "This can only be done to instances of type /mob/living/carbon/human")
 			return
@@ -870,7 +892,7 @@ body
 	else if(href_list["addlanguage"])
 		if(!check_rights(R_SPAWN))	return
 
-		var/mob/H = locate(href_list["addlanguage"])
+		var/mob/H = locateUID(href_list["addlanguage"])
 		if(!istype(H))
 			to_chat(usr, "This can only be done to instances of type /mob")
 			return
@@ -894,7 +916,7 @@ body
 	else if(href_list["remlanguage"])
 		if(!check_rights(R_SPAWN))	return
 
-		var/mob/H = locate(href_list["remlanguage"])
+		var/mob/H = locateUID(href_list["remlanguage"])
 		if(!istype(H))
 			to_chat(usr, "This can only be done to instances of type /mob")
 			return
@@ -920,9 +942,9 @@ body
 			to_chat(usr, "Mob doesn't know that language.")
 
 	else if(href_list["addverb"])
-		if(!check_rights(R_DEBUG))      return
+		if(!check_rights(R_DEBUG))			return
 
-		var/mob/living/H = locate(href_list["addverb"])
+		var/mob/living/H = locateUID(href_list["addverb"])
 
 		if(!istype(H))
 			to_chat(usr, "This can only be done to instances of type /mob/living")
@@ -952,9 +974,9 @@ body
 			log_admin("[key_name(usr)] has given [key_name(H)] the verb [verb]")
 
 	else if(href_list["remverb"])
-		if(!check_rights(R_DEBUG))      return
+		if(!check_rights(R_DEBUG))			return
 
-		var/mob/H = locate(href_list["remverb"])
+		var/mob/H = locateUID(href_list["remverb"])
 
 		if(!istype(H))
 			to_chat(usr, "This can only be done to instances of type /mob")
@@ -973,7 +995,7 @@ body
 	else if(href_list["addorgan"])
 		if(!check_rights(R_SPAWN))	return
 
-		var/mob/living/carbon/M = locate(href_list["addorgan"])
+		var/mob/living/carbon/M = locateUID(href_list["addorgan"])
 		if(!istype(M))
 			to_chat(usr, "This can only be done to instances of type /mob/living/carbon")
 			return
@@ -985,7 +1007,7 @@ body
 			to_chat(usr, "Mob doesn't exist anymore")
 			return
 
-		if(locate(new_organ) in M.internal_organs)
+		if(locateUID(new_organ) in M.internal_organs)
 			to_chat(usr, "Mob already has that organ.")
 			return
 		var/obj/item/organ/internal/organ = new new_organ
@@ -996,7 +1018,7 @@ body
 	else if(href_list["remorgan"])
 		if(!check_rights(R_SPAWN))	return
 
-		var/mob/living/carbon/M = locate(href_list["remorgan"])
+		var/mob/living/carbon/M = locateUID(href_list["remorgan"])
 		if(!istype(M))
 			to_chat(usr, "This can only be done to instances of type /mob/living/carbon")
 			return
@@ -1007,7 +1029,7 @@ body
 			to_chat(usr, "Mob doesn't exist anymore")
 			return
 
-		if(!(locate(rem_organ) in M.internal_organs))
+		if(!(rem_organ in M.internal_organs))
 			to_chat(usr, "Mob does not have that organ.")
 			return
 
@@ -1020,7 +1042,7 @@ body
 	else if(href_list["fix_nano"])
 		if(!check_rights(R_DEBUG)) return
 
-		var/mob/H = locate(href_list["fix_nano"])
+		var/mob/H = locateUID(href_list["fix_nano"])
 
 		if(!istype(H) || !H.client)
 			to_chat(usr, "This can only be done on mobs with clients")
@@ -1036,7 +1058,7 @@ body
 	else if(href_list["regenerateicons"])
 		if(!check_rights(0))	return
 
-		var/mob/M = locate(href_list["regenerateicons"])
+		var/mob/M = locateUID(href_list["regenerateicons"])
 		if(!ismob(M))
 			to_chat(usr, "This can only be done to instances of type /mob")
 			return
@@ -1045,12 +1067,12 @@ body
 	else if(href_list["adjustDamage"] && href_list["mobToDamage"])
 		if(!check_rights(R_DEBUG|R_ADMIN|R_EVENT))	return
 
-		var/mob/living/L = locate(href_list["mobToDamage"])
+		var/mob/living/L = locateUID(href_list["mobToDamage"])
 		if(!istype(L)) return
 
 		var/Text = href_list["adjustDamage"]
 
-		var/amount =  input("Deal how much damage to mob? (Negative values here heal)","Adjust [Text]loss",0) as num
+		var/amount =	input("Deal how much damage to mob? (Negative values here heal)","Adjust [Text]loss",0) as num
 
 		if(!L)
 			to_chat(usr, "Mob doesn't exist anymore")
@@ -1073,7 +1095,7 @@ body
 			href_list["datumrefresh"] = href_list["mobToDamage"]
 
 	if(href_list["datumrefresh"])
-		var/datum/DAT = locate(href_list["datumrefresh"])
+		var/datum/DAT = locateUID(href_list["datumrefresh"])
 		if(!istype(DAT, /datum))
 			return
 		src.debug_variables(DAT)

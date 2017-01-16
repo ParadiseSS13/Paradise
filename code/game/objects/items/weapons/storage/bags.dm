@@ -33,7 +33,7 @@
 	icon_state = "trashbag"
 	item_state = "trashbag"
 
-	w_class = 4
+	w_class = 1
 	max_w_class = 2
 	storage_slots = 30
 	can_hold = list() // any
@@ -46,12 +46,17 @@
 
 /obj/item/weapon/storage/bag/trash/update_icon()
 	if(contents.len == 0)
+		w_class = 1
 		icon_state = "[initial(icon_state)]"
 	else if(contents.len < 12)
+		w_class = 4
 		icon_state = "[initial(icon_state)]1"
 	else if(contents.len < 21)
+		w_class = 4
 		icon_state = "[initial(icon_state)]2"
-	else icon_state = "[initial(icon_state)]3"
+	else
+		w_class = 4
+		icon_state = "[initial(icon_state)]3"
 
 /obj/item/weapon/storage/bag/trash/cyborg
 
@@ -111,7 +116,7 @@
 			if(H.get_item_by_slot(slot_head) == src)
 				if(H.internal)
 					return
-				H.losebreath += 1
+				H.AdjustLoseBreath(1)
 	else
 		storage_slots = 7
 		processing_objects.Remove(src)
@@ -162,7 +167,7 @@
 	max_w_class = 3
 	w_class = 1
 	can_hold = list("/obj/item/weapon/reagent_containers/food/snacks/grown","/obj/item/seeds","/obj/item/weapon/grown", "/obj/item/stack/tile/grass","/obj/item/stack/medical/ointment/aloe","/obj/item/stack/medical/bruise_pack/comfrey", "/obj/item/weapon/reagent_containers/honeycomb")
-
+	burn_state = FLAMMABLE
 
 /obj/item/weapon/storage/bag/plants/portaseeder
 	name = "portable seed extractor"
@@ -376,6 +381,7 @@
 	max_w_class = 3
 	w_class = 4 //Bigger than a book because physics
 	can_hold = list("/obj/item/weapon/book", "/obj/item/weapon/storage/bible", "/obj/item/weapon/tome", "/obj/item/weapon/spellbook")
+	burn_state = FLAMMABLE
 
 /*
  * Trays - Agouri
@@ -484,7 +490,7 @@
 	max_combined_w_class = 200
 	w_class = 1
 	can_hold = list("/obj/item/weapon/reagent_containers/food/pill","/obj/item/weapon/reagent_containers/glass/beaker","/obj/item/weapon/reagent_containers/glass/bottle")
-
+	burn_state = FLAMMABLE
 /*
  *  Biowaste bag (mostly for xenobiologists)
  */
@@ -498,3 +504,4 @@
 	max_combined_w_class = 200
 	w_class = 1
 	can_hold = list("/obj/item/slime_extract","/obj/item/weapon/reagent_containers/food/snacks/monkeycube","/obj/item/weapon/reagent_containers/syringe","/obj/item/weapon/reagent_containers/glass/beaker","/obj/item/weapon/reagent_containers/glass/bottle","/obj/item/weapon/reagent_containers/blood","/obj/item/weapon/reagent_containers/hypospray/autoinjector")
+	burn_state = FLAMMABLE

@@ -51,13 +51,13 @@
 	user << browse_rsc(floor_icon, "floor.png")
 	var/dat = {"
 		<center>
-		<a href="?src=\ref[src];cycleleft=1">&lt;-</a>
+		<a href="?src=[UID()];cycleleft=1">&lt;-</a>
 		<img style="-ms-interpolation-mode: nearest-neighbor;" src="floor.png" width=128 height=128 border=4>
-		<a href="?src=\ref[src];cycleright=1">-&gt;</a>
+		<a href="?src=[UID()];cycleright=1">-&gt;</a>
 		</center>
-		<a href="?src=\ref[src];choose_state=1">Choose Style</a>
+		<a href="?src=[UID()];choose_state=1">Choose Style</a>
 		<div class='statusDisplay'>Style: [floor_state]</div>
-		<a href="?src=\ref[src];choose_dir=1">Choose Direction</a>
+		<a href="?src=[UID()];choose_dir=1">Choose Direction</a>
 		<div class='statusDisplay'>Direction: [dir2text(floor_dir)]</div>
 	"}
 	

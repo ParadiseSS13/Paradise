@@ -25,17 +25,17 @@
 
 /mob/new_player/proc/new_player_panel_proc()
 	var/real_name = client.prefs.real_name
-	var/output = "<center><p><a href='byond://?src=\ref[src];show_preferences=1'>Setup Character</A><br /><i>[real_name]</i></p>"
+	var/output = "<center><p><a href='byond://?src=[UID()];show_preferences=1'>Setup Character</A><br /><i>[real_name]</i></p>"
 
 	if(!ticker || ticker.current_state <= GAME_STATE_PREGAME)
-		if(!ready)	output += "<p><a href='byond://?src=\ref[src];ready=1'>Declare Ready</A></p>"
-		else	output += "<p><b>You are ready</b> (<a href='byond://?src=\ref[src];ready=2'>Cancel</A>)</p>"
+		if(!ready)	output += "<p><a href='byond://?src=[UID()];ready=1'>Declare Ready</A></p>"
+		else	output += "<p><b>You are ready</b> (<a href='byond://?src=[UID()];ready=2'>Cancel</A>)</p>"
 
 	else
-		output += "<p><a href='byond://?src=\ref[src];manifest=1'>View the Crew Manifest</A></p>"
-		output += "<p><a href='byond://?src=\ref[src];late_join=1'>Join Game!</A></p>"
+		output += "<p><a href='byond://?src=[UID()];manifest=1'>View the Crew Manifest</A></p>"
+		output += "<p><a href='byond://?src=[UID()];late_join=1'>Join Game!</A></p>"
 
-	output += "<p><a href='byond://?src=\ref[src];observe=1'>Observe</A></p>"
+	output += "<p><a href='byond://?src=[UID()];observe=1'>Observe</A></p>"
 
 	if(!IsGuestKey(src.key))
 		establish_db_connection()
@@ -52,9 +52,9 @@
 				break
 
 			if(newpoll)
-				output += "<p><b><a href='byond://?src=\ref[src];showpoll=1'>Show Player Polls</A> (NEW!)</b></p>"
+				output += "<p><b><a href='byond://?src=[UID()];showpoll=1'>Show Player Polls</A> (NEW!)</b></p>"
 			else
-				output += "<p><a href='byond://?src=\ref[src];showpoll=1'>Show Player Polls</A></p>"
+				output += "<p><a href='byond://?src=[UID()];showpoll=1'>Show Player Polls</A></p>"
 
 	output += "</center>"
 
@@ -244,8 +244,10 @@
 	if(!job.is_position_available()) return 0
 	if(jobban_isbanned(src,rank))	return 0
 	if(!is_job_whitelisted(src, rank))	 return 0
-	if(!job.player_old_enough(src.client))	return 0
+	if(!job.player_old_enough(client))	return 0
 	if(job.admin_only && !(check_rights(R_EVENT, 0))) return 0
+	if(job.available_in_playtime(client))
+		return 0
 
 	if(config.assistantlimit)
 		if(job.title == "Civilian")
@@ -296,18 +298,13 @@
 	// AIs don't need a spawnpoint, they must spawn at an empty core
 	if(character.mind.assigned_role == "AI")
 
-		character = character.AIize(move=0) // AIize the character, but don't move them yet
+		var/mob/living/silicon/ai/ai_character = character.AIize() // AIize the character, but don't move them yet
 
 		// IsJobAvailable for AI checks that there is an empty core available in this list
-		var/obj/structure/AIcore/deactivated/C = empty_playable_ai_cores[1]
-		empty_playable_ai_cores -= C
+		ai_character.moveToEmptyCore()
+		AnnounceCyborg(ai_character, rank, "has been downloaded to the empty core in \the [get_area(ai_character)]")
 
-		character.loc = C.loc
-
-		AnnounceCyborg(character, rank, "has been downloaded to the empty core in \the [get_area(character)]")
-		ticker.mode.latespawn(character)
-
-		qdel(C)
+		ticker.mode.latespawn(ai_character)
 		qdel(src)
 		return
 
@@ -463,7 +460,7 @@
 		dat += "<fieldset style='border: 2px solid [color]; display: inline'>"
 		dat += "<legend align='center' style='color: [color]'>[jobcat]</legend>"
 		for(var/datum/job/job in categorizedJobs[jobcat]["jobs"])
-			dat += "<a href='byond://?src=\ref[src];SelectedJob=[job.title]'>[job.title] ([job.current_positions]) (Active: [activePlayers[job]])</a><br>"
+			dat += "<a href='byond://?src=[UID()];SelectedJob=[job.title]'>[job.title] ([job.current_positions]) (Active: [activePlayers[job]])</a><br>"
 		dat += "</fieldset><br>"
 
 	dat += "</td></tr></table></center>"
@@ -497,6 +494,9 @@
 		if(mind.assigned_role == "Clown")				//give them a clownname if they are a clown
 			new_character.real_name = pick(clown_names)	//I hate this being here of all places but unfortunately dna is based on real_name!
 			new_character.rename_self("clown")
+		else if(mind.assigned_role == "Mime")
+			new_character.real_name = pick(mime_names)
+			new_character.rename_self("mime")
 		else if(new_character.species == "Diona")
 			new_character.real_name = pick(diona_names)	//I hate this being here of all places but unfortunately dna is based on real_name!
 			new_character.rename_self("diona")
@@ -515,14 +515,14 @@
 		chosen_species = all_species[client.prefs.species]
 	if(!(chosen_species && (is_species_whitelisted(chosen_species) || has_admin_rights())))
 		// Have to recheck admin due to no usr at roundstart. Latejoins are fine though.
-		log_debug("[src] had species [client.prefs.species], though they weren't supposed to. Setting to Human.")
+		log_runtime(EXCEPTION("[src] had species [client.prefs.species], though they weren't supposed to. Setting to Human."), src)
 		client.prefs.species = "Human"
 
 	var/datum/language/chosen_language
 	if(client.prefs.language)
 		chosen_language = all_languages[client.prefs.language]
 	if((chosen_language == null && client.prefs.language != "None") || (chosen_language && chosen_language.flags & RESTRICTED))
-		log_debug("[src] had language [client.prefs.language], though they weren't supposed to. Setting to None.")
+		log_runtime(EXCEPTION("[src] had language [client.prefs.language], though they weren't supposed to. Setting to None."), src)
 		client.prefs.language = "None"
 
 /mob/new_player/proc/ViewManifest()
@@ -570,3 +570,7 @@
 
 /mob/new_player/is_ready()
 	return ready && ..()
+
+// No hearing announcements
+/mob/new_player/can_hear()
+	return 0

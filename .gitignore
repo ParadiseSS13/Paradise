@@ -14,6 +14,7 @@ data/
 /_maps/map_files/backup/*
 /_maps/map_files/**/backup/*
 /_maps/map_files/**/*.dmm.backup
+/_maps/quicksave/*
 /nano/debug.html
 *.db
 stddef.dm

@@ -6,10 +6,27 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<link rel="stylesheet" type="text/css" href="font-awesome.css" />
 	<link rel="stylesheet" type="text/css" href="browserOutput.css" />
-	<script type="text/javascript" src="jquery.min.js"></script>
-	<script type="text/javascript" src="json2.min.js"></script>
+
+	<!-- Completely skip loading any normal scripts if below IE8; we won't use them -->
+	<!--[if gte IE 8]><!-->
+		<script type="text/javascript" src="jquery.min.js"></script>
+		<script type="text/javascript" src="json2.min.js"></script>
+	<!--<![endif]-->
+
+	<!-- The following script(s) require IE9 or above -->
+	<!--[if gte IE 9]><!-->
+		<script type="text/javascript" src="jquery.mark.min.js"></script>
+		<script type="text/javascript" src="unicode_9_annotations.json"></script>
+		<script type="text/javascript" src="twemoji.min.js"></script>
+	<!--<![endif]-->
 </head>
 <body>
+	<!--[if lt IE 8]>
+		<script type="text/javascript">
+			alert("You are using an unsupported version of Internet Explorer. Please update to the latest version.");
+		</script>
+	<![endif]-->
+	<!--[if gte IE 8]><!-->
 	<div id="loading">
 		<i class="icon-spinner icon-2x"></i>
 		<div>
@@ -40,5 +57,13 @@
 		</div>
 	</div>
 	<script type="text/javascript" src="browserOutput.js"></script>
+	<!--<![endif]-->
+	<!--[if IE 8]>
+		<script type="text/javascript">
+			setTimeout(function(){
+				output('<span class="internal boldnshit">You are using a very outdated version of Internet Explorer. Some features will not work correctly! Please update to a newer version.</span>', 'internal');
+			}, 2000)
+		</script>
+	<![endif]-->
 </body>
 </html>

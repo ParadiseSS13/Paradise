@@ -43,6 +43,8 @@ var/global/dmm_suite/preloader/_preloader = new
 	if(isfile(tfile))
 		fname = "[tfile]"
 		tfile = file2text(tfile)
+		if(length(tfile) == 0)
+			throw EXCEPTION("Map path '[fname]' does not exist!")
 
 	if(!x_offset)
 		x_offset = 1
@@ -126,6 +128,7 @@ var/global/dmm_suite/preloader/_preloader = new
 					bounds[MAP_MAXY] = max(bounds[MAP_MAXY], min(ycrd, world.maxy))
 
 				var/maxx = xcrdStart
+				log_debug("[xcrdStart]")
 				if(measureOnly)
 					for(var/line in gridLines)
 						maxx = max(maxx, xcrdStart + length(line) / key_len - 1)
@@ -152,7 +155,6 @@ var/global/dmm_suite/preloader/_preloader = new
 								maxx = max(maxx, xcrd)
 								++xcrd
 						--ycrd
-
 				bounds[MAP_MAXX] = max(bounds[MAP_MAXX], cropMap ? min(maxx, world.maxx) : maxx)
 
 			CHECK_TICK
@@ -164,12 +166,13 @@ var/global/dmm_suite/preloader/_preloader = new
 	log_debug("Loaded map in [stop_watch(watch)]s.")
 	qdel(LM)
 	if(bounds[MAP_MINX] == 1.#INF) // Shouldn't need to check every item
-		log_debug("Min x: bounds[MAP_MINX]")
-		log_debug("Min y: bounds[MAP_MINY]")
-		log_debug("Min z: bounds[MAP_MINZ]")
-		log_debug("Max x: bounds[MAP_MAXX]")
-		log_debug("Max y: bounds[MAP_MAXY]")
-		log_debug("Max z: bounds[MAP_MAXZ]")
+		log_runtime(EXCEPTION("Bad Map bounds in [fname]"), src, list(
+		"Min x: [bounds[MAP_MINX]]",
+		"Min y: [bounds[MAP_MINY]]",
+		"Min z: [bounds[MAP_MINZ]]",
+		"Max x: [bounds[MAP_MAXX]]",
+		"Max y: [bounds[MAP_MAXY]]",
+		"Max z: [bounds[MAP_MAXZ]]"))
 		return null
 	else
 		if(!measureOnly)
@@ -181,7 +184,7 @@ var/global/dmm_suite/preloader/_preloader = new
 
 /**
  * Fill a given tile with its area/turf/objects/mobs
- * Variable model is one full map line (e.g /turf/unsimulated/wall{icon_state = "rock"},/area/mine/explored)
+ * Variable model is one full map line (e.g /turf/unsimulated/wall{icon_state = "rock"},/area/mine/dangerous/explored)
  *
  * WORKING :
  *
@@ -202,7 +205,7 @@ var/global/dmm_suite/preloader/_preloader = new
 		same construction as those contained in a .dmm file, and instantiates them.
 	*/
 
-	var/list/members //will contain all members (paths) in model (in our example : /turf/unsimulated/wall and /area/mine/explored)
+	var/list/members //will contain all members (paths) in model (in our example : /turf/unsimulated/wall and /area/mine/dangerous/explored)
 	var/list/members_attributes //will contain lists filled with corresponding variables, if any (in our example : list(icon_state = "rock") and list())
 	var/list/cached = modelCache[model]
 	var/index
@@ -223,15 +226,17 @@ var/global/dmm_suite/preloader/_preloader = new
 		var/dpos
 
 		do
-			//finding next member (e.g /turf/unsimulated/wall{icon_state = "rock"} or /area/mine/explored)
+			//finding next member (e.g /turf/unsimulated/wall{icon_state = "rock"} or /area/mine/dangerous/explored)
 			dpos = find_next_delimiter_position(model, old_position, ",", "{", "}") //find next delimiter (comma here) that's not within {...}
 
 			var/full_def = trim_text(copytext(model, old_position, dpos)) //full definition, e.g : /obj/foo/bar{variables=derp}
 			var/variables_start = findtext(full_def, "{")
-			var/atom_def = text2path(trim_text(copytext(full_def, 1, variables_start))) //path definition, e.g /obj/foo/bar
+			var/atom_text = trim_text(copytext(full_def, 1, variables_start))
+			var/atom_def = text2path(atom_text) //path definition, e.g /obj/foo/bar
 			old_position = dpos + 1
 
 			if(!atom_def) // Skip the item if the path does not exist.  Fix your crap, mappers!
+				log_runtime(EXCEPTION("Bad path: [atom_text]"), src, list("Source String: [model]", "dpos: [dpos]"))
 				continue
 			members.Add(atom_def)
 
@@ -378,8 +383,15 @@ var/global/dmm_suite/preloader/_preloader = new
 			var/trim_right = trim_text(copytext(text,equal_position+1,position))//the content of the variable
 
 			//Check for string
+			// Make it read to the next delimiter, instead of the quote
 			if(findtext(trim_right,quote,1,2))
-				trim_right = copytext(trim_right,2,findtext(trim_right,quote,3,0))
+				var/endquote = findtext(trim_right,quote,-1)
+				if(!endquote)
+					log_runtime(EXCEPTION("Terminating quote not found!"), src)
+				// Our map writer escapes quotes and curly brackets to avoid
+				// letting our simple parser choke on meanly-crafted names/etc
+				// - so we decode it here so it's back to good ol' legibility
+				trim_right = dmm_decode(copytext(trim_right,2,endquote))
 
 			//Check for number
 			else if(isnum(text2num(trim_right)))
@@ -430,14 +442,27 @@ var/global/dmm_suite/preloader/_preloader = new
 	parent_type = /datum
 	var/list/attributes
 	var/target_path
+	var/json_ready = 0
 
 /dmm_suite/preloader/proc/setup(list/the_attributes, path)
 	if(the_attributes.len)
+		json_ready = 0
+		if("map_json_data" in the_attributes)
+			json_ready = 1
 		use_preloader = TRUE
 		attributes = the_attributes
 		target_path = path
 
 /dmm_suite/preloader/proc/load(atom/what)
+	if(json_ready)
+		var/json_data = attributes["map_json_data"]
+		attributes -= "map_json_data"
+		json_data = dmm_decode(json_data)
+		try
+			what.deserialize(json_decode(json_data))
+		catch(var/exception/e)
+			log_runtime(EXCEPTION("Bad json data: '[json_data]'"), src)
+			throw e
 	for(var/attribute in attributes)
 		var/value = attributes[attribute]
 		if(islist(value))

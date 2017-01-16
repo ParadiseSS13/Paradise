@@ -17,7 +17,7 @@
 	var/mob/living/silicon/ai/AI = locate(/mob/living/silicon/ai) in src
 	if(AI) //AI is on the card, implies user wants to upload it.
 		target.transfer_ai(AI_TRANS_FROM_CARD, user, AI, src)
-		add_logs(AI,user, "carded", object="[name]")
+		add_logs(user, AI, "carded", object="[name]")
 	else //No AI on the card, therefore the user wants to download one.
 		target.transfer_ai(AI_TRANS_TO_CARD, user, null, src)
 	update_state() //Whatever happened, update the card's state (icon, name) to match.
@@ -41,6 +41,14 @@
 
 
 /obj/item/device/aicard/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/topic_state/state = inventory_state)
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "aicard.tmpl", "[name]", 600, 400, state = state)
+		ui.open()
+		ui.set_auto_update(1)
+
+
+/obj/item/device/aicard/ui_data(mob/user, ui_key = "main", datum/topic_state/state = inventory_state)
 	var/data[0]
 
 	var/mob/living/silicon/ai/AI = locate() in src
@@ -59,12 +67,7 @@
 		data["laws"] = laws
 		data["has_laws"] = laws.len
 
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if(!ui)
-		ui = new(user, src, ui_key, "aicard.tmpl", "[name]", 600, 400, state = state)
-		ui.set_initial_data(data)
-		ui.open()
-		ui.set_auto_update(1)
+	return data
 
 
 /obj/item/device/aicard/Topic(href, href_list, nowindow, state)

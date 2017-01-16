@@ -25,6 +25,18 @@
 	/turf/simulated/wall/rust,
 	/turf/simulated/wall/r_wall/rust)
 	smooth = SMOOTH_TRUE
+	
+/obj/structure/falsewall/New(loc)
+	..()
+	air_update_turf(1)
+
+/obj/structure/falsewall/Destroy()
+	density = 0
+	air_update_turf(1)
+	return ..()
+
+/obj/structure/falsewall/CanAtmosPass(turf/T)
+	return !density
 
 /obj/structure/falsewall/attack_hand(mob/user)
 	if(opening)
@@ -47,6 +59,7 @@
 		sleep(4)
 		set_opacity(1)
 		update_icon()
+	air_update_turf(1)
 	opening = 0
 
 /obj/structure/falsewall/proc/do_the_flick()
@@ -240,14 +253,14 @@
 	canSmoothWith = list(/obj/structure/falsewall/alien, /turf/simulated/wall/mineral/alien)
 
 
-/obj/structure/falsewall/clown
+/obj/structure/falsewall/bananium
 	name = "bananium wall"
 	desc = "A wall with bananium plating. Honk!"
 	icon = 'icons/turf/walls/bananium_wall.dmi'
 	icon_state = ""
 	mineral = "clown"
 	walltype = "clown"
-	canSmoothWith = list(/obj/structure/falsewall/clown, /turf/simulated/wall/mineral/clown)
+	canSmoothWith = list(/obj/structure/falsewall/bananium, /turf/simulated/wall/mineral/bananium)
 
 /obj/structure/falsewall/sandstone
 	name = "sandstone wall"

@@ -64,16 +64,16 @@
 /obj/item/device/beacon_locator/interact(var/mob/user as mob)
 	var/dat = "<b>Radio frequency tracker</b><br>"
 	dat += {"
-				<A href='byond://?src=\ref[src];reset_tracking=1'>Reset tracker</A><BR>
+				<A href='byond://?src=[UID()];reset_tracking=1'>Reset tracker</A><BR>
 				Frequency:
-				<A href='byond://?src=\ref[src];freq=-10'>-</A>
-				<A href='byond://?src=\ref[src];freq=-2'>-</A>
+				<A href='byond://?src=[UID()];freq=-10'>-</A>
+				<A href='byond://?src=[UID()];freq=-2'>-</A>
 				[format_frequency(frequency)]
-				<A href='byond://?src=\ref[src];freq=2'>+</A>
-				<A href='byond://?src=\ref[src];freq=10'>+</A><BR>
+				<A href='byond://?src=[UID()];freq=2'>+</A>
+				<A href='byond://?src=[UID()];freq=10'>+</A><BR>
 				"}
 
-	dat += "<A href='?src=\ref[src];close=1'>Close</a><br>"
+	dat += "<A href='?src=[UID()];close=1'>Close</a><br>"
 	user << browse(dat,"window=locater;size=300x150")
 	onclose(user, "locater")
 

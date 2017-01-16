@@ -34,8 +34,8 @@
 			return 1
 	return 0
 
-proc/isSSD(mob/M)
-	return istype(M) && M.player_logged
+proc/isLivingSSD(mob/M)
+	return istype(M) && M.player_logged && M.stat != DEAD
 
 proc/isAntag(A)
 	if(istype(A, /mob/living/carbon))
@@ -50,8 +50,20 @@ proc/isNonCrewAntag(A)
 
 	var/mob/living/carbon/C = A
 	var/special_role = C.mind.special_role
-	var/list/crew_roles = list("traitor", "Changeling", "Vampire", "Cultist", "Head Revolutionary", "Revolutionary", "malfunctioning AI", "Shadowling", "loyalist", "mutineer", "Response Team")
-	if((special_role in crew_roles))
+	var/list/crew_roles = list(
+		SPECIAL_ROLE_BLOB,
+		SPECIAL_ROLE_CULTIST,
+		SPECIAL_ROLE_CHANGELING,
+		SPECIAL_ROLE_ERT,
+		SPECIAL_ROLE_HEAD_REV,
+		SPECIAL_ROLE_REV,
+		SPECIAL_ROLE_SHADOWLING,
+		SPECIAL_ROLE_SHADOWLING_THRALL,
+		SPECIAL_ROLE_TRAITOR,
+		SPECIAL_ROLE_VAMPIRE,
+		SPECIAL_ROLE_VAMPIRE_THRALL
+	)
+	if(special_role in crew_roles)
 		return 0
 
 	return 1
@@ -61,12 +73,6 @@ proc/iscuffed(A)
 		var/mob/living/carbon/C = A
 		if(C.handcuffed)
 			return 1
-	return 0
-
-proc/isdeaf(A)
-	if(istype(A, /mob))
-		var/mob/M = A
-		return (M.disabilities & DEAF) || M.ear_deaf
 	return 0
 
 proc/hassensorlevel(A, var/level)
@@ -340,23 +346,24 @@ var/list/intents = list(I_HELP,I_DISARM,I_GRAB,I_HARM)
 				hud_used.action_intent.icon_state = "help"
 
 
-/mob/living/carbon/verb/mob_sleep()
+/mob/living/verb/mob_sleep()
 	set name = "Sleep"
 	set category = "IC"
 
-	if(usr.sleeping)
-		to_chat(usr, "\red You are already sleeping")
+	if(sleeping)
+		to_chat(src, "<span class='notice'>You are already sleeping.</span>")
 		return
 	else
-		if(alert(src,"You sure you want to sleep for a while?","Sleep","Yes","No") == "Yes")
-			usr.sleeping = 20 //Short nap
+		if(alert(src, "You sure you want to sleep for a while?", "Sleep", "Yes", "No") == "Yes")
+			SetSleeping(20) //Short nap
 
 /mob/living/verb/lay_down()
 	set name = "Rest"
 	set category = "IC"
 
 	resting = !resting
-	to_chat(src, "\blue You are now [resting ? "resting" : "getting up"]")
+	update_canmove()
+	to_chat(src, "<span class='notice'>You are now [resting ? "resting" : "getting up"].</span>")
 
 /proc/is_blind(A)
 	if(iscarbon(A))
@@ -404,14 +411,14 @@ var/list/intents = list(I_HELP,I_DISARM,I_GRAB,I_HARM)
 				name = realname
 
 	for(var/mob/M in player_list)
-		if(M.client && ((!istype(M, /mob/new_player) && M.stat == DEAD) || check_rights(R_ADMIN|R_MOD,0,M)) && (M.client.prefs.toggles & CHAT_DEAD))
+		if(M.client && ((!istype(M, /mob/new_player) && M.stat == DEAD) || check_rights(R_ADMIN|R_MOD,0,M)) && M.get_preference(CHAT_DEAD))
 			var/follow
 			var/lname
 			if(subject)
 				if(subject != M)
 					follow = "([ghost_follow_link(subject, ghost=M)]) "
 				if(M.stat != DEAD && check_rights(R_ADMIN|R_MOD,0,M))
-					follow = "([admin_jump_link(subject, M.client.holder)]) "
+					follow = "([admin_jump_link(subject)]) "
 				var/mob/dead/observer/DM
 				if(istype(subject, /mob/dead/observer))
 					DM = subject
@@ -443,11 +450,15 @@ var/list/intents = list(I_HELP,I_DISARM,I_GRAB,I_HARM)
 					A.jump_target = source
 					if(!alert_overlay)
 						var/old_layer = source.layer
+						var/old_plane = source.plane
 						source.layer = FLOAT_LAYER
+						source.plane = FLOAT_PLANE
 						A.overlays += source
 						source.layer = old_layer
+						source.plane = old_plane
 					else
 						alert_overlay.layer = FLOAT_LAYER
+						alert_overlay.plane = FLOAT_PLANE
 						A.overlays += alert_overlay
 
 /mob/proc/switch_to_camera(var/obj/machinery/camera/C)
@@ -497,11 +508,11 @@ var/list/intents = list(I_HELP,I_DISARM,I_GRAB,I_HARM)
 					search_pda = 0
 
 		//Fixes renames not being reflected in objective text
-		var/list/O = subtypesof(/datum/objective)
 		var/length
 		var/pos
-		for(var/datum/objective/objective in O)
-			if(objective.target != mind) continue
+		for(var/datum/objective/objective in all_objectives)
+			if(!mind || objective.target != mind)
+				continue
 			length = lentext(oldname)
 			pos = findtextEx(objective.explanation_text, oldname)
 			objective.explanation_text = copytext(objective.explanation_text, 1, pos)+newname+copytext(objective.explanation_text, pos+length)
@@ -535,3 +546,53 @@ var/list/intents = list(I_HELP,I_DISARM,I_GRAB,I_HARM)
 			return
 
 		rename_character(oldname, newname)
+
+/proc/cultslur(n) // Inflicted on victims of a stun talisman
+	var/phrase = html_decode(n)
+	var/leng = lentext(phrase)
+	var/counter=lentext(phrase)
+	var/newphrase=""
+	var/newletter=""
+	while(counter>=1)
+		newletter=copytext(phrase,(leng-counter)+1,(leng-counter)+2)
+		if(rand(1,2)==2)
+			if(lowertext(newletter)=="o")
+				newletter="u"
+			if(lowertext(newletter)=="t")
+				newletter="ch"
+			if(lowertext(newletter)=="a")
+				newletter="ah"
+			if(lowertext(newletter)=="u")
+				newletter="oo"
+			if(lowertext(newletter)=="c")
+				newletter=" NAR "
+			if(lowertext(newletter)=="s")
+				newletter=" SIE "
+		if(rand(1,4)==4)
+			if(newletter==" ")
+				newletter=" no hope... "
+			if(newletter=="H")
+				newletter=" IT COMES... "
+
+		switch(rand(1,15))
+			if(1)
+				newletter="'"
+			if(2)
+				newletter+="agn"
+			if(3)
+				newletter="fth"
+			if(4)
+				newletter="nglu"
+			if(5)
+				newletter="glor"
+		newphrase+="[newletter]";counter-=1
+	return newphrase
+
+/mob/proc/get_preference(toggleflag)
+	if(!client)
+		return FALSE
+	if(!client.prefs)
+		log_runtime(EXCEPTION("Mob '[src]', ckey '[ckey]' is missing a prefs datum on the client!"))
+		return FALSE
+	// Cast to 1/0
+	return !!(client.prefs.toggles & toggleflag)

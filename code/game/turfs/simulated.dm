@@ -54,17 +54,16 @@
 /turf/simulated/Entered(atom/A, atom/OL, ignoreRest = 0)
 	..()
 	if(!ignoreRest)
-		if(ismob(A)) //only mobs make dirt
-			if(prob(80))
-				dirt++
+		if(isliving(A) && prob(50))
+			dirt++
 
-			var/obj/effect/decal/cleanable/dirt/dirtoverlay = locate(/obj/effect/decal/cleanable/dirt) in src
-			if(dirt >= 100)
-				if(!dirtoverlay)
-					dirtoverlay = new/obj/effect/decal/cleanable/dirt(src)
-					dirtoverlay.alpha = 10
-				else if(dirt > 100)
-					dirtoverlay.alpha = min(dirtoverlay.alpha + 10, 200)
+		var/obj/effect/decal/cleanable/dirt/dirtoverlay = locate(/obj/effect/decal/cleanable/dirt) in src
+		if(dirt >= 100)
+			if(!dirtoverlay)
+				dirtoverlay = new/obj/effect/decal/cleanable/dirt(src)
+				dirtoverlay.alpha = 10
+			else if(dirt > 100)
+				dirtoverlay.alpha = min(dirtoverlay.alpha + 10, 200)
 
 		if(ishuman(A))
 			var/mob/living/carbon/human/M = A
@@ -117,12 +116,15 @@
 	if(!..())
 		return 0
 
+	if(!istype(M)) // To avoid non-humans from causing runtimes whena dding blood to the floor
+		return 0
 	var/obj/effect/decal/cleanable/blood/B = locate() in contents	//check for existing blood splatter
 	if(!B)
-		blood_splatter(src,M.get_blood(M.vessel),1)
-		B = locate(/obj/effect/decal/cleanable/blood) in contents
-	B.add_blood_list(M)
-	return 1 //we bloodied the floor
+		B = blood_splatter(src,M.get_blood(M.vessel),1)
+	if(B)
+		B.add_blood_list(M)
+		return 1 //we bloodied the floor
+	return 0 // Clean floors club
 
 // Only adds blood on the floor -- Skie
 /turf/simulated/add_blood_floor(mob/living/carbon/M as mob)

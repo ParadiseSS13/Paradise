@@ -44,14 +44,14 @@ var/list/blob_nodes = list()
 			break
 		var/datum/mind/blob = pick(possible_blobs)
 		infected_crew += blob
-		blob.special_role = "Blob"
+		blob.special_role = SPECIAL_ROLE_BLOB
 		blob.restricted_roles = restricted_jobs
 		log_game("[blob.key] (ckey) has been selected as a Blob")
 		possible_blobs -= blob
 
 	if(!infected_crew.len)
 		return 0
-
+	..()
 	return 1
 
 /datum/game_mode/blob/proc/get_blob_candidates()
@@ -67,7 +67,7 @@ var/list/blob_nodes = list()
 	if(!istype(blobmind))
 		return 0
 	infected_crew += blobmind
-	blobmind.special_role = "Blob"
+	blobmind.special_role = SPECIAL_ROLE_BLOB
 	log_game("[blob.key] (ckey) has been selected as a Blob")
 	greet_blob(blobmind)
 	to_chat(blob, "<span class='userdanger'>You feel very tired and bloated!  You don't have long before you burst!</span>")
@@ -118,8 +118,7 @@ var/list/blob_nodes = list()
 		if(directory[ckey(blob.key)])
 			blob_client = directory[ckey(blob.key)]
 			location = get_turf(C)
-			// TODO: Tie into space manager
-			if(location.z != ZLEVEL_STATION || istype(location, /turf/space))
+			if(!is_station_level(location.z) || istype(location, /turf/space))
 				if(!warned)
 					to_chat(C, "<span class='userdanger'>You feel ready to burst, but this isn't an appropriate place!  You must return to the station!</span>")
 					message_admins("[key_name_admin(C)] was in space when the blobs burst, and will die if he doesn't return to the station.")
@@ -141,7 +140,7 @@ var/list/blob_nodes = list()
 					core.overmind.mind.name = blob.name
 					infected_crew -= blob
 					infected_crew += core.overmind.mind
-					core.overmind.mind.special_role = "Blob Overmind"
+					core.overmind.mind.special_role = SPECIAL_ROLE_BLOB_OVERMIND
 
 /datum/game_mode/blob/post_setup()
 

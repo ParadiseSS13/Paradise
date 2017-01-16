@@ -57,7 +57,7 @@
 						return 0
 				playsound(get_turf(src), 'sound/effects/woodhit.ogg', 75, 1, -1)
 				target.Weaken(3)
-				add_logs(target, user, "stunned", object="[src]")
+				add_logs(user, target, "stunned", object="[src]")
 				src.add_fingerprint(user)
 				target.visible_message("<span class ='danger'>[user] has knocked down [target] with \the [src]!</span>", \
 					"<span class ='userdanger'>[user] has knocked down [target] with \the [src]!</span>")
@@ -78,6 +78,9 @@
 	icon_state = "cane_nt"
 	item_state = "cane_nt"
 	needs_permit = 0
+
+/obj/item/weapon/melee/classic_baton/ntcane/is_crutch()
+	return 1
 
 //Telescopic baton
 /obj/item/weapon/melee/classic_baton/telescopic

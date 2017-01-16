@@ -15,6 +15,9 @@ var/global/pipe_processing_killed = 0
 	var/iteration = 0
 	var/processing_interval = 0
 
+	// Dummy object to let us click it to debug while in the stat panel
+	var/obj/effect/statclick/debug/statclick
+
 /datum/controller/proc/recover() // If we are replacing an existing controller (due to a crash) we attempt to preserve as much as we can.
 
 /datum/controller/game_controller
@@ -24,7 +27,7 @@ var/global/pipe_processing_killed = 0
 	//There can be only one master_controller. Out with the old and in with the new.
 	if(master_controller != src)
 		if(istype(master_controller))
-			del(master_controller)
+			qdel(master_controller)
 		master_controller = src
 
 	var/watch=0
@@ -38,6 +41,10 @@ var/global/pipe_processing_killed = 0
 	if(!syndicate_code_phrase)		syndicate_code_phrase	= generate_code_phrase()
 	if(!syndicate_code_response)	syndicate_code_response	= generate_code_phrase()
 
+/datum/controller/game_controller/Destroy()
+	..()
+	return QDEL_HINT_HARDDEL_NOW
+
 /datum/controller/game_controller/proc/setup()
 	world.tick_lag = config.Ticklag
 
@@ -48,7 +55,7 @@ var/global/pipe_processing_killed = 0
 	if(!config.disable_space_ruins)
 		var/timer = start_watch()
 		log_startup_progress("Creating random space levels...")
-		seedRuins(ZLEVEL_EMPTY, rand(0, 3), /area/space, space_ruins_templates)
+		seedRuins(level_name_to_num(EMPTY_AREA), rand(0, 3), /area/space, space_ruins_templates)
 		log_startup_progress("Loaded random space levels in [stop_watch(timer)]s.")
 
 		// We'll keep this around for the time when we finally expunge all

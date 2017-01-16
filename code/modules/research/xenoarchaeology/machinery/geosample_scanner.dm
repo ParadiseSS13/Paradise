@@ -112,11 +112,21 @@
 		coolant_purity = total_purity / fresh_coolant
 
 /obj/machinery/radiocarbon_spectrometer/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-
 	if(user.stat)
 		return
 
-	// this is the data which will be sent to the ui
+	// update the ui if it exists, returns null if no ui is passed/found
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		// the ui does not exist, so we'll create a new() one
+        // for a list of parameters and their descriptions see the code docs in \code\modules\nano\nanoui.dm
+		ui = new(user, src, ui_key, "geoscanner.tmpl", "High Res Radiocarbon Spectrometer", 900, 825)
+		// open the new ui window
+		ui.open()
+		// auto update every Master Controller tick
+		ui.set_auto_update(1)
+
+/obj/machinery/radiocarbon_spectrometer/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/data[0]
 	data["scanned_item"] = (scanned_item ? scanned_item.name : "")
 	data["scanned_item_desc"] = (scanned_item ? (scanned_item.desc ? scanned_item.desc : "No information on record.") : "")
@@ -141,19 +151,7 @@
 	data["radiation"] = round(radiation)
 	data["t_left_radspike"] = round(t_left_radspike)
 	data["rad_shield_on"] = rad_shield
-
-	// update the ui if it exists, returns null if no ui is passed/found
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if(!ui)
-		// the ui does not exist, so we'll create a new() one
-        // for a list of parameters and their descriptions see the code docs in \code\modules\nano\nanoui.dm
-		ui = new(user, src, ui_key, "geoscanner.tmpl", "High Res Radiocarbon Spectrometer", 900, 825)
-		// when the ui is first opened this is the data it will use
-		ui.set_initial_data(data)
-		// open the new ui window
-		ui.open()
-		// auto update every Master Controller tick
-		ui.set_auto_update(1)
+	return data
 
 /obj/machinery/radiocarbon_spectrometer/process()
 	if(scanning)

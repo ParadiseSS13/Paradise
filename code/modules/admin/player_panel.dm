@@ -75,18 +75,18 @@
 
 					body += "</td><td align='center'>";
 
-					body += "<a href='?src=\ref[src];adminplayeropts="+ref+"'>PP</a> - "
-					body += "<a href='?src=\ref[src];shownoteckey="+key+"'>N</a> - "
+					body += "<a href='?src=[UID()];adminplayeropts="+ref+"'>PP</a> - "
+					body += "<a href='?src=[UID()];shownoteckey="+key+"'>N</a> - "
 					body += "<a href='?_src_=vars;Vars="+ref+"'>VV</a> - "
-					body += "<a href='?src=\ref[src];traitor="+ref+"'>TP</a> - "
-					body += "<a href='?src=\ref[usr];priv_msg=\ref"+ref+"'>PM</a> - "
-					body += "<a href='?src=\ref[src];subtlemessage="+ref+"'>SM</a> - "
-					body += "<a href='?src=\ref[src];adminplayerobservefollow="+ref+"'>FLW</a>"
+					body += "<a href='?src=[UID()];traitor="+ref+"'>TP</a> - "
+					body += "<a href='?src=[usr.UID()];priv_msg=\ref"+ref+"'>PM</a> - "
+					body += "<a href='?src=[UID()];subtlemessage="+ref+"'>SM</a> - "
+					body += "<a href='?src=[UID()];adminplayerobservefollow="+ref+"'>FLW</a>"
 					if(eyeref)
-						body += "|<a href='?src=\ref[src];adminplayerobservefollow="+eyeref+"'>EYE</a>"
+						body += "|<a href='?src=[UID()];adminplayerobservefollow="+eyeref+"'>EYE</a>"
 					body += "<br>"
 					if(antagonist > 0)
-						body += "<font size='2'><a href='?src=\ref[src];check_antagonist=1'><font color='red'><b>Antagonist</b></font></a></font>";
+						body += "<font size='2'><a href='?src=[UID()];check_antagonist=1'><font color='red'><b>Antagonist</b></font></a></font>";
 
 					body += "</td></tr></table>";
 
@@ -197,7 +197,7 @@
 			<tr id='title_tr'>
 				<td align='center'>
 					<font size='5'><b>Player panel</b></font><br>
-					Hover over a line to see more information | [check_rights(R_ADMIN,0) ? "<a href='?src=\ref[src];check_antagonist=1'>Check antagonists</a> | Kick <a href='?_src_=holder;kick_all_from_lobby=1;afkonly=0'>everyone</a>/<a href='?_src_=holder;kick_all_from_lobby=1;afkonly=1'>AFKers</a> in lobby" : "" ]
+					Hover over a line to see more information | [check_rights(R_ADMIN,0) ? "<a href='?src=[UID()];check_antagonist=1'>Check antagonists</a> | Kick <a href='?_src_=holder;kick_all_from_lobby=1;afkonly=0'>everyone</a>/<a href='?_src_=holder;kick_all_from_lobby=1;afkonly=1'>AFKers</a> in lobby" : "" ]
 					<p>
 				</td>
 			</tr>
@@ -269,9 +269,6 @@
 
 			else if(isobserver(M))
 				M_job = "Ghost"
-
-			else if(isSpirit(M))
-				M_job = (ismask(M)) ? "Mask" : "Spirit"
 
 			M_job = replacetext(M_job, "'", "")
 			M_job = replacetext(M_job, "\"", "")
@@ -360,10 +357,6 @@
 			dat += "<td>Ghost</td>"
 		else if(isalien(M))
 			dat += "<td>Alien</td>"
-		else if(ismask(M))
-			dat += "<td>Mask</td>"
-		else if(isSpirit(M))
-			dat += "<td>Spirit</td>"
 		else
 			dat += "<td>Unknown</td>"
 
@@ -377,16 +370,16 @@
 
 
 		dat += {"<td>[(M.client ? "[M.client]" : "No client")]</td>
-		<td align=center><A HREF='?src=\ref[src];adminplayeropts=\ref[M]'>X</A></td>
-		<td align=center><A href='?src=\ref[usr];priv_msg=\ref[M]'>PM</A></td>
+		<td align=center><A HREF='?src=[UID()];adminplayeropts=\ref[M]'>X</A></td>
+		<td align=center><A href='?src=[usr.UID()];priv_msg=\ref[M]'>PM</A></td>
 		"}
 		switch(is_special_character(M))
 			if(0)
-				dat += {"<td align=center><A HREF='?src=\ref[src];traitor=\ref[M]'>Traitor?</A></td>"}
+				dat += {"<td align=center><A HREF='?src=[UID()];traitor=\ref[M]'>Traitor?</A></td>"}
 			if(1)
-				dat += {"<td align=center><A HREF='?src=\ref[src];traitor=\ref[M]'><font color=red>Traitor?</font></A></td>"}
+				dat += {"<td align=center><A HREF='?src=[UID()];traitor=\ref[M]'><font color=red>Traitor?</font></A></td>"}
 			if(2)
-				dat += {"<td align=center><A HREF='?src=\ref[src];traitor=\ref[M]'><font color=red><b>Traitor?</b></font></A></td>"}
+				dat += {"<td align=center><A HREF='?src=[UID()];traitor=\ref[M]'><font color=red><b>Traitor?</b></font></A></td>"}
 
 	dat += "</table></body></html>"
 
@@ -401,8 +394,8 @@
 	else
 		logout_status = M.client ? "" : " <i>(logged out)</i>"
 
-	return {"<tr><td><a href='?src=\ref[src];adminplayeropts=\ref[M]'>[M.real_name]</a><b>[caption]</b>[logout_status][M.stat == 2 ? " <b><font color=red>(DEAD)</font></b>" : ""]</td>
-		<td><A href='?src=\ref[usr];priv_msg=\ref[M]'>PM</A></td>[close ? "</tr>" : ""]"}
+	return {"<tr><td><a href='?src=[UID()];adminplayeropts=\ref[M]'>[M.real_name]</a><b>[caption]</b>[logout_status][M.stat == 2 ? " <b><font color=red>(DEAD)</font></b>" : ""]</td>
+		<td><A href='?src=[usr.UID()];priv_msg=\ref[M]'>PM</A></td>[close ? "</tr>" : ""]"}
 
 /datum/admins/proc/check_antagonists()
 	if(!check_rights(R_ADMIN))	return
@@ -412,7 +405,7 @@
 		dat += "Round Duration: <B>[round(ROUND_TIME / 36000)]:[add_zero(num2text(ROUND_TIME / 600 % 60), 2)]:[add_zero(num2text(ROUND_TIME / 10 % 60), 2)]</B><BR>"
 		dat += "<B>Emergency shuttle</B><BR>"
 		if(shuttle_master.emergency.mode < SHUTTLE_CALL)
-			dat += "<a href='?src=\ref[src];call_shuttle=1'>Call Shuttle</a><br>"
+			dat += "<a href='?src=[UID()];call_shuttle=1'>Call Shuttle</a><br>"
 		else
 			var/timeleft = shuttle_master.emergency.timeLeft()
 			if(shuttle_master.emergency.mode < SHUTTLE_DOCKED)
@@ -421,7 +414,7 @@
 			else
 				dat += "ETA: <a href='?_src_=holder;edit_shuttle_time=1'>[(timeleft / 60) % 60]:[add_zero(num2text(timeleft % 60), 2)]</a><BR>"
 
-		dat += "<a href='?src=\ref[src];delay_round_end=1'>[ticker.delay_end ? "End Round Normally" : "Delay Round End"]</a><br>"
+		dat += "<a href='?src=[UID()];delay_round_end=1'>[ticker.delay_end ? "End Round Normally" : "Delay Round End"]</a><br>"
 		if(ticker.mode.syndicates.len)
 			dat += "<br><table cellspacing=5><tr><td><B>Syndicates</B></td><td></td></tr>"
 			for(var/datum/mind/N in ticker.mode.syndicates)
@@ -437,7 +430,7 @@
 				while(!istype(disk_loc, /turf))
 					if(istype(disk_loc, /mob))
 						var/mob/M = disk_loc
-						dat += "carried by <a href='?src=\ref[src];adminplayeropts=\ref[M]'>[M.real_name]</a> "
+						dat += "carried by <a href='?src=[UID()];adminplayeropts=\ref[M]'>[M.real_name]</a> "
 					if(istype(disk_loc, /obj))
 						var/obj/O = disk_loc
 						dat += "in \a [O.name] "
@@ -468,7 +461,7 @@
 					dat += "<tr><td><i>Head not found!</i></td></tr>"
 			dat += "</table>"
 
-		if(istype(ticker.mode, /datum/game_mode/blob))
+		if(GAMEMODE_IS_BLOB)
 			var/datum/game_mode/blob/mode = ticker.mode
 			dat += "<br><table cellspacing=5><tr><td><B>Blob</B></td><td></td><td></td></tr>"
 			dat += "<tr><td><i>Progress: [blobs.len]/[mode.blobwincount]</i></td></tr>"
@@ -530,10 +523,6 @@
 		if(ticker.mode.greyshirts.len)
 			dat += check_role_table("Greyshirts", ticker.mode.greyshirts)
 
-		var/datum/game_mode/mutiny/mutiny = get_mutiny_mode()
-		if(mutiny)
-			dat += mutiny.check_antagonists_ui(src)
-
 		dat += "</body></html>"
 		usr << browse(dat, "window=roundstatus;size=400x500")
 	else
@@ -555,7 +544,7 @@
 	if(show_objectives)
 		txt += {"
 			<td>
-				<a href='?src=\ref[src];traitor=\ref[M]'>Show Objective</a>
+				<a href='?src=[UID()];traitor=\ref[M]'>Show Objective</a>
 			</td>
 		"}
 

@@ -11,7 +11,6 @@
 	var/calibrating
 	var/turf/target //Used for one-time-use teleport cards (such as clown planet coordinates.)
 						 //Setting this to 1 will set src.locked to null after a player enters the portal and will not allow hand-teles to open portals to that location.
-	var/data[0]
 
 /obj/machinery/computer/teleporter/New()
 	src.id = "[rand(1000, 9999)]"
@@ -67,11 +66,17 @@
 	ui_interact(user)
 
 /obj/machinery/computer/teleporter/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	if(..())
-		return
 	if(stat & (NOPOWER|BROKEN))
 		return
 
+	// Set up the Nano UI
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "teleporter_console.tmpl", "Teleporter Console UI", 400, 400)
+		ui.open()
+
+/obj/machinery/computer/teleporter/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+	var/data[0]
 	data["powerstation"] = power_station
 	if(power_station)
 		data["teleporterhub"] = power_station.teleporter_hub
@@ -86,13 +91,7 @@
 	data["target"] = (!target) ? "None" : sanitize(targetarea.name)
 	data["calibrating"] = calibrating
 	data["locked"] = locked
-
-	// Set up the Nano UI
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if(!ui)
-		ui = new(user, src, ui_key, "teleporter_console.tmpl", "Teleporter Console UI", 400, 400)
-		ui.set_initial_data(data)
-		ui.open()
+	return data
 
 /obj/machinery/computer/teleporter/Topic(href, href_list)
 	if(..())
@@ -182,8 +181,7 @@
 			var/turf/T = get_turf(R)
 			if(!T)
 				continue
-			// TODO: Tie into space manager
-			if((T.z in config.admin_levels) || T.z > ZLEVEL_EMPTY)
+			if(!is_teleport_allowed(T.z))
 				continue
 			if(R.syndicate == 1 && emagged == 0)
 				continue
@@ -199,13 +197,12 @@
 				continue
 			else
 				var/mob/M = I.loc
-				if(M.stat == 2)
+				if(M.stat == DEAD)
 					if(M.timeofdeath + 6000 < world.time)
 						continue
 				var/turf/T = get_turf(M)
 				if(!T)	continue
-				// TODO: Tie into space manager
-				if((T.z in config.admin_levels))	continue
+				if(!is_teleport_allowed(T.z))	continue
 				var/tmpname = M.real_name
 				if(areaindex[tmpname])
 					tmpname = "[tmpname] ([++areaindex[tmpname]])"
@@ -227,8 +224,7 @@
 			var/turf/T = get_turf(R)
 			if(!T || !R.teleporter_hub || !R.teleporter_console)
 				continue
-			// TODO: Tie into space manager
-			if((T.z in config.admin_levels) || T.z > ZLEVEL_EMPTY)
+			if(!is_teleport_allowed(T.z))
 				continue
 			var/tmpname = T.loc.name
 			if(areaindex[tmpname])
@@ -323,7 +319,7 @@
 	return power_station
 
 /obj/machinery/teleport/hub/Bumped(M as mob|obj)
-	if(z == ZLEVEL_CENTCOMM && !admin_usage)
+	if(!is_teleport_allowed(z) && !admin_usage)
 		to_chat(M, "You can't use this here.")
 		return
 	if(power_station && power_station.engaged && !panel_open)
@@ -401,7 +397,7 @@
 /obj/machinery/teleport/perma/Bumped(M as mob|obj)
 	if(stat & (BROKEN|NOPOWER))
 		return
-	if(z == ZLEVEL_CENTCOMM)
+	if(!is_teleport_allowed(z))
 		to_chat(M, "You can't use this here.")
 		return
 	if(target && !recalibrating && !panel_open)

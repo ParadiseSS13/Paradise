@@ -14,6 +14,7 @@
 	origin_tech = "magnets=4;biotech=2"
 	var/scanning = 0
 	var/list/log = list()
+	actions_types = list(/datum/action/item_action/print_report)
 
 /obj/item/device/detective_scanner/attack_self(var/mob/user)
 	var/search = input(user, "Enter name, fingerprint or blood DNA.", "Find record", "")
@@ -58,11 +59,10 @@
 
 	to_chat(user, "<span class='warning'>No match found in station records.</span>")
 
+/obj/item/device/detective_scanner/ui_action_click()
+	print_scanner_report()
 
-/obj/item/device/detective_scanner/verb/print_scanner_report()
-	set name = "Print Scanner Report"
-	set category = "Object"
-
+/obj/item/device/detective_scanner/proc/print_scanner_report()
 	if(log.len && !scanning)
 		scanning = 1
 		to_chat(usr, "<span class='notice'>Printing report, please wait...</span>")

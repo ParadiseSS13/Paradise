@@ -52,8 +52,8 @@ Used In File(s): \code\game\supplyshuttle.dm
 		Shuttle Control:
 	</div>
 	<div class="itemContent">	
-		{{:helper.link('Call Shuttle', 'circle-triangle-e', data.send, data.moving || data.at_station || !data.can_launch ? 'disabled' : '')}}
-		{{:helper.link('Return Shuttle', 'circle-triangle-w', data.send, data.moving || !data.at_station || !data.can_launch ? 'disabled' : '')}}
+		{{:helper.link('Call Shuttle', 'arrow-circle-down', data.send, data.moving || data.at_station || !data.can_launch ? 'disabled' : '')}}
+		{{:helper.link('Return Shuttle', 'arrow-circle-up', data.send, data.moving || !data.at_station || !data.can_launch ? 'disabled' : '')}}
 	</div>
 </div>
 <div style="float: right; width: 70%;">

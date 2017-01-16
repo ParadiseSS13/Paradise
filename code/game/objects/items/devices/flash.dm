@@ -76,12 +76,12 @@
 
 
 /obj/item/device/flash/proc/flash_carbon(var/mob/living/carbon/M, var/mob/user = null, var/power = 5, targeted = 1)
-	add_logs(M, user, "flashed", object="[src.name]")
+	add_logs(user, M, "flashed", object="[src.name]")
 	if(user && targeted)
 		if(M.weakeyes)
 			M.Weaken(3) //quick weaken bypasses eye protection but has no eye flash
 		if(M.flash_eyes(1, 1))
-			M.confused += power
+			M.AdjustConfused(power)
 			terrible_conversion_proc(M, user)
 			M.Stun(1)
 			visible_message("<span class='disarm'>[user] blinds [M] with the flash!</span>")
@@ -96,7 +96,7 @@
 			to_chat(M, "<span class='danger'>[user] fails to blind you with the flash!</span>")
 	else
 		if(M.flash_eyes())
-			M.confused += power
+			M.AdjustConfused(power)
 
 /obj/item/device/flash/attack(mob/living/M, mob/user)
 	if(!try_use_flash(user))
@@ -116,10 +116,10 @@
 			if(R.module) // Perhaps they didn't choose a module yet
 				for(var/obj/item/borg/combat/shield/S in R.module.modules)
 					if(R.activated(S))
-						add_logs(M, user, "flashed", object="[src.name]")
+						add_logs(user, M, "flashed", object="[src.name]")
 						user.visible_message("<span class='disarm'>[user] tries to overloads [M]'s sensors with the [src.name], but if blocked by [M]'s shield!</span>", "<span class='danger'>You try to overload [M]'s sensors with the [src.name], but are blocked by his shield!</span>")
 						return 1
-		add_logs(M, user, "flashed", object="[src.name]")
+		add_logs(user, M, "flashed", object="[src.name]")
 		if(M.flash_eyes(affect_silicon = 1))
 			M.Weaken(rand(5,10))
 			user.visible_message("<span class='disarm'>[user] overloads [M]'s sensors with the [src.name]!</span>", "<span class='danger'>You overload [M]'s sensors with the [src.name]!</span>")

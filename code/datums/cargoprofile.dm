@@ -642,10 +642,8 @@
 		if(istype(M) && (remaining > MOB_WORK))
 			//this is necessarily damaging
 			var/damage = rand(1,5)
-			to_chat(M, "\red <B>The unloading machine grabs you with a hard metallic claw!</B>")
-			if(M.client)
-				M.client.eye = master
-				M.client.perspective = EYE_PERSPECTIVE
+			to_chat(M, "<span class='danger'>The unloading machine grabs you with a hard metallic claw!</span>")
+			M.reset_perspective(master)
 			M.loc = master
 			master.types[M.type] = src
 			M.apply_damage(damage) // todo: ugly
@@ -698,11 +696,8 @@
 		if(remaining > MOB_WORK)
 			//this is necessarily damaging
 			var/damage = rand(1,5)
-			to_chat(M, "\red <B>The unloading machine grabs you with a hard metallic claw!</B>")
-			if(M.client)
-				M.client.eye = master
-				M.client.perspective = EYE_PERSPECTIVE
-			M.loc = master
+			to_chat(M, "<span class='danger'>The unloading machine grabs you with a hard metallic claw!</span>")
+			M.forceMove(master)
 			master.types[M.type] = src
 			M.apply_damage(damage) // todo: ugly
 			M.visible_message("\red [M.name] gets pulled into the machine!")
@@ -710,11 +705,8 @@
 
 	outlet_reaction(var/atom/W,var/turf/D)
 		var/mob/living/M = W
-		M.loc = master.loc
+		M.forceMove(master.loc)
 		M.dir = master.outdir
-		if(M.client)
-			M.client.eye = M.client.mob
-			M.client.perspective = MOB_PERSPECTIVE
 
 		D = get_step(D,master.outdir) // throw attempt
 		eject_speed = rand(0,4)
@@ -769,14 +761,14 @@
 		var/armor_block = M.run_armor_check(affecting, "melee")
 
 		playsound(master.loc, "punch", 25, 1, -1)
-		master.visible_message("\red <B>\The [src] has punched [M]!</B>")
+		master.visible_message("<span class='danger'>\The [src] has punched [M]!</span>")
 		if(!master.emagged)
 			M.apply_damage(damage, STAMINA, affecting, armor_block) // Clean fight
 		else
 			M.apply_damage(damage, BRUTE,   affecting, armor_block) // Foul!  Foooul!
 
 		if(damage >= 9)
-			master.visible_message("\red <B>\The [src] has weakened [M]!</B>")
+			master.visible_message("<span class='danger'>\The [src] has weakened [M]!</span>")
 			M.apply_effect(4, WEAKEN, armor_block)
 			if(!master.emagged)
 				master.sleep = 1

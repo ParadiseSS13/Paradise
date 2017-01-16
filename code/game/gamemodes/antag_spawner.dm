@@ -64,7 +64,7 @@
 	R.key = C.key
 	ticker.mode.syndicates += R.mind
 	ticker.mode.update_synd_icons_added(R.mind)
-	R.mind.special_role = "syndicate"
+	R.mind.special_role = SPECIAL_ROLE_NUKEOPS
 	R.faction = list("syndicate")
 
 /obj/item/weapon/antag_spawner/slaughter_demon //Warning edgiest item in the game
@@ -80,8 +80,7 @@
 	var/mob/living/demon_type = /mob/living/simple_animal/slaughter
 
 /obj/item/weapon/antag_spawner/slaughter_demon/attack_self(mob/user as mob)
-	// TODO: Tie into space manager
-	if(user.z == ZLEVEL_CENTCOMM)//this is to make sure the wizard does NOT summon a demon from the Den..
+	if(level_blocks_magic(user.z))//this is to make sure the wizard does NOT summon a demon from the Den..
 		to_chat(user, "<span class='notice'>You should probably wait until you reach the station.</span>")
 		return
 

@@ -1,4 +1,0 @@
-author: Twinmold
-delete-after: True
-changes: 
-  - bugfix: "Nuke Ops airtank connected to pipenet now."

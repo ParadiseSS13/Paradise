@@ -27,7 +27,7 @@
 		return 0
 
 	GetText()
-		return "<a href=\"?src=\ref[src];set_field=1\">[fmtString(field)]</a> from sensor <a href=\"?src=\ref[src];set_sensor=1\">[fmtString(sensor)]</a>"
+		return "<a href=\"?src=[UID()];set_field=1\">[fmtString(field)]</a> from sensor <a href=\"?src=[UID()];set_sensor=1\">[fmtString(sensor)]</a>"
 
 	Topic(href,href_list)
 		if(..())

@@ -583,7 +583,7 @@ steam.start() -- spawns the effect
 //		if(M.wear_suit, /obj/item/clothing/suit/wizrobe && (M.hat, /obj/item/clothing/head/wizard) && (M.shoes, /obj/item/clothing/shoes/sandal))  // I'll work on it later
 		else
 			M.drop_item()
-			M:sleeping += 5
+			M.AdjustSleeping(5)
 			if(M.coughedtime != 1)
 				M.coughedtime = 1
 				M.emote("cough")
@@ -600,7 +600,7 @@ steam.start() -- spawns the effect
 			return
 		else
 			M.drop_item()
-			M:sleeping += 5
+			M.AdjustSleeping(5)
 			if(M.coughedtime != 1)
 				M.coughedtime = 1
 				M.emote("cough")
@@ -673,7 +673,7 @@ steam.start() -- spawns the effect
 	for(var/mob/living/carbon/human/R in get_turf(src))
 		if(R.internal != null && usr.wear_mask && (R.wear_mask.flags & AIRTIGHT) && R.wear_suit != null && !istype(R.wear_suit, /obj/item/clothing/suit/storage/labcoat) && !istype(R.wear_suit, /obj/item/clothing/suit/straight_jacket) && !istype(R.wear_suit, /obj/item/clothing/suit/straight_jacket && !istype(R.wear_suit, /obj/item/clothing/suit/armor)))
 		else
-			R.burn_skin(0.75)
+			R.adjustFireLoss(0.75)
 			if(R.coughedtime != 1)
 				R.coughedtime = 1
 				R.emote("gasp")
@@ -687,7 +687,7 @@ steam.start() -- spawns the effect
 	if(istype(R, /mob/living/carbon/human))
 		if(R.internal != null && usr.wear_mask && (R.wear_mask.flags & AIRTIGHT) && R.wear_suit != null && !istype(R.wear_suit, /obj/item/clothing/suit/storage/labcoat) && !istype(R.wear_suit, /obj/item/clothing/suit/straight_jacket) && !istype(R.wear_suit, /obj/item/clothing/suit/straight_jacket && !istype(R.wear_suit, /obj/item/clothing/suit/armor)))
 			return
-		R.burn_skin(0.75)
+		R.adjustFireLoss(0.75)
 		if(R.coughedtime != 1)
 			R.coughedtime = 1
 			R.emote("gasp")
@@ -1232,13 +1232,13 @@ steam.start() -- spawns the effect
 	var/amount = 6.0
 	anchored = 1.0
 	mouse_opacity = 0
+
 /obj/effect/sparkles/New()
 	..()
 	var/icon/I = new(src.icon,src.icon_state)
 	var/r = rand(0,255)
 	var/g = rand(0,255)
 	var/b = rand(0,255)
-	log_to_dd("Colour , [r],[g],[b]")
 	I.Blend(rgb(r,g,b),ICON_MULTIPLY)
 	src.icon = I
 	playsound(src.loc, "sparks", 100, 1)

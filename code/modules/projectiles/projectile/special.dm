@@ -136,12 +136,11 @@
 	var/mob/living/M = target
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = M
-		if((H.species.flags & IS_PLANT) && (M.nutrition < 500))
+		if(H.species.flags & IS_PLANT)
 			if(prob(15))
 				M.apply_effect((rand(30,80)),IRRADIATE)
 				M.Weaken(5)
-				for(var/mob/V in viewers(src))
-					V.show_message("<span class='warning'>[M] writhes in pain as \his vacuoles boil.</span>", 3, "<span class='warning'>You hear the crunching of leaves.</span>", 2)
+				M.visible_message("<span class='warning'>[M] writhes in pain as \his vacuoles boil.</span>", "<span class='userdanger'>You writhe in pain as your vacuoles boil!</span>", "<span class='italics'>You hear the crunching of leaves.</span>")
 			if(prob(35))
 				if(prob(80))
 					randmutb(M)
@@ -152,7 +151,7 @@
 			else
 				M.adjustFireLoss(rand(5,15))
 				M.show_message("<span class='warning'>The radiation beam singes you!</span>")
-	else if(istype(target, /mob/living/carbon/))
+	else if(iscarbon(target))
 		M.show_message("<span class='notice'>The radiation beam dissipates harmlessly through your body.</span>")
 	else
 		return 1
@@ -170,9 +169,9 @@
 	var/mob/M = target
 	if(ishuman(target)) //These rays make plantmen fat.
 		var/mob/living/carbon/human/H = M
-		if((H.species.flags & IS_PLANT) && (M.nutrition < 500))
-			M.nutrition += 30
-	else if(istype(target, /mob/living/carbon/))
+		if(H.species.flags & IS_PLANT)
+			H.nutrition = min(H.nutrition+30, NUTRITION_LEVEL_FULL)
+	else if(iscarbon(target))
 		M.show_message("<span class='notice'>The radiation beam dissipates harmlessly through your body.</span>")
 	else
 		return 1
@@ -186,7 +185,7 @@
 	if(ishuman(target))
 		var/mob/living/carbon/human/M = target
 		M.adjustBrainLoss(20)
-		M.hallucination += 20
+		M.AdjustHallucinate(20)
 
 /obj/item/projectile/clown
 	name = "snap-pop"
@@ -276,17 +275,9 @@ obj/item/projectile/kinetic/New()
 
 /obj/item/projectile/beam/wormhole/on_hit(atom/target)
 	if(ismob(target))
-		var/turf/portal_destination = pick(orange(6, src))
-		do_teleport(target, portal_destination)
-		return ..()
-	if(!gun)
-		qdel(src)
-	gun.create_portal(src)
-
-/obj/item/projectile/beam/wormhole/on_hit(atom/target)
-	if(ismob(target))
-		var/turf/portal_destination = pick(orange(6, src))
-		do_teleport(target, portal_destination)
+		if(is_teleport_allowed(target.z))
+			var/turf/portal_destination = pick(orange(6, src))
+			do_teleport(target, portal_destination)
 		return ..()
 	if(!gun)
 		qdel(src)
@@ -360,7 +351,7 @@ obj/item/projectile/kinetic/New()
 	name = "snowball"
 	icon_state = "snowball"
 	hitsound = 'sound/items/dodgeball.ogg'
-	damage = 3
+	damage = 4
 	damage_type = BURN
 
 /obj/item/projectile/snowball/on_hit(atom/target)	//chilling
@@ -374,7 +365,7 @@ obj/item/projectile/kinetic/New()
 	name = "ornament"
 	icon_state = "ornament-1"
 	hitsound = 'sound/effects/Glasshit.ogg'
-	damage = 5
+	damage = 7
 	damage_type = BRUTE
 
 /obj/item/projectile/ornament/New()

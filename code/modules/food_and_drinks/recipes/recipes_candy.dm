@@ -78,6 +78,11 @@
 	items = list(/obj/item/weapon/reagent_containers/food/snacks/egg)
 	result = /obj/item/weapon/reagent_containers/food/snacks/candy/nougat
 
+/datum/recipe/candy/nougat/make_food(obj/container)
+	var/obj/item/weapon/reagent_containers/food/snacks/candy/nougat/being_cooked = ..()
+	being_cooked.reagents.del_reagent("egg")
+	return being_cooked
+
 // ***********************************************************
 // Base Candy Recipes (unflavored / plain)
 // ***********************************************************
@@ -500,7 +505,7 @@
 		/obj/item/weapon/reagent_containers/food/snacks/candy/candybar,
 		/obj/item/weapon/reagent_containers/food/snacks/candy/caramel,
 		)
-	result = /obj/item/weapon/reagent_containers/food/snacks/candy/candybar/caramel
+	result = /obj/item/weapon/reagent_containers/food/snacks/candy/confectionery/caramel
 
 /datum/recipe/candy/toolerone
 	reagents = list()
@@ -508,7 +513,7 @@
 		/obj/item/weapon/reagent_containers/food/snacks/candy/candybar,
 		/obj/item/weapon/reagent_containers/food/snacks/candy/nougat,
 		)
-	result = /obj/item/weapon/reagent_containers/food/snacks/candy/candybar/nougat
+	result = /obj/item/weapon/reagent_containers/food/snacks/candy/confectionery/nougat
 
 /datum/recipe/candy/yumbaton
 	reagents = list()
@@ -516,14 +521,14 @@
 		/obj/item/weapon/reagent_containers/food/snacks/candy/candybar,
 		/obj/item/weapon/reagent_containers/food/snacks/candy/toffee,
 		)
-	result = /obj/item/weapon/reagent_containers/food/snacks/candy/candybar/toffee
+	result = /obj/item/weapon/reagent_containers/food/snacks/candy/confectionery/toffee
 
 /datum/recipe/candy/crunch
 	reagents = list("rice" = 5)
 	items = list(
 		/obj/item/weapon/reagent_containers/food/snacks/candy/candybar,
 		)
-	result = /obj/item/weapon/reagent_containers/food/snacks/candy/candybar/rice
+	result = /obj/item/weapon/reagent_containers/food/snacks/candy/confectionery/rice
 
 /datum/recipe/candy/toxinstest
 	reagents = list()
@@ -532,4 +537,4 @@
 		/obj/item/weapon/reagent_containers/food/snacks/candy/caramel,
 		/obj/item/weapon/reagent_containers/food/snacks/candy/nougat,
 		)
-	result = /obj/item/weapon/reagent_containers/food/snacks/candy/candybar/caramel_nougat
+	result = /obj/item/weapon/reagent_containers/food/snacks/candy/confectionery/caramel_nougat

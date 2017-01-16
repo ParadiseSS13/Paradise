@@ -103,13 +103,12 @@
 		if(drownee.losebreath > 20)	//You've probably got bigger problems than drowning at this point, so we won't add to it until you get that under control.
 			return
 
+		add_logs(src, drownee, "drowned", null, null, 0)	//log it to their VV, but don't spam the admins' chats with the logs
 		if(drownee.stat) //Mob is in critical.
-			drownee.losebreath -= 3		//You're gonna die here.
-			add_logs(drownee, src, "drowned", null, null, 0)	//log it to their VV, but don't spam the admins' chats with the logs
+			drownee.AdjustLoseBreath(3, bound_lower = 0, bound_upper = 20)
 			drownee.visible_message("<span class='danger'>\The [drownee] appears to be drowning!</span>","<span class='userdanger'>You're quickly drowning!</span>") //inform them that they are fucked.
 		else
-			drownee.losebreath -= 2		//For every time you drown, you miss 2 breath attempts. Hope you catch on quick!
-			add_logs(drownee, src, "drowned", null, null, 0)	//log it to their VV, but don't spam the admins' chats with the logs
+			drownee.AdjustLoseBreath(2, bound_lower = 0, bound_upper = 20)		//For every time you drown, you miss 2 breath attempts. Hope you catch on quick!
 			if(prob(35)) //35% chance to tell them what is going on. They should probably figure it out before then.
 				drownee.visible_message("<span class='danger'>\The [drownee] flails, almost like they are drowning!</span>","<span class='userdanger'>You're lacking air!</span>") //*gasp* *gasp* *gasp* *gasp* *gasp*
 
@@ -130,18 +129,19 @@
 
 
 /obj/machinery/poolcontroller/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "poolcontroller.tmpl", "Pool Controller Interface", 520, 410)
+		ui.open()
+
+/obj/machinery/poolcontroller/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/data[0]
 
 	data["currentTemp"] = temperature
 	data["emagged"] = emagged
 	data["TempColor"] = temperaturecolor
 
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if(!ui)
-		ui = new(user, src, ui_key, "poolcontroller.tmpl", "Pool Controller Interface", 520, 410)
-		ui.set_initial_data(data)
-		ui.open()
-
+	return data
 
 
 /obj/machinery/poolcontroller/Topic(href, href_list)

@@ -122,20 +122,21 @@
 			if(1 to 5)				healths.icon_state = "health6"
 			if(0)					healths.icon_state = "health7"
 
-/mob/living/simple_animal/Life()
-	. = ..()
-	handle_state_icons()
-
 /mob/living/simple_animal/proc/process_ai()
 	handle_automated_movement()
 	handle_automated_action()
 	handle_automated_speech()
 
-/mob/living/simple_animal/proc/handle_state_icons()
-	if(resting && icon_resting && stat != DEAD)
-		icon_state = icon_resting
-	else if(stat != DEAD)
-		icon_state = icon_living
+/mob/living/simple_animal/lay_down()
+	..()
+	handle_resting_state_icons()
+
+/mob/living/simple_animal/proc/handle_resting_state_icons()
+	if(icon_resting)
+		if(resting && stat != DEAD)
+			icon_state = icon_resting
+		else if(stat != DEAD)
+			icon_state = icon_living
 
 /mob/living/simple_animal/handle_regular_status_updates()
 	if(..()) //alive
@@ -296,7 +297,7 @@
 			playsound(loc, M.attack_sound, 50, 1, 1)
 		visible_message("<span class='danger'>\The [M] [M.attacktext] [src]!</span>", \
 				"<span class='userdanger'>\The [M] [M.attacktext] [src]!</span>")
-		add_logs(M, src, "attacked", admin=0)
+		add_logs(M, src, "attacked", admin=0, print_attack_log = 0)
 		var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
 		attack_threshold_check(damage,M.melee_damage_type)
 
@@ -407,26 +408,7 @@
 	return
 
 /mob/living/simple_animal/attackby(var/obj/item/O as obj, var/mob/living/user as mob)  //Marker -Agouri
-	if(istype(O, /obj/item/stack/medical) && healable)
-		if(stat != DEAD)
-			var/obj/item/stack/medical/MED = O
-			if(health < maxHealth)
-				if(MED.amount >= 1)
-					if(MED.heal_brute >= 1)
-						heal_organ_damage((MED.heal_brute * 1.66), (MED.heal_burn * 1.66))
-						MED.use(1)
-						visible_message("<span class='notice'>[user] applies [MED] on [src]</span>")
-						return
-					else
-						to_chat(user, "<span class='notice'>[MED] won't help at all.</span>")
-						return
-			else
-				to_chat(user, "<span class='notice'>[src] is at full health.</span>")
-				return
-		else
-			to_chat(user, "<span class='notice'>[src] is dead, medical items won't bring it back to life.</span>")
-			return
-	else if(can_collar && !collar && istype(O, /obj/item/clothing/accessory/petcollar))
+	if(can_collar && !collar && istype(O, /obj/item/clothing/accessory/petcollar))
 		var/obj/item/clothing/accessory/petcollar/C = O
 		user.drop_item()
 		C.forceMove(src)
@@ -560,15 +542,23 @@
 			return 0
 	return 1
 
+/mob/living/simple_animal/handle_fire()
+	return
+
+/mob/living/simple_animal/update_fire()
+	return
+
+/mob/living/simple_animal/IgniteMob()
+	return 0
+
+/mob/living/simple_animal/ExtinguishMob()
+	return
+
 /mob/living/simple_animal/proc/attack_threshold_check(damage, damagetype = BRUTE)
 	if(damage <= force_threshold || !damage_coeff[damagetype])
 		visible_message("<span class='warning'>[src] looks unharmed from the damage.</span>")
 	else
 		apply_damage(damage, damagetype)
-
-
-/mob/living/simple_animal/update_fire()
-	return
 
 /mob/living/simple_animal/update_transform()
 	var/matrix/ntransform = matrix(transform) //aka transform.Copy()
@@ -592,13 +582,13 @@
 /mob/living/simple_animal/show_inv(mob/user as mob)
 	user.set_machine(src)
 	var/dat = {"<table>
-	<tr><td><B>Left Hand:</B></td><td><A href='?src=\ref[src];item=[slot_l_hand]'>[(l_hand && !(l_hand.flags&ABSTRACT)) ? l_hand : "<font color=grey>Empty</font>"]</A></td></tr>
-	<tr><td><B>Right Hand:</B></td><td><A href='?src=\ref[src];item=[slot_r_hand]'>[(r_hand && !(r_hand.flags&ABSTRACT)) ? r_hand : "<font color=grey>Empty</font>"]</A></td></tr>
+	<tr><td><B>Left Hand:</B></td><td><A href='?src=[UID()];item=[slot_l_hand]'>[(l_hand && !(l_hand.flags&ABSTRACT)) ? l_hand : "<font color=grey>Empty</font>"]</A></td></tr>
+	<tr><td><B>Right Hand:</B></td><td><A href='?src=[UID()];item=[slot_r_hand]'>[(r_hand && !(r_hand.flags&ABSTRACT)) ? r_hand : "<font color=grey>Empty</font>"]</A></td></tr>
 	<tr><td>&nbsp;</td></tr>"}
 	if(can_collar)
-		dat += "<tr><td><B>Collar:</B></td><td><A href='?src=\ref[src];[collar?"remove_inv":"add_inv"]=collar'>[(collar && !(collar.flags&ABSTRACT)) ? collar : "<font color=grey>Empty</font>"]</A></td></tr>"
+		dat += "<tr><td><B>Collar:</B></td><td><A href='?src=[UID()];[collar?"remove_inv":"add_inv"]=collar'>[(collar && !(collar.flags&ABSTRACT)) ? collar : "<font color=grey>Empty</font>"]</A></td></tr>"
 	dat += {"</table>
-	<A href='?src=\ref[user];mach_close=mob\ref[src]'>Close</A>
+	<A href='?src=[user.UID()];mach_close=mob\ref[src]'>Close</A>
 	"}
 
 	var/datum/browser/popup = new(user, "mob\ref[src]", "[src]", 440, 250)
@@ -716,8 +706,24 @@
 /mob/living/simple_animal/proc/sentience_act() //Called when a simple animal gains sentience via gold slime potion
 	return
 
-/mob/living/simple_animal/adjustEarDamage()
+/mob/living/simple_animal/update_sight()
+	if(!client)
+		return
+	if(stat == DEAD)
+		grant_death_vision()
+		return
+
+	see_invisible = initial(see_invisible)
+	see_in_dark = initial(see_in_dark)
+	sight = initial(sight)
+
+	if(client.eye != src)
+		var/atom/A = client.eye
+		if(A.update_remote_sight(src)) //returns 1 if we override all other sight updates.
+			return
+
+/mob/living/simple_animal/SetEarDamage()
 	return
 
-/mob/living/simple_animal/setEarDamage()
+/mob/living/simple_animal/SetEarDeaf()
 	return

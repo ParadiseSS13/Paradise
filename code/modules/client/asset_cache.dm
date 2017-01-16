@@ -261,6 +261,8 @@ proc/getFilesSlow(var/client/client, var/list/files, var/register_asset = TRUE)
 	send_asset_list(client, uncommon)
 	send_asset_list(client, common)
 
+
+//Pill sprites for UIs
 /datum/asset/chem_master
 	var/assets = list()
 	var/verify = FALSE
@@ -268,10 +270,27 @@ proc/getFilesSlow(var/client/client, var/list/files, var/register_asset = TRUE)
 /datum/asset/chem_master/register()
 	for(var/i = 1 to 20)
 		assets["pill[i].png"] = icon('icons/obj/chemical.dmi', "pill[i]")
-	for(var/i = 1 to 20)
-		assets["bottle[i].png"] = icon('icons/obj/chemical.dmi', "bottle[i]")
+	for(var/i in list("bottle", "small_bottle", "wide_bottle", "round_bottle"))
+		assets["[i].png"] = icon('icons/obj/chemical.dmi', "[i]")
 	for(var/asset_name in assets)
 		register_asset(asset_name, assets[asset_name])
 
 /datum/asset/chem_master/send(client)
-	send_asset_list(client,assets,verify)
+	send_asset_list(client, assets, verify)
+
+
+//Mob Hunt sprites for UIs
+/datum/asset/mob_hunt
+	var/assets = list()
+	var/verify = FALSE
+
+/datum/asset/mob_hunt/register()
+	for(var/state in icon_states('icons/effects/mob_hunt.dmi'))
+		if(state == "Placeholder")
+			continue
+		assets["[state].png"] = icon('icons/effects/mob_hunt.dmi', state)
+	for(var/asset_name in assets)
+		register_asset(asset_name, assets[asset_name])
+
+/datum/asset/mob_hunt/send(client)
+	send_asset_list(client, assets, verify)

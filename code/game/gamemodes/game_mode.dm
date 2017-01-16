@@ -31,9 +31,12 @@
 	var/ert_disabled = 0
 	var/uplink_welcome = "Syndicate Uplink Console:"
 	var/uplink_uses = 20
+	var/datum/cult_info/cultdat //here instead of cult for adminbus purposes
 
 	var/const/waittime_l = 600  //lower bound on time before intercept arrives (in tenths of seconds)
 	var/const/waittime_h = 1800 //upper bound on time before intercept arrives (in tenths of seconds)
+	var/list/player_draft_log = list()
+	var/list/datum/mind/xenos = list()
 
 /datum/game_mode/proc/announce() //to be calles when round starts
 	to_chat(world, "<B>Notice</B>: [src] did not define announce()")
@@ -53,11 +56,13 @@
 
 //pre_pre_setup() For when you really don't want certain jobs ingame.
 /datum/game_mode/proc/pre_pre_setup()
+
 	return 1
 
 ///pre_setup()
 ///Attempts to select players for special roles the mode might have.
 /datum/game_mode/proc/pre_setup()
+
 	return 1
 
 
@@ -135,7 +140,7 @@
 					break
 
 /datum/game_mode/proc/check_finished() //to be called by ticker
-	if(shuttle_master.emergency.mode >= SHUTTLE_ENDGAME || station_was_nuked)
+	if((shuttle_master.emergency && shuttle_master.emergency.mode >= SHUTTLE_ENDGAME) || station_was_nuked)
 		return 1
 	return 0
 
@@ -239,7 +244,7 @@
 	// Get a list of all the people who want to be the antagonist for this round, except those with incompatible species
 	for(var/mob/new_player/player in players)
 		if((role in player.client.prefs.be_special) && !(player.client.prefs.species in protected_species))
-			log_debug("[player.key] had [roletext] enabled, so we are drafting them.")
+			player_draft_log += "[player.key] had [roletext] enabled, so we are drafting them."
 			candidates += player.mind
 			players -= player
 
@@ -248,7 +253,7 @@
 		for(var/key in round_voters)
 			for(var/mob/new_player/player in players)
 				if(player.ckey == key)
-					log_debug("[player.key] voted for this round, so we are drafting them.")
+					player_draft_log += "[player.key] voted for this round, so we are drafting them."
 					candidates += player.mind
 					players -= player
 					break
@@ -329,6 +334,7 @@
 
 /datum/game_mode/New()
 	newscaster_announcements = pick(newscaster_standard_feeds)
+	cultdat = setupcult()
 
 //////////////////////////
 //Reports player logouts//
@@ -387,7 +393,7 @@ proc/display_roundstart_logout_report()
 
 
 	for(var/mob/M in mob_list)
-		if(M.client && M.client.holder)
+		if(check_rights(R_ADMIN, 0, M))
 			to_chat(M, msg)
 
 
@@ -427,8 +433,7 @@ proc/get_nt_opposed()
 /proc/get_nuke_code()
 	var/nukecode = "ERROR"
 	for(var/obj/machinery/nuclearbomb/bomb in world)
-		// TODO: Tie into space manager
-		if(bomb && bomb.r_code && bomb.z == ZLEVEL_STATION)
+		if(bomb && bomb.r_code && is_station_level(bomb.z))
 			nukecode = bomb.r_code
 	return nukecode
 
@@ -452,8 +457,7 @@ proc/get_nt_opposed()
 			text += " <span class='boldannounce'>died</span>"
 		else
 			text += " <span class='greenannounce'>survived</span>"
-		if(fleecheck && ply.current.z > ZLEVEL_STATION)
-			// TODO: Tie into space manager
+		if(fleecheck && !is_station_level(ply.current.z))
 			text += " while <span class='boldannounce'>fleeing the station</span>"
 		if(ply.current.real_name != ply.name)
 			text += " as <b>[ply.current.real_name]</b>"

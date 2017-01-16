@@ -53,7 +53,7 @@
 		H.sec_hud_set_implants()
 
 	if(user)
-		add_logs(source, user, "implanted", object="[name]")
+		add_logs(user, source, "implanted", object="[name]")
 
 	return 1
 

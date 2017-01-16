@@ -4,15 +4,8 @@ var/global/default_martial_art = new/datum/martial_art
 	hud_possible = list(HEALTH_HUD,STATUS_HUD,ID_HUD,WANTED_HUD,IMPLOYAL_HUD,IMPCHEM_HUD,IMPTRACK_HUD,SPECIALROLE_HUD,NATIONS_HUD)
 
 	//Marking colour and style
-	var/r_markings = 0
-	var/g_markings = 0
-	var/b_markings = 0
-	var/m_style = "None"
-
-	//Eye colour
-	var/r_eyes = 0
-	var/g_eyes = 0
-	var/b_eyes = 0
+	var/list/m_colours = DEFAULT_MARKING_COLOURS //All colours set to #000000.
+	var/list/m_styles = DEFAULT_MARKING_STYLES //All markings set to None.
 
 	var/s_tone = 0	//Skin tone
 
@@ -58,7 +51,6 @@ var/global/default_martial_art = new/datum/martial_art
 	var/datum/martial_art/martial_art = null
 
 	var/special_voice = "" // For changing our voice. Used by a symptom.
-	var/said_last_words=0
 
 	var/last_dam = -1	//Used for determining if we need to process all organs or just some or even none.
 	var/list/bad_external_organs = list()// organs we check until they are good.
@@ -73,11 +65,8 @@ var/global/default_martial_art = new/datum/martial_art
 	var/meatleft = 3 //For chef item
 	var/decaylevel = 0 // For rotting bodies
 	var/max_blood = BLOOD_VOLUME_NORMAL // For stuff in the vessel
-	var/slime_color = "blue" //For slime people this defines their color, it's blue by default to pay tribute to the old icons
 
 	var/check_mutations=0 // Check mutations on next life tick
-
-	var/lastFart = 0 // Toxic fart cooldown.
 
 	var/fire_dmi = 'icons/mob/OnFire.dmi'
 	var/fire_sprite = "Standing"

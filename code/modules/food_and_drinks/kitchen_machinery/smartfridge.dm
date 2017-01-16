@@ -49,9 +49,11 @@
 /obj/machinery/smartfridge/Destroy()
 	qdel(wires)
 	wires = null
+	for(var/atom/movable/A in contents)
+		A.forceMove(loc)
 	return ..()
 
-/obj/machinery/smartfridge/proc/accept_check(var/obj/item/O as obj)
+/obj/machinery/smartfridge/proc/accept_check(obj/item/O)
 	if(istype(O,/obj/item/weapon/reagent_containers/food/snacks/grown/) || istype(O,/obj/item/seeds/))
 		return 1
 	return 0
@@ -64,7 +66,7 @@
 	icon_on = "seeds"
 	icon_off = "seeds-off"
 
-/obj/machinery/smartfridge/seeds/accept_check(var/obj/item/O as obj)
+/obj/machinery/smartfridge/seeds/accept_check(obj/item/O)
 	if(istype(O,/obj/item/seeds/))
 		return 1
 	return 0
@@ -75,12 +77,12 @@
 	icon_state = "smartfridge" //To fix the icon in the map editor.
 	icon_on = "smartfridge_chem"
 
-/obj/machinery/smartfridge/medbay/accept_check(var/obj/item/O as obj)
+/obj/machinery/smartfridge/medbay/accept_check(obj/item/O)
 	if(istype(O,/obj/item/weapon/reagent_containers/glass/))
 		return 1
 	if(istype(O,/obj/item/weapon/storage/pill_bottle/))
 		return 1
-	if(istype(O,/obj/item/weapon/reagent_containers/food/pill/))
+	if(ispill(O))
 		return 1
 	return 0
 
@@ -89,7 +91,7 @@
 	desc = "A refrigerated storage unit for slime extracts"
 	req_access_txt = "47"
 
-/obj/machinery/smartfridge/secure/extract/accept_check(var/obj/item/O as obj)
+/obj/machinery/smartfridge/secure/extract/accept_check(obj/item/O)
 	if(istype(O,/obj/item/slime_extract))
 		return 1
 	return 0
@@ -101,12 +103,12 @@
 	icon_on = "smartfridge_chem"
 	req_one_access_txt = "5;33"
 
-/obj/machinery/smartfridge/secure/medbay/accept_check(var/obj/item/O as obj)
+/obj/machinery/smartfridge/secure/medbay/accept_check(obj/item/O)
 	if(istype(O,/obj/item/weapon/reagent_containers/glass/))
 		return 1
 	if(istype(O,/obj/item/weapon/storage/pill_bottle/))
 		return 1
-	if(istype(O,/obj/item/weapon/reagent_containers/food/pill/))
+	if(ispill(O))
 		return 1
 	return 0
 
@@ -132,7 +134,7 @@
 			nanomanager.update_uis(src)
 			amount--
 
-/obj/machinery/smartfridge/chemistry/accept_check(var/obj/item/O as obj)
+/obj/machinery/smartfridge/chemistry/accept_check(obj/item/O)
 	if(istype(O,/obj/item/weapon/storage/pill_bottle) || istype(O,/obj/item/weapon/reagent_containers))
 		return 1
 	return 0
@@ -152,7 +154,7 @@
 					  /obj/item/weapon/reagent_containers/glass/bottle/plasma = 1,
 					  /obj/item/weapon/reagent_containers/glass/bottle/diphenhydramine = 1)
 
-/obj/machinery/smartfridge/secure/chemistry/virology/accept_check(var/obj/item/O as obj)
+/obj/machinery/smartfridge/secure/chemistry/virology/accept_check(obj/item/O)
 	if(istype(O, /obj/item/weapon/reagent_containers/syringe) || istype(O, /obj/item/weapon/reagent_containers/glass/bottle) || istype(O, /obj/item/weapon/reagent_containers/glass/beaker))
 		return 1
 	return 0
@@ -161,17 +163,17 @@
 	name = "\improper Drink Showcase"
 	desc = "A refrigerated storage unit for tasty tasty alcohol."
 
-/obj/machinery/smartfridge/drinks/accept_check(var/obj/item/O as obj)
+/obj/machinery/smartfridge/drinks/accept_check(obj/item/O)
 	if(istype(O,/obj/item/weapon/reagent_containers/glass) || istype(O,/obj/item/weapon/reagent_containers/food/drinks) || istype(O,/obj/item/weapon/reagent_containers/food/condiment))
 		return 1
 
 /obj/machinery/smartfridge/process()
 	if(stat & (BROKEN|NOPOWER))
 		return
-	if(src.seconds_electrified > 0)
-		src.seconds_electrified--
-	if(src.shoot_inventory && prob(2))
-		src.throw_item()
+	if(seconds_electrified > 0)
+		seconds_electrified--
+	if(shoot_inventory && prob(2))
+		throw_item()
 
 /obj/machinery/smartfridge/power_change()
 	var/old_stat = stat
@@ -190,9 +192,9 @@
 *   Item Adding
 ********************/
 
-/obj/machinery/smartfridge/attackby(var/obj/item/O as obj, var/mob/user as mob)
+/obj/machinery/smartfridge/attackby(obj/item/O, mob/user)
 	if(istype(O, /obj/item/weapon/screwdriver) && anchored)
-		playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
+		playsound(loc, 'sound/items/Screwdriver.ogg', 50, 1)
 		panel_open = !panel_open
 		to_chat(user, "You [panel_open ? "open" : "close"] the maintenance panel.")
 		overlays.Cut()
@@ -207,7 +209,8 @@
 		power_change()
 		return
 
-	default_deconstruction_crowbar(O)
+	if(default_deconstruction_crowbar(O))
+		return
 
 	if(istype(O, /obj/item/device/multitool)||istype(O, /obj/item/weapon/wirecutters))
 		if(panel_open)
@@ -268,20 +271,20 @@
 			return 1
 	return 0
 
-/obj/machinery/smartfridge/attack_ai(mob/user as mob)
+/obj/machinery/smartfridge/attack_ai(mob/user)
 	return 0
 
-/obj/machinery/smartfridge/attack_ghost(mob/user as mob)
-	return src.attack_hand(user)
+/obj/machinery/smartfridge/attack_ghost(mob/user)
+	return attack_hand(user)
 
-/obj/machinery/smartfridge/attack_hand(mob/user as mob)
+/obj/machinery/smartfridge/attack_hand(mob/user)
 	if(stat & (NOPOWER|BROKEN))
 		return
 	wires.Interact(user)
 	ui_interact(user)
 
 //Drag pill bottle to fridge to empty it into the fridge
-/obj/machinery/smartfridge/MouseDrop_T(obj/over_object as obj, mob/user as mob)
+/obj/machinery/smartfridge/MouseDrop_T(obj/over_object, mob/user)
 	if(!istype(over_object, /obj/item/weapon/storage/pill_bottle)) //Only pill bottles, please
 		return
 
@@ -302,7 +305,7 @@
 		to_chat(user, "<span class='notice'>Some items are refused.</span>")
 	nanomanager.update_uis(src)
 
-/obj/machinery/smartfridge/secure/emag_act(user as mob)
+/obj/machinery/smartfridge/secure/emag_act(user)
 	emagged = 1
 	locked = -1
 	to_chat(user, "You short out the product lock on [src].")
@@ -311,10 +314,17 @@
 *   SmartFridge Menu
 ********************/
 
-/obj/machinery/smartfridge/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
+/obj/machinery/smartfridge/ui_interact(mob/user, ui_key = "main", datum/nanoui/ui = null, force_open = 1)
 	user.set_machine(src)
 
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "smartfridge.tmpl", name, 400, 500)
+		ui.open()
+
+/obj/machinery/smartfridge/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/data[0]
+
 	data["contents"] = null
 	data["electrified"] = seconds_electrified > 0
 	data["shoot_inventory"] = shoot_inventory
@@ -331,11 +341,7 @@
 	if(items.len > 0)
 		data["contents"] = items
 
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if(!ui)
-		ui = new(user, src, ui_key, "smartfridge.tmpl", src.name, 400, 500)
-		ui.set_initial_data(data)
-		ui.open()
+	return data
 
 /obj/machinery/smartfridge/Topic(href, href_list)
 	if(..()) return 0
@@ -343,7 +349,7 @@
 	var/mob/user = usr
 	var/datum/nanoui/ui = nanomanager.get_open_ui(user, src, "main")
 
-	src.add_fingerprint(user)
+	add_fingerprint(user)
 
 	if(href_list["close"])
 		user.unset_machine()
@@ -384,7 +390,7 @@
 		item_quants[O]--
 		for(var/obj/T in contents)
 			if(T.name == O)
-				T.forceMove(src.loc)
+				T.forceMove(loc)
 				throw_item = T
 				break
 		break
@@ -392,7 +398,7 @@
 		return 0
 	spawn(0)
 		throw_item.throw_at(target,16,3,src)
-	src.visible_message("<span class='warning'>[src] launches [throw_item.name] at [target.name]!</span>")
+	visible_message("<span class='warning'>[src] launches [throw_item.name] at [target.name]!</span>")
 	return 1
 
 /************************

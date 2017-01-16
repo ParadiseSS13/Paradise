@@ -59,21 +59,6 @@ var/global/vox_tick = 1
 	W.registered_user = src
 	equip_to_slot_or_del(W, slot_wear_id)
 
-/*
-	var/obj/item/weapon/implant/cortical/I = new(src)
-	I.imp_in = src
-	I.implanted = 1
-
-	if(ticker.mode && ( istype(ticker.mode,/datum/game_mode/vox/heist) ) )
-		var/datum/game_mode/vox/heist/M = ticker.mode
-		M.cortical_stacks += I
-		M.raiders[mind] = I
-	else if(ticker.mode && ( istype(ticker.mode,/datum/game_mode/vox/trade) ) )
-		var/datum/game_mode/vox/trade/M = ticker.mode
-		M.cortical_stacks += I
-		M.traders[mind] = I
-
-*/
 	vox_tick++
 	if(vox_tick > 4) vox_tick = 1
 

@@ -10,6 +10,7 @@
 	var/datum/seed/seed
 	var/potency = -1
 	var/awakening = 0
+	burn_state = FLAMMABLE
 
 /obj/item/weapon/reagent_containers/food/snacks/grown/New(newloc,planttype)
 

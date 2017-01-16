@@ -12,7 +12,6 @@
 #define ROLE_OPERATIVE			"operative"
 #define ROLE_CHANGELING			"changeling"
 #define ROLE_WIZARD				"wizard"
-#define ROLE_MALF				"malf AI"
 #define ROLE_REV				"revolutionary"
 #define ROLE_ALIEN				"xenomorph"
 #define ROLE_PAI				"pAI"
@@ -29,7 +28,6 @@
 #define ROLE_RAIDER				"vox raider"
 #define ROLE_TRADER				"trader"
 #define ROLE_VAMPIRE			"vampire"
-#define ROLE_MUTINEER			"mutineer"
 // Role tags for EVERYONE!
 #define ROLE_BORER				"cortical borer"
 #define ROLE_DEMON				"slaughter demon"
@@ -39,6 +37,7 @@
 #define ROLE_MORPH				"morph"
 #define ROLE_ERT				"emergency response team"
 #define ROLE_NYMPH				"Dionaea"
+#define ROLE_GSPIDER				"giant spider"
 
 
 //Missing assignment means it's not a gamemode specific role, IT'S NOT A BUG OR ERROR.
@@ -49,7 +48,6 @@ var/global/list/special_roles = list(
 	ROLE_OPERATIVE = /datum/game_mode/nuclear,
 	ROLE_CHANGELING = /datum/game_mode/changeling,
 	ROLE_WIZARD = /datum/game_mode/wizard,
-	ROLE_MALF = /datum/game_mode/malfunction,
 	ROLE_REV = /datum/game_mode/revolution,
 	ROLE_ALIEN,
 	ROLE_PAI,
@@ -64,7 +62,6 @@ var/global/list/special_roles = list(
 //	ROLE_HOG_CULTIST = /datum/game_mode/hand_of_god,
 	ROLE_RAIDER = /datum/game_mode/heist,
 	ROLE_VAMPIRE = /datum/game_mode/vampire,
-	ROLE_MUTINEER = /datum/game_mode/mutiny,
 	ROLE_BORER,
 	ROLE_DEMON,
 	ROLE_SENTIENT,
@@ -73,4 +70,5 @@ var/global/list/special_roles = list(
 	ROLE_GUARDIAN,
 	ROLE_MORPH,
 	ROLE_TRADER,
+	ROLE_GSPIDER,
 )

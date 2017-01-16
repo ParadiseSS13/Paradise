@@ -21,13 +21,13 @@
 		dat += "<I>Using this contract, you may summon an apprentice to aid you on your mission.</I><BR>"
 		dat += "<I>If you are unable to establish contact with your apprentice, you can feed the contract back to the spellbook to refund your points.</I><BR>"
 		dat += "<B>Which school of magic is your apprentice studying?:</B><BR>"
-		dat += "<A href='byond://?src=\ref[src];school=destruction'>Destruction</A><BR>"
+		dat += "<A href='byond://?src=[UID()];school=destruction'>Destruction</A><BR>"
 		dat += "<I>Your apprentice is skilled in offensive magic. They know Magic Missile and Fireball.</I><BR>"
-		dat += "<A href='byond://?src=\ref[src];school=bluespace'>Bluespace Manipulation</A><BR>"
+		dat += "<A href='byond://?src=[UID()];school=bluespace'>Bluespace Manipulation</A><BR>"
 		dat += "<I>Your apprentice is able to defy physics, melting through solid objects and travelling great distances in the blink of an eye. They know Teleport and Ethereal Jaunt.</I><BR>"
-		dat += "<A href='byond://?src=\ref[src];school=healing'>Healing</A><BR>"
+		dat += "<A href='byond://?src=[UID()];school=healing'>Healing</A><BR>"
 		dat += "<I>Your apprentice is training to cast spells that will aid your survival. They know Forcewall and Charge and come with a Staff of Healing.</I><BR>"
-		dat += "<A href='byond://?src=\ref[src];school=robeless'>Robeless</A><BR>"
+		dat += "<A href='byond://?src=[UID()];school=robeless'>Robeless</A><BR>"
 		dat += "<I>Your apprentice is training to cast spells without their robes. They know Knock and Mindswap.</I><BR>"
 	user << browse(dat, "window=radio")
 	onclose(user, "radio")
@@ -100,7 +100,7 @@
 				new_objective.explanation_text = "Protect [H.real_name], the wizard."
 				M.mind.objectives += new_objective
 				ticker.mode.traitors += M.mind
-				M.mind.special_role = "apprentice"
+				M.mind.special_role = SPECIAL_ROLE_WIZARD_APPRENTICE
 				ticker.mode.update_wiz_icons_added(M.mind)
 				M.faction = list("wizard")
 			else
@@ -259,7 +259,7 @@ var/global/list/multiverse = list()
 	..()
 
 /obj/item/weapon/multisword/attack_self(mob/user)
-	if(user.mind.special_role == "apprentice")
+	if(user.mind.special_role == SPECIAL_ROLE_WIZARD_APPRENTICE)
 		to_chat(user, "<span class='warning'>You know better than to touch your teacher's stuff.</span>")
 		return
 	if(cooldown < world.time)
@@ -346,7 +346,7 @@ var/global/list/multiverse = list()
 		M.mind.objectives += hijack_objective
 		hijack_objective.explanation_text = "Ensure only [usr.real_name] and their copies are on the shuttle!"
 		to_chat(M, "<B>Objective #[1]</B>: [hijack_objective.explanation_text]")
-		M.mind.special_role = "multiverse traveller"
+		M.mind.special_role = SPECIAL_ROLE_MULTIVERSE
 		log_game("[M.key] was made a multiverse traveller with the objective to help [usr.real_name] hijack.")
 	else
 		var/datum/objective/protect/new_objective = new /datum/objective/protect
@@ -355,7 +355,7 @@ var/global/list/multiverse = list()
 		new_objective.explanation_text = "Protect [usr.real_name], your copy, and help them defend the innocent from the mobs of multiverse clones."
 		M.mind.objectives += new_objective
 		to_chat(M, "<B>Objective #[1]</B>: [new_objective.explanation_text]")
-		M.mind.special_role = "multiverse traveller"
+		M.mind.special_role = SPECIAL_ROLE_MULTIVERSE
 		log_game("[M.key] was made a multiverse traveller with the objective to help [usr.real_name] protect the station.")
 
 /obj/item/weapon/multisword/proc/equip_copy(var/mob/living/carbon/human/M)
@@ -766,8 +766,8 @@ var/global/list/multiverse = list()
 	var/obj/item/link = null
 	var/cooldown_time = 30 //3s
 	var/cooldown = 0
-
-
+	burntime = 0
+	burn_state = FLAMMABLE
 
 /obj/item/voodoo/attackby(obj/item/I as obj, mob/user as mob, params)
 	if(target && cooldown < world.time)
@@ -782,7 +782,7 @@ var/global/list/multiverse = list()
 		else if(istype(I,/obj/item/weapon/bikehorn))
 			to_chat(target, "<span class='userdanger'>HONK</span>")
 			target << 'sound/items/AirHorn.ogg'
-			target.adjustEarDamage(0,3)
+			target.AdjustEarDeaf(3)
 			GiveHint(target)
 		cooldown = world.time +cooldown_time
 		return
@@ -817,11 +817,9 @@ var/global/list/multiverse = list()
 				log_game("[user][user.key] made [target][target.key] say [wgw] with a voodoo doll.")
 			if("eyes")
 				user.set_machine(src)
-				if(user.client)
-					user.client.eye = target
-					user.client.perspective = EYE_PERSPECTIVE
+				user.reset_perspective(target)
 				spawn(100)
-					user.reset_view()
+					user.reset_perspective(null)
 					user.unset_machine()
 			if("r_leg","l_leg")
 				to_chat(user, "<span class='notice'>You move the doll's legs around.</span>")

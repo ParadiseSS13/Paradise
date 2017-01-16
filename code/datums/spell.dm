@@ -64,13 +64,10 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 		var/mob/living/carbon/human/caster = user
 		if(caster.remoteview_target)
 			caster.remoteview_target = null
-			caster.reset_view(0)
+			caster.reset_perspective(0)
 			return 0
 
-	// TODO: Tie into space manager
-	if(user.z == ZLEVEL_CENTCOMM && !centcom_cancast) //Certain spells are not allowed on the centcom zlevel
-		return 0
-	if(user.z == ZLEVEL_CENTCOMM && ticker.mode.name == "ragin' mages")
+	if(is_admin_level(user.z) && (!centcom_cancast || ticker.mode.name == "ragin' mages")) //Certain spells are not allowed on the centcom zlevel
 		return 0
 
 	if(!skipcharge)
@@ -364,10 +361,7 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 	if(((!user.mind) || !(src in user.mind.spell_list)) && !(src in user.mob_spell_list))
 		return 0
 
-	// TODO: Tie into space manager
-	if(user.z == ZLEVEL_CENTCOMM && !centcom_cancast) //Certain spells are not allowed on the centcom zlevel
-		return 0
-	if(user.z == ZLEVEL_CENTCOMM && ticker.mode.name == "ragin' mages")
+	if(is_admin_level(user.z) && (!centcom_cancast || ticker.mode.name == "ragin' mages")) //Certain spells are not allowed on the centcom zlevel
 		return 0
 
 	switch(charge_type)
@@ -388,9 +382,9 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 		if((invocation_type == "whisper" || invocation_type == "shout") && H.is_muzzled())
 			return 0
 
-		var/obj/effect/proc_holder/spell/noclothes/clothcheck = locate() in user.mob_spell_list
-		var/obj/effect/proc_holder/spell/noclothes/clothcheck2 = locate() in user.mind.spell_list
-		if(clothes_req && !(clothcheck && istype(clothcheck)) && !(clothcheck2 && istype(clothcheck2)))//clothes check
+		var/clothcheck = locate(/obj/effect/proc_holder/spell/noclothes) in user.mob_spell_list
+		var/clothcheck2 = user.mind && (locate(/obj/effect/proc_holder/spell/noclothes) in user.mind.spell_list)
+		if(clothes_req && !clothcheck && !clothcheck2) //clothes check
 			if(!istype(H.wear_suit, /obj/item/clothing/suit/wizrobe) && !istype(H.wear_suit, /obj/item/clothing/suit/space/rig/wizard))
 				return 0
 			if(!istype(H.shoes, /obj/item/clothing/shoes/sandal))

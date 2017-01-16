@@ -46,7 +46,7 @@ var/list/organ_cache = list()
 			dna = holder.dna.Clone()
 			species = all_species[dna.species]
 		else
-			log_to_dd("[src] at [loc] spawned without a proper DNA.")
+			log_runtime(EXCEPTION("[holder] spawned without a proper DNA."), holder)
 		var/mob/living/carbon/human/H = holder
 		if(istype(H))
 			if(dna)
@@ -314,6 +314,7 @@ var/list/organ_cache = list()
 			msg_admin_attack("[key_name_admin(user)] removed a vital organ ([src]) from [key_name_admin(owner)]")
 		owner.death()
 	owner = null
+	return src
 
 /obj/item/organ/proc/replaced(var/mob/living/carbon/human/target,var/obj/item/organ/external/affected)
 
@@ -343,3 +344,32 @@ I use this so that this can be made better once the organ overhaul rolls out -- 
 	if(!istype(owner)) // You're not the primary organ of ANYTHING, bucko
 		return 0
 	return src == O.get_int_organ(organ_tag)
+
+/obj/item/organ/serialize()
+	var/data = ..()
+	if(status != 0)
+		data["status"] = status
+	if(robotic > 0)
+		data["robotic"] = robotic
+
+	// Save the DNA datum if: The owner doesn't exist, or the dna doesn't match
+	// the owner
+	if(!(owner && dna.unique_enzymes == owner.dna.unique_enzymes))
+		data["dna"] = dna.serialize()
+	return data
+
+/obj/item/organ/deserialize(var/data)
+	switch(data["robotic"])
+		if(1)
+			mechassist()
+		if(2)
+			robotize()
+		else
+			// Nothing
+	if(isnum(data["status"]))
+		status = data["status"]
+	if(islist(data["dna"]))
+		// The only thing the official proc does is
+	 	//instantiate the list and call this proc
+		dna.deserialize(data["dna"])
+		..()

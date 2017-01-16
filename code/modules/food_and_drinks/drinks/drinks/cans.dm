@@ -9,7 +9,7 @@
 
 /obj/item/weapon/reagent_containers/food/drinks/cans/attack_self(mob/user)
 	if(canopened == 0)
-		playsound(src.loc,'sound/effects/canopen.ogg', rand(10,50), 1)
+		playsound(loc,'sound/effects/canopen.ogg', rand(10,50), 1)
 		to_chat(user, "<span class='notice'>You open the drink with an audible pop!</span>")
 		canopened = 1
 		flags |= OPENCONTAINER
@@ -32,7 +32,7 @@
 	if(canopened == 0)
 		to_chat(user, "<span class='notice'>You need to open the drink!</span>")
 		return
-	else if(M == user && !src.reagents.total_volume && user.a_intent == "harm" && user.zone_sel.selecting == "head")
+	else if(M == user && !reagents.total_volume && user.a_intent == "harm" && user.zone_sel.selecting == "head")
 		user.visible_message("<span class='warning'>[user] crushes ["\the [src]"] on \his forehead!</span>", "<span class='notice'>You crush \the [src] on your forehead.</span>")
 		crush(user)
 		return

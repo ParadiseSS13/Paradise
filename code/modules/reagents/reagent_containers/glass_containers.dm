@@ -1,4 +1,4 @@
- ////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
 /// (Mixing)Glass.
 ////////////////////////////////////////////////////////////////////////////////
 /obj/item/weapon/reagent_containers/glass
@@ -328,7 +328,16 @@
 	amount_per_transfer_from_this = 20
 	possible_transfer_amounts = list(5,10,15,20,25,30,50,80,100,120)
 	volume = 120
+	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
+	slot_flags = SLOT_HEAD
 	flags = OPENCONTAINER
+
+/obj/item/weapon/reagent_containers/glass/bucket/equipped(mob/user, slot)
+    ..()
+    if(slot == slot_head && reagents.total_volume)
+        to_chat(user, "<span class='userdanger'>[src]'s contents spill all over you!</span>")
+        reagents.reaction(user, TOUCH)
+        reagents.clear_reagents()
 
 /obj/item/weapon/reagent_containers/glass/bucket/attackby(obj/D, mob/user, params)
 	if(isprox(D))

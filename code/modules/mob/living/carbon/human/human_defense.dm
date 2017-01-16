@@ -213,9 +213,9 @@ emp_act
 
 	if(! I.discrete)
 		if(I.attack_verb.len)
-			visible_message("\red <B>[src] has been [pick(I.attack_verb)] in the [hit_area] with [I.name] by [user]!</B>")
+			visible_message("<span class='danger'>[src] has been [pick(I.attack_verb)] in the [hit_area] with [I.name] by [user]!</span>")
 		else
-			visible_message("\red <B>[src] has been attacked in the [hit_area] with [I.name] by [user]!</B>")
+			visible_message("<span class='danger'>[src] has been attacked in the [hit_area] with [I.name] by [user]!</span>")
 
 	var/armor = run_armor_check(affecting, "melee", "Your armor has protected your [hit_area].", "Your armor has softened hit to your [hit_area].", armour_penetration = I.armour_penetration)
 	var/weapon_sharp = is_sharp(I)
@@ -254,7 +254,7 @@ emp_act
 							visible_message("<span class='danger'>[src] has been knocked down!</span>", \
 											"<span class='userdanger'>[src] has been knocked down!</span>")
 							apply_effect(5, WEAKEN, armor)
-							confused += 15
+							AdjustConfused(15)
 						if(prob(I.force + ((100 - health)/2)) && src != user && I.damtype == BRUTE)
 							ticker.mode.remove_revolutionary(mind)
 
@@ -338,10 +338,7 @@ emp_act
 		if(ismob(I.thrower))
 			var/mob/M = I.thrower
 			if(M)
-				src.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been hit with a [I], thrown by [key_name(M)]</font>")
-				M.attack_log += text("\[[time_stamp()]\] <font color='red'>Hit [key_name(src)] with a thrown [I]</font>")
-				if(!istype(src,/mob/living/simple_animal/mouse))
-					msg_admin_attack("[key_name_admin(src)] was hit by a [I], thrown by [key_name_admin(M)]")
+				add_logs(M, src, "hit", I, " (thrown)", print_attack_log = I.throwforce)
 
 		//thrown weapon embedded object code.
 		if(dtype == BRUTE && istype(I))

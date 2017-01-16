@@ -2,7 +2,7 @@
 	var/obj/item/organ/internal/eyes/eyes = get_int_organ(/obj/item/organ/internal/eyes)
 	if(eyes)
 		eyes.update_colour()
-		regenerate_icons()
+		update_body()
 
 /mob/living/carbon/human/var/list/organs = list()
 /mob/living/carbon/human/var/list/organs_by_name = list() // map organ names to organs
@@ -78,9 +78,9 @@
 	// Canes and crutches help you stand (if the latter is ever added)
 	// One cane mitigates a broken leg+foot, or a missing foot.
 	// Two canes are needed for a lost leg. If you are missing both legs, canes aren't gonna help you.
-	if(l_hand && istype(l_hand, /obj/item/weapon/cane))
+	if(l_hand && l_hand.is_crutch())
 		stance_damage -= 2
-	if(r_hand && istype(r_hand, /obj/item/weapon/cane))
+	if(r_hand && r_hand.is_crutch())
 		stance_damage -= 2
 
 	if(stance_damage < 0)
@@ -108,11 +108,13 @@
 			if((E.body_part == HAND_LEFT) || (E.body_part == ARM_LEFT))
 				if(!l_hand)
 					continue
-				unEquip(l_hand)
+				if(!unEquip(l_hand))
+					continue
 			else
 				if(!r_hand)
 					continue
-				unEquip(r_hand)
+				if(!unEquip(r_hand))
+					continue
 
 			var/emote_scream = pick("screams in pain and ", "lets out a sharp cry and ", "cries out and ")
 			custom_emote(1, "[(species.flags & NO_PAIN) ? "" : emote_scream ]drops what they were holding in their [E.name]!")
@@ -122,11 +124,13 @@
 			if((E.body_part == HAND_LEFT) || (E.body_part == ARM_LEFT))
 				if(!l_hand)
 					continue
-				unEquip(l_hand)
+				if(!unEquip(l_hand))
+					continue
 			else
 				if(!r_hand)
 					continue
-				unEquip(r_hand)
+				if(!unEquip(r_hand))
+					continue
 
 			custom_emote(1, "drops what they were holding, their [E.name] malfunctioning!")
 
@@ -136,6 +140,36 @@
 			spark_system.start()
 			spawn(10)
 				qdel(spark_system)
+
+/mob/living/carbon/human/proc/becomeSlim()
+	to_chat(src, "<span class='notice'>You feel fit again!</span>")
+	var/obj/item/organ/external/chest/C = get_organ("chest")
+	if(istype(C))
+		C.makeSlim(0)
+	else
+		to_chat(src, "Err, well, you *would*, but you don't have a torso. Yell at a coder.")
+		log_debug("[src] at ([x],[y],[z]) doesn't have a torso.")
+	mutations.Remove(FAT)
+	update_mutantrace(0)
+	update_mutations(0)
+	update_body(0, 1)
+	update_inv_w_uniform(0)
+	update_inv_wear_suit()
+
+/mob/living/carbon/human/proc/becomeFat()
+	to_chat(src, "<span class='alert'>You suddenly feel blubbery!</span>")
+	var/obj/item/organ/external/chest/C = get_organ("chest")
+	if(istype(C))
+		C.makeFat()
+	else
+		to_chat(src, "Err, well, you *would*, but you don't have a torso. Yell at a coder.")
+		log_debug("[src] at ([x],[y],[z]) doesn't have a torso.")
+	mutations.Add(FAT)
+	update_mutantrace(0)
+	update_mutations(0)
+	update_body(0, 1)
+	update_inv_w_uniform(0)
+	update_inv_wear_suit()
 
 //Handles chem traces
 /mob/living/carbon/human/proc/handle_trace_chems()
@@ -167,3 +201,12 @@ I use this to standardize shadowling dethrall code
 		return null
 	var/obj/item/organ/internal/O = get_int_organ(organ_name)
 	return O.parent_organ
+
+/mob/living/carbon/human/has_organic_damage()
+	var/odmg = 0
+	for(var/obj/item/organ/external/O in organs)
+		if(O.status & ORGAN_ROBOT)
+			odmg += O.brute_dam
+			odmg += O.burn_dam
+	return (health < (100 - odmg))
+

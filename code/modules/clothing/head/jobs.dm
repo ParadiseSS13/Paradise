@@ -121,6 +121,11 @@
 	desc = "A white beret with the engineering insignia emblazoned on it. Its owner knows what they're doing. Probably."
 	icon_state = "beret_ce"
 
+/obj/item/clothing/head/beret/sci
+	name = "science beret"
+	desc = "A purple beret with the science insignia emblazoned on it. It has that authentic burning plasma smell."
+	icon_state = "beret_sci"
+
 //Medical
 /obj/item/clothing/head/surgery
 	name = "surgical cap"

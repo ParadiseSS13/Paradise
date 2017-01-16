@@ -18,10 +18,7 @@
 		if(4) H.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel(H), slot_back)
 	H.equip_or_collect(new /obj/item/clothing/under/color/random(H), slot_w_uniform)
 	H.equip_or_collect(new /obj/item/clothing/shoes/black(H), slot_shoes)
-	if(H.backbag == 1)
-		H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H), slot_r_hand)
-	else
-		H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H.back), slot_in_backpack)
+	H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H), slot_in_backpack)
 	return 1
 
 /datum/job/civilian/get_access()

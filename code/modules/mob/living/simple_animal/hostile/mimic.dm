@@ -127,11 +127,12 @@ var/global/list/protected_objects = list(/obj/structure/table, /obj/structure/ca
 
 /mob/living/simple_animal/hostile/mimic/copy/Life()
 	..()
+	if(!target && !ckey) //Objects eventually revert to normal if no one is around to terrorize
+		adjustBruteLoss(1)
 	for(var/mob/living/M in contents) //a fix for animated statues from the flesh to stone spell
 		death()
 
 /mob/living/simple_animal/hostile/mimic/copy/death(gibbed)
-
 	for(var/atom/movable/M in src)
 		M.loc = get_turf(src)
 	..()
@@ -186,7 +187,6 @@ var/global/list/protected_objects = list(/obj/structure/table, /obj/structure/ca
 		if(destroy_original)
 			qdel(O)
 		return 1
-	return
 
 /mob/living/simple_animal/hostile/mimic/copy/DestroySurroundings()
 	if(destroy_objects)

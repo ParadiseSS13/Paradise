@@ -92,18 +92,3 @@ DEBUG
 			appearance_savebanfile()
 			return 1
 	return 0
-
-/*
-proc/DB_ban_isappearancebanned(var/playerckey)
-	establish_db_connection()
-	if(!dbcon.IsConnected())
-		return
-
-	var/sqlplayerckey = sql_sanitize_text(ckey(playerckey))
-
-	var/DBQuery/query = dbcon.NewQuery("SELECT id FROM [format_table_name("ban")] WHERE CKEY = '[sqlplayerckey]' AND ((bantype = 'APPEARANCE_BAN') OR (bantype = 'APPEARANCE_TEMPBAN' AND expiration_time > Now())) AND unbanned != 1")
-	query.Execute()
-	while(query.NextRow())
-		return 1
-	return 0
-*/

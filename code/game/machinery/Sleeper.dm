@@ -135,6 +135,13 @@
 	ui_interact(user)
 
 /obj/machinery/sleeper/ui_interact(mob/user, ui_key = "main", datum/nanoui/ui = null, force_open = 1)
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "sleeper.tmpl", "Sleeper", 550, 770)
+		ui.open()
+		ui.set_auto_update(1)
+
+/obj/machinery/sleeper/ui_data(mob/user, datum/topic_state/state)
 	var/data[0]
 	data["hasOccupant"] = occupant ? 1 : 0
 	var/occupantData[0]
@@ -229,13 +236,7 @@
 
 			chemicals.Add(list(list("title" = temp.name, "id" = temp.id, "commands" = list("chemical" = temp.id), "occ_amount" = reagent_amount, "pretty_amount" = pretty_amount, "injectable" = injectable, "overdosing" = overdosing, "od_warning" = caution)))
 	data["chemicals"] = chemicals
-
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if(!ui)
-		ui = new(user, src, ui_key, "sleeper.tmpl", "Sleeper", 550, 770)
-		ui.set_initial_data(data)
-		ui.open()
-		ui.set_auto_update(1)
+	return data
 
 /obj/machinery/sleeper/Topic(href, href_list)
 	if(!controls_inside && usr == occupant)
@@ -343,9 +344,6 @@
 				return
 			if(!G || !G:affecting) return
 			var/mob/M = G:affecting
-			if(M.client)
-				M.client.perspective = EYE_PERSPECTIVE
-				M.client.eye = src
 			M.forceMove(src)
 			src.occupant = M
 			src.icon_state = "[base_icon]"
@@ -392,6 +390,12 @@
 		go_out()
 	..(severity)
 
+/obj/machinery/sleeper/narsie_act()
+	go_out()
+	new /obj/effect/gibspawner/generic(get_turf(loc)) //I REPLACE YOUR TECHNOLOGY WITH FLESH!
+	qdel(src)
+
+
 // ???
 // This looks cool, although mildly broken, should it be included again?
 /obj/machinery/sleeper/alter_health(mob/living/M as mob)
@@ -420,9 +424,6 @@
 		toggle_filter()
 	if(!occupant)
 		return
-	if(occupant.client)
-		occupant.client.eye = occupant.client.mob
-		occupant.client.perspective = MOB_PERSPECTIVE
 	occupant.forceMove(loc)
 	occupant = null
 	icon_state = "[base_icon]-open"
@@ -454,8 +455,10 @@
 	set name = "Eject Sleeper"
 	set category = "Object"
 	set src in oview(1)
-	if(usr.stat != 0)
+
+	if(usr.incapacitated()) //are you cuffed, dying, lying, stunned or other
 		return
+
 	src.icon_state = "[base_icon]-open"
 	src.go_out()
 	add_fingerprint(usr)
@@ -465,8 +468,10 @@
 	set name = "Remove Beaker"
 	set category = "Object"
 	set src in oview(1)
-	if(usr.stat != 0)
+
+	if(usr.incapacitated()) //are you cuffed, dying, lying, stunned or other
 		return
+
 	if(beaker)
 		filtering = 0
 		beaker.forceMove(usr.loc)
@@ -517,10 +522,6 @@
 			to_chat(user, "<span class='boldnotice'>>The sleeper is already occupied!</span>")
 			return
 		if(!L) return
-
-		if(L.client)
-			L.client.perspective = EYE_PERSPECTIVE
-			L.client.eye = src
 		L.forceMove(src)
 		src.occupant = L
 		src.icon_state = "[base_icon]"
@@ -546,7 +547,7 @@
 	if(panel_open)
 		to_chat(usr, "<span class='boldnotice'>Close the maintenance panel first.</span>")
 		return
-	if(usr.restrained() || usr.stat || usr.weakened || usr.stunned || usr.paralysis || usr.resting) //are you cuffed, dying, lying, stunned or other
+	if(usr.incapacitated()) //are you cuffed, dying, lying, stunned or other
 		return
 	for(var/mob/living/carbon/slime/M in range(1,usr))
 		if(M.Victim == usr)
@@ -558,8 +559,6 @@
 			to_chat(usr, "<span class='boldnotice'>The sleeper is already occupied!</span>")
 			return
 		usr.stop_pulling()
-		usr.client.perspective = EYE_PERSPECTIVE
-		usr.client.eye = src
 		usr.forceMove(src)
 		src.occupant = usr
 		src.icon_state = "[base_icon]"
@@ -576,5 +575,18 @@
 	controls_inside = TRUE
 
 	light_color = LIGHT_COLOR_DARKRED
+
+/obj/machinery/sleeper/syndie/New()
+	..()
+	component_parts = list()
+	component_parts += new /obj/item/weapon/circuitboard/sleeper/syndicate(null)
+	var/obj/item/weapon/stock_parts/matter_bin/B = new(null)
+	B.rating = initial_bin_rating
+	component_parts += B
+	component_parts += new /obj/item/weapon/stock_parts/manipulator(null)
+	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
+	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
+	component_parts += new /obj/item/stack/cable_coil(null, 1)
+	RefreshParts()
 
 #undef ADDICTION_SPEEDUP_TIME

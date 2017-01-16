@@ -113,7 +113,7 @@
 	if(istype(src,/mob/dead/observer))
 		var/mob/dead/observer/G = src
 		if(G.has_enabled_antagHUD == 1 && config.antag_hud_restricted)
-			to_chat(usr, "\blue <B>Upon using the antagHUD you forfeited the ability to join the round.</B>")
+			to_chat(usr, "<span class='warning'>Upon using the antagHUD you forfeited the ability to join the round.</span>")
 			return
 		if(G.started_as_observer == 1)
 			joinedasobserver = 1
@@ -131,6 +131,9 @@
 	if(deathtime < 6000 && joinedasobserver == 0)
 		to_chat(usr, "You have been dead for[pluralcheck] [deathtimeseconds] seconds.")
 		to_chat(usr, "<span class='warning'>You must wait 10 minutes to respawn as a drone!</span>")
+		return
+
+	if(alert("Are you sure you want to respawn as a drone?", "Are you sure?", "Yes", "No") != "Yes")
 		return
 
 	for(var/obj/machinery/drone_fabricator/DF in world)

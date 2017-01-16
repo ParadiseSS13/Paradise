@@ -8,21 +8,21 @@
 	var/failchance = 5
 	var/obj/item/target = null
 	var/creator = null
-	anchored = 1.0
+	anchored = 1
 	var/precision = 1 // how close to the portal you will teleport. 0 = on the portal, 1 = adjacent
 	var/can_multitool_to_remove = 0
 
 /obj/effect/portal/Bumped(mob/M as mob|obj)
-	src.teleport(M)
+	teleport(M)
 
-/obj/effect/portal/New(loc, turf/target, creator)
+/obj/effect/portal/New(loc, turf/target, creator=null, lifespan=300)
 	portals += src
 	src.loc = loc
 	src.target = target
 	src.creator = creator
-	spawn(300)
-		qdel(src)
-	return
+	if(lifespan > 0)
+		spawn(lifespan)
+			qdel(src)
 
 /obj/effect/portal/Destroy()
 	portals -= src
@@ -33,6 +33,7 @@
 		var/obj/item/weapon/gun/energy/wormhole_projector/P = creator
 		P.portal_destroyed(src)
 	creator = null
+	target = null
 	return ..()
 
 /obj/effect/portal/proc/teleport(atom/movable/M as mob|obj)

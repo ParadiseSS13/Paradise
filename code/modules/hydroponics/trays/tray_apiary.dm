@@ -65,7 +65,7 @@
 		qdel(O)
 	else if(istype(O, /obj/item/weapon/minihoe))
 		if(health > 0)
-			to_chat(user, "\red <b>You begin to dislodge the apiary from the tray, the bees don't like that.</b>")
+			to_chat(user, "<span class='danger'>You begin to dislodge the apiary from the tray, the bees don't like that.</span>")
 			angry_swarm(user)
 		else
 			to_chat(user, "\blue You begin to dislodge the dead apiary from the tray.")

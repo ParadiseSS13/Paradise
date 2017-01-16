@@ -17,6 +17,7 @@
 	icon = 'icons/obj/food/food.dmi'
 	icon_state = "donutbox6"
 	name = "donut box"
+	burn_state = FLAMMABLE
 	var/icon_type = "donut"
 
 /obj/item/weapon/storage/fancy/update_icon(var/itemremoved = 0)
@@ -52,9 +53,8 @@
 
 /obj/item/weapon/storage/fancy/donut_box/New()
 	..()
-	for(var/i=1; i <= storage_slots; i++)
-		new /obj/item/weapon/reagent_containers/food/snacks/donut/normal(src)
-	return
+	for(var/i = 1 to storage_slots)
+		new /obj/item/weapon/reagent_containers/food/snacks/donut(src)
 
 /*
  * Egg Box

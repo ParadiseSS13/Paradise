@@ -34,10 +34,6 @@
 		update_icon()
 		chamber_round(0)
 
-	if(unique_rename)
-		if(istype(A, /obj/item/weapon/pen))
-			rename_gun(user)
-
 /obj/item/weapon/gun/projectile/revolver/attack_self(mob/living/user)
 	var/num_unloaded = 0
 	chambered = null
@@ -388,6 +384,9 @@
 	fire_sound = 'sound/weapons/Gunshot_silenced.ogg'
 	suppressed = 1
 	needs_permit = 0 //its just a cane beepsky.....
+
+/obj/item/weapon/gun/projectile/revolver/doublebarrel/improvised/cane/is_crutch()
+	return 1
 
 /obj/item/weapon/gun/projectile/revolver/doublebarrel/improvised/cane/update_icon()
 	return

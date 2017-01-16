@@ -45,7 +45,7 @@
 /datum/species/golem/handle_post_spawn(var/mob/living/carbon/human/H)
 	if(H.mind)
 		H.mind.assigned_role = "Golem"
-		H.mind.special_role = "Golem"
+		H.mind.special_role = SPECIAL_ROLE_GOLEM
 	H.real_name = "adamantine golem ([rand(1, 1000)])"
 	H.name = H.real_name
 	H.equip_to_slot_or_del(new /obj/item/clothing/under/golem(H), slot_w_uniform)

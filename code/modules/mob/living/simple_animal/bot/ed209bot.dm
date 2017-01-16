@@ -10,6 +10,7 @@
 	damage_coeff = list(BRUTE = 0.5, BURN = 0.7, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
 
 	environment_smash = 2 //Walls can't stop THE LAW
+	mob_size = MOB_SIZE_LARGE
 
 	radio_channel = "Security"
 	bot_type = SEC_BOT
@@ -103,7 +104,7 @@ Status: []<BR>
 Behaviour controls are [locked ? "locked" : "unlocked"]<BR>
 Maintenance panel panel is [open ? "opened" : "closed"]<BR>"},
 
-"<A href='?src=\ref[src];power=1'>[on ? "On" : "Off"]</A>" )
+"<A href='?src=[UID()];power=1'>[on ? "On" : "Off"]</A>" )
 
 	if(!locked || issilicon(user) || check_rights(R_ADMIN, 0, user))
 		if(!lasercolor)
@@ -116,12 +117,12 @@ Operating Mode: []<BR>
 Report Arrests[]<BR>
 Auto Patrol[]"},
 
-"<A href='?src=\ref[src];operation=idcheck'>[idcheck ? "Yes" : "No"]</A>",
-"<A href='?src=\ref[src];operation=weaponscheck'>[weaponscheck ? "Yes" : "No"]</A>",
-"<A href='?src=\ref[src];operation=ignorerec'>[check_records ? "Yes" : "No"]</A>",
-"<A href='?src=\ref[src];operation=switchmode'>[arrest_type ? "Detain" : "Arrest"]</A>",
-"<A href='?src=\ref[src];operation=declarearrests'>[declare_arrests ? "Yes" : "No"]</A>",
-"<A href='?src=\ref[src];operation=patrol'>[auto_patrol ? "On" : "Off"]</A>" )
+"<A href='?src=[UID()];operation=idcheck'>[idcheck ? "Yes" : "No"]</A>",
+"<A href='?src=[UID()];operation=weaponscheck'>[weaponscheck ? "Yes" : "No"]</A>",
+"<A href='?src=[UID()];operation=ignorerec'>[check_records ? "Yes" : "No"]</A>",
+"<A href='?src=[UID()];operation=switchmode'>[arrest_type ? "Detain" : "Arrest"]</A>",
+"<A href='?src=[UID()];operation=declarearrests'>[declare_arrests ? "Yes" : "No"]</A>",
+"<A href='?src=[UID()];operation=patrol'>[auto_patrol ? "On" : "Off"]</A>" )
 
 	return dat
 
@@ -547,7 +548,7 @@ Auto Patrol[]"},
 		C.Weaken(5)
 		C.stuttering = 5
 		C.Stun(5)
-	add_logs(src,C,"stunned")
+	add_logs(src, C, "stunned")
 	if(declare_arrests)
 		var/area/location = get_area(src)
 		speak("[arrest_type ? "Detaining" : "Arresting"] level [threat] scumbag <b>[C]</b> in [location].", radio_channel)

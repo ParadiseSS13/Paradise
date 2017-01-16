@@ -7,6 +7,8 @@
 	icon_state = "guitar"
 	item_state = "guitar"
 	force = 10
+	burn_state = FLAMMABLE
+	burntime = 20
 	var/datum/song/handheld/song
 	hitsound = 'sound/effects/guitarsmash.ogg'
 
@@ -30,6 +32,9 @@
 		return
 
 	song.ui_interact(user, ui_key, ui, force_open)
+
+/obj/item/device/guitar/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+	return song.ui_data(user, ui_key, state)
 
 /obj/item/device/guitar/Topic(href, href_list)
 	song.Topic(href, href_list)

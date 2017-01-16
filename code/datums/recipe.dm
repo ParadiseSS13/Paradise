@@ -37,12 +37,12 @@
 	var/list/reagents	// example: = list("berryjuice" = 5) // do not list same reagent twice
 	var/list/items		// example: = list(/obj/item/weapon/crowbar, /obj/item/weapon/welder) // place /foo/bar before /foo
 	var/list/fruit		// example: = list("fruit" = 3)
-	var/result			// example: = /obj/item/weapon/reagent_containers/food/snacks/donut/normal
+	var/result			// example: = /obj/item/weapon/reagent_containers/food/snacks/donut
 	var/time = 100		// 1/10 part of second
 	var/byproduct		// example: = /obj/item/weapon/kitchen/mould		// byproduct to return, such as a mould or trash
 
 
-/datum/recipe/proc/check_reagents(var/datum/reagents/avail_reagents) //1=precisely, 0=insufficiently, -1=superfluous
+/datum/recipe/proc/check_reagents(datum/reagents/avail_reagents) //1=precisely, 0=insufficiently, -1=superfluous
 	. = 1
 	for(var/r_r in reagents)
 		var/aval_r_amnt = avail_reagents.get_reagent_amount(r_r)
@@ -55,7 +55,7 @@
 		return -1
 	return .
 
-/datum/recipe/proc/check_fruit(var/obj/container)
+/datum/recipe/proc/check_fruit(obj/container)
 	. = 1
 	if(fruit && fruit.len)
 		var/list/checklist = list()
@@ -74,7 +74,7 @@
 					break
 	return .
 
-/datum/recipe/proc/check_items(var/obj/container as obj)
+/datum/recipe/proc/check_items(obj/container)
 	. = 1
 	if(items && items.len)
 		var/list/checklist = list()
@@ -96,7 +96,7 @@
 	return .
 
 //general version
-/datum/recipe/proc/make(var/obj/container as obj)
+/datum/recipe/proc/make(obj/container)
 	var/obj/result_obj = new result(container)
 	for(var/obj/O in (container.contents-result_obj))
 		O.reagents.trans_to(result_obj, O.reagents.total_volume)
@@ -106,7 +106,7 @@
 	return result_obj
 
 // food-related
-/datum/recipe/proc/make_food(var/obj/container as obj)
+/datum/recipe/proc/make_food(obj/container)
 	var/obj/result_obj = new result(container)
 	for(var/obj/O in (container.contents-result_obj))
 		if(O.reagents)
@@ -118,7 +118,7 @@
 	score_meals++
 	return result_obj
 
-/proc/select_recipe(var/list/datum/recipe/avaiable_recipes, var/obj/obj as obj, var/exact = 1 as num)
+/proc/select_recipe(list/datum/recipe/avaiable_recipes, obj/obj, exact = 1)
 	if(!exact)
 		exact = -1
 	var/list/datum/recipe/possible_recipes = new

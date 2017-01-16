@@ -61,7 +61,7 @@
 		if((Proj.damage_type == BRUTE || Proj.damage_type == BURN))
 			adjustHealth(Proj.damage)
 	else
-		visible_message("\red <B>[src] blocks [Proj] with its shield!</B>")
+		visible_message("<span class='danger'>[src] blocks [Proj] with its shield!</span>")
 	return 0
 
 
@@ -118,6 +118,7 @@
 	faction = list("syndicate")
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
+	mob_size = MOB_SIZE_TINY
 	flying = 1
 	gold_core_spawnable = CHEM_MOB_SPAWN_HOSTILE
 	del_on_death = 1

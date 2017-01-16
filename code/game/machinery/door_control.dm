@@ -109,7 +109,7 @@
 						D.safe = 1
 
 	else
-		for(var/obj/machinery/door/poddoor/M in world)
+		for(var/obj/machinery/door/poddoor/M in airlocks)
 			if(M.id_tag == src.id)
 				if(M.density)
 					spawn( 0 )

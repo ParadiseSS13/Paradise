@@ -380,10 +380,12 @@
 	//--FalseIncarnate
 
 /obj/machinery/portable_atmospherics/hydroponics/verb/remove_label()
-
 	set name = "Remove Label"
 	set category = "Object"
 	set src in view(1)
+	
+	if(usr.incapacitated())
+		return
 
 	if(labelled)
 		to_chat(usr, "You remove the label.")
@@ -397,6 +399,9 @@
 	set name = "Set Light"
 	set category = "Object"
 	set src in view(1)
+	
+	if(usr.incapacitated())
+		return
 
 	var/new_light = input("Specify a light level.") as null|anything in list(0,1,2,3,4,5,6,7,8,9,10)
 	if(new_light)

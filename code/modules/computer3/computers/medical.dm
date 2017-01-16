@@ -45,22 +45,20 @@
 		if(!computer.cardslot)
 			computer.Crash(MISSING_PERIPHERAL)
 			return
-		usr.set_machine(src)
 		scan = computer.cardslot.reader
 		if(!interactable())
 			return
-		// TODO: Tie into space manager
-		if(computer.z > ZLEVEL_DERELICT)
+		if(is_away_level(computer.z))
 			to_chat(usr, "<span class='danger'>Unable to establish a connection</span>: You're too far away from the station!")
 			return
 		var/dat
 
 		if(temp)
-			dat = text("<TT>[src.temp]</TT><BR><BR><A href='?src=\ref[src];temp=1'>Clear Screen</A>")
+			dat = text("<TT>[src.temp]</TT><BR><BR><A href='?src=[UID()];temp=1'>Clear Screen</A>")
 		else
-			dat = text("Confirm Identity (R): <A href='?src=\ref[];cardr=1'>[]</A><HR>", src, (scan ? text("[]", scan.name) : "----------"))
+			dat = text("Confirm Identity (R): <A href='?src=[UID()];cardr=1'>[]</A><HR>", (scan ? text("[]", scan.name) : "----------"))
 			if(computer.cardslot.dualslot)
-				dat += text("Check Identity (W): <A href='?src=\ref[];cardw=1'>[]</A><BR>", src, (scan2 ? text("[]", scan2.name) : "----------"))
+				dat += text("Check Identity (W): <A href='?src=[UID()];cardw=1'>[]</A><BR>", (scan2 ? text("[]", scan2.name) : "----------"))
 				if(scan2 && !scan)
 					dat += text("<div class='notice'>Insert card into reader slot to log in.</div><br>")
 
@@ -68,50 +66,50 @@
 				switch(src.screen)
 					if(1.0)
 						dat += {"
-<A href='?src=\ref[src];search=1'>Search Records</A>
-<BR><A href='?src=\ref[src];screen=2'>List Records</A>
+<A href='?src=[UID()];search=1'>Search Records</A>
+<BR><A href='?src=[UID()];screen=2'>List Records</A>
 <BR>
-<BR><A href='?src=\ref[src];screen=5'>Virus Database</A>
-<BR><A href='?src=\ref[src];screen=6'>Medbot Tracking</A>
+<BR><A href='?src=[UID()];screen=5'>Virus Database</A>
+<BR><A href='?src=[UID()];screen=6'>Medbot Tracking</A>
 <BR>
-<BR><A href='?src=\ref[src];screen=3'>Record Maintenance</A>
-<BR><A href='?src=\ref[src];logout=1'>{Log Out}</A><BR>
+<BR><A href='?src=[UID()];screen=3'>Record Maintenance</A>
+<BR><A href='?src=[UID()];logout=1'>{Log Out}</A><BR>
 "}
 					if(2.0)
 						dat += "<B>Record List</B>:<HR>"
 						if(!isnull(data_core.general))
 							for(var/datum/data/record/R in sortRecord(data_core.general))
-								dat += text("<A href='?src=\ref[];d_rec=\ref[]'>[]: []<BR>", src, R, R.fields["id"], R.fields["name"])
+								dat += text("<A href='?src=[UID()];d_rec=\ref[]'>[]: []<BR>", R, R.fields["id"], R.fields["name"])
 								//Foreach goto(132)
-						dat += text("<HR><A href='?src=\ref[];screen=1'>Back</A>", src)
+						dat += "<HR><A href='?src=[UID()];screen=1'>Back</A>"
 					if(3.0)
-						dat += text("<B>Records Maintenance</B><HR>\n<A href='?src=\ref[];back=1'>Backup To Disk</A><BR>\n<A href='?src=\ref[];u_load=1'>Upload From disk</A><BR>\n<A href='?src=\ref[];del_all=1'>Delete All Records</A><BR>\n<BR>\n<A href='?src=\ref[];screen=1'>Back</A>", src, src, src, src)
+						dat += "<B>Records Maintenance</B><HR>\n<A href='?src=[UID()];back=1'>Backup To Disk</A><BR>\n<A href='?src=[UID()];u_load=1'>Upload From disk</A><BR>\n<A href='?src=[UID()];del_all=1'>Delete All Records</A><BR>\n<BR>\n<A href='?src=[UID()];screen=1'>Back</A>"
 					if(4.0)
 						dat += "<CENTER><B>Medical Record</B></CENTER><BR>"
 						if((istype(src.active1, /datum/data/record) && data_core.general.Find(src.active1)))
 							dat += "<table><tr><td>Name: [active1.fields["name"]] \
 									ID: [active1.fields["id"]]<BR>\n	\
-									Sex: <A href='?src=\ref[src];field=sex'>[active1.fields["sex"]]</A><BR>\n	\
-									Age: <A href='?src=\ref[src];field=age'>[active1.fields["age"]]</A><BR>\n	\
-									Fingerprint: <A href='?src=\ref[src];field=fingerprint'>[active1.fields["fingerprint"]]</A><BR>\n	\
-									Physical Status: <A href='?src=\ref[src];field=p_stat'>[active1.fields["p_stat"]]</A><BR>\n	\
-									Mental Status: <A href='?src=\ref[src];field=m_stat'>[active1.fields["m_stat"]]</A><BR></td><td align = center valign = top> \
+									Sex: <A href='?src=[UID()];field=sex'>[active1.fields["sex"]]</A><BR>\n	\
+									Age: <A href='?src=[UID()];field=age'>[active1.fields["age"]]</A><BR>\n	\
+									Fingerprint: <A href='?src=[UID()];field=fingerprint'>[active1.fields["fingerprint"]]</A><BR>\n	\
+									Physical Status: <A href='?src=[UID()];field=p_stat'>[active1.fields["p_stat"]]</A><BR>\n	\
+									Mental Status: <A href='?src=[UID()];field=m_stat'>[active1.fields["m_stat"]]</A><BR></td><td align = center valign = top> \
 									Photo:<br><img src=[active1.fields["photo-south"]] height=64 width=64 border=5> \
 									<img src=[active1.fields["photo-west"]] height=64 width=64 border=5></td></tr></table>"
 						else
 							dat += "<B>General Record Lost!</B><BR>"
 						if((istype(src.active2, /datum/data/record) && data_core.medical.Find(src.active2)))
-							dat += text("<BR>\n<CENTER><B>Medical Data</B></CENTER><BR>\nBlood Type: <A href='?src=\ref[];field=b_type'>[]</A><BR>\nDNA: <A href='?src=\ref[];field=b_dna'>[]</A><BR>\n<BR>\nMinor Disabilities: <A href='?src=\ref[];field=mi_dis'>[]</A><BR>\nDetails: <A href='?src=\ref[];field=mi_dis_d'>[]</A><BR>\n<BR>\nMajor Disabilities: <A href='?src=\ref[];field=ma_dis'>[]</A><BR>\nDetails: <A href='?src=\ref[];field=ma_dis_d'>[]</A><BR>\n<BR>\nAllergies: <A href='?src=\ref[];field=alg'>[]</A><BR>\nDetails: <A href='?src=\ref[];field=alg_d'>[]</A><BR>\n<BR>\nCurrent Diseases: <A href='?src=\ref[];field=cdi'>[]</A> (per disease info placed in log/comment section)<BR>\nDetails: <A href='?src=\ref[];field=cdi_d'>[]</A><BR>\n<BR>\nImportant Notes:<BR>\n\t<A href='?src=\ref[];field=notes'>[]</A><BR>\n<BR>\n<CENTER><B>Comments/Log</B></CENTER><BR>", src, src.active2.fields["b_type"], src, src.active2.fields["b_dna"], src, src.active2.fields["mi_dis"], src, src.active2.fields["mi_dis_d"], src, src.active2.fields["ma_dis"], src, src.active2.fields["ma_dis_d"], src, src.active2.fields["alg"], src, src.active2.fields["alg_d"], src, src.active2.fields["cdi"], src, src.active2.fields["cdi_d"], src, decode(src.active2.fields["notes"]))
+							dat += text("<BR>\n<CENTER><B>Medical Data</B></CENTER><BR>\nBlood Type: <A href='?src=[UID()];field=b_type'>[]</A><BR>\nDNA: <A href='?src=[UID()];field=b_dna'>[]</A><BR>\n<BR>\nMinor Disabilities: <A href='?src=[UID()];field=mi_dis'>[]</A><BR>\nDetails: <A href='?src=[UID()];field=mi_dis_d'>[]</A><BR>\n<BR>\nMajor Disabilities: <A href='?src=[UID()];field=ma_dis'>[]</A><BR>\nDetails: <A href='?src=[UID()];field=ma_dis_d'>[]</A><BR>\n<BR>\nAllergies: <A href='?src=[UID()];field=alg'>[]</A><BR>\nDetails: <A href='?src=[UID()];field=alg_d'>[]</A><BR>\n<BR>\nCurrent Diseases: <A href='?src=[UID()];field=cdi'>[]</A> (per disease info placed in log/comment section)<BR>\nDetails: <A href='?src=[UID()];field=cdi_d'>[]</A><BR>\n<BR>\nImportant Notes:<BR>\n\t<A href='?src=[UID()];field=notes'>[]</A><BR>\n<BR>\n<CENTER><B>Comments/Log</B></CENTER><BR>", src.active2.fields["b_type"], src.active2.fields["b_dna"], src.active2.fields["mi_dis"], src.active2.fields["mi_dis_d"], src.active2.fields["ma_dis"], src.active2.fields["ma_dis_d"], src.active2.fields["alg"], src.active2.fields["alg_d"], src.active2.fields["cdi"], src.active2.fields["cdi_d"], decode(src.active2.fields["notes"]))
 							var/counter = 1
 							while(src.active2.fields[text("com_[]", counter)])
-								dat += text("[]<BR><A href='?src=\ref[];del_c=[]'>Delete Entry</A><BR><BR>", src.active2.fields[text("com_[]", counter)], src, counter)
+								dat += text("[]<BR><A href='?src=[UID()];del_c=[]'>Delete Entry</A><BR><BR>", src.active2.fields[text("com_[]", counter)], counter)
 								counter++
-							dat += text("<A href='?src=\ref[];add_c=1'>Add Entry</A><BR><BR>", src)
-							dat += text("<A href='?src=\ref[];del_r=1'>Delete Record (Medical Only)</A><BR><BR>", src)
+							dat += "<A href='?src=[UID()];add_c=1'>Add Entry</A><BR><BR>"
+							dat += "<A href='?src=[UID()];del_r=1'>Delete Record (Medical Only)</A><BR><BR>"
 						else
 							dat += "<B>Medical Record Lost!</B><BR>"
-							dat += text("<A href='?src=\ref[src];new=1'>New Record</A><BR><BR>")
-						dat += text("\n<A href='?src=\ref[];print_p=1'>Print Record</A><BR>\n<A href='?src=\ref[];screen=2'>Back</A><BR>", src, src)
+							dat += text("<A href='?src=[UID()];new=1'>New Record</A><BR><BR>")
+						dat += "\n<A href='?src=[UID()];print_p=1'>Print Record</A><BR>\n<A href='?src=[UID()];screen=2'>Back</A><BR>"
 					if(5.0)
 						dat += "<CENTER><B>Virus Database</B></CENTER>"
 						for(var/Dt in typesof(/datum/disease/))
@@ -120,11 +118,11 @@
 								continue // TODO (tm): Add advance diseases to the virus database which no one uses.
 							if(!Dis.desc)
 								continue
-							dat += "<br><a href='?src=\ref[src];vir=[Dt]'>[Dis.name]</a>"
-						dat += "<br><a href='?src=\ref[src];screen=1'>Back</a>"
+							dat += "<br><a href='?src=[UID()];vir=[Dt]'>[Dis.name]</a>"
+						dat += "<br><a href='?src=[UID()];screen=1'>Back</a>"
 					if(6.0)
 						dat += "<center><b>Medical Robot Monitor</b></center>"
-						dat += "<a href='?src=\ref[src];screen=1'>Back</a>"
+						dat += "<a href='?src=[UID()];screen=1'>Back</a>"
 						dat += "<br><b>Medical Robots:</b>"
 						var/bdat = null
 						for(var/mob/living/simple_animal/bot/medbot/M in world)
@@ -144,7 +142,7 @@
 
 					else
 			else
-				dat += text("<A href='?src=\ref[];login=1'>{Log In}</A>", src)
+				dat += "<A href='?src=[UID()];login=1'>{Log In}</A>"
 		popup.width = 600
 		popup.height = 400
 		popup.set_content(dat)
@@ -234,13 +232,13 @@
 			if(href_list["vir"])
 				var/datum/data/record/v = locate(href_list["vir"])
 				src.temp = "<center>GNAv2 based virus lifeform V-[v.fields["id"]]</center>"
-				src.temp += "<br><b>Name:</b> <A href='?src=\ref[src];field=vir_name;edit_vir=\ref[v]'>[v.fields["name"]]</A>"
+				src.temp += "<br><b>Name:</b> <A href='?src=[UID()];field=vir_name;edit_vir=\ref[v]'>[v.fields["name"]]</A>"
 				src.temp += "<br><b>Antigen:</b> [v.fields["antigen"]]"
 				src.temp += "<br><b>Spread:</b> [v.fields["spread type"]] "
-				src.temp += "<br><b>Details:</b><br> <A href='?src=\ref[src];field=vir_desc;edit_vir=\ref[v]'>[v.fields["description"]]</A>"
+				src.temp += "<br><b>Details:</b><br> <A href='?src=[UID()];field=vir_desc;edit_vir=\ref[v]'>[v.fields["description"]]</A>"
 
 			if(href_list["del_all"])
-				src.temp = text("Are you sure you wish to delete all records?<br>\n\t<A href='?src=\ref[];temp=1;del_all2=1'>Yes</A><br>\n\t<A href='?src=\ref[];temp=1'>No</A><br>", src, src)
+				src.temp = "Are you sure you wish to delete all records?<br>\n\t<A href='?src=[UID()];temp=1;del_all2=1'>Yes</A><br>\n\t<A href='?src=[UID()];temp=1'>No</A><br>"
 
 			if(href_list["del_all2"])
 				for(var/datum/data/record/R in data_core.medical)
@@ -327,13 +325,13 @@
 							src.active2.fields["notes"] = t1
 					if("p_stat")
 						if(istype(src.active1, /datum/data/record))
-							src.temp = text("<B>Physical Condition:</B><BR>\n\t<A href='?src=\ref[];temp=1;p_stat=deceased'>*Deceased*</A><BR>\n\t<A href='?src=\ref[];temp=1;p_stat=ssd'>*SSD*</A><BR>\n\t<A href='?src=\ref[];temp=1;p_stat=active'>Active</A><BR>\n\t<A href='?src=\ref[];temp=1;p_stat=unfit'>Physically Unfit</A><BR>\n\t<A href='?src=\ref[];temp=1;p_stat=disabled'>Disabled</A><BR>", src, src, src, src, src)
+							src.temp = "<B>Physical Condition:</B><BR>\n\t<A href='?src=[UID()];temp=1;p_stat=deceased'>*Deceased*</A><BR>\n\t<A href='?src=[UID()];temp=1;p_stat=ssd'>*SSD*</A><BR>\n\t<A href='?src=[UID()];temp=1;p_stat=active'>Active</A><BR>\n\t<A href='?src=[UID()];temp=1;p_stat=unfit'>Physically Unfit</A><BR>\n\t<A href='?src=[UID()];temp=1;p_stat=disabled'>Disabled</A><BR>"
 					if("m_stat")
 						if(istype(src.active1, /datum/data/record))
-							src.temp = text("<B>Mental Condition:</B><BR>\n\t<A href='?src=\ref[];temp=1;m_stat=insane'>*Insane*</A><BR>\n\t<A href='?src=\ref[];temp=1;m_stat=unstable'>*Unstable*</A><BR>\n\t<A href='?src=\ref[];temp=1;m_stat=watch'>*Watch*</A><BR>\n\t<A href='?src=\ref[];temp=1;m_stat=stable'>Stable</A><BR>", src, src, src, src)
+							src.temp = "<B>Mental Condition:</B><BR>\n\t<A href='?src=[UID()];temp=1;m_stat=insane'>*Insane*</A><BR>\n\t<A href='?src=[UID()];temp=1;m_stat=unstable'>*Unstable*</A><BR>\n\t<A href='?src=[UID()];temp=1;m_stat=watch'>*Watch*</A><BR>\n\t<A href='?src=[UID()];temp=1;m_stat=stable'>Stable</A><BR>"
 					if("b_type")
 						if(istype(src.active2, /datum/data/record))
-							src.temp = text("<B>Blood Type:</B><BR>\n\t<A href='?src=\ref[];temp=1;b_type=an'>A-</A> <A href='?src=\ref[];temp=1;b_type=ap'>A+</A><BR>\n\t<A href='?src=\ref[];temp=1;b_type=bn'>B-</A> <A href='?src=\ref[];temp=1;b_type=bp'>B+</A><BR>\n\t<A href='?src=\ref[];temp=1;b_type=abn'>AB-</A> <A href='?src=\ref[];temp=1;b_type=abp'>AB+</A><BR>\n\t<A href='?src=\ref[];temp=1;b_type=on'>O-</A> <A href='?src=\ref[];temp=1;b_type=op'>O+</A><BR>", src, src, src, src, src, src, src, src)
+							src.temp = "<B>Blood Type:</B><BR>\n\t<A href='?src=[UID()];temp=1;b_type=an'>A-</A> <A href='?src=[UID()];temp=1;b_type=ap'>A+</A><BR>\n\t<A href='?src=[UID()];temp=1;b_type=bn'>B-</A> <A href='?src=[UID()];temp=1;b_type=bp'>B+</A><BR>\n\t<A href='?src=[UID()];temp=1;b_type=abn'>AB-</A> <A href='?src=[UID()];temp=1;b_type=abp'>AB+</A><BR>\n\t<A href='?src=[UID()];temp=1;b_type=on'>O-</A> <A href='?src=[UID()];temp=1;b_type=op'>O+</A><BR>"
 					if("b_dna")
 						if(istype(src.active1, /datum/data/record))
 							var/t1 = sanitize(copytext(input("Please input DNA hash:", "Med. records", src.active1.fields["dna"], null)  as text,1,MAX_MESSAGE_LEN))
@@ -406,7 +404,7 @@
 
 			if(href_list["del_r"])
 				if(src.active2)
-					src.temp = text("Are you sure you wish to delete the record (Medical Portion Only)?<br>\n\t<A href='?src=\ref[];temp=1;del_r2=1'>Yes</A><br>\n\t<A href='?src=\ref[];temp=1'>No</A><br>", src, src)
+					src.temp = "Are you sure you wish to delete the record (Medical Portion Only)?<br>\n\t<A href='?src=[UID()];temp=1;del_r2=1'>Yes</A><br>\n\t<A href='?src=[UID()];temp=1'>No</A><br>"
 
 			if(href_list["del_r2"])
 				if(src.active2)

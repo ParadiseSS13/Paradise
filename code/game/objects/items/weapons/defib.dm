@@ -292,7 +292,8 @@
 		defib.on = 0
 		loc = defib
 		defib.update_icon()
-	return	unwield()
+		update_icon()
+	return unwield(user)
 
 /obj/item/weapon/twohanded/shockpaddles/proc/check_defib_exists(mainunit, var/mob/living/carbon/human/M, var/obj/O)
 	if(!mainunit || !istype(mainunit, /obj/item/weapon/defibrillator))	//To avoid weird issues from admin spawns
@@ -334,7 +335,7 @@
 			H.emote("gasp")
 			if(!H.heart_attack && (prob(10) || defib.combat)) // Your heart explodes.
 				H.heart_attack = 1
-			add_logs(M, user, "stunned", object="defibrillator")
+			add_logs(user, M, "stunned", object="defibrillator")
 			defib.deductcharge(revivecost)
 			cooldown = 1
 			busy = 0
@@ -352,7 +353,7 @@
 				if(ghost && !ghost.client)
 					// In case the ghost's not getting deleted for some reason
 					H.key = ghost.key
-					log_to_dd("Ghost of name [ghost.name] is bound to [H.real_name], but lacks a client. Deleting ghost.")
+					log_runtime(EXCEPTION("Ghost of name [ghost.name] is bound to [H.real_name], but lacks a client. Deleting ghost."), src)
 
 					qdel(ghost)
 					ghost = null
@@ -407,13 +408,14 @@
 							H.adjustBruteLoss(tobehealed)
 							user.visible_message("<span class='boldnotice'>[defib] pings: Resuscitation successful.</span>")
 							playsound(get_turf(src), 'sound/machines/defib_success.ogg', 50, 0)
-							H.stat = 1
-							H.update_revive()
+							H.update_revive(FALSE)
+							H.KnockOut(FALSE)
+							H.Paralyse(5)
 							H.emote("gasp")
 							if(tplus > tloss)
 								H.setBrainLoss( max(0, min(99, ((tlimit - tplus) / tlimit * 100))))
 							defib.deductcharge(revivecost)
-							add_logs(M, user, "revived", object="defibrillator")
+							add_logs(user, M, "revived", object="defibrillator")
 						else
 							if(tplus > tlimit|| !H.get_int_organ(/obj/item/organ/internal/heart))
 								user.visible_message("<span class='boldnotice'>[defib] buzzes: Resuscitation failed - Heart tissue damage beyond point of no return for defibrillation.</span>")
@@ -477,7 +479,7 @@
 				H.heart_attack = 1
 			playsound(get_turf(src), 'sound/machines/defib_zap.ogg', 50, 1, -1)
 			H.emote("gasp")
-			add_logs(M, user, "stunned", object="defibrillator")
+			add_logs(user, M, "stunned", object="defibrillator")
 			if(isrobot(user))
 				var/mob/living/silicon/robot/R = user
 				R.cell.use(revivecost)
@@ -499,7 +501,7 @@
 				if(ghost && !ghost.client)
 					// In case the ghost's not getting deleted for some reason
 					H.key = ghost.key
-					log_to_dd("Ghost of name [ghost.name] is bound to [H.real_name], but lacks a client. Deleting ghost.")
+					log_runtime(EXCEPTION("Ghost of name [ghost.name] is bound to [H.real_name], but lacks a client. Deleting ghost."), H)
 
 					qdel(ghost)
 					ghost = null
@@ -526,15 +528,16 @@
 							H.adjustBruteLoss(tobehealed)
 							user.visible_message("<span class='notice'>[user] pings: Resuscitation successful.</span>")
 							playsound(get_turf(src), 'sound/machines/defib_success.ogg', 50, 0)
-							H.stat = UNCONSCIOUS
-							H.update_revive()
+							H.update_revive(FALSE)
+							H.KnockOut(FALSE)
+							H.Paralyse(5)
 							H.emote("gasp")
 							if(tplus > tloss)
 								H.setBrainLoss( max(0, min(99, ((tlimit - tplus) / tlimit * 100))))
 							if(isrobot(user))
 								var/mob/living/silicon/robot/R = user
 								R.cell.use(revivecost)
-							add_logs(M, user, "revived", object="defibrillator")
+							add_logs(user, M, "revived", object="defibrillator")
 						else
 							if(tplus > tlimit)
 								user.visible_message("<span class='warning'>[user] buzzes: Resuscitation failed - Heart tissue damage beyond point of no return for defibrillation.</span>")

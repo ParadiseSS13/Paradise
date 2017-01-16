@@ -33,23 +33,28 @@ CREATE TABLE `SS13_characters` (
   `hair_red` smallint(4) NOT NULL,
   `hair_green` smallint(4) NOT NULL,
   `hair_blue` smallint(4) NOT NULL,
+  `secondary_hair_red` smallint(4) NOT NULL,
+  `secondary_hair_green` smallint(4) NOT NULL,
+  `secondary_hair_blue` smallint(4) NOT NULL,
   `facial_red` smallint(4) NOT NULL,
   `facial_green` smallint(4) NOT NULL,
   `facial_blue` smallint(4) NOT NULL,
+  `secondary_facial_red` smallint(4) NOT NULL,
+  `secondary_facial_green` smallint(4) NOT NULL,
+  `secondary_facial_blue` smallint(4) NOT NULL,
   `skin_tone` smallint(4) NOT NULL,
   `skin_red` smallint(4) NOT NULL,
   `skin_green` smallint(4) NOT NULL,
   `skin_blue` smallint(4) NOT NULL,
-  `markings_red` smallint(4) NOT NULL,
-  `markings_green` smallint(4) NOT NULL,
-  `markings_blue` smallint(4) NOT NULL,
+  `marking_colours` varchar(255) NOT NULL DEFAULT 'head=%23000000&body=%23000000&tail=%23000000',
   `head_accessory_red` smallint(4) NOT NULL,
   `head_accessory_green` smallint(4) NOT NULL,
   `head_accessory_blue` smallint(4) NOT NULL,
   `hair_style_name` varchar(45) NOT NULL,
   `facial_style_name` varchar(45) NOT NULL,
-  `marking_style_name` varchar(45) NOT NULL,
+  `marking_styles` varchar(255) NOT NULL DEFAULT 'head=None&body=None&tail=None',
   `head_accessory_style_name` varchar(45) NOT NULL,
+  `alt_head_name` varchar(45) NOT NULL,
   `eyes_red` smallint(4) NOT NULL,
   `eyes_green` smallint(4) NOT NULL,
   `eyes_blue` smallint(4) NOT NULL,
@@ -133,6 +138,24 @@ CREATE TABLE `SS13_death` (
   `oxyloss` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=166546 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `donators`
+--
+
+DROP TABLE IF EXISTS `SS13_donators`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `donators` (
+  `patreon_name` varchar(32) NOT NULL,
+  `tier` int(2),
+  `ckey` varchar(32) COMMENT 'Manual Field',
+  `start_date` datetime,
+  `end_date` datetime,
+  `active` boolean,
+  PRIMARY KEY (`patreon_name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -250,6 +273,7 @@ CREATE TABLE `SS13_player` (
   `nanoui_fancy` smallint(4) DEFAULT '1',
   `show_ghostitem_attack` smallint(4) DEFAULT '1',
   `lastchangelog` varchar(32) NOT NULL DEFAULT '0',
+  `exp` mediumtext,
   PRIMARY KEY (`id`),
   UNIQUE KEY `ckey` (`ckey`)
 ) ENGINE=InnoDB AUTO_INCREMENT=32446 DEFAULT CHARSET=latin1;

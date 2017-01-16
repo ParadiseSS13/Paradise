@@ -109,6 +109,13 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 	ui_interact(user)
 
 /obj/machinery/requests_console/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "request_console.tmpl", "[department] Request Console", 520, 410)
+		ui.open()
+		ui.set_auto_update(1)
+
+/obj/machinery/requests_console/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/data[0]
 
 	data["department"] = department
@@ -129,12 +136,7 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 	data["msgVerified"] = msgVerified
 	data["announceAuth"] = announceAuth
 
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if(!ui)
-		ui = new(user, src, ui_key, "request_console.tmpl", "[department] Request Console", 520, 410)
-		ui.set_initial_data(data)
-		ui.open()
-		ui.set_auto_update(1)
+	return data
 
 /obj/machinery/requests_console/Topic(href, href_list)
 	if(..())
@@ -266,7 +268,7 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 	var/linkedSender
 	if(istype(source, /obj/machinery/requests_console))
 		var/obj/machinery/requests_console/sender = source
-		linkedSender = "<a href='?src=\ref[src];write=[ckey(sender.department)]'[sender.department]</a>"
+		linkedSender = "<a href='?src=[UID()];write=[ckey(sender.department)]'[sender.department]</a>"
 	else
 		capitalize(source)
 		linkedSender = source
@@ -276,7 +278,7 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 		update_icon()
 	if(!src.silent)
 		playsound(src.loc, 'sound/machines/twobeep.ogg', 50, 1)
-		state(title)
+		atom_say(title)
 
 	switch(priority)
 		if(2) // High

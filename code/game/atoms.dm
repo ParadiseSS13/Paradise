@@ -13,6 +13,7 @@
 	var/germ_level = GERM_LEVEL_AMBIENT // The higher the germ level, the more germ on the atom.
 	var/simulated = 1 //filter for actions - used by lighting overlays
 	var/atom_say_verb = "says"
+	var/dont_save = 0 // For atoms that are temporary by necessity - like lighting overlays
 
 	///Chemistry.
 	var/datum/reagents/reagents = null
@@ -41,8 +42,7 @@
 	if(!T)
 		return 0
 
-	// TODO: Tie into space manager
-	if(T.z != ZLEVEL_CENTCOMM)//if not, don't bother
+	if(!is_admin_level(T.z))//if not, don't bother
 		return 0
 
 	//check for centcomm shuttles
@@ -59,8 +59,7 @@
 	if(!T)
 		return 0
 
-	// TODO: Tie into space manager
-	if(T.z != ZLEVEL_CENTCOMM)//if not, don't bother
+	if(!is_admin_level(T.z))//if not, don't bother
 		return 0
 
 	if(istype(T.loc, /area/shuttle/syndicate_elite) || istype(T.loc, /area/syndicate_mothership))
@@ -201,7 +200,8 @@
 			f_name += "oil-stained [name][infix]."
 
 	to_chat(user, "[bicon(src)] That's [f_name] [suffix]")
-	to_chat(user, desc)
+	if(desc)
+		to_chat(user, desc)
 
 	if(reagents && is_open_container()) //is_open_container() isn't really the right proc for this, but w/e
 		to_chat(user, "It contains:")
@@ -427,6 +427,15 @@
 	else
 		return 0
 
+// Used to provide overlays when using this atom as a viewing focus
+// (cameras, locker tint, etc.)
+/atom/proc/get_remote_view_fullscreens(mob/user)
+	return
+
+//the sight changes to give to the mob whose perspective is set to that atom (e.g. A mob with nightvision loses its nightvision while looking through a normal camera)
+/atom/proc/update_remote_sight(mob/living/user)
+	return
+
 /atom/proc/checkpass(passflag)
 	return pass_flags&passflag
 
@@ -448,11 +457,10 @@
 /atom/proc/narsie_act()
 	return
 
-/atom/proc/atom_say(var/message)
-	if((!message))
+/atom/proc/atom_say(message)
+	if(!message)
 		return
-	for(var/mob/O in hearers(src, null))
-		O.show_message("<span class='game say'><span class='name'>[src]</span> [atom_say_verb], \"[message]\"</span>",2)
+	audible_message("<span class='game say'><span class='name'>[src]</span> [atom_say_verb], \"[message]\"</span>")
 
 /atom/proc/speech_bubble(var/bubble_state = "",var/bubble_loc = src, var/list/bubble_recipients = list())
 	return

@@ -5,6 +5,8 @@
 	icon_opened = "cardboard_open"
 	icon_closed = "cardboard"
 	health = 10
+	burn_state = FLAMMABLE
+	burntime = 20
 	sound = 'sound/effects/rustle2.ogg'
 	material_drop = /obj/item/stack/sheet/cardboard
 	cutting_sound = 'sound/items/poster_ripped.ogg'

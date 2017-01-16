@@ -279,11 +279,11 @@ Gunshots/explosions/opening doors/less rare audio (done)
 /obj/effect/hallucination/simple/singularity/proc/Eat(atom/OldLoc, Dir)
 	var/target_dist = get_dist(src,target)
 	if(target_dist<=3) //"Eaten"
-		target.sleeping = 20
+		target.Sleeping(20)
 		target.hal_crit = 1
 		target.hal_screwyhud = 1
 		spawn(rand(50,100))
-			target.sleeping = 0
+			target.SetSleeping(0)
 			target.hal_crit = 0
 			target.hal_screwyhud = 0
 
@@ -480,7 +480,7 @@ Gunshots/explosions/opening doors/less rare audio (done)
 					my_target.show_message("<span class='danger'>[src.name] has attacked [my_target] with [weapon_name]!</span>", 1)
 					my_target.staminaloss += 30
 					if(prob(20))
-						my_target.eye_blurry += 3
+						my_target.AdjustEyeBlurry(3)
 					if(prob(33))
 						if(!locate(/obj/effect/overlay) in my_target.loc)
 							fake_blood(my_target)
@@ -565,13 +565,13 @@ var/list/non_fakeattack_weapons = list(/obj/item/weapon/gun/projectile, /obj/ite
 				person = H
 		people += H
 	if(person) //Basic talk
-		to_chat(target, target.hear_say(pick(speak_messages),language = pick(person.languages),speaker = person))
+		target.hear_say(pick(speak_messages),language = pick(person.languages),speaker = person)
 	else // Radio talk
 		var/list/humans = list()
 		for(var/mob/living/carbon/human/H in living_mob_list)
 			humans += H
 		person = pick(humans)
-		to_chat(target, target.hear_radio(pick(radio_messages),language = pick(person.languages),speaker = person, part_a = "<span class='[frequency_span_class(PUB_FREQ)]'><b>\[[get_frequency_name(PUB_FREQ)]\]</b> <span class='name'>", part_b = "</span> <span class='message'>"))
+		target.hear_radio(pick(radio_messages),language = pick(person.languages),speaker = person, part_a = "<span class='[frequency_span_class(PUB_FREQ)]'><b>\[[get_frequency_name(PUB_FREQ)]\]</b> <span class='name'>", part_b = "</span> <span class='message'>")
 	qdel(src)
 
 /obj/effect/hallucination/message
@@ -752,11 +752,11 @@ var/list/non_fakeattack_weapons = list(/obj/item/weapon/gun/projectile, /obj/ite
 						halimage = null
 		if("death")
 			//Fake death
-			src.sleeping = 20
+			Sleeping(20)
 			hal_crit = 1
 			hal_screwyhud = 1
 			spawn(rand(50,100))
-				src.sleeping = 0
+				SetSleeping(0)
 				hal_crit = 0
 				hal_screwyhud = 0
 		if("husks")

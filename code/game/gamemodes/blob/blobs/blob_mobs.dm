@@ -160,6 +160,7 @@
 	minbodytemp = 0
 	maxbodytemp = 360
 	force_threshold = 10
+	mob_size = MOB_SIZE_LARGE
 	environment_smash = 3
 	gold_core_spawnable = CHEM_MOB_SPAWN_HOSTILE
 

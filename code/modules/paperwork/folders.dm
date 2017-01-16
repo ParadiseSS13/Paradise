@@ -5,6 +5,7 @@
 	icon_state = "folder"
 	w_class = 2
 	pressure_resistance = 2
+	burn_state = FLAMMABLE
 
 /obj/item/weapon/folder/blue
 	desc = "A blue folder."
@@ -39,7 +40,7 @@
 		if(!n_name)
 			return
 		n_name = sanitize(copytext(n_name, 1, MAX_NAME_LEN))
-		
+
 		if((loc == usr || Adjacent(usr)) && usr.stat == 0)
 			name = "folder[(n_name ? text("- '[n_name]'") : null)]"
 	return
@@ -48,13 +49,13 @@
 	var/dat = "<title>[name]</title>"
 
 	for(var/obj/item/weapon/paper/P in src)
-		dat += "<A href='?src=\ref[src];remove=\ref[P]'>Remove</A> - <A href='?src=\ref[src];read=\ref[P]'>[P.name]</A><BR>"
+		dat += "<A href='?src=[UID()];remove=\ref[P]'>Remove</A> - <A href='?src=[UID()];read=\ref[P]'>[P.name]</A><BR>"
 	for(var/obj/item/weapon/photo/Ph in src)
-		dat += "<A href='?src=\ref[src];remove=\ref[Ph]'>Remove</A> - <A href='?src=\ref[src];look=\ref[Ph]'>[Ph.name]</A><BR>"
+		dat += "<A href='?src=[UID()];remove=\ref[Ph]'>Remove</A> - <A href='?src=[UID()];look=\ref[Ph]'>[Ph.name]</A><BR>"
 	for(var/obj/item/weapon/paper_bundle/Pa in src)
-		dat += "<A href='?src=\ref[src];remove=\ref[Pa]'>Remove</A> - <A href='?src=\ref[src];look=\ref[Pa]'>[Pa.name]</A><BR>"
+		dat += "<A href='?src=[UID()];remove=\ref[Pa]'>Remove</A> - <A href='?src=[UID()];look=\ref[Pa]'>[Pa.name]</A><BR>"
 	for(var/obj/item/documents/doc in src)
-		dat += "<A href='?src=\ref[src];remove=\ref[doc]'>Remove</A> - <A href='?src=\ref[src];look=\ref[doc]'>[doc.name]</A><BR>"
+		dat += "<A href='?src=[UID()];remove=\ref[doc]'>Remove</A> - <A href='?src=[UID()];look=\ref[doc]'>[doc.name]</A><BR>"
 	user << browse(dat, "window=folder")
 	onclose(user, "folder")
 	add_fingerprint(usr)
