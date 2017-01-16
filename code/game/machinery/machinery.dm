@@ -132,6 +132,22 @@ Class Procs:
 	else
 		fast_processing += src
 
+// gotta go fast
+/obj/machinery/proc/makeSpeedProcess()
+	if(speed_process)
+		return
+	speed_process = 1
+	machine_processing -= src
+	fast_processing += src
+
+// gotta go slow
+/obj/machinery/proc/makeNormalProcess()
+	if(!speed_process)
+		return
+	speed_process = 0
+	machine_processing += src
+	fast_processing -= src
+
 /obj/machinery/New() //new
 	machines += src
 	..()

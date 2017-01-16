@@ -5,6 +5,7 @@
 	department_flag = SUPPORT
 	total_positions = 1
 	spawn_positions = 1
+	is_service = 1
 	supervisors = "the head of personnel"
 	selection_color = "#dddddd"
 	access = list(access_hydroponics, access_bar, access_kitchen, access_morgue, access_weapons, access_mineral_storeroom)
@@ -41,6 +42,7 @@
 	department_flag = SUPPORT
 	total_positions = 1
 	spawn_positions = 1
+	is_service = 1
 	supervisors = "the head of personnel"
 	selection_color = "#dddddd"
 	access = list(access_hydroponics, access_bar, access_kitchen, access_morgue)
@@ -71,6 +73,7 @@
 	department_flag = SUPPORT
 	total_positions = 3
 	spawn_positions = 2
+	is_service = 1
 	supervisors = "the head of personnel"
 	selection_color = "#dddddd"
 	access = list(access_hydroponics, access_bar, access_kitchen)
@@ -103,6 +106,7 @@
 	department_flag = SUPPORT
 	total_positions = 1
 	spawn_positions = 1
+	is_supply = 1
 	supervisors = "the head of personnel"
 	selection_color = "#dddddd"
 	idtype = /obj/item/weapon/card/id/supply
@@ -133,6 +137,7 @@
 	department_flag = SUPPORT
 	total_positions = 2
 	spawn_positions = 2
+	is_supply = 1
 	supervisors = "the quartermaster"
 	selection_color = "#dddddd"
 	idtype = /obj/item/weapon/card/id/supply
@@ -161,6 +166,7 @@
 	department_flag = SUPPORT
 	total_positions = 3
 	spawn_positions = 3
+	is_supply = 1
 	supervisors = "the quartermaster"
 	selection_color = "#dddddd"
 	idtype = /obj/item/weapon/card/id/supply
@@ -200,6 +206,7 @@
 	department_flag = SUPPORT
 	total_positions = 1
 	spawn_positions = 1
+	is_service = 1
 	supervisors = "the head of personnel"
 	selection_color = "#dddddd"
 	idtype = /obj/item/weapon/card/id/clown
@@ -244,6 +251,7 @@
 	department_flag = SUPPORT
 	total_positions = 1
 	spawn_positions = 1
+	is_service = 1
 	supervisors = "the head of personnel"
 	selection_color = "#dddddd"
 	idtype = /obj/item/weapon/card/id/mime
@@ -284,6 +292,7 @@
 	department_flag = SUPPORT
 	total_positions = 1
 	spawn_positions = 1
+	is_service = 1
 	supervisors = "the head of personnel"
 	selection_color = "#dddddd"
 	access = list(access_janitor, access_maint_tunnels)
@@ -313,6 +322,7 @@
 	department_flag = SUPPORT
 	total_positions = 1
 	spawn_positions = 1
+	is_service = 1
 	supervisors = "the head of personnel"
 	selection_color = "#dddddd"
 	access = list(access_library, access_maint_tunnels)
@@ -343,6 +353,7 @@
 	department_flag = KARMA
 	total_positions = 1
 	spawn_positions = 1
+	is_service = 1
 	supervisors = "the head of personnel"
 	selection_color = "#dddddd"
 	alt_titles = list("Hair Stylist","Beautician")
