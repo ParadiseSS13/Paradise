@@ -132,8 +132,8 @@
 				for(var/mob/C in viewers(src))
 					C.show_message("\red [GM.name] has been placed in the [src] by [user].", 3)
 				qdel(G)
-				usr.attack_log += text("\[[time_stamp()]\] <font color='red'>Has placed [key_name(GM)] in disposals.</font>")
-				GM.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been placed in disposals by [key_name(user)]</font>")
+				usr.create_attack_log("<font color='red'>Has placed [key_name(GM)] in disposals.</font>")
+				GM.create_attack_log("<font color='orange'>Has been placed in disposals by [key_name(user)]</font>")
 				if(GM.ckey)
 					msg_admin_attack("[key_name_admin(user)] placed [key_name_admin(GM)] in a disposals unit. (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 		return
@@ -180,8 +180,8 @@
 		msg = "[user.name] stuffs [target.name] into the [src]!"
 		to_chat(user, "You stuff [target.name] into the [src]!")
 
-		user.attack_log += text("\[[time_stamp()]\] <font color='red'>Has placed [key_name(target)] in disposals.</font>")
-		target.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been placed in disposals by [key_name(user)]</font>")
+		user.create_attack_log("<font color='red'>Has placed [key_name(target)] in disposals.</font>")
+		target.create_attack_log("<font color='orange'>Has been placed in disposals by [key_name(user)]</font>")
 		if(target.ckey)
 			msg_admin_attack("[key_name_admin(user)] placed [key_name_admin(target)] in a disposals unit")
 	else

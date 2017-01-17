@@ -59,7 +59,7 @@
 	if(wizard_mind in wizards)
 		ticker.mode.wizards -= wizard_mind
 		wizard_mind.special_role = null
-		wizard_mind.current.attack_log += "\[[time_stamp()]\] <span class='danger'>De-wizarded</span>"
+		wizard_mind.current.create_attack_log("<span class='danger'>De-wizarded</span>")
 		wizard_mind.current.spellremove(wizard_mind.current)
 		wizard_mind.current.faction = list("Station")
 		if(issilicon(wizard_mind.current))
