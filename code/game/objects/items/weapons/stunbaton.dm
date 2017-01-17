@@ -195,7 +195,7 @@
 	desc = "An improvised stun baton."
 	icon_state = "stunprod_nocell"
 	item_state = "prod"
-	w_class = 4
+	w_class = 3
 	force = 3
 	throwforce = 5
 	stunforce = 5
