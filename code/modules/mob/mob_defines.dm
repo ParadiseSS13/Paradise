@@ -30,6 +30,7 @@
 	var/lastattacker = null
 	var/lastattacked = null
 	var/attack_log = list( )
+	var/last_log = 0
 	var/obj/machinery/machine = null
 	var/other_mobs = null
 	var/memory = ""
