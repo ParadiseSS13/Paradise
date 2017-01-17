@@ -501,6 +501,8 @@
 
 /obj/mecha/attack_animal(mob/living/simple_animal/user as mob)
 	log_message("Attack by simple animal. Attacker - [user].",1)
+	user.changeNext_move(CLICK_CD_MELEE)
+	user.do_attack_animation(src)
 	if(user.melee_damage_upper == 0)
 		user.custom_emote(1, "[user.friendly] [src]")
 	else

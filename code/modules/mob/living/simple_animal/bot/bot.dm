@@ -254,7 +254,7 @@
 		return
 	apply_damage(M.melee_damage_upper, BRUTE)
 	visible_message("<span class='userdanger'>[M] has [M.attacktext] [src]!</span>")
-	add_logs(M, src, "attacked", admin=0)
+	add_logs(M, src, "attacked", admin=0, print_attack_log = 0)
 	if(prob(10))
 		new /obj/effect/decal/cleanable/blood/oil(loc)
 

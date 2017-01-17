@@ -336,9 +336,9 @@
 			if("coffee")			M.change_mob_type( /mob/living/simple_animal/crab/Coffee , null, null, delmob, 1 )
 			if("parrot")			M.change_mob_type( /mob/living/simple_animal/parrot , null, null, delmob, 1 )
 			if("polyparrot")		M.change_mob_type( /mob/living/simple_animal/parrot/Poly , null, null, delmob, 1 )
-			if("constructarmoured")	M.change_mob_type( /mob/living/simple_animal/construct/armoured , null, null, delmob, 1 )
-			if("constructbuilder")	M.change_mob_type( /mob/living/simple_animal/construct/builder , null, null, delmob, 1 )
-			if("constructwraith")	M.change_mob_type( /mob/living/simple_animal/construct/wraith , null, null, delmob, 1 )
+			if("constructarmoured")	M.change_mob_type( /mob/living/simple_animal/hostile/construct/armoured , null, null, delmob, 1 )
+			if("constructbuilder")	M.change_mob_type( /mob/living/simple_animal/hostile/construct/builder , null, null, delmob, 1 )
+			if("constructwraith")	M.change_mob_type( /mob/living/simple_animal/hostile/construct/wraith , null, null, delmob, 1 )
 			if("shade")				M.change_mob_type( /mob/living/simple_animal/shade , null, null, delmob, 1 )
 
 
@@ -1419,19 +1419,6 @@
 		var/mob/living/silicon/ai/ai_character = H.AIize()
 		ai_character.moveToAILandmark()
 
-
-	else if(href_list["makemask"])
-		if(!check_rights(R_SPAWN))	return
-
-		if(alert(usr, "Confirm make mask?",, "Yes", "No") != "Yes")
-			return
-
-		var/mob/currentMob = locate(href_list["makemask"])
-		message_admins("\red Admin [key_name_admin(usr)] made [key_name_admin(currentMob)] into a Mask of Nar'Sie!", 1)
-		log_admin("[key_name(usr)] made [key_name(currentMob)] into a Mask of Nar'Sie!")
-		currentMob.make_into_mask(0,0)
-
-
 	else if(href_list["makealien"])
 		if(!check_rights(R_SPAWN))	return
 
@@ -2008,6 +1995,15 @@
 			return
 
 		fax_panel(usr)
+
+	else if(href_list["getplaytimewindow"])
+		if(!check_rights(R_ADMIN))
+			return
+		var/mob/M = locateUID(href_list["getplaytimewindow"])
+		if(!M)
+			to_chat(usr, "ERROR: Mob not found.")
+			return
+		cmd_show_exp_panel(M.client)
 
 	else if(href_list["jumpto"])
 		if(!check_rights(R_ADMIN))	return

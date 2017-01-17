@@ -41,6 +41,10 @@
 	density = 0
 	qdel(src)
 
+/obj/structure/table/narsie_act()
+	if(prob(20))
+		new /obj/structure/table/woodentable(loc)
+
 /obj/structure/table/update_icon()
 	if(smooth && !flipped)
 		icon_state = ""
@@ -386,6 +390,10 @@
 
 	return 1
 
+
+/obj/structure/table/woodentable/narsie_act()
+	return
+
 /obj/structure/table/woodentable/poker //No specialties, Just a mapping object.
 	name = "gambling table"
 	desc = "A seedy table for seedy dealings in seedy places."
@@ -397,6 +405,9 @@
 /obj/structure/table/woodentable/poker/destroy()
 	new /obj/item/stack/tile/grass(loc)
 	..()
+
+/obj/structure/table/woodentable/poker/narsie_act()
+	return
 
 /obj/structure/glasstable_frame
 	name = "glass table frame"

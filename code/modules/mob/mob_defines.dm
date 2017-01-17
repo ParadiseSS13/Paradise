@@ -67,7 +67,8 @@
 	var/bodytemperature = 310.055	//98.7 F
 	var/flying = 0
 	var/charges = 0.0
-	var/nutrition = 400.0//Carbon
+	var/nutrition = NUTRITION_LEVEL_FED + 50 //Carbon
+	var/satiety = 0 //Carbon
 
 	var/overeatduration = 0		// How long this guy is overeating //Carbon
 	var/intent = null//Living

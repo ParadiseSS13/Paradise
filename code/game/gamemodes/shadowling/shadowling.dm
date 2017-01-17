@@ -97,6 +97,7 @@ Made by Xhuis
 		shadow.special_role = SPECIAL_ROLE_SHADOWLING
 		shadow.restricted_roles = restricted_jobs
 		shadowlings--
+	..()
 	return 1
 
 
@@ -311,7 +312,7 @@ Made by Xhuis
 	if(!H.weakeyes)
 		H.weakeyes = 1 //Makes them more vulnerable to flashes and flashbangs
 	var/light_amount = 0
-	H.nutrition = 450 //i aint never get hongry
+	H.nutrition = NUTRITION_LEVEL_WELL_FED //i aint never get hongry
 	if(isturf(H.loc))
 		var/turf/T = H.loc
 		light_amount = T.get_lumcount() * 10
@@ -346,7 +347,7 @@ Made by Xhuis
 	if(!H.weakeyes)
 		H.weakeyes = 1 //Makes them more vulnerable to flashes and flashbangs
 	var/light_amount = 0
-	H.nutrition = 450 //i aint never get hongry
+	H.nutrition = NUTRITION_LEVEL_WELL_FED //i aint never get hongry
 	if(isturf(H.loc))
 		var/turf/T = H.loc
 		light_amount = T.get_lumcount() * 10

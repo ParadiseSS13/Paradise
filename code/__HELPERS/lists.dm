@@ -115,6 +115,7 @@
 				result += e
 	else
 		result = first - second
+
 	return result
 
 /*

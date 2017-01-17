@@ -514,7 +514,7 @@ var/list/SpookyGhosts = list("ghost","shade","shade2","ghost-narsie","horror","s
 		if(on==0)
 			src.icon_state = icon_off
 			camera.c_tag = null
-			camera.network = null
+			camera.network = list()
 		else
 			src.icon_state = icon_on
 			camera.network = list("news")
@@ -537,13 +537,13 @@ var/list/SpookyGhosts = list("ghost","shade","shade2","ghost-narsie","horror","s
 		if(get_dist(src, M) <= canhear_range)
 			talk_into(M, msg)
 		for(var/obj/machinery/computer/security/telescreen/T in machines)
-			if(T.current == camera)
+			if(T.watchers[M] == camera)
 				T.audible_message("<span class='game radio'><span class='name'>(Newscaster) [M]</span> says, '[msg]'", hearing_distance = 2)
 
 /obj/item/device/videocam/hear_message(mob/M as mob, msg)
 	if(camera && on)
 		for(var/obj/machinery/computer/security/telescreen/T in machines)
-			if(T.current == camera)
+			if(T.watchers[M] == camera)
 				T.audible_message("<span class='game radio'><span class='name'>(Newscaster) [M]</span> [msg]", hearing_distance = 2)
 
 

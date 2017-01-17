@@ -86,6 +86,7 @@ var/list/robot_verbs_default = list(
 	var/datum/effect/system/ion_trail_follow/ion_trail // Ionpulse effect.
 
 	var/datum/action/item_action/toggle_research_scanner/scanner = null
+	var/list/module_actions = list()
 
 /mob/living/silicon/robot/New(loc,var/syndie = 0,var/unfinished = 0, var/alien = 0)
 	spark_system = new /datum/effect/system/spark_spread()
@@ -371,7 +372,7 @@ var/list/robot_verbs_default = list(
 	//languages
 	module.add_languages(src)
 	//subsystems
-	module.add_subsystems(src)
+	module.add_subsystems_and_actions(src)
 
 	//Custom_sprite check and entry
 	if(custom_sprite == 1)
@@ -920,7 +921,7 @@ var/list/robot_verbs_default = list(
 		if(M.attack_sound)
 			playsound(loc, M.attack_sound, 50, 1, 1)
 		visible_message("<span class='danger'><B>[M]</B> [M.attacktext] [src]!</span>")
-		add_logs(M, src, "attacked", admin=0)
+		add_logs(M, src, "attacked", admin=0, print_attack_log = 0)
 		var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
 		switch(M.melee_damage_type)
 			if(BRUTE)
@@ -976,21 +977,17 @@ var/list/robot_verbs_default = list(
 	else
 		overlays -= "eyes"
 
-	if(opened && custom_sprite == 1) //Custom borgs also have custom panels, heh
-		if(wiresexposed)
-			overlays += "[src.ckey]-openpanel +w"
-		else if(cell)
-			overlays += "[src.ckey]-openpanel +c"
-		else
-			overlays += "[src.ckey]-openpanel -c"
-
 	if(opened)
+		var/panelprefix = "ov"
+		if(custom_sprite) //Custom borgs also have custom panels, heh
+			panelprefix = "[ckey]"
+
 		if(wiresexposed)
-			overlays += "ov-openpanel +w"
+			overlays += "[panelprefix]-openpanel +w"
 		else if(cell)
-			overlays += "ov-openpanel +c"
+			overlays += "[panelprefix]-openpanel +c"
 		else
-			overlays += "ov-openpanel -c"
+			overlays += "[panelprefix]-openpanel -c"
 
 	var/combat = list("Combat","Peacekeeper")
 	if(modtype in combat)
@@ -1424,7 +1421,7 @@ var/list/robot_verbs_default = list(
 	//languages
 	module.add_languages(src)
 	//subsystems
-	module.add_subsystems(src)
+	module.add_subsystems_and_actions(src)
 
 	status_flags &= ~CANPUSH
 
@@ -1443,7 +1440,7 @@ var/list/robot_verbs_default = list(
 	//languages
 	module.add_languages(src)
 	//subsystems
-	module.add_subsystems(src)
+	module.add_subsystems_and_actions(src)
 
 	status_flags &= ~CANPUSH
 

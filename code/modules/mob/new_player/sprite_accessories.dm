@@ -2028,7 +2028,7 @@
 	models_allowed = list("Xion Manufacturing Group alt.")
 
 /datum/sprite_accessory/body_markings/tattoo // Tattoos applied post-round startup with tattoo guns in item_defines.dm
-	species_allowed = list("Human", "Unathi", "Grey", "Vulpkanin", "Tajaran", "Skrell")
+	species_allowed = list("Human", "Unathi", "Vulpkanin", "Tajaran", "Skrell")
 	icon_state = "accessory_none"
 
 /datum/sprite_accessory/body_markings/tattoo/elliot
@@ -2053,6 +2053,25 @@
 	name = "Nightling Tattoo"
 	icon_state = "markings_tattoo_nightling"
 
+/datum/sprite_accessory/body_markings/tattoo/grey
+	species_allowed = list("Grey")
+
+/datum/sprite_accessory/body_markings/tattoo/grey/heart_grey
+	name = "Grey Heart Tattoo"
+	icon_state = "markings_tattoo_heart_grey"
+
+/datum/sprite_accessory/body_markings/tattoo/grey/hive_grey
+	name = "Grey Hive Tattoo"
+	icon_state = "markings_tattoo_hive_grey"
+
+/datum/sprite_accessory/body_markings/tattoo/grey/nightling_grey
+	name = "Grey Nightling Tattoo"
+	icon_state = "markings_tattoo_nightling_grey"
+
+/datum/sprite_accessory/body_markings/tattoo/grey/tiger_body_grey
+	name = "Grey Tiger-stripe Tattoo"
+	icon_state = "markings_tattoo_tiger_grey"
+
 /datum/sprite_accessory/body_markings/tattoo/vox
 	species_allowed = list("Vox")
 
@@ -2067,6 +2086,10 @@
 /datum/sprite_accessory/body_markings/tattoo/vox/nightling_vox
 	name = "Vox Nightling Tattoo"
 	icon_state = "markings_tattoo_nightling_vox"
+
+/datum/sprite_accessory/body_markings/tattoo/vox/tiger_body_vox
+	name = "Vox Tiger-stripe Tattoo"
+	icon_state = "markings_tattoo_tiger_vox"
 
 /datum/sprite_accessory/body_markings/tail
 	species_allowed = list()

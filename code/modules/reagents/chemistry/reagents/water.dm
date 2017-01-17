@@ -286,6 +286,7 @@
 		M.AdjustStuttering(4, bound_lower = 0, bound_upper = 20)
 		M.Dizzy(5)
 		if(iscultist(M) && prob(5))
+			M.AdjustCultSlur(5)//5 seems like a good number...
 			M.say(pick("Av'te Nar'sie","Pa'lid Mors","INO INO ORA ANA","SAT ANA!","Daim'niodeis Arc'iai Le'eones","Egkau'haom'nai en Chaous","Ho Diak'nos tou Ap'iron","R'ge Na'sie","Diabo us Vo'iscum","Si gn'um Co'nu"))
 	if(current_cycle >= 75 && prob(33))	// 30 units, 150 seconds
 		M.AdjustConfused(3)
@@ -367,6 +368,7 @@
 		M.adjustFireLoss(2)
 		M.adjustOxyLoss(2)
 		M.adjustBruteLoss(2)
+		M.AdjustCultSlur(10)//CUASE WHY THE HELL NOT
 	..()
 
 /datum/reagent/fuel/unholywater/on_mob_delete(mob/living/M)

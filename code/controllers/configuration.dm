@@ -89,6 +89,8 @@
 	var/overflow_server_url
 	var/forbid_singulo_possession = 0
 
+	var/check_randomizer = 0
+
 	//game_options.txt configs
 
 	var/health_threshold_softcrit = 0
@@ -127,6 +129,10 @@
 	var/use_age_restriction_for_jobs = 0 //Do jobs use account age restrictions? --requires database
 	var/use_age_restriction_for_antags = 0 //Do antags use account age restrictions? --requires database
 
+	var/use_exp_tracking = 0
+	var/use_exp_restrictions = 0
+	var/use_exp_restrictions_admin_bypass = 0
+
 	var/simultaneous_pm_warning_timeout = 100
 
 	var/assistant_maint = 0 //Do assistants get maint access?
@@ -140,6 +146,7 @@
 	var/main_irc = ""
 	var/admin_irc = ""
 	var/admin_notify_irc = ""
+	var/cidrandomizer_irc = ""
 	var/python_path = "" //Path to the python executable.  Defaults to "python" on windows and "/usr/bin/env python2" on unix
 
 	var/default_laws = 0 //Controls what laws the AI spawns with.
@@ -179,6 +186,8 @@
 	var/disable_cid_warn_popup = 0 //disables the annoying "You have already logged in this round, disconnect or be banned" popup, because it annoys the shit out of me when testing.
 
 	var/max_loadout_points = 5 // How many points can be spent on extra items in character setup
+
+	var/disable_ooc_emoji = 0 // prevents people from using emoji in OOC
 
 /datum/configuration/New()
 	var/list/L = subtypesof(/datum/game_mode)
@@ -239,6 +248,15 @@
 
 				if("use_age_restriction_for_antags")
 					config.use_age_restriction_for_antags = 1
+
+				if("use_exp_tracking")
+					config.use_exp_tracking = 1
+
+				if("use_exp_restrictions")
+					config.use_exp_restrictions = 1
+
+				if("use_exp_restrictions_admin_bypass")
+					config.use_exp_restrictions_admin_bypass = 1
 
 				if("jobs_have_minimal_access")
 					config.jobs_have_minimal_access = 1
@@ -405,6 +423,9 @@
 				if("forbid_singulo_possession")
 					forbid_singulo_possession = 1
 
+				if("check_randomizer")
+					check_randomizer = 1
+
 				if("popup_admin_pm")
 					config.popup_admin_pm = 1
 
@@ -471,6 +492,9 @@
 
 				if("admin_notify_irc")
 					config.admin_notify_irc = value
+
+				if("cidrandomizer_irc")
+					config.cidrandomizer_irc = value
 
 				if("python_path")
 					if(value)
@@ -551,6 +575,9 @@
 
 				if("round_abandon_penalty_period")
 					config.round_abandon_penalty_period = MinutesToTicks(text2num(value))
+
+				if("disable_ooc_emoji")
+					config.disable_ooc_emoji = 1
 
 				else
 					diary << "Unknown setting in configuration: '[name]'"

@@ -100,7 +100,9 @@
 	if(istype(A, /turf/simulated/floor))
 		to_chat(user, "<span class='notice'>You hit the floor with the bible.</span>")
 		if(user.mind && (user.mind.assigned_role == "Chaplain"))
-			call(/obj/effect/rune/proc/revealrunes)(src)
+			for(var/obj/effect/rune/R in A)
+				if(R.invisibility)
+					R.talismanreveal()
 	if(user.mind && (user.mind.assigned_role == "Chaplain"))
 		if(A.reagents && A.reagents.has_reagent("water")) //blesses all the water in the holder
 			to_chat(user, "<span class='notice'>You bless [A].</span>")

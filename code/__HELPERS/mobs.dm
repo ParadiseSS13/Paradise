@@ -249,8 +249,8 @@ Proc for attack log creation, because really why not
 6 is whether the attack should be logged to the log file and shown to admins
 */
 
-proc/add_logs(mob/user, mob/target, what_done, var/object=null, var/addition=null, var/admin=1)
-	var/list/ignore=list("shaked","CPRed","grabbed","punched")
+proc/add_logs(mob/user, mob/target, what_done, var/object=null, var/addition=null, var/admin=1, var/print_attack_log = 1)//print_attack_log notifies admins with attack logs on
+	var/list/ignore=list("shaked", "CPRed", "grabbed", "punched", "disarmed")
 	if(!user)
 		return
 	if(ismob(user))
@@ -259,10 +259,13 @@ proc/add_logs(mob/user, mob/target, what_done, var/object=null, var/addition=nul
 		target.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been [what_done] by [key_name(user)][object ? " with [object]" : " "][addition]</font>")
 	if(admin)
 		log_attack("<font color='red'>[key_name(user)] [what_done] [key_name(target)][object ? " with [object]" : " "][addition]</font>")
-	if(istype(target) && (target.client || target.player_logged))
-		if(what_done in ignore) return
-		if(target == user)return
-		if(!admin) return
+	if(istype(target) && (target.key))
+		if(what_done in ignore)
+			return
+		if(target == user)
+			return
+		if(!print_attack_log)
+			return
 		msg_admin_attack("[key_name_admin(user)] [what_done] [key_name_admin(target)][object ? " with [object]" : " "][addition]")
 
 /proc/do_mob(var/mob/user, var/mob/target, var/time = 30, var/uninterruptible = 0, progress = 1)

@@ -21,7 +21,7 @@
 	id = "nutriment"
 	description = "A questionable mixture of various pure nutrients commonly found in processed foods."
 	reagent_state = SOLID
-	nutriment_factor = 12 * REAGENTS_METABOLISM
+	nutriment_factor = 15 * REAGENTS_METABOLISM
 	color = "#664330" // rgb: 102, 67, 48
 
 /datum/reagent/consumable/nutriment/on_mob_life(mob/living/M)
@@ -42,14 +42,12 @@
 	name = "Protein"
 	id = "protein"
 	description = "Various essential proteins and fats commonly found in animal flesh and blood."
-	nutriment_factor = 15 * REAGENTS_METABOLISM
 	diet_flags = DIET_CARN | DIET_OMNI
 
 /datum/reagent/consumable/nutriment/plantmatter		// Plant-based biomatter, digestable by herbivores and omnivores, worthless to carnivores
 	name = "Plant-matter"
 	id = "plantmatter"
 	description = "Vitamin-rich fibers and natural sugars commonly found in fresh produce."
-	nutriment_factor = 15 * REAGENTS_METABOLISM
 	diet_flags = DIET_HERB | DIET_OMNI
 
 /datum/reagent/consumable/vitamin
@@ -63,6 +61,8 @@
 	if(prob(50))
 		M.adjustBruteLoss(-1)
 		M.adjustFireLoss(-1)
+	if(M.satiety < 600)
+		M.satiety += 30
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		if(H.species.exotic_blood)
@@ -71,6 +71,38 @@
 			if(!(H.species.flags & NO_BLOOD))
 				H.blood_volume += 0.5
 	..()
+
+/datum/reagent/consumable/sugar
+	name = "Sugar"
+	id = "sugar"
+	description = "The organic compound commonly known as table sugar and sometimes called saccharose. This white, odorless, crystalline powder has a pleasing, sweet taste."
+	reagent_state = SOLID
+	color = "#FFFFFF" // rgb: 255, 255, 255
+	nutriment_factor = 5 * REAGENTS_METABOLISM
+	overdose_threshold = 200 // Hyperglycaemic shock
+
+/datum/reagent/consumable/sugar/on_mob_life(mob/living/M)
+	M.AdjustDrowsy(-5)
+	if(current_cycle >= 90)
+		M.AdjustJitter(2)
+	if(prob(50))
+		M.AdjustParalysis(-1)
+		M.AdjustStunned(-1)
+		M.AdjustWeakened(-1)
+	if(prob(4))
+		M.reagents.add_reagent("epinephrine", 1.2)
+	..()
+
+/datum/reagent/consumable/sugar/overdose_start(mob/living/M)
+	to_chat(M, "<span class='danger'>You pass out from hyperglycemic shock!</span>")
+	M.emote("collapse")
+	..()
+
+/datum/reagent/consumable/sugar/overdose_process(mob/living/M, severity)
+	M.Paralyse(3 * severity)
+	M.Weaken(4 * severity)
+	if(prob(8))
+		M.adjustToxLoss(severity)
 
 /datum/reagent/consumable/soysauce
 	name = "Soysauce"
@@ -351,6 +383,7 @@
 	id = "rice"
 	description = "Enjoy the great taste of nothing."
 	reagent_state = SOLID
+	nutriment_factor = 3 * REAGENTS_METABOLISM
 	color = "#FFFFFF" // rgb: 0, 0, 0
 
 /datum/reagent/consumable/cherryjelly
@@ -409,9 +442,10 @@
 	description = "A sweet substance produced by bees through partial digestion. Bee barf."
 	reagent_state = LIQUID
 	color = "#d3a308"
+	nutriment_factor = 15 * REAGENTS_METABOLISM
 
 /datum/reagent/consumable/honey/on_mob_life(mob/living/M)
-	M.reagents.add_reagent("sugar", 0.4)
+	M.reagents.add_reagent("sugar", 3)
 	if(prob(20))
 		M.adjustBruteLoss(-3)
 		M.adjustFireLoss(-1)
@@ -483,8 +517,6 @@
 	description = "Some cheese. Pour it out to make it solid."
 	reagent_state = SOLID
 	color = "#FFFF00"
-	metabolization_rate = 0 //heheheh
-	nutriment_factor = 0
 
 /datum/reagent/consumable/cheese/on_mob_life(mob/living/M)
 	if(prob(3))
@@ -514,9 +546,7 @@
 	description = "Hell, I don't even know if this IS cheese. Whatever it is, it ain't normal. If you want to, pour it out to make it solid."
 	reagent_state = SOLID
 	color = "#50FF00"
-	metabolization_rate = 0 //heheheh
 	addiction_chance = 5
-	nutriment_factor = 0
 
 /datum/reagent/consumable/weird_cheese/on_mob_life(mob/living/M)
 	if(prob(5))
@@ -670,37 +700,6 @@
 
 
 ///Food Related, but non-nutritious
-
-/datum/reagent/sugar
-	name = "Sugar"
-	id = "sugar"
-	description = "The organic compound commonly known as table sugar and sometimes called saccharose. This white, odorless, crystalline powder has a pleasing, sweet taste."
-	reagent_state = SOLID
-	color = "#FFFFFF" // rgb: 255, 255, 255
-	overdose_threshold = 200 // Hyperglycaemic shock
-
-/datum/reagent/sugar/on_mob_life(mob/living/M)
-	M.AdjustDrowsy(-5)
-	if(current_cycle >= 90)
-		M.AdjustJitter(2)
-	if(prob(50))
-		M.AdjustParalysis(-1)
-		M.AdjustStunned(-1)
-		M.AdjustWeakened(-1)
-	if(prob(4))
-		M.reagents.add_reagent("epinephrine", 1.2)
-	..()
-
-/datum/reagent/sugar/overdose_start(mob/living/M)
-	to_chat(M, "<span class='danger'>You pass out from hyperglycemic shock!</span>")
-	M.emote("collapse")
-	..()
-
-/datum/reagent/sugar/overdose_process(mob/living/M, severity)
-	M.Paralyse(3 * severity)
-	M.Weaken(4 * severity)
-	if(prob(8))
-		M.adjustToxLoss(severity)
 
 /datum/reagent/questionmark // food poisoning
 	name = "????"

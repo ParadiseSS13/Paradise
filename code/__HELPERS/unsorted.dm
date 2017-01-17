@@ -1009,7 +1009,7 @@ proc/get_mob_with_client_list()
 	else if(zone == "l_foot") return "left foot"
 	else if(zone == "r_foot") return "right foot"
 	else return zone
-	
+
 /*
 
  Gets the turf this atom's *ICON* appears to inhabit
@@ -1222,7 +1222,7 @@ var/global/list/common_tools = list(
 
 //check if mob is lying down on something we can operate him on.
 /proc/can_operate(mob/living/carbon/M)
-	return (locate(/obj/machinery/optable, M.loc) && M.resting) || \
+	return (locate(/obj/machinery/optable, M.loc) && (M.lying || M.resting)) || \
 	(locate(/obj/structure/stool/bed/roller, M.loc) && 	\
 	(M.buckled || M.lying || M.weakened || M.stunned || M.paralysis || M.sleeping || M.stat)) && prob(75) || 	\
 	(locate(/obj/structure/table/, M.loc) && 	\
@@ -1811,3 +1811,12 @@ var/global/list/g_fancy_list_of_types = null
 			sleep(world.tick_lag*4)
 			//you might be thinking of adding more steps to this, or making it use a loop and a counter var
 			//	not worth it.
+
+/proc/make_bit_triplet()
+	var/list/num_sample  = list(1, 2, 3, 4, 5, 6, 7, 8, 9)
+	var/result = 0
+	for(var/i = 0, i < 3, i++)
+		var/num = pick(num_sample)
+		num_sample -= num
+		result += (1 << num)
+	return result

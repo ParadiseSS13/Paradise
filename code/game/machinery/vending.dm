@@ -416,7 +416,7 @@
 		ui = new(user, src, ui_key, "vending_machine.tmpl", src.name, 440, 600)
 		ui.open()
 
-/obj/machinery/vending/ui_data(mob/user, datum/topic_state/state = default_state)
+/obj/machinery/vending/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/list/data = list()
 	if(currently_vending)
 		data["mode"] = 1
@@ -796,10 +796,10 @@
 	desc = "A self-serving Chinese food machine, for all your Chinese food needs."
 	product_slogans = "Taste 5000 years of culture!"
 	icon_state = "snack"
-	products = list(/obj/item/weapon/reagent_containers/food/snacks/chinese/chowmein = 5, /obj/item/weapon/reagent_containers/food/snacks/chinese/tao = 5, /obj/item/weapon/reagent_containers/food/snacks/chinese/newdles = 5,
-					/obj/item/weapon/reagent_containers/food/snacks/chinese/rice = 5, /obj/item/weapon/reagent_containers/food/snacks/wingfangchu = 5)
+	products = list(/obj/item/weapon/reagent_containers/food/snacks/chinese/chowmein = 6, /obj/item/weapon/reagent_containers/food/snacks/chinese/tao = 6, /obj/item/weapon/reagent_containers/food/snacks/chinese/newdles = 6,
+					/obj/item/weapon/reagent_containers/food/snacks/chinese/rice = 6)
 	prices = list(/obj/item/weapon/reagent_containers/food/snacks/chinese/chowmein = 50, /obj/item/weapon/reagent_containers/food/snacks/chinese/tao = 50, /obj/item/weapon/reagent_containers/food/snacks/chinese/newdles = 50,
-					/obj/item/weapon/reagent_containers/food/snacks/chinese/rice = 50, /obj/item/weapon/reagent_containers/food/snacks/wingfangchu = 50)
+					/obj/item/weapon/reagent_containers/food/snacks/chinese/rice = 50)
 
 /obj/machinery/vending/cola
 	name = "\improper Robust Softdrinks"
@@ -834,11 +834,11 @@
 	product_slogans = "Carts to go!"
 	icon_state = "cart"
 	icon_deny = "cart-deny"
-	products = list(/obj/item/device/pda =10,/obj/item/weapon/cartridge/medical = 10,/obj/item/weapon/cartridge/chemistry = 10,
+	products = list(/obj/item/device/pda =10,/obj/item/weapon/cartridge/mob_hunt_game = 25,/obj/item/weapon/cartridge/medical = 10,/obj/item/weapon/cartridge/chemistry = 10,
 					/obj/item/weapon/cartridge/engineering = 10,/obj/item/weapon/cartridge/atmos = 10,/obj/item/weapon/cartridge/janitor = 10,
 					/obj/item/weapon/cartridge/signal/toxins = 10,/obj/item/weapon/cartridge/signal = 10)
 	contraband = list(/obj/item/weapon/cartridge/clown = 1,/obj/item/weapon/cartridge/mime = 1)
-	prices = list(/obj/item/device/pda =300,/obj/item/weapon/cartridge/medical = 200,/obj/item/weapon/cartridge/chemistry = 150,/obj/item/weapon/cartridge/engineering = 100,
+	prices = list(/obj/item/device/pda =300,/obj/item/weapon/cartridge/mob_hunt_game = 50,/obj/item/weapon/cartridge/medical = 200,/obj/item/weapon/cartridge/chemistry = 150,/obj/item/weapon/cartridge/engineering = 100,
 					/obj/item/weapon/cartridge/atmos = 75,/obj/item/weapon/cartridge/janitor = 100,/obj/item/weapon/cartridge/signal/toxins = 150,
 					/obj/item/weapon/cartridge/signal = 75)
 
@@ -945,7 +945,7 @@
 	icon_deny = "sec-deny"
 	req_access_txt = "1"
 	products = list(/obj/item/weapon/restraints/handcuffs = 8,/obj/item/weapon/restraints/handcuffs/cable/zipties = 8,/obj/item/weapon/grenade/flashbang = 4,/obj/item/device/flash = 5,
-					/obj/item/weapon/reagent_containers/food/snacks/donut/normal = 12,/obj/item/weapon/storage/box/evidence = 6,/obj/item/device/flashlight/seclite = 4,/obj/item/weapon/restraints/legcuffs/bola/energy = 7)
+					/obj/item/weapon/reagent_containers/food/snacks/donut = 12,/obj/item/weapon/storage/box/evidence = 6,/obj/item/device/flashlight/seclite = 4,/obj/item/weapon/restraints/legcuffs/bola/energy = 7)
 	contraband = list(/obj/item/clothing/glasses/sunglasses = 2,/obj/item/weapon/storage/fancy/donut_box = 2,/obj/item/device/hailer = 5)
 
 /obj/machinery/vending/hydronutrients
@@ -1033,8 +1033,10 @@
 	products = list(/obj/item/clothing/suit/chickensuit = 1,/obj/item/clothing/head/chicken = 1,/obj/item/clothing/under/gladiator = 1,
 					/obj/item/clothing/head/helmet/gladiator = 1,/obj/item/clothing/under/gimmick/rank/captain/suit = 1,/obj/item/clothing/head/flatcap = 1,
 					/obj/item/clothing/suit/storage/labcoat/mad = 1,/obj/item/clothing/glasses/gglasses = 1,/obj/item/clothing/shoes/jackboots = 1,
-					/obj/item/clothing/under/schoolgirl = 1,/obj/item/clothing/head/kitty = 1,/obj/item/clothing/under/blackskirt = 1,/obj/item/clothing/head/beret = 1,
-					/obj/item/clothing/accessory/waistcoat = 1,/obj/item/clothing/under/suit_jacket = 1,/obj/item/clothing/head/that =1,/obj/item/clothing/under/kilt = 1,/obj/item/clothing/head/beret = 1,/obj/item/clothing/accessory/waistcoat = 1,
+					/obj/item/clothing/under/schoolgirl = 1,/obj/item/clothing/head/kitty = 1,/obj/item/clothing/under/blackskirt = 1,
+					/obj/item/clothing/suit/toggle/owlwings = 1, /obj/item/clothing/under/owl = 1,/obj/item/clothing/mask/gas/owl_mask = 1,
+					/obj/item/clothing/suit/toggle/owlwings/griffinwings = 1, /obj/item/clothing/under/griffin = 1, /obj/item/clothing/shoes/griffin = 1, /obj/item/clothing/head/griffin = 1,
+					/obj/item/clothing/accessory/waistcoat = 1,/obj/item/clothing/under/suit_jacket = 1,/obj/item/clothing/head/that =1,/obj/item/clothing/under/kilt = 1,/obj/item/clothing/accessory/waistcoat = 1,
 					/obj/item/clothing/glasses/monocle =1,/obj/item/clothing/head/bowlerhat = 1,/obj/item/weapon/cane = 1,/obj/item/clothing/under/sl_suit = 1,
 					/obj/item/clothing/mask/fakemoustache = 1,/obj/item/clothing/suit/bio_suit/plaguedoctorsuit = 1,/obj/item/clothing/head/plaguedoctorhat = 1,/obj/item/clothing/mask/gas/plaguedoctor = 1,
 					/obj/item/clothing/suit/apron = 1,/obj/item/clothing/under/waiter = 1,/obj/item/clothing/suit/jacket/miljacket = 1,
@@ -1044,10 +1046,19 @@
 					/obj/item/clothing/mask/gas/cyborg = 1,/obj/item/clothing/suit/holidaypriest = 1,/obj/item/clothing/head/wizard/marisa/fake = 1,
 					/obj/item/clothing/suit/wizrobe/marisa/fake = 1,/obj/item/clothing/under/sundress = 1,/obj/item/clothing/head/witchwig = 1,/obj/item/weapon/twohanded/staff/broom = 1,
 					/obj/item/clothing/suit/wizrobe/fake = 1,/obj/item/clothing/head/wizard/fake = 1,/obj/item/weapon/twohanded/staff = 3,/obj/item/clothing/mask/gas/sexyclown = 1,
-					/obj/item/clothing/under/sexyclown = 1,/obj/item/clothing/mask/gas/sexymime = 1,/obj/item/clothing/under/sexymime = 1,/obj/item/clothing/suit/apron/overalls = 1,
+					/obj/item/clothing/under/sexyclown = 1,/obj/item/clothing/mask/gas/sexymime = 1,/obj/item/clothing/under/sexymime = 1,
+					/obj/item/clothing/mask/face/bat = 1,/obj/item/clothing/mask/face/bee = 1,/obj/item/clothing/mask/face/bear = 1,/obj/item/clothing/mask/face/raven = 1,/obj/item/clothing/mask/face/jackal = 1,/obj/item/clothing/mask/face/fox = 1,/obj/item/clothing/mask/face/tribal = 1,/obj/item/clothing/mask/face/rat = 1,
+					/obj/item/clothing/suit/apron/overalls = 1,
 					/obj/item/clothing/head/rabbitears =1, /obj/item/clothing/head/sombrero = 1, /obj/item/clothing/suit/poncho = 1,
 					/obj/item/clothing/suit/poncho/green = 1, /obj/item/clothing/suit/poncho/red = 1, /obj/item/clothing/accessory/blue = 1, /obj/item/clothing/accessory/red = 1, /obj/item/clothing/accessory/black = 1, /obj/item/clothing/accessory/horrible = 1,
-					/obj/item/clothing/under/maid = 1, /obj/item/clothing/under/janimaid = 1, /obj/item/clothing/under/pants/camo = 1, /obj/item/clothing/mask/bandana = 1, /obj/item/clothing/mask/bandana/black = 1)
+					/obj/item/clothing/under/maid = 1, /obj/item/clothing/under/janimaid = 1,
+					/obj/item/clothing/under/jester = 1, /obj/item/clothing/head/jester = 1,
+					/obj/item/clothing/under/pants/camo = 1, /obj/item/clothing/mask/bandana = 1, /obj/item/clothing/mask/bandana/black = 1,
+					/obj/item/clothing/shoes/singery = 1,/obj/item/clothing/under/singery = 1,
+					/obj/item/clothing/shoes/singerb = 1,/obj/item/clothing/under/singerb = 1,
+					/obj/item/clothing/suit/hooded/carp_costume = 1,/obj/item/clothing/suit/hooded/bee_costume = 1,
+					/obj/item/clothing/suit/snowman = 1,/obj/item/clothing/head/snowman = 1,
+					/obj/item/clothing/head/cueball = 1,/obj/item/clothing/under/scratch = 1)
 	contraband = list(/obj/item/clothing/suit/judgerobe = 1,/obj/item/clothing/head/powdered_wig = 1,/obj/item/weapon/gun/magic/wand = 1, /obj/item/clothing/mask/balaclava=1, /obj/item/clothing/mask/horsehead = 2)
 	premium = list(/obj/item/clothing/suit/hgpirate = 1, /obj/item/clothing/head/hgpiratecap = 1, /obj/item/clothing/head/helmet/roman = 1, /obj/item/clothing/head/helmet/roman/legionaire = 1, /obj/item/clothing/under/roman = 1, /obj/item/clothing/shoes/roman = 1, /obj/item/weapon/shield/riot/roman = 1)
 	refill_canister = /obj/item/weapon/vending_refill/autodrobe
@@ -1163,7 +1174,12 @@
 	desc = "It doesn't seem the slightest bit unusual. This frustrates you immensely."
 	icon_state = "hats"
 	product_ads = "Warning, not all hats are dog/monkey compatible. Apply forcefully with care.;Apply directly to the forehead.;Who doesn't love spending cash on hats?!;From the people that brought you collectable hat crates, Hatlord!"
-	products = list(/obj/item/clothing/head/bowlerhat = 10,/obj/item/clothing/head/beaverhat = 10,/obj/item/clothing/head/boaterhat = 10,/obj/item/clothing/head/fedora = 10,/obj/item/clothing/head/fez = 10)
+	products = list(/obj/item/clothing/head/bowlerhat = 10,
+					/obj/item/clothing/head/beaverhat = 10,
+					/obj/item/clothing/head/boaterhat = 10,
+					/obj/item/clothing/head/fedora = 10,
+					/obj/item/clothing/head/fez = 10,
+					/obj/item/clothing/head/beret = 10)
 	contraband = list(/obj/item/clothing/head/bearpelt = 5)
 	premium = list(/obj/item/clothing/head/soft/rainbow = 1)
 	refill_canister = /obj/item/weapon/vending_refill/hatdispenser

@@ -18,7 +18,7 @@ RCD
 	throw_speed = 3
 	throw_range = 5
 	w_class = 3
-	materials = list(MAT_METAL=100000)
+	materials = list(MAT_METAL = 30000)
 	origin_tech = "engineering=4;materials=2"
 	var/datum/effect/system/spark_spread/spark_system
 	var/max_matter = 100
@@ -89,7 +89,7 @@ RCD
 		ui.open()
 		ui.set_auto_update(1)
 
-/obj/item/weapon/rcd/ui_data(mob/user, datum/topic_state/state = inventory_state)
+/obj/item/weapon/rcd/ui_data(mob/user, ui_key = "main", datum/topic_state/state = inventory_state)
 	var/data[0]
 	data["mode"] = mode
 	data["door_type"] = door_type

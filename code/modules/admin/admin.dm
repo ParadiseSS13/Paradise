@@ -41,7 +41,8 @@ var/global/nologevent = 0
 	body += "<body>Options panel for <b>[M]</b>"
 	if(M.client)
 		body += " played by <b>[M.client]</b> "
-		body += "\[<A href='?_src_=holder;editrights=rank;ckey=[M.ckey]'>[M.client.holder ? M.client.holder.rank : "Player"]</A>\]"
+		body += "\[<A href='?_src_=holder;editrights=rank;ckey=[M.ckey]'>[M.client.holder ? M.client.holder.rank : "Player"]</A>\] "
+		body += "\[<A href='?_src_=holder;getplaytimewindow=[M.UID()]'>" + M.client.get_exp_living() + "</a>\]"
 
 	if(istype(M, /mob/new_player))
 		body += " <B>Hasn't Entered Game</B> "
@@ -612,6 +613,19 @@ var/global/nologevent = 0
 	log_admin("[key_name(usr)] toggled Dead OOC.")
 	message_admins("[key_name_admin(usr)] toggled Dead OOC.", 1)
 	feedback_add_details("admin_verb","TDOOC") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
+/datum/admins/proc/toggleemoji()
+	set category = "Server"
+	set desc = "Toggle OOC Emoji"
+	set name = "Toggle OOC Emoji"
+
+	if(!check_rights(R_ADMIN))
+		return
+
+	config.disable_ooc_emoji = !(config.disable_ooc_emoji)
+	log_admin("[key_name(usr)] toggled OOC Emoji.")
+	message_admins("[key_name_admin(usr)] toggled OOC Emoji.", 1)
+	feedback_add_details("admin_verb", "TEMOJ")
 
 /datum/admins/proc/startnow()
 	set category = "Server"

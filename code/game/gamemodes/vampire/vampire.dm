@@ -59,6 +59,7 @@
 			slaved.masters += vampire
 			vampire.som = slaved //we MIGT want to mindslave someone
 			vampire.special_role = SPECIAL_ROLE_VAMPIRE
+		..()
 		return 1
 	else
 		return 0
@@ -304,7 +305,7 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 		H.blood_volume -= 25
 		if(ishuman(owner))
 			var/mob/living/carbon/human/V = owner
-			V.nutrition = min(450, V.nutrition + (blood / 2))
+			V.nutrition = min(NUTRITION_LEVEL_WELL_FED, V.nutrition + (blood / 2))
 
 	draining = null
 	to_chat(owner, "<span class='notice'>You stop draining [H.name] of blood.</span>")

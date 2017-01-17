@@ -42,7 +42,7 @@
 	for(var/i=1,i<=abductor_teams,i++)
 		if(!make_abductor_team(i))
 			return 0
-
+	..()
 	return 1
 
 /datum/game_mode/abduction/proc/make_abductor_team(team_number,preset_agent=null,preset_scientist=null)
@@ -134,7 +134,7 @@
 		equip_scientist(H,team_number)
 		greet_scientist(scientist,team_number)
 		update_abductor_icons_added(scientist)
-		
+
 	return ..()
 
 //Used for create antag buttons
@@ -341,7 +341,7 @@
 			else
 				return 0
 	return 0
-	
+
 /datum/game_mode/proc/remove_abductor(datum/mind/abductor_mind)
 	if(abductor_mind in abductors)
 		ticker.mode.abductors -= abductor_mind
@@ -351,7 +351,7 @@
 			to_chat(abductor_mind.current, "<span class='userdanger'>You have been turned into a robot! You are no longer an abductor.</span>")
 		else
 			to_chat(abductor_mind.current, "<span class='userdanger'>You have been brainwashed! You are no longer an abductor.</span>")
-		ticker.mode.update_abductor_icons_added(abductor_mind)	
+		ticker.mode.update_abductor_icons_added(abductor_mind)
 
 /datum/game_mode/proc/update_abductor_icons_added(datum/mind/alien_mind)
 	var/datum/atom_hud/antag/hud = huds[ANTAG_HUD_ABDUCTOR]

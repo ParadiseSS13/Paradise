@@ -18,9 +18,18 @@
 	var/dwidth = 0	//position relative to covered area, perpendicular to dir
 	var/dheight = 0	//position relative to covered area, parallel to dir
 
+	// A timid shuttle will not register itself with the shuttle subsystem
+	// All shuttle templates are timid
+	var/timid = FALSE
+
 	//these objects are indestructable
-/obj/docking_port/Destroy()
-	return QDEL_HINT_LETMELIVE
+/obj/docking_port/Destroy(force)
+	if(force)
+		..()
+		. = QDEL_HINT_HARDDEL_NOW
+	else
+
+		return QDEL_HINT_LETMELIVE
 
 /obj/docking_port/singularity_pull()
 	return
@@ -212,6 +221,14 @@
 	highlight("#0f0")
 	#endif
 
+
+
+
+/obj/docking_port/mobile/initialize()
+	if(!timid)
+		register()
+	..()
+
 /obj/docking_port/mobile/register()
 	if(!shuttle_master)
 		throw EXCEPTION("docking port [src] could not initialize.")
@@ -226,6 +243,13 @@
 
 	return 1
 
+/obj/docking_port/mobile/Destroy(force)
+	if(force)
+		shuttle_master.mobile -= src
+		areaInstance = null
+		destination = null
+		previous = null
+	return ..()
 
 //this is a hook for custom behaviour. Maybe at some point we could add checks to see if engines are intact
 /obj/docking_port/mobile/proc/canMove()
@@ -234,29 +258,50 @@
 //this is to check if this shuttle can physically dock at dock S
 /obj/docking_port/mobile/proc/canDock(obj/docking_port/stationary/S)
 	if(!istype(S))
-		return 1
+		return SHUTTLE_NOT_A_DOCKING_PORT
 	if(istype(S, /obj/docking_port/stationary/transit))
-		return 0
+		return SHUTTLE_CAN_DOCK
 	//check dock is big enough to contain us
 	if(dwidth > S.dwidth)
-		return 2
+		return SHUTTLE_DWIDTH_TOO_LARGE
 	if(width-dwidth > S.width-S.dwidth)
-		return 3
+		return SHUTTLE_WIDTH_TOO_LARGE
 	if(dheight > S.dheight)
-		return 4
+		return SHUTTLE_DHEIGHT_TOO_LARGE
 	if(height-dheight > S.height-S.dheight)
-		return 5
+		return SHUTTLE_HEIGHT_TOO_LARGE
 	//check the dock isn't occupied
-	if(S.get_docked())
-		return 6
-	return 0	//0 means we can dock
+	var/currently_docked = S.get_docked()
+	if(currently_docked)
+		// by someone other than us
+		if(currently_docked != src)
+			return SHUTTLE_SOMEONE_ELSE_DOCKED
+		else
+		// This isn't an error, per se, but we can't let the shuttle code
+		// attempt to move us where we currently are, it will get weird.
+			return SHUTTLE_ALREADY_DOCKED		
+	return SHUTTLE_CAN_DOCK
+
+/obj/docking_port/mobile/proc/check_dock(obj/docking_port/stationary/S)
+	var/status = canDock(S)
+	if(status == SHUTTLE_CAN_DOCK)
+		return TRUE
+	else if(status == SHUTTLE_ALREADY_DOCKED)
+		// We're already docked there, don't need to do anything.
+		// Triggering shuttle movement code in place is weird
+		return FALSE
+	else
+		var/msg = "check_dock(): shuttle [src] cannot dock at [S], error: [status]"
+		message_admins(msg)
+		throw EXCEPTION(msg)
+		return FALSE
+
 
 //call the shuttle to destination S
 /obj/docking_port/mobile/proc/request(obj/docking_port/stationary/S)
-	if(canDock(S))
-		. = 1
-		throw EXCEPTION("request(): shuttle cannot dock")
-		return 1	//we can't dock at S
+
+	if(!check_dock(S))
+		return
 
 	switch(mode)
 		if(SHUTTLE_CALL)
@@ -301,36 +346,48 @@
 	else
 		WARNING("shuttle \"[id]\" could not enter transit space. S0=[S0 ? S0.id : "null"] S1=[S1 ? S1.id : "null"]")
 
-//default shuttleRotate
-/atom/proc/shuttleRotate(rotation)
-	//rotate our direction
-	dir = angle2dir(rotation+dir2angle(dir))
 
-	//rotate the pixel offsets too.
-	if(pixel_x || pixel_y)
-		if(rotation < 0)
-			rotation += 360
-		for(var/turntimes=rotation/90;turntimes>0;turntimes--)
-			var/oldPX = pixel_x
-			var/oldPY = pixel_y
-			pixel_x = oldPY
-			pixel_y = (oldPX*(-1))
 
-/atom/proc/postDock()
-	if(smooth)
-		smooth_icon(src)
+/obj/docking_port/mobile/proc/jumpToNullSpace()
+	// Destroys the docking port and the shuttle contents.
+	// Not in a fancy way, it just ceases.
+	var/obj/docking_port/stationary/S0 = get_docked()
+	var/turf_type = /turf/space
+	var/area_type = /area/space
+	if(S0)
+		if(S0.turf_type)
+			turf_type = S0.turf_type
+		if(S0.area_type)
+			area_type = S0.area_type
 
+	var/list/L0 = return_ordered_turfs(x, y, z, dir, areaInstance)
+
+	//remove area surrounding docking port
+	if(areaInstance.contents.len)
+		var/area/A0 = locate("[area_type]")
+		if(!A0)
+			A0 = new area_type(null)
+		for(var/turf/T0 in L0)
+			A0.contents += T0
+
+	for(var/i in L0)
+		var/turf/T0 = i
+		if(!T0)
+			continue
+		T0.empty(turf_type)
+
+	qdel(src, force=TRUE)
 
 //this is the main proc. It instantly moves our mobile port to stationary port S1
 //it handles all the generic behaviour, such as sanity checks, closing doors on the shuttle, stunning mobs, etc
-/obj/docking_port/mobile/proc/dock(obj/docking_port/stationary/S1)
-	. = canDock(S1)
-	if(.)
-		throw EXCEPTION("dock(): shuttle cannot dock")
-		return .
+/obj/docking_port/mobile/proc/dock(obj/docking_port/stationary/S1, force=FALSE)
+	// Crashing this ship with NO SURVIVORS
+	if(!force)
+		if(!check_dock(S1))
+			return -1
 
-	if(canMove())
-		return -1
+		if(canMove())
+			return -1
 
 //		//rotate transit docking ports, so we don't need zillions of variants
 //		if(istype(S1, /obj/docking_port/stationary/transit))
@@ -367,9 +424,7 @@
 			A0.contents += T0
 
 	//move or squish anything in the way ship at destination
-	roadkill(L1, S1.dir)
-
-	var/list/door_unlock_list = list()
+	roadkill(L0, L1, S1.dir)
 
 	for(var/i in 1 to L0.len)
 		var/turf/T0 = L0[i]
@@ -388,49 +443,8 @@
 			Ts1.copy_air_with_tile(T0)
 
 		//move mobile to new location
-
-
-
 		for(var/atom/movable/AM in T0)
-			if(rotation)
-				AM.shuttleRotate(rotation)
-
-			if(istype(AM,/obj))
-				var/obj/O = AM
-				if(istype(O, /obj/docking_port/stationary))
-					continue
-				O.forceMove(T1)
-
-				//close open doors
-				if(istype(O, /obj/machinery/door))
-					var/obj/machinery/door/Door = O
-					spawn(-1)
-						if(Door)
-							if(istype(Door, /obj/machinery/door/airlock))
-								var/obj/machinery/door/airlock/A = Door
-								A.close(0,1)
-								if(A.id_tag == "s_docking_airlock")
-									A.lock()
-									door_unlock_list += A
-							else
-								Door.close()
-			else if(istype(AM,/mob))
-				var/mob/M = AM
-				if(!M.move_on_shuttle)
-					continue
-				M.forceMove(T1)
-
-				//docking turbulence
-				if(M.client)
-					spawn(0)
-						if(M.buckled)
-							shake_camera(M, 2, 1) // turn it down a bit come on
-						else
-							shake_camera(M, 7, 1)
-				if(istype(M, /mob/living/carbon))
-					if(!M.buckled)
-						M.Weaken(3)
-
+			AM.onShuttleMove(T1, rotation)
 
 		if(rotation)
 			T1.shuttleRotate(rotation)
@@ -448,40 +462,39 @@
 
 	for(var/A1 in L1)
 		var/turf/T1 = A1
-		T1.postDock()
+		T1.postDock(S1)
 		for(var/atom/movable/M in T1)
-			M.postDock()
+			M.postDock(S1)
 
 	loc = S1.loc
 	dir = S1.dir
 
 	unlockPortDoors(S1)
-	if(S1 && !S1.lock_shuttle_doors)
-		for(var/obj/machinery/door/airlock/A in door_unlock_list)
-			spawn(-1)
-				A.unlock()
-
-/*
-	if(istype(S1, /obj/docking_port/stationary/transit))
-		var/d = turn(dir, 180 + travelDir)
-		for(var/turf/space/transit/T in S1.return_ordered_turfs())
-			T.pushdirection = d
-			T.update_icon()
-*/
-
 
 
 /obj/docking_port/mobile/proc/findTransitDock()
 	var/obj/docking_port/stationary/transit/T = shuttle_master.getDock("[id]_transit")
-	if(T && !canDock(T))
+	if(T && check_dock(T))
 		return T
-/*	commented out due to issues with rotation
-	for(var/obj/docking_port/stationary/transit/S in shuttle_master.transit)
-		if(S.id)
-			continue
-		if(!canDock(S))
-			return S
-*/
+
+
+/obj/docking_port/mobile/proc/findRoundstartDock()
+	var/obj/docking_port/stationary/D
+	D = shuttle_master.getDock(roundstart_move)
+
+	if(D)
+		return D
+
+/obj/docking_port/mobile/proc/dockRoundstart()
+	// Instead of spending a lot of time trying to work out where to place
+	// our shuttle, just create it somewhere empty and send it to where
+	// it should go
+	var/obj/docking_port/stationary/D = findRoundstartDock()
+	return dock(D)
+
+/obj/effect/landmark/shuttle_import
+	name = "Shuttle Import"
+
 
 
 //shuttle-door closing is handled in the dock() proc whilst looping through turfs
@@ -506,41 +519,43 @@
 				if(A.locked)
 					A.unlock()
 
-/obj/docking_port/mobile/proc/roadkill(list/L, dir, x, y)
-	for(var/turf/T in L)
-		for(var/atom/movable/AM in T)
-			if(ismob(AM))
-				if(istype(AM, /mob/living))
-					var/mob/living/M = AM
-					M.Paralyse(10)
-					M.take_organ_damage(80)
-					M.anchored = 0
-				else
-					continue
+/obj/docking_port/mobile/proc/roadkill(list/L0, list/L1, dir)
+	var/list/hurt_mobs = list()
+	for(var/i in 1 to L0.len)
+		var/turf/T0 = L0[i]
+		var/turf/T1 = L1[i]
+		if(!T0 || !T1)
+			continue
 
+		for(var/atom/movable/AM in T1)
+			if(AM.pulledby)
+				AM.pulledby.stop_pulling()
+			if(ismob(AM))
+				var/mob/M = AM
+				if(M.buckled)
+					M.buckled.unbuckle_mob(M, 1)
+				if(isliving(AM))
+					var/mob/living/L = AM
+					L.stop_pulling()
+					if(L.anchored)
+						L.gib()
+					else
+						if(!(L in hurt_mobs))
+							hurt_mobs |= L
+							L.visible_message("<span class='warning'>[L] is hit by \
+									a hyperspace ripple[L.anchored ? "":" and is thrown clear"]!</span>",
+									"<span class='userdanger'>You feel an immense \
+									crushing pressure as the space around you ripples.</span>")
+							L.Paralyse(10)
+							L.ex_act(2)
+
+			// Move unanchored atoms
 			if(!AM.anchored)
 				step(AM, dir)
 			else
-				if(AM.simulated) //lighting overlays are static
+				if(AM.simulated) // Don't qdel lighting overlays, they are static
 					qdel(AM)
-/*
-//used to check if atom/A is within the shuttle's bounding box
-/obj/docking_port/mobile/proc/onShuttleCheck(atom/A)
-	var/turf/T = get_turf(A)
-	if(!T)
-		return 0
 
-	var/list/L = return_coords()
-	if(L[1] > L[3])
-		L.Swap(1,3)
-	if(L[2] > L[4])
-		L.Swap(2,4)
-
-	if(L[1] <= T.x && T.x <= L[3])
-		if(L[2] <= T.y && T.y <= L[4])
-			return 1
-	return 0
-*/
 //used by shuttle subsystem to check timers
 /obj/docking_port/mobile/proc/check()
 	var/timeLeft = timeLeft(1)
@@ -667,7 +682,7 @@
 		for(var/obj/docking_port/stationary/S in shuttle_master.stationary)
 			if(!options.Find(S.id))
 				continue
-			if(M.canDock(S))
+			if(!M.check_dock(S))
 				continue
 			destination_found = 1
 			dat += "<A href='?src=[UID()];move=[S.id]'>Send to [S.name]</A><br>"

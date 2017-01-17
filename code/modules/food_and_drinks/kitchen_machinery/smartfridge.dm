@@ -82,7 +82,7 @@
 		return 1
 	if(istype(O,/obj/item/weapon/storage/pill_bottle/))
 		return 1
-	if(istype(O,/obj/item/weapon/reagent_containers/food/pill/))
+	if(ispill(O))
 		return 1
 	return 0
 
@@ -108,7 +108,7 @@
 		return 1
 	if(istype(O,/obj/item/weapon/storage/pill_bottle/))
 		return 1
-	if(istype(O,/obj/item/weapon/reagent_containers/food/pill/))
+	if(ispill(O))
 		return 1
 	return 0
 
@@ -322,7 +322,7 @@
 		ui = new(user, src, ui_key, "smartfridge.tmpl", name, 400, 500)
 		ui.open()
 
-/obj/machinery/smartfridge/ui_data(mob/user, datum/topic_state/state = default_state)
+/obj/machinery/smartfridge/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/data[0]
 
 	data["contents"] = null

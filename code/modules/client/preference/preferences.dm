@@ -23,6 +23,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 // 	ROLE_GANG = 21,
 	ROLE_BORER = 21,
 	ROLE_NINJA = 21,
+	ROLE_GSPIDER = 21,
 	ROLE_ABDUCTOR = 30,
 )
 
@@ -82,6 +83,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 	//game-preferences
 	var/lastchangelog = ""				//Saved changlog filesize to detect if there was a change
+	var/exp
 	var/ooccolor = "#b82e00"
 	var/be_special = list()				//Special role selection
 	var/UI_style = "Midnight"
@@ -592,6 +594,10 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			continue
 		if(jobban_isbanned(user, rank))
 			HTML += "<del>[rank]</del></td><td><b> \[BANNED]</b></td></tr>"
+			continue
+		var/available_in_playtime = job.available_in_playtime(user.client)
+		if(available_in_playtime)
+			HTML += "<del>[rank]</del></td><td> \[ " + get_exp_format(available_in_playtime) + " as " + job.get_exp_req_type()  + " \]</td></tr>"
 			continue
 		if(!job.player_old_enough(user.client))
 			var/available_in_days = job.available_in_days(user.client)
@@ -1957,6 +1963,9 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 				if("randomslot")
 					randomslot = !randomslot
+					if(isnewplayer(usr))
+						var/mob/new_player/N = usr
+						N.new_player_panel_proc()
 
 				if("hear_midis")
 					sound ^= SOUND_MIDI
@@ -2182,26 +2191,26 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 /datum/preferences/proc/open_load_dialog(mob/user)
 
 	var/DBQuery/query = dbcon.NewQuery("SELECT slot,real_name FROM [format_table_name("characters")] WHERE ckey='[user.ckey]' ORDER BY slot")
+	var/list/slotnames[max_save_slots]
+
+	if(!query.Execute())
+		var/err = query.ErrorMsg()
+		log_game("SQL ERROR during character slot loading. Error : \[[err]\]\n")
+		message_admins("SQL ERROR during character slot loading. Error : \[[err]\]\n")
+		return
+	while(query.NextRow())
+		slotnames[text2num(query.item[1])] = query.item[2]
 
 	var/dat = "<body>"
 	dat += "<tt><center>"
 	dat += "<b>Select a character slot to load</b><hr>"
 	var/name
 
-	for(var/i=1, i<=max_save_slots, i++)
-		if(!query.Execute())
-			var/err = query.ErrorMsg()
-			log_game("SQL ERROR during character slot loading. Error : \[[err]\]\n")
-			message_admins("SQL ERROR during character slot loading. Error : \[[err]\]\n")
-			return
-		while(query.NextRow())
-			if(i==text2num(query.item[1]))
-				name =  query.item[2]
-		if(!name)	name = "Character[i]"
-		if(i==default_slot)
+	for(var/i in 1 to max_save_slots)
+		name = slotnames[i] || "Character [i]"
+		if(i == default_slot)
 			name = "<b>[name]</b>"
 		dat += "<a href='?_src_=prefs;preference=changeslot;num=[i];'>[name]</a><br>"
-		name = null
 
 	dat += "<hr>"
 	dat += "<a href='byond://?src=[user.UID()];preference=close_load_dialog'>Close</a><br>"

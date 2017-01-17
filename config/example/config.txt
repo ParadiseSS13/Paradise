@@ -17,6 +17,13 @@ JOBS_HAVE_MINIMAL_ACCESS
 ## you have noone older than 0 days, since noone has been logged yet. Only turn this on once you have had the database up for 30 days.
 #USE_AGE_RESTRICTION_FOR_JOBS
 
+##Unhash this to track player playtime in the database. Requires database to be enabled.
+#USE_EXP_TRACKING
+##Unhash this to enable playtime requirements for jobs that have them defined.
+#USE_EXP_RESTRICTIONS
+##Allows admins to bypass job playtime requirements.
+USE_EXP_RESTRICTIONS_ADMIN_BYPASS
+
 ## Unhash this entry to have certain antagonist roles require your account to be at least a certain number of days old to select. You can configure the exact age requirement for different antag roles by editing special_role_times in /code/modules/client/preferences.dm.
 ## See USE_AGE_RESTRICTION_FOR_JOBS for more information
 #USE_AGE_RESTRICTION_FOR_ANTAGS
@@ -153,6 +160,9 @@ GUEST_JOBBAN
 ## Uncomment this to stop people connecting to your server without a registered ckey. (i.e. guest-* are all blocked from connecting)
 GUEST_BAN
 
+## Comment to disable checking for the cid randomizer dll. (disabled if database isn't enabled or connected)
+CHECK_RANDOMIZER
+
 ## the whitelist
 #USEWHITELIST
 
@@ -251,6 +261,9 @@ GHOST_INTERACTION
 ## IRC channel to send direct messages to admins to. Leave blank to disable.
 #ADMIN_NOTIFY_IRC #paradiseStaff
 
+## IRC channel to log CID randomizer blocker hits to. Leave blank to silence
+#CIDRANDOMIZER_IRC #cidrandomizer
+
 ## Path to the python2 executable on the system.  Leave blank for default.
 ## Default is "python" on Windows, "/usr/bin/env python2" on UNIX.
 #PYTHON_PATH pythonw
@@ -312,3 +325,6 @@ DISABLE_SPACE_RUINS
 # and still qualify for re-entering the round. Defaults to 30.
 # Setting this to 0 will disable the penalty period
 #ROUND_ABANDON_PENALTY_PERIOD 30
+
+## Uncomment this if you want to disable usage of emoji in OOC
+#DISABLE_OOC_EMOJI
