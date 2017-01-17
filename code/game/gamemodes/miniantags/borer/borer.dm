@@ -30,7 +30,7 @@
 	var/mob/living/simple_animal/borer/B = loc
 	if(!istype(B))
 		log_runtime(EXCEPTION("Trapped mind found without a borer!"), src)
-		return 0
+		return FALSE
 	return B.host.say_understands(other, speaking)
 
 /mob/living/captive_brain/emote(var/message)
@@ -76,27 +76,30 @@
 	wander = 0
 	mob_size = MOB_SIZE_TINY
 	density = 0
-	pass_flags = PASSTABLE
+	pass_flags = PASSTABLE | PASSMOB
+	mob_size = MOB_SIZE_SMALL
+	faction = list("creature")
 	ventcrawler = 2
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	minbodytemp = 0
+	maxbodytemp = 1500
 	var/generation = 1
 	var/static/list/borer_names = list(
 			"Primary", "Secondary", "Tertiary", "Quaternary", "Quinary", "Senary",
 			"Septenary", "Octonary", "Novenary", "Decenary", "Undenary", "Duodenary",
 			)
-	var/talk_inside_host = 0 				// So that borers don't accidentally give themselves away on a botched message
+	var/talk_inside_host = FALSE			// So that borers don't accidentally give themselves away on a botched message
 	var/used_dominate
-	var/chemicals = 10                      // Chemicals used for reproduction and chemical injection.
-	var/max_chems = 250						// How many chemicals that can be stored in total
-	var/mob/living/carbon/human/host        // Human host for the brain worm.
-	var/truename                            // Name used for brainworm-speak.
-	var/mob/living/captive_brain/host_brain // Used for swapping control of the body back and forth.
-	var/controlling                         // Used in human death check.
-	var/docile = 0                          // Sugar can stop borers from acting.
+	var/chemicals = 10						// Chemicals used for reproduction and chemical injection.
+	var/max_chems = 250
+	var/mob/living/carbon/human/host		// Human host for the brain worm.
+	var/truename							// Name used for brainworm-speak.
+	var/mob/living/captive_brain/host_brain	// Used for swapping control of the body back and forth.
+	var/controlling							// Used in human death check.
+	var/docile = FALSE						// Sugar can stop borers from acting.
 	var/bonding = FALSE
 	var/leaving = FALSE
 	var/hiding = FALSE
-	var/list/borer_injection_chems = list("mannitol","salglu_solution","methamphetamine", "hydrocodone", "spaceacillin", "mitocholide", "charcoal", "salbutamol", "capulettium_plus")
 	var/datum/action/innate/borer/talk_to_host/talk_to_host_action = new
 	var/datum/action/innate/borer/infest_host/infest_host_action = new
 	var/datum/action/innate/borer/toggle_hide/toggle_hide_action = new
@@ -142,7 +145,7 @@
 	if(client.statpanel == "Status")
 		stat("Chemicals", chemicals)
 
-/mob/living/simple_animal/borer/say(var/message)
+/mob/living/simple_animal/borer/say(message)
 	var/datum/language/dialect = parse_language(message)
 	if(!dialect)
 		dialect = get_default_language()
@@ -186,10 +189,10 @@
 	set desc = "Toggle whether you will be able to say audible messages while inside your host."
 
 	if(talk_inside_host)
-		talk_inside_host = 0
+		talk_inside_host = FALSE
 		to_chat(src, "<span class='notice'>You will no longer talk audibly while inside a host.</span>")
 	else
-		talk_inside_host = 1
+		talk_inside_host = TRUE
 		to_chat(src, "<span class='notice'>You will now be able to audibly speak from inside of a host.</span>")
 
 /mob/living/proc/borer_comm()
@@ -250,14 +253,14 @@
 						to_chat(host, "\blue You feel the soporific flow of sugar in your host's blood, lulling you into docility.")
 					else
 						to_chat(src, "\blue You feel the soporific flow of sugar in your host's blood, lulling you into docility.")
-					docile = 1
+					docile = TRUE
 			else
 				if(docile)
 					if(controlling)
 						to_chat(host, "\blue You shake off your lethargy as the sugar leaves your host's blood.")
 					else
 						to_chat(src, "\blue You shake off your lethargy as the sugar leaves your host's blood.")
-					docile = 0
+					docile = FALSE
 
 			if(chemicals < max_chems)
 				chemicals++
@@ -370,11 +373,9 @@
 
 /mob/living/simple_animal/borer/verb/secrete_chemicals()
 	set category = "Borer"
-	set name = "Secrete Chemicals (30)"
+	set name = "Secrete Chemicals"
 	set desc = "Push some chemicals into your host's bloodstream."
 
-	var/injection_amount = 9
-	var/chem_cost = 30
 	if(!host)
 		to_chat(src, "You are not inside a host body.")
 		return
@@ -383,31 +384,58 @@
 		to_chat(src, "You cannot secrete chemicals in your current state.")
 
 	if(docile)
-		to_chat(src, "\blue You are feeling far too docile to do that.")
+		to_chat(src, "<font color='blue'> You are feeling far too docile to do that.</font>")
 		return
 
-	if(chemicals < chem_cost)
-		to_chat(src, "You don't have enough chemicals!")
+	var content = ""
 
-	var/list/nice_name_chem_list = list()
-	for(var/rgnt in borer_injection_chems)
-		var/datum/reagent/R2 = chemical_reagents_list[rgnt]
-		nice_name_chem_list[R2.name] = rgnt
-	var/chem_name = input("Select a chemical to secrete.", "Chemicals") as null|anything in nice_name_chem_list
-	var/chem = nice_name_chem_list[chem_name]
+	content += "<table>"
 
-	if(!chem || chemicals < chem_cost || !host || controlling || !src || stat) //Sanity check.
-		return
+	for(var/datum in typesof(/datum/borer_chem))
+		var/datum/borer_chem/C = new datum()
+		var/datum/reagent/R = chemical_reagents_list[C.chemname]
+		if(C.chemname)
+			content += "<tr><td><a class='chem-select' href='?_src_=[UID()];src=[UID()];borer_use_chem=[C.chemname]'>[R.name] ([C.chemuse])</a><p>[C.chemdesc]</p></td></tr>"
 
-	var/chem_amount = host.reagents.get_reagent_amount(chem)
-	var/datum/reagent/R = chemical_reagents_list[chem]
-	if(R.overdose_threshold && chem_amount + injection_amount > R.overdose_threshold)
-		to_chat(src, "<span class='warning'>Doing so would cause grievous harm to your host, reducing ability to reproduce. Aborting.</span>")
-		return
+	content += "</table>"
 
-	to_chat(src, "<span class='notice'>You squirt a measure of [chem_name] from your reservoirs into [host]'s bloodstream.</span>")
-	host.reagents.add_reagent(chem, injection_amount)
-	chemicals -= chem_cost
+	var/html = get_html_template(content)
+
+	usr << browse(null, "window=ViewBorer[UID()]Chems;size=585x400")
+	usr << browse(html, "window=ViewBorer[UID()]Chems;size=585x400")
+
+	return
+
+/mob/living/simple_animal/borer/Topic(href, href_list, hsrc)
+	if(href_list["borer_use_chem"])
+		locate(href_list["src"])
+		if(!istype(src, /mob/living/simple_animal/borer))
+			return
+
+		var/topic_chem = href_list["borer_use_chem"]
+		var/datum/borer_chem/C
+
+		for(var/datum in typesof(/datum/borer_chem))
+			var/datum/borer_chem/test = new datum()
+			if(test.chemname == topic_chem)
+				C = test
+				break
+
+		var/datum/reagent/R = chemical_reagents_list[C.chemname]
+		if(!istype(C, /datum/borer_chem))
+			return
+		if(!C || !host || controlling || !src || stat)
+			return
+		if(chemicals < C.chemuse)
+			to_chat(src, "<span class='boldnotice'>You need [C.chemuse] chemicals stored to secrete [R.name]!</span>")
+			return
+
+		to_chat(src, "<span class='userdanger'>You squirt a measure of [R.name] from your reservoirs into [host]'s bloodstream.</span>")
+		host.reagents.add_reagent(C.chemname, C.quantity)
+		chemicals -= C.chemuse
+		log_game("[src]/([src.ckey]) has injected [R.name] into their host [host]/([host.ckey])")
+
+	..()
 
 /mob/living/simple_animal/borer/verb/hide_borer()
 	set category = "Borer"
@@ -683,7 +711,7 @@
 
 /mob/living/carbon/proc/spawn_larvae()
 	set category = "Borer"
-	set name = "Reproduce (100)"
+	set name = "Reproduce"
 	set desc = "Spawn several young."
 
 	var/mob/living/simple_animal/borer/B = has_brain_worms()
@@ -701,7 +729,7 @@
 		new /mob/living/simple_animal/borer(get_turf(src),B.generation + 1)
 
 	else
-		to_chat(src, "You do not have enough chemicals stored to reproduce.")
+		to_chat(src, "You need 100 chemicals to reproduce!")
 		return
 
 /mob/living/simple_animal/borer/proc/detatch()
