@@ -511,8 +511,13 @@
 	metabolization_rate = 0.4
 
 /datum/reagent/somnistimine/on_mob_life(mob/living/M)
-	if(current_cycle>= 3)
-		M.Weaken(3)
+	switch(current_cycle)
+		if(1 to 4)
+			M.AdjustEyeBlurry(5)
+			if(prob(25))
+				M.emote("yawn")
+		if(5 to INFINITY)
+			M.Weaken(3)
 	..()
 
 /datum/reagent/cyanide
