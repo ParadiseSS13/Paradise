@@ -29,7 +29,7 @@
 			if(blood_volume < max_blood && blood_volume)
 				if(mind) //Handles vampires "eating" blood that isn't their own.
 					if(mind in ticker.mode.vampires)
-						if(nutrition >= 450)
+						if(nutrition >= NUTRITION_LEVEL_WELL_FED)
 							return //We don't want blood tranfusions making vampires fat.
 						if(blood_data["donor"] != src)
 							nutrition += (15 * REAGENTS_METABOLISM)

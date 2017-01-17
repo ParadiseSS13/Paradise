@@ -48,7 +48,7 @@
 	var/mob/living/carbon/human/bleeder = target
 	if(!(cooldown > world.time) && ((bleeder.stat != DEAD) && !(bleeder.species.flags & NO_BLOOD)))
 		user.visible_message("<span class='danger'>The runes on the blade absorb the blood of [target]!</span>")
-		bleeder.drip(5000)
+		bleeder.bleed(5000)
 		cooldown = world.time + 2400
 
 /obj/item/weapon/restraints/legcuffs/bola/cult
