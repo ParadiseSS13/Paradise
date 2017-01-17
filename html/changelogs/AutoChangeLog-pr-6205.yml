@@ -1,0 +1,5 @@
+author: "Crazylemon64"
+delete-after: True
+changes: 
+  - bugfix: "Joined Souls works now"
+  - bugfix: "Scribing the end rune now no longer is impossible"
