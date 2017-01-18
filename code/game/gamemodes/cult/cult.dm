@@ -179,8 +179,9 @@ var/global/list/all_cults = list()
 		if(jobban_isbanned(cult_mind.current, ROLE_CULTIST))
 			replace_jobbaned_player(cult_mind.current, ROLE_CULTIST)
 		update_cult_icons_added(cult_mind)
-		var/datum/game_mode/cult/cult_mode = ticker.mode
-		cult_mode.check_numbers()
+		if(GAMEMODE_IS_CULT)
+			var/datum/game_mode/cult/cult_mode = ticker.mode
+			cult_mode.check_numbers()
 		return 1
 
 

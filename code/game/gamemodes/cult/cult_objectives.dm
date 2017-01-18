@@ -170,7 +170,7 @@
 			sacrifice_target = pick(possible_targets)
 			possible_objectives |= "sacrifice"
 		else
-			log_admin("Didn't find a suitable sacrifice target...what the hell? Shout at a coder.")
+			log_runtime(EXCEPTION("Didn't find a suitable sacrifice target...what the hell? Shout at a coder."))
 
 	if(!mass_convert)
 		var/living_crew = 0
