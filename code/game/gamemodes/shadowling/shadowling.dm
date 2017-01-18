@@ -304,6 +304,7 @@ Made by Xhuis
 
 	flags = NO_BLOOD | NO_BREATHE | RADIMMUNE | NOGUNS //Can't use guns due to muzzle flash
 	burn_mod = 1.5 //1.5x burn damage, 2x is excessive
+	oxy_mod = 0
 	hot_env_multiplier = 1.5
 
 	silent_steps = 1
@@ -341,6 +342,7 @@ Made by Xhuis
 
 	flags = NO_BLOOD | NO_BREATHE | RADIMMUNE
 	burn_mod = 1.1
+	oxy_mod = 0
 	hot_env_multiplier = 1.1
 
 /datum/species/shadow/ling/lesser/handle_life(var/mob/living/carbon/human/H)
