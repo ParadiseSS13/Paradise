@@ -215,6 +215,7 @@
 	flesh_color = "#8CD7A3"
 	blood_color = "#1D2CBF"
 	//Default styles for created mobs.
+	eyes = "skrell_eyes_s"
 	default_hair = "Skrell Male Tentacles"
 	reagent_tag = PROCESS_ORG
 	butt_sprite = "skrell"
