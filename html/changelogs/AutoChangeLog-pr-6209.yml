@@ -1,0 +1,4 @@
+author: "Krausus"
+delete-after: True
+changes: 
+  - bugfix: "Fixed the exciting new emoji breaking chat entirely for IE8 users. :clap:"
