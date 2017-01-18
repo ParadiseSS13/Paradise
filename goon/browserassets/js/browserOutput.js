@@ -102,8 +102,8 @@ function linkify(text) {
 
 function emojiparse(el) {
 
-	if (!UNICODE_9_EMOJI || !twemoji) { //something didn't load right, probably IE8
-		return;
+	if ((typeof UNICODE_9_EMOJI === 'undefined') || (typeof twemoji === 'undefined')) {
+		return; //something didn't load right, probably IE8
 	}
 
 	var $el = $(el);
