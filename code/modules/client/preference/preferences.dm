@@ -2149,7 +2149,6 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 	if(disabilities & DISABILITY_FLAG_FAT && character.species.flags & CAN_BE_FAT)
 		character.dna.SetSEState(FATBLOCK,1,1)
-		character.mutations += FAT
 		character.mutations += OBESITY
 		character.overeatduration = 600
 
