@@ -889,6 +889,7 @@
 #include "code\game\objects\structures\engicart.dm"
 #include "code\game\objects\structures\extinguisher.dm"
 #include "code\game\objects\structures\false_walls.dm"
+#include "code\game\objects\structures\fitness.dm"
 #include "code\game\objects\structures\flora.dm"
 #include "code\game\objects\structures\foodcart.dm"
 #include "code\game\objects\structures\fullwindow.dm"

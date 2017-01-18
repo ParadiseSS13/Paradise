@@ -252,16 +252,11 @@
 /obj/item/weapon/reagent_containers/food/drinks/sillycup
 	name = "paper cup"
 	desc = "A paper water cup."
-	icon_state = "water_cup_e"
+	icon = 'icons/goonstation/objects/objects.dmi'
+	icon_state = "paper_cup"
 	item_state = "coffee"
 	possible_transfer_amounts = list()
 	volume = 10
-
-/obj/item/weapon/reagent_containers/food/drinks/sillycup/on_reagent_change()
-	if(reagents.total_volume)
-		icon_state = "water_cup"
-	else
-		icon_state = "water_cup_e"
 
 //////////////////////////drinkingglass and shaker//
 //Note by Darem: This code handles the mixing of drinks. New drinks go in three places: In Chemistry-Reagents.dm (for the drink
