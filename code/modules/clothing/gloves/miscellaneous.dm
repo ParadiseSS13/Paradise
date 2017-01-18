@@ -62,6 +62,8 @@
 	name = "stun gloves"
 	desc = "Horrendous and awful. It smells like cancer. The fact it has wires attached to it is incidental."
 	var/obj/item/weapon/stock_parts/cell/cell = null
+	var/stun_strength = 5
+	var/stun_cost = 3750
 
 /obj/item/clothing/gloves/color/yellow/stun/New()
 	..()
@@ -84,16 +86,16 @@
 		var/mob/living/carbon/human/H = loc
 		if(H.a_intent == I_HARM)
 			var/mob/living/carbon/C = A
-			if(cell.use(3750))
+			if(cell.use(stun_cost))
 				var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 				s.set_up(5, 0, loc)
 				s.start()
 				playsound(loc, 'sound/weapons/Egloves.ogg', 50, 1, -1)
 				H.do_attack_animation(C)
 				visible_message("<span class='danger'>[C] has been touched with [src] by [H]!</span>")
-				C.Stun(5)
-				C.Weaken(5)
-				C.apply_effect(STUTTER, 5)
+				C.Stun(stun_strength)
+				C.Weaken(stun_strength)
+				C.apply_effect(STUTTER, stun_strength)
 			else
 				to_chat(H, "<span class='notice'>Not enough charge!</span>")
 			return TRUE
