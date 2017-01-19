@@ -296,10 +296,12 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 			dat += "<h2>Hair & Accessories</h2>"
 
-			if(species in list("Unathi", "Vulpkanin", "Tajaran", "Machine")) //Species that have head accessories.
+			if(species in list("Unathi", "Vulpkanin", "Tajaran", "Machine", "Kidan")) //Species that have head accessories.
 				var/headaccessoryname = "Head Accessory: "
 				if(species == "Unathi")
 					headaccessoryname = "Horns: "
+				if(species == "Kidan")
+					headaccessoryname = "Antennae: "
 				dat += "<b>[headaccessoryname]</b>"
 				dat += "<a href='?_src_=prefs;preference=ha_style;task=input'>[ha_style]</a> "
 				dat += "<a href='?_src_=prefs;preference=headaccessory;task=input'>Color</a> [color_square(r_headacc, g_headacc, b_headacc)]<br>"
@@ -1421,7 +1423,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						h_style = new_h_style
 
 				if("headaccessory")
-					if(species in list("Unathi", "Vulpkanin", "Tajaran", "Machine")) //Species with head accessories.
+					if(species in list("Unathi", "Vulpkanin", "Tajaran", "Machine", "Kidan")) //Species with head accessories.
 						var/input = "Choose the colour of your your character's head accessory:"
 						var/new_head_accessory = input(user, input, "Character Preference", rgb(r_headacc, g_headacc, b_headacc)) as color|null
 						if(new_head_accessory)
@@ -1430,7 +1432,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 							b_headacc = color2B(new_head_accessory)
 
 				if("ha_style")
-					if(species in list("Unathi", "Vulpkanin", "Tajaran", "Machine")) //Species with head accessories.
+					if(species in list("Unathi", "Vulpkanin", "Tajaran", "Machine", "Kidan")) //Species with head accessories.
 						var/list/valid_head_accessory_styles = list()
 						for(var/head_accessory_style in head_accessory_styles_list)
 							var/datum/sprite_accessory/H = head_accessory_styles_list[head_accessory_style]
