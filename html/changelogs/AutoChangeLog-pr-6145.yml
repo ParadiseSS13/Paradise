@@ -1,0 +1,4 @@
+author: "AndriiYukhymchak"
+delete-after: True
+changes: 
+  - tweak: "multitool can now be used to swap directions of TEG's circulator"
