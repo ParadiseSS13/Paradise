@@ -1,5 +1,0 @@
-author: "Markolie"
-delete-after: True
-changes: 
-  - tweak: "Admin announcements are no longer sent to player in the lobby."
-  - tweak: "Regular announcements can now only be heard if you the player is alive, not deaf and in range of an enabled radio."
