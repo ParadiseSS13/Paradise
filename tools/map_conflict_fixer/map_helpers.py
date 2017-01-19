@@ -69,7 +69,7 @@ def merge_map(newfile, backupfile, tgm):
             old_key = old_grid[x,y]
             old_tile = old_dict[old_key]
             new_tile = new_dict[new_key]
-            
+
             if new_tile == old_tile: #this tile is the exact same as before, so the old key is used
                 merged_grid[x,y] = old_key
                 known_keys[new_key] = old_key
@@ -77,7 +77,7 @@ def merge_map(newfile, backupfile, tgm):
                 continue
 
             #the tile is different here, but if it exists in the old dictionary, its old key can be used
-            newold_key = get_key(old_dict_keys, old_dict_values, new_tile) 
+            newold_key = get_key(old_dict_keys, old_dict_values, new_tile)
             if newold_key != None:
                 merged_grid[x,y] = newold_key
                 known_keys[new_key] = newold_key
@@ -94,7 +94,7 @@ def merge_map(newfile, backupfile, tgm):
                 unused_keys.remove(old_key)
 
             #all other options ruled out, a brand new key is generated for the brand new tile
-            else: 
+            else:
                 fresh_key = generate_new_key(old_dict)
                 old_dict[fresh_key] = new_tile
                 merged_grid[x,y] = fresh_key
@@ -126,7 +126,7 @@ def write_dictionary_tgm(filename, dictionary): #write dictionary in tgm format
                 in_quote_block = False
                 in_varedit_block = False
                 for char in thing:
-                    
+
                     if in_quote_block:
                         if char == "\"":
                             in_quote_block = False
@@ -152,11 +152,11 @@ def write_dictionary_tgm(filename, dictionary): #write dictionary in tgm format
                             continue
 
                     buffer = buffer + char
-                
+
                 if list_.index(thing) != len(list_) - 1:
                     buffer = buffer + ",\n"
                 output.write(buffer)
-                        
+
             output.write(")\n")
 
 
@@ -253,10 +253,10 @@ def parse_map(map_raw_text): #still does not support more than one z level per f
     reading_coord = "x"
 
     key_length = 0
-        
+
     maxx = 0
     maxy = 0
-        
+
     curr_x = 0
     curr_y = 0
     curr_z = 1
@@ -283,7 +283,7 @@ def parse_map(map_raw_text): #still does not support more than one z level per f
                             curr_datum = curr_datum + char
                             escaping = False
                             continue
-                        
+
                         if char == "\"":
                             curr_datum = curr_datum + char
                             in_quote_block = False
@@ -296,7 +296,7 @@ def parse_map(map_raw_text): #still does not support more than one z level per f
                         skip_whitespace = False
                         continue
                     skip_whitespace = False
-                        
+
                     if char == "\"":
                         curr_datum = curr_datum + char
                         in_quote_block = True
@@ -337,14 +337,14 @@ def parse_map(map_raw_text): #still does not support more than one z level per f
 
                 curr_datum = curr_datum + char
                 continue
-                            
+
             if in_key_block:
                 if char == "\"":
                     in_key_block = False
                     key_length = len(curr_key)
                 else:
                     curr_key = curr_key + char
-                continue    
+                continue
             #else we're looking for a key block, a data block or the map block
 
             if char == "\"":
@@ -363,7 +363,7 @@ def parse_map(map_raw_text): #still does not support more than one z level per f
                     in_data_block = True
                     after_data_block = False
                     continue
-            
+
         else:
 
             if in_coord_block:
@@ -415,7 +415,7 @@ def parse_map(map_raw_text): #still does not support more than one z level per f
                     iter_x = 0
                     continue
 
-                
+
                 curr_key = curr_key + char
                 if len(curr_key) == key_length:
                     iter_x += 1
@@ -425,7 +425,7 @@ def parse_map(map_raw_text): #still does not support more than one z level per f
                     grid[curr_x, curr_y] = curr_key
                     curr_key = ""
                 continue
-            
+
 
             #else look for coordinate block or a map string
 
@@ -552,7 +552,7 @@ MAP_FIX_FULL = 1
 MAP_FIX_PRIORITY_OURS = 0
 MAP_FIX_PRIORITY_THEIRS = 1
 
-def fix_map_git_conflicts(base_map, ours_map, theirs_map, mode, marker, priority, path): #attempts to fix git map conflicts automagically
+def fix_map_git_conflicts(base_map, ours_map, theirs_map, mode, marker, priority, path, tgm): #attempts to fix git map conflicts automagically
     #mode values:
     # 0 - Dictionary mode, only fixes dictionary conflicts and fails at coordinate conflicts
     # 1 - Full mode, fixes dictionary conflicts and will join both versions of a coordinate and adds a marker to each conflicted coordinate
@@ -560,11 +560,11 @@ def fix_map_git_conflicts(base_map, ours_map, theirs_map, mode, marker, priority
     if mode == MAP_FIX_FULL and not marker:
         print("ERROR: Full fix mode selected but a marker wasn't provided.")
         return False
-    
+
     key_length = 1
     maxx = 1
     maxy = 1
-    
+
     if ours_map["key_length"] != theirs_map["key_length"] or ours_map["key_length"] != base_map["key_length"]:
         print("ERROR: Key length is different, I am not smart enough for this yet.")
         return False
@@ -639,8 +639,12 @@ def fix_map_git_conflicts(base_map, ours_map, theirs_map, mode, marker, priority
                     grid_conflict_counter += 1
 
     merged_dict = sort_dictionary(merged_dict)
-    write_dictionary_tgm(path+".fixed.dmm", merged_dict)
-    write_grid_coord_small(path+".fixed.dmm", merged_grid, maxx, maxy)
+	if(tgm)
+	    write_dictionary_tgm(path+".fixed.dmm", merged_dict)
+	    write_grid_coord_small(path+".fixed.dmm", merged_grid, maxx, maxy)
+	else
+        write_dictionary(path+".fixed.dmm", old_dict)
+        write_grid(path+".fixed.dmm", merged_grid, maxx, maxy)
     if grid_conflict_counter > 0:
         print("Counted {} conflicts.".format(grid_conflict_counter))
     return True
@@ -677,7 +681,7 @@ def combine_tiles(tile_A, tile_B, priority, marker):
     new_tile.append(turf_atom)
     new_tile.append(area_atom)
     return tuple(new_tile)
-            
+
 
 def run_shell_command(command):
     return subprocess.run(command, shell=True, stdout=subprocess.PIPE, universal_newlines=True).stdout
