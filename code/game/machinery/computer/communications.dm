@@ -39,7 +39,7 @@
 /obj/machinery/computer/communications/New()
 	shuttle_caller_list += src
 	..()
-	crew_announcement.newscast = 1
+	crew_announcement.newscast = 0
 
 /obj/machinery/computer/communications/proc/is_authenticated(var/mob/user, var/message = 1)
 	if(authenticated == COMM_AUTHENTICATION_MAX)

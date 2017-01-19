@@ -136,6 +136,7 @@
 	formatted_message += "<br><span class='alert'>[message]</span>"
 	if(message_announcer)
 		formatted_message += "<br><span class='alert'> -[message_announcer]</span>"
+	formatted_message += "<br>"
 	
 	return formatted_message
 
