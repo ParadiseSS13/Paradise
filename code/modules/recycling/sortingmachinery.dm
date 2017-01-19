@@ -368,7 +368,7 @@
 	var/sortTag = 0
 	var/sealed = 0
 
-/obj/item/shippingPackage/attackby(obj/O, mob/user, params)
+/obj/item/shippingPackage/attackby(obj/item/O, mob/user, params)
 	if(sealed)
 		if(istype(O, /obj/item/weapon/pen))
 			var/str = copytext(sanitize(input(user,"Intended recipient?","Address","")),1,MAX_NAME_LEN)
@@ -382,16 +382,18 @@
 		to_chat(user, "<span class='notice'>[src] already contains \a [wrapped].</span>")
 		return
 	if(istype(O, /obj/item) && !istype(O, /obj/item/weapon/storage) && !istype(O, /obj/item/shippingPackage))
-		var/obj/item/I = O
-		if(I.w_class > 3)
-			to_chat(user, "<span class='notice'>[I] is too large to fit in [src].</span>")
+		if(!user.canUnEquip(O))
+			to_chat(user, "<span class='warning'>[O] is stuck to your hand, you cannot put it in [src]!</span>")
+			return
+		if(O.w_class > 3)
+			to_chat(user, "<span class='notice'>[O] is too large to fit in [src].</span>")
 		else
-			wrapped = I
-			user.unEquip(I)
-			I.forceMove(src)
-			I.add_fingerprint(usr)
+			wrapped = O
+			user.unEquip(O)
+			O.forceMove(src)
+			O.add_fingerprint(usr)
 			add_fingerprint(usr)
-			to_chat(user, "<span class='notice'>You put [I] in [src].</span>")
+			to_chat(user, "<span class='notice'>You put [O] in [src].</span>")
 
 /obj/item/shippingPackage/attack_self(mob/user)
 	if(sealed)
@@ -425,3 +427,9 @@
 		desc += " The label says \"Deliver to [TAGGERLOCATIONS[sortTag]]\"."
 	if(!sealed)
 		desc += " The package is not sealed."
+
+/obj/item/shippingPackage/Destroy()
+	if(wrapped)
+		qdel(wrapped)
+		wrapped = null
+	return ..()
