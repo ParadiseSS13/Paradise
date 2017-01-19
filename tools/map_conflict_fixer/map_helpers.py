@@ -639,11 +639,11 @@ def fix_map_git_conflicts(base_map, ours_map, theirs_map, mode, marker, priority
                     grid_conflict_counter += 1
 
     merged_dict = sort_dictionary(merged_dict)
-	if(tgm)
-	    write_dictionary_tgm(path+".fixed.dmm", merged_dict)
-	    write_grid_coord_small(path+".fixed.dmm", merged_grid, maxx, maxy)
-	else
-        write_dictionary(path+".fixed.dmm", old_dict)
+    if tgm:
+        write_dictionary_tgm(path+".fixed.dmm", merged_dict)
+        write_grid_coord_small(path+".fixed.dmm", merged_grid, maxx, maxy)
+    else:
+        write_dictionary(path+".fixed.dmm", merged_dict)
         write_grid(path+".fixed.dmm", merged_grid, maxx, maxy)
     if grid_conflict_counter > 0:
         print("Counted {} conflicts.".format(grid_conflict_counter))

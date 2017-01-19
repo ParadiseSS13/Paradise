@@ -57,9 +57,9 @@ def main(relative_root, tgm=0):
         mode = map_helpers.MAP_FIX_DICTIONARY
         print("DICTIONARY mode selected.")
     else:
-        marker = input("FULL mode selected. Input a marker [/obj/effect/debugging/marker]: ")
+        marker = input("FULL mode selected. Input a marker [/obj/effect/debugging/mapfix_marker]: ")
         if not marker:
-            marker = "/obj/effect/debugging/marker"
+            marker = "/obj/effect/debugging/mapfix_marker"
         print("Marker selected: {}".format(marker))
 
         print("\nVersion priorities:")
