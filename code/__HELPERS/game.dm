@@ -474,9 +474,10 @@ proc/pollCandidates(Question, be_special_type, antag_age_check = 0, poll_time = 
 	return candidates
 
 /proc/window_flash(client/C)
-    if(ismob(C))
-        var/mob/M = C
-        C = M.client
-    if(!C.prefs.windowflashing)
-        return
-    winset(C, "mainwindow", "flash=5")
+	if(ismob(C))
+		var/mob/M = C
+		if(M.client)
+			C = M.client
+	if(!C.prefs.windowflashing || !C)
+		return
+	winset(C, "mainwindow", "flash=5")
