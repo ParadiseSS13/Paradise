@@ -234,10 +234,10 @@
 	if(prompted || !ismob(M))
 		return
 	if(!isanimal(M) || M.ckey) //much like sentience, these will not work on something that is already player controlled
-		user << "<span class='warning'>[M] already has a higher consciousness!</span>"
+		to_chat(user, "<span class='warning'>[M] already has a higher consciousness!</span>")
 		return ..()
 	if(M.stat)
-		user << "<span class='warning'>[M] is dead!</span>"
+		to_chat(user, "<span class='warning'>[M] is dead!</span>")
 		return ..()
 	var/mob/living/simple_animal/SM = M
 	if(SM.sentience_type != animal_type)
