@@ -12,7 +12,7 @@
 		to_chat(A, "<br>")
 
 	if(prob(30))	//most of the time, we don't want an announcement, so as to allow AIs to fake blackouts.
-		command_announcement.Announce(alert)
+		event_announcement.Announce(alert)
 
 /datum/event/communications_blackout/start()
 	for(var/obj/machinery/telecomms/T in telecomms_list)
@@ -20,7 +20,7 @@
 
 /proc/communications_blackout(var/silent = 1)
 	if(!silent)
-		command_announcement.Announce("Ionospheric anomalies detected. Temporary telecommunication failure imminent. Please contact you-BZZT", new_sound = 'sound/misc/interference.ogg')
+		event_announcement.Announce("Ionospheric anomalies detected. Temporary telecommunication failure imminent. Please contact you-BZZT", new_sound = 'sound/misc/interference.ogg')
 	else // AIs will always know if there's a comm blackout, rogue AIs could then lie about comm blackouts in the future while they shutdown comms
 		for(var/mob/living/silicon/ai/A in player_list)
 			to_chat(A, "<br>")

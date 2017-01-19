@@ -752,7 +752,7 @@
 			var/more_minutes = 9000
 			var/timer = shuttle_master.emergency.timeLeft()
 			timer += more_minutes
-			command_announcement.Announce("Major system failure aboard the emergency shuttle. This will extend its arrival time by approximately 15 minutes..", "System Failure", 'sound/misc/notice1.ogg')
+			event_announcement.Announce("Major system failure aboard the emergency shuttle. This will extend its arrival time by approximately 15 minutes..", "System Failure", 'sound/misc/notice1.ogg')
 			shuttle_master.emergency.setTimer(timer)
 		usr.mind.spell_list.Remove(src) //Can only be used once!
 		qdel(src)

@@ -292,12 +292,12 @@
 			to_chat(usr, "Docking request accepted!")
 			trade_dock_timelimit = world.time + 1200
 			trade_dockrequest_timelimit = 0
-			command_announcement.Announce("Docking request for trading ship approved, please dock at port bay 4.", "Docking Request")
+			event_announcement.Announce("Docking request for trading ship approved, please dock at port bay 4.", "Docking Request")
 		if("DenyDocking")
 			to_chat(usr, "Docking requeset denied!")
 			trade_dock_timelimit = 0
 			trade_dockrequest_timelimit = 0
-			command_announcement.Announce("Docking request for trading ship denied.", "Docking request")
+			event_announcement.Announce("Docking request for trading ship denied.", "Docking request")
 
 	nanomanager.update_uis(src)
 	return 1

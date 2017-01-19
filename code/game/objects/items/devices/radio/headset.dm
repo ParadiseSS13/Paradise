@@ -63,18 +63,16 @@
 		return RADIO_CONNECTION_FAIL
 
 	return ..()
-
-/obj/item/device/radio/headset/receive_range(freq, level, aiOverride = 0)
-	if(aiOverride)
-		return ..(freq, level)
+	
+/obj/item/device/radio/headset/is_listening()
 	if(ishuman(loc))
 		var/mob/living/carbon/human/H = loc
 		if(H.l_ear == src || H.r_ear == src)
-			return ..(freq, level)
-	else if(isanimal(loc))
-		// frankly, all the ones with inventory are small enough to not warrant snowflaking the slot check somehow
-		return ..(freq, level)
-	return -1
+			return ..()
+	else if(isanimal(loc) || isAI(loc))
+		return ..()
+	
+	return FALSE
 
 /obj/item/device/radio/headset/alt
 	name = "bowman headset"
@@ -304,10 +302,10 @@
 	var/myAi = null    // Atlantis: Reference back to the AI which has this radio.
 	var/disabledAi = 0 // Atlantis: Used to manually disable AI's integrated radio via intellicard menu.
 
-/obj/item/device/radio/headset/heads/ai_integrated/receive_range(freq, level)
+/obj/item/device/radio/headset/heads/ai_integrated/is_listening()
 	if(disabledAi)
-		return -1 //Transciever Disabled.
-	return ..(freq, level, 1)
+		return FALSE
+	return ..()
 
 /obj/item/device/radio/headset/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	user.set_machine(src)
