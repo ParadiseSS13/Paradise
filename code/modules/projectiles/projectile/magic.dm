@@ -221,7 +221,7 @@ proc/wabbajack(mob/living/M)
 				else
 					return
 
-			M.attack_log += text("\[[time_stamp()]\] <font color='orange'>[M.real_name] ([M.ckey]) became [new_mob.real_name].</font>")
+			M.create_attack_log("<font color='orange'>[M.real_name] ([M.ckey]) became [new_mob.real_name].</font>")
 			new_mob.attack_log = M.attack_log
 
 			new_mob.a_intent = I_HARM

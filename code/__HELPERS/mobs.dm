@@ -254,9 +254,9 @@ proc/add_logs(mob/user, mob/target, what_done, var/object=null, var/addition=nul
 	if(!user)
 		return
 	if(ismob(user))
-		user.attack_log += text("\[[time_stamp()]\] <font color='red'>Has [what_done] [key_name(target)][object ? " with [object]" : " "][addition]</font>")
+		user.create_attack_log("<font color='red'>Has [what_done] [key_name(target)][object ? " with [object]" : " "][addition]</font>")
 	if(ismob(target))
-		target.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been [what_done] by [key_name(user)][object ? " with [object]" : " "][addition]</font>")
+		target.create_attack_log("<font color='orange'>Has been [what_done] by [key_name(user)][object ? " with [object]" : " "][addition]</font>")
 	if(admin)
 		log_attack("<font color='red'>[key_name(user)] [what_done] [key_name(target)][object ? " with [object]" : " "][addition]</font>")
 	if(istype(target) && (target.key))

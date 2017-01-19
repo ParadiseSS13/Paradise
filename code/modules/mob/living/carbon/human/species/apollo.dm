@@ -79,8 +79,8 @@
 				head_organ.h_style = "Bald"
 				H.update_hair()
 
-				M.attack_log += text("\[[time_stamp()]\] <font color='red'>removed antennae [H.name] ([H.ckey])</font>")
-				H.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has had their antennae removed by [M.name] ([M.ckey])</font>")
+				M.create_attack_log("<font color='red'>removed antennae [H.name] ([H.ckey])</font>")
+				H.create_attack_log("<font color='orange'>Has had their antennae removed by [M.name] ([M.ckey])</font>")
 				msg_admin_attack("[key_name(M)] removed [key_name(H)]'s antennae")
 			return 0
 

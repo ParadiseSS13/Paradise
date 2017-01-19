@@ -269,8 +269,8 @@
 		state = GRAB_NECK
 		icon_state = "grabbed+1"
 		assailant.set_dir(get_dir(assailant, affecting))
-		affecting.attack_log += "\[[time_stamp()]\] <font color='orange'>Has had their neck grabbed by [assailant.name] ([assailant.ckey])</font>"
-		assailant.attack_log += "\[[time_stamp()]\] <font color='red'>Grabbed the neck of [affecting.name] ([affecting.ckey])</font>"
+		affecting.create_attack_log("<font color='orange'>Has had their neck grabbed by [assailant.name] ([assailant.ckey])</font>")
+		assailant.create_attack_log("<font color='red'>Grabbed the neck of [affecting.name] ([affecting.ckey])</font>")
 		log_attack("<font color='red'>[assailant.name] ([assailant.ckey]) grabbed the neck of [affecting.name] ([affecting.ckey])</font>")
 		if(!iscarbon(assailant))
 			affecting.LAssailant = null
@@ -285,8 +285,8 @@
 
 		state = GRAB_KILL
 		assailant.visible_message("<span class='danger'>[assailant] has tightened \his grip on [affecting]'s neck!</span>")
-		affecting.attack_log += "\[[time_stamp()]\] <font color='orange'>Has been strangled (kill intent) by [assailant.name] ([assailant.ckey])</font>"
-		assailant.attack_log += "\[[time_stamp()]\] <font color='red'>Strangled (kill intent) [affecting.name] ([affecting.ckey])</font>"
+		affecting.create_attack_log("<font color='orange'>Has been strangled (kill intent) by [assailant.name] ([assailant.ckey])</font>")
+		assailant.create_attack_log("<font color='red'>Strangled (kill intent) [affecting.name] ([affecting.ckey])</font>")
 		msg_admin_attack("[key_name(assailant)] strangled (kill intent) [key_name(affecting)]")
 
 		assailant.next_move = world.time + 10
@@ -338,8 +338,8 @@
 							damage += hat.force * 3
 						affecting.apply_damage(damage*rand(90, 110)/100, BRUTE, "head", affected.run_armor_check(affecting, "melee"))
 						playsound(assailant.loc, "swing_hit", 25, 1, -1)
-						assailant.attack_log += text("\[[time_stamp()]\] <font color='red'>Headbutted [affecting.name] ([affecting.ckey])</font>")
-						affecting.attack_log += text("\[[time_stamp()]\] <font color='orange'>Headbutted by [assailant.name] ([assailant.ckey])</font>")
+						assailant.create_attack_log("<font color='red'>Headbutted [affecting.name] ([affecting.ckey])</font>")
+						affecting.create_attack_log("<font color='orange'>Headbutted by [assailant.name] ([assailant.ckey])</font>")
 						msg_admin_attack("[key_name(assailant)] has headbutted [key_name(affecting)]")
 						return
 
@@ -357,8 +357,8 @@
 							return
 						assailant.visible_message("<span class='danger'>[assailant] presses \his fingers into [affecting]'s eyes!</span>")
 						to_chat(affecting, "<span class='danger'>You feel immense pain as digits are being pressed into your eyes!</span>")
-						assailant.attack_log += text("\[[time_stamp()]\] <font color='red'>Pressed fingers into the eyes of [affecting.name] ([affecting.ckey])</font>")
-						affecting.attack_log += text("\[[time_stamp()]\] <font color='orange'>Had fingers pressed into their eyes by [assailant.name] ([assailant.ckey])</font>")
+						assailant.create_attack_log("<font color='red'>Pressed fingers into the eyes of [affecting.name] ([affecting.ckey])</font>")
+						affecting.create_attack_log("<font color='orange'>Had fingers pressed into their eyes by [assailant.name] ([assailant.ckey])</font>")
 						msg_admin_attack("[key_name(assailant)] has pressed his fingers into [key_name(affecting)]'s eyes.")
 						var/obj/item/organ/internal/eyes/eyes = affected.get_int_organ(/obj/item/organ/internal/eyes)
 						eyes.damage += rand(3,4)
@@ -396,8 +396,8 @@
 
 			user.visible_message("<span class='danger'>[user] devours \the [affecting]!</span>")
 			if(affecting.mind)
-				affecting.attack_log += "\[[time_stamp()]\] <font color='orange'>Has been devoured by [attacker.name] ([attacker.ckey])</font>"
-				attacker.attack_log += "\[[time_stamp()]\] <font color='red'>Devoured [affecting.name] ([affecting.ckey])</font>"
+				affecting.create_attack_log("<font color='orange'>Has been devoured by [attacker.name] ([attacker.ckey])</font>")
+				attacker.create_attack_log("<font color='red'>Devoured [affecting.name] ([affecting.ckey])</font>")
 				msg_admin_attack("[key_name(attacker)] devoured [key_name(affecting)]")
 
 			affecting.loc = user
