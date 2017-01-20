@@ -173,7 +173,7 @@
 /obj/item/weapon/reagent_containers/food/snacks/ash_flora/mushroom_cap
 	name = "mushroom cap"
 	desc = "The cap of a large mushroom."
-	list_reagents = list("mindbreaker" = 2, "entpoly" = 4, "mushroomhallucinogen" = 2)
+	list_reagents = list("lsd" = 2, "entpoly" = 4, "psilocybin" = 2)
 	icon_state = "mushroom_cap"
 
 /obj/item/weapon/reagent_containers/food/snacks/ash_flora/mushroom_stem

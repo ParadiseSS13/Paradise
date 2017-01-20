@@ -6,12 +6,8 @@
 	anchored = 1
 	invisibility = 101
 	unacidable = 1
-	var/set_light = 8
-	var/set_cap = 0
-	
-/obj/effect/light_emitter/New()
-	..()
-	set_light(set_light, set_cap)
+	light_range = 8
+	light_power = 0
 
 /**********************Miner Lockers**************************/
 
@@ -95,7 +91,7 @@
 	var/excavation_amount = 100
 
 /obj/item/weapon/pickaxe/proc/playDigSound()
-		playsound(src, pick(digsound),20,1)
+	playsound(src, pick(digsound),20,1)
 
 /obj/item/weapon/pickaxe/silver
 	name = "silver-plated pickaxe"
