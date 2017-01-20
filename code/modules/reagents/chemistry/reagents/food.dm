@@ -857,9 +857,13 @@
 	id = "tinlux"
 	description = "A stimulating ichor which causes luminescent fungi to grow on the skin. "
 	color = "#b5a213"
+	var/light_activated = 0
 
-/datum/reagent/consumable/tinlux/reaction_mob(mob/living/M)
-	M.set_light(2)
+/datum/reagent/consumable/tinlux/on_mob_life(mob/living/M)
+	if(!light_activated)
+		M.set_light(2)
+		light_activated = 1
+	..()	
 
 /datum/reagent/consumable/tinlux/on_mob_delete(mob/living/M)
 	M.set_light(0)
