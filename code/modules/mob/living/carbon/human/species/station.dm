@@ -282,7 +282,7 @@
 	breath_type = "nitrogen"
 	poison_type = "oxygen"
 
-	flags = NO_SCAN | IS_WHITELISTED
+	flags = NO_SCAN | IS_WHITELISTED | NOTRANSSTING
 	clothing_flags = HAS_SOCKS
 	dietflags = DIET_OMNI
 	bodyflags = HAS_ICON_SKIN_TONE | HAS_TAIL | TAIL_WAGGING | TAIL_OVERLAPPED | HAS_BODY_MARKINGS | HAS_TAIL_MARKINGS
@@ -505,6 +505,9 @@
 	cold_level_2 = 240
 	cold_level_3 = 200
 	cold_env_multiplier = 3
+
+	oxy_mod = 0
+	brain_mod = 2.5
 
 	flags = IS_WHITELISTED | NO_BREATHE | HAS_LIPS | NO_INTORGANS | NO_SCAN
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
@@ -756,6 +759,8 @@
 	clothing_flags = HAS_SOCKS
 	dietflags = 0		//Diona regenerate nutrition in light, no diet necessary
 
+	oxy_mod = 0
+
 	body_temperature = T0C + 15		//make the plant people have a bit lower body temperature, why not
 	blood_color = "#004400"
 	flesh_color = "#907E4A"
@@ -855,9 +860,12 @@
 	eyes = "blank_eyes"
 	brute_mod = 2.5 // 100% * 2.5 * 0.6 (robolimbs) ~= 150%
 	burn_mod = 2.5  // So they take 50% extra damage from brute/burn overall.
+	tox_mod = 0
+	clone_mod = 0
+	oxy_mod = 0
 	death_message = "gives one shrill beep before falling limp, their monitor flashing blue before completely shutting off..."
 
-	flags = IS_WHITELISTED | NO_BREATHE | NO_SCAN | NO_BLOOD | NO_PAIN | NO_DNA | NO_POISON | RADIMMUNE | ALL_RPARTS
+	flags = IS_WHITELISTED | NO_BREATHE | NO_SCAN | NO_BLOOD | NO_PAIN | NO_DNA | RADIMMUNE | ALL_RPARTS| NOTRANSSTING
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_SKIN_COLOR | HAS_HEAD_MARKINGS | HAS_HEAD_ACCESSORY
 	dietflags = 0		//IPCs can't eat, so no diet

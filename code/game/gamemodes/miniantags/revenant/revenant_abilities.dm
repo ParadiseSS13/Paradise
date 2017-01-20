@@ -111,7 +111,6 @@
 	action_icon_state = "r_nightvision"
 	action_background_icon_state = "bg_revenant"
 
-
 //Transmit: the revemant's only direct way to communicate. Sends a single message silently to a single mob
 /obj/effect/proc_holder/spell/targeted/revenant_transmit
 	name = "Transmit"

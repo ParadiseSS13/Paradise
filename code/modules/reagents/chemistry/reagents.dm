@@ -73,7 +73,7 @@
 
 /datum/reagent/proc/on_mob_life(mob/living/M)
 	current_cycle++
-	holder.remove_reagent(id, metabolization_rate * M.metabolism_efficiency) //By default it slowly disappears.
+	holder.remove_reagent(id, metabolization_rate * M.metabolism_efficiency * M.digestion_ratio) //By default it slowly disappears.
 
 /datum/reagent/proc/on_mob_death(mob/living/M)	//use this to have chems have a "death-triggered" effect
 	return

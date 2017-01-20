@@ -675,14 +675,14 @@
 	// nutrition decrease
 	if(nutrition > 0 && stat != DEAD)
 		// THEY HUNGER
-		var/hunger_rate = HUNGER_FACTOR
+		var/hunger_rate = hunger_drain
 		if(satiety > 0)
 			satiety--
 		if(satiety < 0)
 			satiety++
 			if(prob(round(-satiety/40)))
 				Jitter(5)
-			hunger_rate = 3 * HUNGER_FACTOR
+			hunger_rate = 3 * hunger_drain
 		nutrition = max(0, nutrition - hunger_rate)
 
 	if(nutrition > NUTRITION_LEVEL_FULL)

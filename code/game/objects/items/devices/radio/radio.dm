@@ -71,6 +71,7 @@ var/global/list/default_medbay_channels = list(
 		initialize()
 
 	internal_channels = default_internal_channels.Copy()
+	global_radios |= src
 
 /obj/item/device/radio/Destroy()
 	qdel(wires)
@@ -80,6 +81,7 @@ var/global/list/default_medbay_channels = list(
 		for(var/ch_name in channels)
 			radio_controller.remove_object(src, radiochannels[ch_name])
 	patch_link = null
+	global_radios -= src
 	return ..()
 
 
@@ -532,19 +534,15 @@ var/global/list/default_medbay_channels = list(
 	// what the range is in which mobs will hear the radio
 	// returns: -1 if can't receive, range otherwise
 
-	if(!wires || wires.IsIndexCut(WIRE_RECEIVE))
-		return -1
-	if(!listening)
+	if(!is_listening())
 		return -1
 	if(!(0 in level))
 		var/turf/position = get_turf(src)
 		if(!position || !(position.z in level))
 			return -1
 	if(freq in ANTAG_FREQS)
-		if(!(src.syndie))//Checks to see if it's allowed on that frequency, based on the encryption keys
+		if(!(syndie))//Checks to see if it's allowed on that frequency, based on the encryption keys
 			return -1
-	if(!on)
-		return -1
 	if(!freq) //recieved on main frequency
 		if(!listening)
 			return -1
@@ -561,11 +559,26 @@ var/global/list/default_medbay_channels = list(
 	return canhear_range
 
 /obj/item/device/radio/proc/send_hear(freq, level)
-
 	var/range = receive_range(freq, level)
 	if(range > -1)
 		return get_mobs_in_view(canhear_range, src)
+		
+/obj/item/device/radio/proc/is_listening()
+	var/is_listening = TRUE
+	if(!on)
+		is_listening = FALSE
+	if(!wires || wires.IsIndexCut(WIRE_RECEIVE))
+		is_listening = FALSE
+	if(!listening)
+		is_listening = FALSE
 
+	return is_listening
+		
+/obj/item/device/radio/proc/send_announcement()
+	if(is_listening())
+		return get_mobs_in_view(canhear_range, src)
+		
+	return null
 
 /obj/item/device/radio/examine(mob/user, var/distance = -1)
 	. = ..(user, distance)

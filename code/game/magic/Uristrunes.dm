@@ -17,7 +17,10 @@ var/runetype = "rune"
 /proc/get_rune(symbol_bits, animated = 0)
 	var/lookup = "[symbol_bits]-[animated]"
 
-	if(ticker.mode.cultdat.theme == "fire")
+
+	if(!ticker.mode)//work around for maps with runes and cultdat is not loaded all the way
+		runetype = "rune"
+	else if(ticker.mode.cultdat.theme == "fire")
 		runetype = "fire-rune"
 
 	if(lookup in rune_cache)

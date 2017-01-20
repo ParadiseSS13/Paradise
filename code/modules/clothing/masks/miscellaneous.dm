@@ -139,12 +139,6 @@
 	w_class = 2
 	gas_transfer_coefficient = 0.90
 
-/obj/item/clothing/mask/joy
-	name = "joy mask"
-	desc = "Express your happiness or hide your sorrows with this face with tears of joy cutout."
-	icon_state = "joy"
-	flags = MASKCOVERSMOUTH
-	flags_inv = HIDEFACE
 
 /obj/item/clothing/mask/pig
 	name = "pig mask"

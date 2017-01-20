@@ -187,6 +187,8 @@
 
 	var/max_loadout_points = 5 // How many points can be spent on extra items in character setup
 
+	var/disable_ooc_emoji = 0 // prevents people from using emoji in OOC
+
 /datum/configuration/New()
 	var/list/L = subtypesof(/datum/game_mode)
 	for(var/T in L)
@@ -579,6 +581,9 @@
 					
 				if("medal_hub_password")
 					global.medal_pass = value
+
+				if("disable_ooc_emoji")
+					config.disable_ooc_emoji = 1
 
 				else
 					diary << "Unknown setting in configuration: '[name]'"

@@ -84,8 +84,8 @@
 		if(M.reagents)
 			var/datum/reagent/injected = chemical_reagents_list[reagent_ids[mode]]
 			var/contained = injected.name
-			M.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been injected with [name] by [key_name(user)]. Reagents: [contained]</font>")
-			user.attack_log += text("\[[time_stamp()]\] <font color='red'>Used the [name] to inject [key_name(M)]. Reagents: [contained]</font>")
+			M.create_attack_log("<font color='orange'>Has been injected with [name] by [key_name(user)]. Reagents: [contained]</font>")
+			user.create_attack_log("<font color='red'>Used the [name] to inject [key_name(M)]. Reagents: [contained]</font>")
 			if(M.ckey)
 				msg_admin_attack("[key_name_admin(user)] injected [key_name_admin(M)] with [name]. Reagents: [contained] (INTENT: [uppertext(user.a_intent)])")
 			M.LAssailant = user

@@ -50,7 +50,7 @@
 /obj/item/weapon/gun/magic/wand/proc/zap_self(mob/living/user)
 	user.visible_message("<span class='danger'>[user] zaps \himself with [src].</span>")
 	playsound(user, fire_sound, 50, 1)
-	user.attack_log += "\[[time_stamp()]\] <b>[user]/[user.ckey]</b> zapped \himself with a <b>[src]</b>"
+	user.create_attack_log("<b>[user]/[user.ckey]</b> zapped \himself with a <b>[src]</b>")
 
 /////////////////////////////////////
 //WAND OF DEATH

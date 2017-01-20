@@ -182,7 +182,7 @@
 		return
 
 	user.visible_message("<span class='notice'>[user] wraps [target].</span>")
-	user.attack_log += text("\[[time_stamp()]\] <font color='blue'>Has used [name] on [target]</font>")
+	user.create_attack_log("<font color='blue'>Has used [name] on [target]</font>")
 
 	if(amount <= 0 && !src.loc) //if we used our last wrapping paper, drop a cardboard tube
 		new /obj/item/weapon/c_tube( get_turf(user) )

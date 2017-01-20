@@ -23,3 +23,5 @@
 // Misc
 #define isclient(A) istype(A, /client)
 #define isradio(A) istype(A, /obj/item/device/radio)
+#define ispill(A) istype(A, /obj/item/weapon/reagent_containers/food/pill)
+
