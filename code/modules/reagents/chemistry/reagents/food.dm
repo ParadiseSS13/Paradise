@@ -843,15 +843,13 @@
 
 /datum/reagent/consumable/entpoly/on_mob_life(mob/living/M)
 	if(current_cycle >= 10)
-		M.Paralyse(2, 0)
-		. = 1
+		M.Paralyse(2)
 	if(prob(20))
 		M.LoseBreath(4)
 		M.adjustBrainLoss(2 * REAGENTS_EFFECT_MULTIPLIER)
-		M.adjustToxLoss(3 * REAGENTS_EFFECT_MULTIPLIER, 0)
-		M.adjustStaminaLoss(10 * REAGENTS_EFFECT_MULTIPLIER, 0)
+		M.adjustToxLoss(3 * REAGENTS_EFFECT_MULTIPLIER)
+		M.adjustStaminaLoss(10 * REAGENTS_EFFECT_MULTIPLIER)
 		M.EyeBlurry(5)
-		. = TRUE
 	..()
 
 /datum/reagent/consumable/tinlux
@@ -875,7 +873,6 @@
 
 /datum/reagent/consumable/vitfro/on_mob_life(mob/living/M)
 	if(prob(80))
-		M.adjustBruteLoss(-1 * REAGENTS_EFFECT_MULTIPLIER, 0)
-		M.adjustFireLoss(-1 * REAGENTS_EFFECT_MULTIPLIER, 0)
-		. = TRUE
+		M.adjustBruteLoss(-1 * REAGENTS_EFFECT_MULTIPLIER)
+		M.adjustFireLoss(-1 * REAGENTS_EFFECT_MULTIPLIER)
 	..()
