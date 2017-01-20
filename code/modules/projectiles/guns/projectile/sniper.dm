@@ -119,7 +119,7 @@
 /obj/item/projectile/bullet/sniper/haemorrhage/on_hit(atom/target, blocked = 0, hit_zone)
 	if((blocked != 100) && iscarbon(target))
 		var/mob/living/carbon/C = target
-		C.bleed(1000)
+		C.bleed(100)
 
 	return ..()
 

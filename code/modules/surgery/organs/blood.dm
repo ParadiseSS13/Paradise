@@ -130,7 +130,7 @@
 	var/list/blood_data = get_blood_data(blood_id)
 
 	if(iscarbon(AM))
-		var/mob/living/carbon/human/C = AM
+		var/mob/living/carbon/C = AM
 		if(blood_id == C.get_blood_id())//both mobs have the same blood substance
 			if(blood_id == "blood") //normal blood
 				if(blood_data["viruses"])
@@ -138,7 +138,7 @@
 						if((D.spread_flags & SPECIAL) || (D.spread_flags & NON_CONTAGIOUS))
 							continue
 						C.ForceContractDisease(D)
-				if(!(blood_data["blood_type"] in get_safe_blood(C.b_type)))
+				if(!(blood_data["blood_type"] in get_safe_blood(C.dna.b_type)))
 					C.reagents.add_reagent("toxin", amount * 0.5)
 					return 1
 
@@ -178,7 +178,6 @@
 		blood_data["blood_type"] = copytext(src.dna.b_type,1,0)
 		blood_data["gender"] = gender
 		blood_data["real_name"] = real_name
-		//blood_data["features"] = dna.features
 		blood_data["blood_colour"] = species.blood_color
 		blood_data["factions"] = faction
 		return blood_data
@@ -192,7 +191,7 @@
 		return "blood"
 
 /mob/living/carbon/human/get_blood_id()
-	if(species.exotic_blood)//tofix
+	if(species.exotic_blood)
 		return species.exotic_blood
 	else if((species && species.flags & NO_BLOOD) || (disabilities & NOCLONE))
 		return
