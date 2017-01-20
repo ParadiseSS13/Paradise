@@ -282,6 +282,8 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			dat += "<b>Species:</b> <a href='?_src_=prefs;preference=species;task=input'>[species]</a><br>"
 			if(species == "Vox")
 				dat += "<b>N2 Tank:</b> <a href='?_src_=prefs;preference=speciesprefs;task=input'>[speciesprefs ? "Large N2 Tank" : "Specialized N2 Tank"]</a><br>"
+			else if(species in list("Vulpkanin", "Tajaran"))
+				dat += "<b>Colour Vision:</b> <a href='?_src_=prefs;preference=speciesprefs;task=input'>[speciesprefs ? "Unaugmented" : "Surgically Corrected"]</a><br>"
 			dat += "<b>Secondary Language:</b> <a href='?_src_=prefs;preference=language;task=input'>[language]</a><br>"
 			dat += "<b>Blood Type:</b> <a href='?_src_=prefs;preference=b_type;task=input'>[b_type]</a><br>"
 			if(species in list("Human", "Drask", "Vox"))
@@ -1337,9 +1339,13 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						//Reset prosthetics.
 						organ_data = list()
 						rlimb_data = list()
-				if("speciesprefs")//oldvox code
-					speciesprefs = !speciesprefs
-
+				if("speciesprefs")
+					if(species == "Vox") //oldvox code
+						speciesprefs = !speciesprefs //Starts 0, so if someone clicks the button up top there, this won't be 0 anymore. If they click it again, it'll go back to 0.
+					else if(species in list("Vulpkanin", "Tajaran")) //Species that can be colourblind.
+						var/list/vision_options = list("Surgically Corrected", "Unaugmented") //Surgically corrected eyes (default option) see in full colour but have 2 darksight. Unaugmented eyes are colourblind but have 8 darksight.
+						speciesprefs = input("Please select your vision preference. \nOverridden by mech. assisted or mechanical eyes. \nSurgically Corrected: Full colour, low darksight. \n         Unaugmented: Colourblind, full darksight.", "Character Generation", 0) in vision_options
+						speciesprefs = (speciesprefs != "Surgically Corrected") //Ensure the default option (surgically corrected) returns 0. I would've set up the vision_options list such that Surgically Corrected = 0, but input() didn't care for it.
 				if("language")
 //						var/languages_available
 					var/list/new_languages = list("None")
@@ -2020,8 +2026,6 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	return 1
 
 /datum/preferences/proc/copy_to(mob/living/carbon/human/character)
-	var/datum/species/S = all_species[species]
-	character.change_species(species) // Yell at me if this causes everything to melt
 	if(be_random_name)
 		real_name = random_name(gender,species)
 
@@ -2173,7 +2177,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 		character.dna.SetSEState(MUTEBLOCK,1,1)
 		character.disabilities |= MUTE
 
-	S.handle_dna(character)
+	character.species.handle_dna(character)
 
 	if(character.dna.dirtySE)
 		character.dna.UpdateSE()

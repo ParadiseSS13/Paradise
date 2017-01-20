@@ -20,6 +20,8 @@
 	heat_level_2 = 400  // Heat damage level 2 above this point.
 	heat_level_3 = 500  // Heat damage level 3 above this point.
 
+	//Has default darksight of 2.
+
 	suicide_messages = list(
 		"is twisting their own neck!",
 		"is letting some O2 in!",

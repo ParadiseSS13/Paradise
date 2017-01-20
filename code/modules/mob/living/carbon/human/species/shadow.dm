@@ -7,12 +7,12 @@
 
 	default_language = "Galactic Common"
 	unarmed_type = /datum/unarmed_attack/claws
-	darksight = 8
 
 	blood_color = "#CCCCCC"
 	flesh_color = "#AAAAAA"
 	has_organ = list(
-		"brain" = /obj/item/organ/internal/brain
+		"brain" = /obj/item/organ/internal/brain,
+		"eyes" = /obj/item/organ/internal/eyes/shadow //8 darksight.
 		)
 
 	flags = NO_BLOOD | NO_BREATHE | RADIMMUNE

@@ -26,6 +26,7 @@
 	tail = "chimptail"
 	bodyflags = FEET_PADDED | HAS_TAIL
 	reagent_tag = PROCESS_ORG
+	//Has standard darksight of 2.
 
 	//unarmed_types = list(/datum/unarmed_attack/bite, /datum/unarmed_attack/claws)
 	//inherent_verbs = list(/mob/living/proc/ventcrawl)
@@ -106,6 +107,16 @@
 	tail = "farwatail"
 	reagent_tag = PROCESS_ORG
 
+	has_organ = list(
+		"heart" =    /obj/item/organ/internal/heart,
+		"lungs" =    /obj/item/organ/internal/lungs,
+		"liver" =    /obj/item/organ/internal/liver/tajaran,
+		"kidneys" =  /obj/item/organ/internal/kidneys,
+		"brain" =    /obj/item/organ/internal/brain,
+		"appendix" = /obj/item/organ/internal/appendix,
+		"eyes" =     /obj/item/organ/internal/eyes/tajaran //Tajara monkey-forms are uniquely colourblind and have excellent darksight.
+		)
+
 
 /datum/species/monkey/vulpkanin
 	name = "Wolpin"
@@ -120,6 +131,16 @@
 	base_color = "#000000"
 	tail = "wolpintail"
 	reagent_tag = PROCESS_ORG
+
+	has_organ = list(
+		"heart" =    /obj/item/organ/internal/heart,
+		"lungs" =    /obj/item/organ/internal/lungs,
+		"liver" =    /obj/item/organ/internal/liver/vulpkanin,
+		"kidneys" =  /obj/item/organ/internal/kidneys,
+		"brain" =    /obj/item/organ/internal/brain,
+		"appendix" = /obj/item/organ/internal/appendix,
+		"eyes" =     /obj/item/organ/internal/eyes/vulpkanin //Vulpkanin monkey-forms are uniquely colourblind and have excellent darksight.
+		)
 
 
 /datum/species/monkey/skrell

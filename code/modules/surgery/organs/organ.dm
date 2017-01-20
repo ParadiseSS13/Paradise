@@ -228,10 +228,10 @@ var/list/organ_cache = list()
 /obj/item/organ/proc/take_damage(amount, var/silent=0)
 	if(tough)
 		return
-	if(src.status & ORGAN_ROBOT)
-		src.damage = between(0, src.damage + (amount * 0.8), max_damage)
+	if(status & ORGAN_ROBOT)
+		damage = between(0, damage + (amount * 0.8), max_damage)
 	else
-		src.damage = between(0, src.damage + amount, max_damage)
+		damage = between(0, damage + amount, max_damage)
 
 		//only show this if the organ is not robotic
 		if(owner && parent_organ && amount > 0)
@@ -241,18 +241,18 @@ var/list/organ_cache = list()
 
 /obj/item/organ/proc/robotize() //Being used to make robutt hearts, etc
 	robotic = 2
-	src.status &= ~ORGAN_BROKEN
-	src.status &= ~ORGAN_BLEEDING
-	src.status &= ~ORGAN_SPLINTED
-	src.status &= ~ORGAN_CUT_AWAY
-	src.status &= ~ORGAN_ATTACHABLE
-	src.status &= ~ORGAN_DESTROYED
-	src.status |= ORGAN_ROBOT
-	src.status |= ORGAN_ASSISTED
+	status &= ~ORGAN_BROKEN
+	status &= ~ORGAN_BLEEDING
+	status &= ~ORGAN_SPLINTED
+	status &= ~ORGAN_CUT_AWAY
+	status &= ~ORGAN_ATTACHABLE
+	status &= ~ORGAN_DESTROYED
+	status |= ORGAN_ROBOT
+	status |= ORGAN_ASSISTED
 
 /obj/item/organ/proc/mechassist() //Used to add things like pacemakers, etc
-	robotize()
-	src.status &= ~ORGAN_ROBOT
+	robotize(1) //Skip the icon/name setting that occurs in robotize to avoid having to reset the icon file.
+	status &= ~ORGAN_ROBOT
 	robotic = 1
 	min_bruised_damage = 15
 	min_broken_damage = 35
@@ -325,7 +325,7 @@ var/list/organ_cache = list()
 	affected.internal_organs |= src
 	if(!target.get_int_organ(src))
 		target.internal_organs += src
-	src.loc = target
+	loc = target
 	if(robotic)
 		status |= ORGAN_ROBOT
 

@@ -13,7 +13,6 @@
 /mob/living/carbon/get_int_organ(typepath)
 	return (locate(typepath) in internal_organs)
 
-
 /mob/living/carbon/get_organs_zone(zone, var/subzones = 0)
 	var/list/returnorg = list()
 	if(subzones)
