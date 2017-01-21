@@ -522,7 +522,7 @@
 			var/mob/living/carbon/human/target = M
 
 			if(target.mind)
-				target.mind.miming = 1//will need to remove this after a time
+				H.AdjustSilence(5)
 				to_chat(target, "<span class='notice'>You feel quiet..</span>")
 
 
@@ -546,9 +546,9 @@
 		//would like to make the holder mime if they have it in on thier person in general
 		if(src == holder.l_hand || src == holder.r_hand) // Holding this in your hand will
 			for(var/mob/living/carbon/human/H in range(5))
-				if(H.current.mind.assigned_role == "Clown")
-					H.mind.miming = 1//will need to remove this after a time
-					H.color = "grey" //and this
+				if(H.mind.assigned_role == "Clown")
+					H.AdjustSilence(30)
+					animate_fade_grayscale(H,20)
 					if(prob(10))
 						to_chat(H, "<span class='userdanger'>Being in the presence of [holder]'s [src] is interfering with your honk!</span>")
 
