@@ -20,6 +20,8 @@ var/global/list/image/splatter_cache=list()
 	var/basecolor="#A10808" // Color when wet.
 	var/amount = 5
 	appearance_flags = NO_CLIENT_COLOR
+	blood_state = BLOOD_STATE_HUMAN
+	bloodiness = MAX_SHOE_BLOODINESS
 
 /obj/effect/decal/cleanable/blood/New()
 	..()
@@ -57,44 +59,6 @@ var/global/list/image/splatter_cache=list()
 	if(basecolor == "rainbow") basecolor = "#[pick(list("FF0000","FF7F00","FFFF00","00FF00","0000FF","4B0082","8F00FF"))]"
 	color = basecolor
 
-/obj/effect/decal/cleanable/blood/Crossed(mob/living/carbon/human/perp)
-	if(!istype(perp))
-		return
-	if(amount < 1)
-		return
-
-	var/obj/item/organ/external/l_foot = perp.get_organ("l_foot")
-	var/obj/item/organ/external/r_foot = perp.get_organ("r_foot")
-	var/hasfeet = 1
-	if((!l_foot || l_foot.status & ORGAN_DESTROYED) && (!r_foot || r_foot.status & ORGAN_DESTROYED))
-		hasfeet = 0
-	if(perp.shoes && !perp.buckled)//Adding blood to shoes
-		var/obj/item/clothing/shoes/S = perp.shoes
-		if(istype(S))
-			S.blood_color = basecolor
-			S.track_blood = max(amount,S.track_blood)
-			if(!S.blood_overlay)
-				S.generate_blood_overlay()
-			if(!S.blood_DNA)
-				S.blood_DNA = list()
-				S.blood_overlay.color = basecolor
-				S.overlays += S.blood_overlay
-			if(S.blood_overlay && S.blood_overlay.color != basecolor)
-				S.blood_overlay.color = basecolor
-				S.overlays.Cut()
-				S.overlays += S.blood_overlay
-			S.blood_DNA |= blood_DNA.Copy()
-
-	else if(hasfeet)//Or feet
-		perp.feet_blood_color = basecolor
-		perp.track_blood = max(amount,perp.track_blood)
-		if(!perp.feet_blood_DNA)
-			perp.feet_blood_DNA = list()
-		perp.feet_blood_DNA |= blood_DNA.Copy()
-
-	perp.update_inv_shoes(1)
-	amount--
-
 /obj/effect/decal/cleanable/blood/proc/dry()
 	name = dryname
 	desc = drydesc
@@ -131,6 +95,7 @@ var/global/list/image/splatter_cache=list()
 	random_icon_states = list("1","2","3","4","5")
 	amount = 0
 	var/drips = 1
+	bloodiness = 0
 
 /obj/effect/decal/cleanable/trail_holder //not a child of blood on purpose
 	name = "blood"
@@ -239,8 +204,10 @@ var/global/list/image/splatter_cache=list()
 
 /obj/effect/decal/cleanable/blood/old/New()
 	..()
+	bloodiness = 0
 	dry()
 
 /obj/effect/decal/cleanable/blood/gibs/old/New()
 	..()
+	bloodiness = 0
 	dry()

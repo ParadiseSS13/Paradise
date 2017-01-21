@@ -73,29 +73,6 @@
 			if(M.flying)
 				return ..()
 
-			// Tracking blood
-			var/list/bloodDNA = null
-			var/bloodcolor = ""
-			if(M.shoes)
-				var/obj/item/clothing/shoes/S = M.shoes
-				if(S.track_blood && S.blood_DNA)
-					bloodDNA = S.blood_DNA
-					bloodcolor = S.blood_color
-					S.track_blood--
-			else
-				if(M.track_blood && M.feet_blood_DNA)
-					bloodDNA = M.feet_blood_DNA
-					bloodcolor = M.feet_blood_color
-					M.track_blood--
-
-			if(bloodDNA)
-				src.AddTracks(/obj/effect/decal/cleanable/blood/tracks/footprints,bloodDNA,M.dir,0,bloodcolor) // Coming
-				var/turf/simulated/from = get_step(M,reverse_direction(M.dir))
-				if(istype(from) && from)
-					from.AddTracks(/obj/effect/decal/cleanable/blood/tracks/footprints,bloodDNA,0,M.dir,bloodcolor) // Going
-
-				bloodDNA = null
-
 			switch(src.wet)
 				if(TURF_WET_WATER)
 					if(!(M.slip("wet floor", 4, 2, 0, 1)))

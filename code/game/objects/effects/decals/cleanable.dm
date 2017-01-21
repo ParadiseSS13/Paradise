@@ -3,6 +3,8 @@
 	var/targeted_by = null			// Used so cleanbots can't claim a mess.
 	var/noscoop = 0   //if it has this, don't let it be scooped up
 	var/noclear = 0    //if it has this, don't delete it when its' scooped up
+	var/blood_state = "" //relates to icon mostly
+	var/bloodiness = 0 //0-100, amount of blood in this decal, used for making footprints and affecting the alpha of bloody footprints
 
 /obj/effect/decal/cleanable/New()
 	if(random_icon_states && length(src.random_icon_states) > 0)
@@ -42,3 +44,26 @@
 		reagents.chem_temp += 30
 		reagents.handle_reactions()
 	..()
+
+//Add "bloodiness" of this blood's type, to the human's shoes
+/obj/effect/decal/cleanable/Crossed(atom/movable/O)
+	if(ishuman(O))
+		var/mob/living/carbon/human/H = O
+		if(H.shoes && blood_state && bloodiness)
+			var/obj/item/clothing/shoes/S = H.shoes
+			var/add_blood = 0
+			if(bloodiness >= BLOOD_GAIN_PER_STEP)
+				add_blood = BLOOD_GAIN_PER_STEP
+			else
+				add_blood = bloodiness
+			bloodiness -= add_blood
+			S.bloody_shoes[blood_state] = min(MAX_SHOE_BLOODINESS,S.bloody_shoes[blood_state]+add_blood)
+			S.blood_state = blood_state
+			alpha = BLOODY_FOOTPRINT_BASE_ALPHA+bloodiness
+			update_icon()
+			H.update_inv_shoes()
+			if(!bloodiness)
+				animate(src,alpha = 0,BLOOD_FADEOUT_TIME)
+				sleep(BLOOD_FADEOUT_TIME)
+				qdel(src)
+				return
