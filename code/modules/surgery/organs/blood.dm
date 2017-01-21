@@ -246,6 +246,7 @@
 		else
 			drop = new(T)
 			drop.transfer_mob_blood_dna(src)
+			drop.color = b_data["blood_color"]
 			return
 
 	// Find a blood decal or create a new one.
