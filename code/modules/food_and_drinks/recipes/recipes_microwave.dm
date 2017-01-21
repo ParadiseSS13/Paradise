@@ -391,7 +391,7 @@
 
 /datum/recipe/microwave/poppypretzel
 	items = list(
-		/obj/item/seeds/poppyseed,
+		/obj/item/seeds/poppy,
 		/obj/item/weapon/reagent_containers/food/snacks/dough,
 	)
 	result = /obj/item/weapon/reagent_containers/food/snacks/poppypretzel

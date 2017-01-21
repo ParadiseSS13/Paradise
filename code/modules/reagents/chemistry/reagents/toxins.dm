@@ -271,7 +271,7 @@
 /datum/reagent/sacid/reaction_obj(obj/O, volume)
 	if((istype(O,/obj/item) || istype(O,/obj/effect/glowshroom)) && prob(40))
 		if(!O.unacidable)
-			var/obj/effect/decal/cleanable/molten_item/I = new/obj/effect/decal/cleanable/molten_item(O.loc)
+			var/obj/effect/decal/cleanable/molten_object/I = new/obj/effect/decal/cleanable/molten_object(O.loc)
 			I.desc = "Looks like this was \an [O] some time ago."
 			O.visible_message("<span class='warning'>[O] melts.</span>")
 			qdel(O)
@@ -617,7 +617,7 @@
 /datum/reagent/facid/reaction_obj(obj/O, volume)
 	if((istype(O, /obj/item) || istype(O, /obj/effect/glowshroom)))
 		if(!O.unacidable)
-			var/obj/effect/decal/cleanable/molten_item/I = new/obj/effect/decal/cleanable/molten_item(O.loc)
+			var/obj/effect/decal/cleanable/molten_object/I = new/obj/effect/decal/cleanable/molten_object(O.loc)
 			I.desc = "Looks like this was \an [O] some time ago."
 			O.visible_message("<span class='warning'>[O] melts.</span>")
 			qdel(O)
@@ -925,10 +925,9 @@
 		alien_weeds.healthcheck()
 	else if(istype(O, /obj/effect/glowshroom)) //even a small amount is enough to kill it
 		qdel(O)
-	else if(istype(O,/obj/effect/plant))
-		if(prob(50))
-			qdel(O) //Kills kudzu too.
-	// Damage that is done to growing plants is separately at code/game/machinery/hydroponics at obj/item/hydroponics
+	else if(istype(O,/obj/structure/spacevine))
+		var/obj/structure/spacevine/SV = O
+		SV.on_chem_effect(src)
 
 /datum/reagent/atrazine/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(iscarbon(M))

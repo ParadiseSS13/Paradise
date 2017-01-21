@@ -119,12 +119,12 @@
 		internalBeaker.name = "Grow-U-All Super Spray"
 
 	if(internalBeaker && internalBag)
-		var/obj/machinery/portable_atmospherics/hydroponics/HP
+		var/obj/machinery/hydroponics/HP
 
 		//consider the appropriate target
 		var/list/considered = list()
 
-		for(var/obj/machinery/portable_atmospherics/hydroponics/tester in view(12,src))
+		for(var/obj/machinery/hydroponics/tester in view(12,src))
 			considered[tester] = 1
 
 			if(!tester.seed)

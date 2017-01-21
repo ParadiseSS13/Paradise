@@ -160,6 +160,7 @@
 #define MAT_PLASMA			"$plasma"
 #define MAT_BANANIUM		"$bananium"
 #define MAT_TRANQUILLITE	"$tranquillite"
+#define MAT_BIOMASS			"$biomass"
 
 #define MAX_STACK_SIZE 50
 

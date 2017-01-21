@@ -92,7 +92,7 @@
 		H.equip_or_collect(new /obj/item/clothing/shoes/black(H), slot_shoes)
 		H.equip_or_collect(new /obj/item/clothing/gloves/botanic_leather(H), slot_gloves)
 		H.equip_or_collect(new /obj/item/clothing/suit/apron(H), slot_wear_suit)
-		H.equip_or_collect(new /obj/item/device/analyzer/plant_analyzer(H), slot_s_store)
+		H.equip_or_collect(new /obj/item/device/plant_analyzer(H), slot_s_store)
 		H.equip_or_collect(new /obj/item/device/pda/botanist(H), slot_wear_pda)
 		H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H), slot_in_backpack)
 		return 1

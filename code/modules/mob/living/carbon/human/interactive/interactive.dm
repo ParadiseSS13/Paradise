@@ -352,7 +352,7 @@
 			favoured_types = list(/obj/item/weapon/soap, /obj/item/weapon/reagent_containers/food/snacks/grown/banana, /obj/item/weapon/bananapeel)
 			functions += "clowning"
 		if("Botanist")
-			favoured_types = list(/obj/machinery/portable_atmospherics/hydroponics,  /obj/item/weapon/reagent_containers, /obj/item/weapon)
+			favoured_types = list(/obj/machinery/hydroponics,  /obj/item/weapon/reagent_containers, /obj/item/weapon)
 			functions += "botany"
 			restrictedJob = 1
 		else

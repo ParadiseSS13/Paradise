@@ -38,7 +38,7 @@
 		/obj/machinery/sleeper,
 		/obj/machinery/smartfridge/,
 		/obj/machinery/biogenerator,
-		/obj/machinery/portable_atmospherics/hydroponics,
+		/obj/machinery/hydroponics,
 		/obj/machinery/constructable_frame)
 
 /obj/item/weapon/reagent_containers/glass/New()

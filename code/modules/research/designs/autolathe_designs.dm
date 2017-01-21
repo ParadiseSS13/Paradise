@@ -200,7 +200,7 @@
 	id = "mini_hoe"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 50)
-	build_path = /obj/item/weapon/minihoe
+	build_path = /obj/item/weapon/cultivator
 	category = list("initial","Miscellaneous")
 
 /datum/design/plant_analyzer
@@ -208,7 +208,7 @@
 	id = "plant_analyzer"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 30, MAT_GLASS = 20)
-	build_path = /obj/item/device/analyzer/plant_analyzer
+	build_path = /obj/item/device/plant_analyzer
 	category = list("initial","Miscellaneous")
 
 /datum/design/shovel

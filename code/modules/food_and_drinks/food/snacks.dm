@@ -11,7 +11,9 @@
 	var/eatverb
 	var/wrapped = 0
 	var/dried_type = null
+	var/dry = 0
 	var/cooktype[0]
+	var/cooked_type = null  //for microwave cooking. path of the resulting item after microwaving
 
 
 	//Placeholder for effect that trigger on eating that aren't tied to reagents.
