@@ -21,13 +21,18 @@
 		to_chat(H, "<span class='warning'>We cannot perform this ability in this form!</span>")
 		return
 
+	var/datum/dna/DNA = changeling.GetDNA(user.dna.real_name)
+	user.dna = DNA ? DNA.Clone() : user.dna
+
 	H.visible_message("<span class='warning'>[H] transforms!</span>")
 	changeling.geneticdamage = 30
 	to_chat(H, "<span class='warning'>Our genes cry out!</span>")
 	var/list/implants = list() //Try to preserve implants.
 	for(var/obj/item/weapon/implant/W in H)
 		implants += W
-	H.monkeyize()
+
+	user.dna.SetSEState(MONKEYBLOCK,1,1)
+	genemutcheck(user,MONKEYBLOCK,null,MUTCHK_FORCED)
 	changeling.purchasedpowers += new /obj/effect/proc_holder/changeling/humanform(null)
 	feedback_add_details("changeling_powers","LF")
 	return 1

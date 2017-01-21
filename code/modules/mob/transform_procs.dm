@@ -1,7 +1,6 @@
 /mob/living/carbon/human/proc/monkeyize()
 	var/mob/H = src
 	H.dna.SetSEState(MONKEYBLOCK,1)
-	domutcheck(H, null)
 
 /mob/new_player/AIize()
 	spawning = 1

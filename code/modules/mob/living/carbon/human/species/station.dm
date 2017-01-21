@@ -125,8 +125,8 @@
 		"kidneys" =  /obj/item/organ/internal/kidneys,
 		"brain" =    /obj/item/organ/internal/brain,
 		"appendix" = /obj/item/organ/internal/appendix,
-		"eyes" =     /obj/item/organ/internal/eyes/tajaran /*Most Tajara are surgically augmented at birth for full colour vision, although it cost them their darksight (darksight = 2) unless they choose otherwise in character creation (darksight = 8 but colourblind).
-																	However, this organ define is for unaugmented eyes so cloned Tajara are colourblind but have excellent darksight.*/
+		"eyes" =     /obj/item/organ/internal/eyes/tajaran /*Most Tajara see in full colour as a result of genetic augmentation, although it cost them their darksight (darksight = 2)
+															 unless they choose otherwise by selecting the colourblind disability in character creation (darksight = 8 but colourblind).*/
 		)
 
 	allowed_consumed_mobs = list(/mob/living/simple_animal/mouse, /mob/living/simple_animal/chick, /mob/living/simple_animal/butterfly, /mob/living/simple_animal/parrot,
@@ -137,15 +137,6 @@
 		"is jamming their claws into their eye sockets!",
 		"is twisting their own neck!",
 		"is holding their breath!")
-
-/datum/species/tajaran/equip(var/mob/living/carbon/human/H) //Handles colourblindness preferences. Should only happen if the client is in a mob otherwise it won't work.
-	var/sight_pref = H.client.prefs.speciesprefs
-	if(!sight_pref)
-		var/obj/item/organ/internal/eyes/tajaran/tajeyes = H.get_int_organ(/obj/item/organ/internal/eyes)
-		if(tajeyes && !tajeyes.robotic) //To avoid overriding the properties of cybernetic/mechassisted eyes, apply the colour matrix and darksight modifier only if the organ is organic. Robotic/mechassisted eyes currently do this, too, as is necessary.
-			tajeyes.colourmatrix = null //For individuals who recieved the modification, they lose much of their darksight and gain full colour vision.
-			tajeyes.dark_view = 2 //If they didn't, they would have their unique colour-vision and full darksight. See code\modules\surgery\organs\subtypes\tajaran.dm
-			H.update_client_colour(0)
 
 /datum/species/tajaran/handle_death(var/mob/living/carbon/human/H)
 	H.stop_tail_wagging(1)
@@ -184,8 +175,8 @@
 		"kidneys" =  /obj/item/organ/internal/kidneys,
 		"brain" =    /obj/item/organ/internal/brain,
 		"appendix" = /obj/item/organ/internal/appendix,
-		"eyes" =     /obj/item/organ/internal/eyes/vulpkanin /*Most Vulpkanin are surgically augmented at birth for full colour vision, although it cost them their darksight (darksight = 2) unless they choose otherwise in character creation (darksight = 8 but colourblind).
-																However, this organ define is for unaugmented eyes so cloned Vulpkanin are colourblind but have excellent darksight.*/
+		"eyes" =     /obj/item/organ/internal/eyes/vulpkanin /*Most Vulpkanin see in full colour as a result of genetic augmentation, although it cost them their darksight (darksight = 2)
+															   unless they choose otherwise by selecting the colourblind disability in character creation (darksight = 8 but colourblind).*/
 		)
 
 	allowed_consumed_mobs = list(/mob/living/simple_animal/mouse, /mob/living/simple_animal/lizard, /mob/living/simple_animal/chick, /mob/living/simple_animal/chicken,
@@ -196,15 +187,6 @@
 		"is jamming their claws into their eye sockets!",
 		"is twisting their own neck!",
 		"is holding their breath!")
-
-/datum/species/vulpkanin/equip(var/mob/living/carbon/human/H) //Handles colourblindness preferences. Should only happen if the client is in a mob otherwise it won't work.
-	var/sight_pref = H.client.prefs.speciesprefs
-	if(!sight_pref)
-		var/obj/item/organ/internal/eyes/vulpkanin/vulpeyes = H.get_int_organ(/obj/item/organ/internal/eyes)
-		if(vulpeyes && !vulpeyes.robotic) //To avoid overriding the properties of cybernetic/mechassisted eyes, apply the colour matrix and darksight modifier only if the organ is organic. Robotic/mechassisted eyes currently do this, too, as is necessary.
-			vulpeyes.colourmatrix = null //For individuals who recieved the modification, they lose much of their darksight and gain full colour vision.
-			vulpeyes.dark_view = 2 //If they didn't, they would have their unique colour-vision and full darksight. See code\modules\surgery\organs\subtypes\vulpkanin.dm
-			H.update_client_colour(0)
 
 /datum/species/vulpkanin/handle_death(var/mob/living/carbon/human/H)
 	H.stop_tail_wagging(1)
@@ -732,11 +714,9 @@
 /datum/species/grey/handle_dna(var/mob/living/carbon/C, var/remove)
 	if(!remove)
 		C.dna.SetSEState(REMOTETALKBLOCK,1,1)
-		C.mutations |= REMOTE_TALK
 		genemutcheck(C,REMOTETALKBLOCK,null,MUTCHK_FORCED)
 	else
 		C.dna.SetSEState(REMOTETALKBLOCK,0,1)
-		C.mutations -= REMOTE_TALK
 		genemutcheck(C,REMOTETALKBLOCK,null,MUTCHK_FORCED)
 	..()
 

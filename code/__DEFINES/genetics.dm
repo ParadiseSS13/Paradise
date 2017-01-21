@@ -12,6 +12,7 @@
 #define DISABILITY_FLAG_DEAF        8
 #define DISABILITY_FLAG_BLIND       16
 #define DISABILITY_FLAG_MUTE        32
+#define DISABILITY_FLAG_COLOURBLIND 64
 
 ///////////////////////////////////////
 // MUTATIONS
@@ -84,8 +85,9 @@
 #define TOURETTES		8
 #define NERVOUS			16
 #define BLIND			32
-#define MUTE			64
-#define DEAF			128
+#define COLOURBLIND		64
+#define MUTE			128
+#define DEAF			256
 
 //Nutrition levels for humans. No idea where else to put it
 #define NUTRITION_LEVEL_FAT 600
@@ -114,3 +116,6 @@
 
 #define CLONER_FRESH_CLONE "fresh"
 #define CLONER_MATURE_CLONE "mature"
+
+//Gene properties
+#define GENE_EYE_DEPENDENT 1

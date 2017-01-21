@@ -54,8 +54,9 @@
 	..()
 
 /datum/species/monkey/handle_dna(var/mob/living/carbon/human/H)
-	H.dna.SetSEState(MONKEYBLOCK,1)
-	genemutcheck(H, MONKEYBLOCK)
+	if(!is_type_in_list(/datum/dna/gene/monkey, H.active_genes)) //Only activate the monkey gene if it isn't already.
+		H.dna.SetSEState(MONKEYBLOCK,1,1)
+		genemutcheck(H,MONKEYBLOCK,null,MUTCHK_FORCED)
 
 /datum/species/monkey/handle_can_equip(obj/item/I, slot, disable_warning = 0, mob/living/carbon/human/user)
 	switch(slot)
@@ -106,7 +107,6 @@
 	base_color = "#000000"
 	tail = "farwatail"
 	reagent_tag = PROCESS_ORG
-
 	has_organ = list(
 		"heart" =    /obj/item/organ/internal/heart,
 		"lungs" =    /obj/item/organ/internal/lungs,
@@ -114,8 +114,18 @@
 		"kidneys" =  /obj/item/organ/internal/kidneys,
 		"brain" =    /obj/item/organ/internal/brain,
 		"appendix" = /obj/item/organ/internal/appendix,
-		"eyes" =     /obj/item/organ/internal/eyes/tajaran //Tajara monkey-forms are uniquely colourblind and have excellent darksight.
+		"eyes" =     /obj/item/organ/internal/eyes/tajaran //Tajara monkey-forms are uniquely colourblind and have excellent darksight, which is why they need the same organ as the Tajara.
 		)
+	default_genes = list(COLOURBLIND)
+
+/datum/species/monkey/tajaran/handle_dna(var/mob/living/carbon/C, var/remove)
+	if(!remove)
+		C.dna.SetSEState(COLOURBLINDBLOCK,1,1)
+		genemutcheck(C,COLOURBLINDBLOCK,null,MUTCHK_FORCED)
+	else
+		C.dna.SetSEState(COLOURBLINDBLOCK,0,1)
+		genemutcheck(C,COLOURBLINDBLOCK,null,MUTCHK_FORCED)
+	..()
 
 
 /datum/species/monkey/vulpkanin
@@ -131,7 +141,6 @@
 	base_color = "#000000"
 	tail = "wolpintail"
 	reagent_tag = PROCESS_ORG
-
 	has_organ = list(
 		"heart" =    /obj/item/organ/internal/heart,
 		"lungs" =    /obj/item/organ/internal/lungs,
@@ -139,8 +148,18 @@
 		"kidneys" =  /obj/item/organ/internal/kidneys,
 		"brain" =    /obj/item/organ/internal/brain,
 		"appendix" = /obj/item/organ/internal/appendix,
-		"eyes" =     /obj/item/organ/internal/eyes/vulpkanin //Vulpkanin monkey-forms are uniquely colourblind and have excellent darksight.
+		"eyes" =     /obj/item/organ/internal/eyes/vulpkanin //Vulpkanin monkey-forms are uniquely colourblind and have excellent darksight, which is why they need the same organ as the Vulpkanin.
 		)
+	default_genes = list(COLOURBLIND)
+
+/datum/species/monkey/vulpkanin/handle_dna(var/mob/living/carbon/C, var/remove)
+	if(!remove)
+		C.dna.SetSEState(COLOURBLINDBLOCK,1,1)
+		genemutcheck(C,COLOURBLINDBLOCK,null,MUTCHK_FORCED)
+	else
+		C.dna.SetSEState(COLOURBLINDBLOCK,0,1)
+		genemutcheck(C,COLOURBLINDBLOCK,null,MUTCHK_FORCED)
+	..()
 
 
 /datum/species/monkey/skrell

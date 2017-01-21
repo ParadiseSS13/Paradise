@@ -344,6 +344,7 @@
 	slot = "eyes"
 	var/list/eye_colour = list(0,0,0)
 	var/list/colourmatrix = null
+	var/list/colourblind_special = list("colour_matrix" = null, "darkview" = null) //Special colourblindness parameters.
 	var/dark_view = 2 //Default dark_view for Humans.
 	var/weld_proof = null //If set, the eyes will not take damage during welding. eg. IPC optical sensors do not take damage when they weld things while all other eyes will.
 
@@ -354,6 +355,19 @@
 	..()
 	if(istype(M) && eye_colour)
 		M.update_body() //Apply our eye colour to the target.
+
+	for(var/datum/dna/gene/G in eye_dependent_genes) //Handle the application of the eye-dependent genes from the eye to the new host mob if the genes are active.
+		if(dna && dna.GetSEState(G.block)) //If the eye-dependent gene in the eye's DNA is active, activate it on the human and genemutcheck to apply its effects.
+			M.dna.SetSEState(G.block,1,1)
+			genemutcheck(M,G.block,null,MUTCHK_FORCED)
+
+/obj/item/organ/internal/eyes/remove(mob/living/carbon/human/M, special = 0)
+	for(var/datum/dna/gene/G in eye_dependent_genes) //Handle the removal of the eye-dependent genes from the eye to the new host mob if the genes are active.
+		if(G.type in M.active_genes) //If there's an active eye-dependent gene on the mob, turn it off.
+			dna = M.dna.Clone() //Preserve the eye-dependent genes by ensuring the genome on the eyes remains intact.
+			M.dna.SetSEState(G.block,0,1)
+			genemutcheck(M,G.block,null,MUTCHK_FORCED)
+	.=..()
 
 /obj/item/organ/internal/eyes/surgeryize()
 	if(!owner)

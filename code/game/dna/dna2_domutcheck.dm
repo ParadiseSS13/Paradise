@@ -44,7 +44,7 @@
 		var/mob/living/carbon/human/H = M
 		defaultgenes = H.species.default_genes
 
-		if((gene in defaultgenes) && gene_active)
+		if((gene in defaultgenes) && gene_active && !gene.update) //Unless we want to update them with current information they depend on.
 			return
 
 	// Prior state
@@ -65,3 +65,5 @@
 			gene.deactivate(M,connected,flags)
 			if(M)
 				M.active_genes -= gene.type
+	else if(gene.update && gene_active && (gene.type in M.active_genes)) //Update the gene. It should already be in the list of active genes. Updating is only useful if it's active.
+		gene.activate(M,connected,flags)

@@ -35,6 +35,7 @@
 
 	// Standard muts
 	BLINDBLOCK         = getAssignedBlock("BLIND",         numsToAssign)
+	COLOURBLINDBLOCK   = getAssignedBlock("COLOURBLIND",   numsToAssign)
 	DEAFBLOCK          = getAssignedBlock("DEAF",          numsToAssign)
 	HULKBLOCK          = getAssignedBlock("HULK",          numsToAssign, DNA_HARD_BOUNDS, good=1)
 	TELEBLOCK          = getAssignedBlock("TELE",          numsToAssign, DNA_HARD_BOUNDS, good=1)
@@ -115,6 +116,8 @@
 			if(G.block in blocks_assigned)
 				warning("DNA2: Gene [G.name] trying to use already-assigned block [G.block] (used by [english_list(blocks_assigned[G.block])])")
 			dna_genes.Add(G)
+			if(G.flags & GENE_EYE_DEPENDENT)
+				eye_dependent_genes.Add(G)
 			var/list/assignedToBlock[0]
 			if(blocks_assigned[G.block])
 				assignedToBlock=blocks_assigned[G.block]

@@ -253,6 +253,16 @@
 #define MATRIX_GREYSCALE list(0.33, 0.33, 0.33,\
                               0.33, 0.33, 0.33,\
                               0.33, 0.33, 0.33)
+
+#define MATRIX_VULP_CBLIND list(0.5,0.4,0.1,\
+                                0.5,0.4,0.1,\
+                                0.0,0.2,0.8)
+
+#define MATRIX_TAJ_CBLIND list(0.4,0.2,0.4,\
+                               0.4,0.6,0.0,\
+                               0.2,0.2,0.6)
+
+
 //Gun trigger guards
 #define TRIGGER_GUARD_ALLOW_ALL -1
 #define TRIGGER_GUARD_NONE 0

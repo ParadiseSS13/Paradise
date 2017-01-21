@@ -2,11 +2,8 @@
 	alcohol_intensity = 1.4
 	species = "Tajaran"
 
-/obj/item/organ/internal/eyes/tajaran /*Most Tajara are surgically augmented at birth for full colour vision, although it cost them their darksight (darksight = 2) unless they choose otherwise in character creation (darksight = 8 but colourblind).
-										However, this organ define is for unaugmented eyes so cloned Tajara are colourblind but have excellent darksight.*/
+/obj/item/organ/internal/eyes/tajaran /*Most Tajara see in full colour as a result of genetic augmentation, although it cost them their darksight (darksight = 2)
+										unless they choose otherwise by selecting the colourblind disability in character creation (darksight = 8 but colourblind).*/
 	name = "tajaran eyeballs"
 	species = "Tajaran"
-	dark_view = 8
-	colourmatrix = list(0.4,0.2,0.4,\
-						0.4,0.6,0.0,\
-						0.2,0.2,0.6) //Slightly less richness of hues or saturation of colours than Vulpkanin eyes.	Pastel colour scheme, blues slightly green-shifted, reds slightly blue-shifted, greens yellow-shifted.
+	colourblind_special = list("colour_matrix" = MATRIX_TAJ_CBLIND, "darkview" = 8) //The colour matrix and darksight parameters that the mob will recieve when they get the disability.
