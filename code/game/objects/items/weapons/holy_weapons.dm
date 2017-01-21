@@ -453,6 +453,106 @@
 					if(prob(10))
 						to_chat(H, "<span class='userdanger'>Being in the presence of [holder]'s [src] is interfering with your powers!</span>")
 
+/obj/item/weapon/nullrod/salt
+	name = "Holy Salt"
+	icon = 'icons/obj/food/containers.dmi'
+	icon_state = "saltshakersmall"
+	item_state = null
+	desc = "While commonly used to repel some ghosts, it appears others are downright attracted to it."
+	force = 0
+	throwforce = 0
+	var/ghostcall = 0
+
+
+/obj/item/weapon/nullrod/salt/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
+	if(iscarbon(M))//no hitting people
+		return ..()
+
+	if(!user.mind || user.mind.assigned_role != "Chaplain")
+		to_chat(user, "<span class='notice'>You are not close enough with [ticker.Bible_deity_name] to use [src].</span>")
+		return
+
+	if(ghostcall)
+		to_chat(user, "<span class='notice'>You are already using [src].</span>")
+
+	user.visible_message("<span class='info'>[user] kneels[M == user ? null : " next to [M]"] and begins to utter a prayer to [ticker.Bible_deity_name] while drawing a circle with salt!.</span>", \
+		"<span class='info'>You kneel[M == user ? null : " next to [M]"] and begin a prayer to [ticker.Bible_deity_name] while drawing a circle!.</span>")
+
+	ghostcall = 1
+	if(do_after(user, 50, target = M))
+		notify_ghosts("The Chaplain is calling ghosts to [get_area(src)] with [src.name]!", source = src)
+		ghostcall = 0
+		return
+	else
+		to_chat(user, "<span class='notice'>Your prayer to [ticker.Bible_deity_name] was interrupted.</span>")
+		ghostcall = 0
+
+
+/obj/item/weapon/nullrod/bread
+	name = "prayer bread"
+	icon = 'icons/obj/trash.dmi'
+	icon_state = "tastybread"
+	desc = "a staple of worshipers of the Silentfather, this holy mime artifact has an odd effect on clowns."
+	force = 0
+	throwforce = 0
+	var/praying = 0
+
+/obj/item/weapon/nullrod/bread/New()
+	..()
+	processing_objects.Add(src)
+
+
+/obj/item/weapon/nullrod/bread/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
+	if(!iscarbon(M))
+		return ..()
+
+	if(!user.mind || user.mind.assigned_role != "Chaplain")
+		to_chat(user, "<span class='notice'>You are not close enough with [ticker.Bible_deity_name] to use [src].</span>")
+		return
+
+	if(praying)
+		to_chat(user, "<span class='notice'>You are already using [src].</span>")
+
+	user.visible_message("<span class='info'>[user] kneels[M == user ? null : " next to [M]"] and begins to utter a prayer to [ticker.Bible_deity_name].</span>", \
+		"<span class='info'>You kneel[M == user ? null : " next to [M]"] and begin a prayer to [ticker.Bible_deity_name].</span>")
+
+	praying = 1
+	if(do_after(user, 150, target = M))
+		if(ishuman(M))
+			var/mob/living/carbon/human/target = M
+
+			if(target.mind)
+				target.mind.miming = 1//will need to remove this after a time
+				to_chat(target, "<span class='notice'>You feel quiet..</span>")
+
+
+			if(prob(25))
+				to_chat(target, "<span class='notice'>[user]'s prayer to [ticker.Bible_deity_name] has eased your pain..and hunger!</span>")
+				target.adjustToxLoss(-5)
+				target.adjustOxyLoss(-5)
+				target.adjustBruteLoss(-5)
+				target.adjustFireLoss(-5)
+				target.nutrition += 1
+
+			praying = 0
+
+	else
+		to_chat(user, "<span class='notice'>Your prayer to [ticker.Bible_deity_name] was interrupted.</span>")
+		praying = 0
+
+/obj/item/weapon/nullrod/bread/process()
+	if(ishuman(loc))
+		var/mob/living/carbon/human/holder = loc
+		//would like to make the holder mime if they have it in on thier person in general
+		if(src == holder.l_hand || src == holder.r_hand) // Holding this in your hand will
+			for(var/mob/living/carbon/human/H in range(5))
+				if(H.current.mind.assigned_role == "Clown")
+					H.mind.miming = 1//will need to remove this after a time
+					H.color = "grey" //and this
+					if(prob(10))
+						to_chat(H, "<span class='userdanger'>Being in the presence of [holder]'s [src] is interfering with your honk!</span>")
+
+
 /obj/item/weapon/nullrod/missionary_staff
 	name = "holy staff"
 	desc = "It has a mysterious, protective aura."
