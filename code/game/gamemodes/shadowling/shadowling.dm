@@ -97,6 +97,14 @@ Made by Xhuis
 		shadow.special_role = SPECIAL_ROLE_SHADOWLING
 		shadow.restricted_roles = restricted_jobs
 		shadowlings--
+
+	var/num_players = num_players()
+	required_thralls = round(num_players / 2.5)
+	if(required_thralls < 15)
+		required_thralls = 15
+	if(required_thralls > 40)
+		required_thralls = 40
+
 	..()
 	return 1
 
