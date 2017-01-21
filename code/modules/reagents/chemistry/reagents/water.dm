@@ -131,7 +131,7 @@
 
 
 /datum/reagent/blood
-	data = list("donor"=null,"viruses"=null,"blood_DNA"=null,"blood_type"=null,"blood_colour"="#A10808","resistances"=null,"trace_chem"=null, "antibodies" = null)
+	data = list("donor"=null,"viruses"=null,"blood_DNA"=null,"blood_type"=null,"blood_color"="#A10808","resistances"=null,"trace_chem"=null, "antibodies" = null)
 	name = "Blood"
 	id = "blood"
 	reagent_state = LIQUID
@@ -187,13 +187,13 @@
 						preserve += D
 				data["viruses"] = preserve
 
-		if(mix_data["blood_colour"])
-			color = mix_data["blood_colour"]
+		if(mix_data["blood_color"])
+			color = mix_data["blood_color"]
 	return 1
 
 /datum/reagent/blood/on_update(atom/A)
-	if(data["blood_colour"])
-		color = data["blood_colour"]
+	if(data["blood_color"])
+		color = data["blood_color"]
 	return ..()
 
 /datum/reagent/blood/reaction_turf(turf/simulated/T, volume)//splash the blood all over the place

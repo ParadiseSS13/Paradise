@@ -716,7 +716,7 @@
 	if(istype(H))
 		if(B.blood_DNA)
 			transfer_blood_dna(B.blood_DNA)
-			currentBloodColor = B.blood_DNA["blood_colour"]
+			currentBloodColor = B.blood_DNA["blood_color"]
 			return
 	B.basecolor = currentBloodColor
 	B.update_icon()
