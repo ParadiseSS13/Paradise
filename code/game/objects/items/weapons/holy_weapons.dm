@@ -522,7 +522,7 @@
 			var/mob/living/carbon/human/target = M
 
 			if(target.mind)
-				H.AdjustSilence(5)
+				target.AdjustSilence(5)
 				to_chat(target, "<span class='notice'>You feel quiet..</span>")
 
 
