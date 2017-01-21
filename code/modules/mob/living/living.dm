@@ -510,6 +510,7 @@
 	if(!has_gravity(src))
 		return
 	var/blood_exists = 0
+	var/list/b_data = get_blood_data(get_blood_id())
 
 	for(var/obj/effect/decal/cleanable/trail_holder/C in loc) //checks for blood splatter already on the floor
 		blood_exists = 1
@@ -535,7 +536,7 @@
 						TH.existing_dirs += newdir
 						TH.overlays.Add(image('icons/effects/blood.dmi',trail_type,dir = newdir))
 						TH.transfer_mob_blood_dna(src)
-						TH.color = blood_DNA["blood_colour"]
+						TH.color = b_data["blood_color"]
 
 /mob/living/carbon/human/makeTrail(turf/T)
 	if((species.flags & NO_BLOOD) || !bleed_rate || bleedsuppress)

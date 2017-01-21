@@ -178,7 +178,7 @@
 		blood_data["blood_type"] = copytext(src.dna.b_type,1,0)
 		blood_data["gender"] = gender
 		blood_data["real_name"] = real_name
-		blood_data["blood_colour"] = species.blood_color
+		blood_data["blood_color"] = species.blood_color
 		blood_data["factions"] = faction
 		return blood_data
 
@@ -228,6 +228,7 @@
 		T = get_turf(src)
 
 	var/list/temp_blood_DNA
+	var/list/b_data = get_blood_data(get_blood_id())
 	if(small_drip)
 		// Only a certain number of drips (or one large splatter) can be on a given turf.
 		var/obj/effect/decal/cleanable/blood/drip/drop = locate() in T
@@ -236,6 +237,7 @@
 				drop.drips++
 				drop.overlays |= pick(drop.random_icon_states)
 				drop.transfer_mob_blood_dna(src)
+				drop.color = b_data["blood_color"]
 				return
 			else
 				temp_blood_DNA = list()
@@ -251,6 +253,7 @@
 	if(!B)
 		B = new /obj/effect/decal/cleanable/blood/splatter(T)
 	B.transfer_mob_blood_dna(src) //give blood info to the blood decal.
+	B.color = b_data["blood_color"]
 	if(temp_blood_DNA)
 		B.blood_DNA |= temp_blood_DNA
 
