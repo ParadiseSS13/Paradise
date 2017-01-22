@@ -99,11 +99,11 @@
 	L.gib()
 
 /mob/living/simple_animal/hostile/megafauna/ex_act(severity, target)
-	switch (severity)
-		if (1)
+	switch(severity)
+		if(1)
 			adjustBruteLoss(250)
 
-		if (2)
+		if(2)
 			adjustBruteLoss(100)
 
 		if(3)
@@ -140,7 +140,7 @@
 				global.medals_enabled = FALSE
 				log_game("MEDAL ERROR: Could not contact hub to award medal:[medal] player:[player.ckey]")
 				message_admins("Error! Failed to contact hub to award [medal] medal to [player.ckey]!")
-			else if (result)
+			else if(result)
 				to_chat(player.mob, "<span class='greenannounce'><B>Achievement unlocked: [medal]!</B></span>")
 
 
@@ -203,7 +203,7 @@
 			global.medals_enabled = FALSE
 			log_game("MEDAL ERROR: Could not contact hub to get medal:[medal] player:[player.ckey]")
 			message_admins("Error! Failed to contact hub to get [medal] medal for [player.ckey]!")
-		else if (result)
+		else if(result)
 			to_chat(player.mob, "[medal] is unlocked")
 
 /proc/LockMedal(medal,client/player)
@@ -218,7 +218,7 @@
 			global.medals_enabled = FALSE
 			log_game("MEDAL ERROR: Could not contact hub to clear medal:[medal] player:[player.ckey]")
 			message_admins("Error! Failed to contact hub to clear [medal] medal for [player.ckey]!")
-		else if (result)
+		else if(result)
 			message_admins("Medal: [medal] removed for [player.ckey]")
 		else
 			message_admins("Medal: [medal] was not found for [player.ckey]. Unable to clear.")

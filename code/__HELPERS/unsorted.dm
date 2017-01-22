@@ -1830,15 +1830,15 @@ var/global/list/g_fancy_list_of_types = null
 		if(M.client && M.client.holder && M.client.holder.fakekey) //stealthmins
 			continue
 		var/name = M.name
-		if (name in names)
+		if(name in names)
 			namecounts[name]++
 			name = "[name] ([namecounts[name]])"
 		else
 			names.Add(name)
 			namecounts[name] = 1
-		if (M.real_name && M.real_name != M.name)
+		if(M.real_name && M.real_name != M.name)
 			name += " \[[M.real_name]\]"
-		if (M.stat == DEAD)
+		if(M.stat == DEAD)
 			if(istype(M, /mob/dead/observer/))
 				name += " \[ghost\]"
 			else
@@ -1850,7 +1850,7 @@ var/global/list/g_fancy_list_of_types = null
 			if(!A || !A.loc)
 				continue
 			var/name = A.name
-			if (names.Find(name))
+			if(names.Find(name))
 				namecounts[name]++
 				name = "[name] ([namecounts[name]])"
 			else
