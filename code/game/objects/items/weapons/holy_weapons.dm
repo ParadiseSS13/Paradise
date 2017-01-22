@@ -465,7 +465,7 @@
 
 
 /obj/item/weapon/nullrod/salt/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
-	if(iscarbon(M))//no hitting people
+	if(!iscarbon(M))
 		return ..()
 
 	if(!user.mind || user.mind.assigned_role != "Chaplain")
@@ -490,8 +490,8 @@
 
 /obj/item/weapon/nullrod/bread
 	name = "prayer bread"
-	icon = 'icons/obj/trash.dmi'
-	icon_state = "tastybread"
+	icon = 'icons/obj/food/food.dmi'
+	icon_state = "baguette"
 	desc = "a staple of worshipers of the Silentfather, this holy mime artifact has an odd effect on clowns."
 	force = 0
 	throwforce = 0
