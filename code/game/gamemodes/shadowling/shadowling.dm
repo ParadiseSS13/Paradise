@@ -99,11 +99,11 @@ Made by Xhuis
 		shadowlings--
 
 	var/num_players = num_players()
-	required_thralls = round(num_players / 2.5)
+	required_thralls = round(num_players / 3)
 	if(required_thralls < 15)
 		required_thralls = 15
-	if(required_thralls > 40)
-		required_thralls = 40
+	if(required_thralls > 30)
+		required_thralls = 30
 
 	..()
 	return 1
@@ -158,7 +158,6 @@ Made by Xhuis
 		update_shadow_icons_added(new_thrall_mind)
 		new_thrall_mind.current.create_attack_log("<span class='danger'>Became a thrall</span>")
 		new_thrall_mind.current.add_language("Shadowling Hivemind")
-		new_thrall_mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/lesser_glare(null))
 		new_thrall_mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/lesser_shadow_walk(null))
 		new_thrall_mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shadow_vision/thrall(null))
 		to_chat(new_thrall_mind.current, "<span class='shadowling'><b>You see the truth. Reality has been torn away and you realize what a fool you've been.</b></span>")
