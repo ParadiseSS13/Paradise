@@ -14,9 +14,16 @@
 /mob/living/simple_animal/hostile/poison/bees/bee_friendly()
 	return 1
 
+/mob/living/simple_animal/bot/bee_friendly()
+	if(paicard)
+		return 0
+	return 1
+
+/mob/living/simple_animal/diona/bee_friendly()
+	return 1
 
 /mob/living/carbon/human/bee_friendly()
-	if(dna && dna.species && dna.species.id == "pod") //bees pollinate plants, duh.
+	if(get_species() == "Diona") //bees pollinate plants, duh.
 		return 1
 	if((wear_suit && (wear_suit.flags & THICKMATERIAL)) && (head && (head.flags & THICKMATERIAL)))
 		return 1

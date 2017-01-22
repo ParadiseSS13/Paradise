@@ -127,7 +127,7 @@
 		for(var/obj/machinery/hydroponics/tester in view(12,src))
 			considered[tester] = 1
 
-			if(!tester.seed)
+			if(!tester.myseed)
 				considered[tester] += 50
 			if(tester.weedlevel > 0)
 				considered[tester] += 5
@@ -154,7 +154,7 @@
 			else
 				if(HP.harvest || HP.dead)
 					HP.attack_hand(src)
-				else if(!HP.seed)
+				else if(!HP.myseed)
 					var/obj/item/seeds/SEED = new /obj/item/seeds/random(src)
 					custom_emote(1, "[pick("gibbers","drools","slobbers","claps wildly","spits")] towards [TARGET], producing a [SEED]!")
 					HP.attackby(SEED, src)
@@ -403,26 +403,6 @@
 		ingredients += I
 		I.forceMove(null)
 
-	for(var/P in R.fruit)
-		for(var/i = 1 to R.fruit[P])
-			var/obj/item/I = locate(P) in allContents
-			if(I)
-				ingredients += I
-				I.forceMove(null)
-				continue
-
-			I = locate(P) in rangeCheck
-			TARGET = I
-			if(I && !Adjacent(I))
-				tryWalk(get_turf(I))
-				sleep(get_dist(src, I))
-			if(!I || !(I in rangeCheck))
-				refundrecipe(ingredients)
-				return 0
-			custom_emote(1, "[pick("gibbers","drools","slobbers","claps wildly","spits")], picking up [I].")
-			ingredients += I
-			I.forceMove(null)
-
 	// cheaply cook the ingredients into result
 	sleep(R.time)
 	for(var/obj/I in ingredients)
@@ -579,8 +559,8 @@
 		var/highest_count = 0
 		var/datum/recipe/winner = null
 		for(var/datum/recipe/R in available_recipes)
-			if(R.check_items(ingredientZone) >= 0 && R.check_fruit(ingredientZone) >= 0)
-				var/count = (R.items ? R.items.len : 0) + (R.fruit ? R.fruit.len : 0)
+			if(R.check_items(ingredientZone) >= 0)
+				var/count = (R.items ? R.items.len : 0)
 				if(count > highest_count)
 					highest_count = count
 					winner = R

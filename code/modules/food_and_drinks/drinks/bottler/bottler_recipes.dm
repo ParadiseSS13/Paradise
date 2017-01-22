@@ -3,7 +3,6 @@
 	var/name = ""
 	var/description = ""
 	var/list/ingredients[3]
-	var/list/tags[3]
 	var/datum/reagent/result = null
 
 
@@ -12,12 +11,10 @@
 	name = "Example"
 	description = "This is an example."
 	ingredients = list(thing_1, thing_2, thing_3)
-	tags = list(null, "tag_2", null)
 	result = "water"
 
 The ingredients list must have 3 non-null entries.
-The tags list must have 3 entries, using null where a tag is unused.
-Failing to ensure both lists have EXACTLY 3 entries (unless the system is updated in the future to use a different number) will result in runtimes.
+Failing to ensure the list has EXACTLY 3 entries (unless the system is updated in the future to use a different number) will result in runtimes.
 There is no excuse to do this wrong now that there is an example for you. --FalseIncarnate
 */
 

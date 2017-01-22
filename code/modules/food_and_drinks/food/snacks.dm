@@ -27,12 +27,8 @@
 			user.visible_message("<span class='notice'>[user] finishes eating \the [src].</span>")
 			user.unEquip(src)	//so icons update :[
 			Post_Consume(M)
-			if(trash)
-				if(ispath(trash,/obj/item))
-					var/obj/item/TrashItem = new trash(user)
-					user.put_in_hands(TrashItem)
-				else if(istype(trash,/obj/item))
-					user.put_in_hands(trash)
+			var/obj/item/trash_item = generate_trash(usr)
+			usr.put_in_hands(trash_item)
 			qdel(src)
 	return
 
@@ -174,6 +170,19 @@
 	qdel(src)
 
 	return
+
+/obj/item/weapon/reagent_containers/food/snacks/proc/generate_trash(atom/location)
+	if(trash)
+		if(ispath(trash, /obj/item))
+			. = new trash(location)
+			trash = null
+			return
+		else if(istype(trash, /obj/item))
+			var/obj/item/trash_item = trash
+			trash_item.forceMove(location)
+			. = trash
+			trash = null
+			return
 
 /obj/item/weapon/reagent_containers/food/snacks/Destroy()
 	if(contents)

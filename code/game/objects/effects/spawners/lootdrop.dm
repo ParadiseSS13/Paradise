@@ -128,7 +128,7 @@
 				/obj/item/stack/tape_roll = 10,
 				////////////////CONTRABAND STUFF//////////////////
 				/obj/item/weapon/grenade/clown_grenade = 3,
-				/obj/item/seeds/ambrosiavulgarisseed/cruciatus = 3,
+				/obj/item/seeds/ambrosia/cruciatus = 3,
 				/obj/item/weapon/gun/projectile/automatic/pistol/empty = 1,
 				/obj/item/ammo_box/magazine/m10mm = 4,
 				/obj/item/weapon/soap/syndie = 7,

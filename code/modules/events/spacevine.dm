@@ -283,8 +283,7 @@
 
 /datum/spacevine_mutation/flowering/on_grow(obj/effect/spacevine/holder)
 	if(holder.energy == 2 && prob(severity) && !locate(/obj/structure/alien/resin/flower_bud_enemy) in range(5,holder))
-		var/obj/structure/alien/resin/flower_bud_enemy/FBE = new /obj/structure/alien/resin/flower_bud_enemy(get_turf(holder))
-		FBE.layer = holder.layer+0.1
+		new /obj/structure/alien/resin/flower_bud_enemy(get_turf(holder))
 
 /datum/spacevine_mutation/flowering/on_cross(obj/effect/spacevine/holder, mob/living/crosser)
 	if(prob(25))
@@ -337,8 +336,8 @@
 			KZ.production = (master.spread_cap / initial(master.spread_cap)) * 5
 	mutations = list()
 	set_opacity(0)
-	if(has_buckled_mobs())
-		unbuckle_all_mobs(force=1)
+	if(buckled_mob)
+		unbuckle_mob()
 	return ..()
 
 /obj/effect/spacevine/proc/on_chem_effect(datum/reagent/R)
@@ -500,7 +499,6 @@
 		icon_state = pick("Med1", "Med2", "Med3")
 		energy = 1
 		set_opacity(1)
-		layer = 5
 	else
 		icon_state = pick("Hvy1", "Hvy2", "Hvy3")
 		energy = 2
@@ -509,10 +507,10 @@
 		SM.on_grow(src)
 
 /obj/effect/spacevine/proc/entangle_mob()
-	if(!has_buckled_mobs() && prob(25))
+	if(!buckled_mob && prob(25))
 		for(var/mob/living/V in loc)
 			entangle(V)
-			if(has_buckled_mobs())
+			if(buckled_mob)
 				break //only capture one mob at a time
 
 

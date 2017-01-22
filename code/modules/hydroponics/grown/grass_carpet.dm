@@ -43,10 +43,8 @@
 		GT = new stacktype(user.loc)
 	GT.amount = grassAmt
 	for(var/obj/item/stack/tile/T in user.loc)
-		if((T.type == stacktype) && (T.amount < T.max_amount))
-			GT.merge(T)
-			if(GT.amount <= 0)
-				break
+		if((T.type == stacktype) && (T.amount < T.max_amount) && (T != GT))
+			T.attackby(GT, user)
 	qdel(src)
 	return
 

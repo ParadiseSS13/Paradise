@@ -75,21 +75,3 @@
 	filling_color = "#F8F8FF"
 	bitesize_mod = 4
 	origin_tech = "biotech=4;magnets=5"
-
-/obj/item/weapon/reagent_containers/food/snacks/grown/ghost_chili/attack_hand(mob/user)
-	..()
-	if(ismob(loc))
-		held_mob = loc
-		processing_objects.Add(src)
-
-/obj/item/weapon/reagent_containers/food/snacks/grown/ghost_chili/process()
-	if(held_mob && loc == held_mob)
-		if(held_mob.is_holding(src))
-			if(hasvar(held_mob,"gloves") && held_mob:gloves)
-				return
-			held_mob.bodytemperature += 15 * TEMPERATURE_DAMAGE_COEFFICIENT
-			if(prob(10))
-				to_chat(held_mob, "<span class='warning'>Your hand holding [src] burns!</span>")
-	else
-		held_mob = null
-		..()

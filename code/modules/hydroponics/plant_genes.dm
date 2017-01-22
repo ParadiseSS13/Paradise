@@ -313,10 +313,10 @@
 
 /datum/plant_gene/trait/noreact/on_new(obj/item/weapon/reagent_containers/food/snacks/grown/G, newloc)
 	..()
-	G.reagents.set_reacting(FALSE)
+	G.flags |= NOREACT
 
 /datum/plant_gene/trait/noreact/on_squash(obj/item/weapon/reagent_containers/food/snacks/grown/G, atom/target)
-	G.reagents.set_reacting(TRUE)
+	G.flags &= ~NOREACT
 	G.reagents.handle_reactions()
 
 

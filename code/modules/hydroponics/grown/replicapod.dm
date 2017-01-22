@@ -6,7 +6,7 @@
 	icon_state = "seed-replicapod"
 	species = "replicapod"
 	plantname = "Replica Pod"
-	product = /mob/living/carbon/human //verrry special -- Urist
+	product = /mob/living/carbon/human/diona //verrry special -- Urist
 	lifespan = 50
 	endurance = 8
 	maturation = 10
@@ -35,12 +35,12 @@
 					features = bloodSample.data["features"]
 					factions = bloodSample.data["factions"]
 					W.reagents.clear_reagents()
-					user << "<span class='notice'>You inject the contents of the syringe into the seeds.</span>"
+					to_chat(user, "<span class='notice'>You inject the contents of the syringe into the seeds.</span>")
 					contains_sample = 1
 				else
-					user << "<span class='warning'>The seeds reject the sample!</span>"
+					to_chat(user, "<span class='warning'>The seeds reject the sample!</span>")
 		else
-			user << "<span class='warning'>The seeds already contain a genetic sample!</span>"
+			to_chat(user, "<span class='warning'>The seeds already contain a genetic sample!</span>")
 	else
 		return ..()
 
@@ -66,30 +66,22 @@
 				else
 					if(M.ckey == ckey && M.stat == DEAD && !M.suiciding)
 						make_podman = 1
-						if(isliving(M))
-							var/mob/living/L = M
-							make_podman = !L.hellbound
 						break
 		else //If the player has ghosted from his corpse before blood was drawn, his ckey is no longer attached to the mob, so we need to match up the cloned player through the mind key
 			for(var/mob/M in player_list)
-				if(mind && M.mind && ckey(M.mind.key) == ckey(mind.key) && M.ckey && M.client && M.stat == 2 && !M.suiciding)
+				if(mind && M.mind && ckey(M.mind.key) == ckey(mind.key) && M.ckey && M.client && M.stat == DEAD && !M.suiciding)
 					if(isobserver(M))
 						var/mob/dead/observer/O = M
 						if(!O.can_reenter_corpse)
 							break
 					make_podman = 1
-					if(isliving(M))
-						var/mob/living/L = M
-						make_podman = !L.hellbound
 					ckey_holder = M.ckey
 					break
 
 	if(make_podman)	//all conditions met!
-		var/mob/living/carbon/human/podman = new /mob/living/carbon/human(parent.loc)
+		var/mob/living/carbon/human/diona/podman = new /mob/living/carbon/human/diona(parent.loc)
 		if(realName)
 			podman.real_name = realName
-		else
-			podman.real_name = "Pod Person [rand(0,999)]"
 		mind.transfer_to(podman)
 		if(ckey)
 			podman.ckey = ckey
@@ -97,10 +89,6 @@
 			podman.ckey = ckey_holder
 		podman.gender = blood_gender
 		podman.faction |= factions
-		if(!features["mcolor"])
-			features["mcolor"] = "#59CE00"
-		podman.hardset_dna(null,null,podman.real_name,blood_type,/datum/species/pod,features)//Discard SE's and UI's, podman cloning is inaccurate, and always make them a podman
-		podman.set_cloned_appearance()
 
 	else //else, one packet of seeds. maybe two
 		var/seed_count = 1

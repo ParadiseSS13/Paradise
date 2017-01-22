@@ -74,3 +74,13 @@
 	origin_tech = "biotech=6;materials=5"
 	light_range = 3
 	seed = /obj/item/seeds/ambrosia/gaia
+
+// Ambrosia Cruciatus
+/obj/item/seeds/ambrosia/cruciatus
+	product = /obj/item/weapon/reagent_containers/food/snacks/grown/ambrosia/cruciatus
+	potency = 10
+	mutatelist = list()
+	reagents_add = list("thc" = 0.15, "silver_sulfadiazine" = 0.15, "styptic_powder" = 0.1, "bath salts" = 0.20, "plantmatter" = 0.05)
+
+/obj/item/weapon/reagent_containers/food/snacks/grown/ambrosia/cruciatus
+	seed = /obj/item/seeds/ambrosia/cruciatus

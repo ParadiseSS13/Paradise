@@ -237,7 +237,7 @@
 			update_genes()
 			update_icon()
 		else
-			var/obj/item/I = usr.get_active_held_item()
+			var/obj/item/I = usr.get_active_hand()
 			if (istype(I, /obj/item/seeds))
 				if(!usr.drop_item())
 					return
@@ -251,7 +251,7 @@
 			disk = null
 			update_genes()
 		else
-			var/obj/item/I = usr.get_active_held_item()
+			var/obj/item/I = usr.get_active_hand()
 			if(istype(I, /obj/item/weapon/disk/plantgene))
 				if(!usr.drop_item())
 					return
@@ -383,7 +383,7 @@
 	..()
 	if(istype(W, /obj/item/weapon/pen))
 		var/t = stripped_input(user, "What would you like the label to be?", name, null)
-		if(user.get_active_held_item() != W)
+		if(user.get_active_hand() != W)
 			return
 		if(!in_range(src, user) && loc != user)
 			return

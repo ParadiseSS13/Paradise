@@ -142,14 +142,10 @@
 
 //END RECIPE DATUMS
 
-/obj/machinery/processor/proc/select_recipe(var/X)
+/obj/machinery/processor/proc/select_recipe(X)
 	for(var/Type in subtypesof(/datum/food_processor_process) - /datum/food_processor_process/mob)
 		var/datum/food_processor_process/P = new Type()
-		if(istype(X, /obj/item/weapon/reagent_containers/food/snacks/grown))
-			var/obj/item/weapon/reagent_containers/food/snacks/grown/G = X
-			if(G.seed.kitchen_tag != P.input)
-				continue
-		else if(!istype(X, P.input))
+		if(!istype(X, P.input))
 			continue
 		return P
 	return 0

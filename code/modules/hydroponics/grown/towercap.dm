@@ -52,7 +52,7 @@
 
 
 /obj/item/weapon/grown/log/attackby(obj/item/weapon/W, mob/user, params)
-	if(W.sharpness)
+	if(is_sharp(W))
 		user.show_message("<span class='notice'>You make [plank_name] out of \the [src]!</span>", 1)
 		var/obj/item/stack/plank = new plank_type(user.loc, 1 + round(seed.potency / 25))
 		var/old_plank_amount = plank.amount
