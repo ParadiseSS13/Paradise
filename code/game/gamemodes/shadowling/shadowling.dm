@@ -100,10 +100,7 @@ Made by Xhuis
 
 	var/num_players = num_players()
 	required_thralls = round(num_players / 3)
-	if(required_thralls < 15)
-		required_thralls = 15
-	if(required_thralls > 30)
-		required_thralls = 30
+	required_thralls = Clamp(required_thralls, 15, 25)
 
 	..()
 	return 1
