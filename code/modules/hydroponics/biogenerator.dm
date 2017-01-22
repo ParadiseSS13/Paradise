@@ -37,9 +37,9 @@
 	return ..()
 
 /obj/machinery/biogenerator/ex_act(severity)
-	..()
 	if(beaker)
 		beaker.ex_act(severity)
+	..()
 
 /obj/machinery/biogenerator/RefreshParts()
 	var/E = 0

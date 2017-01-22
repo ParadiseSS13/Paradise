@@ -68,9 +68,6 @@
 	if(exchange_parts(user, I))
 		return
 
-	if(default_pry_open(I))
-		return
-
 	if(default_unfasten_wrench(user, I))
 		return
 
@@ -830,8 +827,8 @@
 		else if(anchored)
 			user.visible_message("[user] begins to unwrench [src].", \
 								"<span class='notice'>You begin to unwrench [src]...</span>")
-			playsound(loc, O.usesound, 50, 1)
-			if (do_after(user, 20*O.toolspeed, target = src))
+			playsound(loc, 'sound/items/Ratchet.ogg', 50, 1)
+			if (do_after(user, 20, target = src))
 				if(!anchored)
 					return
 				anchored = 0
@@ -840,7 +837,7 @@
 
 	else if(istype(O, /obj/item/weapon/wirecutters) && unwrenchable)
 		using_irrigation = !using_irrigation
-		playsound(src, O.usesound, 50, 1)
+		playsound(src, 'sound/items/Wirecutter.ogg', 50, 1)
 		user.visible_message("<span class='notice'>[user] [using_irrigation ? "" : "dis"]connects [src]'s irrigation hoses.</span>", \
 		"<span class='notice'>You [using_irrigation ? "" : "dis"]connect [src]'s irrigation hoses.</span>")
 		for(var/obj/machinery/hydroponics/h in range(1,src))

@@ -36,7 +36,7 @@
 	throw_range = 7
 
 /obj/item/weapon/grown/corncob/attackby(obj/item/weapon/grown/W, mob/user, params)
-	if(W.is_sharp())
+	if(is_sharp(W))
 		to_chat(user, "<span class='notice'>You use [W] to fashion a pipe out of the corn cob!</span>")
 		new /obj/item/clothing/mask/cigarette/pipe/cobpipe (user.loc)
 		user.unEquip(src)

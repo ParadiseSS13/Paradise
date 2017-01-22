@@ -36,7 +36,7 @@
 
 
 /obj/item/weapon/reagent_containers/food/snacks/grown/potato/attackby(obj/item/weapon/W, mob/user, params)
-	if(W.is_sharp())
+	if(is_sharp(W))
 		to_chat(user, "<span class='notice'>You cut the potato into wedges with [W].</span>")
 		var/obj/item/weapon/reagent_containers/food/snacks/grown/potato/wedges/Wedges = new /obj/item/weapon/reagent_containers/food/snacks/grown/potato/wedges
 		if(!remove_item_from_storage(user))

@@ -163,7 +163,7 @@
 	origin_tech = "biotech=4;programming=5"
 
 /obj/item/weapon/reagent_containers/food/snacks/grown/mushroom/walkingmushroom/attack_self(mob/user)
-	if(isspaceturf(user.loc))
+	if(istype(user.loc, /turf/space))
 		return
 	var/mob/living/simple_animal/hostile/mushroom/M = new /mob/living/simple_animal/hostile/mushroom(user.loc)
 	M.maxHealth += round(seed.endurance / 4)
@@ -229,16 +229,15 @@
 	desc = "<I>Mycena Bregprox</I>: This species of mushroom glows in the dark."
 	icon_state = "glowshroom"
 	filling_color = "#00FA9A"
-	var/effect_path = /obj/structure/glowshroom
+	var/effect_path = /obj/effect/glowshroom
 	origin_tech = "biotech=4;plasmatech=6"
 
 /obj/item/weapon/reagent_containers/food/snacks/grown/mushroom/glowshroom/attack_self(mob/user)
-	if(isspaceturf(user.loc))
+	if(istype(user.loc, /turf/space))
 		return
-	var/obj/structure/glowshroom/planted = new effect_path(user.loc)
+	var/obj/effect/glowshroom/planted = new effect_path(user.loc)
 	planted.delay = planted.delay - seed.production * 100 //So the delay goes DOWN with better stats instead of up. :I
-	planted.obj_integrity = seed.endurance
-	planted.max_integrity = seed.endurance
+	planted.endurance = seed.endurance
 	planted.yield = seed.yield
 	planted.potency = seed.potency
 	to_chat(user, "<span class='notice'>You plant [src].</span>")
@@ -266,5 +265,5 @@
 	desc = "<I>Mycena Ruthenia</I>: This species of mushroom glows in the dark, but aren't bioluminescent. They're warm to the touch..."
 	icon_state = "glowcap"
 	filling_color = "#00FA9A"
-	effect_path = /obj/structure/glowshroom/glowcap
+	effect_path = /obj/effect/glowshroom/glowcap
 	origin_tech = "biotech=4;powerstorage=6;plasmatech=4"
