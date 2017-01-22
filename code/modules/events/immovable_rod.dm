@@ -11,7 +11,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	announceWhen = 5
 
 /datum/event/immovable_rod/announce()
-	event_announcement.Announce("What the fuck was that?!", "General Alert")
+	event_announcement.Announce("Immovable object inbound. Brace for impact.", "Collision Alert")
 
 /datum/event/immovable_rod/start()
 	var/startside = pick(cardinal)
@@ -34,6 +34,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	loc = start
 	z_original = z
 	destination = end
+	notify_ghosts("\A [src] is inbound!", source = src)
 	if(end && end.z==z_original)
 		walk_towards(src, destination, 1)
 
@@ -43,7 +44,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	return ..()
 
 /obj/effect/immovablerod/ex_act(test)
-	return 0
+	return FALSE
 
 /obj/effect/immovablerod/Bump(atom/clong)
 	if(prob(10))
@@ -54,12 +55,12 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 		x = clong.x
 		y = clong.y
 
-	if(istype(clong, /turf) || istype(clong, /obj))
+	if(isturf(clong) || isobj(clong))
 		if(clong.density)
 			clong.ex_act(2)
 
-	else if(istype(clong, /mob))
-		if(istype(clong, /mob/living/carbon/human))
+	else if(ismob(clong))
+		if(ishuman(clong))
 			var/mob/living/carbon/human/H = clong
 			H.visible_message("<span class='danger'>[H.name] is penetrated by an immovable rod!</span>" , "<span class='userdanger'>The rod penetrates you!</span>" , "<span class ='danger'>You hear a CLANG!</span>")
 			H.adjustBruteLoss(160)
