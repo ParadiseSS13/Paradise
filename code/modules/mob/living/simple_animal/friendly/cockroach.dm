@@ -27,20 +27,17 @@
 	..()
 
 /mob/living/simple_animal/cockroach/Crossed(var/atom/movable/AM)
-	if(ismob(AM))
-		if(isliving(AM))
-			var/mob/living/A = AM
-			if(A.mob_size > MOB_SIZE_SMALL)
-				if(prob(squish_chance))
-					A.visible_message("<span class='notice'>\The [A] squashed \the [name].</span>", "<span class='notice'>You squashed \the [name].</span>")
-					death()
-				else
-					visible_message("<span class='notice'>\The [name] avoids getting crushed.</span>")
-	else
-		if(isobj(AM))
-			if(istype(AM,/obj/structure))
-				visible_message("<span class='notice'>As \the [AM] moved over \the [name], it was crushed.</span>")
+	if(isliving(AM))
+		var/mob/living/A = AM
+		if(A.mob_size > MOB_SIZE_SMALL)
+			if(prob(squish_chance))
+				A.visible_message("<span class='notice'>\The [A] squashed \the [name].</span>", "<span class='notice'>You squashed \the [name].</span>")
 				death()
+			else
+				visible_message("<span class='notice'>\The [name] avoids getting crushed.</span>")
+	else if(istype(AM, /obj/structure))
+		visible_message("<span class='notice'>As \the [AM] moved over \the [name], it was crushed.</span>")
+		death()
 
 /mob/living/simple_animal/cockroach/ex_act() //Explosions are a terrible way to handle a cockroach.
 	return

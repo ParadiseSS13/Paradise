@@ -7,12 +7,12 @@
 	var/amount = 1 //Basically moles.
 
 /obj/effect/decal/cleanable/liquid_fuel/New(newLoc,amt=1)
-	src.amount = amt
+	amount = amt
 
 	//Be absorbed by any other liquid fuel in the tile.
 	for(var/obj/effect/decal/cleanable/liquid_fuel/other in newLoc)
 		if(other != src)
-			other.amount += src.amount
+			other.amount += amount
 			spawn other.Spread()
 			qdel(src)
 
@@ -26,7 +26,7 @@
 	if(!istype(S)) return
 	for(var/d in cardinal)
 		if(rand(25))
-			var/turf/simulated/target = get_step(src,d)
+			var/turf/simulated/target = get_step(src, d)
 			var/turf/simulated/origin = get_turf(src)
 			if(origin.CanPass(null, target, 0, 0) && target.CanPass(null, origin, 0, 0))
 				if(!locate(/obj/effect/decal/cleanable/liquid_fuel) in target)
@@ -36,9 +36,10 @@
 /obj/effect/decal/cleanable/liquid_fuel/flamethrower_fuel
 	icon_state = "mustard"
 	anchored = 0
-	New(newLoc, amt = 1, d = 0)
-		dir = d //Setting this direction means you won't get torched by your own flamethrower.
-		. = ..()
+
+/obj/effect/decal/cleanable/liquid_fuel/flamethrower_fuel/New(newLoc, amt = 1, d = 0)
+	dir = d //Setting this direction means you won't get torched by your own flamethrower.
+	. = ..()
 
 /obj/effect/decal/cleanable/liquid_fuel/flamethrower_fuel/Spread()
 	//The spread for flamethrower fuel is much more precise, to create a wide fire pattern.

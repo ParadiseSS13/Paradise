@@ -61,9 +61,6 @@
 		new /obj/item/weapon/ore/glass/basalt(src)
 		user.visible_message("<span class='notice'>[user] digs up [src].</span>", "<span class='notice'>You uproot [src].</span>")
 		playsound(src, 'sound/effects/shovel_dig.ogg', 50, 1)
-		make_plating()
-	else
-		return
 
 /turf/simulated/floor/basalt/New()
 	..()

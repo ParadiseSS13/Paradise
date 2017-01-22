@@ -198,8 +198,6 @@
 	overlays.Cut()
 	if(panel_open)
 		overlays += image(icon, "[initial(icon_state)]-panel")
-	
-	return .
 
 /obj/machinery/smartfridge/attackby(obj/item/O, var/mob/user)
 	if(default_deconstruction_screwdriver(user, O))

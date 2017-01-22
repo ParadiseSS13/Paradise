@@ -138,7 +138,7 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 			return 0
 
 	var/obj/effect/proc_holder/spell/noclothes/clothes_spell = locate() in (user.mob_spell_list | (user.mind ? user.mind.spell_list : list()))
-	if((ishuman(user) && clothes_req) && !(clothes_spell && istype(clothes_spell)))//clothes check
+	if((ishuman(user) && clothes_req) && !istype(clothes_spell))//clothes check
 		var/mob/living/carbon/human/H = user
 		if(!istype(H.wear_suit, /obj/item/clothing/suit/wizrobe) && !istype(H.wear_suit, /obj/item/clothing/suit/space/rig/wizard))
 			to_chat(user, "<span class='notice'>I don't feel strong enough without my robe.</span>")

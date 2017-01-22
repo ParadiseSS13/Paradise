@@ -255,4 +255,4 @@ var/global/list/datum/stack_recipe/runed_metal_recipes = list ( \
 	w_class = 3
 	throw_speed = 1
 	throw_range = 3
-	origin_tech = "materials=2;biotech=2"	
+	origin_tech = "materials=2;biotech=2"

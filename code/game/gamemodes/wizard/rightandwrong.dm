@@ -89,7 +89,7 @@
 				if("medibeam")
 					new /obj/item/weapon/gun/medbeam(get_turf(H))
 					
-			playsound(get_turf(H),'sound/magic/Summon_guns.ogg', 50, 1)
+			playsound(get_turf(H), 'sound/magic/Summon_guns.ogg', 50, 1)
 		else
 			switch(randomizemagic)
 				if("fireball")
@@ -158,4 +158,4 @@
 							new /obj/item/device/necromantic_stone(get_turf(H))
 					to_chat(H, "<span class='notice'>You suddenly feel lucky.</span>")
 					
-			playsound(get_turf(H),'sound/magic/Summon_Magic.ogg', 50, 1)
+			playsound(get_turf(H), 'sound/magic/Summon_Magic.ogg', 50, 1)

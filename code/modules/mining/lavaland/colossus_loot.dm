@@ -163,7 +163,7 @@
 		var/mob/living/carbon/human/H = user
 		for(var/obj/item/W in H)
 			H.unEquip(W)
-		var/datum/job/clown/C = new /datum/job/clown()
+		var/datum/job/clown/C = job_master.GetJob("Clown")
 		C.equip(H)
 		qdel(C)
 		affected_targets.Add(H)

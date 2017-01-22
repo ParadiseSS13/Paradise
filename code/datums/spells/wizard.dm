@@ -145,8 +145,8 @@
 
 	action_icon_state = "spell_teleport"
 	
-	sound1="sound/magic/Teleport_diss.ogg"
-	sound2="sound/magic/Teleport_app.ogg"
+	sound1 = "sound/magic/Teleport_diss.ogg"
+	sound2 = "sound/magic/Teleport_app.ogg"
 
 /obj/effect/proc_holder/spell/aoe_turf/conjure/forcewall
 	name = "Forcewall"
@@ -245,12 +245,12 @@
 /obj/effect/proc_holder/spell/targeted/inflict_handler/blind
 	amt_eye_blind = 10
 	amt_eye_blurry = 20
-	sound="sound/magic/Blind.ogg"
+	sound = "sound/magic/Blind.ogg"
 
 /obj/effect/proc_holder/spell/targeted/genetic/blind
 	disabilities = BLIND
 	duration = 300
-	sound="sound/magic/Blind.ogg"
+	sound = "sound/magic/Blind.ogg"
 
 /obj/effect/proc_holder/spell/fireball
 	name = "Fireball"
