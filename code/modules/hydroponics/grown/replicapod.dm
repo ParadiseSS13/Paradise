@@ -18,7 +18,6 @@
 	var/datum/mind/mind = null
 	var/blood_gender = null
 	var/blood_type = null
-	var/list/features = null
 	var/factions = null
 	var/contains_sample = 0
 
@@ -32,7 +31,6 @@
 					realName = bloodSample.data["real_name"]
 					blood_gender = bloodSample.data["gender"]
 					blood_type = bloodSample.data["blood_type"]
-					features = bloodSample.data["features"]
 					factions = bloodSample.data["factions"]
 					W.reagents.clear_reagents()
 					to_chat(user, "<span class='notice'>You inject the contents of the syringe into the seeds.</span>")
