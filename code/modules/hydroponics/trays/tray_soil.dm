@@ -11,6 +11,20 @@
 		return
 	else if(istype(O,/obj/item/weapon/crowbar))
 		return
+	else if(istype(O, /obj/item/weapon/shovel))
+		if(seed)
+			to_chat(user, "You dig up and dispose of \the [seed.display_name].")
+			seed = null
+			dead = 0
+			sampled = 0
+			age = 0
+			lastproduce = 0
+			yield_mod = 0
+			mutation_mod = 0
+			check_health()
+		else
+			to_chat(user, "You clear up [src]!")
+			qdel(src)
 	else
 		..()
 
