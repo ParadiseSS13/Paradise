@@ -1,0 +1,4 @@
+author: "FalseIncarnate"
+delete-after: True
+changes: 
+  - rscadd: "Returns the ability to remove vacant soil with shovels and spades, and adds the ability to dig up plants in soil to remove them instantly."
