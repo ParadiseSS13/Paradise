@@ -2,7 +2,7 @@
 /obj/item/seeds/peanuts
 	name = "pack of peanut seeds"
 	desc = "These seeds grow into peanuts."
-	icon_state = "seed-peanut"
+	icon_state = "seed-potato"
 	species = "potato"
 	plantname = "Peanut Vines"
 	product = /obj/item/weapon/reagent_containers/food/snacks/grown/peanuts
