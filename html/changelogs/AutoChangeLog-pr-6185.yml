@@ -1,0 +1,6 @@
+author: "Stratus"
+delete-after: True
+changes: 
+  - rscadd: "NT Enforcer .45 pistol."
+  - rscadd: ".45 and 9mm rubber bullets."
+  - imageadd: "New shotgun ammo boxes."
