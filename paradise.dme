@@ -1759,7 +1759,6 @@
 #include "code\modules\pda\radio.dm"
 #include "code\modules\pda\utilities.dm"
 #include "code\modules\persistence\persistence.dm"
-#include "code\modules\pooling\pool.dm"
 #include "code\modules\power\apc.dm"
 #include "code\modules\power\cable.dm"
 #include "code\modules\power\cable_heavyduty.dm"
