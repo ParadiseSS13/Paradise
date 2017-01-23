@@ -116,38 +116,22 @@
 	block=BLINDBLOCK
 
 /datum/dna/gene/disability/colourblindness
-	name="Colourblindness"
-	activation_message="Your perception of colour warps and distorts."
-	deactivation_message ="Your perception of colour returns to normal."
+	name = "Colourblindness"
+	activation_message = "You feel a peculiar prickling in your eyes while your perception of colour changes."
+	deactivation_message ="Your eyes tingle unsettlingly, though everything seems to become alot more colourful."
 	instability = -GENE_INSTABILITY_MODERATE
 	disability = COLOURBLIND
-	flags = GENE_EYE_DEPENDENT
-	update = 1
 
 /datum/dna/gene/disability/colourblindness/New()
 	block=COLOURBLINDBLOCK
 
 /datum/dna/gene/disability/colourblindness/activate(var/mob/M, var/connected, var/flags)
-	..(M,connected,flags)
-	var/mob/living/carbon/human/H = M
-	if(istype(M))
-		var/obj/item/organ/internal/eyes/eyes = H.get_int_organ(/obj/item/organ/internal/eyes)
-		if(eyes && !eyes.robotic) //To avoid overriding the properties of cybernetic/mechassisted eyes, apply the colour matrix and darksight modifier only if the organ is organic. Robotic/mechassisted eyes currently do this, too, as is necessary.
-			var/list/cblind_properties = (eyes.colourblind_special) ? eyes.colourblind_special : null //If the mob's species has its own colourblindness parameters, gather them.
-			eyes.colourmatrix = (cblind_properties && cblind_properties["colour_matrix"]) ? cblind_properties["colour_matrix"] : MATRIX_GREYSCALE //If the mob's species has its own colourblindness colour matrix parameter, use it.
-			eyes.dark_view = (cblind_properties && cblind_properties["darkview"]) ? cblind_properties["darkview"] : eyes.dark_view //If the mob's species has its own colourblindness dark view parameter, use it.
-			H.update_client_colour()
+	..()
+	M.update_client_colour() //Handle the activation of the colourblindness on the mob.
 
 /datum/dna/gene/disability/colourblindness/deactivate(var/mob/M, var/connected, var/flags)
-	..(M,connected,flags)
-	var/mob/living/carbon/human/H = M
-	if(istype(M))
-		var/obj/item/organ/internal/eyes/eyes = H.get_int_organ(/obj/item/organ/internal/eyes)
-		if(eyes && !eyes.robotic) //To avoid overriding the properties of cybernetic/mechassisted eyes, apply the colour matrix and darksight modifier only if the organ is organic. Robotic/mechassisted eyes currently do this, too, as is necessary.
-			var/list/cblind_properties = (eyes.colourblind_special) ? eyes.colourblind_special : null //If the mob's species has its own colourblindness parameters, gather them.
-			eyes.colourmatrix = null //The only time a mob will have this set is if they're colourblind, so it's fine to null this out.
-			eyes.dark_view = (cblind_properties && cblind_properties["darkview"]) ? initial(eyes.dark_view) : eyes.dark_view //If the mob's species has its own colourblindness dark view parameter, set the mob's dark_view back to normal.
-			H.update_client_colour()
+	..()
+	M.update_client_colour() //Handle the deactivation of the colourblindness on the mob.
 
 /datum/dna/gene/disability/deaf
 	name="Deafness"
@@ -160,7 +144,7 @@
 	block=DEAFBLOCK
 
 /datum/dna/gene/disability/deaf/activate(var/mob/M, var/connected, var/flags)
-	..(M,connected,flags)
+	..()
 	M.EarDeaf(1)
 
 /datum/dna/gene/disability/nearsighted

@@ -26,9 +26,6 @@
 	// Chance of the gene to cause adverse effects when active
 	var/instability=0
 
-	// Whether the gene needs to be updated regardless of whether the mob has it or not. Useful for colour vision modifiers.
-	var/update=0
-
 /*
 * Is the gene active in this mob's DNA?
 */

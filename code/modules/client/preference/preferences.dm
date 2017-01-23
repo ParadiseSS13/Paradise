@@ -2020,6 +2020,8 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	return 1
 
 /datum/preferences/proc/copy_to(mob/living/carbon/human/character)
+	var/datum/species/S = all_species[species]
+	character.change_species(species) // Yell at me if this causes everything to melt
 	if(be_random_name)
 		real_name = random_name(gender,species)
 
@@ -2169,13 +2171,12 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 	if(disabilities & DISABILITY_FLAG_COLOURBLIND)
 		character.dna.SetSEState(COLOURBLINDBLOCK,1,1)
-		character.disabilities |= COLOURBLIND
 
 	if(disabilities & DISABILITY_FLAG_MUTE)
 		character.dna.SetSEState(MUTEBLOCK,1,1)
 		character.disabilities |= MUTE
 
-	character.species.handle_dna(character)
+	S.handle_dna(character)
 
 	if(character.dna.dirtySE)
 		character.dna.UpdateSE()

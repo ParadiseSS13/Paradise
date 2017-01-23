@@ -114,18 +114,8 @@
 		"kidneys" =  /obj/item/organ/internal/kidneys,
 		"brain" =    /obj/item/organ/internal/brain,
 		"appendix" = /obj/item/organ/internal/appendix,
-		"eyes" =     /obj/item/organ/internal/eyes/tajaran //Tajara monkey-forms are uniquely colourblind and have excellent darksight, which is why they need the same organ as the Tajara.
+		"eyes" =     /obj/item/organ/internal/eyes/tajaran/farwa //Tajara monkey-forms are uniquely colourblind and have excellent darksight, which is why they need a subtype of their greater-form's organ..
 		)
-	default_genes = list(COLOURBLIND)
-
-/datum/species/monkey/tajaran/handle_dna(var/mob/living/carbon/C, var/remove)
-	if(!remove)
-		C.dna.SetSEState(COLOURBLINDBLOCK,1,1)
-		genemutcheck(C,COLOURBLINDBLOCK,null,MUTCHK_FORCED)
-	else
-		C.dna.SetSEState(COLOURBLINDBLOCK,0,1)
-		genemutcheck(C,COLOURBLINDBLOCK,null,MUTCHK_FORCED)
-	..()
 
 
 /datum/species/monkey/vulpkanin
@@ -148,18 +138,8 @@
 		"kidneys" =  /obj/item/organ/internal/kidneys,
 		"brain" =    /obj/item/organ/internal/brain,
 		"appendix" = /obj/item/organ/internal/appendix,
-		"eyes" =     /obj/item/organ/internal/eyes/vulpkanin //Vulpkanin monkey-forms are uniquely colourblind and have excellent darksight, which is why they need the same organ as the Vulpkanin.
+		"eyes" =     /obj/item/organ/internal/eyes/vulpkanin/wolpin //Vulpkanin monkey-forms are uniquely colourblind and have excellent darksight, which is why they need a subtype of their greater-form's organ..
 		)
-	default_genes = list(COLOURBLIND)
-
-/datum/species/monkey/vulpkanin/handle_dna(var/mob/living/carbon/C, var/remove)
-	if(!remove)
-		C.dna.SetSEState(COLOURBLINDBLOCK,1,1)
-		genemutcheck(C,COLOURBLINDBLOCK,null,MUTCHK_FORCED)
-	else
-		C.dna.SetSEState(COLOURBLINDBLOCK,0,1)
-		genemutcheck(C,COLOURBLINDBLOCK,null,MUTCHK_FORCED)
-	..()
 
 
 /datum/species/monkey/skrell

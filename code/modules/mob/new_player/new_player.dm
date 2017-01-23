@@ -483,7 +483,7 @@
 	close_spawn_windows()
 
 	check_prefs_are_sane()
-	var/mob/living/carbon/human/new_character = new(loc, client.prefs.species)
+	var/mob/living/carbon/human/new_character = new(loc)
 	new_character.lastarea = get_area(loc)
 
 	if(ticker.random_players || appearance_isbanned(new_character))

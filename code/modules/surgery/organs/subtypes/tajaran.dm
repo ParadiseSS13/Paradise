@@ -6,4 +6,11 @@
 										unless they choose otherwise by selecting the colourblind disability in character creation (darksight = 8 but colourblind).*/
 	name = "tajaran eyeballs"
 	species = "Tajaran"
-	colourblind_special = list("colour_matrix" = MATRIX_TAJ_CBLIND, "darkview" = 8) //The colour matrix and darksight parameters that the mob will recieve when they get the disability.
+	colourblind_matrix = MATRIX_TAJ_CBLIND //The colour matrix and darksight parameters that the mob will recieve when they get the disability.
+	colourblind_darkview = 8
+
+/obj/item/organ/internal/eyes/tajaran/farwa //Being the lesser form of Tajara, Farwas have an utterly incurable version of their colourblindness.
+	name = "farwa eyeballs"
+	species = "Farwa"
+	colourmatrix = MATRIX_TAJ_CBLIND
+	dark_view = 8

@@ -588,8 +588,8 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 /datum/species/proc/get_resultant_darksight(mob/living/carbon/human/H) //Returns default value of 2 if the mob doesn't have eyes, otherwise it grabs the eyes darksight.
 	var/resultant_darksight = 2
 	var/obj/item/organ/internal/eyes/eyes = H.get_int_organ(/obj/item/organ/internal/eyes)
-	if(eyes && eyes.dark_view)
-		resultant_darksight = eyes.dark_view
+	if(eyes)
+		resultant_darksight = eyes.get_dark_view()
 	return resultant_darksight
 
 /datum/species/proc/update_sight(mob/living/carbon/human/H)

@@ -116,6 +116,3 @@
 
 #define CLONER_FRESH_CLONE "fresh"
 #define CLONER_MATURE_CLONE "mature"
-
-//Gene properties
-#define GENE_EYE_DEPENDENT 1

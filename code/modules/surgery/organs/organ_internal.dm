@@ -344,30 +344,40 @@
 	slot = "eyes"
 	var/list/eye_colour = list(0,0,0)
 	var/list/colourmatrix = null
-	var/list/colourblind_special = list("colour_matrix" = null, "darkview" = null) //Special colourblindness parameters.
+	var/list/colourblind_matrix = null //Special colourblindness parameters.
+	var/colourblind_darkview = null
+	var/dependent_disabilities = null //Gets set by eye-dependent disabilities such as colourblindness so the eyes can transfer the disability during transplantation.
 	var/dark_view = 2 //Default dark_view for Humans.
 	var/weld_proof = null //If set, the eyes will not take damage during welding. eg. IPC optical sensors do not take damage when they weld things while all other eyes will.
 
 /obj/item/organ/internal/eyes/proc/update_colour()
 	dna.write_eyes_attributes(src)
 
+/obj/item/organ/internal/eyes/proc/get_colourmatrix() //Returns a colour matrix if the eyes are organic.
+	return !robotic && owner.disabilities & COLOURBLIND ? (colourblind_matrix ? colourblind_matrix : MATRIX_GREYSCALE) : colourmatrix //Returns special colourmatrix if colourblind and it exists and greyscale if it doesn't, otherwise returns current velue.
+
+/obj/item/organ/internal/eyes/proc/get_dark_view() //Returns dark_view (if the eyes are organic) for see_invisible handling in species.dm to be autoprocessed by life().
+	return !robotic && colourblind_darkview && owner.disabilities & COLOURBLIND ? colourblind_darkview : dark_view //Returns special darkview value if colourblind and it exists, otherwise returns current velue.
+
 /obj/item/organ/internal/eyes/insert(mob/living/carbon/human/M, special = 0)
 	..()
 	if(istype(M) && eye_colour)
 		M.update_body() //Apply our eye colour to the target.
 
-	for(var/datum/dna/gene/G in eye_dependent_genes) //Handle the application of the eye-dependent genes from the eye to the new host mob if the genes are active.
-		if(dna && dna.GetSEState(G.block)) //If the eye-dependent gene in the eye's DNA is active, activate it on the human and genemutcheck to apply its effects.
-			M.dna.SetSEState(G.block,1,1)
-			genemutcheck(M,G.block,null,MUTCHK_FORCED)
+	if(!(M.disabilities & COLOURBLIND) && (dependent_disabilities & COLOURBLIND)) //If the eyes are colourblind and we're not, carry over the gene.
+		dependent_disabilities &= ~COLOURBLIND
+		M.dna.SetSEState(COLOURBLINDBLOCK,1,1)
+		genemutcheck(M,COLOURBLINDBLOCK,null,MUTCHK_FORCED)
+	else
+		M.update_client_colour() //If we're here, that means the mob acquired the colourblindness gene while they didn't have eyes. Better handle it.
 
 /obj/item/organ/internal/eyes/remove(mob/living/carbon/human/M, special = 0)
-	for(var/datum/dna/gene/G in eye_dependent_genes) //Handle the removal of the eye-dependent genes from the eye to the new host mob if the genes are active.
-		if(G.type in M.active_genes) //If there's an active eye-dependent gene on the mob, turn it off.
-			dna = M.dna.Clone() //Preserve the eye-dependent genes by ensuring the genome on the eyes remains intact.
-			M.dna.SetSEState(G.block,0,1)
-			genemutcheck(M,G.block,null,MUTCHK_FORCED)
-	.=..()
+	if(!special && (M.disabilities & COLOURBLIND)) //If special is set, that means these eyes are getting deleted (i.e. during set_species())
+		if(!(dependent_disabilities & COLOURBLIND)) //We only want to change COLOURBLINDBLOCK and such it the eyes are being surgically removed.
+			dependent_disabilities |= COLOURBLIND
+		M.dna.SetSEState(COLOURBLINDBLOCK,0,1)
+		genemutcheck(M,COLOURBLINDBLOCK,null,MUTCHK_FORCED)
+	. = ..()
 
 /obj/item/organ/internal/eyes/surgeryize()
 	if(!owner)

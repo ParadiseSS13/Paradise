@@ -6,4 +6,11 @@
 										  unless they choose otherwise by selecting the colourblind disability in character creation (darksight = 8 but colourblind).*/
 	name = "vulpkanin eyeballs"
 	species = "Vulpkanin"
-	colourblind_special = list("colour_matrix" = MATRIX_VULP_CBLIND, "darkview" = 8) //The colour matrix and darksight parameters that the mob will recieve when they get the disability.
+	colourblind_matrix = MATRIX_VULP_CBLIND //The colour matrix and darksight parameters that the mob will recieve when they get the disability.
+	colourblind_darkview = 8
+
+/obj/item/organ/internal/eyes/vulpkanin/wolpin //Being the lesser form of Vulpkanin, Wolpins have an utterly incurable version of their colourblindness.
+	name = "wolpin eyeballs"
+	species = "Wolpin"
+	colourmatrix = MATRIX_VULP_CBLIND
+	dark_view = 8
