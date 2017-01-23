@@ -457,7 +457,6 @@
 	name = "Holy Salt"
 	icon = 'icons/obj/food/containers.dmi'
 	icon_state = "saltshakersmall"
-	item_state = "saltshakersmall"
 	desc = "While commonly used to repel some ghosts, it appears others are downright attracted to it."
 	force = 0
 	throwforce = 0
@@ -472,8 +471,8 @@
 
 	if(!(ghostcall_CD > world.time))
 		ghostcall_CD = world.time + 3000 //deciseconds..5 minutes
-		user.visible_message("<span class='info'>[user] kneels and begins to utter a prayer to [ticker.Bible_deity_name] while drawing a circle with salt!.</span>", \
-		"<span class='info'>You kneel and begin a prayer to [ticker.Bible_deity_name] while drawing a circle!.</span>")
+		user.visible_message("<span class='info'>[user] kneels and begins to utter a prayer to [ticker.Bible_deity_name] while drawing a circle with salt!</span>", \
+		"<span class='info'>You kneel and begin a prayer to [ticker.Bible_deity_name] while drawing a circle!</span>")
 		notify_ghosts("The Chaplain is calling ghosts to [get_area(src)] with [name]!", source = src)
 	else
 		to_chat(user, "<span class='notice'>You need to wait before using [src] again.</span>")
