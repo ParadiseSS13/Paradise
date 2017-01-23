@@ -480,7 +480,7 @@
 
 	ghostcall = 1
 	if(do_after(user, 50, target = M))
-		notify_ghosts("The Chaplain is calling ghosts to [get_area(src)] with [src.name]!", source = src)
+		notify_ghosts("The Chaplain is calling ghosts to [get_area(src)] with [name]!", source = src)
 		ghostcall = 0
 		return
 	else
@@ -547,7 +547,7 @@
 		if(src == holder.l_hand || src == holder.r_hand) // Holding this in your hand will
 			for(var/mob/living/carbon/human/H in range(5))
 				if(H.mind.assigned_role == "Clown")
-					H.AdjustSilence(30)
+					H.AdjustSilence(10)
 					animate_fade_grayscale(H,20)
 					if(prob(10))
 						to_chat(H, "<span class='userdanger'>Being in the presence of [holder]'s [src] is interfering with your honk!</span>")
