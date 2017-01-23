@@ -105,9 +105,9 @@ var/list/event_last_fired = list()
 				playercount_modifier = 0.8
 			if(50 to 70)
 				playercount_modifier = 0.7
-			if(70 to 90)
+			if(70 to 100)
 				playercount_modifier = 0.6
-			if(90 to 50000)
+			if(100 to 50000)
 				playercount_modifier = 0.5
 
 		playercount_modifier = playercount_modifier * delay_modifier
@@ -178,7 +178,7 @@ var/list/event_last_fired = list()
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Gravitational Anomaly",	/datum/event/anomaly/anomaly_grav,		200),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Revenant", 				/datum/event/revenant, 					150),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Swarmer Spawn", 			/datum/event/spawn_swarmer, 			150, is_one_shot = 1),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Morph Spawn", 				/datum/event/spawn_morph, 				100, is_one_shot = 1),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Morph Spawn", 				/datum/event/spawn_morph, 				40, is_one_shot = 1),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Disease Outbreak",			/datum/event/disease_outbreak, 			0,		list(ASSIGNMENT_MEDICAL = 150), 1)
 	)
 
