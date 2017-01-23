@@ -429,17 +429,17 @@ var/list/blood_splatter_icons = list()
 	if(!..())
 		return 0
 	if(!blood_count)//apply the blood-splatter overlay if it isn't already in there
-		add_blood_overlay(blood_DNA[blood_color])
+		add_blood_overlay(blood_DNA)
 	return 1 //we applied blood to the item
 
-/obj/item/proc/add_blood_overlay(var/bloodcolor)
+/obj/item/proc/add_blood_overlay(list/blood_dna)
 	if(initial(icon) && initial(icon_state))
 		//try to find a pre-processed blood-splatter. otherwise, make a new one
 		var/index = blood_splatter_index()
 		var/icon/blood_splatter_icon = blood_splatter_icons[index]
 		if(!blood_splatter_icon)
 			blood_splatter_icon = icon(initial(icon), initial(icon_state), , 1)		//we only want to apply blood-splatters to the initial icon_state for each object
-			blood_splatter_icon.Blend(bloodcolor, ICON_ADD) 			//fills the icon_state with white (except where it's transparent)
+			blood_splatter_icon.Blend("#fff", ICON_ADD) 			//fills the icon_state with white (except where it's transparent)
 			blood_splatter_icon.Blend(icon('icons/effects/blood.dmi', "itemblood"), ICON_MULTIPLY) //adds blood and the remaining white areas become transparant
 			blood_splatter_icon = fcopy_rsc(blood_splatter_icon)
 			blood_splatter_icons[index] = blood_splatter_icon
@@ -454,6 +454,7 @@ var/list/blood_splatter_icons = list()
 	if(!B)
 		B = new /obj/effect/decal/cleanable/blood/splatter(src)
 	B.transfer_blood_dna(blood_dna) //give blood info to the blood decal.
+	B.color = blood_dna["blood_color"]
 	return 1 //we bloodied the floor
 
 /mob/living/carbon/human/add_blood(list/blood_dna)

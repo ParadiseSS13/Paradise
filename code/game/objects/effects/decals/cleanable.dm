@@ -58,12 +58,8 @@
 				add_blood = bloodiness
 			bloodiness -= add_blood
 			S.bloody_shoes[blood_state] = min(MAX_SHOE_BLOODINESS,S.bloody_shoes[blood_state]+add_blood)
+			if(blood_DNA && blood_DNA.len)
+				S.add_blood(blood_DNA)
 			S.blood_state = blood_state
-			alpha = BLOODY_FOOTPRINT_BASE_ALPHA+bloodiness
 			update_icon()
 			H.update_inv_shoes()
-			if(!bloodiness)
-				animate(src,alpha = 0,BLOOD_FADEOUT_TIME)
-				sleep(BLOOD_FADEOUT_TIME)
-				qdel(src)
-				return

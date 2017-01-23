@@ -179,7 +179,6 @@ var/global/list/image/fluidtrack_cache=list()
 
 		if(S && S.bloody_shoes[blood_state])//shoes
 			S.bloody_shoes[blood_state] = max(S.bloody_shoes[blood_state] - BLOOD_LOSS_PER_STEP, 0)
-			S.blood_overlay.color = basecolor
 			entered_dirs|= H.dir
 		else if(hasfeet)//Or feet //This will need to be changed.
 			H.feet_blood_color = basecolor
@@ -222,6 +221,7 @@ var/global/list/image/fluidtrack_cache=list()
 				fluidtrack_cache["entered-[blood_state]-[Ddir]"] = I
 			if(I)
 				overlays += I
+			I.color = basecolor
 		if(exited_dirs & Ddir)
 			var/image/I
 			if(fluidtrack_cache["exited-[blood_state]-[Ddir]"])
@@ -231,5 +231,6 @@ var/global/list/image/fluidtrack_cache=list()
 				fluidtrack_cache["exited-[blood_state]-[Ddir]"] = I
 			if(I)
 				overlays += I
+			I.color = basecolor
 
 	alpha = BLOODY_FOOTPRINT_BASE_ALPHA+bloodiness
