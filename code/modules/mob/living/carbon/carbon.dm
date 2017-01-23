@@ -995,8 +995,8 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 	return 1
 
 /mob/living/carbon/proc/forceFedAttackLog(var/obj/item/weapon/reagent_containers/food/toEat, mob/user)
-	attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been fed [toEat.name] by [user.name] ([user.ckey]) Reagents: [toEat.reagentlist(toEat)]</font>")
-	user.attack_log += text("\[[time_stamp()]\] <font color='red'>Fed [toEat.name] to [name] ([ckey]) Reagents: [toEat.reagentlist(toEat)]</font>")
+	create_attack_log("<font color='orange'>Has been fed [toEat.name] by [user.name] ([user.ckey]) Reagents: [toEat.reagentlist(toEat)]</font>")
+	user.create_attack_log("<font color='red'>Fed [toEat.name] to [name] ([ckey]) Reagents: [toEat.reagentlist(toEat)]</font>")
 	log_attack("[user.name] ([user.ckey]) fed [name] ([ckey]) with [toEat.name] Reagents: [toEat.reagentlist(toEat)] (INTENT: [uppertext(user.a_intent)])")
 	if(!iscarbon(user))
 		LAssailant = null

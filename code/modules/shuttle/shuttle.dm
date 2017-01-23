@@ -836,7 +836,7 @@ var/global/trade_dockrequest_timelimit = 0
 		if(world.time < trade_dockrequest_timelimit || world.time < trade_dock_timelimit)
 			return
 		to_chat(usr, "<span class='notice'>Request sent.</span>")
-		command_announcement.Announce(docking_request_message, "Docking Request")
+		event_announcement.Announce(docking_request_message, "Docking Request")
 		trade_dockrequest_timelimit = world.time + 1200 // They have 2 minutes to approve the request.
 
 /obj/machinery/computer/shuttle/trade/sol

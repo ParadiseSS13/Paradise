@@ -258,8 +258,8 @@
 	new /obj/effect/decal/cleanable/blood/gibs(src)
 
 	if(!UserOverride)
-		occupant.attack_log += "\[[time_stamp()]\] Was gibbed by [key_name(user)]" //One shall not simply gib a mob unnoticed!
-		user.attack_log += "\[[time_stamp()]\] Gibbed [key_name(occupant)]"
+		occupant.create_attack_log("Was gibbed by [key_name(user)]") //One shall not simply gib a mob unnoticed!)
+		user.create_attack_log("Gibbed [key_name(occupant)]")
 
 		if(occupant.ckey)
 			msg_admin_attack("[key_name_admin(user)] gibbed [key_name_admin(occupant)]")
@@ -270,7 +270,7 @@
 			occupant.LAssailant = user
 
 	else //this looks ugly but it's better than a copy-pasted startgibbing proc override
-		occupant.attack_log += "\[[time_stamp()]\] Was gibbed by <b>an autogibber (\the [src])</b>"
+		occupant.create_attack_log("Was gibbed by <b>an autogibber (\the [src])</b>")
 
 	occupant.emote("scream")
 	playsound(get_turf(src), 'sound/goonstation/effects/gib.ogg', 50, 1)
