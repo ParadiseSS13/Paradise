@@ -80,7 +80,7 @@
 	product = /obj/item/weapon/reagent_containers/food/snacks/grown/ambrosia/cruciatus
 	potency = 10
 	mutatelist = list()
-	reagents_add = list("thc" = 0.15, "silver_sulfadiazine" = 0.15, "styptic_powder" = 0.1, "bath salts" = 0.20, "plantmatter" = 0.05)
+	reagents_add = list("thc" = 0.15, "kelotane" = 0.15, "bicaridine" = 0.1, "bath_salts" = 0.20, "nutriment" = 0.05)
 
 /obj/item/weapon/reagent_containers/food/snacks/grown/ambrosia/cruciatus
 	seed = /obj/item/seeds/ambrosia/cruciatus

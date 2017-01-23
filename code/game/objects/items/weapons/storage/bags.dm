@@ -182,6 +182,8 @@
 
 	if(usr.incapacitated())
 		return
+	for(var/obj/item/O in contents)
+		seedify(O, 1)
 	for(var/mob/M in range(1))
 		if(M.s_active == src)
 			close(M)
