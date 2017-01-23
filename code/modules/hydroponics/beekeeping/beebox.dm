@@ -206,14 +206,14 @@
 				if(B.isqueen)
 					continue
 				if(B.loc == src)
-					B.loc = get_turf(src)
+					B.forceMove(get_turf(src))
 				B.target = user
 				bees = TRUE
 			if(bees)
 				visible_message("<span class='danger'>[user] disturbs the bees!</span>")
 		else
-			var/option = alert(user, "What Action do you wish to perform?","Apiary","Remove a Honey Frame","Remove the Queen Bee")
-			if(!Adjacent(user))
+			var/option = input(user, "What Action do you wish to perform?", "Apiary") as null|anything in list("Remove a Honey Frame","Remove the Queen Bee")
+			if(!Adjacent(user) || !option)
 				return
 			switch(option)
 				if("Remove a Honey Frame")
@@ -224,7 +224,7 @@
 					var/obj/item/honey_frame/HF = pick_n_take(honey_frames)
 					if(HF)
 						if(!user.put_in_active_hand(HF))
-							HF.loc = get_turf(src)
+							HF.forceMove(get_turf(src))
 						visible_message("<span class='notice'>[user] removes a frame from the apiary.</span>")
 
 						var/amtH = HF.honeycomb_capacity
@@ -232,7 +232,7 @@
 						while(honeycombs.len && amtH) //let's pretend you always grab the frame with the most honeycomb on it
 							var/obj/item/weapon/reagent_containers/honeycomb/HC = pick_n_take(honeycombs)
 							if(HC)
-								HC.loc = get_turf(user)
+								HC.forceMove(get_turf(src))
 								amtH--
 								fallen++
 						if(fallen)
@@ -244,11 +244,11 @@
 						to_chat(user, "<span class='warning'>There is no queen bee to remove!</span>")
 						return
 					var/obj/item/queen_bee/QB = new()
-					queen_bee.loc = QB
+					queen_bee.forceMove(QB)
 					bees -= queen_bee
 					QB.queen = queen_bee
 					QB.name = queen_bee.name
 					if(!user.put_in_active_hand(QB))
-						QB.loc = get_turf(src)
+						QB.forceMove(get_turf(src))
 					visible_message("<span class='notice'>[user] removes the queen from the apiary.</span>")
 					queen_bee = null

@@ -77,7 +77,7 @@
 	if(S.has_reagent("blood", 15))
 		production = Clamp(production + rand(15, -5),1,10)
 
-	if(S.has_reagent("amatoxin", 5))
+	if(S.has_reagent("amanitin", 5))
 		production = Clamp(production + rand(5, -15),1,10)
 
 	if(S.has_reagent("plasma", 5))

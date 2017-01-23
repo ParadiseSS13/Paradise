@@ -64,7 +64,7 @@
 	product = /obj/item/weapon/reagent_containers/food/snacks/grown/banana/mime
 	growthstages = 4
 	mutatelist = list()
-	reagents_add = list("nothing" = 0.1, "mutetoxin" = 0.1, "nutriment" = 0.02)
+	reagents_add = list("nothing" = 0.1, "capulettium_plus" = 0.1, "nutriment" = 0.02)
 	rarity = 15
 
 /obj/item/weapon/reagent_containers/food/snacks/grown/banana/mime

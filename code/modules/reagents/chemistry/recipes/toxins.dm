@@ -101,6 +101,14 @@
 	result_amount = 3
 	mix_message = "The mixture gives off a harsh odor"
 
+/datum/chemical_reaction/pestkiller // To-Do make this more realistic
+	name = "Pest Killer"
+	id = "pestkiller"
+	result = "pestkiller"
+	required_reagents = list("toxin" = 1, "ethanol" = 4)
+	result_amount = 5
+	mix_message = "The mixture gives off a harsh odor"
+
 /datum/chemical_reaction/capulettium
 	name = "capulettium"
 	id = "capulettium"

@@ -944,6 +944,26 @@
 		D.adjustHealth(100)
 		..()
 
+/datum/reagent/pestkiller // To-Do; make this more realistic.
+	name = "Pest Killer"
+	id = "pestkiller"
+	description = "A harmful toxic mixture to kill pests. Do not ingest!"
+	color = "#4B004B" // rgb: 75, 0, 75
+
+/datum/reagent/pestkiller/on_mob_life(mob/living/M)
+	M.adjustToxLoss(1)
+	..()
+
+/datum/reagent/pestkiller/reaction_mob(mob/living/M, method=TOUCH, volume)
+	if(iscarbon(M))
+		var/mob/living/carbon/C = M
+		if(!C.wear_mask) // If not wearing a mask
+			C.adjustToxLoss(2)
+		if(ishuman(M))
+			var/mob/living/carbon/human/H = M
+			if(H.get_species() == "Kidan") //RIP
+				H.adjustToxLoss(20)
+
 /datum/reagent/capulettium
 	name = "Capulettium"
 	id = "capulettium"
