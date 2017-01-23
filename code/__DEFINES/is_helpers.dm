@@ -4,3 +4,5 @@
 
 #define isradio(A) istype(A, /obj/item/device/radio)
 #define ispill(A) istype(A, /obj/item/weapon/reagent_containers/food/pill)
+
+#define isspaceturf(A) (istype(A, /turf/space))

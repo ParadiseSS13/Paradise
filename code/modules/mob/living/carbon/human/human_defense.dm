@@ -73,6 +73,7 @@ emp_act
 	for(var/obj/item/organ/external/organ in organs)
 		armorval += getarmor_organ(organ, type)
 		organnum++
+
 	return (armorval/max(organnum, 1))
 
 
@@ -87,6 +88,10 @@ emp_act
 			var/obj/item/clothing/C = bp
 			if(C.body_parts_covered & def_zone.body_part)
 				protection += C.armor[type]
+				
+	if(species)
+		protection += species.armor			
+				
 	return protection
 
 //this proc returns the Siemens coefficient of electrical resistivity for a particular external organ.

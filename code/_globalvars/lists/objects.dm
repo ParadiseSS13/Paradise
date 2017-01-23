@@ -35,3 +35,5 @@ var/global/list/pinpointer_list = list()			//list of all pinpointers. Used to ch
 var/global/list/abductor_equipment = list()			//list of all abductor equipment
 var/global/list/global_intercoms = list()			//list of all intercomms, across all z-levels
 var/global/list/global_radios = list()				//list of all radios, across all z-levels
+
+var/global/list/meteor_list = list()				// List of all meteors
