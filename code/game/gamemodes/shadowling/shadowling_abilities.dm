@@ -1,4 +1,4 @@
-#define EMPOWERED_THRALL_LIMIT 10
+#define EMPOWERED_THRALL_LIMIT 5
 
 /obj/effect/proc_holder/spell/proc/shadowling_check(var/mob/living/carbon/human/H)
 	if(!H || !istype(H)) return
@@ -639,12 +639,11 @@
 				sleep(20)
 				thrallToRevive.visible_message("<span class='warning'>[thrallToRevive] slowly rises, no longer recognizable as human.</span>", \
 											   "<span class='shadowling'><b>You feel new power flow into you. You have been gifted by your masters. You now closely resemble them. You are empowered in \
-											    darkness but wither slowly in light. In addition, you now have glare, veil, and true shadow walk.</b></span>")
+											    darkness but wither slowly in light. In addition, you now have glare and true shadow walk.</b></span>")
 				thrallToRevive.set_species("Lesser Shadowling")
 				thrallToRevive.mind.RemoveSpell(/obj/effect/proc_holder/spell/targeted/lesser_shadow_walk)
 				thrallToRevive.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/glare(null))
 				thrallToRevive.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shadow_walk(null))
-				thrallToRevive.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/veil(null))
 			if("Revive")
 				if(!is_thrall(thrallToRevive))
 					to_chat(usr, "<span class='warning'>[thrallToRevive] is not a thrall.</span>")
