@@ -117,5 +117,5 @@
 /obj/item/weapon/grown/bananapeel/specialpeel/Crossed(AM)
 	if(iscarbon(AM))
 		var/mob/living/carbon/carbon = AM
-		if(carbon.slip(2, 2, src, FALSE))
+		if(carbon.slip("[src]", 2, 2))
 			qdel(src)

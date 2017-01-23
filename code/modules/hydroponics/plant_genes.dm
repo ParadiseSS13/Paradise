@@ -219,7 +219,7 @@
 		var/stun = min(stun_len, 7)
 		var/weaken = min(stun_len, 7)
 
-		if(M.slip(stun, weaken, G))
+		if(M.slip("[G]", stun, weaken))
 			for(var/datum/plant_gene/trait/T in seed.genes)
 				T.on_slip(G, M)
 
@@ -386,10 +386,10 @@
 /datum/plant_gene/trait/smoke/on_squash(obj/item/weapon/reagent_containers/food/snacks/grown/G, atom/target)
 	var/datum/effect/system/chem_smoke_spread/S = new
 	var/splat_location = get_turf(target)
-	var/smoke_amount = round(sqrt(G.seed.potency * 0.1), 1) //FOX CHANGE THIS FORMULA FOR PARA.
+	var/smoke_amount = round(sqrt(G.seed.potency * 0.1), 1)
 	S.attach(splat_location)
-	S.set_up(G.reagents, smoke_amount, splat_location, 0)
-	S.start()
+	S.set_up(G.reagents, 2, 0, splat_location)
+	S.start(smoke_amount)
 	G.reagents.clear_reagents()
 
 /datum/plant_gene/trait/plant_type // Parent type

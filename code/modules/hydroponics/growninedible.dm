@@ -59,3 +59,18 @@
 		if(seed)
 			for(var/datum/plant_gene/trait/T in seed.genes)
 				T.on_throw_impact(src, hit_atom)
+
+
+//For if You want to spawn something that is a non-grown and alter it stats
+
+/obj/item/weapon/grown/holder_spawner
+	var/obj/item/spawned_thing = null
+
+/obj/item/weapon/grown/holder_spawner/proc/alter_stats(obj/item/I)
+	return
+
+/obj/item/weapon/grown/holder_spawner/New()
+	..()
+	new spawned_thing(loc)
+	alter_stats(spawned_thing)
+	qdel(src)

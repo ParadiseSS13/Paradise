@@ -261,7 +261,7 @@
 		var/pranksNearby = 100
 		for(var/turf/simulated/T in orange(1, C))
 			for(var/obj/item/A in T)
-				if(istype(A,/obj/item/weapon/soap) || istype(A,/obj/item/weapon/reagent_containers/food/snacks/grown/banana) || istype(A,/obj/item/weapon/bananapeel))
+				if(istype(A,/obj/item/weapon/soap) || istype(A,/obj/item/weapon/reagent_containers/food/snacks/grown/banana) || istype(A,/obj/item/weapon/grown/bananapeel))
 					pranksNearby--
 			if(T.wet)
 				pranksNearby -= 10
@@ -287,7 +287,7 @@
 					if(istype(A,/obj/item/weapon/reagent_containers/food/snacks/grown/banana))
 						var/obj/item/weapon/reagent_containers/food/snacks/B = A
 						B.attack(src, src)
-					if(istype(A,/obj/item/weapon/bananapeel))
+					if(istype(A,/obj/item/weapon/grown/bananapeel))
 						npcDrop(A)
 						hasPranked = 1
 			if(!hasPranked)
