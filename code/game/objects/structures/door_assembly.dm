@@ -111,8 +111,6 @@ obj/structure/door_assembly/multi_tile
 	icon = 'icons/obj/doors/door_assembly2x1.dmi'
 	dir = EAST
 	var/width = 1
-
-
 /*Temporary until we get sprites.
 	glass_type = "/multi_tile/glass"
 	airlock_type = "/multi_tile/maint"
@@ -120,6 +118,13 @@ obj/structure/door_assembly/multi_tile
 	base_icon_state = "g" //Remember to delete this line when reverting "glass" var to 1.
 	airlock_type = "/multi_tile/glass"
 	glass = -1 //To prevent bugs in deconstruction process.
+
+
+/obj/structure/door_assembly/door_assembly_cult
+	base_name = "cult airlock assembly"
+	icon = 'icons/obj/doors/Doorcult.dmi'
+	base_icon_state ="construction"
+	airlock_type = "/cult"
 
 obj/structure/door_assembly/multi_tile/New()
 	if(dir in list(EAST, WEST))

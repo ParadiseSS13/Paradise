@@ -244,7 +244,7 @@
 	if(!job.is_position_available()) return 0
 	if(jobban_isbanned(src,rank))	return 0
 	if(!is_job_whitelisted(src, rank))	 return 0
-	if(!job.player_old_enough(src.client))	return 0
+	if(!job.player_old_enough(client))	return 0
 	if(job.admin_only && !(check_rights(R_EVENT, 0))) return 0
 	if(!job.prisonlist_job && !check_prisonlist(ckey(key)) && !(check_rights(R_MENTOR, 0))) return 0
 

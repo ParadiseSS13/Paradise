@@ -13,7 +13,7 @@
 	var/safety = 1
 
 /obj/machinery/computer/robotics/attack_ai(var/mob/user as mob)
-	return src.attack_hand(user)
+	return attack_hand(user)
 
 /obj/machinery/computer/robotics/attack_hand(var/mob/user as mob)
 	if(..())
@@ -28,7 +28,7 @@
 			to_chat(user, "<span class='warning'>You have been locked out from this console!</span>")
 
 /obj/machinery/computer/robotics/proc/is_authenticated(var/mob/user as mob)
-	if(isobserver(user) && check_rights(R_ADMIN, 0, user))
+	if(user.can_admin_interact())
 		return 1
 	else if(allowed(user))
 		return 1

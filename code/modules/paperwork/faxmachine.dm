@@ -109,16 +109,18 @@ var/list/alldepartments = list()
 
 	if(href_list["paper"])
 		if(copyitem)
-			copyitem.loc = usr.loc
-			usr.put_in_hands(copyitem)
-			to_chat(usr, "<span class='notice'>You take \the [copyitem] out of \the [src].</span>")
+			copyitem.forceMove(get_turf(src))
+			if(ishuman(usr))
+				if(!usr.get_active_hand())
+					usr.put_in_hands(copyitem)
+			to_chat(usr, "<span class='notice'>You eject \the [copyitem] from \the [src].</span>")
 			copyitem = null
 		else
 			var/obj/item/I = usr.get_active_hand()
 			if(istype(I, /obj/item/weapon/paper) || istype(I, /obj/item/weapon/photo) || istype(I, /obj/item/weapon/paper_bundle))
 				usr.drop_item()
 				copyitem = I
-				I.loc = src
+				I.forceMove(src)
 				to_chat(usr, "<span class='notice'>You insert \the [I] into \the [src].</span>")
 				flick(insert_anim, src)
 
@@ -163,24 +165,24 @@ var/list/alldepartments = list()
 /obj/machinery/photocopier/faxmachine/proc/scan(var/obj/item/weapon/card/id/card = null)
 	if(scan) // Card is in machine
 		if(ishuman(usr))
-			scan.loc = usr.loc
+			scan.forceMove(get_turf(usr))
 			if(!usr.get_active_hand())
 				usr.put_in_hands(scan)
 			scan = null
 		else
-			scan.loc = src.loc
+			scan.forceMove(get_turf(src))
 			scan = null
 	else
 		if(!card)
 			var/obj/item/I = usr.get_active_hand()
 			if(istype(I, /obj/item/weapon/card/id))
 				usr.drop_item()
-				I.loc = src
+				I.forceMove(src)
 				scan = I
 		else
 			if(istype(card))
 				usr.drop_item()
-				card.loc = src
+				card.forceMove(src)
 				scan = card
 	nanomanager.update_uis(src)
 

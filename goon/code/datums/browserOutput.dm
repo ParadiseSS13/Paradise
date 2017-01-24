@@ -240,7 +240,7 @@ var/to_chat_src
 			return
 
 		message = replacetext(message, "\n", "<br>")
-
+		message = replacetext(message, "<iframe", "wew lad some shitcoder here hello fellow guests")
 		message = macro2html(message)
 
 		if(findtext(message, "\improper"))

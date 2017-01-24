@@ -703,6 +703,7 @@
 	if(href_list)
 		data["remote_connection"] = href_list["remote_connection"]
 		data["remote_access"] = href_list["remote_access"]
+
 	data["name"] = sanitize_local(name)
 	data["air"] = ui_air_status()
 	data["alarmActivated"] = alarmActivated || danger_level == 2
@@ -827,7 +828,7 @@
 		return !locked
 
 /obj/machinery/alarm/proc/is_locked(mob/user as mob, href_list)
-	if(isobserver(user) && check_rights(R_ADMIN, 0, user))
+	if(user.can_admin_interact())
 		return 0
 	else if(is_auth_rcon(href_list))
 		return 0
