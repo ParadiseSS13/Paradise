@@ -1,7 +1,7 @@
 /proc/get_rune_cult(word)
 	var/animated
 
-	if(word && !(ticker.mode.cultdat.theme == "fire"))
+	if(word && !(ticker.mode.cultdat.theme == "fire") && ticker.mode)
 		animated = 1
 	else
 		animated = 0
