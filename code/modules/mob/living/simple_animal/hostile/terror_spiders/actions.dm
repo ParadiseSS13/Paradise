@@ -141,8 +141,8 @@
 	if(Proj.damage_type != BRUTE && Proj.damage_type != BURN)
 		visible_message("<span class='danger'>[src] is undamaged by [Proj]!</span>")
 		// Webs don't care about disablers, tasers, etc. Or toxin damage. They're organic, but not alive.
-	else
-		..()
+		return
+	..()
 
 // ---------- WRAP
 

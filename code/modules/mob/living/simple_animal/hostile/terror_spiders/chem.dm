@@ -45,6 +45,7 @@
 
 /datum/reagent/terror_queen_toxin/on_mob_life(mob/living/M)
 	// make them hallucinate a lot, like a changeling sting
-	M.hallucination = min(400, M.hallucination+50)
+	if(M.hallucination < 400)
+		M.Hallucinate(50)
 
 
