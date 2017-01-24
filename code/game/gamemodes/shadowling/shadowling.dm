@@ -98,9 +98,8 @@ Made by Xhuis
 		shadow.restricted_roles = restricted_jobs
 		shadowlings--
 
-	var/num_players = num_players()
-	required_thralls = round(num_players / 3)
-	required_thralls = Clamp(required_thralls, 15, 25)
+	var/thrall_scaling = round(num_players() / 3)
+	required_thralls = Clamp(thrall_scaling, 15, 25)
 
 	..()
 	return 1
