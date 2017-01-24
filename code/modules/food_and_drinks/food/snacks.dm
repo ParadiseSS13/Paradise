@@ -2484,3 +2484,26 @@
 	filling_color = "#A66829"
 	junkiness = 20
 	list_reagents = list("nutriment" = 2, "sugar" = 4)
+
+/obj/item/weapon/reagent_containers/food/snacks/yakiimo
+	name = "yaki imo"
+	desc = "Made with roasted sweet potatoes!"
+	icon_state = "yakiimo"
+	trash = /obj/item/trash/plate
+	list_reagents = list("nutriment" = 5, "vitamin" = 4)
+	filling_color = "#8B1105"
+
+/obj/item/weapon/reagent_containers/food/snacks/roastparsnip
+	name = "roast parsnip"
+	desc = "Sweet and crunchy."
+	icon_state = "roastparsnip"
+	trash = /obj/item/trash/plate
+	list_reagents = list("nutriment" = 3, "vitamin" = 4)
+	filling_color = "#FF5500"
+
+/obj/item/weapon/reagent_containers/food/snacks/tatortot
+	name = "tator tot"
+	desc = "A large fried potato nugget that may or may not try to valid you."
+	icon_state = "tatortot"
+	list_reagents = list("nutriment" = 4)
+	filling_color = "FFD700"

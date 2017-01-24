@@ -315,6 +315,26 @@
 	item_state = "cigpacket"
 	cigarette_type  = /obj/item/clothing/mask/cigarette/random
 
+/obj/item/weapon/storage/fancy/rollingpapers
+	name = "rolling paper pack"
+	desc = "A pack of NanoTrasen brand rolling papers."
+	w_class = 1
+	icon = 'icons/obj/cigarettes.dmi'
+	icon_state = "cig_paper_pack"
+	storage_slots = 10
+	icon_type = "rolling paper"
+	can_hold = list("/obj/item/weapon/rollingpaper")
+
+/obj/item/weapon/storage/fancy/rollingpapers/New()
+	..()
+	for(var/i in 1 to storage_slots)
+		new /obj/item/weapon/rollingpaper(src)
+
+/obj/item/weapon/storage/fancy/rollingpapers/update_icon()
+	overlays.Cut()
+	if(!contents.len)
+		overlays += "[icon_state]_empty"
+
 /*
  * Vial Box
  */

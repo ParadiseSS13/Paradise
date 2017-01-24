@@ -401,6 +401,13 @@
 	reagent_state = LIQUID
 	color = "#801E28" // rgb: 128, 30, 40
 
+/datum/reagent/consumable/bluecherryjelly
+	name = "Blue Cherry Jelly"
+	id = "bluecherryjelly"
+	description = "Blue and tastier kind of cherry jelly."
+	reagent_state = LIQUID
+	color = "#00F0FF"
+
 /datum/reagent/consumable/egg
 	name = "Egg"
 	id = "egg"

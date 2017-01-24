@@ -38,7 +38,7 @@
 			/obj/item/weapon/reagent_containers/food/snacks/grown/oat = list("flour" = -5),
 			/obj/item/weapon/reagent_containers/food/snacks/grown/cherries = list("cherryjelly" = 0),
 			/obj/item/weapon/reagent_containers/food/snacks/grown/bluecherries = list("bluecherryjelly" = 0),
-			/obj/item/weapon/reagent_containers/food/snacks/egg = list("eggyolk" = -5),
+			/obj/item/weapon/reagent_containers/food/snacks/egg = list("egg" = -5),
 
 			//Grinder stuff, but only if dry
 			/obj/item/weapon/reagent_containers/food/snacks/grown/coffee/robusta = list("coffeepowder" = 0, "morphine" = 0),

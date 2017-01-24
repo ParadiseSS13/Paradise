@@ -118,6 +118,8 @@
 	origin_tech = "materials=3;combat=2"
 	attack_verb = list("chopped", "sliced", "cut", "reaped")
 	hitsound = 'sound/weapons/bladeslice.ogg'
+	sharp = 1
+	edge = 1
 
 /obj/item/weapon/scythe/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is beheading \himself with the [src.name]! It looks like \he's trying to commit suicide.</span>")
