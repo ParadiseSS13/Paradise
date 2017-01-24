@@ -172,24 +172,26 @@
 			setMenuState(usr,COMM_SCREEN_MAIN)
 
 		if("messagelist")
-			src.currmsg = 0
+			currmsg = 0
 			if(href_list["msgid"])
 				setCurrentMessage(usr, text2num(href_list["msgid"]))
 			setMenuState(usr,COMM_SCREEN_MESSAGES)
 
 		if("delmessage")
 			if(href_list["msgid"])
-				src.currmsg = text2num(href_list["msgid"])
+				currmsg = text2num(href_list["msgid"])
 			var/response = alert("Are you sure you wish to delete this message?", "Confirm", "Yes", "No")
 			if(response == "Yes")
-				if(src.currmsg)
+				if(currmsg)
 					var/id = getCurrentMessage()
-					var/title = src.messagetitle[id]
-					var/text  = src.messagetext[id]
-					src.messagetitle.Remove(title)
-					src.messagetext.Remove(text)
-					if(currmsg==id) currmsg=0
-					if(aicurrmsg==id) aicurrmsg=0
+					var/title = messagetitle[id]
+					var/text  = messagetext[id]
+					messagetitle.Remove(title)
+					messagetext.Remove(text)
+					if(currmsg == id) 
+						currmsg = 0
+					if(aicurrmsg == id) 
+						aicurrmsg = 0
 			setMenuState(usr,COMM_SCREEN_MESSAGES)
 
 		if("status")
@@ -336,7 +338,7 @@
 
 /obj/machinery/computer/communications/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/data[0]
-	data["is_ai"]         = isAI(user)||isrobot(user)
+	data["is_ai"]         = isAI(user) || isrobot(user)
 	data["menu_state"]    = data["is_ai"] ? ai_menu_state : menu_state
 	data["emagged"]       = emagged
 	data["authenticated"] = is_authenticated(user, 0)
@@ -368,16 +370,15 @@
 		list("id" = SEC_LEVEL_BLUE,  "name" = "Blue"),
 		//SEC_LEVEL_RED = list("name"="Red"),
 	)
-
-	var/msg_data[0]
-	for(var/i = 1; i <= src.messagetext.len; i++)
-		var/cur_msg[0]
-		cur_msg["title"] = messagetitle[i]
-		cur_msg["body"]  = messagetext[i]
-		msg_data        += list(cur_msg)
+	
+	var/list/msg_data = list()
+	for(var/i = 1; i <= messagetext.len; i++)
+		msg_data.Add(list(list("title" = messagetitle[i], "body" = messagetext[i], "id" = i)))
 
 	data["messages"]        = msg_data
-	data["current_message"] = data["is_ai"] ? aicurrmsg : currmsg
+	if((data["is_ai"] && aicurrmsg) || (!data["is_ai"] && currmsg))
+		data["current_message"] = data["is_ai"] ? messagetext[aicurrmsg] : messagetext[currmsg]
+		data["current_message_title"] = data["is_ai"] ? messagetitle[aicurrmsg] : messagetitle[currmsg]
 
 	data["lastCallLoc"]     = shuttle_master.emergencyLastCallLoc ? format_text(shuttle_master.emergencyLastCallLoc.name) : null
 
@@ -403,9 +404,9 @@
 
 /obj/machinery/computer/communications/proc/setCurrentMessage(var/mob/user,var/value)
 	if(isAI(user) || isrobot(user))
-		aicurrmsg=value
+		aicurrmsg = value
 	else
-		currmsg=value
+		currmsg = value
 
 /obj/machinery/computer/communications/proc/getCurrentMessage(var/mob/user)
 	if(isAI(user) || isrobot(user))

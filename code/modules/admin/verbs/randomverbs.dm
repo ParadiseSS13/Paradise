@@ -899,7 +899,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		
 /client/proc/modify_goals()
 	set category = "Event"
-	set name = "Modify station goals"
+	set name = "Modify Station Goals"
 
 	if(!check_rights(R_EVENT))
 		return
@@ -909,6 +909,6 @@ Traitors and the like can also be revived with the previous role mostly intact.
 /datum/admins/proc/modify_goals()
 	var/dat = ""
 	for(var/datum/station_goal/S in ticker.mode.station_goals)
-		dat += "[S.name] - <a href='?src=\ref[S];announce=1'>Announce</a> | <a href='?src=\ref[S];remove=1'>Remove</a><br>"
-	dat += "<br><a href='?src=\ref[src];add_station_goal=1'>Add New Goal</a>"
+		dat += "[S.name] - <a href='?src=[S.UID()];announce=1'>Announce</a> | <a href='?src=[S.UID()];remove=1'>Remove</a><br>"
+	dat += "<br><a href='?src=[UID()];add_station_goal=1'>Add New Goal</a>"
 	usr << browse(dat, "window=goals;size=400x400")

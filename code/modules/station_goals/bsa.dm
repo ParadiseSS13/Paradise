@@ -6,11 +6,12 @@
 	name = "Bluespace Artillery"
 
 /datum/station_goal/bluespace_cannon/get_report()
-	return {"Our military presence is inadequate in your sector.
-	 We need you to construct BSA-[rand(1,99)] Artillery position aboard your station.
-
-	 Base parts should be available for shipping by your cargo shuttle.
-	 -Nanotrasen Naval Command"}
+	return {"<b>Bluespace Artillery position construction</b><br>
+	Our military presence is inadequate in your sector. We need you to construct BSA-[rand(1,99)] Artillery position aboard your station.
+	<br><br>
+	Its base parts should be available for shipping by your cargo shuttle.
+	<br>
+	-Nanotrasen Naval Command"}
 
 /datum/station_goal/bluespace_cannon/on_report()
 	//Unlock BSA parts
@@ -21,7 +22,7 @@
 	if(..())
 		return TRUE
 	var/obj/machinery/bsa/full/B = locate()
-	if(B && !B.stat && B.z == STATION_LEVEL)
+	if(B && !B.stat && is_station_contact(B.z))
 		return TRUE
 	return FALSE
 
@@ -248,9 +249,11 @@
 	icon_keyboard = "accelerator_key"
 	icon_state = "computer-wires"
 	var/area_aim = FALSE //should also show areas for targeting
+	var/target_all_areas = FALSE //allows all areas (including admin areas) to be targetted
 	
 /obj/machinery/computer/bsa_control/admin
 	area_aim = TRUE
+	target_all_areas = TRUE
 	
 /obj/machinery/computer/bsa_control/attack_hand(mob/user)
 	if(..())
@@ -294,7 +297,7 @@
 
 	var/list/options = gps_locators
 	if(area_aim)
-		options += ghostteleportlocs
+		options += target_all_areas ? ghostteleportlocs : teleportlocs
 	var/V = input(user,"Select target", "Select target",null) in options|null
 	target = options[V]
 

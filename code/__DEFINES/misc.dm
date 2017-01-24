@@ -300,4 +300,4 @@
 #define OOC_COOLDOWN 5
 
 // The number of station goals generated each round.
-#define STATION_GOAL_BUDGET  1
+#define STATION_GOAL_BUDGET 3

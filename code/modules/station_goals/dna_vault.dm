@@ -24,21 +24,22 @@
 
 /datum/station_goal/dna_vault/proc/non_standard_plants_count()
 	. = 0
-	for(var/T in subtypesof(/datum/seed)) //put a cache if it's used anywhere else
-		var/datum/seed/S = T
+	for(var/T in plant_controller.seeds)
+		var/datum/seed/S = plant_controller.seeds[T]
 		if(S.get_trait(TRAIT_RARITY) > 0)
 			.++
 
 /datum/station_goal/dna_vault/get_report()
-	return {"Our long term prediction systems say there's 99% chance of system-wide cataclysm in near future.
-	 We need you to construct DNA Vault aboard your station.
-
-	 DNA Vault needs to contain samples of:
-	 [animal_count] unique animal data
-	 [plant_count] unique non-standard plant data
-	 [human_count] unique sapient humanoid DNA data
-
-	 Base vault parts should be availible for shipping by your cargo shuttle."}
+	return {"<b>DNA Vault construction</b><br>
+	Our long term prediction systems say there's 99% chance of system-wide cataclysm in near future. As such, we need you to construct a DNA Vault aboard your station.
+	<br><br>
+	The DNA Vault needs to contain samples of:
+	<ul style='margin-top: 10px; margin-bottom: 10px;'>
+	 <li>[animal_count] unique animal data.</li>
+	 <li>[plant_count] unique non-standard plant data.</li>
+	 <li>[human_count] unique sapient humanoid DNA data.</li>
+	</ul>
+	The base vault parts should be available for shipping by your cargo shuttle."}
 
 /datum/station_goal/dna_vault/on_report()
 	var/datum/supply_packs/P = shuttle_master.supply_packs["[/datum/supply_packs/misc/dna_vault]"]
@@ -51,7 +52,7 @@
 	if(..())
 		return TRUE
 	for(var/obj/machinery/dna_vault/V in machines)
-		if(V.animals.len >= animal_count && V.plants.len >= plant_count && V.dna.len >= human_count && V.z == STATION_LEVEL)
+		if(V.animals.len >= animal_count && V.plants.len >= plant_count && V.dna.len >= human_count && is_station_contact(V.z))
 			return TRUE
 	return FALSE
 
@@ -250,8 +251,9 @@ var/list/non_simple_animals = typecacheof(list(/mob/living/carbon/human/monkey,/
 /obj/machinery/dna_vault/proc/upgrade(mob/living/carbon/human/H, upgrade_type)
 	if(!(upgrade_type in power_lottery[H]))
 		return
-	to_chat(H, "<span class='notice'>[src] stabilizes your genes, granting you the ability to have multiple powers.</span>")
-	H.ignore_gene_stability = 1
+	if(!H.ignore_gene_stability)
+		to_chat(H, "<span class='notice'>[src] stabilizes your genes, granting you the ability to have multiple powers.</span>")
+		H.ignore_gene_stability = 1
 	switch(upgrade_type)
 		if(VAULT_SPACEIMMUNE)
 			to_chat(H, "<span class='notice'>You suddenly don't feel the need to breathe anymore. Your body also feels very warm.</span>")

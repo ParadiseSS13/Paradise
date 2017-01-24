@@ -496,12 +496,14 @@ proc/get_nt_opposed()
 		send_station_goals_message()
 	
 /datum/game_mode/proc/send_station_goals_message()
-	var/message_text = "<b><i>[command_name()] Orders</i></b><hr>"
-	message_text += "<b>Special Orders for [station_name()]:</b>"
+	var/message_text = "<div style='text-align:center;'><img src='ntlogo.png'>"
+	message_text += "<h3>[command_name()] Orders</h3></div><hr>"
+	message_text += "<b>Special Orders for [station_name()]:</b><br><br>"
 
 	for(var/datum/station_goal/G in station_goals)
 		G.on_report()
 		message_text += G.get_report()
+		message_text += "<hr>"
 			
 	print_command_report(message_text, "[command_name()] Orders")
 
