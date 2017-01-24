@@ -3031,7 +3031,7 @@
 			if(!newname)
 				return
 			G.name = newname
-			var/description = input("Enter centcom message contents:") as message|null
+			var/description = input("Enter [command_name()] message contents:") as message|null
 			if(!description)
 				return
 			G.report_message = description

@@ -9,19 +9,19 @@
 	return {"Our military presence is inadequate in your sector.
 	 We need you to construct BSA-[rand(1,99)] Artillery position aboard your station.
 
-	 Base parts should be availible for shipping by your cargo shuttle.
+	 Base parts should be available for shipping by your cargo shuttle.
 	 -Nanotrasen Naval Command"}
 
 /datum/station_goal/bluespace_cannon/on_report()
 	//Unlock BSA parts
-	var/datum/supply_packs/misc/bsa/P = shuttle_master.supply_packs[/datum/supply_packs/misc/bsa]
+	var/datum/supply_packs/misc/bsa/P = shuttle_master.supply_packs["[/datum/supply_packs/misc/bsa]"]
 	P.special_enabled = TRUE
 
 /datum/station_goal/bluespace_cannon/check_completion()
 	if(..())
 		return TRUE
 	var/obj/machinery/bsa/full/B = locate()
-	if(B && !B.stat)
+	if(B && !B.stat && B.z == STATION_LEVEL)
 		return TRUE
 	return FALSE
 
@@ -120,12 +120,11 @@
 	else if(front.x < x && back.x > x)
 		return WEST
 
-
 /obj/machinery/bsa/full
 	name = "Bluespace Artillery"
 	desc = "Long range bluespace artillery."
 	icon = 'icons/obj/lavaland/cannon.dmi'
-	icon_state = "orbital_cannon1"
+	icon_state = "cannon_east"
 	var/static/image/top_layer = null
 	var/ex_power = 3
 	var/power_used_per_shot = 2000000 //enough to kil standard apc - todo : make this use wires instead and scale explosion power with it
@@ -134,6 +133,9 @@
 	pixel_x = -192
 	bound_width = 352
 	bound_x = -192
+	
+/obj/machinery/bsa/full/admin
+	power_used_per_shot = 0
 
 /obj/machinery/bsa/full/proc/get_front_turf()
 	switch(dir)
@@ -242,21 +244,18 @@
 	var/target
 	use_power = 0
 	circuit = /obj/item/weapon/circuitboard/computer/bsa_control
-	icon = 'icons/obj/machines/particle_accelerator.dmi'
-	icon_state = "control_boxp"
+	icon_screen = "accelerator"
+	icon_keyboard = "accelerator_key"
+	icon_state = "computer-wires"
 	var/area_aim = FALSE //should also show areas for targeting
+	
+/obj/machinery/computer/bsa_control/admin
+	area_aim = TRUE
 	
 /obj/machinery/computer/bsa_control/attack_hand(mob/user)
 	if(..())
 		return 1
 	ui_interact(user)
-
-/obj/machinery/dna_vault/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
-	if(!ui)
-		ui = new(user, src, ui_key, "dna_vault.tmpl", name, 350, 400)
-		ui.open()
-
 
 /obj/machinery/computer/bsa_control/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
@@ -280,10 +279,10 @@
 	if(href_list["build"])
 		cannon = deploy()
 		. = TRUE
-	if(href_list["fire"])
+	else if(href_list["fire"])
 		fire(usr)
 		. = TRUE
-	if(href_list["recalibrate"])
+	else if(href_list["recalibrate"])
 		calibrate(usr)
 		. = TRUE
 	update_icon()
@@ -295,10 +294,9 @@
 
 	var/list/options = gps_locators
 	if(area_aim)
-		options += teleportlocs
+		options += ghostteleportlocs
 	var/V = input(user,"Select target", "Select target",null) in options|null
 	target = options[V]
-
 
 /obj/machinery/computer/bsa_control/proc/get_target_name()
 	if(istype(target,/area))

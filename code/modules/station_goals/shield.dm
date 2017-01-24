@@ -12,13 +12,12 @@
 			 You can order the satellites and control systems through cargo shuttle.
 			 "}
 
-
 /datum/station_goal/station_shield/on_report()
 	//Unlock
-	var/datum/supply_packs/P = shuttle_master.supply_packs[/datum/supply_packs/misc/shield_sat]
+	var/datum/supply_packs/P = shuttle_master.supply_packs["[/datum/supply_packs/misc/shield_sat]"]
 	P.special_enabled = TRUE
 
-	P = shuttle_master.supply_packs[/datum/supply_packs/misc/shield_sat_control]
+	P = shuttle_master.supply_packs["[/datum/supply_packs/misc/shield_sat_control]"]
 	P.special_enabled = TRUE
 
 /datum/station_goal/station_shield/check_completion()
@@ -33,7 +32,7 @@
 	for(var/obj/machinery/satellite/meteor_shield/A in machines)
 		if(!A.active || (A.z != STATION_LEVEL))
 			continue
-		coverage |= view(A.kill_range,A)
+		coverage |= view(A.kill_range, A)
 	return coverage.len
 
 /obj/item/weapon/circuitboard/machine/computer/sat_control
@@ -45,6 +44,8 @@
 	name = "Satellite control"
 	desc = "Used to control the satellite network."
 	circuit = /obj/item/weapon/circuitboard/machine/computer/sat_control
+	icon_screen = "accelerator"
+	icon_keyboard = "accelerator_key"
 	var/notice
 	
 /obj/machinery/computer/sat_control/attack_hand(mob/user)
@@ -156,7 +157,7 @@
 		if(get_dist(M,src) > kill_range)
 			continue
 		if(!emagged && space_los(M))
-			Beam(get_turf(M),icon_state="sat_beam",time=5,maxdistance=kill_range)
+			Beam(get_turf(M), icon_state="sat_beam", time=5, maxdistance=kill_range)
 			qdel(M)
 
 /obj/machinery/satellite/meteor_shield/toggle(user)

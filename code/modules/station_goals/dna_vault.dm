@@ -3,11 +3,11 @@
 // DNA vault requires x animals ,y plants, z human dna
 // DNA vaults require high tier stock parts and cold
 // After completion each crewmember can receive single upgrade chosen out of 2 for the mob.
-#define VAULT_TOXIN "Toxin Adaptation"
-#define VAULT_NOBREATH "Lung Enhancement"
-#define VAULT_FIREPROOF "Thermal Regulation"
-#define VAULT_STUNTIME "Neural Repathing"
-#define VAULT_ARMOUR "Bone Reinforcement"
+#define VAULT_SPACEIMMUNE "Space Immunity"
+#define VAULT_XRAY "X-Ray Vision"
+#define VAULT_TELEKINESIS "Telekinesis"
+#define VAULT_PSYCHIC "Psychic Powers"
+#define VAULT_SPEED "Speed"
 
 /datum/station_goal/dna_vault
 	name = "DNA Vault"
@@ -41,20 +41,19 @@
 	 Base vault parts should be availible for shipping by your cargo shuttle."}
 
 /datum/station_goal/dna_vault/on_report()
-	var/datum/supply_packs/P = shuttle_master.supply_packs[/datum/supply_packs/misc/dna_vault]
+	var/datum/supply_packs/P = shuttle_master.supply_packs["[/datum/supply_packs/misc/dna_vault]"]
 	P.special_enabled = TRUE
 
-	P = shuttle_master.supply_packs[/datum/supply_packs/misc/dna_probes]
+	P = shuttle_master.supply_packs["[/datum/supply_packs/misc/dna_probes]"]
 	P.special_enabled = TRUE
 
 /datum/station_goal/dna_vault/check_completion()
 	if(..())
 		return TRUE
 	for(var/obj/machinery/dna_vault/V in machines)
-		if(V.animals.len >= animal_count && V.plants.len >= plant_count && V.dna.len >= human_count)
+		if(V.animals.len >= animal_count && V.plants.len >= plant_count && V.dna.len >= human_count && V.z == STATION_LEVEL)
 			return TRUE
 	return FALSE
-
 
 /obj/item/device/dna_probe
 	name = "DNA Sampler"
@@ -93,7 +92,7 @@ var/list/non_simple_animals = typecacheof(list(/mob/living/carbon/human/monkey,/
 		to_chat(user, "<span class='notice'>Plant data added to local storage.<span>")
 
 	//animals
-	if(isanimal(target) || is_type_in_typecache(target,non_simple_animals))
+	if(isanimal(target) || is_type_in_typecache(target, non_simple_animals))
 		if(isanimal(target))
 			var/mob/living/simple_animal/A = target
 			if(!A.healable)//simple approximation of being animal not a robot or similar
@@ -190,7 +189,7 @@ var/list/non_simple_animals = typecacheof(list(/mob/living/carbon/human/monkey,/
 	if(user in power_lottery)
 		return
 	var/list/L = list()
-	var/list/possible_powers = list(VAULT_TOXIN,VAULT_NOBREATH,VAULT_FIREPROOF,VAULT_STUNTIME,VAULT_ARMOUR)
+	var/list/possible_powers = list(VAULT_SPACEIMMUNE,VAULT_XRAY,VAULT_TELEKINESIS,VAULT_PSYCHIC,VAULT_SPEED)
 	L += pick_n_take(possible_powers)
 	L += pick_n_take(possible_powers)
 	power_lottery[user] = L
@@ -248,29 +247,35 @@ var/list/non_simple_animals = typecacheof(list(/mob/living/carbon/human/monkey,/
 	else
 		return ..()
 
-/obj/machinery/dna_vault/proc/upgrade(mob/living/carbon/human/H,upgrade_type)
+/obj/machinery/dna_vault/proc/upgrade(mob/living/carbon/human/H, upgrade_type)
 	if(!(upgrade_type in power_lottery[H]))
 		return
-	var/datum/species/S = H.dna.species
+	to_chat(H, "<span class='notice'>[src] stabilizes your genes, granting you the ability to have multiple powers.</span>")
+	H.ignore_gene_stability = 1
 	switch(upgrade_type)
-		if(VAULT_TOXIN)
-			to_chat(H, "<span class='notice'>You feel resistant to airborne toxins.</span>")
-			S.tox_mod = 0
-			S.virus_immune = 1
-		if(VAULT_NOBREATH)
-			to_chat(H, "<span class='notice'>Your lungs feel great.</span>")
-			S.flags |= NO_BREATHE 
-		if(VAULT_FIREPROOF)
-			to_chat(H, "<span class='notice'>Your feel fireproof.</span>")
-			S.burn_mod = 0.5
-			S.heat_level_1 = 999999999
-			S.heat_level_2 = 999999999
-			S.heat_level_3 = 999999999
-			S.heat_level_3_breathe = 999999999
-		if(VAULT_STUNTIME)
-			to_chat(H, "<span class='notice'>Nothing can keep you down for long.</span>")
-			S.stun_mod = 0.5
-		if(VAULT_ARMOUR)
-			to_chat(H, "<span class='notice'>Your feel tough.</span>")
-			S.armor = 30
+		if(VAULT_SPACEIMMUNE)
+			to_chat(H, "<span class='notice'>You suddenly don't feel the need to breathe anymore. Your body also feels very warm.</span>")
+			grant_power(H, NOBREATHBLOCK, NO_BREATH)
+			grant_power(H, COLDBLOCK, RESIST_COLD)
+		if(VAULT_XRAY)
+			to_chat(H, "<span class='notice'>You can suddenly see through walls.</span>")
+			grant_power(H, XRAYBLOCK, XRAY)
+		if(VAULT_TELEKINESIS)
+			to_chat(H, "<span class='notice'>You gain the ability to control objects from a distance.</span>")
+			grant_power(H, TELEBLOCK, TK)
+		if(VAULT_PSYCHIC)
+			to_chat(H, "<span class='notice'>Your mind expands, giving you psychic powers.</span>")
+			grant_power(H, REMOTETALKBLOCK, REMOTE_TALK)
+			grant_power(H, REMOTEVIEWBLOCK, REMOTE_VIEW)
+			grant_power(H, EMPATHBLOCK, EMPATH)
+			grant_power(H, PSYRESISTBLOCK, PSY_RESIST)
+		if(VAULT_SPEED)
+			to_chat(H, "<span class='notice'>You feel very fast and agile.</span>")
+			grant_power(H, JUMPBLOCK, JUMPY)
+			grant_power(H, INCREASERUNBLOCK, RUN)
 	power_lottery[H] = list()
+	
+/obj/machinery/dna_vault/proc/grant_power(mob/living/carbon/human/H, block, power)
+	H.dna.SetSEState(block, 1, 1)
+	H.mutations |= power
+	genemutcheck(H, block, null, MUTCHK_FORCED)

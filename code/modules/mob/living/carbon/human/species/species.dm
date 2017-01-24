@@ -75,7 +75,6 @@
 	var/clone_mod = 1	 // Clone damage reduction/amplification
 	var/brain_mod = 1    // Brain damage damage reduction/amplification
 	var/stun_mod = 1	 // If a species is more/less impacated by stuns/weakens/paralysis
-	var/armor = 0		// overall defense for the race... or less defense, if it's negative.
 
 	var/total_health = 100
 	var/punchdamagelow = 0       //lowest possible punch damage
