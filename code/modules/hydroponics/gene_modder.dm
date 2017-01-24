@@ -31,16 +31,6 @@
 	component_parts += new /obj/item/weapon/stock_parts/manipulator(src)
 	RefreshParts()
 
-/obj/item/weapon/circuitboard/plantgenes
-	name = "Plant DNA Manipulator (Machine Board)"
-	build_path = /obj/machinery/plantgenes
-	origin_tech = "programming=3;biotech=3"
-	req_components = list(
-							/obj/item/weapon/stock_parts/manipulator = 1,
-							/obj/item/weapon/stock_parts/micro_laser = 1,
-							/obj/item/weapon/stock_parts/console_screen = 1,
-							/obj/item/weapon/stock_parts/scanning_module = 1)
-
 /obj/machinery/plantgenes/RefreshParts()
 	rating = 0
 	for(var/I in component_parts)
