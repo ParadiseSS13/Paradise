@@ -12,7 +12,11 @@
 	return
 
 /obj/effect/rune/proc/check_icon()
-	icon = get_rune_cult(invocation)
+	if(!ticker.mode)//work around for maps with runes and cultdat is not loaded all the way
+		var/bits = make_bit_triplet()
+		icon = get_rune(bits)
+	else
+		icon = get_rune_cult(invocation)
 
 /obj/item/weapon/tome
 	name = "arcane tome"
