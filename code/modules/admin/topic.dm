@@ -2280,14 +2280,6 @@
 					qdel(O)
 				for(var/obj/structure/grille/O in world)
 					qdel(O)
-/*					for(var/obj/machinery/vehicle/pod/O in world)
-					for(var/mob/M in src)
-						M.loc = src.loc
-						if(M.client)
-							M.client.perspective = MOB_PERSPECTIVE
-							M.client.eye = M
-					qdel(O)
-				ok = 1*/
 			if("monkey")
 				feedback_inc("admin_secrets_fun_used",1)
 				feedback_add_details("admin_secrets_fun_used","M")

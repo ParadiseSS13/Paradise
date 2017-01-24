@@ -173,9 +173,15 @@ var/time_last_changed_position = 0
 
 	ui_interact(user)
 
-/obj/machinery/computer/card/ui_interact(mob/user, ui_key="main", var/datum/nanoui/ui = null, var/force_open = 1)
+/obj/machinery/computer/card/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	user.set_machine(src)
 
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "identification_computer.tmpl", src.name, 775, 700)
+		ui.open()
+
+/obj/machinery/computer/card/ui_data(mob/user, datum/topic_state/state = default_state)
 	var/data[0]
 	data["src"] = UID()
 	data["station_name"] = station_name()
@@ -242,11 +248,7 @@ var/time_last_changed_position = 0
 
 		data["regions"] = regions
 
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if(!ui)
-		ui = new(user, src, ui_key, "identification_computer.tmpl", src.name, 775, 700)
-		ui.set_initial_data(data)
-		ui.open()
+	return data
 
 /obj/machinery/computer/card/Topic(href, href_list)
 	if(..())

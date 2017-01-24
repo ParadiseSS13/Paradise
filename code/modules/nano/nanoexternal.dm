@@ -28,7 +28,7 @@
  /**
   * The ui_interact proc is used to open and update Nano UIs
   * If ui_interact is not used then the UI will not update correctly
-  * ui_interact is currently defined for /atom/movable
+  * ui_interact is currently defined for /datum
   *
   * @param user /mob The mob who is interacting with this ui
   * @param ui_key string A string key to use for this ui. Allows for multiple unique uis on one obj/mob (defaut value "main")
@@ -39,6 +39,17 @@
   */
 /datum/proc/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/nano_ui/master_ui = null, var/datum/topic_state/state = default_state)
 	return
+
+/**
+ * The ui_data proc is used to get data for the interface
+ *
+ * @param user /mob The mob who is viewing this ui
+ * @param state /datum/topic_state Current topic state of the UI
+ *
+ * @return list()
+ */
+/datum/proc/ui_data(mob/user, datum/topic_state/state = default_state)
+	return list()
 
 // Used by the Nano UI Manager (/datum/nanomanager) to track UIs opened by this mob
 /mob/var/list/open_uis = list()

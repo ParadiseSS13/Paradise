@@ -64,7 +64,7 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 		var/mob/living/carbon/human/caster = user
 		if(caster.remoteview_target)
 			caster.remoteview_target = null
-			caster.reset_view(0)
+			caster.reset_perspective(0)
 			return 0
 
 	if(is_admin_level(user.z) && (!centcom_cancast || ticker.mode.name == "ragin' mages")) //Certain spells are not allowed on the centcom zlevel

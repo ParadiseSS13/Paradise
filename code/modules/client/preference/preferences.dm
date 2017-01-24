@@ -213,15 +213,14 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 /datum/preferences/New(client/C)
 	b_type = pick(4;"O-", 36;"O+", 3;"A-", 28;"A+", 1;"B-", 20;"B+", 1;"AB-", 5;"AB+")
 
+	max_gear_slots = config.max_loadout_points
 	if(istype(C))
 		if(!IsGuestKey(C.key))
 			unlock_content = C.IsByondMember()
 			if(unlock_content)
 				max_save_slots = MAX_SAVE_SLOTS_MEMBER
-
-	max_gear_slots = config.max_loadout_points
-	if(C.donator_level >= DONATOR_LEVEL_ONE)
-		max_gear_slots += 5
+			if(C.donator_level >= DONATOR_LEVEL_ONE)
+				max_gear_slots += 5
 
 	var/loaded_preferences_successfully = load_preferences(C)
 	if(loaded_preferences_successfully)
@@ -2104,37 +2103,6 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 					I.robotize()
 
 	character.dna.b_type = b_type
-	if(disabilities & DISABILITY_FLAG_FAT && character.species.flags & CAN_BE_FAT)
-		character.dna.SetSEState(FATBLOCK,1,1)
-		character.mutations += FAT
-		character.mutations += OBESITY
-		character.overeatduration = 600
-
-	if(disabilities & DISABILITY_FLAG_NEARSIGHTED)
-		character.dna.SetSEState(GLASSESBLOCK,1,1)
-		character.disabilities|=NEARSIGHTED
-
-	if(disabilities & DISABILITY_FLAG_EPILEPTIC)
-		character.dna.SetSEState(EPILEPSYBLOCK,1,1)
-		character.disabilities|=EPILEPSY
-
-	if(disabilities & DISABILITY_FLAG_DEAF)
-		character.dna.SetSEState(DEAFBLOCK,1,1)
-		character.disabilities|=DEAF
-
-	if(disabilities & DISABILITY_FLAG_BLIND)
-		character.dna.SetSEState(BLINDBLOCK,1,1)
-		character.disabilities|=BLIND
-
-	if(disabilities & DISABILITY_FLAG_MUTE)
-		character.dna.SetSEState(MUTEBLOCK,1,1)
-		character.disabilities |= MUTE
-
-	S.handle_dna(character)
-
-	if(character.dna.dirtySE)
-		character.dna.UpdateSE()
-	domutcheck(character)
 
 	// Wheelchair necessary?
 	var/obj/item/organ/external/l_foot = character.get_organ("l_foot")
@@ -2174,6 +2142,38 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			character.change_gender(MALE)
 
 	character.change_eye_color(r_eyes, g_eyes, b_eyes)
+
+	if(disabilities & DISABILITY_FLAG_FAT && character.species.flags & CAN_BE_FAT)
+		character.dna.SetSEState(FATBLOCK,1,1)
+		character.mutations += FAT
+		character.mutations += OBESITY
+		character.overeatduration = 600
+
+	if(disabilities & DISABILITY_FLAG_NEARSIGHTED)
+		character.dna.SetSEState(GLASSESBLOCK,1,1)
+		character.disabilities |= NEARSIGHTED
+
+	if(disabilities & DISABILITY_FLAG_EPILEPTIC)
+		character.dna.SetSEState(EPILEPSYBLOCK,1,1)
+		character.disabilities |= EPILEPSY
+
+	if(disabilities & DISABILITY_FLAG_DEAF)
+		character.dna.SetSEState(DEAFBLOCK,1,1)
+		character.disabilities |= DEAF
+
+	if(disabilities & DISABILITY_FLAG_BLIND)
+		character.dna.SetSEState(BLINDBLOCK,1,1)
+		character.disabilities |= BLIND
+
+	if(disabilities & DISABILITY_FLAG_MUTE)
+		character.dna.SetSEState(MUTEBLOCK,1,1)
+		character.disabilities |= MUTE
+
+	S.handle_dna(character)
+
+	if(character.dna.dirtySE)
+		character.dna.UpdateSE()
+	domutcheck(character, null, MUTCHK_FORCED)
 
 	character.dna.ready_dna(character, flatten_SE = 0)
 	character.sync_organ_dna(assimilate=1)

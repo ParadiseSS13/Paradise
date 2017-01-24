@@ -139,7 +139,7 @@
 	feedback_add_details("admin_verb","DIRN") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/cmd_admin_godmode(mob/M as mob in mob_list)
-	set category = "Special Verbs"
+	set category = "Admin"
 	set name = "Godmode"
 
 	if(!check_rights(R_ADMIN))
@@ -287,7 +287,7 @@ Works kind of like entering the game with a new character. Character receives a 
 Traitors and the like can also be revived with the previous role mostly intact.
 /N */
 /client/proc/respawn_character()
-	set category = "Special Verbs"
+	set category = "Event"
 	set name = "Respawn Character"
 	set desc = "Respawn a person that has been gibbed/dusted/killed. They must be a ghost for this to work and preferably should not have a body to go back into."
 
@@ -520,7 +520,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	feedback_add_details("admin_verb","IONC") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/cmd_admin_rejuvenate(mob/living/M as mob in mob_list)
-	set category = "Special Verbs"
+	set category = "Event"
 	set name = "Rejuvenate"
 
 	if(!check_rights(R_REJUVINATE))
@@ -659,7 +659,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		return
 
 /client/proc/cmd_admin_emp(atom/O as obj|mob|turf in view())
-	set category = "Special Verbs"
+	set category = "Event"
 	set name = "EM Pulse"
 
 	if(!check_rights(R_DEBUG|R_EVENT))
@@ -682,7 +682,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		return
 
 /client/proc/cmd_admin_gib(mob/M as mob in mob_list)
-	set category = "Special Verbs"
+	set category = "Admin"
 	set name = "Gib"
 
 	if(!check_rights(R_ADMIN|R_EVENT))
@@ -722,7 +722,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		feedback_add_details("admin_verb","GIBS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/cmd_admin_check_contents(mob/living/M as mob in mob_list)
-	set category = "Special Verbs"
+	set category = "Admin"
 	set name = "Check Contents"
 
 	if(!check_rights(R_ADMIN))
@@ -734,7 +734,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	feedback_add_details("admin_verb","CC") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/toggle_view_range()
-	set category = "Special Verbs"
+	set category = "Admin"
 	set name = "Change View Range"
 	set desc = "switches between 1x and custom views"
 
@@ -806,7 +806,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	message_admins("[key_name_admin(usr)] has [shuttle_master.emergencyNoEscape ? "denied" : "allowed"] the shuttle to be called.")
 
 /client/proc/cmd_admin_attack_log(mob/M as mob in mob_list)
-	set category = "Special Verbs"
+	set category = "Admin"
 	set name = "Attack Log"
 
 	if(!check_rights(R_ADMIN))
@@ -875,7 +875,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	set name = "Reset Telecomms Scripts"
 	set desc = "Blanks all telecomms scripts from all telecomms servers"
 
-	if(!check_rights(R_ADMIN, 1, src))
+	if(!check_rights(R_ADMIN))
 		return
 
 	var/confirm = alert(src, "You sure you want to blank all NTSL scripts?", "Confirm", "Yes", "No")

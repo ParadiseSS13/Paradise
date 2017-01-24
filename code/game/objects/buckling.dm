@@ -61,8 +61,8 @@
 			M.adjust_fire_stacks(1)
 			M.IgniteMob()
 
-/atom/movable/proc/unbuckle_mob()
-	if(buckled_mob && buckled_mob.buckled == src && buckled_mob.can_unbuckle(usr))
+/atom/movable/proc/unbuckle_mob(force = FALSE)
+	if(buckled_mob && buckled_mob.buckled == src && (buckled_mob.can_unbuckle(usr) || force))
 		. = buckled_mob
 		buckled_mob.buckled = null
 		buckled_mob.anchored = initial(buckled_mob.anchored)
@@ -71,7 +71,6 @@
 		buckled_mob = null
 
 		post_buckle_mob(.)
-
 
 //Handle any extras after buckling/unbuckling
 //Called on buckle_mob() and unbuckle_mob()

@@ -18,25 +18,27 @@
 	ui_interact(user)
 
 /obj/machinery/computer/artillerycontrol/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "bluespace_artillery.tmpl", "Bluespace Control", 400, 260)
+		ui.open()
+		ui.set_auto_update(1)
+
+/obj/machinery/computer/artillerycontrol/ui_data(mob/user, datum/topic_state/state = default_state)
 	var/data[0]
+
 	var/time_to_wait = round(reload_cooldown - ((world.time / 10) - last_fire), 1)
 	var/mins = round(time_to_wait / 60)
 	var/seconds = time_to_wait - (60*mins)
 	data["reloadtime_mins"] = mins
 	data["reloadtime_secs"] = (seconds < 10) ? "0[seconds]" : seconds
 	if(targetarea)
-		var/areaname = sanitize_local(targetarea.name)
+		var/areaname = sanitize(targetarea.name)
 		data["target"] = "Locked on to [areaname]"
 	else
 		data["target"] = "No Lock"
 
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-
-	if(!ui)
-		ui = new(user, src, ui_key, "bluespace_artillery.tmpl", "Bluespace Control", 400, 260)
-		ui.set_initial_data(data)
-		ui.open()
-		ui.set_auto_update(1)
+	return data
 
 /obj/machinery/computer/artillerycontrol/Topic(href, href_list)
 	if(..())

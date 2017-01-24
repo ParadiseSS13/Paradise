@@ -817,11 +817,9 @@ var/global/list/multiverse = list()
 				log_game("[user][user.key] made [target][target.key] say [wgw] with a voodoo doll.")
 			if("eyes")
 				user.set_machine(src)
-				if(user.client)
-					user.client.eye = target
-					user.client.perspective = EYE_PERSPECTIVE
+				user.reset_perspective(target)
 				spawn(100)
-					user.reset_view()
+					user.reset_perspective(null)
 					user.unset_machine()
 			if("r_leg","l_leg")
 				to_chat(user, "<span class='notice'>You move the doll's legs around.</span>")

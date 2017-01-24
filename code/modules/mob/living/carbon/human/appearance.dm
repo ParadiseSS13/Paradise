@@ -43,6 +43,7 @@
 	H.h_style = hair_style
 
 	update_hair()
+	update_inv_glasses()
 	return 1
 
 /mob/living/carbon/human/proc/change_facial_hair(var/facial_hair_style)

@@ -210,6 +210,8 @@ var/list/sacrificed = list()
 
 /obj/effect/rune/proc/seer()
 	if(usr.loc==src.loc)
+		// No. Bad cultcode. Bad.
+		var/mob/living/carbon/human/H = usr
 		if(usr.seer==1)
 			usr.say("Rash'tla sektath mal[pick("'","`")]zua. Zasan therium viortia.")
 			to_chat(usr, "\red The world beyond fades from your vision.")
@@ -224,6 +226,7 @@ var/list/sacrificed = list()
 			to_chat(usr, "\red The world beyond opens to your eyes.")
 			usr.see_invisible = SEE_INVISIBLE_OBSERVER
 			usr.seer = 1
+		H.update_sight()
 		return
 	return fizzle()
 

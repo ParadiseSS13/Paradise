@@ -23,7 +23,7 @@
 
 	var/hardness = 40 //lower numbers are harder. Used to determine the probability of a hulk smashing through.
 	var/engraving, engraving_quality //engraving on the wall
-	
+
 	var/sheet_type = /obj/item/stack/sheet/metal
 	var/obj/item/stack/sheet/builtin_sheet = null
 
@@ -39,16 +39,14 @@
 
 /turf/simulated/wall/New()
 	..()
-	builtin_sheet = new sheet_type	
-	
+	builtin_sheet = new sheet_type
+
 /turf/simulated/wall/BeforeChange()
-	for(var/obj/effect/E in src)
-		// such quality code
-		if(E.name == "Wallrot")
-			qdel(E)
+	for(var/obj/effect/overlay/wall_rot/WR in src)
+		qdel(WR)
 	. = ..()
 
-	
+
 //Appearance
 /turf/simulated/wall/examine(mob/user)
 	. = ..(user)
@@ -139,7 +137,7 @@
 			O.loc = src
 
 	ChangeTurf(/turf/simulated/floor/plating)
-	
+
 /turf/simulated/wall/proc/break_wall()
 	builtin_sheet.amount = 2
 	builtin_sheet.loc = src
@@ -187,21 +185,12 @@
 
 		var/number_rots = rand(2,3)
 		for(var/i=0, i<number_rots, i++)
-			var/obj/effect/overlay/O = new/obj/effect/overlay( src )
-			O.name = "Wallrot"
-			O.desc = "Ick..."
-			O.icon = 'icons/effects/wallrot.dmi'
-			O.pixel_x += rand(-10, 10)
-			O.pixel_y += rand(-10, 10)
-			O.anchored = 1
-			O.density = 1
-			O.layer = 5
-			O.mouse_opacity = 0
+			new /obj/effect/overlay/wall_rot(src)
 
 /turf/simulated/wall/proc/thermitemelt(mob/user as mob)
 	if(istype(sheet_type, /obj/item/stack/sheet/mineral/diamond))
 		return
-		
+
 	var/obj/effect/overlay/O = new/obj/effect/overlay( src )
 	O.name = "Thermite"
 	O.desc = "Looks hot."
@@ -275,7 +264,7 @@
 		return
 
 	//get the user's location
-	if(!istype(user.loc, /turf))	
+	if(!istype(user.loc, /turf))
 		return	//can't do this stuff whilst inside objects and such
 
 	if(rotting)
@@ -284,8 +273,8 @@
 			if(WT.remove_fuel(0,user))
 				to_chat(user, "<span class='notice'>You burn away the fungi with \the [WT].</span>")
 				playsound(src, 'sound/items/Welder.ogg', 10, 1)
-				for(var/obj/effect/E in src) if(E.name == "Wallrot")
-					qdel(E)
+				for(var/obj/effect/overlay/wall_rot/WR in src)
+					qdel(WR)
 				rotting = 0
 				return
 		else if(!is_sharp(W) && W.force >= 10 || W.force >= 20)

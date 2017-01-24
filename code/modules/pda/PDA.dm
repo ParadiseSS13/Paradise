@@ -99,7 +99,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 	if((!istype(over_object, /obj/screen)) && can_use())
 		return attack_self(M)
 
-/obj/item/device/pda/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
+/obj/item/device/pda/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/topic_state/state = inventory_state)
 	ui_tick++
 	var/datum/nanoui/old_ui = nanomanager.get_open_ui(user, src, "main")
 	var/auto_update = 1
@@ -115,8 +115,22 @@ var/global/list/obj/item/device/pda/PDAs = list()
 
 	var/title = "Personal Data Assistant"
 
-	var/data[0]  // This is the data that will be sent to the PDA
+	// update the ui if it exists, returns null if no ui is passed/found
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		// the ui does not exist, so we'll create a new() one
+        // for a list of parameters and their descriptions see the code docs in \code\modules\nano\nanoui.dm
+		ui = new(user, src, ui_key, "pda.tmpl", title, 630, 600, state = state)
+		ui.set_state_key("pda")
 
+		// open the new ui window
+		ui.open()
+
+	// auto update every Master Controller tick
+	ui.set_auto_update(auto_update)
+
+/obj/item/device/pda/ui_data(mob/user, datum/topic_state/state = inventory_state)
+	var/data[0]
 
 	data["owner"] = owner					// Who is your daddy...
 	data["ownjob"] = ownjob					// ...and what does he do?
@@ -164,21 +178,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 		"template" = current_app.template,
 		"has_back" = current_app.has_back)
 
-	// update the ui if it exists, returns null if no ui is passed/found
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if(!ui)
-		// the ui does not exist, so we'll create a new() one
-        // for a list of parameters and their descriptions see the code docs in \code\modules\nano\nanoui.dm
-		ui = new(user, src, ui_key, "pda.tmpl", title, 630, 600, state = inventory_state)
-		ui.set_state_key("pda")
-
-		// when the ui is first opened this is the data it will use
-		ui.set_initial_data(data)
-		// open the new ui window
-		ui.open()
-
-	// auto update every Master Controller tick
-	ui.set_auto_update(auto_update)
+	return data
 
 /obj/item/device/pda/attack_self(mob/user as mob)
 	user.set_machine(src)

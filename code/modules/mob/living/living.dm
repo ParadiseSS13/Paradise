@@ -287,6 +287,10 @@
 	adjustFireLoss(burn)
 	src.updatehealth()
 
+/mob/living/proc/has_organic_damage()
+	return (maxHealth - health)
+
+
 /mob/living/proc/restore_all_organs()
 	return
 

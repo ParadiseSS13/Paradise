@@ -166,17 +166,12 @@
 					H.updatehealth()
 
 /obj/machinery/recharge_station/proc/go_out()
-	if(!( src.occupant ))
+	if(!occupant)
 		return
-	//for(var/obj/O in src)
-	//	O.loc = src.loc
-	if(src.occupant.client)
-		src.occupant.client.eye = src.occupant.client.mob
-		src.occupant.client.perspective = MOB_PERSPECTIVE
-	src.occupant.loc = src.loc
-	src.occupant = null
+	occupant.forceMove(loc)
+	occupant = null
 	build_icon()
-	src.use_power = 1
+	use_power = 1
 	return
 
 /obj/machinery/recharge_station/proc/restock_modules()
@@ -300,9 +295,6 @@
 		return
 
 	user.stop_pulling()
-	if(user && user.client)
-		user.client.perspective = EYE_PERSPECTIVE
-		user.client.eye = src
 	user.forceMove(src)
 	occupant = user
 

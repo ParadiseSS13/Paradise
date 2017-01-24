@@ -426,6 +426,15 @@
 	else
 		return 0
 
+// Used to provide overlays when using this atom as a viewing focus
+// (cameras, locker tint, etc.)
+/atom/proc/get_remote_view_fullscreens(mob/user)
+	return
+
+//the sight changes to give to the mob whose perspective is set to that atom (e.g. A mob with nightvision loses its nightvision while looking through a normal camera)
+/atom/proc/update_remote_sight(mob/living/user)
+	return
+
 /atom/proc/checkpass(passflag)
 	return pass_flags&passflag
 

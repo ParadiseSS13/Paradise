@@ -48,7 +48,7 @@
 	max_heat_protection_temperature = FIRE_IMMUNITY_HELM_MAX_TEMP_PROTECT
 	unacidable = 1
 	vision_flags = SEE_MOBS
-	see_darkness = 0
+	helmet_goggles_invis_view = SEE_INVISIBLE_MINIMUM //don't render darkness while wearing these
 	HUDType = MEDHUD
 	strip_delay = 130
 

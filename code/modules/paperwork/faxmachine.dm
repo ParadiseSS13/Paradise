@@ -57,7 +57,14 @@ var/list/alldepartments = list()
 		to_chat(user, "<span class='warning'>You swipe the card through [src], but nothing happens.</span>")
 
 /obj/machinery/photocopier/faxmachine/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "faxmachine.tmpl", "Fax Machine UI", 540, 450)
+		ui.open()
+
+/obj/machinery/photocopier/faxmachine/ui_data(mob/user, datum/topic_state/state = default_state)
 	var/data[0]
+
 	if(scan)
 		data["scan_name"] = scan.name
 	else
@@ -82,11 +89,7 @@ var/list/alldepartments = list()
 	else
 		data["respectcooldown"] = 0
 
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if(!ui)
-		ui = new(user, src, ui_key, "faxmachine.tmpl", "Fax Machine UI", 540, 450)
-		ui.set_initial_data(data)
-		ui.open()
+	return data
 
 /obj/machinery/photocopier/faxmachine/Topic(href, href_list)
 	if(..())
@@ -128,7 +131,7 @@ var/list/alldepartments = list()
 			var/list/combineddepartments = alldepartments
 			if(long_range_enabled)
 				combineddepartments += admin_departments
-			
+
 			if(emagged)
 				combineddepartments += hidden_admin_departments
 

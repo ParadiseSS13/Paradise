@@ -302,12 +302,12 @@
 	if(istype(user.l_hand, /obj/item/tk_grab) || istype(user.r_hand, /obj/item/tk_grab/))
 		to_chat(user, "<span class='warning'>Your mind is too busy with that telekinetic grab.</span>")
 		user.remoteview_target = null
-		user.reset_view(0)
+		user.reset_perspective(0)
 		return
 
 	if(user.client.eye != user.client.mob)
 		user.remoteview_target = null
-		user.reset_view(0)
+		user.reset_perspective(0)
 		return
 
 	for(var/mob/living/L in targets)
@@ -315,7 +315,7 @@
 
 	if(target)
 		user.remoteview_target = target
-		user.reset_view(target)
+		user.reset_perspective(target)
 	else
 		user.remoteview_target = null
-		user.reset_view(0)
+		user.reset_perspective(0)

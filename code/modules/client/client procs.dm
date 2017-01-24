@@ -546,7 +546,7 @@
 	var/watchreason = check_watchlist(ckey)
 	if(watchreason)
 		message_admins("<font color='red'><B>Notice: </B></font><font color='blue'>[key_name_admin(src)] is on the watchlist and has just connected - Reason: [watchreason]</font>")
-		send2adminirc("Watchlist - [key_name(src)] is on the watchlist and has just connected - Reason: [watchreason]")
+		send2irc(config.admin_notify_irc, "Watchlist - [key_name(src)] is on the watchlist and has just connected - Reason: [watchreason]")
 
 	//Just the standard check to see if it's actually a number
 	if(sql_id)
