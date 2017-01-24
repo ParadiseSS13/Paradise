@@ -114,14 +114,14 @@
 	var/amount = 0
 
 /datum/seed_pile/New(var/name, var/life, var/endur, var/matur, var/prod, var/yie, var/poten, var/am = 1)
-	name = name
-	lifespan = life
-	endurance = endur
-	maturation = matur
-	production = prod
-	yield = yie
-	potency = poten
-	amount = am
+	src.name = name
+	src.lifespan = life
+	src.endurance = endur
+	src.maturation = matur
+	src.production = prod
+	src.yield = yie
+	src.potency = poten
+	src.amount = am
 
 /obj/machinery/seed_extractor/attack_hand(mob/user)
 	user.set_machine(src)
@@ -140,7 +140,7 @@
 		for (var/datum/seed_pile/O in piles)
 			dat += "<tr><td>[O.name]</td><td>[O.lifespan]</td><td>[O.endurance]</td><td>[O.maturation]</td>"
 			dat += "<td>[O.production]</td><td>[O.yield]</td><td>[O.potency]</td><td>"
-			dat += "<a href='byond://?src=\ref[src];name=[O.name];li=[O.lifespan];en=[O.endurance];ma=[O.maturation];pr=[O.production];yi=[O.yield];pot=[O.potency]'>Vend</a> ([O.amount] left)</td></tr>"
+			dat += "<a href='byond://?src=[src.UID()];name=[O.name];li=[O.lifespan];en=[O.endurance];ma=[O.maturation];pr=[O.production];yi=[O.yield];pot=[O.potency]'>Vend</a> ([O.amount] left)</td></tr>"
 		dat += "</table>"
 	var/datum/browser/popup = new(user, "seed_ext", name, 700, 400)
 	popup.set_content(dat)

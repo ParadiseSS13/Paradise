@@ -773,6 +773,13 @@
 	adjust_flavour = null
 	burn_state = FIRE_PROOF
 
+/obj/item/clothing/suit/jacket/leather/overcoat
+	name = "leather overcoat"
+	desc = "That's a damn fine coat."
+	icon_state = "leathercoat"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
+	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
+
 /obj/item/clothing/suit/officercoat
 	name = "Clown Officer's Coat"
 	desc = "A classy clown officer's overcoat, also designed by Hugo Boss."

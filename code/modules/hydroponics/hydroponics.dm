@@ -27,7 +27,20 @@
 	var/recent_bee_visit = FALSE //Have we been visited by a bee recently, so bees dont overpollinate one plant
 	var/using_irrigation = FALSE //If the tray is connected to other trays via irrigation hoses
 	var/self_sustaining = FALSE //If the tray generates nutrients and water on its own
+	hud_possible = list (PLANT_NUTRIENT_HUD, PLANT_WATER_HUD, PLANT_STATUS_HUD, PLANT_HEALTH_HUD, PLANT_TOXIN_HUD, PLANT_PEST_HUD, PLANT_WEED_HUD)
 
+/obj/machinery/hydroponics/New()
+	..()
+	var/datum/atom_hud/data/hydroponic/hydro_hud = huds[DATA_HUD_HYDROPONIC]
+	prepare_huds()
+	hydro_hud.add_to_hud(src)
+	plant_hud_set_nutrient()
+	plant_hud_set_water()
+	plant_hud_set_status()
+	plant_hud_set_health()
+	plant_hud_set_toxin()
+	plant_hud_set_pest()
+	plant_hud_set_weed()
 
 /obj/machinery/hydroponics/constructable
 	name = "hydroponics tray"
@@ -54,6 +67,8 @@
 	maxnutri = tmp_capacity * 5 // Up to 30
 	waterlevel = maxwater
 	nutrilevel = 3
+	plant_hud_set_nutrient()
+	plant_hud_set_water()
 
 /obj/machinery/hydroponics/Destroy()
 	if(myseed)

@@ -109,9 +109,10 @@
 			ChangeTurf(baseturf)
 
 /turf/simulated/floor/vines/ChangeTurf(turf/open/floor/T)
+	. = ..()
+	//Do this *after* the turf has changed as qdel in spacevines will call changeturf again if it hasn't
 	for(var/obj/effect/spacevine/SV in src)
 		qdel(SV)
-	return ..()
 
 /datum/spacevine_mutation/space_covering
 	var/static/list/coverable_turfs
@@ -225,10 +226,10 @@
 	quality = NEGATIVE
 
 /datum/spacevine_mutation/aggressive_spread/on_spread(obj/effect/spacevine/holder, turf/target)
-	target.ex_act(severity, src) // vine immunity handled at /mob/ex_act
+	target.ex_act(severity) // vine immunity handled at /mob/ex_act
 
 /datum/spacevine_mutation/aggressive_spread/on_buckle(obj/effect/spacevine/holder, mob/living/buckled)
-	buckled.ex_act(severity, src)
+	buckled.ex_act(severity)
 
 /datum/spacevine_mutation/transparency
 	name = "transparent"
@@ -510,7 +511,7 @@
 	if(!buckled_mob && prob(25))
 		for(var/mob/living/V in loc)
 			entangle(V)
-			if(buckled_mob)
+			if(has_buckled_mobs())
 				break //only capture one mob at a time
 
 

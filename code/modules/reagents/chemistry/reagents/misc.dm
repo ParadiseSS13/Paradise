@@ -460,25 +460,40 @@
 	reagent_state = SOLID
 	color = "#7F8400" // rgb: 127, 132, 0
 
-//Reagents used for plant fertilizers.
-/datum/reagent/toxin/fertilizer
-	name = "fertilizer"
-	id = "fertilizer"
-	description = "A chemical mix good for growing plants with."
-	reagent_state = LIQUID
-	color = "#664330" // rgb: 102, 67, 48
+//////////////////////////////////Hydroponics stuff///////////////////////////////
 
-/datum/reagent/toxin/fertilizer/eznutrient
-	name = "EZ Nutrient"
-	id = "eznutrient"
+/datum/reagent/plantnutriment
+	name = "Generic nutriment"
+	id = "plantnutriment"
+	description = "Some kind of nutriment. You can't really tell what it is. You should probably report it, along with how you obtained it."
+	color = "#000000" // RBG: 0, 0, 0
+	var/tox_prob = 0
 
-/datum/reagent/toxin/fertilizer/left4zed
-	name = "Left-4-Zed"
-	id = "left4zed"
+/datum/reagent/plantnutriment/on_mob_life(mob/living/M)
+	if(prob(tox_prob))
+		M.adjustToxLoss(1*REAGENTS_EFFECT_MULTIPLIER)
+	..()
 
-/datum/reagent/toxin/fertilizer/robustharvest
+/datum/reagent/plantnutriment/eznutriment
+	name = "E-Z-Nutrient"
+	id = "eznutriment"
+	description = "Cheap and extremely common type of plant nutriment."
+	color = "#376400" // RBG: 50, 100, 0
+	tox_prob = 10
+
+/datum/reagent/plantnutriment/left4zednutriment
+	name = "Left 4 Zed"
+	id = "left4zednutriment"
+	description = "Unstable nutriment that makes plants mutate more often than usual."
+	color = "#1A1E4D" // RBG: 26, 30, 77
+	tox_prob = 25
+
+/datum/reagent/plantnutriment/robustharvestnutriment
 	name = "Robust Harvest"
-	id = "robustharvest"
+	id = "robustharvestnutriment"
+	description = "Very potent nutriment that prevents plants from mutating."
+	color = "#9D9D00" // RBG: 157, 157, 0
+	tox_prob = 15
 
 ///Alchemical Reagents
 

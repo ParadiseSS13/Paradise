@@ -170,8 +170,8 @@
 							internalBeaker.reagents.add_reagent("diethylamine", 10)
 					if(HP.nutrilevel <  HP.maxnutri)
 						change = 1
-						if(!internalBeaker.reagents.has_reagent("eznutrient", 15))
-							internalBeaker.reagents.add_reagent("eznutrient", 15)
+						if(!internalBeaker.reagents.has_reagent("eznutriment", 15))
+							internalBeaker.reagents.add_reagent("eznutriment", 15)
 						if(!internalBeaker.reagents.has_reagent("diethylamine", 15))
 							internalBeaker.reagents.add_reagent("diethylamine", 15)
 					if(HP.waterlevel < HP.maxwater)

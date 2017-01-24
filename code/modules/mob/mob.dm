@@ -1263,7 +1263,7 @@ mob/proc/yank_out_object()
 	return // Only living mobs can ventcrawl
 
 //You can buckle on mobs if you're next to them since most are dense
-/mob/buckle_mob(mob/living/M)
+/mob/buckle_mob(mob/living/M, force = 0)
 	if(M.buckled)
 		return 0
 	var/turf/T = get_turf(src)

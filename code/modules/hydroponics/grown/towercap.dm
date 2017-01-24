@@ -135,7 +135,7 @@
 
 /obj/structure/bonfire/proc/CheckOxygen()
 	var/datum/gas_mixture/G = loc.return_air() // Check if we're standing in an oxygenless environment
-	if(G.oxygen < 16)
+	if(G.oxygen > 16)
 		return 1
 	return 0
 
@@ -185,6 +185,7 @@
 	if(..())
 		M.pixel_y += 13
 
-/obj/structure/bonfire/unbuckle_mob(mob/living/buckled_mob, force=0)
-	if(..())
+/obj/structure/bonfire/unbuckle_mob(force=0)
+	if(buckled_mob)
 		buckled_mob.pixel_y -= 13
+	. = ..()

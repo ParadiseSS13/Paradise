@@ -308,3 +308,10 @@
 	reqs = list(/obj/item/stack/sheet/mineral/bananium = 5,
 				/obj/item/weapon/bikehorn)
 	category = CAT_MISC
+
+/datum/crafting_recipe/bonfire
+	name = "Bonfire"
+	time = 60
+	reqs = list(/obj/item/weapon/grown/log = 5)
+	result = /obj/structure/bonfire
+	category = CAT_PRIMAL
