@@ -231,6 +231,7 @@
 	filling_color = "#00FA9A"
 	var/effect_path = /obj/effect/glowshroom
 	origin_tech = "biotech=4;plasmatech=6"
+	light_color = "#006622"
 
 /obj/item/weapon/reagent_containers/food/snacks/grown/mushroom/glowshroom/attack_self(mob/user)
 	if(istype(user.loc, /turf/space))
@@ -267,3 +268,4 @@
 	filling_color = "#00FA9A"
 	effect_path = /obj/effect/glowshroom/glowcap
 	origin_tech = "biotech=4;powerstorage=6;plasmatech=4"
+	light_color = "#8E0300"

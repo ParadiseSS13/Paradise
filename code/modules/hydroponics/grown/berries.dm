@@ -88,6 +88,7 @@
 	icon_state = "glowberrypile"
 	filling_color = "#7CFC00"
 	origin_tech = "plasmatech=6"
+	light_color = "#006622"
 
 // Cherries
 /obj/item/seeds/cherry

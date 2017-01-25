@@ -16,10 +16,12 @@
 	var/yield = 3
 	var/generation = 1
 	var/spreadIntoAdjacentChance = 60
+	light_color = "#006622"
 
 obj/effect/glowshroom/glowcap
 	name = "glowcap"
 	icon_state = "glowcap"
+	light_color = "#8E0300"
 
 /obj/effect/glowshroom/single
 	yield = 0

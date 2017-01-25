@@ -143,7 +143,7 @@
 	if(!burning && CheckOxygen())
 		icon_state = "bonfire_on_fire"
 		burning = 1
-		set_light(6)
+		set_light(6, l_color = "#ED9200")
 		Burn()
 		processing_objects.Add(src)
 
