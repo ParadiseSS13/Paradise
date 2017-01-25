@@ -484,13 +484,6 @@
 	icon = 'icons/obj/food/food.dmi'
 	icon_state = "baguette"
 	desc = "a staple of worshipers of the Silentfather, this holy mime artifact has an odd effect on clowns."
-	force = 0
-	throwforce = 0
-
-/obj/item/weapon/nullrod/rosary/bread/New()
-	..()
-	processing_objects.Add(src)
-
 
 /obj/item/weapon/nullrod/rosary/bread/process()
 	if(ishuman(loc))
