@@ -1,5 +1,0 @@
-author: "scrubmcnoob"
-delete-after: True
-changes: 
-  - tweak: "Shadowling Thrall count now scales to a max of 25."
-  - tweak: "Shadowling Thralls lose lesser glare"
