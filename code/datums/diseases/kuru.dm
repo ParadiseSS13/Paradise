@@ -20,7 +20,7 @@
 			if(prob(50))
 				affected_mob.Jitter(25)
 		if(2)
-			if (prob(50))
+			if(prob(50))
 				affected_mob.visible_message("<span class='danger'>[affected_mob] laughs uncontrollably!</span>")
 				affected_mob.Stun(10)
 				affected_mob.Weaken(10)

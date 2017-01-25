@@ -3,7 +3,7 @@
 	desc = "A folded membrane which rapidly expands into a large cubical shape on activation."
 	icon = 'icons/obj/inflatable.dmi'
 	icon_state = "folded_wall"
-	w_class = 3.0
+	w_class = 3
 
 /obj/item/inflatable/attack_self(mob/user)
 	playsound(loc, 'sound/items/zip.ogg', 75, 1)
@@ -25,7 +25,7 @@
 
 	var/health = 50.0
 
-/obj/structure/inflatable/New(location)
+/obj/structure/inflatable/initialize(location)
 	..()
 	air_update_turf(1)
 
@@ -89,15 +89,15 @@
 
 /obj/structure/inflatable/attack_slime(mob/user as mob)
 	var/mob/living/carbon/slime/S = user
-	if (!S.is_adult)
+	if(!S.is_adult)
 		return
 	attack_generic(user, rand(10, 15))
 
 /obj/structure/inflatable/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(!istype(W))
 		return
-	if (can_puncture(W))
-		visible_message("\red <b>[user] pierces [src] with [W]!</b>")
+	if(can_puncture(W))
+		visible_message("<span class='danger'>[user] pierces [src] with [W]!</span>")
 		deflate(1)
 	if(W.damtype == BRUTE || W.damtype == BURN)
 		hit(W.force)

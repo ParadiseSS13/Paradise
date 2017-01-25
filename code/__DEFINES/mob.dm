@@ -50,6 +50,10 @@
 #define SHOES_SLOWDOWN -1.0			// How much shoes slow you down by default. Negative values speed you up
 
 
+//Mob attribute defaults.
+#define DEFAULT_MARKING_STYLES list("head" = "None", "body" = "None", "tail" = "None") //Marking styles. Use instead of initial() for m_styles.
+#define DEFAULT_MARKING_COLOURS list("head" = "#000000", "body" = "#000000", "tail" = "#000000") //Marking colours. Use instead of initial() for m_colours.
+
 ////////REAGENT STUFF////////
 // How many units of reagent are consumed per tick, by default.
 #define  REAGENTS_METABOLISM 0.4
@@ -72,15 +76,18 @@
 #define APPEARANCE_SKIN 8
 #define APPEARANCE_HAIR 16
 #define APPEARANCE_HAIR_COLOR 32
-#define APPEARANCE_FACIAL_HAIR 64
-#define APPEARANCE_FACIAL_HAIR_COLOR 128
-#define APPEARANCE_EYE_COLOR 256
-#define APPEARANCE_ALL_HAIR APPEARANCE_HAIR|APPEARANCE_HAIR_COLOR|APPEARANCE_FACIAL_HAIR|APPEARANCE_FACIAL_HAIR_COLOR
-#define APPEARANCE_HEAD_ACCESSORY 512
-#define APPEARANCE_MARKINGS 1024
-#define APPEARANCE_BODY_ACCESSORY 2048
-#define APPEARANCE_ALL_BODY APPEARANCE_ALL_HAIR|APPEARANCE_HEAD_ACCESSORY|APPEARANCE_MARKINGS|APPEARANCE_BODY_ACCESSORY
-#define APPEARANCE_ALL 4095
+#define APPEARANCE_SECONDARY_HAIR_COLOR 64
+#define APPEARANCE_FACIAL_HAIR 128
+#define APPEARANCE_FACIAL_HAIR_COLOR 256
+#define APPEARANCE_SECONDARY_FACIAL_HAIR_COLOR 512
+#define APPEARANCE_EYE_COLOR 1024
+#define APPEARANCE_ALL_HAIR APPEARANCE_HAIR|APPEARANCE_HAIR_COLOR|APPEARANCE_SECONDARY_HAIR_COLOR|APPEARANCE_FACIAL_HAIR|APPEARANCE_FACIAL_HAIR_COLOR|APPEARANCE_SECONDARY_FACIAL_HAIR_COLOR
+#define APPEARANCE_HEAD_ACCESSORY 2048
+#define APPEARANCE_MARKINGS 4096
+#define APPEARANCE_BODY_ACCESSORY 8192
+#define APPEARANCE_ALT_HEAD 16384
+#define APPEARANCE_ALL_BODY APPEARANCE_ALL_HAIR|APPEARANCE_HEAD_ACCESSORY|APPEARANCE_MARKINGS|APPEARANCE_BODY_ACCESSORY|APPEARANCE_ALT_HEAD
+#define APPEARANCE_ALL 32767
 
 // Intents
 #define I_HELP		"help"
@@ -103,10 +110,10 @@
 #define CHEM_MOB_SPAWN_HOSTILE   1
 #define CHEM_MOB_SPAWN_FRIENDLY  2
 
-#define isobserver(A)	(istype((A), /mob/dead/observer))
-#define isliving(A)		(istype((A), /mob/living))
-#define isAutoAnnouncer(A)	(istype((A), /mob/living/automatedannouncer))
+#define TINT_IMPAIR 2			//Threshold of tint level to apply weld mask overlay
+#define TINT_BLIND 3			//Threshold of tint level to obscure vision fully
 
+#define isliving(A)		(istype((A), /mob/living))
 #define iscarbon(A)		(istype((A), /mob/living/carbon))
 #define ishuman(A)		(istype((A), /mob/living/carbon/human))
 #define isbrain(A)		(istype((A), /mob/living/carbon/brain))
@@ -127,11 +134,17 @@
 #define isrobot(A)		(istype((A), /mob/living/silicon/robot))
 #define ispAI(A)		(istype((A), /mob/living/silicon/pai))
 
+#define isAutoAnnouncer(A)	(istype((A), /mob/living/automatedannouncer))
+
 #define isAIEye(A)		(istype((A), /mob/camera/aiEye))
 #define isovermind(A)	(istype((A), /mob/camera/blob))
 
 #define isSpirit(A)		(istype((A), /mob/spirit))
 #define ismask(A)		(istype((A), /mob/spirit/mask))
+
+#define isobserver(A)	(istype((A), /mob/dead/observer))
+
+#define isnewplayer(A)  (istype((A), /mob/new_player))
 
 #define isorgan(A)		(istype((A), /obj/item/organ/external))
 #define hasorgans(A)	(ishuman(A))

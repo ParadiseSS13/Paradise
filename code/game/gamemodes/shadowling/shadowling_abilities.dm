@@ -46,40 +46,7 @@
 		else //Only alludes to the shadowling if the target is close by
 			to_chat(target, "<span class='userdanger'>Red lights suddenly dance in your vision, and you are mesmerized by the heavenly lights...</span>")
 		target.Stun(10)
-		M.silent += 10
-
-
-/obj/effect/proc_holder/spell/targeted/lesser_glare
-	name = "Lesser Glare"
-	desc = "Stuns and mutes a target for a short duration."
-	panel = "Thrall Abilities"
-	charge_max = 450
-	clothes_req = 0
-	action_icon_state = "glare"
-
-/obj/effect/proc_holder/spell/targeted/lesser_glare/cast(list/targets)
-	for(var/mob/living/carbon/human/target in targets)
-		if(!ishuman(target) || !target)
-			to_chat(usr, "<span class='warning'>You nay only glare at humans!</span>")
-			charge_counter = charge_max
-			return
-		if(target.stat)
-			to_chat(usr, "<span class='warning'>[target] must be conscious!</span>")
-			charge_counter = charge_max
-			return
-		if(is_shadow_or_thrall(target))
-			to_chat(usr, "<span class='warning'>You cannot glare at allies!</span>")
-			charge_counter = charge_max
-			return
-		var/mob/living/carbon/human/M = target
-		usr.visible_message("<span class='warning'><b>[usr]'s eyes flash a blinding red!</b></span>")
-		target.visible_message("<span class='danger'>[target] freezes in place, their eyes glazing over...</span>")
-		if(in_range(target, usr))
-			to_chat(target, "<span class='userdanger'>Your gaze is forcibly drawn into [usr]'s eyes, and you are mesmerized by the heavenly lights...</span>")
-		else
-			to_chat(target, "<span class='userdanger'>Red lights suddenly dance in your vision, and you are mesmerized by their heavenly beauty...</span>")
-		target.Stun(3) //Roughly 30% as long as the normal one
-		M.silent += 3
+		M.AdjustSilence(10)
 
 
 /obj/effect/proc_holder/spell/aoe_turf/veil
@@ -342,21 +309,21 @@
 					target.Weaken(12)
 					sleep(20)
 					if(isloyal(target))
-						to_chat(usr, "<span class='notice'>They are enslaved by Nanotrasen. You begin to shut down the nanobot implant - this will take some time.</span>")
+						to_chat(usr, "<span class='notice'>They have a mindshield implant. You begin to deactivate it - this will take some time.</span>")
 						usr.visible_message("<span class='warning'>[usr] pauses, then dips their head in concentration!</span>")
-						to_chat(target, "<span class='boldannounce'>You feel your loyalties begin to weaken!</span>")
+						to_chat(target, "<span class='boldannounce'>Your mindshield implant becomes hot as it comes under attack!</span>")
 						sleep(100) //10 seconds - not spawn() so the enthralling takes longer
-						to_chat(usr, "<span class='notice'>The nanobots composing the loyalty implant have been rendered inert. Now to continue.</span>")
+						to_chat(usr, "<span class='notice'>The nanobots composing the mindshield implant have been rendered inert. Now to continue.</span>")
 						usr.visible_message("<span class='warning'>[usr] relaxes again.</span>")
 						for(var/obj/item/weapon/implant/loyalty/L in target)
 							if(L && L.implanted)
 								qdel(L)
-						to_chat(target, "<span class='boldannounce'>Your unwavering loyalty to Nanotrasen unexpectedly falters, dims, dies.</span>")
+						to_chat(target, "<span class='boldannounce'>Your mental protection implant unexpectedly falters, dims, dies.</span>")
 				if(3)
 					to_chat(usr, "<span class='notice'>You begin planting the tumor that will control the new thrall...</span>")
 					usr.visible_message("<span class='warning'>A strange energy passes from [usr]'s hands into [target]'s head!</span>")
 					to_chat(target, "<span class='boldannounce'>You feel your memories twisting, morphing. A sense of horror dominates your mind.</span>")
-			if(!do_mob(usr, target, 70)) //around 21 seconds total for enthralling, 31 for someone with a loyalty implant
+			if(!do_mob(usr, target, 70)) //around 21 seconds total for enthralling, 31 for someone with a mindshield implant
 				to_chat(usr, "<span class='warning'>The enthralling has been interrupted - your target's mind returns to its previous state.</span>")
 				to_chat(target, "<span class='userdanger'>You wrest yourself away from [usr]'s hands and compose yourself</span>")
 				enthralling = 0
@@ -368,7 +335,7 @@
 								"<span class='warning'>False faces all d<b>ark not real not real not--</b></span>")
 		target.setOxyLoss(0) //In case the shadowling was choking them out
 		ticker.mode.add_thrall(target.mind)
-		target.mind.special_role = "shadowling thrall"
+		target.mind.special_role = SPECIAL_ROLE_SHADOWLING_THRALL
 
 /obj/effect/proc_holder/spell/targeted/shadowling_regenarmor //Resets a shadowling's species to normal, removes genetic defects, and re-equips their armor
 	name = "Rapid Re-Hatch"
@@ -438,24 +405,24 @@
 		if(thralls >= 3 && !screech_acquired)
 			screech_acquired = 1
 			to_chat(user, "<span class='shadowling'><i>The power of your thralls has granted you the <b>Sonic Screech</b> ability. This ability will shatter nearby windows and deafen enemies, plus stunning silicon lifeforms.</span>")
-			user.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/unearthly_screech)
+			user.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/unearthly_screech(null))
 
 		if(thralls >= 5 && !blind_smoke_acquired)
 			blind_smoke_acquired = 1
 			to_chat(user, "<span class='shadowling'><i>The power of your thralls has granted you the <b>Blinding Smoke</b> ability. \
 			It will create a choking cloud that will blind any non-thralls who enter.</i></span>")
-			user.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/blindness_smoke)
+			user.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/blindness_smoke(null))
 
 		if(thralls >= 7 && !drainLifeAcquired)
 			drainLifeAcquired = 1
 			to_chat(user, "<span class='shadowling'><i>The power of your thralls has granted you the <b>Drain Life</b> ability. You can now drain the health of nearby humans to heal yourself.</i></span>")
-			user.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/drainLife)
+			user.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/drainLife(null))
 
 		if(thralls >= 9 && !reviveThrallAcquired)
 			reviveThrallAcquired = 1
 			to_chat(user, "<span class='shadowling'><i>The power of your thralls has granted you the <b>Black Recuperation</b> ability. \
 			This will, after a short time, bring a dead thrall completely back to life with no bodily defects.</i></span>")
-			user.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/reviveThrall)
+			user.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/reviveThrall(null))
 
 		if(thralls < victory_threshold)
 			to_chat(user, "<span class='shadowling'>You do not have the power to ascend. You require [victory_threshold] thralls, but only [thralls] living thralls are present.</span>")
@@ -469,8 +436,8 @@
 					if(CM in M.mind.spell_list)
 						M.mind.spell_list -= CM
 						qdel(CM)
-					M.mind.remove_spell(/obj/effect/proc_holder/spell/targeted/shadowling_hatch)
-					M.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shadowling_ascend)
+					M.mind.RemoveSpell(/obj/effect/proc_holder/spell/targeted/shadowling_hatch)
+					M.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shadowling_ascend(null))
 					if(M == usr)
 						to_chat(M, "<span class='shadowling'><i>You project this power to the rest of the shadowlings.</i></span>")
 					else
@@ -509,18 +476,17 @@
 			sleep(10)
 		qdel(B)
 
-datum/reagent/shadowling_blindness_smoke //Blinds non-shadowlings, heals shadowlings/thralls
+/datum/reagent/shadowling_blindness_smoke //Blinds non-shadowlings, heals shadowlings/thralls
 	name = "odd black liquid"
 	id = "blindness_smoke"
 	description = "<::ERROR::> CANNOT ANALYZE REAGENT <::ERROR::>"
 	color = "#000000" //Complete black (RGB: 0, 0, 0)
 	metabolization_rate = 100 //lel
 
-datum/reagent/shadowling_blindness_smoke/on_mob_life(var/mob/living/M as mob)
-	if(!M) M = holder.my_atom
+/datum/reagent/shadowling_blindness_smoke/on_mob_life(mob/living/M)
 	if(!is_shadow_or_thrall(M))
 		to_chat(M, "<span class='warning'><b>You breathe in the black smoke, and your eyes burn horribly!</b></span>")
-		M.eye_blind = 5
+		M.EyeBlind(5)
 		if(prob(25))
 			M.visible_message("<b>[M]</b> claws at their eyes!")
 			M.Stun(3)
@@ -530,9 +496,6 @@ datum/reagent/shadowling_blindness_smoke/on_mob_life(var/mob/living/M as mob)
 		M.adjustOxyLoss(-2)
 		M.adjustToxLoss(-2)
 	..()
-	return
-
-
 
 /obj/effect/proc_holder/spell/aoe_turf/unearthly_screech
 	name = "Sonic Screech"
@@ -560,8 +523,8 @@ datum/reagent/shadowling_blindness_smoke/on_mob_life(var/mob/living/M as mob)
 			if(iscarbon(target))
 				var/mob/living/carbon/M = target
 				to_chat(M, "<span class='danger'><b>A spike of pain drives into your head and scrambles your thoughts!</b></span>")
-				M.confused += 10
-				M.ear_damage += 3
+				M.AdjustConfused(10)
+				M.AdjustEarDamage(3)
 			else if(issilicon(target))
 				var/mob/living/silicon/S = target
 				to_chat(S, "<span class='warning'><b>ERROR $!(@ ERROR )#^! SENSORY OVERLOAD \[$(!@#</b></span>")
@@ -676,12 +639,11 @@ datum/reagent/shadowling_blindness_smoke/on_mob_life(var/mob/living/M as mob)
 				sleep(20)
 				thrallToRevive.visible_message("<span class='warning'>[thrallToRevive] slowly rises, no longer recognizable as human.</span>", \
 											   "<span class='shadowling'><b>You feel new power flow into you. You have been gifted by your masters. You now closely resemble them. You are empowered in \
-											    darkness but wither slowly in light. In addition, Lesser Glare and Guise have been upgraded into their true forms.</b></span>")
+											    darkness but wither slowly in light. In addition, you now have glare and true shadow walk.</b></span>")
 				thrallToRevive.set_species("Lesser Shadowling")
-				thrallToRevive.mind.remove_spell(/obj/effect/proc_holder/spell/targeted/lesser_glare)
-				thrallToRevive.mind.remove_spell(/obj/effect/proc_holder/spell/targeted/lesser_shadow_walk)
-				thrallToRevive.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/glare)
-				thrallToRevive.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shadow_walk)
+				thrallToRevive.mind.RemoveSpell(/obj/effect/proc_holder/spell/targeted/lesser_shadow_walk)
+				thrallToRevive.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/glare(null))
+				thrallToRevive.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shadow_walk(null))
 			if("Revive")
 				if(!is_thrall(thrallToRevive))
 					to_chat(usr, "<span class='warning'>[thrallToRevive] is not a thrall.</span>")
@@ -756,7 +718,7 @@ datum/reagent/shadowling_blindness_smoke/on_mob_life(var/mob/living/M as mob)
 			var/more_minutes = 9000
 			var/timer = shuttle_master.emergency.timeLeft()
 			timer += more_minutes
-			command_announcement.Announce("Major system failure aboard the emergency shuttle. This will extend its arrival time by approximately 15 minutes..", "System Failure", 'sound/misc/notice1.ogg')
+			event_announcement.Announce("Major system failure aboard the emergency shuttle. This will extend its arrival time by approximately 15 minutes..", "System Failure", 'sound/misc/notice1.ogg')
 			shuttle_master.emergency.setTimer(timer)
 		usr.mind.spell_list.Remove(src) //Can only be used once!
 		qdel(src)
@@ -832,7 +794,7 @@ datum/reagent/shadowling_blindness_smoke/on_mob_life(var/mob/living/M as mob)
 		to_chat(usr, "<span class='shadowling'>You instantly rearrange <b>[target]</b>'s memories, hyptonitizing them into a thrall.</span>")
 		to_chat(target, "<span class='userdanger'><font size=3>An agonizing spike of pain drives into your mind, and--</font></span>")
 		ticker.mode.add_thrall(target.mind)
-		target.mind.special_role = "shadowling thrall"
+		target.mind.special_role = SPECIAL_ROLE_SHADOWLING_THRALL
 		target.add_language("Shadowling Hivemind")
 
 

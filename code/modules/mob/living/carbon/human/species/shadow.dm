@@ -16,6 +16,9 @@
 		)
 
 	flags = NO_BLOOD | NO_BREATHE | RADIMMUNE
+
+	oxy_mod = 0
+
 	virus_immune = 1
 	dietflags = DIET_OMNI		//the mutation process allowed you to now digest all foods regardless of initial race
 	reagent_tag = PROCESS_ORG
@@ -33,5 +36,5 @@
 
 		if(light_amount > 2) //if there's enough light, start dying
 			H.take_overall_damage(1,1)
-		else if (light_amount < 2) //heal in the dark
+		else if(light_amount < 2) //heal in the dark
 			H.heal_overall_damage(1,1)

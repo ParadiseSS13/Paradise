@@ -10,9 +10,7 @@
 	ventcrawler = 0
 
 /mob/living/carbon/alien/humanoid/queen/New()
-	var/datum/reagents/R = new/datum/reagents(100)
-	reagents = R
-	R.my_atom = src
+	create_reagents(100)
 
 	//there should only be one queen
 	for(var/mob/living/carbon/alien/humanoid/queen/Q in living_mob_list)
@@ -23,19 +21,19 @@
 			break
 
 	real_name = src.name
-	internal_organs += new /obj/item/organ/internal/xenos/plasmavessel/queen
-	internal_organs += new /obj/item/organ/internal/xenos/acidgland
-	internal_organs += new /obj/item/organ/internal/xenos/eggsac
-	internal_organs += new /obj/item/organ/internal/xenos/resinspinner
-	internal_organs += new /obj/item/organ/internal/xenos/neurotoxin
+	alien_organs += new /obj/item/organ/internal/xenos/plasmavessel/queen
+	alien_organs += new /obj/item/organ/internal/xenos/acidgland
+	alien_organs += new /obj/item/organ/internal/xenos/eggsac
+	alien_organs += new /obj/item/organ/internal/xenos/resinspinner
+	alien_organs += new /obj/item/organ/internal/xenos/neurotoxin
 	..()
 
 
 /mob/living/carbon/alien/humanoid/queen/handle_regular_hud_updates()
 	..() //-Yvarov
 
-	if (healths)
-		if (stat != DEAD)
+	if(healths)
+		if(stat != DEAD)
 			switch(health)
 				if(250 to INFINITY)
 					healths.icon_state = "health0"
@@ -89,36 +87,3 @@
 
 	for(var/image/I in overlays_standing)
 		overlays += I
-
-
-/*
-/mob/living/carbon/alien/humanoid/queen/verb/evolve() // -- TLE
-	set name = "Evolve (1000)"
-	set desc = "The ultimate transformation. Become an alien Empress. Only one empress can exist at a time."
-	set category = "Alien"
-
-	if(powerc(1000))
-		// Queen check
-		var/no_queen = 1
-		for(var/mob/living/carbon/alien/humanoid/empress/E in living_mob_list)
-			if(!E.key && E.brain_op_stage != 4)
-				continue
-			no_queen = 0
-
-		if(no_queen)
-			adjustToxLoss(-1000)
-			to_chat(src, "<span class='noticealien'>You begin to evolve!</span>")
-			for(var/mob/O in viewers(src, null))
-				O.show_message(text("<span class='alertalien'>[src] begins to twist and contort!</span>"), 1)
-			var/mob/living/carbon/alien/humanoid/empress/new_xeno = new(loc)
-			if(mind)
-				mind.transfer_to(new_xeno)
-			else
-				new_xeno.key = key
-			new_xeno.mind.name = new_xeno.name
-			qdel(src)
-		else
-			to_chat(src, "<span class='notice'>We already have an alive empress.</span>")
-	return
-
-*/

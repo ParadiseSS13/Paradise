@@ -17,6 +17,11 @@
 	layer = 2.4 //under wires with their 2.44
 
 /obj/machinery/atmospherics/pipe/manifold/New()
+
+	..()
+
+	alpha = 255
+	icon = null
 	switch(dir)
 		if(NORTH)
 			initialize_directions = EAST|SOUTH|WEST
@@ -26,11 +31,6 @@
 			initialize_directions = SOUTH|WEST|NORTH
 		if(WEST)
 			initialize_directions = NORTH|EAST|SOUTH
-
-	..()
-
-	alpha = 255
-	icon = null
 
 /obj/machinery/atmospherics/pipe/manifold/initialize()
 	..()
@@ -62,7 +62,6 @@
 /obj/machinery/atmospherics/pipe/manifold/hide(var/i)
 	if(level == 1 && istype(loc, /turf/simulated))
 		invisibility = i ? 101 : 0
-	update_icon()
 
 /obj/machinery/atmospherics/pipe/manifold/pipeline_expansion()
 	return list(node1, node2, node3)
@@ -102,6 +101,7 @@
 		if(istype(node3, /obj/machinery/atmospherics/pipe))
 			qdel(parent)
 		node3 = null
+	check_nodes_exist()
 	update_icon()
 	..()
 
@@ -121,39 +121,38 @@
 
 	alpha = 255
 
-	if(!node1 && !node2 && !node3)
-		var/turf/T = get_turf(src)
-		new /obj/item/pipe(loc, make_from=src)
-		for (var/obj/machinery/meter/meter in T)
-			if (meter.target == src)
-				new /obj/item/pipe_meter(T)
-				qdel(meter)
-		qdel(src)
-	else
-		overlays.Cut()
-		overlays += icon_manager.get_atmos_icon("manifold", , pipe_color, "core" + icon_connect_type)
-		overlays += icon_manager.get_atmos_icon("manifold", , , "clamps" + icon_connect_type)
-		underlays.Cut()
+	overlays.Cut()
+	overlays += icon_manager.get_atmos_icon("manifold", , pipe_color, "core" + icon_connect_type)
+	overlays += icon_manager.get_atmos_icon("manifold", , , "clamps" + icon_connect_type)
+	underlays.Cut()
 
-		var/turf/T = get_turf(src)
-		if(!istype(T)) return
-		var/list/directions = list(NORTH, SOUTH, EAST, WEST)
-		var/node1_direction = get_dir(src, node1)
-		var/node2_direction = get_dir(src, node2)
-		var/node3_direction = get_dir(src, node3)
+	var/turf/T = get_turf(src)
+	if(!istype(T)) return
+	var/list/directions = list(NORTH, SOUTH, EAST, WEST)
+	var/node1_direction = get_dir(src, node1)
+	var/node2_direction = get_dir(src, node2)
+	var/node3_direction = get_dir(src, node3)
 
-		directions -= dir
+	directions -= dir
 
-		directions -= add_underlay(T,node1,node1_direction,icon_connect_type)
-		directions -= add_underlay(T,node2,node2_direction,icon_connect_type)
-		directions -= add_underlay(T,node3,node3_direction,icon_connect_type)
+	directions -= add_underlay(T,node1,node1_direction,icon_connect_type)
+	directions -= add_underlay(T,node2,node2_direction,icon_connect_type)
+	directions -= add_underlay(T,node3,node3_direction,icon_connect_type)
 
-		for(var/D in directions)
-			add_underlay(T,,D,icon_connect_type)
+	for(var/D in directions)
+		add_underlay(T,,D,icon_connect_type)
 
 /obj/machinery/atmospherics/pipe/manifold/update_underlays()
 	..()
 	update_icon()
+
+// A check to make sure both nodes exist - self-delete if they aren't present
+/obj/machinery/atmospherics/pipe/manifold/check_nodes_exist()
+	if(!node1 && !node2 && !node3)
+		Deconstruct()
+		return 0 // 0: No nodes exist
+	// 1: 1-3 nodes exist, we continue existing
+	return 1
 
 /obj/machinery/atmospherics/pipe/manifold/visible
 	icon_state = "map"

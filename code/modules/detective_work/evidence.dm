@@ -21,6 +21,10 @@
 	if(!istype(I) || I.anchored == 1)
 		return
 
+	if(istype(I, /obj/item/weapon/storage/box))
+		to_chat(user, "<span class='notice'>This box is too big to fit in the evidence bag.</span>")
+		return
+
 	if(istype(I, /obj/item/weapon/evidencebag))
 		to_chat(user, "<span class='notice'>You find putting an evidence bag in another evidence bag to be slightly absurd.</span>")
 		return 1 //now this is podracing

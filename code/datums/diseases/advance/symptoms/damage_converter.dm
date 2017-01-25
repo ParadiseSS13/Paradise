@@ -45,8 +45,10 @@ Bonus
 		if(!parts.len)
 			return
 
-		M.heal_overall_damage(get_damage, get_damage)
+		for(var/obj/item/organ/external/E in parts)
+			E.heal_damage(get_damage, get_damage, 0, 0)
 		M.adjustToxLoss(get_damage*parts.len)
+
 
 	else
 		if(M.getFireLoss() > 0 || M.getBruteLoss() > 0)

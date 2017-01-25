@@ -21,10 +21,11 @@
 	// Bonus chance if the tray is unoccupied.
 	if(waterlevel > 10 && nutrilevel > 2 && prob(isnull(seed) ? 6 : 3))
 		weedlevel += 1 * HYDRO_SPEED_MULTIPLIER
+		plant_hud_set_weed()
 
 	// There's a chance for a weed explosion to happen if the weeds take over.
 	// Plants that are themselves weeds (weed_tolerance > 10) are unaffected.
-	if (weedlevel >= 10 && prob(10))
+	if(weedlevel >= 10 && prob(10))
 		if(!seed || weedlevel >= seed.get_trait(TRAIT_WEED_TOLERANCE))
 			weed_invasion()
 
@@ -48,8 +49,10 @@
 	// Maintain tray nutrient and water levels.
 	if(seed.get_trait(TRAIT_NUTRIENT_CONSUMPTION) > 0 && nutrilevel > 0 && prob(25))
 		nutrilevel -= max(0,seed.get_trait(TRAIT_NUTRIENT_CONSUMPTION) * HYDRO_SPEED_MULTIPLIER)
+		plant_hud_set_nutrient()
 	if(seed.get_trait(TRAIT_WATER_CONSUMPTION) > 0 && waterlevel > 0 && prob(25))
 		waterlevel -= max(0,seed.get_trait(TRAIT_WATER_CONSUMPTION) * HYDRO_SPEED_MULTIPLIER)
+		plant_hud_set_water()
 
 	// Make sure the plant is not starving or thirsty. Adequate
 	// water and nutrients will cause a plant to become healthier.
@@ -81,7 +84,7 @@
 	T.air_update_turf()
 
 	// If we're attached to a pipenet, then we should let the pipenet know we might have modified some gasses
-	if (closed_system && connected_port)
+	if(closed_system && connected_port)
 		connected_port.parent.update = 1
 
 	// Toxin levels beyond the plant's tolerance cause damage, but
@@ -91,6 +94,7 @@
 		if(toxins > seed.get_trait(TRAIT_TOXINS_TOLERANCE))
 			health -= toxin_uptake
 		toxins -= toxin_uptake
+		plant_hud_set_toxin()
 
 	// Check for pests and weeds.
 	// Some carnivorous plants happily eat pests.
@@ -98,16 +102,18 @@
 		if(seed.get_trait(TRAIT_CARNIVOROUS))
 			health += HYDRO_SPEED_MULTIPLIER
 			pestlevel -= HYDRO_SPEED_MULTIPLIER
-		else if (pestlevel >= seed.get_trait(TRAIT_PEST_TOLERANCE))
+		else if(pestlevel >= seed.get_trait(TRAIT_PEST_TOLERANCE))
 			health -= HYDRO_SPEED_MULTIPLIER
+		plant_hud_set_pest()
 
 	// Some plants thrive and live off of weeds.
 	if(weedlevel > 0)
 		if(seed.get_trait(TRAIT_PARASITE))
 			health += HYDRO_SPEED_MULTIPLIER
 			weedlevel -= HYDRO_SPEED_MULTIPLIER
-		else if (weedlevel >= seed.get_trait(TRAIT_WEED_TOLERANCE))
+		else if(weedlevel >= seed.get_trait(TRAIT_WEED_TOLERANCE))
 			health -= HYDRO_SPEED_MULTIPLIER
+		plant_hud_set_weed()
 
 	// Handle life and death.
 	// If the plant gets too old, begin killing it each cycle

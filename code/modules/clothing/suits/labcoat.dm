@@ -13,7 +13,7 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
 		)
-	action_button_name = "Button/Unbutton Labcoat"
+	actions_types = list(/datum/action/item_action/button)
 	adjust_flavour = "unbutton"
 
 /obj/item/clothing/suit/storage/labcoat/cmo
@@ -21,66 +21,44 @@
 	desc = "Bluer than the standard model."
 	icon_state = "labcoat_cmo_open"
 	item_state = "labcoat_cmo_open"
-	species_fit = list("Vox")
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
-		)
 
 /obj/item/clothing/suit/storage/labcoat/mad
 	name = "mad scientist's labcoat"
 	desc = "It makes you look capable of konking someone on the noggin and shooting them into space."
 	icon_state = "labcoat_green_open"
 	item_state = "labcoat_green_open"
-	species_fit = list("Vox")
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
-		)
 
 /obj/item/clothing/suit/storage/labcoat/genetics
 	name = "geneticist labcoat"
 	desc = "A suit that protects against minor chemical spills. Has a blue stripe on the shoulder."
 	icon_state = "labcoat_gen_open"
 	item_state = "labcoat_gen_open"
-	species_fit = list("Vox")
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
-		)
 
 /obj/item/clothing/suit/storage/labcoat/chemist
 	name = "chemist labcoat"
 	desc = "A suit that protects against minor chemical spills. Has an orange stripe on the shoulder."
 	icon_state = "labcoat_chem_open"
 	item_state = "labcoat_chem_open"
-	species_fit = list("Vox")
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
-		)
 
 /obj/item/clothing/suit/storage/labcoat/virologist
 	name = "virologist labcoat"
 	desc = "A suit that protects against minor chemical spills. Offers slightly more protection against biohazards than the standard model. Has a green stripe on the shoulder."
 	icon_state = "labcoat_vir_open"
-	species_fit = list("Vox")
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
-		)
 
 /obj/item/clothing/suit/storage/labcoat/science
 	name = "scientist labcoat"
 	desc = "A suit that protects against minor chemical spills. Has a purple stripe on the shoulder."
 	icon_state = "labcoat_tox_open"
 	item_state = "labcoat_tox_open"
-	species_fit = list("Vox")
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
-		)
 
 /obj/item/clothing/suit/storage/labcoat/mortician
 	name = "coroner labcoat"
 	desc = "A suit that protects against minor chemical spills. Has a black stripe on the shoulder."
 	icon_state = "labcoat_mort_open"
 	item_state = "labcoat_mort_open"
-	species_fit = list("Vox")
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
-		)
+
+/obj/item/clothing/suit/storage/labcoat/emt
+	name = "EMT labcoat"
+	desc = "A comfortable suit for paramedics. Has dark colours."
+	icon_state = "labcoat_emt_open"
+	item_state = "labcoat_emt_open"

@@ -5,6 +5,8 @@
 	icon_opened = "cardboard_open"
 	icon_closed = "cardboard"
 	health = 10
+	burn_state = FLAMMABLE
+	burntime = 20
 	sound = 'sound/effects/rustle2.ogg'
 	material_drop = /obj/item/stack/sheet/cardboard
 	cutting_sound = 'sound/items/poster_ripped.ogg'
@@ -36,7 +38,7 @@
 					if(!L.stat)
 						L.do_alert_animation(L)
 						egged = 1
-				to_chat(alerted, sound('sound/machines/chime.ogg'))
+				alerted << sound('sound/machines/chime.ogg')
 	..()
 
 /mob/living/proc/do_alert_animation(atom/A)

@@ -41,7 +41,7 @@ var/const/NUCLEARBOMB_WIRE_SAFETY		= 4
 						set_security_level(N.previous_level)
 					N.visible_message("\blue The [N] quiets down.")
 					if(!N.lighthack)
-						if (N.icon_state == "nuclearbomb2")
+						if(N.icon_state == "nuclearbomb2")
 							N.icon_state = "nuclearbomb1"
 				else
 					N.visible_message("\blue The [N] emits a quiet whirling noise!")
@@ -56,7 +56,7 @@ var/const/NUCLEARBOMB_WIRE_SAFETY		= 4
 					N.explode()
 		if(NUCLEARBOMB_WIRE_TIMING)
 			if(!N.lighthack)
-				if (N.icon_state == "nuclearbomb2")
+				if(N.icon_state == "nuclearbomb2")
 					N.icon_state = "nuclearbomb1"
 			N.timing = 0
 			bomb_set = 0

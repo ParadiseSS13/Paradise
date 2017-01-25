@@ -9,7 +9,7 @@
 
 /datum/event/pda_spam/proc/pick_message_server()
 	if(message_servers)
-		for (var/obj/machinery/message_server/MS in message_servers)
+		for(var/obj/machinery/message_server/MS in message_servers)
 			if(MS.active)
 				useMS = MS
 				break
@@ -31,7 +31,7 @@
 			for(var/obj/item/device/pda/check_pda in PDAs)
 				var/datum/data/pda/app/messenger/check_m = check_pda.find_program(/datum/data/pda/app/messenger)
 
-				if (!check_m || !check_m.can_receive())
+				if(!check_m || !check_m.can_receive())
 					continue
 				viables.Add(check_pda)
 
@@ -92,12 +92,12 @@
 					"You have won tickets to the newest romantic comedy 16 RULES OF LOVE!",\
 					"You have won tickets to the newest thriller THE CULT OF THE SLEEPING ONE!")
 
-			if (useMS.send_pda_message("[P.owner]", sender, message))	//Message been filtered by spam filter.
+			if(useMS.send_pda_message("[P.owner]", sender, message))	//Message been filtered by spam filter.
 				return
 
 			last_spam_time = world.time
 
-			if (prob(50)) //Give the AI an increased chance to intercept the message
+			if(prob(50)) //Give the AI an increased chance to intercept the message
 				for(var/mob/living/silicon/ai/ai in mob_list)
 					// Allows other AIs to intercept the message but the AI won't intercept their own message.
 					if(ai.aiPDA != P && ai.aiPDA != src)

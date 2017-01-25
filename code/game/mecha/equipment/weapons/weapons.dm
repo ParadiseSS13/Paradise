@@ -16,7 +16,7 @@
 			if(size > M.maxsize)
 				return 0
 			return 1
-		else if (M.emagged == 1)
+		else if(M.emagged == 1)
 			return 1
 	return 0
 
@@ -29,9 +29,9 @@
 
 	var/turf/curloc = get_turf(chassis)
 	var/turf/targloc = get_turf(target)
-	if (!targloc || !istype(targloc) || !curloc)
+	if(!targloc || !istype(targloc) || !curloc)
 		return 0
-	if (targloc == curloc)
+	if(targloc == curloc)
 		return 0
 
 	set_ready_state(0)
@@ -111,15 +111,15 @@
 	if(ismob(A))
 		var/mob/M = A
 		if(istype(firer, /mob))
-			M.attack_log += "\[[time_stamp()]\] <b>[firer]/[firer.ckey]</b> shot <b>[M]/[M.ckey]</b> with a <b>[src]</b>"
-			firer.attack_log += "\[[time_stamp()]\] <b>[firer]/[firer.ckey]</b> shot <b>[M]/[M.ckey]</b> with a <b>[src]</b>"
+			M.create_attack_log("<b>[firer]/[firer.ckey]</b> shot <b>[M]/[M.ckey]</b> with a <b>[src]</b>")
+			firer.create_attack_log("<b>[firer]/[firer.ckey]</b> shot <b>[M]/[M.ckey]</b> with a <b>[src]</b>")
 			log_attack("<font color='red'>[firer] ([firer.ckey]) shot [M] ([M.ckey]) with a [src]</font>")
 			if(!iscarbon(firer))
 				M.LAssailant = null
 			else
 				M.LAssailant = firer
 		else
-			M.attack_log += "\[[time_stamp()]\] <b>UNKNOWN SUBJECT (No longer exists)</b> shot <b>[M]/[M.ckey]</b> with a <b>[src]</b>"
+			M.create_attack_log("<b>UNKNOWN SUBJECT (No longer exists)</b> shot <b>[M]/[M.ckey]</b> with a <b>[src]</b>")
 			log_attack("<font color='red'>UNKNOWN shot [M] ([M.ckey]) with a [src]</font>")
 	if(life <= 0)
 		qdel(src)
@@ -164,9 +164,9 @@
 			if(istype(H.l_ear, /obj/item/clothing/ears/earmuffs) || istype(H.r_ear, /obj/item/clothing/ears/earmuffs))
 				continue
 		to_chat(M, "<font color='red' size='7'>HONK</font>")
-		M.sleeping = 0
-		M.stuttering = 20
-		M.ear_deaf = 30
+		M.SetSleeping(0)
+		M.Stuttering(20)
+		M.AdjustEarDeaf(30)
 		M.Weaken(3)
 		if(prob(30))
 			M.Stun(10)
@@ -207,7 +207,7 @@
 	return 0
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/get_equip_info()
-	return "[..()]\[[projectiles]\][(projectiles < initial(projectiles))?" - <a href='?src=\ref[src];rearm=1'>Rearm</a>":null]"
+	return "[..()]\[[projectiles]\][(projectiles < initial(projectiles))?" - <a href='?src=[UID()];rearm=1'>Rearm</a>":null]"
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/proc/rearm()
 	if(projectiles < initial(projectiles))
@@ -222,7 +222,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/Topic(href, href_list)
 	..()
-	if (href_list["rearm"])
+	if(href_list["rearm"])
 		rearm()
 	return
 
@@ -350,7 +350,7 @@
 	size=1
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang/clusterbang/limited/get_equip_info()//Limited version of the clusterbang launcher that can't reload
-	return "<span style=\"color:[equip_ready?"#0f0":"#f00"];\">*</span>&nbsp;[chassis.selected==src?"<b>":"<a href='?src=\ref[chassis];select_equip=\ref[src]'>"][name][chassis.selected==src?"</b>":"</a>"]\[[projectiles]\]"
+	return "<span style=\"color:[equip_ready?"#0f0":"#f00"];\">*</span>&nbsp;[chassis.selected==src?"<b>":"<a href='?src=[chassis.UID()];select_equip=\ref[src]'>"][name][chassis.selected==src?"</b>":"</a>"]\[[projectiles]\]"
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang/clusterbang/limited/rearm()
 	return//Extra bit of security
@@ -413,10 +413,10 @@
 	do_after_cooldown()
 	return
 
-/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/bolas
-	name = "PCMK-6 Bolas Launcher"
-	icon_state = "mecha_bolas"
-	projectile = /obj/item/weapon/legcuffs/bolas
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/bola
+	name = "PCMK-6 Bola Launcher"
+	icon_state = "mecha_bola"
+	projectile = /obj/item/weapon/restraints/legcuffs/bola
 	fire_sound = 'sound/weapons/whip.ogg'
 	projectiles = 10
 	missile_speed = 1
@@ -424,19 +424,18 @@
 	projectile_energy_cost = 50
 	equip_cooldown = 10
 
-/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/bolas/can_attach(obj/mecha/combat/gygax/M as obj)
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/bola/can_attach(obj/mecha/combat/gygax/M as obj)
 	if(..())
 		if(istype(M))
 			return 1
 	return 0
 
-/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/bolas/action(target, params)
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/bola/action(target, params)
 	if(!action_checks(target))
 		return
 	set_ready_state(0)
-	var/obj/item/weapon/legcuffs/bolas/M = new projectile(chassis.loc)
+	var/obj/item/weapon/restraints/legcuffs/bola/M = new projectile(chassis.loc)
 	playsound(chassis, fire_sound, 50, 1)
-	M.thrown_from = src
 	M.throw_at(target, missile_range, missile_speed)
 	projectiles--
 	log_message("Fired from [name], targeting [target].")

@@ -111,7 +111,6 @@
 	action_icon_state = "r_nightvision"
 	action_background_icon_state = "bg_revenant"
 
-
 //Transmit: the revemant's only direct way to communicate. Sends a single message silently to a single mob
 /obj/effect/proc_holder/spell/targeted/revenant_transmit
 	name = "Transmit"
@@ -183,7 +182,8 @@
 	name = "[initial(name)] ([cast_amount]E)"
 	user.reveal(reveal)
 	user.stun(stun)
-	user.update_action_buttons()
+	if(action)
+		action.UpdateButtonIcon()
 	return 1
 
 //Overload Light: Breaks a light that's online and sends out lightning bolts to all nearby people.
@@ -252,7 +252,7 @@
 					to_chat(human, "<span class='warning'>You suddenly feel [pick("sick and tired", "tired and confused", "nauseated", "dizzy")].</span>")
 					human.adjustStaminaLoss(stamdamage)
 					human.adjustToxLoss(toxdamage)
-					human.confused = min(human.confused+confusion, maxconfusion)
+					human.AdjustConfused(confusion, bound_lower = 0, bound_upper = maxconfusion)
 					new/obj/effect/overlay/temp/revenant(human.loc)
 				if(!istype(T, /turf/simulated/shuttle) && !istype(T, /turf/simulated/wall/rust) && !istype(T, /turf/simulated/wall/r_wall) && istype(T, /turf/simulated/wall) && prob(15))
 					new/obj/effect/overlay/temp/revenant(T)

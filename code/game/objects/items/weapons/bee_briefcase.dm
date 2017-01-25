@@ -2,6 +2,7 @@
 /obj/item/weapon/bee_briefcase
 	name = "briefcase"
 	desc = "This briefcase has easy-release clasps and smells vaguely of honey and blood..."
+	description_antag = "A briefcase filled with deadly bees, you should inject this with a syringe of your own blood before opening it."
 	icon = 'icons/obj/storage.dmi'
 	icon_state = "briefcase"
 	item_state = "briefcase"
@@ -27,7 +28,6 @@
 
 /obj/item/weapon/bee_briefcase/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/weapon/reagent_containers/syringe))
-
 		var/obj/item/weapon/reagent_containers/syringe/S = I
 		if(!bees_left)
 			to_chat(user, "<span class='warning'>The briefcase is empty, so there is no point in injecting something into it.</span>")
@@ -46,7 +46,6 @@
 						to_chat(user, "<span class='warning'>The buzzing inside the briefcase swells momentarily, then returns to normal. Guess it was too cramped...</span>")
 				S.reagents.clear_reagents()
 				S.update_icon()
-
 	else if(istype(I, /obj/item/weapon/plantspray))
 		var/obj/item/weapon/plantspray/PS = I
 		user.drop_item(PS)
@@ -65,7 +64,7 @@
 			//Play sound through the station intercomms, so everyone knows the doom you have wrought.
 			for(var/O in global_intercoms)
 				var/obj/item/device/radio/intercom/I = O
-				if(I.z != ZLEVEL_STATION)	//Only broadcast to the station intercoms
+				if(!is_station_level(I.z))	//Only broadcast to the station intercoms
 					continue
 				if(!I.on)					//Only broadcast to active intercoms (powered, switched on)
 					continue

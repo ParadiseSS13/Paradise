@@ -3,7 +3,7 @@
 	icon = 'icons/obj/aicards.dmi'
 	icon_state = "pai"
 	item_state = "electronic"
-	w_class = 2.0
+	w_class = 2
 	slot_flags = SLOT_BELT
 	origin_tech = "programming=2"
 	var/request_cooldown = 5 // five seconds
@@ -24,13 +24,17 @@
 	overlays += "pai-off"
 
 /obj/item/device/paicard/Destroy()
-	//Will stop people throwing friend pAIs into the singularity so they can respawn
-	if(!isnull(pai))
-		pai.death(0)
+	if(pai)
+		pai.ghostize()
+		qdel(pai)
+		pai = null
+	if(radio)
+		qdel(radio)
+		radio = null
 	return ..()
 
 /obj/item/device/paicard/attack_self(mob/user)
-	if (!in_range(src, user))
+	if(!in_range(src, user))
 		return
 	user.set_machine(src)
 	var/dat = {"
@@ -151,7 +155,7 @@
 		dat += {"
 			<table>
 				<td class="button">
-					<a href='byond://?src=\ref[src];setlaws=1' class='button'>Configure Directives</a>
+					<a href='byond://?src=[UID()];setlaws=1' class='button'>Configure Directives</a>
 				</td>
 			</table>
 		"}
@@ -159,7 +163,7 @@
 			dat += {"
 				<table>
 					<td class="button">
-						<a href='byond://?src=\ref[src];setdna=1' class='button'>Imprint Master DNA</a>
+						<a href='byond://?src=[UID()];setdna=1' class='button'>Imprint Master DNA</a>
 					</td>
 				</table>
 			"}
@@ -170,13 +174,13 @@
 				<table class="request">
 					<tr>
 						<td class="radio">Transmit:</td>
-						<td><a href='byond://?src=\ref[src];wires=4'>[radio.broadcasting ? "<font color=#55FF55>En" : "<font color=#FF5555>Dis" ]abled</font></a>
+						<td><a href='byond://?src=[UID()];wires=4'>[radio.broadcasting ? "<font color=#55FF55>En" : "<font color=#FF5555>Dis" ]abled</font></a>
 
 						</td>
 					</tr>
 					<tr>
 						<td class="radio">Receive:</td>
-						<td><a href='byond://?src=\ref[src];wires=2'>[radio.listening ? "<font color=#55FF55>En" : "<font color=#FF5555>Dis" ]abled</font></a>
+						<td><a href='byond://?src=[UID()];wires=2'>[radio.listening ? "<font color=#55FF55>En" : "<font color=#FF5555>Dis" ]abled</font></a>
 
 						</td>
 					</tr>
@@ -188,7 +192,7 @@
 			dat += "<font color=red><i>Radio firmware not loaded. Please install a pAI personality to load firmware.</i></font><br>"
 		dat += {"
 			<table>
-				<td class="button_red"><a href='byond://?src=\ref[src];wipe=1' class='button'>Wipe current pAI personality</a>
+				<td class="button_red"><a href='byond://?src=[UID()];wipe=1' class='button'>Wipe current pAI personality</a>
 
 				</td>
 			</table>
@@ -203,7 +207,7 @@
 				<table>
 					<tr>
 						<td class="button">
-							<a href='byond://?src=\ref[src];request=1' class="button">Refresh available personalities</a>
+							<a href='byond://?src=[UID()];request=1' class="button">Refresh available personalities</a>
 						</td>
 					</tr>
 				</table><br>
@@ -214,7 +218,7 @@
 			    <p>No personality is installed.</p>
 				<table>
 					<tr>
-						<td class="button"><a href='byond://?src=\ref[src];request=1' class="button">Request personality</a>
+						<td class="button"><a href='byond://?src=[UID()];request=1' class="button">Request personality</a>
 						</td>
 					</tr>
 				</table>
@@ -270,7 +274,7 @@
 				if(istype(P))
 					if(P.resting || P.canmove)
 						P.close_up()
-				M.death(0)
+				M.death(0, 1)
 			removePersonality()
 	if(href_list["wires"])
 		var/t1 = text2num(href_list["wires"])
@@ -320,7 +324,7 @@
 
 /obj/item/device/paicard/proc/alertUpdate()
 	var/turf/T = get_turf_or_move(src.loc)
-	for (var/mob/M in viewers(T))
+	for(var/mob/M in viewers(T))
 		M.show_message("\blue [src] flashes a message across its screen, \"Additional personalities available for download.\"", 3, "\blue [src] bleeps electronically.", 2)
 
 /obj/item/device/paicard/emp_act(severity)

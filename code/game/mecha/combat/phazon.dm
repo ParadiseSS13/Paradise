@@ -23,60 +23,56 @@
 
 /obj/mecha/combat/phazon/New()
 	..()
-	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/tool/rcd
+	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/rcd
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/gravcatapult
 	ME.attach(src)
-	return
 
 /obj/mecha/combat/phazon/Bump(var/atom/obstacle)
-	if(phasing && get_charge()>=phasing_energy_drain)
+	if(phasing && get_charge() >= phasing_energy_drain)
 		spawn()
 			if(can_move)
 				can_move = 0
 				flick("phazon-phase", src)
-				src.loc = get_step(src,src.dir)
-				src.use_power(phasing_energy_drain)
-				sleep(step_in*3)
+				forceMove(get_step(src, dir))
+				use_power(phasing_energy_drain)
+				sleep(step_in * 3)
 				can_move = 1
 	else
 		. = ..()
-	return
 
 /obj/mecha/combat/phazon/click_action(atom/target,mob/user)
 	if(phasing)
-		src.occupant_message("Unable to interact with objects while phasing")
+		occupant_message("Unable to interact with objects while phasing")
 		return
-	else
-		return ..()
+	return ..()
 
 /obj/mecha/combat/phazon/verb/switch_damtype()
 	set category = "Exosuit Interface"
 	set name = "Reconfigure arm microtool arrays"
 	set src = usr.loc
 	set popup_menu = 0
-	if(usr!=src.occupant)
+	if(usr != occupant)
 		return
-	var/new_damtype = alert(src.occupant,"Arm Tool Selection",null,"Fists","Torch","Toxic Injector")
+	var/new_damtype = alert(occupant, "Arm Tool Selection", null, "Fists", "Torch", "Toxic Injector")
 	switch(new_damtype)
 		if("Fists")
 			damtype = "brute"
-			src.occupant_message("Your exosuit's hands form into fists.")
+			occupant_message("Your exosuit's hands form into fists.")
 		if("Torch")
 			damtype = "fire"
-			src.occupant_message("A torch tip extends from your exosuit's hand, glowing red.")
+			occupant_message("A torch tip extends from your exosuit's hand, glowing red.")
 		if("Toxic injector")
 			damtype = "tox"
-			src.occupant_message("A bone-chillingly thick plasteel needle protracts from the exosuit's palm.")
+			occupant_message("A bone-chillingly thick plasteel needle protracts from the exosuit's palm.")
 	playsound(src, 'sound/mecha/mechmove01.ogg', 50, 1)
-	return
 
 /obj/mecha/combat/phazon/get_commands()
 	var/output = {"<div class='wr'>
 						<div class='header'>Special</div>
 						<div class='links'>
-						<a href='?src=\ref[src];phasing=1'><span id="phasing_command">[phasing?"Dis":"En"]able phasing</span></a><br>
-						<a href='?src=\ref[src];switch_damtype=1'>Change melee damage type</a><br>
+						<a href='?src=[UID()];phasing=1'><span id="phasing_command">[phasing?"Dis":"En"]able phasing</span></a><br>
+						<a href='?src=[UID()];switch_damtype=1'>Change melee damage type</a><br>
 						</div>
 						</div>
 						"}
@@ -85,10 +81,9 @@
 
 /obj/mecha/combat/phazon/Topic(href, href_list)
 	..()
-	if (href_list["switch_damtype"])
-		src.switch_damtype()
-	if (href_list["phasing"])
+	if(href_list["switch_damtype"])
+		switch_damtype()
+	if(href_list["phasing"])
 		phasing = !phasing
-		send_byjax(src.occupant,"exosuit.browser","phasing_command","[phasing?"Dis":"En"]able phasing")
-		src.occupant_message("<font color=\"[phasing?"#00f\">En":"#f00\">Dis"]abled phasing.</font>")
-	return
+		send_byjax(occupant,"exosuit.browser","phasing_command","[phasing?"Dis":"En"]able phasing")
+		occupant_message("<font color=\"[phasing?"#00f\">En":"#f00\">Dis"]abled phasing.</font>")

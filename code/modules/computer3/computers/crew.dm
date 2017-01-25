@@ -15,8 +15,8 @@
 
 		scan()
 		var/t = "<TT><B>Crew Monitoring</B><HR>"
-		t += "<BR><A href='?src=\ref[src];update=1'>Refresh</A> "
-		t += "<A href='?src=\ref[src];close=1'>Close</A><BR>"
+		t += "<BR><A href='?src=[UID()];update=1'>Refresh</A> "
+		t += "<A href='?src=[UID()];close=1'>Close</A><BR>"
 		t += "<table><tr><td width='40%'>Name</td><td width='20%'>Vitals</td><td width='40%'>Position</td></tr>"
 		var/list/logs = list()
 		for(var/obj/item/clothing/under/C in src.tracked)

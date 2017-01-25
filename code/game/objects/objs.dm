@@ -16,12 +16,10 @@
 
 	var/Mtoollink = 0 // variable to decide if an object should show the multitool menu linking menu, not all objects use it
 
-
+	var/burn_state = FIRE_PROOF // LAVA_PROOF | FIRE_PROOF | FLAMMABLE | ON_FIRE
+	var/burntime = 10 //How long it takes to burn to ashes, in seconds
+	var/burn_world_time //What world time the object will burn up completely
 	var/being_shocked = 0
-
-	// What reagents should be logged when transferred TO this object?
-	// Reagent ID => friendly name
-	var/list/reagents_to_log=list()
 
 	var/on_blueprints = FALSE //Are we visible on the station blueprints at roundstart?
 	var/force_blueprints = FALSE //forces the obj to be on the blueprints, regardless of when it was created.
@@ -103,18 +101,18 @@
 		var/is_in_use = 0
 		var/list/nearby = viewers(1, src)
 		for(var/mob/M in nearby)
-			if ((M.client && M.machine == src))
+			if((M.client && M.machine == src))
 				is_in_use = 1
 				src.attack_hand(M)
-		if (istype(usr, /mob/living/silicon/ai) || istype(usr, /mob/living/silicon/robot))
-			if (!(usr in nearby))
-				if (usr.client && usr.machine==src) // && M.machine == src is omitted because if we triggered this by using the dialog, it doesn't matter if our machine changed in between triggering it and this - the dialog is probably still supposed to refresh.
+		if(istype(usr, /mob/living/silicon/ai) || istype(usr, /mob/living/silicon/robot))
+			if(!(usr in nearby))
+				if(usr.client && usr.machine==src) // && M.machine == src is omitted because if we triggered this by using the dialog, it doesn't matter if our machine changed in between triggering it and this - the dialog is probably still supposed to refresh.
 					is_in_use = 1
 					src.attack_ai(usr)
 
 		// check for TK users
 
-		if (istype(usr, /mob/living/carbon/human))
+		if(istype(usr, /mob/living/carbon/human))
 			if(istype(usr.l_hand, /obj/item/tk_grab) || istype(usr.r_hand, /obj/item/tk_grab/))
 				if(!(usr in nearby))
 					if(usr.client && usr.machine==src)
@@ -128,7 +126,7 @@
 		var/list/nearby = viewers(1, src)
 		var/is_in_use = 0
 		for(var/mob/M in nearby)
-			if ((M.client && M.machine == src))
+			if((M.client && M.machine == src))
 				is_in_use = 1
 				src.interact(M)
 		var/ai_in_use = AutoUpdateAI(src)
@@ -205,14 +203,14 @@
 /obj/proc/linkMenu(var/obj/O)
 	var/dat=""
 	if(canLink(O, list()))
-		dat += " <a href='?src=\ref[src];link=1'>\[Link\]</a> "
+		dat += " <a href='?src=[UID()];link=1'>\[Link\]</a> "
 	return dat
 
 /obj/proc/format_tag(var/label,var/varname, var/act="set_tag")
 	var/value = vars[varname]
 	if(!value || value=="")
 		value="-----"
-	return "<b>[label]:</b> <a href=\"?src=\ref[src];[act]=[varname]\">[value]</a>"
+	return "<b>[label]:</b> <a href=\"?src=[UID()];[act]=[varname]\">[value]</a>"
 
 
 /obj/proc/update_multitool_menu(mob/user as mob)
@@ -255,10 +253,10 @@ a {
 					dat += linkMenu(P.buffer)
 
 					if(P.buffer)
-						dat += "<a href='?src=\ref[src];flush=1'>\[Flush\]</a>"
+						dat += "<a href='?src=[UID()];flush=1'>\[Flush\]</a>"
 					dat += "</p>"
 				else
-					dat += "<p><b>MULTITOOL BUFFER:</b> <a href='?src=\ref[src];buffer=1'>\[Add Machine\]</a></p>"
+					dat += "<p><b>MULTITOOL BUFFER:</b> <a href='?src=[UID()];buffer=1'>\[Add Machine\]</a></p>"
 	else
 		dat += "<b>ACCESS DENIED</a>"
 	dat += "</body></html>"
@@ -293,3 +291,31 @@ a {
 
 /obj/proc/CanAStarPass()
 	. = !density
+
+/obj/fire_act(global_overlay=1)
+	if(!burn_state)
+		burn_state = ON_FIRE
+		fire_master.burning += src
+		burn_world_time = world.time + burntime*rand(10,20)
+		if(global_overlay)
+			overlays += fire_overlay
+		return 1
+
+/obj/proc/burn()
+	empty_object_contents(1, loc)
+	var/obj/effect/decal/cleanable/ash/A = new(loc)
+	A.desc = "Looks like this used to be a [name] some time ago."
+	fire_master.burning -= src
+	qdel(src)
+
+/obj/proc/extinguish()
+	if(burn_state == ON_FIRE)
+		burn_state = FLAMMABLE
+		overlays -= fire_overlay
+		fire_master.burning -= src
+
+/obj/proc/empty_object_contents(burn = 0, new_loc = loc)
+	for(var/obj/item/Item in contents) //Empty out the contents
+		Item.forceMove(new_loc)
+		if(burn)
+			Item.fire_act() //Set them on fire, too

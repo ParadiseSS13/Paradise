@@ -97,15 +97,15 @@
 
 	// Checks whether other other can be merged into src.
 	proc/can_merge(var/datum/wound/other)
-		if (other.type != src.type) return 0
-		if (other.current_stage != src.current_stage) return 0
-		if (other.damage_type != src.damage_type) return 0
-		if (!(other.can_autoheal()) != !(src.can_autoheal())) return 0
-		if (!(other.bandaged) != !(src.bandaged)) return 0
-		if (!(other.clamped) != !(src.clamped)) return 0
-		if (!(other.salved) != !(src.salved)) return 0
-		if (!(other.disinfected) != !(src.disinfected)) return 0
-		//if (other.germ_level != src.germ_level) return 0
+		if(other.type != src.type) return 0
+		if(other.current_stage != src.current_stage) return 0
+		if(other.damage_type != src.damage_type) return 0
+		if(!(other.can_autoheal()) != !(src.can_autoheal())) return 0
+		if(!(other.bandaged) != !(src.bandaged)) return 0
+		if(!(other.clamped) != !(src.clamped)) return 0
+		if(!(other.salved) != !(src.salved)) return 0
+		if(!(other.disinfected) != !(src.disinfected)) return 0
+		//if(other.germ_level != src.germ_level) return 0
 		return 1
 
 	proc/merge_wound(var/datum/wound/other)
@@ -118,24 +118,24 @@
 	// checks if wound is considered open for external infections
 	// untreated cuts (and bleeding bruises) and burns are possibly infectable, chance higher if wound is bigger
 	proc/infection_check()
-		if (damage < 10)	//small cuts, tiny bruises, and moderate burns shouldn't be infectable.
+		if(damage < 10)	//small cuts, tiny bruises, and moderate burns shouldn't be infectable.
 			return 0
-		if (is_treated() && damage < 25)	//anything less than a flesh wound (or equivalent) isn't infectable if treated properly
+		if(is_treated() && damage < 25)	//anything less than a flesh wound (or equivalent) isn't infectable if treated properly
 			return 0
-		if (disinfected)
+		if(disinfected)
 			germ_level = 0	//reset this, just in case
 			return 0
 
-		if (damage_type == BRUISE && !bleeding()) //bruises only infectable if bleeding
+		if(damage_type == BRUISE && !bleeding()) //bruises only infectable if bleeding
 			return 0
 
 		var/dam_coef = round(damage/10)
-		switch (damage_type)
-			if (BRUISE)
+		switch(damage_type)
+			if(BRUISE)
 				return prob(dam_coef*5)
-			if (BURN)
+			if(BURN)
 				return prob(dam_coef*10)
-			if (CUT)
+			if(CUT)
 				return prob(dam_coef*20)
 
 		return 0
@@ -174,32 +174,32 @@
 	// returns whether this wound can absorb the given amount of damage.
 	// this will prevent large amounts of damage being trapped in less severe wound types
 	proc/can_worsen(damage_type, damage)
-		if (src.damage_type != damage_type)
+		if(src.damage_type != damage_type)
 			return 0	//incompatible damage types
 
-		if (src.amount > 1)
+		if(src.amount > 1)
 			return 0
 
 		//with 1.5*, a shallow cut will be able to carry at most 30 damage,
 		//37.5 for a deep cut
 		//52.5 for a flesh wound, etc.
 		var/max_wound_damage = 1.5*src.damage_list[1]
-		if (src.damage + damage > max_wound_damage)
+		if(src.damage + damage > max_wound_damage)
 			return 0
 
 		return 1
 
 	proc/bleeding()
-		if (src.internal)
+		if(src.internal)
 			return 0	// internal wounds don't bleed in the sense of this function
 
-		if (current_stage > max_bleeding_stage)
+		if(current_stage > max_bleeding_stage)
 			return 0
 
-		if (bandaged||clamped)
+		if(bandaged||clamped)
 			return 0
 
-		if (wound_damage() <= 30 && bleed_timer <= 0)
+		if(wound_damage() <= 30 && bleed_timer <= 0)
 			return 0	//Bleed timer has run out. Wounds with more than 30 damage don't stop bleeding on their own.
 
 		return (damage_type == BRUISE && wound_damage() >= 20 || damage_type == CUT && wound_damage() >= 5)

@@ -6,7 +6,7 @@
 	//language = "Clatter"
 	unarmed_type = /datum/unarmed_attack/punch
 
-	flags = IS_WHITELISTED | NO_BLOOD
+	flags = IS_WHITELISTED | NO_BLOOD | NOTRANSSTING
 	dietflags = DIET_OMNI
 	reagent_tag = PROCESS_ORG
 
@@ -125,8 +125,7 @@
 	H.equip_or_collect(new/obj/item/weapon/tank/plasma/plasmaman(H), tank_slot) // Bigger plasma tank from Raggy.
 	to_chat(H, "<span class='notice'>You are now running on plasma internals from the [H.s_store] in your [tank_slot_name].  You must breathe plasma in order to survive, and are extremely flammable.</span>")
 	H.internal = H.get_item_by_slot(tank_slot)
-	if (H.internals)
-		H.internals.icon_state = "internal1"
+	H.update_internals_hud_icon(1)
 
 // Plasmamen are so fucking different that they need their own proc.
 /datum/species/plasmaman/handle_breath(var/datum/gas_mixture/breath, var/mob/living/carbon/human/H)
@@ -190,7 +189,7 @@
 			if(SA_pp > SA_para_min) // Enough to make us paralysed for a bit
 				H.Paralyse(3) // 3 gives them one second to wake up and run away a bit!
 				if(SA_pp > SA_sleep_min) // Enough to make us sleep as well
-					H.sleeping = min(H.sleeping+2, 10)
+					H.AdjustSleeping(8, bound_lower = 0, bound_upper = 10)
 			else if(SA_pp > 0.15)	// There is sleeping gas in their lungs, but only a little, so give them a bit of a warning
 				if(prob(20))
 					spawn(0)

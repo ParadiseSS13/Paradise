@@ -1,7 +1,7 @@
 /obj/item/weapon/antag_spawner
 	throw_speed = 1
 	throw_range = 5
-	w_class = 1.0
+	w_class = 1
 	var/used = 0
 
 /obj/item/weapon/antag_spawner/proc/spawn_antag(var/client/C, var/turf/T, var/type = "")
@@ -64,7 +64,7 @@
 	R.key = C.key
 	ticker.mode.syndicates += R.mind
 	ticker.mode.update_synd_icons_added(R.mind)
-	R.mind.special_role = "syndicate"
+	R.mind.special_role = SPECIAL_ROLE_NUKEOPS
 	R.faction = list("syndicate")
 
 /obj/item/weapon/antag_spawner/slaughter_demon //Warning edgiest item in the game
@@ -72,9 +72,15 @@
 	desc = "A magically infused bottle of blood, distilled from countless murder victims. Used in unholy rituals to attract horrifying creatures."
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "vial"
+	var/shatter_msg = "<span class='notice'>You shatter the bottle, no \
+		turning back now!</span>"
+	var/veil_msg = "<span class='warning'>You sense a dark presence lurking \
+		just beyond the veil...</span>"
+	var/objective_verb = "Kill"
+	var/mob/living/demon_type = /mob/living/simple_animal/slaughter
 
 /obj/item/weapon/antag_spawner/slaughter_demon/attack_self(mob/user as mob)
-	if(user.z == ZLEVEL_CENTCOMM)//this is to make sure the wizard does NOT summon a demon from the Den..
+	if(level_blocks_magic(user.z))//this is to make sure the wizard does NOT summon a demon from the Den..
 		to_chat(user, "<span class='notice'>You should probably wait until you reach the station.</span>")
 		return
 
@@ -88,9 +94,9 @@
 
 	if(candidates.len > 0)
 		var/mob/C = pick(candidates)
-		spawn_antag(C, get_turf(src.loc), "Slaughter Demon", user)
-		to_chat(user, "<span class='notice'>You shatter the bottle, no turning back now!</span>")
-		to_chat(user, "<span class='notice'>You sense a dark presence lurking just beyond the veil...</span>")
+		spawn_antag(C, get_turf(src.loc), initial(demon_type.name), user)
+		to_chat(user, "[shatter_msg]")
+		to_chat(user, "[veil_msg]")
 		playsound(user.loc, 'sound/effects/Glassbr1.ogg', 100, 1)
 		qdel(src)
 	else
@@ -99,22 +105,34 @@
 
 /obj/item/weapon/antag_spawner/slaughter_demon/spawn_antag(var/client/C, var/turf/T, var/type = "", mob/user as mob)
 	var /obj/effect/dummy/slaughter/holder = new /obj/effect/dummy/slaughter(T)
-	var/mob/living/simple_animal/slaughter/S = new /mob/living/simple_animal/slaughter/(holder)
+	var/mob/living/simple_animal/slaughter/S = new demon_type(holder)
 	S.vialspawned = TRUE
 	S.holder = holder
 	S.key = C.key
-	S.mind.assigned_role = "Slaughter Demon"
-	S.mind.special_role = "Slaughter Demon"
+	S.mind.assigned_role = S.name
+	S.mind.special_role = S.name
 	ticker.mode.traitors += S.mind
 	var/datum/objective/assassinate/KillDaWiz = new /datum/objective/assassinate
 	KillDaWiz.owner = S.mind
 	KillDaWiz.target = user.mind
-	KillDaWiz.explanation_text = "Kill [user.real_name], the one who was foolish enough to summon you."
+	KillDaWiz.explanation_text = "[objective_verb] [user.real_name], the one who was foolish enough to summon you."
 	S.mind.objectives += KillDaWiz
 	var/datum/objective/KillDaCrew = new /datum/objective
 	KillDaCrew.owner = S.mind
-	KillDaCrew.explanation_text = "Kill everyone else while you're at it."
+	KillDaCrew.explanation_text = "[objective_verb] everyone else while you're at it."
 	S.mind.objectives += KillDaCrew
 	S.mind.objectives += KillDaCrew
 	to_chat(S, "<B>Objective #[1]</B>: [KillDaWiz.explanation_text]")
 	to_chat(S, "<B>Objective #[2]</B>: [KillDaCrew.explanation_text]")
+
+
+/obj/item/weapon/antag_spawner/slaughter_demon/laughter
+	name = "vial of tickles"
+	desc = "A magically infused bottle of clown love, distilled from \
+		countless hugging attacks. Used in funny rituals to attract \
+		adorable creatures."
+	color = "#FF69B4" // HOT PINK
+	veil_msg = "<span class='warning'>You sense an adorable presence \
+		lurking just beyond the veil...</span>"
+	objective_verb = "Hug and Tickle"
+	demon_type = /mob/living/simple_animal/slaughter/laughter

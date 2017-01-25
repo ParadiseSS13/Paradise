@@ -6,20 +6,18 @@
 	icon_state = "alienh_s"
 
 /mob/living/carbon/alien/humanoid/hunter/New()
-	var/datum/reagents/R = new/datum/reagents(100)
-	reagents = R
-	R.my_atom = src
+	create_reagents(100)
 	if(name == "alien hunter")
 		name = text("alien hunter ([rand(1, 1000)])")
 	real_name = name
-	internal_organs += new /obj/item/organ/internal/xenos/plasmavessel/hunter
+	alien_organs += new /obj/item/organ/internal/xenos/plasmavessel/hunter
 	..()
 
 /mob/living/carbon/alien/humanoid/hunter/handle_regular_hud_updates()
 	..() //-Yvarov
 
-	if (healths)
-		if (stat != 2)
+	if(healths)
+		if(stat != 2)
 			switch(health)
 				if(125 to INFINITY)
 					healths.icon_state = "health0"
@@ -85,7 +83,7 @@
 		leaping = 0
 		update_icons()
 
-/mob/living/carbon/alien/humanoid/hunter/throw_impact(A)
+/mob/living/carbon/alien/humanoid/hunter/throw_impact(atom/A)
 
 	if(!leaping)
 		return ..()
@@ -93,22 +91,30 @@
 	if(A)
 		if(istype(A, /mob/living))
 			var/mob/living/L = A
-			L.visible_message("<span class ='danger'>[src] pounces on [L]!</span>", "<span class ='userdanger'>[src] pounces on you!</span>")
-			if(ishuman(L))
-				var/mob/living/carbon/human/H = L
-				H.apply_effect(5, WEAKEN, H.run_armor_check(null, "melee"))
+			var/blocked = 0
+			if(ishuman(A))
+				var/mob/living/carbon/human/H = A
+				if(H.check_shields(0, "the [name]", src, attack_type = LEAP_ATTACK))
+					blocked = 1
+			if(!blocked)
+				L.visible_message("<span class ='danger'>[src] pounces on [L]!</span>", "<span class ='userdanger'>[src] pounces on you!</span>")
+				if(ishuman(L))
+					var/mob/living/carbon/human/H = L
+					H.apply_effect(5, WEAKEN, H.run_armor_check(null, "melee"))
+				else
+					L.Weaken(5)
+				sleep(2)//Runtime prevention (infinite bump() calls on hulks)
+				step_towards(src,L)
 			else
-				L.Weaken(5)
-			sleep(2)//Runtime prevention (infinite bump() calls on hulks)
-			step_towards(src,L)
+				Weaken(2, 1, 1)
 
 			toggle_leap(0)
 			pounce_cooldown = !pounce_cooldown
 			spawn(pounce_cooldown_time) //3s by default
 				pounce_cooldown = !pounce_cooldown
-		else
+		else if(A.density && !A.CanPass(src))
 			visible_message("<span class ='danger'>[src] smashes into [A]!</span>", "<span class ='alertalien'>[src] smashes into [A]!</span>")
-			weakened = 2
+			Weaken(2, 1, 1)
 
 		if(leaping)
 			leaping = 0

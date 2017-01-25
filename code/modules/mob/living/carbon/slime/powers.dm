@@ -28,7 +28,7 @@
 								to_chat(src, "<i>The [met.name] is already feeding on this subject...</i>")
 								return
 						to_chat(src, "\blue <i>I have latched onto the subject and begun feeding...</i>")
-						to_chat(M, "\red <b>The [src.name] has latched onto your head!</b>")
+						to_chat(M, "<span class='danger'>The [src.name] has latched onto your head!</span>")
 						Feedon(M)
 
 					else

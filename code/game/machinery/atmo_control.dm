@@ -33,15 +33,15 @@ obj/machinery/air_sensor
 		return {"
 		<b>Main</b>
 		<ul>
-			<li><b>Frequency:</b> <a href="?src=\ref[src];set_freq=-1">[format_frequency(frequency)] GHz</a> (<a href="?src=\ref[src];set_freq=[initial(frequency)]">Reset</a>)</li>
+			<li><b>Frequency:</b> <a href="?src=[UID()];set_freq=-1">[format_frequency(frequency)] GHz</a> (<a href="?src=[UID()];set_freq=[initial(frequency)]">Reset</a>)</li>
 			<li>[format_tag("ID Tag","id_tag")]</li>
-			<li>Floor Bolts: <a href="?src=\ref[src];toggle_bolts=1">[bolts ? "Enabled" : "Disabled"]</a>
-			<li>Monitor Pressure: <a href="?src=\ref[src];toggle_out_flag=1">[output&1 ? "Yes" : "No"]</a>
-			<li>Monitor Temperature: <a href="?src=\ref[src];toggle_out_flag=2">[output&2 ? "Yes" : "No"]</a>
-			<li>Monitor Oxygen Concentration: <a href="?src=\ref[src];toggle_out_flag=4">[output&4 ? "Yes" : "No"]</a>
-			<li>Monitor Plasma Concentration: <a href="?src=\ref[src];toggle_out_flag=8">[output&8 ? "Yes" : "No"]</a>
-			<li>Monitor Nitrogen Concentration: <a href="?src=\ref[src];toggle_out_flag=16">[output&16 ? "Yes" : "No"]</a>
-			<li>Monitor Carbon Dioxide Concentration: <a href="?src=\ref[src];toggle_out_flag=32">[output&32 ? "Yes" : "No"]</a>
+			<li>Floor Bolts: <a href="?src=[UID()];toggle_bolts=1">[bolts ? "Enabled" : "Disabled"]</a>
+			<li>Monitor Pressure: <a href="?src=[UID()];toggle_out_flag=1">[output&1 ? "Yes" : "No"]</a>
+			<li>Monitor Temperature: <a href="?src=[UID()];toggle_out_flag=2">[output&2 ? "Yes" : "No"]</a>
+			<li>Monitor Oxygen Concentration: <a href="?src=[UID()];toggle_out_flag=4">[output&4 ? "Yes" : "No"]</a>
+			<li>Monitor Plasma Concentration: <a href="?src=[UID()];toggle_out_flag=8">[output&8 ? "Yes" : "No"]</a>
+			<li>Monitor Nitrogen Concentration: <a href="?src=[UID()];toggle_out_flag=16">[output&16 ? "Yes" : "No"]</a>
+			<li>Monitor Carbon Dioxide Concentration: <a href="?src=[UID()];toggle_out_flag=32">[output&32 ? "Yes" : "No"]</a>
 		</ul>"}
 
 	multitool_topic(var/mob/user, var/list/href_list, var/obj/O)
@@ -157,8 +157,10 @@ obj/machinery/air_sensor
 	attack_hand(mob/user)
 		if(..(user))
 			return
-		var/html=return_text()+"</body></html>"
-		user << browse(html,"window=gac")
+		var/html=return_text()
+		var/datum/browser/popup = new(user, "gac", name, 400, 400)
+		popup.set_content(html)
+		popup.open(0)
 		user.set_machine(src)
 		onclose(user, "gac")
 
@@ -220,16 +222,12 @@ obj/machinery/air_sensor
 			else
 				sensor_data = "<em>No sensors connected.</em>"
 
-		var/output = {"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
-	<head>
-		<title>[name]</title>
+		var/output = {"
 		<style type="text/css">
 html,body {
 	font-family:sans-serif,verdana;
 	font-size:smaller;
-	color:#666;
+	color:#fff;
 }
 h1 {
 	border-bottom:1px solid maroon;
@@ -251,15 +249,12 @@ th {
 
 fieldset {
 	border:1px solid #ccc;
-	background: #efefef;
+	background: #333;
 }
 legend {
 	font-weight:bold;
 }
 		</style>
-	</head>
-	<body>
-		<h1>[name]</h1>
 		[show_sensors ? "<h2>Sensor Data:</h2>" + sensor_data : ""]
 		"}
 
@@ -279,13 +274,13 @@ legend {
 		var/dat= {"
 		<b>Main</b>
 		<ul>
-		<li><b>Frequency:</b> <a href="?src=\ref[src];set_freq=-1">[format_frequency(frequency)] GHz</a> (<a href="?src=\ref[src];set_freq=[initial(frequency)]">Reset</a>)</li>
+		<li><b>Frequency:</b> <a href="?src=[UID()];set_freq=-1">[format_frequency(frequency)] GHz</a> (<a href="?src=[UID()];set_freq=[initial(frequency)]">Reset</a>)</li>
 		</ul>
 		<b>Sensors:</b>
 		<ul>"}
 		for(var/id_tag in sensors)
-			dat += {"<li><a href="?src=\ref[src];edit_sensor=[id_tag]">[sensors[id_tag]]</a></li>"}
-		dat += {"<li><a href="?src=\ref[src];add_sensor=1">\[+\]</a></li></ul>"}
+			dat += {"<li><a href="?src=[UID()];edit_sensor=[id_tag]">[sensors[id_tag]]</a></li>"}
+		dat += {"<li><a href="?src=[UID()];add_sensor=1">\[+\]</a></li></ul>"}
 		return dat
 
 	multitool_topic(var/mob/user,var/list/href_list,var/obj/O)
@@ -344,7 +339,7 @@ legend {
 		var/dat=""
 
 		if(istype(O,/obj/machinery/air_sensor) || istype(O, /obj/machinery/meter))
-			dat += " <a href='?src=\ref[src];link=1'>\[New Sensor\]</a> "
+			dat += " <a href='?src=[UID()];link=1'>\[New Sensor\]</a> "
 		return dat
 
 	canLink(var/obj/O, var/list/context)
@@ -391,15 +386,15 @@ legend {
 		multitool_menu(var/mob/user, var/obj/item/device/multitool/P)
 			var/dat= {"
 			<ul>
-				<li><b>Frequency:</b> <a href="?src=\ref[src];set_freq=-1">[format_frequency(frequency)] GHz</a> (<a href="?src=\ref[src];set_freq=[initial(frequency)]">Reset</a>)</li>
+				<li><b>Frequency:</b> <a href="?src=[UID()];set_freq=-1">[format_frequency(frequency)] GHz</a> (<a href="?src=[UID()];set_freq=[initial(frequency)]">Reset</a>)</li>
 				<li>[format_tag("Input","input_tag")]</li>
 				<li>[format_tag("Output","output_tag")]</li>
 			</ul>
 			<b>Sensors:</b>
 			<ul>"}
 			for(var/id_tag in sensors)
-				dat += {"<li><a href="?src=\ref[src];edit_sensor=[id_tag]">[sensors[id_tag]]</a></li>"}
-			dat += {"<li><a href="?src=\ref[src];add_sensor=1">\[+\]</a></li></ul>"}
+				dat += {"<li><a href="?src=[UID()];edit_sensor=[id_tag]">[sensors[id_tag]]</a></li>"}
+			dat += {"<li><a href="?src=[UID()];add_sensor=1">\[+\]</a></li></ul>"}
 			return dat
 
 
@@ -438,9 +433,9 @@ legend {
 		linkMenu(var/obj/O)
 			var/dat=""
 			if(canLink(O,list("slot"="input")))
-				dat += " <a href='?src=\ref[src];link=1;slot=input'>\[Link @ Input\]</a> "
+				dat += " <a href='?src=[UID()];link=1;slot=input'>\[Link @ Input\]</a> "
 			if(canLink(O,list("slot"="output")))
-				dat += " <a href='?src=\ref[src];link=1;slot=output'>\[Link @ Output\]</a> "
+				dat += " <a href='?src=[UID()];link=1;slot=output'>\[Link @ Output\]</a> "
 			return dat
 
 		canLink(var/obj/O, var/list/context)
@@ -473,11 +468,11 @@ legend {
 					var/volume_rate = input_info["volume_rate"]
 					output += {"
 <fieldset>
-	<legend>Input (<A href='?src=\ref[src];in_refresh_status=1'>Refresh</A>)</legend>
+	<legend>Input (<A href='?src=[UID()];in_refresh_status=1'>Refresh</A>)</legend>
 	<table>
 		<tr>
 			<th>State:</th>
-			<td><A href='?src=\ref[src];in_toggle_injector=1'>[power?("Injecting"):("On Hold")]</A></td>
+			<td><A href='?src=[UID()];in_toggle_injector=1'>[power?("Injecting"):("On Hold")]</A></td>
 		</tr>
 		<tr>
 			<th>Rate:</th>
@@ -488,28 +483,28 @@ legend {
 "}
 
 				else
-					output += "<FONT color='red'>ERROR: Can not find input port</FONT> <A href='?src=\ref[src];in_refresh_status=1'>Search</A><BR>"
+					output += "<FONT color='red'>ERROR: Can not find input port</FONT> <A href='?src=[UID()];in_refresh_status=1'>Search</A><BR>"
 			if(output_tag)
 				if(output_info)
 					var/power = (output_info["power"])
 					var/output_pressure = output_info["internal"]
 					output += {"
 <fieldset>
-	<legend>Output (<A href='?src=\ref[src];out_refresh_status=1'>Refresh</A>)</legend>
+	<legend>Output (<A href='?src=[UID()];out_refresh_status=1'>Refresh</A>)</legend>
 	<table>
 		<tr>
 			<th>State:</th>
-			<td><A href='?src=\ref[src];out_toggle_power=1'>[power?("Open"):("On Hold")]</A></td>
+			<td><A href='?src=[UID()];out_toggle_power=1'>[power?("Open"):("On Hold")]</A></td>
 		</tr>
 		<tr>
 			<th>Max Output Pressure:</th>
-			<td><A href='?src=\ref[src];out_set_pressure=1'>[output_pressure]</A> kPa</td>
+			<td><A href='?src=[UID()];out_set_pressure=1'>[output_pressure]</A> kPa</td>
 		</tr>
 	</table>
 </fieldset>
 "}
 				else
-					output += "<FONT color='red'>ERROR: Can not find output port</FONT> <A href='?src=\ref[src];out_refresh_status=1'>Search</A><BR>"
+					output += "<FONT color='red'>ERROR: Can not find output port</FONT> <A href='?src=[UID()];out_refresh_status=1'>Search</A><BR>"
 
 			return output
 
@@ -633,7 +628,7 @@ legend {
 
 		return_text()
 			var/output = ..()
-			output += "<fieldset><legend>Fuel Injection System (<A href='?src=\ref[src];refresh_status=1'>Refresh</A>)</legend>"
+			output += "<fieldset><legend>Fuel Injection System (<A href='?src=[UID()];refresh_status=1'>Refresh</A>)</legend>"
 			if(device_info)
 				var/power = device_info["power"]
 				var/volume_rate = device_info["volume_rate"]
@@ -648,13 +643,13 @@ legend {
 				</tr>
 				<tr>
 					<th>Automated Fuel Injection:</th>
-					<td><A href='?src=\ref[src];toggle_automation=1'>[automation?"Engaged":"Disengaged"]</A></td>
+					<td><A href='?src=[UID()];toggle_automation=1'>[automation?"Engaged":"Disengaged"]</A></td>
 				</tr>"}
 
 				if(automation)
 
 					// AUTOFIXED BY fix_string_idiocy.py
-					// C:\Users\Rob\Documents\Projects\vgstation13\code\game\machinery\atmo_control.dm:372: output += "Automated Fuel Injection: <A href='?src=\ref[src];toggle_automation=1'>Engaged</A><BR>"
+					// C:\Users\Rob\Documents\Projects\vgstation13\code\game\machinery\atmo_control.dm:372: output += "Automated Fuel Injection: <A href='?src=[UID()];toggle_automation=1'>Engaged</A><BR>"
 					output += {"
 					<tr>
 						<td colspan="2">Injector Controls Locked Out</td>
@@ -663,16 +658,16 @@ legend {
 				else
 
 					// AUTOFIXED BY fix_string_idiocy.py
-					// C:\Users\Rob\Documents\Projects\vgstation13\code\game\machinery\atmo_control.dm:375: output += "Automated Fuel Injection: <A href='?src=\ref[src];toggle_automation=1'>Disengaged</A><BR>"
+					// C:\Users\Rob\Documents\Projects\vgstation13\code\game\machinery\atmo_control.dm:375: output += "Automated Fuel Injection: <A href='?src=[UID()];toggle_automation=1'>Disengaged</A><BR>"
 					output += {"
 					<tr>
 						<th>Injector:</th>
-						<td><A href='?src=\ref[src];toggle_injector=1'>Toggle Power</A> <A href='?src=\ref[src];injection=1'>Inject (1 Cycle)</A></td>
+						<td><A href='?src=[UID()];toggle_injector=1'>Toggle Power</A> <A href='?src=[UID()];injection=1'>Inject (1 Cycle)</A></td>
 					</td>"}
 					// END AUTOFIX
 				output += "</table>"
 			else
-				output += {"<p style="color:red"><b>ERROR:</b> Can not find device. <A href='?src=\ref[src];refresh_status=1'>Search</A></p>"}
+				output += {"<p style="color:red"><b>ERROR:</b> Can not find device. <A href='?src=[UID()];refresh_status=1'>Search</A></p>"}
 			output += "</fieldset>"
 
 			return output

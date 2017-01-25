@@ -62,19 +62,19 @@
 		var/points = experiment.points
 		dat += "Collected Samples : [points] <br>"
 		dat += "<b>Transfer data in exchange for supplies:</b><br>"
-		dat += "<a href='?src=\ref[src];dispense=baton'>Advanced Baton</A><br>"
-		dat += "<a href='?src=\ref[src];dispense=helmet'>Agent Helmet</A><br>"
-		dat += "<a href='?src=\ref[src];dispense=silencer'>Radio Silencer</A><br>"
-		dat += "<a href='?src=\ref[src];dispense=tool'>Science Tool</A><br>"
+		dat += "<a href='?src=[UID()];dispense=baton'>Advanced Baton</A><br>"
+		dat += "<a href='?src=[UID()];dispense=helmet'>Agent Helmet</A><br>"
+		dat += "<a href='?src=[UID()];dispense=silencer'>Radio Silencer</A><br>"
+		dat += "<a href='?src=[UID()];dispense=tool'>Science Tool</A><br>"
 	else
 		dat += "<span class='bad'>NO EXPERIMENT MACHINE DETECTED</span> <br>"
 
 	if(pad!=null)
 		dat += "<span class='bad'>Emergency Teleporter System.</span>"
 		dat += "<span class='bad'>Consider using primary observation console first.</span>"
-		dat += "<a href='?src=\ref[src];teleporter_send=1'>Activate Teleporter</A><br>"
+		dat += "<a href='?src=[UID()];teleporter_send=1'>Activate Teleporter</A><br>"
 		if(gizmo!=null && gizmo.marked!=null)
-			dat += "<a href='?src=\ref[src];teleporter_retrieve=1'>Retrieve Mark</A><br>"
+			dat += "<a href='?src=[UID()];teleporter_retrieve=1'>Retrieve Mark</A><br>"
 		else
 			dat += "<span class='linkOff'>Retrieve Mark</span><br>"
 	else
@@ -84,14 +84,14 @@
 		dat += "<h4> Agent Vest Mode </h4><br>"
 		var/mode = vest.mode
 		if(mode == VEST_STEALTH)
-			dat += "<a href='?src=\ref[src];flip_vest=1'>Combat</A>"
+			dat += "<a href='?src=[UID()];flip_vest=1'>Combat</A>"
 			dat += "<span class='linkOff'>Stealth</span>"
 		else
 			dat += "<span class='linkOff'>Combat</span>"
-			dat += "<a href='?src=\ref[src];flip_vest=1'>Stealth</A>"
+			dat += "<a href='?src=[UID()];flip_vest=1'>Stealth</A>"
 
 		dat+="<br>"
-		dat += "<a href='?src=\ref[src];select_disguise=1'>Select Agent Vest Disguise</a><br>"
+		dat += "<a href='?src=[UID()];select_disguise=1'>Select Agent Vest Disguise</a><br>"
 	else
 		dat += "<span class='bad'>NO AGENT VEST DETECTED</span>"
 	var/datum/browser/popup = new(user, "computer", "Abductor Console", 400, 500)
@@ -167,17 +167,17 @@
 
 /obj/machinery/abductor/console/proc/Link_Abduction_Equipment() // these must all be explicitly `in machines` or they will not properly link.
 
-	for(var/obj/machinery/abductor/pad/p in machines)
+	for(var/obj/machinery/abductor/pad/p in abductor_equipment)
 		if(p.team == team)
 			pad = p
 			break
 
-	for(var/obj/machinery/abductor/experiment/e in machines)
+	for(var/obj/machinery/abductor/experiment/e in abductor_equipment)
 		if(e.team == team)
 			experiment = e
 			e.console = src
 
-	for(var/obj/machinery/computer/camera_advanced/abductor/c in machines)
+	for(var/obj/machinery/computer/camera_advanced/abductor/c in abductor_equipment)
 		if(c.team == team)
 			camera = c
 			c.console = src

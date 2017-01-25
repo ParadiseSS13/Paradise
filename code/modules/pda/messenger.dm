@@ -43,7 +43,7 @@
 			var/obj/item/device/pda/P = A
 			var/datum/data/pda/app/messenger/PM = P.find_program(/datum/data/pda/app/messenger)
 
-			if (!P.owner || PM.toff || P == pda || PM.m_hidden)
+			if(!P.owner || PM.toff || P == pda || PM.m_hidden)
 				continue
 			if(conversations.Find("\ref[P]"))
 				convopdas.Add(list(list("Name" = "[P]", "Reference" = "\ref[P]", "Detonate" = "[P.detonate]", "inconvo" = "1")))
@@ -123,17 +123,17 @@
 		return
 	t = sanitize(copytext(t, 1, MAX_MESSAGE_LEN))
 	t = readd_quotes(t)
-	if (!t || !istype(P))
+	if(!t || !istype(P))
 		return
-	if (!in_range(pda, U) && pda.loc != U)
+	if(!in_range(pda, U) && pda.loc != U)
 		return
 
 	var/datum/data/pda/app/messenger/PM = P.find_program(/datum/data/pda/app/messenger)
 
-	if (!PM || PM.toff || toff)
+	if(!PM || PM.toff || toff)
 		return
 
-	if (last_text && world.time < last_text + 5)
+	if(last_text && world.time < last_text + 5)
 		return
 
 	if(!pda.can_use())
@@ -158,6 +158,7 @@
 		if(signal.data["done"])
 			useTC = 1
 			var/turf/pos = get_turf(P)
+			// TODO: Make the radio system cooperate with the space manager
 			if(pos.z in signal.data["level"])
 				useTC = 2
 				//Let's make this barely readable
@@ -178,7 +179,7 @@
 			PM.conversations.Add("\ref[pda]")
 
 		nanomanager.update_user_uis(U, P) // Update the sending user's PDA UI so that they can see the new message
-		PM.notify("<b>Message from [pda.owner] ([pda.ownjob]), </b>\"[t]\" (<a href='?src=\ref[PM];choice=Message;target=\ref[pda]'>Reply</a>)")
+		PM.notify("<b>Message from [pda.owner] ([pda.ownjob]), </b>\"[t]\" (<a href='?src=[PM.UID()];choice=Message;target=\ref[pda]'>Reply</a>)")
 		log_pda("[usr] (PDA: [src.name]) sent \"[t]\" to [P.name]")
 	else
 		to_chat(U, "<span class='notice'>ERROR: Messaging server is not responding.</span>")
@@ -188,7 +189,7 @@
 	var/list/plist = list()
 	var/list/namecounts = list()
 
-	if (toff)
+	if(toff)
 		to_chat(usr, "Turn on your receiver in order to send messages.")
 		return
 
@@ -200,7 +201,7 @@
 			continue
 
 		var/name = P.owner
-		if (name in names)
+		if(name in names)
 			namecounts[name]++
 			name = text("[name] ([namecounts[name]])")
 		else

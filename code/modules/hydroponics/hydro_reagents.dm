@@ -5,7 +5,7 @@
 	flags = OPENCONTAINER | NOBLUDGEON
 	slot_flags = SLOT_BELT
 	throwforce = 4
-	w_class = 2.0
+	w_class = 2
 	throw_speed = 2
 	throw_range = 10
 	var/toxicity = 4
@@ -32,7 +32,6 @@
 
 /obj/item/weapon/plantspray/pests/old/carbaryl
 	name = "bottle of carbaryl"
-	icon_state = "bottle16"
 	toxicity = 4
 	pest_kill_str = 2
 
@@ -64,7 +63,6 @@
 /obj/item/weedkiller/triclopyr
 	name = "bottle of glyphosate"
 	icon = 'icons/obj/chemical.dmi'
-	icon_state = "bottle16"
 	toxicity = 4
 	weed_kill_str = 2
 
@@ -86,14 +84,14 @@
 // Nutrient defines for hydroponics
 // *************************************
 
-/obj/item/weapon/reagent_containers/glass/fertilizer
+/obj/item/weapon/reagent_containers/glass/bottle/fertilizer
 	name = "fertilizer bottle"
 	desc = "A small glass bottle. Can hold up to 10 units."
 	icon = 'icons/obj/chemical.dmi'
-	icon_state = "bottle16"
+	icon_state = "round_bottle"
 	flags = OPENCONTAINER
 	possible_transfer_amounts = null
-	w_class = 2.0
+	w_class = 2
 
 	var/fertilizer //Reagent contained, if any.
 
@@ -101,7 +99,7 @@
 	amount_per_transfer_from_this = 10
 	volume = 10
 
-/obj/item/weapon/reagent_containers/glass/fertilizer/New()
+/obj/item/weapon/reagent_containers/glass/bottle/fertilizer/New()
 	..()
 
 	src.pixel_x = rand(-5.0, 5)
@@ -110,17 +108,17 @@
 	if(fertilizer)
 		reagents.add_reagent(fertilizer,10)
 
-/obj/item/weapon/reagent_containers/glass/fertilizer/ez
+/obj/item/weapon/reagent_containers/glass/bottle/fertilizer/ez
 	name = "bottle of E-Z-Nutrient"
-	icon_state = "bottle16"
+	icon_state = "round_bottle"
 	fertilizer = "eznutrient"
 
-/obj/item/weapon/reagent_containers/glass/fertilizer/l4z
+/obj/item/weapon/reagent_containers/glass/bottle/fertilizer/l4z
 	name = "bottle of Left 4 Zed"
-	icon_state = "bottle18"
+	icon_state = "round_bottle"
 	fertilizer = "left4zed"
 
-/obj/item/weapon/reagent_containers/glass/fertilizer/rh
+/obj/item/weapon/reagent_containers/glass/bottle/fertilizer/rh
 	name = "bottle of Robust Harvest"
-	icon_state = "bottle15"
+	icon_state = "round_bottle"
 	fertilizer = "robustharvest"

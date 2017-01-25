@@ -1,7 +1,7 @@
 /obj/item/weapon/storage/box/syndicate/
 	New()
 		..()
-		switch (pickweight(list("bloodyspai" = 1, "stealth" = 1, "bond" = 1, "screwed" = 1, "guns" = 1, "murder" = 1, "implant" = 1, "hacker" = 1, "lordsingulo" = 1, "darklord" = 1)))
+		switch(pickweight(list("bloodyspai" = 1, "stealth" = 1, "bond" = 1, "screwed" = 1, "guns" = 1, "murder" = 1, "implant" = 1, "hacker" = 1, "lordsingulo" = 1, "darklord" = 1)))
 			if("bloodyspai")
 				new /obj/item/clothing/under/chameleon(src)
 				new /obj/item/clothing/mask/gas/voice(src)
@@ -37,7 +37,7 @@
 				new /obj/item/weapon/gun/projectile/revolver(src)
 				new /obj/item/ammo_box/a357(src)
 				new /obj/item/weapon/card/emag(src)
-				new /obj/item/weapon/c4(src)
+				new /obj/item/weapon/grenade/plastic/c4(src)
 				new /obj/item/clothing/gloves/color/latex/nitrile(src)
 				new /obj/item/clothing/mask/gas/clown_hat(src)
 				new /obj/item/clothing/under/suit_jacket/really_black(src)
@@ -77,8 +77,7 @@
 				new /obj/item/weapon/melee/energy/sword/saber(src)
 				new /obj/item/weapon/melee/energy/sword/saber(src)
 				new /obj/item/weapon/dnainjector/telemut/darkbundle(src)
-				new /obj/item/clothing/head/chaplain_hood(src)
-				new /obj/item/clothing/suit/chaplain_hoodie(src)
+				new /obj/item/clothing/suit/hooded/chaplain_hoodie(src)
 				new /obj/item/weapon/card/id/syndicate(src)
 				return
 
@@ -118,7 +117,16 @@
 	..()
 	new /obj/item/clothing/suit/space/rig/syndi/elite(src)
 	new /obj/item/clothing/head/helmet/space/rig/syndi/elite(src)
-	return
+
+/obj/item/weapon/storage/box/syndie_kit/shielded_hardsuit
+	name = "Boxed Shielded Syndicate Hardsuit and Helmet"
+	can_hold = list("/obj/item/clothing/suit/space/rig/shielded/syndi", "/obj/item/clothing/head/helmet/space/rig/shielded/syndi")
+	max_w_class = 4
+
+/obj/item/weapon/storage/box/syndie_kit/shielded_hardsuit/New()
+	..()
+	new /obj/item/clothing/suit/space/rig/shielded/syndi(src)
+	new /obj/item/clothing/head/helmet/space/rig/shielded/syndi(src)
 
 /obj/item/weapon/storage/box/syndie_kit/conversion
 	name = "box (CK)"
@@ -187,3 +195,25 @@
 	new /obj/item/ammo_casing/shotgun/dart/assassination(src)
 	new /obj/item/ammo_casing/shotgun/dart/assassination(src)
 	new /obj/item/weapon/gun/projectile/revolver/doublebarrel/improvised/cane(src)
+
+
+/obj/item/weapon/storage/box/syndie_kit/atmosgasgrenades
+	name = "Atmos Grenades"
+
+/obj/item/weapon/storage/box/syndie_kit/atmosgasgrenades/New()
+	..()
+	new /obj/item/weapon/grenade/clusterbuster/plasma(src)
+	new /obj/item/weapon/grenade/clusterbuster/n2o(src)
+
+/obj/item/weapon/storage/box/syndie_kit/missionary_set
+	name = "Missionary Starter Kit"
+
+/obj/item/weapon/storage/box/syndie_kit/missionary_set/New()
+	..()
+	new /obj/item/weapon/nullrod/missionary_staff(src)
+	new /obj/item/clothing/suit/hooded/chaplain_hoodie/missionary_robe(src)
+	var/obj/item/weapon/storage/bible/B = new /obj/item/weapon/storage/bible(src)
+	if(prob(25))	//an omen of success to come?
+		B.deity_name = "Success"
+		B.icon_state = "greentext"
+		B.item_state = "greentext"

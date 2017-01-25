@@ -3,7 +3,7 @@
 	desc = "A generic brand of lipstick."
 	icon = 'icons/obj/items.dmi'
 	icon_state = "lipstick"
-	w_class = 1.0
+	w_class = 1
 	var/colour = "red"
 	var/open = 0
 
@@ -86,7 +86,7 @@
 	icon = 'icons/obj/items.dmi'
 	icon_state = "razor"
 	flags = CONDUCT
-	w_class = 1.0
+	w_class = 1
 
 /obj/item/weapon/razor/attack(mob/living/carbon/M as mob, mob/user as mob)
 	if(ishuman(M))

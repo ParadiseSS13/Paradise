@@ -46,6 +46,7 @@
 
 	faction = list("undead") // did I mention ghost
 	loot = list(/obj/item/weapon/reagent_containers/food/snacks/ectoplasm)
+	del_on_death = 1
 
 /mob/living/simple_animal/hostile/retaliate/ghost/Process_Spacemove(var/check_drift = 0)
 	return 1
@@ -61,10 +62,6 @@
 	else
 		invisibility = pick(0,60,60,invisibility)
 	..()
-/mob/living/simple_animal/hostile/retaliate/ghost/death()
-	..()
-	qdel(src)
-	return
 
 /mob/living/simple_animal/hostile/retaliate/skeleton
 	name = "skeleton"
@@ -92,11 +89,7 @@
 
 	faction = list("undead")
 	loot = list(/obj/effect/decal/remains/human)
-
-/mob/living/simple_animal/hostile/retaliate/skeleton/death()
-	..()
-	qdel(src)
-	return
+	del_on_death = 1
 
 /mob/living/simple_animal/hostile/retaliate/zombie
 	name = "zombie"
@@ -124,8 +117,4 @@
 
 	faction = list("undead")
 	loot = list(/obj/effect/decal/cleanable/blood/gibs)
-
-/mob/living/simple_animal/hostile/retaliate/zombie/death()
-	..()
-	qdel(src)
-	return
+	del_on_death = 1

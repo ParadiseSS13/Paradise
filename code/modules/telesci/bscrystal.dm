@@ -8,6 +8,7 @@
 	origin_tech = "bluespace=4;materials=3"
 	points = 50
 	var/blink_range = 8 // The teleport range when crushed/thrown at someone.
+	refined_type = /obj/item/stack/sheet/bluespace_crystal
 
 /obj/item/weapon/ore/bluespace_crystal/New()
 	..()
@@ -21,7 +22,7 @@
 	qdel(src)
 
 /obj/item/weapon/ore/bluespace_crystal/proc/blink_mob(var/mob/living/L)
-	if(L.z in config.admin_levels)
+	if(!is_teleport_allowed(L.z))
 		src.visible_message("<span class=warning>[src]'s fragments begin rapidly vibrating and blink out of existence.<span>")
 		qdel(src)
 		return
@@ -32,6 +33,10 @@
 	if(isliving(hit_atom))
 		blink_mob(hit_atom)
 	qdel(src)
+// Blueapce crystal fragments (stops point farming)
+/obj/item/weapon/ore/bluespace_crystal/fragment
+    points = 0
+    refined_type = null
 
 // Artifical bluespace crystal, doesn't give you much research.
 /obj/item/weapon/ore/bluespace_crystal/artificial
@@ -39,3 +44,23 @@
 	desc = "An artificially made bluespace crystal, it looks delicate."
 	origin_tech = "bluespace=2"
 	blink_range = 4 // Not as good as the organic stuff!
+	points = 0 // nice try
+	refined_type = null
+
+// Polycrystals, aka stacks
+
+var/global/list/datum/stack_recipe/bluespace_crystal_recipes = list(new/datum/stack_recipe("Breakdown into bluespace crystal", /obj/item/weapon/ore/bluespace_crystal/fragment, 1, one_per_turf = 0, on_floor = 1))
+
+/obj/item/stack/sheet/bluespace_crystal
+	name = "bluespace polycrystal"
+	icon = 'icons/obj/telescience.dmi'
+	icon_state = "polycrystal"
+	desc = "A stable polycrystal, made of fused-together bluespace crystals. You could probably break one off."
+	origin_tech = "bluespace=4;materials=3"
+	attack_verb = list("bluespace polybashed", "bluespace polybattered", "bluespace polybludgeoned", "bluespace polythrashed", "bluespace polysmashed")
+
+/obj/item/stack/sheet/bluespace_crystal/New()
+	..()
+	recipes = bluespace_crystal_recipes
+	pixel_x = rand(0,4)-4
+	pixel_y = rand(0,4)-4

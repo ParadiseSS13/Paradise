@@ -1,0 +1,23 @@
+"a" = (/turf/simulated/wall/survival,/area/survivalpod)
+"b" = (/obj/structure/sign/mining/survival{tag = "icon-survival (NORTH)"; icon_state = "survival"; dir = 1},/turf/simulated/wall/survival,/area/survivalpod)
+"c" = (/obj/structure/fans,/turf/simulated/floor/pod,/area/survivalpod)
+"d" = (/obj/machinery/smartfridge/survival_pod/loaded,/turf/simulated/floor/pod,/area/survivalpod)
+"e" = (/obj/item/device/gps/computer,/turf/simulated/floor/pod,/area/survivalpod)
+"f" = (/obj/structure/sign/mining/survival{dir = 8},/turf/simulated/wall/survival,/area/survivalpod)
+"g" = (/obj/machinery/sleeper/survival_pod,/turf/simulated/floor/pod,/area/survivalpod)
+"h" = (/turf/simulated/floor/pod,/area/survivalpod)
+"i" = (/obj/structure/stool/bed/pod,/obj/item/weapon/bedsheet/brown,/turf/simulated/floor/pod,/area/survivalpod)
+"j" = (/obj/structure/sign/mining/survival{tag = "icon-survival (EAST)"; icon_state = "survival"; dir = 4},/turf/simulated/wall/survival,/area/survivalpod)
+"k" = (/obj/structure/table/survival_pod,/turf/simulated/floor/pod,/area/survivalpod)
+"l" = (/obj/structure/tubes,/obj/structure/stool/bed/chair/comfy/black{dir = 8},/turf/simulated/floor/pod,/area/survivalpod)
+"m" = (/obj/structure/sign/mining/survival,/turf/simulated/wall/survival,/area/survivalpod)
+"n" = (/obj/structure/fans/tiny,/obj/machinery/door/airlock/survival_pod,/turf/simulated/floor/pod,/area/survivalpod)
+"o" = (/obj/structure/sign/mining,/turf/simulated/wall/survival,/area/survivalpod)
+
+(1,1,1) = {"
+aabaa
+acdea
+fghij
+akhla
+amnoa
+"}

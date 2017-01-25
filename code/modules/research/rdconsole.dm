@@ -31,6 +31,18 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 */
 
+// Who likes #defines?
+// I don't!
+// but I gotta add 'em anyways because we have a bias against /const statements for some reason
+#define TECH_UPDATE_DELAY 50
+#define DESIGN_UPDATE_DELAY 50
+#define PROTOLATHE_CONSTRUCT_DELAY 32
+#define SYNC_RESEARCH_DELAY 30
+#define DECONSTRUCT_DELAY 24
+#define SYNC_DEVICE_DELAY 20
+#define RESET_RESEARCH_DELAY 20
+#define IMPRINTER_DELAY 16
+
 /obj/machinery/computer/rdconsole
 	name = "\improper R&D console"
 	icon_screen = "rdcomp"
@@ -46,11 +58,12 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	var/obj/machinery/r_n_d/circuit_imprinter/linked_imprinter = null	//Linked Circuit Imprinter
 
 	var/screen = 1.0	//Which screen is currently showing.
-	
+
 	var/menu = 0 // Current menu.
 	var/submenu = 0
 	var/wait_message = 0
-	
+	var/wait_message_timer = 0
+
 	var/id = 0			//ID of the computer (for server restrictions).
 	var/sync = 1		//If sync = 0, it doesn't show up on Server Control Console
 
@@ -60,24 +73,14 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	var/list/datum/design/matching_designs = list() //for the search function
 
 /proc/CallTechName(ID) //A simple helper proc to find the name of a tech with a given ID.
-	var/datum/tech/check_tech
-	var/return_name = null
 	for(var/T in subtypesof(/datum/tech))
-		check_tech = null
-		check_tech = new T()
-		if(check_tech.id == ID)
-			return_name = check_tech.name
-			qdel(check_tech)
-			check_tech = null
-			break
+		var/datum/tech/tt = T
+		if(initial(tt.id) == ID)
+			return initial(tt.name)
 
-	return return_name
-
-proc/CallMaterialName(ID)
-	var/datum/reagent/temp_reagent
-	var/return_name = null
-	if (copytext(ID, 1, 2) == "$")
-		return_name = copytext(ID, 2)
+/proc/CallMaterialName(ID)
+	if(copytext(ID, 1, 2) == "$")
+		var/return_name = copytext(ID, 2)
 		switch(return_name)
 			if("metal")
 				return_name = "Metal"
@@ -97,16 +100,12 @@ proc/CallMaterialName(ID)
 				return_name = "Bananium"
 			if("mime")
 				return_name = "Tranquillite"
+		return return_name
 	else
 		for(var/R in subtypesof(/datum/reagent))
-			temp_reagent = null
-			temp_reagent = new R()
-			if(temp_reagent.id == ID)
-				return_name = temp_reagent.name
-				qdel(temp_reagent)
-				temp_reagent = null
-				break
-	return return_name
+			var/datum/reagent/rt = R
+			if(initial(rt.id) == ID)
+				return initial(rt.name)
 
 /obj/machinery/computer/rdconsole/proc/SyncRDevices() //Makes sure it is properly sync'ed up with the devices attached to it (if any).
 	for(var/obj/machinery/r_n_d/D in range(3,src))
@@ -129,17 +128,16 @@ proc/CallMaterialName(ID)
 //Have it automatically push research to the centcom server so wild griffins can't fuck up R&D's work --NEO
 /obj/machinery/computer/rdconsole/proc/griefProtection()
 	for(var/obj/machinery/r_n_d/server/centcom/C in world)
-		for(var/datum/tech/T in files.known_tech)
-			C.files.AddTech2Known(T)
-		for(var/datum/design/D in files.known_designs)
-			C.files.AddDesign2Known(D)
-		C.files.RefreshResearch()
+		files.push_data(C.files)
 
 /obj/machinery/computer/rdconsole/proc/Maximize()
-	files.known_tech=files.possible_tech
-	for(var/datum/tech/KT in files.known_tech)
+	for(var/datum/tech/T in files.possible_tech)
+		files.known_tech[T.id] = T
+	for(var/v in files.known_tech)
+		var/datum/tech/KT = files.known_tech[v]
 		if(KT.level < KT.max_level)
 			KT.level=KT.max_level
+	files.RefreshResearch()
 
 /obj/machinery/computer/rdconsole/New()
 	..()
@@ -153,6 +151,12 @@ proc/CallMaterialName(ID)
 /obj/machinery/computer/rdconsole/initialize()
 	..()
 	SyncRDevices()
+
+/obj/machinery/computer/rdconsole/Destroy()
+	if(wait_message_timer)
+		deltimer(wait_message_timer)
+		wait_message_timer = 0
+	return ..()
 
 /*	Instead of calling this every tick, it is only being called when needed
 /obj/machinery/computer/rdconsole/process()
@@ -168,7 +172,7 @@ proc/CallMaterialName(ID)
 			return
 
 		if(istype(D, /obj/item/weapon/disk/tech_disk)) t_disk = D
-		else if (istype(D, /obj/item/weapon/disk/design_disk)) d_disk = D
+		else if(istype(D, /obj/item/weapon/disk/design_disk)) d_disk = D
 		else
 			to_chat(user, "<span class='danger'>Machine cannot accept disks in that format.</span>")
 			return
@@ -215,26 +219,27 @@ proc/CallMaterialName(ID)
 		else
 			compare = IMPRINTER
 
-		for(var/datum/design/D in files.known_designs)
+		for(var/v in files.known_designs)
+			var/datum/design/D = files.known_designs[v]
 			if(!(D.build_type & compare))
 				continue
 			if(href_list["category"] in D.category)
 				matching_designs.Add(D)
 		submenu = 1
-		
+
 		selected_category = "Viewing Category [href_list["category"]]"
 
 	else if(href_list["updt_tech"]) //Update the research holder with information from the technology disk.
-		wait_message = "Updating Database...."
-		spawn(50)
-			wait_message = 0
+		add_wait_message("Updating Database...", TECH_UPDATE_DELAY)
+		spawn(TECH_UPDATE_DELAY)
+			clear_wait_message()
 			files.AddTech2Known(t_disk.stored)
 			nanomanager.update_uis(src)
 			griefProtection() //Update centcom too
 
 	else if(href_list["clear_tech"]) //Erase data on the technology disk.
 		if(t_disk)
-			t_disk.stored = null
+			t_disk.wipe_tech()
 
 	else if(href_list["eject_tech"]) //Eject the technology disk.
 		if(t_disk)
@@ -244,24 +249,22 @@ proc/CallMaterialName(ID)
 		submenu = 0
 
 	else if(href_list["copy_tech"]) //Copy some technology data from the research holder to the disk.
-		for(var/datum/tech/T in files.known_tech)
-			if(href_list["copy_tech_ID"] == T.id)
-				t_disk.stored = T
-				break
+		// Somehow this href makes me very nervous
+		t_disk.stored = files.known_tech[href_list["copy_tech_ID"]]
 		menu = 2
 		submenu = 0
 
 	else if(href_list["updt_design"]) //Updates the research holder with design data from the design disk.
-		wait_message = "Updating Database...."
-		spawn(50)
-			wait_message = 0
+		add_wait_message("Updating Database...", DESIGN_UPDATE_DELAY)
+		spawn(DESIGN_UPDATE_DELAY)
+			clear_wait_message()
 			files.AddDesign2Known(d_disk.blueprint)
 			nanomanager.update_uis(src)
 			griefProtection() //Update centcom too
 
 	else if(href_list["clear_design"]) //Erases data on the design disk.
 		if(d_disk)
-			d_disk.blueprint = null
+			d_disk.wipe_blueprint()
 
 	else if(href_list["eject_design"]) //Eject the design disk.
 		if(d_disk)
@@ -271,21 +274,22 @@ proc/CallMaterialName(ID)
 		submenu = 0
 
 	else if(href_list["copy_design"]) //Copy design data from the research holder to the design disk.
-		for(var/datum/design/D in files.known_designs)
-			if(href_list["copy_design_ID"] == D.id)
-				var/autolathe_friendly = 1
-				for(var/x in D.materials)
-					if( !(x in list(MAT_METAL, MAT_GLASS)))
-						autolathe_friendly = 0
-						D.category -= "Imported"
-				if(D.locked)
+		// This href ALSO makes me very nervous
+		var/datum/design/D = files.known_designs[href_list["copy_design_ID"]]
+		if(D)
+			// eeeeeep design datums are global be careful!
+			var/autolathe_friendly = 1
+			for(var/x in D.materials)
+				if( !(x in list(MAT_METAL, MAT_GLASS)))
 					autolathe_friendly = 0
 					D.category -= "Imported"
-				if(D.build_type & (AUTOLATHE|PROTOLATHE|CRAFTLATHE)) // Specifically excludes circuit imprinter and mechfab
-					D.build_type = autolathe_friendly ? (D.build_type | AUTOLATHE) : D.build_type
-					D.category |= "Imported"
-				d_disk.blueprint = D
-				break
+			if(D.locked)
+				autolathe_friendly = 0
+				D.category -= "Imported"
+			if(D.build_type & (AUTOLATHE|PROTOLATHE|CRAFTLATHE)) // Specifically excludes circuit imprinter and mechfab
+				D.build_type = autolathe_friendly ? (D.build_type | AUTOLATHE) : D.build_type
+				D.category |= "Imported"
+			d_disk.blueprint = D
 		menu = 2
 		submenu = 0
 
@@ -303,16 +307,13 @@ proc/CallMaterialName(ID)
 	else if(href_list["maxresearch"]) //Eject the item inside the destructive analyzer.
 		if(!check_rights(R_ADMIN))
 			return
-		wait_message = "Updating Database...."
 		if(alert("Are you sure you want to maximize research levels?","Confirmation","Yes","No")=="No")
 			return
 		log_admin("[key_name(usr)] has maximized the research levels.")
 		message_admins("[key_name_admin(usr)] has maximized the research levels.")
-		spawn(30)
-			Maximize()
-			wait_message = ""
-			nanomanager.update_uis(src)
-			griefProtection() //Update centcomm too
+		Maximize()
+		nanomanager.update_uis(src)
+		griefProtection() //Update centcomm too
 
 	else if(href_list["deconstruct"]) //Deconstruct the item in the destructive analyzer and update the research holder.
 		if(linked_destroy)
@@ -322,16 +323,16 @@ proc/CallMaterialName(ID)
 				var/choice = input("Proceeding will destroy loaded item.") in list("Proceed", "Cancel")
 				if(choice == "Cancel" || !linked_destroy) return
 				linked_destroy.busy = 1
-				wait_message = "Processing and Updating Database..."
+				add_wait_message("Processing and Updating Database...", DECONSTRUCT_DELAY)
 				nanomanager.update_uis(src)
 				flick("d_analyzer_process", linked_destroy)
-				spawn(24)
+				spawn(DECONSTRUCT_DELAY)
+					clear_wait_message()
 					if(linked_destroy)
 						linked_destroy.busy = 0
 						if(!linked_destroy.hacked)
 							if(!linked_destroy.loaded_item)
 								to_chat(usr, "<span class='danger'>The destructive analyzer appears to be empty.</span>")
-								wait_message = 0
 								menu = 0
 								submenu = 0
 								return
@@ -341,19 +342,16 @@ proc/CallMaterialName(ID)
 									if(prob(linked_destroy.loaded_item.reliability))               //If deconstructed item is not reliable enough its just being wasted, else it is pocessed
 										files.UpdateTech(T, temp_tech[T])                          //Check if deconstructed item has research levels higher/same/one less than current ones
 								files.UpdateDesigns(linked_destroy.loaded_item, temp_tech, src)    //If if such reseach type found all the known designs are checked for having this research type in them
-								wait_message = 0                                                   //If design have it it gains some reliability
-								menu = 0
+								menu = 0                           //If design have it it gains some reliability
 								submenu = 0
 							else                                                                   //Same design always gain quality
-								wait_message = 0                                                   //Crit fail gives the same design a lot of reliability, like really a lot
-								menu = 2
+								menu = 2                           //Crit fail gives the same design a lot of reliability, like really a lot
 								submenu = 0
 							if(linked_lathe) //Also sends salvaged materials to a linked protolathe, if any.
 								for(var/material in linked_destroy.loaded_item.materials)
 									linked_lathe.materials.insert_amount(min((linked_lathe.materials.max_amount - linked_lathe.materials.total_amount), (linked_destroy.loaded_item.materials[material]*(linked_destroy.decon_mod/10))), material)
 							linked_destroy.loaded_item = null
 						else
-							wait_message = 0
 							menu = 0
 							submenu = 0
 						for(var/obj/I in linked_destroy.contents)
@@ -375,34 +373,26 @@ proc/CallMaterialName(ID)
 						nanomanager.update_uis(src)
 
 	else if(href_list["sync"]) //Sync the research holder with all the R&D consoles in the game that aren't sync protected.
-		wait_message = "Updating Database...."
 		if(!sync)
 			to_chat(usr, "<span class='danger'>You must connect to the network first!</span>")
 		else
+			add_wait_message("Updating Database...", SYNC_RESEARCH_DELAY)
 			griefProtection() //Putting this here because I dont trust the sync process
-			spawn(30)
+			spawn(SYNC_RESEARCH_DELAY)
+				clear_wait_message()
 				if(src)
 					for(var/obj/machinery/r_n_d/server/S in world)
 						var/server_processed = 0
 						if(S.disabled)
 							continue
 						if((id in S.id_with_upload) || istype(S, /obj/machinery/r_n_d/server/centcom))
-							for(var/datum/tech/T in files.known_tech)
-								S.files.AddTech2Known(T)
-							for(var/datum/design/D in files.known_designs)
-								S.files.AddDesign2Known(D)
-							S.files.RefreshResearch()
+							files.push_data(S.files)
 							server_processed = 1
 						if(((id in S.id_with_download) && !istype(S, /obj/machinery/r_n_d/server/centcom)) || S.hacked)
-							for(var/datum/tech/T in S.files.known_tech)
-								files.AddTech2Known(T)
-							for(var/datum/design/D in S.files.known_designs)
-								files.AddDesign2Known(D)
-							files.RefreshResearch()
+							S.files.push_data(files)
 							server_processed = 1
 						if(!istype(S, /obj/machinery/r_n_d/server/centcom) && server_processed)
 							S.produce_heat(100)
-					wait_message = 0
 					nanomanager.update_uis(src)
 
 	else if(href_list["togglesync"]) //Prevents the console from being synced by other consoles. Can still send data.
@@ -416,11 +406,7 @@ proc/CallMaterialName(ID)
 			coeff = 1
 		var/g2g = 1
 		if(linked_lathe)
-			var/datum/design/being_built = null
-			for(var/datum/design/D in files.known_designs)
-				if(D.id == href_list["build"])
-					being_built = D
-					break
+			var/datum/design/being_built = files.known_designs[href_list["build"]]
 			if(being_built)
 				var/power = 2000
 				var/amount=text2num(href_list["amount"])
@@ -428,18 +414,21 @@ proc/CallMaterialName(ID)
 				for(var/M in being_built.materials)
 					power += round(being_built.materials[M] * amount / 5)
 				power = max(2000, power)
-				wait_message = "Constructing Prototype. Please Wait..."
 				if(linked_lathe.busy)
 					g2g = 0
 				var/key = usr.key	//so we don't lose the info during the spawn delay
-				if (!(being_built.build_type & PROTOLATHE))
+				if(!(being_built.build_type & PROTOLATHE))
 					g2g = 0
 					message_admins("Protolathe exploit attempted by [key_name(usr, usr.client)]!")
 
 
 
-				if (g2g) //If input is incorrect, nothing happens
+				if(g2g) //If input is incorrect, nothing happens
+					var/time_to_construct = PROTOLATHE_CONSTRUCT_DELAY * amount / coeff
 					var/enough_materials = 1
+
+					time_to_construct /= being_built.lathe_time_factor
+					add_wait_message("Constructing Prototype. Please Wait...", time_to_construct)
 					linked_lathe.busy = 1
 					flick("protolathe_n",linked_lathe)
 					use_power(power)
@@ -466,10 +455,8 @@ proc/CallMaterialName(ID)
 
 					var/P = being_built.build_path //lets save these values before the spawn() just in case. Nobody likes runtimes.
 					var/O = being_built.locked
-					
-					coeff *= being_built.lathe_time_factor
-					
-					spawn(32*amount/coeff)
+
+					spawn(time_to_construct)
 						if(g2g) //And if we only fail the material requirements, we still spend time and power
 							for(var/i = 0, i<amount, i++)
 								var/obj/item/new_item = new P(src)
@@ -490,8 +477,8 @@ proc/CallMaterialName(ID)
 									L.desc = "A locked box. It is locked to [lockbox_access]access."
 								else
 									new_item.loc = linked_lathe.loc
+						clear_wait_message()
 						linked_lathe.busy = 0
-						wait_message = 0
 						nanomanager.update_uis(src)
 
 	else if(href_list["imprint"]) //Causes the Circuit Imprinter to build something.
@@ -499,23 +486,20 @@ proc/CallMaterialName(ID)
 		var/g2g = 1
 		if(linked_imprinter)
 			var/datum/design/being_built = null
-			for(var/datum/design/D in files.known_designs)
-				if(D.id == href_list["imprint"])
-					being_built = D
-					break
+			being_built = files.known_designs[href_list["imprint"]]
 			if(being_built)
 				var/power = 2000
 				for(var/M in being_built.materials)
 					power += round(being_built.materials[M] / 5)
 				power = max(2000, power)
-				wait_message = "Imprinting Circuit. Please Wait..."
-				if (linked_imprinter.busy)
+				if(linked_imprinter.busy)
 					g2g = 0
-				if (!(being_built.build_type & IMPRINTER))
+				if(!(being_built.build_type & IMPRINTER))
 					g2g = 0
 					message_admins("Circuit imprinter exploit attempted by [key_name(usr, usr.client)]!")
 
-				if (g2g) //Again, if input is wrong, do nothing
+				if(g2g) //Again, if input is wrong, do nothing
+					add_wait_message("Imprinting Circuit. Please Wait...", IMPRINTER_DELAY)
 					linked_imprinter.busy = 1
 					flick("circuit_imprinter_ani",linked_imprinter)
 					use_power(power)
@@ -536,13 +520,13 @@ proc/CallMaterialName(ID)
 								linked_imprinter.reagents.remove_reagent(M, being_built.materials[M]/coeff)
 
 					var/P = being_built.build_path //lets save these values before the spawn() just in case. Nobody likes runtimes.
-					spawn(16)
+					spawn(IMPRINTER_DELAY)
 						if(g2g)
 							var/obj/item/new_item = new P(src)
 							new_item.reliability = 100
 							new_item.loc = linked_imprinter.loc
 						linked_imprinter.busy = 0
-						wait_message = 0
+						clear_wait_message()
 						nanomanager.update_uis(src)
 
 	else if(href_list["disposeI"] && linked_imprinter)  //Causes the circuit imprinter to dispose of a single reagent (all of it)
@@ -559,10 +543,10 @@ proc/CallMaterialName(ID)
 
 	else if(href_list["lathe_ejectsheet"] && linked_lathe) //Causes the protolathe to eject a sheet of material
 		var/desired_num_sheets
-		if (href_list["lathe_ejectsheet_amt"] == "custom")
+		if(href_list["lathe_ejectsheet_amt"] == "custom")
 			desired_num_sheets = input("How many sheets would you like to eject from the machine?", "How much?", 1) as null|num
 			desired_num_sheets = max(0,desired_num_sheets) // If you input too high of a number, the mineral datum will take care of it either way
-			if (!desired_num_sheets)
+			if(!desired_num_sheets)
 				return
 			desired_num_sheets = round(desired_num_sheets) // No partial-sheet goofery
 		else
@@ -571,10 +555,10 @@ proc/CallMaterialName(ID)
 
 	else if(href_list["imprinter_ejectsheet"] && linked_imprinter) //Causes the protolathe to eject a sheet of material
 		var/desired_num_sheets = text2num(href_list["imprinter_ejectsheet_amt"])
-		if (href_list["imprinter_ejectsheet_amt"] == "custom")
+		if(href_list["imprinter_ejectsheet_amt"] == "custom")
 			desired_num_sheets = input("How many sheets would you like to eject from the machine?", "How much?", 1) as null|num
 			desired_num_sheets = max(0,desired_num_sheets) // for the imprinter they have something hacky, that still will guard against shenanigans. eh
-			if (!desired_num_sheets)
+			if(!desired_num_sheets)
 				return
 			desired_num_sheets = round(desired_num_sheets) // No partial-sheet goofery
 		else
@@ -600,10 +584,10 @@ proc/CallMaterialName(ID)
 				qdel(sheet)
 
 	else if(href_list["find_device"]) //The R&D console looks for devices nearby to link up with.
-		wait_message = "Updating Database...."
-		spawn(20)
+		add_wait_message("Updating Database...", SYNC_DEVICE_DELAY)
+		spawn(SYNC_DEVICE_DELAY)
 			SyncRDevices()
-			wait_message = 0
+			clear_wait_message()
 			nanomanager.update_uis(src)
 
 	else if(href_list["disconnect"]) //The R&D console disconnects with a specific device.
@@ -622,11 +606,11 @@ proc/CallMaterialName(ID)
 		griefProtection()
 		var/choice = alert("Are you sure you want to reset the R&D console's database? Data lost cannot be recovered.", "R&D Console Database Reset", "Continue", "Cancel")
 		if(choice == "Continue")
-			wait_message = "Updating Database...."
+			add_wait_message("Updating Database...", RESET_RESEARCH_DELAY)
 			qdel(files)
 			files = new /datum/research(src)
-			spawn(20)
-				wait_message = 0
+			spawn(RESET_RESEARCH_DELAY)
+				clear_wait_message()
 				nanomanager.update_uis(src)
 
 	else if(href_list["search"]) //Search for designs with name matching pattern
@@ -639,13 +623,14 @@ proc/CallMaterialName(ID)
 		else
 			compare = IMPRINTER
 
-		for(var/datum/design/D in files.known_designs)
+		for(var/v in files.known_designs)
+			var/datum/design/D = files.known_designs[v]
 			if(!(D.build_type & compare))
 				continue
 			if(findtext(D.name,href_list["to_search"]))
 				matching_designs.Add(D)
 		submenu = 1
-		
+
 		selected_category = "Search Results for '[href_list["to_search"]]'"
 
 	nanomanager.update_uis(src)
@@ -662,15 +647,21 @@ proc/CallMaterialName(ID)
 
 /obj/machinery/computer/rdconsole/ui_interact(mob/user, ui_key="main", var/datum/nanoui/ui = null, var/force_open = 1)
 	user.set_machine(src)
-	var/data = list()
-	
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "r_n_d.tmpl", src.name, 800, 550)
+		ui.open()
+
+/obj/machinery/computer/rdconsole/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+	var/data[0]
+
 	files.RefreshResearch()
-	
+
 	data["menu"] = menu
 	data["submenu"] = submenu
 	data["wait_message"] = wait_message
-	data["src_ref"] = "\ref[src]"
-	
+	data["src_ref"] = UID()
+
 	data["linked_destroy"] = linked_destroy ? 1 : 0
 	data["linked_lathe"] = linked_lathe ? 1 : 0
 	data["linked_imprinter"] = linked_imprinter ? 1 : 0
@@ -678,11 +669,12 @@ proc/CallMaterialName(ID)
 	data["admin"] = check_rights(R_ADMIN,0)
 	data["disk_type"] = d_disk ? 2 : (t_disk ? 1 : 0)
 	data["category"] = selected_category
-	
-	if(menu == 1)
+
+	if(menu == 0 || menu == 1)
 		var/list/tech_levels = list()
 		data["tech_levels"] = tech_levels
-		for(var/datum/tech/T in files.known_tech)
+		for(var/v in files.known_tech)
+			var/datum/tech/T = files.known_tech[v]
 			if(T.level <= 0)
 				continue
 			var/list/this_tech_list = list()
@@ -690,27 +682,28 @@ proc/CallMaterialName(ID)
 			this_tech_list["level"] = T.level
 			this_tech_list["desc"] = T.desc
 			tech_levels[++tech_levels.len] = this_tech_list
-	
+
 	if(menu == 2)
-		
+
 		if(t_disk != null && t_disk.stored != null && submenu == 0) //Technology Disk Menu
 			var/list/disk_data = list()
 			data["disk_data"] = disk_data
 			disk_data["name"] = t_disk.stored.name
 			disk_data["level"] = t_disk.stored.level
 			disk_data["desc"] = t_disk.stored.desc
-	
+
 		if(t_disk != null && submenu == 1)
 			var/list/to_copy = list()
 			data["to_copy"] = to_copy
-			for(var/datum/tech/T in files.known_tech)
+			for(var/v in files.known_tech)
+				var/datum/tech/T = files.known_tech[v]
 				var/list/item = list()
 				to_copy[++to_copy.len] = item
 				if(T.level <= 0)
 					continue
 				item["name"] = T.name
 				item["id"] = T.id
-	
+
 		if(d_disk != null && d_disk.blueprint != null && submenu == 0)
 			var/list/disk_data = list()
 			data["disk_data"] = disk_data
@@ -732,11 +725,12 @@ proc/CallMaterialName(ID)
 				materials[++materials.len] = material
 				material["name"] = CallMaterialName(M)
 				material["amount"] = d_disk.blueprint.materials[M]
-	
+
 		if(d_disk != null && submenu == 1)
 			var/list/to_copy = list()
 			data["to_copy"] = to_copy
-			for(var/datum/design/D in files.known_designs)
+			for(var/v in files.known_designs)
+				var/datum/design/D = files.known_designs[v]
 				var/list/item = list()
 				to_copy[++to_copy.len] = item
 				item["name"] = D.name
@@ -755,11 +749,12 @@ proc/CallMaterialName(ID)
 			tech_list[++tech_list.len] = tech_item
 			tech_item["name"] = CallTechName(T)
 			tech_item["object_level"] = temp_tech[T]
-			for(var/datum/tech/F in files.known_tech)
+			for(var/v in files.known_tech)
+				var/datum/tech/F = files.known_tech[v]
 				if(F.name == CallTechName(T))
 					tech_item["current_level"] = F.level
 					break
-	
+
 	if(menu == 4 && linked_lathe)
 		data["total_materials"] = linked_lathe.materials.total_amount
 		data["max_materials"] = linked_lathe.materials.max_amount
@@ -783,7 +778,7 @@ proc/CallMaterialName(ID)
 					material_list["name"] = CallMaterialName(M)
 					material_list["amount"] = D.materials[M]
 					var/t = linked_lathe.check_mat(D, M)
-					
+
 					if(t < 1)
 						material_list["is_red"] = 1
 					else
@@ -796,7 +791,7 @@ proc/CallMaterialName(ID)
 					material_list["name"] = CallMaterialName(R)
 					material_list["amount"] = D.reagents[R]
 					var/t = linked_lathe.check_mat(D, R)
-					
+
 					if(t < 1)
 						material_list["is_red"] = 1
 					else
@@ -824,7 +819,7 @@ proc/CallMaterialName(ID)
 				loaded_chemical["name"] = R.name
 				loaded_chemical["volume"] = R.volume
 				loaded_chemical["id"] = R.id
-	
+
 	if(menu == 5 && linked_imprinter)
 		data["total_materials"] = linked_imprinter.TotalMaterials()
 		data["total_chemicals"] = linked_imprinter.reagents.total_volume
@@ -846,7 +841,7 @@ proc/CallMaterialName(ID)
 					materials_list[++materials_list.len] = material_list
 					material_list["name"] = CallMaterialName(M)
 					material_list["amount"] = D.materials[M] / coeff
-					if (!linked_imprinter.check_mat(D, M))
+					if(!linked_imprinter.check_mat(D, M))
 						check_materials = 0
 						material_list["is_red"] = 1
 					else
@@ -867,31 +862,29 @@ proc/CallMaterialName(ID)
 				loaded_chemical["name"] = R.name
 				loaded_chemical["volume"] = R.volume
 				loaded_chemical["id"] = R.id
-	
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if (!ui)
-		ui = new(user, src, ui_key, "r_n_d.tmpl", src.name, 800, 550)
-		ui.set_initial_data(data)
-		ui.open()
 
-//helper proc, which return a table containing categories
-/obj/machinery/computer/rdconsole/proc/list_categories(var/list/categories, var/menu_num as num)
-	if(!categories)
-		return
+	return data
 
-	var/line_length = 1
-	var/dat = "<table style='width:100%' align='center'><tr>"
+//helper proc that guarantees the wait message will not freeze the UI
+/obj/machinery/computer/rdconsole/proc/add_wait_message(message, delay)
+	wait_message = message
+	wait_message_timer = addtimer(src, "clear_wait_message", delay, TRUE)
 
-	for(var/C in categories)
-		if(line_length > 2)
-			dat += "</tr><tr>"
-			line_length = 1
+// This is here to guarantee that we never lock the console, so long as the timer
+// process is running
+// So long as the spawns never runtime, though, the timer should be stopped
+// before it gets the chance to fire
+// Since the timer process can have significant delays, you should call this
+// in the operations that take time, once they complete
+/obj/machinery/computer/rdconsole/proc/clear_wait_message()
+	wait_message = ""
+	if(wait_message_timer)
+		// This could be expensive, and will still be called
+		// if the timer calls this function
+		deltimer(wait_message_timer)
+		wait_message_timer = 0
+	nanomanager.update_uis(src)
 
-		dat += "<td><A href='?src=\ref[src];category=[C];menu=[menu_num]'>[C]</A></td>"
-		line_length++
-
-	dat += "</tr></table></div>"
-	return dat
 
 /obj/machinery/computer/rdconsole/core
 	name = "core R&D console"
@@ -924,3 +917,12 @@ proc/CallMaterialName(ID)
 	id = 5
 	req_access = list()
 	circuit = /obj/item/weapon/circuitboard/rdconsole/public
+
+#undef TECH_UPDATE_DELAY
+#undef DESIGN_UPDATE_DELAY
+#undef PROTOLATHE_CONSTRUCT_DELAY
+#undef SYNC_RESEARCH_DELAY
+#undef DECONSTRUCT_DELAY
+#undef SYNC_DEVICE_DELAY
+#undef RESET_RESEARCH_DELAY
+#undef IMPRINTER_DELAY

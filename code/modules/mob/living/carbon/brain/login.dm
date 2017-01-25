@@ -1,3 +1,3 @@
 /mob/living/carbon/brain/Login()
 	..()
-	sleeping = 0
+	SetSleeping(0)

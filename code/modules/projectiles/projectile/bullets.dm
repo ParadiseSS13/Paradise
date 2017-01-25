@@ -9,6 +9,7 @@
 	hitsound_wall = "ricochet"
 
 /obj/item/projectile/bullet/weakbullet //beanbag, heavy stamina damage
+	name = "beanbag slug"
 	damage = 5
 	stamina = 80
 
@@ -22,24 +23,26 @@
 /obj/item/projectile/bullet/weakbullet/booze/on_hit(atom/target, blocked = 0)
 	if(..(target, blocked))
 		var/mob/living/M = target
-		M.dizziness += 20
-		M.slurring += 20
-		M.confused += 20
-		M.eye_blurry += 20
-		M.drowsyness += 20
-		for(var/datum/reagent/ethanol/A in M.reagents.reagent_list)
+		M.AdjustDizzy(20)
+		M.AdjustSlur(20)
+		M.AdjustConfused(20)
+		M.AdjustEyeBlurry(20)
+		M.AdjustDrowsy(20)
+		for(var/datum/reagent/consumable/ethanol/A in M.reagents.reagent_list)
 			M.AdjustParalysis(2)
-			M.dizziness += 10
-			M.slurring += 10
-			M.confused += 10
-			M.eye_blurry += 10
-			M.drowsyness += 10
+			M.AdjustDizzy(10)
+			M.AdjustSlur(10)
+			M.AdjustConfused(10)
+			M.AdjustEyeBlurry(10)
+			M.AdjustDrowsy(10)
 			A.volume += 5 //Because we can
 
 /obj/item/projectile/bullet/weakbullet2  //detective revolver instastuns, but multiple shots are better for keeping punks down
+	name = "rubber bullet"
 	damage = 5
 	weaken = 3
 	stamina = 60
+	icon_state = "bullet-r"
 
 /obj/item/projectile/bullet/weakbullet2/rubber //detective's bullets that don't embed
 	embed = 0
@@ -48,6 +51,13 @@
 /obj/item/projectile/bullet/weakbullet3
 	damage = 20
 
+/obj/item/projectile/bullet/weakbullet4
+	name = "rubber bullet"
+	damage = 5
+	stamina = 30
+	icon_state = "bullet-r"
+	embed = 0
+	sharp = 0
 
 /obj/item/projectile/bullet/toxinbullet
 	damage = 15
@@ -56,10 +66,10 @@
 /obj/item/projectile/bullet/incendiary
 
 /obj/item/projectile/bullet/incendiary/on_hit(var/atom/target, var/blocked = 0)
-	..()
-	if(istype(target, /mob/living/carbon))
+	. = ..()
+	if(iscarbon(target))
 		var/mob/living/carbon/M = target
-		M.adjust_fire_stacks(1)
+		M.adjust_fire_stacks(4)
 		M.IgniteMob()
 
 /obj/item/projectile/bullet/incendiary/firebullet
@@ -112,12 +122,28 @@
 /obj/item/projectile/bullet/midbullet3
 	damage = 30
 
+/obj/item/projectile/bullet/midbullet3/hp
+	damage = 40
+	armour_penetration = -50
+
+/obj/item/projectile/bullet/midbullet3/ap
+	damage = 27
+	armour_penetration = 40
+
+/obj/item/projectile/bullet/midbullet3/fire/on_hit(atom/target, blocked = 0)
+	if(..(target, blocked))
+		var/mob/living/M = target
+		M.adjust_fire_stacks(1)
+		M.IgniteMob()
+
 /obj/item/projectile/bullet/heavybullet
 	damage = 35
 
 /obj/item/projectile/bullet/rpellet
+	name = "rubber pellet"
 	damage = 3
 	stamina = 25
+	icon_state = "bullet-r"
 
 /obj/item/projectile/bullet/stunshot//taser slugs for shotguns, nothing special
 	name = "stunshot"
@@ -199,7 +225,7 @@
 	..(target, blocked)
 	if(iscarbon(target))
 		var/mob/living/carbon/M = target
-		M.silent = max(M.silent, 10)
+		M.Silence(10)
 	else if(istype(target, /obj/mecha/combat/honker))
 		var/obj/mecha/chassis = target
 		chassis.occupant_message("A mimetech anti-honk bullet has hit \the [chassis]!")

@@ -1,8 +1,8 @@
 //This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:32
 
 /obj/machinery/implantchair
-	name = "loyalty implanter"
-	desc = "Used to implant occupants with loyalty implants."
+	name = "mindshield implanter"
+	desc = "Used to implant occupants with mindshield implants."
 	icon = 'icons/obj/machines/implantchair.dmi'
 	icon_state = "implantchair"
 	density = 1
@@ -45,9 +45,9 @@
 	var/dat ="<B>Implanter Status</B><BR>"
 
 	dat +="<B>Current occupant:</B> [src.occupant ? "<BR>Name: [src.occupant]<BR>Health: [health_text]<BR>" : "<FONT color=red>None</FONT>"]<BR>"
-	dat += "<B>Implants:</B> [src.implant_list.len ? "[implant_list.len]" : "<A href='?src=\ref[src];replenish=1'>Replenish</A>"]<BR>"
+	dat += "<B>Implants:</B> [src.implant_list.len ? "[implant_list.len]" : "<A href='?src=[UID()];replenish=1'>Replenish</A>"]<BR>"
 	if(src.occupant)
-		dat += "[src.ready ? "<A href='?src=\ref[src];implant=1'>Implant</A>" : "Recharging"]<BR>"
+		dat += "[src.ready ? "<A href='?src=[UID()];implant=1'>Implant</A>" : "Recharging"]<BR>"
 	user.set_machine(src)
 	user << browse(dat, "window=implant")
 	onclose(user, "implant")
@@ -94,10 +94,7 @@
 		return
 	if(M == occupant) // so that the guy inside can't eject himself -Agouri
 		return
-	if (src.occupant.client)
-		src.occupant.client.eye = src.occupant.client.mob
-		src.occupant.client.perspective = MOB_PERSPECTIVE
-	src.occupant.loc = src.loc
+	occupant.forceMove(loc)
 	if(injecting)
 		implant(src.occupant)
 		injecting = 0
@@ -113,11 +110,8 @@
 	if(src.occupant)
 		to_chat(usr, "<span class='warning'>The [src.name] is already occupied!</span>")
 		return
-	if(M.client)
-		M.client.perspective = EYE_PERSPECTIVE
-		M.client.eye = src
 	M.stop_pulling()
-	M.loc = src
+	M.forceMove(src)
 	src.occupant = M
 	src.add_fingerprint(usr)
 	icon_state = "implantchair_on"
@@ -125,7 +119,7 @@
 
 
 /obj/machinery/implantchair/implant(mob/M)
-	if (!istype(M, /mob/living/carbon))
+	if(!istype(M, /mob/living/carbon))
 		return
 	if(!implant_list.len)	return
 	for(var/obj/item/weapon/implant/loyalty/imp in implant_list)

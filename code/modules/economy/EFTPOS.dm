@@ -70,8 +70,8 @@
 		if(transaction_locked)
 
 			// AUTOFIXED BY fix_string_idiocy.py
-			// C:\Users\Rob\Documents\Projects\vgstation13\code\WorkInProgress\Cael_Aislinn\Economy\EFTPOS.dm:59: dat += "<a href='?src=\ref[src];choice=toggle_lock'>Reset[transaction_paid ? "" : " (authentication required)"]</a><br><br>"
-			dat += {"<a href='?src=\ref[src];choice=toggle_lock'>Reset[transaction_paid ? "" : " (authentication required)"]</a><br><br>
+			// C:\Users\Rob\Documents\Projects\vgstation13\code\WorkInProgress\Cael_Aislinn\Economy\EFTPOS.dm:59: dat += "<a href='?src=[UID()];choice=toggle_lock'>Reset[transaction_paid ? "" : " (authentication required)"]</a><br><br>"
+			dat += {"<a href='?src=[UID()];choice=toggle_lock'>Reset[transaction_paid ? "" : " (authentication required)"]</a><br><br>
 				Transaction purpose: <b>[transaction_purpose]</b><br>
 				Value: <b>$[transaction_amount]</b><br>
 				Linked account: <b>[linked_account ? linked_account.owner_name : "None"]</b><hr>"}
@@ -83,19 +83,19 @@
 				// AUTOFIXED BY fix_string_idiocy.py
 				// C:\Users\Rob\Documents\Projects\vgstation13\code\WorkInProgress\Cael_Aislinn\Economy\EFTPOS.dm:67: dat += "<i>Swipe your card below the line to finish this transaction.</i><hr>"
 				dat += {"<i>Swipe your card below the line to finish this transaction.</i><hr>
-					<a href='?src=\ref[src];choice=scan_card'>\[------\]</a>"}
+					<a href='?src=[UID()];choice=scan_card'>\[------\]</a>"}
 				// END AUTOFIX
 		else
 
 			// AUTOFIXED BY fix_string_idiocy.py
-			// C:\Users\Rob\Documents\Projects\vgstation13\code\WorkInProgress\Cael_Aislinn\Economy\EFTPOS.dm:70: dat += "<a href='?src=\ref[src];choice=toggle_lock'>Lock in new transaction</a><br><br>"
-			dat += {"<a href='?src=\ref[src];choice=toggle_lock'>Lock in new transaction</a><br><br>
-				Transaction purpose: <a href='?src=\ref[src];choice=trans_purpose'>[transaction_purpose]</a><br>
-				Value: <a href='?src=\ref[src];choice=trans_value'>$[transaction_amount]</a><br>
-				Linked account: <a href='?src=\ref[src];choice=link_account'>[linked_account ? linked_account.owner_name : "None"]</a><hr>
-				<a href='?src=\ref[src];choice=change_code'>Change access code</a><br>
-				<a href='?src=\ref[src];choice=change_id'>Change EFTPOS ID</a><br>
-				Scan card to reset access code <a href='?src=\ref[src];choice=reset'>\[------\]</a>"}
+			// C:\Users\Rob\Documents\Projects\vgstation13\code\WorkInProgress\Cael_Aislinn\Economy\EFTPOS.dm:70: dat += "<a href='?src=[UID()];choice=toggle_lock'>Lock in new transaction</a><br><br>"
+			dat += {"<a href='?src=[UID()];choice=toggle_lock'>Lock in new transaction</a><br><br>
+				Transaction purpose: <a href='?src=[UID()];choice=trans_purpose'>[transaction_purpose]</a><br>
+				Value: <a href='?src=[UID()];choice=trans_value'>$[transaction_amount]</a><br>
+				Linked account: <a href='?src=[UID()];choice=link_account'>[linked_account ? linked_account.owner_name : "None"]</a><hr>
+				<a href='?src=[UID()];choice=change_code'>Change access code</a><br>
+				<a href='?src=[UID()];choice=change_id'>Change EFTPOS ID</a><br>
+				Scan card to reset access code <a href='?src=[UID()];choice=reset'>\[------\]</a>"}
 			// END AUTOFIX
 		user << browse(dat,"window=eftpos")
 	else
@@ -111,9 +111,9 @@
 				var/obj/item/weapon/card/I = O
 				scan_card(I)
 			else
-				to_chat(usr, "\icon[src]<span class='warning'>Unable to connect to linked account.</span>")
+				to_chat(usr, "[bicon(src)]<span class='warning'>Unable to connect to linked account.</span>")
 		else
-			to_chat(usr, "\icon[src]<span class='warning'>Unable to connect to accounts database.</span>")
+			to_chat(usr, "[bicon(src)]<span class='warning'>Unable to connect to accounts database.</span>")
 	else
 		..()
 
@@ -130,7 +130,7 @@
 						alert("That is not a valid code!")
 					print_reference()
 				else
-					to_chat(usr, "\icon[src]<span class='warning'>Incorrect code entered.</span>")
+					to_chat(usr, "[bicon(src)]<span class='warning'>Incorrect code entered.</span>")
 			if("change_id")
 				var/attempt_code = text2num(input("Re-enter the current EFTPOS access code", "Confirm EFTPOS code"))
 				if(attempt_code == access_code)
@@ -139,7 +139,7 @@
 						eftpos_name = name + " EFTPOS scanner"
 						print_reference()
 				else
-					to_chat(usr, "\icon[src]<span class='warning'>Incorrect code entered.</span>")
+					to_chat(usr, "[bicon(src)]<span class='warning'>Incorrect code entered.</span>")
 			if("link_account")
 				if(!linked_db)
 					reconnect_database()
@@ -148,7 +148,7 @@
 					var/attempt_pin = input("Enter pin code", "Account pin") as num
 					linked_account = attempt_account_access(attempt_account_num, attempt_pin, 1)
 				else
-					to_chat(usr, "\icon[src]<span class='warning'>Unable to connect to accounts database.</span>")
+					to_chat(usr, "[bicon(src)]<span class='warning'>Unable to connect to accounts database.</span>")
 			if("trans_purpose")
 				var/purpose = input("Enter reason for EFTPOS transaction", "Transaction purpose") as text|null
 				if(purpose)
@@ -168,33 +168,33 @@
 				else if(linked_account)
 					transaction_locked = 1
 				else
-					to_chat(usr, "\icon[src] <span class='warning'>No account connected to send transactions to.</span>")
+					to_chat(usr, "[bicon(src)] <span class='warning'>No account connected to send transactions to.</span>")
 			if("scan_card")
 				//attempt to connect to a new db, and if that doesn't work then fail
 				if(!linked_db)
 					reconnect_database()
 				if(linked_db && linked_account)
 					var/obj/item/I = usr.get_active_hand()
-					if (istype(I, /obj/item/weapon/card))
+					if(istype(I, /obj/item/weapon/card))
 						scan_card(I)
 				else
-					to_chat(usr, "\icon[src]<span class='warning'>Unable to link accounts.</span>")
+					to_chat(usr, "[bicon(src)]<span class='warning'>Unable to link accounts.</span>")
 			if("reset")
 				//reset the access code - requires HoP/captain access
 				var/obj/item/I = usr.get_active_hand()
-				if (istype(I, /obj/item/weapon/card))
+				if(istype(I, /obj/item/weapon/card))
 					var/obj/item/weapon/card/id/C = I
 					if(access_cent_commander in C.access || access_hop in C.access || access_captain in C.access)
 						access_code = 0
-						to_chat(usr, "\icon[src]<span class='info'>Access code reset to 0.</span>")
-				else if (istype(I, /obj/item/weapon/card/emag))
+						to_chat(usr, "[bicon(src)]<span class='info'>Access code reset to 0.</span>")
+				else if(istype(I, /obj/item/weapon/card/emag))
 					access_code = 0
-					to_chat(usr, "\icon[src]<span class='info'>Access code reset to 0.</span>")
+					to_chat(usr, "[bicon(src)]<span class='info'>Access code reset to 0.</span>")
 
 	src.attack_self(usr)
 
 /obj/item/device/eftpos/proc/scan_card(var/obj/item/weapon/card/I)
-	if (istype(I, /obj/item/weapon/card/id))
+	if(istype(I, /obj/item/weapon/card/id))
 		var/obj/item/weapon/card/id/C = I
 		visible_message("<span class='info'>[usr] swipes a card through [src].</span>")
 		if(transaction_locked && !transaction_paid)
@@ -204,7 +204,7 @@
 				if(D)
 					if(transaction_amount <= D.money)
 						playsound(src, 'sound/machines/chime.ogg', 50, 1)
-						src.visible_message("\icon[src] The [src] chimes.")
+						src.visible_message("[bicon(src)] The [src] chimes.")
 						transaction_paid = 1
 
 						//transfer the money
@@ -233,11 +233,11 @@
 						T.time = worldtime2text()
 						linked_account.transaction_log.Add(T)
 					else
-						to_chat(usr, "\icon[src]<span class='warning'>You don't have that much money!</span>")
+						to_chat(usr, "[bicon(src)]<span class='warning'>You don't have that much money!</span>")
 				else
-					to_chat(usr, "\icon[src]<span class='warning'>Unable to access account. Check security settings and try again.</span>")
+					to_chat(usr, "[bicon(src)]<span class='warning'>Unable to access account. Check security settings and try again.</span>")
 			else
-				to_chat(usr, "\icon[src]<span class='warning'>EFTPOS is not connected to an account.</span>")
+				to_chat(usr, "[bicon(src)]<span class='warning'>EFTPOS is not connected to an account.</span>")
 	else
 		..()
 

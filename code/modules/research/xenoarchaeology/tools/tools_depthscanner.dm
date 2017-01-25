@@ -9,7 +9,7 @@
 	icon = 'icons/obj/pda.dmi'
 	icon_state = "crap"
 	item_state = "analyzer"
-	w_class = 1.0
+	w_class = 1
 	slot_flags = SLOT_BELT
 	var/list/positive_locations = list()
 	var/datum/depth_scan/current
@@ -46,7 +46,7 @@
 			positive_locations.Add(D)
 
 			for(var/mob/L in range(src, 1))
-				to_chat(L, "\blue \icon[src] [src] pings.")
+				to_chat(L, "\blue [bicon(src)] [src] pings.")
 
 	else if(istype(A,/obj/structure/boulder))
 		var/obj/structure/boulder/B = A
@@ -65,14 +65,14 @@
 			positive_locations.Add(D)
 
 			for(var/mob/L in range(src, 1))
-				to_chat(L, "\blue \icon[src] [src] pings [pick("madly","wildly","excitedly","crazily")]!.")
+				to_chat(L, "\blue [bicon(src)] [src] pings [pick("madly","wildly","excitedly","crazily")]!.")
 
 /obj/item/device/depth_scanner/attack_self(var/mob/user as mob)
 	return src.interact(user)
 
 /obj/item/device/depth_scanner/interact(var/mob/user as mob)
 	var/dat = "<b>Co-ordinates with positive matches</b><br>"
-	dat += "<A href='?src=\ref[src];clear=0'>== Clear all ==</a><br>"
+	dat += "<A href='?src=[UID()];clear=0'>== Clear all ==</a><br>"
 	if(current)
 		dat += "Time: [current.time]<br>"
 		dat += "Coords: [current.coords]<br>"
@@ -84,7 +84,7 @@
 			dat += "Anomaly material: [finds_as_strings[index]]<br>"
 		else
 			dat += "Anomaly material: Unknown<br>"
-		dat += "<A href='?src=\ref[src];clear=[current.record_index]'>clear entry</a><br>"
+		dat += "<A href='?src=[UID()];clear=[current.record_index]'>clear entry</a><br>"
 	else
 		dat += "Select an entry from the list<br>"
 		dat += "<br>"
@@ -95,12 +95,12 @@
 	if(positive_locations.len)
 		for(var/index=1, index<=positive_locations.len, index++)
 			var/datum/depth_scan/D = positive_locations[index]
-			dat += "<A href='?src=\ref[src];select=[index]'>[D.time], coords: [D.coords]</a><br>"
+			dat += "<A href='?src=[UID()];select=[index]'>[D.time], coords: [D.coords]</a><br>"
 	else
 		dat += "No entries recorded."
 	dat += "<hr>"
-	dat += "<A href='?src=\ref[src];refresh=1'>Refresh</a><br>"
-	dat += "<A href='?src=\ref[src];close=1'>Close</a><br>"
+	dat += "<A href='?src=[UID()];refresh=1'>Refresh</a><br>"
+	dat += "<A href='?src=[UID()];close=1'>Close</a><br>"
 	user << browse(dat,"window=depth_scanner;size=300x500")
 	onclose(user, "depth_scanner")
 

@@ -3,7 +3,7 @@
 	name = "chili"
 	seed_name = "chili"
 	display_name = "chili plants"
-	chems = list("capsaicin" = list(3,5), "plantmatter" = list(1,25))
+	chems = list("capsaicin" = list(3,5), "plantmatter" = list(1,25), "vitamin" = list(1,25))
 	mutants = list("icechili", "ghostchili")
 	kitchen_tag = "chili"
 	preset_icon = "chilipepper"
@@ -24,7 +24,7 @@
 	seed_name = "ice pepper"
 	display_name = "ice-pepper plants"
 	mutants = null
-	chems = list("frostoil" = list(3,5), "plantmatter" = list(1,50))
+	chems = list("frostoil" = list(3,5), "plantmatter" = list(1,50), "vitamin" = list(1,50))
 	kitchen_tag = "icechili"
 	preset_icon = "icepepper"
 
@@ -58,7 +58,7 @@
 	seed_name = "berry"
 	display_name = "berry bush"
 	mutants = list("glowberries","poisonberries")
-	chems = list("plantmatter" = list(1,10))
+	chems = list("plantmatter" = list(1,10), "vitamin" = list(1,25))
 	kitchen_tag = "berries"
 	preset_icon = "berrypile"
 
@@ -79,7 +79,7 @@
 	seed_name = "glowberry"
 	display_name = "glowberry bush"
 	mutants = null
-	chems = list("plantmatter" = list(1,10), "uranium" = list(3,5))
+	chems = list("plantmatter" = list(1,10), "uranium" = list(3,5), "vitamin" = list(1,25))
 	preset_icon = "glowberrypile"
 
 /datum/seed/berry/glow/New()
@@ -99,7 +99,7 @@
 	seed_name = "poison berry"
 	display_name = "poison berry bush"
 	mutants = list("deathberries")
-	chems = list("plantmatter" = list(1), "toxin" = list(3,5))
+	chems = list("plantmatter" = list(1), "toxin" = list(3,5), "vitamin" = list(1,25))
 	kitchen_tag = "poisonberries"
 	preset_icon = "poisonberrypile"
 
@@ -113,7 +113,7 @@
 	seed_name = "death berry"
 	display_name = "death berry bush"
 	mutants = null
-	chems = list("plantmatter" = list(1), "toxin" = list(3,3), "lexorin" = list(1,5))
+	chems = list("plantmatter" = list(1), "toxin" = list(3,3), "lexorin" = list(1,5), "vitamin" = list(1,25))
 	preset_icon = "deathberrypile"
 
 /datum/seed/berry/poison/death/New()
@@ -169,7 +169,7 @@
 	seed_name = "tomato"
 	display_name = "tomato plant"
 	mutants = list("bluetomato","bloodtomato","killertomato")
-	chems = list("plantmatter" = list(1,10))
+	chems = list("plantmatter" = list(1,10), "vitamin" = list(1,25))
 	kitchen_tag = "tomato"
 	preset_icon = "tomato"
 
@@ -190,7 +190,7 @@
 	seed_name = "blood tomato"
 	display_name = "blood tomato plant"
 	mutants = list("killertomato")
-	chems = list("protein" = list(1,10), "blood" = list(1,5))
+	chems = list("protein" = list(1,10), "blood" = list(1,5), "vitamin" = list(1,25))
 	splat_type = /obj/effect/decal/cleanable/blood/splatter
 	kitchen_tag = "bloodtomato"
 	preset_icon = "bloodtomato"
@@ -222,7 +222,7 @@
 	seed_name = "blue tomato"
 	display_name = "blue tomato plant"
 	mutants = list("bluespacetomato")
-	chems = list("plantmatter" = list(1,20), "lube" = list(1,5))
+	chems = list("plantmatter" = list(1,20), "lube" = list(1,5), "vitamin" = list(1,25))
 	preset_icon = "bluetomato"
 
 /datum/seed/tomato/blue/New()
@@ -237,7 +237,7 @@
 	seed_name = "bluespace tomato"
 	display_name = "bluespace tomato plant"
 	mutants = null
-	chems = list("plantmatter" = list(1,20), "singulo" = list(10,5))
+	chems = list("plantmatter" = list(1,20), "singulo" = list(10,5), "vitamin" = list(1,25))
 	preset_icon = "bluespacetomato"
 
 /datum/seed/tomato/blue/teleport/New()
@@ -254,7 +254,7 @@
 	seed_name = "eggplant"
 	display_name = "eggplants"
 	mutants = list("egg-plant")
-	chems = list("plantmatter" = list(1,10))
+	chems = list("plantmatter" = list(1,10), "vitamin" = list(1,25))
 	kitchen_tag = "eggplant"
 	preset_icon = "eggplant"
 
@@ -294,7 +294,7 @@
 	seed_name = "apple"
 	display_name = "apple tree"
 	mutants = list("poisonapple","goldapple")
-	chems = list("plantmatter" = list(1,10))
+	chems = list("plantmatter" = list(1,10), "vitamin" = list(1,25))
 	kitchen_tag = "apple"
 	preset_icon = "apple"
 
@@ -320,7 +320,7 @@
 	seed_name = "golden apple"
 	display_name = "gold apple tree"
 	mutants = null
-	chems = list("plantmatter" = list(1,10), "gold" = list(1,5))
+	chems = list("plantmatter" = list(1,10), "gold" = list(1,5), "vitamin" = list(1,25))
 	kitchen_tag = "goldapple"
 	preset_icon = "goldapple"
 
@@ -339,7 +339,7 @@
 	seed_name = "ambrosia vulgaris"
 	display_name = "ambrosia vulgaris"
 	mutants = list("ambrosiadeus")
-	chems = list("plantmatter" = list(1), "thc" = list(1,8), "silver_sulfadiazine" = list(1,8,1), "styptic_powder" = list(1,10,1), "toxin" = list(1,10))
+	chems = list("plantmatter" = list(1), "thc" = list(1,8), "silver_sulfadiazine" = list(1,8,1), "styptic_powder" = list(1,10,1), "vitamin" = list(1,25), "toxin" = list(1,10))
 	kitchen_tag = "ambrosia"
 	preset_icon = "ambrosiavulgaris"
 
@@ -359,7 +359,7 @@
 	seed_name = "ambrosia deus"
 	display_name = "ambrosia deus"
 	mutants = null
-	chems = list("plantmatter" = list(1), "styptic_powder" = list(1,8), "synaptizine" = list(1,8,1), "methamphetamine" = list(1,10,1), "thc" = list(1,10))
+	chems = list("plantmatter" = list(1), "styptic_powder" = list(1,8), "synaptizine" = list(1,8,1), "methamphetamine" = list(1,10,1), "vitamin" = list(1,25), "thc" = list(1,10))
 	kitchen_tag = "ambrosiadeus"
 	preset_icon = "ambrosiadeus"
 
@@ -431,7 +431,7 @@
 	seed_name = "tea aspera"
 	display_name = "tea aspera"
 	mutants = list("teaastra")
-	chems = list("teapowder" = list(1,20), "charcoal" = list(1,30))
+	chems = list("teapowder" = list(1,20), "charcoal" = list(1,30), "vitamin" = list(1,25))
 	preset_icon = "tea_aspera_leaves"
 
 /datum/seed/teaaspera/New()
@@ -449,7 +449,7 @@
 	name = "teaastra"
 	seed_name = "tea astra"
 	display_name = "tea astra"
-	chems = list("teapowder" = list(1,20), "haloperidol" = list(1,30))
+	chems = list("teapowder" = list(1,20), "haloperidol" = list(1,30), "vitamin" = list(1,25))
 	preset_icon = "tea_astra_leaves"
 
 /datum/seed/teaastra/New()
@@ -471,7 +471,7 @@
 	seed_name = "coffee arabica"
 	display_name = "coffee arabica"
 	mutants = list("coffeer")
-	chems = list("coffeepowder" = list(1,20), "synaptizine" = list(1,40))
+	chems = list("coffeepowder" = list(1,20), "synaptizine" = list(1,40), "vitamin" = list(1,25))
 	kitchen_tag = "coffeea"
 	preset_icon = "coffee_arabica"
 
@@ -490,7 +490,7 @@
 	name = "coffeer"
 	seed_name = "coffee robusta"
 	display_name = "coffee robusta"
-	chems = list("coffeepowder" = list(1,20), "synaptizine" = list(1,20), "methamphetamine" = list(1,40))
+	chems = list("coffeepowder" = list(1,20), "synaptizine" = list(1,20), "methamphetamine" = list(1,40), "vitamin" = list(1,25))
 	kitchen_tag = "coffeer"
 	preset_icon = "coffee_robusta"
 
@@ -551,7 +551,7 @@
 	seed_name = "plump helmet"
 	display_name = "plump helmet mushrooms"
 	mutants = list("walkingmushroom","towercap")
-	chems = list("plantmatter" = list(2,10))
+	chems = list("plantmatter" = list(2,10), "vitamin" = list(1,25))
 	kitchen_tag = "plumphelmet"
 	preset_icon = "plumphelmet"
 
@@ -786,7 +786,7 @@
 /datum/seed/flower/moonflower
 	name = "moonflowers"
 	seed_name = "moonflowers"
-	chems = list("plantmatter" = list(1,50), "moonshine" = list(1,10))
+	chems = list("plantmatter" = list(1,50), "moonshine" = list(1,10), "vitamin" = list(1,25))
 	mutants = null
 	display_name = "moonflowers"
 	preset_icon = "moonflower"
@@ -824,7 +824,8 @@
 	seed_name = "grape"
 	display_name = "grapevines"
 	mutants = list("greengrapes")
-	chems = list("plantmatter" = list(1,10), "sugar" = list(1,5))
+	chems = list("plantmatter" = list(1,10), "sugar" = list(1,5), "vitamin" = list(1,25))
+	kitchen_tag = "grapes"
 	preset_icon = "grapes"
 
 /datum/seed/grapes/New()
@@ -844,7 +845,7 @@
 	seed_name = "green grape"
 	display_name = "green grapevines"
 	mutants = null
-	chems = list("plantmatter" = list(1,10), "silver_sulfadiazine" = list(3,5))
+	chems = list("plantmatter" = list(1,10), "silver_sulfadiazine" = list(3,5), "vitamin" = list(1,25))
 	preset_icon = "greengrapes"
 
 /datum/seed/grapes/green/New()
@@ -856,7 +857,7 @@
 	name = "soybean"
 	seed_name = "soybean"
 	display_name = "soybeans"
-	chems = list("plantmatter" = list(1,20), "soybeanoil" = list(1,20))
+	chems = list("plantmatter" = list(1,20), "soybeanoil" = list(1,20), "vitamin" = list(1,25))
 	mutants = list("koibean")
 	kitchen_tag = "soybeans"
 	preset_icon = "soybeans"
@@ -876,7 +877,7 @@
 	name = "koibean"
 	seed_name = "koibean"
 	display_name = "koi beans"
-	chems = list("plantmatter" = list(1,30), "carpotoxin" = list(1,20))
+	chems = list("plantmatter" = list(1,30), "carpotoxin" = list(1,20), "vitamin" = list(1,25))
 	mutants = null
 	kitchen_tag = "koibean"
 	preset_icon = "koibeans"
@@ -917,7 +918,7 @@
 	name = "cabbage"
 	seed_name = "cabbage"
 	display_name = "cabbages"
-	chems = list("plantmatter" = list(1,10))
+	chems = list("plantmatter" = list(1,10), "vitamin" = list(1,25))
 	kitchen_tag = "cabbage"
 	preset_icon = "cabbage"
 
@@ -937,7 +938,7 @@
 	name = "banana"
 	seed_name = "banana"
 	display_name = "banana tree"
-	chems = list("banana" = list(10,10))
+	chems = list("banana" = list(10,10), "vitamin" = list(1,25))
 	trash_type = /obj/item/weapon/bananapeel
 	kitchen_tag = "banana"
 	preset_icon = "banana"
@@ -957,7 +958,7 @@
 	name = "corn"
 	seed_name = "corn"
 	display_name = "ears of corn"
-	chems = list("plantmatter" = list(1,10), "corn_starch" = list(3,5))
+	chems = list("plantmatter" = list(1,10), "corn_starch" = list(3,5), "vitamin" = list(1,25))
 	kitchen_tag = "corn"
 	trash_type = /obj/item/weapon/corncob
 	preset_icon = "corn"
@@ -977,7 +978,7 @@
 	name = "potato"
 	seed_name = "potato"
 	display_name = "potatoes"
-	chems = list("plantmatter" = list(1,10))
+	chems = list("plantmatter" = list(1,10), "vitamin" = list(1,25))
 	kitchen_tag = "potato"
 	preset_icon = "potato"
 
@@ -1034,7 +1035,7 @@
 	name = "carrot"
 	seed_name = "carrot"
 	display_name = "carrots"
-	chems = list("plantmatter" = list(1,20), "oculine" = list(3,5))
+	chems = list("plantmatter" = list(1,20), "oculine" = list(3,5), "vitamin" = list(1,25))
 	kitchen_tag = "carrot"
 	preset_icon = "carrot"
 
@@ -1069,7 +1070,7 @@
 	name = "whitebeet"
 	seed_name = "white-beet"
 	display_name = "white-beets"
-	chems = list("plantmatter" = list(0,20), "sugar" = list(1,5))
+	chems = list("plantmatter" = list(0,20), "sugar" = list(1,5), "vitamin" = list(1,25))
 	kitchen_tag = "whitebeet"
 	preset_icon = "whitebeet"
 
@@ -1089,6 +1090,7 @@
 	seed_name = "sugarcane"
 	display_name = "sugarcanes"
 	chems = list("sugar" = list(4,5))
+	kitchen_tag = "sugarcane"
 	preset_icon = "sugarcane"
 
 /datum/seed/sugarcane/New()
@@ -1107,7 +1109,7 @@
 	name = "watermelon"
 	seed_name = "watermelon"
 	display_name = "watermelon vine"
-	chems = list("plantmatter" = list(1,6))
+	chems = list("plantmatter" = list(1,6), "vitamin" = list(1,25))
 	kitchen_tag = "watermelon"
 	preset_icon = "watermelon"
 
@@ -1128,7 +1130,7 @@
 	name = "pumpkin"
 	seed_name = "pumpkin"
 	display_name = "pumpkin vine"
-	chems = list("plantmatter" = list(1,6))
+	chems = list("plantmatter" = list(1,6), "vitamin" = list(1,25))
 	kitchen_tag = "pumpkin"
 	preset_icon = "pumpkin"
 
@@ -1148,7 +1150,7 @@
 	name = "lime"
 	seed_name = "lime"
 	display_name = "lime trees"
-	chems = list("plantmatter" = list(1,20))
+	chems = list("plantmatter" = list(1,20), "vitamin" = list(1,25))
 	kitchen_tag = "lime"
 	preset_icon = "lime"
 
@@ -1168,7 +1170,7 @@
 	name = "lemon"
 	seed_name = "lemon"
 	display_name = "lemon trees"
-	chems = list("plantmatter" = list(1,20))
+	chems = list("plantmatter" = list(1,20), "vitamin" = list(1,25))
 	mutants = list("cashtree")
 	kitchen_tag = "lemon"
 	preset_icon = "lemon"

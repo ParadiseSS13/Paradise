@@ -73,7 +73,7 @@
 	..()
 
 /obj/item/weapon/storage/toolbox/green/memetic/proc/consume(mob/M)
-	if (!M)
+	if(!M)
 		return
 	hunger = 0
 	hunger_message_level = 0
@@ -138,8 +138,8 @@
 		affected_mob.setStaminaLoss(0)
 		var/status = CANSTUN | CANWEAKEN | CANPARALYSE
 		affected_mob.status_flags &= ~status
-		affected_mob.dizziness = max(0, affected_mob.dizziness-10)
-		affected_mob.drowsyness = max(0, affected_mob.drowsyness-10)
+		affected_mob.AdjustDizzy(-10)
+		affected_mob.AdjustDrowsy(-10)
 		affected_mob.SetSleeping(0)
 		stage = 1
 		switch(progenitor.hunger)

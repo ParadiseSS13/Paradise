@@ -14,7 +14,7 @@
 	gender = PLURAL
 	icon = 'icons/obj/stock_parts.dmi'
 	icon_state = "hdd1"
-	w_class = 2.0
+	w_class = 2
 
 	var/emagged = 0
 	crit_fail = 0
@@ -116,9 +116,9 @@
 			if(3)
 				if(equip_to_reader(card, L))
 					to_chat(usr, "You insert the card into reader slot")
-				else if (equip_to_writer(card, L) && dualslot)
+				else if(equip_to_writer(card, L) && dualslot)
 					to_chat(usr, "You insert the card into writer slot")
-				else if (dualslot)
+				else if(dualslot)
 					to_chat(usr, "There is already something in both slots.")
 				else
 					to_chat(usr, "There is already something in the reader slot.")
@@ -146,18 +146,18 @@
 		var/mob/living/L = usr
 		switch(slot)
 			if(1)
-				if (remove_reader(L))
+				if(remove_reader(L))
 					to_chat(L, "You remove the card from reader slot")
 				else
 					to_chat(L, "There is no card in the reader slot")
 			if(2)
-				if (remove_writer(L))
+				if(remove_writer(L))
 					to_chat(L, "You remove the card from writer slot")
 				else
 					to_chat(L, "There is no card in the writer slot")
 			if(3)
-				if (remove_reader(L))
-					if (remove_writer(L))
+				if(remove_reader(L))
+					if(remove_writer(L))
 						to_chat(L, "You remove cards from both slots")
 					else
 						to_chat(L, "You remove the card from reader slot")
@@ -167,10 +167,10 @@
 					else
 						to_chat(L, "There are no cards in both slots")
 			if(4)
-				if (!remove_reader(L))
-					if (remove_writer(L))
+				if(!remove_reader(L))
+					if(remove_writer(L))
 						to_chat(L, "You remove the card from writer slot")
-					else if (!dualslot)
+					else if(!dualslot)
 						to_chat(L, "There is no card in the reader slot")
 					else
 						to_chat(L, "There are no cards in both slots")

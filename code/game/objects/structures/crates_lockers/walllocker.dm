@@ -27,7 +27,7 @@
 	icon_opened = "emergopen"
 
 /obj/structure/closet/walllocker/emerglocker/attack_hand(mob/user as mob)
-	if (istype(user, /mob/living/silicon/ai))	//Added by Strumpetplaya - AI shouldn't be able to
+	if(istype(user, /mob/living/silicon/ai))	//Added by Strumpetplaya - AI shouldn't be able to
 		return									//activate emergency lockers.  This fixes that.  (Does this make sense, the AI can't call attack_hand, can it? --Mloc)
 	if(!amount)
 		to_chat(usr, "<spawn class='notice'>It's empty.")

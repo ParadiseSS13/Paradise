@@ -91,7 +91,7 @@ var/global/list/GlobalPool = list()
 
 	GlobalPool[diver.type] |= diver
 
-	if (destroy)
+	if(destroy)
 		diver.Destroy()
 
 	diver.ResetVars()

@@ -40,7 +40,7 @@
 		name = "pizza bomb"
 		desc = "OH GOD THAT'S NOT A PIZZA"
 		icon_state = "pizzabox_bomb"
-		audible_message("<span class='warning'>\icon[src] *beep* *beep*</span>")
+		audible_message("<span class='warning'>[bicon(src)] *beep* *beep*</span>")
 		to_chat(user, "<span class='danger'>That's no pizza! That's a bomb!</span>")
 		message_admins("[key_name_admin(usr)] has triggered a pizza bomb armed by [armer] at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[loc.x];Y=[loc.y];Z=[loc.z]'>(JMP)</a>.")
 		log_game("[key_name(usr)] has triggered a pizza bomb armed by [armer] ([loc.x],[loc.y],[loc.z]).")
@@ -50,9 +50,9 @@
 
 /obj/item/device/pizza_bomb/proc/go_boom()
 	if(disarmed)
-		visible_message("<span class='danger'>\icon[src] Sparks briefly jump out of the [correct_wire] wire on \the [src], but it's disarmed!")
+		visible_message("<span class='danger'>[bicon(src)] Sparks briefly jump out of the [correct_wire] wire on \the [src], but it's disarmed!")
 		return
-	src.audible_message("\icon[src] <b>[src]</b> beeps, \"Enjoy the pizza!\"")
+	src.audible_message("[bicon(src)] <b>[src]</b> beeps, \"Enjoy the pizza!\"")
 	src.visible_message("<span class='userdanger'>\The [src] violently explodes!</span>")
 	explosion(src.loc,1,2,4,flame_range = 2) //Identical to a minibomb
 	qdel(src)
@@ -67,7 +67,7 @@
 		user.visible_message("<span class='warning'>[user] cuts the [chosen_wire] wire!</span>", "<span class='danger'>You cut the [chosen_wire] wire!</span>")
 		sleep(5)
 		if(chosen_wire == correct_wire)
-			src.audible_message("<span class='warning'>\icon[src] \The [src] suddenly stops beeping and seems lifeless.</span>")
+			src.audible_message("<span class='warning'>[bicon(src)] \The [src] suddenly stops beeping and seems lifeless.</span>")
 			to_chat(user, "<span class='notice'>You did it!</span>")
 			icon_state = "pizzabox_bomb_[correct_wire]"
 			name = "pizza bomb"

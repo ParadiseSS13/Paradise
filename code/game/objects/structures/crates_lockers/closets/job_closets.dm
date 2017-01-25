@@ -101,6 +101,8 @@
 
 /obj/structure/closet/lawcloset/New()
 	..()
+	new /obj/item/weapon/storage/box/tapes(src)
+	new /obj/item/weapon/book/manual/faxes(src)
 	new /obj/item/clothing/under/lawyer/female(src)
 	new /obj/item/clothing/under/lawyer/black(src)
 	new /obj/item/clothing/under/lawyer/red(src)

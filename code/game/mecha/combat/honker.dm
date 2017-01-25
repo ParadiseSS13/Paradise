@@ -24,7 +24,6 @@
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/mousetrap_mortar
 	ME.attach(src)
-	return
 
 /obj/mecha/combat/honker/get_stats_part()
 	var/integrity = health/initial(health)*100
@@ -36,7 +35,7 @@
 						[integrity<30?"<font color='red'><b>DAMAGE LEVEL CRITICAL</b></font><br>":null]
 						[internal_damage&MECHA_INT_TEMP_CONTROL?"<font color='red'><b>CLOWN SUPPORT SYSTEM MALFUNCTION</b></font><br>":null]
 						[internal_damage&MECHA_INT_TANK_BREACH?"<font color='red'><b>GAS TANK HONK</b></font><br>":null]
-						[internal_damage&MECHA_INT_CONTROL_LOST?"<font color='red'><b>HONK-A-DOODLE</b></font> - <a href='?src=\ref[src];repair_int_control_lost=1'>Recalibrate</a><br>":null]
+						[internal_damage&MECHA_INT_CONTROL_LOST?"<font color='red'><b>HONK-A-DOODLE</b></font> - <a href='?src=[UID()];repair_int_control_lost=1'>Recalibrate</a><br>":null]
 						<b>IntegriHONK: </b> [integrity]%<br>
 						<b>PowerHONK charge: </b>[isnull(cell_charge)?"No powercell installed":"[cell.percent()]%"]<br>
 						<b>Air source: </b>[use_internal_tank?"Internal Airtank":"Environment"]<br>
@@ -45,13 +44,13 @@
 						<b>HONK pressure: </b>[cabin_pressure>WARNING_HIGH_PRESSURE ? "<font color='red'>[cabin_pressure]</font>": cabin_pressure]kPa<br>
 						<b>HONK temperature: </b> [return_temperature()]&deg;K|[return_temperature() - T0C]&deg;C<br>
 						<b>Lights: </b>[lights?"on":"off"]<br>
-						[src.dna?"<b>DNA-locked:</b><br> <span style='font-size:10px;letter-spacing:-1px;'>[src.dna]</span> \[<a href='?src=\ref[src];reset_dna=1'>Reset</a>\]<br>":null]
+						[dna?"<b>DNA-locked:</b><br> <span style='font-size:10px;letter-spacing:-1px;'>[dna]</span> \[<a href='?src=[UID()];reset_dna=1'>Reset</a>\]<br>":null]
 					"}
 	return output
 
 /obj/mecha/combat/honker/get_stats_html()
 	var/output = {"<html>
-						<head><title>[src.name] data</title>
+						<head><title>[name] data</title>
 						<style>
 						body {color: #00ff00; background: #32CD32; font-family:"Courier",monospace; font-size: 12px;}
 						hr {border: 1px solid #0f0; color: #fff; background-color: #000;}
@@ -68,7 +67,7 @@
 						[js_dropdowns]
 						function ticker() {
 						    setInterval(function(){
-						        window.location='byond://?src=\ref[src]&update_content=1';
+						        window.location='byond://?src=[UID()]&update_content=1';
 						        document.body.style.color = get_rand_color_string();
 						      document.body.style.background = get_rand_color_string();
 						    }, 1000);
@@ -90,14 +89,14 @@
 						</head>
 						<body>
 						<div id='content'>
-						[src.get_stats_part()]
+						[get_stats_part()]
 						</div>
 						<div id='eq_list'>
-						[src.get_equipment_list()]
+						[get_equipment_list()]
 						</div>
 						<hr>
 						<div id='commands'>
-						[src.get_commands()]
+						[get_commands()]
 						</div>
 						</body>
 						</html>
@@ -108,7 +107,7 @@
 	var/output = {"<div class='wr'>
 						<div class='header'>Sounds of HONK:</div>
 						<div class='links'>
-						<a href='?src=\ref[src];play_sound=sadtrombone'>Sad Trombone</a>
+						<a href='?src=[UID()];play_sound=sadtrombone'>Sad Trombone</a>
 						</div>
 						</div>
 						"}
@@ -139,7 +138,7 @@
 
 obj/mecha/combat/honker/Topic(href, href_list)
 	..()
-	if (href_list["play_sound"])
+	if(href_list["play_sound"])
 		switch(href_list["play_sound"])
 			if("sadtrombone")
 				playsound(src, 'sound/misc/sadtrombone.ogg', 50)
@@ -148,7 +147,7 @@ obj/mecha/combat/honker/Topic(href, href_list)
 proc/rand_hex_color()
 	var/list/colors = list("0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f")
 	var/color=""
-	for (var/i=0;i<6;i++)
+	for(var/i=0;i<6;i++)
 		color = color+pick(colors)
 	return color
 

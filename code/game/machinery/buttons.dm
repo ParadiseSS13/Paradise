@@ -78,7 +78,7 @@
 	return {"
 	<ul>
 	<li><b>ID Tag:</b> [format_tag("ID Tag","id_tag")]</li>
-	<li><b>Logic Connection:</b> <a href='?src=\ref[src];toggle_logic=1'>[logic_connect ? "On" : "Off"]</a></li>
+	<li><b>Logic Connection:</b> <a href='?src=[UID()];toggle_logic=1'>[logic_connect ? "On" : "Off"]</a></li>
 	<li><b>Logic ID Tag:</b> [format_tag("Logic ID Tag", "logic_id_tag")]</li>
 	</ul>"}
 
@@ -121,7 +121,7 @@
 		radio_connection.post_signal(src, signal, filter = RADIO_LOGIC)
 
 	for(var/obj/machinery/door/poddoor/M in range(src,range))
-		if (M.id_tag == src.id_tag && !M.protected)
+		if(M.id_tag == src.id_tag && !M.protected)
 			spawn()
 				M.open()
 
@@ -134,7 +134,7 @@
 	sleep(50)
 
 	for(var/obj/machinery/door/poddoor/M in range(src,range))
-		if (M.id_tag == src.id_tag && !M.protected)
+		if(M.id_tag == src.id_tag && !M.protected)
 			spawn()
 				M.close()
 				return
@@ -182,7 +182,7 @@
 	icon_state = "launcheract"
 
 	for(var/obj/machinery/sparker/M in world)
-		if (M.id == src.id)
+		if(M.id == src.id)
 			spawn( 0 )
 				M.spark()
 

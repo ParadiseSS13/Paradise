@@ -28,7 +28,7 @@
 	src.sd_set_light(2)
 */
 /obj/machinery/flasher/power_change()
-	if ( powered() )
+	if( powered() )
 		stat &= ~NOPOWER
 		icon_state = "[base_state]1"
 //		src.sd_set_light(2)
@@ -39,26 +39,26 @@
 
 //Don't want to render prison breaks impossible
 /obj/machinery/flasher/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
-	if (istype(W, /obj/item/weapon/wirecutters))
+	if(istype(W, /obj/item/weapon/wirecutters))
 		add_fingerprint(user)
 		src.disable = !src.disable
-		if (src.disable)
+		if(src.disable)
 			user.visible_message("\red [user] has disconnected the [src]'s flashbulb!", "\red You disconnect the [src]'s flashbulb!")
-		if (!src.disable)
+		if(!src.disable)
 			user.visible_message("\red [user] has connected the [src]'s flashbulb!", "\red You connect the [src]'s flashbulb!")
 
 //Let the AI trigger them directly.
 /obj/machinery/flasher/attack_ai()
-	if (src.anchored)
+	if(src.anchored)
 		return src.flash()
 	else
 		return
 
 /obj/machinery/flasher/proc/flash()
-	if (!(powered()))
+	if(!(powered()))
 		return
 
-	if ((src.disable) || (src.last_flash && world.time < src.last_flash + 150))
+	if((src.disable) || (src.last_flash && world.time < src.last_flash + 150))
 		return
 
 	playsound(src.loc, 'sound/weapons/flash.ogg', 100, 1)
@@ -67,7 +67,7 @@
 	use_power(1000)
 
 	for(var/mob/living/L in viewers(src, null))
-		if (get_dist(src, L) > src.range)
+		if(get_dist(src, L) > src.range)
 			continue
 
 		if(L.flash_eyes(affect_silicon = 1))
@@ -85,24 +85,24 @@
 	..(severity)
 
 /obj/machinery/flasher/portable/HasProximity(atom/movable/AM as mob|obj)
-	if ((src.disable) || (src.last_flash && world.time < src.last_flash + 150))
+	if((src.disable) || (src.last_flash && world.time < src.last_flash + 150))
 		return
 
 	if(istype(AM, /mob/living/carbon))
 		var/mob/living/carbon/M = AM
-		if ((M.m_intent != "walk") && (src.anchored))
+		if((M.m_intent != "walk") && (src.anchored))
 			src.flash()
 
 /obj/machinery/flasher/portable/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
-	if (istype(W, /obj/item/weapon/wrench))
+	if(istype(W, /obj/item/weapon/wrench))
 		add_fingerprint(user)
 		src.anchored = !src.anchored
 
-		if (!src.anchored)
+		if(!src.anchored)
 			user.show_message(text("\red [src] can now be moved."))
 			src.overlays.Cut()
 
-		else if (src.anchored)
+		else if(src.anchored)
 			user.show_message(text("\red [src] is now secured."))
 			src.overlays += "[base_state]-s"
 

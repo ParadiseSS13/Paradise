@@ -341,6 +341,7 @@
 "gC" = (/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_y = 0; tag = ""},/turf/simulated/floor/carpet,/area/awaymission/academy/academyaft)
 "gD" = (/obj/structure/cable{d1 = 2; d2 = 8; icon_state = "2-8"; tag = ""},/turf/simulated/floor/carpet,/area/awaymission/academy/academyaft)
 "gE" = (/obj/structure/table,/obj/item/weapon/paper{info = "Grade: B- Educator's Notes: Keep applying yourself, you're showing improvement."; name = "Summoning Midterm Exam"},/obj/item/weapon/gun/projectile/shotgun/toy/tommygun,/turf/simulated/floor/plasteel{tag = "icon-vault (NORTHEAST)"; icon_state = "vault"; dir = 5},/area/awaymission/academy/classrooms)
+"gF" = (/obj/structure/window/reinforced,/obj/structure/table,/obj/item/weapon/reagent_containers/food/drinks/trophy/gold_cup,/turf/simulated/floor/plasteel{icon_state = "red"},/area/awaymission/academy/academyaft)
 "gG" = (/obj/structure/table,/turf/simulated/floor/plasteel{tag = "icon-vault (NORTHEAST)"; icon_state = "vault"; dir = 5},/area/awaymission/academy/classrooms)
 "gH" = (/obj/structure/window/reinforced,/obj/item/ammo_casing,/turf/simulated/floor/plasteel{icon_state = "delivery"; name = "floor"},/area/awaymission/academy/classrooms)
 "gI" = (/mob/living/simple_animal/hostile/bear,/turf/simulated/floor/plating,/area/awaymission/academy/classrooms)
@@ -482,7 +483,6 @@
 "jo" = (/turf/simulated/floor/plasteel{dir = 4; icon_state = "yellow"},/area/awaymission/academy/academyaft)
 "jp" = (/obj/structure/cable{d1 = 1; d2 = 4; icon_state = "1-4"; tag = ""},/turf/simulated/floor/plasteel/airless{tag = "icon-white (EAST)"; icon_state = "white"; dir = 4},/area/awaymission/academy/academyaft)
 "jq" = (/obj/structure/grille,/obj/structure/cable{d2 = 8; icon_state = "0-8"},/obj/item/weapon/shard,/turf/simulated/floor/plating/airless,/area/awaymission/academy/academyaft)
-"jr" = (/obj/structure/window/reinforced,/obj/structure/table,/obj/item/weapon/reagent_containers/food/drinks/golden_cup,/turf/simulated/floor/plasteel{icon_state = "red"},/area/awaymission/academy/academyaft)
 "js" = (/obj/structure/window/reinforced,/turf/simulated/floor/plasteel{icon_state = "red"; dir = 6},/area/awaymission/academy/academyaft)
 "jt" = (/obj/structure/cult/pylon,/turf/simulated/floor/plasteel{icon_state = "yellow"; dir = 10},/area/awaymission/academy/academyaft)
 "ju" = (/turf/simulated/floor/plasteel{icon_state = "yellow"},/area/awaymission/academy/academyaft)
@@ -633,7 +633,7 @@ aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaSaSaSaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaSaaaaaaaSaSaaaaaaaaaaaaaaaaaagZiViWiWiXgZaaaaaaiYhDiZjafLfCfDfDfDfDfDfDfDfDfDfLjbjcjdjeaaaaaagZiViWiWiXgZaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaSaSaSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaagZjfjgjafLjhfBfBjifBfBjifBfBjjfLjbjkjlgZaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaSaSaSaSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaiYhDjmjafLfCfDjnhlkxhlhljofDfDfLjbjpjdjqaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaSaSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaagZjrjsjafLfCfDjtjujujujujvfDfDfLjbjwjxgZjyaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaSaSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaagZgFjsjafLfCfDjtjujujujujvfDfDfLjbjwjxgZjyaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaagZgZjzjafLfCjAfDfDfDfDfDfDjAfDfLjbjzgZgZaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaagZgZjBfLjCetjDfDfDfDfDjEetjDfLjBgZgZaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaagZgZfLjFjGgCgDfDfDfDfDjHfDfLgZgZaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
@@ -672,3 +672,4 @@ aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 "}
+

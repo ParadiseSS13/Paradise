@@ -7,7 +7,7 @@
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	throwforce = 5
-	w_class = 2.0
+	w_class = 2
 	throw_speed = 2
 	throw_range = 5
 	materials = list(MAT_METAL=500)
@@ -20,9 +20,18 @@
 	if(!user.IsAdvancedToolUser())
 		return
 
+	if(!istype(C))
+		return
+
 	if(CLUMSY in user.mutations && prob(50))
 		to_chat(user, "<span class='warning'>Uh... how do those things work?!</span>")
 		apply_cuffs(user,user)
+
+	if(ishuman(C))
+		var/mob/living/carbon/human/H = C
+		if(!(H.get_organ("l_hand") || H.get_organ("r_hand")))
+			to_chat(user, "<span class='warning'>How do you suggest handcuffing someone with no hands?</span>")
+			return
 
 	if(!C.handcuffed)
 		C.visible_message("<span class='danger'>[user] is trying to put [src.name] on [C]!</span>", \
@@ -37,7 +46,7 @@
 			else
 				feedback_add_details("handcuffs","H")
 
-			add_logs(C, user, "handcuffed", src)
+			add_logs(user, C, "handcuffed", src)
 		else
 			to_chat(user, "<span class='warning'>You fail to handcuff [C].</span>")
 
@@ -57,7 +66,7 @@
 	name = "cable restraints"
 	desc = "Looks like some cables tied together. Could be used to tie something up."
 	icon_state = "cuff_white"
-	item_state = "coil_red"
+	materials = list(MAT_METAL=150, MAT_GLASS=75)
 	breakouttime = 300 //Deciseconds = 30s
 	cuffsound = 'sound/weapons/cablecuff.ogg'
 
@@ -97,7 +106,7 @@
 	..()
 	if(istype(I, /obj/item/stack/rods))
 		var/obj/item/stack/rods/R = I
-		if (R.use(1))
+		if(R.use(1))
 			var/obj/item/weapon/wirerod/W = new /obj/item/weapon/wirerod
 			if(!remove_item_from_storage(user))
 				user.unEquip(src)
@@ -105,18 +114,37 @@
 			to_chat(user, "<span class='notice'>You wrap the cable restraint around the top of the rod.</span>")
 			qdel(src)
 		else
-			to_chat(user, "<span class='warning'>You need one rod to make a wired rod.</span>")
+			to_chat(user, "<span class='warning'>You need one rod to make a wired rod!</span>")
+	else if(istype(I, /obj/item/stack/sheet/metal))
+		var/obj/item/stack/sheet/metal/M = I
+		if(M.amount < 6)
+			to_chat(user, "<span class='warning'>You need at least six metal sheets to make good enough weights!</span>")
 			return
+		to_chat(user, "<span class='notice'>You begin to apply [I] to [src]...</span>")
+		if(do_after(user, 35, target = src))
+			var/obj/item/weapon/restraints/legcuffs/bola/S = new /obj/item/weapon/restraints/legcuffs/bola
+			M.use(6)
+			user.put_in_hands(S)
+			to_chat(user, "<span class='notice'>You make some weights out of [I] and tie them to [src].</span>")
+			if(!remove_item_from_storage(user))
+				user.unEquip(src)
+			qdel(src)
 
 /obj/item/weapon/restraints/handcuffs/cable/zipties
 	name = "zipties"
 	desc = "Plastic, disposable zipties that can be used to restrain temporarily but are destroyed after use."
 	icon_state = "cuff_white"
 	breakouttime = 450 //Deciseconds = 45s
+	materials = list()
 	trashtype = /obj/item/weapon/restraints/handcuffs/cable/zipties/used
 
 /obj/item/weapon/restraints/handcuffs/cable/zipties/cyborg/attack(mob/living/carbon/C, mob/user)
 	if(isrobot(user))
+		if(ishuman(C))
+			var/mob/living/carbon/human/H = C
+			if(!(H.get_organ("l_hand") || H.get_organ("r_hand")))
+				to_chat(user, "<span class='warning'>How do you suggest handcuffing someone with no hands?</span>")
+				return
 		if(!C.handcuffed)
 			playsound(loc, 'sound/weapons/cablecuff.ogg', 30, 1, -2)
 			C.visible_message("<span class='danger'>[user] is trying to put zipties on [C]!</span>", \
@@ -126,7 +154,7 @@
 					C.handcuffed = new /obj/item/weapon/restraints/handcuffs/cable/zipties/used(C)
 					C.update_handcuffed()
 					to_chat(user, "<span class='notice'>You handcuff [C].</span>")
-					add_logs(C, user, "ziptie-cuffed")
+					add_logs(user, C, "ziptie-cuffed")
 			else
 				to_chat(user, "<span class='warning'>You fail to handcuff [C].</span>")
 

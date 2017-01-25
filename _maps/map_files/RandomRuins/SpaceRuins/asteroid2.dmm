@@ -1,0 +1,27 @@
+"a" = (/turf/space,/area/space)
+"b" = (/turf/simulated/floor/plating/airless/asteroid,/area/ruin/unpowered)
+"c" = (/turf/simulated/mineral,/area/ruin/unpowered)
+"d" = (/turf/simulated/mineral/random/high_chance,/area/ruin/unpowered)
+
+(1,1,1) = {"
+aaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaa
+aaaaabbbbaaaaaaaaaab
+aaabbbbbbbbaaaaabbaa
+aabbbbbcbbbbbbaaabaa
+abbbbbcccbbbbbaaaaaa
+abbbcccccccddbbaaaaa
+abbbcccccccddbbaaaaa
+abbbcccdddccdbbbbaaa
+aaabcccccdddcccbbaaa
+aabbbddcccddccdbbbba
+aabbbddcccddccccbbba
+aabbbddccdddccccbbba
+aabbbddcdddcccddbbba
+aaabbddcdcccccddbbba
+aaaabbbbdccccdddbbba
+aaaaaabbcccdcccbbbba
+aaabaabbbbbccccbbaaa
+baaaaaaabbbbbccbaaaa
+aaaaaaaaaaaabbbbaaaa
+"}

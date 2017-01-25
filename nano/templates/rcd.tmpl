@@ -1,0 +1,33 @@
+{{if data.menu == 1}}
+	<h3>RCD Modes:</h3>
+	<div class='item'>{{:helper.link('Floor and Walls', 'arrow-right', {'mode': 1}, data.mode == 1 ? 'linkOn' : null)}}</div>
+	<div class='item'>
+		{{:helper.link('Airlock', 'arrow-right', {'mode': 2}, data.mode == 2 ? 'linkOn' : null)}}
+		{{:helper.link('', 'gear', {'menu': 2})}}
+	</div>
+	<div class='item'>{{:helper.link('Deconstruct', 'arrow-right', {'mode': 3}, data.mode == 3 ? 'linkOn' : null)}}</div>
+	<div class='item'>{{:helper.link('Windows', 'arrow-right', {'mode': 4}, data.mode == 4 ? 'linkOn' : null)}}</div>
+	<div class='statusDisplay'>
+		<div class='item'>RCD ammo: {{:data.matter}} / {{:data.max_matter}}</div>
+	</div>
+{{else data.menu == 2}}
+	<div class='item'>{{:helper.link('Back', 'reply', {'menu': 1})}}</div>
+	<div style='width:49%; float:left'><div class='statusDisplay'>
+		<h3>Type</h3>
+		{{for data.allowed_door_types}}
+			<div class='line'>{{:helper.link(value.name, 'arrow-right', {'door_type': value.type}, data.door_type == value.type ? 'linkOn' : null)}}</div>
+		{{/for}}
+	</div></div>
+	<div style='width:49%; float:right'><div class='statusDisplay'>
+		<h3>Accesses</h3>
+		{{if data.locked}}
+			{{:helper.link('Swipe ID', 'unlock-alt', {'login': 1})}}
+		{{else}}
+			{{:helper.link('Lock', 'lock', {'logout': 1})}}
+			<div class='item'>{{:helper.link(data.one_access ? 'ONE' : 'ALL', 'arrow-right', {'toggle_one_access': 1})}}</div><br>
+			{{for data.door_accesses}}
+				<div class='line'>{{:helper.link(value.name, 'arrow-right', {'toggle_access': value.id}, null, value.enabled ? 'selected' : null)}}</div>
+			{{/for}}
+		{{/if}}
+	</div></div>
+{{/if}}

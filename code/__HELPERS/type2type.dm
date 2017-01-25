@@ -10,7 +10,7 @@
 
 //Returns an integer given a hex input
 /proc/hex2num(hex)
-	if (!( istext(hex) ))
+	if(!(istext(hex)))
 		return
 
 	var/num = 0
@@ -59,6 +59,27 @@
 		hex = "0[hex]"
 	return hex || "0"
 
+//Returns an integer value for R of R/G/B given a hex color input.
+/proc/color2R(hex)
+	if(!(istext(hex)))
+		return
+
+	return hex2num(copytext(hex, 2, 4)) //Returning R
+
+//Returns an integer value for G of R/G/B given a hex color input.
+/proc/color2G(hex)
+	if(!(istext(hex)))
+		return
+
+	return hex2num(copytext(hex, 4, 6)) //Returning G
+
+//Returns an integer value for B of R/G/B given a hex color input.
+/proc/color2B(hex)
+	if(!(istext(hex)))
+		return
+
+	return hex2num(copytext(hex, 6, 8)) //Returning B
+
 /proc/text2numlist(text, delimiter="\n")
 	var/list/num_list = list()
 	for(var/x in splittext(text, delimiter))
@@ -79,7 +100,7 @@
 		if(4.0) return EAST
 		if(8.0) return WEST
 		else
-			log_to_dd("UNKNOWN DIRECTION: [direction]")
+			log_runtime(EXCEPTION("UNKNOWN DIRECTION: [direction]"))
 
 /proc/dir2text(direction)
 	switch(direction)

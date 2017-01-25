@@ -10,6 +10,8 @@
 	name = "dual-port air vent"
 	desc = "Has a valve and pump attached to it. There are two ports."
 
+	can_unwrench = 1
+
 	level = 1
 
 	connect_types = list(1,2,3) //connects to regular, supply and scrubbers pipes
@@ -35,7 +37,7 @@
 
 /obj/machinery/atmospherics/binary/dp_vent_pump/New()
 	..()
-	if (!id_tag)
+	if(!id_tag)
 		assign_uid()
 		id_tag = num2text(uid)
 	icon = null
@@ -93,11 +95,11 @@
 		if(T.intact && node1 && node2 && node1.level == 1 && node2.level == 1 && istype(node1, /obj/machinery/atmospherics/pipe) && istype(node2, /obj/machinery/atmospherics/pipe))
 			return
 		else
-			if (node1)
+			if(node1)
 				add_underlay(T, node1, turn(dir, -180), node1.icon_connect_type)
 			else
 				add_underlay(T, node1, turn(dir, -180))
-			if (node2)
+			if(node2)
 				add_underlay(T, node2, dir, node2.icon_connect_type)
 			else
 				add_underlay(T, node2, dir)
@@ -240,9 +242,9 @@
 /obj/machinery/atmospherics/binary/dp_vent_pump/multitool_menu(var/mob/user,var/obj/item/device/multitool/P)
 	return {"
 	<ul>
-		<li><b>Frequency:</b> <a href="?src=\ref[src];set_freq=-1">[format_frequency(frequency)] GHz</a> (<a href="?src=\ref[src];set_freq=[1439]">Reset</a>)</li>
-		<li><b>ID Tag:</b> <a href="?src=\ref[src];set_id=1">[id_tag]</a></li>
-		<li><b>AAC Acces:</b> <a href="?src=\ref[src];toggleadvcontrol=1">[advcontrol ? "Allowed" : "Blocked"]</a></li>
+		<li><b>Frequency:</b> <a href="?src=[UID()];set_freq=-1">[format_frequency(frequency)] GHz</a> (<a href="?src=[UID()];set_freq=[1439]">Reset</a>)</li>
+		<li><b>ID Tag:</b> <a href="?src=[UID()];set_id=1">[id_tag]</a></li>
+		<li><b>AAC Acces:</b> <a href="?src=[UID()];toggleadvcontrol=1">[advcontrol ? "Allowed" : "Blocked"]</a></li>
 	</ul>
 	"}
 

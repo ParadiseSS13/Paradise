@@ -28,7 +28,7 @@
 	var/armor_block = D.run_armor_check(null, "melee")
 	D.apply_damage(30, BRUTE, null, armor_block)
 	D.apply_effect(6, WEAKEN, armor_block)
-	add_logs(D, A, "suplexed")
+	add_logs(A, D, "suplexed")
 
 	A.SpinAnimation(10,1)
 

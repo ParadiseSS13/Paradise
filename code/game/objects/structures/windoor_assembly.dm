@@ -76,7 +76,7 @@ obj/structure/windoor_assembly/Destroy()
 		if("01")
 			if(istype(W, /obj/item/weapon/weldingtool) && !anchored )
 				var/obj/item/weapon/weldingtool/WT = W
-				if (WT.remove_fuel(0,user))
+				if(WT.remove_fuel(0,user))
 					user.visible_message("<span class='warning'>[user] dissassembles the windoor assembly.</span>", "<span class='notice'>You start to dissassemble the windoor assembly.</span>")
 					playsound(src.loc, 'sound/items/Welder2.ogg', 50, 1)
 
@@ -307,7 +307,7 @@ obj/structure/windoor_assembly/Destroy()
 	set src in oview(1)
 	if(usr.stat || !usr.canmove || usr.restrained())
 		return
-	if (src.anchored)
+	if(src.anchored)
 		to_chat(usr, "It is fastened to the floor; therefore, you can't rotate it!")
 		return 0
 	//if(src.state != "01")
@@ -321,6 +321,14 @@ obj/structure/windoor_assembly/Destroy()
 	src.ini_dir = src.dir
 	update_icon()
 	return
+
+/obj/structure/windoor_assembly/AltClick(mob/user)
+	if(user.incapacitated())
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		return
+	if(!Adjacent(user))
+		return
+	revrotate()
 
 //Flips the windoor assembly, determines whather the door opens to the left or the right
 /obj/structure/windoor_assembly/verb/flip()

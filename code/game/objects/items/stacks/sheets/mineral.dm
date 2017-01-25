@@ -36,6 +36,7 @@ var/global/list/datum/stack_recipe/uranium_recipes = list ( \
 
 var/global/list/datum/stack_recipe/gold_recipes = list ( \
 	new/datum/stack_recipe("golden door", /obj/structure/mineral_door/gold, 10, one_per_turf = 1, on_floor = 1), \
+	new/datum/stack_recipe("Simple Crown", /obj/item/clothing/head/crown, 5), \
 	)
 
 var/global/list/datum/stack_recipe/plasma_recipes = list ( \
@@ -64,7 +65,7 @@ var/global/list/datum/stack_recipe/bananium_recipes = list ( \
 	new/datum/stack_recipe("bananium grenade casing", /obj/item/weapon/grenade/bananade/casing, 4, on_floor = 1), \
 	)
 
-var/global/list/datum/stack_recipe/mime_recipes = list ( \
+var/global/list/datum/stack_recipe/tranquillite_recipes = list ( \
 	new/datum/stack_recipe("silent tile", /obj/item/stack/tile/silent, 1, 4, 20), \
 	new/datum/stack_recipe("invisible wall", /obj/structure/barricade/mime, 5, one_per_turf = 1, on_floor = 1, time = 50), \
 	)
@@ -72,7 +73,7 @@ var/global/list/datum/stack_recipe/mime_recipes = list ( \
 /obj/item/stack/sheet/mineral
 	force = 5.0
 	throwforce = 5
-	w_class = 3.0
+	w_class = 3
 	throw_speed = 3
 	throw_range = 3
 
@@ -125,10 +126,24 @@ var/global/list/datum/stack_recipe/mime_recipes = list ( \
 	origin_tech = "plasmatech=2;materials=2"
 	sheettype = "plasma"
 	materials = list(MAT_PLASMA=MINERAL_MATERIAL_AMOUNT)
+	burn_state = FLAMMABLE
+	burntime = 5
 
 /obj/item/stack/sheet/mineral/plasma/New()
 	..()
 	recipes = plasma_recipes
+
+/obj/item/stack/sheet/mineral/plasma/attackby(obj/item/weapon/W, mob/user, params)
+	if(is_hot(W) > 300)//If the temperature of the object is over 300, then ignite
+		message_admins("Plasma sheets ignited by [key_name_admin(user)](<A HREF='?_src_=holder;adminmoreinfo=\ref[user]'>?</A>) (<A HREF='?_src_=holder;adminplayerobservefollow=\ref[user]'>FLW</A>) in ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
+		log_game("Plasma sheets ignited by [key_name(user)] in ([x],[y],[z])")
+		fire_act()
+	else
+		return ..()
+
+/obj/item/stack/sheet/mineral/plasma/fire_act()
+	atmos_spawn_air(SPAWN_HEAT | SPAWN_TOXINS, amount*10)
+	qdel(src)
 
 /obj/item/stack/sheet/mineral/plastic
 	name = "Plastic"
@@ -169,7 +184,7 @@ var/global/list/datum/stack_recipe/mime_recipes = list ( \
 	name = "bananium"
 	icon_state = "sheet-clown"
 	origin_tech = "materials=4"
-	sheettype = "clown"
+	sheettype = "bananium"
 	materials = list(MAT_BANANIUM=MINERAL_MATERIAL_AMOUNT)
 
 /obj/item/stack/sheet/mineral/bananium/New(var/loc, var/amount=null)
@@ -181,12 +196,12 @@ var/global/list/datum/stack_recipe/mime_recipes = list ( \
 	singular_name = "beret"
 	icon_state = "sheet-mime"
 	origin_tech = "materials=4"
-	sheettype = "mime"
+	sheettype = "tranquillite"
 	materials = list(MAT_TRANQUILLITE=MINERAL_MATERIAL_AMOUNT)
 
 /obj/item/stack/sheet/mineral/tranquillite/New(var/loc, var/amount=null)
 	..()
-	recipes = mime_recipes
+	recipes = tranquillite_recipes
 
 /obj/item/stack/sheet/mineral/enruranium
 	name = "enriched uranium"

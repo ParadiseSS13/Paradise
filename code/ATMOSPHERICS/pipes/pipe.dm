@@ -85,3 +85,7 @@
 		return node.pipe_color
 	else
 		return pipe_color
+
+// A check to make sure both nodes exist - self-delete if they aren't present
+/obj/machinery/atmospherics/pipe/proc/check_nodes_exist()
+	return

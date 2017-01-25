@@ -2,7 +2,7 @@
 	name = "traitor+vampire"
 	config_tag = "traitorvamp"
 	traitors_possible = 3 //hard limit on traitors if scaling is turned off
-	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Blueshield", "Nanotrasen Representative", "Security Pod Pilot", "Magistrate", "Chaplain", "Brig Physician", "Internal Affairs Agent")
+	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Blueshield", "Nanotrasen Representative", "Security Pod Pilot", "Magistrate", "Chaplain", "Brig Physician", "Internal Affairs Agent", "Nanotrasen Navy Officer", "Special Operations Officer")
 	restricted_jobs = list("AI", "Cyborg")
 	required_players = 10
 	required_enemies = 1	// how many of each type are required
@@ -32,14 +32,15 @@
 		slaved.masters += vampire
 		vampire.som = slaved //we MIGT want to mindslave someone
 		vampire.restricted_roles = restricted_jobs
-		return ..()
+		..()
+		return 1
 	else
 		return 0
 
 /datum/game_mode/traitor/vampire/post_setup()
 	for(var/datum/mind/vampire in vampires)
 		grant_vampire_powers(vampire.current)
-		vampire.special_role = "Vampire"
+		vampire.special_role = SPECIAL_ROLE_VAMPIRE
 		forge_vampire_objectives(vampire)
 		greet_vampire(vampire)
 	..()

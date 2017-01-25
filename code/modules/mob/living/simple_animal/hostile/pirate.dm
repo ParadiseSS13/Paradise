@@ -24,6 +24,7 @@
 	speak_emote = list("yarrs")
 	loot = list(/obj/effect/landmark/mobcorpse/pirate,
 			/obj/item/weapon/melee/energy/sword/pirate)
+	del_on_death = 1
 	faction = list("pirate")
 
 /mob/living/simple_animal/hostile/pirate/ranged
@@ -39,10 +40,3 @@
 	projectiletype = /obj/item/projectile/beam
 	loot = list(/obj/effect/landmark/mobcorpse/pirate/ranged,
 				/obj/item/weapon/gun/energy/laser)
-
-
-/mob/living/simple_animal/hostile/pirate/death()
-	..()
-	ghostize()
-	qdel(src)
-	return

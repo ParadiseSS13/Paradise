@@ -13,7 +13,6 @@
 	var/vehicle_move_delay = 2 //tick delay between movements, lower = faster, higher = slower
 	var/auto_door_open = TRUE
 	var/needs_gravity = 0//To allow non-space vehicles to move in no gravity or not, mostly for adminbus
-
 	//Pixels
 	var/generic_pixel_x = 0 //All dirs show this pixel_x for the driver
 	var/generic_pixel_y = 0 //All dirs shwo this pixel_y for the driver
@@ -144,7 +143,7 @@
 	if(has_gravity(src))
 		return 1
 
-	if(pulledby)
+	if(pulledby && pulledby != buckled_mob)	// no pulling the vehicle you're driving through space!
 		return 1
 
 	if(needs_gravity)

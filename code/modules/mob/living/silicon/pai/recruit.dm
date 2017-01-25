@@ -28,6 +28,9 @@ var/datum/paiController/paiController			// Global handler for pAI candidates
 		if("signup" in href_list)
 			var/mob/dead/observer/O = locate(href_list["signup"])
 			if(!O) return
+			if(!(O in respawnable_list))
+				to_chat(O, "You've given up your ability to respawn!")
+				return
 			if(!check_recruit(O)) return
 			recruitWindow(O)
 			return
@@ -180,28 +183,28 @@ var/datum/paiController/paiController			// Global handler for pAI candidates
 
 			<table>
 				<tr class="d0">
-					<th rowspan="2"><a href='byond://?src=\ref[src];option=name;new=1;candidate=\ref[candidate]'>Name</a>:</th>
+					<th rowspan="2"><a href='byond://?src=[UID()];option=name;new=1;candidate=\ref[candidate]'>Name</a>:</th>
 					<td class="desc">[candidate.name]&nbsp;</td>
 				</tr>
 				<tr class="d1">
 					<td>What you plan to call yourself. Suggestions: Any character name you would choose for a station character OR an AI.</td>
 				</tr>
 				<tr class="d0">
-					<th rowspan="2"><a href='byond://?src=\ref[src];option=desc;new=1;candidate=\ref[candidate]'>Description</a>:</th>
+					<th rowspan="2"><a href='byond://?src=[UID()];option=desc;new=1;candidate=\ref[candidate]'>Description</a>:</th>
 					<td class="desc">[candidate.description]&nbsp;</td>
 				</tr>
 				<tr class="d1">
 					<td>What sort of pAI you typically play; your mannerisms, your quirks, etc. This can be as sparse or as detailed as you like.</td>
 				</tr>
 				<tr class="d0">
-					<th rowspan="2"><a href='byond://?src=\ref[src];option=role;new=1;candidate=\ref[candidate]'>Preferred Role</a>:</th>
+					<th rowspan="2"><a href='byond://?src=[UID()];option=role;new=1;candidate=\ref[candidate]'>Preferred Role</a>:</th>
 					<td class="desc">[candidate.role]&nbsp;</td>
 				</tr>
 				<tr class="d1">
 					<td>Do you like to partner with sneaky social ninjas? Like to help security hunt down thugs? Enjoy watching an engineer's back while he saves the station yet again? This doesn't have to be limited to just station jobs. Pretty much any general descriptor for what you'd like to be doing works here.</td>
 				</tr>
 				<tr class="d0">
-					<th rowspan="2"><a href='byond://?src=\ref[src];option=ooc;new=1;candidate=\ref[candidate]'>OOC Comments</a>:</th>
+					<th rowspan="2"><a href='byond://?src=[UID()];option=ooc;new=1;candidate=\ref[candidate]'>OOC Comments</a>:</th>
 					<td class="desc">[candidate.comments]&nbsp;</td>
 				</tr>
 				<tr class="d1">
@@ -212,17 +215,17 @@ var/datum/paiController/paiController			// Global handler for pAI candidates
 			<table>
 				<tr>
 					<td class="button">
-						<a href='byond://?src=\ref[src];option=save;new=1;candidate=\ref[candidate]' class="button">Save Personality</a>
+						<a href='byond://?src=[UID()];option=save;new=1;candidate=\ref[candidate]' class="button">Save Personality</a>
 					</td>
 				</tr>
 				<tr>
 					<td class="button">
-						<a href='byond://?src=\ref[src];option=load;new=1;candidate=\ref[candidate]' class="button">Load Personality</a>
+						<a href='byond://?src=[UID()];option=load;new=1;candidate=\ref[candidate]' class="button">Load Personality</a>
 					</td>
 				</tr>
 			</table><br>
 			<table>
-				<td class="button"><a href='byond://?src=\ref[src];option=submit;new=1;candidate=\ref[candidate]' class="button"><b><font size="4px">Submit Personality</font></b></a></td>
+				<td class="button"><a href='byond://?src=[UID()];option=submit;new=1;candidate=\ref[candidate]' class="button"><b><font size="4px">Submit Personality</font></b></a></td>
 			</table><br>
 
 		<body>
@@ -231,7 +234,7 @@ var/datum/paiController/paiController			// Global handler for pAI candidates
 		M << browse(dat, "window=paiRecruit;size=580x580;")
 
 	proc/findPAI(var/obj/item/device/paicard/p, var/mob/user)
-		requestRecruits(p)
+		requestRecruits(p, user)
 		var/list/available = list()
 		for(var/datum/paiCandidate/c in paiController.pai_candidates)
 			if(c.ready)
@@ -333,7 +336,7 @@ var/datum/paiController/paiController			// Global handler for pAI candidates
 						</tr>
 					</table>
 					<table class="download">
-						<td class="download"><a href='byond://?src=\ref[src];download=1;candidate=\ref[c];device=\ref[p]' class="button"><b>Download [c.name]</b></a>
+						<td class="download"><a href='byond://?src=[UID()];download=1;candidate=\ref[c];device=\ref[p]' class="button"><b>Download [c.name]</b></a>
 						</td>
 					</table>
 					<br>
@@ -346,19 +349,22 @@ var/datum/paiController/paiController			// Global handler for pAI candidates
 
 		user << browse(dat, "window=findPai")
 
-	proc/requestRecruits(var/obj/item/device/paicard/P)
+	proc/requestRecruits(var/obj/item/device/paicard/P, mob/user)
 		for(var/mob/dead/observer/O in player_list)
 			if(O.client && (ROLE_PAI in O.client.prefs.be_special))
 				if(player_old_enough_antag(O.client,ROLE_PAI))
 					if(check_recruit(O))
-						to_chat(O, "\blue <b>A pAI card is looking for personalities. (<a href='?src=\ref[O];jump=\ref[P]'>Teleport</a> | <a href='?src=\ref[src];signup=\ref[O]'>Sign Up</a>)</b>")
+						to_chat(O, "<span class='boldnotice'>A pAI card activated by [user.real_name] is looking for personalities. (<a href='?src=[O.UID()];jump=\ref[P]'>Teleport</a> | <a href='?src=[UID()];signup=\ref[O]'>Sign Up</a>)</span>")
 						//question(O.client)
+
 	proc/check_recruit(var/mob/dead/observer/O)
 		if(jobban_isbanned(O, ROLE_PAI) || jobban_isbanned(O,"nonhumandept"))
 			return 0
 		if(!player_old_enough_antag(O.client,ROLE_PAI))
 			return 0
 		if(O.has_enabled_antagHUD == 1 && config.antag_hud_restricted)
+			return 0
+		if(!(O in respawnable_list))
 			return 0
 		if(O.client)
 			return 1
@@ -373,7 +379,7 @@ var/datum/paiController/paiController			// Global handler for pAI candidates
 			if(!C)	return		//handle logouts that happen whilst the alert is waiting for a response.
 			if(response == "Yes")
 				recruitWindow(C.mob)
-			else if (response == "Never for this round")
+			else if(response == "Never for this round")
 				var/warning = alert(C, "Are you sure? This action will be undoable and you will need to wait until next round.", "You sure?", "Yes", "No")
 				if(warning == "Yes")
 					asked[C.key] = INFINITY

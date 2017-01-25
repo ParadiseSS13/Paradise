@@ -78,7 +78,7 @@
 		viables.Remove(type)
 		construction[button_desc] = type
 
-	fail_message = "\blue \icon[src] a [pick("loud","soft","sinister","eery","triumphant","depressing","cheerful","angry")] \
+	fail_message = "\blue [bicon(src)] a [pick("loud","soft","sinister","eery","triumphant","depressing","cheerful","angry")] \
 		[pick("horn","beep","bing","bleep","blat","honk","hrumph","ding")] sounds and a \
 		[pick("yellow","purple","green","blue","red","orange","white")] \
 		[pick("light","dial","meter","window","protrusion","knob","antenna","swirly thing")] \
@@ -90,7 +90,7 @@
 	if(spawning_types.len && powered())
 		spawn_progress_time += world.time - last_process_time
 		if(spawn_progress_time > max_spawn_time)
-			src.visible_message("\blue \icon[src] [src] pings!")
+			src.visible_message("\blue [bicon(src)] [src] pings!")
 
 			var/obj/source_material = pop(stored_materials)
 			var/spawn_type = pop(spawning_types)
@@ -113,7 +113,7 @@
 				icon_state = "borgcharger0(old)"
 
 		else if(prob(5))
-			src.visible_message("\blue \icon[src] [src] [pick("clicks","whizzes","whirrs","whooshes","clanks","clongs","clonks","bangs")].")
+			src.visible_message("\blue [bicon(src)] [src] [pick("clicks","whizzes","whirrs","whooshes","clanks","clongs","clonks","bangs")].")
 
 	last_process_time = world.time
 
@@ -124,7 +124,7 @@
 	var/dat = "The control panel displays an incomprehensible selection of controls, many with unusual markings or text around them.<br>"
 	dat += "<br>"
 	for(var/index=1, index<=construction.len, index++)
-		dat += "<A href='?src=\ref[src];activate=[index]'>\[[construction[index]]\]</a><br>"
+		dat += "<A href='?src=[UID()];activate=[index]'>\[[construction[index]]\]</a><br>"
 
 	user << browse(dat, "window=alien_replicator")
 
@@ -141,9 +141,9 @@
 		if(index > 0 && index <= construction.len)
 			if(stored_materials.len > spawning_types.len)
 				if(spawning_types.len)
-					src.visible_message("\blue \icon[src] a [pick("light","dial","display","meter","pad")] on [src]'s front [pick("blinks","flashes")] [pick("red","yellow","blue","orange","purple","green","white")].")
+					src.visible_message("\blue [bicon(src)] a [pick("light","dial","display","meter","pad")] on [src]'s front [pick("blinks","flashes")] [pick("red","yellow","blue","orange","purple","green","white")].")
 				else
-					src.visible_message("\blue \icon[src] [src]'s front compartment slides shut.")
+					src.visible_message("\blue [bicon(src)] [src]'s front compartment slides shut.")
 
 				spawning_types.Add(construction[construction[index]])
 				spawn_progress_time = 0

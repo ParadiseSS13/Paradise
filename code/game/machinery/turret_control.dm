@@ -45,6 +45,7 @@
 	return ..()
 
 /obj/machinery/turretid/initialize()
+	..()
 	if(!control_area)
 		control_area = get_area(src)
 	else if(istext(control_area))
@@ -118,6 +119,13 @@
 	ui_interact(user)
 
 /obj/machinery/turretid/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "turret_control.tmpl", "Turret Controls", 500, 300)
+		ui.open()
+		ui.set_auto_update(1)
+
+/obj/machinery/turretid/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/data[0]
 	data["access"] = !isLocked(user)
 	data["locked"] = locked
@@ -135,12 +143,7 @@
 		settings[++settings.len] = list("category" = "Check Misc. Lifeforms", "setting" = "check_anomalies", "value" = check_anomalies)
 		data["settings"] = settings
 
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if (!ui)
-		ui = new(user, src, ui_key, "turret_control.tmpl", "Turret Controls", 500, 300)
-		ui.set_initial_data(data)
-		ui.open()
-		ui.set_auto_update(1)
+	return data
 
 /obj/machinery/turretid/Topic(href, href_list, var/nowindow = 0)
 	if(..())
@@ -184,7 +187,7 @@
 	TC.ailock = ailock
 
 	if(istype(control_area))
-		for (var/obj/machinery/porta_turret/aTurret in control_area)
+		for(var/obj/machinery/porta_turret/aTurret in control_area)
 			aTurret.setState(TC)
 
 	update_icon()
@@ -199,8 +202,8 @@
 	if(stat & NOPOWER)
 		icon_state = "control_off"
 		set_light(0)
-	else if (enabled)
-		if (lethal)
+	else if(enabled)
+		if(lethal)
 			icon_state = "control_kill"
 			set_light(1.5, 1,"#990000")
 		else

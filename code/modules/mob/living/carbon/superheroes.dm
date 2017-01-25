@@ -33,8 +33,9 @@
 	if(default_spells.len)
 		for(var/spell in default_spells)
 			var/obj/effect/proc_holder/spell/S = spell
-			if(!S) return
-			H.AddSpell(new S)
+			if(!S)
+				return
+			H.mind.AddSpell(new S(null))
 
 /datum/superheroes/proc/assign_id(var/mob/living/carbon/human/H)
 	var/obj/item/weapon/card/id/syndicate/W = new(H)
@@ -65,9 +66,9 @@
 	..()
 
 	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/black/greytide(H), slot_shoes)
-	H.equip_to_slot_or_del(new /obj/item/clothing/under/owl(H), slot_w_uniform)
-	H.equip_to_slot_or_del(new /obj/item/clothing/suit/toggle/owlwings(H), slot_wear_suit)
-	H.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/owl_mask(H), slot_wear_mask)
+	H.equip_to_slot_or_del(new /obj/item/clothing/under/owl/super_hero(H), slot_w_uniform)
+	H.equip_to_slot_or_del(new /obj/item/clothing/suit/toggle/owlwings/super_hero(H), slot_wear_suit)
+	H.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/owl_mask/super_hero(H), slot_wear_mask)
 	H.equip_to_slot_or_del(new /obj/item/weapon/storage/belt/bluespace/owlman(H), slot_belt)
 	H.equip_to_slot_or_del(new /obj/item/clothing/glasses/night(H), slot_glasses)
 
@@ -83,10 +84,10 @@
 /datum/superheroes/griffin/equip(var/mob/living/carbon/human/H)
 	..()
 
-	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/griffin(H), slot_shoes)
-	H.equip_to_slot_or_del(new /obj/item/clothing/under/griffin(H), slot_w_uniform)
-	H.equip_to_slot_or_del(new /obj/item/clothing/suit/toggle/owlwings/griffinwings(H), slot_wear_suit)
-	H.equip_to_slot_or_del(new /obj/item/clothing/head/griffin(H), slot_head)
+	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/griffin/super_hero(H), slot_shoes)
+	H.equip_to_slot_or_del(new /obj/item/clothing/under/griffin/super_hero(H), slot_w_uniform)
+	H.equip_to_slot_or_del(new /obj/item/clothing/suit/toggle/owlwings/griffinwings/super_hero(H), slot_wear_suit)
+	H.equip_to_slot_or_del(new /obj/item/clothing/head/griffin/super_hero(H), slot_head)
 
 	var/obj/item/weapon/implant/freedom/L = new/obj/item/weapon/implant/freedom(H)
 	L.imp_in = H
@@ -191,14 +192,14 @@
 					if(isloyal(target))
 						to_chat(usr, "<span class='notice'>They are enslaved by Nanotrasen. You feel their interest in your cause wane and disappear.</span>")
 						usr.visible_message("<span class='danger'>[usr] stops talking for a moment, then moves back away from [target].</span>")
-						to_chat(target, "<span class='danger'>Your loyalty implant activates and a sharp pain reminds you of your loyalties to Nanotrasen.</span>")
+						to_chat(target, "<span class='danger'>Your mindshield implant activates, protecting you from conversion.</span>")
 						return
 				if(3)
 					to_chat(usr, "<span class='notice'>You begin filling out the application form with [target].</span>")
 					usr.visible_message("<span class='danger'>[usr] pulls out a pen and paper and begins filling an application form with [target].</span>")
 					to_chat(target, "<span class='danger'>You are being convinced by [usr] to fill out an application form to become a henchman.</span>")//Ow the edge
 
-			if(!do_mob(usr, target, 100)) //around 30 seconds total for enthralling, 45 for someone with a loyalty implant
+			if(!do_mob(usr, target, 100)) //around 30 seconds total for enthralling, 45 for someone with a mindshield implant
 				to_chat(usr, "<span class='danger'>The enrollment process has been interrupted - you have lost the attention of [target].</span>")
 				to_chat(target, "<span class='warning'>You move away and are no longer under the charm of [usr]. The application form is null and void.</span>")
 				recruiting = 0
@@ -214,9 +215,8 @@
 		head_organ.h_style = "Bald"
 		head_organ.f_style = "Shaved"
 		target.s_tone = 35
-		target.r_eyes = 1
-		target.b_eyes = 1
-		target.g_eyes = 1
+		// No `update_dna=0` here because the character is being over-written
+		target.change_eye_color(1,1,1)
 		for(var/obj/item/W in target)
 			if(istype(W,/obj/item/organ)) continue
 			target.unEquip(W)
@@ -232,4 +232,3 @@
 		target.equip_to_slot_or_del(W, slot_wear_id)
 		target.equip_to_slot_or_del(new /obj/item/device/radio/headset(target), slot_l_ear)
 		target.regenerate_icons()
-

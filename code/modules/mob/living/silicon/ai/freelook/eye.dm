@@ -50,7 +50,7 @@
 		var/mob/living/silicon/ai/AI = usr
 		if(AI.eyeobj && AI.client.eye == AI.eyeobj)
 			AI.cameraFollow = null
-			if (isturf(src.loc) || isturf(src))
+			if(isturf(src.loc) || isturf(src))
 				AI.eyeobj.setLoc(src)
 
 // AI MOVEMENT
@@ -82,7 +82,7 @@
 
 	//user.unset_machine() //Uncomment this if it causes problems.
 	//user.lightNearbyCamera()
-	if (user.camera_light_on)
+	if(user.camera_light_on)
 		user.light_cameras()
 
 // Return to the Core.
@@ -116,3 +116,7 @@
 		return //won't work if dead
 	acceleration = !acceleration
 	to_chat(usr, "Camera acceleration has been toggled [acceleration ? "on" : "off"].")
+
+/mob/camera/aiEye/hear_say(var/message, var/verb = "says", var/datum/language/language = null, var/alt_name = "", var/italics = 0, var/mob/speaker = null, var/sound/speech_sound, var/sound_vol)
+	if(relay_speech)
+		ai.relay_speech(speaker, message, verb, language)

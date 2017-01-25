@@ -59,8 +59,15 @@
 			sleep(6)
 			if(animation)
 				qdel(animation)
-			for(var/i = 3; i > 0; i--)
-				playsound(get_turf(src),'sound/misc/Demon_consume.ogg', 100, 1)
+			var/sound
+			if(istype(src, /mob/living/simple_animal/slaughter))
+				var/mob/living/simple_animal/slaughter/SD = src
+				sound = SD.feast_sound
+			else
+				sound = 'sound/misc/Demon_consume.ogg'
+
+			for(var/i in 1 to 3)
+				playsound(get_turf(src), sound, 100, 1)
 				sleep(30)
 			if(kidnapped)
 				to_chat(src, "<B>You devour [kidnapped]. Your health is fully restored.</B>")
@@ -84,7 +91,7 @@
 				to_chat(src, "<span class='danger'>You happily devour... nothing? Your meal vanished at some point!</span>")
 		else
 			sleep(6)
-			if (animation)
+			if(animation)
 				qdel(animation)
 		notransform = 0
 	return 1
@@ -152,6 +159,7 @@
 	density = 0
 	anchored = 1
 	invisibility = 60
+	burn_state = LAVA_PROOF
 
 /obj/effect/dummy/slaughter/relaymove(mob/user, direction)
 	forceMove(get_step(src,direction))

@@ -41,7 +41,7 @@
 	if(!cause || !imp_in)	return 0
 	var/mob/living/carbon/R = imp_in
 	var/injectamount = null
-	if (cause == "action_button")
+	if(cause == "action_button")
 		injectamount = reagents.total_volume
 	else
 		injectamount = cause

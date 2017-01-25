@@ -204,7 +204,7 @@
 	var/Zdir
 	if(d==11)
 		Zdir = 11
-	else if (d==12)
+	else if(d==12)
 		Zdir = 12
 	else
 		Zdir = 999
@@ -342,23 +342,23 @@
 	else if(istype(power_source,/obj/machinery/power/apc))
 		var/obj/machinery/power/apc/apc = power_source
 		cell = apc.cell
-		if (apc.terminal)
+		if(apc.terminal)
 			PN = apc.terminal.powernet
-	else if (!power_source)
+	else if(!power_source)
 		return 0
 	else
 		log_admin("ERROR: /proc/electrocute_mob([M], [power_source], [source]): wrong power_source")
 		return 0
-	if (!cell && !PN)
+	if(!cell && !PN)
 		return 0
 	var/PN_damage = 0
 	var/cell_damage = 0
-	if (PN)
+	if(PN)
 		PN_damage = PN.get_electrocute_damage()
-	if (cell)
+	if(cell)
 		cell_damage = cell.get_electrocute_damage()
 	var/shock_damage = 0
-	if (PN_damage>=cell_damage)
+	if(PN_damage>=cell_damage)
 		power_source = PN
 		shock_damage = PN_damage
 	else
@@ -367,11 +367,11 @@
 	var/drained_hp = M.electrocute_act(shock_damage, source, siemens_coeff) //zzzzzzap!
 	var/drained_energy = drained_hp*20
 
-	if (source_area)
+	if(source_area)
 		source_area.use_power(drained_energy/CELLRATE)
-	else if (istype(power_source,/datum/powernet))
+	else if(istype(power_source,/datum/powernet))
 		var/drained_power = drained_energy/CELLRATE //convert from "joules" to "watts"
 		drained_power = PN.draw_power(drained_power)
-	else if (istype(power_source, /obj/item/weapon/stock_parts/cell))
+	else if(istype(power_source, /obj/item/weapon/stock_parts/cell))
 		cell.use(drained_energy)
 	return drained_energy

@@ -11,6 +11,12 @@
 	var/state
 	var/datum/gas_mixture/air_contents = null
 
+/obj/item/latexballon/Destroy()
+	if(air_contents)
+		qdel(air_contents)
+		air_contents = null
+	return ..()
+
 /obj/item/latexballon/proc/blow(obj/item/weapon/tank/tank, mob/user)
 	if(icon_state == "latexballon_bursted")
 		return

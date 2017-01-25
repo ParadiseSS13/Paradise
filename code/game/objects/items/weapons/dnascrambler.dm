@@ -3,14 +3,14 @@
 	desc = "An illegal genetic serum designed to randomize the user's identity."
 	icon = 'icons/obj/hypo.dmi'
 	item_state = "syringe_0"
-	icon_state = "lepopen1"
+	icon_state = "lepopen"
 	var/used = null
 
 	update_icon()
 		if(used)
 			icon_state = "lepopen0"
 		else
-			icon_state = "lepopen1"
+			icon_state = "lepopen"
 
 	attack(mob/M as mob, mob/user as mob)
 		if(!M || !user)
@@ -23,12 +23,12 @@
 			return
 
 		if(M == user)
-			user.visible_message("\red <b>[user.name] injects \himself with [src]!</b>")
+			user.visible_message("<span class='danger'>[user.name] injects \himself with [src]!</span>")
 			src.injected(user,user)
 		else
-			user.visible_message("\red <b>[user.name] is trying to inject [M.name] with [src]!</b>")
-			if (do_mob(user,M,30))
-				user.visible_message("\red <b>[user.name] injects [M.name] with [src].</b>")
+			user.visible_message("<span class='danger'>[user.name] is trying to inject [M.name] with [src]!</span>")
+			if(do_mob(user,M,30))
+				user.visible_message("<span class='danger'>[user.name] injects [M.name] with [src].</span>")
 				src.injected(M, user)
 			else
 				to_chat(user, "\red You failed to inject [M.name].")

@@ -14,9 +14,6 @@
 		return 0
 
 	O.mouse_opacity = 2
-	if(istype(O,/obj/item/borg/sight))
-		var/obj/item/borg/sight/S = O
-		sight_mode &= ~S.sight_mode
 
 	if(client)
 		client.screen -= O
@@ -45,7 +42,7 @@
 	if(activated(O))
 		to_chat(src, "Already activated")
 		return
-	if (is_component_functioning("power cell") && cell)
+	if(is_component_functioning("power cell") && cell)
 		if(istype(O, /obj/item/borg))
 			var/obj/item/borg/B = O
 			if(B.powerneeded)
@@ -59,8 +56,6 @@
 		O.plane = HUD_PLANE
 		O.screen_loc = inv1.screen_loc
 		contents += O
-		if(istype(module_state_1,/obj/item/borg/sight))
-			sight_mode |= module_state_1:sight_mode
 	else if(!module_state_2)
 		O.mouse_opacity = initial(O.mouse_opacity)
 		module_state_2 = O
@@ -68,8 +63,6 @@
 		O.plane = HUD_PLANE
 		O.screen_loc = inv2.screen_loc
 		contents += O
-		if(istype(module_state_2,/obj/item/borg/sight))
-			sight_mode |= module_state_2:sight_mode
 	else if(!module_state_3)
 		O.mouse_opacity = initial(O.mouse_opacity)
 		module_state_3 = O
@@ -77,11 +70,9 @@
 		O.plane = HUD_PLANE
 		O.screen_loc = inv3.screen_loc
 		contents += O
-		if(istype(module_state_3,/obj/item/borg/sight))
-			sight_mode |= module_state_3:sight_mode
 	else
 		to_chat(src, "You need to disable a module first!")
-	src.update_icons()
+	update_icons()
 
 /mob/living/silicon/robot/proc/uneq_active()
 	uneq_module(module_active)

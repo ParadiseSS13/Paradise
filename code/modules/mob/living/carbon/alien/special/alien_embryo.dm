@@ -97,8 +97,8 @@
 				ticker.mode.xenos += new_xeno.mind
 			new_xeno.mind.name = new_xeno.name
 			new_xeno.mind.assigned_role = "MODE"
-			new_xeno.mind.special_role = "Alien"
-			to_chat(new_xeno, sound('sound/voice/hiss5.ogg',0,0,0,100))//To get the player's attention
+			new_xeno.mind.special_role = SPECIAL_ROLE_XENOMORPH
+			new_xeno << sound('sound/voice/hiss5.ogg',0,0,0,100)//To get the player's attention
 
 			if(gib_on_success)
 				owner.gib()

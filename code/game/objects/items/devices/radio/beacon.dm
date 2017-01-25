@@ -35,11 +35,11 @@
 	set category = "Object"
 	set src in usr
 
-	if (usr.stat || usr.restrained())
+	if(usr.stat || usr.restrained())
 		return
 
 	code = t
-	if (isnull(code))
+	if(isnull(code))
 		code = initial(code)
 	src.add_fingerprint(usr)
 	return

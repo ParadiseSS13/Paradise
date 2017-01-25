@@ -17,7 +17,7 @@
 	item_state = "pen"
 	slot_flags = SLOT_BELT | SLOT_EARS
 	throwforce = 0
-	w_class = 1.0
+	w_class = 1
 	throw_speed = 3
 	throw_range = 7
 	materials = list(MAT_METAL=10)
@@ -114,7 +114,7 @@
 //			to_chat(M, "<span class='danger'>You feel a tiny prick!</span>")
 			. = 1
 
-		add_logs(M, user, "stabbed", object="[name]")
+		add_logs(user, M, "stabbed", object="[name]")
 
 	else
 		. = ..()

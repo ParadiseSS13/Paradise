@@ -58,7 +58,7 @@
 	// and play
 	var/turf/source = get_turf(instrumentObj)
 	for(var/mob/M in hearers(15, source))
-		if(!M.client || !(M.client.prefs.toggles & SOUND_INSTRUMENTS))
+		if(!M.client || !(M.client.prefs.sound & SOUND_INSTRUMENTS))
 			continue
 		M.playsound_local(source, soundfile, 100, falloff = 5)
 
@@ -113,6 +113,16 @@
 	repeat = 0
 
 /datum/song/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
+	if(!instrumentObj)
+		return
+
+	ui = nanomanager.try_update_ui(user, instrumentObj, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, instrumentObj, ui_key, "song.tmpl", instrumentObj.name, 700, 500)
+		ui.open()
+		ui.set_auto_update(1)
+
+/datum/song/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/data[0]
 
 	data["lines"] = lines
@@ -125,15 +135,7 @@
 	data["minTempo"] = world.tick_lag
 	data["maxTempo"] = 600
 
-	if(!instrumentObj)
-		return
-
-	ui = nanomanager.try_update_ui(user, instrumentObj, ui_key, ui, data, force_open)
-	if (!ui)
-		ui = new(user, instrumentObj, ui_key, "song.tmpl", instrumentObj.name, 700, 500)
-		ui.set_initial_data(data)
-		ui.open()
-		ui.set_auto_update(1)
+	return data
 
 /datum/song/Topic(href, href_list)
 	if(!in_range(instrumentObj, usr) || (issilicon(usr) && instrumentObj.loc != usr) || !isliving(usr) || !usr.canmove || usr.restrained())
@@ -294,15 +296,18 @@
 
 	song.ui_interact(user, ui_key, ui, force_open)
 
+/obj/structure/piano/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+	return song.ui_data(user, ui_key, state)
+
 /obj/structure/piano/Topic(href, href_list)
 	song.Topic(href, href_list)
 
 /obj/structure/piano/attackby(obj/item/O as obj, mob/user as mob, params)
-	if (istype(O, /obj/item/weapon/wrench))
-		if (!anchored && !isinspace())
+	if(istype(O, /obj/item/weapon/wrench))
+		if(!anchored && !isinspace())
 			playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
 			to_chat(user, "<span class='notice'> You begin to tighten \the [src] to the floor...</span>")
-			if (do_after(user, 20, target = src))
+			if(do_after(user, 20, target = src))
 				user.visible_message( \
 					"[user] tightens \the [src]'s casters.", \
 					"<span class='notice'> You have tightened \the [src]'s casters. Now it can be played again.</span>", \
@@ -311,7 +316,7 @@
 		else if(anchored)
 			playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
 			to_chat(user, "<span class='notice'> You begin to loosen \the [src]'s casters...</span>")
-			if (do_after(user, 40, target = src))
+			if(do_after(user, 40, target = src))
 				user.visible_message( \
 					"[user] loosens \the [src]'s casters.", \
 					"<span class='notice'> You have loosened \the [src]. Now it can be pulled somewhere else.</span>", \

@@ -17,7 +17,7 @@ var/const/VOX_PATH = "sound/vox_fem/"
 	var/index = 0
 	for(var/word in vox_sounds)
 		index++
-		dat += "<A href='?src=\ref[src];say_word=[word]'>[capitalize(word)]</A>"
+		dat += "<A href='?src=[UID()];say_word=[word]'>[capitalize(word)]</A>"
 		if(index != vox_sounds.len)
 			dat += " / "
 
@@ -82,10 +82,10 @@ var/const/VOX_PATH = "sound/vox_fem/"
 			for(var/mob/M in player_list)
 				if(M.client)
 					var/turf/T = get_turf(M)
-					if(T && T.z == z_level && !isdeaf(M))
-						to_chat(M, voice)
+					if(T && T.z == z_level && M.can_hear())
+						M << voice
 		else
-			to_chat(only_listener, voice)
+			only_listener << voice
 		return 1
 	return 0
 

@@ -36,10 +36,12 @@
 	var/syndie = 0                //IS WE SYNDICAT? (currently unused)
 	speed = -1                    //Spiderbots gotta go fast.
 	//pass_flags = PASSTABLE      //Maybe griefy?
-	small = 1
+	mob_size = MOB_SIZE_SMALL
 	speak_emote = list("beeps","clicks","chirps")
 	can_hide = 1
 	ventcrawler = 2
+	loot = list(/obj/effect/decal/cleanable/blood/gibs/robot)
+	del_on_death = 1
 
 /mob/living/simple_animal/spiderbot/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
 
@@ -84,9 +86,9 @@
 		src.update_icon()
 		return 1
 
-	if (istype(O, /obj/item/weapon/weldingtool))
+	if(istype(O, /obj/item/weapon/weldingtool))
 		var/obj/item/weapon/weldingtool/WT = O
-		if (WT.remove_fuel(0))
+		if(WT.remove_fuel(0))
 			if(health < maxHealth)
 				health += pick(1,1,1,2,2,3)
 				if(health > maxHealth)
@@ -100,7 +102,7 @@
 			to_chat(user, "Need more welding fuel!")
 			return
 	else if(istype(O, /obj/item/weapon/card/id)||istype(O, /obj/item/device/pda))
-		if (!mmi)
+		if(!mmi)
 			to_chat(user, "\red There's no reason to swipe your ID - the spiderbot has no brain to remove.")
 			return 0
 
@@ -128,20 +130,20 @@
 	else
 		if(O.force)
 			var/damage = O.force
-			if (O.damtype == STAMINA)
+			if(O.damtype == STAMINA)
 				damage = 0
 			adjustBruteLoss(damage)
 			for(var/mob/M in viewers(src, null))
-				if ((M.client && !( M.blinded )))
+				if((M.client && !( M.blinded )))
 					M.show_message("\red \b [src] has been attacked with the [O] by [user]. ")
 		else
 			to_chat(usr, "\red This weapon is ineffective, it does no damage.")
 			for(var/mob/M in viewers(src, null))
-				if ((M.client && !( M.blinded )))
+				if((M.client && !( M.blinded )))
 					M.show_message("\red [user] gently taps [src] with the [O]. ")
 
 /mob/living/simple_animal/spiderbot/emag_act(user as mob)
-	if (emagged)
+	if(emagged)
 		to_chat(user, "\red [src] is already overloaded - better run.")
 		return 0
 	else
@@ -163,7 +165,7 @@
 
 /mob/living/simple_animal/spiderbot/proc/explode() //When emagged.
 	for(var/mob/M in viewers(src, null))
-		if ((M.client && !( M.blinded )))
+		if((M.client && !( M.blinded )))
 			M.show_message("\red [src] makes an odd warbling noise, fizzles, and explodes.")
 	explosion(get_turf(loc), -1, -1, 3, 5)
 	eject_brain()
@@ -205,20 +207,14 @@
 
 	..()
 
-/mob/living/simple_animal/spiderbot/death()
-
-	living_mob_list -= src
-	dead_mob_list += src
-
+/mob/living/simple_animal/spiderbot/death(gibbed)
 	if(camera)
 		camera.status = 0
 
 	if(held_item)
 		held_item.forceMove(src.loc)
 		held_item = null
-
-	robogibs(src.loc, viruses)
-	qdel(src)
+	..()
 
 //Cannibalized from the parrot mob. ~Zuhayr
 
@@ -285,4 +281,4 @@
 /mob/living/simple_animal/spiderbot/examine(mob/user)
 	..(user)
 	if(src.held_item)
-		to_chat(user, "It is carrying \a [src.held_item] \icon[src.held_item].")
+		to_chat(user, "It is carrying \a [src.held_item] [bicon(src.held_item)].")

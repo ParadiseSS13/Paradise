@@ -14,16 +14,16 @@
 	return ..()
 
 /obj/item/clothing/suit/storage/attack_hand(mob/user as mob)
-	if (pockets.handle_attack_hand(user))
+	if(pockets.handle_attack_hand(user))
 		..(user)
 
 /obj/item/clothing/suit/storage/MouseDrop(obj/over_object as obj)
-	if (pockets.handle_mousedrop(usr, over_object))
+	if(pockets.handle_mousedrop(usr, over_object))
 		..(over_object)
 
 /obj/item/clothing/suit/storage/attackby(obj/item/W as obj, mob/user as mob, params)
 	..()
-	pockets.attackby(W, user, params)
+	return pockets.attackby(W, user, params)
 
 /obj/item/clothing/suit/storage/emp_act(severity)
 	pockets.emp_act(severity)
@@ -47,6 +47,15 @@
 		L += S.return_inv()
 	for(var/obj/item/weapon/gift/G in src)
 		L += G.gift
-		if (istype(G.gift, /obj/item/weapon/storage))
+		if(istype(G.gift, /obj/item/weapon/storage))
 			L += G.gift:return_inv()
 	return L
+
+/obj/item/clothing/suit/storage/serialize()
+	var/list/data = ..()
+	data["pockets"] = pockets.serialize()
+	return data
+
+/obj/item/clothing/suit/storage/deserialize(list/data)
+	qdel(pockets)
+	pockets = list_to_object(data["pockets"], src)

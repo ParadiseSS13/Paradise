@@ -21,36 +21,36 @@
 	var/processing = 0
 	var/chosen = "metal" //which material will be used to make coins
 	var/coinsToProduce = 10
+	speed_process = 1
 
 /obj/machinery/mineral/mint/process()
 	var/turf/T = get_step(src,input_dir)
 	if(T)
 		for(var/obj/item/stack/sheet/O in T)
-			if (istype(O, /obj/item/stack/sheet/mineral/gold))
+			if(istype(O, /obj/item/stack/sheet/mineral/gold))
 				amt_gold += 100 * O.amount
-				O.loc = null
-			if (istype(O, /obj/item/stack/sheet/mineral/silver))
+				qdel(O)
+			if(istype(O, /obj/item/stack/sheet/mineral/silver))
 				amt_silver += 100 * O.amount
-				O.loc = null
-			if (istype(O, /obj/item/stack/sheet/mineral/diamond))
+				qdel(O)
+			if(istype(O, /obj/item/stack/sheet/mineral/diamond))
 				amt_diamond += 100 * O.amount
-				O.loc = null
-			if (istype(O, /obj/item/stack/sheet/mineral/plasma))
+				qdel(O)
+			if(istype(O, /obj/item/stack/sheet/mineral/plasma))
 				amt_plasma += 100 * O.amount
-				O.loc = null
-			if (istype(O, /obj/item/stack/sheet/mineral/uranium))
+				qdel(O)
+			if(istype(O, /obj/item/stack/sheet/mineral/uranium))
 				amt_uranium += 100 * O.amount
-				O.loc = null
-			if (istype(O, /obj/item/stack/sheet/metal))
+				qdel(O)
+			if(istype(O, /obj/item/stack/sheet/metal))
 				amt_iron += 100 * O.amount
-				O.loc = null
-			if (istype(O, /obj/item/stack/sheet/mineral/bananium))
+				qdel(O)
+			if(istype(O, /obj/item/stack/sheet/mineral/bananium))
 				amt_clown += 100 * O.amount
-				O.loc = null
-			if (istype(O, /obj/item/stack/sheet/mineral/tranquillite))
+				qdel(O)
+			if(istype(O, /obj/item/stack/sheet/mineral/tranquillite))
 				amt_mime += 100 * O.amount
-				O.loc = null
-			return
+				qdel(O)
 
 
 /obj/machinery/mineral/mint/attack_hand(user as mob) //TODO: Adamantine coins! -Durandan
@@ -58,64 +58,64 @@
 	var/dat = "<b>Coin Press</b><br>"
 
 	dat += text("<br><font color='#ffcc00'><b>Gold inserted: </b>[amt_gold]</font> ")
-	if (chosen == "gold")
+	if(chosen == "gold")
 		dat += text("chosen")
 	else
-		dat += text("<A href='?src=\ref[src];choose=gold'>Choose</A>")
+		dat += text("<A href='?src=[UID()];choose=gold'>Choose</A>")
 	dat += text("<br><font color='#888888'><b>Silver inserted: </b>[amt_silver]</font> ")
-	if (chosen == "silver")
+	if(chosen == "silver")
 		dat += text("chosen")
 	else
-		dat += text("<A href='?src=\ref[src];choose=silver'>Choose</A>")
+		dat += text("<A href='?src=[UID()];choose=silver'>Choose</A>")
 	dat += text("<br><font color='#555555'><b>Iron inserted: </b>[amt_iron]</font> ")
-	if (chosen == "metal")
+	if(chosen == "metal")
 		dat += text("chosen")
 	else
-		dat += text("<A href='?src=\ref[src];choose=metal'>Choose</A>")
+		dat += text("<A href='?src=[UID()];choose=metal'>Choose</A>")
 	dat += text("<br><font color='#8888FF'><b>Diamond inserted: </b>[amt_diamond]</font> ")
-	if (chosen == "diamond")
+	if(chosen == "diamond")
 		dat += text("chosen")
 	else
-		dat += text("<A href='?src=\ref[src];choose=diamond'>Choose</A>")
+		dat += text("<A href='?src=[UID()];choose=diamond'>Choose</A>")
 	dat += text("<br><font color='#FF8800'><b>Plasma inserted: </b>[amt_plasma]</font> ")
-	if (chosen == "plasma")
+	if(chosen == "plasma")
 		dat += text("chosen")
 	else
-		dat += text("<A href='?src=\ref[src];choose=plasma'>Choose</A>")
+		dat += text("<A href='?src=[UID()];choose=plasma'>Choose</A>")
 	dat += text("<br><font color='#008800'><b>Uranium inserted: </b>[amt_uranium]</font> ")
-	if (chosen == "uranium")
+	if(chosen == "uranium")
 		dat += text("chosen")
 	else
-		dat += text("<A href='?src=\ref[src];choose=uranium'>Choose</A>")
+		dat += text("<A href='?src=[UID()];choose=uranium'>Choose</A>")
 	if(amt_clown > 0)
 		dat += text("<br><font color='#AAAA00'><b>Bananium inserted: </b>[amt_clown]</font> ")
-		if (chosen == "clown")
+		if(chosen == "clown")
 			dat += text("chosen")
 		else
-			dat += text("<A href='?src=\ref[src];choose=clown'>Choose</A>")
+			dat += text("<A href='?src=[UID()];choose=clown'>Choose</A>")
 	if(amt_mime > 0)
 		dat += text("<br><font color='#666666'><b>Tranquillite inserted: </b>[amt_mime]</font> ")
-		if (chosen == "mime")
+		if(chosen == "mime")
 			dat += text("chosen")
 		else
-			dat += text("<A href='?src=\ref[src];choose=mime'>Choose</A>")
+			dat += text("<A href='?src=[UID()];choose=mime'>Choose</A>")
 	dat += text("<br><font color='#888888'><b>Adamantine inserted: </b>[amt_adamantine]</font> ")//I don't even know these color codes, so fuck it.
-	if (chosen == "adamantine")
+	if(chosen == "adamantine")
 		dat += text("chosen")
 	else
-		dat += text("<A href='?src=\ref[src];choose=adamantine'>Choose</A>")
+		dat += text("<A href='?src=[UID()];choose=adamantine'>Choose</A>")
 
 	dat += text("<br><br>Will produce [coinsToProduce] [chosen] coins if enough materials are available.<br>")
 	//dat += text("The dial which controls the number of conins to produce seems to be stuck. A technician has already been dispatched to fix this.")
-	dat += text("<A href='?src=\ref[src];chooseAmt=-10'>-10</A> ")
-	dat += text("<A href='?src=\ref[src];chooseAmt=-5'>-5</A> ")
-	dat += text("<A href='?src=\ref[src];chooseAmt=-1'>-1</A> ")
-	dat += text("<A href='?src=\ref[src];chooseAmt=1'>+1</A> ")
-	dat += text("<A href='?src=\ref[src];chooseAmt=5'>+5</A> ")
-	dat += text("<A href='?src=\ref[src];chooseAmt=10'>+10</A> ")
+	dat += text("<A href='?src=[UID()];chooseAmt=-10'>-10</A> ")
+	dat += text("<A href='?src=[UID()];chooseAmt=-5'>-5</A> ")
+	dat += text("<A href='?src=[UID()];chooseAmt=-1'>-1</A> ")
+	dat += text("<A href='?src=[UID()];chooseAmt=1'>+1</A> ")
+	dat += text("<A href='?src=[UID()];chooseAmt=5'>+5</A> ")
+	dat += text("<A href='?src=[UID()];chooseAmt=10'>+10</A> ")
 
 	dat += text("<br><br>In total this machine produced <font color='green'><b>[newCoins]</b></font> coins.")
-	dat += text("<br><A href='?src=\ref[src];makeCoins=[1]'>Make coins</A>")
+	dat += text("<br><A href='?src=[UID()];makeCoins=[1]'>Make coins</A>")
 	user << browse("[dat]", "window=mint")
 
 /obj/machinery/mineral/mint/Topic(href, href_list)

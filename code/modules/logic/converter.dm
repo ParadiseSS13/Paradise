@@ -92,10 +92,10 @@
 		<dd>Input State: [logic_state_string]</dd>
 		"}
 	menu_contents += {"
-	<dt><b>Logic Signal Designation:</b> <a href='?src=\ref[src];toggle_logic=1'>[logic_output ? "Output" : "Input"]</a></dt>
+	<dt><b>Logic Signal Designation:</b> <a href='?src=[UID()];toggle_logic=1'>[logic_output ? "Output" : "Input"]</a></dt>
 	"}
 	if(attached_signaler)
-		menu_contents += "<dt><a href='?src=\ref[src];adjust_signaler=1'>Adjust Signaler Settings</a></dt>"
+		menu_contents += "<dt><a href='?src=[UID()];adjust_signaler=1'>Adjust Signaler Settings</a></dt>"
 	else
 		menu_contents += "<dt><b>NO SIGNALER ATTACHED!</b></dt>"
 	menu_contents += {"

@@ -6,3 +6,4 @@
 	icon_state = "antennae"
 	parent_organ = "head"
 	slot = "hivenode"
+	species = "Wryn"

@@ -5,7 +5,7 @@
 	var/noclear = 0    //if it has this, don't delete it when its' scooped up
 
 /obj/effect/decal/cleanable/New()
-	if (random_icon_states && length(src.random_icon_states) > 0)
+	if(random_icon_states && length(src.random_icon_states) > 0)
 		src.icon_state = pick(src.random_icon_states)
 	create_reagents(100)
 	..()
@@ -38,6 +38,7 @@
 	..()
 
 /obj/effect/decal/cleanable/fire_act()
-	reagents.chem_temp += 30
-	reagents.handle_reactions()
+	if(reagents)
+		reagents.chem_temp += 30
+		reagents.handle_reactions()
 	..()

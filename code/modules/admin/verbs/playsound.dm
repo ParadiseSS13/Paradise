@@ -81,7 +81,7 @@ var/list/sounds_cache = list()
 
 	for(var/O in global_intercoms)
 		var/obj/item/device/radio/intercom/I = O
-		if(I.z != ZLEVEL_STATION && !ignore_z)
+		if(!is_station_level(I.z) && !ignore_z)
 			continue
 		if(!I.on && !ignore_power)
 			continue

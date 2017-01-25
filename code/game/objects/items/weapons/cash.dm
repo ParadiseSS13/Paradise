@@ -22,7 +22,8 @@ var/global/list/moneytypes=list(
 	throwforce = 1.0
 	throw_speed = 1
 	throw_range = 2
-	w_class = 1.0
+	w_class = 1
+	burn_state = FLAMMABLE
 	var/access = list()
 	access = access_crate_cash
 	var/worth = 1 // Per chip
@@ -37,9 +38,9 @@ var/global/list/moneytypes=list(
 
 /obj/item/weapon/spacecash/examine(mob/user)
 	if(amount>1)
-		to_chat(user, "\icon[src] This is a stack of [amount] [src]s.")
+		to_chat(user, "[bicon(src)] This is a stack of [amount] [src]s.")
 	else
-		to_chat(user, "\icon[src] This is \a [src]s.")
+		to_chat(user, "[bicon(src)] This is \a [src]s.")
 	to_chat(user, "It's worth [worth*amount] credits.")
 
 /obj/item/weapon/spacecash/update_icon()

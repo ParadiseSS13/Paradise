@@ -5,7 +5,7 @@
 	icon_state = "toyhammer"
 	slot_flags = SLOT_BELT
 	throwforce = 0
-	w_class = 1.0
+	w_class = 1
 	throw_speed = 7
 	throw_range = 15
 	attack_verb = list("banned")
@@ -50,13 +50,11 @@
 	edge = 1
 	w_class = 3
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
+	block_chance = 50
 
-	IsShield()
-		return 1
-
-	suicide_act(mob/user)
-		to_chat(viewers(user), "<span class='suicide'>[user] is falling on the [src.name]! It looks like \he's trying to commit suicide.</span>")
-		return(BRUTELOSS)
+/obj/item/weapon/claymore/suicide_act(mob/user)
+	user.visible_message("<span class='suicide'>[user] is falling on the [src.name]! It looks like \he's trying to commit suicide.</span>")
+	return(BRUTELOSS)
 
 /obj/item/weapon/claymore/ceremonial
 	name = "ceremonial claymore"
@@ -77,6 +75,7 @@
 	w_class = 3
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
+	block_chance = 50
 
 /obj/item/weapon/katana/cursed
 	slot_flags = null
@@ -84,9 +83,6 @@
 /obj/item/weapon/katana/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is slitting \his stomach open with the [src.name]! It looks like \he's trying to commit seppuku.</span>")
 	return(BRUTELOSS)
-
-/obj/item/weapon/katana/IsShield()
-		return 1
 
 /obj/item/weapon/harpoon
 	name = "harpoon"

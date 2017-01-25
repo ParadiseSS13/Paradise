@@ -48,14 +48,14 @@
 	overlays += icon_manager.get_atmos_icon("pipe", , pipe_color, "universal")
 	underlays.Cut()
 
-	if (node1)
+	if(node1)
 		universal_underlays(node1)
 		if(node2)
 			universal_underlays(node2)
 		else
 			var/node1_dir = get_dir(node1,src)
 			universal_underlays(,node1_dir)
-	else if (node2)
+	else if(node2)
 		universal_underlays(node2)
 	else
 		universal_underlays(,dir)

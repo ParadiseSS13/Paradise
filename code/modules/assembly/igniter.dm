@@ -25,12 +25,12 @@
 	if(!..())	return 0//Cooldown check
 	var/turf/location = get_turf(loc)
 	if(location)	location.hotspot_expose(1000,1000)
-	if (istype(src.loc,/obj/item/device/assembly_holder))
-		if (istype(src.loc.loc, /obj/structure/reagent_dispensers/fueltank/))
+	if(istype(src.loc,/obj/item/device/assembly_holder))
+		if(istype(src.loc.loc, /obj/structure/reagent_dispensers/fueltank/))
 			var/obj/structure/reagent_dispensers/fueltank/tank = src.loc.loc
-			if (tank)
+			if(tank)
 				tank.boom()
-		if (istype(src.loc.loc, /obj/item/weapon/reagent_containers/glass/beaker/))
+		if(istype(src.loc.loc, /obj/item/weapon/reagent_containers/glass/beaker/))
 			var/obj/item/weapon/reagent_containers/glass/beaker/beakerbomb = src.loc.loc
 			if(beakerbomb)
 				beakerbomb.heat_beaker()

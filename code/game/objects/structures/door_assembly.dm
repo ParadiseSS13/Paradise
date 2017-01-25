@@ -111,8 +111,6 @@ obj/structure/door_assembly/multi_tile
 	icon = 'icons/obj/doors/door_assembly2x1.dmi'
 	dir = EAST
 	var/width = 1
-
-
 /*Temporary until we get sprites.
 	glass_type = "/multi_tile/glass"
 	airlock_type = "/multi_tile/maint"
@@ -120,6 +118,13 @@ obj/structure/door_assembly/multi_tile
 	base_icon_state = "g" //Remember to delete this line when reverting "glass" var to 1.
 	airlock_type = "/multi_tile/glass"
 	glass = -1 //To prevent bugs in deconstruction process.
+
+
+/obj/structure/door_assembly/door_assembly_cult
+	base_name = "cult airlock assembly"
+	icon = 'icons/obj/doors/Doorcult.dmi'
+	base_icon_state ="construction"
+	airlock_type = "/cult"
 
 obj/structure/door_assembly/multi_tile/New()
 	if(dir in list(EAST, WEST))
@@ -139,6 +144,20 @@ obj/structure/door_assembly/multi_tile/Move()
 		bound_width = world.icon_size
 		bound_height = width * world.icon_size
 
+/obj/structure/door_assembly/door_assembly_cult
+	icon = 'icons/obj/doors/Doorcult.dmi'
+	base_icon_state = "construction"
+	base_name = "engraved airlock"
+	airlock_type = "/cult"
+	glass = -1
+
+
+/obj/structure/door_assembly/door_assembly_cultruned
+	icon = 'icons/obj/doors/Doorcultruned.dmi'
+	base_icon_state = "construction"
+	base_name = "runed airlock"
+	airlock_type = "/cult/runed"
+	glass = -1
 
 
 /obj/structure/door_assembly/attackby(obj/item/W as obj, mob/user as mob, params)
@@ -151,7 +170,7 @@ obj/structure/door_assembly/multi_tile/Move()
 
 	if(istype(W, /obj/item/weapon/weldingtool) && ( (istext(glass)) || (glass == 1) || (!anchored) ))
 		var/obj/item/weapon/weldingtool/WT = W
-		if (WT.remove_fuel(0, user))
+		if(WT.remove_fuel(0, user))
 			playsound(src.loc, 'sound/items/Welder2.ogg', 50, 1)
 			if(istext(glass))
 				user.visible_message("[user] welds the [glass] plating off the airlock assembly.", "You start to weld the [glass] plating off the airlock assembly.")
@@ -235,7 +254,7 @@ obj/structure/door_assembly/multi_tile/Move()
 			src.state = 1
 			src.name = "Wired Airlock Assembly"
 			var/obj/item/weapon/airlock_electronics/ae
-			if (!electronics)
+			if(!electronics)
 				ae = new/obj/item/weapon/airlock_electronics( src.loc )
 			else
 				ae = electronics
@@ -244,8 +263,8 @@ obj/structure/door_assembly/multi_tile/Move()
 
 	else if(istype(W, /obj/item/stack/sheet) && !glass)
 		var/obj/item/stack/sheet/S = W
-		if (S)
-			if (S.amount>=1)
+		if(S)
+			if(S.amount>=1)
 				if(istype(S, /obj/item/stack/sheet/rglass))
 					playsound(src.loc, 'sound/items/Crowbar.ogg', 100, 1)
 					user.visible_message("[user] adds [S.name] to the airlock assembly.", "You start to install [S.name] into the airlock assembly.")
@@ -273,7 +292,7 @@ obj/structure/door_assembly/multi_tile/Move()
 			var/path
 			if(istext(glass))
 				path = text2path("/obj/machinery/door/airlock/[glass]")
-			else if (glass == 1)
+			else if(glass == 1)
 				path = text2path("/obj/machinery/door/airlock[glass_type]")
 			else
 				path = text2path("/obj/machinery/door/airlock[airlock_type]")
@@ -298,9 +317,9 @@ obj/structure/door_assembly/multi_tile/Move()
 /obj/structure/door_assembly/proc/update_state()
 	icon_state = "door_as_[glass == 1 ? "g" : ""][istext(glass) ? glass : base_icon_state][state]"
 	name = ""
-	switch (state)
+	switch(state)
 		if(0)
-			if (anchored)
+			if(anchored)
 				name = "Secured "
 		if(1)
 			name = "Wired "

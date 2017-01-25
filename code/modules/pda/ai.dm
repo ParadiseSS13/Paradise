@@ -24,9 +24,9 @@
 	if(!M)
 		to_chat(usr, "<span class='warning'>Cannot use messenger!</span>")
 	var/list/plist = M.available_pdas()
-	if (plist)
+	if(plist)
 		var/c = input(usr, "Please select a PDA") as null|anything in sortList(plist)
-		if (!c) // if the user hasn't selected a PDA file we can't send a message
+		if(!c) // if the user hasn't selected a PDA file we can't send a message
 			return
 		var/selected = plist[c]
 		M.create_message(usr, selected)
@@ -44,9 +44,9 @@
 	var/HTML = "<html><head><title>AI PDA Message Log</title></head><body>"
 	for(var/index in M.tnote)
 		if(index["sent"])
-			HTML += addtext("<i><b>&rarr; To <a href='byond://?src=\ref[src];choice=Message;target=",index["src"],"'>", index["owner"],"</a>:</b></i><br>", index["message"], "<br>")
+			HTML += addtext("<i><b>&rarr; To <a href='byond://?src=[UID()];choice=Message;target=",index["src"],"'>", index["owner"],"</a>:</b></i><br>", index["message"], "<br>")
 		else
-			HTML += addtext("<i><b>&larr; From <a href='byond://?src=\ref[src];choice=Message;target=",index["target"],"'>", index["owner"],"</a>:</b></i><br>", index["message"], "<br>")
+			HTML += addtext("<i><b>&larr; From <a href='byond://?src=[UID()];choice=Message;target=",index["target"],"'>", index["owner"],"</a>:</b></i><br>", index["message"], "<br>")
 	HTML +="</body></html>"
 	usr << browse(HTML, "window=log;size=400x444;border=1;can_resize=1;can_close=1;can_minimize=0")
 
@@ -74,7 +74,7 @@
 	to_chat(usr, "<span class='notice'>PDA ringer toggled [(M.notify_silent ? "Off" : "On")]!</span>")
 
 /obj/item/device/pda/silicon/attack_self(mob/user as mob)
-	if ((honkamt > 0) && (prob(60)))//For clown virus.
+	if((honkamt > 0) && (prob(60)))//For clown virus.
 		honkamt--
 		playsound(loc, 'sound/items/bikehorn.ogg', 30, 1)
 	return

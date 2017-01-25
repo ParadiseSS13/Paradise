@@ -9,8 +9,8 @@
 	name = "vampire"
 	config_tag = "vampire"
 	restricted_jobs = list("AI", "Cyborg")
-	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Blueshield", "Nanotrasen Representative", "Security Pod Pilot", "Magistrate", "Chaplain", "Brig Physician", "Internal Affairs Agent")
-	protected_species = list("Machine")
+	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Blueshield", "Nanotrasen Representative", "Security Pod Pilot", "Magistrate", "Chaplain", "Brig Physician", "Internal Affairs Agent", "Nanotrasen Navy Officer", "Special Operations Officer")
+	protected_species = list("Machine", "Plasmaman")
 	required_players = 15
 	required_enemies = 1
 	recommended_enemies = 4
@@ -58,7 +58,8 @@
 			var/datum/mindslaves/slaved = new()
 			slaved.masters += vampire
 			vampire.som = slaved //we MIGT want to mindslave someone
-			vampire.special_role = "Vampire" // Needs to be done in pre-setup to prevent role bugs
+			vampire.special_role = SPECIAL_ROLE_VAMPIRE
+		..()
 		return 1
 	else
 		return 0
@@ -155,12 +156,12 @@
 
 	switch(rand(1,100))
 		if(1 to 80)
-			if (!(locate(/datum/objective/escape) in vampire.objectives))
+			if(!(locate(/datum/objective/escape) in vampire.objectives))
 				var/datum/objective/escape/escape_objective = new
 				escape_objective.owner = vampire
 				vampire.objectives += escape_objective
 		else
-			if (!(locate(/datum/objective/survive) in vampire.objectives))
+			if(!(locate(/datum/objective/survive) in vampire.objectives))
 				var/datum/objective/survive/survive_objective = new
 				survive_objective.owner = vampire
 				vampire.objectives += survive_objective
@@ -173,15 +174,15 @@
 
 /datum/game_mode/proc/greet_vampire(var/datum/mind/vampire, var/you_are=1)
 	var/dat
-	if (you_are)
-		dat = "<B>\red You are a Vampire! \black</br></B>"
+	if(you_are)
+		dat = "<span class='danger'>You are a Vampire!</span><br>"
 	dat += {"To bite someone, target the head and use harm intent with an empty hand. Drink blood to gain new powers.
 You are weak to holy things and starlight. Don't go into space and avoid the Chaplain, the chapel and especially Holy Water."}
 	to_chat(vampire.current, dat)
 	to_chat(vampire.current, "<B>You must complete the following tasks:</B>")
 
-	if (vampire.current.mind)
-		if (vampire.current.mind.assigned_role == "Clown")
+	if(vampire.current.mind)
+		if(vampire.current.mind.assigned_role == "Clown")
 			to_chat(vampire.current, "Your lust for blood has allowed you to overcome your clumsy nature allowing you to wield weapons without harming yourself.")
 			vampire.current.mutations.Remove(CLUMSY)
 
@@ -242,6 +243,10 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 		owner.mind.spell_list.Remove(ability)
 		qdel(ability)
 
+/datum/vampire/proc/update_owner(var/mob/living/carbon/human/current) //Called when a vampire gets cloned. This updates vampire.owner to the new body.
+	if(current.mind && current.mind.vampire && current.mind.vampire.owner && (current.mind.vampire.owner != current))
+		current.mind.vampire.owner = current
+
 /mob/proc/make_vampire()
 	if(!mind)
 		return
@@ -270,10 +275,10 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 	var/blood = 0
 	var/old_bloodtotal = 0 //used to see if we increased our blood total
 	var/old_bloodusable = 0 //used to see if we increased our blood usable
-	owner.attack_log += text("\[[time_stamp()]\] <font color='red'>Bit [H] ([H.ckey]) in the neck and draining their blood</font>")
-	H.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been bit in the neck by [owner] ([owner.ckey])</font>")
+	owner.create_attack_log("<font color='red'>Bit [H] ([H.ckey]) in the neck and draining their blood</font>")
+	H.create_attack_log("<font color='orange'>Has been bit in the neck by [owner] ([owner.ckey])</font>")
 	log_attack("[owner] ([owner.ckey]) bit [H] ([H.ckey]) in the neck")
-	owner.visible_message("<span class='danger'>[owner] bites [H]'s neck!</span>", "<span class='danger'>You bite [H]'s neck and begin to drain their blood.</span>", "<span class='notice'>You hear a soft puncture and a wet sucking noise.</span>")
+	owner.visible_message("<span class='danger'>[owner] grabs [H]'s neck harshly and sinks in their fangs!</span>", "<span class='danger'>You sink your fangs into [H] and begin to drain their blood.</span>", "<span class='notice'>You hear a soft puncture and a wet sucking noise.</span>")
 	if(!iscarbon(owner))
 		H.LAssailant = null
 	else
@@ -285,7 +290,7 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 		old_bloodtotal = bloodtotal
 		old_bloodusable = bloodusable
 		if(!H.vessel.get_reagent_amount("blood"))
-			to_chat(src, "<span class='warning'>They've got no blood left to give.</span>")
+			to_chat(owner, "<span class='warning'>They've got no blood left to give.</span>")
 			break
 		if(H.stat < DEAD)
 			blood = min(20, H.vessel.get_reagent_amount("blood"))	// if they have less than 20 blood, give them the remnant else they get 20 blood
@@ -300,7 +305,7 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 		H.vessel.remove_reagent("blood", 25)
 		if(ishuman(owner))
 			var/mob/living/carbon/human/V = owner
-			V.nutrition = min(450, V.nutrition + (blood / 2))
+			V.nutrition = min(NUTRITION_LEVEL_WELL_FED, V.nutrition + (blood / 2))
 
 	draining = null
 	to_chat(owner, "<span class='notice'>You stop draining [H.name] of blood.</span>")
@@ -325,6 +330,21 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 			else if(istype(p, /datum/vampire_passive))
 				var/datum/vampire_passive/power = p
 				to_chat(owner, "<span class='notice'>[power.gain_desc]</span>")
+
+/datum/game_mode/proc/remove_vampire(datum/mind/vampire_mind)
+	if(vampire_mind in vampires)
+		ticker.mode.vampires -= vampire_mind
+		vampire_mind.special_role = null
+		vampire_mind.current.create_attack_log("<span class='danger'>De-vampired</span>")
+		if(vampire_mind.vampire)
+			vampire_mind.vampire.remove_vampire_powers()
+			qdel(vampire_mind.vampire)
+			vampire_mind.vampire = null
+		if(issilicon(vampire_mind.current))
+			to_chat(vampire_mind.current, "<span class='userdanger'>You have been turned into a robot! You can feel your powers fading away...</span>")
+		else
+			to_chat(vampire_mind.current, "<span class='userdanger'>You have been brainwashed! You are no longer a vampire.</span>")
+		ticker.mode.update_vampire_icons_removed(vampire_mind)
 
 //prepare for copypaste
 /datum/game_mode/proc/update_vampire_icons_added(datum/mind/vampire_mind)
@@ -371,7 +391,7 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 
 		if(T.density)
 			return
-	vamp_burn()
+	vamp_burn(1)
 
 /datum/vampire/proc/handle_vampire()
 	if(owner.hud_used)
@@ -388,7 +408,7 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 	if(istype(owner.loc, /turf/space))
 		check_sun()
 	if(istype(owner.loc.loc, /area/chapel) && !get_ability(/datum/vampire_passive/full))
-		vamp_burn()
+		vamp_burn(0)
 	nullified = max(0, nullified - 1)
 
 /datum/vampire/proc/handle_vampire_cloak()
@@ -415,27 +435,23 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 	else
 		owner.alpha = round((255 * 0.80))
 
-/datum/vampire/proc/vamp_burn()
-	if(prob(35))
+/datum/vampire/proc/vamp_burn(severe_burn)
+	var/burn_chance = severe_burn ? 35 : 8
+	if(prob(burn_chance) && owner.health >= 50)
 		switch(owner.health)
-			if(80 to 100)
+			if(75 to 100)
 				to_chat(owner, "<span class='warning'>Your skin flakes away...</span>")
-			if(60 to 80)
+			if(50 to 75)
 				to_chat(owner, "<span class='warning'>Your skin sizzles!</span>")
-			if((-INFINITY) to 60)
-				if(!owner.on_fire)
-					to_chat(owner, "<span class='danger'>Your skin catches fire!</span>")
-				else
-					to_chat(owner, "<span class='danger'>You continue to burn!</span>")
-				owner.fire_stacks += 5
-				owner.IgniteMob()
-		owner.emote("scream")
-	else
-		switch(owner.health)
-			if((-INFINITY) to 60)
-				owner.fire_stacks++
-				owner.IgniteMob()
-	owner.adjustFireLoss(3)
+		owner.adjustFireLoss(3)
+	else if(owner.health < 50)
+		if(!owner.on_fire)
+			to_chat(owner, "<span class='danger'>Your skin catches fire!</span>")
+			owner.emote("scream")
+		else
+			to_chat(owner, "<span class='danger'>You continue to burn!</span>")
+		owner.adjust_fire_stacks(5)
+		owner.IgniteMob()
 	return
 
 /datum/hud/proc/remove_vampire_hud()

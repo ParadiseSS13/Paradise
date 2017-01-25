@@ -1,6 +1,6 @@
 /obj/item/ammo_casing/proc/fire(atom/target as mob|obj|turf, mob/living/user as mob|obj, params, distro, quiet, zone_override = "", spread)
 	distro += variance
-	for (var/i = max(1, pellets), i > 0, i--)
+	for(var/i = max(1, pellets), i > 0, i--)
 		var/targloc = get_turf(target)
 		ready_proj(target, user, quiet, zone_override)
 		if(distro) //We have to spread a pixel-precision bullet. throw_proj was called before so angles should exist by now...
@@ -21,11 +21,11 @@
 	return 1
 
 /obj/item/ammo_casing/proc/ready_proj(atom/target, mob/living/user, quiet, zone_override = "")
-	if (!BB)
+	if(!BB)
 		return
 	BB.original = target
 	BB.firer = user
-	if (zone_override)
+	if(zone_override)
 		BB.def_zone = zone_override
 	else
 		BB.def_zone = user.zone_sel.selecting
@@ -37,7 +37,7 @@
 
 /obj/item/ammo_casing/proc/throw_proj(atom/target, turf/targloc, mob/living/user, params, spread)
 	var/turf/curloc = get_turf(user)
-	if (!istype(targloc) || !istype(curloc) || !BB)
+	if(!istype(targloc) || !istype(curloc) || !BB)
 		return 0
 	BB.ammo_casing = src
 	if(targloc == curloc)

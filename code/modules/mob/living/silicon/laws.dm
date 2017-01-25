@@ -3,7 +3,7 @@
 	var/list/additional_law_channels = list("State" = "")
 
 /mob/living/silicon/proc/laws_sanity_check()
-	if (!src.laws)
+	if(!src.laws)
 		laws = new base_law_type
 
 /mob/living/silicon/proc/has_zeroth_law()

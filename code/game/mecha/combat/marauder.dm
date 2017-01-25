@@ -8,6 +8,7 @@
 	deflect_chance = 25
 	damage_absorption = list("brute"=0.5,"fire"=0.7,"bullet"=0.45,"laser"=0.6,"energy"=0.7,"bomb"=0.7)
 	max_temperature = 60000
+	burn_state = LAVA_PROOF
 	infra_luminosity = 3
 	var/zoom = 0
 	var/thrusters = 0
@@ -22,6 +23,20 @@
 	force = 45
 	max_equip = 4
 
+
+/obj/mecha/combat/marauder/loaded/New()
+	..()
+	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/weapon/energy/pulse
+	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack
+	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay(src)
+	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/antiproj_armor_booster(src)
+	ME.attach(src)
+	smoke_system.set_up(3, 0, src)
+	smoke_system.attach(src)
+
 /obj/mecha/combat/marauder/seraph
 	desc = "Heavy-duty, command-type exosuit. This is a custom model, utilized only by high-ranking military personnel."
 	name = "Seraph"
@@ -34,6 +49,24 @@
 	internal_damage_threshold = 20
 	force = 55
 	max_equip = 5
+
+/obj/mecha/combat/marauder/seraph/loaded/New()
+	..()//Let it equip whatever is needed.
+	var/obj/item/mecha_parts/mecha_equipment/ME
+	if(equipment.len)//Now to remove it and equip anew.
+		for(ME in equipment)
+			equipment -= ME
+			qdel(ME)
+	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/scattershot(src)
+	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack(src)
+	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/teleporter(src)
+	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay(src)
+	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/antiproj_armor_booster(src)
+	ME.attach(src)
 
 /obj/mecha/combat/marauder/mauler
 	desc = "Heavy-duty, combat exosuit, developed off of the existing Marauder model."
@@ -55,47 +88,14 @@
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/antiproj_armor_booster(src)
 	ME.attach(src)
-	src.smoke_system.set_up(3, 0, src)
-	src.smoke_system.attach(src)
-	return
+	smoke_system.set_up(3, 0, src)
+	smoke_system.attach(src)
 
-/obj/mecha/combat/marauder/loaded/New()
-	..()
-	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/weapon/energy/pulse
-	ME.attach(src)
-	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack
-	ME.attach(src)
-	ME = new /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay(src)
-	ME.attach(src)
-	ME = new /obj/item/mecha_parts/mecha_equipment/antiproj_armor_booster(src)
-	ME.attach(src)
-	src.smoke_system.set_up(3, 0, src)
-	src.smoke_system.attach(src)
-	return
-
-/obj/mecha/combat/marauder/seraph/loaded/New()
-	..()//Let it equip whatever is needed.
-	var/obj/item/mecha_parts/mecha_equipment/ME
-	if(equipment.len)//Now to remove it and equip anew.
-		for(ME in equipment)
-			equipment -= ME
-			qdel(ME)
-	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/scattershot(src)
-	ME.attach(src)
-	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack(src)
-	ME.attach(src)
-	ME = new /obj/item/mecha_parts/mecha_equipment/teleporter(src)
-	ME.attach(src)
-	ME = new /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay(src)
-	ME.attach(src)
-	ME = new /obj/item/mecha_parts/mecha_equipment/antiproj_armor_booster(src)
-	ME.attach(src)
-	return
 
 /obj/mecha/combat/marauder/relaymove(mob/user,direction)
 	if(zoom)
 		if(world.time - last_message > 20)
-			src.occupant_message("Unable to move while in zoom mode.")
+			occupant_message("Unable to move while in zoom mode.")
 			last_message = world.time
 		return 0
 	return ..()
@@ -112,14 +112,13 @@
 	set name = "Toggle thrusters"
 	set src = usr.loc
 	set popup_menu = 0
-	if(usr!=src.occupant)
+	if(usr != occupant)
 		return
-	if(src.occupant)
+	if(occupant)
 		if(get_charge() > 0)
 			thrusters = !thrusters
-			src.log_message("Toggled thrusters.")
-			src.occupant_message("<font color='[src.thrusters?"blue":"red"]'>Thrusters [thrusters?"en":"dis"]abled.")
-	return
+			log_message("Toggled thrusters.")
+			occupant_message("<font color='[thrusters?"blue":"red"]'>Thrusters [thrusters?"en":"dis"]abled.")
 
 
 /obj/mecha/combat/marauder/verb/smoke()
@@ -127,41 +126,32 @@
 	set name = "Smoke"
 	set src = usr.loc
 	set popup_menu = 0
-	if(usr!=src.occupant)
+	if(usr != occupant)
 		return
 	if(smoke_ready && smoke>0)
-		src.smoke_system.start()
+		smoke_system.start()
 		smoke--
 		smoke_ready = 0
 		spawn(smoke_cooldown)
 			smoke_ready = 1
-	return
 
 /obj/mecha/combat/marauder/verb/zoom()
 	set category = "Exosuit Interface"
 	set name = "Zoom"
 	set src = usr.loc
 	set popup_menu = 0
-	if(usr!=src.occupant)
+	if(usr != occupant)
 		return
-	if(src.occupant.client)
-		src.zoom = !src.zoom
-		src.log_message("Toggled zoom mode.")
-		src.occupant_message("<font color='[src.zoom?"blue":"red"]'>Zoom mode [zoom?"en":"dis"]abled.</font>")
+	if(occupant.client)
+		zoom = !zoom
+		log_message("Toggled zoom mode.")
+		occupant_message("<font color='[zoom?"blue":"red"]'>Zoom mode [zoom?"en":"dis"]abled.</font>")
 		if(zoom)
-			src.occupant.client.view = 12
-			to_chat(src.occupant, sound('sound/mecha/imag_enh.ogg',volume=50))
+			occupant.client.view = 12
+			to_chat(occupant, sound('sound/mecha/imag_enh.ogg',volume=50))
 		else
-			src.occupant.client.view = world.view//world.view - default mob view size
-	return
+			occupant.client.view = initial(occupant.client.view)
 
-
-/obj/mecha/combat/marauder/go_out()
-	if(src.occupant && src.occupant.client)
-		src.occupant.client.view = world.view
-		src.zoom = 0
-	..()
-	return
 
 
 /obj/mecha/combat/marauder/get_stats_part()
@@ -177,9 +167,9 @@
 	var/output = {"<div class='wr'>
 						<div class='header'>Special</div>
 						<div class='links'>
-						<a href='?src=\ref[src];toggle_thrusters=1'>Toggle thrusters</a><br>
-						<a href='?src=\ref[src];toggle_zoom=1'>Toggle zoom mode</a><br>
-						<a href='?src=\ref[src];smoke=1'>Smoke</a>
+						<a href='?src=[UID()];toggle_thrusters=1'>Toggle thrusters</a><br>
+						<a href='?src=[UID()];toggle_zoom=1'>Toggle zoom mode</a><br>
+						<a href='?src=[UID()];smoke=1'>Smoke</a>
 						</div>
 						</div>
 						"}
@@ -188,10 +178,9 @@
 
 /obj/mecha/combat/marauder/Topic(href, href_list)
 	..()
-	if (href_list["toggle_thrusters"])
-		src.toggle_thrusters()
-	if (href_list["smoke"])
-		src.smoke()
-	if (href_list["toggle_zoom"])
-		src.zoom()
-	return
+	if(href_list["toggle_thrusters"])
+		toggle_thrusters()
+	if(href_list["smoke"])
+		smoke()
+	if(href_list["toggle_zoom"])
+		zoom()

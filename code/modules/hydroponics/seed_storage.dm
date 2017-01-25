@@ -13,7 +13,7 @@
 	src.ID = ID
 
 /datum/seed_pile/proc/matches(var/obj/item/seeds/O)
-	if (O.seed == seed_type)
+	if(O.seed == seed_type)
 		return 1
 	return 0
 
@@ -52,52 +52,52 @@
 	interact(user)
 
 /obj/machinery/seed_storage/interact(mob/user as mob)
-	if (..())
+	if(..())
 		return
 
-	if (!initialized)
+	if(!initialized)
 		for(var/typepath in starting_seeds)
 			var/amount = starting_seeds[typepath]
 			if(isnull(amount)) amount = 1
 
-			for (var/i = 1 to amount)
+			for(var/i = 1 to amount)
 				var/O = new typepath
 				add(O)
 		initialized = 1
 
 	var/dat = "<center><h1>Seed storage contents</h1></center>"
-	if (piles.len == 0)
+	if(piles.len == 0)
 		dat += "<font color='red'>No seeds</font>"
 	else
 		dat += "<table style='text-align:center;border-style:solid;border-width:1px;padding:4px'><tr><td>Name</td>"
 		dat += "<td>Variety</td>"
-		if ("stats" in scanner)
+		if("stats" in scanner)
 			dat += "<td>E</td><td>Y</td><td>M</td><td>Pr</td><td>Pt</td><td>Harvest</td>"
-		if ("temperature" in scanner)
+		if("temperature" in scanner)
 			dat += "<td>Temp</td>"
-		if ("light" in scanner)
+		if("light" in scanner)
 			dat += "<td>Light</td>"
-		if ("soil" in scanner)
+		if("soil" in scanner)
 			dat += "<td>Nutri</td><td>Water</td>"
 		dat += "<td>Notes</td><td>Amount</td><td></td></tr>"
-		for (var/datum/seed_pile/S in piles)
+		for(var/datum/seed_pile/S in piles)
 			var/datum/seed/seed = S.seed_type
 			if(!seed)
 				continue
 			dat += "<tr>"
 			dat += "<td>[seed.seed_name]</td>"
 			dat += "<td>#[seed.uid]</td>"
-			if ("stats" in scanner)
+			if("stats" in scanner)
 				dat += "<td>[seed.get_trait(TRAIT_ENDURANCE)]</td><td>[seed.get_trait(TRAIT_YIELD)]</td><td>[seed.get_trait(TRAIT_MATURATION)]</td><td>[seed.get_trait(TRAIT_PRODUCTION)]</td><td>[seed.get_trait(TRAIT_POTENCY)]</td>"
 				if(seed.get_trait(TRAIT_HARVEST_REPEAT))
 					dat += "<td>Multiple</td>"
 				else
 					dat += "<td>Single</td>"
-			if ("temperature" in scanner)
+			if("temperature" in scanner)
 				dat += "<td>[seed.get_trait(TRAIT_IDEAL_HEAT)] K</td>"
-			if ("light" in scanner)
+			if("light" in scanner)
 				dat += "<td>[seed.get_trait(TRAIT_IDEAL_LIGHT)] L</td>"
-			if ("soil" in scanner)
+			if("soil" in scanner)
 				if(seed.get_trait(TRAIT_REQUIRES_NUTRIENTS))
 					if(seed.get_trait(TRAIT_NUTRIENT_CONSUMPTION) < 0.05)
 						dat += "<td>Low</td>"
@@ -128,17 +128,17 @@
 					dat += "VINE "
 				if(2)
 					dat	+= "<font color='red'>VINE </font>"
-			if ("pressure" in scanner)
+			if("pressure" in scanner)
 				if(seed.get_trait(TRAIT_LOWKPA_TOLERANCE) < 20)
 					dat += "LP "
 				if(seed.get_trait(TRAIT_HIGHKPA_TOLERANCE) > 220)
 					dat += "HP "
-			if ("temperature" in scanner)
+			if("temperature" in scanner)
 				if(seed.get_trait(TRAIT_HEAT_TOLERANCE) > 30)
 					dat += "TEMRES "
 				else if(seed.get_trait(TRAIT_HEAT_TOLERANCE) < 10)
 					dat += "TEMSEN "
-			if ("light" in scanner)
+			if("light" in scanner)
 				if(seed.get_trait(TRAIT_LIGHT_TOLERANCE) > 10)
 					dat += "LIGRES "
 				else if(seed.get_trait(TRAIT_LIGHT_TOLERANCE) < 3)
@@ -157,7 +157,7 @@
 				dat += "WEEDRES "
 			if(seed.get_trait(TRAIT_PARASITE))
 				dat += "PAR "
-			if ("temperature" in scanner)
+			if("temperature" in scanner)
 				if(seed.get_trait(TRAIT_ALTER_TEMP) > 0)
 					dat += "TEMP+ "
 				if(seed.get_trait(TRAIT_ALTER_TEMP) < 0)
@@ -166,7 +166,7 @@
 				dat += "LUM "
 			dat += "</td>"
 			dat += "<td>[S.amount]</td>"
-			dat += "<td><a href='byond://?src=\ref[src];task=vend;id=[S.ID]'>Vend</a> <a href='byond://?src=\ref[src];task=purge;id=[S.ID]'>Purge</a></td>"
+			dat += "<td><a href='byond://?src=[UID()];task=vend;id=[S.ID]'>Vend</a> <a href='byond://?src=[UID()];task=purge;id=[S.ID]'>Purge</a></td>"
 			dat += "</tr>"
 		dat += "</table>"
 
@@ -174,27 +174,27 @@
 	onclose(user, "seedstorage")
 
 /obj/machinery/seed_storage/Topic(var/href, var/list/href_list)
-	if (..())
+	if(..())
 		return
 	var/task = href_list["task"]
 	var/ID = text2num(href_list["id"])
 
-	for (var/datum/seed_pile/N in piles)
-		if (N.ID == ID)
-			if (task == "vend")
+	for(var/datum/seed_pile/N in piles)
+		if(N.ID == ID)
+			if(task == "vend")
 				var/obj/O = pick(N.seeds)
-				if (O)
+				if(O)
 					--N.amount
 					N.seeds -= O
-					if (N.amount <= 0 || N.seeds.len <= 0)
+					if(N.amount <= 0 || N.seeds.len <= 0)
 						piles -= N
 						qdel(N)
 					O.loc = src.loc
 				else
 					piles -= N
 					qdel(N)
-			else if (task == "purge")
-				for (var/obj/O in N.seeds)
+			else if(task == "purge")
+				for(var/obj/O in N.seeds)
 					qdel(O)
 					piles -= N
 					qdel(N)
@@ -202,17 +202,17 @@
 	updateUsrDialog()
 
 /obj/machinery/seed_storage/attackby(var/obj/item/O as obj, var/mob/user as mob)
-	if (istype(O, /obj/item/seeds))
+	if(istype(O, /obj/item/seeds))
 		add(O)
 		user.visible_message("[user] puts \the [O.name] into \the [src].", "You put \the [O] into \the [src].")
 		return
-	else if (istype(O, /obj/item/weapon/storage/bag/plants))
+	else if(istype(O, /obj/item/weapon/storage/bag/plants))
 		var/obj/item/weapon/storage/P = O
 		var/loaded = 0
 		for(var/obj/item/seeds/G in P.contents)
 			++loaded
 			add(G)
-		if (loaded)
+		if(loaded)
 			user.visible_message("[user] puts the seeds from \the [O.name] into \the [src].", "You put the seeds from \the [O.name] into \the [src].")
 		else
 			to_chat(user, "<span class='notice'>There are no seeds in \the [O.name].</span>")
@@ -223,7 +223,7 @@
 		to_chat(user, "You [anchored ? "wrench" : "unwrench"] \the [src].")
 
 /obj/machinery/seed_storage/proc/add(var/obj/item/seeds/O as obj)
-	if (istype(O.loc, /mob))
+	if(istype(O.loc, /mob))
 		var/mob/user = O.loc
 		user.drop_item(O)
 	else if(istype(O.loc,/obj/item/weapon/storage))
@@ -233,8 +233,8 @@
 	O.loc = src
 	var/newID = 0
 
-	for (var/datum/seed_pile/N in piles)
-		if (N.matches(O))
+	for(var/datum/seed_pile/N in piles)
+		if(N.matches(O))
 			++N.amount
 			N.seeds += (O)
 			return

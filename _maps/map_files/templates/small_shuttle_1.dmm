@@ -1,0 +1,33 @@
+"a" = (/turf/space,/area/space)
+"b" = (/turf/space,/turf/simulated/shuttle/wall{tag = "icon-swall_f6"; icon_state = "swall_f6"},/area/space)
+"c" = (/obj/structure/grille,/obj/structure/shuttle/window,/turf/simulated/floor/plating/airless,/area/space)
+"d" = (/turf/space,/turf/simulated/shuttle/wall{tag = "icon-swall_f10"; icon_state = "swall_f10"},/area/space)
+"e" = (/turf/simulated/shuttle/wall{tag = "icon-swall3"; icon_state = "swall3"},/area/space)
+"f" = (/turf/simulated/shuttle/floor,/area/space)
+"g" = (/obj/structure/stool/bed/chair{dir = 1},/turf/simulated/shuttle/floor,/area/space)
+"h" = (/turf/simulated/shuttle/wall{tag = "icon-swall13"; icon_state = "swall13"},/area/space)
+"i" = (/turf/simulated/shuttle/wall{tag = "icon-swall8"; icon_state = "swall8"},/area/space)
+"j" = (/obj/machinery/door/unpowered/shuttle,/turf/simulated/shuttle/floor,/area/space)
+"k" = (/turf/simulated/shuttle/wall{tag = "icon-swall4"; icon_state = "swall4"},/area/space)
+"l" = (/obj/structure/stool/bed/chair{dir = 4},/turf/simulated/shuttle/floor,/area/space)
+"m" = (/obj/structure/stool/bed/chair{dir = 8},/turf/simulated/shuttle/floor,/area/space)
+"n" = (/obj/structure/shuttle/engine/heater,/turf/simulated/floor/plating/airless,/area/space)
+"o" = (/turf/space,/turf/simulated/shuttle/wall{tag = "icon-swall_f5"; icon_state = "swall_f5"},/area/space)
+"p" = (/obj/structure/shuttle/engine/propulsion{icon_state = "propulsion_l"},/turf/simulated/floor/plating/airless,/area/space)
+"q" = (/obj/structure/shuttle/engine/propulsion,/turf/simulated/floor/plating/airless,/area/space)
+"r" = (/obj/structure/shuttle/engine/propulsion{icon_state = "propulsion_r"},/turf/simulated/floor/plating/airless,/area/space)
+"s" = (/turf/space,/turf/simulated/shuttle/wall{tag = "icon-swall_f9"; icon_state = "swall_f9"},/area/space)
+
+(1,1,1) = {"
+abcccda
+aefgfea
+aefffea
+bhijkhd
+elfffme
+elfffme
+jfffffj
+jfffffj
+efffffe
+ennnnne
+opqqqrs
+"}

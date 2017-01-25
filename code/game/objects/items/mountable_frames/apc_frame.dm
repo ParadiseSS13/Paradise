@@ -9,11 +9,11 @@
 	if(..())
 		var/turf/turf_loc = get_turf(user)
 		var/area/area_loc = turf_loc.loc
-		if (area_loc.get_apc())
+		if(area_loc.get_apc())
 			to_chat(user, "<span class='rose'>This area already has an APC.</span>")
 			return //only one APC per area
 		for(var/obj/machinery/power/terminal/T in turf_loc)
-			if (T.master)
+			if(T.master)
 				to_chat(user, "<span class='rose'>There is another network terminal here.</span>")
 				return
 			else

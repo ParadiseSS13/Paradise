@@ -100,12 +100,14 @@ Thus, the two variables affect pump operation are set in New():
 	return 1
 
 /obj/machinery/atmospherics/binary/volume_pump/interact(mob/user as mob)
-	var/dat = {"<b>Power: </b><a href='?src=\ref[src];power=1'>[on?"On":"Off"]</a><br>
+	var/dat = {"<b>Power: </b><a href='?src=[UID()];power=1'>[on?"On":"Off"]</a><br>
 				<b>Desirable output flow: </b>
-				[round(transfer_rate,1)]l/s | <a href='?src=\ref[src];set_transfer_rate=1'>Change</a>
+				[round(transfer_rate,1)]l/s | <a href='?src=[UID()];set_transfer_rate=1'>Change</a>
 				"}
 
-	user << browse("<HEAD><TITLE>[src.name] control</TITLE></HEAD><TT>[dat]</TT>", "window=atmo_pump")
+	var/datum/browser/popup = new(user, "atmo_pump", name, 400, 400)
+	popup.set_content(dat)
+	popup.open(0)
 	onclose(user, "atmo_pump")
 
 
@@ -173,9 +175,9 @@ Thus, the two variables affect pump operation are set in New():
 		update_icon()
 
 /obj/machinery/atmospherics/binary/volume_pump/attackby(var/obj/item/weapon/W as obj, var/mob/user as mob, params)
-	if (!istype(W, /obj/item/weapon/wrench))
+	if(!istype(W, /obj/item/weapon/wrench))
 		return ..()
-	if (!(stat & NOPOWER) && on)
+	if(!(stat & NOPOWER) && on)
 		to_chat(user, "<span class='alert'>You cannot unwrench this [src], turn it off first.</span>")
 		return 1
 	return ..()

@@ -3,14 +3,14 @@
 	desc = "Used by obese officers to save their breath for running."
 	icon_state = "voice0"
 	item_state = "flashtool"	//looks exactly like a flash (and nothing like a flashbang)
-	w_class = 1.0
+	w_class = 1
 	flags = CONDUCT
 
 	var/spamcheck = 0
 	var/emagged = 0
 
 /obj/item/device/hailer/attack_self(mob/living/carbon/user as mob)
-	if (spamcheck)
+	if(spamcheck)
 		return
 
 	if(emagged)

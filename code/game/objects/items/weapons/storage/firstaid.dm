@@ -31,7 +31,7 @@
 
 	New()
 		..()
-		if (empty) return
+		if(empty) return
 
 		icon_state = pick("ointment","firefirstaid")
 
@@ -53,7 +53,7 @@
 
 	New()
 		..()
-		if (empty) return
+		if(empty) return
 		new /obj/item/weapon/reagent_containers/food/pill/patch/styptic( src )
 		new /obj/item/weapon/reagent_containers/food/pill/patch/styptic( src )
 		new /obj/item/weapon/reagent_containers/food/pill/salicylic( src )
@@ -71,7 +71,7 @@
 
 	New()
 		..()
-		if (empty) return
+		if(empty) return
 
 		icon_state = pick("antitoxin","antitoxfirstaid","antitoxfirstaid2","antitoxfirstaid3")
 
@@ -95,7 +95,7 @@
 
 	New()
 		..()
-		if (empty) return
+		if(empty) return
 		new /obj/item/weapon/reagent_containers/food/pill/salbutamol( src )
 		new /obj/item/weapon/reagent_containers/food/pill/salbutamol( src )
 		new /obj/item/weapon/reagent_containers/food/pill/salbutamol( src )
@@ -114,7 +114,7 @@
 
 	New()
 		..()
-		if (empty) return
+		if(empty) return
 
 		icon_state = pick("brute","brute2")
 
@@ -138,15 +138,15 @@
 
 /obj/item/weapon/storage/firstaid/adv/New()
 	..()
-	if (empty) return
-	new /obj/item/weapon/reagent_containers/hypospray/autoinjector( src )
-	new /obj/item/stack/medical/advanced/bruise_pack(src)
-	new /obj/item/stack/medical/advanced/bruise_pack(src)
-	new /obj/item/stack/medical/advanced/bruise_pack(src)
-	new /obj/item/stack/medical/advanced/ointment(src)
-	new /obj/item/stack/medical/advanced/ointment(src)
-	new /obj/item/stack/medical/splint(src)
-	return
+	if(empty)
+		return
+	new /obj/item/stack/medical/bruise_pack(src)
+	new /obj/item/stack/medical/bruise_pack/advanced(src)
+	new /obj/item/stack/medical/bruise_pack/advanced(src)
+	new /obj/item/stack/medical/ointment/advanced(src)
+	new /obj/item/stack/medical/ointment/advanced(src)
+	new /obj/item/weapon/reagent_containers/hypospray/autoinjector(src)
+	new /obj/item/device/healthanalyzer(src)
 
 /obj/item/weapon/storage/firstaid/adv/empty
 	empty = 1
@@ -164,7 +164,7 @@
 
 /obj/item/weapon/storage/firstaid/tactical/New()
 	..()
-	if (empty) return
+	if(empty) return
 	new /obj/item/clothing/accessory/stethoscope( src )
 	new /obj/item/weapon/defibrillator/compact/combat/loaded(src)
 	new /obj/item/weapon/reagent_containers/hypospray/combat(src)
@@ -209,7 +209,7 @@
 	icon_state = "pill_canister"
 	icon = 'icons/obj/chemical.dmi'
 	item_state = "contsolid"
-	w_class = 2.0
+	w_class = 2
 	can_hold = list("/obj/item/weapon/reagent_containers/food/pill","/obj/item/weapon/dice","/obj/item/weapon/paper")
 	allow_quick_gather = 1
 	use_to_pickup = 1
@@ -223,11 +223,11 @@
 	base_name = name
 
 /obj/item/weapon/storage/pill_bottle/MouseDrop(obj/over_object as obj) //Quick pillbottle fix. -Agouri
-	if (ishuman(usr)) //Can monkeys even place items in the pocket slots? Leaving this in just in case~
+	if(ishuman(usr)) //Can monkeys even place items in the pocket slots? Leaving this in just in case~
 		var/mob/M = usr
-		if (!( istype(over_object, /obj/screen) ))
+		if(!( istype(over_object, /obj/screen) ))
 			return ..()
-		if ((!( M.restrained() ) && !( M.stat ) /*&& M.pocket == src*/))
+		if((!( M.restrained() ) && !( M.stat ) /*&& M.pocket == src*/))
 			switch(over_object.name)
 				if("r_hand")
 					M.unEquip(src)
@@ -238,7 +238,7 @@
 			src.add_fingerprint(usr)
 			return
 		if(over_object == usr && in_range(src, usr) || usr.contents.Find(src))
-			if (usr.s_active)
+			if(usr.s_active)
 				usr.s_active.close(usr)
 			src.show_to(usr)
 			return
@@ -275,16 +275,6 @@
 		new /obj/item/weapon/reagent_containers/food/pill/charcoal( src )
 		new /obj/item/weapon/reagent_containers/food/pill/charcoal( src )
 		new /obj/item/weapon/reagent_containers/food/pill/charcoal( src )
-
-/obj/item/weapon/storage/pill_bottle/dice
-	name = "pack of dice"
-	desc = "It's a small container with dice inside."
-
-	New()
-		..()
-		new /obj/item/weapon/dice( src )
-		new /obj/item/weapon/dice/d20( src )
-
 
 /obj/item/weapon/storage/pill_bottle/painkillers
 	name = "Pill Bottle (Salicylic Acid)"

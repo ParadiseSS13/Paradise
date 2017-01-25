@@ -99,10 +99,10 @@
 				if(last_editor)
 					output += "<br><span class='memoedit'>Last edit by [last_editor] <A href='?_src_=holder;memoeditlist=[ckey]'>(Click here to see edit log)</A></span>"
 				output += "<br>[memotext]</span><br>"
-			if(!output && !silent)
+			if(output)
+				to_chat(src, output)
+			else if(!silent)
 				to_chat(src, "No memos found in database.")
-				return
-			to_chat(src, output)
 		if("Remove")
 			var/DBQuery/query_memodellist = dbcon.NewQuery("SELECT ckey FROM [format_table_name("memo")]")
 			if(!query_memodellist.Execute())

@@ -77,13 +77,10 @@
 	s.start()
 	visible_message("<span class='danger'>The electric chair went off!</span>", "<span class='danger'>You hear a deep sharp shock!</span>")
 	if(buckled_mob)
-		buckled_mob.burn_skin(90)
+		buckled_mob.electrocute_act(110, src, 1)
 		to_chat(buckled_mob, "<span class='danger'>You feel a deep shock course through your body!</span>")
-		sleep(1)
-		buckled_mob.burn_skin(90)
-		sleep(5)
-		buckled_mob.burn_skin(max(rand(5,20),rand(5,20),rand(5,20)))
-
+		spawn(1)
+			buckled_mob.electrocute_act(110, src, 1)
 	A.power_light = light
 	A.updateicon()
 	return

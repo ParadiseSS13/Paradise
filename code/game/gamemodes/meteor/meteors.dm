@@ -26,7 +26,7 @@
 	var/turf/pickedstart
 	var/turf/pickedgoal
 	var/max_i = 10//number of tries to spawn meteor.
-	while (!istype(pickedstart, /turf/space))
+	while(!istype(pickedstart, /turf/space))
 		var/startSide = pick(cardinal)
 		pickedstart = spaceDebrisStartLoc(startSide, 1)
 		pickedgoal = spaceDebrisFinishLoc(startSide, 1)
@@ -36,7 +36,7 @@
 	var/Me = pickweight(meteortypes)
 	var/obj/effect/meteor/M = new Me(pickedstart)
 	M.dest = pickedgoal
-	M.z_original = 1
+	M.z_original = level_name_to_num(MAIN_STATION)
 	spawn(0)
 		walk_towards(M, M.dest, 1)
 	return
@@ -309,5 +309,3 @@
 /obj/effect/meteor/goreops/Bump(atom/A)
 	A.ex_act(hitpwr)
 	get_hit()
-
-

@@ -14,7 +14,7 @@ AI MODULES
 	desc = "An AI Module for transmitting encrypted instructions to the AI."
 	flags = CONDUCT
 	force = 5.0
-	w_class = 2.0
+	w_class = 2
 	throwforce = 5.0
 	throw_speed = 3
 	throw_range = 15
@@ -23,7 +23,7 @@ AI MODULES
 	var/datum/ai_laws/laws = null
 
 /obj/item/weapon/aiModule/proc/install(var/obj/machinery/computer/C)
-	if (istype(C, /obj/machinery/computer/aiupload))
+	if(istype(C, /obj/machinery/computer/aiupload))
 		var/obj/machinery/computer/aiupload/comp = C
 		if(comp.stat & NOPOWER)
 			to_chat(usr, "<span class='warning'>The upload computer has no power!</span>")
@@ -31,13 +31,13 @@ AI MODULES
 		if(comp.stat & BROKEN)
 			to_chat(usr, "<span class='warning'>The upload computer is broken!</span>")
 			return
-		if (!comp.current)
+		if(!comp.current)
 			to_chat(usr, "<span class='warning'>You haven't selected an AI to transmit laws to!</span>")
 			return
 
-		if (comp.current.stat == DEAD || comp.current.control_disabled == 1)
+		if(comp.current.stat == DEAD || comp.current.control_disabled == 1)
 			to_chat(usr, "<span class='warning'>Upload failed. No signal is being detected from the AI.</span>")
-		else if (comp.current.see_in_dark == 0)
+		else if(comp.current.see_in_dark == 0)
 			to_chat(usr, "<span class='warning'>Upload failed. Only a faint signal is being detected from the AI, and it is not responding to our requests. It may be low on power.</span>")
 		else
 			src.transmitInstructions(comp.current, usr)
@@ -49,7 +49,7 @@ AI MODULES
 					R.show_laws()
 			to_chat(usr, "<span class='notice'>Upload complete. The AI's laws have been modified.</span>")
 
-	else if (istype(C, /obj/machinery/computer/borgupload))
+	else if(istype(C, /obj/machinery/computer/borgupload))
 		var/obj/machinery/computer/borgupload/comp = C
 		if(comp.stat & NOPOWER)
 			to_chat(usr, "<span class='warning'>The upload computer has no power!</span>")
@@ -57,13 +57,13 @@ AI MODULES
 		if(comp.stat & BROKEN)
 			to_chat(usr, "<span class='warning'>The upload computer is broken!</span>")
 			return
-		if (!comp.current)
+		if(!comp.current)
 			to_chat(usr, "<span class='warning'>You haven't selected a robot to transmit laws to!</span>")
 			return
 
-		if (comp.current.stat == DEAD || comp.current.emagged)
+		if(comp.current.stat == DEAD || comp.current.emagged)
 			to_chat(usr, "<span class='warning'>Upload failed. No signal is being detected from the robot.</span>")
-		else if (comp.current.connected_ai)
+		else if(comp.current.connected_ai)
 			to_chat(usr, "<span class='warning'>Upload failed. The robot is slaved to an AI.</span>")
 		else
 			src.transmitInstructions(comp.current, usr)
@@ -138,7 +138,7 @@ AI MODULES
 /obj/item/weapon/aiModule/oneCrewMember/addAdditionalLaws(var/mob/living/silicon/ai/target, var/mob/sender)
 	..()
 	var/law = "Only [targetName] is crew."
-	if (!is_special_character(target)) // Makes sure the AI isn't a traitor before changing their law 0. --NeoFite
+	if(!is_special_character(target)) // Makes sure the AI isn't a traitor before changing their law 0. --NeoFite
 		to_chat(target, law)
 		target.set_zeroth_law(law)
 		lawchanges.Add("The law specified [targetName]")
@@ -236,7 +236,7 @@ AI MODULES
 /obj/item/weapon/aiModule/reset/transmitInstructions(var/mob/living/silicon/ai/target, var/mob/sender)
 	log_law_changes(target, sender)
 
-	if (!is_special_character(target))
+	if(!is_special_character(target))
 		target.set_zeroth_law("")
 	target.laws.clear_supplied_laws()
 	target.laws.clear_ion_laws()
@@ -252,7 +252,7 @@ AI MODULES
 
 /obj/item/weapon/aiModule/purge/transmitInstructions(var/mob/living/silicon/ai/target, var/mob/sender)
 	..()
-	if (!is_special_character(target))
+	if(!is_special_character(target))
 		target.set_zeroth_law("")
 	to_chat(target, "[sender.real_name] attempted to wipe your laws using a purge module.")
 	target.clear_supplied_laws()
@@ -397,4 +397,4 @@ AI MODULES
 	laws[1] = generate_ion_law()
 	to_chat(user, "<span class='notice'>You press the button on [src].</span>")
 	playsound(user, 'sound/machines/click.ogg', 20, 1)
-	src.loc.visible_message("<span class='warning'>\icon[src] [laws[1]]</span>")
+	src.loc.visible_message("<span class='warning'>[bicon(src)] [laws[1]]</span>")

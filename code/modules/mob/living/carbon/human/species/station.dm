@@ -8,7 +8,7 @@
 	language = "Sol Common"
 	flags = HAS_LIPS | CAN_BE_FAT
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
-	bodyflags = HAS_SKIN_TONE
+	bodyflags = HAS_SKIN_TONE | HAS_BODY_MARKINGS
 	dietflags = DIET_OMNI
 	unarmed_type = /datum/unarmed_attack/punch
 	blurb = "Humanity originated in the Sol system, and over the last five centuries has spread \
@@ -40,7 +40,7 @@
 
 	flags = HAS_LIPS
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
-	bodyflags = FEET_CLAWS | HAS_TAIL | HAS_HEAD_ACCESSORY | HAS_MARKINGS | HAS_SKIN_COLOR | TAIL_WAGGING
+	bodyflags = FEET_CLAWS | HAS_TAIL | HAS_HEAD_ACCESSORY | HAS_BODY_MARKINGS | HAS_HEAD_MARKINGS | HAS_SKIN_COLOR | HAS_ALT_HEADS | TAIL_WAGGING
 	dietflags = DIET_CARN
 
 	cold_level_1 = 280 //Default 260 - Lower is better
@@ -81,11 +81,6 @@
 /datum/species/unathi/handle_death(var/mob/living/carbon/human/H)
 	H.stop_tail_wagging(1)
 
-/datum/species/unathi/equip(var/mob/living/carbon/human/H)
-	if(H.mind.assigned_role != "Clown")
-		H.unEquip(H.shoes)
-		H.equip_or_collect(new /obj/item/clothing/shoes/sandal(H), slot_shoes)
-
 /datum/species/tajaran
 	name = "Tajaran"
 	name_plural = "Tajaran"
@@ -117,13 +112,11 @@
 
 	flags = HAS_LIPS | CAN_BE_FAT
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
-	bodyflags = FEET_PADDED | HAS_TAIL | HAS_HEAD_ACCESSORY | HAS_MARKINGS | HAS_SKIN_COLOR | TAIL_WAGGING | HAS_FUR
+	bodyflags = FEET_PADDED | HAS_TAIL | HAS_HEAD_ACCESSORY | HAS_HEAD_MARKINGS | HAS_BODY_MARKINGS | HAS_SKIN_COLOR | TAIL_WAGGING | HAS_FUR
 	dietflags = DIET_OMNI
 	reagent_tag = PROCESS_ORG
 	flesh_color = "#AFA59E"
-	base_color = "#333333"
-	//Default styles for created mobs.
-	default_headacc = "Tajaran Ears"
+	base_color = "#424242"
 	butt_sprite = "tajaran"
 
 	has_organ = list(
@@ -148,11 +141,6 @@
 /datum/species/tajaran/handle_death(var/mob/living/carbon/human/H)
 	H.stop_tail_wagging(1)
 
-/datum/species/tajaran/equip(var/mob/living/carbon/human/H)
-	if(H.mind.assigned_role != "Clown")
-		H.unEquip(H.shoes)
-		H.equip_or_collect(new /obj/item/clothing/shoes/sandal(H), slot_shoes)
-
 /datum/species/vulpkanin
 	name = "Vulpkanin"
 	name_plural = "Vulpkanin"
@@ -174,11 +162,11 @@
 
 	flags = HAS_LIPS
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
-	bodyflags = FEET_PADDED | HAS_TAIL | HAS_HEAD_ACCESSORY | HAS_MARKINGS | HAS_SKIN_COLOR | TAIL_WAGGING | HAS_FUR
+	bodyflags = FEET_PADDED | HAS_TAIL | TAIL_WAGGING | TAIL_OVERLAPPED | HAS_HEAD_ACCESSORY | HAS_MARKINGS | HAS_SKIN_COLOR | HAS_FUR
 	dietflags = DIET_OMNI
 	reagent_tag = PROCESS_ORG
 	flesh_color = "#966464"
-	base_color = "#B43214"
+	base_color = "#CF4D2F"
 	butt_sprite = "vulp"
 
 	has_organ = list(
@@ -222,7 +210,7 @@
 
 	flags = HAS_LIPS
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
-	bodyflags = HAS_SKIN_COLOR
+	bodyflags = HAS_SKIN_COLOR | HAS_BODY_MARKINGS
 	dietflags = DIET_HERB
 	flesh_color = "#8CD7A3"
 	blood_color = "#1D2CBF"
@@ -294,10 +282,10 @@
 	breath_type = "nitrogen"
 	poison_type = "oxygen"
 
-	flags = NO_SCAN | IS_WHITELISTED
+	flags = NO_SCAN | IS_WHITELISTED | NOTRANSSTING
 	clothing_flags = HAS_SOCKS
 	dietflags = DIET_OMNI
-	bodyflags = HAS_ICON_SKIN_TONE | HAS_TAIL | TAIL_WAGGING | TAIL_OVERLAPPED
+	bodyflags = HAS_ICON_SKIN_TONE | HAS_TAIL | TAIL_WAGGING | TAIL_OVERLAPPED | HAS_BODY_MARKINGS | HAS_TAIL_MARKINGS
 
 	blood_color = "#2299FC"
 	flesh_color = "#808D11"
@@ -364,8 +352,7 @@
 		H.equip_or_collect(new /obj/item/weapon/tank/emergency_oxygen/vox(H), slot_l_hand)
 	to_chat(H, "<span class='notice'>You are now running on nitrogen internals from the [H.l_hand] in your hand. Your species finds oxygen toxic, so you must breathe nitrogen only.</span>")
 	H.internal = H.l_hand
-	if (H.internals)
-		H.internals.icon_state = "internal1"
+	H.update_internals_hud_icon(1)
 
 /datum/species/vox/handle_post_spawn(var/mob/living/carbon/human/H)
 	updatespeciescolor(H)
@@ -511,12 +498,16 @@
 	deform = 'icons/mob/human_races/r_slime.dmi'
 	path = /mob/living/carbon/human/slime
 	unarmed_type = /datum/unarmed_attack/punch
+	remains_type = /obj/effect/decal/remains/slime
 
 	// More sensitive to the cold
 	cold_level_1 = 280
 	cold_level_2 = 240
 	cold_level_3 = 200
 	cold_env_multiplier = 3
+
+	oxy_mod = 0
+	brain_mod = 2.5
 
 	flags = IS_WHITELISTED | NO_BREATHE | HAS_LIPS | NO_INTORGANS | NO_SCAN
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
@@ -692,7 +683,7 @@
 	icobase = 'icons/mob/human_races/r_grey.dmi'
 	deform = 'icons/mob/human_races/r_def_grey.dmi'
 	default_language = "Galactic Common"
-	//language = "Grey" // Perhaps if they ever get a hivemind
+	language = "Psionic Communication"
 	unarmed_type = /datum/unarmed_attack/punch
 	darksight = 5 // BOOSTED from 2
 	eyes = "grey_eyes_s"
@@ -703,7 +694,7 @@
 		"lungs" =    /obj/item/organ/internal/lungs,
 		"liver" =    /obj/item/organ/internal/liver/grey,
 		"kidneys" =  /obj/item/organ/internal/kidneys,
-		"brain" =    /obj/item/organ/internal/brain,
+		"brain" =    /obj/item/organ/internal/brain/grey,
 		"appendix" = /obj/item/organ/internal/appendix,
 		"eyes" =     /obj/item/organ/internal/eyes,
 		)
@@ -715,6 +706,7 @@
 
 	flags = IS_WHITELISTED | HAS_LIPS | CAN_BE_FAT
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
+	bodyflags =  HAS_BODY_MARKINGS
 	dietflags = DIET_HERB
 	reagent_tag = PROCESS_ORG
 	blood_color = "#A200FF"
@@ -728,8 +720,6 @@
 		C.dna.SetSEState(REMOTETALKBLOCK,0,1)
 		C.mutations -= REMOTE_TALK
 		genemutcheck(C,REMOTETALKBLOCK,null,MUTCHK_FORCED)
-	C.mutations.Add(GREY)
-	C.update_mutations()
 	..()
 
 /datum/species/diona
@@ -743,6 +733,7 @@
 	unarmed_type = /datum/unarmed_attack/diona
 	//primitive_form = "Nymph"
 	slowdown = 5
+	remains_type = /obj/effect/decal/cleanable/ash
 
 	warning_low_pressure = 50
 	hazard_low_pressure = -1
@@ -767,6 +758,8 @@
 	flags = NO_BREATHE | RADIMMUNE | IS_PLANT | NO_BLOOD | NO_PAIN
 	clothing_flags = HAS_SOCKS
 	dietflags = 0		//Diona regenerate nutrition in light, no diet necessary
+
+	oxy_mod = 0
 
 	body_temperature = T0C + 15		//make the plant people have a bit lower body temperature, why not
 	blood_color = "#004400"
@@ -805,8 +798,7 @@
 		"is pulling themselves apart!")
 
 /datum/species/diona/can_understand(var/mob/other)
-	var/mob/living/simple_animal/diona/D = other
-	if(istype(D))
+	if(istype(other, /mob/living/simple_animal/diona))
 		return 1
 	return 0
 
@@ -830,8 +822,8 @@
 	H.nutrition += light_amount
 	H.traumatic_shock -= light_amount
 
-	if(H.nutrition > 450)
-		H.nutrition = 450
+	if(H.nutrition > NUTRITION_LEVEL_WELL_FED)
+		H.nutrition = NUTRITION_LEVEL_WELL_FED
 
 	if((light_amount >= 5) && !H.suiciding) //if there's enough light, heal
 		H.adjustBruteLoss(-(light_amount/2))
@@ -858,26 +850,19 @@
 	default_language = "Galactic Common"
 	language = "Trinary"
 	unarmed_type = /datum/unarmed_attack/punch
+	remains_type = /obj/effect/decal/remains/robot
 
 	eyes = "blank_eyes"
 	brute_mod = 2.5 // 100% * 2.5 * 0.6 (robolimbs) ~= 150%
 	burn_mod = 2.5  // So they take 50% extra damage from brute/burn overall.
+	tox_mod = 0
+	clone_mod = 0
+	oxy_mod = 0
 	death_message = "gives one shrill beep before falling limp, their monitor flashing blue before completely shutting off..."
 
-	cold_level_1 = 50
-	cold_level_2 = -1
-	cold_level_3 = -1
-
-	heat_level_1 = 500		//gives them about 25 seconds in space before taking damage
-	heat_level_2 = 540
-	heat_level_3 = 600
-	heat_level_3_breathe = 600
-
-	passive_temp_gain = 10 //this should cause IPCs to stabilize at ~80 C in a 20 C environment.
-
-	flags = IS_WHITELISTED | NO_BREATHE | NO_SCAN | NO_BLOOD | NO_PAIN | NO_DNA | NO_POISON | RADIMMUNE | ALL_RPARTS
+	flags = IS_WHITELISTED | NO_BREATHE | NO_SCAN | NO_BLOOD | NO_PAIN | NO_DNA | RADIMMUNE | ALL_RPARTS| NOTRANSSTING
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
-	bodyflags = HAS_SKIN_COLOR | HAS_MARKINGS | HAS_HEAD_ACCESSORY
+	bodyflags = HAS_SKIN_COLOR | HAS_HEAD_MARKINGS | HAS_HEAD_ACCESSORY
 	dietflags = 0		//IPCs can't eat, so no diet
 	blood_color = "#1F181F"
 	flesh_color = "#AAAAAA"
@@ -931,3 +916,103 @@
 		if(H)
 			H.update_hair()
 			H.update_fhair()
+
+/datum/species/drask
+	name = "Drask"
+	name_plural = "Drask"
+	icobase = 'icons/mob/human_races/r_drask.dmi'
+	deform = 'icons/mob/human_races/r_drask.dmi'
+	path = /mob/living/carbon/human/drask
+	default_language = "Galactic Common"
+	language = "Orluum"
+	unarmed_type = /datum/unarmed_attack/punch
+	eyes = "drask_eyes_s"
+	darksight = 5
+
+	speech_sounds = list('sound/voice/DraskTalk.ogg')
+	speech_chance = 20
+	male_scream_sound = 'sound/voice/DraskTalk2.ogg'
+	female_scream_sound = 'sound/voice/DraskTalk2.ogg'
+
+	burn_mod = 2
+	//exotic_blood = "cryoxadone"
+	body_temperature = 273
+
+	blurb = "Hailing from Hoorlm, planet outside what is usually considered a habitable \
+	orbit, the Drask evolved to live in extreme cold. Their strange bodies seem \
+	to operate better the colder their surroundings are, and can regenerate rapidly \
+	when breathing supercooled gas. <br/><br/> On their homeworld, the Drask live long lives \
+	in their labyrinthine settlements, carved out beneath Hoorlm's icy surface, where the air \
+	is of breathable density."
+
+	suicide_messages = list(
+		"is self-warming with friction!",
+		"is jamming fingers through their big eyes!",
+		"is sucking in warm air!",
+		"is holding their breath!")
+
+	flags = IS_WHITELISTED | HAS_LIPS
+	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT
+	bodyflags = FEET_CLAWS | HAS_SKIN_TONE | HAS_BODY_MARKINGS
+	dietflags = DIET_OMNI
+
+	cold_level_1 = -1 //Default 260 - Lower is better
+	cold_level_2 = -1 //Default 200
+	cold_level_3 = -1 //Default 120
+	cold_env_multiplier = -1
+
+	heat_level_1 = 300 //Default 360 - Higher is better
+	heat_level_2 = 340 //Default 400
+	heat_level_3 = 400 //Default 460
+	heat_level_3_breathe = 600 //Default 1000
+	hot_env_multiplier = 2
+
+	flesh_color = "#a3d4eb"
+	reagent_tag = PROCESS_ORG
+	base_color = "#a3d4eb"
+	blood_color = "#a3d4eb"
+	butt_sprite = "drask"
+
+	has_organ = list(
+		"heart" =      				/obj/item/organ/internal/heart/drask,
+		"lungs" =     				/obj/item/organ/internal/lungs/drask,
+		"metabolic strainer" =      /obj/item/organ/internal/liver/drask,
+		"eyes" =     				/obj/item/organ/internal/eyes/drask,
+		"brain" =  					/obj/item/organ/internal/brain/drask
+		)
+
+/datum/species/drask/handle_temperature(datum/gas_mixture/breath, var/mob/living/carbon/human/H)
+	if( abs(310.15 - breath.temperature) > 50)
+		if(H.status_flags & GODMODE)	return 1	//godmode
+		if(breath.temperature < 260)
+			if(prob(20))
+				to_chat(H, "<span class='notice'> You feel an invigorating coldness in your lungs!</span>")
+		if(breath.temperature > heat_level_1)
+			if(prob(20))
+				to_chat(H, "<span class='warning'>You feel your face burning and a searing heat in your lungs!</span>")
+
+		switch(breath.temperature)
+
+			if(-INFINITY to 60)
+				H.adjustFireLoss(cold_env_multiplier*COLD_GAS_DAMAGE_LEVEL_3*0.5) //3 points healed, applied every 4 ticks
+				H.adjustBruteLoss(cold_env_multiplier*COLD_GAS_DAMAGE_LEVEL_3)
+				H.throw_alert("temp", /obj/screen/alert/cold/drask, 3)
+
+			if(61 to 200)
+				H.adjustFireLoss(cold_env_multiplier*COLD_GAS_DAMAGE_LEVEL_2*0.5) //1.5 healed every 4 ticks
+				H.adjustBruteLoss(cold_env_multiplier*COLD_GAS_DAMAGE_LEVEL_2)
+				H.throw_alert("temp", /obj/screen/alert/cold/drask, 2)
+
+			if(201 to 260)
+				H.adjustFireLoss(cold_env_multiplier*COLD_GAS_DAMAGE_LEVEL_1*0.5) //0.5 healed every 4 ticks
+				H.adjustBruteLoss(cold_env_multiplier*COLD_GAS_DAMAGE_LEVEL_1)
+				H.throw_alert("temp", /obj/screen/alert/cold/drask, 1)
+
+			if(heat_level_1 to heat_level_2)
+				H.apply_damage(hot_env_multiplier*HEAT_GAS_DAMAGE_LEVEL_1, BURN, "head", used_weapon = "Excessive Heat")
+
+			if(heat_level_2 to heat_level_3_breathe)
+				H.apply_damage(hot_env_multiplier*HEAT_GAS_DAMAGE_LEVEL_2, BURN, "head", used_weapon = "Excessive Heat")
+
+			if(heat_level_3_breathe to INFINITY)
+				H.apply_damage(hot_env_multiplier*HEAT_GAS_DAMAGE_LEVEL_3, BURN, "head", used_weapon = "Excessive Heat")

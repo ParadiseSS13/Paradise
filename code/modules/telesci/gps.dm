@@ -4,7 +4,7 @@ var/list/GPS_list = list()
 	desc = "Helping lost spacemen find their way through the planets since 2016."
 	icon = 'icons/obj/telescience.dmi'
 	icon_state = "gps-c"
-	w_class = 2.0
+	w_class = 2
 	slot_flags = SLOT_BELT
 	origin_tech = "programming=2;engineering=2"
 	var/gpstag = "COM0"
@@ -37,7 +37,7 @@ var/list/GPS_list = list()
 	if(emped)
 		t += "ERROR"
 	else
-		t += "<BR><A href='?src=\ref[src];tag=1'>Set Tag</A> "
+		t += "<BR><A href='?src=[UID()];tag=1'>Set Tag</A> "
 		t += "<BR>Tag: [gpstag]"
 		if(locked_location && locked_location.loc)
 			t += "<BR>Bluespace coordinates saved: [locked_location.loc]"
@@ -79,3 +79,9 @@ var/list/GPS_list = list()
 	icon_state = "gps-m"
 	gpstag = "MINE0"
 	desc = "A positioning system helpful for rescuing trapped or injured miners, keeping one on you at all times while mining might just save your life."
+
+/obj/item/device/gps/cyborg
+	icon_state = "gps-b"
+	gpstag = "BORG0"
+	desc = "A mining cyborg internal positioning system. Used as a recovery beacon for damaged cyborg assets, or a collaboration tool for mining teams."
+	flags = NODROP

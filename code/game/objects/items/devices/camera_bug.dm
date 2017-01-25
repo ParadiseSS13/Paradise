@@ -55,8 +55,8 @@
 	interact(user)
 
 /obj/item/device/camera_bug/check_eye(var/mob/user as mob)
-	if (user.stat || loc != user || !user.canmove || user.eye_blind || !current)
-		user.reset_view(null)
+	if(user.stat || loc != user || !user.canmove || !user.has_vision() || !current)
+		user.reset_perspective(null)
 		user.unset_machine()
 		return null
 
@@ -64,7 +64,7 @@
 	if(T.z != current.z || !current.can_use())
 		to_chat(user, "<span class='danger'>[src] has lost the signal.</span>")
 		current = null
-		user.reset_view(null)
+		user.reset_perspective(null)
 		user.unset_machine()
 		return null
 
@@ -90,32 +90,32 @@
 	var/html
 	switch(track_mode)
 		if(BUGMODE_LIST)
-			html = "<h3>Select a camera:</h3> <a href='?src=\ref[src];view'>\[Cancel camera view\]</a><hr><table>"
+			html = "<h3>Select a camera:</h3> <a href='?src=[UID()];view'>\[Cancel camera view\]</a><hr><table>"
 			for(var/entry in cameras)
 				var/obj/machinery/camera/C = cameras[entry]
 				var/functions = ""
 				if(C.bug == src)
-					functions = " - <a href='?src=\ref[src];monitor=\ref[C]'>\[Monitor\]</a> <a href='?src=\ref[src];emp=\ref[C]'>\[Disable\]</a>"
+					functions = " - <a href='?src=[UID()];monitor=\ref[C]'>\[Monitor\]</a> <a href='?src=[UID()];emp=\ref[C]'>\[Disable\]</a>"
 				else
-					functions = " - <a href='?src=\ref[src];monitor=\ref[C]'>\[Monitor\]</a>"
-				html += "<tr><td><a href='?src=\ref[src];view=\ref[C]'>[entry]</a></td><td>[functions]</td></tr>"
+					functions = " - <a href='?src=[UID()];monitor=\ref[C]'>\[Monitor\]</a>"
+				html += "<tr><td><a href='?src=[UID()];view=\ref[C]'>[entry]</a></td><td>[functions]</td></tr>"
 
 		if(BUGMODE_MONITOR)
 			if(current)
-				html = "Analyzing Camera '[current.c_tag]' <a href='?\ref[src];mode=0'>\[Select Camera\]</a><br>"
+				html = "Analyzing Camera '[current.c_tag]' <a href='?src=[UID()];mode=0'>\[Select Camera\]</a><br>"
 				html += camera_report()
 			else
 				track_mode = BUGMODE_LIST
 				return .(cameras)
 		if(BUGMODE_TRACK)
 			if(tracking)
-				html = "Tracking '[tracked_name]'  <a href='?\ref[src];mode=0'>\[Cancel Tracking\]</a>  <a href='?src=\ref[src];view'>\[Cancel camera view\]</a><br>"
+				html = "Tracking '[tracked_name]'  <a href='?src=[UID()];mode=0'>\[Cancel Tracking\]</a>  <a href='?src=[UID()];view'>\[Cancel camera view\]</a><br>"
 				if(last_found)
 					var/time_diff = round((world.time - last_seen) / 150)
 					var/obj/machinery/camera/C = bugged_cameras[last_found]
 					var/outstring
 					if(C)
-						outstring = "<a href='?\ref[src];view=\ref[C]'>[last_found]</a>"
+						outstring = "<a href='?src=[UID()];view=\ref[C]'>[last_found]</a>"
 					else
 						outstring = last_found
 					if(!time_diff)
@@ -127,7 +127,7 @@
 						if(!s) s = "00"
 						html += "Last seen near [outstring] ([m]:[s] minute\s ago)<br>"
 					if( C && (C.bug == src)) //Checks to see if the camera has a bug
-						html += "<a href='?src=\ref[src];emp=\ref[C]'>\[Disable\]</a>"
+						html += "<a href='?src=[UID()];emp=\ref[C]'>\[Disable\]</a>"
 
 				else
 					html += "Not yet seen."
@@ -151,7 +151,7 @@
 				dat += "[S.name]"
 			var/stage = round(S.current_size / 2)+1
 			dat += " (Stage [stage])"
-			dat += " <a href='?\ref[src];track=\ref[S]'>\[Track\]</a><br>"
+			dat += " <a href='?src=[UID()];track=\ref[S]'>\[Track\]</a><br>"
 
 		for(var/obj/mecha/M in seen)
 			if(M.name in names)
@@ -160,7 +160,7 @@
 			else
 				names[M.name] = 1
 				dat += "[M.name]"
-			dat += " <a href='?\ref[src];track=\ref[M]'>\[Track\]</a><br>"
+			dat += " <a href='?src=[UID()];track=\ref[M]'>\[Track\]</a><br>"
 
 
 		for(var/mob/living/M in seen)
@@ -174,7 +174,7 @@
 				dat += " (Sitting)"
 			if(M.lying)
 				dat += " (Laying down)"
-			dat += " <a href='?\ref[src];track=\ref[M]'>\[Track\]</a><br>"
+			dat += " <a href='?src=[UID()];track=\ref[M]'>\[Track\]</a><br>"
 		if(length(dat) == 0)
 			dat += "No motion detected."
 		return dat
@@ -184,7 +184,7 @@
 /obj/item/device/camera_bug/Topic(var/href,var/list/href_list)
 	if(usr != loc)
 		usr.unset_machine()
-		usr.reset_view(null)
+		usr.reset_perspective(null)
 		usr << browse(null, "window=camerabug")
 		return
 	usr.set_machine(src)
@@ -195,7 +195,7 @@
 		if(C)
 			track_mode = BUGMODE_MONITOR
 			current = C
-			usr.reset_view(null)
+			usr.reset_perspective(null)
 			interact()
 	if("track" in href_list)
 		var/atom/A = locate(href_list["track"])
@@ -214,7 +214,7 @@
 		interact()
 		return
 	if("close" in href_list)
-		usr.reset_view(null)
+		usr.reset_perspective(null)
 		usr.unset_machine()
 		current = null
 		return // I do not <- I do not remember what I was going to write in this comment -Sayu, sometime later
@@ -231,16 +231,16 @@
 			current = C
 			spawn(6)
 				if(src.check_eye(usr))
-					usr.reset_view(C)
+					usr.reset_perspective(C)
 					interact()
 				else
 					usr.unset_machine()
-					usr.reset_view(null)
+					usr.reset_perspective(null)
 					usr << browse(null, "window=camerabug")
 			return
 		else
 			usr.unset_machine()
-			usr.reset_view(null)
+			usr.reset_perspective(null)
 
 	interact()
 

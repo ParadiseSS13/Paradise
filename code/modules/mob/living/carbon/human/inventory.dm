@@ -2,47 +2,15 @@
 	set name = "quick-equip"
 	set hidden = 1
 
-	if(ishuman(src))
-		var/mob/living/carbon/human/H = src
-		var/obj/item/I = H.get_active_hand()
-		var/obj/item/weapon/storage/S = H.get_inactive_hand()
-		if(!I)
-			to_chat(H, "<span class='notice'>You are not holding anything to equip.</span>")
-			return
-
-		if(istype(I, /obj/item/clothing/head/helmet/space/rig)) // If the item to be equipped is a rigid suit helmet
-			var/obj/item/clothing/head/helmet/space/rig/C = I
-			if(C.rig_restrict_helmet)
-				to_chat(src, "\red You must fasten the helmet to a hardsuit first. (Target the head and use on a hardsuit)")// Stop eva helms equipping.
-
-				return 0
-
-		if(H.equip_to_appropriate_slot(I))
-			if(hand)
-				update_inv_l_hand(0)
-			else
-				update_inv_r_hand(0)
-		else if(s_active && s_active.can_be_inserted(I,1))  //if storage active insert there
-			s_active.handle_item_insertion(I)
-		else if(istype(S, /obj/item/weapon/storage) && S.can_be_inserted(I,1))  //see if we have box in other hand
-			S.handle_item_insertion(I)
-		else
-			S = H.get_item_by_slot(slot_belt)
-			if(istype(S, /obj/item/weapon/storage) && S.can_be_inserted(I,1))    //else we put in belt
-				S.handle_item_insertion(I)
-			else
-				S = H.get_item_by_slot(slot_back)  //else we put in backpack
-				if(istype(S, /obj/item/weapon/storage) && S.can_be_inserted(I,1))
-					S.handle_item_insertion(I)
-				else
-					to_chat(H, "\red You are unable to equip that.")
-
+	var/obj/item/I = get_active_hand()
+	if(I)
+		I.equip_to_best_slot(src)
 
 /mob/living/carbon/human/proc/equip_in_one_of_slots(obj/item/W, list/slots, del_on_fail = 1)
-	for (var/slot in slots)
-		if (equip_to_slot_if_possible(W, slots[slot], del_on_fail = 0))
+	for(var/slot in slots)
+		if(equip_to_slot_if_possible(W, slots[slot], del_on_fail = 0))
 			return slot
-	if (del_on_fail)
+	if(del_on_fail)
 		qdel(W)
 	return null
 
@@ -107,13 +75,17 @@
 		if(slot_tie)
 			return 1
 
+// The actual dropping happens at the mob level - checks to prevent drops should
+// come here
+/mob/living/carbon/human/canUnEquip(obj/item/I, force)
+	. = ..()
+	var/obj/item/organ/O = I
+	if(istype(O) && O.owner == src)
+		. = 0 // keep a good grip on your heart
+
 /mob/living/carbon/human/unEquip(obj/item/I)
 	. = ..() //See mob.dm for an explanation on this and some rage about people copypasting instead of calling ..() like they should.
 	if(!. || !I)
-		return
-
-	var/obj/item/organ/internal/O = I //Organs shouldn't be removed unless you call droplimb.
-	if(istype(O) && O.owner == src)
 		return
 
 	if(I == wear_suit)
@@ -139,6 +111,13 @@
 		update_inv_gloves()
 	else if(I == glasses)
 		glasses = null
+		var/obj/item/clothing/glasses/G = I
+		if(G.tint)
+			update_tint()
+		if(G.prescription)
+			clear_fullscreen("nearsighted")
+		if(G.vision_flags || G.darkness_view || G.invis_override || G.invis_view)
+			update_sight()
 		update_inv_glasses()
 	else if(I == head)
 		head = null
@@ -146,11 +125,17 @@
 			update_hair()	//rebuild hair
 			update_fhair()
 			update_head_accessory()
+		// Bandanas and paper hats go on the head but are not head clothing
+		if(istype(I,/obj/item/clothing/head))
+			var/obj/item/clothing/head/hat = I
+			if(hat.vision_flags || hat.darkness_view || hat.helmet_goggles_invis_view)
+				update_sight()
+		head_update(I)
 		update_inv_head()
 	else if(I == r_ear)
 		r_ear = null
 		update_inv_ears()
-	else if (I == l_ear)
+	else if(I == l_ear)
 		l_ear = null
 		update_inv_ears()
 	else if(I == shoes)
@@ -166,9 +151,9 @@
 			update_fhair()
 			update_head_accessory()
 		if(internal)
-			if(internals)
-				internals.icon_state = "internal0"
 			internal = null
+			update_internals_hud_icon(0)
+		wear_mask_update(I, toggle_off = FALSE)
 		sec_hud_set_ID()
 		update_inv_wear_mask()
 	else if(I == wear_id)
@@ -230,7 +215,9 @@
 				update_hair(redraw_mob)	//rebuild hair
 				update_fhair(redraw_mob)
 				update_head_accessory(redraw_mob)
-			sec_hud_set_ID()
+			if(hud_list.len)
+				sec_hud_set_ID()
+			wear_mask_update(W, toggle_off = TRUE)
 			update_inv_wear_mask(redraw_mob)
 		if(slot_handcuffed)
 			handcuffed = W
@@ -249,7 +236,8 @@
 			update_inv_belt(redraw_mob)
 		if(slot_wear_id)
 			wear_id = W
-			sec_hud_set_ID()
+			if(hud_list.len)
+				sec_hud_set_ID()
 			update_inv_wear_id(redraw_mob)
 		if(slot_wear_pda)
 			wear_pda = W
@@ -274,6 +262,14 @@
 			update_inv_ears(redraw_mob)
 		if(slot_glasses)
 			glasses = W
+			var/obj/item/clothing/glasses/G = W
+			if(G.tint)
+				update_tint()
+			if(G.prescription)
+				if(disabilities & NEARSIGHTED)
+					overlay_fullscreen("nearsighted", /obj/screen/fullscreen/impaired, 1)
+			if(G.vision_flags || G.darkness_view || G.invis_override || G.invis_view)
+				update_sight()
 			update_inv_glasses(redraw_mob)
 		if(slot_gloves)
 			gloves = W
@@ -284,6 +280,12 @@
 				update_hair(redraw_mob)	//rebuild hair
 				update_fhair(redraw_mob)
 				update_head_accessory(redraw_mob)
+			// paper + bandanas
+			if(istype(W, /obj/item/clothing/head))
+				var/obj/item/clothing/head/hat = W
+				if(hat.vision_flags || hat.darkness_view || hat.helmet_goggles_invis_view)
+					update_sight()
+			head_update(W)
 			update_inv_head(redraw_mob)
 		if(slot_shoes)
 			shoes = W
@@ -423,7 +425,7 @@
 	if(istype(I, /obj/item/clothing/under) || istype(I, /obj/item/clothing/suit))
 		if(FAT in mutations)
 			//testing("[M] TOO FAT TO WEAR [src]!")
-			if(!(I.flags & ONESIZEFITSALL))
+			if(!(I.flags_size & ONESIZEFITSALL))
 				if(!disable_warning)
 					to_chat(src, "<span class='alert'>You're too fat to wear the [I].</span>")
 				return 0

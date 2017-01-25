@@ -15,13 +15,13 @@
 	icon = 'icons/obj/items.dmi'
 	icon_state = "banana_peel"
 	item_state = "banana_peel"
-	w_class = 1.0
+	w_class = 1
 	throwforce = 0
 	throw_speed = 4
 	throw_range = 20
 
 /obj/item/weapon/bananapeel/Crossed(AM as mob|obj)
-	if (istype(AM, /mob/living/carbon))
+	if(istype(AM, /mob/living/carbon))
 		var/mob/living/carbon/M =	AM
 		M.slip("banana peel", 4, 2)
 
@@ -29,7 +29,7 @@
  * Soap
  */
 /obj/item/weapon/soap/Crossed(AM as mob|obj) //EXACTLY the same as bananapeel for now, so it makes sense to put it in the same dm -- Urist
-	if (istype(AM, /mob/living/carbon))
+	if(istype(AM, /mob/living/carbon))
 		var/mob/living/carbon/M = AM
 		M.slip("soap", 4, 2)
 
@@ -77,7 +77,7 @@
 	item_state = "bike_horn"
 	hitsound = null
 	throwforce = 3
-	w_class = 1.0
+	w_class = 1
 	throw_speed = 3
 	throw_range = 15
 	attack_verb = list("HONKED")
@@ -106,3 +106,27 @@
 	icon_state = "air_horn"
 	honk_sound = 'sound/items/AirHorn2.ogg'
 	cooldowntime = 50
+
+/obj/item/weapon/bikehorn/golden
+	name = "golden bike horn"
+	desc = "Golden? Clearly, its made with bananium! Honk!"
+	icon_state = "gold_horn"
+	item_state = "gold_horn"
+
+/obj/item/weapon/bikehorn/golden/attack()
+	flip_mobs()
+	return ..()
+
+/obj/item/weapon/bikehorn/golden/attack_self(mob/user)
+	flip_mobs()
+	..()
+
+/obj/item/weapon/bikehorn/golden/proc/flip_mobs(mob/living/carbon/M, mob/user)
+	if(!spam_flag)
+		var/turf/T = get_turf(src)
+		for(M in ohearers(7, T))
+			if(istype(M, /mob/living/carbon/human))
+				var/mob/living/carbon/human/H = M
+				if(istype(H.l_ear, /obj/item/clothing/ears/earmuffs) || istype(H.r_ear, /obj/item/clothing/ears/earmuffs) || H.ear_deaf)
+					continue
+			M.emote("flip")

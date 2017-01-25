@@ -113,10 +113,10 @@
 	return TRUE
 
 /obj/machinery/r_n_d/experimentor/attackby(obj/item/O, mob/user, params)
-	if (shocked)
+	if(shocked)
 		shock(user,50)
 
-	if (default_deconstruction_screwdriver(user, "h_lathe_maint", "h_lathe", O))
+	if(default_deconstruction_screwdriver(user, "h_lathe_maint", "h_lathe", O))
 		if(linked_console)
 			linked_console.linked_destroy = null
 			linked_console = null
@@ -133,20 +133,20 @@
 		to_chat(user, "<span class='warning'>The [O] is not yet valid for the [src] and must be completed!</span>")
 		return
 
-	if (disabled)
+	if(disabled)
 		return
-	if (!linked_console)
+	if(!linked_console)
 		to_chat(user, "<span class='warning'>The [src] must be linked to an R&D console first!</span>")
 		return
-	if (loaded_item)
+	if(loaded_item)
 		to_chat(user, "<span class='warning'>The [src] is already loaded.</span>")
 		return
-	if (istype(O, /obj/item))
+	if(istype(O, /obj/item))
 		if(!O.origin_tech)
 			to_chat(user, "<span class='warning'>This doesn't seem to have a tech origin!</span>")
 			return
 		var/list/temp_tech = ConvertReqString2List(O.origin_tech)
-		if (temp_tech.len == 0)
+		if(temp_tech.len == 0)
 			to_chat(user, "<span class='warning'>You cannot experiment on this item!</span>")
 			return
 		if(O.reliability < 90 && O.crit_fail == 0)
@@ -169,7 +169,7 @@
 	user.set_machine(src)
 	var/dat = "<center>"
 	if(!linked_console)
-		dat += "<b><a href='byond://?src=\ref[src];function=search'>Scan for R&D Console</A></b><br>"
+		dat += "<b><a href='byond://?src=[UID()];function=search'>Scan for R&D Console</A></b><br>"
 	if(loaded_item)
 		dat += "<b>Loaded Item:</b> [loaded_item]<br>"
 		dat += "<b>Technology</b>:<br>"
@@ -177,19 +177,19 @@
 		for(var/T in D)
 			dat += "[T]<br>"
 		dat += "<br><br>Available tests:"
-		dat += "<br><b><a href='byond://?src=\ref[src];item=\ref[loaded_item];function=[SCANTYPE_POKE]'>Poke</A></b>"
-		dat += "<br><b><a href='byond://?src=\ref[src];item=\ref[loaded_item];function=[SCANTYPE_IRRADIATE];'>Irradiate</A></b>"
-		dat += "<br><b><a href='byond://?src=\ref[src];item=\ref[loaded_item];function=[SCANTYPE_GAS]'>Gas</A></b>"
-		dat += "<br><b><a href='byond://?src=\ref[src];item=\ref[loaded_item];function=[SCANTYPE_HEAT]'>Burn</A></b>"
-		dat += "<br><b><a href='byond://?src=\ref[src];item=\ref[loaded_item];function=[SCANTYPE_COLD]'>Freeze</A></b>"
-		dat += "<br><b><a href='byond://?src=\ref[src];item=\ref[loaded_item];function=[SCANTYPE_OBLITERATE]'>Destroy</A></b><br>"
+		dat += "<br><b><a href='byond://?src=[UID()];item=\ref[loaded_item];function=[SCANTYPE_POKE]'>Poke</A></b>"
+		dat += "<br><b><a href='byond://?src=[UID()];item=\ref[loaded_item];function=[SCANTYPE_IRRADIATE];'>Irradiate</A></b>"
+		dat += "<br><b><a href='byond://?src=[UID()];item=\ref[loaded_item];function=[SCANTYPE_GAS]'>Gas</A></b>"
+		dat += "<br><b><a href='byond://?src=[UID()];item=\ref[loaded_item];function=[SCANTYPE_HEAT]'>Burn</A></b>"
+		dat += "<br><b><a href='byond://?src=[UID()];item=\ref[loaded_item];function=[SCANTYPE_COLD]'>Freeze</A></b>"
+		dat += "<br><b><a href='byond://?src=[UID()];item=\ref[loaded_item];function=[SCANTYPE_OBLITERATE]'>Destroy</A></b><br>"
 		if(istype(loaded_item,/obj/item/weapon/relic))
-			dat += "<br><b><a href='byond://?src=\ref[src];item=\ref[loaded_item];function=[SCANTYPE_DISCOVER]'>Discover</A></b><br>"
-		dat += "<br><b><a href='byond://?src=\ref[src];function=eject'>Eject</A>"
+			dat += "<br><b><a href='byond://?src=[UID()];item=\ref[loaded_item];function=[SCANTYPE_DISCOVER]'>Discover</A></b><br>"
+		dat += "<br><b><a href='byond://?src=[UID()];function=eject'>Eject</A>"
 	else
 		dat += "<b>Nothing loaded.</b>"
-	dat += "<br><a href='byond://?src=\ref[src];function=refresh'>Refresh</A><br>"
-	dat += "<br><a href='byond://?src=\ref[src];close=1'>Close</A><br></center>"
+	dat += "<br><a href='byond://?src=[UID()];function=refresh'>Refresh</A><br>"
+	dat += "<br><a href='byond://?src=[UID()];close=1'>Close</A><br></center>"
 	var/datum/browser/popup = new(user, "experimentor","Experimentor", 700, 400, src)
 	popup.set_content(dat)
 	popup.open()
@@ -260,7 +260,7 @@
 		if(prob(EFFECT_PROB_VERYLOW-badThingCoeff))
 			visible_message("<span class='danger'>[src] malfunctions and destroys [exp_on], lashing its arms out at nearby people!</span>")
 			for(var/mob/living/m in oview(1, src))
-				m.apply_damage(15,"brute",pick("head","chest","groin"))
+				m.apply_damage(15,BRUTE,pick("head","chest","groin"))
 				investigate_log("Experimentor dealt minor brute to [m].", "experimentor")
 			ejectItem(TRUE)
 		if(prob(EFFECT_PROB_LOW-badThingCoeff))
@@ -398,7 +398,7 @@
 			visible_message("<span class='warning'>[src] malfunctions, activating its emergency coolant systems!</span>")
 			throwSmoke(src.loc)
 			for(var/mob/living/m in oview(1, src))
-				m.apply_damage(5,"burn",pick("head","chest","groin"))
+				m.apply_damage(5,BURN,pick("head","chest","groin"))
 				investigate_log("Experimentor has dealt minor burn damage to [m]", "experimentor")
 			ejectItem()
 	////////////////////////////////////////////////////////////////////////////////////////////////
@@ -680,7 +680,7 @@
 	warn_admins(user, "Flash")
 
 /obj/item/weapon/relic/proc/petSpray(mob/user)
-	var/message = "<span class='danger'>[src] begans to shake, and in the distance the sound of rampaging animals arises!</span>"
+	var/message = "<span class='danger'>[src] begins to shake, and in the distance the sound of rampaging animals arises!</span>"
 	visible_message(message)
 	to_chat(user, message)
 	var/animals = rand(1,25)
@@ -729,7 +729,7 @@
 	to_chat(user, "<span class='notice'>The [src] begins to vibrate!</span>")
 	spawn(rand(10,30))
 		var/turf/userturf = get_turf(user)
-		if(src.loc == user && userturf.z != ZLEVEL_CENTCOMM) //Because Nuke Ops bringing this back on their shuttle, then looting the ERT area is 2fun4you!
+		if(src.loc == user && is_teleport_allowed(userturf.z)) //Because Nuke Ops bringing this back on their shuttle, then looting the ERT area is 2fun4you!
 			visible_message("<span class='notice'>The [src] twists and bends, relocating itself!</span>")
 			throwSmoke(userturf)
 			do_teleport(user, userturf, 8, asoundin = 'sound/effects/phasein.ogg')

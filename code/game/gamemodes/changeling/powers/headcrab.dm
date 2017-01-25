@@ -17,11 +17,11 @@
 	for(var/mob/living/carbon/human/H in range(2,user))
 		to_chat(H, "<span class='userdanger'>You are blinded by a shower of blood!</span>")
 		H.Stun(1)
-		H.eye_blurry = max(20, H.eye_blurry)
+		H.EyeBlurry(20)
 		var/obj/item/organ/internal/eyes/E = H.get_int_organ(/obj/item/organ/internal/eyes)
 		if(istype(E))
 			E.damage = max(E.damage+5, 0)
-		H.confused += 3
+		H.AdjustConfused(3)
 	for(var/mob/living/silicon/S in range(2,user))
 		to_chat(S, "<span class='userdanger'>Your sensors are disabled by a shower of blood!</span>")
 		S.Weaken(3)

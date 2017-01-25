@@ -79,7 +79,7 @@ td.cost.toomuch {
 		</style>
 	</head>
 	<body>
-	<p style="float:right"><a href='byond://?src=\ref[src];refresh=1'>Refresh</a> | <b>Balance:</b> $[balance]</p>
+	<p style="float:right"><a href='byond://?src=[UID()];refresh=1'>Refresh</a> | <b>Balance:</b> $[balance]</p>
 	<h1>[command_name()] Merchandise</h1>
 	<p>
 		<b>Doing your job and not getting any recognition at work?</b>  Well, welcome to the
@@ -111,7 +111,7 @@ td.cost.toomuch {
 					<p>[item.desc]</p>
 				</td>
 				<td class="cost [cost_class]">
-					<a href="byond://?src=\ref[src];buy=[itemID]">$[item.cost]</a>
+					<a href="byond://?src=[UID()];buy=[itemID]">$[item.cost]</a>
 				</td>
 			</tr>
 		"}
@@ -132,7 +132,7 @@ td.cost.toomuch {
 
 	src.add_fingerprint(usr)
 
-	if (href_list["buy"])
+	if(href_list["buy"])
 		var/itemID = text2num(href_list["buy"])
 		var/datum/storeitem/item = centcomm_store.items[itemID]
 		var/sure = alert(usr,"Are you sure you wish to purchase [item.name] for $[item.cost]?","You sure?","Yes","No") in list("Yes","No")

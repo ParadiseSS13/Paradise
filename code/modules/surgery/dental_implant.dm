@@ -47,7 +47,7 @@
 	name = "Activate Pill"
 
 /datum/action/item_action/hands_free/activate_pill/Trigger()
-	if(!Checks())
+	if(!..())
 		return
 	to_chat(owner, "<span class='caution'>You grit your teeth and burst the implanted [target]!</span>")
 	add_logs(owner, null, "swallowed an implanted pill", target)

@@ -52,9 +52,9 @@
 /mob/living/simple_animal/hostile/statue/New(loc, var/mob/living/creator)
 	..()
 	// Give spells
-	AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/flicker_lights(src))
-	AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/blindness(src))
-	AddSpell(new /obj/effect/proc_holder/spell/targeted/night_vision(src))
+	AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/flicker_lights(null))
+	AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/blindness(null))
+	AddSpell(new /obj/effect/proc_holder/spell/targeted/night_vision(null))
 
 	// Give nightvision
 	see_invisible = SEE_INVISIBLE_OBSERVER_NOLIGHTING
@@ -118,11 +118,11 @@
 	for(var/atom/check in check_list)
 		for(var/mob/living/M in viewers(world.view + 1, check) - src)
 			if(M.client && CanAttack(M) && !M.has_unlimited_silicon_privilege)
-				if(!M.eye_blind)
+				if(M.has_vision())
 					return M
 		for(var/obj/mecha/M in view(world.view + 1, check)) //assuming if you can see them they can see you
 			if(M.occupant && M.occupant.client)
-				if(!M.occupant.eye_blind)
+				if(M.occupant.has_vision())
 					return M.occupant
 	return null
 
@@ -185,7 +185,7 @@
 			continue
 		var/turf/T = get_turf(L.loc)
 		if(T && T in targets)
-			L.eye_blind = max(L.eye_blind, 4)
+			L.EyeBlind(4)
 	return
 
 //Toggle Night Vision

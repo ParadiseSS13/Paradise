@@ -13,7 +13,7 @@
 /obj/machinery/door/window/New()
 	..()
 
-	if (src.req_access && src.req_access.len)
+	if(src.req_access && src.req_access.len)
 		src.icon_state = "[src.icon_state]"
 		src.base_state = src.icon_state
 
@@ -42,7 +42,7 @@
 /obj/machinery/door/window/Bumped(atom/movable/AM as mob|obj)
 	if(operating || !density)
 		return
-	if (!ismob(AM))
+	if(!ismob(AM))
 		if(istype(AM, /obj/mecha))
 			var/obj/mecha/mecha = AM
 			if(mecha.occupant && src.allowed(mecha.occupant))
@@ -50,10 +50,10 @@
 			else
 				flick(text("[]deny", src.base_state), src)
 		return
-	if (!ticker)
+	if(!ticker)
 		return
-	var/mob/M = AM
-	if(!M.restrained() && !M.small)
+	var/mob/living/M = AM
+	if(!M.restrained() && M.mob_size > MOB_SIZE_SMALL)
 		bumpopen(M)
 	return
 
@@ -97,9 +97,9 @@
 		return 1
 
 /obj/machinery/door/window/open(var/forced=0)
-	if (src.operating == 1) //doors can still open when emag-disabled
+	if(src.operating == 1) //doors can still open when emag-disabled
 		return 0
-	if (!ticker)
+	if(!ticker)
 		return 0
 	if(!forced)
 		if(stat & NOPOWER)
@@ -124,7 +124,7 @@
 	return 1
 
 /obj/machinery/door/window/close(var/forced=0)
-	if (src.operating)
+	if(src.operating)
 		return 0
 	if(!forced)
 		if(stat & NOPOWER)
@@ -149,7 +149,7 @@
 
 /obj/machinery/door/window/proc/take_damage(var/damage)
 	src.health = max(0, src.health - damage)
-	if (src.health <= 0)
+	if(src.health <= 0)
 		var/debris = list(
 			new /obj/item/weapon/shard(src.loc),
 			new /obj/item/weapon/shard(src.loc),
@@ -248,13 +248,13 @@
 /obj/machinery/door/window/attackby(obj/item/weapon/I as obj, mob/living/user as mob, params)
 
 	//If it's in the process of opening/closing, ignore the click
-	if (src.operating)
+	if(src.operating)
 		return
 
 	add_fingerprint(user)
 
 	//Ninja swords? You may pass.
-	if (src.density && (istype(I, /obj/item/weapon/card/emag)||istype(I, /obj/item/weapon/melee/energy/blade)))
+	if(src.density && (istype(I, /obj/item/weapon/card/emag)||istype(I, /obj/item/weapon/melee/energy/blade)))
 		emag_act(user,I)
 		return 1
 
@@ -307,7 +307,7 @@
 							src.check_access()
 						if(src.req_access.len)
 							ae.conf_access = src.req_access
-						else if (src.req_one_access.len)
+						else if(src.req_one_access.len)
 							ae.conf_access = src.req_one_access
 							ae.one_access = 1
 					else
@@ -341,17 +341,17 @@
 			take_damage(aforce)
 		return
 
-	if (!src.requiresID())
+	if(!src.requiresID())
 		//don't care who they are or what they have, act as if they're NOTHING
 		user = null
 
-	if (src.allowed(user))
-		if (src.density)
+	if(src.allowed(user))
+		if(src.density)
 			open()
 		else
 			close()
 
-	else if (src.density)
+	else if(src.density)
 		flick(text("[]deny", src.base_state), src)
 
 	return

@@ -8,7 +8,7 @@
 	icon_state = "syndballoon"
 	item_state = null
 	flags = ABSTRACT | NODROP
-	w_class = 5.0
+	w_class = 5
 	force = 0
 	throwforce = 0
 	throw_range = 0
@@ -33,7 +33,7 @@
 	qdel(src)
 
 /obj/item/weapon/melee/touch_attack/disintegrate
-	name = "\improper disintegrating touch"
+	name = "disintegrating touch"
 	desc = "This hand of mine glows with an awesome power!"
 	catchphrase = "EI NATH!!"
 	on_use_sound = "sound/magic/Disintegrate.ogg"
@@ -51,7 +51,7 @@
 	..()
 
 /obj/item/weapon/melee/touch_attack/fleshtostone
-	name = "\improper petrifying touch"
+	name = "petrifying touch"
 	desc = "That's the bottom line, because flesh to stone said so!"
 	catchphrase = "STAUN EI!!"
 	on_use_sound = "sound/magic/FleshToStone.ogg"
@@ -78,10 +78,38 @@
 	item_state = "disintegrate"
 
 /obj/item/weapon/melee/touch_attack/fake_disintegrate/afterattack(atom/target, mob/living/carbon/user, proximity)
-	if(!proximity || target == user || !ismob(target) || !iscarbon(user) || user.lying || user.handcuffed) //exploding after touching yourself would be bad
+	if(!proximity || target == user || !ismob(target) || !iscarbon(user) || user.lying || user.handcuffed) //not exploding after touching yourself would be bad
 		return
 	var/datum/effect/system/spark_spread/sparks = new
 	sparks.set_up(4, 0, target.loc) //no idea what the 0 is
 	sparks.start()
 	playsound(target.loc, 'sound/goonstation/effects/gib.ogg', 50, 1)
+	..()
+
+/obj/item/weapon/melee/touch_attack/cluwne
+	name = "cluwne touch"
+	desc = "It's time to start clowning around."
+	catchphrase = "NWOLC EGNEVER"
+	on_use_sound = "sound/misc/sadtrombone.ogg"
+	icon_state = "cluwnecurse"
+	item_state = "cluwnecurse"
+
+/obj/item/weapon/melee/touch_attack/cluwne/afterattack(atom/target, mob/living/carbon/user, proximity)
+	if(!proximity || target == user || !ishuman(target) || !iscarbon(user) || user.lying || user.handcuffed) //clowning around after touching yourself would unsurprisingly, be bad
+		return
+
+	if(iswizard(target))
+		to_chat(user, "<span class='warning'>The spell has no effect on [target].</span>")
+		return
+
+	var/datum/effect/system/harmless_smoke_spread/s = new /datum/effect/system/harmless_smoke_spread
+	s.set_up(5, 0, target)
+	s.start()
+
+	var/mob/living/carbon/human/H = target
+	if(H.mind)
+		if(H.mind.assigned_role != "Cluwne")
+			H.makeCluwne()
+		else
+			H.makeAntiCluwne()
 	..()

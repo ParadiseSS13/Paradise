@@ -3,7 +3,7 @@
 	desc = "A traditional shotgun with wood furniture and a four-shell capacity underneath."
 	icon_state = "shotgun"
 	item_state = "shotgun"
-	w_class = 4.0
+	w_class = 4
 	force = 10
 	flags = CONDUCT
 	slot_flags = SLOT_BACK
@@ -64,7 +64,7 @@
 
 /obj/item/weapon/gun/projectile/shotgun/examine(mob/user)
 	..()
-	if (chambered)
+	if(chambered)
 		to_chat(user, "A [chambered.BB ? "live" : "spent"] one is in the chamber.")
 
 /obj/item/weapon/gun/projectile/shotgun/isHandgun() //You cannot, in fact, holster a shotgun.
@@ -189,7 +189,7 @@
 
 /obj/item/weapon/gun/projectile/shotgun/automatic/dual_tube/New()
 	..()
-	if (!alternate_magazine)
+	if(!alternate_magazine)
 		alternate_magazine = new mag_type(src)
 
 /obj/item/weapon/gun/projectile/shotgun/automatic/dual_tube/attack_self(mob/living/user)

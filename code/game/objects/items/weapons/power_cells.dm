@@ -139,17 +139,17 @@
 
 /obj/item/weapon/stock_parts/cell/pulse //200 pulse shots
 	name = "pulse rifle power cell"
-	maxcharge = 40000
+	maxcharge = 400000
 	rating = 3
 	chargerate = 1500
 
 /obj/item/weapon/stock_parts/cell/pulse/carbine
 	name = "pulse carbine power cell"
-	maxcharge = 4000
+	maxcharge = 40000
 
 /obj/item/weapon/stock_parts/cell/pulse/pistol
 	name = "pulse pistol power cell"
-	maxcharge = 1600
+	maxcharge = 16000
 
 /obj/item/weapon/stock_parts/cell/ninja
 	name = "spider-clan power cell"

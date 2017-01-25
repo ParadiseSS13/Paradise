@@ -96,6 +96,14 @@
 	dir = turn(dir, -90)
 	update()
 
+/obj/structure/disposalconstruct/AltClick(mob/user)
+	if(user.incapacitated())
+		to_chat(user << "<span class='warning'>You can't do that right now!</span>")
+		return
+	if(!Adjacent(user))
+		return
+	rotate()
+
 /obj/structure/disposalconstruct/verb/flip()
 	set name = "Flip Pipe"
 	set src in view(1)

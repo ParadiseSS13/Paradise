@@ -37,7 +37,6 @@ var/list/admin_verbs_admin = list(
 	/client/proc/jumptoturf,			/*allows us to jump to a specific turf*/
 	/client/proc/admin_call_shuttle,	/*allows us to call the emergency shuttle*/
 	/client/proc/admin_cancel_shuttle,	/*allows us to cancel the emergency shuttle, sending it back to centcomm*/
-	/client/proc/check_words,			/*displays cult-words*/
 	/client/proc/check_ai_laws,			/*shows AI and borg laws*/
 	/client/proc/manage_silicon_laws,	/* Allows viewing and editing silicon laws. */
 	/client/proc/admin_memo,			/*admin memo system. show/delete/write. +SERVER needed to delete admin memos of others*/
@@ -49,13 +48,15 @@ var/list/admin_verbs_admin = list(
 	/datum/admins/proc/togglelooc,		/*toggles looc on/off for everyone*/
 	/datum/admins/proc/toggleoocdead,	/*toggles ooc on/off for everyone who is dead*/
 	/datum/admins/proc/toggledsay,		/*toggles dsay on/off for everyone*/
+	/datum/admins/proc/toggleemoji,     /*toggles using emoji in ooc for everyone*/
 	/client/proc/game_panel,			/*game panel, allows to change game-mode etc*/
 	/client/proc/cmd_admin_say,			/*admin-only ooc chat*/
 	/datum/admins/proc/PlayerNotes,
-	/client/proc/cmd_mod_say,
+	/client/proc/cmd_mentor_say,
 	/datum/admins/proc/show_player_notes,
 	/client/proc/free_slot,			/*frees slot for chosen job*/
 	/client/proc/toggleattacklogs,
+	/client/proc/toggleadminlogs,
 	/client/proc/toggledebuglogs,
 	/client/proc/update_mob_sprite,
 	/client/proc/toggledrones,
@@ -72,7 +73,10 @@ var/list/admin_verbs_admin = list(
 	/client/proc/change_human_appearance_admin,	/* Allows an admin to change the basic appearance of human-based mobs */
 	/client/proc/change_human_appearance_self,	/* Allows the human-based mob itself change its basic appearance */
 	/client/proc/debug_variables,
-	/client/proc/show_snpc_verbs
+	/client/proc/show_snpc_verbs,
+	/client/proc/reset_all_tcs,			/*resets all telecomms scripts*/
+	/client/proc/cmd_admin_check_player_exp, /* shows players by playtime */
+	/client/proc/toggle_mentor_chat
 )
 var/list/admin_verbs_ban = list(
 	/client/proc/unban_panel,
@@ -111,7 +115,8 @@ var/list/admin_verbs_event = list(
 
 var/list/admin_verbs_spawn = list(
 	/datum/admins/proc/spawn_atom,		/*allows us to spawn instances*/
-	/client/proc/respawn_character
+	/client/proc/respawn_character,
+	/client/proc/admin_deserialize
 	)
 var/list/admin_verbs_server = list(
 	/client/proc/ToRban,
@@ -149,8 +154,6 @@ var/list/admin_verbs_debug = list(
 	/client/proc/toggledebuglogs,
 	/client/proc/qdel_toggle,
 	/client/proc/gc_dump_hdl,
-	/client/proc/gc_toggle_profiling,
-	/client/proc/gc_show_del_report,
 	/client/proc/debugNatureMapGenerator,
 	/client/proc/check_bomb_impacts,
 	/client/proc/test_movable_UI,
@@ -159,7 +162,9 @@ var/list/admin_verbs_debug = list(
 	/proc/machine_upgrade,
 	/client/proc/map_template_load,
 	/client/proc/map_template_upload,
-	/client/proc/view_runtimes
+	/client/proc/view_runtimes,
+	/client/proc/admin_serialize,
+	/client/proc/admin_deserialize
 	)
 var/list/admin_verbs_possess = list(
 	/proc/possess,
@@ -180,7 +185,7 @@ var/list/admin_verbs_mod = list(
 	/client/proc/cmd_admin_pm_by_key_panel,	/*admin-pm list by key*/
 	/datum/admins/proc/PlayerNotes,
 	/client/proc/admin_ghost,			/*allows us to ghost/reenter body at will*/
-	/client/proc/cmd_mod_say,
+	/client/proc/cmd_mentor_say,
 	/datum/admins/proc/show_player_notes,
 	/client/proc/player_panel_new,
 	/client/proc/dsay,
@@ -192,6 +197,7 @@ var/list/admin_verbs_mentor = list(
 	/client/proc/cmd_admin_pm_context,	/*right-click adminPM interface*/
 	/client/proc/cmd_admin_pm_panel,	/*admin-pm list*/
 	/client/proc/cmd_admin_pm_by_key_panel	/*admin-pm list by key*/
+	// cmd_mentor_say is added/removed by the toggle_mentor_chat verb
 )
 var/list/admin_verbs_proccall = list(
 	/client/proc/callproc,
@@ -529,7 +535,7 @@ var/list/admin_verbs_snpc = list(
 #undef AUTOBANTIME
 
 /client/proc/drop_bomb() // Some admin dickery that can probably be done better -- TLE
-	set category = "Special Verbs"
+	set category = "Event"
 	set name = "Drop Bomb"
 	set desc = "Cause an explosion of varying strength at your location."
 
@@ -614,7 +620,7 @@ var/list/admin_verbs_snpc = list(
 		var/message = input("What do you want the message to be?", "Make Sound") as text|null
 		if(!message)
 			return
-		for (var/mob/V in hearers(O))
+		for(var/mob/V in hearers(O))
 			V.show_message(message, 2)
 		log_admin("[key_name(usr)] made [O] at [O.x], [O.y], [O.z] make a sound")
 		message_admins("\blue [key_name_admin(usr)] made [O] at [O.x], [O.y], [O.z] make a sound")
@@ -642,7 +648,7 @@ var/list/admin_verbs_snpc = list(
 	if(mob.control_object)
 		if(!msg)
 			return
-		for (var/mob/V in hearers(mob.control_object))
+		for(var/mob/V in hearers(mob.control_object))
 			V.show_message("<b>[mob.control_object.name]</b> says: \"" + msg + "\"", 2)
 		log_admin("[key_name(usr)] used oSay on [mob.control_object]: [msg]")
 		message_admins("[key_name_admin(usr)] used oSay on [mob.control_object]: [msg]")
@@ -856,14 +862,14 @@ var/list/admin_verbs_snpc = list(
 		return
 
 	var/list/jobs = list()
-	for (var/datum/job/J in job_master.occupations)
-		if (J.current_positions >= J.total_positions && J.total_positions != -1)
+	for(var/datum/job/J in job_master.occupations)
+		if(J.current_positions >= J.total_positions && J.total_positions != -1)
 			jobs += J.title
-	if (!jobs.len)
+	if(!jobs.len)
 		to_chat(usr, "There are no fully staffed jobs.")
 		return
 	var/job = input("Please select job slot to free", "Free Job Slot") as null|anything in jobs
-	if (job)
+	if(job)
 		job_master.FreeRole(job)
 		log_admin("[key_name(usr)] has freed a job slot for [job].")
 		message_admins("[key_name_admin(usr)] has freed a job slot for [job].")
@@ -877,10 +883,24 @@ var/list/admin_verbs_snpc = list(
 
 	prefs.toggles ^= CHAT_ATTACKLOGS
 	prefs.save_preferences(src)
-	if (prefs.toggles & CHAT_ATTACKLOGS)
+	if(prefs.toggles & CHAT_ATTACKLOGS)
 		to_chat(usr, "You now will get attack log messages")
 	else
 		to_chat(usr, "You now won't get attack log messages")
+
+/client/proc/toggleadminlogs()
+	set name = "Toggle Admin Log Messages"
+	set category = "Preferences"
+
+	if(!check_rights(R_ADMIN))
+		return
+
+	prefs.toggles ^= CHAT_NO_ADMINLOGS
+	prefs.save_preferences(src)
+	if(prefs.toggles & CHAT_NO_ADMINLOGS)
+		to_chat(usr, "You now won't get admin log messages.")
+	else
+		to_chat(usr, "You now will get admin log messages.")
 
 /client/proc/toggledrones()
 	set name = "Toggle Maintenance Drones"
@@ -902,7 +922,7 @@ var/list/admin_verbs_snpc = list(
 
 	prefs.toggles ^= CHAT_DEBUGLOGS
 	prefs.save_preferences(src)
-	if (prefs.toggles & CHAT_DEBUGLOGS)
+	if(prefs.toggles & CHAT_DEBUGLOGS)
 		to_chat(usr, "You now will get debug log messages")
 	else
 		to_chat(usr, "You now won't get debug log messages")
@@ -932,7 +952,7 @@ var/list/admin_verbs_snpc = list(
 	var/confirm = alert("Are you sure you want to send the global message?", "Confirm Man Up Global", "Yes", "No")
 
 	if(confirm == "Yes")
-		for (var/mob/T as mob in mob_list)
+		for(var/mob/T as mob in mob_list)
 			to_chat(T, "<br><center><span class='notice'><b><font size=4>Man up.<br> Deal with it.</font></b><br>Move on.</span></center><br>")
 			T << 'sound/voice/ManUp1.ogg'
 

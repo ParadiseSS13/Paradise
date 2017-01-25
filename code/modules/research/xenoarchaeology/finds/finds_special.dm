@@ -99,7 +99,7 @@
 
 	if(charges >= 0.1)
 		if(prob(5))
-			src.visible_message("\red \icon[src] [src]'s eyes glow ruby red for a moment!")
+			src.visible_message("\red [bicon(src)] [src]'s eyes glow ruby red for a moment!")
 			charges -= 0.1
 
 	//check on our shadow wights
@@ -194,7 +194,7 @@
 			'sound/hallucinations/turn_around1.ogg',\
 			'sound/hallucinations/turn_around2.ogg',\
 			), 50, 1, -3)
-			M.sleeping = max(M.sleeping,rand(5,10))
+			M.Sleeping(rand(5,10))
 			src.loc = null
 	else
 		processing_objects.Remove(src)

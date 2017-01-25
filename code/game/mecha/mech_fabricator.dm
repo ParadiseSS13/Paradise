@@ -86,12 +86,13 @@
 
 /obj/machinery/mecha_part_fabricator/proc/output_parts_list(set_name)
 	var/output = ""
-	for(var/datum/design/D in files.known_designs)
+	for(var/v in files.known_designs)
+		var/datum/design/D = files.known_designs[v]
 		if(D.build_type & MECHFAB)
 			if(!(set_name in D.category))
 				continue
 			var/resources_available = check_resources(D)
-			output += "<div class='part'>[output_part_info(D)]<br>\[[resources_available?"<a href='?src=\ref[src];part=[D.id]'>Build</a> | ":null]<a href='?src=\ref[src];add_to_queue=[D.id]'>Add to queue</a>\]\[<a href='?src=\ref[src];part_desc=[D.id]'>?</a>\]</div>"
+			output += "<div class='part'>[output_part_info(D)]<br>\[[resources_available?"<a href='?src=[UID()];part=[D.id]'>Build</a> | ":null]<a href='?src=[UID()];add_to_queue=[D.id]'>Add to queue</a>\]\[<a href='?src=[UID()];part_desc=[D.id]'>?</a>\]</div>"
 	return output
 
 /obj/machinery/mecha_part_fabricator/proc/output_part_info(datum/design/D)
@@ -113,7 +114,7 @@
 		var/amount = min(res_max_amount, resources[resource])
 		output += "<span class=\"res_name\">[material2name(resource)]: </span>[amount] cm&sup3;, [round(resources[resource] / MINERAL_MATERIAL_AMOUNT,0.1)] sheets"
 		if(amount>0)
-			output += "<span style='font-size:80%;'> - Remove \[<a href='?src=\ref[src];remove_mat=1;material=[resource]'>1</a>\] | \[<a href='?src=\ref[src];remove_mat=10;material=[resource]'>10</a>\] | \[<a href='?src=\ref[src];remove_mat=1;material=[resource];custom_eject=1'>Custom</a>\] | \[<a href='?src=\ref[src];remove_mat=[resources[resource] / MINERAL_MATERIAL_AMOUNT];material=[resource]'>All</a>\]</span>"
+			output += "<span style='font-size:80%;'> - Remove \[<a href='?src=[UID()];remove_mat=1;material=[resource]'>1</a>\] | \[<a href='?src=[UID()];remove_mat=10;material=[resource]'>10</a>\] | \[<a href='?src=[UID()];remove_mat=1;material=[resource];custom_eject=1'>Custom</a>\] | \[<a href='?src=[UID()];remove_mat=[resources[resource] / MINERAL_MATERIAL_AMOUNT];material=[resource]'>All</a>\]</span>"
 		output += "<br/>"
 	return output
 
@@ -153,7 +154,7 @@
 		I.loc = get_step(src,SOUTH)
 	I.materials[MAT_METAL] = get_resource_cost_w_coeff(D,MAT_METAL)
 	I.materials[MAT_GLASS] = get_resource_cost_w_coeff(D,MAT_GLASS)
-	visible_message("\icon[src] <b>\The [src]</b> beeps, \"\The [I] is complete.\"")
+	visible_message("[bicon(src)] <b>\The [src]</b> beeps, \"\The [I] is complete.\"")
 	being_built = null
 
 	updateUsrDialog()
@@ -165,7 +166,8 @@
 
 /obj/machinery/mecha_part_fabricator/proc/add_part_set_to_queue(set_name)
 	if(set_name in part_sets)
-		for(var/datum/design/D in files.known_designs)
+		for(var/v in files.known_designs)
+			var/datum/design/D = files.known_designs[v]
 			if(D.build_type & MECHFAB)
 				if(set_name in D.category)
 					add_to_queue(D)
@@ -196,14 +198,14 @@
 		if(stat&(NOPOWER|BROKEN))
 			return 0
 		if(!check_resources(D))
-			visible_message("\icon[src] <b>\The [src]</b> beeps, \"Not enough resources. Queue processing stopped.\"")
+			visible_message("[bicon(src)] <b>\The [src]</b> beeps, \"Not enough resources. Queue processing stopped.\"")
 			temp = {"<span class='alert'>Not enough resources to build next part.</span><br>
-						<a href='?src=\ref[src];process_queue=1'>Try again</a> | <a href='?src=\ref[src];clear_temp=1'>Return</a><a>"}
+						<a href='?src=[UID()];process_queue=1'>Try again</a> | <a href='?src=[UID()];clear_temp=1'>Return</a><a>"}
 			return 0
 		remove_from_queue(1)
 		build_part(D)
 		D = listgetindex(queue, 1)
-	visible_message("\icon[src] <b>\The [src]</b> beeps, \"Queue processing finished successfully.\"")
+	visible_message("[bicon(src)] <b>\The [src]</b> beeps, \"Queue processing finished successfully.\"")
 
 /obj/machinery/mecha_part_fabricator/proc/list_queue()
 	var/output = "<b>Queue contains:</b>"
@@ -215,10 +217,10 @@
 		for(var/datum/design/D in queue)
 			i++
 			var/obj/part = D.build_path
-			output += "<li[!check_resources(D)?" style='color: #f00;'":null]>[initial(part.name)] - [i>1?"<a href='?src=\ref[src];queue_move=-1;index=[i]' class='arrow'>&uarr;</a>":null] [i<queue.len?"<a href='?src=\ref[src];queue_move=+1;index=[i]' class='arrow'>&darr;</a>":null] <a href='?src=\ref[src];remove_from_queue=[i]'>Remove</a></li>"
+			output += "<li[!check_resources(D)?" style='color: #f00;'":null]>[initial(part.name)] - [i>1?"<a href='?src=[UID()];queue_move=-1;index=[i]' class='arrow'>&uarr;</a>":null] [i<queue.len?"<a href='?src=[UID()];queue_move=+1;index=[i]' class='arrow'>&darr;</a>":null] <a href='?src=[UID()];remove_from_queue=[i]'>Remove</a></li>"
 
 		output += "</ol>"
-		output += "\[<a href='?src=\ref[src];process_queue=1'>Process queue</a> | <a href='?src=\ref[src];clear_queue=1'>Clear queue</a>\]"
+		output += "\[<a href='?src=[UID()];process_queue=1'>Process queue</a> | <a href='?src=[UID()];clear_queue=1'>Clear queue</a>\]"
 	return output
 
 /obj/machinery/mecha_part_fabricator/proc/sync()
@@ -230,20 +232,16 @@
 	for(var/obj/machinery/computer/rdconsole/RDC in localarea.contents)
 		if(!RDC.sync)
 			continue
-		for(var/datum/tech/T in RDC.files.known_tech)
-			files.AddTech2Known(T)
-		for(var/datum/design/D in RDC.files.known_designs)
-			files.AddDesign2Known(D)
-		files.RefreshResearch()
+		RDC.files.push_data(files)
 		temp = "Processed equipment designs.<br>"
 		//check if the tech coefficients have changed
-		temp += "<a href='?src=\ref[src];clear_temp=1'>Return</a>"
+		temp += "<a href='?src=[UID()];clear_temp=1'>Return</a>"
 
 		updateUsrDialog()
-		visible_message("\icon[src] <b>\The [src]</b> beeps, \"Successfully synchronized with R&D server.\"")
+		visible_message("[bicon(src)] <b>\The [src]</b> beeps, \"Successfully synchronized with R&D server.\"")
 		return
 
-	temp = "Unable to connect to local R&D Database.<br>Please check your connections and try again.<br><a href='?src=\ref[src];clear_temp=1'>Return</a>"
+	temp = "Unable to connect to local R&D Database.<br>Please check your connections and try again.<br><a href='?src=[UID()];clear_temp=1'>Return</a>"
 	updateUsrDialog()
 	return
 
@@ -266,12 +264,12 @@
 
 /obj/machinery/mecha_part_fabricator/interact(mob/user as mob)
 	var/dat, left_part
-	if (..())
+	if(..())
 		return
 	user.set_machine(src)
 	var/turf/exit = get_step(src,SOUTH)
 	if(exit.density)
-		visible_message("\icon[src] <b>\The [src]</b> beeps, \"Error! Part outlet is obstructed.\"")
+		visible_message("[bicon(src)] <b>\The [src]</b> beeps, \"Error! Part outlet is obstructed.\"")
 		return
 	if(temp)
 		left_part = temp
@@ -283,15 +281,14 @@
 		switch(screen)
 			if("main")
 				left_part = output_available_resources()+"<hr>"
-				left_part += "<a href='?src=\ref[src];sync=1'>Sync with R&D servers</a><hr>"
+				left_part += "<a href='?src=[UID()];sync=1'>Sync with R&D servers</a><hr>"
 				for(var/part_set in part_sets)
-					left_part += "<a href='?src=\ref[src];part_set=[part_set]'>[part_set]</a> - \[<a href='?src=\ref[src];partset_to_queue=[part_set]'>Add all parts to queue</a>\]<br>"
+					left_part += "<a href='?src=[UID()];part_set=[part_set]'>[part_set]</a> - \[<a href='?src=[UID()];partset_to_queue=[part_set]'>Add all parts to queue</a>\]<br>"
 			if("parts")
 				left_part += output_parts_list(part_set)
-				left_part += "<hr><a href='?src=\ref[src];screen=main'>Return</a>"
-	dat = {"<html>
-			  <head>
-			  <title>[name]</title>
+				left_part += "<hr><a href='?src=[UID()];screen=main'>Return</a>"
+	dat = {"
+			<title>[name]</title>
 				<style>
 				.res_name {font-weight: bold; text-transform: capitalize;}
 				.red {color: #f00;}
@@ -305,21 +302,19 @@
 				<script language='javascript' type='text/javascript'>
 				[js_byjax]
 				</script>
-				</head><body>
-				<body>
 				<table style='width: 100%;'>
 				<tr>
 				<td style='width: 65%; padding-right: 10px;'>
 				[left_part]
 				</td>
-				<td style='width: 35%; background: #ccc;' id='queue'>
+				<td style='width: 35%; background: #000;' id='queue'>
 				[list_queue()]
 				</td>
 				<tr>
-				</table>
-				</body>
-				</html>"}
-	user << browse(dat, "window=mecha_fabricator;size=1000x490")
+				</table>"}
+	var/datum/browser/popup = new(user, "mecha_fabricator", name, 1000, 490)
+	popup.set_content(dat)
+	popup.open(0)
 	onclose(user, "mecha_fabricator")
 	return
 
@@ -337,21 +332,17 @@
 				screen = "parts"
 	if(href_list["part"])
 		var/T = filter.getStr("part")
-		for(var/datum/design/D in files.known_designs)
-			if(D.build_type & MECHFAB)
-				if(D.id == T)
-					if(!processing_queue)
-						build_part(D)
-					else
-						add_to_queue(D)
-					break
+		var/datum/design/D = files.known_designs[T]
+		if(D && (D.build_type & MECHFAB))
+			if(!processing_queue)
+				build_part(D)
+			else
+				add_to_queue(D)
 	if(href_list["add_to_queue"])
 		var/T = filter.getStr("add_to_queue")
-		for(var/datum/design/D in files.known_designs)
-			if(D.build_type & MECHFAB)
-				if(D.id == T)
-					add_to_queue(D)
-					break
+		var/datum/design/D = files.known_designs[T]
+		if(D && D.build_type & MECHFAB)
+			add_to_queue(D)
 		return update_queue_on_page()
 	if(href_list["remove_from_queue"])
 		remove_from_queue(filter.getNum("remove_from_queue"))
@@ -384,15 +375,13 @@
 		sync()
 	if(href_list["part_desc"])
 		var/T = filter.getStr("part_desc")
-		for(var/datum/design/D in files.known_designs)
-			if(D.build_type & MECHFAB)
-				if(D.id == T)
-					var/obj/part = D.build_path
-					temp = {"<h1>[initial(part.name)] description:</h1>
-								[initial(part.desc)]<br>
-								<a href='?src=\ref[src];clear_temp=1'>Return</a>
-								"}
-					break
+		var/datum/design/D = files.known_designs[T]
+		if(D && D.build_type & MECHFAB)
+			var/obj/part = D.build_path
+			temp = {"<h1>[initial(part.name)] description:</h1>
+						[initial(part.desc)]<br>
+						<a href='?src=[UID()];clear_temp=1'>Return</a>
+						"}
 
 	if(href_list["remove_mat"] && href_list["material"])
 		var/amount = text2num(href_list["remove_mat"])
@@ -400,7 +389,7 @@
 		if(href_list["custom_eject"])
 			amount = input("How many sheets would you like to eject from the machine?", "How much?", 1) as null|num
 			amount = max(0,min(round(resources[material]/MINERAL_MATERIAL_AMOUNT),amount)) // Rounding errors aren't scary, as the mineral eject proc is smart
-			if (!amount)
+			if(!amount)
 				return
 			amount = round(amount)
 		if(amount < 0 || amount > resources[material]) //href protection, except that resources[] is 2000 per sheet
@@ -411,7 +400,7 @@
 			temp = "Not enough [material2name(material)] to produce a sheet."
 		else
 			temp = "Ejected [removed] of [material2name(material)]"
-		temp += "<br><a href='?src=\ref[src];clear_temp=1'>Return</a>"
+		temp += "<br><a href='?src=[UID()];clear_temp=1'>Return</a>"
 
 	updateUsrDialog()
 	return

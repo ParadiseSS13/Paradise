@@ -24,7 +24,7 @@
 	slot_flags = SLOT_BELT
 	force = 5.0
 	throwforce = 7.0
-	w_class = 2.0
+	w_class = 2
 	materials = list(MAT_METAL=150)
 	origin_tech = "materials=1;engineering=1"
 	attack_verb = list("bashed", "battered", "bludgeoned", "whacked")
@@ -41,7 +41,7 @@
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	force = 5.0
-	w_class = 1.0
+	w_class = 1
 	throwforce = 5.0
 	throw_speed = 3
 	throw_range = 5
@@ -56,29 +56,29 @@
 
 /obj/item/weapon/screwdriver/New()
 	switch(pick("red","blue","purple","brown","green","cyan","yellow"))
-		if ("red")
+		if("red")
 			icon_state = "screwdriver2"
 			item_state = "screwdriver"
-		if ("blue")
+		if("blue")
 			icon_state = "screwdriver"
 			item_state = "screwdriver_blue"
-		if ("purple")
+		if("purple")
 			icon_state = "screwdriver3"
 			item_state = "screwdriver_purple"
-		if ("brown")
+		if("brown")
 			icon_state = "screwdriver4"
 			item_state = "screwdriver_brown"
-		if ("green")
+		if("green")
 			icon_state = "screwdriver5"
 			item_state = "screwdriver_green"
-		if ("cyan")
+		if("cyan")
 			icon_state = "screwdriver6"
 			item_state = "screwdriver_cyan"
-		if ("yellow")
+		if("yellow")
 			icon_state = "screwdriver7"
 			item_state = "screwdriver_yellow"
 
-	if (prob(75))
+	if(prob(75))
 		src.pixel_y = rand(0, 16)
 	return
 
@@ -104,7 +104,7 @@
 	force = 6.0
 	throw_speed = 3
 	throw_range = 7
-	w_class = 2.0
+	w_class = 2
 	materials = list(MAT_METAL=80)
 	origin_tech = "materials=1;engineering=1"
 	attack_verb = list("pinched", "nipped")
@@ -119,7 +119,7 @@
 		item_state = "cutters_yellow"
 
 /obj/item/weapon/wirecutters/attack(mob/living/carbon/human/C as mob, mob/user as mob)
-	if(C.handcuffed)
+	if(istype(C) && C.handcuffed)
 		if(istype(C.handcuffed, /obj/item/weapon/restraints/handcuffs/cable))
 			usr.visible_message("\The [usr] cuts \the [C]'s restraints with \the [src]!",\
 			"You cut \the [C]'s restraints with \the [src]!",\
@@ -235,18 +235,26 @@
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/external/S = H.organs_by_name[user.zone_sel.selecting]
-		if (!S)
+		if(!S)
 			return
 
 		if(!(S.status & ORGAN_ROBOT) || user.a_intent != I_HELP || S.open == 2)
 			return ..()
 
+		if(!isOn())		//why wasn't this being checked already?
+			to_chat(user, "<span class='warning'>Turn on [src] before attempting repairs!</span>")
+			return 1
+
 		if(S.brute_dam)
 			if(S.brute_dam < ROBOLIMB_SELF_REPAIR_CAP)
-				if (remove_fuel(0,null))
-					playsound(src.loc, 'sound/items/Welder2.ogg', 50, 1)
-					S.heal_damage(15,0,0,1)
-					user.visible_message("<span class='alert'>\The [user] patches some dents on \the [M]'s [S.name] with \the [src].</span>")
+				if(get_fuel() >= 1)
+					if(H == user)
+						if(!do_mob(user, H, 10))
+							return 1
+					if(remove_fuel(1,null))
+						playsound(src.loc, 'sound/items/Welder2.ogg', 50, 1)
+						S.heal_damage(15,0,0,1)
+						user.visible_message("<span class='alert'>\The [user] patches some dents on \the [M]'s [S.name] with \the [src].</span>")
 				else if(S.open != 2)
 					to_chat(user, "<span class='warning'>Need more welding fuel!</span>")
 					return 1
@@ -345,7 +353,7 @@
 		if(!message)
 			to_chat(user, "<span class='notice'>You switch [src] off.</span>")
 		else
-			to_chat(user, "<span class='warning'>[src] shuts off!</span>")
+			visible_message("<span class='warning'>[src] shuts off!</span>")
 		force = 3
 		damtype = "brute"
 		hitsound = "swing_hit"
@@ -365,7 +373,7 @@
 /obj/item/weapon/weldingtool/proc/flamethrower_rods(obj/item/I, mob/user)
 	if(!status)
 		var/obj/item/stack/rods/R = I
-		if (R.use(1))
+		if(R.use(1))
 			var/obj/item/weapon/flamethrower/F = new /obj/item/weapon/flamethrower(user.loc)
 			if(!remove_item_from_storage(F))
 				user.unEquip(src)
@@ -409,7 +417,7 @@
 	icon_state = "upindwelder"
 	item_state = "upindwelder"
 	max_fuel = 80
-	w_class = 3.0
+	w_class = 3
 	materials = list(MAT_METAL=70, MAT_GLASS=120)
 	origin_tech = "engineering=3"
 
@@ -419,7 +427,7 @@
 	icon_state = "exwelder"
 	item_state = "exwelder"
 	max_fuel = 40
-	w_class = 3.0
+	w_class = 3
 	materials = list(MAT_METAL=70, MAT_GLASS=120)
 	origin_tech = "engineering=4;plasmatech=3"
 	var/last_gen = 0
@@ -453,7 +461,7 @@
 	force = 5.0
 	throwforce = 7.0
 	item_state = "crowbar"
-	w_class = 2.0
+	w_class = 2
 	materials = list(MAT_METAL=50)
 	origin_tech = "engineering=1"
 	attack_verb = list("attacked", "bashed", "battered", "bludgeoned", "whacked")
@@ -479,7 +487,7 @@
 	icon = 'icons/obj/weapons.dmi'
 	icon_state = "kit"
 	flags = CONDUCT
-	w_class = 2.0
+	w_class = 2
 	origin_tech = "combat=2"
 	var/open = 0
 

@@ -26,7 +26,7 @@
 		while(select_query.NextRow())
 			pollid = select_query.item[1]
 			pollquestion = select_query.item[2]
-			output += "<tr bgcolor='[ (i % 2 == 1) ? color1 : color2 ]'><td><a href=\"byond://?src=\ref[src];pollid=[pollid]\"><b>[pollquestion]</b></a></td></tr>"
+			output += "<tr bgcolor='[ (i % 2 == 1) ? color1 : color2 ]'><td><a href=\"byond://?src=[UID()];pollid=[pollid]\"><b>[pollquestion]</b></a></td></tr>"
 			i++
 
 		output += "</table>"
@@ -91,8 +91,8 @@
 				output += "<font size='2'>Poll runs from <b>[pollstarttime]</b> until <b>[pollendtime]</b></font><p>"
 
 				if(!voted)	//Only make this a form if we have not voted yet
-					output += "<form name='cardcomp' action='?src=\ref[src]' method='get'>"
-					output += "<input type='hidden' name='src' value='\ref[src]'>"
+					output += "<form name='cardcomp' action='?src=[UID()]' method='get'>"
+					output += "<input type='hidden' name='src' value='[UID()]'>"
 					output += "<input type='hidden' name='votepollid' value='[pollid]'>"
 					output += "<input type='hidden' name='votetype' value='OPTION'>"
 
@@ -135,8 +135,8 @@
 				output += "<font size='2'>Feedback gathering runs from <b>[pollstarttime]</b> until <b>[pollendtime]</b></font><p>"
 
 				if(!voted)	//Only make this a form if we have not voted yet
-					output += "<form name='cardcomp' action='?src=\ref[src]' method='get'>"
-					output += "<input type='hidden' name='src' value='\ref[src]'>"
+					output += "<form name='cardcomp' action='?src=[UID()]' method='get'>"
+					output += "<input type='hidden' name='src' value='[UID()]'>"
 					output += "<input type='hidden' name='votepollid' value='[pollid]'>"
 					output += "<input type='hidden' name='votetype' value='TEXT'>"
 
@@ -146,8 +146,8 @@
 					output += "<p><input type='submit' value='Submit'>"
 					output += "</form>"
 
-					output += "<form name='cardcomp' action='?src=\ref[src]' method='get'>"
-					output += "<input type='hidden' name='src' value='\ref[src]'>"
+					output += "<form name='cardcomp' action='?src=[UID()]' method='get'>"
+					output += "<input type='hidden' name='src' value='[UID()]'>"
 					output += "<input type='hidden' name='votepollid' value='[pollid]'>"
 					output += "<input type='hidden' name='votetype' value='TEXT'>"
 					output += "<input type='hidden' name='replytext' value='ABSTAIN'>"
@@ -178,8 +178,8 @@
 					output += "<br><b>[optiontext] - [rating]</b>"
 
 				if(!voted)	//Only make this a form if we have not voted yet
-					output += "<form name='cardcomp' action='?src=\ref[src]' method='get'>"
-					output += "<input type='hidden' name='src' value='\ref[src]'>"
+					output += "<form name='cardcomp' action='?src=[UID()]' method='get'>"
+					output += "<input type='hidden' name='src' value='[UID()]'>"
 					output += "<input type='hidden' name='votepollid' value='[pollid]'>"
 					output += "<input type='hidden' name='votetype' value='NUMVAL'>"
 
@@ -209,12 +209,12 @@
 
 						output += "<br>[optiontext]: <select name='o[optionid]'>"
 						output += "<option value='abstain'>abstain</option>"
-						for (var/j = minvalue; j <= maxvalue; j++)
+						for(var/j = minvalue; j <= maxvalue; j++)
 							if(j == minvalue && descmin)
 								output += "<option value='[j]'>[j] ([descmin])</option>"
-							else if (j == midvalue && descmid)
+							else if(j == midvalue && descmid)
 								output += "<option value='[j]'>[j] ([descmid])</option>"
-							else if (j == maxvalue && descmax)
+							else if(j == maxvalue && descmax)
 								output += "<option value='[j]'>[j] ([descmax])</option>"
 							else
 								output += "<option value='[j]'>[j]</option>"
@@ -264,8 +264,8 @@
 				output += "<font size='2'>Poll runs from <b>[pollstarttime]</b> until <b>[pollendtime]</b></font><p>"
 
 				if(!voted)	//Only make this a form if we have not voted yet
-					output += "<form name='cardcomp' action='?src=\ref[src]' method='get'>"
-					output += "<input type='hidden' name='src' value='\ref[src]'>"
+					output += "<form name='cardcomp' action='?src=[UID()]' method='get'>"
+					output += "<input type='hidden' name='src' value='[UID()]'>"
 					output += "<input type='hidden' name='votepollid' value='[pollid]'>"
 					output += "<input type='hidden' name='votetype' value='MULTICHOICE'>"
 					output += "<input type='hidden' name='maxoptionid' value='[maxoptionid]'>"

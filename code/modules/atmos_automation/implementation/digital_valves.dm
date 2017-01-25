@@ -22,7 +22,7 @@
 		return 0
 
 	GetText()
-		return "Set digital valve <a href=\"?src=\ref[src];set_subject=1\">[fmtString(valve)]</a> to <a href=\"?src=\ref[src];set_state=1\">[state?"open":"closed"]</a>."
+		return "Set digital valve <a href=\"?src=[UID()];set_subject=1\">[fmtString(valve)]</a> to <a href=\"?src=[UID()];set_state=1\">[state?"open":"closed"]</a>."
 
 	Topic(href,href_list)
 		if(..())

@@ -16,6 +16,25 @@
 	cannot_amputate = 1
 	parent_organ = null
 	encased = "ribcage"
+	var/fat = FALSE
+
+/obj/item/organ/external/chest/proc/makeFat(update_body_icon = 1)
+	fat = TRUE
+	if(owner)
+		owner.update_body(update_body_icon)
+	else
+		// get_icon updates the sprite icon, update_icon updates the injuries overlay.
+		// Madness.
+		get_icon()
+
+/obj/item/organ/external/chest/proc/makeSlim(update_body_icon = 1)
+	fat = FALSE
+	if(owner)
+		owner.update_body(update_body_icon)
+	else
+		// get_icon updates the sprite icon, update_icon updates the injuries overlay.
+		// Madness.
+		get_icon()
 
 /obj/item/organ/external/groin
 	name = "lower body"
@@ -84,8 +103,8 @@
 	can_stand = 1
 
 /obj/item/organ/external/foot/remove()
-	if(owner.shoes) owner.unEquip(owner.shoes)
-	..()
+	if(owner && owner.shoes) owner.unEquip(owner.shoes)
+	. = ..()
 
 /obj/item/organ/external/foot/right
 	limb_name = "r_foot"
@@ -109,14 +128,15 @@
 	can_grasp = 1
 
 /obj/item/organ/external/hand/remove()
-	if(owner.gloves)
-		owner.unEquip(owner.gloves)
-	if(owner.l_hand)
-		owner.unEquip(owner.l_hand,1)
-	if(owner.r_hand)
-		owner.unEquip(owner.r_hand,1)
+	if(owner)
+		if(owner.gloves)
+			owner.unEquip(owner.gloves)
+		if(owner.l_hand)
+			owner.unEquip(owner.l_hand,1)
+		if(owner.r_hand)
+			owner.unEquip(owner.r_hand,1)
 
-	..()
+	. = ..()
 
 /obj/item/organ/external/hand/right
 	limb_name = "r_hand"
@@ -140,11 +160,15 @@
 	gendered_icon = 1
 	encased = "skull"
 	var/can_intake_reagents = 1
+	var/alt_head = "None"
 
 	//Hair colour and style
 	var/r_hair = 0
 	var/g_hair = 0
 	var/b_hair = 0
+	var/r_hair_sec = 0
+	var/g_hair_sec = 0
+	var/b_hair_sec = 0
 	var/h_style = "Bald"
 
 	//Head accessory colour and style
@@ -157,6 +181,9 @@
 	var/r_facial = 0
 	var/g_facial = 0
 	var/b_facial = 0
+	var/r_facial_sec = 0
+	var/g_facial_sec = 0
+	var/b_facial_sec = 0
 	var/f_style = "Shaved"
 
 /obj/item/organ/external/head/remove()
@@ -178,7 +205,9 @@
 			if(owner)//runtimer no runtiming
 				owner.update_hair()
 				owner.update_fhair()
-	..()
+				owner.update_head_accessory()
+				owner.update_markings()
+	. = ..()
 
 /obj/item/organ/external/head/replaced()
 	name = limb_name
@@ -187,9 +216,24 @@
 
 /obj/item/organ/external/head/take_damage(brute, burn, sharp, edge, used_weapon = null, list/forbidden_limbs = list())
 	..(brute, burn, sharp, edge, used_weapon, forbidden_limbs)
-	if (!disfigured)
-		if (brute_dam > 40)
-			if (prob(50))
+	if(!disfigured)
+		if(brute_dam > 40)
+			if(prob(50))
 				disfigure("brute")
-		if (burn_dam > 40)
+		if(burn_dam > 40)
 			disfigure("burn")
+
+/obj/item/organ/external/head/proc/handle_alt_icon()
+	if(alt_head && alt_heads_list[alt_head])
+		var/datum/sprite_accessory/alt_heads/alternate_head = alt_heads_list[alt_head]
+		if(alternate_head.icon_state)
+			icon_name = alternate_head.icon_state
+		else //If alternate_head.icon_state doesn't exist, that means alternate_head is "None", so default icon_name back to "head".
+			icon_name = initial(icon_name)
+	else //If alt_head is null, set it to "None" and default icon_name for sanity.
+		alt_head = initial(alt_head)
+		icon_name = initial(icon_name)
+
+/obj/item/organ/external/head/set_dna(datum/dna/new_dna)
+	..()
+	new_dna.write_head_attributes(src)

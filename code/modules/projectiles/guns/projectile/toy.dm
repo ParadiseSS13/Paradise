@@ -26,7 +26,7 @@
 	can_suppress = 0
 	burst_size = 1
 	fire_delay = 0
-	action_button_name = null
+	actions_types = list()
 
 /obj/item/weapon/gun/projectile/automatic/toy/pistol/update_icon()
 	..()
@@ -92,8 +92,8 @@
 /obj/item/weapon/gun/projectile/shotgun/toy/tommygun
 	name = "tommy gun"
 	desc = "Looks almost like the real thing! Great for practicing Drive-bys. Ages 8 and up."
-	icon = 'icons/obj/guns/projectile.dmi'
-	icon_state = "tommy"
+	icon = 'icons/obj/guns/toy.dmi'
+	icon_state = "tommygun"
 	item_state = "shotgun"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/toy/tommygun
 	w_class = 2

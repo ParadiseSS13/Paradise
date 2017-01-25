@@ -56,7 +56,7 @@
 
 /mob/living/carbon/alien/humanoid/regenerate_icons()
 	..()
-	if (notransform)	return
+	if(notransform)	return
 
 	update_inv_head(0,0)
 	update_inv_wear_suit(0,0)
@@ -103,7 +103,7 @@
 				t_suit = "armor"
 			standing.overlays	+= image("icon" = 'icons/effects/blood.dmi', "icon_state" = "[t_suit]blood")
 
-		if (istype(wear_suit, /obj/item/clothing/suit/straight_jacket))
+		if(istype(wear_suit, /obj/item/clothing/suit/straight_jacket))
 			unEquip(handcuffed)
 			drop_r_hand()
 			drop_l_hand()
@@ -115,7 +115,7 @@
 
 
 /mob/living/carbon/alien/humanoid/update_inv_head(var/update_icons=1)
-	if (head)
+	if(head)
 		var/t_state = head.item_state
 		if(!t_state)	t_state = head.icon_state
 		var/image/standing	= image("icon" = 'icons/mob/mob.dmi', "icon_state" = "[t_state]")

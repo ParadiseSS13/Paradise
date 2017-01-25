@@ -51,28 +51,28 @@
 	to_chat(user, radio_desc)
 
 /obj/item/device/radio/headset/handle_message_mode(mob/living/M as mob, message, channel)
-	if (channel == "special")
-		if (translate_binary)
+	if(channel == "special")
+		if(translate_binary)
 			var/datum/language/binary = all_languages["Robot Talk"]
 			binary.broadcast(M, message)
-		if (translate_hive)
+			return RADIO_CONNECTION_NON_SUBSPACE
+		if(translate_hive)
 			var/datum/language/hivemind = all_languages["Hivemind"]
 			hivemind.broadcast(M, message)
-		return null
+			return RADIO_CONNECTION_NON_SUBSPACE
+		return RADIO_CONNECTION_FAIL
 
 	return ..()
-
-/obj/item/device/radio/headset/receive_range(freq, level, aiOverride = 0)
-	if(aiOverride)
-		return ..(freq, level)
+	
+/obj/item/device/radio/headset/is_listening()
 	if(ishuman(loc))
 		var/mob/living/carbon/human/H = loc
 		if(H.l_ear == src || H.r_ear == src)
-			return ..(freq, level)
-	else if(isanimal(loc))
-		// frankly, all the ones with inventory are small enough to not warrant snowflaking the slot check somehow
-		return ..(freq, level)
-	return -1
+			return ..()
+	else if(isanimal(loc) || isAI(loc))
+		return ..()
+	
+	return FALSE
 
 /obj/item/device/radio/headset/alt
 	name = "bowman headset"
@@ -93,6 +93,12 @@
 	origin_tech = "syndicate=3"
 	icon_state = "syndie_headset"
 	item_state = "syndie_headset"
+
+/obj/item/device/radio/headset/syndicate/syndteam
+	ks1type = /obj/item/device/encryptionkey/syndteam
+
+/obj/item/device/radio/headset/syndicate/alt/syndteam
+	ks1type = /obj/item/device/encryptionkey/syndteam
 
 /obj/item/device/radio/headset/binary
 	origin_tech = "syndicate=3"
@@ -209,27 +215,18 @@
 	icon_state = "com_headset"
 	item_state = "headset"
 	ks2type = /obj/item/device/encryptionkey/heads/hop
-/*
-/obj/item/device/radio/headset/headset_mine
-	name = "mining radio headset"
-	desc = "Headset used by miners. How useless."
-	icon_state = "mine_headset"
-	item_state = "headset"
-	ks2type = /obj/item/device/encryptionkey/headset_mine
 
-/obj/item/device/radio/headset/heads/qm
-	name = "quartermaster's headset"
-	desc = "The headset of the man who control your toiletpaper supply."
-	icon_state = "cargo_headset"
-	item_state = "headset"
-	ks2type = /obj/item/device/encryptionkey/heads/qm
-*/
 /obj/item/device/radio/headset/headset_cargo
 	name = "supply radio headset"
 	desc = "A headset used by the cargo department."
 	icon_state = "cargo_headset"
 	item_state = "headset"
 	ks2type = /obj/item/device/encryptionkey/headset_cargo
+
+/obj/item/device/radio/headset/headset_cargo/mining
+	name = "mining radio headset"
+	desc = "Headset used by shaft miners."
+	icon_state = "mine_headset"
 
 /obj/item/device/radio/headset/headset_service
 	name = "service radio headset"
@@ -287,6 +284,14 @@
 	icon_state = "com_headset_alt"
 	item_state = "com_headset_alt"
 
+/obj/item/device/radio/headset/centcom
+	name = "\proper centcom officer's bowman headset"
+	desc = "The headset of final authority. Protects ears from flashbangs."
+	flags = EARBANGPROTECT
+	icon_state = "com_headset_alt"
+	item_state = "com_headset_alt"
+	ks2type = /obj/item/device/encryptionkey/centcom
+
 /obj/item/device/radio/headset/heads/ai_integrated //No need to care about icons, it should be hidden inside the AI anyway.
 	name = "\improper AI subspace transceiver"
 	desc = "Integrated AI radio transceiver."
@@ -297,14 +302,14 @@
 	var/myAi = null    // Atlantis: Reference back to the AI which has this radio.
 	var/disabledAi = 0 // Atlantis: Used to manually disable AI's integrated radio via intellicard menu.
 
-/obj/item/device/radio/headset/heads/ai_integrated/receive_range(freq, level)
-	if (disabledAi)
-		return -1 //Transciever Disabled.
-	return ..(freq, level, 1)
+/obj/item/device/radio/headset/heads/ai_integrated/is_listening()
+	if(disabledAi)
+		return FALSE
+	return ..()
 
 /obj/item/device/radio/headset/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	user.set_machine(src)
-	if (!( istype(W, /obj/item/weapon/screwdriver) || (istype(W, /obj/item/device/encryptionkey/ ))))
+	if(!( istype(W, /obj/item/weapon/screwdriver) || (istype(W, /obj/item/device/encryptionkey/ ))))
 		return
 
 	if(istype(W, /obj/item/weapon/screwdriver))
@@ -387,7 +392,7 @@
 			src.syndie = 1
 
 
-	for (var/ch_name in channels)
+	for(var/ch_name in channels)
 		if(!radio_controller)
 			src.name = "broken radio headset"
 			return
@@ -409,3 +414,9 @@
 			radio_text += ", "
 
 	radio_desc = radio_text
+
+/obj/item/device/radio/headset/proc/make_syndie() // Turns normal radios into Syndicate radios!
+	qdel(keyslot1)
+	keyslot1 = new /obj/item/device/encryptionkey/syndicate
+	syndie = 1
+	recalculateChannels()

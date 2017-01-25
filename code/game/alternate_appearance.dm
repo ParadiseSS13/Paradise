@@ -30,7 +30,7 @@
 		if(!M.viewing_alternate_appearances)
 			M.viewing_alternate_appearances = list()
 		viewers |= M
-		M.viewing_alternate_appearances[key] = src
+		M.viewing_alternate_appearances |= src
 		if(M.client)
 			M.client.images |= img
 
@@ -48,9 +48,7 @@
 		if(M.client)
 			M.client.images -= img
 		if(M.viewing_alternate_appearances && M.viewing_alternate_appearances.len)
-			M.viewing_alternate_appearances -= key
-			if(!M.viewing_alternate_appearances.len)
-				M.viewing_alternate_appearances = null
+			M.viewing_alternate_appearances -= src
 		viewers -= M
 
 
@@ -61,8 +59,6 @@
 	hide()
 	if(owner && owner.alternate_appearances)
 		owner.alternate_appearances -= key
-		if(!owner.alternate_appearances.len)
-			owner.alternate_appearances = null
 
 
 /datum/alternate_appearance/Destroy()
@@ -74,7 +70,7 @@
 /atom
 	var/list/alternate_appearances //the alternate appearances we own
 	var/list/viewing_alternate_appearances //the alternate appearances we're viewing, stored here to reestablish them after Logout()s
-	//these lists are built/destroyed as necessary, so atoms aren't all lugging around lists full of datums
+	//these lists are built as necessary, so atoms aren't all lugging around empty lists
 
 /*
 	Builds an alternate_appearance datum for the supplied args, optionally displaying it straight away
@@ -102,6 +98,8 @@
 	AA.key = key
 	AA.owner = src
 
+	if(alternate_appearances[key])
+		qdel(alternate_appearances[key])
 	alternate_appearances[key] = AA
 	if(displayTo && displayTo.len)
 		display_alt_appearance(key, displayTo)
@@ -119,8 +117,7 @@
 /atom/proc/remove_alt_appearance(key)
 	if(alternate_appearances)
 		if(alternate_appearances[key])
-			var/datum/alternate_appearance/AA = alternate_appearances[key]
-			qdel(AA)
+			qdel(alternate_appearances[key])
 
 
 /*

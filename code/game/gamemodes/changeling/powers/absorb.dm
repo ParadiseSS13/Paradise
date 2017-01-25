@@ -58,8 +58,8 @@
 	if(!changeling.has_dna(target.dna))
 		changeling.absorb_dna(target, user)
 
-	if(user.nutrition < 450) // Nutrition level before overeat_duration starts ticking for you to become obese.
-		user.nutrition = min((user.nutrition + target.nutrition), 450)
+	if(user.nutrition < NUTRITION_LEVEL_WELL_FED)
+		user.nutrition = min((user.nutrition + target.nutrition), NUTRITION_LEVEL_WELL_FED)
 
 	if(target.mind)//if the victim has got a mind
 
@@ -86,8 +86,6 @@
 
 //Absorbs the target DNA.
 /datum/changeling/proc/absorb_dna(mob/living/carbon/T, var/mob/user)
-	if(absorbed_dna.len)
-		absorbed_dna.Cut(1,2)
 	T.dna.real_name = T.real_name //Set this again, just to be sure that it's properly set.
 	var/datum/dna/new_dna = T.dna.Clone()
 	//Steal all of their languages!
@@ -105,3 +103,4 @@
 			protected_dna |= new_dna
 			return
 	absorbed_dna |= new_dna
+	trim_dna()

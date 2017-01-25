@@ -222,7 +222,7 @@
 
 	for(var/obj/W in T)
 		//Different classes of items give different commodities.
-		if (istype(W,/obj/item/weapon/cigbutt))
+		if(istype(W,/obj/item/weapon/cigbutt))
 			stored_comms["plastic"]++
 		else if(istype(W,/obj/effect/spider/spiderling))
 			stored_comms["wood"]++
@@ -270,7 +270,7 @@
 			stored_comms["glass"]++
 			stored_comms["glass"]++
 			stored_comms["glass"]++
-		else if (istype(W,/obj/item/weapon/light/tube) || istype(W,/obj/item/weapon/light/bulb))
+		else if(istype(W,/obj/item/weapon/light/tube) || istype(W,/obj/item/weapon/light/bulb))
 			stored_comms["glass"]++
 		else
 			continue
@@ -295,14 +295,14 @@
 		module = new /obj/item/weapon/robot_module/drone(src)
 
 	var/dat = "<HEAD><TITLE>Drone modules</TITLE><META HTTP-EQUIV='Refresh' CONTENT='10'></HEAD><BODY>\n"
-	dat += {"<A HREF='?src=\ref[src];mach_close=robotmod'>Close</A>
+	dat += {"<A HREF='?src=[UID()];mach_close=robotmod'>Close</A>
 	<BR>
 	<BR>
 	<B>Activated Modules</B>
 	<BR>
-	Module 1: [module_state_1 ? "<A HREF=?src=\ref[src];mod=\ref[module_state_1]>[module_state_1]<A>" : "No Module"]<BR>
-	Module 2: [module_state_2 ? "<A HREF=?src=\ref[src];mod=\ref[module_state_2]>[module_state_2]<A>" : "No Module"]<BR>
-	Module 3: [module_state_3 ? "<A HREF=?src=\ref[src];mod=\ref[module_state_3]>[module_state_3]<A>" : "No Module"]<BR>
+	Module 1: [module_state_1 ? "<A HREF=?src=[UID()];mod=\ref[module_state_1]>[module_state_1]<A>" : "No Module"]<BR>
+	Module 2: [module_state_2 ? "<A HREF=?src=[UID()];mod=\ref[module_state_2]>[module_state_2]<A>" : "No Module"]<BR>
+	Module 3: [module_state_3 ? "<A HREF=?src=[UID()];mod=\ref[module_state_3]>[module_state_3]<A>" : "No Module"]<BR>
 	<BR>
 	<B>Installed Modules</B><BR><BR>"}
 
@@ -310,16 +310,16 @@
 	var/tools = "<B>Tools and devices</B><BR>"
 	var/resources = "<BR><B>Resources</B><BR>"
 
-	for (var/O in module.modules)
+	for(var/O in module.modules)
 
 		var/module_string = ""
 
-		if (!O)
+		if(!O)
 			module_string += text("<B>Resource depleted</B><BR>")
 		else if(activated(O))
 			module_string += text("[O]: <B>Activated</B><BR>")
 		else
-			module_string += text("[O]: <A HREF=?src=\ref[src];act=\ref[O]>Activate</A><BR>")
+			module_string += text("[O]: <A HREF=?src=[UID()];act=\ref[O]>Activate</A><BR>")
 
 		if((istype(O,/obj/item/weapon) || istype(O,/obj/item/device)) && !(istype(O,/obj/item/stack/cable_coil)))
 			tools += module_string
@@ -328,13 +328,13 @@
 
 	dat += tools
 
-	if (emagged)
-		if (!module.emag)
+	if(emagged)
+		if(!module.emag)
 			dat += text("<B>Resource depleted</B><BR>")
 		else if(activated(module.emag))
 			dat += text("[module.emag]: <B>Activated</B><BR>")
 		else
-			dat += text("[module.emag]: <A HREF=?src=\ref[src];act=\ref[module.emag]>Activate</A><BR>")
+			dat += text("[module.emag]: <A HREF=?src=[UID()];act=\ref[module.emag]>Activate</A><BR>")
 
 	dat += resources
 
@@ -344,7 +344,7 @@
 /mob/living/silicon/robot/drone/use_power()
 
 	..()
-	if(!src.has_power || !decompiler)
+	if(low_power_mode || !decompiler)
 		return
 
 	//The decompiler replenishes drone stores from hoovered-up junk each tick.

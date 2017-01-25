@@ -53,19 +53,19 @@
 
 	var/dat = {"Location: [curr_location]<br>
 	Ready to move[max(lastMove + SALVAGE_SHIP_COOLDOWN - world.time, 0) ? " in [max(round((lastMove + SALVAGE_SHIP_COOLDOWN - world.time) * 0.1), 0)] seconds" : ": now"]<br>
-	<a href='?src=\ref[src];start=1'>Middle of Nowhere</a><br>
-	<a href='?src=\ref[src];arrivals=1'>Station Auxiliary Docking</a> |
-	<a href='?src=\ref[src];north=1'>North of the Station</a> |
-	<a href='?src=\ref[src];east=1'>East of the Station</a> |
-	<a href='?src=\ref[src];south=1'>South of the Station</a><br>
-	<a href='?src=\ref[src];mining=1'>South-west of the Mining Asteroid</a> |
-	<a href='?src=\ref[src];trading_post=1'>Trading Post</a><br>
-	<a href='?src=\ref[src];clown_asteroid=1'>Clown Asteroid</a> |
-	<a href='?src=\ref[src];derelict=1'>Derelict Station</a> |
-	<a href='?src=\ref[src];djstation=1'>Ruskie DJ Station</a><br>
-	<a href='?src=\ref[src];commssat=1'>Communications Satellite</a> |
-	<a href='?src=\ref[src];abandoned_ship=1'>Abandoned Ship</a><br>
-	<a href='?src=\ref[user];mach_close=computer'>Close</a>"}
+	<a href='?src=[UID()];start=1'>Middle of Nowhere</a><br>
+	<a href='?src=[UID()];arrivals=1'>Station Auxiliary Docking</a> |
+	<a href='?src=[UID()];north=1'>North of the Station</a> |
+	<a href='?src=[UID()];east=1'>East of the Station</a> |
+	<a href='?src=[UID()];south=1'>South of the Station</a><br>
+	<a href='?src=[UID()];mining=1'>South-west of the Mining Asteroid</a> |
+	<a href='?src=[UID()];trading_post=1'>Trading Post</a><br>
+	<a href='?src=[UID()];clown_asteroid=1'>Clown Asteroid</a> |
+	<a href='?src=[UID()];derelict=1'>Derelict Station</a> |
+	<a href='?src=[UID()];djstation=1'>Ruskie DJ Station</a><br>
+	<a href='?src=[UID()];commssat=1'>Communications Satellite</a> |
+	<a href='?src=[UID()];abandoned_ship=1'>Abandoned Ship</a><br>
+	<a href='?src=[user.UID()];mach_close=computer'>Close</a>"}
 
 	user << browse(dat, "window=computer;size=575x450")
 	onclose(user, "computer")

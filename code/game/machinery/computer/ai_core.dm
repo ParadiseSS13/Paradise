@@ -81,7 +81,7 @@
 						icon_state = "3"
 		if(3)
 			if(istype(P, /obj/item/weapon/wirecutters))
-				if (brain)
+				if(brain)
 					to_chat(user, "Get that brain out of there first")
 				else
 					playsound(loc, 'sound/items/Wirecutter.ogg', 50, 1)
@@ -95,7 +95,7 @@
 				if(P:amount >= 2)
 					playsound(loc, 'sound/items/Deconstruct.ogg', 50, 1)
 					if(do_after(user, 20, target = src))
-						if (P)
+						if(P)
 							P:amount -= 2
 							if(!P:amount) qdel(P)
 							to_chat(user, "\blue You put in the glass panel.")
@@ -158,7 +158,7 @@
 				playsound(loc, 'sound/items/Crowbar.ogg', 50, 1)
 				to_chat(user, "\blue You remove the glass panel.")
 				state = 3
-				if (brain)
+				if(brain)
 					icon_state = "3b"
 				else
 					icon_state = "3"
@@ -264,9 +264,9 @@ atom/proc/transfer_ai(var/interaction, var/mob/user, var/mob/living/silicon/ai/A
 	if(interaction == AI_TRANS_FROM_CARD)
 		AI.control_disabled = 0
 		AI.aiRadio.disabledAi = 0
-		AI.loc = loc//To replace the terminal.
+		AI.forceMove(loc)//To replace the terminal.
 		to_chat(AI, "You have been uploaded to a stationary terminal. Remote device connection restored.")
-		to_chat(user, "<span class='boldnotice'>Transfer successful</span>: [AI.name] ([rand(1000,9999)].exe) installed and executed successfully. Local copy has been removed.")
+		to_chat(user, "<span class='boldnotice'>Transfer successful</span>: [AI.name] ([rand(1000,9999)].exe) installed and executed successfully. Local copy has been removed.</span>")
 		qdel(src)
 	else //If for some reason you use an empty card on an empty AI terminal.
 		to_chat(user, "There is no AI loaded on this terminal!")

@@ -26,7 +26,7 @@
 	set desc = "Allows you to hide beneath tables or certain items. Toggled on or off."
 	set category = "Drone"
 
-	if (layer != TURF_LAYER+0.2)
+	if(layer != TURF_LAYER+0.2)
 		layer = TURF_LAYER+0.2
 		to_chat(src, text("\blue You are now hiding."))
 	else

@@ -279,7 +279,7 @@
 				var/rejuvenators = round(occupant.reagents.get_reagent_amount("inaprovaline") / REJUVENATORS_MAX * 100)
 				status_html += "<div class='line'><div class='statusLabel'>Rejuvenators:</div><div class='progressBar'><div style='width: [rejuvenators]%;' class='progressFill highlight'></div></div><div class='statusValue'>[occupant.reagents.get_reagent_amount("inaprovaline")] units</div></div>"
 
-			if (dna_summary)
+			if(dna_summary)
 				status_html += "<div class='line'><div class='statusLabel'>Unique Enzymes :</div><div class='statusValue'><span class='highlight'>[uppertext(occupant.dna.unique_enzymes)]</span></div></div>"
 				status_html += "<div class='line'><div class='statusLabel'>Unique Identifier:</div><div class='statusValue'><span class='highlight'>[occupant.dna.uni_identity]</span></div></div>"
 				status_html += "<div class='line'><div class='statusLabel'>Structural Enzymes:</div><div class='statusValue'><span class='highlight'>[occupant.dna.struc_enzymes]</span></div></div>"
@@ -384,7 +384,7 @@
 	proc/emitter_menu()
 		to_chat(var/dat = topic_link(src,"mode=0",", Main Menu") + "<br>")
 		dat += "<h3>Radiation Emitter Settings</h3>"
-		if (viable)
+		if(viable)
 			dat += topic_link(src,"pulse","Pulse Radiation")
 		else
 			dat += fake_link("Pulse Radiation")
@@ -454,7 +454,7 @@
 					updateappearance(scanner.occupant,scanner.occupant.dna.uni_identity)
 					scanner.occupant.apply_effect(radstrength+radduration, IRRADIATE)
 				if("ui-f")
-					if	(prob(20+radstrength))
+					if(prob(20+radstrength))
 						randmutb(scanner.occupant)
 						domutcheck(scanner.occupant,scanner)
 					else
@@ -466,8 +466,8 @@
 					var/se = scanner.occupant.dna.struc_enzymes
 					var/targetblock = se_block
 
-					if (!(se_block in list(2,8,10,12)) && prob (20)) // shifts the target slightly
-						if (se_block <= 5)
+					if(!(se_block in list(2,8,10,12)) && prob (20)) // shifts the target slightly
+						if(se_block <= 5)
 							targetblock++
 						else
 							targetblock--
@@ -484,7 +484,7 @@
 					domutcheck(scanner.occupant,scanner)
 					scanner.occupant.apply_effect(radstrength+radduration, IRRADIATE)
 				if("se-f")
-					if	(prob(80-radduration))
+					if(prob(80-radduration))
 						randmutb(scanner.occupant)
 						domutcheck(scanner.occupant,scanner)
 					else
@@ -493,7 +493,7 @@
 					scanner.occupant.apply_effect((radstrength*2)+radduration, IRRADIATE)
 
 				if(null)
-					if (prob(95))
+					if(prob(95))
 						if(prob(75))
 							randmutb(scanner.occupant)
 						else
@@ -517,7 +517,7 @@
 		if(istype(H))
 			var/inap = H.reagents.get_reagent_amount("inaprovaline") // oh my *god* this section was ugly before I shortened it
 
-			if (inap < (REJUVENATORS_MAX - REJUVENATORS_INJECT))
+			if(inap < (REJUVENATORS_MAX - REJUVENATORS_INJECT))
 				H.reagents.add_reagent("inaprovaline", REJUVENATORS_INJECT)
 			else
 				H.reagents.add_reagent("inaprovaline", max(REJUVENATORS_MAX - inap,0))
@@ -534,32 +534,32 @@
 	var/viable_occupant = (occupant && occupant.dna && !(NOCLONE in occupant.mutations))
 	var/mob/living/carbon/human/human_occupant = scanner.occupant
 
-	if (href_list["screen"]) // Passing a screen is only a request, we set current_screen here but it can be overridden below if necessary
+	if(href_list["screen"]) // Passing a screen is only a request, we set current_screen here but it can be overridden below if necessary
 		current_screen = href_list["screen"]
 
-	if (!viable_occupant) // If there is no viable occupant only allow certain screens
+	if(!viable_occupant) // If there is no viable occupant only allow certain screens
 		var/allowed_no_occupant_screens = list("mainmenu", "radsetmenu", "buffermenu") //These are the screens which will be allowed if there's no occupant
-		if (!(current_screen in allowed_no_occupant_screens))
+		if(!(current_screen in allowed_no_occupant_screens))
 			href_list = new /list(0) // clear list of options
 			current_screen = "mainmenu"
 
 
-	if (!current_screen) // If no screen is set default to mainmenu
+	if(!current_screen) // If no screen is set default to mainmenu
 		current_screen = "mainmenu"
 
 
-	if (!scanner) //Is the scanner not connected?
+	if(!scanner) //Is the scanner not connected?
 		scanner_status_html = "<span class='bad'>ERROR: No DNA Scanner connected.</span>"
 		current_screen = null // blank does not exist in the switch below, so no screen will be outputted
 		updateUsrDialog()
 		return
 
 	usr.set_machine(src)
-	if (href_list["locked"])
-		if (scanner.occupant)
+	if(href_list["locked"])
+		if(scanner.occupant)
 			scanner.locked = !( scanner.locked )
 	////////////////////////////////////////////////////////
-	if (href_list["genpulse"])
+	if(href_list["genpulse"])
 		if(!viable_occupant)//Makes sure someone is in there (And valid) before trying anything
 			temp_html = text("No viable occupant detected.")//More than anything, this just acts as a sanity check in case the option DOES appear for whatever reason
 			//usr << browse(temp_html, "window=scannernew;size=550x650")
@@ -574,10 +574,10 @@
 			var/lock_state = scanner.locked
 			scanner.locked = 1//lock it
 			sleep(10*radduration)
-			if (!scanner.occupant)
+			if(!scanner.occupant)
 				temp_html = null
 				return null
-			if (prob(95))
+			if(prob(95))
 				if(prob(75))
 					randmutb(scanner.occupant)
 				else
@@ -591,59 +591,59 @@
 			scanner.locked = lock_state
 			temp_html = null
 			dopage(src,"screen=radsetmenu")
-	if (href_list["radleplus"])
+	if(href_list["radleplus"])
 		if(!viable_occupant)
 			temp_html = text("No viable occupant detected.")
 			popup.set_content(temp_html)
 			popup.open()
-		if (radduration < 20)
+		if(radduration < 20)
 			radduration++
 			radduration++
 		dopage(src,"screen=radsetmenu")
-	if (href_list["radleminus"])
+	if(href_list["radleminus"])
 		if(!viable_occupant)
 			temp_html = text("No viable occupant detected.")
 			popup.set_content(temp_html)
 			popup.open()
-		if (radduration > 2)
+		if(radduration > 2)
 			radduration--
 			radduration--
 		dopage(src,"screen=radsetmenu")
-	if (href_list["radinplus"])
-		if (radstrength < 10)
+	if(href_list["radinplus"])
+		if(radstrength < 10)
 			radstrength++
 		dopage(src,"screen=radsetmenu")
-	if (href_list["radinminus"])
-		if (radstrength > 1)
+	if(href_list["radinminus"])
+		if(radstrength > 1)
 			radstrength--
 		dopage(src,"screen=radsetmenu")
 	////////////////////////////////////////////////////////
-	if (href_list["unimenuplus"])
-		if (ui_block < 13)
+	if(href_list["unimenuplus"])
+		if(ui_block < 13)
 			ui_block++
 		else
 			ui_block = 1
 		dopage(src,"screen=unimenu")
-	if (href_list["unimenuminus"])
-		if (ui_block > 1)
+	if(href_list["unimenuminus"])
+		if(ui_block > 1)
 			ui_block--
 		else
 			ui_block = 13
 		dopage(src,"screen=unimenu")
-	if (href_list["unimenusubplus"])
-		if (subblock < 3)
+	if(href_list["unimenusubplus"])
+		if(subblock < 3)
 			subblock++
 		else
 			subblock = 1
 		dopage(src,"screen=unimenu")
-	if (href_list["unimenusubminus"])
-		if (subblock > 1)
+	if(href_list["unimenusubminus"])
+		if(subblock > 1)
 			subblock--
 		else
 			subblock = 3
 		dopage(src,"screen=unimenu")
-	if (href_list["unimenutargetplus"])
-		if (unitarget < 15)
+	if(href_list["unimenutargetplus"])
+		if(unitarget < 15)
 			unitarget++
 			unitargethex = unitarget
 			switch(unitarget)
@@ -663,8 +663,8 @@
 			unitarget = 0
 			unitargethex = 0
 		dopage(src,"screen=unimenu")
-	if (href_list["unimenutargetminus"])
-		if (unitarget > 0)
+	if(href_list["unimenutargetminus"])
+		if(unitarget > 0)
 			unitarget--
 			unitargethex = unitarget
 			switch(unitarget)
@@ -682,15 +682,15 @@
 			unitarget = 15
 			unitargethex = "F"
 		dopage(src,"screen=unimenu")
-	if (href_list["uimenuset"] && href_list["uimenusubset"]) // This chunk of code updates selected block / sub-block based on click
+	if(href_list["uimenuset"] && href_list["uimenusubset"]) // This chunk of code updates selected block / sub-block based on click
 		var/menuset = text2num(href_list["uimenuset"])
 		var/menusubset = text2num(href_list["uimenusubset"])
-		if ((menuset <= 13) && (menuset >= 1))
+		if((menuset <= 13) && (menuset >= 1))
 			ui_block = menuset
-		if ((menusubset <= 3) && (menusubset >= 1))
+		if((menusubset <= 3) && (menusubset >= 1))
 			subblock = menusubset
 		dopage(src, "unimenu")
-	if (href_list["unipulse"])
+	if(href_list["unipulse"])
 		if(scanner.occupant)
 			var/block
 			var/newblock
@@ -703,22 +703,22 @@
 			var/lock_state = scanner.locked
 			scanner.locked = 1//lock it
 			sleep(10*radduration)
-			if (!scanner.occupant)
+			if(!scanner.occupant)
 				temp_html = null
 				return null
 			///
-			if (prob((80 + (radduration / 2))))
+			if(prob((80 + (radduration / 2))))
 				block = miniscrambletarget(num2text(unitarget), radstrength, radduration)
 				newblock = null
-				if (subblock == 1) newblock = block + getblock(getblock(scanner.occupant.dna.uni_identity,ui_block,3),2,1) + getblock(getblock(scanner.occupant.dna.uni_identity,ui_block,3),3,1)
-				if (subblock == 2) newblock = getblock(getblock(scanner.occupant.dna.uni_identity,ui_block,3),1,1) + block + getblock(getblock(scanner.occupant.dna.uni_identity,ui_block,3),3,1)
-				if (subblock == 3) newblock = getblock(getblock(scanner.occupant.dna.uni_identity,ui_block,3),1,1) + getblock(getblock(scanner.occupant.dna.uni_identity,ui_block,3),2,1) + block
+				if(subblock == 1) newblock = block + getblock(getblock(scanner.occupant.dna.uni_identity,ui_block,3),2,1) + getblock(getblock(scanner.occupant.dna.uni_identity,ui_block,3),3,1)
+				if(subblock == 2) newblock = getblock(getblock(scanner.occupant.dna.uni_identity,ui_block,3),1,1) + block + getblock(getblock(scanner.occupant.dna.uni_identity,ui_block,3),3,1)
+				if(subblock == 3) newblock = getblock(getblock(scanner.occupant.dna.uni_identity,ui_block,3),1,1) + getblock(getblock(scanner.occupant.dna.uni_identity,ui_block,3),2,1) + block
 				tstructure2 = setblock(scanner.occupant.dna.uni_identity, ui_block, newblock,3)
 				scanner.occupant.dna.uni_identity = tstructure2
 				updateappearance(scanner.occupant,scanner.occupant.dna.uni_identity)
 				scanner.occupant.apply_effect(radstrength+radduration, IRRADIATE)
 			else
-				if	(prob(20+radstrength))
+				if(prob(20+radstrength))
 					randmutb(scanner.occupant)
 					domutcheck(scanner.occupant,scanner)
 				else
@@ -729,61 +729,61 @@
 		dopage(src,"screen=unimenu")
 
 	////////////////////////////////////////////////////////
-	if (href_list["rejuv"])
+	if(href_list["rejuv"])
 		if(!viable_occupant)
 			temp_html = text("No viable occupant detected.")
 			popup.set_content(temp_html)
 			popup.open()
 		else
 			if(human_occupant)
-				if (human_occupant.reagents.get_reagent_amount("inaprovaline") < REJUVENATORS_MAX)
-					if (human_occupant.reagents.get_reagent_amount("inaprovaline") < (REJUVENATORS_MAX - REJUVENATORS_INJECT))
+				if(human_occupant.reagents.get_reagent_amount("inaprovaline") < REJUVENATORS_MAX)
+					if(human_occupant.reagents.get_reagent_amount("inaprovaline") < (REJUVENATORS_MAX - REJUVENATORS_INJECT))
 						human_occupant.reagents.add_reagent("inaprovaline", REJUVENATORS_INJECT)
 					else
 						human_occupant.reagents.add_reagent("inaprovaline", round(REJUVENATORS_MAX - human_occupant.reagents.get_reagent_amount("inaprovaline")))
 //				to_chat(usr, text("Occupant now has [] units of rejuvenation in his/her bloodstream.", human_occupant.reagents.get_reagent_amount("inaprovaline")))
 
 	////////////////////////////////////////////////////////
-	if (href_list["strucmenuplus"])
-		if (se_block < 14)
+	if(href_list["strucmenuplus"])
+		if(se_block < 14)
 			se_block++
 		else
 			se_block = 1
 		dopage(src,"screen=strucmenu")
-	if (href_list["strucmenuminus"])
-		if (se_block > 1)
+	if(href_list["strucmenuminus"])
+		if(se_block > 1)
 			se_block--
 		else
 			se_block = 14
 		dopage(src,"screen=strucmenu")
-	if (href_list["strucmenusubplus"])
-		if (subblock < 3)
+	if(href_list["strucmenusubplus"])
+		if(subblock < 3)
 			subblock++
 		else
 			subblock = 1
 		dopage(src,"screen=strucmenu")
-	if (href_list["strucmenusubminus"])
-		if (subblock > 1)
+	if(href_list["strucmenusubminus"])
+		if(subblock > 1)
 			subblock--
 		else
 			subblock = 3
 		dopage(src,"screen=strucmenu")
-	if (href_list["semenuset"] && href_list["semenusubset"]) // This chunk of code updates selected block / sub-block based on click (se stands for strutural enzymes)
+	if(href_list["semenuset"] && href_list["semenusubset"]) // This chunk of code updates selected block / sub-block based on click (se stands for strutural enzymes)
 		var/menuset = text2num(href_list["semenuset"])
 		var/menusubset = text2num(href_list["semenusubset"])
-		if ((menuset <= 14) && (menuset >= 1))
+		if((menuset <= 14) && (menuset >= 1))
 			se_block = menuset
-		if ((menusubset <= 3) && (menusubset >= 1))
+		if((menusubset <= 3) && (menusubset >= 1))
 			subblock = menusubset
 		dopage(src, "strucmenu")
-	if (href_list["strucpulse"])
+	if(href_list["strucpulse"])
 		var/block
 		var/newblock
 		var/tstructure2
 		var/oldblock
 		var/lock_state = scanner.locked
 		scanner.locked = 1//lock it
-		if (viable_occupant)
+		if(viable_occupant)
 			block = getblock(getblock(scanner.occupant.dna.struc_enzymes,se_block,3),subblock,1)
 
 			temp_html = text("Working ... Please wait ([] Seconds)", radduration)
@@ -795,18 +795,18 @@
 			return null
 		///
 		if(viable_occupant)
-			if (prob((80 + (radduration / 2))))
-				if ((se_block != 2 || se_block != 12 || se_block != 8 || se_block || 10) && prob (20))
+			if(prob((80 + (radduration / 2))))
+				if((se_block != 2 || se_block != 12 || se_block != 8 || se_block || 10) && prob (20))
 					oldblock = se_block
 					block = miniscramble(block, radstrength, radduration)
 					newblock = null
-					if (se_block > 1 && se_block < 5)
+					if(se_block > 1 && se_block < 5)
 						se_block++
-					else if (se_block > 5 && se_block < 14)
+					else if(se_block > 5 && se_block < 14)
 						se_block--
-					if (subblock == 1) newblock = block + getblock(getblock(scanner.occupant.dna.struc_enzymes,se_block,3),2,1) + getblock(getblock(scanner.occupant.dna.struc_enzymes,se_block,3),3,1)
-					if (subblock == 2) newblock = getblock(getblock(scanner.occupant.dna.struc_enzymes,se_block,3),1,1) + block + getblock(getblock(scanner.occupant.dna.struc_enzymes,se_block,3),3,1)
-					if (subblock == 3) newblock = getblock(getblock(scanner.occupant.dna.struc_enzymes,se_block,3),1,1) + getblock(getblock(scanner.occupant.dna.struc_enzymes,se_block,3),2,1) + block
+					if(subblock == 1) newblock = block + getblock(getblock(scanner.occupant.dna.struc_enzymes,se_block,3),2,1) + getblock(getblock(scanner.occupant.dna.struc_enzymes,se_block,3),3,1)
+					if(subblock == 2) newblock = getblock(getblock(scanner.occupant.dna.struc_enzymes,se_block,3),1,1) + block + getblock(getblock(scanner.occupant.dna.struc_enzymes,se_block,3),3,1)
+					if(subblock == 3) newblock = getblock(getblock(scanner.occupant.dna.struc_enzymes,se_block,3),1,1) + getblock(getblock(scanner.occupant.dna.struc_enzymes,se_block,3),2,1) + block
 					tstructure2 = setblock(scanner.occupant.dna.struc_enzymes, se_block, newblock,3)
 					scanner.occupant.dna.struc_enzymes = tstructure2
 					domutcheck(scanner.occupant,scanner)
@@ -816,15 +816,15 @@
 				//
 					block = miniscramble(block, radstrength, radduration)
 					newblock = null
-					if (subblock == 1) newblock = block + getblock(getblock(scanner.occupant.dna.struc_enzymes,se_block,3),2,1) + getblock(getblock(scanner.occupant.dna.struc_enzymes,se_block,3),3,1)
-					if (subblock == 2) newblock = getblock(getblock(scanner.occupant.dna.struc_enzymes,se_block,3),1,1) + block + getblock(getblock(scanner.occupant.dna.struc_enzymes,se_block,3),3,1)
-					if (subblock == 3) newblock = getblock(getblock(scanner.occupant.dna.struc_enzymes,se_block,3),1,1) + getblock(getblock(scanner.occupant.dna.struc_enzymes,se_block,3),2,1) + block
+					if(subblock == 1) newblock = block + getblock(getblock(scanner.occupant.dna.struc_enzymes,se_block,3),2,1) + getblock(getblock(scanner.occupant.dna.struc_enzymes,se_block,3),3,1)
+					if(subblock == 2) newblock = getblock(getblock(scanner.occupant.dna.struc_enzymes,se_block,3),1,1) + block + getblock(getblock(scanner.occupant.dna.struc_enzymes,se_block,3),3,1)
+					if(subblock == 3) newblock = getblock(getblock(scanner.occupant.dna.struc_enzymes,se_block,3),1,1) + getblock(getblock(scanner.occupant.dna.struc_enzymes,se_block,3),2,1) + block
 					tstructure2 = setblock(scanner.occupant.dna.struc_enzymes, se_block, newblock,3)
 					scanner.occupant.dna.struc_enzymes = tstructure2
 					domutcheck(scanner.occupant,scanner)
 					scanner.occupant.apply_effect(radstrength+radduration, IRRADIATE)
 			else
-				if	(prob(80-radduration))
+				if(prob(80-radduration))
 					randmutb(scanner.occupant)
 					domutcheck(scanner.occupant,scanner)
 				else
@@ -836,21 +836,21 @@
 		dopage(src,"screen=strucmenu")
 
 	////////////////////////////////////////////////////////
-	if (href_list["b1addui"])
+	if(href_list["b1addui"])
 		if(scanner.occupant && scanner.occupant.dna)
 			buffer1iue = 0
 			buffer1 = scanner.occupant.dna.uni_identity
-			if (!istype(scanner.occupant,/mob/living/carbon/human))
+			if(!istype(scanner.occupant,/mob/living/carbon/human))
 				buffer1owner = scanner.occupant.name
 			else
 				buffer1owner = scanner.occupant.real_name
 			buffer1label = "Unique Identifier"
 			buffer1type = "ui"
 			dopage(src,"screen=buffermenu")
-	if (href_list["b1adduiue"])
+	if(href_list["b1adduiue"])
 		if(scanner.occupant && scanner.occupant.dna)
 			buffer1 = scanner.occupant.dna.uni_identity
-			if (!istype(scanner.occupant,/mob/living/carbon/human))
+			if(!istype(scanner.occupant,/mob/living/carbon/human))
 				buffer1owner = scanner.occupant.name
 			else
 				buffer1owner = scanner.occupant.real_name
@@ -858,10 +858,10 @@
 			buffer1type = "ui"
 			buffer1iue = 1
 			dopage(src,"screen=buffermenu")
-	if (href_list["b2adduiue"])
+	if(href_list["b2adduiue"])
 		if(scanner.occupant && scanner.occupant.dna)
 			buffer2 = scanner.occupant.dna.uni_identity
-			if (!istype(scanner.occupant,/mob/living/carbon/human))
+			if(!istype(scanner.occupant,/mob/living/carbon/human))
 				buffer2owner = scanner.occupant.name
 			else
 				buffer2owner = scanner.occupant.real_name
@@ -869,10 +869,10 @@
 			buffer2type = "ui"
 			buffer2iue = 1
 			dopage(src,"screen=buffermenu")
-	if (href_list["b3adduiue"])
+	if(href_list["b3adduiue"])
 		if(scanner.occupant && scanner.occupant.dna)
 			buffer3 = scanner.occupant.dna.uni_identity
-			if (!istype(scanner.occupant,/mob/living/carbon/human))
+			if(!istype(scanner.occupant,/mob/living/carbon/human))
 				buffer3owner = scanner.occupant.name
 			else
 				buffer3owner = scanner.occupant.real_name
@@ -880,141 +880,141 @@
 			buffer3type = "ui"
 			buffer3iue = 1
 			dopage(src,"screen=buffermenu")
-	if (href_list["b2addui"])
+	if(href_list["b2addui"])
 		if(scanner.occupant && scanner.occupant.dna)
 			buffer2iue = 0
 			buffer2 = scanner.occupant.dna.uni_identity
-			if (!istype(scanner.occupant,/mob/living/carbon/human))
+			if(!istype(scanner.occupant,/mob/living/carbon/human))
 				buffer2owner = scanner.occupant.name
 			else
 				buffer2owner = scanner.occupant.real_name
 			buffer2label = "Unique Identifier"
 			buffer2type = "ui"
 			dopage(src,"screen=buffermenu")
-	if (href_list["b3addui"])
+	if(href_list["b3addui"])
 		if(scanner.occupant && scanner.occupant.dna)
 			buffer3iue = 0
 			buffer3 = scanner.occupant.dna.uni_identity
-			if (!istype(scanner.occupant,/mob/living/carbon/human))
+			if(!istype(scanner.occupant,/mob/living/carbon/human))
 				buffer3owner = scanner.occupant.name
 			else
 				buffer3owner = scanner.occupant.real_name
 			buffer3label = "Unique Identifier"
 			buffer3type = "ui"
 			dopage(src,"screen=buffermenu")
-	if (href_list["b1addse"])
+	if(href_list["b1addse"])
 		if(scanner.occupant && scanner.occupant.dna)
 			buffer1iue = 0
 			buffer1 = scanner.occupant.dna.struc_enzymes
-			if (!istype(scanner.occupant,/mob/living/carbon/human))
+			if(!istype(scanner.occupant,/mob/living/carbon/human))
 				buffer1owner = scanner.occupant.name
 			else
 				buffer1owner = scanner.occupant.real_name
 			buffer1label = "Structural Enzymes"
 			buffer1type = "se"
 			dopage(src,"screen=buffermenu")
-	if (href_list["b2addse"])
+	if(href_list["b2addse"])
 		if(scanner.occupant && scanner.occupant.dna)
 			buffer2iue = 0
 			buffer2 = scanner.occupant.dna.struc_enzymes
-			if (!istype(scanner.occupant,/mob/living/carbon/human))
+			if(!istype(scanner.occupant,/mob/living/carbon/human))
 				buffer2owner = scanner.occupant.name
 			else
 				buffer2owner = scanner.occupant.real_name
 			buffer2label = "Structural Enzymes"
 			buffer2type = "se"
 			dopage(src,"screen=buffermenu")
-	if (href_list["b3addse"])
+	if(href_list["b3addse"])
 		if(scanner.occupant && scanner.occupant.dna)
 			buffer3iue = 0
 			buffer3 = scanner.occupant.dna.struc_enzymes
-			if (!istype(scanner.occupant,/mob/living/carbon/human))
+			if(!istype(scanner.occupant,/mob/living/carbon/human))
 				buffer3owner = scanner.occupant.name
 			else
 				buffer3owner = scanner.occupant.real_name
 			buffer3label = "Structural Enzymes"
 			buffer3type = "se"
 			dopage(src,"screen=buffermenu")
-	if (href_list["b1clear"])
+	if(href_list["b1clear"])
 		buffer1 = null
 		buffer1owner = null
 		buffer1label = null
 		buffer1iue = null
 		dopage(src,"screen=buffermenu")
-	if (href_list["b2clear"])
+	if(href_list["b2clear"])
 		buffer2 = null
 		buffer2owner = null
 		buffer2label = null
 		buffer2iue = null
 		dopage(src,"screen=buffermenu")
-	if (href_list["b3clear"])
+	if(href_list["b3clear"])
 		buffer3 = null
 		buffer3owner = null
 		buffer3label = null
 		buffer3iue = null
 		dopage(src,"screen=buffermenu")
-	if (href_list["b1label"])
+	if(href_list["b1label"])
 		buffer1label = sanitize(input("New Label:","Edit Label","Infos here"))
 		dopage(src,"screen=buffermenu")
-	if (href_list["b2label"])
+	if(href_list["b2label"])
 		buffer2label = sanitize(input("New Label:","Edit Label","Infos here"))
 		dopage(src,"screen=buffermenu")
-	if (href_list["b3label"])
+	if(href_list["b3label"])
 		buffer3label = sanitize(input("New Label:","Edit Label","Infos here"))
 		dopage(src,"screen=buffermenu")
-	if (href_list["b1transfer"])
-		if (!scanner.occupant || (NOCLONE in scanner.occupant.mutations) || !scanner.occupant.dna)
+	if(href_list["b1transfer"])
+		if(!scanner.occupant || (NOCLONE in scanner.occupant.mutations) || !scanner.occupant.dna)
 			return
-		if (buffer1type == "ui")
-			if (buffer1iue)
+		if(buffer1type == "ui")
+			if(buffer1iue)
 				scanner.occupant.real_name = buffer1owner
 				scanner.occupant.name = buffer1owner
 			scanner.occupant.dna.uni_identity = buffer1
 			updateappearance(scanner.occupant,scanner.occupant.dna.uni_identity)
-		else if (buffer1type == "se")
+		else if(buffer1type == "se")
 			scanner.occupant.dna.struc_enzymes = buffer1
 			domutcheck(scanner.occupant,scanner)
 		temp_html = "Transfered."
 		scanner.occupant.apply_effect(rand(20,50), IRRADIATE)
 
-	if (href_list["b2transfer"])
-		if (!scanner.occupant || (NOCLONE in scanner.occupant.mutations) || !scanner.occupant.dna)
+	if(href_list["b2transfer"])
+		if(!scanner.occupant || (NOCLONE in scanner.occupant.mutations) || !scanner.occupant.dna)
 			return
-		if (buffer2type == "ui")
-			if (buffer2iue)
+		if(buffer2type == "ui")
+			if(buffer2iue)
 				scanner.occupant.real_name = buffer2owner
 				scanner.occupant.name = buffer2owner
 			scanner.occupant.dna.uni_identity = buffer2
 			updateappearance(scanner.occupant,scanner.occupant.dna.uni_identity)
-		else if (buffer2type == "se")
+		else if(buffer2type == "se")
 			scanner.occupant.dna.struc_enzymes = buffer2
 			domutcheck(scanner.occupant,scanner)
 		temp_html = "Transfered."
 		scanner.occupant.apply_effect(rand(20,50), IRRADIATE)
 
-	if (href_list["b3transfer"])
-		if (!scanner.occupant || (NOCLONE in scanner.occupant.mutations) || !scanner.occupant.dna)
+	if(href_list["b3transfer"])
+		if(!scanner.occupant || (NOCLONE in scanner.occupant.mutations) || !scanner.occupant.dna)
 			return
-		if (buffer3type == "ui")
-			if (buffer3iue)
+		if(buffer3type == "ui")
+			if(buffer3iue)
 				scanner.occupant.real_name = buffer3owner
 				scanner.occupant.name = buffer3owner
 			scanner.occupant.dna.uni_identity = buffer3
 			updateappearance(scanner.occupant,scanner.occupant.dna.uni_identity)
-		else if (buffer3type == "se")
+		else if(buffer3type == "se")
 			scanner.occupant.dna.struc_enzymes = buffer3
 			domutcheck(scanner.occupant,scanner)
 		temp_html = "Transfered."
 		scanner.occupant.apply_effect(rand(20,50), IRRADIATE)
 
-	if (href_list["b1injector"])
-		if (injectorready)
+	if(href_list["b1injector"])
+		if(injectorready)
 			var/obj/item/tool/medical/dnainjector/I = new /obj/item/tool/medical/dnainjector
 			I.dna = buffer1
 			I.dnatype = buffer1type
 			I.loc = loc
 			I.name += " ([buffer1label])"
-			if (buffer1iue) I.ue = buffer1owner //lazy haw haw
+			if(buffer1iue) I.ue = buffer1owner //lazy haw haw
 			temp_html = "Injector created."
 
 			injectorready = 0
@@ -1023,14 +1023,14 @@
 		else
 			temp_html = "Replicator not ready yet."
 
-	if (href_list["b2injector"])
-		if (injectorready)
+	if(href_list["b2injector"])
+		if(injectorready)
 			var/obj/item/tool/medical/dnainjector/I = new /obj/item/tool/medical/dnainjector
 			I.dna = buffer2
 			I.dnatype = buffer2type
 			I.loc = loc
 			I.name += " ([buffer2label])"
-			if (buffer2iue) I.ue = buffer2owner //lazy haw haw
+			if(buffer2iue) I.ue = buffer2owner //lazy haw haw
 			temp_html = "Injector created."
 
 			injectorready = 0
@@ -1039,14 +1039,14 @@
 		else
 			temp_html = "Replicator not ready yet."
 
-	if (href_list["b3injector"])
-		if (injectorready)
+	if(href_list["b3injector"])
+		if(injectorready)
 			var/obj/item/tool/medical/dnainjector/I = new /obj/item/tool/medical/dnainjector
 			I.dna = buffer3
 			I.dnatype = buffer3type
 			I.loc = loc
 			I.name += " ([buffer3label])"
-			if (buffer3iue) I.ue = buffer3owner //lazy haw haw
+			if(buffer3iue) I.ue = buffer3owner //lazy haw haw
 			temp_html = "Injector created."
 
 			injectorready = 0
@@ -1056,11 +1056,11 @@
 			temp_html = "Replicator not ready yet."
 
 	////////////////////////////////////////////////////////
-	if (href_list["load_disk"])
+	if(href_list["load_disk"])
 		var/buffernum = text2num(href_list["load_disk"])
-		if ((buffernum > 3) || (buffernum < 1))
+		if((buffernum > 3) || (buffernum < 1))
 			return
-		if ((isnull(diskette)) || (!diskette.data) || (diskette.data == ""))
+		if((isnull(diskette)) || (!diskette.data) || (diskette.data == ""))
 			return
 		switch(buffernum)
 			if(1)
@@ -1080,11 +1080,11 @@
 				buffer3owner = diskette.owner
 		temp_html = "Data loaded."
 
-	if (href_list["save_disk"])
+	if(href_list["save_disk"])
 		var/buffernum = text2num(href_list["save_disk"])
-		if ((buffernum > 3) || (buffernum < 1))
+		if((buffernum > 3) || (buffernum < 1))
 			return
-		if ((isnull(diskette)) || (diskette.read_only))
+		if((isnull(diskette)) || (diskette.read_only))
 			return
 		switch(buffernum)
 			if(1)
@@ -1106,8 +1106,8 @@
 				diskette.owner = buffer3owner
 				diskette.name = "data disk - '[buffer3owner]'"
 		temp_html = "Data saved."
-	if (href_list["eject_disk"])
-		if (!diskette)
+	if(href_list["eject_disk"])
+		if(!diskette)
 			return
 		diskette.loc = get_turf(src)
 		diskette = null
@@ -1115,101 +1115,101 @@
 
 	temp_html = temp_header_html
 	switch(current_screen)
-		if ("mainmenu")
+		if("mainmenu")
 			temp_html += "<h3>Main Menu</h3>"
-			if (viable_occupant) //is there REALLY someone in there who can be modified?
-				temp_html += text("<A href='?src=\ref[];screen=unimenu'>Modify Unique Identifier</A><br />", src)
-				temp_html += text("<A href='?src=\ref[];screen=strucmenu'>Modify Structural Enzymes</A><br /><br />", src)
+			if(viable_occupant) //is there REALLY someone in there who can be modified?
+				temp_html += "<A href='?src=[UID()];screen=unimenu'>Modify Unique Identifier</A><br />"
+				temp_html += "<A href='?src=[UID()];screen=strucmenu'>Modify Structural Enzymes</A><br /><br />"
 			else
 				temp_html += "<span class='linkOff'>Modify Unique Identifier</span><br />"
 				temp_html += "<span class='linkOff'>Modify Structural Enzymes</span><br /><br />"
-			temp_html += text("<A href='?src=\ref[];screen=radsetmenu'>Radiation Emitter Settings</A><br /><br />", src)
-			temp_html += text("<A href='?src=\ref[];screen=buffermenu'>Transfer Buffer</A><br /><br />", src)
+			temp_html += "<A href='?src=[UID()];screen=radsetmenu'>Radiation Emitter Settings</A><br /><br />"
+			temp_html += "<A href='?src=[UID()];screen=buffermenu'>Transfer Buffer</A><br /><br />"
 
-		if ("unimenu")
+		if("unimenu")
 			if(!viable_occupant)
 				temp_html = text("No viable occupant detected.")
 				popup.set_content(temp_html)
 				popup.open()
 			else
-				temp_html = "<A href='?src=\ref[src];screen=mainmenu'><< Main Menu</A><br />"
+				temp_html = "<A href='?src=[UID()];screen=mainmenu'><< Main Menu</A><br />"
 				temp_html += "<h3>Modify Unique Identifier</h3>"
 				temp_html += "<div align='center'>Unique Identifier:<br />[getblockstring(scanner.occupant.dna.uni_identity,ui_block,subblock,3, src,1)]<br /><br />"
-				temp_html += "Selected Block: <A href='?src=\ref[src];unimenuminus=1'><-</A> <B>[ui_block]</B> <A href='?src=\ref[src];unimenuplus=1'>-></A><br /><br />"
-				temp_html += "Selected Sub-Block: <A href='?src=\ref[src];unimenusubminus=1'><-</A> <B>[subblock]</B> <A href='?src=\ref[src];unimenusubplus=1'>-></A><br /><br />"
-				temp_html += "Selected Target: <A href='?src=\ref[src];unimenutargetminus=1'><-</A> <B>[unitargethex]</B> <A href='?src=\ref[src];unimenutargetplus=1'>-></A><br /><br />"
+				temp_html += "Selected Block: <A href='?src=[UID()];unimenuminus=1'><-</A> <B>[ui_block]</B> <A href='?src=[UID()];unimenuplus=1'>-></A><br /><br />"
+				temp_html += "Selected Sub-Block: <A href='?src=[UID()];unimenusubminus=1'><-</A> <B>[subblock]</B> <A href='?src=[UID()];unimenusubplus=1'>-></A><br /><br />"
+				temp_html += "Selected Target: <A href='?src=[UID()];unimenutargetminus=1'><-</A> <B>[unitargethex]</B> <A href='?src=[UID()];unimenutargetplus=1'>-></A><br /><br />"
 				temp_html += "<B>Modify Block</B><br />"
-				temp_html += "<A href='?src=\ref[src];unipulse=1'>Irradiate</A></div>"
+				temp_html += "<A href='?src=[UID()];unipulse=1'>Irradiate</A></div>"
 
-		if ("strucmenu")
+		if("strucmenu")
 			if(!viable_occupant)
 				temp_html = text("No viable occupant detected.")
 				popup.set_content(temp_html)
 				popup.open()
 			else
-				temp_html = "<A href='?src=\ref[src];screen=mainmenu'><< Main Menu</A><br />"
+				temp_html = "<A href='?src=[UID()];screen=mainmenu'><< Main Menu</A><br />"
 				temp_html += "<h3>Modify Structural Enzymes</h3>"
 				temp_html += "<div align='center'>Structural Enzymes: [getblockstring(scanner.occupant.dna.struc_enzymes,se_block,subblock,3,src,0)]<br /><br />"
-				temp_html += "Selected Block: <A href='?src=\ref[src];strucmenuminus=1'><-</A> <B>[se_block]</B> <A href='?src=\ref[src];strucmenuplus=1'>-></A><br /><br />"
-				temp_html += "Selected Sub-Block: <A href='?src=\ref[src];strucmenusubminus=1'><-</A> <B>[subblock]</B> <A href='?src=\ref[src];strucmenusubplus=1'>-></A><br /><br />"
+				temp_html += "Selected Block: <A href='?src=[UID()];strucmenuminus=1'><-</A> <B>[se_block]</B> <A href='?src=[UID()];strucmenuplus=1'>-></A><br /><br />"
+				temp_html += "Selected Sub-Block: <A href='?src=[UID()];strucmenusubminus=1'><-</A> <B>[subblock]</B> <A href='?src=[UID()];strucmenusubplus=1'>-></A><br /><br />"
 				temp_html += "<B>Modify Block</B><br />"
-				temp_html += "<A href='?src=\ref[src];strucpulse=1'>Irradiate</A></div>"
+				temp_html += "<A href='?src=[UID()];strucpulse=1'>Irradiate</A></div>"
 
-		if ("radsetmenu")
-			temp_html = "<A href='?src=\ref[src];screen=mainmenu'><< Main Menu</A><br />"
+		if("radsetmenu")
+			temp_html = "<A href='?src=[UID()];screen=mainmenu'><< Main Menu</A><br />"
 			temp_html += "<h3>Radiation Emitter Settings</h3>"
-			if (viable_occupant)
-				temp_html += text("<A href='?src=\ref[];genpulse=1'>Pulse Radiation</A>", src)
+			if(viable_occupant)
+				temp_html += "<A href='?src=[UID()];genpulse=1'>Pulse Radiation</A>"
 			else
 				temp_html += "<span class='linkOff'>Pulse Radiation</span>"
-			temp_html += "<br /><br />Radiation Duration: <A href='?src=\ref[src];radleminus=1'>-</A> <font color='green'><B>[radduration]</B></FONT> <A href='?src=\ref[src];radleplus=1'>+</A><br />"
-			temp_html += "Radiation Intensity: <A href='?src=\ref[src];radinminus=1'>-</A> <font color='green'><B>[radstrength]</B></FONT> <A href='?src=\ref[src];radinplus=1'>+</A><br /><br />"
+			temp_html += "<br /><br />Radiation Duration: <A href='?src=[UID()];radleminus=1'>-</A> <font color='green'><B>[radduration]</B></FONT> <A href='?src=[UID()];radleplus=1'>+</A><br />"
+			temp_html += "Radiation Intensity: <A href='?src=[UID()];radinminus=1'>-</A> <font color='green'><B>[radstrength]</B></FONT> <A href='?src=[UID()];radinplus=1'>+</A><br /><br />"
 
-		if ("buffermenu")
-			temp_html = "<A href='?src=\ref[src];screen=mainmenu'><< Main Menu</A><br />"
+		if("buffermenu")
+			temp_html = "<A href='?src=[UID()];screen=mainmenu'><< Main Menu</A><br />"
 			temp_html += "<h3>Transfer Buffer</h3>"
 			temp_html += "<h4>Buffer 1:</h4>"
-			if (!(buffer1))
+			if(!(buffer1))
 				temp_html += "<i>Buffer Empty</i><br />"
 			else
 				temp_html += text("Data: <font class='highlight'>[]</FONT><br />", buffer1)
 				temp_html += text("By: <font class='highlight'>[]</FONT><br />", buffer1owner)
 				temp_html += text("Label: <font class='highlight'>[]</FONT><br />", buffer1label)
-			if (viable_occupant) temp_html += text("Save : <A href='?src=\ref[];b1addui=1'>UI</A> - <A href='?src=\ref[];b1adduiue=1'>UI+UE</A> - <A href='?src=\ref[];b1addse=1'>SE</A><br />", src, src, src)
-			if (buffer1) temp_html += text("Transfer to: <A href='?src=\ref[];b1transfer=1'>Occupant</A> - <A href='?src=\ref[];b1injector=1'>Injector</A><br />", src, src)
-			//if (buffer1) temp_html += text("<A href='?src=\ref[];b1iso=1'>Isolate Block</A><br />", src)
-			if (buffer1) temp_html += "Disk: <A href='?src=\ref[src];save_disk=1'>Save To</a> | <A href='?src=\ref[src];load_disk=1'>Load From</a><br />"
-			if (buffer1) temp_html += text("<A href='?src=\ref[];b1label=1'>Edit Label</A><br />", src)
-			if (buffer1) temp_html += text("<A href='?src=\ref[];b1clear=1'>Clear Buffer</A><br /><br />", src)
-			if (!buffer1) temp_html += "<br />"
+			if(viable_occupant) temp_html += "Save : <A href='?src=[UID()];b1addui=1'>UI</A> - <A href='?src=[UID()];b1adduiue=1'>UI+UE</A> - <A href='?src=[UID()];b1addse=1'>SE</A><br />"
+			if(buffer1) temp_html += "Transfer to: <A href='?src=[UID()];b1transfer=1'>Occupant</A> - <A href='?src=[UID()];b1injector=1'>Injector</A><br />"
+			//if(buffer1) temp_html += "<A href='?src=[UID()];b1iso=1'>Isolate Block</A><br />"
+			if(buffer1) temp_html += "Disk: <A href='?src=[UID()];save_disk=1'>Save To</a> | <A href='?src=[UID()];load_disk=1'>Load From</a><br />"
+			if(buffer1) temp_html += "<A href='?src=[UID()];b1label=1'>Edit Label</A><br />"
+			if(buffer1) temp_html += "<A href='?src=[UID()];b1clear=1'>Clear Buffer</A><br /><br />"
+			if(!buffer1) temp_html += "<br />"
 			temp_html += "<h4>Buffer 2:</h4>"
-			if (!(buffer2))
+			if(!(buffer2))
 				temp_html += "<i>Buffer Empty</i><br />"
 			else
 				temp_html += text("Data: <font class='highlight'>[]</FONT><br />", buffer2)
 				temp_html += text("By: <font class='highlight'>[]</FONT><br />", buffer2owner)
 				temp_html += text("Label: <font class='highlight'>[]</FONT><br />", buffer2label)
-			if (viable_occupant) temp_html += text("Save : <A href='?src=\ref[];b2addui=1'>UI</A> - <A href='?src=\ref[];b2adduiue=1'>UI+UE</A> - <A href='?src=\ref[];b2addse=1'>SE</A><br />", src, src, src)
-			if (buffer2) temp_html += text("Transfer to: <A href='?src=\ref[];b2transfer=1'>Occupant</A> - <A href='?src=\ref[];b2injector=1'>Injector</A><br />", src, src)
-			//if (buffer2) temp_html += text("<A href='?src=\ref[];b2iso=1'>Isolate Block</A><br />", src)
-			if (buffer2) temp_html += "Disk: <A href='?src=\ref[src];save_disk=2'>Save To</a> | <A href='?src=\ref[src];load_disk=2'>Load From</a><br />"
-			if (buffer2) temp_html += text("<A href='?src=\ref[];b2label=1'>Edit Label</A><br />", src)
-			if (buffer2) temp_html += text("<A href='?src=\ref[];b2clear=1'>Clear Buffer</A><br /><br />", src)
-			if (!buffer2) temp_html += "<br />"
+			if(viable_occupant) temp_html += "Save : <A href='?src=[UID()];b2addui=1'>UI</A> - <A href='?src=[UID()];b2adduiue=1'>UI+UE</A> - <A href='?src=[UID()];b2addse=1'>SE</A><br />"
+			if(buffer2) temp_html += "Transfer to: <A href='?src=[UID()];b2transfer=1'>Occupant</A> - <A href='?src=[UID()];b2injector=1'>Injector</A><br />"
+			//if(buffer2) temp_html += "<A href='?src=[UID()];b2iso=1'>Isolate Block</A><br />"
+			if(buffer2) temp_html += "Disk: <A href='?src=[UID()];save_disk=2'>Save To</a> | <A href='?src=[UID()];load_disk=2'>Load From</a><br />"
+			if(buffer2) temp_html += "<A href='?src=[UID()];b2label=1'>Edit Label</A><br />"
+			if(buffer2) temp_html += "<A href='?src=[UID()];b2clear=1'>Clear Buffer</A><br /><br />"
+			if(!buffer2) temp_html += "<br />"
 			temp_html += "<h4>Buffer 3:</h4>"
-			if (!(buffer3))
+			if(!(buffer3))
 				temp_html += "<i>Buffer Empty</i><br />"
 			else
 				temp_html += text("Data: <font class='highlight'>[]</FONT><br />", buffer3)
 				temp_html += text("By: <font class='highlight'>[]</FONT><br />", buffer3owner)
 				temp_html += text("Label: <font class='highlight'>[]</FONT><br />", buffer3label)
-			if (viable_occupant) temp_html += text("Save : <A href='?src=\ref[];b3addui=1'>UI</A> - <A href='?src=\ref[];b3adduiue=1'>UI+UE</A> - <A href='?src=\ref[];b3addse=1'>SE</A><br />", src, src, src)
-			if (buffer3) temp_html += text("Transfer to: <A href='?src=\ref[];b3transfer=1'>Occupant</A> - <A href='?src=\ref[];b3injector=1'>Injector</A><br />", src, src)
-			//if (buffer3) temp_html += text("<A href='?src=\ref[];b3iso=1'>Isolate Block</A><br />", src)
-			if (buffer3) temp_html += "Disk: <A href='?src=\ref[src];save_disk=3'>Save To</a> | <A href='?src=\ref[src];load_disk=3'>Load From</a><br />"
-			if (buffer3) temp_html += text("<A href='?src=\ref[];b3label=1'>Edit Label</A><br />", src)
-			if (buffer3) temp_html += text("<A href='?src=\ref[];b3clear=1'>Clear Buffer</A><br /><br />", src)
-			if (!buffer3) temp_html += "<br />"
+			if(viable_occupant) temp_html += "Save : <A href='?src=[UID()];b3addui=1'>UI</A> - <A href='?src=[UID()];b3adduiue=1'>UI+UE</A> - <A href='?src=[UID()];b3addse=1'>SE</A><br />"
+			if(buffer3) temp_html += "Transfer to: <A href='?src=[UID()];b3transfer=1'>Occupant</A> - <A href='?src=[UID()];b3injector=1'>Injector</A><br />"
+			//if(buffer3) temp_html += "<A href='?src=[UID()];b3iso=1'>Isolate Block</A><br />"
+			if(buffer3) temp_html += "Disk: <A href='?src=[UID()];save_disk=3'>Save To</a> | <A href='?src=[UID()];load_disk=3'>Load From</a><br />"
+			if(buffer3) temp_html += "<A href='?src=[UID()];b3label=1'>Edit Label</A><br />"
+			if(buffer3) temp_html += "<A href='?src=[UID()];b3clear=1'>Clear Buffer</A><br /><br />"
+			if(!buffer3) temp_html += "<br />"
 	temp_html += temp_footer_html
 
 	if(viable_occupant && !scanner_status_html && occupant) //is there REALLY someone in there?
@@ -1219,7 +1219,7 @@
 			var/rejuvenators = round(human_occupant.reagents.get_reagent_amount("inaprovaline") / REJUVENATORS_MAX * 100)
 			scanner_status_html += "<div class='line'><div class='statusLabel'>Rejuvenators:</div><div class='progressBar'><div style='width: [rejuvenators]%;' class='progressFill highlight'></div></div><div class='statusValue'>[human_occupant.reagents.get_reagent_amount("inaprovaline")] units</div></div>"
 
-		if (current_screen == "mainmenu")
+		if(current_screen == "mainmenu")
 			scanner_status_html += "<div class='line'><div class='statusLabel'>Unique Enzymes :</div><div class='statusValue'><span class='highlight'>[uppertext(occupant.dna.unique_enzymes)]</span></div></div>"
 			scanner_status_html += "<div class='line'><div class='statusLabel'>Unique Identifier:</div><div class='statusValue'><span class='highlight'>[occupant.dna.uni_identity]</span></div></div>"
 			scanner_status_html += "<div class='line'><div class='statusLabel'>Structural Enzymes:</div><div class='statusValue'><span class='highlight'>[occupant.dna.struc_enzymes]</span></div></div>"
@@ -1228,7 +1228,7 @@
 
 	var/occupant_status = "Scanner Unoccupied"
 	if(occupant && occupant.dna) //is there REALLY someone in there?
-		if (!istype(occupant,/mob/living/carbon/human))
+		if(!istype(occupant,/mob/living/carbon/human))
 			sleep(1)
 		if(NOCLONE in occupant.mutations)
 			occupant_status = "<span class='bad'>Invalid DNA structure</span>"
@@ -1246,27 +1246,27 @@
 	dat += "<div class='statusDisplay'>[occupant_status][scanner_status_html]</div>"
 
 	var/scanner_access_text = "Lock Scanner"
-	if (scanner.locked)
+	if(scanner.locked)
 		scanner_access_text = "Unlock Scanner"
 
-	dat += "<A href='?src=\ref[src];'>Scan</A> "
+	dat += "<A href='?src=[UID()];'>Scan</A> "
 
-	if (occupant && occupant.dna)
-		dat += "<A href='?src=\ref[src];locked=1'>[scanner_access_text]</A> "
-		if (human_occupant)
-			dat += "<A href='?src=\ref[src];rejuv=1'>Inject Rejuvenators</A><br />"
+	if(occupant && occupant.dna)
+		dat += "<A href='?src=[UID()];locked=1'>[scanner_access_text]</A> "
+		if(human_occupant)
+			dat += "<A href='?src=[UID()];rejuv=1'>Inject Rejuvenators</A><br />"
 		else
 			dat += "<span class='linkOff'>Inject Rejuvenators</span><br />"
 	else
 		dat += "<span class='linkOff'>[scanner_access_text]</span> "
 		dat += "<span class='linkOff'>Inject Rejuvenators</span><br />"
 
-	if (!isnull(diskette))
-		dat += text("<A href='?src=\ref[];eject_disk=1'>Eject Disk</A><br />", src)
+	if(!isnull(diskette))
+		dat += "<A href='?src=[UID()];eject_disk=1'>Eject Disk</A><br />"
 
 	dat += "<br />"
 
-	if (temp_html)
+	if(temp_html)
 		dat += temp_html
 
 	popup.set_content(dat)

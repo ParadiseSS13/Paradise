@@ -125,7 +125,7 @@
 	origin_tech = "biotech=4"
 
 /obj/item/slimepotion/afterattack(obj/item/weapon/reagent_containers/target, mob/user , proximity)
-	if (istype(target))
+	if(istype(target))
 		to_chat(user, "<span class='notice'>You cannot transfer [src] to [target]! It appears the potion must be given directly to a slime to absorb.</span>") // le fluff faec
 		return
 
@@ -134,45 +134,42 @@
 	desc = "A potent chemical mix that nullifies a slime's hunger, causing it to become docile and tame."
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle19"
+	var/being_used = 0
 
 /obj/item/slimepotion/docility/attack(mob/living/carbon/slime/M, mob/user)
 	if(!isslime(M))
 		to_chat(user, "<span class='warning'> The potion only works on slimes!</span>")
-		return ..()
+		return
 	if(M.stat)
 		to_chat(user, "<span class='warning'> The slime is dead!</span>")
-		return..()
+		return
 	if(M.mind)
 		to_chat(user, "<span class='warning'> The slime resists!</span>")
-		return ..()
+		return
+	if(being_used)
+		to_chat(user, "<span class='warning'> You're already using this on another slime!</span>")
+		return
+
+	var/mob/living/simple_animal/slime/pet
 	if(M.is_adult)
-		var/mob/living/simple_animal/adultslime/pet = new /mob/living/simple_animal/adultslime(M.loc)
+		pet = new /mob/living/simple_animal/slime/adult(M.loc)
 		pet.icon_state = "[M.colour] adult slime"
 		pet.icon_living = "[M.colour] adult slime"
-		pet.icon_dead = "[M.colour] baby slime dead"
-		pet.colour = "[M.colour]"
-		qdel(M)
-		var/newname = sanitize(copytext(input(user, "Would you like to give the slime a name?", "Name your new pet", "pet slime") as null|text,1,MAX_NAME_LEN))
-
-		if (!newname)
-			newname = "pet slime"
-		pet.name = newname
-		pet.real_name = newname
-		qdel(src)
 	else
-		var/mob/living/simple_animal/slime/pet = new /mob/living/simple_animal/slime(M.loc)
+		pet = new /mob/living/simple_animal/slime(M.loc)
 		pet.icon_state = "[M.colour] baby slime"
 		pet.icon_living = "[M.colour] baby slime"
-		pet.icon_dead = "[M.colour] baby slime dead"
-		pet.colour = "[M.colour]"
-		qdel(M)
-		var/newname = sanitize(copytext(input(user, "Would you like to give the slime a name?", "Name your new pet", "pet slime") as null|text,1,MAX_NAME_LEN))
+	pet.icon_dead = "[M.colour] baby slime dead"
+	pet.colour = "[M.colour]"
+	qdel(M)
+	being_used = 1
+	var/newname = sanitize(copytext(input(user, "Would you like to give the slime a name?", "Name your new pet", "pet slime") as null|text,1,MAX_NAME_LEN))
 
-		if (!newname)
-			newname = "pet slime"
-		pet.name = newname
-		pet.real_name = newname
-		qdel(src)
+	if(!newname)
+		newname = "pet slime"
+	pet.name = newname
+	pet.real_name = newname
+	qdel(src)
 	to_chat(user, "You feed the slime the potion, removing it's powers and calming it.")
 
 /obj/item/slimepotion/sentience
@@ -342,6 +339,7 @@
 	C.color = "#000080"
 	C.max_heat_protection_temperature = FIRE_IMMUNITY_SUIT_MAX_TEMP_PROTECT
 	C.heat_protection = C.body_parts_covered
+	C.burn_state = FIRE_PROOF
 	uses --
 	if(!uses)
 		qdel(src)
@@ -383,6 +381,7 @@
 	G.change_gender(pick(MALE,FEMALE))
 	G.loc = src.loc
 	G.key = ghost.key
+	add_logs(user, G, "summoned", null, "as a golem")
 	to_chat(G, "You are an adamantine golem. You move slowly, but are highly resistant to heat and cold as well as blunt trauma. You are unable to wear clothes, but can still use most tools. Serve [user], and assist them in completing their goals at any cost.")
 	qdel(src)
 
@@ -401,6 +400,8 @@
 	if(!O.client)
 		return 0
 	if(O.mind && O.mind.current && O.mind.current.stat != DEAD)
+		return 0
+	if(!O.can_reenter_corpse)
 		return 0
 	if(O.has_enabled_antagHUD == 1 && config.antag_hud_restricted)
 		return 0

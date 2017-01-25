@@ -9,9 +9,9 @@
 		return 1
 	if(ismob(mover))
 		var/mob/moving_mob = mover
-		if ((other_mobs && moving_mob.other_mobs))
+		if((other_mobs && moving_mob.other_mobs))
 			return 1
-		if (mover == buckled_mob)
+		if(mover == buckled_mob)
 			return 1
 	return (!mover.density || !density || lying)
 
@@ -107,7 +107,7 @@
 	set hidden = 1
 	if(!istype(mob, /mob/living/carbon))
 		return
-	if (!mob.stat && isturf(mob.loc) && !mob.restrained())
+	if(!mob.stat && isturf(mob.loc) && !mob.restrained())
 		mob:toggle_throw_mode()
 	else
 		return
@@ -122,9 +122,9 @@
 
 /client/Center()
 	/* No 3D movement in 2D spessman game. dir 16 is Z Up
-	if (isobj(mob.loc))
+	if(isobj(mob.loc))
 		var/obj/O = mob.loc
-		if (mob.canmove)
+		if(mob.canmove)
 			return O.relaymove(mob, 16)
 	*/
 	return
@@ -148,7 +148,7 @@
 		view = world.view //Reset the view
 		winset(src, "mapwindow.map", "icon-size=[src.reset_stretch]")
 		viewingCanvas = 0
-		mob.reset_view()
+		mob.reset_perspective()
 		if(mob.hud_used)
 			mob.hud_used.show_hud(HUD_STYLE_STANDARD)
 
@@ -162,17 +162,7 @@
 
 	if(!mob)	return
 
-	if(locate(/obj/effect/stop/, mob.loc))
-		for(var/obj/effect/stop/S in mob.loc)
-			if(S.victim == mob)
-				return
-
 	if(mob.stat==DEAD)	return
-
-// handle possible spirit movement
-	if(istype(mob,/mob/spirit))
-		var/mob/spirit/currentSpirit = mob
-		return currentSpirit.Spirit_Move(direct)
 
 	if(mob.notransform)	return//This is sota the goto stop mobs from moving var
 
@@ -256,14 +246,14 @@
 					L -= mob
 					var/mob/M = L[1]
 					if(M)
-						if ((get_dist(mob, M) <= 1 || M.loc == mob.loc))
+						if((get_dist(mob, M) <= 1 || M.loc == mob.loc))
 							. = ..()
-							if (isturf(M.loc))
+							if(isturf(M.loc))
 								var/diag = get_dir(mob, M)
-								if ((diag - 1) & diag)
+								if((diag - 1) & diag)
 								else
 									diag = null
-								if ((get_dist(mob, M) > 1 || diag))
+								if((get_dist(mob, M) > 1 || diag))
 									step(M, get_dir(M.loc, T))
 				else
 					for(var/mob/M in L)
@@ -284,11 +274,11 @@
 		else
 			. = ..()
 
-		for (var/obj/item/weapon/grab/G in mob)
-			if (G.state == GRAB_NECK)
+		for(var/obj/item/weapon/grab/G in mob)
+			if(G.state == GRAB_NECK)
 				mob.set_dir(reverse_dir[direct])
 			G.adjust_position()
-		for (var/obj/item/weapon/grab/G in mob.grabbed_by)
+		for(var/obj/item/weapon/grab/G in mob.grabbed_by)
 			G.adjust_position()
 
 		moving = 0
@@ -408,44 +398,42 @@
 ///Called by /client/Move()
 ///For moving in space
 ///Return 1 for movement 0 for none
-/mob/Process_Spacemove(var/movement_dir = 0)
-
+/mob/Process_Spacemove(movement_dir = 0)
 	if(..())
 		return 1
+	var/atom/movable/backup = get_spacemove_backup()
+	if(backup)
+		if(istype(backup) && movement_dir && !backup.anchored)
+			if(backup.newtonian_move(turn(movement_dir, 180))) //You're pushing off something movable, so it moves
+				src << "<span class='info'>You push off of [backup] to propel yourself.</span>"
+		return 1
+	return 0
 
+/mob/get_spacemove_backup()
 	var/atom/movable/dense_object_backup
-	for(var/atom/A in orange(1, get_turf(src)))
+	for(var/A in orange(1, get_turf(src)))
 		if(isarea(A))
 			continue
-
 		else if(isturf(A))
 			var/turf/turf = A
-			if(istype(turf,/turf/space))
+			if(istype(turf, /turf/space))
 				continue
-
 			if(!turf.density && !mob_negates_gravity())
 				continue
-
-			return 1
-
+			return A
 		else
 			var/atom/movable/AM = A
 			if(AM == buckled) //Kind of unnecessary but let's just be sure
 				continue
-			if(AM.density)
+			if(!AM.CanPass(src) || AM.density)
 				if(AM.anchored)
-					return 1
+					return AM
 				if(pulling == AM)
 					continue
 				dense_object_backup = AM
+				break
+	. = dense_object_backup
 
-	if(movement_dir && dense_object_backup)
-		if(dense_object_backup.newtonian_move(turn(movement_dir, 180))) //You're pushing off something movable, so it moves
-			to_chat(src, "<span class='info'>You push off of [dense_object_backup] to propel yourself.</span>")
-
-
-		return 1
-	return 0
 
 /mob/proc/mob_has_gravity(turf/T)
 	return has_gravity(src, T)
@@ -454,17 +442,17 @@
 	return 0
 
 /mob/proc/Move_Pulled(atom/A)
-	if (!canmove || restrained() || !pulling)
+	if(!canmove || restrained() || !pulling)
 		return
-	if (pulling.anchored)
+	if(pulling.anchored)
 		return
-	if (!pulling.Adjacent(src))
+	if(!pulling.Adjacent(src))
 		return
-	if (A == loc && pulling.density)
+	if(A == loc && pulling.density)
 		return
-	if (!Process_Spacemove(get_dir(pulling.loc, A)))
+	if(!Process_Spacemove(get_dir(pulling.loc, A)))
 		return
-	if (ismob(pulling))
+	if(ismob(pulling))
 		var/mob/M = pulling
 		var/atom/movable/t = M.pulling
 		M.stop_pulling()

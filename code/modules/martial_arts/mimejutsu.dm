@@ -38,7 +38,7 @@
 		playsound(get_turf(A), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 
 		D.apply_damage(damage, STAMINA, affecting, armor_block)
-		add_logs(D, A, "mimechucked")
+		add_logs(A, D, "mimechucked")
 
 		return 1
 	return basic_hit(A,D)
@@ -55,8 +55,8 @@
 
 /datum/martial_art/mimejutsu/proc/mimePalm(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
 	if(!D.stat && !D.stunned && !D.weakened)
-		D.visible_message("<span class='danger'>[A] has barely touched [D] with thier palm!</span>", \
-						"<span class='userdanger'>[A] hovers thier palm over your face!</span>")
+		D.visible_message("<span class='danger'>[A] has barely touched [D] with their palm!</span>", \
+						"<span class='userdanger'>[A] hovers their palm over your face!</span>")
 
 		var/atom/throw_target = get_edge_target_turf(D, get_dir(D, get_step_away(D, A)))
 		D.throw_at(throw_target, 200, 4,A)
@@ -116,4 +116,3 @@
 	to_chat(usr, "<span class='notice'>Mimechucks</span>: Disarm Harm. Hits the opponent with invisible nunchucks.")
 	to_chat(usr, "<span class='notice'>Smokebomb</span>: Disarm Disarm. Drops a mime smokebomb.")
 	to_chat(usr, "<span class='notice'>Silent Palm</span>: Grab Disarm. Using mime energy throw someone back.")
-

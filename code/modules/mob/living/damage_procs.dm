@@ -8,7 +8,7 @@
 	Returns
 	standard 0 if fail
 */
-/mob/living/proc/apply_damage(var/damage = 0,var/damagetype = BRUTE, var/def_zone = null, var/blocked = 0, var/used_weapon = null, var/sharp = 0, var/edge = 0)
+/mob/living/proc/apply_damage(var/damage = 0, var/damagetype = BRUTE, var/def_zone = null, var/blocked = 0, var/sharp = 0, var/edge = 0, var/used_weapon = null)
 	blocked = (100-blocked)/100
 	if(!damage || (blocked <= 0))	return 0
 	switch(damagetype)
@@ -57,17 +57,16 @@
 				rad_damage = max(effect * ((100-run_armor_check(null, "rad", "Your clothes feel warm.", "Your clothes feel warm."))/100),0)
 			radiation += rad_damage
 		if(SLUR)
-			slurring = max(slurring,(effect * blocked))
+			Slur(effect * blocked)
 		if(STUTTER)
-			if(status_flags & CANSTUN) // stun is usually associated with stutter
-				stuttering = max(stuttering,(effect * blocked))
+			Stuttering(effect * blocked)
 		if(EYE_BLUR)
-			eye_blurry = max(eye_blurry,(effect * blocked))
+			EyeBlurry(effect * blocked)
 		if(DROWSY)
-			drowsyness = max(drowsyness,(effect * blocked))
+			Drowsy(effect * blocked)
 		if(JITTER)
 			if(status_flags & CANSTUN)
-				jitteriness = max(jitteriness,(effect * blocked))
+				Jitter(effect * blocked)
 	updatehealth()
 	return 1
 

@@ -7,7 +7,7 @@
 	throwforce = 5.0
 	throw_speed = 3
 	throw_range = 5
-	w_class = 2.0
+	w_class = 2
 	origin_tech = "syndicate=4;magnets=4"
 	var/can_use = 1
 	var/obj/effect/dummy/chameleon/active_dummy = null
@@ -83,7 +83,7 @@
 		A.loc = active_dummy.loc
 		if(ismob(A))
 			var/mob/M = A
-			M.reset_view(null)
+			M.reset_perspective(null)
 
 /obj/effect/dummy/chameleon
 	name = ""

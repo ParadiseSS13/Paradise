@@ -61,7 +61,7 @@
 			if(!(A.returntype in valid_returntypes))
 				continue
 			choices[A.name]=A
-		if (choices.len==0)
+		if(choices.len==0)
 			testing("Unable to find automations with returntype in [english_list(valid_returntypes)]!")
 			return 0
 		var/label=input(user, "Select new automation:", "Automations", "Cancel") as null|anything in choices
@@ -73,31 +73,31 @@
 		var/out=..()
 
 		if(on)
-			out += "<a href=\"?src=\ref[src];on=1\" style=\"font-size:large;font-weight:bold;color:red;\">RUNNING</a>"
+			out += "<a href=\"?src=[UID()];on=1\" style=\"font-size:large;font-weight:bold;color:red;\">RUNNING</a>"
 		else
-			out += "<a href=\"?src=\ref[src];on=1\" style=\"font-size:large;font-weight:bold;color:green;\">STOPPED</a>"
+			out += "<a href=\"?src=[UID()];on=1\" style=\"font-size:large;font-weight:bold;color:green;\">STOPPED</a>"
 
 		out += {"
 			<h2>Automations</h2>
 			<p>\[
-			<a href="?src=\ref[src];add=1">
+			<a href="?src=[UID()];add=1">
 				Add
 			</a>
 			|
-			<a href="?src=\ref[src];reset=*">
+			<a href="?src=[UID()];reset=*">
 				Reset All
 			</a>
 			|
-			<a href="?src=\ref[src];remove=*">
+			<a href="?src=[UID()];remove=*">
 				Clear
 			</a>
 			\]</p>
 			<p>\[
-			<a href="?src=\ref[src];dump=1">
+			<a href="?src=[UID()];dump=1">
 				Export
 			</a>
 			|
-			<a href="?src=\ref[src];read=1">
+			<a href="?src=[UID()];read=1">
 				Import
 			</a>
 			\]</p>"}
@@ -108,9 +108,9 @@
 				out += {"
 					<fieldset>
 						<legend>
-							<a href="?src=\ref[src];label=\ref[A]">[A.label]</a>
-							(<a href="?src=\ref[src];reset=\ref[A]">Reset</a> |
-							<a href="?src=\ref[src];remove=\ref[A]">&times;</a>)
+							<a href="?src=[UID()];label=\ref[A]">[A.label]</a>
+							(<a href="?src=[UID()];reset=\ref[A]">Reset</a> |
+							<a href="?src=[UID()];remove=\ref[A]">&times;</a>)
 						</legend>
 						[A.GetText()]
 					</fieldset>

@@ -3,7 +3,7 @@
 		return
 
 	// Grab the info we want.
-	var/DBQuery/query = dbcon.NewQuery("SELECT cuiPath, cuiPropAdjust, cuiJobMask, cuiDescription, cuiItemName FROM [format_table_name("customuseritems")] WHERE cuiCKey='[M.ckey]' AND (cuiRealName='[M.real_name]' OR cuiRealName='*')")
+	var/DBQuery/query = dbcon.NewQuery("SELECT cuiPath, cuiPropAdjust, cuiJobMask, cuiDescription, cuiItemName FROM [format_table_name("customuseritems")] WHERE cuiCKey='[M.ckey]' AND (cuiRealName='[sanitizeSQL(M.real_name)]' OR cuiRealName='*')")
 	query.Execute()
 
 	while(query.NextRow())
@@ -48,7 +48,7 @@
 				to_chat(M, "<span class='notice'>Your [Item.name] has been added to your [M.back.name].</span>")
 		if(ok == 0)
 			for(var/obj/item/weapon/storage/S in M.contents) // Try to place it in any item that can store stuff, on the mob.
-				if (S.contents.len < S.storage_slots)
+				if(S.contents.len < S.storage_slots)
 					Item.loc = S
 					ok = 1
 					to_chat(M, "<span class='notice'>Your [Item.name] has been added to your [S.name].</span>")
@@ -58,7 +58,7 @@
 		if(newname)
 			Item.name = newname
 
-		if (ok == 0) // Finally, since everything else failed, place it on the ground
+		if(ok == 0) // Finally, since everything else failed, place it on the ground
 			Item.loc = get_turf(M.loc)
 
 		HackProperties(Item,propadjust)

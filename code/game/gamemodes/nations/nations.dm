@@ -18,12 +18,12 @@ datum/game_mode/nations
 //		remove_access()
 		for(var/mob/M in player_list)
 			if(!istype(M,/mob/new_player))
-				to_chat(M, sound('sound/effects/purge_siren.ogg'))
+				M << sound('sound/effects/purge_siren.ogg')
 
 	return ..()
 
 /datum/game_mode/nations/proc/send_intercept()
-	command_announcement.Announce("Due to recent and COMPLETELY UNFOUNDED allegations of massive fraud and insider trading \
+	event_announcement.Announce("Due to recent and COMPLETELY UNFOUNDED allegations of massive fraud and insider trading \
 					affecting trillions of investors, the Nanotrasen Corporation has decided to liquidate all \
 					assets of the Centcom Division in order to pay the massive legal fees that will be incurred \
 					during the following centuries long court process. Therefore, all current employment contracts \
@@ -142,7 +142,7 @@ datum/game_mode/nations
 
 /datum/game_mode/nations/proc/remove_access()
 	for(var/obj/machinery/door/airlock/W in airlocks)
-		if(W.z in config.station_levels)
+		if(is_station_level(W.z))
 			W.req_access = list()
 
 
@@ -168,7 +168,7 @@ datum/game_mode/nations
  */
 /hook/latespawn/proc/give_latejoiners_nations(var/mob/living/carbon/human/H)
 	var/datum/game_mode/nations/mode = get_nations_mode()
-	if (!mode) return 1
+	if(!mode) return 1
 
 	if(!mode.kickoff) return 1
 
@@ -237,7 +237,7 @@ datum/game_mode/nations
 	return 1
 
 /proc/get_nations_mode()
-	if(!ticker || !istype(ticker.mode, /datum/game_mode/nations))
+	if(!GAMEMODE_IS_NATIONS)
 		return null
 
 	return ticker.mode

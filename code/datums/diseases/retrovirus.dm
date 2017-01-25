@@ -34,11 +34,11 @@
 					to_chat(affected_mob, "<span class='notice'>You feel better.</span>")
 					cure()
 					return
-			if (prob(8))
+			if(prob(8))
 				to_chat(affected_mob, "<span class='danger'>Your head hurts.</span>")
-			if (prob(9))
+			if(prob(9))
 				to_chat(affected_mob, "You feel a tingling sensation in your chest.")
-			if (prob(9))
+			if(prob(9))
 				to_chat(affected_mob, "<span class='danger'>You feel angry.</span>")
 		if(2)
 			if(restcure)
@@ -46,14 +46,14 @@
 					to_chat(affected_mob, "<span class='notice'>You feel better.</span>")
 					cure()
 					return
-			if (prob(8))
+			if(prob(8))
 				to_chat(affected_mob, "<span class='danger'>Your skin feels loose.</span>")
-			if (prob(10))
+			if(prob(10))
 				to_chat(affected_mob, "You feel very strange.")
-			if (prob(4))
+			if(prob(4))
 				to_chat(affected_mob, "<span class='danger'>You feel a stabbing pain in your head!</span>")
 				affected_mob.Paralyse(2)
-			if (prob(4))
+			if(prob(4))
 				to_chat(affected_mob, "<span class='danger'>Your stomach churns.</span>")
 		if(3)
 			if(restcure)
@@ -61,10 +61,10 @@
 					to_chat(affected_mob, "<span class='notice'>You feel better.</span>")
 					cure()
 					return
-			if (prob(10))
+			if(prob(10))
 				to_chat(affected_mob, "<span class='danger'>Your entire body vibrates.</span>")
 
-			if (prob(35))
+			if(prob(35))
 				if(prob(50))
 					scramble(1, affected_mob, rand(15, 45))
 				else
@@ -76,7 +76,7 @@
 					to_chat(affected_mob, "<span class='notice'>You feel better.</span>")
 					cure()
 					return
-			if (prob(60))
+			if(prob(60))
 				if(prob(50))
 					scramble(1, affected_mob, rand(15, 45))
 				else

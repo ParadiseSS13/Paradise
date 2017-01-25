@@ -7,9 +7,10 @@
 	throwforce = 5.0
 	throw_speed = 1
 	throw_range = 5
-	w_class = 2.0
-	flags = NOSHIELD
+	w_class = 2
+	armour_penetration = 100
 	attack_verb = list("bludgeoned", "whacked", "disciplined")
+	burn_state = FLAMMABLE
 
 /obj/item/weapon/twohanded/staff/broom
 	name = "broom"
@@ -72,5 +73,4 @@
 	throwforce = 5.0
 	throw_speed = 1
 	throw_range = 5
-	w_class = 2.0
-	flags = NOSHIELD
+	w_class = 2

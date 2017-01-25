@@ -279,11 +279,11 @@ Gunshots/explosions/opening doors/less rare audio (done)
 /obj/effect/hallucination/simple/singularity/proc/Eat(atom/OldLoc, Dir)
 	var/target_dist = get_dist(src,target)
 	if(target_dist<=3) //"Eaten"
-		target.sleeping = 20
+		target.Sleeping(20)
 		target.hal_crit = 1
 		target.hal_screwyhud = 1
 		spawn(rand(50,100))
-			target.sleeping = 0
+			target.SetSleeping(0)
 			target.hal_crit = 0
 			target.hal_screwyhud = 0
 
@@ -295,29 +295,29 @@ Gunshots/explosions/opening doors/less rare audio (done)
 	switch(rand(1,5))
 		if(1) //Laser fight
 			for(var/i=0,i<hits,i++)
-				to_chat(target, sound('sound/weapons/Laser.ogg',0,1,0,25))
+				target << sound('sound/weapons/Laser.ogg',0,1,0,25)
 				sleep(rand(1,5))
-			to_chat(target, sound(get_sfx("bodyfall"),0,1,0,25))
+			target << sound(get_sfx("bodyfall"),0,1,0,25)
 		if(2) //Esword fight
-			to_chat(target, sound('sound/weapons/saberon.ogg',0,1,0,15))
+			target << sound('sound/weapons/saberon.ogg',0,1,0,15)
 			for(var/i=0,i<hits,i++)
-				to_chat(target, sound('sound/weapons/blade1.ogg',,0,1,0,25))
+				target << sound('sound/weapons/blade1.ogg',,0,1,0,25)
 				sleep(rand(1,5))
-			to_chat(target, sound(get_sfx("bodyfall"),0,1,0,25))
-			to_chat(target, sound('sound/weapons/saberoff.ogg',0,1,0,15))
+			target << sound(get_sfx("bodyfall"),0,1,0,25)
+			target << sound('sound/weapons/saberoff.ogg',0,1,0,15)
 		if(3) //Gun fight
 			for(var/i=0,i<hits,i++)
-				to_chat(target, sound(get_sfx("gunshot"),0,1,0,25))
+				target << sound(get_sfx("gunshot"),0,1,0,25)
 				sleep(rand(1,5))
-			to_chat(target, sound(get_sfx("bodyfall"),0,1,0,25))
+			target << sound(get_sfx("bodyfall"),0,1,0,25)
 		if(4) //Stunprod + cablecuff
-			to_chat(target, sound('sound/weapons/Egloves.ogg',0,1,40))
-			to_chat(target, sound(get_sfx("bodyfall"),0,1,0,25))
+			target << sound('sound/weapons/Egloves.ogg',0,1,40)
+			target << sound(get_sfx("bodyfall"),0,1,0,25)
 			sleep(30)
-			to_chat(target, sound('sound/weapons/cablecuff.ogg',0,1,0,15))
+			target << sound('sound/weapons/cablecuff.ogg',0,1,0,15)
 		if(5) // Tick Tock
 			for(var/i=0,i<hits,i++)
-				to_chat(target, sound('sound/items/timer.ogg',0,1,0,25))
+				target << sound('sound/items/timer.ogg',0,1,0,25)
 				sleep(15)
 	qdel(src)
 
@@ -376,7 +376,7 @@ Gunshots/explosions/opening doors/less rare audio (done)
 		if(!(locate(clone.l_hand) in non_fakeattack_weapons))
 			clone_weapon = clone.l_hand.name
 			F.weap = clone.l_hand
-	else if (clone.r_hand)
+	else if(clone.r_hand)
 		if(!(locate(clone.r_hand) in non_fakeattack_weapons))
 			clone_weapon = clone.r_hand.name
 			F.weap = clone.r_hand
@@ -459,7 +459,7 @@ Gunshots/explosions/opening doors/less rare audio (done)
 	else if(src.dir == WEST)
 		qdel(src.currentimage)
 		src.currentimage = new /image(left,src)
-	to_chat(my_target, currentimage)
+	my_target << currentimage
 
 
 /obj/effect/fake_attacker/proc/attack_loop()
@@ -480,7 +480,7 @@ Gunshots/explosions/opening doors/less rare audio (done)
 					my_target.show_message("<span class='danger'>[src.name] has attacked [my_target] with [weapon_name]!</span>", 1)
 					my_target.staminaloss += 30
 					if(prob(20))
-						my_target.eye_blurry += 3
+						my_target.AdjustEyeBlurry(3)
 					if(prob(33))
 						if(!locate(/obj/effect/overlay) in my_target.loc)
 							fake_blood(my_target)
@@ -503,7 +503,7 @@ Gunshots/explosions/opening doors/less rare audio (done)
 	var/obj/effect/overlay/O = new/obj/effect/overlay(target.loc)
 	O.name = "blood"
 	var/image/I = image('icons/effects/blood.dmi',O,"floor[rand(1,7)]",O.dir,1)
-	to_chat(target, I)
+	target << I
 	spawn(300)
 		qdel(O)
 	return
@@ -516,7 +516,7 @@ var/list/non_fakeattack_weapons = list(/obj/item/weapon/gun/projectile, /obj/ite
 	/obj/item/clothing/mask/gas/voice, /obj/item/clothing/glasses/thermal,\
 	/obj/item/device/chameleon, /obj/item/weapon/card/emag,\
 	/obj/item/weapon/storage/toolbox/syndicate, /obj/item/weapon/aiModule,\
-	/obj/item/device/radio/headset/syndicate,	/obj/item/weapon/c4,\
+	/obj/item/device/radio/headset/syndicate,	/obj/item/weapon/grenade/plastic/c4,\
 	/obj/item/device/powersink, /obj/item/weapon/storage/box/syndie_kit,\
 	/obj/item/toy/syndicateballoon, /obj/item/weapon/gun/energy/laser/captain,\
 	/obj/item/weapon/hand_tele, /obj/item/weapon/rcd, /obj/item/weapon/tank/jetpack,\
@@ -565,13 +565,13 @@ var/list/non_fakeattack_weapons = list(/obj/item/weapon/gun/projectile, /obj/ite
 				person = H
 		people += H
 	if(person) //Basic talk
-		to_chat(target, target.hear_say(pick(speak_messages),language = pick(person.languages),speaker = person))
+		target.hear_say(pick(speak_messages),language = pick(person.languages),speaker = person)
 	else // Radio talk
 		var/list/humans = list()
 		for(var/mob/living/carbon/human/H in living_mob_list)
 			humans += H
 		person = pick(humans)
-		to_chat(target, target.hear_radio(pick(radio_messages),language = pick(person.languages),speaker = person, part_a = "<span class='[frequency_span_class(PUB_FREQ)]'><b>\[[get_frequency_name(PUB_FREQ)]\]</b> <span class='name'>", part_b = "</span> <span class='message'>"))
+		target.hear_radio(pick(radio_messages),language = pick(person.languages),speaker = person, part_a = "<span class='[frequency_span_class(PUB_FREQ)]'><b>\[[get_frequency_name(PUB_FREQ)]\]</b> <span class='name'>", part_b = "</span> <span class='message'>")
 	qdel(src)
 
 /obj/effect/hallucination/message
@@ -752,11 +752,11 @@ var/list/non_fakeattack_weapons = list(/obj/item/weapon/gun/projectile, /obj/ite
 						halimage = null
 		if("death")
 			//Fake death
-			src.sleeping = 20
+			Sleeping(20)
 			hal_crit = 1
 			hal_screwyhud = 1
 			spawn(rand(50,100))
-				src.sleeping = 0
+				SetSleeping(0)
 				hal_crit = 0
 				hal_screwyhud = 0
 		if("husks")

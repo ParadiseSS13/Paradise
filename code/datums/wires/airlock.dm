@@ -100,14 +100,15 @@ var/const/AIRLOCK_WIRE_LIGHT = 2048
 				A.electrify(0)
 			return // Don't update the dialog.
 
-		if (AIRLOCK_WIRE_SAFETY)
+		if(AIRLOCK_WIRE_SAFETY)
 			A.safe = mended
 
 		if(AIRLOCK_WIRE_SPEED)
 			A.autoclose = mended
 			if(mended)
 				if(!A.density)
-					A.close()
+					spawn(0)
+						A.close()
 
 		if(AIRLOCK_WIRE_LIGHT)
 			A.lights = mended
@@ -159,12 +160,16 @@ var/const/AIRLOCK_WIRE_LIGHT = 2048
 			//will succeed only if the ID wire is cut or the door requires no access and it's not emagged
 			if(A.emagged)	return
 			if(!A.requiresID() || A.check_access(null))
-				if(A.density)	A.open()
-				else		A.close()
+				spawn(0)
+					if(A.density)
+						A.open()
+					else
+						A.close()
 		if(AIRLOCK_WIRE_SAFETY)
 			A.safe = !A.safe
 			if(!A.density)
-				A.close()
+				spawn(0)
+					A.close()
 
 		if(AIRLOCK_WIRE_SPEED)
 			A.normalspeed = !A.normalspeed

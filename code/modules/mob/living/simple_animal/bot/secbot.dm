@@ -117,7 +117,7 @@ Status: []<BR>
 Behaviour controls are [locked ? "locked" : "unlocked"]<BR>
 Maintenance panel panel is [open ? "opened" : "closed"]"},
 
-"<A href='?src=\ref[src];power=1'>[on ? "On" : "Off"]</A>" )
+"<A href='?src=[UID()];power=1'>[on ? "On" : "Off"]</A>" )
 
 	if(!locked || issilicon(user) || check_rights(R_ADMIN, 0, user))
 		dat += text({"<BR>
@@ -128,12 +128,12 @@ Operating Mode: []<BR>
 Report Arrests[]<BR>
 Auto Patrol: []"},
 
-"<A href='?src=\ref[src];operation=idcheck'>[idcheck ? "Yes" : "No"]</A>",
-"<A href='?src=\ref[src];operation=weaponscheck'>[weaponscheck ? "Yes" : "No"]</A>",
-"<A href='?src=\ref[src];operation=ignorerec'>[check_records ? "Yes" : "No"]</A>",
-"<A href='?src=\ref[src];operation=switchmode'>[arrest_type ? "Detain" : "Arrest"]</A>",
-"<A href='?src=\ref[src];operation=declarearrests'>[declare_arrests ? "Yes" : "No"]</A>",
-"<A href='?src=\ref[src];operation=patrol'>[auto_patrol ? "On" : "Off"]</A>" )
+"<A href='?src=[UID()];operation=idcheck'>[idcheck ? "Yes" : "No"]</A>",
+"<A href='?src=[UID()];operation=weaponscheck'>[weaponscheck ? "Yes" : "No"]</A>",
+"<A href='?src=[UID()];operation=ignorerec'>[check_records ? "Yes" : "No"]</A>",
+"<A href='?src=[UID()];operation=switchmode'>[arrest_type ? "Detain" : "Arrest"]</A>",
+"<A href='?src=[UID()];operation=declarearrests'>[declare_arrests ? "Yes" : "No"]</A>",
+"<A href='?src=[UID()];operation=patrol'>[auto_patrol ? "On" : "Off"]</A>" )
 
 	return	dat
 
@@ -251,7 +251,7 @@ Auto Patrol: []"},
 		C.Weaken(5)
 		C.stuttering = 5
 		C.Stun(5)
-	add_logs(src,C,"stunned")
+	add_logs(src, C, "stunned")
 	if(declare_arrests)
 		var/area/location = get_area(src)
 		speak("[arrest_type ? "Detaining" : "Arresting"] level [threat] scumbag <b>[C]</b> in [location].", radio_channel)
@@ -385,7 +385,7 @@ Auto Patrol: []"},
 
 /mob/living/simple_animal/bot/secbot/proc/look_for_perp()
 	anchored = 0
-	for (var/mob/living/carbon/C in view(7,src)) //Let's find us a criminal
+	for(var/mob/living/carbon/C in view(7,src)) //Let's find us a criminal
 		if((C.stat) || (C.handcuffed))
 			continue
 

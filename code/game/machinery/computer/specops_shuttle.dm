@@ -134,9 +134,9 @@ var/specops_shuttle_timeleft = 0
 	specops_shuttle_moving_to_centcom = 0
 
 	specops_shuttle_at_station = 1
-	if (specops_shuttle_moving_to_station || specops_shuttle_moving_to_centcom) return
+	if(specops_shuttle_moving_to_station || specops_shuttle_moving_to_centcom) return
 
-	if (!specops_can_move())
+	if(!specops_can_move())
 		to_chat(usr, "\red The Special Operations shuttle is unable to leave.")
 		return
 
@@ -262,7 +262,7 @@ var/specops_shuttle_timeleft = 0
 		return
 
 //Commented out so admins can do shenanigans at their leisure. Also makes the force-spawned admin ERTs able to use the shuttle.
-//	if (sent_strike_team == 0 && send_emergency_team == 0)
+//	if(sent_strike_team == 0 && send_emergency_team == 0)
 //		to_chat(usr, "\red The strike team has not yet deployed.")
 //		return
 
@@ -271,13 +271,13 @@ var/specops_shuttle_timeleft = 0
 
 	user.machine = src
 	var/dat
-	if (temp)
+	if(temp)
 		dat = temp
 	else
 		dat += {"<BR><B>Special Operations Shuttle</B><HR>
 		\nLocation: [specops_shuttle_moving_to_station || specops_shuttle_moving_to_centcom ? "Departing for [station_name] in ([specops_shuttle_timeleft] seconds.)":specops_shuttle_at_station ? "Station":"Dock"]<BR>
-		[specops_shuttle_moving_to_station || specops_shuttle_moving_to_centcom ? "\n*The Special Ops. shuttle is already leaving.*<BR>\n<BR>":specops_shuttle_at_station ? "\n<A href='?src=\ref[src];sendtodock=1'>Shuttle standing by...</A><BR>\n<BR>":"\n<A href='?src=\ref[src];sendtostation=1'>Depart to [station_name]</A><BR>\n<BR>"]
-		\n<A href='?src=\ref[user];mach_close=computer'>Close</A>"}
+		[specops_shuttle_moving_to_station || specops_shuttle_moving_to_centcom ? "\n*The Special Ops. shuttle is already leaving.*<BR>\n<BR>":specops_shuttle_at_station ? "\n<A href='?src=[UID()];sendtodock=1'>Shuttle standing by...</A><BR>\n<BR>":"\n<A href='?src=[UID()];sendtostation=1'>Depart to [station_name]</A><BR>\n<BR>"]
+		\n<A href='?src=[user.UID()];mach_close=computer'>Close</A>"}
 
 	user << browse(dat, "window=computer;size=575x450")
 	onclose(user, "computer")
@@ -287,23 +287,23 @@ var/specops_shuttle_timeleft = 0
 	if(..())
 		return 1
 
-	if ((usr.contents.Find(src) || (in_range(src, usr) && istype(loc, /turf))) || (istype(usr, /mob/living/silicon)))
+	if((usr.contents.Find(src) || (in_range(src, usr) && istype(loc, /turf))) || (istype(usr, /mob/living/silicon)))
 		usr.machine = src
 
-	if (href_list["sendtodock"])
+	if(href_list["sendtodock"])
 		if(!specops_shuttle_at_station|| specops_shuttle_moving_to_station || specops_shuttle_moving_to_centcom) return
 
-		if (!specops_can_move())
+		if(!specops_can_move())
 			to_chat(usr, "\blue Central Command will not allow the Special Operations shuttle to return yet.")
 			if(world.timeofday <= specops_shuttle_timereset)
-				if (((world.timeofday - specops_shuttle_timereset)/10) > 60)
+				if(((world.timeofday - specops_shuttle_timereset)/10) > 60)
 					to_chat(usr, "\blue [-((world.timeofday - specops_shuttle_timereset)/10)/60] minutes remain!")
 				to_chat(usr, "\blue [-(world.timeofday - specops_shuttle_timereset)/10] seconds remain!")
 			return
 
 		to_chat(usr, "\blue The Special Operations shuttle will arrive at Central Command in [(SPECOPS_MOVETIME/10)] seconds.")
 
-		temp += "Shuttle departing.<BR><BR><A href='?src=\ref[src];mainmenu=1'>OK</A>"
+		temp += "Shuttle departing.<BR><BR><A href='?src=[UID()];mainmenu=1'>OK</A>"
 		updateUsrDialog()
 
 		specops_shuttle_moving_to_centcom = 1
@@ -311,16 +311,16 @@ var/specops_shuttle_timeleft = 0
 		spawn(0)
 			specops_return()
 
-	else if (href_list["sendtostation"])
+	else if(href_list["sendtostation"])
 		if(specops_shuttle_at_station || specops_shuttle_moving_to_station || specops_shuttle_moving_to_centcom) return
 
-		if (!specops_can_move())
+		if(!specops_can_move())
 			to_chat(usr, "\red The Special Operations shuttle is unable to leave.")
 			return
 
 		to_chat(usr, "\blue The Special Operations shuttle will arrive on [station_name] in [(SPECOPS_MOVETIME/10)] seconds.")
 
-		temp += "Shuttle departing.<BR><BR><A href='?src=\ref[src];mainmenu=1'>OK</A>"
+		temp += "Shuttle departing.<BR><BR><A href='?src=[UID()];mainmenu=1'>OK</A>"
 		updateUsrDialog()
 
 		var/area/centcom/specops/special_ops = locate()
@@ -332,7 +332,7 @@ var/specops_shuttle_timeleft = 0
 		spawn(0)
 			specops_process()
 
-	else if (href_list["mainmenu"])
+	else if(href_list["mainmenu"])
 		temp = null
 
 	add_fingerprint(usr)

@@ -182,13 +182,13 @@ var/global/list/all_money_accounts = list()
 		// AUTOFIXED BY fix_string_idiocy.py
 		// C:\Users\Rob\Documents\Projects\vgstation13\code\WorkInProgress\Cael_Aislinn\Economy\Accounts.dm:171: dat += "<i>[machine_id]</i><br>"
 		dat += {"<i>[machine_id]</i><br>
-			Confirm identity: <a href='?src=\ref[src];choice=insert_card'>[held_card ? held_card : "-----"]</a><br>"}
+			Confirm identity: <a href='?src=[UID()];choice=insert_card'>[held_card ? held_card : "-----"]</a><br>"}
 		// END AUTOFIX
 		if(access_level > 0)
 
 			// AUTOFIXED BY fix_string_idiocy.py
-			// C:\Users\Rob\Documents\Projects\vgstation13\code\WorkInProgress\Cael_Aislinn\Economy\Accounts.dm:175: dat += "<a href='?src=\ref[src];toggle_activated=1'>[activated ? "Disable" : "Enable"] remote access</a><br>"
-			dat += {"<a href='?src=\ref[src];toggle_activated=1'>[activated ? "Disable" : "Enable"] remote access</a><br>
+			// C:\Users\Rob\Documents\Projects\vgstation13\code\WorkInProgress\Cael_Aislinn\Economy\Accounts.dm:175: dat += "<a href='?src=[UID()];toggle_activated=1'>[activated ? "Disable" : "Enable"] remote access</a><br>"
+			dat += {"<a href='?src=[UID()];toggle_activated=1'>[activated ? "Disable" : "Enable"] remote access</a><br>
 				You may not edit accounts at this terminal, only create and view them.<br>"}
 			// END AUTOFIX
 			if(creating_new_account)
@@ -196,9 +196,9 @@ var/global/list/all_money_accounts = list()
 				// AUTOFIXED BY fix_string_idiocy.py
 				// C:\Users\Rob\Documents\Projects\vgstation13\code\WorkInProgress\Cael_Aislinn\Economy\Accounts.dm:178: dat += "<br>"
 				dat += {"<br>
-					<a href='?src=\ref[src];choice=view_accounts_list;'>Return to accounts list</a>
-					<form name='create_account' action='?src=\ref[src]' method='get'>
-					<input type='hidden' name='src' value='\ref[src]'>
+					<a href='?src=[UID()];choice=view_accounts_list;'>Return to accounts list</a>
+					<form name='create_account' action='?src=[UID()]' method='get'>
+					<input type='hidden' name='src' value='[UID()]'>
 					<input type='hidden' name='choice' value='finalise_create_account'>
 					<b>Holder name:</b> <input type='text' id='holder_name' name='holder_name' style='width:250px; background-color:white;'><br>
 					<b>Initial funds:</b> <input type='text' id='starting_funds' name='starting_funds' style='width:250px; background-color:white;'> (subtracted from station account)<br>
@@ -212,7 +212,7 @@ var/global/list/all_money_accounts = list()
 					// AUTOFIXED BY fix_string_idiocy.py
 					// C:\Users\Rob\Documents\Projects\vgstation13\code\WorkInProgress\Cael_Aislinn\Economy\Accounts.dm:190: dat += "<br>"
 					dat += {"<br>
-						<a href='?src=\ref[src];choice=view_accounts_list;'>Return to accounts list</a><hr>
+						<a href='?src=[UID()];choice=view_accounts_list;'>Return to accounts list</a><hr>
 						<b>Account number:</b> #[detailed_account_view.account_number]<br>
 						<b>Account holder:</b> [detailed_account_view.owner_name]<br>
 						<b>Account balance:</b> $[detailed_account_view.money]<br>
@@ -243,8 +243,8 @@ var/global/list/all_money_accounts = list()
 				else
 
 					// AUTOFIXED BY fix_string_idiocy.py
-					// C:\Users\Rob\Documents\Projects\vgstation13\code\WorkInProgress\Cael_Aislinn\Economy\Accounts.dm:215: dat += "<a href='?src=\ref[src];choice=create_account;'>Create new account</a><br><br>"
-					dat += {"<a href='?src=\ref[src];choice=create_account;'>Create new account</a><br><br>
+					// C:\Users\Rob\Documents\Projects\vgstation13\code\WorkInProgress\Cael_Aislinn\Economy\Accounts.dm:215: dat += "<a href='?src=[UID()];choice=create_account;'>Create new account</a><br><br>"
+					dat += {"<a href='?src=[UID()];choice=create_account;'>Create new account</a><br><br>
 						<table border=1 style='width:100%'>"}
 					// END AUTOFIX
 					for(var/i=1, i<=all_money_accounts.len, i++)
@@ -255,7 +255,7 @@ var/global/list/all_money_accounts = list()
 						dat += {"<tr>
 							<td>#[D.account_number]</td>
 							<td>[D.owner_name]</td>
-							<td><a href='?src=\ref[src];choice=view_account_detail;account_index=[i]'>View in detail</a></td>
+							<td><a href='?src=[UID()];choice=view_account_detail;account_index=[i]'>View in detail</a></td>
 							</tr>"}
 						// END AUTOFIX
 					dat += "</table>"
@@ -318,7 +318,7 @@ var/global/list/all_money_accounts = list()
 
 				else
 					var/obj/item/I = usr.get_active_hand()
-					if (istype(I, /obj/item/weapon/card/id))
+					if(istype(I, /obj/item/weapon/card/id))
 						var/obj/item/weapon/card/id/C = I
 						usr.drop_item()
 						C.loc = src

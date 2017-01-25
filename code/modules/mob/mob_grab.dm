@@ -26,7 +26,7 @@
 	plane = HUD_PLANE
 	item_state = "nothing"
 	icon = 'icons/mob/screen_gen.dmi'
-	w_class = 5.0
+	w_class = 5
 
 
 /obj/item/weapon/grab/New(var/mob/user, var/mob/victim)
@@ -54,7 +54,7 @@
 
 	//check if assailant is grabbed by victim as well
 	if(assailant.grabbed_by)
-		for (var/obj/item/weapon/grab/G in assailant.grabbed_by)
+		for(var/obj/item/weapon/grab/G in assailant.grabbed_by)
 			if(G.assailant == affecting && G.affecting == assailant)
 				G.dancing = 1
 				G.adjust_position()
@@ -175,9 +175,9 @@
 
 	if(state >= GRAB_KILL)
 		//affecting.apply_effect(STUTTER, 5) //would do this, but affecting isn't declared as mob/living for some stupid reason.
-		affecting.stuttering = max(affecting.stuttering, 5) //It will hamper your voice, being choked and all.
+		affecting.Stuttering(5) //It will hamper your voice, being choked and all.
 		affecting.Weaken(5)	//Should keep you down unless you get help.
-		affecting.losebreath = max(affecting.losebreath + 2, 3)
+		affecting.AdjustLoseBreath(2, bound_lower = 0, bound_upper = 3)
 
 	adjust_position()
 
@@ -269,8 +269,8 @@
 		state = GRAB_NECK
 		icon_state = "grabbed+1"
 		assailant.set_dir(get_dir(assailant, affecting))
-		affecting.attack_log += "\[[time_stamp()]\] <font color='orange'>Has had their neck grabbed by [assailant.name] ([assailant.ckey])</font>"
-		assailant.attack_log += "\[[time_stamp()]\] <font color='red'>Grabbed the neck of [affecting.name] ([affecting.ckey])</font>"
+		affecting.create_attack_log("<font color='orange'>Has had their neck grabbed by [assailant.name] ([assailant.ckey])</font>")
+		assailant.create_attack_log("<font color='red'>Grabbed the neck of [affecting.name] ([affecting.ckey])</font>")
 		log_attack("<font color='red'>[assailant.name] ([assailant.ckey]) grabbed the neck of [affecting.name] ([affecting.ckey])</font>")
 		if(!iscarbon(assailant))
 			affecting.LAssailant = null
@@ -285,12 +285,12 @@
 
 		state = GRAB_KILL
 		assailant.visible_message("<span class='danger'>[assailant] has tightened \his grip on [affecting]'s neck!</span>")
-		affecting.attack_log += "\[[time_stamp()]\] <font color='orange'>Has been strangled (kill intent) by [assailant.name] ([assailant.ckey])</font>"
-		assailant.attack_log += "\[[time_stamp()]\] <font color='red'>Strangled (kill intent) [affecting.name] ([affecting.ckey])</font>"
+		affecting.create_attack_log("<font color='orange'>Has been strangled (kill intent) by [assailant.name] ([assailant.ckey])</font>")
+		assailant.create_attack_log("<font color='red'>Strangled (kill intent) [affecting.name] ([affecting.ckey])</font>")
 		msg_admin_attack("[key_name(assailant)] strangled (kill intent) [key_name(affecting)]")
 
 		assailant.next_move = world.time + 10
-		affecting.losebreath += 1
+		affecting.AdjustLoseBreath(1)
 		affecting.set_dir(WEST)
 	adjust_position()
 
@@ -338,8 +338,8 @@
 							damage += hat.force * 3
 						affecting.apply_damage(damage*rand(90, 110)/100, BRUTE, "head", affected.run_armor_check(affecting, "melee"))
 						playsound(assailant.loc, "swing_hit", 25, 1, -1)
-						assailant.attack_log += text("\[[time_stamp()]\] <font color='red'>Headbutted [affecting.name] ([affecting.ckey])</font>")
-						affecting.attack_log += text("\[[time_stamp()]\] <font color='orange'>Headbutted by [assailant.name] ([assailant.ckey])</font>")
+						assailant.create_attack_log("<font color='red'>Headbutted [affecting.name] ([affecting.ckey])</font>")
+						affecting.create_attack_log("<font color='orange'>Headbutted by [assailant.name] ([assailant.ckey])</font>")
 						msg_admin_attack("[key_name(assailant)] has headbutted [key_name(affecting)]")
 						return
 
@@ -357,12 +357,12 @@
 							return
 						assailant.visible_message("<span class='danger'>[assailant] presses \his fingers into [affecting]'s eyes!</span>")
 						to_chat(affecting, "<span class='danger'>You feel immense pain as digits are being pressed into your eyes!</span>")
-						assailant.attack_log += text("\[[time_stamp()]\] <font color='red'>Pressed fingers into the eyes of [affecting.name] ([affecting.ckey])</font>")
-						affecting.attack_log += text("\[[time_stamp()]\] <font color='orange'>Had fingers pressed into their eyes by [assailant.name] ([assailant.ckey])</font>")
+						assailant.create_attack_log("<font color='red'>Pressed fingers into the eyes of [affecting.name] ([affecting.ckey])</font>")
+						affecting.create_attack_log("<font color='orange'>Had fingers pressed into their eyes by [assailant.name] ([assailant.ckey])</font>")
 						msg_admin_attack("[key_name(assailant)] has pressed his fingers into [key_name(affecting)]'s eyes.")
 						var/obj/item/organ/internal/eyes/eyes = affected.get_int_organ(/obj/item/organ/internal/eyes)
 						eyes.damage += rand(3,4)
-						if (eyes.damage >= eyes.min_broken_damage)
+						if(eyes.damage >= eyes.min_broken_damage)
 							if(M.stat != 2)
 								to_chat(M, "\red You go blind!")*///This is a demonstration of adding a new damaging type based on intent as well as hitzone.
 
@@ -396,8 +396,8 @@
 
 			user.visible_message("<span class='danger'>[user] devours \the [affecting]!</span>")
 			if(affecting.mind)
-				affecting.attack_log += "\[[time_stamp()]\] <font color='orange'>Has been devoured by [attacker.name] ([attacker.ckey])</font>"
-				attacker.attack_log += "\[[time_stamp()]\] <font color='red'>Devoured [affecting.name] ([affecting.ckey])</font>"
+				affecting.create_attack_log("<font color='orange'>Has been devoured by [attacker.name] ([attacker.ckey])</font>")
+				attacker.create_attack_log("<font color='red'>Devoured [affecting.name] ([affecting.ckey])</font>")
 				msg_admin_attack("[key_name(attacker)] devoured [key_name(affecting)]")
 
 			affecting.loc = user

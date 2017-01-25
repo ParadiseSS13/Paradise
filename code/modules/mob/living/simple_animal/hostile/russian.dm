@@ -24,6 +24,7 @@
 	status_flags = CANPUSH
 	loot = list(/obj/effect/landmark/mobcorpse/russian,
 			/obj/item/weapon/kitchen/knife)
+	del_on_death = 1
 
 
 /mob/living/simple_animal/hostile/russian/ranged
@@ -39,8 +40,3 @@
 	loot = list(/obj/effect/landmark/mobcorpse/russian/ranged,
 				/obj/item/weapon/gun/projectile/shotgun/boltaction)
 	casingtype = /obj/item/ammo_casing/a762
-
-/mob/living/simple_animal/hostile/russian/death()
-	..()
-	qdel(src)
-	return

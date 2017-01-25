@@ -26,39 +26,41 @@
 	dat += "<B>Holodeck Control System</B><BR>"
 	dat += "<HR>Current Loaded Programs:<BR>"
 
-	dat += "<A href='?src=\ref[src];emptycourt=1'>((Empty Court)</font>)</A><BR>"
-	dat += "<A href='?src=\ref[src];boxingcourt=1'>((Boxing Court)</font>)</A><BR>"
-	dat += "<A href='?src=\ref[src];basketball=1'>((Basketball Court)</font>)</A><BR>"
-	dat += "<A href='?src=\ref[src];thunderdomecourt=1'>((Thunderdome Court)</font>)</A><BR>"
-	dat += "<A href='?src=\ref[src];beach=1'>((Beach)</font>)</A><BR>"
-	dat += "<A href='?src=\ref[src];desert=1'>((Desert)</font>)</A><BR>"
-	dat += "<A href='?src=\ref[src];space=1'>((Space)</font>)</A><BR>"
-	dat += "<A href='?src=\ref[src];picnicarea=1'>((Picnic Area)</font>)</A><BR>"
-	dat += "<A href='?src=\ref[src];snowfield=1'>((Snow Field)</font>)</A><BR>"
-	dat += "<A href='?src=\ref[src];theatre=1'>((Theatre)</font>)</A><BR>"
-	dat += "<A href='?src=\ref[src];meetinghall=1'>((Meeting Hall)</font>)</A><BR>"
-	dat += "<A href='?src=\ref[src];knightarena=1'>((Knight Arena)</font>)</A><BR>"
-//		dat += "<A href='?src=\ref[src];turnoff=1'>((Shutdown System)</font>)</A><BR>"
+	dat += "<A href='?src=[UID()];emptycourt=1'>((Empty Court)</font>)</A><BR>"
+	dat += "<A href='?src=[UID()];boxingcourt=1'>((Boxing Court)</font>)</A><BR>"
+	dat += "<A href='?src=[UID()];basketball=1'>((Basketball Court)</font>)</A><BR>"
+	dat += "<A href='?src=[UID()];thunderdomecourt=1'>((Thunderdome Court)</font>)</A><BR>"
+	dat += "<A href='?src=[UID()];beach=1'>((Beach)</font>)</A><BR>"
+	dat += "<A href='?src=[UID()];desert=1'>((Desert)</font>)</A><BR>"
+	dat += "<A href='?src=[UID()];space=1'>((Space)</font>)</A><BR>"
+	dat += "<A href='?src=[UID()];picnicarea=1'>((Picnic Area)</font>)</A><BR>"
+	dat += "<A href='?src=[UID()];snowfield=1'>((Snow Field)</font>)</A><BR>"
+	dat += "<A href='?src=[UID()];theatre=1'>((Theatre)</font>)</A><BR>"
+	dat += "<A href='?src=[UID()];meetinghall=1'>((Meeting Hall)</font>)</A><BR>"
+	dat += "<A href='?src=[UID()];knightarena=1'>((Knight Arena)</font>)</A><BR>"
+//		dat += "<A href='?src=[UID()];turnoff=1'>((Shutdown System)</font>)</A><BR>"
 
 	dat += "Please ensure that only holographic weapons are used in the holodeck if a combat simulation has been loaded.<BR>"
 
 	if(emagged)
-/*			dat += "<A href='?src=\ref[src];burntest=1'>(<font color=red>Begin Atmospheric Burn Simulation</font>)</A><BR>"
+/*			dat += "<A href='?src=[UID()];burntest=1'>(<font color=red>Begin Atmospheric Burn Simulation</font>)</A><BR>"
 		dat += "Ensure the holodeck is empty before testing.<BR>"
 		dat += "<BR>"*/
-		dat += "<A href='?src=\ref[src];wildlifecarp=1'>(<font color=red>Begin Wildlife Simulation</font>)</A><BR>"
+		dat += "<A href='?src=[UID()];wildlifecarp=1'>(<font color=red>Begin Wildlife Simulation</font>)</A><BR>"
 		dat += "Ensure the holodeck is empty before testing.<BR>"
 		dat += "<BR>"
 		if(issilicon(user))
-			dat += "<A href='?src=\ref[src];AIoverride=1'>(<font color=green>Re-Enable Safety Protocols?</font>)</A><BR>"
+			dat += "<A href='?src=[UID()];AIoverride=1'>(<font color=green>Re-Enable Safety Protocols?</font>)</A><BR>"
 		dat += "Safety Protocols are <font color=red> DISABLED </font><BR>"
 	else
 		if(issilicon(user))
-			dat += "<A href='?src=\ref[src];AIoverride=1'>(<font color=red>Override Safety Protocols?</font>)</A><BR>"
+			dat += "<A href='?src=[UID()];AIoverride=1'>(<font color=red>Override Safety Protocols?</font>)</A><BR>"
 		dat += "<BR>"
 		dat += "Safety Protocols are <font color=green> ENABLED </font><BR>"
 
-	user << browse(dat, "window=computer;size=400x500")
+	var/datum/browser/popup = new(user, "holodeck_computer", name, 400, 500)
+	popup.set_content(dat)
+	popup.open(0)
 	onclose(user, "computer")
 	return
 
@@ -363,10 +365,10 @@
 	return // HOLOTABLE DOES NOT GIVE A FUCK
 
 /obj/structure/table/holotable/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
-	if (istype(W, /obj/item/weapon/grab))
+	if(istype(W, /obj/item/weapon/grab))
 		return ..()
 
-	if (istype(W, /obj/item/weapon/wrench))
+	if(istype(W, /obj/item/weapon/wrench))
 		to_chat(user, "<span class='warning'>It's a holotable! There are no bolts!</span>")
 		return
 
@@ -406,7 +408,7 @@
 	return // HOLORACK DOES NOT GIVE A FUCK
 
 /obj/structure/rack/holorack/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
-	if (istype(W, /obj/item/weapon/wrench))
+	if(istype(W, /obj/item/weapon/wrench))
 		to_chat(user, "<span class='warning'>It's a holorack! There are no bolts!</span>")
 		return
 
@@ -423,6 +425,7 @@
 	throwforce = 10
 	w_class = 4
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
+	block_chance = 50
 
 /obj/item/weapon/holo/claymore/blue
 	icon_state = "claymoreblue"
@@ -432,9 +435,6 @@
 	icon_state = "claymorered"
 	item_state = "claymorered"
 
-/obj/item/weapon/holo/claymore/IsShield()
-	return 1
-
 /obj/item/weapon/holo/esword
 	desc = "May the force be within you. Sorta"
 	icon_state = "sword0"
@@ -442,8 +442,9 @@
 	throw_speed = 1
 	throw_range = 5
 	throwforce = 0
-	w_class = 2.0
-	flags = NOSHIELD
+	w_class = 2
+	armour_penetration = 50
+	block_chance = 50
 	var/active = 0
 
 /obj/item/weapon/holo/esword/green/New()
@@ -452,9 +453,9 @@
 /obj/item/weapon/holo/esword/red/New()
 	item_color = "red"
 
-/obj/item/weapon/holo/esword/IsShield()
+/obj/item/weapon/holo/esword/hit_reaction(mob/living/carbon/human/owner, attack_text, final_block_chance)
 	if(active)
-		return 1
+		return ..()
 	return 0
 
 /obj/item/weapon/holo/esword/New()
@@ -462,7 +463,7 @@
 
 /obj/item/weapon/holo/esword/attack_self(mob/living/user as mob)
 	active = !active
-	if (active)
+	if(active)
 		force = 30
 		icon_state = "sword[item_color]"
 		w_class = 4
@@ -500,7 +501,7 @@
 	throwpass = 1
 
 /obj/structure/holohoop/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
-	if (istype(W, /obj/item/weapon/grab) && get_dist(src,user)<2)
+	if(istype(W, /obj/item/weapon/grab) && get_dist(src,user)<2)
 		var/obj/item/weapon/grab/G = W
 		if(G.state<2)
 			to_chat(user, "<span class='warning'>You need a better grip to do that!</span>")
@@ -510,13 +511,13 @@
 		visible_message("<span class='warning'>[G.assailant] dunks [G.affecting] into the [src]!</span>")
 		qdel(W)
 		return
-	else if (istype(W, /obj/item) && get_dist(src,user)<2)
+	else if(istype(W, /obj/item) && get_dist(src,user)<2)
 		user.drop_item(src)
 		visible_message("<span class='notice'>[user] dunks [W] into the [src]!</span>")
 		return
 
 /obj/structure/holohoop/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
-	if (istype(mover,/obj/item) && mover.throwing)
+	if(istype(mover,/obj/item) && mover.throwing)
 		var/obj/item/I = mover
 		if(istype(I, /obj/item/projectile))
 			return
@@ -552,8 +553,8 @@
 	to_chat(user, "The device is a solid button, there's nothing you can do with it!")
 
 /obj/machinery/readybutton/attack_hand(mob/user as mob)
-	if(user.stat || stat & (NOPOWER|BROKEN))
-		to_chat(user, "This device is not powered.")
+	if(user.stat || stat & (BROKEN))
+		to_chat(user, "This device is not functioning.")
 		return
 
 	currentarea = get_area(src.loc)
@@ -572,7 +573,7 @@
 	var/numready = 0
 	for(var/obj/machinery/readybutton/button in currentarea)
 		numbuttons++
-		if (button.ready)
+		if(button.ready)
 			numready++
 
 	if(numbuttons == numready)

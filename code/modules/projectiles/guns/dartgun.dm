@@ -121,7 +121,7 @@
 		src.update_icon()
 
 /obj/item/weapon/gun/dartgun/proc/get_mixed_syringe()
-	if (!cartridge)
+	if(!cartridge)
 		return 0
 	if(!cartridge.darts)
 		return 0
@@ -136,7 +136,7 @@
 	return dart
 
 /obj/item/weapon/gun/dartgun/proc/fire_dart(atom/target, mob/user)
-	if (locate (/obj/structure/table, src.loc))
+	if(locate (/obj/structure/table, src.loc))
 		return
 	else
 		var/turf/trg = get_turf(target)
@@ -172,9 +172,9 @@
 						for(var/datum/reagent/A in D.reagents.reagent_list)
 							R += A.id + " ("
 							R += num2text(A.volume) + "),"
-					if (istype(M, /mob))
-						M.attack_log += "\[[time_stamp()]\] <b>[user]/[user.ckey]</b> shot <b>[M]/[M.ckey]</b> with a <b>dartgun</b> ([R])"
-						user.attack_log += "\[[time_stamp()]\] <b>[user]/[user.ckey]</b> shot <b>[M]/[M.ckey]</b> with a <b>dartgun</b> ([R])"
+					if(istype(M, /mob))
+						M.create_attack_log("<b>[user]/[user.ckey]</b> shot <b>[M]/[M.ckey]</b> with a <b>dartgun</b> ([R])")
+						user.create_attack_log("<b>[user]/[user.ckey]</b> shot <b>[M]/[M.ckey]</b> with a <b>dartgun</b> ([R])")
 						if(M.ckey)
 							msg_admin_attack("[key_name_admin(user)] shot [M] ([M.ckey]) with a dartgun ([R]).")
 						if(!iscarbon(user))
@@ -183,7 +183,7 @@
 							M.LAssailant = user
 
 					else
-						M.attack_log += "\[[time_stamp()]\] <b>UNKNOWN SUBJECT (No longer exists)</b> shot <b>[key_name_admin(M)]</b> with a <b>dartgun</b> ([R])"
+						M.create_attack_log("<b>UNKNOWN SUBJECT (No longer exists)</b> shot <b>[key_name_admin(M)]</b> with a <b>dartgun</b> ([R])")
 						msg_admin_attack("UNKNOWN shot [key_name(M)] with a <b>dartgun</b> ([R]) (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[user.x];Y=[user.y];Z=[user.z]'>JMP</a>)")
 
 					if(D.reagents)
@@ -199,7 +199,7 @@
 
 			sleep(1)
 
-		if (D) spawn(10) qdel(D)
+		if(D) spawn(10) qdel(D)
 
 		return
 
@@ -212,20 +212,20 @@
 	user.set_machine(src)
 	var/dat = "<b>[src] mixing control:</b><br><br>"
 
-	if (beakers.len)
+	if(beakers.len)
 		var/i = 1
 		for(var/obj/item/weapon/reagent_containers/glass/beaker/B in beakers)
 			dat += "Beaker [i] contains: "
 			if(B.reagents && B.reagents.reagent_list.len)
 				for(var/datum/reagent/R in B.reagents.reagent_list)
 					dat += "<br>    [R.volume] units of [R.name], "
-				if (check_beaker_mixing(B))
-					dat += text("<A href='?src=\ref[src];stop_mix=[i]'><font color='green'>Mixing</font></A> ")
+				if(check_beaker_mixing(B))
+					dat += text("<A href='?src=[UID()];stop_mix=[i]'><font color='green'>Mixing</font></A> ")
 				else
-					dat += text("<A href='?src=\ref[src];mix=[i]'><font color='red'>Not mixing</font></A> ")
+					dat += text("<A href='?src=[UID()];mix=[i]'><font color='red'>Not mixing</font></A> ")
 			else
 				dat += "nothing."
-			dat += " \[<A href='?src=\ref[src];eject=[i]'>Eject</A>\]<br>"
+			dat += " \[<A href='?src=[UID()];eject=[i]'>Eject</A>\]<br>"
 			i++
 	else
 		dat += "There are no beakers inserted!<br><br>"
@@ -235,7 +235,7 @@
 			dat += "The dart cartridge has [cartridge.darts] shots remaining."
 		else
 			dat += "<font color='red'>The dart cartridge is empty!</font>"
-		dat += " \[<A href='?src=\ref[src];eject_cart=1'>Eject</A>\]"
+		dat += " \[<A href='?src=[UID()];eject_cart=1'>Eject</A>\]"
 
 	user << browse(dat, "window=dartgun")
 	onclose(user, "dartgun", src)
@@ -257,11 +257,11 @@
 				if(M == beakers[index])
 					mixing -= M
 					break
-	else if (href_list["mix"])
+	else if(href_list["mix"])
 		var/index = text2num(href_list["mix"])
 		if(index <= beakers.len)
 			mixing += beakers[index]
-	else if (href_list["eject"])
+	else if(href_list["eject"])
 		var/index = text2num(href_list["eject"])
 		if(index <= beakers.len)
 			if(beakers[index])
@@ -270,7 +270,7 @@
 				mixing -= B
 				beakers -= B
 				B.forceMove(get_turf(src))
-	else if (href_list["eject_cart"])
+	else if(href_list["eject_cart"])
 		remove_cartridge()
 	src.updateUsrDialog()
 	return
@@ -302,6 +302,4 @@
 	density = 0
 
 /obj/effect/syringe_gun_dummy/New()
-	var/datum/reagents/R = new/datum/reagents(15)
-	reagents = R
-	R.my_atom = src
+	create_reagents(15)

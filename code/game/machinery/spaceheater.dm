@@ -19,6 +19,12 @@
 	update_icon()
 	return
 
+/obj/machinery/space_heater/Destroy()
+	if(cell)
+		qdel(cell)
+		cell = null
+	return ..()
+
 /obj/machinery/space_heater/update_icon()
 	overlays.Cut()
 	icon_state = "sheater[on]"
@@ -82,18 +88,18 @@
 		var/dat
 		dat = "Power cell: "
 		if(cell)
-			dat += "<A href='byond://?src=\ref[src];op=cellremove'>Installed</A><BR>"
+			dat += "<A href='byond://?src=[UID()];op=cellremove'>Installed</A><BR>"
 		else
-			dat += "<A href='byond://?src=\ref[src];op=cellinstall'>Removed</A><BR>"
+			dat += "<A href='byond://?src=[UID()];op=cellinstall'>Removed</A><BR>"
 
 		dat += "Power Level: [cell ? round(cell.percent(),1) : 0]%<BR><BR>"
 
 		dat += "Set Temperature: "
 
-		dat += "<A href='?src=\ref[src];op=temp;val=-5'>-</A>"
+		dat += "<A href='?src=[UID()];op=temp;val=-5'>-</A>"
 
 		dat += " [set_temperature]&deg;C "
-		dat += "<A href='?src=\ref[src];op=temp;val=5'>+</A><BR>"
+		dat += "<A href='?src=[UID()];op=temp;val=5'>+</A><BR>"
 
 		user.set_machine(src)
 		user << browse("<HEAD><TITLE>Space Heater Control Panel</TITLE></HEAD><TT>[dat]</TT>", "window=spaceheater")
@@ -107,9 +113,9 @@
 
 
 /obj/machinery/space_heater/Topic(href, href_list)
-	if (..())
+	if(..())
 		return 1
-	if ((in_range(src, usr) && istype(src.loc, /turf)) || (istype(usr, /mob/living/silicon)))
+	if((in_range(src, usr) && istype(src.loc, /turf)) || (istype(usr, /mob/living/silicon)))
 		usr.set_machine(src)
 
 		switch(href_list["op"])

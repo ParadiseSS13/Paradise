@@ -12,10 +12,7 @@
 	desc = "A wall with gold plating. Swag!"
 	icon = 'icons/turf/walls/gold_wall.dmi'
 	icon_state = "gold"
-	walltype = "gold"
-	mineral = "gold"
-	//var/electro = 1
-	//var/shocked = null
+	sheet_type = /obj/item/stack/sheet/mineral/gold
 	explosion_block = 0 //gold is a soft metal you dingus.
 	canSmoothWith = list(/turf/simulated/wall/mineral/gold, /obj/structure/falsewall/gold)
 
@@ -24,10 +21,7 @@
 	desc = "A wall with silver plating. Shiny!"
 	icon = 'icons/turf/walls/silver_wall.dmi'
 	icon_state = "silver"
-	walltype = "silver"
-	mineral = "silver"
-	//var/electro = 0.75
-	//var/shocked = null
+	sheet_type = /obj/item/stack/sheet/mineral/silver
 	canSmoothWith = list(/turf/simulated/wall/mineral/silver, /obj/structure/falsewall/silver)
 
 /turf/simulated/wall/mineral/diamond
@@ -35,27 +29,24 @@
 	desc = "A wall with diamond plating. You monster."
 	icon = 'icons/turf/walls/diamond_wall.dmi'
 	icon_state = "diamond"
-	walltype = "diamond"
-	mineral = "diamond"
+	sheet_type = /obj/item/stack/sheet/mineral/diamond
 	explosion_block = 3
 	canSmoothWith = list(/turf/simulated/wall/mineral/diamond, /obj/structure/falsewall/diamond)
 
-/turf/simulated/wall/mineral/clown
+/turf/simulated/wall/mineral/bananium
 	name = "bananium wall"
 	desc = "A wall with bananium plating. Honk!"
 	icon = 'icons/turf/walls/bananium_wall.dmi'
 	icon_state = "bananium"
-	walltype = "bananium"
-	mineral = "clown"
-	canSmoothWith = list(/turf/simulated/wall/mineral/clown, /obj/structure/falsewall/clown)
+	sheet_type = /obj/item/stack/sheet/mineral/bananium
+	canSmoothWith = list(/turf/simulated/wall/mineral/bananium, /obj/structure/falsewall/bananium)
 
 /turf/simulated/wall/mineral/sandstone
 	name = "sandstone wall"
 	desc = "A wall with sandstone plating."
 	icon = 'icons/turf/walls/sandstone_wall.dmi'
 	icon_state = "sandstone"
-	walltype = "sandstone"
-	mineral = "sandstone"
+	sheet_type = /obj/item/stack/sheet/mineral/sandstone
 	explosion_block = 0
 	canSmoothWith = list(/turf/simulated/wall/mineral/sandstone, /obj/structure/falsewall/sandstone)
 
@@ -64,8 +55,7 @@
 	desc = "A wall with uranium plating. This is probably a bad idea."
 	icon = 'icons/turf/walls/uranium_wall.dmi'
 	icon_state = "uranium"
-	walltype = "uranium"
-	mineral = "uranium"
+	sheet_type = /obj/item/stack/sheet/mineral/uranium
 	canSmoothWith = list(/turf/simulated/wall/mineral/uranium, /obj/structure/falsewall/uranium)
 
 /turf/simulated/wall/mineral/uranium/proc/radiate()
@@ -98,15 +88,14 @@
 	desc = "A wall with plasma plating. This is definately a bad idea."
 	icon = 'icons/turf/walls/plasma_wall.dmi'
 	icon_state = "plasma"
-	walltype = "plasma"
-	mineral = "plasma"
+	sheet_type = /obj/item/stack/sheet/mineral/plasma
 	thermal_conductivity = 0.04
 	canSmoothWith = list(/turf/simulated/wall/mineral/plasma, /obj/structure/falsewall/plasma)
 
 /turf/simulated/wall/mineral/plasma/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	if(is_hot(W) > 300)//If the temperature of the object is over 300, then ignite
-		message_admins("Plasma wall ignited by [key_name_admin(user)] in ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
-		log_game("Plasma wall ignited by [key_name(user)] in ([x],[y],[z])")
+		message_admins("Plasma wall ignited by [key_name_admin(user)] in ([x], [y], [z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
+		log_game("Plasma wall ignited by [key_name(user)] in ([x], [y], [z])")
 		ignite(is_hot(W))
 		return
 	..()
@@ -132,29 +121,12 @@
 		PlasmaBurn(500)
 	..()
 
-/*
-/turf/simulated/wall/mineral/proc/shock()
-	if (electrocute_mob(user, C, src))
-		var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
-		s.set_up(5, 1, src)
-		s.start()
-		return 1
-	else
-		return 0
-
-/turf/simulated/wall/mineral/proc/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
-	if((mineral == "gold") || (mineral == "silver"))
-		if(shocked)
-			shock()
-*/
-
 /turf/simulated/wall/mineral/alien
 	name = "alien wall"
 	desc = "A strange-looking alien wall."
 	icon = 'icons/turf/walls/plasma_wall.dmi'
 	icon_state = "plasma"
-	walltype = "alien"
-	mineral = "alien"
+	sheet_type = null
 	canSmoothWith = list(/turf/simulated/wall/mineral/alien, /obj/structure/falsewall/alien)
 
 /turf/simulated/wall/mineral/wood
@@ -162,8 +134,7 @@
 	desc = "A wall with wooden plating. Stiff."
 	icon = 'icons/turf/walls/wood_wall.dmi'
 	icon_state = "wood"
-	walltype = "wood"
-	mineral = "wood"
+	sheet_type = /obj/item/stack/sheet/wood
 	hardness = 70
 	explosion_block = 0
 	canSmoothWith = list(/turf/simulated/wall/mineral/wood, /obj/structure/falsewall/wood)
@@ -173,8 +144,7 @@
 	desc = "A wall with rough metal plating."
 	icon = 'icons/turf/walls/iron_wall.dmi'
 	icon_state = "iron"
-	walltype = "iron"
-	mineral = "rods"
+	sheet_type = /obj/item/stack/rods
 	canSmoothWith = list(/turf/simulated/wall/mineral/iron, /obj/structure/falsewall/iron)
 
 /turf/simulated/wall/mineral/abductor
@@ -182,7 +152,6 @@
 	desc = "A wall with alien alloy plating."
 	icon = 'icons/turf/walls/abductor_wall.dmi'
 	icon_state = "abductor"
-	walltype = "abductor"
-	mineral = "abductor"
+	sheet_type = /obj/item/stack/sheet/mineral/abductor
 	explosion_block = 3
 	canSmoothWith = list(/turf/simulated/wall/mineral/abductor, /obj/structure/falsewall/abductor)

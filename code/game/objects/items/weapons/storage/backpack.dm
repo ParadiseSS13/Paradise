@@ -10,11 +10,13 @@
 	item_state = "backpack"
 	lefthand_file = 'icons/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/clothing_righthand.dmi'
-	w_class = 4.0
+	w_class = 4
 	slot_flags = SLOT_BACK	//ERROOOOO
 	max_w_class = 3
 	max_combined_w_class = 21
 	storage_slots = 21
+	burn_state = FLAMMABLE
+	burntime = 20
 	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/back.dmi'
@@ -22,7 +24,7 @@
 
 /obj/item/weapon/storage/backpack/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	playsound(src.loc, "rustle", 50, 1, -5)
-	..()
+	return ..()
 
 /*
  * Backpack Types
@@ -35,6 +37,7 @@
 	icon_state = "holdingpack"
 	max_w_class = 5
 	max_combined_w_class = 35
+	burn_state = FIRE_PROOF
 
 	New()
 		..()
@@ -63,13 +66,13 @@
 			. = ..()
 
 	proc/failcheck(mob/user as mob)
-		if (prob(src.reliability)) return 1 //No failure
-		if (prob(src.reliability))
+		if(prob(src.reliability)) return 1 //No failure
+		if(prob(src.reliability))
 			to_chat(user, "\red The Bluespace portal resists your attempt to add another item.")//light failure
 
 		else
 			to_chat(user, "\red The Bluespace generator malfunctions!")
-			for (var/obj/O in src.contents) //it broke, delete what was in it
+			for(var/obj/O in src.contents) //it broke, delete what was in it
 				qdel(O)
 			crit_fail = 1
 			icon_state = "brokenpack"
@@ -85,7 +88,7 @@
 	desc = "Space Santa uses this to deliver toys to all the nice children in space on Christmas! Wow, it's pretty big!"
 	icon_state = "giftbag0"
 	item_state = "giftbag"
-	w_class = 4.0
+	w_class = 4
 	max_w_class = 3
 	max_combined_w_class = 400 // can store a ton of shit!
 
@@ -123,12 +126,14 @@
 	desc = "It's a special backpack made exclusively for Nanotrasen officers."
 	icon_state = "captainpack"
 	item_state = "captainpack"
+	burn_state = FIRE_PROOF
 
 /obj/item/weapon/storage/backpack/industrial
 	name = "industrial backpack"
 	desc = "It's a tough backpack for the daily grind of station life."
 	icon_state = "engiepack"
 	item_state = "engiepack"
+	burn_state = FIRE_PROOF
 
 /obj/item/weapon/storage/backpack/botany
 	name = "botany backpack"
@@ -153,6 +158,7 @@
 	desc = "A specially designed backpack. It's fire resistant and smells vaguely of plasma."
 	icon_state = "toxpack"
 	item_state = "toxpack"
+	burn_state = FIRE_PROOF
 
 /obj/item/weapon/storage/backpack/virology
 	name = "virology backpack"
@@ -168,6 +174,7 @@
 	name = "leather satchel"
 	desc = "It's a very fancy satchel made with fine leather."
 	icon_state = "satchel"
+	burn_state = FIRE_PROOF
 
 /obj/item/weapon/storage/backpack/satcheldeluxe
 	name = "leather satchel"
@@ -188,6 +195,7 @@
 	name = "industrial satchel"
 	desc = "A tough satchel with extra pockets."
 	icon_state = "satchel-eng"
+	burn_state = FIRE_PROOF
 
 /obj/item/weapon/storage/backpack/satchel_med
 	name = "medical satchel"
@@ -213,6 +221,7 @@
 	name = "scientist satchel"
 	desc = "Useful for holding research materials."
 	icon_state = "satchel-tox"
+	burn_state = FIRE_PROOF
 
 /obj/item/weapon/storage/backpack/satchel_sec
 	name = "security satchel"
@@ -228,6 +237,7 @@
 	name = "captain's satchel"
 	desc = "An exclusive satchel for Nanotrasen officers."
 	icon_state = "satchel-cap"
+	burn_state = FIRE_PROOF
 
 /obj/item/weapon/storage/backpack/satchel_flat
 	name = "smuggler's satchel"
@@ -266,8 +276,8 @@
 	slowdown = 1
 
 /obj/item/weapon/storage/backpack/duffel/syndie
-	name = "suspicious looking dufflebag"
-	desc = "A large dufflebag for holding extra tactical supplies."
+	name = "suspicious looking duffelbag"
+	desc = "A large duffelbag for holding extra tactical supplies."
 	icon_state = "duffel-syndi"
 	item_state = "duffel-syndimed"
 	origin_tech = "syndicate=1"
@@ -287,7 +297,7 @@
 	item_state = "duffel-syndiammo"
 
 /obj/item/weapon/storage/backpack/duffel/syndie/ammo/loaded
-	desc = "A large dufflebag, packed to the brim with Bulldog shotgun ammo."
+	desc = "A large duffelbag, packed to the brim with Bulldog shotgun ammo."
 
 /obj/item/weapon/storage/backpack/duffel/syndie/ammo/loaded/New()
 	..()
@@ -302,10 +312,10 @@
 	new /obj/item/ammo_box/magazine/m12g/dragon(src)
 
 /obj/item/weapon/storage/backpack/duffel/syndie/surgery
-	name = "surgery dufflebag"
-	desc = "A suspicious looking dufflebag for holding surgery tools."
+	name = "surgery duffelbag"
+	desc = "A suspicious looking duffelbag for holding surgery tools."
 	icon_state = "duffel-syndimed"
-	item_state = "duffle-syndimed"
+	item_state = "duffel-syndimed"
 
 /obj/item/weapon/storage/backpack/duffel/syndie/surgery/New()
 	..()
@@ -322,11 +332,31 @@
 	new /obj/item/clothing/mask/muzzle(src)
 	new /obj/item/device/mmi/syndie(src)
 
+/obj/item/weapon/storage/backpack/duffel/syndie/surgery_fake //for maint spawns
+	name = "surgery duffelbag"
+	desc = "A suspicious looking duffelbag for holding surgery tools."
+	icon_state = "duffel-syndimed"
+	item_state = "duffel-syndimed"
+
+/obj/item/weapon/storage/backpack/duffel/syndie/surgery_fake/New()
+	..()
+	new /obj/item/weapon/scalpel(src)
+	new /obj/item/weapon/hemostat(src)
+	new /obj/item/weapon/retractor(src)
+	new /obj/item/weapon/cautery(src)
+	new /obj/item/weapon/bonegel(src)
+	new /obj/item/weapon/bonesetter(src)
+	new /obj/item/weapon/FixOVein(src)
+	if(prob(50))
+		new /obj/item/weapon/circular_saw(src)
+		new /obj/item/weapon/surgicaldrill(src)
+
 /obj/item/weapon/storage/backpack/duffel/captain
 	name = "captain's duffelbag"
 	desc = "A duffelbag designed to hold large quantities of condoms."
 	icon_state = "duffel-captain"
 	item_state = "duffel-captain"
+	burn_state = FIRE_PROOF
 
 /obj/item/weapon/storage/backpack/duffel/security
 	name = "security duffelbag"
@@ -369,6 +399,7 @@
 	desc = "A duffelbag designed to hold tools."
 	icon_state = "duffel-eng"
 	item_state = "duffel-eng"
+	burn_state = FIRE_PROOF
 
 /obj/item/weapon/storage/backpack/duffel/hydro
 	name = "hydroponics duffelbag"

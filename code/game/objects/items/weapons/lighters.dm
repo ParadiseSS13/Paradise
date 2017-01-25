@@ -147,7 +147,7 @@
 	icon_state = "match_unlit"
 	var/lit = 0
 	var/smoketime = 5
-	w_class = 1.0
+	w_class = 1
 	origin_tech = "materials=1"
 	attack_verb = list("burnt", "singed")
 

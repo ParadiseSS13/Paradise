@@ -61,20 +61,20 @@
 		dat += "<b>Charge:</b> [inserted_battery.stored_charge] / [inserted_battery.capacity]<BR>"
 		dat += "<b>Time left activated:</b> [round(max((time_end - last_process) / 10, 0))]<BR>"
 		if(activated)
-			dat += "<a href='?src=\ref[src];shutdown=1'>Shutdown</a><br>"
+			dat += "<a href='?src=[UID()];shutdown=1'>Shutdown</a><br>"
 		else
-			dat += "<A href='?src=\ref[src];startup=1'>Start</a><BR>"
+			dat += "<A href='?src=[UID()];startup=1'>Start</a><BR>"
 		dat += "<BR>"
 
-		dat += "<b>Activate duration (sec):</b> <A href='?src=\ref[src];changetime=-100;duration=1'>--</a> <A href='?src=\ref[src];changetime=-10;duration=1'>-</a> [duration/10] <A href='?src=\ref[src];changetime=10;duration=1'>+</a> <A href='?src=\ref[src];changetime=100;duration=1'>++</a><BR>"
-		dat += "<b>Activate interval (sec):</b> <A href='?src=\ref[src];changetime=-100;interval=1'>--</a> <A href='?src=\ref[src];changetime=-10;interval=1'>-</a> [interval/10] <A href='?src=\ref[src];changetime=10;interval=1'>+</a> <A href='?src=\ref[src];changetime=100;interval=1'>++</a><BR>"
+		dat += "<b>Activate duration (sec):</b> <A href='?src=[UID()];changetime=-100;duration=1'>--</a> <A href='?src=[UID()];changetime=-10;duration=1'>-</a> [duration/10] <A href='?src=[UID()];changetime=10;duration=1'>+</a> <A href='?src=[UID()];changetime=100;duration=1'>++</a><BR>"
+		dat += "<b>Activate interval (sec):</b> <A href='?src=[UID()];changetime=-100;interval=1'>--</a> <A href='?src=[UID()];changetime=-10;interval=1'>-</a> [interval/10] <A href='?src=[UID()];changetime=10;interval=1'>+</a> <A href='?src=[UID()];changetime=100;interval=1'>++</a><BR>"
 		dat += "<br>"
-		dat += "<A href='?src=\ref[src];ejectbattery=1'>Eject battery</a><BR>"
+		dat += "<A href='?src=[UID()];ejectbattery=1'>Eject battery</a><BR>"
 	else
 		dat += "Please insert battery<br>"
 
 	dat += "<hr>"
-	dat += "<a href='?src=\ref[src];refresh=1'>Refresh</a> <a href='?src=\ref[src];close=1'>Close</a>"
+	dat += "<a href='?src=[UID()];refresh=1'>Refresh</a> <a href='?src=[UID()];close=1'>Close</a>"
 
 	user << browse(dat, "window=anodevice;size=400x500")
 	onclose(user, "anodevice")
@@ -103,9 +103,9 @@
 					if(interval > 0)
 						//apply the touch effect to the holder
 						if(holder)
-							to_chat(holder, "the \icon[src] [src] held by [holder] shudders in your grasp.")
+							to_chat(holder, "the [bicon(src)] [src] held by [holder] shudders in your grasp.")
 						else
-							src.loc.visible_message("the \icon[src] [src] shudders.")
+							src.loc.visible_message("the [bicon(src)] [src] shudders.")
 						inserted_battery.battery_effect.DoEffectTouch(holder)
 
 						//consume power
@@ -131,13 +131,13 @@
 
 			//work out if we need to shutdown
 			if(inserted_battery.stored_charge <= 0)
-				src.loc.visible_message("\blue \icon[src] [src] buzzes.", "\blue \icon[src] You hear something buzz.")
+				src.loc.visible_message("\blue [bicon(src)] [src] buzzes.", "\blue [bicon(src)] You hear something buzz.")
 				shutdown_emission()
 			else if(world.time > time_end)
-				src.loc.visible_message("\blue \icon[src] [src] chimes.", "\blue \icon[src] You hear something chime.")
+				src.loc.visible_message("\blue [bicon(src)] [src] chimes.", "\blue [bicon(src)] You hear something chime.")
 				shutdown_emission()
 		else
-			src.visible_message("\blue \icon[src] [src] buzzes.", "\blue \icon[src] You hear something buzz.")
+			src.visible_message("\blue [bicon(src)] [src] buzzes.", "\blue [bicon(src)] You hear something buzz.")
 			shutdown_emission()
 		last_process = world.time
 
@@ -164,7 +164,7 @@
 	if(href_list["startup"])
 		if(inserted_battery && inserted_battery.battery_effect && (inserted_battery.stored_charge > 0) )
 			activated = 1
-			src.visible_message("\blue \icon[src] [src] whirrs.", "\icon[src]\blue You hear something whirr.")
+			src.visible_message("\blue [bicon(src)] [src] whirrs.", "[bicon(src)]\blue You hear something whirr.")
 			if(!inserted_battery.battery_effect.activated)
 				inserted_battery.battery_effect.ToggleActivate(1)
 			time_end = world.time + duration
@@ -195,7 +195,7 @@
 	return ..()
 
 /obj/item/weapon/anodevice/attack(mob/living/M as mob, mob/living/user as mob, def_zone)
-	if (!istype(M))
+	if(!istype(M))
 		return
 
 	if(activated && inserted_battery.battery_effect.effect == EFFECT_TOUCH && !isnull(inserted_battery))
@@ -210,6 +210,6 @@
 	M.lastattacker = user
 
 	if(inserted_battery.battery_effect)
-		user.attack_log += "\[[time_stamp()]\]<font color='red'> Tapped [key_name(M)] with [name] (EFFECT: [inserted_battery.battery_effect.effecttype])</font>"
-		M.attack_log += "\[[time_stamp()]\]<font color='orange'> Tapped by [key_name(user)] with [name] (EFFECT: [inserted_battery.battery_effect.effecttype])</font>"
+		user.create_attack_log("<font color='red'> Tapped [key_name(M)] with [name] (EFFECT: [inserted_battery.battery_effect.effecttype])</font>")
+		M.create_attack_log("<font color='orange'> Tapped by [key_name(user)] with [name] (EFFECT: [inserted_battery.battery_effect.effecttype])</font>")
 		msg_admin_attack("[key_name_admin(user)] tapped [key_name_admin(M)] with [name] (EFFECT: [inserted_battery.battery_effect.effecttype])" )

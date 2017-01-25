@@ -57,10 +57,10 @@ Doesn't work on other aliens/AI.*/
 
 	if(isalien(M))
 		var/amount = input("Amount:", "Transfer Plasma to [M]") as num
-		if (amount)
+		if(amount)
 			amount = abs(round(amount))
 			if(powerc(amount))
-				if (get_dist(src,M) <= 1)
+				if(get_dist(src,M) <= 1)
 					M.adjustPlasma(amount)
 					adjustPlasma(-amount)
 					to_chat(M, "<span class='noticealien'>[src] has transfered [amount] plasma to you.</span>")
@@ -125,6 +125,7 @@ Doesn't work on other aliens/AI.*/
 		A.xo = U.x - T.x
 		A.fire()
 		A.newtonian_move(get_dir(U, T))
+		newtonian_move(get_dir(U, T))
 	return
 
 /mob/living/carbon/alien/humanoid/proc/resin() // -- TLE

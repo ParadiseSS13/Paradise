@@ -15,6 +15,8 @@
 	icon = 'icons/obj/artstuff.dmi'
 	icon_state = "easel"
 	density = 1
+	burn_state = FLAMMABLE
+	burntime = 15
 	var/obj/item/weapon/canvas/painting = null
 
 
@@ -56,6 +58,7 @@ var/global/list/globalBlankCanvases[AMT_OF_CANVASES]
 	desc = "Draw out your soul on this canvas! Only crayons can draw on it. Examine it to focus on the canvas."
 	icon = 'icons/obj/artstuff.dmi'
 	icon_state = "11x11"
+	burn_state = FLAMMABLE
 	var/whichGlobalBackup = 1 //List index
 
 /obj/item/weapon/canvas/nineteenXnineteen

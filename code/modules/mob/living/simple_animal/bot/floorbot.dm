@@ -65,25 +65,25 @@
 	dat += hack(user)
 	dat += showpai(user)
 	dat += "<TT><B>Floor Repairer Controls v1.1</B></TT><BR><BR>"
-	dat += "Status: <A href='?src=\ref[src];power=1'>[on ? "On" : "Off"]</A><BR>"
+	dat += "Status: <A href='?src=[UID()];power=1'>[on ? "On" : "Off"]</A><BR>"
 	dat += "Maintenance panel panel is [open ? "opened" : "closed"]<BR>"
 	dat += "Tiles left: [amount]<BR>"
 	dat += "Behvaiour controls are [locked ? "locked" : "unlocked"]<BR>"
 	if(!locked || issilicon(user) || check_rights(R_ADMIN, 0, user))
-		dat += "Add tiles to new hull plating: <A href='?src=\ref[src];operation=autotile'>[autotile ? "Yes" : "No"]</A><BR>"
-		dat += "Replace floor tiles: <A href='?src=\ref[src];operation=replace'>[replacetiles ? "Yes" : "No"]</A><BR>"
-		dat += "Finds tiles: <A href='?src=\ref[src];operation=tiles'>[eattiles ? "Yes" : "No"]</A><BR>"
-		dat += "Make pieces of metal into tiles when empty: <A href='?src=\ref[src];operation=make'>[maketiles ? "Yes" : "No"]</A><BR>"
-		dat += "Transmit notice when empty: <A href='?src=\ref[src];operation=emptynag'>[nag_on_empty ? "Yes" : "No"]</A><BR>"
-		dat += "Repair damaged tiles and platings: <A href='?src=\ref[src];operation=fix'>[fixfloors ? "Yes" : "No"]</A><BR>"
-		dat += "Traction Magnets: <A href='?src=\ref[src];operation=anchor'>[anchored ? "Engaged" : "Disengaged"]</A><BR>"
-		dat += "Patrol Station: <A href='?src=\ref[src];operation=patrol'>[auto_patrol ? "Yes" : "No"]</A><BR>"
+		dat += "Add tiles to new hull plating: <A href='?src=[UID()];operation=autotile'>[autotile ? "Yes" : "No"]</A><BR>"
+		dat += "Replace floor tiles: <A href='?src=[UID()];operation=replace'>[replacetiles ? "Yes" : "No"]</A><BR>"
+		dat += "Finds tiles: <A href='?src=[UID()];operation=tiles'>[eattiles ? "Yes" : "No"]</A><BR>"
+		dat += "Make pieces of metal into tiles when empty: <A href='?src=[UID()];operation=make'>[maketiles ? "Yes" : "No"]</A><BR>"
+		dat += "Transmit notice when empty: <A href='?src=[UID()];operation=emptynag'>[nag_on_empty ? "Yes" : "No"]</A><BR>"
+		dat += "Repair damaged tiles and platings: <A href='?src=[UID()];operation=fix'>[fixfloors ? "Yes" : "No"]</A><BR>"
+		dat += "Traction Magnets: <A href='?src=[UID()];operation=anchor'>[anchored ? "Engaged" : "Disengaged"]</A><BR>"
+		dat += "Patrol Station: <A href='?src=[UID()];operation=patrol'>[auto_patrol ? "Yes" : "No"]</A><BR>"
 		var/bmode
 		if(targetdirection)
 			bmode = dir2text(targetdirection)
 		else
 			bmode = "disabled"
-		dat += "Bridge Mode : <A href='?src=\ref[src];operation=bridgemode'>[bmode]</A><BR>"
+		dat += "Bridge Mode : <A href='?src=[UID()];operation=bridgemode'>[bmode]</A><BR>"
 
 	return dat
 

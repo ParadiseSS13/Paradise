@@ -35,22 +35,20 @@
 		overlays += I
 
 /mob/living/carbon/alien/humanoid/sentinel/New()
-	var/datum/reagents/R = new/datum/reagents(100)
-	reagents = R
-	R.my_atom = src
+	create_reagents(100)
 	if(name == "alien sentinel")
 		name = text("alien sentinel ([rand(1, 1000)])")
 	real_name = name
-	internal_organs += new /obj/item/organ/internal/xenos/plasmavessel
-	internal_organs += new /obj/item/organ/internal/xenos/acidgland
-	internal_organs += new /obj/item/organ/internal/xenos/neurotoxin
+	alien_organs += new /obj/item/organ/internal/xenos/plasmavessel
+	alien_organs += new /obj/item/organ/internal/xenos/acidgland
+	alien_organs += new /obj/item/organ/internal/xenos/neurotoxin
 	..()
 
 /mob/living/carbon/alien/humanoid/sentinel/handle_regular_hud_updates()
 	..() //-Yvarov
 
-	if (healths)
-		if (stat != 2)
+	if(healths)
+		if(stat != 2)
 			switch(health)
 				if(150 to INFINITY)
 					healths.icon_state = "health0"

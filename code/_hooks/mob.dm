@@ -1,2 +1,0 @@
-/hook/login
-	name = "Login"

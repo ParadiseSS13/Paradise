@@ -10,6 +10,7 @@
 	var/datum/seed/seed
 	var/potency = -1
 	var/awakening = 0
+	burn_state = FLAMMABLE
 
 /obj/item/weapon/reagent_containers/food/snacks/grown/New(newloc,planttype)
 
@@ -254,7 +255,7 @@
 					for(var/i=0,i<2,i++)
 						var/obj/item/stack/sheet/wood/NG = new (user.loc)
 						NG.color = seed.get_trait(TRAIT_PRODUCT_COLOUR)
-						for (var/obj/item/stack/sheet/wood/G in user.loc)
+						for(var/obj/item/stack/sheet/wood/G in user.loc)
 							if(G==NG)
 								continue
 							if(G.amount>=G.max_amount)
@@ -309,8 +310,8 @@
 
 		user.lastattacked = M
 		M.lastattacker = user
-		user.attack_log += "\[[time_stamp()]\]<font color='red'> Attacked [key_name(M)] with [name] (INTENT: [uppertext(user.a_intent)]) (DAMTYE: [uppertext(damtype)])</font>"
-		M.attack_log += "\[[time_stamp()]\]<font color='orange'> Attacked by [key_name(user)] with [name] (INTENT: [uppertext(user.a_intent)]) (DAMTYE: [uppertext(damtype)])</font>"
+		user.create_attack_log("<font color='red'> Attacked [key_name(M)] with [name] (INTENT: [uppertext(user.a_intent)]) (DAMTYE: [uppertext(damtype)])</font>")
+		M.create_attack_log("<font color='orange'> Attacked by [key_name(user)] with [name] (INTENT: [uppertext(user.a_intent)]) (DAMTYE: [uppertext(damtype)])</font>")
 		msg_admin_attack("[key_name_admin(user)] attacked [key_name_admin(M)] with [name] (INTENT: [uppertext(user.a_intent)]) (DAMTYE: [uppertext(damtype)])" )
 
 		if(istype(M, /mob/living/carbon/human))
@@ -325,7 +326,7 @@
 			else
 				user.visible_message("<span class='danger'>[M] has been attacked with [src] by [user]!</span>")
 
-			if (hitsound)
+			if(hitsound)
 				playsound(loc, hitsound, 50, 1, -1)
 			switch(damtype)
 				if("brute")
@@ -407,7 +408,7 @@
 				for(var/i=0,i<2,i++)
 					var/obj/item/stack/tile/grass/G = new (user.loc)
 					G.color = seed.get_trait(TRAIT_PRODUCT_COLOUR)
-					for (var/obj/item/stack/tile/grass/NG in user.loc)
+					for(var/obj/item/stack/tile/grass/NG in user.loc)
 						if(G==NG)
 							continue
 						if(NG.amount>=NG.max_amount)

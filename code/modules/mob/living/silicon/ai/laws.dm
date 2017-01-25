@@ -6,7 +6,7 @@
 /mob/living/silicon/ai/show_laws(var/everyone = 0)
 	var/who
 
-	if (everyone)
+	if(everyone)
 		who = world
 	else
 		who = src

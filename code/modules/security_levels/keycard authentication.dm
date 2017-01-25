@@ -3,6 +3,7 @@
 	desc = "This device is used to trigger station functions, which require more than one ID card to authenticate."
 	icon = 'icons/obj/monitors.dmi'
 	icon_state = "auth_off"
+
 	var/active = 0 //This gets set to 1 on all devices except the one where the initial request was made.
 	var/event = ""
 	var/screen = 1
@@ -14,25 +15,25 @@
 	var/mob/event_triggered_by
 	var/mob/event_confirmed_by
 	var/ert_reason = "Reason for ERT"
-	//1 = select event
-	//2 = authenticate
-	anchored = 1.0
+
+	anchored = 1
 	use_power = 1
 	idle_power_usage = 2
 	active_power_usage = 6
 	power_channel = ENVIRON
 
+	req_access = list(access_keycard_auth)
+
 /obj/machinery/keycard_auth/attack_ai(mob/user as mob)
-	to_chat(user, "The station AI is not to interact with these devices.")
+	to_chat(user, "<span class='warning'>The station AI is not to interact with these devices.</span>")
 	return
 
 /obj/machinery/keycard_auth/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(stat & (NOPOWER|BROKEN))
 		to_chat(user, "This device is not powered.")
 		return
-	if(istype(W,/obj/item/weapon/card/id))
-		var/obj/item/weapon/card/id/ID = W
-		if(access_keycard_auth in ID.access)
+	if(istype(W, /obj/item/weapon/card/id) || istype(W, /obj/item/device/pda))
+		if(check_access(W))
 			if(active == 1)
 				//This is not the device that made the initial request. It is the device confirming the request.
 				if(event_source)
@@ -44,6 +45,8 @@
 					return
 				event_triggered_by = usr
 				broadcast_request() //This is the device making the initial event request. It needs to broadcast to other devices
+		else
+			to_chat(user, "<span class='warning'>Access denied.</span>")
 
 /obj/machinery/keycard_auth/power_change()
 	if(powered(ENVIRON))
@@ -52,41 +55,41 @@
 	else
 		stat |= NOPOWER
 
+/obj/machinery/keycard_auth/attack_ghost(mob/user)
+	ui_interact(user)
+
 /obj/machinery/keycard_auth/attack_hand(mob/user as mob)
-	if(!user.IsAdvancedToolUser())
-		return 0
+	if(..())
+		return 1
 	ui_interact(user)
 
 /obj/machinery/keycard_auth/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	if(user.stat || stat & (NOPOWER|BROKEN))
-		to_chat(user, "This device is not powered.")
-		return
 	if(busy)
 		to_chat(user, "This device is busy.")
 		return
 
 	user.set_machine(src)
 
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "keycard_auth.tmpl", "Keycard Authentication Device UI", 540, 320)
+		ui.open()
+
+/obj/machinery/keycard_auth/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/data[0]
 	data["screen"] = screen
 	data["event"] = event
 	data["ertreason"] = ert_reason
-
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if (!ui)
-		ui = new(user, src, ui_key, "keycard_auth.tmpl", "Keycard Authentication Device UI", 520, 320)
-		ui.set_initial_data(data)
-		ui.open()
+	return data
 
 /obj/machinery/keycard_auth/Topic(href, href_list)
 	if(..())
-		return
+		return 1
+
 	if(busy)
 		to_chat(usr, "This device is busy.")
 		return
-	if(usr.stat || stat & (BROKEN|NOPOWER))
-		to_chat(usr, "This device is without power.")
-		return
+
 	if(href_list["triggerevent"])
 		event = href_list["triggerevent"]
 		screen = 2
@@ -155,12 +158,21 @@
 			if(is_ert_blocked())
 				to_chat(usr, "\red All Emergency Response Teams are dispatched and can not be called at this time.")
 				return
-
 			to_chat(usr, "<span class = 'notice'>ERT request transmitted.</span>")
-			if(admins.len)
-				ERT_Announce(ert_reason , event_triggered_by)
+
+
+			var/fullmin_count = 0
+			for(var/client/C in admins)
+				if(check_rights(R_EVENT, 0, C.mob))
+					fullmin_count++
+			if(fullmin_count)
+				ert_request_answered = 0
+				ERT_Announce(ert_reason , event_triggered_by, 0)
 				ert_reason = "Reason for ERT"
 				feedback_inc("alert_keycard_auth_ert",1)
+				spawn(3000)
+					if(!ert_request_answered)
+						ERT_Announce(ert_reason , event_triggered_by, 1)
 			else
 				trigger_armed_response_team(new /datum/response_team/amber) // No admins? No problem. Automatically send a code amber ERT.
 

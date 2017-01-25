@@ -22,10 +22,10 @@
 		send_asset_list(U.client, S.assets)
 
 	var/dat = "<html><head><title>SpiderOS</title></head><body bgcolor=\"#3D5B43\" text=\"#DB2929\"><style>a, a:link, a:visited, a:active, a:hover { color: #DB2929; }img {border-style:none;}</style>"
-	dat += "<a href='byond://?src=\ref[src];choice=Refresh'><img src=sos_7.png> Refresh</a>"
+	dat += "<a href='byond://?src=[UID()];choice=Refresh'><img src=sos_7.png> Refresh</a>"
 	if(spideros)
-		dat += " | <a href='byond://?src=\ref[src];choice=Return'><img src=sos_1.png> Return</a>"
-	dat += " | <a href='byond://?src=\ref[src];choice=Close'><img src=sos_8.png> Close</a>"
+		dat += " | <a href='byond://?src=[UID()];choice=Return'><img src=sos_1.png> Return</a>"
+	dat += " | <a href='byond://?src=[UID()];choice=Close'><img src=sos_8.png> Close</a>"
 	dat += "<br>"
 	dat += "<h2 ALIGN=CENTER>SpiderOS v.1.337</h2>"
 	dat += "Welcome, <b>[U.real_name]</b>.<br>"
@@ -39,11 +39,11 @@
 		if(0)
 			dat += "<h4><img src=sos_1.png> Available Functions:</h4>"
 			dat += "<ul>"
-			dat += "<li><a href='byond://?src=\ref[src];choice=7'><img src=sos_4.png> Research Stored</a></li>"
-			dat += "<li><a href='byond://?src=\ref[src];choice=3'><img src=sos_3.png> Medical Screen</a></li>"
-			dat += "<li><a href='byond://?src=\ref[src];choice=1'><img src=sos_5.png> Atmos Scan</a></li>"
-			dat += "<li><a href='byond://?src=\ref[src];choice=2'><img src=sos_12.png> Messenger</a></li>"
-			dat += "<li><a href='byond://?src=\ref[src];choice=4'><img src=sos_6.png> Other</a></li>"
+			dat += "<li><a href='byond://?src=[UID()];choice=7'><img src=sos_4.png> Research Stored</a></li>"
+			dat += "<li><a href='byond://?src=[UID()];choice=3'><img src=sos_3.png> Medical Screen</a></li>"
+			dat += "<li><a href='byond://?src=[UID()];choice=1'><img src=sos_5.png> Atmos Scan</a></li>"
+			dat += "<li><a href='byond://?src=[UID()];choice=2'><img src=sos_12.png> Messenger</a></li>"
+			dat += "<li><a href='byond://?src=[UID()];choice=4'><img src=sos_6.png> Other</a></li>"
 			dat += "</ul>"
 		if(3)
 			dat += "<h4><img src=sos_3.png> Medical Report:</h4>"
@@ -65,12 +65,12 @@
 			for(var/datum/reagent/R in reagents.reagent_list)
 				if(R.id=="radium")
 					continue
-				dat += "<li><a href='byond://?src=\ref[src];choice=Inject;name=[R.name];tag=[R.id]'><img src=sos_2.png> Inject [R.name]: [(reagents.get_reagent_amount(R.id)-(R.id=="radium"?(a_boost*a_transfer):0))/(R.id=="nutriment"?5:a_transfer)] left</a></li>"
+				dat += "<li><a href='byond://?src=[UID()];choice=Inject;name=[R.name];tag=[R.id]'><img src=sos_2.png> Inject [R.name]: [(reagents.get_reagent_amount(R.id)-(R.id=="radium"?(a_boost*a_transfer):0))/(R.id=="nutriment"?5:a_transfer)] left</a></li>"
 			dat += "</ul>"
 		if(1)
 			dat += "<h4><img src=sos_5.png> Atmospheric Scan:</h4>"//Headers don't need breaks. They are automatically placed.
 			var/turf/T = get_turf(U.loc)
-			if (isnull(T))
+			if(isnull(T))
 				dat += "Unable to obtain a reading."
 			else
 				var/datum/gas_mixture/environment = T.return_air()
@@ -80,7 +80,7 @@
 
 				dat += "Air Pressure: [round(pressure,0.1)] kPa"
 
-				if (total_moles)
+				if(total_moles)
 					var/o2_level = environment.oxygen/total_moles
 					var/n2_level = environment.nitrogen/total_moles
 					var/co2_level = environment.carbon_dioxide/total_moles
@@ -101,12 +101,12 @@
 			dat += "<h4><img src=sos_6.png> Detected PDAs:</h4>"
 			dat += "<ul>"
 			var/count = 0
-			for (var/obj/item/device/pda/P in get_viewable_pdas())
-				dat += "<li><a href='byond://?src=\ref[src];choice=Message;target=\ref[P]'>[P]</a>"
+			for(var/obj/item/device/pda/P in get_viewable_pdas())
+				dat += "<li><a href='byond://?src=[UID()];choice=Message;target=\ref[P]'>[P]</a>"
 				dat += "</li>"
 				count++
 			dat += "</ul>"
-			if (count == 0)
+			if(count == 0)
 				dat += "None detected.<br>"
 		if(4)
 			dat += {"
@@ -126,7 +126,7 @@
 					A mix of traitor, changeling, and wizard. Ninjas rely on energy, or electricity to be precise, to keep their suits running (when out of energy, a suit hibernates). Suits gain energy from objects or creatures that contain electrical charge. APCs, cell batteries, rechargers, SMES batteries, cyborgs, mechs, and exposed wires are currently supported. Through energy ninjas gain access to special powers--while all powers are tied to the ninja suit, the most useful of them are verb activated--to help them in their mission.<br>It is a constant struggle for a ninja to remain hidden long enough to recharge the suit and accomplish their objective; despite their arsenal of abilities, ninjas can die like any other. Unlike wizards, ninjas do not possess good crowd control and are typically forced to play more subdued in order to achieve their goals. Some of their abilities are specifically designed to confuse and disorient others.<br>With that said, it should be perfectly possible to completely flip the fuck out and rampage as a ninja.
 					<h5>Their powers:</h5>
 					There are two primary types: Equipment and Abilties. Passive effect are always on. Active effect must be turned on and remain active only when there is energy to do so. Ability costs are listed next to them.
-					<b>Equipment</b>: cannot be tracked by AI (passive), faster speed (passive), stealth (active), vision switch (passive if toggled), voice masking (passive), SpiderOS (passive if toggled), energy drain (passive if toggled).
+					<b>Equipment</b>: cannot be tracked by AI (passive), faster speed (passive), stealth (active), vision switch(passive if toggled), voice masking (passive), SpiderOS (passive if toggled), energy drain (passive if toggled).
 					<ul>
 					<li><i>Voice masking</i> generates a random name the ninja can use over the radio and in-person. Although, the former use is recommended.</li>
 					<li><i>Toggling vision</i> cycles to one of the following: thermal, meson, or darkness vision. The starting mode allows one to scout the identity of those in view, revealing their role. Traitors, revolutionaries, wizards, and other such people will be made known to you.</li>
@@ -157,27 +157,27 @@
 			dat += {"
 					<h4><img src=sos_6.png> Activate Abilities:</h4>
 					<ul>
-					<li><a href='byond://?src=\ref[src];choice=Trigger Ability;name=Phase Jaunt;cost= (10E)'><img src=sos_13.png> Phase Jaunt</a></li>
-					<li><a href='byond://?src=\ref[src];choice=Trigger Ability;name=Phase Shift;cost= (20E)'><img src=sos_13.png> Phase Shift</a></li>
-					<li><a href='byond://?src=\ref[src];choice=Trigger Ability;name=Energy Blade;cost= (5E)'><img src=sos_13.png> Energy Blade</a></li>
-					<li><a href='byond://?src=\ref[src];choice=Trigger Ability;name=Energy Star;cost= (5E)'><img src=sos_13.png> Energy Star</a></li>
-					<li><a href='byond://?src=\ref[src];choice=Trigger Ability;name=Energy Net;cost= (20E)'><img src=sos_13.png> Energy Net</a></li>
-					<li><a href='byond://?src=\ref[src];choice=Trigger Ability;name=EM Burst;cost= (25E)'><img src=sos_13.png> EM Pulse</a></li>
-					<li><a href='byond://?src=\ref[src];choice=Trigger Ability;name=Smoke Bomb;cost='><img src=sos_13.png> Smoke Bomb</a></li>
-					<li><a href='byond://?src=\ref[src];choice=Trigger Ability;name=Adrenaline Boost;cost='><img src=sos_13.png> Adrenaline Boost</a></li>
+					<li><a href='byond://?src=[UID()];choice=Trigger Ability;name=Phase Jaunt;cost= (10E)'><img src=sos_13.png> Phase Jaunt</a></li>
+					<li><a href='byond://?src=[UID()];choice=Trigger Ability;name=Phase Shift;cost= (20E)'><img src=sos_13.png> Phase Shift</a></li>
+					<li><a href='byond://?src=[UID()];choice=Trigger Ability;name=Energy Blade;cost= (5E)'><img src=sos_13.png> Energy Blade</a></li>
+					<li><a href='byond://?src=[UID()];choice=Trigger Ability;name=Energy Star;cost= (5E)'><img src=sos_13.png> Energy Star</a></li>
+					<li><a href='byond://?src=[UID()];choice=Trigger Ability;name=Energy Net;cost= (20E)'><img src=sos_13.png> Energy Net</a></li>
+					<li><a href='byond://?src=[UID()];choice=Trigger Ability;name=EM Burst;cost= (25E)'><img src=sos_13.png> EM Pulse</a></li>
+					<li><a href='byond://?src=[UID()];choice=Trigger Ability;name=Smoke Bomb;cost='><img src=sos_13.png> Smoke Bomb</a></li>
+					<li><a href='byond://?src=[UID()];choice=Trigger Ability;name=Adrenaline Boost;cost='><img src=sos_13.png> Adrenaline Boost</a></li>
 					</ul>
 					"}
 		if(7)
 			dat += "<h4><img src=sos_4.png> Research Stored:</h4>"
 			if(t_disk)
-				dat += "<a href='byond://?src=\ref[src];choice=Eject Disk'>Eject Disk</a><br>"
+				dat += "<a href='byond://?src=[UID()];choice=Eject Disk'>Eject Disk</a><br>"
 			dat += "<ul>"
 			if(istype(stored_research,/list))//If there is stored research. Should be but just in case.
 				for(var/datum/tech/current_data in stored_research)
 					dat += "<li>"
 					dat += "[current_data.name]: [current_data.level]"
 					if(t_disk)//If there is a disk inserted. We can either write or overwrite.
-						dat += " <a href='byond://?src=\ref[src];choice=Copy to Disk;target=\ref[current_data]'><i>*Copy to Disk</i></a><br>"
+						dat += " <a href='byond://?src=[UID()];choice=Copy to Disk;target=\ref[current_data]'><i>*Copy to Disk</i></a><br>"
 					dat += "</li>"
 			dat += "</ul>"
 	dat += "</body></html>"

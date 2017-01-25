@@ -5,13 +5,13 @@
 	desc = "A special containment suit designed to protect a plasmaman's volatile body from outside exposure and quickly extinguish it in emergencies."
 	allowed = list(/obj/item/weapon/gun,/obj/item/ammo_casing,/obj/item/ammo_casing,/obj/item/weapon/melee/baton,/obj/item/weapon/melee/energy/sword/saber,/obj/item/weapon/restraints/handcuffs,/obj/item/weapon/tank)
 	slowdown = 0
-	armor = list(melee = 0, bullet = 0, laser = 0 ,energy = 0, bomb = 0, bio = 100, rad = 20)
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 100, rad = 20)
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	flags_inv = HIDEGLOVES|HIDESHOES
 	max_heat_protection_temperature = SPACE_SUIT_MAX_TEMP_PROTECT
 	species_restricted = list("Plasmaman")
-	flags = STOPSPRESSUREDMAGE  | PLASMAGUARD
+	flags = STOPSPRESSUREDMAGE
 
 	icon_state = "plasmaman_suit"
 	item_state = "plasmaman_suit"
@@ -38,7 +38,7 @@
 /obj/item/clothing/head/helmet/space/eva/plasmaman
 	name = "plasmaman helmet"
 	desc = "A special containment helmet designed to protect a plasmaman's volatile body from outside exposure and quickly extinguish it in emergencies."
-	flags = STOPSPRESSUREDMAGE | PLASMAGUARD
+	flags = STOPSPRESSUREDMAGE
 	species_restricted = list("Plasmaman")
 
 	icon_state = "plasmaman_helmet0"
@@ -46,13 +46,9 @@
 	var/base_state = "plasmaman_helmet"
 	var/brightness_on = 4 //luminosity when on
 	var/on = 0
-	action_button_name = "Toggle Helmet Light"
+	actions_types = list(/datum/action/item_action/toggle_helmet_light)
 
 /obj/item/clothing/head/helmet/space/eva/plasmaman/attack_self(mob/user)
-	if(!isturf(user.loc))
-		to_chat(user, "<span class='warning'>You cannot turn the light on while in this [user.loc].</span>")//To prevent some lighting anomalities.
-
-		return
 	toggle_light(user)
 
 /obj/item/clothing/head/helmet/space/eva/plasmaman/proc/toggle_light(mob/user)
@@ -67,6 +63,10 @@
 	if(istype(user,/mob/living/carbon/human))
 		var/mob/living/carbon/human/H = user
 		H.update_inv_head()
+
+	for(var/X in actions)
+		var/datum/action/A = X
+		A.UpdateButtonIcon()
 
 // ENGINEERING
 /obj/item/clothing/suit/space/eva/plasmaman/assistant
@@ -185,14 +185,14 @@
 /obj/item/clothing/suit/space/eva/plasmaman/miner
 	name = "plasmaman miner suit"
 	icon_state = "plasmamanMiner_suit"
-	armor = list(melee = 40, bullet = 5, laser = 10, energy = 5, bomb = 50, bio = 100, rad = 50)
-	slowdown = 2
+	armor = list(melee = 30, bullet = 5, laser = 10, energy = 5, bomb = 50, bio = 100, rad = 50)
+	slowdown = 1
 
 /obj/item/clothing/head/helmet/space/eva/plasmaman/miner
 	name = "plasmaman miner helmet"
 	icon_state = "plasmamanMiner_helmet0"
 	base_state = "plasmamanMiner_helmet"
-	armor = list(melee = 40, bullet = 5, laser = 10, energy = 5, bomb = 50, bio = 100, rad = 50)
+	armor = list(melee = 30, bullet = 5, laser = 10, energy = 5, bomb = 50, bio = 100, rad = 50)
 
 
 // MEDSCI
@@ -266,13 +266,13 @@
 /obj/item/clothing/suit/space/eva/plasmaman/security
 	name = "plasmaman security suit"
 	icon_state = "plasmamanSecurity_suit"
-	armor = list(melee = 30, bullet = 15, laser = 30,energy = 10, bomb = 10, bio = 100, rad = 50)
+	armor = list(melee = 15, bullet = 15, laser = 15, energy = 10, bomb = 10, bio = 100, rad = 50)
 
 /obj/item/clothing/head/helmet/space/eva/plasmaman/security
 	name = "plasmaman security helmet"
 	icon_state = "plasmamanSecurity_helmet0"
 	base_state = "plasmamanSecurity_helmet"
-	armor = list(melee = 30, bullet = 15, laser = 30,energy = 10, bomb = 10, bio = 100, rad = 50)
+	armor = list(melee = 15, bullet = 15, laser = 15, energy = 10, bomb = 10, bio = 100, rad = 50)
 
 /obj/item/clothing/suit/space/eva/plasmaman/security/hos
 	name = "plasmaman head of security suit"

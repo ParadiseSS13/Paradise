@@ -48,8 +48,8 @@ var/list/icons_to_ignore_at_floor_init = list("damaged1","damaged2","damaged3","
 
 
 //turf/simulated/floor/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
-//	if ((istype(mover, /obj/machinery/vehicle) && !(src.burnt)))
-//		if (!( locate(/obj/machinery/mass_driver, src) ))
+//	if((istype(mover, /obj/machinery/vehicle) && !(src.burnt)))
+//		if(!( locate(/obj/machinery/mass_driver, src) ))
 //			return 0
 //	return ..()
 
@@ -75,21 +75,10 @@ var/list/icons_to_ignore_at_floor_init = list("damaged1","damaged2","damaged3","
 					src.hotspot_expose(1000,CELL_VOLUME)
 					if(prob(33)) new /obj/item/stack/sheet/metal(src)
 		if(3.0)
-			if (prob(50))
+			if(prob(50))
 				src.break_tile()
 				src.hotspot_expose(1000,CELL_VOLUME)
 	return
-
-/turf/simulated/floor/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume)
-	if(!burnt && prob(5))
-		burn_tile()
-
-/turf/simulated/floor/adjacent_fire_act(turf/simulated/floor/adj_turf, datum/gas_mixture/adj_air, adj_temp, adj_volume)
-	var/dir_to = get_dir(src, adj_turf)
-
-	for(var/obj/structure/window/W in src)
-		if(W.dir == dir_to || W.is_fulltile()) //Same direction or diagonal (full tile)
-			W.fire_act(adj_air, adj_temp, adj_volume)
 
 /turf/simulated/floor/is_shielded()
 	for(var/obj/structure/A in contents)
@@ -129,16 +118,17 @@ var/list/icons_to_ignore_at_floor_init = list("damaged1","damaged2","damaged3","
 /turf/simulated/floor/proc/make_plating()
 	return ChangeTurf(/turf/simulated/floor/plating)
 
-/turf/simulated/floor/ChangeTurf(turf/simulated/floor/T)
+/turf/simulated/floor/ChangeTurf(turf/simulated/floor/T, defer_change = FALSE, keep_icon = TRUE)
 	if(!istype(src,/turf/simulated/floor)) return ..() //fucking turfs switch the fucking src of the fucking running procs
 	if(!ispath(T,/turf/simulated/floor)) return ..()
 	var/old_icon = icon_regular_floor
 	var/old_plating = icon_plating
 	var/old_dir = dir
 	var/turf/simulated/floor/W = ..()
-	W.icon_regular_floor = old_icon
-	W.icon_plating = old_plating
-	W.dir = old_dir
+	if(keep_icon)
+		W.icon_regular_floor = old_icon
+		W.icon_plating = old_plating
+		W.dir = old_dir
 	W.update_icon()
 	return W
 

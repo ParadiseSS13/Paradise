@@ -133,7 +133,7 @@
 /obj/structure/closet/secure_closet/container_resist(var/mob/living/L)
 	var/breakout_time = 2 //2 minutes by default
 	if(opened)
-		if (L.loc == src)
+		if(L.loc == src)
 			L.forceMove(get_turf(src)) // Let's just be safe here
 		return //Door's open... wait, why are you in it's contents then?
 	if(!locked && !welded)

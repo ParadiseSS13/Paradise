@@ -6,7 +6,7 @@
 	required_players = 10
 	required_enemies = 1	// how many of each type are required
 	recommended_enemies = 3
-	var/protected_species_changeling = list("Machine", "Slime People")
+	var/protected_species_changeling = list("Machine")
 
 /datum/game_mode/traitor/changeling/announce()
 	to_chat(world, "<B>The current game mode is - Traitor+Changeling!</B>")
@@ -35,7 +35,7 @@
 /datum/game_mode/traitor/changeling/post_setup()
 	for(var/datum/mind/changeling in changelings)
 		grant_changeling_powers(changeling.current)
-		changeling.special_role = "Changeling"
+		changeling.special_role = SPECIAL_ROLE_CHANGELING
 		forge_changeling_objectives(changeling)
 		greet_changeling(changeling)
 	..()

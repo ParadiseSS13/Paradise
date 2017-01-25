@@ -71,14 +71,14 @@
 			qdel(src)
 			return
 		if(2.0)
-			if (prob(50))
+			if(prob(50))
 				for(var/atom/movable/A as mob|obj in src)
 					A.forceMove(src.loc)
 					A.ex_act(severity)
 				qdel(src)
 				return
 		if(3.0)
-			if (prob(25))
+			if(prob(25))
 				for(var/atom/movable/A as mob|obj in src)
 					A.forceMove(src.loc)
 					A.ex_act(severity)
@@ -91,6 +91,12 @@
 		go_out()
 		A.blob_act()
 		qdel(src)
+
+/obj/machinery/recharge_station/narsie_act()
+	go_out()
+	new /obj/effect/gibspawner/generic(get_turf(loc)) //I REPLACE YOUR TECHNOLOGY WITH FLESH!
+	qdel(src)
+
 
 /obj/machinery/recharge_station/attack_animal(var/mob/living/simple_animal/M)//Stop putting hostile mobs in things guise
 	if(M.environment_smash)
@@ -131,7 +137,7 @@
 		icon_state = "borgcharger0"
 
 /obj/machinery/recharge_station/attackby(obj/item/P as obj, mob/user as mob, params)
-	if (istype(P, /obj/item/weapon/screwdriver))
+	if(istype(P, /obj/item/weapon/screwdriver))
 		if(src.occupant)
 			to_chat(user, "<span class='notice'>The maintenance panel is locked.</span>")
 			return
@@ -145,7 +151,7 @@
 
 /obj/machinery/recharge_station/proc/process_occupant()
 	if(src.occupant)
-		if (istype(occupant, /mob/living/silicon/robot))
+		if(istype(occupant, /mob/living/silicon/robot))
 			var/mob/living/silicon/robot/R = occupant
 			restock_modules()
 			if(repairs)
@@ -166,17 +172,12 @@
 					H.updatehealth()
 
 /obj/machinery/recharge_station/proc/go_out()
-	if(!( src.occupant ))
+	if(!occupant)
 		return
-	//for(var/obj/O in src)
-	//	O.loc = src.loc
-	if (src.occupant.client)
-		src.occupant.client.eye = src.occupant.client.mob
-		src.occupant.client.perspective = MOB_PERSPECTIVE
-	src.occupant.loc = src.loc
-	src.occupant = null
+	occupant.forceMove(loc)
+	occupant = null
 	build_icon()
-	src.use_power = 1
+	use_power = 1
 	return
 
 /obj/machinery/recharge_station/proc/restock_modules()
@@ -216,17 +217,15 @@
 					if(istype(O,/obj/item/weapon/reagent_containers/food/condiment/enzyme))
 						if(O.reagents.get_reagent_amount("enzyme") < 50)
 							O.reagents.add_reagent("enzyme", 2 * coeff)
-					//Medical
-					if(istype(O,/obj/item/weapon/reagent_containers/glass/bottle/robot))
-						var/obj/item/weapon/reagent_containers/glass/bottle/robot/B = O
-						if(B.reagent && (B.reagents.get_reagent_amount(B.reagent) < B.volume))
-							B.reagents.add_reagent(B.reagent, 2 * coeff)
 					//Janitor
 					if(istype(O, /obj/item/device/lightreplacer))
 						var/obj/item/device/lightreplacer/LR = O
 						var/i = 1
 						for(1, i <= coeff, i++)
 							LR.Charge(occupant)
+					if(istype(O,/obj/item/weapon/mop/advanced))
+						if(O.reagents.get_reagent_amount("water") < 40)
+							O.reagents.add_reagent("water", 0.5 * coeff)
 				if(R)
 					if(R.module)
 						R.module.respawn_consumable(R)
@@ -246,7 +245,7 @@
 /obj/machinery/recharge_station/verb/move_eject()
 	set category = "Object"
 	set src in oview(1)
-	if (usr.stat != 0)
+	if(usr.stat != 0)
 		return
 	src.go_out()
 	add_fingerprint(usr)
@@ -258,14 +257,14 @@
 	if(!user || !usr)
 		return
 
-	if (usr.stat != CONSCIOUS)
+	if(usr.stat != CONSCIOUS)
 		return
 
 	if(get_dist(src, user) > 2 || get_dist(usr, user) > 1)
 		to_chat(usr, "They are too far away to put inside")
 		return
 
-	if (panel_open)
+	if(panel_open)
 		to_chat(usr, "<span class='warning'>Close the maintenance panel first.</span>")
 		return
 
@@ -302,9 +301,6 @@
 		return
 
 	user.stop_pulling()
-	if(user && user.client)
-		user.client.perspective = EYE_PERSPECTIVE
-		user.client.eye = src
 	user.forceMove(src)
 	occupant = user
 

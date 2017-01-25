@@ -60,13 +60,13 @@
 	icon_state = "map_vent_in"
 
 /obj/machinery/atmospherics/unary/vent_pump/New()
+	..()
 	icon = null
 	initial_loc = get_area(loc)
 	area_uid = initial_loc.uid
-	if (!id_tag)
+	if(!id_tag)
 		assign_uid()
 		id_tag = num2text(uid)
-	..()
 
 /obj/machinery/atmospherics/unary/vent_pump/high_volume
 	name = "large air vent"
@@ -100,6 +100,8 @@
 
 	overlays += icon_manager.get_atmos_icon("device", , , vent_icon)
 
+	update_pipe_image()
+
 /obj/machinery/atmospherics/unary/vent_pump/update_underlays()
 	if(..())
 		underlays.Cut()
@@ -121,7 +123,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/process()
 	if(!..() || (stat & (NOPOWER|BROKEN)))
 		return 0
-	if (!node)
+	if(!node)
 		on = 0
 	//broadcast_status() // from now air alarm/control computer should request update purposely --rastaf0
 	if(!on)
@@ -164,7 +166,7 @@
 				var/transfer_moles = pressure_delta*air_contents.volume/(environment.temperature * R_IDEAL_GAS_EQUATION)
 
 				var/datum/gas_mixture/removed = loc.remove_air(transfer_moles)
-				if (isnull(removed)) //in space
+				if(isnull(removed)) //in space
 					return
 
 				air_contents.merge(removed)
@@ -252,7 +254,7 @@
 		on = !on
 
 	if(signal.data["checks"] != null)
-		if (signal.data["checks"] == "default")
+		if(signal.data["checks"] == "default")
 			pressure_checks = pressure_checks_default
 		else
 			pressure_checks = text2num(signal.data["checks"])
@@ -264,7 +266,7 @@
 		pump_direction = text2num(signal.data["direction"])
 
 	if(signal.data["set_internal_pressure"] != null)
-		if (signal.data["set_internal_pressure"] == "default")
+		if(signal.data["set_internal_pressure"] == "default")
 			internal_pressure_bound = internal_pressure_bound_default
 		else
 			internal_pressure_bound = between(
@@ -274,7 +276,7 @@
 			)
 
 	if(signal.data["set_external_pressure"] != null)
-		if (signal.data["set_external_pressure"] == "default")
+		if(signal.data["set_external_pressure"] == "default")
 			external_pressure_bound = external_pressure_bound_default
 		else
 			external_pressure_bound = between(
@@ -320,7 +322,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/weapon/weldingtool))
 		var/obj/item/weapon/weldingtool/WT = W
-		if (WT.remove_fuel(0,user))
+		if(WT.remove_fuel(0,user))
 			to_chat(user, "<span class='notice'>Now welding the vent.</span>")
 			if(do_after(user, 20, target = src))
 				if(!src || !WT.isOn()) return
@@ -343,12 +345,12 @@
 		if(!welded)
 			if(open)
 				to_chat(user, "<span class='notice'> Now closing the vent.</span>")
-				if (do_after(user, 20, target = src))
+				if(do_after(user, 20, target = src))
 					open = 0
 					user.visible_message("[user] screwdrivers the vent shut.", "You screwdriver the vent shut.", "You hear a screwdriver.")
 			else
 				to_chat(user, "<span class='notice'> Now opening the vent.</span>")
-				if (do_after(user, 20, target = src))
+				if(do_after(user, 20, target = src))
 					open = 1
 					user.visible_message("[user] screwdrivers the vent shut.", "You screwdriver the vent shut.", "You hear a screwdriver.")
 		return
@@ -365,8 +367,8 @@
 	if(istype(W, /obj/item/device/multitool))
 		update_multitool_menu(user)
 		return 1
-	if (istype(W, /obj/item/weapon/wrench))
-		if (!(stat & NOPOWER) && on)
+	if(istype(W, /obj/item/weapon/wrench))
+		if(!(stat & NOPOWER) && on)
 			to_chat(user, "<span class='danger'>You cannot unwrench this [src], turn it off first.</span>")
 			return 1
 
@@ -397,9 +399,9 @@
 /obj/machinery/atmospherics/unary/vent_pump/multitool_menu(var/mob/user,var/obj/item/device/multitool/P)
 	return {"
 	<ul>
-		<li><b>Frequency:</b> <a href="?src=\ref[src];set_freq=-1">[format_frequency(frequency)] GHz</a> (<a href="?src=\ref[src];set_freq=[1439]">Reset</a>)</li>
+		<li><b>Frequency:</b> <a href="?src=[UID()];set_freq=-1">[format_frequency(frequency)] GHz</a> (<a href="?src=[UID()];set_freq=[1439]">Reset</a>)</li>
 		<li>[format_tag("ID Tag","id_tag","set_id")]</li>
-		<li><b>AAC Acces:</b> <a href="?src=\ref[src];toggleadvcontrol=1">[advcontrol ? "Allowed" : "Blocked"]</a>
+		<li><b>AAC Acces:</b> <a href="?src=[UID()];toggleadvcontrol=1">[advcontrol ? "Allowed" : "Blocked"]</a>
 		</ul>
 	"}
 

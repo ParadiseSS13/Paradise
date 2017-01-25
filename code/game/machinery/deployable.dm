@@ -63,8 +63,8 @@ for reference:
 	var/stacktype = /obj/item/stack/sheet/metal
 
 /obj/structure/barricade/attackby(obj/item/W as obj, mob/user as mob, params)
-	if (istype(W, stacktype))
-		if (src.health < src.maxhealth)
+	if(istype(W, stacktype))
+		if(src.health < src.maxhealth)
 			visible_message("\red [user] begins to repair the [src]!")
 			if(do_after(user,20, target = src))
 				src.health = src.maxhealth
@@ -74,7 +74,7 @@ for reference:
 		else
 			return
 		return
-	else if (istype(W, /obj/item/weapon/crowbar))
+	else if(istype(W, /obj/item/weapon/crowbar))
 		user.changeNext_move(CLICK_CD_MELEE)
 		user.visible_message("<span class='notice'>[user] is prying apart \the [src].</span>", "<span class='notice'>You begin to pry apart \the [src].</span>")
 		playsound(src, 'sound/items/Crowbar.ogg', 200, 1)
@@ -90,7 +90,7 @@ for reference:
 			if("brute")
 				src.health -= W.force * 0.75
 			else
-		if (src.health <= 0)
+		if(src.health <= 0)
 			visible_message("<span class='danger'>\The [src] is smashed apart!</span>")
 			dismantle()
 		..()
@@ -103,15 +103,15 @@ for reference:
 			return
 		if(2.0)
 			src.health -= 25
-			if (src.health <= 0)
+			if(src.health <= 0)
 				visible_message("<span class='danger'>\The [src] is blown apart!</span>")
 				dismantle()
 			return
 
 /obj/structure/barricade/blob_act()
 	src.health -= 25
-	if (src.health <= 0)
-		visible_message("\red <B>The blob eats through \the [src]!</B>")
+	if(src.health <= 0)
+		visible_message("<span class='danger'>The blob eats through \the [src]!</span>")
 		qdel(src)
 	return
 
@@ -173,16 +173,16 @@ for reference:
 		src.icon_state = "barrier[src.locked]"
 
 	attackby(obj/item/weapon/W as obj, mob/user as mob, params)
-		if (istype(W, /obj/item/weapon/card/id))
-			if (src.allowed(user))
-				if	(src.emagged < 2.0)
+		if(istype(W, /obj/item/weapon/card/id))
+			if(src.allowed(user))
+				if(src.emagged < 2.0)
 					src.locked = !src.locked
 					src.anchored = !src.anchored
 					src.icon_state = "barrier[src.locked]"
-					if ((src.locked == 1.0) && (src.emagged < 2.0))
+					if((src.locked == 1.0) && (src.emagged < 2.0))
 						to_chat(user, "Barrier lock toggled on.")
 						return
-					else if ((src.locked == 0.0) && (src.emagged < 2.0))
+					else if((src.locked == 0.0) && (src.emagged < 2.0))
 						to_chat(user, "Barrier lock toggled off.")
 						return
 				else
@@ -192,14 +192,14 @@ for reference:
 					visible_message("\red BZZzZZzZZzZT")
 					return
 			return
-		else if (istype(W, /obj/item/weapon/wrench))
-			if (src.health < src.maxhealth)
+		else if(istype(W, /obj/item/weapon/wrench))
+			if(src.health < src.maxhealth)
 				src.health = src.maxhealth
 				src.emagged = 0
 				src.req_access = list(access_security)
 				visible_message("\red [user] repairs the [src]!")
 				return
-			else if (src.emagged > 0)
+			else if(src.emagged > 0)
 				src.emagged = 0
 				src.req_access = list(access_security)
 				visible_message("\red [user] repairs the [src]!")
@@ -212,12 +212,12 @@ for reference:
 				if("brute")
 					src.health -= W.force * 0.5
 				else
-			if (src.health <= 0)
+			if(src.health <= 0)
 				src.explode()
 			..()
 
 	emag_act(user as mob)
-		if (!emagged)
+		if(!emagged)
 			emagged = 1
 			req_access = null
 			to_chat(user, "You break the ID authentication lock on the [src].")
@@ -225,7 +225,7 @@ for reference:
 			s.set_up(2, 1, src)
 			s.start()
 			visible_message("\red BZZzZZzZZzZT")
-		else if (src.emagged == 1)
+		else if(src.emagged == 1)
 			src.emagged = 2
 			to_chat(user, "You short out the anchoring mechanism on the [src].")
 			var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
@@ -240,7 +240,7 @@ for reference:
 				return
 			if(2.0)
 				src.health -= 25
-				if (src.health <= 0)
+				if(src.health <= 0)
 					src.explode()
 				return
 	emp_act(severity)
@@ -253,7 +253,7 @@ for reference:
 
 	blob_act()
 		src.health -= 25
-		if (src.health <= 0)
+		if(src.health <= 0)
 			src.explode()
 		return
 
@@ -267,7 +267,7 @@ for reference:
 
 	proc/explode()
 
-		visible_message("\red <B>[src] blows apart!</B>")
+		visible_message("<span class='danger'>[src] blows apart!</span>")
 		var/turf/Tsec = get_turf(src)
 
 	/*	var/obj/item/stack/rods/ =*/

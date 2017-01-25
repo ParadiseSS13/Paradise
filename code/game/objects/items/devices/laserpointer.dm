@@ -11,7 +11,6 @@
 	w_class = 2 //Increased to 2, because diodes are w_class 2. Conservation of matter.
 	origin_tech = "combat=1"
 	origin_tech = "magnets=2"
-	var/turf/pointer_loc
 	var/energy = 5
 	var/max_energy = 5
 	var/effectchance = 33
@@ -34,6 +33,12 @@
 	diode = new(src)
 	if(!pointer_icon_state)
 		pointer_icon_state = pick("red_laser","green_laser","blue_laser","purple_laser")
+
+/obj/item/device/laser_pointer/Destroy()
+	if(diode)
+		qdel(diode)
+		diode = null
+	return ..()
 
 /obj/item/device/laser_pointer/upgraded/New()
 	..()
@@ -71,10 +76,10 @@
 /obj/item/device/laser_pointer/proc/laser_act(var/atom/target, var/mob/living/user, var/params)
 	if( !(user in (viewers(7,target))) )
 		return
-	if (!diode)
+	if(!diode)
 		to_chat(user, "<span class='notice'>You point [src] at [target], but nothing happens!</span>")
 		return
-	if (!user.IsAdvancedToolUser())
+	if(!user.IsAdvancedToolUser())
 		to_chat(user, "<span class='warning'>You don't have the dexterity to do this!</span>")
 		return
 	if(ishuman(user))
@@ -97,7 +102,7 @@
 	if(iscarbon(target))
 		var/mob/living/carbon/C = target
 		if(user.zone_sel.selecting == "eyes")
-			add_logs(C, user, "shone in the eyes", object="laser pointer")
+			add_logs(user, C, "shone in the eyes", object="laser pointer")
 
 			var/severity = 1
 			if(prob(33))
@@ -123,8 +128,8 @@
 			to_chat(S, "<span class='warning'>Your sensors were overloaded by a laser!</span>")
 			outmsg = "<span class='notice'>You overload [S] by shining [src] at their sensors.</span>"
 
-			S.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has had a laser pointer shone in their eyes by [user.name] ([user.ckey])</font>")
-			user.attack_log += text("\[[time_stamp()]\] <font color='orange'>Shone a laser pointer in the eyes of [S.name] ([S.ckey])</font>")
+			S.create_attack_log("<font color='orange'>Has had a laser pointer shone in their eyes by [user.name] ([user.ckey])</font>")
+			user.create_attack_log("<font color='orange'>Shone a laser pointer in the eyes of [S.name] ([S.ckey])</font>")
 			log_attack("<font color='orange'>[user.name] ([user.ckey]) Shone a laser pointer in the eyes of [S.name] ([S.ckey])</font>")
 		else
 			outmsg = "<span class='notice'>You fail to overload [S] by shining [src] at their sensors.</span>"
@@ -137,7 +142,7 @@
 			outmsg = "<span class='notice'>You hit the lens of [C] with [src], temporarily disabling the camera!</span>"
 
 			log_admin("\[[time_stamp()]\] [user.name] ([user.ckey]) EMPd a camera with a laser pointer")
-			user.attack_log += text("\[[time_stamp()]\] [user.name] ([user.ckey]) EMPd a camera with a laser pointer")
+			user.create_attack_log("[user.name] ([user.ckey]) EMPd a camera with a laser pointer")
 		else
 			outmsg = "<span class='info'>You missed the lens of [C] with [src].</span>"
 

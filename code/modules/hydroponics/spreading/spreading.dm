@@ -259,11 +259,11 @@
 			die_off()
 			return
 		if(2.0)
-			if (prob(50))
+			if(prob(50))
 				die_off()
 				return
 		if(3.0)
-			if (prob(5))
+			if(prob(5))
 				die_off()
 				return
 		else

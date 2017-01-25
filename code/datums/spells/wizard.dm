@@ -53,6 +53,15 @@
 
 	action_icon_state = "mutate"
 
+/obj/effect/proc_holder/spell/targeted/genetic/mutate/cast(list/targets)
+	for(var/mob/living/target in targets)
+		target.dna.SetSEState(HULKBLOCK, 1)
+		genemutcheck(target, HULKBLOCK, null, MUTCHK_FORCED)
+		spawn(duration)
+			target.dna.SetSEState(HULKBLOCK, 0)
+			genemutcheck(target, HULKBLOCK, null, MUTCHK_FORCED)
+	..()
+
 /obj/effect/proc_holder/spell/targeted/smoke
 	name = "Smoke"
 	desc = "This spell spawns a cloud of choking smoke at your location and does not require wizard garb."
@@ -222,7 +231,7 @@
 	amt_eye_blurry = 20
 
 /obj/effect/proc_holder/spell/targeted/genetic/blind
-	sdisabilities = BLIND
+	disabilities = BLIND
 	duration = 300
 
 /obj/effect/proc_holder/spell/dumbfire/fireball

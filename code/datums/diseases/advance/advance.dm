@@ -406,7 +406,7 @@ var/list/advance_cures = 	list(
 			AD.Refresh()
 
 		for(var/mob/living/carbon/human/H in shuffle(living_mob_list))
-			if(H.z != 1)
+			if(!is_station_level(H.z))
 				continue
 			if(!H.HasDisease(D))
 				H.ForceContractDisease(D)
@@ -421,7 +421,7 @@ var/list/advance_cures = 	list(
 /mob/verb/test()
 
 	for(var/datum/disease/D in disease_master.processing)
-		to_chat(src, "<a href='?_src_=vars;Vars=\ref[D]'>[D.name] - [D.holder]</a>")
+		to_chat(src, "<a href='?_src_=vars;Vars=[D.UID()]'>[D.name] - [D.holder]</a>")
 */
 
 

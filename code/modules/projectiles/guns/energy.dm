@@ -31,7 +31,7 @@
 		power_supply = new(src)
 	power_supply.give(power_supply.maxcharge)
 	var/obj/item/ammo_casing/energy/shot
-	for (var/i = 1, i <= ammo_type.len, i++)
+	for(var/i = 1, i <= ammo_type.len, i++)
 		var/shottype = ammo_type[i]
 		shot = new shottype(src)
 		ammo_type[i] = shot
@@ -80,13 +80,13 @@
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
 	return power_supply.charge >= shot.e_cost
 
-/obj/item/weapon/gun/energy/newshot(params)
-	if (!ammo_type || !power_supply)
+/obj/item/weapon/gun/energy/newshot()
+	if(!ammo_type || !power_supply)
 		return
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
 	if(power_supply.charge >= shot.e_cost) //if there's enough power in the power_supply cell...
 		chambered = shot //...prepare a new shot based on the current ammo type selected
-		chambered.newshot(params)
+		chambered.newshot()
 	return
 
 /obj/item/weapon/gun/energy/process_chamber()
@@ -98,12 +98,12 @@
 
 /obj/item/weapon/gun/energy/proc/select_fire(mob/living/user)
 	select++
-	if (select > ammo_type.len)
+	if(select > ammo_type.len)
 		select = 1
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
 	fire_sound = shot.fire_sound
 	fire_delay = shot.delay
-	if (shot.select_name)
+	if(shot.select_name)
 		to_chat(user, "<span class='notice'>[src] is now set to [shot.select_name].</span>")
 	update_icon()
 	return
@@ -116,7 +116,7 @@
 	var/itemState = null
 	if(!initial(item_state))
 		itemState = icon_state
-	if (modifystate)
+	if(modifystate)
 		overlays += "[icon_state]_[shot.select_name]"
 		iconState += "_[shot.select_name]"
 		if(itemState)
@@ -142,7 +142,7 @@
 	toggle_gunlight()
 
 /obj/item/weapon/gun/energy/suicide_act(mob/user)
-	if (can_shoot())
+	if(can_shoot())
 		user.visible_message("<span class='suicide'>[user] is putting the barrel of the [name] in \his mouth.  It looks like \he's trying to commit suicide.</span>")
 		sleep(25)
 		if(user.l_hand == src || user.r_hand == src)

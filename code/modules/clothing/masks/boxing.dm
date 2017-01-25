@@ -6,8 +6,7 @@
 	flags = BLOCKHAIR
 	flags_inv = HIDEFACE
 	w_class = 2
-	action_button_name = "Adjust Balaclava"
-	ignore_maskadjust = 0
+	actions_types = list(/datum/action/item_action/adjust)
 	adjusted_flags = SLOT_HEAD
 	species_fit = list("Vox", "Unathi", "Tajaran", "Vulpkanin")
 	sprite_sheets = list(

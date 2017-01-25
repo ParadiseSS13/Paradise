@@ -2,8 +2,6 @@
 /obj/item/clothing/head/helmet/space/skrell
 	name = "Skrellian helmet"
 	desc = "Smoothly contoured and polished to a shine. Still looks like a fishbowl."
-	armor = list(melee = 20, bullet = 20, laser = 50,energy = 50, bomb = 50, bio = 100, rad = 100)
-	max_heat_protection_temperature = SPACE_SUIT_MAX_TEMP_PROTECT
 	species_restricted = list("Skrell","Human")
 
 /obj/item/clothing/head/helmet/space/skrell/white
@@ -19,10 +17,6 @@
 /obj/item/clothing/suit/space/skrell
 	name = "Skrellian hardsuit"
 	desc = "Seems like a wetsuit with reinforced plating seamlessly attached to it. Very chic."
-	armor = list(melee = 20, bullet = 20, laser = 50,energy = 50, bomb = 50, bio = 100, rad = 100)
-	allowed = list(/obj/item/device/flashlight,/obj/item/weapon/tank,/obj/item/weapon/storage/bag/ore,/obj/item/device/t_scanner,/obj/item/weapon/pickaxe, /obj/item/weapon/rcd)
-	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
-	max_heat_protection_temperature = SPACE_SUIT_MAX_TEMP_PROTECT
 	species_restricted = list("Skrell","Human")
 
 /obj/item/clothing/suit/space/skrell/white
@@ -37,9 +31,6 @@
 
 //Unathi space gear. Huge and restrictive.
 /obj/item/clothing/head/helmet/space/unathi
-	armor = list(melee = 40, bullet = 30, laser = 30,energy = 15, bomb = 35, bio = 100, rad = 50)
-	heat_protection = HEAD
-	max_heat_protection_temperature = SPACE_SUIT_MAX_TEMP_PROTECT
 	species_restricted = list("Unathi")
 
 /obj/item/clothing/head/helmet/space/unathi/helmet_cheap
@@ -50,10 +41,6 @@
 	item_color = "unathi_helm_cheap"
 
 /obj/item/clothing/suit/space/unathi
-	armor = list(melee = 40, bullet = 30, laser = 30,energy = 15, bomb = 35, bio = 100, rad = 50)
-	allowed = list(/obj/item/device/flashlight,/obj/item/weapon/tank,/obj/item/weapon/storage/bag/ore,/obj/item/device/t_scanner,/obj/item/weapon/pickaxe, /obj/item/weapon/rcd)
-	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
-	max_heat_protection_temperature = SPACE_SUIT_MAX_TEMP_PROTECT
 	species_restricted = list("Unathi")
 
 /obj/item/clothing/suit/space/unathi/rig_cheap
@@ -61,7 +48,6 @@
 	desc = "A cheap NT knock-off of a Unathi battle-rig. Looks like a fish, moves like a fish, steers like a cow."
 	icon_state = "rig-unathi-cheap"
 	item_state = "rig-unathi-cheap"
-	slowdown = 3
 
 /obj/item/clothing/head/helmet/space/unathi/breacher
 	name = "breacher helm"
@@ -76,15 +62,13 @@
 	icon_state = "unathi_breacher"
 	item_state = "unathi_breacher"
 	item_color = "unathi_breacher"
-	slowdown = 1
 
 // Vox space gear (vaccuum suit, low pressure armour)
 // Can't be equipped by any other species due to bone structure and vox cybernetics.
 /obj/item/clothing/suit/space/vox
 	w_class = 3
 	allowed = list(/obj/item/weapon/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/weapon/melee/baton,/obj/item/weapon/melee/energy/sword/saber,/obj/item/weapon/restraints/handcuffs,/obj/item/weapon/tank)
-	slowdown = 2
-	armor = list(melee = 60, bullet = 50, laser = 30,energy = 15, bomb = 30, bio = 30, rad = 30)
+	armor = list(melee = 40, bullet = 40, laser = 30, energy = 15, bomb = 30, bio = 30, rad = 30)
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	max_heat_protection_temperature = SPACE_SUIT_MAX_TEMP_PROTECT
 	species_restricted = list("Vox", "Vox Armalis")
@@ -94,7 +78,7 @@
 		)
 
 /obj/item/clothing/head/helmet/space/vox
-	armor = list(melee = 60, bullet = 50, laser = 30, energy = 15, bomb = 30, bio = 30, rad = 30)
+	armor = list(melee = 40, bullet = 40, laser = 30, energy = 15, bomb = 30, bio = 30, rad = 30)
 	flags = HEADCOVERSEYES|STOPSPRESSUREDMAGE
 	species_restricted = list("Vox","Vox Armalis")
 	sprite_sheets = list(
@@ -198,10 +182,8 @@
 		"Vox Armalis" = 'icons/mob/species/armalis/feet.dmi'
 		)
 
-	action_button_name = "Toggle the magclaws"
-
 /obj/item/clothing/shoes/magboots/vox/attack_self(mob/user)
-	if(src.magpulse)
+	if(magpulse)
 		flags &= ~NOSLIP
 		magpulse = 0
 		flags |= NODROP
@@ -211,7 +193,7 @@
 		if(!ishuman(user))
 			return
 		var/mob/living/carbon/human/H = user
-		if (H.shoes != src)
+		if(H.shoes != src)
 			to_chat(user, "You will have to put on the [src] before you can do that.")
 			return
 
@@ -233,7 +215,7 @@
 
 /obj/item/clothing/shoes/magboots/vox/examine(mob/user)
 	..(user)
-	if (magpulse)
+	if(magpulse)
 		to_chat(user, "It would be hard to take these off without relaxing your grip first.")//theoretically this message should only be seen by the wearer when the claws are equipped.
 
 

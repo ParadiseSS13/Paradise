@@ -51,37 +51,39 @@
 
 /obj/item/device/assembly/signaler/interact(mob/user as mob, flag1)
 	var/t1 = "-------"
-//	if ((src.b_stat && !( flag1 )))
-//		t1 = text("-------<BR>\nGreen Wire: []<BR>\nRed Wire:   []<BR>\nBlue Wire:  []<BR>\n", (src.wires & 4 ? text("<A href='?src=\ref[];wires=4'>Cut Wire</A>", src) : text("<A href='?src=\ref[];wires=4'>Mend Wire</A>", src)), (src.wires & 2 ? text("<A href='?src=\ref[];wires=2'>Cut Wire</A>", src) : text("<A href='?src=\ref[];wires=2'>Mend Wire</A>", src)), (src.wires & 1 ? text("<A href='?src=\ref[];wires=1'>Cut Wire</A>", src) : text("<A href='?src=\ref[];wires=1'>Mend Wire</A>", src)))
+//	if((src.b_stat && !( flag1 )))
+//		t1 = text("-------<BR>\nGreen Wire: []<BR>\nRed Wire:   []<BR>\nBlue Wire:  []<BR>\n", (src.wires & 4 ? "<A href='?src=[UID()];wires=4'>Cut Wire</A>" : "<A href='?src=[UID()];wires=4'>Mend Wire</A>"), (src.wires & 2 ? "<A href='?src=[UID()];wires=2'>Cut Wire</A>" : "<A href='?src=[UID()];wires=2'>Mend Wire</A>"), (src.wires & 1 ? "<A href='?src=[UID()];wires=1'>Cut Wire</A>" : "<A href='?src=[UID()];wires=1'>Mend Wire</A>"))
 //	else
-//		t1 = "-------"	Speaker: [src.listening ? "<A href='byond://?src=\ref[src];listen=0'>Engaged</A>" : "<A href='byond://?src=\ref[src];listen=1'>Disengaged</A>"]<BR>
+//		t1 = "-------"	Speaker: [src.listening ? "<A href='byond://?src=[UID()];listen=0'>Engaged</A>" : "<A href='byond://?src=[UID()];listen=1'>Disengaged</A>"]<BR>
 	var/dat = {"
 		<TT>
 	"}
 	if(!flag1)
 		dat += {"
-			<A href='byond://?src=\ref[src];send=1'>Send Signal</A><BR>
-			Reciever is <A href='byond://?src=\ref[src];receive=1'>[receiving?"on":"off"]</A><BR>
+			<A href='byond://?src=[UID()];send=1'>Send Signal</A><BR>
+			Reciever is <A href='byond://?src=[UID()];receive=1'>[receiving?"on":"off"]</A><BR>
 		"}
 	dat += {"
 		<B>Frequency/Code</B> for signaler:<BR>
 		Frequency:
-		<A href='byond://?src=\ref[src];freq=-10'>-</A>
-		<A href='byond://?src=\ref[src];freq=-2'>-</A>
+		<A href='byond://?src=[UID()];freq=-10'>-</A>
+		<A href='byond://?src=[UID()];freq=-2'>-</A>
 		[format_frequency(src.frequency)]
-		<A href='byond://?src=\ref[src];freq=2'>+</A>
-		<A href='byond://?src=\ref[src];freq=10'>+</A><BR>
+		<A href='byond://?src=[UID()];freq=2'>+</A>
+		<A href='byond://?src=[UID()];freq=10'>+</A><BR>
 
 		Code:
-		<A href='byond://?src=\ref[src];code=-5'>-</A>
-		<A href='byond://?src=\ref[src];code=-1'>-</A>
+		<A href='byond://?src=[UID()];code=-5'>-</A>
+		<A href='byond://?src=[UID()];code=-1'>-</A>
 		[src.code]
-		<A href='byond://?src=\ref[src];code=1'>+</A>
-		<A href='byond://?src=\ref[src];code=5'>+</A><BR>
+		<A href='byond://?src=[UID()];code=1'>+</A>
+		<A href='byond://?src=[UID()];code=5'>+</A><BR>
 		[t1]
 		</TT>
 	"}
-	user << browse(dat, "window=radio")
+	var/datum/browser/popup = new(user, "radio", name, 400, 400)
+	popup.set_content(dat)
+	popup.open(0)
 	onclose(user, "radio")
 	return
 
@@ -94,7 +96,7 @@
 		onclose(usr, "radio")
 		return
 
-	if (href_list["freq"])
+	if(href_list["freq"])
 		var/new_frequency = (frequency + text2num(href_list["freq"]))
 		if(new_frequency < RADIO_LOW_FREQ || new_frequency > RADIO_HIGH_FREQ)
 			new_frequency = sanitize_frequency(new_frequency, RADIO_LOW_FREQ, RADIO_HIGH_FREQ)
@@ -150,7 +152,7 @@
 	pulse(1)
 
 	for(var/mob/O in hearers(1, src.loc))
-		O.show_message(text("\icon[] *beep* *beep*", src), 3, "*beep* *beep*", 2)
+		O.show_message("[bicon(src)] *beep* *beep*", 3, "*beep* *beep*", 2)
 	return
 
 /obj/item/device/assembly/signaler/proc/set_frequency(new_frequency)

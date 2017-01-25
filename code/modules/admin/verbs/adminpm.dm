@@ -67,7 +67,7 @@
 	if(istext(whom))
 		if(cmptext(copytext(whom,1,2),"@"))
 			whom = findStealthKey(whom)
-		C = directory[C]
+		C = directory[whom]
 	else if(istype(whom,/client))
 		C = whom
 
@@ -81,7 +81,7 @@
 	/*if(C && C.last_pm_recieved + config.simultaneous_pm_warning_timeout > world.time && holder)
 		//send a warning to admins, but have a delay popup for mods
 		if(holder.rights & R_ADMIN)
-			to_chat(src, "\red <b>Simultaneous PMs warning:</b> that player has been PM'd in the last [config.simultaneous_pm_warning_timeout / 10] seconds by: [C.ckey_last_pm]")
+			to_chat(src, "<span class='danger'>Simultaneous PMs warning:</span> that player has been PM'd in the last [config.simultaneous_pm_warning_timeout / 10] seconds by: [C.ckey_last_pm]")
 		else
 			if(alert("That player has been PM'd in the last [config.simultaneous_pm_warning_timeout / 10] seconds by: [C.ckey_last_pm]","Simultaneous PMs warning","Continue","Cancel") == "Cancel")
 				return*/
@@ -99,7 +99,7 @@
 				adminhelp(msg)	//admin we are replying to has vanished, adminhelp instead
 			return
 
-	if (src.handle_spam_prevention(msg,MUTE_ADMINHELP))
+	if(handle_spam_prevention(msg, MUTE_ADMINHELP, OOC_COOLDOWN))
 		return
 
 	//clean the message if it's not sent by a high-rank admin
@@ -148,6 +148,9 @@
 					else
 						adminhelp(reply)													//sender has left, adminhelp instead
 				return
+
+	// for emoji, we have to define a specific span for jquery to look for
+	msg = "<span class='emoji_enabled'>[msg]</span>"
 
 	recieve_message = "<span class='[recieve_span]'>[type] from-<b>[recieve_pm_type][key_name(src, C, C.holder ? 1 : 0, type)]</b>: [msg]</span>"
 	to_chat(C, recieve_message)

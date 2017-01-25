@@ -7,50 +7,51 @@
 	desc = "Used to remotely scan objects and biomass for DNA and fingerprints. Can print a report of the findings."
 	icon = 'icons/goonstation/objects/objects.dmi'
 	icon_state = "detscanner"
-	w_class = 3.0
+	w_class = 3
 	item_state = "electronic"
 	flags = CONDUCT | NOBLUDGEON
 	slot_flags = SLOT_BELT
 	origin_tech = "magnets=4;biotech=2"
 	var/scanning = 0
 	var/list/log = list()
+	actions_types = list(/datum/action/item_action/print_report)
 
 /obj/item/device/detective_scanner/attack_self(var/mob/user)
 	var/search = input(user, "Enter name, fingerprint or blood DNA.", "Find record", "")
 
-	if (!search || user.stat || user.incapacitated())
+	if(!search || user.stat || user.incapacitated())
 		return
 
 	search = lowertext(search)
 
 	var/name
-	var/fingerprint
-	var/dna
+	var/fingerprint = "FINGERPRINT NOT FOUND"
+	var/dna = "BLOOD DNA NOT FOUND"
 
 	// I really, really wish I didn't have to split this into two seperate loops. But the datacore is awful.
 
-	for (var/record in data_core.general)
+	for(var/record in data_core.general)
 		var/datum/data/record/S = record
-		if(search == lowertext(S.fields["fingerprint"]) || search == lowertext(S.fields["name"]))
+		if(S && (search == lowertext(S.fields["fingerprint"]) || search == lowertext(S.fields["name"])))
 			name = S.fields["name"]
 			fingerprint = S.fields["fingerprint"]
 			continue
 
-	for (var/record in data_core.medical)
+	for(var/record in data_core.medical)
 		var/datum/data/record/M = record
-		if (search == lowertext(M.fields["b_dna"]) || name == M.fields["name"])
+		if(M && ( search == lowertext(M.fields["b_dna"]) || name == M.fields["name"]) )
 			dna = M.fields["b_dna"]
 
-			if(!fingerprint) // We have searched by DNA, and do not have the relevant information from the security records.
+			if(fingerprint == "FINGERPRINT NOT FOUND") // We have searched by DNA, and do not have the relevant information from the fingerprint records.
 				name = M.fields["name"]
-				for (var/gen_record in data_core.general)
+				for(var/gen_record in data_core.general)
 					var/datum/data/record/S = gen_record
-					if(name == S.fields["name"])
+					if(S && (name == S.fields["name"]))
 						fingerprint = S.fields["fingerprint"]
 						continue
 			continue
 
-	if(name && fingerprint && dna)
+	if(name)
 		to_chat(user, "<span class='notice'>Match found in station records: <b>[name]</b></span><br>\
 		<i>Fingerprint:</i><span class='notice'> [fingerprint]</span><br>\
 		<i>Blood DNA:</i><span class='notice'> [dna]</span>")
@@ -58,11 +59,10 @@
 
 	to_chat(user, "<span class='warning'>No match found in station records.</span>")
 
+/obj/item/device/detective_scanner/ui_action_click()
+	print_scanner_report()
 
-/obj/item/device/detective_scanner/verb/print_scanner_report()
-	set name = "Print Scanner Report"
-	set category = "Object"
-
+/obj/item/device/detective_scanner/proc/print_scanner_report()
 	if(log.len && !scanning)
 		scanning = 1
 		to_chat(usr, "<span class='notice'>Printing report, please wait...</span>")
@@ -132,7 +132,7 @@
 		if(ishuman(A))
 
 			var/mob/living/carbon/human/H = A
-			if (istype(H.dna, /datum/dna) && !H.gloves)
+			if(istype(H.dna, /datum/dna) && !H.gloves)
 				fingerprints += md5(H.dna.uni_identity)
 
 		else if(!ismob(A))
@@ -170,7 +170,7 @@
 				found_something = 1
 
 			// Blood
-			if (blood && blood.len)
+			if(blood && blood.len)
 				sleep(30)
 				add_log("<span class='info'><B>Blood:</B></span>")
 				found_something = 1

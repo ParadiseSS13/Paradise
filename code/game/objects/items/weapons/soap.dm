@@ -4,7 +4,7 @@
 	gender = PLURAL
 	icon = 'icons/obj/items.dmi'
 	icon_state = "soap"
-	w_class = 1.0
+	w_class = 1
 	throwforce = 0
 	throw_speed = 4
 	throw_range = 20
@@ -35,7 +35,7 @@
 			to_chat(user, "<span class='notice'>You 'clean' \the [target.name].</span>")
 			if(istype(target, /turf/simulated))
 				new /obj/effect/decal/cleanable/blood/gibs/cleangibs(target)
-			else if (istype(target,/mob/living/carbon))
+			else if(istype(target,/mob/living/carbon))
 				for(var/obj/item/carried_item in target.contents)
 					if(!istype(carried_item, /obj/item/weapon/implant))//If it's not an implant.
 						carried_item.add_blood(target)//Oh yes, there will be blood...

@@ -375,10 +375,10 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 /////// Implants & etc
 
 /datum/supply_packs/security/armory/loyalty
-	name = "Loyalty Implants Crate"
+	name = "Mindshield Implants Crate"
 	contains = list (/obj/item/weapon/storage/lockbox/loyalty)
 	cost = 40
-	containername = "loyalty implant crate"
+	containername = "mindshield implant crate"
 
 /datum/supply_packs/security/armory/trackingimp
 	name = "Tracking Implants Crate"
@@ -581,7 +581,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 					/obj/item/clothing/head/helmet/space,
 					/obj/item/clothing/head/helmet/space,
 					/obj/item/clothing/mask/breath,
-					/obj/item/clothing/mask/breath,)
+					/obj/item/clothing/mask/breath)
 	cost = 30
 	containertype = /obj/structure/closet/crate/secure
 	containername = "space suit crate"
@@ -607,14 +607,26 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	name = "Thermo-Electric Generator Crate"
 	contains = list(
 		/obj/machinery/power/generator,
-		/obj/machinery/atmospherics/binary/circulator,
-		/obj/machinery/atmospherics/binary/circulator
-	)
+		/obj/item/pipe/circulator,
+		/obj/item/pipe/circulator)
 	cost = 25
 	containertype = /obj/structure/closet/crate/secure
 	containername = "thermo-electric generator crate"
 	access = access_ce
 	announce_beacons = list("Engineering" = list("Chief Engineer's Desk", "Atmospherics"))
+
+/datum/supply_packs/engineering/conveyor
+	name = "Conveyor Assembly Crate"
+	contains = list(/obj/item/conveyor_construct,
+					/obj/item/conveyor_construct,
+					/obj/item/conveyor_construct,
+					/obj/item/conveyor_construct,
+					/obj/item/conveyor_construct,
+					/obj/item/conveyor_construct,
+					/obj/item/conveyor_switch_construct,
+					/obj/item/weapon/paper/conveyor)
+	cost = 15
+	containername = "conveyor assembly crate"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Medical /////////////////////////////////////////
@@ -861,8 +873,8 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	name = "Food Crate"
 	contains = list(/obj/item/weapon/reagent_containers/food/condiment/flour,
 					/obj/item/weapon/reagent_containers/food/condiment/rice,
-					/obj/item/weapon/reagent_containers/food/drinks/milk,
-					/obj/item/weapon/reagent_containers/food/drinks/soymilk,
+					/obj/item/weapon/reagent_containers/food/condiment/milk,
+					/obj/item/weapon/reagent_containers/food/condiment/soymilk,
 					/obj/item/weapon/reagent_containers/food/condiment/saltshaker,
 					/obj/item/weapon/reagent_containers/food/condiment/peppermill,
 					/obj/item/weapon/storage/fancy/egg_box,
@@ -1083,6 +1095,14 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	cost = 10
 	containername = "beekeeper suits"
 
+//Bottler
+/datum/supply_packs/organic/bottler
+	name = "Brewing Buddy Bottler Unit"
+	contains = list(/obj/machinery/bottler,
+					/obj/item/weapon/wrench)
+	cost = 35
+	containername = "bottler crate"
+
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Materials ///////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -1190,10 +1210,8 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 					/obj/item/weapon/reagent_containers/food/drinks/bottle/holywater,
 					/obj/item/weapon/storage/bible/booze,
 					/obj/item/weapon/storage/bible/booze,
-					/obj/item/clothing/suit/chaplain_hoodie,
-					/obj/item/clothing/head/chaplain_hood,
-					/obj/item/clothing/suit/chaplain_hoodie,
-					/obj/item/clothing/head/chaplain_hood)
+					/obj/item/clothing/suit/hooded/chaplain_hoodie,
+					/obj/item/clothing/suit/hooded/chaplain_hoodie)
 	cost = 40
 	containername = "religious supplies crate"
 

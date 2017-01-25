@@ -34,7 +34,7 @@
 			to_chat(user, "\red The [name] blinks red as you try to insert the item!")
 			return
 
-		if (istype(G, /obj/item/weapon/gun/energy))
+		if(istype(G, /obj/item/weapon/gun/energy))
 			var/obj/item/weapon/gun/energy/E = G
 			if(!E.can_charge)
 				to_chat(user, "<span class='notice'>Your gun has no external power connector.</span>")

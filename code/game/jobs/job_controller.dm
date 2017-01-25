@@ -120,6 +120,12 @@ var/global/datum/controller/occupations/job_master
 			if(job.title in whitelisted_positions) // No random whitelisted job, sorry!
 				continue
 
+			if(job.admin_only) // No admin positions either.
+				continue
+
+			if(job.available_in_playtime(player.client))
+				continue
+
 			if(jobban_isbanned(player, job.title))
 				Debug("GRJ isbanned failed, Player: [player], Job: [job.title]")
 				continue
@@ -210,16 +216,10 @@ var/global/datum/controller/occupations/job_master
 	proc/FillAIPosition()
 		var/ai_selected = 0
 		var/datum/job/job = GetJob("AI")
-		if(!job)	return 0
-		if((job.title == "AI") && (config) && (!config.allow_ai))	return 0
-
-		if(ticker.mode.name == "AI malfunction")	// malf. AIs are pre-selected before jobs
-			for (var/datum/mind/mAI in ticker.mode.malf_ai)
-				AssignRole(mAI.current, "AI")
-				ai_selected++
-			if(ai_selected)	return 1
+		if(!job)
 			return 0
-
+		if((job.title == "AI") && (config) && (!config.allow_ai))
+			return 0
 		for(var/i = job.total_positions, i > 0, i--)
 			for(var/level = 1 to 3)
 				var/list/candidates = list()
@@ -252,7 +252,8 @@ var/global/datum/controller/occupations/job_master
 		for(var/mob/new_player/player in player_list)
 			if(player.ready && player.mind && !player.mind.assigned_role)
 				unassigned += player
-				if(player.client.prefs.randomslot) player.client.prefs.random_character(player.client)
+				if(player.client.prefs.randomslot)
+					player.client.prefs.load_random_character_slot(player.client)
 		Debug("DO, Len: [unassigned.len]")
 		if(unassigned.len == 0)	return 0
 
@@ -358,19 +359,19 @@ var/global/datum/controller/occupations/job_master
 
 		Debug("DO, Running AC2")
 
-		// For those who wanted to be civilians if their preferences were filled, here you go.
+		// Antags, who have to get in, come first
+		for(var/mob/new_player/player in unassigned)
+			if(player.mind.special_role)
+				GiveRandomJob(player)
+				if(player in unassigned)
+					AssignRole(player, "Civilian")
+
+		// Then we assign what we can to everyone else.
 		for(var/mob/new_player/player in unassigned)
 			if(player.client.prefs.alternate_option == BE_ASSISTANT)
 				Debug("AC2 Assistant located, Player: [player]")
 				AssignRole(player, "Civilian")
-
-		for(var/mob/new_player/player in unassigned)
-			if(player.mind.special_role)
-				GiveRandomJob(player)
-
-		//For ones returning to lobby
-		for(var/mob/new_player/player in unassigned)
-			if(player.client.prefs.alternate_option == RETURN_TO_LOBBY)
+			else if(player.client.prefs.alternate_option == RETURN_TO_LOBBY)
 				player.ready = 0
 				unassigned -= player
 		return 1
@@ -379,9 +380,60 @@ var/global/datum/controller/occupations/job_master
 	proc/EquipRank(var/mob/living/carbon/human/H, var/rank, var/joined_late = 0)
 		if(!H)	return null
 		var/datum/job/job = GetJob(rank)
+		var/list/spawn_in_storage = list()
+
 		if(job)
+
+			//Equip custom gear loadout.
+			var/list/custom_equip_slots = list() //If more than one item takes the same slot, all after the first one spawn in storage.
+			var/list/custom_equip_leftovers = list()
+			if(H.client.prefs.gear && H.client.prefs.gear.len && job.title != "Cyborg" && job.title != "AI")
+				for(var/thing in H.client.prefs.gear)
+					var/datum/gear/G = gear_datums[thing]
+					if(G)
+						var/permitted
+						if(G.allowed_roles)
+							for(var/job_name in G.allowed_roles)
+								if(job.title == job_name)
+									permitted = 1
+						else
+							permitted = 1
+
+						if(G.whitelisted && (G.whitelisted != H.species.name || !is_alien_whitelisted(H, G.whitelisted)))
+							permitted = 0
+
+						if(!permitted)
+							to_chat(H, "<span class='warning'>Your current job or whitelist status does not permit you to spawn with [thing]!</span>")
+							continue
+
+						if(G.slot && !(G.slot in custom_equip_slots))
+							// This is a miserable way to fix the loadout overwrite bug, but the alternative requires
+							// adding an arg to a bunch of different procs. Will look into it after this merge. ~ Z
+							if(G.slot == slot_wear_mask || G.slot == slot_wear_suit || G.slot == slot_head)
+								custom_equip_leftovers += thing
+							else if(H.equip_to_slot_or_del(G.spawn_item(H), G.slot))
+								to_chat(H, "<span class='notice'>Equipping you with \the [thing]!</span>")
+								custom_equip_slots.Add(G.slot)
+							else
+								custom_equip_leftovers.Add(thing)
+						else
+							spawn_in_storage += thing
+
 			job.equip(H)
 			job.apply_fingerprints(H)
+
+			//If some custom items could not be equipped before, try again now.
+			for(var/thing in custom_equip_leftovers)
+				var/datum/gear/G = gear_datums[thing]
+				if(G.slot in custom_equip_slots)
+					spawn_in_storage += thing
+				else
+					var/metadata = H.client.prefs.gear[G.display_name]
+					if(H.equip_to_slot_or_del(G.spawn_item(H, metadata), G.slot))
+						to_chat(H, "<span class='notice'>Equipping you with \the [thing]!</span>")
+						custom_equip_slots.Add(G.slot)
+					else
+						spawn_in_storage += thing
 		else
 			to_chat(H, "Your job is [rank] and the game just can't handle it! Please report this bug to an administrator.")
 
@@ -431,7 +483,7 @@ var/global/datum/controller/occupations/job_master
 			H.mind.store_memory(remembered_info)
 
 		spawn(0)
-			to_chat(H, "\blue<b>Your account number is: [M.account_number], your account pin is: [M.remote_access_pin]</b>")
+			to_chat(H, "<span class='boldnotice'>Your account number is: [M.account_number], your account pin is: [M.remote_access_pin]</span>")
 
 		var/alt_title = null
 		if(H.mind)
@@ -464,8 +516,45 @@ var/global/datum/controller/occupations/job_master
 							H.equip_to_slot_or_del(BPK, slot_back,1)
 					H.species.equip(H)
 
+			//Deferred item spawning.
+			for(var/thing in spawn_in_storage)
+				var/datum/gear/G = gear_datums[thing]
+				var/metadata = H.client.prefs.gear[G.display_name]
+				var/item = G.spawn_item(null, metadata)
+
+				var/atom/placed_in = H.equip_or_collect(item)
+				if(placed_in)
+					to_chat(H, "<span class='notice'>Placing \the [item] in your [placed_in.name]!</span>")
+					continue
+				if(H.equip_to_appropriate_slot(item))
+					to_chat(H, "<span class='notice'>Placing \the [item] in your inventory!</span>")
+					continue
+				if(H.put_in_hands(item))
+					to_chat(H, "<span class='notice'>Placing \the [item] in your hands!</span>")
+					continue
+				to_chat(H, "<span class='danger'>Failed to locate a storage object on your mob, either you spawned with no arms and no backpack or this is a bug.</span>")
+				qdel(item)
+
+
 		to_chat(H, "<B>You are the [alt_title ? alt_title : rank].</B>")
 		to_chat(H, "<b>As the [alt_title ? alt_title : rank] you answer directly to [job.supervisors]. Special circumstances may change this.</b>")
+		to_chat(H, "<b>For more information on how the station works, see <a href=\"https://nanotrasen.se/wiki/index.php/Standard_Operating_Procedure\">Standard Operating Procedure (SOP)</a></b>")
+		if(job.is_service)
+			to_chat(H, "<b>As a member of Service, make sure to read up on your <a href=\"https://nanotrasen.se/wiki/index.php/Standard_Operating_Procedure_&#40;Service&#41\">Department SOP</a></b>")
+		if(job.is_supply)
+			to_chat(H, "<b>As a member of Supply, make sure to read up on your <a href=\"https://nanotrasen.se/wiki/index.php/Standard_Operating_Procedure_&#40;Supply&#41\">Department SOP</a></b>")
+		if(job.is_command)
+			to_chat(H, "<b>As an important member of Command, read up on your <a href=\"https://nanotrasen.se/wiki/index.php/Standard_Operating_Procedure_&#40;Command&#41\">Department SOP</a></b>")
+		if(job.is_legal)
+			to_chat(H, "<b>Your job requires complete knowledge of <a href=\"https://nanotrasen.se/wiki/index.php/Space_law\">Space Law</a> and <a href=\"https://nanotrasen.se/wiki/index.php/Legal_Standard_Operating_Procedure\">Legal Standard Operating Procedure</a></b>")
+		if(job.is_engineering)
+			to_chat(H, "<b>As a member of Engineering, make sure to read up on your <a href=\"https://nanotrasen.se/wiki/index.php/Standard_Operating_Procedure_&#40;Engineering&#41\">Department SOP</a></b>")
+		if(job.is_medical)
+			to_chat(H, "<b>As a member of Medbay, make sure to read up on your <a href=\"https://nanotrasen.se/wiki/index.php/Standard_Operating_Procedure_&#40;Medical&#41\">Department SOP</a></b>")
+		if(job.is_science)
+			to_chat(H, "<b>As a member of Science, make sure to read up on your <a href=\"https://nanotrasen.se/wiki/index.php/Standard_Operating_Procedure_&#40;Science&#41\">Department SOP</a></b>")
+		if(job.is_security)
+			to_chat(H, "<b>As a member of Security, you are to know <a href=\"https://nanotrasen.se/wiki/index.php/Space_law\">Space Law</a>, <a href=\"https://nanotrasen.se/wiki/index.php/Legal_Standard_Operating_Procedure\">Legal Standard Operating Procedure</a>, as well as your <a href=\"https://nanotrasen.se/wiki/index.php/Standard_Operating_Procedure_&#40;Security&#41\">Department SOP</a></b>")
 		if(job.req_admin_notify)
 			to_chat(H, "<b>You are playing a job that is important for the game progression. If you have to disconnect, please notify the admins via adminhelp.</b>")
 
@@ -542,7 +631,7 @@ var/global/datum/controller/occupations/job_master
 				continue
 
 			job = trim(job)
-			if (!length(job))
+			if(!length(job))
 				continue
 
 			var/pos = findtext(job, "=")

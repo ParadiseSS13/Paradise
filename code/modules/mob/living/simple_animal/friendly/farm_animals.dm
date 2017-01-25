@@ -179,7 +179,7 @@
 	ventcrawler = 2
 	var/amount_grown = 0
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
-	small = 1
+	mob_size = MOB_SIZE_TINY
 	can_hide = 1
 	can_collar = 1
 	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
@@ -194,7 +194,9 @@
 	if(.)
 		amount_grown += rand(1,2)
 		if(amount_grown >= 100)
-			new /mob/living/simple_animal/chicken(src.loc)
+			var/mob/living/simple_animal/chicken/C = new /mob/living/simple_animal/chicken(loc)
+			if(mind)
+				mind.transfer_to(C)
 			qdel(src)
 
 var/const/MAX_CHICKENS = 50
@@ -223,7 +225,7 @@ var/global/chicken_count = 0
 	var/eggsleft = 0
 	var/chicken_color
 	pass_flags = PASSTABLE | PASSMOB
-	small = 1
+	mob_size = MOB_SIZE_SMALL
 	can_hide = 1
 	can_collar = 1
 	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
@@ -239,7 +241,7 @@ var/global/chicken_count = 0
 	pixel_y = rand(0, 10)
 	chicken_count += 1
 
-/mob/living/simple_animal/chicken/death()
+/mob/living/simple_animal/chicken/death(gibbed)
 	..()
 	chicken_count -= 1
 

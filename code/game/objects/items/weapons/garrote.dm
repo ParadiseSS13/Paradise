@@ -91,7 +91,7 @@
 			G.state = GRAB_NECK
 			G.hud.icon_state = "kill"
 			G.hud.name = "kill"
-			M.silent += 1
+			M.AdjustSilence(1)
 
 	garrote_time = world.time + 10
 	processing_objects.Add(src)
@@ -107,6 +107,12 @@
 	return
 
 /obj/item/weapon/twohanded/garrote/process()
+	if(!strangling)
+		// Our mark got gibbed or similar
+		update_icon()
+		processing_objects.Remove(src)
+		return
+
 
 	if(!istype(loc, /mob/living/carbon/human))
 		strangling = null
@@ -152,7 +158,7 @@
 		return
 
 
-	strangling.silent = max(strangling.silent,  3) // Non-improvised effects
+	strangling.Silence(3) // Non-improvised effects
 	strangling.apply_damage(4, OXY, "head")
 
 

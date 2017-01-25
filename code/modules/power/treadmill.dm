@@ -138,6 +138,7 @@
 	var/redeem_immediately = 0	// redeem immediately for holding cell
 
 /obj/machinery/treadmill_monitor/initialize()
+	..()
 	if(id)
 		for(var/obj/machinery/power/treadmill/T in machines)
 			if(T.id == id)

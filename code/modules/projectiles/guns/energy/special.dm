@@ -5,7 +5,7 @@
 	item_state = null	//so the human update icon uses the icon_state instead.
 	fire_sound = 'sound/weapons/IonRifle.ogg'
 	origin_tech = "combat=2;magnets=4"
-	w_class = 5.0
+	w_class = 5
 	flags =  CONDUCT
 	slot_flags = SLOT_BACK
 	ammo_type = list(/obj/item/ammo_casing/energy/ion)
@@ -86,20 +86,49 @@
 
 /obj/item/weapon/gun/energy/kinetic_accelerator
 	name = "proto-kinetic accelerator"
-	desc = "According to Nanotrasen accounting, this is mining equipment. It's been modified for extreme power output to crush rocks, but often serves as a miner's first defense against hostile alien life; it's not very powerful unless used in a low pressure environment."
+	desc = "In the year 2544, only a year after the discovery of a potentially \
+		world-changing substance, now colloquially referred to as plasma, the \
+		Nanotrasen-UEG mining conglomerate introduced a prototype of a gun-like \
+		device intended for quick, effective mining of plasma in the low \
+		pressures of the solar system. Included in this presentation were \
+		demonstrations of the gun being fired at collections of rocks contained \
+		in vacuumed environments, obliterating them instantly while maintaining \
+		the structure of the ores buried within them. Additionally, volunteers \
+		were called from the crowd to have the gun used on them, only proving that \
+		the gun caused little harm to objects in standard pressure. \n\
+		An official from an unnamed, now long dissipated company observed this \
+		presentation and offered to share their self-recharger cells, powered \
+		by the user's bioelectrical field, another new and unknown technology. \
+		They warned that the cells were incredibly experimental and several times \
+		had injured workers, but the scientists as Nanotrasen were unable to resist \
+		the money-saving potential of self recharging cells. Upon accepting this \
+		offer, it took only a matter of days to prove the volatility of these cells, \
+		as they exploded left and right whenever inserted into the prototype devices, \
+		only throwing more money in the bin. \n\
+		Whenever the Nanotrasen scientists were on the edge of giving up, a \
+		breakthrough was made by head researcher Miles Parks McCollum, who \
+		demonstrated that the cells could be stabilized when exposed to radium \
+		then cooled with cryostylane. After this discovery, the low pressure gun, \
+		now named the Kinetic Accelerator, was hastily completed and made compatible \
+		with the self-recharging cells. As a result of poor testing, the currently \
+		used guns lose their charge when not in use, and when two Kinetic Accelerators \
+		come in proximity of one another, they will interfere with each other. Despite \
+		this, the shoddy guns still see use in the mining of plasma to this day."
 	icon_state = "kineticgun"
 	item_state = "kineticgun"
 	ammo_type = list(/obj/item/ammo_casing/energy/kinetic)
 	cell_type = /obj/item/weapon/stock_parts/cell/emproof
 	// Apparently these are safe to carry? I'm sure goliaths would disagree.
 	needs_permit = 0
-	var/overheat_time = 16
 	unique_rename = 1
+	origin_tech = "combat=3;powerstorage=3;engineering=3"
 	weapon_weight = WEAPON_LIGHT
-	origin_tech = "combat=2;powerstorage=1"
+	can_flashlight = 1
+	flight_x_offset = 15
+	flight_y_offset = 9
+	var/overheat_time = 16
 	var/holds_charge = FALSE
 	var/unique_frequency = FALSE // modified by KA modkits
-
 	var/overheat = FALSE
 
 /obj/item/weapon/gun/energy/kinetic_accelerator/super
@@ -119,6 +148,10 @@
 	origin_tech = "combat=4;powerstorage=3"
 
 /obj/item/weapon/gun/energy/kinetic_accelerator/cyborg
+	holds_charge = TRUE
+	unique_frequency = TRUE
+
+/obj/item/weapon/gun/energy/kinetic_accelerator/hyper/cyborg
 	holds_charge = TRUE
 	unique_frequency = TRUE
 
@@ -176,7 +209,7 @@
 	power_supply.give(5000)
 	if(!suppressed)
 		playsound(loc, 'sound/weapons/kenetic_reload.ogg', 60, 1)
-	else
+	else if(ismob(loc))
 		to_chat(loc, "<span class='warning'>[src] silently charges up.<span>")
 	update_icon()
 
@@ -279,13 +312,13 @@
 	desc = "A projector that emits high density quantum-coupled bluespace beams."
 	ammo_type = list(/obj/item/ammo_casing/energy/wormhole, /obj/item/ammo_casing/energy/wormhole/orange)
 	item_state = null
-	icon_state = "wormhole_projector100"
+	icon_state = "wormhole_projector1"
 	var/obj/effect/portal/blue
 	var/obj/effect/portal/orange
 
 
 /obj/item/weapon/gun/energy/wormhole_projector/update_icon()
-	icon_state = "[initial(icon_state)][select]"
+	icon_state = "wormhole_projector[select]"
 	item_state = icon_state
 	return
 
@@ -306,6 +339,8 @@
 /obj/item/weapon/gun/energy/wormhole_projector/proc/create_portal(obj/item/projectile/beam/wormhole/W)
 	var/obj/effect/portal/P = new /obj/effect/portal(get_turf(W), null, src)
 	P.precision = 0
+	P.failchance = 0
+	P.can_multitool_to_remove = 1
 	if(W.name == "bluespace beam")
 		qdel(blue)
 		blue = P
@@ -407,6 +442,7 @@
 	origin_tech = "combat=3;materials=4;powerstorage=3;magnets=2"
 
 	ammo_type = list(/obj/item/ammo_casing/energy/temp)
+	selfcharge = 1
 	cell_type = /obj/item/weapon/stock_parts/cell
 
 	var/powercost = ""
@@ -426,7 +462,7 @@
 	return ..()
 
 /obj/item/weapon/gun/energy/temperature/newshot()
-	..(temperature, e_cost)
+	..()
 
 /obj/item/weapon/gun/energy/temperature/attack_self(mob/living/user as mob)
 	user.set_machine(src)
@@ -441,7 +477,7 @@
 		desc = "A gun that changes the body temperature of its targets. Its temperature cap has been hacked."
 
 /obj/item/weapon/gun/energy/temperature/Topic(href, href_list)
-	if (..())
+	if(..())
 		return
 	usr.set_machine(src)
 	add_fingerprint(usr)
@@ -452,32 +488,38 @@
 			target_temperature = min((500 + 500*emagged), target_temperature+amount)
 		else
 			target_temperature = max(0, target_temperature+amount)
-	if (istype(loc, /mob))
+	if(istype(loc, /mob))
 		attack_self(loc)
 	add_fingerprint(usr)
 	return
 
 /obj/item/weapon/gun/energy/temperature/process()
+	..()
+	var/obj/item/ammo_casing/energy/temp/T = ammo_type[select]
+	T.temp = temperature
 	switch(temperature)
 		if(0 to 100)
-			e_cost = 3000
+			T.e_cost = 3000
 			powercost = "High"
 		if(100 to 250)
-			e_cost = 2000
+			T.e_cost = 2000
 			powercost = "Medium"
 		if(251 to 300)
-			e_cost = 1000
+			T.e_cost = 1000
 			powercost = "Low"
 		if(301 to 400)
-			e_cost = 2000
+			T.e_cost = 2000
 			powercost = "Medium"
 		if(401 to 1000)
-			e_cost = 3000
+			T.e_cost = 3000
 			powercost = "High"
 	switch(powercost)
-		if("High")		powercostcolor = "orange"
-		if("Medium")	powercostcolor = "green"
-		else			powercostcolor = "blue"
+		if("High")
+			powercostcolor = "orange"
+		if("Medium")
+			powercostcolor = "green"
+		else
+			powercostcolor = "blue"
 	if(target_temperature != temperature)
 		var/difference = abs(target_temperature - temperature)
 		if(difference >= (10 + 40*emagged)) //so emagged temp guns adjust their temperature much more quickly
@@ -489,9 +531,9 @@
 			temperature = target_temperature
 		update_icon()
 
-		if (istype(loc, /mob/living/carbon))
+		if(istype(loc, /mob/living/carbon))
 			var /mob/living/carbon/M = loc
-			if (src == M.machine)
+			if(src == M.machine)
 				update_dat()
 				M << browse("<TITLE>Temperature Gun Configuration</TITLE><HR>[dat]", "window=tempgun;size=510x102")
 	return
@@ -510,13 +552,13 @@
 		dat += "<FONT color=blue><B>[temperature]</B> ([round(temperature-T0C)]&deg;C)</FONT>"
 	dat += "<BR>"
 	dat += "Target output temperature: "	//might be string idiocy, but at least it's easy to read
-	dat += "<A href='?src=\ref[src];temp=-100'>-</A> "
-	dat += "<A href='?src=\ref[src];temp=-10'>-</A> "
-	dat += "<A href='?src=\ref[src];temp=-1'>-</A> "
+	dat += "<A href='?src=[UID()];temp=-100'>-</A> "
+	dat += "<A href='?src=[UID()];temp=-10'>-</A> "
+	dat += "<A href='?src=[UID()];temp=-1'>-</A> "
 	dat += "[target_temperature] "
-	dat += "<A href='?src=\ref[src];temp=1'>+</A> "
-	dat += "<A href='?src=\ref[src];temp=10'>+</A> "
-	dat += "<A href='?src=\ref[src];temp=100'>+</A>"
+	dat += "<A href='?src=[UID()];temp=1'>+</A> "
+	dat += "<A href='?src=[UID()];temp=10'>+</A> "
+	dat += "<A href='?src=[UID()];temp=100'>+</A>"
 	dat += "<BR>"
 	dat += "Power cost: "
 	dat += "<FONT color=[powercostcolor]><B>[powercost]</B></FONT>"
@@ -550,7 +592,7 @@
 	update_charge()
 
 /obj/item/weapon/gun/energy/temperature/proc/update_user()
-	if (istype(loc,/mob/living/carbon))
+	if(istype(loc,/mob/living/carbon))
 		var/mob/living/carbon/M = loc
 		M.update_inv_back()
 		M.update_inv_l_hand()
@@ -581,4 +623,6 @@
 	var/mimic_type = /obj/item/weapon/gun/projectile/automatic/pistol //Setting this to the mimicgun type does exactly what you think it will.
 
 /obj/item/weapon/gun/energy/mimicgun/newshot()
-	..(mimic_type)
+	var/obj/item/ammo_casing/energy/mimic/M = ammo_type[select]
+	M.mimic_type = mimic_type
+	..()

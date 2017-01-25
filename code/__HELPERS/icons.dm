@@ -167,7 +167,7 @@ mob
 
 		Output_Icon()
 			set name = "2. Output Icon"
-			to_chat(src, "Icon is: \icon[getFlatIcon(src)]")
+			to_chat(src, "Icon is: [bicon(getFlatIcon(src))]")
 
 		Label_Icon()
 			set name = "3. Label Icon"
@@ -747,7 +747,7 @@ The _flatIcons list is a cache for generated icon files.
 			add = icon(I:icon, I:icon_state, I:dir)
 			// This checks for a silent failure mode of the icon routine. If the requested dir
 			// doesn't exist in this icon state it returns a 32x32 icon with 0 alpha.
-			if (I:dir != SOUTH && add.Width() == 32 && add.Height() == 32)
+			if(I:dir != SOUTH && add.Width() == 32 && add.Height() == 32)
 				// Check every pixel for blank (computationally expensive, but the process is limited
 				// by the amount of film on the station, only happens when we hit something that's
 				// turned, and bails at the very first pixel it sees.
@@ -760,7 +760,7 @@ The _flatIcons list is a cache for generated icon files.
 					if(!blankpixel)
 						break
 				// If we ALWAYS returned a null (which happens when GetPixel encounters something with alpha 0)
-				if (blankpixel)
+				if(blankpixel)
 					// Pull the default direction.
 					add = icon(I:icon, I:icon_state)
 		else // 'I' is an appearance object.
@@ -815,9 +815,13 @@ The _flatIcons list is a cache for generated icon files.
 
 /proc/getHologramIcon(icon/A, safety=1)//If safety is on, a new icon is not created.
 	var/icon/flat_icon = safety ? A : new(A)//Has to be a new icon to not constantly change the same icon.
+	var/icon/alpha_mask
 	flat_icon.ColorTone(rgb(125,180,225))//Let's make it bluish.
 	flat_icon.ChangeOpacity(0.5)//Make it half transparent.
-	var/icon/alpha_mask = new('icons/effects/effects.dmi', "scanline")//Scanline effect.
+	if(A.Height() == 64)
+		alpha_mask = new('icons/mob/ancient_machine.dmi', "scanline2")//Scaline for tall icons.
+	else
+		alpha_mask = new('icons/effects/effects.dmi', "scanline")//Scanline effect.
 	flat_icon.AddAlphaMask(alpha_mask)//Finally, let's mix in a distortion effect.
 	return flat_icon
 
@@ -830,8 +834,8 @@ The _flatIcons list is a cache for generated icon files.
 	return composite
 
 proc/adjust_brightness(var/color, var/value)
-	if (!color) return "#FFFFFF"
-	if (!value) return color
+	if(!color) return "#FFFFFF"
+	if(!value) return color
 
 	var/list/RGB = ReadRGB(color)
 	RGB[1] = Clamp(RGB[1]+value,0,255)
@@ -844,7 +848,7 @@ proc/sort_atoms_by_layer(var/list/atoms)
 	var/list/result = atoms.Copy()
 	var/gap = result.len
 	var/swapped = 1
-	while (gap > 1 || swapped)
+	while(gap > 1 || swapped)
 		swapped = 0
 		if(gap > 1)
 			gap = round(gap / 1.3) // 1.3 is the emperic comb sort coefficient

@@ -254,17 +254,17 @@
 /obj/machinery/door/airlock/plasma/BlockSuperconductivity() //we don't stop the heat~
 	return 0
 
-/obj/machinery/door/airlock/clown
+/obj/machinery/door/airlock/bananium
 	name = "Bananium Airlock"
 	icon = 'icons/obj/doors/Doorbananium.dmi'
-	mineral = "clown"
+	mineral = "bananium"
 	doorOpen = 'sound/items/bikehorn.ogg'
 	doorClose = 'sound/items/bikehorn.ogg'
 
-/obj/machinery/door/airlock/mime
+/obj/machinery/door/airlock/tranquillite
 	name = "Tranquillite Airlock"
 	icon = 'icons/obj/doors/Doorfreezer.dmi'
-	mineral = "mime"
+	mineral = "tranquillite"
 	doorOpen = null
 	doorClose = null
 
@@ -365,7 +365,7 @@ About the new airlock wires panel:
 			else /*if(src.justzap)*/
 				return
 		else if(user.hallucination > 50 && prob(10) && src.operating == 0)
-			to_chat(user, "\red <B>You feel a powerful shock course through your body!</B>")
+			to_chat(user, "<span class='danger'>You feel a powerful shock course through your body!</span>")
 			user.adjustStaminaLoss(50)
 			user.AdjustStunned(5)
 			return
@@ -373,6 +373,13 @@ About the new airlock wires panel:
 
 /obj/machinery/door/airlock/bumpopen(mob/living/simple_animal/user as mob)
 	..(user)
+
+
+/obj/machinery/door/airlock/autoclose()
+	autoclose_timer = 0
+	if(!qdeleted(src) && !density && !operating && !locked && !welded && autoclose)
+		close()
+	return
 
 /obj/machinery/door/airlock/proc/isElectrified()
 	if(src.electrified_until != 0)
@@ -390,7 +397,7 @@ About the new airlock wires panel:
 	return ((src.aiControlDisabled==1) && (!hackProof) && (!src.isAllPowerLoss()));
 
 /obj/machinery/door/airlock/proc/arePowerSystemsOn()
-	if (stat & (NOPOWER|BROKEN))
+	if(stat & (NOPOWER|BROKEN))
 		return 0
 	return (src.main_power_lost_until==0 || src.backup_power_lost_until==0)
 
@@ -469,12 +476,13 @@ About the new airlock wires panel:
 	else if(duration)	//electrify door for the given duration seconds
 		if(usr)
 			shockedby += text("\[[time_stamp()]\] - [usr](ckey:[usr.ckey])")
-			usr.attack_log += text("\[[time_stamp()]\] <font color='red'>Electrified the [name] at [x] [y] [z]</font>")
+			usr.create_attack_log("<font color='red'>Electrified the [name] at [x] [y] [z]</font>")
 		else
 			shockedby += text("\[[time_stamp()]\] - EMP)")
 		message = "The door is now electrified [duration == -1 ? "permanently" : "for [duration] second\s"]."
 		electrified_until = duration == -1 ? -1 : world.time + SecondsToTicks(duration)
-		electrified_timer = addtimer(src, "electrify", SecondsToTicks(duration), 1, 0)
+		if(duration != -1)
+			electrified_timer = addtimer(src, "electrify", SecondsToTicks(duration), 1, 0)
 
 	if(feedback && message)
 		to_chat(usr, message)
@@ -552,6 +560,23 @@ About the new airlock wires panel:
 	ui_interact(user)
 
 /obj/machinery/door/airlock/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "door_control.tmpl", "Door Controls - [src]", 600, 375)
+		ui.open()
+		ui.set_auto_update(1)
+
+/obj/machinery/door/airlock/attack_ai(mob/user as mob)
+	ui_interact(user)
+
+/obj/machinery/door/airlock/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "door_control.tmpl", "Door Controls - [src]", 600, 375)
+		ui.open()
+		ui.set_auto_update(1)
+
+/obj/machinery/door/airlock/ui_data(mob/user, datum/topic_state/state = default_state)
 	var/data[0]
 
 	data["main_power_loss"]		= round(main_power_lost_until 	> 0 ? max(main_power_lost_until - world.time,	0) / 10 : main_power_lost_until,	1)
@@ -560,22 +585,16 @@ About the new airlock wires panel:
 	data["open"] = !density
 
 	var/commands[0]
-	commands[++commands.len] = list("name" = "IdScan",					"command"= "idscan",				"active" = !aiDisabledIdScanner,	"enabled" = "Enabled",	"disabled" = "Disable",		"danger" = 0, "act" = 1)
-	commands[++commands.len] = list("name" = "Bolts",					"command"= "bolts",					"active" = !locked,					"enabled" = "Raised",	"disabled" = "Dropped",		"danger" = 0, "act" = 0)
-	commands[++commands.len] = list("name" = "Bolt Lights",				"command"= "lights",				"active" = lights,					"enabled" = "Enabled",	"disabled" = "Disable",		"danger" = 0, "act" = 1)
-	commands[++commands.len] = list("name" = "Safeties",				"command"= "safeties",				"active" = safe,					"enabled" = "Nominal",	"disabled" = "Overridden",	"danger" = 1, "act" = 0)
-	commands[++commands.len] = list("name" = "Timing",					"command"= "timing",				"active" = normalspeed,				"enabled" = "Nominal",	"disabled" = "Overridden",	"danger" = 1, "act" = 0)
-	commands[++commands.len] = list("name" = "Door State",				"command"= "open",					"active" = density,					"enabled" = "Closed",	"disabled" = "Opened", 		"danger" = 0, "act" = 0)
-	commands[++commands.len] = list("name" = "Emergency Access",		"command"= "emergency",				"active" = !emergency,				"enabled" = "Disabled",	"disabled" = "Enabled", 	"danger" = 0, "act" = 0)
+	commands[++commands.len] = list("name" = "IdScan",			"command"= "idscan",	"active" = !aiDisabledIdScanner,"enabled" = "Enabled",	"disabled" = "Disable",		"danger" = 0, "act" = 1)
+	commands[++commands.len] = list("name" = "Bolts",			"command"= "bolts",		"active" = !locked,				"enabled" = "Raised",	"disabled" = "Dropped",		"danger" = 0, "act" = 0)
+	commands[++commands.len] = list("name" = "Bolt Lights",		"command"= "lights",	"active" = lights,				"enabled" = "Enabled",	"disabled" = "Disable",		"danger" = 0, "act" = 1)
+	commands[++commands.len] = list("name" = "Safeties",		"command"= "safeties",	"active" = safe,				"enabled" = "Nominal",	"disabled" = "Overridden",	"danger" = 1, "act" = 0)
+	commands[++commands.len] = list("name" = "Timing",			"command"= "timing",	"active" = normalspeed,			"enabled" = "Nominal",	"disabled" = "Overridden",	"danger" = 1, "act" = 0)
+	commands[++commands.len] = list("name" = "Door State",		"command"= "open",		"active" = density,				"enabled" = "Closed",	"disabled" = "Opened", 		"danger" = 0, "act" = 0)
+	commands[++commands.len] = list("name" = "Emergency Access","command"= "emergency",	"active" = !emergency,			"enabled" = "Disabled",	"disabled" = "Enabled", 	"danger" = 0, "act" = 0)
 
 	data["commands"] = commands
-
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if (!ui)
-		ui = new(user, src, ui_key, "door_control.tmpl", "Door Controls - [src]", 600, 375)
-		ui.set_initial_data(data)
-		ui.open()
-		ui.set_auto_update(1)
+	return data
 
 /obj/machinery/door/airlock/proc/hack(mob/user as mob)
 	if(src.aiHacking==0)
@@ -622,14 +641,14 @@ About the new airlock wires panel:
 			sleep(10)
 			//bring up airlock dialog
 			src.aiHacking = 0
-			if (user)
+			if(user)
 				src.attack_ai(user)
 
 /obj/machinery/door/airlock/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
-	if (src.isElectrified())
-		if (istype(mover, /obj/item))
+	if(src.isElectrified())
+		if(istype(mover, /obj/item))
 			var/obj/item/i = mover
-			if (i.materials[MAT_METAL])
+			if(i.materials[MAT_METAL])
 				var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 				s.set_up(5, 1, src)
 				s.start()
@@ -673,7 +692,7 @@ About the new airlock wires panel:
 		if(src.canAIHack(user))
 			src.hack(user)
 		else
-			if (src.isAllPowerLoss()) //don't really like how this gets checked a second time, but not sure how else to do it.
+			if(src.isAllPowerLoss()) //don't really like how this gets checked a second time, but not sure how else to do it.
 				to_chat(user, "<span class='warning'>Unable to interface: Connection timed out.</span>")
 			else
 				to_chat(user, "<span class='warning'>Unable to interface: Connection refused.</span>")
@@ -686,7 +705,7 @@ About the new airlock wires panel:
 		return 1
 
 	var/activate = text2num(href_list["activate"])
-	switch (href_list["command"])
+	switch(href_list["command"])
 		if("idscan")
 			if(src.isWireCut(AIRLOCK_WIRE_IDSCAN))
 				to_chat(usr, "The IdScan wire has been cut - IdScan feature permanently disabled.")
@@ -717,7 +736,7 @@ About the new airlock wires panel:
 				electrify(0)
 			else if(activate)	//electrify door for 30 seconds
 				shockedby += text("\[[time_stamp()]\][usr](ckey:[usr.ckey])")
-				usr.attack_log += text("\[[time_stamp()]\] <font color='red'>Electrified the [name] at [x] [y] [z]</font>")
+				usr.create_attack_log("<font color='red'>Electrified the [name] at [x] [y] [z]</font>")
 				to_chat(usr, "The door is now electrified for thirty seconds.")
 				electrify(30)
 		if("electrify_permanently")
@@ -728,7 +747,7 @@ About the new airlock wires panel:
 				electrify(0)
 			else if(activate)
 				shockedby += text("\[[time_stamp()]\][usr](ckey:[usr.ckey])")
-				usr.attack_log += text("\[[time_stamp()]\] <font color='red'>Electrified the [name] at [x] [y] [z]</font>")
+				usr.create_attack_log("<font color='red'>Electrified the [name] at [x] [y] [z]</font>")
 				to_chat(usr, "The door is now electrified.")
 				electrify(-1)
 		if("open")
@@ -742,33 +761,33 @@ About the new airlock wires panel:
 				close()
 		if("safeties")
 			// Safeties!  We don't need no stinking safeties!
-			if (src.isWireCut(AIRLOCK_WIRE_SAFETY))
+			if(src.isWireCut(AIRLOCK_WIRE_SAFETY))
 				to_chat(usr, text("The safety wire is cut - Cannot secure the door."))
-			else if (activate && src.safe)
+			else if(activate && src.safe)
 				safe = 0
-			else if (!activate && !src.safe)
+			else if(!activate && !src.safe)
 				safe = 1
 		if("timing")
 			// Door speed control
 			if(src.isWireCut(AIRLOCK_WIRE_SPEED))
 				to_chat(usr, text("The timing wire is cut - Cannot alter timing."))
-			else if (activate && src.normalspeed)
+			else if(activate && src.normalspeed)
 				normalspeed = 0
-			else if (!activate && !src.normalspeed)
+			else if(!activate && !src.normalspeed)
 				normalspeed = 1
 		if("lights")
 			// Bolt lights
 			if(src.isWireCut(AIRLOCK_WIRE_LIGHT))
 				to_chat(usr, "The bolt lights wire has been cut - The door bolt lights are permanently disabled.")
-			else if (!activate && src.lights)
+			else if(!activate && src.lights)
 				lights = 0
 				to_chat(usr, "The door bolt lights have been disabled.")
-			else if (activate && !src.lights)
+			else if(activate && !src.lights)
 				lights = 1
 				to_chat(usr, "The door bolt lights have been enabled.")
 		if("emergency")
 			// Emergency access
-			if (src.emergency)
+			if(src.emergency)
 				emergency = 0
 				to_chat(usr, "Emergency access has been disabled.")
 			else
@@ -843,7 +862,7 @@ About the new airlock wires panel:
 						src.check_access()
 					if(src.req_access.len)
 						ae.conf_access = src.req_access
-					else if (src.req_one_access.len)
+					else if(src.req_one_access.len)
 						ae.conf_access = src.req_one_access
 						ae.one_access = 1
 				else
@@ -935,7 +954,7 @@ About the new airlock wires panel:
 	operating = 1
 	do_animate("closing")
 	src.layer = 3.1
-	if (!override) sleep(5)
+	if(!override) sleep(5)
 	src.density = 1
 	if(!safe)
 		crush()
@@ -956,7 +975,7 @@ About the new airlock wires panel:
 	if(locked)
 		return 0
 
-	if (operating && !forced) return 0
+	if(operating && !forced) return 0
 
 	src.locked = 1
 	playsound(src, boltDown, 30, 0, 3)
@@ -967,7 +986,7 @@ About the new airlock wires panel:
 	if(!src.locked)
 		return
 
-	if (!forced)
+	if(!forced)
 		if(operating || !src.arePowerSystemsOn() || isWireCut(AIRLOCK_WIRE_DOOR_BOLTS)) return
 
 	src.locked = 0
@@ -980,7 +999,7 @@ About the new airlock wires panel:
 	wires = new(src)
 	if(src.closeOtherId != null)
 		spawn (5)
-			for (var/obj/machinery/door/airlock/A in world)
+			for(var/obj/machinery/door/airlock/A in airlocks)
 				if(A.closeOtherId == src.closeOtherId && A != src)
 					src.closeOther = A
 					break
@@ -997,11 +1016,11 @@ About the new airlock wires panel:
 	if(istype(C, /obj/item/device/detective_scanner) || istype(C, /obj/item/taperoll))
 		return
 
-	if(istype(C, /obj/item/weapon/c4))
+	if(istype(C, /obj/item/weapon/grenade/plastic/c4))
 		to_chat(user, "The hatch is coated with a product that prevents the shaped charge from sticking!")
 		return
 
-	if(istype(C, /obj/item/mecha_parts/mecha_equipment/tool/rcd) || istype(C, /obj/item/weapon/rcd))
+	if(istype(C, /obj/item/mecha_parts/mecha_equipment/rcd) || istype(C, /obj/item/weapon/rcd))
 		to_chat(user, "The hatch is made of an advanced compound that cannot be deconstructed using an RCD.")
 		return
 
@@ -1069,4 +1088,65 @@ About the new airlock wires panel:
 		src.unlock()
 		src.open()
 		src.lock()
+
+/obj/machinery/door/airlock/hostile_lockdown(mob/origin)
+	// Must be powered and have working AI wire.
+	if(canAIControl(src) && !stat)
+		locked = FALSE //For airlocks that were bolted open.
+		safe = FALSE //DOOR CRUSH
+		close()
+		lock() //Bolt it!
+		electrified_until = -1  //Shock it!
+		if(origin)
+			shockedby += "\[[time_stamp()]\][origin](ckey:[origin.ckey])"
+
+
+/obj/machinery/door/airlock/disable_lockdown()
+	// Must be powered and have working AI wire.
+	if(canAIControl(src) && !stat)
+		unlock()
+		electrified_until = 0
+		open()
+		safe = TRUE
+
+//////////////////////////////////
+/*
+	Cult Airlocks
+*/
+
+/obj/machinery/door/airlock/cult
+	name = "cult airlock"
+	icon = 'icons/obj/doors/doorcult.dmi'
+	assembly_type = /obj/structure/door_assembly/door_assembly_cult
+	hackProof = 1
+	aiControlDisabled = 1
+	var/friendly = FALSE
+
+/obj/machinery/door/airlock/cult/New()
+	..()
+
+/obj/machinery/door/airlock/cult/canAIControl(mob/user)
+	return (iscultist(user))
+
+/obj/machinery/door/airlock/cult/allowed(mob/M)
+	if(!density)
+		return 1
+	if(friendly || \
+			iscultist(M) || \
+			istype(M, /mob/living/simple_animal/shade) || \
+			istype(M, /mob/living/simple_animal/construct))
+		return 1
+	else
+		var/atom/throwtarget
+		throwtarget = get_edge_target_turf(src, get_dir(src, get_step_away(M, src)))
+		M << pick(sound('sound/hallucinations/turn_around1.ogg',0,1,50), sound('sound/hallucinations/turn_around2.ogg',0,1,50))
+		M.Weaken(2)
+		spawn(0)
+			M.throw_at(throwtarget, 5, 1,src)
+		return 0
+
+/obj/machinery/door/airlock/cult/narsie_act()
 	return
+
+/obj/machinery/door/airlock/cult/friendly
+	friendly = TRUE

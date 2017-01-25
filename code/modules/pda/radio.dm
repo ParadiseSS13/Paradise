@@ -51,7 +51,7 @@
 	frequency.post_signal(src, signal, filter = s_filter)
 
 /obj/item/radio/integrated/receive_signal(datum/signal/signal)
-	if (bot_type && istype(signal.source, /obj/machinery/bot_core) && signal.data["type"] == bot_type)
+	if(bot_type && istype(signal.source, /obj/machinery/bot_core) && signal.data["type"] == bot_type)
 		if(!botlist)
 			botlist = new()
 
@@ -173,7 +173,7 @@
 /obj/item/radio/integrated/signal/initialize()
 	if(!radio_controller)
 		return
-	if (src.frequency < PUBLIC_LOW_FREQ || src.frequency > PUBLIC_HIGH_FREQ)
+	if(src.frequency < PUBLIC_LOW_FREQ || src.frequency > PUBLIC_HIGH_FREQ)
 		src.frequency = sanitize_frequency(src.frequency)
 
 	set_frequency(frequency)

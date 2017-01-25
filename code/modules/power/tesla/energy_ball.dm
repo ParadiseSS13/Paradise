@@ -1,7 +1,7 @@
 #define TESLA_DEFAULT_POWER 1738260
 #define TESLA_MINI_POWER 869130
 
-var/list/blacklisted_tesla_types = list(/obj/machinery/atmospherics,
+var/list/blacklisted_tesla_types = typecacheof(list(/obj/machinery/atmospherics,
 										/obj/machinery/power/emitter,
 										/obj/machinery/field/generator,
 										/mob/living/simple_animal,
@@ -15,7 +15,7 @@ var/list/blacklisted_tesla_types = list(/obj/machinery/atmospherics,
 										/obj/machinery/field/containment,
 										/obj/structure/disposalpipe,
 										/obj/structure/sign,
-										/obj/machinery/gateway)
+										/obj/machinery/gateway))
 
 /obj/singularity/energy_ball
 	name = "energy ball"
@@ -62,7 +62,7 @@ var/list/blacklisted_tesla_types = list(/obj/machinery/atmospherics,
 
 		pixel_x = -32
 		pixel_y = -32
-		for (var/ball in orbiting_balls)
+		for(var/ball in orbiting_balls)
 			tesla_zap(ball, rand(1, Clamp(orbiting_balls.len, 3, 7)), TESLA_MINI_POWER)
 	else
 		energy = 0 // ensure we dont have miniballs of miniballs
@@ -94,7 +94,7 @@ var/list/blacklisted_tesla_types = list(/obj/machinery/atmospherics,
 
 		playsound(src.loc, 'sound/magic/lightning_chargeup.ogg', 100, 1, extrarange = 30)
 		spawn(100)
-			if (!loc)
+			if(!loc)
 				return
 			var/obj/singularity/energy_ball/EB = new(loc)
 
@@ -123,14 +123,14 @@ var/list/blacklisted_tesla_types = list(/obj/machinery/atmospherics,
 	dust_mobs(A)
 
 /obj/singularity/energy_ball/orbit(obj/singularity/energy_ball/target)
-	if (istype(target))
+	if(istype(target))
 		target.orbiting_balls += src
 
 	. = ..()
 
-	if (istype(target))
+	if(istype(target))
 		target.orbiting_balls -= src
-	if (!loc)
+	if(!loc)
 		qdel(src)
 
 /obj/singularity/energy_ball/proc/dust_mobs(atom/A)
@@ -175,7 +175,7 @@ var/list/blacklisted_tesla_types = list(/obj/machinery/atmospherics,
 				closest_atom = A
 				closest_dist = dist
 
-		else if(closest_grounding_rod || is_type_in_list(A, blacklisted_tesla_types))
+		else if(closest_grounding_rod || is_type_in_typecache(A, blacklisted_tesla_types))
 			continue
 
 		else if(istype(A, /mob/living))

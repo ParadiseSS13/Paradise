@@ -20,8 +20,8 @@
 /obj/machinery/computer/HONKputer/Topic(href, href_list)
 	if(..())
 		return 1
-	if (!(src.z in config.station_levels))
-		to_chat(usr, "\red <b>Unable to establish a connection</b>: \black You're too far away from the station!")
+	if(is_away_level(src.z))
+		to_chat(usr, "<span class='danger'>Unable to establish a connection</span>: You're too far away from the station!")
 		return
 	usr.set_machine(src)
 
@@ -34,10 +34,10 @@
 		if("login")
 			var/mob/M = usr
 			var/obj/item/weapon/card/id/I = M.get_active_hand()
-			if (istype(I, /obj/item/device/pda))
+			if(istype(I, /obj/item/device/pda))
 				var/obj/item/device/pda/pda = I
 				I = pda.id
-			if (I && istype(I))
+			if(I && istype(I))
 				if(src.check_access(I) || src.emagged==1)
 					authenticated = 1
 		if("logout")
@@ -68,27 +68,27 @@
 /obj/machinery/computer/HONKputer/attack_hand(var/mob/user as mob)
 	if(..())
 		return
-	if (src.z > 6)
-		to_chat(user, "\red <b>Unable to establish a connection</b>: \black You're too far away from the station!")
+	if(is_away_level(src.z))
+		to_chat(user, "<span class='danger'>Unable to establish a connection</span>: You're too far away from the station!")
 		return
 
 	user.set_machine(src)
 	var/dat = "<head><title>HONKputer Interface</title></head><body>"
 
-	if (istype(user, /mob/living/silicon))
+	if(istype(user, /mob/living/silicon))
 		to_chat(user, "This console is not networked to the rest of the grid.")
 		return
 
 	switch(src.state)
 		if(STATE_DEFAULT)
-			if (src.authenticated)
-				dat += "<BR>\[ <A HREF='?src=\ref[src];operation=logout'>Log Out</A> \]"
-				dat += "<BR>\[ <A HREF='?src=\ref[src];operation=MessageHonkplanet'>Send an emergency message to Honkplanet</A> \]"
+			if(src.authenticated)
+				dat += "<BR>\[ <A HREF='?src=[UID()];operation=logout'>Log Out</A> \]"
+				dat += "<BR>\[ <A HREF='?src=[UID()];operation=MessageHonkplanet'>Send an emergency message to Honkplanet</A> \]"
 			else
-				dat += "<BR>\[ <A HREF='?src=\ref[src];operation=login'>Log In</A> \]"
+				dat += "<BR>\[ <A HREF='?src=[UID()];operation=login'>Log In</A> \]"
 
 
-	dat += "<BR>\[ [(src.state != STATE_DEFAULT) ? "<A HREF='?src=\ref[src];operation=main'>Main Menu</A> | " : ""]<A HREF='?src=\ref[user];mach_close=honkputer'>Close</A> \]"
+	dat += "<BR>\[ [(src.state != STATE_DEFAULT) ? "<A HREF='?src=[UID()];operation=main'>Main Menu</A> | " : ""]<A HREF='?src=[user.UID()];mach_close=honkputer'>Close</A> \]"
 	user << browse(dat, "window=honkputer;size=400x500")
 	onclose(user, "honkputer")
 
@@ -101,9 +101,9 @@
 			var/obj/item/weapon/circuitboard/M = new circuit( A )
 			A.circuit = M
 			A.anchored = 1
-			for (var/obj/C in src)
+			for(var/obj/C in src)
 				C.loc = src.loc
-			if (src.stat & BROKEN)
+			if(src.stat & BROKEN)
 				to_chat(user, "\blue The broken glass falls out.")
 				new /obj/item/weapon/shard( src.loc )
 				A.state = 3

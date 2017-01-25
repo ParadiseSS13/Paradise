@@ -14,52 +14,46 @@
 	var/list/cargo = new
 	var/cargo_capacity = 15
 
-/*
-/obj/mecha/working/ripley/New()
-	..()
-	return
-*/
-
 /obj/mecha/working/ripley/Move()
 	. = ..()
 	update_pressure()
 
 /obj/mecha/working/ripley/Destroy()
-	while(src.damage_absorption.["brute"] < 0.6)
-		new /obj/item/asteroid/goliath_hide(src.loc)
-		src.damage_absorption.["brute"] = src.damage_absorption.["brute"] + 0.1 //If a goliath-plated ripley gets killed, all the plates drop
-	for(var/atom/movable/A in src.cargo)
-		A.loc = loc
+	while(damage_absorption.["brute"] < 0.6)
+		new /obj/item/asteroid/goliath_hide(loc)
+		damage_absorption.["brute"] = damage_absorption.["brute"] + 0.1 //If a goliath-plated ripley gets killed, all the plates drop
+	for(var/atom/movable/A in cargo)
+		A.forceMove(loc)
 		step_rand(A)
 	cargo.Cut()
 	return ..()
 
 /obj/mecha/working/ripley/go_out()
 	..()
-	if (src.damage_absorption.["brute"] < 0.6 && src.damage_absorption.["brute"] > 0.3)
-		src.overlays = null
-		src.overlays += image("icon" = "mecha.dmi", "icon_state" = "ripley-g-open")
-	else if (src.damage_absorption.["brute"] == 0.3)
-		src.overlays = null
-		src.overlays += image("icon" = "mecha.dmi", "icon_state" = "ripley-g-full-open")
+	if(damage_absorption.["brute"] < 0.6 && damage_absorption.["brute"] > 0.3)
+		overlays = null
+		overlays += image("icon" = "mecha.dmi", "icon_state" = "ripley-g-open")
+	else if(damage_absorption.["brute"] == 0.3)
+		overlays = null
+		overlays += image("icon" = "mecha.dmi", "icon_state" = "ripley-g-full-open")
 
 /obj/mecha/working/ripley/moved_inside(var/mob/living/carbon/human/H as mob)
 	..()
-	if (src.damage_absorption.["brute"] < 0.6 && src.damage_absorption.["brute"] > 0.3)
-		src.overlays = null
-		src.overlays += image("icon" = "mecha.dmi", "icon_state" = "ripley-g")
-	else if (src.damage_absorption.["brute"] == 0.3)
-		src.overlays = null
-		src.overlays += image("icon" = "mecha.dmi", "icon_state" = "ripley-g-full")
+	if(damage_absorption.["brute"] < 0.6 && damage_absorption.["brute"] > 0.3)
+		overlays = null
+		overlays += image("icon" = "mecha.dmi", "icon_state" = "ripley-g")
+	else if(damage_absorption.["brute"] == 0.3)
+		overlays = null
+		overlays += image("icon" = "mecha.dmi", "icon_state" = "ripley-g-full")
 
 /obj/mecha/working/ripley/mmi_moved_inside(var/obj/item/device/mmi/mmi_as_oc as obj,mob/user as mob)
 	..()
-	if (src.damage_absorption.["brute"] < 0.6 && src.damage_absorption.["brute"] > 0.3)
-		src.overlays = null
-		src.overlays += image("icon" = "mecha.dmi", "icon_state" = "ripley-g")
-	else if (src.damage_absorption.["brute"] == 0.3)
-		src.overlays = null
-		src.overlays += image("icon" = "mecha.dmi", "icon_state" = "ripley-g-full")
+	if(damage_absorption.["brute"] < 0.6 && damage_absorption.["brute"] > 0.3)
+		overlays = null
+		overlays += image("icon" = "mecha.dmi", "icon_state" = "ripley-g")
+	else if(damage_absorption.["brute"] == 0.3)
+		overlays = null
+		overlays += image("icon" = "mecha.dmi", "icon_state" = "ripley-g-full")
 
 /obj/mecha/working/ripley/firefighter
 	desc = "Standart APLU chassis was refitted with additional thermal protection and cistern."
@@ -68,6 +62,7 @@
 	initial_icon = "firefighter"
 	max_temperature = 65000
 	health = 250
+	burn_state = LAVA_PROOF
 	lights_power = 7
 	damage_absorption = list("brute"=0.6,"fire"=0.5,"bullet"=0.7,"laser"=0.7,"energy"=1,"bomb"=0.4)
 	max_equip = 5 // More armor, less tools
@@ -89,7 +84,7 @@
 
 /obj/mecha/working/ripley/deathripley/New()
 	..()
-	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/tool/safety_clamp
+	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/kill
 	ME.attach(src)
 	return
 
@@ -101,10 +96,10 @@
 	..()
 	//Attach drill
 	if(prob(25)) //Possible diamond drill... Feeling lucky?
-		var/obj/item/mecha_parts/mecha_equipment/tool/drill/diamonddrill/D = new /obj/item/mecha_parts/mecha_equipment/tool/drill/diamonddrill
+		var/obj/item/mecha_parts/mecha_equipment/drill/diamonddrill/D = new /obj/item/mecha_parts/mecha_equipment/drill/diamonddrill
 		D.attach(src)
 	else
-		var/obj/item/mecha_parts/mecha_equipment/tool/drill/D = new /obj/item/mecha_parts/mecha_equipment/tool/drill
+		var/obj/item/mecha_parts/mecha_equipment/drill/D = new /obj/item/mecha_parts/mecha_equipment/drill
 		D.attach(src)
 
 	//Add possible plasma cutter
@@ -116,12 +111,12 @@
 	cargo.Add(new /obj/structure/ore_box(src))
 
 	//Attach hydrolic clamp
-	var/obj/item/mecha_parts/mecha_equipment/tool/hydraulic_clamp/HC = new /obj/item/mecha_parts/mecha_equipment/tool/hydraulic_clamp
+	var/obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/HC = new /obj/item/mecha_parts/mecha_equipment/hydraulic_clamp
 	HC.attach(src)
-	for(var/obj/item/mecha_parts/mecha_tracking/B in src.contents)//Deletes the beacon so it can't be found easily
+	for(var/obj/item/mecha_parts/mecha_tracking/B in contents)//Deletes the beacon so it can't be found easily
 		qdel(B)
 
-	var/obj/item/mecha_parts/mecha_equipment/tool/mining_scanner/scanner = new /obj/item/mecha_parts/mecha_equipment/tool/mining_scanner
+	var/obj/item/mecha_parts/mecha_equipment/mining_scanner/scanner = new /obj/item/mecha_parts/mecha_equipment/mining_scanner
 	scanner.attach(src)
 
 /obj/mecha/working/ripley/Exit(atom/movable/O)
@@ -133,14 +128,14 @@
 	..()
 	if(href_list["drop_from_cargo"])
 		var/obj/O = locate(href_list["drop_from_cargo"])
-		if(O && O in src.cargo)
-			src.occupant_message("\blue You unload [O].")
+		if(O && O in cargo)
+			occupant_message("\blue You unload [O].")
 			O.loc = get_turf(src)
-			src.cargo -= O
+			cargo -= O
 			var/turf/T = get_turf(O)
 			if(T)
 				T.Entered(O)
-			src.log_message("Unloaded [O]. Cargo compartment capacity: [cargo_capacity - src.cargo.len]")
+			log_message("Unloaded [O]. Cargo compartment capacity: [cargo_capacity - cargo.len]")
 	return
 
 
@@ -148,9 +143,9 @@
 /obj/mecha/working/ripley/get_stats_part()
 	var/output = ..()
 	output += "<b>Cargo Compartment Contents:</b><div style=\"margin-left: 15px;\">"
-	if(src.cargo.len)
-		for(var/obj/O in src.cargo)
-			output += "<a href='?src=\ref[src];drop_from_cargo=\ref[O]'>Unload</a> : [O]<br>"
+	if(cargo.len)
+		for(var/obj/O in cargo)
+			output += "<a href='?src=[UID()];drop_from_cargo=\ref[O]'>Unload</a> : [O]<br>"
 	else
 		output += "Nothing"
 	output += "</div>"
@@ -158,12 +153,12 @@
 
 /obj/mecha/working/ripley/Destroy()
 	for(var/mob/M in src)
-		if(M==src.occupant)
+		if(M == occupant)
 			continue
 		M.loc = get_turf(src)
 		M.loc.Entered(M)
 		step_rand(M)
-	for(var/atom/movable/A in src.cargo)
+	for(var/atom/movable/A in cargo)
 		A.loc = get_turf(src)
 		var/turf/T = get_turf(A)
 		if(T)
@@ -178,9 +173,9 @@
 
 	if(pressure < 20)
 		step_in = 3
-		for(var/obj/item/mecha_parts/mecha_equipment/tool/drill/drill in equipment)
+		for(var/obj/item/mecha_parts/mecha_equipment/drill/drill in equipment)
 			drill.equip_cooldown = initial(drill.equip_cooldown)/2
 	else
 		step_in = 5
-		for(var/obj/item/mecha_parts/mecha_equipment/tool/drill/drill in equipment)
+		for(var/obj/item/mecha_parts/mecha_equipment/drill/drill in equipment)
 			drill.equip_cooldown = initial(drill.equip_cooldown)

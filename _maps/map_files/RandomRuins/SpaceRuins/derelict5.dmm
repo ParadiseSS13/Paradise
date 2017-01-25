@@ -1,0 +1,61 @@
+"a" = (/turf/space,/area/space)
+"b" = (/turf/simulated/mineral,/area/ruin/unpowered)
+"c" = (/turf/simulated/mineral,/area/space)
+"d" = (/turf/simulated/floor/plating/airless/asteroid,/area/ruin/unpowered)
+"e" = (/turf/simulated/wall,/area/ruin/unpowered)
+"f" = (/turf/simulated/wall/rust,/area/ruin/unpowered)
+"g" = (/turf/simulated/floor/plating,/area/ruin/unpowered)
+"h" = (/obj/structure/closet/crate,/turf/simulated/floor/plating,/area/ruin/unpowered)
+"i" = (/obj/effect/spawner/lootdrop/crate_spawner,/turf/simulated/floor/plating,/area/ruin/unpowered)
+"j" = (/obj/structure/barricade/wooden,/obj/structure/door_assembly,/turf/simulated/floor/plating,/area/ruin/unpowered)
+"k" = (/obj/structure/table,/obj/item/weapon/storage/toolbox/electrical,/turf/simulated/floor/plating,/area/ruin/unpowered)
+"l" = (/obj/effect/decal/remains/human,/turf/simulated/floor/plating,/area/ruin/unpowered)
+"m" = (/obj/structure/table,/obj/item/weapon/storage/toolbox/syndicate,/turf/simulated/floor/plating,/area/ruin/unpowered)
+"n" = (/obj/structure/table,/turf/simulated/floor/plating,/area/ruin/unpowered)
+"o" = (/obj/structure/barricade/wooden,/turf/simulated/floor/plating,/area/ruin/unpowered)
+"p" = (/obj/structure/barricade/wooden,/obj/machinery/door/airlock/external,/turf/simulated/floor/plating/airless/asteroid,/area/ruin/unpowered)
+"q" = (/obj/machinery/door/airlock/external,/turf/simulated/floor/plating,/area/ruin/unpowered)
+"r" = (/turf/simulated/floor/plating/airless/asteroid,/area/space)
+
+(1,1,1) = {"
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbabbaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaacaaaabbbbaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbbbaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbaaaaaa
+aaaaaaaaaaabbbbbaaaaaaaaaaaaaaaaaaaabaaa
+aaaaaaaabbbbbbbbaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaabbbbbbbbbbbbaaaaaaaaaaaaaaaaaaaaa
+aaaaaadbbbbbbbbbbbbbbbaaaaaaaaaaaabaaaaa
+aaaaaadbbbbbbbbbbbbbbbbbaaaaaaaaaaaaaaaa
+aaaaaddbbbbbbbbbeefbbeebbbbbbbaaaaaaaaaa
+aaaaaddbbbbbbbbgggeggghfibbbbbbbaaaaaaaa
+aaaaaddddbbbbbfiggjggghfhebbbbbbaaaaaaaa
+aaaaaddddbbbbbfigkfigggjgfbbbbbbbbaaaaaa
+aaaaaaaddbbbbbelgmfhggnffebbbbbbbbaaaaaa
+aaaaaaadddbbbbfghieiggggibbbbbbbbbbbaaaa
+aaaaaaaaddbbbbeffeeeejeeebbbbbbbbbbbaaaa
+aaaaaaaaddbbbbegggdggggdebbbbbbbbbbbaaaa
+aaaaaaaaddddbbegggigdgdobbbbbbbbbbbbaaaa
+aaabaaaaadddddbbebeffeepebbbbbbbbbbbaaaa
+aaaaaaaaaaadddbbbbbbbbeoebbbbbbbbbbbbaaa
+aaaaaaaaaaadddddddbbbbeqebbbbbbbbbbbbaaa
+aaaaaaaaaaaaadddddbbbbbdbbbbbbbbbbbbbaaa
+aaaaabaaaaaaadddddddddddddbbbbbbbbbbbaaa
+aaaaaaaaaaaaaaaaadddddddddbccbbbbbbbbaaa
+aaaaaaabbaaaaaaaaaddddddddbccbbbbbbbbaaa
+aaaaaaabbbbaaaaaaarrrrrrrrrccddbbbbbbaaa
+aaaaaaabbbbaaaaaaarrdddddddddddddbbbbbaa
+aaaaaaaaabbaaaaaaaaddddddddddddddbbbbbaa
+aaaaaaaaabbaaaaaaaaddddddddddddddbbbbbaa
+aaaaaaaaaaaaaaaaaaaddddddddddddddbbbbbaa
+aaaaaaaaaaaaaaaaabbdddddddddddddddbbbbaa
+abbaaaaaaaaaaaaaabbdddddddddddddddbbbbaa
+abbaaaaaaaaaaaaaabbbbdddddddddddbbbbbbaa
+abbbaaaaaaaaaaaaaabbbdddddddddddbbbbbaaa
+aaaaaaaaaaaaaaaaaabbbbbbbdddddbbbbbbbaaa
+aaaaaaaaaaaaaaaaaaaabbbbbbddddbbbbbbbaaa
+aaaaabaaaaaaaaaaaaaabbbbbbbbbbbbbbaaaaaa
+aaabaaaaaaaaaaaaaaaaaabbbbbbbbbaaaaaaaaa
+"}

@@ -140,7 +140,7 @@
 	//Exclude lasertag guns from the CLUMSY check.
 	if(clumsy_check)
 		if(istype(user))
-			if (user.disabilities & CLUMSY && prob(40))
+			if((CLUMSY in user.mutations) && prob(40))
 				to_chat(user, "<span class='userdanger'>You shoot yourself in the foot with \the [src]!</span>")
 				var/shot_leg = pick("l_foot", "r_foot")
 				process_fire(user, user, 0, params, zone_override = shot_leg)
@@ -161,7 +161,7 @@
 		return 0
 	return 1
 
-obj/item/weapon/gun/proc/newshot(params)
+obj/item/weapon/gun/proc/newshot()
 	return
 
 /obj/item/weapon/gun/proc/process_fire(atom/target as mob|obj|turf, mob/living/user as mob|obj, message = 1, params, zone_override)
@@ -251,7 +251,9 @@ obj/item/weapon/gun/proc/newshot(params)
 				I.loc = src
 				update_icon()
 				update_gunlight(user)
-				verbs += /obj/item/weapon/gun/proc/toggle_gunlight
+				var/datum/action/A = new /datum/action/item_action/toggle_gunlight(src)
+				if(loc == user)
+					A.Grant(user)
 
 	if(istype(I, /obj/item/weapon/screwdriver))
 		if(F && can_flashlight)
@@ -262,7 +264,8 @@ obj/item/weapon/gun/proc/newshot(params)
 				update_gunlight(user)
 				S.update_brightness(user)
 				update_icon()
-				verbs -= /obj/item/weapon/gun/proc/toggle_gunlight
+				for(var/datum/action/item_action/toggle_gunlight/TGL in actions)
+					qdel(TGL)
 
 	if(unique_rename)
 		if(istype(I, /obj/item/weapon/pen))
@@ -296,6 +299,10 @@ obj/item/weapon/gun/proc/newshot(params)
 	else
 		set_light(0)
 
+	for(var/X in actions)
+		var/datum/action/A = X
+		A.UpdateButtonIcon()
+
 /obj/item/weapon/gun/pickup(mob/user)
 	..()
 	if(azoom)
@@ -327,7 +334,6 @@ obj/item/weapon/gun/proc/newshot(params)
 
 /obj/item/weapon/gun/proc/rename_gun(mob/M)
 	var/input = stripped_input(M,"What do you want to name the gun?", ,"", MAX_NAME_LEN)
-
 	if(src && input && !M.stat && in_range(M,src) && !M.restrained() && M.canmove)
 		name = input
 		to_chat(M, "You name the gun [input]. Say hello to your new friend.")
@@ -376,7 +382,7 @@ obj/item/weapon/gun/proc/newshot(params)
 
 /datum/action/toggle_scope_zoom
 	name = "Toggle Scope"
-	check_flags = AB_CHECK_ALIVE|AB_CHECK_RESTRAINED|AB_CHECK_STUNNED|AB_CHECK_LYING
+	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_RESTRAINED|AB_CHECK_STUNNED|AB_CHECK_LYING
 	button_icon_state = "sniper_zoom"
 	var/obj/item/weapon/gun/gun = null
 

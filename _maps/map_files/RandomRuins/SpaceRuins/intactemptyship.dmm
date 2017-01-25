@@ -1,0 +1,44 @@
+"a" = (/turf/space,/area/space)
+"b" = (/turf/simulated/shuttle/wall{dir = 8; icon_state = "diagonalWall3"},/area/ruin/powered)
+"c" = (/turf/simulated/shuttle/wall{icon_state = "wall3"},/area/ruin/powered)
+"d" = (/turf/simulated/shuttle/wall{dir = 1; icon_state = "diagonalWall3"},/area/ruin/powered)
+"e" = (/obj/structure/shuttle/engine/propulsion{tag = "icon-propulsion (EAST)"; icon_state = "propulsion"; dir = 4},/turf/space,/area/ruin/powered)
+"f" = (/obj/structure/window/reinforced{dir = 4},/obj/structure/shuttle/engine/heater{tag = "icon-heater (WEST)"; icon_state = "heater"; dir = 8},/turf/simulated/floor/plating,/area/ruin/powered)
+"g" = (/obj/structure/table/woodentable,/obj/item/clothing/under/shorts/black,/turf/simulated/shuttle/floor{tag = "icon-floor5"; icon_state = "floor5"},/area/ruin/powered)
+"h" = (/turf/simulated/shuttle/floor{tag = "icon-floor5"; icon_state = "floor5"},/area/ruin/powered)
+"i" = (/obj/structure/table,/obj/item/device/flashlight/lamp,/obj/machinery/light{dir = 1},/turf/simulated/shuttle/floor{tag = "icon-floor5"; icon_state = "floor5"},/area/ruin/powered)
+"j" = (/obj/structure/closet,/turf/simulated/shuttle/floor{tag = "icon-floor5"; icon_state = "floor5"},/area/ruin/powered)
+"k" = (/obj/machinery/vending/assist,/turf/simulated/shuttle/floor{tag = "icon-floor5"; icon_state = "floor5"},/area/ruin/powered)
+"l" = (/obj/structure/table/woodentable,/obj/item/clothing/shoes/sandal,/turf/simulated/shuttle/floor{tag = "icon-floor5"; icon_state = "floor5"},/area/ruin/powered)
+"m" = (/obj/machinery/light{dir = 8},/turf/simulated/shuttle/floor{tag = "icon-floor5"; icon_state = "floor5"},/area/ruin/powered)
+"n" = (/obj/structure/table/woodentable,/turf/simulated/shuttle/floor{tag = "icon-floor5"; icon_state = "floor5"},/area/ruin/powered)
+"o" = (/obj/structure/table/woodentable,/obj/machinery/computer/library/checkout,/turf/simulated/shuttle/floor{tag = "icon-floor5"; icon_state = "floor5"},/area/ruin/powered)
+"p" = (/obj/structure/window/full/reinforced,/obj/structure/grille,/turf/simulated/floor/plating,/area/ruin/powered)
+"q" = (/obj/structure/grille,/obj/structure/window/full/reinforced,/turf/simulated/floor/plating,/area/ruin/powered)
+"r" = (/obj/structure/table,/obj/item/weapon/paper_bin,/obj/item/weapon/pen,/turf/simulated/shuttle/floor{tag = "icon-floor5"; icon_state = "floor5"},/area/ruin/powered)
+"s" = (/obj/machinery/door/poddoor{id_tag = "strange ship"; name = "Strange Ship Blast Door"},/turf/simulated/shuttle/floor{tag = "icon-floor5"; icon_state = "floor5"},/area/ruin/powered)
+"t" = (/obj/machinery/door/airlock/external,/turf/simulated/shuttle/floor{tag = "icon-floor5"; icon_state = "floor5"},/area/ruin/powered)
+"u" = (/obj/machinery/door/airlock/glass,/turf/simulated/shuttle/floor{tag = "icon-floor5"; icon_state = "floor5"},/area/ruin/powered)
+"v" = (/obj/structure/stool/bed/chair{dir = 4},/turf/simulated/shuttle/floor{tag = "icon-floor5"; icon_state = "floor5"},/area/ruin/powered)
+"w" = (/obj/structure/table,/obj/item/weapon/paper,/obj/item/weapon/pen,/turf/simulated/shuttle/floor{tag = "icon-floor5"; icon_state = "floor5"},/area/ruin/powered)
+"x" = (/obj/machinery/door_control{name = "Strange Ship Door Control"; pixel_x = 6; pixel_y = 0; id = "strange ship"},/turf/simulated/shuttle/wall{icon_state = "wall3"},/area/ruin/powered)
+"y" = (/obj/machinery/light,/turf/simulated/shuttle/floor{tag = "icon-floor5"; icon_state = "floor5"},/area/ruin/powered)
+"z" = (/mob/living/simple_animal/bot/medbot,/turf/simulated/shuttle/floor{tag = "icon-floor5"; icon_state = "floor5"},/area/ruin/powered)
+"A" = (/turf/simulated/shuttle/wall{dir = 2; icon_state = "diagonalWall3"},/area/ruin/powered)
+"B" = (/obj/structure/stool/bed/chair,/turf/simulated/shuttle/floor{tag = "icon-floor5"; icon_state = "floor5"},/area/ruin/powered)
+"C" = (/turf/simulated/shuttle/wall{dir = 4; icon_state = "diagonalWall3"},/area/ruin/powered)
+"D" = (/obj/machinery/light,/obj/structure/stool/bed,/turf/simulated/shuttle/floor{tag = "icon-floor5"; icon_state = "floor5"},/area/ruin/powered)
+
+(1,1,1) = {"
+aabcccccdaaaa
+aefghijkcaaaa
+aeflhhhhccccd
+bccccmhhcmhjc
+cnophhhhqhhrc
+shhthhhhuhvwc
+xhypzhhhqhhnc
+Accccmhhcmhjc
+aefBhhhhccccC
+aefnnDhjcaaaa
+aaAcccccCaaaa
+"}

@@ -32,7 +32,7 @@
 		if(T && (M == user || do_after(user, 50, target = M)))
 			if(user && M && (get_turf(M) == T) && src && imp)
 				if(imp.implant(M, user))
-					if (M == user)
+					if(M == user)
 						to_chat(user, "<span class='notice'>You implant yourself.</span>")
 					else
 						M.visible_message("[user] has implanted [M].", "<span class='notice'>[user] implants you.</span>")
@@ -58,8 +58,6 @@
 		update_icon()
 
 
-
-
 /obj/item/weapon/implanter/adrenalin
 	name = "implanter (adrenalin)"
 
@@ -82,3 +80,9 @@
 	imp = new /obj/item/weapon/implant/traitor(src)
 	..()
 
+/obj/item/weapon/implanter/death_alarm
+	name = "implanter (Death Alarm)"
+
+/obj/item/weapon/implanter/death_alarm/New()
+	imp = new /obj/item/weapon/implant/death_alarm(src)
+	..()

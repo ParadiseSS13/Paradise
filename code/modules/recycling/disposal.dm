@@ -27,12 +27,10 @@
 	idle_power_usage = 100
 
 // create a new disposal
-// find the attached trunk (if present) and init gas resvr.
+// find the attached trunk (if present)
 /obj/machinery/disposal/New()
 	..()
 	trunk_check()
-
-	air_contents = new/datum/gas_mixture()
 	//gas.volume = 1.05 * CELLSTANDARD
 	update()
 
@@ -54,16 +52,18 @@
 
 /obj/machinery/disposal/initialize()
 	// this will get a copy of the air turf and take a SEND PRESSURE amount of air from it
+	..()
 	var/atom/L = loc
 	var/datum/gas_mixture/env = new
 	env.copy_from(L.return_air())
 	var/datum/gas_mixture/removed = env.remove(SEND_PRESSURE + 1)
+	air_contents = new
 	air_contents.merge(removed)
 	trunk_check()
 
 // attack by item places it in to disposal
 /obj/machinery/disposal/attackby(var/obj/item/I, var/mob/user, params)
-	if(stat & BROKEN || !I || !user || ((I.flags & NODROP) && !istype(I, /obj/item/weapon/storage/bag/trash/cyborg)))
+	if(stat & BROKEN || !I || !user)
 		return
 
 	src.add_fingerprint(user)
@@ -125,25 +125,23 @@
 	if(istype(G))	// handle grabbed mob
 		if(ismob(G.affecting))
 			var/mob/GM = G.affecting
-			for (var/mob/V in viewers(usr))
+			for(var/mob/V in viewers(usr))
 				V.show_message("[usr] starts putting [GM.name] into the disposal.", 3)
 			if(do_after(usr, 20, target = GM))
-				if (GM.client)
-					GM.client.perspective = EYE_PERSPECTIVE
-					GM.client.eye = src
-				GM.loc = src
-				for (var/mob/C in viewers(src))
+				GM.forceMove(src)
+				for(var/mob/C in viewers(src))
 					C.show_message("\red [GM.name] has been placed in the [src] by [user].", 3)
 				qdel(G)
-				usr.attack_log += text("\[[time_stamp()]\] <font color='red'>Has placed [key_name(GM)] in disposals.</font>")
-				GM.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been placed in disposals by [key_name(user)]</font>")
+				usr.create_attack_log("<font color='red'>Has placed [key_name(GM)] in disposals.</font>")
+				GM.create_attack_log("<font color='orange'>Has been placed in disposals by [key_name(user)]</font>")
 				if(GM.ckey)
 					msg_admin_attack("[key_name_admin(user)] placed [key_name_admin(GM)] in a disposals unit. (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 		return
 
 	if(!I)	return
 
-	user.drop_item()
+	if(!user.drop_item())
+		return
 	if(I)
 		I.loc = src
 
@@ -158,13 +156,13 @@
 // mouse drop another mob or self
 //
 /obj/machinery/disposal/MouseDrop_T(mob/target, mob/user)
-	if (!istype(target) || target.buckled || get_dist(user, src) > 1 || get_dist(user, target) > 1 || user.stat || istype(user, /mob/living/silicon/ai))
+	if(!istype(target) || target.buckled || get_dist(user, src) > 1 || get_dist(user, target) > 1 || user.stat || istype(user, /mob/living/silicon/ai))
 		return
 	if(isanimal(user) && target != user) return //animals cannot put mobs other than themselves into disposal
 	src.add_fingerprint(user)
 	var/target_loc = target.loc
 	var/msg
-	for (var/mob/V in viewers(usr))
+	for(var/mob/V in viewers(usr))
 		if(target == user && !user.stat && !user.weakened && !user.stunned && !user.paralysis)
 			V.show_message("[usr] starts climbing into the disposal.", 3)
 		if(target != user && !user.restrained() && !user.stat && !user.weakened && !user.stunned && !user.paralysis)
@@ -182,18 +180,15 @@
 		msg = "[user.name] stuffs [target.name] into the [src]!"
 		to_chat(user, "You stuff [target.name] into the [src]!")
 
-		user.attack_log += text("\[[time_stamp()]\] <font color='red'>Has placed [key_name(target)] in disposals.</font>")
-		target.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been placed in disposals by [key_name(user)]</font>")
+		user.create_attack_log("<font color='red'>Has placed [key_name(target)] in disposals.</font>")
+		target.create_attack_log("<font color='orange'>Has been placed in disposals by [key_name(user)]</font>")
 		if(target.ckey)
 			msg_admin_attack("[key_name_admin(user)] placed [key_name_admin(target)] in a disposals unit")
 	else
 		return
-	if (target.client)
-		target.client.perspective = EYE_PERSPECTIVE
-		target.client.eye = src
-	target.loc = src
+	target.forceMove(src)
 
-	for (var/mob/C in viewers(src))
+	for(var/mob/C in viewers(src))
 		if(C == user)
 			continue
 		C.show_message(msg, 3)
@@ -214,14 +209,8 @@
 
 // leave the disposal
 /obj/machinery/disposal/proc/go_out(mob/user)
-
-	if (user.client)
-		user.client.eye = user.client.mob
-		user.client.perspective = MOB_PERSPECTIVE
-	user.loc = src.loc
+	user.forceMove(loc)
 	update()
-	return
-
 
 // ai as human but can't flush
 /obj/machinery/disposal/attack_ai(mob/user as mob)
@@ -252,31 +241,32 @@
 	return
 
 /obj/machinery/disposal/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "disposal_bin.tmpl", "Waste Disposal Unit", 395, 250)
+		ui.open()
+		ui.set_auto_update(1)
+
+/obj/machinery/disposal/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/data[0]
 
-	var/pressure = 100 * air_contents.return_pressure() / (SEND_PRESSURE)
+	var/pressure = Clamp(100* air_contents.return_pressure() / (SEND_PRESSURE), 0, 100)
 	var/pressure_round = round(pressure,1)
 
 	data["isAI"] = isAI(user)
 	data["flushing"] = flush
 	data["mode"] = mode
 	if(mode <= 0)
-		data["pumpstatus"] = ""
+		data["pumpstatus"] = "N/A"
 	else if(mode == 1)
-		data["pumpstatus"] = "(pressurizing)"
+		data["pumpstatus"] = "Pressurizing"
 	else if(mode == 2)
-		data["pumpstatus"] = "(ready)"
+		data["pumpstatus"] = "Ready"
 	else
-		data["pumpstatus"] = "(idle)"
+		data["pumpstatus"] = "Idle"
 	data["pressure"] = pressure_round
 
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-
-	if (!ui)
-		ui = new(user, src, ui_key, "disposal_bin.tmpl", "Waste Disposal Unit", 395, 250)
-		ui.set_initial_data(data)
-		ui.open()
-		ui.set_auto_update(1)
+	return data
 
 /obj/machinery/disposal/Topic(href, href_list)
 	if(usr.loc == src)
@@ -298,7 +288,7 @@
 	if(usr.stat || usr.restrained() || src.flushing)
 		return
 
-	if (istype(src.loc, /turf))
+	if(istype(src.loc, /turf))
 		if(href_list["pump"])
 			if(text2num(href_list["pump"]))
 				mode = 1
@@ -467,7 +457,7 @@
 		qdel(H)
 
 /obj/machinery/disposal/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
-	if (istype(mover,/obj/item) && mover.throwing)
+	if(istype(mover,/obj/item) && mover.throwing)
 		var/obj/item/I = mover
 		if(istype(I, /obj/item/projectile))
 			return
@@ -486,6 +476,10 @@
 /obj/machinery/disposal/singularity_pull(S, current_size)
 	if(current_size >= STAGE_FIVE)
 		qdel(src)
+
+/obj/machinery/disposal/get_remote_view_fullscreens(mob/user)
+	if(user.stat == DEAD || !(user.sight & (SEEOBJS|SEEMOBS)))
+		user.overlay_fullscreen("remote_view", /obj/screen/fullscreen/impaired, 2)
 
 // virtual disposal object
 // travels through pipes in lieu of actual items
@@ -630,13 +624,13 @@
 
 		var/mob/living/U = user
 
-		if (U.stat || U.last_special <= world.time)
+		if(U.stat || U.last_special <= world.time)
 			return
 
 		U.last_special = world.time+100
 
-		if (src.loc)
-			for (var/mob/M in hearers(src.loc.loc))
+		if(src.loc)
+			for(var/mob/M in hearers(src.loc.loc))
 				to_chat(M, "<FONT size=[max(0, 5 - get_dist(src, M))]>CLONG, clong!</FONT>")
 
 		playsound(src.loc, 'sound/effects/clang.ogg', 50, 0, 0)
@@ -1159,7 +1153,7 @@
 	var/obj/machinery/disposal/D = locate() in src.loc
 	if(D)
 		linked = D
-		if (!D.trunk)
+		if(!D.trunk)
 			D.trunk = src
 
 	var/obj/structure/disposaloutlet/O = locate() in src.loc
@@ -1354,11 +1348,7 @@
 
 // check if mob has client, if so restore client view on eject
 /mob/pipe_eject(var/direction)
-	if (src.client)
-		src.client.perspective = MOB_PERSPECTIVE
-		src.client.eye = src
-
-	return
+	reset_perspective(null)
 
 /obj/effect/decal/cleanable/blood/gibs/pipe_eject(var/direction)
 	var/list/dirs

@@ -6,7 +6,10 @@
 	icon = 'icons/obj/musician.dmi'
 	icon_state = "violin"
 	item_state = "violin"
+	attack_verb = list("strung", "fiddled", "tuned", "pitched")
 	force = 10
+	burn_state = FLAMMABLE
+	burntime = 20
 	hitsound = 'sound/weapons/smash.ogg'
 	var/datum/song/handheld/song
 
@@ -18,7 +21,7 @@
 	qdel(song)
 	song = null
 	return ..()
-	
+
 /obj/item/device/violin/initialize()
 	song.tempo = song.sanitize_tempo(song.tempo) // tick_lag isn't set when the map is loaded
 	..()
@@ -34,6 +37,9 @@
 		return
 
 	song.ui_interact(user, ui_key, ui, force_open)
+
+/obj/item/device/violin/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+	return song.ui_data(user, ui_key, state)
 
 /obj/item/device/violin/Topic(href, href_list)
 	song.Topic(href, href_list)

@@ -69,10 +69,10 @@ var/list/world_uplinks = list()
 			if(I.job && I.job.len)
 				if(!(I.job.Find(job)))
 					continue
-			dat += "<A href='byond://?src=\ref[src];buy_item=[I.reference];cost=[I.cost]'>[I.name]</A> ([I.cost])<BR>"
+			dat += "<A href='byond://?src=[UID()];buy_item=[I.reference];cost=[I.cost]'>[I.name]</A> ([I.cost])<BR>"
 			category_items++
 
-	dat += "<A href='byond://?src=\ref[src];buy_item=random'>Random Item (??)</A><br>"
+	dat += "<A href='byond://?src=[UID()];buy_item=random'>Random Item (??)</A><br>"
 	dat += "<HR>"
 	return dat
 
@@ -187,8 +187,18 @@ var/list/world_uplinks = list()
 /*
 	NANO UI FOR UPLINK WOOP WOOP
 */
-/obj/item/device/uplink/hidden/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
+/obj/item/device/uplink/hidden/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/topic_state/state = inventory_state)
 	var/title = "Remote Uplink"
+	// update the ui if it exists, returns null if no ui is passed/found
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		// the ui does not exist, so we'll create a new() one
+        // for a list of parameters and their descriptions see the code docs in \code\modules\nano\nanoui.dm
+		ui = new(user, src, ui_key, "uplink.tmpl", title, 700, 600, state = state)
+		// open the new ui window
+		ui.open()
+
+/obj/item/device/uplink/hidden/ui_data(mob/user, ui_key = "main", datum/topic_state/state = inventory_state)
 	var/data[0]
 
 	data["welcome"] = welcome
@@ -200,17 +210,7 @@ var/list/world_uplinks = list()
 	data["nano_items"] = nanoui_items
 	data += nanoui_data
 
-	// update the ui if it exists, returns null if no ui is passed/found
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if (!ui)
-		// the ui does not exist, so we'll create a new() one
-        // for a list of parameters and their descriptions see the code docs in \code\modules\nano\nanoui.dm
-		ui = new(user, src, ui_key, "uplink.tmpl", title, 700, 600, state = inventory_state)
-		// when the ui is first opened this is the data it will use
-		ui.set_initial_data(data)
-		// open the new ui window
-		ui.open()
-
+	return data
 
 // Interaction code. Gathers a list of items purchasable from the paren't uplink and displays it. It also adds a lock button.
 /obj/item/device/uplink/hidden/interact(mob/user)
@@ -218,14 +218,14 @@ var/list/world_uplinks = list()
 
 // The purchasing code.
 /obj/item/device/uplink/hidden/Topic(href, href_list)
-	if (usr.stat || usr.restrained())
+	if(usr.stat || usr.restrained())
 		return 1
 
-	if (!( istype(usr, /mob/living/carbon/human)))
+	if(!( istype(usr, /mob/living/carbon/human)))
 		return 1
 	var/mob/user = usr
 	var/datum/nanoui/ui = nanomanager.get_open_ui(user, src, "main")
-	if ((usr.contents.Find(src.loc) || (in_range(src.loc, usr) && istype(src.loc.loc, /turf))))
+	if((usr.contents.Find(src.loc) || (in_range(src.loc, usr) && istype(src.loc.loc, /turf))))
 		usr.set_machine(src)
 		if(..(href, href_list))
 			return 1

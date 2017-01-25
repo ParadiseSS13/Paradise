@@ -7,6 +7,8 @@
 	desc = "It's a plain jumpsuit. It seems to have a small dial on the wrist."
 	origin_tech = "syndicate=3"
 	var/list/clothing_choices = list()
+	burn_state = FIRE_PROOF
+	armor = list(melee = 10, bullet = 10, laser = 10, energy = 0, bomb = 0, bio = 0, rad = 0)
 
 	New()
 		..()
@@ -38,11 +40,13 @@
 		desc = "Groovy!"
 		icon_state = "psyche"
 		item_color = "psyche"
+		usr.update_inv_w_uniform()
 		spawn(200)
-			name = "Black Jumpsuit"
-			icon_state = "bl_suit"
-			item_color = "black"
-			desc = null
+			name = initial(name)
+			icon_state = initial(icon_state)
+			item_color = initial(item_color)
+			desc = initial(desc)
+			usr.update_inv_w_uniform()
 		..()
 
 

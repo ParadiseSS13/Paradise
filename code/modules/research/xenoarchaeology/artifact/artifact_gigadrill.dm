@@ -25,7 +25,7 @@
 		if(istype(A,/turf/simulated/mineral))
 			var/turf/simulated/mineral/M = A
 			drilling_turf = get_turf(src)
-			src.visible_message("\red <b>[src] begins to drill into [M]!</b>")
+			src.visible_message("<span class='danger'>[src] begins to drill into [M]!</span>")
 			anchored = 1
 			spawn(drill_time)
 				if(get_turf(src) == drilling_turf && active)

@@ -276,6 +276,24 @@
 	flags = RESTRICTED | WHITELISTED
 	syllables = list("blob","plop","pop","bop","boop")
 
+/datum/language/grey
+	name = "Psionic Communication"
+	desc = "The grey's psionic communication, less potent version of their distant cousin's telepathy. Talk to other greys within a limited radius."
+	speech_verb = "expresses"
+	ask_verb = "inquires"
+	exclaim_verb = "imparts"
+	colour = "abductor"
+	key = "^"
+	flags = RESTRICTED | HIVEMIND
+
+/datum/language/grey/broadcast(var/mob/living/speaker,var/message,var/speaker_mask)
+	..(speaker,message,speaker.real_name)
+
+/datum/language/grey/check_special_condition(var/mob/living/carbon/human/other, var/mob/living/carbon/human/speaker)
+	if(other in range(7, speaker))
+		return 1
+	return 0
+
 /datum/language/drask
 	name = "Orluum"
 	desc = "The droning, vibrous language of the Drask. It sounds somewhat like whalesong."
@@ -354,7 +372,7 @@
 	speech_verb = "growls"
 	ask_verb = "gnarls"
 	exclaim_verb = "snarls"
-	colour = "rough"
+	colour = "gutter"
 	key = "3"
 	syllables = list ("gra","ba","ba","breh","bra","rah","dur","ra","ro","gro","go","ber","bar","geh","heh", "gra")
 
@@ -409,6 +427,19 @@
 	key = "a"
 	flags = RESTRICTED | HIVEMIND
 	follow = 1
+
+
+/datum/language/terrorspider
+	name = "Spider Hivemind"
+	desc = "Terror spiders have a limited ability to commune over a psychic hivemind, similar to xenomorphs."
+	speech_verb = "chitters"
+	ask_verb = "chitters"
+	exclaim_verb = "chitters"
+	colour = "terrorspider"
+	key = "ts"
+	flags = RESTRICTED | HIVEMIND
+	follow = 1
+
 
 /datum/language/ling
 	name = "Changeling"
@@ -500,24 +531,24 @@
 	if(!speaker.binarycheck())
 		return
 
-	if (!message)
+	if(!message)
 		return
 
 	var/message_start = "<i><span class='game say'>[name], <span class='name'>[speaker.name]</span>"
 	var/message_body = "<span class='message'>[speaker.say_quote(message)], \"[message]\"</span></span></i>"
 
-	for (var/mob/M in dead_mob_list)
+	for(var/mob/M in dead_mob_list)
 		if(!istype(M,/mob/new_player) && !istype(M,/mob/living/carbon/brain))
 			var/message_start_dead = "<i><span class='game say'>[name], <span class='name'>[speaker.name] ([ghost_follow_link(speaker, ghost=M)])</span>"
 			M.show_message("[message_start_dead] [message_body]", 2)
 
-	for (var/mob/living/S in living_mob_list)
+	for(var/mob/living/S in living_mob_list)
 
 		if(drone_only && !istype(S,/mob/living/silicon/robot/drone))
 			continue
 		else if(istype(S , /mob/living/silicon/ai))
-			message_start = "<i><span class='game say'>[name], <a href='byond://?src=\ref[S];track=\ref[speaker]'><span class='name'>[speaker.name]</span></a>"
-		else if (!S.binarycheck())
+			message_start = "<i><span class='game say'>[name], <a href='byond://?src=[S.UID()];track=\ref[speaker]'><span class='name'>[speaker.name]</span></a>"
+		else if(!S.binarycheck())
 			continue
 
 		S.show_message("[message_start] [message_body]", 2)
@@ -525,16 +556,10 @@
 	var/list/listening = hearers(1, src)
 	listening -= src
 
-	for (var/mob/living/M in listening)
+	for(var/mob/living/M in listening)
 		if(istype(M, /mob/living/silicon) || M.binarycheck())
 			continue
 		M.show_message("<i><span class='game say'><span class='name'>synthesised voice</span> <span class='message'>beeps, \"beep beep beep\"</span></span></i>",2)
-
-	//robot binary xmitter component power usage
-	if (isrobot(speaker))
-		var/mob/living/silicon/robot/R = speaker
-		var/datum/robot_component/C = R.components["comms"]
-		R.use_power(C.energy_consumption)
 
 /datum/language/binary/drone
 	name = "Drone Talk"
@@ -547,6 +572,17 @@
 	flags = RESTRICTED | HIVEMIND
 	drone_only = 1
 	follow = 1
+
+/datum/language/drone
+	name = "Drone"
+	desc = "An encrypted stream of data converted to speech patterns."
+	speech_verb = "states"
+	ask_verb = "queries"
+	exclaim_verb = "declares"
+	key = "]"
+	flags = RESTRICTED
+	follow = 1
+	syllables = list ("beep", "boop")
 
 /datum/language/swarmer
 	name = "Swarmer"
@@ -582,7 +618,7 @@
 	return ..()
 
 // Can we speak this language, as opposed to just understanding it?
-/mob/proc/can_speak(datum/language/speaking)
+/mob/proc/can_speak_language(datum/language/speaking)
 
 	return (universal_speak || (speaking && speaking.flags & INNATE) || speaking in src.languages)
 
@@ -605,14 +641,14 @@
 	var/dat = "<b><font size = 5>Known Languages</font></b><br/><br/>"
 
 	if(default_language)
-		dat += "Current default language: [default_language] - <a href='byond://?src=\ref[src];default_lang=reset'>reset</a><br/><br/>"
+		dat += "Current default language: [default_language] - <a href='byond://?src=[UID()];default_lang=reset'>reset</a><br/><br/>"
 
 	for(var/datum/language/L in languages)
 		if(!(L.flags & NONGLOBAL))
 			if(L == default_language)
-				dat += "<b>[L.name] (:[L.key])</b> - default - <a href='byond://?src=\ref[src];default_lang=reset'>reset</a><br/>[L.desc]<br/><br/>"
+				dat += "<b>[L.name] (:[L.key])</b> - default - <a href='byond://?src=[UID()];default_lang=reset'>reset</a><br/>[L.desc]<br/><br/>"
 			else
-				dat += "<b>[L.name] (:[L.key])</b> - <a href=\"byond://?src=\ref[src];default_lang=[L]\">set default</a><br/>[L.desc]<br/><br/>"
+				dat += "<b>[L.name] (:[L.key])</b> - <a href=\"byond://?src=[UID()];default_lang=[L]\">set default</a><br/>[L.desc]<br/><br/>"
 
 	src << browse(dat, "window=checklanguage")
 

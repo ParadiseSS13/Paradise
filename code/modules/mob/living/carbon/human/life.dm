@@ -1,8 +1,5 @@
 //This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:32
 
-#define TINT_IMPAIR 2			//Threshold of tint level to apply weld mask overlay
-#define TINT_BLIND 3			//Threshold of tint level to obscure vision fully
-
 /mob/living/carbon/human
 
 	var/pressure_alert = 0
@@ -12,11 +9,9 @@
 	var/exposedtimenow = 0
 	var/firstexposed = 0
 	var/heartbeat = 0
-	var/tinttotal = 0				// Total level of visually impairing items
 
 /mob/living/carbon/human/Life()
 	fire_alert = 0 //Reset this here, because both breathe() and handle_environment() have a chance to set it.
-	tinttotal = tintcheck() //here as both hud updates and status updates call it
 	life_tick++
 
 	in_stasis = 0
@@ -78,24 +73,24 @@
 
 
 /mob/living/carbon/human/handle_disabilities()
-	if (disabilities & EPILEPSY)
-		if ((prob(1) && paralysis < 1))
+	if(disabilities & EPILEPSY)
+		if((prob(1) && paralysis < 1))
 			visible_message("<span class='danger'>[src] starts having a seizure!</span>","<span class='alert'>You have a seizure!</span>")
 			Paralyse(10)
 			Jitter(1000)
 
 	// If we have the gene for being crazy, have random events.
 	if(dna.GetSEState(HALLUCINATIONBLOCK))
-		if(prob(1) && hallucination < 1)
-			hallucination += 20
+		if(prob(1))
+			Hallucinate(20)
 
-	if (disabilities & COUGHING)
-		if ((prob(5) && paralysis <= 1))
+	if(disabilities & COUGHING)
+		if((prob(5) && paralysis <= 1))
 			drop_item()
 			emote("cough")
-	if (disabilities & TOURETTES)
+	if(disabilities & TOURETTES)
 		speech_problem_flag = 1
-		if ((prob(10) && paralysis <= 1))
+		if((prob(10) && paralysis <= 1))
 			Stun(10)
 			switch(rand(1, 3))
 				if(1)
@@ -108,12 +103,12 @@
 			animate(src, pixel_x = pixel_x + x_offset, pixel_y = pixel_y + y_offset, time = 1)
 			animate(pixel_x = initial(pixel_x) , pixel_y = initial(pixel_y), time = 1)
 
-	if (disabilities & NERVOUS)
+	if(disabilities & NERVOUS)
 		speech_problem_flag = 1
-		if (prob(10))
-			stuttering = max(10, stuttering)
+		if(prob(10))
+			Stuttering(10)
 
-	if (getBrainLoss() >= 60 && stat != 2)
+	if(getBrainLoss() >= 60 && stat != DEAD)
 		speech_problem_flag = 1
 		if(prob(3))
 			var/list/s1 = list("IM A PONY NEEEEEEIIIIIIIIIGH",
@@ -152,8 +147,8 @@
 
 	if(getBrainLoss() >= 100 && stat != 2) //you lapse into a coma and die without immediate aid; RIP. -Fox
 		Weaken(20)
-		losebreath += 10
-		silent += 2
+		AdjustLoseBreath(10)
+		AdjustSilence(2)
 
 	if(getBrainLoss() >= 120 && stat != 2) //they died from stupidity--literally. -Fox
 		visible_message("<span class='alert'><B>[src]</B> goes limp, their facial expression utterly blank.</span>")
@@ -174,13 +169,28 @@
 		if(!gene.block)
 			continue
 		if(gene.is_active(src))
-		/*	if (prob(10) && prob(gene.instability))
-				adjustCloneLoss(1) */
 			speech_problem_flag = 1
 			gene.OnMobLife(src)
+	if(gene_stability < GENETIC_DAMAGE_STAGE_1)
+		var/instability = DEFAULT_GENE_STABILITY - gene_stability
+		if(prob(instability * 0.1))
+			adjustFireLoss(min(5, instability * 0.67))
+			to_chat(src, "<span class='danger'>You feel like your skin is burning and bubbling off!</span>")
+		if(gene_stability < GENETIC_DAMAGE_STAGE_2)
+			if(prob(instability * 0.83))
+				adjustCloneLoss(min(4, instability * 0.05))
+				to_chat(src, "<span class='danger'>You feel as if your body is warping.</span>")
+			if(prob(instability * 0.1))
+				adjustToxLoss(min(5, instability * 0.67))
+				to_chat(src, "<span class='danger'>You feel weak and nauseous.</span>")
+			if(gene_stability < GENETIC_DAMAGE_STAGE_3 && prob(1))
+				to_chat(src, "<span class='biggerdanger'>You feel incredibly sick... Something isn't right!</span>")
+				spawn(300)
+					if(gene_stability < GENETIC_DAMAGE_STAGE_3)
+						gib()
 
 	if(!(species.flags & RADIMMUNE))
-		if (radiation)
+		if(radiation)
 
 			if(get_int_organ(/obj/item/organ/internal/nucleation/resonant_crystal))
 				var/rads = radiation/25
@@ -191,14 +201,14 @@
 					to_chat(src, "<span class='notice'>You feel relaxed.</span>")
 				return
 
-			if (radiation > 100)
+			if(radiation > 100)
 				radiation = 100
 				Weaken(10)
 				if(!lying)
 					to_chat(src, "<span class='alert'>You feel weak.</span>")
 					emote("collapse")
 
-			if (radiation < 0)
+			if(radiation < 0)
 				radiation = 0
 
 			else
@@ -266,10 +276,10 @@
 	var/datum/gas_mixture/breath
 
 	if(health <= config.health_threshold_crit)
-		losebreath++
+		AdjustLoseBreath(1)
 
 	if(losebreath > 0)
-		losebreath--
+		AdjustLoseBreath(-1)
 		if(prob(10))
 			spawn emote("gasp")
 		if(istype(loc, /obj/))
@@ -313,7 +323,6 @@
 
 
 /mob/living/carbon/human/get_breath_from_internal(volume_needed) //making this call the parent would be far too complicated
-
 	if(internal)
 		var/null_internals = 0      //internals are invalid, therefore turn them off
 		var/skip_contents_check = 0 //rigsuit snowflake, oxygen tanks aren't stored inside the mob, so the 'contents.Find' check has to be skipped.
@@ -338,12 +347,10 @@
 
 
 	if(internal) //check for hud updates every time this is called
-		if(internals)
-			internals.icon_state = "internal1"
+		update_internals_hud_icon(1)
 		return internal.remove_air_volume(volume_needed) //returns the valid air
 	else
-		if(internals)
-			internals.icon_state = "internal0"
+		update_internals_hud_icon(0)
 
 	return null
 
@@ -475,6 +482,17 @@
 		return
 	if(RESIST_HEAT in mutations)
 		return
+	if(on_fire)
+		var/thermal_protection = get_thermal_protection()
+
+		if(thermal_protection >= FIRE_IMMUNITY_SUIT_MAX_TEMP_PROTECT)
+			return
+		if(thermal_protection >= FIRE_SUIT_MAX_TEMP_PROTECT)
+			bodytemperature += 11
+		else
+			bodytemperature += (BODYTEMP_HEATING_MAX + (fire_stacks * 12))
+
+/mob/living/carbon/human/proc/get_thermal_protection()
 	var/thermal_protection = 0 //Simple check to estimate how protected we are against multiple temperatures
 	if(wear_suit)
 		if(wear_suit.max_heat_protection_temperature >= FIRE_SUIT_MAX_TEMP_PROTECT)
@@ -483,47 +501,19 @@
 		if(head.max_heat_protection_temperature >= FIRE_HELM_MAX_TEMP_PROTECT)
 			thermal_protection += (head.max_heat_protection_temperature*THERMAL_PROTECTION_HEAD)
 	thermal_protection = round(thermal_protection)
-	if(thermal_protection >= FIRE_IMMUNITY_SUIT_MAX_TEMP_PROTECT)
-		return
-	if(thermal_protection >= FIRE_SUIT_MAX_TEMP_PROTECT)
-		bodytemperature += 11
-		return
-	else
-		bodytemperature += BODYTEMP_HEATING_MAX
-	return
+	return thermal_protection
+
 //END FIRE CODE
 
-	/*
-/mob/living/carbon/human/proc/adjust_body_temperature(current, loc_temp, boost)
-	var/temperature = current
-	var/difference = abs(current-loc_temp)	//get difference
-	var/increments// = difference/10			//find how many increments apart they are
-	if(difference > 50)
-		increments = difference/5
-	else
-		increments = difference/10
-	var/change = increments*boost	// Get the amount to change by (x per increment)
-	var/temp_change
-	if(current < loc_temp)
-		temperature = min(loc_temp, temperature+change)
-	else if(current > loc_temp)
-		temperature = max(loc_temp, temperature-change)
-	temp_change = (temperature - current)
-	return temp_change
-	*/
-
 /mob/living/carbon/human/proc/stabilize_temperature_from_calories()
+	var/body_temperature_difference = species.body_temperature - bodytemperature
+
 	if(bodytemperature <= species.cold_level_1) //260.15 is 310.15 - 50, the temperature where you start to feel effects.
-		if(nutrition >= 2) //If we are very, very cold we'll use up quite a bit of nutriment to heat us up.
-			nutrition -= 2
-		var/body_temperature_difference = species.body_temperature - bodytemperature
-		bodytemperature += max((body_temperature_difference / BODYTEMP_AUTORECOVERY_DIVISOR), BODYTEMP_AUTORECOVERY_MINIMUM)
+		bodytemperature += max((body_temperature_difference * metabolism_efficiency / BODYTEMP_AUTORECOVERY_DIVISOR), BODYTEMP_AUTORECOVERY_MINIMUM)
 	if(bodytemperature >= species.cold_level_1 && bodytemperature <= species.heat_level_1)
-		var/body_temperature_difference = species.body_temperature - bodytemperature
-		bodytemperature += body_temperature_difference / BODYTEMP_AUTORECOVERY_DIVISOR
+		bodytemperature += body_temperature_difference * metabolism_efficiency / BODYTEMP_AUTORECOVERY_DIVISOR
 	if(bodytemperature >= species.heat_level_1) //360.15 is 310.15 + 50, the temperature where you start to feel effects.
 		//We totally need a sweat system cause it totally makes sense...~
-		var/body_temperature_difference = species.body_temperature - bodytemperature
 		bodytemperature += min((body_temperature_difference / BODYTEMP_AUTORECOVERY_DIVISOR), -BODYTEMP_AUTORECOVERY_MINIMUM)	//We're dealing with negative numbers
 
 
@@ -677,27 +667,26 @@
 	if(species.flags & CAN_BE_FAT)
 		if(FAT in mutations)
 			if(overeatduration < 100)
-				to_chat(src, "<span class='notice'>You feel fit again!</span>")
-				mutations.Remove(FAT)
-				update_mutantrace(0)
-				update_mutations(0)
-				update_inv_w_uniform(0)
-				update_inv_wear_suit()
+				becomeSlim()
 		else
 			if(overeatduration > 500)
-				to_chat(src, "<span class='alert'>You suddenly feel blubbery!</span>")
-				mutations.Add(FAT)
-				update_mutantrace(0)
-				update_mutations(0)
-				update_inv_w_uniform(0)
-				update_inv_wear_suit()
+				becomeFat()
 
 	// nutrition decrease
-	if (nutrition > 0 && stat != 2)
-		nutrition = max (0, nutrition - HUNGER_FACTOR)
+	if(nutrition > 0 && stat != DEAD)
+		// THEY HUNGER
+		var/hunger_rate = hunger_drain
+		if(satiety > 0)
+			satiety--
+		if(satiety < 0)
+			satiety++
+			if(prob(round(-satiety/40)))
+				Jitter(5)
+			hunger_rate = 3 * hunger_drain
+		nutrition = max(0, nutrition - hunger_rate)
 
-	if (nutrition > 450)
-		if(overeatduration < 800) //capped so people don't take forever to unfat
+	if(nutrition > NUTRITION_LEVEL_FULL)
+		if(overeatduration < 600) //capped so people don't take forever to unfat
 			overeatduration++
 
 	else
@@ -707,21 +696,37 @@
 			else
 				overeatduration -= 2
 
-	if (drowsyness)
-		drowsyness--
-		eye_blurry = max(2, eye_blurry)
-		if (prob(5))
-			sleeping += 1
+	//metabolism change
+	if(nutrition > NUTRITION_LEVEL_FAT)
+		metabolism_efficiency = 1
+	else if(nutrition > NUTRITION_LEVEL_FED && satiety > 80)
+		if(metabolism_efficiency != 1.25)
+			to_chat(src, "<span class='notice'>You feel vigorous.</span>")
+			metabolism_efficiency = 1.25
+	else if(nutrition < NUTRITION_LEVEL_STARVING + 50)
+		if(metabolism_efficiency != 0.8)
+			to_chat(src, "<span class='notice'>You feel sluggish.</span>")
+		metabolism_efficiency = 0.8
+	else
+		if(metabolism_efficiency == 1.25)
+			to_chat(src, "<span class='notice'>You no longer feel vigorous.</span>")
+		metabolism_efficiency = 1
+
+	if(drowsyness)
+		AdjustDrowsy(-1)
+		EyeBlurry(2)
+		if(prob(5))
+			AdjustSleeping(1)
 			Paralyse(5)
 
-	confused = max(0, confused - 1)
+	AdjustConfused(-1)
 	// decrement dizziness counter, clamped to 0
 	if(resting)
-		dizziness = max(0, dizziness - 15)
-		jitteriness = max(0, jitteriness - 15)
+		AdjustDizzy(-15)
+		AdjustJitter(-15)
 	else
-		dizziness = max(0, dizziness - 3)
-		jitteriness = max(0, jitteriness - 3)
+		AdjustDizzy(-3)
+		AdjustJitter(-3)
 
 	if(species && species.flags & NO_INTORGANS) return
 
@@ -756,8 +761,7 @@
 				alcohol_strength *= 5
 
 		if(alcohol_strength >= slur_start) //slurring
-			if (!slurring) slurring = 1
-			slurring = drunk
+			Slur(drunk)
 		if(alcohol_strength >= brawl_start) //the drunken martial art
 			if(!istype(martial_art, /datum/martial_art/drunk_brawling))
 				var/datum/martial_art/drunk_brawling/F = new
@@ -766,19 +770,18 @@
 			if(istype(martial_art, /datum/martial_art/drunk_brawling))
 				martial_art.remove(src)
 		if(alcohol_strength >= confused_start && prob(33)) //confused walking
-			if (!confused) confused = 1
-			confused = max(confused+(3/sober_str),0)
+			if(!confused) Confused(1)
+			AdjustConfused(3/sober_str)
 		if(alcohol_strength >= blur_start) //blurry eyes
-			eye_blurry = max(eye_blurry, 10/sober_str)
-			drowsyness  = max(drowsyness, 0)
+			EyeBlurry(10/sober_str)
 		if(!isSynthetic()) //stuff only for non-synthetics
 			if(alcohol_strength >= vomit_start) //vomiting
 				if(prob(8))
 					fakevomit()
 			if(alcohol_strength >= pass_out)
-				Paralyse(5 / sober_str)
-				drowsyness = max(drowsyness, 30/sober_str)
-				if (L)
+				Paralyse(5/sober_str)
+				Drowsy(30/sober_str)
+				if(L)
 					L.take_damage(0.1, 1)
 				adjustToxLoss(0.1)
 		else //stuff only for synthetics
@@ -801,7 +804,7 @@
 /mob/living/carbon/human/proc/has_booze() //checks if the human has ethanol or its subtypes inside
 	for(var/A in reagents.reagent_list)
 		var/datum/reagent/R = A
-		if(istype(R, /datum/reagent/ethanol))
+		if(istype(R, /datum/reagent/consumable/ethanol))
 			return 1
 	return 0
 
@@ -814,13 +817,6 @@
 	if(.) //alive
 		if(REGEN in mutations)
 			heal_overall_damage(0.1, 0.1)
-
-		if(!in_stasis)
-			handle_organs()
-			handle_blood()
-
-		//the analgesic effect wears off slowly
-		analgesic = max(0, analgesic - 1)
 
 		if(paralysis)
 			blinded = 1
@@ -856,71 +852,71 @@
 			vision = get_int_organ(species.vision_organ)
 
 		if(!species.vision_organ) // Presumably if a species has no vision organs, they see via some other means.
-			eye_blind =  0
+			SetEyeBlind(0)
 			blinded =    0
-			eye_blurry = 0
+			SetEyeBlurry(0)
 
 		else if(!vision || vision.is_broken())   // Vision organs cut out or broken? Permablind.
-			eye_blind =  1
+			EyeBlind(2)
 			blinded =    1
-			eye_blurry = 1
+			EyeBlurry(2)
 
 		else
 			//blindness
-			if(sdisabilities & BLIND) // Disabled-blind, doesn't get better on its own
+			if(disabilities & BLIND) // Disabled-blind, doesn't get better on its own
 				blinded =    1
 
 			else if(eye_blind)		       // Blindness, heals slowly over time
-				eye_blind =  max(eye_blind-1,0)
+				AdjustEyeBlind(-1)
 				blinded =    1
 
 			else if(istype(glasses, /obj/item/clothing/glasses/sunglasses/blindfold))	//resting your eyes with a blindfold heals blurry eyes faster
-				eye_blurry = max(eye_blurry-3, 0)
+				AdjustEyeBlurry(-3)
 				blinded =    1
 
 			//blurry sight
 			if(vision.is_bruised())   // Vision organs impaired? Permablurry.
-				eye_blurry = 1
+				EyeBlurry(2)
 
 			if(eye_blurry)	           // Blurry eyes heal slowly
-				eye_blurry = max(eye_blurry-1, 0)
+				AdjustEyeBlurry(-1)
 
 
 		//Ears
-		if(sdisabilities & DEAF)	//disabled-deaf, doesn't get better on its own
-			ear_deaf = max(ear_deaf, 1)
+		if(disabilities & DEAF)	//disabled-deaf, doesn't get better on its own
+			EarDeaf(1)
 
 		else if(ear_deaf)			//deafness, heals slowly over time
-			ear_deaf = max(ear_deaf - 1, 0)
+			AdjustEarDeaf(-1)
 
 		else if(istype(l_ear, /obj/item/clothing/ears/earmuffs) || istype(r_ear, /obj/item/clothing/ears/earmuffs))	//resting your ears with earmuffs heals ear damage faster
-			ear_damage = max(ear_damage - 0.15, 0)
-			ear_deaf = max(ear_deaf, 1)
+			AdjustEarDamage(-0.15)
+			EarDeaf(1)
 
 		else if(ear_damage < 25)	//ear damage heals slowly under this threshold. otherwise you'll need earmuffs
-			ear_damage = max(ear_damage - 0.05, 0)
-
+			AdjustEarDamage(-0.05)
 
 		if(flying)
-			spawn()
-				animate(src, pixel_y = pixel_y + 5 , time = 10, loop = 1, easing = SINE_EASING)
-			spawn(10)
-				if(flying)
-					animate(src, pixel_y = pixel_y - 5, time = 10, loop = 1, easing = SINE_EASING)
+			animate(src, pixel_y = pixel_y + 5 , time = 10, loop = 1, easing = SINE_EASING)
+			animate(pixel_y = pixel_y - 5, time = 10, loop = 1, easing = SINE_EASING)
 
 		// If you're dirty, your gloves will become dirty, too.
 		if(gloves && germ_level > gloves.germ_level && prob(10))
 			gloves.germ_level += 1
 
+		if(!in_stasis)
+			handle_organs()
+			handle_blood()
+
 
 	else //dead
 		blinded = 1
-		silent = 0
+		SetSilence(0)
 
 
 /mob/living/carbon/human/handle_vision()
 	if(machine)
-		if(!machine.check_eye(src))		reset_view(null)
+		if(!machine.check_eye(src))		reset_perspective(null)
 	else
 		var/isRemoteObserve = 0
 		if((REMOTE_VIEW in mutations) && remoteview_target)
@@ -945,7 +941,7 @@
 
 		if(!isRemoteObserve && client && !client.adminobs)
 			remoteview_target = null
-			reset_view(null)
+			reset_perspective(null)
 
 	species.handle_vision(src)
 
@@ -955,23 +951,11 @@
 /mob/living/carbon/human/handle_random_events()
 	// Puke if toxloss is too high
 	if(!stat)
-		if (getToxLoss() >= 45 && nutrition > 20)
+		if(getToxLoss() >= 45 && nutrition > 20)
 			lastpuke ++
 			if(lastpuke >= 25) // about 25 second delay I guess
-				Stun(5)
-
-				visible_message("<span class='danger'>[src] throws up!</span>", \
-						"<span class='userdanger'>[src] throws up!</span>")
-				playsound(loc, 'sound/effects/splat.ogg', 50, 1)
-
-				var/turf/location = loc
-				if (istype(location, /turf/simulated))
-					location.add_vomit_floor(src, 1)
-
-				nutrition -= 20
+				vomit(20, 0, 1, 0, 1)
 				adjustToxLoss(-3)
-
-				// make it so you can only puke so fast
 				lastpuke = 0
 
 	//0.1% chance of playing a scary sound to someone who's in complete darkness
@@ -994,8 +978,10 @@
 
 /mob/living/carbon/human/handle_shock()
 	..()
-	if(status_flags & GODMODE)	return 0	//godmode
-	if(analgesic || (species && species.flags & NO_PAIN)) return // analgesic avoids all traumatic shock temporarily
+	if(status_flags & GODMODE)
+		return 0	//godmode
+	if(species && species.flags & NO_PAIN)
+		return
 
 	if(health <= config.health_threshold_softcrit)// health 0 makes you immediately collapse
 		shock_stage = max(shock_stage, 61)
@@ -1012,25 +998,25 @@
 
 	if(shock_stage >= 30)
 		if(shock_stage == 30) custom_emote(1,"is having trouble keeping their eyes open.")
-		eye_blurry = max(2, eye_blurry)
-		stuttering = max(stuttering, 5)
+		EyeBlurry(2)
+		Stuttering(5)
 
 	if(shock_stage == 40)
 		to_chat(src, "<font color='red'><b>"+pick("The pain is excrutiating!", "Please, just end the pain!", "Your whole body is going numb!"))
 
 	if(shock_stage >=60)
 		if(shock_stage == 60) custom_emote(1,"falls limp.")
-		if (prob(2))
+		if(prob(2))
 			to_chat(src, "<font color='red'><b>"+pick("The pain is excrutiating!", "Please, just end the pain!", "Your whole body is going numb!"))
 			Weaken(20)
 
 	if(shock_stage >= 80)
-		if (prob(5))
+		if(prob(5))
 			to_chat(src, "<font color='red'><b>"+pick("The pain is excrutiating!", "Please, just end the pain!", "Your whole body is going numb!"))
 			Weaken(20)
 
 	if(shock_stage >= 120)
-		if (prob(2))
+		if(prob(2))
 			to_chat(src, "<font color='red'><b>"+pick("You black out!", "You feel like you could die any moment now.", "You're about to lose consciousness."))
 			Paralyse(5)
 
@@ -1044,9 +1030,11 @@
 
 /mob/living/carbon/human/proc/handle_pulse()
 
-	if(mob_master.current_cycle % 5) return pulse	//update pulse every 5 life ticks (~1 tick/sec, depending on server load)
+	if(mob_master.current_cycle % 5)
+		return pulse	//update pulse every 5 life ticks (~1 tick/sec, depending on server load)
 
-	if(species && species.flags & NO_BLOOD) return PULSE_NONE //No blood, no pulse.
+	if(species && species.flags & NO_BLOOD)
+		return PULSE_NONE //No blood, no pulse.
 
 	if(stat == DEAD)
 		return PULSE_NONE	//that's it, you're dead, nothing can influence your pulse
@@ -1056,32 +1044,29 @@
 
 	var/temp = PULSE_NORM
 
-	if(round(vessel.get_reagent_amount("blood")) <= BLOOD_VOLUME_BAD)	//how much blood do we have
+	var/blood_type = get_blood_name()
+	if(round(vessel.get_reagent_amount(blood_type)) <= BLOOD_VOLUME_BAD)	//how much blood do we have
 		temp = PULSE_THREADY	//not enough :(
 
 	if(status_flags & FAKEDEATH)
 		temp = PULSE_NONE		//pretend that we're dead. unlike actual death, can be inflienced by meds
 
 	for(var/datum/reagent/R in reagents.reagent_list)
-		if(R.id in bradycardics)
+		if(R.heart_rate_decrease)
 			if(temp <= PULSE_THREADY && temp >= PULSE_NORM)
 				temp--
-				break		//one reagent is enough
-							//comment out the breaks to make med effects stack
-	for(var/datum/reagent/R in reagents.reagent_list)				//handles different chems' influence on pulse
-		if(R.id in tachycardics)
+				break
+
+	for(var/datum/reagent/R in reagents.reagent_list)//handles different chems' influence on pulse
+		if(R.heart_rate_increase)
 			if(temp <= PULSE_FAST && temp >= PULSE_NONE)
 				temp++
 				break
+
 	for(var/datum/reagent/R in reagents.reagent_list) //To avoid using fakedeath
-		if(R.id in heartstopper)
+		if(R.heart_rate_stop)
 			temp = PULSE_NONE
 			break
-	for(var/datum/reagent/R in reagents.reagent_list) //Conditional heart-stoppage
-		if(R.id in cheartstopper)
-			if(R.volume >= R.overdose_threshold)
-				temp = PULSE_NONE
-				break
 
 	return temp
 
@@ -1113,7 +1098,7 @@
 
 
 	for(var/mob/living/carbon/human/H in range(decaylevel, src))
-		if(prob(5))
+		if(prob(2))
 			if(istype(loc,/obj/item/bodybag))
 				return
 			var/obj/item/clothing/mask/M = H.wear_mask
@@ -1121,6 +1106,9 @@
 				return
 			if(H.species && H.species.flags & NO_BREATHE)
 				return //no puking if you can't smell!
+			// Humans can lack a mind datum, y'know
+			if(H.mind && H.mind.assigned_role == "Detective")
+				return //too cool for puke
 			to_chat(H, "<spawn class='warning'>You smell something foul...")
 			H.fakevomit()
 
@@ -1141,7 +1129,7 @@
 
 				if(heartbeat >= rate)
 					heartbeat = 0
-					to_chat(src, sound('sound/effects/electheart.ogg',0,0,0,30))//Credit to GhostHack (www.ghosthack.de) for sound.
+					src << sound('sound/effects/electheart.ogg',0,0,0,30)//Credit to GhostHack (www.ghosthack.de) for sound.
 
 				else
 					heartbeat++
@@ -1160,9 +1148,9 @@
 			if(heartbeat >= rate)
 				heartbeat = 0
 				if(H.status & ORGAN_ASSISTED)
-					to_chat(src, sound('sound/effects/pacemakebeat.ogg',0,0,0,50))
+					src << sound('sound/effects/pacemakebeat.ogg',0,0,0,50)
 				else
-					to_chat(src, sound('sound/effects/singlebeat.ogg',0,0,0,50))
+					src << sound('sound/effects/singlebeat.ogg',0,0,0,50)
 			else
 				heartbeat++
 
@@ -1198,8 +1186,7 @@
 	if(!heart_attack)
 		return
 	else
-		if(losebreath < 3)
-			losebreath += 2
+		AdjustLoseBreath(2, bound_lower = 0, bound_upper = 3)
 		adjustOxyLoss(5)
 		adjustBruteLoss(1)
 

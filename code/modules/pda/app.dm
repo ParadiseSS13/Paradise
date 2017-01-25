@@ -1,6 +1,6 @@
 // Base class for anything that can show up on home screen
 /datum/data/pda
-	var/icon = "tasks"
+	var/icon = "tasks"		//options comes from http://fontawesome.io/icons/
 	var/notify_icon = "exclamation-circle"
 	var/notify_silent = 0
 	var/hidden = 0				// program not displayed in main menu
@@ -12,6 +12,16 @@
 	return ..()
 
 /datum/data/pda/proc/start()
+	return
+
+/datum/data/pda/proc/stop()
+	return
+
+/datum/data/pda/proc/program_process()
+	return
+
+/datum/data/pda/proc/program_hit_check()
+	return
 
 /datum/data/pda/proc/notify(message, blink = 1)
 	if(message)
@@ -24,14 +34,13 @@
 			L = get(pda, /mob/living/silicon)
 
 		if(L)
-			to_chat(L, "\icon[pda] [message]")
+			to_chat(L, "[bicon(pda)] [message]")
 			nanomanager.update_user_uis(L, pda) // Update the receiving user's PDA UI so that they can see the new message
 
 	if(!notify_silent)
 		pda.play_ringtone()
 
 	if(blink && !(src in pda.notifying_programs))
-		pda.overlays.Cut()
 		pda.overlays += image('icons/obj/pda.dmi', "pda-r")
 		pda.notifying_programs |= src
 
@@ -39,7 +48,7 @@
 	if(src in pda.notifying_programs)
 		pda.notifying_programs -= src
 		if(!pda.notifying_programs.len)
-			pda.overlays.Cut()
+			pda.overlays -= image('icons/obj/pda.dmi', "pda-r")
 
 /datum/data/pda/proc/
 
@@ -57,6 +66,8 @@
 		title = name
 
 /datum/data/pda/app/start()
+	if(pda.current_app)
+		pda.current_app.stop()
 	pda.current_app = src
 	return 1
 

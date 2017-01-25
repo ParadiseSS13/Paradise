@@ -11,7 +11,7 @@
 
 		var/reagent_total = reagents.get_reagent_amount(R.id)
 
-		//These are here because they have checks that would clutter up the switch statement cases, and thus get handled after the switch (readability)
+		//These are here because they have checks that would clutter up the switch statement cases, and thus get handled after the switch(readability)
 		var/water_value = 0
 		var/health_value = 0
 		var/production_stat_value = 0

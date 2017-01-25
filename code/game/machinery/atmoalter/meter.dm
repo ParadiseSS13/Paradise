@@ -28,7 +28,8 @@
 	return ..()
 
 /obj/machinery/meter/initialize()
-	if (!target)
+	..()
+	if(!target)
 		target = locate(/obj/machinery/atmospherics/pipe) in loc
 
 /obj/machinery/meter/process()
@@ -78,7 +79,7 @@
 
 /obj/machinery/meter/proc/status()
 	var/t = ""
-	if (target)
+	if(target)
 		var/datum/gas_mixture/environment = target.return_air()
 		if(environment)
 			t += "The pressure gauge reads [round(environment.return_pressure(), 0.01)] kPa; [round(environment.temperature,0.01)]&deg;K ([round(environment.temperature-T0C,0.01)]&deg;C)"
@@ -92,10 +93,10 @@
 	var/t = "A gas flow meter. "
 
 	if(get_dist(user, src) > 3 && !(istype(user, /mob/living/silicon/ai) || istype(user, /mob/dead)))
-		t += "\blue <B>You are too far away to read it.</B>"
+		t += "<span class='boldnotice'>You are too far away to read it.</span>"
 
 	else if(stat & (NOPOWER|BROKEN))
-		t += "\red <B>The display is off.</B>"
+		t += "<span class='danger'>The display is off.</span>"
 
 	else if(target)
 		var/datum/gas_mixture/environment = target.return_air()
@@ -120,11 +121,11 @@
 		update_multitool_menu(user)
 		return 1
 
-	if (!istype(W, /obj/item/weapon/wrench))
+	if(!istype(W, /obj/item/weapon/wrench))
 		return ..()
 	playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
 	to_chat(user, "\blue You begin to unfasten \the [src]...")
-	if (do_after(user, 40, target = src))
+	if(do_after(user, 40, target = src))
 		user.visible_message( \
 			"[user] unfastens \the [src].", \
 			"\blue You have unfastened \the [src].", \
@@ -141,8 +142,9 @@
 
 
 /obj/machinery/meter/turf/initialize()
-	if (!target)
+	if(!target)
 		target = loc
+	..()
 
 /obj/machinery/meter/turf/attackby(var/obj/item/weapon/W as obj, var/mob/user as mob, params)
 	return
@@ -151,6 +153,6 @@
 	return {"
 	<b>Main</b>
 	<ul>
-		<li><b>Frequency:</b> <a href="?src=\ref[src];set_freq=-1">[format_frequency(frequency)] GHz</a> (<a href="?src=\ref[src];set_freq=[initial(frequency)]">Reset</a>)</li>
+		<li><b>Frequency:</b> <a href="?src=[UID()];set_freq=-1">[format_frequency(frequency)] GHz</a> (<a href="?src=[UID()];set_freq=[initial(frequency)]">Reset</a>)</li>
 		<li>[format_tag("ID Tag","id_tag")]</li>
 	</ul>"}

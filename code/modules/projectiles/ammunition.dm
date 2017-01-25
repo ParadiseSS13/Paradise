@@ -32,7 +32,7 @@
 	desc = "[initial(desc)][BB ? "" : " This one is spent"]"
 
 /obj/item/ammo_casing/proc/newshot(params) //For energy weapons, shotgun shells and wands (!).
-	if (!BB)
+	if(!BB)
 		BB = new projectile_type(src, params)
 	return
 
@@ -42,14 +42,14 @@
 		if(isturf(loc))
 			var/boolets = 0
 			for(var/obj/item/ammo_casing/bullet in loc)
-				if (box.stored_ammo.len >= box.max_ammo)
+				if(box.stored_ammo.len >= box.max_ammo)
 					break
-				if (bullet.BB)
-					if (box.give_round(bullet, 0))
+				if(bullet.BB)
+					if(box.give_round(bullet, 0))
 						boolets++
 				else
 					continue
-			if (boolets > 0)
+			if(boolets > 0)
 				box.update_icon()
 				to_chat(user, "<span class='notice'>You collect [boolets] shell\s. [box] now contains [box.stored_ammo.len] shell\s.</span>")
 			else
@@ -109,12 +109,12 @@
 	return ..()
 
 /obj/item/ammo_box/proc/get_round(keep = 0)
-	if (!stored_ammo.len)
+	if(!stored_ammo.len)
 		return null
 	else
 		var/b = stored_ammo[stored_ammo.len]
 		stored_ammo -= b
-		if (keep)
+		if(keep)
 			stored_ammo.Insert(1,b)
 		return b
 
@@ -123,7 +123,7 @@
 	if(!R || (caliber && R.caliber != caliber) || (!caliber && R.type != ammo_type))
 		return 0
 
-	if (stored_ammo.len < max_ammo)
+	if(stored_ammo.len < max_ammo)
 		stored_ammo += R
 		R.loc = src
 		return 1

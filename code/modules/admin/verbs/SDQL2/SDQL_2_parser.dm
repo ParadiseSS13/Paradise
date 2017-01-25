@@ -358,7 +358,7 @@
 		else if(token(i + 1) == "\[")	// list index
 			var/list/expression = list()
 			i = expression(i + 2, expression)
-			if (token(i) != "]")
+			if(token(i) != "]")
 				parse_error("Missing ] at the end of list access.")
 
 			L += "\["

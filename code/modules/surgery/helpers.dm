@@ -28,19 +28,26 @@
 
 					for(var/path in S.allowed_mob)
 						if(istype(M, path))
+							// If there are multiple surgeries with the same name,
+							// prepare to cry
 							available_surgeries[S.name] = S
 							break
 
 				if(override)
+					var/datum/surgery/S
 					if(istype(I,/obj/item/robot_parts))
-						var/datum/surgery/S = available_surgeries["robotic limb attachment"]
-						if(S)
-							var/datum/surgery/procedure = new S.type
-							if(procedure)
-								procedure.location = selected_zone
-								M.surgeries += procedure
-								procedure.organ_ref = affecting
-								procedure.next_step(user, M)
+						S = available_surgeries["Apply Robotic Prosthetic"]
+					if(istype(I,/obj/item/organ/external))
+						var/obj/item/organ/external/E = I
+						if(E.robotic == 2)
+							S = available_surgeries["Synthetic Limb Reattachment"]
+					if(S)
+						var/datum/surgery/procedure = new S.type
+						if(procedure)
+							procedure.location = selected_zone
+							M.surgeries += procedure
+							procedure.organ_ref = affecting
+							procedure.next_step(user, M)
 
 				else
 					var/P = input("Begin which procedure?", "Surgery", null, null) as null|anything in available_surgeries
@@ -77,7 +84,7 @@
 
 
 
-proc/get_location_modifier(mob/M)
+/proc/get_location_modifier(mob/M)
 	var/turf/T = get_turf(M)
 	if(locate(/obj/machinery/optable, T))
 		return 1
@@ -87,3 +94,7 @@ proc/get_location_modifier(mob/M)
 		return 0.7
 	else
 		return 0.5
+
+// Called when a limb containing this object is placed back on a body
+/atom/movable/proc/attempt_become_organ(obj/item/organ/external/parent,mob/living/carbon/human/H)
+	return 0

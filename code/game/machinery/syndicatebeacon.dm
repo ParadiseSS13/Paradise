@@ -33,7 +33,7 @@
 					honorific = "Ms."
 				dat += "<font color=red><i>Identity not found in operative database. What can the Syndicate do for you today, [honorific] [user.name]?</i></font><br>"
 				if(!selfdestructing)
-					dat += "<br><br><A href='?src=\ref[src];betraitor=1;traitormob=\ref[user]'>\"[pick("I want to switch teams.", "I want to work for you.", "Let me join you.", "I can be of use to you.", "You want me working for you, and here's why...", "Give me an objective.", "How's the 401k over at the Syndicate?")]\"</A><BR>"
+					dat += "<br><br><A href='?src=[UID()];betraitor=1;traitormob=\ref[user]'>\"[pick("I want to switch teams.", "I want to work for you.", "Let me join you.", "I can be of use to you.", "You want me working for you, and here's why...", "Give me an objective.", "How's the 401k over at the Syndicate?")]\"</A><BR>"
 		dat += temptext
 		user << browse(dat, "window=syndbeacon")
 		onclose(user, "syndbeacon")
@@ -61,7 +61,7 @@
 				var/mob/living/carbon/human/N = M
 				ticker.mode.equip_traitor(N)
 				ticker.mode.traitors += N.mind
-				N.mind.special_role = "traitor"
+				N.mind.special_role = SPECIAL_ROLE_TRAITOR
 				var/objective = "Free Objective"
 				switch(rand(1,100))
 					if(1 to 50)
@@ -133,7 +133,7 @@
 			singulo.target = src
 	icon_state = "[icontype]1"
 	active = 1
-	machines |= src
+	machine_processing |= src
 	if(user)
 		to_chat(user, "<span class='notice'>You activate the beacon.</span>")
 

@@ -337,7 +337,7 @@
 /obj/item/rig_module/maneuvering_jets/engage()
 	if(!..())
 		return 0
-	jets.toggle_rockets()
+	jets.toggle_stabilization(usr)
 	return 1
 
 /obj/item/rig_module/maneuvering_jets/activate()
@@ -354,15 +354,13 @@
 			suit_overlay = null
 		holder.update_icon()
 
-	if(!jets.on)
-		jets.toggle()
+	jets.turn_on()
 	return 1
 
 /obj/item/rig_module/maneuvering_jets/deactivate()
 	if(!..())
 		return 0
-	if(jets.on)
-		jets.toggle()
+	jets.turn_off()
 	return 1
 
 /obj/item/rig_module/maneuvering_jets/New()

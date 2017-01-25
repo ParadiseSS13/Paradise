@@ -55,7 +55,7 @@
 		health_scan = M.health
 		if(health_scan <= alarm_health)
 			pulse()
-			audible_message("\icon[src] *beep* *beep*", "*beep* *beep*")
+			audible_message("[bicon(src)] *beep* *beep*", "*beep* *beep*")
 			toggle_scan()
 		return
 	return
@@ -73,10 +73,12 @@
 	if(!secured)
 		user.show_message("<span class='warning'>The [name] is unsecured!</span>")
 		return 0
-	var/dat = text("<TT><B>Health Sensor</B> <A href='?src=\ref[src];scanning=1'>[scanning?"On":"Off"]</A>")
+	var/dat = text("<TT><B>Health Sensor</B> <A href='?src=[UID()];scanning=1'>[scanning?"On":"Off"]</A>")
 	if(scanning && health_scan)
 		dat += "<BR>Health: [health_scan]"
-	user << browse(dat, "window=hscan")
+	var/datum/browser/popup = new(user, "hscan", name, 400, 400)
+	popup.set_content(dat)
+	popup.open(0)
 	onclose(user, "hscan")
 	return
 

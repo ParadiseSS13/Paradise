@@ -1,7 +1,7 @@
 /client/proc/air_status(turf/target as turf)
 	set category = "Debug"
 	set name = "Display Air Status"
-	
+
 	if(!check_rights(R_DEBUG))
 		return
 
@@ -18,22 +18,22 @@
 	to_chat(usr, "\blue @[target.x],[target.y]: O:[GM.oxygen] T:[GM.toxins] N:[GM.nitrogen] C:[GM.carbon_dioxide] w [GM.temperature] Kelvin, [GM.return_pressure()] kPa [(burning)?("\red BURNING"):(null)]")
 	for(var/datum/gas/trace_gas in GM.trace_gases)
 		to_chat(usr, "[trace_gas.type]: [trace_gas.moles]")
-		
+
 	message_admins("[key_name_admin(usr)] has checked the air status of [T]")
-	log_admin("[key_name(usr)] has checked the air status of [T]")	
-		
+	log_admin("[key_name(usr)] has checked the air status of [T]")
+
 	feedback_add_details("admin_verb","DAST") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/fix_next_move()
 	set category = "Debug"
 	set name = "Unfreeze Everyone"
-	
+
 	if(!check_rights(R_DEBUG))
-		return	
-		
+		return
+
 	message_admins("[key_name_admin(usr)] has unfrozen everyone")
 	log_admin("[key_name(usr)] has unfrozen everyone")
-	
+
 	var/largest_move_time = 0
 	var/largest_click_time = 0
 	var/mob/largest_move_mob = null
@@ -56,18 +56,18 @@
 		log_admin("DEBUG: [key_name(M)]  next_move = [M.next_move]  next_click = [M.next_click]  world.time = [world.time]")
 		M.next_move = 1
 		M.next_click = 0
-				
+
 	message_admins("[key_name_admin(largest_move_mob)] had the largest move delay with [largest_move_time] frames / [largest_move_time/10] seconds!", 1)
 	message_admins("[key_name_admin(largest_click_mob)] had the largest click delay with [largest_click_time] frames / [largest_click_time/10] seconds!", 1)
 	message_admins("world.time = [world.time]", 1)
-	
+
 	feedback_add_details("admin_verb","UFE") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	return
 
 /client/proc/radio_report()
 	set category = "Debug"
 	set name = "Radio report"
-	
+
 	if(!check_rights(R_DEBUG))
 		return
 
@@ -83,28 +83,28 @@
 		"_default" = "NO_FILTER"
 		)
 	var/output = "<b>Radio Report</b><hr>"
-	for (var/fq in radio_controller.frequencies)
+	for(var/fq in radio_controller.frequencies)
 		output += "<b>Freq: [fq]</b><br>"
 		var/list/datum/radio_frequency/fqs = radio_controller.frequencies[fq]
-		if (!fqs)
+		if(!fqs)
 			output += "&nbsp;&nbsp;<b>ERROR</b><br>"
 			continue
-		for (var/filter in fqs.devices)
+		for(var/filter in fqs.devices)
 			var/list/f = fqs.devices[filter]
-			if (!f)
+			if(!f)
 				output += "&nbsp;&nbsp;[filters[filter]]: ERROR<br>"
 				continue
 			output += "&nbsp;&nbsp;[filters[filter]]: [f.len]<br>"
-			for (var/device in f)
-				if (isobj(device))
+			for(var/device in f)
+				if(isobj(device))
 					output += "&nbsp;&nbsp;&nbsp;&nbsp;[device] ([device:x],[device:y],[device:z] in area [get_area(device:loc)])<br>"
 				else
 					output += "&nbsp;&nbsp;&nbsp;&nbsp;[device]<br>"
 
 	usr << browse(output,"window=radioreport")
-	
+
 	message_admins("[key_name_admin(usr)] has generated a radio report")
-	log_admin("[key_name(usr)] has generated a radio report")	
+	log_admin("[key_name(usr)] has generated a radio report")
 
 	feedback_add_details("admin_verb","RR") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
@@ -112,12 +112,12 @@
 	set name = "Reload Admins"
 	set category = "Debug"
 
-	if(!check_rights(R_SERVER))	
+	if(!check_rights(R_SERVER))
 		return
 
 	message_admins("[key_name_admin(usr)] has manually reloaded admins")
 	log_admin("[key_name(usr)] has manually reloaded admins")
-	
+
 	load_admins()
 	feedback_add_details("admin_verb","RLDA") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
@@ -126,14 +126,14 @@
 	set name = "Print Jobban Log"
 	set desc = "This spams all the active jobban entries for the current round to standard output."
 	set category = "Debug"
-	
+
 	if(!check_rights(R_DEBUG))
 		return
 
 	to_chat(usr, "<b>Jobbans active in this round.</b>")
 	for(var/t in jobban_keylist)
 		to_chat(usr, "[t]")
-		
+
 	message_admins("[key_name_admin(usr)] has printed the jobban log")
 	log_admin("[key_name(usr)] has printed the jobban log")
 
@@ -141,7 +141,7 @@
 	set name = "Search Jobban Log"
 	set desc = "This searches all the active jobban entries for the current round and outputs the results to standard output."
 	set category = "Debug"
-	
+
 	if(!check_rights(R_DEBUG))
 		return
 
@@ -153,6 +153,26 @@
 	for(var/t in jobban_keylist)
 		if(findtext(t, filter))
 			to_chat(usr, "[t]")
-			
+
 	message_admins("[key_name_admin(usr)] has searched the jobban log for [filter]")
 	log_admin("[key_name(usr)] has searched the jobban log for [filter]")
+
+/client/proc/vv_by_ref()
+	set name = "VV by Ref"
+	set desc = "Give this a ref string, and you will see its corresponding VV panel if it exists"
+	set category = "Debug"
+
+	// It's gated by "Debug Verbs", so might as well gate it to the debug permission
+	if(!check_rights(R_DEBUG))
+		return
+
+	var/refstring = input("Which reference?","Ref") as text|null
+	if(!refstring)
+		return
+
+	var/datum/D = locate(refstring)
+	if(!D)
+		to_chat(usr, "<span class='warning'>That ref string does not correspond to any datum.</span>")
+		return
+
+	debug_variables(D)

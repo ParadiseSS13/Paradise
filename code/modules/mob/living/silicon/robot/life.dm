@@ -2,14 +2,14 @@
 	set invisibility = 0
 	set background = BACKGROUND_ENABLED
 
-	if (src.notransform)
+	if(src.notransform)
 		return
 
 	//Status updates, death etc.
 	clamp_values()
 
 	if(..())
-		use_power()
+		handle_robot_cell()
 		process_locks()
 		process_queued_alarms()
 
@@ -17,60 +17,34 @@
 	SetStunned(min(stunned, 30))
 	SetParalysis(min(paralysis, 30))
 	SetWeakened(min(weakened, 20))
-	sleeping = 0
-	ear_deaf = 0
+	SetSleeping(0)
 
+/mob/living/silicon/robot/proc/handle_robot_cell()
+	if(stat != DEAD)
+		if(!is_component_functioning("power cell") || !cell)
+			Paralyse(2)
+			uneq_all()
+			low_power_mode = 1
+			update_headlamp()
+			diag_hud_set_borgcell()
+			return
+		if(low_power_mode)
+			if(is_component_functioning("power cell") && cell && cell.charge)
+				low_power_mode = 0
+				update_headlamp()
+		else if(stat == CONSCIOUS)
+			use_power()
 
 /mob/living/silicon/robot/proc/use_power()
-	if (stat == DEAD)
-		return
-	else if (is_component_functioning("power cell") && cell)
-		if(module)
-			for(var/obj/item/borg/B in get_all_slots())
-				if(B.powerneeded)
-					if((cell.charge * 100 / cell.maxcharge) < B.powerneeded)
-						to_chat(src, "Deactivating [B.name] due to lack of power!")
-						uneq_module(B)
-		if(cell.charge <= 0)
+	if(is_component_functioning("power cell") && cell && cell.charge)
+		if(cell.charge <= 100)
 			uneq_all()
-			update_headlamp(1)
-			stat = UNCONSCIOUS
-			has_power = 0
-			for(var/V in components)
-				var/datum/robot_component/C = components[V]
-				if(C.name == "actuator") // Let drained robots move, disable the rest
-					continue
-				C.consume_power()
-		else if(cell.charge <= 100)
-			uneq_all()
-			cell.use(1)
-		else
-			if(module_state_1)
-				cell.use(4)
-			if(module_state_2)
-				cell.use(4)
-			if(module_state_3)
-				cell.use(4)
-
-			for(var/V in components)
-				var/datum/robot_component/C = components[V]
-				C.consume_power()
-
-			var/amt = Clamp((lamp_intensity - 2) * 2,1,cell.charge) //Always try to use at least one charge per tick, but allow it to completely drain the cell.
-			cell.use(amt) //Usage table: 1/tick if off/lowest setting, 4 = 4/tick, 6 = 8/tick, 8 = 12/tick, 10 = 16/tick
-
-			if(!is_component_functioning("actuator"))
-				Paralyse(3)
-			eye_blind = 0
-			// Please, PLEASE be careful with statements like this - make sure they're not
-			// dead beforehand, for example -- Crazylemon
-			stat = CONSCIOUS
-			has_power = 1
+		var/amt = Clamp((lamp_intensity - 2) * 2,1,cell.charge) //Always try to use at least one charge per tick, but allow it to completely drain the cell.
+		cell.use(amt) //Usage table: 1/tick if off/lowest setting, 4 = 4/tick, 6 = 8/tick, 8 = 12/tick, 10 = 16/tick
 	else
 		uneq_all()
-		stat = UNCONSCIOUS
-		update_headlamp(1)
-		Paralyse(3)
+		low_power_mode = 1
+		update_headlamp()
 	diag_hud_set_borgcell()
 
 /mob/living/silicon/robot/handle_regular_status_updates()
@@ -88,7 +62,7 @@
 
 	if(sleeping)
 		Paralyse(3)
-		sleeping--
+		AdjustSleeping(-1)
 
 	if(resting)
 		Weaken(5)
@@ -116,7 +90,7 @@
 			stat = UNCONSCIOUS
 
 			if(!paralysis > 0)
-				eye_blind = 0
+				SetEyeBlind(0)
 
 		else
 			stat = CONSCIOUS
@@ -124,7 +98,7 @@
 		diag_hud_set_health()
 		diag_hud_set_status()
 	else //dead
-		eye_blind = 1
+		SetEyeBlind(0)
 
 	//update the state of modules and components here
 	if(stat != CONSCIOUS)
@@ -146,32 +120,38 @@
 	return 1
 
 /mob/living/silicon/robot/update_sight()
-	if(stat == DEAD || sight_mode & BORGXRAY)
+	if(!client)
+		return
+	if(stat == DEAD)
+		grant_death_vision()
+		return
+
+	see_invisible = initial(see_invisible)
+	see_in_dark = initial(see_in_dark)
+	sight = initial(sight)
+
+	if(client.eye != src)
+		var/atom/A = client.eye
+		if(A.update_remote_sight(src)) //returns 1 if we override all other sight updates.
+			return
+
+	if(sight_mode & BORGMESON)
 		sight |= SEE_TURFS
+		see_invisible = min(see_invisible, SEE_INVISIBLE_MINIMUM)
+		see_in_dark = 1
+
+	if(sight_mode & BORGXRAY)
+		sight |= (SEE_TURFS|SEE_MOBS|SEE_OBJS)
+		see_invisible = SEE_INVISIBLE_LIVING
+		see_in_dark = 8
+
+	if(sight_mode & BORGTHERM)
 		sight |= SEE_MOBS
-		sight |= SEE_OBJS
+		see_invisible = min(see_invisible, SEE_INVISIBLE_LIVING)
 		see_in_dark = 8
-		see_invisible = SEE_INVISIBLE_LEVEL_TWO
-	else
-		see_in_dark = 8
-		if(sight_mode & BORGMESON && sight_mode & BORGTHERM)
-			sight |= SEE_TURFS
-			sight |= SEE_MOBS
-			see_invisible = SEE_INVISIBLE_MINIMUM
-		else if(sight_mode & BORGMESON)
-			sight |= SEE_TURFS
-			see_invisible = SEE_INVISIBLE_MINIMUM
-			see_in_dark = 1
-		else if(sight_mode & BORGTHERM)
-			sight |= SEE_MOBS
-			see_invisible = SEE_INVISIBLE_LEVEL_TWO
-		else if(stat != DEAD)
-			sight &= ~SEE_MOBS
-			sight &= ~SEE_TURFS
-			sight &= ~SEE_OBJS
-			see_invisible = SEE_INVISIBLE_LEVEL_TWO
-		if(see_override)
-			see_invisible = see_override
+
+	if(see_override)
+		see_invisible = see_override
 
 /mob/living/silicon/robot/handle_hud_icons()
 	update_items()
@@ -232,7 +212,7 @@
 
 
 /mob/living/silicon/robot/proc/update_items()
-	if (client)
+	if(client)
 		for(var/obj/I in get_all_slots())
 			client.screen |= I
 	if(module_state_1)
@@ -253,12 +233,14 @@
 			weapon_lock = 0
 			weaponlock_time = 120
 
-/mob/living/silicon/robot/update_canmove()
+/mob/living/silicon/robot/update_canmove(delay_action_updates = 0)
 	if(paralysis || stunned || weakened || buckled || lockcharge)
 		canmove = 0
 	else
 		canmove = 1
 	update_transform()
+	if(!delay_action_updates)
+		update_action_buttons_icon()
 	return canmove
 
 //Robots on fire

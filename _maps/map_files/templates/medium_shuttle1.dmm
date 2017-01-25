@@ -1,0 +1,46 @@
+"a" = (/turf/space,/area/space)
+"b" = (/obj/structure/shuttle/engine/propulsion/burst/left{tag = "icon-burst_l (EAST)"; icon_state = "burst_l"; dir = 4},/turf/space,/area/ruin/powered{name = "Shuttle"})
+"c" = (/obj/structure/shuttle/engine/heater{tag = "icon-heater (WEST)"; icon_state = "heater"; dir = 8},/obj/structure/window/reinforced{tag = "icon-rwindow (EAST)"; icon_state = "rwindow"; dir = 4},/turf/simulated/floor/plating/airless,/area/ruin/powered{name = "Shuttle"})
+"d" = (/turf/simulated/shuttle/wall{tag = "icon-wall3"; icon_state = "wall3"},/area/ruin/powered{name = "Shuttle"})
+"e" = (/turf/space,/turf/simulated/shuttle{tag = "icon-wall3 (NORTHEAST)"; icon_state = "wall3"; dir = 5},/area/ruin/powered{name = "Shuttle"})
+"f" = (/turf/simulated/shuttle/wall,/turf/simulated/shuttle/wall{tag = "icon-wall3 (SOUTHEAST)"; icon_state = "wall3"; dir = 6},/area/ruin/powered{name = "Shuttle"})
+"g" = (/turf/simulated/shuttle/wall,/area/ruin/powered{name = "Shuttle"})
+"h" = (/obj/machinery/door/airlock/external,/turf/simulated/floor/plating,/area/ruin/powered{name = "Shuttle"})
+"i" = (/turf/simulated/shuttle/wall{tag = "icon-diagonalWall (SOUTHEAST)"; icon_state = "diagonalWall"; dir = 6},/area/ruin/powered{name = "Shuttle"})
+"j" = (/turf/simulated/floor/plasteel{tag = "icon-dark"; icon_state = "dark"},/area/ruin/powered{name = "Shuttle"})
+"k" = (/obj/machinery/door/airlock/glass,/turf/simulated/floor/plasteel{tag = "icon-dark"; icon_state = "dark"},/area/ruin/powered{name = "Shuttle"})
+"l" = (/obj/machinery/door/airlock/glass,/turf/space,/area/ruin/powered{name = "Shuttle"})
+"m" = (/obj/structure/table,/obj/item/weapon/storage/firstaid/regular,/turf/simulated/floor/plasteel{tag = "icon-bluefull"; icon_state = "bluefull"},/area/ruin/powered{name = "Shuttle"})
+"n" = (/obj/machinery/sleeper{tag = "icon-sleeper (NORTH)"; icon_state = "sleeper"; dir = 1},/turf/simulated/floor/plasteel{tag = "icon-bluefull"; icon_state = "bluefull"},/area/ruin/powered{name = "Shuttle"})
+"o" = (/turf/simulated/floor/plasteel,/area/ruin/powered{name = "Shuttle"})
+"p" = (/obj/machinery/door/airlock/glass,/turf/simulated/floor/plasteel,/area/ruin/powered{name = "Shuttle"})
+"q" = (/turf/simulated/floor/plasteel{tag = "icon-bluefull"; icon_state = "bluefull"},/area/ruin/powered{name = "Shuttle"})
+"r" = (/turf/simulated/floor/plasteel{tag = "icon-whiteyellowfull"; icon_state = "whiteyellowfull"},/area/ruin/powered{name = "Shuttle"})
+"s" = (/obj/structure/table/reinforced,/turf/simulated/floor/plasteel{tag = "icon-whiteyellowfull"; icon_state = "whiteyellowfull"},/area/ruin/powered{name = "Shuttle"})
+"t" = (/obj/effect/spawner/window/reinforced,/turf/simulated/floor/plating,/area/ruin/powered{name = "Shuttle"})
+"u" = (/obj/machinery/power/smes/magical,/turf/simulated/floor/plasteel,/area/ruin/powered{name = "Shuttle"})
+"v" = (/turf/simulated/floor/plating,/turf/simulated/shuttle/wall{tag = "icon-window1"; icon_state = "window1"},/area/ruin/powered{name = "Shuttle"})
+"w" = (/turf/simulated/shuttle/wall{tag = "icon-diagonalWall (NORTHWEST)"; icon_state = "diagonalWall"; dir = 9},/area/ruin/powered{name = "Shuttle"})
+"x" = (/turf/space,/turf/simulated/shuttle/wall{tag = "icon-diagonalWall (NORTHWEST)"; icon_state = "diagonalWall"; dir = 9},/area/ruin/powered{name = "Shuttle"})
+"y" = (/turf/simulated/shuttle/wall{tag = "icon-wall"; icon_state = "wall"},/area/ruin/powered{name = "Shuttle"})
+"z" = (/obj/structure/shuttle/engine/propulsion/burst/right{tag = "icon-burst_r (EAST)"; icon_state = "burst_r"; dir = 4},/turf/space,/area/ruin/powered{name = "Shuttle"})
+"A" = (/turf/simulated/shuttle/wall,/turf/simulated/shuttle/wall{tag = "icon-wall3 (NORTHEAST)"; icon_state = "wall3"; dir = 5},/area/ruin/powered{name = "Shuttle"})
+"B" = (/turf/space,/turf/simulated/shuttle{tag = "icon-wall3 (SOUTHEAST)"; icon_state = "wall3"; dir = 6},/area/ruin/powered{name = "Shuttle"})
+
+(1,1,1) = {"
+aaabcdddeaaaaaaaaaaaaaa
+aaabcddddeaaaaaaaaaaaaa
+aaabcfgggghhgiaaaaaaaaa
+aaggggjjjgjjggiaaaaaaaa
+aagjjkjjjglggggggggiaaa
+ggggkggkggjjgmngjjggggi
+hopoogjjjljjlqqljjlrrst
+gogougjjjgvvgvvggggrrst
+hopoogjjjljjljjljjlrrst
+ggggkggkggjjgjjgjjggggw
+aagjjkjjjglggggggggxaaa
+aaygggjjjgjjggwaaaaaaaa
+aaazcAgggghhgwaaaaaaaaa
+aaazcdddBaaaaaaaaaaaaaa
+aaazcddBaaaaaaaaaaaaaaa
+"}

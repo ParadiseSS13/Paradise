@@ -25,30 +25,31 @@ var/list/ricochet = list('sound/weapons/effects/ric1.ogg', 'sound/weapons/effect
 	var/turf/turf_source = get_turf(source)
 
  	// Looping through the player list has the added bonus of working for mobs inside containers
-	for (var/P in player_list)
+	var/sound/S = sound(soundin)
+	var/maxdistance = (world.view + extrarange) * 3
+	for(var/P in player_list)
 		var/mob/M = P
 		if(!M || !M.client)
 			continue
-
 		var/distance = get_dist(M, turf_source)
-		if(distance <= (world.view + extrarange) * 3)
+
+		if(distance <= maxdistance)
 			var/turf/T = get_turf(M)
 
 			if(T && T.z == turf_source.z)
-				M.playsound_local(turf_source, soundin, vol, vary, frequency, falloff, is_global)
+				M.playsound_local(turf_source, soundin, vol, vary, frequency, falloff, is_global, S)
 
-var/const/FALLOFF_SOUNDS = 0.5
+/mob/proc/playsound_local(var/turf/turf_source, soundin, vol as num, vary, frequency, falloff, is_global, sound/S)
+	if(!src.client || !can_hear())
+		return
 
-/mob/proc/playsound_local(var/turf/turf_source, soundin, vol as num, vary, frequency, falloff, is_global)
-	if(!src.client || ear_deaf > 0)	return
-	soundin = get_sfx(soundin)
-
-	var/sound/S = sound(soundin)
+	if(!S)
+		S = sound(get_sfx(soundin))
 	S.wait = 0 //No queue
 	S.channel = 0 //Any channel
 	S.volume = vol
 	S.environment = -1
-	if (vary)
+	if(vary)
 		if(frequency)
 			S.frequency = frequency
 		else
@@ -69,20 +70,20 @@ var/const/FALLOFF_SOUNDS = 0.5
 		var/datum/gas_mixture/hearer_env = T.return_air()
 		var/datum/gas_mixture/source_env = turf_source.return_air()
 
-		if (hearer_env && source_env)
+		if(hearer_env && source_env)
 			var/pressure = min(hearer_env.return_pressure(), source_env.return_pressure())
 
-			if (pressure < ONE_ATMOSPHERE)
+			if(pressure < ONE_ATMOSPHERE)
 				pressure_factor = max((pressure - SOUND_MINIMUM_PRESSURE)/(ONE_ATMOSPHERE - SOUND_MINIMUM_PRESSURE), 0)
 		else //in space
 			pressure_factor = 0
 
-		if (distance <= 1)
+		if(distance <= 1)
 			pressure_factor = max(pressure_factor, 0.15)	//hearing through contact
 
 		S.volume *= pressure_factor
 
-		if (S.volume <= 0)
+		if(S.volume <= 0)
 			return	//no volume means no sound
 
 		var/dx = turf_source.x - T.x // Hearing from the right/left
@@ -108,29 +109,29 @@ var/const/FALLOFF_SOUNDS = 0.5
 /proc/get_sfx(soundin)
 	if(istext(soundin))
 		switch(soundin)
-			if ("shatter")
+			if("shatter")
 				soundin = pick(shatter_sound)
-			if ("explosion")
+			if("explosion")
 				soundin = pick(explosion_sound)
-			if ("sparks")
+			if("sparks")
 				soundin = pick(spark_sound)
-			if ("rustle")
+			if("rustle")
 				soundin = pick(rustle_sound)
-			if ("bodyfall")
+			if("bodyfall")
 				soundin = pick(bodyfall_sound)
-			if ("punch")
+			if("punch")
 				soundin = pick(punch_sound)
-			if ("clownstep")
+			if("clownstep")
 				soundin = pick(clown_sound)
-			if ("jackboot")
+			if("jackboot")
 				soundin = pick(jackboot_sound)
-			if ("swing_hit")
+			if("swing_hit")
 				soundin = pick(swing_hit_sound)
-			if ("hiss")
+			if("hiss")
 				soundin = pick(hiss_sound)
-			if ("pageturn")
+			if("pageturn")
 				soundin = pick(page_sound)
-			if ("gunshot")
+			if("gunshot")
 				soundin = pick(gun_sound)
 			if("computer_ambience")
 				soundin = pick(computer_ambience)

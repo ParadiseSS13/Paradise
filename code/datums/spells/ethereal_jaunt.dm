@@ -98,6 +98,7 @@
 	var/canmove = 1
 	density = 0
 	anchored = 1
+	burn_state = LAVA_PROOF
 
 /obj/effect/dummy/spell_jaunt/Destroy()
 	// Eject contents if deleted somehow
@@ -106,7 +107,7 @@
 	return ..()
 
 /obj/effect/dummy/spell_jaunt/relaymove(var/mob/user, direction)
-	if (!src.canmove) return
+	if(!src.canmove) return
 	var/turf/newLoc = get_step(src,direction)
 	if(!(newLoc.flags & NOJAUNT))
 		loc = newLoc

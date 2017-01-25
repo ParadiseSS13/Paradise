@@ -53,7 +53,7 @@
 
 	D.apply_damage(damage, BRUTE, affecting, armor_block)
 
-	add_logs(D, A, "punched")
+	add_logs(A, D, "punched")
 
 	if((D.stat != DEAD) && damage >= A.species.punchstunthreshold)
 		D.visible_message("<span class='danger'>[A] has weakened [D]!!</span>", \
@@ -181,7 +181,7 @@
 	attack_verb = list("smashed", "slammed", "whacked", "thwacked")
 	icon = 'icons/obj/weapons.dmi'
 	icon_state = "bostaff0"
-
+	block_chance = 50
 
 /obj/item/weapon/twohanded/bostaff/update_icon()
 	icon_state = "bostaff[wielded]"
@@ -239,8 +239,7 @@
 			return ..()
 	return ..()
 
-/obj/item/weapon/twohanded/bostaff/IsShield()
+/obj/item/weapon/twohanded/bostaff/hit_reaction(mob/living/carbon/human/owner, attack_text, final_block_chance)
 	if(wielded)
-		return 1
-	else
-		return 0
+		return ..()
+	return 0

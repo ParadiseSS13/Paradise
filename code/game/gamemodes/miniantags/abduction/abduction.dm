@@ -42,7 +42,7 @@
 	for(var/i=1,i<=abductor_teams,i++)
 		if(!make_abductor_team(i))
 			return 0
-
+	..()
 	return 1
 
 /datum/game_mode/abduction/proc/make_abductor_team(team_number,preset_agent=null,preset_scientist=null)
@@ -75,11 +75,11 @@
 
 
 	scientist.assigned_role = "MODE"
-	scientist.special_role = "abductor scientist"
+	scientist.special_role = SPECIAL_ROLE_ABDUCTOR_SCIENTIST
 	log_game("[scientist.key] (ckey) has been selected as an abductor team [team_number] scientist.")
 
 	agent.assigned_role = "MODE"
-	agent.special_role = "abductor agent"
+	agent.special_role = SPECIAL_ROLE_ABDUCTOR_AGENT
 	log_game("[agent.key] (ckey) has been selected as an abductor team [team_number] agent.")
 
 	abductors |= agent
@@ -119,6 +119,7 @@
 		equip_common(H,team_number)
 		equip_agent(H,team_number)
 		greet_agent(agent,team_number)
+		update_abductor_icons_added(agent)
 
 		scientist = scientists[team_number]
 		H = scientist.current
@@ -132,6 +133,8 @@
 		equip_common(H,team_number)
 		equip_scientist(H,team_number)
 		greet_scientist(scientist,team_number)
+		update_abductor_icons_added(scientist)
+
 	return ..()
 
 //Used for create antag buttons
@@ -165,7 +168,7 @@
 	equip_common(H,team_number)
 	equip_agent(H,team_number)
 	greet_agent(agent,team_number)
-
+	update_abductor_icons_added(agent)
 
 	scientist = scientists[team_number]
 	H = scientist.current
@@ -179,6 +182,7 @@
 	equip_common(H,team_number)
 	equip_scientist(H,team_number)
 	greet_scientist(scientist,team_number)
+	update_abductor_icons_added(scientist)
 
 
 /datum/abductor //stores abductor's team and whether they're a scientist or agent; since species datums are global, we have to use this, instead.
@@ -270,7 +274,7 @@
 		for(var/team_number=1,team_number<=abductor_teams,team_number++)
 			var/obj/machinery/abductor/console/con = get_team_console(team_number)
 			var/datum/objective/objective = team_objectives[team_number]
-			if (con.experiment.points >= objective.target_amount)
+			if(con.experiment.points >= objective.target_amount)
 				shuttle_master.emergency.request(null, 0.5)
 				finished = 1
 				return ..()
@@ -337,6 +341,17 @@
 			else
 				return 0
 	return 0
+
+/datum/game_mode/proc/remove_abductor(datum/mind/abductor_mind)
+	if(abductor_mind in abductors)
+		ticker.mode.abductors -= abductor_mind
+		abductor_mind.special_role = null
+		abductor_mind.current.create_attack_log("<span class='danger'>No longer abductor</span>")
+		if(issilicon(abductor_mind.current))
+			to_chat(abductor_mind.current, "<span class='userdanger'>You have been turned into a robot! You are no longer an abductor.</span>")
+		else
+			to_chat(abductor_mind.current, "<span class='userdanger'>You have been brainwashed! You are no longer an abductor.</span>")
+		ticker.mode.update_abductor_icons_added(abductor_mind)
 
 /datum/game_mode/proc/update_abductor_icons_added(datum/mind/alien_mind)
 	var/datum/atom_hud/antag/hud = huds[ANTAG_HUD_ABDUCTOR]

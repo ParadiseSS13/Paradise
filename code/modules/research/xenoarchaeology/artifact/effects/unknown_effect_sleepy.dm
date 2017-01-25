@@ -13,8 +13,8 @@
 		if(ishuman(toucher) && prob(weakness * 100))
 			var/mob/living/carbon/human/H = toucher
 			to_chat(H, pick("\blue You feel like taking a nap.","\blue You feel a yawn coming on.","\blue You feel a little tired."))
-			H.drowsyness = min(H.drowsyness + rand(5,25) * weakness, 50 * weakness)
-			H.eye_blurry = min(H.eye_blurry + rand(1,3) * weakness, 50 * weakness)
+			H.AdjustDrowsy(rand(5,25) * weakness, bound_lower = 0, bound_upper = 50 * weakness)
+			H.AdjustEyeBlurry(rand(1,3) * weakness, bound_lower = 0, bound_upper = 50 * weakness)
 			return 1
 		else if(isrobot(toucher))
 			to_chat(toucher, "\red SYSTEM ALERT: CPU cycles slowing down.")
@@ -23,14 +23,14 @@
 /datum/artifact_effect/sleepy/DoEffectAura()
 	if(holder)
 		var/turf/T = get_turf(holder)
-		for (var/mob/living/carbon/human/H in range(src.effectrange,T))
+		for(var/mob/living/carbon/human/H in range(src.effectrange,T))
 			var/weakness = GetAnomalySusceptibility(H)
 			if(prob(weakness * 100))
 				if(prob(10))
 					to_chat(H, pick("\blue You feel like taking a nap.","\blue You feel a yawn coming on.","\blue You feel a little tired."))
-				H.drowsyness = min(H.drowsyness + 1 * weakness, 25 * weakness)
-				H.eye_blurry = min(H.eye_blurry + 1 * weakness, 25 * weakness)
-		for (var/mob/living/silicon/robot/R in range(src.effectrange,holder))
+				H.AdjustDrowsy(1 * weakness, bound_lower = 0, bound_upper = 25 * weakness)
+				H.AdjustEyeBlurry(1 * weakness, bound_lower = 0, bound_upper = 25 * weakness)
+		for(var/mob/living/silicon/robot/R in range(src.effectrange,holder))
 			to_chat(R, "\red SYSTEM ALERT: CPU cycles slowing down.")
 		return 1
 
@@ -41,8 +41,8 @@
 			var/weakness = GetAnomalySusceptibility(H)
 			if(prob(weakness * 100))
 				to_chat(H, pick("\blue You feel like taking a nap.","\blue You feel a yawn coming on.","\blue You feel a little tired."))
-				H.drowsyness = min(H.drowsyness + rand(5,15) * weakness, 50 * weakness)
-				H.eye_blurry = min(H.eye_blurry + rand(5,15) * weakness, 50 * weakness)
-		for (var/mob/living/silicon/robot/R in range(src.effectrange,holder))
+				H.AdjustDrowsy(rand(5,15) * weakness, bound_lower = 0, bound_upper = 50 * weakness)
+				H.AdjustEyeBlurry(rand(5,15) * weakness, bound_lower = 0, bound_upper = 50 * weakness)
+		for(var/mob/living/silicon/robot/R in range(src.effectrange,holder))
 			to_chat(R, "\red SYSTEM ALERT: CPU cycles slowing down.")
 		return 1

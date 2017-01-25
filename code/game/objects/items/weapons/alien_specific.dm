@@ -14,7 +14,6 @@
 	throw_range = 5
 	w_class = 2
 	w_class_on = 2
-	flags = NOSHIELD
 	attack_verb = list("attacked", "slashed", "gored", "sliced", "torn", "ripped", "butchered", "cut")
 	attack_verb_on = list()
 
@@ -65,10 +64,3 @@
 	desc = "Useful for taking pictures, making friends and flash-frying chips."
 	icon = 'icons/mob/alien.dmi'
 	icon_state = "borg-flash"
-
-//heat vision
-
-/obj/item/borg/sight/thermal/alien
-	name = "thermal module"
-	icon = 'icons/mob/alien.dmi'
-	icon_state = "borg-extra-vision"

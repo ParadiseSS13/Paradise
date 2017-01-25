@@ -15,10 +15,10 @@
 		if(0)
 
 			dat += {"<h2>Search Settings</h2><br />
-				<A href='?src=\ref[src];settitle=1'>Filter by Title: [query.title]</A><br />
-				<A href='?src=\ref[src];setcategory=1'>Filter by Category: [query.category]</A><br />
-				<A href='?src=\ref[src];setauthor=1'>Filter by Author: [query.author]</A><br />
-				<A href='?src=\ref[src];search=1'>\[Start Search\]</A><br />"}
+				<A href='?src=[UID()];settitle=1'>Filter by Title: [query.title]</A><br />
+				<A href='?src=[UID()];setcategory=1'>Filter by Category: [query.category]</A><br />
+				<A href='?src=[UID()];setauthor=1'>Filter by Author: [query.author]</A><br />
+				<A href='?src=[UID()];search=1'>\[Start Search\]</A><br />"}
 		if(1)
 			establish_db_connection()
 			if(!dbcon.IsConnected())
@@ -29,8 +29,8 @@
 				var/pagelist = get_pagelist()
 
 				dat += pagelist
-				dat += {"<form name='pagenum' action='?src=\ref[src]' method='get'>
-										<input type='hidden' name='src' value='\ref[src]'>
+				dat += {"<form name='pagenum' action='?src=[UID()]' method='get'>
+										<input type='hidden' name='src' value='[UID()]'>
 										<input type='text' name='pagenum' value='[page_num]' maxlength="5" size="5">
 										<input type='submit' value='Jump To Page'>
 							</form>"}
@@ -48,11 +48,11 @@
 						<td>[CB.title]</td>
 						<td>[CB.category]</td>
 						<td>[CB.id]</td>
-						<td><A href="?src=\ref[src];flag=[CB.id]">\[Flag[CB.flagged ? "ged" : ""]\]</A></td>
+						<td><A href="?src=[UID()];flag=[CB.id]">\[Flag[CB.flagged ? "ged" : ""]\]</A></td>
 					</tr>"}
 
 				dat += "</table><br />[pagelist]"
-			dat += "<A href='?src=\ref[src];back=1'>\[Go Back\]</A><br />"
+			dat += "<A href='?src=[UID()];back=1'>\[Go Back\]</A><br />"
 	var/datum/browser/B = new /datum/browser(user, "library", "Library Visitor")
 	B.set_content(dat)
 	B.open()

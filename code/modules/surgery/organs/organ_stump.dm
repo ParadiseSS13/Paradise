@@ -22,7 +22,7 @@
 /obj/item/organ/external/stump/remove()
 	..()
 	qdel(src)
+	return null
 
 /obj/item/organ/external/stump/is_usable()
 	return 0
-

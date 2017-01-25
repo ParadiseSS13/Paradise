@@ -17,7 +17,7 @@
 
 /datum/event/ion_storm/announce()
 	if(announceEvent == ION_ANNOUNCE || (announceEvent == ION_RANDOM && prob(ionAnnounceChance)))
-		command_announcement.Announce("Ion storm detected near the station. Please check all AI-controlled equipment for errors.", "Anomaly Alert", 'sound/AI/ionstorm.ogg')
+		event_announcement.Announce("Ion storm detected near the station. Please check all AI-controlled equipment for errors.", "Anomaly Alert", 'sound/AI/ionstorm.ogg')
 
 
 /datum/event/ion_storm/start()
@@ -492,7 +492,7 @@
 
 /proc/generate_static_ion_law()
 	/var/list/players = list()
-	for (var/mob/living/carbon/human/player in player_list)
+	for(var/mob/living/carbon/human/player in player_list)
 		if(	!player.mind || player.mind.assigned_role == "MODE" || player.client.inactivity > MinutesToTicks(10))
 			continue
 		players += player.real_name

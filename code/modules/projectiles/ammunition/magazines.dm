@@ -83,7 +83,7 @@
 	multiload = 0
 
 /obj/item/ammo_box/magazine/internal/shot/ammo_count(countempties = 1)
-	if (!countempties)
+	if(!countempties)
 		var/boolets = 0
 		for(var/obj/item/ammo_casing/bullet in stored_ammo)
 			if(bullet.BB)
@@ -180,16 +180,63 @@
 	max_ammo = 8
 	multiple_sprites = 2
 
+/obj/item/ammo_box/magazine/m10mm/fire
+	name = "pistol magazine (10mm incendiary)"
+	desc = "A gun magazine. Loaded with rounds which ignite the target."
+	ammo_type = /obj/item/ammo_casing/c10mm/fire
+
+/obj/item/ammo_box/magazine/m10mm/hp
+	name = "pistol magazine (10mm HP)"
+	desc= "A gun magazine. Loaded with hollow-point rounds, extremely effective against unarmored targets, but nearly useless against protective clothing."
+	ammo_type = /obj/item/ammo_casing/c10mm/hp
+
+/obj/item/ammo_box/magazine/m10mm/ap
+	name = "pistol magazine (10mm AP)"
+	desc= "A gun magazine. Loaded with rounds which penetrate armour, but are less effective against normal targets"
+	ammo_type = /obj/item/ammo_casing/c10mm/ap
+
+/obj/item/ammo_box/magazine/m10mm/empty		//for maint drops
+	desc = "A gun magazine. Seems to be broken and can only hold one bullet. Pretty useless."
+	max_ammo = 1
+
+/obj/item/ammo_box/magazine/m10mm/empty/update_icon()
+	icon_state = "[initial(icon_state)]-[stored_ammo.len ? "8" : "0"]"
+
 /obj/item/ammo_box/magazine/m45
 	name = "handgun magazine (.45)"
-	icon_state = "45-8"
+	icon_state = "45"
 	ammo_type = /obj/item/ammo_casing/c45
 	caliber = ".45"
 	max_ammo = 8
+	multiple_sprites = 1
+/obj/item/ammo_box/magazine/m45/enforcer45
+	name = "handgun magazine (.45)"
+	icon_state = "enforcer"
+	ammo_type = /obj/item/ammo_casing/rubber45
 
-/obj/item/ammo_box/magazine/m45/update_icon()
+/obj/item/ammo_box/magazine/m45/enforcer45/update_icon()
 	..()
-	icon_state = "[initial(icon_state)]-[ammo_count() ? "8" : "0"]"
+	overlays.Cut()
+
+	var/ammo = ammo_count()
+	if(ammo && is_rubber())
+		overlays += image('icons/obj/ammo.dmi', icon_state = "enforcer-r")
+
+/obj/item/ammo_box/magazine/m45/enforcer45/examine(mob/user, var/distance)
+	..()
+	if(distance <= 2)
+		to_chat(user, "It seems to be loaded with [is_rubber() ? "rubber" : "lethal"] bullets.")//only can see the topmost one.
+
+/obj/item/ammo_box/magazine/m45/enforcer45/proc/is_rubber()//if the topmost bullet is a rubber one
+	var/ammo = ammo_count()
+	if(!ammo)
+		return 0
+	if(istype(contents[contents.len], /obj/item/ammo_casing/rubber45))
+		return 1
+	return 0
+
+	/obj/item/ammo_box/magazine/m45/enforcer45/lethal
+		ammo_type = /obj/item/ammo_casing/c45
 
 /obj/item/ammo_box/magazine/wt550m9
 	name = "wt550 magazine (4.6x30mm)"
@@ -250,7 +297,7 @@
 
 /obj/item/ammo_box/magazine/smgm9mm/update_icon()
 	..()
-	icon_state = "[initial(icon_state)]-[round(ammo_count(),6)]"
+	icon_state = "[initial(icon_state)]-[round(ammo_count()+1,4)]"
 
 /obj/item/ammo_box/magazine/pistolm9mm
 	name = "pistol magazine (9mm)"
@@ -354,12 +401,12 @@
 
 /obj/item/ammo_box/magazine/toy/smg
 	name = "foam force SMG magazine"
-	icon_state = "smg9mm-30"
+	icon_state = "smg9mm-20"
 	max_ammo = 20
 
 /obj/item/ammo_box/magazine/toy/smg/update_icon()
 	..()
-	icon_state = "smg9mm-[round(ammo_count(),5)]"
+	icon_state = "smg9mm-[round(ammo_count()+1,4)]"
 
 /obj/item/ammo_box/magazine/toy/smg/riot
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/riot

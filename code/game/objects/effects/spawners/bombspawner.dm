@@ -38,19 +38,19 @@
 
 	var/obj/item/device/assembly/S
 
-	switch (src.btype)
+	switch(src.btype)
 		// radio
-		if (0)
+		if(0)
 
 			S = new/obj/item/device/assembly/signaler(V)
 
 		// proximity
-		if (1)
+		if(1)
 
 			S = new/obj/item/device/assembly/prox_sensor(V)
 
 		// timer
-		if (2)
+		if(2)
 
 			S = new/obj/item/device/assembly/timer(V)
 

@@ -7,8 +7,8 @@
 	var/toggled = 1
 	var/brute_damage = 0
 	var/electronics_damage = 0
-	var/energy_consumption = 0
 	var/max_damage = 30
+	var/component_disabled = 0
 	var/mob/living/silicon/robot/owner
 
 // The actual device object that has to be installed for this.
@@ -51,28 +51,22 @@
 	electronics_damage = max(0, electronics_damage - electronics)
 
 /datum/robot_component/proc/is_powered()
-	return (installed == 1) && (brute_damage + electronics_damage < max_damage) && (!energy_consumption || powered)
+	return (installed == 1) && (brute_damage + electronics_damage < max_damage) && (powered)
 
 
 /datum/robot_component/proc/consume_power()
 	if(toggled == 0)
 		powered = 0
 		return
-	if(owner.cell.charge >= energy_consumption)
-		owner.cell.use(energy_consumption)
-		powered = 1
-	else
-		powered = 0
+	powered = 1
 
 /datum/robot_component/armour
 	name = "armour plating"
-	energy_consumption = 0
 	external_type = /obj/item/robot_parts/robot_component/armour
 	max_damage = 100
 
 /datum/robot_component/actuator
 	name = "actuator"
-	energy_consumption = 1
 	external_type = /obj/item/robot_parts/robot_component/actuator
 	max_damage = 50
 
@@ -87,24 +81,20 @@
 /datum/robot_component/radio
 	name = "radio"
 	external_type = /obj/item/robot_parts/robot_component/radio
-	energy_consumption = 1
 	max_damage = 40
 
 /datum/robot_component/binary_communication
 	name = "binary communication device"
 	external_type = /obj/item/robot_parts/robot_component/binary_communication_device
-	energy_consumption = 0
 	max_damage = 30
 
 /datum/robot_component/camera
 	name = "camera"
 	external_type = /obj/item/robot_parts/robot_component/camera
-	energy_consumption = 1
 	max_damage = 40
 
 /datum/robot_component/diagnosis_unit
 	name = "self-diagnosis unit"
-	energy_consumption = 1
 	external_type = /obj/item/robot_parts/robot_component/diagnosis_unit
 	max_damage = 30
 
@@ -121,7 +111,13 @@
 
 /mob/living/silicon/robot/proc/is_component_functioning(module_name)
 	var/datum/robot_component/C = components[module_name]
-	return C && C.installed == 1 && C.toggled && C.is_powered()
+	return C && C.installed == 1 && C.toggled && C.is_powered() && !C.component_disabled
+
+/mob/living/silicon/robot/proc/disable_component(module_name, duration)
+	var/datum/robot_component/D = get_component(module_name)
+	D.component_disabled++
+	spawn(duration)
+		D.component_disabled--
 
 // Returns component by it's string name
 /mob/living/silicon/robot/proc/get_component(var/component_name)
@@ -175,7 +171,7 @@
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	throwforce = 3
-	w_class = 2.0
+	w_class = 2
 	throw_speed = 5
 	throw_range = 10
 	origin_tech = "magnets=1;biotech=1"
@@ -208,7 +204,7 @@
 			to_chat(user, "\t Key: <font color='#FFA500'>Electronics</font>/<font color='red'>Brute</font>")
 			to_chat(user, "\t Damage Specifics: <font color='#FFA500'>[BU]</font> - <font color='red'>[BR]</font>")
 			if(M.timeofdeath && M.stat == DEAD)
-				to_chat(user, "<span class='notice'>Time of Disable: [M.timeofdeath]</span>")
+				to_chat(user, "<span class='notice'>Time of Disable: [worldtime2text(M.timeofdeath)]</span>")
 			var/mob/living/silicon/robot/H = M
 			var/list/damaged = H.get_damaged_components(1,1,1)
 			to_chat(user, "<span class='notice'>Localized Damage:</span>")

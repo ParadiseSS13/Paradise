@@ -102,31 +102,40 @@ var/global/list/body_accessory_by_species = list("None" = null)
 	return 0
 
 
+/datum/body_accessory/tail/wingler_tail // Jay wingler fluff tail
+	name = "Jay Wingler Tail"
+
+	icon_state = "winglertail"
+	animated_icon_state = "winglertail_a"
+
+
 //Vulpkanin
 /datum/body_accessory/tail/vulpkanin_2
 	name = "Vulpkanin Alt 1 (Bushy)"
-
 	icon_state = "vulptail2"
 	animated_icon_state = "vulptail2_a"
 	allowed_species = list("Vulpkanin")
 
 /datum/body_accessory/tail/vulpkanin_3
 	name = "Vulpkanin Alt 2 (Straight)"
-
 	icon_state = "vulptail3"
 	animated_icon_state = "vulptail3_a"
 	allowed_species = list("Vulpkanin")
 
 /datum/body_accessory/tail/vulpkanin_4
 	name = "Vulpkanin Alt 3 (Tiny)"
-
 	icon_state = "vulptail4"
 	animated_icon_state = "vulptail4_a"
 	allowed_species = list("Vulpkanin")
 
 /datum/body_accessory/tail/vulpkanin_5
 	name = "Vulpkanin Alt 4 (Short)"
-
 	icon_state = "vulptail5"
 	animated_icon_state = "vulptail5_a"
+	allowed_species = list("Vulpkanin")
+
+/datum/body_accessory/tail/vulpkanin_6
+	name = "Vulpkanin Alt 5 (Straight Bushy)"
+	icon_state = "vulptail6"
+	animated_icon_state = "vulptail6_a"
 	allowed_species = list("Vulpkanin")

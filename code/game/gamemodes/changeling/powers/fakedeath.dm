@@ -18,7 +18,7 @@
 
 	if(user.stat != DEAD)
 		user.emote("deathgasp")
-		user.timeofdeath = worldtime2text()
+		user.timeofdeath = world.time
 
 	spawn(800)
 		if(user && user.mind && user.mind.changeling && user.mind.changeling.purchasedpowers)

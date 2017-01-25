@@ -20,13 +20,13 @@
 
 	user = nuser
 	window_id = nwindow_id
-	if (ntitle)
+	if(ntitle)
 		title = format_text(ntitle)
-	if (nwidth)
+	if(nwidth)
 		width = nwidth
-	if (nheight)
+	if(nheight)
 		height = nheight
-	if (nref)
+	if(nref)
 		ref = nref
 	add_stylesheet("common", 'html/browser/common.css') // this CSS sheet is common to all UIs
 
@@ -60,18 +60,18 @@
 /datum/browser/proc/get_header()
 	var/key
 	var/filename
-	for (key in stylesheets)
+	for(key in stylesheets)
 		filename = "[ckey(key)].css"
 		user << browse_rsc(stylesheets[key], filename)
 		head_content += "<link rel='stylesheet' type='text/css' href='[filename]'>"
 
-	for (key in scripts)
+	for(key in scripts)
 		filename = "[ckey(key)].js"
 		user << browse_rsc(scripts[key], filename)
 		head_content += "<script type='text/javascript' src='[filename]'></script>"
 
 	var/title_attributes = "class='uiTitle'"
-	if (title_image)
+	if(title_image)
 		title_attributes = "class='uiTitle icon' style='background-image: url([title_image]);'"
 
 	return {"<!DOCTYPE html>
@@ -103,10 +103,10 @@
 
 /datum/browser/proc/open(var/use_onclose = 1)
 	var/window_size = ""
-	if (width && height)
+	if(width && height)
 		window_size = "size=[width]x[height];"
 	user << browse(get_content(), "window=[window_id];[window_size][window_options]")
-	if (use_onclose)
+	if(use_onclose)
 		onclose(user, window_id, ref)
 
 /datum/browser/proc/close()
@@ -118,7 +118,7 @@
 /mob/proc/browse_rsc_icon(icon, icon_state, dir = -1)
 	/*
 	var/icon/I
-	if (dir >= 0)
+	if(dir >= 0)
 		I = new /icon(icon, icon_state, dir)
 	else
 		I = new /icon(icon, icon_state)

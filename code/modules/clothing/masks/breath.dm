@@ -7,8 +7,8 @@
 	w_class = 2
 	gas_transfer_coefficient = 0.10
 	permeability_coefficient = 0.50
-	action_button_name = "Adjust Breath Mask"
-	ignore_maskadjust = 0
+	actions_types = list(/datum/action/item_action/adjust)
+	burn_state = FIRE_PROOF
 	species_fit = list("Vox", "Vox Armalis", "Unathi", "Tajaran", "Vulpkanin")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/mask.dmi',
@@ -38,5 +38,4 @@
 	item_state = "voxmask"
 	permeability_coefficient = 0.01
 	species_restricted = list("Vox")
-	action_button_name = null
-	ignore_maskadjust = 1
+	actions_types = list()

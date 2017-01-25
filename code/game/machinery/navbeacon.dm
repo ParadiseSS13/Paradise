@@ -26,11 +26,13 @@
 
 	var/turf/T = loc
 	hide(T.intact)
-	if(codes["patrol"])
+	if(!codes || !codes.len)
+		log_runtime(EXCEPTION("Empty codes datum at ([x],[y],[z])"), src, list("codes_txt: '[codes_txt]'"))
+	if("patrol" in codes)
 		if(!navbeacons["[z]"])
 			navbeacons["[z]"] = list()
 		navbeacons["[z]"] += src //Register with the patrol list!
-	if(codes["delivery"])
+	if("delivery" in codes)
 		deliverybeacons += src
 		deliverybeacontags += location
 
@@ -38,6 +40,15 @@
 	navbeacons["[z]"] -= src //Remove from beacon list, if in one.
 	deliverybeacons -= src
 	return ..()
+
+/obj/machinery/navbeacon/serialize()
+	var/list/data = ..()
+	data["codes"] = codes
+	return data
+
+/obj/machinery/navbeacon/deserialize(list/data)
+	codes = data["codes"]
+	..()
 
 // set the transponder codes assoc list from codes_txt
 /obj/machinery/navbeacon/proc/set_codes()
@@ -86,9 +97,9 @@
 
 		updateicon()
 
-	else if (istype(I, /obj/item/weapon/card/id)||istype(I, /obj/item/device/pda))
+	else if(istype(I, /obj/item/weapon/card/id)||istype(I, /obj/item/device/pda))
 		if(open)
-			if (src.allowed(user))
+			if(src.allowed(user))
 				src.locked = !src.locked
 				to_chat(user, "<span class='notice'>Controls are now [src.locked ? "locked" : "unlocked"].</span>")
 			else
@@ -135,14 +146,14 @@ Transponder Codes:<UL>"}
 <i>(swipe card to lock controls)</i><BR>
 
 <HR>
-Location: <A href='byond://?src=\ref[src];locedit=1'>[location ? location : "None"]</A><BR>
+Location: <A href='byond://?src=[UID()];locedit=1'>[location ? location : "None"]</A><BR>
 Transponder Codes:<UL>"}
 
 		for(var/key in codes)
 			t += "<LI>[key] ... [codes[key]]"
-			t += "	<A href='byond://?src=\ref[src];edit=1;code=[key]'>Edit</A>"
-			t += "	<A href='byond://?src=\ref[src];delete=1;code=[key]'>Delete</A><BR>"
-		t += "	<A href='byond://?src=\ref[src];add=1;'>Add New</A><BR>"
+			t += "	<A href='byond://?src=[UID()];edit=1;code=[key]'>Edit</A>"
+			t += "	<A href='byond://?src=[UID()];delete=1;code=[key]'>Delete</A><BR>"
+		t += "	<A href='byond://?src=[UID()];add=1;'>Add New</A><BR>"
 		t+= "<UL></TT>"
 
 	var/datum/browser/popup = new(user, "navbeacon", "Navigation Beacon", 300, 400)

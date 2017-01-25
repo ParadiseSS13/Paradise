@@ -22,7 +22,7 @@
 			return 0
 	return 1
 
-/proc/isloyal(A) //Checks to see if the person contains a loyalty implant, then checks that the implant is actually inside of them
+/proc/isloyal(A) //Checks to see if the person contains a mindshield implant, then checks that the implant is actually inside of them
 	for(var/obj/item/weapon/implant/loyalty/L in A)
 		if(L && L.implanted)
 			return 1
@@ -33,6 +33,9 @@
 		if(T && T.implanted)
 			return 1
 	return 0
+
+proc/isLivingSSD(mob/M)
+	return istype(M) && M.player_logged && M.stat != DEAD
 
 proc/isAntag(A)
 	if(istype(A, /mob/living/carbon))
@@ -47,8 +50,20 @@ proc/isNonCrewAntag(A)
 
 	var/mob/living/carbon/C = A
 	var/special_role = C.mind.special_role
-	var/list/crew_roles = list("traitor", "Changeling", "Vampire", "Cultist", "Head Revolutionary", "Revolutionary", "malfunctioning AI", "Shadowling", "loyalist", "mutineer", "Response Team")
-	if((special_role in crew_roles))
+	var/list/crew_roles = list(
+		SPECIAL_ROLE_BLOB,
+		SPECIAL_ROLE_CULTIST,
+		SPECIAL_ROLE_CHANGELING,
+		SPECIAL_ROLE_ERT,
+		SPECIAL_ROLE_HEAD_REV,
+		SPECIAL_ROLE_REV,
+		SPECIAL_ROLE_SHADOWLING,
+		SPECIAL_ROLE_SHADOWLING_THRALL,
+		SPECIAL_ROLE_TRAITOR,
+		SPECIAL_ROLE_VAMPIRE,
+		SPECIAL_ROLE_VAMPIRE_THRALL
+	)
+	if(special_role in crew_roles)
 		return 0
 
 	return 1
@@ -58,12 +73,6 @@ proc/iscuffed(A)
 		var/mob/living/carbon/C = A
 		if(C.handcuffed)
 			return 1
-	return 0
-
-proc/isdeaf(A)
-	if(istype(A, /mob))
-		var/mob/M = A
-		return (M.sdisabilities & DEAF) || M.ear_deaf
 	return 0
 
 proc/hassensorlevel(A, var/level)
@@ -124,12 +133,12 @@ proc/getsensorlevel(A)
 		return 0
 
 /proc/stars(n, pr)
-	if (pr == null)
+	if(pr == null)
 		pr = 25
-	if (pr <= 0)
+	if(pr <= 0)
 		return null
 	else
-		if (pr >= 100)
+		if(pr >= 100)
 			return n
 	var/te = n
 	var/t = ""
@@ -137,7 +146,7 @@ proc/getsensorlevel(A)
 	var/p = null
 	p = 1
 	while(p <= n)
-		if ((copytext(te, p, p + 1) == " " || prob(pr)))
+		if((copytext(te, p, p + 1) == " " || prob(pr)))
 			t = text("[][]", t, copytext(te, p, p + 1))
 		else
 			t = text("[]*", t)
@@ -176,14 +185,14 @@ proc/slur(phrase, var/list/slurletters = ("'"))//use a different list as an inpu
 	p = 1//1 is the start of any word
 	while(p <= n)//while P, which starts at 1 is less or equal to N which is the length.
 		var/n_letter = copytext(te, p, p + 1)//copies text from a certain distance. In this case, only one letter at a time.
-		if (prob(80) && (ckey(n_letter) in list("b","c","d","f","g","h","j","k","l","m","n","p","q","r","s","t","v","w","x","y","z")))
-			if (prob(10))
+		if(prob(80) && (ckey(n_letter) in list("b","c","d","f","g","h","j","k","l","m","n","p","q","r","s","t","v","w","x","y","z")))
+			if(prob(10))
 				n_letter = text("[n_letter]-[n_letter]-[n_letter]-[n_letter]")//replaces the current letter with this instead.
 			else
-				if (prob(20))
+				if(prob(20))
 					n_letter = text("[n_letter]-[n_letter]-[n_letter]")
 				else
-					if (prob(5))
+					if(prob(5))
 						n_letter = null
 					else
 						n_letter = text("[n_letter]-[n_letter]")
@@ -200,14 +209,14 @@ proc/slur(phrase, var/list/slurletters = ("'"))//use a different list as an inpu
 	while(p <= n)//while P, which starts at 1 is less or equal to N which is the length.
 		var/robotletter = pick("@", "!", "#", "$", "%", "&", "?") //for beep boop
 		var/n_letter = copytext(te, p, p + 1)//copies text from a certain distance. In this case, only one letter at a time.
-		if (prob(80) && (ckey(n_letter) in list("b","c","d","f","g","h","j","k","l","m","n","p","q","r","s","t","v","w","x","y","z")))
-			if (prob(10))
+		if(prob(80) && (ckey(n_letter) in list("b","c","d","f","g","h","j","k","l","m","n","p","q","r","s","t","v","w","x","y","z")))
+			if(prob(10))
 				n_letter = text("[n_letter]-[robotletter]-[n_letter]-[n_letter]")//replaces the current letter with this instead.
 			else
-				if (prob(20))
+				if(prob(20))
 					n_letter = text("[n_letter]-[robotletter]-[n_letter]")
 				else
-					if (prob(5))
+					if(prob(5))
 						n_letter = robotletter
 					else
 						n_letter = text("[n_letter]-[n_letter]")
@@ -276,7 +285,7 @@ proc/muffledspeech(phrase)
 
 /proc/findname(msg)
 	for(var/mob/M in mob_list)
-		if (M.real_name == text("[msg]"))
+		if(M.real_name == text("[msg]"))
 			return 1
 	return 0
 
@@ -337,28 +346,29 @@ var/list/intents = list(I_HELP,I_DISARM,I_GRAB,I_HARM)
 				hud_used.action_intent.icon_state = "help"
 
 
-/mob/living/carbon/verb/mob_sleep()
+/mob/living/verb/mob_sleep()
 	set name = "Sleep"
 	set category = "IC"
 
-	if(usr.sleeping)
-		to_chat(usr, "\red You are already sleeping")
+	if(sleeping)
+		to_chat(src, "<span class='notice'>You are already sleeping.</span>")
 		return
 	else
-		if(alert(src,"You sure you want to sleep for a while?","Sleep","Yes","No") == "Yes")
-			usr.sleeping = 20 //Short nap
+		if(alert(src, "You sure you want to sleep for a while?", "Sleep", "Yes", "No") == "Yes")
+			SetSleeping(20) //Short nap
 
 /mob/living/verb/lay_down()
 	set name = "Rest"
 	set category = "IC"
 
 	resting = !resting
-	to_chat(src, "\blue You are now [resting ? "resting" : "getting up"]")
+	update_canmove()
+	to_chat(src, "<span class='notice'>You are now [resting ? "resting" : "getting up"].</span>")
 
 /proc/is_blind(A)
 	if(iscarbon(A))
 		var/mob/living/carbon/C = A
-		if(C.sdisabilities & BLIND || C.blinded)
+		if(C.disabilities & BLIND || C.blinded)
 			return 1
 	return 0
 
@@ -401,14 +411,14 @@ var/list/intents = list(I_HELP,I_DISARM,I_GRAB,I_HARM)
 				name = realname
 
 	for(var/mob/M in player_list)
-		if(M.client && ((!istype(M, /mob/new_player) && M.stat == DEAD) || check_rights(R_ADMIN|R_MOD,0,M)) && (M.client.prefs.toggles & CHAT_DEAD))
+		if(M.client && ((!istype(M, /mob/new_player) && M.stat == DEAD) || check_rights(R_ADMIN|R_MOD,0,M)) && M.get_preference(CHAT_DEAD))
 			var/follow
 			var/lname
 			if(subject)
 				if(subject != M)
 					follow = "([ghost_follow_link(subject, ghost=M)]) "
 				if(M.stat != DEAD && check_rights(R_ADMIN|R_MOD,0,M))
-					follow = "([admin_jump_link(subject, M.client.holder)]) "
+					follow = "([admin_jump_link(subject)]) "
 				var/mob/dead/observer/DM
 				if(istype(subject, /mob/dead/observer))
 					DM = subject
@@ -440,15 +450,19 @@ var/list/intents = list(I_HELP,I_DISARM,I_GRAB,I_HARM)
 					A.jump_target = source
 					if(!alert_overlay)
 						var/old_layer = source.layer
+						var/old_plane = source.plane
 						source.layer = FLOAT_LAYER
+						source.plane = FLOAT_PLANE
 						A.overlays += source
 						source.layer = old_layer
+						source.plane = old_plane
 					else
 						alert_overlay.layer = FLOAT_LAYER
+						alert_overlay.plane = FLOAT_PLANE
 						A.overlays += alert_overlay
 
 /mob/proc/switch_to_camera(var/obj/machinery/camera/C)
-	if (!C.can_use() || stat || (get_dist(C, src) > 1 || machine != src || blinded || !canmove))
+	if(!C.can_use() || stat || (get_dist(C, src) > 1 || machine != src || blinded || !canmove))
 		return 0
 	check_eye(src)
 	return 1
@@ -494,11 +508,11 @@ var/list/intents = list(I_HELP,I_DISARM,I_GRAB,I_HARM)
 					search_pda = 0
 
 		//Fixes renames not being reflected in objective text
-		var/list/O = subtypesof(/datum/objective)
 		var/length
 		var/pos
-		for(var/datum/objective/objective in O)
-			if(objective.target != mind) continue
+		for(var/datum/objective/objective in all_objectives)
+			if(!mind || objective.target != mind)
+				continue
 			length = lentext(oldname)
 			pos = findtextEx(objective.explanation_text, oldname)
 			objective.explanation_text = copytext(objective.explanation_text, 1, pos)+newname+copytext(objective.explanation_text, pos+length)
@@ -532,3 +546,53 @@ var/list/intents = list(I_HELP,I_DISARM,I_GRAB,I_HARM)
 			return
 
 		rename_character(oldname, newname)
+
+/proc/cultslur(n) // Inflicted on victims of a stun talisman
+	var/phrase = html_decode(n)
+	var/leng = lentext(phrase)
+	var/counter=lentext(phrase)
+	var/newphrase=""
+	var/newletter=""
+	while(counter>=1)
+		newletter=copytext(phrase,(leng-counter)+1,(leng-counter)+2)
+		if(rand(1,2)==2)
+			if(lowertext(newletter)=="o")
+				newletter="u"
+			if(lowertext(newletter)=="t")
+				newletter="ch"
+			if(lowertext(newletter)=="a")
+				newletter="ah"
+			if(lowertext(newletter)=="u")
+				newletter="oo"
+			if(lowertext(newletter)=="c")
+				newletter=" NAR "
+			if(lowertext(newletter)=="s")
+				newletter=" SIE "
+		if(rand(1,4)==4)
+			if(newletter==" ")
+				newletter=" no hope... "
+			if(newletter=="H")
+				newletter=" IT COMES... "
+
+		switch(rand(1,15))
+			if(1)
+				newletter="'"
+			if(2)
+				newletter+="agn"
+			if(3)
+				newletter="fth"
+			if(4)
+				newletter="nglu"
+			if(5)
+				newletter="glor"
+		newphrase+="[newletter]";counter-=1
+	return newphrase
+
+/mob/proc/get_preference(toggleflag)
+	if(!client)
+		return FALSE
+	if(!client.prefs)
+		log_runtime(EXCEPTION("Mob '[src]', ckey '[ckey]' is missing a prefs datum on the client!"))
+		return FALSE
+	// Cast to 1/0
+	return !!(client.prefs.toggles & toggleflag)

@@ -68,6 +68,7 @@
 	icon = 'icons/turf/floors/seadrop-o.dmi'
 	layer = MOB_LAYER + 0.1
 	smooth = SMOOTH_TRUE
+	anchored = 1
 	canSmoothWith = list(
 		/turf/unsimulated/beach/water/drop, /turf/unsimulated/beach/water/drop/dense,
 		/turf/unsimulated/beach/water, /turf/unsimulated/beach/water/dense,

@@ -66,6 +66,7 @@
 							connected_to = c
 							node2 = target
 							break
+
 		var/turf/T = loc			// hide if turf is not intact
 		hide(T.intact)
 		update_icon()
@@ -120,7 +121,9 @@
 		if(istype(node2, /obj/machinery/atmospherics/pipe))
 			qdel(parent)
 		node2 = null
+	check_nodes_exist()
 	update_icon()
+	..()
 
 /obj/machinery/atmospherics/pipe/simple/pipeline_expansion()
 	return list(node1, node2)
@@ -141,18 +144,18 @@
 
 	overlays.Cut()
 
-	if(!node1 && !node2)
-		var/turf/T = get_turf(src)
-		new /obj/item/pipe(loc, make_from=src)
-		for (var/obj/machinery/meter/meter in T)
-			if (meter.target == src)
-				new /obj/item/pipe_meter(T)
-				qdel(meter)
-		qdel(src)
-	else if(node1 && node2)
+	if(node1 && node2)
 		overlays += icon_manager.get_atmos_icon("pipe", , pipe_color, pipe_icon + "intact" + icon_connect_type)
 	else
 		overlays += icon_manager.get_atmos_icon("pipe", , pipe_color, pipe_icon + "exposed[node1?1:0][node2?1:0]" + icon_connect_type)
+
+// A check to make sure both nodes exist - self-delete if they aren't present
+/obj/machinery/atmospherics/pipe/simple/check_nodes_exist()
+	if(!node1 && !node2)
+		Deconstruct()
+		return 0 // 0: No nodes exist
+	// 1: 1-2 nodes exist, we continue existing
+	return 1
 
 /obj/machinery/atmospherics/pipe/simple/update_underlays()
 	return
@@ -160,4 +163,3 @@
 /obj/machinery/atmospherics/pipe/simple/hide(var/i)
 	if(level == 1 && istype(loc, /turf/simulated))
 		invisibility = i ? 101 : 0
-	update_icon()

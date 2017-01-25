@@ -20,6 +20,7 @@ var/global/list/boo_phrases=list(
 	school = "transmutation"
 	charge_max = 600
 	clothes_req = 0
+	stat_allowed = 1
 	invocation = ""
 	invocation_type = "none"
 	range = 1 // Or maybe 3?

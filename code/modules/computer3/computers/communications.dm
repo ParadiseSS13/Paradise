@@ -47,7 +47,7 @@
 
 	New()
 		..()
-		crew_announcement.newscast = 1
+		crew_announcement.newscast = 0
 
 	Reset()
 		..()
@@ -59,23 +59,28 @@
 	Topic(var/href, var/list/href_list)
 		if(!interactable() || !computer.radio || ..(href,href_list) )
 			return
-		if (!(computer.z in config.station_levels))
-			to_chat(usr, "\red <b>Unable to establish a connection</b>: \black You're too far away from the station!")
+		if(!is_station_level(computer.z))
+			to_chat(usr, "<span class='danger'>Unable to establish a connection</span>: You're too far away from the station!")
 			return
 
 		if("main" in href_list)
 			state = STATE_DEFAULT
 		if("login" in href_list)
-			var/mob/M = usr
-			var/obj/item/I = M.get_active_hand()
+			if(!ishuman(usr))
+				to_chat(usr, "<span class='warning'>Access denied.</span>")
+				return
+			var/mob/living/carbon/human/H = usr
+			var/obj/item/I = H.get_active_hand()
 			if(I)
 				I = I.GetID()
 			if(istype(I,/obj/item/weapon/card/id) && check_access(I))
 				authenticated = 1
 				if(access_captain in I.GetAccess())
 					authenticated = 2
-					crew_announcement.announcer = GetNameAndAssignmentFromId(I)
-
+					var/obj/item/weapon/card/id = H.get_idcard(TRUE)
+					if(istype(id))
+						crew_announcement.announcer = GetNameAndAssignmentFromId(id)
+						
 		if("logout" in href_list)
 			authenticated = 0
 			crew_announcement.announcer = ""
@@ -85,7 +90,7 @@
 			var/obj/item/I = M.get_active_hand()
 			I = I.GetID()
 
-			if (istype(I,/obj/item/weapon/card/id))
+			if(istype(I,/obj/item/weapon/card/id))
 				if(access_captain in I.GetAccess())
 					var/old_level = security_level
 					if(!tmp_alertlevel) tmp_alertlevel = SEC_LEVEL_GREEN
@@ -146,7 +151,7 @@
 			state = STATE_MESSAGELIST
 		if("viewmessage" in href_list)
 			state = STATE_VIEWMESSAGE
-			if (!currmsg)
+			if(!currmsg)
 				if(href_list["message-num"])
 					currmsg = text2num(href_list["message-num"])
 				else
@@ -247,7 +252,7 @@
 			aistate = STATE_MESSAGELIST
 		if("ai-viewmessage" in href_list)
 			aistate = STATE_VIEWMESSAGE
-			if (!aicurrmsg)
+			if(!aicurrmsg)
 				if(href_list["message-num"])
 					aicurrmsg = text2num(href_list["message-num"])
 				else
@@ -281,34 +286,34 @@
 
 	proc/main_menu()
 		var/dat = ""
-		if (computer.radio.subspace)
+		if(computer.radio.subspace)
 			if(shuttle_master.emergency.mode == SHUTTLE_CALL)
 				var/timeleft = shuttle_master.emergency.timeLeft()
 				dat += "<B>Emergency shuttle</B>\n<BR>\nETA: [timeleft / 60 % 60]:[add_zero(num2text(timeleft % 60), 2)]"
 				refresh = 1
 			else
 				refresh = 0
-		if (authenticated)
-			dat += "<BR>\[ <A HREF='?src=\ref[src];logout'>Log Out</A> \]"
-			if (authenticated==2)
-				dat += "<BR>\[ <A HREF='?src=\ref[src];announce'>Make An Announcement</A> \]"
+		if(authenticated)
+			dat += "<BR>\[ <A HREF='?src=[UID()];logout'>Log Out</A> \]"
+			if(authenticated==2)
+				dat += "<BR>\[ <A HREF='?src=[UID()];announce'>Make An Announcement</A> \]"
 				if(computer.emagged == 0)
-					dat += "<BR>\[ <A HREF='?src=\ref[src];MessageCentcomm'>Send an emergency message to Centcomm</A> \]"
+					dat += "<BR>\[ <A HREF='?src=[UID()];MessageCentcomm'>Send an emergency message to Centcomm</A> \]"
 				else
-					dat += "<BR>\[ <A HREF='?src=\ref[src];MessageSyndicate'>Send an emergency message to \[UNKNOWN\]</A> \]"
-					dat += "<BR>\[ <A HREF='?src=\ref[src];RestoreBackup'>Restore Backup Routing Data</A> \]"
+					dat += "<BR>\[ <A HREF='?src=[UID()];MessageSyndicate'>Send an emergency message to \[UNKNOWN\]</A> \]"
+					dat += "<BR>\[ <A HREF='?src=[UID()];RestoreBackup'>Restore Backup Routing Data</A> \]"
 
-				dat += "<BR>\[ <A HREF='?src=\ref[src];changeseclevel'>Change alert level</A> \]"
+				dat += "<BR>\[ <A HREF='?src=[UID()];changeseclevel'>Change alert level</A> \]"
 			/*if(emergency_shuttle.location())
-				if (emergency_shuttle.online())
-					dat += "<BR>\[ <A HREF='?src=\ref[src];cancelshuttle'>Cancel Shuttle Call</A> \]"
+				if(emergency_shuttle.online())
+					dat += "<BR>\[ <A HREF='?src=[UID()];cancelshuttle'>Cancel Shuttle Call</A> \]"
 				else
-					dat += "<BR>\[ <A HREF='?src=\ref[src];callshuttle'>Call Emergency Shuttle</A> \]"*/
+					dat += "<BR>\[ <A HREF='?src=[UID()];callshuttle'>Call Emergency Shuttle</A> \]"*/
 
-			dat += "<BR>\[ <A HREF='?src=\ref[src];status'>Set Status Display</A> \]"
+			dat += "<BR>\[ <A HREF='?src=[UID()];status'>Set Status Display</A> \]"
 		else
-			dat += "<BR>\[ <A HREF='?src=\ref[src];login'>Log In</A> \]"
-		dat += "<BR>\[ <A HREF='?src=\ref[src];messagelist'>Message List</A> \]"
+			dat += "<BR>\[ <A HREF='?src=[UID()];login'>Log In</A> \]"
+		dat += "<BR>\[ <A HREF='?src=[UID()];messagelist'>Message List</A> \]"
 		return dat
 
 	proc/confirm_menu(var/prompt,var/yes_option)
@@ -330,49 +335,49 @@
 			if(STATE_CANCELSHUTTLE)
 				dat = confirm_menu("cancel the shuttle","cancelshuttle2")
 			if(STATE_MESSAGELIST)
-				dat += "\[ <A HREF='?src=\ref[src];main'>Back</A> \]<BR>"
+				dat += "\[ <A HREF='?src=[UID()];main'>Back</A> \]<BR>"
 				dat += "Messages:"
 				for(var/i = 1; i<=messagetitle.len; i++)
-					dat += "<BR><A HREF='?src=\ref[src];viewmessage;message-num=[i]'>[messagetitle[i]]</A>"
+					dat += "<BR><A HREF='?src=[UID()];viewmessage;message-num=[i]'>[messagetitle[i]]</A>"
 			if(STATE_VIEWMESSAGE)
-				if (currmsg)
+				if(currmsg)
 					dat += "<B>[messagetitle[currmsg]]</B><BR><BR>[messagetext[currmsg]]"
-					if (authenticated)
-						dat += "<BR><BR>\[ <A HREF='?src=\ref[src];delmessage'>Delete \]"
+					if(authenticated)
+						dat += "<BR><BR>\[ <A HREF='?src=[UID()];delmessage'>Delete \]"
 				else
 					state = STATE_MESSAGELIST
 					interact()
 					return
 			if(STATE_DELMESSAGE)
-				if (currmsg)
-					dat += "Are you sure you want to delete this message? \[ <A HREF='?src=\ref[src];delmessage2'>OK</A> | <A HREF='?src=\ref[src];viewmessage'>Cancel</A> \]"
+				if(currmsg)
+					dat += "Are you sure you want to delete this message? \[ <A HREF='?src=[UID()];delmessage2'>OK</A> | <A HREF='?src=[UID()];viewmessage'>Cancel</A> \]"
 				else
 					state = STATE_MESSAGELIST
 					interact()
 					return
 			if(STATE_STATUSDISPLAY)
-				dat += "\[ <A HREF='?src=\ref[src];main'>Back</A> \]<BR>"
+				dat += "\[ <A HREF='?src=[UID()];main'>Back</A> \]<BR>"
 				dat += "Set Status Displays<BR>"
-				dat += "\[ <A HREF='?src=\ref[src];setstat;statdisp=blank'>Clear</A> \]<BR>"
-				dat += "\[ <A HREF='?src=\ref[src];setstat;statdisp=shuttle'>Shuttle ETA</A> \]<BR>"
-				dat += "\[ <A HREF='?src=\ref[src];setstat;statdisp=message'>Message</A> \]"
-				dat += "<ul><li> Line 1: <A HREF='?src=\ref[src];setmsg1'>[ stat_msg1 ? stat_msg1 : "(none)"]</A>"
-				dat += "<li> Line 2: <A HREF='?src=\ref[src];setmsg2'>[ stat_msg2 ? stat_msg2 : "(none)"]</A></ul><br>"
-				dat += "\[ Alert: <A HREF='?src=\ref[src];setstat;statdisp=alert;alert=default'>None</A> |"
-				dat += " <A HREF='?src=\ref[src];setstat;statdisp=alert;alert=redalert'>Red Alert</A> |"
-				dat += " <A HREF='?src=\ref[src];setstat;statdisp=alert;alert=lockdown'>Lockdown</A> |"
-				dat += " <A HREF='?src=\ref[src];setstat;statdisp=alert;alert=biohazard'>Biohazard</A> \]<BR><HR>"
+				dat += "\[ <A HREF='?src=[UID()];setstat;statdisp=blank'>Clear</A> \]<BR>"
+				dat += "\[ <A HREF='?src=[UID()];setstat;statdisp=shuttle'>Shuttle ETA</A> \]<BR>"
+				dat += "\[ <A HREF='?src=[UID()];setstat;statdisp=message'>Message</A> \]"
+				dat += "<ul><li> Line 1: <A HREF='?src=[UID()];setmsg1'>[ stat_msg1 ? stat_msg1 : "(none)"]</A>"
+				dat += "<li> Line 2: <A HREF='?src=[UID()];setmsg2'>[ stat_msg2 ? stat_msg2 : "(none)"]</A></ul><br>"
+				dat += "\[ Alert: <A HREF='?src=[UID()];setstat;statdisp=alert;alert=default'>None</A> |"
+				dat += " <A HREF='?src=[UID()];setstat;statdisp=alert;alert=redalert'>Red Alert</A> |"
+				dat += " <A HREF='?src=[UID()];setstat;statdisp=alert;alert=lockdown'>Lockdown</A> |"
+				dat += " <A HREF='?src=[UID()];setstat;statdisp=alert;alert=biohazard'>Biohazard</A> \]<BR><HR>"
 			if(STATE_ALERT_LEVEL)
 				dat += "Current alert level: [get_security_level()]<BR>"
 				if(security_level == SEC_LEVEL_DELTA)
 					dat += "<font color='red'><b>The self-destruct mechanism is active. Find a way to deactivate the mechanism to lower the alert level or evacuate.</b></font>"
 				else
-					dat += "<A HREF='?src=\ref[src];securitylevel;newalertlevel=[SEC_LEVEL_BLUE]'>Blue</A><BR>"
-					dat += "<A HREF='?src=\ref[src];securitylevel;newalertlevel=[SEC_LEVEL_GREEN]'>Green</A>"
+					dat += "<A HREF='?src=[UID()];securitylevel;newalertlevel=[SEC_LEVEL_BLUE]'>Blue</A><BR>"
+					dat += "<A HREF='?src=[UID()];securitylevel;newalertlevel=[SEC_LEVEL_GREEN]'>Green</A>"
 			if(STATE_CONFIRM_LEVEL)
 				dat += "Current alert level: [get_security_level()]<BR>"
 				dat += "Confirm the change to: [num2seclevel(tmp_alertlevel)]<BR>"
-				dat += "<A HREF='?src=\ref[src];swipeidseclevel'>Swipe ID</A> to confirm change.<BR>"
+				dat += "<A HREF='?src=[UID()];swipeidseclevel'>Swipe ID</A> to confirm change.<BR>"
 
 		popup.set_content(dat)
 		popup.open()

@@ -29,7 +29,7 @@
 	switch(get_area_type())
 		if(AREA_SPACE)
 			text += "<p>According to the [src.name], you are now in <b>outer space</b>.  Hold your breath.</p> \
-			<p><a href='?src=\ref[src];create_area=1'>Mark this place as new area.</a></p>"
+			<p><a href='?src=[UID()];create_area=1'>Mark this place as new area.</a></p>"
 		if(AREA_SPECIAL)
 			text += "<p>This place is not noted on the [src.name].</p>"
 	return text
@@ -90,12 +90,12 @@
 	var/area/A = get_area()
 	if(get_area_type() == AREA_STATION)
 		. += "<p>According to the [src], you are now in <b>\"[sanitize(A.name)]\"</b>.</p>"
-		. += "<p>You may <a href='?src=\ref[src];edit_area=1'> move an amendment</a> to the drawing.</p>"
+		. += "<p>You may <a href='?src=[UID()];edit_area=1'> move an amendment</a> to the drawing.</p>"
 	if(!viewing)
-		. += "<p><a href='?src=\ref[src];view_blueprints=1'>View structural data</a></p>"
+		. += "<p><a href='?src=[UID()];view_blueprints=1'>View structural data</a></p>"
 	else
-		. += "<p><a href='?src=\ref[src];refresh=1'>Refresh structural data</a></p>"
-		. += "<p><a href='?src=\ref[src];hide_blueprints=1'>Hide structural data</a></p>"
+		. += "<p><a href='?src=[UID()];refresh=1'>Refresh structural data</a></p>"
+		. += "<p><a href='?src=[UID()];hide_blueprints=1'>Hide structural data</a></p>"
 	var/datum/browser/popup = new(user, "blueprints", "[src]", 700, 500)
 	popup.set_content(.)
 	popup.open()
@@ -153,7 +153,7 @@
 
 
 /obj/item/areaeditor/proc/get_area_type(var/area/A = get_area())
-	if (istype(A,/area/space))
+	if(istype(A,/area/space))
 		return AREA_SPACE
 	var/list/SPECIALS = list(
 		/area/shuttle,
@@ -167,8 +167,8 @@
 		/area/prison
 		// /area/derelict //commented out, all hail derelict-rebuilders!
 	)
-	for (var/type in SPECIALS)
-		if ( istype(A,type) )
+	for(var/type in SPECIALS)
+		if( istype(A,type) )
 			return AREA_SPECIAL
 	return AREA_STATION
 
@@ -229,7 +229,7 @@
 
 
 /obj/item/areaeditor/proc/set_area_machinery_title(var/area/A,var/title,var/oldtitle)
-	if (!oldtitle) // or replacetext goes to infinite loop
+	if(!oldtitle) // or replacetext goes to infinite loop
 		return
 	for(var/obj/machinery/alarm/M in A)
 		M.name = replacetext(M.name,oldtitle,title)
@@ -244,28 +244,28 @@
 	//TODO: much much more. Unnamed airlocks, cameras, etc.
 
 /obj/item/areaeditor/proc/check_tile_is_border(var/turf/T2,var/dir)
-	if (istype(T2, /turf/space))
+	if(istype(T2, /turf/space))
 		return BORDER_SPACE //omg hull breach we all going to die here
-	if (istype(T2, /turf/simulated/shuttle))
+	if(istype(T2, /turf/simulated/shuttle))
 		return BORDER_SPACE
-	if (get_area_type(T2.loc)!=AREA_SPACE)
+	if(get_area_type(T2.loc)!=AREA_SPACE)
 		return BORDER_BETWEEN
-	if (istype(T2, /turf/simulated/wall))
+	if(istype(T2, /turf/simulated/wall))
 		return BORDER_2NDTILE
-	if (!istype(T2, /turf/simulated))
+	if(!istype(T2, /turf/simulated))
 		return BORDER_BETWEEN
 
-	for (var/obj/structure/window/W in T2)
+	for(var/obj/structure/window/W in T2)
 		if(turn(dir,180) == W.dir)
 			return BORDER_BETWEEN
-		if (W.dir in list(NORTHEAST,SOUTHEAST,NORTHWEST,SOUTHWEST))
+		if(W.dir in list(NORTHEAST,SOUTHEAST,NORTHWEST,SOUTHWEST))
 			return BORDER_2NDTILE
 	for(var/obj/machinery/door/window/D in T2)
 		if(turn(dir,180) == D.dir)
 			return BORDER_BETWEEN
-	if (locate(/obj/machinery/door) in T2)
+	if(locate(/obj/machinery/door) in T2)
 		return BORDER_2NDTILE
-	if (locate(/obj/structure/falsewall) in T2)
+	if(locate(/obj/structure/falsewall) in T2)
 		return BORDER_2NDTILE
 
 	return BORDER_NONE
@@ -275,23 +275,23 @@
 	var/list/turf/found = new
 	var/list/turf/pending = list(first)
 	while(pending.len)
-		if (found.len+pending.len > 300)
+		if(found.len+pending.len > 300)
 			return ROOM_ERR_TOOLARGE
 		var/turf/T = pending[1] //why byond havent list::pop()?
 		pending -= T
-		for (var/dir in cardinal)
+		for(var/dir in cardinal)
 			var/skip = 0
-			for (var/obj/structure/window/W in T)
+			for(var/obj/structure/window/W in T)
 				if(dir == W.dir || (W.dir in list(NORTHEAST,SOUTHEAST,NORTHWEST,SOUTHWEST)))
 					skip = 1; break
-			if (skip) continue
+			if(skip) continue
 			for(var/obj/machinery/door/window/D in T)
 				if(dir == D.dir)
 					skip = 1; break
-			if (skip) continue
+			if(skip) continue
 
 			var/turf/NT = get_step(T,dir)
-			if (!isturf(NT) || (NT in found) || (NT in pending))
+			if(!isturf(NT) || (NT in found) || (NT in pending))
 				continue
 
 			switch(check_tile_is_border(NT,dir))
