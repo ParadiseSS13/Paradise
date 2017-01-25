@@ -62,20 +62,24 @@
 	plantname = "Omega Weed"
 	product = /obj/item/weapon/reagent_containers/food/snacks/grown/cannabis/ultimate
 	mutatelist = list()
-	reagents_add = list("space_drugs" = 0.3,
-						"lsd" = 0.3,
+	reagents_add = list("lsd" = 0.15,
+						"suicider" = 0.15,
+						"space_drugs" = 0.15,
 						"mercury" = 0.15,
 						"lithium" = 0.15,
 						"atropine" = 0.15,
+						"ephedrine" = 0.15,
 						"haloperidol" = 0.15,
 						"methamphetamine" = 0.15,
-						"capsaicin" = 0.15,
+						"thc" = 0.15,
+						"psilocybin" = 0.15,
+						"hairgrownium" = 0.15,
+						"ectoplasm" = 0.15,
 						"bath_salts" = 0.15,
 						"itching_powder" = 0.15,
 						"crank" = 0.15,
 						"krokodil" = 0.15,
-						"histamine" = 0.15,
-						"lipolicide" = 0.15)
+						"histamine" = 0.15)
 	rarity = 69
 
 
