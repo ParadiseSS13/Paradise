@@ -144,6 +144,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	var/alt_head = "None"				//Alt head style.
 	var/species = "Human"
 	var/language = "None"				//Secondary language
+	var/species_span = "Normal"			//Used for selecting species speech spans, if any.
 
 	var/body_accessory = null
 
@@ -410,6 +411,12 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			dat += "<b>Undershirt:</b> <a href ='?_src_=prefs;preference=undershirt;task=input'>[undershirt]</a><BR>"
 			dat += "<b>Socks:</b> <a href ='?_src_=prefs;preference=socks;task=input'>[socks]</a><BR>"
 			dat += "<b>Backpack Type:</b> <a href ='?_src_=prefs;preference=bag;task=input'>[backbaglist[backbag]]</a><br>"
+
+			var/datum/species/S = all_species[species]
+			if(S.speech_spans)
+				dat += "<b>Voice:</b> <a href ='?_src_=prefs;preference=species_span;task=input'>[species_span]</a><BR>" //OHGOD
+			else
+				species_span = "Normal"
 
 			dat += "</td></tr></table>"
 
@@ -1728,6 +1735,13 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 						flavor_text = msg
 
+				if("species_span")
+					var/datum/species/S = all_species[species]
+					var/list/spanlist = S.speech_spans + "Normal"
+					var/new_voice_span = input("Choose your voice font.") as null|anything in spanlist //OHGOD
+					if(new_voice_span)
+						species_span = new_voice_span
+
 				if("limbs")
 					var/valid_limbs = list("Left Leg", "Right Leg", "Left Arm", "Right Arm", "Left Foot", "Right Foot", "Left Hand", "Right Hand")
 					if(species == "Machine")
@@ -2034,6 +2048,13 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			real_name += "[pick(last_names)]"
 
 	character.add_language(language)
+	if(species_span == "Normal")
+		character.speech_span = "say"
+	else if(S.speech_spans.Find(species_span))
+		character.speech_span = species_span //More sanity!
+	else
+		species_span = "Normal"
+		character.speech_span = "say"
 
 	character.real_name = real_name
 	character.dna.real_name = real_name
