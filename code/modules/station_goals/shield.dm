@@ -29,12 +29,12 @@
 /datum/station_goal/proc/get_coverage()
 	var/list/coverage = list()
 	for(var/obj/machinery/satellite/meteor_shield/A in machines)
-		if(!A.active || is_station_level(A.z))
+		if(!A.active || !is_station_level(A.z))
 			continue
 		coverage |= view(A.kill_range, A)
 	return coverage.len
 
-/obj/item/weapon/circuitboard/machine/computer/sat_control
+/obj/item/weapon/circuitboard/computer/sat_control
 	name = "Satellite Network Control (Computer Board)"
 	build_path = /obj/machinery/computer/sat_control
 	origin_tech = "engineering=3"
@@ -42,7 +42,7 @@
 /obj/machinery/computer/sat_control
 	name = "Satellite control"
 	desc = "Used to control the satellite network."
-	circuit = /obj/item/weapon/circuitboard/machine/computer/sat_control
+	circuit = /obj/item/weapon/circuitboard/computer/sat_control
 	icon_screen = "accelerator"
 	icon_keyboard = "accelerator_key"
 	var/notice
@@ -55,7 +55,7 @@
 /obj/machinery/computer/sat_control/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "sat_control.tmpl", name, 400, 305)
+		ui = new(user, src, ui_key, "sat_control.tmpl", name, 475, 400)
 		ui.open()
 
 /obj/machinery/computer/sat_control/Topic(href, href_list)
@@ -88,8 +88,9 @@
 		data["meteor_shield"] = 1
 		data["meteor_shield_coverage"] = G.get_coverage()
 		data["meteor_shield_coverage_max"] = G.coverage_goal
+		data["meteor_shield_coverage_percentage"] = (G.get_coverage() / G.coverage_goal) * 100
 	return data
-
+	
 /obj/machinery/satellite
 	name = "Defunct Satellite"
 	desc = ""
@@ -105,6 +106,11 @@
 /obj/machinery/satellite/New()
 	..()
 	id = gid++
+	
+/obj/machinery/satellite/attack_hand(mob/user)
+	if(..())
+		return 1
+	interact(user)
 
 /obj/machinery/satellite/interact(mob/user)
 	toggle(user)
@@ -113,7 +119,7 @@
 	if(!active && !isinspace())
 		if(user)
 			to_chat(user, "<span class='warning'>You can only active the [src] in space.</span>")
-		return FALSE
+		return TRUE
 	if(user)
 		to_chat(user, "<span class='notice'>You [active ? "deactivate": "activate"] the [src]</span>")
 	active = !active
@@ -153,15 +159,15 @@
 	for(var/obj/effect/meteor/M in meteor_list)
 		if(M.z != z)
 			continue
-		if(get_dist(M,src) > kill_range)
+		if(get_dist(M, src) > kill_range)
 			continue
 		if(!emagged && space_los(M))
-			Beam(get_turf(M), icon_state="sat_beam", time=5, maxdistance=kill_range)
+			Beam(get_turf(M), icon_state = "sat_beam", time = 5, maxdistance = kill_range)
 			qdel(M)
 
 /obj/machinery/satellite/meteor_shield/toggle(user)
-	if(!..(user))
-		return FALSE
+	if(..(user))
+		return TRUE
 	if(emagged)
 		if(active)
 			change_meteor_chance(2)
@@ -179,8 +185,9 @@
 	if(active && emagged)
 		change_meteor_chance(0.5)
 
-/obj/machinery/satellite/meteor_shield/emag_act()
+/obj/machinery/satellite/meteor_shield/emag_act(mob/user)
 	if(!emagged)
+		to_chat(user, "<span class='danger'>You override the shield's circuits, causing it to attract meteors instead of destroying them.</span>")
 		emagged = 1
 		if(active)
 			change_meteor_chance(2)

@@ -7,7 +7,7 @@
 #define VAULT_XRAY "X-Ray Vision"
 #define VAULT_TELEKINESIS "Telekinesis"
 #define VAULT_PSYCHIC "Psychic Powers"
-#define VAULT_SPEED "Speed"
+#define VAULT_SPEED "Speediness"
 
 /datum/station_goal/dna_vault
 	name = "DNA Vault"
@@ -18,7 +18,7 @@
 /datum/station_goal/dna_vault/New()
 	..()
 	animal_count = rand(15,20) //might be too few given ~15 roundstart stationside ones
-	human_count = rand(round(0.75 * ticker.mode.num_players()) , ticker.mode.num_players()) // 75%+ roundstart population.
+	human_count = rand(round(0.75 * ticker.mode.num_players_started()), ticker.mode.num_players_started()) // 75%+ roundstart population.
 	var/non_standard_plants = non_standard_plants_count()
 	plant_count = rand(round(0.5 * non_standard_plants),round(0.7 * non_standard_plants))
 
@@ -97,7 +97,7 @@ var/list/non_simple_animals = typecacheof(list(/mob/living/carbon/human/monkey,/
 		if(isanimal(target))
 			var/mob/living/simple_animal/A = target
 			if(!A.healable)//simple approximation of being animal not a robot or similar
-				to_chat(user, "<span class='warning'>No compatibile DNA detected</span>")
+				to_chat(user, "<span class='warning'>No compatible DNA detected</span>")
 				return
 		if(animals[target.type])
 			to_chat(user, "<span class='notice'>Animal data already present in local storage.<span>")
@@ -183,7 +183,8 @@ var/list/non_simple_animals = typecacheof(list(/mob/living/carbon/human/monkey,/
 /obj/machinery/dna_vault/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "dna_vault.tmpl", name, 350, 400)
+		roll_powers(user)
+		ui = new(user, src, ui_key, "dna_vault.tmpl", name, 550, 400)
 		ui.open()
 
 /obj/machinery/dna_vault/proc/roll_powers(mob/user)
@@ -251,14 +252,16 @@ var/list/non_simple_animals = typecacheof(list(/mob/living/carbon/human/monkey,/
 /obj/machinery/dna_vault/proc/upgrade(mob/living/carbon/human/H, upgrade_type)
 	if(!(upgrade_type in power_lottery[H]))
 		return
+	if(!completed)
+		return
 	if(!H.ignore_gene_stability)
 		to_chat(H, "<span class='notice'>[src] stabilizes your genes, granting you the ability to have multiple powers.</span>")
 		H.ignore_gene_stability = 1
 	switch(upgrade_type)
 		if(VAULT_SPACEIMMUNE)
-			to_chat(H, "<span class='notice'>You suddenly don't feel the need to breathe anymore. Your body also feels very warm.</span>")
+			to_chat(H, "<span class='notice'>You suddenly don't feel the need to breathe anymore. You also don't feel any cold anymore.</span>")
 			grant_power(H, NOBREATHBLOCK, NO_BREATH)
-			grant_power(H, COLDBLOCK, RESIST_COLD)
+			grant_power(H, FIREBLOCK, RESIST_COLD)
 		if(VAULT_XRAY)
 			to_chat(H, "<span class='notice'>You can suddenly see through walls.</span>")
 			grant_power(H, XRAYBLOCK, XRAY)

@@ -53,6 +53,24 @@
 			to_chat(user, "<span class='warning'>Access denied.</span>")
 		return COMM_AUTHENTICATION_NONE
 
+/obj/machinery/computer/communications/proc/change_security_level(var/new_level)
+	tmp_alertlevel = new_level
+	var/old_level = security_level
+	if(!tmp_alertlevel) tmp_alertlevel = SEC_LEVEL_GREEN
+	if(tmp_alertlevel < SEC_LEVEL_GREEN) tmp_alertlevel = SEC_LEVEL_GREEN
+	if(tmp_alertlevel > SEC_LEVEL_BLUE) tmp_alertlevel = SEC_LEVEL_BLUE //Cannot engage delta with this
+	set_security_level(tmp_alertlevel)
+	if(security_level != old_level)
+		//Only notify the admins if an actual change happened
+		log_game("[key_name(usr)] has changed the security level to [get_security_level()].")
+		message_admins("[key_name_admin(usr)] has changed the security level to [get_security_level()].")
+		switch(security_level)
+			if(SEC_LEVEL_GREEN)
+				feedback_inc("alert_comms_green",1)
+			if(SEC_LEVEL_BLUE)
+				feedback_inc("alert_comms_blue",1)
+	tmp_alertlevel = 0		
+		
 /obj/machinery/computer/communications/Topic(href, href_list)
 	if(..(href, href_list))
 		return 1
@@ -100,35 +118,25 @@
 		if("newalertlevel")
 			if(isAI(usr) || isrobot(usr))
 				to_chat(usr, "<span class='warning'>Firewalls prevent you from changing the alert level.</span>")
-				nanomanager.update_uis(src)
 				return 1
-			tmp_alertlevel = text2num(href_list["level"])
+			else if(usr.can_admin_interact())
+				change_security_level(text2num(href_list["level"]))
+				return 1
+			else if(!ishuman(usr))
+				to_chat(usr, "<span class='warning'>Security measures prevent you from changing the alert level.</span>")
+				return 1
+
 			var/mob/living/carbon/human/L = usr
 			var/obj/item/card = L.get_active_hand()
-			var/obj/item/weapon/card/id/I = (card && card.GetID())||L.wear_id||L.wear_pda
+			var/obj/item/weapon/card/id/I = (card && card.GetID()) || L.wear_id || L.wear_pda
 			if(istype(I, /obj/item/device/pda))
 				var/obj/item/device/pda/pda = I
 				I = pda.id
 			if(I && istype(I))
 				if(access_captain in I.access)
-					var/old_level = security_level
-					if(!tmp_alertlevel) tmp_alertlevel = SEC_LEVEL_GREEN
-					if(tmp_alertlevel < SEC_LEVEL_GREEN) tmp_alertlevel = SEC_LEVEL_GREEN
-					if(tmp_alertlevel > SEC_LEVEL_BLUE) tmp_alertlevel = SEC_LEVEL_BLUE //Cannot engage delta with this
-					set_security_level(tmp_alertlevel)
-					if(security_level != old_level)
-						//Only notify the admins if an actual change happened
-						log_game("[key_name(usr)] has changed the security level to [get_security_level()].")
-						message_admins("[key_name_admin(usr)] has changed the security level to [get_security_level()].")
-						switch(security_level)
-							if(SEC_LEVEL_GREEN)
-								feedback_inc("alert_comms_green",1)
-							if(SEC_LEVEL_BLUE)
-								feedback_inc("alert_comms_blue",1)
-					tmp_alertlevel = 0
+					change_security_level(text2num(href_list["level"]))
 				else
 					to_chat(usr, "<span class='warning'>You are not authorized to do this.</span>")
-					tmp_alertlevel = 0
 				setMenuState(usr,COMM_SCREEN_MAIN)
 			else
 				to_chat(usr, "<span class='warning'>You need to swipe your ID.</span>")

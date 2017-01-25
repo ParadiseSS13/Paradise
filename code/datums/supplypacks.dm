@@ -1567,7 +1567,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	cost = 50
 	special = TRUE
 	contains = list(
-					/obj/item/weapon/circuitboard/machine/computer/sat_control
+					/obj/item/weapon/circuitboard/computer/sat_control
 					)
 	containername = "shield control board crate"
 

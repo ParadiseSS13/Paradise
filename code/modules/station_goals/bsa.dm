@@ -27,7 +27,7 @@
 	return FALSE
 
 /obj/machinery/bsa
-	icon = 'icons/obj/machines/particle_accelerator.dmi'
+	icon = 'icons/obj/machines/particle_accelerator3.dmi'
 	density = 1
 	anchored = 1
 
@@ -125,18 +125,38 @@
 	name = "Bluespace Artillery"
 	desc = "Long range bluespace artillery."
 	icon = 'icons/obj/lavaland/cannon.dmi'
-	icon_state = "cannon_east"
+	icon_state = "cannon_west"
+
+	var/obj/machinery/computer/bsa_control/controller
+	var/cannon_direction = WEST
 	var/static/image/top_layer = null
 	var/ex_power = 3
 	var/power_used_per_shot = 2000000 //enough to kil standard apc - todo : make this use wires instead and scale explosion power with it
-	var/ready
+	var/last_fire_time = 0 // The time at which the gun was last fired
+	var/reload_cooldown = 600 // The gun's cooldown
+
 	pixel_y = -32
 	pixel_x = -192
 	bound_width = 352
 	bound_x = -192
 	
+/obj/machinery/bsa/full/Destroy()
+	if(controller && controller.cannon == src)
+		controller.cannon = null
+		controller = null
+	return ..()
+	
 /obj/machinery/bsa/full/admin
 	power_used_per_shot = 0
+	reload_cooldown = 100
+	
+/obj/machinery/bsa/full/east
+	icon_state = "cannon_east"
+	cannon_direction = EAST
+	
+/obj/machinery/bsa/full/admin/east
+	icon_state = "cannon_east"
+	cannon_direction = EAST
 
 /obj/machinery/bsa/full/proc/get_front_turf()
 	switch(dir)
@@ -162,8 +182,12 @@
 			return locate(world.maxx,y,z)
 	return get_turf(src)
 
-/obj/machinery/bsa/full/New(loc,cannon_direction = WEST)
+/obj/machinery/bsa/full/New(loc, direction)
 	..()
+
+	if(direction)
+		cannon_direction = direction
+
 	switch(cannon_direction)
 		if(WEST)
 			dir = WEST
@@ -183,21 +207,19 @@
 	var/turf/point = get_front_turf()
 	for(var/turf/T in getline(get_step(point,dir),get_target_turf()))
 		T.ex_act(1)
-	point.Beam(get_target_turf(),icon_state="bsa_beam",time=50,maxdistance = world.maxx) //ZZZAP
-
+		for(var/atom/A in T)
+			A.ex_act(1)
+	point.Beam(get_target_turf(), icon_state = "bsa_beam", time = 50, maxdistance = world.maxx, beam_type = /obj/effect/ebeam/deadly) //ZZZAP
+	playsound(src, 'sound/machines/bsa_fire.ogg', 70, 1)
+	
 	message_admins("[key_name_admin(user)] has launched an artillery strike.")
 	explosion(bullseye,ex_power,ex_power*2,ex_power*4)
 
 	reload()
 
 /obj/machinery/bsa/full/proc/reload()
-	ready = FALSE
 	use_power(power_used_per_shot)
-	spawn(600)
-		ready_cannon()
-
-/obj/machinery/bsa/full/proc/ready_cannon()
-	ready = TRUE
+	last_fire_time = world.time / 10
 
 /obj/structure/filler
 	name = "big machinery part"
@@ -245,11 +267,18 @@
 	var/target
 	use_power = 0
 	circuit = /obj/item/weapon/circuitboard/computer/bsa_control
-	icon_screen = "accelerator"
-	icon_keyboard = "accelerator_key"
-	icon_state = "computer-wires"
+	icon = 'icons/obj/machines/particle_accelerator3.dmi'
+	icon_state = "control_boxp"
+	layer = 3.1
+
 	var/area_aim = FALSE //should also show areas for targeting
 	var/target_all_areas = FALSE //allows all areas (including admin areas) to be targetted
+	
+/obj/machinery/computer/bsa_control/Destroy()
+	if(cannon && cannon.controller == src)
+		cannon.controller = null
+		cannon = null
+	return ..()
 	
 /obj/machinery/computer/bsa_control/admin
 	area_aim = TRUE
@@ -268,11 +297,24 @@
 
 /obj/machinery/computer/bsa_control/ui_data(mob/user, ui_key = "main", datum/topic_state/state = physical_state)
 	var/list/data = list()
-	data["ready"] = cannon ? cannon.ready : FALSE
 	data["connected"] = cannon
 	data["notice"] = notice
 	if(target)
 		data["target"] = get_target_name()
+	
+	if(cannon)
+		var/reload_cooldown = cannon.reload_cooldown
+		var/last_fire_time = cannon.last_fire_time
+		var/time_to_wait = max(0, round(reload_cooldown - ((world.time / 10) - last_fire_time)))
+		var/minutes = max(0, round(time_to_wait / 60))
+		var/seconds = max(0, time_to_wait - (60 * minutes))
+
+		data["reloadtime_mins"] = minutes
+		data["reloadtime_secs"] = (seconds < 10) ? "0[seconds]" : seconds
+		data["ready"] = minutes == 0 && seconds == 0
+	else
+		data["ready"] = FALSE
+		
 	return data
 
 /obj/machinery/computer/bsa_control/Topic(href, href_list)
@@ -316,15 +358,18 @@
 		return get_turf(target)
 
 /obj/machinery/computer/bsa_control/proc/fire(mob/user)
+	if(!cannon || !target)
+		return
 	if(cannon.stat)
 		notice = "Cannon unpowered!"
 		return
 	notice = null
 	cannon.fire(user, get_impact_turf())
 
-/obj/machinery/computer/bsa_control/proc/deploy(force=FALSE)
+/obj/machinery/computer/bsa_control/proc/deploy()
 	var/obj/machinery/bsa/full/prebuilt = locate() in range(7) //In case of adminspawn
 	if(prebuilt)
+		prebuilt.controller = src
 		return prebuilt
 
 	var/obj/machinery/bsa/middle/centerpiece = locate() in range(7)
@@ -338,7 +383,8 @@
 	var/datum/effect/system/harmless_smoke_spread/s = new /datum/effect/system/harmless_smoke_spread()
 	s.set_up(4, 0, get_turf(centerpiece))
 	s.start()
-	var/obj/machinery/bsa/full/cannon = new(get_turf(centerpiece),cannon_direction=centerpiece.get_cannon_direction())
+	var/obj/machinery/bsa/full/cannon = new(get_turf(centerpiece),centerpiece.get_cannon_direction())
+	cannon.controller = src
 	qdel(centerpiece.front)
 	qdel(centerpiece.back)
 	qdel(centerpiece)
