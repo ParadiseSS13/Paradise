@@ -146,13 +146,13 @@
 		controller = null
 	return ..()
 	
-/obj/machinery/bsa/full/admin
-	power_used_per_shot = 0
-	reload_cooldown = 100
-	
 /obj/machinery/bsa/full/east
 	icon_state = "cannon_east"
 	cannon_direction = EAST
+	
+/obj/machinery/bsa/full/admin
+	power_used_per_shot = 0
+	reload_cooldown = 100
 	
 /obj/machinery/bsa/full/admin/east
 	icon_state = "cannon_east"
@@ -209,8 +209,9 @@
 		T.ex_act(1)
 		for(var/atom/A in T)
 			A.ex_act(1)
+
 	point.Beam(get_target_turf(), icon_state = "bsa_beam", time = 50, maxdistance = world.maxx, beam_type = /obj/effect/ebeam/deadly) //ZZZAP
-	playsound(src, 'sound/machines/bsa_fire.ogg', 70, 1)
+	playsound(src, 'sound/machines/bsa_fire.ogg', 100, 1)
 	
 	message_admins("[key_name_admin(user)] has launched an artillery strike.")
 	explosion(bullseye,ex_power,ex_power*2,ex_power*4)
@@ -220,16 +221,6 @@
 /obj/machinery/bsa/full/proc/reload()
 	use_power(power_used_per_shot)
 	last_fire_time = world.time / 10
-
-/obj/structure/filler
-	name = "big machinery part"
-	density = 1
-	anchored = 1
-	invisibility = 101
-	var/obj/machinery/parent
-
-/obj/structure/filler/ex_act()
-	return
 
 /obj/item/weapon/circuitboard/machine/bsa/back
 	name = "Bluespace Artillery Generator (Machine Board)"
@@ -269,10 +260,23 @@
 	circuit = /obj/item/weapon/circuitboard/computer/bsa_control
 	icon = 'icons/obj/machines/particle_accelerator3.dmi'
 	icon_state = "control_boxp"
-	layer = 3.1
+	var/icon_state_broken = "control_box"
+	var/icon_state_nopower = "control_boxw"
+	var/icon_state_reloading = "control_boxp1"
+	var/icon_state_active = "control_boxp0"
+	layer = 3.1 // Just above the cannon sprite
 
 	var/area_aim = FALSE //should also show areas for targeting
-	var/target_all_areas = FALSE //allows all areas (including admin areas) to be targetted
+	var/target_all_areas = FALSE //allows all areas (including admin areas) to be targeted
+	
+/obj/machinery/computer/bsa_control/admin
+	area_aim = TRUE
+	target_all_areas = TRUE
+	
+/obj/machinery/computer/bsa_control/admin/initialize()
+	..()
+	if(!cannon)
+		cannon = deploy()
 	
 /obj/machinery/computer/bsa_control/Destroy()
 	if(cannon && cannon.controller == src)
@@ -280,9 +284,21 @@
 		cannon = null
 	return ..()
 	
-/obj/machinery/computer/bsa_control/admin
-	area_aim = TRUE
-	target_all_areas = TRUE
+/obj/machinery/computer/bsa_control/process()
+	..()
+	update_icon()
+	
+/obj/machinery/computer/bsa_control/update_icon()
+	if(stat & BROKEN)
+		icon_state = icon_state_broken
+	else if(stat & NOPOWER)
+		icon_state = icon_state_nopower
+	else if(cannon && (cannon.last_fire_time + cannon.reload_cooldown) > (world.time / 10))
+		icon_state = icon_state_reloading
+	else if(cannon)
+		icon_state = icon_state_active
+	else
+		icon_state = initial(icon_state)
 	
 /obj/machinery/computer/bsa_control/attack_hand(mob/user)
 	if(..())
@@ -294,6 +310,7 @@
 	if(!ui)
 		ui = new(user, src, ui_key, "bsa.tmpl", name, 400, 305)
 		ui.open()
+		ui.set_auto_update(1)
 
 /obj/machinery/computer/bsa_control/ui_data(mob/user, ui_key = "main", datum/topic_state/state = physical_state)
 	var/list/data = list()
@@ -367,12 +384,12 @@
 	cannon.fire(user, get_impact_turf())
 
 /obj/machinery/computer/bsa_control/proc/deploy()
-	var/obj/machinery/bsa/full/prebuilt = locate() in range(7) //In case of adminspawn
+	var/obj/machinery/bsa/full/prebuilt = locate() in range(7, src) //In case of adminspawn
 	if(prebuilt)
 		prebuilt.controller = src
 		return prebuilt
 
-	var/obj/machinery/bsa/middle/centerpiece = locate() in range(7)
+	var/obj/machinery/bsa/middle/centerpiece = locate() in range(7, src)
 	if(!centerpiece)
 		notice = "No BSA parts detected nearby."
 		return null

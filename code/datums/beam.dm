@@ -113,13 +113,14 @@
 	mouse_opacity = 0
 	anchored = 1
 	var/datum/beam/owner
-	
-/obj/effect/ebeam/deadly/Crossed(atom/A)
-	A.ex_act(1)
 
 /obj/effect/ebeam/Destroy()
 	owner = null
 	return ..()
+	
+/obj/effect/ebeam/deadly/Crossed(atom/A)
+	..()
+	A.ex_act(1)
 
 /atom/proc/Beam(atom/BeamTarget,icon_state="b_beam",icon='icons/effects/beam.dmi',time=50, maxdistance=10,beam_type=/obj/effect/ebeam)
 	var/datum/beam/newbeam = new(src,BeamTarget,icon,icon_state,time,maxdistance,beam_type)

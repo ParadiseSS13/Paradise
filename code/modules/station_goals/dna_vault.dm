@@ -123,6 +123,16 @@ var/list/non_simple_animals = typecacheof(list(/mob/living/carbon/human/monkey,/
 							/obj/item/weapon/stock_parts/capacitor/quadratic = 5,
 							/obj/item/stack/cable_coil = 2)
 
+/obj/structure/filler
+	name = "big machinery part"
+	density = 1
+	anchored = 1
+	invisibility = 101
+	var/obj/machinery/parent
+
+/obj/structure/filler/ex_act()
+	return							
+							
 /obj/machinery/dna_vault
 	name = "DNA Vault"
 	desc = "Break glass in case of apocalypse."
