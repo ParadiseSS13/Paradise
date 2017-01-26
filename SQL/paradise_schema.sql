@@ -30,7 +30,6 @@ CREATE TABLE `characters` (
   `age` smallint(4) NOT NULL,
   `species` varchar(45) NOT NULL,
   `language` varchar(45) NOT NULL,
-  `species_span` varchar(20) NOT NULL DEFAULT 'Normal',
   `hair_red` smallint(4) NOT NULL,
   `hair_green` smallint(4) NOT NULL,
   `hair_blue` smallint(4) NOT NULL,

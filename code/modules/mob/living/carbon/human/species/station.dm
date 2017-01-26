@@ -710,7 +710,6 @@
 	dietflags = DIET_HERB
 	reagent_tag = PROCESS_ORG
 	blood_color = "#A200FF"
-	speech_spans = list("wingdings")
 
 /datum/species/grey/handle_dna(var/mob/living/carbon/C, var/remove)
 	if(!remove)
