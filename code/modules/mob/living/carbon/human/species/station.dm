@@ -197,6 +197,7 @@
 	icobase = 'icons/mob/human_races/r_skrell.dmi'
 	deform = 'icons/mob/human_races/r_def_skrell.dmi'
 	path = /mob/living/carbon/human/skrell
+	eyes = "grey_eyes_s"
 	default_language = "Galactic Common"
 	language = "Skrellian"
 	primitive_form = "Neara"
