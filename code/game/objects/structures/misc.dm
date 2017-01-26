@@ -71,5 +71,5 @@
 	if(response == "Yes")
 		user.forceMove(get_turf(src))
 		log_admin("[key_name(user)] was incarnated by a respawner machine.")
-		message_admins("[key_name(user)] was incarnated by a respawner machine.")
+		message_admins("[key_name_admin(user)] was incarnated by a respawner machine.")
 		user.incarnate_ghost()
