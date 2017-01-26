@@ -167,7 +167,7 @@
 					speciesprefs,
 					socks,
 					body_accessory,
-					gear
+					gear,
 					species_span
 				 	FROM [format_table_name("characters")] WHERE ckey='[C.ckey]' AND slot='[slot]'"})
 	if(!query.Execute())
@@ -185,7 +185,6 @@
 		age = text2num(query.item[5])
 		species = query.item[6]
 		language = query.item[7]
-		species_span = query.item[66]
 
 		//colors to be consolidated into hex strings (requires some work with dna code)
 		r_hair = text2num(query.item[8])
@@ -262,6 +261,7 @@
 		socks = query.item[63]
 		body_accessory = query.item[64]
 		gear = params2list(query.item[65])
+		species_span = query.item[66]
 
 	//Sanitize
 	metadata		= sanitize_text(metadata, initial(metadata))
@@ -462,7 +462,7 @@
 											gen_record,
 											player_alt_titles,
 											disabilities, organ_data, rlimb_data, nanotrasen_relation, speciesprefs,
-											socks, body_accessory, gear,species_span)
+											socks, body_accessory, gear, species_span)
 
 					VALUES
 											('[C.ckey]', '[default_slot]', '[sanitizeSQL(metadata)]', '[sanitizeSQL(real_name)]', '[be_random_name]','[gender]',
