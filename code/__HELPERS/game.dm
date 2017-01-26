@@ -478,6 +478,6 @@ proc/pollCandidates(Question, be_special_type, antag_age_check = 0, poll_time = 
 		var/mob/M = C
 		if(M.client)
 			C = M.client
-	if(!C.prefs.windowflashing || !C)
+	if(!C || !C.prefs.windowflashing)
 		return
 	winset(C, "mainwindow", "flash=5")
