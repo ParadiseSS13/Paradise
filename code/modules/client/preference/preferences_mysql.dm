@@ -168,6 +168,7 @@
 					socks,
 					body_accessory,
 					gear
+					species_span
 				 	FROM [format_table_name("characters")] WHERE ckey='[C.ckey]' AND slot='[slot]'"})
 	if(!query.Execute())
 		var/err = query.ErrorMsg()
@@ -184,6 +185,7 @@
 		age = text2num(query.item[5])
 		species = query.item[6]
 		language = query.item[7]
+		species_span = query.item[66]
 
 		//colors to be consolidated into hex strings (requires some work with dna code)
 		r_hair = text2num(query.item[8])
@@ -266,6 +268,7 @@
 	real_name		= reject_bad_name(real_name)
 	if(isnull(species)) species = "Human"
 	if(isnull(language)) language = "None"
+	if(isnull(species_span)) species_span = "Normal"
 	if(isnull(nanotrasen_relation)) nanotrasen_relation = initial(nanotrasen_relation)
 	if(isnull(speciesprefs)) speciesprefs = initial(speciesprefs)
 	if(!real_name) real_name = random_name(gender,species)
@@ -418,7 +421,8 @@
 												speciesprefs='[speciesprefs]',
 												socks='[socks]',
 												body_accessory='[body_accessory]',
-												gear='[gearlist]'
+												gear='[gearlist]',
+												species_span='[species_span]'
 												WHERE ckey='[C.ckey]'
 												AND slot='[default_slot]'"}
 												)
@@ -458,7 +462,7 @@
 											gen_record,
 											player_alt_titles,
 											disabilities, organ_data, rlimb_data, nanotrasen_relation, speciesprefs,
-											socks, body_accessory, gear)
+											socks, body_accessory, gear,species_span)
 
 					VALUES
 											('[C.ckey]', '[default_slot]', '[sanitizeSQL(metadata)]', '[sanitizeSQL(real_name)]', '[be_random_name]','[gender]',
@@ -488,7 +492,7 @@
 											'[sanitizeSQL(gen_record)]',
 											'[playertitlelist]',
 											'[disabilities]', '[organlist]', '[rlimblist]', '[nanotrasen_relation]', '[speciesprefs]',
-											'[socks]', '[body_accessory]', '[gearlist]')
+											'[socks]', '[body_accessory]', '[gearlist]', '[species_span]')
 
 "}
 )
