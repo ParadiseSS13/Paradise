@@ -8,7 +8,7 @@
 	use_power = 1
 	idle_power_usage = 5
 	active_power_usage = 100
-	flags = OPENCONTAINER | NOREACT
+	flags = OPENCONTAINER
 	var/operating = 0 // Is it on?
 	var/dirty = 0 // = {0..100} Does it need cleaning?
 	var/broken = 0 // ={0,1,2} How broken is it???
@@ -33,6 +33,7 @@
 
 /obj/machinery/kitchen_machine/New()
 	create_reagents(100)
+	reagents.set_reacting(FALSE)
 	if(!available_recipes)
 		available_recipes = new
 		acceptable_items = new
