@@ -414,7 +414,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 			var/datum/species/S = all_species[species]
 			if(S.speech_spans)
-				dat += "<b>Voice:</b> <a href ='?_src_=prefs;preference=species_span;task=input'>[species_span]</a><BR>" //OHGOD
+				dat += "<b>Voice:</b> <a href ='?_src_=prefs;preference=species_span;task=input'>[species_span]</a><BR>"
 			else
 				species_span = "Normal"
 
@@ -1738,7 +1738,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 				if("species_span")
 					var/datum/species/S = all_species[species]
 					var/list/spanlist = S.speech_spans + "Normal"
-					var/new_voice_span = input("Choose your voice font.") as null|anything in spanlist //OHGOD
+					var/new_voice_span = input("Choose your voice font.") as null|anything in spanlist
 					if(new_voice_span)
 						species_span = new_voice_span
 
