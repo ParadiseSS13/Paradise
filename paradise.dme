@@ -331,7 +331,6 @@
 #include "code\defines\procs\announce.dm"
 #include "code\defines\procs\AStar.dm"
 #include "code\defines\procs\dbcore.dm"
-#include "code\defines\procs\orphaned.dm"
 #include "code\defines\procs\radio.dm"
 #include "code\defines\procs\records.dm"
 #include "code\defines\procs\statistics.dm"
