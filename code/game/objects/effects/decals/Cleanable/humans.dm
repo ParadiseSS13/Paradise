@@ -78,7 +78,7 @@ var/global/list/image/splatter_cache=list()
 			user.blood_DNA = list()
 		user.blood_DNA |= blood_DNA.Copy()
 		user.bloody_hands += taken
-		user.hand_blood_color = basecolor
+		user.hand_blood_color = blood_DNA["blood_color"]
 		user.update_inv_gloves(1)
 		user.verbs += /mob/living/carbon/human/proc/bloody_doodle
 
@@ -149,7 +149,7 @@ var/global/list/image/splatter_cache=list()
 	if(!fleshcolor || fleshcolor == "rainbow")
 		fleshcolor = "#[pick(list("FF0000","FF7F00","FFFF00","00FF00","0000FF","4B0082","8F00FF"))]"
 	giblets.color = fleshcolor
-
+	basecolor = blood_DNA["blood_color"]//not applying color to gibs
 	var/icon/blood = new(base_icon,"[icon_state]",dir)
 	if(basecolor == "rainbow") basecolor = "#[pick(list("FF0000","FF7F00","FFFF00","00FF00","0000FF","4B0082","8F00FF"))]"
 	blood.Blend(basecolor,ICON_MULTIPLY)

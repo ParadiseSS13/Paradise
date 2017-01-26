@@ -181,7 +181,6 @@ var/global/list/image/fluidtrack_cache=list()
 			S.bloody_shoes[blood_state] = max(S.bloody_shoes[blood_state] - BLOOD_LOSS_PER_STEP, 0)
 			entered_dirs|= H.dir
 		else if(hasfeet)//Or feet //This will need to be changed.
-			H.feet_blood_color = basecolor
 			H.track_blood = max(amount - BLOOD_LOSS_PER_STEP, 0)
 			if(!H.feet_blood_DNA)
 				H.feet_blood_DNA = list()
@@ -210,10 +209,9 @@ var/global/list/image/fluidtrack_cache=list()
 
 
 /obj/effect/decal/cleanable/blood/footprints/update_icon()
-
+	var/image/I
 	for(var/Ddir in cardinal)
 		if(entered_dirs & Ddir)
-			var/image/I
 			if(fluidtrack_cache["entered-[blood_state]-[Ddir]"])
 				I = fluidtrack_cache["entered-[blood_state]-[Ddir]"]
 			else
@@ -221,9 +219,7 @@ var/global/list/image/fluidtrack_cache=list()
 				fluidtrack_cache["entered-[blood_state]-[Ddir]"] = I
 			if(I)
 				overlays += I
-			I.color = basecolor
 		if(exited_dirs & Ddir)
-			var/image/I
 			if(fluidtrack_cache["exited-[blood_state]-[Ddir]"])
 				I = fluidtrack_cache["exited-[blood_state]-[Ddir]"]
 			else
@@ -231,6 +227,5 @@ var/global/list/image/fluidtrack_cache=list()
 				fluidtrack_cache["exited-[blood_state]-[Ddir]"] = I
 			if(I)
 				overlays += I
-			I.color = basecolor
-
+	I.color = blood_DNA["blood_color"]
 	alpha = BLOODY_FOOTPRINT_BASE_ALPHA+bloodiness

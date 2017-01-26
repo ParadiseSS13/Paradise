@@ -443,6 +443,7 @@ var/list/blood_splatter_icons = list()
 			blood_splatter_icon.Blend(icon('icons/effects/blood.dmi', "itemblood"), ICON_MULTIPLY) //adds blood and the remaining white areas become transparant
 			blood_splatter_icon = fcopy_rsc(blood_splatter_icon)
 			blood_splatter_icons[index] = blood_splatter_icon
+		blood_splatter_icon = blood_dna["blood_color"]//not applying color
 		overlays += blood_splatter_icon
 
 /obj/item/clothing/gloves/add_blood(list/blood_dna)
@@ -454,11 +455,11 @@ var/list/blood_splatter_icons = list()
 	if(!B)
 		B = new /obj/effect/decal/cleanable/blood/splatter(src)
 	B.transfer_blood_dna(blood_dna) //give blood info to the blood decal.
-	B.color = blood_dna["blood_color"]
+	//B.color = blood_dna["blood_color"]//bad index runtime...
 	return 1 //we bloodied the floor
 
 /mob/living/carbon/human/add_blood(list/blood_dna)
-	if(wear_suit)
+	if(wear_suit)//i don't think here is appllying colors either.
 		wear_suit.add_blood(blood_dna)
 		update_inv_wear_suit()
 	else if(w_uniform)

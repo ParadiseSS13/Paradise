@@ -538,7 +538,7 @@
 						TH.transfer_mob_blood_dna(src)
 						TH.color = b_data["blood_color"]
 
-/mob/living/carbon/human/makeTrail(turf/T)
+/mob/living/carbon/human/makeTrail(turf/T)//not making trails consistently may be in the brueloss.
 	if((species.flags & NO_BLOOD) || !bleed_rate || bleedsuppress)
 		return
 	..()
