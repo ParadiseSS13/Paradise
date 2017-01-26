@@ -219,6 +219,7 @@
 				nutrimentMutation()
 				if(myseed && myseed.yield != -1) // Unharvestable shouldn't be harvested
 					harvest = 1
+					plant_hud_set_status()
 				else
 					lastproduce = age
 			if(prob(5))  // On each tick, there's a 5 percent chance the pest population will increase
@@ -377,9 +378,11 @@
 	plant_health = myseed.endurance
 	lastcycle = world.time
 	harvest = 0
-	weedlevel = 0 // Reset
-	pestlevel = 0 // Reset
+	adjustWeeds(-10) // Reset
+	adjustPests(-10) // Reset
 	update_icon()
+	plant_hud_set_health()
+	plant_hud_set_status()
 	visible_message("<span class='warning'>The [oldPlantName] is overtaken by some [myseed.plantname]!</span>")
 
 
@@ -410,7 +413,9 @@
 	plant_health = myseed.endurance
 	lastcycle = world.time
 	harvest = 0
-	weedlevel = 0 // Reset
+	plant_hud_set_health()
+	plant_hud_set_status()
+	adjustWeeds(-10) // Reset
 
 	sleep(5) // Wait a while
 	update_icon()
@@ -430,7 +435,9 @@
 		plant_health = myseed.endurance
 		lastcycle = world.time
 		harvest = 0
-		weedlevel = 0 // Reset
+		plant_hud_set_health()
+		plant_hud_set_status()
+		adjustWeeds(-10) // Reset
 
 		sleep(5) // Wait a while
 		update_icon()
@@ -442,10 +449,12 @@
 /obj/machinery/hydroponics/proc/plantdies() // OH NOES!!!!! I put this all in one function to make things easier
 	plant_health = 0
 	harvest = 0
-	pestlevel = 0 // Pests die
+	adjustPests(-10) // Pests die
 	if(!dead)
 		update_icon()
 		dead = 1
+	plant_hud_set_health()
+	plant_hud_set_status()
 
 
 
@@ -787,6 +796,8 @@
 			myseed = O
 			age = 1
 			plant_health = myseed.endurance
+			plant_hud_set_health()
+			plant_hud_set_status()
 			lastcycle = world.time
 			O.forceMove(src)
 			update_icon()
@@ -812,7 +823,7 @@
 	else if(istype(O, /obj/item/weapon/cultivator))
 		if(weedlevel > 0)
 			user.visible_message("[user] uproots the weeds.", "<span class='notice'>You remove the weeds from [src].</span>")
-			weedlevel = 0
+			adjustWeeds(-10)
 			update_icon()
 		else
 			to_chat(user, "<span class='warning'>This plot is completely devoid of weeds! It doesn't need uprooting.</span>")
@@ -875,7 +886,9 @@
 				harvest = FALSE //To make sure they can't just put in another seed and insta-harvest it
 			qdel(myseed)
 			myseed = null
-		weedlevel = 0 //Has a side effect of cleaning up those nasty weeds
+			plant_hud_set_health()
+			plant_hud_set_status()
+		adjustWeeds(-10) //Has a side effect of cleaning up those nasty weeds
 		update_icon()
 
 	else
@@ -892,6 +905,8 @@
 		qdel(myseed)
 		myseed = null
 		update_icon()
+		plant_hud_set_status()
+		plant_hud_set_health()
 	else
 		examine(user)
 
@@ -908,30 +923,37 @@
 		qdel(myseed)
 		myseed = null
 		dead = 0
+	plant_hud_set_status()
+	plant_hud_set_health()
 	update_icon()
 
 /// Tray Setters - The following procs adjust the tray or plants variables, and make sure that the stat doesn't go out of bounds.///
 /obj/machinery/hydroponics/proc/adjustNutri(adjustamt)
 	nutrilevel = Clamp(nutrilevel + adjustamt, 0, maxnutri)
+	plant_hud_set_nutrient()
 
 /obj/machinery/hydroponics/proc/adjustWater(adjustamt)
 	waterlevel = Clamp(waterlevel + adjustamt, 0, maxwater)
-
+	plant_hud_set_water()
 	if(adjustamt>0)
 		adjustToxic(-round(adjustamt/4))//Toxicity dilutation code. The more water you put in, the lesser the toxin concentration.
 
 /obj/machinery/hydroponics/proc/adjustHealth(adjustamt)
 	if(myseed && !dead)
 		plant_health = Clamp(plant_health + adjustamt, 0, myseed.endurance)
+		plant_hud_set_health()
 
 /obj/machinery/hydroponics/proc/adjustToxic(adjustamt)
 	toxic = Clamp(toxic + adjustamt, 0, 100)
+	plant_hud_set_toxin()
 
 /obj/machinery/hydroponics/proc/adjustPests(adjustamt)
 	pestlevel = Clamp(pestlevel + adjustamt, 0, 10)
+	plant_hud_set_pest()
 
 /obj/machinery/hydroponics/proc/adjustWeeds(adjustamt)
 	weedlevel = Clamp(weedlevel + adjustamt, 0, 10)
+	plant_hud_set_weed()
 
 /obj/machinery/hydroponics/proc/spawnplant() // why would you put strange reagent in a hydro tray you monster I bet you also feed them blood
 	var/list/livingplants = list(/mob/living/simple_animal/hostile/tree, /mob/living/simple_animal/hostile/killertomato)

@@ -79,7 +79,7 @@
 			if(!user.drop_item())
 				return
 			disk = I
-			disk.loc = src
+			disk.forceMove(src)
 			to_chat(user, "<span class='notice'>You add [I] to the machine.</span>")
 			interact(user)
 	else
@@ -132,19 +132,19 @@
 				dat += "<span class='highlight'>[target.get_name()]</span> gene with <span class='highlight'>[disk.gene.get_name()]</span>?<br>"
 			if("insert")
 				dat += "<span class='highlight'>[disk.gene.get_name()]</span> gene into \the <span class='highlight'>[seed]</span>?<br>"
-		dat += "</div><div class='line'><a href='?src=[src.UID()];gene=[target.UID()];op=[operation]'>Confirm</a> "
-		dat += "<a href='?src=[src.UID()];abort=1'>Abort</a></div>"
+		dat += "</div><div class='line'><a href='?src=[UID()];gene=[target && target.UID()];op=[operation]'>Confirm</a> "
+		dat += "<a href='?src=[UID()];abort=1'>Abort</a></div>"
 		popup.set_content(dat)
 		popup.open()
 		return
 
 	dat+= "<div class='statusDisplay'>"
 
-	dat += "<div class='line'><div class='statusLabel'>Plant Sample:</div><div class='statusValue'><a href='?src=[src.UID()];eject_seed=1'>"
+	dat += "<div class='line'><div class='statusLabel'>Plant Sample:</div><div class='statusValue'><a href='?src=[UID()];eject_seed=1'>"
 	dat += seed ? seed.name : "None"
 	dat += "</a></div></div>"
 
-	dat += "<div class='line'><div class='statusLabel'>Data Disk:</div><div class='statusValue'><a href='?src=[src.UID()];eject_disk=1'>"
+	dat += "<div class='line'><div class='statusLabel'>Data Disk:</div><div class='statusValue'><a href='?src=[UID()];eject_disk=1'>"
 	if(!disk)
 		dat += "None"
 	else if(!disk.gene)
@@ -168,9 +168,9 @@
 				continue
 			dat += "<tr><td width='260px'>[G.get_name()]</td><td>"
 			if(can_extract)
-				dat += "<a href='?src=[src.UID()];gene=[G.UID()];op=extract'>Extract</a>"
+				dat += "<a href='?src=[UID()];gene=[G.UID()];op=extract'>Extract</a>"
 			if(can_insert && istype(disk.gene, G.type))
-				dat += "<a href='?src=[src.UID()];gene=[G.UID()];op=replace'>Replace</a>"
+				dat += "<a href='?src=[UID()];gene=[G.UID()];op=replace'>Replace</a>"
 			dat += "</td></tr>"
 		dat += "</table></div>"
 
@@ -182,15 +182,15 @@
 					var/datum/plant_gene/G = a
 					dat += "<tr><td width='260px'>[G.get_name()]</td><td>"
 					if(can_extract)
-						dat += "<a href='?src=[src.UID()];gene=[G.UID()];op=extract'>Extract</a>"
-					dat += "<a href='?src=[src.UID()];gene=[G.UID()];op=remove'>Remove</a>"
+						dat += "<a href='?src=[UID()];gene=[G.UID()];op=extract'>Extract</a>"
+					dat += "<a href='?src=[UID()];gene=[G.UID()];op=remove'>Remove</a>"
 					dat += "</td></tr>"
 				dat += "</table>"
 			else
 				dat += "No content-related genes detected in sample.<br>"
 			dat += "</div>"
 			if(can_insert && istype(disk.gene, /datum/plant_gene/reagent))
-				dat += "<a href='?src=[src.UID()];op=insert'>Insert: [disk.gene.get_name()]</a>"
+				dat += "<a href='?src=[UID()];op=insert'>Insert: [disk.gene.get_name()]</a>"
 
 			dat += "<div class='line'><h3>Trait Genes</h3></div><div class='statusDisplay'>"
 			if(trait_genes.len)
@@ -199,14 +199,14 @@
 					var/datum/plant_gene/G = a
 					dat += "<tr><td width='260px'>[G.get_name()]</td><td>"
 					if(can_extract)
-						dat += "<a href='?src=[src.UID()];gene=[G.UID()];op=extract'>Extract</a>"
-					dat += "<a href='?src=[src.UID()];gene=[G.UID()];op=remove'>Remove</a>"
+						dat += "<a href='?src=[UID()];gene=[G.UID()];op=extract'>Extract</a>"
+					dat += "<a href='?src=[UID()];gene=[G.UID()];op=remove'>Remove</a>"
 					dat += "</td></tr>"
 				dat += "</table>"
 			else
 				dat += "No trait-related genes detected in sample.<br>"
 			if(can_insert && istype(disk.gene, /datum/plant_gene/trait))
-				dat += "<a href='?src=[src.UID()];op=insert'>Insert: [disk.gene.get_name()]</a>"
+				dat += "<a href='?src=[UID()];op=insert'>Insert: [disk.gene.get_name()]</a>"
 			dat += "</div>"
 	else
 		dat += "<br>No sample found.<br><span class='highlight'>Please, insert a plant sample to use this device.</span>"
@@ -220,23 +220,23 @@
 	usr.set_machine(src)
 
 	if(href_list["eject_seed"] && !operation)
-		if (seed)
-			seed.loc = loc
+		if(seed)
+			seed.forceMove(loc)
 			seed.verb_pickup()
 			seed = null
 			update_genes()
 			update_icon()
 		else
 			var/obj/item/I = usr.get_active_hand()
-			if (istype(I, /obj/item/seeds))
+			if(istype(I, /obj/item/seeds))
 				if(!usr.drop_item())
 					return
 				insert_seed(I)
 				to_chat(usr, "<span class='notice'>You add [I] to the machine.</span>")
 		update_icon()
 	else if(href_list["eject_disk"] && !operation)
-		if (disk)
-			disk.loc = loc
+		if(disk)
+			disk.forceMove(loc)
 			disk.verb_pickup()
 			disk = null
 			update_genes()
@@ -246,7 +246,7 @@
 				if(!usr.drop_item())
 					return
 				disk = I
-				disk.loc = src
+				disk.forceMove(src)
 				to_chat(usr, "<span class='notice'>You add [I] to the machine.</span>")
 	else if(href_list["op"] == "insert" && disk && disk.gene && seed)
 		if(!operation) // Wait for confirmation
@@ -315,7 +315,7 @@
 /obj/machinery/plantgenes/proc/insert_seed(obj/item/seeds/S)
 	if(!istype(S) || seed)
 		return
-	S.loc = src
+	S.forceMove(src)
 	seed = S
 	update_genes()
 	update_icon()

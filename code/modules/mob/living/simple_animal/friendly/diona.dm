@@ -136,7 +136,7 @@
 	if(!src || !target || target.nutrilevel == 10) return //Sanity check.
 
 	src.nutrition -= ((10-target.nutrilevel)*5)
-	target.nutrilevel = 10
+	target.adjustNutri(10)
 	src.visible_message("<span class='danger'>[src] secretes a trickle of green liquid from its tail, refilling [target]'s nutrient tray.","\red You secrete a trickle of green liquid from your tail, refilling [target]'s nutrient tray.</span>")
 
 /mob/living/simple_animal/diona/verb/eat_weeds()
@@ -154,7 +154,7 @@
 	if(!src || !target || target.weedlevel == 0) return //Sanity check.
 
 	src.nutrition += target.weedlevel * 15
-	target.weedlevel = 0
+	target.adjustWeeds(-10)
 	src.visible_message("<span class='danger'>[src] begins rooting through [target], ripping out weeds and eating them noisily.</span>","<span class='danger'>You begin rooting through [target], ripping out weeds and eating them noisily.</span>")
 
 /mob/living/simple_animal/diona/verb/evolve()
