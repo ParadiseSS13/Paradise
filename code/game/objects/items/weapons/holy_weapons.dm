@@ -492,7 +492,7 @@
 		if(src == holder.l_hand || src == holder.r_hand) // Holding this in your hand will
 			for(var/mob/living/carbon/human/H in range(5))
 				if(H.mind.assigned_role == "Clown")
-					H.AdjustSilence(10)
+					H.Silence(10)
 					animate_fade_grayscale(H,20)
 					if(prob(10))
 						to_chat(H, "<span class='userdanger'>Being in the presence of [holder]'s [src] is interfering with your honk!</span>")
