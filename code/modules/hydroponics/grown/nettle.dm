@@ -65,7 +65,8 @@
 
 
 /obj/item/weapon/grown/nettle/afterattack(atom/A as mob|obj, mob/user,proximity)
-	if(!proximity) return
+	if(!proximity)
+		return
 	if(force > 0)
 		force -= rand(1, (force / 3) + 1) // When you whack someone with it, leaves fall off
 	else
@@ -100,8 +101,7 @@
 			to_chat(user, "<span class='userdanger'>You are stunned by the Deathnettle when you try picking it up!</span>")
 
 /obj/item/weapon/grown/nettle/death/attack(mob/living/carbon/M, mob/user)
-	if(!..())
-		return
+	..()
 	if(isliving(M))
 		to_chat(M, "<span class='danger'>You are stunned by the powerful acid of the Deathnettle!</span>")
 		add_logs(user, M, "attacked", src)

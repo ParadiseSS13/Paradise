@@ -177,8 +177,7 @@
 	force = round((5 + seed.potency / 5), 1)
 
 /obj/item/weapon/grown/novaflower/attack(mob/living/carbon/M, mob/user)
-	if(!..())
-		return
+	..()
 	if(isliving(M))
 		to_chat(M, "<span class='danger'>You are lit on fire from the intense heat of the [name]!</span>")
 		M.adjust_fire_stacks(seed.potency / 20)
@@ -187,7 +186,8 @@
 			log_game("[key_name(user)] set [key_name(M)] on fire")
 
 /obj/item/weapon/grown/novaflower/afterattack(atom/A as mob|obj, mob/user,proximity)
-	if(!proximity) return
+	if(!proximity)
+		return
 	if(force > 0)
 		force -= rand(1, (force / 3) + 1)
 	else
