@@ -64,13 +64,13 @@
 //For if You want to spawn something that is a non-grown and alter it stats
 
 /obj/item/weapon/grown/holder_spawner
-	var/obj/item/spawned_thing = null
+	var/atom/spawned_thing = null
 
-/obj/item/weapon/grown/holder_spawner/proc/alter_stats(obj/item/I)
+/obj/item/weapon/grown/holder_spawner/proc/alter_stats(atom/A)
 	return
 
 /obj/item/weapon/grown/holder_spawner/New()
 	..()
-	new spawned_thing(loc)
-	alter_stats(spawned_thing)
+	var/atom/thing = new spawned_thing(loc)
+	alter_stats(thing)
 	qdel(src)

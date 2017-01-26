@@ -11,6 +11,7 @@
 	growing_icon = 'icons/obj/hydroponics/growing_vegetables.dmi'
 
 /obj/item/weapon/grown/holder_spawner/comfrey
+	seed = /obj/item/seeds/comfrey
 	spawned_thing = /obj/item/stack/medical/bruise_pack/comfrey
 
 /obj/item/weapon/grown/holder_spawner/comfrey/alter_stats(obj/item/stack/medical/bruise_pack/comfrey/C)
@@ -28,6 +29,7 @@
 	icon_dead = "ambrosia-dead"
 
 /obj/item/weapon/grown/holder_spawner/aloe
+	seed = /obj/item/seeds/aloe
 	spawned_thing = /obj/item/stack/medical/ointment/aloe
 
 /obj/item/weapon/grown/holder_spawner/aloe/alter_stats(obj/item/stack/medical/ointment/aloe/A)

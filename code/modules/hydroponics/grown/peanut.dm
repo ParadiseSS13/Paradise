@@ -1,4 +1,4 @@
-// Peanuuts
+// Peanuts
 /obj/item/seeds/peanuts
 	name = "pack of peanut seeds"
 	desc = "These seeds grow into peanuts."
@@ -6,10 +6,11 @@
 	species = "potato"
 	plantname = "Peanut Vines"
 	product = /obj/item/weapon/reagent_containers/food/snacks/grown/peanuts
-	maturation = 6
-	production = 6
-	yield = 6
-	potency = 10
+	lifespan = 30
+	maturation = 10
+	production = 1
+	yield = 4
+	growthstages = 4
 	growing_icon = 'icons/obj/hydroponics/growing_vegetables.dmi'
 	icon_grow = "potato-grow"
 	icon_dead = "potato-dead"
