@@ -123,7 +123,7 @@
 
 	else if(iswirecutter(W))
 		if(cell)
-			to_chat(user, "<span class='notice'>You cut  [cell] away from [src].</span>")
+			to_chat(user, "<span class='notice'>You cut [cell] away from [src].</span>")
 			cell.forceMove(get_turf(loc))
 			cell = null
 			update_icon()
