@@ -103,12 +103,10 @@ var/list/event_last_fired = list()
 				playercount_modifier = 0.9
 			if(36 to 50)
 				playercount_modifier = 0.8
-			if(50 to 70)
+			if(50 to 80)
 				playercount_modifier = 0.7
-			if(70 to 100)
+			if(80 to 10000)
 				playercount_modifier = 0.6
-			if(100 to 50000)
-				playercount_modifier = 0.5
 
 		playercount_modifier = playercount_modifier * delay_modifier
 
