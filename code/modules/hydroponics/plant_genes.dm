@@ -317,7 +317,8 @@
 
 /datum/plant_gene/trait/noreact/on_squash(obj/item/weapon/reagent_containers/food/snacks/grown/G, atom/target)
 	G.flags &= ~NOREACT
-	G.reagents.handle_reactions()
+	if(G && G.reagents)
+		G.reagents.handle_reactions()
 
 
 /datum/plant_gene/trait/maxchem
@@ -390,7 +391,8 @@
 	S.attach(splat_location)
 	S.set_up(G.reagents, 2, 0, splat_location)
 	S.start(smoke_amount)
-	G.reagents.clear_reagents()
+	if(G && G.reagents)
+		G.reagents.clear_reagents()
 
 /datum/plant_gene/trait/plant_type // Parent type
 	name = "you shouldn't see this"

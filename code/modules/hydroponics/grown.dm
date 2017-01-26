@@ -119,7 +119,8 @@
 			trait.on_squash(src, target)
 
 	for(var/A in T)
-		reagents.reaction(A)
+		if(reagents)
+			reagents.reaction(A)
 
 	qdel(src)
 
