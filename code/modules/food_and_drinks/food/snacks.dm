@@ -898,6 +898,12 @@
 	junkiness = 25
 	list_reagents = list("protein" = 1, "sugar" = 3)
 
+/obj/item/weapon/reagent_containers/food/snacks/sosjerky/healthy
+	name = "homemade beef jerky"
+	desc = "Homemade beef jerky made from the finest space cows."
+	list_reagents = list("nutriment" = 3, "vitamin" = 1)
+	junkiness = 0
+
 /obj/item/weapon/reagent_containers/food/snacks/pistachios
 	name = "Pistachios"
 	icon_state = "pistachios"
@@ -915,6 +921,12 @@
 	filling_color = "#343834"
 	junkiness = 25
 	list_reagents = list("plantmatter" = 2, "sugar" = 4)
+
+/obj/item/weapon/reagent_containers/food/snacks/no_raisin/healthy
+	name = "homemade raisins"
+	desc = "homemade raisins, the best in all of spess."
+	list_reagents = list("nutriment" = 3, "vitamin" = 2)
+	junkiness = 0
 
 /obj/item/weapon/reagent_containers/food/snacks/spacetwinkie
 	name = "Space Twinkie"
