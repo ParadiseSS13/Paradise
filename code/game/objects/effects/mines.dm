@@ -132,12 +132,12 @@
 
 	victim.client.color = pure_red
 	animate(victim.client,color = red_splash, time = 10, easing = SINE_EASING|EASE_OUT)
-	sleep(10)
-	animate(victim.client,color = old_color, time = duration)//, easing = SINE_EASING|EASE_OUT)
-	sleep(duration)
-	to_chat(victim, "<span class='notice'>Your bloodlust seeps back into the bog of your subconscious and you regain self control.<span>")
-	qdel(chainsaw)
-	qdel(src)
+	spawn(10)
+		animate(victim.client,color = old_color, time = duration)//, easing = SINE_EASING|EASE_OUT)
+	spawn(duration)
+		to_chat(victim, "<span class='notice'>Your bloodlust seeps back into the bog of your subconscious and you regain self control.<span>")
+		qdel(chainsaw)
+		qdel(src)
 
 /obj/effect/mine/pickup/healing
 	name = "Blue Orb"
@@ -161,6 +161,6 @@
 		return
 	to_chat(victim, "<span class='notice'>You feel fast!</span>")
 	victim.status_flags |= GOTTAGOREALLYFAST
-	sleep(duration)
-	victim.status_flags &= ~GOTTAGOREALLYFAST
-	to_chat(victim, "<span class='notice'>You slow down.</span>")
+	spawn(duration)
+		victim.status_flags &= ~GOTTAGOREALLYFAST
+		to_chat(victim, "<span class='notice'>You slow down.</span>")

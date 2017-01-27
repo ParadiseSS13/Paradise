@@ -55,12 +55,15 @@
 	nitrogen = 23
 	temperature = 300
 	
-/turf/simulated/floor/attackby(obj/item/W, mob/user, params)
+/turf/simulated/floor/basalt/attackby(obj/item/W, mob/user, params)
+	if(..())
+		return
 	if(istype(W, /obj/item/weapon/shovel))
 		new /obj/item/weapon/ore/glass/basalt(src)
 		new /obj/item/weapon/ore/glass/basalt(src)
 		user.visible_message("<span class='notice'>[user] digs up [src].</span>", "<span class='notice'>You uproot [src].</span>")
 		playsound(src, 'sound/effects/shovel_dig.ogg', 50, 1)
+		make_plating()
 
 /turf/simulated/floor/basalt/New()
 	..()

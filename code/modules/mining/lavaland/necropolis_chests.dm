@@ -327,7 +327,7 @@
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "scroll2"
 	color = "#FF0000"
-	desc = "Mark your target for death. "
+	desc = "Mark your target for death."
 	var/used = FALSE
 
 /obj/item/blood_contract/attack_self(mob/user)
@@ -437,7 +437,7 @@
 	slot_flags = SLOT_BACK
 	w_class = 4
 	force = 20
-	hitsound = "swing_hit"
+	hitsound = 'swing_hit'
 	//hitsound = 'sound/weapons/sonic_jackhammer.ogg'
 	actions_types = list(/datum/action/item_action/vortex_recall, /datum/action/item_action/toggle_unfriendly_fire)
 	var/cooldown_time = 20 //how long the cooldown between non-melee ranged attacks is

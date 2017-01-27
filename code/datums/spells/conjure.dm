@@ -21,7 +21,7 @@
 	for(var/turf/T in targets)
 		if(T.density && !summon_ignore_density)
 			targets -= T
-	playsound(get_turf(src), 'sound/items/welder.ogg', 50, 1)
+	playsound(get_turf(src), cast_sound, 50, 1)
 
 	if(do_after(user,delay, target = user))
 		for(var/i=0,i<summon_amt,i++)

@@ -1817,6 +1817,7 @@ var/global/list/g_fancy_list_of_types = null
 			//you might be thinking of adding more steps to this, or making it use a loop and a counter var
 			//	not worth it.
 
+// This proc gets a list of all "points of interest" (poi's) that can be used by admins to track valuable mobs or atoms (such as the nuke disk).
 /proc/getpois(mobs_only=0,skip_mindless=0)
 	var/list/mobs = sortmobs()
 	var/list/names = list()

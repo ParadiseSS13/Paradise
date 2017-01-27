@@ -26,11 +26,11 @@
 
 	action_icon_state = "magicm"
 	
-	sound = "sound/magic/MAGIC_MISSILE.ogg"
+	sound = 'sound/magic/MAGIC_MISSILE.ogg'
 
 /obj/effect/proc_holder/spell/targeted/inflict_handler/magic_missile
 	amt_weakened = 3
-	sound = "sound/magic/MM_Hit.ogg"
+	sound = 'sound/magic/MM_Hit.ogg'
 
 /obj/effect/proc_holder/spell/noclothes
 	name = "No Clothes"
@@ -55,7 +55,7 @@
 	cooldown_min = 300 //25 deciseconds reduction per rank
 
 	action_icon_state = "mutate"
-	sound = "sound/magic/Mutate.ogg"
+	sound = 'sound/magic/Mutate.ogg'
 
 /obj/effect/proc_holder/spell/targeted/genetic/mutate/cast(list/targets, mob/user = usr)
 	for(var/mob/living/target in targets)
@@ -98,7 +98,7 @@
 	emp_heavy = 6
 	emp_light = 10
 	
-	sound = "sound/magic/Disable_Tech.ogg"
+	sound = 'sound/magic/Disable_Tech.ogg'
 
 /obj/effect/proc_holder/spell/targeted/turf_teleport/blink
 	name = "Blink"
@@ -124,8 +124,8 @@
 
 	action_icon_state = "blink"
 	
-	sound1 = "sound/magic/blink.ogg"
-	sound2 = "sound/magic/blink.ogg"
+	sound1 = 'sound/magic/blink.ogg'
+	sound2 = 'sound/magic/blink.ogg'
 
 /obj/effect/proc_holder/spell/targeted/area_teleport/teleport
 	name = "Teleport"
@@ -145,8 +145,8 @@
 
 	action_icon_state = "spell_teleport"
 	
-	sound1 = "sound/magic/Teleport_diss.ogg"
-	sound2 = "sound/magic/Teleport_app.ogg"
+	sound1 = 'sound/magic/Teleport_diss.ogg'
+	sound2 = 'sound/magic/Teleport_app.ogg'
 
 /obj/effect/proc_holder/spell/aoe_turf/conjure/forcewall
 	name = "Forcewall"
@@ -164,7 +164,7 @@
 	summon_lifespan = 300
 
 	action_icon_state = "shield"
-	cast_sound = "sound/magic/ForceWall.ogg"
+	cast_sound = 'sound/magic/ForceWall.ogg'
 
 /obj/effect/proc_holder/spell/aoe_turf/conjure/timestop
 	name = "Stop Time"
@@ -193,7 +193,7 @@
 
 	summon_type = list(/mob/living/simple_animal/hostile/carp)
 
-	cast_sound = "sound/magic/Summon_Karp.ogg"
+	cast_sound = 'sound/magic/Summon_Karp.ogg'
 	
 /obj/effect/proc_holder/spell/aoe_turf/conjure/construct
 	name = "Artificer"
@@ -209,7 +209,7 @@
 	summon_type = list(/obj/structure/constructshell)
 
 	action_icon_state = "artificer"
-	cast_sound = "sound/magic/SummonItems_generic.ogg"
+	cast_sound = 'sound/magic/SummonItems_generic.ogg'
 
 /obj/effect/proc_holder/spell/aoe_turf/conjure/creature
 	name = "Summon Creature Swarm"
@@ -224,7 +224,7 @@
 	range = 3
 
 	summon_type = list(/mob/living/simple_animal/hostile/creature)
-	cast_sound = "sound/magic/SummonItems_generic.ogg"
+	cast_sound = 'sound/magic/SummonItems_generic.ogg'
 
 /obj/effect/proc_holder/spell/targeted/trigger/blind
 	name = "Blind"
@@ -245,12 +245,12 @@
 /obj/effect/proc_holder/spell/targeted/inflict_handler/blind
 	amt_eye_blind = 10
 	amt_eye_blurry = 20
-	sound = "sound/magic/Blind.ogg"
+	sound = 'sound/magic/Blind.ogg'
 
 /obj/effect/proc_holder/spell/targeted/genetic/blind
 	disabilities = BLIND
 	duration = 300
-	sound = "sound/magic/Blind.ogg"
+	sound = 'sound/magic/Blind.ogg'
 
 /obj/effect/proc_holder/spell/fireball
 	name = "Fireball"
@@ -265,7 +265,7 @@
 	cooldown_min = 20 //10 deciseconds reduction per rank
 	var/fireball_type = /obj/item/projectile/magic/fireball
 	action_icon_state = "fireball0"
-	sound = "sound/magic/Fireball.ogg"
+	sound = 'sound/magic/Fireball.ogg'
 
 	active = FALSE
 
@@ -382,7 +382,7 @@
 	include_user = 1
 	selection_type = "view"
 	action_icon_state = "sacredflame"
-	sound = "sound/magic/Fireball.ogg"
+	sound = 'sound/magic/Fireball.ogg'
 
 /obj/effect/proc_holder/spell/targeted/sacred_flame/cast(list/targets, mob/user = usr)
 	for(var/mob/living/L in targets)

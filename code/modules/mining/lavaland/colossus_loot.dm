@@ -165,7 +165,6 @@
 			H.unEquip(W)
 		var/datum/job/clown/C = job_master.GetJob("Clown")
 		C.equip(H)
-		qdel(C)
 		affected_targets.Add(H)
 
 /obj/machinery/anomalous_crystal/honk/New()
