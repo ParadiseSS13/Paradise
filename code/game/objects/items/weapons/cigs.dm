@@ -42,11 +42,13 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 /obj/item/clothing/mask/cigarette/New()
 	..()
-	flags |= NOREACT // so it doesn't react until you light it
 	create_reagents(chem_volume) // making the cigarrete a chemical holder with a maximum volume of 30
+	reagents.set_reacting(FALSE) // so it doesn't react until you light it
 
 /obj/item/clothing/mask/cigarette/Destroy()
-	qdel(reagents)
+	if(reagents)
+		qdel(reagents)
+	processing_objects -= src
 	return ..()
 
 /obj/item/clothing/mask/cigarette/attack(var/mob/living/M, var/mob/living/user, def_zone)
@@ -135,7 +137,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 				M.unEquip(src, 1)
 			qdel(src)
 			return
-		flags &= ~NOREACT // allowing reagents to react after being lit
+		reagents.set_reacting(TRUE)
 		reagents.handle_reactions()
 		icon_state = icon_on
 		item_state = icon_on

@@ -387,7 +387,7 @@
 		return
 	for(var/mob/living/target in targets)
 		var/thralls = 0
-		var/victory_threshold = 15
+		var/victory_threshold = ticker.mode.required_thralls
 		var/mob/M
 
 		to_chat(target, "<span class='shadowling'><b>You focus your telepathic energies abound, harnessing and drawing together the strength of your thralls.</b></span>")
