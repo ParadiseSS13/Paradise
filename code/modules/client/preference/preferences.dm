@@ -23,6 +23,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 // 	ROLE_GANG = 21,
 	ROLE_BORER = 21,
 	ROLE_NINJA = 21,
+	ROLE_GSPIDER = 21,
 	ROLE_ABDUCTOR = 30,
 )
 
@@ -1962,6 +1963,9 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 				if("randomslot")
 					randomslot = !randomslot
+					if(isnewplayer(usr))
+						var/mob/new_player/N = usr
+						N.new_player_panel_proc()
 
 				if("hear_midis")
 					sound ^= SOUND_MIDI
@@ -2145,35 +2149,28 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 	if(disabilities & DISABILITY_FLAG_FAT && character.species.flags & CAN_BE_FAT)
 		character.dna.SetSEState(FATBLOCK,1,1)
-		character.mutations += FAT
-		character.mutations += OBESITY
 		character.overeatduration = 600
 
 	if(disabilities & DISABILITY_FLAG_NEARSIGHTED)
 		character.dna.SetSEState(GLASSESBLOCK,1,1)
-		character.disabilities |= NEARSIGHTED
 
 	if(disabilities & DISABILITY_FLAG_EPILEPTIC)
 		character.dna.SetSEState(EPILEPSYBLOCK,1,1)
-		character.disabilities |= EPILEPSY
 
 	if(disabilities & DISABILITY_FLAG_DEAF)
 		character.dna.SetSEState(DEAFBLOCK,1,1)
-		character.disabilities |= DEAF
 
 	if(disabilities & DISABILITY_FLAG_BLIND)
 		character.dna.SetSEState(BLINDBLOCK,1,1)
-		character.disabilities |= BLIND
 
 	if(disabilities & DISABILITY_FLAG_MUTE)
 		character.dna.SetSEState(MUTEBLOCK,1,1)
-		character.disabilities |= MUTE
 
 	S.handle_dna(character)
 
 	if(character.dna.dirtySE)
 		character.dna.UpdateSE()
-	domutcheck(character, null, MUTCHK_FORCED)
+	domutcheck(character, null, MUTCHK_FORCED) //'Activates' all the above disabilities.
 
 	character.dna.ready_dna(character, flatten_SE = 0)
 	character.sync_organ_dna(assimilate=1)
@@ -2187,26 +2184,26 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 /datum/preferences/proc/open_load_dialog(mob/user)
 
 	var/DBQuery/query = dbcon.NewQuery("SELECT slot,real_name FROM [format_table_name("characters")] WHERE ckey='[user.ckey]' ORDER BY slot")
+	var/list/slotnames[max_save_slots]
+
+	if(!query.Execute())
+		var/err = query.ErrorMsg()
+		log_game("SQL ERROR during character slot loading. Error : \[[err]\]\n")
+		message_admins("SQL ERROR during character slot loading. Error : \[[err]\]\n")
+		return
+	while(query.NextRow())
+		slotnames[text2num(query.item[1])] = query.item[2]
 
 	var/dat = "<body>"
 	dat += "<tt><center>"
 	dat += "<b>Select a character slot to load</b><hr>"
 	var/name
 
-	for(var/i=1, i<=max_save_slots, i++)
-		if(!query.Execute())
-			var/err = query.ErrorMsg()
-			log_game("SQL ERROR during character slot loading. Error : \[[err]\]\n")
-			message_admins("SQL ERROR during character slot loading. Error : \[[err]\]\n")
-			return
-		while(query.NextRow())
-			if(i==text2num(query.item[1]))
-				name =  query.item[2]
-		if(!name)	name = "Character[i]"
-		if(i==default_slot)
+	for(var/i in 1 to max_save_slots)
+		name = slotnames[i] || "Character [i]"
+		if(i == default_slot)
 			name = "<b>[name]</b>"
 		dat += "<a href='?_src_=prefs;preference=changeslot;num=[i];'>[name]</a><br>"
-		name = null
 
 	dat += "<hr>"
 	dat += "<a href='byond://?src=[user.UID()];preference=close_load_dialog'>Close</a><br>"

@@ -13,10 +13,12 @@ var/const/INGEST = 2
 	var/atom/my_atom = null
 	var/chem_temp = 300
 	var/list/datum/reagent/addiction_list = new/list()
+	var/flags
 
-/datum/reagents/New(maximum=100)
+/datum/reagents/New(maximum = 100)
 	maximum_volume = maximum
-
+	if(!(flags & REAGENT_NOREACT))
+		processing_objects |= src
 	//I dislike having these here but map-objects are initialised before world/New() is called. >_>
 	if(!chemical_reagents_list)
 		//Chemical Reagents - Initialises all /datum/reagent into a list indexed by reagent id
@@ -288,11 +290,24 @@ var/const/INGEST = 2
 			od_chems.Add(R.id)
 	return od_chems
 
+/datum/reagents/proc/process()
+	if(flags & REAGENT_NOREACT)
+		processing_objects -= src
+		return
 
-/datum/reagents/proc/reagent_on_tick()
 	for(var/datum/reagent/R in reagent_list)
 		R.on_tick()
-	return
+
+/datum/reagents/proc/set_reacting(react = TRUE)
+	if(react)
+		// Order is important, process() can remove from processing if
+		// the flag is present
+		flags &= ~(REAGENT_NOREACT)
+		processing_objects |= src
+	else
+		processing_objects -= src
+		flags |= REAGENT_NOREACT
+
 /*
 	if(!target) return
 	var/total_transfered = 0
@@ -337,7 +352,7 @@ var/const/INGEST = 2
 	update_total()
 
 /datum/reagents/proc/handle_reactions()
-	if(my_atom.flags & NOREACT)
+	if(flags & REAGENT_NOREACT)
 		return //Yup, no reactions here. No siree.
 
 	var/reaction_occured = 0
@@ -721,7 +736,7 @@ atom/proc/create_reagents(max_vol)
 
 /datum/reagents/Destroy()
 	. = ..()
-	processing_objects.Remove(src)
+	processing_objects -= src
 	for(var/datum/reagent/R in reagent_list)
 		qdel(R)
 	reagent_list.Cut()

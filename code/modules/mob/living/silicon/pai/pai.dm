@@ -114,6 +114,11 @@
 		C.toff = 1
 	..()
 
+/mob/living/silicon/pai/update_icons()
+	if(stat == DEAD)
+		icon_state = "[chassis]_dead"
+	else
+		icon_state = resting ? "[chassis]_rest" : "[chassis]"
 
 // this function shows the information about being silenced as a pAI in the Status panel
 /mob/living/silicon/pai/proc/show_silenced()
@@ -214,8 +219,8 @@
 			playsound(loc, M.attack_sound, 50, 1, 1)
 		for(var/mob/O in viewers(src, null))
 			O.show_message("<span class='danger'>[M]</span> [M.attacktext] [src]!", 1)
-		M.attack_log += text("\[[time_stamp()]\] <font color='red'>attacked [src.name] ([src.ckey])</font>")
-		src.attack_log += text("\[[time_stamp()]\] <font color='orange'>was attacked by [M.name] ([M.ckey])</font>")
+		M.create_attack_log("<font color='red'>attacked [src.name] ([src.ckey])</font>")
+		src.create_attack_log("<font color='orange'>was attacked by [M.name] ([M.ckey])</font>")
 		var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
 		adjustBruteLoss(damage)
 		updatehealth()
@@ -420,17 +425,17 @@
 	set category = "IC"
 
 	// Pass lying down or getting up to our pet human, if we're in a rig.
-	if(istype(src.loc,/obj/item/device/paicard))
+	if(stat == CONSCIOUS && istype(src.loc,/obj/item/device/paicard))
 		resting = 0
 		var/obj/item/weapon/rig/rig = src.get_rig()
 		if(istype(rig))
 			rig.force_rest(src)
 	else
 		resting = !resting
-		icon_state = resting ? "[chassis]_rest" : "[chassis]"
 		to_chat(src, "<span class='notice'>You are now [resting ? "resting" : "getting up"]</span>")
 
-	canmove = !resting
+	update_icons()
+	update_canmove()
 
 //Overriding this will stop a number of headaches down the track.
 /mob/living/silicon/pai/attackby(obj/item/weapon/W as obj, mob/user as mob, params)

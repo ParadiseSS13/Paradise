@@ -6,6 +6,7 @@
 	icon_state = "laptop"
 	icon_keyboard = "laptop_key"
 	icon_screen = "medlaptop"
+	density = 0
 	light_color = LIGHT_COLOR_GREEN
 	req_one_access = list(access_heads)
 	circuit = /obj/item/weapon/circuitboard/skills

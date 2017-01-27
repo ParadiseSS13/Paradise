@@ -614,6 +614,19 @@ var/global/nologevent = 0
 	message_admins("[key_name_admin(usr)] toggled Dead OOC.", 1)
 	feedback_add_details("admin_verb","TDOOC") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
+/datum/admins/proc/toggleemoji()
+	set category = "Server"
+	set desc = "Toggle OOC Emoji"
+	set name = "Toggle OOC Emoji"
+
+	if(!check_rights(R_ADMIN))
+		return
+
+	config.disable_ooc_emoji = !(config.disable_ooc_emoji)
+	log_admin("[key_name(usr)] toggled OOC Emoji.")
+	message_admins("[key_name_admin(usr)] toggled OOC Emoji.", 1)
+	feedback_add_details("admin_verb", "TEMOJ")
+
 /datum/admins/proc/startnow()
 	set category = "Server"
 	set desc="Start the round RIGHT NOW"

@@ -78,8 +78,8 @@
 		for(var/datum/reagent/R in reagents.reagent_list)
 			injected += R.name
 		var/contained = english_list(injected)
-		M.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been splashed with [name] by [key_name(user)]. Reagents: [contained]</font>")
-		user.attack_log += text("\[[time_stamp()]\] <font color='red'>Used the [name] to splash [key_name(M)]. Reagents: [contained]</font>")
+		M.create_attack_log("<font color='orange'>Has been splashed with [name] by [key_name(user)]. Reagents: [contained]</font>")
+		user.create_attack_log("<font color='red'>Used the [name] to splash [key_name(M)]. Reagents: [contained]</font>")
 		if(M.ckey)
 			msg_admin_attack("[key_name_admin(user)] splashed [key_name_admin(M)] with [name]. Reagents: [contained] (INTENT: [uppertext(user.a_intent)])")
 		if(!iscarbon(user))
@@ -290,7 +290,11 @@
 	materials = list(MAT_GLASS=500)
 	volume = 50
 	amount_per_transfer_from_this = 10
-	flags = OPENCONTAINER | NOREACT
+	flags = OPENCONTAINER
+
+/obj/item/weapon/reagent_containers/glass/beaker/noreact/New()
+	..()
+	reagents.set_reacting(FALSE)
 
 /obj/item/weapon/reagent_containers/glass/beaker/bluespace
 	name = "bluespace beaker"

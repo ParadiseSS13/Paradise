@@ -418,7 +418,7 @@
 /proc/SecondsToTicks(var/seconds)
 	return seconds * 10
 
-proc/pollCandidates(var/Question, var/be_special_type, var/antag_age_check = 0, var/poll_time = 300, var/ignore_respawnability = 0)
+proc/pollCandidates(var/Question, var/be_special_type, var/antag_age_check = 0, var/poll_time = 300, var/ignore_respawnability = 0, var/min_hours = 0)
 	var/roletext = be_special_type ? get_roletext(be_special_type) : null
 	var/list/mob/dead/observer/candidates = list()
 	var/time_passed = world.time
@@ -436,6 +436,9 @@ proc/pollCandidates(var/Question, var/be_special_type, var/antag_age_check = 0, 
 					continue
 		if(roletext)
 			if(jobban_isbanned(G, roletext) || jobban_isbanned(G, "Syndicate"))
+				continue
+		if(min_hours)
+			if(G.client.get_exp_living_num() < min_hours * 60)
 				continue
 		if(G.has_enabled_antagHUD)
 			continue

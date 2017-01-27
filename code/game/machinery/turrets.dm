@@ -329,8 +329,8 @@
 	if(M.melee_damage_upper == 0)	return
 	if(!(stat & BROKEN))
 		visible_message("<span class='userdanger'>[M] [M.attacktext] [src]!</span>")
-		add_logs(src, M, "attacked", admin=0)
-		//src.attack_log += text("\[[time_stamp()]\] <font color='orange'>was attacked by [M.name] ([M.ckey])</font>")
+		add_logs(src, M, "attacked", admin=0, print_attack_log = 0)
+		//src.create_attack_log("<font color='orange'>was attacked by [M.name] ([M.ckey])</font>")
 		src.health -= M.melee_damage_upper
 		if(src.health <= 0)
 			src.die()

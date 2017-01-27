@@ -325,3 +325,6 @@ DISABLE_SPACE_RUINS
 # and still qualify for re-entering the round. Defaults to 30.
 # Setting this to 0 will disable the penalty period
 #ROUND_ABANDON_PENALTY_PERIOD 30
+
+## Uncomment this if you want to disable usage of emoji in OOC
+#DISABLE_OOC_EMOJI

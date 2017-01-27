@@ -49,39 +49,6 @@
 		M.AdjustSilence(10)
 
 
-/obj/effect/proc_holder/spell/targeted/lesser_glare
-	name = "Lesser Glare"
-	desc = "Stuns and mutes a target for a short duration."
-	panel = "Thrall Abilities"
-	charge_max = 450
-	clothes_req = 0
-	action_icon_state = "glare"
-
-/obj/effect/proc_holder/spell/targeted/lesser_glare/cast(list/targets)
-	for(var/mob/living/carbon/human/target in targets)
-		if(!ishuman(target) || !target)
-			to_chat(usr, "<span class='warning'>You nay only glare at humans!</span>")
-			charge_counter = charge_max
-			return
-		if(target.stat)
-			to_chat(usr, "<span class='warning'>[target] must be conscious!</span>")
-			charge_counter = charge_max
-			return
-		if(is_shadow_or_thrall(target))
-			to_chat(usr, "<span class='warning'>You cannot glare at allies!</span>")
-			charge_counter = charge_max
-			return
-		var/mob/living/carbon/human/M = target
-		usr.visible_message("<span class='warning'><b>[usr]'s eyes flash a blinding red!</b></span>")
-		target.visible_message("<span class='danger'>[target] freezes in place, their eyes glazing over...</span>")
-		if(in_range(target, usr))
-			to_chat(target, "<span class='userdanger'>Your gaze is forcibly drawn into [usr]'s eyes, and you are mesmerized by the heavenly lights...</span>")
-		else
-			to_chat(target, "<span class='userdanger'>Red lights suddenly dance in your vision, and you are mesmerized by their heavenly beauty...</span>")
-		target.Stun(3) //Roughly 30% as long as the normal one
-		M.AdjustSilence(3)
-
-
 /obj/effect/proc_holder/spell/aoe_turf/veil
 	name = "Veil"
 	desc = "Extinguishes most nearby light sources."
@@ -421,7 +388,7 @@
 		return
 	for(var/mob/living/user in targets)
 		var/thralls = 0
-		var/victory_threshold = 15
+		var/victory_threshold = ticker.mode.required_thralls
 		var/mob/M
 
 		to_chat(user, "<span class='shadowling'><b>You focus your telepathic energies abound, harnessing and drawing together the strength of your thralls.</b></span>")
@@ -672,9 +639,8 @@
 				sleep(20)
 				thrallToRevive.visible_message("<span class='warning'>[thrallToRevive] slowly rises, no longer recognizable as human.</span>", \
 											   "<span class='shadowling'><b>You feel new power flow into you. You have been gifted by your masters. You now closely resemble them. You are empowered in \
-											    darkness but wither slowly in light. In addition, Lesser Glare and Guise have been upgraded into their true forms.</b></span>")
+											    darkness but wither slowly in light. In addition, you now have glare and true shadow walk.</b></span>")
 				thrallToRevive.set_species("Lesser Shadowling")
-				thrallToRevive.mind.RemoveSpell(/obj/effect/proc_holder/spell/targeted/lesser_glare)
 				thrallToRevive.mind.RemoveSpell(/obj/effect/proc_holder/spell/targeted/lesser_shadow_walk)
 				thrallToRevive.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/glare(null))
 				thrallToRevive.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shadow_walk(null))
@@ -752,7 +718,7 @@
 			var/more_minutes = 9000
 			var/timer = shuttle_master.emergency.timeLeft()
 			timer += more_minutes
-			command_announcement.Announce("Major system failure aboard the emergency shuttle. This will extend its arrival time by approximately 15 minutes..", "System Failure", 'sound/misc/notice1.ogg')
+			event_announcement.Announce("Major system failure aboard the emergency shuttle. This will extend its arrival time by approximately 15 minutes..", "System Failure", 'sound/misc/notice1.ogg')
 			shuttle_master.emergency.setTimer(timer)
 		usr.mind.spell_list.Remove(src) //Can only be used once!
 		qdel(src)

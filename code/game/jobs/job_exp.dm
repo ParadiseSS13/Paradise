@@ -106,9 +106,12 @@
 
 
 /client/proc/get_exp_living()
+	return get_exp_format(get_exp_living_num())
+
+/client/proc/get_exp_living_num()
 	var/list/play_records = params2list(prefs.exp)
 	var/exp_living = text2num(play_records[EXP_TYPE_LIVING])
-	return get_exp_format(exp_living)
+	return exp_living
 
 /proc/get_exp_format(var/expnum)
 	if(expnum > 60)

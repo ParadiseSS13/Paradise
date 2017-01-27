@@ -501,6 +501,8 @@
 
 /obj/mecha/attack_animal(mob/living/simple_animal/user as mob)
 	log_message("Attack by simple animal. Attacker - [user].",1)
+	user.changeNext_move(CLICK_CD_MELEE)
+	user.do_attack_animation(src)
 	if(user.melee_damage_upper == 0)
 		user.custom_emote(1, "[user.friendly] [src]")
 	else
@@ -510,13 +512,13 @@
 			take_damage(damage)
 			check_for_internal_damage(list(MECHA_INT_TEMP_CONTROL,MECHA_INT_TANK_BREACH,MECHA_INT_CONTROL_LOST))
 			visible_message("<span class='danger'>[user]</span> [user.attacktext] [src]!")
-			user.attack_log += text("\[[time_stamp()]\] <font color='red'>attacked [src.name]</font>")
+			user.create_attack_log("<font color='red'>attacked [src.name]</font>")
 		else
 			log_append_to_last("Armor saved.")
 			playsound(loc, 'sound/weapons/slash.ogg', 50, 1, -1)
 			occupant_message("\blue The [user]'s attack is stopped by the armor.")
 			visible_message("\blue The [user] rebounds off [name]'s armor!")
-			user.attack_log += text("\[[time_stamp()]\] <font color='red'>attacked [name]</font>")
+			user.create_attack_log("<font color='red'>attacked [name]</font>")
 	return
 
 /obj/mecha/hitby(atom/movable/A as mob|obj) //wrapper

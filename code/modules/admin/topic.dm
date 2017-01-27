@@ -1533,6 +1533,34 @@
 	else if(href_list["check_antagonist"])
 		check_antagonists()
 
+	else if(href_list["cult_nextobj"])
+		if(alert(usr, "Validate the current Cult objective and unlock the next one?", "Cult Cheat Code", "Yes", "No") != "Yes")
+			return
+
+		if(!GAMEMODE_IS_CULT)
+			alert("Couldn't locate cult mode datum! This shouldn't ever happen, tell a coder!")
+			return
+
+		var/datum/game_mode/cult/cult_round = ticker.mode
+		cult_round.bypass_phase()
+		message_admins("Admin [key_name_admin(usr)] has unlocked the Cult's next objective.")
+		log_admin("Admin [key_name_admin(usr)] has unlocked the Cult's next objective.")
+
+	else if(href_list["cult_mindspeak"])
+		var/input = stripped_input(usr, "Communicate to all the cultists with the voice of [ticker.mode.cultdat.entity_name]", "Voice of [ticker.mode.cultdat.entity_name]", "")
+		if(!input)
+			return
+
+		for(var/datum/mind/H in ticker.mode.cult)
+			if (H.current)
+				to_chat(H.current, "<span class='danger'>[ticker.mode.cultdat.entity_name]</span> murmurs, <span class='cultlarge'>[input]</span></span>")
+
+		for(var/mob/dead/observer/O in player_list)
+			to_chat(O, "<span class='danger'>[ticker.mode.cultdat.entity_name]</span> murmurs, <span class='cultlarge'>[input]</span></span>")
+
+		message_admins("Admin [key_name_admin(usr)] has talked with the Voice of [ticker.mode.cultdat.entity_name].")
+		log_admin("[key_name(usr)] Voice of [ticker.mode.cultdat.entity_name]: [input]")
+
 	else if(href_list["adminplayerobservecoodjump"])
 		if(!check_rights(R_ADMIN))	return
 
@@ -2277,11 +2305,11 @@
 				if(gravity_is_on)
 					log_admin("[key_name(usr)] toggled gravity on.", 1)
 					message_admins("\blue [key_name_admin(usr)] toggled gravity on.", 1)
-					command_announcement.Announce("Gravity generators are again functioning within normal parameters. Sorry for any inconvenience.")
+					event_announcement.Announce("Gravity generators are again functioning within normal parameters. Sorry for any inconvenience.")
 				else
 					log_admin("[key_name(usr)] toggled gravity off.", 1)
 					message_admins("\blue [key_name_admin(usr)] toggled gravity off.", 1)
-					command_announcement.Announce("Feedback surge detected in mass-distributions systems. Artifical gravity has been disabled whilst the system reinitializes. Further failures may result in a gravitational collapse and formation of blackholes. Have a nice day.")
+					event_announcement.Announce("Feedback surge detected in mass-distributions systems. Artifical gravity has been disabled whilst the system reinitializes. Further failures may result in a gravitational collapse and formation of blackholes. Have a nice day.")
 
 			if("power")
 				feedback_inc("admin_secrets_fun_used",1)
@@ -2553,7 +2581,7 @@
 					if(is_station_level(W.z) && !istype(get_area(W), /area/bridge) && !istype(get_area(W), /area/crew_quarters) && !istype(get_area(W), /area/security/prison))
 						W.req_access = list()
 				message_admins("[key_name_admin(usr)] activated Egalitarian Station mode")
-				command_announcement.Announce("Centcomm airlock control override activated. Please take this time to get acquainted with your coworkers.", new_sound = 'sound/AI/commandreport.ogg')
+				event_announcement.Announce("Centcomm airlock control override activated. Please take this time to get acquainted with your coworkers.", new_sound = 'sound/AI/commandreport.ogg')
 			if("onlyone")
 				feedback_inc("admin_secrets_fun_used",1)
 				feedback_add_details("admin_secrets_fun_used","OO")

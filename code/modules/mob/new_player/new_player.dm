@@ -25,6 +25,8 @@
 
 /mob/new_player/proc/new_player_panel_proc()
 	var/real_name = client.prefs.real_name
+	if(client.prefs.randomslot)
+		real_name = "Random Character Slot"
 	var/output = "<center><p><a href='byond://?src=[UID()];show_preferences=1'>Setup Character</A><br /><i>[real_name]</i></p>"
 
 	if(!ticker || ticker.current_state <= GAME_STATE_PREGAME)
@@ -168,6 +170,9 @@
 		if(!enter_allowed)
 			to_chat(usr, "\blue There is an administrative lock on entering the game!")
 			return
+
+		if(client.prefs.randomslot)
+			client.prefs.load_random_character_slot(client)
 
 		if(client.prefs.species in whitelisted_species)
 			if(!is_alien_whitelisted(src, client.prefs.species) && config.usealienwhitelist)
@@ -494,6 +499,9 @@
 		if(mind.assigned_role == "Clown")				//give them a clownname if they are a clown
 			new_character.real_name = pick(clown_names)	//I hate this being here of all places but unfortunately dna is based on real_name!
 			new_character.rename_self("clown")
+		else if(mind.assigned_role == "Mime")
+			new_character.real_name = pick(mime_names)
+			new_character.rename_self("mime")
 		else if(new_character.species == "Diona")
 			new_character.real_name = pick(diona_names)	//I hate this being here of all places but unfortunately dna is based on real_name!
 			new_character.rename_self("diona")

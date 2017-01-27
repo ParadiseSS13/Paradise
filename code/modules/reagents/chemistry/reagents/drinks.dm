@@ -213,7 +213,7 @@
 	name = "Hot Chocolate"
 	id = "hot_coco"
 	description = "Made with love! And coco beans."
-	nutriment_factor = 2 * REAGENTS_METABOLISM
+	nutriment_factor = 3 * REAGENTS_METABOLISM
 	color = "#403010" // rgb: 64, 48, 16
 	adj_temp_hot = 5
 	drink_icon = "hot_coco"
@@ -225,6 +225,7 @@
 	id = "coffee"
 	description = "Coffee is a brewed drink prepared from roasted seeds, commonly called coffee beans, of the coffee plant."
 	color = "#482000" // rgb: 72, 32, 0
+	nutriment_factor = 0
 	adj_dizzy = -5
 	adj_drowsy = -3
 	adj_sleepy = -2
@@ -307,6 +308,7 @@
 	id = "tea"
 	description = "Tasty black tea: It has antioxidants. It's good for you!"
 	color = "#101000" // rgb: 16, 16, 0
+	nutriment_factor = 0
 	adj_dizzy = -2
 	adj_drowsy = -1
 	adj_sleepy = -3

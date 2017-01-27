@@ -187,8 +187,8 @@ emp_act
 		--src.meatleft
 		to_chat(user, "\red You hack off a chunk of meat from [src.name]")
 		if(!src.meatleft)
-			src.attack_log += "\[[time_stamp()]\] Was chopped up into meat by <b>[key_name(user)]</b>"
-			user.attack_log += "\[[time_stamp()]\] Chopped up <b>[key_name(src)]</b> into meat</b>"
+			src.create_attack_log("Was chopped up into meat by <b>[key_name(user)]</b>")
+			user.create_attack_log("Chopped up <b>[key_name(src)]</b> into meat</b>")
 			msg_admin_attack("[key_name_admin(user)] chopped up [key_name_admin(src)] into meat")
 			if(!iscarbon(user))
 				LAssailant = null
@@ -338,10 +338,7 @@ emp_act
 		if(ismob(I.thrower))
 			var/mob/M = I.thrower
 			if(M)
-				src.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been hit with a [I], thrown by [key_name(M)]</font>")
-				M.attack_log += text("\[[time_stamp()]\] <font color='red'>Hit [key_name(src)] with a thrown [I]</font>")
-				if(!istype(src,/mob/living/simple_animal/mouse))
-					msg_admin_attack("[key_name_admin(src)] was hit by a [I], thrown by [key_name_admin(M)]")
+				add_logs(M, src, "hit", I, " (thrown)", print_attack_log = I.throwforce)
 
 		//thrown weapon embedded object code.
 		if(dtype == BRUTE && istype(I))
@@ -439,8 +436,8 @@ emp_act
 		visible_message("<span class='danger'>[src] has been hit by [M.name].</span>", \
 								"<span class='userdanger'>[src] has been hit by [M.name].</span>")
 
-		attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been attacked by \the [M] controlled by [key_name(M.occupant)] (INTENT: [uppertext(M.occupant.a_intent)])</font>")
-		M.occupant.attack_log += text("\[[time_stamp()]\] <font color='red'>Attacked [src] with \the [M] (INTENT: [uppertext(M.occupant.a_intent)])</font>")
+		create_attack_log("<font color='orange'>Has been attacked by \the [M] controlled by [key_name(M.occupant)] (INTENT: [uppertext(M.occupant.a_intent)])</font>")
+		M.occupant.create_attack_log("<font color='red'>Attacked [src] with \the [M] (INTENT: [uppertext(M.occupant.a_intent)])</font>")
 		msg_admin_attack("[key_name_admin(M.occupant)] attacked [key_name_admin(src)] with \the [M] (INTENT: [uppertext(M.occupant.a_intent)])")
 
 	else

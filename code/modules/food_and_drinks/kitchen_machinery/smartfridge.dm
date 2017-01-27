@@ -10,7 +10,6 @@
 	use_power = 1
 	idle_power_usage = 5
 	active_power_usage = 100
-	flags = NOREACT
 	var/max_n_of_items = 1500
 	var/icon_on = "smartfridge"
 	var/icon_off = "smartfridge-off"
@@ -25,6 +24,8 @@
 
 /obj/machinery/smartfridge/New()
 	..()
+	create_reagents()
+	reagents.set_reacting(FALSE)
 	component_parts = list()
 	var/obj/item/weapon/circuitboard/smartfridge/board = new(null)
 	board.set_type(type)
@@ -82,7 +83,7 @@
 		return 1
 	if(istype(O,/obj/item/weapon/storage/pill_bottle/))
 		return 1
-	if(istype(O,/obj/item/weapon/reagent_containers/food/pill/))
+	if(ispill(O))
 		return 1
 	return 0
 
@@ -108,7 +109,7 @@
 		return 1
 	if(istype(O,/obj/item/weapon/storage/pill_bottle/))
 		return 1
-	if(istype(O,/obj/item/weapon/reagent_containers/food/pill/))
+	if(ispill(O))
 		return 1
 	return 0
 
