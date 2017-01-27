@@ -17,6 +17,9 @@
 	// separate APCs, and so on)
 	var/there_can_be_many = 0
 
+	//There is also another spot where all the areas have procs defined for returning detective monologues
+	//the file for that is area_monologue.dm; look at it if you're making new areas or deleting them
+
 
 /area/New()
 
@@ -388,3 +391,6 @@
 		temp_airlock.prison_open()
 	for(var/obj/machinery/door/window/temp_windoor in src)
 		temp_windoor.open()
+
+/area/proc/get_monologue(var/datum/species/S)
+	return

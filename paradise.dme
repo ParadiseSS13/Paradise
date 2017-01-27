@@ -344,6 +344,7 @@
 #include "code\game\skincmd.dm"
 #include "code\game\sound.dm"
 #include "code\game\area\ai_monitored.dm"
+#include "code\game\area\area_monologue.dm"
 #include "code\game\area\areas.dm"
 #include "code\game\area\Dynamic areas.dm"
 #include "code\game\area\Space Station 13 areas.dm"

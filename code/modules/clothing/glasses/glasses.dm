@@ -231,9 +231,82 @@
 /obj/item/clothing/glasses/sunglasses/noir
 	name = "noir sunglasses"
 	desc = "Somehow these seem even more out-of-date than normal sunglasses."
-	actions_types = list(/datum/action/item_action/noir)
+	actions_types = list(/datum/action/item_action/noir, /datum/action/item_action/monologue)
 	var/noir_mode = 0
 	color_view = MATRIX_GREYSCALE
+
+/obj/item/clothing/glasses/sunglasses/noir/ui_action_click(mob/user, actiontype)
+	if(actiontype == /datum/action/item_action/noir)
+		attack_self()
+	else if(actiontype == /datum/action/item_action/monologue)
+		monologue(user)
+
+/obj/item/clothing/glasses/sunglasses/noir/proc/monologue(mob/user)
+	if(!ishuman(user))
+		return
+	var/mob/living/carbon/human/H = user
+
+	var/vox = (H.get_species() == "Vox" || H.get_species() == "Vox Armalis")
+	var/message = null //for visible_message
+	var/monologue = null
+	var/area/A = get_area(H)
+
+	if(H.is_muzzled())
+		message = "<B>[src]</B> struggles against \the [H.wear_mask]. [H.gender == MALE ? "H" : "Sh"]e's not giving up so easily."
+	else if(istype(H.l_hand, /obj/item/weapon/grab) && H.l_hand:state >= 3)//won't runtime because it quits if the first check fails
+		if(ishuman(H.l_hand:affecting))//again, if it gets here it won't be able to runtime
+			if(!vox)
+				monologue = "I'll stare the bastard in the face as he screams to God, and I'll laugh harder when he whimpers like a baby. And when [H.l_hand:affecting]'s eyes go dead, the hell I send him to will seem like heaven after what I've done to him."
+			else
+				monologue = "Youses is skrek and is goes where skrek comes from!"
+	else if(istype(H.r_hand, /obj/item/weapon/grab) && H.r_hand:state >= 3)
+		if(ishuman(H.r_hand:affecting))
+			if(!vox)
+				monologue = "I'll stare the bastard in the face as he screams to God, and I'll laugh harder when he whimpers like a baby. And when [H.r_hand:affecting]'s eyes go dead, the hell I send him to will seem like heaven after what I've done to him."
+			else
+				monologue = "Youses is skrek and is goes where skrek comes from!"
+	else if(istype(H.r_hand, /obj/item/weapon/gun/projectile/revolver/detective))
+		if(!vox)
+			monologue = "Ah, [H.r_hand]. [pick("They say anything can be solved with just enough violence.", "Around here you're the only ally I can count on.", "In this hellhole there isn't anyone else I'd rather have at my side.")]"
+		else
+			monologue = "[H.r_hand], monologue. [pick("Voxxy was never a fan of the Involate. Not when with you at Voxxy's side.", "The dustlungs will not understand.", "Voxxy has seen enough to know you're the closest friend Voxxy has.")]"
+	else if(istype(H.l_hand, /obj/item/weapon/gun/projectile/revolver/detective))
+		if(!vox)
+			monologue = "Ah, [H.l_hand]. [pick("They say anything can be solved with just enough violence.", "Around here you're the only ally I can count on.", "In this hellhole there isn't anyone else I'd rather have at my side.")]"
+		else
+			monologue = "[H.l_hand], monologue. [pick("Voxxy was never a fan of the Involate. Not when with you at Voxxy's side.", "The dustlungs will not understand.", "Voxxy has seen enough to know you're the closest friend Voxxy has.")]"
+	else if(istype(H.r_hand, /obj/item/device/detective_scanner) || istype(H.l_hand, /obj/item/device/detective_scanner))
+		if(!vox)
+			monologue = "They don't call me a Detective for nothing. It was time to get busy."
+		else
+			monologue = "Voxxy had to start investigating. Something didn't seem right."
+	else if(ROUND_TIME < 600)//first 1 minute of the shift
+		if(!vox)
+			monologue = "Noon. I could hear the initial hustle in the distance, but the hallways seemed darker than usual. It was going to be a long shift."
+		else
+			monologue = "Was dark station at starts, monologue. Would be long shift."
+	else if(H.drunk > 20)//boozed up detective
+		if(!vox)
+			monologue = "I had told myself it would have been the last time, but I just couldn't take it anymore. Scotch was the only friend I had left."
+		else
+			monologue = "Shoal always say waste as little as neccessary. But sometimes me just feel like getting wasted. Shoal would never understand."
+	else if(A.get_monologue(H.species))
+		monologue = A.get_monologue(H.species)
+	else if(istype(H.wear_mask, /obj/item/clothing/mask/cigarette))
+		if(H.get_species() == "Machine")
+			message = "<B>[src]</B> buzzes quietly, surveying the scene around them carefullly."
+		else
+			if(!vox)
+				message = "<B>[src]</B> takes a drag on \his [H.wear_mask], surveying the scene around them carefullly."
+			else
+				message = "<B>[src]</b> takes a clumsy drag on \his [H.wear_mask], winces and gives off a few dry coughs."//don't smoke, skreks
+	else
+		message = "<B>[src]</B> looks uneasy, like [gender == MALE ? "" : "s"]he's missing a vital part of h[gender == MALE ? "im" : "er"]self. [gender == MALE ? "H" : "Sh"]e needs a smoke badly."
+
+	if(message)
+		H.visible_message(message)
+	else if(monologue)
+		H.say(monologue)
 
 /obj/item/clothing/glasses/sunglasses/noir/attack_self()
 	toggle_noir()
