@@ -437,7 +437,7 @@
 	slot_flags = SLOT_BACK
 	w_class = 4
 	force = 20
-	hitsound = 'swing_hit'
+	hitsound = "swing_hit"
 	//hitsound = 'sound/weapons/sonic_jackhammer.ogg'
 	actions_types = list(/datum/action/item_action/vortex_recall, /datum/action/item_action/toggle_unfriendly_fire)
 	var/cooldown_time = 20 //how long the cooldown between non-melee ranged attacks is
