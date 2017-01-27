@@ -392,5 +392,5 @@
 	for(var/obj/machinery/door/window/temp_windoor in src)
 		temp_windoor.open()
 
-/area/proc/get_monologue(var/datum/species/S)
+/area/proc/get_monologue(var/voxxy)
 	return

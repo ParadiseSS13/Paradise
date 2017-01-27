@@ -253,28 +253,19 @@
 
 	if(H.is_muzzled())
 		message = "<B>[src]</B> struggles against \the [H.wear_mask]. [H.gender == MALE ? "H" : "Sh"]e's not giving up so easily."
-	else if(istype(H.l_hand, /obj/item/weapon/grab) && H.l_hand:state >= 3)//won't runtime because it quits if the first check fails
-		if(ishuman(H.l_hand:affecting))//again, if it gets here it won't be able to runtime
+	else if(istype(H.r_hand, /obj/item/weapon/grab) || istype(H.l_hand, /obj/item/weapon/grab))
+		var/obj/item/weapon/grab/G = istype(H.r_hand, /obj/item/weapon/grab) ? H.r_hand : H.l_hand
+		if(ishuman(G.affecting) && G.state >= 3)
 			if(!vox)
-				monologue = "I'll stare the bastard in the face as he screams to God, and I'll laugh harder when he whimpers like a baby. And when [H.l_hand:affecting]'s eyes go dead, the hell I send him to will seem like heaven after what I've done to him."
+				monologue = "I'll stare the bastard in the face as he screams to God, and I'll laugh harder when he whimpers like a baby. And when [G.affecting]'s eyes go dead, the hell I send him to will seem like heaven after what I've done to him."
 			else
 				monologue = "Youses is skrek and is goes where skrek comes from!"
-	else if(istype(H.r_hand, /obj/item/weapon/grab) && H.r_hand:state >= 3)
-		if(ishuman(H.r_hand:affecting))
-			if(!vox)
-				monologue = "I'll stare the bastard in the face as he screams to God, and I'll laugh harder when he whimpers like a baby. And when [H.r_hand:affecting]'s eyes go dead, the hell I send him to will seem like heaven after what I've done to him."
-			else
-				monologue = "Youses is skrek and is goes where skrek comes from!"
-	else if(istype(H.r_hand, /obj/item/weapon/gun/projectile/revolver/detective))
+	else if(istype(H.r_hand, /obj/item/weapon/gun/projectile/revolver/detective) || istype(H.l_hand, /obj/item/weapon/gun/projectile/revolver/detective))
+		var/obj/item/weapon/gun/projectile/revolver/detective/G = istype(H.r_hand, /obj/item/weapon/gun/projectile/revolver/detective) ? H.r_hand : H.l_hand
 		if(!vox)
-			monologue = "Ah, [H.r_hand]. [pick("They say anything can be solved with just enough violence.", "Around here you're the only ally I can count on.", "In this hellhole there isn't anyone else I'd rather have at my side.")]"
+			monologue = "Ah, [G]. [pick("They say anything can be solved with just enough violence.", "Around here you're the only ally I can count on.", "In this hellhole there isn't anyone else I'd rather have at my side.")]"
 		else
-			monologue = "[H.r_hand], monologue. [pick("Voxxy was never a fan of the Involate. Not when with you at Voxxy's side.", "The dustlungs will not understand.", "Voxxy has seen enough to know you're the closest friend Voxxy has.")]"
-	else if(istype(H.l_hand, /obj/item/weapon/gun/projectile/revolver/detective))
-		if(!vox)
-			monologue = "Ah, [H.l_hand]. [pick("They say anything can be solved with just enough violence.", "Around here you're the only ally I can count on.", "In this hellhole there isn't anyone else I'd rather have at my side.")]"
-		else
-			monologue = "[H.l_hand], monologue. [pick("Voxxy was never a fan of the Involate. Not when with you at Voxxy's side.", "The dustlungs will not understand.", "Voxxy has seen enough to know you're the closest friend Voxxy has.")]"
+			monologue = "[G], yaya. [pick("Voxxy was never a fan of the Involate. Not when with you at Voxxy's side.", "The dustlungs will not understand.", "Voxxy has seen enough to know you're the closest friend Voxxy has.")]"
 	else if(istype(H.r_hand, /obj/item/device/detective_scanner) || istype(H.l_hand, /obj/item/device/detective_scanner))
 		if(!vox)
 			monologue = "They don't call me a Detective for nothing. It was time to get busy."
@@ -284,14 +275,14 @@
 		if(!vox)
 			monologue = "Noon. I could hear the initial hustle in the distance, but the hallways seemed darker than usual. It was going to be a long shift."
 		else
-			monologue = "Was dark station at starts, monologue. Would be long shift."
+			monologue = "Was dark station at starts, yaya. Would be long shift."
 	else if(H.drunk > 20)//boozed up detective
 		if(!vox)
 			monologue = "I had told myself it would have been the last time, but I just couldn't take it anymore. Scotch was the only friend I had left."
 		else
 			monologue = "Shoal always say waste as little as neccessary. But sometimes me just feel like getting wasted. Shoal would never understand."
 	else if(A.get_monologue(H.species))
-		monologue = A.get_monologue(H.species)
+		monologue = A.get_monologue(vox)
 	else if(istype(H.wear_mask, /obj/item/clothing/mask/cigarette))
 		if(H.get_species() == "Machine")
 			message = "<B>[src]</B> buzzes quietly, surveying the scene around them carefullly."
