@@ -54,9 +54,8 @@
 	..()
 
 /datum/species/monkey/handle_dna(var/mob/living/carbon/human/H)
-	if(!is_type_in_list(/datum/dna/gene/monkey, H.active_genes)) //Only activate the monkey gene if it isn't already.
-		H.dna.SetSEState(MONKEYBLOCK,1,1)
-		genemutcheck(H,MONKEYBLOCK,null,MUTCHK_FORCED)
+	H.dna.SetSEState(MONKEYBLOCK,1)
+	genemutcheck(H,MONKEYBLOCK,null,MUTCHK_FORCED)
 
 /datum/species/monkey/handle_can_equip(obj/item/I, slot, disable_warning = 0, mob/living/carbon/human/user)
 	switch(slot)
