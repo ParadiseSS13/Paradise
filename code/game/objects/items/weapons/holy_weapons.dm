@@ -453,6 +453,51 @@
 					if(prob(10))
 						to_chat(H, "<span class='userdanger'>Being in the presence of [holder]'s [src] is interfering with your powers!</span>")
 
+/obj/item/weapon/nullrod/salt
+	name = "Holy Salt"
+	icon = 'icons/obj/food/containers.dmi'
+	icon_state = "saltshakersmall"
+	desc = "While commonly used to repel some ghosts, it appears others are downright attracted to it."
+	force = 0
+	throwforce = 0
+	var/ghostcall_CD = 0
+
+
+/obj/item/weapon/nullrod/salt/attack_self(mob/user)
+
+	if(!user.mind || user.mind.assigned_role != "Chaplain")
+		to_chat(user, "<span class='notice'>You are not close enough with [ticker.Bible_deity_name] to use [src].</span>")
+		return
+
+	if(!(ghostcall_CD > world.time))
+		ghostcall_CD = world.time + 3000 //deciseconds..5 minutes
+		user.visible_message("<span class='info'>[user] kneels and begins to utter a prayer to [ticker.Bible_deity_name] while drawing a circle with salt!</span>", \
+		"<span class='info'>You kneel and begin a prayer to [ticker.Bible_deity_name] while drawing a circle!</span>")
+		notify_ghosts("The Chaplain is calling ghosts to [get_area(src)] with [name]!", source = src)
+	else
+		to_chat(user, "<span class='notice'>You need to wait before using [src] again.</span>")
+		return
+
+
+/obj/item/weapon/nullrod/rosary/bread
+	name = "prayer bread"
+	icon = 'icons/obj/food/food.dmi'
+	icon_state = "baguette"
+	desc = "a staple of worshipers of the Silentfather, this holy mime artifact has an odd effect on clowns."
+
+/obj/item/weapon/nullrod/rosary/bread/process()
+	if(ishuman(loc))
+		var/mob/living/carbon/human/holder = loc
+		//would like to make the holder mime if they have it in on thier person in general
+		if(src == holder.l_hand || src == holder.r_hand) // Holding this in your hand will
+			for(var/mob/living/carbon/human/H in range(5))
+				if(H.mind.assigned_role == "Clown")
+					H.Silence(10)
+					animate_fade_grayscale(H,20)
+					if(prob(10))
+						to_chat(H, "<span class='userdanger'>Being in the presence of [holder]'s [src] is interfering with your honk!</span>")
+
+
 /obj/item/weapon/nullrod/missionary_staff
 	name = "holy staff"
 	desc = "It has a mysterious, protective aura."
