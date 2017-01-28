@@ -22,7 +22,7 @@
 	var/assembly_type = /obj/structure/firelock_frame	
 	var/nextstate = null
 	var/welded = 0
-	var/boltslocked = 0
+	var/boltslocked = 1
 	var/can_deconstruct = 1
 
 /obj/machinery/door/firedoor/Bumped(atom/AM)
@@ -77,6 +77,7 @@
 			return
 		else
 			to_chat(user, "<span class='warning'>\The [src] is welded solid!</span>")
+			return
 
 	if(istype(C, /obj/item/weapon/crowbar) || istype(C, /obj/item/weapon/twohanded/fireaxe))
 		if(istype(C, /obj/item/weapon/twohanded/fireaxe))
@@ -189,7 +190,7 @@
 	assembly_type = /obj/structure/firelock_frame/heavy
 
 /obj/item/weapon/firelock_electronics
-	name = "firelock circuitry"
+	name = "firelock electronics"
 	icon = 'icons/obj/doors/door_assembly.dmi'
 	icon_state = "door_electronics"
 	desc = "A circuit board used in construction of firelocks."
@@ -221,6 +222,8 @@
 			to_chat(user, "The circuit board is visible.")
 		if(CONSTRUCTION_NOCIRCUIT)
 			to_chat(user, "There are no electronics in the frame.")
+	if(reinforced)
+		to_chat(user, "The frame is reinforced.")
 
 /obj/structure/firelock_frame/update_icon()
 	..()
