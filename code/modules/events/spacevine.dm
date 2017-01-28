@@ -63,7 +63,7 @@
 /datum/spacevine_mutation/proc/on_buckle(obj/effect/spacevine/holder, mob/living/buckled)
 	return
 
-/datum/spacevine_mutation/proc/on_explosion(severity)
+/datum/spacevine_mutation/proc/on_explosion(severity, obj/effect/spacevine/holder)
 	return
 
 
@@ -184,13 +184,13 @@
 	quality = NEGATIVE
 	severity = 2
 
-/datum/spacevine_mutation/explosive/on_explosion(explosion_severity)
+/datum/spacevine_mutation/explosive/on_explosion(explosion_severity, obj/effect/spacevine/holder)
 	if(explosion_severity < 3)
-		qdel(src)
+		qdel(holder)
 	else
 		. = 1
 		spawn(5)
-			qdel(src)
+			qdel(holder)
 
 /datum/spacevine_mutation/explosive/on_death(obj/effect/spacevine/holder, mob/hitter, obj/item/I)
 	explosion(holder.loc, 0, 0, severity, 0, 0)
@@ -335,11 +335,16 @@
 			KZ.mutations |= mutations
 			KZ.set_potency(master.mutativeness * 10)
 			KZ.set_production((master.spread_cap / initial(master.spread_cap)) * 5)
-	mutations = list()
+	master = null
+	mutations.Cut()
 	set_opacity(0)
 	if(buckled_mob)
 		unbuckle_mob()
 	return ..()
+
+/obj/effect/spacevine/proc/add_mutation(datum/spacevine_mutation/mutation)
+	mutations |= mutation
+	color = mutation.hue
 
 /obj/effect/spacevine/proc/on_chem_effect(datum/reagent/R)
 	var/override = 0
@@ -538,7 +543,7 @@
 /obj/effect/spacevine/ex_act(severity)
 	var/i
 	for(var/datum/spacevine_mutation/SM in mutations)
-		i += SM.on_explosion(severity)
+		i += SM.on_explosion(severity, src)
 	if(!i && prob(100/severity))
 		qdel(src)
 

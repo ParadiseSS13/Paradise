@@ -21,6 +21,10 @@
 	var/factions = null
 	var/contains_sample = 0
 
+/obj/item/seeds/replicapod/Destroy()
+	mind = null
+	return ..()
+
 /obj/item/seeds/replicapod/attackby(obj/item/weapon/W, mob/user, params)
 	if(istype(W,/obj/item/weapon/reagent_containers/syringe))
 		if(!contains_sample)
