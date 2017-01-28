@@ -1,0 +1,6 @@
+author: "uraniummeltdown"
+delete-after: True
+changes: 
+  - rscadd: "Injecting a rainbow slime extract with blood will create a consciousness transference potion."
+  - rscadd: "Injecting a metal slime extract with water will create 15 sheets of glass and 5 sheets of reinforced glass."
+  - bugfix: "Slime potions now check for proximity."
