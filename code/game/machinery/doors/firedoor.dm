@@ -188,6 +188,11 @@
 	glass = 0
 	opacity = 1
 	assembly_type = /obj/structure/firelock_frame/heavy
+	
+/obj/machinery/door/firedoor/heavy/ex_act(severity)
+	switch(severity)
+		if(1.0)
+			qdel(src)
 
 /obj/item/weapon/firelock_electronics
 	name = "firelock electronics"
