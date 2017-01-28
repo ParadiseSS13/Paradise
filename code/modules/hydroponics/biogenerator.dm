@@ -79,7 +79,7 @@
 	if(default_deconstruction_screwdriver(user, "biogen-empty-o", "biogen-empty", O))
 		if(beaker)
 			var/obj/item/weapon/reagent_containers/glass/B = beaker
-			B.loc = loc
+			B.forceMove(loc)
 			beaker = null
 		update_icon()
 		return
@@ -98,7 +98,7 @@
 			else
 				if(!user.drop_item())
 					return
-				O.loc = src
+				O.forceMove(src)
 				beaker = O
 				to_chat(user, "<span class='notice'>You add the container to the machine.</span>")
 				update_icon()
@@ -136,7 +136,7 @@
 			to_chat(user, "<span class='warning'>The biogenerator is full! Activate it.</span>")
 		else
 			user.unEquip(O)
-			O.loc = src
+			O.forceMove(src)
 			to_chat(user, "<span class='info'>You put [O.name] in [name]</span>")
 		return 1 //no afterattack
 	else if (istype(O, /obj/item/weapon/disk/design_disk))
@@ -296,7 +296,7 @@
 
 /obj/machinery/biogenerator/proc/detach()
 	if(beaker)
-		beaker.loc = loc
+		beaker.forceMove(loc)
 		beaker = null
 		update_icon()
 
