@@ -176,15 +176,6 @@
 	reagent_state = LIQUID
 	color = "#322D00"
 
-// Allows you to make planks from any plant that has this reagent in it.
-// Also vines with this reagent are considered dense.
-/datum/reagent/woodpulp
-	name = "Wood Pulp"
-	id = "woodpulp"
-	description = "A mass of wood fibers."
-	reagent_state = LIQUID
-	color = "#B97A57"
-
 /datum/reagent/oil
 	name = "Oil"
 	id = "oil"
