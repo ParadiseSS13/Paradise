@@ -94,25 +94,6 @@
 	base_name = "Maintenance Hatch"
 	airlock_type = "/maintenance_hatch"
 	glass = -1
-
-/obj/structure/door_assembly/door_assembly_glass
-	base_icon_state = "glass"
-	base_name = "Glass Airlock"
-	airlock_type = "/glass"
-	glass_type = "/glass"
-	var/list/items_allowed // The glass airlock does not have a "base" type to which glass can be inserted, so this list is used to ensure players have to insert reinforced glass first before constructing it
-	
-/obj/structure/door_assembly/door_assembly_glass/New()
-	..()
-	items_allowed = typecacheof(list(/obj/item/weapon/weldingtool, /obj/item/weapon/wrench, /obj/item/weapon/pen, /obj/item/stack/sheet/rglass))
-	
-/obj/structure/door_assembly/door_assembly_glass/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(is_type_in_list(W, items_allowed) || glass == 1)
-		..()
-	else if(istype(W, /obj/item/stack/cable_coil))
-		to_chat(user, "<span class='warning'>You need to insert the airlock's glass first.</span>")
-	else
-		..()
 	
 /obj/structure/door_assembly/door_assembly_highsecurity // Borrowing this until WJohnston makes sprites for the assembly
 	base_icon_state = "highsec"

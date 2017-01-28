@@ -94,7 +94,6 @@
 	name = "Glass Airlock"
 	icon = 'icons/obj/doors/Doorglass.dmi'
 	opacity = 0
-	assembly_type = /obj/structure/door_assembly/door_assembly_glass
 	glass = 1
 	doorOpen = 'sound/machines/windowdoor.ogg'
 	doorClose = 'sound/machines/windowdoor.ogg'
