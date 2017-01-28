@@ -57,3 +57,19 @@
 					return
 		else
 			to_chat(user, "<span class='danger'>FĆAL �Rr�R</span>: ŧer nt recgnized, c-cntr-r䣧-ç äcked.")
+
+/obj/structure/respawner
+	name = "\improper Long-Distance Cloning Machine"
+	desc = "Top-of-the-line Nanotrasen technology allows for cloning of crew members from off-station upon bluespace request."
+	icon = 'icons/obj/xenoarchaeology.dmi'
+	icon_state = "borgcharger1(old)"
+	anchored = 1
+	density = 1
+
+/obj/structure/respawner/attack_ghost(mob/dead/observer/user as mob)
+	var/response = alert(user, "Are you sure you want to spawn like this?\n(If you do this, you won't be able to be cloned!)","Respawn?","Yes","No")
+	if(response == "Yes")
+		user.forceMove(get_turf(src))
+		log_admin("[key_name(user)] was incarnated by a respawner machine.")
+		message_admins("[key_name_admin(user)] was incarnated by a respawner machine.")
+		user.incarnate_ghost()
