@@ -130,6 +130,14 @@
 	materials = list(MAT_METAL = 50, MAT_GLASS = 50)
 	build_path = /obj/item/weapon/airlock_electronics
 	category = list("initial", "Electronics")
+	
+/datum/design/firelock_board
+	name = "Firelock Electronics"
+	id = "firelock_board"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 50, MAT_GLASS = 50)
+	build_path = /obj/item/weapon/firelock_electronics
+	category = list("initial", "Electronics")
 
 /datum/design/apc_electronics
 	name="Power Control Module"

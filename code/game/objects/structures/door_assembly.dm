@@ -109,7 +109,7 @@
 /obj/structure/door_assembly/door_assembly_glass/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(is_type_in_list(W, items_allowed) || glass == 1)
 		..()
-	else if(istype(W, /obj/item/stack/cable_coil)
+	else if(istype(W, /obj/item/stack/cable_coil))
 		to_chat(user, "<span class='warning'>You need to insert the airlock's glass first.</span>")
 	else
 		..()

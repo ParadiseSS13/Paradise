@@ -138,7 +138,7 @@ var/global/list/ts_spiderlist = list()
 	else if(istype(target, /obj/machinery/door/firedoor))
 		var/obj/machinery/door/firedoor/F = target
 		if(F.density)
-			if(F.blocked)
+			if(F.welded)
 				to_chat(src, "The fire door is welded shut.")
 			else
 				visible_message("<span class='danger'>\The [src] pries open the firedoor!</span>")
@@ -293,7 +293,7 @@ var/global/list/ts_spiderlist = list()
 			try_open_airlock(L)
 	if(istype(A, /obj/machinery/door/firedoor))
 		var/obj/machinery/door/firedoor/F = A
-		if(F.density && !F.blocked)
+		if(F.density && !F.welded)
 			F.open()
 	..()
 
