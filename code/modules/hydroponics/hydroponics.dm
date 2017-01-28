@@ -612,8 +612,8 @@
 		adjustWeeds(-rand(5,9))
 
 	//Weed Spray
-	if(S.has_reagent("weedkiller", 1))
-		adjustToxic(round(S.get_reagent_amount("weedkiller") * 0.5))
+	if(S.has_reagent("atrazine", 1))
+		adjustToxic(round(S.get_reagent_amount("atrazine") * 0.5))
 		//old toxicity was 4, each spray is default 10 (minimal of 5) so 5 and 2.5 are the new ammounts
 		adjustWeeds(-rand(1,2))
 

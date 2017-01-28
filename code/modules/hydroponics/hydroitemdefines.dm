@@ -19,7 +19,7 @@
 	icon = 'icons/obj/hydroponics/equipment.dmi'
 	name = "weed spray"
 	icon_state = "weedspray"
-	item_state = "spray"
+	item_state = "plantbgone"
 	volume = 100
 	flags = OPENCONTAINER
 	slot_flags = SLOT_BELT
@@ -30,7 +30,7 @@
 
 /obj/item/weapon/reagent_containers/spray/weedspray/New()
 	..()
-	reagents.add_reagent("weedkiller", 100)
+	reagents.add_reagent("atrazine", 100)
 
 /obj/item/weapon/reagent_containers/spray/weedspray/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is huffing the [src.name]! It looks like \he's trying to commit suicide.</span>")
@@ -202,7 +202,7 @@
 
 /obj/item/weapon/reagent_containers/glass/bottle/killer/weedkiller/New()
 	..()
-	reagents.add_reagent("weedkiller", 50)
+	reagents.add_reagent("atrazine", 50)
 
 /obj/item/weapon/reagent_containers/glass/bottle/killer/pestkiller
 	name = "bottle of pest spray"
