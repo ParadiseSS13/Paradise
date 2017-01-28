@@ -900,25 +900,26 @@
 	M.adjustFireLoss(1)
 	..()
 
-/datum/reagent/atrazine
-	name = "Atrazine"
-	id = "atrazine"
-	description = "A herbicidal compound used for destroying unwanted plants."
+/datum/reagent/glyphosate
+	name = "Glyphosate"
+	id = "glyphosate"
+	description = "A broad-spectrum herbicide that is highly effective at killing all plants."
 	reagent_state = LIQUID
-	color = "#17002D"
+	color = "#d3cf50"
+	var/lethality = 0 //Glyphosate is non-toxic to people
 
-/datum/reagent/atrazine/on_mob_life(mob/living/M)
-	M.adjustToxLoss(2)
+/datum/reagent/glyphosate/on_mob_life(mob/living/M)
+	M.adjustToxLoss(lethality)
 	..()
 
-/datum/reagent/atrazine/reaction_turf(turf/simulated/wall/W, volume) // Clear off wallrot fungi
+/datum/reagent/glyphosate/reaction_turf(turf/simulated/wall/W, volume) // Clear off wallrot fungi
 	if(istype(W) && W.rotting)
 		for(var/obj/effect/overlay/wall_rot/WR in W)
 			qdel(WR)
 		W.rotting = 0
 		W.visible_message("<span class='warning'>The fungi are completely dissolved by the solution!</span>")
 
-/datum/reagent/atrazine/reaction_obj(obj/O, volume)
+/datum/reagent/glyphosate/reaction_obj(obj/O, volume)
 	if(istype(O,/obj/structure/alien/weeds/))
 		var/obj/structure/alien/weeds/alien_weeds = O
 		alien_weeds.health -= rand(15,35) // Kills alien weeds pretty fast
@@ -929,11 +930,11 @@
 		var/obj/effect/spacevine/SV = O
 		SV.on_chem_effect(src)
 
-/datum/reagent/atrazine/reaction_mob(mob/living/M, method=TOUCH, volume)
+/datum/reagent/glyphosate/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(iscarbon(M))
 		var/mob/living/carbon/C = M
 		if(!C.wear_mask) // If not wearing a mask
-			C.adjustToxLoss(2) // 2 toxic damage per application
+			C.adjustToxLoss(lethality)
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
 			if(H.species.flags & IS_PLANT) //plantmen take a LOT of damage
@@ -943,6 +944,15 @@
 		var/mob/living/simple_animal/diona/D = M
 		D.adjustHealth(100)
 		..()
+
+/datum/reagent/glyphosate/atrazine
+	name = "Atrazine"
+	id = "atrazine"
+	description = "A herbicidal compound used for destroying unwanted plants."
+	reagent_state = LIQUID
+	color = "#17002D"
+	lethality = 2 //Atrazine, however, is definitely toxic
+
 
 /datum/reagent/pestkiller // To-Do; make this more realistic.
 	name = "Pest Killer"

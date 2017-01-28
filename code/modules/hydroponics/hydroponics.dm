@@ -599,10 +599,10 @@
 		adjustToxic(round(S.get_reagent_amount("facid") * 3))
 		adjustWeeds(-rand(1,4))
 
-	// Plant-B-Gone is just as bad
-	if(S.has_reagent("plantbgone", 1))
-		adjustHealth(-round(S.get_reagent_amount("plantbgone") * 5))
-		adjustToxic(round(S.get_reagent_amount("plantbgone") * 6))
+	// Glyphosate is just as bad
+	if(S.has_reagent("glyphosate", 1))
+		adjustHealth(-round(S.get_reagent_amount("glyphosate") * 5))
+		adjustToxic(round(S.get_reagent_amount("glyphosate") * 6))
 		adjustWeeds(-rand(4,8))
 
 	// why, just why

@@ -345,7 +345,7 @@
 	var/override = 0
 	for(var/datum/spacevine_mutation/SM in mutations)
 		override += SM.on_chem(src, R)
-	if(!override && istype(R, /datum/reagent/atrazine))
+	if(!override && istype(R, /datum/reagent/glyphosate))
 		if(prob(50))
 			qdel(src)
 

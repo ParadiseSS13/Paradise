@@ -93,6 +93,13 @@
 		if(C.can_breathe_gas())
 			C.reagents.add_reagent("sarin", 4)
 
+/datum/chemical_reaction/glyphosate
+	name = "glyphosate"
+	id = "glyphosate"
+	result = "glyphosate"
+	required_reagents = list("chlorine" = 1, "phosphorus" = 1, "formaldehyde" = 1, "ammonia" = 1)
+	result_amount = 4
+
 /datum/chemical_reaction/atrazine
 	name = "atrazine"
 	id = "atrazine"

@@ -204,4 +204,4 @@
 	icon_state = "plantbgone"
 	item_state = "plantbgone"
 	volume = 100
-	list_reagents = list("atrazine" = 100)
+	list_reagents = list("glyphosate" = 100)
