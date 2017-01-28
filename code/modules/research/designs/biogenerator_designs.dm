@@ -139,6 +139,14 @@
 	build_path = /obj/item/weapon/storage/belt/utility
 	category = list("initial","Leather and Cloth")
 
+/datum/design/hydrobelt
+	name = "Botanist belt"
+	id = "hydrobelt"
+	build_type = BIOGENERATOR
+	materials = list(MAT_BIOMASS = 300)
+	build_path = /obj/item/weapon/storage/belt/botany
+	category = list("initial","Leather and Cloth")
+
 /datum/design/secbelt
 	name = "Security belt"
 	id = "secbelt"
