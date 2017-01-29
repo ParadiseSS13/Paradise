@@ -256,8 +256,8 @@ var/global/list/ts_spiderling_list = list()
 	return ..()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/Life()
-	..()
-	if(stat == DEAD)
+	. = ..()
+	if(!.) // if mob is dead
 		if(prob(2))
 			// 2% chance every cycle to decompose
 			visible_message("<span class='notice'>\The dead body of the [src] decomposes!</span>")
