@@ -61,8 +61,8 @@
 
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/Life()
-	..()
-	if(stat != DEAD)
+	. = ..()
+	if(.) // if mob is NOT dead
 		if(ckey && canlay < 12 && hasnested) // max 12 eggs worth stored at any one time, realistically that's tons.
 			if(world.time > (spider_lastspawn + spider_spawnfrequency))
 				canlay++
@@ -73,7 +73,7 @@
 					to_chat(src, "<span class='notice'>You have [canlay] eggs available to lay. You won't grow any more eggs until you lay some of your existing ones.</span>")
 				else
 					to_chat(src, "<span class='notice'>You have [canlay] eggs available to lay.</span>")
-
+	return .
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/death(gibbed)
 	if(!hasdied)

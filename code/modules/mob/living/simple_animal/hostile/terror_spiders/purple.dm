@@ -42,14 +42,15 @@
 
 
 /mob/living/simple_animal/hostile/poison/terror_spider/purple/Life()
-	..()
-	if(!degenerate && spider_myqueen)
-		if(dcheck_counter >= 10)
-			dcheck_counter = 0
-			purple_distance_check()
-		else
-			dcheck_counter++
-
+	. = ..()
+	if(.) // if mob is NOT dead
+		if(!degenerate && spider_myqueen)
+			if(dcheck_counter >= 10)
+				dcheck_counter = 0
+				purple_distance_check()
+			else
+				dcheck_counter++
+	return .
 
 /mob/living/simple_animal/hostile/poison/terror_spider/purple/proc/purple_distance_check()
 	if(spider_myqueen)
