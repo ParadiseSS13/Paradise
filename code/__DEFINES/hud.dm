@@ -25,6 +25,7 @@
 #define PLANT_TOXIN_HUD		"20"// Toxin level
 #define PLANT_PEST_HUD		"21"// Pest level
 #define PLANT_WEED_HUD		"22"// Weed level
+#define DIAG_TRACK_HUD		"23"// Mech tracking beacon
 
 //data HUD (medhud, sechud) defines
 //Don't forget to update human/New() if you change these!
