@@ -50,11 +50,12 @@
 	block_chance = 30
 	var/redesigned = 0
 
-    name = "Crusader Kite"
-     desc = "WE WILL TAKE JERUSALEM."
-     icon_state = "Crusadershield"
-     item_state = "Crusadershield"
-     redesigned = 1
+/obj/item/weapon/shield/riot/buckler/kite
+	name = "Crusader Kite"
+	desc = "WE WILL TAKE JERUSALEM."
+	icon_state = "Crusadershield"
+	item_state = "Crusadershield"
+	redesigned = 1
 
 /obj/item/weapon/shield/riot/buckler/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/weapon/pen) && !redesigned)
