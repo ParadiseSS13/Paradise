@@ -205,13 +205,13 @@
 						var/potDiff = S.potency - shuttle_master.discoveredPlants[S.type] // Compare it to the previous best
 						if(potDiff > 0) // This sample is better
 							shuttle_master.discoveredPlants[S.type] = S.potency
-							msg += "<span class='good'>+[potDiff]</span>: New sample of \"[capitalize(S.species)]\" is superior.  Good work.<br>"
+							msg += "<span class='good'>+[potDiff]</span>: New sample of \"[capitalize(S.species)]\" is superior. Good work.<br>"
 							shuttle_master.points += potDiff
 						else // This sample is worthless
 							msg += "<span class='bad'>+0</span>: New sample of \"[capitalize(S.species)]\" is not more potent than existing sample ([shuttle_master.discoveredPlants[S.type]] potency).<br>"
 					else // This is a new discovery!
 						shuttle_master.discoveredPlants[S.type] = S.potency
-						msg += "<span class='good'>[S.rarity]</span>: New species discovered: \"[capitalize(S.species)]\".  Excellent work.<br>"
+						msg += "<span class='good'>[S.rarity]</span>: New species discovered: \"[capitalize(S.species)]\". Excellent work.<br>"
 						shuttle_master.points += S.rarity // That's right, no bonus for potency.  Send a crappy sample first to "show improvement" later
 		qdel(MA)
 		shuttle_master.sold_atoms += "."
