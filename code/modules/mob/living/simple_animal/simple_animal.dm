@@ -579,21 +579,7 @@
 	density = initial(density)
 	update_canmove()
 
-/mob/living/simple_animal/show_inv(mob/user as mob)
-	user.set_machine(src)
-	var/dat = {"<table>
-	<tr><td><B>Left Hand:</B></td><td><A href='?src=[UID()];item=[slot_l_hand]'>[(l_hand && !(l_hand.flags&ABSTRACT)) ? l_hand : "<font color=grey>Empty</font>"]</A></td></tr>
-	<tr><td><B>Right Hand:</B></td><td><A href='?src=[UID()];item=[slot_r_hand]'>[(r_hand && !(r_hand.flags&ABSTRACT)) ? r_hand : "<font color=grey>Empty</font>"]</A></td></tr>
-	<tr><td>&nbsp;</td></tr>"}
-	if(can_collar)
-		dat += "<tr><td><B>Collar:</B></td><td><A href='?src=[UID()];[collar?"remove_inv":"add_inv"]=collar'>[(collar && !(collar.flags&ABSTRACT)) ? collar : "<font color=grey>Empty</font>"]</A></td></tr>"
-	dat += {"</table>
-	<A href='?src=[user.UID()];mach_close=mob\ref[src]'>Close</A>
-	"}
 
-	var/datum/browser/popup = new(user, "mob\ref[src]", "[src]", 440, 250)
-	popup.set_content(dat)
-	popup.open()
 
 /mob/living/simple_animal/proc/make_babies() // <3 <3 <3
 	if(gender != FEMALE || stat || !scan_ready || !childtype || !simplespecies)
@@ -652,56 +638,73 @@
 	if(changed)
 		animate(src, transform = ntransform, time = 2, easing = EASE_IN|EASE_OUT)
 
-/mob/living/simple_animal/Topic(href, href_list)
-	if(!usr.stat && usr.canmove && !usr.restrained() && in_range(src, usr))
-		if(href_list["remove_inv"])
-			if(!Adjacent(usr) || !(ishuman(usr) || isrobot(usr) ||  isalienadult(usr)))
-				return
-			var/remove_from = href_list["remove_inv"]
-			switch(remove_from)
-				if("collar")
-					if(!can_collar)
-						return
-					if(collar)
-						if(collar.flags & NODROP)
-							to_chat(usr, "<span class='warning'>\The [collar] is stuck too hard to [src] for you to remove!</span>")
-							return
-						collar.dropped(src)
-						collar.forceMove(src.loc)
-						collar = null
-						regenerate_icons()
-					else
-						to_chat(usr, "<span class='danger'>There is nothing to remove from its [remove_from].</span>")
-						return
-			show_inv(usr)
-		else if(href_list["add_inv"])
-			if(!Adjacent(usr) || !(ishuman(usr) || isrobot(usr) ||  isalienadult(usr)))
-				return
+/* Inventory */
 
-			var/add_to = href_list["add_inv"]
-			switch(add_to)
-				if("collar")
-					if(!can_collar || collar)
-						return
-					var/obj/item/clothing/accessory/petcollar/C = usr.get_active_hand()
-					if(!istype(C))
-						usr.visible_message("[usr] rubs [src]'s neck.","<span class='notice'>You rub [src]'s neck for a moment.</span>")
-						return
-					usr.drop_item()
-					C.forceMove(src)
-					collar = C
-					collar.equipped(src)
-					regenerate_icons()
-					to_chat(usr, "<span class='notice'>You put \the [C] around \the [src]'s neck.</span>")
-					if(C.tagname)
-						name = C.tagname
-						real_name = C.tagname
-			show_inv(usr)
+/mob/living/simple_animal/show_inv(mob/user as mob)
+	if(!can_collar)
+		return
+
+	user.set_machine(src)
+	var/dat = "<table><tr><td><B>Collar:</B></td><td><A href='?src=[UID()];item=[slot_collar]'>[(collar && !(collar.flags&ABSTRACT)) ? collar : "<font color=grey>Empty</font>"]</A></td></tr></table>"
+	dat += "<A href='?src=[user.UID()];mach_close=mob\ref[src]'>Close</A>"
+
+	var/datum/browser/popup = new(user, "mob\ref[src]", "[src]", 440, 250)
+	popup.set_content(dat)
+	popup.open()
+
+/mob/living/simple_animal/get_item_by_slot(slot_id)
+	switch(slot_id)
+		if(slot_collar)
+			return collar
+	. = ..()
+
+/mob/living/simple_animal/can_equip(obj/item/I, slot, disable_warning = 0)
+	// . = ..() // Do not call parent. We do not want animals using their hand slots.
+	switch(slot)
+		if(slot_collar)
+			if(collar)
+				return 0
+			if(!can_collar)
+				return 0
+			if(!istype(I, /obj/item/clothing/accessory/petcollar))
+				return 0
+			return 1
+
+/mob/living/simple_animal/equip_to_slot(obj/item/W, slot)
+	if(!istype(W))
+		return 0
+
+	if(!slot)
+		return 0
+
+	W.forceMove(src)
+	W.equipped(src, slot)
+	W.layer = 20
+	W.plane = HUD_PLANE
+
+	switch(slot)
+		if(slot_collar)
+			collar = W
+			if(collar.tagname)
+				name = collar.tagname
+				real_name = collar.tagname
+			regenerate_icons()
+
+/mob/living/simple_animal/unEquip(obj/item/I, force)
+	. = ..()
+	if(!. || !I)
+		return
+
+	if(I == collar)
+		collar = null
+		regenerate_icons()
 
 /mob/living/simple_animal/get_access()
 	. = ..()
 	if(collar)
 		. |= collar.GetAccess()
+
+/* End Inventory */
 
 /mob/living/simple_animal/proc/sentience_act() //Called when a simple animal gains sentience via gold slime potion
 	return
