@@ -26,6 +26,10 @@
 			to_chat(user, "<span class='warning'>A mysterious force prevents you from trapping this being's soul.</span>")
 			return ..()
 
+		if(iscultist(M))
+			to_chat(user, "<span class='cultlarge'>This souls is already MINE.</span>")
+			return ..()
+
 		M.create_attack_log("<font color='orange'>Has had their soul captured with [src.name] by [key_name(user)]</font>")
 		user.create_attack_log("<font color='red'>Used the [src.name] to capture the soul of [key_name(M)]</font>")
 
