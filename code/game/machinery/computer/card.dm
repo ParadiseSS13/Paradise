@@ -440,20 +440,4 @@ var/time_last_changed_position = 0
 	circuit = /obj/item/weapon/circuitboard/card/centcom
 	req_access = list(access_cent_commander)
 	change_position_cooldown = -1
-	blacklisted = list(
-		/datum/job/ai,
-		/datum/job/captain,
-		/datum/job/hop,
-		/datum/job/hos,
-		/datum/job/chief_engineer,
-		/datum/job/rd,
-		/datum/job/cmo,
-		/datum/job/judge,
-		/datum/job/pilot,
-		/datum/job/brigdoc,
-		/datum/job/mechanic,
-		/datum/job/barber,
-		/datum/job/ntnavyofficer,
-		/datum/job/ntspecops,
-		/datum/job/civilian
-	) // same as default, except without cyborg, blueshield, NT rep, chaplain
+	blacklisted = list()
