@@ -277,7 +277,6 @@ var/global/list/ts_spiderling_list = list()
 					regen_points -= regen_points_per_hp
 		if(prob(5))
 			CheckFaction()
-	return .
 
 
 

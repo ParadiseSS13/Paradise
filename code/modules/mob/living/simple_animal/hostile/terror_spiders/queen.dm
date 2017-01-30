@@ -73,7 +73,6 @@
 					to_chat(src, "<span class='notice'>You have [canlay] eggs available to lay. You won't grow any more eggs until you lay some of your existing ones.</span>")
 				else
 					to_chat(src, "<span class='notice'>You have [canlay] eggs available to lay.</span>")
-	return .
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/death(gibbed)
 	if(!hasdied)

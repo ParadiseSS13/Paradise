@@ -50,7 +50,6 @@
 				purple_distance_check()
 			else
 				dcheck_counter++
-	return .
 
 /mob/living/simple_animal/hostile/poison/terror_spider/purple/proc/purple_distance_check()
 	if(spider_myqueen)
