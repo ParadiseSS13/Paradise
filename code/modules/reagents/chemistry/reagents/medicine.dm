@@ -91,8 +91,7 @@
 		var/mob/living/carbon/human/H = M
 
 		//Mitocholide is hard enough to get, it's probably fair to make this all internal organs
-		for(var/name in H.internal_organs)
-			var/obj/item/organ/internal/I = H.get_int_organ(name)
+		for(var/obj/item/organ/internal/I in H.internal_organs)
 			if(I.damage > 0)
 				I.damage = max(I.damage-0.4, 0)
 	..()
@@ -635,7 +634,8 @@
 					return
 				var/mob/dead/observer/ghost = M.get_ghost()
 				if(ghost)
-					to_chat(ghost, "<span class='ghostalert'>Your are attempting to be revived with Strange Reagent. Return to your body if you want to be revived!</span> (Verbs -> Ghost -> Re-enter corpse)")
+					to_chat(ghost, "<span class='ghostalert'>You are attempting to be revived with Strange Reagent. Return to your body if you want to be revived!</span> (Verbs -> Ghost -> Re-enter corpse)")
+					window_flash(ghost.client)
 					ghost << sound('sound/effects/genetics.ogg')
 					M.visible_message("<span class='notice'>[M] doesn't appear to respond, perhaps try again later?</span>")
 				if(!M.suiciding && !ghost && !(NOCLONE in M.mutations))

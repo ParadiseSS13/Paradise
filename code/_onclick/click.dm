@@ -95,9 +95,9 @@
 			update_inv_r_hand(0)
 		return
 
-	// operate two STORAGE levels deep here (item in backpack in src; NOT item in box in backpack in src)
+	// operate three levels deep here (item in backpack in src; item in box in backpack in src, not any deeper)
 	var/sdepth = A.storage_depth(src)
-	if(A == loc || (A in loc) || (sdepth != -1 && sdepth <= 1))
+	if(A == loc || (A in loc) || (sdepth != -1 && sdepth <= 2))
 		// No adjacency needed
 		if(W)
 			var/resolved = A.attackby(W,src)

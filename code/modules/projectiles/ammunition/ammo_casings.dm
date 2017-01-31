@@ -375,3 +375,9 @@
 	desc = "A cap for children toys."
 	caliber = "caps"
 	projectile_type = /obj/item/projectile/bullet/cap
+
+/obj/item/ammo_casing/laser
+	desc = "An experimental laser casing."
+	caliber = "laser"
+	projectile_type = /obj/item/projectile/beam/laser
+	icon_state = "lasercasing"
