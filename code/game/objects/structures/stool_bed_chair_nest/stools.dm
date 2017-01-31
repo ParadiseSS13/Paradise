@@ -61,7 +61,6 @@
 	origin.loc = get_turf(src)
 	user.unEquip(src)
 	user.visible_message("<span class='notice'>[user] puts [src] down.</span>", "<span class='notice'>You put [src] down.</span>")
-	qdel(src)
 
 /obj/item/weapon/stool/attack(mob/M as mob, mob/user as mob)
 	if(prob(5) && istype(M,/mob/living))
@@ -74,3 +73,8 @@
 		T.Weaken(5)
 		return
 	..()
+
+/obj/item/weapon/stool/dropped(mob/user) //Make sure we aren't leaving un-deconstructible stools.
+	..()
+	origin.forceMove(user.loc) //Put the structure stool back down, not the weapon.
+	qdel(src)
