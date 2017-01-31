@@ -1,0 +1,4 @@
+author: "uraniummeltdown"
+delete-after: True
+changes: 
+  - rscadd: "Your game window will now flash on receiving Admin PMs, being revived, and ghost roles. You can disable this in Game Preferences."
