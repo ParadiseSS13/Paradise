@@ -22,7 +22,6 @@ var/list/image/ghost_darkness_images = list() //this is a list of images for thi
 							//Note that this is not a reliable way to determine if admins started as observers, since they change mobs a lot.
 	universal_speak = 1
 	var/atom/movable/following = null
-	var/anonsay = 0
 	var/image/ghostimage = null //this mobs ghost image, for deleting and stuff
 	var/ghostvision = 1 //is the ghost able to see things humans can't?
 	var/seedarkness = 1
@@ -596,15 +595,12 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 //END TELEPORT HREF CODE
 
 /mob/dead/observer/verb/toggle_anonsay()
+	set name = "Toggle Anonymous Dead-chat"
 	set category = "Ghost"
-	set name = "Toggle Anonymous Chat"
 	set desc = "Toggles showing your key in dead chat."
-
-	src.anonsay = !src.anonsay
-	if(anonsay)
-		to_chat(src, "<span class='info'>Your key won't be shown when you speak in dead chat.</span>")
-	else
-		to_chat(src, "<span class='info'>Your key will be publicly visible again.</span>")
+	client.prefs.ghost_anonsay = !client.prefs.ghost_anonsay
+	to_chat(src, "As a ghost, your key will [(client.prefs.ghost_anonsay) ? "no longer" : "now"] be shown when you speak in dead chat.</span>")
+	client.prefs.save_preferences(src)
 
 /mob/dead/observer/verb/toggle_ghostsee()
 	set name = "Toggle Ghost Vision"

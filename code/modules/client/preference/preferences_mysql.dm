@@ -15,7 +15,8 @@
 					show_ghostitem_attack,
 					lastchangelog,
 					exp,
-					windowflashing
+					windowflashing,
+					ghost_anonsay
 					FROM [format_table_name("player")]
 					WHERE ckey='[C.ckey]'"}
 					)
@@ -44,6 +45,7 @@
 		lastchangelog = query.item[13]
 		exp = query.item[14]
 		windowflashing = text2num(query.item[15])
+		ghost_anonsay = text2num(query.item[16])
 
 	//Sanitize
 	ooccolor		= sanitize_hexcolor(ooccolor, initial(ooccolor))
@@ -60,6 +62,7 @@
 	lastchangelog	= sanitize_text(lastchangelog, initial(lastchangelog))
 	exp	= sanitize_text(exp, initial(exp))
 	windowflashing = sanitize_integer(windowflashing, 0, 1, initial(windowflashing))
+	ghost_anonsay = sanitize_integer(ghost_anonsay, 0, 1, initial(ghost_anonsay))
 	return 1
 
 /datum/preferences/proc/save_preferences(client/C)
@@ -84,7 +87,8 @@
 					volume='[volume]',
 					nanoui_fancy='[nanoui_fancy]',
 					show_ghostitem_attack='[show_ghostitem_attack]',
-					lastchangelog='[lastchangelog]'
+					lastchangelog='[lastchangelog]',
+					ghost_anonsay='[ghost_anonsay]'
 					WHERE ckey='[C.ckey]'"}
 					)
 
