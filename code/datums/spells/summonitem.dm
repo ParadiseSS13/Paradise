@@ -102,10 +102,10 @@
 			if(butterfingers)
 				item_to_retrive.loc = target.loc
 				item_to_retrive.loc.visible_message("<span class='caution'>The [item_to_retrive.name] suddenly appears!</span>")
-				playsound(get_turf(target),"sound/magic/SummonItems_generic.ogg",50,1)
+				playsound(get_turf(target),'sound/magic/SummonItems_generic.ogg',50,1)
 			else
 				item_to_retrive.loc.visible_message("<span class='caution'>The [item_to_retrive.name] suddenly appears in [target]'s hand!</span>")
-				playsound(get_turf(target),"sound/magic/SummonItems_generic.ogg",50,1)
+				playsound(get_turf(target),'sound/magic/SummonItems_generic.ogg',50,1)
 
 		if(message)
 			to_chat(target, message)
