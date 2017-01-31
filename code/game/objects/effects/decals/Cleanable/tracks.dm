@@ -176,15 +176,18 @@ var/global/list/image/fluidtrack_cache=list()
 		var/hasfeet = 1
 		if((!l_foot || l_foot.status & ORGAN_DESTROYED) && (!r_foot || r_foot.status & ORGAN_DESTROYED))
 			hasfeet = 0
-
-		if(S && S.bloody_shoes[blood_state])//shoes
+		if(S && S.bloody_shoes[blood_state])
 			S.bloody_shoes[blood_state] = max(S.bloody_shoes[blood_state] - BLOOD_LOSS_PER_STEP, 0)
-			entered_dirs|= H.dir
+			exited_dirs|= H.dir
+			if(!S.blood_DNA)
+				S.blood_DNA = list()
+			S.blood_DNA |= blood_DNA.Copy()
 		else if(hasfeet)//Or feet //This will need to be changed.
 			H.track_blood = max(amount - BLOOD_LOSS_PER_STEP, 0)
 			if(!H.feet_blood_DNA)
 				H.feet_blood_DNA = list()
 			H.feet_blood_DNA |= blood_DNA.Copy()
+			H.feet_blood_color = blood_DNA["blood_color"]
 	update_icon()
 
 /obj/effect/decal/cleanable/blood/footprints/Uncrossed(atom/movable/O)
@@ -199,12 +202,15 @@ var/global/list/image/fluidtrack_cache=list()
 		if(S && S.bloody_shoes[blood_state])
 			S.bloody_shoes[blood_state] = max(S.bloody_shoes[blood_state] - BLOOD_LOSS_PER_STEP, 0)
 			exited_dirs|= H.dir
+			if(!S.blood_DNA)
+				S.blood_DNA = list()
+			S.blood_DNA |= blood_DNA.Copy()
 		else if(hasfeet)//Or feet //This will need to be changed.
-			H.feet_blood_color = basecolor
 			H.track_blood = max(amount - BLOOD_LOSS_PER_STEP, 0)
 			if(!H.feet_blood_DNA)
 				H.feet_blood_DNA = list()
 			H.feet_blood_DNA |= blood_DNA.Copy()
+			H.feet_blood_color = blood_DNA["blood_color"]
 	update_icon()
 
 
@@ -227,5 +233,8 @@ var/global/list/image/fluidtrack_cache=list()
 				fluidtrack_cache["exited-[blood_state]-[Ddir]"] = I
 			if(I)
 				overlays += I
-	I.color = blood_DNA["blood_color"]
+	if(blood_DNA)
+		I.color = blood_DNA["blood_color"]
+	else
+		I.color = basecolor
 	alpha = BLOODY_FOOTPRINT_BASE_ALPHA+bloodiness

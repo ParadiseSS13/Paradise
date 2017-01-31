@@ -100,6 +100,11 @@
 				return
 			var/obj/item/clothing/shoes/S = shoes
 			//Bloody footprints
+			var/obj/item/organ/external/l_foot = get_organ("l_foot")
+			var/obj/item/organ/external/r_foot = get_organ("r_foot")
+			var/hasfeet = 1
+			if((!l_foot || l_foot.status & ORGAN_DESTROYED) && (!r_foot || r_foot.status & ORGAN_DESTROYED))
+				hasfeet = 0
 			var/turf/T = get_turf(src)
 			if(S.bloody_shoes && S.bloody_shoes[S.blood_state])
 				var/obj/effect/decal/cleanable/blood/footprints/oldFP = locate(/obj/effect/decal/cleanable/blood/footprints) in T
@@ -114,7 +119,11 @@
 					FP.bloodiness = S.bloody_shoes[S.blood_state]
 					FP.update_icon()
 					update_inv_shoes()
+			else if(hasfeet)
+				track_blood = max(1 - BLOOD_LOSS_PER_STEP, 0)
+				update_inv_shoes()
 			//End bloody footprints
+
 			S.step_action(src)
 
 /mob/living/carbon/human/handle_footstep(turf/T)

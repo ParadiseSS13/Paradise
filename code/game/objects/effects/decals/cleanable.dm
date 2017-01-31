@@ -49,6 +49,11 @@
 /obj/effect/decal/cleanable/Crossed(atom/movable/O)
 	if(ishuman(O))
 		var/mob/living/carbon/human/H = O
+		var/obj/item/organ/external/l_foot = H.get_organ("l_foot")
+		var/obj/item/organ/external/r_foot = H.get_organ("r_foot")
+		var/hasfeet = 1
+		if((!l_foot || l_foot.status & ORGAN_DESTROYED) && (!r_foot || r_foot.status & ORGAN_DESTROYED))
+			hasfeet = 0
 		if(H.shoes && blood_state && bloodiness)
 			var/obj/item/clothing/shoes/S = H.shoes
 			var/add_blood = 0
@@ -61,5 +66,12 @@
 			if(blood_DNA && blood_DNA.len)
 				S.add_blood(blood_DNA)
 			S.blood_state = blood_state
+			update_icon()
+			H.update_inv_shoes()
+		else if(hasfeet)//Or feet //This will need to be changed.
+			H.track_blood = max(1 - BLOOD_LOSS_PER_STEP, 0)
+			if(!H.feet_blood_DNA)
+				H.feet_blood_DNA = list()
+			H.feet_blood_DNA |= blood_DNA.Copy()
 			update_icon()
 			H.update_inv_shoes()

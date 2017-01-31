@@ -36,7 +36,7 @@ var/global/list/image/splatter_cache=list()
 				mode_ticker.blood_check()
 	if(istype(src, /obj/effect/decal/cleanable/blood/gibs))
 		return
-	if(src.type == /obj/effect/decal/cleanable/blood)
+	if(istype(src, /obj/effect/decal/cleanable/blood))
 		if(src.loc && isturf(src.loc))
 			for(var/obj/effect/decal/cleanable/blood/B in src.loc)
 				if(B != src)
