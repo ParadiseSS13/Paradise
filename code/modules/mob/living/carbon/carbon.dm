@@ -516,7 +516,6 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 	return
 
 /mob/living/carbon/throw_item(atom/target)
-	throw_mode_off()
 	if(!target || !isturf(loc))
 		return
 	if(istype(target, /obj/screen))
@@ -526,6 +525,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 	var/obj/item/I = src.get_active_hand()
 
 	if(!I || (I.flags & NODROP))
+		throw_mode_off()
 		return
 
 	if(istype(I, /obj/item/weapon/grab))
@@ -551,6 +551,8 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 		visible_message("<span class='danger'>[src] has thrown [thrown_thing].</span>")
 		newtonian_move(get_dir(target, src))
 		thrown_thing.throw_at(target, thrown_thing.throw_range, thrown_thing.throw_speed, src)
+
+	throw_mode_off()
 
 /mob/living/carbon/can_use_hands()
 	if(handcuffed)

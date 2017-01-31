@@ -76,5 +76,14 @@
 
 /obj/item/weapon/stool/dropped(mob/user) //Make sure we aren't leaving un-deconstructible stools.
 	..()
-	origin.forceMove(user.loc) //Put the structure stool back down, not the weapon.
-	qdel(src)
+	if(!user.in_throw_mode) //If this stool isn't getting thrown, turn it back into a structure.
+		origin.forceMove(user.loc)
+		qdel(src)
+
+/obj/item/weapon/stool/throw_impact(atom/hit_atom) //Thrown but uncaught stools will automatically turn into the structure version as soon as the throw is over.
+	..()
+	if(!iscarbon(loc)) //If it wasn't caught by someone, put the structure version down.
+		var/atom/A = get_turf(src)
+		sleep(6) //Gets the work done at the last frame of the 'impact spin' animation so it doesn't look janky.
+		origin.forceMove(A)
+		qdel(src)
