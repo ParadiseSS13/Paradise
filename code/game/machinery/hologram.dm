@@ -169,6 +169,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 
 		var/mob/living/silicon/ai/theai = master
 		var/turf/target_turf = get_turf(master.eyeobj)
+		var/newdir = hologram.dir
 		clear_holo()//If not, we want to get rid of the hologram.
 		var/obj/machinery/hologram/holopad/pad_close = get_closest_atom(/obj/machinery/hologram/holopad, holopads, theai.eyeobj)
 		if(get_dist(pad_close, theai.eyeobj) <= pad_close.holo_range)
@@ -176,6 +177,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 				pad_close.activate_holo(theai, 1)
 				if(pad_close.hologram)
 					pad_close.hologram.forceMove(target_turf)
+					pad_close.hologram.dir = newdir
 	return 1
 
 /obj/machinery/hologram/holopad/proc/move_hologram()
