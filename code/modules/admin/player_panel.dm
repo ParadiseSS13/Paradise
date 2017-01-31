@@ -393,8 +393,11 @@
 		logout_status = " <i>(snpc)</i>"
 	else
 		logout_status = M.client ? "" : " <i>(logged out)</i>"
+	var/dname = M.real_name
+	if(!dname)
+		dname = M
 
-	return {"<tr><td><a href='?src=[UID()];adminplayeropts=\ref[M]'>[M.real_name]</a><b>[caption]</b>[logout_status][M.stat == 2 ? " <b><font color=red>(DEAD)</font></b>" : ""]</td>
+	return {"<tr><td><a href='?src=[UID()];adminplayeropts=\ref[M]'>[dname]</a><b>[caption]</b>[logout_status][M.stat == 2 ? " <b><font color=red>(DEAD)</font></b>" : ""]</td>
 		<td><A href='?src=[usr.UID()];priv_msg=\ref[M]'>PM</A></td>[close ? "</tr>" : ""]"}
 
 /datum/admins/proc/check_antagonists()
