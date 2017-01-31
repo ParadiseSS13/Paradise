@@ -15,6 +15,7 @@
 	..()
 	if(!icon_state)
 		icon_state = "pill[rand(1,20)]"
+	reagents.set_reacting(FALSE)
 
 /obj/item/weapon/reagent_containers/food/pill/attack_self(mob/user)
 	return

@@ -20,6 +20,7 @@
 
 /obj/machinery/chem_master/New()
 	create_reagents(100)
+	reagents.set_reacting(FALSE)
 	overlays += "waitlight"
 
 /obj/machinery/chem_master/ex_act(severity)
@@ -183,8 +184,9 @@
 			if(beaker)
 				beaker.forceMove(get_turf(src))
 				beaker = null
-				reagents.clear_reagents()
 				icon_state = "mixer0"
+		else if(href_list["clearbuffer"])
+			reagents.clear_reagents()
 		else if(href_list["createpill"] || href_list["createpill_multiple"])
 			if(!condi)
 				var/count = 1
