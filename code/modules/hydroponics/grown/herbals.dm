@@ -4,19 +4,27 @@
 	icon_state = "seed-cabbage"
 	species = "cabbage"
 	plantname = "comfrey"
-	product = /obj/item/weapon/grown/holder_spawner/comfrey
-	yield = 4
+	product = /obj/item/weapon/reagent_containers/food/snacks/grown/comfrey
+	yield = 2
 	maturation = 3
 	growthstages = 1
 	growing_icon = 'icons/obj/hydroponics/growing_vegetables.dmi'
+	reagents_add = list("nutriment" = 0.1)
 
-/obj/item/weapon/grown/holder_spawner/comfrey
+/obj/item/weapon/reagent_containers/food/snacks/grown/comfrey
 	seed = /obj/item/seeds/comfrey
-	spawned_thing = /obj/item/stack/medical/bruise_pack/comfrey
+	name = "comfrey leaf"
+	desc = "Mash to turn into a poultice."
+	icon_state = "tea_astra_leaves"
+	color = "#378C61"
+	bitesize_mod = 2
 
-/obj/item/weapon/grown/holder_spawner/comfrey/alter_stats(obj/item/stack/medical/bruise_pack/comfrey/C)
+/obj/item/weapon/reagent_containers/food/snacks/grown/comfrey/attack_self(mob/user)
+	var/obj/item/stack/medical/bruise_pack/comfrey/C = new(get_turf(user))
 	C.heal_brute = seed.potency
-
+	to_chat(user, "<span class='notice'>You mash [src] into a poultice.</span>")
+	user.drop_item()
+	qdel(src)
 
 /obj/item/seeds/aloe
 	name = "pack of aloe seeds"
@@ -24,13 +32,22 @@
 	icon_state = "seed-ambrosiavulgaris"
 	species = "ambrosiavulgaris"
 	plantname = "Aloe Vera Plant"
-	product = /obj/item/weapon/grown/holder_spawner/aloe
-	yield = 4
+	product = /obj/item/weapon/reagent_containers/food/snacks/grown/aloe
+	yield = 2
 	icon_dead = "ambrosia-dead"
+	reagents_add = list("nutriment" = 0.1)
 
-/obj/item/weapon/grown/holder_spawner/aloe
+/obj/item/weapon/reagent_containers/food/snacks/grown/aloe
 	seed = /obj/item/seeds/aloe
-	spawned_thing = /obj/item/stack/medical/ointment/aloe
+	name = "aloe leaf"
+	desc = "Mash to turn into a poultice."
+	icon_state = "ambrosiavulgaris"
+	color = "#4CC5C7"
+	bitesize_mod = 2
 
-/obj/item/weapon/grown/holder_spawner/aloe/alter_stats(obj/item/stack/medical/ointment/aloe/A)
+/obj/item/weapon/reagent_containers/food/snacks/grown/aloe/attack_self(mob/user)
+	var/obj/item/stack/medical/ointment/aloe/A = new(get_turf(user))
 	A.heal_burn = seed.potency
+	to_chat(user, "<span class='notice'>You mash [src] into a poultice.</span>")
+	user.drop_item()
+	qdel(src)
