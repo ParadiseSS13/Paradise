@@ -1,6 +1,6 @@
 var/list/uplink_items = list()
 
-/proc/get_uplink_items(var/job = null)
+/proc/get_uplink_items(job = null)
 	// If not already initialized..
 	if(!uplink_items.len)
 
@@ -56,7 +56,7 @@ var/list/uplink_items = list()
 	var/surplus = 100 //Chance of being included in the surplus crate (when pick() selects it)
 	var/hijack_only = 0 //can this item be purchased only during hijackings?
 
-/datum/uplink_item/proc/spawn_item(var/turf/loc, var/obj/item/device/uplink/U)
+/datum/uplink_item/proc/spawn_item(turf/loc, obj/item/device/uplink/U)
 	if(hijack_only)
 		if(!(locate(/datum/objective/hijack) in usr.mind.objectives))
 			to_chat(usr, "<span class='warning'>The Syndicate lacks resources to provide you with this item.</span>")
@@ -74,23 +74,23 @@ var/list/uplink_items = list()
 		desc = replacetext(initial(temp.desc), "\n", "<br>")
 	return desc
 
-/datum/uplink_item/proc/buy(var/obj/item/device/uplink/hidden/U, var/mob/user)
+/datum/uplink_item/proc/buy(obj/item/device/uplink/hidden/U, mob/user)
 	..()
 
 	if(!istype(U))
-		return 0
+		return FALSE
 
 	if(user.stat || user.restrained())
-		return 0
+		return FALSE
 
-	if(!(istype(user, /mob/living/carbon/human)))
-		return 0
+	if(!ishuman(user))
+		return FALSE
 
 	// If the uplink's holder is in the user's contents
-	if((U.loc in user.contents || (in_range(U.loc, user) && istype(U.loc.loc, /turf))))
+	if((U.loc in user.contents || (in_range(U.loc, user) && isturf(U.loc.loc))))
 		user.set_machine(U)
 		if(cost > U.uses)
-			return 0
+			return FALSE
 
 		var/obj/I = spawn_item(get_turf(user), U)
 
@@ -106,8 +106,8 @@ var/list/uplink_items = list()
 					U.purchase_log += "<BIG>[bicon(I)]</BIG>"
 
 		//U.interact(user)
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 /*
 //
@@ -129,13 +129,21 @@ var/list/uplink_items = list()
 	job = list("Clown")
 
 //mime
-/datum/uplink_item/job_specific/caneshotgun
+/datum/uplink_item/jobspecific/caneshotgun
 	name = "Cane Shotgun + Assassination Darts"
 	desc = "A specialized, one shell shotgun with a built-in cloaking device to mimic a cane. The shotgun is capable of hiding it's contents and the pin alongside being supressed. Comes with 6 special darts and a preloaded shrapnel round."
 	reference = "MCS"
 	item = /obj/item/weapon/storage/box/syndie_kit/caneshotgun
 	cost = 15
 	job = list("Mime")
+
+/datum/uplink_item/jobspecific/invisible_spray
+	name = "Can of Invisible Spray"
+	desc = "Spray something to render it permanently invisible! One-time use. Permanence not guaranteed when exposed to water."
+	reference = "IVS"
+	item = /obj/item/weapon/invisible_spray/permanent
+	cost = 3
+	job = list("Clown","Mime")
 
 /datum/uplink_item/dangerous/cat_grenade
 	name = "Feral Cat Delivery Grenade"

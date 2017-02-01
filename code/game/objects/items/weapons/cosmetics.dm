@@ -40,7 +40,7 @@
 	name = "[colour] lipstick"
 
 
-/obj/item/weapon/lipstick/attack_self(mob/user as mob)
+/obj/item/weapon/lipstick/attack_self(mob/user)
 	overlays.Cut()
 	to_chat(user, "<span class='notice'>You twist \the [src] [open ? "closed" : "open"].</span>")
 	open = !open
@@ -52,10 +52,12 @@
 	else
 		icon_state = "lipstick"
 
-/obj/item/weapon/lipstick/attack(mob/M as mob, mob/user as mob)
-	if(!open)	return
+/obj/item/weapon/lipstick/attack(mob/M, mob/user)
+	if(!open)
+		return
 
-	if(!istype(M, /mob))	return
+	if(!ismob(M))
+		return
 
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
@@ -88,7 +90,7 @@
 	flags = CONDUCT
 	w_class = 1
 
-/obj/item/weapon/razor/attack(mob/living/carbon/M as mob, mob/user as mob)
+/obj/item/weapon/razor/attack(mob/living/carbon/M, mob/user)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/external/head/C = H.get_organ("head")
@@ -111,7 +113,7 @@
 					"<span class='notice'>You finish shaving with the [src]. Fast and clean!</span>")
 					C.f_style = "Shaved"
 					H.update_fhair()
-					playsound(src.loc, 'sound/items/Welder2.ogg', 20, 1)
+					playsound(loc, 'sound/items/Welder2.ogg', 20, 1)
 			else
 				var/turf/user_loc = user.loc
 				var/turf/H_loc = H.loc
@@ -123,7 +125,7 @@
 						"<span class='notice'>You shave [H]'s facial hair clean off.</span>")
 						C.f_style = "Shaved"
 						H.update_fhair()
-						playsound(src.loc, 'sound/items/Welder2.ogg', 20, 1)
+						playsound(loc, 'sound/items/Welder2.ogg', 20, 1)
 		if(user.zone_sel.selecting == "head")
 			if(!get_location_accessible(H, "head"))
 				to_chat(user, "<span class='warning'>The headgear is in the way.</span>")
@@ -142,7 +144,7 @@
 					"<span class='notice'>You finish shaving with the [src].</span>")
 					C.h_style = "Skinhead"
 					H.update_hair()
-					playsound(src.loc, 'sound/items/Welder2.ogg', 40, 1)
+					playsound(loc, 'sound/items/Welder2.ogg', 40, 1)
 			else
 				var/turf/user_loc = user.loc
 				var/turf/H_loc = H.loc
@@ -154,8 +156,77 @@
 						"<span class='warning'>You shave [H]'s head bald.</span>")
 						C.h_style = "Skinhead"
 						H.update_hair()
-						playsound(src.loc, 'sound/items/Welder2.ogg', 40, 1)
+						playsound(loc, 'sound/items/Welder2.ogg', 40, 1)
 		else
 			..()
 	else
 		..()
+
+#define INVISIBLESPRAY "invisiblespray"
+
+/obj/item/weapon/invisible_spray
+	name = "invisible spray"
+	desc = "A can of... invisibility? The label reads: \"Wears off after five minutes.\""
+	icon = 'icons/obj/items.dmi'
+	icon_state = "invisible_spray"
+	w_class = 2
+	var/permanent = FALSE
+	var/invisible_time = 3000
+	var/sprays_left = 1
+
+/obj/item/weapon/invisible_spray/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+	if(!proximity_flag)
+		return FALSE
+	if(isturf(target))
+		return
+	if(!sprays_left)
+		to_chat(user, "\The [src] is empty.")
+		return
+	if(target.invisibility || target.alpha <= 1)
+		to_chat(user, "\The [target] is already invisible!")
+		return
+	if(ismob(target))
+		if(ishuman(target))
+			var/mob/living/carbon/human/H = target
+			H.body_alphas[INVISIBLESPRAY] = 1
+			H.regenerate_icons()
+			if(!permanent)
+				spawn(invisible_time)
+					if(H)
+						H.body_alphas.Remove(INVISIBLESPRAY)
+						H.regenerate_icons()
+		else
+			var/mob/M = target
+			M.alpha = 1	//to cloak immediately instead of on the next Life() tick
+			M.alphas[INVISIBLESPRAY] = 1
+			if(!permanent)
+				spawn(invisible_time)
+					if(M)
+						M.alpha = initial(M.alpha)
+						M.alphas.Remove(INVISIBLESPRAY)
+	else
+		if(isobj(target))
+			var/obj/O = target
+			O.alpha = 1
+			O.has_been_invisible_sprayed = TRUE
+			if(O.loc == user)
+				user.regenerate_icons()
+			if(!permanent)
+				spawn(invisible_time)
+					if(O)
+						O.alpha = initial(O.alpha)
+						O.has_been_invisible_sprayed = FALSE
+						if(ismob(O.loc))
+							var/mob/M = O.loc
+							M.regenerate_icons()
+	if(target == user)
+		to_chat(user, "You spray yourself with \the [src].")
+	else
+		to_chat(user, "You spray \the [target] with \the [src].")
+	playsound(get_turf(src), 'sound/effects/spray2.ogg', 50, 1, -6)
+	sprays_left--
+	return TRUE
+
+/obj/item/weapon/invisible_spray/permanent
+	desc = "A can of... invisibility?"
+	permanent = TRUE

@@ -464,3 +464,9 @@
 
 /atom/proc/speech_bubble(var/bubble_state = "",var/bubble_loc = src, var/list/bubble_recipients = list())
 	return
+
+/atom/proc/is_visible()
+	if(invisibility || alpha <= 1)
+		return FALSE
+	else
+		return TRUE

@@ -2150,3 +2150,11 @@
 	update_icons()
 
 	..()
+
+/mob/living/carbon/human/proc/get_lowest_body_alpha()
+	if(!body_alphas.len)
+		return 255
+	var/lowest_alpha = 255
+	for(var/alpha_modification in body_alphas)
+		lowest_alpha = min(lowest_alpha,body_alphas[alpha_modification])
+	return lowest_alpha

@@ -72,3 +72,4 @@ var/global/default_martial_art = new/datum/martial_art
 	var/fire_sprite = "Standing"
 
 	var/datum/body_accessory/body_accessory = null
+	var/list/body_alphas = list()	//Alpha values applied to just the body sprite of humans/monkeys, rather than their whole icon
