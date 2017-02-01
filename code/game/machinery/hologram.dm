@@ -28,6 +28,7 @@ Possible to do for anyone motivated enough:
 // 0 = RANGE BASED
 // 1 = AREA BASED
 var/const/HOLOPAD_MODE = 0
+var/using_holopad = 0
 
 /obj/machinery/hologram/holopad
 	name = "\improper AI holopad"
@@ -83,6 +84,8 @@ var/const/HOLOPAD_MODE = 0
 /obj/machinery/hologram/holopad/attack_ai(mob/living/silicon/ai/user)
 	if(!istype(user))
 		return
+	if(using_holopad)
+		return
 	/*There are pretty much only three ways to interact here.
 	I don't need to check for client since they're clicking on an object.
 	This may change in the future but for now will suffice.*/
@@ -134,6 +137,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 	A.holo = src
 	master = A//AI is the master.
 	use_power = 2//Active power usage.
+	using_holopad = 1
 	return 1
 
 /obj/machinery/hologram/holopad/proc/clear_holo()
@@ -146,6 +150,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 	set_light(0)			//pad lighting (hologram lighting will be handled automatically since its owner was deleted)
 	icon_state = "holopad0"
 	use_power = 1//Passive power usage.
+	using_holopad = 0
 	return 1
 
 /obj/machinery/hologram/holopad/process()
