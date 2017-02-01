@@ -32,6 +32,9 @@
 	attached_spell.attached_hand = null
 	qdel(src)
 
+/obj/item/weapon/melee/touch_attack/dropped()
+	qdel(src)
+
 /obj/item/weapon/melee/touch_attack/disintegrate
 	name = "disintegrating touch"
 	desc = "This hand of mine glows with an awesome power!"
@@ -113,3 +116,4 @@
 		else
 			H.makeAntiCluwne()
 	..()
+
