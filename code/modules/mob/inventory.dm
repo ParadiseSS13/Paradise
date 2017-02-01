@@ -103,9 +103,9 @@
 	if(!I)
 		return 1
 	if((I.flags & NODROP) && !force)
-		return
+		return 0
 	if(I.flags & ABSTRACT) //An abstract item should never be dropped, even if it's being forced
-		return
+		return 0
 	return 1
 
 /mob/proc/unEquip(obj/item/I, force) //Force overrides NODROP for things like wizarditis and admin undress.
@@ -113,7 +113,7 @@
 		return 1
 
 	if(!canUnEquip(I, force))
-		return
+		return 0
 
 	if(I == r_hand)
 		r_hand = null
