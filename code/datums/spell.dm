@@ -398,3 +398,6 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 		if(isbrain(user) || ispAI(user))
 			return 0
 	return 1
+
+/obj/effect/proc_holder/spell/proc/cancel()
+	charge_counter = charge_max

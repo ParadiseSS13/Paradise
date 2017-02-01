@@ -43,6 +43,10 @@
 	to_chat(user, "<span class='notice'>You channel the power of the spell to your hand.</span>")
 	return 1
 
+/obj/effect/proc_holder/spell/targeted/touch/cancel(obj/item/weapon/melee/touch_attack/inHand)
+	if(inHand)
+		qdel(inHand)
+	..()
 
 /obj/effect/proc_holder/spell/targeted/touch/disintegrate
 	name = "Disintegrate"
@@ -67,3 +71,4 @@
 	cooldown_min = 200 //100 deciseconds reduction per rank
 
 	action_icon_state = "statue"
+
