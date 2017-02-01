@@ -382,12 +382,14 @@
 			m_type = 1
 
 		if("cough", "coughs")
+			var/cough_sounds = list('sound/effects/mob_effects/cough_3x.ogg','sound/effects/mob_effects/cougha.ogg','sound/effects/mob_effects/coughb.ogg', 'sound/effects/mob_effects/coughc.ogg', 'sound/effects/mob_effects/coughd.ogg')
 			if(miming)
 				message = "<B>[src]</B> appears to cough!"
 				m_type = 1
 			else
 				if(!muzzled)
 					message = "<B>[src]</B> coughs!"
+					playsound(src, pick(cough_sounds), 90, 1, 0)
 					m_type = 2
 				else
 					message = "<B>[src]</B> makes a strong noise."
@@ -644,6 +646,7 @@
 			else
 				if(!muzzled)
 					message = "<B>[src]</B> sneezes."
+					playsound(src, 'sound/effects/mob_effects/sneeze.ogg', 80, 1, 0, pitch = get_age_pitch())
 					m_type = 2
 				else
 					message = "<B>[src]</B> makes a strange noise."
