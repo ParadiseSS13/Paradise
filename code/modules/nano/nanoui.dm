@@ -96,8 +96,16 @@ nanoui is used to open and update nano browser uis
 
 	add_common_assets()
 
+	var/list/specific_assets = list(ntemplate_filename)
+
+	// Adding a debug script if the target client has firebug debugging on
+	if(user.client && user.client.holder && user.client.holder.nanoui_use_firebug)
+		// a super cheeky way of going about it, that doesn't work without a net connection
+		add_script("https://getfirebug.com/firebug-lite.js")
+
+
 	var/datum/asset/assets = get_asset_datum(/datum/asset/nanoui)
-	assets.send(user, ntemplate_filename)
+	assets.send(user, specific_assets)
 
  /**
   * Use this proc to add assets which are common to (and required by) all nano uis
