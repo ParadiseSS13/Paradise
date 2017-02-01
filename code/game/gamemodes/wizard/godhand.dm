@@ -7,7 +7,7 @@
 	icon = 'icons/obj/weapons.dmi'
 	icon_state = "syndballoon"
 	item_state = null
-	flags = ABSTRACT | NODROP
+	flags = ABSTRACT
 	w_class = 5
 	force = 0
 	throwforce = 0
