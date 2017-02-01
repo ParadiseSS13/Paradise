@@ -831,6 +831,7 @@
 
 /obj/mecha/proc/attacked_by(obj/item/I, mob/user)
 	log_message("Attacked by [I]. Attacker - [user]")
+	user.changeNext_move(CLICK_CD_MELEE)
 	var/deflection = deflect_chance
 	var/dam_coeff = 1
 	for(var/obj/item/mecha_parts/mecha_equipment/anticcw_armor_booster/B in equipment)
