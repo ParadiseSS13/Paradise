@@ -1,3 +1,5 @@
+var/list/clonecomputers = list()
+
 /obj/machinery/computer/cloning
 	name = "cloning console"
 	icon = 'icons/obj/computer.dmi'
@@ -26,8 +28,13 @@
 	..()
 	updatemodules()
 
+/obj/machinery/computer/cloning/New()
+	..()
+	clonecomputers += src
+
 /obj/machinery/computer/cloning/Destroy()
 	releasecloner()
+	clonecomputers -= src
 	return ..()
 
 /obj/machinery/computer/cloning/process()
