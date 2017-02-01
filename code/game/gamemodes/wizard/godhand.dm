@@ -33,7 +33,7 @@
 	qdel(src)
 
 /obj/item/weapon/melee/touch_attack/dropped()
-	attached_spell.cancel(src)
+	attached_spell.cancel()
 
 /obj/item/weapon/melee/touch_attack/disintegrate
 	name = "disintegrating touch"
