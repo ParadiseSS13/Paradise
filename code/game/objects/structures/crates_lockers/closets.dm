@@ -271,7 +271,7 @@
 									"<span class='notice'>You cut \the [src] apart with \the [WT].</span>",
 									"<span class='italics'>You hear welding.</span>")
 					var/turf/T = get_turf(src)
-					new material_drop(T)
+					new material_drop(T, 2)
 					qdel(src)
 					return
 		if(isrobot(user))
