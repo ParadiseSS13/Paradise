@@ -9,4 +9,4 @@
 		return	
 
 	var/savefile/S = new /savefile("data/debug/[M.name].sav")
-  S["stored_player"] << M // yes, this works
+ 	S["stored_player"] << M // yes, this works
