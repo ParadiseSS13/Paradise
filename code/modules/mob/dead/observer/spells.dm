@@ -26,6 +26,13 @@ var/global/list/boo_phrases=list(
 	range = 1 // Or maybe 3?
 
 /obj/effect/proc_holder/spell/aoe_turf/boo/cast(list/targets)
+
+	// First check if there are shadowlings nearby, because flickering lights will damage them.
+	var/shadowling_present = 0
+	for(var/mob/living/carbon/human/H in range(7, usr)) // (Range is Ghost Boo range (1) + Shadowling Veil range (5) + 1 for good measure)
+		if (H.get_species() == "Shadowling" || H.get_species() == "Lesser Shadowling" || H.get_species() == "Shadow")
+			shadowling_present = 1
+
 	for(var/turf/T in targets)
 		for(var/atom/A in T.contents)
 
@@ -35,11 +42,12 @@ var/global/list/boo_phrases=list(
 				if(H && H.client)
 					to_chat(H, "<i>[pick(boo_phrases)]</i>")
 
-			// Flicker unblessed lights in range
-			if(istype(A,/obj/machinery/light))
-				var/obj/machinery/light/L = A
-				if(L)
-					L.flicker()
+
+			if(!shadowling_present)  // If no shadowling is nearby
+				if(istype(A,/obj/machinery/light))  // Flicker unblessed lights in range
+					var/obj/machinery/light/L = A
+					if(L)
+						L.flicker()
 
 			// OH GOD BLUE APC (single animation cycle)
 			if(istype(A, /obj/machinery/power/apc))
