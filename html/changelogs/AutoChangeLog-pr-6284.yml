@@ -1,4 +1,0 @@
-author: "Kyep"
-delete-after: True
-changes: 
-  - tweak: "Using the 'summon narsie' rune as cult, when you don't have the objective to do so, is now punished by the cult's god. Just as using the 'call forth the slaughter' rune, when you don't have the objective to do that, is already punished."
