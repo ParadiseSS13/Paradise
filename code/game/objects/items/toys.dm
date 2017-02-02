@@ -78,16 +78,17 @@
 	return
 
 /obj/item/toy/balloon/throw_impact(atom/hit_atom)
+	..()
 	if(reagents.total_volume >= 1)
-		visible_message("<span class='warning'>The [src] bursts!</span>","You hear a pop and a splash.")
+		visible_message("<span class='warning'>\The [src] bursts!</span>","You hear a pop and a splash.")
 		reagents.reaction(get_turf(hit_atom))
 		for(var/atom/A in get_turf(hit_atom))
 			reagents.reaction(A)
 		icon_state = "burst"
+		reagents.remove_any(reagents.total_volume)
 		spawn(5)
 			if(src)
 				qdel(src)
-	return
 
 /obj/item/toy/balloon/update_icon()
 	if(src.reagents.total_volume >= 1)
