@@ -518,6 +518,12 @@
 	//ventcrawler = 1 //ventcrawling commented out
 	butt_sprite = "slime"
 
+	female_scream_sound = null  //slime people don't have lungs
+	male_cough_sounds = null
+	female_cough_sounds = null
+	male_sneeze_sound = null
+	female_sneeze_sound = null
+
 	has_organ = list(
 		"brain" = /obj/item/organ/internal/brain/slime
 		)
@@ -735,6 +741,12 @@
 	slowdown = 5
 	remains_type = /obj/effect/decal/cleanable/ash
 
+	male_cough_sounds = null  //diona don't have lungs
+	female_cough_sounds = null
+	male_sneeze_sound = null
+	female_sneeze_sound = null
+
+
 	warning_low_pressure = 50
 	hazard_low_pressure = -1
 
@@ -873,6 +885,10 @@
 	reagent_tag = PROCESS_SYN
 	male_scream_sound = 'sound/goonstation/voice/robot_scream.ogg'
 	female_scream_sound = 'sound/goonstation/voice/robot_scream.ogg'
+	male_cough_sounds = list('sound/effects/mob_effects/m_machine_cougha.ogg','sound/effects/mob_effects/m_machine_coughb.ogg', 'sound/effects/mob_effects/m_machine_coughc.ogg')
+	female_cough_sounds = list('sound/effects/mob_effects/f_machine_cougha.ogg','sound/effects/mob_effects/f_machine_coughb.ogg')
+	male_sneeze_sound = 'sound/effects/mob_effects/machine_sneeze.ogg'
+	female_sneeze_sound = 'sound/effects/mob_effects/f_machine_sneeze.ogg'
 	butt_sprite = "machine"
 
 	has_organ = list(
@@ -933,6 +949,10 @@
 	speech_chance = 20
 	male_scream_sound = 'sound/voice/DraskTalk2.ogg'
 	female_scream_sound = 'sound/voice/DraskTalk2.ogg'
+	male_cough_sounds = null      //whale cough when
+	female_cough_sounds = null
+	male_sneeze_sound = null
+	female_sneeze_sound = null
 
 	burn_mod = 2
 	//exotic_blood = "cryoxadone"

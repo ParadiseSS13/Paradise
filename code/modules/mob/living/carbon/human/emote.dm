@@ -57,6 +57,10 @@
 			on_CD = handle_emote_CD(50) //longer cooldown
 		if("fart", "farts", "flip", "flips", "snap", "snaps")
 			on_CD = handle_emote_CD()				//proc located in code\modules\mob\emote.dm
+		if("cough", "coughs")
+			on_CD = handle_emote_CD()
+		if("sneeze", "sneezes")
+			on_CD = handle_emote_CD()
 		//Everything else, including typos of the above emotes
 		else
 			on_CD = 0	//If it doesn't induce the cooldown, we won't check for the cooldown
@@ -382,15 +386,17 @@
 			m_type = 1
 
 		if("cough", "coughs")
-			var/cough_sounds = list('sound/effects/mob_effects/cough_3x.ogg','sound/effects/mob_effects/cougha.ogg','sound/effects/mob_effects/coughb.ogg', 'sound/effects/mob_effects/coughc.ogg', 'sound/effects/mob_effects/coughd.ogg')
 			if(miming)
 				message = "<B>[src]</B> appears to cough!"
 				m_type = 1
 			else
 				if(!muzzled)
 					message = "<B>[src]</B> coughs!"
-					playsound(src, pick(cough_sounds), 90, 1, 0)
 					m_type = 2
+					if(gender == FEMALE)
+						playsound(src, pick(species.female_cough_sounds), 120)
+					else
+						playsound(src, pick(species.male_cough_sounds), 120)
 				else
 					message = "<B>[src]</B> makes a strong noise."
 					m_type = 2
@@ -646,7 +652,10 @@
 			else
 				if(!muzzled)
 					message = "<B>[src]</B> sneezes."
-					playsound(src, 'sound/effects/mob_effects/sneeze.ogg', 80, 1, 0, pitch = get_age_pitch())
+					if(gender == FEMALE)
+						playsound(src, species.female_sneeze_sound, 70)
+					else
+						playsound(src, species.male_sneeze_sound, 70)
 					m_type = 2
 				else
 					message = "<B>[src]</B> makes a strange noise."
