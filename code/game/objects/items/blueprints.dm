@@ -53,7 +53,7 @@
 						By submitting this form, you accept any fines, fees, or personal injury/death that may occur during construction."
 	w_class = 1
 
-/obj/item/areaeditor/permit/attack_self(mob/user as mob)
+/obj/item/areaeditor/permit/attack_self(mob/user)
 	. = ..()
 	var/area/A = get_area()
 	if(get_area_type() == AREA_STATION)
@@ -85,7 +85,7 @@
 	return ..()
 
 
-/obj/item/areaeditor/blueprints/attack_self(mob/user as mob)
+/obj/item/areaeditor/blueprints/attack_self(mob/user)
 	. = ..()
 	var/area/A = get_area()
 	if(get_area_type() == AREA_STATION)
@@ -305,3 +305,10 @@
 					return ROOM_ERR_SPACE
 		found+=T
 	return found
+
+//Blueprint Subtypes
+
+/obj/item/areaeditor/blueprints/cyborg
+	name = "station schematics"
+	desc = "A digital copy of the station blueprints stored in your memory."
+	fluffnotice = "Intellectual Property of Nanotrasen. For use in engineering cyborgs only. Wipe from memory upon departure from the station."
