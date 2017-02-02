@@ -1,4 +1,0 @@
-author: "Alexshreds"
-delete-after: True
-changes: 
-  - bugfix: "Deconstructing closets yields the proper amount of metal"
