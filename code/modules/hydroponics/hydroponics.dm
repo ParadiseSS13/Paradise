@@ -83,8 +83,11 @@
 	if(exchange_parts(user, I))
 		return
 
-	if(default_unfasten_wrench(user, I))
-		return
+	if(istype(I, /obj/item/weapon/wrench))
+		if(using_irrigation)
+			to_chat(user, "<span class='warning'>Disconnect the hoses first!</span>")
+		else if(default_unfasten_wrench(user, I))
+			return
 
 	if(istype(I, /obj/item/weapon/crowbar))
 		if(using_irrigation)
