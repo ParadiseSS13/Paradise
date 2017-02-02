@@ -174,10 +174,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		if(response != "Ghost")
 			return	//didn't want to ghost after-all
 		resting = 1
-		for(var/obj/machinery/computer/cloning/cloner in clonecomputers)
-			for(var/datum/dna2/record/R in cloner.records)
-				if(R.ckey == ckey)
-					cloner.records.Remove(R)
 		var/mob/dead/observer/ghost = ghostize(0)            //0 parameter is so we can never re-enter our body, "Charlie, you can never come baaaack~" :3
 		ghost.timeofdeath = world.time // Because the living mob won't have a time of death and we want the respawn timer to work properly.
 	var/obj/structure/morgue/Morgue = locate() in M.loc
