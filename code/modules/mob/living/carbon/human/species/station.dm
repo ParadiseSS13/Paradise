@@ -518,8 +518,7 @@
 	//ventcrawler = 1 //ventcrawling commented out
 	butt_sprite = "slime"
 
-	female_scream_sound = null  //slime people don't have lungs
-	male_cough_sounds = null
+	male_cough_sounds = null    //slime people don't have lungs
 	female_cough_sounds = null
 	male_sneeze_sound = null
 	female_sneeze_sound = null
