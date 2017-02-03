@@ -348,7 +348,6 @@
 	metabolization_rate = 1
 
 /datum/reagent/fuel/unholywater/on_mob_life(mob/living/M)
-	M.adjustBrainLoss(3)
 	if(iscultist(M))
 		M.status_flags |= GOTTAGOFAST
 		M.AdjustDrowsy(-5)
