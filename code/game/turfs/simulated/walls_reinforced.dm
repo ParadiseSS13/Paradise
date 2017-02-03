@@ -107,7 +107,6 @@
 				if(O.use(1))
 					d_state = 0
 					update_icon()
-					src.icon_state = "r_wall"
 					to_chat(user, "<span class='notice'>You replace the outer grille.</span>")
 				else
 					to_chat(user, "<span class='warning'>You don't have enough rods for that!</span>")
@@ -312,5 +311,5 @@
 		clear_smooth_overlays()
 	else
 		smooth = SMOOTH_TRUE
-		icon_state = ""
+		icon_state = "r_wall"
 
