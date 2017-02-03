@@ -379,6 +379,7 @@ var/list/blood_splatter_icons = list()
 	if(dna)
 		var/mob/living/carbon/human/H = src
 		blood_dna[dna.unique_enzymes] = H.b_type
+		blood_dna["blood_color"] = H.species.blood_color
 	else
 		blood_dna["UNKNOWN DNA"] = "X*"
 	return blood_dna
@@ -455,7 +456,6 @@ var/list/blood_splatter_icons = list()
 	if(!B)
 		B = new /obj/effect/decal/cleanable/blood/splatter(src)
 	B.transfer_blood_dna(blood_dna) //give blood info to the blood decal.
-	//B.color = blood_dna["blood_color"]//bad index runtime...
 	return 1 //we bloodied the floor
 
 /mob/living/carbon/human/add_blood(list/blood_dna)
@@ -468,6 +468,7 @@ var/list/blood_splatter_icons = list()
 	if(gloves)
 		var/obj/item/clothing/gloves/G = gloves
 		G.add_blood(blood_dna)
+		hand_blood_color = blood_color
 	else
 		transfer_blood_dna(blood_dna)
 	bloody_hands = rand(2, 4)

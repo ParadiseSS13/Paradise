@@ -78,7 +78,7 @@ var/global/list/image/splatter_cache=list()
 			user.blood_DNA = list()
 		user.blood_DNA |= blood_DNA.Copy()
 		user.bloody_hands += taken
-		user.hand_blood_color = blood_DNA["blood_color"]
+		user.hand_blood_color = basecolor
 		user.update_inv_gloves(1)
 		user.verbs += /mob/living/carbon/human/proc/bloody_doodle
 

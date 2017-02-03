@@ -182,6 +182,7 @@ var/global/list/image/fluidtrack_cache=list()
 			if(!S.blood_DNA)
 				S.blood_DNA = list()
 			S.blood_DNA |= blood_DNA.Copy()
+			S.blood_color = blood_DNA["blood_color"]
 		else if(hasfeet)//Or feet //This will need to be changed.
 			H.track_blood = max(amount - BLOOD_LOSS_PER_STEP, 0)
 			if(!H.feet_blood_DNA)
@@ -205,6 +206,7 @@ var/global/list/image/fluidtrack_cache=list()
 			if(!S.blood_DNA)
 				S.blood_DNA = list()
 			S.blood_DNA |= blood_DNA.Copy()
+			S.blood_color = blood_DNA["blood_color"]
 		else if(hasfeet)//Or feet //This will need to be changed.
 			H.track_blood = max(amount - BLOOD_LOSS_PER_STEP, 0)
 			if(!H.feet_blood_DNA)
@@ -225,6 +227,7 @@ var/global/list/image/fluidtrack_cache=list()
 				fluidtrack_cache["entered-[blood_state]-[Ddir]"] = I
 			if(I)
 				overlays += I
+				I.color = blood_DNA["blood_color"]
 		if(exited_dirs & Ddir)
 			if(fluidtrack_cache["exited-[blood_state]-[Ddir]"])
 				I = fluidtrack_cache["exited-[blood_state]-[Ddir]"]
@@ -233,8 +236,6 @@ var/global/list/image/fluidtrack_cache=list()
 				fluidtrack_cache["exited-[blood_state]-[Ddir]"] = I
 			if(I)
 				overlays += I
-	if(blood_DNA)
-		I.color = blood_DNA["blood_color"]
-	else
-		I.color = basecolor
+				I.color = blood_DNA["blood_color"]
+
 	alpha = BLOODY_FOOTPRINT_BASE_ALPHA+bloodiness
