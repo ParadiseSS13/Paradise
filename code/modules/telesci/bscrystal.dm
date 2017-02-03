@@ -28,8 +28,9 @@
 		return
 	do_teleport(L, get_turf(L), blink_range, asoundin = 'sound/effects/phasein.ogg')
 
-/obj/item/weapon/ore/bluespace_crystal/throw_impact(atom/hit_atom)
-	..()
+/obj/item/weapon/ore/bluespace_crystal/impact(atom/hit_atom)
+	if(!..())
+		return
 	if(isliving(hit_atom))
 		blink_mob(hit_atom)
 	qdel(src)

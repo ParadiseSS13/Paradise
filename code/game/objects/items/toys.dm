@@ -77,7 +77,9 @@
 	update_icon()
 	return
 
-/obj/item/toy/balloon/throw_impact(atom/hit_atom)
+/obj/item/toy/balloon/impact(atom/hit_atom)
+	if(!..())
+		return
 	if(reagents.total_volume >= 1)
 		visible_message("<span class='warning'>The [src] bursts!</span>","You hear a pop and a splash.")
 		reagents.reaction(get_turf(hit_atom))
@@ -236,8 +238,9 @@
 	w_class = 1
 
 
-/obj/item/toy/snappop/virus/throw_impact(atom/hit_atom)
-	..()
+/obj/item/toy/snappop/virus/impact(atom/hit_atom)
+	if(!..())
+		return
 	var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 	s.set_up(3, 1, src)
 	s.start()
@@ -270,8 +273,9 @@
 /obj/item/toy/snappop/fire_act()
 	pop_burst()
 
-/obj/item/toy/snappop/throw_impact(atom/hit_atom)
-	..()
+/obj/item/toy/snappop/impact(atom/hit_atom)
+	if(!..())
+		return
 	pop_burst()
 
 /obj/item/toy/snappop/Crossed(H as mob|obj)
@@ -882,8 +886,9 @@ obj/item/toy/cards/deck/syndicate/black
 	icon_state = "minimeteor"
 	w_class = 2
 
-/obj/item/toy/minimeteor/throw_impact(atom/hit_atom)
-	..()
+/obj/item/toy/minimeteor/impact(atom/hit_atom)
+	if(!..())
+		return
 	playsound(src, 'sound/effects/meteorimpact.ogg', 40, 1)
 	for(var/mob/M in range(10, src))
 		if(!M.stat && !istype(M, /mob/living/silicon/ai))\

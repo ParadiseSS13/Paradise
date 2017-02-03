@@ -380,8 +380,9 @@
 	filling_color = "#FDFFD1"
 	list_reagents = list("protein" = 1, "egg" = 5)
 
-/obj/item/weapon/reagent_containers/food/snacks/egg/throw_impact(atom/hit_atom)
-	..()
+/obj/item/weapon/reagent_containers/food/snacks/egg/impact(atom/hit_atom)
+	if(!..())
+		return
 	var/turf/T = get_turf(hit_atom)
 	new/obj/effect/decal/cleanable/egg_smudge(T)
 	if(reagents)
@@ -731,8 +732,9 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 6, "banana" = 5, "vitamin" = 2)
 
-/obj/item/weapon/reagent_containers/food/snacks/pie/throw_impact(atom/hit_atom)
-	..()
+/obj/item/weapon/reagent_containers/food/snacks/pie/impact(atom/hit_atom)
+	if(!..())
+		return
 	new/obj/effect/decal/cleanable/pie_smudge(loc)
 	visible_message("<span class='warning'>[src] splats.</span>","<span class='warning'>You hear a splat.</span>")
 	qdel(src)
