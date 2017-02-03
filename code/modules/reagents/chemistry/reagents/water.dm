@@ -355,7 +355,12 @@
 		M.AdjustParalysis(-2)
 		M.AdjustStunned(-2)
 		M.AdjustWeakened(-2)
+		M.adjustToxLoss(-2)
+		M.adjustFireLoss(-2)
+		M.adjustOxyLoss(-2)
+		M.adjustBruteLoss(-2)
 	else
+		M.adjustBrainLoss(3)
 		M.adjustToxLoss(2)
 		M.adjustFireLoss(2)
 		M.adjustOxyLoss(2)
