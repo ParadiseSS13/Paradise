@@ -84,6 +84,14 @@
 	burnt = 1
 	update_icon()
 
+/turf/simulated/floor/carpet/blue
+	name = "blue carpet"
+	icon = 'icons/turf/floors/carpet_blue.dmi'
+	icon_state = "carpet"
+	floor_tile = /obj/item/stack/tile/carpet/blue
+	broken_states = null //delete then i get broken carpet sprite
+	canSmoothWith = list(/turf/simulated/floor/carpet/blue)
+
 /turf/simulated/floor/fakespace
 	icon = 'icons/turf/space.dmi'
 	icon_state = "0"
