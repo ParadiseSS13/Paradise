@@ -16,6 +16,7 @@
 	var/cutting_sound = 'sound/items/Welder.ogg'
 	var/storage_capacity = 30 //This is so that someone can't pack hundreds of items in a locker/crate then open it in a populated area to crash clients.
 	var/material_drop = /obj/item/stack/sheet/metal
+	var/material_drop_amount = 2
 
 /obj/structure/closet/New()
 	..()
@@ -271,7 +272,7 @@
 									"<span class='notice'>You cut \the [src] apart with \the [WT].</span>",
 									"<span class='italics'>You hear welding.</span>")
 					var/turf/T = get_turf(src)
-					new material_drop(T)
+					new material_drop(T, material_drop_amount)
 					qdel(src)
 					return
 		if(isrobot(user))
