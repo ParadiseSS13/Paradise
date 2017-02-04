@@ -1,6 +1,7 @@
 /obj/structure/closet/cardboard
 	name = "large cardboard box"
 	desc = "Just a box..."
+	icon = 'icons/obj/boxes.dmi'
 	icon_state = "cardboard"
 	icon_opened = "cardboard_open"
 	icon_closed = "cardboard"
@@ -43,7 +44,7 @@
 
 /mob/living/proc/do_alert_animation(atom/A)
 	var/image/I
-	I = image('icons/obj/closet.dmi', A, "cardboard_special", A.layer+1)
+	I = image('icons/obj/boxes.dmi', A, "cardboard_special", A.layer+1)
 	var/list/viewing = list()
 	for(var/mob/M in viewers(A))
 		if(M.client)
@@ -52,7 +53,8 @@
 	I.alpha = 0
 	animate(I, pixel_z = 32, alpha = 255, time = 5, easing = ELASTIC_EASING)
 
-/obj/structure/closet/cardboard/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+
+obj/structure/closet/cardboard/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(src.opened)
 		if(istype(W, /obj/item/weapon/weldingtool))
 			return
@@ -62,3 +64,16 @@
 			for(var/mob/M in viewers(src))
 				M.show_message("<span class='notice'>\The [src] has been cut apart by [user] with \the [WC].</span>", 3, "You hear cutting.", 2)
 			qdel(src)
+			return
+		if(istype(W, /obj/item/weapon/storage/fancy/crayons)) /////addendum by flimflamm
+			var/decalselection = input("Please select a decal") in list("atmos", "bar", "barber", "blueshield",	"brigphysician", "captain",
+				"cargo", "ce",	"caplain",	"chef", "chemist", "civilian", "clown", "cmo", "coroner", "detective", "engineering", "genetics", "hop",
+				"hos", "hydroponics", "ia", "janitor",	"magistrate", "mechanic", "medical", "mime", "mining", "ntrep", "paramedic", "podpilot",
+				"prisoner",	"rd", "security", "syndicate", "therapist", "virology", "warden", "xenobiology")
+
+			icon_opened = addtext("cardboard_open_", decalselection)
+			icon_closed = addtext("cardboard_", decalselection)
+			update_icon() // a proc declared in the closets parent file used to update opened/closed sprites on normal closets
+
+			return
+	return
