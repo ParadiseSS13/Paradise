@@ -1,5 +1,0 @@
-author: "DrunkDwarf"
-delete-after: True
-changes: 
-  - tweak: "Set the Mr Chang's vending machine to be refillable"
-  - rscadd: "Added a Supply Crate to the Vending section of the Cargo Request Console for Chinese Refill Canisters"
