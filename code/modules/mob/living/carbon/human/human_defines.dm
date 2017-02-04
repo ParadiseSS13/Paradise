@@ -43,7 +43,6 @@ var/global/default_martial_art = new/datum/martial_art
 	var/icon/lying_icon = null
 
 	var/voice = ""	//Instead of new say code calling GetVoice() over and over and over, we're just going to ask this variable, which gets updated in Life()
-	var/speech_span
 
 	var/speech_problem_flag = 0
 

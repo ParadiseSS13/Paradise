@@ -105,7 +105,7 @@
 /mob/living/carbon/human/handle_speech_problems(var/message, var/verb)
 	var/list/returns[3]
 	var/speech_problem_flag = 0
-	var/span = speech_span
+	var/span = mind.speech_span
 
 	if(silent || (disabilities & MUTE))
 		message = ""

@@ -54,6 +54,7 @@
 	var/has_been_rev = 0//Tracks if this mind has been a rev or not
 
 	var/miming = 0 // Mime's vow of silence
+	var/speech_span // What span any body this mind has talks in.
 	var/datum/faction/faction 			//associated faction
 	var/datum/changeling/changeling		//changeling holder
 	var/datum/vampire/vampire			//vampire holder
@@ -1324,7 +1325,7 @@
 			var/explanation = "Summon [ticker.mode.cultdat.entity_name] via the use of the appropriate rune. It will only work if nine cultists stand on and around it."
 			to_chat(current, "<B>Objective #1</B>: [explanation]")
 			current.memory += "<B>Objective #1</B>: [explanation]<BR>"
-			
+
 
 	var/mob/living/carbon/human/H = current
 	if(istype(H))

@@ -2022,6 +2022,11 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	ShowChoices(user)
 	return 1
 
+/datum/preferences/proc/copy_to_mind(datum/mind/M)
+	if(species == "Grey")
+		if(speciesprefs)
+			M.speech_span = "wingdings"
+
 /datum/preferences/proc/copy_to(mob/living/carbon/human/character)
 	var/datum/species/S = all_species[species]
 	character.change_species(species) // Yell at me if this causes everything to melt
@@ -2038,9 +2043,6 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 	character.add_language(language)
 
-	if(species == "Grey")
-		if(speciesprefs)
-			character.speech_span = "wingdings"
 
 	character.real_name = real_name
 	character.dna.real_name = real_name
