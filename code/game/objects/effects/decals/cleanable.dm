@@ -69,7 +69,7 @@
 			update_icon()
 			H.update_inv_shoes()
 		else if(hasfeet)//Or feet //This will need to be changed.
-			H.track_blood = max(1 - BLOOD_LOSS_PER_STEP, 0)
+			H.track_blood = min(MAX_SHOE_BLOODINESS)
 			if(!H.feet_blood_DNA)
 				H.feet_blood_DNA = list()
 			H.feet_blood_DNA |= blood_DNA.Copy()

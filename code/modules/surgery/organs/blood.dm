@@ -242,7 +242,6 @@
 			else
 				temp_blood_DNA = list()
 				temp_blood_DNA |= drop.blood_DNA.Copy() //we transfer the dna from the drip to the splatter
-				qdel(drop)//the drip is replaced by a bigger splatter
 		else
 			drop = new(T)
 			drop.transfer_mob_blood_dna(src)
