@@ -71,7 +71,6 @@
 	name = "ghost chili"
 	desc = "It seems to be vibrating gently."
 	icon_state = "ghostchilipepper"
-	var/mob/held_mob
 	filling_color = "#F8F8FF"
 	bitesize_mod = 4
 	origin_tech = "biotech=4;magnets=5"

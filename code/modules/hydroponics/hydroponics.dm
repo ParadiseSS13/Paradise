@@ -23,7 +23,7 @@
 	var/harvest = 0			//Ready to harvest?
 	var/obj/item/seeds/myseed = null	//The currently planted seed
 	var/rating = 1
-	var/unwrenchable = 1
+	var/wrenchable = 1
 	var/recent_bee_visit = FALSE //Have we been visited by a bee recently, so bees dont overpollinate one plant
 	var/using_irrigation = FALSE //If the tray is connected to other trays via irrigation hoses
 	var/self_sustaining = FALSE //If the tray generates nutrients and water on its own
@@ -83,13 +83,7 @@
 	if(exchange_parts(user, I))
 		return
 
-	if(istype(I, /obj/item/weapon/wrench))
-		if(using_irrigation)
-			to_chat(user, "<span class='warning'>Disconnect the hoses first!</span>")
-		else if(default_unfasten_wrench(user, I))
-			return
-
-	if(istype(I, /obj/item/weapon/crowbar))
+	if(iscrowbar(I))
 		if(using_irrigation)
 			to_chat(user, "<span class='warning'>Disconnect the hoses first!</span>")
 		else if(default_deconstruction_crowbar(I, 1))
@@ -839,7 +833,7 @@
 				return
 			S.handle_item_insertion(G, 1)
 
-	else if(istype(O, /obj/item/weapon/wrench) && unwrenchable)
+	else if(iswrench(O) && wrenchable)
 		if(using_irrigation)
 			to_chat(user, "<span class='warning'>Disconnect the hoses first!</span>")
 			return
@@ -864,7 +858,7 @@
 				user.visible_message("[user] unwrenches [src].", \
 									"<span class='notice'>You unwrench [src].</span>")
 
-	else if(istype(O, /obj/item/weapon/wirecutters) && unwrenchable)
+	else if(iswirecutter(O) && wrenchable)
 		using_irrigation = !using_irrigation
 		playsound(src, 'sound/items/Wirecutter.ogg', 50, 1)
 		user.visible_message("<span class='notice'>[user] [using_irrigation ? "" : "dis"]connects [src]'s irrigation hoses.</span>", \
@@ -872,7 +866,7 @@
 		for(var/obj/machinery/hydroponics/h in range(1,src))
 			h.update_icon()
 
-	else if(istype(O, /obj/item/weapon/shovel/spade) && unwrenchable)
+	else if(istype(O, /obj/item/weapon/shovel/spade))
 		if(!myseed && !weedlevel)
 			to_chat(user, "<span class='warning'>[src] doesn't have any plants or weeds!</span>")
 			return
@@ -972,7 +966,7 @@
 	icon_state = "soil"
 	density = 0
 	use_power = 0
-	unwrenchable = 0
+	wrenchable = 0
 
 /obj/machinery/hydroponics/soil/update_icon_hoses()
 	return // Has no hoses

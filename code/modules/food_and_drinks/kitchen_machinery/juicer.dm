@@ -14,7 +14,6 @@
 	var/global/list/allowed_items = list (
 		/obj/item/weapon/reagent_containers/food/snacks/grown/tomato  = "tomatojuice",
 		/obj/item/weapon/reagent_containers/food/snacks/grown/carrot  = "carrotjuice",
-		/obj/item/weapon/reagent_containers/food/snacks/grown/berries = "berryjuice",
 		/obj/item/weapon/reagent_containers/food/snacks/grown/grapes = "grapejuice",
 		/obj/item/weapon/reagent_containers/food/snacks/grown/grapes/green = "grapejuice",
 		/obj/item/weapon/reagent_containers/food/snacks/grown/banana  = "banana",
@@ -25,6 +24,7 @@
 		/obj/item/weapon/reagent_containers/food/snacks/grown/watermelon = "watermelonjuice",
 		/obj/item/weapon/reagent_containers/food/snacks/watermelonslice = "watermelonjuice",
 		/obj/item/weapon/reagent_containers/food/snacks/grown/berries/poison = "poisonberryjuice",
+		/obj/item/weapon/reagent_containers/food/snacks/grown/berries = "berryjuice",
 		/obj/item/weapon/reagent_containers/food/snacks/grown/pumpkin = "pumpkinjuice",
 		/obj/item/weapon/reagent_containers/food/snacks/grown/blumpkin = "blumpkinjuice",
 	)

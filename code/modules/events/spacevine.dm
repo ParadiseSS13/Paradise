@@ -271,7 +271,7 @@
 	holder.health = holder.maxhealth
 
 /datum/spacevine_mutation/woodening/on_hit(obj/effect/spacevine/holder, mob/living/hitter, obj/item/I, expected_damage)
-	if(is_sharp(I))
+	if(!is_sharp(I))
 		. = expected_damage * 0.5
 	else
 		. = expected_damage
@@ -459,8 +459,10 @@
 		SV.mutations |= parent.mutations
 		SV.color = parent.color
 		if(prob(mutativeness))
-			var/datum/spacevine_mutation/randmut = pick(mutations_list - SV.mutations)
-			randmut.add_mutation_to_vinepiece(SV)
+			var/list/random_mutations_picked = mutations_list - SV.mutations
+			if(random_mutations_picked.len)
+				var/datum/spacevine_mutation/randmut = pick(random_mutations_picked)
+				randmut.add_mutation_to_vinepiece(SV)
 
 	for(var/datum/spacevine_mutation/SM in SV.mutations)
 		SM.on_birth(SV)
