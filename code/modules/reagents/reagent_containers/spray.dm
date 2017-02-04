@@ -34,7 +34,7 @@
 			to_chat(user, "<span class='notice'>[src] is full.</span>")
 			return
 
-		var/trans = A.reagents.trans_to(src, A:amount_per_transfer_from_this)
+		var/trans = A.reagents.trans_to(src, 50)
 		to_chat(user, "<span class='notice'>You fill [src] with [trans] units of the contents of [A].</span>")
 		return
 

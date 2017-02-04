@@ -266,22 +266,9 @@
 	else
 		return ..()
 
-/obj/item/weapon/weldingtool/afterattack(obj/O as obj, mob/user as mob, proximity)
-	if(!proximity) return
-	if(istype(O, /obj/structure/reagent_dispensers/fueltank) && in_range(src, O))
-		if(!welding)
-			O.reagents.trans_to(src, max_fuel)
-			to_chat(user, "<span class='notice'>[src] refueled.</span>")
-			playsound(src.loc, 'sound/effects/refill.ogg', 50, 1, -6)
-			update_icon()
-			return
-		else
-			message_admins("[key_name_admin(user)] triggered a fueltank explosion.")
-			log_game("[key_name(user)] triggered a fueltank explosion.")
-			to_chat(user, "<span class='warning'>That was stupid of you.</span>")
-			O.ex_act()
-			return
-
+/obj/item/weapon/weldingtool/afterattack(atom/O, mob/user, proximity)
+	if(!proximity)
+		return
 	if(welding)
 		remove_fuel(1)
 		var/turf/location = get_turf(user)
@@ -289,7 +276,9 @@
 
 		if(isliving(O))
 			var/mob/living/L = O
-			L.IgniteMob()
+			if(L.IgniteMob())
+				message_admins("[key_name_admin(user)] set [key_name_admin(L)] on fire")
+				log_game("[key_name(user)] set [key_name(L)] on fire")
 
 /obj/item/weapon/weldingtool/attack_self(mob/user)
 	toggle(user)
