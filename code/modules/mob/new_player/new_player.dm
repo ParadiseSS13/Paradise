@@ -506,7 +506,6 @@
 			new_character.real_name = pick(diona_names)	//I hate this being here of all places but unfortunately dna is based on real_name!
 			new_character.rename_self("diona")
 		mind.original = new_character
-		client.prefs.copy_to_mind(mind)
 		mind.transfer_to(new_character)					//won't transfer key since the mind is not active
 
 
