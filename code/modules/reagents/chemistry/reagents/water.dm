@@ -349,9 +349,8 @@
 
 /datum/reagent/fuel/unholywater/on_mob_life(mob/living/M)
 	if(iscultist(M))
-		M.status_flags |= GOTTAGOFAST
 		M.AdjustDrowsy(-5)
-		M.AdjustParalysis(-2)
+		M.AdjustParalysis(-1)
 		M.AdjustStunned(-2)
 		M.AdjustWeakened(-2)
 		M.adjustToxLoss(-2)
@@ -360,15 +359,11 @@
 		M.adjustBruteLoss(-2)
 	else
 		M.adjustBrainLoss(3)
-		M.adjustToxLoss(2)
+		M.adjustToxLoss(1)
 		M.adjustFireLoss(2)
 		M.adjustOxyLoss(2)
 		M.adjustBruteLoss(2)
 		M.AdjustCultSlur(10)//CUASE WHY THE HELL NOT
-	..()
-
-/datum/reagent/fuel/unholywater/on_mob_delete(mob/living/M)
-	M.status_flags &= ~GOTTAGOFAST
 	..()
 
 /datum/reagent/hellwater
