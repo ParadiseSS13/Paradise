@@ -269,3 +269,26 @@
 	effect_path = /obj/effect/glowshroom/glowcap
 	origin_tech = "biotech=4;powerstorage=6;plasmatech=4"
 	light_color = "#8E0300"
+
+// Fungus/Mold
+/obj/item/seeds/fungus
+	name = "pack of fungus spores"
+	desc = "These spores grow into fungus."
+	icon_state = "mycelium-tower"
+	species = "mold"
+	plantname = "Fungus"
+	product = /obj/item/weapon/reagent_containers/food/snacks/grown/mushroom/fungus
+	yield = 4
+	icon_grow = "mold-grow"
+	icon_dead = "mold-dead"
+	icon_harvest = "mold-harvest"
+	growthstages = 3
+	genes = list(/datum/plant_gene/trait/plant_type/fungal_metabolism)
+	reagents_add = list("fungus" = 0.35)
+
+/obj/item/weapon/reagent_containers/food/snacks/grown/mushroom/fungus
+	seed = /obj/item/seeds/fungus
+	name = "fungus"
+	desc = "A fungus ideal for making antibacterials."
+	icon_state = "angel"
+	color = "#4f4331"
