@@ -362,6 +362,16 @@
 	build_path = /obj/item/weapon/circuitboard/recycler
 	category = list ("Misc. Machinery")
 
+/datum/design/helperbuddy
+	name = "Machine Design (Helper Buddy Board)"
+	desc = "The circuit board for a Helper Buddy"
+	id = "helperbuddy"
+	req_tech = list("programming" = 1)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 500, "sacid" = 20)
+	build_path = /obj/item/weapon/circuitboard/helperbuddy
+	category = list("Misc. Machinery")
+
 /datum/design/holopad
 	name = "Machine Design (AI Holopad Board)"
 	desc = "The circuit board for a holopad."

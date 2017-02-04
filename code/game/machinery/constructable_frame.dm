@@ -501,6 +501,14 @@ to destroy them and players will be able to make replacements.
 							/obj/item/weapon/stock_parts/matter_bin = 1,
 							/obj/item/weapon/stock_parts/manipulator = 1)
 
+/obj/item/weapon/circuitboard/helperbuddy
+	name = "circuit board (Helper Buddy)"
+	build_path = /obj/machinery/helperbuddy
+	board_type = "machine"
+	origin_tech = "programming=1"
+	req_components = list(
+							/obj/item/weapon/stock_parts/capacitor = 1)
+
 /obj/item/weapon/circuitboard/holopad
 	name = "circuit board (AI Holopad)"
 	build_path = /obj/machinery/hologram/holopad
