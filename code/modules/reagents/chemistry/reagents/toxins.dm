@@ -271,7 +271,7 @@
 /datum/reagent/sacid/reaction_obj(obj/O, volume)
 	if((istype(O,/obj/item) || istype(O,/obj/effect/glowshroom)) && prob(40))
 		if(!O.unacidable)
-			var/obj/effect/decal/cleanable/molten_item/I = new/obj/effect/decal/cleanable/molten_item(O.loc)
+			var/obj/effect/decal/cleanable/molten_object/I = new/obj/effect/decal/cleanable/molten_object(O.loc)
 			I.desc = "Looks like this was \an [O] some time ago."
 			O.visible_message("<span class='warning'>[O] melts.</span>")
 			qdel(O)
@@ -617,7 +617,7 @@
 /datum/reagent/facid/reaction_obj(obj/O, volume)
 	if((istype(O, /obj/item) || istype(O, /obj/effect/glowshroom)))
 		if(!O.unacidable)
-			var/obj/effect/decal/cleanable/molten_item/I = new/obj/effect/decal/cleanable/molten_item(O.loc)
+			var/obj/effect/decal/cleanable/molten_object/I = new/obj/effect/decal/cleanable/molten_object(O.loc)
 			I.desc = "Looks like this was \an [O] some time ago."
 			O.visible_message("<span class='warning'>[O] melts.</span>")
 			qdel(O)
@@ -900,41 +900,41 @@
 	M.adjustFireLoss(1)
 	..()
 
-/datum/reagent/atrazine
-	name = "Atrazine"
-	id = "atrazine"
-	description = "A herbicidal compound used for destroying unwanted plants."
+/datum/reagent/glyphosate
+	name = "Glyphosate"
+	id = "glyphosate"
+	description = "A broad-spectrum herbicide that is highly effective at killing all plants."
 	reagent_state = LIQUID
-	color = "#17002D"
+	color = "#d3cf50"
+	var/lethality = 0 //Glyphosate is non-toxic to people
 
-/datum/reagent/atrazine/on_mob_life(mob/living/M)
-	M.adjustToxLoss(2)
+/datum/reagent/glyphosate/on_mob_life(mob/living/M)
+	M.adjustToxLoss(lethality)
 	..()
 
-/datum/reagent/atrazine/reaction_turf(turf/simulated/wall/W, volume) // Clear off wallrot fungi
+/datum/reagent/glyphosate/reaction_turf(turf/simulated/wall/W, volume) // Clear off wallrot fungi
 	if(istype(W) && W.rotting)
 		for(var/obj/effect/overlay/wall_rot/WR in W)
 			qdel(WR)
 		W.rotting = 0
 		W.visible_message("<span class='warning'>The fungi are completely dissolved by the solution!</span>")
 
-/datum/reagent/atrazine/reaction_obj(obj/O, volume)
+/datum/reagent/glyphosate/reaction_obj(obj/O, volume)
 	if(istype(O,/obj/structure/alien/weeds/))
 		var/obj/structure/alien/weeds/alien_weeds = O
 		alien_weeds.health -= rand(15,35) // Kills alien weeds pretty fast
 		alien_weeds.healthcheck()
 	else if(istype(O, /obj/effect/glowshroom)) //even a small amount is enough to kill it
 		qdel(O)
-	else if(istype(O,/obj/effect/plant))
-		if(prob(50))
-			qdel(O) //Kills kudzu too.
-	// Damage that is done to growing plants is separately at code/game/machinery/hydroponics at obj/item/hydroponics
+	else if(istype(O,/obj/effect/spacevine))
+		var/obj/effect/spacevine/SV = O
+		SV.on_chem_effect(src)
 
-/datum/reagent/atrazine/reaction_mob(mob/living/M, method=TOUCH, volume)
+/datum/reagent/glyphosate/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(iscarbon(M))
 		var/mob/living/carbon/C = M
 		if(!C.wear_mask) // If not wearing a mask
-			C.adjustToxLoss(2) // 2 toxic damage per application
+			C.adjustToxLoss(lethality)
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
 			if(H.species.flags & IS_PLANT) //plantmen take a LOT of damage
@@ -944,6 +944,35 @@
 		var/mob/living/simple_animal/diona/D = M
 		D.adjustHealth(100)
 		..()
+
+/datum/reagent/glyphosate/atrazine
+	name = "Atrazine"
+	id = "atrazine"
+	description = "A herbicidal compound used for destroying unwanted plants."
+	reagent_state = LIQUID
+	color = "#17002D"
+	lethality = 2 //Atrazine, however, is definitely toxic
+
+
+/datum/reagent/pestkiller // To-Do; make this more realistic.
+	name = "Pest Killer"
+	id = "pestkiller"
+	description = "A harmful toxic mixture to kill pests. Do not ingest!"
+	color = "#4B004B" // rgb: 75, 0, 75
+
+/datum/reagent/pestkiller/on_mob_life(mob/living/M)
+	M.adjustToxLoss(1)
+	..()
+
+/datum/reagent/pestkiller/reaction_mob(mob/living/M, method=TOUCH, volume)
+	if(iscarbon(M))
+		var/mob/living/carbon/C = M
+		if(!C.wear_mask) // If not wearing a mask
+			C.adjustToxLoss(2)
+		if(ishuman(M))
+			var/mob/living/carbon/human/H = M
+			if(H.get_species() == "Kidan") //RIP
+				H.adjustToxLoss(20)
 
 /datum/reagent/capulettium
 	name = "Capulettium"

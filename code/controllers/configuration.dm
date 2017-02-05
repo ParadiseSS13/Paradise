@@ -575,6 +575,12 @@
 
 				if("round_abandon_penalty_period")
 					config.round_abandon_penalty_period = MinutesToTicks(text2num(value))
+					
+				if("medal_hub_address")
+					global.medal_hub = value
+					
+				if("medal_hub_password")
+					global.medal_pass = value
 
 				if("disable_ooc_emoji")
 					config.disable_ooc_emoji = 1

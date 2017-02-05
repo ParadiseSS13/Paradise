@@ -808,8 +808,8 @@
 	return ..()
 
 /datum/species/diona/handle_life(var/mob/living/carbon/human/H)
-	var/rads = H.radiation/25
-	H.radiation = Clamp(H.radiation - rads, 0, 100)
+	var/rads = H.radiation / 25
+	H.apply_effect(-rads,IRRADIATE,0)
 	H.nutrition += rads
 	H.adjustBruteLoss(-(rads))
 	H.adjustOxyLoss(-(rads))
@@ -818,18 +818,23 @@
 	var/light_amount = 0 //how much light there is in the place, affects receiving nutrition and healing
 	if(isturf(H.loc)) //else, there's considered to be no light
 		var/turf/T = H.loc
-		light_amount = min(T.get_lumcount()*10, 5)  //hardcapped so it's not abused by having a ton of flashlights
+		light_amount = min(T.get_lumcount() * 10, 5)  //hardcapped so it's not abused by having a ton of flashlights
 	H.nutrition += light_amount
 	H.traumatic_shock -= light_amount
 
 	if(H.nutrition > NUTRITION_LEVEL_WELL_FED)
 		H.nutrition = NUTRITION_LEVEL_WELL_FED
+		
+	if(light_amount > 0)
+		H.clear_alert("nolight")
+	else
+		H.throw_alert("nolight", /obj/screen/alert/nolight)
 
 	if((light_amount >= 5) && !H.suiciding) //if there's enough light, heal
+
 		H.adjustBruteLoss(-(light_amount/2))
 		H.adjustFireLoss(-(light_amount/4))
 		H.adjustOxyLoss(-(light_amount))
-
 	if(H.nutrition < 200)
 		H.take_overall_damage(10,0)
 		H.traumatic_shock++

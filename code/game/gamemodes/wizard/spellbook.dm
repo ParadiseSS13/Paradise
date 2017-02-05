@@ -103,7 +103,7 @@
 
 /datum/spellbook_entry/fireball
 	name = "Fireball"
-	spell_type = /obj/effect/proc_holder/spell/dumbfire/fireball
+	spell_type = /obj/effect/proc_holder/spell/fireball
 	log_name = "FB"
 
 /datum/spellbook_entry/magicm
@@ -714,7 +714,7 @@
 	return
 
 /obj/item/weapon/spellbook/oneuse/fireball
-	spell = /obj/effect/proc_holder/spell/dumbfire/fireball
+	spell = /obj/effect/proc_holder/spell/fireball
 	spellname = "fireball"
 	icon_state ="bookfireball"
 	desc = "This book feels warm to the touch."
@@ -854,3 +854,9 @@
 	spellname = "disintegrate"
 	icon_state ="bookfireball"
 	desc = "This book feels like it will rip stuff apart."
+	
+/obj/item/weapon/spellbook/oneuse/sacredflame
+	spell = /obj/effect/proc_holder/spell/targeted/sacred_flame
+	spellname = "sacred flame"
+	icon_state ="booksacredflame"
+	desc = "Become one with the flames that burn within... and invite others to do so as well."

@@ -193,8 +193,9 @@ BLIND     // can't see anything
 		"Drask" = 'icons/mob/species/drask/gloves.dmi'
 		)
 
-/obj/item/clothing/gloves/proc/Touch()
-	return
+// Called just before an attack_hand(), in mob/UnarmedAttack()
+/obj/item/clothing/gloves/proc/Touch(atom/A, proximity)
+	return 0 // return 1 to cancel attack_hand()
 
 /obj/item/clothing/gloves/attackby(obj/item/weapon/W, mob/user, params)
 	if(istype(W, /obj/item/weapon/wirecutters))

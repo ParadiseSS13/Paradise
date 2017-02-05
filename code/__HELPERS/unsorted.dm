@@ -1,4 +1,3 @@
-
 //This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:31
 
 /*
@@ -326,7 +325,7 @@ Turf and target are seperate in case you want to teleport some distance from a t
 		var/mob/M = old_list[named]
 		if(issilicon(M))
 			AI_list |= M
-		else if(isobserver(M) || M.stat == 2)
+		else if(isobserver(M) || M.stat == DEAD)
 			Dead_list |= M
 		else if(M.key && M.client)
 			keyclient_list |= M
@@ -360,7 +359,7 @@ Turf and target are seperate in case you want to teleport some distance from a t
 			namecounts[name] = 1
 		if(M.real_name && M.real_name != M.name)
 			name += " \[[M.real_name]\]"
-		if(M.stat == 2)
+		if(M.stat == DEAD)
 			if(istype(M, /mob/dead/observer/))
 				name += " \[ghost\]"
 			else
@@ -550,15 +549,21 @@ proc/anim(turf/location as turf,target as mob|obj,a_icon,a_icon_state as text,fl
 /proc/can_see(var/atom/source, var/atom/target, var/length=5) // I couldnt be arsed to do actual raycasting :I This is horribly inaccurate.
 	var/turf/current = get_turf(source)
 	var/turf/target_turf = get_turf(target)
-	var/steps = 0
-
-	while(current != target_turf)
-		if(steps > length) return 0
-		if(current.opacity) return 0
-		for(var/atom/A in current)
-			if(A.opacity) return 0
-		current = get_step_towards(current, target_turf)
-		steps++
+	var/steps = 1
+	
+	if(current != target_turf)
+		current = get_step_towards(current, target_turf)	
+		while(current != target_turf)
+			if(steps > length) 
+				return 0
+			if(current.opacity) 
+				return 0
+			for(var/thing in current)
+				var/atom/A = thing
+				if(A.opacity) 
+					return 0
+			current = get_step_towards(current, target_turf)
+			steps++
 
 	return 1
 
@@ -1811,6 +1816,70 @@ var/global/list/g_fancy_list_of_types = null
 			sleep(world.tick_lag*4)
 			//you might be thinking of adding more steps to this, or making it use a loop and a counter var
 			//	not worth it.
+
+// This proc gets a list of all "points of interest" (poi's) that can be used by admins to track valuable mobs or atoms (such as the nuke disk).
+/proc/getpois(mobs_only=0,skip_mindless=0)
+	var/list/mobs = sortmobs()
+	var/list/names = list()
+	var/list/pois = list()
+	var/list/namecounts = list()
+
+	for(var/mob/M in mobs)
+		if(skip_mindless && (!M.mind && !M.ckey))
+			if(!isbot(M) && !istype(M, /mob/camera/))
+				continue
+		if(M.client && M.client.holder && M.client.holder.fakekey) //stealthmins
+			continue
+		var/name = M.name
+		if(name in names)
+			namecounts[name]++
+			name = "[name] ([namecounts[name]])"
+		else
+			names.Add(name)
+			namecounts[name] = 1
+		if(M.real_name && M.real_name != M.name)
+			name += " \[[M.real_name]\]"
+		if(M.stat == DEAD)
+			if(istype(M, /mob/dead/observer/))
+				name += " \[ghost\]"
+			else
+				name += " \[dead\]"
+		pois[name] = M
+
+	if(!mobs_only)
+		for(var/atom/A in poi_list)
+			if(!A || !A.loc)
+				continue
+			var/name = A.name
+			if(names.Find(name))
+				namecounts[name]++
+				name = "[name] ([namecounts[name]])"
+			else
+				names.Add(name)
+				namecounts[name] = 1
+			pois[name] = A
+
+	return pois
+	
+/proc/flash_color(mob_or_client, flash_color="#960000", flash_time=20)
+	var/client/C
+	if(istype(mob_or_client, /mob))
+		var/mob/M = mob_or_client
+		if(M.client)
+			C = M.client
+		else
+			return
+	else if(istype(mob_or_client, /client))
+		C = mob_or_client
+
+	if(!istype(C))
+		return
+
+	C.color = flash_color
+	spawn(0)
+		animate(C, color = initial(C.color), time = flash_time)
+		
+#define RANDOM_COLOUR (rgb(rand(0,255),rand(0,255),rand(0,255)))
 
 /proc/make_bit_triplet()
 	var/list/num_sample  = list(1, 2, 3, 4, 5, 6, 7, 8, 9)

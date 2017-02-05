@@ -206,7 +206,7 @@
 	nodamage = 1
 	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE
 	hitsound = 'sound/items/bikehorn.ogg'
-	icon = 'icons/obj/harvest.dmi'
+	icon = 'icons/obj/hydroponics/harvest.dmi'
 	icon_state = "banana"
 	range = 200
 
@@ -243,8 +243,8 @@
 
 /obj/item/projectile/bullet/dart/New()
 	..()
-	flags |= NOREACT
 	create_reagents(50)
+	reagents.set_reacting(FALSE)
 
 /obj/item/projectile/bullet/dart/on_hit(var/atom/target, var/blocked = 0, var/hit_zone)
 	if(iscarbon(target))
@@ -260,7 +260,7 @@
 				target.visible_message("<span class='danger'>The [name] was deflected!</span>", \
 									"<span class='userdanger'>You were protected against the [name]!</span>")
 	..(target, blocked, hit_zone)
-	flags &= ~NOREACT
+	reagents.set_reacting(TRUE)
 	reagents.handle_reactions()
 	return 1
 

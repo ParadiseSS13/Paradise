@@ -17,8 +17,7 @@
 	message_admins("Admin [key_name_admin(usr)] has restarted the [controller] controller.")
 	return
 
-
-/client/proc/debug_controller(controller in list("Master","failsafe","Ticker","Air","Lighting","Jobs","Sun","Radio","Configuration","pAI", "Cameras","Garbage", "Transfer Controller","Event","Alarm","Scheduler","Nano","Vote","Mob Hunt Server"))
+/client/proc/debug_controller(controller in list("Master","failsafe","Ticker","Air","Lighting","Jobs","Sun","Radio","Configuration","pAI", "Cameras","Garbage", "Transfer Controller","Event","Alarm","Scheduler","Nano","Vote","Diseases","Fires","Mob","NPC AI","Shuttle","Timer","Weather","Space","Mob Hunt Server"))
 	set category = "Debug"
 	set name = "Debug Controller"
 	set desc = "Debug the various periodic loop controllers for the game (be careful!)"
@@ -76,6 +75,30 @@
 		if("Vote")
 			debug_variables(vote)
 			feedback_add_details("admin_verb","DVote")
+		if("Diseases")
+			debug_variables(disease_master)
+			feedback_add_details("admin_verb","DDiseases")
+		if("Fires")
+			debug_variables(fire_master)
+			feedback_add_details("admin_verb","DFires")
+		if("Mob")
+			debug_variables(mob_master)
+			feedback_add_details("admin_verb","DMob")
+		if("NPC AI")
+			debug_variables(npcai_master)
+			feedback_add_details("admin_verb","DNPCAI")
+		if("Shuttle")
+			debug_variables(shuttle_master)
+			feedback_add_details("admin_verb","DShuttle")
+		if("Timer")
+			debug_variables(timer_master)
+			feedback_add_details("admin_verb","DTimer")
+		if("Weather")
+			debug_variables(weather_master)
+			feedback_add_details("admin_verb","DWeather")
+		if("Space")
+			debug_variables(space_manager)
+			feedback_add_details("admin_verb","DSpace")
 		if("Mob Hunt Server")
 			debug_variables(mob_hunt_server)
 			feedback_add_details("admin_verb","DMobHuntServer")

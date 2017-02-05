@@ -48,11 +48,7 @@
 		return 0
 	for(var/Type in subtypesof(/datum/deepfryer_special))
 		var/datum/deepfryer_special/P = new Type()
-		if(istype(I, /obj/item/weapon/reagent_containers/food/snacks/grown))
-			var/obj/item/weapon/reagent_containers/food/snacks/grown/G = I
-			if(G.seed.kitchen_tag != P.input)
-				continue
-		else if(!istype(I, P.input))
+		if(!istype(I, P.input))
 			continue
 		return P
 	return 0

@@ -119,6 +119,7 @@ var/list/adminhelp_ignored_words = list("unknown","the","a","an","of","monkey","
 			for(var/client/X in modholders + adminholders)
 				if(X.prefs.sound & SOUND_ADMINHELP)
 					X << 'sound/effects/adminhelp.ogg'
+				window_flash(X)
 				to_chat(X, msg)
 
 	//show it to the person adminhelping too

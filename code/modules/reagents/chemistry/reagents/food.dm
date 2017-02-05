@@ -282,6 +282,14 @@
 	nutriment_factor = 5 * REAGENTS_METABOLISM
 	color = "#302000" // rgb: 48, 32, 0
 
+/datum/reagent/consumable/vanilla
+	name = "Vanilla Powder"
+	id = "vanilla"
+	description = "A fatty, bitter paste made from vanilla pods."
+	reagent_state = SOLID
+	nutriment_factor = 5 * REAGENTS_METABOLISM
+	color = "#FFFACD"
+
 /datum/reagent/consumable/hot_coco
 	name = "Hot Chocolate"
 	id = "hot_coco"
@@ -392,6 +400,13 @@
 	description = "Totally the best. Only to be spread on foods with excellent lateral symmetry."
 	reagent_state = LIQUID
 	color = "#801E28" // rgb: 128, 30, 40
+
+/datum/reagent/consumable/bluecherryjelly
+	name = "Blue Cherry Jelly"
+	id = "bluecherryjelly"
+	description = "Blue and tastier kind of cherry jelly."
+	reagent_state = LIQUID
+	color = "#00F0FF"
 
 /datum/reagent/consumable/egg
 	name = "Egg"
@@ -832,3 +847,51 @@
 	if(volume >= 5 && !istype(T, /turf/space))
 		new /obj/effect/decal/cleanable/vomit/green(T)
 		playsound(T, 'sound/effects/splat.ogg', 50, 1, -3)
+		
+////Lavaland Flora Reagents////
+
+/datum/reagent/consumable/entpoly
+	name = "Entropic Polypnium"
+	id = "entpoly"
+	description = "An ichor, derived from a certain mushroom, makes for a bad time."
+	color = "#1d043d"
+
+/datum/reagent/consumable/entpoly/on_mob_life(mob/living/M)
+	if(current_cycle >= 10)
+		M.Paralyse(2)
+	if(prob(20))
+		M.LoseBreath(4)
+		M.adjustBrainLoss(2 * REAGENTS_EFFECT_MULTIPLIER)
+		M.adjustToxLoss(3 * REAGENTS_EFFECT_MULTIPLIER)
+		M.adjustStaminaLoss(10 * REAGENTS_EFFECT_MULTIPLIER)
+		M.EyeBlurry(5)
+	..()
+
+/datum/reagent/consumable/tinlux
+	name = "Tinea Luxor"
+	id = "tinlux"
+	description = "A stimulating ichor which causes luminescent fungi to grow on the skin. "
+	color = "#b5a213"
+	var/light_activated = 0
+
+/datum/reagent/consumable/tinlux/on_mob_life(mob/living/M)
+	if(!light_activated)
+		M.set_light(2)
+		light_activated = 1
+	..()	
+
+/datum/reagent/consumable/tinlux/on_mob_delete(mob/living/M)
+	M.set_light(0)
+
+/datum/reagent/consumable/vitfro
+	name = "Vitrium Froth"
+	id = "vitfro"
+	description = "A bubbly paste that heals wounds of the skin."
+	color = "#d3a308"
+	nutriment_factor = 3 * REAGENTS_METABOLISM
+
+/datum/reagent/consumable/vitfro/on_mob_life(mob/living/M)
+	if(prob(80))
+		M.adjustBruteLoss(-1 * REAGENTS_EFFECT_MULTIPLIER)
+		M.adjustFireLoss(-1 * REAGENTS_EFFECT_MULTIPLIER)
+	..()

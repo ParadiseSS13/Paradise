@@ -239,6 +239,7 @@ em						{font-style: normal;	font-weight: bold;}
 .playerreply			{color: #8800bb;	font-weight: bold;}
 .name					{					font-weight: bold;}
 .say					{}
+.yell					{					font-weight: bold;}
 .siliconsay				{font-family: 'Courier New', Courier, monospace;}
 .deadsay				{color: #5c00e6;}
 .radio					{color: #008000;}
@@ -323,8 +324,9 @@ h1.alert, h2.alert			{color: #000000;}
 .cult					{color: #800080; font-weight: bold; font-style: italic;}
 .cultspeech				{color: #7F0000; font-style: italic;}
 .cultitalic				{color: #960000; font-style: italic;}
-.cultlarge				{color: #960000; font-weight: bold; font-size: 3;}
-.narsie					{color: #960000; font-weight: bold; font-size: 15;}
+.cultlarge				{color: #960000; font-weight: bold; font-size: 120%;}
+.narsie					{color: #960000; font-weight: bold; font-size: 300%;}
+.narsiesmall			{color: #960000; font-weight: bold; font-size: 200%;}
 .interface				{color: #330033;}
 .big					{font-size: 150%;}
 .reallybig				{font-size: 175%;}
@@ -341,10 +343,10 @@ h1.alert, h2.alert			{color: #000000;}
 
 .revennotice				{color: #1d2953;}
 .revenboldnotice			{color: #1d2953;	font-weight: bold;}
-.revenbignotice				{color: #1d2953;	font-weight: bold; font-size: 3;}
+.revenbignotice				{color: #1d2953;	font-weight: bold; font-size: 120%;}
 .revenminor				{color: #823abb}
 .revenwarning				{color: #760fbb;	font-style: italic;}
-.revendanger				{color: #760fbb;	font-weight: bold; font-size: 3;}
+.revendanger				{color: #760fbb;	font-weight: bold; font-size: 120%;}
 
 /* /vg/ */
 .good					{color: green;}
@@ -358,7 +360,7 @@ h1.alert, h2.alert			{color: #000000;}
 "}
 
 .memo					{color: #638500;	text-align: center;}
-.memoedit				{text-align: center;	font-size: 2;}
+.memoedit				{text-align: center;	font-size: 75%;}
 
 .connectionClosed, .fatalError {background: red; color: white; padding: 5px;}
 .connectionClosed.restored {background: green;}
@@ -367,6 +369,11 @@ h1.alert, h2.alert			{color: #000000;}
 /* HELPER CLASSES */
 .text-normal {font-weight: normal; font-style: normal;}
 .hidden {display: none; visibility: hidden;}
+
+/* MEGAFAUNA */
+.colossus				{color: #7F282A; font-size: 175%;}
+.hierophant				{color: #660099; font-weight: bold; font-size: 150%;}
+.hierophant_warning		{color: #660099; font-weight: bold; font-style: italic;}
 
 /* EMOJI STUFF */
 .emoji {max-height: 16px; max-width: 16px}

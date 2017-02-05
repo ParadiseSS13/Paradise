@@ -4,27 +4,29 @@
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "juicer1"
 	layer = 2.9
-	density = 0
+	density = 1
 	anchored = 0
 	use_power = 1
 	idle_power_usage = 5
 	active_power_usage = 100
+	pass_flags = PASSTABLE
 	var/obj/item/weapon/reagent_containers/beaker = null
-	var/global/list/allowed_items = list(
+	var/global/list/allowed_items = list (
+		/obj/item/weapon/reagent_containers/food/snacks/grown/tomato  = "tomatojuice",
+		/obj/item/weapon/reagent_containers/food/snacks/grown/carrot  = "carrotjuice",
+		/obj/item/weapon/reagent_containers/food/snacks/grown/grapes = "grapejuice",
+		/obj/item/weapon/reagent_containers/food/snacks/grown/grapes/green = "grapejuice",
+		/obj/item/weapon/reagent_containers/food/snacks/grown/banana  = "banana",
+		/obj/item/weapon/reagent_containers/food/snacks/grown/potato = "potato",
+		/obj/item/weapon/reagent_containers/food/snacks/grown/citrus/lemon = "lemonjuice",
+		/obj/item/weapon/reagent_containers/food/snacks/grown/citrus/orange = "orangejuice",
+		/obj/item/weapon/reagent_containers/food/snacks/grown/citrus/lime = "limejuice",
+		/obj/item/weapon/reagent_containers/food/snacks/grown/watermelon = "watermelonjuice",
 		/obj/item/weapon/reagent_containers/food/snacks/watermelonslice = "watermelonjuice",
-		/obj/item/weapon/reagent_containers/food/snacks/grown = "water",
-	)
-
-	var/global/list/allowed_tags = list (
-		"tomato"  = "tomatojuice",
-		"carrot"  = "carrotjuice",
-		"berries" = "berryjuice",
-		"banana" = "banana",
-		"potato" = "potato",
-		"lemon" = "lemonjuice",
-		"orange" = "orangejuice",
-		"lime" = "limejuice",
-		"poisonberries" = "poisonberryjuice",
+		/obj/item/weapon/reagent_containers/food/snacks/grown/berries/poison = "poisonberryjuice",
+		/obj/item/weapon/reagent_containers/food/snacks/grown/berries = "berryjuice",
+		/obj/item/weapon/reagent_containers/food/snacks/grown/pumpkin = "pumpkinjuice",
+		/obj/item/weapon/reagent_containers/food/snacks/grown/blumpkin = "blumpkinjuice",
 	)
 
 /obj/machinery/juicer/New()
@@ -135,23 +137,18 @@
 	beaker = null
 	update_icon()
 
-/obj/machinery/juicer/proc/get_juice_id(var/obj/item/weapon/reagent_containers/food/snacks/O)
-	if(istype(O, /obj/item/weapon/reagent_containers/food/snacks/watermelonslice))
-		return "watermelonjuice"
-	else if(istype(O, /obj.item/weapon/reagent_containers/food/snacks/grown))
-		var/obj/item/weapon/reagent_containers/food/snacks/grown/G = O
-		for(var/i in allowed_tags)
-			if(G.seed.kitchen_tag == allowed_tags[i])
-				return allowed_tags[i]
-		return "water"
+/obj/machinery/juicer/proc/get_juice_id(obj/item/weapon/reagent_containers/food/snacks/grown/O)
+	for (var/i in allowed_items)
+		if (istype(O, i))
+			return allowed_items[i]
 
-/obj/machinery/juicer/proc/get_juice_amount(var/obj/item/weapon/reagent_containers/food/snacks/grown/O)
-	if(!istype(O))
+/obj/machinery/juicer/proc/get_juice_amount(obj/item/weapon/reagent_containers/food/snacks/grown/O)
+	if(!istype(O) || !O.seed)
 		return 5
-	else if(O.potency == -1)
+	else if (O.seed.potency == -1)
 		return 5
 	else
-		return round(5*sqrt(O.potency))
+		return round(5*sqrt(O.seed.potency))
 
 /obj/machinery/juicer/proc/juice()
 	power_change() //it is a portable machine
@@ -167,19 +164,21 @@
 		if(beaker.reagents.total_volume >= beaker.reagents.maximum_volume)
 			break
 
-/obj/structure/closet/crate/juice
-	New()
-		..()
-		new/obj/machinery/juicer(src)
-		new/obj/item/weapon/reagent_containers/food/snacks/grown/tomato(src)
-		new/obj/item/weapon/reagent_containers/food/snacks/grown/carrot(src)
-		new/obj/item/weapon/reagent_containers/food/snacks/grown/berries(src)
-		new/obj/item/weapon/reagent_containers/food/snacks/grown/banana(src)
-		new/obj/item/weapon/reagent_containers/food/snacks/grown/tomato(src)
-		new/obj/item/weapon/reagent_containers/food/snacks/grown/carrot(src)
-		new/obj/item/weapon/reagent_containers/food/snacks/grown/berries(src)
-		new/obj/item/weapon/reagent_containers/food/snacks/grown/banana(src)
-		new/obj/item/weapon/reagent_containers/food/snacks/grown/tomato(src)
-		new/obj/item/weapon/reagent_containers/food/snacks/grown/carrot(src)
-		new/obj/item/weapon/reagent_containers/food/snacks/grown/berries(src)
-		new/obj/item/weapon/reagent_containers/food/snacks/grown/banana(src)
+/obj/structure/closet/crate/juice/New()
+	..()
+	new/obj/machinery/juicer(src)
+	new/obj/item/weapon/reagent_containers/food/snacks/grown/tomato(src)
+	new/obj/item/weapon/reagent_containers/food/snacks/grown/carrot(src)
+	new/obj/item/weapon/reagent_containers/food/snacks/grown/berries(src)
+	new/obj/item/weapon/reagent_containers/food/snacks/grown/banana(src)
+	new/obj/item/weapon/reagent_containers/food/snacks/grown/grapes(src)
+	new/obj/item/weapon/reagent_containers/food/snacks/grown/tomato(src)
+	new/obj/item/weapon/reagent_containers/food/snacks/grown/carrot(src)
+	new/obj/item/weapon/reagent_containers/food/snacks/grown/berries(src)
+	new/obj/item/weapon/reagent_containers/food/snacks/grown/banana(src)
+	new/obj/item/weapon/reagent_containers/food/snacks/grown/grapes(src)
+	new/obj/item/weapon/reagent_containers/food/snacks/grown/tomato(src)
+	new/obj/item/weapon/reagent_containers/food/snacks/grown/carrot(src)
+	new/obj/item/weapon/reagent_containers/food/snacks/grown/berries(src)
+	new/obj/item/weapon/reagent_containers/food/snacks/grown/banana(src)
+	new/obj/item/weapon/reagent_containers/food/snacks/grown/grapes(src)

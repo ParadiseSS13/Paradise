@@ -230,6 +230,7 @@ to destroy them and players will be able to make replacements.
 	var/list/names_paths = list("Booze-O-Mat" = /obj/machinery/vending/boozeomat,
 							"Solar's Best Hot Drinks" = /obj/machinery/vending/coffee,
 							"Getmore Chocolate Corp" = /obj/machinery/vending/snack,
+							"Mr. Chang" = /obj/machinery/vending/chinese,
 							"Robust Softdrinks" = /obj/machinery/vending/cola,
 							"ShadyCigs Deluxe" = /obj/machinery/vending/cigarette,
 							"AutoDrobe" = /obj/machinery/vending/autodrobe,
@@ -334,14 +335,37 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stack/cable_coil = 1,
 							/obj/item/weapon/stock_parts/console_screen = 1)
 
+/obj/item/weapon/circuitboard/plantgenes
+	name = "Plant DNA Manipulator (Machine Board)"
+	build_path = /obj/machinery/plantgenes
+	board_type = "machine"
+	origin_tech = "programming=3;biotech=3"
+	frame_desc = "Requires 1 Manipulator, 1 Micro Laser, 1 Console Screen, and 1 Scanning Module."
+	req_components = list(
+							/obj/item/weapon/stock_parts/manipulator = 1,
+							/obj/item/weapon/stock_parts/micro_laser = 1,
+							/obj/item/weapon/stock_parts/console_screen = 1,
+							/obj/item/weapon/stock_parts/scanning_module = 1)
+
+/obj/item/weapon/circuitboard/seed_extractor
+	name = "circuit board (Seed Extractor)"
+	build_path = /obj/machinery/seed_extractor
+	board_type = "machine"
+	origin_tech = "programming=1"
+	frame_desc = "Requires 1 Matter Bin and 1 Manipulator."
+	req_components = list(
+							/obj/item/weapon/stock_parts/matter_bin = 1,
+							/obj/item/weapon/stock_parts/manipulator = 1)
+
 /obj/item/weapon/circuitboard/hydroponics
 	name = "circuit board (Hydroponics Tray)"
-	build_path = /obj/machinery/portable_atmospherics/hydroponics
+	build_path = /obj/machinery/hydroponics/constructable
 	board_type = "machine"
 	origin_tech = "programming=1;biotech=1"
-	frame_desc = "Requires 2 Matter Bins and 1 Console Screen."
+	frame_desc = "Requires 2 Matter Bins, 1 Manipulator, and 1 Console Screen."
 	req_components = list(
 							/obj/item/weapon/stock_parts/matter_bin = 2,
+							/obj/item/weapon/stock_parts/manipulator = 1,
 							/obj/item/weapon/stock_parts/console_screen = 1)
 
 /obj/item/weapon/circuitboard/microwave
@@ -924,26 +948,6 @@ obj/item/weapon/circuitboard/rdserver
 							/obj/item/weapon/stock_parts/manipulator = 1,
 							/obj/item/weapon/stock_parts/console_screen = 1,
 							/obj/item/stack/cable_coil = 1)
-
-/obj/item/weapon/circuitboard/botany_extractor
-	name = "circuit board (Lysis-Isolation Centrifuge)"
-	build_path = /obj/machinery/botany/extractor
-	board_type = "machine"
-	origin_tech = "biotech=3;programming=3"
-	req_components = list(
-							/obj/item/weapon/stock_parts/matter_bin = 1,
-							/obj/item/weapon/stock_parts/scanning_module = 1,
-							/obj/item/weapon/stock_parts/console_screen = 1)
-
-/obj/item/weapon/circuitboard/botany_editor
-	name = "circuit board (Bioballistic Delivery System)"
-	build_path = /obj/machinery/botany/editor
-	board_type = "machine"
-	origin_tech = "biotech=3;programming=3"
-	req_components = list(
-							/obj/item/weapon/stock_parts/matter_bin = 1,
-							/obj/item/weapon/stock_parts/manipulator = 1,
-							/obj/item/weapon/stock_parts/console_screen = 1)
 
 /obj/item/weapon/circuitboard/gameboard
 	name = "circuit board (Virtual Gameboard)"
