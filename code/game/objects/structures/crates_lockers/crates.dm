@@ -572,3 +572,38 @@
 		new /obj/item/weapon/storage/box/beakers(src)
 		new /obj/item/weapon/hand_labeler(src)
 		new /obj/item/weapon/hand_labeler(src)
+
+/obj/structure/closet/crate/sci
+	name = "science crate"
+	desc = "A science crate."
+	icon_state = "scicrate"
+	icon_opened = "scicrateopen"
+	icon_closed = "scicrate"
+
+/obj/structure/closet/crate/secure/scisec
+	name = "secure science crate"
+	desc = "A crate with a lock on it, painted in the scheme of the station's scientists."
+	icon_state = "scisecurecrate"
+	icon_opened = "scisecurecrateopen"
+	icon_closed = "scisecurecrate"
+
+/obj/structure/closet/crate/engineering
+	name = "engineering crate"
+	desc = "An engineering crate."
+	icon_state = "engicrate"
+	icon_opened = "engicrateopen"
+	icon_closed = "engicrate"
+
+/obj/structure/closet/crate/secure/engineering
+	name = "secure engineering crate"
+	desc = "A crate with a lock on it, painted in the scheme of the station's engineers."
+	icon_state = "engisecurecrate"
+	icon_opened = "engisecurecrateopen"
+	icon_closed = "engisecurecrate"
+
+/obj/structure/closet/crate/engineering/electrical
+	name = "electrical engineering crate"
+	desc = "An electrical engineering crate."
+	icon_state = "electricalcrate"
+	icon_opened = "electricalcrateopen"
+	icon_closed = "electricalcrate"
