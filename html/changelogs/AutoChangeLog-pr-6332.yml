@@ -1,0 +1,4 @@
+author: "uraniummeltdown"
+delete-after: True
+changes: 
+  - bugfix: "Supply ID skin is now selectable in the Agent ID and ID Computer"
