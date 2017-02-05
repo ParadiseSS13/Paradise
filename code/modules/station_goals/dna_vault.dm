@@ -24,9 +24,9 @@
 
 /datum/station_goal/dna_vault/proc/non_standard_plants_count()
 	. = 0
-	for(var/T in plant_controller.seeds)
-		var/datum/seed/S = plant_controller.seeds[T]
-		if(S.get_trait(TRAIT_RARITY) > 0)
+	for(var/T in subtypesof(/obj/item/seeds)) //put a cache if it's used anywhere else
+		var/obj/item/seeds/S = T
+		if(initial(S.rarity) > 0)
 			.++
 
 /datum/station_goal/dna_vault/get_report()
@@ -79,17 +79,17 @@ var/list/non_simple_animals = typecacheof(list(/mob/living/carbon/human/monkey,/
 	if(!proximity || !target)
 		return
 	//tray plants
-	if(istype(target,/obj/machinery/portable_atmospherics/hydroponics))
-		var/obj/machinery/portable_atmospherics/hydroponics/H = target
-		if(!H.seed)
+	if(istype(target,/obj/machinery/hydroponics))
+		var/obj/machinery/hydroponics/H = target
+		if(!H.myseed)
 			return
 		if(!H.harvest)// So it's bit harder.
 			to_chat(user, "<span clas='warning'>Plants needs to be ready to harvest to perform full data scan.</span>") //Because space dna is actually magic
 			return
-		if(plants[H.seed.type])
+		if(plants[H.myseed.type])
 			to_chat(user, "<span class='notice'>Plant data already present in local storage.<span>")
 			return
-		plants[H.seed.type] = 1
+		plants[H.myseed.type] = 1
 		to_chat(user, "<span class='notice'>Plant data added to local storage.<span>")
 
 	//animals

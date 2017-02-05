@@ -17,6 +17,8 @@
 #define CLICK_CD_TKSTRANGLE 10
 #define CLICK_CD_POINT 10
 #define CLICK_CD_RESIST 20
+#define CLICK_CD_CLICK_ABILITY 6
+#define CLICK_CD_RAPID 2
 
 //Sizes of mobs, used by mob/living/var/mob_size
 #define MOB_SIZE_TINY 0
@@ -160,6 +162,7 @@
 #define MAT_PLASMA			"$plasma"
 #define MAT_BANANIUM		"$bananium"
 #define MAT_TRANQUILLITE	"$tranquillite"
+#define MAT_BIOMASS			"$biomass"
 
 #define MAX_STACK_SIZE 50
 
@@ -298,7 +301,6 @@
 
 // The cooldown on OOC messages such as OOC, LOOC, praying and adminhelps
 #define OOC_COOLDOWN 5
-
 
 // Medal names
 #define BOSS_KILL_MEDAL "Killer"
