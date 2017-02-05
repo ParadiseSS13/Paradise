@@ -14,7 +14,8 @@
 					nanoui_fancy,
 					show_ghostitem_attack,
 					lastchangelog,
-					exp
+					exp,
+					windowflashing
 					FROM [format_table_name("player")]
 					WHERE ckey='[C.ckey]'"}
 					)
@@ -42,6 +43,7 @@
 		show_ghostitem_attack = text2num(query.item[12])
 		lastchangelog = query.item[13]
 		exp = query.item[14]
+		windowflashing = text2num(query.item[15])
 
 	//Sanitize
 	ooccolor		= sanitize_hexcolor(ooccolor, initial(ooccolor))
@@ -57,6 +59,7 @@
 	show_ghostitem_attack = sanitize_integer(show_ghostitem_attack, 0, 1, initial(show_ghostitem_attack))
 	lastchangelog	= sanitize_text(lastchangelog, initial(lastchangelog))
 	exp	= sanitize_text(exp, initial(exp))
+	windowflashing = sanitize_integer(windowflashing, 0, 1, initial(windowflashing))
 	return 1
 
 /datum/preferences/proc/save_preferences(client/C)
@@ -500,21 +503,24 @@
 		return
 	return 1
 
-/*
-/datum/preferences/proc/random_character(client/C)
+/datum/preferences/proc/load_random_character_slot(client/C)
 	var/DBQuery/query = dbcon.NewQuery("SELECT slot FROM [format_table_name("characters")] WHERE ckey='[C.ckey]' ORDER BY slot")
+	var/list/saves = list()
+
+	if(!query.Execute())
+		var/err = query.ErrorMsg()
+		log_game("SQL ERROR during random character slot picking. Error : \[[err]\]\n")
+		message_admins("SQL ERROR during random character slot picking. Error : \[[err]\]\n")
+		return
 
 	while(query.NextRow())
-	var/list/saves = list()
-	for(var/i=1, i<=MAX_SAVE_SLOTS, i++)
-		if(i==text2num(query.item[1]))
-			saves += i
+		saves += text2num(query.item[1])
 
 	if(!saves.len)
 		load_character(C)
 		return 0
 	load_character(C,pick(saves))
-	return 1*/
+	return 1
 
 /datum/preferences/proc/SetChangelog(client/C,hash)
 	lastchangelog=hash

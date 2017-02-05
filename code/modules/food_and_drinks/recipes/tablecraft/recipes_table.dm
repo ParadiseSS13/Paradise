@@ -6,7 +6,6 @@
 	tools[] = list()	//type paths of items needed but not consumed
 	time = 30			//time in deciseconds
 	parts[] = list()	//type paths of items that will be placed in the result
-	fruit[] = list()	//grown products required by the recipe
 */
 
 /datum/crafting_recipe/sandwich
@@ -54,45 +53,6 @@
 	)
 	result = /obj/item/weapon/reagent_containers/food/snacks/jellyburger/cherry
 	category = CAT_FOOD
-
-/* Temporarily disabled until we can find a workaround for this fruit shit.
-/datum/crafting_recipe/herbsalad
-	name = "herb salad"
-	fruit = list("ambrosia" = 3, "apple" = 1)
-	result = /obj/item/weapon/reagent_containers/food/snacks/herbsalad
-
-/datum/crafting_recipe/herbsalad/AdjustChems(var/obj/resultobj as obj)
-	if(istype(resultobj, /obj/item/weapon/reagent_containers))
-		var/obj/item/weapon/reagent_containers/RC = resultobj
-		RC.reagents.del_reagent("toxin")
-
-/datum/crafting_recipe/aesirsalad
-	name = "Aesir salad"
-	fruit = list("ambrosiadeus" = 3, "goldapple" = 1)
-	result = /obj/item/weapon/reagent_containers/food/snacks/aesirsalad
-
-/datum/crafting_recipe/validsalad
-	name = "valid salad"
-	fruit = list("ambrosia" = 3, "potato" = 1)
-	reqs = list(
-		/obj/item/weapon/reagent_containers/food/snacks/meatball = 1,
-	)
-	result = /obj/item/weapon/reagent_containers/food/snacks/validsalad
-
-/datum/crafting_recipe/validsalad/AdjustChems(var/obj/resultobj as obj)
-	if(istype(resultobj, /obj/item/weapon/reagent_containers))
-		var/obj/item/weapon/reagent_containers/RC = resultobj
-		RC.reagents.del_reagent("toxin")
-
-/datum/crafting_recipe/wrap
-	name = "egg wrap"
-	fruit = list("cabbage" = 1)
-	reqs = list(
-		/datum/reagent/soysauce = 10,
-		/obj/item/weapon/reagent_containers/food/snacks/friedegg = 1,
-	)
-	result = /obj/item/weapon/reagent_containers/food/snacks/wrap
-*/
 
 /datum/crafting_recipe/notasandwich
 	name = "not-a-sandwich"

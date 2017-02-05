@@ -9,7 +9,7 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 	config_tag = "changeling"
 	restricted_jobs = list("AI", "Cyborg")
 	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Blueshield", "Nanotrasen Representative", "Security Pod Pilot", "Magistrate", "Brig Physician", "Internal Affairs Agent", "Nanotrasen Navy Officer", "Special Operations Officer")
-	protected_species = list("Machine", "Slime People", "Plasmaman")
+	protected_species = list("Machine")
 	required_players = 15
 	required_enemies = 1
 	recommended_enemies = 4
@@ -55,6 +55,7 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 			changeling.restricted_roles = restricted_jobs
 			modePlayer += changelings
 			changeling.special_role = SPECIAL_ROLE_CHANGELING
+		..()
 		return 1
 	else
 		return 0
@@ -227,9 +228,9 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 	var/dna_max = 5 //How many total DNA strands the changeling can store for transformation.
 	var/absorbedcount = 1 //Would require at least 1 sample to take on the form of a human
 	var/chem_charges = 20
-	var/chem_recharge_rate = 0.5
+	var/chem_recharge_rate = 1
 	var/chem_recharge_slowdown = 0
-	var/chem_storage = 50
+	var/chem_storage = 75
 	var/sting_range = 2
 	var/changelingID = "Changeling"
 	var/geneticdamage = 0
@@ -313,18 +314,10 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 		to_chat(user, "<span class='warning'>This creature does not have DNA!</span>")
 		return
 
-	if(T.species.flags & NO_SCAN)
-		to_chat(user, "<span class='warning'>We do not know how to parse this creature's DNA!</span>")
-		return
-
-	if(T.species.flags & NO_BLOOD)
-		to_chat(user, "<span class='warning'>We are not able to use the DNA of a creature without a circulatory system.</span>")
-		return
-
 	if(has_dna(target.dna))
 		to_chat(user, "<span class='warning'>We already have this DNA in storage!</span>")
 
 	return 1
 
 /proc/check_species_absorb(datum/species/S)
-  return !((S.flags & NO_DNA) || (S.flags & NO_SCAN) || (S.flags & NO_BLOOD))
+  return !(S.flags & NO_DNA)

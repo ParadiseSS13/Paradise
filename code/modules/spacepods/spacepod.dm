@@ -213,7 +213,7 @@
 		var/damage = rand(user.melee_damage_lower, user.melee_damage_upper)
 		deal_damage(damage)
 		visible_message("<span class='danger'>[user]</span> [user.attacktext] [src]!")
-		user.attack_log += text("\[[time_stamp()]\] <font color='red'>attacked [src.name]</font>")
+		user.create_attack_log("<font color='red'>attacked [src.name]</font>")
 	return
 
 /obj/spacepod/attack_alien(mob/user as mob)

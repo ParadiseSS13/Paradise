@@ -152,8 +152,6 @@
 	icon_state = "burnkit"
 	heal_burn = 25
 
-
-
 //Medical Herbs//
 
 
@@ -161,8 +159,8 @@
 	name = "\improper Comfrey leaf"
 	singular_name = "Comfrey leaf"
 	desc = "A soft leaf that is rubbed on bruises."
-	icon = 'icons/obj/hydroponics_products.dmi'
-	icon_state = "alien3-product"
+	icon = 'icons/obj/hydroponics/harvest.dmi'
+	icon_state = "tea_aspera_leaves"
 	color = "#378C61"
 	heal_brute = 12
 
@@ -171,11 +169,10 @@
 	name = "\improper Aloe Vera leaf"
 	singular_name = "Aloe Vera leaf"
 	desc = "A cold leaf that is rubbed on burns."
-	icon = 'icons/obj/hydroponics_products.dmi'
-	icon_state = "ambrosia-product"
+	icon = 'icons/obj/hydroponics/harvest.dmi'
+	icon_state = "ambrosiavulgaris"
 	color = "#4CC5C7"
 	heal_burn = 12
-
 
 
 //Splits//

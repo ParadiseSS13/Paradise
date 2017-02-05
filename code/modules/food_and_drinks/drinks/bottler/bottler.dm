@@ -213,12 +213,7 @@
 		for(var/i = 1, i <= slots.len, i++)
 			var/obj/item/O = slots[i]
 			if(istype(O, recipe.ingredients[i]))
-				if(istype(O, /obj/item/weapon/reagent_containers/food/snacks/grown))
-					var/obj/item/weapon/reagent_containers/food/snacks/grown/G = O
-					if(G.seed && G.seed.kitchen_tag == recipe.tags[i])
-						number_matches++
-				else
-					number_matches++
+				number_matches++
 		if(number_matches == 3)
 			return recipe
 	return null

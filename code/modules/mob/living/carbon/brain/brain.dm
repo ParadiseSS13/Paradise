@@ -10,6 +10,7 @@
 
 /mob/living/carbon/brain/New()
 	create_reagents(330)
+	add_language("Galactic Common")
 	..()
 
 /mob/living/carbon/brain/Destroy()

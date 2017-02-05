@@ -769,3 +769,76 @@
 	result_amount = 3
 	mix_message = "The citrus juices begin to blend together."
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/chocolatepudding
+	name = "Chocolate Pudding"
+	id = "chocolatepudding"
+	result = "chocolatepudding"
+	required_reagents = list("cocoa" = 5, "milk" = 5, "egg" = 5)
+	result_amount = 20
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/vanillapudding
+	name = "Vanilla Pudding"
+	id = "vanillapudding"
+	result = "vanillapudding"
+	required_reagents = list("vanilla" = 5, "milk" = 5, "egg" = 5)
+	result_amount = 20
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/cherryshake
+	name = "Cherry Shake"
+	id = "cherryshake"
+	result = "cherryshake"
+	required_reagents = list("cherryjelly" = 1, "ice" = 1, "cream" = 1)
+	result_amount = 3
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/bluecherryshake
+	name = "Blue Cherry Shake"
+	id = "bluecherryshake"
+	result = "bluecherryshake"
+	required_reagents = list("bluecherryjelly" = 1, "ice" = 1, "cream" = 1)
+	result_amount = 3
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/drunkenblumpkin
+	name = "Drunken Blumpkin"
+	id = "drunkenblumpkin"
+	result = "drunkenblumpkin"
+	required_reagents = list("blumpkinjuice" = 1, "irishcream" = 2, "ice" = 1)
+	result_amount = 4
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/pumpkin_latte
+	name = "Pumpkin space latte"
+	id = "pumpkin_latte"
+	result = "pumpkin_latte"
+	required_reagents = list("pumpkinjuice" = 5, "coffee" = 5, "cream" = 5)
+	result_amount = 15
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/gibbfloats
+	name = "Gibb Floats"
+	id = "gibbfloats"
+	result = "gibbfloats"
+	required_reagents = list("dr_gibb" = 5, "ice" = 5, "cream" = 5)
+	result_amount = 15
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/grape_soda
+	name = "grape soda"
+	id = "grapesoda"
+	result = "grapesoda"
+	required_reagents = list("grapejuice" = 1, "sodawater" = 1)
+	result_amount = 2
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/eggnog
+	name = "eggnog"
+	id = "eggnog"
+	result = "eggnog"
+	required_reagents = list("rum" = 5, "cream" = 5, "egg" = 5)
+	result_amount = 15
+	mix_message = "The eggs nog together. Pretend that \"nog\" is a verb."
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'

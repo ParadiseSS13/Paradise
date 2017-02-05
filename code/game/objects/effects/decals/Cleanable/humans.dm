@@ -24,7 +24,7 @@ var/global/list/image/splatter_cache=list()
 /obj/effect/decal/cleanable/blood/New()
 	..()
 	update_icon()
-	if(ticker && ticker.mode && istype(ticker.mode.name, "cult"))
+	if(GAMEMODE_IS_CULT)
 		var/datum/game_mode/cult/mode_ticker = ticker.mode
 		var/turf/T = get_turf(src)
 		if(T && (is_station_level(T.z)))//F I V E   T I L E S
@@ -45,7 +45,7 @@ var/global/list/image/splatter_cache=list()
 		dry()
 
 /obj/effect/decal/cleanable/blood/Destroy()
-	if(ticker.mode && istype(ticker.mode.name, "cult"))
+	if(GAMEMODE_IS_CULT)
 		var/datum/game_mode/cult/mode_ticker = ticker.mode
 		var/turf/T = get_turf(src)
 		if(T && (is_station_level(T.z)))
@@ -117,10 +117,13 @@ var/global/list/image/splatter_cache=list()
 		user.hand_blood_color = basecolor
 		user.update_inv_gloves(1)
 		user.verbs += /mob/living/carbon/human/proc/bloody_doodle
+		
+/obj/effect/decal/cleanable/blood/can_bloodcrawl_in()
+	return amount
 
 /obj/effect/decal/cleanable/blood/splatter
-        random_icon_states = list("mgibbl1", "mgibbl2", "mgibbl3", "mgibbl4", "mgibbl5")
-        amount = 2
+	random_icon_states = list("mgibbl1", "mgibbl2", "mgibbl3", "mgibbl4", "mgibbl5")
+	amount = 2
 
 /obj/effect/decal/cleanable/blood/drip
 	name = "drips of blood"
