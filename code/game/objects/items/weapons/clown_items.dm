@@ -6,26 +6,6 @@
  */
 
 /*
- * Banana Peals
- */
-
-/obj/item/weapon/bananapeel
-	name = "banana peel"
-	desc = "A peel from a banana."
-	icon = 'icons/obj/items.dmi'
-	icon_state = "banana_peel"
-	item_state = "banana_peel"
-	w_class = 1
-	throwforce = 0
-	throw_speed = 4
-	throw_range = 20
-
-/obj/item/weapon/bananapeel/Crossed(AM as mob|obj)
-	if(istype(AM, /mob/living/carbon))
-		var/mob/living/carbon/M =	AM
-		M.slip("banana peel", 4, 2)
-
-/*
  * Soap
  */
 /obj/item/weapon/soap/Crossed(AM as mob|obj) //EXACTLY the same as bananapeel for now, so it makes sense to put it in the same dm -- Urist

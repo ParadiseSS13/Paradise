@@ -282,6 +282,14 @@
 	nutriment_factor = 5 * REAGENTS_METABOLISM
 	color = "#302000" // rgb: 48, 32, 0
 
+/datum/reagent/consumable/vanilla
+	name = "Vanilla Powder"
+	id = "vanilla"
+	description = "A fatty, bitter paste made from vanilla pods."
+	reagent_state = SOLID
+	nutriment_factor = 5 * REAGENTS_METABOLISM
+	color = "#FFFACD"
+
 /datum/reagent/consumable/hot_coco
 	name = "Hot Chocolate"
 	id = "hot_coco"
@@ -392,6 +400,13 @@
 	description = "Totally the best. Only to be spread on foods with excellent lateral symmetry."
 	reagent_state = LIQUID
 	color = "#801E28" // rgb: 128, 30, 40
+
+/datum/reagent/consumable/bluecherryjelly
+	name = "Blue Cherry Jelly"
+	id = "bluecherryjelly"
+	description = "Blue and tastier kind of cherry jelly."
+	reagent_state = LIQUID
+	color = "#00F0FF"
 
 /datum/reagent/consumable/egg
 	name = "Egg"

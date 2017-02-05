@@ -6,7 +6,6 @@
 	var/time = 30 //time in deciseconds
 	var/parts[] = list() //type paths of items that will be placed in the result
 	var/chem_catalists[] = list() //like tools but for reagents
-	var/fruit[] = list()	//grown products required by the recipe
 	var/category = CAT_MISC // Recipe category
 
 /datum/crafting_recipe/proc/AdjustChems(var/obj/resultobj as obj)
@@ -309,3 +308,10 @@
 	reqs = list(/obj/item/stack/sheet/mineral/bananium = 5,
 				/obj/item/weapon/bikehorn)
 	category = CAT_MISC
+
+/datum/crafting_recipe/bonfire
+	name = "Bonfire"
+	time = 60
+	reqs = list(/obj/item/weapon/grown/log = 5)
+	result = /obj/structure/bonfire
+	category = CAT_PRIMAL

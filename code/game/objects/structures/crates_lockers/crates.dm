@@ -568,8 +568,6 @@
 		new /obj/item/weapon/wirecutters(src)
 		new /obj/item/weapon/shovel/spade(src)
 		new /obj/item/weapon/shovel/spade(src)
-		new /obj/item/weapon/storage/box/botanydisk(src)
-		new /obj/item/weapon/storage/box/botanydisk(src)
 		new /obj/item/weapon/storage/box/beakers(src)
 		new /obj/item/weapon/storage/box/beakers(src)
 		new /obj/item/weapon/hand_labeler(src)

@@ -46,13 +46,10 @@
 						to_chat(user, "<span class='warning'>The buzzing inside the briefcase swells momentarily, then returns to normal. Guess it was too cramped...</span>")
 				S.reagents.clear_reagents()
 				S.update_icon()
-	else if(istype(I, /obj/item/weapon/plantspray))
-		var/obj/item/weapon/plantspray/PS = I
-		user.drop_item(PS)
-		bees_left = max(0, (bees_left - PS.pest_kill_str))
-		to_chat(user, "You spray [PS] into \the [src].")
+	else if(istype(I, /obj/item/weapon/reagent_containers/spray/pestspray))
+		bees_left = max(0, (bees_left - 6))
+		to_chat(user, "You spray [I] into [src].")
 		playsound(loc, 'sound/effects/spray3.ogg', 50, 1, -6)
-		qdel(PS)
 
 /obj/item/weapon/bee_briefcase/attack_self(mob/user as mob)
 	if(!bees_left)
