@@ -657,6 +657,10 @@
 		adjustHealth(round(S.get_reagent_amount("nutriment") * 0.5))
 		adjustNutri(round(S.get_reagent_amount("nutriment") * 1))
 
+	if(S.has_reagent("plantmatter", 1))
+		adjustHealth(round(S.get_reagent_amount("plantmatter") * 0.5))
+		adjustNutri(round(S.get_reagent_amount("plantmatter") * 1))
+
 	// Compost for EVERYTHING
 	if(S.has_reagent("virusfood", 1))
 		adjustNutri(round(S.get_reagent_amount("virusfood") * 0.5))

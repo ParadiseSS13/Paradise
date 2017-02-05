@@ -12,7 +12,7 @@
 	icon_dead = "tomato-dead"
 	genes = list(/datum/plant_gene/trait/squash, /datum/plant_gene/trait/repeated_harvest)
 	mutatelist = list(/obj/item/seeds/tomato/blue, /obj/item/seeds/tomato/blood, /obj/item/seeds/tomato/killer)
-	reagents_add = list("vitamin" = 0.04, "nutriment" = 0.1)
+	reagents_add = list("vitamin" = 0.04, "plantmatter" = 0.1)
 
 /obj/item/weapon/reagent_containers/food/snacks/grown/tomato
 	seed = /obj/item/seeds/tomato
@@ -32,7 +32,7 @@
 	plantname = "Blood-Tomato Plants"
 	product = /obj/item/weapon/reagent_containers/food/snacks/grown/tomato/blood
 	mutatelist = list()
-	reagents_add = list("blood" = 0.2, "vitamin" = 0.04, "nutriment" = 0.1)
+	reagents_add = list("blood" = 0.2, "vitamin" = 0.04, "plantmatter" = 0.1)
 	rarity = 20
 
 /obj/item/weapon/reagent_containers/food/snacks/grown/tomato/blood
@@ -57,7 +57,7 @@
 	icon_grow = "bluetomato-grow"
 	mutatelist = list(/obj/item/seeds/tomato/blue/bluespace)
 	genes = list(/datum/plant_gene/trait/slip, /datum/plant_gene/trait/repeated_harvest)
-	reagents_add = list("lube" = 0.2, "vitamin" = 0.04, "nutriment" = 0.1)
+	reagents_add = list("lube" = 0.2, "vitamin" = 0.04, "plantmatter" = 0.1)
 	rarity = 20
 
 /obj/item/weapon/reagent_containers/food/snacks/grown/tomato/blue
@@ -80,7 +80,7 @@
 	yield = 2
 	mutatelist = list()
 	genes = list(/datum/plant_gene/trait/squash, /datum/plant_gene/trait/slip, /datum/plant_gene/trait/teleport, /datum/plant_gene/trait/repeated_harvest)
-	reagents_add = list("lube" = 0.2, "singulo" = 0.2, "vitamin" = 0.04, "nutriment" = 0.1)
+	reagents_add = list("lube" = 0.2, "singulo" = 0.2, "vitamin" = 0.04, "plantmatter" = 0.1)
 	rarity = 50
 
 /obj/item/weapon/reagent_containers/food/snacks/grown/tomato/blue/bluespace
