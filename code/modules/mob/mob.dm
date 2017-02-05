@@ -1347,3 +1347,12 @@ mob/proc/yank_out_object()
 
 	attack_log += new_log
 	last_log = world.timeofday
+
+/mob/proc/handle_alpha()
+	if(alphas.len < 1)
+		alpha = 255
+	else
+		var/lowest_alpha = 255
+		for(var/alpha_modification in alphas)
+			lowest_alpha = min(lowest_alpha,alphas[alpha_modification])
+		alpha = lowest_alpha

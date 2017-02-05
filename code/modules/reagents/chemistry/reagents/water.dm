@@ -24,6 +24,14 @@
 	if(method == TOUCH)
 		M.adjust_fire_stacks(-(volume / 10))
 		M.ExtinguishMob()
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		if(H.body_alphas[INVISIBLESPRAY])
+			H.body_alphas.Remove(INVISIBLESPRAY)
+			H.regenerate_icons()
+	else if(M.alphas[INVISIBLESPRAY])
+		M.alpha = initial(M.alpha)
+		M.alphas.Remove(INVISIBLESPRAY)
 
 /datum/reagent/water/reaction_turf(turf/simulated/T, volume)
 	if(!istype(T))
@@ -54,6 +62,12 @@
 	if(istype(O, /obj/item/toy/carpplushie/dehy_carp))
 		var/obj/item/toy/carpplushie/dehy_carp/dehy = O
 		dehy.Swell() // Makes a carp
+	if(!istype(O, /atom/movable/lighting_overlay) && O.has_been_invisible_sprayed)
+		O.alpha = initial(O.alpha)
+		O.has_been_invisible_sprayed = FALSE
+		if(ismob(O.loc))
+			var/mob/M = O.loc
+			M.regenerate_icons()
 
 
 /datum/reagent/lube

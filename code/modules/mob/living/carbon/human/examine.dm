@@ -71,7 +71,7 @@
 		msg += ", \a [lowertext(displayed_species)]!\n"
 
 	//uniform
-	if(w_uniform && !skipjumpsuit && !(w_uniform.flags & ABSTRACT))
+	if(w_uniform && !skipjumpsuit && !(w_uniform.flags & ABSTRACT) && w_uniform.is_visible())
 		//Ties
 		var/tie_msg
 		if(istype(w_uniform,/obj/item/clothing/under))
@@ -85,14 +85,14 @@
 			msg += "[t_He] [t_is] wearing [bicon(w_uniform)] \a [w_uniform][tie_msg].\n"
 
 	//head
-	if(head && !(head.flags & ABSTRACT))
+	if(head && !(head.flags & ABSTRACT) && head.is_visible())
 		if(head.blood_DNA)
 			msg += "<span class='warning'>[t_He] [t_is] wearing [bicon(head)] [head.gender==PLURAL?"some":"a"] [head.blood_color != "#030303" ? "blood-stained":"oil-stained"] [head.name] on [t_his] head!</span>\n"
 		else
 			msg += "[t_He] [t_is] wearing [bicon(head)] \a [head] on [t_his] head.\n"
 
 	//suit/armour
-	if(wear_suit && !(wear_suit.flags & ABSTRACT))
+	if(wear_suit && !(wear_suit.flags & ABSTRACT) && wear_suit.is_visible())
 		if(wear_suit.blood_DNA)
 			msg += "<span class='warning'>[t_He] [t_is] wearing [bicon(wear_suit)] [wear_suit.gender==PLURAL?"some":"a"] [wear_suit.blood_color != "#030303" ? "blood-stained":"oil-stained"] [wear_suit.name]!</span>\n"
 		else
@@ -106,7 +106,7 @@
 				msg += "[t_He] [t_is] carrying [bicon(s_store)] \a [s_store] on [t_his] [wear_suit.name].\n"
 
 	//back
-	if(back && !(back.flags & ABSTRACT))
+	if(back && !(back.flags & ABSTRACT) && back.is_visible())
 		if(back.blood_DNA)
 			msg += "<span class='warning'>[t_He] [t_has] [bicon(back)] [back.gender==PLURAL?"some":"a"] [back.blood_color != "#030303" ? "blood-stained":"oil-stained"] [back] on [t_his] back.</span>\n"
 		else
@@ -114,20 +114,22 @@
 
 	//left hand
 	if(l_hand && !(l_hand.flags & ABSTRACT))
-		if(l_hand.blood_DNA)
-			msg += "<span class='warning'>[t_He] [t_is] holding [bicon(l_hand)] [l_hand.gender==PLURAL?"some":"a"] [l_hand.blood_color != "#030303" ? "blood-stained":"oil-stained"] [l_hand.name] in [t_his] left hand!</span>\n"
-		else
-			msg += "[t_He] [t_is] holding [bicon(l_hand)] \a [l_hand] in [t_his] left hand.\n"
+		if(l_hand.is_visible())
+			if(l_hand.blood_DNA)
+				msg += "<span class='warning'>[t_He] [t_is] holding [bicon(l_hand)] [l_hand.gender==PLURAL?"some":"a"] [l_hand.blood_color != "#030303" ? "blood-stained":"oil-stained"] [l_hand.name] in [t_his] left hand!</span>\n"
+			else
+				msg += "[t_He] [t_is] holding [bicon(l_hand)] \a [l_hand] in [t_his] left hand.\n"
 
 	//right hand
 	if(r_hand && !(r_hand.flags & ABSTRACT))
-		if(r_hand.blood_DNA)
-			msg += "<span class='warning'>[t_He] [t_is] holding [bicon(r_hand)] [r_hand.gender==PLURAL?"some":"a"] [r_hand.blood_color != "#030303" ? "blood-stained":"oil-stained"] [r_hand.name] in [t_his] right hand!</span>\n"
-		else
-			msg += "[t_He] [t_is] holding [bicon(r_hand)] \a [r_hand] in [t_his] right hand.\n"
+		if(r_hand.is_visible())
+			if(r_hand.blood_DNA)
+				msg += "<span class='warning'>[t_He] [t_is] holding [bicon(r_hand)] [r_hand.gender==PLURAL?"some":"a"] [r_hand.blood_color != "#030303" ? "blood-stained":"oil-stained"] [r_hand.name] in [t_his] right hand!</span>\n"
+			else
+				msg += "[t_He] [t_is] holding [bicon(r_hand)] \a [r_hand] in [t_his] right hand.\n"
 
 	//gloves
-	if(gloves && !skipgloves && !(gloves.flags & ABSTRACT))
+	if(gloves && !skipgloves && !(gloves.flags & ABSTRACT) && gloves.is_visible())
 		if(gloves.blood_DNA)
 			msg += "<span class='warning'>[t_He] [t_has] [bicon(gloves)] [gloves.gender==PLURAL?"some":"a"] [gloves.blood_color != "#030303" ? "blood-stained":"oil-stained"] [gloves.name] on [t_his] hands!</span>\n"
 		else
@@ -136,7 +138,7 @@
 		msg += "<span class='warning'>[t_He] [t_has] [hand_blood_color != "#030303" ? "blood-stained":"oil-stained"] hands!</span>\n"
 
 	//handcuffed?
-	if(handcuffed)
+	if(handcuffed && handcuffed.is_visible())
 		if(istype(handcuffed, /obj/item/weapon/restraints/handcuffs/cable/zipties))
 			msg += "<span class='warning'>[t_He] [t_is] [bicon(handcuffed)] restrained with zipties!</span>\n"
 		else if(istype(handcuffed, /obj/item/weapon/restraints/handcuffs/cable))
@@ -145,14 +147,14 @@
 			msg += "<span class='warning'>[t_He] [t_is] [bicon(handcuffed)] handcuffed!</span>\n"
 
 	//belt
-	if(belt)
+	if(belt && belt.is_visible())
 		if(belt.blood_DNA)
 			msg += "<span class='warning'>[t_He] [t_has] [bicon(belt)] [belt.gender==PLURAL?"some":"a"] [belt.blood_color != "#030303" ? "blood-stained":"oil-stained"] [belt.name] about [t_his] waist!</span>\n"
 		else
 			msg += "[t_He] [t_has] [bicon(belt)] \a [belt] about [t_his] waist.\n"
 
 	//shoes
-	if(shoes && !skipshoes && !(shoes.flags & ABSTRACT))
+	if(shoes && !skipshoes && !(shoes.flags & ABSTRACT) && shoes.is_visible())
 		if(shoes.blood_DNA)
 			msg += "<span class='warning'>[t_He] [t_is] wearing [bicon(shoes)] [shoes.gender==PLURAL?"some":"a"] [shoes.blood_color != "#030303" ? "blood-stained":"oil-stained"] [shoes.name] on [t_his] feet!</span>\n"
 		else
@@ -162,25 +164,25 @@
 
 
 	//mask
-	if(wear_mask && !skipmask && !(wear_mask.flags & ABSTRACT))
+	if(wear_mask && !skipmask && !(wear_mask.flags & ABSTRACT) && wear_mask.is_visible())
 		if(wear_mask.blood_DNA)
 			msg += "<span class='warning'>[t_He] [t_has] [bicon(wear_mask)] [wear_mask.gender==PLURAL?"some":"a"] [wear_mask.blood_color != "#030303" ? "blood-stained":"oil-stained"] [wear_mask.name] on [t_his] face!</span>\n"
 		else
 			msg += "[t_He] [t_has] [bicon(wear_mask)] \a [wear_mask] on [t_his] face.\n"
 
 	//eyes
-	if(glasses && !skipeyes && !(glasses.flags & ABSTRACT))
+	if(glasses && !skipeyes && !(glasses.flags & ABSTRACT) && glasses.is_visible())
 		if(glasses.blood_DNA)
 			msg += "<span class='warning'>[t_He] [t_has] [bicon(glasses)] [glasses.gender==PLURAL?"some":"a"] [glasses.blood_color != "#030303" ? "blood-stained":"oil-stained"] [glasses] covering [t_his] eyes!</span>\n"
 		else
 			msg += "[t_He] [t_has] [bicon(glasses)] \a [glasses] covering [t_his] eyes.\n"
 
 	//left ear
-	if(l_ear && !skipears)
+	if(l_ear && !skipears && l_ear.is_visible())
 		msg += "[t_He] [t_has] [bicon(l_ear)] \a [l_ear] on [t_his] left ear.\n"
 
 	//right ear
-	if(r_ear && !skipears)
+	if(r_ear && !skipears && r_ear.is_visible())
 		msg += "[t_He] [t_has] [bicon(r_ear)] \a [r_ear] on [t_his] right ear.\n"
 
 	//ID

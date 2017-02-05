@@ -196,3 +196,5 @@
 	var/list/permanent_huds = list()
 
 	var/list/actions = list()
+
+	var/list/alphas = list()
