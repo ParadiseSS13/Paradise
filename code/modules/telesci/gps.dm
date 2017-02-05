@@ -10,6 +10,7 @@ var/list/GPS_list = list()
 	var/gpstag = "COM0"
 	var/emped = 0
 	var/turf/locked_location
+	var/tracking = TRUE
 
 /obj/item/device/gps/New()
 	..()
@@ -25,13 +26,32 @@ var/list/GPS_list = list()
 	emped = 1
 	overlays -= "working"
 	overlays += "emp"
-	spawn(300)
-		emped = 0
-		overlays -= "emp"
+	addtimer(src, "reboot", 300)
+
+/obj/item/device/gps/proc/reboot()
+	emped = FALSE
+	overlays -= "emp"
+	overlays += "working"
+	
+/obj/item/device/gps/AltClick(mob/user)
+	if(CanUseTopic(user, inventory_state) != STATUS_INTERACTIVE)
+		return 1 //user not valid to use gps
+	if(emped)
+		to_chat(user, "<span class='warning'>It's busted!</span>")
+	if(tracking)
+		overlays -= "working"
+		to_chat(user, "[src] is no longer tracking, or visible to other GPS devices.")
+		tracking = FALSE
+	else
 		overlays += "working"
+		to_chat(user, "[src] is now tracking, and visible to other GPS devices.")
+		tracking = TRUE
 
 /obj/item/device/gps/attack_self(mob/user as mob)
-
+	if(!tracking)
+		to_chat(user, "<span class='warning'>[src] is turned off. Use alt+click to toggle it back on.</span>")
+		return
+		
 	var/obj/item/device/gps/t = ""
 	var/gps_window_height = 110 + GPS_list.len * 20 // Variable window height, depending on how many GPS units there are to show
 	if(emped)
@@ -49,8 +69,10 @@ var/list/GPS_list = list()
 			var/tracked_gpstag = G.gpstag
 			if(G.emped == 1)
 				t += "<BR>[tracked_gpstag]: ERROR"
-			else
+			else if(G.tracking)
 				t += "<BR>[tracked_gpstag]: [format_text(gps_area.name)] ([pos.x], [pos.y], [pos.z])"
+			else
+				continue
 
 	var/datum/browser/popup = new(user, "GPS", name, 360, min(gps_window_height, 800))
 	popup.set_content(t)
@@ -58,9 +80,14 @@ var/list/GPS_list = list()
 	popup.open()
 
 /obj/item/device/gps/Topic(href, href_list)
-	..()
+	if(..(state = inventory_state))
+		return 1
+		
 	if(href_list["tag"] )
-		var/a = input("Please enter desired tag.", name, gpstag) as text
+		var/a = input("Please enter desired tag.", name, gpstag) as text|null
+		if(!a || ..(state = inventory_state))
+			return 1
+			
 		a = uppertext(sanitize(copytext(a, 1, 5)))
 		if(src.loc == usr)
 			gpstag = a
@@ -85,3 +112,54 @@ var/list/GPS_list = list()
 	gpstag = "BORG0"
 	desc = "A mining cyborg internal positioning system. Used as a recovery beacon for damaged cyborg assets, or a collaboration tool for mining teams."
 	flags = NODROP
+	
+/obj/item/device/gps/internal	
+	icon_state = null
+	flags = ABSTRACT
+	gpstag = "Eerie Signal"
+	desc = "Report to a coder immediately."
+	invisibility = INVISIBILITY_MAXIMUM
+
+/obj/item/device/gps/internal/mining
+	icon_state = "gps-m"
+	gpstag = "MINER"
+	desc = "A positioning system helpful for rescuing trapped or injured miners, keeping one on you at all times while mining might just save your life."
+
+/obj/item/device/gps/internal/base
+	gpstag = "NT_AUX"
+	desc = "A homing signal from Nanotrasen's mining base."
+
+/obj/item/device/gps/visible_debug
+	name = "visible GPS"
+	gpstag = "ADMIN"
+	desc = "This admin-spawn GPS unit leaves the coordinates visible \
+		on any turf that it passes over, for debugging. Especially useful \
+		for marking the area around the transition edges."
+	var/list/turf/tagged
+
+/obj/item/device/gps/visible_debug/New()
+	. = ..()
+	tagged = list()
+	fast_processing.Add(src)
+
+/obj/item/device/gps/visible_debug/process()
+	var/turf/T = get_turf(src)
+	if(T)
+		// I assume it's faster to color,tag and OR the turf in, rather
+		// then checking if its there
+		T.color = RANDOM_COLOUR
+		T.maptext = "[T.x],[T.y],[T.z]"
+		tagged |= T
+
+/obj/item/device/gps/visible_debug/proc/clear()
+	while(tagged.len)
+		var/turf/T = pop(tagged)
+		T.color = initial(T.color)
+		T.maptext = initial(T.maptext)
+
+/obj/item/device/gps/visible_debug/Destroy()
+	if(tagged)
+		clear()
+	tagged = null
+	fast_processing.Remove(src)
+	. = ..()
