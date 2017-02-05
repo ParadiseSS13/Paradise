@@ -342,8 +342,9 @@
 	user.drop_item()
 	qdel(src)
 
-/obj/item/weapon/ectoplasm/revenant/throw_impact(atom/hit_atom)
-	..()
+/obj/item/weapon/ectoplasm/revenant/impact(atom/hit_atom)
+	if(!..())
+		return
 	if(inert)
 		return
 	visible_message("<span class='notice'>[src] breaks into particles upon impact, which fade away to nothingness.</span>")

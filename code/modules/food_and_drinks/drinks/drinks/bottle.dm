@@ -298,7 +298,9 @@
 			desc += " You're not sure if making this out of a carton was the brightest idea."
 			isGlass = 0
 
-/obj/item/weapon/reagent_containers/food/drinks/bottle/molotov/throw_impact(atom/target,mob/thrower)
+/obj/item/weapon/reagent_containers/food/drinks/bottle/molotov/impact(atom/target,mob/thrower)
+	if(!..())
+		return
 	var/firestarter = 0
 	for(var/datum/reagent/R in reagents.reagent_list)
 		for(var/A in accelerants)
@@ -309,7 +311,7 @@
 	if(firestarter && active)
 		target.fire_act()
 		new /obj/effect/hotspot(get_turf(target))
-	..()
+
 
 /obj/item/weapon/reagent_containers/food/drinks/bottle/molotov/attackby(obj/item/I, mob/user, params)
 	if(is_hot(I) && !active)
