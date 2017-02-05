@@ -10,7 +10,6 @@
 	use_power = 1
 	idle_power_usage = 5
 	active_power_usage = 100
-	flags = NOREACT
 	var/max_n_of_items = 1500
 	var/icon_on = "smartfridge"
 	var/icon_off = "smartfridge-off"
@@ -25,6 +24,8 @@
 
 /obj/machinery/smartfridge/New()
 	..()
+	create_reagents()
+	reagents.set_reacting(FALSE)
 	component_parts = list()
 	var/obj/item/weapon/circuitboard/smartfridge/board = new(null)
 	board.set_type(type)
@@ -192,14 +193,15 @@
 *   Item Adding
 ********************/
 
-/obj/machinery/smartfridge/attackby(obj/item/O, mob/user)
-	if(istype(O, /obj/item/weapon/screwdriver) && anchored)
-		playsound(loc, 'sound/items/Screwdriver.ogg', 50, 1)
-		panel_open = !panel_open
-		to_chat(user, "You [panel_open ? "open" : "close"] the maintenance panel.")
-		overlays.Cut()
-		if(panel_open)
-			overlays += image(icon, "[initial(icon_state)]-panel")
+/obj/machinery/smartfridge/default_deconstruction_screwdriver(mob/user, obj/item/weapon/screwdriver/S)
+	. = ..(user, icon_state, icon_state, S)
+	
+	overlays.Cut()
+	if(panel_open)
+		overlays += image(icon, "[initial(icon_state)]-panel")
+
+/obj/machinery/smartfridge/attackby(obj/item/O, var/mob/user)
+	if(default_deconstruction_screwdriver(user, O))
 		return
 
 	if(exchange_parts(user, O))
@@ -305,7 +307,7 @@
 		to_chat(user, "<span class='notice'>Some items are refused.</span>")
 	nanomanager.update_uis(src)
 
-/obj/machinery/smartfridge/secure/emag_act(user)
+/obj/machinery/smartfridge/secure/emag_act(mob/user)
 	emagged = 1
 	locked = -1
 	to_chat(user, "You short out the product lock on [src].")

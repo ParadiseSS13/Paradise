@@ -431,3 +431,17 @@ proc/checkhtml(var/t)
 			text = copytext(text, 1, index) + repl_chars[char] + copytext(text, index+keylength)
 			index = findtext(text, char)
 	return text
+	
+//Checks if any of a given list of needles is in the haystack
+/proc/text_in_list(haystack, list/needle_list, start=1, end=0)
+	for(var/needle in needle_list)
+		if(findtext(haystack, needle, start, end))
+			return 1
+	return 0
+
+//Like above, but case sensitive
+/proc/text_in_list_case(haystack, list/needle_list, start=1, end=0)
+	for(var/needle in needle_list)
+		if(findtextEx(haystack, needle, start, end))
+			return 1
+	return 0

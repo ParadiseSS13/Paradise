@@ -93,6 +93,7 @@
 
 	processing_objects.Add(src)
 	removeVerb(/obj/mecha/verb/disconnect_from_port)
+	poi_list |= src
 	log_message("[src] created.")
 	mechas_list += src //global mech list
 	prepare_huds()
@@ -616,6 +617,7 @@
 			qdel(internal_tank)
 
 	processing_objects.Remove(src)
+	poi_list.Remove(src)
 	equipment.Cut()
 	cell = null
 	internal_tank = null
@@ -831,6 +833,8 @@
 
 /obj/mecha/proc/attacked_by(obj/item/I, mob/user)
 	log_message("Attacked by [I]. Attacker - [user]")
+	user.changeNext_move(CLICK_CD_MELEE)
+	user.do_attack_animation(src)
 	var/deflection = deflect_chance
 	var/dam_coeff = 1
 	for(var/obj/item/mecha_parts/mecha_equipment/anticcw_armor_booster/B in equipment)

@@ -14,6 +14,7 @@
 	selection_type = "range"
 
 	action_icon_state = "barn"
+	sound = 'sound/magic/HorseHead_curse.ogg'
 
 /obj/effect/proc_holder/spell/targeted/horsemask/cast(list/targets, mob/user = usr)
 	if(!targets.len)

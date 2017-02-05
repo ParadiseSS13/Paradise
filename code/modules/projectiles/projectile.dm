@@ -50,6 +50,7 @@
 	var/jitter = 0
 	var/embed = 0 // whether or not the projectile can embed itself in the mob
 	var/forcedodge = 0 //to pass through everything
+	var/dismemberment = 0 //The higher the number, the greater the bonus to dismembering. 0 will not dismember at all.
 
 	var/log = 1 //whether print to admin attack logs or just keep it in the diary
 

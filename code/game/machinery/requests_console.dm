@@ -8,14 +8,16 @@
 
 //Request Console Screens
 #define RCS_MAINMENU 0	// Main menu
-#define RCS_RQASSIST 1	// Request supplies
-#define RCS_RQSUPPLY 2	// Request assistance
+#define RCS_RQSUPPLY 1	// Request supplies
+#define RCS_RQASSIST 2	// Request assistance
 #define RCS_SENDINFO 3	// Relay information
 #define RCS_SENTPASS 4	// Message sent successfully
 #define RCS_SENTFAIL 5	// Message sent unsuccessfully
 #define RCS_VIEWMSGS 6	// View messages
 #define RCS_MESSAUTH 7	// Authentication before sending
 #define RCS_ANNOUNCE 8	// Send announcement
+#define RCS_SHIPPING 9	// Print Shipping Labels/Packages
+#define RCS_SHIP_LOG 10	// View Shipping Label Log
 
 var/req_console_assistance = list()
 var/req_console_supplies = list()
@@ -52,6 +54,10 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 	var/priority = -1 ; //Priority of the message being sent
 	light_range = 0
 	var/datum/announcement/announcement = new
+	var/list/shipping_log = list()
+	var/ship_tag_name = ""
+	var/ship_tag_index = 0
+	var/print_cooldown = 0	//cooldown on shipping label printer, stores the  in-game time of when the printer will next be ready
 
 /obj/machinery/requests_console/power_change()
 	..()
@@ -128,6 +134,7 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 	data["assist_dept"] = req_console_assistance
 	data["supply_dept"] = req_console_supplies
 	data["info_dept"]   = req_console_information
+	data["ship_dept"]	= TAGGERLOCATIONS
 
 	data["message"] = message
 	data["recipient"] = recipient
@@ -135,6 +142,8 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 	data["msgStamped"] = msgStamped
 	data["msgVerified"] = msgVerified
 	data["announceAuth"] = announceAuth
+	data["shipDest"] = ship_tag_name
+	data["shipping_log"] = shipping_log
 
 	return data
 
@@ -182,7 +191,7 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 			screen = RCS_SENTPASS
 			message_log += "<B>Message sent to [recipient]</B><BR>[message]"
 		else
-			audible_message(text("[bicon(src)] *The Requests Console beeps: 'NOTICE: No server detected!'"),,4)
+			audible_message(text("[bicon(src)] *The Requests Console beeps: '<b>NOTICE:</b> No server detected!'"),,4)
 
 	//Handle screen switching
 	if(href_list["setScreen"])
@@ -198,6 +207,26 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 		if(tempScreen == RCS_MAINMENU)
 			reset_message()
 		screen = tempScreen
+
+	if(href_list["shipSelect"])
+		ship_tag_name = href_list["shipSelect"]
+		ship_tag_index = TAGGERLOCATIONS.Find(ship_tag_name)
+
+	//Handle Shipping Label Printing
+	if(href_list["printLabel"])
+		var/error_message = ""
+		if(!ship_tag_index)
+			error_message = "Please select a destination."
+		else if(!msgVerified)
+			error_message = "Please verify shipper ID."
+		else if(world.time < print_cooldown)
+			error_message = "Please allow the printer time to prepare the next shipping label."
+		if(error_message)
+			audible_message(text("[bicon(src)] *The Requests Console beeps: '<b>NOTICE:</b> [error_message]'"),,4)
+			return
+		print_label(ship_tag_name, ship_tag_index)
+		shipping_log += "<B>Shipping Label printed for [ship_tag_name]</b><br>[msgVerified]"
+		reset_message(1)
 
 	//Handle silencing the console
 	if(href_list["toggleSilent"])
@@ -245,6 +274,10 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 				reset_message()
 				to_chat(user, "<span class='warning'>You are not authorized to send announcements.</span>")
 			updateUsrDialog()
+		if(screen == RCS_SHIPPING)
+			var/obj/item/weapon/card/id/T = O
+			msgVerified = text("<font color='green'><b>Sender verified as [T.registered_name] ([T.assignment])</b></font>")
+			updateUsrDialog()
 	if(istype(O, /obj/item/weapon/stamp))
 		if(inoperable(MAINT)) return
 		if(screen == RCS_MESSAUTH)
@@ -261,6 +294,8 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 	msgStamped = ""
 	announceAuth = 0
 	announcement.announcer = ""
+	ship_tag_name = ""
+	ship_tag_index = 0
 	if(mainmenu)
 		screen = RCS_MAINMENU
 
@@ -286,3 +321,9 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 		else // Normal
 			src.message_log += "<b>From:</b> [linkedSender]<BR>[message]"
 	set_light(2)
+
+/obj/machinery/requests_console/proc/print_label(tag_name, tag_index)
+	var/obj/item/shippingPackage/sp = new /obj/item/shippingPackage(get_turf(src))
+	sp.sortTag = tag_index
+	sp.update_desc()
+	print_cooldown = world.time + 600	//1 minute cooldown before you can print another label, but you can still configure the next one during this time

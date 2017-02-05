@@ -117,7 +117,7 @@
 		revert_cast(user)
 		return
 
-	perform(list(T))
+	perform(list(T), user = user)
 
 /obj/effect/proc_holder/spell/vampire/self/choose_targets(mob/user = usr)
 	perform(list(user))
@@ -131,7 +131,7 @@
 		revert_cast(user)
 		return
 
-	perform(targets)
+	perform(targets, user = user)
 
 /datum/vampire_passive
 	var/gain_desc
@@ -150,14 +150,14 @@
 	charge_max = 200
 	stat_allowed = 1
 
-/obj/effect/proc_holder/spell/vampire/self/rejuvenate/cast()
-	var/mob/living/U = usr
+/obj/effect/proc_holder/spell/vampire/self/rejuvenate/cast(list/targets, mob/user = usr)
+	var/mob/living/U = user
 
-	usr.SetWeakened(0)
-	usr.SetStunned(0)
-	usr.SetParalysis(0)
+	user.SetWeakened(0)
+	user.SetStunned(0)
+	user.SetParalysis(0)
 	U.adjustStaminaLoss(-75)
-	to_chat(usr, "<span class='notice'>You flush your system with clean blood and remove any incapacitating effects.</span>")
+	to_chat(user, "<span class='notice'>You flush your system with clean blood and remove any incapacitating effects.</span>")
 	spawn(1)
 		if(usr.mind.vampire.get_ability(/datum/vampire_passive/regen))
 			for(var/i = 1 to 5)
@@ -173,15 +173,15 @@
 	action_icon_state = "vampire_hypnotise"
 	required_blood = 20
 
-/obj/effect/proc_holder/spell/vampire/targetted/hypnotise/cast(list/targets)
+/obj/effect/proc_holder/spell/vampire/targetted/hypnotise/cast(list/targets, mob/user = usr)
 	for(var/mob/living/target in targets)
-		usr.visible_message("<span class='warning'>[usr]'s eyes flash briefly as he stares into [target]'s eyes</span>")
-		if(do_mob(usr, target, 50))
+		user.visible_message("<span class='warning'>[user]'s eyes flash briefly as he stares into [target]'s eyes</span>")
+		if(do_mob(user, target, 50))
 			if(!affects(target))
-				to_chat(usr, "<span class='warning'>Your piercing gaze fails to knock out [target].</span>")
-				to_chat(target, "\blue [usr]'s feeble gaze is ineffective.")
+				to_chat(user, "<span class='warning'>Your piercing gaze fails to knock out [target].</span>")
+				to_chat(target, "\blue [user]'s feeble gaze is ineffective.")
 			else
-				to_chat(usr, "<span class='warning'>Your piercing gaze knocks out [target].</span>")
+				to_chat(user, "<span class='warning'>Your piercing gaze knocks out [target].</span>")
 				to_chat(target, "<span class='warning'>You find yourself unable to move and barely able to speak.</span>")
 				target.Weaken(10)
 				target.Stun(10)
@@ -197,12 +197,12 @@
 	action_icon_state = "vampire_disease"
 	required_blood = 100
 
-/obj/effect/proc_holder/spell/vampire/targetted/disease/cast(list/targets)
+/obj/effect/proc_holder/spell/vampire/targetted/disease/cast(list/targets, mob/user = usr)
 	for(var/mob/living/carbon/target in targets)
-		to_chat(usr, "<span class='warning'>You stealthily infect [target] with your diseased touch.</span>")
-		target.help_shake_act(usr)
+		to_chat(user, "<span class='warning'>You stealthily infect [target] with your diseased touch.</span>")
+		target.help_shake_act(user)
 		if(!affects(target))
-			to_chat(usr, "<span class='warning'>They seem to be unaffected.</span>")
+			to_chat(user, "<span class='warning'>They seem to be unaffected.</span>")
 			continue
 		var/datum/disease/D = new /datum/disease/vampire
 		target.ForceContractDisease(D)
@@ -214,10 +214,10 @@
 	charge_max = 300
 	stat_allowed = 1
 
-/obj/effect/proc_holder/spell/vampire/mob_aoe/glare/cast(list/targets)
-	usr.visible_message("<span class='warning'><b>[usr]'s eyes emit a blinding flash!</span>")
-	if(istype(usr:glasses, /obj/item/clothing/glasses/sunglasses/blindfold))
-		to_chat(usr, "<span class='warning'>You're blindfolded!</span>")
+/obj/effect/proc_holder/spell/vampire/mob_aoe/glare/cast(list/targets, mob/user = usr)
+	user.visible_message("<span class='warning'><b>[user]'s eyes emit a blinding flash!</span>")
+	if(istype(user:glasses, /obj/item/clothing/glasses/sunglasses/blindfold))
+		to_chat(user, "<span class='warning'>You're blindfolded!</span>")
 		return
 	for(var/mob/living/target in targets)
 		if(!affects(target))
@@ -225,7 +225,7 @@
 		target.Stun(5)
 		target.Weaken(5)
 		target.stuttering = 20
-		to_chat(target, "<span class='warning'>You are blinded by [usr]'s glare.</span>")
+		to_chat(target, "<span class='warning'>You are blinded by [user]'s glare.</span>")
 
 /obj/effect/proc_holder/spell/vampire/self/shapeshift
 	name = "Shapeshift (50)"
@@ -234,12 +234,12 @@
 	action_icon_state = "genetic_poly"
 	required_blood = 50
 
-/obj/effect/proc_holder/spell/vampire/self/shapeshift/cast()
-	usr.visible_message("<span class='warning'>[usr] transforms!</span>")
-	usr.client.prefs.real_name = usr.generate_name()
-	usr.client.prefs.random_character()
-	usr.client.prefs.copy_to(usr)
-	usr.regenerate_icons()
+/obj/effect/proc_holder/spell/vampire/self/shapeshift/cast(list/targets, mob/user = usr)
+	user.visible_message("<span class='warning'>[user] transforms!</span>")
+	user.client.prefs.real_name = user.generate_name()
+	user.client.prefs.random_character()
+	user.client.prefs.copy_to(user)
+	user.regenerate_icons()
 
 /obj/effect/proc_holder/spell/vampire/self/screech
 	name = "Chiroptean Screech (30)"
@@ -248,10 +248,10 @@
 	action_icon_state = "vampire_screech"
 	required_blood = 30
 
-/obj/effect/proc_holder/spell/vampire/self/screech/cast()
-	usr.visible_message("<span class='warning'>[usr] lets out an ear piercing shriek!</span>", "<span class='warning'>You let out a loud shriek.</span>", "<span class='warning'>You hear a loud painful shriek!</span>")
+/obj/effect/proc_holder/spell/vampire/self/screech/cast(list/targets, mob/user = usr)
+	user.visible_message("<span class='warning'>[user] lets out an ear piercing shriek!</span>", "<span class='warning'>You let out a loud shriek.</span>", "<span class='warning'>You hear a loud painful shriek!</span>")
 	for(var/mob/living/carbon/C in hearers(4))
-		if(C == usr)
+		if(C == user)
 			continue
 		if(ishuman(C) && (C:l_ear || C:r_ear) && istype((C:l_ear || C:r_ear), /obj/item/clothing/ears/earmuffs))
 			continue
@@ -265,7 +265,7 @@
 		C.Jitter(150)
 	for(var/obj/structure/window/W in view(4))
 		W.destroy()
-	playsound(usr.loc, 'sound/effects/creepyshriek.ogg', 100, 1)
+	playsound(user.loc, 'sound/effects/creepyshriek.ogg', 100, 1)
 
 
 /proc/isvampirethrall(mob/living/M as mob)
@@ -278,19 +278,19 @@
 	action_icon_state = "vampire_enthrall"
 	required_blood = 300
 
-/obj/effect/proc_holder/spell/vampire/targetted/enthrall/cast(list/targets)
+/obj/effect/proc_holder/spell/vampire/targetted/enthrall/cast(list/targets, mob/user = usr)
 	for(var/mob/living/target in targets)
-		usr.visible_message("<span class='warning'>[usr] bites [target]'s neck!</span>", "<span class='warning'>You bite [target]'s neck and begin the flow of power.</span>")
+		user.visible_message("<span class='warning'>[user] bites [target]'s neck!</span>", "<span class='warning'>You bite [target]'s neck and begin the flow of power.</span>")
 		to_chat(target, "<span class='warning'>You feel the tendrils of evil invade your mind.</span>")
 		if(!ishuman(target))
-			to_chat(usr, "<span class='warning'>You can only enthrall humans.</span>")
+			to_chat(user, "<span class='warning'>You can only enthrall humans.</span>")
 			break
-		if(do_mob(usr, target, 50))
-			if(can_enthrall(usr, target))
-				handle_enthrall(usr, target)
+		if(do_mob(user, target, 50))
+			if(can_enthrall(user, target))
+				handle_enthrall(user, target)
 			else
-				revert_cast(usr)
-				to_chat(usr, "<span class='warning'>You or your target either moved or you dont have enough usable blood.</span>")
+				revert_cast(user)
+				to_chat(user, "<span class='warning'>You or your target either moved or you dont have enough usable blood.</span>")
 
 /obj/effect/proc_holder/spell/vampire/targetted/enthrall/proc/can_enthrall(mob/living/user, mob/living/carbon/C)
 	var/enthrall_safe = 0
@@ -359,11 +359,11 @@
 		return
 	name = "[initial(name)] ([user.mind.vampire.iscloaking ? "Deactivate" : "Activate"])"
 
-/obj/effect/proc_holder/spell/vampire/self/cloak/cast()
-	var/datum/vampire/V = usr.mind.vampire
+/obj/effect/proc_holder/spell/vampire/self/cloak/cast(list/targets, mob/user = usr)
+	var/datum/vampire/V = user.mind.vampire
 	V.iscloaking = !V.iscloaking
 	update_name()
-	to_chat(usr, "<span class='notice'>You will now be [V.iscloaking ? "hidden" : "seen"] in darkness.</span>")
+	to_chat(user, "<span class='notice'>You will now be [V.iscloaking ? "hidden" : "seen"] in darkness.</span>")
 
 /obj/effect/proc_holder/spell/vampire/bats
 	name = "Summon Bats (75)"
@@ -387,11 +387,11 @@
 	for(var/i = locs.len + 1 to num_bats)
 		locs += user.loc
 
-	perform(locs)
+	perform(locs, user = user)
 
-/obj/effect/proc_holder/spell/vampire/bats/cast(list/targets)
+/obj/effect/proc_holder/spell/vampire/bats/cast(list/targets, mob/user = usr)
 	for(var/T in targets)
-		new /mob/living/simple_animal/hostile/scarybat(T, usr)
+		new /mob/living/simple_animal/hostile/scarybat(T, user)
 
 /obj/effect/proc_holder/spell/vampire/self/jaunt
 	name = "Mist Form (30)"
@@ -402,12 +402,12 @@
 	required_blood = 30
 	var/jaunt_duration = 50 //in deciseconds
 
-/obj/effect/proc_holder/spell/vampire/self/jaunt/cast()
-	if(usr.buckled)
-		usr.buckled.unbuckle_mob()
+/obj/effect/proc_holder/spell/vampire/self/jaunt/cast(list/targets, mob/user = usr)
+	if(user.buckled)
+		user.buckled.unbuckle_mob()
 	spawn(0)
-		var/mob/living/U = usr
-		var/originalloc = get_turf(usr.loc)
+		var/mob/living/U = user
+		var/originalloc = get_turf(user.loc)
 		var/obj/effect/dummy/spell_jaunt/holder = new /obj/effect/dummy/spell_jaunt(originalloc)
 		var/atom/movable/overlay/animation = new /atom/movable/overlay(originalloc)
 		animation.name = "water"
@@ -418,34 +418,34 @@
 		animation.layer = 5
 		animation.master = holder
 		U.ExtinguishMob()
-		if(usr.buckled)
-			usr.buckled.unbuckle_mob()
+		if(user.buckled)
+			user.buckled.unbuckle_mob()
 		flick("liquify", animation)
-		usr.forceMove(holder)
-		usr.client.eye = holder
+		user.forceMove(holder)
+		user.client.eye = holder
 		var/datum/effect/system/steam_spread/steam = new /datum/effect/system/steam_spread()
 		steam.set_up(10, 0, originalloc)
 		steam.start()
 		sleep(jaunt_duration)
-		var/mobloc = get_turf(usr.loc)
+		var/mobloc = get_turf(user.loc)
 		if(get_area(mobloc) == /area/security/armoury/gamma)
-			to_chat(usr, "A strange energy repels you!")
+			to_chat(user, "A strange energy repels you!")
 			mobloc = originalloc
 		animation.loc = mobloc
 		steam.location = mobloc
 		steam.start()
-		usr.canmove = 0
+		user.canmove = 0
 		sleep(20)
 		flick("reappear",animation)
 		sleep(5)
-		if(!usr.Move(mobloc))
+		if(!user.Move(mobloc))
 			for(var/direction in list(1,2,4,8,5,6,9,10))
 				var/turf/T = get_step(mobloc, direction)
 				if(T)
-					if(usr.Move(T))
+					if(user.Move(T))
 						break
-		usr.canmove = 1
-		usr.client.eye = usr
+		user.canmove = 1
+		user.client.eye = user
 		qdel(animation)
 		qdel(holder)
 
@@ -492,29 +492,29 @@
 		to_chat(user, "\red You cannot find darkness to step to.")
 		return
 
-	perform(turfs)
+	perform(turfs, user = user)
 
-/obj/effect/proc_holder/spell/vampire/shadowstep/cast(list/targets)
+/obj/effect/proc_holder/spell/vampire/shadowstep/cast(list/targets, mob/user = usr)
 	if(usr.buckled)
-		usr.buckled.unbuckle_mob()
+		user.buckled.unbuckle_mob()
 	spawn(0)
 		var/turf/picked = pick(targets)
 
 		if(!picked || !isturf(picked))
 			return
-		var/mob/living/U = usr
+		var/mob/living/U = user
 		U.ExtinguishMob()
-		if(usr.buckled)
-			usr.buckled.unbuckle_mob()
-		var/atom/movable/overlay/animation = new /atom/movable/overlay(get_turf(usr))
-		animation.name = usr.name
+		if(user.buckled)
+			user.buckled.unbuckle_mob()
+		var/atom/movable/overlay/animation = new /atom/movable/overlay(get_turf(user))
+		animation.name = user.name
 		animation.density = 0
 		animation.anchored = 1
-		animation.icon = usr.icon
+		animation.icon = user.icon
 		animation.alpha = 127
 		animation.layer = 5
 		//animation.master = src
-		usr.forceMove(picked)
+		user.forceMove(picked)
 		spawn(10)
 			qdel(animation)
 

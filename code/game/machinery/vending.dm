@@ -800,6 +800,17 @@
 					/obj/item/weapon/reagent_containers/food/snacks/chinese/rice = 6)
 	prices = list(/obj/item/weapon/reagent_containers/food/snacks/chinese/chowmein = 50, /obj/item/weapon/reagent_containers/food/snacks/chinese/tao = 50, /obj/item/weapon/reagent_containers/food/snacks/chinese/newdles = 50,
 					/obj/item/weapon/reagent_containers/food/snacks/chinese/rice = 50)
+	refill_canister = /obj/item/weapon/vending_refill/chinese
+
+/obj/machinery/vending/chinese/New()
+	..()
+	component_parts = list()
+	var/obj/item/weapon/circuitboard/vendor/V = new(null)
+	V.set_type(type)
+	component_parts += V
+	component_parts += new /obj/item/weapon/vending_refill/chinese(0)
+	component_parts += new /obj/item/weapon/vending_refill/chinese(0)
+	component_parts += new /obj/item/weapon/vending_refill/chinese(0)
 
 /obj/machinery/vending/cola
 	name = "\improper Robust Softdrinks"

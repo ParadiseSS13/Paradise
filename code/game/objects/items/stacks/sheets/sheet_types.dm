@@ -240,3 +240,19 @@ var/global/list/datum/stack_recipe/runed_metal_recipes = list ( \
 /obj/item/stack/sheet/runed_metal/New(var/loc, var/amount=null)
 	recipes = runed_metal_recipes
 	return ..()
+
+/*
+ * Bones
+ */
+/obj/item/stack/sheet/bone
+	name = "bones"
+	icon = 'icons/obj/mining.dmi'
+	icon_state = "bone"
+	singular_name = "bone"
+	desc = "Someone's been drinking their milk."
+	force = 7
+	throwforce = 5
+	w_class = 3
+	throw_speed = 1
+	throw_range = 3
+	origin_tech = "materials=2;biotech=2"
