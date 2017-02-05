@@ -185,6 +185,11 @@ var/list/non_simple_animals = typecacheof(list(/mob/living/carbon/human/monkey,/
 		qdel(filler)
 	. = ..()
 	
+/obj/machinery/dna_vault/attack_ghost(mob/user)
+	if(stat & (BROKEN|MAINT))
+		return
+	return ui_interact(user)
+	
 /obj/machinery/dna_vault/attack_hand(mob/user)
 	if(..())
 		return 1
