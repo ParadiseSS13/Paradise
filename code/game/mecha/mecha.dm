@@ -93,6 +93,7 @@
 
 	processing_objects.Add(src)
 	removeVerb(/obj/mecha/verb/disconnect_from_port)
+	poi_list |= src
 	log_message("[src] created.")
 	mechas_list += src //global mech list
 	prepare_huds()
@@ -616,6 +617,7 @@
 			qdel(internal_tank)
 
 	processing_objects.Remove(src)
+	poi_list.Remove(src)
 	equipment.Cut()
 	cell = null
 	internal_tank = null

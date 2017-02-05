@@ -162,6 +162,14 @@
 	materials = list(MAT_METAL = 50, MAT_GLASS = 50)
 	build_path = /obj/item/weapon/firealarm_electronics
 	category = list("initial", "Electronics")
+	
+/datum/design/earmuffs
+	name = "Earmuffs"
+	id = "earmuffs"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 500, MAT_GLASS = 500)
+	build_path = /obj/item/clothing/ears/earmuffs
+	category = list("initial", "Miscellaneous")
 
 /datum/design/igniter
 	name = "Igniter"
@@ -188,7 +196,7 @@
 	category = list("initial", "Medical")
 
 /datum/design/kitchen_knife
-	name = "Kitchen knife"
+	name = "Kitchen Knife"
 	id = "kitchen_knife"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 12000)
@@ -196,19 +204,19 @@
 	category = list("initial","Miscellaneous")
 
 /datum/design/minihoe
-	name = "Mini hoe"
+	name = "Mini Hoe"
 	id = "mini_hoe"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 50)
-	build_path = /obj/item/weapon/minihoe
+	build_path = /obj/item/weapon/cultivator
 	category = list("initial","Miscellaneous")
 
 /datum/design/plant_analyzer
-	name = "Plant analyzer"
+	name = "Plant Analyzer"
 	id = "plant_analyzer"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 30, MAT_GLASS = 20)
-	build_path = /obj/item/device/analyzer/plant_analyzer
+	build_path = /obj/item/device/plant_analyzer
 	category = list("initial","Miscellaneous")
 
 /datum/design/shovel
@@ -324,12 +332,12 @@
 	category = list("initial", "Miscellaneous")
 
 /datum/design/foambox
-		name = "Box of Foam Force darts"
-		id = "foamforce"
-		build_type = AUTOLATHE
-		materials = list(MAT_METAL = 2000)
-		build_path = /obj/item/ammo_box/foambox
-		category = list("initial", "Miscellaneous")
+	name = "Box of Foam Force darts"
+	id = "foamforce"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 2000)
+	build_path = /obj/item/ammo_box/foambox
+	category = list("initial", "Miscellaneous")
 
 /datum/design/canvas/twentythreeXtwentythree
 	name = "23px by 23px Canvas"

@@ -127,16 +127,16 @@
 	set desc = "Turn your food into nutrients for plants."
 
 	var/list/trays = list()
-	for(var/obj/machinery/portable_atmospherics/hydroponics/tray in range(1))
+	for(var/obj/machinery/hydroponics/tray in range(1))
 		if(tray.nutrilevel < 10)
 			trays += tray
 
-	var/obj/machinery/portable_atmospherics/hydroponics/target = input("Select a tray:") as null|anything in trays
+	var/obj/machinery/hydroponics/target = input("Select a tray:") as null|anything in trays
 
 	if(!src || !target || target.nutrilevel == 10) return //Sanity check.
 
 	src.nutrition -= ((10-target.nutrilevel)*5)
-	target.nutrilevel = 10
+	target.adjustNutri(10)
 	src.visible_message("<span class='danger'>[src] secretes a trickle of green liquid from its tail, refilling [target]'s nutrient tray.","\red You secrete a trickle of green liquid from your tail, refilling [target]'s nutrient tray.</span>")
 
 /mob/living/simple_animal/diona/verb/eat_weeds()
@@ -145,16 +145,16 @@
 	set desc = "Clean the weeds out of soil or a hydroponics tray."
 
 	var/list/trays = list()
-	for(var/obj/machinery/portable_atmospherics/hydroponics/tray in range(1))
+	for(var/obj/machinery/hydroponics/tray in range(1))
 		if(tray.weedlevel > 0)
 			trays += tray
 
-	var/obj/machinery/portable_atmospherics/hydroponics/target = input("Select a tray:") as null|anything in trays
+	var/obj/machinery/hydroponics/target = input("Select a tray:") as null|anything in trays
 
 	if(!src || !target || target.weedlevel == 0) return //Sanity check.
 
 	src.nutrition += target.weedlevel * 15
-	target.weedlevel = 0
+	target.adjustWeeds(-10)
 	src.visible_message("<span class='danger'>[src] begins rooting through [target], ripping out weeds and eating them noisily.</span>","<span class='danger'>You begin rooting through [target], ripping out weeds and eating them noisily.</span>")
 
 /mob/living/simple_animal/diona/verb/evolve()

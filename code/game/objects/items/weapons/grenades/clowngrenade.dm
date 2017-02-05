@@ -23,7 +23,7 @@
 		for(var/direction in alldirs)
 			for(i = 0; i < 2; i++)
 				number++
-				var/obj/item/weapon/bananapeel/traitorpeel/peel = new /obj/item/weapon/bananapeel/traitorpeel(get_turf(src.loc))
+				var/obj/item/weapon/grown/bananapeel/traitorpeel/peel = new /obj/item/weapon/grown/bananapeel/traitorpeel(get_turf(src.loc))
 			/*	var/direction = pick(alldirs)
 				var/spaces = pick(1;150, 2)
 				var/a = 0
@@ -35,7 +35,7 @@
 						step(peel,direction)
 				else
 					step(peel,direction)
-		new /obj/item/weapon/bananapeel/traitorpeel(get_turf(src.loc))
+		new /obj/item/weapon/grown/bananapeel/traitorpeel(get_turf(src.loc))
 		qdel(src)
 		return
 /*
@@ -46,10 +46,10 @@
 			return
 		if(locate(/obj/structure/window) in T)
 			return
-		new /obj/item/weapon/bananapeel/traitorpeel(T)
+		new /obj/item/weapon/grown/bananapeel/traitorpeel(T)
 */
 
-/obj/item/weapon/bananapeel/traitorpeel
+/obj/item/weapon/grown/bananapeel/traitorpeel
 	name = "banana peel"
 	desc = "A peel from a banana."
 	icon = 'icons/obj/items.dmi'
