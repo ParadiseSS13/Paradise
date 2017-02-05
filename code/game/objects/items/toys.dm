@@ -45,12 +45,17 @@
 
 /obj/item/toy/balloon/afterattack(atom/A as mob|obj, mob/user as mob, proximity)
 	if(!proximity) return
-	if(istype(A, /obj/structure/reagent_dispensers) && get_dist(src,A) <= 1)
-		A.reagents.trans_to(src, 10)
-		to_chat(user, "<span class='notice'>You fill the balloon with the contents of [A].</span>")
-		desc = "A translucent balloon with some form of liquid sloshing around in it."
-		update_icon()
-	return
+	if (istype(A, /obj/structure/reagent_dispensers))
+		var/obj/structure/reagent_dispensers/RD = A
+		if(RD.reagents.total_volume <= 0)
+			to_chat(user, "<span class='warning'>[RD] is empty.</span>")
+		else if(reagents.total_volume >= 10)
+			to_chat(user, "<span class='warning'>[src] is full.</span>")
+		else
+			A.reagents.trans_to(src, 10)
+			to_chat(user, "<span class='notice'>You fill the balloon with the contents of [A].</span>")
+			desc = "A translucent balloon with some form of liquid sloshing around in it."
+			update_icon()
 
 /obj/item/toy/balloon/wash(mob/user, atom/source)
 	if(reagents.total_volume < 10)
