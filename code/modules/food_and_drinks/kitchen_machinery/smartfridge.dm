@@ -55,7 +55,7 @@
 	return ..()
 
 /obj/machinery/smartfridge/proc/accept_check(obj/item/O)
-	if(istype(O,/obj/item/weapon/reagent_containers/food/snacks/grown/) || istype(O,/obj/item/seeds/))
+	if(istype(O,/obj/item/weapon/reagent_containers/food/snacks/grown/) || istype(O,/obj/item/seeds/) || istype(O,/obj/item/weapon/grown/))
 		return 1
 	return 0
 
@@ -193,14 +193,15 @@
 *   Item Adding
 ********************/
 
-/obj/machinery/smartfridge/attackby(obj/item/O, mob/user)
-	if(istype(O, /obj/item/weapon/screwdriver) && anchored)
-		playsound(loc, 'sound/items/Screwdriver.ogg', 50, 1)
-		panel_open = !panel_open
-		to_chat(user, "You [panel_open ? "open" : "close"] the maintenance panel.")
-		overlays.Cut()
-		if(panel_open)
-			overlays += image(icon, "[initial(icon_state)]-panel")
+/obj/machinery/smartfridge/default_deconstruction_screwdriver(mob/user, obj/item/weapon/screwdriver/S)
+	. = ..(user, icon_state, icon_state, S)
+	
+	overlays.Cut()
+	if(panel_open)
+		overlays += image(icon, "[initial(icon_state)]-panel")
+
+/obj/machinery/smartfridge/attackby(obj/item/O, var/mob/user)
+	if(default_deconstruction_screwdriver(user, O))
 		return
 
 	if(exchange_parts(user, O))
@@ -306,7 +307,7 @@
 		to_chat(user, "<span class='notice'>Some items are refused.</span>")
 	nanomanager.update_uis(src)
 
-/obj/machinery/smartfridge/secure/emag_act(user)
+/obj/machinery/smartfridge/secure/emag_act(mob/user)
 	emagged = 1
 	locked = -1
 	to_chat(user, "You short out the product lock on [src].")
@@ -401,6 +402,127 @@
 		throw_item.throw_at(target,16,3,src)
 	visible_message("<span class='warning'>[src] launches [throw_item.name] at [target.name]!</span>")
 	return 1
+
+// ----------------------------
+//  Drying Rack 'smartfridge'
+// ----------------------------
+/obj/machinery/smartfridge/drying_rack
+	name = "drying rack"
+	desc = "A wooden contraption, used to dry plant products, food and leather."
+	icon = 'icons/obj/hydroponics/equipment.dmi'
+	icon_state = "drying_rack_on"
+	use_power = 1
+	idle_power_usage = 5
+	active_power_usage = 200
+	icon_on = "drying_rack_on"
+	icon_off = "drying_rack"
+	var/drying = FALSE
+
+/obj/machinery/smartfridge/drying_rack/New()
+	..()
+	if(component_parts && component_parts.len)
+		component_parts.Cut()
+	component_parts = null
+
+/obj/machinery/smartfridge/drying_rack/Destroy()
+	new /obj/item/stack/sheet/wood(loc, 10)
+	return ..()
+
+/obj/machinery/smartfridge/drying_rack/RefreshParts()
+	return
+
+/obj/machinery/smartfridge/drying_rack/default_deconstruction_screwdriver()
+	return
+
+/obj/machinery/smartfridge/drying_rack/exchange_parts()
+	return
+
+/obj/machinery/smartfridge/drying_rack/spawn_frame()
+	return
+
+/obj/machinery/smartfridge/drying_rack/default_deconstruction_crowbar(obj/item/weapon/crowbar/C, ignore_panel = 1)
+	..()
+
+/obj/machinery/smartfridge/drying_rack/power_change()
+	if(powered() && anchored)
+		stat &= ~NOPOWER
+	else
+		stat |= NOPOWER
+		toggle_drying(TRUE)
+	update_icon()
+
+/obj/machinery/smartfridge/drying_rack/load() //For updating the filled overlay
+	..()
+	update_icon()
+
+/obj/machinery/smartfridge/drying_rack/update_icon()
+	..()
+	overlays.Cut()
+	if(drying)
+		overlays += "drying_rack_drying"
+	if(contents.len)
+		overlays += "drying_rack_filled"
+
+/obj/machinery/smartfridge/drying_rack/process()
+	..()
+	if(drying)
+		if(rack_dry())//no need to update unless something got dried
+			update_icon()
+
+/obj/machinery/smartfridge/drying_rack/accept_check(obj/item/O)
+	if(istype(O,/obj/item/weapon/reagent_containers/food/snacks/))
+		var/obj/item/weapon/reagent_containers/food/snacks/S = O
+		if(S.dried_type)
+			return TRUE
+	if(istype(O,/obj/item/stack/sheet/wetleather/))
+		return TRUE
+	return FALSE
+
+/obj/machinery/smartfridge/drying_rack/proc/toggle_drying(forceoff)
+	if(drying || forceoff)
+		drying = FALSE
+		use_power = 1
+	else
+		drying = TRUE
+		use_power = 2
+	update_icon()
+
+/obj/machinery/smartfridge/drying_rack/proc/rack_dry()
+	for(var/obj/item/weapon/reagent_containers/food/snacks/S in contents)
+		if(S.dried_type == S.type)//if the dried type is the same as the object's type, don't bother creating a whole new item...
+			S.color = "#ad7257"
+			S.dry = TRUE
+			S.forceMove(get_turf(src))
+		else
+			var/dried = S.dried_type
+			new dried(loc)
+			qdel(S)
+		return TRUE
+	for(var/obj/item/stack/sheet/wetleather/WL in contents)
+		var/obj/item/stack/sheet/leather/L = new(loc)
+		L.amount = WL.amount
+		qdel(WL)
+		return TRUE
+	return FALSE
+
+/obj/machinery/smartfridge/drying_rack/emp_act(severity)
+	..()
+	atmos_spawn_air(SPAWN_HEAT)
+
+/obj/machinery/smartfridge/drying_rack/verb/adjust_drying()
+	set category = "Object"
+	set name = "Toggle Drying"
+	set src in view(1)
+
+	if(!iscarbon(usr))
+		to_chat(usr, "<span class='warning'>You can't do that!</span>")
+		return
+
+	if(usr.incapacitated())
+		return
+
+	toggle_drying(FALSE)
+	update_icon()
 
 /************************
 *   Secure SmartFridges

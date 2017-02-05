@@ -139,8 +139,8 @@
 	item_state = "botany"
 	use_item_overlays = 1
 	can_hold = list(
-		"/obj/item/device/analyzer/plant_analyzer",
-		"/obj/item/weapon/minihoe",
+		"/obj/item/device/plant_analyzer",
+		"/obj/item/weapon/cultivator",
 		"/obj/item/weapon/hatchet",
 		"/obj/item/weapon/reagent_containers/glass/bottle",
 		"/obj/item/weapon/plantspray",

@@ -410,6 +410,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			if(being_built)
 				var/power = 2000
 				var/amount=text2num(href_list["amount"])
+				if(being_built.make_reagents.len)
+					return 0
 				amount = max(1, min(10, amount))
 				for(var/M in being_built.materials)
 					power += round(being_built.materials[M] * amount / 5)
@@ -718,6 +720,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				if(b_type & AUTOLATHE) lathe_types += "Autolathe"
 				if(b_type & MECHFAB) lathe_types += "Mech Fabricator"
 				if(b_type & PODFAB) lathe_types += "Spacepod Fabricator"
+				if(b_type & BIOGENERATOR) lathe_types += "Biogenerator"
 			var/list/materials = list()
 			disk_data["materials"] = materials
 			for(var/M in d_disk.blueprint.materials)

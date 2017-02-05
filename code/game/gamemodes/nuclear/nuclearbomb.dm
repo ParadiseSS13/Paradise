@@ -32,10 +32,12 @@ var/bomb_set
 	r_code = "[rand(10000, 99999.0)]"//Creates a random code upon object spawn.
 	wires = new/datum/wires/nuclearbomb(src)
 	previous_level = get_security_level()
+	poi_list |= src
 
 /obj/machinery/nuclearbomb/Destroy()
 	qdel(wires)
 	wires = null
+	poi_list.Remove(src)
 	return ..()
 
 /obj/machinery/nuclearbomb/process()
@@ -392,10 +394,7 @@ var/bomb_set
 /obj/item/weapon/disk/nuclear
 	name = "nuclear authentication disk"
 	desc = "Better keep this safe."
-	icon = 'icons/obj/items.dmi'
 	icon_state = "nucleardisk"
-	item_state = "card-id"
-	w_class = 1
 
 /obj/item/weapon/disk/nuclear/New()
 	..()
