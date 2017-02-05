@@ -292,7 +292,6 @@
 				to_chat(user, "<span class='notice'>You chomp into [src], barely managing to hold it down, but feel amazingly refreshed in mere moments.</span>")
 			playsound(src.loc,'sound/items/eatfood.ogg', rand(10,50), 1)
 			H.revive()
-			user.drop_item()
 			qdel(src)
 	..()
 
