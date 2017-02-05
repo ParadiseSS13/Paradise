@@ -62,6 +62,12 @@
 	turf_type = /turf/simulated/floor/carpet
 	burn_state = FLAMMABLE
 
+/obj/item/stack/tile/carpet/blue
+	name = "blue carpet"
+	desc = "A piece of blue carpet. It is the same size as a normal carpet tile, but in blue style!"
+	icon_state = "tile-carpet_blue"
+	turf_type = /turf/simulated/floor/carpet/blue
+
 /*
  * Plasteel
  */
