@@ -20,6 +20,7 @@
 	var/weather_duration_upper = 1500 //See above - this is the highest possible duration
 	var/weather_sound
 	var/weather_overlay
+	var/weather_color = null
 
 	var/end_message = "<span class='danger'>The wind relents its assault.</span>" //Displayed once the wather is over
 	var/end_duration = 300 //In deciseconds, how long the "wind-down" graphic will appear before vanishing entirely
@@ -28,8 +29,9 @@
 
 	var/area_type = /area/space //Types of area to affect
 	var/list/impacted_areas = list() //Areas to be affected by the weather, calculated when the weather begins
-	var/target_level = MAIN_STATION //The z-level to affect
-
+	var/target_z = MAIN_STATION //The z-level to affect
+	var/list/protected_areas = list()//Areas that are protected and excluded from the affected areas.
+	
 	var/overlay_layer = 10 //Since it's above everything else, this is the layer used by default. 2 is below mobs and walls if you need to use that.
 	var/aesthetic = FALSE //If the weather has no purpose other than looks
 	var/immunity_type = "storm" //Used by mobs to prevent them from being affected by the weather
@@ -50,15 +52,20 @@
 	if(stage == STARTUP_STAGE)
 		return
 	stage = STARTUP_STAGE
+	var/list/affectareas = list()
 	for(var/V in get_areas(area_type))
+		affectareas += V
+	for(var/V in protected_areas)
+		affectareas -= get_areas(V)
+	for(var/V in affectareas)
 		var/area/A = V
-		if(is_on_level_name(A,target_level))
+		if(is_on_level_name(A,target_z))
 			impacted_areas |= A
 	weather_duration = rand(weather_duration_lower, weather_duration_upper)
 	update_areas()
 	for(var/V in player_list)
 		var/mob/M = V
-		if(is_on_level_name(M,target_level))
+		if(is_on_level_name(M,target_z))
 			if(telegraph_message)
 				to_chat(M, telegraph_message)
 			if(telegraph_sound)
@@ -72,7 +79,7 @@
 	update_areas()
 	for(var/V in player_list)
 		var/mob/M = V
-		if(is_on_level_name(M,target_level))
+		if(is_on_level_name(M,target_z))
 			if(weather_message)
 				to_chat(M, weather_message)
 			if(weather_sound)
@@ -87,7 +94,7 @@
 	update_areas()
 	for(var/V in player_list)
 		var/mob/M = V
-		if(is_on_level_name(M,target_level))
+		if(is_on_level_name(M,target_z))
 			if(end_message)
 				to_chat(M, end_message)
 			if(end_sound)
@@ -102,7 +109,7 @@
 	update_areas()
 
 /datum/weather/proc/can_impact(mob/living/L) //Can this weather impact a mob?
-	if(!is_on_level_name(L,target_level))
+	if(!is_on_level_name(L,target_z))
 		return
 	if(immunity_type in L.weather_immunities)
 		return
@@ -119,6 +126,7 @@
 		N.layer = overlay_layer
 		N.icon = 'icons/effects/weather_effects.dmi'
 		N.invisibility = 0
+		N.color = weather_color
 		switch(stage)
 			if(STARTUP_STAGE)
 				N.icon_state = telegraph_overlay
@@ -127,6 +135,7 @@
 			if(WIND_DOWN_STAGE)
 				N.icon_state = end_overlay
 			if(END_STAGE)
+				N.color = null
 				N.icon_state = initial(N.icon_state)
 				N.icon = 'icons/turf/areas.dmi'
 				N.layer = 10 //Just default back to normal area stuff since I assume setting a var is faster than initial

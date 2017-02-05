@@ -434,7 +434,7 @@ var/list/intents = list(I_HELP,I_DISARM,I_GRAB,I_HARM)
 				lname = "<span class='name'>[lname]</span> "
 			to_chat(M, "<span class='deadsay'>[lname][follow][message]</span>")
 
-/proc/notify_ghosts(message, ghost_sound = null, enter_link = null, atom/source = null, image/alert_overlay = null, attack_not_jump = 0, flashwindow = TRUE) //Easy notification of ghosts.
+/proc/notify_ghosts(message, ghost_sound = null, enter_link = null, atom/source = null, image/alert_overlay = null, attack_not_jump = 0, flashwindow = TRUE, var/action = NOTIFY_JUMP) //Easy notification of ghosts.
 	for(var/mob/dead/observer/O in player_list)
 		if(O.client)
 			to_chat(O, "<span class='ghostalert'>[message][(enter_link) ? " [enter_link]" : ""]<span>")
@@ -443,13 +443,13 @@ var/list/intents = list(I_HELP,I_DISARM,I_GRAB,I_HARM)
 			if(flashwindow)
 				window_flash(O.client)
 			if(source)
-				var/obj/screen/alert/notify_jump/A = O.throw_alert("\ref[source]_notify_jump", /obj/screen/alert/notify_jump)
+				var/obj/screen/alert/notify_action/A = O.throw_alert("\ref[source]_notify_action", /obj/screen/alert/notify_action)
 				if(A)
 					if(O.client.prefs && O.client.prefs.UI_style)
 						A.icon = ui_style2icon(O.client.prefs.UI_style)
 					A.desc = message
-					A.attack_not_jump = attack_not_jump
-					A.jump_target = source
+					A.action = action
+					A.target = source
 					if(!alert_overlay)
 						var/old_layer = source.layer
 						var/old_plane = source.plane

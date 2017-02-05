@@ -1,7 +1,15 @@
 
 /mob/living/Destroy()
+	if(ranged_ability)
+		ranged_ability.remove_ranged_ability(src)
 	..()
 	return QDEL_HINT_HARDDEL_NOW
+	
+/mob/living/ghostize(can_reenter_corpse = 1)
+	var/prev_client = client
+	if(..())
+		if(ranged_ability && prev_client)
+			ranged_ability.remove_mousepointer(prev_client)
 
 /mob/living/proc/OpenCraftingMenu()
 	return

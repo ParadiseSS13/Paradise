@@ -58,7 +58,7 @@
 	projectilesound = 'sound/weapons/pierce.ogg'
 	ranged = 1
 	ranged_message = "stares"
-	ranged_cooldown_cap = 20
+	ranged_cooldown_time = 30
 	throw_message = "does nothing against the hard shell of"
 	vision_range = 2
 	speed = 3
@@ -71,7 +71,6 @@
 	a_intent = I_HARM
 	speak_emote = list("chitters")
 	attack_sound = 'sound/weapons/bladeslice.ogg'
-	ranged_cooldown_cap = 4
 	aggro_vision_range = 9
 	idle_vision_range = 2
 	turns_per_move = 5
@@ -104,232 +103,6 @@
 		if(3.0)
 			adjustBruteLoss(110)
 
-/mob/living/simple_animal/hostile/asteroid/goldgrub
-	name = "goldgrub"
-	desc = "A worm that grows fat from eating everything in its sight. Seems to enjoy precious metals and other shiny things, hence the name."
-	icon = 'icons/mob/animal.dmi'
-	icon_state = "Goldgrub"
-	icon_living = "Goldgrub"
-	icon_aggro = "Goldgrub_alert"
-	icon_dead = "Goldgrub_dead"
-	icon_gib = "syndicate_gib"
-	vision_range = 2
-	aggro_vision_range = 9
-	idle_vision_range = 2
-	move_to_delay = 5
-	friendly = "harmlessly rolls into"
-	maxHealth = 45
-	health = 45
-	harm_intent_damage = 5
-	melee_damage_lower = 0
-	melee_damage_upper = 0
-	attacktext = "barrels into"
-	attack_sound = 'sound/weapons/punch1.ogg'
-	a_intent = I_HELP
-	speak_emote = list("screeches")
-	throw_message = "sinks in slowly, before being pushed out of "
-	status_flags = CANPUSH
-	search_objects = 1
-	wanted_objects = list(/obj/item/weapon/ore/diamond, /obj/item/weapon/ore/gold, /obj/item/weapon/ore/silver,
-						  /obj/item/weapon/ore/uranium)
-
-	var/list/ore_types_eaten = list()
-	var/alerted = 0
-	var/ore_eaten = 1
-	var/chase_time = 100
-	var/will_burrow = 1
-
-/mob/living/simple_animal/hostile/asteroid/goldgrub/New()
-	..()
-	ore_types_eaten += pick(/obj/item/weapon/ore/silver, /obj/item/weapon/ore/gold, /obj/item/weapon/ore/uranium, /obj/item/weapon/ore/diamond)
-	ore_eaten = rand(1,3)
-
-/mob/living/simple_animal/hostile/asteroid/goldgrub/GiveTarget(var/new_target)
-	target = new_target
-	if(target != null)
-		if(istype(target, /obj/item/weapon/ore))
-			visible_message("<span class='notice'>The [src.name] looks at [target.name] with hungry eyes.</span>")
-		else if(isliving(target))
-			Aggro()
-			visible_message("<span class='danger'>The [src.name] tries to flee from [target.name]!</span>")
-			retreat_distance = 10
-			minimum_distance = 10
-			Burrow()
-
-/mob/living/simple_animal/hostile/asteroid/goldgrub/AttackingTarget()
-	if(istype(target, /obj/item/weapon/ore))
-		EatOre(target)
-		return
-	..()
-
-/mob/living/simple_animal/hostile/asteroid/goldgrub/proc/EatOre(var/atom/targeted_ore)
-	for(var/obj/item/weapon/ore/O in targeted_ore.loc)
-		ore_eaten++
-		if(!(O.type in ore_types_eaten))
-			ore_types_eaten += O.type
-		qdel(O)
-	if(ore_eaten > 10)//Limit the scope of the reward you can get, or else things might get silly
-		ore_eaten = 10
-	visible_message("<span class='notice'>The ore was swallowed whole!</span>")
-
-/mob/living/simple_animal/hostile/asteroid/goldgrub/proc/Burrow()//Begin the chase to kill the goldgrub in time
-	if(!alerted && will_burrow)
-		alerted = 1
-		spawn(chase_time)
-		if(alerted)
-			visible_message("<span class='danger'>The [src.name] buries into the ground, vanishing from sight!</span>")
-			qdel(src)
-
-/mob/living/simple_animal/hostile/asteroid/goldgrub/proc/Reward()
-	if(!ore_eaten || ore_types_eaten.len == 0)
-		return
-	visible_message("<span class='danger'>[src] spits up the contents of its stomach before dying!</span>")
-	var/counter
-	for(var/R in ore_types_eaten)
-		for(counter=0, counter < ore_eaten, counter++)
-			new R(src.loc)
-	ore_types_eaten.Cut()
-	ore_eaten = 0
-
-
-/mob/living/simple_animal/hostile/asteroid/goldgrub/bullet_act(var/obj/item/projectile/P)
-	visible_message("<span class='danger'>The [P.name] was repelled by [src.name]'s girth!</span>")
-	return
-
-/mob/living/simple_animal/hostile/asteroid/goldgrub/death(gibbed)
-	alerted = 0
-	Reward()
-	..()
-
-/mob/living/simple_animal/hostile/asteroid/goldgrub/adjustHealth(damage)
-	idle_vision_range = 9
-	..()
-
-/mob/living/simple_animal/hostile/asteroid/hivelord
-	name = "hivelord"
-	desc = "A truly alien creature, it is a mass of unknown organic material, constantly fluctuating. When attacking, pieces of it split off and attack in tandem with the original."
-	icon = 'icons/mob/animal.dmi'
-	icon_state = "Hivelord"
-	icon_living = "Hivelord"
-	icon_aggro = "Hivelord_alert"
-	icon_dead = "Hivelord_dead"
-	icon_gib = "syndicate_gib"
-	mouse_opacity = 2
-	move_to_delay = 14
-	ranged = 1
-	vision_range = 5
-	aggro_vision_range = 9
-	idle_vision_range = 5
-	speed = 3
-	maxHealth = 75
-	health = 75
-	harm_intent_damage = 5
-	melee_damage_lower = 0
-	melee_damage_upper = 0
-	attacktext = "lashes out at"
-	speak_emote = list("telepathically cries")
-	attack_sound = 'sound/weapons/pierce.ogg'
-	throw_message = "falls right through the strange body of the"
-	ranged_cooldown = 0
-	ranged_cooldown_cap = 0
-	environment_smash = 0
-	retreat_distance = 3
-	minimum_distance = 3
-	pass_flags = PASSTABLE
-	loot = list(/obj/item/organ/internal/hivelord_core)
-
-/mob/living/simple_animal/hostile/asteroid/hivelord/OpenFire(var/the_target)
-	var/mob/living/simple_animal/hostile/asteroid/hivelordbrood/A = new /mob/living/simple_animal/hostile/asteroid/hivelordbrood(src.loc)
-	A.GiveTarget(target)
-	A.friends = friends
-	A.faction = faction
-	return
-
-/mob/living/simple_animal/hostile/asteroid/hivelord/AttackingTarget()
-	OpenFire()
-
-/obj/item/organ/internal/hivelord_core
-	name = "hivelord remains"
-	desc = "All that remains of a hivelord, it seems to be what allows it to break pieces of itself off without being hurt... its healing properties will soon become inert if not used quickly. Try not to think about what you're eating."
-	icon = 'icons/obj/food/food.dmi'
-	icon_state = "boiledrorocore"
-	slot = "hivecore"
-	var/inert = 0
-	var/preserved = 0
-
-/obj/item/organ/internal/hivelord_core/New()
-	spawn(2400)
-		if(!preserved)
-			inert = 1
-			desc = "The remains of a hivelord that have become useless, having been left alone too long after being harvested."
-
-/obj/item/organ/internal/hivelord_core/on_life()
-	..()
-	if(owner)
-		owner.adjustBruteLoss(-1)
-		owner.adjustFireLoss(-1)
-		owner.adjustOxyLoss(-2)
-	if(ishuman(owner))
-		var/mob/living/carbon/human/H = owner
-		var/datum/reagent/blood/B = locate() in H.vessel.reagent_list //Grab some blood
-		var/blood_volume = round(H.vessel.get_reagent_amount("blood"))
-		if(B && blood_volume < H.max_blood && blood_volume)
-			B.volume += 2 // Fast blood regen
-
-/obj/item/organ/internal/hivelord_core/attack(mob/living/M as mob, mob/living/user as mob)
-	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
-		if(inert)
-			to_chat(user, "<span class='notice'>[src] have become inert, its healing properties are no more.</span>")
-			return
-		else
-			if(H.stat == DEAD)
-				to_chat(user, "<span class='notice'>[src] are useless on the dead.</span>")
-				return
-			if(H != user)
-				H.visible_message("<span class='notice'>[user] forces [H] to eat [src]... they quickly regenerate all injuries!</span>")
-			else
-				to_chat(user, "<span class='notice'>You chomp into [src], barely managing to hold it down, but feel amazingly refreshed in mere moments.</span>")
-			playsound(src.loc,'sound/items/eatfood.ogg', rand(10,50), 1)
-			H.revive()
-			qdel(src)
-	..()
-
-/obj/item/organ/internal/hivelord_core/prepare_eat()
-	return null
-
-/mob/living/simple_animal/hostile/asteroid/hivelordbrood
-	name = "hivelord brood"
-	desc = "A fragment of the original Hivelord, rallying behind its original. One isn't much of a threat, but..."
-	icon = 'icons/mob/animal.dmi'
-	icon_state = "Hivelordbrood"
-	icon_living = "Hivelordbrood"
-	icon_aggro = "Hivelordbrood"
-	icon_dead = "Hivelordbrood"
-	icon_gib = "syndicate_gib"
-	mouse_opacity = 2
-	move_to_delay = 1
-	friendly = "buzzes near"
-	vision_range = 10
-	speed = 3
-	maxHealth = 1
-	health = 1
-	harm_intent_damage = 5
-	melee_damage_lower = 2
-	melee_damage_upper = 2
-	attacktext = "slashes"
-	speak_emote = list("telepathically cries")
-	attack_sound = 'sound/weapons/pierce.ogg'
-	throw_message = "falls right through the strange body of the"
-	environment_smash = 0
-	pass_flags = PASSTABLE
-	del_on_death = 1
-
-/mob/living/simple_animal/hostile/asteroid/hivelordbrood/New()
-	..()
-	spawn(100)
-		death()
-
 /mob/living/simple_animal/hostile/asteroid/goliath
 	name = "goliath"
 	desc = "A massive beast that uses long tentacles to ensare its prey, threatening them is not advised under any conditions."
@@ -344,7 +117,7 @@
 	move_to_delay = 40
 	ranged = 1
 	ranged_cooldown = 2 //By default, start the Goliath with his cooldown off so that people can run away quickly on first sight
-	ranged_cooldown_cap = 8
+	ranged_cooldown_time = 120
 	friendly = "wails at"
 	speak_emote = list("bellows")
 	vision_range = 4
@@ -368,7 +141,7 @@
 	handle_preattack()
 
 /mob/living/simple_animal/hostile/asteroid/goliath/proc/handle_preattack()
-	if(ranged_cooldown <= 2 && !pre_attack)
+	if(ranged_cooldown <= world.time + ranged_cooldown_time * 0.25 && !pre_attack)
 		pre_attack++
 	if(!pre_attack || stat || AIStatus == AI_IDLE)
 		return
@@ -383,7 +156,7 @@
 	if(get_dist(src, target) <= 7)//Screen range check, so you can't get tentacle'd offscreen
 		visible_message("<span class='warning'>The [src.name] digs its tentacles under [target.name]!</span>")
 		new /obj/effect/goliath_tentacle/original(tturf)
-		ranged_cooldown = ranged_cooldown_cap
+		ranged_cooldown = world.time + ranged_cooldown_time
 		icon_state = icon_aggro
 		pre_attack = 0
 	return

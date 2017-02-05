@@ -93,12 +93,27 @@
 		if(C.can_breathe_gas())
 			C.reagents.add_reagent("sarin", 4)
 
+/datum/chemical_reaction/glyphosate
+	name = "glyphosate"
+	id = "glyphosate"
+	result = "glyphosate"
+	required_reagents = list("chlorine" = 1, "phosphorus" = 1, "formaldehyde" = 1, "ammonia" = 1)
+	result_amount = 4
+
 /datum/chemical_reaction/atrazine
 	name = "atrazine"
 	id = "atrazine"
 	result = "atrazine"
 	required_reagents = list("chlorine" = 1, "hydrogen" = 1, "nitrogen" = 1)
 	result_amount = 3
+	mix_message = "The mixture gives off a harsh odor"
+
+/datum/chemical_reaction/pestkiller // To-Do make this more realistic
+	name = "Pest Killer"
+	id = "pestkiller"
+	result = "pestkiller"
+	required_reagents = list("toxin" = 1, "ethanol" = 4)
+	result_amount = 5
 	mix_message = "The mixture gives off a harsh odor"
 
 /datum/chemical_reaction/capulettium

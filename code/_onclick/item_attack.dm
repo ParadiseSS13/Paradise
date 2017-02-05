@@ -74,7 +74,9 @@
 
 	/////////////////////////
 
-	if(istype(M, /mob/living/simple_animal))
+	if(isanimal(M))
+		var/mob/living/simple_animal/S = M
+		S.attacked_by(src, user)
 		return 0 // No sanic-speed double-attacks for you - simple mobs will handle being attacked on their own
 	var/power = force
 

@@ -311,6 +311,7 @@ Made by Xhuis
 	hot_env_multiplier = 1.5
 
 	silent_steps = 1
+	grant_vision_toggle = 0
 
 /datum/species/shadow/ling/handle_life(var/mob/living/carbon/human/H)
 	if(!H.weakeyes)
@@ -321,11 +322,13 @@ Made by Xhuis
 		var/turf/T = H.loc
 		light_amount = T.get_lumcount() * 10
 		if(light_amount > LIGHT_DAM_THRESHOLD && !H.incorporeal_move) //Can survive in very small light levels. Also doesn't take damage while incorporeal, for shadow walk purposes
+			H.throw_alert("lightexposure", /obj/screen/alert/lightexposure)
 			H.take_overall_damage(0, LIGHT_DAMAGE_TAKEN)
 			if(H.stat != DEAD)
 				to_chat(H, "<span class='userdanger'>The light burns you!</span>")//Message spam to say "GET THE FUCK OUT"
 				H << 'sound/weapons/sear.ogg'
 		else if(light_amount < LIGHT_HEAL_THRESHOLD)
+			H.clear_alert("lightexposure")
 			H.heal_overall_damage(5, 5)
 			H.adjustToxLoss(-5)
 			H.adjustBrainLoss(-25) //Shad O. Ling gibbers, "CAN U BE MY THRALL?!!"
@@ -357,8 +360,10 @@ Made by Xhuis
 		var/turf/T = H.loc
 		light_amount = T.get_lumcount() * 10
 		if(light_amount > LIGHT_DAM_THRESHOLD && !H.incorporeal_move)
+			H.throw_alert("lightexposure", /obj/screen/alert/lightexposure)
 			H.take_overall_damage(0, LIGHT_DAMAGE_TAKEN/2)
 		else if(light_amount < LIGHT_HEAL_THRESHOLD)
+			H.clear_alert("lightexposure")
 			H.heal_overall_damage(2,2)
 			H.adjustToxLoss(-5)
 			H.adjustBrainLoss(-25)
