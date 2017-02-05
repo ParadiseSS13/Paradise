@@ -48,6 +48,24 @@
 	materials = list()
 	burn_state = FLAMMABLE
 	block_chance = 30
+	var/redesigned = 0
+
+/obj/item/weapon/shield/riot/buckler/kite
+	name = "Crusader Kite"
+	desc = "WE WILL TAKE JERUSALEM."
+	icon_state = "Crusadershield"
+	item_state = "Crusadershield"
+	redesigned = 1
+
+/obj/item/weapon/shield/riot/buckler/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/weapon/pen) && !redesigned)
+		var/obj/item/weapon/shield/riot/buckler/kite/kite = new
+		to_chat(user, "<span class='notice'>You redesign [src] into [kite]!</span>")
+		user.drop_item()
+		user.put_in_active_hand(kite)
+		qdel(src)
+		return
+	..()
 
 /obj/item/weapon/shield/energy
 	name = "energy combat shield"

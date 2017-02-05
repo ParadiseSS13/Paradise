@@ -1,3 +1,4 @@
+
 /obj/structure/closet/secure_closet/chaplain
 	name = "chapel wardrobe"
 	desc = "A lockable storage unit for Nanotrasen-approved religious attire."
