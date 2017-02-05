@@ -114,7 +114,7 @@ var/list/ai_verbs_default = list(
 	announcement.title = "A.I. Announcement"
 	announcement.announcement_type = "A.I. Announcement"
 	announcement.announcer = name
-	announcement.newscast = 1
+	announcement.newscast = 0
 
 	var/list/possibleNames = ai_names
 
