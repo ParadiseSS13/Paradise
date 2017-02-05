@@ -344,6 +344,10 @@
 		to_chat(user, "[choice] is already dead!")
 		used = FALSE
 		return
+	else if(choice == user)
+		user << "You feel like writing your own name into a cursed death warrant would be unwise."
+		used = FALSE
+		return
 	else
 		var/mob/living/L = choice
 
