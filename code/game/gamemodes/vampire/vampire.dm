@@ -275,8 +275,8 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 	var/blood = 0
 	var/old_bloodtotal = 0 //used to see if we increased our blood total
 	var/old_bloodusable = 0 //used to see if we increased our blood usable
-	owner.attack_log += text("\[[time_stamp()]\] <font color='red'>Bit [H] ([H.ckey]) in the neck and draining their blood</font>")
-	H.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been bit in the neck by [owner] ([owner.ckey])</font>")
+	owner.create_attack_log("<font color='red'>Bit [H] ([H.ckey]) in the neck and draining their blood</font>")
+	H.create_attack_log("<font color='orange'>Has been bit in the neck by [owner] ([owner.ckey])</font>")
 	log_attack("[owner] ([owner.ckey]) bit [H] ([H.ckey]) in the neck")
 	owner.visible_message("<span class='danger'>[owner] grabs [H]'s neck harshly and sinks in their fangs!</span>", "<span class='danger'>You sink your fangs into [H] and begin to drain their blood.</span>", "<span class='notice'>You hear a soft puncture and a wet sucking noise.</span>")
 	if(!iscarbon(owner))
@@ -335,7 +335,7 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 	if(vampire_mind in vampires)
 		ticker.mode.vampires -= vampire_mind
 		vampire_mind.special_role = null
-		vampire_mind.current.attack_log += "\[[time_stamp()]\] <span class='danger'>De-vampired</span>"
+		vampire_mind.current.create_attack_log("<span class='danger'>De-vampired</span>")
 		if(vampire_mind.vampire)
 			vampire_mind.vampire.remove_vampire_powers()
 			qdel(vampire_mind.vampire)

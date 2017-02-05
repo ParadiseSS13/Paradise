@@ -26,8 +26,8 @@
 			to_chat(user, "<span class='warning'>A mysterious force prevents you from trapping this being's soul.</span>")
 			return ..()
 
-		M.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has had their soul captured with [src.name] by [key_name(user)]</font>")
-		user.attack_log += text("\[[time_stamp()]\] <font color='red'>Used the [src.name] to capture the soul of [key_name(M)]</font>")
+		M.create_attack_log("<font color='orange'>Has had their soul captured with [src.name] by [key_name(user)]</font>")
+		user.create_attack_log("<font color='red'>Used the [src.name] to capture the soul of [key_name(M)]</font>")
 
 		log_attack("<font color='red'>[key_name(user)] used the [src.name] to capture the soul of [key_name(M)]</font>")
 
@@ -38,7 +38,7 @@
 	/*attack(mob/living/simple_animal/shade/M as mob, mob/user as mob)//APPARENTLY THEY NEED THEIR OWN SPECIAL SNOWFLAKE CODE IN THE LIVING ANIMAL DEFINES
 		if(!istype(M, /mob/living/simple_animal/shade))//If target is not a shade
 			return ..()
-		user.attack_log += text("\[[time_stamp()]\] <font color='red'>Used the [src.name] to capture the soul of [M.name] ([M.ckey])</font>")
+		user.create_attack_log("<font color='red'>Used the [src.name] to capture the soul of [M.name] ([M.ckey])</font>")
 
 		transfer_soul("SHADE", M, user)
 		return*/

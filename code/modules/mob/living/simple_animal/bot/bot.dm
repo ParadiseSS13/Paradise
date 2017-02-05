@@ -788,6 +788,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 	frustration = 0
 
 /mob/living/simple_animal/bot/show_inv()
+	return
 
 /mob/living/simple_animal/bot/proc/show_controls(mob/M)
 	users |= M

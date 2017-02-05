@@ -204,7 +204,7 @@
 	modules += new /obj/item/weapon/gripper(src)
 	modules += new /obj/item/weapon/matter_decompiler(src)
 	modules += new /obj/item/device/floor_painter(src)
-
+	modules += new /obj/item/areaeditor/blueprints/cyborg(src)
 	emag = new /obj/item/borg/stun(src)
 
 	for(var/G in stacktypes) //Attempt to unify Engi-Borg material stacks into fewer lines. See Line 492 for example. Variables changed out of paranoia.

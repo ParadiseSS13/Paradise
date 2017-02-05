@@ -139,8 +139,8 @@
 	item_state = "botany"
 	use_item_overlays = 1
 	can_hold = list(
-		"/obj/item/device/analyzer/plant_analyzer",
-		"/obj/item/weapon/minihoe",
+		"/obj/item/device/plant_analyzer",
+		"/obj/item/weapon/cultivator",
 		"/obj/item/weapon/hatchet",
 		"/obj/item/weapon/reagent_containers/glass/bottle",
 		"/obj/item/weapon/plantspray",
@@ -566,7 +566,7 @@
 	to_chat(user, "Planting explosives...")
 	user.visible_message("[user.name] is fiddling with their toolbelt.")
 	if(ismob(target))
-		user.attack_log += "\[[time_stamp()]\] <font color='red'> [user.real_name] tried planting [name] on [target:real_name] ([target:ckey])</font>"
+		user.create_attack_log("<font color='red'> [user.real_name] tried planting [name] on [target:real_name] ([target:ckey])</font>")
 		log_attack("<font color='red'> [user.real_name] ([user.ckey]) tried planting [name] on [target:real_name] ([target:ckey])</font>")
 		user.visible_message("\red [user.name] is trying to strap a belt to [target.name]!")
 
@@ -578,7 +578,7 @@
 		var/location
 		if(isturf(target)) location = target
 		if(ismob(target))
-			target:attack_log += "\[[time_stamp()]\]<font color='orange'> Had the [name] planted on them by [user.real_name] ([user.ckey])</font>"
+			target:create_attack_log("<font color='orange'> Had the [name] planted on them by [user.real_name] ([user.ckey])</font>")
 			user.visible_message("\red [user.name] finished planting an explosive on [target.name]!")
 		target.overlays += image('icons/obj/assemblies.dmi', "plastic-explosive2")
 		to_chat(user, "You sacrifice your belt for the sake of justice. Timer counting down from 15.")
