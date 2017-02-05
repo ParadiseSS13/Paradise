@@ -54,7 +54,7 @@
 	animate(I, pixel_z = 32, alpha = 255, time = 5, easing = ELASTIC_EASING)
 
 
-obj/structure/closet/cardboard/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+/obj/structure/closet/cardboard/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(src.opened)
 		if(istype(W, /obj/item/weapon/weldingtool))
 			return
