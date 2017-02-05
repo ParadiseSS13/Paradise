@@ -521,6 +521,12 @@
 		mutmod = 0
 		adjustNutri(round(S.get_reagent_amount("robustharvestnutriment") *1 ))
 
+
+	//Fish Water is both an excellent fertilizer and waters
+	if(S.has_reagent("fishwater", 1))
+		adjustNutri(round(S.get_reagent_amount("fishwater") * 0.75))
+		adjustWater(round(S.get_reagent_amount("fishwater") * 1))
+
 	// Antitoxin binds shit pretty well. So the tox goes significantly down
 	if(S.has_reagent("charcoal", 1))
 		adjustToxic(-round(S.get_reagent_amount("charcoal") * 2))
