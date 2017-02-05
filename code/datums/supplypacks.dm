@@ -1575,6 +1575,14 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	cost = 15
 	containername = "snacks supply crate"
 
+/datum/supply_packs/vending/chinese
+	name = "Chinese Supply Crate"
+	contains = list(/obj/item/weapon/vending_refill/chinese,
+					/obj/item/weapon/vending_refill/chinese,
+					/obj/item/weapon/vending_refill/chinese)
+	cost = 15
+	containername = "chinese supply crate"
+
 /datum/supply_packs/vending/cola
 	name = "Softdrinks Supply Crate"
 	contains = list(/obj/item/weapon/vending_refill/cola,

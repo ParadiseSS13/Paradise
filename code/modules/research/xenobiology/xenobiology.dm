@@ -25,8 +25,8 @@
 	..()
 
 /obj/item/slime_extract/New()
-		..()
-		create_reagents(100)
+	..()
+	create_reagents(100)
 
 /obj/item/slime_extract/grey
 	name = "grey slime extract"
@@ -124,7 +124,9 @@
 	w_class = 1
 	origin_tech = "biotech=4"
 
-/obj/item/slimepotion/afterattack(obj/item/weapon/reagent_containers/target, mob/user , proximity)
+/obj/item/slimepotion/afterattack(obj/item/weapon/reagent_containers/target, mob/user, proximity_flag)
+	if(!proximity_flag)
+		return
 	if(istype(target))
 		to_chat(user, "<span class='notice'>You cannot transfer [src] to [target]! It appears the potion must be given directly to a slime to absorb.</span>") // le fluff faec
 		return
@@ -174,7 +176,7 @@
 
 /obj/item/slimepotion/sentience
 	name = "sentience potion"
-	desc = "A miraculous chemical mix that can raise the intelligence of creatures to human levels. Unlike normal slime potions, it can be absorbed by any nonsentient being."
+	desc = "A miraculous chemical mix that can raise the intelligence of creatures to human levels."
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle19"
 	origin_tech = "biotech=5"
@@ -182,7 +184,9 @@
 	var/being_used = 0
 	var/sentience_type = SENTIENCE_ORGANIC
 
-/obj/item/slimepotion/sentience/afterattack(mob/living/M, mob/user)
+/obj/item/slimepotion/sentience/afterattack(mob/living/M, mob/user, proximity_flag)
+	if(!proximity_flag)
+		return
 	if(being_used || !ismob(M))
 		return
 	if(!isanimal(M) || M.ckey) //only works on animals that aren't player controlled
@@ -220,6 +224,50 @@
 		to_chat(user, "<span class='notice'>[M] looks interested for a moment, but then looks back down. Maybe you should try again later.</span>")
 		being_used = 0
 		..()
+
+/obj/item/slimepotion/transference
+	name = "consciousness transference potion"
+	desc = "A strange slime-based chemical that, when used, allows the user to transfer their consciousness to a lesser being."
+	icon = 'icons/obj/chemical.dmi'
+	icon_state = "bottle19"
+	origin_tech = "biotech=6"
+	var/prompted = FALSE
+	var/animal_type = SENTIENCE_ORGANIC
+
+/obj/item/slimepotion/transference/afterattack(mob/living/M, mob/user, proximity_flag)
+	if(!proximity_flag)
+		return
+	if(prompted || !ismob(M))
+		return
+	if(!isanimal(M) || M.ckey) //much like sentience, these will not work on something that is already player controlled
+		to_chat(user, "<span class='warning'>[M] already has a higher consciousness!</span>")
+		return ..()
+	if(M.stat)
+		to_chat(user, "<span class='warning'>[M] is dead!</span>")
+		return ..()
+	var/mob/living/simple_animal/SM = M
+	if(SM.sentience_type != animal_type)
+		to_chat(user, "<span class='warning'>You cannot transfer your consciousness to [SM].</span>") //no controlling machines
+		return ..()
+	if(jobban_isbanned(user, ROLE_SENTIENT))
+		to_chat(user, "<span class='warning'>Your mind goes blank as you attempt to use the potion.</span>")
+		return
+
+	prompted = TRUE
+	if(alert("This will permanently transfer your consciousness to [SM]. Are you sure you want to do this?",,"Yes","No")=="No")
+		prompted = FALSE
+		return
+
+	to_chat(user, "<span class='notice'>You drink the potion then place your hands on [SM]...</span>")
+	user.mind.transfer_to(SM)
+	SM.universal_speak = 1
+	SM.faction = user.faction
+	SM.sentience_act() //Same deal here as with sentience
+	user.death()
+	to_chat(SM, "<span class='notice'>In a quick flash, you feel your consciousness flow into [SM]!</span>")
+	to_chat(SM, "<span class='warning'>You are now [SM]. Your allegiances, alliances, and roles are still the same as they were prior to consciousness transfer!</span>")
+	SM.name = "[SM.name] as [user.real_name]"
+	qdel(src)
 
 /obj/item/slimepotion/steroid
 	name = "slime steroid"
@@ -303,15 +351,17 @@
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle3"
 
-/obj/item/slimepotion/speed/afterattack(obj/item/C, mob/user)
+/obj/item/slimepotion/speed/afterattack(obj/item/C, mob/user, proximity_flag)
+	if(!proximity_flag)
+		return
 	..()
 	if(!istype(C))
 		to_chat(user, "<span class='warning'>The potion can only be used on items!</span>")
 		return
 	if(C.slowdown <= 0)
-		to_chat(user, "<span class='warning'>The [C] can't be made any faster!</span>")
+		to_chat(user, "<span class='warning'>[C] can't be made any faster!</span>")
 		return..()
-	to_chat(user, "<span class='notice'>You slather the red gunk over the [C], making it faster.</span>")
+	to_chat(user, "<span class='notice'>You slather the red gunk over [C], making it faster.</span>")
 	C.color = "#FF0000"
 	C.slowdown = 0
 	qdel(src)
@@ -323,8 +373,10 @@
 	icon_state = "bottle17"
 	var/uses = 3
 
-/obj/item/slimepotion/fireproof/afterattack(obj/item/clothing/C, mob/user)
+/obj/item/slimepotion/fireproof/afterattack(obj/item/clothing/C, mob/user, proximity_flag)
 	..()
+	if(!proximity_flag)
+		return
 	if(!uses)
 		qdel(src)
 		return
@@ -332,9 +384,9 @@
 		to_chat(user, "<span class='warning'>The potion can only be used on clothing!</span>")
 		return
 	if(C.max_heat_protection_temperature == FIRE_IMMUNITY_SUIT_MAX_TEMP_PROTECT)
-		to_chat(user, "<span class='warning'>The [C] is already fireproof!</span>")
+		to_chat(user, "<span class='warning'>[C] is already fireproof!</span>")
 		return ..()
-	to_chat(user, "<span class='notice'>You slather the blue gunk over the [C], fireproofing it.</span>")
+	to_chat(user, "<span class='notice'>You slather the blue gunk over [C], fireproofing it.</span>")
 	C.name = "fireproofed [C.name]"
 	C.color = "#000080"
 	C.max_heat_protection_temperature = FIRE_IMMUNITY_SUIT_MAX_TEMP_PROTECT
@@ -366,9 +418,9 @@
 	else
 		icon_state = "golem"
 
-/obj/effect/golemrune/attack_hand(mob/living/user as mob)
+/obj/effect/golemrune/attack_hand(mob/living/user)
 	var/mob/dead/observer/ghost
-	for(var/mob/dead/observer/O in src.loc)
+	for(var/mob/dead/observer/O in loc)
 		if(!check_observer(O))
 			to_chat(O, "\red You are not eligible to become a golem.")
 			continue
@@ -391,21 +443,22 @@
 		volunteer(O)
 
 /obj/effect/golemrune/attack_ghost(var/mob/dead/observer/O)
-	if(!O) return
+	if(!O)
+		return
 	volunteer(O)
 
 /obj/effect/golemrune/proc/check_observer(var/mob/dead/observer/O)
 	if(!O)
-		return 0
+		return FALSE
 	if(!O.client)
-		return 0
+		return FALSE
 	if(O.mind && O.mind.current && O.mind.current.stat != DEAD)
-		return 0
+		return FALSE
 	if(!O.can_reenter_corpse)
-		return 0
+		return FALSE
 	if(O.has_enabled_antagHUD == 1 && config.antag_hud_restricted)
-		return 0
-	return 1
+		return FALSE
+	return TRUE
 
 /obj/effect/golemrune/proc/volunteer(var/mob/dead/observer/O)
 	if(O in ghosts)
@@ -448,8 +501,8 @@
 /obj/effect/timestop/proc/timestop()
 	playsound(get_turf(src), 'sound/magic/TIMEPARADOX2.ogg', 100, 1, -1)
 	for(var/i in 1 to duration-1)
-		for(var/A in orange (freezerange, src.loc))
-			if(istype(A, /mob/living))
+		for(var/A in orange (freezerange, loc))
+			if(isliving(A))
 				var/mob/living/M = A
 				if(M in immune)
 					continue

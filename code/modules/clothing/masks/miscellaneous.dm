@@ -340,7 +340,7 @@
 	icon_override = 'icons/goonstation/mob/clothing/mask.dmi'
 	lefthand_file = 'icons/goonstation/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/goonstation/mob/inhands/clothing_righthand.dmi'
-	flags = NODROP
+	flags = NODROP | AIRTIGHT | MASKCOVERSMOUTH
 
 /obj/item/clothing/mask/cursedclown/equipped(mob/user, slot)
 	..()

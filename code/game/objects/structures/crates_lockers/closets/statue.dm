@@ -57,10 +57,9 @@
 		qdel(src)
 
 /obj/structure/closet/statue/dump_contents()
-
-	if(istype(src.loc, /mob/living/simple_animal/hostile/statue))
-		var/mob/living/simple_animal/hostile/statue/S = src.loc
-		src.loc = S.loc
+	if(istype(loc, /mob/living/simple_animal/hostile/statue))
+		var/mob/living/simple_animal/hostile/statue/S = loc
+		forceMove(S.loc)
 		if(S.mind)
 			for(var/mob/M in contents)
 				S.mind.transfer_to(M)
@@ -68,20 +67,15 @@
 				break
 		qdel(S)
 
-
-	for(var/obj/O in src)
-		O.loc = src.loc
-
 	for(var/mob/living/M in src)
 		M.forceMove(loc)
 		M.disabilities -= MUTE
 		M.take_overall_damage((M.health - health - 100),0) //any new damage the statue incurred is transfered to the mob
-
+			
+	..()
 
 /obj/structure/closet/statue/open()
 	return
-
-
 
 /obj/structure/closet/statue/open()
 	return

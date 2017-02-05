@@ -230,6 +230,7 @@ to destroy them and players will be able to make replacements.
 	var/list/names_paths = list("Booze-O-Mat" = /obj/machinery/vending/boozeomat,
 							"Solar's Best Hot Drinks" = /obj/machinery/vending/coffee,
 							"Getmore Chocolate Corp" = /obj/machinery/vending/snack,
+							"Mr. Chang" = /obj/machinery/vending/chinese,
 							"Robust Softdrinks" = /obj/machinery/vending/cola,
 							"ShadyCigs Deluxe" = /obj/machinery/vending/cigarette,
 							"AutoDrobe" = /obj/machinery/vending/autodrobe,
