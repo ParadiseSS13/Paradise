@@ -58,7 +58,6 @@
 
 //	if(!traitors.len)
 //		return 0
-	..()
 	return 1
 
 
@@ -197,5 +196,3 @@
 				//message_admins("New traitor roll failed.  No new traitor.")
 	//else
 		//message_admins("Late Joiner does not have Be Syndicate")
-
-

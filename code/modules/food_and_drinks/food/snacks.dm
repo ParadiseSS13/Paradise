@@ -11,7 +11,9 @@
 	var/eatverb
 	var/wrapped = 0
 	var/dried_type = null
+	var/dry = 0
 	var/cooktype[0]
+	var/cooked_type = null  //for microwave cooking. path of the resulting item after microwaving
 
 
 	//Placeholder for effect that trigger on eating that aren't tied to reagents.
@@ -25,12 +27,8 @@
 			user.visible_message("<span class='notice'>[user] finishes eating \the [src].</span>")
 			user.unEquip(src)	//so icons update :[
 			Post_Consume(M)
-			if(trash)
-				if(ispath(trash,/obj/item))
-					var/obj/item/TrashItem = new trash(user)
-					user.put_in_hands(TrashItem)
-				else if(istype(trash,/obj/item))
-					user.put_in_hands(trash)
+			var/obj/item/trash_item = generate_trash(usr)
+			usr.put_in_hands(trash_item)
 			qdel(src)
 	return
 
@@ -172,6 +170,19 @@
 	qdel(src)
 
 	return
+
+/obj/item/weapon/reagent_containers/food/snacks/proc/generate_trash(atom/location)
+	if(trash)
+		if(ispath(trash, /obj/item))
+			. = new trash(location)
+			trash = null
+			return
+		else if(istype(trash, /obj/item))
+			var/obj/item/trash_item = trash
+			trash_item.forceMove(location)
+			. = trash
+			trash = null
+			return
 
 /obj/item/weapon/reagent_containers/food/snacks/Destroy()
 	if(contents)
@@ -887,6 +898,12 @@
 	junkiness = 25
 	list_reagents = list("protein" = 1, "sugar" = 3)
 
+/obj/item/weapon/reagent_containers/food/snacks/sosjerky/healthy
+	name = "homemade beef jerky"
+	desc = "Homemade beef jerky made from the finest space cows."
+	list_reagents = list("nutriment" = 3, "vitamin" = 1)
+	junkiness = 0
+
 /obj/item/weapon/reagent_containers/food/snacks/pistachios
 	name = "Pistachios"
 	icon_state = "pistachios"
@@ -904,6 +921,12 @@
 	filling_color = "#343834"
 	junkiness = 25
 	list_reagents = list("plantmatter" = 2, "sugar" = 4)
+
+/obj/item/weapon/reagent_containers/food/snacks/no_raisin/healthy
+	name = "homemade raisins"
+	desc = "homemade raisins, the best in all of spess."
+	list_reagents = list("nutriment" = 3, "vitamin" = 2)
+	junkiness = 0
 
 /obj/item/weapon/reagent_containers/food/snacks/spacetwinkie
 	name = "Space Twinkie"
@@ -2473,3 +2496,26 @@
 	filling_color = "#A66829"
 	junkiness = 20
 	list_reagents = list("nutriment" = 2, "sugar" = 4)
+
+/obj/item/weapon/reagent_containers/food/snacks/yakiimo
+	name = "yaki imo"
+	desc = "Made with roasted sweet potatoes!"
+	icon_state = "yakiimo"
+	trash = /obj/item/trash/plate
+	list_reagents = list("nutriment" = 5, "vitamin" = 4)
+	filling_color = "#8B1105"
+
+/obj/item/weapon/reagent_containers/food/snacks/roastparsnip
+	name = "roast parsnip"
+	desc = "Sweet and crunchy."
+	icon_state = "roastparsnip"
+	trash = /obj/item/trash/plate
+	list_reagents = list("nutriment" = 3, "vitamin" = 4)
+	filling_color = "#FF5500"
+
+/obj/item/weapon/reagent_containers/food/snacks/tatortot
+	name = "tator tot"
+	desc = "A large fried potato nugget that may or may not try to valid you."
+	icon_state = "tatortot"
+	list_reagents = list("nutriment" = 4)
+	filling_color = "FFD700"

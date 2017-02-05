@@ -36,6 +36,8 @@
 	var/list/original_atom
 
 	var/allow_spin = 1 //Set this to 1 for a _target_ that is being thrown at; if an atom has this set to 1 then atoms thrown AT it will not spin; currently used for the singularity. -Fox
+	
+	var/admin_spawned = 0	//was this spawned by an admin? used for stat tracking stuff.
 
 /atom/proc/onCentcom()
 	var/turf/T = get_turf(src)
@@ -464,3 +466,7 @@
 
 /atom/proc/speech_bubble(var/bubble_state = "",var/bubble_loc = src, var/list/bubble_recipients = list())
 	return
+
+/atom/on_varedit(modified_var)
+	if(!Debug2)
+		admin_spawned = TRUE

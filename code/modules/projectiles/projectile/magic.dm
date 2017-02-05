@@ -17,6 +17,12 @@
 	damage = 10
 	damage_type = BRUTE
 	nodamage = 0
+	
+	//explosion values
+	var/exp_heavy = 0
+	var/exp_light = 2
+	var/exp_flash = 3
+	var/exp_fire = 2
 
 /obj/item/projectile/magic/death/on_hit(var/mob/living/carbon/G)
 	. = ..()
@@ -27,11 +33,16 @@
 /obj/item/projectile/magic/fireball/Range()
 	var/turf/T1 = get_step(src,turn(dir, -45))
 	var/turf/T2 = get_step(src,turn(dir, 45))
+	var/turf/T3 = get_step(src,dir)
 	var/mob/living/L = locate(/mob/living) in T1 //if there's a mob alive in our front right diagonal, we hit it.
 	if(L && L.stat != DEAD)
 		Bump(L) //Magic Bullet #teachthecontroversy
 		return
 	L = locate(/mob/living) in T2
+	if(L && L.stat != DEAD)
+		Bump(L)
+		return
+	L = locate(/mob/living) in T3
 	if(L && L.stat != DEAD)
 		Bump(L)
 		return
@@ -44,6 +55,14 @@
 	if(ismob(target)) //multiple flavors of pain
 		var/mob/living/M = target
 		M.take_overall_damage(0,10) //between this 10 burn, the 10 brute, the explosion brute, and the onfire burn, your at about 65 damage if you stop drop and roll immediately
+		
+
+/obj/item/projectile/magic/fireball/infernal
+	name = "infernal fireball"
+	exp_heavy = -1
+	exp_light = -1
+	exp_flash = 4
+	exp_fire= 5
 
 /obj/item/projectile/magic/resurrection
 	name = "bolt of resurrection"
@@ -266,3 +285,12 @@ proc/wabbajack(mob/living/M)
 		// Change our allegiance!
 		var/mob/living/simple_animal/hostile/mimic/copy/C = change
 		C.ChangeOwner(firer)
+
+/obj/item/projectile/magic/spellblade
+	name = "blade energy"
+	icon_state = "lavastaff"
+	damage = 15
+	damage_type = BURN
+	flag = "magic"
+	dismemberment = 50
+	nodamage = 0		

@@ -439,3 +439,5 @@ var/time_last_changed_position = 0
 	name = "\improper CentComm identification computer"
 	circuit = /obj/item/weapon/circuitboard/card/centcom
 	req_access = list(access_cent_commander)
+	change_position_cooldown = -1
+	blacklisted = list()

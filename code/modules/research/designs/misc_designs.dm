@@ -11,6 +11,16 @@
 	build_path = /obj/item/weapon/disk/design_disk
 	category = list("Miscellaneous")
 
+/datum/design/diskplantgene
+	name = "Plant data disk"
+	desc = "A disk for storing plant genetic data."
+	id = "diskplantgene"
+	req_tech = list("programming" = 4, "biotech" = 3)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL=200, MAT_GLASS=100)
+	build_path = /obj/item/weapon/disk/plantgene
+	category = list("Miscellaneous")
+
 /datum/design/intellicard
 	name = "Intellicard"
 	desc = "Allows for the construction of an intellicard."

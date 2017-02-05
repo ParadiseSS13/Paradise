@@ -1222,9 +1222,11 @@ mob/proc/yank_out_object()
 	if(mind)
 		return mind.grab_ghost(force = force)
 
-/mob/proc/notify_ghost_cloning(var/message = "Someone is trying to revive you. Re-enter your corpse if you want to be revived!", var/sound = 'sound/effects/genetics.ogg', var/atom/source = null)
+/mob/proc/notify_ghost_cloning(message = "Someone is trying to revive you. Re-enter your corpse if you want to be revived!", sound = 'sound/effects/genetics.ogg', atom/source = null, flashwindow = TRUE)
 	var/mob/dead/observer/ghost = get_ghost()
 	if(ghost)
+		if(flashwindow)
+			window_flash(ghost.client)
 		ghost.notify_cloning(message, sound, source)
 		return ghost
 
@@ -1263,7 +1265,7 @@ mob/proc/yank_out_object()
 	return // Only living mobs can ventcrawl
 
 //You can buckle on mobs if you're next to them since most are dense
-/mob/buckle_mob(mob/living/M)
+/mob/buckle_mob(mob/living/M, force = 0)
 	if(M.buckled)
 		return 0
 	var/turf/T = get_turf(src)

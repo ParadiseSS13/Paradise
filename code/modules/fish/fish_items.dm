@@ -1,6 +1,6 @@
 
 var/global/list/fish_items_list = list("goldfish" = /obj/item/weapon/fish/goldfish,
-									"clownfish" = /obj/item/weapon/bananapeel/clownfish,
+									"clownfish" = /obj/item/weapon/grown/bananapeel/clownfish,
 									"shark" = /obj/item/weapon/fish/shark,
 									"baby space carp" = /obj/item/weapon/fish/babycarp,
 									"catfish" = /obj/item/weapon/fish/catfish,
@@ -208,7 +208,7 @@ var/global/list/fish_items_list = list("goldfish" = /obj/item/weapon/fish/goldfi
 	..()
 
 
-/obj/item/weapon/bananapeel/clownfish
+/obj/item/weapon/grown/bananapeel/clownfish
 	name = "clown fish"
 	desc = "Even underwater, you cannot escape HONKing."
 	icon = 'icons/obj/fish_items.dmi'

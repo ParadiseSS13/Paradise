@@ -33,7 +33,7 @@
 /obj/structure/beebox
 	name = "apiary"
 	desc = "Dr Miles Manners is just your average Wasp themed super hero by day, but by night he becomes DR BEES!"
-	icon = 'icons/obj/apiary_bees.dmi'
+	icon = 'icons/obj/hydroponics/equipment.dmi'
 	icon_state = "beebox"
 	anchored = 1
 	density = 1

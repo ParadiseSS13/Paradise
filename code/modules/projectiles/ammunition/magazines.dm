@@ -437,3 +437,12 @@
 /obj/item/ammo_box/magazine/toy/m762/update_icon()
 	..()
 	icon_state = "a762-[round(ammo_count(),10)]"
+
+/obj/item/ammo_box/magazine/laser
+	name = "encased laser projector magazine"
+	desc = "Fits experimental laser ammo casings."
+	icon_state = "laser"
+	ammo_type = /obj/item/ammo_casing/laser
+	origin_tech = "combat=3"
+	caliber = "laser"
+	max_ammo = 20

@@ -526,7 +526,7 @@
 /obj/item/organ/internal/honktumor/process()
 	if(isturf(loc))
 		visible_message("<span class='warning'>[src] honks in on itself!</span>")
-		new /obj/item/weapon/bananapeel(get_turf(loc))
+		new /obj/item/weapon/grown/bananapeel(get_turf(loc))
 		qdel(src)
 
 

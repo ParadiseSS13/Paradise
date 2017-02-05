@@ -207,9 +207,9 @@ LIGHTERS ARE IN LIGHTERS.DM
 	var/random_reagent = pick("fuel","saltpetre","synaptizine","green_vomit","potass_iodide","msg","lexorin","mannitol","spaceacillin","cryoxadone","holywater","tea","egg","haloperidol","mutagen","omnizine","carpet","aranesp","cryostylane","chocolate","bilk","cheese","rum","blood","charcoal","coffee","ectoplasm","space_drugs","milk","mutadone","antihol","teporone","insulin","salbutamol","toxin")
 	reagents.add_reagent(random_reagent, 10)
 
-/obj/item/clothing/mask/cigarette/joint
-	name = "joint"
-	desc = "A roll of ambrosium vulgaris wrapped in a thin paper. Dude."
+/obj/item/clothing/mask/cigarette/rollie
+	name = "rollie"
+	desc = "A roll of dried plant matter wrapped in thin paper."
 	icon_state = "spliffoff"
 	icon_on = "spliffon"
 	icon_off = "spliffoff"
@@ -219,35 +219,21 @@ LIGHTERS ARE IN LIGHTERS.DM
 	smoketime = 180
 	chem_volume = 50
 
-/obj/item/clothing/mask/cigarette/joint/New()
+/obj/item/clothing/mask/cigarette/rollie/New()
 	..()
-	var/list/jointnames = list("joint","doobie","spliff","blunt")
-	name = pick(jointnames)
-	src.pixel_x = rand(-5.0, 5)
-	src.pixel_y = rand(-5.0, 5)
+	pixel_x = rand(-5, 5)
+	pixel_y = rand(-5, 5)
 
-/obj/item/clothing/mask/cigarette/joint/deus
-	desc = "A roll of ambrosium deus wrapped in a thin paper. Dude."
 
 /obj/item/weapon/cigbutt/roach
 	name = "roach"
-	desc = "A manky old roach."
+	desc = "A manky old roach, or for non-stoners, a used rollup."
 	icon_state = "roach"
 
 /obj/item/weapon/cigbutt/roach/New()
 	..()
-	src.pixel_x = rand(-5.0, 5)
-	src.pixel_y = rand(-5.0, 5)
-
-/obj/item/clothing/mask/cigarette/handroll
-	name = "hand-rolled cigarette"
-	desc = "A roll of tobacco and nicotine, freshly rolled by hand."
-	icon_state = "hr_cigoff"
-	item_state = "hr_cigoff"
-	icon_on = "hr_cigon"  //Note - these are in masks.dmi not in cigarette.dmi
-	icon_off = "hr_cigoff"
-	type_butt = /obj/item/weapon/cigbutt
-	chem_volume = 50
+	pixel_x = rand(-5, 5)
+	pixel_y = rand(-5, 5)
 
 ////////////
 // CIGARS //
@@ -388,51 +374,30 @@ LIGHTERS ARE IN LIGHTERS.DM
 ///////////
 //ROLLING//
 ///////////
-obj/item/weapon/rollingpaper
+/obj/item/weapon/rollingpaper
 	name = "rolling paper"
 	desc = "A thin piece of paper used to make fine smokeables."
 	icon = 'icons/obj/cigarettes.dmi'
 	icon_state = "cig_paper"
 	w_class = 1
 
-
-obj/item/weapon/rollingpaperpack
-	name = "rolling paper pack"
-	desc = "A pack of Nanotrasen brand rolling papers."
-	icon = 'icons/obj/cigarettes.dmi'
-	icon_state = "cig_paper_pack"
-	w_class = 1
-	var/papers = 25
-
-obj/item/weapon/rollingpaperpack/attack_self(mob/user)
-	if(papers > 1)
-		var/obj/item/weapon/rollingpaper/P = new /obj/item/weapon/rollingpaper()
-		user.put_in_inactive_hand(P)
-		to_chat(user, "You take a paper out of the pack.")
-		papers --
-	else
-		var/obj/item/weapon/rollingpaper/P = new /obj/item/weapon/rollingpaper()
-		user.put_in_inactive_hand(P)
-		to_chat(user, "You take the last paper out of the pack, and throw the pack away.")
-		qdel(src)
-
-/obj/item/weapon/rollingpaperpack/MouseDrop(atom/over_object)
-	var/mob/M = usr
-	if(M.restrained() || M.stat)
+/obj/item/weapon/rollingpaper/afterattack(atom/target, mob/user, proximity)
+	if(!proximity)
 		return
-
-	if(over_object == M)
-		M.put_in_hands(src)
-
-	else if(istype(over_object, /obj/screen))
-		switch(over_object.name)
-			if("r_hand")
-				M.unEquip(src)
-				M.put_in_r_hand(src)
-			if("l_hand")
-				M.unEquip(src)
-				M.put_in_l_hand(src)
-
-/obj/item/weapon/rollingpaperpack/examine(mob/user)
-	..(user)
-	to_chat(user, "There are [src.papers] left")
+	if(istype(target, /obj/item/weapon/reagent_containers/food/snacks/grown))
+		var/obj/item/weapon/reagent_containers/food/snacks/grown/O = target
+		if(O.dry)
+			user.unEquip(target, 1)
+			user.unEquip(src, 1)
+			var/obj/item/clothing/mask/cigarette/rollie/R = new /obj/item/clothing/mask/cigarette/rollie(user.loc)
+			R.chem_volume = target.reagents.total_volume
+			target.reagents.trans_to(R, R.chem_volume)
+			user.put_in_active_hand(R)
+			to_chat(user, "<span class='notice'>You roll the [target.name] into a rolling paper.</span>")
+			R.desc = "Dried [target.name] rolled up in a thin piece of paper."
+			qdel(target)
+			qdel(src)
+		else
+			to_chat(user, "<span class='warning'>You need to dry this first!</span>")
+	else
+		..()
