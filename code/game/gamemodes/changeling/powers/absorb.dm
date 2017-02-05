@@ -63,7 +63,28 @@
 
 	if(target.mind)//if the victim has got a mind
 
-		target.mind.show_memory(src, 0) //I can read your mind, kekeke. Output all their notes.
+		target.mind.show_memory(user, 0) //I can read your mind, kekeke. Output all their notes.
+
+		//Some of target's recent speech, so the changeling can attempt to imitate them better.
+		//Recent as opposed to all because rounds tend to have a LOT of text.
+		var/list/recent_speech = list()
+
+		if(target.say_log.len > LING_ABSORB_RECENT_SPEECH)
+			recent_speech = target.say_log.Copy(target.say_log.len-LING_ABSORB_RECENT_SPEECH+1,0) //0 so len-LING_ARS+1 to end of list
+		else
+			for(var/spoken_memory in target.say_log)
+				if(recent_speech.len >= LING_ABSORB_RECENT_SPEECH)
+					break
+				recent_speech += spoken_memory
+
+		if(recent_speech.len)
+			user.mind.store_memory("<B>Some of [target]'s speech patterns, we should study these to better impersonate them!</B>")
+			to_chat(user, "<span class='boldnotice'>Some of [target]'s speech patterns, we should study these to better impersonate them!</span>")
+			for(var/spoken_memory in recent_speech)
+				user.mind.store_memory("\"[spoken_memory]\"")
+				to_chat(user, "<span class='notice'>\"[spoken_memory]\"</span>")
+			user.mind.store_memory("<B>We have no more knowledge of [target]'s speech patterns.</B>")
+			to_chat(user, "<span class='boldnotice'>We have no more knowledge of [target]'s speech patterns.</span>")
 
 		if(target.mind.changeling)//If the target was a changeling, suck out their extra juice and objective points!
 			changeling.chem_charges += min(target.mind.changeling.chem_charges, changeling.chem_storage)
