@@ -216,7 +216,7 @@
 			qdel(wisp)
 		else
 			wisp.visible_message("<span class='notice'>[wisp] has a sad feeling for a moment, then it passes.</span>")
-	..()
+	return ..()
 
 /obj/effect/wisp
 	name = "friendly wisp"
