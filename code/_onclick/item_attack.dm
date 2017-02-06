@@ -161,13 +161,13 @@
 
 		for(var/mob/O in viewers(messagesource, null))
 			if(attack_verb.len)
-				O.show_message("<span class='danger'>[M] has been [pick(attack_verb)] with [src][showname] </span>", 1)
+				O.show_message("<span class='combat danger'>[M] has been [pick(attack_verb)] with [src][showname] </span>", 1)
 			else
-				O.show_message("<span class='danger'>[M] has been attacked with [src][showname] </span>", 1)
+				O.show_message("<span class='combat danger'>[M] has been attacked with [src][showname] </span>", 1)
 
 		if(!showname && user)
 			if(user.client)
-				to_chat(user, "<span class='danger'>You attack [M] with [src]. </span>")
+				to_chat(user, "<span class='combat danger'>You attack [M] with [src]. </span>")
 
 
 
