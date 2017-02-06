@@ -520,6 +520,6 @@
 				var/mob/living/carbon/C = user
 				C.update_inv_wear_mask()
 		else
-			user << "<span class='notice'>The eye winks at you and vanishes into the abyss, you feel really unlucky.</span>"
+			to_chat(user, "<span class='notice'>The eye winks at you and vanishes into the abyss, you feel really unlucky.</span>")
 		qdel(src)
 	..()				

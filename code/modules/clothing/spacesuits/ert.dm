@@ -7,20 +7,21 @@
 	armor = list(melee = 45, bullet = 25, laser = 30, energy = 10, bomb = 25, bio = 100, rad = 50)
 	rig_restrict_helmet = 0 // ERT helmets can be taken on and off at will.
 	var/obj/machinery/camera/camera
+	var/has_camera = TRUE
 	strip_delay = 130
 
 /obj/item/clothing/head/helmet/space/rig/ert/attack_self(mob/user)
-	if(camera)
+	if(camera || !has_camera)
 		..(user)
 	else
 		camera = new /obj/machinery/camera(src)
 		camera.network = list("ERT")
 		cameranet.removeCamera(camera)
 		camera.c_tag = user.name
-		to_chat(user, "\blue User scanned as [camera.c_tag]. Camera activated.")
+		to_chat(user, "<span class='notice'>User scanned as [camera.c_tag]. Camera activated.</span>")
 
 /obj/item/clothing/head/helmet/space/rig/ert/examine(mob/user)
-	if(..(user, 1))
+	if(..(user, 1) && has_camera)
 		to_chat(user, "This helmet has a built-in camera. It's [camera ? "" : "in"]active.")
 
 /obj/item/clothing/suit/space/rig/ert
@@ -109,6 +110,7 @@
 	item_color = "ert_paranormal"
 	max_heat_protection_temperature = FIRE_IMMUNITY_HELM_MAX_TEMP_PROTECT
 	sprite_sheets = null
+	has_camera = 0
 
 /obj/item/clothing/suit/space/rig/ert/paranormal
 	name = "paranormal response team suit"
