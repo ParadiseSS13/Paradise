@@ -401,6 +401,11 @@ var/list/blood_splatter_icons = list()
 		return 0
 	return 1
 
+/obj/effect/decal/cleanable/blood/footprints/transfer_mob_blood_dna(mob/living/L)
+	..(L)
+	var/list/b_data = L.get_blood_data(L.get_blood_id())
+	basecolor = b_data["blood_color"]
+
 //to add blood dna info to the object's blood_DNA list
 /atom/proc/transfer_blood_dna(list/blood_dna)
 	if(!blood_DNA)
@@ -444,7 +449,6 @@ var/list/blood_splatter_icons = list()
 			blood_splatter_icon.Blend(icon('icons/effects/blood.dmi', "itemblood"), ICON_MULTIPLY) //adds blood and the remaining white areas become transparant
 			blood_splatter_icon = fcopy_rsc(blood_splatter_icon)
 			blood_splatter_icons[index] = blood_splatter_icon
-		blood_splatter_icon = blood_dna["blood_color"]//not applying color
 		overlays += blood_splatter_icon
 
 /obj/item/clothing/gloves/add_blood(list/blood_dna)

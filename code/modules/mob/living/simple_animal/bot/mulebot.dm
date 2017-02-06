@@ -512,6 +512,21 @@
 					return
 				if(istype(next, /turf/simulated))
 //					to_chat(world, "at ([x],[y]) moving to ([next.x],[next.y])")
+					if(bloodiness)
+						var/obj/effect/decal/cleanable/blood/tracks/B = new(loc)
+						if(blood_DNA && blood_DNA.len)
+							B.blood_DNA |= blood_DNA.Copy()
+						var/newdir = get_dir(next, loc)
+						if(newdir == dir)
+							B.set_dir(newdir)
+						else
+							newdir = newdir | dir
+							if(newdir == 3)
+								newdir = 1
+							else if(newdir == 12)
+								newdir = 4
+							B.set_dir(newdir)
+						bloodiness--
 
 					var/oldloc = loc
 					var/moved = step_towards(src, next)	// attempt to move
@@ -571,23 +586,6 @@
 					buzz(SIGH)
 
 					mode = BOT_NO_ROUTE
-
-/mob/living/simple_animal/bot/mulebot/Move(turf/simulated/next)
-	var/turf/simulated/last = loc
-
-	if(istype(last) && bloodiness)
-		last.AddTracks(/obj/effect/decal/cleanable/blood/tracks/wheels, currentDNA, 0, get_dir(last, next), currentBloodColor)
-
-	. = ..()
-
-	if(. && istype(next))
-		if(bloodiness)
-			next.AddTracks(/obj/effect/decal/cleanable/blood/tracks/wheels, currentDNA, get_dir(last, next), 0, currentBloodColor)
-			bloodiness--
-
-		for(var/mob/living/carbon/human/H in next)
-			if(H != load)
-				RunOver(H)
 
 // calculates a path to the current destination
 // given an optional turf to avoid
@@ -706,17 +704,16 @@
 	var/turf/T = get_turf(src)
 	T.add_mob_blood(H)
 
-	B.blood_DNA = list()
-	B.blood_DNA[H.dna.unique_enzymes] = H.dna.b_type
-	currentDNA = B.blood_DNA
+
+	var/list/blood_dna = H.get_blood_dna_list()
 
 	bloodiness += 4
 
 	currentBloodColor = "#A10808"
 	if(istype(H))
-		if(B.blood_DNA)
-			transfer_blood_dna(B.blood_DNA)
-			currentBloodColor = B.blood_DNA["blood_color"]
+		if(blood_dna)
+			B.transfer_blood_dna(blood_dna)
+			currentBloodColor = blood_dna["blood_color"]
 			return
 	B.basecolor = currentBloodColor
 	B.update_icon()
