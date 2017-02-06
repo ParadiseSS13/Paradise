@@ -256,6 +256,7 @@
 	if(grab_ghost_when == CLONER_FRESH_CLONE)
 		clonemind.transfer_to(H)
 		H.ckey = R.ckey
+		H.species.handle_post_spawn(H, 1) //Handle the stuff their species needed a client for.
 		update_clone_antag(H) //Since the body's got the mind, update their antag stuff right now. Otherwise, wait until they get kicked out (as per the CLONER_MATURE_CLONE business) to do it.
 		to_chat(H, {"<span class='notice'><b>Consciousness slowly creeps over you
 			as your body regenerates.</b><br><i>So this is what cloning
@@ -465,6 +466,7 @@
 		clonemind.transfer_to(occupant)
 		occupant.grab_ghost()
 		update_clone_antag(occupant)
+		occupant.species.handle_post_spawn(occupant, 1) //Handle the stuff their species needed a client for.
 		to_chat(occupant, "<span class='notice'><b>There is a bright flash!</b><br>\
 			<i>You feel like a new being.</i></span>")
 		occupant.flash_eyes(visual = 1)

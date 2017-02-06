@@ -510,7 +510,7 @@
 
 
 	new_character.key = key		//Manually transfer the key to log them in
-
+	new_character.species.handle_post_spawn(new_character, 1) //Handle the stuff their species needed a client for.
 	return new_character
 
 // This is to check that the player only has preferences set that they're supposed to

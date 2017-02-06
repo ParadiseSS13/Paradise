@@ -282,6 +282,8 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			dat += "<b>Species:</b> <a href='?_src_=prefs;preference=species;task=input'>[species]</a><br>"
 			if(species == "Vox")
 				dat += "<b>N2 Tank:</b> <a href='?_src_=prefs;preference=speciesprefs;task=input'>[speciesprefs ? "Large N2 Tank" : "Specialized N2 Tank"]</a><br>"
+			else if(species in list("Tajaran", "Unathi"))
+				dat += "<b>Visible Claws:</b> <a href='?_src_=prefs;preference=speciesprefs;task=input'>[speciesprefs ? "Visible Claws" : "Non-visible Claws"]</a><br>"
 			dat += "<b>Secondary Language:</b> <a href='?_src_=prefs;preference=language;task=input'>[language]</a><br>"
 			dat += "<b>Blood Type:</b> <a href='?_src_=prefs;preference=b_type;task=input'>[b_type]</a><br>"
 			if(species in list("Human", "Drask", "Vox"))
