@@ -2,7 +2,7 @@
 	name = "broken tile"
 	singular_name = "broken tile"
 	desc = "A broken tile. This should not exist."
-	icon = 'icons/obj/items.dmi'
+	icon = 'icons/obj/tiles.dmi'
 	icon_state = "tile"
 	item_state = "tile"
 	w_class = 3
@@ -12,6 +12,7 @@
 	throw_range = 20
 	max_amount = 60
 	flags = CONDUCT
+	origin_tech = "materials=1"
 	var/turf_type = null
 	var/mineralType = null
 
@@ -86,6 +87,7 @@
 	singular_name = "wood floor tile"
 	desc = "an easy to fit wood floor tile"
 	icon_state = "tile-wood"
+	origin_tech = "biotech=1"
 	turf_type = /turf/simulated/floor/wood
 	burn_state = FLAMMABLE
 

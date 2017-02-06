@@ -58,8 +58,7 @@
 	name = "silent tile"
 	singular_name = "silent floor tile"
 	desc = "A tile made out of tranquillite, SHHHHHHHHH!"
-	icon_state = "tile_silent"
-	origin_tech = "materials=1"
+	icon_state = "tile_tranquillite"
 	turf_type = /turf/simulated/floor/mineral/tranquillite
 	mineralType = "tranquillite"
 	materials = list(MAT_TRANQUILLITE=500)
