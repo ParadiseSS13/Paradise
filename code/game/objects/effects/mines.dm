@@ -16,9 +16,10 @@
 	Bumped(AM)
 
 /obj/effect/mine/Bumped(mob/M as mob|obj)
-
-	if(triggered) return
-
+	if(triggered)
+		return
+	if(!isliving(M))
+		return
 	if(istype(M, /mob/living/carbon/human))
 		for(var/mob/O in viewers(world.view, src.loc))
 			to_chat(O, "<font color='red'>[M] triggered the [bicon(src)] [src]</font>")
