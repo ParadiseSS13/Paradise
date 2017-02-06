@@ -1,0 +1,5 @@
+author: "Fox McCloud"
+delete-after: True
+changes: 
+  - tweak: "Stunprods are constructed with igniters instead of wirecutters"
+  - tweak: "Stunprods will spark when you stun someone with them"
