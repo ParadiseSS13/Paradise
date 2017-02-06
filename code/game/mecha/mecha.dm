@@ -50,6 +50,7 @@
 	var/obj/machinery/atmospherics/unary/portables_connector/connected_port = null
 
 	var/obj/item/device/radio/radio = null
+	var/list/trackers = list()
 
 	var/max_temperature = 25000
 	var/internal_damage_threshold = 50 //health percentage below which internal damage is possible
@@ -74,7 +75,7 @@
 	var/melee_cooldown = 10
 	var/melee_can_hit = 1
 
-	hud_possible = list (DIAG_STAT_HUD, DIAG_BATT_HUD, DIAG_MECH_HUD)
+	hud_possible = list (DIAG_STAT_HUD, DIAG_BATT_HUD, DIAG_MECH_HUD, DIAG_TRACK_HUD)
 
 /obj/mecha/New()
 	..()
@@ -102,6 +103,7 @@
 	diag_hud_set_mechhealth()
 	diag_hud_set_mechcell()
 	diag_hud_set_mechstat()
+	diag_hud_set_mechtracking()
 
 ////////////////////////
 ////// Helpers /////////
@@ -165,7 +167,7 @@
 /obj/mecha/proc/drop_item()//Derpfix, but may be useful in future for engineering exosuits.
 	return
 
-/obj/mecha/hear_talk(mob/M as mob, text)
+/obj/mecha/hear_talk(mob/M, text)
 	if(M == occupant && radio.broadcasting)
 		radio.talk_into(M, text)
 
@@ -465,7 +467,7 @@
 		qdel(src)
 	return
 
-/obj/mecha/attack_hand(mob/living/user as mob)
+/obj/mecha/attack_hand(mob/living/user)
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(src)
 	log_message("Attack by hand/paw. Attacker - [user].",1)
@@ -481,7 +483,7 @@
 	return
 
 
-/obj/mecha/attack_alien(mob/living/user as mob)
+/obj/mecha/attack_alien(mob/living/user)
 	log_message("Attack by alien. Attacker - [user].",1)
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(src)
@@ -500,7 +502,7 @@
 	return
 
 
-/obj/mecha/attack_animal(mob/living/simple_animal/user as mob)
+/obj/mecha/attack_animal(mob/living/simple_animal/user)
 	log_message("Attack by simple animal. Attacker - [user].",1)
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(src)
@@ -513,7 +515,7 @@
 			take_damage(damage)
 			check_for_internal_damage(list(MECHA_INT_TEMP_CONTROL,MECHA_INT_TANK_BREACH,MECHA_INT_CONTROL_LOST))
 			visible_message("<span class='danger'>[user]</span> [user.attacktext] [src]!")
-			user.create_attack_log("<font color='red'>attacked [src.name]</font>")
+			user.create_attack_log("<font color='red'>attacked [name]</font>")
 		else
 			log_append_to_last("Armor saved.")
 			playsound(loc, 'sound/weapons/slash.ogg', 50, 1, -1)
@@ -798,7 +800,9 @@
 			to_chat(user, "<span class='notice'>\the [W] is stuck to your hand, you cannot put it in \the [src]</span>")
 			return
 		W.forceMove(src)
+		trackers += W
 		user.visible_message("[user] attaches [W] to [src].", "<span class='notice'>You attach [W] to [src].</span>")
+		diag_hud_set_mechtracking()
 		return
 
 	else if(istype(W, /obj/item/weapon/paintkit))
@@ -866,20 +870,35 @@
 //////////// AI piloting ////////////
 /////////////////////////////////////
 
-/obj/mecha/attack_ai(var/mob/living/silicon/ai/user as mob)
+/obj/mecha/attack_ai(mob/living/silicon/ai/user)
 	if(!isAI(user))
 		return
 	//Allows the Malf to scan a mech's status and loadout, helping it to decide if it is a worthy chariot.
 	if(user.can_dominate_mechs)
 		examine(user) //Get diagnostic information!
-		var/obj/item/mecha_parts/mecha_tracking/B = locate(/obj/item/mecha_parts/mecha_tracking) in src
-		if(B) //Beacons give the AI more detailed mech information.
+		for(var/obj/item/mecha_parts/mecha_tracking/B in trackers)
 			to_chat(user, "<span class='danger'>Warning: Tracking Beacon detected. Enter at your own risk. Beacon Data:")
-			to_chat(user, "[B.get_mecha_info()]")
+			to_chat(user, "[B.get_mecha_info_text()]")
+			break
 		//Nothing like a big, red link to make the player feel powerful!
 		to_chat(user, "<a href='?src=[user.UID()];ai_take_control=\ref[src]'><span class='userdanger'>ASSUME DIRECT CONTROL?</span></a><br>")
+	else
+		examine(user)
+		if(occupant)
+			user << "<span class='warning'>This exosuit has a pilot and cannot be controlled.</span>"
+			return
+		var/can_control_mech = FALSE
+		for(var/obj/item/mecha_parts/mecha_tracking/ai_control/A in trackers)
+			can_control_mech = TRUE
+			to_chat(user, "<span class='notice'>[bicon(src)] Status of [name]:</span>\n\
+				[A.get_mecha_info_text()]")
+			break
+		if(!can_control_mech)
+			to_chat(user, "<span class='warning'>You cannot control exosuits without AI control beacons installed.</span>")
+			return
+		to_chat(user, "<a href='?src=[user.UID()];ai_take_control=\ref[src]'><span class='boldnotice'>Take control of exosuit?</span></a><br>")
 
-/obj/mecha/transfer_ai(var/interaction, mob/user, var/mob/living/silicon/ai/AI, var/obj/item/device/aicard/card)
+/obj/mecha/transfer_ai(interaction, mob/user, mob/living/silicon/ai/AI, obj/item/device/aicard/card)
 	if(!..())
 		return
 
@@ -907,12 +926,13 @@
 			to_chat(AI, "You have been downloaded to a mobile storage device. Wireless connection offline.")
 			to_chat(user, "<span class='boldnotice'>Transfer successful</span>: [AI.name] ([rand(1000,9999)].exe) removed from [name] and stored within local memory.")
 
-		if(AI_MECH_HACK) //Called by Malf AI mob on the mech.
-			new /obj/structure/AIcore/deactivated(AI.loc)
-			if(occupant) //Oh, I am sorry, were you using that?
-				to_chat(AI, "<span class='warning'>Pilot detected! Forced ejection initiated!")
-				to_chat(occupant, "<span class='danger'>You have been forcibly ejected!</span>")
-				go_out(1) //IT IS MINE, NOW. SUCK IT, RD!
+		if(AI_MECH_HACK) //Called by AIs on the mech
+			AI.linked_core = new /obj/structure/AIcore/deactivated(AI.loc)
+			if(AI.can_dominate_mechs)
+				if(occupant) //Oh, I am sorry, were you using that?
+					to_chat(AI, "<span class='warning'>Pilot detected! Forced ejection initiated!")
+					to_chat(occupant, "<span class='danger'>You have been forcibly ejected!</span>")
+					go_out(1) //IT IS MINE, NOW. SUCK IT, RD!
 			ai_enter_mech(AI, interaction)
 
 		if(AI_TRANS_FROM_CARD) //Using an AI card to upload to a mech.
@@ -932,7 +952,7 @@
 			ai_enter_mech(AI, interaction)
 
 //Hack and From Card interactions share some code, so leave that here for both to use.
-/obj/mecha/proc/ai_enter_mech(var/mob/living/silicon/ai/AI, var/interaction)
+/obj/mecha/proc/ai_enter_mech(mob/living/silicon/ai/AI, interaction)
 	AI.aiRestorePowerRoutine = 0
 	AI.loc = src
 	occupant = AI
@@ -945,7 +965,7 @@
 	AI.remote_control = src
 	AI.canmove = 1 //Much easier than adding AI checks! Be sure to set this back to 0 if you decide to allow an AI to leave a mech somehow.
 	AI.can_shunt = 0 //ONE AI ENTERS. NO AI LEAVES.
-	to_chat(AI, "[interaction == AI_MECH_HACK ? "<span class='announce'>Takeover of [name] complete! You are now permanently loaded onto the onboard computer. Do not attempt to leave the station sector!</span>" \
+	to_chat(AI, "[AI.can_dominate_mechs ? "<span class='announce'>Takeover of [name] complete! You are now permanently loaded onto the onboard computer. Do not attempt to leave the station sector!</span>" \
 	: "<span class='notice'>You have been uploaded to a mech's onboard computer."]")
 	to_chat(AI, "<span class='boldnotice'>Use Middle-Mouse to activate mech functions and equipment. Click normally for AI interactions.</span>")
 
@@ -1172,7 +1192,7 @@
 		to_chat(user, "<span class='notice'>You stop inserting the MMI.</span>")
 	return 0
 
-/obj/mecha/proc/mmi_moved_inside(var/obj/item/device/mmi/mmi_as_oc as obj,mob/user as mob)
+/obj/mecha/proc/mmi_moved_inside(obj/item/device/mmi/mmi_as_oc,mob/user)
 	if(mmi_as_oc && user in range(1))
 		if(!mmi_as_oc.brainmob || !mmi_as_oc.brainmob.client)
 			to_chat(user, "Consciousness matrix not detected.")
@@ -1239,7 +1259,7 @@
 	if(occupant && occupant == M) // The occupant exited the mech without calling go_out()
 		go_out(1, newloc)
 
-/obj/mecha/proc/go_out(var/forced, var/atom/newloc = loc)
+/obj/mecha/proc/go_out(forced, atom/newloc = loc)
 	if(!occupant)
 		return
 	var/atom/movable/mob_container
@@ -1248,15 +1268,29 @@
 	if(ishuman(occupant))
 		mob_container = occupant
 		//RemoveActions(occupant, human_occupant=1)
-	else if(istype(occupant, /mob/living/carbon/brain))
+	else if(isbrain(occupant))
 		var/mob/living/carbon/brain/brain = occupant
 		//RemoveActions(brain)
 		mob_container = brain.container
-	else if(isAI(occupant) && forced) //This should only happen if there are multiple AIs in a round, and at least one is Malf.
-		//RemoveActions(occupant)
-		occupant.gib()  //If one Malf decides to steal a mech from another AI (even other Malfs!), they are destroyed, as they have nowhere to go when replaced.
-		occupant = null
-		return
+	else if(isAI(occupant))
+		var/mob/living/silicon/ai/AI = occupant
+		if(forced)//This should only happen if there are multiple AIs in a round, and at least one is Malf.
+			//RemoveActions(occupant)
+			occupant.gib()  //If one Malf decides to steal a mech from another AI (even other Malfs!), they are destroyed, as they have nowhere to go when replaced.
+			occupant = null
+			return
+		else
+			if(!AI.linked_core || qdeleted(AI.linked_core))
+				to_chat(AI, "<span class='userdanger'>Inactive core destroyed. Unable to return.</span>")
+				AI.linked_core = null
+				return
+			to_chat(AI, "<span class='notice'>Returning to core...</span>")
+			AI.controlled_mech = null
+			AI.remote_control = null
+			//RemoveActions(occupant, 1)
+			mob_container = AI
+			newloc = get_turf(AI.linked_core)
+			qdel(AI.linked_core)
 	else
 		return
 	var/mob/living/L = occupant
@@ -1439,6 +1473,7 @@
 	diag_hud_set_mechhealth()
 	diag_hud_set_mechcell()
 	diag_hud_set_mechstat()
+	diag_hud_set_mechtracking()
 
 
 /obj/mecha/speech_bubble(var/bubble_state = "",var/bubble_loc = src, var/list/bubble_recipients = list())

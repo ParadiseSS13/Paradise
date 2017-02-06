@@ -56,6 +56,7 @@
 	var/miming = 0 // Mime's vow of silence
 	var/datum/faction/faction 			//associated faction
 	var/datum/changeling/changeling		//changeling holder
+	var/linglink
 	var/datum/vampire/vampire			//vampire holder
 	var/datum/nations/nation			//nation holder
 	var/datum/abductor/abductor			//abductor holder
@@ -149,7 +150,7 @@
 	)
 	var/text = ""
 	var/mob/living/carbon/human/H = current
-	if(istype(current, /mob/living/carbon/human))
+	if(ishuman(current))
 		/** Impanted**/
 		if(isloyal(H))
 			text = "Mindshield Implant:<a href='?src=[UID()];implant=remove'>Remove</a>|<b><font color='green'>Implanted</font></b></br>"
@@ -369,7 +370,7 @@
 
 	/** SILICON ***/
 
-	if(istype(current, /mob/living/silicon))
+	if(issilicon(current))
 		text = "silicon"
 		var/mob/living/silicon/robot/robot = current
 		if(istype(robot) && robot.emagged)
@@ -409,7 +410,7 @@
 	if(((src in ticker.mode.head_revolutionaries) || \
 		(src in ticker.mode.traitors)              || \
 		(src in ticker.mode.syndicates))           && \
-		istype(current,/mob/living/carbon/human)      )
+		ishuman(current)      )
 
 		text = "Uplink: <a href='?src=[UID()];common=uplink'>give</a>"
 		var/obj/item/device/uplink/hidden/suplink = find_syndicate_uplink()
@@ -445,18 +446,21 @@
 	usr << browse(out, "window=edit_memory[src];size=400x500")
 
 /datum/mind/Topic(href, href_list)
-	if(!check_rights(R_ADMIN))	return
+	if(!check_rights(R_ADMIN))
+		return
 
 	if(href_list["role_edit"])
 		var/new_role = input("Select new role", "Assigned role", assigned_role) as null|anything in joblist
-		if(!new_role) return
+		if(!new_role)
+			return
 		assigned_role = new_role
 		log_admin("[key_name(usr)] has changed [key_name(current)]'s assigned role to [assigned_role]")
 		message_admins("[key_name_admin(usr)] has changed [key_name_admin(current)]'s assigned role to [assigned_role]")
 
 	else if(href_list["memory_edit"])
 		var/new_memo = copytext(input("Write new memory", "Memory", memory) as null|message,1,MAX_MESSAGE_LEN)
-		if(isnull(new_memo)) return
+		if(isnull(new_memo))
+			return
 		memory = new_memo
 		log_admin("[key_name(usr)] has edited [key_name(current)]'s memory")
 		message_admins("[key_name_admin(usr)] has edited [key_name_admin(current)]'s memory")
@@ -468,7 +472,8 @@
 
 		if(href_list["obj_edit"])
 			objective = locate(href_list["obj_edit"])
-			if(!objective) return
+			if(!objective)
+				return
 			objective_pos = objectives.Find(objective)
 
 			//Text strings are easy to manipulate. Revised for simplicity.
@@ -478,7 +483,8 @@
 				def_value = "custom"
 
 		var/new_obj_type = input("Select objective type:", "Objective type", def_value) as null|anything in list("assassinate", "blood", "debrain", "protect", "prevent", "brig", "hijack", "escape", "survive", "steal", "download", "nuclear", "capture", "absorb", "destroy", "maroon", "identity theft", "custom")
-		if(!new_obj_type) return
+		if(!new_obj_type)
+			return
 
 		var/datum/objective/new_objective = null
 
@@ -500,7 +506,8 @@
 					def_target = objective:target.current
 
 				var/new_target = input("Select target:", "Objective target", def_target) as null|anything in possible_targets
-				if(!new_target) return
+				if(!new_target)
+					return
 
 				var/objective_path = text2path("/datum/objective/[new_obj_type]")
 				if(new_target == "Free objective")
@@ -588,7 +595,7 @@
 			if("identity theft")
 				var/list/possible_targets = list("Free objective")
 				for(var/datum/mind/possible_target in ticker.minds)
-					if((possible_target != src) && istype(possible_target.current, /mob/living/carbon/human))
+					if((possible_target != src) && ishuman(possible_target.current))
 						possible_targets += possible_target
 
 				var/new_target = input("Select target:", "Objective target") as null|anything in possible_targets
@@ -604,12 +611,14 @@
 				new_objective.explanation_text = "Escape on the shuttle or an escape pod with the identity of [targ.current.real_name], the [targ.assigned_role] while wearing their identification card."
 			if("custom")
 				var/expl = sanitize(copytext(input("Custom objective:", "Objective", objective ? objective.explanation_text : "") as text|null,1,MAX_MESSAGE_LEN))
-				if(!expl) return
+				if(!expl)
+					return
 				new_objective = new /datum/objective
 				new_objective.owner = src
 				new_objective.explanation_text = expl
 
-		if(!new_objective) return
+		if(!new_objective)
+			return
 
 		if(objective)
 			objectives -= objective
@@ -622,7 +631,8 @@
 
 	else if(href_list["obj_delete"])
 		var/datum/objective/objective = locate(href_list["obj_delete"])
-		if(!istype(objective))	return
+		if(!istype(objective))
+			return
 		objectives -= objective
 
 		log_admin("[key_name(usr)] has removed one of [key_name(current)]'s objectives: [objective]")
@@ -630,7 +640,8 @@
 
 	else if(href_list["obj_completed"])
 		var/datum/objective/objective = locate(href_list["obj_completed"])
-		if(!istype(objective))	return
+		if(!istype(objective))
+			return
 		objective.completed = !objective.completed
 
 		log_admin("[key_name(usr)] has toggled the completion of one of [key_name(current)]'s objectives")
@@ -893,7 +904,7 @@
 				message_admins("[key_name_admin(usr)] has automatically forged objectives for [key_name_admin(current)]")
 
 			if("initialdna")
-				if( !changeling || !changeling.absorbed_dna.len )
+				if(!changeling || !changeling.absorbed_dna.len)
 					to_chat(usr, "\red Resetting DNA failed!")
 				else
 					current.dna = changeling.absorbed_dna[1]
@@ -924,7 +935,7 @@
 					ticker.mode.update_vampire_icons_added(src)
 					var/datum/mindslaves/slaved = new()
 					slaved.masters += src
-					src.som = slaved //we MIGT want to mindslave someone
+					som = slaved //we MIGT want to mindslave someone
 					special_role = SPECIAL_ROLE_VAMPIRE
 					to_chat(current, "<B><font color='red'>Your powers are awoken. Your lust for blood grows... You are a Vampire!</font></B>")
 					log_admin("[key_name(usr)] has vampired [key_name(current)]")
@@ -1033,7 +1044,7 @@
 					ticker.mode.traitors += src
 					var/datum/mindslaves/slaved = new()
 					slaved.masters += src
-					src.som = slaved //we MIGT want to mindslave someone
+					som = slaved //we MIGT want to mindslave someone
 					special_role = SPECIAL_ROLE_TRAITOR
 					to_chat(current, "<span class='danger'>You are a traitor!</span>")
 					log_admin("[key_name(usr)] has traitored [key_name(current)]")
@@ -1130,7 +1141,7 @@
 					message_admins("[key_name_admin(usr)] has un-emagged [key_name_admin(current)]")
 
 			if("unemagcyborgs")
-				if(istype(current, /mob/living/silicon/ai))
+				if(isAI(current))
 					var/mob/living/silicon/ai/ai = current
 					for(var/mob/living/silicon/robot/R in ai.connected_robots)
 						R.emagged = 0
@@ -1324,7 +1335,7 @@
 			var/explanation = "Summon [ticker.mode.cultdat.entity_name] via the use of the appropriate rune. It will only work if nine cultists stand on and around it."
 			to_chat(current, "<B>Objective #1</B>: [explanation]")
 			current.memory += "<B>Objective #1</B>: [explanation]<BR>"
-			
+
 
 	var/mob/living/carbon/human/H = current
 	if(istype(H))
@@ -1453,13 +1464,13 @@
 			qdel(S)
 			spell_list -= S
 
-/datum/mind/proc/transfer_actions(var/mob/living/new_character)
+/datum/mind/proc/transfer_actions(mob/living/new_character)
 	if(current && current.actions)
 		for(var/datum/action/A in current.actions)
 			A.Grant(new_character)
 	transfer_mindbound_actions(new_character)
 
-/datum/mind/proc/transfer_mindbound_actions(var/mob/living/new_character)
+/datum/mind/proc/transfer_mindbound_actions(mob/living/new_character)
 	for(var/X in spell_list)
 		var/obj/effect/proc_holder/spell/S = X
 		S.action.Grant(new_character)
@@ -1553,13 +1564,15 @@
 			ticker.minds += mind
 		else
 			error("mind_initialize(): No ticker ready yet! Please inform Carn")
-	if(!mind.name)	mind.name = real_name
+	if(!mind.name)
+		mind.name = real_name
 	mind.current = src
 
 //HUMAN
 /mob/living/carbon/human/mind_initialize()
 	..()
-	if(!mind.assigned_role)	mind.assigned_role = "Civilian"	//defualt
+	if(!mind.assigned_role)
+		mind.assigned_role = "Civilian"	//defualt
 
 /mob/proc/sync_mind()
 	mind_initialize()  //updates the mind (or creates and initializes one if one doesn't exist)

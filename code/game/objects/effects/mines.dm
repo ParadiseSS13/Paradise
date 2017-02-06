@@ -6,18 +6,20 @@
 	icon = 'icons/obj/weapons.dmi'
 	icon_state = "uglyminearmed"
 	var/triggered = 0
-	
+
 /obj/effect/mine/proc/mineEffect(mob/living/victim)
 	to_chat(victim, "<span class='danger'>*click*</span>")
 
 /obj/effect/mine/Crossed(AM as mob|obj)
+	if(!isliving(AM))
+		return
 	if(isanimal(AM))
 		var/mob/living/simple_animal/SA = AM
 		if(!SA.flying)
 			triggermine(SA)
 	else
 		triggermine(AM)
-		
+
 /obj/effect/mine/proc/triggermine(mob/living/victim)
 	if(triggered)
 		return
@@ -28,17 +30,17 @@
 	mineEffect(victim)
 	triggered = 1
 	qdel(src)
-	
+
 /obj/effect/mine/explosive
 	name = "explosive mine"
 	var/range_devastation = 0
 	var/range_heavy = 1
 	var/range_light = 2
 	var/range_flash = 3
-	
+
 /obj/effect/mine/explosive/mineEffect(mob/living/victim)
-	explosion(loc, range_devastation, range_heavy, range_light, range_flash)	
-	
+	explosion(loc, range_devastation, range_heavy, range_light, range_flash)
+
 /obj/effect/mine/stun
 	name = "stun mine"
 	var/stun_time = 8
@@ -46,11 +48,11 @@
 /obj/effect/mine/stun/mineEffect(mob/living/victim)
 	if(isliving(victim))
 		victim.Weaken(stun_time)
-		
+
 /obj/effect/mine/dnascramble
 	name = "Radiation Mine"
 	var/radiation_amount
-	
+
 /obj/effect/mine/dnascramble/mineEffect(mob/living/victim)
 	victim.apply_effect(radiation_amount, IRRADIATE, 0)
 	randmutb(victim)
@@ -81,8 +83,8 @@
 
 /obj/effect/mine/sound/bwoink
 	name = "bwoink mine"
-	sound = 'sound/effects/adminhelp.ogg'	
-	
+	sound = 'sound/effects/adminhelp.ogg'
+
 /obj/effect/mine/pickup
 	name = "pickup"
 	desc = "pick me up"
@@ -102,7 +104,7 @@
 	invisibility = 101
 	mineEffect(victim)
 	qdel(src)
-	
+
 /obj/effect/mine/pickup/bloodbath
 	name = "Red Orb"
 	desc = "You feel angry just looking at it."
