@@ -983,6 +983,27 @@
 	drink_name = "Jack Rose"
 	drink_desc = "Drinking this makes you feel like you belong in a luxury hotel bar during the 1920s."
 
+/datum/reagent/consumable/ethanol/drunkenblumpkin
+	name = "Drunken Blumpkin"
+	id = "drunkenblumpkin"
+	description = "A weird mix of whiskey and blumpkin juice."
+	color = "#1EA0FF" // rgb: 102, 67, 0
+	alcohol_perc = 0.5
+	drink_icon = "drunkenblumpkin"
+	drink_name = "Drunken Blumpkin"
+	drink_desc = "A drink for the drunks"
+
+/datum/reagent/consumable/ethanol/eggnog
+	name = "Eggnog"
+	id = "eggnog"
+	description = "For enjoying the most wonderful time of the year."
+	color = "#fcfdc6" // rgb: 252, 253, 198
+	nutriment_factor = 2 * REAGENTS_METABOLISM
+	alcohol_perc = 0.1
+	drink_icon = "glass_yellow"
+	drink_name = "Eggnog"
+	drink_desc = "For enjoying the most wonderful time of the year."
+
 /datum/reagent/consumable/ethanol/dragons_breath //inaccessible to players, but here for admin shennanigans
 	name = "Dragon's Breath"
 	id = "dragonsbreath"

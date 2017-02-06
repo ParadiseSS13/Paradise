@@ -4,7 +4,7 @@
 
 /datum/reagent/medicine/on_mob_life(mob/living/M)
 	current_cycle++
-	holder.remove_reagent(id, metabolization_rate / M.metabolism_efficiency) //medicine reagents stay longer if you have a better metabolism
+	holder.remove_reagent(id, (metabolization_rate / M.metabolism_efficiency) * M.digestion_ratio) //medicine reagents stay longer if you have a better metabolism
 
 /datum/reagent/medicine/hydrocodone
 	name = "Hydrocodone"
@@ -91,8 +91,7 @@
 		var/mob/living/carbon/human/H = M
 
 		//Mitocholide is hard enough to get, it's probably fair to make this all internal organs
-		for(var/name in H.internal_organs)
-			var/obj/item/organ/internal/I = H.get_int_organ(name)
+		for(var/obj/item/organ/internal/I in H.internal_organs)
 			if(I.damage > 0)
 				I.damage = max(I.damage-0.4, 0)
 	..()
@@ -635,7 +634,8 @@
 					return
 				var/mob/dead/observer/ghost = M.get_ghost()
 				if(ghost)
-					to_chat(ghost, "<span class='ghostalert'>Your are attempting to be revived with Strange Reagent. Return to your body if you want to be revived!</span> (Verbs -> Ghost -> Re-enter corpse)")
+					to_chat(ghost, "<span class='ghostalert'>You are attempting to be revived with Strange Reagent. Return to your body if you want to be revived!</span> (Verbs -> Ghost -> Re-enter corpse)")
+					window_flash(ghost.client)
 					ghost << sound('sound/effects/genetics.ogg')
 					M.visible_message("<span class='notice'>[M] doesn't appear to respond, perhaps try again later?</span>")
 				if(!M.suiciding && !ghost && !(NOCLONE in M.mutations))
@@ -878,38 +878,10 @@
 	..()
 
 /datum/reagent/medicine/omnizine_diluted/overdose_process(mob/living/M, severity)
-	var/effect = ..()
-	if(severity == 1) //lesser
-		M.stuttering += 1
-		if(effect <= 1)
-			M.visible_message("<span class='warning'>[M] suddenly cluches their gut!</span>")
-			M.emote("scream")
-			M.Stun(4)
-			M.Weaken(4)
-		else if(effect <= 3)
-			M.visible_message("<span class='warning'>[M] completely spaces out for a moment.</span>")
-			M.AdjustConfused(15)
-		else if(effect <= 5)
-			M.visible_message("<span class='warning'>[M] stumbles and staggers.</span>")
-			M.Dizzy(5)
-			M.Weaken(3)
-		else if(effect <= 7)
-			M.visible_message("<span class='warning'>[M] shakes uncontrollably.</span>")
-			M.Jitter(30)
-	else if(severity == 2) // greater
-		if(effect <= 2)
-			M.visible_message("<span class='warning'>[M] suddenly cluches their gut!</span>")
-			M.emote("scream")
-			M.Stun(7)
-			M.Weaken(7)
-		else if(effect <= 5)
-			M.visible_message("<span class='warning'>[M] jerks bolt upright, then collapses!</span>")
-			M.Paralyse(5)
-			M.Weaken(4)
-		else if(effect <= 8)
-			M.visible_message("<span class='warning'>[M] stumbles and staggers.</span>")
-			M.Dizzy(5)
-			M.Weaken(3)
+	M.adjustToxLoss(1.5*REAGENTS_EFFECT_MULTIPLIER)
+	M.adjustOxyLoss(1.5*REAGENTS_EFFECT_MULTIPLIER)
+	M.adjustBruteLoss(1.5*REAGENTS_EFFECT_MULTIPLIER)
+	M.adjustFireLoss(1.5*REAGENTS_EFFECT_MULTIPLIER)
 
 //virus-specific symptom reagents
 
@@ -975,3 +947,60 @@
 /datum/reagent/medicine/liquid_solder/on_mob_life(mob/living/M)
 	M.adjustBrainLoss(-3)
 	..()
+
+
+
+//Trek-Chems. DO NOT USE THES OUTSIDE OF BOTANY OR FOR VERY SPECIFIC PURPOSES. NEVER GIVE A RECIPE UNDER ANY CIRCUMSTANCES//
+/datum/reagent/medicine/bicaridine
+	name = "Bicaridine"
+	id = "bicaridine"
+	description = "Restores bruising. Overdose causes it instead."
+	reagent_state = LIQUID
+	color = "#C8A5DC"
+	overdose_threshold = 30
+
+/datum/reagent/medicine/bicaridine/on_mob_life(mob/living/M)
+	M.adjustBruteLoss(-2*REAGENTS_EFFECT_MULTIPLIER)
+	..()
+
+/datum/reagent/medicine/bicaridine/overdose_process(mob/living/M)
+	M.adjustBruteLoss(4*REAGENTS_EFFECT_MULTIPLIER)
+
+/datum/reagent/medicine/kelotane
+	name = "Kelotane"
+	id = "kelotane"
+	description = "Restores fire damage. Overdose causes it instead."
+	reagent_state = LIQUID
+	color = "#C8A5DC"
+	overdose_threshold = 30
+
+/datum/reagent/medicine/kelotane/on_mob_life(mob/living/M)
+	M.adjustFireLoss(-2*REAGENTS_EFFECT_MULTIPLIER)
+	..()
+
+/datum/reagent/medicine/kelotane/overdose_process(mob/living/M)
+	M.adjustFireLoss(4*REAGENTS_EFFECT_MULTIPLIER)
+
+
+/datum/reagent/medicine/earthsblood //Created by ambrosia gaia plants
+	name = "Earthsblood"
+	id = "earthsblood"
+	description = "Ichor from an extremely powerful plant. Great for restoring wounds, but it's a little heavy on the brain."
+	color = "#FFAF00"
+	overdose_threshold = 25
+
+/datum/reagent/medicine/earthsblood/on_mob_life(mob/living/M)
+	M.adjustBruteLoss(-3 * REAGENTS_EFFECT_MULTIPLIER)
+	M.adjustFireLoss(-3 * REAGENTS_EFFECT_MULTIPLIER)
+	M.adjustOxyLoss(-15 * REAGENTS_EFFECT_MULTIPLIER)
+	M.adjustToxLoss(-3 * REAGENTS_EFFECT_MULTIPLIER)
+	M.adjustBrainLoss(2 * REAGENTS_EFFECT_MULTIPLIER) //This does, after all, come from ambrosia, and the most powerful ambrosia in existence, at that!
+	M.adjustCloneLoss(-1 * REAGENTS_EFFECT_MULTIPLIER)
+	M.adjustStaminaLoss(-30 * REAGENTS_EFFECT_MULTIPLIER)
+	M.SetJitter(min(max(0, M.jitteriness + 3), 30))
+	M.SetDruggy(min(max(0, M.druggy + 10), 15)) //See above
+	..()
+
+/datum/reagent/medicine/earthsblood/overdose_process(mob/living/M)
+	M.SetHallucinate(min(max(0, M.hallucination + 10), 50))
+	M.adjustToxLoss(5 * REAGENTS_EFFECT_MULTIPLIER)

@@ -245,8 +245,8 @@
 	id = "trash"
 	//Note that this filters out blueprints because they are a paper item.  Do NOT throw out the station blueprints unless you be trollin'.
 	blacklist = null
-	whitelist = list(/obj/item/trash,/obj/item/toy,/obj/item/weapon/reagent_containers/food/snacks/ectoplasm,/obj/item/weapon/bananapeel,/obj/item/weapon/broken_bottle,/obj/item/weapon/bikehorn,
-					/obj/item/weapon/cigbutt,/obj/item/weapon/contraband,/obj/item/weapon/corncob,/obj/item/weapon/paper,/obj/item/weapon/shard,
+	whitelist = list(/obj/item/trash,/obj/item/toy,/obj/item/weapon/reagent_containers/food/snacks/ectoplasm,/obj/item/weapon/grown/bananapeel,/obj/item/weapon/broken_bottle,/obj/item/weapon/bikehorn,
+					/obj/item/weapon/cigbutt,/obj/item/weapon/contraband,/obj/item/weapon/grown/corncob,/obj/item/weapon/paper,/obj/item/weapon/shard,
 					/obj/item/weapon/sord,/obj/item/weapon/photo,/obj/item/weapon/folder,
 					/obj/item/areaeditor/blueprints,/obj/item/weapon/contraband,/obj/item/weapon/kitchen,/obj/item/weapon/book,/obj/item/clothing/mask/facehugger)
 
@@ -267,9 +267,9 @@
 	whitelist = list(/obj/item/device,/obj/item/weapon/card,/obj/item/weapon/cartridge,/obj/item/weapon/cautery,/obj/item/weapon/stock_parts/cell,/obj/item/weapon/circuitboard,
 					/obj/item/weapon/aiModule,/obj/item/weapon/airalarm_electronics,/obj/item/weapon/airlock_electronics,/obj/item/weapon/circular_saw,
 					/obj/item/weapon/crowbar,/obj/item/weapon/disk,/obj/item/weapon/firealarm_electronics,/obj/item/weapon/hand_tele,
-					/obj/item/weapon/hand_labeler,/obj/item/weapon/hemostat,/obj/item/weapon/mop,/obj/item/weapon/locator,/obj/item/weapon/minihoe,
+					/obj/item/weapon/hand_labeler,/obj/item/weapon/hemostat,/obj/item/weapon/mop,/obj/item/weapon/locator,/obj/item/weapon/cultivator,
 					/obj/item/stack/packageWrap,/obj/item/weapon/pen,/obj/item/weapon/pickaxe,/obj/item/weapon/pinpointer,
-					/obj/item/weapon/rcd,/obj/item/weapon/rcd_ammo,/obj/item/weapon/retractor,/obj/item/weapon/rsf,/obj/item/weapon/rsp,/obj/item/weapon/scalpel,
+					/obj/item/weapon/rcd,/obj/item/weapon/rcd_ammo,/obj/item/weapon/retractor,/obj/item/weapon/rsf,/obj/item/weapon/scalpel,
 					/obj/item/weapon/screwdriver,/obj/item/weapon/shovel,/obj/item/weapon/soap,/obj/item/weapon/stamp,/obj/item/weapon/storage/bag/tray,/obj/item/weapon/weldingtool,
 					/obj/item/weapon/wirecutters,/obj/item/weapon/wrench,/obj/item/weapon/extinguisher)
 

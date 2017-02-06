@@ -1,4 +1,4 @@
-var/datum/announcement/minor/captain_announcement = new(do_newscast = 1)
+var/datum/announcement/minor/captain_announcement = new(do_newscast = 0)
 /datum/job/captain
 	title = "Captain"
 	flag = CAPTAIN

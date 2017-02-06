@@ -298,6 +298,9 @@
 	desc = initial(desc)
 
 /obj/machinery/autolathe/proc/can_build(var/datum/design/D,var/multiplier=1,var/custom_metal,var/custom_glass)
+	if(D.make_reagents.len)
+		return 0
+
 	var/coeff = get_coeff(D)
 
 	var/metal_amount = materials.amount(MAT_METAL)

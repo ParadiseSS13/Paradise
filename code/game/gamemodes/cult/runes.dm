@@ -153,6 +153,16 @@ structure_check() searches for nearby cultist structures required for the invoca
 			L.changeNext_move(CLICK_CD_MELEE)//THIS IS WHY WE CAN'T HAVE NICE THINGS
 	do_invoke_glow()
 
+/obj/effect/rune/proc/burn_invokers(var/list/mobstoburn)
+	for(var/M in mobstoburn)
+		var/mob/living/L = M
+		to_chat(L, "<span class='cultlarge'><i>\"YOUR SOUL BURNS WITH YOUR ARROGANCE!!!\"</i></span>")
+		if(L.reagents)
+			L.reagents.add_reagent("hell_water", 10)
+		L.Weaken(7)
+		L.Stun(7)
+	fail_invoke()
+
 /obj/effect/rune/proc/do_invoke_glow()
     var/oldtransform = transform
     spawn(0) //animate is a delay, we want to avoid being delayed
@@ -476,16 +486,13 @@ var/list/teleport_runes = list()
 		return
 	var/mob/living/user = invokers[1]
 	var/datum/game_mode/cult/cult_mode = ticker.mode
+	if(!(CULT_ELDERGOD in cult_mode.objectives))
+		message_admins("[key_name_admin(user)] tried to summonn an eldritch horror when the objective was wrong")
+		burn_invokers(invokers)
+		log_game("Summon Nar-Sie rune failed - improper objective")
 	if(!is_station_level(user.z))
-		message_admins("[user.real_name]([user.ckey]) tried to summon an eldritch horror off station")
-		for(var/M in invokers)
-			var/mob/living/L = M
-			to_chat(L, "<span class='cultlarge'><i>\"YOUR SOUL BURNS WITH YOUR ARROGANCE!!!\"</i></span>")
-			if(L.reagents)
-				L.reagents.add_reagent("hell_water", 10)
-			L.Weaken(7)
-			L.Stun(7)
-		fail_invoke()
+		message_admins("[key_name_admin(user)] tried to summon an eldritch horror off station")
+		burn_invokers(invokers)
 		log_game("Summon Nar-Sie rune failed - off station Z level")
 		return
 	if(!cult_mode.eldergod)
@@ -566,26 +573,12 @@ var/list/teleport_runes = list()
 	var/datum/game_mode/cult/cult_mode = ticker.mode
 	if(!(CULT_SLAUGHTER in cult_mode.objectives))
 		message_admins("[usr.real_name]([user.ckey]) tried to summon demons when the objective was wrong")
-		for(var/M in invokers)
-			var/mob/living/L = M
-			to_chat(L, "<span class='cultlarge'><i>\"YOUR SOUL BURNS WITH YOUR ARROGANCE!!!\"</i></span>")
-			if(L.reagents)
-				L.reagents.add_reagent("hell_water", 10)
-			L.Weaken(7)
-			L.Stun(7)
-		fail_invoke()
+		burn_invokers(invokers)
 		log_game("Summon Demons rune failed - improper objective")
 		return
 	if(!is_station_level(user.z))
 		message_admins("[user.real_name]([user.ckey]) tried to summon demons off station")
-		for(var/M in invokers)
-			var/mob/living/L = M
-			to_chat(L, "<span class='cultlarge'><i>\"YOUR SOUL BURNS WITH YOUR ARROGANCE!!!\"</i></span>")
-			if(L.reagents)
-				L.reagents.add_reagent("hell_water", 10)
-			L.Weaken(7)
-			L.Stun(7)
-		fail_invoke()
+		burn_invokers(invokers)
 		log_game("Summon demons rune failed - off station Z level")
 		return
 	if(cult_mode.demons_summoned)
@@ -836,7 +829,7 @@ var/list/teleport_runes = list()
 	var/mob/living/user = invokers[1]
 	var/list/cultists = list()
 	for(var/datum/mind/M in ticker.mode.cult)
-		if(!(M.current in invokers) && M.current.stat != DEAD)
+		if(!(M.current in invokers) && M.current && M.current.stat != DEAD)
 			cultists |= M.current
 	var/mob/living/cultist_to_summon = input(user, "Who do you wish to call to [src]?", "Followers of [ticker.mode.cultdat.entity_title3]") as null|anything in cultists
 	if(!Adjacent(user) || !src || qdeleted(src) || user.incapacitated())
@@ -975,6 +968,7 @@ var/list/teleport_runes = list()
 	var/mob/living/carbon/human/new_human = new(get_turf(src))
 	new_human.real_name = ghost_to_spawn.real_name
 	new_human.alpha = 150 //Makes them translucent
+	new_human.color = "grey" //heh..cult greytide...litterly...
 	..()
 	visible_message("<span class='warning'>A cloud of red mist forms above [src], and from within steps... a man.</span>")
 	to_chat(user, "<span class='cultitalic'>Your blood begins flowing into [src]. You must remain in place and conscious to maintain the forms of those summoned. This will hurt you slowly but surely...</span>")

@@ -1,0 +1,4 @@
+author: "uraniummeltdown"
+delete-after: True
+changes: 
+  - tweak: "You can interact with an ore box by using an advanced mining scanner on it."

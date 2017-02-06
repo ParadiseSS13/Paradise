@@ -93,6 +93,7 @@
 
 	processing_objects.Add(src)
 	removeVerb(/obj/mecha/verb/disconnect_from_port)
+	poi_list |= src
 	log_message("[src] created.")
 	mechas_list += src //global mech list
 	prepare_huds()
@@ -512,13 +513,13 @@
 			take_damage(damage)
 			check_for_internal_damage(list(MECHA_INT_TEMP_CONTROL,MECHA_INT_TANK_BREACH,MECHA_INT_CONTROL_LOST))
 			visible_message("<span class='danger'>[user]</span> [user.attacktext] [src]!")
-			user.attack_log += text("\[[time_stamp()]\] <font color='red'>attacked [src.name]</font>")
+			user.create_attack_log("<font color='red'>attacked [src.name]</font>")
 		else
 			log_append_to_last("Armor saved.")
 			playsound(loc, 'sound/weapons/slash.ogg', 50, 1, -1)
 			occupant_message("\blue The [user]'s attack is stopped by the armor.")
 			visible_message("\blue The [user] rebounds off [name]'s armor!")
-			user.attack_log += text("\[[time_stamp()]\] <font color='red'>attacked [name]</font>")
+			user.create_attack_log("<font color='red'>attacked [name]</font>")
 	return
 
 /obj/mecha/hitby(atom/movable/A as mob|obj) //wrapper
@@ -616,6 +617,7 @@
 			qdel(internal_tank)
 
 	processing_objects.Remove(src)
+	poi_list.Remove(src)
 	equipment.Cut()
 	cell = null
 	internal_tank = null
@@ -831,6 +833,8 @@
 
 /obj/mecha/proc/attacked_by(obj/item/I, mob/user)
 	log_message("Attacked by [I]. Attacker - [user]")
+	user.changeNext_move(CLICK_CD_MELEE)
+	user.do_attack_animation(src)
 	var/deflection = deflect_chance
 	var/dam_coeff = 1
 	for(var/obj/item/mecha_parts/mecha_equipment/anticcw_armor_booster/B in equipment)

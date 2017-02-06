@@ -37,9 +37,11 @@
 		"antennae" =    /obj/item/organ/internal/wryn/hivenode
 		)
 
-	flags = IS_WHITELISTED | HAS_LIPS | NO_BREATHE | HAS_SKIN_COLOR | NO_SCAN | NO_SCAN | HIVEMIND
+	flags = IS_WHITELISTED | HAS_LIPS | NO_BREATHE | HAS_SKIN_COLOR | NO_SCAN | HIVEMIND
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	dietflags = DIET_HERB		//bees feed off nectar, so bee people feed off plants too
+
+	oxy_mod = 0
 
 	reagent_tag = PROCESS_ORG
 	base_color = "#704300"
@@ -77,8 +79,8 @@
 				head_organ.h_style = "Bald"
 				H.update_hair()
 
-				M.attack_log += text("\[[time_stamp()]\] <font color='red'>removed antennae [H.name] ([H.ckey])</font>")
-				H.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has had their antennae removed by [M.name] ([M.ckey])</font>")
+				M.create_attack_log("<font color='red'>removed antennae [H.name] ([H.ckey])</font>")
+				H.create_attack_log("<font color='orange'>Has had their antennae removed by [M.name] ([M.ckey])</font>")
 				msg_admin_attack("[key_name(M)] removed [key_name(H)]'s antennae")
 			return 0
 
@@ -97,6 +99,7 @@
 	language = "Sol Common"
 	burn_mod = 4 // holy shite, poor guys wont survive half a second cooking smores
 	brute_mod = 2 // damn, double wham, double dam
+	oxy_mod = 0
 	flags = IS_WHITELISTED | NO_BREATHE | NO_BLOOD | NO_PAIN | HAS_LIPS | NO_SCAN
 	dietflags = DIET_OMNI		//still human at their core, so they maintain their eating habits and diet
 

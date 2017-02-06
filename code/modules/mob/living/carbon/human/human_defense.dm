@@ -38,6 +38,7 @@ emp_act
 
 	var/obj/item/organ/external/organ = get_organ(check_zone(def_zone))
 	if(isnull(organ))
+		. = bullet_act(P, "chest") //act on chest instead
 		return
 
 	//Shrapnel
@@ -56,6 +57,18 @@ emp_act
 	organ.add_autopsy_data(P.name, P.damage) // Add the bullet's name to the autopsy data
 
 	return (..(P , def_zone))
+	
+/mob/living/carbon/human/check_projectile_dismemberment(obj/item/projectile/P, def_zone)
+	var/obj/item/organ/external/affecting = get_organ(check_zone(def_zone))
+	if(affecting && !affecting.cannot_amputate && affecting.get_damage() >= (affecting.max_damage - P.dismemberment))
+		var/damtype = DROPLIMB_EDGE
+		switch(P.damage_type)
+			if(BRUTE)
+				damtype = DROPLIMB_BLUNT
+			if(BURN)
+				damtype = DROPLIMB_BURN
+			
+		affecting.droplimb(FALSE, damtype)
 
 /mob/living/carbon/human/getarmor(var/def_zone, var/type)
 	var/armorval = 0
@@ -187,8 +200,8 @@ emp_act
 		--src.meatleft
 		to_chat(user, "\red You hack off a chunk of meat from [src.name]")
 		if(!src.meatleft)
-			src.attack_log += "\[[time_stamp()]\] Was chopped up into meat by <b>[key_name(user)]</b>"
-			user.attack_log += "\[[time_stamp()]\] Chopped up <b>[key_name(src)]</b> into meat</b>"
+			src.create_attack_log("Was chopped up into meat by <b>[key_name(user)]</b>")
+			user.create_attack_log("Chopped up <b>[key_name(src)]</b> into meat</b>")
 			msg_admin_attack("[key_name_admin(user)] chopped up [key_name_admin(src)] into meat")
 			if(!iscarbon(user))
 				LAssailant = null
@@ -436,8 +449,8 @@ emp_act
 		visible_message("<span class='danger'>[src] has been hit by [M.name].</span>", \
 								"<span class='userdanger'>[src] has been hit by [M.name].</span>")
 
-		attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been attacked by \the [M] controlled by [key_name(M.occupant)] (INTENT: [uppertext(M.occupant.a_intent)])</font>")
-		M.occupant.attack_log += text("\[[time_stamp()]\] <font color='red'>Attacked [src] with \the [M] (INTENT: [uppertext(M.occupant.a_intent)])</font>")
+		create_attack_log("<font color='orange'>Has been attacked by \the [M] controlled by [key_name(M.occupant)] (INTENT: [uppertext(M.occupant.a_intent)])</font>")
+		M.occupant.create_attack_log("<font color='red'>Attacked [src] with \the [M] (INTENT: [uppertext(M.occupant.a_intent)])</font>")
 		msg_admin_attack("[key_name_admin(M.occupant)] attacked [key_name_admin(src)] with \the [M] (INTENT: [uppertext(M.occupant.a_intent)])")
 
 	else

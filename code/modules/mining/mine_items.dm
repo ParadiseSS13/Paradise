@@ -2,10 +2,12 @@
 
 //this item is intended to give the effect of entering the mine, so that light gradually fades
 /obj/effect/light_emitter
-	name = "Light-emtter"
+	name = "Light emtter"
 	anchored = 1
+	invisibility = 101
 	unacidable = 1
 	light_range = 8
+	light_power = 0
 
 /**********************Miner Lockers**************************/
 
@@ -89,7 +91,7 @@
 	var/excavation_amount = 100
 
 /obj/item/weapon/pickaxe/proc/playDigSound()
-		playsound(src, pick(digsound),20,1)
+	playsound(src, pick(digsound),20,1)
 
 /obj/item/weapon/pickaxe/silver
 	name = "silver-plated pickaxe"

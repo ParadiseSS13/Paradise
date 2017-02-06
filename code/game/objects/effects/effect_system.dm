@@ -425,21 +425,6 @@ steam.start() -- spawns the effect
 /obj/effect/effect/chem_smoke/Move()
 	..()
 
-	return
-
-// Spores
-/datum/effect/system/chem_smoke_spread/spores
-	var/datum/seed/seed
-
-/datum/effect/system/chem_smoke_spread/spores/New(seed_name)
-	if(seed_name && plant_controller)
-		seed = plant_controller.seeds[seed_name]
-	if(!seed)
-		qdel(src)
-	..()
-
-
-
 /datum/effect/system/chem_smoke_spread/New()
 	..()
 	chemholder = new/obj()
@@ -517,13 +502,6 @@ steam.start() -- spawns the effect
 				var/mob/living/carbon/C = A
 				if(C.can_breathe_gas())
 					chemholder.reagents.copy_to(C, chemholder.reagents.total_volume)
-			if(istype(A, /obj/machinery/portable_atmospherics/hydroponics))
-				var/obj/machinery/portable_atmospherics/hydroponics/tray = A
-				chemholder.reagents.copy_to(tray, chemholder.reagents.total_volume)
-			if(istype(A, /obj/effect/plant))
-				var/obj/effect/plant/plant = A
-				if(chemholder.reagents.has_reagent("atrazine"))
-					plant.die_off()
 		qdel(smokeholder)
 		for(i=0, i<src.number, i++)
 			if(src.total_smoke > 20)

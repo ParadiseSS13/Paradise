@@ -43,11 +43,14 @@
 
 	var/body_temperature = 310.15	//non-IS_SYNTHETIC species will try to stabilize at this temperature. (also affects temperature processing)
 	var/reagent_tag                 //Used for metabolizing reagents.
+	var/hunger_drain = HUNGER_FACTOR
+	var/digestion_ratio = 1 //How quickly the species digests/absorbs reagents.
 
 	var/siemens_coeff = 1 //base electrocution coefficient
 
 	var/invis_sight = SEE_INVISIBLE_LIVING
 	var/darksight = 2
+	
 	var/hazard_high_pressure = HAZARD_HIGH_PRESSURE   // Dangerously high pressure.
 	var/warning_high_pressure = WARNING_HIGH_PRESSURE // High pressure warning.
 	var/warning_low_pressure = WARNING_LOW_PRESSURE   // Low pressure warning.
@@ -66,8 +69,13 @@
 		"sa_sleep" = 5
 		)
 
-	var/brute_mod = null    // Physical damage reduction/malus.
-	var/burn_mod = null     // Burn damage reduction/malus.
+	var/brute_mod = 1    // Physical damage reduction/amplification
+	var/burn_mod = 1     // Burn damage reduction/amplification
+	var/tox_mod = 1      // Toxin damage reduction/amplification
+	var/oxy_mod = 1		 // Oxy damage reduction/amplification
+	var/clone_mod = 1	 // Clone damage reduction/amplification
+	var/brain_mod = 1    // Brain damage damage reduction/amplification
+	var/stun_mod = 1	 // If a species is more/less impacated by stuns/weakens/paralysis
 
 	var/total_health = 100
 	var/punchdamagelow = 0       //lowest possible punch damage
@@ -77,6 +85,8 @@
 
 	var/ventcrawler = 0 //Determines if the mob can go through the vents.
 	var/has_fine_manipulation = 1 // Can use small items.
+	
+	var/mob/living/list/ignored_by = list() // list of mobs that will ignore this species
 
 	var/list/allowed_consumed_mobs = list() //If a species can consume mobs, put the type of mobs it can consume here.
 
@@ -155,7 +165,6 @@
 		"l_foot" = list("path" = /obj/item/organ/external/foot),
 		"r_foot" = list("path" = /obj/item/organ/external/foot/right)
 		)
-	var/cyborg_type = "Cyborg"
 	var/list/proc/species_abilities = list()
 
 /datum/species/New()

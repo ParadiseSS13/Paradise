@@ -11,7 +11,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	announceWhen = 5
 
 /datum/event/immovable_rod/announce()
-	command_announcement.Announce("What the fuck was that?!", "General Alert")
+	event_announcement.Announce("What the fuck was that?!", "General Alert")
 
 /datum/event/immovable_rod/start()
 	var/startside = pick(cardinal)
@@ -34,8 +34,13 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	loc = start
 	z_original = z
 	destination = end
+	poi_list |= src
 	if(end && end.z==z_original)
 		walk_towards(src, destination, 1)
+	
+/obj/effect/immovablerod/Destroy()
+	poi_list.Remove(src)
+	return ..()
 
 /obj/effect/immovablerod/Move()
 	if(z != z_original || loc == destination)

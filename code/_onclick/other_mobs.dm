@@ -4,16 +4,16 @@
 
 	Otherwise pretty standard.
 */
-/mob/living/carbon/human/UnarmedAttack(var/atom/A, var/proximity)
-	var/obj/item/clothing/gloves/G = gloves // not typecast specifically enough in defines
-
+/mob/living/carbon/human/UnarmedAttack(atom/A, proximity)
 	// Special glove functions:
 	// If the gloves do anything, have them return 1 to stop
 	// normal attack_hand() here.
-	if(proximity && istype(G) && G.Touch(A,1))
+	var/obj/item/clothing/gloves/G = gloves // not typecast specifically enough in defines
+	if(proximity && istype(G) && G.Touch(A, 1))
 		return
 
 	A.attack_hand(src)
+
 /atom/proc/attack_hand(mob/user as mob)
 	return
 

@@ -506,6 +506,9 @@
 	cold_level_3 = 200
 	cold_env_multiplier = 3
 
+	oxy_mod = 0
+	brain_mod = 2.5
+
 	flags = IS_WHITELISTED | NO_BREATHE | HAS_LIPS | NO_INTORGANS | NO_SCAN
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_SKIN_COLOR | NO_EYES
@@ -756,6 +759,8 @@
 	clothing_flags = HAS_SOCKS
 	dietflags = 0		//Diona regenerate nutrition in light, no diet necessary
 
+	oxy_mod = 0
+
 	body_temperature = T0C + 15		//make the plant people have a bit lower body temperature, why not
 	blood_color = "#004400"
 	flesh_color = "#907E4A"
@@ -803,8 +808,8 @@
 	return ..()
 
 /datum/species/diona/handle_life(var/mob/living/carbon/human/H)
-	var/rads = H.radiation/25
-	H.radiation = Clamp(H.radiation - rads, 0, 100)
+	var/rads = H.radiation / 25
+	H.apply_effect(-rads,IRRADIATE,0)
 	H.nutrition += rads
 	H.adjustBruteLoss(-(rads))
 	H.adjustOxyLoss(-(rads))
@@ -813,18 +818,23 @@
 	var/light_amount = 0 //how much light there is in the place, affects receiving nutrition and healing
 	if(isturf(H.loc)) //else, there's considered to be no light
 		var/turf/T = H.loc
-		light_amount = min(T.get_lumcount()*10, 5)  //hardcapped so it's not abused by having a ton of flashlights
+		light_amount = min(T.get_lumcount() * 10, 5)  //hardcapped so it's not abused by having a ton of flashlights
 	H.nutrition += light_amount
 	H.traumatic_shock -= light_amount
 
 	if(H.nutrition > NUTRITION_LEVEL_WELL_FED)
 		H.nutrition = NUTRITION_LEVEL_WELL_FED
+		
+	if(light_amount > 0)
+		H.clear_alert("nolight")
+	else
+		H.throw_alert("nolight", /obj/screen/alert/nolight)
 
 	if((light_amount >= 5) && !H.suiciding) //if there's enough light, heal
+
 		H.adjustBruteLoss(-(light_amount/2))
 		H.adjustFireLoss(-(light_amount/4))
 		H.adjustOxyLoss(-(light_amount))
-
 	if(H.nutrition < 200)
 		H.take_overall_damage(10,0)
 		H.traumatic_shock++
@@ -850,9 +860,12 @@
 	eyes = "blank_eyes"
 	brute_mod = 2.5 // 100% * 2.5 * 0.6 (robolimbs) ~= 150%
 	burn_mod = 2.5  // So they take 50% extra damage from brute/burn overall.
+	tox_mod = 0
+	clone_mod = 0
+	oxy_mod = 0
 	death_message = "gives one shrill beep before falling limp, their monitor flashing blue before completely shutting off..."
 
-	flags = IS_WHITELISTED | NO_BREATHE | NO_SCAN | NO_BLOOD | NO_PAIN | NO_DNA | NO_POISON | RADIMMUNE | ALL_RPARTS | NOTRANSSTING
+	flags = IS_WHITELISTED | NO_BREATHE | NO_SCAN | NO_BLOOD | NO_PAIN | NO_DNA | RADIMMUNE | ALL_RPARTS| NOTRANSSTING
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_SKIN_COLOR | HAS_HEAD_MARKINGS | HAS_HEAD_ACCESSORY
 	dietflags = 0		//IPCs can't eat, so no diet

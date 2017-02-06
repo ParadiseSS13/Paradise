@@ -36,3 +36,8 @@ var/eventchance = 10 //% per 5 mins
 var/event = 0
 var/hadevent = 0
 var/blobevent = 0
+
+//Medals hub related variables
+var/global/medal_hub = null
+var/global/medal_pass = " "
+var/global/medals_enabled = TRUE	//will be auto set to false if the game fails contacting the medal hub to prevent unneeded calls.

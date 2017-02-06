@@ -176,8 +176,8 @@
 
 /obj/item/weapon/storage/fancy/cigarettes/New()
 	..()
-	flags |= NOREACT
 	create_reagents(30 * storage_slots)//so people can inject cigarettes without opening a packet, now with being able to inject the whole one
+	reagents.set_reacting(FALSE)
 	for(var/i = 1 to storage_slots)
 		var/obj/item/clothing/mask/cigarette/C = new cigarette_type(src)
 		unlaced_cigarettes += C
@@ -314,6 +314,26 @@
 	icon_state = "shadyjimpacket"
 	item_state = "cigpacket"
 	cigarette_type  = /obj/item/clothing/mask/cigarette/random
+
+/obj/item/weapon/storage/fancy/rollingpapers
+	name = "rolling paper pack"
+	desc = "A pack of NanoTrasen brand rolling papers."
+	w_class = 1
+	icon = 'icons/obj/cigarettes.dmi'
+	icon_state = "cig_paper_pack"
+	storage_slots = 10
+	icon_type = "rolling paper"
+	can_hold = list("/obj/item/weapon/rollingpaper")
+
+/obj/item/weapon/storage/fancy/rollingpapers/New()
+	..()
+	for(var/i in 1 to storage_slots)
+		new /obj/item/weapon/rollingpaper(src)
+
+/obj/item/weapon/storage/fancy/rollingpapers/update_icon()
+	overlays.Cut()
+	if(!contents.len)
+		overlays += "[icon_state]_empty"
 
 /*
  * Vial Box
