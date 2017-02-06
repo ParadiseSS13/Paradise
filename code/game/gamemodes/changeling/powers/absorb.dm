@@ -1,3 +1,5 @@
+#define LING_ABSORB_RECENT_SPEECH			8	//The amount of recent spoken lines to gain on absorbing a mob
+
 /obj/effect/proc_holder/changeling/absorbDNA
 	name = "Absorb DNA"
 	desc = "Absorb the DNA of our victim."
@@ -25,8 +27,6 @@
 
 	var/mob/living/carbon/target = G.affecting
 	return changeling.can_absorb_dna(user,target)
-
-
 
 /obj/effect/proc_holder/changeling/absorbDNA/sting_action(var/mob/user)
 	var/datum/changeling/changeling = user.mind.changeling
@@ -72,10 +72,7 @@
 		if(target.say_log.len > LING_ABSORB_RECENT_SPEECH)
 			recent_speech = target.say_log.Copy(target.say_log.len-LING_ABSORB_RECENT_SPEECH+1,0) //0 so len-LING_ARS+1 to end of list
 		else
-			for(var/spoken_memory in target.say_log)
-				if(recent_speech.len >= LING_ABSORB_RECENT_SPEECH)
-					break
-				recent_speech += spoken_memory
+			recent_speech = target.say_log.Copy()
 
 		if(recent_speech.len)
 			user.mind.store_memory("<B>Some of [target]'s speech patterns, we should study these to better impersonate them!</B>")
@@ -93,7 +90,6 @@
 			target.mind.changeling.absorbed_dna.len = 1
 			target.mind.changeling.absorbedcount = 0
 
-
 	changeling.chem_charges=min(changeling.chem_charges+10, changeling.chem_storage)
 
 	changeling.isabsorbing = 0
@@ -102,8 +98,6 @@
 	target.death(0)
 	target.Drain()
 	return 1
-
-
 
 //Absorbs the target DNA.
 /datum/changeling/proc/absorb_dna(mob/living/carbon/T, var/mob/user)
@@ -125,3 +119,5 @@
 			return
 	absorbed_dna |= new_dna
 	trim_dna()
+
+#undef LING_ABSORB_RECENT_SPEECH
