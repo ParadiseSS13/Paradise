@@ -3,4 +3,4 @@
 
 /obj/mecha/working/New()
 	..()
-	new /obj/item/mecha_parts/mecha_tracking(src)
+	trackers += new /obj/item/mecha_parts/mecha_tracking(src)

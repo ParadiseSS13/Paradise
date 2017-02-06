@@ -176,15 +176,6 @@
 	reagent_state = LIQUID
 	color = "#322D00"
 
-// Allows you to make planks from any plant that has this reagent in it.
-// Also vines with this reagent are considered dense.
-/datum/reagent/woodpulp
-	name = "Wood Pulp"
-	id = "woodpulp"
-	description = "A mass of wood fibers."
-	reagent_state = LIQUID
-	color = "#B97A57"
-
 /datum/reagent/oil
 	name = "Oil"
 	id = "oil"
@@ -415,6 +406,37 @@
 		M.say(pick("Bzzz...","BZZ BZZ","Bzzzzzzzzzzz..."))
 	..()
 
+/datum/reagent/growthserum
+	name = "Growth serum"
+	id = "growthserum"
+	description = "A commercial chemical designed to help older men in the bedroom." //not really it just makes you a giant
+	color = "#ff0000"//strong red. rgb 255, 0, 0
+	var/current_size = 1
+
+/datum/reagent/growthserum/on_mob_life(mob/living/carbon/H)
+	var/newsize = current_size
+	switch(volume)
+		if(0 to 19)
+			newsize = 1.25
+		if(20 to 49)
+			newsize = 1.5
+		if(50 to 99)
+			newsize = 2
+		if(100 to 199)
+			newsize = 2.5
+		if(200 to INFINITY)
+			newsize = 3.5
+
+	H.resize = newsize/current_size
+	current_size = newsize
+	H.update_transform()
+	..()
+
+/datum/reagent/growthserum/on_mob_delete(mob/living/M)
+	M.resize = 1/current_size
+	M.update_transform()
+	..()
+
 /datum/reagent/toxin/coffeepowder
 	name = "Coffee Grounds"
 	id = "coffeepowder"
@@ -429,25 +451,40 @@
 	reagent_state = SOLID
 	color = "#7F8400" // rgb: 127, 132, 0
 
-//Reagents used for plant fertilizers.
-/datum/reagent/toxin/fertilizer
-	name = "fertilizer"
-	id = "fertilizer"
-	description = "A chemical mix good for growing plants with."
-	reagent_state = LIQUID
-	color = "#664330" // rgb: 102, 67, 48
+//////////////////////////////////Hydroponics stuff///////////////////////////////
 
-/datum/reagent/toxin/fertilizer/eznutrient
-	name = "EZ Nutrient"
-	id = "eznutrient"
+/datum/reagent/plantnutriment
+	name = "Generic nutriment"
+	id = "plantnutriment"
+	description = "Some kind of nutriment. You can't really tell what it is. You should probably report it, along with how you obtained it."
+	color = "#000000" // RBG: 0, 0, 0
+	var/tox_prob = 0
 
-/datum/reagent/toxin/fertilizer/left4zed
-	name = "Left-4-Zed"
-	id = "left4zed"
+/datum/reagent/plantnutriment/on_mob_life(mob/living/M)
+	if(prob(tox_prob))
+		M.adjustToxLoss(1*REAGENTS_EFFECT_MULTIPLIER)
+	..()
 
-/datum/reagent/toxin/fertilizer/robustharvest
+/datum/reagent/plantnutriment/eznutriment
+	name = "E-Z-Nutrient"
+	id = "eznutriment"
+	description = "Cheap and extremely common type of plant nutriment."
+	color = "#376400" // RBG: 50, 100, 0
+	tox_prob = 10
+
+/datum/reagent/plantnutriment/left4zednutriment
+	name = "Left 4 Zed"
+	id = "left4zednutriment"
+	description = "Unstable nutriment that makes plants mutate more often than usual."
+	color = "#1A1E4D" // RBG: 26, 30, 77
+	tox_prob = 25
+
+/datum/reagent/plantnutriment/robustharvestnutriment
 	name = "Robust Harvest"
-	id = "robustharvest"
+	id = "robustharvestnutriment"
+	description = "Very potent nutriment that prevents plants from mutating."
+	color = "#9D9D00" // RBG: 157, 157, 0
+	tox_prob = 15
 
 ///Alchemical Reagents
 

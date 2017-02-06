@@ -164,7 +164,9 @@ var/list/admin_verbs_debug = list(
 	/client/proc/map_template_upload,
 	/client/proc/view_runtimes,
 	/client/proc/admin_serialize,
-	/client/proc/admin_deserialize
+	/client/proc/admin_deserialize,
+	/client/proc/jump_to_ruin,
+	/client/proc/toggle_medal_disable	
 	)
 var/list/admin_verbs_possess = list(
 	/proc/possess,

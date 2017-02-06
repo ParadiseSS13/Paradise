@@ -6,7 +6,7 @@
 	icon_state = "swarmer_unactivated"
 
 /obj/item/unactivated_swarmer/New()
-	notify_ghosts("An unactivated swarmer has been created in [get_area(src)]!", enter_link = "<a href=?src=[UID()];ghostjoin=1>(Click to enter)</a>", source = src, attack_not_jump = 1)
+	notify_ghosts("An unactivated swarmer has been created in [get_area(src)]!", enter_link = "<a href=?src=[UID()];ghostjoin=1>(Click to enter)</a>", source = src, action = NOTIFY_ATTACK)
 	..()
 
 /obj/item/unactivated_swarmer/Topic(href, href_list)
@@ -63,7 +63,7 @@
 	mob_size = MOB_SIZE_TINY
 	ventcrawler = 2
 	ranged = 1
-	ranged_cooldown_cap = 1
+	ranged_cooldown_time = 20
 	universal_speak = 0
 	universal_understand = 0
 	projectilesound = 'sound/weapons/taser2.ogg'

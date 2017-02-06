@@ -38,7 +38,7 @@
 	var/selection_prompt = "Choose your weapon, nerdwad"
 	var/creation_delay = 2400
 	var/list/choosable_items = list(
-	    "A coder forgot to set this" = /obj/item/weapon/bananapeel
+	    "A coder forgot to set this" = /obj/item/weapon/grown/bananapeel
 	)
 	var/creation_message = "A dank smoke comes out, and you pass out. When you come to, you notice a %ITEM%!"
 

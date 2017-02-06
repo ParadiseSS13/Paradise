@@ -49,7 +49,6 @@ var/global/list/map_transition_config = MAP_TRANSITION_CONFIG
 
 	. = ..()
 
-	plant_controller = new()
 	// Create robolimbs for chargen.
 	populate_robolimb_list()
 
