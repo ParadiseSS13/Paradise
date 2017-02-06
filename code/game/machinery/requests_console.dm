@@ -74,7 +74,7 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 	..()
 
 	announcement.title = "[department] announcement"
-	announcement.newscast = 1
+	announcement.newscast = 0
 
 	name = "[department] Requests Console"
 	allConsoles += src
