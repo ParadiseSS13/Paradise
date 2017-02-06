@@ -195,7 +195,7 @@
 		to_chat(user, "<span class='notice'>You return the wisp to the lantern.</span>")
 
 		if(wisp.orbiting)
-			var/atom/A = wisp.orbiting.orbiting
+			var/atom/A = wisp.orbiting
 			if(isliving(A))
 				var/mob/living/M = A
 				M.sight &= ~SEE_MOBS
@@ -253,9 +253,9 @@
 	user.forceMove(get_turf(linked))
 	feedback_add_details("warp_cube","[src.type]")
 
-	var/datum/effect/system/harmless_smoke_spread/smoke = new /datum/effect/system/harmless_smoke_spread()
-	smoke.set_up(1, 0, user.loc) 
-	smoke.start()
+	var/datum/effect/system/harmless_smoke_spread/smoke2 = new /datum/effect/system/harmless_smoke_spread()
+	smoke2.set_up(1, 0, user.loc) 
+	smoke2.start()
 
 /obj/item/device/warp_cube/red
 	name = "red cube"
@@ -318,3 +318,62 @@
 /obj/item/projectile/hook/Destroy()
 	qdel(chain)
 	return ..()
+	
+//Immortality Talisman
+
+/obj/item/device/immortality_talisman
+	name = "Immortality Talisman"
+	desc = "A dread talisman that can render you completely invulnerable."
+	icon = 'icons/obj/lavaland/artefacts.dmi'
+	icon_state = "talisman"
+	actions_types = list(/datum/action/item_action/immortality)
+	var/cooldown = 0
+
+/datum/action/item_action/immortality
+	name = "Immortality"
+
+/obj/item/device/immortality_talisman/Destroy(force)
+	if(force)
+		. = ..()
+	else
+		return QDEL_HINT_LETMELIVE
+
+/obj/item/device/immortality_talisman/attack_self(mob/user)
+	if(cooldown < world.time)
+		feedback_add_details("immortality_talisman","U") // usage
+		cooldown = world.time + 600
+		user.visible_message("<span class='danger'>[user] vanishes from reality, leaving a a hole in their place!</span>")
+		var/obj/effect/immortality_talisman/Z = new(get_turf(src.loc))
+		Z.name = "hole in reality"
+		Z.desc = "It's shaped an awful lot like [user.name]."
+		Z.setDir(user.dir)
+		user.forceMove(Z)
+		user.notransform = 1
+		user.status_flags |= GODMODE
+		spawn(100)
+			user.status_flags &= ~GODMODE
+			user.notransform = 0
+			user.forceMove(get_turf(Z))
+			user.visible_message("<span class='danger'>[user] pops back into reality!</span>")
+			Z.can_destroy = TRUE
+			qdel(Z)
+
+/obj/effect/immortality_talisman
+	icon_state = "blank"
+	icon = 'icons/effects/effects.dmi'
+	var/can_destroy = FALSE
+
+/obj/effect/immortality_talisman/attackby()
+	return
+
+/obj/effect/immortality_talisman/ex_act()
+	return
+
+/obj/effect/immortality_talisman/singularity_pull()
+	return 0
+
+/obj/effect/immortality_talisman/Destroy(force)
+	if(!can_destroy && !force)
+		return QDEL_HINT_LETMELIVE
+	else
+		. = ..()

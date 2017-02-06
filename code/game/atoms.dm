@@ -81,6 +81,10 @@
 		reagents = null
 	invisibility = 101
 	return ..()
+	
+//Hook for running code when a dir change occurs
+/atom/proc/setDir(newdir)
+	dir = newdir
 
 /atom/proc/CheckParts(list/parts_list)
 	for(var/A in parts_list)

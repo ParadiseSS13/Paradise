@@ -52,7 +52,7 @@
 		if(15)
 			new /obj/item/weapon/guardiancreator(src)
 		if(16)
-			new /obj/item/borg/upgrade/modkit/aoe/turfs/andmobs(src)/*
+			new /obj/item/borg/upgrade/modkit/aoe/turfs/andmobs(src)
 		if(17)
 			new /obj/item/device/warp_cube/red(src)
 		if(18)
@@ -70,4 +70,4 @@
 			new /obj/item/clothing/head/helmet/space/rig/ert/paranormal/inquisitor(src)
 			new /obj/item/clothing/suit/space/rig/ert/paranormal/inquisitor(src)
 		if(24)
-			new /obj/item/weapon/spellbook/oneuse/summonitem(src)*/
+			new /obj/item/weapon/spellbook/oneuse/summonitem(src)
