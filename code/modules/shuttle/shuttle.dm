@@ -279,7 +279,7 @@
 		else
 		// This isn't an error, per se, but we can't let the shuttle code
 		// attempt to move us where we currently are, it will get weird.
-			return SHUTTLE_ALREADY_DOCKED		
+			return SHUTTLE_ALREADY_DOCKED
 	return SHUTTLE_CAN_DOCK
 
 /obj/docking_port/mobile/proc/check_dock(obj/docking_port/stationary/S)
@@ -761,6 +761,7 @@
 /obj/machinery/computer/shuttle/ert
 	name = "specops shuttle console"
 	//circuit = /obj/item/weapon/circuitboard/ert
+	req_access = list(access_cent_general)
 	shuttleId = "specops"
 	possible_destinations = "specops_home;specops_away"
 
@@ -799,13 +800,14 @@
 /obj/machinery/computer/shuttle/sst
 	name = "Syndicate Strike Time Shuttle Console"
 	desc = "Used to call and send the SST shuttle."
+	req_access = list(access_syndicate)
 	shuttleId = "sst"
 	possible_destinations = "sst_home;sst_away"
 
 /obj/machinery/computer/shuttle/sit
-	req_access = list(access_syndicate)
 	name = "Syndicate Infiltration Team Shuttle Console"
 	desc = "Used to call and send the SIT shuttle."
+	req_access = list(access_syndicate)
 	shuttleId = "sit"
 	possible_destinations = "sit_arrivals;sit_scimaint;sit_engshuttle;sit_away"
 

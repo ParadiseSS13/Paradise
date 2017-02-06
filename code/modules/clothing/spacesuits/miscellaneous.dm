@@ -10,10 +10,10 @@
 	species_restricted = list("exclude", "Diona", "Wryn")
 	species_fit = list("Vox")
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/helmet.dmi',
-		"Drask" = 'icons/mob/species/drask/helmet.dmi'
+		"Vox" = 'icons/mob/species/vox/helmet.dmi'
 		)
-/obj/item/clothing/head/helmet/space/capspace/equipped(var/mob/living/carbon/human/user, var/slot)
+
+/obj/item/clothing/head/helmet/space/capspace/equipped(mob/living/carbon/human/user, slot)
 	if(ishuman(user) && slot == slot_head)
 		if(user.species.name == "Vox")
 			if(flags & BLOCKHAIR)
@@ -33,10 +33,8 @@
 	species_restricted = list("exclude", "Diona", "Wryn")
 	species_fit = list("Vox")
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi',
-		"Drask" = 'icons/mob/species/drask/suit.dmi'
+		"Vox" = 'icons/mob/species/vox/suit.dmi'
 		)
-
 
 	//Deathsquad space suit, not hardsuits because no flashlight!
 /obj/item/clothing/head/helmet/space/deathsquad
@@ -106,7 +104,6 @@
 	flags_size = ONESIZEFITSALL
 	allowed = list(/obj/item) //for stuffing exta special presents
 
-
 //Space pirate outfit
 /obj/item/clothing/head/helmet/space/pirate
 	name = "pirate hat"
@@ -136,12 +133,22 @@
 	desc = "A paramedic EVA helmet. Used in the recovery of bodies from space."
 	icon_state = "paramedic-eva-helmet"
 	item_state = "paramedic-eva-helmet"
+	species_restricted = list("exclude","Diona","Wryn")
+	species_fit = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/helmet.dmi'
+		)
 
 /obj/item/clothing/suit/space/eva/paramedic
 	name = "Paramedic EVA suit"
 	icon_state = "paramedic-eva"
 	item_state = "paramedic-eva"
 	desc = "A paramedic EVA suit. Used in the recovery of bodies from space."
+	species_restricted = list("exclude","Diona","Wryn")
+	species_fit = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		)
 
 /obj/item/clothing/suit/space/eva
 	name = "EVA suit"

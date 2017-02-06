@@ -48,10 +48,8 @@
 	result = /obj/item/weapon/melee/baton/cattleprod
 	reqs = list(/obj/item/weapon/restraints/handcuffs/cable = 1,
 				/obj/item/stack/rods = 1,
-				/obj/item/weapon/wirecutters = 1,
-				/obj/item/weapon/stock_parts/cell = 1)
+				/obj/item/device/assembly/igniter = 1)
 	time = 40
-	parts = list(/obj/item/weapon/stock_parts/cell = 1)
 	category = CAT_WEAPON
 
 /datum/crafting_recipe/bola

@@ -39,6 +39,10 @@
 	name = "Circuit board (Camera Monitor)"
 	build_path = /obj/machinery/computer/security
 	origin_tech = "programming=2"
+/obj/item/weapon/circuitboard/xenobiology
+	name = "Circuit board (Xenobiology Console)"
+	build_path = /obj/machinery/computer/camera_advanced/xenobio
+	origin_tech = "programming=3;biotech=3"
 /obj/item/weapon/circuitboard/aicore
 	name = "Circuit board (AI Core)"
 	origin_tech = "programming=4;biotech=2"
