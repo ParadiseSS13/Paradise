@@ -407,6 +407,10 @@
 	return
 
 /mob/living/simple_animal/borer/Topic(href, href_list, hsrc)
+	if(href_list["ghostjoin"])
+		var/mob/dead/observer/ghost = usr
+		if(istype(ghost))
+			attack_ghost(ghost)
 	if(href_list["borer_use_chem"])
 		locate(href_list["src"])
 		if(!istype(src, /mob/living/simple_animal/borer))
