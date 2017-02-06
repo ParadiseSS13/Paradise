@@ -90,8 +90,8 @@
 	color = "#FFEBEB"
 
 /datum/reagent/flightpotion/reaction_mob(mob/living/M, method = TOUCH, reac_volume, show_message = 1)
-	return // This item currently does not work as we do not have the angel species.
-	if(ishuman(M) && M.stat != DEAD)
+	to_chat(M, "<span class='warning'>This item is currently non-functional.</span>")
+	/*if(ishuman(M) && M.stat != DEAD)
 		var/mob/living/carbon/human/H = M
 		if(H.species.name != "Human" || reac_volume < 5) // implying xenohumans are holy
 			if(method == INGEST && show_message)
@@ -103,7 +103,7 @@
 		playsound(H.loc, 'sound/items/poster_ripped.ogg', 50, 1, -1)
 		H.adjustBruteLoss(20)
 		H.emote("scream")
-	..()
+	..()*/
 	
 //Boat
 
@@ -158,7 +158,7 @@
 	icon_state = "ship_bottle"
 
 /obj/item/ship_in_a_bottle/attack_self(mob/user)
-	user << "You're not sure how they get the ships in these things, but you're pretty sure you know how to get it out."
+	to_chat(user, "You're not sure how they get the ships in these things, but you're pretty sure you know how to get it out.")
 	playsound(user.loc, 'sound/effects/Glassbr1.ogg', 100, 1)
 	new /obj/vehicle/lavaboat/dragon(get_turf(src))
 	qdel(src)
@@ -171,3 +171,150 @@
 	generic_pixel_y = 2
 	generic_pixel_x = 1
 	vehicle_move_delay = 1
+	
+// Wisp Lantern
+/obj/item/device/wisp_lantern
+	name = "spooky lantern"
+	desc = "This lantern gives off no light, but is home to a friendly wisp."
+	icon = 'icons/obj/lighting.dmi'
+	icon_state = "lantern-blue"
+	var/obj/effect/wisp/wisp
+
+/obj/item/device/wisp_lantern/attack_self(mob/user)
+	if(!wisp)
+		to_chat(user, "<span class='warning'>The wisp has gone missing!</span>")
+		return
+	if(wisp.loc == src)
+		to_chat(user, "<span class='notice'>You release the wisp. It begins to bob around your head.</span>")
+		user.sight |= SEE_MOBS
+		icon_state = "lantern"
+		wisp.orbit(user, 20)
+		feedback_add_details("wisp_lantern","F") // freed
+
+	else
+		to_chat(user, "<span class='notice'>You return the wisp to the lantern.</span>")
+
+		if(wisp.orbiting)
+			var/atom/A = wisp.orbiting.orbiting
+			if(isliving(A))
+				var/mob/living/M = A
+				M.sight &= ~SEE_MOBS
+				to_chat(M, "<span class='notice'>Your vision returns to normal.</span>")
+
+		wisp.stop_orbit()
+		wisp.loc = src
+		icon_state = "lantern-blue"
+		feedback_add_details("wisp_lantern","R") // returned
+
+/obj/item/device/wisp_lantern/New()
+	..()
+	wisp = new(src)
+
+/obj/item/device/wisp_lantern/Destroy()
+	if(wisp)
+		if(wisp.loc == src)
+			qdel(wisp)
+		else
+			wisp.visible_message("<span class='notice'>[wisp] has a sad feeling for a moment, then it passes.</span>")
+	..()
+
+/obj/effect/wisp
+	name = "friendly wisp"
+	desc = "Happy to light your way."
+	icon = 'icons/obj/lighting.dmi'
+	icon_state = "orb"
+	luminosity = 7
+	layer = ABOVE_ALL_MOB_LAYER
+	
+//Red/Blue Cubes
+	
+/obj/item/device/warp_cube
+	name = "blue cube"
+	desc = "A mysterious blue cube."
+	icon = 'icons/obj/lavaland/artefacts.dmi'
+	icon_state = "blue_cube"
+	var/obj/item/device/warp_cube/linked
+	
+/obj/item/device/warp_cube/Destroy()
+	if(linked)
+		linked.linked = null
+		linked = null
+	return ..()
+
+/obj/item/device/warp_cube/attack_self(mob/user)
+	if(!linked)
+		to_chat(user, "[src] fizzles uselessly.")
+		return
+
+	var/datum/effect/system/harmless_smoke_spread/smoke = new /datum/effect/system/harmless_smoke_spread()
+	smoke.set_up(1, 0, user.loc) 
+	smoke.start()
+
+	user.forceMove(get_turf(linked))
+	feedback_add_details("warp_cube","[src.type]")
+
+	var/datum/effect/system/harmless_smoke_spread/smoke = new /datum/effect/system/harmless_smoke_spread()
+	smoke.set_up(1, 0, user.loc) 
+	smoke.start()
+
+/obj/item/device/warp_cube/red
+	name = "red cube"
+	desc = "A mysterious red cube."
+	icon_state = "red_cube"
+
+/obj/item/device/warp_cube/red/New()
+	..()
+	if(!linked)
+		var/obj/item/device/warp_cube/blue = new(src.loc)
+		linked = blue
+		blue.linked = src
+		
+//Meat Hook
+
+/obj/item/weapon/gun/magic/hook
+	name = "meat hook"
+	desc = "Mid or feed."
+	ammo_type = /obj/item/ammo_casing/magic/hook
+	icon_state = "hook"
+	item_state = "chain"
+	fire_sound = 'sound/weapons/batonextend.ogg'
+	max_charges = 1
+	flags = NOBLUDGEON
+	force = 18
+
+/obj/item/ammo_casing/magic/hook
+	name = "hook"
+	desc = "a hook."
+	projectile_type = /obj/item/projectile/hook
+	caliber = "hook"
+	icon_state = "hook"
+
+/obj/item/projectile/hook
+	name = "hook"
+	icon_state = "hook"
+	icon = 'icons/obj/lavaland/artefacts.dmi'
+	pass_flags = PASSTABLE
+	damage = 25
+	armour_penetration = 100
+	damage_type = BRUTE
+	hitsound = 'sound/effects/splat.ogg'
+	weaken = 3
+	var/chain
+
+/obj/item/projectile/hook/fire(setAngle)
+	if(firer)
+		chain = firer.Beam(src, icon_state = "chain", time = INFINITY, maxdistance = INFINITY)
+	..()
+	//TODO: root the firer until the chain returns
+
+/obj/item/projectile/hook/on_hit(atom/target)
+	. = ..()
+	if(isliving(target))
+		var/mob/living/L = target
+		if(!L.anchored)
+			L.visible_message("<span class='danger'>[L] is snagged by [firer]'s hook!</span>")
+			L.forceMove(get_turf(firer))
+
+/obj/item/projectile/hook/Destroy()
+	qdel(chain)
+	return ..()
