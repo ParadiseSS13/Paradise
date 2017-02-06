@@ -70,6 +70,7 @@
 	plantname = "Meatwheat"
 	product = /obj/item/weapon/reagent_containers/food/snacks/grown/meatwheat
 	mutatelist = list()
+	reagents_add = list("protein" = 0.04)
 
 /obj/item/weapon/reagent_containers/food/snacks/grown/meatwheat
 	name = "meatwheat"
