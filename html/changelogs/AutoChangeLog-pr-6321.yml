@@ -1,6 +1,0 @@
-author: "uraniummeltdown"
-delete-after: True
-changes: 
-  - rscadd: "Added new AI core sprites from TG"
-  - rscadd: "Added Vox rad suit, bombsuit hood, paramedic EVA suit sprites from /vg/"
-  - tweak: "You can click AI displays as an AI to change them"

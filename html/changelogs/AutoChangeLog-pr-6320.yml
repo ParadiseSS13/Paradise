@@ -1,4 +1,0 @@
-author: "Kyep"
-delete-after: True
-changes: 
-  - bugfix: "ERT and SST shuttle consoles now require the appropriate access to use."
