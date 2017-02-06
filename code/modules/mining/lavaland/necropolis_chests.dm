@@ -14,7 +14,6 @@
 
 /obj/structure/closet/crate/necropolis/tendril/New()
 	..()
-	// uncomment me once these items are being implemented
 	var/loot = rand(1,24)
 	switch(loot) 
 		if(1)
