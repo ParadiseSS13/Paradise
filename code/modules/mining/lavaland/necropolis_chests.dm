@@ -41,7 +41,8 @@
 		if(10)
 			new /obj/item/ship_in_a_bottle(src)
 		if(11)
-			new /obj/item/clothing/suit/space/hardsuit/ert/paranormal/beserker(src)
+			new /obj/item/clothing/head/helmet/space/rig/ert/paranormal/beserker(src)
+			new /obj/item/clothing/suit/space/rig/ert/paranormal/beserker(src)
 		if(12)
 			new /obj/item/weapon/sord(src)
 		if(13)
@@ -49,9 +50,9 @@
 		if(14)
 			new /obj/item/weapon/nullrod/armblade(src)
 		if(15)
-			new /obj/item/weapon/guardiancreator(src)/*
+			new /obj/item/weapon/guardiancreator(src)
 		if(16)
-			new /obj/item/borg/upgrade/modkit/aoe/turfs/andmobs(src)
+			new /obj/item/borg/upgrade/modkit/aoe/turfs/andmobs(src)/*
 		if(17)
 			new /obj/item/device/warp_cube/red(src)
 		if(18)
@@ -66,6 +67,7 @@
 			new /obj/item/weapon/grenade/clusterbuster/inferno(src)
 		if(23)
 			new /obj/item/weapon/reagent_containers/food/drinks/bottle/holywater/hell(src)
-			new /obj/item/clothing/suit/space/hardsuit/ert/paranormal/inquisitor(src)
+			new /obj/item/clothing/head/helmet/space/rig/ert/paranormal/inquisitor(src)
+			new /obj/item/clothing/suit/space/rig/ert/paranormal/inquisitor(src)
 		if(24)
 			new /obj/item/weapon/spellbook/oneuse/summonitem(src)*/

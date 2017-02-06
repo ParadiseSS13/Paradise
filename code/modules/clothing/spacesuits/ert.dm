@@ -101,6 +101,7 @@
 	desc = "A suit worn by the janitorial of a Nanotrasen Emergency Response Team. Has purple highlights. Armoured, space ready, and fire resistant."
 	icon_state = "ert_janitor"
 
+//Paranormal
 /obj/item/clothing/head/helmet/space/rig/ert/paranormal
 	name = "paranormal response unit helmet"
 	desc = "A helmet worn by those who deal with paranormal threats for a living."
@@ -117,7 +118,28 @@
 	max_heat_protection_temperature = FIRE_IMMUNITY_SUIT_MAX_TEMP_PROTECT
 	sprite_sheets = null
 
-
 /obj/item/clothing/suit/space/rig/ert/paranormal/New()
 	..()
 	new /obj/item/weapon/nullrod(src)
+
+/obj/item/clothing/suit/space/rig/ert/paranormal/inquisitor
+	name = "inquisitor's hardsuit"
+	icon_state = "hardsuit-inq"
+	item_state = "hardsuit-inq"
+
+/obj/item/clothing/head/helmet/space/rig/ert/paranormal/inquisitor
+	name = "inquisitor's helmet"
+	icon_state = "hardsuit0-inq"
+	item_state = "hardsuit0-inq"
+
+/obj/item/clothing/suit/space/rig/ert/paranormal/beserker
+	name = "champion's hardsuit"
+	desc = "Voices echo from the hardsuit, driving the user insane."
+	icon_state = "hardsuit-beserker"
+	item_state = "hardsuit-beserker"
+
+/obj/item/clothing/head/helmet/space/rig/ert/paranormal/beserker
+	name = "champion's helmet"
+	desc = "Peering into the eyes of the helmet is enough to seal damnation."
+	icon_state = "hardsuit0-beserker"
+	item_state = "hardsuit0-beserker"	
