@@ -1,4 +1,0 @@
-author: "Kyep"
-delete-after: True
-changes: 
-  - bugfix: "Autoprocess cloners will no longer clone people who cryo and ghost out, or otherwise deliberately remove themselves from the round."
