@@ -69,15 +69,6 @@
 		A.UpdateButtonIcon()
 
 // ENGINEERING
-/obj/item/clothing/suit/space/eva/plasmaman/assistant
-	name = "plasmaman assistant suit"
-	icon_state = "plasmamanAssistant_suit"
-
-/obj/item/clothing/head/helmet/space/eva/plasmaman/assistant
-	name = "plasmaman assistant helmet"
-	icon_state = "plasmamanAssistant_helmet0"
-	base_state = "plasmamanAssistant_helmet"
-
 /obj/item/clothing/suit/space/eva/plasmaman/atmostech
 	name = "plasmaman atmospheric suit"
 	icon_state = "plasmamanAtmos_suit"
@@ -115,6 +106,14 @@
 
 
 //SERVICE
+/obj/item/clothing/suit/space/eva/plasmaman/assistant
+	name = "plasmaman assistant suit"
+	icon_state = "plasmamanAssistant_suit"
+
+/obj/item/clothing/head/helmet/space/eva/plasmaman/assistant
+	name = "plasmaman assistant helmet"
+	icon_state = "plasmamanAssistant_helmet0"
+	base_state = "plasmamanAssistant_helmet"
 
 /obj/item/clothing/suit/space/eva/plasmaman/botanist
 	name = "plasmaman botanist suit"
@@ -300,6 +299,17 @@
 	name = "plasmaman captain helmet"
 	icon_state = "plasmaman_Captain_helmet0"
 	base_state = "plasmaman_Captain_helmet"
+
+
+//IAA/LAWYER
+/obj/item/clothing/suit/space/eva/plasmaman/lawyer
+	name = "plasmaman lawyer suit"
+	icon_state = "plasmamanlawyer_suit"
+
+/obj/item/clothing/head/helmet/space/eva/plasmaman/lawyer
+	name = "plasmaman lawyer helmet"
+	icon_state = "plasmamanlawyer_helmet0"
+	base_state = "plasmamanlawyer_helmet"
 
 //NUKEOPS
 

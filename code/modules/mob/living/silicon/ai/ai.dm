@@ -99,22 +99,24 @@ var/list/ai_verbs_default = list(
 
 	var/obj/machinery/camera/portable/builtInCamera
 
+	var/obj/structure/AIcore/deactivated/linked_core //For exosuit control
+
 	var/arrivalmsg = "$name, $rank, has arrived on the station."
 
 /mob/living/silicon/ai/proc/add_ai_verbs()
-	src.verbs |= ai_verbs_default
-	src.verbs |= silicon_subsystems
+	verbs |= ai_verbs_default
+	verbs |= silicon_subsystems
 
 /mob/living/silicon/ai/proc/remove_ai_verbs()
-	src.verbs -= ai_verbs_default
-	src.verbs -= silicon_subsystems
+	verbs -= ai_verbs_default
+	verbs -= silicon_subsystems
 
 /mob/living/silicon/ai/New(loc, var/datum/ai_laws/L, var/obj/item/device/mmi/B, var/safety = 0)
 	announcement = new()
 	announcement.title = "A.I. Announcement"
 	announcement.announcement_type = "A.I. Announcement"
 	announcement.announcer = name
-	announcement.newscast = 1
+	announcement.newscast = 0
 
 	var/list/possibleNames = ai_names
 
@@ -154,7 +156,7 @@ var/list/ai_verbs_default = list(
 
 	aiCamera = new/obj/item/device/camera/siliconcam/ai_camera(src)
 
-	if(istype(loc, /turf))
+	if(isturf(loc))
 		add_ai_verbs(src)
 
 	//Languages
@@ -226,7 +228,7 @@ var/list/ai_verbs_default = list(
 
 /mob/living/silicon/ai/rename_character(oldname, newname)
 	if(!..(oldname, newname))
-		return 0
+		return FALSE
 
 	if(oldname != real_name)
 		announcement.announcer = name
@@ -238,7 +240,7 @@ var/list/ai_verbs_default = list(
 		if(aiPDA)
 			aiPDA.set_name_and_job(newname, "AI")
 
-	return 1
+	return TRUE
 
 /mob/living/silicon/ai/Destroy()
 	ai_list -= src
@@ -261,7 +263,7 @@ var/list/ai_verbs_default = list(
 	var/mob/living/silicon/ai/powered_ai = null
 	invisibility = 100
 
-/obj/machinery/ai_powersupply/New(var/mob/living/silicon/ai/ai=null)
+/obj/machinery/ai_powersupply/New(mob/living/silicon/ai/ai=null)
 	powered_ai = ai
 	if(isnull(powered_ai))
 		qdel(src)
@@ -307,31 +309,83 @@ var/list/ai_verbs_default = list(
 
 		//if(icon_state == initial(icon_state))
 	var/icontype = ""
-	if(custom_sprite == 1) icontype = ("Custom")//automagically selects custom sprite if one is available
-	else icontype = input("Select an icon!", "AI", null, null) in list("Monochrome", "Blue", "Clown", "Inverted", "Text", "Smiley", "Angry", "Dorf", "Matrix", "Bliss", "Firewall", "Green", "Red", "Static", "Triumvirate", "Triumvirate Static", "Red October", "Sparkles", "ANIMA", "President", "NT")
+	if(custom_sprite == 1)
+		icontype = ("Custom")//automagically selects custom sprite if one is available
+	else
+		icontype = input("Select an icon!", "AI", null, null) in list("Monochrome", "Blue", "Clown", "Inverted", "Text", "Smiley", "Angry", "Dorf", "Matrix", "Bliss", "Firewall", "Green", "Red", "Static", "Triumvirate", "Triumvirate Static", "Red October", "Sparkles", "ANIMA", "President", "NT", "NT2", "Rainbow", "Angel", "Heartline", "Hades", "Helios", "Syndicat Meow", "Too Deep", "Goon", "Murica", "Fuzzy", "Glitchman", "House", "Database")
 	switch(icontype)
-		if("Custom") icon_state = "[ckey]-ai"
-		if("Clown") icon_state = "ai-clown2"
-		if("Monochrome") icon_state = "ai-mono"
-		if("Inverted") icon_state = "ai-u"
-		if("Firewall") icon_state = "ai-magma"
-		if("Green") icon_state = "ai-wierd"
-		if("Red") icon_state = "ai-red"
-		if("Static") icon_state = "ai-static"
-		if("Text") icon_state = "ai-text"
-		if("Smiley") icon_state = "ai-smiley"
-		if("Matrix") icon_state = "ai-matrix"
-		if("Angry") icon_state = "ai-angryface"
-		if("Dorf") icon_state = "ai-dorf"
-		if("Bliss") icon_state = "ai-bliss"
-		if("Triumvirate") icon_state = "ai-triumvirate"
-		if("Triumvirate Static") icon_state = "ai-triumvirate-malf"
-		if("Red October") icon_state = "ai-redoctober"
-		if("Sparkles") icon_state = "ai-sparkles"
-		if("ANIMA") icon_state = "ai-anima"
-		if("President") icon_state = "ai-president"
-		if("NT") icon_state = "ai-nt"
-		else icon_state = "ai"
+		if("Custom")
+			icon_state = "[ckey]-ai"
+		if("Clown")
+			icon_state = "ai-clown"
+		if("Monochrome")
+			icon_state = "ai-mono"
+		if("Inverted")
+			icon_state = "ai-u"
+		if("Firewall")
+			icon_state = "ai-magma"
+		if("Green")
+			icon_state = "ai-weird"
+		if("Red")
+			icon_state = "ai-red"
+		if("Static")
+			icon_state = "ai-static"
+		if("Text")
+			icon_state = "ai-text"
+		if("Smiley")
+			icon_state = "ai-smiley"
+		if("Matrix")
+			icon_state = "ai-matrix"
+		if("Angry")
+			icon_state = "ai-angryface"
+		if("Dorf")
+			icon_state = "ai-dorf"
+		if("Bliss")
+			icon_state = "ai-bliss"
+		if("Triumvirate")
+			icon_state = "ai-triumvirate"
+		if("Triumvirate Static")
+			icon_state = "ai-triumvirate-malf"
+		if("Red October")
+			icon_state = "ai-redoctober"
+		if("Sparkles")
+			icon_state = "ai-sparkles"
+		if("ANIMA")
+			icon_state = "ai-anima"
+		if("President")
+			icon_state = "ai-president"
+		if("NT")
+			icon_state = "ai-nt"
+		if("NT2")
+			icon_state = "ai-nanotrasen"
+		if("Rainbow")
+			icon_state = "ai-rainbow"
+		if("Angel")
+			icon_state = "ai-angel"
+		if("Heartline")
+			icon_state = "ai-heartline"
+		if("Hades")
+			icon_state = "ai-hades"
+		if("Helios")
+			icon_state = "ai-helios"
+		if("Syndicat Meow")
+			icon_state = "ai-syndicatmeow"
+		if("Too Deep")
+			icon_state = "ai-toodeep"
+		if("Goon")
+			icon_state = "ai-goon"
+		if("Murica")
+			icon_state = "ai-murica"
+		if("Fuzzy")
+			icon_state = "ai-fuzz"
+		if("Glitchman")
+			icon_state = "ai-glitchman"
+		if("House")
+			icon_state = "ai-house"
+		if("Database")
+			icon_state = "ai-database"
+		else
+			icon_state = "ai"
 	//else
 //			to_chat(usr, "You can only change your display once!")
 			//return
@@ -400,7 +454,7 @@ var/list/ai_verbs_default = list(
 		cancel_call_proc(src)
 
 /mob/living/silicon/ai/cancel_camera()
-	src.view_core()
+	view_core()
 
 /mob/living/silicon/ai/verb/toggle_anchor()
 	set category = "AI Commands"
@@ -414,7 +468,7 @@ var/list/ai_verbs_default = list(
 	to_chat(src, "[anchored ? "<b>You are now anchored.</b>" : "<b>You are now unanchored.</b>"]")
 
 /mob/living/silicon/ai/update_canmove()
-	return 0
+	return FALSE
 
 /mob/living/silicon/ai/proc/announcement()
 	set name = "Announcement"
@@ -426,21 +480,21 @@ var/list/ai_verbs_default = list(
 
 	ai_announcement()
 
-/mob/living/silicon/ai/check_eye(var/mob/user as mob)
+/mob/living/silicon/ai/check_eye(mob/user)
 	if(!current)
 		return null
 	user.reset_perspective(current)
-	return 1
+	return TRUE
 
 /mob/living/silicon/ai/blob_act()
 	if(stat != 2)
 		adjustBruteLoss(60)
 		updatehealth()
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 /mob/living/silicon/ai/restrained()
-	return 0
+	return FALSE
 
 /mob/living/silicon/ai/emp_act(severity)
 	if(prob(30))
@@ -516,7 +570,7 @@ var/list/ai_verbs_default = list(
 
 	if(href_list["callbot"]) //Command a bot to move to a selected location.
 		Bot = locate(href_list["callbot"]) in simple_animal_list
-		if(!Bot || Bot.remote_disabled || src.control_disabled)
+		if(!Bot || Bot.remote_disabled || control_disabled)
 			return //True if there is no bot found, the bot is manually emagged, or the AI is carded with wireless off.
 		waypoint_mode = 1
 		to_chat(src, "<span class='notice'>Set your waypoint by clicking on a valid location free of obstructions.</span>")
@@ -524,7 +578,7 @@ var/list/ai_verbs_default = list(
 
 	if(href_list["interface"]) //Remotely connect to a bot!
 		Bot = locate(href_list["interface"]) in simple_animal_list
-		if(!Bot || Bot.remote_disabled || src.control_disabled)
+		if(!Bot || Bot.remote_disabled || control_disabled)
 			return
 		Bot.attack_ai(src)
 
@@ -535,7 +589,16 @@ var/list/ai_verbs_default = list(
 	if(href_list["ai_take_control"]) //Mech domination
 		var/obj/mecha/M = locate(href_list["ai_take_control"])
 		if(controlled_mech)
-			to_chat(src, "You are already loaded into an onboard computer!")
+			to_chat(src, "<span class='warning'>You are already loaded into an onboard computer!</span>")
+			return
+		if(!cameranet.checkCameraVis(M))
+			to_chat(src, "<span class='warning'>Exosuit is no longer near active cameras.</span>")
+			return
+		if(lacks_power())
+			to_chat(src, "<span class='warning'>You're depowered!</span>")
+			return
+		if(!isturf(loc))
+			to_chat(src, "<span class='warning'>You aren't in your core!</span>")
 			return
 		if(M)
 			M.transfer_ai(AI_MECH_HACK,src, usr) //Called om the mech itself.
@@ -550,7 +613,7 @@ var/list/ai_verbs_default = list(
 			if(usr.machine == null)
 				usr.machine = usr
 
-			while(src.cameraFollow == target)
+			while(cameraFollow == target)
 				to_chat(usr, "Target is not on or near any active cameras on the station. We'll check again in 5 seconds (unless you use the cancel-camera verb).")
 				sleep(40)
 				continue
@@ -565,12 +628,12 @@ var/list/ai_verbs_default = list(
 	return 2
 
 
-/mob/living/silicon/ai/attack_alien(mob/living/carbon/alien/humanoid/M as mob)
+/mob/living/silicon/ai/attack_alien(mob/living/carbon/alien/humanoid/M)
 	if(!ticker)
 		to_chat(M, "You cannot attack people before the game has started.")
 		return
 
-	if(istype(loc, /turf) && istype(loc.loc, /area/start))
+	if(isturf(loc) && istype(loc.loc, /area/start))
 		to_chat(M, "No attacking people at spawn, you jackass.")
 		return
 
@@ -595,7 +658,7 @@ var/list/ai_verbs_default = list(
 
 	return
 
-/mob/living/silicon/ai/attack_animal(mob/living/simple_animal/M as mob)
+/mob/living/silicon/ai/attack_animal(mob/living/simple_animal/M)
 	if(M.melee_damage_upper == 0)
 		M.custom_emote(1, "[M.friendly] [src]")
 	else
@@ -653,7 +716,7 @@ var/list/ai_verbs_default = list(
 	popup.set_content(d)
 	popup.open()
 
-/mob/living/silicon/ai/proc/set_waypoint(var/atom/A)
+/mob/living/silicon/ai/proc/set_waypoint(atom/A)
 	var/turf/turf_check = get_turf(A)
 		//The target must be in view of a camera or near the core.
 	if(turf_check in range(get_turf(src)))
@@ -663,7 +726,7 @@ var/list/ai_verbs_default = list(
 	else
 		to_chat(src, "<span class='danger'>Selected location is not visible.</span>")
 
-/mob/living/silicon/ai/proc/call_bot(var/turf/waypoint)
+/mob/living/silicon/ai/proc/call_bot(turf/waypoint)
 
 	if(!Bot)
 		return
@@ -674,22 +737,22 @@ var/list/ai_verbs_default = list(
 
 	Bot.call_bot(src, waypoint)
 
-/mob/living/silicon/ai/proc/switchCamera(var/obj/machinery/camera/C)
+/mob/living/silicon/ai/proc/switchCamera(obj/machinery/camera/C)
 
 	if(!tracking)
 		cameraFollow = null
 
 	if(!C || stat == DEAD) //C.can_use())
-		return 0
+		return FALSE
 
-	if(!src.eyeobj)
+	if(!eyeobj)
 		view_core()
 		return
 	// ok, we're alive, camera is good and in our network...
 	eyeobj.setLoc(get_turf(C))
 	//machine = src
 
-	return 1
+	return TRUE
 
 //Replaces /mob/living/silicon/ai/verb/change_network() in ai.dm & camera.dm
 //Adds in /mob/living/silicon/ai/proc/ai_network_change() instead
@@ -920,7 +983,7 @@ var/list/ai_verbs_default = list(
 	set category = "Malfunction"
 	set name = "Return to Main Core"
 
-	var/obj/machinery/power/apc/apc = src.loc
+	var/obj/machinery/power/apc/apc = loc
 	if(!istype(apc))
 		to_chat(src, "\blue You are already in your Main Core.")
 		return
@@ -994,7 +1057,7 @@ var/list/ai_verbs_default = list(
 		lit_cameras |= C
 
 
-/mob/living/silicon/ai/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+/mob/living/silicon/ai/attackby(obj/item/weapon/W, mob/user, params)
 	if(istype(W, /obj/item/weapon/wrench))
 		if(anchored)
 			user.visible_message("\blue \The [user] starts to unbolt \the [src] from the plating...")
@@ -1025,14 +1088,15 @@ var/list/ai_verbs_default = list(
 		return
 
 	to_chat(src, "Accessing Subspace Transceiver control...")
-	if(src.aiRadio)
-		src.aiRadio.interact(src)
+	if(aiRadio)
+		aiRadio.interact(src)
 
 
-/mob/living/silicon/ai/proc/open_nearest_door(mob/living/target as mob)
-	if(!istype(target)) return
+/mob/living/silicon/ai/proc/open_nearest_door(mob/living/target)
+	if(!istype(target))
+		return
 	spawn(0)
-		if(istype(target, /mob/living/carbon/human))
+		if(ishuman(target))
 			var/mob/living/carbon/human/H = target
 			var/obj/item/weapon/card/id/id = H.wear_id
 			if(istype(id) && id.is_untrackable())
@@ -1047,7 +1111,8 @@ var/list/ai_verbs_default = list(
 		var/obj/machinery/door/airlock/tobeopened
 		var/dist = -1
 		for(var/obj/machinery/door/airlock/D in range(3,target))
-			if(!D.density) continue
+			if(!D.density)
+				continue
 			if(dist < 0)
 				dist = get_dist(D, target)
 //				to_chat(world, dist)
@@ -1073,27 +1138,27 @@ var/list/ai_verbs_default = list(
 		return
 
 
-/mob/living/silicon/ai/proc/check_unable(var/flags = 0)
+/mob/living/silicon/ai/proc/check_unable(flags = 0)
 	if(stat == DEAD)
 		to_chat(usr, "<span class='warning'>You are dead!</span>")
-		return 1
+		return TRUE
 
 	if(lacks_power())
 		to_chat(usr, "<span class='warning'>Power systems failure!</span>")
-		return 1
+		return TRUE
 
-	if((flags & AI_CHECK_WIRELESS) && src.control_disabled)
+	if((flags & AI_CHECK_WIRELESS) && control_disabled)
 		to_chat(usr, "<span class='warning'>Wireless control is disabled!</span>")
-		return 1
-	if((flags & AI_CHECK_RADIO) && src.aiRadio.disabledAi)
+		return TRUE
+	if((flags & AI_CHECK_RADIO) && aiRadio.disabledAi)
 		to_chat(src, "<span class='warning'>System Error - Transceiver Disabled!</span>")
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 /mob/living/silicon/ai/proc/is_in_chassis()
-	return istype(loc, /turf)
+	return isturf(loc)
 
-/mob/living/silicon/ai/transfer_ai(var/interaction, var/mob/user, var/mob/living/silicon/ai/AI, var/obj/item/device/aicard/card)
+/mob/living/silicon/ai/transfer_ai(interaction, mob/user, mob/living/silicon/ai/AI, obj/item/device/aicard/card)
 	if(!..())
 		return
 	if(interaction == AI_TRANS_TO_CARD)//The only possible interaction. Upload AI mob to a card.
@@ -1114,17 +1179,17 @@ var/list/ai_verbs_default = list(
 	set category = "IC"
 
 	resting = 0
-	var/obj/item/weapon/rig/rig = src.get_rig()
+	var/obj/item/weapon/rig/rig = get_rig()
 	if(rig)
 		rig.force_rest(src)
 
-/mob/living/silicon/ai/switch_to_camera(var/obj/machinery/camera/C)
+/mob/living/silicon/ai/switch_to_camera(obj/machinery/camera/C)
 	if(!C.can_use() || !is_in_chassis())
-		return 0
+		return FALSE
 
 	eyeobj.setLoc(get_turf(C))
 	client.eye = eyeobj
-	return 1
+	return TRUE
 
 /mob/living/silicon/ai/proc/relay_speech(mob/living/M, text, verb, datum/language/speaking)
 	if(!say_understands(M, speaking))//The AI will be able to understand most mobs talking through the holopad.

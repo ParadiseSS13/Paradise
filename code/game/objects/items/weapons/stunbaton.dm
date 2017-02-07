@@ -29,11 +29,6 @@
 		bcell = null
 	return ..()
 
-/obj/item/weapon/melee/baton/CheckParts(list/parts_list)
-	..()
-	bcell = locate(/obj/item/weapon/stock_parts/cell) in contents
-	update_icon()
-
 /obj/item/weapon/melee/baton/loaded/New() //this one starts with a cell pre-installed.
 	..()
 	bcell = new(src)
@@ -200,8 +195,18 @@
 	desc = "An improvised stun baton."
 	icon_state = "stunprod_nocell"
 	item_state = "prod"
+	w_class = 3
 	force = 3
 	throwforce = 5
 	stunforce = 5
 	hitcost = 3750
-	slot_flags = null
+	slot_flags = SLOT_BACK
+	var/obj/item/device/assembly/igniter/sparkler = 0
+
+/obj/item/weapon/melee/baton/cattleprod/New()
+	..()
+	sparkler = new (src)
+
+/obj/item/weapon/melee/baton/cattleprod/baton_stun()
+	if(sparkler.activate())
+		..()

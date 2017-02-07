@@ -113,12 +113,13 @@
 				feedback_add_details("hivelord_core","[src.type]|used|self")
 			playsound(src.loc,'sound/items/eatfood.ogg', rand(10,50), 1)
 			H.revive()
+			user.drop_item()
 			qdel(src)
 	..()
-	
+
 /obj/item/organ/internal/hivelord_core/prepare_eat()
 	return null
-	
+
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood
 	name = "hivelord brood"
 	desc = "A fragment of the original Hivelord, rallying behind its original. One isn't much of a threat, but..."
@@ -206,7 +207,7 @@
 	faction = list("\ref[src]", "\ref[H]") // Hostile to everyone except the host.
 	H.vessel.trans_to(src, 30)
 	color = mix_color_from_reagents(reagents.reagent_list)
-	
+
 // Legion
 /mob/living/simple_animal/hostile/asteroid/hivelord/legion
 	name = "legion"
@@ -240,7 +241,7 @@
 		else
 			new /obj/effect/landmark/corpse/damaged(T)
 	..(gibbed)
-	
+
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion
 	name = "legion"
