@@ -958,6 +958,30 @@
 	var/mob/living/simple_animal/hostile/C = new chosen
 	C.faction = list("plants")
 
+///Diona Nymph Related Procs///
+/obj/machinery/hydroponics/CanPass(atom/movable/mover, turf/target, height=0, air_group=0) //So nymphs can climb over top of trays.
+	if(air_group || (height==0))
+		return 1
+
+	if(istype(mover) && mover.checkpass(PASSTABLE))
+		return 1
+	else
+		return 0
+
+/obj/machinery/hydroponics/attack_animal(mob/living/user)
+	if(istype(user, /mob/living/simple_animal/diona))
+		if(weedlevel > 0)
+			user.nutrition += weedlevel * 15
+			adjustWeeds(-10)
+			update_icon()
+			visible_message("<span class='danger'>[user] begins rooting through [src], ripping out weeds and eating them noisily.</span>","<span class='danger'>You begin rooting through [src], ripping out weeds and eating them noisily.</span>")
+		else if(nutrilevel < 10)
+			user.nutrition -= ((10 - nutrilevel) * 5)
+			adjustNutri(10)
+			update_icon()
+			visible_message("<span class='danger'>[user] secretes a trickle of green liquid from its tail, refilling [src]'s nutrient tray.</span>","<span class='danger'>You secrete a trickle of green liquid from your tail, refilling [src]'s nutrient tray.</span>")
+	else
+		..()
 
 ///////////////////////////////////////////////////////////////////////////////
 /obj/machinery/hydroponics/soil //Not actually hydroponics at all! Honk!
