@@ -66,15 +66,20 @@
 			qdel(src)
 			return
 		if(istype(W, /obj/item/weapon/storage/fancy/crayons)) /////addendum by flimflamm
-			var/decalselection = input("Please select a decal") in list( "cancel", "atmospherics", "bartender", "barber", "blueshield",	"brig_physician", "captain",
+			var/decalselection = input("Please select a decal") as null|anything in list("atmospherics", "bartender", "barber", "blueshield",	"brig_physician", "captain",
 				"cargo", "chief_engineer",	"chaplain",	"chef", "chemist", "civilian", "clown", "cmo", "coroner", "detective", "engineering", "genetics", "hop",
 				"hos", "hydroponics", "internal_affairs_agent", "janitor",	"magistrate", "mechanic", "medical", "mime", "mining", "nt_representative", "paramedic", "pod_pilot",
 				"prisoner",	"research_director", "security", "syndicate", "therapist", "virology", "warden", "xenobiology")
-			if(decalselection == "cancel")
+			if(!decalselection)
 				return
-			icon_opened = ("cardboard_open_"+decalselection)
-			icon_closed = ("cardboard_"+decalselection)
-			update_icon() // a proc declared in the closets parent file used to update opened/closed sprites on normal closets
-
+			if(user.incapacitated())
+				return
+			if(W == user.get_active_hand() & src.Adjacent(usr))
+				icon_opened = ("cardboard_open_"+decalselection)
+				icon_closed = ("cardboard_"+decalselection)
+				update_icon() // a proc declared in the closets parent file used to update opened/closed sprites on normal closets
+				qdel(W)
+				return
 			return
 	return
+
