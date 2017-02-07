@@ -1,0 +1,4 @@
+author: "uraniummeltdown"
+delete-after: True
+changes: 
+  - rscadd: "Engineering and Science crates now have new sprites"
