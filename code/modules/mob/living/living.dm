@@ -2,9 +2,8 @@
 /mob/living/Destroy()
 	if(ranged_ability)
 		ranged_ability.remove_ranged_ability(src)
-	..()
-	return QDEL_HINT_HARDDEL_NOW
-	
+	return ..()
+
 /mob/living/ghostize(can_reenter_corpse = 1)
 	var/prev_client = client
 	if(..())
