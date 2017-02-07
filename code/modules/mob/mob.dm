@@ -19,8 +19,8 @@
 		for(var/datum/alternate_appearance/AA in viewing_alternate_appearances)
 			AA.viewers -= src
 		viewing_alternate_appearances = null
-	.. ()
-	return QDEL_HINT_HARDDEL
+	..()
+	return QDEL_HINT_HARDDEL_NOW
 
 /mob/New()
 	mob_list += src
