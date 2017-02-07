@@ -114,6 +114,8 @@
 			SetEarDeaf(ear_deaf)
 		if("ear_damage")
 			SetEarDamage(ear_damage)
+		if("druggy")
+			SetDruggy(druggy)
 		if("maxHealth")
 			updatehealth()
 		if("resize")
