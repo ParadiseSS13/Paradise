@@ -239,7 +239,6 @@
 				drop.overlays |= pick(drop.random_icon_states)
 				drop.transfer_mob_blood_dna(src)
 				drop.color = b_data["blood_color"]
-				return
 			else
 				temp_blood_DNA = list()
 				temp_blood_DNA |= drop.blood_DNA.Copy() //we transfer the dna from the drip to the splatter
@@ -254,9 +253,9 @@
 	if(!B)
 		B = new /obj/effect/decal/cleanable/blood/splatter(T)
 	B.transfer_mob_blood_dna(src) //give blood info to the blood decal.
-	B.color = b_data["blood_color"]
 	if(temp_blood_DNA)
 		B.blood_DNA |= temp_blood_DNA
+	B.color = b_data["blood_color"]
 
 /mob/living/carbon/human/add_splatter_floor(turf/T, small_drip)
 	if(!(species && species.flags & NO_BLOOD))
