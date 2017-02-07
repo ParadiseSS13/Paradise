@@ -1,5 +1,0 @@
-author: "uraniummeltdown"
-delete-after: True
-changes: 
-  - bugfix: "Changelings can recall the memories of an absorb victim"
-  - rscadd: "Changelings will recall some speech of their absorb victims"
