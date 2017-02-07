@@ -848,7 +848,6 @@
 	to_chat(user, "<span class='warning'>[src] suddenly vanishes!</span>")
 	qdel(src)
 
-
 /obj/item/weapon/spellbook/oneuse/fake_gib
 	spell = /obj/effect/proc_holder/spell/targeted/touch/fake_disintegrate
 	spellname = "disintegrate"

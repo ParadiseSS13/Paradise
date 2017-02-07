@@ -284,7 +284,7 @@ obj/item/weapon/gun/proc/newshot()
 	if(!isturf(user.loc))
 		to_chat(user, "<span class='warning'>You cannot turn the light on while in this [user.loc]!</span>")
 	gun_light.on = !gun_light.on
-	to_chat(user, "<span class='notice'>You toggle the gun_light [gun_light.on ? "on":"off"].</span>")
+	to_chat(user, "<span class='notice'>You toggle the gun light [gun_light.on ? "on":"off"].</span>")
 
 	playsound(user, 'sound/weapons/empty.ogg', 100, 1)
 	update_gun_light(user)

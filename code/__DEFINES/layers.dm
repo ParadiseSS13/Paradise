@@ -60,3 +60,4 @@
 
 //HUD layer defines
 #define HUD_LAYER 19
+#define HUD_PLANE 90
