@@ -401,6 +401,11 @@ var/list/blood_splatter_icons = list()
 		return 0
 	return 1
 
+/obj/effect/decal/cleanable/blood/splatter/transfer_mob_blood_dna(mob/living/L)
+	..(L)
+	var/list/b_data = L.get_blood_data(L.get_blood_id())
+	basecolor = b_data["blood_color"]
+
 /obj/effect/decal/cleanable/blood/footprints/transfer_mob_blood_dna(mob/living/L)
 	..(L)
 	var/list/b_data = L.get_blood_data(L.get_blood_id())

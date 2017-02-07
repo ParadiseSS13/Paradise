@@ -88,6 +88,7 @@ var/global/list/image/fluidtrack_cache=list()
 				I = image(icon,"[blood_state]1",dir = Ddir)
 				fluidtrack_cache["entered-[blood_state]-[Ddir]"] = I
 			if(I)
+				I.color = basecolor
 				overlays += I
 		if(exited_dirs & Ddir)
 			var/image/I
@@ -97,6 +98,7 @@ var/global/list/image/fluidtrack_cache=list()
 				I = image(icon,"[blood_state]2",dir = Ddir)
 				fluidtrack_cache["exited-[blood_state]-[Ddir]"] = I
 			if(I)
+				I.color = basecolor
 				overlays += I
 
 	alpha = BLOODY_FOOTPRINT_BASE_ALPHA+bloodiness

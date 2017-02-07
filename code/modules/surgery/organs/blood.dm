@@ -105,8 +105,8 @@
 /mob/living/carbon/human/restore_blood()
 	blood_volume = BLOOD_VOLUME_NORMAL
 	bleed_rate = 0
-	blood_DNA = copytext(dna.unique_enzymes,1,0)
-	blood_color = species.blood_color
+	//blood_DNA = copytext(dna.unique_enzymes,1,0)
+	//blood_color = species.blood_color
 
 /****************************************************
 				BLOOD TRANSFERS
