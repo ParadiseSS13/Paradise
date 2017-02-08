@@ -173,12 +173,15 @@
 			if(alarmed)
 				nextstate = CLOSED
 
-/obj/machinery/door/firedoor/attack_ai(mob/user as mob)
+/obj/machinery/door/firedoor/attack_ghost(mob/user as mob)	
+	return attack_ai(user)
+				
+/obj/machinery/door/firedoor/attack_ai(mob/user)
 	if(operating || stat & NOPOWER)
 		return //Already doing something or depowered.
 
 	if(blocked)
-		to_chat(user, "\red \The [src] is welded solid!")
+		to_chat(user, "<span class='warning'>\The [src] is welded solid!</span>")
 		return
 
 	var/area/A = get_area_master(src)
@@ -186,11 +189,11 @@
 	var/alarmed = A.air_doors_activated || A.fire
 
 	var/access_granted = 0
-	if(isAI(user) || isrobot(user))
+	if(isAI(user) || isrobot(user) || user.can_admin_interact())
 		access_granted = 1
 
 	if(access_granted == 1)
-		user.visible_message("\blue \The [src] [density ? "open" : "close"]s for \the [user].",\
+		user.visible_message("<span class='notice'>\The [src] [density ? "open" : "close"]s for \the [user].</span>",\
 		"\The [src] [density ? "open" : "close"]s.",\
 		"You hear a beep, and a door opening.")
 

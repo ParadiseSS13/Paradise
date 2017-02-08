@@ -93,3 +93,6 @@
 
 	// Donator stuff.
 	var/donator_level = DONATOR_LEVEL_NONE
+	
+	// If set to true, this client can interact with most machines/computers/objects while observing
+	var/observer_interact = FALSE

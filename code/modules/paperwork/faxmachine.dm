@@ -37,9 +37,12 @@ var/list/alldepartments = list()
 	fax_network = "Central Command Quantum Entanglement Network"
 	long_range_enabled = 1
 
-/obj/machinery/photocopier/faxmachine/attack_hand(mob/user as mob)
+/obj/machinery/photocopier/faxmachine/attack_hand(mob/user)
 	ui_interact(user)
 
+/obj/machinery/photocopier/faxmachine/attack_ghost(mob/user)
+	ui_interact(user)	
+	
 /obj/machinery/photocopier/faxmachine/attackby(obj/item/weapon/item, mob/user, params)
 	if(istype(item,/obj/item/weapon/card/id) && !scan)
 		scan(item)

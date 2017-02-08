@@ -648,7 +648,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	return 0
 
 /mob/dead/observer/can_admin_interact()
-	return check_rights(R_ADMIN, 0, src)
+	return client && client.observer_interact
 
 //this is a mob verb instead of atom for performance reasons
 //see /mob/verb/examinate() in mob.dm for more info

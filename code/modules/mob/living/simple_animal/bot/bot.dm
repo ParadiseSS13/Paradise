@@ -263,6 +263,9 @@
 		interact(H)
 	else
 		return ..()
+		
+/mob/living/simple_animal/bot/attack_ghost(mob/M)
+	interact(M)
 
 /mob/living/simple_animal/bot/attack_ai(mob/user)
 	if(!topic_denied(user))
@@ -867,6 +870,8 @@ Pass a positive integer as an argument to override a bot's default speed.
 		qdel(src)
 
 /mob/living/simple_animal/bot/proc/topic_denied(mob/user) //Access check proc for bot topics! Remember to place in a bot's individual Topic if desired.
+	if(user.can_admin_interact())
+		return 0
 	if(user.incapacitated() || !(issilicon(user) || in_range(src, user)))
 		return 1
 	// 0 for access, 1 for denied.

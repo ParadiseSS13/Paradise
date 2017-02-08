@@ -76,7 +76,8 @@ var/list/admin_verbs_admin = list(
 	/client/proc/show_snpc_verbs,
 	/client/proc/reset_all_tcs,			/*resets all telecomms scripts*/
 	/client/proc/cmd_admin_check_player_exp, /* shows players by playtime */
-	/client/proc/toggle_mentor_chat
+	/client/proc/toggle_mentor_chat,
+	/client/proc/toggle_AI_interact, /*toggle admin ability to interact with machines as an AI*/
 )
 var/list/admin_verbs_ban = list(
 	/client/proc/unban_panel,
@@ -965,20 +966,33 @@ var/list/admin_verbs_snpc = list(
 	set name = "Show SNPC Verbs"
 	set category = "Admin"
 
-	if(!holder)
+	if(!check_rights(R_ADMIN))
 		return
 
 	verbs += admin_verbs_snpc
 	verbs -= /client/proc/show_snpc_verbs
-	to_chat(src, "<span class='interface'>SNPC verbs on.</span>")
+	to_chat(src, "<span class='interface'>SNPC verbs have been toggled on.</span>")
 
 /client/proc/hide_snpc_verbs()
 	set name = "Hide SNPC Verbs"
 	set category = "Admin"
 
-	if(!holder)
+	if(!check_rights(R_ADMIN))
 		return
 
 	verbs -= admin_verbs_snpc
 	verbs += /client/proc/show_snpc_verbs
-	to_chat(src, "<span class='interface'>SNPC verbs off.</span>")
+	to_chat(src, "<span class='interface'>SNPC verbs have been toggled off.</span>")
+	
+/client/proc/toggle_AI_interact()
+	set name = "Toggle Admin Observer Interaction"
+	set category = "Admin"
+	set desc = "Allows you to interact with most machines, computers and other objects while observing."
+	
+	if(!check_rights(R_ADMIN))
+		return
+
+	observer_interact = !observer_interact
+
+	log_admin("[key_name(usr)] has [observer_interact ? "activated" : "deactivated"] their admin observer interaction.")
+	message_admins("[key_name_admin(usr)] has [observer_interact ? "activated" : "deactivated"] their admin observer interaction.")

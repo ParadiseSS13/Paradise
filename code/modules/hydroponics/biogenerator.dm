@@ -207,6 +207,9 @@
 
 /obj/machinery/biogenerator/attack_hand(mob/user)
 	interact(user)
+	
+/obj/machinery/biogenerator/attack_ghost(mob/user)
+	interact(user)
 
 /obj/machinery/biogenerator/proc/activate()
 	if(usr.stat != 0)
@@ -302,7 +305,7 @@
 
 /obj/machinery/biogenerator/Topic(href, href_list)
 	if(..() || panel_open)
-		return
+		return 1
 
 	usr.set_machine(src)
 

@@ -90,6 +90,9 @@
 	if(..())
 		return
 	interact(user)
+	
+/obj/machinery/plantgenes/attack_ghost(mob/user)
+	interact(user)
 
 /obj/machinery/plantgenes/interact(mob/user)
 	user.set_machine(src)
@@ -97,9 +100,6 @@
 		return
 
 	var/datum/browser/popup = new(user, "plantdna", "Plant DNA Manipulator", 450, 600)
-	if(!(in_range(src, user) || issilicon(user)))
-		popup.close()
-		return
 
 	var/dat = ""
 
@@ -216,7 +216,7 @@
 
 /obj/machinery/plantgenes/Topic(var/href, var/list/href_list)
 	if(..())
-		return
+		return 1
 	usr.set_machine(src)
 
 	if(href_list["eject_seed"] && !operation)
