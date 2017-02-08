@@ -66,19 +66,32 @@
 			qdel(src)
 			return
 		if(istype(W, /obj/item/weapon/storage/fancy/crayons))
-			var/decalselection = input("Please select a decal") as null|anything in list("Atmospherics", "Bartender", "Barber", "Blueshield",	"Brig Physician", "Captain",
-				"Cargo", "Chief Engineer",	"Chaplain",	"Chef", "Chemist", "Civilian", "Clown", "CMO", "Coroner", "Detective", "Engineering", "Genetics", "HOP",
-				"HOS", "Hydroponics", "Internal Affairs Agent", "Janitor",	"Magistrate", "Mechanic", "Medical", "Mime", "Mining", "NT Representative", "Paramedic", "Pod Pilot",
-				"Prisoner",	"Research Director", "Security", "Syndicate", "Therapist", "Virology", "Warden", "Xenobiology")
-			if(!decalselection)
-				return
-			if(user.incapacitated())
-				return
-			if(W == user.get_active_hand() && Adjacent(usr))
-				decalselection = replacetext(decalselection, " ", "_")
-				decalselection = lowertext(decalselection)
-				icon_opened = ("cardboard_open_"+decalselection)
-				icon_closed = ("cardboard_"+decalselection)
-				update_icon() // a proc declared in the closets parent file used to update opened/closed sprites on normal closets
-				qdel(W)
-
+			var/list/contents = W.contents
+			var/crayoncount = 0
+			for(var/C in contents)
+				if(istype(C, /obj/item/toy/crayon))
+					crayoncount += 1
+				continue
+			if(crayoncount == 6)
+				var/decalselection = input("Please select a decal") as null|anything in list("Atmospherics", "Bartender", "Barber", "Blueshield",	"Brig Physician", "Captain",
+					"Cargo", "Chief Engineer",	"Chaplain",	"Chef", "Chemist", "Civilian", "Clown", "CMO", "Coroner", "Detective", "Engineering", "Genetics", "HOP",
+					"HOS", "Hydroponics", "Internal Affairs Agent", "Janitor",	"Magistrate", "Mechanic", "Medical", "Mime", "Mining", "NT Representative", "Paramedic", "Pod Pilot",
+					"Prisoner",	"Research Director", "Security", "Syndicate", "Therapist", "Virology", "Warden", "Xenobiology")
+				if(!decalselection)
+					return
+				if(user.incapacitated())
+					return
+				if(W == user.get_active_hand() && Adjacent(usr))
+					contents = W.contents
+					crayoncount = 0
+					for(var/C in contents)
+						if(istype(C, /obj/item/toy/crayon))
+							crayoncount += 1
+				 		continue
+					if(crayoncount == 6)
+						decalselection = replacetext(decalselection, " ", "_")
+						decalselection = lowertext(decalselection)
+						icon_opened = ("cardboard_open_"+decalselection)
+						icon_closed = ("cardboard_"+decalselection)
+						update_icon() // a proc declared in the closets parent file used to update opened/closed sprites on normal closets
+						qdel(W)
