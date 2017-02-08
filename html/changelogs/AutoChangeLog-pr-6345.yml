@@ -1,0 +1,5 @@
+author: "Fox McCloud"
+delete-after: True
+changes: 
+  - tweak: "Monkey cubes in boxes no longer start off wrapped"
+  - tweak: "All monkey cube boxes at cargo are the same price"
