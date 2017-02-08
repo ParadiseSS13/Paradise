@@ -1,0 +1,5 @@
+author: "Fox McCloud"
+delete-after: True
+changes: 
+  - bugfix: "Fixes Nymphs not being able to cross over top of hydroponics trays"
+  - tweak: "Diona fertilizing and weed eating is handled by clicking on the tray as a nymph rather than verbs"
