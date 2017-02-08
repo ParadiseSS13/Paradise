@@ -1,0 +1,5 @@
+author: "Fox MCCloud"
+delete-after: True
+changes: 
+  - tweak: "Tank transfer valves have in-hand icons"
+  - tweak: "Tank transfer valves with large tanks (ie: jetpacks) cannot fit in backpacks"
