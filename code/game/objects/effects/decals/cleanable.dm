@@ -68,14 +68,14 @@
 			S.blood_state = blood_state
 			update_icon()
 			H.update_inv_shoes()
-		else if(hasfeet && bloodiness)//Or feet
+		else if(hasfeet && blood_state && bloodiness)//Or feet
 			var/add_blood = 0
 			if(bloodiness >= BLOOD_GAIN_PER_STEP)
 				add_blood = BLOOD_GAIN_PER_STEP
 			else
 				add_blood = bloodiness
 			bloodiness -= add_blood
-			H.track_blood = min(MAX_SHOE_BLOODINESS, 1)
+			H.bloody_feet[blood_state] = min(MAX_SHOE_BLOODINESS,H.bloody_feet[blood_state]+add_blood)
 			if(!H.feet_blood_DNA)
 				H.feet_blood_DNA = list()
 			H.feet_blood_DNA |= blood_DNA.Copy()

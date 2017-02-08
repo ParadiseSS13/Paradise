@@ -454,7 +454,6 @@ var/list/blood_splatter_icons = list()
 			blood_splatter_icon.Blend(icon('icons/effects/blood.dmi', "itemblood"), ICON_MULTIPLY) //adds blood and the remaining white areas become transparant
 			blood_splatter_icon = fcopy_rsc(blood_splatter_icon)
 			blood_splatter_icons[index] = blood_splatter_icon
-			blood_splatter_icon = blood_dna["blood_color"]
 		overlays += blood_splatter_icon
 
 /obj/item/clothing/gloves/add_blood(list/blood_dna)
@@ -478,7 +477,7 @@ var/list/blood_splatter_icons = list()
 	if(gloves)
 		var/obj/item/clothing/gloves/G = gloves
 		G.add_blood(blood_dna)
-		hand_blood_color = blood_color
+		hand_blood_color = blood_dna["blood_color"]
 	else
 		transfer_blood_dna(blood_dna)
 	bloody_hands = rand(2, 4)

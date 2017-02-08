@@ -96,15 +96,15 @@
 						FP.basecolor = currentBloodColor
 						FP.update_icon()
 						M.update_inv_shoes()
-			else if(hasfeet && (M.feet_blood_DNA && M.track_blood))
+			else if(hasfeet && M.bloody_feet[M.blood_state])
 				var/obj/effect/decal/cleanable/blood/footprints/oldFP = locate(/obj/effect/decal/cleanable/blood/footprints) in T
-				if(oldFP && oldFP.blood_state == BLOOD_STATE_HUMAN)
+				if(oldFP && oldFP.blood_state == M.blood_state)
 					return
 				else
-					M.track_blood = max(0, M.track_blood - 1)
+					M.bloody_feet[M.blood_state] = max(0, M.bloody_feet[M.blood_state]-BLOOD_LOSS_PER_STEP)
 					var/obj/effect/decal/cleanable/blood/footprints/FP = new /obj/effect/decal/cleanable/blood/footprints(T)
 					FP.entered_dirs |= dir
-					FP.bloodiness = BLOOD_STATE_HUMAN
+					FP.bloodiness = M.bloody_feet[M.blood_state]
 					var/currentBloodColor = "#A10808"
 					if(M.feet_blood_DNA)
 						FP.transfer_blood_dna(M.feet_blood_DNA)

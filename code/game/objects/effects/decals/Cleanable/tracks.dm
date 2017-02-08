@@ -44,8 +44,8 @@ var/global/list/image/fluidtrack_cache=list()
 			if(!S.blood_DNA)
 				S.blood_DNA = list()
 			S.blood_DNA |= blood_DNA.Copy()
-		else if(hasfeet)//Or feet //This will need to be changed.
-			H.track_blood = min(1 - BLOOD_LOSS_PER_STEP, 0)
+		else if(hasfeet && H.bloody_feet[blood_state])//Or feet //This will need to be changed.
+			H.bloody_feet[blood_state] = max(H.bloody_feet[blood_state] - BLOOD_LOSS_PER_STEP, 0)
 			if(!H.feet_blood_DNA)
 				H.feet_blood_DNA = list()
 			H.feet_blood_DNA |= blood_DNA.Copy()
@@ -67,8 +67,8 @@ var/global/list/image/fluidtrack_cache=list()
 			if(!S.blood_DNA)
 				S.blood_DNA = list()
 			S.blood_DNA |= blood_DNA.Copy()
-		else if(hasfeet)//Or feet //This will need to be changed.
-			H.track_blood = min(1 - BLOOD_LOSS_PER_STEP, 0)
+		else if(hasfeet && H.bloody_feet[blood_state])//Or feet //This will need to be changed.
+			H.bloody_feet[blood_state] = max(H.bloody_feet[blood_state] - BLOOD_LOSS_PER_STEP, 0)
 			if(!H.feet_blood_DNA)
 				H.feet_blood_DNA = list()
 			H.feet_blood_DNA |= blood_DNA.Copy()
