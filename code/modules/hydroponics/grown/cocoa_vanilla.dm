@@ -16,7 +16,7 @@
 	icon_dead = "cocoapod-dead"
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
 	mutatelist = list(/obj/item/seeds/cocoapod/vanillapod)
-	reagents_add = list("cocoa" = 0.25, "nutriment" = 0.1)
+	reagents_add = list("cocoa" = 0.25, "plantmatter" = 0.1)
 
 /obj/item/weapon/reagent_containers/food/snacks/grown/cocoapod
 	seed = /obj/item/seeds/cocoapod
@@ -36,7 +36,7 @@
 	product = /obj/item/weapon/reagent_containers/food/snacks/grown/vanillapod
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
 	mutatelist = list()
-	reagents_add = list("vanilla" = 0.25, "nutriment" = 0.1)
+	reagents_add = list("vanilla" = 0.25, "plantmatter" = 0.1)
 
 /obj/item/weapon/reagent_containers/food/snacks/grown/vanillapod
 	seed = /obj/item/seeds/cocoapod/vanillapod
