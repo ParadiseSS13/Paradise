@@ -15,7 +15,7 @@
 	icon_grow = "poppy-grow"
 	icon_dead = "poppy-dead"
 	mutatelist = list(/obj/item/seeds/poppy/geranium, /obj/item/seeds/poppy/lily)
-	reagents_add = list("bicaridine" = 0.2, "nutriment" = 0.05)
+	reagents_add = list("bicaridine" = 0.2, "plantmatter" = 0.05)
 
 /obj/item/weapon/reagent_containers/food/snacks/grown/poppy
 	seed = /obj/item/seeds/poppy
@@ -78,7 +78,7 @@
 	growthstages = 4
 	genes = list(/datum/plant_gene/trait/plant_type/weed_hardy)
 	growing_icon = 'icons/obj/hydroponics/growing_flowers.dmi'
-	reagents_add = list("nutriment" = 0.04)
+	reagents_add = list("plantmatter" = 0.04)
 
 /obj/item/weapon/reagent_containers/food/snacks/grown/harebell
 	seed = /obj/item/seeds/harebell
@@ -106,7 +106,7 @@
 	icon_grow = "sunflower-grow"
 	icon_dead = "sunflower-dead"
 	mutatelist = list(/obj/item/seeds/sunflower/moonflower, /obj/item/seeds/sunflower/novaflower)
-	reagents_add = list("cornoil" = 0.08, "nutriment" = 0.04)
+	reagents_add = list("cornoil" = 0.08, "plantmatter" = 0.04)
 
 /obj/item/weapon/grown/sunflower // FLOWER POWER!
 	seed = /obj/item/seeds/sunflower
@@ -134,7 +134,7 @@
 	plantname = "Moonflowers"
 	product = /obj/item/weapon/reagent_containers/food/snacks/grown/moonflower
 	mutatelist = list()
-	reagents_add = list("moonshine" = 0.2, "vitamin" = 0.02, "nutriment" = 0.02)
+	reagents_add = list("moonshine" = 0.2, "vitamin" = 0.02, "plantmatter" = 0.02)
 	rarity = 15
 
 /obj/item/weapon/reagent_containers/food/snacks/grown/moonflower
@@ -155,7 +155,7 @@
 	plantname = "Novaflowers"
 	product = /obj/item/weapon/grown/novaflower
 	mutatelist = list()
-	reagents_add = list("condensedcapsaicin" = 0.25, "capsaicin" = 0.3, "nutriment" = 0)
+	reagents_add = list("condensedcapsaicin" = 0.25, "capsaicin" = 0.3, "plantmatter" = 0)
 	rarity = 20
 
 /obj/item/weapon/grown/novaflower
