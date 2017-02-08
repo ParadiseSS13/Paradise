@@ -1,0 +1,6 @@
+author: "Fox McCloud"
+delete-after: True
+changes: 
+  - tweak: "adjusts most botany plant reagents to have \"plantmatter\" as opposed to nutriment"
+  - tweak: "Blumpkins now have plasma in them"
+  - bugfix: "Fixes plant grown diona not being allied with plants and vines"
