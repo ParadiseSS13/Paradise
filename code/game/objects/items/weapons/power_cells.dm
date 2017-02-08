@@ -30,6 +30,14 @@
 	processing_objects.Remove(src)
 	return ..()
 
+/obj/item/weapon/stock_parts/cell/on_varedit(modified_var)
+	if(modified_var == "self_recharge")
+		if(self_recharge)
+			processing_objects.Add(src)
+		else
+			processing_objects.Remove(src)
+	..()
+
 /obj/item/weapon/stock_parts/cell/suicide_act(mob/user)
 	to_chat(viewers(user), "<span class='suicide'>[user] is licking the electrodes of the [src.name]! It looks like \he's trying to commit suicide.</span>")
 	return (FIRELOSS)

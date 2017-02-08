@@ -149,7 +149,7 @@ proc/get_radio_key_from_channel(var/channel)
 	if(speaking && (speaking.flags & HIVEMIND))
 		speaking.broadcast(src,trim(message))
 		return 1
-		
+
 	if(message_mode == "cords")
 		if(iscarbon(src))
 			var/mob/living/carbon/C = src
@@ -281,6 +281,9 @@ proc/get_radio_key_from_channel(var/channel)
 		spawn(0)
 			if(O) //It's possible that it could be deleted in the meantime.
 				O.hear_talk(src, message, verb, speaking)
+
+	//Log of what we've said, plain message, no spans or junk
+	say_log += message
 
 	log_say("[name]/[key] : [message]")
 	return 1
