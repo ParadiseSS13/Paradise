@@ -105,11 +105,13 @@
 /datum/mind/proc/wipe_memory()
 	memory = null
 
-/datum/mind/proc/show_memory(mob/recipient)
-	var/output = "<B>[current.real_name]'s Memory</B><HR>"
+/datum/mind/proc/show_memory(mob/recipient, window=1)
+	if(!recipient)
+		recipient = current
+	var/output = "<B>[current.real_name]'s Memories:</B><HR>"
 	output += memory
 
-	if(objectives.len>0)
+	if(objectives.len)
 		output += "<HR><B>Objectives:</B>"
 
 		var/obj_count = 1
@@ -117,7 +119,7 @@
 			output += "<B>Objective #[obj_count]</B>: [objective.explanation_text]"
 			obj_count++
 
-	if(job_objectives.len>0)
+	if(job_objectives.len)
 		output += "<HR><B>Job Objectives:</B><UL>"
 
 		var/obj_count = 1
@@ -125,8 +127,10 @@
 			output += "<LI><B>Task #[obj_count]</B>: [objective.get_description()]</LI>"
 			obj_count++
 		output += "</UL>"
-
-	recipient << browse(output,"window=memory")
+	if(window)
+		recipient << browse(output,"window=memory")
+	else
+		to_chat(recipient, "<i>[output]</i>")
 
 /datum/mind/proc/edit_memory()
 	if(!ticker || !ticker.mode)

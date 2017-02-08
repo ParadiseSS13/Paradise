@@ -52,5 +52,7 @@
 	var/list/surgeries = list()	//a list of surgery datums. generally empty, they're added when the player wants them.
 
 	var/gene_stability = DEFAULT_GENE_STABILITY
-	
+
 	var/obj/effect/proc_holder/ranged_ability //Any ranged ability the mob has, as a click override
+
+	var/list/say_log = list() //a log of what we've said, plain text, no spans or junk, essentially just each individual "message"
