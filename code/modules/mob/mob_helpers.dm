@@ -361,9 +361,10 @@ var/list/intents = list(I_HELP,I_DISARM,I_GRAB,I_HARM)
 	set name = "Rest"
 	set category = "IC"
 
-	resting = !resting
-	update_canmove()
-	to_chat(src, "<span class='notice'>You are now [resting ? "resting" : "getting up"].</span>")
+	if(!resting)
+		StartResting()
+	else if(resting && !(rest_CD > world.time))
+		StopResting()
 
 /proc/is_blind(A)
 	if(iscarbon(A))
