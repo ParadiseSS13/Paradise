@@ -88,7 +88,7 @@
 
 /obj/item/device/soulstone/Topic(href, href_list)
 	var/mob/U = usr
-	if(!in_range(src, U) || U.machine != src || !can_use(user))
+	if(!in_range(src, U) || U.machine != src || !can_use(usr))
 		U << browse(null, "window=aicard")
 		U.unset_machine()
 		return
@@ -106,12 +106,12 @@
 			for(var/mob/living/simple_animal/shade/A in src)
 				A.status_flags &= ~GODMODE
 				A.canmove = 1
-				A.forceMove(get_turf(user))
+				A.forceMove(get_turf(usr))
 				A.cancel_camera()
 				icon_state = "soulstone"
 				name = initial(name)
 				if(iswizard(usr) || usability)
-					to_chat(A, "<b>You have been released from your prison, but you are still bound to [user.real_name]'s will. Help them succeed in their goals at all costs.</b>")
+					to_chat(A, "<b>You have been released from your prison, but you are still bound to [usr.real_name]'s will. Help them succeed in their goals at all costs.</b>")
 				else if(iscultist(usr))
 					to_chat(A, "<b>You have been released from your prison, but you are still bound to the cult's will. Help them succeed in their goals at all costs.</b>")
 				was_used()
