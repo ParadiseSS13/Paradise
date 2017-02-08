@@ -15,7 +15,7 @@
 	var/overheat_time = 16
 	var/holds_charge = FALSE
 	var/unique_frequency = FALSE // modified by KA modkits
-	var/overheat = FALSE
+	var/overheat = TRUE
 
 	var/max_mod_capacity = 100
 	var/list/modkits = list()
@@ -23,12 +23,12 @@
 	var/empty_state = "kineticgun_empty"
 
 /obj/item/weapon/gun/energy/kinetic_accelerator/examine(mob/user)
-	..()
-	if(max_mod_capacity)
-		to_chat(user, "<b>[get_remaining_mod_capacity()]%</b> mod capacity remaining.")
-		for(var/A in get_modkits())
-			var/obj/item/borg/upgrade/modkit/M = A
-			to_chat(user, "<span class='notice'>There is a [M.name] mod installed, using <b>[M.cost]%</b> capacity.</span>")
+	if(..(user, 1))
+		if(max_mod_capacity)
+			to_chat(user, "<b>[get_remaining_mod_capacity()]%</b> mod capacity remaining.")
+			for(var/A in get_modkits())
+				var/obj/item/borg/upgrade/modkit/M = A
+				to_chat(user, "<span class='notice'>There is a [M.name] mod installed, using <b>[M.cost]%</b> capacity.</span>")
 
 /obj/item/weapon/gun/energy/kinetic_accelerator/attackby(obj/item/A, mob/user)
 	if(istype(A, /obj/item/weapon/crowbar))
@@ -94,7 +94,7 @@
 		empty()
 
 /obj/item/weapon/gun/energy/kinetic_accelerator/proc/empty()
-	power_supply.use(500)
+	power_supply.use(5000)
 	update_icon()
 
 /obj/item/weapon/gun/energy/kinetic_accelerator/proc/attempt_reload()
@@ -120,10 +120,10 @@
 	return
 
 /obj/item/weapon/gun/energy/kinetic_accelerator/proc/reload()
-	power_supply.give(500)
+	power_supply.give(5000)
 	if(!suppressed)
 		playsound(loc, 'sound/weapons/kenetic_reload.ogg', 60, 1)
-	else
+	else if(isliving(loc))
 		to_chat(loc, "<span class='warning'>[src] silently charges up.<span>")
 	update_icon()
 	overheat = FALSE
@@ -225,8 +225,8 @@
 	var/modifier = 1 //For use in any mod kit that has numerical modifiers
 
 /obj/item/borg/upgrade/modkit/examine(mob/user)
-	..()
-	to_chat(user, "<span class='notice'>Occupies <b>[cost]%</b> of mod capacity.</span>")
+	if(..(user, 1))
+		to_chat(user, "<span class='notice'>Occupies <b>[cost]%</b> of mod capacity.</span>")
 
 /obj/item/borg/upgrade/modkit/attackby(obj/item/A, mob/user)
 	if(istype(A, /obj/item/weapon/gun/energy/kinetic_accelerator) && !issilicon(user))
@@ -264,8 +264,6 @@
 	else
 		to_chat(user, "<span class='notice'>You don't have room(<b>[KA.get_remaining_mod_capacity()]%</b> remaining, [cost]% needed) to install this modkit. Use a crowbar to remove existing modkits.</span>")
 		. = FALSE
-
-
 
 /obj/item/borg/upgrade/modkit/proc/uninstall(obj/item/weapon/gun/energy/kinetic_accelerator/KA)
 	forceMove(get_turf(KA))
