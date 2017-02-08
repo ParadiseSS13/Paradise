@@ -141,7 +141,7 @@
 /mob/living/proc/StartResting(updating = 1)
 	var/val_change = !resting
 	resting = TRUE
-	rest_CD = world.time + 20//this is for tracking it for the verb
+
 	to_chat(src, "<span class='notice'>You are now resting.</span>")
 	if(updating && val_change)
 		update_canmove()
