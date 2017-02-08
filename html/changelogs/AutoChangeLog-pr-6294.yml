@@ -1,0 +1,4 @@
+author: "Kyep"
+delete-after: True
+changes: 
+  - tweak: "AI holograms now transfer between holopads as the AI moves around."
