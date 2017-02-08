@@ -53,6 +53,10 @@
 
 	if(!ishuman(M) || istype(M, /mob/living/carbon/human/dummy)) //If target is not a human or a dummy
 		return ..()
+		
+	if(M.has_brain_worms()) //Borer stuff - RR
+		to_chat(user, "<span class='warning'>This being is corrupted by an alien intelligence and cannot be soul trapped.</span>")
+		return ..()
 
 	if(jobban_isbanned(M, "cultist") || jobban_isbanned(M, "Syndicate"))
 		to_chat(user, "<span class='warning'>A mysterious force prevents you from trapping this being's soul.</span>")
