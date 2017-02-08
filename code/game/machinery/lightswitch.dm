@@ -73,7 +73,7 @@
 		to_chat(user, "A light switch. It is [on? "on" : "off"].")
 
 /obj/machinery/light_switch/attack_ghost(mob/user)
-	if(user.can_admin_observe())
+	if(user.can_admin_interact())
 		return attack_hand(user)
 		
 /obj/machinery/light_switch/attack_hand(mob/user)
