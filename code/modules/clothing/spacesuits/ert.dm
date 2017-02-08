@@ -110,38 +110,39 @@
 	item_color = "ert_paranormal"
 	max_heat_protection_temperature = FIRE_IMMUNITY_HELM_MAX_TEMP_PROTECT
 	sprite_sheets = null
+	icon_override = 'icons/mob/clothing/paranormal_hardsuit.dmi'
+	actions_types = list()
 	has_camera = 0
 
 /obj/item/clothing/suit/space/rig/ert/paranormal
 	name = "paranormal response team suit"
 	desc = "Powerful wards are built into this hardsuit, protecting the user from all manner of paranormal threats."
-	icon_state = "knight_grey"
-	item_state = "knight_grey"
+	icon_state = "rig-paranormal"
 	max_heat_protection_temperature = FIRE_IMMUNITY_SUIT_MAX_TEMP_PROTECT
 	sprite_sheets = null
+	icon_override = 'icons/mob/clothing/paranormal_hardsuit.dmi'
+	actions_types = list()
 
 /obj/item/clothing/suit/space/rig/ert/paranormal/New()
 	..()
 	new /obj/item/weapon/nullrod(src)
 
-/obj/item/clothing/suit/space/rig/ert/paranormal/inquisitor
-	name = "inquisitor's hardsuit"
-	icon_state = "hardsuit-inq"
-	item_state = "hardsuit-inq"
-
 /obj/item/clothing/head/helmet/space/rig/ert/paranormal/inquisitor
 	name = "inquisitor's helmet"
-	icon_state = "hardsuit0-inq"
-	item_state = "hardsuit0-inq"
+	icon_state = "rig0-inquisitor"
+	item_color = "inquisitor"
+	
+/obj/item/clothing/suit/space/rig/ert/paranormal/inquisitor
+	name = "inquisitor's hardsuit"
+	icon_state = "rig-inquisitor"
 
-/obj/item/clothing/suit/space/rig/ert/paranormal/beserker
-	name = "champion's hardsuit"
-	desc = "Voices echo from the hardsuit, driving the user insane."
-	icon_state = "hardsuit-beserker"
-	item_state = "hardsuit-beserker"
-
-/obj/item/clothing/head/helmet/space/rig/ert/paranormal/beserker
+/obj/item/clothing/head/helmet/space/rig/ert/paranormal/berserker
 	name = "champion's helmet"
 	desc = "Peering into the eyes of the helmet is enough to seal damnation."
-	icon_state = "hardsuit0-beserker"
-	item_state = "hardsuit0-beserker"	
+	icon_state = "rig0-berserker"
+	item_color = "berserker"	
+	
+/obj/item/clothing/suit/space/rig/ert/paranormal/berserker
+	name = "champion's hardsuit"
+	desc = "Voices echo from the hardsuit, driving the user insane."
+	icon_state = "rig-berserker"

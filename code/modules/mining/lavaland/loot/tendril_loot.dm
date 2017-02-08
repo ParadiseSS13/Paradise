@@ -31,7 +31,7 @@
 
 /obj/item/device/shared_storage/attackby(obj/item/W, mob/user, params)
 	if(bag)
-		bag.forceMove(user)
+		bag.loc = user
 		bag.attackby(W, user, params)
 
 /obj/item/device/shared_storage/attack_hand(mob/living/carbon/user)
@@ -39,7 +39,7 @@
 		return
 	if(loc == user && user.back && user.back == src)
 		if(bag)
-			bag.forceMove(user)
+			bag.loc = user
 			bag.attack_hand(user)
 	else
 		..()
@@ -63,7 +63,6 @@
 				M.put_in_active_hand(src)
 
 			add_fingerprint(usr)
-			
 
 //Potion of Flight: as we do not have the "Angel" species this currently does not work.
 
