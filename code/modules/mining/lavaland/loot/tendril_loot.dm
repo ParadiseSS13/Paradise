@@ -33,6 +33,16 @@
 	if(bag)
 		bag.loc = user
 		bag.attackby(W, user, params)
+		
+/obj/item/device/shared_storage/attack_self(mob/living/carbon/user)
+	if(!iscarbon(user))
+		return
+	if(src == user.l_hand || src == user.r_hand)
+		if(bag)
+			bag.loc = user
+			bag.attack_hand(user)
+	else
+		..()
 
 /obj/item/device/shared_storage/attack_hand(mob/living/carbon/user)
 	if(!iscarbon(user))
@@ -51,7 +61,7 @@
 		if(!over_object)
 			return
 
-		if (istype(usr.loc, /obj/mecha))
+		if(istype(M.loc, /obj/mecha))
 			return
 
 		if(!M.restrained() && !M.stat)
@@ -61,8 +71,11 @@
 				if(!M.unEquip(src))
 					return
 				M.put_in_active_hand(src)
+			else if(bag)
+				bag.loc = usr
+				bag.attack_hand(usr)
 
-			add_fingerprint(usr)
+			add_fingerprint(M)
 
 //Potion of Flight: as we do not have the "Angel" species this currently does not work.
 
@@ -121,7 +134,7 @@
 	if(istype(next, /turf/unsimulated/floor/lava) || istype(current, /turf/unsimulated/floor/lava)) //We can move from land to lava, or lava to land, but not from land to land
 		..()
 	else
-		to_chat(user, "Boats don't go on land!")
+		to_chat(user, "<span class='warning'>Boats don't go on land!</span>")
 		return 0
 
 /obj/item/weapon/oar
@@ -187,7 +200,7 @@
 		to_chat(user, "<span class='notice'>You release the wisp. It begins to bob around your head.</span>")
 		user.sight |= SEE_MOBS
 		icon_state = "lantern"
-		wisp.orbit(user, 20)
+		wisp.orbit(user, 20, forceMove = TRUE)
 		feedback_add_details("wisp_lantern","F") // freed
 
 	else
@@ -222,8 +235,9 @@
 	desc = "Happy to light your way."
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "orb"
-	luminosity = 7
 	layer = ABOVE_ALL_MOB_LAYER
+	light_power = 1
+	light_range = 7
 	
 //Red/Blue Cubes
 	
@@ -356,6 +370,8 @@
 			user.visible_message("<span class='danger'>[user] pops back into reality!</span>")
 			Z.can_destroy = TRUE
 			qdel(Z)
+	else
+		to_chat(user, "<span class'warning'>[src] is still recharging.</span>")
 
 /obj/effect/immortality_talisman
 	icon_state = "blank"
