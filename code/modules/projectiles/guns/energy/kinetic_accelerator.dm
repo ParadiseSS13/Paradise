@@ -15,7 +15,7 @@
 	var/overheat_time = 16
 	var/holds_charge = FALSE
 	var/unique_frequency = FALSE // modified by KA modkits
-	var/overheat = TRUE
+	var/overheat = FALSE
 
 	var/max_mod_capacity = 100
 	var/list/modkits = list()
@@ -144,7 +144,7 @@
 /obj/item/ammo_casing/energy/kinetic
 	projectile_type = /obj/item/projectile/kinetic
 	select_name = "kinetic"
-	e_cost = 500
+	e_cost = 5000
 	fire_sound = 'sound/weapons/Kenetic_accel.ogg' // fine spelling there chap
 
 /obj/item/ammo_casing/energy/kinetic/ready_proj(atom/target, mob/living/user, quiet, zone_override = "")
