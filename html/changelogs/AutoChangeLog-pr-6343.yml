@@ -1,0 +1,8 @@
+author: "Fox McCloud"
+delete-after: True
+changes: 
+  - rscadd: "Water coolers now dispense cups when clicking on them with a free hand"
+  - tweak: "reagent tank dispensing amount based on the container instead of the tank"
+  - bugfix: "Fixes beaker spilling when placing a beaker into an ice cream machine"
+  - rscadd: "Adds in 100,000 unit water tanks to cargo for 12 points"
+  - tweak: "regular water tank cost reduced from 8 to 6 points"
