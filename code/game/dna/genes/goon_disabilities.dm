@@ -259,7 +259,7 @@
 
 	action_icon_state = "genetic_incendiary"
 
-/obj/effect/proc_holder/spell/targeted/immolate/cast(list/targets,mob/living/user = usr)
+/obj/effect/proc_holder/spell/targeted/immolate/cast(list/targets, mob/living/user = usr)
 	var/mob/living/carbon/L = user
 	L.adjust_fire_stacks(0.5)
 	L.visible_message("<span class='danger'>[L.name]</b> suddenly bursts into flames!</span>")
