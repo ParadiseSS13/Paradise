@@ -489,8 +489,14 @@
 	// Instead of spending a lot of time trying to work out where to place
 	// our shuttle, just create it somewhere empty and send it to where
 	// it should go
-	var/obj/docking_port/stationary/D = findRoundstartDock()
-	return dock(D)
+	. = dock_id(roundstart_move)
+
+/obj/docking_port/mobile/proc/dock_id(id)
+	var/port = shuttle_master.getDock(id)
+	if(port)
+		. = dock(port)
+	else
+		. = null
 
 /obj/effect/landmark/shuttle_import
 	name = "Shuttle Import"

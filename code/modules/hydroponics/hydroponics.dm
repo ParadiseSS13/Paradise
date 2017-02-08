@@ -521,6 +521,12 @@
 		mutmod = 0
 		adjustNutri(round(S.get_reagent_amount("robustharvestnutriment") *1 ))
 
+
+	//Fish Water is both an excellent fertilizer and waters
+	if(S.has_reagent("fishwater", 1))
+		adjustNutri(round(S.get_reagent_amount("fishwater") * 0.75))
+		adjustWater(round(S.get_reagent_amount("fishwater") * 1))
+
 	// Antitoxin binds shit pretty well. So the tox goes significantly down
 	if(S.has_reagent("charcoal", 1))
 		adjustToxic(-round(S.get_reagent_amount("charcoal") * 2))
@@ -656,6 +662,10 @@
 	if(S.has_reagent("nutriment", 1))
 		adjustHealth(round(S.get_reagent_amount("nutriment") * 0.5))
 		adjustNutri(round(S.get_reagent_amount("nutriment") * 1))
+
+	if(S.has_reagent("plantmatter", 1))
+		adjustHealth(round(S.get_reagent_amount("plantmatter") * 0.5))
+		adjustNutri(round(S.get_reagent_amount("plantmatter") * 1))
 
 	// Compost for EVERYTHING
 	if(S.has_reagent("virusfood", 1))
@@ -958,6 +968,30 @@
 	var/mob/living/simple_animal/hostile/C = new chosen
 	C.faction = list("plants")
 
+///Diona Nymph Related Procs///
+/obj/machinery/hydroponics/CanPass(atom/movable/mover, turf/target, height=0, air_group=0) //So nymphs can climb over top of trays.
+	if(air_group || (height==0))
+		return 1
+
+	if(istype(mover) && mover.checkpass(PASSTABLE))
+		return 1
+	else
+		return 0
+
+/obj/machinery/hydroponics/attack_animal(mob/living/user)
+	if(istype(user, /mob/living/simple_animal/diona))
+		if(weedlevel > 0)
+			user.nutrition += weedlevel * 15
+			adjustWeeds(-10)
+			update_icon()
+			visible_message("<span class='danger'>[user] begins rooting through [src], ripping out weeds and eating them noisily.</span>","<span class='danger'>You begin rooting through [src], ripping out weeds and eating them noisily.</span>")
+		else if(nutrilevel < 10)
+			user.nutrition -= ((10 - nutrilevel) * 5)
+			adjustNutri(10)
+			update_icon()
+			visible_message("<span class='danger'>[user] secretes a trickle of green liquid from its tail, refilling [src]'s nutrient tray.</span>","<span class='danger'>You secrete a trickle of green liquid from your tail, refilling [src]'s nutrient tray.</span>")
+	else
+		..()
 
 ///////////////////////////////////////////////////////////////////////////////
 /obj/machinery/hydroponics/soil //Not actually hydroponics at all! Honk!

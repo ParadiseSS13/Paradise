@@ -373,10 +373,17 @@
 										if (O.reagents != null && O.reagents.has_reagent("nutriment"))
 												beaker.reagents.add_reagent(r_id, min(O.reagents.get_reagent_amount("nutriment"), space))
 												O.reagents.remove_reagent("nutriment", min(O.reagents.get_reagent_amount("nutriment"), space))
+										if (O.reagents != null && O.reagents.has_reagent("plantmatter"))
+												beaker.reagents.add_reagent(r_id, min(O.reagents.get_reagent_amount("plantmatter"), space))
+												O.reagents.remove_reagent("plantmatter", min(O.reagents.get_reagent_amount("plantmatter"), space))
 								else
 										if (O.reagents != null && O.reagents.has_reagent("nutriment"))
 												beaker.reagents.add_reagent(r_id, min(round(O.reagents.get_reagent_amount("nutriment")*abs(amount)), space))
 												O.reagents.remove_reagent("nutriment", min(O.reagents.get_reagent_amount("nutriment"), space))
+										if (O.reagents != null && O.reagents.has_reagent("plantmatter"))
+												beaker.reagents.add_reagent(r_id, min(round(O.reagents.get_reagent_amount("plantmatter")*abs(amount)), space))
+												O.reagents.remove_reagent("plantmatter", min(O.reagents.get_reagent_amount("plantmatter"), space))
+
 
 						else
 								O.reagents.trans_id_to(beaker, r_id, min(amount, space))

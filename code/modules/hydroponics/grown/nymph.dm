@@ -10,7 +10,7 @@
 	maturation = 10
 	production = 1
 	yield = 1
-	reagents_add = list("nutriment" = 0.1)
+	reagents_add = list("plantmatter" = 0.1)
 
 /obj/item/weapon/reagent_containers/food/snacks/grown/nymph_pod
 	seed = /obj/item/seeds/nymph

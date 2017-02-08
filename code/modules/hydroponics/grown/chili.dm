@@ -16,7 +16,7 @@
 	icon_dead = "chili-dead" // Same for the dead icon
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
 	mutatelist = list(/obj/item/seeds/chili/ice, /obj/item/seeds/chili/ghost)
-	reagents_add = list("capsaicin" = 0.25, "vitamin" = 0.04, "nutriment" = 0.04)
+	reagents_add = list("capsaicin" = 0.25, "vitamin" = 0.04, "plantmatter" = 0.04)
 
 /obj/item/weapon/reagent_containers/food/snacks/grown/chili
 	seed = /obj/item/seeds/chili
@@ -39,7 +39,7 @@
 	production = 4
 	rarity = 20
 	mutatelist = list()
-	reagents_add = list("frostoil" = 0.25, "vitamin" = 0.02, "nutriment" = 0.02)
+	reagents_add = list("frostoil" = 0.25, "vitamin" = 0.02, "plantmatter" = 0.02)
 
 /obj/item/weapon/reagent_containers/food/snacks/grown/icepepper
 	seed = /obj/item/seeds/chili/ice
@@ -64,7 +64,7 @@
 	yield = 3
 	rarity = 20
 	mutatelist = list()
-	reagents_add = list("condensedcapsaicin" = 0.3, "capsaicin" = 0.55, "nutriment" = 0.04)
+	reagents_add = list("condensedcapsaicin" = 0.3, "capsaicin" = 0.55, "plantmatter" = 0.04)
 
 /obj/item/weapon/reagent_containers/food/snacks/grown/ghost_chili
 	seed = /obj/item/seeds/chili/ghost

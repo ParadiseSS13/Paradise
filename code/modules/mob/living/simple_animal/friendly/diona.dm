@@ -47,17 +47,17 @@
 		real_name = name
 
 	add_language("Rootspeak")
-	src.verbs += /mob/living/simple_animal/diona/proc/merge
+	verbs += /mob/living/simple_animal/diona/proc/merge
 
-/mob/living/simple_animal/diona/attack_hand(mob/living/carbon/human/M as mob)
+/mob/living/simple_animal/diona/attack_hand(mob/living/carbon/human/M)
 	//Let people pick the little buggers up.
 	if(M.a_intent == I_HELP)
 		if(M.species && M.species.name == "Diona")
 			to_chat(M, "You feel your being twine with that of [src] as it merges with your biomass.")
 			to_chat(src, "You feel your being twine with that of [M] as you merge with its biomass.")
-			src.verbs += /mob/living/simple_animal/diona/proc/split
-			src.verbs -= /mob/living/simple_animal/diona/proc/merge
-			src.forceMove(M)
+			verbs += /mob/living/simple_animal/diona/proc/split
+			verbs -= /mob/living/simple_animal/diona/proc/merge
+			forceMove(M)
 		else
 			get_scooped(M)
 
@@ -68,32 +68,34 @@
 	set name = "Merge with gestalt"
 	set desc = "Merge with another diona."
 
-	if(istype(src.loc,/mob/living/carbon))
-		src.verbs -= /mob/living/simple_animal/diona/proc/merge
+	if(iscarbon(loc))
+		verbs -= /mob/living/simple_animal/diona/proc/merge
 		return
 
 	var/list/choices = list()
 	for(var/mob/living/carbon/C in view(1,src))
 
-		if(!(src.Adjacent(C)) || !(C.client)) continue
+		if(!(Adjacent(C)) || !(C.client))
+			continue
 
-		if(istype(C,/mob/living/carbon/human))
+		if(ishuman(C))
 			var/mob/living/carbon/human/D = C
 			if(D.species && D.species.name == "Diona")
 				choices += C
 
 	var/mob/living/M = input(src,"Who do you wish to merge with?") in null|choices
 
-	if(!M || !src || !(src.Adjacent(M))) return
+	if(!M || !src || !(Adjacent(M)))
+		return
 
-	if(istype(M,/mob/living/carbon/human))
+	if(ishuman(M))
 		to_chat(M, "You feel your being twine with that of [src] as it merges with your biomass.")
 		M.status_flags |= PASSEMOTES
 
 		to_chat(src, "You feel your being twine with that of [M] as you merge with its biomass.")
-		src.loc = M
-		src.verbs += /mob/living/simple_animal/diona/proc/split
-		src.verbs -= /mob/living/simple_animal/diona/proc/merge
+		forceMove(M)
+		verbs += /mob/living/simple_animal/diona/proc/split
+		verbs -= /mob/living/simple_animal/diona/proc/merge
 	else
 		return
 
@@ -102,60 +104,24 @@
 	set name = "Split from gestalt"
 	set desc = "Split away from your gestalt as a lone nymph."
 
-	if(!(istype(src.loc,/mob/living/carbon)))
-		src.verbs -= /mob/living/simple_animal/diona/proc/split
+	if(!(iscarbon(loc)))
+		verbs -= /mob/living/simple_animal/diona/proc/split
 		return
 
-	to_chat(src.loc, "You feel a pang of loss as [src] splits away from your biomass.")
-	to_chat(src, "You wiggle out of the depths of [src.loc]'s biomass and plop to the ground.")
+	to_chat(loc, "You feel a pang of loss as [src] splits away from your biomass.")
+	to_chat(src, "You wiggle out of the depths of [loc]'s biomass and plop to the ground.")
 
-	var/mob/living/M = src.loc
+	var/mob/living/M = loc
 
-	src.loc = get_turf(src)
-	src.verbs -= /mob/living/simple_animal/diona/proc/split
-	src.verbs += /mob/living/simple_animal/diona/proc/merge
+	forceMove(get_turf(src))
+	verbs -= /mob/living/simple_animal/diona/proc/split
+	verbs += /mob/living/simple_animal/diona/proc/merge
 
 	if(istype(M))
 		for(var/atom/A in M.contents)
-			if(istype(A,/mob/living/simple_animal/borer) || istype(A,/obj/item/weapon/holder))
+			if(istype(A, /mob/living/simple_animal/borer) || istype(A, /obj/item/weapon/holder))
 				return
 	M.status_flags &= ~PASSEMOTES
-
-/mob/living/simple_animal/diona/verb/fertilize_plant()
-	set category = "Diona"
-	set name = "Fertilize plant"
-	set desc = "Turn your food into nutrients for plants."
-
-	var/list/trays = list()
-	for(var/obj/machinery/hydroponics/tray in range(1))
-		if(tray.nutrilevel < 10)
-			trays += tray
-
-	var/obj/machinery/hydroponics/target = input("Select a tray:") as null|anything in trays
-
-	if(!src || !target || target.nutrilevel == 10) return //Sanity check.
-
-	src.nutrition -= ((10-target.nutrilevel)*5)
-	target.adjustNutri(10)
-	src.visible_message("<span class='danger'>[src] secretes a trickle of green liquid from its tail, refilling [target]'s nutrient tray.","\red You secrete a trickle of green liquid from your tail, refilling [target]'s nutrient tray.</span>")
-
-/mob/living/simple_animal/diona/verb/eat_weeds()
-	set category = "Diona"
-	set name = "Eat Weeds"
-	set desc = "Clean the weeds out of soil or a hydroponics tray."
-
-	var/list/trays = list()
-	for(var/obj/machinery/hydroponics/tray in range(1))
-		if(tray.weedlevel > 0)
-			trays += tray
-
-	var/obj/machinery/hydroponics/target = input("Select a tray:") as null|anything in trays
-
-	if(!src || !target || target.weedlevel == 0) return //Sanity check.
-
-	src.nutrition += target.weedlevel * 15
-	target.adjustWeeds(-10)
-	src.visible_message("<span class='danger'>[src] begins rooting through [target], ripping out weeds and eating them noisily.</span>","<span class='danger'>You begin rooting through [target], ripping out weeds and eating them noisily.</span>")
 
 /mob/living/simple_animal/diona/verb/evolve()
 	set category = "Diona"
@@ -170,15 +136,15 @@
 		to_chat(src, "<span class='warning'>You need to binge on weeds in order to have the energy to grow...</span>")
 		return
 
-	src.split()
-	src.visible_message("<span class='danger'>[src] begins to shift and quiver, and erupts in a shower of shed bark as it splits into a tangle of nearly a dozen new dionaea.</span>","<span class='danger'>You begin to shift and quiver, feeling your awareness splinter. All at once, we consume our stored nutrients to surge with growth, splitting into a tangle of at least a dozen new dionaea. We have attained our gestalt form.</span>")
+	split()
+	visible_message("<span class='danger'>[src] begins to shift and quiver, and erupts in a shower of shed bark as it splits into a tangle of nearly a dozen new dionaea.</span>","<span class='danger'>You begin to shift and quiver, feeling your awareness splinter. All at once, we consume our stored nutrients to surge with growth, splitting into a tangle of at least a dozen new dionaea. We have attained our gestalt form.</span>")
 
-	var/mob/living/carbon/human/diona/adult = new(get_turf(src.loc))
+	var/mob/living/carbon/human/diona/adult = new(get_turf(loc))
 	adult.set_species("Diona")
 
-	if(istype(loc,/obj/item/weapon/holder/diona))
+	if(istype(loc, /obj/item/weapon/holder/diona))
 		var/obj/item/weapon/holder/diona/L = loc
-		src.loc = L.loc
+		forceMove(L.loc)
 		qdel(L)
 
 	for(var/datum/language/L in languages)
@@ -187,12 +153,12 @@
 
 	adult.name = "diona ([rand(100,999)])"
 	adult.real_name = adult.name
-	adult.ckey = src.ckey
+	adult.ckey = ckey
 	adult.real_name = pick(diona_names)	//I hate this being here of all places but unfortunately dna is based on real_name!
 	adult.rename_self("diona")
 
-	for(var/obj/item/W in src.contents)
-		src.unEquip(W)
+	for(var/obj/item/W in contents)
+		unEquip(W)
 
 	qdel(src)
 
@@ -207,7 +173,8 @@
 
 	var/mob/living/carbon/human/M = input(src,"Who do you wish to take a sample from?") in null|choices
 
-	if(!M || !src) return
+	if(!M || !src)
+		return
 
 	if(M.species.flags & NO_BLOOD)
 		to_chat(src, "<span class='warning'>That donor has no blood to take.</span>")
@@ -217,7 +184,7 @@
 		to_chat(src, "<span class='warning'>That donor offers you nothing new.</span>")
 		return
 
-	src.visible_message("<span class='danger'>[src] flicks out a feeler and neatly steals a sample of [M]'s blood.</span>","<span class='danger'>You flick out a feeler and neatly steal a sample of [M]'s blood.</span>")
+	visible_message("<span class='danger'>[src] flicks out a feeler and neatly steals a sample of [M]'s blood.</span>","<span class='danger'>You flick out a feeler and neatly steal a sample of [M]'s blood.</span>")
 	donors += M.real_name
 	for(var/datum/language/L in M.languages)
 		if(!(L.flags & HIVEMIND))
@@ -241,7 +208,7 @@
 
 
 /mob/living/simple_animal/diona/put_in_hands(obj/item/W)
-	W.loc = get_turf(src)
+	W.forceMove(get_turf(src))
 	W.layer = initial(W.layer)
 	W.plane = initial(W.plane)
 	W.dropped()
@@ -250,7 +217,7 @@
 	to_chat(src, "<span class='warning'>You don't have any hands!</span>")
 	return
 
-/mob/living/simple_animal/diona/emote(var/act, var/m_type=1, var/message = null)
+/mob/living/simple_animal/diona/emote(act, m_type=1, message = null)
 	if(stat)
 		return
 

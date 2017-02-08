@@ -23,7 +23,7 @@
 	icon_dead = "ambrosia-dead"
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
 	mutatelist = list(/obj/item/seeds/ambrosia/deus)
-	reagents_add = list("space_drugs" = 0.15, "bicaridine" = 0.1, "kelotane" = 0.1, "vitamin" = 0.04, "nutriment" = 0.05, "toxin" = 0.1)
+	reagents_add = list("space_drugs" = 0.15, "bicaridine" = 0.1, "kelotane" = 0.1, "vitamin" = 0.04, "plantmatter" = 0.05, "toxin" = 0.1)
 
 /obj/item/weapon/reagent_containers/food/snacks/grown/ambrosia/vulgaris
 	seed = /obj/item/seeds/ambrosia
@@ -40,7 +40,7 @@
 	plantname = "Ambrosia Deus"
 	product = /obj/item/weapon/reagent_containers/food/snacks/grown/ambrosia/deus
 	mutatelist = list(/obj/item/seeds/ambrosia/gaia)
-	reagents_add = list("weak_omnizine" = 0.15, "synaptizine" = 0.15, "space_drugs" = 0.1, "vitamin" = 0.04, "nutriment" = 0.05)
+	reagents_add = list("weak_omnizine" = 0.15, "synaptizine" = 0.15, "space_drugs" = 0.1, "vitamin" = 0.04, "plantmatter" = 0.05)
 	rarity = 40
 
 /obj/item/weapon/reagent_containers/food/snacks/grown/ambrosia/deus
@@ -80,7 +80,7 @@
 	product = /obj/item/weapon/reagent_containers/food/snacks/grown/ambrosia/cruciatus
 	potency = 10
 	mutatelist = list()
-	reagents_add = list("thc" = 0.15, "kelotane" = 0.15, "bicaridine" = 0.1, "bath_salts" = 0.20, "nutriment" = 0.05)
+	reagents_add = list("thc" = 0.15, "kelotane" = 0.15, "bicaridine" = 0.1, "bath_salts" = 0.20, "plantmatter" = 0.05)
 
 /obj/item/weapon/reagent_containers/food/snacks/grown/ambrosia/cruciatus
 	seed = /obj/item/seeds/ambrosia/cruciatus
