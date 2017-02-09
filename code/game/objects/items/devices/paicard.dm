@@ -14,6 +14,7 @@
 	var/list/faction = list("neutral") // The factions the pAI will inherit from the card
 	
 /obj/item/device/paicard/syndicate
+	name = "syndicate personal AI device"
 	faction = list("syndicate")
 
 /obj/item/device/paicard/relaymove(var/mob/user, var/direction)
