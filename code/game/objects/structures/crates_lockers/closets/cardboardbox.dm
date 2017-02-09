@@ -1,7 +1,7 @@
 /obj/structure/closet/cardboard
 	name = "large cardboard box"
 	desc = "Just a box..."
-	icon = 'icons/obj/boxes.dmi'
+	icon = 'icons/obj/cardboard_boxes.dmi'
 	icon_state = "cardboard"
 	icon_opened = "cardboard_open"
 	icon_closed = "cardboard"
@@ -44,7 +44,7 @@
 
 /mob/living/proc/do_alert_animation(atom/A)
 	var/image/I
-	I = image('icons/obj/boxes.dmi', A, "cardboard_special", A.layer+1)
+	I = image('icons/obj/cardboard_boxes.dmi', A, "cardboard_special", A.layer+1)
 	var/list/viewing = list()
 	for(var/mob/M in viewers(A))
 		if(M.client)
