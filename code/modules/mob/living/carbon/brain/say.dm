@@ -20,9 +20,7 @@
 /mob/living/carbon/brain/can_speak(var/warning = FALSE)
 	. = ..()
 
-	if(!container)
-		. = FALSE
-	else if(!istype(container, /obj/item/device/mmi))
+	if(!istype(container, /obj/item/device/mmi))
 		. = FALSE
 	else if(istype(container, /obj/item/device/mmi/posibrain))
 		var/obj/item/device/mmi/posibrain/P = container
