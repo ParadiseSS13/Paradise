@@ -115,7 +115,7 @@
 	return attack_hand(user)
 
 /obj/machinery/door/attack_ghost(mob/user)
-	if(user.can_admin_interact())
+	if(user.can_advanced_admin_interact())
 		return attack_hand(user)	
 	
 /obj/machinery/door/attack_hand(mob/user)
@@ -135,11 +135,11 @@
 
 	add_fingerprint(user)
 
-	if(density && istype(I, /obj/item/weapon/melee/energy/blade))
+	if(density && (istype(I, /obj/item/weapon/card/emag) || istype(I, /obj/item/weapon/melee/energy/blade)))
 		emag_act(user)
 		return 1
 
-	if(allowed(user) || emergency == 1 || user.can_admin_interact())
+	if(allowed(user) || emergency == 1 || user.can_advanced_admin_interact())
 		if(density)
 			open()
 		else
