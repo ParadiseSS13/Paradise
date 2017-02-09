@@ -85,7 +85,8 @@
 /mob/living/silicon/pai/New(var/obj/item/device/paicard)
 	loc = paicard
 	card = paicard
-	faction = card.faction.Copy()
+	if(card)
+		faction = card.faction.Copy()
 	sradio = new(src)
 	if(card)
 		if(!card.radio)
