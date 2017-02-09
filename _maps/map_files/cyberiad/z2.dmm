@@ -505,7 +505,7 @@
 "jK" = (/obj/effect/decal/warning_stripes/north,/obj/machinery/light,/turf/simulated/floor/plating/airless,/area/syndicate_mothership)
 "jL" = (/obj/docking_port/stationary/transit{dwidth = 3; height = 7; id = "steel_rain_transit"; name = "steel_rain in transit"; width = 7},/turf/space/transit/horizontal,/area/space)
 "jM" = (/obj/item/weapon/soap/syndie,/obj/structure/mopbucket,/obj/machinery/light{dir = 1},/turf/unsimulated/floor{icon_state = "freezerfloor"; dir = 2},/area/syndicate_mothership)
-"jN" = (/obj/structure/table/woodentable,/obj/item/pizzabox,/obj/item/device/paicard,/turf/unsimulated/floor{icon_state = "bar"; dir = 2},/area/syndicate_mothership)
+"jN" = (/obj/structure/table/woodentable,/obj/item/pizzabox,/obj/item/device/paicard/syndicate,/turf/unsimulated/floor{icon_state = "bar"; dir = 2},/area/syndicate_mothership)
 "jO" = (/obj/structure/table/woodentable,/obj/item/toy/nuke,/turf/unsimulated/floor{dir = 2; icon_state = "wood"},/area/syndicate_mothership)
 "jP" = (/turf/unsimulated/wall/abductor{icon_state = "alien21"},/area/abductor_ship)
 "jQ" = (/turf/unsimulated/wall/abductor{icon_state = "alien20"},/area/abductor_ship)
