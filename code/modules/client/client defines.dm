@@ -94,5 +94,5 @@
 	// Donator stuff.
 	var/donator_level = DONATOR_LEVEL_NONE
 	
-	// If set to true, this client can interact with most machines/computers/objects while observing
+	// If set to true, this client can interact with most machines/computers/objects while observing (requires R_ADMIN as well)
 	var/observer_interact = TRUE
