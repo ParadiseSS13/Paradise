@@ -99,6 +99,14 @@
 	permeability_coefficient = 0.50
 	flags_size = ONESIZEFITSALL
 
+/obj/item/clothing/under/rank/hydroponics/skirt
+	name = "botanist's jumpskirt"
+	desc = "Made of flowers and plant fibres."
+	icon_state = "hydroponicsf_s"
+	item_color = "hydroponicsf"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+	flags_size = null
+
 /obj/item/clothing/under/rank/internalaffairs
 	desc = "The plain, professional attire of an Internal Affairs Agent. The collar is <i>immaculately</i> starched."
 	name = "Internal Affairs uniform"

@@ -83,6 +83,12 @@
 	path = /obj/item/clothing/under/rank/cargo/skirt
 	allowed_roles = list("Quartermaster")
 
+/datum/gear/uniform/skirt/job/bot
+	display_name = "skirt, Botanist"
+	path = /obj/item/clothing/under/rank/hydroponics/skirt
+	allowed_roles = list("Botanist")
+
+
 /datum/gear/uniform/skirt/job/warden
 	display_name = "skirt, warden"
 	path = /obj/item/clothing/under/rank/warden/skirt
