@@ -189,7 +189,7 @@
 	var/alarmed = A.air_doors_activated || A.fire
 
 	var/access_granted = 0
-	if(isAI(user) || isrobot(user) || user.can_admin_interact())
+	if(isAI(user) || isrobot(user) || user.can_advanced_admin_interact())
 		access_granted = 1
 
 	if(access_granted == 1)

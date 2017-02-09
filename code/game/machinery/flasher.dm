@@ -48,11 +48,13 @@
 			user.visible_message("\red [user] has connected the [src]'s flashbulb!", "\red You connect the [src]'s flashbulb!")
 
 //Let the AI trigger them directly.
-/obj/machinery/flasher/attack_ai()
+/obj/machinery/flasher/attack_ai(mob/user)
 	if(anchored)
 		return flash()
-	else
-		return
+		
+/obj/machinery/flasher/attack_ghost(mob/user)
+	if(anchored && user.can_advanced_admin_interact())
+		return flash()
 
 /obj/machinery/flasher/proc/flash()
 	if(!(powered()))
@@ -123,7 +125,7 @@
 	return attack_hand(user)
 	
 /obj/machinery/flasher_button/attack_ghost(mob/user)
-	if(user.can_admin_interact())
+	if(user.can_advanced_admin_interact())
 		return attack_hand(user)
 
 /obj/machinery/flasher_button/attackby(obj/item/weapon/W, mob/user as mob, params)

@@ -64,7 +64,7 @@
 		playsound(loc, "sparks", 100, 1)
 		
 /obj/machinery/door_control/attack_ghost(mob/user)
-	if(user.can_admin_interact())
+	if(user.can_advanced_admin_interact())
 		return attack_hand(user)
 
 /obj/machinery/door_control/attack_hand(mob/user as mob)
@@ -72,7 +72,7 @@
 	if(stat & (NOPOWER|BROKEN))
 		return
 
-	if(!allowed(user) && (wires & 1) && !user.can_admin_interact())
+	if(!allowed(user) && (wires & 1) && !user.can_advanced_admin_interact())
 		to_chat(user, "<span class='warning'>Access Denied.</span>")
 		flick("doorctrl-denied",src)
 		return

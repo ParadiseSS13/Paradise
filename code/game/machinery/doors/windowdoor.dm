@@ -194,7 +194,7 @@
 	return attack_hand(user)
 	
 /obj/machinery/door/window/attack_ghost(mob/user)
-	if(user.can_admin_interact())
+	if(user.can_advanced_admin_interact())
 		return attack_hand(user)
 
 /obj/machinery/door/window/proc/attack_generic(mob/user as mob, damage = 0)
@@ -347,7 +347,7 @@
 		//don't care who they are or what they have, act as if they're NOTHING
 		user = null
 
-	if(allowed(user) || user.can_admin_interact())
+	if(allowed(user) || user.can_advanced_admin_interact())
 		if(density)
 			open()
 		else

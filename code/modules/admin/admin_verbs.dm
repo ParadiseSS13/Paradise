@@ -77,7 +77,7 @@ var/list/admin_verbs_admin = list(
 	/client/proc/reset_all_tcs,			/*resets all telecomms scripts*/
 	/client/proc/cmd_admin_check_player_exp, /* shows players by playtime */
 	/client/proc/toggle_mentor_chat,
-	/client/proc/toggle_AI_interact, /*toggle admin ability to interact with machines as an AI*/
+	/client/proc/toggle_advanced_interaction, /*toggle admin ability to interact with not only machines, but also atoms such as buttons and doors*/
 )
 var/list/admin_verbs_ban = list(
 	/client/proc/unban_panel,
@@ -984,15 +984,15 @@ var/list/admin_verbs_snpc = list(
 	verbs += /client/proc/show_snpc_verbs
 	to_chat(src, "<span class='interface'>SNPC verbs have been toggled off.</span>")
 	
-/client/proc/toggle_AI_interact()
-	set name = "Toggle Admin Observer Interaction"
+/client/proc/toggle_advanced_interaction()
+	set name = "Toggle Advanced Admin Interaction"
 	set category = "Admin"
-	set desc = "Allows you to interact with most machines, computers and other objects while observing."
+	set desc = "Allows you to interact with atoms such as buttons and doors, on top of regular machinery interaction."
 	
 	if(!check_rights(R_ADMIN))
 		return
 
-	observer_interact = !observer_interact
+	advanced_admin_interaction = !advanced_admin_interaction
 
-	log_admin("[key_name(usr)] has [observer_interact ? "activated" : "deactivated"] their admin observer interaction.")
-	message_admins("[key_name_admin(usr)] has [observer_interact ? "activated" : "deactivated"] their admin observer interaction.")
+	log_admin("[key_name(usr)] has [advanced_admin_interaction ? "activated" : "deactivated"] their advanced admin interaction.")
+	message_admins("[key_name_admin(usr)] has [advanced_admin_interaction ? "activated" : "deactivated"] their advanced admin interaction.")

@@ -484,11 +484,11 @@
 	var/id = 1
 	
 /obj/machinery/crema_switch/attack_ghost(mob/user)
-	if(user.can_admin_interact())
+	if(user.can_advanced_admin_interact())
 		return attack_hand(user)
 
 /obj/machinery/crema_switch/attack_hand(mob/user)
-	if(allowed(usr) || user.can_admin_interact())
+	if(allowed(usr) || user.can_advanced_admin_interact())
 		for(var/obj/structure/crematorium/C in world)
 			if(C.id == id)
 				if(!C.cremating)

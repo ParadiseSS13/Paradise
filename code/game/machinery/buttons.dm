@@ -56,7 +56,7 @@
 	return attack_hand(user)
 	
 /obj/machinery/driver_button/attack_ghost(mob/user)
-	if(user.can_admin_interact())
+	if(user.can_advanced_admin_interact())
 		return attack_hand(user)
 
 /obj/machinery/driver_button/attackby(obj/item/weapon/W, mob/user as mob, params)
@@ -169,7 +169,7 @@
 	return attack_hand(user)
 	
 /obj/machinery/ignition_switch/attack_ghost(mob/user)
-	if(user.can_admin_interact())
+	if(user.can_advanced_admin_interact())
 		return attack_hand(user)
 
 /obj/machinery/ignition_switch/attackby(obj/item/weapon/W, mob/user, params)
