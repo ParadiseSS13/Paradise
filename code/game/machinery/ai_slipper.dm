@@ -66,14 +66,8 @@
 		return
 
 	user.set_machine(src)
-	var/loc = loc
-	if(istype(loc, /turf))
-		loc = loc:loc
-	if(!istype(loc, /area))
-		to_chat(user, text("Turret badly positioned - loc.loc is [].", loc))
-		return
-	var/area/area = loc
-	var/t = "<TT><B>AI Liquid Dispenser</B> ([area.name])<HR>"
+	var/area/myarea = get_area(src)
+	var/t = "<TT><B>AI Liquid Dispenser</B> ([myarea.name])<HR>"
 
 	if(locked && (!issilicon(user) || !user.can_admin_interact()))
 		t += "<I>(Swipe ID card to unlock control panel.)</I><BR>"
