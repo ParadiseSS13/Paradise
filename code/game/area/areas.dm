@@ -80,26 +80,26 @@
 	return 0
 
 /area/proc/air_doors_close()
-	if(!src.air_doors_activated)
-		src.air_doors_activated = 1
-		for(var/obj/machinery/door/firedoor/E in src.all_doors)
-			if(!E.blocked)
-				if(E.operating)
-					E.nextstate = CLOSED
-				else if(!E.density)
+	if(!air_doors_activated)
+		air_doors_activated = 1
+		for(var/obj/machinery/door/firedoor/D in src)
+			if(!D.welded)
+				if(D.operating)
+					D.nextstate = CLOSED
+				else if(!D.density)
 					spawn(0)
-						E.close()
+						D.close()
 
 /area/proc/air_doors_open()
-	if(src.air_doors_activated)
-		src.air_doors_activated = 0
-		for(var/obj/machinery/door/firedoor/E in src.all_doors)
-			if(!E.blocked)
-				if(E.operating)
-					E.nextstate = OPEN
-				else if(E.density)
+	if(air_doors_activated)
+		air_doors_activated = 0
+		for(var/obj/machinery/door/firedoor/D in src)
+			if(!D.welded)
+				if(D.operating)
+					D.nextstate = OPEN
+				else if(D.density)
 					spawn(0)
-						E.open()
+						D.open()
 
 
 /area/proc/fire_alert()
@@ -145,46 +145,33 @@
 	if(!eject)
 		eject = 1
 		updateicon()
-	return
 
 /area/proc/readyreset()
 	if(eject)
 		eject = 0
 		updateicon()
-	return
 
 /area/proc/radiation_alert()
 	if(!radalert)
 		radalert = 1
 		updateicon()
-	return
 
 /area/proc/reset_radiation_alert()
 	if(radalert)
 		radalert = 0
 		updateicon()
-	return
 
 /area/proc/partyalert()
-	if(!( party ))
+	if(!party)
 		party = 1
 		updateicon()
 		mouse_opacity = 0
-	return
 
 /area/proc/partyreset()
 	if(party)
 		party = 0
 		mouse_opacity = 0
 		updateicon()
-		for(var/obj/machinery/door/firedoor/D in src)
-			if(!D.blocked)
-				if(D.operating)
-					D.nextstate = OPEN
-				else if(D.density)
-					spawn(0)
-						D.open()
-	return
 
 /area/proc/updateicon()
 	if(radalert) // always show the radiation alert, regardless of power
