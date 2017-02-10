@@ -168,6 +168,8 @@
 		//split into lines
 		spawn()
 			lines = splittext(t, "\n")
+			if(lines.len == 0)
+				return 1
 			if(copytext(lines[1],1,6) == "BPM: ")
 				tempo = sanitize_tempo(600 / text2num(copytext(lines[1],6)))
 				lines.Cut(1,2)
