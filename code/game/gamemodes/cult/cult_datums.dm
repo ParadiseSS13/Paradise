@@ -110,7 +110,7 @@
 	juggernaut_icon_state = "horror"
 
 	harvester_name = "Psychopomp"
-	harvester_desc_state = "A harbinger of The Reaper's enlightenment. It'll be all over soon. AYYY LMAO"
+	harvester_desc_state = "A harbinger of The Reaper's enlightenment. It'll be all over soon."
 
 	shade_name = "Banshee"
 
