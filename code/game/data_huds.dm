@@ -44,7 +44,7 @@
 	hud_icons = list(ID_HUD, IMPTRACK_HUD, IMPLOYAL_HUD, IMPCHEM_HUD, WANTED_HUD)
 
 /datum/atom_hud/data/diagnostic
-	hud_icons = list (DIAG_HUD, DIAG_STAT_HUD, DIAG_BATT_HUD, DIAG_MECH_HUD, DIAG_BOT_HUD)
+	hud_icons = list (DIAG_HUD, DIAG_STAT_HUD, DIAG_BATT_HUD, DIAG_MECH_HUD, DIAG_BOT_HUD, DIAG_TRACK_HUD)
 
 /datum/atom_hud/data/hydroponic
 	hud_icons = list (PLANT_NUTRIENT_HUD, PLANT_WATER_HUD, PLANT_STATUS_HUD, PLANT_HEALTH_HUD, PLANT_TOXIN_HUD, PLANT_PEST_HUD, PLANT_WEED_HUD)
@@ -68,47 +68,55 @@
 			return 1
 	return 0
 
-//helper for getting the appropriate health status
+//helper for getting the appropriate health status UPDATED BY PUCKABOO2 TO INCLUDE NEGATIVES.
 /proc/RoundHealth(health)
 	switch(health)
 		if(100 to INFINITY)
 			return "health100"
-		if(93 to 100)
-			return "health93"
-		if(86 to 93)
-			return "health86"
-		if(78 to 86)
-			return "health78"
-		if(71 to 78)
-			return "health71"
-		if(64 to 71)
-			return "health64"
-		if(56 to 64)
-			return "health56"
-		if(49 to 56)
-			return "health49"
-		if(42 to 49)
-			return "health42"
-		if(35 to 42)
-			return "health35"
-		if(28 to 35)
-			return "health28"
-		if(21 to 28)
-			return "health21"
-		if(14 to 21)
-			return "health14"
-		if(7 to 14)
-			return "health7"
-		if(1 to 7)
-			return "health1"
-		if(-50 to 1)
+		if(95 to 100)
+			return "health95" //For telling patients to eat a warm donk pocket and go on with their shift.
+		if(90 to 95)
+			return "health90"
+		if(80 to 90)
+			return "health80"
+		if(70 to 80)
+			return "health70"
+		if(60 to 70)
+			return "health60"
+		if(50 to 60)
+			return "health50"
+		if(40 to 50)
+			return "health40"
+		if(30 to 40)
+			return "health30"
+		if(20 to 30)
+			return "health20"
+		if(10 to 20)
+			return "health10"
+		if(0 to 10)
 			return "health0"
-		if(-85 to -50)
+		if(-10 to 0)
+			return "health-0" //The health bar will turn a brilliant red and flash as usual, but deducted health will be black.
+		if(-20 to -10)
+			return "health-10"
+		if(-30 to -20)
+			return "health-20"
+		if(-40 to -30)
+			return "health-30"
+		if(-50 to -40)
+			return "health-40"
+		if(-60 to -50)
 			return "health-50"
-		if(-99 to -85)
-			return "health-85"
+		if(-70 to -60)
+			return "health-60"
+		if(-80 to -70)
+			return "health-70" //Doc?
+		if(-90 to -80)
+			return "health-80" //Hey, doc?
+		if(-100 to -90)
+			return "health-90" //HURRY UP, DOC!
 		else
-			return "health-100"
+			return "health-100" //doc u had 1 job
 	return "0"
 
 ///HOOKS
@@ -279,6 +287,17 @@
 	if(internal_damage)
 		holder.icon_state = "hudwarn"
 
+/obj/mecha/proc/diag_hud_set_mechtracking() //Shows tracking beacons on the mech
+	var/image/holder = hud_list[DIAG_TRACK_HUD]
+	var/new_icon_state //This var exists so that the holder's icon state is set only once in the event of multiple mech beacons.
+	for(var/obj/item/mecha_parts/mecha_tracking/T in trackers)
+		if(T.ai_beacon) //Beacon with AI uplink
+			new_icon_state = "hudtrackingai"
+			break //Immediately terminate upon finding an AI beacon to ensure it is always shown over the normal one, as mechs can have several trackers.
+		else
+			new_icon_state = "hudtracking"
+	holder.icon_state = new_icon_state
+
 /*~~~~~~~~~
 	Bots!
 ~~~~~~~~~~*/
@@ -347,17 +366,17 @@
 			return "zero"
 	return "zero"
 
-/obj/machinery/portable_atmospherics/hydroponics/proc/plant_hud_set_nutrient()
+/obj/machinery/hydroponics/proc/plant_hud_set_nutrient()
 	var/image/holder = hud_list[PLANT_NUTRIENT_HUD]
 	holder.icon_state = "hudnutrient[RoundPlantBar(nutrilevel/maxnutri)]"
 
-/obj/machinery/portable_atmospherics/hydroponics/proc/plant_hud_set_water()
+/obj/machinery/hydroponics/proc/plant_hud_set_water()
 	var/image/holder = hud_list[PLANT_WATER_HUD]
 	holder.icon_state = "hudwater[RoundPlantBar(waterlevel/maxwater)]"
 
-/obj/machinery/portable_atmospherics/hydroponics/proc/plant_hud_set_status()
+/obj/machinery/hydroponics/proc/plant_hud_set_status()
 	var/image/holder = hud_list[PLANT_STATUS_HUD]
-	if(!seed)
+	if(!myseed)
 		holder.icon_state = ""
 		return
 	if(harvest)
@@ -368,28 +387,28 @@
 		return
 	holder.icon_state = ""
 
-/obj/machinery/portable_atmospherics/hydroponics/proc/plant_hud_set_health()
+/obj/machinery/hydroponics/proc/plant_hud_set_health()
 	var/image/holder = hud_list[PLANT_HEALTH_HUD]
-	if(!seed)
+	if(!myseed)
 		holder.icon_state = ""
 		return
-	holder.icon_state = "hudplanthealth[RoundPlantBar(health/seed.get_trait(TRAIT_ENDURANCE))]"
+	holder.icon_state = "hudplanthealth[RoundPlantBar(plant_health/myseed.endurance)]"
 
-/obj/machinery/portable_atmospherics/hydroponics/proc/plant_hud_set_toxin()
+/obj/machinery/hydroponics/proc/plant_hud_set_toxin()
 	var/image/holder = hud_list[PLANT_TOXIN_HUD]
-	if(toxins < 1)	// You don't want to see these icons if the value is small
+	if(toxic < 10)	// You don't want to see these icons if the value is small
 		holder.icon_state = ""
 		return
-	holder.icon_state = "hudtoxin[RoundPlantBar(toxins/10)]"
+	holder.icon_state = "hudtoxin[RoundPlantBar(toxic/100)]"
 
-/obj/machinery/portable_atmospherics/hydroponics/proc/plant_hud_set_pest()
+/obj/machinery/hydroponics/proc/plant_hud_set_pest()
 	var/image/holder = hud_list[PLANT_PEST_HUD]
 	if(pestlevel < 1)	// You don't want to see these icons if the value is small
 		holder.icon_state = ""
 		return
 	holder.icon_state = "hudpest[RoundPlantBar(pestlevel/10)]"
 
-/obj/machinery/portable_atmospherics/hydroponics/proc/plant_hud_set_weed()
+/obj/machinery/hydroponics/proc/plant_hud_set_weed()
 	var/image/holder = hud_list[PLANT_WEED_HUD]
 	if(weedlevel < 1)	// You don't want to see these icons if the value is small
 		holder.icon_state = ""

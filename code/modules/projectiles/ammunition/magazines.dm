@@ -209,6 +209,34 @@
 	caliber = ".45"
 	max_ammo = 8
 	multiple_sprites = 1
+/obj/item/ammo_box/magazine/m45/enforcer45
+	name = "handgun magazine (.45)"
+	icon_state = "enforcer"
+	ammo_type = /obj/item/ammo_casing/rubber45
+
+/obj/item/ammo_box/magazine/m45/enforcer45/update_icon()
+	..()
+	overlays.Cut()
+
+	var/ammo = ammo_count()
+	if(ammo && is_rubber())
+		overlays += image('icons/obj/ammo.dmi', icon_state = "enforcer-r")
+
+/obj/item/ammo_box/magazine/m45/enforcer45/examine(mob/user, var/distance)
+	..()
+	if(distance <= 2)
+		to_chat(user, "It seems to be loaded with [is_rubber() ? "rubber" : "lethal"] bullets.")//only can see the topmost one.
+
+/obj/item/ammo_box/magazine/m45/enforcer45/proc/is_rubber()//if the topmost bullet is a rubber one
+	var/ammo = ammo_count()
+	if(!ammo)
+		return 0
+	if(istype(contents[contents.len], /obj/item/ammo_casing/rubber45))
+		return 1
+	return 0
+
+	/obj/item/ammo_box/magazine/m45/enforcer45/lethal
+		ammo_type = /obj/item/ammo_casing/c45
 
 /obj/item/ammo_box/magazine/wt550m9
 	name = "wt550 magazine (4.6x30mm)"
@@ -409,3 +437,12 @@
 /obj/item/ammo_box/magazine/toy/m762/update_icon()
 	..()
 	icon_state = "a762-[round(ammo_count(),10)]"
+
+/obj/item/ammo_box/magazine/laser
+	name = "encased laser projector magazine"
+	desc = "Fits experimental laser ammo casings."
+	icon_state = "laser"
+	ammo_type = /obj/item/ammo_casing/laser
+	origin_tech = "combat=3"
+	caliber = "laser"
+	max_ammo = 20

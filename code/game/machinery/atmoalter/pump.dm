@@ -117,7 +117,7 @@
 		// auto update every Master Controller tick
 		ui.set_auto_update(1)
 
-/obj/machinery/portable_atmospherics/pump/ui_data(mob/user, datum/topic_state/state = physical_state)
+/obj/machinery/portable_atmospherics/pump/ui_data(mob/user, ui_key = "main", datum/topic_state/state = physical_state)
 	var/data[0]
 	data["portConnected"] = connected_port ? 1 : 0
 	data["tankPressure"] = round(air_contents.return_pressure() > 0 ? air_contents.return_pressure() : 0)

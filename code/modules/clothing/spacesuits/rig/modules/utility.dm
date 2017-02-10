@@ -94,7 +94,9 @@
 */
 /obj/item/rig_module/device/New()
 	..()
-	if(device_type) device = new device_type(src)
+	if(device_type)
+		device = new device_type(src)
+		device.flags |= ABSTRACT //Abstract in the sense that it's not an item that stands alone, but rather is just there to let the module act like it.
 
 /obj/item/rig_module/device/engage(atom/target)
 	if(!..() || !device)
@@ -417,13 +419,15 @@
 	interface_desc = "Leave your mark."
 	engage_string = "Toggle stamp type"
 	usable = 1
-	var/iastamp
-	var/deniedstamp
+	var/obj/iastamp			//Theese were just vars, but any device would need to be an object
+	var/obj/deniedstamp //Stops assigning non-objects to theese vars, which probably would break quite a bit.
 
 /obj/item/rig_module/device/stamp/New()
 	..()
 	iastamp = new /obj/item/weapon/stamp/law(src)
 	deniedstamp = new /obj/item/weapon/stamp/denied(src)
+	iastamp.flags |= ABSTRACT
+	deniedstamp.flags |= ABSTRACT
 	device = iastamp
 
 /obj/item/rig_module/device/stamp/engage(atom/target)

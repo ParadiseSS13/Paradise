@@ -27,7 +27,7 @@
 
 /mob/living/carbon/proc/unset_sting()
 	if(mind && mind.changeling && mind.changeling.chosen_sting)
-		src.mind.changeling.chosen_sting.unset_sting(src)
+		mind.changeling.chosen_sting.unset_sting(src)
 
 /obj/effect/proc_holder/changeling/sting/can_sting(var/mob/user, var/mob/target)
 	if(!..())
@@ -66,8 +66,8 @@
 	desc = "We silently sting a human, injecting a retrovirus that forces them to transform."
 	helptext = "The victim will transform much like a changeling would. The effects will be obvious to the victim, and the process will damage our genomes."
 	sting_icon = "sting_transform"
-	chemical_cost = 40
-	dna_cost = 2
+	chemical_cost = 50
+	dna_cost = 3
 	genetic_damage = 100
 	var/datum/dna/selected_dna = null
 
@@ -80,6 +80,10 @@
 	selected_dna = changeling.select_dna("Select the target DNA: ", "Target DNA")
 	if(!selected_dna)
 		return
+	var/datum/species/newspecies = all_species[selected_dna.species]
+	if((newspecies.flags & NOTRANSSTING) || newspecies.is_small)
+		to_chat(user, "<span class='warning'>The selected DNA is incompatible with our sting.</span>")
+		return
 	..()
 
 /obj/effect/proc_holder/changeling/sting/transformation/can_sting(var/mob/user, var/mob/target)
@@ -87,19 +91,13 @@
 		return
 	if((HUSK in target.mutations) || (!ishuman(target)))
 		to_chat(user, "<span class='warning'>Our sting appears ineffective against its DNA.</span>")
-		return 0
+		return FALSE
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
-		if(H.species.flags & NO_SCAN) //Prevents transforming slimes and killing them instantly
-			to_chat(user, "<span class='warning'>This won't work on a creature with abnormal genetic material.</span>")
-			return 0
-		if(H.species.flags & NO_BLOOD)
-			to_chat(user, "<span class='warning'>This won't work on a creature without a circulatory system.</span>")
-			return 0
 		if(H.species.flags & NO_DNA)
 			to_chat(user, "<span class='warning'>This won't work on a creature without DNA.</span>")
-			return 0
-	return 1
+			return FALSE
+	return TRUE
 
 /obj/effect/proc_holder/changeling/sting/transformation/sting_action(var/mob/user, var/mob/target)
 	add_logs(user, target, "stung", object="transformation sting", addition=" new identity is [selected_dna.real_name]")
@@ -122,7 +120,7 @@
 		target.UpdateAppearance()
 		domutcheck(target, null)
 	feedback_add_details("changeling_powers","TS")
-	return 1
+	return TRUE
 
 obj/effect/proc_holder/changeling/sting/extract_dna
 	name = "Extract DNA Sting"

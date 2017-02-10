@@ -131,7 +131,7 @@
 
 
 /datum/reagent/blood
-	data = list("donor"=null,"viruses"=null,"blood_DNA"=null,"blood_type"=null,"blood_colour"="#A10808","resistances"=null,"trace_chem"=null, "antibodies" = null)
+	data = list("donor"=null,"viruses"=null,"blood_DNA"=null,"blood_type"=null,"blood_colour"="#A10808","resistances"=null,"trace_chem"=null,"mind"=null,"ckey"=null,"gender"=null,"real_name"=null,"cloneable"=null,"factions"=null)
 	name = "Blood"
 	id = "blood"
 	reagent_state = LIQUID
@@ -158,6 +158,7 @@
 
 /datum/reagent/blood/on_merge(list/mix_data)
 	if(data && mix_data)
+		data["cloneable"] = 0 //On mix, consider the genetic sampling unviable for pod cloning, or else we won't know who's even getting cloned, etc
 		if(data["viruses"] || mix_data["viruses"])
 
 			var/list/mix1 = data["viruses"]
@@ -278,6 +279,7 @@
 		M.AdjustStuttering(4, bound_lower = 0, bound_upper = 20)
 		M.Dizzy(5)
 		if(iscultist(M) && prob(5))
+			M.AdjustCultSlur(5)//5 seems like a good number...
 			M.say(pick("Av'te Nar'sie","Pa'lid Mors","INO INO ORA ANA","SAT ANA!","Daim'niodeis Arc'iai Le'eones","Egkau'haom'nai en Chaous","Ho Diak'nos tou Ap'iron","R'ge Na'sie","Diabo us Vo'iscum","Si gn'um Co'nu"))
 	if(current_cycle >= 75 && prob(33))	// 30 units, 150 seconds
 		M.AdjustConfused(3)
@@ -347,22 +349,22 @@
 	metabolization_rate = 1
 
 /datum/reagent/fuel/unholywater/on_mob_life(mob/living/M)
-	M.adjustBrainLoss(3)
 	if(iscultist(M))
-		M.status_flags |= GOTTAGOFAST
 		M.AdjustDrowsy(-5)
-		M.AdjustParalysis(-2)
+		M.AdjustParalysis(-1)
 		M.AdjustStunned(-2)
 		M.AdjustWeakened(-2)
+		M.adjustToxLoss(-2)
+		M.adjustFireLoss(-2)
+		M.adjustOxyLoss(-2)
+		M.adjustBruteLoss(-2)
 	else
-		M.adjustToxLoss(2)
+		M.adjustBrainLoss(3)
+		M.adjustToxLoss(1)
 		M.adjustFireLoss(2)
 		M.adjustOxyLoss(2)
 		M.adjustBruteLoss(2)
-	..()
-
-/datum/reagent/fuel/unholywater/on_mob_delete(mob/living/M)
-	M.status_flags &= ~GOTTAGOFAST
+		M.AdjustCultSlur(10)//CUASE WHY THE HELL NOT
 	..()
 
 /datum/reagent/hellwater

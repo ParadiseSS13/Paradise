@@ -326,7 +326,18 @@ DISABLE_SPACE_RUINS
 # Setting this to 0 will disable the penalty period
 #ROUND_ABANDON_PENALTY_PERIOD 30
 
+## Hub address for tracking stats
+## example: Hubmakerckey.Hubname
+#MEDAL_HUB_ADDRESS 
+
+## Password for the hub page
+#MEDAL_HUB_PASSWORD
+
+## Uncomment this if you want to disable usage of emoji in OOC
+#DISABLE_OOC_EMOJI
+
 # UNCOMMENT THIS IF YOU WANT TO USE ATMTA WHITELIST
 # Non-whitelisted spawns as D-class prisoners in Prison Wing
 # They cannot use OOC and can't join as drone
 PRISONLIST_ENABLED
+

@@ -84,6 +84,9 @@ var/global/wcResearch = pick(list("#ee82ee"))
 /obj/structure/window/blob_act()
 	destroy()
 
+/obj/structure/window/narsie_act()
+	color = "#7D1919"
+
 /obj/structure/window/singularity_pull(S, current_size)
 	if(current_size >= STAGE_FIVE)
 		destroy()

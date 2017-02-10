@@ -17,7 +17,7 @@
 	if((NOCLONE || SKELETON || HUSK) in target.mutations)
 		to_chat(user, "<span class='warning'>DNA of [target] is ruined beyond usability!</span>")
 		return
-	if(!istype(target) || issmall(target) || target.species.flags & NO_DNA || target.species.flags & NO_SCAN || target.species.flags & NO_BLOOD)
+	if(!istype(target) || issmall(target) || target.species.flags & NO_DNA)
 		to_chat(user, "<span class='warning'>[target] is not compatible with this ability.</span>")
 		return
 	return 1
@@ -28,7 +28,7 @@
 	var/mob/living/carbon/human/target = G.affecting
 	var/datum/changeling/changeling = user.mind.changeling
 
-	to_chat(user, "<span class='notice'>We tighen our grip. We must hold still....</span>")
+	to_chat(user, "<span class='notice'>We tighten our grip. We must hold still....</span>")
 	target.do_jitter_animation(500)
 	user.do_jitter_animation(500)
 

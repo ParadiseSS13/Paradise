@@ -4,6 +4,7 @@
 	department_flag = MEDSCI
 	total_positions = 1
 	spawn_positions = 1
+	is_science = 1
 	supervisors = "the captain"
 	selection_color = "#ffddff"
 	req_admin_notify = 1
@@ -44,6 +45,7 @@
 	department_flag = MEDSCI
 	total_positions = 6
 	spawn_positions = 6
+	is_science = 1
 	supervisors = "the research director"
 	selection_color = "#ffeeff"
 	idtype = /obj/item/weapon/card/id/research
@@ -76,6 +78,7 @@
 	department_flag = MEDSCI
 	total_positions = 2
 	spawn_positions = 2
+	is_science = 1
 	supervisors = "the research director"
 	selection_color = "#ffeeff"
 	idtype = /obj/item/weapon/card/id/research

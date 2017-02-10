@@ -249,3 +249,15 @@
 /obj/item/weapon/gun/projectile/automatic/shotgun/bulldog/afterattack(atom/target as mob|obj|turf|area, mob/living/user as mob|obj, flag)
 	..()
 	empty_alarm()
+
+/obj/item/weapon/gun/projectile/automatic/lasercarbine
+	name = "\improper IK-60 Laser Carbine"
+	desc = "An experimental carbine. Uses encased laser projectors as ammunition."//we need to uncouple the toroidal resistance dejammers
+	icon_state = "lasercarbine"
+	item_state = "laser"
+	w_class = 3
+	origin_tech = "combat=5;materials=5"
+	mag_type = /obj/item/ammo_box/magazine/laser
+	fire_sound = 'sound/weapons/emitter2.ogg'
+	can_suppress = 0
+	burst_size = 2

@@ -34,12 +34,12 @@
 /mob/living/carbon/Move(NewLoc, direct)
 	. = ..()
 	if(.)
-		if(src.nutrition && src.stat != 2)
-			src.nutrition -= HUNGER_FACTOR/10
-			if(src.m_intent == "run")
-				src.nutrition -= HUNGER_FACTOR/10
-		if((FAT in src.mutations) && src.m_intent == "run" && src.bodytemperature <= 360)
-			src.bodytemperature += 2
+		if(nutrition && stat != DEAD)
+			nutrition -= hunger_drain / 10
+			if(m_intent == "run")
+				nutrition -= hunger_drain / 10
+		if((FAT in mutations) && m_intent == "run" && bodytemperature <= 360)
+			bodytemperature += 2
 
 		// Moving around increases germ_level faster
 		if(germ_level < GERM_LEVEL_MOVE_CAP && prob(8))
@@ -454,8 +454,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 	totalMembers |= pipeline.other_atmosmch
 	for(var/obj/machinery/atmospherics/A in totalMembers)
 		if(!A.pipe_image)
-			A.pipe_image = image(A, A.loc, layer = 20, dir = A.dir) //the 20 puts it above Byond's darkness (not its opacity view)
-			A.pipe_image.plane = HUD_PLANE
+			A.update_pipe_image()
 		pipes_shown += A.pipe_image
 		client.images += A.pipe_image
 
@@ -918,14 +917,14 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 
 /mob/living/carbon/proc/slip(var/description, var/stun, var/weaken, var/tilesSlipped, var/walkSafely, var/slipAny)
 	if(flying || buckled || (walkSafely && m_intent == "walk"))
-		return
+		return 0
 	if((lying) && (!(tilesSlipped)))
-		return
+		return 0
 	if(!(slipAny))
 		if(istype(src, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = src
 			if((isobj(H.shoes) && H.shoes.flags & NOSLIP) || H.species.bodyflags & FEET_NOSLIP)
-				return
+				return 0
 	if(tilesSlipped)
 		for(var/t = 0, t<=tilesSlipped, t++)
 			spawn (t) step(src, src.dir)
@@ -943,9 +942,10 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 /mob/living/carbon/proc/eat(var/obj/item/weapon/reagent_containers/food/toEat, mob/user)
 	if(!istype(toEat))
 		return 0
-	var/fullness = 0
+	var/fullness = nutrition + 10
 	if(istype(toEat, /obj/item/weapon/reagent_containers/food/snacks))
-		fullness = nutrition + (reagents.get_reagent_amount("nutriment") * 20) + (reagents.get_reagent_amount("protein") * 25) + (reagents.get_reagent_amount("plantmatter") * 25)
+		for(var/datum/reagent/consumable/C in reagents.reagent_list) //we add the nutrition value of what we're currently digesting
+			fullness += C.nutriment_factor * C.volume / (C.metabolization_rate * metabolism_efficiency * digestion_ratio)
 	if(user == src)
 		if(istype(toEat, /obj/item/weapon/reagent_containers/food/drinks))
 			if(!selfDrink(toEat))
@@ -961,18 +961,21 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 	return 1
 
 /mob/living/carbon/proc/selfFeed(var/obj/item/weapon/reagent_containers/food/toEat, fullness)
-	if(istype(toEat, /obj/item/weapon/reagent_containers/food/pill))
+	if(ispill(toEat))
 		to_chat(src, "<span class='notify'>You [toEat.apply_method] [toEat].</span>")
 	else
+		if(toEat.junkiness && satiety < -150 && nutrition > NUTRITION_LEVEL_STARVING + 50 )
+			to_chat(src, "<span class='notice'>You don't feel like eating any more junk food at the moment.</span>")
+			return 0
 		if(fullness <= 50)
 			to_chat(src, "<span class='warning'>You hungrily chew out a piece of [toEat] and gobble it!</span>")
-		else if(fullness > 50 && fullness <= 150)
+		else if(fullness > 50 && fullness < 150)
 			to_chat(src, "<span class='notice'>You hungrily begin to eat [toEat].</span>")
-		else if(fullness > 150 && fullness <= 350)
+		else if(fullness > 150 && fullness < 500)
 			to_chat(src, "<span class='notice'>You take a bite of [toEat].</span>")
-		else if(fullness > 350 && fullness <= 550)
+		else if(fullness > 500 && fullness < 600)
 			to_chat(src, "<span class='notice'>You unwillingly chew a bit of [toEat].</span>")
-		else if(fullness > (550 * (1 + overeatduration / 2000)))	// The more you eat - the more you can eat
+		else if(fullness > (600 * (1 + overeatduration / 2000)))	// The more you eat - the more you can eat
 			to_chat(src, "<span class='warning'>You cannot force any more of [toEat] to go down your throat.</span>")
 			return 0
 	return 1
@@ -981,7 +984,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 	return 1
 
 /mob/living/carbon/proc/forceFed(var/obj/item/weapon/reagent_containers/food/toEat, mob/user, fullness)
-	if(fullness <= (550 * (1 + overeatduration / 1000)))
+	if(ispill(toEat) || fullness <= (600 * (1 + overeatduration / 1000)))
 		if(!toEat.instant_application)
 			visible_message("<span class='warning'>[user] attempts to force [src] to [toEat.apply_method] [toEat].</span>")
 	else
@@ -995,8 +998,8 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 	return 1
 
 /mob/living/carbon/proc/forceFedAttackLog(var/obj/item/weapon/reagent_containers/food/toEat, mob/user)
-	attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been fed [toEat.name] by [user.name] ([user.ckey]) Reagents: [toEat.reagentlist(toEat)]</font>")
-	user.attack_log += text("\[[time_stamp()]\] <font color='red'>Fed [toEat.name] to [name] ([ckey]) Reagents: [toEat.reagentlist(toEat)]</font>")
+	create_attack_log("<font color='orange'>Has been fed [toEat.name] by [user.name] ([user.ckey]) Reagents: [toEat.reagentlist(toEat)]</font>")
+	user.create_attack_log("<font color='red'>Fed [toEat.name] to [name] ([ckey]) Reagents: [toEat.reagentlist(toEat)]</font>")
 	log_attack("[user.name] ([user.ckey]) fed [name] ([ckey]) with [toEat.name] Reagents: [toEat.reagentlist(toEat)] (INTENT: [uppertext(user.a_intent)])")
 	if(!iscarbon(user))
 		LAssailant = null
@@ -1009,15 +1012,14 @@ so that different stomachs can handle things in different ways VB*/
 /mob/living/carbon/proc/consume(var/obj/item/weapon/reagent_containers/food/toEat)
 	if(!toEat.reagents)
 		return
+	if(satiety > -200)
+		satiety -= toEat.junkiness
 	if(toEat.consume_sound)
 		playsound(loc, toEat.consume_sound, rand(10,50), 1)
 	if(toEat.reagents.total_volume)
-		toEat.reagents.reaction(src, toEat.apply_type)
-		spawn(0)
-			if(toEat.reagents.total_volume > toEat.bitesize)
-				toEat.reagents.trans_to(src, toEat.bitesize*toEat.transfer_efficiency)
-			else
-				toEat.reagents.trans_to(src, toEat.reagents.total_volume*toEat.transfer_efficiency)
+		var/fraction = min(toEat.bitesize/toEat.reagents.total_volume, 1)
+		toEat.reagents.reaction(src, toEat.apply_type, fraction)
+		toEat.reagents.trans_to(src, toEat.bitesize*toEat.transfer_efficiency)
 
 /mob/living/carbon/get_access()
 	. = ..()

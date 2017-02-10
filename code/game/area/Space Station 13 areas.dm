@@ -53,11 +53,12 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	var/list/apc = list()
 	var/no_air = null
 //	var/list/lights				// list of all lights on this area
-	var/list/all_doors = list()		//Added by Strumpetplaya - Alarm Change - Contains a list of doors adjacent to this area
 	var/air_doors_activated = 0
 
 	var/tele_proof = 0
 	var/no_teleportlocs = 0
+	
+	var/outdoors = 0 //For space, the asteroid, lavaland, etc. Used with blueprints to determine if we are adding a new area (vs editing a station room)
 
 /*Adding a wizard area teleport list because motherfucking lag -- Urist*/
 /*I am far too lazy to make it a proper list of areas so I'll just make it run the usual telepot routine at the start of the game*/
@@ -121,7 +122,8 @@ var/list/ghostteleportlocs = list()
 	power_light = 0
 	power_equip = 0
 	power_environ = 0
-	ambientsounds = list('sound/ambience/ambispace.ogg','sound/music/title2.ogg','sound/music/space.ogg','sound/music/traitor.ogg','sound/music/space2.ogg')
+	outdoors = 1
+	ambientsounds = list('sound/ambience/ambispace.ogg','sound/music/title2.ogg','sound/music/space.ogg','sound/music/traitor.ogg')
 
 /area/space/atmosalert()
 	return
@@ -556,6 +558,7 @@ var/list/ghostteleportlocs = list()
 	name = "Asteroid - Underground"
 	icon_state = "cave"
 	requires_power = 0
+	outdoors = 1
 
 /area/asteroid/artifactroom
 	name = "Asteroid - Artifact"

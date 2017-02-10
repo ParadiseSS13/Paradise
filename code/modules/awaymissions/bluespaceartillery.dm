@@ -24,7 +24,7 @@
 		ui.open()
 		ui.set_auto_update(1)
 
-/obj/machinery/computer/artillerycontrol/ui_data(mob/user, datum/topic_state/state = default_state)
+/obj/machinery/computer/artillerycontrol/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/data[0]
 
 	var/time_to_wait = round(reload_cooldown - ((world.time / 10) - last_fire), 1)
@@ -58,7 +58,7 @@
 		if(reload_cooldown > delta)
 			return 1
 
-		command_announcement.Announce("Bluespace artillery fire detected. Brace for impact.")
+		event_announcement.Announce("Bluespace artillery fire detected. Brace for impact.")
 		message_admins("[key_name_admin(usr)] has launched an artillery strike.", 1)
 		var/list/L = list()
 		for(var/turf/T in get_area_turfs(targetarea.type))

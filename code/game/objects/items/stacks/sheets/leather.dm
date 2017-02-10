@@ -102,19 +102,49 @@ var/global/list/datum/stack_recipe/human_recipes = list( \
 	icon_state = "sheet-leather"
 	origin_tech = "materials=2"
 
+/obj/item/stack/sheet/sinew
+	name = "watcher sinew"
+	icon = 'icons/obj/mining.dmi'
+	desc = "Long stringy filaments which presumably came from a watcher's wings."
+	singular_name = "watcher sinew"
+	icon_state = "sinew"
+	origin_tech = "biotech=4"	
+	
+var/global/list/datum/stack_recipe/sinew_recipes = list ( \
+	new/datum/stack_recipe("sinew restraints", /obj/item/weapon/restraints/handcuffs/sinew, 1, on_floor = 1), \
+	)
 
+/obj/item/stack/sheet/sinew/New(var/loc, var/amount=null)
+	recipes = sinew_recipes
+	return ..()
+	
+/obj/item/stack/sheet/animalhide/goliath_hide
+	name = "goliath hide plates"
+	desc = "Pieces of a goliath's rocky hide, these might be able to make your suit a bit more durable to attack from the local fauna."
+	icon = 'icons/obj/mining.dmi'
+	icon_state = "goliath_hide"
+	singular_name = "hide plate"
+	flags = NOBLUDGEON
+	w_class = 3
+	layer = MOB_LAYER
 
+/obj/item/stack/sheet/animalhide/ashdrake
+	name = "ash drake hide"
+	desc = "The strong, scaled hide of an ash drake."
+	icon = 'icons/obj/mining.dmi'
+	icon_state = "dragon_hide"
+	singular_name = "drake plate"
+	flags = NOBLUDGEON
+	w_class = 3
+	layer = MOB_LAYER
+	
 //Step one - dehairing.
 
 /obj/item/stack/sheet/animalhide/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
-	if(	istype(W, /obj/item/weapon/kitchen/knife) || \
-		istype(W, /obj/item/weapon/twohanded/fireaxe) || \
-		istype(W, /obj/item/weapon/hatchet) )
-
-		//visible message on mobs is defined as visible_message(var/message, var/self_message, var/blind_message)
-		usr.visible_message("\blue \the [usr] starts cutting hair off \the [src]", "\blue You start cutting the hair off \the [src]", "You hear the sound of a knife rubbing against flesh")
+	if(W.sharp)
+		user.visible_message("[user] starts cutting hair off \the [src].", "<span class='notice'>You start cutting the hair off \the [src]...</span>", "<span class='italics'>You hear the sound of a knife rubbing against flesh.</span>")
 		if(do_after(user,50, target = src))
-			to_chat(usr, "\blue You cut the hair from this [src.singular_name]")
+			to_chat(user, "<span class='notice'>You cut the hair from this [src.singular_name].</span>")
 			//Try locating an exisitng stack on the tile and add to there if possible
 			for(var/obj/item/stack/sheet/hairlesshide/HS in usr.loc)
 				if(HS.amount < 50)
@@ -127,7 +157,6 @@ var/global/list/datum/stack_recipe/human_recipes = list( \
 			src.use(1)
 	else
 		..()
-
 
 //Step two - washing..... it's actually in washing machine code.
 

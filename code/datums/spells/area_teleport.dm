@@ -1,10 +1,15 @@
 /obj/effect/proc_holder/spell/targeted/area_teleport
 	name = "Area teleport"
 	desc = "This spell teleports you to a type of area of your selection."
-
+	nonabstract_req = 1
+	
 	var/randomise_selection = 0 //if it lets the usr choose the teleport loc or picks it from the list
 	var/invocation_area = 1 //if the invocation appends the selected area
-/obj/effect/proc_holder/spell/targeted/area_teleport/perform(list/targets, recharge = 1)
+	
+	var/sound1 = 'sound/weapons/ZapBang.ogg'
+	var/sound2 = 'sound/weapons/ZapBang.ogg'	
+	
+/obj/effect/proc_holder/spell/targeted/area_teleport/perform(list/targets, recharge = 1, mob/living/user = usr)
 	var/thearea = before_cast(targets)
 	if(!thearea || !cast_check(1))
 		revert_cast()
@@ -32,7 +37,8 @@
 
 	return thearea
 
-/obj/effect/proc_holder/spell/targeted/area_teleport/cast(list/targets,area/thearea)
+/obj/effect/proc_holder/spell/targeted/area_teleport/cast(list/targets,area/thearea,mob/living/user = usr)
+	playsound(get_turf(user), sound1, 50,1)
 	for(var/mob/living/target in targets)
 		var/list/L = list()
 		for(var/turf/T in get_area_turfs(thearea.type))
@@ -64,7 +70,8 @@
 				break
 
 		if(!success)
-			target.loc = pick(L)
+			target.forceMove(pick(L))
+			playsound(get_turf(user), sound2, 50,1)
 
 	return
 

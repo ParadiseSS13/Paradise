@@ -199,20 +199,20 @@
 				// Sell exotic plants
 				if(istype(thing, /obj/item/seeds))
 					var/obj/item/seeds/S = thing
-					if(S.seed.get_trait(TRAIT_RARITY) == 0) // Mundane species
-						msg += "<span class='bad'>+0</span>: We don't need samples of mundane species \"[capitalize(S.seed.seed_name)]\".<br>"
+					if(S.rarity == 0) // Mundane species
+						msg += "<span class='bad'>+0</span>: We don't need samples of mundane species \"[capitalize(S.species)]\".<br>"
 					else if(shuttle_master.discoveredPlants[S.type]) // This species has already been sent to CentComm
-						var/potDiff = S.seed.get_trait(TRAIT_POTENCY) - shuttle_master.discoveredPlants[S.type] // Compare it to the previous best
+						var/potDiff = S.potency - shuttle_master.discoveredPlants[S.type] // Compare it to the previous best
 						if(potDiff > 0) // This sample is better
-							shuttle_master.discoveredPlants[S.type] = S.seed.get_trait(TRAIT_POTENCY)
-							msg += "<span class='good'>+[potDiff]</span>: New sample of \"[capitalize(S.seed.seed_name)]\" is superior. Good work.<br>"
+							shuttle_master.discoveredPlants[S.type] = S.potency
+							msg += "<span class='good'>+[potDiff]</span>: New sample of \"[capitalize(S.species)]\" is superior. Good work.<br>"
 							shuttle_master.points += potDiff
 						else // This sample is worthless
-							msg += "<span class='bad'>+0</span>: New sample of \"[capitalize(S.seed.seed_name)]\" is not more potent than existing sample ([shuttle_master.discoveredPlants[S.type]] potency).<br>"
+							msg += "<span class='bad'>+0</span>: New sample of \"[capitalize(S.species)]\" is not more potent than existing sample ([shuttle_master.discoveredPlants[S.type]] potency).<br>"
 					else // This is a new discovery!
-						shuttle_master.discoveredPlants[S.type] = S.seed.get_trait(TRAIT_POTENCY)
-						msg += "<span class='good'>+[S.seed.get_trait(TRAIT_RARITY)]</span>: New species discovered: \"[capitalize(S.seed.seed_name)]\". Excellent work.<br>"
-						shuttle_master.points += S.seed.get_trait(TRAIT_RARITY) // That's right, no bonus for potency.  Send a crappy sample first to "show improvement" later
+						shuttle_master.discoveredPlants[S.type] = S.potency
+						msg += "<span class='good'>[S.rarity]</span>: New species discovered: \"[capitalize(S.species)]\". Excellent work.<br>"
+						shuttle_master.points += S.rarity // That's right, no bonus for potency.  Send a crappy sample first to "show improvement" later
 		qdel(MA)
 		shuttle_master.sold_atoms += "."
 
@@ -246,7 +246,8 @@
 		/obj/machinery/teleport/station,
 		/obj/machinery/teleport/hub,
 		/obj/machinery/telepad,
-		/obj/machinery/clonepod
+		/obj/machinery/clonepod,
+		/obj/machinery/quantumpad
 	)
 	if(A)
 		if(is_type_in_list(A, blacklist))
@@ -430,7 +431,7 @@
 		ui = new(user, src, ui_key, "order_console.tmpl", name, ORDER_SCREEN_WIDTH, ORDER_SCREEN_HEIGHT)
 		ui.open()
 
-/obj/machinery/computer/ordercomp/ui_data(mob/user, datum/topic_state/state = default_state)
+/obj/machinery/computer/ordercomp/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/data[0]
 	data["last_viewed_group"] = last_viewed_group
 
@@ -579,7 +580,7 @@
 		ui = new(user, src, ui_key, "supply_console.tmpl", name, SUPPLY_SCREEN_WIDTH, SUPPLY_SCREEN_HEIGHT)
 		ui.open()
 
-/obj/machinery/computer/supplycomp/ui_data(mob/user, datum/topic_state/state = default_state)
+/obj/machinery/computer/supplycomp/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/data[0]
 	data["last_viewed_group"] = last_viewed_group
 

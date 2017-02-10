@@ -49,7 +49,7 @@
 			playsound(comm.loc, "sound/goonstation/machines/printer_dotmatrix.ogg", 50, 1)
 			intercept.name = "Classified Central Command Update"
 			intercept.info = intercepttext
-	command_announcement.Announce("A report has been downloaded and printed out at all communications consoles.", "Incoming Classified Message", 'sound/AI/commandreport.ogg')
+	event_announcement.Announce("A report has been downloaded and printed out at all communications consoles.", "Incoming Classified Message", 'sound/AI/commandreport.ogg')
 	return
 
 

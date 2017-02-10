@@ -7,7 +7,7 @@
 		return
 	var/msg = "<html><head><title>Playtime Report</title></head><body>Playtime:<BR><UL>"
 	for(var/client/C in clients)
-		msg += "<LI> - [key_name_admin(C)]: <A href='?_src_=holder;getplaytimewindow=[C.mob.UID()]'>" + C.get_exp_living() + "</a></LI>"
+		msg += "<LI> [key_name_admin(C.mob)]: <A href='?_src_=holder;getplaytimewindow=[C.mob.UID()]'>" + C.get_exp_living() + "</a></LI>"
 	msg += "</UL></BODY></HTML>"
 	src << browse(msg, "window=Player_playtime_check")
 
@@ -78,36 +78,40 @@
 				return_text += "<LI>Exempt (all jobs auto-unlocked)</LI>"
 			else if(exp_data[EXP_TYPE_LIVING] > 0)
 				var/my_pc = num2text(round(exp_data[dep]/exp_data[EXP_TYPE_LIVING]*100))
-				return_text += "<LI>[dep] [get_exp_format(exp_data[dep])] ([my_pc]%)</LI>"
+				return_text += "<LI>[dep]: [get_exp_format(exp_data[dep])] ([my_pc]%)</LI>"
 			else
-				return_text += "<LI>[dep] [get_exp_format(exp_data[dep])] </LI>"
+				return_text += "<LI>[dep]: [get_exp_format(exp_data[dep])] </LI>"
 	if(config.use_exp_restrictions_admin_bypass && check_rights(R_ADMIN, 0, mob))
-		return_text += "<LI>Admin (all jobs auto-unlocked)</LI>"
+		return_text += "<LI>Admin</LI>"
 	return_text += "</UL>"
-	var/list/jobs_locked = list()
-	var/list/jobs_unlocked = list()
-	for(var/datum/job/job in job_master.occupations)
-		if(job.exp_requirements && job.exp_type)
-			if(!job.available_in_playtime(mob.client))
-				jobs_unlocked += job.title
-			else
-				var/xp_req = job.get_exp_req_amount()
-				jobs_locked += "[job.title] [get_exp_format(text2num(play_records[job.get_exp_req_type()]))] / [get_exp_format(xp_req)] as [job.get_exp_req_type()])"
-	if(jobs_unlocked.len)
-		return_text += "<BR><BR>Jobs Unlocked:<UL><LI>"
-		return_text += jobs_unlocked.Join("</LI><LI>")
-		return_text += "</LI></UL>"
-	if(jobs_locked.len)
-		return_text += "<BR><BR>Jobs Not Unlocked:<UL><LI>"
-		return_text += jobs_locked.Join("</LI><LI>")
-		return_text += "</LI></UL>"
+	if(config.use_exp_restrictions)
+		var/list/jobs_locked = list()
+		var/list/jobs_unlocked = list()
+		for(var/datum/job/job in job_master.occupations)
+			if(job.exp_requirements && job.exp_type)
+				if(!job.available_in_playtime(mob.client))
+					jobs_unlocked += job.title
+				else
+					var/xp_req = job.get_exp_req_amount()
+					jobs_locked += "[job.title] ([get_exp_format(text2num(play_records[job.get_exp_req_type()]))] / [get_exp_format(xp_req)] as [job.get_exp_req_type()])"
+		if(jobs_unlocked.len)
+			return_text += "<BR><BR>Jobs Unlocked:<UL><LI>"
+			return_text += jobs_unlocked.Join("</LI><LI>")
+			return_text += "</LI></UL>"
+		if(jobs_locked.len)
+			return_text += "<BR><BR>Jobs Not Unlocked:<UL><LI>"
+			return_text += jobs_locked.Join("</LI><LI>")
+			return_text += "</LI></UL>"
 	return return_text
 
 
 /client/proc/get_exp_living()
+	return get_exp_format(get_exp_living_num())
+
+/client/proc/get_exp_living_num()
 	var/list/play_records = params2list(prefs.exp)
 	var/exp_living = text2num(play_records[EXP_TYPE_LIVING])
-	return get_exp_format(exp_living)
+	return exp_living
 
 /proc/get_exp_format(var/expnum)
 	if(expnum > 60)
@@ -115,7 +119,7 @@
 	else if(expnum > 0)
 		return num2text(expnum) + "m"
 	else
-		return "0h"
+		return "none"
 
 /proc/update_exp(var/mins, var/ann = 0)
 	if(!establish_db_connection())

@@ -7,6 +7,8 @@
 	var/mob/living/carbon/human/attached = null
 	var/mode = 1 // 1 is injecting, 0 is taking blood.
 	var/obj/item/weapon/reagent_containers/beaker = null
+	var/transfer_amount = 5
+	var/possible_transfer_amounts = list(1,5,10)
 
 /obj/machinery/iv_drip/New()
 	..()
@@ -115,10 +117,6 @@
 		// Give blood
 		if(mode)
 			if(beaker.volume > 0)
-				var/transfer_amount = 5
-				if(istype(beaker, /obj/item/weapon/reagent_containers/blood))
-					// speed up transfer on blood packs
-					transfer_amount = 10
 				var/fraction = min(transfer_amount/beaker.volume, 1) //the fraction that is transfered of the total volume
 				beaker.reagents.reaction(attached, INGEST, fraction) //make reagents reacts, but don't spam messages
 				beaker.reagents.trans_to(attached, transfer_amount)
@@ -238,3 +236,15 @@
 		to_chat(user, "<span class='notice'>No chemicals are attached.</span>")
 
 	to_chat(user, "<span class='notice'>[attached ? attached : "No one"] is attached.</span>")
+
+/obj/machinery/iv_drip/verb/set_transfer_rate()
+	set name = "Set transfer amount"
+	set category = "Object"
+	set src in view(1)
+
+	if(usr.incapacitated())
+		return
+	var/default = 5
+	var/N = input("Amount per transfer from this:", "[src]", default) as null|anything in possible_transfer_amounts
+	if(N)
+		transfer_amount = N

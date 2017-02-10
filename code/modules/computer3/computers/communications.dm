@@ -47,7 +47,7 @@
 
 	New()
 		..()
-		crew_announcement.newscast = 1
+		crew_announcement.newscast = 0
 
 	Reset()
 		..()

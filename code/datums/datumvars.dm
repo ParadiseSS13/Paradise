@@ -1,12 +1,18 @@
 // reference: /client/proc/modify_variables(var/atom/O, var/param_var_name = null, var/autodetect_class = 0)
 
+/datum
+	var/var_edited = 0 //Warrenty void if seal is broken
+
+/datum/proc/on_varedit(modified_var) //called whenever a var is edited
+	var_edited = 1
+
 /client/proc/debug_variables(datum/D in world)
 	set category = "Debug"
 	set name = "View Variables"
 	//set src in world
 
 
-	if(!usr.client || !usr.client.holder)
+	if(!is_admin(usr))
 		to_chat(usr, "<span class='warning'>You need to be an administrator to access this.</span>")
 		return
 
@@ -211,6 +217,14 @@
 
 	if(src.holder && src.holder.marked_datum && src.holder.marked_datum == D)
 		body += "<br><font size='1' color='red'><b>Marked Object</b></font>"
+
+	if(D.var_edited)
+		body += "<br><font size='1' color='red'><b>Var Edited</b></font>"
+
+	if(istype(D, /atom))
+		var/atom/A = D
+		if(A.admin_spawned)
+			body += "<br><font size='1' color='red'><b>Admin Spawned</b></font>"
 
 	body += "</div>"
 
@@ -616,8 +630,9 @@ body
 			return
 		to_chat(M, "Control of your mob has been offered to dead players.")
 		log_admin("[key_name(usr)] has offered control of ([key_name(M)]) to ghosts.")
-		message_admins("[key_name_admin(usr)] has offered control of ([key_name_admin(M)]) to ghosts")
-		var/list/mob/dead/observer/candidates = pollCandidates("Do you want to play as [M.real_name]?", poll_time = 100)
+		var/minhours = input(usr, "Minimum hours required to play [M]?", "Set Min Hrs", 10) as num
+		message_admins("[key_name_admin(usr)] has offered control of ([key_name_admin(M)]) to ghosts with [minhours] hrs playtime")
+		var/list/mob/dead/observer/candidates = pollCandidates("Do you want to play as [M.real_name]?", poll_time = 100, min_hours = minhours)
 		var/mob/dead/observer/theghost = null
 
 		if(candidates.len)

@@ -28,7 +28,7 @@
 		ui.open()
 		ui.set_auto_update(1)
 
-/obj/machinery/slot_machine/ui_data(mob/user, datum/topic_state/state = default_state)
+/obj/machinery/slot_machine/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/data[0]
 
 	data["working"] = working
@@ -59,13 +59,13 @@
 			spawn(25)
 				if(roll == 1)
 					visible_message("<b>[src]</b> says, 'JACKPOT! [usr.name] has won a MILLION CREDITS!'")
-					command_announcement.Announce("Congratulations to [usr.name] on winning the Jackpot of ONE MILLION CREDITS!", "Jackpot Winner")
+					event_announcement.Announce("Congratulations to [usr.name] on winning the Jackpot of ONE MILLION CREDITS!", "Jackpot Winner")
 					result = "JACKPOT! You win one million credits!"
 					resultlvl = "highlight"
 					win_money(1000000, 'sound/goonstation/misc/airraid_loop.ogg')
 				else if(roll > 1 && roll <= 5)
 					visible_message("<b>[src]</b> says, 'Big Winner! [usr.name] has won a hundred thousand credits!'")
-					command_announcement.Announce("Congratulations to [usr.name] on winning a hundred thousand credits!", "Big Winner")
+					event_announcement.Announce("Congratulations to [usr.name] on winning a hundred thousand credits!", "Big Winner")
 					result = "Big Winner! You win a hundred thousand credits!"
 					resultlvl = "good"
 					win_money(100000, 'sound/goonstation/misc/klaxon.ogg')

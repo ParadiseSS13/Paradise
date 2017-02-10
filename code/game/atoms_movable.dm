@@ -154,16 +154,17 @@
 	return 1
 
 /mob/living/forceMove(atom/destination)
-	stop_pulling()
 	if(buckled)
-		buckled.unbuckle_mob(src,force=1)
-	// in lieu of "unbuckle_all_mobs"
+		addtimer(src, "check_buckled", 1, TRUE)
 	if(buckled_mob)
-		unbuckle_mob(buckled_mob,force=1)
+		addtimer(buckled_mob, "check_buckled", 1, TRUE)
+	if(pulling)
+		addtimer(src, "check_pull", 1, TRUE)
 	. = ..()
 	if(client)
 		reset_perspective(destination)
 	update_canmove() //if the mob was asleep inside a container and then got forceMoved out we need to make them fall.
+
 
 //called when src is thrown into hit_atom
 /atom/movable/proc/throw_impact(atom/hit_atom, var/speed)
@@ -230,6 +231,10 @@
 			if(isobj(A))
 				if(A.density && !A.throwpass)	// **TODO: Better behaviour for windows which are dense, but shouldn't always stop movement
 					src.throw_impact(A,speed)
+					
+/atom/movable/proc/throw_at_fast(atom/target, range, speed, thrower, no_spin)
+	set waitfor = 0
+	throw_at(target, range, speed, thrower, no_spin)
 
 /atom/movable/proc/throw_at(atom/target, range, speed, thrower, no_spin)
 	if(!target || !src || (flags & NODROP))

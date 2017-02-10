@@ -103,10 +103,7 @@
 //TO-DO: Make the genetics machine accept them.
 /obj/item/weapon/disk/data
 	name = "Cloning Data Disk"
-	icon = 'icons/obj/cloning.dmi'
 	icon_state = "datadisk0" //Gosh I hope syndies don't mistake them for the nuke disk.
-	item_state = "card-id"
-	w_class = 1
 	var/datum/dna2/record/buf=null
 	var/read_only = 0 //Well,it's still a floppy disk
 
@@ -410,7 +407,6 @@
 	if(H.mind in ticker.mode.syndicates)
 		ticker.mode.update_synd_icons_added()
 	if(H.mind in ticker.mode.cult)
-		ticker.mode.add_cult_viewpoint(H)
 		ticker.mode.add_cultist(occupant.mind)
 		ticker.mode.update_cult_icons_added() //So the icon actually appears
 	if((H.mind in ticker.mode.implanter) || (H.mind in ticker.mode.implanted))

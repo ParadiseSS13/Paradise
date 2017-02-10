@@ -100,6 +100,8 @@
 
 	overlays += icon_manager.get_atmos_icon("device", , , vent_icon)
 
+	update_pipe_image()
+
 /obj/machinery/atmospherics/unary/vent_pump/update_underlays()
 	if(..())
 		underlays.Cut()
