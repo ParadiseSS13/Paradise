@@ -12,6 +12,12 @@
 	</div>
 {{else data.menu == 2}}
 	<div class='item'>{{:helper.link('Back', 'reply', {'menu': 1})}}</div>
+	<div class='item'>
+ 					{{:data.door_name}}
+ 				</div>
+ 			</div>
+ 		</div>
+ 	</div>
 	<div style='width:49%; float:left'><div class='statusDisplay'>
 		<h3>Type</h3>
 		{{for data.allowed_door_types}}
