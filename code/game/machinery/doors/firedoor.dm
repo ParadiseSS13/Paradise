@@ -174,7 +174,8 @@
 				nextstate = CLOSED
 
 /obj/machinery/door/firedoor/attack_ghost(mob/user as mob)	
-	return attack_ai(user)
+	if(user.can_advanced_admin_interact())
+		return attack_ai(user)
 				
 /obj/machinery/door/firedoor/attack_ai(mob/user)
 	if(operating || stat & NOPOWER)

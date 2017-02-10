@@ -821,7 +821,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 		return 1
 	add_fingerprint(usr)
 
-	if((href_list["power"]) && (bot_core.allowed(usr) || !locked))
+	if((href_list["power"]) && (bot_core.allowed(usr) || !locked || usr.can_admin_interact()))
 		if(on)
 			turn_off()
 		else

@@ -59,7 +59,7 @@
 	if(stat & (NOPOWER|BROKEN))
 		return
 
-	if(get_dist(src, user) > 1 && (!issilicon(user) || !user.can_admin_interact()))
+	if(get_dist(src, user) > 1 && (!issilicon(user) && !user.can_admin_interact()))
 		to_chat(user, "<span class='warning'>Too far away.</span>")
 		user.unset_machine()
 		user << browse(null, "window=ai_slipper")
@@ -69,7 +69,7 @@
 	var/area/myarea = get_area(src)
 	var/t = "<TT><B>AI Liquid Dispenser</B> ([myarea.name])<HR>"
 
-	if(locked && (!issilicon(user) || !user.can_admin_interact()))
+	if(locked && (!issilicon(user) && !user.can_admin_interact()))
 		t += "<I>(Swipe ID card to unlock control panel.)</I><BR>"
 	else
 		t += text("Dispenser [] - <A href='?src=[UID()];toggleOn=1'>[]?</a><br>\n", disabled ? "deactivated" : "activated", disabled ? "Enable" : "Disable")
@@ -81,10 +81,11 @@
 /obj/machinery/ai_slipper/Topic(href, href_list)
 	if(..())
 		return 1
-	if(locked)
-		if(!istype(usr, /mob/living/silicon))
-			to_chat(usr, "Control panel is locked!")
-			return
+
+	if(locked && (!issilicon(usr) && !usr.can_admin_interact()))
+		to_chat(usr, "Control panel is locked!")
+		return 1
+
 	if(href_list["toggleOn"])
 		disabled = !disabled
 		icon_state = disabled? "motion0":"motion3"
