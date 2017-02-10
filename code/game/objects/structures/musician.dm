@@ -291,7 +291,7 @@
 	ui_interact(user)
 
 /obj/structure/piano/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	if(!isliving(user) || user.incapacitated())
+	if(!isliving(user) || user.incapacitated() || !anchored)
 		return
 
 	song.ui_interact(user, ui_key, ui, force_open)
