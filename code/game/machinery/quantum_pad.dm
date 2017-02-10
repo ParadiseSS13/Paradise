@@ -24,6 +24,10 @@
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
 
+/obj/machinery/quantumpad/Destroy()
+	linked_pad = null
+	return ..()
+
 /obj/machinery/quantumpad/RefreshParts()
 	var/E = 0
 	for(var/obj/item/weapon/stock_parts/capacitor/C in component_parts)
@@ -88,7 +92,6 @@
 		return
 	add_fingerprint(user)
 	doteleport(user)
-	return
 
 /obj/machinery/quantumpad/proc/sparks()
 	var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
