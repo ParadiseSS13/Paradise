@@ -221,7 +221,7 @@
 							name = "Grandwizard [real_name]"
 							speak = list("YAP", "Woof!", "Bark!", "AUUUUUU", "EI  NATH!")
 						if(/obj/item/weapon/bedsheet)
-							name = "\improper Ghost"
+							name = "Ghost"
 							speak = list("WoooOOOooo~","AUUUUUUUUUUUUUUUUUU")
 							emote_see = list("stumbles around", "shivers")
 							emote_hear = list("howls","groans")

@@ -1,7 +1,7 @@
 
 
 /obj/machinery/computer3/aiupload
-	name = "\improper AI upload console"
+	name = "AI upload console"
 	desc = "Used to upload laws to the AI."
 	icon_state = "frame-rnd"
 	var/mob/living/silicon/ai/current = null

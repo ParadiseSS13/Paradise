@@ -618,10 +618,10 @@ proc/dd_sortedObjectList(list/incoming)
 	return "[src]"
 
 /obj/machinery/dd_SortValue()
-	return "[sanitize(name)]"
+	return "[sanitize_local(name)]"
 
 /obj/machinery/camera/dd_SortValue()
 	return "[c_tag]"
 
 /datum/alarm/dd_SortValue()
-	return "[sanitize(last_name)]"
+	return "[sanitize_local(last_name)]"

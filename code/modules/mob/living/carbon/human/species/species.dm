@@ -129,6 +129,28 @@
 	var/scream_verb = "screams"
 	var/male_scream_sound = 'sound/goonstation/voice/male_scream.ogg'
 	var/female_scream_sound = 'sound/goonstation/voice/female_scream.ogg'
+	var/list/male_groan_sound = list(
+	'sound/voice/groan/male1.ogg',
+	'sound/voice/groan/male2.ogg',
+	'sound/voice/groan/male3.ogg',
+	'sound/voice/groan/male4.ogg'
+	)
+	var/list/female_groan_sound = list(
+	'sound/voice/groan/female1.ogg',
+	'sound/voice/groan/female2.ogg',
+	'sound/voice/groan/female3.ogg',
+	'sound/voice/groan/female4.ogg'
+	)
+	var/list/male_laugh_sound = list(
+	'sound/voice/laugh/male1.ogg',
+	'sound/voice/laugh/male2.ogg',
+	'sound/voice/laugh/male3.ogg',
+	)
+	var/list/female_laugh_sound = list(
+	'sound/voice/laugh/female1.ogg',
+	'sound/voice/laugh/female2.ogg',
+	'sound/voice/laugh/female3.ogg',
+	)
 
 	//Default hair/headacc style vars.
 	var/default_hair				//Default hair style for newly created humans unless otherwise set.
@@ -166,7 +188,8 @@
 		"r_foot" = list("path" = /obj/item/organ/external/foot/right)
 		)
 	var/list/proc/species_abilities = list()
-
+	var/genitals = 0
+	var/anus = 0
 /datum/species/New()
 	//If the species has eyes, they are the default vision organ
 	if(!vision_organ && has_organ["eyes"])

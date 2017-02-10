@@ -88,7 +88,7 @@ var/list/GPS_list = list()
 		if(!a || ..(state = inventory_state))
 			return 1
 			
-		a = uppertext(sanitize(copytext(a, 1, 5)))
+		a = uppertext(sanitize_local(copytext(a, 1, 5)))
 		if(src.loc == usr)
 			gpstag = a
 			name = "global positioning system ([gpstag])"

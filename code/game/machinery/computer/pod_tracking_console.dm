@@ -27,7 +27,7 @@
 		var/obj/spacepod/my_pod = TR.my_atom
 		var/enabled = TR.enabled
 		if(my_pod && enabled)
-			var/podname = capitalize(sanitize(my_pod.name))
+			var/podname = capitalize(sanitize_local(my_pod.name))
 			var/list/chairs = list()
 			if(my_pod.pilot || my_pod.passengers)
 				if(my_pod.pilot)

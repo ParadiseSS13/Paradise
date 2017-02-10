@@ -11,7 +11,6 @@
 	access = list(access_morgue, access_chapel_office, access_crematorium, access_maint_tunnels)
 	minimal_access = list(access_morgue, access_chapel_office, access_crematorium, access_maint_tunnels)
 
-
 	equip(var/mob/living/carbon/human/H)
 		if(!H)	return 0
 		var/obj/item/weapon/storage/bible/B = new /obj/item/weapon/storage/bible(H) //BS12 EDIT
@@ -28,7 +27,7 @@
 		H.equip_or_collect(new /obj/item/device/camera/spooky(H), slot_in_backpack)
 		spawn(0)
 			var/religion_name = "Christianity"
-			var/new_religion = sanitize(copytext(input(H, "You are the crew services officer. Would you like to change your religion? Default is Christianity, in SPACE.", "Name change", religion_name),1,MAX_NAME_LEN))
+			var/new_religion = sanitize_local(copytext(input(H, "You are the crew services officer. Would you like to change your religion? Default is Christianity, in SPACE.", "Name change", religion_name),1,MAX_NAME_LEN))
 
 			if(!new_religion)
 				new_religion = religion_name
@@ -63,7 +62,7 @@
 
 		spawn(1)
 			var/deity_name = "Space Jesus"
-			var/new_deity = sanitize(copytext(input(H, "Would you like to change your deity? Default is Space Jesus.", "Name change", deity_name),1,MAX_NAME_LEN))
+			var/new_deity = sanitize_local(copytext(input(H, "Would you like to change your deity? Default is Space Jesus.", "Name change", deity_name),1,MAX_NAME_LEN))
 
 			if((length(new_deity) == 0) || (new_deity == "Space Jesus") )
 				new_deity = deity_name

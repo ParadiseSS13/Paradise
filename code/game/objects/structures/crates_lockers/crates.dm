@@ -383,7 +383,7 @@
 
 /obj/structure/closet/crate/rcd
 	desc = "A crate for the storage of the RCD."
-	name = "\improper RCD crate"
+	name = "RCD crate"
 	icon_state = "crate"
 	icon_opened = "crateopen"
 	icon_closed = "crate"

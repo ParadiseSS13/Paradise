@@ -21,7 +21,7 @@
 
 	to_chat(world, "<h1 class='alert'>Custom Event</h1>")
 	to_chat(world, "<h2 class='alert'>A custom event is starting. OOC Info:</h2>")
-	to_chat(world, "<span class='alert'>[html_encode(custom_event_msg)]</span>")
+	to_chat(world, "<span class='alert'>[lhtml_encode(custom_event_msg)]</span>")
 	to_chat(world, "<br>")
 
 // normal verb for players to view info
@@ -36,5 +36,5 @@
 
 	to_chat(src, "<h1 class='alert'>Custom Event</h1>")
 	to_chat(src, "<h2 class='alert'>A custom event is taking place. OOC Info:</h2>")
-	to_chat(src, "<span class='alert'>[html_encode(custom_event_msg)]</span>")
+	to_chat(src, "<span class='alert'>[lhtml_encode(custom_event_msg)]</span>")
 	to_chat(src, "<br>")

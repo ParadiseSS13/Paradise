@@ -189,7 +189,7 @@
 	possible_states = list()
 
 /obj/item/weapon/reagent_containers/food/condiment/syndisauce
-	name = "\improper Chef Excellence's Special Sauce"
+	name = "Chef Excellence's Special Sauce"
 	desc = "A potent sauce extracted from the potent amanita mushrooms. Death never tasted quite so delicious."
 	list_reagents = list("amanitin" = 50)
 	possible_states = list()

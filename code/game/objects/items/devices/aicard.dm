@@ -63,7 +63,7 @@
 
 		var/laws[0]
 		for(var/datum/ai_law/AL in AI.laws.all_laws())
-			laws[++laws.len] = list("index" = AL.get_index(), "law" = sanitize(AL.law))
+			laws[++laws.len] = list("index" = AL.get_index(), "law" = sanitize_local(AL.law))
 		data["laws"] = laws
 		data["has_laws"] = laws.len
 

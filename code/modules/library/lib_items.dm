@@ -67,7 +67,7 @@
 	else if(istype(O, /obj/item/weapon/pen))
 		var/newname = stripped_input(user, "What would you like to title this [name]?")
 		if(newname)
-			name = ("bookcase ([sanitize(newname)])")
+			name = ("bookcase ([sanitize_local(newname)])")
 		return 1
 	else
 		switch(O.damtype)

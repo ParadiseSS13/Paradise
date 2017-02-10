@@ -96,7 +96,7 @@
 "bR" = (/turf/simulated/floor/holofloor/grass,/obj/structure/flora/ausbushes/ywflowers,/turf/simulated/floor/holofloor{tag = "icon-wood_siding1"; icon_state = "wood_siding1"; dir = 2},/area/holodeck/source_picnicarea)
 "bS" = (/turf/simulated/floor/holofloor{tag = "icon-carpet3-0 (EAST)"; icon_state = "carpet3-0"; dir = 4},/area/holodeck/source_theatre)
 "bT" = (/turf/unsimulated/floor{tag = "icon-dark"; icon_state = "dark"},/area/vox_station)
-"bU" = (/obj/structure/sign/securearea{desc = "A warning sign which reads 'FOURTH WALL'."; name = "\improper FOURTH WALL"; pixel_x = -32},/turf/unsimulated/floor/snow,/area/syndicate_mothership)
+"bU" = (/obj/structure/sign/securearea{desc = "A warning sign which reads 'FOURTH WALL'."; name = "FOURTH WALL"; pixel_x = -32},/turf/unsimulated/floor/snow,/area/syndicate_mothership)
 "bV" = (/turf/simulated/floor/holofloor{tag = "icon-asteroid1 (EAST)"; icon_state = "asteroid1"; dir = 4},/area/holodeck/source_desert)
 "bW" = (/turf/unsimulated/floor/snow,/turf/unsimulated/floor/snow{icon_state = "gravsnow_corner"},/turf/unsimulated/floor/snow{tag = "icon-gravsnow_corner (NORTH)"; icon_state = "gravsnow_corner"; dir = 1},/area/syndicate_mothership)
 "bX" = (/turf/simulated/floor/holofloor{tag = "icon-asteroid3 (EAST)"; icon_state = "asteroid3"; dir = 4},/area/holodeck/source_desert)

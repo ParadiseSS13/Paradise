@@ -174,7 +174,8 @@
 			msg += "<span class='warning'>[t_He] [t_has] [bicon(glasses)] [glasses.gender==PLURAL?"some":"a"] [glasses.blood_color != "#030303" ? "blood-stained":"oil-stained"] [glasses] covering [t_his] eyes!</span>\n"
 		else
 			msg += "[t_He] [t_has] [bicon(glasses)] \a [glasses] covering [t_his] eyes.\n"
-
+	else if (!skipeyes && druggy > 0)
+		msg += "<span class='warning'>Pupils are unusually huge!</span>\n"
 	//left ear
 	if(l_ear && !skipears)
 		msg += "[t_He] [t_has] [bicon(l_ear)] \a [l_ear] on [t_his] left ear.\n"
@@ -197,6 +198,8 @@
 		else*/
 		msg += "[t_He] [t_is] wearing [bicon(wear_id)] \a [wear_id].\n"
 
+	if(is_nude() && gender == MALE && species.genitals)
+		msg += "<B>Penis size: [potenzia].</B>\n"
 	//Jitters
 	switch(jitteriness)
 		if(300 to INFINITY)
@@ -275,7 +278,7 @@
 		else if(!key)
 			msg += "<span class='deadsay'>[t_He] [t_is] fast asleep. It doesn't look like they are waking up anytime soon.</span>\n"
 		else if(!client)
-			msg += "[t_He] [t_has] suddenly fallen asleep, suffering from Space Sleep Disorder.\n"
+			msg += "[t_He] [t_has] suddenly fallen asleep.\n"
 
 	if(!get_int_organ(/obj/item/organ/internal/brain))
 		msg += "<span class='deadsay'>It appears that [t_his] brain is missing...</span>\n"

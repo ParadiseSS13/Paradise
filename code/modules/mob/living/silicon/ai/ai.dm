@@ -256,7 +256,7 @@ var/list/ai_verbs_default = list(
 	The alternative was to rewrite a bunch of AI code instead here we are.
 */
 /obj/machinery/ai_powersupply
-	name="\improper AI power supply"
+	name="AI power supply"
 	active_power_usage=1000
 	use_power = 2
 	power_channel = EQUIP
@@ -861,7 +861,7 @@ var/list/ai_verbs_default = list(
 			if(Entry.len < 3)
 				continue
 
-			if (Entry[1] == ckey && Entry[2] == real_name && Entry[3] == "Hologram") //Custom holograms
+			if(Entry[1] == ckey && Entry[2] == real_name && Entry[3] == "Hologram") //Custom holograms
 				custom_hologram = 1  // option is given in hologram menu
 
 	var/input

@@ -65,8 +65,8 @@
 	
 	var/message_announcer = null
 	if(announcer)
-		message_announcer = html_encode(announcer)
-		
+		message_announcer = lhtml_encode(announcer)
+
 	var/datum/language/message_language = all_languages[msg_language ? msg_language : language]
 	
 	var/list/combined_receivers = Get_Receivers(message_language)
@@ -77,7 +77,7 @@
 	var/garbled_formatted_message = Format_Message(message_language.scramble(message), message_language.scramble(message_title), message_language.scramble(message_announcer), message_language.scramble(from))
 	
 	Message(formatted_message, garbled_formatted_message, receivers, garbled_receivers)
-	
+
 	if(do_newscast)
 		NewsCast(message, message_title)
 		

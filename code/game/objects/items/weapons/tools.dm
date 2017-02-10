@@ -471,7 +471,7 @@
 	icon_state = "crowbar_large"
 
 /obj/item/weapon/conversion_kit
-	name = "\improper Revolver Conversion Kit"
+	name = "Revolver Conversion Kit"
 	desc = "A professional conversion kit used to convert any knock off revolver into the real deal capable of shooting lethal .357 rounds without the possibility of catastrophic failure"
 	icon = 'icons/obj/weapons.dmi'
 	icon_state = "kit"

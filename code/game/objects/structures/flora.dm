@@ -231,7 +231,7 @@
 	user.remove_alt_appearance("sneaking_mission")
 
 /obj/item/weapon/twohanded/required/kirbyplants/dead
-	name = "\improper RD's potted plant"
+	name = "RD's potted plant"
 	desc = "A gift from the botanical staff, presented after the RD's reassignment. There's a tag on it that says \"Y'all come back now, y'hear?\"\nIt doesn't look very healthy..."
 	icon_state = "plant-dead"
 

@@ -27,7 +27,7 @@ var/list/adminhelp_ignored_words = list("unknown","the","a","an","of","monkey","
 	if(handle_spam_prevention(msg, MUTE_ADMINHELP, OOC_COOLDOWN))
 		return
 
-	msg = sanitize(copytext(msg,1,MAX_MESSAGE_LEN))
+	msg = sanitize(copytext(msg,1,MAX_MESSAGE_LEN)) //sanitize_local?
 	if(!msg)	return
 	var/original_msg = msg
 
@@ -65,24 +65,24 @@ var/list/adminhelp_ignored_words = list("unknown","the","a","an","of","monkey","
 	var/list/mobs_found = list()
 	for(var/original_word in msglist)
 		var/word = ckey(original_word)
-		if(word)
-			if(!(word in adminhelp_ignored_words))
-				if(word == "ai")
-					ai_found = 1
-				else
-					var/mob/found = ckeys[word]
+		//if(word) Basically, this line kills every cyrillic symbol.
+		if(!(word in adminhelp_ignored_words))
+			if(word == "ai")
+				ai_found = 1
+			else
+				var/mob/found = ckeys[word]
+				if(!found)
+					found = surnames[word]
 					if(!found)
-						found = surnames[word]
-						if(!found)
-							found = forenames[word]
-					if(found)
-						if(!(found in mobs_found))
-							mobs_found += found
-							if(!ai_found && isAI(found))
-								ai_found = 1
-							msg += "<b><font color='black'>[original_word] </font></b> "
-							continue
-			msg += "[original_word] "
+						found = forenames[word]
+				if(found)
+					if(!(found in mobs_found))
+						mobs_found += found
+						if(!ai_found && isAI(found))
+							ai_found = 1
+						msg += "<b><font color='black'>[original_word] </font></b> "
+						continue
+		msg += "[original_word] "
 
 	if(!mob)	return						//this doesn't happen
 

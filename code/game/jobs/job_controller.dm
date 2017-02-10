@@ -12,7 +12,6 @@ var/global/datum/controller/occupations/job_master
 		//Debug info
 	var/list/job_debug = list()
 
-
 	proc/SetupOccupations(var/list/faction = list("Station"))
 		occupations = list()
 		var/list/all_jobs = subtypesof(/datum/job)
@@ -54,6 +53,9 @@ var/global/datum/controller/occupations/job_master
 			if(job.available_in_playtime(player.client))
 				return 0
 			if(!is_job_whitelisted(player, rank)) return 0
+			if(!check_prisonlist(ckey(player.key)))
+				to_chat(player, "¬ы можете приступить к игре после старта - но только как заключенный пермабрига.")
+				return 0
 			var/position_limit = job.total_positions
 			if(!latejoin)
 				position_limit = job.spawn_positions
@@ -61,17 +63,6 @@ var/global/datum/controller/occupations/job_master
 				Debug("Player: [player] is now Rank: [rank], JCP:[job.current_positions], JPL:[position_limit]")
 				player.mind.assigned_role = rank
 				player.mind.role_alt_title = GetPlayerAltTitle(player, rank)
-
-				// JOB OBJECTIVES OH SHIT
-				player.mind.job_objectives.Cut()
-				for(var/objectiveType in job.required_objectives)
-					new objectiveType(player.mind)
-
-				// 50/50 chance of getting optional objectives.
-				for(var/objectiveType in job.optional_objectives)
-					if(prob(50))
-						new objectiveType(player.mind)
-
 				unassigned -= player
 				job.current_positions++
 				return 1
@@ -123,6 +114,9 @@ var/global/datum/controller/occupations/job_master
 				continue
 
 			if(job.title in whitelisted_positions) // No random whitelisted job, sorry!
+				continue
+
+			if(!job.prisonlist_job && !check_prisonlist(ckey(player.key))) // And no random prisoners for nice kids
 				continue
 
 			if(job.admin_only) // No admin positions either.
@@ -508,6 +502,9 @@ var/global/datum/controller/occupations/job_master
 				if("Clown")	//don't need bag preference stuff!
 					if(rank=="Clown") // Clowns DO need to breathe, though - N3X
 						H.species.equip(H)
+				if("D-class Prisoner")
+					if(rank=="D-class Prisoner")
+						to_chat(H, "<B>Spawning as [alt_title ? alt_title : rank]</B>")
 				else
 					switch(H.backbag) //BS12 EDIT
 						if(1)
@@ -569,7 +566,10 @@ var/global/datum/controller/occupations/job_master
 			to_chat(H, "<b>You are playing a job that is important for the game progression. If you have to disconnect, please notify the admins via adminhelp.</b>")
 
 		spawnId(H, rank, alt_title)
-		H.equip_to_slot_or_del(new /obj/item/device/radio/headset(H), slot_l_ear)
+		if(rank=="D-class Prisoner")
+			to_chat(H, "<B>Just try to survive on this station!</B>")
+		else
+			H.equip_to_slot_or_del(new /obj/item/device/radio/headset(H), slot_l_ear)
 
 		//Gives glasses to the vision impaired
 		if(H.disabilities & DISABILITY_FLAG_NEARSIGHTED)
@@ -619,7 +619,10 @@ var/global/datum/controller/occupations/job_master
 
 			H.equip_to_slot_or_del(C, slot_wear_id)
 
-		H.equip_to_slot_or_del(new /obj/item/device/pda(H), slot_wear_pda)
+		if(rank=="D-class Prisoner")
+			to_chat(H, "<B>Godspeed, prisoner.</B>")
+		else
+			H.equip_to_slot_or_del(new /obj/item/device/pda(H), slot_wear_pda)
 		if(locate(/obj/item/device/pda,H))
 			var/obj/item/device/pda/pda = locate(/obj/item/device/pda,H)
 			pda.owner = H.real_name

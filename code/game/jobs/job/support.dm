@@ -80,7 +80,6 @@
 	minimal_access = list(access_hydroponics, access_morgue, access_maint_tunnels)
 	alt_titles = list("Hydroponicist", "Botanical Researcher")
 
-
 	equip(var/mob/living/carbon/human/H)
 		if(!H)	return 0
 		switch(H.backbag)
@@ -298,7 +297,6 @@
 	access = list(access_janitor, access_maint_tunnels)
 	minimal_access = list(access_janitor, access_maint_tunnels)
 	alt_titles = list("Custodial Technician")
-
 
 	equip(var/mob/living/carbon/human/H)
 		if(!H)	return 0

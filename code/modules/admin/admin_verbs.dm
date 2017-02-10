@@ -75,8 +75,8 @@ var/list/admin_verbs_admin = list(
 	/client/proc/debug_variables,
 	/client/proc/show_snpc_verbs,
 	/client/proc/reset_all_tcs,			/*resets all telecomms scripts*/
-	/client/proc/cmd_admin_check_player_exp, /* shows players by playtime */
-	/client/proc/toggle_mentor_chat
+	/client/proc/toggle_mentor_chat,
+	/client/proc/response_team
 )
 var/list/admin_verbs_ban = list(
 	/client/proc/unban_panel,
@@ -107,7 +107,6 @@ var/list/admin_verbs_event = list(
 	/datum/admins/proc/access_news_network,	/*allows access of newscasters*/
 	/client/proc/cmd_admin_direct_narrate,	/*send text directly to a player with no padding. Useful for narratives and fluff-text*/
 	/client/proc/cmd_admin_world_narrate,	/*sends text to all players with no padding*/
-	/client/proc/response_team, // Response Teams admin verb
 	/client/proc/cmd_admin_create_centcom_report,
 	/client/proc/fax_panel,
 	/client/proc/event_manager_panel
@@ -137,7 +136,8 @@ var/list/admin_verbs_server = list(
 	/client/proc/toggle_antagHUD_use,
 	/client/proc/toggle_antagHUD_restrictions,
 	/client/proc/set_ooc,
-	/client/proc/reset_ooc
+	/client/proc/reset_ooc,
+	/client/proc/bwhitelist_panel_open
 	)
 var/list/admin_verbs_debug = list(
 	/client/proc/cmd_admin_list_open_jobs,
@@ -175,7 +175,8 @@ var/list/admin_verbs_possess = list(
 var/list/admin_verbs_permissions = list(
 	/client/proc/edit_admin_permissions,
 	/client/proc/create_poll,
-	/client/proc/big_brother
+	/client/proc/big_brother,
+	/client/proc/give_karma_list
 	)
 var/list/admin_verbs_rejuv = list(
 	/client/proc/respawn_character,
