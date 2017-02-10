@@ -89,6 +89,9 @@
 	return 1
 
 /obj/machinery/atmospherics/binary/passive_gate/interact(mob/user)
+	user.set_machine(src)
+	add_fingerprint(user)
+
 	var/dat = {"<b>Power: </b><a href='?src=[UID()];power=1'>[on?"On":"Off"]</a><br>
 				<b>Desirable output pressure: </b>
 				[round(target_pressure,0.1)]kPa | <a href='?src=[UID()];set_press=1'>Change</a>
@@ -134,16 +137,14 @@
 /obj/machinery/atmospherics/binary/passive_gate/attack_hand(mob/user)
 	if(..())
 		return
-	add_fingerprint(user)
+
 	if(!allowed(user))
 		to_chat(user, "<span class='alert'>Access denied.</span>")
 		return
-	user.set_machine(src)
+
 	interact(user)
 	
 /obj/machinery/atmospherics/binary/passive_gate/attack_ghost(mob/user)
-	add_fingerprint(user)
-	user.set_machine(src)
 	interact(user)
 
 /obj/machinery/atmospherics/binary/passive_gate/Topic(href,href_list)

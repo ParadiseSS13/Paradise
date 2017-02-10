@@ -133,6 +133,7 @@
 	if(stat)
 		return 0
 		
+	add_fingerprint(user)
 	user.set_machine(src)
 
 	var/dat = "<b>Stored seeds:</b><br>"

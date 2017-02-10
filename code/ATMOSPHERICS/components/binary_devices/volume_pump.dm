@@ -100,6 +100,9 @@ Thus, the two variables affect pump operation are set in New():
 	return 1
 
 /obj/machinery/atmospherics/binary/volume_pump/interact(mob/user)
+	user.set_machine(src)
+	add_fingerprint(user)
+
 	var/dat = {"<b>Power: </b><a href='?src=[UID()];power=1'>[on?"On":"Off"]</a><br>
 				<b>Desirable output flow: </b>
 				[round(transfer_rate,1)]l/s | <a href='?src=[UID()];set_transfer_rate=1'>Change</a>
@@ -145,16 +148,14 @@ Thus, the two variables affect pump operation are set in New():
 /obj/machinery/atmospherics/binary/volume_pump/attack_hand(mob/user)
 	if(..())
 		return
-	add_fingerprint(user)
+
 	if(!allowed(user))
 		to_chat(user, "<span class='alert'>Access denied.</span>")
 		return
-	user.set_machine(src)
+
 	interact(user)
 	
 /obj/machinery/atmospherics/binary/volume_pump/attack_ghost(mob/user)
-	add_fingerprint(user)
-	user.set_machine(src)
 	interact(user)
 
 /obj/machinery/atmospherics/binary/volume_pump/Topic(href,href_list)

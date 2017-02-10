@@ -148,23 +148,22 @@ Filter types:
 	..()
 	
 /obj/machinery/atmospherics/trinary/filter/attack_ghost(mob/user) 
-	add_fingerprint(user)
-	user.set_machine(src)
 	interact(user)
 
 /obj/machinery/atmospherics/trinary/filter/attack_hand(mob/user)
 	if(..())
 		return
 
-	add_fingerprint(user)
 	if(!allowed(user))
 		to_chat(user, "<span class='alert'>Access denied.</span>")
 		return
 		
-	user.set_machine(src)
 	interact(user)
 		
-/obj/machinery/atmospherics/trinary/filter/interact(mob/user)		
+/obj/machinery/atmospherics/trinary/filter/interact(mob/user)	
+	user.set_machine(src)
+	add_fingerprint(user)
+	
 	var/dat
 	var/current_filter_type
 	switch(filter_type)

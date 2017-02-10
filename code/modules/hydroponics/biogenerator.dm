@@ -156,6 +156,7 @@
 	if(stat & BROKEN || panel_open)
 		return
 	user.set_machine(src)
+	add_fingerprint(user)
 	var/dat
 	if(processing)
 		dat += "<div class='statusDisplay'>Biogenerator is processing! Please wait...</div><BR>"

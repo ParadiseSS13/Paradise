@@ -95,6 +95,7 @@
 	interact(user)
 
 /obj/machinery/plantgenes/interact(mob/user)
+	add_fingerprint(user)
 	user.set_machine(src)
 	if(!user)
 		return

@@ -127,7 +127,6 @@
 	ui_interact(user)
 
 /obj/machinery/atmospherics/omni/attack_ghost(mob/user)
-	add_fingerprint(usr)
 	ui_interact(user)
 	
 /obj/machinery/atmospherics/omni/proc/build_icons()
