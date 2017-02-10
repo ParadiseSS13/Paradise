@@ -157,7 +157,7 @@ Filter types:
 		return
 
 	add_fingerprint(user)
-	if(!allowed(user) && !user.can_admin_interact())
+	if(!allowed(user))
 		to_chat(user, "<span class='alert'>Access denied.</span>")
 		return
 		

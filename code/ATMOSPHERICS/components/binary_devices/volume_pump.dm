@@ -146,7 +146,7 @@ Thus, the two variables affect pump operation are set in New():
 	if(..())
 		return
 	add_fingerprint(user)
-	if(!allowed(user) && !user.can_admin_interact())
+	if(!allowed(user))
 		to_chat(user, "<span class='alert'>Access denied.</span>")
 		return
 	user.set_machine(src)

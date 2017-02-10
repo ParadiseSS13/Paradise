@@ -138,7 +138,7 @@
 /obj/machinery/atmospherics/trinary/tvalve/digital/attack_hand(mob/user)
 	if(!powered())
 		return
-	if(!allowed(user) && !user.can_admin_interact())
+	if(!allowed(user) && !user.can_advanced_admin_interact())
 		to_chat(user, "<span class='alert'>Access denied.</span>")
 		return
 	..()
