@@ -9,7 +9,7 @@
 	maturation = 3
 	growthstages = 1
 	growing_icon = 'icons/obj/hydroponics/growing_vegetables.dmi'
-	reagents_add = list("nutriment" = 0.1)
+	reagents_add = list("styptic_powder" = 0.1)
 
 /obj/item/weapon/reagent_containers/food/snacks/grown/comfrey
 	seed = /obj/item/seeds/comfrey
@@ -35,7 +35,7 @@
 	product = /obj/item/weapon/reagent_containers/food/snacks/grown/aloe
 	yield = 2
 	icon_dead = "ambrosia-dead"
-	reagents_add = list("nutriment" = 0.1)
+	reagents_add = list("silver_sulfadiazine" = 0.1)
 
 /obj/item/weapon/reagent_containers/food/snacks/grown/aloe
 	seed = /obj/item/seeds/aloe

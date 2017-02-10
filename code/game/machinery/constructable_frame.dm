@@ -757,6 +757,17 @@ obj/item/weapon/circuitboard/rdserver
 							/obj/item/stack/cable_coil = 1,
 							/obj/item/weapon/stock_parts/console_screen = 1)
 
+/obj/item/weapon/circuitboard/quantumpad
+	name = "circuit board (Quantum Pad)"
+	build_path = /obj/machinery/quantumpad
+	board_type = "machine"
+	origin_tech = "programming=3;engineering=3;plasmatech=3;bluespace=4"
+	frame_desc = "Requires 1 Bluespace Crystal, 1 Capacitor, 1 piece of cable and 1 Manipulator."
+	req_components = list(
+							/obj/item/weapon/ore/bluespace_crystal = 1,
+							/obj/item/weapon/stock_parts/capacitor = 1,
+							/obj/item/weapon/stock_parts/manipulator = 1,
+							/obj/item/stack/cable_coil = 1)
 
 /obj/item/weapon/circuitboard/sleeper
 	name = "circuit board (Sleeper)"

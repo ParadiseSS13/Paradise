@@ -429,6 +429,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	name = "HEADER"
 	group = supply_engineer
 	announce_beacons = list("Engineering" = list("Engineering", "Chief Engineer's Desk"))
+	containertype = /obj/structure/closet/crate/engineering
 
 
 /datum/supply_packs/engineering/fueltank
@@ -456,6 +457,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 					/obj/item/clothing/gloves/color/yellow)
 	cost = 20	//Made of pure-grade bullshittinium
 	containername = "insulated gloves crate"
+	containertype = /obj/structure/closet/crate/engineering/electrical
 
 /datum/supply_packs/engineering/power
 	name = "Power Cell Crate"
@@ -464,6 +466,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 					/obj/item/weapon/stock_parts/cell/high)
 	cost = 10
 	containername = "electrical maintenance crate"
+	containertype = /obj/structure/closet/crate/engineering/electrical
 
 /datum/supply_packs/engineering/engiequipment
 	name = "Engineering Gear Crate"
@@ -510,6 +513,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 					/obj/item/weapon/paper/solar)
 	cost = 20
 	containername = "solar pack crate"
+	containertype = /obj/structure/closet/crate/engineering/electrical
 
 /datum/supply_packs/engineering/engine
 	name = "Emitter Crate"
@@ -519,6 +523,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	containertype = /obj/structure/closet/crate/secure
 	containername = "emitter crate"
 	access = access_ce
+	containertype = /obj/structure/closet/crate/secure/engineering
 
 /datum/supply_packs/engineering/engine/field_gen
 	name = "Field Generator Crate"
@@ -781,6 +786,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	name = "HEADER"
 	group = supply_science
 	announce_beacons = list("Research Division" = list("Science", "Research Director's Desk"))
+	containertype = /obj/structure/closet/crate/sci
 
 /datum/supply_packs/science/robotics
 	name = "Robotics Assembly Crate"
@@ -792,7 +798,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 					/obj/item/weapon/stock_parts/cell/high,
 					/obj/item/weapon/stock_parts/cell/high)
 	cost = 10
-	containertype = /obj/structure/closet/crate/secure
+	containertype = /obj/structure/closet/crate/secure/scisec
 	containername = "robotics assembly crate"
 	access = access_robotics
 	announce_beacons = list("Research Division" = list("Robotics", "Research Director's Desk"))
@@ -804,18 +810,14 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 					/obj/item/weapon/circuitboard/mecha/ripley/main, //TEMPORARY due to lack of circuitboard printer
 					/obj/item/weapon/circuitboard/mecha/ripley/peripherals) //TEMPORARY due to lack of circuitboard printer
 	cost = 30
-	containertype = /obj/structure/closet/crate/secure
 	containername = "\improper APLU \"Ripley\" circuit crate"
-	announce_beacons = list("Research Division" = list("Robotics", "Research Director's Desk"))
 
 /datum/supply_packs/science/robotics/mecha_odysseus
 	name = "Circuit Crate (Odysseus)"
 	contains = list(/obj/item/weapon/circuitboard/mecha/odysseus/peripherals, //TEMPORARY due to lack of circuitboard printer
 					/obj/item/weapon/circuitboard/mecha/odysseus/main) //TEMPORARY due to lack of circuitboard printer
 	cost = 25
-	containertype = /obj/structure/closet/crate/secure
 	containername = "\improper \"Odysseus\" circuit crate"
-	announce_beacons = list("Research Division" = list("Robotics", "Research Director's Desk"))
 
 /datum/supply_packs/science/plasma
 	name = "Plasma Assembly Crate"
@@ -844,7 +846,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 					/obj/machinery/shieldwallgen,
 					/obj/machinery/shieldwallgen)
 	cost = 20
-	containertype = /obj/structure/closet/crate/secure
+	containertype = /obj/structure/closet/crate/secure/scisec
 	containername = "shield generators crate"
 	access = access_teleporter
 
@@ -854,7 +856,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	contains = list(/obj/item/device/transfer_valve,
 					/obj/item/device/transfer_valve)
 	cost = 60
-	containertype = /obj/structure/closet/crate/secure
+	containertype = /obj/structure/closet/crate/secure/scisec
 	containername = "tank transfer valves crate"
 	access = access_rd
 
@@ -905,28 +907,28 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 
 /datum/supply_packs/organic/farwa
 	name = "Farwa Crate"
-	contains = list (/obj/item/weapon/storage/box/farwacubes)
-	cost = 30
+	contains = list (/obj/item/weapon/storage/box/monkeycubes/farwacubes)
+	cost = 20
 	containername = "farwa crate"
 
 
 /datum/supply_packs/organic/wolpin
 	name = "Wolpin Crate"
-	contains = list (/obj/item/weapon/storage/box/wolpincubes)
-	cost = 30
+	contains = list (/obj/item/weapon/storage/box/monkeycubes/wolpincubes)
+	cost = 20
 	containername = "wolpin crate"
 
 
 /datum/supply_packs/organic/skrell
 	name = "Neaera Crate"
-	contains = list (/obj/item/weapon/storage/box/neaeracubes)
-	cost = 30
+	contains = list (/obj/item/weapon/storage/box/monkeycubes/neaeracubes)
+	cost = 20
 	containername = "neaera crate"
 
 /datum/supply_packs/organic/stok
 	name = "Stok Crate"
-	contains = list (/obj/item/weapon/storage/box/stokcubes)
-	cost = 30
+	contains = list (/obj/item/weapon/storage/box/monkeycubes/stokcubes)
+	cost = 20
 	containername = "stok crate"
 
 /datum/supply_packs/organic/party
@@ -1185,9 +1187,16 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 /datum/supply_packs/misc/watertank
 	name = "Water Tank Crate"
 	contains = list(/obj/structure/reagent_dispensers/watertank)
-	cost = 8
+	cost = 6
 	containertype = /obj/structure/largecrate
 	containername = "water tank crate"
+
+/datum/supply_packs/misc/hightank
+	name = "High-Capacity Water Tank Crate"
+	contains = list(/obj/structure/reagent_dispensers/watertank/high)
+	cost = 12
+	containertype = /obj/structure/largecrate
+	containername = "high-capacity water tank crate"
 
 /datum/supply_packs/misc/lasertag
 	name = "Laser Tag Crate"

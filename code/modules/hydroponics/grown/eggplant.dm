@@ -13,7 +13,7 @@
 	icon_dead = "eggplant-dead"
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
 	mutatelist = list(/obj/item/seeds/eggplant/eggy)
-	reagents_add = list("vitamin" = 0.04, "nutriment" = 0.1)
+	reagents_add = list("vitamin" = 0.04, "plantmatter" = 0.1)
 
 /obj/item/weapon/reagent_containers/food/snacks/grown/eggplant
 	seed = /obj/item/seeds/eggplant

@@ -22,7 +22,7 @@
 	var/english_names = 0			 // Do we want English names by default, no matter what?
 	var/list/scramble_cache = list()
 
-/datum/language/proc/get_random_name(var/gender, name_count=2, syllable_count=4)
+/datum/language/proc/get_random_name(gender, name_count=2, syllable_count=4)
 	if(!syllables || !syllables.len || english_names)
 		if(gender==FEMALE)
 			return capitalize(pick(first_names_female)) + " " + capitalize(pick(last_names))
@@ -40,7 +40,7 @@
 
 	return "[trim(full_name)]"
 
-/datum/language/proc/scramble(var/input)
+/datum/language/proc/scramble(input)
 
 	if(!syllables || !syllables.len)
 		return stars(input)
@@ -95,10 +95,11 @@
 	// if you yell, you'll be heard from two tiles over instead of one
 	return (copytext(message, length(message)) == "!") ? 2 : 1
 
-/datum/language/proc/broadcast(var/mob/living/speaker,var/message,var/speaker_mask)
+/datum/language/proc/broadcast(mob/living/speaker, message, speaker_mask)
 	log_say("[key_name(speaker)]: ([name]) [message]")
 
-	if(!speaker_mask) speaker_mask = speaker.name
+	if(!speaker_mask)
+		speaker_mask = speaker.name
 	var/msg = "<i><span class='game say'>[name], <span class='name'>[speaker_mask]</span> [format_message(message, get_spoken_verb(message))]</span></i>"
 
 	for(var/mob/player in player_list)
@@ -110,10 +111,10 @@
 		else if(istype(player,/mob/dead) || ((src in player.languages) && check_special_condition(player, speaker)))
 			to_chat(player, msg)
 
-/datum/language/proc/check_special_condition(var/mob/other, var/mob/living/speaker)
-	return 1
+/datum/language/proc/check_special_condition(mob/other, mob/living/speaker)
+	return TRUE
 
-/datum/language/proc/get_spoken_verb(var/msg_end)
+/datum/language/proc/get_spoken_verb(msg_end)
 	switch(msg_end)
 		if("!")
 			return exclaim_verb
@@ -170,8 +171,7 @@
 	"ka","aasi","far","wa","baq","ara","qara","zir","sam","mak","hrar","nja","rir","khan","jun","dar","rik","kah", \
 	"hal","ket","jurl","mah","tul","cresh","azu","ragh")
 
-/datum/language/tajaran/get_random_name(var/gender)
-
+/datum/language/tajaran/get_random_name(gender)
 	var/new_name = ..(gender,1)
 	if(prob(80))
 		new_name += " [pick(list("Hadii","Kaytam","Zhan-Khazan","Hharar","Njarir'Akhan"))]"
@@ -286,13 +286,13 @@
 	key = "^"
 	flags = RESTRICTED | HIVEMIND
 
-/datum/language/grey/broadcast(var/mob/living/speaker,var/message,var/speaker_mask)
+/datum/language/grey/broadcast(mob/living/speaker, message, speaker_mask)
 	..(speaker,message,speaker.real_name)
 
-/datum/language/grey/check_special_condition(var/mob/living/carbon/human/other, var/mob/living/carbon/human/speaker)
+/datum/language/grey/check_special_condition(mob/living/carbon/human/other, mob/living/carbon/human/speaker)
 	if(other in range(7, speaker))
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 /datum/language/drask
 	name = "Orluum"
@@ -322,7 +322,7 @@
 	english_names = 1
 
 //TODO flag certain languages to use the mob-type specific say_quote and then get rid of these.
-/datum/language/common/get_spoken_verb(var/msg_end)
+/datum/language/common/get_spoken_verb(msg_end)
 	switch(msg_end)
 		if("!")
 			return pick("exclaims","shouts","yells") //TODO: make the basic proc handle lists of verbs.
@@ -341,7 +341,7 @@
 	syllables = list("tao","shi","tzu","yi","com","be","is","i","op","vi","ed","lec","mo","cle","te","dis","e")
 	english_names = 1
 
-/datum/language/human/get_spoken_verb(var/msg_end)
+/datum/language/human/get_spoken_verb(msg_end)
 	switch(msg_end)
 		if("!")
 			return pick("exclaims","shouts","yells") //TODO: make the basic proc handle lists of verbs.
@@ -396,15 +396,14 @@
 	key = "y"
 	flags = RESTRICTED | HIVEMIND
 
-/datum/language/wryn/check_special_condition(var/mob/other)
-
+/datum/language/wryn/check_special_condition(mob/other)
 	var/mob/living/carbon/M = other
 	if(!istype(M))
-		return 1
+		return TRUE
 	if(locate(/obj/item/organ/internal/wryn/hivenode) in M.internal_organs)
-		return 1
+		return TRUE
 
-	return 0
+	return FALSE
 
 /datum/language/xenocommon
 	name = "Xenomorph"
@@ -428,7 +427,6 @@
 	flags = RESTRICTED | HIVEMIND
 	follow = 1
 
-
 /datum/language/terrorspider
 	name = "Spider Hivemind"
 	desc = "Terror spiders have a limited ability to commune over a psychic hivemind, similar to xenomorphs."
@@ -440,7 +438,6 @@
 	flags = RESTRICTED | HIVEMIND
 	follow = 1
 
-
 /datum/language/ling
 	name = "Changeling"
 	desc = "Although they are normally wary and suspicious of each other, changelings can commune over a distance."
@@ -448,6 +445,14 @@
 	colour = "changeling"
 	key = "g"
 	flags = RESTRICTED | HIVEMIND
+
+/datum/language/ling/broadcast(mob/living/speaker, message, speaker_mask)
+	if(speaker.mind && speaker.mind.changeling)
+		..(speaker,message,speaker.mind.changeling.changelingID)
+	else if(speaker.mind && speaker.mind.linglink)
+		..()
+	else
+		..(speaker,message)
 
 /datum/language/shadowling
 	name = "Shadowling Hivemind"
@@ -457,19 +462,11 @@
 	key = "8"
 	flags = RESTRICTED | HIVEMIND
 
-
-/datum/language/shadowling/broadcast(var/mob/living/speaker, var/message, var/speaker_mask)
+/datum/language/shadowling/broadcast(mob/living/speaker, message, speaker_mask)
 	if(speaker.mind && speaker.mind.special_role)
 		..(speaker, message, "([speaker.mind.special_role]) [speaker]")
 	else
 		..(speaker, message)
-
-/datum/language/ling/broadcast(var/mob/living/speaker,var/message,var/speaker_mask)
-
-	if(speaker.mind && speaker.mind.changeling)
-		..(speaker,message,speaker.mind.changeling.changelingID)
-	else
-		..(speaker,message)
 
 /datum/language/abductor
 	name = "Abductor Mindlink"
@@ -481,14 +478,14 @@
 	key = "zw" //doesn't matter, this is their default and only language
 	flags = RESTRICTED | HIVEMIND
 
-/datum/language/abductor/broadcast(var/mob/living/speaker,var/message,var/speaker_mask)
+/datum/language/abductor/broadcast(mob/living/speaker, message, speaker_mask)
 	..(speaker,message,speaker.real_name)
 
-/datum/language/abductor/check_special_condition(var/mob/living/carbon/human/other, var/mob/living/carbon/human/speaker)
+/datum/language/abductor/check_special_condition(mob/living/carbon/human/other, mob/living/carbon/human/speaker)
 	if(other.mind && other.mind.abductor)
 		if(other.mind.abductor.team == speaker.mind.abductor.team)
-			return 1
-	return 0
+			return TRUE
+	return FALSE
 
 /datum/language/corticalborer
 	name = "Cortical Link"
@@ -500,11 +497,11 @@
 	key = "x"
 	flags = RESTRICTED | HIVEMIND
 
-/datum/language/corticalborer/broadcast(var/mob/living/speaker,var/message,var/speaker_mask)
+/datum/language/corticalborer/broadcast(mob/living/speaker, message, speaker_mask)
 
 	var/mob/living/simple_animal/borer/B
 
-	if(istype(speaker,/mob/living/carbon))
+	if(iscarbon(speaker))
 		var/mob/living/carbon/M = speaker
 		B = M.has_brain_worms()
 	else if(istype(speaker,/mob/living/simple_animal/borer))
@@ -526,7 +523,7 @@
 	follow = 1
 	var/drone_only
 
-/datum/language/binary/broadcast(var/mob/living/speaker,var/message,var/speaker_mask)
+/datum/language/binary/broadcast(mob/living/speaker, message, speaker_mask)
 
 	if(!speaker.binarycheck())
 		return
@@ -538,15 +535,14 @@
 	var/message_body = "<span class='message'>[speaker.say_quote(message)], \"[message]\"</span></span></i>"
 
 	for(var/mob/M in dead_mob_list)
-		if(!istype(M,/mob/new_player) && !istype(M,/mob/living/carbon/brain))
+		if(!isnewplayer(M) && !isbrain(M))
 			var/message_start_dead = "<i><span class='game say'>[name], <span class='name'>[speaker.name] ([ghost_follow_link(speaker, ghost=M)])</span>"
 			M.show_message("[message_start_dead] [message_body]", 2)
 
 	for(var/mob/living/S in living_mob_list)
-
 		if(drone_only && !istype(S,/mob/living/silicon/robot/drone))
 			continue
-		else if(istype(S , /mob/living/silicon/ai))
+		else if(isAI(S))
 			message_start = "<i><span class='game say'>[name], <a href='byond://?src=[S.UID()];track=\ref[speaker]'><span class='name'>[speaker.name]</span></a>"
 		else if(!S.binarycheck())
 			continue
@@ -557,7 +553,7 @@
 	listening -= src
 
 	for(var/mob/living/M in listening)
-		if(istype(M, /mob/living/silicon) || M.binarycheck())
+		if(issilicon(M) || M.binarycheck())
 			continue
 		M.show_message("<i><span class='game say'><span class='name'>synthesised voice</span> <span class='message'>beeps, \"beep beep beep\"</span></span></i>",2)
 
@@ -596,17 +592,17 @@
 	follow = 1
 
 // Language handling.
-/mob/proc/add_language(var/language)
+/mob/proc/add_language(language)
 
 	var/datum/language/new_language = all_languages[language]
 
 	if(!istype(new_language) || new_language in languages)
-		return 0
+		return FALSE
 
 	languages |= new_language
-	return 1
+	return TRUE
 
-/mob/proc/remove_language(var/rem_language)
+/mob/proc/remove_language(rem_language)
 	var/datum/language/L = all_languages[rem_language]
 	. = (L in languages)
 	languages.Remove(L)
@@ -620,7 +616,7 @@
 // Can we speak this language, as opposed to just understanding it?
 /mob/proc/can_speak_language(datum/language/speaking)
 
-	return (universal_speak || (speaking && speaking.flags & INNATE) || speaking in src.languages)
+	return (universal_speak || (speaking && speaking.flags & INNATE) || speaking in languages)
 
 //TBD
 /mob/verb/check_languages()
@@ -661,7 +657,7 @@
 			if(L)
 				set_default_language(L)
 		check_languages()
-		return 1
+		return TRUE
 	else
 		return ..()
 

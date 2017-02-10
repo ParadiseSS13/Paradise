@@ -91,6 +91,8 @@
 			podman.ckey = ckey_holder
 		podman.gender = blood_gender
 		podman.faction |= factions
+		podman.faction |= "plants"
+		podman.faction |= "vines"   //Pod grown Diona are allied with plants and vines alike.
 
 	else //else, one packet of seeds. maybe two
 		var/seed_count = 1

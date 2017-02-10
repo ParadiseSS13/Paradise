@@ -62,6 +62,16 @@
 	build_path = /obj/item/weapon/circuitboard/power_turbine
 	category = list ("Engineering Machinery")
 
+/datum/design/quantumpad
+	name = "Machine Board (Quantum Pad Board)"
+	desc = "The circuit board for a quantum telepad."
+	id = "quantumpad"
+	req_tech = list("programming" = 4, "bluespace" = 4, "plasmatech" = 3, "engineering" = 4)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000, "sacid" = 20)
+	build_path = /obj/item/weapon/circuitboard/quantumpad
+	category = list ("Teleportation Machinery")
+
 /datum/design/telepad
 	name = "Machine Board (Telepad Board)"
 	desc = "Allows for the construction of circuit boards used to build a Telepad."

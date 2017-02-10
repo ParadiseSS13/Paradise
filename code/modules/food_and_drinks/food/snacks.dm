@@ -1213,7 +1213,7 @@
 /obj/item/weapon/reagent_containers/food/snacks/monkeycube/afterattack(obj/O, mob/user, proximity)
 	if(!proximity)
 		return
-	if(istype(O,/obj/structure/sink) && !wrapped)
+	if(istype(O, /obj/structure/sink))
 		to_chat(user, "<span class='notice'>You place [src] under a stream of water...</span>")
 		user.drop_item()
 		forceMove(get_turf(O))
@@ -1222,22 +1222,16 @@
 		var/obj/machinery/computer/camera_advanced/xenobio/X = O
 		X.monkeys++
 		to_chat(user, "<span class='notice'>You feed [src] to the [X]. It now has [X.monkeys] monkey cubes stored.</span>")
+		user.drop_item()
 		qdel(src)
 		return
 	..()
-
-/obj/item/weapon/reagent_containers/food/snacks/monkeycube/attack_self(mob/user)
-	if(wrapped)
-		Unwrap(user)
 
 /obj/item/weapon/reagent_containers/food/snacks/monkeycube/water_act(volume, temperature)
 	if(volume >= 5)
 		return Expand()
 
 /obj/item/weapon/reagent_containers/food/snacks/monkeycube/wash(mob/user, atom/source)
-	if(wrapped)
-		..()
-		return
 	if(do_after(user, 40, target = source))
 		return 1
 
@@ -1247,22 +1241,7 @@
 		new/mob/living/carbon/human(get_turf(src),monkey_type)
 		qdel(src)
 
-/obj/item/weapon/reagent_containers/food/snacks/monkeycube/proc/Unwrap(mob/user)
-	icon_state = "monkeycube"
-	desc = "Just add water!"
-	to_chat(user, "<span class='notice'>You unwrap the cube.</span>")
-	wrapped = 0
-
-/obj/item/weapon/reagent_containers/food/snacks/monkeycube/wrapped
-	desc = "Still wrapped in some paper."
-	icon_state = "monkeycubewrap"
-	wrapped = 1
-
 /obj/item/weapon/reagent_containers/food/snacks/monkeycube/farwacube
-	name = "farwa cube"
-	monkey_type = "Farwa"
-
-/obj/item/weapon/reagent_containers/food/snacks/monkeycube/wrapped/farwacube
 	name = "farwa cube"
 	monkey_type = "Farwa"
 
@@ -1270,23 +1249,11 @@
 	name = "wolpin cube"
 	monkey_type = "Wolpin"
 
-/obj/item/weapon/reagent_containers/food/snacks/monkeycube/wrapped/wolpincube
-	name = "wolpin cube"
-	monkey_type = "Wolpin"
-
 /obj/item/weapon/reagent_containers/food/snacks/monkeycube/stokcube
 	name = "stok cube"
 	monkey_type = "Stok"
 
-/obj/item/weapon/reagent_containers/food/snacks/monkeycube/wrapped/stokcube
-	name = "stok cube"
-	monkey_type = "Stok"
-
 /obj/item/weapon/reagent_containers/food/snacks/monkeycube/neaeracube
-	name = "neaera cube"
-	monkey_type = "Neara"
-
-/obj/item/weapon/reagent_containers/food/snacks/monkeycube/wrapped/neaeracube
 	name = "neaera cube"
 	monkey_type = "Neara"
 

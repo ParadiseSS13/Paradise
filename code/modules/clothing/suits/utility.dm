@@ -74,6 +74,10 @@
 	strip_delay = 70
 	put_on_delay = 70
 	burn_state = FIRE_PROOF
+	species_fit = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/head.dmi'
+		)
 
 /obj/item/clothing/suit/bomb_suit
 	name = "bomb suit"
@@ -99,17 +103,20 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
 		)
-	hide_tail_by_species = list("Vox")
 
 /obj/item/clothing/head/bomb_hood/security
 	icon_state = "bombsuitsec"
 	item_state = "bombsuitsec"
+	species_fit = null
+	sprite_sheets = null
 
 
 /obj/item/clothing/suit/bomb_suit/security
 	icon_state = "bombsuitsec"
 	item_state = "bombsuitsec"
 	allowed = list(/obj/item/weapon/gun/energy,/obj/item/weapon/melee/baton,/obj/item/weapon/restraints/handcuffs)
+	species_fit = null
+	sprite_sheets = null
 
 /*
  * Radiation protection
@@ -123,6 +130,10 @@
 	strip_delay = 60
 	put_on_delay = 60
 	burn_state = FIRE_PROOF
+	species_fit = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/head.dmi'
+		)
 
 /obj/item/clothing/suit/radiation
 	name = "Radiation suit"
@@ -141,3 +152,7 @@
 	strip_delay = 60
 	put_on_delay = 60
 	burn_state = FIRE_PROOF
+	species_fit = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		)

@@ -218,6 +218,14 @@
 	if(src.holder && src.holder.marked_datum && src.holder.marked_datum == D)
 		body += "<br><font size='1' color='red'><b>Marked Object</b></font>"
 
+	if(D.var_edited)
+		body += "<br><font size='1' color='red'><b>Var Edited</b></font>"
+
+	if(istype(D, /atom))
+		var/atom/A = D
+		if(A.admin_spawned)
+			body += "<br><font size='1' color='red'><b>Admin Spawned</b></font>"
+
 	body += "</div>"
 
 	body += "</div></td>"
