@@ -130,12 +130,12 @@ var/list/alldepartments = list()
 	if(href_list["dept"])
 		if(authenticated)
 			var/lastdestination = destination
-			var/list/combineddepartments = alldepartments
+			var/list/combineddepartments = alldepartments.Copy()
 			if(long_range_enabled)
-				combineddepartments += admin_departments
+				combineddepartments += admin_departments.Copy()
 
 			if(emagged)
-				combineddepartments += hidden_admin_departments
+				combineddepartments += hidden_admin_departments.Copy()
 
 			destination = input(usr, "To which department?", "Choose a department", "") as null|anything in combineddepartments
 			if(!destination)

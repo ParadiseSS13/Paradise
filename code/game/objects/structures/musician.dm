@@ -138,10 +138,10 @@
 	return data
 
 /datum/song/Topic(href, href_list)
-	if(!in_range(instrumentObj, usr) || (issilicon(usr) && instrumentObj.loc != usr) || !isliving(usr) || !usr.canmove || usr.restrained())
+	if(!in_range(instrumentObj, usr) || (issilicon(usr) && instrumentObj.loc != usr) || !isliving(usr) || usr.incapacitated())
 		usr << browse(null, "window=instrument")
 		usr.unset_machine()
-		return
+		return 1
 
 	instrumentObj.add_fingerprint(usr)
 
@@ -291,7 +291,7 @@
 	ui_interact(user)
 
 /obj/structure/piano/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	if(!user || !anchored)
+	if(!isliving(user) || user.incapacitated())
 		return
 
 	song.ui_interact(user, ui_key, ui, force_open)
