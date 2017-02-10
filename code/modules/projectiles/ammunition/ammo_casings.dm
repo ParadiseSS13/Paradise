@@ -260,7 +260,7 @@
 	..()
 	reagents.add_reagent("neurotoxin", 6)
 	reagents.add_reagent("spore", 6)
-	reagents.add_reagent("mutetoxin", 6) //;HELP OPS IN MAINT
+	reagents.add_reagent("capulettium_plus", 6) //;HELP OPS IN MAINT
 	reagents.add_reagent("coniine", 6)
 	reagents.add_reagent("sodium_thiopental", 6)
 

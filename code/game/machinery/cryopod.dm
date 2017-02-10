@@ -290,6 +290,11 @@
 					continue
 				O.loc = src
 
+	for(var/obj/machinery/computer/cloning/cloner in machines)
+		for(var/datum/dna2/record/R in cloner.records)
+			if(occupant.mind == locate(R.mind))
+				cloner.records.Remove(R)
+
 	//Delete all items not on the preservation list.
 	var/list/items = src.contents
 	items -= occupant // Don't delete the occupant

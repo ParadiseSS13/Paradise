@@ -1,19 +1,8 @@
-/* Different misc types of tiles
- * Contains:
- *		Grass
- *		Wood
- *		Carpet
- *		Plasteel
- *		Light
- *		Fakespace
- *		High-traction
- \\ If you don't update the contains list, I'm going to shank you
- */
 /obj/item/stack/tile
 	name = "broken tile"
 	singular_name = "broken tile"
 	desc = "A broken tile. This should not exist."
-	icon = 'icons/obj/items.dmi'
+	icon = 'icons/obj/tiles.dmi'
 	icon_state = "tile"
 	item_state = "tile"
 	w_class = 3
@@ -23,12 +12,64 @@
 	throw_range = 20
 	max_amount = 60
 	flags = CONDUCT
+	origin_tech = "materials=1"
 	var/turf_type = null
 	var/mineralType = null
 
-/*
- * Grass
- */
+/obj/item/stack/tile/New(loc, amount)
+	..()
+	pixel_x = rand(-3, 3)
+	pixel_y = rand(-3, 3) //randomize a little
+
+/obj/item/stack/tile/attackby(obj/item/W, mob/user, params)
+	if(iswelder(W))
+		var/obj/item/weapon/weldingtool/WT = W
+
+		if(is_hot(W) && !mineralType)
+			to_chat(user, "<span class='warning'>You can not reform this!</span>")
+			return
+
+		if(get_amount() < 4)
+			to_chat(user, "<span class='warning'>You need at least four tiles to do this!</span>")
+			return
+
+		if(WT.remove_fuel(0,user))
+
+			if(mineralType == "plasma")
+				atmos_spawn_air(SPAWN_HEAT | SPAWN_TOXINS, 5)
+				user.visible_message("<span class='warning'>[user.name] sets the plasma tiles on fire!</span>", \
+									"<span class='warning'>You set the plasma tiles on fire!</span>")
+				qdel(src)
+				return
+
+			if (mineralType == "metal")
+				var/obj/item/stack/sheet/metal/new_item = new(user.loc)
+				user.visible_message("[user.name] shaped [src] into metal with the welding tool.", \
+							 "<span class='notice'>You shaped [src] into metal with the welding tool.</span>", \
+							 "<span class='italics'>You hear welding.</span>")
+				var/obj/item/stack/rods/R = src
+				src = null
+				var/replace = (user.get_inactive_hand()==R)
+				R.use(4)
+				if(!R && replace)
+					user.put_in_hands(new_item)
+
+			else
+				var/sheet_type = text2path("/obj/item/stack/sheet/mineral/[mineralType]")
+				var/obj/item/stack/sheet/mineral/new_item = new sheet_type(user.loc)
+				user.visible_message("[user.name] shaped [src] into a sheet with the welding tool.", \
+							 "<span class='notice'>You shaped [src] into a sheet with the welding tool.</span>", \
+							 "<span class='italics'>You hear welding.</span>")
+				var/obj/item/stack/rods/R = src
+				src = null
+				var/replace = (user.get_inactive_hand()==R)
+				R.use(4)
+				if (!R && replace)
+					user.put_in_hands(new_item)
+	else
+		return ..()
+
+//Grass
 /obj/item/stack/tile/grass
 	name = "grass tiles"
 	gender = PLURAL
@@ -39,21 +80,18 @@
 	turf_type = /turf/simulated/floor/grass
 	burn_state = FLAMMABLE
 
-/*
- * Wood
- */
+//Wood
 /obj/item/stack/tile/wood
 	name = "wood floor tiles"
 	gender = PLURAL
 	singular_name = "wood floor tile"
 	desc = "an easy to fit wood floor tile"
 	icon_state = "tile-wood"
+	origin_tech = "biotech=1"
 	turf_type = /turf/simulated/floor/wood
 	burn_state = FLAMMABLE
 
-/*
- * Carpets
- */
+//Carpets
 /obj/item/stack/tile/carpet
 	name = "carpet"
 	singular_name = "carpet"
@@ -62,9 +100,7 @@
 	turf_type = /turf/simulated/floor/carpet
 	burn_state = FLAMMABLE
 
-/*
- * Plasteel
- */
+//Plasteel
 /obj/item/stack/tile/plasteel
 	name = "floor tiles"
 	gender = PLURAL
@@ -80,9 +116,7 @@
 	turf_type = /turf/simulated/floor/plasteel
 	mineralType = "metal"
 
-/*
- * Light
- */
+//Light
 /obj/item/stack/tile/light
 	name = "light tiles"
 	gender = PLURAL
@@ -94,9 +128,7 @@
 	attack_verb = list("bashed", "battered", "bludgeoned", "thrashed", "smashed")
 	turf_type = /turf/simulated/floor/light
 
-/*
- * Fakespace
- */
+//Fakespace
 /obj/item/stack/tile/fakespace
 	name = "astral carpet"
 	singular_name = "astral carpet"
@@ -119,16 +151,6 @@
 
 /obj/item/stack/tile/noslip/loaded
 	amount = 20
-
-/obj/item/stack/tile/silent
-	name = "silent tile"
-	singular_name = "silent floor tile"
-	desc = "A tile made out of tranquillite, SHHHHHHHHH!"
-	icon_state = "tile-silent"
-	origin_tech = "materials=1"
-	turf_type = /turf/simulated/floor/silent
-	mineralType = "tranquillite"
-	materials = list(MAT_TRANQUILLITE=500)
 
 //Pod floor
 /obj/item/stack/tile/pod

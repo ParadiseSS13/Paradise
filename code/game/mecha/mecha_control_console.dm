@@ -10,10 +10,10 @@
 	var/screen = 0
 	var/stored_data
 
-/obj/machinery/computer/mecha/attack_ai(var/mob/user as mob)
+/obj/machinery/computer/mecha/attack_ai(mob/user)
 	return attack_hand(user)
 
-/obj/machinery/computer/mecha/attack_hand(var/mob/user as mob)
+/obj/machinery/computer/mecha/attack_hand(mob/user)
 	ui_interact(user)
 
 /obj/machinery/computer/mecha/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
@@ -73,11 +73,12 @@
 	icon_state = "motion2"
 	w_class = 2
 	origin_tech = "programming=2;magnets=2"
+	var/ai_beacon = FALSE //If this beacon allows for AI control. Exists to avoid using istype() on checking.
 
 /obj/item/mecha_parts/mecha_tracking/proc/get_mecha_info()
 	if(!in_mecha())
-		return 0
-	var/obj/mecha/M = src.loc
+		return FALSE
+	var/obj/mecha/M = loc
 	var/list/answer[0]
 	answer["reference"] = "\ref[src]"
 	answer["name"] = sanitize(replacetext(M.name,"\"","'")) // Double apostrophes break JSON
@@ -101,6 +102,25 @@
 
 	return answer
 
+/obj/item/mecha_parts/mecha_tracking/proc/get_mecha_info_text()
+	if(!in_mecha())
+		return FALSE
+	var/obj/mecha/M = loc
+	var/cell_charge = M.get_charge()
+	var/area/A = get_area(M)
+	var/answer = {"<b>Name:</b> [M.name]
+						<b>Integrity:</b> [M.health/initial(M.health)*100]%
+						<b>Cell charge:</b> [isnull(cell_charge)?"Not found":"[M.cell.percent()]%"]
+						<b>Airtank:</b> [M.return_pressure()]kPa
+						<b>Pilot:</b> [M.occupant||"None"]
+						<b>Location:</b> [sanitize(A.name)||"Unknown"]
+						<b>Active equipment:</b> [M.selected||"None"]<br>"}
+	if(istype(M, /obj/mecha/working/ripley))
+		var/obj/mecha/working/ripley/RM = M
+		answer += "<b>Used cargo space:</b> [RM.cargo.len/RM.cargo_capacity*100]%<br>"
+
+	return answer
+
 /obj/item/mecha_parts/mecha_tracking/emp_act()
 	qdel(src)
 	return
@@ -110,9 +130,9 @@
 	return
 
 /obj/item/mecha_parts/mecha_tracking/proc/in_mecha()
-	if(istype(src.loc, /obj/mecha))
-		return src.loc
-	return 0
+	if(istype(loc, /obj/mecha))
+		return loc
+	return FALSE
 
 /obj/item/mecha_parts/mecha_tracking/proc/shock()
 	var/obj/mecha/M = in_mecha()
@@ -121,19 +141,26 @@
 	qdel(src)
 
 /obj/item/mecha_parts/mecha_tracking/proc/get_mecha_log()
-	if(!src.in_mecha())
+	if(!in_mecha())
 		return 0
-	var/obj/mecha/M = src.loc
+	var/obj/mecha/M = loc
 	return M.get_log_html()
+
+/obj/item/mecha_parts/mecha_tracking/ai_control
+	name = "exosuit AI control beacon"
+	desc = "A device used to transmit exosuit data. Also allows active AI units to take control of said exosuit."
+	origin_tech = "programming=3;magnets=2;engineering=2"
+	ai_beacon = TRUE
 
 /obj/item/weapon/storage/box/mechabeacons
 	name = "Exosuit Tracking Beacons"
-	New()
-		..()
-		new /obj/item/mecha_parts/mecha_tracking(src)
-		new /obj/item/mecha_parts/mecha_tracking(src)
-		new /obj/item/mecha_parts/mecha_tracking(src)
-		new /obj/item/mecha_parts/mecha_tracking(src)
-		new /obj/item/mecha_parts/mecha_tracking(src)
-		new /obj/item/mecha_parts/mecha_tracking(src)
-		new /obj/item/mecha_parts/mecha_tracking(src)
+
+/obj/item/weapon/storage/box/mechabeacons/New()
+	..()
+	new /obj/item/mecha_parts/mecha_tracking(src)
+	new /obj/item/mecha_parts/mecha_tracking(src)
+	new /obj/item/mecha_parts/mecha_tracking(src)
+	new /obj/item/mecha_parts/mecha_tracking(src)
+	new /obj/item/mecha_parts/mecha_tracking(src)
+	new /obj/item/mecha_parts/mecha_tracking(src)
+	new /obj/item/mecha_parts/mecha_tracking(src)

@@ -145,6 +145,7 @@ var/global/list/datum/stack_recipe/wood_recipes = list(
 	new /datum/stack_recipe("wooden chair", /obj/structure/stool/bed/chair/wood/normal, 3, time = 10, one_per_turf = 1, on_floor = 1),
 	new /datum/stack_recipe("wooden barricade", /obj/structure/barricade/wooden, 5, time = 50, one_per_turf = 1, on_floor = 1),
 	new /datum/stack_recipe("bookcase", /obj/structure/bookcase, 5, time = 50, one_per_turf = 1, on_floor = 1),
+	new /datum/stack_recipe("drying rack", /obj/machinery/smartfridge/drying_rack, 10, time = 15, one_per_turf = 1, on_floor = 1),
 	new /datum/stack_recipe("rifle stock", /obj/item/weaponcrafting/stock, 10, time = 40),
 	new /datum/stack_recipe("wooden door", /obj/structure/mineral_door/wood, 10, time = 20, one_per_turf = 1, on_floor = 1),
 	new /datum/stack_recipe("coffin", /obj/structure/closet/coffin, 5, time = 15, one_per_turf = 1, on_floor = 1),
@@ -170,13 +171,42 @@ var/global/list/datum/stack_recipe/wood_recipes = list(
 /*
  * Cloth
  */
+var/global/list/datum/stack_recipe/cloth_recipes = list ( \
+	new/datum/stack_recipe("grey jumpsuit", /obj/item/clothing/under/color/grey, 3), \
+	new/datum/stack_recipe("black shoes", /obj/item/clothing/shoes/black, 2), \
+	null, \
+	new/datum/stack_recipe("backpack", /obj/item/weapon/storage/backpack, 4), \
+	new/datum/stack_recipe("dufflebag", /obj/item/weapon/storage/backpack/duffel, 6), \
+	null, \
+	new/datum/stack_recipe("plant bag", /obj/item/weapon/storage/bag/plants, 4), \
+	new/datum/stack_recipe("book bag", /obj/item/weapon/storage/bag/books, 4), \
+	new/datum/stack_recipe("mining satchel", /obj/item/weapon/storage/bag/ore, 4), \
+	new/datum/stack_recipe("chemistry bag", /obj/item/weapon/storage/bag/chemistry, 4), \
+	new/datum/stack_recipe("bio bag", /obj/item/weapon/storage/bag/bio, 4), \
+	null, \
+	new/datum/stack_recipe("rag", /obj/item/weapon/reagent_containers/glass/rag, 1), \
+	new/datum/stack_recipe("bedsheet", /obj/item/weapon/bedsheet, 3), \
+	null, \
+	new/datum/stack_recipe("fingerless gloves", /obj/item/clothing/gloves/fingerless, 1), \
+	new/datum/stack_recipe("black gloves", /obj/item/clothing/gloves/color/black, 3), \
+	)
+
 /obj/item/stack/sheet/cloth
 	name = "cloth"
-	desc = "This roll of cloth is made from only the finest chemicals and bunny rabbits."
+	desc = "Is it cotton? Linen? Denim? Burlap? Canvas? You can't tell."
 	singular_name = "cloth roll"
 	icon_state = "sheet-cloth"
 	origin_tech = "materials=2"
 	burn_state = FLAMMABLE
+	force = 0
+	throwforce = 0
+
+/obj/item/stack/sheet/cloth/New(loc, amount=null)
+	recipes = cloth_recipes
+	..()
+
+/obj/item/stack/sheet/cloth/ten
+	amount = 10
 
 /*
  * Cardboard
@@ -240,3 +270,19 @@ var/global/list/datum/stack_recipe/runed_metal_recipes = list ( \
 /obj/item/stack/sheet/runed_metal/New(var/loc, var/amount=null)
 	recipes = runed_metal_recipes
 	return ..()
+
+/*
+ * Bones
+ */
+/obj/item/stack/sheet/bone
+	name = "bones"
+	icon = 'icons/obj/mining.dmi'
+	icon_state = "bone"
+	singular_name = "bone"
+	desc = "Someone's been drinking their milk."
+	force = 7
+	throwforce = 5
+	w_class = 3
+	throw_speed = 1
+	throw_range = 3
+	origin_tech = "materials=2;biotech=2"

@@ -487,11 +487,11 @@ var/list/teleport_runes = list()
 	var/mob/living/user = invokers[1]
 	var/datum/game_mode/cult/cult_mode = ticker.mode
 	if(!(CULT_ELDERGOD in cult_mode.objectives))
-		message_admins("[usr.real_name]([user.ckey]) tried to summonn an eldritch horror when the objective was wrong")
+		message_admins("[key_name_admin(user)] tried to summonn an eldritch horror when the objective was wrong")
 		burn_invokers(invokers)
 		log_game("Summon Nar-Sie rune failed - improper objective")
 	if(!is_station_level(user.z))
-		message_admins("[user.real_name]([user.ckey]) tried to summon an eldritch horror off station")
+		message_admins("[key_name_admin(user)] tried to summon an eldritch horror off station")
 		burn_invokers(invokers)
 		log_game("Summon Nar-Sie rune failed - off station Z level")
 		return

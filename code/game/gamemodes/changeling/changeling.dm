@@ -3,7 +3,6 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 /datum/game_mode
 	var/list/datum/mind/changelings = list()
 
-
 /datum/game_mode/changeling
 	name = "changeling"
 	config_tag = "changeling"
@@ -38,7 +37,6 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 	to_chat(world, "<B>There are alien changelings on the station. Do not let the changelings succeed!</B>")
 
 /datum/game_mode/changeling/pre_setup()
-
 	if(config.protect_roles_from_antagonist)
 		restricted_jobs += protected_jobs
 
@@ -69,8 +67,7 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 
 	..()
 
-
-/datum/game_mode/proc/forge_changeling_objectives(var/datum/mind/changeling)
+/datum/game_mode/proc/forge_changeling_objectives(datum/mind/changeling)
 	//OBJECTIVES - Always absorb 5 genomes, plus random traitor objectives.
 	//If they have two objectives as well as absorb, they must survive rather than escape
 	//No escape alone because changelings aren't suited for it and it'd probably just lead to rampant robusting
@@ -129,7 +126,7 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 			changeling.objectives += identity_theft
 	return
 
-/datum/game_mode/proc/greet_changeling(var/datum/mind/changeling, var/you_are=1)
+/datum/game_mode/proc/greet_changeling(datum/mind/changeling, you_are=1)
 	if(you_are)
 		to_chat(changeling.current, "<span class='danger'>You are a changeling!</span>")
 	to_chat(changeling.current, "<span class='danger'>Use say \":g message\" to communicate with your fellow changelings. Remember: you get all of their absorbed DNA if you absorb them.</span>")
@@ -144,8 +141,6 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 		to_chat(changeling.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
 		obj_count++
 	return
-
-
 
 /datum/game_mode/proc/remove_changeling(datum/mind/changeling_mind)
 	if(changeling_mind in changelings)
@@ -171,7 +166,8 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 	set_antag_hud(changeling.current, null)
 
 /datum/game_mode/proc/grant_changeling_powers(mob/living/carbon/changeling_mob)
-	if(!istype(changeling_mob))	return
+	if(!istype(changeling_mob))
+		return
 	changeling_mob.make_changeling()
 
 /datum/game_mode/proc/auto_declare_completion_changeling()
@@ -218,7 +214,6 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 
 		to_chat(world, text)
 
-
 	return 1
 
 /datum/changeling //stores changeling powers, changeling recharge thingie, changeling absorbed DNA and changeling ID (for changeling hivemind)
@@ -235,6 +230,7 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 	var/changelingID = "Changeling"
 	var/geneticdamage = 0
 	var/isabsorbing = 0
+	var/islinking = 0
 	var/geneticpoints = 10
 	var/purchasedpowers = list()
 	var/mimicing = ""
@@ -243,11 +239,13 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 	var/datum/dna/chosen_dna
 	var/obj/effect/proc_holder/changeling/sting/chosen_sting
 
-/datum/changeling/New(var/gender=FEMALE)
+/datum/changeling/New(gender=FEMALE)
 	..()
 	var/honorific
-	if(gender == FEMALE)	honorific = "Ms."
-	else					honorific = "Mr."
+	if(gender == FEMALE)
+		honorific = "Ms."
+	else
+		honorific = "Mr."
 	if(possible_changeling_IDs.len)
 		changelingID = pick(possible_changeling_IDs)
 		possible_changeling_IDs -= changelingID
@@ -259,25 +257,24 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 	chem_charges = min(max(0, chem_charges + chem_recharge_rate - chem_recharge_slowdown), chem_storage)
 	geneticdamage = max(0, geneticdamage-1)
 
-
-/datum/changeling/proc/GetDNA(var/dna_owner)
+/datum/changeling/proc/GetDNA(dna_owner)
 	for(var/datum/dna/DNA in (absorbed_dna + protected_dna))
 		if(dna_owner == DNA.real_name)
 			return DNA
 
-/datum/changeling/proc/find_dna(var/datum/dna/tDNA)
+/datum/changeling/proc/find_dna(datum/dna/tDNA)
 	for(var/datum/dna/D in (absorbed_dna + protected_dna))
 		if(tDNA.unique_enzymes == D.unique_enzymes && tDNA.uni_identity == D.uni_identity && tDNA.species == D.species)
 			return D
 	return null
 
-/datum/changeling/proc/has_dna(var/datum/dna/tDNA)
+/datum/changeling/proc/has_dna(datum/dna/tDNA)
 	if(find_dna(tDNA))
 		return 1
 	return 0
 
 // A changeling's DNA is "stale" if their current form's DNA is the oldest DNA in a full list
-/datum/changeling/proc/using_stale_dna(var/mob/living/carbon/user)
+/datum/changeling/proc/using_stale_dna(mob/living/carbon/user)
 	var/current_dna = find_dna(user.dna)
 	if(absorbed_dna.len < dna_max)
 		return 0 // Still more room for DNA
@@ -292,7 +289,7 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 	if(absorbed_dna.len > dna_max)
 		absorbed_dna.Cut(1, (absorbed_dna.len - dna_max) + 1)
 
-/datum/changeling/proc/can_absorb_dna(var/mob/living/carbon/user, var/mob/living/carbon/target)
+/datum/changeling/proc/can_absorb_dna(mob/living/carbon/user, mob/living/carbon/target)
 	if(using_stale_dna(user))//If our current DNA is the stalest, we gotta ditch it.
 		to_chat(user, "<span class='warning'>We have reached our capacity to store genetic information! We must transform before absorbing more.</span>")
 		return

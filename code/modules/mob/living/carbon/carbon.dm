@@ -914,14 +914,14 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 
 /mob/living/carbon/proc/slip(var/description, var/stun, var/weaken, var/tilesSlipped, var/walkSafely, var/slipAny)
 	if(flying || buckled || (walkSafely && m_intent == "walk"))
-		return
+		return 0
 	if((lying) && (!(tilesSlipped)))
-		return
+		return 0
 	if(!(slipAny))
 		if(istype(src, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = src
 			if((isobj(H.shoes) && H.shoes.flags & NOSLIP) || H.species.bodyflags & FEET_NOSLIP)
-				return
+				return 0
 	if(tilesSlipped)
 		for(var/t = 0, t<=tilesSlipped, t++)
 			spawn (t) step(src, src.dir)
