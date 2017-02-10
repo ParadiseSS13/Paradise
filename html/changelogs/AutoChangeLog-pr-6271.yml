@@ -1,6 +1,0 @@
-author: "Markolie"
-delete-after: True
-changes: 
-  - rscadd: "Firelocks can now be constructed and deconstructed."
-  - tweak: "Firelocks no longer show a confirmation message when being opened."
-  - tweak: "Various map fixes (vents, scrubbers, firelocks and intercoms). Also removes the firelocks covering the windows in escape/cargo."
