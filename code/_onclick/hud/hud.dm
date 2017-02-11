@@ -88,6 +88,11 @@
 	mymob.pullin = null
 	mymob.zone_sel = null
 
+	mymob.gun_move = null
+	mymob.gun_item = null
+	mymob.gun_mode = null
+	mymob.gun_radio = null
+
 	//clear the rest of our reload_fullscreen
 	lingchemdisplay = null
 	lingstingdisplay = null

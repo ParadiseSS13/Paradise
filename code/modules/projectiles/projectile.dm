@@ -52,6 +52,19 @@
 	var/forcedodge = 0 //to pass through everything
 	var/dismemberment = 0 //The higher the number, the greater the bonus to dismembering. 0 will not dismember at all.
 
+	var/hitscan = 0		// whether the projectile should be hitscan
+	var/step_delay = 1
+
+	var/fire_sound
+
+	var/matrix/effect_transform
+
+	var/muzzle_type
+	var/tracer_type
+	var/impact_type
+
+	var/shot_from = ""
+
 	var/log = 1 //whether print to admin attack logs or just keep it in the diary
 
 /obj/item/projectile/New()

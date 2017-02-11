@@ -103,6 +103,8 @@
 	var/bones_can_break = 1
 	var/limbs_can_break = 1
 
+	var/no_click_cooldown = 0
+
 	var/revival_pod_plants = 1
 	var/revival_cloning = 1
 	var/revival_brain_life = -1

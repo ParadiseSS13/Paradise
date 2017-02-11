@@ -34,7 +34,11 @@
 		if(shoes)
 			tally += shoes.slowdown
 
-	if(shock_stage >= 10) tally += 3
+	if(shock_stage >= 10)
+		tally += 3
+
+	if(aiming && aiming.aiming_at)
+		tally += 5 // Iron sights make you slower, it's a well-known fact.
 
 	if(back)
 		tally += back.slowdown
