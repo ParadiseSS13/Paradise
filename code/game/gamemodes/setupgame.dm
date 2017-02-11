@@ -35,7 +35,6 @@
 
 	// Standard muts
 	BLINDBLOCK         = getAssignedBlock("BLIND",         numsToAssign)
-	COLOURBLINDBLOCK   = getAssignedBlock("COLOURBLIND",   numsToAssign)
 	DEAFBLOCK          = getAssignedBlock("DEAF",          numsToAssign)
 	HULKBLOCK          = getAssignedBlock("HULK",          numsToAssign, DNA_HARD_BOUNDS, good=1)
 	TELEBLOCK          = getAssignedBlock("TELE",          numsToAssign, DNA_HARD_BOUNDS, good=1)
