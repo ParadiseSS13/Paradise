@@ -25,6 +25,9 @@
 	var/check_anomalies = 1	//checks if it can shoot at unidentified lifeforms (ie xenos)
 	var/check_synth = 0 	//if active, will shoot at anything not an AI or cyborg
 	var/ailock = 0 	//Silicons cannot use this
+	
+	var/syndicate = 0
+	var/faction = "" // Turret controls can only access turrets that are in the same faction
 
 	req_access = list(access_ai_upload)
 
@@ -36,6 +39,23 @@
 	enabled = 1
 	lethal = 1
 	icon_state = "control_kill"
+	
+/obj/machinery/turretid/syndicate
+	enabled = 1
+	lethal = 1
+	icon_state = "control_kill"
+	
+	lethal = 1
+	check_arrest = 0
+	check_records = 0
+	check_weapons = 0
+	check_access = 0
+	check_anomalies = 1	
+	check_synth	= 1
+	ailock = 1
+	
+	syndicate = 1
+	faction = "syndicate"
 
 /obj/machinery/turretid/Destroy()
 	if(control_area)
@@ -50,7 +70,7 @@
 		control_area = get_area(src)
 	else if(istext(control_area))
 		for(var/area/A in world)
-			if(A.name && A.name==control_area)
+			if(A.name && A.name == control_area)
 				control_area = A
 				break
 
@@ -130,10 +150,10 @@
 	data["access"] = !isLocked(user)
 	data["locked"] = locked
 	data["enabled"] = enabled
-	data["is_lethal"] = 1
+	data["lethal_control"] = !syndicate ? 1 : 0
 	data["lethal"] = lethal
 
-	if(data["access"])
+	if(data["access"] && !syndicate)
 		var/settings[0]
 		settings[++settings.len] = list("category" = "Neutralize All Non-Synthetics", "setting" = "check_synth", "value" = check_synth)
 		settings[++settings.len] = list("category" = "Check Weapon Authorization", "setting" = "check_weapons", "value" = check_weapons)
@@ -156,6 +176,8 @@
 		var/value = text2num(href_list["value"])
 		if(href_list["command"] == "enable")
 			enabled = value
+		else if(syndicate)
+			return 1
 		else if(href_list["command"] == "lethal")
 			lethal = value
 		else if(href_list["command"] == "check_synth")
@@ -188,7 +210,8 @@
 
 	if(istype(control_area))
 		for(var/obj/machinery/porta_turret/aTurret in control_area)
-			aTurret.setState(TC)
+			if(faction == aTurret.faction)
+				aTurret.setState(TC)
 
 	update_icon()
 

@@ -192,19 +192,7 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) \
 	if(shuttle_master.emergency.areaInstance != A)
 		return 0
 
-	for(var/mob/living/player in player_list)
-		if(player.mind && player.mind != owner)
-			if(player.stat != DEAD)
-				if(issilicon(player)) //Borgs are technically dead anyways
-					continue
-				if(isanimal(player)) //Poly does not own the shuttle
-					continue
-				if(player.mind.special_role && !(player.mind.special_role == SPECIAL_ROLE_ERT)) //Is antag, and not ERT
-					continue
-
-				if(get_area(player) == A)
-					return 0
-	return 1
+	return shuttle_master.emergency.is_hijacked()
 
 /datum/objective/hijackclone
 	explanation_text = "Hijack the emergency shuttle by ensuring only you (or your copies) escape."
@@ -295,11 +283,11 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) \
 	var/target_real_name // Has to be stored because the target's real_name can change over the course of the round
 
 /datum/objective/escape/escape_with_identity/find_target()
-	var/list/possible_targets = list() //Copypasta because NO_SCAN races, yay for snowflakes.
+	var/list/possible_targets = list() //Copypasta because NO_DNA races, yay for snowflakes.
 	for(var/datum/mind/possible_target in ticker.minds)
 		if(possible_target != owner && ishuman(possible_target.current) && (possible_target.current.stat != DEAD) && possible_target.current.client)
 			var/mob/living/carbon/human/H = possible_target.current
-			if(!(H.species.flags & NO_SCAN))
+			if(!(H.species.flags & NO_DNA))
 				possible_targets += possible_target
 	if(possible_targets.len > 0)
 		target = pick(possible_targets)
@@ -455,12 +443,12 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) \
 		if(ticker.current_state == GAME_STATE_SETTING_UP)
 			for(var/mob/new_player/P in player_list)
 				if(P.client && P.ready && P.mind != owner)
-					if(P.client.prefs && (P.client.prefs.species == "Vox" || P.client.prefs.species == "Slime People" || P.client.prefs.species == "Machine")) // Special check for species that can't be absorbed. No better solution.
+					if(P.client.prefs && (P.client.prefs.species == "Machine")) // Special check for species that can't be absorbed. No better solution.
 						continue
 					n_p++
 		else if(ticker.current_state == GAME_STATE_PLAYING)
 			for(var/mob/living/carbon/human/P in player_list)
-				if(P.species.flags & NO_SCAN)
+				if(P.species.flags & NO_DNA)
 					continue
 				if(P.client && !(P.mind in ticker.mode.changelings) && P.mind!=owner)
 					n_p++

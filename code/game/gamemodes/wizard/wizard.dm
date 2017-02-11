@@ -38,7 +38,7 @@
 /datum/game_mode/wizard/pre_setup()
 	for(var/datum/mind/wiz in wizards)
 		wiz.current.loc = pick(wizardstart)
-
+	..()
 	return 1
 
 
@@ -54,20 +54,20 @@
 			update_wiz_icons_added(wizard)
 
 	..()
-	
+
 /datum/game_mode/proc/remove_wizard(datum/mind/wizard_mind)
 	if(wizard_mind in wizards)
 		ticker.mode.wizards -= wizard_mind
 		wizard_mind.special_role = null
-		wizard_mind.current.attack_log += "\[[time_stamp()]\] <span class='danger'>De-wizarded</span>"
+		wizard_mind.current.create_attack_log("<span class='danger'>De-wizarded</span>")
 		wizard_mind.current.spellremove(wizard_mind.current)
 		wizard_mind.current.faction = list("Station")
 		if(issilicon(wizard_mind.current))
 			to_chat(wizard_mind.current, "<span class='userdanger'>You have been turned into a robot! You can feel your magical powers fading away...</span>")
 		else
 			to_chat(wizard_mind.current, "<span class='userdanger'>You have been brainwashed! You are no longer a wizard.</span>")
-		ticker.mode.update_wiz_icons_removed(wizard_mind)		
-	
+		ticker.mode.update_wiz_icons_removed(wizard_mind)
+
 /datum/game_mode/proc/update_wiz_icons_added(datum/mind/wiz_mind)
 	var/datum/atom_hud/antag/wizhud = huds[ANTAG_HUD_WIZ]
 	wizhud.join_hud(wiz_mind.current)

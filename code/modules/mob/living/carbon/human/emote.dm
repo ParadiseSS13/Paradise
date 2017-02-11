@@ -83,12 +83,12 @@
 				message = "<B>[src]</B> pings at [param]."
 			else
 				message = "<B>[src]</B> pings."
-			playsound(src.loc, 'sound/machines/ping.ogg', 50, 0)
+			playsound(loc, 'sound/machines/ping.ogg', 50, 0)
 			m_type = 2
 
 		if("buzz2")
 			message = "<B>[src]</B> emits an irritated buzzing sound."
-			playsound(src.loc, 'sound/machines/buzz-two.ogg', 50, 0)
+			playsound(loc, 'sound/machines/buzz-two.ogg', 50, 0)
 			m_type = 2
 
 		if("buzz", "buzzes")
@@ -105,7 +105,7 @@
 				message = "<B>[src]</B> buzzes at [param]."
 			else
 				message = "<B>[src]</B> buzzes."
-			playsound(src.loc, 'sound/machines/buzz-sigh.ogg', 50, 0)
+			playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, 0)
 			m_type = 2
 
 		if("beep", "beeps")
@@ -122,7 +122,7 @@
 				message = "<B>[src]</B> beeps at [param]."
 			else
 				message = "<B>[src]</B> beeps."
-			playsound(src.loc, 'sound/machines/twobeep.ogg', 50, 0)
+			playsound(loc, 'sound/machines/twobeep.ogg', 50, 0)
 			m_type = 2
 
 		if("drone", "drones", "hum", "hums", "rumble", "rumbles")
@@ -139,7 +139,7 @@
 				message = "<B>[src]</B> drones at [param]."
 			else
 				message = "<B>[src]</B> rumbles."
-			playsound(src.loc, 'sound/voice/DraskTalk.ogg', 50, 0)
+			playsound(loc, 'sound/voice/DraskTalk.ogg', 50, 0)
 			m_type = 2
 
 		if("squish", "squishes")
@@ -156,7 +156,7 @@
 				message = "<B>[src]</B> squishes at [param]."
 			else
 				message = "<B>[src]</B> squishes."
-			playsound(src.loc, 'sound/effects/slime_squish.ogg', 50, 0) //Credit to DrMinky (freesound.org) for the sound.
+			playsound(loc, 'sound/effects/slime_squish.ogg', 50, 0) //Credit to DrMinky (freesound.org) for the sound.
 			m_type = 2
 
 		if("yes")
@@ -173,7 +173,7 @@
 				message = "<B>[src]</B> emits an affirmative blip at [param]."
 			else
 				message = "<B>[src]</B> emits an affirmative blip."
-			playsound(src.loc, 'sound/machines/synth_yes.ogg', 50, 0)
+			playsound(loc, 'sound/machines/synth_yes.ogg', 50, 0)
 			m_type = 2
 
 		if("no")
@@ -190,7 +190,7 @@
 				message = "<B>[src]</B> emits a negative blip at [param]."
 			else
 				message = "<B>[src]</B> emits a negative blip."
-			playsound(src.loc, 'sound/machines/synth_no.ogg', 50, 0)
+			playsound(loc, 'sound/machines/synth_no.ogg', 50, 0)
 			m_type = 2
 
 		if("wag", "wags")
@@ -202,7 +202,7 @@
 			else if(species.bodyflags & TAIL_WAGGING)
 				if(!wear_suit || !(wear_suit.flags_inv & HIDETAIL) && !istype(wear_suit, /obj/item/clothing/suit/space))
 					message = "<B>[src]</B> starts wagging \his tail."
-					src.start_tail_wagging(1)
+					start_tail_wagging(1)
 				else
 					return
 			else
@@ -212,14 +212,24 @@
 		if("swag", "swags")
 			if(species.bodyflags & TAIL_WAGGING || body_accessory)
 				message = "<B>[src]</B> stops wagging \his tail."
-				src.stop_tail_wagging(1)
+				stop_tail_wagging(1)
 			else
 				return
 			m_type = 1
 
 		if("airguitar")
-			if(!src.restrained())
+			if(!restrained())
 				message = "<B>[src]</B> is strumming the air and headbanging like a safari chimp."
+				m_type = 1
+				
+		if("dance")
+			if(!restrained())
+				message = "<B>[src]</B> dances around happily."
+				m_type = 1
+				
+		if("jump")
+			if(!restrained())
+				message = "<B>[src]</B> jumps!"
 				m_type = 1
 
 		if("blink", "blinks")
@@ -231,7 +241,7 @@
 			m_type = 1
 
 		if("bow", "bows")
-			if(!src.buckled)
+			if(!buckled)
 				var/M = null
 				if(param)
 					for(var/mob/A in view(null, null))
@@ -248,7 +258,7 @@
 			m_type = 1
 
 		if("salute", "salutes")
-			if(!src.buckled)
+			if(!buckled)
 				var/M = null
 				if(param)
 					for(var/mob/A in view(null, null))
@@ -288,13 +298,13 @@
 					message = "<B>[src]</B> makes a peculiar noise."
 					m_type = 2
 		if("clap", "claps")
-			if(!src.restrained())
+			if(!restrained())
 				message = "<B>[src]</B> claps."
 				m_type = 2
 				if(miming)
 					m_type = 1
 		if("flap", "flaps")
-			if(!src.restrained())
+			if(!restrained())
 				message = "<B>[src]</B> flaps \his wings."
 				m_type = 2
 				if(miming)
@@ -302,7 +312,7 @@
 
 		if("flip", "flips")
 			m_type = 1
-			if(!src.restrained())
+			if(!restrained())
 				var/M = null
 				if(param)
 					for(var/mob/A in view(1, null))
@@ -340,7 +350,7 @@
 							SpinAnimation(5,1)
 
 		if("aflap", "aflaps")
-			if(!src.restrained())
+			if(!restrained())
 				message = "<B>[src]</B> flaps \his wings ANGRILY!"
 				m_type = 2
 				if(miming)
@@ -376,7 +386,7 @@
 
 		if("faint", "faints")
 			message = "<B>[src]</B> faints."
-			if(src.sleeping)
+			if(sleeping)
 				return //Can't faint while asleep
 			AdjustSleeping(2)
 			m_type = 1
@@ -578,11 +588,11 @@
 					message = "<B>[src]</B> takes a drag from a cigarette and blows \"[M]\" out in smoke."
 					m_type = 1
 				else
-					message = "<B>[src]</B> says, \"[M], please. They had a family.\" [src.name] takes a drag from a cigarette and blows their name out in smoke."
+					message = "<B>[src]</B> says, \"[M], please. They had a family.\" [name] takes a drag from a cigarette and blows their name out in smoke."
 					m_type = 2
 
 		if("point", "points")
-			if(!src.restrained())
+			if(!restrained())
 				var/atom/M = null
 				if(param)
 					for(var/atom/A as mob|obj|turf in view())
@@ -597,7 +607,7 @@
 			m_type = 1
 
 		if("raise", "raises")
-			if(!src.restrained())
+			if(!restrained())
 				message = "<B>[src]</B> raises a hand."
 			m_type = 1
 
@@ -610,12 +620,12 @@
 			m_type = 1
 
 		if("signal", "signals")
-			if(!src.restrained())
+			if(!restrained())
 				var/t1 = round(text2num(param))
 				if(isnum(t1))
-					if(t1 <= 5 && (!src.r_hand || !src.l_hand))
+					if(t1 <= 5 && (!r_hand || !l_hand))
 						message = "<B>[src]</B> raises [t1] finger\s."
-					else if(t1 <= 10 && (!src.r_hand && !src.l_hand))
+					else if(t1 <= 10 && (!r_hand && !l_hand))
 						message = "<B>[src]</B> raises [t1] finger\s."
 			m_type = 1
 
@@ -699,7 +709,7 @@
 
 		if("hug", "hugs")
 			m_type = 1
-			if(!src.restrained())
+			if(!restrained())
 				var/M = null
 				if(param)
 					for(var/mob/A in view(1, null))
@@ -716,7 +726,7 @@
 
 		if("handshake")
 			m_type = 1
-			if(!src.restrained() && !src.r_hand)
+			if(!restrained() && !r_hand)
 				var/mob/M = null
 				if(param)
 					for(var/mob/A in view(1, null))
@@ -734,7 +744,7 @@
 
 		if("dap", "daps")
 			m_type = 1
-			if(!src.restrained())
+			if(!restrained())
 				var/M = null
 				if(param)
 					for(var/mob/A in view(1, null))
@@ -748,7 +758,7 @@
 
 		if("slap", "slaps")
 			m_type = 1
-			if(!src.restrained())
+			if(!restrained())
 				var/M = null
 				if(param)
 					for(var/mob/A in view(1, null))
@@ -757,11 +767,11 @@
 							break
 				if(M)
 					message = "<span class='danger'>[src] slaps [M] across the face. Ouch!</span>"
-					playsound(src.loc, 'sound/effects/snap.ogg', 50, 1)
+					playsound(loc, 'sound/effects/snap.ogg', 50, 1)
 				else
 					message = "<span class='danger'>[src] slaps \himself!</span>"
-					playsound(src.loc, 'sound/effects/snap.ogg', 50, 1)
-					src.adjustFireLoss(4)
+					playsound(loc, 'sound/effects/snap.ogg', 50, 1)
+					adjustFireLoss(4)
 
 		if("scream", "screams")
 			if(miming)
@@ -772,9 +782,9 @@
 					message = "<B>[src]</B> [species.scream_verb]!"
 					m_type = 2
 					if(gender == FEMALE)
-						playsound(src.loc, "[species.female_scream_sound]", 80, 1, 0, pitch = get_age_pitch())
+						playsound(loc, "[species.female_scream_sound]", 80, 1, 0, pitch = get_age_pitch())
 					else
-						playsound(src.loc, "[species.male_scream_sound]", 80, 1, 0, pitch = get_age_pitch()) //default to male screams if no gender is present.
+						playsound(loc, "[species.male_scream_sound]", 80, 1, 0, pitch = get_age_pitch()) //default to male screams if no gender is present.
 
 				else
 					message = "<B>[src]</B> makes a very loud noise."
@@ -799,24 +809,24 @@
 					return
 
 				message = "<b>[src]</b> snaps \his fingers."
-				playsound(src.loc, 'sound/effects/fingersnap.ogg', 50, 1, -3)
+				playsound(loc, 'sound/effects/fingersnap.ogg', 50, 1, -3)
 			else
 				message = "<span class='danger'><b>[src]</b> snaps \his fingers right off!</span>"
-				playsound(src.loc, 'sound/effects/snap.ogg', 50, 1)
+				playsound(loc, 'sound/effects/snap.ogg', 50, 1)
 
 
 		// Needed for M_TOXIC_FART
 		if("fart", "farts")
 			if(reagents.has_reagent("simethicone"))
 				return
-//			playsound(src.loc, 'sound/effects/fart.ogg', 50, 1, -3) //Admins still vote no to fun
+//			playsound(loc, 'sound/effects/fart.ogg', 50, 1, -3) //Admins still vote no to fun
 			if(locate(/obj/item/weapon/storage/bible) in get_turf(src))
 				to_chat(viewers(src), "<span class='warning'><b>[src] farts on the Bible!</b></span>")
 				to_chat(viewers(src), "<span class='notice'><b>A mysterious force smites [src]!</b></span>")
 				var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 				s.set_up(3, 1, src)
 				s.start()
-				src.gib()
+				gib()
 			else if(TOXIC_FARTS in mutations)
 				message = "<b>[src]</b> unleashes a [pick("horrible","terrible","foul","disgusting","awful")] fart."
 			else if(SUPER_FART in mutations)
@@ -841,9 +851,9 @@
 					M.reagents.add_reagent("jenkem", 1)
 
 		if("help")
-			var/emotelist = "aflap(s), airguitar, blink(s), blink(s)_r, blush(es), bow(s)-(none)/mob, burp(s), choke(s), chuckle(s), clap(s), collapse(s), cough(s),cry, cries, custom, dap(s)(none)/mob," \
-			+ " deathgasp(s), drool(s), eyebrow,fart(s), faint(s), flap(s), flip(s), frown(s), gasp(s), giggle(s), glare(s)-(none)/mob, grin(s), groan(s), grumble(s), handshake-mob, hug(s)-(none)/mob," \
-			+ " glare(s)-(none)/mob, grin(s), johnny, laugh(s), look(s)-(none)/mob, moan(s), mumble(s), nod(s), pale(s), point(s)-atom, quiver(s), raise(s), salute(s)-(none)/mob, scream(s), shake(s)," \
+			var/emotelist = "aflap(s), airguitar, blink(s), blink(s)_r, blush(es), bow(s)-(none)/mob, burp(s), choke(s), chuckle(s), clap(s), collapse(s), cough(s),cry, cries, custom, dance, dap(s)(none)/mob," \
+			+ " deathgasp(s), drool(s), eyebrow, fart(s), faint(s), flap(s), flip(s), frown(s), gasp(s), giggle(s), glare(s)-(none)/mob, grin(s), groan(s), grumble(s), grin(s)," \
+			+ " handshake-mob, hug(s)-(none)/mob, johnny, jump, laugh(s), look(s)-(none)/mob, moan(s), mumble(s), nod(s), pale(s), point(s)-atom, quiver(s), raise(s), salute(s)-(none)/mob, scream(s), shake(s)," \
 			+ " shiver(s), shrug(s), sigh(s), signal(s)-#1-10,slap(s)-(none)/mob, smile(s),snap(s), sneeze(s), sniff(s), snore(s), stare(s)-(none)/mob, swag(s), tremble(s), twitch(es), twitch(es)_s," \
 			+ " wag(s), wave(s),  whimper(s), wink(s), yawn(s)"
 			if(species.name == "Machine")

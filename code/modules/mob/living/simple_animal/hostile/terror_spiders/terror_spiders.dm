@@ -142,7 +142,7 @@ var/global/list/ts_spiderling_list = list()
 	else if(istype(target, /obj/machinery/door/firedoor))
 		var/obj/machinery/door/firedoor/F = target
 		if(F.density)
-			if(F.blocked)
+			if(F.welded)
 				to_chat(src, "The fire door is welded shut.")
 			else
 				visible_message("<span class='danger'>\The [src] pries open the firedoor!</span>")
@@ -162,7 +162,7 @@ var/global/list/ts_spiderling_list = list()
 			var/can_poison = 1
 			if(ishuman(G))
 				var/mob/living/carbon/human/H = G
-				if(!(H.species.reagent_tag & PROCESS_ORG) || (H.species.flags & NO_POISON))
+				if(!(H.species.reagent_tag & PROCESS_ORG) || (!H.species.tox_mod))
 					can_poison = 0
 			spider_specialattack(G,can_poison)
 		else
@@ -248,7 +248,7 @@ var/global/list/ts_spiderling_list = list()
 		notify_ghosts("[src] has appeared in [get_area(src)]. (already player-controlled)", source = src, alert_overlay = alert_overlay)
 	else if(ai_playercontrol_allowtype)
 		var/image/alert_overlay = image('icons/mob/terrorspider.dmi', icon_state)
-		notify_ghosts("[src] has appeared in [get_area(src)].", enter_link = "<a href=?src=[UID()];activate=1>(Click to control)</a>", source = src, alert_overlay = alert_overlay, attack_not_jump = 1)
+		notify_ghosts("[src] has appeared in [get_area(src)].", enter_link = "<a href=?src=[UID()];activate=1>(Click to control)</a>", source = src, alert_overlay = alert_overlay, action = NOTIFY_ATTACK)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/Destroy()
 	ts_spiderlist -= src
@@ -307,7 +307,7 @@ var/global/list/ts_spiderling_list = list()
 			try_open_airlock(L)
 	if(istype(A, /obj/machinery/door/firedoor))
 		var/obj/machinery/door/firedoor/F = A
-		if(F.density && !F.blocked)
+		if(F.density && !F.welded)
 			F.open()
 	..()
 

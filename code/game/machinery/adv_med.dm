@@ -193,6 +193,11 @@
 		A.blob_act()
 		qdel(src)
 
+/obj/machinery/bodyscanner/narsie_act()
+	go_out()
+	new /obj/effect/gibspawner/generic(get_turf(loc)) //I REPLACE YOUR TECHNOLOGY WITH FLESH!
+	qdel(src)
+
 /obj/machinery/bodyscanner/attack_animal(var/mob/living/simple_animal/M)//Stop putting hostile mobs in things guise
 	if(M.environment_smash)
 		M.do_attack_animation(src)
@@ -448,6 +453,7 @@
 		occupantData["intOrgan"] = intOrganData
 
 		occupantData["blind"] = (H.disabilities & BLIND)
+		occupantData["colourblind"] = (H.disabilities & COLOURBLIND)
 		occupantData["nearsighted"] = (H.disabilities & NEARSIGHTED)
 
 	data["occupant"] = occupantData
@@ -634,6 +640,8 @@
 			dat += "</table>"
 			if(occupant.disabilities & BLIND)
 				dat += "<font color='red'>Cataracts detected.</font><BR>"
+			if(occupant.disabilities & COLOURBLIND)
+				dat += "<font color='red'>Photoreceptor abnormalities detected.</font><BR>"
 			if(occupant.disabilities & NEARSIGHTED)
 				dat += "<font color='red'>Retinal misalignment detected.</font><BR>"
 		else

@@ -65,8 +65,7 @@
 	/////////////////////////
 	user.lastattacked = M
 	M.lastattacker = user
-
-	add_logs(user, M, "attacked", name, "(INTENT: [uppertext(user.a_intent)]) (DAMTYE: [uppertext(damtype)])")
+	add_logs(user, M, "attacked", name, "(INTENT: [uppertext(user.a_intent)]) (DAMTYE: [uppertext(damtype)])", print_attack_log = (force > 0))//print it if stuff deals damage
 
 	if(!iscarbon(user))
 		M.LAssailant = null
@@ -75,7 +74,9 @@
 
 	/////////////////////////
 
-	if(istype(M, /mob/living/simple_animal))
+	if(isanimal(M))
+		var/mob/living/simple_animal/S = M
+		S.attacked_by(src, user)
 		return 0 // No sanic-speed double-attacks for you - simple mobs will handle being attacked on their own
 	var/power = force
 

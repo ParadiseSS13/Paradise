@@ -66,7 +66,7 @@
 					if(mind) //Handles vampires "eating" blood that isn't their own.
 						if(mind in ticker.mode.vampires)
 							for(var/datum/reagent/blood/BL in vessel.reagent_list)
-								if(nutrition >= 450)
+								if(nutrition >= NUTRITION_LEVEL_WELL_FED)
 									break //We don't want blood tranfusions making vampires fat.
 								if(BL.data["donor"] != src)
 									nutrition += (15 * REAGENTS_METABOLISM)
@@ -186,6 +186,16 @@
 		temp_chem += R.id
 		temp_chem[R.id] = R.volume
 	B.data["trace_chem"] = list2params(temp_chem)
+	if(mind)
+		B.data["mind"] = mind
+	if(ckey)
+		B.data["ckey"] = ckey
+
+	if(!suiciding)
+		B.data["cloneable"] = 1
+	B.data["gender"] = gender
+	B.data["real_name"] = real_name
+	B.data["factions"] = faction
 	return B
 
 //For humans, blood does not appear from blue, it comes from vessels.

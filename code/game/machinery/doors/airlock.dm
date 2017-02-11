@@ -476,7 +476,7 @@ About the new airlock wires panel:
 	else if(duration)	//electrify door for the given duration seconds
 		if(usr)
 			shockedby += text("\[[time_stamp()]\] - [usr](ckey:[usr.ckey])")
-			usr.attack_log += text("\[[time_stamp()]\] <font color='red'>Electrified the [name] at [x] [y] [z]</font>")
+			usr.create_attack_log("<font color='red'>Electrified the [name] at [x] [y] [z]</font>")
 		else
 			shockedby += text("\[[time_stamp()]\] - EMP)")
 		message = "The door is now electrified [duration == -1 ? "permanently" : "for [duration] second\s"]."
@@ -736,7 +736,7 @@ About the new airlock wires panel:
 				electrify(0)
 			else if(activate)	//electrify door for 30 seconds
 				shockedby += text("\[[time_stamp()]\][usr](ckey:[usr.ckey])")
-				usr.attack_log += text("\[[time_stamp()]\] <font color='red'>Electrified the [name] at [x] [y] [z]</font>")
+				usr.create_attack_log("<font color='red'>Electrified the [name] at [x] [y] [z]</font>")
 				to_chat(usr, "The door is now electrified for thirty seconds.")
 				electrify(30)
 		if("electrify_permanently")
@@ -747,7 +747,7 @@ About the new airlock wires panel:
 				electrify(0)
 			else if(activate)
 				shockedby += text("\[[time_stamp()]\][usr](ckey:[usr.ckey])")
-				usr.attack_log += text("\[[time_stamp()]\] <font color='red'>Electrified the [name] at [x] [y] [z]</font>")
+				usr.create_attack_log("<font color='red'>Electrified the [name] at [x] [y] [z]</font>")
 				to_chat(usr, "The door is now electrified.")
 				electrify(-1)
 		if("open")

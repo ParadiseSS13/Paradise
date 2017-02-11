@@ -12,8 +12,12 @@
 	var/locked = 0 //Used to prevent mobs from breaking the feedin anim
 
 	var/gib_throw_dir = WEST // Direction to spit meat and gibs in. Defaults to west.
-	var/gibtime = 40 // Time from starting until meat appears
 
+	var/gibtime = 40 // Time from starting until meat appears
+	var/animation_delay = GIBBER_ANIMATION_DELAY
+
+	// For hiding gibs, making an even more devious trap (invisible autogibbers)
+	var/stealthmode = FALSE
 	var/list/victims = list()
 
 	use_power = 1
@@ -110,25 +114,25 @@
 
 /obj/machinery/gibber/proc/move_into_gibber(var/mob/user,var/mob/living/victim)
 	if(occupant)
-		to_chat(user, "<span class='danger'>The gibber is full, empty it first!</span>")
+		to_chat(user, "<span class='danger'>The [src] is full, empty it first!</span>")
 		return
 
 	if(operating)
-		to_chat(user, "<span class='danger'>The gibber is locked and running, wait for it to finish.</span>")
+		to_chat(user, "<span class='danger'>The [src] is locked and running, wait for it to finish.</span>")
 		return
 
 	if(!ishuman(victim) || issmall(victim))
-		to_chat(user, "<span class='danger'>This is not suitable for the gibber!</span>")
+		to_chat(user, "<span class='danger'>This is not suitable for the [src]]!</span>")
 		return
 
 	if(victim.abiotic(1))
 		to_chat(user, "<span class='danger'>Subject may not have abiotic items on.</span>")
 		return
 
-	user.visible_message("<span class='danger'>[user] starts to put [victim] into the gibber!</span>")
+	user.visible_message("<span class='danger'>[user] starts to put [victim] into the [src]!</span>")
 	add_fingerprint(user)
 	if(do_after(user, 30, target = victim) && user.Adjacent(src) && victim.Adjacent(user) && !occupant)
-		user.visible_message("<span class='danger'>[user] stuffs [victim] into the gibber!</span>")
+		user.visible_message("<span class='danger'>[user] stuffs [victim] into the [src]]!</span>")
 
 		victim.forceMove(src)
 		occupant = victim
@@ -195,16 +199,16 @@
 	holder2.layer = MOB_LAYER + 0.1 //3D, it's above the mob, rest of the gibber is behind
 	holder2.anchored = 1
 
-	animate(holder, pixel_y = 16, time = GIBBER_ANIMATION_DELAY) //animate going down
+	animate(holder, pixel_y = 16, time = animation_delay) //animate going down
 
-	sleep(GIBBER_ANIMATION_DELAY)
+	sleep(animation_delay)
 
 	holder.overlays -= feedee //reset static icon
 	feedee.icon += icon('icons/obj/kitchen.dmi', "footicon") //this is some byond magic; += to the icon var with a black and white image will mask it
 	holder.overlays += feedee
-	animate(holder, pixel_y = -3, time = GIBBER_ANIMATION_DELAY) //animate going down further
+	animate(holder, pixel_y = -3, time = animation_delay) //animate going down further
 
-	sleep(GIBBER_ANIMATION_DELAY) //time everything right, animate doesn't prevent proc from continuing
+	sleep(animation_delay) //time everything right, animate doesn't prevent proc from continuing
 
 	qdel(holder) //get rid of holder object
 	qdel(holder2) //get rid of holder object
@@ -231,7 +235,7 @@
 	operating = 1
 	update_icon()
 	var/offset = prob(50) ? -2 : 2
-	animate(src, pixel_x = pixel_x + offset, time = 0.2, loop = 200) //start shaking
+	animate(src, pixel_x = pixel_x + offset, time = 0.2, loop = gibtime * 5) //start shaking
 
 	var/slab_name = occupant.name
 	var/slab_count = 3
@@ -254,8 +258,8 @@
 	new /obj/effect/decal/cleanable/blood/gibs(src)
 
 	if(!UserOverride)
-		occupant.attack_log += "\[[time_stamp()]\] Was gibbed by [key_name(user)]" //One shall not simply gib a mob unnoticed!
-		user.attack_log += "\[[time_stamp()]\] Gibbed [key_name(occupant)]"
+		occupant.create_attack_log("Was gibbed by [key_name(user)]") //One shall not simply gib a mob unnoticed!)
+		user.create_attack_log("Gibbed [key_name(occupant)]")
 
 		if(occupant.ckey)
 			msg_admin_attack("[key_name_admin(user)] gibbed [key_name_admin(occupant)]")
@@ -266,11 +270,10 @@
 			occupant.LAssailant = user
 
 	else //this looks ugly but it's better than a copy-pasted startgibbing proc override
-		occupant.attack_log += "\[[time_stamp()]\] Was gibbed by <b>an autogibber (\the [src])</b>"
+		occupant.create_attack_log("Was gibbed by <b>an autogibber (\the [src])</b>")
 
 	occupant.emote("scream")
 	playsound(get_turf(src), 'sound/goonstation/effects/gib.ogg', 50, 1)
-
 	victims += "\[[time_stamp()]\] [occupant.name] ([occupant.ckey]) killed by [UserOverride ? "Autogibbing" : "[user] ([user.ckey])"]" //have to do this before ghostizing
 	occupant.death(1)
 	occupant.ghostize()
@@ -281,15 +284,20 @@
 		playsound(get_turf(src), 'sound/effects/splat.ogg', 50, 1)
 		operating = 0
 
-		for(var/obj/item/thing in contents) //Meat is spawned inside the gibber and thrown out afterwards.
-			thing.loc = get_turf(thing) // Drop it onto the turf for throwing.
-			thing.throw_at(get_edge_target_turf(src,gib_throw_dir),rand(1,5),15) // Being pelted with bits of meat and bone would hurt.
-			sleep(1)
+		if(stealthmode)
+			for(var/atom/movable/AM in contents)
+				qdel(AM)
+				sleep(1)
+		else
+			for(var/obj/item/thing in contents) //Meat is spawned inside the gibber and thrown out afterwards.
+				thing.loc = get_turf(thing) // Drop it onto the turf for throwing.
+				thing.throw_at(get_edge_target_turf(src,gib_throw_dir),rand(1,5),15) // Being pelted with bits of meat and bone would hurt.
+				sleep(1)
 
-		for(var/obj/effect/gibs in contents) //throw out the gibs too
-			gibs.loc = get_turf(gibs) //drop onto turf for throwing
-			gibs.throw_at(get_edge_target_turf(src,gib_throw_dir),rand(1,5),15)
-			sleep(1)
+			for(var/obj/effect/gibs in contents) //throw out the gibs too
+				gibs.loc = get_turf(gibs) //drop onto turf for throwing
+				gibs.throw_at(get_edge_target_turf(src,gib_throw_dir),rand(1,5),15)
+				sleep(1)
 
 		pixel_x = initial(pixel_x) //return to it's spot after shaking
 		operating = 0
@@ -306,6 +314,8 @@
 	var/acceptdir = NORTH
 	var/lastacceptdir = NORTH
 	var/turf/lturf
+	var/consumption_delay = 3 SECONDS
+	var/list/victim_targets = list()
 
 /obj/machinery/gibber/autogibber/New()
 	..()
@@ -320,7 +330,7 @@
 	RefreshParts()
 
 /obj/machinery/gibber/autogibber/process()
-	if(!lturf || occupant || locked || dirty || operating)
+	if(!lturf || occupant || locked || dirty || operating || victim_targets.len)
 		return
 
 	if(acceptdir != lastacceptdir)
@@ -331,15 +341,21 @@
 			lturf = T
 
 	for(var/mob/living/carbon/human/H in lturf)
-		if(istype(H) && H.loc == lturf)
-			visible_message({"<span class='danger'>\The [src] states, "Food detected!"</span>"})
-			sleep(30)
+		victim_targets += H
+
+	if(victim_targets.len)
+		visible_message({"<span class='danger'>\The [src] states, "Food detected!"</span>"})
+		sleep(consumption_delay)
+		for(var/mob/living/carbon/H in victim_targets)
 			if(H.loc == lturf) //still standing there
 				if(force_move_into_gibber(H))
+					locked = 1 // no escape
 					ejectclothes(occupant)
 					cleanbay()
 					startgibbing(null, 1)
+					locked = 0
 			break
+	victim_targets.Cut()
 
 /obj/machinery/gibber/autogibber/proc/force_move_into_gibber(var/mob/living/carbon/human/victim)
 	if(!istype(victim))	return 0
@@ -364,7 +380,7 @@
 				continue
 		if(istype(O,/obj/item/organ))
 			continue
-		if(O.flags & NODROP)
+		if(O.flags & NODROP || stealthmode)
 			qdel(O) //they are already dead by now
 		H.unEquip(O)
 		O.loc = loc
@@ -372,7 +388,7 @@
 		sleep(1)
 
 	for(var/obj/item/clothing/C in H)
-		if(C.flags & NODROP)
+		if(C.flags & NODROP || stealthmode)
 			qdel(C)
 		H.unEquip(C)
 		C.loc = loc
@@ -384,7 +400,9 @@
 /obj/machinery/gibber/autogibber/proc/cleanbay()
 	var/spats = 0 //keeps track of how many items get spit out. Don't show a message if none are found.
 	for(var/obj/O in src)
-		if(istype(O))
+		if(stealthmode)
+			qdel(O)
+		else if(istype(O))
 			O.loc = loc
 			O.throw_at(get_edge_target_turf(src,gib_throw_dir),rand(1,5),15)
 			spats++

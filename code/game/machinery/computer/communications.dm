@@ -39,7 +39,7 @@
 /obj/machinery/computer/communications/New()
 	shuttle_caller_list += src
 	..()
-	crew_announcement.newscast = 1
+	crew_announcement.newscast = 0
 
 /obj/machinery/computer/communications/proc/is_authenticated(var/mob/user, var/message = 1)
 	if(authenticated == COMM_AUTHENTICATION_MAX)
@@ -292,12 +292,12 @@
 			to_chat(usr, "Docking request accepted!")
 			trade_dock_timelimit = world.time + 1200
 			trade_dockrequest_timelimit = 0
-			command_announcement.Announce("Docking request for trading ship approved, please dock at port bay 4.", "Docking Request")
+			event_announcement.Announce("Docking request for trading ship approved, please dock at port bay 4.", "Docking Request")
 		if("DenyDocking")
 			to_chat(usr, "Docking requeset denied!")
 			trade_dock_timelimit = 0
 			trade_dockrequest_timelimit = 0
-			command_announcement.Announce("Docking request for trading ship denied.", "Docking request")
+			event_announcement.Announce("Docking request for trading ship denied.", "Docking request")
 
 	nanomanager.update_uis(src)
 	return 1

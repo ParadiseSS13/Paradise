@@ -193,10 +193,9 @@
 	return ..()
 
 /datum/action/innate/demon/whisper/proc/choose_targets(mob/user = usr)//yes i am copying from telepathy..hush...
-	var/list/targets = new /list()
-	var/list/validtargets = new /list()
-	for(var/mob/M in view(user.client.view, user))
-		if(M && M.mind)
+	var/list/validtargets = list()
+	for(var/mob/living/M in view(user.client.view, get_turf(user)))
+		if(M && M.mind && M.stat != DEAD)
 			if(M == user)
 				continue
 
@@ -206,15 +205,12 @@
 		to_chat(usr, "<span class='warning'>There are no valid targets!</span>")
 		return
 
-	targets += input("Choose the target to talk to.", "Targeting") as null|mob in validtargets
-
-	if(!targets.len || !targets[1])
-		return
+	var/mob/living/target = input("Choose the target to talk to.", "Targeting") as null|mob in validtargets
+	return target
 
 /datum/action/innate/demon/whisper/Activate()
-	var/list/choice = choose_targets()
-
-	if(!choice.len)
+	var/mob/living/choice = choose_targets()
+	if(!choice)
 		return
 
 	var/msg = stripped_input(usr, "What do you wish to tell [choice]?", null, "")

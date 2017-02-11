@@ -107,6 +107,12 @@
 	return
 
 /obj/item/weapon/twohanded/garrote/process()
+	if(!strangling)
+		// Our mark got gibbed or similar
+		update_icon()
+		processing_objects.Remove(src)
+		return
+
 
 	if(!istype(loc, /mob/living/carbon/human))
 		strangling = null

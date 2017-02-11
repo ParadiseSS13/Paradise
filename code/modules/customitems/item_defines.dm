@@ -154,6 +154,14 @@
 	icon_on = "guessipon"
 	icon_off = "guessip"
 
+/obj/item/weapon/lighter/zippo/fluff/duckchan // Duckchan: Rybys Romney
+	name = "Monogrammed Zippo"
+	desc = " A shiny purple zippo lighter, engraved with Rybys Romney and BuzzPing's name, with a festive green flame."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "rybysfluff"
+	icon_on = "rybysfluffopen"
+	icon_off = "rybysfluff"
+
 /obj/item/weapon/fluff/dogwhistle //phantasmicdream: Zeke Varloss
 	name = "Sax's whistle"
 	desc = "This whistle seems to have a strange aura about it. Maybe you should blow on it?"
@@ -376,6 +384,18 @@
 	icon_state = "kakicharakiti"
 
 //////////// Suits ////////////
+/obj/item/clothing/suit/fluff/dusty_jacket //ComputerlessCitizen: Screech
+	name = "Dusty Jacket"
+	desc = "A worn leather jacket. Some burn holes have been patched."
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "dusty_jacket"
+	ignore_suitadjust = 1
+	actions_types = list()
+	adjust_flavour = null
+	species_fit = null
+	sprite_sheets = null
+
 /obj/item/clothing/suit/storage/labcoat/fluff/aeneas_rinil //Socialsystem: Lynn Fea
 	name = "Robotics labcoat"
 	desc = "A labcoat with a few markings denoting it as the labcoat of roboticist."

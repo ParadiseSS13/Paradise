@@ -35,6 +35,7 @@
 	R.uneq_all()
 	R.hands.icon_state = "nomod"
 	R.icon_state = "robot"
+	R.module.remove_subsystems_and_actions(R)
 	qdel(R.module)
 	R.module = null
 
@@ -191,25 +192,6 @@
 		qdel(S)
 
 	R.module.modules += new /obj/item/weapon/storage/bag/ore/holding(R.module)
-	R.module.rebuild()
-
-	return 1
-
-/obj/item/borg/upgrade/hyperka
-	name = "mining cyborg hyper-kinetic accelerator"
-	desc = "A satchel of holding replacement for mining cyborg's ore satchel module."
-	icon_state = "cyborg_upgrade3"
-	require_module = 1
-	module_type = /obj/item/weapon/robot_module/miner
-
-/obj/item/borg/upgrade/hyperka/action(mob/living/silicon/robot/R)
-	if(..())
-		return
-
-	for(var/obj/item/weapon/gun/energy/kinetic_accelerator/cyborg/H in R.module.modules)
-		qdel(H)
-
-	R.module.modules += new /obj/item/weapon/gun/energy/kinetic_accelerator/hyper/cyborg(R.module)
 	R.module.rebuild()
 
 	return 1

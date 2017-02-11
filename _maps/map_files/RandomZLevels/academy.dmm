@@ -191,7 +191,7 @@
 "dI" = (/obj/item/seeds/replicapod,/turf/simulated/floor/plasteel,/area/awaymission/academy/classrooms)
 "dJ" = (/obj/structure/table/woodentable,/turf/simulated/floor/plasteel,/area/awaymission/academy/classrooms)
 "dK" = (/obj/structure/stool/bed/chair{dir = 8},/turf/simulated/floor/plasteel,/area/awaymission/academy/classrooms)
-"dL" = (/obj/item/seeds/bluespacetomatoseed,/turf/simulated/floor/plasteel,/area/awaymission/academy/classrooms)
+"dL" = (/obj/item/seeds/tomato/blue/bluespace,/turf/simulated/floor/plasteel,/area/awaymission/academy/classrooms)
 "dM" = (/obj/structure/cable{d1 = 2; d2 = 4; icon_state = "2-4"; tag = ""},/turf/simulated/floor/plasteel,/area/awaymission/academy/classrooms)
 "dN" = (/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_y = 0; tag = ""},/turf/simulated/floor/plasteel{icon_state = "green"; dir = 4},/area/awaymission/academy/classrooms)
 "dO" = (/obj/machinery/door/airlock/freezer,/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_y = 0; tag = ""},/turf/simulated/floor/plasteel{icon_state = "white"},/area/awaymission/academy/classrooms)
