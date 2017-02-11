@@ -84,8 +84,8 @@
 			P.visible_message("<span class='danger'>[P]'s light fades and turns off.</span>")
 	else if(istype(I, /obj/item/weapon/gun))
 		var/obj/item/weapon/gun/G = I
-		if(G.F)
-			var/obj/item/device/flashlight/F = G.F
+		if(G.gun_light)
+			var/obj/item/device/flashlight/F = G.gun_light
 			if(F.on)
 				G.toggle_gunlight()
 				G.visible_message("<span class='danger'>[G]'s light fades and turns off.</span>")

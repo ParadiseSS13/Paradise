@@ -232,6 +232,10 @@
 		to_chat(src, "Become a BYOND member to access member-perks and features, as well as support the engine that makes this game possible. <a href='http://www.byond.com/membership'>Click here to find out more</a>.")
 		return 0
 	return 1
+	
+//Like for /atoms, but clients are their own snowflake FUCK
+/client/proc/setDir(newdir)
+	dir = newdir
 
 /client/proc/handle_spam_prevention(var/message, var/mute_type, var/throttle = 0)
 	if(throttle)

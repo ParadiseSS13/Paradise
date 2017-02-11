@@ -8,84 +8,118 @@
 	slot_flags = SLOT_BELT
 	origin_tech = "bluespace=4;materials=4"
 	var/imprinted = "empty"
+	
+	var/usability = TRUE // Can this soul stone be used by anyone, or only cultists/wizards?
+	var/reusable = TRUE // Can this soul stone be used more than once?
+	var/spent = FALSE // If the soul stone can only be used once, has it been used?
 
+/obj/item/device/soulstone/proc/can_use(mob/living/user)
+	if(iscultist(user) || iswizard(user) || usability)
+		return TRUE
 
-//////////////////////////////Capturing////////////////////////////////////////////////////////
+	return FALSE
+	
+/obj/item/device/soulstone/proc/was_used()
+	if(!reusable)
+		spent = TRUE
+		name = "dull [name]"
+		desc = "A fragment of the legendary treasure known simply as \
+			the 'Soul Stone'. The shard lies still, dull and lifeless; \
+			whatever spark it once held long extinguished."
+			
+/obj/item/device/soulstone/anybody
+	usability = TRUE
 
-	attack(mob/living/carbon/human/M as mob, mob/user as mob)
-		if(!istype(M, /mob/living/carbon/human))//If target is not a human.
-			return ..()
-		if(istype(M, /mob/living/carbon/human/dummy))
-			return ..()
-
-		if(M.has_brain_worms()) //Borer stuff - RR
-			to_chat(user, "<span class='warning'>This being is corrupted by an alien intelligence and cannot be soul trapped.</span>")
-			return ..()
-
-		if(jobban_isbanned(M, "cultist") || jobban_isbanned(M, "Syndicate"))
-			to_chat(user, "<span class='warning'>A mysterious force prevents you from trapping this being's soul.</span>")
-			return ..()
-
-		M.create_attack_log("<font color='orange'>Has had their soul captured with [src.name] by [key_name(user)]</font>")
-		user.create_attack_log("<font color='red'>Used the [src.name] to capture the soul of [key_name(M)]</font>")
-
-		log_attack("<font color='red'>[key_name(user)] used the [src.name] to capture the soul of [key_name(M)]</font>")
-
-
-		transfer_soul("VICTIM", M, user)
+/obj/item/device/soulstone/anybody/chaplain
+	name = "mysterious old shard"
+	reusable = FALSE
+	
+/obj/item/device/soulstone/pickup(mob/living/user)
+	..()
+	if(!can_use(user))
+		to_chat(user, "<span class='danger'>An overwhelming feeling of dread comes over you as you pick up the soulstone. It would be wise to be rid of this quickly.</span>")
+		user.Dizzy(120)
+		
+//////////////////////////////Capturing////////////////////////////////////////////////////////		
+/obj/item/device/soulstone/attack(mob/living/carbon/human/M as mob, mob/user as mob)
+	if(!can_use(user))
+		user.Paralyse(5)
+		to_chat(user, "<span class='userdanger'>Your body is wracked with debilitating pain!</span>")
 		return
 
-	/*attack(mob/living/simple_animal/shade/M as mob, mob/user as mob)//APPARENTLY THEY NEED THEIR OWN SPECIAL SNOWFLAKE CODE IN THE LIVING ANIMAL DEFINES
-		if(!istype(M, /mob/living/simple_animal/shade))//If target is not a shade
-			return ..()
-		user.create_attack_log("<font color='red'>Used the [src.name] to capture the soul of [M.name] ([M.ckey])</font>")
-
-		transfer_soul("SHADE", M, user)
-		return*/
-///////////////////Options for using captured souls///////////////////////////////////////
-
-	attack_self(mob/user)
-		if(!in_range(src, user))
-			return
-		user.set_machine(src)
-		var/dat = "<TT><B>Soul Stone</B><BR>"
-		for(var/mob/living/simple_animal/shade/A in src)
-			dat += "Captured Soul: [A.name]<br>"
-			dat += {"<A href='byond://?src=[UID()];choice=Summon'>Summon Shade</A>"}
-			dat += "<br>"
-			dat += {"<a href='byond://?src=[UID()];choice=Close'> Close</a>"}
-		user << browse(dat, "window=aicard")
-		onclose(user, "aicard")
+	if(spent)
+		to_chat(user, "<span class='warning'>There is no power left in the shard.</span>")
 		return
 
+	if(!ishuman(M) || istype(M, /mob/living/carbon/human/dummy)) //If target is not a human or a dummy
+		return ..()
+		
+	if(M.has_brain_worms()) //Borer stuff - RR
+		to_chat(user, "<span class='warning'>This being is corrupted by an alien intelligence and cannot be soul trapped.</span>")
+		return ..()
 
+	if(jobban_isbanned(M, "cultist") || jobban_isbanned(M, "Syndicate"))
+		to_chat(user, "<span class='warning'>A mysterious force prevents you from trapping this being's soul.</span>")
+		return ..()
 
+	M.create_attack_log("<font color='orange'>Has had their soul captured with [src.name] by [key_name(user)]</font>")
+	user.create_attack_log("<font color='red'>Used the [src.name] to capture the soul of [key_name(M)]</font>")
+	log_attack("<font color='red'>[key_name(user)] used the [src.name] to capture the soul of [key_name(M)]</font>")
 
-	Topic(href, href_list)
-		var/mob/U = usr
-		if(!in_range(src, U)||U.machine!=src)
+	transfer_soul("VICTIM", M, user)
+	return
+
+///////////////////Options for using captured souls///////////////////////////////////////	
+/obj/item/device/soulstone/attack_self(mob/user)
+	if(!in_range(src, user))
+		return
+
+	if(!can_use(user))
+		user.Paralyse(5)
+		to_chat(user, "<span class='userdanger'>Your body is wracked with debilitating pain!</span>")
+		return		
+		
+	user.set_machine(src)
+	var/dat = "<TT><B>Soul Stone</B><BR>"
+	for(var/mob/living/simple_animal/shade/A in src)
+		dat += "Captured Soul: [A.name]<br>"
+		dat += {"<A href='byond://?src=[UID()];choice=Summon'>Summon Shade</A>"}
+		dat += "<br>"
+		dat += {"<a href='byond://?src=[UID()];choice=Close'> Close</a>"}
+	user << browse(dat, "window=aicard")
+	onclose(user, "aicard")
+	return
+
+/obj/item/device/soulstone/Topic(href, href_list)
+	var/mob/U = usr
+	if(!in_range(src, U) || U.machine != src || !can_use(usr))
+		U << browse(null, "window=aicard")
+		U.unset_machine()
+		return
+
+	add_fingerprint(U)
+	U.set_machine(src)
+
+	switch(href_list["choice"])//Now we switch based on choice.
+		if("Close")
 			U << browse(null, "window=aicard")
 			U.unset_machine()
 			return
 
-		add_fingerprint(U)
-		U.set_machine(src)
-
-		switch(href_list["choice"])//Now we switch based on choice.
-			if("Close")
-				U << browse(null, "window=aicard")
-				U.unset_machine()
-				return
-
-			if("Summon")
-				for(var/mob/living/simple_animal/shade/A in src)
-					A.status_flags &= ~GODMODE
-					A.canmove = 1
-					to_chat(A, "<b>You have been released from your prison, but you are still bound to [U.name]'s will. Help them suceed in their goals at all costs.</b>")
-					A.loc = U.loc
-					A.cancel_camera()
-					src.icon_state = "soulstone"
-		attack_self(U)
+		if("Summon")
+			for(var/mob/living/simple_animal/shade/A in src)
+				A.status_flags &= ~GODMODE
+				A.canmove = 1
+				A.forceMove(get_turf(usr))
+				A.cancel_camera()
+				icon_state = "soulstone"
+				name = initial(name)
+				if(iswizard(usr) || usability)
+					to_chat(A, "<b>You have been released from your prison, but you are still bound to [usr.real_name]'s will. Help them succeed in their goals at all costs.</b>")
+				else if(iscultist(usr))
+					to_chat(A, "<b>You have been released from your prison, but you are still bound to the cult's will. Help them succeed in their goals at all costs.</b>")
+				was_used()
+	attack_self(U)
 
 ///////////////////////////Transferring to constructs/////////////////////////////////////////////////////
 /obj/structure/constructshell
@@ -93,14 +127,29 @@
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "construct"
 	desc = "A wicked machine used by those skilled in magical arts. It is inactive"
+	
+/obj/structure/constructshell/examine(mob/user)
+	if(..(user, 0))
+		if(iscultist(user) || iswizard(user) || user.stat == DEAD)
+			to_chat(user, "<span class='cult'>A construct shell, used to house bound souls from a soulstone.</span>")
+			to_chat(user, "<span class='cult'>Placing a soulstone with a soul into this shell allows you to produce your choice of the following:</span>")
+			to_chat(user, "<span class='cult'>An <b>Artificer</b>, which can produce <b>more shells and soulstones</b>, as well as fortifications.</span>")
+			to_chat(user, "<span class='cult'>A <b>Wraith</b>, which does high damage and can jaunt through walls, though it is quite fragile.</span>")
+			to_chat(user, "<span class='cult'>A <b>Juggernaut</b>, which is very hard to kill and can produce temporary walls, but is slow.</span>")
 
 /obj/structure/constructshell/attackby(obj/item/O as obj, mob/user as mob, params)
 	if(istype(O, /obj/item/device/soulstone))
-		O.transfer_soul("CONSTRUCT",src,user)
-
+		var/obj/item/device/soulstone/SS = O
+		if(!SS.can_use(user))
+			to_chat(user, "<span class='danger'>An overwhelming feeling of dread comes over you as you attempt to place the soulstone into the shell. It would be wise to be rid of this quickly.</span>")
+			user.Dizzy(120)
+			return
+		SS.transfer_soul("CONSTRUCT",src,user)
+		SS.was_used()
+	else
+		return ..()
 
 ////////////////////////////Proc for moving soul in and out off stone//////////////////////////////////////
-
 
 /obj/item/proc/transfer_soul(var/choice as text, var/target, var/mob/U as mob).
 	switch(choice)
@@ -238,7 +287,6 @@
 		to_chat(newstruct, "<B>You are still bound to serve your creator, follow their orders and help them complete their goals at all costs.</B>")
 	newstruct.cancel_camera()
 
-
 /obj/item/device/soulstone/proc/init_shade(mob/living/carbon/human/T, mob/U, vic = 0)
 	new /obj/effect/decal/remains/human(T.loc) //Spawns a skeleton
 	T.invisibility = 101
@@ -267,7 +315,6 @@
 		to_chat(S, "Your soul has been captured! You are now bound to the cult's will. Help them succeed in their goals at all costs.")
 	if(vic && U)
 		to_chat(U, "<span class='info'><b>Capture successful!</b>:</span> [T.real_name]'s soul has been ripped from their body and stored within the soul stone.")
-
 
 /obj/item/device/soulstone/proc/getCultGhost(mob/living/carbon/human/T, mob/U)
 	var/mob/dead/observer/chosen_ghost

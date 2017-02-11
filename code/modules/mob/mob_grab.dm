@@ -194,7 +194,7 @@
 		animate(affecting, pixel_x = 0, pixel_y = 0, 5, 1, LINEAR_EASING)
 		return //KJK
 	/*	if(force_down) //THIS GOES ABOVE THE RETURN LABELED KJK
-			affecting.set_dir(SOUTH)*///This shows how you can apply special directions based on a variable. //face up
+			affecting.setDir(SOUTH)*///This shows how you can apply special directions based on a variable. //face up
 
 	var/shift = 0
 	var/adir = get_dir(assailant, affecting)
@@ -204,18 +204,18 @@
 			shift = 8
 			if(dancing) //look at partner
 				shift = 10
-				assailant.set_dir(get_dir(assailant, affecting))
+				assailant.setDir(get_dir(assailant, affecting))
 		if(GRAB_AGGRESSIVE)
 			shift = 12
 		if(GRAB_NECK, GRAB_UPGRADING)
 			shift = -10
 			adir = assailant.dir
-			affecting.set_dir(assailant.dir)
+			affecting.setDir(assailant.dir)
 			affecting.loc = assailant.loc
 		if(GRAB_KILL)
 			shift = 0
 			adir = 1
-			affecting.set_dir(SOUTH)//face up
+			affecting.setDir(SOUTH)//face up
 			affecting.loc = assailant.loc
 
 	switch(adir)
@@ -254,8 +254,8 @@
 			force_down = 1
 			affecting.Weaken(3)
 			step_to(assailant, affecting)
-			assailant.set_dir(EAST) //face the victim
-			affecting.set_dir(SOUTH) //face up  //This is an example of a new feature based on the context of the location of the victim.
+			assailant.setDir(EAST) //face the victim
+			affecting.setDir(SOUTH) //face up  //This is an example of a new feature based on the context of the location of the victim.
 			*/									//It means that upgrading while someone is lying on the ground would cause you to go into pin mode.
 		state = GRAB_AGGRESSIVE
 		icon_state = "grabbed1"
@@ -268,7 +268,7 @@
 		assailant.visible_message("<span class='warning'>[assailant] has reinforced \his grip on [affecting] (now neck)!</span>")
 		state = GRAB_NECK
 		icon_state = "grabbed+1"
-		assailant.set_dir(get_dir(assailant, affecting))
+		assailant.setDir(get_dir(assailant, affecting))
 		affecting.create_attack_log("<font color='orange'>Has had their neck grabbed by [assailant.name] ([assailant.ckey])</font>")
 		assailant.create_attack_log("<font color='red'>Grabbed the neck of [affecting.name] ([affecting.ckey])</font>")
 		log_attack("<font color='red'>[assailant.name] ([assailant.ckey]) grabbed the neck of [affecting.name] ([affecting.ckey])</font>")
@@ -291,7 +291,7 @@
 
 		assailant.next_move = world.time + 10
 		affecting.AdjustLoseBreath(1)
-		affecting.set_dir(WEST)
+		affecting.setDir(WEST)
 	adjust_position()
 
 //This is used to make sure the victim hasn't managed to yackety sax away before using the grab.
@@ -378,8 +378,8 @@
 						affecting.Weaken(3)
 						affecting.lying = 1
 						step_to(assailant, affecting)
-						assailant.set_dir(EAST) //face the victim
-						affecting.set_dir(SOUTH) //face up
+						assailant.setDir(EAST) //face the victim
+						affecting.setDir(SOUTH) //face up
 						return
 					else
 						to_chat(assailant, "<span class='warning'>You are already pinning [affecting] to the ground.</span>")
