@@ -721,8 +721,6 @@
 	if(istype(id))
 		return id
 
-
-
 /mob/living/carbon/human/update_sight()
 	if(!client)
 		return
@@ -1533,12 +1531,6 @@
 	if(species.default_language)
 		add_language(species.default_language)
 
-	see_in_dark = species.darksight
-	if(see_in_dark > 2)
-		see_invisible = SEE_INVISIBLE_LEVEL_ONE
-	else
-		see_invisible = SEE_INVISIBLE_LIVING
-
 	hunger_drain = species.hunger_drain
 	digestion_ratio = species.digestion_ratio
 
@@ -1608,7 +1600,16 @@
 		dna.real_name = real_name
 
 	species.handle_post_spawn(src)
+
+	see_in_dark = species.get_resultant_darksight(src)
+	if(see_in_dark > 2)
+		see_invisible = SEE_INVISIBLE_LEVEL_ONE
+	else
+		see_invisible = SEE_INVISIBLE_LIVING
+
 	species.handle_dna(src) //Give them whatever special dna business they got.
+
+	update_client_colour(0)
 
 	spawn(0)
 		overlays.Cut()
@@ -1631,7 +1632,6 @@
 	if(!species)
 		return null
 	return species.default_language ? all_languages[species.default_language] : null
-
 
 /mob/living/carbon/human/proc/bloody_doodle()
 	set category = "IC"

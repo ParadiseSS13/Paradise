@@ -247,6 +247,8 @@
 		/obj/machinery/teleport/hub,
 		/obj/machinery/telepad,
 		/obj/machinery/clonepod,
+		/obj/effect/hierophant,
+		/obj/item/device/warp_cube,
 		/obj/machinery/quantumpad
 	)
 	if(A)

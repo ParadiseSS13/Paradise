@@ -22,6 +22,25 @@
 			return 0
 	return 1
 
+/mob/proc/get_screen_colour()
+
+/mob/proc/update_client_colour(var/time = 10) //Update the mob's client.color with an animation the specified time in length.
+	if(!client) //No client_colour without client. If the player logs back in they'll be back through here anyway.
+		return
+	client.colour_transition(get_screen_colour(), time = time) //Get the colour matrix we're going to transition to depending on relevance (magic glasses first, eyes second).
+
+/mob/living/carbon/human/get_screen_colour() //Fetch the colour matrix from wherever (e.g. eyes) so it can be compared to client.color.
+	. = ..()
+	if(.)
+		return .
+
+	var/obj/item/clothing/glasses/worn_glasses = glasses
+	var/obj/item/organ/internal/eyes/eyes = get_int_organ(/obj/item/organ/internal/eyes)
+	if(istype(worn_glasses) && worn_glasses.color_view) //Check to see if they got those magic glasses and they're augmenting the colour of what the wearer sees. If they're not, color_view should be null.
+		return worn_glasses.color_view
+	else if(eyes) //If they're not, check to see if their eyes got one of them there colour matrices. Will be null if eyes are robotic/the mob isn't colourblind and they have no default colour matrix.
+		return eyes.get_colourmatrix()
+
 /proc/isloyal(A) //Checks to see if the person contains a mindshield implant, then checks that the implant is actually inside of them
 	for(var/obj/item/weapon/implant/loyalty/L in A)
 		if(L && L.implanted)
@@ -291,10 +310,10 @@ proc/muffledspeech(phrase)
 
 
 /mob/proc/abiotic(var/full_body = 0)
-	if(full_body && ((src.l_hand && !(src.l_hand.flags & ABSTRACT)) || (src.r_hand && !(src.r_hand.flags & ABSTRACT)) || (src.back || src.wear_mask)))
+	if(full_body && ((l_hand && !(l_hand.flags & ABSTRACT)) || (r_hand && !(r_hand.flags & ABSTRACT)) || (back || wear_mask)))
 		return 1
 
-	if((src.l_hand && !(src.l_hand.flags & ABSTRACT)) || (src.r_hand && !(src.r_hand.flags & ABSTRACT)))
+	if((l_hand && !(l_hand.flags & ABSTRACT)) || (r_hand && !(r_hand.flags & ABSTRACT)))
 		return 1
 
 	return 0

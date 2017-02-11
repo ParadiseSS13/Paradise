@@ -49,8 +49,7 @@
 	var/siemens_coeff = 1 //base electrocution coefficient
 
 	var/invis_sight = SEE_INVISIBLE_LIVING
-	var/darksight = 2
-	
+
 	var/hazard_high_pressure = HAZARD_HIGH_PRESSURE   // Dangerously high pressure.
 	var/warning_high_pressure = WARNING_HIGH_PRESSURE // High pressure warning.
 	var/warning_low_pressure = WARNING_LOW_PRESSURE   // Low pressure warning.
@@ -85,7 +84,7 @@
 
 	var/ventcrawler = 0 //Determines if the mob can go through the vents.
 	var/has_fine_manipulation = 1 // Can use small items.
-	
+
 	var/mob/living/list/ignored_by = list() // list of mobs that will ignore this species
 
 	var/list/allowed_consumed_mobs = list() //If a species can consume mobs, put the type of mobs it can consume here.
@@ -588,11 +587,22 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 		return null
 	return has_organ[organ_slot]
 
+/datum/species/proc/get_resultant_darksight(mob/living/carbon/human/H) //Returns default value of 2 if the mob doesn't have eyes, otherwise it grabs the eyes darksight.
+	var/resultant_darksight = 2
+	var/obj/item/organ/internal/eyes/eyes = H.get_int_organ(/obj/item/organ/internal/eyes)
+	if(eyes)
+		resultant_darksight = eyes.get_dark_view()
+	return resultant_darksight
 
 /datum/species/proc/update_sight(mob/living/carbon/human/H)
 	H.sight = initial(H.sight)
-	H.see_in_dark = darksight
+	H.see_in_dark = get_resultant_darksight(H)
 	H.see_invisible = invis_sight
+
+	if(H.see_in_dark > 2) //Preliminary see_invisible handling as per set_species() in code\modules\mob\living\carbon\human\human.dm.
+		H.see_invisible = SEE_INVISIBLE_LEVEL_ONE
+	else
+		H.see_invisible = SEE_INVISIBLE_LIVING
 
 	if(H.client.eye != H)
 		var/atom/A = H.client.eye
@@ -644,7 +654,7 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 				if(rig.visor && rig.visor.vision && rig.visor.active && rig.visor.vision.glasses)
 					var/obj/item/clothing/glasses/G = rig.visor.vision.glasses
 					if(istype(G))
-						H.see_in_dark = (G.darkness_view ? G.darkness_view : darksight) // Otherwise we keep our darkness view with togglable nightvision.
+						H.see_in_dark = (G.darkness_view ? G.darkness_view : get_resultant_darksight(H)) // Otherwise we keep our darkness view with togglable nightvision.
 						if(G.vision_flags)		// MESONS
 							H.sight |= G.vision_flags
 
@@ -654,7 +664,7 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 		H.see_in_dark = max(lesser_darkview_bonus, H.see_in_dark)
 
 	if(H.vision_type)
-		H.see_in_dark = max(H.see_in_dark, H.vision_type.see_in_dark, darksight)
+		H.see_in_dark = max(H.see_in_dark, H.vision_type.see_in_dark, get_resultant_darksight(H))
 		H.see_invisible = H.vision_type.see_invisible
 		if(H.vision_type.light_sensitive)
 			H.weakeyes = 1

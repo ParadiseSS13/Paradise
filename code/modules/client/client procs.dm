@@ -233,6 +233,10 @@
 		return 0
 	return 1
 
+//Like for /atoms, but clients are their own snowflake FUCK
+/client/proc/setDir(newdir)
+	dir = newdir
+
 /client/proc/handle_spam_prevention(var/message, var/mute_type, var/throttle = 0)
 	if(throttle)
 		if((last_message_time + throttle > world.time) && !check_rights(R_ADMIN, 0))
@@ -621,3 +625,9 @@
 		if(lang.flags & RESTRICTED)
 			message += " (RESTRICTED)"
 		to_chat(world, "[message]")
+
+/client/proc/colour_transition(var/list/colour_to = null, var/time = 10) //Call this with no parameters to reset to default.
+	animate(src, color=colour_to, time=time, easing=SINE_EASING)
+
+/client/proc/on_varedit()
+	var_edited = TRUE

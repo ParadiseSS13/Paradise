@@ -1563,7 +1563,7 @@ var/mob/dview/dview_mob = new
 //pre_rotation: Chooses to rotate src 90 degress towards the orbit dir (clockwise/anticlockwise), useful for things to go "head first" like ghosts
 //lockinorbit: Forces src to always be on A's turf, otherwise the orbit cancels when src gets too far away (eg: ghosts)
 
-/atom/movable/proc/orbit(atom/A, radius = 10, clockwise = FALSE, rotation_speed = 20, rotation_segments = 36, pre_rotation = TRUE, lockinorbit = FALSE)
+/atom/movable/proc/orbit(atom/A, radius = 10, clockwise = FALSE, rotation_speed = 20, rotation_segments = 36, pre_rotation = TRUE, lockinorbit = FALSE, forceMove = FALSE)
 	if(!istype(A))
 		return
 
@@ -1595,7 +1595,10 @@ var/mob/dview/dview_mob = new
 		var/targetloc = get_turf(A)
 		if(!lockinorbit && loc != lastloc && loc != targetloc)
 			break
-		loc = targetloc
+		if(forceMove)
+			forceMove(targetloc)
+		else
+			loc = targetloc
 		lastloc = loc
 		sleep(0.6)
 
