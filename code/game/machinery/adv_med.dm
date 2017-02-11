@@ -453,7 +453,6 @@
 		occupantData["intOrgan"] = intOrganData
 
 		occupantData["blind"] = (H.disabilities & BLIND)
-		occupantData["colourblind"] = (H.disabilities & COLOURBLIND)
 		occupantData["nearsighted"] = (H.disabilities & NEARSIGHTED)
 
 	data["occupant"] = occupantData
@@ -640,8 +639,6 @@
 			dat += "</table>"
 			if(occupant.disabilities & BLIND)
 				dat += "<font color='red'>Cataracts detected.</font><BR>"
-			if(occupant.disabilities & COLOURBLIND)
-				dat += "<font color='red'>Photoreceptor abnormalities detected.</font><BR>"
 			if(occupant.disabilities & NEARSIGHTED)
 				dat += "<font color='red'>Retinal misalignment detected.</font><BR>"
 		else

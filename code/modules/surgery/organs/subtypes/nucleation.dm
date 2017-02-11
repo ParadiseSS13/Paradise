@@ -26,6 +26,8 @@
 	icon_state = "crystal-eyes"
 	organ_tag = "luminescent eyes"
 	light_color = "#1C1C00"
+	parent_organ = "head"
+	slot = "eyes"
 	species = "Nucleation"
 
 /obj/item/organ/internal/eyes/luminescent_crystal/New()
@@ -33,7 +35,8 @@
 	..()
 
 /obj/item/organ/internal/brain/crystal
-	name = "crystallized brain"
+	name = "crystalized brain"
 	icon_state = "crystal-brain"
-	organ_tag = "crystallized brain"
+	organ_tag = "crystalized brain"
+	slot = "brain"
 	species = "Nucleation"
