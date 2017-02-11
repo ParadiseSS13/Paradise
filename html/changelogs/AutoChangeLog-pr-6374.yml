@@ -1,6 +1,0 @@
-author: "Fox McCloud"
-delete-after: True
-changes: 
-  - tweak: "Drying rack drying now properly uses NanoUI instead of a right-click verb"
-  - bugfix: "Fixes produce appearing stuck in a drying rack when it was empty"
-  - bugfix: "Fixes a few failed icon updates with the drying rack"
