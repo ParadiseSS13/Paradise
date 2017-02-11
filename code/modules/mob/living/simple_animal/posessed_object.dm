@@ -103,7 +103,7 @@
 	dir = possessed_item.dir
 	color = possessed_item.color
 	overlays = possessed_item.overlays
-	opacity = possessed_item.opacity
+	set_opacity(possessed_item.opacity)
 
 	visible_message("<span class='warning'>[src] rises into the air and begins to float!</span>") // Inform those around us that shit's gettin' spooky.
 	animate_ghostly_presence(src, -1, 20, 1)

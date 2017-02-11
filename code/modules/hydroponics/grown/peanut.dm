@@ -15,7 +15,7 @@
 	icon_grow = "potato-grow"
 	icon_dead = "potato-dead"
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
-	reagents_add = list("nutriment" = 0.1)
+	reagents_add = list("plantmatter" = 0.1)
 
 /obj/item/weapon/reagent_containers/food/snacks/grown/peanuts
 	seed = /obj/item/seeds/peanuts

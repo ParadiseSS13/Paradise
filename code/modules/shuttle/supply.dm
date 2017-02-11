@@ -246,7 +246,10 @@
 		/obj/machinery/teleport/station,
 		/obj/machinery/teleport/hub,
 		/obj/machinery/telepad,
-		/obj/machinery/clonepod
+		/obj/machinery/clonepod,
+		/obj/effect/hierophant,
+		/obj/item/device/warp_cube,
+		/obj/machinery/quantumpad
 	)
 	if(A)
 		if(is_type_in_list(A, blacklist))

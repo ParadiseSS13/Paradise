@@ -36,7 +36,7 @@
 	var/list/original_atom
 
 	var/allow_spin = 1 //Set this to 1 for a _target_ that is being thrown at; if an atom has this set to 1 then atoms thrown AT it will not spin; currently used for the singularity. -Fox
-	
+
 	var/admin_spawned = 0	//was this spawned by an admin? used for stat tracking stuff.
 
 /atom/proc/onCentcom()
@@ -81,6 +81,10 @@
 		reagents = null
 	invisibility = 101
 	return ..()
+	
+//Hook for running code when a dir change occurs
+/atom/proc/setDir(newdir)
+	dir = newdir
 
 /atom/proc/CheckParts(list/parts_list)
 	for(var/A in parts_list)
@@ -221,11 +225,6 @@
 
 /atom/proc/relaymove()
 	return
-
-//called to set the atom's dir and used to add behaviour to dir-changes - Not fully used (yet)
-/atom/proc/set_dir(new_dir)
-	. = new_dir != dir
-	dir = new_dir
 
 /atom/proc/ex_act()
 	return
@@ -470,3 +469,4 @@
 /atom/on_varedit(modified_var)
 	if(!Debug2)
 		admin_spawned = TRUE
+	..()

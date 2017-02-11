@@ -786,6 +786,7 @@ var/global/list/multiverse = list()
 			GiveHint(target)
 		cooldown = world.time +cooldown_time
 		return
+
 	if(!link)
 		if(I.loc == user && istype(I) && I.w_class <= 2)
 			user.drop_item()
@@ -794,13 +795,17 @@ var/global/list/multiverse = list()
 			to_chat(user, "You attach [I] to the doll.")
 			update_targets()
 	..()
+
 /obj/item/voodoo/check_eye(mob/user as mob)
-	return src.loc == user
+	if(loc != user)
+		user.reset_perspective(null)
+		user.unset_machine()
 
 /obj/item/voodoo/attack_self(mob/user as mob)
 	if(!target && possible.len)
 		target = input(user, "Select your victim!", "Voodoo") as null|anything in possible
 		return
+
 	if(user.zone_sel.selecting == "chest")
 		if(link)
 			target = null
@@ -809,6 +814,7 @@ var/global/list/multiverse = list()
 			link = null
 			update_targets()
 			return
+
 	if(target && cooldown < world.time)
 		switch(user.zone_sel.selecting)
 			if("mouth")

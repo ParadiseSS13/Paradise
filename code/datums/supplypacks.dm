@@ -909,28 +909,28 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 
 /datum/supply_packs/organic/farwa
 	name = "Farwa Crate"
-	contains = list (/obj/item/weapon/storage/box/farwacubes)
-	cost = 30
+	contains = list (/obj/item/weapon/storage/box/monkeycubes/farwacubes)
+	cost = 20
 	containername = "farwa crate"
 
 
 /datum/supply_packs/organic/wolpin
 	name = "Wolpin Crate"
-	contains = list (/obj/item/weapon/storage/box/wolpincubes)
-	cost = 30
+	contains = list (/obj/item/weapon/storage/box/monkeycubes/wolpincubes)
+	cost = 20
 	containername = "wolpin crate"
 
 
 /datum/supply_packs/organic/skrell
 	name = "Neaera Crate"
-	contains = list (/obj/item/weapon/storage/box/neaeracubes)
-	cost = 30
+	contains = list (/obj/item/weapon/storage/box/monkeycubes/neaeracubes)
+	cost = 20
 	containername = "neaera crate"
 
 /datum/supply_packs/organic/stok
 	name = "Stok Crate"
-	contains = list (/obj/item/weapon/storage/box/stokcubes)
-	cost = 30
+	contains = list (/obj/item/weapon/storage/box/monkeycubes/stokcubes)
+	cost = 20
 	containername = "stok crate"
 
 /datum/supply_packs/organic/party
@@ -1189,9 +1189,16 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 /datum/supply_packs/misc/watertank
 	name = "Water Tank Crate"
 	contains = list(/obj/structure/reagent_dispensers/watertank)
-	cost = 8
+	cost = 6
 	containertype = /obj/structure/largecrate
 	containername = "water tank crate"
+
+/datum/supply_packs/misc/hightank
+	name = "High-Capacity Water Tank Crate"
+	contains = list(/obj/structure/reagent_dispensers/watertank/high)
+	cost = 12
+	containertype = /obj/structure/largecrate
+	containername = "high-capacity water tank crate"
 
 /datum/supply_packs/misc/lasertag
 	name = "Laser Tag Crate"
