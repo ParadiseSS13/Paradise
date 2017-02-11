@@ -118,6 +118,16 @@
 	path = /obj/item/clothing/head/beret/sci
 	allowed_roles = list("Research Director", "Scientist")
 
+/datum/gear/hat/med_beret
+	display_name = "medical beret"
+	path = /obj/item/clothing/head/beret/med
+	allowed_roles = list("Chief Medical Officer", "Medical Doctor", "Chemist", "Psychiatrist", "Paramedic", "Virologist", "Brig Physician")
+
+/datum/gear/hat/bot_beret
+	display_name = "botany beret"
+	path = /obj/item/clothing/head/beret/bot
+	allowed_roles = list("Botanist")
+
 /datum/gear/hat/surgicalcap_purple
 	display_name = "surgical cap, purple"
 	path = /obj/item/clothing/head/surgery/purple

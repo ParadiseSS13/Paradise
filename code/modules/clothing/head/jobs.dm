@@ -126,6 +126,16 @@
 	desc = "A purple beret with the science insignia emblazoned on it. It has that authentic burning plasma smell."
 	icon_state = "beret_sci"
 
+/obj/item/clothing/head/beret/med
+	name = "medical beret"
+	desc = "A blue beret with the medical insignia emblazoned on it.It smells very sterile."
+	icon_state = "beret_med"
+
+/obj/item/clothing/head/beret/bot
+	name = "botany beret"
+	desc = "A green beret with the hydroponics insignia emblazoned on it. It has a sweet flowery smell to it.."
+	icon_state = "beret_bot"
+
 //Medical
 /obj/item/clothing/head/surgery
 	name = "surgical cap"
