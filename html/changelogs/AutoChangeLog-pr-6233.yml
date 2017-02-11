@@ -1,5 +1,0 @@
-author: "uraniummeltdown"
-delete-after: True
-changes: 
-  - tweak: "Events now scale better with population."
-  - tweak: "Enabled immovable rod, slaughter demon and morph events."

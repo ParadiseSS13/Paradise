@@ -1,5 +1,0 @@
-author: "Fox McCloud"
-delete-after: True
-changes: 
-  - bugfix: "Fixes not being able to bloodcrawl in most sources of blood"
-  - bugfix: "Fixes slaughter demon whisper not working at all"
