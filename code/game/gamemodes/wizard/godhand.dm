@@ -7,7 +7,7 @@
 	icon = 'icons/obj/weapons.dmi'
 	icon_state = "syndballoon"
 	item_state = null
-	flags = ABSTRACT | NODROP
+	flags = ABSTRACT
 	w_class = 5
 	force = 0
 	throwforce = 0
@@ -31,6 +31,10 @@
 	playsound(get_turf(user), on_use_sound,50,1)
 	attached_spell.attached_hand = null
 	qdel(src)
+
+/obj/item/weapon/melee/touch_attack/dropped()
+	if(!qdeleted(src))
+		attached_spell.cancel()
 
 /obj/item/weapon/melee/touch_attack/disintegrate
 	name = "disintegrating touch"
@@ -113,3 +117,4 @@
 		else
 			H.makeAntiCluwne()
 	..()
+

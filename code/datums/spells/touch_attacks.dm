@@ -7,10 +7,7 @@
 
 /obj/effect/proc_holder/spell/targeted/touch/Click(mob/user = usr)
 	if(attached_hand)
-		qdel(attached_hand)
-		charge_counter = charge_max
-		attached_hand = null
-		to_chat(user, "<span class='notice'>You draw the power out of your hand.</span>")
+		cancel()
 		return 0
 	..()
 
@@ -43,6 +40,12 @@
 	to_chat(user, "<span class='notice'>You channel the power of the spell to your hand.</span>")
 	return 1
 
+/obj/effect/proc_holder/spell/targeted/touch/proc/cancel(mob/user = usr)
+	if(attached_hand)
+		qdel(attached_hand)
+	charge_counter = charge_max
+	attached_hand = null
+	to_chat(user, "<span class='notice'>You draw the power out of your hand.</span>")
 
 /obj/effect/proc_holder/spell/targeted/touch/disintegrate
 	name = "Disintegrate"
@@ -67,3 +70,4 @@
 	cooldown_min = 200 //100 deciseconds reduction per rank
 
 	action_icon_state = "statue"
+
