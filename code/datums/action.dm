@@ -271,6 +271,9 @@
 /datum/action/item_action/noir
 	name = "Noir"
 
+/datum/action/item_action/monologue
+	name = "Monologue"
+
 /datum/action/item_action/YEEEAAAAAHHHHHHHHHHHHH
 	name = "YEAH!"
 
