@@ -1,5 +1,0 @@
-author: "Markolie"
-delete-after: True
-changes: 
-  - rscadd: "Ports over the remaining Lavaland loot items from /tg/ (most developed by KorPhaeron)."
-  - rscadd: "Refactors the kinetic accelerator to use modkits instead of subtypes: these unique mods (such as more range or shorter cooldown) can be purchased from the mining vendor or built by R&D or robotics (developed by KorPhaeron)."
