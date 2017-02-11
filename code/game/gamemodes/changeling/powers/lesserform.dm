@@ -21,6 +21,7 @@
 		to_chat(H, "<span class='warning'>We cannot perform this ability in this form!</span>")
 		return
 
+	user.dna = user.dna.Clone()
 	H.visible_message("<span class='warning'>[H] transforms!</span>")
 	changeling.geneticdamage = 30
 	to_chat(H, "<span class='warning'>Our genes cry out!</span>")

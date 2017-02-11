@@ -232,8 +232,6 @@
 	name = "noir sunglasses"
 	desc = "Somehow these seem even more out-of-date than normal sunglasses."
 	actions_types = list(/datum/action/item_action/noir)
-	var/noir_mode = 0
-	color_view = MATRIX_GREYSCALE
 
 /obj/item/clothing/glasses/sunglasses/noir/attack_self()
 	toggle_noir()
@@ -243,36 +241,8 @@
 		return 1
 
 /obj/item/clothing/glasses/sunglasses/noir/proc/toggle_noir()
-	var/list/difference = difflist(usr.client.color, color_view)
-
-	if(!noir_mode)
-		if(color_view && usr.client && (!usr.client.color || difference))
-			animate(usr.client, color = color_view, time = 10)
-			noir_mode = 1
-	else
-		if(usr.client && usr.client.color && !difference)
-			animate(usr.client, color = initial(usr.client.color), time = 10)
-			noir_mode = 0
-
-/obj/item/clothing/glasses/sunglasses/noir/equipped(mob/user, slot)
-	var/list/difference = difflist(user.client.color, color_view)
-
-	if(slot == slot_glasses)
-		if(noir_mode)
-			if(color_view && user.client && (!user.client.color || difference.len))
-				animate(user.client, color = color_view, time = 10)
-	else
-		if(user.client && user.client.color && !difference.len)
-			animate(user.client, color = initial(user.client.color), time = 10)
-	..(user, slot)
-
-/obj/item/clothing/glasses/sunglasses/noir/dropped(mob/living/carbon/human/user)
-	var/list/difference = difflist(user.client.color, color_view)
-
-	if(istype(user) && user.glasses == src)
-		if(user.client && user.client.color && !difference.len)
-			animate(user.client, color = initial(user.client.color), time = 10)
-	..(user)
+	color_view = color_view ? null : MATRIX_GREYSCALE //Toggles between null and grayscale, with null being the default option.
+	usr.update_client_colour()
 
 /obj/item/clothing/glasses/sunglasses/yeah
 	name = "agreeable glasses"
