@@ -20,6 +20,8 @@
 	var/locked = 0
 	var/scan_id = 1
 	var/is_secure = 0
+	var/can_dry = FALSE
+	var/drying = FALSE
 	var/datum/wires/smartfridge/wires = null
 
 /obj/machinery/smartfridge/New()
@@ -195,7 +197,7 @@
 
 /obj/machinery/smartfridge/default_deconstruction_screwdriver(mob/user, obj/item/weapon/screwdriver/S)
 	. = ..(user, icon_state, icon_state, S)
-	
+
 	overlays.Cut()
 	if(panel_open)
 		overlays += image(icon, "[initial(icon_state)]-panel")
@@ -332,6 +334,8 @@
 	data["shoot_inventory"] = shoot_inventory
 	data["locked"] = locked
 	data["secure"] = is_secure
+	data["can_dry"] = can_dry
+	data["drying"] = drying
 
 	var/list/items[0]
 	for(var/i=1 to length(item_quants))
@@ -372,6 +376,7 @@
 			for(var/obj/O in contents)
 				if(O.name == K)
 					O.forceMove(loc)
+					update_icon()
 					i--
 					if(i <= 0)
 						return 1
@@ -394,6 +399,7 @@
 			if(T.name == O)
 				T.forceMove(loc)
 				throw_item = T
+				update_icon()
 				break
 		break
 	if(!throw_item)
@@ -416,7 +422,7 @@
 	active_power_usage = 200
 	icon_on = "drying_rack_on"
 	icon_off = "drying_rack"
-	var/drying = FALSE
+	can_dry = TRUE
 
 /obj/machinery/smartfridge/drying_rack/New()
 	..()
@@ -443,6 +449,22 @@
 /obj/machinery/smartfridge/drying_rack/default_deconstruction_crowbar(obj/item/weapon/crowbar/C, ignore_panel = 1)
 	..()
 
+/obj/machinery/smartfridge/drying_rack/Topic(href, href_list)
+	if(..())
+		return 1
+	if(href_list["dryingOn"])
+		drying = TRUE
+		use_power = 2
+		update_icon()
+		return 1
+
+	if(href_list["dryingOff"])
+		drying = FALSE
+		use_power = 1
+		update_icon()
+		return 1
+	return 0
+
 /obj/machinery/smartfridge/drying_rack/power_change()
 	if(powered() && anchored)
 		stat &= ~NOPOWER
@@ -451,9 +473,10 @@
 		toggle_drying(TRUE)
 	update_icon()
 
-/obj/machinery/smartfridge/drying_rack/load() //For updating the filled overlay
-	..()
-	update_icon()
+/obj/machinery/smartfridge/drying_rack/load(obj/I, mob/user) //For updating the filled overlay
+	if(..())
+		update_icon()
+		return 1
 
 /obj/machinery/smartfridge/drying_rack/update_icon()
 	..()
@@ -470,11 +493,11 @@
 			update_icon()
 
 /obj/machinery/smartfridge/drying_rack/accept_check(obj/item/O)
-	if(istype(O,/obj/item/weapon/reagent_containers/food/snacks/))
+	if(istype(O, /obj/item/weapon/reagent_containers/food/snacks))
 		var/obj/item/weapon/reagent_containers/food/snacks/S = O
 		if(S.dried_type)
 			return TRUE
-	if(istype(O,/obj/item/stack/sheet/wetleather/))
+	if(istype(O, /obj/item/stack/sheet/wetleather))
 		return TRUE
 	return FALSE
 
@@ -492,37 +515,27 @@
 		if(S.dried_type == S.type)//if the dried type is the same as the object's type, don't bother creating a whole new item...
 			S.color = "#ad7257"
 			S.dry = TRUE
+			item_quants[S.name]--
 			S.forceMove(get_turf(src))
 		else
 			var/dried = S.dried_type
 			new dried(loc)
+			item_quants[S.name]--
 			qdel(S)
+		nanomanager.update_uis(src)
 		return TRUE
 	for(var/obj/item/stack/sheet/wetleather/WL in contents)
 		var/obj/item/stack/sheet/leather/L = new(loc)
 		L.amount = WL.amount
+		item_quants[WL.name]--
 		qdel(WL)
+		nanomanager.update_uis(src)
 		return TRUE
 	return FALSE
 
 /obj/machinery/smartfridge/drying_rack/emp_act(severity)
 	..()
 	atmos_spawn_air(SPAWN_HEAT)
-
-/obj/machinery/smartfridge/drying_rack/verb/adjust_drying()
-	set category = "Object"
-	set name = "Toggle Drying"
-	set src in view(1)
-
-	if(!iscarbon(usr))
-		to_chat(usr, "<span class='warning'>You can't do that!</span>")
-		return
-
-	if(usr.incapacitated())
-		return
-
-	toggle_drying(FALSE)
-	update_icon()
 
 /************************
 *   Secure SmartFridges

@@ -113,6 +113,18 @@
 	layer = 4.1
 	duration = 4
 	
+/obj/effect/overlay/temp/explosion
+	name = "explosion"
+	icon = 'icons/effects/96x96.dmi'
+	icon_state = "explosion"
+	pixel_x = -32
+	pixel_y = -32
+	duration = 8
+
+/obj/effect/overlay/temp/explosion/fast
+	icon_state = "explosionfast"
+	duration = 4
+	
 /obj/effect/overlay/temp/decoy
 	desc = "It's a decoy!"
 	duration = 15

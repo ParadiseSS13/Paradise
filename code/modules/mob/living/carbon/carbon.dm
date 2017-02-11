@@ -309,7 +309,7 @@
 			Stun(2)
 
 		var/obj/item/organ/internal/eyes/E = get_int_organ(/obj/item/organ/internal/eyes)
-		if(!E)
+		if(!E || (E && E.weld_proof))
 			return
 
 		switch(damage)
