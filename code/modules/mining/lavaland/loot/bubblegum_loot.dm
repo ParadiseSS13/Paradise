@@ -54,7 +54,7 @@
 		used = FALSE
 		return
 	else if(choice == user)
-		user << "You feel like writing your own name into a cursed death warrant would be unwise."
+		to_chat(user, "You feel like writing your own name into a cursed death warrant would be unwise.")
 		used = FALSE
 		return
 	else
