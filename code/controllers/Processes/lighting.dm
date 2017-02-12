@@ -86,6 +86,15 @@
 		overlay_updates++
 		SCHECK
 
+
+
+
+/datum/controller/process/lighting/statProcess()
+	..()
+	stat(null, "[lighting_update_lights.len] lighting sources queued")
+	stat(null, "[lighting_update_corners.len] lighting corners queued")
+	stat(null, "[lighting_update_overlays.len] lighting overlays queued")
+
 #undef MAX_LIGHT_UPDATES_PER_WORK
 #undef MAX_CORNER_UPDATES_PER_WORK
 #undef MAX_OVERLAY_UPDATES_PER_WORK
