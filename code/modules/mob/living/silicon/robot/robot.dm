@@ -13,7 +13,10 @@ var/list/robot_verbs_default = list(
 
 	var/sight_mode = 0
 	var/custom_name = ""
-	var/custom_sprite = 0 //Due to all the sprites involved, a var for our custom borgs may be best
+	var/custom_icon[0]
+	var/custom_open_list[0]
+	var/custom_open = 0
+	var/can_change = 1
 
 //Hud stuff
 
@@ -172,24 +175,6 @@ var/list/robot_verbs_default = list(
 		//We also need to update name of internal camera.
 		if(camera)
 			camera.c_tag = newname
-
-		//Check for custom sprite
-		if(!custom_sprite)
-			var/file = file2text("config/custom_sprites.txt")
-			var/lines = splittext(file, "\n")
-
-			for(var/line in lines)
-			// split & clean up
-				var/list/Entry = splittext(line, ";")
-				for(var/i = 1 to Entry.len)
-					Entry[i] = trim(Entry[i])
-
-				if(Entry.len < 2)
-					continue;
-
-				if(Entry[1] == src.ckey && Entry[2] == src.real_name) //They're in the list? Custom sprite time, var and icon change required
-					custom_sprite = 1
-					icon = 'icons/mob/custom-synthetic.dmi'
 
 	return 1
 
@@ -368,15 +353,24 @@ var/list/robot_verbs_default = list(
 			modtype = "Xeno-Hu"
 			feedback_inc("xeborg_hunter",1)
 
+	//custom sprite check
+	var/file1 = file2text("config/custom_sprites.txt")
+	var/list/lines = splittext(file1, ";")
+	for(var/i = 1 to lines.len)
+		var/line = lines[i]
+		var/list/Entry = splittext(line, ":")
+		for(var/j = 1 to Entry.len)
+			Entry[j] = trim(Entry[j])
+		if(Entry[1] == src.ckey)
+			if(Entry[2] == modtype)
+				module_sprites["[Entry[3]]"] = Entry[3]
+				custom_icon += Entry[3]
+				custom_open_list["[Entry[3]]"] = Entry[4]
 
 	//languages
 	module.add_languages(src)
 	//subsystems
 	module.add_subsystems_and_actions(src)
-
-	//Custom_sprite check and entry
-	if(custom_sprite == 1)
-		module_sprites["Custom"] = "[src.ckey]-[modtype]"
 
 	hands.icon_state = lowertext(module.module_type)
 	feedback_inc("cyborg_[lowertext(modtype)]",1)
@@ -384,6 +378,7 @@ var/list/robot_verbs_default = list(
 
 	if(modtype == "Medical" || modtype == "Security" || modtype == "Combat" || modtype == "Peacekeeper")
 		status_flags &= ~CANPUSH
+
 
 	choose_icon(6,module_sprites)
 	radio.config(module.channels)
@@ -977,17 +972,20 @@ var/list/robot_verbs_default = list(
 	else
 		overlays -= "eyes"
 
-	if(opened)
-		var/panelprefix = "ov"
-		if(custom_sprite) //Custom borgs also have custom panels, heh
-			panelprefix = "[ckey]"
-
-		if(wiresexposed)
-			overlays += "[panelprefix]-openpanel +w"
+		if(opened && custom_open) //Custom borgs also have custom panels, heh
+			overlays += "[custom_open]-openpanel +w"
 		else if(cell)
-			overlays += "[panelprefix]-openpanel +c"
+			overlays += "[custom_open]-openpanel +c"
 		else
-			overlays += "[panelprefix]-openpanel -c"
+			overlays += "[custom_open]-openpanel -c"
+
+	if(opened)
+		if(wiresexposed)
+			overlays += "ov-openpanel +w"
+		else if(cell)
+			overlays += "ov-openpanel +c"
+		else
+			overlays += "ov-openpanel -c"
 
 	var/combat = list("Combat","Peacekeeper")
 	if(modtype in combat)
@@ -1244,12 +1242,15 @@ var/list/robot_verbs_default = list(
 
 	var/icontype
 
-	if(custom_sprite == 1)
-		icontype = "Custom"
-		triesleft = 0
+	lockcharge = 1  //Locks borg until it select an icon to avoid secborgs running around with a standard sprite
+	icontype = input("Select an icon! [triesleft ? "You have [triesleft] more chances." : "This is your last try."]", "Robot", null, null) in module_sprites
+
+	if(icontype in custom_icon)
+		icon = 'icons/mob/custom-synthetic.dmi'
+		custom_open = custom_open_list[icontype]
 	else
-		lockcharge = 1  //Locks borg until it select an icon to avoid secborgs running around with a standard sprite
-		icontype = input("Select an icon! [triesleft ? "You have [triesleft] more chances." : "This is your last try."]", "Robot", null, null) in module_sprites
+		icon = 'icons/mob/robots.dmi'
+		custom_open = null
 
 	if(icontype)
 		icon_state = module_sprites[icontype]
@@ -1309,6 +1310,32 @@ var/list/robot_verbs_default = list(
 	..()
 	update_module_icon()
 
+/mob/living/silicon/robot/verb/special_icon_pick()
+	set category = "Robot Commands"
+	set name = "Special Cyborg Icon pick"
+	set desc = "Lets borgs that normaly cannot pick custom icons pick a custom icon."
+
+	if(can_change)
+		to_chat(src, "You already have been able to select your icon. You now require a module reset to change it.")
+		return
+
+	var/module_sprites[0]
+	module_sprites["Standard"] = icon_state
+
+	var/file1 = file2text("config/custom_sprites.txt")
+	var/list/lines = splittext(file1, ";")
+	for(var/i = 1 to lines.len)
+		var/line = lines[i]
+		var/list/Entry = splittext(line, ":")
+		for(var/j = 1 to Entry.len)
+			Entry[j] = trim(Entry[j])
+		if(Entry[1] == src.ckey)
+			if(Entry[2] == modtype)
+				module_sprites["[Entry[3]]"] = Entry[3]
+				custom_icon += Entry[3]
+				custom_open_list["[Entry[3]]"] = Entry[4]
+	choose_icon(6,module_sprites)
+
 /mob/living/silicon/robot/deathsquad
 	base_icon = "nano_bloodhound"
 	icon_state = "nano_bloodhound"
@@ -1319,6 +1346,7 @@ var/list/robot_verbs_default = list(
 	designation = "Nanotrasen Combat"
 	req_access = list(access_cent_specops)
 	ionpulse = 1
+	can_change = 0
 	var/searching_for_ckey = 0
 
 /mob/living/silicon/robot/deathsquad/New(loc)
@@ -1367,6 +1395,7 @@ var/list/robot_verbs_default = list(
 	modtype = "Syndicate"
 	req_access = list(access_syndicate)
 	ionpulse = 1
+	can_change = 0
 	lawchannel = "State"
 	var/playstyle_string = "<span class='userdanger'>You are a Syndicate assault cyborg!</span><br>\
 							<b>You are armed with powerful offensive tools to aid you in your mission: help the operatives secure the nuclear authentication disk. \
@@ -1413,6 +1442,7 @@ var/list/robot_verbs_default = list(
 	icon_state = "droidcombat"
 	modtype = "Combat"
 	designation = "Combat"
+	can_change = 0
 
 /mob/living/silicon/robot/combat/init()
 	..()
