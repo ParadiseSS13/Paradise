@@ -940,6 +940,8 @@
 	var/mob/living/simple_animal/hostile/mining_drone/user = owner
 	user.DropOre()
 
+/mob/living/simple_animal/hostile/mining_drone/sentience_act()
+	sight = SEE_MOBS | SEE_TURFS
 
 /**********************Minebot Upgrades**********************/
 
