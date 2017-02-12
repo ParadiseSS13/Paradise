@@ -35,6 +35,7 @@
 	R.uneq_all()
 	R.hands.icon_state = "nomod"
 	R.icon_state = "robot"
+	R.module.remove_subsystems_and_actions(R)
 	qdel(R.module)
 	R.module = null
 

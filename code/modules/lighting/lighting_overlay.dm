@@ -4,7 +4,6 @@
 	mouse_opacity = 0
 	simulated = 0
 	anchored = 1
-	flags = NOREACT
 	icon = LIGHTING_ICON
 	layer = LIGHTING_LAYER
 	invisibility = INVISIBILITY_LIGHTING

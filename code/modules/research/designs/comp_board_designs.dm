@@ -342,29 +342,42 @@
 	build_path = /obj/item/weapon/circuitboard/teleporter
 	category = list("Computer Boards")
 
-datum/design/GAC
-	name = "Circuit Design (General Air Control)"
+/datum/design/GAC
+	name = "Console Board (General Air Control)"
 	desc = "Allows for the construction of circuit boards used to build a General Air Control Computer."
 	id = "GAC"
 	req_tech = list("programming" = 3, "magnets" = 2)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/air_management
+	category = list("Computer Boards")
 
-datum/design/tank_control
-	name = "Circuit Design (Large Tank Control)"
+/datum/design/tank_control
+	name = "Console Board (Large Tank Control)"
 	desc = "Allows for the construction of circuit boards used to build a Large Tank Control Computer."
 	id = "tankcontrol"
 	req_tech = list("programming" = 3, "magnets" = 2)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/large_tank_control
+	category = list("Computer Boards")
 
-datum/design/AAC
-	name = "Circuit Design (Atmospheric Automations Console)"
-	desc = "Allows for the construction of circuit boards used to build an Atmospheric Autmations Console."
+/datum/design/AAC
+	name = "Console Board (Atmospheric Automations Console)"
+	desc = "Allows for the construction of circuit boards used to build an Atmospheric Automations Console."
 	id = "AAC"
 	req_tech = list("programming" = 4, "magnets" = 2)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/atmos_automation
+	category = list("Computer Boards")
+
+/datum/design/xenobiocamera
+	name = "Console Board (Xenobiology Console)"
+	desc = "Allows for the construction of circuit boards used to build xenobiology camera computers."
+	id = "xenobioconsole"
+	req_tech = list("programming" = 3, "biotech" = 3)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000, "sacid" = 20)
+	build_path = /obj/item/weapon/circuitboard/xenobiology
+	category = list("Computer Boards")

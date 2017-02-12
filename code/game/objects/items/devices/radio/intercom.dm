@@ -120,15 +120,13 @@
 		attack_self(user)
 
 /obj/item/device/radio/intercom/receive_range(freq, level)
-	if(!on)
+	if(!is_listening())
 		return -1
 	if(!(0 in level))
 		var/turf/position = get_turf(src)
 		// TODO: Integrate radio with the space manager
 		if(isnull(position) || !(position.z in level))
 			return -1
-	if(!src.listening)
-		return -1
 	if(freq in ANTAG_FREQS)
 		if(!(src.syndie))
 			return -1//Prevents broadcast of messages over devices lacking the encryption

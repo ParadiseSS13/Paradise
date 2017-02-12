@@ -181,7 +181,7 @@ var/time_last_changed_position = 0
 		ui = new(user, src, ui_key, "identification_computer.tmpl", src.name, 775, 700)
 		ui.open()
 
-/obj/machinery/computer/card/ui_data(mob/user, datum/topic_state/state = default_state)
+/obj/machinery/computer/card/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/data[0]
 	data["src"] = UID()
 	data["station_name"] = station_name()
@@ -439,3 +439,5 @@ var/time_last_changed_position = 0
 	name = "CentComm identification computer"
 	circuit = /obj/item/weapon/circuitboard/card/centcom
 	req_access = list(access_cent_commander)
+	change_position_cooldown = -1
+	blacklisted = list()

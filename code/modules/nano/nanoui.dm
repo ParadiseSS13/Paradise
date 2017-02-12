@@ -415,7 +415,7 @@ nanoui is used to open and update nano browser uis
 		return
 
 	if(!initial_data)
-		set_initial_data(src_object.ui_data(user, state)) // Get the UI data.
+		set_initial_data(src_object.ui_data(user, ui_key, state)) // Get the UI data.
 
 	user << browse(get_html(), "window=[window_id];[window_size][window_options]")
 	winset(user, "mapwindow.map", "focus=true") // return keyboard focus to map

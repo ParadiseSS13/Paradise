@@ -187,6 +187,7 @@
 
 	var/max_loadout_points = 5 // How many points can be spent on extra items in character setup
 
+	var/disable_ooc_emoji = 0 // prevents people from using emoji in OOC
 	var/prisonlist_enabled = 0
 
 /datum/configuration/New()
@@ -575,6 +576,15 @@
 
 				if("round_abandon_penalty_period")
 					config.round_abandon_penalty_period = MinutesToTicks(text2num(value))
+					
+				if("medal_hub_address")
+					global.medal_hub = value
+					
+				if("medal_hub_password")
+					global.medal_pass = value
+
+				if("disable_ooc_emoji")
+					config.disable_ooc_emoji = 1
 
 				if("prisonlist_enabled")
 					config.prisonlist_enabled = 1

@@ -51,7 +51,7 @@
 
 /obj/item/weapon/gripper/verb/drop_item()
 
-	set name = "Drop Item"
+	set name = "Drop Gripped Item"
 	set desc = "Release an item from your magnetic gripper."
 	set category = "Drone"
 

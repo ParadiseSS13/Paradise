@@ -678,7 +678,7 @@
 				to_chat(H, "<span class='warning'>The APC power currents surge erratically, damaging your chassis!</span>")
 				H.adjustFireLoss(10,0)
 			else if(src.cell && src.cell.charge > 0)
-				if(H.nutrition < 450)
+				if(H.nutrition < NUTRITION_LEVEL_WELL_FED)
 					if(src.cell.charge >= 500)
 						H.nutrition += 50
 						src.cell.charge -= 500
@@ -689,8 +689,8 @@
 					to_chat(user, "<span class='notice'>You slot your fingers into the APC interface and siphon off some of the stored charge for your own use.</span>")
 					if(src.cell.charge < 0)
 						src.cell.charge = 0
-					if(H.nutrition > 500)
-						H.nutrition = 500
+					if(H.nutrition > NUTRITION_LEVEL_WELL_FED + 50)
+						H.nutrition = NUTRITION_LEVEL_WELL_FED + 50
 					src.charging = 1
 				else
 					to_chat(user, "<span class='notice'>You are already fully charged.</span>")
@@ -787,7 +787,7 @@
 		// Auto update every Master Controller tick
 		ui.set_auto_update(1)
 
-/obj/machinery/power/apc/ui_data(mob/user, datum/topic_state/state = default_state)
+/obj/machinery/power/apc/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/data[0]
 	data["locked"] = is_locked(user)
 	data["isOperating"] = operating
@@ -1368,8 +1368,7 @@
 		spawn(0)
 			for(var/obj/machinery/light/L in area)
 				if(prob(chance))
-					L.on = 1
-					L.broken()
+					L.broken(0, 1)
 					stoplag()
 
 /obj/machinery/power/apc/proc/setsubsystem(val)

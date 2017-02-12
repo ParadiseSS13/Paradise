@@ -4,6 +4,7 @@
 	department_flag = ENGSEC
 	total_positions = 1
 	spawn_positions = 1
+	is_engineering = 1
 	supervisors = "the captain"
 	selection_color = "#ffeeaa"
 	idtype = /obj/item/weapon/card/id/ce
@@ -43,6 +44,7 @@
 	department_flag = ENGSEC
 	total_positions = 5
 	spawn_positions = 5
+	is_engineering = 1
 	supervisors = "the chief engineer"
 	selection_color = "#fff5cc"
 	idtype = /obj/item/weapon/card/id/engineering
@@ -74,6 +76,7 @@
 	department_flag = ENGSEC
 	total_positions = 3
 	spawn_positions = 2
+	is_engineering = 1
 	supervisors = "the chief engineer"
 	selection_color = "#fff5cc"
 	idtype = /obj/item/weapon/card/id/engineering
@@ -102,6 +105,7 @@
 	department_flag = KARMA
 	total_positions = 1
 	spawn_positions = 1
+	is_engineering = 1
 	supervisors = "the chief engineer"
 	selection_color = "#fff5cc"
 	idtype = /obj/item/weapon/card/id/engineering

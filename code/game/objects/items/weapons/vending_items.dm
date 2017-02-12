@@ -82,3 +82,8 @@
 	machine_name = "CritterCare"
 	icon_state = "refill_pet"
 	charges = 31// of 94
+
+/obj/item/weapon/vending_refill/chinese
+	machine_name = "MrChangs"
+	charges = 8// of 24
+

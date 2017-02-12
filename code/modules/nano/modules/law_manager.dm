@@ -154,7 +154,7 @@
 		ui.open()
 		ui.set_auto_update(1)
 
-/datum/nano_module/law_manager/ui_data(mob/user, datum/topic_state/state = default_state)
+/datum/nano_module/law_manager/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/data[0]
 	owner.lawsync()
 

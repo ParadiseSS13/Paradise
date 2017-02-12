@@ -79,9 +79,17 @@
 	name = "cueball helmet"
 	desc = "A large, featureless white orb meant to be worn on your head. How do you even see out of this thing?"
 	icon_state = "cueball"
+	item_state = "cueball"
 	flags = HEADCOVERSEYES | HEADCOVERSMOUTH | BLOCKHAIR
-	item_state="cueball"
-	flags_inv = 0
+	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
+
+/obj/item/clothing/head/snowman
+	name = "snowman head"
+	desc = "A ball of white styrofoam. So festive."
+	icon_state = "snowman_h"
+	item_state = "snowman_h"
+	flags = HEADCOVERSEYES | HEADCOVERSMOUTH | BLOCKHAIR
+	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 
 /obj/item/clothing/head/that
 	name = "sturdy top-hat"
@@ -347,6 +355,16 @@
 	w_class = 2
 	attack_verb = list("warned", "cautioned", "smashed")
 	burn_state = FIRE_PROOF
+
+/obj/item/clothing/head/jester
+	name = "jester hat"
+	desc = "A hat with bells, to add some merryness to the suit."
+	icon_state = "jester_hat"
+
+/obj/item/clothing/head/rice_hat
+	name = "rice hat"
+	desc = "Welcome to the rice fields, motherfucker."
+	icon_state = "rice_hat"
 
 /obj/item/clothing/head/griffin
 	name = "griffon head"

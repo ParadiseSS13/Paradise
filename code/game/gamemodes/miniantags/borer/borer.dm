@@ -313,7 +313,7 @@
 			to_chat(src, "<span class='danger'>You plunge your probosci deep into the cortex of the host brain, interfacing directly with their nervous system.</span>")
 			to_chat(host, "<span class='danger'>You feel a strange shifting sensation behind your eyes as an alien consciousness displaces yours.</span>")
 			var/borer_key = src.key
-			host.attack_log += text("\[[time_stamp()]\] <font color='blue'>[key_name(src)] has assumed control of [key_name(host)]</font>")
+			host.create_attack_log("<font color='blue'>[key_name(src)] has assumed control of [key_name(host)]</font>")
 			msg_admin_attack("[key_name_admin(src)] has assumed control of [key_name_admin(host)]")
 			// host -> brain
 			var/h2b_id = host.computer_id
@@ -457,7 +457,7 @@
 
 
 	if(host_brain)
-		host.attack_log += text("\[[time_stamp()]\] <font color='blue'>[host_brain.name] ([host_brain.ckey]) has taken control back from [src.name] ([host.ckey])</font>")
+		host.create_attack_log("<font color='blue'>[host_brain.name] ([host_brain.ckey]) has taken control back from [src.name] ([host.ckey])</font>")
 		msg_admin_attack("[host_brain.name] ([host_brain.ckey]) has taken control back from [src.name] ([host.ckey]) (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[host.x];Y=[host.y];Z=[host.z]'>JMP</a>)")
 		// host -> self
 		var/h2s_id = host.computer_id

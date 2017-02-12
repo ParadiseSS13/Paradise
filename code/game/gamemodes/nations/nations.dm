@@ -23,7 +23,7 @@ datum/game_mode/nations
 	return ..()
 
 /datum/game_mode/nations/proc/send_intercept()
-	command_announcement.Announce("Due to recent and COMPLETELY UNFOUNDED allegations of massive fraud and insider trading \
+	event_announcement.Announce("Due to recent and COMPLETELY UNFOUNDED allegations of massive fraud and insider trading \
 					affecting trillions of investors, the Nanotrasen Corporation has decided to liquidate all \
 					assets of the Centcom Division in order to pay the massive legal fees that will be incurred \
 					during the following centuries long court process. Therefore, all current employment contracts \

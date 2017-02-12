@@ -50,6 +50,8 @@
 
 	init_subtypes(/datum/crafting_recipe, crafting_recipes)
 
+	all_cults = typesof(/datum/cult_info)
+
 //local letters. Watch more in modules/l10n/localisation.dm
 	paths = typesof(/datum/letter) - /datum/letter
 	for(var/T in paths)
