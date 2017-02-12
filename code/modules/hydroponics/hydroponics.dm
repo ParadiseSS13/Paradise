@@ -1009,12 +1009,6 @@
 	else
 		..()
 
-/obj/machinery/hydroponics/verb/toggle_lid_verb()
-	set name = "Toggle Tray Lid"
-	set category = "Object"
-	set src in view(1)
-	toggle_lid(usr)
-
 /obj/machinery/hydroponics/proc/toggle_lid(mob/living/user)
 	if(!user || user.stat || user.restrained())
 		return
@@ -1031,10 +1025,6 @@
 	density = 0
 	use_power = 0
 	wrenchable = 0
-
-/obj/machinery/hydroponics/soil/New()
-	..()
-	verbs -= /obj/machinery/hydroponics/verb/toggle_lid_verb
 
 /obj/machinery/hydroponics/soil/update_icon_hoses()
 	return // Has no hoses
