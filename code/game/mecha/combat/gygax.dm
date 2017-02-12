@@ -46,7 +46,7 @@
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang
 	ME.attach(src)
-	ME = new /obj/item/mecha_parts/mecha_equipment/teleporter
+	ME = new /obj/item/mecha_parts/mecha_equipment/teleporter/precise
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay
 	ME.attach(src)
