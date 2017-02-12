@@ -9,7 +9,7 @@
 	icon_state = "mecha_teleport"
 	origin_tech = "bluespace=10"
 	equip_cooldown = 150
-	energy_drain = 1000
+	energy_drain = 8000
 	range = RANGED
 
 /obj/item/mecha_parts/mecha_equipment/teleporter/action(atom/target)
@@ -17,6 +17,7 @@
 		return
 	var/turf/T = get_turf(target)
 	if(T)
+		chassis.use_power(energy_drain)
 		do_teleport(chassis, T, 4)
 		return 1
 
