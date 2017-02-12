@@ -72,3 +72,6 @@ var/global/default_martial_art = new/datum/martial_art
 	var/fire_sprite = "Standing"
 
 	var/datum/body_accessory/body_accessory = null
+	var/icobase = 'icons/mob/human_races/r_human.dmi'		// Normal icon set.
+	var/deform = 'icons/mob/human_races/r_def_human.dmi'	// Mutated icon set.
+	var/tail												// Name of tail image in species effects icon file.

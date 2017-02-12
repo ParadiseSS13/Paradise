@@ -1515,6 +1515,10 @@
 		if(oldspecies.default_genes.len)
 			oldspecies.handle_dna(src,1) // Remove any genes that belong to the old species
 
+	icobase = species.icobase
+	deform = species.deform
+	tail = species.tail
+
 	if(vessel)
 		vessel = null
 	make_blood()

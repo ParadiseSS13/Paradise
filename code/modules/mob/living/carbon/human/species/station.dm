@@ -364,29 +364,29 @@
 	if(H.species.name == "Vox") //Making sure we don't break Armalis.
 		switch(H.s_tone)
 			if(6) //Azure Vox.
-				icobase = 'icons/mob/human_races/vox/r_voxazu.dmi'
-				deform = 'icons/mob/human_races/vox/r_def_voxazu.dmi'
-				tail = "voxtail_azu"
+				H.icobase = 'icons/mob/human_races/vox/r_voxazu.dmi'
+				H.deform = 'icons/mob/human_races/vox/r_def_voxazu.dmi'
+				H.tail = "voxtail_azu"
 			if(5) //Emerald Vox.
-				icobase = 'icons/mob/human_races/vox/r_voxemrl.dmi'
-				deform = 'icons/mob/human_races/vox/r_def_voxemrl.dmi'
-				tail = "voxtail_emrl"
+				H.icobase = 'icons/mob/human_races/vox/r_voxemrl.dmi'
+				H.deform = 'icons/mob/human_races/vox/r_def_voxemrl.dmi'
+				H.tail = "voxtail_emrl"
 			if(4) //Grey Vox.
-				icobase = 'icons/mob/human_races/vox/r_voxgry.dmi'
-				deform = 'icons/mob/human_races/vox/r_def_voxgry.dmi'
-				tail = "voxtail_gry"
+				H.icobase = 'icons/mob/human_races/vox/r_voxgry.dmi'
+				H.deform = 'icons/mob/human_races/vox/r_def_voxgry.dmi'
+				H.tail = "voxtail_gry"
 			if(3) //Brown Vox.
-				icobase = 'icons/mob/human_races/vox/r_voxbrn.dmi'
-				deform = 'icons/mob/human_races/vox/r_def_voxbrn.dmi'
-				tail = "voxtail_brn"
+				H.icobase = 'icons/mob/human_races/vox/r_voxbrn.dmi'
+				H.deform = 'icons/mob/human_races/vox/r_def_voxbrn.dmi'
+				H.tail = "voxtail_brn"
 			if(2) //Dark Green Vox.
-				icobase = 'icons/mob/human_races/vox/r_voxdgrn.dmi'
-				deform = 'icons/mob/human_races/vox/r_def_voxdgrn.dmi'
-				tail = "voxtail_dgrn"
+				H.icobase = 'icons/mob/human_races/vox/r_voxdgrn.dmi'
+				H.deform = 'icons/mob/human_races/vox/r_def_voxdgrn.dmi'
+				H.tail = "voxtail_dgrn"
 			else  //Default Green Vox.
-				icobase = 'icons/mob/human_races/vox/r_vox.dmi'
-				deform = 'icons/mob/human_races/vox/r_def_vox.dmi'
-				tail = "voxtail" //Ensures they get an appropriately coloured tail depending on the skin-tone.
+				H.icobase = 'icons/mob/human_races/vox/r_vox.dmi'
+				H.deform = 'icons/mob/human_races/vox/r_def_vox.dmi'
+				H.tail = "voxtail" //Ensures they get an appropriately coloured tail depending on the skin-tone.
 
 		H.update_dna()
 
@@ -822,7 +822,7 @@
 
 	if(H.nutrition > NUTRITION_LEVEL_WELL_FED)
 		H.nutrition = NUTRITION_LEVEL_WELL_FED
-		
+
 	if(light_amount > 0)
 		H.clear_alert("nolight")
 	else

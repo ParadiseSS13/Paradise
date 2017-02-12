@@ -242,10 +242,10 @@
 			H.species = current_species
 			H.s_tone = s_tone
 			H.species.updatespeciescolor(H)
-
-			icobase = H.species.icobase
+			icobase = H.icobase ? H.icobase : H.species.icobase
 			if(H.species.bodyflags & HAS_TAIL)
-				coloured_tail = H.species.tail
+				coloured_tail = H.tail ? H.tail : H.species.tail
+
 			qdel(H)
 		else
 			icobase = current_species.icobase

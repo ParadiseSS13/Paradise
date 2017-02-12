@@ -171,10 +171,10 @@ var/global/list/limb_icon_cache = list()
 			icon_file = 'icons/mob/human_races/robotic.dmi'
 		else
 			if(status & ORGAN_MUTATED)
-				icon_file = species.deform
+				icon_file = owner ? owner.deform : species.deform
 			else
 				// Congratulations, you are normal
-				icon_file = species.icobase
+				icon_file = owner ? owner.icobase : species.icobase
 	return list(icon_file, new_icon_state)
 
 /obj/item/organ/external/chest/get_icon_state(skeletal)
