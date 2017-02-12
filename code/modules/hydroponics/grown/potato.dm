@@ -16,7 +16,7 @@
 	icon_dead = "potato-dead"
 	genes = list(/datum/plant_gene/trait/battery)
 	mutatelist = list(/obj/item/seeds/potato/sweet)
-	reagents_add = list("vitamin" = 0.04, "nutriment" = 0.1)
+	reagents_add = list("vitamin" = 0.04, "plantmatter" = 0.1)
 
 /obj/item/weapon/reagent_containers/food/snacks/grown/potato
 	seed = /obj/item/seeds/potato
@@ -56,7 +56,7 @@
 	plantname = "Sweet Potato Plants"
 	product = /obj/item/weapon/reagent_containers/food/snacks/grown/potato/sweet
 	mutatelist = list()
-	reagents_add = list("vitamin" = 0.1, "sugar" = 0.1, "nutriment" = 0.1)
+	reagents_add = list("vitamin" = 0.1, "sugar" = 0.1, "plantmatter" = 0.1)
 
 /obj/item/weapon/reagent_containers/food/snacks/grown/potato/sweet
 	seed = /obj/item/seeds/potato/sweet

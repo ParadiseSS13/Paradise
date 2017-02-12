@@ -74,7 +74,7 @@
 	growthstages = 3
 	genes = list(/datum/plant_gene/trait/plant_type/fungal_metabolism)
 	growing_icon = 'icons/obj/hydroponics/growing_mushrooms.dmi'
-	reagents_add = list("psilocybin" = 0.04, "amanitin" = 0.1, "nutriment" = 0, "amanitin" = 0.2)
+	reagents_add = list("psilocybin" = 0.04, "nutriment" = 0, "amanitin" = 0.3)
 	rarity = 30
 	origin_tech = "biotech=5"
 

@@ -201,62 +201,6 @@
 	playsound(src, 'sound/effects/snap.ogg', 50, 1)
 	qdel(src)
 
-/obj/item/projectile/kinetic
-	name = "kinetic force"
-	icon_state = null
-	damage = 10
-	damage_type = BRUTE
-	flag = "bomb"
-	range = 3
-	var/splash = 0
-
-/obj/item/projectile/kinetic/super
-	damage = 11
-	range = 4
-
-/obj/item/projectile/kinetic/hyper
-	damage = 12
-	range = 5
-	splash = 1
-
-obj/item/projectile/kinetic/New()
-	var/turf/proj_turf = get_turf(src)
-	if(!istype(proj_turf, /turf))
-		return
-	var/datum/gas_mixture/environment = proj_turf.return_air()
-	var/pressure = environment.return_pressure()
-	if(pressure < 50)
-		name = "full strength kinetic force"
-		damage *= 4
-	..()
-
-/obj/item/projectile/kinetic/on_range()
-	new /obj/effect/kinetic_blast(loc)
-	..()
-
-/obj/item/projectile/kinetic/on_hit(atom/target)
-	. = ..()
-	var/turf/target_turf= get_turf(target)
-	if(istype(target_turf, /turf/simulated/mineral))
-		var/turf/simulated/mineral/M = target_turf
-		M.gets_drilled(firer)
-	new /obj/effect/kinetic_blast(target_turf)
-	if(splash)
-		for(var/turf/T in range(splash, target_turf))
-			if(istype(T, /turf/simulated/mineral))
-				var/turf/simulated/mineral/M = T
-				M.gets_drilled(firer)
-
-/obj/effect/kinetic_blast
-	name = "kinetic explosion"
-	icon = 'icons/obj/projectiles.dmi'
-	icon_state = "kinetic_blast"
-	layer = 4.1
-
-/obj/effect/kinetic_blast/New()
-	spawn(4)
-		qdel(src)
-
 /obj/item/projectile/beam/wormhole
 	name = "bluespace beam"
 	icon_state = "spark"

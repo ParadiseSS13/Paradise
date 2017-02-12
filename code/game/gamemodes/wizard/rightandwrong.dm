@@ -1,7 +1,7 @@
 
 
 /mob/proc/rightandwrong(var/summon_type) //0 = Summon Guns, 1 = Summon Magic
-	var/list/gunslist = list("taser","egun","laser","revolver","detective","c20r","nuclear","deagle","gyrojet","pulse","suppressed","cannon","doublebarrel","shotgun","combatshotgun","bulldog","mateba","sabr","crossbow","saw","car","boltaction","arg","uzi","turret","pulsecarbine","decloner","mindflayer","hyperkinetic","advplasmacutter","wormhole","wt550","grenadelauncher","medibeam")
+	var/list/gunslist = list("taser","egun","laser","revolver","detective","c20r","nuclear","deagle","gyrojet","pulse","suppressed","cannon","doublebarrel","shotgun","combatshotgun","bulldog","mateba","sabr","crossbow","saw","car","boltaction","arg","uzi","turret","pulsecarbine","decloner","mindflayer","kinetic","advplasmacutter","wormhole","wt550","grenadelauncher","medibeam")
 	var/list/magiclist = list("fireball","smoke","blind","mindswap","forcewall","knock","horsemask","charge", "summonitem", "wandnothing", "wanddeath", "wandresurrection", "wandpolymorph", "wandteleport", "wanddoor", "wandfireball", "staffhealing", "armor", "scrying", "staffdoor", "special","voodoo","special")
 	var/list/magicspeciallist = list("staffchange","staffanimation", "wandbelt", "contract", "staffchaos","necromantic")
 
@@ -76,8 +76,8 @@
 					new /obj/item/weapon/gun/energy/decloner(get_turf(H))
 				if("mindflayer")
 					new /obj/item/weapon/gun/energy/mindflayer(get_turf(H))
-				if("hyperkinetic")
-					new /obj/item/weapon/gun/energy/kinetic_accelerator/hyper(get_turf(H))
+				if("kinetic")
+					new /obj/item/weapon/gun/energy/kinetic_accelerator(get_turf(H))
 				if("advplasmacutter")
 					new /obj/item/weapon/gun/energy/plasmacutter/adv(get_turf(H))
 				if("wormhole")

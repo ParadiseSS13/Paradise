@@ -572,34 +572,6 @@
 
 	frequency.post_signal(src, alert_signal)
 
-/obj/machinery/alarm/proc/air_doors_close(manual)
-	var/area/A = get_area(src)
-	if(!A.air_doors_activated)
-		A.air_doors_activated = 1
-		for(var/obj/machinery/door/E in A.all_doors)
-			if(istype(E,/obj/machinery/door/firedoor))
-				if(!E:blocked)
-					if(E.operating)
-						E:nextstate = CLOSED
-					else if(!E.density)
-						spawn(0)
-							E.close()
-				continue
-
-/obj/machinery/alarm/proc/air_doors_open(manual)
-	var/area/A = get_area(loc)
-	if(A.air_doors_activated)
-		A.air_doors_activated = 0
-		for(var/obj/machinery/door/E in A.all_doors)
-			if(istype(E, /obj/machinery/door/firedoor))
-				if(!E:blocked)
-					if(E.operating)
-						E:nextstate = OPEN
-					else if(E.density)
-						spawn(0)
-							E.open()
-				continue
-
 ///////////////
 //END HACKING//
 ///////////////

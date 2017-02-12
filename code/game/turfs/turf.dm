@@ -24,8 +24,6 @@
 
 	var/PathNode/PNode = null //associated PathNode in the A* algorithm
 
-	var/dynamic_lighting = 1
-
 	flags = 0
 
 	var/image/obscured	//camerachunks
@@ -161,10 +159,11 @@
 		return src
 	var/old_opacity = opacity
 	var/old_dynamic_lighting = dynamic_lighting
-	var/list/old_affecting_lights = affecting_lights
+	var/old_affecting_lights = affecting_lights
 	var/old_lighting_overlay = lighting_overlay
 	var/old_blueprint_data = blueprint_data
 	var/old_obscured = obscured
+	var/old_corners = corners
 
 	BeforeChange()
 	if(air_master)
@@ -178,16 +177,19 @@
 	for(var/turf/space/S in range(W,1))
 		S.update_starlight()
 
-	lighting_overlay = old_lighting_overlay
+	recalc_atom_opacity()
 
-	affecting_lights = old_affecting_lights
-	if((old_opacity != opacity) || (dynamic_lighting != old_dynamic_lighting))
-		reconsider_lights()
-	if(dynamic_lighting != old_dynamic_lighting)
-		if(dynamic_lighting)
-			lighting_build_overlays()
-		else
-			lighting_clear_overlays()
+	if(lighting_overlays_initialised)
+		lighting_overlay = old_lighting_overlay
+		affecting_lights = old_affecting_lights
+		corners = old_corners
+		if((old_opacity != opacity) || (dynamic_lighting != old_dynamic_lighting))
+			reconsider_lights()
+		if(dynamic_lighting != old_dynamic_lighting)
+			if(dynamic_lighting)
+				lighting_build_overlay()
+			else
+				lighting_clear_overlay()
 
 	obscured = old_obscured
 
@@ -383,11 +385,6 @@
 /turf/proc/visibilityChanged()
 	if(ticker)
 		cameranet.updateVisibility(src)
-
-/turf/proc/get_lumcount() //Gets the lighting level of a given turf.
-	if(lighting_overlay)
-		return lighting_overlay.get_clamped_lum()
-	return 1
 
 /turf/attackby(obj/item/C, mob/user, params)
 	if(can_lay_cable() && istype(C, /obj/item/stack/cable_coil))
