@@ -10,7 +10,7 @@ var/global/datum/controller/process/ssd/ssd
 
 /datum/controller/process/ssd/setup()
 	name = "SSD"
-	schedule_interval = 3000
+	schedule_interval = 6000
 
 /datum/controller/process/ssd/doWork()
 	current_ssds = list()
@@ -19,7 +19,6 @@ var/global/datum/controller/process/ssd/ssd
 	for(var/obj/machinery/cryopod/P in machines)
 		if(!P.occupant && istype(get_area(P), /area/crew_quarters/sleep))
 			free_cryopods += P
-	message_admins("A2")
 	for(var/mob/living/carbon/human/H in mob_list)
 		if(H.is_valid_for_cryoing())
 			if(H in ignored_ssds)
