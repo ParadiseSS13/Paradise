@@ -33,9 +33,9 @@
 		shown = 0
 		return
 	if(user.client != client)
-		if (client)
+		if(client)
 			client.images -= bar
-		if (user.client)
+		if(user.client)
 			user.client.images += bar
 
 	progress = Clamp(progress, 0, goal)
