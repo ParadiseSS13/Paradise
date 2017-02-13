@@ -150,7 +150,6 @@
 /obj/item/weapon/tank/emergency_oxygen/double
 	name = "double emergency oxygen tank"
 	icon_state = "emergency_double"
-	item_state = "emergency_engi"
 	volume = 10
 
 /obj/item/weapon/tank/emergency_oxygen/double/full
@@ -185,7 +184,6 @@
 	name = "vox specialized nitrogen tank"
 	desc = "A high-tech nitrogen tank designed specifically for Vox."
 	icon_state = "emergency_vox"
-	item_state = "emergency_nitrogen"
 	volume = 25
 
 /obj/item/weapon/tank/emergency_oxygen/vox/New()
