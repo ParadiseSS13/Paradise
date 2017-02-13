@@ -42,7 +42,7 @@
 	equip(var/mob/living/carbon/human/H)
 		if(!H)
 			return 0
-		H.equip_or_collect(new /obj/item/device/radio/headset/headset(H), slot_l_ear)
+		H.equip_or_collect(new /obj/item/device/radio/headset(H), slot_l_ear)
 		switch(H.backbag)
 			if(2)
 				H.equip_or_collect(new /obj/item/weapon/storage/backpack/industrial(H), slot_back)
