@@ -28,6 +28,7 @@ RCD
 	var/canRwall = 0
 	var/menu = 1
 	var/door_type = /obj/machinery/door/airlock
+	var/door_name = "Airlock"
 	req_access = list(access_engine)
 	var/list/door_accesses = list()
 	var/list/door_accesses_list = list()
@@ -85,7 +86,7 @@ RCD
 /obj/item/weapon/rcd/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/topic_state/state = inventory_state)
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "rcd.tmpl", "[name]", 400, 400, state = state)
+		ui = new(user, src, ui_key, "rcd.tmpl", "[name]", 450, 400, state = state)
 		ui.open()
 		ui.set_auto_update(1)
 
@@ -93,6 +94,7 @@ RCD
 	var/data[0]
 	data["mode"] = mode
 	data["door_type"] = door_type
+	data["door_name"] = door_name
 	data["menu"] = menu
 	data["matter"] = matter
 	data["max_matter"] = max_matter
@@ -164,6 +166,11 @@ RCD
 			door_accesses_list[++door_accesses_list.len] = list("name" = get_access_desc(access), "id" = access, "enabled" = (access in door_accesses))
 		. = 1
 
+	if(href_list["choice"] && !locked)
+		var/temp_t = sanitize(copytext(input("Enter a custom Airlock Name.","Airlock Name"),1,MAX_MESSAGE_LEN))
+		if(temp_t)
+			door_name = temp_t
+
 /obj/item/weapon/rcd/proc/activate()
 	playsound(loc, 'sound/items/Deconstruct.ogg', 50, 1)
 
@@ -207,6 +214,7 @@ RCD
 						if(!useResource(10, user)) return 0
 						activate()
 						var/obj/machinery/door/airlock/T = new door_type(A)
+						T.name = door_name
 						T.autoclose = 1
 						if(one_access)
 							T.req_one_access = door_accesses.Copy()
