@@ -617,3 +617,6 @@ var/list/intents = list(I_HELP,I_DISARM,I_GRAB,I_HARM)
 		return FALSE
 	// Cast to 1/0
 	return !!(client.prefs.toggles & toggleflag)
+
+
+#define isterrorspider(A) (istype((A), /mob/living/simple_animal/hostile/poison/terror_spider))
