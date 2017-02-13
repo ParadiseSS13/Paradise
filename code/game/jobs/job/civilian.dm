@@ -28,16 +28,15 @@
 		return list()
 
 /datum/job/explorer
-	title = "Gateway Explorer" // this defines sec hud image, too
-	flag = EXPLORER // new define for this
+	title = "Gateway Explorer"
+	flag = EXPLORER
 	department_flag = SUPPORT
-	total_positions = 5 // most slots reserved for late-joiners
+	total_positions = 5
 	spawn_positions = 2
-	//is_supply = 1
 	supervisors = "the head of personnel"
-	selection_color = "#dddddd" // same as civ
+	selection_color = "#dddddd"
 	idtype = /obj/item/weapon/card/id
-	access = list(access_gateway, access_eva) // no maint access! So, not just civilian+
+	access = list(access_gateway, access_eva)
 	minimal_access = list(access_gateway, access_eva)
 
 	equip(var/mob/living/carbon/human/H)
@@ -51,13 +50,13 @@
 				H.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel_eng(H), slot_back)
 			if(4)
 				H.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel(H), slot_back)
-		H.equip_or_collect(new /obj/item/clothing/under/color/random(H), slot_w_uniform) // random jumpsuits, like civs
-		H.equip_or_collect(new /obj/item/weapon/storage/belt/utility/full(H), slot_belt) // eng toolbelt
-		H.equip_or_collect(new /obj/item/clothing/gloves/fingerless(H), slot_gloves) // mining gloves
+		H.equip_or_collect(new /obj/item/clothing/under/color/random(H), slot_w_uniform)
+		H.equip_or_collect(new /obj/item/weapon/storage/belt/utility/full(H), slot_belt)
+		H.equip_or_collect(new /obj/item/clothing/gloves/fingerless(H), slot_gloves)
 		H.equip_or_collect(new /obj/item/device/pda(H), slot_wear_pda)
-		H.equip_or_collect(new /obj/item/clothing/shoes/workboots(H), slot_shoes) // eng/mining boots
-		H.equip_or_collect(new /obj/item/weapon/reagent_containers/food/pill/patch/styptic(H), slot_l_store) // mining med patch
-		H.equip_or_collect(new /obj/item/device/flashlight/seclite(H), slot_r_store) // mining med patch
-		H.equip_or_collect(new /obj/item/weapon/storage/box/engineer(H), slot_in_backpack) // engineer's extra-size oxy tank
-		H.equip_or_collect(new /obj/item/device/radio/off(H), slot_in_backpack) // station bounced radio
+		H.equip_or_collect(new /obj/item/clothing/shoes/workboots(H), slot_shoes)
+		H.equip_or_collect(new /obj/item/weapon/reagent_containers/food/pill/patch/styptic(H), slot_l_store)
+		H.equip_or_collect(new /obj/item/device/flashlight/seclite(H), slot_r_store)
+		H.equip_or_collect(new /obj/item/weapon/storage/box/engineer(H), slot_in_backpack)
+		H.equip_or_collect(new /obj/item/device/radio/off(H), slot_in_backpack)
 		return 1
