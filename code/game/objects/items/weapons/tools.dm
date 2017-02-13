@@ -154,7 +154,7 @@
 	update_icon()
 
 /obj/item/weapon/weldingtool/examine(mob/user)
-	if(..(user, 1))
+	if(..(user, 0))
 		to_chat(user, "It contains [get_fuel()] unit\s of fuel out of [max_fuel].")
 
 /obj/item/weapon/weldingtool/suicide_act(mob/user)
