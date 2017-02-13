@@ -10,7 +10,7 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/black
 	name = "Black Terror spider"
-	desc = "An ominous-looking spider, black as the darkest night, and with merciless eyes and a blood-red hourglass pattern on its back."
+	desc = "An ominous-looking spider, black as the darkest night. It has merciless eyes, and a blood-red hourglass pattern on its back."
 	spider_role_summary = "Hit-and-run attacker with extremely venomous bite."
 
 	icon_state = "terror_widow"
@@ -24,14 +24,15 @@
 	stat_attack = 1 // ensures they will target people in crit, too!
 	spider_tier = TS_TIER_2
 
+
 /mob/living/simple_animal/hostile/poison/terror_spider/black/spider_specialattack(mob/living/carbon/human/L, poisonable)
 	if(!poisonable)
 		return ..()
-	if(L.reagents.has_reagent("terror_black_toxin", 50))
+	if(L.reagents.has_reagent("terror_black_toxin", 100))
 		return ..()
 	var/inject_target = pick("chest", "head")
 	if(L.stunned || L.can_inject(null, 0, inject_target, 0))
-		L.reagents.add_reagent("terror_black_toxin", 15) // inject our special poison
+		L.reagents.add_reagent("terror_black_toxin", 30) // inject our special poison
 		visible_message("<span class='danger'>[src] buries its long fangs deep into the [inject_target] of [target]!</span>")
 	else
 		visible_message("<span class='danger'>[src] bites [target], but cannot inject venom into their [inject_target]!</span>")

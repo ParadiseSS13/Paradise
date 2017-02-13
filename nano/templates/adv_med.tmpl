@@ -52,10 +52,13 @@ Used In File(s): \code\game\machinery\adv_med.dm
 			Large growth detected in frontal lobe, possibly cancerous. Surgical removal is recommended. </span> <br>
 	{{/if}}
 	{{if data.occupant.blind}}
-		<span class="average">Pupils unresponsive.</span><br>
+		<span class="average">Cataracts detected.</span><br>
+	{{/if}}
+	{{if data.occupant.colourblind}}
+		<span class="average">Photoreceptor abnormalities detected.</span><br>
 	{{/if}}
 	{{if data.occupant.nearsighted}}
-		<span class="average">Retinal misalignment detected</span> <br>
+		<span class="average">Retinal misalignment detected.</span> <br>
 	{{/if}}
 
 	<br>

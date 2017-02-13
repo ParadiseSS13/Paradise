@@ -382,8 +382,8 @@
 			if(M.stat!=2)
 				M.emote("scream")
 			if(istype(user))
-				M.attack_log += "\[[time_stamp()]\] <font color='orange'>Has been cremated by [user.name] ([user.ckey])</font>"
-				user.attack_log +="\[[time_stamp()]\] <font color='red'>Cremated [M.name] ([M.ckey])</font>"
+				M.create_attack_log("<font color='orange'>Has been cremated by [user.name] ([user.ckey])</font>")
+				user.create_attack_log("<font color='red'>Cremated [M.name] ([M.ckey])</font>")
 				log_attack("[user.name] ([user.ckey]) cremated [M.name] ([M.ckey])")
 			M.death(1)
 			if(!M || !isnull(M.gcDestroyed))

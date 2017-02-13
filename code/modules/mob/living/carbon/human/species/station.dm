@@ -18,6 +18,7 @@
 	worlds tumultous at best."
 
 	reagent_tag = PROCESS_ORG
+	//Has standard darksight of 2.
 
 /datum/species/unathi
 	name = "Unathi"
@@ -30,7 +31,6 @@
 	tail = "sogtail"
 	unarmed_type = /datum/unarmed_attack/claws
 	primitive_form = "Stok"
-	darksight = 3
 
 	blurb = "A heavily reptillian species, Unathi (or 'Sinta as they call themselves) hail from the \
 	Uuosa-Eso system, which roughly translates to 'burning mother'.<br/><br/>Coming from a harsh, radioactive \
@@ -67,7 +67,7 @@
 		"kidneys" =  /obj/item/organ/internal/kidneys,
 		"brain" =    /obj/item/organ/internal/brain,
 		"appendix" = /obj/item/organ/internal/appendix,
-		"eyes" =     /obj/item/organ/internal/eyes,
+		"eyes" =     /obj/item/organ/internal/eyes/unathi //3 darksight.
 		)
 
 	allowed_consumed_mobs = list(/mob/living/simple_animal/mouse, /mob/living/simple_animal/lizard, /mob/living/simple_animal/chick, /mob/living/simple_animal/chicken,
@@ -105,7 +105,6 @@
 	language = "Siik'tajr"
 	tail = "tajtail"
 	unarmed_type = /datum/unarmed_attack/claws
-	darksight = 8
 
 	blurb = "The Tajaran race is a species of feline-like bipeds hailing from the planet of Ahdomai in the \
 	S'randarr system. They have been brought up into the space age by the Humans and Skrell, and have been \
@@ -140,7 +139,8 @@
 		"kidneys" =  /obj/item/organ/internal/kidneys,
 		"brain" =    /obj/item/organ/internal/brain,
 		"appendix" = /obj/item/organ/internal/appendix,
-		"eyes" =     /obj/item/organ/internal/eyes,
+		"eyes" =     /obj/item/organ/internal/eyes/tajaran /*Most Tajara see in full colour as a result of genetic augmentation, although it cost them their darksight (darksight = 2)
+															 unless they choose otherwise by selecting the colourblind disability in character creation (darksight = 8 but colourblind).*/
 		)
 
 	allowed_consumed_mobs = list(/mob/living/simple_animal/mouse, /mob/living/simple_animal/chick, /mob/living/simple_animal/butterfly, /mob/living/simple_animal/parrot,
@@ -179,7 +179,6 @@
 	primitive_form = "Wolpin"
 	tail = "vulptail"
 	unarmed_type = /datum/unarmed_attack/claws
-	darksight = 8
 
 	blurb = "Vulpkanin are a species of sharp-witted canine-pideds residing on the planet Altam just barely within the \
 	dual-star Vazzend system. Their politically de-centralized society and independent natures have led them to become a species and \
@@ -203,7 +202,8 @@
 		"kidneys" =  /obj/item/organ/internal/kidneys,
 		"brain" =    /obj/item/organ/internal/brain,
 		"appendix" = /obj/item/organ/internal/appendix,
-		"eyes" =     /obj/item/organ/internal/eyes,
+		"eyes" =     /obj/item/organ/internal/eyes/vulpkanin /*Most Vulpkanin see in full colour as a result of genetic augmentation, although it cost them their darksight (darksight = 2)
+															   unless they choose otherwise by selecting the colourblind disability in character creation (darksight = 8 but colourblind).*/
 		)
 
 	allowed_consumed_mobs = list(/mob/living/simple_animal/mouse, /mob/living/simple_animal/lizard, /mob/living/simple_animal/chick, /mob/living/simple_animal/chicken,
@@ -256,7 +256,7 @@
 		"kidneys" =  /obj/item/organ/internal/kidneys,
 		"brain" =    /obj/item/organ/internal/brain,
 		"appendix" = /obj/item/organ/internal/appendix,
-		"eyes" =     /obj/item/organ/internal/eyes,
+		"eyes" =     /obj/item/organ/internal/eyes //Default darksight of 2.
 		)
 
 	suicide_messages = list(
@@ -345,7 +345,7 @@
 		"kidneys" =  /obj/item/organ/internal/kidneys,
 		"brain" =    /obj/item/organ/internal/brain,
 		"appendix" = /obj/item/organ/internal/appendix,
-		"eyes" =     /obj/item/organ/internal/eyes,
+		"eyes" =     /obj/item/organ/internal/eyes, //Default darksight of 2.
 		"stack" =    /obj/item/organ/internal/stack/vox //Not the same as the cortical stack implant Vox Raiders spawn with. The cortical stack implant is used
 		)												//for determining the success of the heist game-mode's 'leave nobody behind' objective, while this is just an organ.
 
@@ -469,7 +469,7 @@
 		"liver" =    /obj/item/organ/internal/liver,
 		"kidneys" =  /obj/item/organ/internal/kidneys,
 		"brain" =    /obj/item/organ/internal/brain,
-		"eyes" =     /obj/item/organ/internal/eyes,
+		"eyes" =     /obj/item/organ/internal/eyes, //Default darksight of 2.
 		"stack" =    /obj/item/organ/internal/stack/vox //Not the same as the cortical stack implant Vox Raiders spawn with. The cortical stack implant is used
 		)												//for determining the success of the heist game-mode's 'leave nobody behind' objective, while this is just an organ.
 
@@ -510,7 +510,7 @@
 		"kidneys" =  /obj/item/organ/internal/kidneys,
 		"brain" =    /obj/item/organ/internal/brain,
 		"appendix" = /obj/item/organ/internal/appendix,
-		"eyes" =     /obj/item/organ/internal/eyes,
+		"eyes" =     /obj/item/organ/internal/eyes //Default darksight of 2.
 		)
 
 	allowed_consumed_mobs = list(/mob/living/simple_animal/diona)
@@ -549,6 +549,7 @@
 	exotic_blood = "water"
 	//ventcrawler = 1 //ventcrawling commented out
 	butt_sprite = "slime"
+	//Has default darksight of 2.
 
 	has_organ = list(
 		"brain" = /obj/item/organ/internal/brain/slime
@@ -717,7 +718,6 @@
 	default_language = "Galactic Common"
 	language = "Psionic Communication"
 	unarmed_type = /datum/unarmed_attack/punch
-	darksight = 5 // BOOSTED from 2
 	eyes = "grey_eyes_s"
 	butt_sprite = "grey"
 
@@ -728,7 +728,7 @@
 		"kidneys" =  /obj/item/organ/internal/kidneys,
 		"brain" =    /obj/item/organ/internal/brain/grey,
 		"appendix" = /obj/item/organ/internal/appendix,
-		"eyes" =     /obj/item/organ/internal/eyes,
+		"eyes" =     /obj/item/organ/internal/eyes/grey //5 darksight.
 		)
 
 	brute_mod = 1.25 //greys are fragile
@@ -746,13 +746,16 @@
 /datum/species/grey/handle_dna(var/mob/living/carbon/C, var/remove)
 	if(!remove)
 		C.dna.SetSEState(REMOTETALKBLOCK,1,1)
-		C.mutations |= REMOTE_TALK
 		genemutcheck(C,REMOTETALKBLOCK,null,MUTCHK_FORCED)
 	else
 		C.dna.SetSEState(REMOTETALKBLOCK,0,1)
-		C.mutations -= REMOTE_TALK
 		genemutcheck(C,REMOTETALKBLOCK,null,MUTCHK_FORCED)
 	..()
+
+/datum/species/grey/equip(var/mob/living/carbon/human/H)
+	var/speech_pref = H.client.prefs.speciesprefs
+	if(speech_pref)
+		H.mind.speech_span = "wingdings"
 
 /datum/species/diona
 	name = "Diona"
@@ -803,13 +806,13 @@
 	has_organ = list(
 		"nutrient channel" =   /obj/item/organ/internal/liver/diona,
 		"neural strata" =      /obj/item/organ/internal/heart/diona,
-		"receptor node" =      /obj/item/organ/internal/diona_receptor,
+		"receptor node" =      /obj/item/organ/internal/eyes/diona, //Default darksight of 2.
 		"gas bladder" =        /obj/item/organ/internal/brain/diona,
 		"polyp segment" =      /obj/item/organ/internal/kidneys/diona,
 		"anchoring ligament" = /obj/item/organ/internal/appendix/diona
 		)
 
-	vision_organ = /obj/item/organ/internal/diona_receptor
+	vision_organ = /obj/item/organ/internal/eyes/diona
 	has_limbs = list(
 		"chest" =  list("path" = /obj/item/organ/external/chest/diona),
 		"groin" =  list("path" = /obj/item/organ/external/groin/diona),
@@ -840,8 +843,8 @@
 	return ..()
 
 /datum/species/diona/handle_life(var/mob/living/carbon/human/H)
-	var/rads = H.radiation/25
-	H.radiation = Clamp(H.radiation - rads, 0, 100)
+	var/rads = H.radiation / 25
+	H.apply_effect(-rads,IRRADIATE,0)
 	H.nutrition += rads
 	H.adjustBruteLoss(-(rads))
 	H.adjustOxyLoss(-(rads))
@@ -850,18 +853,23 @@
 	var/light_amount = 0 //how much light there is in the place, affects receiving nutrition and healing
 	if(isturf(H.loc)) //else, there's considered to be no light
 		var/turf/T = H.loc
-		light_amount = min(T.get_lumcount()*10, 5)  //hardcapped so it's not abused by having a ton of flashlights
+		light_amount = min(T.get_lumcount() * 10, 5)  //hardcapped so it's not abused by having a ton of flashlights
 	H.nutrition += light_amount
 	H.traumatic_shock -= light_amount
 
 	if(H.nutrition > NUTRITION_LEVEL_WELL_FED)
 		H.nutrition = NUTRITION_LEVEL_WELL_FED
+		
+	if(light_amount > 0)
+		H.clear_alert("nolight")
+	else
+		H.throw_alert("nolight", /obj/screen/alert/nolight)
 
 	if((light_amount >= 5) && !H.suiciding) //if there's enough light, heal
+
 		H.adjustBruteLoss(-(light_amount/2))
 		H.adjustFireLoss(-(light_amount/4))
 		H.adjustOxyLoss(-(light_amount))
-
 	if(H.nutrition < 200)
 		H.take_overall_damage(10,0)
 		H.traumatic_shock++
@@ -910,10 +918,10 @@
 	has_organ = list(
 		"brain" = /obj/item/organ/internal/brain/mmi_holder/posibrain,
 		"cell" = /obj/item/organ/internal/cell,
-		"optics" = /obj/item/organ/internal/optical_sensor
+		"optics" = /obj/item/organ/internal/eyes/optical_sensor //Default darksight of 2.
 		)
 
-	vision_organ = /obj/item/organ/internal/optical_sensor
+	vision_organ = /obj/item/organ/internal/eyes/optical_sensor
 	has_limbs = list(
 		"chest" =  list("path" = /obj/item/organ/external/chest/ipc),
 		"groin" =  list("path" = /obj/item/organ/external/groin/ipc),
@@ -959,7 +967,6 @@
 	language = "Orluum"
 	unarmed_type = /datum/unarmed_attack/punch
 	eyes = "drask_eyes_s"
-	darksight = 5
 
 	speech_sounds = list('sound/voice/DraskTalk.ogg')
 	speech_chance = 20
@@ -1009,7 +1016,7 @@
 		"heart" =      				/obj/item/organ/internal/heart/drask,
 		"lungs" =     				/obj/item/organ/internal/lungs/drask,
 		"metabolic strainer" =      /obj/item/organ/internal/liver/drask,
-		"eyes" =     				/obj/item/organ/internal/eyes/drask,
+		"eyes" =     				/obj/item/organ/internal/eyes/drask, //5 darksight.
 		"brain" =  					/obj/item/organ/internal/brain/drask
 		)
 

@@ -53,11 +53,12 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	var/list/apc = list()
 	var/no_air = null
 //	var/list/lights				// list of all lights on this area
-	var/list/all_doors = list()		//Added by Strumpetplaya - Alarm Change - Contains a list of doors adjacent to this area
 	var/air_doors_activated = 0
 
 	var/tele_proof = 0
 	var/no_teleportlocs = 0
+	
+	var/outdoors = 0 //For space, the asteroid, lavaland, etc. Used with blueprints to determine if we are adding a new area (vs editing a station room)
 
 /*Adding a wizard area teleport list because motherfucking lag -- Urist*/
 /*I am far too lazy to make it a proper list of areas so I'll just make it run the usual telepot routine at the start of the game*/
@@ -105,14 +106,14 @@ var/list/ghostteleportlocs = list()
 	name = "\improper Admin Room"
 	icon_state = "start"
 	requires_power = 0
-	lighting_use_dynamic = 0
+	dynamic_lighting = 0
 
 
 /area/adminconstruction
 	name = "\improper Admin Testing Area"
 	icon_state = "start"
 	requires_power = 0
-	lighting_use_dynamic = 0
+	dynamic_lighting = 0
 
 /area/space
 	icon_state = "space"
@@ -121,6 +122,7 @@ var/list/ghostteleportlocs = list()
 	power_light = 0
 	power_equip = 0
 	power_environ = 0
+	outdoors = 1
 	ambientsounds = list('sound/ambience/ambispace.ogg','sound/music/title2.ogg','sound/music/space.ogg','sound/music/traitor.ogg')
 
 /area/space/atmosalert()
@@ -464,7 +466,7 @@ var/list/ghostteleportlocs = list()
 	icon_state = "start"
 	requires_power = 0
 	luminosity = 1
-	lighting_use_dynamic = 0
+	dynamic_lighting = 0
 	has_gravity = 1
 
 // === end remove
@@ -480,7 +482,7 @@ var/list/ghostteleportlocs = list()
 	name = "\improper Centcom"
 	icon_state = "centcom"
 	requires_power = 0
-	lighting_use_dynamic = 0
+	dynamic_lighting = 0
 
 /area/centcom/control
 	name = "\improper Centcom Control"
@@ -551,6 +553,7 @@ var/list/ghostteleportlocs = list()
 	name = "\improper Asteroid - Underground"
 	icon_state = "cave"
 	requires_power = 0
+	outdoors = 1
 
 /area/asteroid/artifactroom
 	name = "\improper Asteroid - Artifact"
@@ -560,7 +563,7 @@ var/list/ghostteleportlocs = list()
 	name = "\improper Thunderdome"
 	icon_state = "thunder"
 	requires_power = 0
-	lighting_use_dynamic = 0
+	dynamic_lighting = 0
 
 
 /area/tdome/arena_source
@@ -645,7 +648,7 @@ var/list/ghostteleportlocs = list()
 	icon_state = "yellow"
 	requires_power = 0
 	has_gravity = 1
-	lighting_use_dynamic = 0
+	dynamic_lighting = 0
 
 /area/wizard_station
 	name = "\improper Wizard's Den"
@@ -668,7 +671,7 @@ var/list/ghostteleportlocs = list()
 	name = "\improper Vox Base"
 	icon_state = "yellow"
 	requires_power = 0
-	lighting_use_dynamic = 0
+	dynamic_lighting = 0
 	no_teleportlocs = 1
 
 /area/vox_station/transit
@@ -1225,7 +1228,7 @@ var/list/ghostteleportlocs = list()
 /area/holodeck
 	name = "\improper Holodeck"
 	icon_state = "Holodeck"
-	lighting_use_dynamic = 0
+	dynamic_lighting = 0
 
 /area/holodeck/alphadeck
 	name = "\improper Holodeck Alpha"
@@ -1362,7 +1365,7 @@ var/list/ghostteleportlocs = list()
 
 /area/solar
 	requires_power = 0
-	lighting_use_dynamic = 0
+	dynamic_lighting = 0
 
 	auxport
 		name = "\improper Fore Port Solar Array"
@@ -2277,25 +2280,25 @@ area/security/podbay
 	name = "\improper AI Sat Ext"
 	icon_state = "storage"
 	luminosity = 1
-	lighting_use_dynamic = 0
+	dynamic_lighting = 0
 
 /area/turret_protected/AIsatextFS
 	name = "\improper AI Sat Ext"
 	icon_state = "storage"
 	luminosity = 1
-	lighting_use_dynamic = 0
+	dynamic_lighting = 0
 
 /area/turret_protected/AIsatextAS
 	name = "\improper AI Sat Ext"
 	icon_state = "storage"
 	luminosity = 1
-	lighting_use_dynamic = 0
+	dynamic_lighting = 0
 
 /area/turret_protected/AIsatextAP
 	name = "\improper AI Sat Ext"
 	icon_state = "storage"
 	luminosity = 1
-	lighting_use_dynamic = 0
+	dynamic_lighting = 0
 
 /area/turret_protected/NewAIMain
 	name = "\improper AI Main New"
@@ -2472,7 +2475,7 @@ area/security/podbay
 	name = "Beach"
 	icon_state = "beach"
 	luminosity = 1
-	lighting_use_dynamic = 0
+	dynamic_lighting = 0
 	requires_power = 0
 	ambientsounds = list('sound/ambience/shore.ogg', 'sound/ambience/seag1.ogg','sound/ambience/seag2.ogg','sound/ambience/seag2.ogg')
 

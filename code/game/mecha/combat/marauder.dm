@@ -50,6 +50,11 @@
 	force = 55
 	max_equip = 5
 
+/obj/mecha/combat/marauder/seraph/add_cell()
+	cell = new /obj/item/weapon/stock_parts/cell/bluespace(src)
+	cell.charge = 40000
+	cell.maxcharge = 40000
+
 /obj/mecha/combat/marauder/seraph/loaded/New()
 	..()//Let it equip whatever is needed.
 	var/obj/item/mecha_parts/mecha_equipment/ME
@@ -61,7 +66,7 @@
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack(src)
 	ME.attach(src)
-	ME = new /obj/item/mecha_parts/mecha_equipment/teleporter(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/teleporter/precise(src)
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay(src)
 	ME.attach(src)

@@ -17,12 +17,13 @@
 
 #define MINERAL_MATERIAL_AMOUNT 2000 //The amount of materials you get from a sheet of mineral like iron/diamond/glass etc
 
-#define	IMPRINTER	1	//For circuits. Uses glass/chemicals.
-#define PROTOLATHE	2	//New stuff. Uses glass/metal/chemicals
-#define	AUTOLATHE	4	//Uses glass/metal only.
-#define CRAFTLATHE	8	//Uses fuck if I know. For use eventually.
-#define MECHFAB		16 //Remember, objects utilising this flag should have construction_time and construction_cost vars.
-#define PODFAB		32 //Used by the spacepod part fabricator. Same idea as the mechfab
+#define	IMPRINTER		1	//For circuits. Uses glass/chemicals.
+#define PROTOLATHE		2	//New stuff. Uses glass/metal/chemicals
+#define	AUTOLATHE		4	//Uses glass/metal only.
+#define CRAFTLATHE		8	//Uses fuck if I know. For use eventually.
+#define MECHFAB			16 	//Remember, objects utilising this flag should have construction_time and construction_cost vars.
+#define PODFAB			32 	//Used by the spacepod part fabricator. Same idea as the mechfab
+#define BIOGENERATOR	64 	//Uses biomass
 //Note: More then one of these can be added to a design but imprinter and lathe designs are incompatable.
 
 #define HYDRO_SPEED_MULTIPLIER 1

@@ -58,7 +58,7 @@
 		if(reload_cooldown > delta)
 			return 1
 
-		command_announcement.Announce("Bluespace artillery fire detected. Brace for impact.")
+		event_announcement.Announce("Bluespace artillery fire detected. Brace for impact.")
 		message_admins("[key_name_admin(usr)] has launched an artillery strike.", 1)
 		var/list/L = list()
 		for(var/turf/T in get_area_turfs(targetarea.type))

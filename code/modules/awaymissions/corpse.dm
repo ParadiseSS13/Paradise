@@ -26,6 +26,8 @@
 	var/corpseidicon = null //For setting it to be a gold, silver, centcomm etc ID
 	var/timeofdeath = null
 	var/coffin = 0
+	var/brute_damage = 0
+	var/oxy_damage = 0
 
 /obj/effect/landmark/corpse/initialize()
 	if(istype(src,/obj/effect/landmark/corpse/clown))
@@ -37,34 +39,36 @@
 	var/mob/living/carbon/human/human/M = new /mob/living/carbon/human/human (src.loc)
 	M.real_name = src.name
 	M.death(1) //Kills the new mob
+	M.adjustOxyLoss(oxy_damage)
+	M.adjustBruteLoss(brute_damage)
 	M.timeofdeath = timeofdeath
-	if(src.mob_species)
-		M.set_species(src.mob_species)
-	if(src.corpseuniform)
-		M.equip_to_slot_or_del(new src.corpseuniform(M), slot_w_uniform)
-	if(src.corpsesuit)
-		M.equip_to_slot_or_del(new src.corpsesuit(M), slot_wear_suit)
-	if(src.corpseshoes)
-		M.equip_to_slot_or_del(new src.corpseshoes(M), slot_shoes)
-	if(src.corpsegloves)
-		M.equip_to_slot_or_del(new src.corpsegloves(M), slot_gloves)
-	if(src.corpseradio)
-		M.equip_to_slot_or_del(new src.corpseradio(M), slot_l_ear)
-	if(src.corpseglasses)
-		M.equip_to_slot_or_del(new src.corpseglasses(M), slot_glasses)
-	if(src.corpsemask)
-		M.equip_to_slot_or_del(new src.corpsemask(M), slot_wear_mask)
-	if(src.corpsehelmet)
-		M.equip_to_slot_or_del(new src.corpsehelmet(M), slot_head)
-	if(src.corpsebelt)
-		M.equip_to_slot_or_del(new src.corpsebelt(M), slot_belt)
-	if(src.corpsepocket1)
-		M.equip_to_slot_or_del(new src.corpsepocket1(M), slot_r_store)
-	if(src.corpsepocket2)
-		M.equip_to_slot_or_del(new src.corpsepocket2(M), slot_l_store)
-	if(src.corpseback)
-		M.equip_to_slot_or_del(new src.corpseback(M), slot_back)
-	if(src.corpseid == 1)
+	if(mob_species)
+		M.set_species(mob_species)
+	if(corpseuniform)
+		M.equip_to_slot_or_del(new corpseuniform(M), slot_w_uniform)
+	if(corpsesuit)
+		M.equip_to_slot_or_del(new corpsesuit(M), slot_wear_suit)
+	if(corpseshoes)
+		M.equip_to_slot_or_del(new corpseshoes(M), slot_shoes)
+	if(corpsegloves)
+		M.equip_to_slot_or_del(new corpsegloves(M), slot_gloves)
+	if(corpseradio)
+		M.equip_to_slot_or_del(new corpseradio(M), slot_l_ear)
+	if(corpseglasses)
+		M.equip_to_slot_or_del(new corpseglasses(M), slot_glasses)
+	if(corpsemask)
+		M.equip_to_slot_or_del(new corpsemask(M), slot_wear_mask)
+	if(corpsehelmet)
+		M.equip_to_slot_or_del(new corpsehelmet(M), slot_head)
+	if(corpsebelt)
+		M.equip_to_slot_or_del(new corpsebelt(M), slot_belt)
+	if(corpsepocket1)
+		M.equip_to_slot_or_del(new corpsepocket1(M), slot_r_store)
+	if(corpsepocket2)
+		M.equip_to_slot_or_del(new corpsepocket2(M), slot_l_store)
+	if(corpseback)
+		M.equip_to_slot_or_del(new corpseback(M), slot_back)
+	if(corpseid == 1)
 		var/obj/item/weapon/card/id/W = new(M)
 		W.name = "[M.real_name]'s ID Card"
 		var/datum/job/jobdatum
@@ -73,9 +77,9 @@
 			if(J.title == corpseidaccess)
 				jobdatum = J
 				break
-		if(src.corpseidicon)
+		if(corpseidicon)
 			W.icon_state = corpseidicon
-		if(src.corpseidaccess)
+		if(corpseidaccess)
 			if(jobdatum)
 				W.access = jobdatum.get_access()
 			else
@@ -84,18 +88,14 @@
 			W.assignment = corpseidjob
 		W.registered_name = M.real_name
 		M.equip_to_slot_or_del(W, slot_wear_id)
-	if(src.coffin == 1)
+	if(coffin == 1)
 		var/obj/structure/closet/coffin/sarcophagus/sarc = locate(/obj/structure/closet/coffin/sarcophagus) in loc
 		if(sarc) M.loc = sarc
 	qdel(src)
 
-
-
 // I'll work on making a list of corpses people request for maps, or that I think will be commonly used. Syndicate operatives for example.
-
-
-
-
+/obj/effect/landmark/corpse/damaged
+	brute_damage = 1000
 
 /obj/effect/landmark/corpse/syndicatesoldier
 	name = "Syndicate Operative"

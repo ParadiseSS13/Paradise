@@ -16,12 +16,15 @@
 		return
 	user.dna = chosen_dna.Clone()
 	user.real_name = chosen_dna.real_name
-	user.flavor_text = ""
 	if(ishuman(user))
-		user.set_species()
+		user.set_species(chosen_dna.species)
+	domutcheck(user, null, MUTCHK_FORCED) //Ensures species that get powers by the species proc handle_dna keep them
+	user.flavor_text = ""
+	user.dna.UpdateSE()
+	user.dna.UpdateUI()
+	user.sync_organ_dna(1)
 	user.UpdateAppearance()
-	domutcheck(user, null)
-	
+
 	user.changeling_update_languages(changeling.absorbed_languages)
 
 	feedback_add_details("changeling_powers","TR")

@@ -49,7 +49,7 @@
 "aW" = (/obj/structure/table/reinforced,/obj/item/weapon/gun/syringe,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/unpowered)
 "aX" = (/obj/structure/table/reinforced,/obj/item/weapon/grenade/chem_grenade/antiweed{pixel_x = 3; pixel_y = 5},/obj/item/weapon/grenade/chem_grenade/antiweed{pixel_x = 4},/obj/item/weapon/grenade/chem_grenade/antiweed{pixel_x = -3; pixel_y = -1},/obj/machinery/light{dir = 1},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/unpowered)
 "aY" = (/obj/structure/table/reinforced,/obj/item/weapon/gun/energy/temperature,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/unpowered)
-"aZ" = (/obj/structure/table/reinforced,/obj/item/weapon/minihoe,/obj/item/weapon/shovel,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/unpowered)
+"aZ" = (/obj/structure/table/reinforced,/obj/item/weapon/cultivator,/obj/item/weapon/shovel,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/unpowered)
 "ba" = (/obj/machinery/light/small{dir = 8},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/unpowered)
 "bb" = (/obj/machinery/door/airlock/hatch{name = "Bio-Research Station"},/turf/simulated/floor/plasteel,/area/ruin/unpowered)
 "bc" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; pixel_y = 0},/turf/simulated/floor/plasteel,/area/ruin/unpowered)
@@ -122,3 +122,4 @@ agbvbvbvbvakbKatbGbGataaakbHbvbObvbPaaaa
 abacacacacbQbRaaaaaaaaaabSacbTbUbPaabVaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaabWaaaaaaaa
 "}
+

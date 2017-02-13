@@ -1,0 +1,172 @@
+
+// --------------------------------------------------------------------------------
+// ----------------- TERROR SPIDERS: SPIDERLINGS (USED BY GREEN, WHITE, QUEEN AND MOTHER TYPES)
+// --------------------------------------------------------------------------------
+
+/obj/effect/spider/spiderling/terror_spiderling
+	name = "spiderling"
+	desc = "A fast-moving tiny spider, prone to making aggressive hissing sounds. Hope it doesn't grow up."
+	icon_state = "spiderling"
+	anchored = 0
+	layer = 2.75
+	health = 3
+	var/stillborn = 0
+	faction = list("terrorspiders")
+	var/spider_myqueen = null
+	var/use_vents = 1
+
+/obj/effect/spider/spiderling/terror_spiderling/New()
+	..()
+	ts_spiderling_list += src
+
+/obj/effect/spider/spiderling/terror_spiderling/Destroy()
+	ts_spiderling_list -= src
+	return ..()
+
+/obj/effect/spider/spiderling/terror_spiderling/Bump(atom/A)
+	if(istype(A, /obj/structure/table))
+		forceMove(A.loc)
+	else if(istype(A, /obj/machinery/recharge_station))
+		qdel(src)
+	else
+		..()
+
+/obj/effect/spider/spiderling/terror_spiderling/process()
+	if(travelling_in_vent)
+		if(isturf(loc))
+			travelling_in_vent = 0
+			entry_vent = null
+	else if(entry_vent)
+		if(get_dist(src, entry_vent) <= 1)
+			var/list/vents = list()
+			for(var/obj/machinery/atmospherics/unary/vent_pump/temp_vent in entry_vent.parent.other_atmosmch)
+				vents.Add(temp_vent)
+			if(!vents.len)
+				entry_vent = null
+				return
+			var/obj/machinery/atmospherics/unary/vent_pump/exit_vent = pick(vents)
+			if(prob(50))
+				visible_message("<B>[src] scrambles into the ventillation ducts!</B>", "<span class='notice'>You hear something squeezing through the ventilation ducts.</span>")
+			var/original_location = loc
+			spawn(rand(20,60))
+				forceMove(exit_vent)
+				var/travel_time = round(get_dist(loc, exit_vent.loc) / 2)
+				spawn(travel_time)
+					if(!exit_vent || exit_vent.welded)
+						forceMove(original_location)
+						entry_vent = null
+						return
+					if(prob(50))
+						audible_message("<span class='notice'>You hear something squeezing through the ventilation ducts.</span>")
+					spawn(travel_time)
+						if(!exit_vent || exit_vent.welded)
+							forceMove(original_location)
+							entry_vent = null
+							return
+						forceMove(exit_vent.loc)
+						entry_vent = null
+						var/area/new_area = get_area(loc)
+						if(new_area)
+							new_area.Entered(src)
+	else if(prob(33))
+		var/list/nearby = oview(10, src)
+		if(nearby.len)
+			var/target_atom = pick(nearby)
+			walk_to(src, target_atom)
+	else if(prob(10) && use_vents)
+		for(var/obj/machinery/atmospherics/unary/vent_pump/v in view(7,src))
+			if(!v.welded)
+				entry_vent = v
+				walk_to(src, entry_vent, 1)
+				break
+	if(isturf(loc))
+		amount_grown += rand(0,2)
+		if(amount_grown >= 100)
+			if(stillborn)
+				die()
+			else
+				if(!grow_as)
+					grow_as = pick(/mob/living/simple_animal/hostile/poison/terror_spider/red, /mob/living/simple_animal/hostile/poison/terror_spider/gray, /mob/living/simple_animal/hostile/poison/terror_spider/green)
+				var/mob/living/simple_animal/hostile/poison/terror_spider/S = new grow_as(loc)
+				S.faction = faction
+				S.spider_myqueen = spider_myqueen
+				S.master_commander = master_commander
+				qdel(src)
+
+// --------------------------------------------------------------------------------
+// ----------------- TERROR SPIDERS: EGGS (USED BY NURSE AND QUEEN TYPES) ---------
+// --------------------------------------------------------------------------------
+
+/mob/living/simple_animal/hostile/poison/terror_spider/proc/DoLayTerrorEggs(lay_type, lay_number, lay_crawl)
+	stop_automated_movement = 1
+	var/obj/effect/spider/eggcluster/terror_eggcluster/C = new /obj/effect/spider/eggcluster/terror_eggcluster(get_turf(src))
+	C.spiderling_type = lay_type
+	C.spiderling_number = lay_number
+	C.spiderling_ventcrawl = lay_crawl
+	C.faction = faction
+	C.spider_myqueen = spider_myqueen
+	C.master_commander = master_commander
+	if(spider_growinstantly)
+		C.amount_grown = 250
+		C.spider_growinstantly = 1
+	spawn(10)
+		stop_automated_movement = 0
+
+/obj/effect/spider/eggcluster/terror_eggcluster
+	name = "terror egg cluster"
+	desc = "A cluster of tiny spider eggs. They pulse with a strong inner life, and appear to have sharp thorns on the sides."
+	icon_state = "eggs"
+	var/spider_growinstantly = 0
+	faction = list("terrorspiders")
+	var/spider_myqueen = null
+	var/spiderling_type = null
+	var/spiderling_number = 1
+	var/spiderling_ventcrawl = 1
+
+/obj/effect/spider/eggcluster/terror_eggcluster/New()
+	..()
+	ts_egg_list += src
+	spawn(50)
+		if(spiderling_type == /mob/living/simple_animal/hostile/poison/terror_spider/red)
+			name = "red terror eggs"
+		else if(spiderling_type == /mob/living/simple_animal/hostile/poison/terror_spider/gray)
+			name = "gray terror eggs"
+		else if(spiderling_type == /mob/living/simple_animal/hostile/poison/terror_spider/green)
+			name = "green terror eggs"
+		else if(spiderling_type == /mob/living/simple_animal/hostile/poison/terror_spider/black)
+			name = "black terror eggs"
+		else if(spiderling_type == /mob/living/simple_animal/hostile/poison/terror_spider/purple)
+			name = "purple terror eggs"
+		else if(spiderling_type == /mob/living/simple_animal/hostile/poison/terror_spider/white)
+			name = "white terror eggs"
+		else if(spiderling_type == /mob/living/simple_animal/hostile/poison/terror_spider/mother)
+			name = "mother of terror eggs"
+		else if(spiderling_type == /mob/living/simple_animal/hostile/poison/terror_spider/prince)
+			name = "prince of terror eggs"
+		else if(spiderling_type == /mob/living/simple_animal/hostile/poison/terror_spider/queen)
+			name = "queen of terror eggs"
+
+/obj/effect/spider/eggcluster/terror_eggcluster/Destroy()
+	ts_egg_list -= src
+	return ..()
+
+/obj/effect/spider/eggcluster/terror_eggcluster/process()
+	amount_grown += rand(0,2)
+	if(amount_grown >= 100)
+		var/num = spiderling_number
+		for(var/i=0, i<num, i++)
+			var/obj/effect/spider/spiderling/terror_spiderling/S = new /obj/effect/spider/spiderling/terror_spiderling(get_turf(src))
+			if(spiderling_type)
+				S.grow_as = spiderling_type
+			S.use_vents = spiderling_ventcrawl
+			S.faction = faction
+			S.spider_myqueen = spider_myqueen
+			S.master_commander = master_commander
+			if(spider_growinstantly)
+				S.amount_grown = 250
+		var/rnum = 5 - spiderling_number
+		for(var/i=0, i<rnum, i++)
+			var/obj/effect/spider/spiderling/terror_spiderling/S = new /obj/effect/spider/spiderling/terror_spiderling(get_turf(src))
+			S.stillborn = 1
+			// every set of eggs always spawn 5 spiderlings, but most are decoys
+		qdel(src)

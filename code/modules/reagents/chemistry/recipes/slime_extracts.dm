@@ -67,12 +67,24 @@
 
 /datum/chemical_reaction/slimemetal/on_reaction(datum/reagents/holder)
 	feedback_add_details("slime_cores_used","[type]")
-	var/obj/item/stack/sheet/metal/M = new /obj/item/stack/sheet/metal
-	M.amount = 15
-	M.forceMove(get_turf(holder.my_atom))
-	var/obj/item/stack/sheet/plasteel/P = new /obj/item/stack/sheet/plasteel
-	P.amount = 5
-	P.forceMove(get_turf(holder.my_atom))
+	var/turf/location = get_turf(holder.my_atom)
+	new /obj/item/stack/sheet/plasteel (location, 5)
+	new /obj/item/stack/sheet/metal (location, 15)
+
+/datum/chemical_reaction/slimeglass
+	name = "Slime Glass"
+	id = "m_glass"
+	result = null
+	required_reagents = list("water" = 1)
+	result_amount = 1
+	required_container = /obj/item/slime_extract/metal
+	required_other = 1
+
+/datum/chemical_reaction/slimeglass/on_reaction(datum/reagents/holder)
+	feedback_add_details("slime_cores_used","[type]")
+	var/turf/location = get_turf(holder.my_atom)
+	new /obj/item/stack/sheet/rglass (location, 5)
+	new /obj/item/stack/sheet/glass (location, 15)
 
 //Gold
 /datum/chemical_reaction/slimecrit
@@ -209,8 +221,7 @@
 	required_other = 1
 
 /datum/chemical_reaction/slimefrost/on_reaction(datum/reagents/holder)
-		feedback_add_details("slime_cores_used","[type]")
-
+	feedback_add_details("slime_cores_used","[type]")
 
 /datum/chemical_reaction/slimestabilizer
 	name = "Slime Stabilizer"
@@ -225,8 +236,6 @@
 	feedback_add_details("slime_cores_used","[type]")
 	var/obj/item/slimepotion/stabilizer/P = new /obj/item/slimepotion/stabilizer
 	P.forceMove(get_turf(holder.my_atom))
-
-
 
 //Dark Blue
 /datum/chemical_reaction/slimefreeze
@@ -383,12 +392,10 @@
 
 /datum/chemical_reaction/slimeplasma/on_reaction(datum/reagents/holder)
 	feedback_add_details("slime_cores_used","[type]")
-	var/obj/item/stack/sheet/mineral/plasma/P = new /obj/item/stack/sheet/mineral/plasma
-	P.amount = 3
-	P.forceMove(get_turf(holder.my_atom))
+	var/turf/location = get_turf(holder.my_atom)
+	new /obj/item/stack/sheet/mineral/plasma (location, 3)
 
 //Red
-
 /datum/chemical_reaction/slimemutator
 	name = "Slime Mutator"
 	id = "m_slimemutator"
@@ -662,3 +669,17 @@
 	S.colour = pick("grey","orange", "metal", "blue", "purple", "dark purple", "dark blue", "green", "silver", "yellow", "gold", "yellow", "red", "silver", "pink", "cerulean", "sepia", "bluespace", "pyrite", "light pink", "oil", "adamantine", "black")
 	S.forceMove(get_turf(holder.my_atom))
 	S.visible_message("<span class='danger'>Infused with plasma, the core begins to quiver and grow, and soon a new baby slime emerges from it!</span>")
+
+/datum/chemical_reaction/slime_transfer
+	name = "Transfer Potion"
+	id = "slimetransfer"
+	result = null
+	required_reagents = list("blood" = 1)
+	result_amount = 1
+	required_other = 1
+	required_container = /obj/item/slime_extract/rainbow
+
+/datum/chemical_reaction/slime_transfer/on_reaction(datum/reagents/holder)
+	feedback_add_details("slime_cores_used","[type]")
+	var/obj/item/slimepotion/transference/P = new /obj/item/slimepotion/transference
+	P.forceMove(get_turf(holder.my_atom))

@@ -9,7 +9,6 @@
 	punchdamagelow = 0
 	punchdamagehigh = 1
 	//primitive = /mob/living/carbon/monkey/wryn
-	darksight = 3
 	slowdown = 1
 	warning_low_pressure = -300
 	hazard_low_pressure = 1
@@ -32,7 +31,7 @@
 	has_organ = list(
 		"heart" =    /obj/item/organ/internal/heart,
 		"brain" =    /obj/item/organ/internal/brain,
-		"eyes" =     /obj/item/organ/internal/eyes,
+		"eyes" =     /obj/item/organ/internal/eyes/wryn, //3 darksight.
 		"appendix" = /obj/item/organ/internal/appendix,
 		"antennae" =    /obj/item/organ/internal/wryn/hivenode
 		)
@@ -79,8 +78,8 @@
 				head_organ.h_style = "Bald"
 				H.update_hair()
 
-				M.attack_log += text("\[[time_stamp()]\] <font color='red'>removed antennae [H.name] ([H.ckey])</font>")
-				H.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has had their antennae removed by [M.name] ([M.ckey])</font>")
+				M.create_attack_log("<font color='red'>removed antennae [H.name] ([H.ckey])</font>")
+				H.create_attack_log("<font color='orange'>Has had their antennae removed by [M.name] ([M.ckey])</font>")
 				msg_admin_attack("[key_name(M)] removed [key_name(H)]'s antennae")
 			return 0
 
@@ -89,7 +88,7 @@
 	name_plural = "Nucleations"
 	icobase = 'icons/mob/human_races/r_nucleation.dmi'
 	unarmed_type = /datum/unarmed_attack/punch
-	blurb = "A sub-race of unforunates who have been exposed to too much supermatter radiation. As a result, \
+	blurb = "A sub-race of unfortunates who have been exposed to too much supermatter radiation. As a result, \
 	supermatter crystal clusters have begun to grow across their bodies. Research to find a cure for this ailment \
 	has been slow, and so this is a common fate for veteran engineers. The supermatter crystals produce oxygen, \
 	negating the need for the individual to breathe. Their massive change in biology, however, renders most medicines \
@@ -109,8 +108,8 @@
 	reagent_tag = PROCESS_ORG
 	has_organ = list(
 		"heart" =    /obj/item/organ/internal/heart,
-		"crystalized brain" =    /obj/item/organ/internal/brain/crystal,
-		"eyes" =     /obj/item/organ/internal/eyes/luminescent_crystal,
+		"crystallized brain" =    /obj/item/organ/internal/brain/crystal,
+		"eyes" =     /obj/item/organ/internal/eyes/luminescent_crystal, //Standard darksight of 2.
 		"strange crystal" = /obj/item/organ/internal/nucleation/strange_crystal,
 		"resonant crystal" = /obj/item/organ/internal/nucleation/resonant_crystal
 		)

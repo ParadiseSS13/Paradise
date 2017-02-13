@@ -1,0 +1,6 @@
+author: "Kyep"
+delete-after: True
+changes: 
+  - bugfix: "Fixed several bugs related to Terror Spider webs."
+  - tweak: "Terror Spiders have been rebalanced. Spiders are no longer spaceproof, princes are now proper minibosses, and more."
+  - rscadd: "Several new classes of Terror Spiders (green, white, purple, queen, mother) have been added - including types which can breed. This creates new strategy around nest defense."

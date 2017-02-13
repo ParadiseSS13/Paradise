@@ -23,18 +23,14 @@
 	slot_flags = SLOT_BELT
 	force = 2
 	throwforce = 1
-	sharp = 1
-	edge = 1
 	w_class = 3
+	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 
-	suicide_act(mob/user)
-		to_chat(viewers(user), "<span class='suicide'>[user] is impaling \himself with the [src.name]! It looks like \he's trying to commit suicide.</span>")
-		return(BRUTELOSS)
-
-/obj/item/weapon/sord/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
-	playsound(loc, 'sound/weapons/bladeslice.ogg', 50, 1, -1)
-	return ..()
+/obj/item/weapon/sord/suicide_act(mob/user)
+	user.visible_message("<span class='suicide'>[user] is trying to impale themself with [src]! It might be a suicide attempt if it weren't so shitty.</span>", \
+	"<span class='suicide'>You try to impale yourself with [src], but it's USELESS...</span>")
+	return SHAME
 
 /obj/item/weapon/claymore
 	name = "claymore"
@@ -105,10 +101,10 @@ obj/item/weapon/wirerod
 	force = 9
 	throwforce = 10
 	w_class = 3
-	materials = list(MAT_METAL=1000)
+	materials = list(MAT_METAL=1150, MAT_GLASS=75)
 	attack_verb = list("hit", "bludgeoned", "whacked", "bonked")
 
-obj/item/weapon/wirerod/attackby(var/obj/item/I, mob/user as mob, params)
+obj/item/weapon/wirerod/attackby(obj/item/I, mob/user, params)
 	..()
 	if(istype(I, /obj/item/weapon/shard))
 		var/obj/item/weapon/twohanded/spear/S = new /obj/item/weapon/twohanded/spear
@@ -122,7 +118,7 @@ obj/item/weapon/wirerod/attackby(var/obj/item/I, mob/user as mob, params)
 		qdel(I)
 		qdel(src)
 
-	else if(istype(I, /obj/item/weapon/wirecutters))
+	else if(istype(I, /obj/item/device/assembly/igniter) && !(I.flags & NODROP))
 		var/obj/item/weapon/melee/baton/cattleprod/P = new /obj/item/weapon/melee/baton/cattleprod
 
 		if(!remove_item_from_storage(user))
@@ -130,7 +126,7 @@ obj/item/weapon/wirerod/attackby(var/obj/item/I, mob/user as mob, params)
 		user.unEquip(I)
 
 		user.put_in_hands(P)
-		to_chat(user, "<span class='notice'>You fasten the wirecutters to the top of the rod with the cable, prongs outward.</span>")
+		to_chat(user, "<span class='notice'>You fasten [I] to the top of the rod with the cable.</span>")
 		qdel(I)
 		qdel(src)
 

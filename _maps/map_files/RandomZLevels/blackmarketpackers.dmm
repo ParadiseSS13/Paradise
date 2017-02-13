@@ -101,6 +101,7 @@
 "bW" = (/obj/machinery/light,/turf/simulated/floor/plating/airless,/area/awaymission/BMPship/Aft)
 "bX" = (/obj/machinery/door_control{id = "packerMed"; pixel_y = -24},/turf/simulated/floor/plating/airless,/area/awaymission/BMPship/Aft)
 "bY" = (/obj/machinery/sleeper{dir = 1},/turf/simulated/floor/plating/airless,/area/awaymission/BMPship/Aft)
+"bZ" = (/obj/machinery/seed_extractor,/obj/item/seeds/plump/walkingmushroom,/turf/simulated/floor/plasteel{tag = "icon-green"; icon_state = "green"},/area/awaymission/BMPship/Midship)
 "ca" = (/obj/structure/cable{d1 = 1; d2 = 4; icon_state = "1-4"; tag = ""},/turf/simulated/floor/plating,/area/awaymission/BMPship/Aft)
 "cb" = (/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_y = 0; tag = ""},/obj/item/weapon/hand_labeler,/turf/simulated/floor/plating,/area/awaymission/BMPship/Aft)
 "cc" = (/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_y = 0; tag = ""},/turf/simulated/floor/plating,/area/awaymission/BMPship/Aft)
@@ -196,7 +197,6 @@
 "dO" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; tag = ""},/turf/simulated/floor/plasteel{tag = "icon-carpet"; icon_state = "carpet"},/area/awaymission/BMPship/Fore)
 "dP" = (/turf/simulated/floor/plasteel{tag = "icon-green (SOUTHWEST)"; icon_state = "green"; dir = 10},/area/awaymission/BMPship/Midship)
 "dQ" = (/turf/simulated/floor/plasteel{tag = "icon-green"; icon_state = "green"},/area/awaymission/BMPship/Midship)
-"dR" = (/obj/machinery/seed_extractor,/obj/item/seeds/walkingmushroommycelium,/turf/simulated/floor/plasteel{tag = "icon-green"; icon_state = "green"},/area/awaymission/BMPship/Midship)
 "dS" = (/turf/simulated/floor/plasteel{tag = "icon-green (SOUTHEAST)"; icon_state = "green"; dir = 6},/area/awaymission/BMPship/Midship)
 "dT" = (/turf/simulated/shuttle/wall{tag = "icon-swall2"; icon_state = "swall2"},/area/awaymission/BMPship/Midship)
 "dU" = (/obj/structure/cable{d1 = 2; d2 = 4; icon_state = "2-4"; tag = ""},/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; tag = ""},/turf/simulated/floor/plasteel{icon_state = "bar"},/area/awaymission/BMPship/Midship)
@@ -516,7 +516,7 @@ aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababababababababaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacAcBcCcCcDcCcEcFcGcHcIcJcKcIcLcGcMcNcOcPcQcRcMcMcMcMcScTcUcScVcWaxaxaxaxaxaxaxaxayaAcXaCcncoaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacAcBcYcZcYdacCcEcMdbcHdcdcdcdccLcMcMdddedededfcMcMcMcMdgdgcMdgcMdhdididjdkdldmdldnaPdodpdqdrazaxaycoaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacAcBcCdsdtdsdudvcEcMcMcHdcdwdcdccLcMcMdxdydzdAdBcMcMcMcMcMcMcMcMcMaPdjdCdjbJdDdEdFdGaPdHdpdododIdJcWazaxcoaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacAcBcCcCdKdLdMdNdOcEcMcMdPdQdQdRdQdScMcMdTcMdUdVdVdVdVdVdVdVdVdVdWcMdhdjdXdjdraxaxaxaxbVdHdYdZeaebecbbedeeefaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacAcBcCcCdKdLdMdNdOcEcMcMdPdQdQbZdQdScMcMdTcMdUdVdVdVdVdVdVdVdVdVdWcMdhdjdXdjdraxaxaxaxbVdHdYdZeaebecbbedeeefaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaciegegegeheiejekelddemeneoeoeoeoeoeodWcMddcMepcMeqerererererererepcMaPdjesdjdjdjdjdjetaPeuevbdewbdexeyezeeefaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaeAeBeCegcYcZcYcZeDeEeoeFererererereGeHcMeIcMepeJeKeLeKeKeKeKeMeNeOePbbdjeseQeReReSdjdjaPeTeUbdeVeWeXbJezeeefaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaeYeZfaegfbdtdsdtfcdTcMcMerfdfefdfffgepfhepcMepcMfierererererererepfjfkflfmfnfofpfqdjdjaPfreUbdewbdfscWayaxftaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa

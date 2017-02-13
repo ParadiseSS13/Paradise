@@ -5,9 +5,9 @@
 #define BEE_TRAY_RECENT_VISIT	200	//How long in deciseconds until a tray can be visited by a bee again
 #define BEE_DEFAULT_COLOUR		"#e5e500" //the colour we make the stripes of the bee if our reagent has no colour (or we have no reagent)
 
-#define BEE_POLLINATE_YIELD_CHANCE		10
+#define BEE_POLLINATE_YIELD_CHANCE		33
 #define BEE_POLLINATE_PEST_CHANCE		33
-#define BEE_POLLINATE_POTENTCY_CHANCE	50
+#define BEE_POLLINATE_POTENCY_CHANCE	50
 
 /mob/living/simple_animal/hostile/poison/bees
 	name = "bee"
@@ -15,6 +15,7 @@
 	icon_state = ""
 	icon_living = ""
 	icon = 'icons/mob/bees.dmi'
+	gender = FEMALE
 	speak_emote = list("buzzes")
 	emote_hear = list("buzzes")
 	turns_per_move = 0
@@ -142,7 +143,7 @@
 		if(beehome.bees)
 			beehome.bees.Remove(src)
 		beehome = null
-	..()
+	return ..()
 
 /mob/living/simple_animal/hostile/poison/bees/worker/death(gibbed)
 	if(beehome)
@@ -158,10 +159,10 @@
 		to_chat(user, "<span class='warning'>This bee is homeless!</span>")
 
 /mob/living/simple_animal/hostile/poison/bees/worker/Found(atom/A)
-	if(istype(A, /obj/machinery/portable_atmospherics/hydroponics))
-		var/obj/machinery/portable_atmospherics/hydroponics/Hydro = A
-		if(Hydro.seed && !Hydro.dead && !Hydro.recent_bee_visit && !Hydro.closed_system)
-			wanted_objects |= /obj/machinery/portable_atmospherics/hydroponics //so we only hunt them while they're alive/seeded/not visisted and uncovered
+	if(istype(A, /obj/machinery/hydroponics))
+		var/obj/machinery/hydroponics/Hydro = A
+		if(Hydro.myseed && !Hydro.dead && !Hydro.recent_bee_visit)
+			wanted_objects |= /obj/machinery/hydroponics //so we only hunt them while they're alive/seeded/not visisted
 			return 1
 	..()
 
@@ -175,24 +176,24 @@
 
 /mob/living/simple_animal/hostile/poison/bees/worker/AttackingTarget()
 	//Pollinate
-	if(istype(target, /obj/machinery/portable_atmospherics/hydroponics))
-		var/obj/machinery/portable_atmospherics/hydroponics/Hydro = target
+	if(istype(target, /obj/machinery/hydroponics))
+		var/obj/machinery/hydroponics/Hydro = target
 		pollinate(Hydro)
 	else if(target == beehome)
 		var/obj/structure/beebox/BB = target
 		forceMove(BB)
 		target = null
-		wanted_objects.Remove(/obj/structure/beebox) //so we don't attack beeboxes when not going home
+		wanted_objects -= /obj/structure/beebox //so we don't attack beeboxes when not going home
 	else
 		..()
 
-/mob/living/simple_animal/hostile/poison/bees/worker/proc/pollinate(obj/machinery/portable_atmospherics/hydroponics/Hydro)
-	if(!istype(Hydro) || !Hydro.seed || Hydro.dead || Hydro.recent_bee_visit || Hydro.closed_system)
+/mob/living/simple_animal/hostile/poison/bees/worker/proc/pollinate(obj/machinery/hydroponics/Hydro)
+	if(!istype(Hydro) || !Hydro.myseed || Hydro.dead || Hydro.recent_bee_visit)
 		target = null
 		return
 
 	target = null //so we pick a new hydro tray next FindTarget(), instead of loving the same plant for eternity
-	wanted_objects.Remove(/obj/machinery/portable_atmospherics/hydroponics) //so we only hunt them while they're alive/seeded/not visisted
+	wanted_objects -= /obj/machinery/hydroponics //so we only hunt them while they're alive/seeded/not visisted
 	Hydro.recent_bee_visit = TRUE
 	spawn(BEE_TRAY_RECENT_VISIT)
 		if(Hydro)
@@ -200,23 +201,14 @@
 
 	var/growth = health //Health also means how many bees are in the swarm, roughly.
 	//better healthier plants!
-	Hydro.health += round(growth*0.5)
+	Hydro.adjustHealth(growth*0.5)
 	if(prob(BEE_POLLINATE_PEST_CHANCE))
-		Hydro.pestlevel = max(0, --Hydro.pestlevel)
-	if(prob(BEE_POLLINATE_YIELD_CHANCE)) //Yield mod is HELLA powerful, but quite rare
-		if(!isnull(plant_controller.seeds[Hydro.seed.name]))
-			Hydro.seed = Hydro.seed.diverge()
-		else
-			Hydro.seed.update_name_prefixes()
-		var/seed_yield = Hydro.seed.get_trait(TRAIT_YIELD)
-		Hydro.seed.set_trait(TRAIT_YIELD, seed_yield + 1, 10, 0)
-	if(prob(BEE_POLLINATE_POTENTCY_CHANCE))
-		if(!isnull(plant_controller.seeds[Hydro.seed.name]))
-			Hydro.seed = Hydro.seed.diverge()
-		else
-			Hydro.seed.update_name_prefixes()
-		var/seed_potency = Hydro.seed.get_trait(TRAIT_POTENCY)
-		Hydro.seed.set_trait(TRAIT_POTENCY, seed_potency + 1, 200, 0)
+		Hydro.adjustPests(-10)
+	if(prob(BEE_POLLINATE_YIELD_CHANCE))
+		Hydro.myseed.adjust_yield(1)
+		Hydro.yieldmod = 2
+	if(prob(BEE_POLLINATE_POTENCY_CHANCE))
+		Hydro.myseed.adjust_potency(1)
 
 	if(beehome)
 		beehome.bee_resources = min(beehome.bee_resources + growth, 100)
@@ -234,7 +226,7 @@
 			idle = max(0, --idle)
 			if(idle <= BEE_IDLE_GOHOME && prob(BEE_PROB_GOHOME))
 				if(!FindTarget())
-					wanted_objects.Add(/obj/structure/beebox) //so we don't attack beeboxes when not going home
+					wanted_objects += /obj/structure/beebox //so we don't attack beeboxes when not going home
 					target = beehome
 	if(!beehome) //add outselves to a beebox (of the same reagent) if we have no home
 		for(var/obj/structure/beebox/BB in view(vision_range, src))
@@ -304,6 +296,7 @@
 
 /obj/item/queen_bee/Destroy()
 	qdel(queen)
+	queen = null
 	return ..()
 
 

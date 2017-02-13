@@ -132,13 +132,14 @@
 				for(var/mob/C in viewers(src))
 					C.show_message("\red [GM.name] has been placed in the [src] by [user].", 3)
 				qdel(G)
-				usr.attack_log += text("\[[time_stamp()]\] <font color='red'>Has placed [key_name(GM)] in disposals.</font>")
-				GM.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been placed in disposals by [key_name(user)]</font>")
+				usr.create_attack_log("<font color='red'>Has placed [key_name(GM)] in disposals.</font>")
+				GM.create_attack_log("<font color='orange'>Has been placed in disposals by [key_name(user)]</font>")
 				if(GM.ckey)
 					msg_admin_attack("[key_name_admin(user)] placed [key_name_admin(GM)] in a disposals unit. (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 		return
 
-	if(!I)	return
+	if(!I)
+		return
 
 	if(!user.drop_item())
 		return
@@ -180,8 +181,8 @@
 		msg = "[user.name] stuffs [target.name] into the [src]!"
 		to_chat(user, "You stuff [target.name] into the [src]!")
 
-		user.attack_log += text("\[[time_stamp()]\] <font color='red'>Has placed [key_name(target)] in disposals.</font>")
-		target.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been placed in disposals by [key_name(user)]</font>")
+		user.create_attack_log("<font color='red'>Has placed [key_name(target)] in disposals.</font>")
+		target.create_attack_log("<font color='orange'>Has been placed in disposals by [key_name(user)]</font>")
 		if(target.ckey)
 			msg_admin_attack("[key_name_admin(user)] placed [key_name_admin(target)] in a disposals unit")
 	else
@@ -530,14 +531,18 @@
 					has_fat_guy = 1			// set flag on holder
 			if(istype(AM, /obj/structure/bigDelivery) && !hasmob)
 				var/obj/structure/bigDelivery/T = AM
-				src.destinationTag = T.sortTag
+				destinationTag = T.sortTag
 			if(istype(AM, /obj/item/smallDelivery) && !hasmob)
 				var/obj/item/smallDelivery/T = AM
-				src.destinationTag = T.sortTag
+				destinationTag = T.sortTag
 			//Drones can mail themselves through maint.
 			if(istype(AM, /mob/living/silicon/robot/drone))
 				var/mob/living/silicon/robot/drone/drone = AM
-				src.destinationTag = drone.mail_destination
+				destinationTag = drone.mail_destination
+			if(istype(AM, /obj/item/shippingPackage) && !hasmob)
+				var/obj/item/shippingPackage/sp = AM
+				if(sp.sealed)	//only sealed packages get delivered to their intended destination
+					destinationTag = sp.sortTag
 
 
 	// start the movement process
@@ -987,7 +992,7 @@
 /obj/structure/disposalpipe/sortjunction
 
 	icon_state = "pipe-j1s"
-	var/sortType = 0	//Look at the list called TAGGERLOCATIONS in setup.dm
+	var/sortType = 0	//Look at the list called TAGGERLOCATIONS in /code/_globalvars/lists/flavor_misc.dm
 	var/posdir = 0
 	var/negdir = 0
 	var/sortdir = 0
