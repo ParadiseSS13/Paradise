@@ -36,8 +36,8 @@
 	supervisors = "the head of personnel"
 	selection_color = "#dddddd"
 	idtype = /obj/item/weapon/card/id
-	access = list(access_gateway, access_eva)
-	minimal_access = list(access_gateway, access_eva)
+	access = list(access_gateway)
+	minimal_access = list(access_gateway)
 
 	equip(var/mob/living/carbon/human/H)
 		if(!H)

@@ -9,17 +9,25 @@
 	icon_state = "mecha_teleport"
 	origin_tech = "bluespace=10"
 	equip_cooldown = 150
-	energy_drain = 1000
+	energy_drain = 8000
 	range = RANGED
+	var/tele_precision = 4
 
 /obj/item/mecha_parts/mecha_equipment/teleporter/action(atom/target)
 	if(!action_checks(target) || !is_teleport_allowed(loc.z))
 		return
 	var/turf/T = get_turf(target)
 	if(T)
-		do_teleport(chassis, T, 4)
+		chassis.use_power(energy_drain)
+		do_teleport(chassis, T, tele_precision)
 		return 1
 
+/obj/item/mecha_parts/mecha_equipment/teleporter/precise
+	name = "upgraded teleporter"
+	desc = "An exosuit module that allows exosuits to teleport to any position in view. This is the high-precision, energy-efficient version."
+	origin_tech = "bluespace=13"
+	energy_drain = 1000
+	tele_precision = 1
 
 
 ////////////////////////////////////////////// WORMHOLE GENERATOR //////////////////////////////////////////

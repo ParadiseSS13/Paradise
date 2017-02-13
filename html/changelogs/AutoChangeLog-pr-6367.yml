@@ -1,0 +1,12 @@
+author: "Markolie"
+delete-after: True
+changes: 
+  - bugfix: "Fixed a number of genetics powers not working."
+  - bugfix: "Posibrains can no longer whisper when silenced."
+  - bugfix: "Syndicate turrets will no longer target the Syndicate pAI found on their outpost."
+  - bugfix: "Fixed the \"Swedish\" disability occasionally hiding parts of speech."
+  - bugfix: "Mouthless players can no longer eat crayons (such as IPC's)."
+  - bugfix: "Instruments can now be interacted with while buckled."
+  - bugfix: "Emagging a single fax machine will no longer give all fax machines access to the Syndicate destination."
+  - bugfix: "Evidence bags will now always show the item inside of them."
+  - bugfix: "Spacepods leaving a trail of humans instead of ion trail effects."
