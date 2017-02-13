@@ -1,4 +1,4 @@
-#define HYDRO_CYCLES_PER_AGE 3	//Adjust this to adjust how many hydroponics cycles it takes to increase age. Positive integers only.
+#define HYDRO_CYCLES_PER_AGE	3	//Adjust this to adjust how many hydroponics cycles it takes to increase age. Positive integers only.
 
 /obj/machinery/hydroponics
 	name = "hydroponics tray"
@@ -27,6 +27,7 @@
 	var/obj/item/seeds/myseed = null	//The currently planted seed
 	var/rating = 1
 	var/wrenchable = 1
+	var/lid_state = 0
 	var/recent_bee_visit = FALSE //Have we been visited by a bee recently, so bees dont overpollinate one plant
 	var/using_irrigation = FALSE //If the tray is connected to other trays via irrigation hoses
 	var/self_sustaining = FALSE //If the tray generates nutrients and water on its own
@@ -110,6 +111,20 @@
 		connected += a
 
 	return connected
+
+/obj/machinery/hydroponics/AltClick()
+	if(wrenchable && !usr.stat && !usr.lying && Adjacent(usr))
+		toggle_lid(usr)
+		return
+	return ..()
+
+/obj/machinery/hydroponics/proc/toggle_lid(mob/living/user)
+	if(!user || user.stat || user.restrained())
+		return
+
+	lid_state = !lid_state
+	to_chat(user, "<span class='notice'>You [lid_state ? "close" : "open"] the tray's lid.</span>")
+	update_icon()
 
 
 /obj/machinery/hydroponics/bullet_act(obj/item/projectile/Proj) //Works with the Somatoray to modify plant variables.
@@ -272,6 +287,9 @@
 		else
 			overlays += image('icons/obj/hydroponics/equipment.dmi', icon_state = "gaia_blessing")
 		set_light(3)
+
+	if(lid_state)
+		overlays += image('icons/obj/hydroponics/equipment.dmi', icon_state = "hydrocover")
 
 	update_icon_hoses()
 
@@ -910,6 +928,9 @@
 /obj/machinery/hydroponics/attack_hand(mob/user)
 	if(issilicon(user)) //How does AI know what plant is?
 		return
+	if(lid_state)
+		to_chat(user, "<span class='warning'>You can't reach the plant through the cover.</span>")
+		return
 	if(harvest)
 		myseed.harvest(user)
 	else if(dead)
@@ -1021,4 +1042,4 @@
 	else
 		..()
 
-#undefine HYDRO_CYCLES_PER_AGE
+#undef HYDRO_CYCLES_PER_AGE
