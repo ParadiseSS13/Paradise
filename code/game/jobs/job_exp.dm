@@ -1,6 +1,6 @@
 // Admin Verbs
 
-/client/proc/cmd_admin_check_player_exp()	//Allows admins to determine who the newer players are.
+/client/proc/cmd_mentor_check_player_exp()	//Allows admins to determine who the newer players are.
 	set category = "Admin"
 	set name = "Check Player Playtime"
 	if(!check_rights(R_ADMIN))

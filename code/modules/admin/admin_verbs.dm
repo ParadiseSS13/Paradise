@@ -2,7 +2,8 @@
 var/list/admin_verbs_default = list(
 	/client/proc/deadmin_self,			/*destroys our own admin datum so we can play as a regular player*/
 	/client/proc/hide_verbs,			/*hides all our adminverbs*/
-	/client/proc/cmd_mentor_check_new_players
+	/client/proc/cmd_mentor_check_new_players,
+	/client/proc/cmd_mentor_check_player_exp /* shows players by playtime */
 	)
 var/list/admin_verbs_admin = list(
 	/client/proc/check_antagonists,		/*shows all antags*/
@@ -75,7 +76,6 @@ var/list/admin_verbs_admin = list(
 	/client/proc/debug_variables,
 	/client/proc/show_snpc_verbs,
 	/client/proc/reset_all_tcs,			/*resets all telecomms scripts*/
-	/client/proc/cmd_admin_check_player_exp, /* shows players by playtime */
 	/client/proc/toggle_mentor_chat
 )
 var/list/admin_verbs_ban = list(
@@ -166,7 +166,7 @@ var/list/admin_verbs_debug = list(
 	/client/proc/admin_serialize,
 	/client/proc/admin_deserialize,
 	/client/proc/jump_to_ruin,
-	/client/proc/toggle_medal_disable	
+	/client/proc/toggle_medal_disable
 	)
 var/list/admin_verbs_possess = list(
 	/proc/possess,
