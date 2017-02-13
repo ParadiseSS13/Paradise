@@ -15,11 +15,9 @@
 	var/spider_myqueen = null
 	var/use_vents = 1
 
-
 /obj/effect/spider/spiderling/terror_spiderling/New()
 	..()
 	ts_spiderling_list += src
-
 
 /obj/effect/spider/spiderling/terror_spiderling/Destroy()
 	ts_spiderling_list -= src
@@ -32,7 +30,6 @@
 		qdel(src)
 	else
 		..()
-
 
 /obj/effect/spider/spiderling/terror_spiderling/process()
 	if(travelling_in_vent)
@@ -96,7 +93,6 @@
 				S.master_commander = master_commander
 				qdel(src)
 
-
 // --------------------------------------------------------------------------------
 // ----------------- TERROR SPIDERS: EGGS (USED BY NURSE AND QUEEN TYPES) ---------
 // --------------------------------------------------------------------------------
@@ -116,7 +112,6 @@
 	spawn(10)
 		stop_automated_movement = 0
 
-
 /obj/effect/spider/eggcluster/terror_eggcluster
 	name = "terror egg cluster"
 	desc = "A cluster of tiny spider eggs. They pulse with a strong inner life, and appear to have sharp thorns on the sides."
@@ -127,7 +122,6 @@
 	var/spiderling_type = null
 	var/spiderling_number = 1
 	var/spiderling_ventcrawl = 1
-
 
 /obj/effect/spider/eggcluster/terror_eggcluster/New()
 	..()
@@ -151,7 +145,6 @@
 			name = "prince of terror eggs"
 		else if(spiderling_type == /mob/living/simple_animal/hostile/poison/terror_spider/queen)
 			name = "queen of terror eggs"
-
 
 /obj/effect/spider/eggcluster/terror_eggcluster/Destroy()
 	ts_egg_list -= src

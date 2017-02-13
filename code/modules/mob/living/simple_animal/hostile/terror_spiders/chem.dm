@@ -32,8 +32,6 @@
 		M.Paralyse(5)
 	..()
 
-
-
 // Terror Spider, Queen Toxin
 
 /datum/reagent/terror_queen_toxin
@@ -45,7 +43,4 @@
 
 /datum/reagent/terror_queen_toxin/on_mob_life(mob/living/M)
 	// make them hallucinate a lot, like a changeling sting
-	if(M.hallucination < 400)
-		M.Hallucinate(50)
-
-
+	M.AdjustHallucinate(50, bound_upper = 400)

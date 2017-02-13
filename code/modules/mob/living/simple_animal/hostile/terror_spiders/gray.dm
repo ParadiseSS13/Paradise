@@ -21,6 +21,7 @@
 	move_to_delay = 5 // normal speed
 	stat_attack = 1 // ensures they will target people in crit, too!
 
+
 /mob/living/simple_animal/hostile/poison/terror_spider/gray/spider_specialattack(mob/living/carbon/human/L, poisonable)
 	if(!poisonable)
 		..()

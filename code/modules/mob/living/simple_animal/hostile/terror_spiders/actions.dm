@@ -41,7 +41,6 @@
 	var/mob/living/simple_animal/hostile/poison/terror_spider/prince/user = owner
 	user.DoPrinceSmash()
 
-
 // ---------- QUEEN ACTIONS
 
 /datum/action/innate/terrorspider/queen/queennest
@@ -108,12 +107,10 @@
 	icon_state = "stickyweb1"
 	var/creator_ckey = null
 
-
 /obj/effect/spider/terrorweb/New()
 	..()
 	if(prob(50))
 		icon_state = "stickyweb2"
-
 
 /obj/effect/spider/terrorweb/CanPass(atom/movable/mover, turf/target)
 	if(istype(mover, /mob/living/simple_animal/hostile/poison/terror_spider))
@@ -136,8 +133,7 @@
 		return prob(20)
 	return ..()
 
-
-/obj/effect/spider/terrorweb/bullet_act(var/obj/item/projectile/Proj)
+/obj/effect/spider/terrorweb/bullet_act(obj/item/projectile/Proj)
 	if(Proj.damage_type != BRUTE && Proj.damage_type != BURN)
 		visible_message("<span class='danger'>[src] is undamaged by [Proj]!</span>")
 		// Webs don't care about disablers, tasers, etc. Or toxin damage. They're organic, but not alive.
@@ -145,7 +141,6 @@
 	..()
 
 // ---------- WRAP
-
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/FindWrapTarget()
 	if(!cocoon_target)
@@ -205,7 +200,6 @@
 		cocoon_target = null
 		busy = 0
 		stop_automated_movement = 0
-
 
 /mob/living/simple_animal/hostile/poison/terror_spider/prince/proc/DoPrinceSmash()
 	for(var/obj/machinery/atmospherics/unary/vent_pump/P in view(1,src))

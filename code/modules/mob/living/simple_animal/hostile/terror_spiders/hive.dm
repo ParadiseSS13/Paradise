@@ -1,7 +1,6 @@
 
 // All terror spider code that relates to queen ruling over a hive
 
-
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/DoHiveSense()
 	var/hsline = ""
 	to_chat(src, "Your Brood: ")
@@ -18,7 +17,6 @@
 		else
 			hsline += " AI "
 		to_chat(src,hsline)
-
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/CountSpiders()
 	var/numspiders = 0
@@ -40,4 +38,3 @@
 		if(!L.stillborn && L.grow_as == specific_type && L.z == z)
 			numspiders += 1
 	return numspiders
-

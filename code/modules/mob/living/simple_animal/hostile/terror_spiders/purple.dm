@@ -31,7 +31,6 @@
 	var/queen_visible = 1
 	var/cycles_noqueen = 0
 
-
 /mob/living/simple_animal/hostile/poison/terror_spider/purple/spider_specialattack(mob/living/carbon/human/L, poisonable)
 	if(cycles_noqueen < 6 && prob(10))
 		visible_message("<span class='danger'>[src] rams into [L], knocking them to the floor!</span>")
@@ -39,7 +38,6 @@
 		L.Stun(5)
 	else
 		..()
-
 
 /mob/living/simple_animal/hostile/poison/terror_spider/purple/Life()
 	. = ..()

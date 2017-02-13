@@ -50,6 +50,7 @@
 	var/datum/action/innate/terrorspider/queen/queeneggs/queeneggs_action
 	var/datum/action/innate/terrorspider/queen/queenfakelings/queenfakelings_action
 
+
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/New()
 	..()
 	queennest_action = new()
@@ -58,7 +59,6 @@
 	if(spider_awaymission)
 		spider_growinstantly = 1
 		spider_spawnfrequency = 150
-
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/Life()
 	. = ..()
@@ -174,8 +174,6 @@
 	else
 		to_chat(src, "<span class='danger'>Unrecognized egg type.</span>")
 
-
-
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/proc/DoQueenScreech(light_range, light_chance, camera_range, camera_chance)
 	visible_message("<span class='userdanger'>\The [src] emits a bone-chilling shriek!</span>")
 	for(var/obj/machinery/light/L in orange(light_range, src))
@@ -184,7 +182,6 @@
 	for(var/obj/machinery/camera/C in orange(camera_range, src))
 		if(C.status && prob(camera_chance))
 			C.toggle_cam(src, 0)
-
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/proc/QueenFakeLings()
 	if(spider_can_fakelings)
@@ -201,14 +198,11 @@
 	else
 		to_chat(src, "<span class='danger'>You have run out of uses of this ability.</span>")
 
-
-
 /obj/item/projectile/terrorqueenspit
 	name = "poisonous spit"
 	damage = 0
 	icon_state = "toxin"
 	damage_type = TOX
-
 
 /obj/item/projectile/terrorqueenspit/on_hit(mob/living/carbon/target)
 	if(ismob(target))
@@ -218,4 +212,3 @@
 				L.reagents.add_reagent("terror_queen_toxin", 15)
 		if(!istype(L, /mob/living/simple_animal/hostile/poison/terror_spider))
 			L.adjustToxLoss(30)
-

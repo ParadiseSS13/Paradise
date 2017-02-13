@@ -24,6 +24,7 @@
 	spider_tier = TS_TIER_2
 	loot = list(/obj/item/clothing/accessory/medal)
 
+
 /mob/living/simple_animal/hostile/poison/terror_spider/white/spider_specialattack(mob/living/carbon/human/L, poisonable)
 	if(!poisonable)
 		..()

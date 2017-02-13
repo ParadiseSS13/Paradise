@@ -40,4 +40,3 @@
 	key = user.key
 	for(var/mob/dead/observer/G in player_list)
 		G.show_message("<i>A ghost has taken control of <b>[src]</b>. ([ghost_follow_link(src, ghost=G)]).</i>")
-

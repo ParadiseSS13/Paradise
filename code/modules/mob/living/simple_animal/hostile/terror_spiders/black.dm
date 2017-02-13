@@ -24,6 +24,7 @@
 	stat_attack = 1 // ensures they will target people in crit, too!
 	spider_tier = TS_TIER_2
 
+
 /mob/living/simple_animal/hostile/poison/terror_spider/black/spider_specialattack(mob/living/carbon/human/L, poisonable)
 	if(!poisonable)
 		return ..()

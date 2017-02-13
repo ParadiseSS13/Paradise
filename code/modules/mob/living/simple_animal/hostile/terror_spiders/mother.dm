@@ -26,6 +26,7 @@
 
 	var/canspawn = 1
 
+
 /mob/living/simple_animal/hostile/poison/terror_spider/mother/death(gibbed)
 	if(canspawn)
 		canspawn = 0

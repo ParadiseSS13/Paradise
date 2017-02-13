@@ -122,8 +122,6 @@ var/global/list/ts_spiderling_list = list()
 // --------------------- TERROR SPIDERS: SHARED ATTACK CODE -----------------------
 // --------------------------------------------------------------------------------
 
-
-
 /mob/living/simple_animal/hostile/poison/terror_spider/AttackingTarget()
 	if(isterrorspider(target))
 		var/mob/living/simple_animal/hostile/poison/terror_spider/T = target
@@ -178,15 +176,9 @@ var/global/list/ts_spiderling_list = list()
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/spider_specialattack(mob/living/carbon/human/L, poisonable)
 	L.attack_animal(src)
 
-
-
-
-
-
 // --------------------------------------------------------------------------------
 // --------------------- TERROR SPIDERS: PROC OVERRIDES ---------------------------
 // --------------------------------------------------------------------------------
-
 
 /mob/living/simple_animal/hostile/poison/terror_spider/examine(mob/user)
 	..()
@@ -211,7 +203,6 @@ var/global/list/ts_spiderling_list = list()
 		if(killcount >= 1)
 			msgs += "<span class='warning'>It has blood dribbling from its mouth.</span>"
 	to_chat(usr,msgs.Join("<BR>"))
-
 
 /mob/living/simple_animal/hostile/poison/terror_spider/New()
 	..()
@@ -278,8 +269,6 @@ var/global/list/ts_spiderling_list = list()
 		if(prob(5))
 			CheckFaction()
 
-
-
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/handle_dying()
 	if(!hasdied)
 		hasdied = 1
@@ -295,7 +284,6 @@ var/global/list/ts_spiderling_list = list()
 		msg_terrorspiders("[src] has died in [get_area(src)].")
 	handle_dying()
 	..()
-
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/spider_special_action()
 	return
