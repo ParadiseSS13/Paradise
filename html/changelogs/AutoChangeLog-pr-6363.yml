@@ -1,7 +1,0 @@
-author: "Fethas"
-delete-after: True
-changes: 
-  - tweak: "Metastation: The escape shuttle doors should no longer be security access only."
-  - tweak: "Metastation: Hooks up disposals door control."
-  - tweak: "Cyberiad: Untriggers Neca and makes the floor tiles in the emergecny wing sec area plating."
-  - tweak: "Cyberiad: Moves the cargo mail room table onto the otherside of the window so you can actually OPEN IT."
