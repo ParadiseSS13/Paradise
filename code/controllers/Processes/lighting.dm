@@ -91,6 +91,9 @@
 
 /datum/controller/process/lighting/statProcess()
 	..()
+	stat(null, "[all_lighting_sources.len] light sources exist")
+	stat(null, "[all_lighting_corners.len] light corners exist")
+	stat(null, "[global.all_lighting_overlays.len] light overlays exist")
 	stat(null, "[lighting_update_lights.len] lighting sources queued")
 	stat(null, "[lighting_update_corners.len] lighting corners queued")
 	stat(null, "[lighting_update_overlays.len] lighting overlays queued")
