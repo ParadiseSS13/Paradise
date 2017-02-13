@@ -27,7 +27,7 @@
 	..()
 
 /obj/structure/curtain/proc/toggle()
-	set_opacity(!opacity)
+	opacity = !opacity
 	if(opacity)
 		icon_state = "closed"
 		layer = SHOWER_CLOSED_LAYER

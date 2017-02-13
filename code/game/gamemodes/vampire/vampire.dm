@@ -416,7 +416,12 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 		owner.alpha = 255
 		return
 	var/turf/simulated/T = get_turf(owner)
-	var/light_available = T.get_lumcount(0.5) * 10
+	var/atom/movable/lighting_overlay/L = locate(/atom/movable/lighting_overlay) in T
+	var/light_available
+	if(L)
+		light_available = L.get_clamped_lum(0.5) * 10
+	else
+		light_available = 10
 
 	if(!istype(T))
 		return 0
@@ -424,7 +429,6 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 	if(!iscloaking)
 		owner.alpha = 255
 		return 0
-
 	if(light_available <= 2)
 		owner.alpha = round((255 * 0.15))
 		return 1

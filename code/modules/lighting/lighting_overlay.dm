@@ -1,4 +1,3 @@
-var/list/all_lighting_overlays = list() // Global list of lighting overlays.
 /atom/movable/lighting_overlay
 	name = ""
 	mouse_opacity = 0
@@ -7,75 +6,90 @@ var/list/all_lighting_overlays = list() // Global list of lighting overlays.
 	icon = LIGHTING_ICON
 	layer = LIGHTING_LAYER
 	invisibility = INVISIBILITY_LIGHTING
-	color = LIGHTING_BASE_MATRIX
+	color = "#000000"
 	icon_state = "light1"
 	auto_init = 0 // doesn't need special init
-	blend_mode = BLEND_MULTIPLY
 
-	var/lum_r = 0
-	var/lum_g = 0
-	var/lum_b = 0
+	var/lum_r
+	var/lum_g
+	var/lum_b
 
-	var/needs_update = FALSE
+	var/needs_update
 
-/atom/movable/lighting_overlay/New(var/atom/loc, var/no_update = FALSE)
+/atom/movable/lighting_overlay/New()
 	. = ..()
 	verbs.Cut()
-	global.all_lighting_overlays += src
 
 	var/turf/T = loc //If this runtimes atleast we'll know what's creating overlays outside of turfs.
-	T.lighting_overlay = src
 	T.luminosity = 0
-	if(no_update)
+
+/atom/movable/lighting_overlay/proc/get_clamped_lum(var/minlum = 0, var/maxlum = 1)
+	var/lum = max(lum_r, lum_g, lum_b)
+	if(lum <= minlum)
+		return 0
+	else if(lum >= maxlum)
+		return 1
+	else
+		return (lum - minlum) / (maxlum - minlum)
+
+/atom/movable/lighting_overlay/proc/update_lumcount(delta_r, delta_g, delta_b)
+	if(!delta_r && !delta_g && !delta_b) //Nothing is being changed all together.
 		return
-	update_overlay()
+
+	var/should_update = 0
+
+	if(!needs_update) //If this isn't true, we're already updating anyways.
+		if(max(lum_r, lum_g, lum_b) < 1) //Any change that could happen WILL change appearance.
+			should_update = 1
+
+		else if(max(lum_r + delta_r, lum_g + delta_g, lum_b + delta_b) < 1) //The change would bring us under 1 max lum, again, guaranteed to change appearance.
+			should_update = 1
+
+		else //We need to make sure that the colour ratios won't change in this code block.
+			var/mx1 = max(lum_r, lum_g, lum_b)
+			var/mx2 = max(lum_r + delta_r, lum_g + delta_g, lum_b + delta_b)
+
+			if(lum_r / mx1 != (lum_r + delta_r) / mx2 || lum_g / mx1 != (lum_g + delta_g) / mx2 || lum_b / mx1 != (lum_b + delta_b) / mx2) //Stuff would change.
+				should_update = 1
+
+	lum_r = max(lum_r + delta_r, 0) //Lum shouldn't drop below 1
+	lum_g = max(lum_g + delta_g, 0)
+	lum_b = max(lum_b + delta_b, 0)
+
+	if(!needs_update && should_update)
+		needs_update = 1
+		lighting_update_overlays += src
 
 /atom/movable/lighting_overlay/proc/update_overlay()
-	set waitfor = FALSE
 	var/turf/T = loc
 
-	if(!istype(T))
-		if(loc)
-			log_debug("A lighting overlay realised its loc was NOT a turf (actual loc: [loc][loc ? ", " + loc.type : "null"]) in update_overlay() and got qdel'ed!")
+	if(istype(T)) //Incase we're not on a turf, pool ourselves, something happened.
+		if(lum_r == lum_g && lum_r == lum_b) //greyscale
+			blend_mode = BLEND_OVERLAY
+			if(lum_r <= 0)
+				T.luminosity = 0
+				color = "#000000"
+				alpha = 255
+			else
+				T.luminosity = 1
+				color = "#000000"
+				alpha = (1 - min(lum_r, 1)) * 255
 		else
-			log_debug("A lighting overlay realised it was in nullspace in update_overlay() and got pooled!")
-		qdel(src)
-		return
-
-	// To the future coder who sees this and thinks
-	// "Why didn't he just use a loop?"
-	// Well my man, it's because the loop performed like shit.
-	// And there's no way to improve it because
-	// without a loop you can make the list all at once which is the fastest you're gonna get.
-	// Oh it's also shorter line wise.
-	// Including with these comments.
-
-	// See LIGHTING_CORNER_DIAGONAL in lighting_corner.dm for why these values are what they are.
-	// No I seriously cannot think of a more efficient method, fuck off Comic.
-	var/datum/lighting_corner/cr = T.corners[3] || dummy_lighting_corner
-	var/datum/lighting_corner/cg = T.corners[2] || dummy_lighting_corner
-	var/datum/lighting_corner/cb = T.corners[4] || dummy_lighting_corner
-	var/datum/lighting_corner/ca = T.corners[1] || dummy_lighting_corner
-
-	var/max = max(cr.cache_mx, cg.cache_mx, cb.cache_mx, ca.cache_mx)
-
-	var/list/new_matrix = list(
-		cr.cache_r, cr.cache_g, cr.cache_b, 0,
-		cg.cache_r, cg.cache_g, cg.cache_b, 0,
-		cb.cache_r, cb.cache_g, cb.cache_b, 0,
-		ca.cache_r, ca.cache_g, ca.cache_b, 0,
-		0, 0, 0, 1
-	)
-	var/lum = max > LIGHTING_SOFT_THRESHOLD
-
-	if(lum)
-		luminosity = 1
-		animate(src, color = new_matrix, time = 5)
+			alpha = 255
+			var/mx = max(lum_r, lum_g, lum_b)
+			. = 1 // factor
+			if(mx > 1)
+				. = 1/mx
+			blend_mode = BLEND_MULTIPLY
+			color = rgb(lum_r * 255 * ., lum_g * 255 * ., lum_b * 255 * .)
+			if(color != "#000000")
+				T.luminosity = 1
+			else  //No light, set the turf's luminosity to 0 to remove it from view()
+				T.luminosity = 0
 	else
-		animate(src, color = new_matrix, time = 5)
-		animate(luminosity = 0, time = 0)
-
-
+		//warning("A lighting overlay realised its loc was NOT a turf (actual loc: [loc][loc ? ", " + loc.type : "null"]) in update_overlay() and got qdel'ed!") //fucking bullshit bugs means this spams when shuttles move, feel free to fix
+		log_debug("A lighting overlay realised its loc was NOT a turf (actual loc: [loc][loc ? ", " + loc.type : "null"]) in update_overlay() and got qdel'ed!")
+		qdel(src)
 
 /atom/movable/lighting_overlay/singularity_act()
 	return
@@ -84,13 +98,10 @@ var/list/all_lighting_overlays = list() // Global list of lighting overlays.
 	return
 
 /atom/movable/lighting_overlay/Destroy()
-	global.all_lighting_overlays        -= src
-	global.lighting_update_overlays     -= src
-	global.lighting_update_overlays_old -= src
+	lighting_update_overlays -= src
 
 	var/turf/T = loc
 	if(istype(T))
 		T.lighting_overlay = null
-		T.luminosity = 1
 
 	return ..()
