@@ -84,7 +84,8 @@
 					volume='[volume]',
 					nanoui_fancy='[nanoui_fancy]',
 					show_ghostitem_attack='[show_ghostitem_attack]',
-					lastchangelog='[lastchangelog]'
+					lastchangelog='[lastchangelog]',
+					windowflashing='[windowflashing]'
 					WHERE ckey='[C.ckey]'"}
 					)
 
