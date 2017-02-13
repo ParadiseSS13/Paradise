@@ -720,6 +720,11 @@
 		genemutcheck(C,REMOTETALKBLOCK,null,MUTCHK_FORCED)
 	..()
 
+/datum/species/grey/equip(var/mob/living/carbon/human/H)
+	var/speech_pref = H.client.prefs.speciesprefs
+	if(speech_pref)
+		H.mind.speech_span = "wingdings"
+
 /datum/species/diona
 	name = "Diona"
 	name_plural = "Dionaea"

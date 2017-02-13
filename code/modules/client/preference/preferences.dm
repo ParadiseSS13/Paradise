@@ -283,6 +283,8 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			dat += "<b>Species:</b> <a href='?_src_=prefs;preference=species;task=input'>[species]</a><br>"
 			if(species == "Vox")
 				dat += "<b>N2 Tank:</b> <a href='?_src_=prefs;preference=speciesprefs;task=input'>[speciesprefs ? "Large N2 Tank" : "Specialized N2 Tank"]</a><br>"
+			if(species == "Grey")
+				dat += "<b>Voice:</b> <a href ='?_src_=prefs;preference=speciesprefs;task=input'>[speciesprefs ? "Wingdings" : "Normal"]</a><BR>"
 			dat += "<b>Secondary Language:</b> <a href='?_src_=prefs;preference=language;task=input'>[language]</a><br>"
 			dat += "<b>Blood Type:</b> <a href='?_src_=prefs;preference=b_type;task=input'>[b_type]</a><br>"
 			if(species in list("Human", "Drask", "Vox"))
@@ -1334,6 +1336,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 							b_skin = 0
 
 						alt_head = "None" //No alt heads on species that don't have them.
+						speciesprefs = 0 //My Vox tank shouldn't change how my future Grey talks.
 
 						body_accessory = null //no vulptail on humans damnit
 
@@ -2039,6 +2042,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			real_name += "[pick(last_names)]"
 
 	character.add_language(language)
+
 
 	character.real_name = real_name
 	character.dna.real_name = real_name
