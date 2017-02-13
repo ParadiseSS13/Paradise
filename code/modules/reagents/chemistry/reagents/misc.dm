@@ -420,12 +420,8 @@
 			newsize = 1.25
 		if(20 to 49)
 			newsize = 1.5
-		if(50 to 99)
+		if(50 to INFINITY)
 			newsize = 2
-		if(100 to 199)
-			newsize = 2.5
-		if(200 to INFINITY)
-			newsize = 3.5
 
 	H.resize = newsize/current_size
 	current_size = newsize
