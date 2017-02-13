@@ -531,6 +531,9 @@
 		if(ticker.mode.greyshirts.len)
 			dat += check_role_table("Greyshirts", ticker.mode.greyshirts)
 
+		if(ticker.mode.ert.len)
+			dat += check_role_table("ERT", ticker.mode.ert)
+
 		dat += "</body></html>"
 		usr << browse(dat, "window=roundstatus;size=400x500")
 	else

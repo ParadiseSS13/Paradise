@@ -5,6 +5,9 @@
 #define ERT_TYPE_RED		2
 #define ERT_TYPE_GAMMA		3
 
+/datum/game_mode
+	var/list/datum/mind/ert = list()
+
 var/list/response_team_members = list()
 var/responseteam_age = 21 // Minimum account age to play as an ERT member
 var/datum/response_team/active_team = null
@@ -93,7 +96,7 @@ var/ert_request_answered = 0
 	if(response_team_members.len > 6)
 		to_chat(src, "The emergency response team is already full!")
 		return 0
-		
+
 	return 1
 
 /proc/trigger_armed_response_team(var/datum/response_team/response_team_type)
@@ -106,7 +109,7 @@ var/ert_request_answered = 0
 		active_team.cannot_send_team()
 		send_emergency_team = 0
 		return 0
-	
+
 	// Respawnable players get first dibs
 	for(var/mob/dead/observer/M in ert_candidates)
 		if((M in respawnable_list) && M.JoinResponseTeam())
@@ -115,7 +118,7 @@ var/ert_request_answered = 0
 	for(var/mob/dead/observer/M in (ert_candidates - respawnable_list))
 		if(M.JoinResponseTeam())
 			response_team_members |= M
-			
+
 	if(!response_team_members.len)
 		active_team.cannot_send_team()
 		send_emergency_team = 0
@@ -125,14 +128,14 @@ var/ert_request_answered = 0
 	for(var/mob/M in response_team_members)
 		if(index > emergencyresponseteamspawn.len)
 			index = 1
-			
+
 		var/client/C = M.client
 		var/mob/living/carbon/human/new_commando = C.create_response_team(emergencyresponseteamspawn[index])
 		new_commando.mind.key = M.key
 		new_commando.key = M.key
 		new_commando.update_icons()
 		index++
-			
+
 	send_emergency_team = 0
 	active_team.announce_team()
 	return 1
@@ -170,8 +173,8 @@ var/ert_request_answered = 0
 	head_organ.b_hair = color2B(hair_c)
 	M.change_eye_color(color2R(eye_c), color2G(eye_c), color2B(eye_c))
 	M.s_tone = skin_tone
-	head_organ.h_style = random_hair_style(M.gender, head_organ.species.name) 
-	head_organ.f_style = random_facial_hair_style(M.gender, head_organ.species.name) 
+	head_organ.h_style = random_hair_style(M.gender, head_organ.species.name)
+	head_organ.f_style = random_facial_hair_style(M.gender, head_organ.species.name)
 
 	M.real_name = "[pick("Corporal", "Sergeant", "Staff Sergeant", "Sergeant First Class", "Master Sergeant", "Sergeant Major")] [pick(last_names)]"
 	M.name = M.real_name
@@ -187,6 +190,7 @@ var/ert_request_answered = 0
 	M.mind.special_role = SPECIAL_ROLE_ERT
 	if(!(M.mind in ticker.minds))
 		ticker.minds += M.mind //Adds them to regular mind list.
+	ticker.mode.ert += M.mind
 	M.forceMove(spawn_location)
 
 	active_team.equip_officer(class, M)
