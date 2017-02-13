@@ -428,8 +428,8 @@
 	if(potency != null)
 		mutativeness = potency / 10
 	if(production != null)
-		spread_cap *= production / 5
-		spread_multiplier /= production / 5
+		spread_cap /= production / 5
+		spread_multiplier *= production / 5
 	..()
 
 
