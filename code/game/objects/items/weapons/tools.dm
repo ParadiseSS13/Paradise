@@ -130,6 +130,7 @@
 	name = "welding tool"
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "welder"
+	item_state = "welder"
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	force = 3
@@ -151,10 +152,9 @@
 	create_reagents(max_fuel)
 	reagents.add_reagent("fuel", max_fuel)
 	update_icon()
-	return
 
 /obj/item/weapon/weldingtool/examine(mob/user)
-	if(..(user, 0))
+	if(..(user, 1))
 		to_chat(user, "It contains [get_fuel()] unit\s of fuel out of [max_fuel].")
 
 /obj/item/weapon/weldingtool/suicide_act(mob/user)
@@ -178,7 +178,6 @@
 		else
 			icon_state = "[initial(icon_state)][ratio]"
 	update_torch()
-	return
 
 /obj/item/weapon/weldingtool/attackby(obj/item/I, mob/user, params)
 	if(isscrewdriver(I))
