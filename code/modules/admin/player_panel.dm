@@ -427,7 +427,7 @@
 				else
 					dat += "<tr><td><i>Nuclear Operative not found!</i></td></tr>"
 			dat += "</table><br><table><tr><td><B>Nuclear Disk(s)</B></td></tr>"
-			for(var/obj/item/weapon/disk/nuclear/N in world)
+			for(var/obj/item/weapon/disk/nuclear/N in poi_list)
 				dat += "<tr><td>[N.name], "
 				var/atom/disk_loc = N.loc
 				while(!istype(disk_loc, /turf))
@@ -530,6 +530,13 @@
 
 		if(ticker.mode.greyshirts.len)
 			dat += check_role_table("Greyshirts", ticker.mode.greyshirts)
+
+		if(ts_spiderlist.len)
+			var/list/spider_minds = list()
+			for(var/mob/living/simple_animal/hostile/poison/terror_spider/S in ts_spiderlist)
+				if(S.ckey)
+					spider_minds += S.mind
+			dat += check_role_table("Terror Spiders", spider_minds)
 
 		dat += "</body></html>"
 		usr << browse(dat, "window=roundstatus;size=400x500")

@@ -37,7 +37,7 @@
 	var/obj/item/weapon/pen/pen = null
 	edge = 0
 	embed = 0
-	log = 0//it won't log even when there's a pen inside, but since the damage will be so low, I don't think there's any point in making it any more complex
+	log_override = TRUE//it won't log even when there's a pen inside, but since the damage will be so low, I don't think there's any point in making it any more complex
 
 /obj/item/projectile/bullet/reusable/foam_dart/handle_drop()
 	if(dropped)
@@ -65,4 +65,4 @@
 	icon_state = "foamdart_riot"
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/riot
 	stamina = 25
-	log = 1
+	log_override = FALSE

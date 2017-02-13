@@ -1,6 +1,0 @@
-author: "FalseIncarnate"
-delete-after: True
-changes: 
-  - rscadd: "All requests consoles can print off a single-use, pre-tagged Shipping Package for sending a single item via disposals to a destination of your choosing."
-  - rscadd: "Shipping Packages can be used to tag packages wrapped with wrapping paper, in case you don't have access to cargo's destination tagger."
-  - rscadd: "Requests Consoles log the printer and destination of all shipping labels printed from that particular console. There currently is no way to clear your mailing history, so mail responsibly."

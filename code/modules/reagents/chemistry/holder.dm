@@ -726,6 +726,16 @@ atom/proc/create_reagents(max_vol)
 	reagents = new/datum/reagents(max_vol)
 	reagents.my_atom = src
 
+/proc/get_random_reagent_id()	// Returns a random reagent ID minus blacklisted reagents
+	var/static/list/random_reagents = list()
+	if(!random_reagents.len)
+		for(var/thing  in subtypesof(/datum/reagent))
+			var/datum/reagent/R = thing
+			if(initial(R.can_synth))
+				random_reagents += initial(R.id)
+	var/picked_reagent = pick(random_reagents)
+	return picked_reagent
+
 /datum/reagents/proc/get_reagent_from_id(id)
 	var/datum/reagent/result = null
 	for(var/datum/reagent/R in reagent_list)

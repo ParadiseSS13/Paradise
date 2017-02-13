@@ -30,6 +30,12 @@
 	else
 		power_supply = new(src)
 	power_supply.give(power_supply.maxcharge)
+	update_ammo_types()
+	if(selfcharge)
+		processing_objects.Add(src)
+	update_icon()
+	
+/obj/item/weapon/gun/energy/proc/update_ammo_types()
 	var/obj/item/ammo_casing/energy/shot
 	for(var/i = 1, i <= ammo_type.len, i++)
 		var/shottype = ammo_type[i]
@@ -38,9 +44,6 @@
 	shot = ammo_type[select]
 	fire_sound = shot.fire_sound
 	fire_delay = shot.delay
-	if(selfcharge)
-		processing_objects.Add(src)
-	update_icon()
 
 /obj/item/weapon/gun/energy/Destroy()
 	if(selfcharge)
@@ -129,9 +132,9 @@
 				overlays += image(icon = icon, icon_state = iconState, pixel_x = ammo_x_offset * (i -1))
 		else
 			overlays += image(icon = icon, icon_state = "[icon_state]_[modifystate ? "[shot.select_name]_" : ""]charge[ratio]")
-	if(F && can_flashlight)
+	if(gun_light && can_flashlight)
 		var/iconF = "flight"
-		if(F.on)
+		if(gun_light.on)
 			iconF = "flight_on"
 		overlays += image(icon = icon, icon_state = iconF, pixel_x = flight_x_offset, pixel_y = flight_y_offset)
 	if(itemState)
@@ -159,6 +162,14 @@
 		user.visible_message("<span class='suicide'>[user] is pretending to blow \his brains out with the [name]! It looks like \he's trying to commit suicide!</b></span>")
 		playsound(loc, 'sound/weapons/empty.ogg', 50, 1, -1)
 		return (OXYLOSS)
+
+/obj/item/weapon/gun/energy/on_varedit(modified_var)
+	if(modified_var == "selfcharge")
+		if(selfcharge)
+			processing_objects.Add(src)
+		else
+			processing_objects.Remove(src)
+	..()
 
 /obj/item/weapon/gun/energy/proc/robocharge()
 	if(isrobot(loc))

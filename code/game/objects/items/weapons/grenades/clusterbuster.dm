@@ -170,7 +170,7 @@
 
 /obj/item/weapon/grenade/clusterbuster/honk
 	name = "Mega Honk Grenade"
-	payload = /obj/item/weapon/bananapeel
+	payload = /obj/item/weapon/grown/bananapeel
 
 /obj/item/weapon/grenade/clusterbuster/honk_evil
 	name = "Evil Mega Honk Grenade"

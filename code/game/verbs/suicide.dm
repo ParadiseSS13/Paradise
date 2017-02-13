@@ -77,6 +77,10 @@
 		if(held_item)
 			var/damagetype = held_item.suicide_act(src)
 			if(damagetype)
+				if(damagetype & SHAME)
+					adjustStaminaLoss(200)
+					suiciding = 0
+					return
 				do_suicide(damagetype, held_item)
 				return
 

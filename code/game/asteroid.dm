@@ -88,7 +88,7 @@ var/global/max_secret_rooms = 6
 			theme = "cavein"
 			walltypes = list(/turf/simulated/mineral/random/high_chance=1)
 			floortypes = list(/turf/simulated/floor/plating/airless/asteroid, /turf/simulated/floor/beach/sand)
-			treasureitems = list(/obj/mecha/working/ripley/mining=1, /obj/item/weapon/pickaxe/drill/diamonddrill=2,/obj/item/weapon/gun/energy/kinetic_accelerator/hyper=1,
+			treasureitems = list(/obj/mecha/working/ripley/mining=1, /obj/item/weapon/pickaxe/drill/diamonddrill=2,
 							/obj/item/weapon/resonator/upgraded=1, /obj/item/weapon/pickaxe/drill/jackhammer=5)
 			fluffitems = list(/obj/effect/decal/cleanable/blood=3,/obj/effect/decal/remains/human=1,/obj/item/clothing/under/overalls=1,
 							  /obj/item/weapon/reagent_containers/food/snacks/grown/chili=1,/obj/item/weapon/tank/oxygen/red=2)
@@ -121,9 +121,9 @@ var/global/max_secret_rooms = 6
 
 		if("plantlab")
 			theme = "plantlab"
-			treasureitems = list(/obj/item/weapon/gun/energy/floragun=1,/obj/item/seeds/ambrosiadeusseed=2,/obj/item/seeds/bluespacetomatoseed=2,/obj/item/seeds/bluetomatoseed=2,
-			/obj/item/seeds/coffeerseed=2, /obj/item/seeds/stobaccoseed=2)
-			fluffitems = list(/obj/item/weapon/twohanded/required/kirbyplants=1,/obj/structure/table/reinforced=2,/obj/machinery/portable_atmospherics/hydroponics=1,
+			treasureitems = list(/obj/item/weapon/gun/energy/floragun=1,/obj/item/seeds/ambrosia/deus=2,/obj/item/seeds/tomato/blue/bluespace=2,/obj/item/seeds/tomato/blue=2,
+			/obj/item/seeds/coffee/robusta=2, /obj/item/seeds/tobacco/space=2)
+			fluffitems = list(/obj/item/weapon/twohanded/required/kirbyplants=1,/obj/structure/table/reinforced=2,/obj/machinery/hydroponics=1,
 							  /obj/effect/glowshroom/single=2,/obj/item/weapon/reagent_containers/syringe/charcoal=2,
 							  /obj/item/weapon/reagent_containers/glass/bottle/diethylamine=3,/obj/item/weapon/reagent_containers/glass/bottle/ammonia=3)
 

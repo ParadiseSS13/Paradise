@@ -151,7 +151,7 @@
 // The old system would loop through lists for a total of 5000 per function call, in an empty server.
 // This new system will loop at around 1000 in an empty server.
 
-/proc/get_mobs_in_view(var/R, var/atom/source)
+/proc/get_mobs_in_view(var/R, var/atom/source, var/include_clientless = FALSE)
 	// Returns a list of mobs in range of R from source. Used in radio and say code.
 
 	var/turf/T = get_turf(source)
@@ -165,7 +165,7 @@
 	for(var/atom/A in range)
 		if(ismob(A))
 			var/mob/M = A
-			if(M.client)
+			if(M.client || include_clientless)
 				hear += M
 			//log_to_dd("Start = [M] - [get_turf(M)] - ([M.x], [M.y], [M.z])")
 		else if(istype(A, /obj/item/device/radio))
@@ -411,6 +411,23 @@
 		if(our_area == get_area_master(C))
 			return 0
 	return 1
+
+
+/proc/GetRedPart(const/hexa)
+	return hex2num(copytext(hexa, 2, 4))
+
+/proc/GetGreenPart(const/hexa)
+	return hex2num(copytext(hexa, 4, 6))
+
+/proc/GetBluePart(const/hexa)
+	return hex2num(copytext(hexa, 6, 8))
+
+/proc/GetHexColors(const/hexa)
+	return list(
+		GetRedPart(hexa),
+		GetGreenPart(hexa),
+		GetBluePart(hexa),
+	)
 
 /proc/MinutesToTicks(var/minutes as num)
 	return minutes * 60 * 10

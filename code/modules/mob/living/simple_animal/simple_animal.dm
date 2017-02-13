@@ -301,6 +301,9 @@
 		var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
 		attack_threshold_check(damage,M.melee_damage_type)
 
+/mob/living/simple_animal/proc/attacked_by(obj/item/I, mob/living/user) // Handled in _onclick/click.dm
+	return
+	
 /mob/living/simple_animal/bullet_act(var/obj/item/projectile/Proj)
 	if(!Proj)
 		return

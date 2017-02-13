@@ -62,6 +62,10 @@
 	points = 1
 	refined_type = /obj/item/stack/sheet/glass
 	materials = list(MAT_GLASS=MINERAL_MATERIAL_AMOUNT)
+	
+/obj/item/weapon/ore/glass/basalt
+	name = "volcanic ash"
+	icon_state = "volcanic_sand"
 
 /obj/item/weapon/ore/glass/attack_self(mob/living/user as mob)
 	to_chat(user, "<span class='notice'>You use the sand to make sandstone.</span>")
