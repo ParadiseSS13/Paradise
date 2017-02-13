@@ -1,0 +1,4 @@
+author: "Crazylemon64"
+delete-after: True
+changes: 
+  - bugfix: "Achieving higher growth rates on kudzu will result in a faster-growing vine when planted"
