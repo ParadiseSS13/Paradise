@@ -360,7 +360,6 @@
 	name = "Industrial Welding Tool"
 	desc = "A slightly larger welder with a larger tank."
 	icon_state = "indwelder"
-	icon_state = "welder"
 	max_fuel = 40
 	materials = list(MAT_METAL=70, MAT_GLASS=60)
 	origin_tech = "engineering=2"
@@ -386,6 +385,7 @@
 	name = "Upgraded Welding Tool"
 	desc = "An upgraded welder based off the industrial welder."
 	icon_state = "upindwelder"
+	item_state = "upindwelder"
 	max_fuel = 80
 	w_class = 3
 	materials = list(MAT_METAL=70, MAT_GLASS=120)
@@ -395,6 +395,7 @@
 	name = "Experimental Welding Tool"
 	desc = "An experimental welder capable of self-fuel generation and less harmful to the eyes."
 	icon_state = "exwelder"
+	item_state = "exwelder"
 	max_fuel = 40
 	w_class = 3
 	materials = list(MAT_METAL=70, MAT_GLASS=120)
