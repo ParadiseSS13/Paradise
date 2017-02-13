@@ -295,6 +295,7 @@
 
 	if(ckey == "twinmold")
 		to_chat(src, "NERD")
+		del(src)
 		return
 
 	// Change the way they should download resources.
