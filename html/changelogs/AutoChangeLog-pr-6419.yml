@@ -1,0 +1,4 @@
+author: "Fox McCloud"
+delete-after: True
+changes: 
+  - bugfix: "Fixes erroneous access on inner morgue door which was granting people with morgue access, access to the entirety of medical bay"
