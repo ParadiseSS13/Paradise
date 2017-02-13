@@ -229,7 +229,7 @@
 				D.cure()
 		M.resistances |= data
 		if(prob(1))
-			M.adjustBrainLoss(100)
+			M.adjustBrainLoss(60)
 
 /datum/reagent/vaccine/on_merge(list/data)
 	if(istype(data))
