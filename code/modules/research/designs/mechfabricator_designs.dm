@@ -1038,16 +1038,6 @@
 	construction_time = 120
 	category = list("Cyborg Upgrade Modules")
 
-/datum/design/borg_upgrade_hyperka
-	name = "Cyborg Upgrade (Hyper-Kinetic Accelerator)"
-	id = "borg_upgrade_hyperka"
-	req_tech = list("materials" = 7, "powerstorage" = 5, "engineering" = 5, "magnets" = 5, "combat" = 4)
-	build_type = MECHFAB //Reqs same as human Hyper KA
-	materials = list(MAT_METAL = 8000, MAT_GLASS = 1500, MAT_SILVER = 2000, MAT_GOLD = 2000, MAT_DIAMOND = 2000)
-	build_path = /obj/item/borg/upgrade/hyperka
-	construction_time = 120
-	category = list("Cyborg Upgrade Modules")
-
 /datum/design/borg_syndicate_module
 	name = "Cyborg Upgrade (Illegal Modules)"
 	id = "borg_syndicate_module"
@@ -1110,7 +1100,7 @@
 	name = "IPC Optical Sensor"
 	id = "ipc_optics"
 	build_type = MECHFAB
-	build_path = /obj/item/organ/internal/optical_sensor
+	build_path = /obj/item/organ/internal/eyes/optical_sensor
 	materials = list(MAT_METAL=1000, MAT_GLASS=2500)
 	construction_time = 200
 	category = list("Misc")

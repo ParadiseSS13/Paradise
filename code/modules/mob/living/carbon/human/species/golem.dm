@@ -40,7 +40,8 @@
 
 	has_organ = list(
 		"brain" = /obj/item/organ/internal/brain/golem
-		)
+		) //Has standard darksight of 2.
+
 	suicide_messages = list(
 		"is crumbling into dust!",
 		"is smashing their body apart!")

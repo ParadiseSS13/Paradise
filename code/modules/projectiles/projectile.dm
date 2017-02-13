@@ -52,7 +52,7 @@
 	var/forcedodge = 0 //to pass through everything
 	var/dismemberment = 0 //The higher the number, the greater the bonus to dismembering. 0 will not dismember at all.
 
-	var/log = 1 //whether print to admin attack logs or just keep it in the diary
+	var/log_override = FALSE //whether print to admin attack logs or just keep it in the diary
 
 /obj/item/projectile/New()
 	permutated = list()
@@ -90,7 +90,8 @@
 		for(var/datum/reagent/R in reagents.reagent_list)
 			reagent_note += R.id + " ("
 			reagent_note += num2text(R.volume) + ") "
-	add_logs(firer, L, "shot", src, reagent_note, print_attack_log = log)
+	if(!log_override && firer && original)
+		add_logs(firer, L, "shot", src, reagent_note)
 	return L.apply_effects(stun, weaken, paralyze, irradiate, slur, stutter, eyeblur, drowsy, blocked, stamina, jitter)
 
 /obj/item/projectile/proc/vol_by_damage()

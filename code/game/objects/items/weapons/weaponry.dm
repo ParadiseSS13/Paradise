@@ -23,18 +23,14 @@
 	slot_flags = SLOT_BELT
 	force = 2
 	throwforce = 1
-	sharp = 1
-	edge = 1
 	w_class = 3
+	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 
-	suicide_act(mob/user)
-		to_chat(viewers(user), "<span class='suicide'>[user] is impaling \himself with the [src.name]! It looks like \he's trying to commit suicide.</span>")
-		return(BRUTELOSS)
-
-/obj/item/weapon/sord/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
-	playsound(loc, 'sound/weapons/bladeslice.ogg', 50, 1, -1)
-	return ..()
+/obj/item/weapon/sord/suicide_act(mob/user)
+	user.visible_message("<span class='suicide'>[user] is trying to impale themself with [src]! It might be a suicide attempt if it weren't so shitty.</span>", \
+	"<span class='suicide'>You try to impale yourself with [src], but it's USELESS...</span>")
+	return SHAME
 
 /obj/item/weapon/claymore
 	name = "claymore"

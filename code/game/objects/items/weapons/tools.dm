@@ -12,47 +12,42 @@
  *		Revolver Conversion Kit
  */
 
-/*
- * Wrench
- */
+//Wrench
 /obj/item/weapon/wrench
 	name = "wrench"
 	desc = "A wrench with common uses. Can be found in your hand."
-	icon = 'icons/obj/items.dmi'
+	icon = 'icons/obj/tools.dmi'
 	icon_state = "wrench"
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
-	force = 5.0
-	throwforce = 7.0
+	force = 5
+	throwforce = 7
 	w_class = 2
 	materials = list(MAT_METAL=150)
 	origin_tech = "materials=1;engineering=1"
 	attack_verb = list("bashed", "battered", "bludgeoned", "whacked")
 
-
-/*
- * Screwdriver
- */
+//Screwdriver
 /obj/item/weapon/screwdriver
 	name = "screwdriver"
 	desc = "You can be totally screwy with this."
-	icon = 'icons/obj/items.dmi'
+	icon = 'icons/obj/tools.dmi'
 	icon_state = "screwdriver"
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
-	force = 5.0
+	force = 5
 	w_class = 1
-	throwforce = 5.0
+	throwforce = 5
 	throw_speed = 3
 	throw_range = 5
 	materials = list(MAT_METAL=75)
 	attack_verb = list("stabbed")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 
-	suicide_act(mob/user)
-		to_chat(viewers(user), pick("<span class='suicide'>[user] is stabbing the [src.name] into \his temple! It looks like \he's trying to commit suicide.</span>", \
-									"<span class='suicide'>[user] is stabbing the [src.name] into \his heart! It looks like \he's trying to commit suicide.</span>"))
-		return(BRUTELOSS)
+/obj/item/weapon/screwdriver/suicide_act(mob/user)
+	to_chat(viewers(user), pick("<span class='suicide'>[user] is stabbing the [name] into \his temple! It looks like \he's trying to commit suicide.</span>", \
+								"<span class='suicide'>[user] is stabbing the [name] into \his heart! It looks like \he's trying to commit suicide.</span>"))
+	return(BRUTELOSS)
 
 /obj/item/weapon/screwdriver/New()
 	switch(pick("red","blue","purple","brown","green","cyan","yellow"))
@@ -82,7 +77,7 @@
 		src.pixel_y = rand(0, 16)
 	return
 
-/obj/item/weapon/screwdriver/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
+/obj/item/weapon/screwdriver/attack(mob/living/carbon/M, mob/living/carbon/user)
 	if(!istype(M) || user.a_intent == I_HELP)
 		return ..()
 	if(user.zone_sel.selecting != "eyes" && user.zone_sel.selecting != "head")
@@ -91,17 +86,15 @@
 		M = user
 	return eyestab(M,user)
 
-/*
- * Wirecutters
- */
+//Wirecutters
 /obj/item/weapon/wirecutters
 	name = "wirecutters"
 	desc = "This cuts wires."
-	icon = 'icons/obj/items.dmi'
+	icon = 'icons/obj/tools.dmi'
 	icon_state = "cutters"
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
-	force = 6.0
+	force = 6
 	throw_speed = 3
 	throw_range = 7
 	w_class = 2
@@ -112,51 +105,40 @@
 	sharp = 1
 	edge = 1
 
-/obj/item/weapon/wirecutters/New(loc, var/param_color = null)
+/obj/item/weapon/wirecutters/New(loc, param_color = null)
 	..()
 	if((!param_color && prob(50)) || param_color == "yellow")
 		icon_state = "cutters-y"
 		item_state = "cutters_yellow"
 
-/obj/item/weapon/wirecutters/attack(mob/living/carbon/human/C as mob, mob/user as mob)
-	if(istype(C) && C.handcuffed)
-		if(istype(C.handcuffed, /obj/item/weapon/restraints/handcuffs/cable))
-			usr.visible_message("\The [usr] cuts \the [C]'s restraints with \the [src]!",\
-			"You cut \the [C]'s restraints with \the [src]!",\
+/obj/item/weapon/wirecutters/attack(mob/living/carbon/human/H, mob/user)
+	if(istype(H) && H.handcuffed)
+		if(istype(H.handcuffed, /obj/item/weapon/restraints/handcuffs/cable))
+			usr.visible_message("\The [usr] cuts \the [H]'s restraints with \the [src]!",\
+			"You cut \the [H]'s restraints with \the [src]!",\
 			"You hear cable being cut.")
-			C.handcuffed = null
-			if(C.buckled && C.buckled.buckle_requires_restraints)
-				C.buckled.unbuckle_mob()
-			C.update_handcuffed()
+			H.handcuffed = null
+			if(H.buckled && H.buckled.buckle_requires_restraints)
+				H.buckled.unbuckle_mob()
+			H.update_handcuffed()
 			return
 	else
 		..()
 
-/*
- * Welding Tool
- */
+//Welding Tool
 /obj/item/weapon/weldingtool
 	name = "welding tool"
-	icon = 'icons/obj/items.dmi'
+	icon = 'icons/obj/tools.dmi'
 	icon_state = "welder"
-	item_state = "welder"
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
-
-	//Amount of OUCH when it's thrown
 	force = 3
 	throwforce = 5
 	throw_speed = 3
 	throw_range = 5
 	w_class = 2
-
-	//Cost to make in the autolathe
 	materials = list(MAT_METAL=70, MAT_GLASS=30)
-
-	//R&D tech level
 	origin_tech = "engineering=1"
-
-	//Welding tool specific stuff
 	var/welding = 0 	//Whether or not the welding tool is off(0), on(1) or currently welding(2)
 	var/status = 1 		//Whether the welder is secured or unsecured (able to attach rods to it to make a flamethrower)
 	var/max_fuel = 20 	//The max amount of fuel the welder can hold
@@ -198,8 +180,8 @@
 	update_torch()
 	return
 
-/obj/item/weapon/weldingtool/attackby(obj/item/I as obj, mob/user as mob, params)
-	if(istype(I, /obj/item/weapon/screwdriver))
+/obj/item/weapon/weldingtool/attackby(obj/item/I, mob/user, params)
+	if(isscrewdriver(I))
 		flamethrower_screwdriver(I, user)
 	if(istype(I, /obj/item/stack/rods))
 		flamethrower_rods(I, user)
@@ -231,7 +213,7 @@
 	if(isturf(location))
 		location.hotspot_expose(700, 5)
 
-/obj/item/weapon/weldingtool/attack(mob/M as mob, mob/user as mob)
+/obj/item/weapon/weldingtool/attack(mob/M, mob/user)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/external/S = H.organs_by_name[user.zone_sel.selecting]
@@ -289,7 +271,7 @@
 	return reagents.get_reagent_amount("fuel")
 
 //Removes fuel from the welding tool. If a mob is passed, it will try to flash the mob's eyes. This should probably be renamed to use()
-/obj/item/weapon/weldingtool/proc/remove_fuel(var/amount = 1, var/mob/living/M = null)
+/obj/item/weapon/weldingtool/proc/remove_fuel(amount = 1, mob/living/M = null)
 	if(!welding || !check_fuel())
 		return 0
 	if(get_fuel() >= amount)
@@ -379,6 +361,7 @@
 	name = "Industrial Welding Tool"
 	desc = "A slightly larger welder with a larger tank."
 	icon_state = "indwelder"
+	icon_state = "welder"
 	max_fuel = 40
 	materials = list(MAT_METAL=70, MAT_GLASS=60)
 	origin_tech = "engineering=2"
@@ -402,9 +385,8 @@
 
 /obj/item/weapon/weldingtool/hugetank
 	name = "Upgraded Welding Tool"
-	desc = "An upgraded welder based of the industrial welder."
+	desc = "An upgraded welder based off the industrial welder."
 	icon_state = "upindwelder"
-	item_state = "upindwelder"
 	max_fuel = 80
 	w_class = 3
 	materials = list(MAT_METAL=70, MAT_GLASS=120)
@@ -414,15 +396,14 @@
 	name = "Experimental Welding Tool"
 	desc = "An experimental welder capable of self-fuel generation and less harmful to the eyes."
 	icon_state = "exwelder"
-	item_state = "exwelder"
 	max_fuel = 40
 	w_class = 3
 	materials = list(MAT_METAL=70, MAT_GLASS=120)
 	origin_tech = "engineering=4;plasmatech=3"
-	var/last_gen = 0
 	change_icons = 0
 	can_off_process = 1
 	light_intensity = 1
+	var/last_gen = 0
 
 /obj/item/weapon/weldingtool/experimental/proc/fuel_gen()
 	if(!welding && !last_gen)
@@ -436,19 +417,16 @@
 	if(reagents.total_volume < max_fuel)
 		fuel_gen()
 
-/*
- * Crowbar
- */
-
+//Crowbar
 /obj/item/weapon/crowbar
 	name = "pocket crowbar"
 	desc = "A small crowbar. This handy tool is useful for lots of things, such as prying floor tiles or opening unpowered doors."
-	icon = 'icons/obj/items.dmi'
+	icon = 'icons/obj/tools.dmi'
 	icon_state = "crowbar"
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
-	force = 5.0
-	throwforce = 7.0
+	force = 5
+	throwforce = 7
 	item_state = "crowbar"
 	w_class = 2
 	materials = list(MAT_METAL=50)
@@ -456,7 +434,6 @@
 	attack_verb = list("attacked", "bashed", "battered", "bludgeoned", "whacked")
 
 /obj/item/weapon/crowbar/red
-	icon = 'icons/obj/items.dmi'
 	icon_state = "red_crowbar"
 	item_state = "crowbar_red"
 
@@ -480,14 +457,14 @@
 	origin_tech = "combat=2"
 	var/open = 0
 
-	New()
-		..()
-		update_icon()
-
+/obj/item/weapon/conversion_kit/New()
+	..()
 	update_icon()
-		icon_state = "[initial(icon_state)]_[open]"
 
-	attack_self(mob/user as mob)
-		open = !open
-		to_chat(user, "\blue You [open?"open" : "close"] the conversion kit.")
-		update_icon()
+/obj/item/weapon/conversion_kit/update_icon()
+	icon_state = "[initial(icon_state)]_[open]"
+
+/obj/item/weapon/conversion_kit/attack_self(mob/user)
+	open = !open
+	to_chat(user, "\blue You [open?"open" : "close"] the conversion kit.")
+	update_icon()

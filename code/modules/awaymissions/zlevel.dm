@@ -14,13 +14,6 @@ var/global/list/potentialRandomZlevels = generateMapList(filename = "config/away
 	log_debug("\tTook [stop_watch(subtimer)]s")
 
 	subtimer = start_watch()
-	log_debug("Initializing lighting")
-	for(var/turf/T in turfs)
-		if(T.dynamic_lighting)
-			T.lighting_build_overlays()
-	log_debug("\tTook [stop_watch(subtimer)]s")
-
-	subtimer = start_watch()
 	log_debug("Smoothing tiles")
 	for(var/turf/T in smoothTurfs)
 		if(T.smooth)

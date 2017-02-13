@@ -135,13 +135,13 @@
 	message = replacetextEx(message,"w","v")
 	message = replacetextEx(message,"J","Y")
 	message = replacetextEx(message,"j","y")
-	message = replacetextEx(message,"A",pick("Å","Ä","Æ","A"))
-	message = replacetextEx(message,"a",pick("å","ä","æ","a"))
+	message = replacetextEx(message,"A",pick("Ã…","Ã„","Ã†","A"))
+	message = replacetextEx(message,"a",pick("Ã¥","Ã¤","Ã¦","a"))
 	message = replacetextEx(message,"BO","BJO")
 	message = replacetextEx(message,"Bo","Bjo")
 	message = replacetextEx(message,"bo","bjo")
-	message = replacetextEx(message,"O",pick("Ö","Ø","O"))
-	message = replacetextEx(message,"o",pick("ö","ø","o"))
+	message = replacetextEx(message,"O",pick("Ã–","Ã˜","O"))
+	message = replacetextEx(message,"o",pick("Ã¶","Ã¸","o"))
 	if(prob(30))
 		message += " Bork[pick("",", bork",", bork, bork")]!"
 	return message
@@ -259,7 +259,7 @@
 
 	action_icon_state = "genetic_incendiary"
 
-/obj/effect/proc_holder/spell/targeted/immolate/cast(list/targets,mob/living/user = usr)
+/obj/effect/proc_holder/spell/targeted/immolate/cast(list/targets, mob/living/user = usr)
 	var/mob/living/carbon/L = user
 	L.adjust_fire_stacks(0.5)
 	L.visible_message("<span class='danger'>[L.name]</b> suddenly bursts into flames!</span>")

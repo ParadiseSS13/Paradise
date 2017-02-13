@@ -41,7 +41,7 @@
 		"is twisting their skull off!")
 	has_organ = list(
 		"brain" = /obj/item/organ/internal/brain/golem,
-	)
+	) //Has default darksight of 2.
 
 /datum/species/skeleton/handle_reagents(var/mob/living/carbon/human/H, var/datum/reagent/R)
 	// Crazylemon is still silly
