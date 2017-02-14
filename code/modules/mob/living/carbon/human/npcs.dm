@@ -11,9 +11,3 @@
 		name = "Pun Pun"
 		real_name = name
 		equip_to_slot(new /obj/item/clothing/under/punpun(src), slot_w_uniform)
-
-//For Cult mode...God..dammit...tiger...
-/mob/living/carbon/human/manifested
-	name = "Tormented Soul"
-	alpha = 150 //Makes them translucent
-	color = "grey" //heh..cult greytide...litterly...
