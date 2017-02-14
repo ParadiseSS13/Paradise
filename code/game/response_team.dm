@@ -5,6 +5,9 @@
 #define ERT_TYPE_RED		2
 #define ERT_TYPE_GAMMA		3
 
+/datum/game_mode
+	var/list/datum/mind/ert = list()
+
 var/list/response_team_members = list()
 var/responseteam_age = 21 // Minimum account age to play as an ERT member
 var/datum/response_team/active_team = null
@@ -187,6 +190,7 @@ var/ert_request_answered = 0
 	M.mind.special_role = SPECIAL_ROLE_ERT
 	if(!(M.mind in ticker.minds))
 		ticker.minds += M.mind //Adds them to regular mind list.
+	ticker.mode.ert += M.mind
 	M.forceMove(spawn_location)
 
 	active_team.equip_officer(class, M)
