@@ -1,5 +1,0 @@
-author: "Developed by Cyberboss, ported by Markolie"
-delete-after: True
-changes: 
-  - tweak: "Progress bars will now stack vertically."
-  - bugfix: "Progress bars will no longer be affected by lighting."

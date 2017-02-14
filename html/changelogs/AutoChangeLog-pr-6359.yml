@@ -1,6 +1,0 @@
-author: "Fox McCloud"
-delete-after: True
-changes: 
-  - tweak: "Xenobiology console should be more responsive when using/exiting using it"
-  - tweak: "Xenobiology console can now be loaded with a bag"
-  - bugfix: "Using monkey cubes on the Xenobiology console no longer makes you attempt to utilize the console"
