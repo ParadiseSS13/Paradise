@@ -1,0 +1,5 @@
+author: "Markolie"
+delete-after: True
+changes: 
+  - bugfix: "The kinetic accelerator sprite modkits now apply properly when the kinetic accelerator is empty."
+  - bugfix: "Welding tools now once again have a proper in-hand when turned on."
