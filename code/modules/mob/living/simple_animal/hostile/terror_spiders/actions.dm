@@ -124,9 +124,11 @@
 	if(istype(mover, /obj/item/projectile/terrorqueenspit))
 		return 1
 	if(isliving(mover))
+		var/mob/living/M = mover
+		if(M.stat == DEAD)
+			return 1
 		if(prob(80))
 			to_chat(mover, "<span class='danger'>You get stuck in [src] for a moment.</span>")
-			var/mob/living/M = mover
 			M.Stun(4) // 8 seconds.
 			M.Weaken(4) // 8 seconds.
 			DeCloakNearby()

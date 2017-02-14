@@ -157,11 +157,11 @@ var/global/list/ts_spiderling_list = list()
 			enemies -= target
 		var/mob/living/simple_animal/hostile/poison/terror_spider/T = target
 		if(T.spider_tier > spider_tier)
-			visible_message("<span class='notice'>[src] bows in respect for the terrifying presence of [target].</span>")
+			visible_message("<span class='notice'>[src] cowers before [target].</span>")
 		else if(T.spider_tier == spider_tier)
 			visible_message("<span class='notice'>[src] nuzzles [target].</span>")
 		else if(T.spider_tier < spider_tier && spider_tier >= 4)
-			visible_message("<span class='notice'>[src] gives [target] a stern look.</span>")
+			target.attack_animal(src)
 		else
 			visible_message("<span class='notice'>[src] harmlessly nuzzles [target].</span>")
 		T.CheckFaction()

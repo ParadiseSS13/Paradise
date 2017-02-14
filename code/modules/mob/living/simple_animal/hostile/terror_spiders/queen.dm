@@ -335,5 +335,5 @@
 		if(L.reagents)
 			if(L.can_inject(null, 0, "chest", 0))
 				L.reagents.add_reagent("terror_queen_toxin", 15)
-		if(!istype(L, /mob/living/simple_animal/hostile/poison/terror_spider))
+		if(!isterrorspider(L))
 			L.adjustToxLoss(30)
