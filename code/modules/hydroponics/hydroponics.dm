@@ -1,4 +1,4 @@
-#define HYDRO_CYCLES_PER_AGE	3	//Adjust this to adjust how many hydroponics cycles it takes to increase age. Positive integers only.
+#define HYDRO_CYCLES_PER_AGE	2	//Adjust this to adjust how many hydroponics cycles it takes to increase age. Positive integers only.
 
 /obj/machinery/hydroponics
 	name = "hydroponics tray"
