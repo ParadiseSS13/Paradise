@@ -114,7 +114,7 @@
 
 /obj/effect/spider/terrorweb/proc/DeCloakNearby()
 	for(var/mob/living/simple_animal/hostile/poison/terror_spider/gray/G in view(6,src))
-		if(G.stat != DEAD)
+		if(!G.ckey && G.stat != DEAD)
 			G.GrayDeCloak()
 			G.Aggro()
 

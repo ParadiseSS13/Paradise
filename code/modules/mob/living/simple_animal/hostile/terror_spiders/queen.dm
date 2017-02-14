@@ -130,18 +130,18 @@
 					visible_message("<span class='danger'>\The [src] looks around, searching for the vent that should be there, but isn't. A bluespace portal forms on her, and she is gone.</span>")
 					qdel(src)
 					new /obj/effect/portal(get_turf(loc))
-			else if(1)
+			if(1)
 				if(world.time > (lastnestsetup + nestfrequency))
 					lastnestsetup = world.time
-					NestMode()
 					neststep = 2
-			else if(2)
+					NestMode()
+			if(2)
 				if(world.time > (lastnestsetup + nestfrequency))
 					lastnestsetup = world.time
 					spider_lastspawn = world.time
 					DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/purple, 2, 0)
 					neststep = 3
-			else if(3)
+			if(3)
 				if(world.time > (spider_lastspawn + spider_spawnfrequency))
 					if(prob(20))
 						var/obj/effect/spider/eggcluster/terror_eggcluster/N = locate() in get_turf(src)
@@ -149,7 +149,7 @@
 							spider_lastspawn = world.time
 							DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/green, 2, 0)
 							neststep = 4
-			else if(4)
+			if(4)
 				if(world.time > (spider_lastspawn + spider_spawnfrequency))
 					if(prob(20))
 						var/obj/effect/spider/eggcluster/terror_eggcluster/N = locate() in get_turf(src)
@@ -159,7 +159,7 @@
 							spider_lastspawn = world.time
 							DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/red, 2, 1)
 							neststep = 5
-			else if(5)
+			if(5)
 				if(world.time > (spider_lastspawn + spider_spawnfrequency))
 					if(prob(20))
 						var/obj/effect/spider/eggcluster/terror_eggcluster/N = locate() in get_turf(src)
@@ -176,7 +176,7 @@
 					var/spidercount = CountSpiders()
 					if(spidercount >= spider_max_per_nest) // station overwhelmed!
 						neststep = 6
-			else if(6)
+			if(6)
 				if(world.time > (spider_lastspawn + spider_spawnfrequency))
 					spider_lastspawn = world.time
 					// go hostile, EXTERMINATE MODE.
@@ -193,7 +193,7 @@
 						neststep = 7
 						spider_spawnfrequency = spider_spawnfrequency_stable
 						// if we're an away mission queen... don't keep spawning spiders at high rates. Away team should have a chance.
-			else if(7)
+			if(7)
 				if(world.time > (spider_lastspawn + spider_spawnfrequency))
 					spider_lastspawn = world.time
 					var/numspiders = CountSpiders()
