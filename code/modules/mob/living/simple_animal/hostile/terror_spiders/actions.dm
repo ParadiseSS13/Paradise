@@ -112,6 +112,12 @@
 	if(prob(50))
 		icon_state = "stickyweb2"
 
+/obj/effect/spider/terrorweb/proc/DeCloakNearby()
+	for(var/mob/living/simple_animal/hostile/poison/terror_spider/gray/G in view(6,src))
+		if(G.stat != DEAD)
+			G.GrayDeCloak()
+			G.Aggro()
+
 /obj/effect/spider/terrorweb/CanPass(atom/movable/mover, turf/target)
 	if(istype(mover, /mob/living/simple_animal/hostile/poison/terror_spider))
 		return 1
@@ -123,6 +129,7 @@
 			var/mob/living/M = mover
 			M.Stun(4) // 8 seconds.
 			M.Weaken(4) // 8 seconds.
+			DeCloakNearby()
 			if(iscarbon(mover))
 				spawn(70)
 					qdel(src)
