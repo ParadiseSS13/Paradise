@@ -111,6 +111,12 @@
 	M.adjustToxLoss(1)
 	..()
 
+/datum/reagent/consumable/applejuice
+	name = "Apple Juice"
+	id = "applejuice"
+	description = "The sweet juice of an apple, fit for all ages."
+	color = "#ECFF56" // rgb: 236, 255, 86
+
 /datum/reagent/consumable/drink/watermelonjuice
 	name = "Watermelon Juice"
 	id = "watermelonjuice"
@@ -362,3 +368,81 @@
 		M.adjustBruteLoss(-1)
 		M.adjustFireLoss(-1)
 	..()
+
+/datum/reagent/consumable/drink/chocolatepudding
+	name = "Chocolate Pudding"
+	id = "chocolatepudding"
+	description = "A great dessert for chocolate lovers."
+	color = "#800000"
+	nutriment_factor = 4 * REAGENTS_METABOLISM
+	drink_icon = "chocolatepudding"
+	drink_name = "Chocolate Pudding"
+	drink_desc = "Tasty"
+
+/datum/reagent/consumable/drink/vanillapudding
+	name = "Vanilla Pudding"
+	id = "vanillapudding"
+	description = "A great dessert for vanilla lovers."
+	color = "#FAFAD2"
+	nutriment_factor = 4 * REAGENTS_METABOLISM
+	drink_icon = "vanillapudding"
+	drink_name = "Vanilla Pudding"
+	drink_desc = "Tasty."
+
+/datum/reagent/consumable/drink/cherryshake
+	name = "Cherry Shake"
+	id = "cherryshake"
+	description = "A cherry flavored milkshake."
+	color = "#FFB6C1"
+	nutriment_factor = 4 * REAGENTS_METABOLISM
+	drink_icon = "cherryshake"
+	drink_name = "Cherry Shake"
+	drink_desc = "A cherry flavored milkshake."
+
+/datum/reagent/consumable/drink/bluecherryshake
+	name = "Blue Cherry Shake"
+	id = "bluecherryshake"
+	description = "An exotic milkshake."
+	color = "#00F1FF"
+	nutriment_factor = 4 * REAGENTS_METABOLISM
+	drink_icon = "bluecherryshake"
+	drink_name = "Blue Cherry Shake"
+	drink_desc = "An exotic blue milkshake."
+
+/datum/reagent/consumable/drink/pumpkin_latte
+	name = "Pumpkin Latte"
+	id = "pumpkin_latte"
+	description = "A mix of pumpkin juice and coffee."
+	color = "#F4A460"
+	nutriment_factor = 3 * REAGENTS_METABOLISM
+	drink_icon = "pumpkin_latte"
+	drink_name = "Pumpkin Latte"
+	drink_desc = "A mix of coffee and pumpkin juice."
+
+/datum/reagent/consumable/drink/gibbfloats
+	name = "Gibb Floats"
+	id = "gibbfloats"
+	description = "Ice cream on top of a Dr. Gibb glass."
+	color = "#B22222"
+	nutriment_factor = 3 * REAGENTS_METABOLISM
+	drink_icon= "gibbfloats"
+	drink_name = "Gibbfloat"
+	drink_desc = "Dr. Gibb with ice cream on top."
+
+/datum/reagent/consumable/drink/pumpkinjuice
+	name = "Pumpkin Juice"
+	id = "pumpkinjuice"
+	description = "Juiced from real pumpkin."
+	color = "#FFA500"
+
+/datum/reagent/consumable/drink/blumpkinjuice
+	name = "Blumpkin Juice"
+	id = "blumpkinjuice"
+	description = "Juiced from real blumpkin."
+	color = "#00BFFF"
+
+/datum/reagent/consumable/drink/grape_soda
+	name = "Grape soda"
+	id = "grapesoda"
+	description = "Beloved of children and teetotalers."
+	color = "#E6CDFF"

@@ -143,7 +143,7 @@
 	target_types += /obj/effect/decal/cleanable/blood/gibs/robot
 	target_types += /obj/effect/decal/cleanable/crayon
 	target_types += /obj/effect/decal/cleanable/liquid_fuel
-	target_types += /obj/effect/decal/cleanable/molten_item
+	target_types += /obj/effect/decal/cleanable/molten_object
 	target_types += /obj/effect/decal/cleanable/tomato_smudge
 	target_types += /obj/effect/decal/cleanable/egg_smudge
 	target_types += /obj/effect/decal/cleanable/pie_smudge

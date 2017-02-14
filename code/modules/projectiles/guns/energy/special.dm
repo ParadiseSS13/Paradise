@@ -84,141 +84,6 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/mindflayer)
 	ammo_x_offset = 2
 
-/obj/item/weapon/gun/energy/kinetic_accelerator
-	name = "proto-kinetic accelerator"
-	desc = "In the year 2544, only a year after the discovery of a potentially \
-		world-changing substance, now colloquially referred to as plasma, the \
-		Nanotrasen-UEG mining conglomerate introduced a prototype of a gun-like \
-		device intended for quick, effective mining of plasma in the low \
-		pressures of the solar system. Included in this presentation were \
-		demonstrations of the gun being fired at collections of rocks contained \
-		in vacuumed environments, obliterating them instantly while maintaining \
-		the structure of the ores buried within them. Additionally, volunteers \
-		were called from the crowd to have the gun used on them, only proving that \
-		the gun caused little harm to objects in standard pressure. \n\
-		An official from an unnamed, now long dissipated company observed this \
-		presentation and offered to share their self-recharger cells, powered \
-		by the user's bioelectrical field, another new and unknown technology. \
-		They warned that the cells were incredibly experimental and several times \
-		had injured workers, but the scientists as Nanotrasen were unable to resist \
-		the money-saving potential of self recharging cells. Upon accepting this \
-		offer, it took only a matter of days to prove the volatility of these cells, \
-		as they exploded left and right whenever inserted into the prototype devices, \
-		only throwing more money in the bin. \n\
-		Whenever the Nanotrasen scientists were on the edge of giving up, a \
-		breakthrough was made by head researcher Miles Parks McCollum, who \
-		demonstrated that the cells could be stabilized when exposed to radium \
-		then cooled with cryostylane. After this discovery, the low pressure gun, \
-		now named the Kinetic Accelerator, was hastily completed and made compatible \
-		with the self-recharging cells. As a result of poor testing, the currently \
-		used guns lose their charge when not in use, and when two Kinetic Accelerators \
-		come in proximity of one another, they will interfere with each other. Despite \
-		this, the shoddy guns still see use in the mining of plasma to this day."
-	icon_state = "kineticgun"
-	item_state = "kineticgun"
-	ammo_type = list(/obj/item/ammo_casing/energy/kinetic)
-	cell_type = /obj/item/weapon/stock_parts/cell/emproof
-	// Apparently these are safe to carry? I'm sure goliaths would disagree.
-	needs_permit = 0
-	unique_rename = 1
-	origin_tech = "combat=3;powerstorage=3;engineering=3"
-	weapon_weight = WEAPON_LIGHT
-	can_flashlight = 1
-	flight_x_offset = 15
-	flight_y_offset = 9
-	var/overheat_time = 16
-	var/holds_charge = FALSE
-	var/unique_frequency = FALSE // modified by KA modkits
-	var/overheat = FALSE
-
-/obj/item/weapon/gun/energy/kinetic_accelerator/super
-	name = "super-kinetic accelerator"
-	desc = "An upgraded, superior version of the proto-kinetic accelerator."
-	icon_state = "kineticgun_u"
-	ammo_type = list(/obj/item/ammo_casing/energy/kinetic/super)
-	overheat_time = 15
-	origin_tech = "combat=3;powerstorage=2"
-
-/obj/item/weapon/gun/energy/kinetic_accelerator/hyper
-	name = "hyper-kinetic accelerator"
-	desc = "An upgraded, even more superior version of the proto-kinetic accelerator."
-	icon_state = "kineticgun_h"
-	ammo_type = list(/obj/item/ammo_casing/energy/kinetic/hyper)
-	overheat_time = 14
-	origin_tech = "combat=4;powerstorage=3"
-
-/obj/item/weapon/gun/energy/kinetic_accelerator/cyborg
-	holds_charge = TRUE
-	unique_frequency = TRUE
-
-/obj/item/weapon/gun/energy/kinetic_accelerator/hyper/cyborg
-	holds_charge = TRUE
-	unique_frequency = TRUE
-
-/obj/item/weapon/gun/energy/kinetic_accelerator/New()
-	. = ..()
-	if(!holds_charge)
-		empty()
-
-/obj/item/weapon/gun/energy/kinetic_accelerator/shoot_live_shot()
-	. = ..()
-	attempt_reload()
-
-/obj/item/weapon/gun/energy/kinetic_accelerator/equipped(mob/user)
-	. = ..()
-	if(!can_shoot())
-		attempt_reload()
-
-/obj/item/weapon/gun/energy/kinetic_accelerator/dropped()
-	. = ..()
-	if(!holds_charge)
-		// Put it on a delay because moving item from slot to hand
-		// calls dropped().
-		spawn(1)
-			if(!ismob(loc))
-				empty()
-
-/obj/item/weapon/gun/energy/kinetic_accelerator/proc/empty()
-	power_supply.use(5000)
-	update_icon()
-
-/obj/item/weapon/gun/energy/kinetic_accelerator/proc/attempt_reload()
-	if(overheat)
-		return
-	overheat = TRUE
-
-	var/carried = 0
-	if(!unique_frequency)
-		for(var/obj/item/weapon/gun/energy/kinetic_accelerator/K in \
-			loc.GetAllContents())
-
-			carried++
-
-		carried = max(carried, 1)
-	else
-		carried = 1
-
-	spawn(overheat_time * carried)
-		reload()
-		overheat = FALSE
-
-/obj/item/weapon/gun/energy/kinetic_accelerator/emp_act(severity)
-	return
-
-/obj/item/weapon/gun/energy/kinetic_accelerator/proc/reload()
-	power_supply.give(5000)
-	if(!suppressed)
-		playsound(loc, 'sound/weapons/kenetic_reload.ogg', 60, 1)
-	else if(ismob(loc))
-		to_chat(loc, "<span class='warning'>[src] silently charges up.<span>")
-	update_icon()
-
-/obj/item/weapon/gun/energy/kinetic_accelerator/update_icon()
-	if(!can_shoot())
-		icon_state = "[initial(icon_state)]_empty"
-	else
-		icon_state = initial(icon_state)
-
 /obj/item/weapon/gun/energy/kinetic_accelerator/crossbow
 	name = "mini energy crossbow"
 	desc = "A weapon favored by syndicate stealth specialists."
@@ -234,6 +99,9 @@
 	overheat_time = 20
 	holds_charge = TRUE
 	unique_frequency = TRUE
+	can_flashlight = 0
+	max_mod_capacity = 0
+	empty_state = null
 
 /obj/item/weapon/gun/energy/kinetic_accelerator/crossbow/ninja
 	name = "energy dart thrower"

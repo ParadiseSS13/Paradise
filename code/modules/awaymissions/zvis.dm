@@ -1,7 +1,7 @@
 /area/awaymission/upperlevel
 	name = "Open Space"
 	color = "#888"
-	lighting_use_dynamic = 0
+	dynamic_lighting = 0
 	requires_power = 0
 
 // Used by /turf/unsimulated/floor/upperlevel as a reference for where the other floor is

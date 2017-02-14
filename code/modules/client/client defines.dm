@@ -93,3 +93,5 @@
 
 	// Donator stuff.
 	var/donator_level = DONATOR_LEVEL_NONE
+
+	var/var_edited = FALSE

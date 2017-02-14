@@ -60,7 +60,7 @@
 				switch(href_list["school"])
 					if("destruction")
 						M.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/projectile/magic_missile(null))
-						M.mind.AddSpell(new /obj/effect/proc_holder/spell/dumbfire/fireball(null))
+						M.mind.AddSpell(new /obj/effect/proc_holder/spell/fireball(null))
 						to_chat(M, "<B>Your service has not gone unrewarded, however. Studying under [H.real_name], you have learned powerful, destructive spells. You are able to cast magic missile and fireball.")
 					if("bluespace")
 						M.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/area_teleport/teleport(null))
@@ -786,6 +786,7 @@ var/global/list/multiverse = list()
 			GiveHint(target)
 		cooldown = world.time +cooldown_time
 		return
+
 	if(!link)
 		if(I.loc == user && istype(I) && I.w_class <= 2)
 			user.drop_item()
@@ -794,13 +795,17 @@ var/global/list/multiverse = list()
 			to_chat(user, "You attach [I] to the doll.")
 			update_targets()
 	..()
+
 /obj/item/voodoo/check_eye(mob/user as mob)
-	return src.loc == user
+	if(loc != user)
+		user.reset_perspective(null)
+		user.unset_machine()
 
 /obj/item/voodoo/attack_self(mob/user as mob)
 	if(!target && possible.len)
 		target = input(user, "Select your victim!", "Voodoo") as null|anything in possible
 		return
+
 	if(user.zone_sel.selecting == "chest")
 		if(link)
 			target = null
@@ -809,6 +814,7 @@ var/global/list/multiverse = list()
 			link = null
 			update_targets()
 			return
+
 	if(target && cooldown < world.time)
 		switch(user.zone_sel.selecting)
 			if("mouth")

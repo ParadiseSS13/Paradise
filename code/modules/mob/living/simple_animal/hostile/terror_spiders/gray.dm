@@ -18,10 +18,8 @@
 	health = 120
 	melee_damage_lower = 10
 	melee_damage_upper = 20
-	ventcrawler = 1
 	move_to_delay = 5 // normal speed
 	stat_attack = 1 // ensures they will target people in crit, too!
-	environment_smash = 1
 
 
 /mob/living/simple_animal/hostile/poison/terror_spider/gray/spider_specialattack(mob/living/carbon/human/L, poisonable)

@@ -46,7 +46,7 @@
 					acceptable_items |= item
 				for(var/reagent in recipe.reagents)
 					acceptable_reagents |= reagent
-				if(recipe.items || recipe.fruit)
+				if(recipe.items)
 					max_n_of_items = max(max_n_of_items,recipe.count_n_items())
 			else
 				qdel(recipe)

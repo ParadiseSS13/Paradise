@@ -133,6 +133,7 @@
 	if(holder && !C.holder)
 		recieve_message = "<span class='[recieve_span]' size='3'>-- Click the [recieve_pm_type]'s name to reply --</span>\n"
 		if(C.adminhelped)
+			window_flash(C)
 			to_chat(C, recieve_message)
 			C.adminhelped = 0
 

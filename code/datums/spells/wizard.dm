@@ -25,9 +25,12 @@
 	proj_trail_icon_state = "magicmd"
 
 	action_icon_state = "magicm"
+	
+	sound = 'sound/magic/MAGIC_MISSILE.ogg'
 
 /obj/effect/proc_holder/spell/targeted/inflict_handler/magic_missile
 	amt_weakened = 3
+	sound = 'sound/magic/MM_Hit.ogg'
 
 /obj/effect/proc_holder/spell/noclothes
 	name = "No Clothes"
@@ -52,8 +55,9 @@
 	cooldown_min = 300 //25 deciseconds reduction per rank
 
 	action_icon_state = "mutate"
+	sound = 'sound/magic/Mutate.ogg'
 
-/obj/effect/proc_holder/spell/targeted/genetic/mutate/cast(list/targets)
+/obj/effect/proc_holder/spell/targeted/genetic/mutate/cast(list/targets, mob/user = usr)
 	for(var/mob/living/target in targets)
 		target.dna.SetSEState(HULKBLOCK, 1)
 		genemutcheck(target, HULKBLOCK, null, MUTCHK_FORCED)
@@ -93,6 +97,8 @@
 
 	emp_heavy = 6
 	emp_light = 10
+	
+	sound = 'sound/magic/Disable_Tech.ogg'
 
 /obj/effect/proc_holder/spell/targeted/turf_teleport/blink
 	name = "Blink"
@@ -117,6 +123,9 @@
 	centcom_cancast = 0 //prevent people from getting to centcom
 
 	action_icon_state = "blink"
+	
+	sound1 = 'sound/magic/blink.ogg'
+	sound2 = 'sound/magic/blink.ogg'
 
 /obj/effect/proc_holder/spell/targeted/area_teleport/teleport
 	name = "Teleport"
@@ -135,6 +144,9 @@
 	smoke_amt = 5
 
 	action_icon_state = "spell_teleport"
+	
+	sound1 = 'sound/magic/Teleport_diss.ogg'
+	sound2 = 'sound/magic/Teleport_app.ogg'
 
 /obj/effect/proc_holder/spell/aoe_turf/conjure/forcewall
 	name = "Forcewall"
@@ -152,6 +164,7 @@
 	summon_lifespan = 300
 
 	action_icon_state = "shield"
+	cast_sound = 'sound/magic/ForceWall.ogg'
 
 /obj/effect/proc_holder/spell/aoe_turf/conjure/timestop
 	name = "Stop Time"
@@ -180,7 +193,8 @@
 
 	summon_type = list(/mob/living/simple_animal/hostile/carp)
 
-
+	cast_sound = 'sound/magic/Summon_Karp.ogg'
+	
 /obj/effect/proc_holder/spell/aoe_turf/conjure/construct
 	name = "Artificer"
 	desc = "This spell conjures a construct which may be controlled by Shades"
@@ -195,6 +209,7 @@
 	summon_type = list(/obj/structure/constructshell)
 
 	action_icon_state = "artificer"
+	cast_sound = 'sound/magic/SummonItems_generic.ogg'
 
 /obj/effect/proc_holder/spell/aoe_turf/conjure/creature
 	name = "Summon Creature Swarm"
@@ -209,6 +224,7 @@
 	range = 3
 
 	summon_type = list(/mob/living/simple_animal/hostile/creature)
+	cast_sound = 'sound/magic/SummonItems_generic.ogg'
 
 /obj/effect/proc_holder/spell/targeted/trigger/blind
 	name = "Blind"
@@ -229,12 +245,14 @@
 /obj/effect/proc_holder/spell/targeted/inflict_handler/blind
 	amt_eye_blind = 10
 	amt_eye_blurry = 20
+	sound = 'sound/magic/Blind.ogg'
 
 /obj/effect/proc_holder/spell/targeted/genetic/blind
 	disabilities = BLIND
 	duration = 300
+	sound = 'sound/magic/Blind.ogg'
 
-/obj/effect/proc_holder/spell/dumbfire/fireball
+/obj/effect/proc_holder/spell/fireball
 	name = "Fireball"
 	desc = "This spell fires a fireball at a target and does not require wizard garb."
 
@@ -245,29 +263,65 @@
 	invocation_type = "shout"
 	range = 20
 	cooldown_min = 20 //10 deciseconds reduction per rank
+	var/fireball_type = /obj/item/projectile/magic/fireball
+	action_icon_state = "fireball0"
+	sound = 'sound/magic/Fireball.ogg'
 
-	proj_icon_state = "fireball"
-	proj_name = "a fireball"
-	proj_type = "/obj/effect/proc_holder/spell/turf/fireball"
+	active = FALSE
 
-	proj_lifespan = 200
-	proj_step_delay = 1
+/obj/effect/proc_holder/spell/fireball/Click()
+	var/mob/living/user = usr
+	if(!istype(user))
+		return
 
-	action_icon_state = "fireball"
+	var/msg
 
-/obj/effect/proc_holder/spell/turf/fireball/cast(var/turf/T)
-	explosion(T, -1, 0, 2, 3, 0, flame_range = 2)
+	if(!can_cast(user))
+		msg = "<span class='warning'>You can no longer cast Fireball.</span>"
+		remove_ranged_ability(user, msg)
+		return
 
+	if(active)
+		msg = "<span class='notice'>You extinguish your fireball...for now.</span>"
+		remove_ranged_ability(user, msg)
+	else
+		msg = "<span class='notice'>Your prepare to cast your fireball spell! <B>Left-click to cast at a target!</B></span>"
+		add_ranged_ability(user, msg)
 
-/obj/effect/proc_holder/spell/targeted/inflict_handler/fireball
-	amt_dam_brute = 20
-	amt_dam_fire = 25
+/obj/effect/proc_holder/spell/fireball/update_icon()
+	if(!action)
+		return
+	action.button_icon_state = "fireball[active]"
+	action.UpdateButtonIcon()
 
-/obj/effect/proc_holder/spell/targeted/explosion/fireball
-	ex_severe = -1
-	ex_heavy = -1
-	ex_light = 2
-	ex_flash = 5
+/obj/effect/proc_holder/spell/fireball/InterceptClickOn(mob/living/user, params, atom/target)
+	if(..())
+		return FALSE
+
+	if(!cast_check(0, user))
+		remove_ranged_ability(user)
+		return FALSE
+
+	var/list/targets = list(target)
+	perform(targets, user = user)
+
+	return TRUE
+
+/obj/effect/proc_holder/spell/fireball/cast(list/targets, mob/living/user = usr)
+	var/target = targets[1] //There is only ever one target for fireball
+	var/turf/T = user.loc
+	var/turf/U = get_step(user, user.dir) // Get the tile infront of the move, based on their direction
+	if(!isturf(U) || !isturf(T))
+		return 0
+
+	var/obj/item/projectile/magic/fireball/FB = new fireball_type(user.loc)
+	FB.current = get_turf(user)
+	FB.preparePixelProjectile(target, get_turf(target), user)
+	FB.fire()
+	user.newtonian_move(get_dir(U, T))
+	remove_ranged_ability(user)
+
+	return 1
 
 /obj/effect/proc_holder/spell/aoe_turf/repulse
 	name = "Repulse"
@@ -282,12 +336,13 @@
 	var/maxthrow = 5
 
 	action_icon_state = "repulse"
+	sound = 'sound/magic/Repulse.ogg'
 
-/obj/effect/proc_holder/spell/aoe_turf/repulse/cast(list/targets)
-	var/mob/user = usr
+/obj/effect/proc_holder/spell/aoe_turf/repulse/cast(list/targets, mob/user = usr)
 	var/list/thrownatoms = list()
 	var/atom/throwtarget
 	var/distfromcaster
+	playMagSound()
 	for(var/turf/T in targets) //Done this way so things don't get thrown all around hilariously.
 		for(var/atom/movable/AM in T)
 			thrownatoms += AM
@@ -314,3 +369,24 @@
 				M.Weaken(2)
 				to_chat(M, "<span class='userdanger'>You're thrown back by a mystical force!</span>")
 			spawn(0) AM.throw_at(throwtarget, ((Clamp((maxthrow - (Clamp(distfromcaster - 2, 0, distfromcaster))), 3, maxthrow))), 1)//So stuff gets tossed around at the same time.
+
+/obj/effect/proc_holder/spell/targeted/sacred_flame
+	name = "Sacred Flame"
+	desc = "Makes everyone around you more flammable, and lights yourself on fire."
+	charge_max = 60
+	clothes_req = 0
+	invocation = "FI'RAN DADISKO"
+	invocation_type = "shout"
+	max_targets = 0
+	range = 6
+	include_user = 1
+	selection_type = "view"
+	action_icon_state = "sacredflame"
+	sound = 'sound/magic/Fireball.ogg'
+
+/obj/effect/proc_holder/spell/targeted/sacred_flame/cast(list/targets, mob/user = usr)
+	for(var/mob/living/L in targets)
+		L.adjust_fire_stacks(20)
+	if(isliving(user))
+		var/mob/living/U = user
+		U.IgniteMob()

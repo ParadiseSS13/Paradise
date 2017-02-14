@@ -166,12 +166,36 @@
 		shuttle_master.emergencyLastCallLoc = null
 	emergency_shuttle_recalled.Announce("The emergency shuttle has been recalled.[shuttle_master.emergencyLastCallLoc ? " Recall signal traced. Results can be viewed on any communications console." : "" ]")
 
-/*
-/obj/docking_port/mobile/emergency/findTransitDock()
-	. = shuttle_master.getDock("emergency_transit")
-	if(.)	return .
-	return ..()
-*/
+/obj/docking_port/mobile/emergency/proc/is_hijacked()
+	for(var/mob/living/player in player_list)
+		if(player.mind)
+			if(player.stat != DEAD)
+				if(issilicon(player)) //Borgs are technically dead anyways
+					continue
+				if(isanimal(player)) //Poly does not own the shuttle
+					continue
+
+				var/special_role = player.mind.special_role
+				if(special_role)
+					if(special_role == SPECIAL_ROLE_TRAITOR) // traitors can hijack the shuttle
+						continue
+
+					if(special_role == SPECIAL_ROLE_CHANGELING) // changelings as well
+						continue
+
+					if(special_role == SPECIAL_ROLE_VAMPIRE || special_role == SPECIAL_ROLE_VAMPIRE_THRALL) // for traitorvamp
+						continue
+
+					if(special_role == SPECIAL_ROLE_NUKEOPS) // so can nukeops, for the hell of it
+						continue
+
+					if(special_role == SPECIAL_ROLE_SYNDICATE_DEATHSQUAD) // and the syndie deathsquad i guess
+						continue
+
+				if(get_area(player) == areaInstance)
+					return FALSE
+
+	return TRUE
 
 
 /obj/docking_port/mobile/emergency/check()
@@ -232,10 +256,19 @@
 				//move each escape pod to its corresponding escape dock
 				for(var/obj/docking_port/mobile/pod/M in shuttle_master.mobile)
 					M.dock(shuttle_master.getDock("[M.id]_away"))
-				//now move the actual emergency shuttle to centcomm
+
 				for(var/area/shuttle/escape/E in world)
 					E << 'sound/effects/hyperspace_end.ogg'
-				dock(shuttle_master.getDock("emergency_away"))
+
+				// now move the actual emergency shuttle to centcomm
+				// unless the shuttle is "hijacked"
+				var/destination_dock = "emergency_away"
+				if(is_hijacked())
+					destination_dock = "emergency_syndicate"
+					priority_announcement.Announce("Corruption detected in shuttle navigation protocols. Please contact your supervisor.")
+
+				dock_id(destination_dock)
+
 				mode = SHUTTLE_ENDGAME
 				timer = 0
 				open_dock()
