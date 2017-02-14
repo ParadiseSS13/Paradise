@@ -32,13 +32,7 @@
 /atom/movable/Destroy()
 	for(var/atom/movable/AM in contents)
 		qdel(AM)
-	var/turf/un_opaque
-	if(opacity && isturf(loc))
-		un_opaque = loc
-
 	loc = null
-	if(un_opaque)
-		un_opaque.recalc_atom_opacity()
 	if(pulledby)
 		if(pulledby.pulling == src)
 			pulledby.pulling = null
