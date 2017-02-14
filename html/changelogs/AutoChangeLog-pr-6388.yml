@@ -1,0 +1,4 @@
+author: "DrunkDwarf"
+delete-after: True
+changes: 
+  - rscadd: "Adds a section to the Airlock menu of the RCD to allow specifying the name of the new Airlock"
