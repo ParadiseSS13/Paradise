@@ -59,21 +59,14 @@ var/list/all_lighting_overlays = list() // Global list of lighting overlays.
 
 	var/max = max(cr.cache_mx, cg.cache_mx, cb.cache_mx, ca.cache_mx)
 
-	var/list/new_matrix = list(
+	color  = list(
 		cr.cache_r, cr.cache_g, cr.cache_b, 0,
 		cg.cache_r, cg.cache_g, cg.cache_b, 0,
 		cb.cache_r, cb.cache_g, cb.cache_b, 0,
 		ca.cache_r, ca.cache_g, ca.cache_b, 0,
 		0, 0, 0, 1
-	)
-	var/lum = max > LIGHTING_SOFT_THRESHOLD
-
-	if(lum)
-		luminosity = 1
-		animate(src, color = new_matrix, time = 5)
-	else
-		animate(src, color = new_matrix, time = 5)
-		animate(luminosity = 0, time = 0)
+		)
+	luminosity = max > LIGHTING_SOFT_THRESHOLD
 
 
 
