@@ -30,10 +30,7 @@
 	ui_interact(user)
 
 /obj/item/device/violin/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	if(!user)
-		return
-
-	if(!isliving(user) || user.stat || user.restrained() || user.lying)
+	if(!isliving(user) || user.incapacitated())
 		return
 
 	song.ui_interact(user, ui_key, ui, force_open)

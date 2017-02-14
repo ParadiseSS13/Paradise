@@ -260,6 +260,7 @@ var/ert_request_answered = 0
 			pda.name = "PDA-[M.real_name] ([pda.ownjob])"
 			pda.icon_state = "pda-engineer"
 			M.equip_to_slot_or_del(pda, slot_wear_pda)
+			M.job = "ERT Engineering"
 
 
 		if("Security")
@@ -284,7 +285,7 @@ var/ert_request_answered = 0
 			pda.name = "PDA-[M.real_name] ([pda.ownjob])"
 			pda.icon_state = "pda-security"
 			M.equip_to_slot_or_del(pda, slot_wear_pda)
-
+			M.job = "ERT Security"
 
 		if("Medic")
 			medical_slots -= 1
@@ -306,7 +307,7 @@ var/ert_request_answered = 0
 			pda.name = "PDA-[M.real_name] ([pda.ownjob])"
 			pda.icon_state = "pda-medical"
 			M.equip_to_slot_or_del(pda, slot_wear_pda)
-
+			M.job = "ERT Medical"
 
 		if("Commander")
 			command_slots = 0
@@ -333,6 +334,7 @@ var/ert_request_answered = 0
 			pda.ownjob = "Emergency Response Team Leader"
 			pda.name = "PDA-[M.real_name] ([pda.ownjob])"
 			M.equip_to_slot_or_del(pda, slot_wear_pda)
+			M.job = "ERT Commander"
 
 /datum/response_team/proc/cannot_send_team()
 	event_announcement.Announce("[station_name()], we are unfortunately unable to send you an Emergency Response Team at this time.", "ERT Unavailable")

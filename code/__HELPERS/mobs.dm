@@ -250,7 +250,7 @@ Proc for attack log creation, because really why not
 */
 
 proc/add_logs(mob/user, mob/target, what_done, var/object=null, var/addition=null, var/admin=1, var/print_attack_log = 1)//print_attack_log notifies admins with attack logs on
-	var/list/ignore=list("shaked", "CPRed", "grabbed", "punched", "disarmed")
+	var/list/ignore=list("shaked", "CPRed", "grabbed", "disarmed")
 	if(!user)
 		return
 	if(ismob(user))

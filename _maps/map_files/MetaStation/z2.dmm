@@ -437,7 +437,7 @@
 "iu" = (/obj/machinery/door/airlock/centcom{name = "Centcom Security"; opacity = 1; req_access_txt = "0"},/turf/unsimulated/floor{icon_state = "dark"},/area/centcom/evac)
 "iv" = (/turf/unsimulated/wall/fakeglass{icon_state = "fakewindows"; dir = 8},/area/centcom/evac)
 "iw" = (/obj/item/weapon/soap/syndie,/obj/structure/mopbucket,/obj/machinery/light{dir = 1},/turf/unsimulated/floor{icon_state = "freezerfloor"; dir = 2},/area/syndicate_mothership)
-"ix" = (/obj/structure/table/woodentable,/obj/item/pizzabox,/obj/item/device/paicard,/turf/unsimulated/floor{icon_state = "bar"; dir = 2},/area/syndicate_mothership)
+"ix" = (/obj/structure/table/woodentable,/obj/item/pizzabox,/obj/item/device/paicard/syndicate,/turf/unsimulated/floor{icon_state = "bar"; dir = 2},/area/syndicate_mothership)
 "iy" = (/obj/structure/table/woodentable,/obj/item/toy/nuke,/turf/unsimulated/floor{dir = 2; icon_state = "wood"},/area/syndicate_mothership)
 "iz" = (/obj/effect/landmark{name = "Commando"},/turf/unsimulated/floor{icon_state = "dark"},/area/centcom/ferry)
 "iA" = (/obj/structure/stool/bed/chair/office/dark,/obj/effect/landmark{name = "Response Team"},/turf/unsimulated/floor{icon_state = "dark"},/area/centcom/ferry)

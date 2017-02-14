@@ -13,7 +13,7 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 0)
 	access = list() 			//See get_access()
 	minimal_access = list() 	//See get_access()
 	minimal_player_age = 30
-	exp_requirements = 600
+	exp_requirements = 1200
 	exp_type = EXP_TYPE_CREW
 	equip(var/mob/living/carbon/human/H)
 		if(!H)	return 0
@@ -237,6 +237,8 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 0)
 	minimal_access = list(access_lawyer, access_court, access_sec_doors, access_maint_tunnels)
 	alt_titles = list("Lawyer","Public Defender")
 	minimal_player_age = 30
+	exp_requirements = 300
+	exp_type = EXP_TYPE_CREW
 	idtype = /obj/item/weapon/card/id/security
 
 	equip(var/mob/living/carbon/human/H)
