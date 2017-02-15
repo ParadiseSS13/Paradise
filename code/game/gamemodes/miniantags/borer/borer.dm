@@ -393,9 +393,10 @@
 
 	for(var/datum in typesof(/datum/borer_chem))
 		var/datum/borer_chem/C = datum
-		var/datum/reagent/R = chemical_reagents_list[initial(C.chemname)]
-		if(initial(C.chemname))
-			content += "<tr><td><a class='chem-select' href='?_src_=[UID()];src=[UID()];borer_use_chem=[initial(C.chemname)]'>[R.name] ([initial(C.chemuse)])</a><p>[initial(C.chemdesc)]</p></td></tr>"
+		var/cname = initial(C.chemname)
+		var/datum/reagent/R = chemical_reagents_list[cname]
+		if(cname)
+			content += "<tr><td><a class='chem-select' href='?_src_=[UID()];src=[UID()];borer_use_chem=[cname]'>[R.name] ([initial(C.chemuse)])</a><p>[initial(C.chemdesc)]</p></td></tr>"
 
 	content += "</table>"
 
