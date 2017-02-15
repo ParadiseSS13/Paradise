@@ -360,34 +360,35 @@
 	//H.verbs += /mob/living/carbon/human/proc/leap
 	..()
 
-/datum/species/vox/updatespeciescolor(var/mob/living/carbon/human/H) //Handling species-specific skin-tones for the Vox race.
+/datum/species/vox/updatespeciescolor(var/mob/living/carbon/human/H, var/owner_sensitive = 1) //Handling species-specific skin-tones for the Vox race.
 	if(H.species.name == "Vox") //Making sure we don't break Armalis.
+		var/new_icobase = 'icons/mob/human_races/vox/r_vox.dmi' //Default Green Vox.
+		var/new_deform = 'icons/mob/human_races/vox/r_def_vox.dmi' //Default Green Vox.
 		switch(H.s_tone)
 			if(6) //Azure Vox.
-				icobase = 'icons/mob/human_races/vox/r_voxazu.dmi'
-				deform = 'icons/mob/human_races/vox/r_def_voxazu.dmi'
-				tail = "voxtail_azu"
+				new_icobase = 'icons/mob/human_races/vox/r_voxazu.dmi'
+				new_deform = 'icons/mob/human_races/vox/r_def_voxazu.dmi'
+				H.tail = "voxtail_azu"
 			if(5) //Emerald Vox.
-				icobase = 'icons/mob/human_races/vox/r_voxemrl.dmi'
-				deform = 'icons/mob/human_races/vox/r_def_voxemrl.dmi'
-				tail = "voxtail_emrl"
+				new_icobase = 'icons/mob/human_races/vox/r_voxemrl.dmi'
+				new_deform = 'icons/mob/human_races/vox/r_def_voxemrl.dmi'
+				H.tail = "voxtail_emrl"
 			if(4) //Grey Vox.
-				icobase = 'icons/mob/human_races/vox/r_voxgry.dmi'
-				deform = 'icons/mob/human_races/vox/r_def_voxgry.dmi'
-				tail = "voxtail_gry"
+				new_icobase = 'icons/mob/human_races/vox/r_voxgry.dmi'
+				new_deform = 'icons/mob/human_races/vox/r_def_voxgry.dmi'
+				H.tail = "voxtail_gry"
 			if(3) //Brown Vox.
-				icobase = 'icons/mob/human_races/vox/r_voxbrn.dmi'
-				deform = 'icons/mob/human_races/vox/r_def_voxbrn.dmi'
-				tail = "voxtail_brn"
+				new_icobase = 'icons/mob/human_races/vox/r_voxbrn.dmi'
+				new_deform = 'icons/mob/human_races/vox/r_def_voxbrn.dmi'
+				H.tail = "voxtail_brn"
 			if(2) //Dark Green Vox.
-				icobase = 'icons/mob/human_races/vox/r_voxdgrn.dmi'
-				deform = 'icons/mob/human_races/vox/r_def_voxdgrn.dmi'
-				tail = "voxtail_dgrn"
+				new_icobase = 'icons/mob/human_races/vox/r_voxdgrn.dmi'
+				new_deform = 'icons/mob/human_races/vox/r_def_voxdgrn.dmi'
+				H.tail = "voxtail_dgrn"
 			else  //Default Green Vox.
-				icobase = 'icons/mob/human_races/vox/r_vox.dmi'
-				deform = 'icons/mob/human_races/vox/r_def_vox.dmi'
-				tail = "voxtail" //Ensures they get an appropriately coloured tail depending on the skin-tone.
+				H.tail = "voxtail" //Ensures they get an appropriately coloured tail depending on the skin-tone.
 
+		H.change_icobase(new_icobase, new_deform, owner_sensitive) //Update the icobase/deform of all our organs, but make sure we don't mess with frankenstein limbs in doing so.
 		H.update_dna()
 
 /datum/species/vox/armalis/handle_post_spawn(var/mob/living/carbon/human/H)
@@ -518,6 +519,11 @@
 	//ventcrawler = 1 //ventcrawling commented out
 	butt_sprite = "slime"
 	//Has default darksight of 2.
+
+	male_cough_sounds = null    //slime people don't have lungs
+	female_cough_sounds = null
+	male_sneeze_sound = null
+	female_sneeze_sound = null
 
 	has_organ = list(
 		"brain" = /obj/item/organ/internal/brain/slime
@@ -738,6 +744,12 @@
 	slowdown = 5
 	remains_type = /obj/effect/decal/cleanable/ash
 
+	male_cough_sounds = null  //diona don't have lungs
+	female_cough_sounds = null
+	male_sneeze_sound = null
+	female_sneeze_sound = null
+
+
 	warning_low_pressure = 50
 	hazard_low_pressure = -1
 
@@ -827,7 +839,7 @@
 
 	if(H.nutrition > NUTRITION_LEVEL_WELL_FED)
 		H.nutrition = NUTRITION_LEVEL_WELL_FED
-		
+
 	if(light_amount > 0)
 		H.clear_alert("nolight")
 	else
@@ -881,6 +893,10 @@
 	reagent_tag = PROCESS_SYN
 	male_scream_sound = 'sound/goonstation/voice/robot_scream.ogg'
 	female_scream_sound = 'sound/goonstation/voice/robot_scream.ogg'
+	male_cough_sounds = list('sound/effects/mob_effects/m_machine_cougha.ogg','sound/effects/mob_effects/m_machine_coughb.ogg', 'sound/effects/mob_effects/m_machine_coughc.ogg')
+	female_cough_sounds = list('sound/effects/mob_effects/f_machine_cougha.ogg','sound/effects/mob_effects/f_machine_coughb.ogg')
+	male_sneeze_sound = 'sound/effects/mob_effects/machine_sneeze.ogg'
+	female_sneeze_sound = 'sound/effects/mob_effects/f_machine_sneeze.ogg'
 	butt_sprite = "machine"
 
 	has_organ = list(
@@ -940,6 +956,10 @@
 	speech_chance = 20
 	male_scream_sound = 'sound/voice/DraskTalk2.ogg'
 	female_scream_sound = 'sound/voice/DraskTalk2.ogg'
+	male_cough_sounds = null      //whale cough when
+	female_cough_sounds = null
+	male_sneeze_sound = null
+	female_sneeze_sound = null
 
 	burn_mod = 2
 	//exotic_blood = "cryoxadone"

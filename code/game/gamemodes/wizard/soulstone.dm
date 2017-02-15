@@ -8,7 +8,7 @@
 	slot_flags = SLOT_BELT
 	origin_tech = "bluespace=4;materials=4"
 	var/imprinted = "empty"
-	
+
 	var/usability = TRUE // Can this soul stone be used by anyone, or only cultists/wizards?
 	var/reusable = TRUE // Can this soul stone be used more than once?
 	var/spent = FALSE // If the soul stone can only be used once, has it been used?
@@ -18,7 +18,7 @@
 		return TRUE
 
 	return FALSE
-	
+
 /obj/item/device/soulstone/proc/was_used()
 	if(!reusable)
 		spent = TRUE
@@ -26,21 +26,21 @@
 		desc = "A fragment of the legendary treasure known simply as \
 			the 'Soul Stone'. The shard lies still, dull and lifeless; \
 			whatever spark it once held long extinguished."
-			
+
 /obj/item/device/soulstone/anybody
 	usability = TRUE
 
 /obj/item/device/soulstone/anybody/chaplain
 	name = "mysterious old shard"
 	reusable = FALSE
-	
+
 /obj/item/device/soulstone/pickup(mob/living/user)
 	..()
 	if(!can_use(user))
 		to_chat(user, "<span class='danger'>An overwhelming feeling of dread comes over you as you pick up the soulstone. It would be wise to be rid of this quickly.</span>")
 		user.Dizzy(120)
-		
-//////////////////////////////Capturing////////////////////////////////////////////////////////		
+
+//////////////////////////////Capturing////////////////////////////////////////////////////////
 /obj/item/device/soulstone/attack(mob/living/carbon/human/M as mob, mob/user as mob)
 	if(!can_use(user))
 		user.Paralyse(5)
@@ -53,7 +53,7 @@
 
 	if(!ishuman(M) || istype(M, /mob/living/carbon/human/dummy)) //If target is not a human or a dummy
 		return ..()
-		
+
 	if(M.has_brain_worms()) //Borer stuff - RR
 		to_chat(user, "<span class='warning'>This being is corrupted by an alien intelligence and cannot be soul trapped.</span>")
 		return ..()
@@ -62,6 +62,13 @@
 		to_chat(user, "<span class='warning'>A mysterious force prevents you from trapping this being's soul.</span>")
 		return ..()
 
+	if(iscultist(M))
+		to_chat(user, "<span class='cultlarge'>This soul is already MINE.</span>")
+		return ..()
+
+		M.create_attack_log("<font color='orange'>Has had their soul captured with [src.name] by [key_name(user)]</font>")
+		user.create_attack_log("<font color='red'>Used the [src.name] to capture the soul of [key_name(M)]</font>")
+
 	M.create_attack_log("<font color='orange'>Has had their soul captured with [src.name] by [key_name(user)]</font>")
 	user.create_attack_log("<font color='red'>Used the [src.name] to capture the soul of [key_name(M)]</font>")
 	log_attack("<font color='red'>[key_name(user)] used the [src.name] to capture the soul of [key_name(M)]</font>")
@@ -69,7 +76,7 @@
 	transfer_soul("VICTIM", M, user)
 	return
 
-///////////////////Options for using captured souls///////////////////////////////////////	
+///////////////////Options for using captured souls///////////////////////////////////////
 /obj/item/device/soulstone/attack_self(mob/user)
 	if(!in_range(src, user))
 		return
@@ -77,8 +84,8 @@
 	if(!can_use(user))
 		user.Paralyse(5)
 		to_chat(user, "<span class='userdanger'>Your body is wracked with debilitating pain!</span>")
-		return		
-		
+		return
+
 	user.set_machine(src)
 	var/dat = "<TT><B>Soul Stone</B><BR>"
 	for(var/mob/living/simple_animal/shade/A in src)
@@ -127,7 +134,7 @@
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "construct"
 	desc = "A wicked machine used by those skilled in magical arts. It is inactive"
-	
+
 /obj/structure/constructshell/examine(mob/user)
 	if(..(user, 0))
 		if(iscultist(user) || iswizard(user) || user.stat == DEAD)

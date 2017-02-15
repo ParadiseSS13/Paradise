@@ -335,6 +335,7 @@
 		world.update_status()
 
 	if(holder)
+		on_holder_add()
 		add_admin_verbs()
 		admin_memo_output("Show", 0, 1)
 
