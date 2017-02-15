@@ -520,11 +520,6 @@
 	butt_sprite = "slime"
 	//Has default darksight of 2.
 
-	male_cough_sounds = null    //slime people don't have lungs
-	female_cough_sounds = null
-	male_sneeze_sound = null
-	female_sneeze_sound = null
-
 	has_organ = list(
 		"brain" = /obj/item/organ/internal/brain/slime
 		)
@@ -743,11 +738,6 @@
 	//primitive_form = "Nymph"
 	slowdown = 5
 	remains_type = /obj/effect/decal/cleanable/ash
-
-	male_cough_sounds = null  //diona don't have lungs
-	female_cough_sounds = null
-	male_sneeze_sound = null
-	female_sneeze_sound = null
 
 
 	warning_low_pressure = 50
