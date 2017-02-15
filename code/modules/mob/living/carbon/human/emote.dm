@@ -394,9 +394,11 @@
 					message = "<B>[src]</B> coughs!"
 					m_type = 2
 					if(gender == FEMALE)
-						playsound(src, pick(species.female_cough_sounds), 120)
+						if(species.female_cough_sounds)
+							playsound(src, pick(species.female_cough_sounds), 120)
 					else
-						playsound(src, pick(species.male_cough_sounds), 120)
+						if(species.male_cough_sounds)
+							playsound(src, pick(species.male_cough_sounds), 120)
 				else
 					message = "<B>[src]</B> makes a strong noise."
 					m_type = 2
