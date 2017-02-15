@@ -442,9 +442,9 @@ var/list/intents = list(I_HELP,I_DISARM,I_GRAB,I_HARM)
 				if(istype(subject, /mob/dead/observer))
 					DM = subject
 				if(check_rights(R_ADMIN|R_MOD,0,M)) 							// What admins see
-					lname = "[keyname][(DM && DM.anonsay) ? "*" : (DM ? "" : "^")] ([name])"
+					lname = "[keyname][(DM && DM.client && DM.client.prefs.ghost_anonsay) ? "*" : (DM ? "" : "^")] ([name])"
 				else
-					if(DM && DM.anonsay)						// If the person is actually observer they have the option to be anonymous
+					if(DM && DM.client && DM.client.prefs.ghost_anonsay)	// If the person is actually observer they have the option to be anonymous
 						lname = "Ghost of [name]"
 					else if(DM)									// Non-anons
 						lname = "[keyname] ([name])"
