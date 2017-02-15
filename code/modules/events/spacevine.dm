@@ -150,6 +150,7 @@
 /datum/spacevine_mutation/bluespace/on_spread(obj/effect/spacevine/holder, turf/target)
 	if(holder.energy > 1 && !locate(/obj/effect/spacevine) in target)
 		holder.master.spawn_spacevine_piece(target, holder)
+		. = TRUE
 
 /datum/spacevine_mutation/light
 	name = "light"
@@ -218,6 +219,7 @@
 	var/obj/effect/spacevine/prey = locate() in target
 	if(prey && !prey.mutations.Find(src))  //Eat all vines that are not of the same origin
 		qdel(prey)
+		. = TRUE
 
 /datum/spacevine_mutation/aggressive_spread  //very OP, but im out of other ideas currently
 	name = "aggressive spreading"
@@ -227,6 +229,7 @@
 
 /datum/spacevine_mutation/aggressive_spread/on_spread(obj/effect/spacevine/holder, turf/target)
 	target.ex_act(severity) // vine immunity handled at /mob/ex_act
+	. = TRUE
 
 /datum/spacevine_mutation/aggressive_spread/on_buckle(obj/effect/spacevine/holder, mob/living/buckled)
 	buckled.ex_act(severity)
@@ -532,15 +535,22 @@
 		buckle_mob(V, 1)
 
 /obj/effect/spacevine/proc/spread()
-	var/direction = pick(cardinal)
-	var/turf/stepturf = get_step(src,direction)
-	for(var/datum/spacevine_mutation/SM in mutations)
-		SM.on_spread(src, stepturf)
-		stepturf = get_step(src,direction) //in case turf changes, to make sure no runtimes happen
-	if(!locate(/obj/effect/spacevine, stepturf))
-		if(stepturf.Enter(src))
-			if(master)
-				master.spawn_spacevine_piece(stepturf, src)
+	var/list/dir_list = cardinal.Copy()
+	while(dir_list.len)
+		var/direction = pick(dir_list)
+		dir_list -= direction
+		var/turf/stepturf = get_step(src,direction)
+		var/spread_success = FALSE
+		for(var/datum/spacevine_mutation/SM in mutations)
+			spread_success |= SM.on_spread(src, stepturf) // If this returns 1, spreading succeeded
+			stepturf = get_step(src,direction) //in case turf changes, to make sure no runtimes happen
+		if(!locate(/obj/effect/spacevine, stepturf))
+			if(stepturf.Enter(src))
+				if(master)
+					master.spawn_spacevine_piece(stepturf, src)
+				spread_success = TRUE
+		if(spread_success)
+			break
 
 /obj/effect/spacevine/ex_act(severity)
 	var/i
