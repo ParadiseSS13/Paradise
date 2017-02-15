@@ -1,5 +1,0 @@
-author: "uraniummeltdown"
-delete-after: True
-changes: 
-  - rscadd: "Borers now have action buttons"
-  - tweak: "Borer names are now dependent on generation"
