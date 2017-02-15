@@ -443,14 +443,14 @@ var/list/blood_splatter_icons = list()
 		add_blood_overlay(blood_DNA)
 	return 1 //we applied blood to the item
 
-/obj/item/proc/add_blood_overlay(list/blood_dna)
+/obj/item/proc/add_blood_overlay(list/blood_dna, color)
 	if(initial(icon) && initial(icon_state))
 		//try to find a pre-processed blood-splatter. otherwise, make a new one
 		var/index = blood_splatter_index()
 		var/icon/blood_splatter_icon = blood_splatter_icons[index]
 		if(!blood_splatter_icon)
 			blood_splatter_icon = icon(initial(icon), initial(icon_state), , 1)		//we only want to apply blood-splatters to the initial icon_state for each object
-			blood_splatter_icon.Blend("#fff", ICON_ADD) 			//fills the icon_state with white (except where it's transparent)
+			blood_splatter_icon.Blend(blood_dna["blood_color"], ICON_ADD) 			//fills the icon_state with white (except where it's transparent)
 			blood_splatter_icon.Blend(icon('icons/effects/blood.dmi', "itemblood"), ICON_MULTIPLY) //adds blood and the remaining white areas become transparant
 			blood_splatter_icon = fcopy_rsc(blood_splatter_icon)
 			blood_splatter_icons[index] = blood_splatter_icon
@@ -477,9 +477,9 @@ var/list/blood_splatter_icons = list()
 	if(gloves)
 		var/obj/item/clothing/gloves/G = gloves
 		G.add_blood(blood_dna)
-		hand_blood_color = blood_dna["blood_color"]
 	else
 		transfer_blood_dna(blood_dna)
+		hand_blood_color = blood_dna["blood_color"]
 	bloody_hands = rand(2, 4)
 	update_inv_gloves()	//handles bloody hands overlays and updating
 	return 1

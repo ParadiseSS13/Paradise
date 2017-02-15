@@ -78,6 +78,7 @@
 			H.bloody_feet[blood_state] = min(MAX_SHOE_BLOODINESS,H.bloody_feet[blood_state]+add_blood)
 			if(!H.feet_blood_DNA)
 				H.feet_blood_DNA = list()
+			H.blood_state = blood_state
 			H.feet_blood_DNA |= blood_DNA.Copy()
 			update_icon()
 			H.update_inv_shoes()
