@@ -135,7 +135,7 @@ proc/get_id_photo(var/mob/living/carbon/human/H)
 	if(H.gender == FEMALE)
 		g = "f"
 
-	var/icon/icobase = H.icobase
+	var/icon/icobase = head_organ.icobase //At this point all the organs would have the same icobase, so this is just recycling.
 
 	preview_icon = new /icon(icobase, "torso_[g]")
 	var/icon/temp

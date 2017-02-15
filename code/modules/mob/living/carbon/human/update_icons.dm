@@ -298,9 +298,9 @@ var/global/list/damage_icon_parts = list()
 				base_icon.MapColors(rgb(tone[1],0,0),rgb(0,tone[2],0),rgb(0,0,tone[3]))
 
 		//Handle husk overlay.
-		if(husk && ("overlay_husk" in icon_states(icobase)))
+		if(husk && ("overlay_husk" in icon_states(chest.icobase)))
 			var/icon/mask = new(base_icon)
-			var/icon/husk_over = new(icobase,"overlay_husk")
+			var/icon/husk_over = new(chest.icobase,"overlay_husk")
 			mask.MapColors(0,0,0,1, 0,0,0,1, 0,0,0,1, 0,0,0,1, 0,0,0,0)
 			husk_over.Blend(mask, ICON_ADD)
 			base_icon.Blend(husk_over, ICON_OVERLAY)
