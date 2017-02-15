@@ -62,7 +62,7 @@ Also, you never added distance checking after target is selected. I've went ahea
 		for(var/V in victim.mind.special_verbs)
 			victim.verbs -= V
 
-	var/mob/dead/observer/ghost = victim.ghostize(0)
+	var/mob/dead/observer/ghost = victim.ghostize(1)
 	caster.mind.transfer_to(victim)
 
 	if(victim.mind.special_verbs.len)//To add all the special verbs for the original caster.
