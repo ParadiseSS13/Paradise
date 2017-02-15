@@ -1,5 +1,0 @@
-author: "KasparoVy"
-delete-after: True
-changes: 
-  - rscadd: "You can now choose to speak anonymously in deadchat from round-start game preferences."
-  - tweak: "Your decision to speak anonymously in deadchat now persists between ghostings."
