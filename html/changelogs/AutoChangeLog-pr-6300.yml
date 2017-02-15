@@ -1,0 +1,4 @@
+author: "Alexshreds"
+delete-after: True
+changes: 
+  - rscadd: "Coughing and sneezing now plays sounds."
