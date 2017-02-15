@@ -197,12 +197,15 @@
 						if(iscarbon(L))
 							regen_points += regen_points_per_kill
 							fed++
+							visible_message("<span class='danger'>[src] sticks a proboscis into [L] and sucks a viscous substance out.</span>")
+							to_chat(src, "<span class='notice'>You feel invigorated!</span>")
+						else
+							visible_message("<span class='danger'>[src] wraps [L] in a web.</span>")
 						large_cocoon = 1
 						last_cocoon_object = 0
 						L.loc = C
 						C.pixel_x = L.pixel_x
 						C.pixel_y = L.pixel_y
-						visible_message("<span class='danger'>[src] sticks a proboscis into [L] and sucks a viscous substance out.</span>")
 						break
 					if(large_cocoon)
 						C.icon_state = pick("cocoon_large1","cocoon_large2","cocoon_large3")

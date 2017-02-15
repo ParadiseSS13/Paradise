@@ -34,7 +34,7 @@
 	if(E)
 		to_chat(src, "<span class='notice'>There is already a cluster of eggs here!</span>")
 	else if(fed < feedings_to_lay)
-		to_chat(src, "<span class='warning'>You must wrap more prey before you can do this!</span>")
+		to_chat(src, "<span class='warning'>You must wrap more humanoid prey before you can do this!</span>")
 	else
 		visible_message("<span class='notice'>[src] begins to lay a cluster of eggs.</span>")
 		if(prob(33))
