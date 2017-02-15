@@ -1448,6 +1448,7 @@
 #include "code\modules\mining\mine_areas.dm"
 #include "code\modules\mining\mine_items.dm"
 #include "code\modules\mining\mine_turfs.dm"
+#include "code\modules\mining\minebot.dm"
 #include "code\modules\mining\mint.dm"
 #include "code\modules\mining\money_bag.dm"
 #include "code\modules\mining\ore.dm"

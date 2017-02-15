@@ -176,8 +176,12 @@
 
 	var/pressure_decrease = 0.25
 	var/turf_aoe = FALSE
-	var/mob_aoe = 0
+	var/mob_aoe = FALSE
 	var/list/hit_overlays = list()
+	
+/obj/item/projectile/kinetic/minebot
+	damage = 10
+	pressure_decrease = 1
 
 /obj/item/projectile/kinetic/on_range()
 	strike_thing()
