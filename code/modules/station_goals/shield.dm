@@ -68,7 +68,7 @@
 
 /obj/machinery/computer/sat_control/proc/toggle(id)
 	for(var/obj/machinery/satellite/S in machines)
-		if(S.id == id && S.z == z)
+		if(S.id == id && atoms_share_level(src, S))
 			S.toggle()
 
 /obj/machinery/computer/sat_control/ui_data(mob/user, ui_key = "main", datum/topic_state/state = physical_state)
