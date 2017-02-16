@@ -510,6 +510,9 @@
 	oxy_mod = 0
 	brain_mod = 2.5
 
+	male_cough_sounds = list('sound/effects/slime_squish.ogg')
+	female_cough_sounds = list('sound/effects/slime_squish.ogg')
+
 	flags = IS_WHITELISTED | NO_BREATHE | HAS_LIPS | NO_INTORGANS | NO_SCAN
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_SKIN_COLOR | NO_EYES
@@ -519,11 +522,6 @@
 	//ventcrawler = 1 //ventcrawling commented out
 	butt_sprite = "slime"
 	//Has default darksight of 2.
-
-	male_cough_sounds = null    //slime people don't have lungs
-	female_cough_sounds = null
-	male_sneeze_sound = null
-	female_sneeze_sound = null
 
 	has_organ = list(
 		"brain" = /obj/item/organ/internal/brain/slime
@@ -743,11 +741,6 @@
 	//primitive_form = "Nymph"
 	slowdown = 5
 	remains_type = /obj/effect/decal/cleanable/ash
-
-	male_cough_sounds = null  //diona don't have lungs
-	female_cough_sounds = null
-	male_sneeze_sound = null
-	female_sneeze_sound = null
 
 
 	warning_low_pressure = 50
