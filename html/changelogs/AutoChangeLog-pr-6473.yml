@@ -1,0 +1,4 @@
+author: "uraniummeltdown"
+delete-after: True
+changes: 
+  - bugfix: "Ethereal beings no longer cause bananium floor tiles to squeak."
