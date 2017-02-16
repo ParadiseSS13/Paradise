@@ -298,8 +298,8 @@
 	scream_verb = "shrieks"
 	male_scream_sound = 'sound/voice/shriek1.ogg'
 	female_scream_sound = 'sound/voice/shriek1.ogg'
-	male_cough_sounds = 'sound/voice/shriek1.ogg'
-	female_cough_sounds = 'sound/voice/shriek1.ogg'
+	male_cough_sounds = list('sound/voice/shriek1.ogg')
+	female_cough_sounds = list('sound/voice/shriek1.ogg')
 	male_sneeze_sound = 'sound/voice/shriek1.ogg'
 	female_sneeze_sound = 'sound/voice/shriek1.ogg'
 
