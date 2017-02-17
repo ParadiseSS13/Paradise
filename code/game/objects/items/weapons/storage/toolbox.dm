@@ -13,7 +13,7 @@
 	materials = list(MAT_METAL = 500)
 	origin_tech = "combat=1"
 	attack_verb = list("robusted")
-	hitsound = "sound/weapons/smash.ogg"
+	hitsound = 'sound/weapons/smash.ogg'
 
 	New()
 		..()

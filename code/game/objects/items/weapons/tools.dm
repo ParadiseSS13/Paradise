@@ -101,7 +101,7 @@
 	materials = list(MAT_METAL=80)
 	origin_tech = "materials=1;engineering=1"
 	attack_verb = list("pinched", "nipped")
-	hitsound = "sound/items/Wirecutter.ogg"
+	hitsound = 'sound/items/Wirecutter.ogg'
 	sharp = 1
 	edge = 1
 
