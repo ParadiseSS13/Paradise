@@ -433,7 +433,7 @@ var/static/regex/multispin_words = regex("like a record baby")
 	//HONK
 	else if((findtext(message, honk_words)))
 		spawn(25)
-			playsound(get_turf(owner), "sound/items/bikehorn.ogg", 300, 1)
+			playsound(get_turf(owner), 'sound/items/bikehorn.ogg', 300, 1)
 		if(owner.mind && owner.mind.assigned_role == "Clown")
 			for(var/mob/living/carbon/C in listeners)
 				C.slip(0,7 * power_multiplier)

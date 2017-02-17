@@ -139,6 +139,7 @@
 /mob/living/carbon/proc/med_hud_set_status()
 	var/image/holder = hud_list[STATUS_HUD]
 	//var/image/holder2 = hud_list[STATUS_HUD_OOC]
+	var/mob/living/simple_animal/borer/B = has_brain_worms()
 	if(stat == 2)
 		holder.icon_state = "huddead"
 		//holder2.icon_state = "huddead"
@@ -146,13 +147,8 @@
 		holder.icon_state = "hudxeno"
 	else if(check_virus())
 		holder.icon_state = "hudill"
-	else if(has_brain_worms())
-		var/mob/living/simple_animal/borer/B = has_brain_worms()
-		if(B.controlling)
-			holder.icon_state = "hudbrainworm"
-		else
-			holder.icon_state = "hudhealthy"
-			//holder2.icon_state = "hudhealthy"
+	else if(has_brain_worms() && B != null && B.controlling)
+		holder.icon_state = "hudbrainworm"
 	else
 		holder.icon_state = "hudhealthy"
 		//holder2.icon_state = "hudhealthy"

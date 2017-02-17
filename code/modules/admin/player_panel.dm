@@ -531,6 +531,16 @@
 		if(ticker.mode.greyshirts.len)
 			dat += check_role_table("Greyshirts", ticker.mode.greyshirts)
 
+		if(ts_spiderlist.len)
+			var/list/spider_minds = list()
+			for(var/mob/living/simple_animal/hostile/poison/terror_spider/S in ts_spiderlist)
+				if(S.ckey)
+					spider_minds += S.mind
+			dat += check_role_table("Terror Spiders", spider_minds)
+
+		if(ticker.mode.ert.len)
+			dat += check_role_table("ERT", ticker.mode.ert)
+
 		dat += "</body></html>"
 		usr << browse(dat, "window=roundstatus;size=400x500")
 	else

@@ -45,8 +45,6 @@
 
 	print_command_report(intercepttext, interceptname)
 	event_announcement.Announce("A report has been downloaded and printed out at all communications consoles.", "Incoming Classified Message", 'sound/AI/commandreport.ogg')
-	return
-
 
 /datum/station_state
 	var/floor = 0

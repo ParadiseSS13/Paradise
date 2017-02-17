@@ -1710,6 +1710,103 @@
 		to_chat(src.owner, "You sent a [eviltype] fax to [H]")
 		log_admin("[key_name(src.owner)] sent [key_name(H)] a [eviltype] fax")
 		message_admins("[key_name_admin(src.owner)] replied to [key_name_admin(H)] with a [eviltype] fax")
+	else if(href_list["Bless"])
+		if(!check_rights(R_ADMIN))
+			return
+		var/mob/living/M = locateUID(href_list["Bless"])
+		if(!istype(M))
+			to_chat(usr, "This can only be used on instances of type /mob/living")
+			return
+		var/btypes = list("To Arrivals", "Moderate Heal")
+		var/mob/living/carbon/human/H
+		if(ishuman(M))
+			H = M
+			btypes += "Heal Over Time"
+			btypes += "Permanent Regeneration"
+			btypes += "Super Powers"
+		var/blessing = input(src.owner, "How would you like to bless [M]?", "Its good to be good...", "") as null|anything in btypes
+		if(!(blessing in btypes))
+			return
+		switch(blessing)
+			if("To Arrivals")
+				M.forceMove(pick(latejoin))
+				to_chat(M, "<span class='userdanger'>You are abruptly pulled through space!</span>")
+			if("Moderate Heal")
+				M.adjustBruteLoss(-25)
+				M.adjustFireLoss(-25)
+				M.adjustToxLoss(-25)
+				M.adjustOxyLoss(-25)
+				to_chat(M,"<span class='userdanger'>You feel invigorated!</span>")
+			if("Heal Over Time")
+				H.reagents.add_reagent("salglu_solution", 30)
+				H.reagents.add_reagent("salbutamol", 20)
+				H.reagents.add_reagent("spaceacillin", 20)
+			if("Permanent Regeneration")
+				H.dna.SetSEState(REGENERATEBLOCK, 1)
+				genemutcheck(H, REGENERATEBLOCK,  null, MUTCHK_FORCED)
+				H.update_mutations()
+			if("Super Powers")
+				var/list/default_genes = list(REGENERATEBLOCK, NOBREATHBLOCK, COLDBLOCK)
+				for(var/gene in default_genes)
+					H.dna.SetSEState(gene, 1)
+					genemutcheck(H, gene,  null, MUTCHK_FORCED)
+					H.update_mutations()
+	else if(href_list["Smite"])
+		if(!check_rights(R_ADMIN))
+			return
+		var/mob/living/M = locateUID(href_list["Smite"])
+		var/mob/living/carbon/human/H
+		if(!istype(M))
+			to_chat(usr, "This can only be used on instances of type /mob/living")
+			return
+		var/ptypes = list("Lightning bolt", "Fire Death", "Gib")
+		if(ishuman(M))
+			H = M
+			ptypes += "Brain Damage"
+			ptypes += "Honk Tumor"
+			ptypes += "Cluwne"
+			ptypes += "Mutagen Cookie"
+			ptypes += "Hellwater Cookie"
+		var/punishment = input(src.owner, "How would you like to smite [M]?", "Its good to be baaaad...", "") as null|anything in ptypes
+		if(!(punishment in ptypes))
+			return
+		switch(punishment)
+			if("Lightning bolt")
+				M.electrocute_act(5, "Lightning Bolt", safety=1)
+				playsound(get_turf(M), 'sound/magic/LightningShock.ogg', 50, 1, -1)
+				M.adjustFireLoss(75)
+				M.Weaken(5)
+				to_chat(M, "<span class='userdanger'>The gods have punished you for your sins!</span>")
+			if("Brain Damage")
+				H.adjustBrainLoss(75)
+			if("Fire Death")
+				to_chat(M,"<span class='userdanger'>You feel hotter than usual. Maybe you should lowe-wait, is that your hand melting?</span>")
+				var/turf/simulated/T = get_turf(M)
+				new /obj/effect/hotspot(T)
+				M.adjustFireLoss(150)
+			if("Honk Tumor")
+				if(!H.get_int_organ(/obj/item/organ/internal/honktumor))
+					var/obj/item/organ/internal/organ = new /obj/item/organ/internal/honktumor
+					to_chat(H, "<span class='userdanger'>Life seems funnier, somehow.</span>")
+					organ.insert(H)
+			if("Cluwne")
+				H.makeCluwne()
+			if("Mutagen Cookie")
+				var/obj/item/weapon/reagent_containers/food/snacks/cookie/evilcookie = new /obj/item/weapon/reagent_containers/food/snacks/cookie
+				evilcookie.reagents.add_reagent("mutagen", 10)
+				evilcookie.desc = "It has a faint green glow."
+				evilcookie.bitesize = 100
+				H.drop_l_hand()
+				H.equip_to_slot_or_del(evilcookie, slot_l_hand)
+			if("Hellwater Cookie")
+				var/obj/item/weapon/reagent_containers/food/snacks/cookie/evilcookie = new /obj/item/weapon/reagent_containers/food/snacks/cookie
+				evilcookie.reagents.add_reagent("hell_water", 25)
+				evilcookie.desc = "Sulphur-flavored."
+				evilcookie.bitesize = 100
+				H.drop_l_hand()
+				H.equip_to_slot_or_del(evilcookie, slot_l_hand)
+			if("Gib")
+				M.gib(FALSE)
 	else if(href_list["FaxReplyTemplate"])
 		if(!check_rights(R_ADMIN))
 			return

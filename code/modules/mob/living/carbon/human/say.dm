@@ -105,6 +105,7 @@
 /mob/living/carbon/human/handle_speech_problems(var/message, var/verb)
 	var/list/returns[3]
 	var/speech_problem_flag = 0
+	var/span = mind.speech_span
 
 	if(silent || (disabilities & MUTE))
 		message = ""
@@ -143,8 +144,10 @@
 				verb = "yells loudly"
 
 	if((COMIC in mutations) || (locate(/obj/item/organ/internal/cyberimp/brain/clown_voice) in internal_organs))
-		message = "<span class='sans'>[message]</span>"
+		span = "sans"
 
+	if(span)
+		message = "<span class='[span]'>[message]</span>"
 	returns[1] = message
 	returns[2] = verb
 	returns[3] = speech_problem_flag

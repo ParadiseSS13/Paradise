@@ -51,7 +51,7 @@
 		if(stat & (BROKEN|NOPOWER))
 			return
 
-		playsound(loc, "sound/goonstation/machines/printer_dotmatrix.ogg", 50, 1)
+		playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
 		for(var/i = 0, i < copies, i++)
 			if(toner <= 0)
 				break
@@ -111,7 +111,7 @@
 			if(!selection)
 				return
 
-			playsound(loc, "sound/goonstation/machines/printer_dotmatrix.ogg", 50, 1)
+			playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
 			var/obj/item/weapon/photo/p = new /obj/item/weapon/photo (src.loc)
 			p.construct(selection)
 			if(p.desc == "")
