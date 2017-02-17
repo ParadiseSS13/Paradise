@@ -1,0 +1,6 @@
+author: "Ported by Markolie, developed by AnturK"
+delete-after: True
+changes: 
+  - rscadd: "Station Goals have been ported from /tg/. These optional goals are big projects given to the station by Central Command, requiring interdepartmental cooperation and a huge number of resources to complete."
+  - rscadd: "Three station goals have been added: bluespace artillery construction, meteor shield satellite network and DNA vault."
+  - bugfix: "Fixes the \"Messages\" tab of the communications computer."
