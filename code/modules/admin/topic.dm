@@ -1,4 +1,4 @@
-/datum/admins/Topic(href, href_list)
+7/datum/admins/Topic(href, href_list)
 	..()
 
 	if(usr.client != src.owner || !check_rights(0))
@@ -3021,7 +3021,7 @@
 
 	// Library stuff
 	else if(href_list["library_book_id"])
-		var/isbn = href_list["library_book_id"]
+		var/isbn = sanitizeSQL(href_list["library_book_id"])
 
 		if(href_list["view_library_book"])
 			var/DBQuery/query_view_book = dbcon.NewQuery("SELECT content, title FROM [format_table_name("library")] WHERE id=[isbn]")
