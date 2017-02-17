@@ -108,7 +108,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	var/underwear = "Nude"					//underwear type
 	var/undershirt = "Nude"					//undershirt type
 	var/socks = "Nude"					//socks type
-	var/backbag = 2						//backpack type
+	var/backbag = GBACKPACK				//backpack type
 	var/ha_style = "None"				//Head accessory style
 	var/r_headacc = 0					//Head accessory colour
 	var/g_headacc = 0					//Head accessory colour
@@ -1240,7 +1240,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						g_skin = rand(0,255)
 						b_skin = rand(0,255)
 				if("bag")
-					backbag = rand(1,4)
+					backbag = pick(backbaglist)
 				/*if("skin_style")
 					h_style = random_skin_style(gender)*/
 				if("all")
@@ -2150,8 +2150,6 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	if(body_accessory)
 		character.body_accessory = body_accessory_by_name["[body_accessory]"]
 
-	if(backbag > 4 || backbag < 1)
-		backbag = 1 //Same as above
 	character.backbag = backbag
 
 	//Debugging report to track down a bug, which randomly assigned the plural gender to people.

@@ -60,7 +60,7 @@ CREATE TABLE `SS13_characters` (
   `eyes_blue` smallint(4) NOT NULL,
   `underwear` mediumtext NOT NULL,
   `undershirt` mediumtext NOT NULL,
-  `backbag` smallint(4) NOT NULL,
+  `backbag` mediumtext NOT NULL,
   `b_type` varchar(45) NOT NULL,
   `alternate_option` smallint(4) NOT NULL,
   `job_support_high` mediumint(8) NOT NULL,

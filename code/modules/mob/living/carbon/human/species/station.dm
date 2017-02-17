@@ -339,7 +339,7 @@
 		newname += pick(vox_name_syllables)
 	return capitalize(newname)
 
-/datum/species/vox/equip(var/mob/living/carbon/human/H)
+/datum/species/vox/after_equip_job(datum/job/J, mob/living/carbon/human/H)
 	if(H.mind.assigned_role != "Clown" && H.mind.assigned_role != "Mime")
 		H.unEquip(H.wear_mask)
 	H.unEquip(H.l_hand)
@@ -724,7 +724,7 @@
 		genemutcheck(C,REMOTETALKBLOCK,null,MUTCHK_FORCED)
 	..()
 
-/datum/species/grey/equip(var/mob/living/carbon/human/H)
+/datum/species/grey/after_equip_job(datum/job/J, mob/living/carbon/human/H)
 	var/speech_pref = H.client.prefs.speciesprefs
 	if(speech_pref)
 		H.mind.speech_span = "wingdings"

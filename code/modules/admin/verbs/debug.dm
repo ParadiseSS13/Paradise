@@ -657,7 +657,6 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			if(jobdatum)
 				dresscode = "[jobdatum.title]"
 				jobdatum.equip(M)
-				equip_special_id(M,jobdatum.get_access(),jobdatum.title, jobdatum.idtype)
 
 		if("standard space gear")
 			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/black(M), slot_shoes)
@@ -1474,15 +1473,15 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		return
 
 	error_cache.showTo(usr)
-	
+
 /client/proc/jump_to_ruin()
 	set category = "Debug"
 	set name = "Jump to Ruin"
 	set desc = "Displays a list of all placed ruins to teleport to."
-	
+
 	if(!check_rights(R_DEBUG))
 		return
-		
+
 	var/list/names = list()
 	for(var/i in ruin_landmarks)
 		var/obj/effect/landmark/ruin/ruin_landmark = i
@@ -1505,21 +1504,21 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	if(istype(landmark))
 		var/datum/map_template/ruin/template = landmark.ruin_template
 		admin_forcemove(usr, get_turf(landmark))
-		
+
 		to_chat(usr, "<span class='name'>[template.name]</span>")
 		to_chat(usr, "<span class='italics'>[template.description]</span>")
-		
+
 		log_admin("[key_name(usr)] jumped to ruin [ruinname]")
 		if(!isobserver(usr))
 			message_admins("[key_name_admin(usr)] jumped to ruin [ruinname]", 1)
-		
+
 		feedback_add_details("admin_verb","JT") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-	
+
 /client/proc/toggle_medal_disable()
 	set category = "Debug"
 	set name = "Toggle Medal Disable"
 	set desc = "Toggles the safety lock on trying to contact the medal hub."
-	
+
 	if(!check_rights(R_DEBUG))
 		return
 
