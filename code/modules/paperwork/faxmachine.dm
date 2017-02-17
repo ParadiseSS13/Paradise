@@ -221,7 +221,7 @@ var/list/alldepartments = list()
 
 	flick("faxreceive", src)
 
-	playsound(loc, "sound/goonstation/machines/printer_dotmatrix.ogg", 50, 1)
+	playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
 
 	// give the sprite some time to flick
 	sleep(20)
