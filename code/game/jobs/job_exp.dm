@@ -9,11 +9,20 @@
 	var/list/players_new = list()
 	var/list/players_old = list()
 	var/pline
+	var/datum/job/theirjob
+	var/jtext
 	for(var/client/C in clients)
+		jtext = "No Job"
+		if(C.mob.mind.assigned_role)
+			theirjob = job_master.GetJob(C.mob.mind.assigned_role)
+			if(theirjob)
+				jtext = theirjob.title
+				if(config.use_exp_restrictions && theirjob.exp_requirements && theirjob.exp_type)
+					jtext += "<span class='warning'>*</span>"
 		if(check_rights(R_ADMIN))
-			pline = "<LI> [key_name_admin(C.mob)]: <A href='?_src_=holder;getplaytimewindow=[C.mob.UID()]'>" + C.get_exp_living() + "</a></LI>"
+			pline = "<LI> [key_name_admin(C.mob)]: [jtext]: <A href='?_src_=holder;getplaytimewindow=[C.mob.UID()]'>" + C.get_exp_living() + "</a></LI>"
 		else
-			pline = "<LI> [key_name_mentor(C.mob)]: <A href='?_src_=holder;getplaytimewindow=[C.mob.UID()]'>" + C.get_exp_living() + "</a></LI>"
+			pline = "<LI> [key_name_mentor(C.mob)]: [jtext]: <A href='?_src_=holder;getplaytimewindow=[C.mob.UID()]'>" + C.get_exp_living() + "</a></LI>"
 		if(C.get_exp_living_num() > 1200)
 			players_old += pline
 		else
