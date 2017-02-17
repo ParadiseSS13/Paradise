@@ -1,4 +1,4 @@
-7/datum/admins/Topic(href, href_list)
+/datum/admins/Topic(href, href_list)
 	..()
 
 	if(usr.client != src.owner || !check_rights(0))
