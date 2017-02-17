@@ -75,7 +75,7 @@
 	if(!hasdied)
 		SetHiveCommand(0, 15) // Hive becomes very aggressive.
 		if(spider_uo71)
-			UnlockBlastDoors("UO71_Caves", "UO71 Caves are now unlocked!")
+			UnlockBlastDoors("UO71_Caves")
 		// When a queen dies, so do her player-controlled purple-type guardians. Intended as a motivator for purples to ensure they guard her.
 		for(var/mob/living/simple_animal/hostile/poison/terror_spider/purple/P in ts_spiderlist)
 			if(ckey)

@@ -304,16 +304,7 @@
 // --------------------- TERROR SPIDERS: MISC AI CODE -----------------------------
 // --------------------------------------------------------------------------------
 
-/mob/living/simple_animal/hostile/poison/terror_spider/proc/UnlockBlastDoors(target_id_tag, msg_to_send)
-	var/unlocked_something = 0
+/mob/living/simple_animal/hostile/poison/terror_spider/proc/UnlockBlastDoors(target_id_tag)
 	for(var/obj/machinery/door/poddoor/P in airlocks)
-		if(P.density && P.id_tag == target_id_tag && P.z == z)
+		if(P.density && P.id_tag == target_id_tag && P.z == z && !P.operating)
 			P.open()
-			unlocked_something = 1
-	if(unlocked_something)
-		for(var/mob/living/carbon/human/H in player_list)
-			if(H.z != z)
-				continue
-			to_chat(H,"<span class='notice'>----------</span>")
-			to_chat(H,"<span class='notice'>[msg_to_send]</span>")
-			to_chat(H,"<span class='notice'>----------</span>")
