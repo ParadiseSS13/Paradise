@@ -392,10 +392,11 @@
 	content += "<table>"
 
 	for(var/datum in typesof(/datum/borer_chem))
-		var/datum/borer_chem/C = new datum()
-		var/datum/reagent/R = chemical_reagents_list[C.chemname]
-		if(C.chemname)
-			content += "<tr><td><a class='chem-select' href='?_src_=[UID()];src=[UID()];borer_use_chem=[C.chemname]'>[R.name] ([C.chemuse])</a><p>[C.chemdesc]</p></td></tr>"
+		var/datum/borer_chem/C = datum
+		var/cname = initial(C.chemname)
+		var/datum/reagent/R = chemical_reagents_list[cname]
+		if(cname)
+			content += "<tr><td><a class='chem-select' href='?_src_=[UID()];src=[UID()];borer_use_chem=[cname]'>[R.name] ([initial(C.chemuse)])</a><p>[initial(C.chemdesc)]</p></td></tr>"
 
 	content += "</table>"
 
@@ -417,19 +418,17 @@
 			return
 
 		var/topic_chem = href_list["borer_use_chem"]
-		var/datum/borer_chem/C
+		var/datum/borer_chem/C = null
 
 		for(var/datum in typesof(/datum/borer_chem))
-			var/datum/borer_chem/test = new datum()
-			if(test.chemname == topic_chem)
-				C = test
+			var/datum/borer_chem/test = datum
+			if(initial(test.chemname) == topic_chem)
+				C = new test()
 				break
 
-		var/datum/reagent/R = chemical_reagents_list[C.chemname]
-		if(!istype(C, /datum/borer_chem))
-			return
 		if(!C || !host || controlling || !src || stat)
 			return
+		var/datum/reagent/R = chemical_reagents_list[C.chemname]
 		if(chemicals < C.chemuse)
 			to_chat(src, "<span class='boldnotice'>You need [C.chemuse] chemicals stored to secrete [R.name]!</span>")
 			return
@@ -439,6 +438,9 @@
 		chemicals -= C.chemuse
 		log_game("[src]/([src.ckey]) has injected [R.name] into their host [host]/([host.ckey])")
 
+		// This is used because we use a static set of datums to determine what chems are available,
+		// instead of a table or something. Thus, when we instance it, we can safely delete it
+		qdel(C)
 	..()
 
 /mob/living/simple_animal/borer/verb/hide_borer()
@@ -448,6 +450,7 @@
 
 	if(host)
 		to_chat(usr, "<span class='warning'>You cannot do this while you're inside a host.</span>")
+		return
 
 	if(stat != CONSCIOUS)
 		return
@@ -702,7 +705,7 @@
 		B.detatch()
 
 	else
-		to_chat(src, "<span class='danger'>ERROR NO BORER OR BRAINMOB DETECTED IN THIS MOB, THIS IS A BUG !</span>")
+		log_runtime(EXCEPTION("Missing borer or missing host brain upon borer release."), src)
 
 //Check for brain worms in head.
 /mob/proc/has_brain_worms()
