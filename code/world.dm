@@ -269,6 +269,7 @@ var/world_topic_spam_protect_time = world.timeofday
 			return
 		else
 			return ..(1)
+
 	var/delay
 	if(!isnull(time))
 		delay = max(0,time)
@@ -278,6 +279,13 @@ var/world_topic_spam_protect_time = world.timeofday
 		to_chat(world, "<span class='boldannounce'>An admin has delayed the round end.</span>")
 		return
 	to_chat(world, "<span class='boldannounce'>Rebooting world in [delay/10] [delay > 10 ? "seconds" : "second"]. [reason]</span>")
+
+	var/round_end_sound = pick(round_end_sounds)
+	var/sound_length = round_end_sounds[round_end_sound]
+	if(delay > sound_length) // If there's time, play the round-end sound before rebooting
+		spawn(delay - sound_length)
+			if(!ticker.delay_end)
+				world << round_end_sound
 	sleep(delay)
 	if(blackbox)
 		blackbox.save_all_data_to_sql()
@@ -287,10 +295,6 @@ var/world_topic_spam_protect_time = world.timeofday
 	feedback_set_details("[feedback_c]","[feedback_r]")
 	log_game("<span class='boldannounce'>Rebooting world. [reason]</span>")
 	//kick_clients_in_lobby("<span class='boldannounce'>The round came to an end with you in the lobby.</span>", 1)
-
-	spawn(0)
-		world << sound(pick('sound/AI/newroundsexy.ogg','sound/misc/apcdestroyed.ogg','sound/misc/bangindonk.ogg', 'sound/goonstation/misc/newround1.ogg', 'sound/goonstation/misc/newround2.ogg'))// random end sounds!! - LastyBatsy
-
 
 	processScheduler.stop()
 
