@@ -335,3 +335,9 @@ DISABLE_SPACE_RUINS
 
 ## Uncomment this if you want to disable usage of emoji in OOC
 #DISABLE_OOC_EMOJI
+
+## Uncomment this to shut down the world any time it would normally reboot
+#SHUTDOWN_ON_REBOOT
+## A command to run prior to the world shutting down, only used if the above option is enabled
+## This default value will kill Dream Daemon on Windows machines
+#SHUTDOWN_SHELL_COMMAND taskkill /f /im dreamdaemon.exe

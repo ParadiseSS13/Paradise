@@ -261,7 +261,14 @@ var/world_topic_spam_protect_time = world.timeofday
 			log_admin("[key_name(usr)] has requested an immediate world restart via client side debugging tools")
 		spawn(0)
 			to_chat(world, "<span class='boldannounce'>Rebooting world immediately due to host request</span>")
-		return ..(1)
+		if(config && config.shutdown_on_reboot)
+			sleep(0)
+			if(shutdown_shell_command)
+				shell(shutdown_shell_command)
+			del(world)
+			return
+		else
+			return ..(1)
 	var/delay
 	if(!isnull(time))
 		delay = max(0,time)
@@ -287,10 +294,17 @@ var/world_topic_spam_protect_time = world.timeofday
 
 	processScheduler.stop()
 
-	for(var/client/C in clients)
-		if(config.server)	//if you set a server location in config.txt, it sends you there instead of trying to reconnect to the same world address. -- NeoFite
-			C << link("byond://[config.server]")
-	..(0)
+	if(config && config.shutdown_on_reboot)
+		sleep(0)
+		if(shutdown_shell_command)
+			shell(shutdown_shell_command)
+		del(world)
+		return
+	else
+		for(var/client/C in clients)
+			if(config.server)	//if you set a server location in config.txt, it sends you there instead of trying to reconnect to the same world address. -- NeoFite
+				C << link("byond://[config.server]")
+		..(0)
 
 #define INACTIVITY_KICK	6000	//10 minutes in ticks (approx.)
 /world/proc/KickInactiveClients()
