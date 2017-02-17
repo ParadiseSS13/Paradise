@@ -37,6 +37,7 @@
 
 	backpack = /obj/item/weapon/storage/backpack/medic
 	satchel = /obj/item/weapon/storage/backpack/satchel_med
+	dufflebag = /obj/item/weapon/storage/backpack/duffel/medical
 
 /datum/job/doctor
 	title = "Medical Doctor"
@@ -68,6 +69,7 @@
 
 	backpack = /obj/item/weapon/storage/backpack/medic
 	satchel = /obj/item/weapon/storage/backpack/satchel_med
+	dufflebag = /obj/item/weapon/storage/backpack/duffel/medical
 
 /datum/outfit/job/doctor/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
@@ -129,6 +131,7 @@
 
 	backpack = /obj/item/weapon/storage/backpack/chemistry
 	satchel = /obj/item/weapon/storage/backpack/satchel_chem
+	dufflebag = /obj/item/weapon/storage/backpack/duffel/chemistry
 
 /datum/job/geneticist
 	title = "Geneticist"
@@ -158,6 +161,7 @@
 
 	backpack = /obj/item/weapon/storage/backpack/genetics
 	satchel = /obj/item/weapon/storage/backpack/satchel_gen
+	dufflebag = /obj/item/weapon/storage/backpack/duffel/genetics
 
 
 /datum/job/virologist
@@ -187,8 +191,10 @@
 	id = /obj/item/weapon/card/id/medical
 	suit_store = /obj/item/device/flashlight/pen
 	pda = /obj/item/device/pda/viro
+
 	backpack = /obj/item/weapon/storage/backpack/virology
 	satchel = /obj/item/weapon/storage/backpack/satchel_vir
+	dufflebag = /obj/item/weapon/storage/backpack/duffel/virology
 
 /datum/job/psychiatrist
 	title = "Psychiatrist"
@@ -259,5 +265,6 @@
 
 	backpack = /obj/item/weapon/storage/backpack/medic
 	satchel = /obj/item/weapon/storage/backpack/satchel_med
+	dufflebag = /obj/item/weapon/storage/backpack/duffel/medical
 	box = /obj/item/weapon/storage/box/engineer
 

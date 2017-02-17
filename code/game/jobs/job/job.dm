@@ -129,6 +129,7 @@
 
 	var/backpack = /obj/item/weapon/storage/backpack
 	var/satchel = /obj/item/weapon/storage/backpack/satchel_norm
+	var/dufflebag = /obj/item/weapon/storage/backpack/duffel
 	var/box = /obj/item/weapon/storage/box/survival
 
 	var/tmp/list/gear_leftovers = list()
@@ -145,6 +146,8 @@
 			back = /obj/item/weapon/storage/backpack/satchel //Leather Satchel
 		if(DSATCHEL)
 			back = satchel //Department satchel
+		if(DDUFFLEBAG)
+			back = dufflebag //Department dufflebag
 		else
 			back = backpack //Department backpack
 

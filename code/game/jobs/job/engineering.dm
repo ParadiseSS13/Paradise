@@ -39,6 +39,7 @@
 
 	backpack = /obj/item/weapon/storage/backpack/industrial
 	satchel = /obj/item/weapon/storage/backpack/satchel_eng
+	dufflebag = /obj/item/weapon/storage/backpack/duffel/engineering
 	box = /obj/item/weapon/storage/box/engineer
 
 
@@ -69,8 +70,10 @@
 	id = /obj/item/weapon/card/id/engineering
 	l_pocket = /obj/item/device/t_scanner
 	pda = /obj/item/device/pda/engineering
+
 	backpack = /obj/item/weapon/storage/backpack/industrial
 	satchel = /obj/item/weapon/storage/backpack/satchel_eng
+	dufflebag = /obj/item/weapon/storage/backpack/duffel/engineering
 	box = /obj/item/weapon/storage/box/engineer
 
 
@@ -100,6 +103,7 @@
 	l_ear = /obj/item/device/radio/headset/headset_eng
 	id = /obj/item/weapon/card/id/engineering
 	pda = /obj/item/device/pda/atmos
+
 	box = /obj/item/weapon/storage/box/engineer
 
 /datum/job/mechanic
@@ -133,4 +137,5 @@
 
 	backpack = /obj/item/weapon/storage/backpack/industrial
 	satchel = /obj/item/weapon/storage/backpack/satchel_eng
+	dufflebag = /obj/item/weapon/storage/backpack/duffel/engineering
 	box = /obj/item/weapon/storage/box/engineer

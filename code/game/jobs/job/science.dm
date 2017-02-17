@@ -44,6 +44,7 @@
 
 	backpack = /obj/item/weapon/storage/backpack/science
 	satchel = /obj/item/weapon/storage/backpack/satchel_tox
+	dufflebag = /obj/item/weapon/storage/backpack/duffel/science
 
 
 /datum/job/scientist
@@ -80,6 +81,7 @@
 
 	backpack = /obj/item/weapon/storage/backpack/science
 	satchel = /obj/item/weapon/storage/backpack/satchel_tox
+	dufflebag = /obj/item/weapon/storage/backpack/duffel/science
 
 
 /datum/job/roboticist

@@ -93,6 +93,7 @@
 
 	backpack = /obj/item/weapon/storage/backpack/botany
 	satchel = /obj/item/weapon/storage/backpack/satchel_hyd
+	dufflebag = /obj/item/weapon/storage/backpack/duffel/hydro
 
 
 
@@ -221,6 +222,7 @@
 
 	backpack = /obj/item/weapon/storage/backpack/clown
 	satchel = /obj/item/weapon/storage/backpack/clown
+	dufflebag = /obj/item/weapon/storage/backpack/duffel/clown
 
 /datum/outfit/job/clown/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
