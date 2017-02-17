@@ -8,6 +8,7 @@
 			..()
 			return
 		if(1)
+			interceptname = "Level 5-6 Biohazard Response Procedures"
 			intercepttext += "<FONT size = 3><B>Nanotrasen Update</B>: Biohazard Alert.</FONT><HR>"
 			intercepttext += "Reports indicate the probable transfer of a biohazardous agent onto [station_name()] during the last crew deployment cycle.<BR>"
 			intercepttext += "Preliminary analysis of the organism classifies it as a level 5 biohazard. Its origin is unknown.<BR>"
@@ -26,6 +27,7 @@
 					if(is_station_level(bomb.z))
 						bomb.r_code = nukecode
 
+			interceptname = "Classified [command_name()] Update"
 			intercepttext += "<FONT size = 3><B>Nanotrasen Update</B>: Biohazard Alert.</FONT><HR>"
 			intercepttext += "Directive 7-12 has been issued for [station_name()].<BR>"
 			intercepttext += "The biohazard has grown out of control and will soon reach critical mass.<BR>"
@@ -41,17 +43,8 @@
 					aiPlayer.set_zeroth_law(law)
 					to_chat(aiPlayer, "Laws Updated: [law]")
 
-	for(var/obj/machinery/computer/communications/comm in world)
-		comm.messagetitle.Add(interceptname)
-		comm.messagetext.Add(intercepttext)
-		if(!(comm.stat & (BROKEN | NOPOWER)) && comm.prints_intercept)
-			var/obj/item/weapon/paper/intercept = new /obj/item/weapon/paper( comm.loc )
-			playsound(comm.loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
-			intercept.name = "Classified Central Command Update"
-			intercept.info = intercepttext
+	print_command_report(intercepttext, interceptname)
 	event_announcement.Announce("A report has been downloaded and printed out at all communications consoles.", "Incoming Classified Message", 'sound/AI/commandreport.ogg')
-	return
-
 
 /datum/station_state
 	var/floor = 0

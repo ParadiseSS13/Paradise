@@ -118,11 +118,13 @@
 	return .
 
 /obj/effect/meteor/Destroy()
+	meteor_list -= src
 	walk(src,0) //this cancels the walk_towards() proc
 	return ..()
 
 /obj/effect/meteor/New()
 	..()
+	meteor_list += src
 	SpinAnimation()
 
 /obj/effect/meteor/Bump(atom/A)

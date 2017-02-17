@@ -561,36 +561,22 @@ Traitors and the like can also be revived with the previous role mostly intact.
 			if("Yes")
 				communications_announcement.Announce(input, customname, , , , from);
 			if("No")
-				to_chat(world, "\red [from] available at all communications consoles.")
+				to_chat(world, "<span class='danger'>[from] available at all communications consoles.</span>")
 
-		for(var/obj/machinery/computer/communications/C in machines)
-			if(! (C.stat & (BROKEN|NOPOWER) ) )
-				var/obj/item/weapon/paper/P = new /obj/item/weapon/paper( C.loc )
-				P.name = "[from]"
-				P.info = input
-				P.update_icon()
-				C.messagetitle.Add("[from]")
-				C.messagetext.Add(P.info)
-
+		print_command_report(input, from)
 
 	if(type == "Centcom Report")
 		if(!customname)
 			customname = "Nanotrasen Update"
 
-		switch(alert("Should this be announced to the general population?",,"Yes","No"))
+		var/announce = alert("Should this be announced to the general population?",,"Yes","No")
+		switch(announce)
 			if("Yes")
 				command_announcement.Announce(input, customname);
 			if("No")
-				to_chat(world, "\red New Nanotrasen Update available at all communication consoles.")
+				to_chat(world, "<span class='danger'>New Nanotrasen Update available at all communication consoles.</span>")
 
-		for(var/obj/machinery/computer/communications/C in machines)
-			if(! (C.stat & (BROKEN|NOPOWER) ) )
-				var/obj/item/weapon/paper/P = new /obj/item/weapon/paper( C.loc )
-				P.name = "'[command_name()] Update.'"
-				P.info = input
-				P.update_icon()
-				C.messagetitle.Add("[command_name()] Update")
-				C.messagetext.Add(P.info)
+		print_command_report(input, "[announce == "No" ? "Classified " : ""][command_name()] Update")
 
 //	world << sound('sound/AI/commandreport.ogg')
 	log_admin("[key_name(src)] has created a communications report: [input]")
@@ -892,7 +878,6 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	message_admins("[key_name_admin(usr)] blanked all telecomms scripts.")
 	feedback_add_details("admin_verb","RAT") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-
 /client/proc/toggle_ert_calling()
 	set category = "Event"
 	set name = "Toggle ERT"
@@ -911,3 +896,19 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		to_chat(usr, "\red ERT has been <b>Disabled</b>.")
 		log_admin("Admin [key_name(src)] has disabled ERT calling.")
 		message_admins("Admin [key_name_admin(usr)] has disabled ERT calling.", 1)
+		
+/client/proc/modify_goals()
+	set category = "Event"
+	set name = "Modify Station Goals"
+
+	if(!check_rights(R_EVENT))
+		return
+
+	holder.modify_goals()
+
+/datum/admins/proc/modify_goals()
+	var/dat = ""
+	for(var/datum/station_goal/S in ticker.mode.station_goals)
+		dat += "[S.name] - <a href='?src=[S.UID()];announce=1'>Announce</a> | <a href='?src=[S.UID()];remove=1'>Remove</a><br>"
+	dat += "<br><a href='?src=[UID()];add_station_goal=1'>Add New Goal</a>"
+	usr << browse(dat, "window=goals;size=400x400")

@@ -111,17 +111,17 @@ Used In File(s): /code/game/machinery/computers/communications.dm
 		<h3>Messages</h3>
 		{{if data.current_message}}
 			{{:helper.link('Messages','home',{'operation':'messagelist'})}}
-			<h3>{{>title}}</h3>
+			<h3>{{:data.current_message_title}}</h3>
 			<div class="item">
-				{{>body}}
+				{{:data.current_message}}
 			</div>
 		{{else}}
 			{{:helper.link('Back','home',{'operation':'main'})}}
 			{{for data.messages}}
 				<div class="line">
-					{{:helper.link('Open','envelope-o',{'operation':'messagelist','msgid':data.id})}}
-					{{:helper.link('Delete','close',{'operation':'delmessage','msgid':data.id},'red')}}
-					{{>data.title}}
+					<b>{{:value.title}}</b><br>
+					{{:helper.link('Open','envelope-o',{'operation':'messagelist','msgid':value.id})}}
+					{{:helper.link('Delete','close',{'operation':'delmessage','msgid':value.id})}}
 				</div>
 			{{/for}}
 		{{/if}}
