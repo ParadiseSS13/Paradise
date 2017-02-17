@@ -52,6 +52,7 @@
 	"<span class='notice'> You have made an incision on [target]'s [affected.name] with \the [tool].</span>",)
 	affected.open = 1
 	affected.status |= ORGAN_BLEEDING
+	target.bad_external_organs += affected
 	return 1
 
 /datum/surgery_step/generic/cut_open/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
@@ -183,6 +184,7 @@
 	affected.open = 0
 	affected.germ_level = 0
 	affected.status &= ~ORGAN_BLEEDING
+	target.bad_external_organs -= affected
 	return 1
 
 /datum/surgery_step/generic/cauterize/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)

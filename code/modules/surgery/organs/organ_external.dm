@@ -487,13 +487,42 @@ Note that amputating the affected organ does in fact remove the infection from t
 		//Open wounds can become infected
 		if(owner.germ_level > W.germ_level && W.infection_check())
 			W.germ_level++
-
+	for(var/obj/item/organ/external/O in owner)
+		//incisions make it easier to get an infection
+		if(O.open)
+			spread_germs_by_incision(O)
 	if(antibiotics < 5)
 		for(var/datum/wound/W in wounds)
 			//Infected wounds raise the organ's germ level
 			if(W.germ_level > germ_level)
 				germ_level++
 				break	//limit increase to a maximum of one per second
+
+/proc/spread_germs_by_incision(obj/item/organ/external/E)
+	if(!istype(E))
+		return
+
+	if(!(E.status & ORGAN_ROBOT))
+		var/germ_count = 0
+		var/area/room = get_area(E)
+		for(var/mob/living/carbon/human/H in room)
+			if(!(NO_BREATH in H.mutations) || !(H.species.flags & NO_BREATH))
+				if(H.wear_mask)
+					//wearing a mask helps preventing people from breathing cooties into open incisions
+					germ_count+=H.germ_level/200
+				else
+					germ_count+=H.germ_level/100
+
+		for(var/obj/effect/decal/cleanable/M in room)
+			if(prob(20))
+				germ_count++
+		if(E.internal_organs.len)
+			to_chat(world,"[germ_count]")
+			germ_count = germ_count / E.internal_organs.len
+			for(var/obj/item/organ/internal/O in E.internal_organs)
+				if(!(O.status & ORGAN_ROBOT))
+					O.germ_level += germ_count
+		E.germ_level += germ_count
 
 /obj/item/organ/external/handle_germ_effects()
 
