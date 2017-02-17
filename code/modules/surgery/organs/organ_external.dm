@@ -517,7 +517,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 			if(prob(20))
 				germ_count++
 		if(E.internal_organs.len)
-			to_chat(world,"[germ_count]")
+//			to_chat(world,"[germ_count]")
 			germ_count = germ_count / E.internal_organs.len
 			for(var/obj/item/organ/internal/O in E.internal_organs)
 				if(!(O.status & ORGAN_ROBOT))
