@@ -498,7 +498,7 @@
 			to_chat(usr, "<span class=warning>The vending machine refuses to interface with you, as you are not in its target demographic!</span>")
 			return
 
-		if((!allowed(usr) && !usr.can_admin_interact()) && !emagged && scan_id) //For SECURE VENDING MACHINES YEAH
+		if(!allowed(usr) && !usr.can_admin_interact() && !emagged && scan_id) //For SECURE VENDING MACHINES YEAH
 			to_chat(usr, "<span class='warning'>Access denied.</span>") //Unless emagged of course
 			flick(icon_deny,src)
 			return
@@ -531,7 +531,7 @@
 	nanomanager.update_uis(src)
 
 /obj/machinery/vending/proc/vend(datum/data/vending_product/R, mob/user)
-	if((!allowed(usr) || !usr.can_admin_interact()) && !emagged && scan_id)	//For SECURE VENDING MACHINES YEAH
+	if(!allowed(usr) && !usr.can_admin_interact() && !emagged && scan_id)	//For SECURE VENDING MACHINES YEAH
 		to_chat(usr, "<span class='warning'>Access denied.</span>")//Unless emagged of course
 		flick(icon_deny,src)
 		return
@@ -539,6 +539,7 @@
 	if(!R.amount)
 		to_chat(user, "<span class='warning'>The vending machine has ran out of that product.</span>")
 		return
+
 	vend_ready = 0 //One thing at a time!!
 	status_message = "Vending..."
 	status_error = 0
