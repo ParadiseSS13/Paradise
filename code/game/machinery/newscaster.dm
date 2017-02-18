@@ -938,19 +938,19 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 
 ////////////////////////////////////helper procs
 
-/obj/machinery/newscaster/proc/scan_user(mob/user as mob)
+/obj/machinery/newscaster/proc/scan_user(mob/user)
 	if(ishuman(user))                      							 //User is a human
 		var/mob/living/carbon/human/human_user = user
 		if(human_user.wear_id)                                      //Newscaster scans you
-			if(istype(human_user.wear_id, /obj/item/device/pda) )	//autorecognition, woo!
+			if(istype(human_user.wear_id, /obj/item/device/pda))	//autorecognition, woo!
 				var/obj/item/device/pda/P = human_user.wear_id
 				if(P.id)
 					scanned_user = "[P.id.registered_name] ([P.id.assignment])"
 				else
 					scanned_user = "Unknown"
-			else if(istype(human_user.wear_id, /obj/item/weapon/card/id) )
+			else if(istype(human_user.wear_id, /obj/item/weapon/card/id))
 				var/obj/item/weapon/card/id/ID = human_user.wear_id
-				scanned_user ="[ID.registered_name] ([ID.assignment])"
+				scanned_user = "[ID.registered_name] ([ID.assignment])"
 			else
 				scanned_user = "Unknown"
 		else
@@ -961,10 +961,10 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 	else
 		scanned_user = "Unknown"
 		
-/obj/machinery/newscaster/proc/can_scan(mob/user as mob)
+/obj/machinery/newscaster/proc/can_scan(mob/user)
 	if(ishuman(user) || issilicon(user))
-		. = TRUE
-	. = FALSE
+		return TRUE
+	return FALSE
 
 /obj/machinery/newscaster/proc/print_paper()
 	feedback_inc("newscaster_newspapers_printed",1)
