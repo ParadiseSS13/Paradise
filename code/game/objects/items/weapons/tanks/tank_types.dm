@@ -184,12 +184,12 @@
 	name = "vox specialized nitrogen tank"
 	desc = "A high-tech nitrogen tank designed specifically for Vox."
 	icon_state = "emergency_vox"
-	volume = 25
+	volume = 0.01
 
 /obj/item/weapon/tank/emergency_oxygen/vox/New()
 	..()
 	air_contents.oxygen -= (3*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C)
-	air_contents.nitrogen = (10*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C)
+	air_contents.nitrogen = (0.01*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C)
 
 /obj/item/weapon/tank/emergency_oxygen/nitrogen
 	name = "emergency nitrogen tank"
