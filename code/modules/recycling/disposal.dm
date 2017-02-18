@@ -872,29 +872,22 @@
 //weldingtool: unfasten and convert to obj/disposalconstruct
 
 /obj/structure/disposalpipe/attackby(var/obj/item/I, var/mob/user, params)
-
-	var/turf/T = src.loc
+	var/turf/T = get_turf(src)
 	if(T.intact)
 		return		// prevent interaction with T-scanner revealed pipes
-	src.add_fingerprint(user)
+
+	add_fingerprint(user)
+
 	if(istype(I, /obj/item/weapon/weldingtool))
 		var/obj/item/weapon/weldingtool/W = I
-
-		if(W.remove_fuel(0,user))
-			playsound(src.loc, 'sound/items/Welder2.ogg', 100, 1)
-			// check if anything changed over 2 seconds
-			var/turf/uloc = user.loc
-			var/atom/wloc = W.loc
-			to_chat(user, "Slicing the disposal pipe.")
-			sleep(30)
-			if(!W.isOn()) return
-			if(user.loc == uloc && wloc == W.loc)
+		if(W.remove_fuel(0, user))
+			to_chat(user, "<span class='notice'>You begin slicing \the [src].</span>")
+			playsound(loc, 'sound/items/Welder2.ogg', 100, 1)
+			if(do_after(user, 30, target = src))
+				to_chat(user, "<span class='notice'>You finish slicing \the [src].</span>")
 				welded()
-			else
-				to_chat(user, "You must stay still while welding the pipe.")
 		else
-			to_chat(user, "You need more welding fuel to cut the pipe.")
-			return
+			to_chat(user, "<span class='warning'>You need more welding fuel to cut the pipe.</span>")
 
 // called when pipe is cut with welder
 /obj/structure/disposalpipe/proc/welded()
