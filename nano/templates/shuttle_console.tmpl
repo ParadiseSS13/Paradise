@@ -1,0 +1,28 @@
+<!-- 
+Title: Shuttle Console
+Used In File(s): /code/modules/shuttle/shuttle.dm
+-->
+
+<div style="text-align: center;">
+	<div class='line'><b>Status:</b> {{:data.status ? data.status : '<span class="bad">*Missing*</span>'}}</div>
+	{{if data.shuttle}}
+		{{for data.docking_ports}}
+			<div style="display: inline-block;">
+				<div class='item'>{{:helper.link('Send to ' + value.name, 'sign-out', {'move' : value.id})}}</div>
+			</div>
+		{{empty}}
+			<h4 class='bad'>Shuttle Locked</h4>
+			{{if data.admin_controlled}}
+				<div class='line'><b class='average'>Authorized personnel only</b></div>
+				<div style="display: inline-block;">
+					<div class='item'>{{:helper.link('Request Authorization', 'share-square-o', {'request' : 1})}}</div>
+				</div>
+			{{/if}}
+		{{/for}}
+		{{if data.docking_request}}
+			<div style="display: inline-block;">
+				<div class='item'>{{:helper.link('Request docking at NSS Cyberiad', 'share-square-o', {'request' : 1})}}</div>
+			</div>
+		{{/if}}
+	{{/if}}
+</div>
