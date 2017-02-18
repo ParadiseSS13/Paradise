@@ -20,7 +20,7 @@ Used In File(s): \code\game\machinery\computer\security.dm
 				hidden.parent("td").parent("tr").show()
 			}
 
-			if(filter.value == ""){
+			if(filter == ""){
 				return;
 			} else {
 				hidden = $("#maintable_data").children("tbody").children("tr").children("td").children("input").filter(function(index) {
