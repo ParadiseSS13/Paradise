@@ -319,6 +319,20 @@
 		"stack" =    /obj/item/organ/internal/stack/vox //Not the same as the cortical stack implant Vox Raiders spawn with. The cortical stack implant is used
 		)												//for determining the success of the heist game-mode's 'leave nobody behind' objective, while this is just an organ.
 
+	has_limbs = list(
+		"chest" =  list("path" = /obj/item/organ/external/chest/vox),
+		"groin" =  list("path" = /obj/item/organ/external/groin/vox),
+		"head" =   list("path" = /obj/item/organ/external/head/vox),
+		"l_arm" =  list("path" = /obj/item/organ/external/arm/vox),
+		"r_arm" =  list("path" = /obj/item/organ/external/arm/right/vox),
+		"l_leg" =  list("path" = /obj/item/organ/external/leg/vox),
+		"r_leg" =  list("path" = /obj/item/organ/external/leg/right/vox),
+		"l_hand" = list("path" = /obj/item/organ/external/hand/vox),
+		"r_hand" = list("path" = /obj/item/organ/external/hand/right/vox),
+		"l_foot" = list("path" = /obj/item/organ/external/foot/vox),
+		"r_foot" = list("path" = /obj/item/organ/external/foot/right/vox)
+		)
+
 	suicide_messages = list(
 		"is attempting to bite their tongue off!",
 		"is jamming their claws into their eye sockets!",
@@ -443,6 +457,20 @@
 		"eyes" =     /obj/item/organ/internal/eyes, //Default darksight of 2.
 		"stack" =    /obj/item/organ/internal/stack/vox //Not the same as the cortical stack implant Vox Raiders spawn with. The cortical stack implant is used
 		)												//for determining the success of the heist game-mode's 'leave nobody behind' objective, while this is just an organ.
+
+	has_limbs = list(
+		"chest" =  list("path" = /obj/item/organ/external/chest),
+		"groin" =  list("path" = /obj/item/organ/external/groin),
+		"head" =   list("path" = /obj/item/organ/external/head),
+		"l_arm" =  list("path" = /obj/item/organ/external/arm),
+		"r_arm" =  list("path" = /obj/item/organ/external/arm/right),
+		"l_leg" =  list("path" = /obj/item/organ/external/leg),
+		"r_leg" =  list("path" = /obj/item/organ/external/leg/right),
+		"l_hand" = list("path" = /obj/item/organ/external/hand),
+		"r_hand" = list("path" = /obj/item/organ/external/hand/right),
+		"l_foot" = list("path" = /obj/item/organ/external/foot),
+		"r_foot" = list("path" = /obj/item/organ/external/foot/right)
+		)
 
 	suicide_messages = list(
 		"is attempting to bite their tongue off!",
