@@ -95,6 +95,7 @@ var/global/list/bad_blocks[0]
 
 	// New stuff
 	var/species = "Human"
+	var/base_stability = DEFAULT_GENE_STABILITY
 
 // Make a copy of this strand.
 // USE THIS WHEN COPYING STUFF OR YOU'LL GET CORRUPTION!
@@ -105,6 +106,7 @@ var/global/list/bad_blocks[0]
 	new_dna.b_type=b_type
 	new_dna.real_name=real_name
 	new_dna.species=species
+	new_dna.base_stability = base_stability
 	for(var/b=1;b<=DNA_SE_LENGTH;b++)
 		new_dna.SE[b]=SE[b]
 		if(b<=DNA_UI_LENGTH)
