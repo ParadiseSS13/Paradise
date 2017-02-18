@@ -77,7 +77,7 @@
 	if(istype(AM, /obj/mecha))
 		var/obj/mecha/mecha = AM
 		if(density)
-			if(mecha.occupant && (src.allowed(mecha.occupant) || src.check_access_list(mecha.operation_req_access) || emergency == 1))
+			if(mecha.occupant && (allowed(mecha.occupant) || check_access_list(mecha.operation_req_access) || emergency == 1))
 				open()
 			else
 				do_animate("deny")
@@ -111,38 +111,43 @@
 			do_animate("deny")
 	return
 
-/obj/machinery/door/attack_ai(mob/user as mob)
-	return src.attack_hand(user)
+/obj/machinery/door/attack_ai(mob/user)
+	return attack_hand(user)
 
-/obj/machinery/door/attack_hand(mob/user as mob)
-	return src.attackby(user, user)
+/obj/machinery/door/attack_ghost(mob/user)
+	if(user.can_advanced_admin_interact())
+		return attack_hand(user)	
+	
+/obj/machinery/door/attack_hand(mob/user)
+	return attackby(user, user)
 
-/obj/machinery/door/attack_tk(mob/user as mob)
+/obj/machinery/door/attack_tk(mob/user)
 	if(requiresID() && !allowed(null))
 		return
 	..()
 
-/obj/machinery/door/attackby(obj/item/I as obj, mob/user as mob, params)
+/obj/machinery/door/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/device/detective_scanner))
 		return
-	if(src.operating || isrobot(user))	return //borgs can't attack doors open because it conflicts with their AI-like interaction with them.
-	src.add_fingerprint(user)
-	if(!Adjacent(user))
-		user = null
-	if(!src.requiresID())
-		user = null
-	if(src.density && (istype(I, /obj/item/weapon/card/emag)||istype(I, /obj/item/weapon/melee/energy/blade)))
+
+	if(operating || isrobot(user))	
+		return //borgs can't attack doors open because it conflicts with their AI-like interaction with them.
+
+	add_fingerprint(user)
+
+	if(density && (istype(I, /obj/item/weapon/card/emag) || istype(I, /obj/item/weapon/melee/energy/blade)))
 		emag_act(user)
 		return 1
-	if(src.allowed(user) || src.emergency == 1)
-		if(src.density)
+
+	if(allowed(user) || emergency == 1 || user.can_advanced_admin_interact())
+		if(density)
 			open()
 		else
 			close()
 		return
-	if(src.density)
+
+	if(density)
 		do_animate("deny")
-	return
 
 /obj/machinery/door/emag_act(user as mob)
 	if(density)
@@ -213,11 +218,11 @@
 	if(!operating)		operating = 1
 
 	do_animate("opening")
-	src.set_opacity(0)
+	set_opacity(0)
 	sleep(5)
-	src.density = 0
+	density = 0
 	sleep(5)
-	src.layer = open_layer
+	layer = open_layer
 	update_icon()
 	set_opacity(0)
 	operating = 0
@@ -242,9 +247,9 @@
 		autoclose_timer = 0
 
 	do_animate("closing")
-	src.layer = closed_layer
+	layer = closed_layer
 	sleep(5)
-	src.density = 1
+	density = 1
 	sleep(5)
 	update_icon()
 	if(visible && !glass)
@@ -266,7 +271,7 @@
 			L.Weaken(5)
 		else //for simple_animals & borgs
 			L.adjustBruteLoss(DOOR_CRUSH_DAMAGE)
-		var/turf/simulated/location = src.loc
+		var/turf/simulated/location = loc
 		if(istype(location, /turf/simulated)) //add_blood doesn't work for borgs/xenos, but add_blood_floor does.
 			location.add_blood_floor(L)
 

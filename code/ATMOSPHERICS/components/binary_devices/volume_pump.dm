@@ -99,7 +99,10 @@ Thus, the two variables affect pump operation are set in New():
 
 	return 1
 
-/obj/machinery/atmospherics/binary/volume_pump/interact(mob/user as mob)
+/obj/machinery/atmospherics/binary/volume_pump/interact(mob/user)
+	user.set_machine(src)
+	add_fingerprint(user)
+
 	var/dat = {"<b>Power: </b><a href='?src=[UID()];power=1'>[on?"On":"Off"]</a><br>
 				<b>Desirable output flow: </b>
 				[round(transfer_rate,1)]l/s | <a href='?src=[UID()];set_transfer_rate=1'>Change</a>
@@ -142,16 +145,18 @@ Thus, the two variables affect pump operation are set in New():
 		broadcast_status()
 	update_icon()
 
-/obj/machinery/atmospherics/binary/volume_pump/attack_hand(user as mob)
+/obj/machinery/atmospherics/binary/volume_pump/attack_hand(mob/user)
 	if(..())
 		return
-	src.add_fingerprint(usr)
-	if(!src.allowed(user))
+
+	if(!allowed(user))
 		to_chat(user, "<span class='alert'>Access denied.</span>")
 		return
-	usr.set_machine(src)
+
 	interact(user)
-	return
+	
+/obj/machinery/atmospherics/binary/volume_pump/attack_ghost(mob/user)
+	interact(user)
 
 /obj/machinery/atmospherics/binary/volume_pump/Topic(href,href_list)
 	if(..())
@@ -160,13 +165,12 @@ Thus, the two variables affect pump operation are set in New():
 		on = !on
 		investigate_log("was turned [on ? "on" : "off"] by [key_name(usr)]", "atmos")
 	if(href_list["set_transfer_rate"])
-		var/new_transfer_rate = input(usr,"Enter new output volume (0-200l/s)","Flow control",src.transfer_rate) as num
-		src.transfer_rate = max(0, min(200, new_transfer_rate))
+		var/new_transfer_rate = input(usr,"Enter new output volume (0-200l/s)","Flow control",transfer_rate) as num
+		transfer_rate = max(0, min(200, new_transfer_rate))
 		investigate_log("was set to [transfer_rate] L/s by [key_name(usr)]", "atmos")
 	usr.set_machine(src)
-	src.update_icon()
-	src.updateUsrDialog()
-	return
+	update_icon()
+	updateUsrDialog()
 
 /obj/machinery/atmospherics/binary/volume_pump/power_change()
 	var/old_stat = stat
@@ -174,7 +178,7 @@ Thus, the two variables affect pump operation are set in New():
 	if(old_stat != stat)
 		update_icon()
 
-/obj/machinery/atmospherics/binary/volume_pump/attackby(var/obj/item/weapon/W as obj, var/mob/user as mob, params)
+/obj/machinery/atmospherics/binary/volume_pump/attackby(var/obj/item/weapon/W, var/mob/user, params)
 	if(!istype(W, /obj/item/weapon/wrench))
 		return ..()
 	if(!(stat & NOPOWER) && on)

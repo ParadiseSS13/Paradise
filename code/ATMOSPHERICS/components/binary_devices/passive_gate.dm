@@ -88,7 +88,10 @@
 
 	return 1
 
-/obj/machinery/atmospherics/binary/passive_gate/interact(mob/user as mob)
+/obj/machinery/atmospherics/binary/passive_gate/interact(mob/user)
+	user.set_machine(src)
+	add_fingerprint(user)
+
 	var/dat = {"<b>Power: </b><a href='?src=[UID()];power=1'>[on?"On":"Off"]</a><br>
 				<b>Desirable output pressure: </b>
 				[round(target_pressure,0.1)]kPa | <a href='?src=[UID()];set_press=1'>Change</a>
@@ -131,32 +134,35 @@
 	update_icon()
 	return
 
-/obj/machinery/atmospherics/binary/passive_gate/attack_hand(user as mob)
+/obj/machinery/atmospherics/binary/passive_gate/attack_hand(mob/user)
 	if(..())
 		return
-	src.add_fingerprint(usr)
-	if(!src.allowed(user))
+
+	if(!allowed(user))
 		to_chat(user, "<span class='alert'>Access denied.</span>")
 		return
-	usr.set_machine(src)
+
 	interact(user)
-	return
+	
+/obj/machinery/atmospherics/binary/passive_gate/attack_ghost(mob/user)
+	interact(user)
 
 /obj/machinery/atmospherics/binary/passive_gate/Topic(href,href_list)
-	if(..()) return
+	if(..()) 
+		return 1
 	if(href_list["power"])
 		on = !on
 		investigate_log("was turned [on ? "on" : "off"] by [key_name(usr)]", "atmos")
 	if(href_list["set_press"])
-		var/new_pressure = input(usr,"Enter new output pressure (0-4500kPa)","Pressure control",src.target_pressure) as num
-		src.target_pressure = max(0, min(4500, new_pressure))
+		var/new_pressure = input(usr,"Enter new output pressure (0-4500kPa)","Pressure control",target_pressure) as num
+		target_pressure = max(0, min(4500, new_pressure))
 		investigate_log("was set to [target_pressure] kPa by [key_name(usr)]", "atmos")
 	usr.set_machine(src)
-	src.update_icon()
-	src.updateUsrDialog()
+	update_icon()
+	updateUsrDialog()
 	return
 
-/obj/machinery/atmospherics/binary/passive_gate/attackby(var/obj/item/weapon/W as obj, var/mob/user as mob, params)
+/obj/machinery/atmospherics/binary/passive_gate/attackby(var/obj/item/weapon/W, var/mob/user, params)
 	if(!istype(W, /obj/item/weapon/wrench))
 		return ..()
 	if(on)

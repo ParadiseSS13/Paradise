@@ -172,8 +172,10 @@
 
 //Allows AIs to use door_timer, see human attack_hand function below
 /obj/machinery/door_timer/attack_ai(mob/user)
-	return attack_hand(user)
+	interact(user)
 
+/obj/machinery/door_timer/attack_ghost(mob/user)
+	interact(user)
 
 //Allows humans to use door_timer
 //Opens dialog window when someone clicks on door timer
@@ -182,7 +184,9 @@
 /obj/machinery/door_timer/attack_hand(mob/user)
 	if(..())
 		return
-
+	interact(user)
+		
+/obj/machinery/door_timer/interact(mob/user)
 	// Used for the 'time left' display
 	var/second = round(timeleft() % 60)
 	var/minute = round((timeleft() - second) / 60)
@@ -239,9 +243,10 @@
 // Also updates dialog window and timer icon
 /obj/machinery/door_timer/Topic(href, href_list)
 	if(..())
-		return
-	if(!allowed(usr))
-		return
+		return 1
+
+	if(!allowed(usr) && !usr.can_admin_interact())
+		return 1
 
 	usr.set_machine(src)
 

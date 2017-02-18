@@ -641,10 +641,22 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 			client.images -= ghostimage //remove ourself
 
 /mob/proc/can_admin_interact()
-	return 0
+	return FALSE
+	
+/mob/proc/can_advanced_admin_interact()
+	return FALSE
 
 /mob/dead/observer/can_admin_interact()
 	return check_rights(R_ADMIN, 0, src)
+	
+/mob/dead/observer/can_advanced_admin_interact()
+	if(!can_admin_interact())
+		return FALSE
+
+	if(client && client.advanced_admin_interaction)
+		return TRUE
+
+	return FALSE
 
 //this is a mob verb instead of atom for performance reasons
 //see /mob/verb/examinate() in mob.dm for more info

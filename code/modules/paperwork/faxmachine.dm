@@ -37,9 +37,12 @@ var/list/alldepartments = list()
 	fax_network = "Central Command Quantum Entanglement Network"
 	long_range_enabled = 1
 
-/obj/machinery/photocopier/faxmachine/attack_hand(mob/user as mob)
+/obj/machinery/photocopier/faxmachine/attack_hand(mob/user)
 	ui_interact(user)
 
+/obj/machinery/photocopier/faxmachine/attack_ghost(mob/user)
+	ui_interact(user)	
+	
 /obj/machinery/photocopier/faxmachine/attackby(obj/item/weapon/item, mob/user, params)
 	if(istype(item,/obj/item/weapon/card/id) && !scan)
 		scan(item)
@@ -64,13 +67,14 @@ var/list/alldepartments = list()
 
 /obj/machinery/photocopier/faxmachine/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/data[0]
+	var/is_authenticated = is_authenticated(user)
 
 	if(scan)
 		data["scan_name"] = scan.name
 	else
 		data["scan_name"] = "-----"
-	data["authenticated"] = authenticated
-	if(!authenticated)
+	data["authenticated"] = is_authenticated
+	if(!is_authenticated)
 		data["network"] = "Disconnected"
 	else if(!emagged)
 		data["network"] = fax_network
@@ -91,12 +95,20 @@ var/list/alldepartments = list()
 
 	return data
 
+/obj/machinery/photocopier/faxmachine/proc/is_authenticated(mob/user)
+	if(authenticated)
+		return TRUE
+	else if(user.can_admin_interact())
+		return TRUE
+	return FALSE
+	
 /obj/machinery/photocopier/faxmachine/Topic(href, href_list)
 	if(..())
 		return 1
-
+		
+	var/is_authenticated = is_authenticated(usr)
 	if(href_list["send"])
-		if(copyitem && authenticated)
+		if(copyitem && is_authenticated)
 			if((destination in admin_departments) || (destination in hidden_admin_departments))
 				send_admin_fax(usr, destination)
 			else
@@ -128,7 +140,7 @@ var/list/alldepartments = list()
 		scan()
 
 	if(href_list["dept"])
-		if(authenticated)
+		if(is_authenticated)
 			var/lastdestination = destination
 			var/list/combineddepartments = alldepartments.Copy()
 			if(long_range_enabled)
@@ -145,7 +157,7 @@ var/list/alldepartments = list()
 		if((!authenticated) && scan)
 			if(check_access(scan))
 				authenticated = 1
-		else if(authenticated)
+		else if(!authenticated)
 			authenticated = 0
 
 	if(href_list["rename"])

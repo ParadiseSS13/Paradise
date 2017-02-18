@@ -107,7 +107,7 @@
 			to_chat(user, "<span class='danger'>You cannot unwrench [src], it is too exerted due to internal pressure.</span>")
 			add_fingerprint(user)
 			return 1
-		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
+		playsound(loc, 'sound/items/Ratchet.ogg', 50, 1)
 		to_chat(user, "<span class='notice'>You begin to unfasten \the [src]...</span>")
 		if(do_after(user, 40, target = src))
 			user.visible_message( \
@@ -119,14 +119,16 @@
 	else
 		return ..()
 
-/obj/machinery/atmospherics/omni/attack_hand(user as mob)
+/obj/machinery/atmospherics/omni/attack_hand(mob/user)
 	if(..())
 		return
 
-	src.add_fingerprint(usr)
+	add_fingerprint(usr)
 	ui_interact(user)
-	return
 
+/obj/machinery/atmospherics/omni/attack_ghost(mob/user)
+	ui_interact(user)
+	
 /obj/machinery/atmospherics/omni/proc/build_icons()
 	if(!check_icon_cache())
 		return
