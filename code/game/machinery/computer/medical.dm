@@ -153,7 +153,7 @@
 				if("del_all2")
 					for(var/datum/data/record/R in data_core.medical)
 						qdel(R)
-					temp = list("text" = "All records deleted.", "buttons" = list())
+					setTemp("<h3>All records deleted.</h3>")
 				if("p_stat")
 					if(active1)
 						switch(temp_href[2])
@@ -419,7 +419,7 @@
 			var/datum/data/record/R = locate(href_list["d_rec"])
 			var/datum/data/record/M = locate(href_list["d_rec"])
 			if(!data_core.general.Find(R))
-				temp = list("text" = "<h3><span class='bad'>Record not found!</span></h3>", "buttons" = list())
+				setTemp("<h3 class='bad'>Record not found!</h3>")
 				return 1
 			for(var/datum/data/record/E in data_core.medical)
 				if(E.fields["name"] == R.fields["name"] && E.fields["id"] == R.fields["id"])
@@ -474,7 +474,7 @@
 				if(t1 == lowertext(R.fields["name"]) || t1 == lowertext(R.fields["id"]) || t1 == lowertext(R.fields["b_dna"]))
 					active2 = R
 			if(!active2)
-				temp = list("text" = "<h3><span class='bad'>Could not locate record [t1].</span></h3>")
+				setTemp("<h3 class='bad'>Could not locate record [t1].</h3>")
 			else
 				for(var/datum/data/record/E in data_core.general)
 					if(E.fields["name"] == active2.fields["name"] && E.fields["id"] == active2.fields["id"])
