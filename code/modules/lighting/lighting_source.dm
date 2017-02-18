@@ -66,7 +66,10 @@
 	destroyed = TRUE
 	force_update()
 	if(source_atom)
-		source_atom.light_sources -= src
+		if(!source_atom.light_sources)
+			log_runtime(EXCEPTION("Atom [source_atom] was a light source, but lacked a light source list!\n"), source_atom)
+		else
+			source_atom.light_sources -= src
 
 	if(top_atom)
 		top_atom.light_sources    -= src
