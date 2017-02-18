@@ -15,8 +15,8 @@
 	icon_state = "terror_white"
 	icon_living = "terror_white"
 	icon_dead = "terror_white_dead"
-	maxHealth = 100
-	health = 100
+	maxHealth = 200
+	health = 200
 	melee_damage_lower = 5
 	melee_damage_upper = 15
 	move_to_delay = 4
@@ -49,6 +49,10 @@
 			if(!ckey)
 				LoseTarget()
 				walk_away(src,L,2,1)
+		else if(prob(25))
+			visible_message("<span class='danger'>[src] pounces on [L]!</span>")
+			L.Weaken(5)
+			L.Stun(5)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/IsInfected(mob/living/carbon/C) // Terror AI requires this
 	if(C.get_int_organ(/obj/item/organ/internal/body_egg))
