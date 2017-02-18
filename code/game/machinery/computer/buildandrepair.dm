@@ -30,7 +30,12 @@
 	var/frame_desc = null
 	var/contain_parts = 1
 
-
+/obj/item/weapon/circuitboard/computer
+	board_type = "computer"	
+	
+/obj/item/weapon/circuitboard/machine
+	board_type = "machine"	
+	
 /obj/item/weapon/circuitboard/message_monitor
 	name = "Circuit board (Message Monitor)"
 	build_path = /obj/machinery/computer/message_monitor

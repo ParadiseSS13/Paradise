@@ -142,12 +142,12 @@ var/list/alldepartments = list()
 	if(href_list["dept"])
 		if(is_authenticated)
 			var/lastdestination = destination
-			var/list/combineddepartments = alldepartments
+			var/list/combineddepartments = alldepartments.Copy()
 			if(long_range_enabled)
-				combineddepartments += admin_departments
+				combineddepartments += admin_departments.Copy()
 
 			if(emagged)
-				combineddepartments += hidden_admin_departments
+				combineddepartments += hidden_admin_departments.Copy()
 
 			destination = input(usr, "To which department?", "Choose a department", "") as null|anything in combineddepartments
 			if(!destination)
@@ -233,7 +233,7 @@ var/list/alldepartments = list()
 
 	flick("faxreceive", src)
 
-	playsound(loc, "sound/goonstation/machines/printer_dotmatrix.ogg", 50, 1)
+	playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
 
 	// give the sprite some time to flick
 	sleep(20)

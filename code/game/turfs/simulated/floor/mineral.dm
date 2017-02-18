@@ -73,10 +73,10 @@
 	icons = list("bananium","bananium_dam")
 	var/spam_flag = 0
 
-/turf/simulated/floor/mineral/bananium/Entered(mob/AM)
+/turf/simulated/floor/mineral/bananium/Entered(mob/living/M)
 	.=..()
 	if(!.)
-		if(istype(AM))
+		if(istype(M))
 			squeek()
 
 /turf/simulated/floor/mineral/bananium/attackby(obj/item/weapon/W, mob/user, params)

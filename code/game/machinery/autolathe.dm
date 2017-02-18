@@ -137,7 +137,7 @@
 				user.visible_message("[user] begins to load \the [O] in \the [src]...",
 					"You begin to load a design from \the [O]...",
 					"You hear the chatter of a floppy drive.")
-				playsound(get_turf(src), "sound/goonstation/machines/printer_dotmatrix.ogg", 50, 1)
+				playsound(get_turf(src), 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
 				busy = 1
 				if(do_after(user, 14.4, target = src))
 					files.AddDesign2Known(D.blueprint)

@@ -29,14 +29,16 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	anchored = 1
 	var/z_original = 0
 	var/destination
+	var/notify = TRUE
 
 /obj/effect/immovablerod/New(atom/start, atom/end)
 	loc = start
 	z_original = z
 	destination = end
-	notify_ghosts("\A [src] is inbound!",
-			enter_link="<a href=?src=[UID()];follow=1>(Click to follow)</a>",
-			source=src, action=NOTIFY_FOLLOW)
+	if(notify)
+		notify_ghosts("\A [src] is inbound!",
+				enter_link="<a href=?src=[UID()];follow=1>(Click to follow)</a>",
+				source=src, action=NOTIFY_FOLLOW)
 	poi_list |= src
 	if(end && end.z==z_original)
 		walk_towards(src, destination, 1)

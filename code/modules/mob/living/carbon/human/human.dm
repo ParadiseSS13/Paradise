@@ -1246,7 +1246,6 @@
 		return 0
 	return 1
 
-
 /mob/living/carbon/human/proc/get_visible_gender()
 	if(wear_suit && wear_suit.flags_inv & HIDEJUMPSUIT && ((head && head.flags_inv & HIDEMASK) || wear_mask))
 		return NEUTER
@@ -1514,6 +1513,8 @@
 	if(oldspecies)
 		if(oldspecies.default_genes.len)
 			oldspecies.handle_dna(src,1) // Remove any genes that belong to the old species
+
+	tail = species.tail
 
 	if(vessel)
 		vessel = null
@@ -2050,6 +2051,10 @@
 		return 0
 
 	return .
+
+/mob/living/carbon/human/proc/change_icobase(var/new_icobase, var/new_deform, var/owner_sensitive)
+	for(var/obj/item/organ/external/O in organs)
+		O.change_organ_icobase(new_icobase, new_deform, owner_sensitive) //Change the icobase/deform of all our organs. If owner_sensitive is set, that means the proc won't mess with frankenstein limbs.
 
 /mob/living/carbon/human/serialize()
 	// Currently: Limbs/organs only

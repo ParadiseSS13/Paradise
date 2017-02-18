@@ -12,6 +12,21 @@
 	</div>
 {{else data.menu == 2}}
 	<div class='item'>{{:helper.link('Back', 'reply', {'menu': 1})}}</div>
+	<div class='item'>
+ 		<div class='statusDisplay'>
+ 			<div class='item'>
+ 				<div style="float:right;">
+ 					{{if !data.locked}}{{:helper.link("Rename", '', {'choice' : 'airlock_name'})}}{{else}}LOCKED{{/if}}
+ 				</div>
+ 				<div class='itemLabel'>
+ 					Airlock Name:
+ 				</div>
+ 				<div class='itemContent'>
+ 					{{:data.door_name}}
+ 				</div>
+ 			</div>
+ 		</div>
+ 	</div>
 	<div style='width:49%; float:left'><div class='statusDisplay'>
 		<h3>Type</h3>
 		{{for data.allowed_door_types}}

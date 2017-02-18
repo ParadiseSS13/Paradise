@@ -6,6 +6,8 @@ var/global/ts_count_alive_station = 0
 var/global/ts_death_last = 0
 var/global/ts_death_window = 9000 // 15 minutes
 var/global/list/ts_spiderlist = list()
+var/global/list/ts_egg_list = list()
+var/global/list/ts_spiderling_list = list()
 
 // --------------------------------------------------------------------------------
 // --------------------- TERROR SPIDERS: DEFAULTS ---------------------------------
@@ -62,6 +64,8 @@ var/global/list/ts_spiderlist = list()
 	// desired: 20hp/minute unmolested, 40hp/min on food boost, assuming one tick every 2 seconds
 	//          90/kill means bonus 30hp/kill regenerated over the next 1-2 minutes
 
+	var/degenerate = 0 // if 1, they slowly degen until they all die off. Used by high-level abilities only.
+
 	// Vision
 	idle_vision_range = 10
 	aggro_vision_range = 10
@@ -70,8 +74,7 @@ var/global/list/ts_spiderlist = list()
 	vision_type = new /datum/vision_override/nightvision/thermals/ling_augmented_eyesight
 	see_invisible = 5
 
-	// player control by ghosts
-	var/ai_playercontrol_allowingeneral = 1 // if 0, no spiders are player controllable. Default set in code, can be changed by queens.
+	// AI player control by ghosts
 	var/ai_playercontrol_allowtype = 1 // if 0, this specific class of spider is not player-controllable. Default set in code for each class, cannot be changed.
 
 	var/spider_opens_doors = 1 // all spiders can open firedoors (they have no security). 1 = can open depowered doors. 2 = can open powered doors
@@ -81,47 +84,46 @@ var/global/list/ts_spiderlist = list()
 	var/spider_placed = 0
 
 	// AI variables designed for use in procs
-	var/atom/cocoon_target // for queen and nurse
+	var/atom/movable/cocoon_target // for queen and nurse
 	var/obj/machinery/atmospherics/unary/vent_pump/entry_vent // nearby vent they are going to try to get to, and enter
 	var/obj/machinery/atmospherics/unary/vent_pump/exit_vent // remote vent they intend to come out of
 	var/obj/machinery/atmospherics/unary/vent_pump/nest_vent // home vent, usually used by queens
 	var/fed = 0
 	var/travelling_in_vent = 0
+	var/killcount = 0
 	var/busy = 0 // leave this alone!
-	var/spider_tier = TS_TIER_1 // 1 for red,gray,green. 2 for purple,black,white, 3 for prince, mother. 4 for queen, 5 for empress.
+	var/spider_tier = TS_TIER_1 // 1 for red,gray,green. 2 for purple,black,white, 3 for prince, mother. 4 for queen
 	var/hasdied = 0
 	var/attackstep = 0
 	var/attackcycles = 0
+	var/spider_myqueen = null
 	var/mylocation = null
 	var/chasecycles = 0
 	var/last_cocoon_object = 0 // leave this, changed by procs.
-	var/killcount = 0
-
-	// Breathing, Pressure & Fire
-	// - No breathing / cannot be suffocated (spiders can hold their breath, look it up)
-	// - No pressure damage either - they have effectively exoskeletons
-	// - HOWEVER they can be burned to death!
-	// - Normal SPACE spiders should probably be immune to SPACE too, but meh, we try to leave the base spiders alone.
-	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
-	minbodytemp = 0
-	maxbodytemp = 1500
-	heat_damage_per_tick = 5 //amount of damage applied if animal's body temperature is higher than maxbodytemp
-
-	// DEBUG OPTIONS & COMMANDS
-	var/spider_debug = 0
 
 	var/datum/action/innate/terrorspider/web/web_action
 	var/datum/action/innate/terrorspider/wrap/wrap_action
+
+	// Breathing - require some oxygen, and no toxins, but take little damage from this requirement not being met (they can hold their breath)
+	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	unsuitable_atmos_damage = 1
+
+	// Temperature - can freeze in space and cook in plasma, but it takes extreme temperatures to do this.
+	minbodytemp = 100
+	maxbodytemp = 500
+	heat_damage_per_tick = 3
+
+	// DEBUG OPTIONS & COMMANDS
+	var/spider_growinstantly = 0 // DEBUG OPTION, DO NOT ENABLE THIS ON LIVE. IT IS USED TO TEST NEST GROWTH/SETUP AI.
+	var/spider_debug = 0
 
 
 // --------------------------------------------------------------------------------
 // --------------------- TERROR SPIDERS: SHARED ATTACK CODE -----------------------
 // --------------------------------------------------------------------------------
 
-
-
 /mob/living/simple_animal/hostile/poison/terror_spider/AttackingTarget()
-	if(istype(target, /mob/living/simple_animal/hostile/poison/terror_spider))
+	if(isterrorspider(target))
 		var/mob/living/simple_animal/hostile/poison/terror_spider/T = target
 		if(T.spider_tier > spider_tier)
 			visible_message("<span class='notice'>[src] bows in respect for the terrifying presence of [target].</span>")
@@ -163,21 +165,20 @@ var/global/list/ts_spiderlist = list()
 			spider_specialattack(G,can_poison)
 		else
 			G.attack_animal(src)
+	else if(istype(target, /obj/structure/alien/resin))
+		var/obj/structure/alien/resin/E = target
+		do_attack_animation(E)
+		E.health -= rand(melee_damage_lower, melee_damage_upper)
+		E.healthcheck()
 	else
 		target.attack_animal(src)
 
-/mob/living/simple_animal/hostile/poison/terror_spider/proc/spider_specialattack(mob/living/carbon/human/L, var/poisonable)
+/mob/living/simple_animal/hostile/poison/terror_spider/proc/spider_specialattack(mob/living/carbon/human/L, poisonable)
 	L.attack_animal(src)
-
-
-
-
-
 
 // --------------------------------------------------------------------------------
 // --------------------- TERROR SPIDERS: PROC OVERRIDES ---------------------------
 // --------------------------------------------------------------------------------
-
 
 /mob/living/simple_animal/hostile/poison/terror_spider/examine(mob/user)
 	..()
@@ -195,18 +196,20 @@ var/global/list/ts_spiderlist = list()
 			msgs += "<span class='warning'>It has many injuries.</span>"
 		else if(health > (maxHealth*0.25))
 			msgs += "<span class='warning'>It is barely clinging on to life!</span>"
+		if(degenerate)
+			msgs += "<span class='warning'>It appears to be dying.</span>"
 		else if(health < maxHealth && regen_points > regen_points_per_kill)
 			msgs += "<span class='notice'>It appears to be regenerating quickly.</span>"
 		if(killcount >= 1)
 			msgs += "<span class='warning'>It has blood dribbling from its mouth.</span>"
 	to_chat(usr,msgs.Join("<BR>"))
 
-
 /mob/living/simple_animal/hostile/poison/terror_spider/New()
 	..()
 	ts_spiderlist += src
 	add_language("Spider Hivemind")
-	add_language("Galactic Common")
+	if(spider_tier >= TS_TIER_2)
+		add_language("Galactic Common")
 	default_language = all_languages["Spider Hivemind"]
 
 	web_action = new()
@@ -215,6 +218,7 @@ var/global/list/ts_spiderlist = list()
 	wrap_action.Grant(src)
 
 	name += " ([rand(1, 1000)])"
+	real_name = name
 	msg_terrorspiders("[src] has grown in [get_area(src)].")
 	if(is_away_level(z))
 		spider_awaymission = 1
@@ -233,7 +237,7 @@ var/global/list/ts_spiderlist = list()
 	if(ckey)
 		var/image/alert_overlay = image('icons/mob/terrorspider.dmi', icon_state)
 		notify_ghosts("[src] has appeared in [get_area(src)]. (already player-controlled)", source = src, alert_overlay = alert_overlay)
-	else if(ai_playercontrol_allowingeneral && ai_playercontrol_allowtype)
+	else if(ai_playercontrol_allowtype)
 		var/image/alert_overlay = image('icons/mob/terrorspider.dmi', icon_state)
 		notify_ghosts("[src] has appeared in [get_area(src)].", enter_link = "<a href=?src=[UID()];activate=1>(Click to control)</a>", source = src, alert_overlay = alert_overlay, action = NOTIFY_ATTACK)
 
@@ -243,13 +247,15 @@ var/global/list/ts_spiderlist = list()
 	return ..()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/Life()
-	..()
-	if(stat == DEAD)
+	. = ..()
+	if(!.) // if mob is dead
 		if(prob(2))
 			// 2% chance every cycle to decompose
 			visible_message("<span class='notice'>\The dead body of the [src] decomposes!</span>")
 			gib()
 	else
+		if(degenerate > 0)
+			adjustToxLoss(rand(1,10))
 		if(regen_points < regen_points_max)
 			regen_points += regen_points_per_tick
 		if((bruteloss > 0) || (fireloss > 0))
@@ -262,9 +268,6 @@ var/global/list/ts_spiderlist = list()
 					regen_points -= regen_points_per_hp
 		if(prob(5))
 			CheckFaction()
-
-
-
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/handle_dying()
 	if(!hasdied)
@@ -281,7 +284,6 @@ var/global/list/ts_spiderlist = list()
 		msg_terrorspiders("[src] has died in [get_area(src)].")
 	handle_dying()
 	..()
-
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/spider_special_action()
 	return

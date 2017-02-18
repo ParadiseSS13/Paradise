@@ -2,7 +2,8 @@
 var/list/admin_verbs_default = list(
 	/client/proc/deadmin_self,			/*destroys our own admin datum so we can play as a regular player*/
 	/client/proc/hide_verbs,			/*hides all our adminverbs*/
-	/client/proc/cmd_mentor_check_new_players
+	/client/proc/cmd_mentor_check_new_players,
+	/client/proc/cmd_mentor_check_player_exp /* shows players by playtime */
 	)
 var/list/admin_verbs_admin = list(
 	/client/proc/check_antagonists,		/*shows all antags*/
@@ -75,7 +76,6 @@ var/list/admin_verbs_admin = list(
 	/client/proc/debug_variables,
 	/client/proc/show_snpc_verbs,
 	/client/proc/reset_all_tcs,			/*resets all telecomms scripts*/
-	/client/proc/cmd_admin_check_player_exp, /* shows players by playtime */
 	/client/proc/toggle_mentor_chat,
 	/client/proc/toggle_advanced_interaction, /*toggle admin ability to interact with not only machines, but also atoms such as buttons and doors*/
 )
@@ -111,7 +111,8 @@ var/list/admin_verbs_event = list(
 	/client/proc/response_team, // Response Teams admin verb
 	/client/proc/cmd_admin_create_centcom_report,
 	/client/proc/fax_panel,
-	/client/proc/event_manager_panel
+	/client/proc/event_manager_panel,
+	/client/proc/modify_goals
 	)
 
 var/list/admin_verbs_spawn = list(
@@ -167,7 +168,7 @@ var/list/admin_verbs_debug = list(
 	/client/proc/admin_serialize,
 	/client/proc/admin_deserialize,
 	/client/proc/jump_to_ruin,
-	/client/proc/toggle_medal_disable	
+	/client/proc/toggle_medal_disable
 	)
 var/list/admin_verbs_possess = list(
 	/proc/possess,
@@ -213,6 +214,10 @@ var/list/admin_verbs_snpc = list(
 	/client/proc/customiseSNPC,
 	/client/proc/hide_snpc_verbs
 )
+
+/client/proc/on_holder_add()
+	if(chatOutput && chatOutput.loaded)
+		chatOutput.loadAdmin()
 
 /client/proc/add_admin_verbs()
 	if(holder)

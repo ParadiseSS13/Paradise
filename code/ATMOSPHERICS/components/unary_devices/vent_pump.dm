@@ -61,6 +61,7 @@
 
 /obj/machinery/atmospherics/unary/vent_pump/New()
 	..()
+	all_vent_pumps += src
 	icon = null
 	initial_loc = get_area(loc)
 	area_uid = initial_loc.uid
@@ -426,6 +427,7 @@
 	return ..()
 
 /obj/machinery/atmospherics/unary/vent_pump/Destroy()
+	all_vent_pumps -= src
 	if(initial_loc)
 		initial_loc.air_vent_info -= id_tag
 		initial_loc.air_vent_names -= id_tag
