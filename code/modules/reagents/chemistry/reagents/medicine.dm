@@ -628,7 +628,7 @@
 	if(iscarbon(M))
 		if(method == INGEST)
 			if(M.stat == DEAD)
-				if(M.getBruteLoss()+M.getFireLoss() >= 150)
+				if(M.getBruteLoss()+M.getFireLoss() >= 150 || prob(10))
 					M.visible_message("<span class='warning'>[M]'s body starts convulsing!</span>")
 					M.gib()
 					return
