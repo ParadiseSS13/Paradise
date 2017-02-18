@@ -18,7 +18,9 @@
 	glass = 1
 	power_channel = ENVIRON
 	closed_layer = 3.11
+	auto_close_time = 50
 
+	var/force_open_time = 300
 	var/assembly_type = /obj/structure/firelock_frame	
 	var/nextstate = null
 	var/welded = 0
@@ -85,20 +87,26 @@
 			if(!F.wielded)
 				return
 
+		user.visible_message("[user] forces \the [src] with [C].",
+		"You force \the [src] with [C].")				
 		if(density)
 			open()
 		else
 			close()
 
 /obj/machinery/door/firedoor/attack_hand(mob/user)		
-	add_fingerprint(user)
-	if(welded || operating || stat & NOPOWER)
+	if(operating || !density)
 		return
-	if(density)
+
+	add_fingerprint(user)
+	user.visible_message("<span class='notice'>[user] begins forcing \the [src].</span>", \
+						 "<span class='notice'>You begin forcing \the [src].</span>")	
+	if(do_after(user, force_open_time, target = src))
+		user.visible_message("<span class='notice'>[user] forces \the [src].</span>", \
+							 "<span class='notice'>You force \the [src].</span>")
+		autoclose = TRUE
 		open()
-	else
-		close()
-		
+
 /obj/machinery/door/firedoor/attack_ai(mob/user)
 	attack_hand(user)
 
@@ -133,7 +141,13 @@
 
 /obj/machinery/door/firedoor/close()
 	. = ..()
+	crush()
 	latetoggle()
+	
+/obj/machinery/door/firedoor/autoclose()
+	var/area/A = get_area(src)
+	if(A && A.atmosalm >= ATMOS_ALARM_DANGER)
+		..()
 
 /obj/machinery/door/firedoor/proc/latetoggle()
 	if(operating || stat & NOPOWER || !nextstate)

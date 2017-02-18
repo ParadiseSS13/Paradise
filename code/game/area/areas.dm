@@ -53,7 +53,7 @@
 
 
 /area/proc/atmosalert(danger_level, var/alarm_source)
-	if(danger_level == 0)
+	if(danger_level == ATMOS_ALARM_NONE)
 		atmosphere_alarm.clearAlarm(src, alarm_source)
 	else
 		atmosphere_alarm.triggerAlarm(src, alarm_source, severity = danger_level)
@@ -64,10 +64,10 @@
 			danger_level = max(danger_level, AA.danger_level)
 
 	if(danger_level != atmosalm)
-		if(danger_level < 1 && atmosalm >= 1)
+		if(danger_level < ATMOS_ALARM_WARNING && atmosalm >= ATMOS_ALARM_WARNING)
 			//closing the doors on red and opening on green provides a bit of hysteresis that will hopefully prevent fire doors from opening and closing repeatedly due to noise
 			air_doors_open()
-		else if(danger_level >= 2 && atmosalm < 2)
+		else if(danger_level >= ATMOS_ALARM_DANGER && atmosalm < ATMOS_ALARM_DANGER)
 			air_doors_close()
 
 		atmosalm = danger_level
