@@ -88,7 +88,10 @@
 			missing_ages = 1
 			continue
 		if(C.player_age < age)
-			msg += "[key_name_admin(C)]: account is [C.player_age] days old<br>"
+			if(check_rights(R_ADMIN))
+				msg += "[key_name_admin(C.mob)]: [C.player_age] days old<br>"
+			else
+				msg += "[key_name_mentor(C.mob)]: [C.player_age] days old<br>"
 
 	if(missing_ages)
 		to_chat(src, "Some accounts did not have proper ages set in their clients.  This function requires database to be present")

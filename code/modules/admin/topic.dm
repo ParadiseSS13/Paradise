@@ -2128,7 +2128,7 @@
 		if(!M)
 			to_chat(usr, "ERROR: Mob not found.")
 			return
-		cmd_show_exp_panel(M.client)
+		cmd_mentor_show_exp_panel(M.client)
 
 	else if(href_list["jumpto"])
 		if(!check_rights(R_ADMIN))	return
