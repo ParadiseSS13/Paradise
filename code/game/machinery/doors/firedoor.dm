@@ -20,6 +20,7 @@
 	closed_layer = 3.11
 	auto_close_time = 50
 
+	var/can_force = TRUE
 	var/force_open_time = 300
 	var/assembly_type = /obj/structure/firelock_frame	
 	var/nextstate = null
@@ -95,7 +96,7 @@
 			close()
 
 /obj/machinery/door/firedoor/attack_hand(mob/user)		
-	if(operating || !density)
+	if(operating || !density || !can_force)
 		return
 
 	add_fingerprint(user)
@@ -199,9 +200,10 @@
 /obj/machinery/door/firedoor/heavy
 	name = "heavy firelock"
 	icon = 'icons/obj/doors/Doorfire.dmi'
-	glass = 0
+	glass = FALSE
 	opacity = 1
 	assembly_type = /obj/structure/firelock_frame/heavy
+	can_force = FALSE
 	
 /obj/machinery/door/firedoor/heavy/ex_act(severity)
 	switch(severity)
