@@ -1,0 +1,4 @@
+author: "Alffd"
+delete-after: True
+changes: 
+  - bugfix: "Fixes missing entries in species/station for Vox cough and sneeze."
