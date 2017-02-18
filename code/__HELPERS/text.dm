@@ -471,7 +471,21 @@ proc/checkhtml(var/t)
 	text = replacetext(text, "\[h3\]",	"<H3>")
 	text = replacetext(text, "\[/h3\]",	"</H3>")
 
-	if(istype(P, /obj/item/weapon/pen))
+	if(istype(P, /obj/item/toy/crayon)) // If it is a crayon, and he still tries to use these, make them empty!
+		text = replacetext(text, "\[*\]", 		"")
+		text = replacetext(text, "\[hr\]",		"")
+		text = replacetext(text, "\[small\]", 	"")
+		text = replacetext(text, "\[/small\]", 	"")
+		text = replacetext(text, "\[list\]", 	"")
+		text = replacetext(text, "\[/list\]", 	"")
+		text = replacetext(text, "\[table\]", 	"")
+		text = replacetext(text, "\[/table\]", 	"")
+		text = replacetext(text, "\[row\]", 	"")
+		text = replacetext(text, "\[cell\]", 	"")
+		text = replacetext(text, "\[logo\]", 	"")
+
+		text = "<font face=\"[crayonfont]\" color=[P ? P.colour : "black"]><b>[text]</b></font>"
+	else 	// They are using "not a crayon" - formatting is OK and such
 		text = replacetext(text, "\[*\]",		"<li>")
 		text = replacetext(text, "\[hr\]",		"<HR>")
 		text = replacetext(text, "\[small\]",	"<font size = \"1\">")
@@ -487,20 +501,6 @@ proc/checkhtml(var/t)
 		text = replacetext(text, "\[logo\]",	"<img src = ntlogo.png>")
 
 		text = "<font face=\"[deffont]\" color=[P ? P.colour : "black"]>[text]</font>"
-	else // If it is a crayon, and he still tries to use these, make them empty!
-		text = replacetext(text, "\[*\]", 		"")
-		text = replacetext(text, "\[hr\]",		"")
-		text = replacetext(text, "\[small\]", 	"")
-		text = replacetext(text, "\[/small\]", 	"")
-		text = replacetext(text, "\[list\]", 	"")
-		text = replacetext(text, "\[/list\]", 	"")
-		text = replacetext(text, "\[table\]", 	"")
-		text = replacetext(text, "\[/table\]", 	"")
-		text = replacetext(text, "\[row\]", 	"")
-		text = replacetext(text, "\[cell\]", 	"")
-		text = replacetext(text, "\[logo\]", 	"")
-
-		text = "<font face=\"[crayonfont]\" color=[P ? P.colour : "black"]><b>[text]</b></font>"
 
 	text = copytext(text, 1, MAX_PAPER_MESSAGE_LEN)
 	return text
@@ -539,4 +539,3 @@ proc/checkhtml(var/t)
 	text = replacetext(text, "<td>",					"\[cell\]")
 	text = replacetext(text, "<img src = ntlogo.png>",	"\[logo\]")
 	return text
-
