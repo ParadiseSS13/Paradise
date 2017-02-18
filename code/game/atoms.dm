@@ -399,17 +399,19 @@ var/list/blood_splatter_icons = list()
 	blood_DNA |= new_blood_dna
 	if(blood_DNA.len == old_length)
 		return 0
-	return 1
+	return transfer_blood_dna(L.get_blood_dna_list())
 
 /obj/effect/decal/cleanable/blood/splatter/transfer_mob_blood_dna(mob/living/L)
 	..(L)
 	var/list/b_data = L.get_blood_data(L.get_blood_id())
 	basecolor = b_data["blood_color"]
+	update_icon()
 
 /obj/effect/decal/cleanable/blood/footprints/transfer_mob_blood_dna(mob/living/L)
 	..(L)
 	var/list/b_data = L.get_blood_data(L.get_blood_id())
 	basecolor = b_data["blood_color"]
+	update_icon()
 
 //to add blood dna info to the object's blood_DNA list
 /atom/proc/transfer_blood_dna(list/blood_dna)

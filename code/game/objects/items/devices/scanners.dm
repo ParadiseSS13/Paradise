@@ -1,4 +1,4 @@
-/*
+g/*
 CONTAINS:
 T-RAY
 DETECTIVE SCANNER
@@ -236,7 +236,7 @@ REAGENT SCANNER
 			if(blood_id != "blood")//special blood substance
 				blood_type = blood_id
 			if(H.blood_volume <= BLOOD_VOLUME_SAFE && H.blood_volume > BLOOD_VOLUME_OKAY)
-				to_chat(user, "<span class='danger'>LOW blood level [blood_percent] %, [H.blood_volume] cl,</span> <span class='info'>type: [blood_type]</span>")
+				user.show_message("<span class='danger'>LOW blood level [blood_percent] %, [H.blood_volume] cl,</span> <span class='info'>type: [blood_type]</span>")
 			else if(H.blood_volume <= BLOOD_VOLUME_OKAY)
 				to_chat(user, "<span class='danger'>CRITICAL blood level [blood_percent] %, [H.blood_volume] cl,</span> <span class='info'>type: [blood_type]</span>")
 			else
