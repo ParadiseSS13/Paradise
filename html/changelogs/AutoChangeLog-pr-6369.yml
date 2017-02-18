@@ -1,5 +1,0 @@
-author: "Markolie"
-delete-after: True
-changes: 
-  - rscadd: "Vending machines, newscasters, biogenerators, plant DNA manipulators, seed extractors, bots, fax machines, photocopiers, AI slippers, cell door timers, airlocks, pipe dispensers and atmospherics machinery that open a window can now be viewed by ghosts."
-  - rscadd: "Admins can now interact with mass driver, crematorium, ignition, light, flashers and flasher switches and door switches, as well as airlocks, windoors, firedoors and atmospherics machinery that do not open a window if they have advanced admin interaction enabled (under the \"Admin\" tab)."
