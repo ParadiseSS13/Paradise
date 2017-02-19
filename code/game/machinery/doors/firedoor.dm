@@ -13,9 +13,9 @@
 	icon = 'icons/obj/doors/Doorfireglass.dmi'
 	icon_state = "door_open"
 	opacity = 0
-	density = 0
-	heat_proof = 1
-	glass = 1
+	density = FALSE
+	heat_proof = TRUE
+	glass = TRUE
 	power_channel = ENVIRON
 	closed_layer = 3.11
 	auto_close_time = 50
@@ -24,9 +24,10 @@
 	var/force_open_time = 300
 	var/assembly_type = /obj/structure/firelock_frame	
 	var/nextstate = null
-	var/welded = 0
-	var/boltslocked = 1
-	var/can_deconstruct = 1
+	var/welded = FALSE
+	var/boltslocked = TRUE
+	var/can_deconstruct = TRUE
+	var/active_alarm = TRUE
 
 /obj/machinery/door/firedoor/Bumped(atom/AM)
 	if(p_open || operating)	
@@ -127,6 +128,8 @@
 
 /obj/machinery/door/firedoor/update_icon()
 	overlays.Cut()
+	if(active_alarm && !(stat & NOPOWER))
+		overlays += image('icons/obj/doors/Doorfire.dmi', "alarmlights")
 	if(density)
 		icon_state = "door_closed"
 		if(welded)
@@ -135,6 +138,14 @@
 		icon_state = "door_open"
 		if(welded)
 			overlays += "welded_open"
+			
+/obj/machinery/door/firedoor/proc/activate_alarm()
+	active_alarm = TRUE
+	update_icon()
+	
+/obj/machinery/door/firedoor/proc/deactivate_alarm()
+	active_alarm = FALSE
+	update_icon()
 
 /obj/machinery/door/firedoor/open()
 	. = ..()

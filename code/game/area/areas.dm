@@ -81,9 +81,10 @@
 
 /area/proc/air_doors_close()
 	if(!air_doors_activated)
-		air_doors_activated = 1
+		air_doors_activated = TRUE
 		for(var/obj/machinery/door/firedoor/D in src)
 			if(!D.welded)
+				D.activate_alarm()
 				if(D.operating)
 					D.nextstate = CLOSED
 				else if(!D.density)
@@ -92,9 +93,10 @@
 
 /area/proc/air_doors_open()
 	if(air_doors_activated)
-		air_doors_activated = 0
+		air_doors_activated = FALSE
 		for(var/obj/machinery/door/firedoor/D in src)
 			if(!D.welded)
+				D.deactivate_alarm()
 				if(D.operating)
 					D.nextstate = OPEN
 				else if(D.density)
