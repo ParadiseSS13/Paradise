@@ -76,36 +76,33 @@
 						var/race			   // The actual race of the mob
 						var/language = "Human" // MMIs, pAIs, Cyborgs and humans all speak Human
 						var/mobtype = C.parameters["mobtype"]
-						var/mob/M = new mobtype
 
-						if(ishuman(M) || isbrain(M))
-							var/mob/living/carbon/human/H = M
-							race = "[H.species.name]"
+						if(ispathhuman(mobtype) || ispathbrain(mobtype))
+							race = "Human" // The initializing thing wouldn't work anyways since it just kept the path, and kept no species data
 
 
-						else if(issmall(M))
+						else if(ispath(mobtype, /mob/living/carbon/human/monkey)) // I am aware this will only work for always-monkeys, and not
+							// those made a monkey after first being a human.
 							race = "Monkey"
 							language = race
 
-						else if(issilicon(M) || C.parameters["job"] == "AI") // sometimes M gets deleted prematurely for AIs... just check the job
+						else if(ispathsilicon(mobtype) || C.parameters["job"] == "AI") // sometimes M gets deleted prematurely for AIs... just check the job
 							race = "Artificial Life"
 
-						else if(isslime(M)) // NT knows a lot about slimes, but not aliens. Can identify slimes
+						else if(ispathslime(mobtype)) // NT knows a lot about slimes, but not aliens. Can identify slimes
 							race = "Slime"
 							language = race
 
-						else if(isbot(M))
+						else if(ispathbot(mobtype))
 							race = "Bot"
 
-						else if(isanimal(M))
+						else if(ispathanimal(mobtype))
 							race = "Domestic Animal"
 							language = race
 
 						else
 							race = "<i>Unidentifiable</i>"
 							language = race
-
-						qdel(M)
 
 						// -- If the orator is a human, or universal translate is active, OR mob has universal speech on --
 
