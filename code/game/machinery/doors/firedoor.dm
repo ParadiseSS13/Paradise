@@ -27,7 +27,7 @@
 	var/welded = FALSE
 	var/boltslocked = TRUE
 	var/can_deconstruct = TRUE
-	var/active_alarm = TRUE
+	var/active_alarm = FALSE
 
 /obj/machinery/door/firedoor/Bumped(atom/AM)
 	if(p_open || operating)	
@@ -42,7 +42,7 @@
 		latetoggle()
 	else
 		stat |= NOPOWER
-	return
+	update_icon()
 
 /obj/machinery/door/firedoor/attackby(obj/item/weapon/C as obj, mob/user as mob, params)
 	add_fingerprint(user)
@@ -92,22 +92,30 @@
 		user.visible_message("[user] forces \the [src] with [C].",
 		"You force \the [src] with [C].")				
 		if(density)
+			autoclose = TRUE
 			open()
 		else
 			close()
 
 /obj/machinery/door/firedoor/attack_hand(mob/user)		
-	if(operating || !density || !can_force)
+	if(operating || !density)
 		return
 
 	add_fingerprint(user)
-	user.visible_message("<span class='notice'>[user] begins forcing \the [src].</span>", \
-						 "<span class='notice'>You begin forcing \the [src].</span>")	
-	if(do_after(user, force_open_time, target = src))
-		user.visible_message("<span class='notice'>[user] forces \the [src].</span>", \
-							 "<span class='notice'>You force \the [src].</span>")
-		autoclose = TRUE
-		open()
+	
+	if(can_force && (!glass || user.a_intent != I_HELP))
+		user.visible_message("<span class='notice'>[user] begins forcing \the [src].</span>", \
+							 "<span class='notice'>You begin forcing \the [src].</span>")	
+		if(do_after(user, force_open_time, target = src))
+			user.visible_message("<span class='notice'>[user] forces \the [src].</span>", \
+								 "<span class='notice'>You force \the [src].</span>")
+			autoclose = TRUE
+			open()
+	else if(glass)
+		user.changeNext_move(CLICK_CD_MELEE)
+		user.visible_message("<span class='warning'>[user] bangs on \the [src].</span>",
+							 "<span class='warning'>You bang on \the [src].</span>")
+		playsound(get_turf(src), 'sound/effects/Glassknock.ogg', 10, 1)			
 
 /obj/machinery/door/firedoor/attack_ai(mob/user)
 	attack_hand(user)
@@ -157,9 +165,8 @@
 	latetoggle()
 	
 /obj/machinery/door/firedoor/autoclose()
-	var/area/A = get_area(src)
-	if(A && A.atmosalm >= ATMOS_ALARM_DANGER)
-		..()
+	if(active_alarm)
+		. = ..()
 
 /obj/machinery/door/firedoor/proc/latetoggle()
 	if(operating || stat & NOPOWER || !nextstate)
