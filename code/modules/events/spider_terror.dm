@@ -25,7 +25,7 @@
 			spawncount = 3
 		if(2)
 			spider_type = /mob/living/simple_animal/hostile/poison/terror_spider/white
-			spawncount = 1
+			spawncount = 2
 		if(3)
 			spider_type = /mob/living/simple_animal/hostile/poison/terror_spider/prince
 			spawncount = 1
