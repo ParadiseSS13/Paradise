@@ -1809,7 +1809,7 @@
 "aIO" = (/obj/structure/sign/securearea{desc = "A warning sign which reads 'HIGH VOLTAGE'"; icon_state = "shock"; name = "HIGH VOLTAGE"; pixel_y = 0},/turf/simulated/wall/r_wall,/area/maintenance/auxsolarport)
 "aIP" = (/obj/structure/closet/secure_closet/clown,/turf/simulated/floor/wood,/area/clownoffice)
 "aIQ" = (/obj/structure/table/woodentable,/obj/item/weapon/stamp/clown,/obj/machinery/atmospherics/pipe/simple/hidden/supply,/turf/simulated/floor/wood,/area/clownoffice)
-"aIR" = (/obj/structure/clownstatue,/turf/simulated/floor/wood,/area/clownoffice)
+"aIR" = (/obj/structure/statue/bananium/clown,/turf/simulated/floor/wood,/area/clownoffice)
 "aIS" = (/obj/item/flag/clown,/turf/simulated/floor/wood,/area/clownoffice)
 "aIT" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; pixel_y = 0; tag = ""},/obj/machinery/light_switch{pixel_x = 27},/turf/simulated/floor/wood,/area/clownoffice)
 "aIU" = (/obj/machinery/atmospherics/unary/vent_scrubber{on = 1; scrub_N2O = 1; scrub_Toxins = 1},/obj/item/flag/mime,/turf/simulated/floor/wood,/area/mimeoffice)
