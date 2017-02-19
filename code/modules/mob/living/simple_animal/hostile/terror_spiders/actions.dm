@@ -134,7 +134,8 @@
 			DeCloakNearby()
 			if(iscarbon(mover))
 				spawn(70)
-					qdel(src)
+					if(mover.loc == loc)
+						qdel(src)
 			return 1
 		else
 			return 0
