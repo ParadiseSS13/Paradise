@@ -1,0 +1,4 @@
+author: "Krausus"
+delete-after: True
+changes: 
+  - tweak: "End-of-round sounds will now play just in time for them to end as the server reboots, rather than starting the moment it reboots."
