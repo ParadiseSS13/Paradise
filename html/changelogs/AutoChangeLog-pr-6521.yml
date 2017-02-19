@@ -1,0 +1,4 @@
+author: "Markolie"
+delete-after: True
+changes: 
+  - bugfix: "Claw games no longer eat up all glass sheets in the stack when constructed."
