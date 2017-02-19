@@ -174,7 +174,7 @@
 	*/
 
 /obj/docking_port/stationary/transit
-	name = "In Transit"
+	name = "In transit"
 	turf_type = /turf/space/transit
 
 	lock_shuttle_doors = 1
@@ -183,7 +183,7 @@
 	if(!..())
 		return 0
 
-	name = "In Transit" //This looks weird, but- it means that the on-map instances can be named something actually usable to search for, but still appear correctly in terminals.
+	name = "In transit" //This looks weird, but- it means that the on-map instances can be named something actually usable to search for, but still appear correctly in terminals.
 
 	shuttle_master.transit += src
 	return 1
@@ -702,6 +702,7 @@
 			if(!M.check_dock(S))
 				continue
 			docking_ports[++docking_ports.len] = list("name" = S.name, "id" = S.id)
+		data["docking_ports_len"] = docking_ports.len
 		data["admin_controlled"] = admin_controlled
 		data["docking_request"] = docking_request
 
