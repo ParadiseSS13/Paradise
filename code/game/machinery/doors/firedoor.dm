@@ -22,6 +22,7 @@
 
 	var/can_force = TRUE
 	var/force_open_time = 300
+	var/can_crush = TRUE
 	var/assembly_type = /obj/structure/firelock_frame	
 	var/nextstate = null
 	var/welded = FALSE
@@ -161,7 +162,8 @@
 
 /obj/machinery/door/firedoor/close()
 	. = ..()
-	crush()
+	if(can_crush)
+		crush()
 	latetoggle()
 	
 /obj/machinery/door/firedoor/autoclose()
@@ -192,6 +194,7 @@
 /obj/machinery/door/firedoor/border_only	
 	icon = 'icons/obj/doors/edge_Doorfire.dmi'
 	flags = ON_BORDER
+	can_crush = FALSE
 
 /obj/machinery/door/firedoor/border_only/CanPass(atom/movable/mover, turf/target, height=0)
 	if(istype(mover) && mover.checkpass(PASSGLASS))
