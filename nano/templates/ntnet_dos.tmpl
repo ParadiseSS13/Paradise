@@ -14,12 +14,12 @@
 		<div class="itemContent">{{if data.focus}}{{:data.focus}}{{else}}None{{/if}}</div>
 	</div>
 	<div class='item'>
-		{{:helper.link('EXECUTE', null, { 'PRG_execute' : 1 })}}<div style="clear:both"></div>
+		{{:helper.link('EXECUTE', null, {'action' : 'PRG_execute'})}}<div style="clear:both"></div>
 	</div>
 	Detected devices on network:<br>
 	<table>
 		{{for data.relays}}
-			<tr><td>{{:helper.link(value.id, null, {'action' : 'PRG_target_relay', 'targid' : value.id})}}	
+			<tr><td>{{:helper.link(value.id, null, {'action' : 'PRG_target_relay', 'targid' : value.id})}}
 		{{/for}}
 	</table>
 {{/if}}

@@ -28,12 +28,12 @@
 						<td>.{{:value.type}}</td>
 						<td>{{:value.size}}GQ</td>
 						<td>
-							{{:helper.link('VIEW', null, {'action' : 'PRG_openfile', 'name' : value.name})}}
-							{{:helper.link('DELETE', null, {'action' : 'PRG_deletefile', 'name' : value.name}, value.undeletable ? 'disabled' : null)}}
-							{{:helper.link('RENAME', null, {'action' : 'PRG_rename', 'name' : value.name}, value.undeletable ? 'disabled' : null)}}
-							{{:helper.link('CLONE', null, {'action' : 'PRG_clone', 'name' : value.name}, value.undeletable ? 'disabled' : null)}}
+							{{:helper.link('VIEW', 'eye', {'action' : 'PRG_openfile', 'name' : value.name})}}
+							{{:helper.link('DELETE', 'trash', {'action' : 'PRG_deletefile', 'name' : value.name}, value.undeletable ? 'disabled' : null)}}
+							{{:helper.link('RENAME', 'pencil', {'action' : 'PRG_rename', 'name' : value.name}, value.undeletable ? 'disabled' : null)}}
+							{{:helper.link('CLONE', 'files-o', {'action' : 'PRG_clone', 'name' : value.name}, value.undeletable ? 'disabled' : null)}}
 							{{if data.usbconnected}}
-								{{:helper.link('EXPORT', null, {'action' : 'PRG_copytousb', 'name' : value.name}, value.undeletable ? 'disabled' : null)}}
+								{{:helper.link('EXPORT', 'upload', {'action' : 'PRG_copytousb', 'name' : value.name}, value.undeletable ? 'disabled' : null)}}
 							{{/if}}
 						</td>
 					</tr>
@@ -56,9 +56,9 @@
 							<td>.{{:value.type}}</td>
 							<td>{{:value.size}}GQ</td>
 							<td>
-								{{:helper.link('DELETE', null, {'action' : 'PRG_usbdeletefile', 'name' : value.name}, value.undeletable ? 'disabled' : null)}}
+								{{:helper.link('DELETE', 'trash', {'action' : 'PRG_usbdeletefile', 'name' : value.name}, value.undeletable ? 'disabled' : null)}}
 								{{if data.usbconnected}}
-									{{:helper.link('IMPORT', null, {'action' : 'PRG_copyfromusb', 'name' : value.name}, value.undeletable ? 'disabled' : null)}}
+									{{:helper.link('IMPORT', 'download', {'action' : 'PRG_copyfromusb', 'name' : value.name}, value.undeletable ? 'disabled' : null)}}
 								{{/if}}
 							</td>
 						</tr>
@@ -66,6 +66,6 @@
 				</table>
 			</div>
 		{{/if}}
-		{{:helper.link('NEW DATA FILE', null, {'action' : 'PRG_newtextfile'})}}
+		{{:helper.link('NEW DATA FILE', 'file-text', {'action' : 'PRG_newtextfile'})}}
 	{{/if}}	
 {{/if}}
