@@ -1680,12 +1680,20 @@
 	icon_state = "markings_face_inears_taj"
 
 /datum/sprite_accessory/head_accessory/tajara/muzzle_taj
-	name = "Tajaran Muzzle"
+	name = "Tajaran Male Muzzle"
 	icon_state = "markings_face_muzzle_taj"
+
+/datum/sprite_accessory/head_accessory/tajara/muzzle_f_taj
+	name = "Tajaran Female Muzzle"
+	icon_state = "markings_face_muzzle_f_taj"
 
 /datum/sprite_accessory/head_accessory/tajara/muzzle_and_inears_taj
 	name = "Tajaran Muzzle and Inner Ears"
 	icon_state = "markings_face_muzzle_and_inears_taj"
+
+/datum/sprite_accessory/head_accessory/tajara/nose_and_inears_taj
+	name = "Tajaran Nose and Inner Ears"
+	icon_state = "markings_face_nose_and_inears_taj"
 
 /datum/sprite_accessory/head_accessory/tajara/taj_ears
 	icon = 'icons/mob/human_face.dmi'
@@ -1795,8 +1803,12 @@
 	icon_state = "markings_stripe_una"
 
 /datum/sprite_accessory/body_markings/unathi/belly_narrow_una
-	name = "Unathi Belly"
+	name = "Unathi Male Belly"
 	icon_state = "markings_belly_narrow_una"
+
+/datum/sprite_accessory/body_markings/unathi/belly_narrow_f_una
+	name = "Unathi Female Belly"
+	icon_state = "markings_belly_narrow_f_una"
 
 /datum/sprite_accessory/body_markings/unathi/banded_una
 	name = "Unathi Banded"
@@ -1810,7 +1822,7 @@
 	species_allowed = list("Tajaran")
 
 /datum/sprite_accessory/body_markings/tajara/belly_flat_taj
-	name = "Tajaran Belly"
+	name = "Tajaran Belly Stripe"
 	icon_state = "markings_belly_flat_taj"
 
 /datum/sprite_accessory/body_markings/tajara/belly_crest_taj
@@ -1818,8 +1830,12 @@
 	icon_state = "markings_belly_crest_taj"
 
 /datum/sprite_accessory/body_markings/tajara/belly_full_taj
-	name = "Tajaran Belly 2"
+	name = "Tajaran Male Belly"
 	icon_state = "markings_belly_full_taj"
+
+/datum/sprite_accessory/body_markings/tajara/belly_full_f_taj
+	name = "Tajaran Female Belly"
+	icon_state = "markings_belly_full_f_taj"
 
 /datum/sprite_accessory/body_markings/tajara/points_taj
 	name = "Tajaran Points"
@@ -1899,15 +1915,23 @@
 	icon_state = "markings_face_nose_taj"
 
 /datum/sprite_accessory/body_markings/head/tajara/muzzle_taj
-	name = "Tajaran Muzzle"
+	name = "Tajaran Male Muzzle"
 	icon_state = "markings_face_muzzle_taj"
+
+/datum/sprite_accessory/body_markings/head/tajara/muzzle_f_taj
+	name = "Tajaran Female Muzzle"
+	icon_state = "markings_face_muzzle_f_taj"
 
 /datum/sprite_accessory/body_markings/head/tajara/muzzle_and_inears_taj
 	name = "Tajaran Muzzle and Inner Ears"
 	icon_state = "markings_face_muzzle_and_inears_taj"
 
+/datum/sprite_accessory/body_markings/head/tajara/nose_and_inears_taj
+	name = "Tajaran Nose and Inner Ears"
+	icon_state = "markings_face_nose_and_inears_taj"
+
 /datum/sprite_accessory/body_markings/head/tajara/muzzle_alt_taj //Companion marking for Tajaran Belly 2.
-	name = "Tajaran Muzzle 2"
+	name = "Tajaran Full Face Muzzle"
 	icon_state = "markings_face_full_taj"
 
 /datum/sprite_accessory/body_markings/head/tajara/points_taj //Companion marking for Tajaran Points.
