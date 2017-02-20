@@ -17,7 +17,8 @@
 
 /datum/computer_file/program/alarm_monitor/Destroy()
 	..()
-	alarm_handlers.unregister(src)
+	for(var/datum/alarm_handler/AH in alarm_handlers)
+		AH.unregister(src)
 	qdel(alarm_handlers)
 	alarm_handlers = null
 

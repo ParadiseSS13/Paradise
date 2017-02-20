@@ -1,5 +1,3 @@
-
-
 /datum/computer_file/program/aidiag
 	filename = "aidiag"
 	filedesc = "AI Maintenance Utility"
