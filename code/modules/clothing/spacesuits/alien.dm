@@ -32,16 +32,22 @@
 //Unathi space gear. Huge and restrictive.
 /obj/item/clothing/head/helmet/space/unathi
 	species_restricted = list("Unathi")
+	sprite_sheets = list(
+		"Unathi" = 'icons/mob/species/unathi/helmet.dmi'
+		)
 
 /obj/item/clothing/head/helmet/space/unathi/helmet_cheap
 	name = "NT breacher helmet"
-	desc = "Hey! Watch it with that thing! It's a knock-off of a Unathi battle-helm, and that spike could put someone's eye out."
+	desc = "Hey! Watch it with that thing! It's a knock-off of an Unathi battle-helm, and that spike could put someone's eye out."
 	icon_state = "unathi_helm_cheap"
 	item_state = "unathi_helm_cheap"
 	item_color = "unathi_helm_cheap"
 
 /obj/item/clothing/suit/space/unathi
 	species_restricted = list("Unathi")
+	sprite_sheets = list(
+		"Unathi" = 'icons/mob/species/unathi/suit.dmi'
+		)
 
 /obj/item/clothing/suit/space/unathi/rig_cheap
 	name = "NT breacher chassis"
@@ -176,9 +182,9 @@
 	name = "vox magclaws"
 	item_state = "boots-vox"
 	icon_state = "boots-vox"
-
 	species_restricted = list("Vox","Vox Armalis")
 	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/feet.dmi',
 		"Vox Armalis" = 'icons/mob/species/armalis/feet.dmi'
 		)
 

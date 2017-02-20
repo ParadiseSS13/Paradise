@@ -30,3 +30,6 @@
 
 /obj/item/clothing/shoes/magboots/rig/unathi
 	species_restricted = list("Unathi")
+	sprite_sheets = list(
+		"Unathi" = 'icons/mob/species/unathi/feet.dmi'
+		)
