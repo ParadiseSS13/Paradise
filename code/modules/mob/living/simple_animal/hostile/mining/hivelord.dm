@@ -203,9 +203,9 @@
 	reagents.reaction(C, INGEST, fraction)
 	reagents.trans_to(C, volume)
 
-/mob/living/simple_animal/hostile/asteroid/hivelordbrood/blood/proc/link_host(mob/living/carbon/human/H)
-	faction = list("\ref[src]", "\ref[H]") // Hostile to everyone except the host.
-	H.vessel.trans_to(src, 30)
+/mob/living/simple_animal/hostile/asteroid/hivelordbrood/blood/proc/link_host(mob/living/carbon/C)
+	faction = list("\ref[src]", "\ref[C]") // Hostile to everyone except the host.
+	C.transfer_blood_to(src, 30)
 	color = mix_color_from_reagents(reagents.reagent_list)
 
 // Legion

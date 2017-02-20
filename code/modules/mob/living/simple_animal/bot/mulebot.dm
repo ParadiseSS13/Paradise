@@ -518,14 +518,14 @@
 							B.blood_DNA |= blood_DNA.Copy()
 						var/newdir = get_dir(next, loc)
 						if(newdir == dir)
-							B.set_dir(newdir)
+							B.setDir(newdir)
 						else
 							newdir = newdir | dir
 							if(newdir == 3)
 								newdir = 1
 							else if(newdir == 12)
 								newdir = 4
-							B.set_dir(newdir)
+							B.setDir(newdir)
 						bloodiness--
 
 					var/oldloc = loc

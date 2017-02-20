@@ -40,10 +40,10 @@
 
 		if(stop_bleeding)
 			if(H.bleedsuppress)
-				user << "<span class='warning'>[H]'s bleeding is already bandaged!</span>"
+				to_chat(user, "<span class='warning'>[H]'s bleeding is already bandaged!</span>")
 				return 1
 			else if(!H.bleed_rate)
-				user << "<span class='warning'>[H] isn't bleeding!</span>"
+				to_chat(user, "<span class='warning'>[H] isn't bleeding!</span>")
 				return 1
 
 		if(M == user && !unique_handling)

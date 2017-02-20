@@ -101,6 +101,9 @@ var/global/list/image/splatter_cache=list()
 	var/drips = 1
 	bloodiness = 0
 
+/obj/effect/decal/cleanable/blood/drip/can_bloodcrawl_in()
+	return FALSE
+
 /obj/effect/decal/cleanable/trail_holder //not a child of blood on purpose
 	name = "blood"
 	icon_state = "ltrails_1"
@@ -112,6 +115,9 @@ var/global/list/image/splatter_cache=list()
 	var/list/existing_dirs = list()
 	blood_DNA = list()
 
+
+/obj/effect/decal/cleanable/trail_holder/can_bloodcrawl_in()
+	return FALSE
 
 /obj/effect/decal/cleanable/blood/writing
 	icon_state = "tracks"
@@ -209,7 +215,13 @@ var/global/list/image/splatter_cache=list()
 	bloodiness = 0
 	dry()
 
+/obj/effect/decal/cleanable/blood/old/can_bloodcrawl_in()
+	return FALSE
+
 /obj/effect/decal/cleanable/blood/gibs/old/New()
 	..()
 	bloodiness = 0
 	dry()
+
+/obj/effect/decal/cleanable/blood/gibs/old/can_bloodcrawl_in()
+	return FALSE
