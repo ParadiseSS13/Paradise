@@ -109,7 +109,7 @@ var/global/nttransfer_uid = 0
 				var/pass = reject_bad_text(input(usr, "Code 401 Unauthorized. Please enter password:", "Password required"))
 				if(pass != remote.server_password)
 					error = "Incorrect Password"
-					return
+					return 1
 			downloaded_file = remote.provided_file.clone()
 			remote.connected_clients.Add(src)
 			return 1

@@ -67,7 +67,7 @@
 		if("PC_minimize")
 			var/mob/user = usr
 			if(!active_program || !all_components[MC_CPU])
-				return
+				return 1
 
 			idle_threads.Add(active_program)
 			active_program.program_state = PROGRAM_STATE_BACKGROUND // Should close any existing UIs
@@ -85,7 +85,7 @@
 				P = hard_drive.find_file_by_name(prog)
 
 			if(!istype(P) || P.program_state == PROGRAM_STATE_KILLED)
-				return
+				return 1
 
 			P.kill_program(forced = TRUE)
 			user << "<span class='notice'>Program [P.filename].[P.filetype] with PID [rand(100,999)] has been killed.</span>"
@@ -99,12 +99,12 @@
 
 			if(!P || !istype(P)) // Program not found or it's not executable program.
 				user << "<span class='danger'>\The [src]'s screen shows \"I/O ERROR - Unable to run program\" warning.</span>"
-				return
+				return 1
 
 			P.computer = src
 
 			if(!P.is_supported_by_hardware(hardware_flag, 1, user))
-				return
+				return 1
 
 			// The program is already running. Resume it.
 			if(P in idle_threads)
@@ -118,11 +118,11 @@
 
 			if(idle_threads.len > PU.max_idle_programs)
 				user << "<span class='danger'>\The [src] displays a \"Maximal CPU load reached. Unable to run another program.\" error.</span>"
-				return
+				return 1
 
 			if(P.requires_ntnet && !get_ntnet_status(P.requires_ntnet_feature)) // The program requires NTNet connection, but we are not connected to NTNet.
 				user << "<span class='danger'>\The [src]'s screen shows \"Unable to connect to NTNet. Please retry. If problem persists contact your system administrator.\" warning.</span>"
-				return
+				return 1
 			if(P.run_program(user))
 				active_program = P
 				update_icon()

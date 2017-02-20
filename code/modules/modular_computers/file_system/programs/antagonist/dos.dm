@@ -40,7 +40,7 @@
 	if(!ui)
 		var/datum/asset/assets = get_asset_datum(/datum/asset/simple/headers)
 		assets.send(user)
-		ui = new(user, src, ui_key, "ntnet_dos.tmpl", "DoS Traffic Generator", 400, 250)
+		ui = new(user, src, ui_key, "ntnet_dos.tmpl", "DoS Traffic Generator", 575, 250)
 		ui.set_auto_update(1)
 		ui.open()
 

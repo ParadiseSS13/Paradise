@@ -68,7 +68,7 @@
 			var/mob/living/user = usr
 			var/channel_title = reject_bad_text(input(user,"Enter channel name or leave blank to cancel:"))
 			if(!channel_title)
-				return
+				return 1
 			var/datum/ntnet_conversation/C = new/datum/ntnet_conversation()
 			C.add_client(src)
 			C.operator = src
@@ -91,7 +91,7 @@
 							channel.remove_client(src)
 							channel = null
 					else
-						return
+						return 1
 				netadmin_mode = 1
 		if("PRG_changename")
 			. = 1
@@ -106,7 +106,7 @@
 		if("PRG_savelog")
 			. = 1
 			if(!channel)
-				return
+				return 1
 			var/mob/living/user = usr
 			var/logname = input(user,"Enter desired logfile name (.log) or leave blank to cancel:")
 			if(!logname || !channel)
@@ -136,7 +136,7 @@
 			var/mob/living/user = usr
 			var/newname = reject_bad_text(input(user, "Enter new channel name or leave blank to cancel:"))
 			if(!newname || !channel)
-				return
+				return 1
 			channel.add_status_message("Channel renamed from [channel.title] to [newname] by operator.")
 			channel.title = newname
 		if("PRG_deletechannel")
