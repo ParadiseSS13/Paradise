@@ -250,13 +250,13 @@ Proc for attack log creation, because really why not
 */
 
 proc/add_logs(mob/user, mob/target, what_done, var/object=null, var/addition=null, var/admin=1, var/print_attack_log = 1)//print_attack_log notifies admins with attack logs on
-	var/list/ignore=list("shaked", "CPRed", "grabbed", "punched", "disarmed")
+	var/list/ignore=list("shaked", "CPRed", "grabbed", "disarmed")
 	if(!user)
 		return
 	if(ismob(user))
-		user.attack_log += text("\[[time_stamp()]\] <font color='red'>Has [what_done] [key_name(target)][object ? " with [object]" : " "][addition]</font>")
+		user.create_attack_log("<font color='red'>Has [what_done] [key_name(target)][object ? " with [object]" : " "][addition]</font>")
 	if(ismob(target))
-		target.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been [what_done] by [key_name(user)][object ? " with [object]" : " "][addition]</font>")
+		target.create_attack_log("<font color='orange'>Has been [what_done] by [key_name(user)][object ? " with [object]" : " "][addition]</font>")
 	if(admin)
 		log_attack("<font color='red'>[key_name(user)] [what_done] [key_name(target)][object ? " with [object]" : " "][addition]</font>")
 	if(istype(target) && (target.key))

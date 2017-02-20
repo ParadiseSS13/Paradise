@@ -102,8 +102,8 @@ function linkify(text) {
 
 function emojiparse(el) {
 
-	if (!UNICODE_9_EMOJI || !twemoji) { //something didn't load right, probably IE8
-		return;
+	if ((typeof UNICODE_9_EMOJI === 'undefined') || (typeof twemoji === 'undefined')) {
+		return; //something didn't load right, probably IE8
 	}
 
 	var $el = $(el);
@@ -396,7 +396,7 @@ function ehjaxCallback(data) {
 			dataJ = $.parseJSON(data);
 		} catch (e) {
 			//But...incorrect :sadtrombone:
-			window.onerror('JSON: '+e+'. '+data, 'browserOutput.html', 327);
+			window.onerror('JSON: '+e+'. '+data+'; data.length = '+data.length, 'browserOutput.html', 327);
 			return;
 		}
 		data = dataJ;

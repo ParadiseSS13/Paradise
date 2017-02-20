@@ -721,8 +721,6 @@
 	if(istype(id))
 		return id
 
-
-
 /mob/living/carbon/human/update_sight()
 	if(!client)
 		return
@@ -1248,7 +1246,6 @@
 		return 0
 	return 1
 
-
 /mob/living/carbon/human/proc/get_visible_gender()
 	if(wear_suit && wear_suit.flags_inv & HIDEJUMPSUIT && ((head && head.flags_inv & HIDEMASK) || wear_mask))
 		return NEUTER
@@ -1505,6 +1502,12 @@
 		if(oldspecies.default_genes.len)
 			oldspecies.handle_dna(src,1) // Remove any genes that belong to the old species
 
+	tail = species.tail
+
+	if(vessel)
+		vessel = null
+	make_blood()
+
 	restore_blood()
 	maxHealth = species.total_health
 
@@ -1518,11 +1521,8 @@
 	if(species.default_language)
 		add_language(species.default_language)
 
-	see_in_dark = species.darksight
-	if(see_in_dark > 2)
-		see_invisible = SEE_INVISIBLE_LEVEL_ONE
-	else
-		see_invisible = SEE_INVISIBLE_LIVING
+	hunger_drain = species.hunger_drain
+	digestion_ratio = species.digestion_ratio
 
 	if(species.base_color && default_colour)
 		//Apply colour.
@@ -1590,7 +1590,16 @@
 		dna.real_name = real_name
 
 	species.handle_post_spawn(src)
+
+	see_in_dark = species.get_resultant_darksight(src)
+	if(see_in_dark > 2)
+		see_invisible = SEE_INVISIBLE_LEVEL_ONE
+	else
+		see_invisible = SEE_INVISIBLE_LIVING
+
 	species.handle_dna(src) //Give them whatever special dna business they got.
+
+	update_client_colour(0)
 
 	spawn(0)
 		overlays.Cut()
@@ -1613,7 +1622,6 @@
 	if(!species)
 		return null
 	return species.default_language ? all_languages[species.default_language] : null
-
 
 /mob/living/carbon/human/proc/bloody_doodle()
 	set category = "IC"
@@ -2032,6 +2040,10 @@
 		return 0
 
 	return .
+
+/mob/living/carbon/human/proc/change_icobase(var/new_icobase, var/new_deform, var/owner_sensitive)
+	for(var/obj/item/organ/external/O in organs)
+		O.change_organ_icobase(new_icobase, new_deform, owner_sensitive) //Change the icobase/deform of all our organs. If owner_sensitive is set, that means the proc won't mess with frankenstein limbs.
 
 /mob/living/carbon/human/serialize()
 	// Currently: Limbs/organs only

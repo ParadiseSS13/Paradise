@@ -197,6 +197,16 @@ The box in your backpack has an oxygen tank and gas mask in it."
 	name = "High Pressure"
 	desc = "The air around you is hazardously thick. A fire suit would protect you."
 	icon_state = "highpressure"
+	
+/obj/screen/alert/lightexposure
+	name = "Light Exposure"
+	desc = "You're exposed to light."
+	icon_state = "lightexposure"
+	
+/obj/screen/alert/nolight
+	name = "No Light"
+	desc = "You're not exposed to any light."
+	icon_state = "nolight"
 
 /obj/screen/alert/blind
 	name = "Blind"
@@ -349,25 +359,28 @@ so as to remain in compliance with the most up-to-date laws."
 	var/mob/dead/observer/G = usr
 	G.reenter_corpse()
 
-/obj/screen/alert/notify_jump
+/obj/screen/alert/notify_action
 	name = "Body created"
 	desc = "A body was created. You can enter it."
 	icon_state = "template"
 	timeout = 300
-	var/atom/jump_target = null
-	var/attack_not_jump = null
+	var/atom/target = null
+	var/action = NOTIFY_JUMP
 
-/obj/screen/alert/notify_jump/Click()
+/obj/screen/alert/notify_action/Click()
 	if(!usr || !usr.client) return
-	if(!jump_target) return
+	if(!target) return
 	var/mob/dead/observer/G = usr
 	if(!istype(G)) return
-	if(attack_not_jump)
-		jump_target.attack_ghost(G)
-	else
-		var/turf/T = get_turf(jump_target)
-		if(T && isturf(T))
-			G.loc = T
+	switch(action)
+		if(NOTIFY_ATTACK)
+			target.attack_ghost(G)
+		if(NOTIFY_JUMP)
+			var/turf/T = get_turf(target)
+			if(T && isturf(T))
+				G.loc = T
+		if(NOTIFY_FOLLOW)
+			G.ManualFollow(target)
 
 //OBJECT-BASED
 

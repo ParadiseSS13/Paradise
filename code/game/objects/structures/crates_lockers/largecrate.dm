@@ -1,8 +1,8 @@
 /obj/structure/largecrate
 	name = "large crate"
 	desc = "A hefty wooden crate."
-	icon = 'icons/obj/storage.dmi'
-	icon_state = "densecrate"
+	icon = 'icons/obj/crates.dmi'
+	icon_state = "largecrate"
 	density = 1
 	var/obj/item/weapon/paper/manifest/manifest
 
@@ -49,7 +49,6 @@
 		return attack_hand(user)
 
 /obj/structure/largecrate/mule
-	icon_state = "mulecrate"
 
 /obj/structure/largecrate/lisa
 	icon_state = "lisacrate"

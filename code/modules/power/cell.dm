@@ -1,34 +1,6 @@
 // the power cell
 // charge from 0 to 100%
 // fits in APC to provide backup power
-/obj/item/weapon/stock_parts/cell/var/image/overlay_image
-
-/obj/item/weapon/stock_parts/cell/New()
-	..()
-	processing_objects.Add(src)
-	charge = maxcharge
-
-	spawn(5)
-		updateicon()
-
-/obj/item/weapon/stock_parts/cell/Destroy()
-	processing_objects.Remove(src)
-	return ..()
-
-/obj/item/weapon/stock_parts/cell/proc/updateicon()
-	if(isnull(src.overlay_image))
-		src.overlay_image = image('icons/obj/power.dmi')
-	overlays.Cut()
-
-	if(charge < 0.01)
-		return
-	else if(charge/maxcharge >=0.995)
-		src.overlay_image.icon_state = "cell-o2"
-		overlays += src.overlay_image
-	else
-		src.overlay_image.icon_state = "cell-o1"
-		overlays += src.overlay_image
-
 /obj/item/weapon/stock_parts/cell/proc/percent()		// return % charge of cell
 	return 100.0*charge/maxcharge
 
@@ -80,12 +52,12 @@
 
 		to_chat(user, "You inject the solution into the power cell.")
 
-		if(S.reagents.has_reagent("plasma", 5))
+		if(S.reagents.has_reagent("plasma", 5) || S.reagents.has_reagent("plasma_dust", 5))
 
 			rigged = 1
 
-			log_admin("LOG: [user.name] ([user.ckey]) injected a power cell with plasma, rigging it to explode.")
-			message_admins("LOG: [user.name] ([user.ckey]) injected a power cell with plasma, rigging it to explode.")
+			log_admin("LOG: [key_name(user)] injected a power cell with plasma, rigging it to explode.")
+			message_admins("LOG: [key_name_admin(user)] injected a power cell with plasma, rigging it to explode.")
 
 		S.reagents.clear_reagents()
 

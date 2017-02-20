@@ -18,6 +18,9 @@
 	var/model
 	var/force_icon
 
+	var/icobase = 'icons/mob/human_races/r_human.dmi'		// Normal icon set.
+	var/deform = 'icons/mob/human_races/r_def_human.dmi'	// Mutated icon set.
+
 	var/damage_state = "00"
 	var/brute_dam = 0
 	var/burn_dam = 0
@@ -127,9 +130,12 @@
 
 /obj/item/organ/external/New(var/mob/living/carbon/holder)
 	..()
-	if(istype(holder, /mob/living/carbon/human))
-		replaced(holder)
-		sync_colour_to_human(holder)
+	var/mob/living/carbon/human/H = holder
+	icobase = species.icobase
+	deform = species.deform
+	if(istype(H))
+		replaced(H)
+		sync_colour_to_human(H)
 	spawn(1)
 		get_icon()
 

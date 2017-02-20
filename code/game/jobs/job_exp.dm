@@ -1,22 +1,49 @@
 // Admin Verbs
 
-/client/proc/cmd_admin_check_player_exp()	//Allows admins to determine who the newer players are.
+/client/proc/cmd_mentor_check_player_exp()	//Allows admins to determine who the newer players are.
 	set category = "Admin"
 	set name = "Check Player Playtime"
-	if(!check_rights(R_ADMIN))
+	if(!check_rights(R_ADMIN|R_MOD|R_MENTOR))
 		return
-	var/msg = "<html><head><title>Playtime Report</title></head><body>Playtime:<BR><UL>"
+	var/msg = "<html><head><title>Playtime Report</title></head><body>"
+	var/list/players_new = list()
+	var/list/players_old = list()
+	var/pline
+	var/datum/job/theirjob
+	var/jtext
 	for(var/client/C in clients)
-		msg += "<LI> [key_name_admin(C.mob)]: <A href='?_src_=holder;getplaytimewindow=[C.mob.UID()]'>" + C.get_exp_living() + "</a></LI>"
-	msg += "</UL></BODY></HTML>"
+		jtext = "No Job"
+		if(C.mob.mind.assigned_role)
+			theirjob = job_master.GetJob(C.mob.mind.assigned_role)
+			if(theirjob)
+				jtext = theirjob.title
+				if(config.use_exp_restrictions && theirjob.exp_requirements && theirjob.exp_type)
+					jtext += "<span class='warning'>*</span>"
+		if(check_rights(R_ADMIN))
+			pline = "<LI> [key_name_admin(C.mob)]: [jtext]: <A href='?_src_=holder;getplaytimewindow=[C.mob.UID()]'>" + C.get_exp_living() + "</a></LI>"
+		else
+			pline = "<LI> [key_name_mentor(C.mob)]: [jtext]: <A href='?_src_=holder;getplaytimewindow=[C.mob.UID()]'>" + C.get_exp_living() + "</a></LI>"
+		if(C.get_exp_living_num() > 1200)
+			players_old += pline
+		else
+			players_new += pline
+	if(players_new.len)
+		msg += "<BR>Players under 20h:<BR><UL>"
+		msg += players_new.Join()
+		msg += "</UL>"
+	if(players_old.len)
+		msg += "<BR>Players over 20h:<BR><UL>"
+		msg += players_old.Join()
+		msg += "</UL>"
+	msg += "</BODY></HTML>"
 	src << browse(msg, "window=Player_playtime_check")
 
 
-/datum/admins/proc/cmd_show_exp_panel(var/client/C)
+/datum/admins/proc/cmd_mentor_show_exp_panel(var/client/C)
 	if(!C)
 		to_chat(usr, "ERROR: Client not found.")
 		return
-	if(!check_rights(R_ADMIN))
+	if(!check_rights(R_ADMIN|R_MOD|R_MENTOR))
 		return
 	var/body = "<html><head><title>Playtime for [C.key]</title></head><BODY><BR>Playtime:"
 	body += C.get_exp_report()

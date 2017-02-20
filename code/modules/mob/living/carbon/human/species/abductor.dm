@@ -7,10 +7,21 @@
 	language = "Abductor Mindlink"
 	default_language = "Abductor Mindlink"
 	unarmed_type = /datum/unarmed_attack/punch
-	darksight = 3
 	eyes = "blank_eyes"
+	has_organ = list(
+		"heart" =    /obj/item/organ/internal/heart,
+		"lungs" =    /obj/item/organ/internal/lungs,
+		"liver" =    /obj/item/organ/internal/liver,
+		"kidneys" =  /obj/item/organ/internal/kidneys,
+		"brain" =    /obj/item/organ/internal/brain,
+		"appendix" = /obj/item/organ/internal/appendix,
+		"eyes" =     /obj/item/organ/internal/eyes/abductor //3 darksight.
+		)
 
 	flags = HAS_LIPS | NO_BLOOD | NO_BREATHE
+
+	oxy_mod = 0
+
 	virus_immune = 1
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	dietflags = DIET_OMNI

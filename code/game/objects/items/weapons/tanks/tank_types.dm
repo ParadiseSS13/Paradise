@@ -184,7 +184,6 @@
 	name = "vox specialized nitrogen tank"
 	desc = "A high-tech nitrogen tank designed specifically for Vox."
 	icon_state = "emergency_vox"
-	item_state = "emergency_vox"
 	volume = 25
 
 /obj/item/weapon/tank/emergency_oxygen/vox/New()

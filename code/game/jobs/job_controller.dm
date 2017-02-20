@@ -51,6 +51,8 @@ var/global/datum/controller/occupations/job_master
 			if(!job)	return 0
 			if(jobban_isbanned(player, rank))	return 0
 			if(!job.player_old_enough(player.client)) return 0
+			if(job.available_in_playtime(player.client))
+				return 0
 			if(!is_job_whitelisted(player, rank)) return 0
 			var/position_limit = job.total_positions
 			if(!latejoin)
@@ -87,12 +89,15 @@ var/global/datum/controller/occupations/job_master
 		Debug("Running FOC, Job: [job], Level: [level], Flag: [flag]")
 		var/list/candidates = list()
 		for(var/mob/new_player/player in unassigned)
-			Debug(" - Player: [player] Banned: [jobban_isbanned(player, job.title)] Old Enough: [!job.player_old_enough(player.client)] Flag && Be Special: [flag] && [player.client.prefs.be_special] Job Department: [player.client.prefs.GetJobDepartment(job, level)] Job Flag: [job.flag] Job Department Flag = [job.department_flag]")
+			Debug(" - Player: [player] Banned: [jobban_isbanned(player, job.title)] Old Enough: [!job.player_old_enough(player.client)] AvInPlaytime: [job.available_in_playtime(player.client)] Flag && Be Special: [flag] && [player.client.prefs.be_special] Job Department: [player.client.prefs.GetJobDepartment(job, level)] Job Flag: [job.flag] Job Department Flag = [job.department_flag]")
 			if(jobban_isbanned(player, job.title))
 				Debug("FOC isbanned failed, Player: [player]")
 				continue
 			if(!job.player_old_enough(player.client))
 				Debug("FOC player not old enough, Player: [player]")
+				continue
+			if(job.available_in_playtime(player.client))
+				Debug("FOC player not enough playtime, Player: [player]")
 				continue
 			if(flag && !(flag in player.client.prefs.be_special))
 				Debug("FOC flag failed, Player: [player], Flag: [flag], ")
@@ -123,15 +128,16 @@ var/global/datum/controller/occupations/job_master
 			if(job.admin_only) // No admin positions either.
 				continue
 
-			if(job.available_in_playtime(player.client))
-				continue
-
 			if(jobban_isbanned(player, job.title))
 				Debug("GRJ isbanned failed, Player: [player], Job: [job.title]")
 				continue
 
 			if(!job.player_old_enough(player.client))
 				Debug("GRJ player not old enough, Player: [player]")
+				continue
+
+			if(job.available_in_playtime(player.client))
+				Debug("GRJ player not enough playtime, Player: [player]")
 				continue
 
 			if(player.mind && job.title in player.mind.restricted_roles)
@@ -311,6 +317,10 @@ var/global/datum/controller/occupations/job_master
 
 					if(!job.player_old_enough(player.client))
 						Debug("DO player not old enough, Player: [player], Job:[job.title]")
+						continue
+
+					if(job.available_in_playtime(player.client))
+						Debug("DO player not enough playtime, Player: [player], Job:[job.title]")
 						continue
 
 					if(player.mind && job.title in player.mind.restricted_roles)
@@ -672,6 +682,9 @@ var/global/datum/controller/occupations/job_master
 					level5++
 					continue
 				if(!job.player_old_enough(player.client))
+					level6++
+					continue
+				if(job.available_in_playtime(player.client))
 					level6++
 					continue
 				if(player.client.prefs.GetJobDepartment(job, 1) & job.flag)

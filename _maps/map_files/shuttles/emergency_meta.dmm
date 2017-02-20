@@ -6,7 +6,7 @@
 "af" = (/turf/simulated/shuttle/wall{icon_state = "swall0"; dir = 2},/area/shuttle/escape)
 "ag" = (/obj/machinery/door/airlock/shuttle{id_tag = "s_docking_airlock"; name = "Emergency Shuttle Airlock"; req_access_txt = "2"},/turf/simulated/shuttle/floor,/area/shuttle/escape)
 "ah" = (/obj/structure/sign/nosmoking_2,/turf/simulated/shuttle/wall{icon_state = "swall0"; dir = 2},/area/shuttle/escape)
-"ai" = (/obj/docking_port/mobile/emergency{dir = 2; dwidth = 5; height = 14; name = "Meta emergency shuttle"; timid = 1; width = 25},/obj/machinery/door/airlock/shuttle{id_tag = "s_docking_airlock"; name = "Emergency Shuttle Airlock"; req_access_txt = "2"},/turf/simulated/shuttle/floor,/area/shuttle/escape)
+"ai" = (/obj/machinery/door/airlock/shuttle{id_tag = "s_docking_airlock"; name = "Emergency Shuttle Airlock"; req_access_txt = "0"},/turf/simulated/shuttle/floor,/area/shuttle/escape)
 "aj" = (/turf/simulated/shuttle/wall{icon_state = "swall4"; dir = 2},/area/shuttle/escape)
 "ak" = (/turf/simulated/shuttle/wall{tag = "icon-swall12"; icon_state = "swall12"; dir = 2},/area/shuttle/escape)
 "al" = (/turf/space,/turf/simulated/shuttle/wall{tag = "icon-swall_f10"; icon_state = "swall_f10"; dir = 2},/area/shuttle/escape)
@@ -110,9 +110,10 @@
 "cf" = (/turf/space,/turf/simulated/shuttle/wall{tag = "icon-swall_f5"; icon_state = "swall_f5"; dir = 2},/area/shuttle/escape)
 "cg" = (/turf/simulated/shuttle/wall{tag = "icon-swall13"; icon_state = "swall13"; dir = 2},/area/shuttle/escape)
 "ch" = (/turf/space,/turf/simulated/shuttle/wall{tag = "icon-swall_f9"; icon_state = "swall_f9"; dir = 2},/area/shuttle/escape)
+"ci" = (/obj/docking_port/mobile/emergency{dir = 2; dwidth = 5; height = 14; name = "Meta emergency shuttle"; timid = 1; width = 25},/obj/machinery/door/airlock/shuttle{id_tag = "s_docking_airlock"; name = "Emergency Shuttle Airlock"; req_access_txt = "0"},/turf/simulated/shuttle/floor,/area/shuttle/escape)
 
 (1,1,1) = {"
-aaaaabacacacacadaeacafagacagahacacacafaiacagajakal
+aaaaabacacacacadaeacafaiacaiahacacacafciacagajakal
 aaamanaoapaqarasatauavauawauavavawavaxauavauauayaz
 aAaBasaCauaDaEaFauauauauauauauauauauauauauauauaGac
 aHaIasaJaKauauazauauaLaMaLaLaLauaLaLaLaMaLauauaNaf
@@ -127,3 +128,4 @@ aOaBasbIbpbpbJaFbKbrbrbLasbMauauaublbNbpbpbpbpbAac
 aabOanbPbpbpbJasbQbRbSbTasbUbVbWbXbYbZcacbcccdceaV
 aaaacfacbqbqaccgakacacajcgaeacacajcgakaeacacajakch
 "}
+

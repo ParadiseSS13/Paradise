@@ -87,7 +87,7 @@ obj/item/projectile/bullet/saw/incen/Move()
 	..()
 	var/turf/location = get_turf(src)
 	if(location)
-		PoolOrNew(/obj/effect/hotspot, location)
+		new /obj/effect/hotspot(location)
 		location.hotspot_expose(700, 50, 1)
 
 /obj/item/projectile/bullet/saw/incen/on_hit(atom/target, blocked = 0)

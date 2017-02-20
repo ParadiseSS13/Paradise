@@ -128,8 +128,8 @@
 			to_chat(S, "<span class='warning'>Your sensors were overloaded by a laser!</span>")
 			outmsg = "<span class='notice'>You overload [S] by shining [src] at their sensors.</span>"
 
-			S.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has had a laser pointer shone in their eyes by [user.name] ([user.ckey])</font>")
-			user.attack_log += text("\[[time_stamp()]\] <font color='orange'>Shone a laser pointer in the eyes of [S.name] ([S.ckey])</font>")
+			S.create_attack_log("<font color='orange'>Has had a laser pointer shone in their eyes by [user.name] ([user.ckey])</font>")
+			user.create_attack_log("<font color='orange'>Shone a laser pointer in the eyes of [S.name] ([S.ckey])</font>")
 			log_attack("<font color='orange'>[user.name] ([user.ckey]) Shone a laser pointer in the eyes of [S.name] ([S.ckey])</font>")
 		else
 			outmsg = "<span class='notice'>You fail to overload [S] by shining [src] at their sensors.</span>"
@@ -142,7 +142,7 @@
 			outmsg = "<span class='notice'>You hit the lens of [C] with [src], temporarily disabling the camera!</span>"
 
 			log_admin("\[[time_stamp()]\] [user.name] ([user.ckey]) EMPd a camera with a laser pointer")
-			user.attack_log += text("\[[time_stamp()]\] [user.name] ([user.ckey]) EMPd a camera with a laser pointer")
+			user.create_attack_log("[user.name] ([user.ckey]) EMPd a camera with a laser pointer")
 		else
 			outmsg = "<span class='info'>You missed the lens of [C] with [src].</span>"
 

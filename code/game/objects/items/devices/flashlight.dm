@@ -54,8 +54,8 @@
 			return
 
 		var/mob/living/carbon/human/H = M	//mob has protective eyewear
-		if(istype(M, /mob/living/carbon/human) && ((H.head && H.head.flags & HEADCOVERSEYES) || (H.wear_mask && H.wear_mask.flags & MASKCOVERSEYES) || (H.glasses && H.glasses.flags & GLASSESCOVERSEYES)))
-			to_chat(user, "<span class='notice'>You're going to need to remove that [(H.head && H.head.flags & HEADCOVERSEYES) ? "helmet" : (H.wear_mask && H.wear_mask.flags & MASKCOVERSEYES) ? "mask": "glasses"] first.</span>")
+		if(istype(H) && ((H.head && H.head.flags & HEADCOVERSEYES) || (H.wear_mask && H.wear_mask.flags & MASKCOVERSEYES) || (H.glasses && H.glasses.flags & GLASSESCOVERSEYES)))
+			to_chat(user, "<span class='notice'>You're going to need to remove that [(H.head && H.head.flags & HEADCOVERSEYES) ? "helmet" : (H.wear_mask && H.wear_mask.flags & MASKCOVERSEYES) ? "mask" : "glasses"] first.</span>")
 			return
 
 		if(M == user)	//they're using it on themselves
@@ -70,12 +70,13 @@
 			user.visible_message("<span class='notice'>[user] directs [src] to [M]'s eyes.</span>", \
 								 "<span class='notice'>You direct [src] to [M]'s eyes.</span>")
 
-			if(istype(M, /mob/living/carbon/human))	//robots and aliens are unaffected
-				if(M.stat == DEAD || M.disabilities & BLIND)	//mob is dead or fully blind
-					to_chat(user, "<span class='notice'>[M] pupils does not react to the light!</span>")
-				else if(XRAY in M.mutations)	//mob has X-RAY vision
-					to_chat(user, "<span class='notice'>[M] pupils give an eerie glow!</span>")
-				else	//they're okay!
+			if(istype(H)) //robots and aliens are unaffected
+				var/obj/item/organ/internal/eyes/eyes = H.get_int_organ(/obj/item/organ/internal/eyes)
+				if(M.stat == DEAD || !eyes || M.disabilities & BLIND)	//mob is dead or fully blind
+					to_chat(user, "<span class='notice'>[M]'s pupils are unresponsive to the light!</span>")
+				else if((XRAY in M.mutations) || (eyes.colourblind_darkview && eyes.colourblind_darkview == eyes.get_dark_view())) //The mob's either got the X-RAY vision or has a tapetum lucidum (extreme nightvision, i.e. Vulp/Tajara with COLOURBLIND & their monkey forms).
+					to_chat(user, "<span class='notice'>[M]'s pupils glow eerily!</span>")
+				else //they're okay!
 					if(M.flash_eyes(visual = 1))
 						to_chat(user, "<span class='notice'>[M]'s pupils narrow.</span>")
 	else

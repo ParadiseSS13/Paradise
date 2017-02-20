@@ -5,6 +5,9 @@
 	var/noclear = 0    //if it has this, don't delete it when its' scooped up
 	var/blood_state = "" //relates to icon mostly
 	var/bloodiness = 0 //0-100, amount of blood in this decal, used for making footprints and affecting the alpha of bloody footprints
+	
+/obj/effect/decal/cleanable/proc/can_bloodcrawl_in()
+	return FALSE
 
 /obj/effect/decal/cleanable/New()
 	if(random_icon_states && length(src.random_icon_states) > 0)

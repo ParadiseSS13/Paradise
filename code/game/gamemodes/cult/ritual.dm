@@ -12,7 +12,11 @@
 	return
 
 /obj/effect/rune/proc/check_icon()
-	icon = get_rune_cult(invocation)
+	if(!ticker.mode)//work around for maps with runes and cultdat is not loaded all the way
+		var/bits = make_bit_triplet()
+		icon = get_rune(bits)
+	else
+		icon = get_rune_cult(invocation)
 
 /obj/item/weapon/tome
 	name = "arcane tome"
@@ -209,7 +213,7 @@
 			if(cult_mode.demons_summoned)
 				to_chat(user, "<span class='cultlarge'>\"We are already here. There is no need to try to summon us now.\"</span>")
 				return 0
-			if(!(CULT_ELDERGOD in cult_mode.objectives) || !(CULT_SLAUGHTER in cult_mode.objectives))
+			if(!((CULT_ELDERGOD in cult_mode.objectives) || (CULT_SLAUGHTER in cult_mode.objectives)))
 				to_chat(user, "<span class='warning'>[cult_mode.cultdat.entity_name]'s power does not wish to be unleashed!</span>")
 				return 0
 		var/confirm_final = alert(user, "This is the FINAL step to summon your dietys power, it is a long, painful ritual and the crew will be alerted to your presence", "Are you prepared for the final battle?", "My life for [cult_mode.cultdat.entity_name]!", "No")

@@ -318,7 +318,7 @@ What a mess.*/
 			if("Print Record")
 				if(!( printing ))
 					printing = 1
-					playsound(loc, "sound/goonstation/machines/printer_dotmatrix.ogg", 50, 1)
+					playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
 					sleep(50)
 					var/obj/item/weapon/paper/P = new /obj/item/weapon/paper( loc )
 					P.info = "<CENTER><B>Security Record</B></CENTER><BR>"
@@ -341,7 +341,7 @@ What a mess.*/
 			if("Print Photo")
 				if(!printing)
 					printing = 1
-					playsound(loc, "sound/goonstation/machines/printer_dotmatrix.ogg", 50, 1)
+					playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
 					sleep(50)
 					if(istype(active1, /datum/data/record) && data_core.general.Find(active1))
 						create_record_photo(active1)
@@ -369,7 +369,7 @@ What a mess.*/
 				var/counter = 1
 				while(active2.fields[text("com_[]", counter)])
 					counter++
-				active2.fields[text("com_[counter]")] = text("Made by [authenticated] ([rank]) on [time2text(world.realtime, "DDD MMM DD hh:mm:ss")], 2557<BR>[t1]")
+				active2.fields[text("com_[counter]")] = text("Made by [authenticated] ([rank]) on [worldtime2text()]<BR>[t1]")
 
 			if("Delete Record (ALL)")
 				if(active1)

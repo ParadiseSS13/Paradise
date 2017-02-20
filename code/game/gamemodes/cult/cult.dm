@@ -106,14 +106,6 @@ var/global/list/all_cults = list()
 /datum/game_mode/cult/post_setup()
 	modePlayer += cult
 	acolytes_needed = acolytes_needed + round((num_players_started() / 10))
-	if("sacrifice" in objectives)
-		var/list/possible_targets = get_unconvertables()
-		if(!possible_targets.len)
-			for(var/mob/living/carbon/human/player in player_list)
-				if(player.mind && !(player.mind in cult))
-					possible_targets += player.mind
-		if(possible_targets.len > 0)
-			sacrifice_target = pick(possible_targets)
 
 	for(var/datum/mind/cult_mind in cult)
 		equip_cultist(cult_mind.current)
@@ -183,10 +175,13 @@ var/global/list/all_cults = list()
 		cult_mind.current.faction |= "cult"
 		var/datum/action/innate/cultcomm/C = new()
 		C.Grant(cult_mind.current)
-		cult_mind.current.attack_log += "\[[time_stamp()]\] <span class='danger'>Has been converted to the cult!</span>"
+		cult_mind.current.create_attack_log("<span class='danger'>Has been converted to the cult!</span>")
 		if(jobban_isbanned(cult_mind.current, ROLE_CULTIST))
 			replace_jobbaned_player(cult_mind.current, ROLE_CULTIST)
 		update_cult_icons_added(cult_mind)
+		if(GAMEMODE_IS_CULT)
+			var/datum/game_mode/cult/cult_mode = ticker.mode
+			cult_mode.check_numbers()
 		return 1
 
 
@@ -327,7 +322,7 @@ var/global/list/all_cults = list()
 						feedback_add_details("cult_objective","cult_demons|FAIL")
 
 				if("convert")//convert half the crew
-					if(obj_count < objectives.len)
+					if(cult.len >= convert_target)
 						explanation = "Convert [convert_target] crewmembers ([cult.len] cultists at round end). <font color='green'><B>Success!</B></font>"
 						feedback_add_details("cult_objective","cult_convertion|SUCCESS")
 					else
@@ -335,7 +330,7 @@ var/global/list/all_cults = list()
 						feedback_add_details("cult_objective","cult_convertion|FAIL")
 
 				if("bloodspill")//cover a large portion of the station in blood
-					if(obj_count < objectives.len)
+					if(max_spilled_blood >= spilltarget)
 						explanation = "Cover [spilltarget] tiles of the station in blood (The peak number of covered tiles was: [max_spilled_blood]). <font color='green'><B>Success!</B></font>"
 						feedback_add_details("cult_objective","cult_bloodspill|SUCCESS")
 					else

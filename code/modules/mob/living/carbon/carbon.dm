@@ -36,9 +36,9 @@
 	. = ..()
 	if(.)
 		if(nutrition && stat != DEAD)
-			nutrition -= HUNGER_FACTOR/10
+			nutrition -= hunger_drain / 10
 			if(m_intent == "run")
-				nutrition -= HUNGER_FACTOR/10
+				nutrition -= hunger_drain / 10
 		if((FAT in mutations) && m_intent == "run" && bodytemperature <= 360)
 			bodytemperature += 2
 
@@ -175,7 +175,7 @@
 			"<span class='userdanger'>The [source] arc flashes and electrocutes you!</span>", \
 			"<span class='italics'>You hear a lightning-like crack!</span>" \
 		)
-		playsound(loc, "sound/effects/eleczap.ogg", 50, 1, -1)
+		playsound(loc, 'sound/effects/eleczap.ogg', 50, 1, -1)
 		explosion(src.loc,-1,0,2,2)
 	if(override)
 		return override
@@ -310,7 +310,7 @@
 			Stun(2)
 
 		var/obj/item/organ/internal/eyes/E = get_int_organ(/obj/item/organ/internal/eyes)
-		if(!E)
+		if(!E || (E && E.weld_proof))
 			return
 
 		switch(damage)
@@ -915,14 +915,14 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 
 /mob/living/carbon/proc/slip(var/description, var/stun, var/weaken, var/tilesSlipped, var/walkSafely, var/slipAny)
 	if(flying || buckled || (walkSafely && m_intent == "walk"))
-		return
+		return 0
 	if((lying) && (!(tilesSlipped)))
-		return
+		return 0
 	if(!(slipAny))
 		if(istype(src, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = src
 			if((isobj(H.shoes) && H.shoes.flags & NOSLIP) || H.species.bodyflags & FEET_NOSLIP)
-				return
+				return 0
 	if(tilesSlipped)
 		for(var/t = 0, t<=tilesSlipped, t++)
 			spawn (t) step(src, src.dir)
@@ -943,7 +943,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 	var/fullness = nutrition + 10
 	if(istype(toEat, /obj/item/weapon/reagent_containers/food/snacks))
 		for(var/datum/reagent/consumable/C in reagents.reagent_list) //we add the nutrition value of what we're currently digesting
-			fullness += C.nutriment_factor * C.volume / C.metabolization_rate
+			fullness += C.nutriment_factor * C.volume / (C.metabolization_rate * metabolism_efficiency * digestion_ratio)
 	if(user == src)
 		if(istype(toEat, /obj/item/weapon/reagent_containers/food/drinks))
 			if(!selfDrink(toEat))
@@ -996,8 +996,8 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 	return 1
 
 /mob/living/carbon/proc/forceFedAttackLog(var/obj/item/weapon/reagent_containers/food/toEat, mob/user)
-	attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been fed [toEat.name] by [user.name] ([user.ckey]) Reagents: [toEat.reagentlist(toEat)]</font>")
-	user.attack_log += text("\[[time_stamp()]\] <font color='red'>Fed [toEat.name] to [name] ([ckey]) Reagents: [toEat.reagentlist(toEat)]</font>")
+	create_attack_log("<font color='orange'>Has been fed [toEat.name] by [user.name] ([user.ckey]) Reagents: [toEat.reagentlist(toEat)]</font>")
+	user.create_attack_log("<font color='red'>Fed [toEat.name] to [name] ([ckey]) Reagents: [toEat.reagentlist(toEat)]</font>")
 	log_attack("[user.name] ([user.ckey]) fed [name] ([ckey]) with [toEat.name] Reagents: [toEat.reagentlist(toEat)] (INTENT: [uppertext(user.a_intent)])")
 	if(!iscarbon(user))
 		LAssailant = null

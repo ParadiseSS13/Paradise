@@ -20,6 +20,8 @@
 	heat_level_2 = 400  // Heat damage level 2 above this point.
 	heat_level_3 = 500  // Heat damage level 3 above this point.
 
+	//Has default darksight of 2.
+
 	suicide_messages = list(
 		"is twisting their own neck!",
 		"is letting some O2 in!",
@@ -67,6 +69,9 @@
 			suit=/obj/item/clothing/suit/space/eva/plasmaman/security/
 			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/security/
 			H.equip_or_collect(new /obj/item/weapon/gun/energy/gun/advtaser(H), slot_in_backpack)
+		if("Internal Affairs Agent")
+			suit=/obj/item/clothing/suit/space/eva/plasmaman/lawyer
+			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/lawyer
 		if("Magistrate")
 			suit=/obj/item/clothing/suit/space/eva/plasmaman/magistrate
 			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/magistrate

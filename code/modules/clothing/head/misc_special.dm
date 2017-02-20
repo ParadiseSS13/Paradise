@@ -67,9 +67,9 @@
 		to_chat(usr, "You push the [src] up out of your face.")
 		flash_protect = 0
 		tint = 0
-	var/mob/living/carbon/C = usr
-	C.update_tint()
-	usr.update_inv_head()	//so our mob-overlays update
+	var/mob/living/carbon/user = usr
+	user.update_tint()
+	user.update_inv_head()	//so our mob-overlays update
 
 	for(var/X in actions)
 		var/datum/action/A = X

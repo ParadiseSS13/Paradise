@@ -10,6 +10,7 @@
 	range = -1
 	cooldown_min = 100 //50 deciseconds reduction per rank
 	include_user = 1
+	nonabstract_req = 1
 	centcom_cancast = 0 //Prevent people from getting to centcom
 
 	var phaseshift = 0
@@ -17,7 +18,7 @@
 
 	action_icon_state = "jaunt"
 
-/obj/effect/proc_holder/spell/targeted/ethereal_jaunt/cast(list/targets) //magnets, so mostly hardcoded
+/obj/effect/proc_holder/spell/targeted/ethereal_jaunt/cast(list/targets, mob/user = usr) //magnets, so mostly hardcoded
 	for(var/mob/living/target in targets)
 		if(!target.can_safely_leave_loc()) // No more brainmobs hopping out of their brains
 			to_chat(target, "<span class='warning'>You are somehow too bound to your current location to abandon it.</span>")

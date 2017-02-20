@@ -2,10 +2,12 @@
 
 //this item is intended to give the effect of entering the mine, so that light gradually fades
 /obj/effect/light_emitter
-	name = "Light-emtter"
+	name = "Light emtter"
 	anchored = 1
+	invisibility = 101
 	unacidable = 1
 	light_range = 8
+	light_power = 0
 
 /**********************Miner Lockers**************************/
 
@@ -89,7 +91,7 @@
 	var/excavation_amount = 100
 
 /obj/item/weapon/pickaxe/proc/playDigSound()
-		playsound(src, pick(digsound),20,1)
+	playsound(src, pick(digsound),20,1)
 
 /obj/item/weapon/pickaxe/silver
 	name = "silver-plated pickaxe"
@@ -198,7 +200,6 @@
 /obj/structure/closet/crate/miningcar
 	desc = "A mining car. This one doesn't work on rails, but has to be dragged."
 	name = "mining car (not for rails)"
-	icon = 'icons/obj/storage.dmi'
 	icon_state = "miningcar"
 	density = 1
 	icon_opened = "miningcaropen"

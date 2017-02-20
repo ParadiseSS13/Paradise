@@ -155,13 +155,11 @@
 	if(!sacrificed.len)
 		var/list/possible_targets = list()
 		for(var/mob/living/carbon/human/player in player_list)
-			if(is_secure_level(player.z)) //We can't sacrifice people that are on the centcom z-level
-				continue
 			if(player.mind && !is_convertable_to_cult(player.mind) && (player.stat != DEAD))
 				possible_targets += player.mind
 
 		if(!possible_targets.len)
-			//There are no living Unconvertables on the station. Looking for a Sacrifice Target among the ordinary crewmembers
+		//There are no living Unconvertables on the station. Looking for a Sacrifice Target among the ordinary crewmembers
 			for(var/mob/living/carbon/human/player in player_list)
 				if(is_secure_level(player.z)) //We can't sacrifice people that are on the centcom z-level
 					continue
@@ -172,8 +170,7 @@
 			sacrifice_target = pick(possible_targets)
 			possible_objectives |= "sacrifice"
 		else
-			message_admins("Didn't find a suitable sacrifice target...what the hell? Shout at a coder.")
-			log_admin("Didn't find a suitable sacrifice target...what the hell? Shout at a coder.")
+			log_runtime(EXCEPTION("Didn't find a suitable sacrifice target...what the hell? Shout at a coder."))
 
 	if(!mass_convert)
 		var/living_crew = 0
@@ -194,7 +191,7 @@
 				log_admin("There are [total] players, too little for the mass convert objective!")
 			else
 				possible_objectives |= "convert"
-				convert_target = round(total / 2)
+				convert_target = rand(9,15)
 
 	if(!possible_objectives.len)//No more possible objectives, time to summon Nar-Sie
 		message_admins("No suitable objectives left! Nar-Sie objective unlocked.")
