@@ -193,7 +193,7 @@
 					if(istype(O,/obj/item/stack/sheet))
 						var/obj/item/stack/sheet/S = O
 						if(S.amount < S.max_amount)
-							S.amount += min(1 * coeff, S.max_amount)
+							S.amount += round(min(1 * coeff, S.max_amount))
 					// Security
 					if(istype(O,/obj/item/device/flash))
 						var/obj/item/device/flash/F = O
