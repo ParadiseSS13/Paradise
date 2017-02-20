@@ -44,7 +44,7 @@
 		return FALSE
 
 	if(stored_card && stored_card2)
-		user << "<span class='warning'>You try to insert \the [I] into \the [src], but its slots are occupied.</span>"
+		to_chat(user, "<span class='warning'>You try to insert \the [I] into \the [src], but its slots are occupied.</span>")
 		return FALSE
 	if(user && !user.unEquip(I))
 		return FALSE
@@ -55,14 +55,14 @@
 		stored_card = I
 	else
 		stored_card2 = I
-	user << "<span class='notice'>You insert \the [I] into \the [src].</span>"
+	to_chat(user, "<span class='notice'>You insert \the [I] into \the [src].</span>")
 
 	return TRUE
 
 
 /obj/item/weapon/computer_hardware/card_slot/try_eject(slot=0, mob/living/user = null, forced = 0)
 	if(!stored_card && !stored_card2)
-		user << "<span class='warning'>There are no cards in \the [src].</span>"
+		to_chat(user, "<span class='warning'>There are no cards in \the [src].</span>")
 		return FALSE
 
 	var/ejected = 0
@@ -87,7 +87,7 @@
 				var/datum/computer_file/program/P = I
 				P.event_idremoved(1, slot)
 
-		user << "<span class='notice'>You remove the card[ejected>1 ? "s" : ""] from \the [src].</span>"
+		to_chat(user, "<span class='notice'>You remove the card[ejected>1 ? "s" : ""] from \the [src].</span>")
 		return TRUE
 	return FALSE
 
@@ -95,11 +95,11 @@
 	if(..())
 		return
 	if(istype(I, /obj/item/weapon/screwdriver))
-		user << "<span class='notice'>You press down on the manual eject button with \the [I].</span>"
+		to_chat(user, "<span class='notice'>You press down on the manual eject button with \the [I].</span>")
 		try_eject(0,user)
 		return
 
 /obj/item/weapon/computer_hardware/card_slot/examine(mob/user)
 	..()
 	if(stored_card || stored_card2)
-		user << "There appears to be something loaded in the card slots."
+		to_chat(user, "There appears to be something loaded in the card slots.")
