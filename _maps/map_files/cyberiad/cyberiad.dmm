@@ -2931,7 +2931,7 @@
 "bes" = (/obj/structure/disposalpipe/segment,/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; tag = ""},/obj/machinery/crema_switch{pixel_x = 25},/obj/machinery/light/small{dir = 4},/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/chapel/office)
 "bet" = (/obj/structure/table/woodentable,/obj/item/device/flashlight/lamp{pixel_y = 10},/obj/structure/disposalpipe/segment,/obj/item/device/eftpos,/turf/simulated/floor/plasteel{icon_state = "grimy"},/area/chapel/office)
 "beu" = (/obj/structure/table/woodentable,/obj/item/weapon/pen,/obj/item/weapon/reagent_containers/food/drinks/bottle/holywater,/turf/simulated/floor/plasteel{icon_state = "grimy"},/area/chapel/office)
-"bev" = (/obj/structure/table/woodentable,/obj/item/weapon/nullrod,/turf/simulated/floor/plasteel{icon_state = "grimy"},/area/chapel/office)
+"bev" = (/obj/structure/table/woodentable,/obj/item/device/soulstone/anybody/chaplain,/obj/item/weapon/nullrod,/turf/simulated/floor/plasteel{icon_state = "grimy"},/area/chapel/office)
 "bew" = (/obj/machinery/hologram/holopad,/turf/simulated/floor/plasteel{icon_state = "grimy"},/area/chapel/office)
 "bex" = (/obj/structure/closet/coffin,/obj/machinery/door/window/eastleft{dir = 8; name = "Coffin Storage"; req_access_txt = "22"},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/chapel/office)
 "bey" = (/obj/item/weapon/storage/bible,/obj/structure/table/glass,/turf/simulated/floor/plasteel{dir = 4; icon_state = "chapel"},/area/chapel/main)
