@@ -1,0 +1,5 @@
+author: "Markolie"
+delete-after: True
+changes: 
+  - rscadd: "The chaplain on the Cyberiad map now has a one-use soulstone."
+  - tweak: "The chaplain's soul stone on MetaStation can now only be used once."
