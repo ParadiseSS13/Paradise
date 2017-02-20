@@ -240,7 +240,7 @@ em						{font-style: normal;	font-weight: bold;}
 .name					{					font-weight: bold;}
 .say					{}
 .yell					{					font-weight: bold;}
-.siliconsay				{font-family: 'Courier New', Courier, monospace;}
+.robot				{font-family: "Courier New", cursive, sans-serif;}
 .deadsay				{color: #5c00e6;}
 .radio					{color: #008000;}
 .deptradio				{color: #993399;}
