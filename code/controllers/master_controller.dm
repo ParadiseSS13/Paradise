@@ -10,6 +10,8 @@ var/global/last_tick_duration = 0
 var/global/air_processing_killed = 0
 var/global/pipe_processing_killed = 0
 
+var/global/list/syndicate_codewords = list()
+
 /datum/controller
 	var/processing = 0
 	var/iteration = 0
@@ -38,8 +40,15 @@ var/global/pipe_processing_killed = 0
 		job_master.LoadJobs("config/jobs.txt")
 		log_startup_progress("Job setup complete in [stop_watch(watch)]s.")
 
-	if(!syndicate_code_phrase)		syndicate_code_phrase	= generate_code_phrase()
-	if(!syndicate_code_response)	syndicate_code_response	= generate_code_phrase()
+	if(!syndicate_code_phrase)
+		var/list/new_phrases = generate_code_phrase()
+		syndicate_code_phrase = jointext(new_phrases, ", ") + "."
+		syndicate_codewords += new_phrases
+	if(!syndicate_code_response)
+		var/list/new_responses = generate_code_phrase()
+		syndicate_code_response = jointext(new_responses, ", ") + "."
+		syndicate_codewords += new_responses
+
 
 /datum/controller/game_controller/Destroy()
 	..()

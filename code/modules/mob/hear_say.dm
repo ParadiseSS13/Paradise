@@ -55,6 +55,8 @@
 	if(italics)
 		message = "<i>[message]</i>"
 
+	message = format_say_codewords(message)
+
 	var/track = null
 	if(isobserver(src))
 		if(italics && client.prefs.toggles & CHAT_GHOSTRADIO)
@@ -182,6 +184,9 @@
 		formatted = language.format_message_radio(message, verb)
 	else
 		formatted = "[verb], <span class=\"body\">\"[message]\"</span>"
+
+	formatted = format_say_codewords(formatted)
+
 	if(!can_hear())
 		if(prob(20))
 			to_chat(src, "<span class='warning'>You feel your headset vibrate but can hear nothing from it!</span>")
@@ -189,6 +194,25 @@
 		to_chat(src, "[part_a][track][part_b][formatted]</span></span>")
 	else
 		to_chat(src, "[part_a][speaker_name][part_b][formatted]</span></span>")
+
+/mob/proc/knows_codewords()
+	if(mind && (mind.knows_codewords))
+		return 1
+	if(isobserver(src))
+		if(antagHUD || check_rights(R_ADMIN, 0, src))
+			return 1
+	return 0
+
+/mob/proc/format_say_codewords(var/thetext)
+	if(!knows_codewords())
+		return thetext
+	var/newtext = ""
+	for(var/word in syndicate_codewords)
+		var/pos = findtext(thetext, word)
+		if(pos)
+			newtext = "<B>[word]</B>"
+			thetext = copytext(thetext, 1, pos) + newtext + copytext(thetext, pos + lentext(word), 0)
+	return thetext
 
 /mob/proc/hear_signlang(var/message, var/verb = "gestures", var/datum/language/language, var/mob/speaker = null)
 	if(!client)

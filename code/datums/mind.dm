@@ -52,6 +52,7 @@
 	var/list/datum/objective/special_verbs = list()
 
 	var/has_been_rev = 0//Tracks if this mind has been a rev or not
+	var/knows_codewords = 0 //Tracks if the mob knows what the syndicate codewords are, or not.
 
 	var/miming = 0 // Mime's vow of silence
 	var/speech_span // What span any body this mind has talks in.
@@ -1181,6 +1182,7 @@
 			if("takeuplink")
 				take_uplink()
 				memory = null//Remove any memory they may have had.
+				knows_codewords = 0
 				log_admin("[key_name(usr)] has taken [key_name(current)]'s uplink")
 				message_admins("[key_name_admin(usr)] has taken [key_name_admin(current)]'s uplink")
 			if("crystals")
