@@ -1,0 +1,106 @@
+<div style="float: left">
+	<div class='item'>
+		<table><tr>
+		{{if data.PC_batteryicon && data.PC_showbatteryicon}}
+			<td><img src='{{:data.PC_batteryicon}}'>
+		{{/if}}
+		{{if data.PC_batterypercent && data.PC_showbatteryicon}}
+			<td><b>{{:data.PC_batterypercent}}</b>
+		{{/if}}
+		{{if data.PC_ntneticon}}
+			<td><img src='{{:data.PC_ntneticon}}'>
+		{{/if}}
+		{{if data.PC_apclinkicon}}
+			<td><img src='{{:data.PC_apclinkicon}}'>
+		{{/if}}
+		{{if data.PC_stationtime}}
+			<td><b>{{:data.PC_stationtime}}<b>
+		{{/if}}
+		{{for data.PC_programheaders}}
+			<td><img src='{{:value.icon}}'>
+		{{/for}}
+		</table>
+	</div>
+</div>
+<div style="float: right">
+	<table><tr>
+		<td>{{:helper.link('Shutdown', null, {'action' : 'PC_shutdown'})}}
+		{{if data.PC_showexitprogram}}
+			<td>{{:helper.link('EXIT PROGRAM', null, {'action' : 'PC_exit'})}}
+			<td>{{:helper.link('Minimize Program', null, {'action' : 'PC_minimize'})}}
+		{{/if}}
+	</table>
+</div>
+<div style="clear: both">
+
+{{if data.error}}
+	<h2>An error has occurred and this program can not continue.</h2>
+	Additional information: {{:data.error}}<br>
+	<i>Please try again. If the problem persists contact your system administrator for assistance.</i>
+	{{:helper.link('Restart program', null, {'action' : 'PRG_closefile'})}}
+{{else}}
+	{{if data.filename}}
+		<h2>Viewing file {{:data.filename}}</h2>
+		<div class='item'>
+		{{:helper.link('CLOSE', null, {'action' : 'PRG_closefile'})}}
+		{{:helper.link('EDIT', null, {'action' : 'PRG_edit'})}}
+		{{:helper.link('PRINT', null, {'action' : 'PRG_printfile'})}}
+		</div><hr>
+		{{:data.filedata}}
+	{{else}}
+		<h2>Available files (local):</h2>
+		<div class='statusDisplay'>
+			<table>
+				<tr>
+					<th>File name</th>
+					<th>File type</th>
+					<th>File size (GQ)</th>
+					<th>Operations</th>
+				</tr>
+				{{for data.files}}
+					<tr>
+						<td>{{:value.name}}</td>
+						<td>.{{:value.type}}</td>
+						<td>{{:value.size}}GQ</td>
+						<td>
+							{{:helper.link('VIEW', null, {'action' : 'PRG_openfile', 'name' : value.name})}}
+							{{:helper.link('DELETE', null, {'action' : 'PRG_deletefile', 'name' : value.name}, value.undeletable ? 'disabled' : null)}}
+							{{:helper.link('RENAME', null, {'action' : 'PRG_rename', 'name' : value.name}, value.undeletable ? 'disabled' : null)}}
+							{{:helper.link('CLONE', null, {'action' : 'PRG_clone', 'name' : value.name}, value.undeletable ? 'disabled' : null)}}
+							{{if data.usbconnected}}
+								{{:helper.link('EXPORT', null, {'action' : 'PRG_copytousb', 'name' : value.name}, value.undeletable ? 'disabled' : null)}}
+							{{/if}}
+						</td>
+					</tr>
+				{{/for}}
+			</table>
+		</div>
+		{{if data.usbconnected}}
+			<h2>Available files (portable device):</h2>
+			<div class='statusDisplay'>
+				<table>
+					<tr>
+						<th>File name</th>
+						<th>File type</th>
+						<th>File size (GQ)</th>
+						<th>Operations</th>
+					</tr>
+					{{for data.usbfiles}}
+						<tr>
+							<td>{{:value.name}}</td>
+							<td>.{{:value.type}}</td>
+							<td>{{:value.size}}GQ</td>
+							<td>
+								{{:helper.link('DELETE', null, {'action' : 'PRG_usbdeletefile', 'name' : value.name}, value.undeletable ? 'disabled' : null)}}
+								{{if data.usbconnected}}
+									{{:helper.link('IMPORT', null, {'action' : 'PRG_copyfromusb', 'name' : value.name}, value.undeletable ? 'disabled' : null)}}
+								{{/if}}
+							</td>
+						</tr>
+					{{/for}}
+				</table>
+			</div>
+		{{/if}}
+		{{:helper.link('NEW DATA FILE', null, {'action' : 'PRG_newtextfile'})}}
+	{{/if}}	
+{{/if}}

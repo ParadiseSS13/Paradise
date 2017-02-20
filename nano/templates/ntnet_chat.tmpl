@@ -1,0 +1,93 @@
+<div style="float: left">
+	<div class='item'>
+		<table><tr>
+		{{if data.PC_batteryicon && data.PC_showbatteryicon}}
+			<td><img src='{{:data.PC_batteryicon}}'>
+		{{/if}}
+		{{if data.PC_batterypercent && data.PC_showbatteryicon}}
+			<td><b>{{:data.PC_batterypercent}}</b>
+		{{/if}}
+		{{if data.PC_ntneticon}}
+			<td><img src='{{:data.PC_ntneticon}}'>
+		{{/if}}
+		{{if data.PC_apclinkicon}}
+			<td><img src='{{:data.PC_apclinkicon}}'>
+		{{/if}}
+		{{if data.PC_stationtime}}
+			<td><b>{{:data.PC_stationtime}}<b>
+		{{/if}}
+		{{for data.PC_programheaders}}
+			<td><img src='{{:value}}'>
+		{{/for}}
+		</table>
+	</div>
+</div>
+<div style="float: right">
+	<table><tr>
+		<td>{{:helper.link('Shutdown', null, {'action' : 'PC_shutdown'})}}
+		{{if data.PC_showexitprogram}}
+			<td>{{:helper.link('EXIT PROGRAM', null, {'action' : 'PC_exit'})}}
+			<td>{{:helper.link('Minimize Program', null, {'action' : 'PC_minimize'})}}
+		{{/if}}
+	</table>
+</div>
+<div style="clear: both">
+
+{{if data.adminmode}}
+	<h1>ADMINISTRATIVE MODE</h1>
+{{/if}}
+
+{{if data.title}}
+	<div class='item'>
+		<div class="itemLabel">Current channel:</div>
+		<div class="itemContent">{{:data.title}}</div>
+	</div>
+	<div class='item'>
+		<div class="itemLabel">Operator access:</div>
+		<div class="itemContent"><b>{{if data.is_operator}}Enabled{{else}}Disabled{{/if}}</b></div>
+	</div>
+	<div class='item'>
+		<div class="itemLabel">Controls:</div>
+		<div class="itemContent">
+			<table>
+				<tr><td>{{:helper.link('Send message', 'comment-o', {'action' : 'PRG_speak'})}}
+				<tr><td>{{:helper.link('Change nickname', 'pencil', {'action' : 'PRG_changename'})}}
+				<tr><td>{{:helper.link('Toggle administration mode', 'lock', {'action' : 'PRG_toggleadmin'})}}
+				<tr><td>{{:helper.link('Leave channel', 'sign-out', {'action' : 'PRG_leavechannel'})}}
+				<tr><td>{{:helper.link('Save log to local drive', 'download', {'action' : 'PRG_savelog'})}}
+				{{if data.is_operator}}
+					<tr><td>{{:helper.link('Rename channel', 'pencil', {'action' : 'PRG_renamechannel'})}}
+					<tr><td>{{:helper.link('Set password', 'key', {'action' : 'PRG_setpassword'})}}
+					<tr><td>{{:helper.link('Delete channel', 'trash', {'action' : 'PRG_deletechannel'})}}
+				{{/if}}
+			</table>
+		</div>
+	</div>
+	<b>Chat Window</b>
+	<div class="statusDisplay" style="overflow: auto;">
+		<div class="item">
+			<div class="itemContent" style="width: 100%;">
+				{{for data.messages}}
+					{{:value.msg}}<br>
+				{{/for}}
+			</div>
+		</div>
+	</div>
+	<b>Connected Users</b><br>
+	{{for data.clients}}
+		{{:value.name}}<br>
+	{{/for}}
+{{else}}
+	<b>Controls:</b>
+	<table>
+		<tr><td>{{:helper.link('Change nickname', 'pencil', {'action' : 'PRG_changename'})}}
+		<tr><td>{{:helper.link('New Channel', 'plus', {'action' : 'PRG_newchannel'})}}
+		<tr><td>{{:helper.link('Toggle administration mode', 'lock', {'action' : 'PRG_toggleadmin'})}}
+	</table>
+	<b>Available channels:</b>
+	<table>
+		{{for data.all_channels}}
+			<tr><td>{{:helper.link(value.chan, 'sign-in', {'action' : 'PRG_joinchannel', 'id' : value.id})}}<br>
+		{{/for}}
+	</table>
+{{/if}}

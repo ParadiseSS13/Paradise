@@ -1,0 +1,102 @@
+<div style="float: left">
+	<div class='item'>
+		<table><tr>
+		{{if data.PC_batteryicon && data.PC_showbatteryicon}}
+			<td><img src='{{:data.PC_batteryicon}}'>
+		{{/if}}
+		{{if data.PC_batterypercent && data.PC_showbatteryicon}}
+			<td><b>{{:data.PC_batterypercent}}</b>
+		{{/if}}
+		{{if data.PC_ntneticon}}
+			<td><img src='{{:data.PC_ntneticon}}'>
+		{{/if}}
+		{{if data.PC_apclinkicon}}
+			<td><img src='{{:data.PC_apclinkicon}}'>
+		{{/if}}
+		{{if data.PC_stationtime}}
+			<td><b>{{:data.PC_stationtime}}<b>
+		{{/if}}
+		{{for data.PC_programheaders}}
+			<td><img src='{{:value.icon}}'>
+		{{/for}}
+		</table>
+	</div>
+</div>
+<div style="float: right">
+	<table><tr>
+		<td>{{:helper.link('Shutdown', null, {'action' : 'PC_shutdown'})}}
+		{{if data.PC_showexitprogram}}
+			<td>{{:helper.link('EXIT PROGRAM', null, {'action' : 'PC_exit'})}}
+			<td>{{:helper.link('Minimize Program', null, {'action' : 'PC_minimize'})}}
+		{{/if}}
+	</table>
+</div>
+<div style="clear: both">
+
+<i>Welcome to computer configuration utility. Please consult your system administrator if you have any questions about your device.</i><hr>
+<div class='statusDisplay'>
+	<h3>Power Supply</h3>
+	{{if data.battery}}
+		<div class='item'>
+			<div class='itemLabel'>Battery Status</div>
+			<div class='itemContent'>Active</div>
+		</div>
+		<div class='item'>
+			<div class='itemLabel'>Battery Rating</div>
+			<div class='itemContent'>{{:data.battery.max}}</div>
+		</div>
+		<div class='item'>
+			<div class='itemLabel'>Battery Charge</div>
+			{{:helper.displayBar(data.battery.charge, 0, data.battery.max, (data.battery.charge > data.battery.max/2) ? 'good' : (data.battery.charge > data.battery.max/4) ? 'average' : 'bad')}}
+			<div class="itemContent" style="width: 60px">
+				{{:helper.smoothRound(data.battery.charge, 1)}}/{{:data.battery.max}}
+			</div>
+		</div>
+	{{else}}
+		<div class='item'>
+			<div class='itemLabel'>Battery Status</div>
+			<div class='itemContent'>Not Available</div>
+		</div>
+	{{/if}}
+
+	<div class='item'>
+		<div class='itemLabel'>Power Usage</div>
+		<div class='itemContent'>{{:data.power_usage}}W</div>
+	</div>
+</div>
+		
+<div class='statusDisplay'>
+	<h3>File System</h3>
+	<div class='item'>
+		<div class='itemLabel'>Used Capacity</div>
+		{{:helper.displayBar(data.disk_used, 0, data.disk_size, (data.disk_used > data.disk_size/2) ? 'bad' : (data.disk_used > data.disk_size/4) ? 'average' : 'good')}}
+		<div class="itemContent" style="width: 60px">
+			{{:helper.smoothRound(data.disk_used, 1)}}/{{:data.disk_size}}GQ
+		</div>
+	</div>
+</div>
+		
+<div class='statusDisplay'>
+	<h3>Computer Components</h3>
+	{{for data.hardware}}
+		<h4>{{:value.name}}</h4>
+		<i>{{:value.desc}}</i><br>
+		<div class='item'>
+			<div class='itemLabel'>State</div>
+			<div class='itemContent'>{{:value.enabled ? "Enabled" : "Disabled"}}</div>
+		</div>
+			
+		<div class='item'>
+			<div class='itemLabel'>Power Usage</div>
+			<div class='itemContent'>{{:value.powerusage}}W</div>
+		</div>
+
+		{{if !value.critical}}
+			<div class='item'>
+				<div class='itemLabel'>Toggle Component</div>
+				<div class='itemContent'>{{:helper.link(value.enabled ? 'On' : 'Off', value.enabled ? 'power-off' : 'close', {'action' : 'PC_toggle_component', 'name' : value.name})}}</div>
+			</div>
+		{{/if}}
+		<br><hr>
+	{{/for}}
+</div>

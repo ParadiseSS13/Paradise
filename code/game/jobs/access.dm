@@ -74,6 +74,7 @@
 /var/const/access_magistrate = 74
 /var/const/access_minisat = 75
 /var/const/access_mineral_storeroom = 76
+/var/const/access_network = 77
 
 /var/const/access_weapons = 99 //Weapon authorization for secbots
 
@@ -241,10 +242,10 @@ var/const/access_trade_sol = 160
 	            access_theatre, access_research, access_mining, access_mailsorting,
 	            access_heads_vault, access_mining_station, access_xenobiology, access_ce, access_hop, access_hos, access_RC_announce,
 	            access_keycard_auth, access_tcomsat, access_gateway, access_xenoarch, access_paramedic, access_blueshield, access_mechanic,access_weapons,
-	            access_pilot, access_ntrep, access_magistrate, access_mineral_storeroom, access_minisat)
+	            access_pilot, access_ntrep, access_magistrate, access_mineral_storeroom, access_minisat, access_network)
 
 /proc/get_all_centcom_access()
-	return list(access_cent_general, access_cent_living, access_cent_medical, access_cent_security, access_cent_storage, access_cent_shuttles, access_cent_telecomms, access_cent_teleporter, access_cent_specops, access_cent_specops_commander, access_cent_blackops, access_cent_thunder, access_cent_bridge, access_cent_commander)
+	return list(access_cent_general, access_cent_living, access_cent_medical, access_cent_security, access_cent_storage, access_cent_shuttles, access_cent_telecomms, access_cent_teleporter, access_cent_specops, access_cent_specops_commander, access_cent_blackops, access_cent_thunder, access_cent_bridge, access_cent_commander, access_network)
 
 /proc/get_all_syndicate_access()
 	return list(access_syndicate, access_syndicate_leader, access_vox)
@@ -272,7 +273,7 @@ var/const/access_trade_sol = 160
 		if(REGION_SUPPLY) //supply
 			return list(access_mailsorting, access_mining, access_mining_station, access_mineral_storeroom, access_cargo, access_qm)
 		if(REGION_COMMAND) //command
-			return list(access_heads, access_RC_announce, access_keycard_auth, access_change_ids, access_ai_upload, access_teleporter, access_eva, access_tcomsat, access_gateway, access_all_personal_lockers, access_heads_vault, access_blueshield, access_ntrep, access_hop, access_captain)
+			return list(access_heads, access_RC_announce, access_keycard_auth, access_change_ids, access_ai_upload, access_teleporter, access_eva, access_tcomsat, access_network, access_gateway, access_all_personal_lockers, access_heads_vault, access_blueshield, access_ntrep, access_hop, access_captain)
 		if(REGION_CENTCOMM) //because why the heck not
 			return get_all_centcom_access() + get_all_accesses()
 
@@ -426,6 +427,8 @@ var/const/access_trade_sol = 160
 			return "Keycode Auth. Device"
 		if(access_tcomsat)
 			return "Telecommunications"
+		if(access_network)
+			return "Network"
 		if(access_gateway)
 			return "Gateway"
 		if(access_sec_doors)
