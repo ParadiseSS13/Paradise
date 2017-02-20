@@ -128,7 +128,7 @@
 		data["downloaddesc"] = downloaded_file.filedesc
 		data["downloadsize"] = downloaded_file.size
 		data["downloadspeed"] = download_netspeed
-		data["downloadcompletion"] = round(download_completion, 0.1)
+		data["downloadcompletion"] = round(min(download_completion, downloaded_file.size), 0.1)
 	else // No download running, pick file.
 		var/obj/item/weapon/computer_hardware/hard_drive/hard_drive = my_computer.all_components[MC_HDD]
 		data["disk_size"] = hard_drive.max_capacity

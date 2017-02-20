@@ -1,38 +1,3 @@
-<div style="float: left">
-	<div class='item'>
-		<table><tr>
-		{{if data.PC_batteryicon && data.PC_showbatteryicon}}
-			<td><img src='{{:data.PC_batteryicon}}'>
-		{{/if}}
-		{{if data.PC_batterypercent && data.PC_showbatteryicon}}
-			<td><b>{{:data.PC_batterypercent}}</b>
-		{{/if}}
-		{{if data.PC_ntneticon}}
-			<td><img src='{{:data.PC_ntneticon}}'>
-		{{/if}}
-		{{if data.PC_apclinkicon}}
-			<td><img src='{{:data.PC_apclinkicon}}'>
-		{{/if}}
-		{{if data.PC_stationtime}}
-			<td><b>{{:data.PC_stationtime}}<b>
-		{{/if}}
-		{{for data.PC_programheaders}}
-			<td><img src='{{:value.icon}}'>
-		{{/for}}
-		</table>
-	</div>
-</div>
-<div style="float: right">
-	<table><tr>
-		<td>{{:helper.link('Shutdown', null, {'action' : 'PC_shutdown'})}}
-		{{if data.PC_showexitprogram}}
-			<td>{{:helper.link('EXIT PROGRAM', null, {'action' : 'PC_exit'})}}
-			<td>{{:helper.link('Minimize Program', null, {'action' : 'PC_minimize'})}}
-		{{/if}}
-	</table>
-</div>
-<div style="clear: both">
-
 <i>Welcome to software download utility. Please select which software you wish to download.</i><hr>
 {{if data.error}}
 	<h3>Download Error</h3>

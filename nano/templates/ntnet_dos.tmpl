@@ -1,38 +1,4 @@
-<div style="float: left">
-	<div class='item'>
-		<table><tr>
-		{{if data.PC_batteryicon && data.PC_showbatteryicon}}
-			<td><img src='{{:data.PC_batteryicon}}'>
-		{{/if}}
-		{{if data.PC_batterypercent && data.PC_showbatteryicon}}
-			<td><b>{{:data.PC_batterypercent}}</b>
-		{{/if}}
-		{{if data.PC_ntneticon}}
-			<td><img src='{{:data.PC_ntneticon}}'>
-		{{/if}}
-		{{if data.PC_apclinkicon}}
-			<td><img src='{{:data.PC_apclinkicon}}'>
-		{{/if}}
-		{{if data.PC_stationtime}}
-			<td><b>{{:data.PC_stationtime}}<b>
-		{{/if}}
-		{{for data.PC_programheaders}}
-			<td><img src='{{:value.icon}}'>
-		{{/for}}
-		</table>
-	</div>
-</div>
-<div style="float: right">
-	<table><tr>
-		<td>{{:helper.link('Shutdown', null, {'action' : 'PC_shutdown'})}}
-		{{if data.PC_showexitprogram}}
-			<td>{{:helper.link('EXIT PROGRAM', null, {'action' : 'PC_exit'})}}
-			<td>{{:helper.link('Minimize Program', null, {'action' : 'PC_minimize'})}}
-		{{/if}}
-	</table>
-</div>
-<div style="clear: both">
-
+{{:helper.syndicateMode()}}
 {{if data.error}}
 	##SYSTEM ERROR: {{:data.error}}{{:helper.link('RESET', null, {'action' : 'PRG_reset'})}}
 {{else data.target}}
@@ -47,14 +13,13 @@
 		<div class="itemLabel">Targeted device ID:</div>
 		<div class="itemContent">{{if data.focus}}{{:data.focus}}{{else}}None{{/if}}</div>
 	</div>
-	
 	<div class='item'>
-		{{:helper.link('EXECUTE', null, {'action' : 'PRG_execute'})}}<div style="clear:both"></div>
+		{{:helper.link('EXECUTE', null, { 'PRG_execute' : 1 })}}<div style="clear:both"></div>
 	</div>
 	Detected devices on network:<br>
 	<table>
 		{{for data.relays}}
-			<tr><td>{{:helper.link(value.id, null, {'action' : 'PRG_target_relay', 'targid' : value.id})}}
+			<tr><td>{{:helper.link(value.id, null, {'action' : 'PRG_target_relay', 'targid' : value.id})}}	
 		{{/for}}
 	</table>
 {{/if}}

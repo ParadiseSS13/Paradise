@@ -51,6 +51,64 @@
 
 	return data
 
+// Function used by NanoUI's to obtain data for header. All relevant entries begin with "PC_"
+/obj/item/device/modular_computer/proc/get_header_data()
+	var/list/data = list()
+
+	var/obj/item/weapon/computer_hardware/battery/battery_module = all_components[MC_CELL]
+	var/obj/item/weapon/computer_hardware/recharger/recharger = all_components[MC_CHARGE]
+
+	if(battery_module && battery_module.battery)
+		switch(battery_module.battery.percent())
+			if(80 to 200) // 100 should be maximal but just in case..
+				data["PC_batteryicon"] = "batt_100.gif"
+			if(60 to 80)
+				data["PC_batteryicon"] = "batt_80.gif"
+			if(40 to 60)
+				data["PC_batteryicon"] = "batt_60.gif"
+			if(20 to 40)
+				data["PC_batteryicon"] = "batt_40.gif"
+			if(5 to 20)
+				data["PC_batteryicon"] = "batt_20.gif"
+			else
+				data["PC_batteryicon"] = "batt_5.gif"
+		data["PC_batterypercent"] = "[round(battery_module.battery.percent())] %"
+		data["PC_showbatteryicon"] = 1
+	else
+		data["PC_batteryicon"] = "batt_5.gif"
+		data["PC_batterypercent"] = "N/C"
+		data["PC_showbatteryicon"] = battery_module ? 1 : 0
+
+	if(recharger && recharger.enabled && recharger.check_functionality() && recharger.use_power(0))
+		data["PC_apclinkicon"] = "charging.gif"
+
+	switch(get_ntnet_status())
+		if(0)
+			data["PC_ntneticon"] = "sig_none.gif"
+		if(1)
+			data["PC_ntneticon"] = "sig_low.gif"
+		if(2)
+			data["PC_ntneticon"] = "sig_high.gif"
+		if(3)
+			data["PC_ntneticon"] = "sig_lan.gif"
+
+	if(idle_threads.len)
+		var/list/program_headers = list()
+		for(var/I in idle_threads)
+			var/datum/computer_file/program/P = I
+			if(!P.ui_header)
+				continue
+			program_headers.Add(list(list(
+				"icon" = P.ui_header
+			)))
+
+		data["PC_programheaders"] = program_headers
+
+	data["PC_stationtime"] = worldtime2text()
+	data["PC_hasheader"] = 1
+	data["PC_showexitprogram"] = active_program ? 1 : 0 // Hides "Exit Program" button on mainscreen
+	return data
+
 
 // Handles user's GUI input
 /obj/item/device/modular_computer/Topic(href, list/href_list)
