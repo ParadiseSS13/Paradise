@@ -38,7 +38,7 @@ var/global/list/image/splatter_cache=list()
 		return
 	if(type == /obj/effect/decal/cleanable/blood)
 		if(src.loc && isturf(src.loc))
-			for(var/obj/effect/decal/cleanable/blood/B in src.loc)
+			for(var/obj/effect/decal/cleanable/blood/B in loc)
 				if(B != src)
 					if(B.blood_DNA)
 						blood_DNA |= B.blood_DNA.Copy()
@@ -150,10 +150,8 @@ var/global/list/image/splatter_cache=list()
 	if(!fleshcolor || fleshcolor == "rainbow")
 		fleshcolor = "#[pick(list("FF0000","FF7F00","FFFF00","00FF00","0000FF","4B0082","8F00FF"))]"
 	giblets.color = fleshcolor
-	basecolor = blood_DNA["blood_color"]//not applying color to gibs
 	var/icon/blood = new(base_icon,"[icon_state]",dir)
 	if(basecolor == "rainbow") basecolor = "#[pick(list("FF0000","FF7F00","FFFF00","00FF00","0000FF","4B0082","8F00FF"))]"
-	blood.Blend(basecolor,ICON_MULTIPLY)
 
 	icon = blood
 	overlays.Cut()
