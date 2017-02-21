@@ -11,7 +11,7 @@
 	flags_inv = HIDEGLOVES|HIDESHOES
 	max_heat_protection_temperature = SPACE_SUIT_MAX_TEMP_PROTECT
 	species_restricted = list("Plasmaman")
-	flags = STOPSPRESSUREDMAGE
+	flags = STOPSPRESSUREDMAGE | AUTOEXTINGUISH
 
 	icon_state = "plasmaman_suit"
 	item_state = "plasmaman_suit"
@@ -24,16 +24,14 @@
 	..(user)
 	to_chat(user, "<span class='info'>There are [extinguishes_left] extinguisher canisters left in this suit.</span>")
 
-/obj/item/clothing/suit/space/eva/plasmaman/proc/Extinguish(var/mob/user)
-	var/mob/living/carbon/human/H=user
-	if(extinguishes_left)
+/obj/item/clothing/suit/space/eva/plasmaman/auto_extinguish(var/mob/living/carbon/human/H)
+	if(istype(H) && extinguishes_left)
 		if(next_extinguish > world.time)
 			return
 
 		next_extinguish = world.time + extinguish_cooldown
 		extinguishes_left--
-		to_chat(H, "<span class='warning'>Your suit automatically extinguishes the fire.</span>")
-		H.ExtinguishMob()
+		..()
 
 /obj/item/clothing/head/helmet/space/eva/plasmaman
 	name = "plasmaman helmet"

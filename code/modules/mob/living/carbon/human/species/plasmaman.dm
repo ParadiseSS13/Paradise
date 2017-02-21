@@ -6,7 +6,7 @@
 	//language = "Clatter"
 	unarmed_type = /datum/unarmed_attack/punch
 
-	flags = IS_WHITELISTED | NO_BLOOD | NOTRANSSTING
+	flags = IS_WHITELISTED | NO_BLOOD | NOTRANSSTING | PLASMA_BASED
 	dietflags = DIET_OMNI
 	reagent_tag = PROCESS_ORG
 
@@ -15,6 +15,7 @@
 	butt_sprite = "plasma"
 
 	breath_type = "plasma"
+	poison_type = null
 
 	heat_level_1 = 350  // Heat damage level 1 above this point.
 	heat_level_2 = 400  // Heat damage level 2 above this point.

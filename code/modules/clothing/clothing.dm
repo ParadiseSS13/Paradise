@@ -497,6 +497,11 @@ BLIND     // can't see anything
 	else
 		to_chat(user, "<span class='notice'>You attempt to button up the velcro on \the [src], before promptly realising how retarded you are.</span>")
 
+/obj/item/clothing/suit/proc/auto_extinguish(var/mob/living/carbon/human/user)
+	if(istype(user))
+		to_chat(user, "<span class='warning'>You hear a soft click and a hiss from your suit as it automatically extinguishes the fire.</span>")
+		user.ExtinguishMob()
+
 /obj/item/clothing/suit/equipped(var/mob/living/carbon/human/user, var/slot) //Handle tail-hiding on a by-species basis.
 	..()
 	if(ishuman(user) && hide_tail_by_species && slot == slot_wear_suit)

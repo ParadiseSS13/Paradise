@@ -22,7 +22,12 @@
 	color = "#7A2B94"
 
 /datum/reagent/plasma/on_mob_life(mob/living/M)
-	M.adjustToxLoss(1*REAGENTS_EFFECT_MULTIPLIER)
+	var/mob/living/carbon/human/H = M
+	if(istype(H) && H.species && H.species.flags & PLASMA_BASED) //Plasma shouldn't poison plasmamen.
+		if(prob(20))
+			H.heal_organ_damage(1, 1)
+	else
+		M.adjustToxLoss(1*REAGENTS_EFFECT_MULTIPLIER)
 	if(holder.has_reagent("epinephrine"))
 		holder.remove_reagent("epinephrine", 2)
 	if(iscarbon(M))
