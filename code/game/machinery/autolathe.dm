@@ -75,11 +75,11 @@
 
 /obj/machinery/autolathe/interact(mob/user)
 	if(shocked && !(stat & NOPOWER))
-		shock(user, 50)
-		return
+		if(shock(user, 50))
+			return
 
 	if(panel_open)
-		wires.Interact()
+		wires.Interact(user)
 	else
 		ui_interact(user)
 
