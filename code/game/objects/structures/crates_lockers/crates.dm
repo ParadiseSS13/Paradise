@@ -307,7 +307,7 @@
 		return
 	return ..()
 
-/obj/structure/closet/crate/secure/emag_act(user)
+/obj/structure/closet/crate/secure/emag_act(mob/user)
 	if(locked)
 		overlays += sparks
 		spawn(6) overlays -= sparks //Tried lots of stuff but nothing works right. so i have to use this *sadface*
