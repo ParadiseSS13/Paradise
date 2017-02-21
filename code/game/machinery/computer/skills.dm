@@ -96,32 +96,31 @@
 		temp = null
 
 	if(href_list["temp_action"])
-		if(href_list["temp_action"])
-			var/prm = splittext(href_list["temp_action"], "=")
-			switch(prm[1])
-				if("del_all2")
+		var/temp_list = splittext(href_list["temp_action"], "=")
+		switch(temp_list[1])
+			if("del_all2")
+				if(PDA_Manifest && PDA_Manifest.len)
+					PDA_Manifest.Cut()
+				for(var/datum/data/record/R in data_core.security)
+					qdel(R)
+				setTemp("<h3>All employment records deleted.</h3>")
+			if("del_rg2")
+				if(active1)
 					if(PDA_Manifest && PDA_Manifest.len)
 						PDA_Manifest.Cut()
-					for(var/datum/data/record/R in data_core.security)
-						qdel(R)
-					setTemp("<h3>All employment records deleted.</h3>")
-				if("del_rg2")
-					if(active1)
-						if(PDA_Manifest && PDA_Manifest.len)
-							PDA_Manifest.Cut()
-						for(var/datum/data/record/R in data_core.medical)
-							if(R.fields["name"] == active1.fields["name"] && R.fields["id"] == active1.fields["id"])
-								qdel(R)
-						qdel(active1)
-						active1 = null
-					screen = SKILL_DATA_R_LIST
-				if("rank")
-					if(active1)
-						if(PDA_Manifest && PDA_Manifest.len)
-							PDA_Manifest.Cut()
-						active1.fields["rank"] = prm[2]
-						if(prm[2] in joblist)
-							active1.fields["real_rank"] = prm[2]
+					for(var/datum/data/record/R in data_core.medical)
+						if(R.fields["name"] == active1.fields["name"] && R.fields["id"] == active1.fields["id"])
+							qdel(R)
+					qdel(active1)
+					active1 = null
+				screen = SKILL_DATA_R_LIST
+			if("rank")
+				if(active1)
+					if(PDA_Manifest && PDA_Manifest.len)
+						PDA_Manifest.Cut()
+					active1.fields["rank"] = temp_list[2]
+					if(temp_list[2] in joblist)
+						active1.fields["real_rank"] = temp_list[2]
 
 	if(href_list["scan"])
 		if(scan)
