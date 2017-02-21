@@ -57,13 +57,15 @@
 		</div>
 	</div>
 	<div style="float: right">
-		<table><tr>
-			<td>{{:helper.link('Shutdown', null, {'action' : 'PC_shutdown'})}}
-			{{if data.PC_showexitprogram}}
-				<td>{{:helper.link('EXIT PROGRAM', null, {'action' : 'PC_exit'})}}
-					<td>{{:helper.link('Minimize Program', null, {'action' : 'PC_minimize'})}}
-			{{/if}}
-		</table>
+		<div class='item'>
+			<table><tr>
+				<td>{{:helper.link('Shutdown', 'power-off', {'action' : 'PC_shutdown'})}}
+				{{if data.PC_showexitprogram}}
+					<td>{{:helper.link('EXIT PROGRAM', 'times', {'action' : 'PC_exit'})}}
+						<td>{{:helper.link('Minimize Program', 'minus', {'action' : 'PC_minimize'})}}
+				{{/if}}
+			</table>
+		</div>
 	</div>
 	<div style="clear: both">
 {{/if}}

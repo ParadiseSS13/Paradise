@@ -6,7 +6,7 @@
 	{{for data.dos_strings}}
 		{{:value.nums}}<br>
 	{{/for}}
-	{{:helper.link('ABORT', null, {'action' : 'PRG_reset'})}}
+	{{:helper.link('ABORT', 'ban', {'action' : 'PRG_reset'})}}
 {{else}}
 	##DoS traffic generator ready. Select target device.<br>
 	<div class='item'>
@@ -14,7 +14,7 @@
 		<div class="itemContent">{{if data.focus}}{{:data.focus}}{{else}}None{{/if}}</div>
 	</div>
 	<div class='item'>
-		{{:helper.link('EXECUTE', null, {'action' : 'PRG_execute'})}}<div style="clear:both"></div>
+		{{:helper.link('EXECUTE', 'play', {'action' : 'PRG_execute'})}}<div style="clear:both"></div>
 	</div>
 	Detected devices on network:<br>
 	<table>
