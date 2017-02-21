@@ -13,6 +13,15 @@
 		battery = new battery_type(src)
 	..()
 
+/obj/item/weapon/computer_hardware/battery/Destroy()
+	if(battery)
+		qdel(battery)
+		battery = null
+	return ..()
+
+/obj/item/weapon/computer_hardware/battery/on_remove(obj/item/device/modular_computer/M, mob/living/user = null)
+	try_eject(0, forced = 1)
+
 /obj/item/weapon/computer_hardware/battery/try_insert(obj/item/I, mob/living/user = null)
 	if(!holder)
 		return FALSE

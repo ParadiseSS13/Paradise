@@ -10,6 +10,12 @@
 	var/obj/item/device/aicard/stored_card = null
 	var/locked = FALSE
 
+/obj/item/weapon/computer_hardware/ai_slot/Destroy()
+	if(stored_card)
+		qdel(stored_card)
+		stored_card = null
+	return ..()
+
 
 /obj/item/weapon/computer_hardware/ai_slot/examine(mob/user)
 	..()
@@ -21,6 +27,7 @@
 
 /obj/item/weapon/computer_hardware/ai_slot/on_remove(obj/item/device/modular_computer/M, mob/living/user = null)
 	M.remove_verb(device_type)
+	try_eject(0, forced = 1)
 
 /obj/item/weapon/computer_hardware/ai_slot/try_insert(obj/item/I, mob/living/user = null)
 	if(!holder)

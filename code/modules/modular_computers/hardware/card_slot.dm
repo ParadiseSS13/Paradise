@@ -11,7 +11,12 @@
 	var/obj/item/weapon/card/id/stored_card2 = null
 
 /obj/item/weapon/computer_hardware/card_slot/Destroy()
-	try_eject()
+	if(stored_card)
+		qdel(stored_card)
+		stored_card = null
+	if(stored_card2)
+		qdel(stored_card2)
+		stored_card2 = null
 	return ..()
 
 /obj/item/weapon/computer_hardware/card_slot/GetAccess()
@@ -35,6 +40,7 @@
 
 /obj/item/weapon/computer_hardware/card_slot/on_remove(obj/item/device/modular_computer/M, mob/living/user = null)
 	M.remove_verb(device_type)
+	try_eject(0, forced = 1)
 
 /obj/item/weapon/computer_hardware/card_slot/try_insert(obj/item/I, mob/living/user = null)
 	if(!holder)

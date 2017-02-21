@@ -65,6 +65,7 @@
 
 	if(F in stored_files)
 		stored_files -= F
+		qdel(F)
 		recalculate_size()
 		return 1
 	else
