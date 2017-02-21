@@ -1775,8 +1775,8 @@
 					H.update_mutations()
 				logmsg = "superpowers."
 		if(logmsg)
-			log_admin("[key_name(src.owner)] answered [M]'s prayer with a blessing: [logmsg]")
-			message_admins("[key_name_admin(src.owner)] answered [M]'s prayer with a blessing: [logmsg]")
+			log_admin("[key_name(src.owner)] answered [key_name_admin(M)]'s prayer with a blessing: [logmsg]")
+			message_admins("[key_name_admin(src.owner)] answered [key_name_admin(M)]'s prayer with a blessing: [logmsg]")
 	else if(href_list["Smite"])
 		if(!check_rights(R_ADMIN))
 			return
@@ -1843,8 +1843,8 @@
 				logmsg = "gibbed."
 				M.gib(FALSE)
 		if(logmsg)
-			log_admin("[key_name(src.owner)] answered [M]'s prayer with a smiting: [logmsg]")
-			message_admins("[key_name_admin(src.owner)] answered [M]'s prayer with a smiting: [logmsg]")
+			log_admin("[key_name(src.owner)] answered [key_name_admin(M)]'s prayer with a smiting: [logmsg]")
+			message_admins("[key_name_admin(src.owner)] answered [key_name_admin(M)]'s prayer with a smiting: [logmsg]")
 	else if(href_list["FaxReplyTemplate"])
 		if(!check_rights(R_ADMIN))
 			return
