@@ -3,7 +3,7 @@
 // Satellites be actived to generate a shield that will block unorganic matter from passing it.
 /datum/station_goal/station_shield
 	name = "Station Shield"
-	var/coverage_goal = 500
+	var/coverage_goal = 5000
 
 /datum/station_goal/station_shield/get_report()
 	return {"<b>Station Shield construction</b><br>
