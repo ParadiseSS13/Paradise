@@ -1,4 +1,0 @@
-author: "davipatury"
-delete-after: True
-changes: 
-  - rscadd: "Autolathe now uses Nano-UI."
