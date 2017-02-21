@@ -5,8 +5,7 @@ var/global/datum/controller/process/ssd/ssd
 	var/list/current_ssds = list()
 	var/list/previous_ssds = list()
 	var/list/ignored_ssds = list()
-	var/list/areas_to_ignore = list(/area/security/prison, /area/security/permabrig)
-
+	var/list/areas_to_ignore = list(/area/security/prison)
 
 /datum/controller/process/ssd/setup()
 	name = "SSD"
@@ -14,13 +13,8 @@ var/global/datum/controller/process/ssd/ssd
 
 /datum/controller/process/ssd/doWork()
 	current_ssds = list()
-	var/list/free_cryopods = list()
-	var/obj/machinery/cryopod/target_cryopod = null
-	for(var/obj/machinery/cryopod/P in machines)
-		if(!P.occupant && istype(get_area(P), /area/crew_quarters/sleep))
-			free_cryopods += P
 	for(var/mob/living/carbon/human/H in mob_list)
-		if(H.is_valid_for_cryoing())
+		if(H.is_valid_for_ssdhandling())
 			if(H in ignored_ssds)
 				continue
 			if(H.mind)
@@ -37,14 +31,13 @@ var/global/datum/controller/process/ssd/ssd
 	for(var/mob/living/carbon/human/T in current_ssds)
 		if(T in previous_ssds)
 			ignored_ssds += T
-			if(free_cryopods.len)
-				target_cryopod = safepick(free_cryopods)
-				if(target_cryopod.check_occupant_allowed(T))
-					target_cryopod.take_occupant(T, 1)
-					free_cryopods -= target_cryopod
+			if(T.mind && T.mind.assigned_role)
+				T.mind.role_given_up = 1
+				job_master.FreeRole(T.mind.assigned_role)
+				log_admin("SSD: [key_name(T)] is SSD. Adding job slot for: [T.mind.assigned_role]")
 	previous_ssds = current_ssds
 
-/mob/living/carbon/human/proc/is_valid_for_cryoing()
+/mob/living/carbon/human/proc/is_valid_for_ssdhandling()
 	if(!is_station_level(z))
 		return 0
 	if(!isLivingSSD(src))

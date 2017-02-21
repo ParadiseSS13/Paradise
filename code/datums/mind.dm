@@ -39,6 +39,7 @@
 	var/memory
 
 	var/assigned_role
+	var/role_given_up = 0
 	var/special_role
 	var/list/restricted_roles = list()
 
