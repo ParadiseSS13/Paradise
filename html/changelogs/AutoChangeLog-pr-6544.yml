@@ -1,7 +1,0 @@
-author: "Markolie"
-delete-after: True
-changes: 
-  - bugfix: "Megaphones can no longer be used by mute people."
-  - bugfix: "Rechargers will no longer recharge stacks beyond their max amount or restack 0.5 sheets."
-  - bugfix: "Ranged guardians now have a proper one second cooldown instead of 0.1 seconds."
-  - bugfix: "Cult can no longer soul stone manifested ghosts."
