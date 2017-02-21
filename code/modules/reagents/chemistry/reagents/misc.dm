@@ -42,21 +42,6 @@
 /datum/reagent/oxygen/on_mob_life(var/mob/living/carbon/human/H)
 	if(istype(H) && H.species && H.species.poison_type && H.species.poison_type == id)
 		H.adjustToxLoss(1*REAGENTS_EFFECT_MULTIPLIER) //Same as plasma.
-	if(istype(H) && H.species && H.species.flags & PLASMA_BASED) //Oxygen lights up plasma-based lifeforms.
-		if(prob(60))
-			H.adjust_fire_stacks(0.25)
-		if(prob(40))
-			H.IgniteMob() //Light them up.
-	..()
-
-/datum/reagent/oxygen/reaction_mob(var/mob/living/carbon/human/H, method=TOUCH, volume)
-	if(istype(H) && H.species && H.species.flags & PLASMA_BASED) //Oxygen lights up plasma-based lifeforms.
-		if(method == INGEST)
-			to_chat(H, "<span class='warning'>You feel a horrible burning from within as your body bursts into flame!</span>")
-		if(method == TOUCH)
-			to_chat(H, "<span class='warning'>Your body bursts into flames as it comes into contact with the substance!</span>")
-		H.adjust_fire_stacks(1) //Same as phlogiston, guaranteed one-time firestack delivery and ignition.
-		H.IgniteMob()
 	..()
 
 /datum/reagent/nitrogen
