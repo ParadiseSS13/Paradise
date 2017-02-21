@@ -84,7 +84,7 @@
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/Web()
 	var/turf/mylocation = loc
 	visible_message("<span class='notice'>[src] begins to secrete a sticky substance.</span>")
-	if(do_after(src, 40, target = loc))
+	if(do_after(src, delay_web, target = loc))
 		if(loc != mylocation)
 			return
 		else if(istype(loc, /turf/space))

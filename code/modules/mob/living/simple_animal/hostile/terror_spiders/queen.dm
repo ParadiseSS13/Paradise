@@ -31,6 +31,7 @@
 	var/hasnested = 0
 	var/spider_max_per_nest = 20 // above this, queen stops spawning more, and declares war.
 	var/canlay = 0 // main counter for egg-laying ability! # = num uses, incremented at intervals
+	var/eggslaid = 0
 	var/spider_can_fakelings = 3 // spawns defective spiderlings that don't grow up, used to freak out crew, atmosphere
 	idle_ventcrawl_chance = 0
 	force_threshold = 18 // outright immune to anything of force under 18, this means welders can't hurt it, only guns can
@@ -62,10 +63,15 @@
 	if(.) // if mob is NOT dead
 		if(ckey && canlay < 12 && hasnested) // max 12 eggs worth stored at any one time, realistically that's tons.
 			if(world.time > (spider_lastspawn + spider_spawnfrequency))
-				canlay++
+				if(eggslaid >= 20)
+					canlay += 3
+				else if(eggslaid >= 10)
+					canlay += 2
+				else
+					canlay++
 				spider_lastspawn = world.time
 				if(canlay == 1)
-					to_chat(src, "<span class='notice'>You are able to lay eggs again.</span>")
+					to_chat(src, "<span class='notice'>You have an egg available to lay.</span>")
 				else if(canlay == 12)
 					to_chat(src, "<span class='notice'>You have [canlay] eggs available to lay. You won't grow any more eggs until you lay some of your existing ones.</span>")
 				else
@@ -286,6 +292,7 @@
 		to_chat(src, "<span class='danger'>Cancelled.</span>")
 		return
 	canlay -= numlings
+	eggslaid += numlings
 	if(eggtype == TS_DESC_RED)
 		DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/red, numlings, 1)
 	else if(eggtype == TS_DESC_GRAY)

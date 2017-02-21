@@ -79,8 +79,8 @@ var/global/list/ts_spiderling_list = list()
 	aggro_vision_range = 10
 	see_in_dark = 10
 	nightvision = 1
-	vision_type = new /datum/vision_override/nightvision/thermals/ling_augmented_eyesight
 	see_invisible = 5
+	sight = SEE_MOBS
 
 	// AI aggression settings
 	var/ai_type = TS_AI_AGGRESSIVE // 0 = aggressive to everyone, 1 = defends self only
@@ -96,6 +96,7 @@ var/global/list/ts_spiderling_list = list()
 	var/ai_spins_webs = 1 // AI web-spinning behavior
 	var/freq_spins_webs = 600
 	var/last_spins_webs = 0 // leave this, changed by procs.
+	var/delay_web = 40 // delay between starting to spin web, and finishing
 
 	var/freq_cocoon_object = 1200 // two minutes between each attempt
 	var/last_cocoon_object = 0 // leave this, changed by procs.
