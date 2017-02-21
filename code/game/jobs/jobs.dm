@@ -137,7 +137,8 @@ var/list/security_positions = list(
 
 
 var/list/civilian_positions = list(
-	"Civilian"
+	"Civilian",
+	"Gateway Explorer"
 )
 
 var/list/nonhuman_positions = list(
