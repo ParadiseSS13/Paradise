@@ -17,10 +17,8 @@
 /obj/structure/dispenser/plasma
 	oxygentanks = 0
 
-
 /obj/structure/dispenser/New()
 	update_icon()
-
 
 /obj/structure/dispenser/update_icon()
 	overlays.Cut()
@@ -31,18 +29,23 @@
 		if(1 to 4)	overlays += "plasma-[plasmatanks]"
 		if(5 to INFINITY) overlays += "plasma-5"
 
-
-/obj/structure/dispenser/attack_hand(mob/user as mob)
+/obj/structure/dispenser/attack_hand(mob/user)
+	if(..())
+		return
+	interact(user)
+	
+/obj/structure/dispenser/attack_ghost(mob/user)
+	interact(user)
+	
+/obj/structure/dispenser/interact(mob/user)
 	user.set_machine(src)
 	var/dat = "[src]<br><br>"
 	dat += "Oxygen tanks: [oxygentanks] - [oxygentanks ? "<A href='?src=[UID()];oxygen=1'>Dispense</A>" : "empty"]<br>"
 	dat += "Plasma tanks: [plasmatanks] - [plasmatanks ? "<A href='?src=[UID()];plasma=1'>Dispense</A>" : "empty"]"
 	user << browse(dat, "window=dispenser")
 	onclose(user, "dispenser")
-	return
 
-
-/obj/structure/dispenser/attackby(obj/item/I as obj, mob/user as mob, params)
+/obj/structure/dispenser/attackby(obj/item/I as obj, mob/user, params)
 	if(istype(I, /obj/item/weapon/tank/oxygen) || istype(I, /obj/item/weapon/tank/air) || istype(I, /obj/item/weapon/tank/anesthetic))
 		if(oxygentanks < 10)
 			user.drop_item()
@@ -75,8 +78,9 @@
 		return
 
 /obj/structure/dispenser/Topic(href, href_list)
-	if(usr.stat || usr.restrained())
-		return
+	if(..())
+		return 1
+
 	if(Adjacent(usr))
 		usr.set_machine(src)
 		if(href_list["oxygen"])
@@ -108,4 +112,3 @@
 	else
 		usr << browse(null, "window=dispenser")
 		return
-	return
