@@ -31,8 +31,8 @@
 	title = "Gateway Explorer"
 	flag = EXPLORER
 	department_flag = SUPPORT
-	total_positions = 5
-	spawn_positions = 2
+	total_positions = 0
+	spawn_positions = 0
 	supervisors = "the head of personnel"
 	selection_color = "#dddddd"
 	idtype = /obj/item/weapon/card/id
