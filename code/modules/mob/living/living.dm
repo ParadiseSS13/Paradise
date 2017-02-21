@@ -471,7 +471,7 @@
 							var/obj/item/weapon/grab/G = pick(M.grabbed_by)
 							if(istype(G, /obj/item/weapon/grab))
 								for(var/mob/O in viewers(M, null))
-									O.show_message(text("\red [] has been pulled from []'s grip by []", G.affecting, G.assailant, src), 1)
+									O.show_message(text("<span class='warning'>[] has been pulled from []'s grip by []</span>", G.affecting, G.assailant, src), 1)
 								//G = null
 								qdel(G)
 						else

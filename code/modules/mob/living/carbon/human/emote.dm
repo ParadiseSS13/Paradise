@@ -877,7 +877,7 @@
 			to_chat(src, emotelist)
 
 		else
-			to_chat(src, "\blue Unusable emote '[act]'. Say *help for a list.")
+			to_chat(src, "<span class='notice'>Unusable emote '[act]'. Say *help for a list.</span>")
 
 
 

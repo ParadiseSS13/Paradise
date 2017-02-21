@@ -298,7 +298,7 @@
 		preload_rsc = pick(config.resource_urls)
 	else preload_rsc = 1 // If config.resource_urls is not set, preload like normal.
 
-	to_chat(src, "\red If the title screen is black, resources are still downloading. Please be patient until the title screen appears.")
+	to_chat(src, "<span class='warning'>If the title screen is black, resources are still downloading. Please be patient until the title screen appears.</span>")
 
 
 	clients += src

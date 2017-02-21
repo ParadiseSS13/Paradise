@@ -31,7 +31,7 @@
 				user.visible_message("<span class='danger'>[user.name] injects [M.name] with [src].</span>")
 				src.injected(M, user)
 			else
-				to_chat(user, "\red You failed to inject [M.name].")
+				to_chat(user, "<span class='warning'>You failed to inject [M.name].</span>")
 
 	proc/injected(var/mob/living/carbon/target, var/mob/living/carbon/user)
 		scramble(1, target, 100)

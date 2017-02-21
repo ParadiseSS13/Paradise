@@ -281,7 +281,7 @@
 		return 1
 	else
 		if(M)
-			to_chat(M, "\blue You need more welding fuel to complete this task.")
+			to_chat(M, "<span class='notice'>You need more welding fuel to complete this task.</span>")
 		return 0
 
 //Returns whether or not the welding tool is currently on.
@@ -466,5 +466,5 @@
 
 /obj/item/weapon/conversion_kit/attack_self(mob/user)
 	open = !open
-	to_chat(user, "\blue You [open?"open" : "close"] the conversion kit.")
+	to_chat(user, "<span class='notice'>You [open ? "open" : "close"] the conversion kit.</span>")
 	update_icon()

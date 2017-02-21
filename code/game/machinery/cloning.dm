@@ -367,14 +367,14 @@
 
 //Removing cloning pod biomass
 	else if(istype(W, /obj/item/weapon/reagent_containers/food/snacks/meat))
-		to_chat(user, "\blue \The [src] processes \the [W].")
+		to_chat(user, "<span class='notice'>\The [src] processes \the [W].</span>")
 		biomass += BIOMASS_MEAT_AMOUNT
 		user.drop_item()
 		qdel(W)
 		return
 	else if(istype(W, /obj/item/weapon/wrench))
 		if(locked && (anchored || occupant))
-			to_chat(user, "\red Can not do that while [src] is in use.")
+			to_chat(user, "<span class='warning'>Can not do that while [src] is in use.</span>")
 		else
 			if(anchored)
 				anchored = 0

@@ -49,7 +49,7 @@
 
 	playsound(user.loc, 'sound/items/Screwdriver.ogg', 100, 1)
 
-	user.visible_message("\red [user] opens \the [src] and modifies \the [O].","\red You open \the [src] and modify \the [O].")
+	user.visible_message("<span class='warning'>[user] opens \the [src] and modifies \the [O].</span>","<span class='warning'>You open \the [src] and modify \the [O].</span>")
 
 	I.refit_for_species(target_species)
 

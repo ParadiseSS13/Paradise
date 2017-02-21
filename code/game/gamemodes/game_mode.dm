@@ -425,7 +425,7 @@ proc/get_nt_opposed()
 	if(!player || !player.current) return
 
 	var/obj_count = 1
-	to_chat(player.current, "\blue Your current objectives:")
+	to_chat(player.current, "<span class='notice'>Your current objectives:</span>")
 	for(var/datum/objective/objective in player.objectives)
 		to_chat(player.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
 		obj_count++

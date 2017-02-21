@@ -73,7 +73,7 @@
 		if(human.species.name != "Shadow")
 			to_chat(M, "<span class='danger'>Your flesh rapidly mutates!</span>")
 			to_chat(M, "<span class='danger'>You are now a Shadow Person, a mutant race of darkness-dwelling humanoids.</span>")
-			to_chat(M, "<span class='danger'>Your body reacts violently to light. \green However, it naturally heals in darkness.</span>")
+			to_chat(M, "<span class='danger'>Your body reacts violently to light.</span> <span class='notice'>However, it naturally heals in darkness.</span>")
 			to_chat(M, "<span class='danger'>Aside from your new traits, you are mentally unchanged and retain your prior obligations.</span>")
 			human.set_species("Shadow")
 	..()

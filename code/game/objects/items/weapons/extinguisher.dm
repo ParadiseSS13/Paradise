@@ -40,7 +40,7 @@
 		to_chat(usr, "[bicon(src)] [src.name] contains:")
 		if(reagents && reagents.reagent_list.len)
 			for(var/datum/reagent/R in reagents.reagent_list)
-				to_chat(user, "\blue [R.volume] units of [R.name]")
+				to_chat(user, "<span class='notice'>[R.volume] units of [R.name]</span>")
 
 
 /obj/item/weapon/extinguisher/New()

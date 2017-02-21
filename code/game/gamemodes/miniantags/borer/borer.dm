@@ -6,7 +6,7 @@
 
 	if(client)
 		if(client.prefs.muted & MUTE_IC)
-			to_chat(src, "\red You cannot speak in IC (muted).")
+			to_chat(src, "<span class='warning'>You cannot speak in IC (muted).</span>")
 			return
 		if(client.handle_spam_prevention(message,MUTE_IC))
 			return
@@ -250,16 +250,16 @@
 			if(host.reagents.has_reagent("sugar"))
 				if(!docile)
 					if(controlling)
-						to_chat(host, "\blue You feel the soporific flow of sugar in your host's blood, lulling you into docility.")
+						to_chat(host, "<span class='notice'>You feel the soporific flow of sugar in your host's blood, lulling you into docility.</span>")
 					else
-						to_chat(src, "\blue You feel the soporific flow of sugar in your host's blood, lulling you into docility.")
+						to_chat(src, "<span class='notice'>You feel the soporific flow of sugar in your host's blood, lulling you into docility.</span>")
 					docile = TRUE
 			else
 				if(docile)
 					if(controlling)
-						to_chat(host, "\blue You shake off your lethargy as the sugar leaves your host's blood.")
+						to_chat(host, "<span class='notice'>You shake off your lethargy as the sugar leaves your host's blood.</span>")
 					else
-						to_chat(src, "\blue You shake off your lethargy as the sugar leaves your host's blood.")
+						to_chat(src, "<span class='notice'>You shake off your lethargy as the sugar leaves your host's blood.</span>")
 					docile = FALSE
 
 			if(chemicals < max_chems)
@@ -267,7 +267,7 @@
 			if(controlling)
 
 				if(docile)
-					to_chat(host, "\blue You are feeling far too docile to continue controlling your host...")
+					to_chat(host, "<span class='notice'>You are feeling far too docile to continue controlling your host...</span>")
 					host.release_control()
 					return
 
@@ -457,11 +457,11 @@
 
 	if(!hiding)
 		layer = TURF_LAYER+0.2
-		to_chat(src, "\green You are now hiding.")
+		to_chat(src, "<span class=notice'>You are now hiding.</span>")
 		hiding = TRUE
 	else
 		layer = MOB_LAYER
-		to_chat(src, "\green You stop hiding.")
+		to_chat(src, "<span class=notice'>You stop hiding.</span>")
 		hiding = FALSE
 
 /mob/living/simple_animal/borer/verb/dominate_victim()
@@ -499,8 +499,8 @@
 		to_chat(src, "You cannot dominate someone who is already infested!")
 		return
 
-	to_chat(src, "\red You focus your psychic lance on [M] and freeze their limbs with a wave of terrible dread.")
-	to_chat(M, "\red You feel a creeping, horrible sense of dread come over you, freezing your limbs and setting your heart racing.")
+	to_chat(src, "<span class='warning'>You focus your psychic lance on [M] and freeze their limbs with a wave of terrible dread.</span>")
+	to_chat(M, "<span class='warning'>You feel a creeping, horrible sense of dread come over you, freezing your limbs and setting your heart racing.</span>")
 	M.Weaken(3)
 
 	used_dominate = world.time
@@ -519,7 +519,7 @@
 		return
 
 	if(docile)
-		to_chat(src, "\blue You are feeling far too docile to do that.")
+		to_chat(src, "<span class='notice'>You are feeling far too docile to do that.</span>")
 		return
 
 	if(!host || !src)
@@ -594,7 +594,7 @@
 		return
 
 	if(docile)
-		to_chat(src, "\blue You are feeling far too docile to do that.")
+		to_chat(src, "<span class='notice'>You are feeling far too docile to do that.</span>")
 		return
 
 	if(bonding)

@@ -57,7 +57,7 @@
 					wearable = 1
 
 			if(!wearable)
-				to_chat(M, "\red Your species cannot wear [src].")
+				to_chat(M, "<span class='warning'>Your species cannot wear [src].</span>")
 				return 0
 
 	return 1
@@ -249,7 +249,7 @@ BLIND     // can't see anything
 		switch(sensor_mode)
 			if(0)
 				for(var/mob/V in viewers(user, 1))
-					V.show_message("\red [user] disables [src.loc]'s remote sensing equipment.", 1)
+					V.show_message("<span class='warning'>[user] disables [src.loc]'s remote sensing equipment.</span>", 1)
 			if(1)
 				for(var/mob/V in viewers(user, 1))
 					V.show_message("[user] turns [src.loc]'s remote sensors to binary.", 1)

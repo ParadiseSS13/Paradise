@@ -308,7 +308,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	set name = "Toggle AntagHUD"
 	set desc = "Toggles AntagHUD allowing you to see who is the antagonist"
 	if(!config.antag_hud_allowed && !client.holder)
-		to_chat(src, "\red Admins have disabled this for this round.")
+		to_chat(src, "<span class='warning'>Admins have disabled this for this round.</span>")
 		return
 	if(!client)
 		return
@@ -462,11 +462,11 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 /mob/dead/observer/memory()
 	set hidden = 1
-	to_chat(src, "\red You are dead! You have no mind to store memory!")
+	to_chat(src, "<span class='warning'>You are dead! You have no mind to store memory!</span>")
 
 /mob/dead/observer/add_memory()
 	set hidden = 1
-	to_chat(src, "\red You are dead! You have no mind to store memory!")
+	to_chat(src, "<span class='warning'>You are dead! You have no mind to store memory!</span>")
 
 /mob/dead/observer/verb/analyze_air()
 	set name = "Analyze Air"
@@ -485,9 +485,9 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	to_chat(src, "<span class='boldnotice'>Results:</span>")
 	if(abs(pressure - ONE_ATMOSPHERE) < 10)
-		to_chat(src, "\blue Pressure: [round(pressure,0.1)] kPa")
+		to_chat(src, "<span class='notice'>Pressure: [round(pressure,0.1)] kPa</span>")
 	else
-		to_chat(src, "\red Pressure: [round(pressure,0.1)] kPa")
+		to_chat(src, "<span class='warning'>Pressure: [round(pressure,0.1)] kPa</span>")
 	if(total_moles)
 		var/o2_concentration = environment.oxygen/total_moles
 		var/n2_concentration = environment.nitrogen/total_moles
@@ -496,28 +496,28 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 		var/unknown_concentration =  1-(o2_concentration+n2_concentration+co2_concentration+plasma_concentration)
 		if(abs(n2_concentration - N2STANDARD) < 20)
-			to_chat(src, "\blue Nitrogen: [round(n2_concentration*100)]% ([round(environment.nitrogen,0.01)] moles)")
+			to_chat(src, "<span class='notice'>Nitrogen: [round(n2_concentration*100)]% ([round(environment.nitrogen,0.01)] moles)</span>")
 		else
-			to_chat(src, "\red Nitrogen: [round(n2_concentration*100)]% ([round(environment.nitrogen,0.01)] moles)")
+			to_chat(src, "<span class='warning'>Nitrogen: [round(n2_concentration*100)]% ([round(environment.nitrogen,0.01)] moles)</span>")
 
 		if(abs(o2_concentration - O2STANDARD) < 2)
-			to_chat(src, "\blue Oxygen: [round(o2_concentration*100)]% ([round(environment.oxygen,0.01)] moles)")
+			to_chat(src, "<span class='notice'>Oxygen: [round(o2_concentration*100)]% ([round(environment.oxygen,0.01)] moles)</span>")
 		else
-			to_chat(src, "\red Oxygen: [round(o2_concentration*100)]% ([round(environment.oxygen,0.01)] moles)")
+			to_chat(src, "<span class='warning'>Oxygen: [round(o2_concentration*100)]% ([round(environment.oxygen,0.01)] moles)</span>")
 
 		if(co2_concentration > 0.01)
-			to_chat(src, "\red CO2: [round(co2_concentration*100)]% ([round(environment.carbon_dioxide,0.01)] moles)")
+			to_chat(src, "<span class='warning'>CO2: [round(co2_concentration*100)]% ([round(environment.carbon_dioxide,0.01)] moles)</span>")
 		else
-			to_chat(src, "\blue CO2: [round(co2_concentration*100)]% ([round(environment.carbon_dioxide,0.01)] moles)")
+			to_chat(src, "<span class='notice'>CO2: [round(co2_concentration*100)]% ([round(environment.carbon_dioxide,0.01)] moles)</span>")
 
 		if(plasma_concentration > 0.01)
-			to_chat(src, "\red Plasma: [round(plasma_concentration*100)]% ([round(environment.toxins,0.01)] moles)")
+			to_chat(src, "<span class='warning'>Plasma: [round(plasma_concentration*100)]% ([round(environment.toxins,0.01)] moles)</span>")
 
 		if(unknown_concentration > 0.01)
-			to_chat(src, "\red Unknown: [round(unknown_concentration*100)]% ([round(unknown_concentration*total_moles,0.01)] moles)")
+			to_chat(src, "<span class='warning'>Unknown: [round(unknown_concentration*100)]% ([round(unknown_concentration*total_moles,0.01)] moles)</span>")
 
-		to_chat(src, "\blue Temperature: [round(environment.temperature-T0C,0.1)]&deg;C")
-		to_chat(src, "\blue Heat Capacity: [round(environment.heat_capacity(),0.1)]")
+		to_chat(src, "<span class='notice'>Temperature: [round(environment.temperature-T0C,0.1)]&deg;C</span>")
+		to_chat(src, "<span class='notice'>Heat Capacity: [round(environment.heat_capacity(),0.1)]</span>")
 
 /mob/dead/observer/verb/view_manifest()
 	set name = "View Crew Manifest"

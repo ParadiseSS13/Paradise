@@ -178,10 +178,10 @@ var/global/list/obj/cortical_stacks = list() //Stacks for 'leave nobody behind' 
 
 /datum/game_mode/proc/greet_vox(var/datum/mind/raider)
 	to_chat(raider.current, "<span class='boldnotice'>You are a Vox Raider, fresh from the Shoal!</span>")
-	to_chat(raider.current, "\blue The Vox are a race of cunning, sharp-eyed nomadic raiders and traders endemic to the frontier and much of the unexplored galaxy. You and the crew have come to the [station_name()] for plunder, trade or both.")
-	to_chat(raider.current, "\blue Vox are cowardly and will flee from larger groups, but corner one or find them en masse and they are vicious.")
-	to_chat(raider.current, "\blue Use :V to voxtalk, :H to talk on your encrypted channel, and don't forget to turn on your nitrogen internals!")
-	to_chat(raider.current, "\blue Choose to accomplish your objectives by either raiding the crew and taking what you need, or by attempting to trade with them.")
+	to_chat(raider.current, "<span class='notice'>The Vox are a race of cunning, sharp-eyed nomadic raiders and traders endemic to the frontier and much of the unexplored galaxy. You and the crew have come to the [station_name()] for plunder, trade or both.</span>")
+	to_chat(raider.current, "<span class='notice'>Vox are cowardly and will flee from larger groups, but corner one or find them en masse and they are vicious.</span>")
+	to_chat(raider.current, "<span class='notice'>Use :V to voxtalk, :H to talk on your encrypted channel, and don't forget to turn on your nitrogen internals!</span>")
+	to_chat(raider.current, "<span class='notice'>Choose to accomplish your objectives by either raiding the crew and taking what you need, or by attempting to trade with them.</span>")
 	spawn(25)
 		show_objectives(raider)
 
@@ -235,7 +235,7 @@ var/global/list/obj/cortical_stacks = list() //Stacks for 'leave nobody behind' 
 		else
 			win_msg += "<B>The Vox Raiders were repelled!</B>"
 
-	to_chat(world, "\red <FONT size = 3><B>[win_type] [win_group] victory!</B></FONT>")
+	to_chat(world, "<span class='warning'><FONT size = 3><B>[win_type] [win_group] victory!</B></FONT></span>")
 	to_chat(world, "[win_msg]")
 	feedback_set_details("round_end_result","heist - [win_type] [win_group]")
 

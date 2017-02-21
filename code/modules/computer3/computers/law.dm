@@ -17,9 +17,9 @@
 
 		opened = !opened
 		if(opened)
-			to_chat(usr, "\blue The access panel is now open.")
+			to_chat(usr, "<span class='notice'>The access panel is now open.</span>")
 		else
-			to_chat(usr, "\blue The access panel is now closed.")
+			to_chat(usr, "<span class='notice'>The access panel is now closed.</span>")
 		return
 
 

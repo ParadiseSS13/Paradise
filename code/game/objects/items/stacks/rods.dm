@@ -76,15 +76,15 @@
 				return 1
 	else
 		if(amount < 2)
-			to_chat(user, "\blue You need at least two rods to do this.")
+			to_chat(user, "<span class='notice'>You need at least two rods to do this.</span>")
 			return
-		to_chat(usr, "\blue Assembling grille...")
+		to_chat(usr, "<span class='notice'>Assembling grille...</span>")
 
 		if(!do_after(usr, 10, target = user))
 			return
 
 		var /obj/structure/grille/F = new /obj/structure/grille/ ( usr.loc )
-		to_chat(usr, "\blue You assemble a grille")
+		to_chat(usr, "<span class='notice'>You assemble a grille</span>")
 		F.add_fingerprint(usr)
 		use(2)
 	return

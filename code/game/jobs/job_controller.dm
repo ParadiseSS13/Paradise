@@ -17,7 +17,7 @@ var/global/datum/controller/occupations/job_master
 		occupations = list()
 		var/list/all_jobs = subtypesof(/datum/job)
 		if(!all_jobs.len)
-			to_chat(world, "\red \b Error setting up jobs, no job datums found")
+			to_chat(world, "<span class='boldwarning'>Error setting up jobs, no job datums found</span>")
 			return 0
 		for(var/J in all_jobs)
 			var/datum/job/job = new J()

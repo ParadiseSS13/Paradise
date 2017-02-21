@@ -47,14 +47,14 @@
 
 	var/datum/gas_mixture/environment = loc.return_air()
 
-	var/t = "\blue Coordinates: [x],[y] \n"
-	t+= "\red Temperature: [environment.temperature] \n"
-	t+= "\blue Nitrogen: [environment.nitrogen] \n"
-	t+= "\blue Oxygen: [environment.oxygen] \n"
-	t+= "\blue Plasma : [environment.toxins] \n"
-	t+= "\blue Carbon Dioxide: [environment.carbon_dioxide] \n"
+	var/t = "<span class='notice'>Coordinates: [x],[y] \n</span>"
+	t+= "<span class='warning'>Temperature: [environment.temperature] \n</span>"
+	t+= "<span class='notice'>Nitrogen: [environment.nitrogen] \n</span>"
+	t+= "<span class='notice'>Oxygen: [environment.oxygen] \n</span>"
+	t+= "<span class='notice'>Plasma : [environment.toxins] \n</span>"
+	t+= "<span class='notice'>Carbon Dioxide: [environment.carbon_dioxide] \n</span>"
 	for(var/datum/gas/trace_gas in environment.trace_gases)
-		to_chat(usr, "\blue [trace_gas.type]: [trace_gas.moles] \n")
+		to_chat(usr, "<span class='notice'>[trace_gas.type]: [trace_gas.moles] \n</span>")
 
 	usr.show_message(t, 1)
 
@@ -172,7 +172,7 @@
 		if(istype(W, /obj/item/clothing))
 			var/obj/item/clothing/C = W
 			if(C.rig_restrict_helmet)
-				to_chat(src, "\red You must fasten the helmet to a hardsuit first. (Target the head and use on a hardsuit)")// Stop eva helms equipping.
+				to_chat(src, "<span class='warning'>You must fasten the helmet to a hardsuit first. (Target the head and use on a hardsuit)</span>")// Stop eva helms equipping.
 
 			else
 				equip_to_slot_if_possible(C, slot)
@@ -208,7 +208,7 @@
 			qdel(W)
 		else
 			if(!disable_warning)
-				to_chat(src, "\red You are unable to equip that.")//Only print if del_on_fail is false
+				to_chat(src, "<span class='warning'>You are unable to equip that.</span>")//Only print if del_on_fail is false
 
 		return 0
 
@@ -352,7 +352,7 @@ var/list/slot_equipment_priority = list( \
 			if(slot_belt)
 				if(!H.w_uniform)
 					if(!disable_warning)
-						to_chat(H, "\red You need a jumpsuit before you can attach this [name].")
+						to_chat(H, "<span class='warning'>You need a jumpsuit before you can attach this [name].</span>")
 					return 0
 				if( !(slot_flags & SLOT_BELT) )
 					return 0
@@ -412,7 +412,7 @@ var/list/slot_equipment_priority = list( \
 			if(slot_wear_id)
 				if(!H.w_uniform)
 					if(!disable_warning)
-						to_chat(H, "\red You need a jumpsuit before you can attach this [name].")
+						to_chat(H, "<span class='warning'>You need a jumpsuit before you can attach this [name].</span>")
 					return 0
 				if( !(slot_flags & SLOT_ID) )
 					return 0
@@ -427,7 +427,7 @@ var/list/slot_equipment_priority = list( \
 					return 0
 				if(!H.w_uniform)
 					if(!disable_warning)
-						to_chat(H, "\red You need a jumpsuit before you can attach this [name].")
+						to_chat(H, "<span class='warning'>You need a jumpsuit before you can attach this [name].</span>")
 					return 0
 				if(slot_flags & SLOT_DENYPOCKET)
 					return
@@ -438,7 +438,7 @@ var/list/slot_equipment_priority = list( \
 					return 0
 				if(!H.w_uniform)
 					if(!disable_warning)
-						to_chat(H, "\red You need a jumpsuit before you can attach this [name].")
+						to_chat(H, "<span class='warning'>You need a jumpsuit before you can attach this [name].</span>")
 					return 0
 				if(slot_flags & SLOT_DENYPOCKET)
 					return 0
@@ -448,7 +448,7 @@ var/list/slot_equipment_priority = list( \
 			if(slot_s_store)
 				if(!H.wear_suit)
 					if(!disable_warning)
-						to_chat(H, "\red You need a suit before you can attach this [name].")
+						to_chat(H, "<span class='warning'>You need a suit before you can attach this [name].</span>")
 					return 0
 				if(!H.wear_suit.allowed)
 					if(!disable_warning)
@@ -752,7 +752,7 @@ var/list/slot_equipment_priority = list( \
 	if(client.holder && (client.holder.rights & R_ADMIN))
 		is_admin = 1
 	else if(stat != DEAD || istype(src, /mob/new_player))
-		to_chat(usr, "\blue You must be observing to use this!")
+		to_chat(usr, "<span class='notice'>You must be observing to use this!</span>")
 		return
 
 	if(is_admin && stat == DEAD)

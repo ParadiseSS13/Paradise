@@ -166,7 +166,7 @@
 	if(!emagged)
 		playsound(src.loc, 'sound/effects/sparks4.ogg', 75, 1)
 		emagged = 1
-		to_chat(user, "\blue You vastly increase projector power and override the safety and security protocols.")
+		to_chat(user, "<span class='notice'>You vastly increase projector power and override the safety and security protocols.</span>")
 		to_chat(user, "Warning.  Automatic shutoff and derezing protocols have been corrupted.  Please call Nanotrasen maintenance and do not use the simulator.")
 		log_game("[key_name(usr)] emagged the Holodeck Control Computer")
 		src.updateUsrDialog()
@@ -279,7 +279,7 @@
 		if(world.time < (last_change + 15))//To prevent super-spam clicking, reduced process size and annoyance -Sieve
 			return
 		for(var/mob/M in range(3,src))
-			M.show_message("\b ERROR. Recalibrating projetion apparatus.")
+			M.show_message("<b>ERROR. Recalibrating projection apparatus.</b>")
 			last_change = world.time
 			return
 

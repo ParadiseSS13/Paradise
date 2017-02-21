@@ -49,7 +49,7 @@ log transactions
 	if(linked_db && ( (linked_db.stat & NOPOWER) || !linked_db.activated ) )
 		linked_db = null
 		authenticated_account = null
-		src.visible_message("\red [bicon(src)] [src] buzzes rudely, \"Connection to remote database lost.\"")
+		src.visible_message("<span class='warning'>[bicon(src)] [src] buzzes rudely, \"Connection to remote database lost.\"</span>")
 		updateDialog()
 
 	if(ticks_left_timeout > 0)
@@ -120,7 +120,7 @@ log transactions
 
 /obj/machinery/atm/attack_hand(mob/user as mob)
 	if(istype(user, /mob/living/silicon))
-		to_chat(user, "\red Artificial unit recognized. Artificial units do not currently receive monetary compensation, as per Nanotrasen regulation #1005.")
+		to_chat(user, "<span class='warning'>Artificial unit recognized. Artificial units do not currently receive monetary compensation, as per Nanotrasen regulation #1005.</span>")
 		return
 	if(get_dist(src,user) <= 1)
 		add_fingerprint(user)
@@ -280,11 +280,11 @@ log transactions
 										T.time = worldtime2text()
 										failed_account.transaction_log.Add(T)
 								else
-									to_chat(usr, "\red [bicon(src)] Incorrect pin/account combination entered, [max_pin_attempts - number_incorrect_tries] attempts remaining.")
+									to_chat(usr, "<span class='warning'>[bicon(src)] Incorrect pin/account combination entered, [max_pin_attempts - number_incorrect_tries] attempts remaining.</span>")
 									previous_account_number = tried_account_num
 									playsound(src, 'sound/machines/buzz-sigh.ogg', 50, 1)
 							else
-								to_chat(usr, "\red [bicon(src)] incorrect pin/account combination entered.")
+								to_chat(usr, "<span class='warning'>[bicon(src)] incorrect pin/account combination entered.</span>")
 								number_incorrect_tries = 0
 						else
 							playsound(src, 'sound/machines/twobeep.ogg', 50, 1)
@@ -300,7 +300,7 @@ log transactions
 							T.time = worldtime2text()
 							authenticated_account.transaction_log.Add(T)
 
-							to_chat(usr, "\blue [bicon(src)] Access granted. Welcome user '[authenticated_account.owner_name].'")
+							to_chat(usr, "<span class='notice'>[bicon(src)] Access granted. Welcome user '[authenticated_account.owner_name].'</span>")
 
 						previous_account_number = tried_account_num
 			if("withdrawal")
@@ -313,7 +313,7 @@ log transactions
 
 						//remove the money
 						if(amount > 10000) // prevent crashes
-							to_chat(usr, "\blue The ATM's screen flashes, 'Maximum single withdrawl limit reached, defaulting to 10,000.'")
+							to_chat(usr, "<span class='notice'>The ATM's screen flashes, 'Maximum single withdrawl limit reached, defaulting to 10,000.'</span>")
 							amount = 10000
 						authenticated_account.money -= amount
 						withdraw_arbitrary_sum(amount)
@@ -396,7 +396,7 @@ log transactions
 			if(I)
 				authenticated_account = attempt_account_access(I.associated_account_number)
 				if(authenticated_account)
-					to_chat(human_user, "\blue [bicon(src)] Access granted. Welcome user '[authenticated_account.owner_name].'")
+					to_chat(human_user, "<span class='notice'>[bicon(src)] Access granted. Welcome user '[authenticated_account.owner_name].'</span>")
 
 					//create a transaction log entry
 					var/datum/transaction/T = new()

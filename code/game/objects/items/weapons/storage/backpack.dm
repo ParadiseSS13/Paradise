@@ -45,7 +45,7 @@
 
 	attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 		if(crit_fail)
-			to_chat(user, "\red The Bluespace generator isn't working.")
+			to_chat(user, "<span class='warning'>The Bluespace generator isn't working.</span>")
 			return
 		else if(istype(W, /obj/item/weapon/storage/backpack/holding) && !W.crit_fail)
 			var/response = alert(user, "Are you sure you want to put the bag of holding inside another bag of holding?","Are you sure you want to die?","Yes","No")
@@ -68,10 +68,10 @@
 	proc/failcheck(mob/user as mob)
 		if(prob(src.reliability)) return 1 //No failure
 		if(prob(src.reliability))
-			to_chat(user, "\red The Bluespace portal resists your attempt to add another item.")//light failure
+			to_chat(user, "<span class='warning'>The Bluespace portal resists your attempt to add another item.</span>")//light failure
 
 		else
-			to_chat(user, "\red The Bluespace generator malfunctions!")
+			to_chat(user, "<span class='warning'>The Bluespace generator malfunctions!</span>")
 			for(var/obj/O in src.contents) //it broke, delete what was in it
 				qdel(O)
 			crit_fail = 1
