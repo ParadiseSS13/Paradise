@@ -41,13 +41,15 @@
 /obj/item/weapon/computer_hardware/printer/try_insert(obj/item/I, mob/living/user = null)
 	if(istype(I, /obj/item/weapon/paper))
 		if(stored_paper >= max_paper)
-			to_chat(user, "<span class='warning'>You try to add \the [I] into [src], but its paper bin is full!</span>")
+			if(user)
+				to_chat(user, "<span class='warning'>You try to add \the [I] into [src], but its paper bin is full!</span>")
 			return FALSE
 
 		if(user && !user.unEquip(I))
 			return FALSE
 
-		to_chat(user, "<span class='notice'>You insert \the [I] into [src]'s paper recycler.</span>")
+		if(user)
+			to_chat(user, "<span class='notice'>You insert \the [I] into [src]'s paper recycler.</span>")
 		qdel(I)
 		stored_paper++
 		return TRUE

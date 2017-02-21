@@ -30,25 +30,29 @@
 		return FALSE
 
 	if(stored_card)
-		to_chat(user, "<span class='warning'>You try to insert \the [I] into \the [src], but the slot is occupied.</span>")
+		if(user)
+			to_chat(user, "<span class='warning'>You try to insert \the [I] into \the [src], but the slot is occupied.</span>")
 		return FALSE
 	if(user && !user.unEquip(I))
 		return FALSE
 
 	I.forceMove(src)
 	stored_card = I
-	to_chat(user, "<span class='notice'>You insert \the [I] into \the [src].</span>")
+	if(user)
+		to_chat(user, "<span class='notice'>You insert \the [I] into \the [src].</span>")
 
 	return TRUE
 
 
-/obj/item/weapon/computer_hardware/ai_slot/try_eject(slot=0,mob/living/user = null,forced = 0)
+/obj/item/weapon/computer_hardware/ai_slot/try_eject(slot=0, mob/living/user = null, forced = 0)
 	if(!stored_card)
-		to_chat(user, "<span class='warning'>There is no card in \the [src].</span>")
+		if(user)
+			to_chat(user, "<span class='warning'>There is no card in \the [src].</span>")
 		return FALSE
 
 	if(locked && !forced)
-		to_chat(user, "<span class='warning'>Safeties prevent you from removing the card until reconstruction is complete...</span>")
+		if(user)
+			to_chat(user, "<span class='warning'>Safeties prevent you from removing the card until reconstruction is complete...</span>")
 		return FALSE
 
 	if(stored_card)
@@ -57,7 +61,8 @@
 		stored_card.verb_pickup()
 		stored_card = null
 
-		to_chat(user, "<span class='notice'>You remove the card from \the [src].</span>")
+		if(user)
+			to_chat(user, "<span class='notice'>You remove the card from \the [src].</span>")
 		return TRUE
 	return FALSE
 
@@ -66,5 +71,5 @@
 		return
 	if(istype(I, /obj/item/weapon/screwdriver))
 		to_chat(user, "<span class='notice'>You press down on the manual eject button with \the [I].</span>")
-		try_eject(,user,1)
+		try_eject(0, user, 1)
 		return

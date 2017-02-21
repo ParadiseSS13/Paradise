@@ -307,7 +307,7 @@
 	update_icon()
 
 
-/obj/item/device/modular_computer/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/item/device/modular_computer/attackby(obj/item/weapon/W, mob/user)
 	// Insert items into the components
 	for(var/h in all_components)
 		var/obj/item/weapon/computer_hardware/H = all_components[h]

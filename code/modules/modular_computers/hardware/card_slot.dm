@@ -44,7 +44,8 @@
 		return FALSE
 
 	if(stored_card && stored_card2)
-		to_chat(user, "<span class='warning'>You try to insert \the [I] into \the [src], but its slots are occupied.</span>")
+		if(user)
+			to_chat(user, "<span class='warning'>You try to insert \the [I] into \the [src], but its slots are occupied.</span>")
 		return FALSE
 	if(user && !user.unEquip(I))
 		return FALSE
@@ -55,14 +56,17 @@
 		stored_card = I
 	else
 		stored_card2 = I
-	to_chat(user, "<span class='notice'>You insert \the [I] into \the [src].</span>")
+
+	if(user)
+		to_chat(user, "<span class='notice'>You insert \the [I] into \the [src].</span>")
 
 	return TRUE
 
 
-/obj/item/weapon/computer_hardware/card_slot/try_eject(slot=0, mob/living/user = null, forced = 0)
+/obj/item/weapon/computer_hardware/card_slot/try_eject(slot = 0, mob/living/user = null, forced = 0)
 	if(!stored_card && !stored_card2)
-		to_chat(user, "<span class='warning'>There are no cards in \the [src].</span>")
+		if(user)
+			to_chat(user, "<span class='warning'>There are no cards in \the [src].</span>")
 		return FALSE
 
 	var/ejected = 0
@@ -87,7 +91,8 @@
 				var/datum/computer_file/program/P = I
 				P.event_idremoved(1, slot)
 
-		to_chat(user, "<span class='notice'>You remove the card[ejected>1 ? "s" : ""] from \the [src].</span>")
+		if(user)
+			to_chat(user, "<span class='notice'>You remove the card[ejected>1 ? "s" : ""] from \the [src].</span>")
 		return TRUE
 	return FALSE
 
