@@ -29,7 +29,7 @@ before_script:
   - chmod +x ./install-byond.sh
   - ./install-byond.sh
 script:
-  - (num=`grep -E '\\\\(red|blue|green|black|italic|bold|b|i[^mc])' **/*.dm | wc -l`; echo "$num BYOND text macros (expecting 0)"; [ $num -le 0 ])
+  - (num=`grep -E '\\\\(red|blue|green|black|italic|bold|b|i[^mc])' **/*.dm | wc -l`; echo "$num BYOND text macros (expecting 0)"; [ $num -eq 0 ])
   - source $HOME/BYOND-${BYOND_MAJOR}.${BYOND_MINOR}/byond/bin/byondsetup
   - bash dm.sh -M${DM_MAPFILE} paradise.dme
 
