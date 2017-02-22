@@ -116,6 +116,15 @@
 	interpreter.SetProc("broadcast", "tcombroadcast", signal, list("message", "freq", "source", "job"))
 
 	/*
+		-> Sends a PDA message
+				@format: pda_message(recipient, message)
+	
+				@param address:		Name of recipient. Must match name on the PDA exactly
+				@param value:		Message to send to recipient
+	*/
+	interpreter.SetProc("pda_message", "pda_message", signal, list("recipient", "message"))
+	
+	/*
 		-> Store a value permanently to the server machine (not the actual game hosting machine, the ingame machine)
 				@format: mem(address, value)
 
@@ -344,3 +353,28 @@
 	var/pass = S.relay_information(newsign, "/obj/machinery/telecomms/hub")
 	if(!pass)
 		S.relay_information(newsign, "/obj/machinery/telecomms/broadcaster") // send this simple message to broadcasters
+
+/datum/signal/proc/pda_message(recipient, message)
+	var/obj/machinery/telecomms/server/S = data["server"]
+	if(!istext(recipient) || !istext(message))
+		return 0
+	
+	var/obj/machinery/message_server/useMS = null
+	if(!message_servers)
+		return 0
+	for(var/obj/machinery/message_server/MS in message_servers)
+		if(MS.active)
+			useMS = MS
+			break
+	if(!useMS)
+		return 0
+	
+	var/success = 0
+	for(var/obj/item/device/pda/P in PDAs)
+		if(P.owner == recipient)
+			useMS.send_pda_message("[P.owner]", "[S.id] Automated Message", message)
+			var/datum/data/pda/app/messenger/PM = P.find_program(/datum/data/pda/app/messenger)
+			PM:notify("<b>Message from [S.id] (Automated Message), </b>\"[message]\" (<i>Unable to Reply</i>)", 0)
+			success = 1
+	
+	return success
