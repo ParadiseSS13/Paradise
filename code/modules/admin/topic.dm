@@ -1741,7 +1741,7 @@
 			btypes += "Heal Over Time"
 			btypes += "Permanent Regeneration"
 			btypes += "Super Powers"
-		var/blessing = input(src.owner, "How would you like to bless [M]?", "Its good to be good...", "") as null|anything in btypes
+		var/blessing = input(owner, "How would you like to bless [M]?", "Its good to be good...", "") as null|anything in btypes
 		if(!(blessing in btypes))
 			return
 		var/logmsg = null
@@ -1775,8 +1775,8 @@
 					H.update_mutations()
 				logmsg = "superpowers."
 		if(logmsg)
-			log_admin("[key_name(src.owner)] answered [key_name(M)]'s prayer with a blessing: [logmsg]")
-			message_admins("[key_name_admin(src.owner)] answered [key_name_admin(M)]'s prayer with a blessing: [logmsg]")
+			log_admin("[key_name(owner)] answered [key_name(M)]'s prayer with a blessing: [logmsg]")
+			message_admins("[key_name_admin(owner)] answered [key_name_admin(M)]'s prayer with a blessing: [logmsg]")
 	else if(href_list["Smite"])
 		if(!check_rights(R_ADMIN))
 			return
@@ -1793,7 +1793,7 @@
 			ptypes += "Cluwne"
 			ptypes += "Mutagen Cookie"
 			ptypes += "Hellwater Cookie"
-		var/punishment = input(src.owner, "How would you like to smite [M]?", "Its good to be baaaad...", "") as null|anything in ptypes
+		var/punishment = input(owner, "How would you like to smite [M]?", "Its good to be baaaad...", "") as null|anything in ptypes
 		if(!(punishment in ptypes))
 			return
 		var/logmsg = null
@@ -1843,8 +1843,8 @@
 				logmsg = "gibbed."
 				M.gib(FALSE)
 		if(logmsg)
-			log_admin("[key_name(src.owner)] answered [key_name(M)]'s prayer with a smiting: [logmsg]")
-			message_admins("[key_name_admin(src.owner)] answered [key_name_admin(M)]'s prayer with a smiting: [logmsg]")
+			log_admin("[key_name(owner)] answered [key_name(M)]'s prayer with a smiting: [logmsg]")
+			message_admins("[key_name_admin(owner)] answered [key_name_admin(M)]'s prayer with a smiting: [logmsg]")
 	else if(href_list["FaxReplyTemplate"])
 		if(!check_rights(R_ADMIN))
 			return
