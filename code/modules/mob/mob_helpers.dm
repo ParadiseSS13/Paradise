@@ -361,11 +361,9 @@ var/list/intents = list(I_HELP,I_DISARM,I_GRAB,I_HARM)
 	set name = "Rest"
 	set category = "IC"
 
-	if(!resting && (world.time > rest_CD))
-		rest_CD = world.time + 20
+	if(!resting)
 		StartResting()
-	else if(resting && (world.time > rest_CD))
-		rest_CD = world.time + 20
+	else if(resting)
 		StopResting()
 
 /proc/is_blind(A)

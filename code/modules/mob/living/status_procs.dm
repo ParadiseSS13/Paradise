@@ -103,7 +103,6 @@
 
 	// Booleans
 	var/resting = FALSE
-	var/rest_CD = 0
 
 	/*
 	STATUS EFFECTS

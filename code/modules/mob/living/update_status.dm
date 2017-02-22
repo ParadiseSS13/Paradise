@@ -91,6 +91,10 @@
 	update_transform()
 	if(!delay_action_updates)
 		update_action_buttons_icon()
+	if(!lying && lying_prev)
+		if(client)
+			client.move_delay = world.time + movement_delay()
+	lying_prev = lying
 	return canmove
 
 /mob/living/proc/update_stamina()
