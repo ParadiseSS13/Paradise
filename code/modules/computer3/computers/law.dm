@@ -60,6 +60,9 @@
 
 	attackby(obj/item/weapon/aiModule/module as obj, mob/user as mob, params)
 		if(istype(module, /obj/item/weapon/aiModule))
+			if(!is_station_level(user.z))
+				to_chat(user, "<span class='danger'>Unable to establish a connection</span>: You're too far away from the station!")
+				return
 			module.install(src)
 		else
 			return ..()
