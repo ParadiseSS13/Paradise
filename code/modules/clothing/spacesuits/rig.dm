@@ -507,6 +507,12 @@
 	..()
 	bomb_radar = new /obj/machinery/doppler_array/integrated(src)
 
+/obj/item/clothing/head/helmet/space/rig/rd/Destroy()
+	if(bomb_radar)
+		qdel(bomb_radar)
+		bomb_radar = null
+	return ..()
+
 /obj/item/clothing/head/helmet/space/rig/rd/equipped(mob/living/carbon/human/user, slot)
 	..()
 	if(user.glasses && istype(user.glasses, /obj/item/clothing/glasses/hud/diagnostic))
