@@ -60,14 +60,14 @@
 	set src in oview(1)
 
 	if(config.ghost_interaction)
-		dir = turn(dir, 90)
+		setDir(turn(dir, 90))
 		handle_rotation()
 		return
 	else
 		if(usr.incapacitated())
 			return
 
-		dir = turn(dir, 90)
+		setDir(turn(dir, 90))
 		handle_rotation()
 		return
 
