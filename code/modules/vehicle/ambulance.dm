@@ -33,7 +33,6 @@
 	var/oldloc = loc
 	if(bed && !Adjacent(bed))
 		bed = null
-		return
 	. = ..()
 	if(bed && get_dist(oldloc, loc) <= 2)
 		bed.Move(oldloc)
