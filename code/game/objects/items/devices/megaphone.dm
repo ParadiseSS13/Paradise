@@ -12,22 +12,20 @@
 	var/list/insultmsg = list("FUCK EVERYONE!", "I'M A TATER!", "ALL SECURITY TO SHOOT ME ON SIGHT!", "I HAVE A BOMB!", "CAPTAIN IS A COMDOM!", "FOR THE SYNDICATE!")
 
 /obj/item/device/megaphone/attack_self(mob/living/user as mob)
-	if(user.client)
-		if(user.client.prefs.muted & MUTE_IC)
-			to_chat(src, "<span class='warning'>You cannot speak in IC (muted).</span>")
-			return
+	if(user.client && (user.client.prefs.muted & MUTE_IC))
+	  to_chat(src, "<span class='warning'>You cannot speak in IC (muted).</span>")
+    return
 	if(!ishuman(user))
 		to_chat(user, "<span class='warning'>You don't know how to use this!</span>")
 		return
-	if(user.silent)
+	if(!user.can_speak())
 		to_chat(user, "<span class='warning'>You find yourself unable to speak at all.</span>")
 		return
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		if(H && H.mind)
-			if(H.mind.miming)
-				to_chat(user, "<span class='warning'>Your vow of silence prevents you from speaking.</span>")
-				return
+		if(H && H.mind && H.mind.miming)
+			to_chat(user, "<span class='warning'>Your vow of silence prevents you from speaking.</span>")
+			return
 	if(spamcheck)
 		to_chat(user, "<span class='warning'>\The [src] needs to recharge!</span>")
 		return
@@ -39,7 +37,7 @@
 	if(!message)
 		return
 	message = capitalize(message)
-	if((src.loc == user && usr.stat == 0))
+	if((loc == user && !user.incapacitated()))
 		if(emagged)
 			if(insults)
 				saymsg(user, pick(insultmsg))
@@ -52,12 +50,11 @@
 		spamcheck = 1
 		spawn(20)
 			spamcheck = 0
-		return
 
 /obj/item/device/megaphone/proc/saymsg(mob/living/user as mob, message)
-	audible_message("<span class='game say'><span class='name'>[user]</span> broadcasts, <FONT size=3>\"[message]\"</FONT></span>", hearing_distance = 14)
+	audible_message("<span class='game say'><span class='name'>[user]</span> broadcasts, <span class='reallybig'>\"[message]\"</span></span>", hearing_distance = 14)
 	for(var/obj/O in oview(14, get_turf(src)))
-		O.hear_talk(user, "<FONT size=3>[message]</FONT>")
+		O.hear_talk(user, "<span class='reallybig'>[message]</span>")
 
 /obj/item/device/megaphone/emag_act(user as mob)
 	if(!emagged)

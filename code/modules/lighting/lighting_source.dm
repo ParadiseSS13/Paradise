@@ -1,4 +1,4 @@
-/var/list/datum/light_source/all_lighting_sources = list()
+/var/total_lighting_sources = 0
 // This is where the fun begins.
 // These are the main datums that emit light.
 
@@ -32,7 +32,7 @@
 	var/force_update
 
 /datum/light_source/New(var/atom/owner, var/atom/top)
-	all_lighting_sources += src
+	total_lighting_sources++
 	source_atom = owner // Set our new owner.
 	if(!source_atom.light_sources)
 		source_atom.light_sources = list()
@@ -62,7 +62,7 @@
 
 // Kill ourselves.
 /datum/light_source/proc/destroy()
-	all_lighting_sources -= src
+	total_lighting_sources--
 	destroyed = TRUE
 	force_update()
 	if(source_atom)

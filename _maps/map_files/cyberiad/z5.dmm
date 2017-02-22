@@ -186,7 +186,7 @@
 "dD" = (/obj/machinery/atmospherics/pipe/manifold4w/visible/cyan,/turf/simulated/floor/plating,/area/research_outpost/atmos)
 "dE" = (/obj/machinery/atmospherics/unary/vent_pump{dir = 8; layer = 2.4; on = 1},/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; pixel_y = 0},/obj/machinery/atmospherics/pipe/manifold/visible/cyan{dir = 8; initialize_directions = 11; level = 2},/turf/simulated/floor/plating,/area/research_outpost/atmos)
 "dF" = (/obj/machinery/firealarm{dir = 4; pixel_x = 24},/obj/machinery/atmospherics/pipe/simple/visible/purple,/obj/machinery/atmospherics/unary/tank/air{dir = 8},/turf/simulated/floor/plating,/area/research_outpost/atmos)
-"dG" = (/obj/structure/shuttle/engine/propulsion{tag = "icon-propulsion (EAST)"; icon_state = "propulsion"; dir = 4},/obj/structure/window/reinforced/tinted{dir = 4; icon_state = "twindow"; tag = ""},/turf/simulated/floor/plating/airless,/area/space)
+"dG" = (/obj/structure/shuttle/engine/propulsion{dir = 8; icon_state = "propulsion"; tag = "icon-propulsion (EAST)"},/obj/structure/window/reinforced/tinted{dir = 4; icon_state = "twindow"; tag = ""},/turf/simulated/floor/plating/airless,/area/space)
 "dH" = (/obj/structure/alien/weeds{icon_state = "weeds2"},/turf/simulated/shuttle/floor{tag = "icon-floor2"; icon_state = "floor2"},/area/space)
 "dI" = (/obj/structure/alien/weeds{icon_state = "weeds"},/turf/simulated/shuttle/floor{tag = "icon-floor2"; icon_state = "floor2"},/area/space)
 "dJ" = (/obj/machinery/door/airlock/hatch,/turf/simulated/shuttle/floor{tag = "icon-floor2"; icon_state = "floor2"},/area/space)
