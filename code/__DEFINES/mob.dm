@@ -54,6 +54,8 @@
 #define DEFAULT_MARKING_STYLES list("head" = "None", "body" = "None", "tail" = "None") //Marking styles. Use instead of initial() for m_styles.
 #define DEFAULT_MARKING_COLOURS list("head" = "#000000", "body" = "#000000", "tail" = "#000000") //Marking colours. Use instead of initial() for m_colours.
 
+#define OXYCONCEN_PLASMEN_IGNITION 0.01 //1% oxygen in the air is all it takes to light up a poorly clothed Plasmaman.
+
 ////////REAGENT STUFF////////
 // How many units of reagent are consumed per tick, by default.
 #define  REAGENTS_METABOLISM 0.4

@@ -395,6 +395,14 @@
 		H.change_icobase(new_icobase, new_deform, owner_sensitive) //Update the icobase/deform of all our organs, but make sure we don't mess with frankenstein limbs in doing so.
 		H.update_dna()
 
+/datum/species/vox/handle_reagents(var/mob/living/carbon/human/H, var/datum/reagent/R)
+	if(H.species.name == "Vox" && R.id == "oxygen") //Armalis are above such petty things.
+		H.adjustToxLoss(1*REAGENTS_EFFECT_MULTIPLIER) //Same as plasma.
+		H.reagents.remove_reagent(R.id, REAGENTS_METABOLISM)
+		return 0 //Handling reagent removal on our own.
+
+	return ..()
+
 /datum/species/vox/armalis/handle_post_spawn(var/mob/living/carbon/human/H)
 	H.verbs += /mob/living/carbon/human/proc/leap
 	H.verbs += /mob/living/carbon/human/proc/gut

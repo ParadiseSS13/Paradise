@@ -485,7 +485,7 @@
 	if(on_fire)
 		var/thermal_protection = get_thermal_protection()
 
-		if(wear_suit && wear_suit.flags & AUTOEXTINGUISH)
+		if(wear_suit && wear_suit.autoextinguish)
 			wear_suit.auto_extinguish(src)
 		if(thermal_protection >= FIRE_IMMUNITY_SUIT_MAX_TEMP_PROTECT)
 			return

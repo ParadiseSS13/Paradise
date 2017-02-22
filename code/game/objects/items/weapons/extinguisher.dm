@@ -80,8 +80,7 @@
 	//TODO; Add support for reagents in water.
 	if(target.loc == user)//No more spraying yourself when putting your extinguisher away
 		return
-	var/Refill = AttemptRefill(target, user)
-	if(Refill)
+	if(AttemptRefill(target, user))
 		return
 	if(!safety)
 		if(src.reagents.total_volume < 1)
@@ -165,3 +164,31 @@
 					sleep(2)
 	else
 		return ..()
+
+/obj/item/weapon/extinguisher/cartridge
+	name = "auto-extinguisher cartridge"
+	desc = "A tiny and light fibreglass-framed auto-extinguisher cartridge."
+	icon_state = "miniFE0"
+	item_state = "miniFE"
+	hitsound = null //Ultralight and
+	flags = null //non-conductive
+	force = 0
+	throwforce = 0
+	w_class = 1
+	materials = list()
+	max_water = 25 //5 uses in compatible suits
+	var/volume_per_use = 5
+	sprite_name = "miniFE"
+	attack_verb = list("tapped")
+
+/obj/item/weapon/extinguisher/cartridge/afterattack(atom/target, mob/user , flag)
+	AttemptRefill(target, user)
+
+/obj/item/weapon/extinguisher/cartridge/attack_self()
+	return
+
+/obj/item/weapon/extinguisher/cartridge/proc/try_use()
+	if(reagents.has_reagent("water", volume_per_use))
+		reagents.remove_reagent("water", volume_per_use)
+		return 1
+	return 0

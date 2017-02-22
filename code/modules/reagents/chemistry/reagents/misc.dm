@@ -39,11 +39,6 @@
 	reagent_state = GAS
 	color = "#808080" // rgb: 128, 128, 128
 
-/datum/reagent/oxygen/on_mob_life(var/mob/living/carbon/human/H)
-	if(istype(H) && H.species && H.species.poison_type && H.species.poison_type == id)
-		H.adjustToxLoss(1*REAGENTS_EFFECT_MULTIPLIER) //Same as plasma.
-	..()
-
 /datum/reagent/nitrogen
 	name = "Nitrogen"
 	id = "nitrogen"

@@ -187,7 +187,7 @@
 
 /datum/action/item_action/toggle_hardsuit_mode
 	name = "Toggle Hardsuit Mode"
-	
+
 /datum/action/item_action/toggle_unfriendly_fire
 	name = "Toggle Friendly Fire \[ON\]"
 	desc = "Toggles if the staff causes friendly fire."
@@ -311,6 +311,9 @@
 		return 0
 	return ..()
 
+/datum/action/item_action/eject_depleted_cartridges
+	name = "Eject Depleted Cartridges"
+
 /datum/action/item_action/hands_free
 	check_flags = AB_CHECK_CONSCIOUS
 
@@ -357,7 +360,7 @@
 	..()
 	name = "Toggle [target.name]"
 	button.name = name
-	
+
 /datum/action/item_action/organ_action/use/New(Target)
 	..()
 	name = "Use [target.name]"

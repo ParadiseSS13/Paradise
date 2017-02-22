@@ -6,7 +6,7 @@
 	//language = "Clatter"
 	unarmed_type = /datum/unarmed_attack/punch
 
-	flags = IS_WHITELISTED | NO_BLOOD | NOTRANSSTING | PLASMA_BASED
+	flags = IS_WHITELISTED | NO_BLOOD | NOTRANSSTING
 	dietflags = DIET_OMNI
 	reagent_tag = PROCESS_ORG
 
@@ -15,7 +15,7 @@
 	butt_sprite = "plasma"
 
 	breath_type = "plasma"
-	poison_type = null
+	poison_type = null //Certainly isn't plasma.
 
 	heat_level_1 = 350  // Heat damage level 1 above this point.
 	heat_level_2 = 400  // Heat damage level 2 above this point.
@@ -236,10 +236,23 @@
 			if(heat_level_3 to INFINITY)
 				H.apply_damage(HEAT_GAS_DAMAGE_LEVEL_3, BURN, "head", used_weapon = "Excessive Heat")
 				H.fire_alert = max(H.fire_alert, 2)
-
-	if(!istype(H.wear_suit, /obj/item/clothing/suit/space/eva/plasmaman) || !istype(H.head, /obj/item/clothing/head/helmet/space/eva/plasmaman))
-		to_chat(H, "<span class='warning'>Your body reacts with the atmosphere and bursts into flame!</span>")
-		H.adjust_fire_stacks(0.5)
-		H.IgniteMob()
-
 	return 1
+
+/datum/species/plasmaman/handle_life(var/mob/living/carbon/human/H)
+	if(!istype(H.wear_suit, /obj/item/clothing/suit/space/eva/plasmaman) || !istype(H.head, /obj/item/clothing/head/helmet/space/eva/plasmaman))
+		var/datum/gas_mixture/environment = H.loc.return_air()
+		if(environment && environment.oxygen && environment.total_moles())
+			if(environment.oxygen / environment.total_moles() >= OXYCONCEN_PLASMEN_IGNITION)
+				if(!H.on_fire)
+					to_chat(H, "<span class='warning'>Your body reacts with the atmosphere and bursts into flame!</span>")
+				H.adjust_fire_stacks(0.5)
+				H.IgniteMob()
+
+/datum/species/plasmaman/handle_reagents(var/mob/living/carbon/human/H, var/datum/reagent/R)
+	if(R.id == "plasma")
+		H.heal_organ_damage(0.5*REAGENTS_EFFECT_MULTIPLIER, 0.5*REAGENTS_EFFECT_MULTIPLIER)
+		H.adjustPlasma(20)
+		H.reagents.remove_reagent(R.id, REAGENTS_METABOLISM)
+		return 0 //Handling reagent removal on our own. Prevents plasma from dealing toxin damage to plasmamen.
+
+	return ..()
