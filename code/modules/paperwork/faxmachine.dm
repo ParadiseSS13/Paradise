@@ -198,6 +198,23 @@ var/list/alldepartments = list()
 			card.forceMove(src)
 			scan = card
 	nanomanager.update_uis(src)
+	
+/obj/machinery/photocopier/faxmachine/verb/eject_id()
+	set category = null
+	set name = "Eject ID Card"
+	set src in oview(1)
+
+	if(usr.restrained())	
+		return
+
+	if(scan)
+		to_chat(usr, "You remove \the [scan] from \the [src].")
+		scan.forceMove(get_turf(src))
+		if(!usr.get_active_hand() && Adjacent(usr))
+			usr.put_in_hands(scan)
+		scan = null
+	else
+		to_chat(usr, "There is nothing to remove from \the [src].")
 
 /obj/machinery/photocopier/faxmachine/proc/sendfax(var/destination,var/mob/sender)
 	if(stat & (BROKEN|NOPOWER))
