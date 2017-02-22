@@ -1,5 +1,5 @@
 /datum/event/blob
-	announceWhen	= 12
+	announceWhen	= 60
 	endWhen			= 120
 	var/obj/effect/blob/core/Blob
 
@@ -10,9 +10,17 @@
 	var/turf/T = pick(blobstart)
 	if(!T)
 		return kill()
-	Blob = new /obj/effect/blob/core(T, 200)
-	for(var/i = 1; i < rand(3, 6), i++)
-		Blob.process()
+	var/list/candidates = pollCandidates("Do you want to play as a blob?", ROLE_BLOB, 1)
+	var/mob/C
+	if(candidates.len)
+		C = pick(candidates)
+		Blob = new /obj/effect/blob/core(T, 200)
+		Blob.create_overmind(C.client, 1)
+		spawn(30)
+			for(var/i = 1; i < rand(3, 6), i++)
+				Blob.process()
+	else
+		return kill()
 
 /datum/event/blob/tick()
 	if(!Blob)

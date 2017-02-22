@@ -1,4 +1,4 @@
-var/list/all_lighting_overlays = list() // Global list of lighting overlays.
+/var/total_lighting_overlays = 0
 /atom/movable/lighting_overlay
 	name = ""
 	mouse_opacity = 0
@@ -21,7 +21,7 @@ var/list/all_lighting_overlays = list() // Global list of lighting overlays.
 /atom/movable/lighting_overlay/New(var/atom/loc, var/no_update = FALSE)
 	. = ..()
 	verbs.Cut()
-	global.all_lighting_overlays += src
+	total_lighting_overlays++
 
 	var/turf/T = loc //If this runtimes atleast we'll know what's creating overlays outside of turfs.
 	T.lighting_overlay = src
@@ -77,7 +77,7 @@ var/list/all_lighting_overlays = list() // Global list of lighting overlays.
 	return
 
 /atom/movable/lighting_overlay/Destroy()
-	global.all_lighting_overlays        -= src
+	total_lighting_overlays--
 	global.lighting_update_overlays     -= src
 	global.lighting_update_overlays_old -= src
 
