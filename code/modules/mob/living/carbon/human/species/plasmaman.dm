@@ -239,10 +239,10 @@
 	return 1
 
 /datum/species/plasmaman/handle_life(var/mob/living/carbon/human/H)
-	if(!istype(H.wear_suit, /obj/item/clothing/suit/space/eva/plasmaman) || !istype(H.head, /obj/item/clothing/head/helmet/space/eva/plasmaman))
+	if(!istype(H.wear_suit, /obj/item/clothing/suit/space/eva/plasmaman) || !istype(H.head, /obj/item/clothing/head/helmet/space/eva/plasmaman)) //If they're wearing the full suit they'll be alright.
 		var/datum/gas_mixture/environment = H.loc.return_air()
 		if(environment && environment.oxygen && environment.total_moles())
-			if(environment.oxygen / environment.total_moles() >= OXYCONCEN_PLASMEN_IGNITION)
+			if(environment.oxygen / environment.total_moles() >= OXYCONCEN_PLASMEN_IGNITION)  //If the environment isn't a vacuum and amount of oxygen in the air is over whatever Plasmamen get ignited at, light them up.
 				if(!H.on_fire)
 					to_chat(H, "<span class='warning'>Your body reacts with the atmosphere and bursts into flame!</span>")
 				H.adjust_fire_stacks(0.5)
@@ -250,9 +250,10 @@
 
 /datum/species/plasmaman/handle_reagents(var/mob/living/carbon/human/H, var/datum/reagent/R)
 	if(R.id == "plasma")
-		H.heal_organ_damage(0.5*REAGENTS_EFFECT_MULTIPLIER, 0.5*REAGENTS_EFFECT_MULTIPLIER)
+		H.adjustBruteLoss(-0.5*REAGENTS_EFFECT_MULTIPLIER)
+		H.adjustFireLoss(-0.5*REAGENTS_EFFECT_MULTIPLIER)
 		H.adjustPlasma(20)
 		H.reagents.remove_reagent(R.id, REAGENTS_METABOLISM)
-		return 0 //Handling reagent removal on our own. Prevents plasma from dealing toxin damage to plasmamen.
+		return 0 //Handling reagent removal on our own. Prevents plasma from dealing toxin damage to Plasmamen.
 
 	return ..()
