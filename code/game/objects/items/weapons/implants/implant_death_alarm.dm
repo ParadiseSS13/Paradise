@@ -3,6 +3,7 @@
 	desc = "An alarm which monitors host vital signs and transmits a radio message upon death."
 	var/mobname = "Will Robinson"
 	activated = 0
+	var/static/list/stealth_areas = typecacheof(list(/area/syndicate_station, /area/syndicate_mothership, /area/shuttle/syndicate_elite))
 
 /obj/item/weapon/implant/death_alarm/get_data()
 	var/dat = {"<b>Implant Specifications:</b><BR>
@@ -33,26 +34,26 @@
 /obj/item/weapon/implant/death_alarm/activate(var/cause)
 	var/mob/M = imp_in
 	var/area/t = get_area(M)
+
+	var/obj/item/device/radio/headset/a = new /obj/item/device/radio/headset(null)
+	a.follow_target = M
+
 	switch(cause)
 		if("death")
-			var/obj/item/device/radio/headset/a = new /obj/item/device/radio/headset(null)
-			if(istype(t, /area/syndicate_station) || istype(t, /area/syndicate_mothership) || istype(t, /area/shuttle/syndicate_elite) )
+			if(is_type_in_typecache(t, stealth_areas))
 				//give the syndies a bit of stealth
 				a.autosay("[mobname] has died in Space!", "[mobname]'s Death Alarm")
 			else
 				a.autosay("[mobname] has died in [t.name]!", "[mobname]'s Death Alarm")
-			qdel(a)
 			qdel(src)
 		if("emp")
-			var/obj/item/device/radio/headset/a = new /obj/item/device/radio/headset(null)
 			var/name = prob(50) ? t.name : pick(teleportlocs)
 			a.autosay("[mobname] has died in [name]!", "[mobname]'s Death Alarm")
-			qdel(a)
 		else
-			var/obj/item/device/radio/headset/a = new /obj/item/device/radio/headset(null)
 			a.autosay("[mobname] has died-zzzzt in-in-in...", "[mobname]'s Death Alarm")
-			qdel(a)
 			qdel(src)
+			
+	qdel(a)
 
 /obj/item/weapon/implant/death_alarm/emp_act(severity)			//for some reason alarms stop going off in case they are emp'd, even without this
 	activate("emp")	//let's shout that this dude is dead
