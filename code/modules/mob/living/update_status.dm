@@ -93,7 +93,7 @@
 		update_action_buttons_icon()
 	if(!lying && lying_prev)
 		if(client)
-			client.move_delay = world.time + movement_delay()
+			client.move_delay = max(world.time + movement_delay(), world.time + 20)
 	lying_prev = lying
 	return canmove
 

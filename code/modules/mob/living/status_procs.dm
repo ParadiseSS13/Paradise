@@ -103,6 +103,7 @@
 
 	// Booleans
 	var/resting = FALSE
+	var/rest_CD = 0
 
 	/*
 	STATUS EFFECTS
@@ -141,14 +142,13 @@
 	var/val_change = !resting
 	resting = TRUE
 
-	to_chat(src, "<span class='notice'>You are now resting.</span>")
 	if(updating && val_change)
 		update_canmove()
 
 /mob/living/proc/StopResting(updating = 1)
 	var/val_change = !!resting
 	resting = FALSE
-	to_chat(src, "<span class='notice'>You are now getting up.</span>")
+
 	if(updating && val_change)
 		update_canmove()
 
