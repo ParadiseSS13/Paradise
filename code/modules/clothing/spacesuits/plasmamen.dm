@@ -38,7 +38,7 @@
 		extinguishes_left += cart1.reagents.total_volume / cart1.volume_per_use
 	if(cart2)
 		extinguishes_left += cart2.reagents.total_volume / cart2.volume_per_use
-	to_chat(user, "<span class='info'>There are [extinguishes_left] extinguisher canisters left in this suit.</span>")
+	to_chat(user, "<span class='info'>This suit can automatically extinguish [extinguishes_left] more times.</span>")
 
 /obj/item/clothing/suit/space/eva/plasmaman/auto_extinguish(var/mob/living/carbon/human/H)
 	if(istype(H) && istype(H.head, /obj/item/clothing/head/helmet/space/eva/plasmaman)) //Only extinguish if the mob's wearing the whole suit.
@@ -46,32 +46,29 @@
 			return
 
 		var/extinguish = 0
-		if(cart1.try_use())
+		if(cart1 && cart1.try_use())
 			extinguish = 1
-		else if(cart2.try_use())
-			to_chat(H, "<span class='warning'>Cartridge 1 depleted, extinguishing from cartridge 2.</span>")
+		else if(cart2 && cart2.try_use())
+			to_chat(H, "<span class='notice'>Primary cartridge absent or depleted, extinguishing from secondary cartridge.</span>")
 			extinguish = 1
 		else
-			to_chat(H, "<span class='warning'>Both cartridges depleted. Replenish immediately.</span>")
+			to_chat(H, "<span class='warning'>Unable to extinguish, all cartridges absent or depleted. Replenish immediately.</span>")
 
 		if(extinguish)
 			next_extinguish = world.time + extinguish_cooldown
-			..()
+			..() //Extinguish the mob with the parent proc.
 
 /obj/item/clothing/suit/space/eva/plasmaman/proc/eject_depleted_cartridges(mob/user)
-	var/ejected = 0
 	if(cart1 && cart1.reagents.total_volume < cart1.max_water)
 		cart1.forceMove(get_turf(loc))
 		user.put_in_hands(cart1)
 		cart1 = null
-		ejected = 1
 	if(cart2 && cart2.reagents.total_volume < cart2.max_water)
 		cart2.forceMove(get_turf(loc))
 		user.put_in_hands(cart2)
 		cart2 = null
-		ejected = 1
 
-	if(ejected)
+	if(!cart1 || !cart2)
 		to_chat(usr, "<span class='notice'>You eject the depleted extinguisher cartridges from \the [src].</span>")
 	else
 		to_chat(usr, "<span class='notice'>No extinguisher cartridges were ejected from \the [src].</span>")
