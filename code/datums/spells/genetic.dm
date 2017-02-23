@@ -15,7 +15,7 @@
 			6th bit - ?
 	*/
 
-/obj/effect/proc_holder/spell/targeted/genetic/cast(list/targets)
+/obj/effect/proc_holder/spell/targeted/genetic/cast(list/targets, mob/user = usr)
 
 	for(var/mob/living/target in targets)
 		for(var/x in mutations)

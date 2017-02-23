@@ -32,6 +32,7 @@ var/list/admin_datums = list()
 	if(istype(C))
 		owner = C
 		owner.holder = src
+		owner.on_holder_add()
 		owner.add_admin_verbs()	//TODO
 		owner.verbs -= /client/proc/readmin
 		admins |= C

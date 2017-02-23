@@ -1,5 +1,5 @@
 "a" = (/turf/space,/area/space)
-"b" = (/turf/space,/obj/structure/shuttle/engine/propulsion{tag = "icon-propulsion (EAST)"; icon_state = "propulsion"; dir = 4},/turf/simulated/shuttle/wall{icon_state = "swall_f6"; dir = 2},/area/shuttle/transport)
+"b" = (/turf/space,/obj/structure/shuttle/engine/propulsion{dir = 8; icon_state = "propulsion"; tag = "icon-propulsion (EAST)"},/turf/simulated/shuttle/wall{icon_state = "swall_f6"; dir = 2},/area/shuttle/transport)
 "c" = (/turf/simulated/shuttle/wall{icon_state = "swall12"; dir = 2},/area/shuttle/transport)
 "d" = (/obj/structure/shuttle/window,/obj/structure/grille,/turf/simulated/shuttle/plating,/area/shuttle/transport)
 "e" = (/obj/structure/grille,/obj/structure/shuttle/window,/turf/simulated/shuttle/plating,/area/shuttle/transport)
@@ -16,7 +16,7 @@
 "p" = (/obj/machinery/door/airlock/shuttle{id_tag = "s_docking_airlock"},/turf/simulated/shuttle/floor,/area/shuttle/transport)
 "q" = (/obj/item/stack/sheet/animalhide/cat,/obj/item/stack/sheet/animalhide/corgi,/obj/item/stack/sheet/animalhide/human,/obj/item/stack/sheet/animalhide/lizard,/obj/item/stack/sheet/animalhide/monkey,/obj/item/stack/sheet/animalhide/xeno,/turf/simulated/floor/plasteel{icon_state = "freezerfloor"},/area/shuttle/transport)
 "r" = (/obj/machinery/door/airlock/shuttle{id_tag = "s_docking_airlock"},/obj/docking_port/mobile{dir = 8; dwidth = 2; height = 12; id = "ferry"; name = "ferry shuttle"; roundstart_move = "ferry_away"; timid = 1; width = 5},/turf/simulated/shuttle/floor,/area/shuttle/transport)
-"s" = (/turf/space,/obj/structure/shuttle/engine/propulsion{tag = "icon-propulsion (EAST)"; icon_state = "propulsion"; dir = 4},/turf/simulated/shuttle/wall{icon_state = "swall_f5"; dir = 2},/area/shuttle/transport)
+"s" = (/turf/space,/obj/structure/shuttle/engine/propulsion{dir = 8; icon_state = "propulsion"; tag = "icon-propulsion (EAST)"},/turf/simulated/shuttle/wall{icon_state = "swall_f5"; dir = 2},/area/shuttle/transport)
 "t" = (/turf/simulated/floor/plasteel{icon_state = "freezerfloor"},/turf/simulated/shuttle/wall/interior{tag = "icon-swall_f10"; icon_state = "swall_f10"},/area/shuttle/transport)
 "u" = (/obj/machinery/light/spot,/obj/structure/closet/chefcloset,/turf/simulated/floor/plasteel{icon_state = "freezerfloor"},/area/shuttle/transport)
 "v" = (/obj/structure/kitchenspike,/turf/simulated/floor/plasteel{icon_state = "freezerfloor"},/area/shuttle/transport)
@@ -31,3 +31,4 @@ pkkkqkkmkkkr
 stuvvvwxkkwd
 asccdccceccy
 "}
+

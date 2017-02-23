@@ -178,6 +178,7 @@
 	..()
 
 /datum/reagent/phlogiston/reaction_mob(mob/living/M, method=TOUCH, volume)
+	M.adjust_fire_stacks(1)
 	M.IgniteMob()
 	..()
 

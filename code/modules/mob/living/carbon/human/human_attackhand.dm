@@ -182,8 +182,8 @@
 					apply_effect(2, WEAKEN, run_armor_check(affecting, "melee"))
 					playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 					visible_message("<span class='danger'>[M] has pushed [src]!</span>")
-					M.attack_log += text("\[[time_stamp()]\] <font color='red'>Pushed [src.name] ([src.ckey])</font>")
-					src.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been pushed by [M.name] ([M.ckey])</font>")
+					M.create_attack_log("<font color='red'>Pushed [src.name] ([src.ckey])</font>")
+					src.create_attack_log("<font color='orange'>Has been pushed by [M.name] ([M.ckey])</font>")
 					if(!iscarbon(M))
 						LAssailant = null
 					else

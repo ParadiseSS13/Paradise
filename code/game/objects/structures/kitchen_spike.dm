@@ -79,7 +79,7 @@
 	if(victim.buckled)
 		return 0
 	var/mob/living/H = victim
-	playsound(loc, "sound/effects/splat.ogg", 25, 1)
+	playsound(loc, 'sound/effects/splat.ogg', 25, 1)
 	H.forceMove(loc)
 	H.emote("scream")
 	if(istype(H, /mob/living/carbon/human)) //So you don't get human blood when you spike a giant spidere

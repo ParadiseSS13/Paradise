@@ -190,7 +190,7 @@
 		// auto update every Master Controller tick
 		ui.set_auto_update(1)
 
-/obj/machinery/atmospherics/unary/cryo_cell/ui_data(mob/user, datum/topic_state/state = default_state)
+/obj/machinery/atmospherics/unary/cryo_cell/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/data[0]
 	data["isOperating"] = on
 	data["hasOccupant"] = occupant ? 1 : 0
@@ -450,6 +450,12 @@
 		go_out()
 	add_fingerprint(usr)
 	return
+
+/obj/machinery/atmospherics/unary/cryo_cell/narsie_act()
+	go_out()
+	new /obj/effect/gibspawner/generic(get_turf(loc)) //I REPLACE YOUR TECHNOLOGY WITH FLESH!
+	color = "red"//force the icon to red
+	light_color = LIGHT_COLOR_RED
 
 /obj/machinery/atmospherics/unary/cryo_cell/verb/move_inside()
 	set name = "Move Inside"

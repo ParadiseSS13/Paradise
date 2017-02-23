@@ -22,7 +22,6 @@ var/list/image/ghost_darkness_images = list() //this is a list of images for thi
 							//Note that this is not a reliable way to determine if admins started as observers, since they change mobs a lot.
 	universal_speak = 1
 	var/atom/movable/following = null
-	var/anonsay = 0
 	var/image/ghostimage = null //this mobs ghost image, for deleting and stuff
 	var/ghostvision = 1 //is the ghost able to see things humans can't?
 	var/seedarkness = 1
@@ -226,6 +225,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(client.statpanel == "Status")
 		show_stat_station_time()
 		show_stat_emergency_shuttle_eta()
+		stat(null, "Respawnability: [(src in respawnable_list) ? "Yes" : "No"]")
 
 /mob/dead/observer/verb/reenter_corpse()
 	set category = "Ghost"
@@ -240,17 +240,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(mind.current.key && copytext(mind.current.key,1,2)!="@")	//makes sure we don't accidentally kick any clients
 		to_chat(usr, "<span class='warning'>Another consciousness is in your body...It is resisting you.</span>")
 		return
-	if(mind.current.ajourn && mind.current.stat != DEAD) 	//check if the corpse is astral-journeying (it's client ghosted using a cultist rune).
-		var/turf/T = get_turf(mind.current)
-		var/found_astral_rune = 0
-		if(T)
-			for(var/obj/effect/rune/R in T.contents)	//whilst corpse is alive, we can only reenter the body if it's on the rune
-				if(R.word1 == cultwords["hell"] && R.word2 == cultwords["travel"] && R.word3 == cultwords["self"])	//astral journeying rune
-					found_astral_rune = 1
-					break
-		if(!found_astral_rune)
-			to_chat(usr, "<span class='warning'>The astral cord that ties your body and your spirit has been severed. You are likely to wander the realm beyond until your body is finally dead and thus reunited with you.</span>")
-			return
 
 	mind.current.ajourn=0
 	mind.current.key = key
@@ -606,15 +595,12 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 //END TELEPORT HREF CODE
 
 /mob/dead/observer/verb/toggle_anonsay()
+	set name = "Toggle Anonymous Dead-chat"
 	set category = "Ghost"
-	set name = "Toggle Anonymous Chat"
 	set desc = "Toggles showing your key in dead chat."
-
-	src.anonsay = !src.anonsay
-	if(anonsay)
-		to_chat(src, "<span class='info'>Your key won't be shown when you speak in dead chat.</span>")
-	else
-		to_chat(src, "<span class='info'>Your key will be publicly visible again.</span>")
+	client.prefs.ghost_anonsay = !client.prefs.ghost_anonsay
+	to_chat(src, "As a ghost, your key will [(client.prefs.ghost_anonsay) ? "no longer" : "now"] be shown when you speak in dead chat.</span>")
+	client.prefs.save_preferences(src)
 
 /mob/dead/observer/verb/toggle_ghostsee()
 	set name = "Toggle Ghost Vision"
@@ -655,10 +641,22 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 			client.images -= ghostimage //remove ourself
 
 /mob/proc/can_admin_interact()
-	return 0
+	return FALSE
+	
+/mob/proc/can_advanced_admin_interact()
+	return FALSE
 
 /mob/dead/observer/can_admin_interact()
 	return check_rights(R_ADMIN, 0, src)
+	
+/mob/dead/observer/can_advanced_admin_interact()
+	if(!can_admin_interact())
+		return FALSE
+
+	if(client && client.advanced_admin_interaction)
+		return TRUE
+
+	return FALSE
 
 //this is a mob verb instead of atom for performance reasons
 //see /mob/verb/examinate() in mob.dm for more info

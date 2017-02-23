@@ -390,6 +390,12 @@
 		go_out()
 	..(severity)
 
+/obj/machinery/sleeper/narsie_act()
+	go_out()
+	new /obj/effect/gibspawner/generic(get_turf(loc)) //I REPLACE YOUR TECHNOLOGY WITH FLESH!
+	qdel(src)
+
+
 // ???
 // This looks cool, although mildly broken, should it be included again?
 /obj/machinery/sleeper/alter_health(mob/living/M as mob)

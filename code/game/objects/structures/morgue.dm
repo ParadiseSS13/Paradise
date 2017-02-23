@@ -18,11 +18,24 @@
 	density = 1
 	dir = EAST
 	var/obj/structure/m_tray/connected = null
+	var/list/status_descriptors = list(
+	"The tray is currently extended.",
+	"The tray is currently empty.",
+	"The tray contains an unviable body.",
+	"The tray contains a body that is responsive to revival techniques.",
+	"The tray contains something that is not a body.",
+	"The tray contains a body that might be responsive."
+	)
 	anchored = 1.0
+
+/obj/structure/morgue/initialize()
+	. = ..()
+	update()
 
 /obj/structure/morgue/proc/update()
 	if(connected)
 		icon_state = "morgue0"
+		desc = initial(desc) + "\n[status_descriptors[1]]"
 	else
 		if(contents.len)
 
@@ -36,13 +49,21 @@
 
 				if(M.client)
 					icon_state = "morgue3"
+					desc = initial(desc) + "\n[status_descriptors[4]]"
 				else if(G && G.client) //There is a ghost and it is connected to the server
 					icon_state = "morgue5"
+					desc = initial(desc) + "\n[status_descriptors[6]]"
 				else
 					icon_state = "morgue2"
+					desc = initial(desc) + "\n[status_descriptors[3]]"
 
-			else icon_state = "morgue4"
-		else icon_state = "morgue1"
+
+			else
+				icon_state = "morgue4"
+				desc = initial(desc) + "\n[status_descriptors[5]]"
+		else
+			icon_state = "morgue1"
+			desc = initial(desc) + "\n[status_descriptors[2]]"
 	return
 
 
@@ -361,8 +382,8 @@
 			if(M.stat!=2)
 				M.emote("scream")
 			if(istype(user))
-				M.attack_log += "\[[time_stamp()]\] <font color='orange'>Has been cremated by [user.name] ([user.ckey])</font>"
-				user.attack_log +="\[[time_stamp()]\] <font color='red'>Cremated [M.name] ([M.ckey])</font>"
+				M.create_attack_log("<font color='orange'>Has been cremated by [user.name] ([user.ckey])</font>")
+				user.create_attack_log("<font color='red'>Cremated [M.name] ([M.ckey])</font>")
 				log_attack("[user.name] ([user.ckey]) cremated [M.name] ([M.ckey])")
 			M.death(1)
 			if(!M || !isnull(M.gcDestroyed))
@@ -448,16 +469,32 @@
 		connected.connected = null
 	connected = null
 	return ..()
+	
+// Crematorium switch
+/obj/machinery/crema_switch
+	desc = "Burn baby burn!"
+	name = "crematorium igniter"
+	icon = 'icons/obj/power.dmi'
+	icon_state = "crema_switch"
+	anchored = 1.0
+	req_access = list(access_crematorium)
+	var/on = 0
+	var/area/area = null
+	var/otherarea = null
+	var/id = 1
+	
+/obj/machinery/crema_switch/attack_ghost(mob/user)
+	if(user.can_advanced_admin_interact())
+		return attack_hand(user)
 
-/obj/machinery/crema_switch/attack_hand(mob/user as mob)
-	if(allowed(usr))
+/obj/machinery/crema_switch/attack_hand(mob/user)
+	if(allowed(usr) || user.can_advanced_admin_interact())
 		for(var/obj/structure/crematorium/C in world)
 			if(C.id == id)
 				if(!C.cremating)
 					C.cremate(user)
 	else
-		to_chat(usr, "\red Access denied.")
-	return
+		to_chat(usr, "<span class='warning'>Access denied.</span>")
 
 /mob/proc/update_morgue()
 	if(stat == DEAD)

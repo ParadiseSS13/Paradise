@@ -31,7 +31,7 @@
 
 // This bit is called when clicked in the stat panel
 /obj/effect/statclick/debug/Click()
-	if(!usr.client.holder)
+	if(!is_admin(usr))
 		return
 
 	usr.client.debug_variables(target)

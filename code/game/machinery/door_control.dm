@@ -33,7 +33,7 @@
 
 /obj/machinery/door_control/attack_ai(mob/user as mob)
 	if(wires & 2)
-		return src.attack_hand(user)
+		return attack_hand(user)
 	else
 		to_chat(user, "Error, no route to host.")
 
@@ -54,22 +54,26 @@
 	*/
 	if(istype(W, /obj/item/device/detective_scanner))
 		return
-	return src.attack_hand(user)
+	return attack_hand(user)
 
 /obj/machinery/door_control/emag_act(user as mob)
 	if(!emagged)
 		emagged = 1
 		req_access = list()
 		req_one_access = list()
-		playsound(src.loc, "sparks", 100, 1)
+		playsound(loc, "sparks", 100, 1)
+		
+/obj/machinery/door_control/attack_ghost(mob/user)
+	if(user.can_advanced_admin_interact())
+		return attack_hand(user)
 
 /obj/machinery/door_control/attack_hand(mob/user as mob)
-	src.add_fingerprint(usr)
+	add_fingerprint(usr)
 	if(stat & (NOPOWER|BROKEN))
 		return
 
-	if(!allowed(user) && (wires & 1))
-		to_chat(user, "\red Access Denied")
+	if(!allowed(user) && (wires & 1) && !user.can_advanced_admin_interact())
+		to_chat(user, "<span class='warning'>Access Denied.</span>")
 		flick("doorctrl-denied",src)
 		return
 
@@ -79,7 +83,7 @@
 
 	if(normaldoorcontrol)
 		for(var/obj/machinery/door/airlock/D in range(range))
-			if(D.id_tag == src.id)
+			if(D.id_tag == id)
 				if(specialfunctions & OPEN)
 					if(D.density)
 						spawn(0)
@@ -110,7 +114,7 @@
 
 	else
 		for(var/obj/machinery/door/poddoor/M in airlocks)
-			if(M.id_tag == src.id)
+			if(M.id_tag == id)
 				if(M.density)
 					spawn( 0 )
 						M.open()

@@ -9,6 +9,7 @@
 	var/list/modules = list()
 	var/obj/item/emag = null
 	var/list/subsystems = list()
+	var/list/module_actions = list()
 
 	var/module_type = "NoMod" // For icon usage
 
@@ -92,11 +93,19 @@
 	R.add_language("Orluum", 0)
 	R.add_language("Clownish",0)
 
-/obj/item/weapon/robot_module/proc/add_subsystems(mob/living/silicon/robot/R)
+/obj/item/weapon/robot_module/proc/add_subsystems_and_actions(mob/living/silicon/robot/R)
 	R.verbs |= subsystems
+	for(var/A in module_actions)
+		var/datum/action/act = new A()
+		act.Grant(R)
+		R.module_actions += act
 
-/obj/item/weapon/robot_module/proc/remove_subsystems(mob/living/silicon/robot/R)
+/obj/item/weapon/robot_module/proc/remove_subsystems_and_actions(mob/living/silicon/robot/R)
 	R.verbs -= subsystems
+	for(var/datum/action/A in R.module_actions)
+		A.Remove(R)
+		qdel(A)
+	R.module_actions.Cut()
 
 /obj/item/weapon/robot_module/standard
 	name = "standard robot module"
@@ -166,6 +175,9 @@
 	name = "engineering robot module"
 	module_type = "Engineer"
 	subsystems = list(/mob/living/silicon/proc/subsystem_power_monitor)
+	module_actions = list(
+		/datum/action/innate/robot_sight/meson,
+	)
 
 	stacktypes = list(
 		/obj/item/stack/sheet/metal/cyborg = 50,
@@ -178,7 +190,6 @@
 
 /obj/item/weapon/robot_module/engineering/New()
 	..()
-	modules += new /obj/item/borg/sight/meson(src)
 	modules += new /obj/item/weapon/rcd/borg(src)
 	modules += new /obj/item/weapon/extinguisher(src)
 	modules += new /obj/item/weapon/weldingtool/largetank/cyborg(src)
@@ -193,7 +204,7 @@
 	modules += new /obj/item/weapon/gripper(src)
 	modules += new /obj/item/weapon/matter_decompiler(src)
 	modules += new /obj/item/device/floor_painter(src)
-
+	modules += new /obj/item/areaeditor/blueprints/cyborg(src)
 	emag = new /obj/item/borg/stun(src)
 
 	for(var/G in stacktypes) //Attempt to unify Engi-Borg material stacks into fewer lines. See Line 492 for example. Variables changed out of paranoia.
@@ -297,10 +308,12 @@
 /obj/item/weapon/robot_module/miner
 	name = "miner robot module"
 	module_type = "Miner"
+	module_actions = list(
+		/datum/action/innate/robot_sight/meson,
+	)
 
 /obj/item/weapon/robot_module/miner/New()
 	..()
-	modules += new /obj/item/borg/sight/meson(src)
 	modules += new /obj/item/weapon/storage/bag/ore/cyborg(src)
 	modules += new /obj/item/weapon/pickaxe/drill/cyborg(src)
 	modules += new /obj/item/weapon/shovel(src)
@@ -317,10 +330,12 @@
 /obj/item/weapon/robot_module/deathsquad
 	name = "NT advanced combat module"
 	module_type = "Malf"
+	module_actions = list(
+		/datum/action/innate/robot_sight/thermal,
+	)
 
 /obj/item/weapon/robot_module/deathsquad/New()
 	..()
-	modules += new /obj/item/borg/sight/thermal(src)
 	modules += new /obj/item/weapon/melee/energy/sword/cyborg(src)
 	modules += new /obj/item/weapon/gun/energy/pulse/cyborg(src)
 	modules += new /obj/item/weapon/crowbar(src)
@@ -385,11 +400,13 @@
 /obj/item/weapon/robot_module/combat
 	name = "combat robot module"
 	module_type = "Malf"
+	module_actions = list(
+		/datum/action/innate/robot_sight/thermal,
+	)
 
 /obj/item/weapon/robot_module/combat/New()
 	..()
 	modules += new /obj/item/weapon/restraints/handcuffs/cable/zipties/cyborg(src)
-	modules += new /obj/item/borg/sight/thermal(src)
 	modules += new /obj/item/weapon/gun/energy/gun/cyborg(src)
 	modules += new /obj/item/weapon/pickaxe/drill/jackhammer(src)
 	modules += new /obj/item/borg/combat/shield(src)
@@ -418,11 +435,13 @@
 /obj/item/weapon/robot_module/alien/hunter
 	name = "alien hunter module"
 	module_type = "Standard"
+	module_actions = list(
+		/datum/action/innate/robot_sight/thermal/alien,
+	)
 
 /obj/item/weapon/robot_module/alien/hunter/New()
 	modules += new /obj/item/weapon/melee/energy/alien/claws(src)
 	modules += new /obj/item/device/flash/cyborg/alien(src)
-	modules += new /obj/item/borg/sight/thermal/alien(src)
 	var/obj/item/weapon/reagent_containers/spray/alien/stun/S = new /obj/item/weapon/reagent_containers/spray/alien/stun(src)
 	S.reagents.add_reagent("ether",250) //nerfed to sleeptoxin to make it less instant drop.
 	modules += S

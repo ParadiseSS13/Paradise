@@ -44,11 +44,12 @@
  * The ui_data proc is used to get data for the interface
  *
  * @param user /mob The mob who is viewing this ui
+ * @param ui_key string A string key to use for this ui. Allows for multiple unique uis on one obj/mob (defaut value "main")
  * @param state /datum/topic_state Current topic state of the UI
  *
  * @return list()
  */
-/datum/proc/ui_data(mob/user, datum/topic_state/state = default_state)
+/datum/proc/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	return list()
 
 // Used by the Nano UI Manager (/datum/nanomanager) to track UIs opened by this mob

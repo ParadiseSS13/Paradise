@@ -76,12 +76,6 @@
 	..()
 	name = "plating"
 
-/turf/simulated/floor/plating/airless/catwalk
-	icon = 'icons/turf/catwalks.dmi'
-	icon_state = "Floor3"
-	name = "catwalk"
-	desc = "Cats really don't like these things."
-
 /turf/simulated/floor/engine
 	name = "reinforced floor"
 	icon_state = "engine"
@@ -132,6 +126,11 @@
 /turf/simulated/floor/engine/cult
 	name = "engraved floor"
 	icon_state = "cult"
+
+/turf/simulated/floor/engine/cult/New()
+	..()
+	if(ticker.mode)//only do this if the round is going..otherwise..fucking asteroid..
+		icon_state = ticker.mode.cultdat.cult_floor_icon_state
 
 /turf/simulated/floor/engine/cult/narsie_act()
 	return
@@ -288,16 +287,6 @@
 
 /turf/simulated/floor/plating/metalfoam/proc/smash()
 	ChangeTurf(/turf/space)
-
-/turf/simulated/floor/plasteel/airless
-	name = "airless floor"
-	oxygen = 0.01
-	nitrogen = 0.01
-	temperature = TCMB
-
-/turf/simulated/floor/plasteel/airless/New()
-	..()
-	name = "floor"
 
 /turf/simulated/floor/plating/abductor
 	name = "alien floor"

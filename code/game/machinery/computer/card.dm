@@ -181,7 +181,7 @@ var/time_last_changed_position = 0
 		ui = new(user, src, ui_key, "identification_computer.tmpl", src.name, 775, 700)
 		ui.open()
 
-/obj/machinery/computer/card/ui_data(mob/user, datum/topic_state/state = default_state)
+/obj/machinery/computer/card/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/data[0]
 	data["src"] = UID()
 	data["station_name"] = station_name()
@@ -362,7 +362,7 @@ var/time_last_changed_position = 0
 		if("print")
 			if(!printing)
 				printing = 1
-				playsound(loc, "sound/goonstation/machines/printer_dotmatrix.ogg", 50, 1)
+				playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
 				spawn(50)
 					printing = null
 					nanomanager.update_uis(src)
@@ -412,6 +412,7 @@ var/time_last_changed_position = 0
 					time_last_changed_position = world.time / 10
 				j.total_positions++
 				opened_positions[edit_job_target]++
+				log_game("[key_name(usr)] has opened a job slot for job \"[j]\".")
 				nanomanager.update_uis(src)
 
 		if("make_job_unavailable")
@@ -428,6 +429,7 @@ var/time_last_changed_position = 0
 					time_last_changed_position = world.time / 10
 				j.total_positions--
 				opened_positions[edit_job_target]--
+				log_game("[key_name(usr)] has closed a job slot for job \"[j]\".")
 				nanomanager.update_uis(src)
 
 	if(modify)
@@ -439,3 +441,5 @@ var/time_last_changed_position = 0
 	name = "\improper CentComm identification computer"
 	circuit = /obj/item/weapon/circuitboard/card/centcom
 	req_access = list(access_cent_commander)
+	change_position_cooldown = -1
+	blacklisted = list()

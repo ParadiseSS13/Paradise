@@ -10,9 +10,12 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	flags_inv = HIDEGLOVES|HIDESHOES
 	max_heat_protection_temperature = SPACE_SUIT_MAX_TEMP_PROTECT
+	icon = 'icons/obj/clothing/species/plasmaman/suits.dmi'
 	species_restricted = list("Plasmaman")
+	sprite_sheets = list(
+		"Plasmaman" = 'icons/mob/species/plasmaman/suit.dmi'
+		)
 	flags = STOPSPRESSUREDMAGE
-
 	icon_state = "plasmaman_suit"
 	item_state = "plasmaman_suit"
 
@@ -39,8 +42,11 @@
 	name = "plasmaman helmet"
 	desc = "A special containment helmet designed to protect a plasmaman's volatile body from outside exposure and quickly extinguish it in emergencies."
 	flags = STOPSPRESSUREDMAGE
+	icon = 'icons/obj/clothing/species/plasmaman/hats.dmi'
 	species_restricted = list("Plasmaman")
-
+	sprite_sheets = list(
+		"Plasmaman" = 'icons/mob/species/plasmaman/helmet.dmi'
+		)
 	icon_state = "plasmaman_helmet0"
 	item_state = "plasmaman_helmet0"
 	var/base_state = "plasmaman_helmet"
@@ -69,15 +75,6 @@
 		A.UpdateButtonIcon()
 
 // ENGINEERING
-/obj/item/clothing/suit/space/eva/plasmaman/assistant
-	name = "plasmaman assistant suit"
-	icon_state = "plasmamanAssistant_suit"
-
-/obj/item/clothing/head/helmet/space/eva/plasmaman/assistant
-	name = "plasmaman assistant helmet"
-	icon_state = "plasmamanAssistant_helmet0"
-	base_state = "plasmamanAssistant_helmet"
-
 /obj/item/clothing/suit/space/eva/plasmaman/atmostech
 	name = "plasmaman atmospheric suit"
 	icon_state = "plasmamanAtmos_suit"
@@ -115,6 +112,14 @@
 
 
 //SERVICE
+/obj/item/clothing/suit/space/eva/plasmaman/assistant
+	name = "plasmaman assistant suit"
+	icon_state = "plasmamanAssistant_suit"
+
+/obj/item/clothing/head/helmet/space/eva/plasmaman/assistant
+	name = "plasmaman assistant helmet"
+	icon_state = "plasmamanAssistant_helmet0"
+	base_state = "plasmamanAssistant_helmet"
 
 /obj/item/clothing/suit/space/eva/plasmaman/botanist
 	name = "plasmaman botanist suit"
@@ -300,6 +305,17 @@
 	name = "plasmaman captain helmet"
 	icon_state = "plasmaman_Captain_helmet0"
 	base_state = "plasmaman_Captain_helmet"
+
+
+//IAA/LAWYER
+/obj/item/clothing/suit/space/eva/plasmaman/lawyer
+	name = "plasmaman lawyer suit"
+	icon_state = "plasmamanlawyer_suit"
+
+/obj/item/clothing/head/helmet/space/eva/plasmaman/lawyer
+	name = "plasmaman lawyer helmet"
+	icon_state = "plasmamanlawyer_helmet0"
+	base_state = "plasmamanlawyer_helmet"
 
 //NUKEOPS
 

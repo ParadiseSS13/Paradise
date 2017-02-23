@@ -23,6 +23,15 @@
 			computer.table = src
 			break
 
+/obj/machinery/optable/Destroy()
+	if(computer)
+		computer.table = null
+		computer.victim = null
+		computer = null
+	if(victim)
+		victim = null
+	return ..()
+
 /obj/machinery/optable/ex_act(severity)
 	switch(severity)
 		if(1.0)

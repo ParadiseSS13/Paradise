@@ -363,7 +363,8 @@
 							break
 
 /obj/structure/alien/egg/bullet_act(obj/item/projectile/Proj)
-	health -= Proj.damage
+	if((Proj.damage_type == BRUTE || Proj.damage_type == BURN))
+		health -= Proj.damage
 	..()
 	healthcheck()
 

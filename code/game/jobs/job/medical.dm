@@ -4,6 +4,7 @@
 	department_flag = MEDSCI
 	total_positions = 1
 	spawn_positions = 1
+	is_medical = 1
 	supervisors = "the captain"
 	selection_color = "#ffddf0"
 	idtype = /obj/item/weapon/card/id/cmo
@@ -15,6 +16,8 @@
 			access_chemistry, access_virology, access_cmo, access_surgery, access_RC_announce,
 			access_keycard_auth, access_sec_doors, access_psychiatrist, access_maint_tunnels, access_paramedic, access_mineral_storeroom)
 	minimal_player_age = 21
+	exp_requirements = 600
+	exp_type = EXP_TYPE_CREW
 
 	equip(var/mob/living/carbon/human/H)
 		if(!H)	return 0
@@ -41,6 +44,7 @@
 	department_flag = MEDSCI
 	total_positions = 5
 	spawn_positions = 3
+	is_medical = 1
 	supervisors = "the chief medical officer"
 	selection_color = "#ffeef0"
 	idtype = /obj/item/weapon/card/id/medical
@@ -101,6 +105,7 @@
 	department_flag = MEDSCI
 	total_positions = 2
 	spawn_positions = 2
+	is_medical = 1
 	supervisors = "the chief medical officer"
 	selection_color = "#ffeef0"
 	idtype = /obj/item/weapon/card/id/medical
@@ -108,7 +113,6 @@
 	minimal_access = list(access_medical, access_chemistry, access_maint_tunnels, access_mineral_storeroom)
 	alt_titles = list("Pharmacist","Pharmacologist")
 	minimal_player_age = 7
-
 
 	equip(var/mob/living/carbon/human/H)
 		if(!H)	return 0
@@ -133,6 +137,7 @@
 	department_flag = MEDSCI
 	total_positions = 2
 	spawn_positions = 2
+	is_medical = 1
 	supervisors = "the chief medical officer and the research director"
 	selection_color = "#ffeef0"
 	idtype = /obj/item/weapon/card/id/medical
@@ -161,6 +166,7 @@
 	department_flag = MEDSCI
 	total_positions = 1
 	spawn_positions = 1
+	is_medical = 1
 	supervisors = "the chief medical officer"
 	selection_color = "#ffeef0"
 	idtype = /obj/item/weapon/card/id/medical
@@ -191,6 +197,7 @@
 	department_flag = MEDSCI
 	total_positions = 1
 	spawn_positions = 1
+	is_medical = 1
 	supervisors = "the chief medical officer"
 	selection_color = "#ffeef0"
 	idtype = /obj/item/weapon/card/id/medical
@@ -228,6 +235,7 @@
 	department_flag = MEDSCI
 	total_positions = 1
 	spawn_positions = 1
+	is_medical = 1
 	supervisors = "the chief medical officer"
 	selection_color = "#ffeef0"
 	idtype = /obj/item/weapon/card/id/medical

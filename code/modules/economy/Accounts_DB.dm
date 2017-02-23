@@ -83,7 +83,7 @@
 		ui = new(user, src, ui_key, "accounts_terminal.tmpl", src.name, 400, 640)
 		ui.open()
 
-/obj/machinery/computer/account_database/ui_data(mob/user, datum/topic_state/state = default_state)
+/obj/machinery/computer/account_database/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/data[0]
 
 	data["src"] = UID()
@@ -220,7 +220,7 @@
 
 			if("print")
 				var/text
-				playsound(loc, "sound/goonstation/machines/printer_thermal.ogg", 50, 1)
+				playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
 				var/obj/item/weapon/paper/P = new(loc)
 				if(detailed_account_view)
 					P.name = "account #[detailed_account_view.account_number] details"

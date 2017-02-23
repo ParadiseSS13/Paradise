@@ -135,7 +135,7 @@ proc/get_id_photo(var/mob/living/carbon/human/H)
 	if(H.gender == FEMALE)
 		g = "f"
 
-	var/icon/icobase = H.species.icobase
+	var/icon/icobase = head_organ.icobase //At this point all the organs would have the same icobase, so this is just recycling.
 
 	preview_icon = new /icon(icobase, "torso_[g]")
 	var/icon/temp
@@ -153,8 +153,8 @@ proc/get_id_photo(var/mob/living/carbon/human/H)
 	if(H.body_accessory && istype(H.body_accessory, /datum/body_accessory/tail))
 		temp = new/icon("icon" = H.body_accessory.icon, "icon_state" = H.body_accessory.icon_state)
 		preview_icon.Blend(temp, ICON_OVERLAY)
-	else if(H.species.tail && H.species.bodyflags & HAS_TAIL)
-		temp = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "[H.species.tail]_s")
+	else if(H.tail && H.species.bodyflags & HAS_TAIL)
+		temp = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "[H.tail]_s")
 		preview_icon.Blend(temp, ICON_OVERLAY)
 
 	for(var/obj/item/organ/external/E in H.organs)

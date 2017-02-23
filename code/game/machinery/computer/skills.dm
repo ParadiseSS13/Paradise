@@ -6,6 +6,7 @@
 	icon_state = "laptop"
 	icon_keyboard = "laptop_key"
 	icon_screen = "medlaptop"
+	density = 0
 	light_color = LIGHT_COLOR_GREEN
 	req_one_access = list(access_heads)
 	circuit = /obj/item/weapon/circuitboard/skills
@@ -252,7 +253,7 @@ What a mess.*/
 			if("Print Record")
 				if(!( printing ))
 					printing = 1
-					playsound(loc, "sound/goonstation/machines/printer_dotmatrix.ogg", 50, 1)
+					playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
 					sleep(50)
 					var/obj/item/weapon/paper/P = new /obj/item/weapon/paper( loc )
 					P.info = "<CENTER><B>Employment Record</B></CENTER><BR>"

@@ -91,7 +91,7 @@
 	icon_state = "weapon_taser"
 	projectile_type = "/obj/item/projectile/beam/disabler"
 	shot_cost = 400
-	fire_sound = "sound/weapons/Taser.ogg"
+	fire_sound = 'sound/weapons/Taser.ogg'
 
 /obj/item/device/spacepod_equipment/weaponry/burst_taser
 	name = "burst taser system"
@@ -100,7 +100,7 @@
 	projectile_type = "/obj/item/projectile/beam/disabler"
 	shot_cost = 1200
 	shots_per = 3
-	fire_sound = "sound/weapons/Taser.ogg"
+	fire_sound = 'sound/weapons/Taser.ogg'
 	fire_delay = 30
 
 /obj/item/device/spacepod_equipment/weaponry/laser
