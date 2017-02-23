@@ -297,7 +297,7 @@
 	selection_color = "#dddddd"
 	access = list(access_janitor, access_maint_tunnels)
 	minimal_access = list(access_janitor, access_maint_tunnels)
-	alt_titles = list("Custodial Technician")
+	alt_titles = list("Custodial Technician", "Maid")
 
 
 	equip(var/mob/living/carbon/human/H)
@@ -306,9 +306,18 @@
 			if(2) H.equip_or_collect(new /obj/item/weapon/storage/backpack(H), slot_back)
 			if(3) H.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel_norm(H), slot_back)
 			if(4) H.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel(H), slot_back)
+		if (H.mind.role_alt_title)
+			switch(H.mind.role_alt_title)
+				if("Maid")
+					H.equip_or_collect(new /obj/item/clothing/under/janimaid(H), slot_w_uniform)
+					H.equip_or_collect(new /obj/item/clothing/shoes/laceup(H), slot_shoes)
+				else
+					H.equip_or_collect(new /obj/item/clothing/under/rank/janitor(H), slot_w_uniform)
+					H.equip_or_collect(new /obj/item/clothing/shoes/black(H), slot_shoes)
+		else
+			H.equip_or_collect(new /obj/item/clothing/under/rank/janitor(H), slot_w_uniform)
+			H.equip_or_collect(new /obj/item/clothing/shoes/black(H), slot_shoes)
 		H.equip_or_collect(new /obj/item/device/radio/headset/headset_service(H), slot_l_ear)
-		H.equip_or_collect(new /obj/item/clothing/under/rank/janitor(H), slot_w_uniform)
-		H.equip_or_collect(new /obj/item/clothing/shoes/black(H), slot_shoes)
 		H.equip_or_collect(new /obj/item/device/pda/janitor(H), slot_wear_pda)
 		H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H), slot_in_backpack)
 		return 1
