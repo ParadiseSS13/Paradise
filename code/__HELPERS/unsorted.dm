@@ -297,18 +297,6 @@ Turf and target are seperate in case you want to teleport some distance from a t
 		. += A
 	return .
 
-/proc/active_ais_samezlevel(/mob/M)
-	. = list()
-	for(var/mob/living/silicon/ai/A in living_mob_list)
-		if(A.stat == DEAD)
-			continue
-		if(A.control_disabled == 1)
-			continue
-		if(A.z != M.z)
-			continue
-		. += A
-	return .
-
 //Find an active ai with the least borgs. VERBOSE PROCNAME HUH!
 /proc/select_active_ai_with_fewest_borgs()
 	var/mob/living/silicon/ai/selected
@@ -320,7 +308,7 @@ Turf and target are seperate in case you want to teleport some distance from a t
 	return selected
 
 /proc/select_active_ai(var/mob/user)
-	var/list/ais = active_ais_samezlevel(user)
+	var/list/ais = active_ais(user)
 	if(ais.len)
 		if(user)	. = input(usr,"AI signals detected:", "AI selection") in ais
 		else		. = pick(ais)
