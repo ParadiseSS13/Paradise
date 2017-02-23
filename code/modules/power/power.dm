@@ -246,18 +246,7 @@
 
 	return 1
 
-/proc/makepowernets_zlevel(var/zlevel)
-	var/obj/structure/cable/acable
-	var/list/powernets_to_remove = list()
-	for(var/datum/powernet/PN in powernets)
-		acable = pick(PN.cables)
-		if(acable && acable.z == zlevel)
-			if(!(PN in powernets_to_remove))
-				powernets_to_remove += PN
-			qdel(PN)
-	for(var/datum/powernet/PNR in powernets)
-		powernets.Remove(PNR)
-
+/proc/makepowernets_zlevel(zlevel)
 	for(var/obj/structure/cable/PC in cable_list)
 		if(PC.z == zlevel)
 			makepowernet_for(PC)
