@@ -13,7 +13,7 @@
 	var/jtext
 	for(var/client/C in clients)
 		jtext = "No Job"
-		if(C.mob.mind.assigned_role)
+		if(C.mob.mind && C.mob.mind.assigned_role)
 			theirjob = job_master.GetJob(C.mob.mind.assigned_role)
 			if(theirjob)
 				jtext = theirjob.title

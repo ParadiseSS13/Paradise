@@ -24,21 +24,21 @@
 "ax" = (/obj/structure/stool/bed/chair,/obj/item/device/radio/intercom{dir = 4; name = "Station Intercom (General)"; pixel_x = 0; pixel_y = 27},/turf/simulated/shuttle/floor{icon_state = "floor3"},/area/shuttle/escape)
 "ay" = (/obj/structure/closet/crate{name = "lifejackets"},/obj/item/clothing/suit/storage/hazardvest,/obj/item/clothing/suit/storage/hazardvest,/obj/item/clothing/suit/storage/hazardvest,/obj/item/clothing/suit/storage/hazardvest,/obj/item/clothing/suit/storage/hazardvest,/obj/item/weapon/tank/emergency_oxygen/engi,/obj/item/weapon/tank/emergency_oxygen/engi,/obj/item/weapon/tank/emergency_oxygen/engi,/obj/item/weapon/tank/emergency_oxygen/engi,/obj/item/weapon/tank/emergency_oxygen/engi,/obj/item/clothing/mask/breath{pixel_x = -5; pixel_y = -2},/obj/item/clothing/mask/breath{pixel_x = -5; pixel_y = -2},/obj/item/clothing/mask/breath{pixel_x = -5; pixel_y = -2},/obj/item/clothing/mask/breath{pixel_x = -5; pixel_y = -2},/obj/item/clothing/mask/breath{pixel_x = -5; pixel_y = -2},/obj/item/clothing/head/hardhat,/obj/item/clothing/head/hardhat,/obj/item/clothing/head/hardhat,/obj/item/clothing/head/hardhat,/obj/item/clothing/head/hardhat,/turf/simulated/shuttle/floor{icon_state = "floor3"},/area/shuttle/escape)
 "az" = (/turf/simulated/shuttle/wall{icon_state = "swall1"; dir = 2},/area/shuttle/escape)
-"aA" = (/obj/structure/shuttle/engine/propulsion{icon_state = "burst_l"; dir = 4},/turf/simulated/shuttle/plating,/area/shuttle/escape)
+"aA" = (/obj/structure/shuttle/engine/propulsion{dir = 8; icon_state = "propulsion"; tag = "icon-propulsion (EAST)"},/turf/simulated/shuttle/plating,/area/shuttle/escape)
 "aB" = (/obj/structure/shuttle/engine/heater{tag = "icon-heater (WEST)"; icon_state = "heater"; dir = 8},/obj/structure/window/reinforced{dir = 4},/turf/simulated/shuttle/plating,/area/shuttle/escape)
 "aC" = (/obj/structure/table,/obj/item/weapon/storage/fancy,/turf/simulated/shuttle/floor,/area/shuttle/escape)
 "aD" = (/obj/structure/stool/bed/chair/office/dark{dir = 1},/turf/simulated/shuttle/floor,/area/shuttle/escape)
 "aE" = (/obj/structure/table,/obj/item/weapon/restraints/handcuffs,/turf/simulated/shuttle/floor,/area/shuttle/escape)
 "aF" = (/obj/machinery/status_display,/turf/simulated/shuttle/wall{tag = "icon-swall3"; icon_state = "swall3"; dir = 2},/area/shuttle/escape)
 "aG" = (/obj/structure/dispenser/oxygen{layer = 2.7; pixel_x = -1; pixel_y = 2},/turf/simulated/shuttle/floor{icon_state = "floor3"},/area/shuttle/escape)
-"aH" = (/obj/structure/shuttle/engine/propulsion{tag = "icon-propulsion (EAST)"; icon_state = "propulsion"; dir = 4},/turf/simulated/shuttle/plating,/area/shuttle/escape)
+"aH" = (/obj/structure/shuttle/engine/propulsion{dir = 8; icon_state = "propulsion_r"; tag = "icon-propulsion_r (EAST)"},/turf/simulated/shuttle/plating,/area/shuttle/escape)
 "aI" = (/obj/structure/shuttle/engine/heater{tag = "icon-heater (WEST)"; icon_state = "heater"; dir = 8},/obj/structure/window/reinforced{dir = 4},/obj/machinery/light{icon_state = "tube1"; dir = 4},/turf/simulated/shuttle/plating,/area/shuttle/escape)
 "aJ" = (/obj/machinery/computer/communications,/turf/simulated/shuttle/floor,/area/shuttle/escape)
 "aK" = (/obj/structure/stool/bed/chair/office/dark,/turf/simulated/shuttle/floor,/area/shuttle/escape)
 "aL" = (/obj/structure/stool/bed/chair{dir = 1},/turf/simulated/shuttle/floor{icon_state = "floor3"},/area/shuttle/escape)
 "aM" = (/obj/structure/stool/bed/chair{dir = 1},/obj/machinery/light,/turf/simulated/shuttle/floor{icon_state = "floor3"},/area/shuttle/escape)
 "aN" = (/obj/structure/closet/crate{name = "lifejackets"},/obj/item/clothing/suit/storage/hazardvest,/obj/item/clothing/suit/storage/hazardvest,/obj/item/clothing/suit/storage/hazardvest,/obj/item/clothing/suit/storage/hazardvest,/obj/item/clothing/suit/storage/hazardvest,/obj/item/weapon/tank/emergency_oxygen/engi,/obj/item/weapon/tank/emergency_oxygen/engi,/obj/item/weapon/tank/emergency_oxygen/engi,/obj/item/weapon/tank/emergency_oxygen/engi,/obj/item/weapon/tank/emergency_oxygen/engi,/obj/item/clothing/mask/breath{pixel_x = -5; pixel_y = -2},/obj/item/clothing/mask/breath{pixel_x = -5; pixel_y = -2},/obj/item/clothing/mask/breath{pixel_x = -5; pixel_y = -2},/obj/item/clothing/mask/breath{pixel_x = -5; pixel_y = -2},/obj/item/clothing/mask/breath{pixel_x = -5; pixel_y = -2},/obj/item/clothing/head/hardhat,/obj/item/clothing/head/hardhat,/obj/item/clothing/head/hardhat,/obj/item/clothing/head/hardhat,/obj/item/clothing/head/hardhat,/obj/machinery/light{icon_state = "tube1"; dir = 4},/turf/simulated/shuttle/floor{icon_state = "floor3"},/area/shuttle/escape)
-"aO" = (/obj/structure/shuttle/engine/propulsion{tag = "icon-propulsion_r (EAST)"; icon_state = "propulsion_r"; dir = 4},/turf/simulated/shuttle/plating,/area/shuttle/escape)
+"aO" = (/obj/structure/shuttle/engine/propulsion{dir = 8; icon_state = "burst_l"},/turf/simulated/shuttle/plating,/area/shuttle/escape)
 "aP" = (/obj/machinery/computer/emergency_shuttle,/obj/machinery/light{dir = 8},/turf/simulated/shuttle/floor,/area/shuttle/escape)
 "aQ" = (/obj/structure/stool/bed/chair/office/dark{dir = 8},/turf/simulated/shuttle/floor,/area/shuttle/escape)
 "aR" = (/obj/machinery/door/airlock/glass_command{name = "Cockpit"; req_access_txt = "19"},/turf/simulated/shuttle/floor,/area/shuttle/escape)
@@ -115,16 +115,16 @@
 (1,1,1) = {"
 aaaaabacacacacadaeacafaiacaiahacacacafciacagajakal
 aaamanaoapaqarasatauavauawauavavawavaxauavauauayaz
-aAaBasaCauaDaEaFauauauauauauauauauauauauauauauaGac
-aHaIasaJaKauauazauauaLaMaLaLaLauaLaLaLaMaLauauaNaf
-aOaBasaPaQauauaRauauacaSacaTacauacaTacaSacauauauac
+aOaBasaCauaDaEaFauauauauauauauauauauauauauauauaGac
+aAaIasaJaKauauazauauaLaMaLaLaLauaLaLaLaMaLauauaNaf
+aHaBasaPaQauauaRauauacaSacaTacauacaTacaSacauauauac
 ajakanaUaDauauaVauauavaWavavavauavavavaWavauauaXaf
-aAaBasaYauaKauasaZauauauauauauauauauauauauauauauac
-aOaIasbabbbcauasatauaLaLbdaLaLauaLaLaMaLaLauaubeaV
+aOaBasaYauaKauasaZauauauauauauauauauauauauauauauac
+aHaIasbabbbcauasatauaLaLbdaLaLauaLaLaMaLaLauaubeaV
 ajakbfbgakaebhbiakbjacajbkaeacblacbmaeacaTbnbnajan
-aAaBasbobpbqbrasbsbrbtbtasbubvaubwazbxbybzbAbAbBaz
-aHaIasbobpajbCbDbsbrbrbEasbFauaubGacbHbpbpbpbpbAac
-aOaBasbIbpbpbJaFbKbrbrbLasbMauauaublbNbpbpbpbpbAac
+aOaBasbobpbqbrasbsbrbtbtasbubvaubwazbxbybzbAbAbBaz
+aAaIasbobpajbCbDbsbrbrbEasbFauaubGacbHbpbpbpbpbAac
+aHaBasbIbpbpbJaFbKbrbrbLasbMauauaublbNbpbpbpbpbAac
 aabOanbPbpbpbJasbQbRbSbTasbUbVbWbXbYbZcacbcccdceaV
 aaaacfacbqbqaccgakacacajcgaeacacajcgakaeacacajakch
 "}

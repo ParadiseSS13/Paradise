@@ -463,7 +463,7 @@ proc/pollCandidates(Question, be_special_type, antag_age_check = 0, poll_time = 
 			G << 'sound/misc/notice2.ogg'//Alerting them to their consideration
 			if(flashwindow)
 				window_flash(G.client)
-			switch(alert(G,Question,"Please answer in [poll_time/10] seconds!","Yes","No","Not This Round"))
+			switch(alert(G,Question,"Please answer in [poll_time/10] seconds!","No","Yes","Not This Round"))
 				if("Yes")
 					to_chat(G, "<span class='notice'>Choice registered: Yes.</span>")
 					if((world.time-time_passed)>poll_time)//If more than 30 game seconds passed.
