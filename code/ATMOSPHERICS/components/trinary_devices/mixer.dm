@@ -107,15 +107,23 @@
 	parent3.update = 1
 
 	return 1
+	
+/obj/machinery/atmospherics/trinary/mixer/attack_ghost(mob/user) 
+	interact(user)
 
-/obj/machinery/atmospherics/trinary/mixer/attack_hand(user as mob)
+/obj/machinery/atmospherics/trinary/mixer/attack_hand(mob/user)
 	if(..())
 		return
-	src.add_fingerprint(usr)
-	if(!src.allowed(user))
+
+	if(!allowed(user))
 		to_chat(user, "<span class='alert'>Access denied.</span>")
 		return
-	usr.set_machine(src)
+		
+	interact(user)
+	
+/obj/machinery/atmospherics/trinary/mixer/interact(mob/user)	
+	user.set_machine(src)
+	add_fingerprint(user)
 	var/dat = {"<b>Power: </b><a href='?src=[UID()];power=1'>[on?"On":"Off"]</a><br>
 				<b>Desirable output pressure: </b>
 				[target_pressure]kPa | <a href='?src=[UID()];set_press=1'>Change</a>
@@ -139,7 +147,6 @@
 	popup.set_content(dat)
 	popup.open(0)
 	onclose(user, "atmo_mixer")
-	return
 
 /obj/machinery/atmospherics/trinary/mixer/Topic(href,href_list)
 	if(..())
@@ -147,16 +154,16 @@
 	if(href_list["power"])
 		on = !on
 	if(href_list["set_press"])
-		var/new_pressure = input(usr,"Enter new output pressure (0-4500kPa)","Pressure control",src.target_pressure) as num
-		src.target_pressure = max(0, min(4500, new_pressure))
+		var/new_pressure = input(usr,"Enter new output pressure (0-4500kPa)","Pressure control",target_pressure) as num
+		target_pressure = max(0, min(4500, new_pressure))
 	if(href_list["node1_c"])
 		var/value = text2num(href_list["node1_c"])
-		src.node1_concentration = max(0, min(1, src.node1_concentration + value))
-		src.node2_concentration = max(0, min(1, src.node2_concentration - value))
+		node1_concentration = max(0, min(1, node1_concentration + value))
+		node2_concentration = max(0, min(1, node2_concentration - value))
 	if(href_list["node2_c"])
 		var/value = text2num(href_list["node2_c"])
-		src.node2_concentration = max(0, min(1, src.node2_concentration + value))
-		src.node1_concentration = max(0, min(1, src.node1_concentration - value))
-	src.update_icon()
-	src.updateUsrDialog()
+		node2_concentration = max(0, min(1, node2_concentration + value))
+		node1_concentration = max(0, min(1, node1_concentration - value))
+	update_icon()
+	updateUsrDialog()
 	return

@@ -258,7 +258,7 @@ em						{font-style: normal;	font-weight: bold;}
 .srvradio				{color: #6eaa2c;}
 .admin_channel			{color: #9A04D1;	font-weight: bold;}
 .mentor_channel			{color: #775BFF;	font-weight: bold;}
-.mentor_channel_admin      {color: #9A04D1;	font-weight: bold;}
+.mentor_channel_admin      {color: #A35CFF;	font-weight: bold;}
 .djradio				{color: #663300;}
 .binaryradio				{color: #0B0050;	font-family: 'Courier New', Courier, monospace;}
 .mommiradio				{color: navy;}
@@ -300,6 +300,7 @@ h1.alert, h2.alert			{color: #000000;}
 .confirm				{color: #00af3b;}
 .rose					{color: #ff5050;}
 .sans					{font-family: 'Comic Sans MS', cursive, sans-serif;}
+.wingdings				{font-family: Wingdings, Webdings;}
 .ancient				{color: #008B8B;	font-stye: italic;}
 .newscaster				{color: #800000;}
 .mod					{color: #735638;	font-weight: bold;}

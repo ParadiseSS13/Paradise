@@ -52,7 +52,9 @@
 		to_chat(usr, "You push the [src] up out of your face.")
 		flash_protect = 0
 		tint = 0
-	usr.update_inv_wear_mask()	//so our mob-overlays update
+	var/mob/living/carbon/user = usr
+	user.update_tint()
+	user.update_inv_wear_mask()	//so our mob-overlays update
 
 	for(var/X in actions)
 		var/datum/action/A = X
@@ -182,7 +184,7 @@
 
 /obj/item/clothing/mask/gas/owl_mask/proc/hoot()
 	if(cooldown < world.time - 35) // A cooldown, to stop people being jerks
-		playsound(src.loc, "sound/misc/hoot.ogg", 50, 1)
+		playsound(src.loc, 'sound/misc/hoot.ogg', 50, 1)
 		cooldown = world.time
 
 // ********************************************************************

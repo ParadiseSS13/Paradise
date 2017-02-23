@@ -47,3 +47,19 @@ var/list/TAGGERLOCATIONS = list("Disposals",
 	"Bar", "Kitchen", "Hydroponics", "Janitor Closet","Genetics","Brig Physician")
 
 var/list/hit_appends = list("-OOF", "-ACK", "-UGH", "-HRNK", "-HURGH", "-GLORF")
+
+var/global/list/greek_letters = list("Alpha", "Beta", "Gamma", "Delta",
+	"Epsilon", "Zeta", "Eta", "Theta", "Iota", "Kappa", "Lambda", "Mu",
+	"Nu", "Xi", "Omicron", "Pi", "Rho", "Sigma", "Tau", "Upsilon", "Phi",
+	"Chi", "Psi", "Omega")
+
+var/global/list/phonetic_alphabet = list("Alpha", "Bravo", "Charlie",
+	"Delta", "Echo", "Foxtrot", "Golf", "Hotel", "India", "Juliet",
+	"Kilo", "Lima", "Mike", "November", "Oscar", "Papa", "Quebec",
+	"Romeo", "Sierra", "Tango", "Uniform", "Victor", "Whiskey", "X-ray",
+	"Yankee", "Zulu")
+
+var/global/list/numbers_as_words = list("One", "Two", "Three", "Four",
+	"Five", "Six", "Seven", "Eight", "Nine", "Ten", "Eleven", "Twelve",
+	"Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen",
+	"Eighteen", "Nineteen")

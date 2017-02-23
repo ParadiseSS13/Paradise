@@ -4,11 +4,11 @@
 	announceWhen = 400
 
 	var/spawncount = 5
-	var/successSpawn = 0        //So we don't make a command report if nothing gets spawned.
+	var/successSpawn = FALSE        //So we don't make a command report if nothing gets spawned.
 
 /datum/event/borer_infestation/setup()
 	announceWhen = rand(announceWhen, announceWhen + 50)
-	spawncount = rand(1, 3)
+	spawncount = rand(2, 3)
 
 /datum/event/borer_infestation/announce()
 	if(successSpawn)
@@ -22,14 +22,8 @@
 			if(temp_vent.parent.other_atmosmch.len > 50)
 				vents += temp_vent
 
-	spawn(0)
-		var/list/candidates = pollCandidates("Do you want to play as a cortical borer?", ROLE_BORER, 1)
-		while(spawncount > 0 && vents.len && candidates.len)
-			var/obj/vent = pick_n_take(vents)
-			var/mob/C = pick_n_take(candidates)
-
-			var/mob/living/simple_animal/borer/new_borer = new(vent.loc)
-			new_borer.key = C.key
-
-			spawncount--
-			successSpawn = 1
+	while(spawncount >= 1 && vents.len)
+		var/obj/vent = pick_n_take(vents)
+		new /mob/living/simple_animal/borer(vent.loc)
+		successSpawn = TRUE
+		spawncount--

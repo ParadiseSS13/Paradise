@@ -101,6 +101,10 @@
 		
 /obj/machinery/door/firedoor/attack_ai(mob/user)
 	attack_hand(user)
+	
+/obj/machinery/door/firedoor/attack_ghost(mob/user)
+	if(user.can_advanced_admin_interact())
+		attack_hand(user)
 
 /obj/machinery/door/firedoor/attack_alien(mob/user)
 	add_fingerprint(user)

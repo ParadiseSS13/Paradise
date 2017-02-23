@@ -1,4 +1,4 @@
-var/list/all_lighting_overlays = list() // Global list of lighting overlays.
+/var/total_lighting_overlays = 0
 /atom/movable/lighting_overlay
 	name = ""
 	mouse_opacity = 0
@@ -21,7 +21,7 @@ var/list/all_lighting_overlays = list() // Global list of lighting overlays.
 /atom/movable/lighting_overlay/New(var/atom/loc, var/no_update = FALSE)
 	. = ..()
 	verbs.Cut()
-	global.all_lighting_overlays += src
+	total_lighting_overlays++
 
 	var/turf/T = loc //If this runtimes atleast we'll know what's creating overlays outside of turfs.
 	T.lighting_overlay = src
@@ -59,21 +59,14 @@ var/list/all_lighting_overlays = list() // Global list of lighting overlays.
 
 	var/max = max(cr.cache_mx, cg.cache_mx, cb.cache_mx, ca.cache_mx)
 
-	var/list/new_matrix = list(
+	color  = list(
 		cr.cache_r, cr.cache_g, cr.cache_b, 0,
 		cg.cache_r, cg.cache_g, cg.cache_b, 0,
 		cb.cache_r, cb.cache_g, cb.cache_b, 0,
 		ca.cache_r, ca.cache_g, ca.cache_b, 0,
 		0, 0, 0, 1
-	)
-	var/lum = max > LIGHTING_SOFT_THRESHOLD
-
-	if(lum)
-		luminosity = 1
-		animate(src, color = new_matrix, time = 5)
-	else
-		animate(src, color = new_matrix, time = 5)
-		animate(luminosity = 0, time = 0)
+		)
+	luminosity = max > LIGHTING_SOFT_THRESHOLD
 
 
 
@@ -84,7 +77,7 @@ var/list/all_lighting_overlays = list() // Global list of lighting overlays.
 	return
 
 /atom/movable/lighting_overlay/Destroy()
-	global.all_lighting_overlays        -= src
+	total_lighting_overlays--
 	global.lighting_update_overlays     -= src
 	global.lighting_update_overlays_old -= src
 

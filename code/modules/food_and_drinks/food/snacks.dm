@@ -1218,13 +1218,6 @@
 		user.drop_item()
 		forceMove(get_turf(O))
 		return Expand()
-	if(istype(O, /obj/machinery/computer/camera_advanced/xenobio))
-		var/obj/machinery/computer/camera_advanced/xenobio/X = O
-		X.monkeys++
-		to_chat(user, "<span class='notice'>You feed [src] to the [X]. It now has [X.monkeys] monkey cubes stored.</span>")
-		user.drop_item()
-		qdel(src)
-		return
 	..()
 
 /obj/item/weapon/reagent_containers/food/snacks/monkeycube/water_act(volume, temperature)

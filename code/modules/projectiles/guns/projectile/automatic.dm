@@ -261,3 +261,7 @@
 	fire_sound = 'sound/weapons/emitter2.ogg'
 	can_suppress = 0
 	burst_size = 2
+
+/obj/item/weapon/gun/projectile/automatic/lasercarbine/update_icon()
+	..()
+	icon_state = "lasercarbine[magazine ? "-[Ceiling(get_ammo(0)/5)*5]" : ""]"

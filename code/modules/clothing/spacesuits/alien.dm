@@ -31,17 +31,25 @@
 
 //Unathi space gear. Huge and restrictive.
 /obj/item/clothing/head/helmet/space/unathi
+	icon = 'icons/obj/clothing/species/unathi/hats.dmi'
 	species_restricted = list("Unathi")
+	sprite_sheets = list(
+		"Unathi" = 'icons/mob/species/unathi/helmet.dmi'
+		)
 
 /obj/item/clothing/head/helmet/space/unathi/helmet_cheap
 	name = "NT breacher helmet"
-	desc = "Hey! Watch it with that thing! It's a knock-off of a Unathi battle-helm, and that spike could put someone's eye out."
+	desc = "Hey! Watch it with that thing! It's a knock-off of an Unathi battle-helm, and that spike could put someone's eye out."
 	icon_state = "unathi_helm_cheap"
 	item_state = "unathi_helm_cheap"
 	item_color = "unathi_helm_cheap"
 
 /obj/item/clothing/suit/space/unathi
+	icon = 'icons/obj/clothing/species/unathi/suits.dmi'
 	species_restricted = list("Unathi")
+	sprite_sheets = list(
+		"Unathi" = 'icons/mob/species/unathi/suit.dmi'
+		)
 
 /obj/item/clothing/suit/space/unathi/rig_cheap
 	name = "NT breacher chassis"
@@ -71,6 +79,7 @@
 	armor = list(melee = 40, bullet = 40, laser = 30, energy = 15, bomb = 30, bio = 30, rad = 30)
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	max_heat_protection_temperature = SPACE_SUIT_MAX_TEMP_PROTECT
+	icon = 'icons/obj/clothing/species/vox/suits.dmi'
 	species_restricted = list("Vox", "Vox Armalis")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi',
@@ -80,6 +89,7 @@
 /obj/item/clothing/head/helmet/space/vox
 	armor = list(melee = 40, bullet = 40, laser = 30, energy = 15, bomb = 30, bio = 30, rad = 30)
 	flags = HEADCOVERSEYES|STOPSPRESSUREDMAGE
+	icon = 'icons/obj/clothing/species/vox/hats.dmi'
 	species_restricted = list("Vox","Vox Armalis")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/head.dmi',
@@ -137,6 +147,7 @@
 
 /obj/item/clothing/under/vox
 	has_sensor = 0
+	icon = 'icons/obj/clothing/species/vox/uniforms.dmi'
 	species_restricted = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/uniform.dmi'
@@ -150,12 +161,17 @@
 	item_state = "vox-casual-1"
 	body_parts_covered = LEGS
 
-/obj/item/clothing/under/vox/vox_robes
+/obj/item/clothing/under/vox/vox_robes //This will be invisible on Armalis for lack of a proper sprite. They wear a carapace suit anyway, and this is more just to let them use IDs and such.
 	name = "alien robes"
 	desc = "Weird and flowing!"
 	icon_state = "vox-casual-2"
 	item_color = "vox-casual-2"
 	item_state = "vox-casual-2"
+	species_restricted = list("Vox","Vox Armalis")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/uniform.dmi',
+		"Vox Armalis" = 'icons/mob/species/armalis/suit.dmi'
+		)
 
 /obj/item/clothing/gloves/color/yellow/vox
 	desc = "These bizarre gauntlets seem to be fitted for... bird claws?"
@@ -165,20 +181,22 @@
 	siemens_coefficient = 0
 	permeability_coefficient = 0.05
 	item_color = "gloves-vox"
+	icon = 'icons/obj/clothing/species/vox/gloves.dmi'
 	species_restricted = list("Vox","Vox Armalis")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/gloves.dmi',
 		"Vox Armalis" = 'icons/mob/species/armalis/gloves.dmi',
 		)
-/obj/item/clothing/shoes/magboots/vox
 
+/obj/item/clothing/shoes/magboots/vox
 	desc = "A pair of heavy, jagged armoured foot pieces, seemingly suitable for a velociraptor."
 	name = "vox magclaws"
 	item_state = "boots-vox"
 	icon_state = "boots-vox"
-
+	icon = 'icons/obj/clothing/species/vox/shoes.dmi'
 	species_restricted = list("Vox","Vox Armalis")
 	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/feet.dmi',
 		"Vox Armalis" = 'icons/mob/species/armalis/feet.dmi'
 		)
 
@@ -223,6 +241,7 @@
 	name = "Vox EVA Suit"
 	icon_state = "voxspace"
 	item_state = "voxspace"
+	icon = 'icons/obj/clothing/species/vox/suits.dmi'
 	species_restricted = list("Vox", "Vox Armalis")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi',
@@ -233,6 +252,7 @@
 	name = "Vox EVA Suit"
 	icon_state = "voxspace"
 	item_state = "voxspace"
+	icon = 'icons/obj/clothing/species/vox/hats.dmi'
 	species_restricted = list("Vox","Vox Armalis")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/head.dmi',

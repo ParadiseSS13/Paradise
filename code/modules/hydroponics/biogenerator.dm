@@ -156,6 +156,7 @@
 	if(stat & BROKEN || panel_open)
 		return
 	user.set_machine(src)
+	add_fingerprint(user)
 	var/dat
 	if(processing)
 		dat += "<div class='statusDisplay'>Biogenerator is processing! Please wait...</div><BR>"
@@ -206,6 +207,9 @@
 	return
 
 /obj/machinery/biogenerator/attack_hand(mob/user)
+	interact(user)
+	
+/obj/machinery/biogenerator/attack_ghost(mob/user)
 	interact(user)
 
 /obj/machinery/biogenerator/proc/activate()
@@ -302,7 +306,7 @@
 
 /obj/machinery/biogenerator/Topic(href, href_list)
 	if(..() || panel_open)
-		return
+		return 1
 
 	usr.set_machine(src)
 

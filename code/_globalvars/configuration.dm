@@ -19,6 +19,10 @@ var/shuttle_left = 0
 var/tinted_weldhelh = 1
 var/mouse_respawn_time = 5 //Amount of time that must pass between a player dying as a mouse and repawning as a mouse. In minutes.
 
+// Command to run if shutting down (SHUTDOWN_ON_REBOOT) instead of rebooting
+// It's defined here as a global because this is a hilariously bad thing to have on the easily-edited config datum
+var/global/shutdown_shell_command
+
 // Debug is used exactly once (in living.dm) but is commented out in a lot of places.  It is not set anywhere and only checked.
 // Debug2 is used in conjunction with a lot of admin verbs and therefore is actually legit.
 var/Debug = 0	// global debug switch

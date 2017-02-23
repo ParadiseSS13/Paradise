@@ -204,7 +204,7 @@ Status: []<BR>
 Behaviour controls are [locked ? "locked" : "unlocked"]<BR>
 Maintenance panel panel is [open ? "opened" : "closed"]"},
 text("<A href='?src=[UID()];power=1'>[on ? "On" : "Off"]</A>"))
-	if(!locked || issilicon(user) || check_rights(R_ADMIN, 0, user))
+	if(!locked || issilicon(user) || user.can_admin_interact())
 		dat += text({"<BR>Cleans Blood: []<BR>"}, text("<A href='?src=[UID()];operation=blood'>[blood ? "Yes" : "No"]</A>"))
 		dat += text({"<BR>Patrol station: []<BR>"}, text("<A href='?src=[UID()];operation=patrol'>[auto_patrol ? "Yes" : "No"]</A>"))
 	return dat
