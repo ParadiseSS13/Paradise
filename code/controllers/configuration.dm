@@ -189,6 +189,8 @@
 
 	var/disable_ooc_emoji = 0 // prevents people from using emoji in OOC
 
+	var/shutdown_on_reboot = 0 // Whether to shut down the world instead of rebooting it
+
 /datum/configuration/New()
 	var/list/L = subtypesof(/datum/game_mode)
 	for(var/T in L)
@@ -584,6 +586,12 @@
 
 				if("disable_ooc_emoji")
 					config.disable_ooc_emoji = 1
+
+				if("shutdown_on_reboot")
+					config.shutdown_on_reboot = 1
+
+				if("shutdown_shell_command")
+					shutdown_shell_command = value
 
 				else
 					diary << "Unknown setting in configuration: '[name]'"

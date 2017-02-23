@@ -191,19 +191,19 @@
 					if(istype(P, I) && (req_components[I] > 0) && (!(P.flags & NODROP) || istype(P, /obj/item/stack)))
 						success=1
 						playsound(src.loc, 'sound/items/Deconstruct.ogg', 50, 1)
-						if(istype(P, /obj/item/stack/cable_coil))
-							var/obj/item/stack/cable_coil/CP = P
-							var/camt = min(CP.amount, req_components[I])
-							var/obj/item/stack/cable_coil/CC = new /obj/item/stack/cable_coil(src)
-							CC.amount = camt
-							CC.update_icon()
-							CP.use(camt)
-							components += CC
+						if(istype(P, /obj/item/stack))
+							var/obj/item/stack/S = P
+							var/camt = min(S.amount, req_components[I])
+							var/obj/item/stack/NS = new P.type(src)
+							NS.amount = camt
+							NS.update_icon()
+							S.use(camt)
+							components += NS
 							req_components[I] -= camt
 							update_req_desc()
 							break
 						user.drop_item()
-						P.loc = src
+						P.forceMove(src)
 						components += P
 						req_components[I]--
 						update_req_desc()

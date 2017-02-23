@@ -12,7 +12,7 @@
 	max_heat_protection_temperature = HELMET_MAX_TEMP_PROTECT
 	strip_delay = 60
 	burn_state = FIRE_PROOF
-	species_fit = list("Vox")
+	species_fit = list("Vox", "Drask")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/helmet.dmi',
 		"Drask" = 'icons/mob/species/drask/helmet.dmi'
@@ -34,6 +34,8 @@
 				while(up)
 					playsound(src.loc, "[active_sound]", 100, 0, 4)
 					sleep(15)
+			if(toggle_sound)
+				playsound(src.loc, "[toggle_sound]", 100, 0, 4)
 
 
 /obj/item/clothing/head/helmet/visor
@@ -71,11 +73,6 @@
 	icon_state = "swat"
 	item_state = "swat-alt"
 	armor = list(melee = 15, bullet = 40, laser = 10, energy = 10, bomb = 40, bio = 0, rad = 0)
-	species_fit = list("Vox")
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/helmet.dmi',
-		"Drask" = 'icons/mob/species/drask/helmet.dmi'
-		)
 
 /obj/item/clothing/head/helmet/riot
 	name = "riot helmet"
@@ -127,11 +124,6 @@
 	heat_protection = HEAD
 	max_heat_protection_temperature = SPACE_HELM_MAX_TEMP_PROTECT
 	strip_delay = 80
-	species_fit = list("Vox")
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/head.dmi',
-		"Drask" = 'icons/mob/species/drask/helmet.dmi'
-		)
 
 /obj/item/clothing/head/helmet/swat/syndicate
 	name = "blood-red helmet"
@@ -174,6 +166,12 @@
 	flags = HEADCOVERSEYES | BLOCKHAIR
 	item_state = "gladiator"
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES
+	toggle_message = "You attach the face shield to the"
+	alt_toggle_message = "You remove the face shield from the"
+	actions_types = list(/datum/action/item_action/toggle_helmet_mode)
+	can_toggle = 1
+	toggle_cooldown = 20
+	toggle_sound = 'sound/items/ZippoClose.ogg'
 
 obj/item/clothing/head/helmet/redtaghelm
 	name = "red laser tag helmet"
@@ -202,6 +200,10 @@ obj/item/clothing/head/blob
 	item_state = "blobhat"
 	flags = HEADCOVERSEYES|HEADCOVERSMOUTH
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES
+	species_fit = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/helmet.dmi'
+		)
 
 /obj/item/clothing/head/helmet/riot/knight/blue
 	icon_state = "knight_blue"

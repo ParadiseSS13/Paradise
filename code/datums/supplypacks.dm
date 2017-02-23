@@ -53,6 +53,8 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	var/contraband = 0
 	var/group = supply_misc
 	var/list/announce_beacons = list() // Particular beacons that we'll notify the relevant department when we reach
+	var/special = FALSE //Event/Station Goals/Admin enabled packs
+	var/special_enabled = FALSE
 
 
 /datum/supply_packs/New()
@@ -1525,7 +1527,62 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 					/obj/item/weapon/beach_ball)
 	cost = 20
 	containername = "polo supply crate"
+	
+///////////// Station Goals	
+	
+/datum/supply_packs/misc/bsa
+	name = "Bluespace Artillery Parts"
+	cost = 150
+	special = TRUE
+	contains = list(/obj/item/weapon/circuitboard/machine/bsa/front,
+					/obj/item/weapon/circuitboard/machine/bsa/middle,
+					/obj/item/weapon/circuitboard/machine/bsa/back,
+					/obj/item/weapon/circuitboard/computer/bsa_control
+					)
+	containername = "bluespace artillery parts crate"
 
+/datum/supply_packs/misc/dna_vault
+	name = "DNA Vault Parts"
+	cost = 120
+	special = TRUE
+	contains = list(
+					/obj/item/weapon/circuitboard/machine/dna_vault
+					)
+	containername = "dna vault parts crate"
+
+/datum/supply_packs/misc/dna_probes
+	name = "DNA Vault Samplers"
+	cost = 30
+	special = TRUE
+	contains = list(/obj/item/device/dna_probe,
+					/obj/item/device/dna_probe,
+					/obj/item/device/dna_probe,
+					/obj/item/device/dna_probe,
+					/obj/item/device/dna_probe
+					)
+	containername = "dna samplers crate"
+
+
+/datum/supply_packs/misc/shield_sat
+	name = "Shield Generator Satellite"
+	cost = 30
+	special = TRUE
+	contains = list(
+					/obj/machinery/satellite/meteor_shield,
+					/obj/machinery/satellite/meteor_shield,
+					/obj/machinery/satellite/meteor_shield
+					)
+	containername = "shield sat crate"
+
+
+/datum/supply_packs/misc/shield_sat_control
+	name = "Shield System Control Board"
+	cost = 50
+	special = TRUE
+	contains = list(
+					/obj/item/weapon/circuitboard/computer/sat_control
+					)
+	containername = "shield control board crate"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Vending /////////////////////////////////////////
