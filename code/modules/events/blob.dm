@@ -14,11 +14,10 @@
 	var/mob/C
 	if(candidates.len)
 		C = pick(candidates)
-		Blob = new /obj/effect/blob/core(T, 200)
+		Blob = new /obj/effect/blob/core(T, 200, null, 2, 0, 1)
 		Blob.create_overmind(C.client, 1)
-		spawn(30)
-			for(var/i = 1; i < rand(3, 6), i++)
-				Blob.process()
+		for(var/i = 1; i < rand(3, 6), i++)
+			Blob.process()
 	else
 		return kill()
 
