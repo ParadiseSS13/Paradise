@@ -1,0 +1,4 @@
+author: "Krausus"
+delete-after: True
+changes: 
+  - tweak: "Ghost candidate alert boxes (\"Do you want to play as a thing?\") will now have \"No\" as the leftmost, default option, which you will accidentally pick when it pops up while you're trying to type, but at least you won't be stuck as the thing when you didn't actually want to be that thing."
