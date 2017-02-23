@@ -297,6 +297,18 @@ Turf and target are seperate in case you want to teleport some distance from a t
 		. += A
 	return .
 
+/proc/active_ais_samezlevel(/mob/M)
+	. = list()
+	for(var/mob/living/silicon/ai/A in living_mob_list)
+		if(A.stat == DEAD)
+			continue
+		if(A.control_disabled == 1)
+			continue
+		if(A.z != M.z)
+			continue
+		. += A
+	return .
+
 //Find an active ai with the least borgs. VERBOSE PROCNAME HUH!
 /proc/select_active_ai_with_fewest_borgs()
 	var/mob/living/silicon/ai/selected
@@ -308,7 +320,7 @@ Turf and target are seperate in case you want to teleport some distance from a t
 	return selected
 
 /proc/select_active_ai(var/mob/user)
-	var/list/ais = active_ais()
+	var/list/ais = active_ais_samezlevel(user)
 	if(ais.len)
 		if(user)	. = input(usr,"AI signals detected:", "AI selection") in ais
 		else		. = pick(ais)
@@ -550,17 +562,17 @@ proc/anim(turf/location as turf,target as mob|obj,a_icon,a_icon_state as text,fl
 	var/turf/current = get_turf(source)
 	var/turf/target_turf = get_turf(target)
 	var/steps = 1
-	
+
 	if(current != target_turf)
-		current = get_step_towards(current, target_turf)	
+		current = get_step_towards(current, target_turf)
 		while(current != target_turf)
-			if(steps > length) 
+			if(steps > length)
 				return 0
-			if(current.opacity) 
+			if(current.opacity)
 				return 0
 			for(var/thing in current)
 				var/atom/A = thing
-				if(A.opacity) 
+				if(A.opacity)
 					return 0
 			current = get_step_towards(current, target_turf)
 			steps++
@@ -1863,7 +1875,7 @@ var/global/list/g_fancy_list_of_types = null
 			pois[name] = A
 
 	return pois
-	
+
 /proc/flash_color(mob_or_client, flash_color="#960000", flash_time=20)
 	var/client/C
 	if(istype(mob_or_client, /mob))
@@ -1881,7 +1893,7 @@ var/global/list/g_fancy_list_of_types = null
 	C.color = flash_color
 	spawn(0)
 		animate(C, color = initial(C.color), time = flash_time)
-		
+
 #define RANDOM_COLOUR (rgb(rand(0,255),rand(0,255),rand(0,255)))
 
 /proc/make_bit_triplet()
