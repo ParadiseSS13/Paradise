@@ -58,7 +58,7 @@ var/global/list/potentialRandomZlevels = generateMapList(filename = "config/away
 			late_setup_level(block(locate(1, 1, zlev), locate(world.maxx, world.maxy, zlev)))
 			space_manager.remove_dirt(zlev)
 			log_to_dd("  Away mission loaded: [map]")
-
+			makepowernets_zlevel(zlev)
 		for(var/obj/effect/landmark/L in landmarks_list)
 			if(L.name != "awaystart")
 				continue
@@ -69,6 +69,7 @@ var/global/list/potentialRandomZlevels = generateMapList(filename = "config/away
 	else
 		log_startup_progress("  No away missions found.")
 		return
+
 
 /proc/createALLZlevels()
 	if(awaydestinations.len)	//crude, but it saves another var!

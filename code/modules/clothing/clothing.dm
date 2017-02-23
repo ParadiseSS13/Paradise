@@ -24,6 +24,7 @@
 	var/toggle_message = null
 	var/alt_toggle_message = null
 	var/active_sound = null
+	var/toggle_sound = null
 	var/toggle_cooldown = null
 	var/cooldown = 0
 	var/species_disguise = null
@@ -566,7 +567,7 @@ BLIND     // can't see anything
 	permeability_coefficient = 0.90
 	slot_flags = SLOT_ICLOTHING
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
-	species_fit = list("Vox")
+	species_fit = list("Vox", "Drask")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/uniform.dmi',
 		"Drask" = 'icons/mob/species/drask/uniform.dmi'
