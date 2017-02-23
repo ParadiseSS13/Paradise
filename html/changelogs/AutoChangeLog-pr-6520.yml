@@ -1,0 +1,7 @@
+author: "KasparoVy"
+delete-after: True
+changes: 
+  - rscadd: "You can now toggle on/off the gladiator helmet's face-shield with an action button. This is totally cosmetic.
+imgadd: Adds a bunch of new helmet sprites for Vox."
+  - tweak: "Slightly adjusts the Vox knight armour sprites (not the Templar armour) to look nicer with the new helmets."
+  - bugfix: "The Admin 'Select Equipment' debug verb now appropriately equips Armalis when the 'Vox' option is selected."
