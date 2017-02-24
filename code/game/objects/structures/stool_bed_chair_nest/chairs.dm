@@ -63,7 +63,7 @@
 		setDir(turn(dir, 90))
 		handle_rotation()
 		return
-	else
+
 		if(usr.incapacitated())
 			return
 
