@@ -64,12 +64,12 @@
 		handle_rotation()
 		return
 
-		if(usr.incapacitated())
-			return
-
-		setDir(turn(dir, 90))
-		handle_rotation()
+	if(usr.incapacitated())
 		return
+
+	setDir(turn(dir, 90))
+	handle_rotation()
+	return
 
 /obj/structure/stool/bed/chair/AltClick(mob/user)
 	if(user.incapacitated())
