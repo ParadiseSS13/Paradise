@@ -50,7 +50,7 @@
 	idtype = /obj/item/weapon/card/id/medical
 	access = list(access_medical, access_morgue, access_surgery, access_chemistry, access_virology, access_genetics, access_mineral_storeroom)
 	minimal_access = list(access_medical, access_morgue, access_surgery, access_maint_tunnels)
-	alt_titles = list("Surgeon","Nurse","Coroner")
+	alt_titles = list("Surgeon","Nurse","Coroner","General Practitioner")
 	minimal_player_age = 3
 
 	equip(var/mob/living/carbon/human/H)
@@ -111,7 +111,7 @@
 	idtype = /obj/item/weapon/card/id/medical
 	access = list(access_medical, access_morgue, access_surgery, access_chemistry, access_virology, access_genetics, access_mineral_storeroom)
 	minimal_access = list(access_medical, access_chemistry, access_maint_tunnels, access_mineral_storeroom)
-	alt_titles = list("Pharmacist","Pharmacologist")
+	alt_titles = list("Pharmacist","Pharmacologist","Chemical Engineer")
 	minimal_player_age = 7
 
 	equip(var/mob/living/carbon/human/H)
@@ -144,6 +144,7 @@
 	access = list(access_medical, access_morgue, access_surgery, access_chemistry, access_virology, access_genetics, access_research, access_mineral_storeroom)
 	minimal_access = list(access_medical, access_morgue, access_genetics, access_research, access_maint_tunnels)
 	minimal_player_age = 3
+	alt_titles =list("Genetic Engineer","Genomicist")
 
 	equip(var/mob/living/carbon/human/H)
 		if(!H)	return 0
@@ -241,6 +242,7 @@
 	idtype = /obj/item/weapon/card/id/medical
 	access = list(access_paramedic, access_medical, access_sec_doors, access_maint_tunnels, access_external_airlocks, access_morgue)
 	minimal_access=list(access_paramedic, access_medical, access_sec_doors, access_maint_tunnels, access_external_airlocks, access_morgue)
+	alt_titles = list("EMT")
 	minimal_player_age = 3
 
 
