@@ -179,6 +179,17 @@
 	var/mob_aoe = FALSE
 	var/list/hit_overlays = list()
 
+/obj/item/projectile/kinetic/pod
+	range = 4
+	
+/obj/item/projectile/kinetic/pod/regular
+	damage = 50
+	pressure_decrease = 0.5
+
+/obj/item/projectile/kinetic/pod/enhanced
+	turf_aoe = TRUE
+	mob_aoe = TRUE
+
 /obj/item/projectile/kinetic/on_range()
 	strike_thing()
 	..()
