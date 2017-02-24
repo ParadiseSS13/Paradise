@@ -311,9 +311,6 @@
 		return 0
 	return ..()
 
-/datum/action/item_action/eject_depleted_cartridges
-	name = "Eject Depleted Cartridges"
-
 /datum/action/item_action/hands_free
 	check_flags = AB_CHECK_CONSCIOUS
 

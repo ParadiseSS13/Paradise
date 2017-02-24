@@ -16,84 +16,55 @@
 		"Plasmaman" = 'icons/mob/species/plasmaman/suit.dmi'
 		)
 	flags = STOPSPRESSUREDMAGE
-	autoextinguish = 1
-
 	icon_state = "plasmaman_suit"
 	item_state = "plasmaman_suit"
 
-	actions_types = list(/datum/action/item_action/eject_depleted_cartridges)
-	var/extinguisher_cart_type = /obj/item/weapon/extinguisher/cartridge
-	var/obj/item/weapon/extinguisher/cartridge/cart1
-	var/obj/item/weapon/extinguisher/cartridge/cart2
 	var/next_extinguish = 0
 	var/extinguish_cooldown = 10 SECONDS
+	var/max_extinguishes = 5
+	var/extinguishes_left = 5 // Yeah yeah, reagents, blah blah blah.  This should be simple.
 
-/obj/item/clothing/suit/space/eva/plasmaman/New()
-	if(!cart1)
-		cart1 = new extinguisher_cart_type(src)
-	if(!cart2)
-		cart2 = new extinguisher_cart_type(src)
-	..()
-
-/obj/item/clothing/suit/space/eva/plasmaman/examine(mob/user)
-	..(user)
-	var/extinguishes_left = 0
-	if(cart1)
-		extinguishes_left += cart1.reagents.total_volume / cart1.volume_per_use
-	if(cart2)
-		extinguishes_left += cart2.reagents.total_volume / cart2.volume_per_use
-	to_chat(user, "<span class='info'>This suit can automatically extinguish [extinguishes_left] more times.</span>")
-
-/obj/item/clothing/suit/space/eva/plasmaman/auto_extinguish(var/mob/living/carbon/human/H)
-	if(istype(H) && istype(H.head, /obj/item/clothing/head/helmet/space/eva/plasmaman)) //Only extinguish if the mob's wearing the whole suit.
+/obj/item/clothing/suit/space/eva/plasmaman/proc/Extinguish(var/mob/user)
+	var/mob/living/carbon/human/H=user
+	if(extinguishes_left)
 		if(next_extinguish > world.time)
 			return
 
-		var/extinguish = 0
-		if(cart1 && cart1.try_use())
-			extinguish = 1
-		else if(cart2 && cart2.try_use())
-			to_chat(H, "<span class='notice'>Primary cartridge absent or depleted, extinguishing from secondary cartridge.</span>")
-			extinguish = 1
-		else
-			to_chat(H, "<span class='warning'>Unable to extinguish, all cartridges absent or depleted. Replenish immediately.</span>")
-
-		if(extinguish)
-			next_extinguish = world.time + extinguish_cooldown
-			..() //Extinguish the mob with the parent proc.
-
-/obj/item/clothing/suit/space/eva/plasmaman/proc/eject_depleted_cartridges(mob/user)
-	if(cart1 && cart1.reagents.total_volume < cart1.max_water)
-		cart1.forceMove(get_turf(loc))
-		user.put_in_hands(cart1)
-		cart1 = null
-	if(cart2 && cart2.reagents.total_volume < cart2.max_water)
-		cart2.forceMove(get_turf(loc))
-		user.put_in_hands(cart2)
-		cart2 = null
-
-	if(!cart1 || !cart2)
-		to_chat(usr, "<span class='notice'>You eject the depleted extinguisher cartridges from \the [src].</span>")
-	else
-		to_chat(usr, "<span class='notice'>No extinguisher cartridges were ejected from \the [src].</span>")
-
-/obj/item/clothing/suit/space/eva/plasmaman/attack_self(mob/user)
-	eject_depleted_cartridges(user)
+		next_extinguish = world.time + extinguish_cooldown
+		extinguishes_left--
+		to_chat(user, "<span class='warning'>You hear a soft click and a hiss from your suit as it automatically extinguishes the fire.</span>")
+		if(!extinguishes_left)
+			to_chat(user, "<span class='warning'>Onboard auto-extinguisher depleted, refill with a cartridge.</span>")
+		playsound(src.loc, 'sound/effects/spray.ogg', 10, 1, -3)
+		H.ExtinguishMob()
 
 /obj/item/clothing/suit/space/eva/plasmaman/attackby(var/obj/item/A as obj, mob/user as mob, params)
 	..()
-	if(istype(A, extinguisher_cart_type))
-		if(cart1 && cart2)
-			to_chat(user, "<span class='notice'>There's already cartridges in \the [src].</span>")
+	if(istype(A, /obj/item/weapon/plasmensuit_cartridge)) //This suit can only be reloaded by the appropriate cartridges, and only if it's got no more extinguishes left.
+		if(!extinguishes_left)
+			extinguishes_left = max_extinguishes //Full replenishment from the cartridge.
+			to_chat(user, "<span class='notice'>You replenish \the [src] with the cartridge.</span>")
+			qdel(A)
 		else
-			var/obj/item/weapon/extinguisher/cartridge/cart = A
-			user.remove_from_mob(cart)
-			if(!cart1)
-				cart1 = cart
-			else if(!cart2)
-				cart2 = cart
-			cart.forceMove(src)
-			to_chat(user, "<span class='notice'>You load the extinguisher cartridge into \the [src].</span>")
+			to_chat(user, "<span class='notice'>The suit must be depleted before it can be refilled.</span>")
+
+/obj/item/clothing/suit/space/eva/plasmaman/examine(mob/user)
+	..(user)
+	to_chat(user, "<span class='info'>There are [extinguishes_left] extinguisher canisters left in this suit.</span>")
+
+/obj/item/weapon/plasmensuit_cartridge //Can be used to refill Plasmaman suits when they run out of autoextinguishes.
+	name = "auto-extinguisher cartridge"
+	desc = "A tiny and light fibreglass-framed auto-extinguisher cartridge."
+	icon = 'icons/obj/items.dmi'
+	icon_state = "miniFE0"
+	item_state = "miniFE"
+	hitsound = null //Ultralight and
+	flags = null //non-conductive
+	force = 0
+	throwforce = 0
+	w_class = 2 //Fits in boxes.
+	materials = list()
+	attack_verb = list("tapped")
 
 /obj/item/clothing/head/helmet/space/eva/plasmaman
 	name = "plasmaman helmet"

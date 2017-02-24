@@ -435,7 +435,7 @@
 	breath_type = "nitrogen"
 	poison_type = "oxygen"
 
-	flags = NO_SCAN | NO_BLOOD | HAS_TAIL | NO_PAIN | IS_WHITELISTED
+	flags = NO_SCAN | NO_BLOOD | NO_PAIN | IS_WHITELISTED
 	bodyflags = HAS_TAIL
 	dietflags = DIET_OMNI	//should inherit this from vox, this is here just in case
 

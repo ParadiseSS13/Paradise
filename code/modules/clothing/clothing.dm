@@ -448,7 +448,6 @@ BLIND     // can't see anything
 	var/ignore_suitadjust = 1
 	var/adjust_flavour = null
 	var/list/hide_tail_by_species = null
-	var/autoextinguish = 0
 
 //Proc that opens and closes jackets.
 /obj/item/clothing/suit/proc/adjustsuit(var/mob/user)
@@ -498,12 +497,6 @@ BLIND     // can't see anything
 			user.update_inv_wear_suit()
 	else
 		to_chat(user, "<span class='notice'>You attempt to button up the velcro on \the [src], before promptly realising how retarded you are.</span>")
-
-/obj/item/clothing/suit/proc/auto_extinguish(var/mob/living/carbon/human/user)
-	if(istype(user))
-		to_chat(user, "<span class='warning'>You hear a soft click and a hiss from your suit as it automatically extinguishes the fire.</span>")
-		playsound(src.loc, 'sound/effects/spray.ogg', 10, 1, -3)
-		user.ExtinguishMob()
 
 /obj/item/clothing/suit/equipped(var/mob/living/carbon/human/user, var/slot) //Handle tail-hiding on a by-species basis.
 	..()
