@@ -555,9 +555,10 @@
 
 /obj/item/clothing/mask/gas/sechailer/fluff/spartan //LP Spartan: Kaskreyarawkta
 	name = "minimal gasmask"
-	desc = "Designed to cover as little of face as possible while still being a functional gasmask.
+	desc = "Designed to cover as little of face as possible while still being a functional gasmask."
 	icon_state = "spartan_mask"
-
+	item_state = "spartan_mask"
+	species_restricted = list("Vox")
 
 //////////// Shoes ////////////
 
