@@ -4,7 +4,6 @@
 	department_flag = MEDSCI
 	total_positions = 1
 	spawn_positions = 1
-	is_medical = 1
 	supervisors = "the captain"
 	selection_color = "#ffddf0"
 	idtype = /obj/item/weapon/card/id/cmo
@@ -22,6 +21,7 @@
 	equip(var/mob/living/carbon/human/H)
 		if(!H)	return 0
 		H.equip_or_collect(new /obj/item/device/radio/headset/heads/cmo(H), slot_l_ear)
+		H.equip_or_collect(new /obj/item/clothing/glasses/hud/health(H), slot_glasses)
 		switch(H.backbag)
 			if(2) H.equip_or_collect(new /obj/item/weapon/storage/backpack/medic(H), slot_back)
 			if(3) H.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel_med(H), slot_back)
@@ -44,7 +44,6 @@
 	department_flag = MEDSCI
 	total_positions = 5
 	spawn_positions = 3
-	is_medical = 1
 	supervisors = "the chief medical officer"
 	selection_color = "#ffeef0"
 	idtype = /obj/item/weapon/card/id/medical
@@ -56,6 +55,7 @@
 	equip(var/mob/living/carbon/human/H)
 		if(!H)	return 0
 		H.equip_or_collect(new /obj/item/device/radio/headset/headset_med(H), slot_l_ear)
+		H.equip_or_collect(new /obj/item/clothing/glasses/hud/health(H), slot_glasses)
 		switch(H.backbag)
 			if(2) H.equip_or_collect(new /obj/item/weapon/storage/backpack/medic(H), slot_back)
 			if(3) H.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel_med(H), slot_back)
@@ -105,7 +105,6 @@
 	department_flag = MEDSCI
 	total_positions = 2
 	spawn_positions = 2
-	is_medical = 1
 	supervisors = "the chief medical officer"
 	selection_color = "#ffeef0"
 	idtype = /obj/item/weapon/card/id/medical
@@ -137,7 +136,6 @@
 	department_flag = MEDSCI
 	total_positions = 2
 	spawn_positions = 2
-	is_medical = 1
 	supervisors = "the chief medical officer and the research director"
 	selection_color = "#ffeef0"
 	idtype = /obj/item/weapon/card/id/medical
@@ -166,7 +164,6 @@
 	department_flag = MEDSCI
 	total_positions = 1
 	spawn_positions = 1
-	is_medical = 1
 	supervisors = "the chief medical officer"
 	selection_color = "#ffeef0"
 	idtype = /obj/item/weapon/card/id/medical
@@ -197,7 +194,6 @@
 	department_flag = MEDSCI
 	total_positions = 1
 	spawn_positions = 1
-	is_medical = 1
 	supervisors = "the chief medical officer"
 	selection_color = "#ffeef0"
 	idtype = /obj/item/weapon/card/id/medical
@@ -235,7 +231,6 @@
 	department_flag = MEDSCI
 	total_positions = 1
 	spawn_positions = 1
-	is_medical = 1
 	supervisors = "the chief medical officer"
 	selection_color = "#ffeef0"
 	idtype = /obj/item/weapon/card/id/medical
