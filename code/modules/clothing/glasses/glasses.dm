@@ -496,3 +496,46 @@
 			to_chat(user, "<span class='notice'>The eye winks at you and vanishes into the abyss, you feel really unlucky.</span>")
 		qdel(src)
 	..()
+
+/obj/item/clothing/glasses/tajblind
+	name = "embroidered veil"
+	desc = "An Ahdominian made veil that allows the user to see while obscuring their eyes."
+	icon_state = "tajblind"
+	item_state = "tajblind"
+	actions_types = list(/datum/action/item_action/toggle)
+	up = 0
+	tint = 0
+
+/obj/item/clothing/glasses/tajblind/eng
+	name = "industrial veil"
+	icon_state = "tajblind_engi"
+	item_state = "tajblind_engi"
+
+/obj/item/clothing/glasses/tajblind/sci
+	name = "hi-tech veil"
+	icon_state = "tajblind_sci"
+	item_state = "tajblind_sci"
+
+/obj/item/clothing/glasses/tajblind/cargo
+	name = "khaki veil"
+	icon_state = "tajblind_cargo"
+	item_state = "tajblind_cargo"
+
+/obj/item/clothing/glasses/tajblind/attack_self()
+	toggle_veil()
+
+/obj/item/clothing/glasses/proc/toggle_veil()
+	if(usr.canmove && !usr.incapacitated())
+		if(up)
+			up = !up
+			icon_state = initial(icon_state)
+			tint = initial(tint)
+			to_chat(usr, "You activate [src], allowing you to see.")
+		else
+			up = !up
+			icon_state = initial(icon_state)
+			tint = 3
+			to_chat(usr, "You deactivate [src], obscuring your vision.")
+		var/mob/living/carbon/user = usr
+		user.update_tint()
+		user.update_inv_glasses()

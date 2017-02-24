@@ -1143,6 +1143,7 @@
 #include "code\modules\client\preference\loadout\loadout_donor.dm"
 #include "code\modules\client\preference\loadout\loadout_general.dm"
 #include "code\modules\client\preference\loadout\loadout_hat.dm"
+#include "code\modules\client\preference\loadout\loadout_racial.dm"
 #include "code\modules\client\preference\loadout\loadout_shoes.dm"
 #include "code\modules\client\preference\loadout\loadout_suit.dm"
 #include "code\modules\client\preference\loadout\loadout_uniform.dm"
