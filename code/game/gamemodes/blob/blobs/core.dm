@@ -10,16 +10,13 @@
 	var/point_rate = 2
 	var/is_offspring = null
 	var/selecting = 0
-	var/grab_overmind = 1
 
-/obj/effect/blob/core/New(loc, var/h = 200, var/client/new_overmind = null, var/new_rate = 2, offspring, is_event)
+/obj/effect/blob/core/New(loc, var/h = 200, var/client/new_overmind = null, var/new_rate = 2, offspring)
 	blob_cores += src
 	processing_objects.Add(src)
 	poi_list |= src
 	adjustcolors(color) //so it atleast appears
-	if(is_event)
-		grab_overmind = 0
-	if(!overmind && grab_overmind)
+	if(!overmind)
 		create_overmind(new_overmind)
 	if(overmind)
 		adjustcolors(overmind.blob_reagent_datum.color)
@@ -64,7 +61,7 @@
 	return // Don't regen, we handle it in Life()
 
 /obj/effect/blob/core/Life()
-	if(!overmind && grab_overmind)
+	if(!overmind)
 		create_overmind()
 	else
 		if(resource_delay <= world.time)
@@ -94,7 +91,7 @@
 
 
 /obj/effect/blob/core/proc/create_overmind(var/client/new_overmind, var/override_delay)
-	if(overmind_get_delay > world.time && !override_delay && !new_overmind)
+	if(overmind_get_delay > world.time && !override_delay)
 		return
 
 	overmind_get_delay = world.time + 3000 // 5 minutes
