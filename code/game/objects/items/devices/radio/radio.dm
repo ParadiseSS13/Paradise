@@ -401,6 +401,7 @@ var/global/list/default_medbay_channels = list(
 		  // Identity-associated tags:
 			"mob" = M, // store a reference to the mob
 			"mobtype" = M.type, 	// the mob's type
+			"race" = signal.get_race(M),
 			"realname" = real_name, // the mob's real name
 			"name" = displayname,	// the mob's display name
 			"job" = jobname,		// the mob's job
@@ -462,6 +463,7 @@ var/global/list/default_medbay_channels = list(
 
 		"mob" = M, // store a reference to the mob
 		"mobtype" = M.type, 	// the mob's type
+		"race" = signal.get_race(M), // text to show next to mob in comms log console
 		"realname" = real_name, // the mob's real name
 		"name" = displayname,	// the mob's display name
 		"job" = jobname,		// the mob's job
@@ -560,7 +562,7 @@ var/global/list/default_medbay_channels = list(
 	var/range = receive_range(freq, level)
 	if(range > -1)
 		return get_mobs_in_view(canhear_range, src)
-		
+
 /obj/item/device/radio/proc/is_listening()
 	var/is_listening = TRUE
 	if(!on)
@@ -571,11 +573,11 @@ var/global/list/default_medbay_channels = list(
 		is_listening = FALSE
 
 	return is_listening
-		
+
 /obj/item/device/radio/proc/send_announcement()
 	if(is_listening())
 		return get_mobs_in_view(canhear_range, src)
-		
+
 	return null
 
 /obj/item/device/radio/examine(mob/user, var/distance = -1)
