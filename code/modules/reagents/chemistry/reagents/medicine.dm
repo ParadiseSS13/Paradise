@@ -617,6 +617,9 @@
 	..()
 
 /datum/reagent/medicine/strange_reagent/reaction_mob(mob/living/M, method=TOUCH, volume)
+	if(volume < 1)
+		// gotta pay to play
+		return ..()
 	if(isanimal(M))
 		if(method == TOUCH)
 			var/mob/living/simple_animal/SM = M
@@ -628,10 +631,11 @@
 	if(iscarbon(M))
 		if(method == INGEST)
 			if(M.stat == DEAD)
-				if(M.getBruteLoss()+M.getFireLoss() >= 150 || prob(10))
+				if(M.getBruteLoss()+M.getFireLoss()+M.getCloneLoss() >= 150)
 					M.visible_message("<span class='warning'>[M]'s body starts convulsing!</span>")
 					M.gib()
 					return
+				M.adjustCloneLoss(50)
 				var/mob/dead/observer/ghost = M.get_ghost()
 				if(ghost)
 					to_chat(ghost, "<span class='ghostalert'>You are attempting to be revived with Strange Reagent. Return to your body if you want to be revived!</span> (Verbs -> Ghost -> Re-enter corpse)")
