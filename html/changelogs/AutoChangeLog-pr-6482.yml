@@ -1,4 +1,0 @@
-author: "davipatury"
-delete-after: True
-changes: 
-  - rscadd: "EFTPOS now uses Nano-UI."

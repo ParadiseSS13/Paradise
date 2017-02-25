@@ -1,7 +1,0 @@
-author: "FalseIncarnate"
-delete-after: True
-changes: 
-  - bugfix: "Corn and bananas can be properly deepfried into their special results again."
-  - bugfix: "Rice can be properly ground into a reagent again."
-  - rscadd: "Hydroponics trays once again are equipped with Bee-proof lids to keep unwanted pollination to a minimum. This only works if you actually toggle the lid closed though!"
-  - tweak: "Plants age slightly slower, so your space farming should no longer feel like it outpaces a meth'd up blue hedgehog in sneakers."
