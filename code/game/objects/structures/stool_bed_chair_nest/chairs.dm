@@ -69,7 +69,6 @@
 
 	setDir(turn(dir, 90))
 	handle_rotation()
-	return
 
 /obj/structure/stool/bed/chair/AltClick(mob/user)
 	if(user.incapacitated())
