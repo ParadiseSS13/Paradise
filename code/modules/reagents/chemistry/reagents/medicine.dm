@@ -648,6 +648,21 @@
 					M.adjustBruteLoss(rand(0,15))
 					M.adjustToxLoss(rand(0,15))
 					M.adjustFireLoss(rand(0,15))
+					if(ishuman(M) && M.mind && prob(10)) // To prevent people from using this on monkies to cause pandemics
+						var/mob/living/carbon/human/H = M
+						// Their body is being suffused with magical life-inducing stuff - so other things get lively, too
+						// Things are going to get interesting for the reviving party, too
+						var/virus_type = pick(list(
+							/datum/disease/advance/flu,
+							/datum/disease/advance/cold,
+							/datum/disease/brainrot,
+							/datum/disease/magnitis,
+							/datum/disease/fake_gbs, // honk
+							/datum/disease/cold9
+						))
+						var/datum/disease/D = new virus_type()
+						H.AddDisease(D)
+
 					M.update_revive()
 					M.stat = UNCONSCIOUS
 					add_logs(M, M, "revived", object="strange reagent") //Yes, the logs say you revived yourself.
