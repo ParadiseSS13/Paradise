@@ -60,18 +60,15 @@
 	set src in oview(1)
 
 	if(config.ghost_interaction)
-		src.dir = turn(src.dir, 90)
+		setDir(turn(dir, 90))
 		handle_rotation()
 		return
-	else
-		if(!usr || !isturf(usr.loc))
-			return
-		if(usr.stat || usr.restrained())
-			return
 
-		src.dir = turn(src.dir, 90)
-		handle_rotation()
+	if(usr.incapacitated())
 		return
+
+	setDir(turn(dir, 90))
+	handle_rotation()
 
 /obj/structure/stool/bed/chair/AltClick(mob/user)
 	if(user.incapacitated())
