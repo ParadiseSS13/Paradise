@@ -4,7 +4,7 @@
 		visual disturbances. It's probably best not to be on top of these \
 		when whatever is tunneling comes through."
 	icon = 'icons/effects/effects.dmi'
-	icon_state = "medi_holo"
+	icon_state = "bluespacify"
 	anchored = TRUE
 	density = FALSE
 	layer = RIPPLE_LAYER
