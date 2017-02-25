@@ -219,7 +219,76 @@
 		if("usr")		hsrc = mob
 		if("prefs")		return prefs.process_link(usr,href_list)
 		if("vars")		return view_var_Topic(href,href_list,hsrc)
+	
+	//Polls and shit
+	if(href_list["showpoll"])
 
+		handle_player_polling()
+		return
+	if(href_list["createpollwindow"])
+		create_poll_window()
+		return
+	if(href_list["createpoll"])
+		create_poll_function(href_list)
+		return
+	if(href_list["pollid"])
+
+		var/pollid = href_list["pollid"]
+		if(istext(pollid))
+			pollid = text2num(pollid)
+		if(isnum(pollid))
+			poll_player(pollid)
+		return
+	if(href_list["pollresults"])
+		var/pollid = href_list["pollresults"]
+		if(istext(pollid))
+			pollid = text2num(pollid)
+		if(isnum(pollid))
+			poll_results(pollid)
+	if(href_list["votepollid"] && href_list["votetype"])
+		if(!can_vote())
+			return // No voting.
+		var/pollid = text2num(href_list["votepollid"])
+		var/votetype = href_list["votetype"]
+		switch(votetype)
+			if("OPTION")
+				var/optionid = text2num(href_list["voteoptionid"])
+				vote_on_poll(pollid, optionid)
+			if("TEXT")
+				var/replytext = href_list["replytext"]
+				log_text_poll_reply(pollid, replytext)
+			if("NUMVAL")
+				var/id_min = text2num(href_list["minid"])
+				var/id_max = text2num(href_list["maxid"])
+
+				if( (id_max - id_min) > 100 )	//Basic exploit prevention
+					to_chat(usr, "The option ID difference is too big. Please contact administration or the database admin.")
+					return
+
+				for(var/optionid = id_min; optionid <= id_max; optionid++)
+					if(!isnull(href_list["o[optionid]"]))	//Test if this optionid was replied to
+						var/rating
+						if(href_list["o[optionid]"] == "abstain")
+							rating = null
+						else
+							rating = text2num(href_list["o[optionid]"])
+							if(!isnum(rating))
+								return
+
+						vote_on_numval_poll(pollid, optionid, rating)
+			if("MULTICHOICE")
+				var/id_min = text2num(href_list["minoptionid"])
+				var/id_max = text2num(href_list["maxoptionid"])
+
+				if( (id_max - id_min) > 100 )	//Basic exploit prevention
+					to_chat(usr, "The option ID difference is too big. Please contact administration or the database admin.")
+					return
+
+				for(var/optionid = id_min; optionid <= id_max; optionid++)
+					if(!isnull(href_list["option_[optionid]"]))	//Test if this optionid was selected
+						vote_on_poll(pollid, optionid, 1)
+		src << browse(null, "window=playerpoll")
+		handle_player_polling()
 
 	switch(href_list["action"])
 		if("openLink")
