@@ -38,7 +38,7 @@ REVIVAL_BRAIN_LIFE -1
 ## We suggest editing these variabled in-game to find a good speed for your server. To do this you must be a high level admin. Open the 'debug' tab ingame. Select "Debug Controller" and then, in the popup, select "Configuration". These variables should have the same name.
 ## These values get directly added to values and totals in-game. To speed things up make the number negative, to slow things down, make the number positive.
 
-## These modify the run/walk speed of all mobs before the mob-specific modifiers are applied. 
+## These modify the run/walk speed of all mobs before the mob-specific modifiers are applied.
 RUN_SPEED 1
 WALK_SPEED 4
 
@@ -56,7 +56,7 @@ REACTIONARY_EXPLOSIONS
 
 # The number of objectives traitors get.
 # Not including escaping/hijacking.
-TRAITOR_OBJECTIVES_AMOUNT 2
+TRAITOR_OBJECTIVES_AMOUNT 3
 
 ### Configure the bomb cap
 ## This caps all explosions to the specified range. Used for both balance reasons and to prevent overloading the server and lagging the game out.
@@ -76,4 +76,5 @@ BOMBCAP 20
 ## Set to 0/commented for "off", silicons will just start with Crewsimov.
 ## Set to 1 for "random", silicons will start with a random lawset picked from (at the time of writing): Nanotrasen Default, P.A.L.A.D.I.N., Corporate, Robop and Crewsimov. More can be added by changing the law datum "default" variable in ai_laws.dm.
 
-DEFAULT_LAWS 1
+DEFAULT_LAWS 0
+# please no roundstart paladins or robocops

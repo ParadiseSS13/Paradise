@@ -175,7 +175,8 @@
 
 
 /datum/game_mode/proc/greet_traitor(var/datum/mind/traitor)
-	to_chat(traitor.current, "<B><font size=3 color=red>You are the traitor.</font></B>")
+	to_chat(traitor.current, "<B><font size=3 color=red>You are a syndicate agent</font></B>")
+	to_chat(traitor.current, "<font size=2 color=red>The syndicate have helped you infiltrate the station in order to help complete their objectives!</font>")
 	var/obj_count = 1
 	for(var/datum/objective/objective in traitor.objectives)
 		to_chat(traitor.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
@@ -214,8 +215,8 @@
 	to_chat(traitor_mob, "Use the code words in the order provided, during regular conversation, to identify other agents. Proceed with caution, however, as everyone is a potential foe.")
 
 /datum/game_mode/proc/add_law_zero(mob/living/silicon/ai/killer)
-	var/law = "Accomplish your objectives at all costs."
-	var/law_borg = "Accomplish your AI's objectives at all costs."
+	var/law = "Accomplish your objectives at all costs, even if it means destroying the station."
+	var/law_borg = "Accomplish your AI's objectives at all costs, even your own artifical life."
 	to_chat(killer, "<b>Your laws have been changed!</b>")
 	killer.set_zeroth_law(law, law_borg)
 	to_chat(killer, "New law: 0. [law]")
@@ -327,7 +328,7 @@
 			traitor_mob.mind.store_memory("<B>Radio Freq:</B> [format_frequency(freq)] ([R.name] [T.loc]).")
 		else if(istype(R, /obj/item/device/pda))
 			// generate a passcode if the uplink is hidden in a PDA
-			var/pda_pass = "[rand(100,999)] [pick("Alpha","Bravo","Delta","Omega")]"
+			var/pda_pass = "[rand(100,999)] [pick("Alpha","Bravo","Delta","Omega","Runtime")]"
 
 			var/obj/item/device/uplink/hidden/T = new(R)
 			R.hidden_uplink = T
@@ -355,8 +356,8 @@
 			to_chat(traitor_mind.current, "<span class='userdanger'>You have been turned into a robot! You are no longer a traitor.</span>")
 		else
 			to_chat(traitor_mind.current, "<span class='userdanger'>You have been brainwashed! You are no longer a traitor.</span>")
-		ticker.mode.update_traitor_icons_removed(traitor_mind)		
-		
+		ticker.mode.update_traitor_icons_removed(traitor_mind)
+
 /datum/game_mode/proc/update_traitor_icons_added(datum/mind/traitor_mind)
 	var/datum/atom_hud/antag/tatorhud = huds[ANTAG_HUD_TRAITOR]
 	tatorhud.join_hud(traitor_mind.current)
