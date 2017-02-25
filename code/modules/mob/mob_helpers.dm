@@ -361,12 +361,15 @@ var/list/intents = list(I_HELP,I_DISARM,I_GRAB,I_HARM)
 	set name = "Rest"
 	set category = "IC"
 
-	if(!resting && (world.time > rest_CD))
-		rest_CD = world.time + 20
+	if(world.time < client.move_delay)
+		return
+
+	client.move_delay += 20
+
+	if(!resting)
 		to_chat(src, "<span class='notice'>You are now resting.</span>")
 		StartResting()
-	else if(resting && (world.time > rest_CD))
-		rest_CD = world.time + 20
+	else if(resting)
 		to_chat(src, "<span class='notice'>You are now getting up.</span>")
 		StopResting()
 
