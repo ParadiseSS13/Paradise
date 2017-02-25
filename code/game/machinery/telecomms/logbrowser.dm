@@ -64,52 +64,16 @@
 				var/i = 0
 				for(var/datum/comm_log_entry/C in SelectedServer.log_entries)
 					i++
-
-
 					// If the log is a speech file
 					if(C.input_type == "Speech File")
-
 						dat += "<li><font color = #008F00>[C.name]</font color>  <font color = #FF0000><a href='?src=[UID()];delete=[i]'>\[X\]</a></font color><br>"
-
-						// -- Determine race of orator --
-
-						var/race			   // The actual race of the mob
-						var/language = "Human" // MMIs, pAIs, Cyborgs and humans all speak Human
-						var/mobtype = C.parameters["mobtype"]
-
-						if(ispathhuman(mobtype) || ispathbrain(mobtype))
-							race = "Human" // The initializing thing wouldn't work anyways since it just kept the path, and kept no species data
-
-
-						else if(ispath(mobtype, /mob/living/carbon/human/monkey)) // I am aware this will only work for always-monkeys, and not
-							// those made a monkey after first being a human.
-							race = "Monkey"
-							language = race
-
-						else if(ispathsilicon(mobtype) || C.parameters["job"] == "AI") // sometimes M gets deleted prematurely for AIs... just check the job
-							race = "Artificial Life"
-
-						else if(ispathslime(mobtype)) // NT knows a lot about slimes, but not aliens. Can identify slimes
-							race = "Slime"
-							language = race
-
-						else if(ispathbot(mobtype))
-							race = "Bot"
-
-						else if(ispathanimal(mobtype))
-							race = "Domestic Animal"
-							language = race
-
-						else
-							race = "<i>Unidentifiable</i>"
-							language = race
 
 						// -- If the orator is a human, or universal translate is active, OR mob has universal speech on --
 
-						if(language == "Human" || universal_translate || C.parameters["uspeech"])
+						if(user.say_understands(null, C.parameters["language"]) || universal_translate || C.parameters["uspeech"])
 							dat += "<u><font color = #18743E>Data type</font color></u>: [C.input_type]<br>"
 							dat += "<u><font color = #18743E>Source</font color></u>: [C.parameters["name"]] (Job: [C.parameters["job"]])<br>"
-							dat += "<u><font color = #18743E>Class</font color></u>: [race]<br>"
+							dat += "<u><font color = #18743E>Class</font color></u>: [C.parameters["race"]]<br>"
 							dat += "<u><font color = #18743E>Contents</font color></u>: \"[C.parameters["message"]]\"<br>"
 
 
@@ -118,7 +82,7 @@
 						else
 							dat += "<u><font color = #18743E>Data type</font color></u>: Audio File<br>"
 							dat += "<u><font color = #18743E>Source</font color></u>: <i>Unidentifiable</i><br>"
-							dat += "<u><font color = #18743E>Class</font color></u>: [race]<br>"
+							dat += "<u><font color = #18743E>Class</font color></u>: [C.parameters["race"]]<br>"
 							dat += "<u><font color = #18743E>Contents</font color></u>: <i>Unintelligble</i><br>"
 
 						dat += "</li><br>"
