@@ -45,12 +45,12 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/gray/adjustBruteLoss(damage)
 	..(damage)
-	if(invisibility > 0 || icon_state == "terror_gray_cloaked")
+	if(invisibility > 0)
 		GrayDeCloak()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/gray/adjustFireLoss(damage)
 	..(damage)
-	if(invisibility > 0 || icon_state == "terror_gray_cloaked")
+	if(invisibility > 0)
 		GrayDeCloak()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/gray/Aggro()
@@ -58,7 +58,7 @@
 	..()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/gray/AttackingTarget()
-	if(invisibility > 0 || icon_state == "terror_gray_cloaked")
+	if(invisibility > 0)
 		GrayDeCloak()
 	else
 		..()

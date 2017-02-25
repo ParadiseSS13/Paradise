@@ -95,68 +95,69 @@
 // --------------------------------------------------------------------------------
 
 /mob/living/simple_animal/hostile/poison/terror_spider/handle_automated_action()
-	if(!stat && !ckey) // if we are not dead, and we're not player controlled
-		if(AIStatus != AI_OFF && !target)
-			var/my_ventcrawl_freq = freq_ventcrawl_idle
-			if(ts_count_dead > 0)
-				if(world.time < (ts_death_last + ts_death_window))
-					my_ventcrawl_freq = freq_ventcrawl_combat
-			// First, check for general actions that any spider could take.
-			if(path_to_vent)
-				if(entry_vent)
-					if(spider_steps_taken > spider_max_steps)
-						path_to_vent = 0
-						stop_automated_movement = 0
-						spider_steps_taken = 0
-						path_to_vent = 0
-						entry_vent = null
-					else if(get_dist(src, entry_vent) <= 1)
-						path_to_vent = 0
-						stop_automated_movement = 1
-						spider_steps_taken = 0
-						spawn(50)
-							stop_automated_movement = 0
-						TSVentCrawlRandom(entry_vent)
-					else
-						spider_steps_taken++
-						CreatePath(entry_vent)
-						step_to(src,entry_vent)
-						if(spider_debug > 0)
-							visible_message("<span class='notice'>[src] moves towards the vent [entry_vent].</span>")
-				else
+	if (stat || ckey)
+		return ..()
+	if(AIStatus != AI_OFF && !target)
+		var/my_ventcrawl_freq = freq_ventcrawl_idle
+		if(ts_count_dead > 0)
+			if(world.time < (ts_death_last + ts_death_window))
+				my_ventcrawl_freq = freq_ventcrawl_combat
+		// First, check for general actions that any spider could take.
+		if(path_to_vent)
+			if(entry_vent)
+				if(spider_steps_taken > spider_max_steps)
 					path_to_vent = 0
-			else if(ai_break_lights && world.time > (last_break_light + freq_break_light))
-				last_break_light = world.time
-				for(var/obj/machinery/light/L in range(1, src))
-					if(!L.status)
-						step_to(src,L)
-						L.on = 1
-						L.broken()
-						L.do_attack_animation(src)
-						visible_message("<span class='danger'>[src] smashes the [L.name].</span>")
-						break
-			else if(ai_spins_webs && world.time > (last_spins_webs + freq_spins_webs))
-				last_spins_webs = world.time
-				var/obj/effect/spider/terrorweb/T = locate() in get_turf(src)
-				if(!T)
-					new /obj/effect/spider/terrorweb(get_turf(src))
-					visible_message("<span class='notice'>[src] puts up some spider webs.</span>")
-			else if(ai_ventcrawls && world.time > (last_ventcrawl_time + my_ventcrawl_freq))
-				if(prob(idle_ventcrawl_chance))
-					last_ventcrawl_time = world.time
-					var/vdistance = 99
-					for(var/obj/machinery/atmospherics/unary/vent_pump/v in view(10, src))
-						if(!v.welded)
-							if(get_dist(src,v) < vdistance)
-								entry_vent = v
-								vdistance = get_dist(src,v)
-					if(entry_vent)
-						path_to_vent = 1
+					stop_automated_movement = 0
+					spider_steps_taken = 0
+					path_to_vent = 0
+					entry_vent = null
+				else if(get_dist(src, entry_vent) <= 1)
+					path_to_vent = 0
+					stop_automated_movement = 1
+					spider_steps_taken = 0
+					spawn(50)
+						stop_automated_movement = 0
+					TSVentCrawlRandom(entry_vent)
+				else
+					spider_steps_taken++
+					CreatePath(entry_vent)
+					step_to(src,entry_vent)
+					if(spider_debug > 0)
+						visible_message("<span class='notice'>[src] moves towards the vent [entry_vent].</span>")
 			else
-				// If none of the general actions apply, check for class-specific actions.
-				spider_special_action()
-		else if(AIStatus != AI_OFF && target)
-			CreatePath(target)
+				path_to_vent = 0
+		else if(ai_break_lights && world.time > (last_break_light + freq_break_light))
+			last_break_light = world.time
+			for(var/obj/machinery/light/L in range(1, src))
+				if(!L.status)
+					step_to(src,L)
+					L.on = 1
+					L.broken()
+					L.do_attack_animation(src)
+					visible_message("<span class='danger'>[src] smashes the [L.name].</span>")
+					break
+		else if(ai_spins_webs && world.time > (last_spins_webs + freq_spins_webs))
+			last_spins_webs = world.time
+			var/obj/effect/spider/terrorweb/T = locate() in get_turf(src)
+			if(!T)
+				new /obj/effect/spider/terrorweb(get_turf(src))
+				visible_message("<span class='notice'>[src] puts up some spider webs.</span>")
+		else if(ai_ventcrawls && world.time > (last_ventcrawl_time + my_ventcrawl_freq))
+			if(prob(idle_ventcrawl_chance))
+				last_ventcrawl_time = world.time
+				var/vdistance = 99
+				for(var/obj/machinery/atmospherics/unary/vent_pump/v in view(10, src))
+					if(!v.welded)
+						if(get_dist(src,v) < vdistance)
+							entry_vent = v
+							vdistance = get_dist(src,v)
+				if(entry_vent)
+					path_to_vent = 1
+		else
+			// If none of the general actions apply, check for class-specific actions.
+			spider_special_action()
+	else if(AIStatus != AI_OFF && target)
+		CreatePath(target)
 	..()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/adjustBruteLoss(damage)
@@ -180,7 +181,7 @@
 			var/mob/living/M = A
 			if(!("terrorspiders" in M.faction))
 				enemies |= M
-				visible_message("<span class='danger'>[src] glares at [M]! </span>")
+				visible_message("<span class='danger'>[src] glares at [M]!</span>")
 		else if(istype(A, /obj/mecha))
 			var/obj/mecha/M = A
 			if(M.occupant)
@@ -227,7 +228,6 @@
 		chasecycles = 0
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/ClearObstacle(turf/target_turf)
-	// ***** This does not allow spiders to smash windoors (e.g: UO71 bar windoor)
 	var/list/valid_obstacles = list(/obj/structure/window, /obj/structure/closet, /obj/structure/table, /obj/structure/grille, /obj/structure/rack, /obj/machinery/door/window)
 	for(var/dir in cardinal) // North, South, East, West
 		var/obj/structure/obstacle = locate(/obj/structure, get_step(src, dir))
