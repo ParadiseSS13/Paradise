@@ -1,0 +1,8 @@
+author: "KasparoVy"
+delete-after: True
+changes: 
+  - rscadd: "Reagent plasma has a weak healing effect on Plasmamen when injected and will not poison them."
+  - rscadd: "Reagent oxygen is as toxic to Vox as reagent plasma is to just about anyone."
+  - rscadd: "Plasmamen now join the shift with 2 suit auto-extinguisher refill cartridges which, individually, will fully refill an empty Plasmaman suit's autoextinguisherl."
+  - rscadd: "Plasmaman suits now auto-extinguish and will be able to do so 5 times before they can be refilled by a cartridge."
+  - tweak: "Plasmamen no longer burn in a vacuum or in plasma-pure environments."
