@@ -899,7 +899,8 @@
 	has_organ = list(
 		"brain" = /obj/item/organ/internal/brain/mmi_holder/posibrain,
 		"cell" = /obj/item/organ/internal/cell,
-		"optics" = /obj/item/organ/internal/eyes/optical_sensor //Default darksight of 2.
+		"optics" = /obj/item/organ/internal/eyes/optical_sensor, //Default darksight of 2.
+		"charger" = /obj/item/organ/internal/cyberimp/chest/arm_mod/power_cord
 		)
 
 	vision_organ = /obj/item/organ/internal/eyes/optical_sensor
