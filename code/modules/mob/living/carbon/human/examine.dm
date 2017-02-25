@@ -494,7 +494,8 @@
 		msg += "<span class = 'deptradio'>Medical records:</span> <a href='?src=[UID()];medrecord=`'>\[View\]</a> <a href='?src=[UID()];medrecordadd=`'>\[Add comment\]</a>\n"
 
 
-	if(print_flavor_text()) msg += "[print_flavor_text()]\n"
+	if(print_flavor_text() && !skipface) 
+		msg += "[print_flavor_text()]\n"
 
 	msg += "*---------*</span>"
 	if(pose)

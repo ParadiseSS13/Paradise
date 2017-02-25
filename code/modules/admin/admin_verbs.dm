@@ -2,7 +2,8 @@
 var/list/admin_verbs_default = list(
 	/client/proc/deadmin_self,			/*destroys our own admin datum so we can play as a regular player*/
 	/client/proc/hide_verbs,			/*hides all our adminverbs*/
-	/client/proc/cmd_mentor_check_new_players
+	/client/proc/cmd_mentor_check_new_players,
+	/client/proc/cmd_mentor_check_player_exp /* shows players by playtime */
 	)
 var/list/admin_verbs_admin = list(
 	/client/proc/check_antagonists,		/*shows all antags*/
@@ -75,8 +76,8 @@ var/list/admin_verbs_admin = list(
 	/client/proc/debug_variables,
 	/client/proc/show_snpc_verbs,
 	/client/proc/reset_all_tcs,			/*resets all telecomms scripts*/
-	/client/proc/cmd_admin_check_player_exp, /* shows players by playtime */
-	/client/proc/toggle_mentor_chat
+	/client/proc/toggle_mentor_chat,
+	/client/proc/toggle_advanced_interaction, /*toggle admin ability to interact with not only machines, but also atoms such as buttons and doors*/
 )
 var/list/admin_verbs_ban = list(
 	/client/proc/unban_panel,
@@ -970,20 +971,33 @@ var/list/admin_verbs_snpc = list(
 	set name = "Show SNPC Verbs"
 	set category = "Admin"
 
-	if(!holder)
+	if(!check_rights(R_ADMIN))
 		return
 
 	verbs += admin_verbs_snpc
 	verbs -= /client/proc/show_snpc_verbs
-	to_chat(src, "<span class='interface'>SNPC verbs on.</span>")
+	to_chat(src, "<span class='interface'>SNPC verbs have been toggled on.</span>")
 
 /client/proc/hide_snpc_verbs()
 	set name = "Hide SNPC Verbs"
 	set category = "Admin"
 
-	if(!holder)
+	if(!check_rights(R_ADMIN))
 		return
 
 	verbs -= admin_verbs_snpc
 	verbs += /client/proc/show_snpc_verbs
-	to_chat(src, "<span class='interface'>SNPC verbs off.</span>")
+	to_chat(src, "<span class='interface'>SNPC verbs have been toggled off.</span>")
+	
+/client/proc/toggle_advanced_interaction()
+	set name = "Toggle Advanced Admin Interaction"
+	set category = "Admin"
+	set desc = "Allows you to interact with atoms such as buttons and doors, on top of regular machinery interaction."
+	
+	if(!check_rights(R_ADMIN))
+		return
+
+	advanced_admin_interaction = !advanced_admin_interaction
+
+	log_admin("[key_name(usr)] has [advanced_admin_interaction ? "activated" : "deactivated"] their advanced admin interaction.")
+	message_admins("[key_name_admin(usr)] has [advanced_admin_interaction ? "activated" : "deactivated"] their advanced admin interaction.")

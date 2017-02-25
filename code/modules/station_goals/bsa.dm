@@ -21,9 +21,9 @@
 /datum/station_goal/bluespace_cannon/check_completion()
 	if(..())
 		return TRUE
-	var/obj/machinery/bsa/full/B = locate()
-	if(B && !B.stat && is_station_contact(B.z))
-		return TRUE
+	for(var/obj/machinery/bsa/full/B)
+		if(B && !B.stat && is_station_contact(B.z))
+			return TRUE
 	return FALSE
 
 /obj/machinery/bsa
@@ -139,21 +139,21 @@
 	pixel_x = -192
 	bound_width = 352
 	bound_x = -192
-	
+
 /obj/machinery/bsa/full/Destroy()
 	if(controller && controller.cannon == src)
 		controller.cannon = null
 		controller = null
 	return ..()
-	
+
 /obj/machinery/bsa/full/east
 	icon_state = "cannon_east"
 	cannon_direction = EAST
-	
+
 /obj/machinery/bsa/full/admin
 	power_used_per_shot = 0
 	reload_cooldown = 100
-	
+
 /obj/machinery/bsa/full/admin/east
 	icon_state = "cannon_east"
 	cannon_direction = EAST
@@ -212,7 +212,7 @@
 
 	point.Beam(get_target_turf(), icon_state = "bsa_beam", time = 50, maxdistance = world.maxx, beam_type = /obj/effect/ebeam/deadly) //ZZZAP
 	playsound(src, 'sound/machines/bsa_fire.ogg', 100, 1)
-	
+
 	message_admins("[key_name_admin(user)] has launched an artillery strike.")
 	explosion(bullseye,ex_power,ex_power*2,ex_power*4)
 
@@ -268,26 +268,26 @@
 
 	var/area_aim = FALSE //should also show areas for targeting
 	var/target_all_areas = FALSE //allows all areas (including admin areas) to be targeted
-	
+
 /obj/machinery/computer/bsa_control/admin
 	area_aim = TRUE
 	target_all_areas = TRUE
-	
+
 /obj/machinery/computer/bsa_control/admin/initialize()
 	..()
 	if(!cannon)
 		cannon = deploy()
-	
+
 /obj/machinery/computer/bsa_control/Destroy()
 	if(cannon && cannon.controller == src)
 		cannon.controller = null
 		cannon = null
 	return ..()
-	
+
 /obj/machinery/computer/bsa_control/process()
 	..()
 	update_icon()
-	
+
 /obj/machinery/computer/bsa_control/update_icon()
 	if(stat & BROKEN)
 		icon_state = icon_state_broken
@@ -299,7 +299,7 @@
 		icon_state = icon_state_active
 	else
 		icon_state = initial(icon_state)
-	
+
 /obj/machinery/computer/bsa_control/attack_hand(mob/user)
 	if(..())
 		return 1
@@ -318,7 +318,7 @@
 	data["notice"] = notice
 	if(target)
 		data["target"] = get_target_name()
-	
+
 	if(cannon)
 		var/reload_cooldown = cannon.reload_cooldown
 		var/last_fire_time = cannon.last_fire_time
@@ -331,13 +331,13 @@
 		data["ready"] = minutes == 0 && seconds == 0
 	else
 		data["ready"] = FALSE
-		
+
 	return data
 
 /obj/machinery/computer/bsa_control/Topic(href, href_list)
 	if(..())
 		return 1
-		
+
 	if(href_list["build"])
 		cannon = deploy()
 		. = TRUE
