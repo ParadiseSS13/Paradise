@@ -25,6 +25,7 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 0)
 		H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H), slot_in_backpack)
 		var/obj/item/clothing/under/U = new /obj/item/clothing/under/rank/captain(H)
 		var/obj/item/clothing/accessory/medal/gold/captain/M = new /obj/item/clothing/accessory/medal/gold/captain(U)
+		v
 		U.accessories += M
 		M.on_attached(U)
 		H.equip_or_collect(U, slot_w_uniform)

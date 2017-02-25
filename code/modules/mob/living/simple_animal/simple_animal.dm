@@ -303,7 +303,7 @@
 
 /mob/living/simple_animal/proc/attacked_by(obj/item/I, mob/living/user) // Handled in _onclick/click.dm
 	return
-	
+
 /mob/living/simple_animal/bullet_act(var/obj/item/projectile/Proj)
 	if(!Proj)
 		return

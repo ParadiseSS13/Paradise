@@ -76,4 +76,5 @@ BOMBCAP 20
 ## Set to 0/commented for "off", silicons will just start with Crewsimov.
 ## Set to 1 for "random", silicons will start with a random lawset picked from (at the time of writing): Nanotrasen Default, P.A.L.A.D.I.N., Corporate, Robop and Crewsimov. More can be added by changing the law datum "default" variable in ai_laws.dm.
 
-DEFAULT_LAWS 1
+DEFAULT_LAWS 0
+# please no roundstart paladins or robocops
