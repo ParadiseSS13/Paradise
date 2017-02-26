@@ -224,7 +224,7 @@
 		b_eyes = text2num(query.item[35])
 		underwear = query.item[36]
 		undershirt = query.item[37]
-		backbag = text2num(query.item[38])
+		backbag = query.item[38]
 		b_type = query.item[39]
 
 
@@ -312,7 +312,7 @@
 	b_eyes			= sanitize_integer(b_eyes, 0, 255, initial(b_eyes))
 	underwear		= sanitize_text(underwear, initial(underwear))
 	undershirt		= sanitize_text(undershirt, initial(undershirt))
-	backbag			= sanitize_integer(backbag, 1, backbaglist.len, initial(backbag))
+	backbag			= sanitize_text(backbag, initial(backbag))
 	b_type			= sanitize_text(b_type, initial(b_type))
 
 	alternate_option = sanitize_integer(alternate_option, 0, 2, initial(alternate_option))

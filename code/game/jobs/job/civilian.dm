@@ -9,23 +9,19 @@
 	access = list()			//See /datum/job/assistant/get_access()
 	minimal_access = list()	//See /datum/job/assistant/get_access()
 	alt_titles = list("Tourist","Businessman","Trader","Assistant")
-
-/datum/job/civilian/equip(var/mob/living/carbon/human/H)
-	if(!H)	return 0
-	switch(H.backbag)
-		if(2) H.equip_or_collect(new /obj/item/weapon/storage/backpack(H), slot_back)
-		if(3) H.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel_norm(H), slot_back)
-		if(4) H.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel(H), slot_back)
-	H.equip_or_collect(new /obj/item/clothing/under/color/random(H), slot_w_uniform)
-	H.equip_or_collect(new /obj/item/clothing/shoes/black(H), slot_shoes)
-	H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H), slot_in_backpack)
-	return 1
+	outfit = /datum/outfit/job/assistant
 
 /datum/job/civilian/get_access()
 	if(config.assistant_maint)
 		return list(access_maint_tunnels)
 	else
 		return list()
+
+/datum/outfit/job/assistant
+	name = "Civilian"
+	jobtype = /datum/job/civilian
+	uniform = /obj/item/clothing/under/color/random
+	shoes = /obj/item/clothing/shoes/black
 
 /datum/job/explorer
 	title = "Gateway Explorer"
@@ -35,23 +31,17 @@
 	spawn_positions = 0
 	supervisors = "the head of personnel"
 	selection_color = "#dddddd"
-	idtype = /obj/item/weapon/card/id
 	access = list(access_gateway)
 	minimal_access = list(access_maint_tunnels, access_gateway)
+	outfit = /datum/outfit/job/explorer
 
-/datum/job/explorer/equip(var/mob/living/carbon/human/H)
-	if(!H)
-		return 0
-	H.equip_or_collect(new /obj/item/device/radio/headset(H), slot_l_ear)
-	switch(H.backbag)
-		if(2)
-			H.equip_or_collect(new /obj/item/weapon/storage/backpack/industrial(H), slot_back)
-		if(3)
-			H.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel_eng(H), slot_back)
-		if(4)
-			H.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel(H), slot_back)
-	H.equip_or_collect(new /obj/item/clothing/under/rank/explorer(H), slot_w_uniform)
-	H.equip_or_collect(new /obj/item/device/pda(H), slot_wear_pda)
-	H.equip_or_collect(new /obj/item/clothing/shoes/workboots(H), slot_shoes)
-	H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H), slot_in_backpack)
-	return 1
+/datum/outfit/job/explorer
+	name = "Explorer"
+	jobtype = /datum/job/explorer
+	uniform = /obj/item/clothing/under/rank/explorer
+	shoes = /obj/item/clothing/shoes/workboots
+	l_ear = /obj/item/device/radio/headset
+	pda = /obj/item/device/pda
+	backpack_contents = list()
+	backpack = /obj/item/weapon/storage/backpack/industrial
+	satchel = /obj/item/weapon/storage/backpack/satchel_eng

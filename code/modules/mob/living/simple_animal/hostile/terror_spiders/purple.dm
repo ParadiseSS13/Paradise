@@ -3,6 +3,7 @@
 // ----------------- TERROR SPIDERS: T2 PURPLE TERROR -----------------------------
 // --------------------------------------------------------------------------------
 // -------------: ROLE: guarding queen nests
+// -------------: AI: dies if too far from queen
 // -------------: SPECIAL: chance to stun on hit
 // -------------: TO FIGHT IT: shoot it from range, bring friends!
 // -------------: SPRITES FROM: FoS, http://nanotrasen.se/phpBB3/memberlist.php?mode=viewprofile&u=386
@@ -11,7 +12,7 @@
 	name = "Purple Terror spider"
 	desc = "An ominous-looking purple spider. It looks about warily, as if waiting for something."
 	spider_role_summary = "Guards the nest of the Queen of Terror."
-
+	ai_target_method = TS_DAMAGE_BRUTE
 	icon_state = "terror_purple"
 	icon_living = "terror_purple"
 	icon_dead = "terror_purple_dead"
@@ -20,16 +21,27 @@
 	melee_damage_lower = 15
 	melee_damage_upper = 25
 	move_to_delay = 6
-
 	spider_tier = TS_TIER_2
 	spider_opens_doors = 2
-
 	ventcrawler = 0
+	ai_ventcrawls = 0
 	environment_smash = 3
-
+	idle_ventcrawl_chance = 0 // stick to the queen!
 	var/dcheck_counter = 0
 	var/queen_visible = 1
 	var/cycles_noqueen = 0
+
+
+/mob/living/simple_animal/hostile/poison/terror_spider/purple/death(gibbed)
+	if(spider_myqueen)
+		var/mob/living/simple_animal/hostile/poison/terror_spider/queen/Q = spider_myqueen
+		if(Q.stat != DEAD && !Q.ckey)
+			if(get_dist(src,Q) > 20)
+				if(!degenerate && !Q.degenerate)
+					degenerate = 1
+					Q.DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/purple,1,0)
+					visible_message("<span class='notice'>[src] chitters in the direction of [Q]!</span>")
+	. = ..()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/purple/spider_specialattack(mob/living/carbon/human/L, poisonable)
 	if(cycles_noqueen < 6 && prob(10))

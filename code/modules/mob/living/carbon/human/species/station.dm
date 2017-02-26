@@ -343,7 +343,7 @@
 		newname += pick(vox_name_syllables)
 	return capitalize(newname)
 
-/datum/species/vox/equip(var/mob/living/carbon/human/H)
+/datum/species/vox/after_equip_job(datum/job/J, mob/living/carbon/human/H)
 	if(H.mind.assigned_role != "Clown" && H.mind.assigned_role != "Mime")
 		H.unEquip(H.wear_mask)
 	H.unEquip(H.l_hand)
@@ -365,7 +365,7 @@
 	..()
 
 /datum/species/vox/updatespeciescolor(var/mob/living/carbon/human/H, var/owner_sensitive = 1) //Handling species-specific skin-tones for the Vox race.
-	if(H.species.name == "Vox") //Making sure we don't break Armalis.
+	if(H.species.bodyflags & HAS_ICON_SKIN_TONE) //Making sure we don't break Armalis.
 		var/new_icobase = 'icons/mob/human_races/vox/r_vox.dmi' //Default Green Vox.
 		var/new_deform = 'icons/mob/human_races/vox/r_def_vox.dmi' //Default Green Vox.
 		switch(H.s_tone)
@@ -394,6 +394,14 @@
 
 		H.change_icobase(new_icobase, new_deform, owner_sensitive) //Update the icobase/deform of all our organs, but make sure we don't mess with frankenstein limbs in doing so.
 		H.update_dna()
+
+/datum/species/vox/handle_reagents(var/mob/living/carbon/human/H, var/datum/reagent/R)
+	if(R.id == "oxygen") //Armalis are above such petty things.
+		H.adjustToxLoss(1*REAGENTS_EFFECT_MULTIPLIER) //Same as plasma.
+		H.reagents.remove_reagent(R.id, REAGENTS_METABOLISM)
+		return 0 //Handling reagent removal on our own.
+
+	return ..()
 
 /datum/species/vox/armalis/handle_post_spawn(var/mob/living/carbon/human/H)
 	H.verbs += /mob/living/carbon/human/proc/leap
@@ -427,7 +435,8 @@
 	breath_type = "nitrogen"
 	poison_type = "oxygen"
 
-	flags = NO_SCAN | NO_BLOOD | HAS_TAIL | NO_PAIN | IS_WHITELISTED
+	flags = NO_SCAN | NO_BLOOD | NO_PAIN | IS_WHITELISTED
+	bodyflags = HAS_TAIL
 	dietflags = DIET_OMNI	//should inherit this from vox, this is here just in case
 
 	blood_color = "#2299FC"
@@ -454,6 +463,9 @@
 		"is twisting their own neck!",
 		"is holding their breath!",
 		"is huffing oxygen!")
+
+/datum/species/vox/armalis/handle_reagents() //Skip the Vox oxygen reagent toxicity. Armalis are above such things.
+	return 1
 
 /datum/species/kidan
 	name = "Kidan"
@@ -728,7 +740,7 @@
 		genemutcheck(C,REMOTETALKBLOCK,null,MUTCHK_FORCED)
 	..()
 
-/datum/species/grey/equip(var/mob/living/carbon/human/H)
+/datum/species/grey/after_equip_job(datum/job/J, mob/living/carbon/human/H)
 	var/speech_pref = H.client.prefs.speciesprefs
 	if(speech_pref)
 		H.mind.speech_span = "wingdings"

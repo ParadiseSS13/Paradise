@@ -470,7 +470,7 @@
 			if(CHEF)
 				clothes_s = new /icon(uniform_dmi, "chef_s")
 				clothes_s.Blend(new /icon('icons/mob/feet.dmi', "black"), ICON_UNDERLAY)
-				clothes_s.Blend(new /icon('icons/mob/head.dmi', "chefhat"), ICON_OVERLAY)
+				clothes_s.Blend(new /icon('icons/mob/head.dmi', "chef"), ICON_OVERLAY)
 				if(prob(1))
 					clothes_s.Blend(new /icon('icons/mob/suit.dmi', "apronchef"), ICON_OVERLAY)
 				switch(backbag)
