@@ -74,9 +74,8 @@
 		A.Remove(M)
 	return src
 
-/obj/item/organ/internal/replaced(var/mob/living/carbon/human/target,var/obj/item/organ/external/affected)
+/obj/item/organ/internal/replaced(var/mob/living/carbon/human/target)
     insert(target)
-    ..()
 
 /obj/item/organ/internal/item_action_slot_check(slot, mob/user)
 	return

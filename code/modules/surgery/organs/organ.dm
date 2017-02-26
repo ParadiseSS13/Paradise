@@ -316,18 +316,8 @@ var/list/organ_cache = list()
 	owner = null
 	return src
 
-/obj/item/organ/proc/replaced(var/mob/living/carbon/human/target,var/obj/item/organ/external/affected)
-
-	if(!istype(target)) return
-
-	owner = target
-	processing_objects -= src
-	affected.internal_organs |= src
-	if(!target.get_int_organ(src))
-		target.internal_organs += src
-	loc = target
-	if(robotic)
-		status |= ORGAN_ROBOT
+/obj/item/organ/proc/replaced(var/mob/living/carbon/human/target)
+	return // Nothing uses this, it is always overridden
 
 
 /obj/item/organ/proc/surgeryize()
