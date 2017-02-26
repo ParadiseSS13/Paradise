@@ -168,7 +168,7 @@
 			if(I && I.damage > 0)
 				if(I.robotic < 2 && !istype (tool, /obj/item/stack/nanopaste))
 					if(!(I.sterile))
-						spread_germs_to_organ(I, user)
+						spread_germs_to_organ(I, user, tool)
 					user.visible_message("[user] starts treating damage to [target]'s [I.name] with [tool_name].", \
 					"You start treating damage to [target]'s [I.name] with [tool_name]." )
 				else if(I.robotic >= 2 && istype(tool, /obj/item/stack/nanopaste))
@@ -217,7 +217,7 @@
 		I = tool
 		user.drop_item()
 		I.insert(target)
-		spread_germs_to_organ(I, user)
+		spread_germs_to_organ(I, user, tool)
 		if(!user.canUnEquip(I, 0))
 			to_chat(user, "<span class='warning'>[I] is stuck to your hand, you can't put it in [target]!</span>")
 			return 0
@@ -237,7 +237,7 @@
 			"<span class='notice'> You have separated and extracted [target]'s [I] with \the [tool].</span>")
 
 			add_logs(user, target, "surgically removed [I.name] from", addition="INTENT: [uppertext(user.a_intent)]")
-			spread_germs_to_organ(I, user)
+			spread_germs_to_organ(I, user, tool)
 			I.status |= ORGAN_CUT_AWAY
 			var/obj/item/thing = I.remove(target)
 			if(!istype(thing))
