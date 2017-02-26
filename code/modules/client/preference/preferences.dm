@@ -246,7 +246,6 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	if(!user || !user.client)
 		return
 	update_preview_icon()
-	var/datum/species/S = all_species[species]
 	user << browse_rsc(preview_icon_front, "previewicon.png")
 	user << browse_rsc(preview_icon_side, "previewicon2.png")
 
@@ -280,8 +279,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 				dat += "<b>You are banned from using custom names and appearances. \
 				You can continue to adjust your characters, but you will be randomised once you join the game.\
 				</b><br>"
-			if(S.has_gender)
-				dat += "<b>Gender:</b> <a href='?_src_=prefs;preference=gender'>[gender == MALE ? "Male" : "Female"]</a>"
+			dat += "<b>Gender:</b> <a href='?_src_=prefs;preference=gender'>[gender == MALE ? "Male" : (gender == FEMALE ? "Female" : "Genderless")]</a>"
 			dat += "<br>"
 			dat += "<b>Age:</b> <a href='?_src_=prefs;preference=age;task=input'>[age]</a><br>"
 			dat += "<b>Body:</b> <a href='?_src_=prefs;preference=all;task=random'>(&reg;)</a><br>"
@@ -1282,8 +1280,8 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 					species = input("Please select a species", "Character Generation", null) in new_species
 					var/datum/species/NS = all_species[species]
 					if(prev_species != species)
-						if(S.has_gender != NS.has_gender)
-							gender = (NS.has_gender ? pick(MALE,FEMALE) : PLURAL)
+						if(NS.has_gender && gender == PLURAL)
+							gender = pick(MALE,FEMALE)
 						var/datum/robolimb/robohead
 						if(species == "Machine")
 							var/head_model = "[!rlimb_data["head"] ? "Morpheus Cyberkinetics" : rlimb_data["head"]]"
@@ -1916,7 +1914,14 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 				if("gender")
 					if(!S.has_gender)
-						gender = PLURAL
+						var/newgender = input(user, "Choose Gender:") as null|anything in list("Male", "Female", "Genderless")
+						switch(newgender)
+							if("Male")
+								gender = MALE
+							if("Female")
+								gender = FEMALE
+							if("Genderless")
+								gender = PLURAL
 					else
 						if(gender == MALE)
 							gender = FEMALE
