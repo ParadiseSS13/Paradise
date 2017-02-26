@@ -42,7 +42,7 @@
 	title = "Medical Doctor"
 	flag = DOCTOR
 	department_flag = MEDSCI
-	total_positions = 5
+	total_positions = 6
 	spawn_positions = 3
 	is_medical = 1
 	supervisors = "the chief medical officer"
