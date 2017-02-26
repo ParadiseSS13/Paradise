@@ -55,11 +55,6 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	poi_list.Remove(src)
 	return ..()
 
-/obj/effect/immovablerod/Move()
-	if(z != z_original || loc == destination)
-		qdel(src)
-	return ..()
-
 /obj/effect/immovablerod/ex_act(test)
 	return 0
 
