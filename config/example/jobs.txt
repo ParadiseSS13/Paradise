@@ -5,7 +5,7 @@ Chief Engineer=1
 Research Director=1
 Chief Medical Officer=1
 
-Station Engineer=5
+Station Engineer=6
 Roboticist=1
 
 Medical Doctor=5
@@ -27,7 +27,7 @@ Detective=1
 Security Officer=5
 
 Assistant=-1
-Atmospheric Technician=4
+Atmospheric Technician=5
 Cargo Technician=3
 Chaplain=1
 Lawyer=2

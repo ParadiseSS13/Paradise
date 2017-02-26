@@ -44,8 +44,8 @@
 	title = "Station Engineer"
 	flag = ENGINEER
 	department_flag = ENGSEC
-	total_positions = 5
-	spawn_positions = 5
+	total_positions = 6
+	spawn_positions = 6
 	is_engineering = 1
 	supervisors = "the chief engineer"
 	selection_color = "#fff5cc"
@@ -76,8 +76,8 @@
 	title = "Life Support Specialist"
 	flag = ATMOSTECH
 	department_flag = ENGSEC
-	total_positions = 3
-	spawn_positions = 2
+	total_positions = 5
+	spawn_positions = 5
 	is_engineering = 1
 	supervisors = "the chief engineer"
 	selection_color = "#fff5cc"
