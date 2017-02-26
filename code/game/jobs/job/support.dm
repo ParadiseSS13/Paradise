@@ -395,7 +395,6 @@
 	glasses = /obj/item/clothing/glasses/sunglasses
 	pda = /obj/item/device/pda
 	backpack_contents = list(
-		/obj/item/weapon/melee/classic_baton/telescopic = 1,
 		/obj/item/device/flash = 1,
 		/obj/item/weapon/restraints/handcuffs/cable/zipties = 1
 	)
