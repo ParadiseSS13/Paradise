@@ -110,6 +110,9 @@
 #define CHEM_MOB_SPAWN_HOSTILE   1
 #define CHEM_MOB_SPAWN_FRIENDLY  2
 
+#define TINT_IMPAIR 2			//Threshold of tint level to apply weld mask overlay
+#define TINT_BLIND 3			//Threshold of tint level to obscure vision fully
+
 #define isliving(A)		(istype((A), /mob/living))
 #define iscarbon(A)		(istype((A), /mob/living/carbon))
 #define ishuman(A)		(istype((A), /mob/living/carbon/human))
@@ -126,10 +129,20 @@
 #define isswarmer(A)	(istype((A), /mob/living/simple_animal/hostile/swarmer))
 #define isguardian(A)	(istype((A), /mob/living/simple_animal/hostile/guardian))
 
+
+
 #define issilicon(A)	(istype((A), /mob/living/silicon))
 #define isAI(A)			(istype((A), /mob/living/silicon/ai))
 #define isrobot(A)		(istype((A), /mob/living/silicon/robot))
 #define ispAI(A)		(istype((A), /mob/living/silicon/pai))
+
+// For the tcomms monitor
+#define ispathhuman(A)		(ispath(A, /mob/living/carbon/human))
+#define ispathbrain(A)		(ispath(A, /mob/living/carbon/brain))
+#define ispathslime(A)		(ispath(A, /mob/living/carbon/slime))
+#define ispathbot(A)			(ispath(A, /mob/living/simple_animal/bot))
+#define ispathsilicon(A)	(ispath(A, /mob/living/silicon))
+#define ispathanimal(A)		(ispath(A, /mob/living/simple_animal))
 
 #define isAutoAnnouncer(A)	(istype((A), /mob/living/automatedannouncer))
 

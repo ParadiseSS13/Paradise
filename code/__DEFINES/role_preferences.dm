@@ -37,6 +37,7 @@
 #define ROLE_MORPH				"morph"
 #define ROLE_ERT				"emergency response team"
 #define ROLE_NYMPH				"Dionaea"
+#define ROLE_GSPIDER				"giant spider"
 
 
 //Missing assignment means it's not a gamemode specific role, IT'S NOT A BUG OR ERROR.
@@ -69,4 +70,5 @@ var/global/list/special_roles = list(
 	ROLE_GUARDIAN,
 	ROLE_MORPH,
 	ROLE_TRADER,
+	ROLE_GSPIDER,
 )

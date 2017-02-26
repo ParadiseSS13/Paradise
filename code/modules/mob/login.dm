@@ -43,12 +43,7 @@
 	sight |= SEE_SELF
 	..()
 
-	if(loc && !isturf(loc))
-		client.eye = loc
-		client.perspective = EYE_PERSPECTIVE
-	else
-		client.eye = src
-		client.perspective = MOB_PERSPECTIVE
+	reset_perspective(loc)
 
 
 	if(ckey in deadmins)
@@ -76,6 +71,8 @@
 	if(viewing_alternate_appearances && viewing_alternate_appearances.len)
 		for(var/datum/alternate_appearance/AA in viewing_alternate_appearances)
 			AA.display_to(list(src))
+
+	update_client_colour(0)
 
 	callHook("mob_login", list("client" = client, "mob" = src))
 

@@ -76,10 +76,9 @@
 	origin.vest_mode_action.Remove(C)
 	origin.vest_disguise_action.Remove(C)
 	origin.set_droppoint_action.Remove(C)
-	remote_eye.user = null
+	remote_eye.eye_user = null
+	C.reset_perspective(null)
 	if(C.client)
-		C.client.perspective = MOB_PERSPECTIVE
-		C.client.eye = src
 		C.client.images -= remote_eye.user_image
 		for(var/datum/camerachunk/chunk in remote_eye.visibleCameraChunks)
 			C.client.images -= chunk.obscured

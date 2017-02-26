@@ -89,14 +89,19 @@
 /obj/effect/decal/cleanable/cobweb/fire_act()
 	qdel(src)
 
-/obj/effect/decal/cleanable/molten_item
+/obj/effect/decal/cleanable/molten_object
 	name = "gooey grey mass"
 	desc = "It looks like a melted... something."
 	density = 0
 	anchored = 1
 	layer = 3
-	icon = 'icons/obj/chemical.dmi'
+	gender = NEUTER
+	icon = 'icons/effects/effects.dmi'
 	icon_state = "molten"
+
+/obj/effect/decal/cleanable/molten_object/large
+	name = "big gooey grey mass"
+	icon_state = "big_molten"
 
 /obj/effect/decal/cleanable/cobweb2
 	name = "cobweb"
@@ -145,6 +150,15 @@
 	icon = 'icons/effects/tomatodecal.dmi'
 	random_icon_states = list("tomato_floor1", "tomato_floor2", "tomato_floor3")
 
+/obj/effect/decal/cleanable/plant_smudge
+	name = "plant smudge"
+	density = 0
+	anchored = 1
+	layer = 2
+	gender = NEUTER
+	icon = 'icons/effects/tomatodecal.dmi'
+	random_icon_states = list("smashed_plant")
+
 /obj/effect/decal/cleanable/egg_smudge
 	name = "smashed egg"
 	desc = "Seems like this one won't hatch."
@@ -162,16 +176,6 @@
 	layer = 2
 	icon = 'icons/effects/tomatodecal.dmi'
 	random_icon_states = list("smashed_pie")
-
-/obj/effect/decal/cleanable/fruit_smudge
-	name = "smudge"
-	desc = "Some kind of fruit smear."
-	density = 0
-	anchored = 1
-	layer = 2
-	icon = 'icons/effects/blood.dmi'
-	icon_state = "mfloor1"
-	random_icon_states = list("mfloor1", "mfloor2", "mfloor3", "mfloor4", "mfloor5", "mfloor6", "mfloor7")
 
 /obj/effect/decal/cleanable/fungus
 	name = "space fungus"

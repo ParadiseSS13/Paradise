@@ -32,7 +32,13 @@
 /atom/movable/Destroy()
 	for(var/atom/movable/AM in contents)
 		qdel(AM)
+	var/turf/un_opaque
+	if(opacity && isturf(loc))
+		un_opaque = loc
+
 	loc = null
+	if(un_opaque)
+		un_opaque.recalc_atom_opacity()
 	if(pulledby)
 		if(pulledby.pulling == src)
 			pulledby.pulling = null
@@ -147,6 +153,19 @@
 
 	return 1
 
+/mob/living/forceMove(atom/destination)
+	if(buckled)
+		addtimer(src, "check_buckled", 1, TRUE)
+	if(buckled_mob)
+		addtimer(buckled_mob, "check_buckled", 1, TRUE)
+	if(pulling)
+		addtimer(src, "check_pull", 1, TRUE)
+	. = ..()
+	if(client)
+		reset_perspective(destination)
+	update_canmove() //if the mob was asleep inside a container and then got forceMoved out we need to make them fall.
+
+
 //called when src is thrown into hit_atom
 /atom/movable/proc/throw_impact(atom/hit_atom, var/speed)
 	if(istype(hit_atom,/mob/living))
@@ -212,6 +231,10 @@
 			if(isobj(A))
 				if(A.density && !A.throwpass)	// **TODO: Better behaviour for windows which are dense, but shouldn't always stop movement
 					src.throw_impact(A,speed)
+					
+/atom/movable/proc/throw_at_fast(atom/target, range, speed, thrower, no_spin)
+	set waitfor = 0
+	throw_at(target, range, speed, thrower, no_spin)
 
 /atom/movable/proc/throw_at(atom/target, range, speed, thrower, no_spin)
 	if(!target || !src || (flags & NODROP))

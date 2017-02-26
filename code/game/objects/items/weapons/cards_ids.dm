@@ -397,6 +397,7 @@
 							"medical",
 							"HoS",
 							"research",
+							"cargo",
 							"engineering",
 							"CMO",
 							"RD",
@@ -757,7 +758,7 @@
 	override_name = 1
 
 /proc/get_station_card_skins()
-	return list("data","id","gold","silver","security","medical","research","engineering","HoS","CMO","RD","CE","clown","mime","rainbow","prisoner")
+	return list("data","id","gold","silver","security","medical","research","cargo","engineering","HoS","CMO","RD","CE","clown","mime","rainbow","prisoner")
 
 /proc/get_centcom_card_skins()
 	return list("centcom","centcom_old","nanotrasen","ERT_leader","ERT_empty","ERT_security","ERT_engineering","ERT_medical","ERT_janitorial","deathsquad","commander","syndie","TDred","TDgreen")
@@ -769,6 +770,8 @@
 	switch(skin)
 		if("id")
 			return "Standard"
+		if("cargo")
+			return "Supply"
 		if("HoS")
 			return "Head of Security"
 		if("CMO")

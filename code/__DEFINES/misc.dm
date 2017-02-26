@@ -17,6 +17,8 @@
 #define CLICK_CD_TKSTRANGLE 10
 #define CLICK_CD_POINT 10
 #define CLICK_CD_RESIST 20
+#define CLICK_CD_CLICK_ABILITY 6
+#define CLICK_CD_RAPID 2
 
 //Sizes of mobs, used by mob/living/var/mob_size
 #define MOB_SIZE_TINY 0
@@ -160,6 +162,7 @@
 #define MAT_PLASMA			"$plasma"
 #define MAT_BANANIUM		"$bananium"
 #define MAT_TRANQUILLITE	"$tranquillite"
+#define MAT_BIOMASS			"$biomass"
 
 #define MAX_STACK_SIZE 50
 
@@ -196,7 +199,7 @@
 
 //Human Overlays Indexes/////////
 #define MUTANTRACE_LAYER		1
-#define TAIL_UNDERLIMBS_LAYER	2
+#define TAIL_UNDERLIMBS_LAYER	2	//Tail split-rendering.
 #define LIMBS_LAYER				3
 #define MARKINGS_LAYER			4
 #define UNDERWEAR_LAYER			5
@@ -211,21 +214,24 @@
 #define BELT_LAYER				14	//Possible make this an overlay of somethign required to wear a belt?
 #define SUIT_STORE_LAYER		15
 #define BACK_LAYER				16
-#define HAIR_LAYER				17	//TODO: make part of head layer?
-#define HEAD_ACCESSORY_LAYER	18
-#define FHAIR_LAYER				19
-#define TAIL_LAYER				20	//bs12 specific. this hack is probably gonna come back to haunt me
-#define GLASSES_LAYER			21
-#define FACEMASK_LAYER			22
-#define HEAD_LAYER				23
-#define COLLAR_LAYER			24
-#define HANDCUFF_LAYER			25
-#define LEGCUFF_LAYER			26
-#define L_HAND_LAYER			27
-#define R_HAND_LAYER			28
-#define TARGETED_LAYER			29	//BS12: Layer for the target overlay from weapon targeting system
-#define FIRE_LAYER				30	//If you're on fire
-#define TOTAL_LAYERS			30
+#define HEAD_ACCESSORY_LAYER	17
+#define FHAIR_LAYER				18
+#define GLASSES_LAYER			19
+#define HAIR_LAYER				20	//TODO: make part of head layer?
+#define HEAD_ACC_OVER_LAYER		21	//Select-layer rendering.
+#define FHAIR_OVER_LAYER		22	//Select-layer rendering.
+#define GLASSES_OVER_LAYER		23	//Select-layer rendering.
+#define TAIL_LAYER				24	//bs12 specific. this hack is probably gonna come back to haunt me
+#define FACEMASK_LAYER			25
+#define HEAD_LAYER				26
+#define COLLAR_LAYER			27
+#define HANDCUFF_LAYER			28
+#define LEGCUFF_LAYER			29
+#define L_HAND_LAYER			30
+#define R_HAND_LAYER			31
+#define TARGETED_LAYER			32	//BS12: Layer for the target overlay from weapon targeting system
+#define FIRE_LAYER				33	//If you're on fire
+#define TOTAL_LAYERS			33
 
 ///Access Region Codes///
 #define REGION_ALL			0
@@ -247,15 +253,19 @@
 #define MAP_MAXZ 6
 
 //Matricies
-#define MATRIX_DEFAULT list(1, 0, 0, 0,\
-                            0, 1, 0, 0,\
-                            0, 0, 1, 0,\
-                            0, 0, 0, 1)
+#define MATRIX_GREYSCALE list(0.33, 0.33, 0.33,\
+                              0.33, 0.33, 0.33,\
+                              0.33, 0.33, 0.33)
 
-#define MATRIX_GREYSCALE list(0.3, 0.3, 0.3, 0,\
-                              0.3, 0.3, 0.3, 0,\
-                              0.3, 0.3, 0.3, 0,\
-                              0,   0,   0,   1)
+#define MATRIX_VULP_CBLIND list(0.5,0.4,0.1,\
+                                0.5,0.4,0.1,\
+                                0.0,0.2,0.8)
+
+#define MATRIX_TAJ_CBLIND list(0.4,0.2,0.4,\
+                               0.4,0.6,0.0,\
+                               0.2,0.2,0.6)
+
+
 //Gun trigger guards
 #define TRIGGER_GUARD_ALLOW_ALL -1
 #define TRIGGER_GUARD_NONE 0
@@ -281,12 +291,32 @@
 #define SOUND_MINIMUM_PRESSURE 10
 #define FALLOFF_SOUNDS 0.5
 
-
 // Bluespace shelter deploy checks
 #define SHELTER_DEPLOY_ALLOWED "allowed"
 #define SHELTER_DEPLOY_BAD_TURFS "bad turfs"
 #define SHELTER_DEPLOY_BAD_AREA "bad area"
 #define SHELTER_DEPLOY_ANCHORED_OBJECTS "anchored objects"
 
+// Client donator levels
+#define DONATOR_LEVEL_NONE 0
+#define DONATOR_LEVEL_ONE 1
+#define DONATOR_LEVEL_TWO 2
+
 // The cooldown on OOC messages such as OOC, LOOC, praying and adminhelps
 #define OOC_COOLDOWN 5
+
+// Medal names
+#define BOSS_KILL_MEDAL "Killer"
+#define ALL_KILL_MEDAL "Exterminator"	//Killing all of x type
+
+// Score names
+#define LEGION_SCORE "Legion Killed"
+#define COLOSSUS_SCORE "Colossus Killed"
+#define BUBBLEGUM_SCORE "Bubblegum Killed"
+#define DRAKE_SCORE "Drakes Killed"
+#define BIRD_SCORE "Hierophants Killed"
+#define BOSS_SCORE "Bosses Killed"
+#define TENDRIL_CLEAR_SCORE "Tendrils Killed"
+
+// The number of station goals generated each round.
+#define STATION_GOAL_BUDGET 1

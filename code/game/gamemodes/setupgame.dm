@@ -35,6 +35,7 @@
 
 	// Standard muts
 	BLINDBLOCK         = getAssignedBlock("BLIND",         numsToAssign)
+	COLOURBLINDBLOCK   = getAssignedBlock("COLOURBLIND",   numsToAssign)
 	DEAFBLOCK          = getAssignedBlock("DEAF",          numsToAssign)
 	HULKBLOCK          = getAssignedBlock("HULK",          numsToAssign, DNA_HARD_BOUNDS, good=1)
 	TELEBLOCK          = getAssignedBlock("TELE",          numsToAssign, DNA_HARD_BOUNDS, good=1)
@@ -148,3 +149,17 @@
 	// Populate the syndicate coalition:
 	for(var/datum/faction/syndicate/S in ticker.factions)
 		ticker.syndicate_coalition.Add(S)
+
+/proc/setupcult()
+	var/static/picked_cult // Only needs to get picked once
+
+	if(picked_cult)
+		return picked_cult
+
+	var/random_cult = pick(all_cults)
+	picked_cult = new random_cult()
+
+	if(!picked_cult)
+		log_runtime(EXCEPTION("Cult datum creation failed"))
+	//todo:add adminonly datum var, check for said var here...
+	return picked_cult

@@ -410,6 +410,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			if(being_built)
 				var/power = 2000
 				var/amount=text2num(href_list["amount"])
+				if(being_built.make_reagents.len)
+					return 0
 				amount = max(1, min(10, amount))
 				for(var/M in being_built.materials)
 					power += round(being_built.materials[M] * amount / 5)
@@ -647,7 +649,13 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 /obj/machinery/computer/rdconsole/ui_interact(mob/user, ui_key="main", var/datum/nanoui/ui = null, var/force_open = 1)
 	user.set_machine(src)
-	var/data = list()
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "r_n_d.tmpl", src.name, 800, 550)
+		ui.open()
+
+/obj/machinery/computer/rdconsole/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+	var/data[0]
 
 	files.RefreshResearch()
 
@@ -712,6 +720,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				if(b_type & AUTOLATHE) lathe_types += "Autolathe"
 				if(b_type & MECHFAB) lathe_types += "Mech Fabricator"
 				if(b_type & PODFAB) lathe_types += "Spacepod Fabricator"
+				if(b_type & BIOGENERATOR) lathe_types += "Biogenerator"
 			var/list/materials = list()
 			disk_data["materials"] = materials
 			for(var/M in d_disk.blueprint.materials)
@@ -857,11 +866,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				loaded_chemical["volume"] = R.volume
 				loaded_chemical["id"] = R.id
 
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if(!ui)
-		ui = new(user, src, ui_key, "r_n_d.tmpl", src.name, 800, 550)
-		ui.set_initial_data(data)
-		ui.open()
+	return data
 
 //helper proc that guarantees the wait message will not freeze the UI
 /obj/machinery/computer/rdconsole/proc/add_wait_message(message, delay)

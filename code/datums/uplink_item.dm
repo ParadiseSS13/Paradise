@@ -207,6 +207,7 @@ var/list/uplink_items = list()
 	item = /obj/item/weapon/caution/proximity_sign
 	cost = 4
 	job = list("Janitor")
+	surplus = 0
 
 //Medical
 
@@ -304,7 +305,7 @@ var/list/uplink_items = list()
 	name = "Ambrosia Cruciatus Seeds"
 	desc = "Part of the notorious Ambrosia family, this species is nearly indistinguishable from Ambrosia Vulgaris- but its' branches contain a revolting toxin. Eight units are enough to drive victims insane."
 	reference = "BRO"
-	item = /obj/item/seeds/ambrosiavulgarisseed/cruciatus
+	item = /obj/item/seeds/ambrosia/cruciatus
 	cost = 2
 	job = list("Botanist")
 

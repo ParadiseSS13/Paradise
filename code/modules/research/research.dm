@@ -178,6 +178,21 @@ research holder datum.
 		return
 	..()
 
+//Biogenerator files
+/datum/research/biogenerator/New()
+	for(var/T in (subtypesof(/datum/tech)))
+		possible_tech += new T(src)
+	for(var/path in subtypesof(/datum/design))
+		var/datum/design/D = new path(src)
+		possible_designs += D
+		if((D.build_type & BIOGENERATOR) && ("initial" in D.category))
+			AddDesign2Known(D)
+
+/datum/research/biogenerator/AddDesign2Known(datum/design/D)
+	if(!(D.build_type & BIOGENERATOR))
+		return
+	..()
+
 /***************************************************************
 **						Technology Datums					  **
 **	Includes all the various technoliges and what they make.  **
@@ -311,10 +326,7 @@ datum/tech/robotics
 /obj/item/weapon/disk/tech_disk
 	name = "\improper Technology Disk"
 	desc = "A disk for storing technology data for further research."
-	icon = 'icons/obj/cloning.dmi'
 	icon_state = "datadisk2"
-	item_state = "card-id"
-	w_class = 1
 	materials = list(MAT_METAL=30, MAT_GLASS=10)
 	var/datum/tech/stored
 	var/default_name = "\improper Technology Disk"
@@ -339,10 +351,7 @@ datum/tech/robotics
 /obj/item/weapon/disk/design_disk
 	name = "\improper Component Design Disk"
 	desc = "A disk for storing device design data for construction in lathes."
-	icon = 'icons/obj/cloning.dmi'
 	icon_state = "datadisk2"
-	item_state = "card-id"
-	w_class = 1
 	materials = list(MAT_METAL=30, MAT_GLASS=10)
 	var/datum/design/blueprint
 	// I'm doing this so that disk paths with pre-loaded designs don't get weird names

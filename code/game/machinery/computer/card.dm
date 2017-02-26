@@ -100,23 +100,23 @@ var/time_last_changed_position = 0
 	set name = "Eject ID Card"
 	set src in oview(1)
 
-	if(!usr || usr.stat || usr.lying)	return
+	if(usr.restrained())	
+		return
 
 	if(scan)
 		to_chat(usr, "You remove \the [scan] from \the [src].")
-		scan.loc = get_turf(src)
-		if(!usr.get_active_hand())
+		scan.forceMove(get_turf(src))
+		if(!usr.get_active_hand() && Adjacent(usr))
 			usr.put_in_hands(scan)
 		scan = null
 	else if(modify)
 		to_chat(usr, "You remove \the [modify] from \the [src].")
-		modify.loc = get_turf(src)
-		if(!usr.get_active_hand())
+		modify.forceMove(get_turf(src))
+		if(!usr.get_active_hand() && Adjacent(usr))
 			usr.put_in_hands(modify)
 		modify = null
 	else
 		to_chat(usr, "There is nothing to remove from the console.")
-	return
 
 /obj/machinery/computer/card/attackby(obj/item/weapon/card/id/id_card, mob/user, params)
 	if(!istype(id_card))
@@ -173,9 +173,15 @@ var/time_last_changed_position = 0
 
 	ui_interact(user)
 
-/obj/machinery/computer/card/ui_interact(mob/user, ui_key="main", var/datum/nanoui/ui = null, var/force_open = 1)
+/obj/machinery/computer/card/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	user.set_machine(src)
 
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "identification_computer.tmpl", src.name, 775, 700)
+		ui.open()
+
+/obj/machinery/computer/card/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/data[0]
 	data["src"] = UID()
 	data["station_name"] = station_name()
@@ -242,11 +248,7 @@ var/time_last_changed_position = 0
 
 		data["regions"] = regions
 
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if(!ui)
-		ui = new(user, src, ui_key, "identification_computer.tmpl", src.name, 775, 700)
-		ui.set_initial_data(data)
-		ui.open()
+	return data
 
 /obj/machinery/computer/card/Topic(href, href_list)
 	if(..())
@@ -258,35 +260,35 @@ var/time_last_changed_position = 0
 				data_core.manifest_modify(modify.registered_name, modify.assignment)
 				modify.name = text("[modify.registered_name]'s ID Card ([modify.assignment])")
 				if(ishuman(usr))
-					modify.loc = usr.loc
-					if(!usr.get_active_hand())
+					modify.forceMove(get_turf(src))
+					if(!usr.get_active_hand() && Adjacent(usr))
 						usr.put_in_hands(modify)
 					modify = null
 				else
-					modify.loc = loc
+					modify.forceMove(get_turf(src))
 					modify = null
-			else
+			else if(Adjacent(usr))	
 				var/obj/item/I = usr.get_active_hand()
 				if(istype(I, /obj/item/weapon/card/id))
 					usr.drop_item()
-					I.loc = src
+					I.forceMove(src)
 					modify = I
 
 		if("scan")
 			if(scan)
 				if(ishuman(usr))
-					scan.loc = usr.loc
-					if(!usr.get_active_hand())
+					scan.forceMove(get_turf(src))
+					if(!usr.get_active_hand() && Adjacent(usr))
 						usr.put_in_hands(scan)
 					scan = null
 				else
-					scan.loc = src.loc
+					scan.forceMove(get_turf(src))
 					scan = null
-			else
+			else if(Adjacent(usr))			
 				var/obj/item/I = usr.get_active_hand()
 				if(istype(I, /obj/item/weapon/card/id))
 					usr.drop_item()
-					I.loc = src
+					I.forceMove(src)
 					scan = I
 
 		if("access")
@@ -360,7 +362,7 @@ var/time_last_changed_position = 0
 		if("print")
 			if(!printing)
 				printing = 1
-				playsound(loc, "sound/goonstation/machines/printer_dotmatrix.ogg", 50, 1)
+				playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
 				spawn(50)
 					printing = null
 					nanomanager.update_uis(src)
@@ -410,6 +412,7 @@ var/time_last_changed_position = 0
 					time_last_changed_position = world.time / 10
 				j.total_positions++
 				opened_positions[edit_job_target]++
+				log_game("[key_name(usr)] has opened a job slot for job \"[j]\".")
 				nanomanager.update_uis(src)
 
 		if("make_job_unavailable")
@@ -426,6 +429,7 @@ var/time_last_changed_position = 0
 					time_last_changed_position = world.time / 10
 				j.total_positions--
 				opened_positions[edit_job_target]--
+				log_game("[key_name(usr)] has closed a job slot for job \"[j]\".")
 				nanomanager.update_uis(src)
 
 	if(modify)
@@ -437,3 +441,5 @@ var/time_last_changed_position = 0
 	name = "\improper CentComm identification computer"
 	circuit = /obj/item/weapon/circuitboard/card/centcom
 	req_access = list(access_cent_commander)
+	change_position_cooldown = -1
+	blacklisted = list()

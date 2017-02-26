@@ -19,7 +19,8 @@
 		for(var/datum/alternate_appearance/AA in viewing_alternate_appearances)
 			AA.viewers -= src
 		viewing_alternate_appearances = null
-	return ..()
+	..()
+	return QDEL_HINT_HARDDEL_NOW
 
 /mob/New()
 	mob_list += src
@@ -487,7 +488,8 @@ var/list/slot_equipment_priority = list( \
 		return 0 //Unsupported slot
 		//END HUMAN
 
-/mob/proc/reset_view(atom/A)
+// If you're looking for `reset_perspective`, that's a synonym for this proc.
+/mob/proc/reset_perspective(atom/A)
 	if(client)
 		if(istype(A, /atom/movable))
 			client.perspective = EYE_PERSPECTIVE
@@ -499,8 +501,33 @@ var/list/slot_equipment_priority = list( \
 			else
 				client.perspective = EYE_PERSPECTIVE
 				client.eye = loc
-	return
+		return 1
 
+/mob/living/reset_perspective(atom/A)
+	. = ..()
+	if(.)
+		// Above check means the mob has a client
+		update_sight()
+		if(client.eye != src)
+			var/atom/AT = client.eye
+			AT.get_remote_view_fullscreens(src)
+		else
+			clear_fullscreen("remote_view", 0)
+		update_pipe_vision()
+
+/mob/dead/reset_perspective(atom/A)
+	if(client)
+		if(ismob(client.eye) && (client.eye != src))
+			// Note to self: Use `client.eye` for ghost following in place
+			// of periodic ghost updates
+			var/mob/target = client.eye
+			target.following_mobs -= src
+	. = ..()
+	if(.)
+		// Allows sharing HUDs with ghosts
+		if(hud_used)
+			client.screen = list()
+			hud_used.show_hud(hud_used.hud_version)
 
 /mob/proc/show_inv(mob/user)
 	user.set_machine(src)
@@ -793,7 +820,7 @@ var/list/slot_equipment_priority = list( \
 /mob/verb/cancel_camera()
 	set name = "Cancel Camera View"
 	set category = "OOC"
-	reset_view(null)
+	reset_perspective(null)
 	unset_machine()
 	if(istype(src, /mob/living))
 		if(src:cameraFollow)
@@ -868,45 +895,6 @@ var/list/slot_equipment_priority = list( \
 	if(!Adjacent(usr)) return
 	show_inv(usr)
 
-//this and stop_pulling really ought to be /mob/living procs
-/mob/proc/start_pulling(atom/movable/AM)
-	if(src == AM) // Trying to pull yourself is a shortcut to stop pulling
-		stop_pulling()
-		return
-	if(!AM || !isturf(AM.loc))	//if there's no object or the object being pulled is inside something: abort!
-		return
-	if(!(AM.anchored))
-		AM.add_fingerprint(src)
-
-		// If we're pulling something then drop what we're currently pulling and pull this instead.
-		if(pulling)
-			// Are we trying to pull something we are already pulling? Then just stop here, no need to continue.
-			if(AM == pulling)
-				return
-			stop_pulling()
-
-		src.pulling = AM
-		AM.pulledby = src
-		if(pullin)
-			pullin.update_icon(src)
-		if(ismob(AM))
-			var/mob/M = AM
-			if(!iscarbon(src))
-				M.LAssailant = null
-			else
-				M.LAssailant = usr
-
-/mob/verb/stop_pulling()
-
-	set name = "Stop Pulling"
-	set category = "IC"
-
-	if(pulling)
-		pulling.pulledby = null
-		pulling = null
-		if(pullin)
-			pullin.update_icon(src)
-
 /mob/proc/can_use_hands()
 	return
 
@@ -959,8 +947,7 @@ var/list/slot_equipment_priority = list( \
 			add_spell_to_statpanel(S)
 
 
-	if(client && client.holder)
-
+	if(is_admin(src))
 		if(statpanel("DI"))	//not looking at that panel
 			stat("Loc", "([x], [y], [z]) [loc]")
 			stat("CPU", "[world.cpu]")
@@ -1236,9 +1223,11 @@ mob/proc/yank_out_object()
 	if(mind)
 		return mind.grab_ghost(force = force)
 
-/mob/proc/notify_ghost_cloning(var/message = "Someone is trying to revive you. Re-enter your corpse if you want to be revived!", var/sound = 'sound/effects/genetics.ogg', var/atom/source = null)
+/mob/proc/notify_ghost_cloning(message = "Someone is trying to revive you. Re-enter your corpse if you want to be revived!", sound = 'sound/effects/genetics.ogg', atom/source = null, flashwindow = TRUE)
 	var/mob/dead/observer/ghost = get_ghost()
 	if(ghost)
+		if(flashwindow)
+			window_flash(ghost.client)
 		ghost.notify_cloning(message, sound, source)
 		return ghost
 
@@ -1277,7 +1266,7 @@ mob/proc/yank_out_object()
 	return // Only living mobs can ventcrawl
 
 //You can buckle on mobs if you're next to them since most are dense
-/mob/buckle_mob(mob/living/M)
+/mob/buckle_mob(mob/living/M, force = 0)
 	if(M.buckled)
 		return 0
 	var/turf/T = get_turf(src)
@@ -1323,3 +1312,39 @@ mob/proc/yank_out_object()
 		if(F in target.faction)
 			return 1
 	return 0
+
+/mob/proc/create_attack_log(var/text, var/collapse = 1)//forgive me code gods for this shitcode proc
+	//this proc enables lovely stuff like an attack log that looks like this: "[18:20:29-18:20:45]21x John Smith attacked Andrew Jackson with a crowbar."
+	//That makes the logs easier to read, but because all of this is stored in strings, weird things have to be used to get it all out.
+	var/new_log = "\[[time_stamp()]] [text]"
+
+	if(length(attack_log) > 0)//if there are other logs already present
+		var/previous_log = attack_log[length(attack_log)]//get the latest log
+		var/last_log_is_range = (copytext(previous_log, 10, 11) == "-") //whether the last log is a time range or not. The "-" will be an indicator that it is.
+		var/x_sign_position = findtext(previous_log, "x")
+
+		if(world.timeofday - last_log > 100)//if more than 10 seconds from last log
+			collapse = 0//don't collapse anyway
+
+		//the following checks if the last log has the same contents as the new one
+		if(last_log_is_range)
+			if(!(copytext(previous_log, x_sign_position + 13) == text))//the 13 is there because of span classes; you won't see those normally in-game
+				collapse = 0
+		else
+			if(!(copytext(previous_log, 12) == text))
+				collapse = 0
+
+
+		if(collapse == 1)
+			var/rep = 0
+			var/old_timestamp = copytext(previous_log, 2, 10)//copy the first time value. This one doesn't move when it's a timespan, so no biggie
+			//An attack log entry can either be a time range with multiple occurences of an action or a single one, with just one time stamp
+			if(last_log_is_range)
+
+				rep = text2num(copytext(previous_log, 44, x_sign_position))//get whatever number is right before the 'x'
+
+			new_log = "\[[old_timestamp]-[time_stamp()]]<font color='purple'><b>[rep?rep+1:2]x</b></font> [text]"
+			attack_log -= attack_log[length(attack_log)]//remove the last log
+
+	attack_log += new_log
+	last_log = world.timeofday

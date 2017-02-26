@@ -141,6 +141,24 @@ CREATE TABLE `SS13_death` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `donators`
+--
+
+DROP TABLE IF EXISTS `SS13_donators`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `donators` (
+  `patreon_name` varchar(32) NOT NULL,
+  `tier` int(2),
+  `ckey` varchar(32) COMMENT 'Manual Field',
+  `start_date` datetime,
+  `end_date` datetime,
+  `active` boolean,
+  PRIMARY KEY (`patreon_name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `SS13_admin`
 --
 
@@ -255,6 +273,9 @@ CREATE TABLE `SS13_player` (
   `nanoui_fancy` smallint(4) DEFAULT '1',
   `show_ghostitem_attack` smallint(4) DEFAULT '1',
   `lastchangelog` varchar(32) NOT NULL DEFAULT '0',
+  `windowflashing` smallint(4) DEFAULT '1',
+  `ghost_anonsay` tinyint(1) NOT NULL DEFAULT '0',
+  `exp` mediumtext,
   PRIMARY KEY (`id`),
   UNIQUE KEY `ckey` (`ckey`)
 ) ENGINE=InnoDB AUTO_INCREMENT=32446 DEFAULT CHARSET=latin1;

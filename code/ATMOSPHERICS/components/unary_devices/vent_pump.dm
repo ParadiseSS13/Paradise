@@ -61,6 +61,7 @@
 
 /obj/machinery/atmospherics/unary/vent_pump/New()
 	..()
+	all_vent_pumps += src
 	icon = null
 	initial_loc = get_area(loc)
 	area_uid = initial_loc.uid
@@ -99,6 +100,8 @@
 		vent_icon += "[on ? "[pump_direction ? "out" : "in"]" : "off"]"
 
 	overlays += icon_manager.get_atmos_icon("device", , , vent_icon)
+
+	update_pipe_image()
 
 /obj/machinery/atmospherics/unary/vent_pump/update_underlays()
 	if(..())
@@ -424,6 +427,7 @@
 	return ..()
 
 /obj/machinery/atmospherics/unary/vent_pump/Destroy()
+	all_vent_pumps -= src
 	if(initial_loc)
 		initial_loc.air_vent_info -= id_tag
 		initial_loc.air_vent_names -= id_tag

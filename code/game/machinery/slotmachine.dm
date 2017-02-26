@@ -22,6 +22,13 @@
 	ui_interact(user)
 
 /obj/machinery/slot_machine/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "slotmachine.tmpl", name, 350, 200)
+		ui.open()
+		ui.set_auto_update(1)
+
+/obj/machinery/slot_machine/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/data[0]
 
 	data["working"] = working
@@ -30,12 +37,7 @@
 	data["result"] = result
 	data["resultlvl"] = resultlvl
 
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if(!ui)
-		ui = new(user, src, ui_key, "slotmachine.tmpl", name, 350, 200)
-		ui.set_initial_data(data)
-		ui.open()
-		ui.set_auto_update(1)
+	return data
 
 /obj/machinery/slot_machine/Topic(href, href_list)
 	add_fingerprint(usr)
@@ -57,13 +59,13 @@
 			spawn(25)
 				if(roll == 1)
 					visible_message("<b>[src]</b> says, 'JACKPOT! [usr.name] has won a MILLION CREDITS!'")
-					command_announcement.Announce("Congratulations to [usr.name] on winning the Jackpot of ONE MILLION CREDITS!", "Jackpot Winner")
+					event_announcement.Announce("Congratulations to [usr.name] on winning the Jackpot of ONE MILLION CREDITS!", "Jackpot Winner")
 					result = "JACKPOT! You win one million credits!"
 					resultlvl = "highlight"
 					win_money(1000000, 'sound/goonstation/misc/airraid_loop.ogg')
 				else if(roll > 1 && roll <= 5)
 					visible_message("<b>[src]</b> says, 'Big Winner! [usr.name] has won a hundred thousand credits!'")
-					command_announcement.Announce("Congratulations to [usr.name] on winning a hundred thousand credits!", "Big Winner")
+					event_announcement.Announce("Congratulations to [usr.name] on winning a hundred thousand credits!", "Big Winner")
 					result = "Big Winner! You win a hundred thousand credits!"
 					resultlvl = "good"
 					win_money(100000, 'sound/goonstation/misc/klaxon.ogg')

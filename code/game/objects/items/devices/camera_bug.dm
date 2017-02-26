@@ -56,7 +56,7 @@
 
 /obj/item/device/camera_bug/check_eye(var/mob/user as mob)
 	if(user.stat || loc != user || !user.canmove || !user.has_vision() || !current)
-		user.reset_view(null)
+		user.reset_perspective(null)
 		user.unset_machine()
 		return null
 
@@ -64,7 +64,7 @@
 	if(T.z != current.z || !current.can_use())
 		to_chat(user, "<span class='danger'>[src] has lost the signal.</span>")
 		current = null
-		user.reset_view(null)
+		user.reset_perspective(null)
 		user.unset_machine()
 		return null
 
@@ -184,7 +184,7 @@
 /obj/item/device/camera_bug/Topic(var/href,var/list/href_list)
 	if(usr != loc)
 		usr.unset_machine()
-		usr.reset_view(null)
+		usr.reset_perspective(null)
 		usr << browse(null, "window=camerabug")
 		return
 	usr.set_machine(src)
@@ -195,7 +195,7 @@
 		if(C)
 			track_mode = BUGMODE_MONITOR
 			current = C
-			usr.reset_view(null)
+			usr.reset_perspective(null)
 			interact()
 	if("track" in href_list)
 		var/atom/A = locate(href_list["track"])
@@ -214,7 +214,7 @@
 		interact()
 		return
 	if("close" in href_list)
-		usr.reset_view(null)
+		usr.reset_perspective(null)
 		usr.unset_machine()
 		current = null
 		return // I do not <- I do not remember what I was going to write in this comment -Sayu, sometime later
@@ -231,16 +231,16 @@
 			current = C
 			spawn(6)
 				if(src.check_eye(usr))
-					usr.reset_view(C)
+					usr.reset_perspective(C)
 					interact()
 				else
 					usr.unset_machine()
-					usr.reset_view(null)
+					usr.reset_perspective(null)
 					usr << browse(null, "window=camerabug")
 			return
 		else
 			usr.unset_machine()
-			usr.reset_view(null)
+			usr.reset_perspective(null)
 
 	interact()
 

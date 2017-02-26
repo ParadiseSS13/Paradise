@@ -51,6 +51,7 @@ var/global/list/raider_gear = list()
 	for(var/datum/mind/raider in raiders)
 		raider.assigned_role = "MODE"
 		raider.special_role = SPECIAL_ROLE_RAIDER
+	..()
 	return 1
 
 /datum/game_mode/heist/pre_setup()

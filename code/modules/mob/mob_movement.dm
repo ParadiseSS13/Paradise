@@ -148,7 +148,7 @@
 		view = world.view //Reset the view
 		winset(src, "mapwindow.map", "icon-size=[src.reset_stretch]")
 		viewingCanvas = 0
-		mob.reset_view()
+		mob.reset_perspective()
 		if(mob.hud_used)
 			mob.hud_used.show_hud(HUD_STYLE_STANDARD)
 
@@ -163,11 +163,6 @@
 	if(!mob)	return
 
 	if(mob.stat==DEAD)	return
-
-// handle possible spirit movement
-	if(istype(mob,/mob/spirit))
-		var/mob/spirit/currentSpirit = mob
-		return currentSpirit.Spirit_Move(direct)
 
 	if(mob.notransform)	return//This is sota the goto stop mobs from moving var
 
@@ -281,7 +276,7 @@
 
 		for(var/obj/item/weapon/grab/G in mob)
 			if(G.state == GRAB_NECK)
-				mob.set_dir(reverse_dir[direct])
+				mob.setDir(reverse_dir[direct])
 			G.adjust_position()
 		for(var/obj/item/weapon/grab/G in mob.grabbed_by)
 			G.adjust_position()

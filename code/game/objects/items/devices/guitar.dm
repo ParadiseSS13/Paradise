@@ -25,13 +25,13 @@
 	ui_interact(user)
 
 /obj/item/device/guitar/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	if(!user)
-		return
-
-	if(!isliving(user) || user.stat || user.restrained() || user.lying)
+	if(!isliving(user) || user.incapacitated())
 		return
 
 	song.ui_interact(user, ui_key, ui, force_open)
+
+/obj/item/device/guitar/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+	return song.ui_data(user, ui_key, state)
 
 /obj/item/device/guitar/Topic(href, href_list)
 	song.Topic(href, href_list)

@@ -154,6 +154,14 @@
 	icon_on = "guessipon"
 	icon_off = "guessip"
 
+/obj/item/weapon/lighter/zippo/fluff/duckchan // Duckchan: Rybys Romney
+	name = "Monogrammed Zippo"
+	desc = " A shiny purple zippo lighter, engraved with Rybys Romney and BuzzPing's name, with a festive green flame."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "rybysfluff"
+	icon_on = "rybysfluffopen"
+	icon_off = "rybysfluff"
+
 /obj/item/weapon/fluff/dogwhistle //phantasmicdream: Zeke Varloss
 	name = "Sax's whistle"
 	desc = "This whistle seems to have a strange aura about it. Maybe you should blow on it?"
@@ -313,6 +321,11 @@
 	icon_state = "eyepro"
 	item_state = "eyepro"
 
+/obj/item/clothing/glasses/hud/security/sunglasses/fluff/voxxyhud //LP Spartan: Kaskreyarawkta
+	name = "VoxxyHUD"
+	desc = "A worn down visor from a vox raider's gear, crudely ripped from its helmet and linked into the security systems of the station. The word 'Kask' is scratched into the side."
+	icon_state = "hud-spartan"
+
 //////////// Hats ////////////
 /obj/item/clothing/head/fluff/heather_winceworth // Regens: Heather Winceworth
 	name= "Heather's rose"
@@ -371,6 +384,18 @@
 	icon_state = "kakicharakiti"
 
 //////////// Suits ////////////
+/obj/item/clothing/suit/fluff/dusty_jacket //ComputerlessCitizen: Screech
+	name = "Dusty Jacket"
+	desc = "A worn leather jacket. Some burn holes have been patched."
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "dusty_jacket"
+	ignore_suitadjust = 1
+	actions_types = list()
+	adjust_flavour = null
+	species_fit = null
+	sprite_sheets = null
+
 /obj/item/clothing/suit/storage/labcoat/fluff/aeneas_rinil //Socialsystem: Lynn Fea
 	name = "Robotics labcoat"
 	desc = "A labcoat with a few markings denoting it as the labcoat of roboticist."
@@ -445,6 +470,11 @@
 
 /obj/item/clothing/head/hood/fluff/linda //Epic_Charger: Linda Clark
 	icon_state = "greenhood"
+
+/obj/item/clothing/suit/armor/shodanscoat // RazekPraxis: SHODAN
+	name = "SHODAN's Captain's Coat"
+	desc = "A black coat with gold trim and an old US Chevron printed on the back. Edgy."
+	icon_state = "shodancoat"
 
 //////////// Uniforms ////////////
 /obj/item/clothing/under/fluff/kharshai // Kharshai: Athena Castile
@@ -650,3 +680,8 @@
 	suit_adjusted = 1
 	species_fit = null
 	sprite_sheets = null
+
+/obj/item/weapon/storage/backpack/fluff/krich_back //lizardzsi: Krichahka
+	name = "Voxcaster"
+	desc = "Battered, Sol-made military radio backpack that had its speakers fried from playing Vox opera. The words 'Swift-Talon' are crudely scratched onto its side."
+	icon_state = "voxcaster_fluff"

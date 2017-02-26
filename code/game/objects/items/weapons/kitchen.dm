@@ -152,6 +152,17 @@
 	origin_tech = "materials=2;combat=4"
 	attack_verb = list("slashed", "stabbed", "sliced", "torn", "ripped", "cut")
 
+/obj/item/weapon/kitchen/knife/carrotshiv
+	name = "carrot shiv"
+	icon_state = "carrotshiv"
+	item_state = "carrotshiv"
+	desc = "Unlike other carrots, you should probably keep this far away from your eyes."
+	force = 8
+	throwforce = 12 //fuck git
+	materials = list()
+	origin_tech = "biotech=3;combat=2"
+	attack_verb = list("shanked", "shivved")
+
 /*
  * Rolling Pins
  */

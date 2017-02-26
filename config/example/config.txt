@@ -17,6 +17,13 @@ JOBS_HAVE_MINIMAL_ACCESS
 ## you have noone older than 0 days, since noone has been logged yet. Only turn this on once you have had the database up for 30 days.
 #USE_AGE_RESTRICTION_FOR_JOBS
 
+##Unhash this to track player playtime in the database. Requires database to be enabled.
+#USE_EXP_TRACKING
+##Unhash this to enable playtime requirements for jobs that have them defined.
+#USE_EXP_RESTRICTIONS
+##Allows admins to bypass job playtime requirements.
+USE_EXP_RESTRICTIONS_ADMIN_BYPASS
+
 ## Unhash this entry to have certain antagonist roles require your account to be at least a certain number of days old to select. You can configure the exact age requirement for different antag roles by editing special_role_times in /code/modules/client/preferences.dm.
 ## See USE_AGE_RESTRICTION_FOR_JOBS for more information
 #USE_AGE_RESTRICTION_FOR_ANTAGS
@@ -70,24 +77,23 @@ KICK_INACTIVE
 ##
 ## default probablity is 1, increase to make that mode more likely to be picked
 ## set to 0 to disable that mode
+PROBABILITY EXTEND-A-TRAITORMONGOUS 3
+PROBABILITY TRAITORCHAN 3
+PROBABILITY TRAITORVAMP 3
+PROBABILITY REVOLUTION 0
+PROBABILITY SHADOWLING 2
+PROBABILITY CULT 4
+PROBABILITY CHANGELING 3
+PROBABILITY WIZARD 2
+PROBABILITY BLOB 1
+PROBABILITY RAGINMAGES 0
+PROBABILITY METEOR 0
+PROBABILITY HEIST 0
+PROBABILITY VAMPIRE 3
+PROBABILITY NATIONS 0
 PROBABILITY EXTENDED 2
 PROBABILITY NUCLEAR 3
 PROBABILITY ABDUCTION 0
-PROBABILITY CHANGELING 3
-PROBABILITY CULT 4
-PROBABILITY EXTEND-A-TRAITORMONGOUS 5
-PROBABILITY TRAITORCHAN 4
-PROBABILITY TRAITORVAMP 4
-PROBABILITY BLOB 2
-PROBABILITY REVOLUTION 0
-PROBABILITY HEIST 1
-PROBABILITY WIZARD 2
-PROBABILITY VAMPIRE 3
-PROBABILITY RAGINMAGES 0
-PROBABILITY METEOR 0
-PROBABILITY TRAITOR 0
-PROBABILITY SHADOWLING 2
-PROBABILITY NATIONS 0
 
 ## Hash out to disable random events during the round.
 ALLOW_RANDOM_EVENTS
@@ -153,6 +159,9 @@ GUEST_JOBBAN
 ## Uncomment this to stop people connecting to your server without a registered ckey. (i.e. guest-* are all blocked from connecting)
 GUEST_BAN
 
+## Comment to disable checking for the cid randomizer dll. (disabled if database isn't enabled or connected)
+CHECK_RANDOMIZER
+
 ## the whitelist
 #USEWHITELIST
 
@@ -193,6 +202,7 @@ LOAD_JOBS_FROM_TXT
 
 ## Remove the # to allow special 'Easter-egg' events on special holidays such as seasonal holidays and stuff like 'Talk Like a Pirate Day' :3 YAARRR
 ALLOW_HOLIDAYS
+
 ##Defines the ticklag for the world.  0.9 is the normal one, 0.5 is smoother.
 TICKLAG 0.5
 
@@ -248,6 +258,12 @@ GHOST_INTERACTION
 ## IRC channel to send adminhelps to.  Leave blank to disable adminhelps-to-irc.
 #ADMIN_IRC #admin
 
+## IRC channel to send direct messages to admins to. Leave blank to disable.
+#ADMIN_NOTIFY_IRC #paradiseStaff
+
+## IRC channel to log CID randomizer blocker hits to. Leave blank to silence
+#CIDRANDOMIZER_IRC #cidrandomizer
+
 ## Path to the python2 executable on the system.  Leave blank for default.
 ## Default is "python" on Windows, "/usr/bin/env python2" on UNIX.
 #PYTHON_PATH pythonw
@@ -270,7 +286,7 @@ EVENT_DELAY_UPPER 15;45;70
 EVENT_CUSTOM_START_MAJOR 80;100
 
 ## Strength of ambient star light. Set to 0 or less to turn off.
-STARLIGHT 0
+STARLIGHT 2
 
 ## Player rerouting stuff
 ## If not 0, players can be rerouted to an overflow server after a certain cap is reached
@@ -309,3 +325,19 @@ DISABLE_SPACE_RUINS
 # and still qualify for re-entering the round. Defaults to 30.
 # Setting this to 0 will disable the penalty period
 #ROUND_ABANDON_PENALTY_PERIOD 30
+
+## Hub address for tracking stats
+## example: Hubmakerckey.Hubname
+#MEDAL_HUB_ADDRESS 
+
+## Password for the hub page
+#MEDAL_HUB_PASSWORD
+
+## Uncomment this if you want to disable usage of emoji in OOC
+#DISABLE_OOC_EMOJI
+
+## Uncomment this to shut down the world any time it would normally reboot
+#SHUTDOWN_ON_REBOOT
+## A command to run prior to the world shutting down, only used if the above option is enabled
+## This default value will kill Dream Daemon on Windows machines
+#SHUTDOWN_SHELL_COMMAND taskkill /f /im dreamdaemon.exe

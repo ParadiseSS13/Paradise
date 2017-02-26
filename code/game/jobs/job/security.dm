@@ -4,6 +4,7 @@
 	department_flag = ENGSEC
 	total_positions = 1
 	spawn_positions = 1
+	is_security = 1
 	supervisors = "the captain"
 	selection_color = "#ffdddd"
 	idtype = /obj/item/weapon/card/id/hos
@@ -17,6 +18,8 @@
 			            access_research, access_engine, access_mining, access_medical, access_construction, access_mailsorting,
 			            access_heads, access_hos, access_RC_announce, access_keycard_auth, access_gateway, access_pilot, access_weapons)
 	minimal_player_age = 21
+	exp_requirements = 600
+	exp_type = EXP_TYPE_CREW
 
 	equip(var/mob/living/carbon/human/H)
 		if(!H)	return 0
@@ -50,12 +53,15 @@
 	department_flag = ENGSEC
 	total_positions = 1
 	spawn_positions = 1
+	is_security = 1
 	supervisors = "the head of security"
 	selection_color = "#ffeeee"
 	idtype = /obj/item/weapon/card/id/security
 	access = list(access_security, access_sec_doors, access_brig, access_armory, access_court, access_maint_tunnels, access_morgue, access_weapons)
 	minimal_access = list(access_security, access_sec_doors, access_brig, access_armory, access_court, access_maint_tunnels, access_weapons)
 	minimal_player_age = 21
+	exp_requirements = 300
+	exp_type = EXP_TYPE_CREW
 
 	equip(var/mob/living/carbon/human/H)
 		if(!H)	return 0
@@ -90,6 +96,7 @@
 	department_flag = ENGSEC
 	total_positions = 1
 	spawn_positions = 1
+	is_security = 1
 	supervisors = "the head of security"
 	selection_color = "#ffeeee"
 	alt_titles = list("Forensic Technician")
@@ -98,6 +105,8 @@
 	minimal_access = list(access_sec_doors, access_forensics_lockers, access_morgue, access_maint_tunnels, access_court, access_weapons)
 	alt_titles = list("Forensic Technician")
 	minimal_player_age = 14
+	exp_requirements = 300
+	exp_type = EXP_TYPE_CREW
 	equip(var/mob/living/carbon/human/H)
 		if(!H)	return 0
 		H.equip_or_collect(new /obj/item/device/radio/headset/headset_sec/alt(H), slot_l_ear)
@@ -142,12 +151,15 @@
 	department_flag = ENGSEC
 	total_positions = 5
 	spawn_positions = 5
+	is_security = 1
 	supervisors = "the head of security"
 	selection_color = "#ffeeee"
 	idtype = /obj/item/weapon/card/id/security
 	access = list(access_security, access_sec_doors, access_brig, access_court, access_maint_tunnels, access_morgue, access_weapons)
 	minimal_access = list(access_security, access_sec_doors, access_brig, access_court, access_maint_tunnels, access_weapons)
 	minimal_player_age = 14
+	exp_requirements = 300
+	exp_type = EXP_TYPE_CREW
 	equip(var/mob/living/carbon/human/H)
 		if(!H)	return 0
 		H.equip_or_collect(new /obj/item/device/radio/headset/headset_sec/alt(H), slot_l_ear)
@@ -177,6 +189,7 @@
 	department_flag = KARMA
 	total_positions = 1
 	spawn_positions = 1
+	is_security = 1
 	supervisors = "the head of security"
 	selection_color = "#ffeeee"
 	idtype = /obj/item/weapon/card/id/security
@@ -210,6 +223,7 @@
 	department_flag = KARMA
 	total_positions = 1
 	spawn_positions = 1
+	is_security = 1
 	supervisors = "the head of security"
 	selection_color = "#ffeeee"
 	idtype = /obj/item/weapon/card/id/security

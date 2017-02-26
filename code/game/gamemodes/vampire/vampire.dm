@@ -59,6 +59,7 @@
 			slaved.masters += vampire
 			vampire.som = slaved //we MIGT want to mindslave someone
 			vampire.special_role = SPECIAL_ROLE_VAMPIRE
+		..()
 		return 1
 	else
 		return 0
@@ -242,6 +243,10 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 		owner.mind.spell_list.Remove(ability)
 		qdel(ability)
 
+/datum/vampire/proc/update_owner(var/mob/living/carbon/human/current) //Called when a vampire gets cloned. This updates vampire.owner to the new body.
+	if(current.mind && current.mind.vampire && current.mind.vampire.owner && (current.mind.vampire.owner != current))
+		current.mind.vampire.owner = current
+
 /mob/proc/make_vampire()
 	if(!mind)
 		return
@@ -270,8 +275,8 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 	var/blood = 0
 	var/old_bloodtotal = 0 //used to see if we increased our blood total
 	var/old_bloodusable = 0 //used to see if we increased our blood usable
-	owner.attack_log += text("\[[time_stamp()]\] <font color='red'>Bit [H] ([H.ckey]) in the neck and draining their blood</font>")
-	H.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been bit in the neck by [owner] ([owner.ckey])</font>")
+	owner.create_attack_log("<font color='red'>Bit [H] ([H.ckey]) in the neck and draining their blood</font>")
+	H.create_attack_log("<font color='orange'>Has been bit in the neck by [owner] ([owner.ckey])</font>")
 	log_attack("[owner] ([owner.ckey]) bit [H] ([H.ckey]) in the neck")
 	owner.visible_message("<span class='danger'>[owner] grabs [H]'s neck harshly and sinks in their fangs!</span>", "<span class='danger'>You sink your fangs into [H] and begin to drain their blood.</span>", "<span class='notice'>You hear a soft puncture and a wet sucking noise.</span>")
 	if(!iscarbon(owner))
@@ -300,7 +305,7 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 		H.vessel.remove_reagent("blood", 25)
 		if(ishuman(owner))
 			var/mob/living/carbon/human/V = owner
-			V.nutrition = min(450, V.nutrition + (blood / 2))
+			V.nutrition = min(NUTRITION_LEVEL_WELL_FED, V.nutrition + (blood / 2))
 
 	draining = null
 	to_chat(owner, "<span class='notice'>You stop draining [H.name] of blood.</span>")
@@ -325,22 +330,21 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 			else if(istype(p, /datum/vampire_passive))
 				var/datum/vampire_passive/power = p
 				to_chat(owner, "<span class='notice'>[power.gain_desc]</span>")
-				
-	
+
 /datum/game_mode/proc/remove_vampire(datum/mind/vampire_mind)
 	if(vampire_mind in vampires)
 		ticker.mode.vampires -= vampire_mind
 		vampire_mind.special_role = null
-		vampire_mind.current.attack_log += "\[[time_stamp()]\] <span class='danger'>De-vampired</span>"
+		vampire_mind.current.create_attack_log("<span class='danger'>De-vampired</span>")
 		if(vampire_mind.vampire)
 			vampire_mind.vampire.remove_vampire_powers()
 			qdel(vampire_mind.vampire)
-			vampire_mind.vampire = null	
+			vampire_mind.vampire = null
 		if(issilicon(vampire_mind.current))
 			to_chat(vampire_mind.current, "<span class='userdanger'>You have been turned into a robot! You can feel your powers fading away...</span>")
 		else
 			to_chat(vampire_mind.current, "<span class='userdanger'>You have been brainwashed! You are no longer a vampire.</span>")
-		ticker.mode.update_vampire_icons_removed(vampire_mind)	
+		ticker.mode.update_vampire_icons_removed(vampire_mind)
 
 //prepare for copypaste
 /datum/game_mode/proc/update_vampire_icons_added(datum/mind/vampire_mind)
@@ -412,12 +416,7 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 		owner.alpha = 255
 		return
 	var/turf/simulated/T = get_turf(owner)
-	var/atom/movable/lighting_overlay/L = locate(/atom/movable/lighting_overlay) in T
-	var/light_available
-	if(L)
-		light_available = L.get_clamped_lum(0.5) * 10
-	else
-		light_available = 10
+	var/light_available = T.get_lumcount(0.5) * 10
 
 	if(!istype(T))
 		return 0
@@ -425,6 +424,7 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 	if(!iscloaking)
 		owner.alpha = 255
 		return 0
+
 	if(light_available <= 2)
 		owner.alpha = round((255 * 0.15))
 		return 1

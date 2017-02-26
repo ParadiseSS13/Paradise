@@ -24,6 +24,7 @@
 	var/toggle_message = null
 	var/alt_toggle_message = null
 	var/active_sound = null
+	var/toggle_sound = null
 	var/toggle_cooldown = null
 	var/cooldown = 0
 	var/species_disguise = null
@@ -148,11 +149,15 @@
 	flags = GLASSESCOVERSEYES
 	slot_flags = SLOT_EYES
 	materials = list(MAT_GLASS = 250)
-	var/emagged = 0
 	var/vision_flags = 0
-	var/darkness_view = 0//Base human is 2
-	var/invisa_view = 0
-	var/color_view = null//overrides client.color while worn
+	var/darkness_view = 0 //Base human is 2
+	var/invis_view = SEE_INVISIBLE_LIVING
+	var/invis_override = 0
+
+	var/emagged = 0
+	var/list/color_view = null//overrides client.color while worn
+	var/prescription = 0
+	var/prescription_upgradable = 0
 	strip_delay = 20			//	   but seperated to allow items to protect but not impair vision, like space helmets
 	put_on_delay = 25
 	burn_state = FIRE_PROOF
@@ -189,8 +194,9 @@ BLIND     // can't see anything
 		"Drask" = 'icons/mob/species/drask/gloves.dmi'
 		)
 
-/obj/item/clothing/gloves/proc/Touch()
-	return
+// Called just before an attack_hand(), in mob/UnarmedAttack()
+/obj/item/clothing/gloves/proc/Touch(atom/A, proximity)
+	return 0 // return 1 to cancel attack_hand()
 
 /obj/item/clothing/gloves/attackby(obj/item/weapon/W, mob/user, params)
 	if(istype(W, /obj/item/weapon/wirecutters))
@@ -275,8 +281,8 @@ BLIND     // can't see anything
 	var/blockTracking // Do we block AI tracking?
 	var/HUDType = null
 	var/darkness_view = 0
+	var/helmet_goggles_invis_view = 0
 	var/vision_flags = 0
-	var/see_darkness = 1
 	var/can_toggle = null
 
 //Mask
@@ -343,6 +349,7 @@ BLIND     // can't see anything
 				src.loc = user
 				user.wear_mask = null
 				user.put_in_hands(src)
+	H.wear_mask_update(src, toggle_off = mask_adjusted)
 	usr.update_inv_wear_mask()
 	usr.update_inv_head()
 	for(var/X in actions)
@@ -560,7 +567,7 @@ BLIND     // can't see anything
 	permeability_coefficient = 0.90
 	slot_flags = SLOT_ICLOTHING
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
-	species_fit = list("Vox")
+	species_fit = list("Vox", "Drask")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/uniform.dmi',
 		"Drask" = 'icons/mob/species/drask/uniform.dmi'
@@ -707,4 +714,3 @@ BLIND     // can't see anything
 		for(var/obj/item/clothing/accessory/A in accessories)
 			A.emp_act(severity)
 	..()
-

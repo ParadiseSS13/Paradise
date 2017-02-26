@@ -23,7 +23,7 @@
 		for(var/direction in alldirs)
 			for(i = 0; i < 2; i++)
 				number++
-				var/obj/item/weapon/bananapeel/traitorpeel/peel = new /obj/item/weapon/bananapeel/traitorpeel(get_turf(src.loc))
+				var/obj/item/weapon/grown/bananapeel/traitorpeel/peel = new /obj/item/weapon/grown/bananapeel/traitorpeel(get_turf(src.loc))
 			/*	var/direction = pick(alldirs)
 				var/spaces = pick(1;150, 2)
 				var/a = 0
@@ -35,7 +35,7 @@
 						step(peel,direction)
 				else
 					step(peel,direction)
-		new /obj/item/weapon/bananapeel/traitorpeel(get_turf(src.loc))
+		new /obj/item/weapon/grown/bananapeel/traitorpeel(get_turf(src.loc))
 		qdel(src)
 		return
 /*
@@ -46,40 +46,32 @@
 			return
 		if(locate(/obj/structure/window) in T)
 			return
-		new /obj/item/weapon/bananapeel/traitorpeel(T)
+		new /obj/item/weapon/grown/bananapeel/traitorpeel(T)
 */
 
-/obj/item/weapon/bananapeel/traitorpeel
-	name = "banana peel"
-	desc = "A peel from a banana."
-	icon = 'icons/obj/items.dmi'
-	icon_state = "banana_peel"
-	item_state = "banana_peel"
-	w_class = 1
-	throwforce = 0
-	throw_speed = 4
-	throw_range = 20
+/obj/item/weapon/grown/bananapeel/traitorpeel
 
-	Crossed(AM as mob|obj)
-		var/burned = rand(2,5)
-		if(istype(AM, /mob/living/carbon))
-			var/mob/living/carbon/M = AM
-			if(ishuman(M))
-				if(isobj(M:shoes))
-					if((M:shoes.flags&NOSLIP) || (M:species.bodyflags & FEET_NOSLIP))
-						return
-				else
-					to_chat(M, "\red Your feet feel like they're on fire!")
-					M.take_overall_damage(0, max(0, (burned - 2)))
 
-			if(!istype(M, /mob/living/carbon/slime) && !isrobot(M))
-				M.slip("banana peel!", 0, 7, 4)
-				M.take_organ_damage(2) // Was 5 -- TLE
-				M.take_overall_damage(0, burned)
+/obj/item/weapon/grown/bananapeel/traitorpeel/Crossed(AM as mob|obj)
+	var/burned = rand(2,5)
+	if(istype(AM, /mob/living/carbon))
+		var/mob/living/carbon/M = AM
+		if(ishuman(M))
+			if(isobj(M:shoes))
+				if((M:shoes.flags&NOSLIP) || (M:species.bodyflags & FEET_NOSLIP))
+					return
+			else
+				to_chat(M, "\red Your feet feel like they're on fire!")
+				M.take_overall_damage(0, max(0, (burned - 2)))
 
-	throw_impact(atom/hit_atom)
-		var/burned = rand(1,3)
-		if(istype(hit_atom ,/mob/living))
-			var/mob/living/M = hit_atom
-			M.take_organ_damage(0, burned)
-		return ..()
+		if(!istype(M, /mob/living/carbon/slime) && !isrobot(M))
+			M.slip("banana peel!", 0, 7, 4)
+			M.take_organ_damage(2) // Was 5 -- TLE
+			M.take_overall_damage(0, burned)
+
+/obj/item/weapon/grown/bananapeel/traitorpeel/throw_impact(atom/hit_atom)
+	var/burned = rand(1,3)
+	if(istype(hit_atom ,/mob/living))
+		var/mob/living/M = hit_atom
+		M.take_organ_damage(0, burned)
+	return ..()

@@ -37,6 +37,8 @@
 
 	var/allow_spin = 1 //Set this to 1 for a _target_ that is being thrown at; if an atom has this set to 1 then atoms thrown AT it will not spin; currently used for the singularity. -Fox
 
+	var/admin_spawned = 0	//was this spawned by an admin? used for stat tracking stuff.
+
 /atom/proc/onCentcom()
 	var/turf/T = get_turf(src)
 	if(!T)
@@ -79,6 +81,10 @@
 		reagents = null
 	invisibility = 101
 	return ..()
+	
+//Hook for running code when a dir change occurs
+/atom/proc/setDir(newdir)
+	dir = newdir
 
 /atom/proc/CheckParts(list/parts_list)
 	for(var/A in parts_list)
@@ -219,11 +225,6 @@
 
 /atom/proc/relaymove()
 	return
-
-//called to set the atom's dir and used to add behaviour to dir-changes - Not fully used (yet)
-/atom/proc/set_dir(new_dir)
-	. = new_dir != dir
-	dir = new_dir
 
 /atom/proc/ex_act()
 	return
@@ -427,6 +428,15 @@
 	else
 		return 0
 
+// Used to provide overlays when using this atom as a viewing focus
+// (cameras, locker tint, etc.)
+/atom/proc/get_remote_view_fullscreens(mob/user)
+	return
+
+//the sight changes to give to the mob whose perspective is set to that atom (e.g. A mob with nightvision loses its nightvision while looking through a normal camera)
+/atom/proc/update_remote_sight(mob/living/user)
+	return
+
 /atom/proc/checkpass(passflag)
 	return pass_flags&passflag
 
@@ -455,3 +465,8 @@
 
 /atom/proc/speech_bubble(var/bubble_state = "",var/bubble_loc = src, var/list/bubble_recipients = list())
 	return
+
+/atom/on_varedit(modified_var)
+	if(!Debug2)
+		admin_spawned = TRUE
+	..()

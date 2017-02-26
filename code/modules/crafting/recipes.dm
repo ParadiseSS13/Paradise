@@ -6,7 +6,6 @@
 	var/time = 30 //time in deciseconds
 	var/parts[] = list() //type paths of items that will be placed in the result
 	var/chem_catalists[] = list() //like tools but for reagents
-	var/fruit[] = list()	//grown products required by the recipe
 	var/category = CAT_MISC // Recipe category
 
 /datum/crafting_recipe/proc/AdjustChems(var/obj/resultobj as obj)
@@ -49,10 +48,8 @@
 	result = /obj/item/weapon/melee/baton/cattleprod
 	reqs = list(/obj/item/weapon/restraints/handcuffs/cable = 1,
 				/obj/item/stack/rods = 1,
-				/obj/item/weapon/wirecutters = 1,
-				/obj/item/weapon/stock_parts/cell = 1)
+				/obj/item/device/assembly/igniter = 1)
 	time = 40
-	parts = list(/obj/item/weapon/stock_parts/cell = 1)
 	category = CAT_WEAPON
 
 /datum/crafting_recipe/bola
@@ -71,12 +68,11 @@
 				/obj/item/clothing/suit/armor/vest = 1,
 				/obj/item/robot_parts/l_leg = 1,
 				/obj/item/robot_parts/r_leg = 1,
-				/obj/item/stack/sheet/metal = 5,
-				/obj/item/stack/cable_coil = 5,
+				/obj/item/stack/sheet/metal = 1,
+				/obj/item/stack/cable_coil = 1,
 				/obj/item/weapon/gun/energy/gun/advtaser = 1,
 				/obj/item/weapon/stock_parts/cell = 1,
-				/obj/item/device/assembly/prox_sensor = 1,
-				/obj/item/robot_parts/r_arm = 1)
+				/obj/item/device/assembly/prox_sensor = 1)
 	tools = list(/obj/item/weapon/weldingtool, /obj/item/weapon/screwdriver)
 	time = 60
 	category = CAT_ROBOT
@@ -310,3 +306,10 @@
 	reqs = list(/obj/item/stack/sheet/mineral/bananium = 5,
 				/obj/item/weapon/bikehorn)
 	category = CAT_MISC
+
+/datum/crafting_recipe/bonfire
+	name = "Bonfire"
+	time = 60
+	reqs = list(/obj/item/weapon/grown/log = 5)
+	result = /obj/structure/bonfire
+	category = CAT_PRIMAL

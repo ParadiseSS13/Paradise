@@ -30,7 +30,12 @@
 	var/frame_desc = null
 	var/contain_parts = 1
 
-
+/obj/item/weapon/circuitboard/computer
+	board_type = "computer"	
+	
+/obj/item/weapon/circuitboard/machine
+	board_type = "machine"	
+	
 /obj/item/weapon/circuitboard/message_monitor
 	name = "Circuit board (Message Monitor)"
 	build_path = /obj/machinery/computer/message_monitor
@@ -39,6 +44,10 @@
 	name = "Circuit board (Camera Monitor)"
 	build_path = /obj/machinery/computer/security
 	origin_tech = "programming=2"
+/obj/item/weapon/circuitboard/xenobiology
+	name = "Circuit board (Xenobiology Console)"
+	build_path = /obj/machinery/computer/camera_advanced/xenobio
+	origin_tech = "programming=3;biotech=3"
 /obj/item/weapon/circuitboard/aicore
 	name = "Circuit board (AI Core)"
 	origin_tech = "programming=4;biotech=2"

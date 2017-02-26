@@ -92,7 +92,7 @@
 			for(var/mob/O in mob_list)
 				if(O.client && O.client.eye == src)
 					O.unset_machine()
-					O.reset_view(null)
+					O.reset_perspective(null)
 					to_chat(O, "The screen bursts into static.")
 			..()
 
@@ -279,7 +279,7 @@
 	for(var/mob/O in player_list)
 		if(O.client && O.client.eye == src)
 			O.unset_machine()
-			O.reset_view(null)
+			O.reset_perspective(null)
 			to_chat(O, "The screen bursts into static.")
 
 /obj/machinery/camera/proc/triggerCameraAlarm(var/duration = 0)
@@ -386,6 +386,20 @@
 		cam["y"] = 0
 		cam["z"] = 0
 	return cam
+
+/obj/machinery/camera/get_remote_view_fullscreens(mob/user)
+	if(view_range == short_range) //unfocused
+		user.overlay_fullscreen("remote_view", /obj/screen/fullscreen/impaired, 2)
+
+/obj/machinery/camera/update_remote_sight(mob/living/user)
+	user.see_invisible = SEE_INVISIBLE_LIVING //can't see ghosts through cameras
+	if(isXRay())
+		user.sight |= (SEE_TURFS|SEE_MOBS|SEE_OBJS)
+		user.see_in_dark = max(user.see_in_dark, 8)
+	else
+		user.sight = 0
+		user.see_in_dark = 2
+	return 1
 
 /obj/machinery/camera/portable //Cameras which are placed inside of things, such as helmets.
 	var/turf/prev_turf

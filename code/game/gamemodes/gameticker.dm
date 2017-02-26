@@ -209,12 +209,9 @@ var/round_start_time = 0
 	//start_events() //handles random events and space dust.
 	//new random event system is handled from the MC.
 
-	var/admins_number = 0
-	for(var/client/C)
-		if(C.holder)
-			admins_number++
-	if(admins_number == 0)
-		send2adminirc("Round has started with no admins online.")
+	var/list/admins_number = staff_countup(R_BAN)
+	if(admins_number[1] == 0 && admins_number[3] == 0)
+		send2irc(config.admin_notify_irc, "Round has started with no admins online.")
 	auto_toggle_ooc(0) // Turn it off
 	round_start_time = world.time
 
@@ -410,16 +407,15 @@ var/round_start_time = 0
 
 		if(player.client)
 			if(player.client.karma_spent == 0)
-				if(player.client.prefs && !(player.client.prefs.toggles & DISABLE_KARMA_REMINDER))
+				if(!player.get_preference(DISABLE_KARMA_REMINDER))
 					var/dat
 					dat += {"<html><head><title>Karma Reminder</title></head><body><h1><B>Karma Reminder</B></h1><br>
 					You have not yet spent your karma for the round, surely there is a player who was worthy of receiving<br>
-					your reward? Look under 'Special Verbs' for the 'Award Karma' button, and use it once a round for best results!</table></body></html>"}
+					your reward? Look under 'OOC' for the 'Award Karma' button, and use it once a round for best results!</table></body></html>"}
 					player << browse(dat, "window=karmareminder;size=400x300")
 
 
 /datum/controller/gameticker/proc/declare_completion()
-
 	nologevent = 1 //end of round murder and shenanigans are legal; there's no need to jam up attack logs past this point.
 	//Round statistics report
 	var/datum/station_state/end_state = new /datum/station_state()
@@ -474,6 +470,9 @@ var/round_start_time = 0
 	scoreboard()
 	karmareminder()
 
+	// Declare the completion of the station goals
+	mode.declare_station_goal_completion()
+	
 	//Ask the event manager to print round end information
 	event_manager.RoundEnd()
 

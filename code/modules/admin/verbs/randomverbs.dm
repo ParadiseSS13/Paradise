@@ -88,7 +88,10 @@
 			missing_ages = 1
 			continue
 		if(C.player_age < age)
-			msg += "[key_name_admin(C)]: account is [C.player_age] days old<br>"
+			if(check_rights(R_ADMIN))
+				msg += "[key_name_admin(C.mob)]: [C.player_age] days old<br>"
+			else
+				msg += "[key_name_mentor(C.mob)]: [C.player_age] days old<br>"
 
 	if(missing_ages)
 		to_chat(src, "Some accounts did not have proper ages set in their clients.  This function requires database to be present")
@@ -139,7 +142,7 @@
 	feedback_add_details("admin_verb","DIRN") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/cmd_admin_godmode(mob/M as mob in mob_list)
-	set category = "Special Verbs"
+	set category = "Admin"
 	set name = "Godmode"
 
 	if(!check_rights(R_ADMIN))
@@ -287,7 +290,7 @@ Works kind of like entering the game with a new character. Character receives a 
 Traitors and the like can also be revived with the previous role mostly intact.
 /N */
 /client/proc/respawn_character()
-	set category = "Special Verbs"
+	set category = "Event"
 	set name = "Respawn Character"
 	set desc = "Respawn a person that has been gibbed/dusted/killed. They must be a ghost for this to work and preferably should not have a body to go back into."
 
@@ -520,7 +523,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	feedback_add_details("admin_verb","IONC") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/cmd_admin_rejuvenate(mob/living/M as mob in mob_list)
-	set category = "Special Verbs"
+	set category = "Event"
 	set name = "Rejuvenate"
 
 	if(!check_rights(R_REJUVINATE))
@@ -561,36 +564,22 @@ Traitors and the like can also be revived with the previous role mostly intact.
 			if("Yes")
 				communications_announcement.Announce(input, customname, , , , from);
 			if("No")
-				to_chat(world, "\red [from] available at all communications consoles.")
+				to_chat(world, "<span class='danger'>[from] available at all communications consoles.</span>")
 
-		for(var/obj/machinery/computer/communications/C in machines)
-			if(! (C.stat & (BROKEN|NOPOWER) ) )
-				var/obj/item/weapon/paper/P = new /obj/item/weapon/paper( C.loc )
-				P.name = "[from]"
-				P.info = input
-				P.update_icon()
-				C.messagetitle.Add("[from]")
-				C.messagetext.Add(P.info)
-
+		print_command_report(input, from)
 
 	if(type == "Centcom Report")
 		if(!customname)
 			customname = "Nanotrasen Update"
 
-		switch(alert("Should this be announced to the general population?",,"Yes","No"))
+		var/announce = alert("Should this be announced to the general population?",,"Yes","No")
+		switch(announce)
 			if("Yes")
 				command_announcement.Announce(input, customname);
 			if("No")
-				to_chat(world, "\red New Nanotrasen Update available at all communication consoles.")
+				to_chat(world, "<span class='danger'>New Nanotrasen Update available at all communication consoles.</span>")
 
-		for(var/obj/machinery/computer/communications/C in machines)
-			if(! (C.stat & (BROKEN|NOPOWER) ) )
-				var/obj/item/weapon/paper/P = new /obj/item/weapon/paper( C.loc )
-				P.name = "'[command_name()] Update.'"
-				P.info = input
-				P.update_icon()
-				C.messagetitle.Add("[command_name()] Update")
-				C.messagetext.Add(P.info)
+		print_command_report(input, "[announce == "No" ? "Classified " : ""][command_name()] Update")
 
 //	world << sound('sound/AI/commandreport.ogg')
 	log_admin("[key_name(src)] has created a communications report: [input]")
@@ -659,7 +648,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		return
 
 /client/proc/cmd_admin_emp(atom/O as obj|mob|turf in view())
-	set category = "Special Verbs"
+	set category = "Event"
 	set name = "EM Pulse"
 
 	if(!check_rights(R_DEBUG|R_EVENT))
@@ -682,7 +671,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		return
 
 /client/proc/cmd_admin_gib(mob/M as mob in mob_list)
-	set category = "Special Verbs"
+	set category = "Admin"
 	set name = "Gib"
 
 	if(!check_rights(R_ADMIN|R_EVENT))
@@ -722,7 +711,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		feedback_add_details("admin_verb","GIBS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/cmd_admin_check_contents(mob/living/M as mob in mob_list)
-	set category = "Special Verbs"
+	set category = "Admin"
 	set name = "Check Contents"
 
 	if(!check_rights(R_ADMIN))
@@ -734,7 +723,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	feedback_add_details("admin_verb","CC") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/toggle_view_range()
-	set category = "Special Verbs"
+	set category = "Admin"
 	set name = "Change View Range"
 	set desc = "switches between 1x and custom views"
 
@@ -806,7 +795,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	message_admins("[key_name_admin(usr)] has [shuttle_master.emergencyNoEscape ? "denied" : "allowed"] the shuttle to be called.")
 
 /client/proc/cmd_admin_attack_log(mob/M as mob in mob_list)
-	set category = "Special Verbs"
+	set category = "Admin"
 	set name = "Attack Log"
 
 	if(!check_rights(R_ADMIN))
@@ -875,7 +864,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	set name = "Reset Telecomms Scripts"
 	set desc = "Blanks all telecomms scripts from all telecomms servers"
 
-	if(!check_rights(R_ADMIN, 1, src))
+	if(!check_rights(R_ADMIN))
 		return
 
 	var/confirm = alert(src, "You sure you want to blank all NTSL scripts?", "Confirm", "Yes", "No")
@@ -891,7 +880,6 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	log_admin("[key_name(usr)] blanked all telecomms scripts.")
 	message_admins("[key_name_admin(usr)] blanked all telecomms scripts.")
 	feedback_add_details("admin_verb","RAT") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
 
 /client/proc/toggle_ert_calling()
 	set category = "Event"
@@ -911,3 +899,23 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		to_chat(usr, "\red ERT has been <b>Disabled</b>.")
 		log_admin("Admin [key_name(src)] has disabled ERT calling.")
 		message_admins("Admin [key_name_admin(usr)] has disabled ERT calling.", 1)
+		
+/client/proc/modify_goals()
+	set category = "Event"
+	set name = "Modify Station Goals"
+
+	if(!check_rights(R_EVENT))
+		return
+
+	holder.modify_goals()
+
+/datum/admins/proc/modify_goals()
+	if(!ticker || !ticker.mode)
+		to_chat(usr, "<span class='warning'>This verb can only be used if the round has started.</span>")
+		return
+	
+	var/dat = ""
+	for(var/datum/station_goal/S in ticker.mode.station_goals)
+		dat += "[S.name] - <a href='?src=[S.UID()];announce=1'>Announce</a> | <a href='?src=[S.UID()];remove=1'>Remove</a><br>"
+	dat += "<br><a href='?src=[UID()];add_station_goal=1'>Add New Goal</a>"
+	usr << browse(dat, "window=goals;size=400x400")

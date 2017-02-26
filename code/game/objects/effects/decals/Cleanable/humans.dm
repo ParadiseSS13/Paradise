@@ -24,6 +24,14 @@ var/global/list/image/splatter_cache=list()
 /obj/effect/decal/cleanable/blood/New()
 	..()
 	update_icon()
+	if(GAMEMODE_IS_CULT)
+		var/datum/game_mode/cult/mode_ticker = ticker.mode
+		var/turf/T = get_turf(src)
+		if(T && (is_station_level(T.z)))//F I V E   T I L E S
+			if(!(T in mode_ticker.bloody_floors))
+				mode_ticker.bloody_floors += T
+				mode_ticker.bloody_floors[T] = T
+				mode_ticker.blood_check()
 	if(istype(src, /obj/effect/decal/cleanable/blood/gibs))
 		return
 	if(src.type == /obj/effect/decal/cleanable/blood)
@@ -35,6 +43,15 @@ var/global/list/image/splatter_cache=list()
 					qdel(B)
 	spawn(DRYING_TIME * (amount+1))
 		dry()
+
+/obj/effect/decal/cleanable/blood/Destroy()
+	if(GAMEMODE_IS_CULT)
+		var/datum/game_mode/cult/mode_ticker = ticker.mode
+		var/turf/T = get_turf(src)
+		if(T && (is_station_level(T.z)))
+			mode_ticker.bloody_floors -= T
+			mode_ticker.blood_check()
+	.=..()
 
 /obj/effect/decal/cleanable/blood/update_icon()
 	if(basecolor == "rainbow") basecolor = "#[pick(list("FF0000","FF7F00","FFFF00","00FF00","0000FF","4B0082","8F00FF"))]"
@@ -101,9 +118,12 @@ var/global/list/image/splatter_cache=list()
 		user.update_inv_gloves(1)
 		user.verbs += /mob/living/carbon/human/proc/bloody_doodle
 
+/obj/effect/decal/cleanable/blood/can_bloodcrawl_in()
+	return TRUE
+
 /obj/effect/decal/cleanable/blood/splatter
-        random_icon_states = list("mgibbl1", "mgibbl2", "mgibbl3", "mgibbl4", "mgibbl5")
-        amount = 2
+	random_icon_states = list("mgibbl1", "mgibbl2", "mgibbl3", "mgibbl4", "mgibbl5")
+	amount = 2
 
 /obj/effect/decal/cleanable/blood/drip
 	name = "drips of blood"

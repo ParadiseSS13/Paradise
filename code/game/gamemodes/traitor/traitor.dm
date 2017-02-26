@@ -350,7 +350,7 @@
 	if(traitor_mind in traitors)
 		ticker.mode.traitors -= traitor_mind
 		traitor_mind.special_role = null
-		traitor_mind.current.attack_log += "\[[time_stamp()]\] <span class='danger'>De-traitored</span>"
+		traitor_mind.current.create_attack_log("<span class='danger'>De-traitored</span>")
 		if(issilicon(traitor_mind.current))
 			to_chat(traitor_mind.current, "<span class='userdanger'>You have been turned into a robot! You are no longer a traitor.</span>")
 		else

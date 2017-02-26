@@ -24,7 +24,6 @@ var/global/list/pirateloot_common = list(
 						/obj/item/device/spacepod_equipment/weaponry/mining_laser,
 						/obj/item/device/paicard,
 						/obj/item/device/megaphone,
-						/obj/item/weapon/gun/energy/kinetic_accelerator/super,
 						/obj/item/pizzabox,
 						/obj/item/weapon/spacecash/c1000{amount = 3},
 						/obj/item/weapon/spacecash/c200{amount = 4},
@@ -49,7 +48,7 @@ var/global/list/pirateloot_common = list(
 						/obj/item/weapon/screwdriver,
 						/obj/item/weapon/wirecutters,
 						/obj/item/weapon/crowbar/large,
-						/obj/item/weapon/bananapeel,
+						/obj/item/weapon/grown/bananapeel,
 						/obj/item/weapon/bikehorn,
 						)
 

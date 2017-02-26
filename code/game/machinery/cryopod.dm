@@ -290,6 +290,11 @@
 					continue
 				O.loc = src
 
+	for(var/obj/machinery/computer/cloning/cloner in machines)
+		for(var/datum/dna2/record/R in cloner.records)
+			if(occupant.mind == locate(R.mind))
+				cloner.records.Remove(R)
+
 	//Delete all items not on the preservation list.
 	var/list/items = src.contents
 	items -= occupant // Don't delete the occupant
@@ -442,11 +447,7 @@
 					to_chat(user, "<span class='boldnotice'>\The [src] is in use.</span>")
 					return
 
-				M.loc = src
-
-				if(M.client)
-					M.client.perspective = EYE_PERSPECTIVE
-					M.client.eye = src
+				M.forceMove(src)
 
 				time_till_despawn = initial(time_till_despawn) / willing
 
@@ -540,12 +541,8 @@
 			if(src.occupant)
 				to_chat(user, "<span class='boldnotice'>\The [src] is in use.</span>")
 				return
-			L.loc = src
+			L.forceMove(src)
 			time_till_despawn = initial(time_till_despawn) / willing
-
-			if(L.client)
-				L.client.perspective = EYE_PERSPECTIVE
-				L.client.eye = src
 		else
 			to_chat(user, "<span class='notice'>You stop [L == user ? "climbing into the cryo pod." : "putting [L] into the cryo pod."]</span>")
 			return
@@ -637,9 +634,7 @@
 			return
 
 		usr.stop_pulling()
-		usr.client.perspective = EYE_PERSPECTIVE
-		usr.client.eye = src
-		usr.loc = src
+		usr.forceMove(src)
 		src.occupant = usr
 		time_till_despawn = initial(time_till_despawn) / willing_time_divisor
 
@@ -662,11 +657,7 @@
 	if(!occupant)
 		return
 
-	if(occupant.client)
-		occupant.client.eye = src.occupant.client.mob
-		occupant.client.perspective = MOB_PERSPECTIVE
-
-	occupant.loc = get_turf(src)
+	occupant.forceMove(get_turf(src))
 	occupant = null
 
 	if(orient_right)
@@ -719,6 +710,7 @@
 		for(var/obj/item/O in I) // the things inside the tools, if anything; mainly for janiborg trash bags
 			O.loc = R
 		qdel(I)
+	R.module.remove_subsystems_and_actions(R)
 	qdel(R.module)
 
 	return ..()

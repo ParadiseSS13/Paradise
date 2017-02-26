@@ -17,14 +17,7 @@
 		return 1
 
 /datum/nano_module/crew_monitor/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/topic_state/state = default_state)
-
-	var/data[0]
-	var/turf/T = get_turf(nano_host())
-
-	data["isAI"] = isAI(user)
-	data["crewmembers"] = crew_repository.health_data(T)
-
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "crew_monitor.tmpl", "Crew Monitoring Computer", 900, 800)
 
@@ -33,8 +26,16 @@
 		// adding a template with the key "mapHeader" replaces the map header content
 		ui.add_template("mapHeader", "crew_monitor_map_header.tmpl")
 
-		ui.set_initial_data(data)
 		ui.open()
 
 		// should make the UI auto-update; doesn't seem to?
 		ui.set_auto_update(1)
+
+/datum/nano_module/crew_monitor/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+	var/data[0]
+	var/turf/T = get_turf(nano_host())
+
+	data["isAI"] = isAI(user)
+	data["crewmembers"] = crew_repository.health_data(T)
+
+	return data
