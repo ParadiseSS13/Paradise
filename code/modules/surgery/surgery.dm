@@ -112,7 +112,7 @@
 
 	if(prob_chance > 100)//if we are using a super tool
 		time = time/prob_chance //PLACEHOLDER VALUES
-	
+
 	if(do_after(user, time, target = target))
 
 
@@ -181,15 +181,68 @@
 	return null
 
 
-/proc/spread_germs_to_organ(obj/item/organ/E, mob/living/carbon/human/user)
-	if(!istype(user) || !istype(E)) return
-//	to_chat(world, "Germ spread: [E] : [E.owner]")
+/proc/spread_germs_to_organ(obj/item/organ/E, mob/living/carbon/human/user, obj/item/tool)
+	if(!istype(user) || !istype(E))
+		return
+
 	var/germ_level = user.germ_level
+
+	//germ spread from surgeon touching the patient
 	if(user.gloves)
 		germ_level = user.gloves.germ_level
 	if(!(E.status & ORGAN_ROBOT)) //Germs on robotic limbs bad
 		E.germ_level = max(germ_level,E.germ_level) //as funny as scrubbing microbes out with clean gloves is - no.
+		spread_germs_by_incision(E,tool)//germ spread from environement to patient
 
+/proc/spread_germs_by_incision(obj/item/organ/external/E,obj/item/tool)
+	if(!istype(E,/obj/item/organ/external))
+		return
+
+	var/center=get_turf(E)
+	var/germ_count = 0
+
+	germ_count=area_germs(center,4)
+
+	if(tool.blood_DNA) //blood-stained tools
+		germ_count += 30
+
+	if(E.internal_organs.len)
+		germ_count = germ_count / E.internal_organs.len
+		for(var/obj/item/organ/internal/O in E.internal_organs)
+			if(!(O.status & ORGAN_ROBOT))
+				O.germ_level += germ_count
+
+	E.germ_level += germ_count
+	to_chat(world,"germs: [germ_count]")
+
+/proc/area_germs(var/turf/turf,var/range,var/list/L)
+	var adj_germs = 0
+	var/germs = 0
+
+	if(!L)
+		L = list()
+
+	if(!(turf in L))
+		L += turf
+
+		for(var/mob/living/carbon/human/H in turf)
+			if((!(NO_BREATH in H.mutations) || !(H.species.flags & NO_BREATH)) && !H.wear_mask) //wearing a mask helps preventing people from breathing cooties into open incisions
+				germs+=H.germ_level/4
+
+		for(var/obj/effect/decal/cleanable/M in turf)
+			if(istype(M,/obj/effect/decal/cleanable/dirt))//dirt is too common, its unfair to punish the player unless its a lot of it
+				if(prob(15))
+					germs+=5
+			else
+				germs+=5
+
+		if(range > 0)
+			for(var/turf/T in turf.GetAtmosAdjacentTurfs(alldir = 0))
+				adj_germs += area_germs(T,range-1,L)
+
+		germs += adj_germs
+
+		return germs
 
 /proc/sort_surgeries()
 	var/gap = surgery_steps.len
