@@ -1,5 +1,0 @@
-author: "KasparoVy"
-delete-after: True
-changes: 
-  - bugfix: "Fixes a bug where you could get a part of a rigsuit stuck to your hand by deploying it twice."
-  - tweak: "Improves the readability of some rigsuit verbs."
