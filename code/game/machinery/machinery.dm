@@ -164,6 +164,9 @@ Class Procs:
 	return
 
 /obj/machinery/allow_inventory()
+	return TRUE
+
+/obj/machinery/allow_drop()
 	return FALSE
 
 /obj/machinery/process() // If you dont use process or power why are you here

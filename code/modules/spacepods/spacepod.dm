@@ -198,6 +198,9 @@
 	light_color = icon_light_color[src.icon_state]
 
 /obj/spacepod/allow_inventory()
+	return TRUE
+
+/obj/spacepod/allow_drop()
 	return FALSE
 
 /obj/spacepod/bullet_act(var/obj/item/projectile/P)

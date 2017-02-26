@@ -636,6 +636,9 @@
 	return ..()
 
 /obj/mecha/allow_inventory()
+	return TRUE
+
+/obj/spacepod/allow_drop()
 	return FALSE
 
 /obj/mecha/ex_act(severity)

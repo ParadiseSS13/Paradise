@@ -82,6 +82,8 @@
 
 
 /obj/item/weapon/grenade/chem_grenade/attack_self(mob/user)
+	if(!isturf(user.loc)) // Gotta expose yourself to use these
+		return
 	if(stage == READY &&  !active)
 		var/turf/bombturf = get_turf(src)
 		var/area/A = get_area(bombturf)
