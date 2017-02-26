@@ -12,6 +12,7 @@
 	name = "Black Terror spider"
 	desc = "An ominous-looking spider, black as the darkest night. It has merciless eyes, and a blood-red hourglass pattern on its back."
 	spider_role_summary = "Hit-and-run attacker with extremely venomous bite."
+	ai_target_method = TS_DAMAGE_POISON
 
 	icon_state = "terror_widow"
 	icon_living = "terror_widow"
@@ -37,3 +38,10 @@
 	else
 		visible_message("<span class='danger'>[src] bites [target], but cannot inject venom into their [inject_target]!</span>")
 	L.attack_animal(src)
+	if(!ckey && (!(target in enemies) || L.reagents.has_reagent("terror_black_toxin", 60)))
+		step_away(src,L)
+		step_away(src,L)
+		LoseTarget()
+		for(var/i in 0 to 3)
+			step_away(src, L)
+		visible_message("<span class='notice'>[src] warily eyes [L] from a distance.</span>")

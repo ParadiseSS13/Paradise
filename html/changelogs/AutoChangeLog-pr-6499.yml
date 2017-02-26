@@ -1,4 +1,0 @@
-author: "davipatury"
-delete-after: True
-changes: 
-  - rscadd: "Medical Records now uses Nano-UI."

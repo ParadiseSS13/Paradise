@@ -1,7 +1,0 @@
-author: "Markolie"
-delete-after: True
-changes: 
-  - tweak: "Firelocks are now more lethal."
-  - rscadd: "Firelocks now crush players standing inside them when they finish closing."
-  - rscadd: "Firelocks can no longer be instantly opened by hand: it requires thirty seconds and will autoclose in five seconds if there is still an atmospherics alert present in the area. They can no longer be closed by hand. Heavy firelocks can not be forced by hand."
-  - bugfix: "Atmospherics technicians can once again remotely modify all settings on air alarms through the central atmospherics console."

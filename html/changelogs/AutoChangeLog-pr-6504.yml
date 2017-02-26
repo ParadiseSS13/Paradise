@@ -1,5 +1,0 @@
-author: "Twinmold93"
-delete-after: True
-changes: 
-  - rscadd: "Ability to label bloodpacks with a pen, so you can now label a bloodpack from donations without a handlabeler."
-  - rscadd: "Bloodpacks will now change name to say if they are empty or not."
