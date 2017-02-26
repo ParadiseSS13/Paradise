@@ -643,25 +643,26 @@
 					ghost << sound('sound/effects/genetics.ogg')
 					M.visible_message("<span class='notice'>[M] doesn't appear to respond, perhaps try again later?</span>")
 				if(!M.suiciding && !ghost && !(NOCLONE in M.mutations))
+					var/time_dead = world.time - M.timeofdeath
 					M.visible_message("<span class='warning'>[M] seems to rise from the dead!</span>")
 					M.setOxyLoss(0)
 					M.adjustBruteLoss(rand(0,15))
 					M.adjustToxLoss(rand(0,15))
 					M.adjustFireLoss(rand(0,15))
-					if(ishuman(M) && M.mind && prob(10)) // To prevent people from using this on monkies to cause pandemics
+					if(ishuman(M))
 						var/mob/living/carbon/human/H = M
-						// Their body is being suffused with magical life-inducing stuff - so other things get lively, too
-						// Things are going to get interesting for the reviving party, too
-						var/virus_type = pick(list(
-							/datum/disease/advance/flu,
-							/datum/disease/advance/cold,
-							/datum/disease/brainrot,
-							/datum/disease/magnitis,
-							/datum/disease/fake_gbs, // honk
-							/datum/disease/cold9
-						))
-						var/datum/disease/D = new virus_type()
-						H.AddDisease(D)
+						var/necrosis_prob = 40 * min((20 MINUTES), max((time_dead - (1 MINUTES)), 0)) / ((20 MINUTES) - (1 MINUTES))
+						to_chat(world, "Necrosis prob: [necrosis_prob]")
+						for(var/obj/item/organ/O in (H.organs | H.internal_organs))
+							// Per non-vital body part:
+							// 0% chance of necrosis within 1 minute of death
+							// 40% chance of necrosis after 20 minutes of death
+							if(!O.vital && prob(necrosis_prob))
+								// side effects may include: Organ failure
+								O.necrotize(FALSE)
+								if(O.status & ORGAN_DEAD)
+									O.germ_level = INFECTION_LEVEL_THREE
+						H.update_body()
 
 					M.update_revive()
 					M.stat = UNCONSCIOUS
