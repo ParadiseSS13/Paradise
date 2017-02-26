@@ -365,7 +365,7 @@ var/list/intents = list(I_HELP,I_DISARM,I_GRAB,I_HARM)
 		return
 
 	if(!resting)
-		client.move_delay += 20
+		client.move_delay = world.time + 20
 		to_chat(src, "<span class='notice'>You are now resting.</span>")
 		StartResting()
 	else if(resting)
