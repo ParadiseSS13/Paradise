@@ -1,0 +1,4 @@
+author: "Crazylemon64"
+delete-after: True
+changes: 
+  - bugfix: "Firelocks can now be operated by AIs again"
