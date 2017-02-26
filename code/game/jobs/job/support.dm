@@ -164,8 +164,8 @@
 	title = "Shaft Miner"
 	flag = MINER
 	department_flag = SUPPORT
-	total_positions = 3
-	spawn_positions = 3
+	total_positions = 5
+	spawn_positions = 5
 	is_supply = 1
 	supervisors = "the quartermaster"
 	selection_color = "#dddddd"
