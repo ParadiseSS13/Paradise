@@ -1,0 +1,4 @@
+author: "davipatury"
+delete-after: True
+changes: 
+  - rscadd: "Security Records now uses Nano-UI."
