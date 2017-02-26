@@ -169,7 +169,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	else
 		var/response
 		var/alertmsg = "Are you -sure- you want to ghost?\n([warningmsg]. If you ghost now, you probably won't be able to rejoin the round! You can't change your mind, so choose wisely!)"
-		response = alert(src, alertmsg,"Are you sure you want to ghost?","Ghost","Stay in body")
+		response = alert(src, alertmsg,"Are you sure you want to ghost?","Stay in body","Ghost")
 		if(response != "Ghost")
 			return	//didn't want to ghost after-all
 		resting = 1

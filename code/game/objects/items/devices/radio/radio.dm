@@ -242,7 +242,6 @@ var/global/list/default_medbay_channels = list(
 	var/datum/radio_frequency/connection = null
 	if(channel && channels && channels.len > 0)
 		if(channel == "department")
-//			to_chat(world, "DEBUG: channel=\"[channel]\" switching to \"[channels[1]]\"")
 			channel = channels[1]
 		connection = secure_radio_connections[channel]
 	else
@@ -259,9 +258,8 @@ var/global/list/default_medbay_channels = list(
 	Broadcast_Message(connection, A,
 						0, "*garbled automated announcement*", src,
 						message, from, "Automated Announcement", from, "synthesized voice",
-						4, 0, zlevel, connection.frequency, follow_target=follow_target)
+						4, 0, zlevel, connection.frequency, follow_target = follow_target)
 	qdel(A)
-	return
 
 // Just a dummy mob used for making announcements, so we don't create AIs to do this
 // I'm not sure who thought that was a good idea. -- Crazylemon

@@ -100,23 +100,23 @@ var/time_last_changed_position = 0
 	set name = "Eject ID Card"
 	set src in oview(1)
 
-	if(!usr || usr.stat || usr.lying)	return
+	if(usr.restrained())	
+		return
 
 	if(scan)
 		to_chat(usr, "You remove \the [scan] from \the [src].")
-		scan.loc = get_turf(src)
-		if(!usr.get_active_hand())
+		scan.forceMove(get_turf(src))
+		if(!usr.get_active_hand() && Adjacent(usr))
 			usr.put_in_hands(scan)
 		scan = null
 	else if(modify)
 		to_chat(usr, "You remove \the [modify] from \the [src].")
-		modify.loc = get_turf(src)
-		if(!usr.get_active_hand())
+		modify.forceMove(get_turf(src))
+		if(!usr.get_active_hand() && Adjacent(usr))
 			usr.put_in_hands(modify)
 		modify = null
 	else
 		to_chat(usr, "There is nothing to remove from the console.")
-	return
 
 /obj/machinery/computer/card/attackby(obj/item/weapon/card/id/id_card, mob/user, params)
 	if(!istype(id_card))
@@ -260,35 +260,35 @@ var/time_last_changed_position = 0
 				data_core.manifest_modify(modify.registered_name, modify.assignment)
 				modify.name = text("[modify.registered_name]'s ID Card ([modify.assignment])")
 				if(ishuman(usr))
-					modify.loc = usr.loc
-					if(!usr.get_active_hand())
+					modify.forceMove(get_turf(src))
+					if(!usr.get_active_hand() && Adjacent(usr))
 						usr.put_in_hands(modify)
 					modify = null
 				else
-					modify.loc = loc
+					modify.forceMove(get_turf(src))
 					modify = null
-			else
+			else if(Adjacent(usr))	
 				var/obj/item/I = usr.get_active_hand()
 				if(istype(I, /obj/item/weapon/card/id))
 					usr.drop_item()
-					I.loc = src
+					I.forceMove(src)
 					modify = I
 
 		if("scan")
 			if(scan)
 				if(ishuman(usr))
-					scan.loc = usr.loc
-					if(!usr.get_active_hand())
+					scan.forceMove(get_turf(src))
+					if(!usr.get_active_hand() && Adjacent(usr))
 						usr.put_in_hands(scan)
 					scan = null
 				else
-					scan.loc = src.loc
+					scan.forceMove(get_turf(src))
 					scan = null
-			else
+			else if(Adjacent(usr))			
 				var/obj/item/I = usr.get_active_hand()
 				if(istype(I, /obj/item/weapon/card/id))
 					usr.drop_item()
-					I.loc = src
+					I.forceMove(src)
 					scan = I
 
 		if("access")

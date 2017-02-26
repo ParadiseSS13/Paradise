@@ -910,6 +910,10 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	holder.modify_goals()
 
 /datum/admins/proc/modify_goals()
+	if(!ticker || !ticker.mode)
+		to_chat(usr, "<span class='warning'>This verb can only be used if the round has started.</span>")
+		return
+	
 	var/dat = ""
 	for(var/datum/station_goal/S in ticker.mode.station_goals)
 		dat += "[S.name] - <a href='?src=[S.UID()];announce=1'>Announce</a> | <a href='?src=[S.UID()];remove=1'>Remove</a><br>"

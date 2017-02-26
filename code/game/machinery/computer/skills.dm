@@ -1,4 +1,6 @@
-//This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:31
+#define SKILL_DATA_R_LIST	1	// Record list
+#define SKILL_DATA_MAINT	2	// Records maintenance
+#define SKILL_DATA_RECORD	3	// Record
 
 /obj/machinery/computer/skills//TODO:SANITY
 	name = "employment records console"
@@ -15,372 +17,280 @@
 	var/rank = null
 	var/screen = null
 	var/datum/data/record/active1 = null
-	var/a_id = null
 	var/temp = null
 	var/printing = null
-	var/can_change_id = 0
-	var/list/Perp
-	var/tempname = null
 	//Sorting Variables
 	var/sortBy = "name"
 	var/order = 1 // -1 = Descending - 1 = Ascending
 
 
-/obj/machinery/computer/skills/attackby(obj/item/O as obj, user as mob, params)
+/obj/machinery/computer/skills/attackby(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/weapon/card/id) && !scan)
-		usr.drop_item()
-		O.loc = src
+		user.drop_item()
+		O.forceMove(src)
 		scan = O
-		to_chat(user, "You insert [O].")
+		ui_interact(user)
 	..()
 
-/obj/machinery/computer/skills/attack_ai(mob/user as mob)
-	return attack_hand(user)
-
 //Someone needs to break down the dat += into chunks instead of long ass lines.
-/obj/machinery/computer/skills/attack_hand(mob/user as mob)
+/obj/machinery/computer/skills/attack_hand(mob/user)
 	if(..())
 		return
-
-	if(is_away_level(src.z))
+	if(is_away_level(z))
 		to_chat(user, "<span class='danger'>Unable to establish a connection</span>: You're too far away from the station!")
 		return
-	var/dat
+	add_fingerprint(user)
+	ui_interact(user)
 
-	if(temp)
-		dat = "<TT>[temp]</TT><BR><BR><A href='?src=[UID()];choice=Clear Screen'>Clear Screen</A>"
-	else
-		dat = text("Confirm Identity: <A href='?src=[UID()];choice=Confirm Identity'>[]</A><HR>", (scan ? text("[]", scan.name) : "----------"))
-		if(authenticated)
-			switch(screen)
-				if(1.0)
-					dat += {"
-<p style='text-align:center;'>"}
-					dat += "<A href='?src=[UID()];choice=Search Records'>Search Records</A><BR>"
-					dat += "<A href='?src=[UID()];choice=New Record (General)'>New Record</A><BR>"
-					dat += {"
-</p>
-<table style="text-align:center;" cellspacing="0" width="100%">
-<tr>
-<th>Records:</th>
-</tr>
-</table>
-<table style="text-align:center;" border="1" cellspacing="0" width="100%">
-<tr>
-<th><A href='?src=[UID()];choice=Sorting;sort=name'>Name</A></th>
-<th><A href='?src=[UID()];choice=Sorting;sort=id'>ID</A></th>
-<th><A href='?src=[UID()];choice=Sorting;sort=rank'>Rank</A></th>
-<th><A href='?src=[UID()];choice=Sorting;sort=fingerprint'>Fingerprints</A></th>
-</tr>"}
-					if(!isnull(data_core.general))
-						for(var/datum/data/record/R in sortRecord(data_core.general, sortBy, order))
-							for(var/datum/data/record/E in data_core.security)
-							var/background
-							dat += text("<tr style=[]><td><A href='?src=[UID()];choice=Browse Record;d_rec=\ref[]'>[]</a></td>", background, R, R.fields["name"])
-							dat += text("<td>[]</td>", R.fields["id"])
-							dat += text("<td>[]</td>", R.fields["rank"])
-							dat += text("<td>[]</td>", R.fields["fingerprint"])
-						dat += "</table><hr width='75%' />"
-					dat += "<A href='?src=[UID()];choice=Record Maintenance'>Record Maintenance</A><br><br>"
-					dat += "<A href='?src=[UID()];choice=Log Out'>{Log Out}</A>"
-				if(2.0)
-					dat += "<B>Records Maintenance</B><HR>"
-					dat += "<BR><A href='?src=[UID()];choice=Delete All Records'>Delete All Records</A><BR><BR><A href='?src=[UID()];choice=Return'>Back</A>"
-				if(3.0)
-					dat += "<CENTER><B>Employment Record</B></CENTER><BR>"
-					if((istype(active1, /datum/data/record) && data_core.general.Find(active1)))
-						dat += text("<table><tr><td>	\
-						Name: <A href='?src=[UID()];choice=Edit Field;field=name'>[active1.fields["name"]]</A><BR> \
-						ID: <A href='?src=[UID()];choice=Edit Field;field=id'>[active1.fields["id"]]</A><BR>\n	\
-						Sex: <A href='?src=[UID()];choice=Edit Field;field=sex'>[active1.fields["sex"]]</A><BR>\n	\
-						Age: <A href='?src=[UID()];choice=Edit Field;field=age'>[active1.fields["age"]]</A><BR>\n	\
-						Rank: <A href='?src=[UID()];choice=Edit Field;field=rank'>[active1.fields["rank"]]</A><BR>\n	\
-						Fingerprint: <A href='?src=[UID()];choice=Edit Field;field=fingerprint'>[active1.fields["fingerprint"]]</A><BR>\n	\
-						Physical Status: [active1.fields["p_stat"]]<BR>\n	\
-						Mental Status: [active1.fields["m_stat"]]<BR><BR>\n	\
-						Employment/skills summary:<BR> [active1.fields["notes"]]<BR></td>	\
-						<td align = center valign = top>Photo:<br><img src=[active1.fields["photo-south"]] height=80 width=80 border=4>	\
-						<img src=[active1.fields["photo-west"]] height=80 width=80 border=4></td></tr></table>")
-					else
-						dat += "<B>General Record Lost!</B><BR>"
-					dat += "\n<A href='?src=[UID()];choice=Delete Record (ALL)'>Delete Record (ALL)</A><BR><BR>\n<A href='?src=[UID()];choice=Print Record'>Print Record</A><BR>\n<A href='?src=[UID()];choice=Return'>Back</A><BR>"
-				if(4.0)
-					if(!Perp.len)
-						dat += "ERROR.  String could not be located.<br><br><A href='?src=[UID()];choice=Return'>Back</A>"
-					else
-						dat += {"
-<table style="text-align:center;" cellspacing="0" width="100%">
-<tr>					"}
-						dat += text("<th>Search Results for '[]':</th>", tempname)
-						dat += {"
-</tr>
-</table>
-<table style="text-align:center;" border="1" cellspacing="0" width="100%">
-<tr>
-<th>Name</th>
-<th>ID</th>
-<th>Rank</th>
-<th>Fingerprints</th>
-</tr>					"}
-						for(var/i=1, i<=Perp.len, i += 2)
-							var/crimstat = ""
-							var/datum/data/record/R = Perp[i]
-							if(istype(Perp[i+1],/datum/data/record/))
-								var/datum/data/record/E = Perp[i+1]
-								crimstat = E.fields["criminal"]
-							var/background
-							background = "'background-color:#00FF7F;'"
-							dat += text("<tr style=[]><td><A href='?src=[UID()];choice=Browse Record;d_rec=\ref[]'>[]</a></td>", background, R, R.fields["name"])
-							dat += text("<td>[]</td>", R.fields["id"])
-							dat += text("<td>[]</td>", R.fields["rank"])
-							dat += text("<td>[]</td>", R.fields["fingerprint"])
-							dat += text("<td>[]</td></tr>", crimstat)
-						dat += "</table><hr width='75%' />"
-						dat += "<br><A href='?src=[UID()];choice=Return'>Return to index.</A>"
+/obj/machinery/computer/skills/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "skills_data.tmpl", name, 800, 380)
+		ui.open()
+
+/obj/machinery/computer/skills/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+	var/data[0]
+	data["temp"] = temp
+	data["scan"] = scan ? scan.name : null
+	data["authenticated"] = authenticated
+	data["screen"] = screen
+	if(authenticated)
+		switch(screen)
+			if(SKILL_DATA_R_LIST)
+				if(!isnull(data_core.general))
+					for(var/datum/data/record/R in sortRecord(data_core.general, sortBy, order))
+						data["records"] += list(list("ref" = "\ref[R]", "id" = R.fields["id"], "name" = R.fields["name"], "rank" = R.fields["rank"], "fingerprint" = R.fields["fingerprint"]))
+			if(SKILL_DATA_RECORD)
+				var/list/general = list()
+				data["general"] = general
+				if(istype(active1, /datum/data/record) && data_core.general.Find(active1))
+					var/list/fields = list()
+					general["fields"] = fields
+					fields[++fields.len] = list("field" = "Name:", "value" = active1.fields["name"], "name" = "name")
+					fields[++fields.len] = list("field" = "ID:", "value" = active1.fields["id"], "name" = "id")
+					fields[++fields.len] = list("field" = "Sex:", "value" = active1.fields["sex"], "name" = "sex")
+					fields[++fields.len] = list("field" = "Age:", "value" = active1.fields["age"], "name" = "age")
+					fields[++fields.len] = list("field" = "Rank:", "value" = active1.fields["rank"], "name" = "rank")
+					fields[++fields.len] = list("field" = "Fingerprint:", "value" = active1.fields["fingerprint"], "name" = "fingerprint")
+					fields[++fields.len] = list("field" = "Physical Status:", "value" = active1.fields["p_stat"])
+					fields[++fields.len] = list("field" = "Mental Status:", "value" = active1.fields["m_stat"])
+					general["notes"] = active1.fields["notes"]
+					var/list/photos = list()
+					general["photos"] = photos
+					photos[++photos.len] = list("photo" = active1.fields["photo-south"])
+					photos[++photos.len] = list("photo" = active1.fields["photo-west"])
+					general["has_photos"] += (active1.fields["photo-south"] || active1.fields["photo-west"] ? 1 : 0)
+					general["empty"] = 0
 				else
-		else
-			dat += "<A href='?src=[UID()];choice=Log In'>{Log In}</A>"
-	user << browse(text("<HEAD><TITLE>Employment Records</TITLE></HEAD><TT>[]</TT>", dat), "window=secure_rec;size=600x400")
-	onclose(user, "secure_rec")
-	return
+					general["empty"] = 1
+	return data
 
-/*Revised /N
-I can't be bothered to look more of the actual code outside of switch but that probably needs revising too.
-What a mess.*/
 /obj/machinery/computer/skills/Topic(href, href_list)
 	if(..())
 		return 1
-	if(!( data_core.general.Find(active1) ))
+
+	if(!data_core.general.Find(active1))
 		active1 = null
-	if((usr.contents.Find(src) || (in_range(src, usr) && istype(loc, /turf))) || (istype(usr, /mob/living/silicon)))
-		usr.set_machine(src)
-		switch(href_list["choice"])
-// SORTING!
-			if("Sorting")
-				// Reverse the order if clicked twice
-				if(sortBy == href_list["sort"])
-					if(order == 1)
-						order = -1
-					else
-						order = 1
-				else
-				// New sorting order!
-					sortBy = href_list["sort"]
-					order = initial(order)
-//BASIC FUNCTIONS
-			if("Clear Screen")
-				temp = null
 
-			if("Return")
-				screen = 1
-				active1 = null
+	if(href_list["temp"])
+		temp = null
 
-			if("Confirm Identity")
-				if(scan)
-					if(istype(usr,/mob/living/carbon/human) && !usr.get_active_hand())
-						usr.put_in_hands(scan)
-					else
-						scan.loc = get_turf(src)
-					scan = null
-				else
-					var/obj/item/I = usr.get_active_hand()
-					if(istype(I, /obj/item/weapon/card/id))
-						usr.drop_item()
-						I.loc = src
-						scan = I
-
-			if("Log Out")
-				authenticated = null
-				screen = null
-				active1 = null
-
-			if("Log In")
-				if(istype(usr, /mob/living/silicon/ai))
-					src.active1 = null
-					src.authenticated = usr.name
-					src.rank = "AI"
-					src.screen = 1
-				else if(istype(usr, /mob/living/silicon/robot))
-					src.active1 = null
-					src.authenticated = usr.name
-					var/mob/living/silicon/robot/R = usr
-					src.rank = R.braintype
-					src.screen = 1
-				else if(istype(scan, /obj/item/weapon/card/id))
-					active1 = null
-					if(check_access(scan))
-						authenticated = scan.registered_name
-						rank = scan.assignment
-						screen = 1
-//RECORD FUNCTIONS
-			if("Search Records")
-				var/t1 = input("Search String: (Partial Name or ID or Fingerprints or Rank)", "Secure. records", null, null)  as text
-				if((!( t1 ) || usr.stat || !( authenticated ) || usr.restrained() || !in_range(src, usr)))
-					return
-				Perp = new/list()
-				t1 = lowertext(t1)
-				var/list/components = splittext(t1, " ")
-				if(components.len > 5)
-					return //Lets not let them search too greedily.
-				for(var/datum/data/record/R in data_core.general)
-					var/temptext = R.fields["name"] + " " + R.fields["id"] + " " + R.fields["fingerprint"] + " " + R.fields["rank"]
-					for(var/i = 1, i<=components.len, i++)
-						if(findtext(temptext,components[i]))
-							var/prelist = new/list(2)
-							prelist[1] = R
-							Perp += prelist
-				for(var/i = 1, i<=Perp.len, i+=2)
-					for(var/datum/data/record/E in data_core.security)
-						var/datum/data/record/R = Perp[i]
-						if((E.fields["name"] == R.fields["name"] && E.fields["id"] == R.fields["id"]))
-							Perp[i+1] = E
-				tempname = t1
-				screen = 4
-
-			if("Record Maintenance")
-				screen = 2
-				active1 = null
-
-			if("Browse Record")
-				var/datum/data/record/R = locate(href_list["d_rec"])
-				if(!( data_core.general.Find(R) ))
-					temp = "Record Not Found!"
-				else
-					for(var/datum/data/record/E in data_core.security)
-					active1 = R
-					screen = 3
-
-			if("Print Record")
-				if(!( printing ))
-					printing = 1
-					playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
-					sleep(50)
-					var/obj/item/weapon/paper/P = new /obj/item/weapon/paper( loc )
-					P.info = "<CENTER><B>Employment Record</B></CENTER><BR>"
-					if((istype(active1, /datum/data/record) && data_core.general.Find(active1)))
-						P.info += text("Name: [] ID: []<BR>\nSex: []<BR>\nAge: []<BR>\nFingerprint: []<BR>\nPhysical Status: []<BR>\nMental Status: []<BR>\nEmployment/Skills Summary:[]<BR>", active1.fields["name"], active1.fields["id"], active1.fields["sex"], active1.fields["age"], active1.fields["fingerprint"], active1.fields["p_stat"], active1.fields["m_stat"], active1.fields["notes"])
-					else
-						P.info += "<B>General Record Lost!</B><BR>"
-					P.info += "</TT>"
-					P.name = "paper - 'Employment Record'"
-					printing = null
-//RECORD DELETE
-			if("Delete All Records")
-				temp = ""
-				temp += "Are you sure you wish to delete all Employment records?<br>"
-				temp += "<a href='?src=[UID()];choice=Purge All Records'>Yes</a><br>"
-				temp += "<a href='?src=[UID()];choice=Clear Screen'>No</a>"
-
-			if("Purge All Records")
-				if(PDA_Manifest.len)
+	if(href_list["temp_action"])
+		var/temp_list = splittext(href_list["temp_action"], "=")
+		switch(temp_list[1])
+			if("del_all2")
+				if(PDA_Manifest && PDA_Manifest.len)
 					PDA_Manifest.Cut()
 				for(var/datum/data/record/R in data_core.security)
 					qdel(R)
-				temp = "All Employment records deleted."
-
-			if("Delete Record (ALL)")
+				setTemp("<h3>All employment records deleted.</h3>")
+			if("del_rg2")
 				if(active1)
-					temp = "<h5>Are you sure you wish to delete the record (ALL)?</h5>"
-					temp += "<a href='?src=[UID()];choice=Delete Record (ALL) Execute'>Yes</a><br>"
-					temp += "<a href='?src=[UID()];choice=Clear Screen'>No</a>"
-//RECORD CREATE
-			if("New Record (General)")
+					if(PDA_Manifest && PDA_Manifest.len)
+						PDA_Manifest.Cut()
+					for(var/datum/data/record/R in data_core.medical)
+						if(R.fields["name"] == active1.fields["name"] && R.fields["id"] == active1.fields["id"])
+							qdel(R)
+					qdel(active1)
+					active1 = null
+				screen = SKILL_DATA_R_LIST
+			if("rank")
+				if(active1)
+					if(PDA_Manifest && PDA_Manifest.len)
+						PDA_Manifest.Cut()
+					active1.fields["rank"] = temp_list[2]
+					if(temp_list[2] in joblist)
+						active1.fields["real_rank"] = temp_list[2]
 
-				if(PDA_Manifest.len)
-					PDA_Manifest.Cut()
-				var/datum/data/record/G = new /datum/data/record()
-				G.fields["name"] = "New Record"
-				G.fields["id"] = text("[]", add_zero(num2hex(rand(1, 1.6777215E7)), 6))
-				G.fields["rank"] = "Unassigned"
-				G.fields["real_rank"] = "Unassigned"
-				G.fields["sex"] = "Male"
-				G.fields["age"] = "Unknown"
-				G.fields["fingerprint"] = "Unknown"
-				G.fields["p_stat"] = "Active"
-				G.fields["m_stat"] = "Stable"
-				G.fields["species"] = "Human"
-				data_core.general += G
-				active1 = G
+	if(href_list["scan"])
+		if(scan)
+			scan.forceMove(loc)
+			if(ishuman(usr) && !usr.get_active_hand())
+				usr.put_in_hands(scan)
+			scan = null
+		else
+			var/obj/item/I = usr.get_active_hand()
+			if(istype(I, /obj/item/weapon/card/id))
+				usr.drop_item()
+				I.forceMove(src)
+				scan = I
 
-//FIELD FUNCTIONS
-			if("Edit Field")
-				var/a1 = active1
-				switch(href_list["field"])
-					if("name")
-						if(istype(active1, /datum/data/record))
-							var/t1 = reject_bad_name(input("Please input name:", "Secure. records", active1.fields["name"], null)  as text)
-							if((!( t1 ) || !length(trim(t1)) || !( authenticated ) || usr.stat || usr.restrained() || (!in_range(src, usr) && (!istype(usr, /mob/living/silicon)))) || active1 != a1)
-								return
-							active1.fields["name"] = t1
-					if("id")
-						if(istype(active1, /datum/data/record))
-							var/t1 = copytext(trim(sanitize(input("Please input id:", "Secure. records", active1.fields["id"], null)  as text)),1,MAX_MESSAGE_LEN)
-							if((!( t1 ) || !( authenticated ) || usr.stat || usr.restrained() || (!in_range(src, usr) && (!istype(usr, /mob/living/silicon))) || active1 != a1))
-								return
-							active1.fields["id"] = t1
-					if("fingerprint")
-						if(istype(active1, /datum/data/record))
-							var/t1 = copytext(trim(sanitize(input("Please input fingerprint hash:", "Secure. records", active1.fields["fingerprint"], null)  as text)),1,MAX_MESSAGE_LEN)
-							if((!( t1 ) || !( authenticated ) || usr.stat || usr.restrained() || (!in_range(src, usr) && (!istype(usr, /mob/living/silicon))) || active1 != a1))
-								return
-							active1.fields["fingerprint"] = t1
-					if("sex")
-						if(istype(active1, /datum/data/record))
-							if(active1.fields["sex"] == "Male")
-								active1.fields["sex"] = "Female"
-							else
-								active1.fields["sex"] = "Male"
-					if("age")
-						if(istype(active1, /datum/data/record))
-							var/t1 = input("Please input age:", "Secure. records", active1.fields["age"], null)  as num
-							if((!( t1 ) || !( authenticated ) || usr.stat || usr.restrained() || (!in_range(src, usr) && (!istype(usr, /mob/living/silicon))) || active1 != a1))
-								return
-							active1.fields["age"] = t1
-					if("rank")
-						var/list/L = list( "Head of Personnel", "Captain", "AI" )
-						//This was so silly before the change. Now it actually works without beating your head against the keyboard. /N
-						if((istype(active1, /datum/data/record) && L.Find(rank)))
-							temp = "<h5>Rank:</h5>"
-							temp += "<ul>"
-							for(var/rank in joblist)
-								temp += "<li><a href='?src=[UID()];choice=Change Rank;rank=[rank]'>[rank]</a></li>"
-							temp += "</ul>"
+	if(href_list["login"])
+		if(isAI(usr))
+			authenticated = usr.name
+			rank = "AI"
+		else if(isrobot(usr))
+			authenticated = usr.name
+			var/mob/living/silicon/robot/R = usr
+			rank = "[R.modtype] [R.braintype]"
+		else if(istype(scan, /obj/item/weapon/card/id))
+			if(check_access(scan))
+				authenticated = scan.registered_name
+				rank = scan.assignment
+
+		if(authenticated)
+			active1 = null
+			screen = SKILL_DATA_R_LIST
+
+	if(authenticated)
+		var/incapable = (usr.stat || usr.restrained() || (!in_range(src, usr) && !issilicon(usr)))
+		if(href_list["logout"])
+			authenticated = null
+			screen = null
+			active1 = null
+
+		else if(href_list["sort"])
+			// Reverse the order if clicked twice
+			if(sortBy == href_list["sort"])
+				if(order == 1)
+					order = -1
+				else
+					order = 1
+			else
+				sortBy = href_list["sort"]
+				order = initial(order)
+
+		else if(href_list["screen"])
+			screen = text2num(href_list["screen"])
+			if(screen < 1)
+				screen = SKILL_DATA_R_LIST
+
+			active1 = null
+
+		else if(href_list["d_rec"])
+			var/datum/data/record/R = locate(href_list["d_rec"])
+			if(!data_core.general.Find(R))
+				setTemp("<h3><span class='bad'>Record not found!</span></h3>")
+				return 1
+			active1 = R
+			screen = SKILL_DATA_RECORD
+
+		else if(href_list["del_all"])
+			var/list/buttons = list()
+			buttons[++buttons.len] = list("name" = "Yes", "icon" = "check", "val" = "del_all2=1", "status" = null)
+			buttons[++buttons.len] = list("name" = "No", "icon" = "times", "val" = null, "status" = null)
+			setTemp("<h3>Are you sure you wish to delete all employment records?</h3>", buttons)
+
+		else if(href_list["del_rg"])
+			if(active1)
+				var/list/buttons = list()
+				buttons[++buttons.len] = list("name" = "Yes", "icon" = "check", "val" = "del_rg2=1", "status" = null)
+				buttons[++buttons.len] = list("name" = "No", "icon" = "times", "val" = null, "status" = null)
+				setTemp("<h3>Are you sure you wish to delete the record (ALL)?</h3>", buttons)
+
+		else if(href_list["new_g"])
+			if(PDA_Manifest.len)
+				PDA_Manifest.Cut()
+			var/datum/data/record/G = new /datum/data/record()
+			G.fields["name"] = "New Record"
+			G.fields["id"] = "[add_zero(num2hex(rand(1, 1.6777215E7)), 6)]"
+			G.fields["rank"] = "Unassigned"
+			G.fields["real_rank"] = "Unassigned"
+			G.fields["sex"] = "Male"
+			G.fields["age"] = "Unknown"
+			G.fields["fingerprint"] = "Unknown"
+			G.fields["p_stat"] = "Active"
+			G.fields["m_stat"] = "Stable"
+			G.fields["species"] = "Human"
+			data_core.general += G
+			active1 = G
+
+		else if(href_list["print_r"])
+			if(!printing)
+				printing = 1
+				playsound(loc, "sound/goonstation/machines/printer_dotmatrix.ogg", 50, 1)
+				sleep(50)
+				var/obj/item/weapon/paper/P = new /obj/item/weapon/paper(loc)
+				P.info = "<CENTER><B>Employment Record</B></CENTER><BR>"
+				if(istype(active1, /datum/data/record) && data_core.general.Find(active1))
+					P.info += {"Name: [active1.fields["name"]] ID: [active1.fields["id"]]
+							<BR>\nSex: [active1.fields["sex"]]
+							<BR>\nAge: [active1.fields["age"]]
+							<BR>\nFingerprint: [active1.fields["fingerprint"]]
+							<BR>\nPhysical Status: [active1.fields["p_stat"]]
+							<BR>\nMental Status: [active1.fields["m_stat"]]
+							<BR>\nEmployment/Skills Summary:[active1.fields["notes"]]<BR>"}
+				else
+					P.info += "<B>General Record Lost!</B><BR>"
+				P.info += "</TT>"
+				P.name = "paper - 'Employment Record'"
+				printing = 0
+
+		if(href_list["field"])
+			if(incapable)
+				return 1
+			var/a1 = active1
+			switch(href_list["field"])
+				if("name")
+					if(istype(active1, /datum/data/record))
+						var/t1 = reject_bad_name(input("Please input name:", "Secure. records", active1.fields["name"], null) as text)
+						if(!t1 || !length(trim(t1)) || incapable || active1 != a1)
+							return 1
+						active1.fields["name"] = t1
+				if("id")
+					if(istype(active1, /datum/data/record))
+						var/t1 = copytext(trim(sanitize(input("Please input id:", "Secure. records", active1.fields["id"], null) as text)), 1, MAX_MESSAGE_LEN)
+						if(!t1 || incapable || active1 != a1)
+							return 1
+						active1.fields["id"] = t1
+				if("fingerprint")
+					if(istype(active1, /datum/data/record))
+						var/t1 = copytext(trim(sanitize(input("Please input fingerprint hash:", "Secure. records", active1.fields["fingerprint"], null) as text)), 1, MAX_MESSAGE_LEN)
+						if(!t1 || incapable || active1 != a1)
+							return 1
+						active1.fields["fingerprint"] = t1
+				if("sex")
+					if(istype(active1, /datum/data/record))
+						if(active1.fields["sex"] == "Male")
+							active1.fields["sex"] = "Female"
 						else
-							alert(usr, "You do not have the required rank to do this!")
-					if("species")
-						if(istype(active1, /datum/data/record))
-							var/t1 = copytext(trim(sanitize(input("Please enter race:", "General records", active1.fields["species"], null)  as message)),1,MAX_MESSAGE_LEN)
-							if((!( t1 ) || !( authenticated ) || usr.stat || usr.restrained() || (!in_range(src, usr) && (!istype(usr, /mob/living/silicon))) || active1 != a1))
-								return
-							active1.fields["species"] = t1
-
-//TEMPORARY MENU FUNCTIONS
-			else//To properly clear as per clear screen.
-				temp=null
-				switch(href_list["choice"])
-					if("Change Rank")
-						if(active1)
-							if(PDA_Manifest.len)
-								PDA_Manifest.Cut()
-							active1.fields["rank"] = href_list["rank"]
-							if(href_list["rank"] in joblist)
-								active1.fields["real_rank"] = href_list["real_rank"]
-
-					if("Delete Record (ALL) Execute")
-						if(active1)
-							if(PDA_Manifest.len)
-								PDA_Manifest.Cut()
-							for(var/datum/data/record/R in data_core.medical)
-								if((R.fields["name"] == active1.fields["name"] || R.fields["id"] == active1.fields["id"]))
-									qdel(R)
-								else
-							qdel(active1)
+							active1.fields["sex"] = "Male"
+				if("age")
+					if(istype(active1, /datum/data/record))
+						var/t1 = input("Please input age:", "Secure. records", active1.fields["age"], null) as num
+						if(!t1 || incapable || active1 != a1)
+							return 1
+						active1.fields["age"] = t1
+				if("rank")
+					var/list/L = list("Head of Personnel", "Captain", "AI")
+					//This was so silly before the change. Now it actually works without beating your head against the keyboard. /N
+					if(istype(active1, /datum/data/record) && L.Find(rank))
+						var/list/buttons = list()
+						for(var/rank in joblist)
+							buttons[++buttons.len] = list("name" = rank, "icon" = null, "val" = "rank=[rank]", "status" = (active1.fields["rank"] == rank ? "selected" : null))
+						setTemp("<h3>Rank</h3>", buttons)
 					else
-						temp = "This function does not appear to be working at the moment. Our apologies."
+						setTemp("<span class='bad'>You do not have the required rank to do this!</span>")
+				if("species")
+					if(istype(active1, /datum/data/record))
+						var/t1 = copytext(trim(sanitize(input("Please enter race:", "General records", active1.fields["species"], null) as message)), 1, MAX_MESSAGE_LEN)
+						if(!t1 || incapable || active1 != a1)
+							return 1
+						active1.fields["species"] = t1
+	return 1
 
-	add_fingerprint(usr)
-	updateUsrDialog()
-	return
+/obj/machinery/computer/skills/proc/setTemp(text, list/buttons = list())
+	temp = list("text" = text, "buttons" = buttons, "has_buttons" = buttons.len > 0)
 
 /obj/machinery/computer/skills/emp_act(severity)
 	if(stat & (BROKEN|NOPOWER))
@@ -393,7 +303,7 @@ What a mess.*/
 				if(1)
 					R.fields["name"] = "[pick(pick(first_names_male), pick(first_names_female))] [pick(last_names)]"
 				if(2)
-					R.fields["sex"]	= pick("Male", "Female")
+					R.fields["sex"] = pick("Male", "Female")
 				if(3)
 					R.fields["age"] = rand(5, 85)
 				if(4)
@@ -409,3 +319,7 @@ What a mess.*/
 			continue
 
 	..(severity)
+
+#undef SKILL_DATA_R_LIST
+#undef SKILL_DATA_MAINT
+#undef SKILL_DATA_RECORD
