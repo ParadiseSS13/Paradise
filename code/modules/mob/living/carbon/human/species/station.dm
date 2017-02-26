@@ -887,6 +887,7 @@
 	default_hair = "Blue IPC Screen"
 	virus_immune = 1
 	can_revive_by_healing = 1
+	has_gender = FALSE
 	reagent_tag = PROCESS_SYN
 	male_scream_sound = 'sound/goonstation/voice/robot_scream.ogg'
 	female_scream_sound = 'sound/goonstation/voice/robot_scream.ogg'

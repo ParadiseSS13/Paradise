@@ -110,6 +110,7 @@
 	var/show_ssd = 1
 	var/virus_immune
 	var/can_revive_by_healing				// Determines whether or not this species can be revived by simply healing them
+	var/has_gender = TRUE
 
 	//Death vars.
 	var/death_message = "seizes up and falls limp, their eyes dead and lifeless..."
