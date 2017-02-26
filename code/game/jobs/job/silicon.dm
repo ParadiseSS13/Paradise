@@ -23,8 +23,8 @@
 	title = "Cyborg"
 	flag = CYBORG
 	department_flag = ENGSEC
-	total_positions = 1
-	spawn_positions = 1
+	total_positions = 2
+	spawn_positions = 2
 	supervisors = "your laws and the AI"	//Nodrak
 	selection_color = "#ddffdd"
 	minimal_player_age = 21
