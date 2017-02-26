@@ -31,7 +31,7 @@
 	attackby(obj/item/weapon/O as obj, mob/user as mob, params)
 		if(istype(O, /obj/item/weapon/aiModule))
 			var/turf/T = get_turf(current)
-			if(T.z != z)
+			if(!atoms_share_level(T, src))
 				to_chat(user, "<span class='danger'>Unable to establish a connection</span>: You're too far away from the target silicon!")
 				return
 			var/datum/game_mode/nations/mode = get_nations_mode()
@@ -76,7 +76,7 @@
 	attackby(obj/item/weapon/aiModule/module as obj, mob/user as mob, params)
 		if(istype(module, /obj/item/weapon/aiModule))
 			var/turf/T = get_turf(current)
-			if(T.z != z)
+			if(!atoms_share_level(T, src))
 				to_chat(user, "<span class='danger'>Unable to establish a connection</span>: You're too far away from the target silicon!")
 				return
 			var/datum/game_mode/nations/mode = get_nations_mode()
