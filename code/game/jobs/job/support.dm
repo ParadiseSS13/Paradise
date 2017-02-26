@@ -371,3 +371,31 @@
 		/obj/item/clothing/shoes/black = 1,
 		/obj/item/weapon/storage/box/lip_stick = 1
 	)
+
+/datum/job/bouncer
+	title = "Bouncer"
+	flag = BOUNCER
+	department_flag = SUPPORT
+	total_positions = 1
+	spawn_positions = 1
+	is_service = 1
+	supervisors = "the head of personnel"
+	selection_color = "#dddddd"
+	access = list(access_maint_tunnels, access_bar, access_weapons)
+	minimal_access = list(access_maint_tunnels, access_bar, access_weapons)
+	outfit = /datum/outfit/job/bouncer
+
+/datum/outfit/job/bouncer
+	name = "Bouncer"
+	jobtype = /datum/job/bartender
+	uniform = /obj/item/clothing/under/bouncer
+	suit = /obj/item/clothing/suit/armor/vest
+	shoes = /obj/item/clothing/shoes/black
+	l_ear = /obj/item/device/radio/headset/headset_service
+	glasses = /obj/item/clothing/glasses/sunglasses
+	pda = /obj/item/device/pda
+	backpack_contents = list(
+		/obj/item/weapon/melee/classic_baton/telescopic = 1,
+		/obj/item/device/flash = 1,
+		/obj/item/weapon/restraints/handcuffs/cable/zipties = 1
+	)
