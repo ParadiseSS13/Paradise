@@ -95,8 +95,8 @@
 	title = "Detective"
 	flag = DETECTIVE
 	department_flag = ENGSEC
-	total_positions = 1
-	spawn_positions = 1
+	total_positions = 2
+	spawn_positions = 2
 	is_security = 1
 	supervisors = "the head of security"
 	selection_color = "#ffeeee"
