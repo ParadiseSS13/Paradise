@@ -53,7 +53,7 @@ var/const/APC_WIRE_AI_CONTROL = 8
 						A.aidisabled = 0
 						A.updateDialog()
 
-	A.updateDialog()
+	..()
 
 /datum/wires/apc/UpdateCut(index, mended)
 	var/obj/machinery/power/apc/A = holder
@@ -77,4 +77,4 @@ var/const/APC_WIRE_AI_CONTROL = 8
 			else
 				if(A.aidisabled == 1)
 					A.aidisabled = 0
-	A.updateDialog()
+	..()

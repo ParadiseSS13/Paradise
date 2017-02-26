@@ -38,6 +38,7 @@ var/const/VENDING_WIRE_IDSCAN = 8
 			V.seconds_electrified = 30
 		if(VENDING_WIRE_IDSCAN)
 			V.scan_id = !V.scan_id
+	..()
 
 /datum/wires/vending/UpdateCut(index, mended)
 	var/obj/machinery/vending/V = holder
@@ -53,3 +54,4 @@ var/const/VENDING_WIRE_IDSCAN = 8
 				V.seconds_electrified = -1
 		if(VENDING_WIRE_IDSCAN)
 			V.scan_id = 1
+	..()

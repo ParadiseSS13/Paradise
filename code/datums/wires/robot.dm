@@ -56,6 +56,7 @@ var/const/BORG_WIRE_LAWCHECK    = 16 // Not used on MoMMIs
 
 		if(BORG_WIRE_LOCKED_DOWN)
 			R.SetLockdown(!mended)
+	..()
 
 
 /datum/wires/robot/UpdatePulsed(index)
@@ -75,6 +76,7 @@ var/const/BORG_WIRE_LAWCHECK    = 16 // Not used on MoMMIs
 
 		if(BORG_WIRE_LOCKED_DOWN)
 			R.SetLockdown(!R.lockcharge) // Toggle
+	..()
 
 /datum/wires/robot/CanUse(mob/living/L)
 	var/mob/living/silicon/robot/R = holder

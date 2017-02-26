@@ -52,6 +52,7 @@ var/const/AALARM_WIRE_AALARM = 16
 			if(A.alarm_area.atmosalert(2, A))
 				A.post_alert(2)
 			A.update_icon()
+	..()
 
 /datum/wires/alarm/UpdatePulsed(index)
 	var/obj/machinery/alarm/A = holder
@@ -94,3 +95,4 @@ var/const/AALARM_WIRE_AALARM = 16
 			if(A.alarm_area.atmosalert(0, A))
 				A.post_alert(0)
 			A.update_icon()
+	..()

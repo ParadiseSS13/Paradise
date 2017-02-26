@@ -47,6 +47,7 @@ var/const/WIRE_ACTIVATE = 16	// Will start a bombs timer if pulsed, will hint if
 			else
 				P.loc.visible_message("<span class='notice'>[bicon(holder)] The bomb seems to hesitate for a moment.</span>")
 				P.timer += 5
+	..()
 
 /datum/wires/syndicatebomb/UpdateCut(index, mended)
 	var/obj/machinery/syndicatebomb/P = holder
@@ -58,7 +59,7 @@ var/const/WIRE_ACTIVATE = 16	// Will start a bombs timer if pulsed, will hint if
 					P.timer = 0
 				else
 					P.defused = 1
-			if(mended)
+			else
 				P.defused = 0 //cutting and mending all the wires of an inactive bomb will thus cure any sabotage
 		if(WIRE_UNBOLT)
 			if(!mended && P.anchored)
@@ -75,3 +76,4 @@ var/const/WIRE_ACTIVATE = 16	// Will start a bombs timer if pulsed, will hint if
 				P.icon_state = "[initial(P.icon_state)]-inactive[P.open_panel ? "-wires" : ""]"
 				P.active = 0
 				P.defused = 1
+	..()

@@ -145,11 +145,13 @@ var/list/wireColours = list("red", "blue", "green", "black", "orange", "brown", 
 
 // Called when wires cut/mended.
 /datum/wires/proc/UpdateCut(index, mended)
-	return
+	if(holder)
+		nanomanager.update_uis(holder)
 
 // Called when wire pulsed. Add code here.
 /datum/wires/proc/UpdatePulsed(index)
-	return
+	if(holder)
+		nanomanager.update_uis(holder)
 
 /datum/wires/proc/CanUse(mob/living/L)
 	return 1

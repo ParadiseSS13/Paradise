@@ -10,12 +10,14 @@ var/const/WIRE_EXPLODE = 1
 	switch(index)
 		if(WIRE_EXPLODE)
 			explode()
+	..()
 
 /datum/wires/explosive/UpdateCut(index, mended)
 	switch(index)
 		if(WIRE_EXPLODE)
 			if(!mended)
 				explode()
+	..()
 
 /datum/wires/explosive/gibtonite
 	holder_type = /obj/item/weapon/twohanded/required/gibtonite

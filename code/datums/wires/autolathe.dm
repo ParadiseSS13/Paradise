@@ -28,6 +28,7 @@ var/const/AUTOLATHE_DISABLE_WIRE = 4
 			A.shocked = !mended
 		if(AUTOLATHE_DISABLE_WIRE)
 			A.disabled = !mended
+	..()
 
 /datum/wires/autolathe/UpdatePulsed(index)
 	if(IsIndexCut(index))
@@ -36,19 +37,27 @@ var/const/AUTOLATHE_DISABLE_WIRE = 4
 	switch(index)
 		if(AUTOLATHE_HACK_WIRE)
 			A.adjust_hacked(!A.hacked)
+			updateUIs()
 			spawn(50)
 				if(A && !IsIndexCut(index))
 					A.adjust_hacked(0)
-					Interact(usr)
+					updateUIs()
 		if(AUTOLATHE_SHOCK_WIRE)
 			A.shocked = !A.shocked
+			updateUIs()
 			spawn(50)
 				if(A && !IsIndexCut(index))
 					A.shocked = 0
-					Interact(usr)
+					updateUIs()
 		if(AUTOLATHE_DISABLE_WIRE)
 			A.disabled = !A.disabled
+			updateUIs()
 			spawn(50)
 				if(A && !IsIndexCut(index))
 					A.disabled = 0
-					Interact(usr)
+					updateUIs()
+
+/datum/wires/autolathe/proc/updateUIs()
+	nanomanager.update_uis(src)
+	if(holder)
+		nanomanager.update_uis(holder)

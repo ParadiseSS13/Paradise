@@ -46,7 +46,7 @@ var/const/CAMERA_WIRE_NOTHING2 = 32
 				C.triggerCameraAlarm()
 			else
 				C.cancelCameraAlarm()
-	return
+	..()
 
 /datum/wires/camera/UpdatePulsed(index)
 	var/obj/machinery/camera/C = holder
@@ -65,7 +65,7 @@ var/const/CAMERA_WIRE_NOTHING2 = 32
 
 		if(CAMERA_WIRE_ALARM)
 			C.visible_message("[bicon(C)] *beep*", "[bicon(C)] *beep*")
-	return
+	..()
 
 /datum/wires/camera/proc/CanDeconstruct()
 	if(IsIndexCut(CAMERA_WIRE_POWER) && IsIndexCut(CAMERA_WIRE_FOCUS) && IsIndexCut(CAMERA_WIRE_LIGHT) && IsIndexCut(CAMERA_WIRE_NOTHING1) && IsIndexCut(CAMERA_WIRE_NOTHING2))

@@ -31,6 +31,7 @@ var/const/WIRE_BEACON_RX = 256	// beacon ping recv
 			holder.visible_message("\blue [bicon(holder)] The drive motor whines briefly.")
 		else
 			holder.visible_message("\blue [bicon(holder)] You hear a radio crackle.")
+	..()
 
 // HELPER PROCS
 

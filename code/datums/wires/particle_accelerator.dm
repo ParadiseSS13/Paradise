@@ -29,6 +29,7 @@ var/const/PARTICLE_LIMIT_POWER_WIRE = 8 // Determines how strong the PA can be.
 
 		if(PARTICLE_LIMIT_POWER_WIRE)
 			C.visible_message("[bicon(C)]<b>[C]</b> makes a large whirring noise.")
+	..()
 
 /datum/wires/particle_acc/control_box/UpdateCut(index, mended)
 	var/obj/machinery/particle_accelerator/control_box/C = holder
@@ -50,3 +51,4 @@ var/const/PARTICLE_LIMIT_POWER_WIRE = 8 // Determines how strong the PA can be.
 			C.strength_upper_limit = (mended ? 2 : 3)
 			if(C.strength_upper_limit < C.strength)
 				C.remove_strength()
+	..()
