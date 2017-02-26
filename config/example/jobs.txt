@@ -12,7 +12,7 @@ Medical Doctor=5
 Geneticist=2
 Virologist=1
 
-Scientist=3
+Scientist=7
 Chemist=2
 
 Bartender=1
