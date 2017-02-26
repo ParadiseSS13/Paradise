@@ -7,20 +7,20 @@ var/const/NUCLEARBOMB_WIRE_LIGHT		= 1
 var/const/NUCLEARBOMB_WIRE_TIMING		= 2
 var/const/NUCLEARBOMB_WIRE_SAFETY		= 4
 
-/datum/wires/nuclearbomb/CanUse(var/mob/living/L)
+/datum/wires/nuclearbomb/CanUse(mob/living/L)
 	var/obj/machinery/nuclearbomb/N = holder
 	if(N.panel_open)
 		return 1
 	return 0
 
-/datum/wires/nuclearbomb/GetInteractWindow()
+/datum/wires/nuclearbomb/get_status()
+	. = ..()
 	var/obj/machinery/nuclearbomb/N = holder
-	. += ..()
-	. += "<BR>The device is [N.timing ? "shaking!" : "still."]<BR>"
-	. += "The device is is [N.safety ? "quiet" : "whirring"].<BR>"
-	. += "The lights are [N.lighthack ? "static" : "functional"].<BR>"
+	. += "The device is [N.timing ? "shaking!" : "still."]"
+	. += "The device is is [N.safety ? "quiet" : "whirring"]."
+	. += "The lights are [N.lighthack ? "static" : "functional"]."
 
-/datum/wires/nuclearbomb/UpdatePulsed(var/index)
+/datum/wires/nuclearbomb/UpdatePulsed(index)
 	var/obj/machinery/nuclearbomb/N = holder
 	switch(index)
 		if(NUCLEARBOMB_WIRE_LIGHT)
@@ -45,7 +45,7 @@ var/const/NUCLEARBOMB_WIRE_SAFETY		= 4
 							N.icon_state = "nuclearbomb1"
 				else
 					N.visible_message("\blue The [N] emits a quiet whirling noise!")
-				
+
 /datum/wires/nuclearbomb/UpdateCut(var/index, var/mended)
 	var/obj/machinery/nuclearbomb/N = holder
 	switch(index)
