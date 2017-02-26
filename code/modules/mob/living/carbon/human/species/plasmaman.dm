@@ -34,7 +34,7 @@
 		message = replacetext(message, "s", stutter("ss"))
 	return message
 
-/datum/species/plasmaman/equip(var/mob/living/carbon/human/H)
+/datum/species/plasmaman/after_equip_job(datum/job/J, mob/living/carbon/human/H)
 	// Unequip existing suits and hats.
 	H.unEquip(H.wear_suit)
 	H.unEquip(H.head)
