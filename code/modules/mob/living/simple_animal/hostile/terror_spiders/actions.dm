@@ -84,7 +84,7 @@
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/Web()
 	var/turf/mylocation = loc
 	visible_message("<span class='notice'>[src] begins to secrete a sticky substance.</span>")
-	if(do_after(src, 40, target = loc))
+	if(do_after(src, delay_web, target = loc))
 		if(loc != mylocation)
 			return
 		else if(istype(loc, /turf/space))
@@ -112,20 +112,30 @@
 	if(prob(50))
 		icon_state = "stickyweb2"
 
+/obj/effect/spider/terrorweb/proc/DeCloakNearby()
+	for(var/mob/living/simple_animal/hostile/poison/terror_spider/gray/G in view(6,src))
+		if(!G.ckey && G.stat != DEAD)
+			G.GrayDeCloak()
+			G.Aggro()
+
 /obj/effect/spider/terrorweb/CanPass(atom/movable/mover, turf/target)
 	if(istype(mover, /mob/living/simple_animal/hostile/poison/terror_spider))
 		return 1
 	if(istype(mover, /obj/item/projectile/terrorqueenspit))
 		return 1
 	if(isliving(mover))
+		var/mob/living/M = mover
+		if(M.lying)
+			return 1
 		if(prob(80))
 			to_chat(mover, "<span class='danger'>You get stuck in [src] for a moment.</span>")
-			var/mob/living/M = mover
 			M.Stun(4) // 8 seconds.
 			M.Weaken(4) // 8 seconds.
+			DeCloakNearby()
 			if(iscarbon(mover))
 				spawn(70)
-					qdel(src)
+					if(mover.loc == loc)
+						qdel(src)
 			return 1
 		else
 			return 0
@@ -188,12 +198,15 @@
 						if(iscarbon(L))
 							regen_points += regen_points_per_kill
 							fed++
+							visible_message("<span class='danger'>[src] sticks a proboscis into [L] and sucks a viscous substance out.</span>")
+							to_chat(src, "<span class='notice'>You feel invigorated!</span>")
+						else
+							visible_message("<span class='danger'>[src] wraps [L] in a web.</span>")
 						large_cocoon = 1
 						last_cocoon_object = 0
 						L.loc = C
 						C.pixel_x = L.pixel_x
 						C.pixel_y = L.pixel_y
-						visible_message("<span class='danger'>[src] sticks a proboscis into [L] and sucks a viscous substance out.</span>")
 						break
 					if(large_cocoon)
 						C.icon_state = pick("cocoon_large1","cocoon_large2","cocoon_large3")

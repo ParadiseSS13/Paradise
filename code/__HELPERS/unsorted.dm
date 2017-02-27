@@ -550,17 +550,17 @@ proc/anim(turf/location as turf,target as mob|obj,a_icon,a_icon_state as text,fl
 	var/turf/current = get_turf(source)
 	var/turf/target_turf = get_turf(target)
 	var/steps = 1
-	
+
 	if(current != target_turf)
-		current = get_step_towards(current, target_turf)	
+		current = get_step_towards(current, target_turf)
 		while(current != target_turf)
-			if(steps > length) 
+			if(steps > length)
 				return 0
-			if(current.opacity) 
+			if(current.opacity)
 				return 0
 			for(var/thing in current)
 				var/atom/A = thing
-				if(A.opacity) 
+				if(A.opacity)
 					return 0
 			current = get_step_towards(current, target_turf)
 			steps++
@@ -1863,7 +1863,7 @@ var/global/list/g_fancy_list_of_types = null
 			pois[name] = A
 
 	return pois
-	
+
 /proc/flash_color(mob_or_client, flash_color="#960000", flash_time=20)
 	var/client/C
 	if(istype(mob_or_client, /mob))
@@ -1881,7 +1881,7 @@ var/global/list/g_fancy_list_of_types = null
 	C.color = flash_color
 	spawn(0)
 		animate(C, color = initial(C.color), time = flash_time)
-		
+
 #define RANDOM_COLOUR (rgb(rand(0,255),rand(0,255),rand(0,255)))
 
 /proc/make_bit_triplet()
