@@ -382,13 +382,13 @@
 	is_service = 1
 	supervisors = "the head of personnel"
 	selection_color = "#dddddd"
-	access = list(access_maint_tunnels, access_bar, access_weapons)
-	minimal_access = list(access_maint_tunnels, access_bar, access_weapons)
+	access = list(access_maint_tunnels, access_weapons)
+	minimal_access = list(access_maint_tunnels, access_weapons)
 	outfit = /datum/outfit/job/bouncer
 
 /datum/outfit/job/bouncer
 	name = "Bouncer"
-	jobtype = /datum/job/bartender
+	jobtype = /datum/job/bouncer
 	uniform = /obj/item/clothing/under/bouncer
 	suit = /obj/item/clothing/suit/armor/vest
 	shoes = /obj/item/clothing/shoes/black
