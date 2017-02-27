@@ -87,7 +87,6 @@
 	hardness -= Proj.damage
 	..()
 	CheckHardness()
-	return
 
 /obj/structure/statue/proc/CheckHardness()
 	if(hardness <= 0)
@@ -115,11 +114,10 @@
 		if(3)
 			hardness -= 0.1
 			CheckHardness()
-	return
 
 /obj/structure/statue/uranium
 	hardness = 3
-	luminosity = 2
+	light_range = 2
 	material_drop_type = /obj/item/stack/sheet/mineral/uranium
 	var/last_event = 0
 	var/active = null
@@ -154,8 +152,6 @@
 				L.apply_effect(12,IRRADIATE,0)
 			last_event = world.time
 			active = null
-			return
-	return
 
 /obj/structure/statue/plasma
 	hardness = 2
@@ -339,9 +335,7 @@
 	icon_state = "mime"
 
 /obj/structure/statue/tranquillite/mime/AltClick(mob/user)//has 4 dirs
-	if(user.stat)
-		return
-	if(user.incapacitated() || !user.canmove || user.restrained())
+	if(user.incapacitated())
 		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
 	if(!Adjacent(user))
@@ -349,7 +343,7 @@
 	if(anchored)
 		to_chat(user, "It is fastened to the floor!")
 		return
-	dir = turn(dir, 90)
+	setDir(turn(dir, 90))
 ////////////////////////////////
 /obj/structure/snowman
 	name = "snowman"
