@@ -132,7 +132,6 @@
 	job = myjob.title
 	mind.assigned_role = job
 	myjob.equip(src)
-	myjob.apply_fingerprints(T)
 
 /mob/living/carbon/human/interactive/proc/reset()
 	walk(src, 0)
@@ -193,7 +192,6 @@
 		for(var/obj/item/W in T)
 			qdel(W)
 		T.myjob.equip(T)
-		T.myjob.apply_fingerprints(T)
 		T.doSetup(alt_title)
 
 	var/shouldDoppel = input("Do you want the SNPC to disguise themself as a crewmember?") as anything in list("Yes", "No")

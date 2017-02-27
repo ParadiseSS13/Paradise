@@ -14,6 +14,7 @@
 	faction = list("terrorspiders")
 	var/spider_myqueen = null
 	var/use_vents = 1
+	var/list/enemies = list()
 
 /obj/effect/spider/spiderling/terror_spiderling/New()
 	..()
@@ -91,6 +92,7 @@
 				S.faction = faction
 				S.spider_myqueen = spider_myqueen
 				S.master_commander = master_commander
+				S.enemies = enemies
 				qdel(src)
 
 // --------------------------------------------------------------------------------
@@ -106,6 +108,7 @@
 	C.faction = faction
 	C.spider_myqueen = spider_myqueen
 	C.master_commander = master_commander
+	C.enemies = enemies
 	if(spider_growinstantly)
 		C.amount_grown = 250
 		C.spider_growinstantly = 1
@@ -122,6 +125,7 @@
 	var/spiderling_type = null
 	var/spiderling_number = 1
 	var/spiderling_ventcrawl = 1
+	var/list/enemies = list()
 
 /obj/effect/spider/eggcluster/terror_eggcluster/New()
 	..()
@@ -162,6 +166,7 @@
 			S.faction = faction
 			S.spider_myqueen = spider_myqueen
 			S.master_commander = master_commander
+			S.enemies = enemies
 			if(spider_growinstantly)
 				S.amount_grown = 250
 		var/rnum = 5 - spiderling_number

@@ -18,6 +18,21 @@
 			hsline += " AI "
 		to_chat(src,hsline)
 
+/mob/living/simple_animal/hostile/poison/terror_spider/proc/SetHiveCommand(set_ai, set_ventcrawl)
+	var/numspiders = 0
+	for(var/mob/living/simple_animal/hostile/poison/terror_spider/T in ts_spiderlist)
+		if(spider_awaymission && !T.spider_awaymission)
+			continue
+		else if(!spider_awaymission && T.spider_awaymission)
+			continue
+		numspiders += 1
+		if(spider_tier >= T.spider_tier)
+			if(T.ai_type != set_ai)
+				T.ai_type = set_ai
+			if(T.idle_ventcrawl_chance != set_ventcrawl)
+				T.idle_ventcrawl_chance = set_ventcrawl
+	return numspiders
+
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/CountSpiders()
 	var/numspiders = 0
 	for(var/mob/living/simple_animal/hostile/poison/terror_spider/T in ts_spiderlist)

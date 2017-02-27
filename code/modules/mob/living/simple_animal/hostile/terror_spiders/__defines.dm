@@ -4,6 +4,13 @@
 #define MOVING_TO_TARGET 3
 #define SPINNING_COCOON 4
 
+#define TS_AI_AGGRESSIVE 0
+#define TS_AI_DEFENSIVE 1
+
+#define TS_DAMAGE_SIMPLE 0
+#define TS_DAMAGE_POISON 1
+#define TS_DAMAGE_BRUTE 2
+
 #define TS_DESC_RED "Red - Assault"
 #define TS_DESC_GRAY "Gray - Ambush"
 #define TS_DESC_GREEN "Green - Nurse"
