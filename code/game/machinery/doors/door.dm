@@ -118,8 +118,8 @@
 
 /obj/machinery/door/attack_ghost(mob/user)
 	if(user.can_advanced_admin_interact())
-		return attack_hand(user)	
-	
+		return attack_hand(user)
+
 /obj/machinery/door/attack_hand(mob/user)
 	return attackby(user, user)
 
@@ -132,7 +132,7 @@
 	if(istype(I, /obj/item/device/detective_scanner))
 		return
 
-	if(operating || isrobot(user))	
+	if(operating || isrobot(user))
 		return //borgs can't attack doors open because it conflicts with their AI-like interaction with them.
 
 	add_fingerprint(user)

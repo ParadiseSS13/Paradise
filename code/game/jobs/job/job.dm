@@ -159,7 +159,7 @@
 		backpack_contents.Insert(1, box) // Box always takes a first slot in backpack
 		backpack_contents[box] = 1
 
-	if(H.client.prefs.gear && H.client.prefs.gear.len)
+	if(H.client && (H.client.prefs.gear && H.client.prefs.gear.len))
 		for(var/gear in H.client.prefs.gear)
 			var/datum/gear/G = gear_datums[gear]
 			if(G)
@@ -176,6 +176,7 @@
 
 				if(!permitted)
 					to_chat(H, "<span class='warning'>Your current job or whitelist status does not permit you to spawn with [gear]!</span>")
+					continue
 
 				if(G.slot)
 					if(H.equip_to_slot_or_del(G.spawn_item(H), G.slot))
