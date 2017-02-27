@@ -71,7 +71,7 @@
 		M.forceMove(loc)
 		M.disabilities -= MUTE
 		M.take_overall_damage((M.health - health - 100),0) //any new damage the statue incurred is transfered to the mob
-			
+
 	..()
 
 /obj/structure/closet/statue/open()
@@ -138,18 +138,3 @@
 	dump_contents()
 	visible_message("\red [src] shatters!. ")
 	qdel(src)
-
-
-/obj/structure/statue
-	name = "statue"
-	desc = "An incredibly lifelike marble carving"
-	icon = 'icons/obj/statue.dmi'
-	icon_state = "human_male"
-	density = 1
-	anchored = 1
-
-obj/structure/statue/angel
-	icon_state = "angelseen"
-
-obj/structure/statue/corgi
-	icon_state = "corgi"
