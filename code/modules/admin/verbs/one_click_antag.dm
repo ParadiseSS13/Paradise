@@ -430,10 +430,7 @@ client/proc/one_click_antag()
 	var/mob/theghost = null
 	var/input = "Loot and burn the station or trade with it."
 
-	for(var/mob/G in respawnable_list)
-		if(!jobban_isbanned(G, SPECIAL_ROLE_RAIDER))
-			spawn(0)
-				candidates = pollCandidates("Do you wish to be considered for a Space Pirate party about to be sent in?", SPECIAL_ROLE_RAIDER, 1)
+	candidates = pollCandidates("Do you wish to be considered for a Space Pirate party about to be sent in?", SPECIAL_ROLE_RAIDER, 1)
 
 	for(var/mob/dead/observer/G in candidates)
 		if(!G.key)
