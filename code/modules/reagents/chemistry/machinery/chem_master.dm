@@ -96,7 +96,7 @@
 		if(!(printing))
 			printing = 1
 			visible_message("<span class='notice'>[src] rattles and prints out a sheet of paper.</span>")
-			playsound(loc, "sound/goonstation/machines/printer_dotmatrix.ogg", 50, 1)
+			playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
 			var/obj/item/weapon/paper/P = new /obj/item/weapon/paper(loc)
 			P.info = "<CENTER><B>Chemical Analysis</B></CENTER><BR>"
 			P.info += "<b>Time of analysis:</b> [worldtime2text(world.time)]<br><br>"
@@ -328,7 +328,7 @@
 		ui = new(user, src, ui_key, "chem_master.tmpl", name, 575, 400)
 		ui.open()
 
-/obj/machinery/chem_master/ui_data(mob/user, datum/topic_state/state = default_state)
+/obj/machinery/chem_master/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/data[0]
 
 	data["condi"] = condi

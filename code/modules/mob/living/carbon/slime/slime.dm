@@ -264,8 +264,8 @@
 			playsound(loc, M.attack_sound, 50, 1, 1)
 		visible_message("<span class='danger'>[M] [M.attacktext] [src]!</span>", \
 				"<span class='userdanger'>[M] [M.attacktext] [src]!</span>")
-		M.attack_log += text("\[[time_stamp()]\] <font color='red'>attacked [src.name] ([src.ckey])</font>")
-		src.attack_log += text("\[[time_stamp()]\] <font color='orange'>was attacked by [M.name] ([M.ckey])</font>")
+		M.create_attack_log("<font color='red'>attacked [src.name] ([src.ckey])</font>")
+		src.create_attack_log("<font color='orange'>was attacked by [M.name] ([M.ckey])</font>")
 		var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
 		attacked += 10
 		adjustBruteLoss(damage)

@@ -136,12 +136,11 @@
 	var/mob/living/M = target
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = M
-		if((H.species.flags & IS_PLANT) && (M.nutrition < 500))
+		if(H.species.flags & IS_PLANT)
 			if(prob(15))
 				M.apply_effect((rand(30,80)),IRRADIATE)
 				M.Weaken(5)
-				for(var/mob/V in viewers(src))
-					V.show_message("<span class='warning'>[M] writhes in pain as \his vacuoles boil.</span>", 3, "<span class='warning'>You hear the crunching of leaves.</span>", 2)
+				M.visible_message("<span class='warning'>[M] writhes in pain as \his vacuoles boil.</span>", "<span class='userdanger'>You writhe in pain as your vacuoles boil!</span>", "<span class='italics'>You hear the crunching of leaves.</span>")
 			if(prob(35))
 				if(prob(80))
 					randmutb(M)
@@ -152,7 +151,7 @@
 			else
 				M.adjustFireLoss(rand(5,15))
 				M.show_message("<span class='warning'>The radiation beam singes you!</span>")
-	else if(istype(target, /mob/living/carbon/))
+	else if(iscarbon(target))
 		M.show_message("<span class='notice'>The radiation beam dissipates harmlessly through your body.</span>")
 	else
 		return 1
@@ -170,9 +169,9 @@
 	var/mob/M = target
 	if(ishuman(target)) //These rays make plantmen fat.
 		var/mob/living/carbon/human/H = M
-		if((H.species.flags & IS_PLANT) && (M.nutrition < 500))
-			M.nutrition += 30
-	else if(istype(target, /mob/living/carbon/))
+		if(H.species.flags & IS_PLANT)
+			H.nutrition = min(H.nutrition+30, NUTRITION_LEVEL_FULL)
+	else if(iscarbon(target))
 		M.show_message("<span class='notice'>The radiation beam dissipates harmlessly through your body.</span>")
 	else
 		return 1
@@ -201,62 +200,6 @@
 	visible_message("<span class='warning'>The [name] explodes!</span>","<span class='warning'>You hear a snap!</span>")
 	playsound(src, 'sound/effects/snap.ogg', 50, 1)
 	qdel(src)
-
-/obj/item/projectile/kinetic
-	name = "kinetic force"
-	icon_state = null
-	damage = 10
-	damage_type = BRUTE
-	flag = "bomb"
-	range = 3
-	var/splash = 0
-
-/obj/item/projectile/kinetic/super
-	damage = 11
-	range = 4
-
-/obj/item/projectile/kinetic/hyper
-	damage = 12
-	range = 5
-	splash = 1
-
-obj/item/projectile/kinetic/New()
-	var/turf/proj_turf = get_turf(src)
-	if(!istype(proj_turf, /turf))
-		return
-	var/datum/gas_mixture/environment = proj_turf.return_air()
-	var/pressure = environment.return_pressure()
-	if(pressure < 50)
-		name = "full strength kinetic force"
-		damage *= 4
-	..()
-
-/obj/item/projectile/kinetic/on_range()
-	new /obj/effect/kinetic_blast(loc)
-	..()
-
-/obj/item/projectile/kinetic/on_hit(atom/target)
-	. = ..()
-	var/turf/target_turf= get_turf(target)
-	if(istype(target_turf, /turf/simulated/mineral))
-		var/turf/simulated/mineral/M = target_turf
-		M.gets_drilled(firer)
-	new /obj/effect/kinetic_blast(target_turf)
-	if(splash)
-		for(var/turf/T in range(splash, target_turf))
-			if(istype(T, /turf/simulated/mineral))
-				var/turf/simulated/mineral/M = T
-				M.gets_drilled(firer)
-
-/obj/effect/kinetic_blast
-	name = "kinetic explosion"
-	icon = 'icons/obj/projectiles.dmi'
-	icon_state = "kinetic_blast"
-	layer = 4.1
-
-/obj/effect/kinetic_blast/New()
-	spawn(4)
-		qdel(src)
 
 /obj/item/projectile/beam/wormhole
 	name = "bluespace beam"
@@ -300,6 +243,7 @@ obj/item/projectile/kinetic/New()
 	damage_type = BRUTE
 	damage = 5
 	range = 3
+	dismemberment = 20
 
 /obj/item/projectile/plasma/New()
 	var/turf/proj_turf = get_turf(src)

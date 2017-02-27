@@ -52,18 +52,21 @@
 	del_on_death = 1
 	deathmessage = "screams in anger as it collapses into a puddle of viscera!"
 
+	var/datum/action/innate/demon/whisper/whisper_action
+
 
 /mob/living/simple_animal/slaughter/New()
 	..()
 	var/obj/effect/proc_holder/spell/bloodcrawl/bloodspell = new
 	AddSpell(bloodspell)
+	whisper_action = new()
+	whisper_action.Grant(src)
 	if(istype(loc, /obj/effect/dummy/slaughter))
 		bloodspell.phased = 1
 	if(mind)
 		to_chat(src, src.playstyle_string)
 		to_chat(src, "<B><span class ='notice'>You are not currently in the same plane of existence as the station. Ctrl+Click a blood pool to manifest.</span></B>")
 		src << 'sound/misc/demon_dies.ogg'
-		mind.current.verbs += /mob/living/simple_animal/slaughter/proc/slaughterWhisper
 		if(!(vialspawned))
 			var/datum/objective/slaughter/objective = new
 			var/datum/objective/demonFluff/fluffObjective = new
@@ -101,31 +104,123 @@
 	speed = 0
 	boost = world.time + 60
 
+
+
+
+/mob/living/simple_animal/slaughter/cult //Summoned as part of the cult objective "Bring the Slaughter"
+	name = "harbringer of the slaughter"
+	real_name = "harbringer of the Slaughter"
+	desc = "An awful creature from beyond the realms of madness."
+	maxHealth = 500
+	health = 500
+	melee_damage_upper = 60
+	melee_damage_lower = 60
+	environment_smash = 3 //Smashes through EVERYTHING - r-walls included
+	faction = list("cult")
+	playstyle_string = "<b><span class='userdanger'>You are a Harbringer of the Slaughter.</span> Brought forth by the servants of Nar-Sie, you have a single purpose: slaughter the heretics \
+	who do not worship your master. You may use the ability 'Blood Crawl' near a pool of blood to enter it and become incorporeal. Using the ability again near a blood pool will allow you \
+	to emerge from it. You are fast, powerful, and almost invincible. By dragging a dead or unconscious body into a blood pool with you, you will consume it after a time and fully regain \
+	your health. You may use the Sense Victims in your Cultist tab to locate a random, living heretic.</span></b>"
+
+/obj/effect/proc_holder/spell/targeted/sense_victims
+	name = "Sense Victims"
+	desc = "Sense the location of heratics"
+	charge_max = 0
+	clothes_req = 0
+	range = 20
+	cooldown_min = 0
+	overlay = null
+	action_icon_state = "bloodcrawl"
+	action_background_icon_state = "bg_cult"
+	panel = "Demon"
+
+/obj/effect/proc_holder/spell/targeted/sense_victims/cast(list/targets)
+	var/list/victims = targets
+	for(var/mob/living/L in living_mob_list)
+		if(!L.stat && !iscultist(L) && L.key && L != usr)
+			victims.Add(L)
+	if(!targets.len)
+		to_chat(usr, "<span class='warning'>You could not locate any sapient heretics for the Slaughter.</span>")
+		return 0
+	var/mob/living/victim = pick(victims)
+	to_chat(victim, "<span class='userdanger'>You feel an awful sense of being watched...</span>")
+	victim.Stun(3) //HUE
+	var/area/A = get_area(victim)
+	if(!A)
+		to_chat(usr, "<span class='warning'>You could not locate any sapient heretics for the Slaughter.</span>")
+		return 0
+	to_chat(usr, "<span class='danger'>You sense a terrified soul at [A]. <b>Show them the error of their ways.</b></span>")
+
+/mob/living/simple_animal/slaughter/cult/New()
+	..()
+	spawn(5)
+		var/list/demon_candidates = get_candidates(ROLE_CULTIST)
+		if(!demon_candidates.len)
+			visible_message("<span class='warning'>[src] disappears in a flash of red light!</span>")
+			qdel(src)
+			return 0
+		var/client/C = pick(demon_candidates)
+		var/mob/living/simple_animal/slaughter/cult/S = src
+		if(!C)
+			visible_message("<span class='warning'>[src] disappears in a flash of red light!</span>")
+			qdel(src)
+			return 0
+
+		S.key = C.key
+		S.mind.assigned_role = "Harbringer of the Slaughter"
+		S.mind.special_role = "Harbringer of the Slaughter"
+		to_chat(S, playstyle_string)
+		ticker.mode.add_cultist(S.mind)
+		var/obj/effect/proc_holder/spell/targeted/sense_victims/SV = new
+		AddSpell(SV)
+		var/datum/objective/new_objective = new /datum/objective
+		new_objective.owner = S.mind
+		new_objective.explanation_text = "Bring forth the Slaughter to the nonbelievers."
+		S.mind.objectives += new_objective
+		to_chat(S, "<B>Objective #[1]</B>: [new_objective.explanation_text]")
+
 ////////////////////The Powers
 
 //Paradise Port:I added this cuase..SPOOPY DEMON IN YOUR BRAIN
 
 
-/mob/living/simple_animal/slaughter/proc/slaughterWhisper()
-	set name = "Whisper"
-	set desc = "Whisper to a mortal"
-	set category = "Daemon"
+/datum/action/innate/demon/whisper
+	name = "Demonic Whisper"
+	button_icon_state = "cult_comms"
+	background_icon_state = "bg_demon"
 
-	var/list/choices = list()
-	for(var/mob/living/carbon/C in living_mob_list)
-		if(C.stat != 2 && C.client && C.stat != DEAD)
-			choices += C
+/datum/action/innate/demon/whisper/IsAvailable()
+	return ..()
 
-	var/mob/living/carbon/M = input(src,"Who do you wish to talk to?") in null|choices
-	spawn(0)
-		var/msg = stripped_input(usr, "What do you wish to tell [M]?", null, "")
-		if(!(msg))
-			return
-		log_say("Slaughter Demon Transmit: [key_name(usr)]->[key_name(M)]: [msg]")
-		to_chat(usr, "<span class='info'><b>You whisper to [M]: </b>[msg]</span>")
-		to_chat(M, "<span class='deadsay'><b>Suddenly a strange, demonic voice resonates in your head... </b></span><i><span class='danger'> [msg]</span></I>")
-		for(var/mob/dead/observer/G in player_list)
-			G.show_message("<i>Demonic message from <b>[usr]</b> ([ghost_follow_link(usr, ghost=G)]) to <b>[M]</b> ([ghost_follow_link(M, ghost=G)]): [msg]</i>")
+/datum/action/innate/demon/whisper/proc/choose_targets(mob/user = usr)//yes i am copying from telepathy..hush...
+	var/list/validtargets = list()
+	for(var/mob/living/M in view(user.client.view, get_turf(user)))
+		if(M && M.mind && M.stat != DEAD)
+			if(M == user)
+				continue
+
+			validtargets += M
+
+	if(!validtargets.len)
+		to_chat(usr, "<span class='warning'>There are no valid targets!</span>")
+		return
+
+	var/mob/living/target = input("Choose the target to talk to.", "Targeting") as null|mob in validtargets
+	return target
+
+/datum/action/innate/demon/whisper/Activate()
+	var/mob/living/choice = choose_targets()
+	if(!choice)
+		return
+
+	var/msg = stripped_input(usr, "What do you wish to tell [choice]?", null, "")
+	if(!(msg))
+		return
+	log_say("Slaughter Demon Transmit: [key_name(usr)]->[key_name(choice)]: [msg]")
+	to_chat(usr, "<span class='info'><b>You whisper to [choice]: </b>[msg]</span>")
+	to_chat(choice, "<span class='deadsay'><b>Suddenly a strange, demonic voice resonates in your head... </b></span><i><span class='danger'> [msg]</span></I>")
+	for(var/mob/dead/observer/G in player_list)
+		G.show_message("<i>Demonic message from <b>[usr]</b> ([ghost_follow_link(usr, ghost=G)]) to <b>[choice]</b> ([ghost_follow_link(choice, ghost=G)]): [msg]</i>")
 
 
 //////////The Loot

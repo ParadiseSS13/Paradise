@@ -43,14 +43,20 @@
 /obj/item/toy/balloon/attack(mob/living/carbon/human/M as mob, mob/user as mob)
 	return
 
-/obj/item/toy/balloon/afterattack(atom/A as mob|obj, mob/user as mob, proximity)
-	if(!proximity) return
-	if(istype(A, /obj/structure/reagent_dispensers) && get_dist(src,A) <= 1)
-		A.reagents.trans_to(src, 10)
-		to_chat(user, "<span class='notice'>You fill the balloon with the contents of [A].</span>")
-		desc = "A translucent balloon with some form of liquid sloshing around in it."
-		update_icon()
-	return
+/obj/item/toy/balloon/afterattack(atom/A, mob/user, proximity)
+	if(!proximity)
+		return
+	if(istype(A, /obj/structure/reagent_dispensers))
+		var/obj/structure/reagent_dispensers/RD = A
+		if(RD.reagents.total_volume <= 0)
+			to_chat(user, "<span class='warning'>[RD] is empty.</span>")
+		else if(reagents.total_volume >= 10)
+			to_chat(user, "<span class='warning'>[src] is full.</span>")
+		else
+			A.reagents.trans_to(src, 10)
+			to_chat(user, "<span class='notice'>You fill the balloon with the contents of [A].</span>")
+			desc = "A translucent balloon with some form of liquid sloshing around in it."
+			update_icon()
 
 /obj/item/toy/balloon/wash(mob/user, atom/source)
 	if(reagents.total_volume < 10)
@@ -280,6 +286,22 @@
 		if(issilicon(H) || M.m_intent == "run")
 			to_chat(M, "<span class='danger'>You step on the snap pop!</span>")
 			pop_burst(2, 0)
+
+/obj/item/toy/snappop/phoenix
+	name = "phoenix snap pop"
+	desc = "Wow! And wow! And wow!"
+	ash_type = /obj/effect/decal/cleanable/ash/snappop_phoenix
+
+/obj/effect/decal/cleanable/ash/snappop_phoenix
+	var/respawn_time = 300
+
+/obj/effect/decal/cleanable/ash/snappop_phoenix/New()
+	. = ..()
+	addtimer(src, "respawn", respawn_time)
+
+/obj/effect/decal/cleanable/ash/snappop_phoenix/proc/respawn()
+	new /obj/item/toy/snappop/phoenix(get_turf(src))
+	qdel(src)
 
 
 /*
@@ -861,7 +883,7 @@ obj/item/toy/cards/deck/syndicate/black
 
 /obj/item/toy/minimeteor
 	name = "Mini-Meteor"
-	desc = "Relive the excitement of a meteor shower! SweetMeat-eor. Co is not responsible for any injuries, headaches or hearing loss caused by Mini-Meteor"
+	desc = "Relive the excitement of a meteor shower! SweetMeat-eor. Co is not responsible for any injuries, headaches or hearing loss caused by Mini-Meteor."
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "minimeteor"
 	w_class = 2

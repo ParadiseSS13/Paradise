@@ -131,7 +131,7 @@ var/datum/canister_icons/canister_icon_container = new()
 		var/list/LL = L[i]
 		LL = LL.Copy() //make sure we don't edit the datum list
 		LL.Add(list("active" = decals[LL["icon"]])) //"active" used by nanoUI
-		possibledecals[i] = LL
+		possibledecals.Add(LL)
 
 /obj/machinery/portable_atmospherics/canister/proc/check_change()
 	var/old_flag = update_flag
@@ -181,6 +181,7 @@ update_flag
 	if(src.destroyed)
 		src.overlays = 0
 		src.icon_state = text("[]-1", src.canister_color["prim"])//yes, I KNOW the colours don't reflect when the can's borked, whatever.
+		return
 
 	if(icon_state != src.canister_color["prim"])
 		icon_state = src.canister_color["prim"]
@@ -444,12 +445,12 @@ update_flag
 			else
 				logmsg = "Valve was <b>opened</b> by [usr] ([usr.ckey]), starting the transfer into the <font color='red'><b>air</b></font><br>"
 				if(air_contents.toxins > 0)
-					message_admins("[key_name_admin(usr)] opened a canister that contains plasma! (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
-					log_admin("[key_name(usr)] opened a canister that contains plasma at [x], [y], [z]")
+					message_admins("[key_name_admin(usr)] opened a canister that contains plasma in [get_area(src)]! (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
+					log_admin("[key_name(usr)] opened a canister that contains plasma at [get_area(src)]: [x], [y], [z]")
 				var/datum/gas/sleeping_agent = locate(/datum/gas/sleeping_agent) in air_contents.trace_gases
 				if(sleeping_agent && (sleeping_agent.moles > 1))
-					message_admins("[key_name_admin(usr)] opened a canister that contains N2O! (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
-					log_admin("[key_name(usr)] opened a canister that contains N2O at [x], [y], [z]")
+					message_admins("[key_name_admin(usr)] opened a canister that contains N2O in [get_area(src)]! (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
+					log_admin("[key_name(usr)] opened a canister that contains N2O at [get_area(src)]: [x], [y], [z]")
 		investigate_log(logmsg, "atmos")
 		release_log += logmsg
 		valve_open = !valve_open

@@ -136,15 +136,7 @@
 			to_chat(holder.wearer, "<span class='danger'>The weapon needs to cool down first.</span>")
 			holder.cell.use(use_power_cost*-10) // in cases where the gun does not fire, refund the rigsuit its firing cost.
 			return 0
-	if(!gun.chambered)
-		gun.newshot()
-	if(gun.can_shoot())
-		gun.process_fire(target,holder.wearer)
-	else
-		to_chat(holder.wearer, "<span class='danger'>The weapon does not fire.</span>")
-		holder.cell.use(use_power_cost*-10) // in cases where the gun does not fire, refund the rigsuit its firing cost.
-	if(!gun.chambered)
-		gun.newshot()
+	gun.afterattack(target,holder.wearer)
 	return 1
 
 /obj/item/rig_module/mounted/egun

@@ -91,12 +91,25 @@
 	var/datum/announcement/priority/emergency_shuttle_called = new(0, new_sound = sound('sound/AI/shuttlecalled.ogg'))
 	var/datum/announcement/priority/emergency_shuttle_recalled = new(0, new_sound = sound('sound/AI/shuttlerecalled.ogg'))
 
+	var/canRecall = TRUE //no bad condom, do not recall the crew transfer shuttle!
+
+
 /obj/docking_port/mobile/emergency/register()
 	if(!..())
 		return 0 //shuttle master not initialized
 
 	shuttle_master.emergency = src
 	return 1
+
+/obj/docking_port/mobile/emergency/Destroy(force)
+	if(force)
+		// This'll make the shuttle subsystem use the backup shuttle.
+		if(shuttle_master.emergency == src)
+			// If we're the selected emergency shuttle
+			shuttle_master.emergencyDeregister()
+
+
+	return ..()
 
 /obj/docking_port/mobile/emergency/timeLeft(divisor)
 	if(divisor <= 0)
@@ -138,6 +151,9 @@
 	emergency_shuttle_called.Announce("The emergency shuttle has been called. [redAlert ? "Red Alert state confirmed: Dispatching priority shuttle. " : "" ]It will arrive in [timeLeft(600)] minutes.[reason][shuttle_master.emergencyLastCallLoc ? "\n\nCall signal traced. Results can be viewed on any communications console." : "" ]")
 
 /obj/docking_port/mobile/emergency/cancel(area/signalOrigin)
+	if(!canRecall)
+		return
+
 	if(mode != SHUTTLE_CALL)
 		return
 
@@ -150,12 +166,36 @@
 		shuttle_master.emergencyLastCallLoc = null
 	emergency_shuttle_recalled.Announce("The emergency shuttle has been recalled.[shuttle_master.emergencyLastCallLoc ? " Recall signal traced. Results can be viewed on any communications console." : "" ]")
 
-/*
-/obj/docking_port/mobile/emergency/findTransitDock()
-	. = shuttle_master.getDock("emergency_transit")
-	if(.)	return .
-	return ..()
-*/
+/obj/docking_port/mobile/emergency/proc/is_hijacked()
+	for(var/mob/living/player in player_list)
+		if(player.mind)
+			if(player.stat != DEAD)
+				if(issilicon(player)) //Borgs are technically dead anyways
+					continue
+				if(isanimal(player)) //Poly does not own the shuttle
+					continue
+
+				var/special_role = player.mind.special_role
+				if(special_role)
+					if(special_role == SPECIAL_ROLE_TRAITOR) // traitors can hijack the shuttle
+						continue
+
+					if(special_role == SPECIAL_ROLE_CHANGELING) // changelings as well
+						continue
+
+					if(special_role == SPECIAL_ROLE_VAMPIRE || special_role == SPECIAL_ROLE_VAMPIRE_THRALL) // for traitorvamp
+						continue
+
+					if(special_role == SPECIAL_ROLE_NUKEOPS) // so can nukeops, for the hell of it
+						continue
+
+					if(special_role == SPECIAL_ROLE_SYNDICATE_DEATHSQUAD) // and the syndie deathsquad i guess
+						continue
+
+				if(get_area(player) == areaInstance)
+					return FALSE
+
+	return TRUE
 
 
 /obj/docking_port/mobile/emergency/check()
@@ -216,10 +256,19 @@
 				//move each escape pod to its corresponding escape dock
 				for(var/obj/docking_port/mobile/pod/M in shuttle_master.mobile)
 					M.dock(shuttle_master.getDock("[M.id]_away"))
-				//now move the actual emergency shuttle to centcomm
+
 				for(var/area/shuttle/escape/E in world)
 					E << 'sound/effects/hyperspace_end.ogg'
-				dock(shuttle_master.getDock("emergency_away"))
+
+				// now move the actual emergency shuttle to centcomm
+				// unless the shuttle is "hijacked"
+				var/destination_dock = "emergency_away"
+				if(is_hijacked())
+					destination_dock = "emergency_syndicate"
+					priority_announcement.Announce("Corruption detected in shuttle navigation protocols. Please contact your supervisor.")
+
+				dock_id(destination_dock)
+
 				mode = SHUTTLE_ENDGAME
 				timer = 0
 				open_dock()
@@ -286,3 +335,19 @@
 	var/list/turfs = get_area_turfs(target_area)
 	var/turf/T = pick(turfs)
 	src.loc = T
+
+/obj/docking_port/mobile/emergency/backup
+	name = "backup shuttle"
+	id = "backup"
+	dwidth = 2
+	width = 8
+	height = 8
+	dir = 4
+
+	roundstart_move = "backup_away"
+
+/obj/docking_port/mobile/emergency/backup/register()
+	var/current_emergency = shuttle_master.emergency
+	..()
+	shuttle_master.emergency = current_emergency
+	shuttle_master.backup_shuttle = src

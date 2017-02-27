@@ -122,7 +122,7 @@
 		ui.open()
 		ui.set_auto_update(1)
 
-/datum/song/ui_data(mob/user, datum/topic_state/state = default_state)
+/datum/song/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/data[0]
 
 	data["lines"] = lines
@@ -138,10 +138,10 @@
 	return data
 
 /datum/song/Topic(href, href_list)
-	if(!in_range(instrumentObj, usr) || (issilicon(usr) && instrumentObj.loc != usr) || !isliving(usr) || !usr.canmove || usr.restrained())
+	if(!in_range(instrumentObj, usr) || (issilicon(usr) && instrumentObj.loc != usr) || !isliving(usr) || usr.incapacitated())
 		usr << browse(null, "window=instrument")
 		usr.unset_machine()
-		return
+		return 1
 
 	instrumentObj.add_fingerprint(usr)
 
@@ -168,6 +168,8 @@
 		//split into lines
 		spawn()
 			lines = splittext(t, "\n")
+			if(lines.len == 0)
+				return 1
 			if(copytext(lines[1],1,6) == "BPM: ")
 				tempo = sanitize_tempo(600 / text2num(copytext(lines[1],6)))
 				lines.Cut(1,2)
@@ -291,13 +293,13 @@
 	ui_interact(user)
 
 /obj/structure/piano/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	if(!user || !anchored)
+	if(!isliving(user) || user.incapacitated() || !anchored)
 		return
 
 	song.ui_interact(user, ui_key, ui, force_open)
 
-/obj/structure/piano/ui_data(mob/user, datum/topic_state/state = default_state)
-	return song.ui_data(user, state)
+/obj/structure/piano/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+	return song.ui_data(user, ui_key, state)
 
 /obj/structure/piano/Topic(href, href_list)
 	song.Topic(href, href_list)

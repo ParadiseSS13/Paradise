@@ -95,9 +95,9 @@
 			update_inv_r_hand(0)
 		return
 
-	// operate two STORAGE levels deep here (item in backpack in src; NOT item in box in backpack in src)
+	// operate three levels deep here (item in backpack in src; item in box in backpack in src, not any deeper)
 	var/sdepth = A.storage_depth(src)
-	if(A == loc || (A in loc) || (sdepth != -1 && sdepth <= 1))
+	if(A == loc || (A in loc) || (sdepth != -1 && sdepth <= 2))
 		// No adjacency needed
 		if(W)
 			var/resolved = A.attackby(W,src)
@@ -323,16 +323,6 @@
 
 // Simple helper to face what you clicked on, in case it should be needed in more than one place
 /mob/proc/face_atom(var/atom/A)
-
-/*	// Snowflake for space vines. //Are you fucking kidding me?
-	var/is_buckled = 0
-	if(buckled)
-		if(istype(buckled))
-			if(!buckled.movable)
-				is_buckled = 1
-		else
-			is_buckled = 0*/
-
 	if( stat || buckled || !A || !x || !y || !A.x || !A.y ) return
 	var/dx = A.x - x
 	var/dy = A.y - y
@@ -345,11 +335,7 @@
 	else
 		if(dx > 0)	direction = EAST
 		else		direction = WEST
-	usr.dir = direction
-
-/*	if(buckled && buckled.movable)
-		buckled.dir = direction
-		buckled.handle_rotation()*/
+	dir = direction
 
 /obj/screen/click_catcher
 	icon = 'icons/mob/screen_full.dmi'

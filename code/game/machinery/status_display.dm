@@ -89,7 +89,7 @@
 			return 1
 		if(STATUS_DISPLAY_TRANSFER_SHUTTLE_TIME)				//emergency shuttle timer
 			var/use_warn = 0
-			if(shuttle_master.emergency.timer)
+			if(shuttle_master.emergency && shuttle_master.emergency.timer)
 				use_warn = 1
 				message1 = "-[shuttle_master.emergency.getModeStr()]-"
 				message2 = shuttle_master.emergency.getTimerStr()
@@ -202,6 +202,10 @@
 	var/picture_state	// icon_state of ai picture
 
 	var/emotion = "Neutral"
+
+/obj/machinery/ai_status_display/attack_ai(mob/living/silicon/ai/user)
+	if(isAI(user))
+		user.ai_statuschange()
 
 /obj/machinery/ai_status_display/process()
 	if(stat & NOPOWER)

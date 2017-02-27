@@ -5,10 +5,22 @@
 	icon_state = "cult"
 	builtin_sheet = null
 	canSmoothWith = null
+	smooth = SMOOTH_FALSE
+
+/turf/simulated/wall/cult/New()
+	..()
+	if(ticker.mode)//game hasn't started offically don't do shit..
+		new /obj/effect/overlay/temp/cult/turf(src)
+		icon_state = ticker.mode.cultdat.cult_wall_icon_state
+
+/turf/simulated/wall/cult/artificer
+	name = "runed stone wall"
+	desc = "A cold stone wall engraved with indecipherable symbols. Studying them causes your head to pound."
+
 
 /turf/simulated/wall/cult/narsie_act()
 	return
-	
+
 /turf/simulated/wall/cult/break_wall()
 	new /obj/effect/decal/cleanable/blood(src)
 	return (new /obj/structure/cultgirder(src))

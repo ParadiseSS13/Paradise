@@ -49,7 +49,7 @@
 		W.assignment = "Highlander"
 		W.registered_name = H.real_name
 		H.equip_to_slot_or_del(W, slot_wear_id)
-		H.species.equip(H)
+		H.species.after_equip_job(null, H)
 		H.regenerate_icons()
 
 	message_admins("[key_name_admin(usr)] used THERE CAN BE ONLY ONE! -NO ATTACK LOGS WILL BE SENT TO ADMINS FROM THIS POINT FORTH-", 1)

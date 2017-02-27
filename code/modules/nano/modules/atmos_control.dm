@@ -25,7 +25,7 @@
 		if(ui_ref)
 			var/obj/machinery/alarm/alarm = locate(href_list["alarm"]) in (monitored_alarms ? monitored_alarms : machines)
 			if(alarm)
-				var/datum/topic_state/TS = generate_state(alarm)
+				var/datum/topic_state/air_alarm/TS = generate_state(alarm)
 				alarm.ui_interact(usr, master_ui = ui_ref, state = TS)
 
 /datum/nano_module/atmos_control/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/master_ui = null, var/datum/topic_state/state = default_state)
@@ -39,7 +39,7 @@
 		ui.set_auto_update(1)
 	ui_ref = ui
 
-/datum/nano_module/atmos_control/ui_data(mob/user, datum/topic_state/state = default_state)
+/datum/nano_module/atmos_control/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/data[0]
 	data["alarms"] = air_alarm_repository.air_alarm_data(monitored_alarms)
 	return data
@@ -63,7 +63,7 @@
 
 /datum/topic_state/air_alarm/href_list(var/mob/user)
 	var/list/extra_href = list()
-	extra_href["remote_connection"] = 1
+	extra_href["remote_connection"] = TRUE
 	extra_href["remote_access"] = has_access(user)
 
 	return extra_href

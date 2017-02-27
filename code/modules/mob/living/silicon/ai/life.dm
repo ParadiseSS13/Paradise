@@ -47,10 +47,12 @@
 			to_chat(src, "Alert cancelled. Power has been restored without our assistance.")
 			aiRestorePowerRoutine = 0
 			clear_fullscreen("blind")
+			update_sight()
 		else if(aiRestorePowerRoutine == 3)
 			to_chat(src, "Alert cancelled. Power has been restored.")
 			aiRestorePowerRoutine = 0
 			clear_fullscreen("blind")
+			update_sight()
 
 
 	else

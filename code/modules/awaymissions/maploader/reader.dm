@@ -128,6 +128,7 @@ var/global/dmm_suite/preloader/_preloader = new
 					bounds[MAP_MAXY] = max(bounds[MAP_MAXY], min(ycrd, world.maxy))
 
 				var/maxx = xcrdStart
+				log_debug("[xcrdStart]")
 				if(measureOnly)
 					for(var/line in gridLines)
 						maxx = max(maxx, xcrdStart + length(line) / key_len - 1)
@@ -154,7 +155,6 @@ var/global/dmm_suite/preloader/_preloader = new
 								maxx = max(maxx, xcrd)
 								++xcrd
 						--ycrd
-
 				bounds[MAP_MAXX] = max(bounds[MAP_MAXX], cropMap ? min(maxx, world.maxx) : maxx)
 
 			CHECK_TICK
@@ -166,7 +166,7 @@ var/global/dmm_suite/preloader/_preloader = new
 	log_debug("Loaded map in [stop_watch(watch)]s.")
 	qdel(LM)
 	if(bounds[MAP_MINX] == 1.#INF) // Shouldn't need to check every item
-		log_runtime(EXCEPTION("Bad Map bounds."), src, list(
+		log_runtime(EXCEPTION("Bad Map bounds in [fname]"), src, list(
 		"Min x: [bounds[MAP_MINX]]",
 		"Min y: [bounds[MAP_MINY]]",
 		"Min z: [bounds[MAP_MINZ]]",

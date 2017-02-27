@@ -171,6 +171,14 @@
 /mob/proc/AdjustSlur()
 	return
 
+/mob/proc/CultSlur()
+	return
+
+/mob/proc/SetCultSlur()
+	return
+
+/mob/proc/AdjustCultSlur()
+	return
 
 /mob/proc/Stun()
 	return

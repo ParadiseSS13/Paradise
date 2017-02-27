@@ -64,6 +64,7 @@
 
 /obj/machinery/power/supermatter_shard/New()
 	. = ..()
+	poi_list |= src
 	radio = new(src)
 	radio.listening = 0
 	investigate_log("has been created.", "supermatter")
@@ -71,8 +72,10 @@
 
 /obj/machinery/power/supermatter_shard/Destroy()
 	investigate_log("has been destroyed.", "supermatter")
-	qdel(radio)
-	radio = null
+	if(radio)
+		qdel(radio)
+		radio = null
+	poi_list.Remove(src)
 	return ..()
 
 /obj/machinery/power/supermatter_shard/proc/explode()
@@ -265,7 +268,7 @@
 		ui.open()
 		ui.set_auto_update(1)
 
-/obj/machinery/power/supermatter_shard/ui_data(mob/user, datum/topic_state/state = default_state)
+/obj/machinery/power/supermatter_shard/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/data[0]
 
 	data["integrity_percentage"] = round(get_integrity())

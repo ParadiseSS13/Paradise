@@ -30,16 +30,13 @@
 	ui_interact(user)
 
 /obj/item/device/violin/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	if(!user)
-		return
-
-	if(!isliving(user) || user.stat || user.restrained() || user.lying)
+	if(!isliving(user) || user.incapacitated())
 		return
 
 	song.ui_interact(user, ui_key, ui, force_open)
 
-/obj/item/device/violin/ui_data(mob/user, datum/topic_state/state = default_state)
-	return song.ui_data(user, state)
+/obj/item/device/violin/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+	return song.ui_data(user, ui_key, state)
 
 /obj/item/device/violin/Topic(href, href_list)
 	song.Topic(href, href_list)

@@ -50,6 +50,10 @@
 		dir = newdir
 	update_move_direction()
 
+/obj/machinery/conveyor/setDir(newdir)
+	. = ..()
+	update_move_direction()
+
 
 /obj/machinery/conveyor/proc/update_move_direction()
 	switch(dir)

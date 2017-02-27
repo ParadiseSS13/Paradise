@@ -132,13 +132,14 @@
 				for(var/mob/C in viewers(src))
 					C.show_message("\red [GM.name] has been placed in the [src] by [user].", 3)
 				qdel(G)
-				usr.attack_log += text("\[[time_stamp()]\] <font color='red'>Has placed [key_name(GM)] in disposals.</font>")
-				GM.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been placed in disposals by [key_name(user)]</font>")
+				usr.create_attack_log("<font color='red'>Has placed [key_name(GM)] in disposals.</font>")
+				GM.create_attack_log("<font color='orange'>Has been placed in disposals by [key_name(user)]</font>")
 				if(GM.ckey)
 					msg_admin_attack("[key_name_admin(user)] placed [key_name_admin(GM)] in a disposals unit. (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 		return
 
-	if(!I)	return
+	if(!I)
+		return
 
 	if(!user.drop_item())
 		return
@@ -180,8 +181,8 @@
 		msg = "[user.name] stuffs [target.name] into the [src]!"
 		to_chat(user, "You stuff [target.name] into the [src]!")
 
-		user.attack_log += text("\[[time_stamp()]\] <font color='red'>Has placed [key_name(target)] in disposals.</font>")
-		target.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been placed in disposals by [key_name(user)]</font>")
+		user.create_attack_log("<font color='red'>Has placed [key_name(target)] in disposals.</font>")
+		target.create_attack_log("<font color='orange'>Has been placed in disposals by [key_name(user)]</font>")
 		if(target.ckey)
 			msg_admin_attack("[key_name_admin(user)] placed [key_name_admin(target)] in a disposals unit")
 	else
@@ -247,7 +248,7 @@
 		ui.open()
 		ui.set_auto_update(1)
 
-/obj/machinery/disposal/ui_data(mob/user, datum/topic_state/state = default_state)
+/obj/machinery/disposal/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/data[0]
 
 	var/pressure = Clamp(100* air_contents.return_pressure() / (SEND_PRESSURE), 0, 100)
@@ -530,14 +531,18 @@
 					has_fat_guy = 1			// set flag on holder
 			if(istype(AM, /obj/structure/bigDelivery) && !hasmob)
 				var/obj/structure/bigDelivery/T = AM
-				src.destinationTag = T.sortTag
+				destinationTag = T.sortTag
 			if(istype(AM, /obj/item/smallDelivery) && !hasmob)
 				var/obj/item/smallDelivery/T = AM
-				src.destinationTag = T.sortTag
+				destinationTag = T.sortTag
 			//Drones can mail themselves through maint.
 			if(istype(AM, /mob/living/silicon/robot/drone))
 				var/mob/living/silicon/robot/drone/drone = AM
-				src.destinationTag = drone.mail_destination
+				destinationTag = drone.mail_destination
+			if(istype(AM, /obj/item/shippingPackage) && !hasmob)
+				var/obj/item/shippingPackage/sp = AM
+				if(sp.sealed)	//only sealed packages get delivered to their intended destination
+					destinationTag = sp.sortTag
 
 
 	// start the movement process
@@ -867,29 +872,22 @@
 //weldingtool: unfasten and convert to obj/disposalconstruct
 
 /obj/structure/disposalpipe/attackby(var/obj/item/I, var/mob/user, params)
-
-	var/turf/T = src.loc
+	var/turf/T = get_turf(src)
 	if(T.intact)
 		return		// prevent interaction with T-scanner revealed pipes
-	src.add_fingerprint(user)
+
+	add_fingerprint(user)
+
 	if(istype(I, /obj/item/weapon/weldingtool))
 		var/obj/item/weapon/weldingtool/W = I
-
-		if(W.remove_fuel(0,user))
-			playsound(src.loc, 'sound/items/Welder2.ogg', 100, 1)
-			// check if anything changed over 2 seconds
-			var/turf/uloc = user.loc
-			var/atom/wloc = W.loc
-			to_chat(user, "Slicing the disposal pipe.")
-			sleep(30)
-			if(!W.isOn()) return
-			if(user.loc == uloc && wloc == W.loc)
+		if(W.remove_fuel(0, user))
+			to_chat(user, "<span class='notice'>You begin slicing \the [src].</span>")
+			playsound(loc, 'sound/items/Welder2.ogg', 100, 1)
+			if(do_after(user, 30, target = src))
+				to_chat(user, "<span class='notice'>You finish slicing \the [src].</span>")
 				welded()
-			else
-				to_chat(user, "You must stay still while welding the pipe.")
 		else
-			to_chat(user, "You need more welding fuel to cut the pipe.")
-			return
+			to_chat(user, "<span class='warning'>You need more welding fuel to cut the pipe.</span>")
 
 // called when pipe is cut with welder
 /obj/structure/disposalpipe/proc/welded()
@@ -987,7 +985,7 @@
 /obj/structure/disposalpipe/sortjunction
 
 	icon_state = "pipe-j1s"
-	var/sortType = 0	//Look at the list called TAGGERLOCATIONS in setup.dm
+	var/sortType = 0	//Look at the list called TAGGERLOCATIONS in /code/_globalvars/lists/flavor_misc.dm
 	var/posdir = 0
 	var/negdir = 0
 	var/sortdir = 0

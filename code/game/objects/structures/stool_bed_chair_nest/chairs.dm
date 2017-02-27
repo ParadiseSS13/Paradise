@@ -13,6 +13,12 @@
 		handle_rotation()
 	return
 
+/obj/structure/stool/bed/chair/narsie_act()
+	if(prob(20))
+		var/obj/structure/stool/bed/chair/wood/W = new/obj/structure/stool/bed/chair/wood(get_turf(src))
+		W.dir = dir
+		qdel(src)
+
 /obj/structure/stool/bed/chair/Move(atom/newloc, direct)
 	..()
 	handle_rotation()
@@ -54,18 +60,15 @@
 	set src in oview(1)
 
 	if(config.ghost_interaction)
-		src.dir = turn(src.dir, 90)
+		setDir(turn(dir, 90))
 		handle_rotation()
 		return
-	else
-		if(!usr || !isturf(usr.loc))
-			return
-		if(usr.stat || usr.restrained())
-			return
 
-		src.dir = turn(src.dir, 90)
-		handle_rotation()
+	if(usr.incapacitated())
 		return
+
+	setDir(turn(dir, 90))
+	handle_rotation()
 
 /obj/structure/stool/bed/chair/AltClick(mob/user)
 	if(user.incapacitated())
@@ -80,6 +83,9 @@
 	burn_state = FLAMMABLE
 	burntime = 20
 	// TODO:  Special ash subtype that looks like charred chair legs
+
+/obj/structure/stool/bed/chair/wood/narsie_act()
+	return
 
 /obj/structure/stool/bed/chair/wood/normal
 	icon_state = "wooden_chair"

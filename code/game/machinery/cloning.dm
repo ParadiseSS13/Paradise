@@ -103,10 +103,7 @@
 //TO-DO: Make the genetics machine accept them.
 /obj/item/weapon/disk/data
 	name = "Cloning Data Disk"
-	icon = 'icons/obj/cloning.dmi'
 	icon_state = "datadisk0" //Gosh I hope syndies don't mistake them for the nuke disk.
-	item_state = "card-id"
-	w_class = 1
 	var/datum/dna2/record/buf=null
 	var/read_only = 0 //Well,it's still a floppy disk
 
@@ -127,6 +124,9 @@
 	buf.dna.unique_enzymes = md5(buf.dna.real_name)
 	buf.dna.UI=list(0x066,0x000,0x033,0x000,0x000,0x000,0xAF0,0x000,0x000,0x000,0x000,0x000,0x000,0x000,0x000,0x000,0x033,0x066,0x0FF,0x4DB,0x002,0x690,0x000,0x000)
 	//buf.dna.UI=list(0x0C8,0x0C8,0x0C8,0x0C8,0x0C8,0x0C8,0x000,0x000,0x000,0x000,0x161,0xFBD,0xDEF) // Farmer Jeff
+	for(var/i in buf.dna.UI.len to DNA_UI_LENGTH)
+		buf.dna.UI += 0x000
+	buf.dna.ResetSE()
 	buf.dna.UpdateUI()
 
 /obj/item/weapon/disk/data/monkey
@@ -410,7 +410,6 @@
 	if(H.mind in ticker.mode.syndicates)
 		ticker.mode.update_synd_icons_added()
 	if(H.mind in ticker.mode.cult)
-		ticker.mode.add_cult_viewpoint(H)
 		ticker.mode.add_cultist(occupant.mind)
 		ticker.mode.update_cult_icons_added() //So the icon actually appears
 	if((H.mind in ticker.mode.implanter) || (H.mind in ticker.mode.implanted))

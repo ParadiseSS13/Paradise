@@ -22,27 +22,27 @@
 
 // Give Random Bad Mutation to M
 /proc/randmutb(var/mob/living/M)
-	if(!M) return
+	if(!M || !M.dna) return
 	M.dna.check_integrity()
 	var/block = pick(bad_blocks)
 	M.dna.SetSEState(block, 1)
 
 // Give Random Good Mutation to M
 /proc/randmutg(var/mob/living/M)
-	if(!M) return
+	if(!M || !M.dna) return
 	M.dna.check_integrity()
 	var/block = pick(good_blocks)
 	M.dna.SetSEState(block, 1)
 
 // Random Appearance Mutation
 /proc/randmuti(var/mob/living/M)
-	if(!M) return
+	if(!M || !M.dna) return
 	M.dna.check_integrity()
 	M.dna.SetUIValue(rand(1,DNA_UI_LENGTH),rand(1,4095))
 
 // Scramble UI or SE.
 /proc/scramble(var/UI, var/mob/M, var/prob)
-	if(!M)	return
+	if(!M || !M.dna)	return
 	M.dna.check_integrity()
 	if(UI)
 		for(var/i = 1, i <= DNA_UI_LENGTH-1, i++)

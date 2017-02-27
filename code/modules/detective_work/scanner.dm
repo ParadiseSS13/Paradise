@@ -66,7 +66,7 @@
 	if(log.len && !scanning)
 		scanning = 1
 		to_chat(usr, "<span class='notice'>Printing report, please wait...</span>")
-		playsound(loc, "sound/goonstation/machines/printer_thermal.ogg", 50, 1)
+		playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
 		spawn(100)
 
 			// Create our paper

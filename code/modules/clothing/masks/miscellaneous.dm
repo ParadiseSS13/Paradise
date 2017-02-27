@@ -139,6 +139,7 @@
 	w_class = 2
 	gas_transfer_coefficient = 0.90
 
+
 /obj/item/clothing/mask/pig
 	name = "pig mask"
 	desc = "A rubber pig mask."
@@ -187,6 +188,58 @@
 		return
 	if(user.real_name == "[originalname][temporaryname]" || user.real_name == "A Horse With No Name") //if it's somehow changed while the mask is on it doesn't revert
 		user.real_name = originalname
+
+/obj/item/clothing/mask/face
+	flags = MASKCOVERSMOUTH
+	flags_inv = HIDEFACE
+
+/obj/item/clothing/mask/face/rat
+	name = "rat mask"
+	desc = "A mask made of soft vinyl and latex, representing the head of a rat."
+	icon_state = "rat"
+	item_state = "rat"
+
+/obj/item/clothing/mask/face/fox
+	name = "fox mask"
+	desc = "A mask made of soft vinyl and latex, representing the head of a fox."
+	icon_state = "fox"
+	item_state = "fox"
+
+/obj/item/clothing/mask/face/bee
+	name = "bee mask"
+	desc = "A mask made of soft vinyl and latex, representing the head of a bee."
+	icon_state = "bee"
+	item_state = "bee"
+
+/obj/item/clothing/mask/face/bear
+	name = "bear mask"
+	desc = "A mask made of soft vinyl and latex, representing the head of a bear."
+	icon_state = "bear"
+	item_state = "bear"
+
+/obj/item/clothing/mask/face/bat
+	name = "bat mask"
+	desc = "A mask made of soft vinyl and latex, representing the head of a bat."
+	icon_state = "bat"
+	item_state = "bat"
+
+/obj/item/clothing/mask/face/raven
+	name = "raven mask"
+	desc = "A mask made of soft vinyl and latex, representing the head of a raven."
+	icon_state = "raven"
+	item_state = "raven"
+
+/obj/item/clothing/mask/face/jackal
+	name = "jackal mask"
+	desc = "A mask made of soft vinyl and latex, representing the head of a jackal."
+	icon_state = "jackal"
+	item_state = "jackal"
+
+/obj/item/clothing/mask/face/tribal
+	name = "tribal mask"
+	desc = "A mask carved out of wood, detailed carefully by hand."
+	icon_state = "bumba"
+	item_state = "bumba"
 
 /obj/item/clothing/mask/fawkes
 	name = "Guy Fawkes mask"
@@ -287,7 +340,7 @@
 	icon_override = 'icons/goonstation/mob/clothing/mask.dmi'
 	lefthand_file = 'icons/goonstation/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/goonstation/mob/inhands/clothing_righthand.dmi'
-	flags = NODROP
+	flags = NODROP | AIRTIGHT | MASKCOVERSMOUTH
 
 /obj/item/clothing/mask/cursedclown/equipped(mob/user, slot)
 	..()

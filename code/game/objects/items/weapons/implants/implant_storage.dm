@@ -49,6 +49,10 @@
 
 	return ..()
 
+/obj/item/weapon/implant/storage/proc/get_contents() //Used for swiftly returning a list of the implant's contents i.e. for checking a theft objective's completion.
+	if(storage && storage.contents)
+		return storage.contents
+
 /obj/item/weapon/implanter/storage
 	name = "implanter (storage)"
 

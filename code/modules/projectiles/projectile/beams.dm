@@ -20,6 +20,7 @@
 	name = "practice laser"
 	damage = 0
 	nodamage = 1
+	log_override = TRUE
 
 /obj/item/projectile/beam/scatter
 	name = "laser pellet"
@@ -74,6 +75,7 @@
 	damage_type = STAMINA
 	flag = "laser"
 	var/suit_types = list(/obj/item/clothing/suit/redtag, /obj/item/clothing/suit/bluetag)
+	log_override = TRUE
 
 /obj/item/projectile/beam/lasertag/on_hit(atom/target, blocked = 0)
 	. = ..()

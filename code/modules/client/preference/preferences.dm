@@ -23,6 +23,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 // 	ROLE_GANG = 21,
 	ROLE_BORER = 21,
 	ROLE_NINJA = 21,
+	ROLE_GSPIDER = 21,
 	ROLE_ABDUCTOR = 30,
 )
 
@@ -82,6 +83,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 	//game-preferences
 	var/lastchangelog = ""				//Saved changlog filesize to detect if there was a change
+	var/exp
 	var/ooccolor = "#b82e00"
 	var/be_special = list()				//Special role selection
 	var/UI_style = "Midnight"
@@ -91,7 +93,10 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	var/show_ghostitem_attack = TRUE
 	var/UI_style_color = "#ffffff"
 	var/UI_style_alpha = 255
+	var/windowflashing = TRUE
 
+	//ghostly preferences
+	var/ghost_anonsay = 0
 
 	//character preferences
 	var/real_name						//our character's name
@@ -103,7 +108,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	var/underwear = "Nude"					//underwear type
 	var/undershirt = "Nude"					//undershirt type
 	var/socks = "Nude"					//socks type
-	var/backbag = 2						//backpack type
+	var/backbag = GBACKPACK				//backpack type
 	var/ha_style = "None"				//Head accessory style
 	var/r_headacc = 0					//Head accessory colour
 	var/g_headacc = 0					//Head accessory colour
@@ -280,6 +285,8 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			dat += "<b>Species:</b> <a href='?_src_=prefs;preference=species;task=input'>[species]</a><br>"
 			if(species == "Vox")
 				dat += "<b>N2 Tank:</b> <a href='?_src_=prefs;preference=speciesprefs;task=input'>[speciesprefs ? "Large N2 Tank" : "Specialized N2 Tank"]</a><br>"
+			if(species == "Grey")
+				dat += "<b>Voice:</b> <a href ='?_src_=prefs;preference=speciesprefs;task=input'>[speciesprefs ? "Wingdings" : "Normal"]</a><BR>"
 			dat += "<b>Secondary Language:</b> <a href='?_src_=prefs;preference=language;task=input'>[language]</a><br>"
 			dat += "<b>Blood Type:</b> <a href='?_src_=prefs;preference=b_type;task=input'>[b_type]</a><br>"
 			if(species in list("Human", "Drask", "Vox"))
@@ -407,7 +414,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			dat += "<b>Underwear:</b> <a href ='?_src_=prefs;preference=underwear;task=input'>[underwear]</a><BR>"
 			dat += "<b>Undershirt:</b> <a href ='?_src_=prefs;preference=undershirt;task=input'>[undershirt]</a><BR>"
 			dat += "<b>Socks:</b> <a href ='?_src_=prefs;preference=socks;task=input'>[socks]</a><BR>"
-			dat += "<b>Backpack Type:</b> <a href ='?_src_=prefs;preference=bag;task=input'>[backbaglist[backbag]]</a><br>"
+			dat += "<b>Backpack Type:</b> <a href ='?_src_=prefs;preference=bag;task=input'>[backbag]</a><br>"
 
 			dat += "</td></tr></table>"
 
@@ -416,6 +423,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			dat += "<h2>General Settings</h2>"
 			dat += "<b>Fancy NanoUI:</b> <a href='?_src_=prefs;preference=nanoui'>[(nanoui_fancy) ? "Yes" : "No"]</a><br>"
 			dat += "<b>Ghost-Item Attack Animation:</b> <a href='?_src_=prefs;preference=ghost_att_anim'>[(show_ghostitem_attack) ? "Yes" : "No"]</a><br>"
+			dat += "<b>Window Flashing:</b> <a href='?_src_=prefs;preference=winflash'>[(windowflashing) ? "Yes" : "No"]</a><br>"
 			dat += "<b>Custom UI settings:</b><br>"
 			dat += " - <b>UI Style:</b> <a href='?_src_=prefs;preference=ui'><b>[UI_style]</b></a><br>"
 			dat += " - <b>Color:</b> <a href='?_src_=prefs;preference=UIcolor'><b>[UI_style_color]</b></a> <table style='display:inline;' bgcolor='[UI_style_color]'<tr><td>__</td></tr></table><br>"
@@ -440,6 +448,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			dat += "<b>Ghost ears:</b> <a href='?_src_=prefs;preference=ghost_ears'><b>[(toggles & CHAT_GHOSTEARS) ? "Nearest Creatures" : "All Speech"]</b></a><br>"
 			dat += "<b>Ghost sight:</b> <a href='?_src_=prefs;preference=ghost_sight'><b>[(toggles & CHAT_GHOSTSIGHT) ? "Nearest Creatures" : "All Emotes"]</b></a><br>"
 			dat += "<b>Ghost radio:</b> <a href='?_src_=prefs;preference=ghost_radio'><b>[(toggles & CHAT_GHOSTRADIO) ? "Nearest Speakers" : "All Chatter"]</b></a><br>"
+			dat += "<b>Deadchat anonymity:</b> <a href='?_src_=prefs;preference=ghost_anonsay'><b>[ghost_anonsay ? "Anonymous" : "Not Anonymous"]</b></a><br>"
 
 			dat += "</td><td width='300px' height='300px' valign='top'>"
 			dat += "<h2>Special Role Settings</h2>"
@@ -592,6 +601,10 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			continue
 		if(jobban_isbanned(user, rank))
 			HTML += "<del>[rank]</del></td><td><b> \[BANNED]</b></td></tr>"
+			continue
+		var/available_in_playtime = job.available_in_playtime(user.client)
+		if(available_in_playtime)
+			HTML += "<del>[rank]</del></td><td> \[ " + get_exp_format(available_in_playtime) + " as " + job.get_exp_req_type()  + " \]</td></tr>"
 			continue
 		if(!job.player_old_enough(user.client))
 			var/available_in_days = job.available_in_days(user.client)
@@ -809,6 +822,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	HTML += ShowDisabilityState(user,DISABILITY_FLAG_EPILEPTIC,"Seizures")
 	HTML += ShowDisabilityState(user,DISABILITY_FLAG_DEAF,"Deaf")
 	HTML += ShowDisabilityState(user,DISABILITY_FLAG_BLIND,"Blind")
+	HTML += ShowDisabilityState(user,DISABILITY_FLAG_COLOURBLIND,"Colourblind")
 	HTML += ShowDisabilityState(user,DISABILITY_FLAG_MUTE,"Mute")
 
 
@@ -1226,7 +1240,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						g_skin = rand(0,255)
 						b_skin = rand(0,255)
 				if("bag")
-					backbag = rand(1,4)
+					backbag = pick(backbaglist)
 				/*if("skin_style")
 					h_style = random_skin_style(gender)*/
 				if("all")
@@ -1325,15 +1339,15 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 							b_skin = 0
 
 						alt_head = "None" //No alt heads on species that don't have them.
+						speciesprefs = 0 //My Vox tank shouldn't change how my future Grey talks.
 
 						body_accessory = null //no vulptail on humans damnit
 
 						//Reset prosthetics.
 						organ_data = list()
 						rlimb_data = list()
-				if("speciesprefs")//oldvox code
-					speciesprefs = !speciesprefs
-
+				if("speciesprefs")
+					speciesprefs = !speciesprefs //Starts 0, so if someone clicks the button up top there, this won't be 0 anymore. If they click it again, it'll go back to 0.
 				if("language")
 //						var/languages_available
 					var/list/new_languages = list("None")
@@ -1704,9 +1718,9 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						ooccolor = new_ooccolor
 
 				if("bag")
-					var/new_backbag = input(user, "Choose your character's style of bag:", "Character Preference")  as null|anything in backbaglist
+					var/new_backbag = input(user, "Choose your character's style of bag:", "Character Preference") as null|anything in backbaglist
 					if(new_backbag)
-						backbag = backbaglist.Find(new_backbag)
+						backbag = new_backbag
 
 				if("nt_relation")
 					var/new_relation = input(user, "Choose your relation to NT. Note that this represents what others can find out about your character by researching your background, not what your character actually thinks.", "Character Preference")  as null|anything in list("Loyal", "Supportive", "Neutral", "Skeptical", "Opposed")
@@ -1929,6 +1943,9 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 				if("ghost_att_anim")
 					show_ghostitem_attack = !show_ghostitem_attack
 
+				if("winflash")
+					windowflashing = !windowflashing
+
 				if("UIcolor")
 					var/UI_style_color_new = input(user, "Choose your UI color, dark colors are not recommended!", UI_style_color) as color|null
 					if(!UI_style_color_new) return
@@ -1957,6 +1974,9 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 				if("randomslot")
 					randomslot = !randomslot
+					if(isnewplayer(usr))
+						var/mob/new_player/N = usr
+						N.new_player_panel_proc()
 
 				if("hear_midis")
 					sound ^= SOUND_MIDI
@@ -1979,6 +1999,9 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 				if("ghost_radio")
 					toggles ^= CHAT_GHOSTRADIO
+
+				if("ghost_anonsay")
+					ghost_anonsay = !ghost_anonsay
 
 				if("save")
 					save_preferences(user)
@@ -2025,6 +2048,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			real_name += "[pick(last_names)]"
 
 	character.add_language(language)
+
 
 	character.real_name = real_name
 	character.dna.real_name = real_name
@@ -2126,8 +2150,6 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	if(body_accessory)
 		character.body_accessory = body_accessory_by_name["[body_accessory]"]
 
-	if(backbag > 4 || backbag < 1)
-		backbag = 1 //Same as above
 	character.backbag = backbag
 
 	//Debugging report to track down a bug, which randomly assigned the plural gender to people.
@@ -2140,35 +2162,31 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 	if(disabilities & DISABILITY_FLAG_FAT && character.species.flags & CAN_BE_FAT)
 		character.dna.SetSEState(FATBLOCK,1,1)
-		character.mutations += FAT
-		character.mutations += OBESITY
 		character.overeatduration = 600
 
 	if(disabilities & DISABILITY_FLAG_NEARSIGHTED)
 		character.dna.SetSEState(GLASSESBLOCK,1,1)
-		character.disabilities |= NEARSIGHTED
 
 	if(disabilities & DISABILITY_FLAG_EPILEPTIC)
 		character.dna.SetSEState(EPILEPSYBLOCK,1,1)
-		character.disabilities |= EPILEPSY
 
 	if(disabilities & DISABILITY_FLAG_DEAF)
 		character.dna.SetSEState(DEAFBLOCK,1,1)
-		character.disabilities |= DEAF
 
 	if(disabilities & DISABILITY_FLAG_BLIND)
 		character.dna.SetSEState(BLINDBLOCK,1,1)
-		character.disabilities |= BLIND
+
+	if(disabilities & DISABILITY_FLAG_COLOURBLIND)
+		character.dna.SetSEState(COLOURBLINDBLOCK,1,1)
 
 	if(disabilities & DISABILITY_FLAG_MUTE)
 		character.dna.SetSEState(MUTEBLOCK,1,1)
-		character.disabilities |= MUTE
 
 	S.handle_dna(character)
 
 	if(character.dna.dirtySE)
 		character.dna.UpdateSE()
-	domutcheck(character, null, MUTCHK_FORCED)
+	domutcheck(character, null, MUTCHK_FORCED) //'Activates' all the above disabilities.
 
 	character.dna.ready_dna(character, flatten_SE = 0)
 	character.sync_organ_dna(assimilate=1)
@@ -2182,26 +2200,26 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 /datum/preferences/proc/open_load_dialog(mob/user)
 
 	var/DBQuery/query = dbcon.NewQuery("SELECT slot,real_name FROM [format_table_name("characters")] WHERE ckey='[user.ckey]' ORDER BY slot")
+	var/list/slotnames[max_save_slots]
+
+	if(!query.Execute())
+		var/err = query.ErrorMsg()
+		log_game("SQL ERROR during character slot loading. Error : \[[err]\]\n")
+		message_admins("SQL ERROR during character slot loading. Error : \[[err]\]\n")
+		return
+	while(query.NextRow())
+		slotnames[text2num(query.item[1])] = query.item[2]
 
 	var/dat = "<body>"
 	dat += "<tt><center>"
 	dat += "<b>Select a character slot to load</b><hr>"
 	var/name
 
-	for(var/i=1, i<=max_save_slots, i++)
-		if(!query.Execute())
-			var/err = query.ErrorMsg()
-			log_game("SQL ERROR during character slot loading. Error : \[[err]\]\n")
-			message_admins("SQL ERROR during character slot loading. Error : \[[err]\]\n")
-			return
-		while(query.NextRow())
-			if(i==text2num(query.item[1]))
-				name =  query.item[2]
-		if(!name)	name = "Character[i]"
-		if(i==default_slot)
+	for(var/i in 1 to max_save_slots)
+		name = slotnames[i] || "Character [i]"
+		if(i == default_slot)
 			name = "<b>[name]</b>"
 		dat += "<a href='?_src_=prefs;preference=changeslot;num=[i];'>[name]</a><br>"
-		name = null
 
 	dat += "<hr>"
 	dat += "<a href='byond://?src=[user.UID()];preference=close_load_dialog'>Close</a><br>"

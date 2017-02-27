@@ -171,7 +171,7 @@
 		if(gene.is_active(src))
 			speech_problem_flag = 1
 			gene.OnMobLife(src)
-	if(gene_stability < GENETIC_DAMAGE_STAGE_1)
+	if(!ignore_gene_stability && gene_stability < GENETIC_DAMAGE_STAGE_1)
 		var/instability = DEFAULT_GENE_STABILITY - gene_stability
 		if(prob(instability * 0.1))
 			adjustFireLoss(min(5, instability * 0.67))
@@ -506,17 +506,14 @@
 //END FIRE CODE
 
 /mob/living/carbon/human/proc/stabilize_temperature_from_calories()
+	var/body_temperature_difference = species.body_temperature - bodytemperature
+
 	if(bodytemperature <= species.cold_level_1) //260.15 is 310.15 - 50, the temperature where you start to feel effects.
-		if(nutrition >= 2) //If we are very, very cold we'll use up quite a bit of nutriment to heat us up.
-			nutrition -= 2
-		var/body_temperature_difference = species.body_temperature - bodytemperature
-		bodytemperature += max((body_temperature_difference / BODYTEMP_AUTORECOVERY_DIVISOR), BODYTEMP_AUTORECOVERY_MINIMUM)
+		bodytemperature += max((body_temperature_difference * metabolism_efficiency / BODYTEMP_AUTORECOVERY_DIVISOR), BODYTEMP_AUTORECOVERY_MINIMUM)
 	if(bodytemperature >= species.cold_level_1 && bodytemperature <= species.heat_level_1)
-		var/body_temperature_difference = species.body_temperature - bodytemperature
-		bodytemperature += body_temperature_difference / BODYTEMP_AUTORECOVERY_DIVISOR
+		bodytemperature += body_temperature_difference * metabolism_efficiency / BODYTEMP_AUTORECOVERY_DIVISOR
 	if(bodytemperature >= species.heat_level_1) //360.15 is 310.15 + 50, the temperature where you start to feel effects.
 		//We totally need a sweat system cause it totally makes sense...~
-		var/body_temperature_difference = species.body_temperature - bodytemperature
 		bodytemperature += min((body_temperature_difference / BODYTEMP_AUTORECOVERY_DIVISOR), -BODYTEMP_AUTORECOVERY_MINIMUM)	//We're dealing with negative numbers
 
 
@@ -676,11 +673,20 @@
 				becomeFat()
 
 	// nutrition decrease
-	if(nutrition > 0 && stat != 2)
-		nutrition = max (0, nutrition - HUNGER_FACTOR)
+	if(nutrition > 0 && stat != DEAD)
+		// THEY HUNGER
+		var/hunger_rate = hunger_drain
+		if(satiety > 0)
+			satiety--
+		if(satiety < 0)
+			satiety++
+			if(prob(round(-satiety/40)))
+				Jitter(5)
+			hunger_rate = 3 * hunger_drain
+		nutrition = max(0, nutrition - hunger_rate)
 
-	if(nutrition > 450)
-		if(overeatduration < 800) //capped so people don't take forever to unfat
+	if(nutrition > NUTRITION_LEVEL_FULL)
+		if(overeatduration < 600) //capped so people don't take forever to unfat
 			overeatduration++
 
 	else
@@ -689,6 +695,22 @@
 				overeatduration -= 1 // Those with obesity gene take twice as long to unfat
 			else
 				overeatduration -= 2
+
+	//metabolism change
+	if(nutrition > NUTRITION_LEVEL_FAT)
+		metabolism_efficiency = 1
+	else if(nutrition > NUTRITION_LEVEL_FED && satiety > 80)
+		if(metabolism_efficiency != 1.25)
+			to_chat(src, "<span class='notice'>You feel vigorous.</span>")
+			metabolism_efficiency = 1.25
+	else if(nutrition < NUTRITION_LEVEL_STARVING + 50)
+		if(metabolism_efficiency != 0.8)
+			to_chat(src, "<span class='notice'>You feel sluggish.</span>")
+		metabolism_efficiency = 0.8
+	else
+		if(metabolism_efficiency == 1.25)
+			to_chat(src, "<span class='notice'>You no longer feel vigorous.</span>")
+		metabolism_efficiency = 1
 
 	if(drowsyness)
 		AdjustDrowsy(-1)
@@ -932,20 +954,8 @@
 		if(getToxLoss() >= 45 && nutrition > 20)
 			lastpuke ++
 			if(lastpuke >= 25) // about 25 second delay I guess
-				Stun(5)
-
-				visible_message("<span class='danger'>[src] throws up!</span>", \
-						"<span class='userdanger'>[src] throws up!</span>")
-				playsound(loc, 'sound/effects/splat.ogg', 50, 1)
-
-				var/turf/location = loc
-				if(istype(location, /turf/simulated))
-					location.add_vomit_floor(src, 1)
-
-				nutrition -= 20
+				vomit(20, 0, 1, 0, 1)
 				adjustToxLoss(-3)
-
-				// make it so you can only puke so fast
 				lastpuke = 0
 
 	//0.1% chance of playing a scary sound to someone who's in complete darkness
