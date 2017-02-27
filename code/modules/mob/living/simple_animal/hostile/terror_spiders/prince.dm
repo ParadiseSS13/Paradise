@@ -19,8 +19,8 @@
 	maxHealth = 600 // 30 laser shots
 	health = 600
 	regen_points_per_hp = 6 // double the normal - IE halved regen speed
-	melee_damage_lower = 20
-	melee_damage_upper = 30
+	melee_damage_lower = 30
+	melee_damage_upper = 40
 	move_to_delay = 4 // faster than normal
 	ventcrawler = 0
 	ai_ventcrawls = 0
@@ -29,13 +29,12 @@
 	idle_ventcrawl_chance = 0
 	spider_tier = TS_TIER_3
 	spider_opens_doors = 2
-	var/datum/action/innate/terrorspider/princesmash/princesmash_action
-
+	var/datum/action/innate/terrorspider/thickweb/thickweb_action
 
 /mob/living/simple_animal/hostile/poison/terror_spider/prince/New()
 	..()
-	princesmash_action = new()
-	princesmash_action.Grant(src)
+	thickweb_action = new()
+	thickweb_action.Grant(src)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/prince/death(gibbed)
 	if(!hasdied)
