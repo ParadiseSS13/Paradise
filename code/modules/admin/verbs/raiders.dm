@@ -4,7 +4,7 @@
 	R.set_frequency(SYND_FREQ) //Same frequency as the syndicate team in Nuke mode.
 	equip_or_collect(R, slot_l_ear) // Less talking, more raiding
 
-	species.equip(src)
+	species.after_equip_job(H = src)
 
 	equip_or_collect(new /obj/item/clothing/under/syndicate(src), slot_w_uniform)
 	equip_or_collect(new /obj/item/clothing/shoes/combat(src), slot_shoes)

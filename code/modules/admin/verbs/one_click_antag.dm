@@ -19,7 +19,7 @@ client/proc/one_click_antag()
 		<a href='?src=[UID()];makeAntag=4'>Make Cult</a><br>
 		<a href='?src=[UID()];makeAntag=5'>Make Wizard (Requires Ghosts)</a><br>
 		<a href='?src=[UID()];makeAntag=6'>Make Vampires</a><br>
-		<a href='?src=[UID()];makeAntag=7'>Make Vox Raiders (Requires Ghosts)</a><br>
+		<a href='?src=[UID()];makeAntag=7'>Make Space Raiders (Requires Ghosts)</a><br>
 		<a href='?src=[UID()];makeAntag=8'>Make Abductor Team (Requires Ghosts)</a><br>
 		"}
 	usr << browse(dat, "window=oneclickantag;size=400x400")
@@ -428,22 +428,12 @@ client/proc/one_click_antag()
 /datum/admins/proc/makeRaiders()
 	var/list/mob/candidates = list()
 	var/mob/theghost = null
-	var/time_passed = world.time
 	var/input = "Loot and burn the station or trade with it."
 
 	for(var/mob/G in respawnable_list)
-		if(!jobban_isbanned(G, "Raider"))
+		if(!jobban_isbanned(G, SPECIAL_ROLE_RAIDER))
 			spawn(0)
-				switch(alert(G,"Do you wish to be considered for a Space Pirate party about to be sent in?","Please answer in 30 seconds!","Yes","No"))
-					if("Yes")
-						if((world.time-time_passed)>300)
-							return
-						candidates += G
-					if("No")
-						return
-					else
-						return
-	sleep(300)
+				candidates = pollCandidates("Do you wish to be considered for a Space Pirate party about to be sent in?", SPECIAL_ROLE_RAIDER, 1)
 
 	for(var/mob/dead/observer/G in candidates)
 		if(!G.key)
