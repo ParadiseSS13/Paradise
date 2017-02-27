@@ -92,7 +92,7 @@
 		/obj/item/rig_module/mounted/energy_blade,
 		/obj/item/rig_module/vision,
 		/obj/item/rig_module/voice,
-		/obj/item/rig_module/chem_dispenser,
+		/obj/item/rig_module/chem_dispenser/ninja,
 		/obj/item/rig_module/grenade_launcher/ninja,
 		/obj/item/rig_module/datajack,
 		/obj/item/rig_module/maneuvering_jets,
