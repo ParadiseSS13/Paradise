@@ -195,7 +195,7 @@
 		if(!piece) continue
 		piece.icon_state = "[initial(icon_state)]"
 		if(airtight)
-			piece.flags &= ~(STOPSPRESSUREDMAGE|AIRTIGHT)
+			piece.flags &= ~(STOPSPRESSUREDMAGE | AIRTIGHT)
 	update_icon(1)
 
 /obj/item/weapon/rig/proc/seal(mob/living/user)
@@ -426,11 +426,9 @@
 		helmet.toggle_light(wearer)
 	for(var/obj/item/piece in list(helmet,boots,gloves,chest))
 		if(!(flags & NODROP))
-			piece.flags &= ~STOPSPRESSUREDMAGE
-			piece.flags &= ~AIRTIGHT
+			piece.flags &= ~(STOPSPRESSUREDMAGE | AIRTIGHT)
 		else
-			piece.flags |= STOPSPRESSUREDMAGE
-			piece.flags |= AIRTIGHT
+			piece.flags |= STOPSPRESSUREDMAGE | AIRTIGHT
 
 /obj/item/weapon/rig/process()
 	// If we've lost any parts, grab them back.
@@ -442,7 +440,7 @@
 				M.unEquip(piece)
 			piece.forceMove(src)
 
-	if(!istype(wearer) || loc != wearer || wearer.back != src || (!(flags & NODROP)) || !cell || cell.charge <= 0)
+	if(!istype(wearer) || loc != wearer || wearer.back != src || !(flags & NODROP) || !cell || cell.charge <= 0)
 		if(!cell || cell.charge <= 0)
 			if(electrified > 0)
 				electrified = 0
@@ -777,8 +775,9 @@
 				to_chat(wearer, "<span class='notice'>Your [use_obj] [use_obj.gender == PLURAL ? "retract" : "retracts"] swiftly.")
 
 		else if(deploy_mode != ONLY_RETRACT)
-			if(check_slot && check_slot != use_obj)
-				to_chat(wearer, "<span class='danger'>You are unable to deploy \the [piece] as \the [check_slot] [check_slot.gender == PLURAL ? "are" : "is"] in the way.</span>")
+			if(check_slot)
+				if(check_slot != use_obj) //If use_obj is already in check_slot, silently bail. Otherwise, tell the user why the part didn't deploy.
+					to_chat(wearer, "<span class='danger'>You are unable to deploy \the [piece] as \the [check_slot] [check_slot.gender == PLURAL ? "are" : "is"] in the way.</span>")
 				return
 			use_obj.forceMove(wearer)
 			if(!wearer.equip_to_slot_if_possible(use_obj, equip_to, 0, 1))

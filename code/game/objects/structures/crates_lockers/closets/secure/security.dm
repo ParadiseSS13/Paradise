@@ -15,7 +15,6 @@
 		else
 			new /obj/item/weapon/storage/backpack/satchel_cap(src)
 		new /obj/item/weapon/book/manual/faxes(src)
-		new /obj/item/clothing/head/crown/fancy(src)
 		new /obj/item/weapon/storage/backpack/duffel/captain(src)
 		new /obj/item/clothing/suit/captunic(src)
 		new /obj/item/clothing/suit/captunic/capjacket(src)
