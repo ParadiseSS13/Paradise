@@ -1,0 +1,4 @@
+author: "KasparoVy"
+delete-after: True
+changes: 
+  - bugfix: "Plasmaman suits will now only auto-extinguish if you're actually on fire (and not just taking a shower)."
