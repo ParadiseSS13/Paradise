@@ -435,9 +435,13 @@ proc/add_logs(mob/user, mob/target, what_done, var/object=null, var/addition=nul
 		to_chat(user, "<span class='warning'>No mob located in [A].</span>")
 
 //suppress the .click macro
+/client/var/next_click_macro_warning
 /mob/verb/ClickSubstitute()
 	set hidden = 1
 	set name = ".click"
-	//do nothing
-	log_admin("[src] attempted to use a .click macro.")
-	message_admins("[src] attempted to use a .click macro.")
+	if(!client.next_click_macro_warning) // Log once
+		log_admin("[key_name(usr)] attempted to use a .click macro.")
+		message_admins("[key_name_admin(usr)] attempted to use a .click macro.")
+	if(client.next_click_macro_warning < world.time) // Warn occasionally
+		usr << 'sound/misc/sadtrombone.ogg'
+		client.next_click_macro_warning = world.time + 600	
