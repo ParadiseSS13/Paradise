@@ -990,9 +990,12 @@ About the new airlock wires panel:
 	update_icon()
 	return 1
 
+/obj/machinery/door/airlock/New()
+	..()
+	wires = new(src)
+
 /obj/machinery/door/airlock/initialize()
 	. = ..()
-	wires = new(src)
 	if(closeOtherId != null)
 		for(var/obj/machinery/door/airlock/A in airlocks)
 			if(A.closeOtherId == closeOtherId && A != src)
