@@ -367,5 +367,6 @@
 	l_ear = /obj/item/device/radio/headset/headset_service
 	backpack_contents = list(
 		/obj/item/clothing/shoes/black = 1,
-		/obj/item/weapon/storage/box/lip_stick = 1
+		/obj/item/weapon/storage/box/lip_stick = 1,
+		/obj/item/weapon/storage/box/barber = 1
 	)

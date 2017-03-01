@@ -48,6 +48,7 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 0)
 	dufflebag = /obj/item/weapon/storage/backpack/duffel/captain
 
 /datum/outfit/job/captain/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	. = ..()
 	if(H && H.w_uniform)
 		var/obj/item/clothing/under/U = H.w_uniform
 		var/obj/item/clothing/accessory/medal/gold/captain/M = new /obj/item/clothing/accessory/medal/gold/captain(U)
