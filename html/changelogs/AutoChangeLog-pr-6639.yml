@@ -1,5 +1,0 @@
-author: "KasparoVy"
-delete-after: True
-changes: 
-  - bugfix: "Plasmaman multiverse sword copies are now properly equipped (suit, helmet, internals, etc.)"
-  - bugfix: "Vox multiverse sword copies are now peoperly equipped (internals)."

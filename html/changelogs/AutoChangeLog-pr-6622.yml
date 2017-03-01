@@ -1,5 +1,0 @@
-author: "Kyep"
-delete-after: True
-changes: 
-  - bugfix: "Fixed several Terror Spider things that should not be possible, like recharging wireless guns, the 'evil-looking spiderlings' instant meta, and spiderlings spacing themselves."
-  - tweak: "Several Terror Spider balance and fun tweaks, such as giving the Prince of Terror a new webbing ability, and ensuring queens/mothers can break open vents, so they cannot be completely shut out late-round."
