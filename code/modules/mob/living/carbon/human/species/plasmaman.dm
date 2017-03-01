@@ -34,7 +34,7 @@
 		message = replacetext(message, "s", stutter("ss"))
 	return message
 
-/datum/species/plasmaman/equip(var/mob/living/carbon/human/H)
+/datum/species/plasmaman/after_equip_job(datum/job/J, mob/living/carbon/human/H)
 	// Unequip existing suits and hats.
 	H.unEquip(H.wear_suit)
 	H.unEquip(H.head)
@@ -249,7 +249,7 @@
 				H.visible_message("<span class='danger'>[H]'s body reacts with the atmosphere and bursts into flames!</span>","<span class='userdanger'>Your body reacts with the atmosphere and bursts into flame!</span>")
 			H.IgniteMob()
 	else
-		if(H.fire_stacks)
+		if(H.on_fire && H.fire_stacks > 0)
 			var/obj/item/clothing/suit/space/eva/plasmaman/P = H.wear_suit
 			if(istype(P))
 				P.Extinguish(H)
