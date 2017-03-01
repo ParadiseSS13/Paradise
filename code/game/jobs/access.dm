@@ -96,7 +96,7 @@
 //The Syndicate
 /var/const/access_syndicate = 150//General Syndicate Access
 /var/const/access_syndicate_leader = 151//Nuke Op Leader Access
-/var/const/access_vox = 152//Vox Access
+/var/const/access_raider = 152//Raider Access
 
 //Trade Stations
 var/const/access_trade_sol = 160
@@ -225,10 +225,10 @@ var/const/access_trade_sol = 160
 			return list(access_syndicate)
 		if("Syndicate Operative Leader")
 			return list(access_syndicate, access_syndicate_leader)
-		if("Vox Raider")
-			return list(access_vox)
-		if("Vox Trader")
-			return list(access_vox)
+		if("Raider")
+			return list(access_raider)
+		if("Space Pirate")
+			return list(access_raider)
 		if("Syndicate Commando")
 			return list(access_syndicate, access_syndicate_leader)
 
@@ -250,7 +250,7 @@ var/const/access_trade_sol = 160
 	return list(access_cent_general, access_cent_living, access_cent_medical, access_cent_security, access_cent_storage, access_cent_shuttles, access_cent_telecomms, access_cent_teleporter, access_cent_specops, access_cent_specops_commander, access_cent_blackops, access_cent_thunder, access_cent_bridge, access_cent_commander)
 
 /proc/get_all_syndicate_access()
-	return list(access_syndicate, access_syndicate_leader, access_vox)
+	return list(access_syndicate, access_syndicate_leader, access_raider)
 
 /proc/get_all_misc_access()
 	return list(access_salvage_captain)
@@ -489,8 +489,8 @@ var/const/access_trade_sol = 160
 			return "Syndicate Operative"
 		if(access_syndicate_leader)
 			return "Syndicate Operative Leader"
-		if(access_vox)
-			return "Vox"
+		if(access_raider)
+			return "Raider"
 
 /proc/get_all_jobs()
 	var/list/all_jobs = list()

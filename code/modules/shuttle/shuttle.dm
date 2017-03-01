@@ -781,9 +781,9 @@
 	shuttleId = "whiteship"
 	possible_destinations = "whiteship_away;whiteship_home;whiteship_z4"
 
-/obj/machinery/computer/shuttle/vox
+/obj/machinery/computer/shuttle/raider
 	name = "skipjack control console"
-	req_access = list(access_vox)
+	req_access = list(access_raider)
 	shuttleId = "skipjack"
 	possible_destinations = "skipjack_away;skipjack_ne;skipjack_nw;skipjack_se;skipjack_sw;skipjack_z5"
 

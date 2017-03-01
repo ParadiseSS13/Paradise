@@ -307,9 +307,9 @@
 	access = initial_access.Copy()
 	..()
 
-/obj/item/weapon/card/id/syndicate/vox
+/obj/item/weapon/card/id/syndicate/raider
 	name = "agent card"
-	initial_access = list(access_maint_tunnels, access_vox, access_external_airlocks)
+	initial_access = list(access_maint_tunnels, access_raider, access_external_airlocks)
 
 /obj/item/weapon/card/id/syndicate/afterattack(var/obj/item/weapon/O as obj, mob/user as mob, proximity)
 	if(!proximity)

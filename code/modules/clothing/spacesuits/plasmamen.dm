@@ -358,3 +358,17 @@
 	icon_state = "plasmaman_Nukeops_helmet0"
 	base_state = "plasmaman_Nukeops_helmet"
 	armor = list(melee = 60, bullet = 50, laser = 30, energy = 15, bomb = 35, bio = 100, rad = 50)
+
+//raiders
+
+/obj/item/clothing/suit/space/eva/plasmaman/raider
+	name = "weathered plasmaman suit"
+	icon_state = "plasmaman_pirate"
+	armor = list(melee = 40, bullet = 50, laser = 30, energy = 15, bomb = 30, bio = 30, rad = 30)//matches the syndicate softsuits
+	allowed = list(/obj/item/device/flashlight,/obj/item/weapon/tank,/obj/item/weapon/gun,/obj/item/ammo_casing,/obj/item/ammo_casing,/obj/item/weapon/melee/baton,/obj/item/weapon/melee/energy/sword,/obj/item/weapon/restraints/handcuffs)
+
+/obj/item/clothing/head/helmet/space/eva/plasmaman/raider
+	name = "weathered plasmaman helmet"
+	icon_state = "plasmaman_pirate0"
+	base_state = "plasmaman_pirate"
+	armor = list(melee = 40, bullet = 50, laser = 30, energy = 15, bomb = 30, bio = 30, rad = 30)

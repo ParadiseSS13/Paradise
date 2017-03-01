@@ -560,54 +560,17 @@
 	if(istype(I))
 		apply_to_card(I, H, list(access_maint_tunnels), "Spy", "syndie")
 
-
-
-/datum/outfit/admin/vox
-	name = "Vox"
-	uniform = /obj/item/clothing/under/vox/vox_robes
-	suit = /obj/item/clothing/suit/space/vox/carapace
-	back = /obj/item/weapon/storage/backpack
-	gloves = /obj/item/clothing/gloves/color/yellow/vox
-	shoes = /obj/item/clothing/shoes/magboots/vox
-	head = /obj/item/clothing/head/helmet/space/vox/carapace
-	mask = /obj/item/clothing/mask/gas/syndicate
-	l_ear = /obj/item/device/radio/headset/syndicate
-	glasses = /obj/item/clothing/glasses/thermal/monocle
-	id = /obj/item/weapon/card/id/syndicate/vox
-	l_pocket = /obj/item/weapon/melee/classic_baton/telescopic
-	r_pocket = /obj/item/weapon/tank/emergency_oxygen/vox
-	backpack_contents = list(
-		/obj/item/device/flashlight = 1,
-		/obj/item/weapon/restraints/handcuffs/cable/zipties = 1,
-		/obj/item/device/flash = 1,
-		/obj/item/weapon/gun/energy/noisecannon = 1
-	)
-
-/datum/outfit/admin/vox/equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	if(H.get_species() == "Vox Armalis")
-		. = ..()
-	else
-		H.equip_vox_raider()
-		H.regenerate_icons()
-
-/datum/outfit/admin/vox/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	. = ..()
-	if(visualsOnly)
-		return
-
-	var/obj/item/weapon/card/id/I = H.wear_id
-	if(istype(I))
-		apply_to_card(I, H, get_all_accesses(), "Vox Armalis", "syndie")
-
-
-
 /datum/outfit/admin/death_commando
 	name = "Death Commando"
 
 /datum/outfit/admin/death_commando/equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	return H.equip_death_commando()
 
+/datum/outfit/admin/raider
+	name = "Raider"
 
+/datum/outfit/admin/raider/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	return H.equip_raider()
 
 /datum/outfit/admin/syndicate
 	name = "Syndicate Agent"

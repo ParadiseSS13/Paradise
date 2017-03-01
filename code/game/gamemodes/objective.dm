@@ -505,20 +505,21 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) \
 	if(owner.kills.len>5) return 0
 	return 1
 
-//Vox heist objectives.
+//RAIDER heist objectives.
 
 /datum/objective/heist
+
 /datum/objective/heist/proc/choose_target()
 	return
 
 /datum/objective/heist/kidnap
 /datum/objective/heist/kidnap/choose_target()
-	var/list/roles = list("Chief Engineer","Research Director","Roboticist","Chemist","Station Engineer")
+	var/list/roles = list("Head of Security", "Head of Personnel", "Captain", "Nanotrasen Representative")
 	var/list/possible_targets = list()
 	var/list/priority_targets = list()
 
 	for(var/datum/mind/possible_target in ticker.minds)
-		if(possible_target != owner && ishuman(possible_target.current) && (possible_target.current.stat != DEAD) && (possible_target.assigned_role != "MODE"))
+		if(possible_target != owner && ishuman(possible_target.current) && (possible_target.current.stat != DEAD) && (possible_target.assigned_role != "MODE") && possible_target.current.ckey)
 			possible_targets += possible_target
 			for(var/role in roles)
 				if(possible_target.assigned_role == role)
@@ -531,7 +532,7 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) \
 		target = pick(possible_targets)
 
 	if(target && target.current)
-		explanation_text = "The Shoal has a need for [target.current.real_name], the [target.assigned_role]. Take them alive."
+		explanation_text = "A contractor from Tau Ceti has a need for [target.current.real_name], the [target.assigned_role]. Take them alive."
 	else
 		explanation_text = "Free Objective"
 	return target
@@ -541,8 +542,8 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) \
 		if(target.current.stat == DEAD)
 			return 0
 
-		var/area/shuttle/vox/A = locate() //stupid fucking hardcoding
-		var/area/vox_station/B = locate() //but necessary
+		var/area/shuttle/raider/A = locate() //stupid fucking hardcoding
+		var/area/raider_station/B = locate() //but necessary
 
 		for(var/mob/living/carbon/human/M in A)
 			if(target.current == M)
@@ -553,49 +554,83 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) \
 	else
 		return 0
 
-/datum/objective/heist/loot
+/datum/objective/heist/loot //This objective isn't inherently evil. Most of this stuff can be obtained without bloodshed or even theft. You can just trade for laser guns.
 /datum/objective/heist/loot/choose_target()
 	var/loot = "an object"
-	switch(rand(1,8))
+	var/tech = 1 //for objective explanation text, depends on whether you're stealing tech or just boring stuff
+	switch(rand(1,10))
+
 		if(1)
-			target = /obj/structure/particle_accelerator
-			target_amount = 6
-			loot = "a complete particle accelerator"
+			target = /obj/item/weapon/gun/energy/laser/captain
+			target_amount = 1
+			loot = "the captain's antique laser gun"
 		if(2)
-			target = /obj/machinery/the_singularitygen
+			target = /obj/item/weapon/disk/nuclear
 			target_amount = 1
-			loot = "a gravitational singularity generator"
+			loot = "the nuclear authentication disk"
 		if(3)
-			target = /obj/machinery/power/emitter
-			target_amount = 4
-			loot = "four emitters"
-		if(4)
-			target = /obj/machinery/nuclearbomb
-			target_amount = 1
-			loot = "a nuclear bomb"
-		if(5)
 			target = /obj/item/weapon/gun
-			target_amount = 6
-			loot = "six guns. Tasers and other non-lethal guns are acceptable"
-		if(6)
+			target_amount = 8
+			loot = "eight guns. Tasers and other non-lethal guns are acceptable"
+		if(4)
 			target = /obj/item/weapon/gun/energy
 			target_amount = 4
 			loot = "four energy guns"
-		if(7)
+		if(5)
 			target = /obj/item/weapon/gun/energy/laser
 			target_amount = 2
 			loot = "two laser guns"
-		if(8)
+		if(6)
 			target = /obj/item/weapon/gun/energy/ionrifle
 			target_amount = 1
-			loot = "an ion gun"
+			loot = "an ion rifle"
+		if(7)
+			target = /obj/item/weapon/gun/energy/gun/hos
+			target_amount = 1
+			loot = "the Head of Security's recreated antique laser gun"
+		if(8)
+			target = /obj/item/weapon/reagent_containers/hypospray/CMO
+			target_amount = 1
+			loot = "the Chief Medical Officer's experimental hypospray"
+		if(9)
+			target = /obj/item/clothing/suit/armor/reactive/teleport
+			target_amount = 1
+			loot = "the Research Director's experimental teleport armor"
+		if(10)
+			target = /obj/item/clothing/shoes/magboots/advance
+			target_amount = 1
+			loot = "the Chief Engineer's advanced magnetic boots"
+		if(11)
+			target = /obj/item/weapon/stock_parts/cell
+			target_amount = 6
+			loot = "six power cells"
+			tech = 0
+		if(12)
+			target = /obj/item/weapon/storage/toolbox
+			target_amount = 5
+			loot = "five toolboxes"
+			tech = 0
+		if(13)
+			target = /obj/item/weapon/stock_parts/manipulator
+			target_amount = 10
+			loot = "ten manipulators"
+			tech = 0
+		if(14)
+			target = /obj/item/clothing/suit/armor/laserproof
+			target_amount = 1
+			loot = "an ablative armor vest"
+			tech = 0
+		if(15)
+			target = /obj/item/device/pda
+			target_amount = 5
+			loot = "five PDAs"
 
-	explanation_text = "We are lacking in hardware. Steal or trade [loot]."
+	explanation_text = "[tech ? "We have a buyer lined up for advanced NT technology." : "We're low on resources." ] Steal or trade for [loot]."
 
 /datum/objective/heist/loot/check_completion()
 	var/total_amount = 0
 
-	for(var/obj/O in locate(/area/shuttle/vox))
+	for(var/obj/O in locate(/area/shuttle/raider))
 		if(istype(O, target))
 			total_amount++
 		for(var/obj/I in O.contents)
@@ -604,7 +639,7 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) \
 			if(total_amount >= target_amount)
 				return 1
 
-	for(var/obj/O in locate(/area/vox_station))
+	for(var/obj/O in locate(/area/raider_station))
 		if(istype(O, target))
 			total_amount++
 		for(var/obj/I in O.contents)
@@ -624,99 +659,31 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) \
 
 	return 0
 
-/datum/objective/heist/salvage
-/datum/objective/heist/salvage/choose_target()
-	switch(rand(1,8))
-		if(1)
-			target = "metal"
-			target_amount = 300
-		if(2)
-			target = "glass"
-			target_amount = 200
-		if(3)
-			target = "plasteel"
-			target_amount = 100
-		if(4)
-			target = "solid plasma"
-			target_amount = 100
-		if(5)
-			target = "silver"
-			target_amount = 50
-		if(6)
-			target = "gold"
-			target_amount = 20
-		if(7)
-			target = "uranium"
-			target_amount = 20
-		if(8)
-			target = "diamond"
-			target_amount = 20
+/datum/objective/heist/assassinate
+/datum/objective/heist/assassinate/choose_target()
+	var/list/possible_targets = list()
 
-	explanation_text = "Ransack or trade with the station and escape with [target_amount] [target]."
+	for(var/datum/mind/possible_target in ticker.minds)
+		if(possible_target != owner && ishuman(possible_target.current) && (possible_target.current.stat != DEAD) && (possible_target.assigned_role != "MODE") && possible_target.current.ckey)
+			possible_targets += possible_target
+	if(possible_targets.len > 0)
+		target = pick(possible_targets)
 
-/datum/objective/heist/salvage/check_completion()
-	var/total_amount = 0
+	if(target && target.current)
+		explanation_text = "[target.current.real_name], the [target.assigned_role] has a price on their head. Make sure they don't make it out alive."
+	else
+		explanation_text = "Free Objective"
+	return target
 
-	for(var/obj/item/O in locate(/area/shuttle/vox))
-		var/obj/item/stack/sheet/S
-		if(istype(O,/obj/item/stack/sheet))
-			if(O.name == target)
-				S = O
-				total_amount += S.get_amount()
-
-		for(var/obj/I in O.contents)
-			if(istype(I,/obj/item/stack/sheet))
-				if(I.name == target)
-					S = I
-					total_amount += S.get_amount()
-
-	for(var/obj/item/O in locate(/area/vox_station))
-		var/obj/item/stack/sheet/S
-		if(istype(O,/obj/item/stack/sheet))
-			if(O.name == target)
-				S = O
-				total_amount += S.get_amount()
-
-		for(var/obj/I in O.contents)
-			if(istype(I,/obj/item/stack/sheet))
-				if(I.name == target)
-					S = I
-					total_amount += S.get_amount()
-
-	var/datum/game_mode/heist/H = ticker.mode
-	for(var/datum/mind/raider in H.raiders)
-		if(raider.current)
-			for(var/obj/item/O in raider.current.get_contents())
-				if(istype(O,/obj/item/stack/sheet))
-					if(O.name == target)
-						var/obj/item/stack/sheet/S = O
-						total_amount += S.get_amount()
-
-	if(total_amount >= target_amount) return 1
-	return 0
-
-
-/datum/objective/heist/inviolate_crew
-	explanation_text = "Do not leave any Vox behind, alive or dead."
-
-/datum/objective/heist/inviolate_crew/check_completion()
-	var/datum/game_mode/heist/H = ticker.mode
-	if(H.is_raider_crew_safe())
-		return 1
-	return 0
-
-/datum/objective/heist/inviolate_death
-	explanation_text = "Follow the Inviolate. Minimise death and loss of resources."
-
-/datum/objective/heist/inviolate_death/check_completion()
-	var/vox_allowed_kills = 3 // The number of people the vox can accidently kill. Mostly a counter to people killing themselves if a raider touches them to force fail.
-	var/vox_total_kills = 0
-
-	var/datum/game_mode/heist/H = ticker.mode
-	for(var/datum/mind/raider in H.raiders)
-		vox_total_kills += raider.kills.len // Kills are listed in the mind; uses this to calculate vox kills
-
-	if(vox_total_kills > vox_allowed_kills) return 0
+/datum/objective/heist/assassinate/check_completion()
+	if(target && target.current)
+		if(target.current.stat == DEAD)
+			return 1
+		if(issilicon(target.current) || isbrain(target.current)) //Borgs/brains/AIs count as dead for traitor objectives.
+			return 1
+		if(!target.current.ckey)
+			return 1
+		return 0
 	return 1
 
 // Traders
