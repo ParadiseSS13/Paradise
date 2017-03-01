@@ -1,0 +1,5 @@
+author: "Fethas"
+delete-after: True
+changes: 
+  - tweak: "2 second cooldown on the rest verb. You are not Neo, knock it off."
+  - rscadd: "StopResting and StartResting Procs are not on the rest verb."
