@@ -237,7 +237,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/carbine/silenced
 	name = "\improper S.H.H. \"Quietus\" Carbine"
-	fire_sound = "sound/weapons/Gunshot_silenced.ogg"
+	fire_sound = 'sound/weapons/Gunshot_silenced.ogg'
 	icon_state = "mecha_mime"
 	equip_cooldown = 15
 	projectile = /obj/item/projectile/bullet/mime

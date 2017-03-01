@@ -99,6 +99,8 @@ var/list/chatResources = list(
 
 	loaded = TRUE
 	winset(owner, "browseroutput", "is-disabled=false")
+	if(owner.holder)
+		loadAdmin()
 	for(var/message in messageQueue)
 		to_chat(owner, message)
 
@@ -119,6 +121,9 @@ var/list/chatResources = list(
 		data = json_encode(data)
 	C << output("[data]", "[window]:ehjaxCallback")
 
+/datum/chatOutput/proc/loadAdmin()
+	var/data = json_encode(list("loadAdminCode" = replacetext(replacetext(file2text("goon/browserassets/html/adminOutput.html"), "\n", ""), "\t", "")))
+	ehjax_send(data = url_encode(data))
 
 /datum/chatOutput/proc/sendClientData()
 	var/list/deets = list("clientData" = list())

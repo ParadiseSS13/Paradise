@@ -750,7 +750,7 @@ steam.start() -- spawns the effect
 				var/obj/effect/effect/ion_trails/I = new /obj/effect/effect/ion_trails(src.oldposition)
 				I.dir = src.holder.dir
 				flick("ion_fade", I)
-				I.icon_state = "blank"
+				I.icon_state = ""
 				spawn( 20 )
 					if(I)
 						I.delete()
@@ -812,8 +812,8 @@ steam.start() -- spawns the effect
 					II.dir = src.holder.dir
 					flick("ion_fade", I)
 					flick("ion_fade", II)
-					I.icon_state = "blank"
-					II.icon_state = "blank"
+					I.icon_state = ""
+					II.icon_state = ""
 					spawn( 20 )
 						if(I) I.delete()
 						if(II) II.delete()

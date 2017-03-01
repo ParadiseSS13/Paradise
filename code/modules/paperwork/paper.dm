@@ -199,62 +199,8 @@
 	update_icon()
 
 
-/obj/item/weapon/paper/proc/parsepencode(var/t, var/obj/item/weapon/pen/P, mob/user as mob, var/iscrayon = 0)
-//	t = sanitize(copytext(t),1,MAX_MESSAGE_LEN)
-
-	t = replacetext(t, "\[center\]", "<center>")
-	t = replacetext(t, "\[/center\]", "</center>")
-	t = replacetext(t, "\[br\]", "<BR>")
-	t = replacetext(t, "\[b\]", "<B>")
-	t = replacetext(t, "\[/b\]", "</B>")
-	t = replacetext(t, "\[i\]", "<I>")
-	t = replacetext(t, "\[/i\]", "</I>")
-	t = replacetext(t, "\[u\]", "<U>")
-	t = replacetext(t, "\[/u\]", "</U>")
-	t = replacetext(t, "\[large\]", "<font size=\"4\">")
-	t = replacetext(t, "\[/large\]", "</font>")
-	t = replacetext(t, "\[sign\]", "<font face=\"[signfont]\"><i>[user ? user.real_name : "Anonymous"]</i></font>")
-	t = replacetext(t, "\[field\]", "<span class=\"paper_field\"></span>")
-
-	t = replacetext(t, "\[h1\]", "<H1>")
-	t = replacetext(t, "\[/h1\]", "</H1>")
-	t = replacetext(t, "\[h2\]", "<H2>")
-	t = replacetext(t, "\[/h2\]", "</H2>")
-	t = replacetext(t, "\[h3\]", "<H3>")
-	t = replacetext(t, "\[/h3\]", "</H3>")
-
-	if(!iscrayon)
-		t = replacetext(t, "\[*\]", "<li>")
-		t = replacetext(t, "\[hr\]", "<HR>")
-		t = replacetext(t, "\[small\]", "<font size = \"1\">")
-		t = replacetext(t, "\[/small\]", "</font>")
-		t = replacetext(t, "\[list\]", "<ul>")
-		t = replacetext(t, "\[/list\]", "</ul>")
-		t = replacetext(t, "\[table\]", "<table border=1 cellspacing=0 cellpadding=3 style='border: 1px solid black;'>")
-		t = replacetext(t, "\[/table\]", "</td></tr></table>")
-		t = replacetext(t, "\[grid\]", "<table>")
-		t = replacetext(t, "\[/grid\]", "</td></tr></table>")
-		t = replacetext(t, "\[row\]", "</td><tr>")
-		t = replacetext(t, "\[cell\]", "<td>")
-		t = replacetext(t, "\[logo\]", "<img src = ntlogo.png>")
-
-		t = "<font face=\"[deffont]\" color=[P ? P.colour : "black"]>[t]</font>"
-	else // If it is a crayon, and he still tries to use these, make them empty!
-		t = replacetext(t, "\[*\]", "")
-		t = replacetext(t, "\[hr\]", "")
-		t = replacetext(t, "\[small\]", "")
-		t = replacetext(t, "\[/small\]", "")
-		t = replacetext(t, "\[list\]", "")
-		t = replacetext(t, "\[/list\]", "")
-		t = replacetext(t, "\[table\]", "")
-		t = replacetext(t, "\[/table\]", "")
-		t = replacetext(t, "\[row\]", "")
-		t = replacetext(t, "\[cell\]", "")
-		t = replacetext(t, "\[logo\]", "")
-
-		t = "<font face=\"[crayonfont]\" color=[P ? P.colour : "black"]><b>[t]</b></font>"
-
-	t = copytext(t, 1, MAX_PAPER_MESSAGE_LEN)
+/obj/item/weapon/paper/proc/parsepencode(var/t, var/obj/item/weapon/pen/P, mob/user as mob)
+	t = pencode_to_html(t, usr, P, deffont, signfont, crayonfont)
 
 //Count the fields
 	var/laststart = 1
@@ -303,12 +249,10 @@
 		//var/t =  strip_html_simple(input("Enter what you want to write:", "Write", null, null)  as message, MAX_MESSAGE_LEN)
 		var/t =  input("Enter what you want to write:", "Write", null, null)  as message
 		var/obj/item/i = usr.get_active_hand() // Check to see if he still got that darn pen, also check if he's using a crayon or pen.
-		var/iscrayon = 0
 		add_hiddenprint(usr) // No more forging nasty documents as someone else, you jerks
 		if(!istype(i, /obj/item/weapon/pen))
 			if(!istype(i, /obj/item/toy/crayon))
 				return
-			iscrayon = 1
 
 
 		// if paper is not in usr, then it must be near them, or in a clipboard or folder, which must be in or near usr
@@ -326,8 +270,7 @@
 				return
 */
 		t = html_encode(t)
-		t = replacetext(t, "\n", "<BR>")
-		t = parsepencode(t, i, usr, iscrayon) // Encode everything from pencode to html
+		t = parsepencode(t, i, usr) // Encode everything from pencode to html
 
 		if(id!="end")
 			addtofield(text2num(id), t) // He wants to edit a field, let him.

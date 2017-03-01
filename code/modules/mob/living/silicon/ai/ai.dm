@@ -618,9 +618,10 @@ var/list/ai_verbs_default = list(
 				sleep(40)
 				continue
 
-		return
-
-	return
+	else if(href_list["open"])
+		var/mob/target = locate(href_list["open"]) in mob_list
+		if(target)
+			open_nearest_door(target)
 
 /mob/living/silicon/ai/bullet_act(var/obj/item/projectile/Proj)
 	..(Proj)
@@ -1092,52 +1093,6 @@ var/list/ai_verbs_default = list(
 		aiRadio.interact(src)
 
 
-/mob/living/silicon/ai/proc/open_nearest_door(mob/living/target)
-	if(!istype(target))
-		return
-	spawn(0)
-		if(ishuman(target))
-			var/mob/living/carbon/human/H = target
-			var/obj/item/weapon/card/id/id = H.wear_id
-			if(istype(id) && id.is_untrackable())
-				to_chat(src, "Unable to locate an airlock")
-				return
-			if(H.digitalcamo)
-				to_chat(src, "Unable to locate an airlock")
-				return
-		if(!near_camera(target))
-			to_chat(src, "Target is not near any active cameras.")
-			return
-		var/obj/machinery/door/airlock/tobeopened
-		var/dist = -1
-		for(var/obj/machinery/door/airlock/D in range(3,target))
-			if(!D.density)
-				continue
-			if(dist < 0)
-				dist = get_dist(D, target)
-//				to_chat(world, dist)
-				tobeopened = D
-			else
-				if(dist > get_dist(D, target))
-					dist = get_dist(D, target)
-//					to_chat(world, dist)
-					tobeopened = D
-//					to_chat(world, "found [tobeopened.name] closer")
-				else
-//					to_chat(world, "[D.name] not close enough | [get_dist(D, target)] | [dist]")
-		if(tobeopened)
-			switch(alert(src, "Do you want to open \the [tobeopened] for [target]?","Doorknob_v2a.exe","Yes","No"))
-				if("Yes")
-					var/nhref = "src=[tobeopened.UID()];aiEnable=7"
-					tobeopened.Topic(nhref, params2list(nhref), tobeopened, 1)
-					to_chat(src, "\blue You've opened \the [tobeopened] for [target].")
-				if("No")
-					to_chat(src, "\red You deny the request.")
-		else
-			to_chat(src, "\red You've failed to open an airlock for [target]")
-		return
-
-
 /mob/living/silicon/ai/proc/check_unable(flags = 0)
 	if(stat == DEAD)
 		to_chat(usr, "<span class='warning'>You are dead!</span>")
@@ -1234,3 +1189,37 @@ var/list/ai_verbs_default = list(
 	view_core() //A BYOND bug requires you to be viewing your core before your verbs update
 	verbs += /mob/living/silicon/ai/proc/choose_modules
 	malf_picker = new /datum/module_picker
+
+/mob/living/silicon/ai/proc/open_nearest_door(mob/living/target)
+	if(!istype(target))
+		return
+
+	if(target && target.can_track())
+		var/obj/machinery/door/airlock/A = null
+
+		var/dist = -1
+		for(var/obj/machinery/door/airlock/D in range(3, target))
+			if(!D.density)
+				continue
+
+			var/curr_dist = get_dist(D, target)
+
+			if(dist < 0)
+				dist = curr_dist
+				A = D
+			else if(dist > curr_dist)
+				dist = curr_dist
+				A = D
+
+		if(istype(A))
+			switch(alert(src, "Do you want to open \the [A] for [target]?", "Doorknob_v2a.exe", "Yes", "No"))
+				if("Yes")
+					A.AIShiftClick()
+					to_chat(src, "<span class='notice'>You open \the [A] for [target].</span>")
+				else
+					to_chat(src, "<span class='warning'>You deny the request.</span>")
+		else
+			to_chat(src, "<span class='warning'>Unable to locate an airlock near [target].</span>")
+
+	else
+		to_chat(src, "<span class='warning'>Target is not on or near any active cameras on the station.</span>")

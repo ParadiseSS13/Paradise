@@ -625,3 +625,15 @@ proc/dd_sortedObjectList(list/incoming)
 
 /datum/alarm/dd_SortValue()
 	return "[sanitize(last_name)]"
+	
+//Picks from the list, with some safeties, and returns the "default" arg if it fails
+#define DEFAULTPICK(L, default) ((istype(L, /list) && L:len) ? pick(L) : default)
+
+#define LAZYINITLIST(L) if (!L) L = list()
+
+#define UNSETEMPTY(L) if (L && !L.len) L = null
+#define LAZYREMOVE(L, I) if(L) { L -= I; if(!L.len) { L = null; } }
+#define LAZYADD(L, I) if(!L) { L = list(); } L += I;
+#define LAZYACCESS(L, I) (L ? (isnum(I) ? (I > 0 && I <= L.len ? L[I] : null) : L[I]) : null)
+#define LAZYLEN(L) length(L)
+#define LAZYCLEARLIST(L) if(L) L.Cut()

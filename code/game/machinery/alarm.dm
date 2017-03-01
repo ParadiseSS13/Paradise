@@ -14,14 +14,14 @@
 
 /datum/tlv/proc/get_danger_level(curval as num)
 	if(max2 >=0 && curval>max2)
-		return 2
+		return ATMOS_ALARM_DANGER
 	if(min2 >=0 && curval<min2)
-		return 2
+		return ATMOS_ALARM_DANGER
 	if(max1 >=0 && curval>max1)
-		return 1
+		return ATMOS_ALARM_WARNING
 	if(min1 >=0 && curval<min1)
-		return 1
-	return 0
+		return ATMOS_ALARM_WARNING
+	return ATMOS_ALARM_NONE
 
 /datum/tlv/proc/CopyFrom(datum/tlv/other)
 	min2 = other.min2
@@ -103,7 +103,7 @@
 	var/screen = AALARM_SCREEN_MAIN
 	var/area_uid
 	var/area/alarm_area
-	var/danger_level = 0
+	var/danger_level = ATMOS_ALARM_NONE
 	var/alarmActivated = 0 // Manually activated (independent from danger level)
 
 	var/buildstage = 2 //2 is built, 1 is building, 0 is frame.
@@ -349,11 +349,11 @@
 		return
 
 	switch(max(danger_level, alarm_area.atmosalm-1))
-		if(0)
+		if(ATMOS_ALARM_NONE)
 			icon_state = "alarm0"
-		if(1)
+		if(ATMOS_ALARM_WARNING)
 			icon_state = "alarm2" //yes, alarm2 is yellow alarm
-		if(2)
+		if(ATMOS_ALARM_DANGER)
 			icon_state = "alarm1"
 
 /obj/machinery/alarm/receive_signal(datum/signal/signal)
@@ -670,21 +670,21 @@
 
 /obj/machinery/alarm/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/data[0]
-	var/list/href_list = state.href_list()
 
+	var/list/href_list = state.href_list(user)
 	if(href_list)
 		data["remote_connection"] = href_list["remote_connection"]
 		data["remote_access"] = href_list["remote_access"]
 
 	data["name"] = sanitize(name)
 	data["air"] = ui_air_status()
-	data["alarmActivated"] = alarmActivated || danger_level == 2
+	data["alarmActivated"] = alarmActivated || danger_level == ATMOS_ALARM_DANGER
 	data["thresholds"] = generate_thresholds_menu()
 
 	// Locked when:
 	//   Not sent from atmos console AND
 	//   Not silicon AND locked.
-	data["locked"] = is_locked(user,href_list)
+	data["locked"] = !is_authenticated(user, href_list)
 	data["rcon"] = rcon_setting
 	data["target_temp"] = target_temperature - T0C
 	data["atmos_alarm"] = alarm_area.atmosalm
@@ -799,16 +799,6 @@
 	else
 		return !locked
 
-/obj/machinery/alarm/proc/is_locked(mob/user as mob, href_list)
-	if(user.can_admin_interact())
-		return 0
-	else if(is_auth_rcon(href_list))
-		return 0
-	else if(isAI(user) || isrobot(user))
-		return 0
-	else
-		return locked
-
 /obj/machinery/alarm/proc/is_auth_rcon(href_list)
 	if(href_list && href_list["remote_connection"] && href_list["remote_access"])
 		return 1
@@ -914,15 +904,15 @@
 		return 1
 
 	if(href_list["atmos_alarm"])
-		if(alarm_area.atmosalert(2, src))
-			apply_danger_level(2)
+		if(alarm_area.atmosalert(ATMOS_ALARM_DANGER, src))
+			apply_danger_level(ATMOS_ALARM_DANGER)
 		alarmActivated = 1
 		update_icon()
 		return 1
 
 	if(href_list["atmos_reset"])
-		if(alarm_area.atmosalert(0, src))
-			apply_danger_level(0)
+		if(alarm_area.atmosalert(ATMOS_ALARM_NONE, src))
+			apply_danger_level(ATMOS_ALARM_NONE)
 		alarmActivated = 0
 		update_icon()
 		return 1

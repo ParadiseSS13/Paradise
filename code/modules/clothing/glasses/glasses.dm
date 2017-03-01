@@ -327,8 +327,8 @@
 		flash_protect = 0
 		tint = 0
 	var/mob/living/carbon/user = usr
-	user.update_inv_glasses()
 	user.update_tint()
+	user.update_inv_glasses()
 
 	for(var/X in actions)
 		var/datum/action/A = X
@@ -492,4 +492,4 @@
 		else
 			to_chat(user, "<span class='notice'>The eye winks at you and vanishes into the abyss, you feel really unlucky.</span>")
 		qdel(src)
-	..()				
+	..()

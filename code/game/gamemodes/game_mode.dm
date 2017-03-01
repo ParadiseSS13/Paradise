@@ -37,6 +37,8 @@
 	var/const/waittime_h = 1800 //upper bound on time before intercept arrives (in tenths of seconds)
 	var/list/player_draft_log = list()
 	var/list/datum/mind/xenos = list()
+	
+	var/list/datum/station_goal/station_goals = list() // A list of all station goals for this game mode
 
 /datum/game_mode/proc/announce() //to be calles when round starts
 	to_chat(world, "<B>Notice</B>: [src] did not define announce()")
@@ -78,6 +80,7 @@
 //	if(revdata)
 //		feedback_set_details("revision","[revdata.revision]")
 	feedback_set_details("server_ip","[world.internet_address]:[world.port]")
+	generate_station_goals()
 	start_state = new /datum/station_state()
 	start_state.count()
 	return 1
@@ -222,7 +225,7 @@
 
 /datum/game_mode/proc/check_win() //universal trigger to be called at mob death, nuke explosion, etc. To be called from everywhere.
 	return 0
-
+	
 /datum/game_mode/proc/get_players_for_role(var/role, override_jobbans=0)
 	var/list/players = list()
 	var/list/candidates = list()
@@ -475,3 +478,36 @@ proc/get_nt_opposed()
 			text += "<br><b>Objective #[count]</b>: [objective.explanation_text] <span class='boldannounce'>Fail.</span>"
 		count++
 	return text
+
+/datum/game_mode/proc/generate_station_goals()
+	var/list/possible = list()
+	for(var/T in subtypesof(/datum/station_goal))
+		var/datum/station_goal/G = T
+		if(config_tag in initial(G.gamemode_blacklist))
+			continue
+		possible += T
+	var/goal_weights = 0
+	while(possible.len && goal_weights < STATION_GOAL_BUDGET)
+		var/datum/station_goal/picked = pick_n_take(possible)
+		goal_weights += initial(picked.weight)
+		station_goals += new picked
+	
+	if(station_goals.len)	
+		send_station_goals_message()
+	
+/datum/game_mode/proc/send_station_goals_message()
+	var/message_text = "<div style='text-align:center;'><img src='ntlogo.png'>"
+	message_text += "<h3>[command_name()] Orders</h3></div><hr>"
+	message_text += "<b>Special Orders for [station_name()]:</b><br><br>"
+
+	for(var/datum/station_goal/G in station_goals)
+		G.on_report()
+		message_text += G.get_report()
+		message_text += "<hr>"
+			
+	print_command_report(message_text, "[command_name()] Orders")
+
+/datum/game_mode/proc/declare_station_goal_completion()
+	for(var/V in station_goals)
+		var/datum/station_goal/G = V
+		G.print_result()	

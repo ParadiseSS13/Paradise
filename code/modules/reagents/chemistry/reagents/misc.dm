@@ -39,7 +39,6 @@
 	reagent_state = GAS
 	color = "#808080" // rgb: 128, 128, 128
 
-
 /datum/reagent/nitrogen
 	name = "Nitrogen"
 	id = "nitrogen"

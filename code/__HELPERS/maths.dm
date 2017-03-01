@@ -110,3 +110,9 @@ var/gaussian_next
 		if(new_val < bound_lower)
 			new_val = min(orig_val, bound_lower)
 	return new_val
+
+// sqrt, but if you give it a negative number, you get 0 instead of a runtime
+/proc/sqrtor0(num)
+	if(num < 0)
+		return 0
+	return sqrt(num)

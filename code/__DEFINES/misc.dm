@@ -317,3 +317,6 @@
 #define BIRD_SCORE "Hierophants Killed"
 #define BOSS_SCORE "Bosses Killed"
 #define TENDRIL_CLEAR_SCORE "Tendrils Killed"
+
+// The number of station goals generated each round.
+#define STATION_GOAL_BUDGET 1

@@ -174,7 +174,7 @@
 			"<span class='userdanger'>The [source] arc flashes and electrocutes you!</span>", \
 			"<span class='italics'>You hear a lightning-like crack!</span>" \
 		)
-		playsound(loc, "sound/effects/eleczap.ogg", 50, 1, -1)
+		playsound(loc, 'sound/effects/eleczap.ogg', 50, 1, -1)
 		explosion(src.loc,-1,0,2,2)
 	if(override)
 		return override

@@ -446,3 +446,7 @@
 	origin_tech = "combat=3"
 	caliber = "laser"
 	max_ammo = 20
+
+/obj/item/ammo_box/magazine/laser/update_icon()
+	..()
+	icon_state = "[initial(icon_state)]-[Ceiling(ammo_count(0)/20)*20]"

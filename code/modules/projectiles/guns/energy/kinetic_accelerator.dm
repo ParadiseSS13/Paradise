@@ -153,15 +153,15 @@
 		var/obj/item/weapon/gun/energy/kinetic_accelerator/KA = loc
 		KA.modify_projectile(BB)
 
-		var/turf/proj_turf = get_turf(BB)
-		if(!isturf(proj_turf))
-			return
-		var/datum/gas_mixture/environment = proj_turf.return_air()
-		var/pressure = environment.return_pressure()
-		if(pressure > 50)
-			BB.name = "weakened [BB.name]"
-			var/obj/item/projectile/kinetic/K = BB
-			K.damage *= K.pressure_decrease
+	var/turf/proj_turf = get_turf(BB)
+	if(!isturf(proj_turf))
+		return
+	var/datum/gas_mixture/environment = proj_turf.return_air()
+	var/pressure = environment.return_pressure()
+	if(pressure > 50)
+		BB.name = "weakened [BB.name]"
+		var/obj/item/projectile/kinetic/K = BB
+		K.damage *= K.pressure_decrease
 
 
 //Projectiles
@@ -176,8 +176,19 @@
 
 	var/pressure_decrease = 0.25
 	var/turf_aoe = FALSE
-	var/mob_aoe = 0
+	var/mob_aoe = FALSE
 	var/list/hit_overlays = list()
+
+/obj/item/projectile/kinetic/pod
+	range = 4
+	
+/obj/item/projectile/kinetic/pod/regular
+	damage = 50
+	pressure_decrease = 0.5
+
+/obj/item/projectile/kinetic/pod/enhanced
+	turf_aoe = TRUE
+	mob_aoe = TRUE
 
 /obj/item/projectile/kinetic/on_range()
 	strike_thing()

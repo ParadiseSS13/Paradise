@@ -124,12 +124,17 @@
 	src.amount = am
 
 /obj/machinery/seed_extractor/attack_hand(mob/user)
-	user.set_machine(src)
+	interact(user)
+	
+/obj/machinery/seed_extractor/attack_ghost(mob/user)
 	interact(user)
 
 /obj/machinery/seed_extractor/interact(mob/user)
-	if (stat)
+	if(stat)
 		return 0
+		
+	add_fingerprint(user)
+	user.set_machine(src)
 
 	var/dat = "<b>Stored seeds:</b><br>"
 
@@ -149,7 +154,7 @@
 
 /obj/machinery/seed_extractor/Topic(var/href, var/list/href_list)
 	if(..())
-		return
+		return 1
 	usr.set_machine(src)
 
 	href_list["li"] = text2num(href_list["li"])

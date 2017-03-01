@@ -12,7 +12,6 @@
 #===================================#
 #_maps/map_files/RandomZLevels/challenge.dmm
 #_maps/map_files/RandomZLevels/centcomAway.dmm
-#_maps/map_files/RandomZLevels/clownplanet.dmm
 #_maps/map_files/RandomZLevels/example.dmm
 #_maps/map_files/RandomZLevels/spacebattle.dmm
 #_maps/map_files/RandomZLevels/stationCollision.dmm
@@ -20,6 +19,7 @@
 #===================================#
 # USABLE AWAY MISSIONS              #
 #===================================#
+
 _maps/map_files/RandomZLevels/beach.dmm
 _maps/map_files/RandomZLevels/listeningpost.dmm
 _maps/map_files/RandomZLevels/moonoutpost19.dmm
@@ -28,6 +28,7 @@ _maps/map_files/RandomZLevels/academy.dmm
 _maps/map_files/RandomZLevels/blackmarketpackers.dmm
 _maps/map_files/RandomZLevels/spacehotel.dmm
 _maps/map_files/RandomZLevels/wildwest.dmm
+_maps/map_files/RandomZLevels/terrorspiders.dmm
 
 #===================================#
 # SPECIAL AWAY MISSIONS             #

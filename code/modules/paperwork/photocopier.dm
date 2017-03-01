@@ -19,10 +19,13 @@
 	var/maxcopies = 10	//how many copies can be copied at once- idea shamelessly stolen from bs12's copier!
 	var/mob/living/ass = null
 
-/obj/machinery/photocopier/attack_ai(mob/user as mob)
+/obj/machinery/photocopier/attack_ai(mob/user)
+	return attack_hand(user)
+	
+/obj/machinery/photocopier/attack_ghost(mob/user)
 	return attack_hand(user)
 
-/obj/machinery/photocopier/attack_hand(mob/user as mob)
+/obj/machinery/photocopier/attack_hand(mob/user)
 	user.set_machine(src)
 
 	var/dat = "Photocopier<BR><BR>"
@@ -47,11 +50,14 @@
 	return
 
 /obj/machinery/photocopier/Topic(href, href_list)
+	if(..())
+		return 1
+
 	if(href_list["copy"])
 		if(stat & (BROKEN|NOPOWER))
 			return
 
-		playsound(loc, "sound/goonstation/machines/printer_dotmatrix.ogg", 50, 1)
+		playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
 		for(var/i = 0, i < copies, i++)
 			if(toner <= 0)
 				break
@@ -111,7 +117,7 @@
 			if(!selection)
 				return
 
-			playsound(loc, "sound/goonstation/machines/printer_dotmatrix.ogg", 50, 1)
+			playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
 			var/obj/item/weapon/photo/p = new /obj/item/weapon/photo (src.loc)
 			p.construct(selection)
 			if(p.desc == "")

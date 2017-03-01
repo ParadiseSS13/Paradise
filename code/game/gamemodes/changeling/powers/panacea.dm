@@ -11,6 +11,16 @@
 
 	to_chat(user, "<span class='notice'>We cleanse impurities from our form.</span>")
 
+	var/mob/living/simple_animal/borer/B = user.has_brain_worms()
+	if(B)
+		if(B.controlling)
+			B.detatch()
+		B.leave_host()
+		if(iscarbon(user))
+			var/mob/living/carbon/C = user
+			C.vomit(0)
+			to_chat(user, "<span class='notice'>We expel a parasite from our form.</span>")
+
 	var/obj/item/organ/internal/body_egg/egg = user.get_int_organ(/obj/item/organ/internal/body_egg)
 	if(egg)
 		egg.remove(user)
