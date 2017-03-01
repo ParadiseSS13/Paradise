@@ -7,7 +7,6 @@
 	is_engineering = 1
 	supervisors = "the captain"
 	selection_color = "#ffeeaa"
-	idtype = /obj/item/weapon/card/id/ce
 	req_admin_notify = 1
 	access = list(access_engine, access_engine_equip, access_tech_storage, access_maint_tunnels,
 			            access_teleporter, access_external_airlocks, access_atmospherics, access_emergency_storage, access_eva,
@@ -20,24 +19,28 @@
 	minimal_player_age = 21
 	exp_requirements = 600
 	exp_type = EXP_TYPE_CREW
+	outfit = /datum/outfit/job/chief_engineer
 
-	equip(var/mob/living/carbon/human/H)
-		if(!H)	return 0
-		H.equip_or_collect(new /obj/item/device/radio/headset/heads/ce(H), slot_l_ear)
-		switch(H.backbag)
-			if(2) H.equip_or_collect(new /obj/item/weapon/storage/backpack/industrial(H), slot_back)
-			if(3) H.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel_eng(H), slot_back)
-			if(4) H.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel(H), slot_back)
-		H.equip_or_collect(new /obj/item/clothing/under/rank/chief_engineer(H), slot_w_uniform)
-		H.equip_or_collect(new /obj/item/device/pda/heads/ce(H), slot_wear_pda)
-		H.equip_or_collect(new /obj/item/clothing/shoes/brown(H), slot_shoes)
-		H.equip_or_collect(new /obj/item/clothing/head/hardhat/white(H), slot_head)
-		H.equip_or_collect(new /obj/item/weapon/storage/belt/utility/full(H), slot_belt)
-		H.equip_or_collect(new /obj/item/clothing/gloves/color/black/ce(H), slot_gloves)
-		H.equip_or_collect(new /obj/item/weapon/storage/box/engineer(H), slot_in_backpack)
-		H.equip_or_collect(new /obj/item/weapon/melee/classic_baton/telescopic(H), slot_in_backpack)
-		return 1
+/datum/outfit/job/chief_engineer
+	name = "Chief Engineer"
+	jobtype = /datum/job/chief_engineer
 
+	uniform = /obj/item/clothing/under/rank/chief_engineer
+	belt = /obj/item/weapon/storage/belt/utility/full
+	gloves = /obj/item/clothing/gloves/color/black/ce
+	shoes = /obj/item/clothing/shoes/brown
+	head = /obj/item/clothing/head/hardhat/white
+	l_ear = /obj/item/device/radio/headset/heads/ce
+	id = /obj/item/weapon/card/id/ce
+	pda = /obj/item/device/pda/heads/ce
+	backpack_contents = list(
+		/obj/item/weapon/melee/classic_baton/telescopic = 1
+	)
+
+	backpack = /obj/item/weapon/storage/backpack/industrial
+	satchel = /obj/item/weapon/storage/backpack/satchel_eng
+	dufflebag = /obj/item/weapon/storage/backpack/duffel/engineering
+	box = /obj/item/weapon/storage/box/engineer
 
 
 /datum/job/engineer
@@ -49,26 +52,29 @@
 	is_engineering = 1
 	supervisors = "the chief engineer"
 	selection_color = "#fff5cc"
-	idtype = /obj/item/weapon/card/id/engineering
 	access = list(access_eva, access_engine, access_engine_equip, access_tech_storage, access_maint_tunnels, access_external_airlocks, access_construction, access_atmospherics, access_mineral_storeroom)
 	minimal_access = list(access_eva, access_engine, access_engine_equip, access_tech_storage, access_maint_tunnels, access_external_airlocks, access_construction, access_mineral_storeroom)
 	alt_titles = list("Maintenance Technician","Engine Technician","Electrician")
 	minimal_player_age = 7
-	equip(var/mob/living/carbon/human/H)
-		if(!H)	return 0
-		H.equip_or_collect(new /obj/item/device/radio/headset/headset_eng(H), slot_l_ear)
-		switch(H.backbag)
-			if(2) H.equip_or_collect(new /obj/item/weapon/storage/backpack/industrial(H), slot_back)
-			if(3) H.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel_eng(H), slot_back)
-			if(4) H.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel(H), slot_back)
-		H.equip_or_collect(new /obj/item/clothing/under/rank/engineer(H), slot_w_uniform)
-		H.equip_or_collect(new /obj/item/clothing/shoes/workboots(H), slot_shoes)
-		H.equip_or_collect(new /obj/item/weapon/storage/belt/utility/full(H), slot_belt)
-		H.equip_or_collect(new /obj/item/clothing/head/hardhat(H), slot_head)
-		H.equip_or_collect(new /obj/item/device/t_scanner(H), slot_r_store)
-		H.equip_or_collect(new /obj/item/device/pda/engineering(H), slot_wear_pda)
-		H.equip_or_collect(new /obj/item/weapon/storage/box/engineer(H), slot_in_backpack)
-		return 1
+	outfit = /datum/outfit/job/engineer
+
+/datum/outfit/job/engineer
+	name = "Station Engineer"
+	jobtype = /datum/job/engineer
+
+	uniform = /obj/item/clothing/under/rank/engineer
+	belt = /obj/item/weapon/storage/belt/utility/full
+	shoes = /obj/item/clothing/shoes/workboots
+	head = /obj/item/clothing/head/hardhat
+	l_ear = /obj/item/device/radio/headset/headset_eng
+	id = /obj/item/weapon/card/id/engineering
+	l_pocket = /obj/item/device/t_scanner
+	pda = /obj/item/device/pda/engineering
+
+	backpack = /obj/item/weapon/storage/backpack/industrial
+	satchel = /obj/item/weapon/storage/backpack/satchel_eng
+	dufflebag = /obj/item/weapon/storage/backpack/duffel/engineering
+	box = /obj/item/weapon/storage/box/engineer
 
 
 
@@ -81,24 +87,24 @@
 	is_engineering = 1
 	supervisors = "the chief engineer"
 	selection_color = "#fff5cc"
-	idtype = /obj/item/weapon/card/id/engineering
 	access = list(access_eva, access_engine, access_engine_equip, access_tech_storage, access_maint_tunnels, access_external_airlocks, access_construction, access_atmospherics, access_mineral_storeroom)
 	minimal_access = list(access_eva, access_atmospherics, access_maint_tunnels, access_external_airlocks, access_emergency_storage, access_construction, access_mineral_storeroom)
 	alt_titles = list("Atmospheric Technician")
 	minimal_player_age = 7
-	equip(var/mob/living/carbon/human/H)
-		if(!H)	return 0
-		H.equip_or_collect(new /obj/item/device/radio/headset/headset_eng(H), slot_l_ear)
-		switch(H.backbag)
-			if(2) H.equip_or_collect(new /obj/item/weapon/storage/backpack(H), slot_back)
-			if(3) H.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel_norm(H), slot_back)
-			if(4) H.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel(H), slot_back)
-		H.equip_or_collect(new /obj/item/clothing/under/rank/atmospheric_technician(H), slot_w_uniform)
-		H.equip_or_collect(new /obj/item/clothing/shoes/workboots(H), slot_shoes)
-		H.equip_or_collect(new /obj/item/weapon/storage/belt/utility/atmostech/(H), slot_belt)
-		H.equip_or_collect(new /obj/item/device/pda/atmos(H), slot_wear_pda)
-		H.equip_or_collect(new /obj/item/weapon/storage/box/engineer(H), slot_in_backpack)
-		return 1
+	outfit = /datum/outfit/job/atmos
+
+/datum/outfit/job/atmos
+	name = "Life Support Specialist"
+	jobtype = /datum/job/atmos
+
+	uniform = /obj/item/clothing/under/rank/atmospheric_technician
+	belt = /obj/item/weapon/storage/belt/utility/atmostech
+	shoes = /obj/item/clothing/shoes/workboots
+	l_ear = /obj/item/device/radio/headset/headset_eng
+	id = /obj/item/weapon/card/id/engineering
+	pda = /obj/item/device/pda/atmos
+
+	box = /obj/item/weapon/storage/box/engineer
 
 /datum/job/mechanic
 	title = "Mechanic"
@@ -109,24 +115,27 @@
 	is_engineering = 1
 	supervisors = "the chief engineer"
 	selection_color = "#fff5cc"
-	idtype = /obj/item/weapon/card/id/engineering
 	access = list(access_engine, access_engine_equip, access_tech_storage, access_maint_tunnels, access_mechanic, access_external_airlocks, access_mineral_storeroom)
 	minimal_access = list(access_maint_tunnels, access_emergency_storage, access_mechanic, access_external_airlocks, access_mineral_storeroom)
+	outfit = /datum/outfit/job/mechanic
 
+/datum/outfit/job/mechanic
+	name = "Mechanic"
+	jobtype = /datum/job/mechanic
 
-	equip(var/mob/living/carbon/human/H)
-		if(!H)	return 0
-		H.equip_or_collect(new /obj/item/device/radio/headset/headset_eng(H), slot_l_ear)
-		switch(H.backbag)
-			if(2) H.equip_or_collect(new /obj/item/weapon/storage/backpack/industrial(H), slot_back)
-			if(3) H.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel_eng(H), slot_back)
-			if(4) H.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel(H), slot_back)
-		H.equip_or_collect(new /obj/item/clothing/under/rank/mechanic(H), slot_w_uniform)
-		H.equip_or_collect(new /obj/item/clothing/shoes/workboots(H), slot_shoes)
-		H.equip_or_collect(new /obj/item/weapon/storage/belt/utility/full(H), slot_belt)
-		H.equip_or_collect(new /obj/item/clothing/head/hardhat(H), slot_head)
-		H.equip_or_collect(new /obj/item/device/t_scanner(H), slot_r_store)
-		H.equip_or_collect(new /obj/item/device/pda/engineering(H), slot_wear_pda)
-		H.equip_or_collect(new /obj/item/weapon/storage/box/engineer(H), slot_in_backpack)
-		H.equip_or_collect(new /obj/item/weapon/pod_paint_bucket(H), slot_in_backpack)
-		return 1
+	uniform = /obj/item/clothing/under/rank/mechanic
+	belt = /obj/item/weapon/storage/belt/utility/full
+	shoes = /obj/item/clothing/shoes/workboots
+	head = /obj/item/clothing/head/hardhat
+	l_ear = /obj/item/device/radio/headset/headset_eng
+	id = /obj/item/weapon/card/id/engineering
+	r_pocket = /obj/item/device/t_scanner
+	pda = /obj/item/device/pda/engineering
+	backpack_contents = list(
+		/obj/item/weapon/pod_paint_bucket = 1
+	)
+
+	backpack = /obj/item/weapon/storage/backpack/industrial
+	satchel = /obj/item/weapon/storage/backpack/satchel_eng
+	dufflebag = /obj/item/weapon/storage/backpack/duffel/engineering
+	box = /obj/item/weapon/storage/box/engineer
