@@ -344,12 +344,12 @@
 	return capitalize(newname)
 
 /datum/species/vox/after_equip_job(datum/job/J, mob/living/carbon/human/H)
-	if(H.mind.assigned_role != "Clown" && H.mind.assigned_role != "Mime")
+	if(!H.mind || !H.mind.assigned_role || H.mind.assigned_role != "Clown" && H.mind.assigned_role != "Mime")
 		H.unEquip(H.wear_mask)
 	H.unEquip(H.l_hand)
 
 	H.equip_or_collect(new /obj/item/clothing/mask/breath/vox(H), slot_wear_mask)
-	var/tank_pref = H.client.prefs.speciesprefs
+	var/tank_pref = H.client && H.client.prefs ? H.client.prefs.speciesprefs : null
 	if(tank_pref)//Diseasel, here you go
 		H.equip_or_collect(new /obj/item/weapon/tank/nitrogen(H), slot_l_hand)
 	else
