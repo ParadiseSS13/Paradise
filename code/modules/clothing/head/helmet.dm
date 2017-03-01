@@ -222,7 +222,7 @@ obj/item/clothing/head/blob
 	desc = "Deus Vult."
 	icon_state = "knight_templar"
 	item_state = "knight_templar"
-
+	armor = list(melee = 20, bullet = 7, laser = 2, energy = 2, bomb = 2, bio = 2, rad = 0)
 
 //Commander
 /obj/item/clothing/head/helmet/ert/command
