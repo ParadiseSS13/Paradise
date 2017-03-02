@@ -45,6 +45,9 @@
 /datum/spacevine_mutation/proc/on_death(obj/effect/spacevine/holder)
 	return
 
+/datum/spacevine_mutation/proc/on_deletion(obj/effect/spacevine/holder)
+	return
+
 /datum/spacevine_mutation/proc/on_hit(obj/effect/spacevine/holder, mob/hitter, obj/item/I, expected_damage)
 	. = expected_damage
 
@@ -115,7 +118,7 @@
 	. = ..()
 	//Do this *after* the turf has changed as qdel in spacevines will call changeturf again if it hasn't
 	for(var/obj/effect/spacevine/SV in src)
-		qdel(SV)
+		SV.wither()
 
 /datum/spacevine_mutation/space_covering
 	var/static/list/coverable_turfs
@@ -140,7 +143,7 @@
 		T.ChangeTurf(/turf/simulated/floor/vines)
 		T.baseturf = currtype
 
-/datum/spacevine_mutation/space_covering/on_death(obj/effect/spacevine/holder)
+/datum/spacevine_mutation/space_covering/on_deletion(obj/effect/spacevine/holder)
 	var/turf/T = get_turf(holder)
 	if(istype(T, /turf/simulated/floor/vines))
 		T.ChangeTurf(T.baseturf)
@@ -194,7 +197,7 @@
 	else
 		. = 1
 		spawn(5)
-			qdel(holder)
+			holder.wither()
 
 /datum/spacevine_mutation/explosive/on_death(obj/effect/spacevine/holder, mob/hitter, obj/item/I)
 	explosion(holder.loc, 0, 0, severity, 0, 0)
@@ -221,7 +224,7 @@
 /datum/spacevine_mutation/vine_eating/on_spread(obj/effect/spacevine/holder, turf/target)
 	var/obj/effect/spacevine/prey = locate() in target
 	if(prey && !prey.mutations.Find(src))  //Eat all vines that are not of the same origin
-		qdel(prey)
+		prey.wither()
 		. = TRUE
 
 /datum/spacevine_mutation/aggressive_spread  //very OP, but im out of other ideas currently
@@ -305,6 +308,56 @@
 /datum/spacevine_mutation/virulent_spread/on_search(obj/effect/spacevine/holder)
 	return 1
 
+// Sure, let's encourage crew members to deliberately breed a highly dangerous
+// threat. What could *possibly* go wrong? ;)
+/datum/spacevine_mutation/mineral
+	name = "metallic"
+	hue = "#444444"
+	quality = POSITIVE
+	severity = 3
+	var/drop_rate = 20
+	var/list/mineral_results = list(
+	/obj/item/stack/sheet/metal = 1
+	)
+
+/datum/spacevine_mutation/mineral/on_death(obj/effect/spacevine/holder)
+	if(!prob(drop_rate))
+		return
+	var/itemtype = pickweight(mineral_results)
+	var/turf/pos = get_turf(holder)
+	new itemtype(pos, severity)
+
+/datum/spacevine_mutation/mineral/valuables
+	name = "glimmering"
+	hue = "#888800"
+	drop_rate = 10
+	mineral_results = list(
+	/obj/item/stack/sheet/mineral/silver = 4,
+	/obj/item/stack/sheet/mineral/gold = 2,
+	/obj/item/stack/sheet/mineral/diamond = 1
+	)
+
+/datum/spacevine_mutation/mineral/glass
+	name = "glassy"
+	hue = "#8888FF"
+	mineral_results = list(
+	/obj/item/stack/sheet/glass = 1
+	)
+
+/datum/spacevine_mutation/mineral/plastic
+	name = "plasticine"
+	hue = "#222288"
+	mineral_results = list(
+	/obj/item/stack/sheet/mineral/plastic = 1
+	)
+
+/datum/spacevine_mutation/mineral/wood
+	name = "wooden"
+	hue = "#442200"
+	mineral_results = list(
+	/obj/item/stack/sheet/wood = 1
+	)
+
 // SPACE VINES (Note that this code is very similar to Biomass code)
 /obj/effect/spacevine
 	name = "space vines"
@@ -338,9 +391,15 @@
 	text += " vine."
 	to_chat(user, text)
 
-/obj/effect/spacevine/Destroy()
+/obj/effect/spacevine/proc/wither()
 	for(var/datum/spacevine_mutation/SM in mutations)
 		SM.on_death(src)
+	qdel(src)
+
+
+/obj/effect/spacevine/Destroy()
+	for(var/datum/spacevine_mutation/SM in mutations)
+		SM.on_deletion(src)
 	if(master)
 		master.vines -= src
 		master.growth_queue -= src
@@ -349,6 +408,7 @@
 			KZ.mutations |= mutations
 			KZ.set_potency(master.mutativeness * 10)
 			KZ.set_production((master.spread_cap / initial(master.spread_cap)) * 5)
+			qdel(master)
 	master = null
 	mutations.Cut()
 	set_opacity(0)
@@ -366,7 +426,7 @@
 		override += SM.on_chem(src, R)
 	if(!override && istype(R, /datum/reagent/glyphosate))
 		if(prob(50))
-			qdel(src)
+			wither()
 
 /obj/effect/spacevine/proc/eat(mob/eater)
 	var/override = 0
@@ -375,7 +435,7 @@
 	if(!override)
 		if(prob(10))
 			eater.say("Nom")
-		qdel(src)
+		wither()
 
 /obj/effect/spacevine/attackby(obj/item/weapon/W, mob/user, params)
 	if (!W || !user || !W.type)
@@ -388,12 +448,12 @@
 		for(var/obj/effect/spacevine/B in orange(1,src))
 			B.health = health - force
 			if(B.health < 1)
-				qdel(B)
+				wither()
 
 		health = health - force
 
 		if(health < 1)
-			qdel(src)
+			wither()
 
 		return
 
@@ -408,7 +468,7 @@
 
 	health = health - force
 	if(health < 1)
-		qdel(src)
+		wither()
 
 	..()
 
@@ -482,7 +542,7 @@
 		SM.on_birth(SV)
 
 /obj/effect/spacevine_controller/process()
-	if(!vines)
+	if(!vines || !vines.len)
 		qdel(src) //space vines exterminated. Remove the controller
 		return
 	if(!growth_queue)
@@ -570,14 +630,14 @@
 	for(var/datum/spacevine_mutation/SM in mutations)
 		i += SM.on_explosion(severity, src)
 	if(!i && prob(100/severity))
-		qdel(src)
+		wither()
 
 /obj/effect/spacevine/temperature_expose(null, temp, volume)
 	var/override = 0
 	for(var/datum/spacevine_mutation/SM in mutations)
 		override += SM.process_temperature(src, temp, volume)
 	if(!override)
-		qdel(src)
+		wither()
 
 /obj/effect/spacevine/CanPass(atom/movable/mover, turf/target, height=0)
 	if(isvineimmune(mover))
