@@ -49,28 +49,35 @@ Fagor
 Faith
 Fi
 Frost
+Fox McCloud
 Fum
 Futura
 G2
+Gandalf
 George
 Gnut
+GLaDOS
 Gort
+Gordan Freeman
 H.A.R.L.I.E.
 H.E.L.P.eR.
 H.E.R.B.I.E.
 HAL 9000
 Hadaly
+Harry Botter
 Huey
 Irona
 Jay-Dub
 Jinx
 Johnny 5
+J.O.H.N. C.E.N.A.
 K-9
 KITT
 Klapaucius
 Kryten 2X4B-523P
 L-76
 L-Ron
+LarkensAI
 LUH 3417
 Louie
 MARK13
@@ -85,11 +92,13 @@ Metalhead
 Mr. R.I.N.G.
 NCH
 Necron-99
+Nekobot
 Norby
 OMM 0910
 Orange v 3.5
 PTO
 Project 2501
+PewDiePie
 R.I.C. 2.0
 R2-D2
 R4-P17
@@ -97,6 +106,7 @@ Revelation
 Ro-Man
 Robbie
 S.A.M.
+S.A.F.E.S.P.A.C.E.
 S.H.O.C.K.
 S.H.R.O.U.D.
 S.O.P.H.I.E.
@@ -105,6 +115,7 @@ SHODAN
 SID 6.7
 Setaur
 Shrike
+Slade
 Solo
 Speedy
 Super 17
@@ -115,6 +126,7 @@ T-850
 THX 1138
 TWA
 Terminus
+TGStationAI
 Tidy
 Tik-Tok
 Tobor
