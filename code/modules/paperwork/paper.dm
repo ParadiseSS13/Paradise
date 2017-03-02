@@ -33,6 +33,7 @@
 	var/spam_flag = 0
 	var/contact_poison // Reagent ID to transfer on contact
 	var/contact_poison_volume = 0
+	var/contact_poison_poisoner = null
 
 	var/const/deffont = "Verdana"
 	var/const/signfont = "Times New Roman"
@@ -665,4 +666,5 @@
 		if(!istype(G) || G.transfer_prints)
 			H.reagents.add_reagent(contact_poison, contact_poison_volume)
 			contact_poison = null
+			add_logs(user, src, "picked up [src], the paper poisoned by [contact_poison_poisoner]")
 	..()

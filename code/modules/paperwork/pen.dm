@@ -196,6 +196,7 @@
 		uses_left--
 		P.contact_poison = "sarin"
 		P.contact_poison_volume = 15
+		P.contact_poison_poisoner = user.name
 		add_logs(user, P, "used poison pen on")
 		to_chat(user, "<span class='warning'>You apply the poison to [P].</span>")
 	else
