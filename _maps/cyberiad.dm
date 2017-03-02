@@ -15,12 +15,12 @@ z7 = empty
 #if !defined(MAP_FILE)
 
         #include "map_files\cyberiad\cyberiad.dmm"
-        #include "map_files\cyberiad\z2.dmm"
-        #include "map_files\cyberiad\z3.dmm"
-        #include "map_files\cyberiad\z4.dmm"
-        #include "map_files\cyberiad\z5.dmm"
-        #include "map_files\cyberiad\z6.dmm"
-        #include "map_files\cyberiad\z7.dmm"
+        #include "map_files\generic\z2.dmm"
+        #include "map_files\generic\z3.dmm"
+        #include "map_files\generic\z4.dmm"
+        #include "map_files\generic\z5.dmm"
+        #include "map_files\generic\z6.dmm"
+        #include "map_files\generic\z7.dmm"
 
         #define MAP_FILE "cyberiad.dmm"
         #define MAP_NAME "NSS Cyberiad"
