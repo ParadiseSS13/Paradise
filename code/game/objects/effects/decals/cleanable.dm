@@ -5,7 +5,7 @@
 	var/noclear = 0    //if it has this, don't delete it when its' scooped up
 	var/blood_state = "" //relates to icon mostly
 	var/bloodiness = 0 //0-100, amount of blood in this decal, used for making footprints and affecting the alpha of bloody footprints
-	
+
 /obj/effect/decal/cleanable/proc/can_bloodcrawl_in()
 	return FALSE
 
@@ -65,9 +65,9 @@
 			else
 				add_blood = bloodiness
 			bloodiness -= add_blood
-			S.bloody_shoes[blood_state] = min(MAX_SHOE_BLOODINESS,S.bloody_shoes[blood_state]+add_blood)
+			S.bloody_shoes[blood_state] = min(MAX_SHOE_BLOODINESS,S.bloody_shoes[blood_state] + add_blood)
 			if(blood_DNA && blood_DNA.len)
-				S.add_blood(blood_DNA)
+				S.add_blood(H.blood_DNA,H.species.blood_color)
 			S.blood_state = blood_state
 			update_icon()
 			H.update_inv_shoes()
@@ -78,7 +78,7 @@
 			else
 				add_blood = bloodiness
 			bloodiness -= add_blood
-			H.bloody_feet[blood_state] = min(MAX_SHOE_BLOODINESS,H.bloody_feet[blood_state]+add_blood)
+			H.bloody_feet[blood_state] = min(MAX_SHOE_BLOODINESS,H.bloody_feet[blood_state] + add_blood)
 			if(!H.feet_blood_DNA)
 				H.feet_blood_DNA = list()
 			H.blood_state = blood_state

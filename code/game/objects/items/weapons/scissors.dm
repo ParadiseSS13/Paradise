@@ -119,7 +119,7 @@
 				H.apply_damage(18, BRUTE, "head", sharp =1, edge =1, used_weapon = "scissors")
 				var/turf/location = get_turf(H)
 				if(istype(location, /turf/simulated))
-					location.add_blood(H)
+					location.add_blood(H.blood_DNA, H.species.blood_color)
 				H.bloody_hands(H)
 				H.bloody_body(H)
 				var/mob/living/carbon/human/U = user

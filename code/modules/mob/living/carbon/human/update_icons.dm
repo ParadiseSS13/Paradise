@@ -651,7 +651,7 @@ var/global/list/damage_icon_parts = list()
 
 		if(w_uniform.blood_DNA)
 			var/image/bloodsies	= image("icon" = species.blood_mask, "icon_state" = "uniformblood")
-			bloodsies.color		= w_uniform.blood_DNA["blood_color"]
+			bloodsies.color		= w_uniform.blood_color
 			standing.overlays	+= bloodsies
 
 		if(w_uniform:accessories.len)	//WE CHECKED THE TYPE ABOVE. THIS REALLY SHOULD BE FINE.
@@ -729,7 +729,7 @@ var/global/list/damage_icon_parts = list()
 
 		if(gloves.blood_DNA)
 			var/image/bloodsies	= image("icon" = species.blood_mask, "icon_state" = "bloodyhands")
-			bloodsies.color = gloves.blood_DNA["blood_color"]
+			bloodsies.color = gloves.blood_color
 			standing.overlays	+= bloodsies
 		overlays_standing[GLOVES_LAYER]	= standing
 	else
@@ -847,7 +847,7 @@ var/global/list/damage_icon_parts = list()
 
 		if(shoes.blood_DNA)
 			var/image/bloodsies = image("icon" = species.blood_mask, "icon_state" = "shoeblood")
-			bloodsies.color = shoes.blood_DNA["blood_color"]
+			bloodsies.color = shoes.blood_color
 			standing.overlays += bloodsies
 		overlays_standing[SHOES_LAYER] = standing
 	else
@@ -900,7 +900,7 @@ var/global/list/damage_icon_parts = list()
 
 		if(head.blood_DNA)
 			var/image/bloodsies = image("icon" = species.blood_mask, "icon_state" = "helmetblood")
-			bloodsies.color = head.blood_DNA["blood_color"]
+			bloodsies.color = head.blood_color
 			standing.overlays	+= bloodsies
 		overlays_standing[HEAD_LAYER]	= standing
 
@@ -973,7 +973,7 @@ var/global/list/damage_icon_parts = list()
 		if(wear_suit.blood_DNA)
 			var/obj/item/clothing/suit/S = wear_suit
 			var/image/bloodsies = image("icon" = species.blood_mask, "icon_state" = "[S.blood_overlay_type]blood")
-			bloodsies.color = wear_suit.blood_DNA["blood_color"]
+			bloodsies.color = wear_suit.blood_color
 			standing.overlays	+= bloodsies
 
 
@@ -1046,7 +1046,7 @@ var/global/list/damage_icon_parts = list()
 
 		if(!istype(wear_mask, /obj/item/clothing/mask/cigarette) && wear_mask.blood_DNA)
 			var/image/bloodsies = image("icon" = species.blood_mask, "icon_state" = "maskblood")
-			bloodsies.color = wear_mask.blood_DNA["blood_color"]
+			bloodsies.color = wear_mask.blood_color
 			standing.overlays += bloodsies
 		overlays_standing[FACEMASK_LAYER]	= standing
 	else

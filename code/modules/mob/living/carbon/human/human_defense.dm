@@ -100,8 +100,8 @@ emp_act
 		if(bp && istype(bp ,/obj/item/clothing))
 			var/obj/item/clothing/C = bp
 			if(C.body_parts_covered & def_zone.body_part)
-				protection += C.armor[type]	
-				
+				protection += C.armor[type]
+
 	return protection
 
 //this proc returns the Siemens coefficient of electrical resistivity for a particular external organ.
@@ -387,20 +387,20 @@ emp_act
 /mob/living/carbon/human/proc/bloody_hands(var/mob/living/source, var/amount = 2)
 
 	if(gloves)
-		gloves.add_blood(source)
+		gloves.add_mob_blood(source)
 		gloves:transfer_blood = amount
 	else
-		add_blood(source)
+		add_mob_blood(source)
 		bloody_hands = amount
 	update_inv_gloves(1)		//updates on-mob overlays for bloody hands and/or bloody gloves
 
 /mob/living/carbon/human/proc/bloody_body(var/mob/living/source)
 	if(wear_suit)
-		wear_suit.add_blood(source)
+		wear_suit.add_mob_blood(source)
 		update_inv_wear_suit(0)
 		return
 	if(w_uniform)
-		w_uniform.add_blood(source)
+		w_uniform.add_mob_blood(source)
 		update_inv_w_uniform(1)
 
 /mob/living/carbon/human/proc/handle_suit_punctures(var/damtype, var/damage)

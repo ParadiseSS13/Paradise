@@ -110,7 +110,7 @@
 			if(shoes)
 				if(S.bloody_shoes && S.bloody_shoes[S.blood_state])
 					var/obj/effect/decal/cleanable/blood/footprints/oldFP = locate(/obj/effect/decal/cleanable/blood/footprints) in T
-					if((oldFP && oldFP.blood_state == S.blood_state) && oldFP.basecolor == S.blood_DNA["blood_color"])
+					if((oldFP && oldFP.blood_state == S.blood_state))
 						return
 					else
 						//No oldFP or it's a different kind of blood
@@ -120,28 +120,20 @@
 						FP.entered_dirs |= dir
 						FP.bloodiness = S.bloody_shoes[S.blood_state]
 						FP.blood_DNA = S.blood_DNA
-						var/currentBloodColor = "#A10808"
-						if(S.blood_DNA)
-							FP.transfer_blood_dna(S.blood_DNA)
-							currentBloodColor = S.blood_DNA["blood_color"]
-						FP.basecolor = currentBloodColor
+						FP.basecolor = S.blood_color
 						FP.update_icon()
 						update_inv_shoes()
 			else if(hasfeet)
 				if(bloody_feet && bloody_feet[blood_state])
 					var/obj/effect/decal/cleanable/blood/footprints/oldFP = locate(/obj/effect/decal/cleanable/blood/footprints) in T
-					if((oldFP && oldFP.blood_state == blood_state) && oldFP.basecolor == feet_blood_color)
+					if((oldFP && oldFP.blood_state == blood_state))
 						return
 					else
 						bloody_feet[blood_state] = max(0, bloody_feet[blood_state] - BLOOD_LOSS_PER_STEP)
 						var/obj/effect/decal/cleanable/blood/footprints/FP = new /obj/effect/decal/cleanable/blood/footprints(T)
 						FP.entered_dirs |= dir
 						FP.bloodiness = bloody_feet[blood_state]
-						var/currentBloodColor = "#A10808"
-						if(feet_blood_DNA)
-							FP.transfer_blood_dna(feet_blood_DNA)
-							currentBloodColor = feet_blood_color
-						FP.basecolor = currentBloodColor
+						FP.basecolor = feet_blood_color
 						FP.update_icon()
 						update_inv_shoes()
 			//End bloody footprints

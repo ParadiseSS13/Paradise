@@ -38,7 +38,7 @@
 			else if(istype(target,/mob/living/carbon))
 				for(var/obj/item/carried_item in target.contents)
 					if(!istype(carried_item, /obj/item/weapon/implant))//If it's not an implant.
-						carried_item.add_blood(target)//Oh yes, there will be blood...
+						carried_item.add_mob_blood(target)//Oh yes, there will be blood...
 				var/mob/living/carbon/human/H = target
 				H.bloody_hands(target,0)
 				H.bloody_body(target)

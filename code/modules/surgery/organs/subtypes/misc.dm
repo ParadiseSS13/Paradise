@@ -21,7 +21,7 @@
 		if(!istype(H))
 			return
 
-		add_blood(H)
+		add_mob_blood(H)
 		var/obj/effect/decal/cleanable/blood/splatter/goo = locate() in get_turf(owner)
 		if(goo)
 			goo.name = "husk ichor"

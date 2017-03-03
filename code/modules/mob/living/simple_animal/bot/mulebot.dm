@@ -704,16 +704,13 @@
 	var/turf/T = get_turf(src)
 	T.add_mob_blood(H)
 
-
-	var/list/blood_dna = H.get_blood_dna_list()
-
 	bloodiness += 4
 
 	currentBloodColor = "#A10808"
 	if(istype(H))
-		if(blood_dna)
-			B.transfer_blood_dna(blood_dna)
-			currentBloodColor = blood_dna["blood_color"]
+		if(H.blood_DNA)
+			B.transfer_blood_dna(H.blood_DNA)
+			currentBloodColor = H.species.blood_color
 			return
 	B.basecolor = currentBloodColor
 	B.update_icon()

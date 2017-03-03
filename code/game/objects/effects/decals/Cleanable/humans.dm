@@ -37,12 +37,11 @@ var/global/list/image/splatter_cache=list()
 	if(type == /obj/effect/decal/cleanable/blood/gibs)
 		return
 	if(type == /obj/effect/decal/cleanable/blood)
-		if(src.loc && isturf(src.loc))
+		if(loc && isturf(loc))
 			for(var/obj/effect/decal/cleanable/blood/B in loc)
 				if(B != src)
 					if(B.blood_DNA)
 						blood_DNA |= B.blood_DNA.Copy()
-						color = B.blood_DNA["blood_color"]
 					qdel(B)
 	spawn(DRYING_TIME * (amount+1))
 		dry()

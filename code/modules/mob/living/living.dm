@@ -431,81 +431,38 @@
 		else
 			return 0
 
+	var/atom/movable/pullee = pulling
+	if(pullee && get_dist(src, pullee) > 1)
+		stop_pulling()
+	if(pullee && !isturf(pullee.loc) && pullee.loc != loc)
+		log_game("DEBUG: [src]'s pull on [pullee] was broken despite [pullee] being in [pullee.loc]. Pull stopped manually.")
+		stop_pulling()
 	if(restrained())
 		stop_pulling()
 
+	var/turf/T = loc
+	. = ..()
+	if(.)
+		handle_footstep(loc)
+		step_count++
 
-	var/t7 = 1
-	if(restrained())
-		for(var/mob/living/M in range(src, 1))
-			if((M.pulling == src && M.stat == 0 && !( M.restrained() )))
-				t7 = null
-	if(t7 && pulling && (get_dist(src, pulling) <= 1 || pulling.loc == loc))
-		var/turf/T = loc
-		. = ..()
-
-		if(pulling && pulling.loc)
-			if(!( isturf(pulling.loc) ))
+		if(pulling && pulling == pullee) // we were pulling a thing and didn't lose it during our move.
+			if(pulling.anchored)
 				stop_pulling()
 				return
-			else
-				if(Debug)
-					diary <<"pulling disappeared? at [__LINE__] in mob.dm - pulling = [pulling]"
-					diary <<"REPORT THIS"
 
-		/////
-		if(pulling && pulling.anchored)
-			stop_pulling()
-			return
-
-		if(!restrained())
-			var/diag = get_dir(src, pulling)
-			if((diag - 1) & diag)
-			else
-				diag = null
-			if((get_dist(src, pulling) > 1 || diag))
+			var/pull_dir = get_dir(src, pulling)
+			if(get_dist(src, pulling) > 1 || ((pull_dir - 1) & pull_dir)) // puller and pullee more than one tile away or in diagonal position
 				if(isliving(pulling))
 					var/mob/living/M = pulling
-					var/ok = 1
-					if(M.lying && !M.buckled)
-						if(M.getBruteLoss() > M.maxHealth * 0.75)
-							M.makeTrail(T)
-					if(locate(/obj/item/weapon/grab, M.grabbed_by))
-						if(prob(75))
-							var/obj/item/weapon/grab/G = pick(M.grabbed_by)
-							if(istype(G, /obj/item/weapon/grab))
-								for(var/mob/O in viewers(M, null))
-									O.show_message(text("\red [] has been pulled from []'s grip by []", G.affecting, G.assailant, src), 1)
-								//G = null
-								qdel(G)
-						else
-							ok = 0
-						if(locate(/obj/item/weapon/grab, M.grabbed_by.len))
-							ok = 0
-					if(ok)
-						var/atom/movable/t = M.pulling
-						M.stop_pulling()
-
-						if(M.lying && (prob(M.getBruteLoss() / 6)))
-							var/turf/location = M.loc
-							if(istype(location, /turf/simulated))
-								location.add_blood(M)
-						pulling.Move(T, get_dir(pulling, T))
-						if(M)
-							M.start_pulling(t)
-				else
-					if(pulling)
-						pulling.Move(T, get_dir(pulling, T))
-	else
-		stop_pulling()
-		. = ..()
+					if(M.lying && !M.buckled && (prob(M.getBruteLoss() * 200 / M.maxHealth)))
+						M.makeTrail(T)
+					pulling.Move(T, get_dir(pulling, T)) // the pullee tries to reach our previous position
+					if(pulling && get_dist(src, pulling) > 1) // the pullee couldn't keep up
+						stop_pulling()
 
 	if(s_active && !( s_active in contents ) && get_turf(s_active) != get_turf(src))	//check !( s_active in contents ) first so we hopefully don't have to call get_turf() so much.
 		s_active.close(src)
-
-	if(.) // did we actually move?
-		handle_footstep(loc)
-		step_count++
 
 	if(update_slimes)
 		for(var/mob/living/carbon/slime/M in view(1,src))
@@ -520,7 +477,6 @@
 	if(!has_gravity(src))
 		return
 	var/blood_exists = 0
-	var/list/b_data = get_blood_data(get_blood_id())
 
 	for(var/obj/effect/decal/cleanable/trail_holder/C in loc) //checks for blood splatter already on the floor
 		blood_exists = 1
@@ -541,12 +497,14 @@
 					newdir = turn(get_dir(T, src.loc), 180)
 				if(!blood_exists)
 					new /obj/effect/decal/cleanable/trail_holder(loc)
-				for(var/obj/effect/decal/cleanable/trail_holder/TH in src.loc)
+				for(var/obj/effect/decal/cleanable/trail_holder/TH in loc)
 					if(((!newdir in TH.existing_dirs) || trail_type == "trails_1" || trail_type == "trails_2") && TH.existing_dirs.len <= 16) //maximum amount of overlays is 16 (all light & heavy directions filled)
 						TH.existing_dirs += newdir
 						TH.overlays.Add(image('icons/effects/blood.dmi', trail_type, dir = newdir))
 						TH.transfer_mob_blood_dna(src)
-						TH.color = b_data["blood_color"]
+						var/mob/living/carbon/human/H = src
+						if(H.species.blood_color)
+							TH.color = H.species.blood_color
 
 /mob/living/carbon/human/makeTrail(turf/T)//not making trails consistently may be in the brueloss.
 	if((species.flags & NO_BLOOD) || !bleed_rate || bleedsuppress)

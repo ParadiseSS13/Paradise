@@ -729,7 +729,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	switch(disintegrate)
 		if(DROPLIMB_EDGE)
 			compile_icon()
-			add_blood(victim)
+			add_blood(victim.blood_DNA, victim.species.blood_color)
 			var/matrix/M = matrix()
 			M.Turn(rand(180))
 			src.transform = M
@@ -899,7 +899,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	implants += W
 	owner.embedded_flag = 1
 	owner.verbs += /mob/proc/yank_out_object
-	W.add_blood(owner)
+	W.add_mob_blood(owner)
 	if(ismob(W.loc))
 		var/mob/living/H = W.loc
 		H.drop_item()
