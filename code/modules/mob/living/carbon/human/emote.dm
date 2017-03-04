@@ -841,7 +841,6 @@
 				for(var/client/X in admins) 
 					if(check_rights(R_EVENT,0,X.mob)) 
 						to_chat(X, adminbfmessage) 
-				log_admin("BibleFart: [key_name(src)]: has farted on a bible.")
 			else if(TOXIC_FARTS in mutations)
 				message = "<b>[src]</b> unleashes a [pick("horrible","terrible","foul","disgusting","awful")] fart."
 			else if(SUPER_FART in mutations)
