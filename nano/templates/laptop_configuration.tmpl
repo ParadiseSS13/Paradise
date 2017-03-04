@@ -11,6 +11,10 @@
 			<div class='itemContent'>{{:data.battery.max}}</div>
 		</div>
 		<div class='item'>
+			<div class='itemLabel'>ETA</div>
+			<div class='itemContent'>{{:data.eta.hours ? helper.smoothRound(data.eta.hours) + "h " : ""}}{{:data.eta.minutes ? helper.smoothRound(data.eta.minutes) + "m " : ""}}{{:helper.smoothRound(data.eta.seconds)}}s</div>
+		</div>
+		<div class='item'>
 			<div class='itemLabel'>Battery Charge</div>
 			{{:helper.displayBar(data.battery.charge, 0, data.battery.max, (data.battery.charge > data.battery.max/2) ? 'good' : (data.battery.charge > data.battery.max/4) ? 'average' : 'bad')}}
 			<div class="itemContent" style="width: 60px">
@@ -29,7 +33,7 @@
 		<div class='itemContent'>{{:data.power_usage}}W</div>
 	</div>
 </div>
-		
+
 <div class='statusDisplay'>
 	<h3>File System</h3>
 	<div class='item'>
@@ -40,7 +44,7 @@
 		</div>
 	</div>
 </div>
-		
+
 <div class='statusDisplay'>
 	<h3>Computer Components</h3>
 	{{for data.hardware}}

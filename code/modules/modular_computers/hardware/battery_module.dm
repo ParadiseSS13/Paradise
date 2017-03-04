@@ -69,11 +69,7 @@
 	return FALSE
 
 
-
-
-
-
-
+// Stock parts
 /obj/item/weapon/stock_parts/cell/computer
 	name = "standard battery"
 	desc = "A standard power cell, commonly seen in high-end portable microcomputers or low-end laptops."
@@ -83,13 +79,11 @@
 	w_class = WEIGHT_CLASS_TINY
 	maxcharge = 750
 
-
 /obj/item/weapon/stock_parts/cell/computer/advanced
 	name = "advanced battery"
 	desc = "An advanced power cell, often used in most laptops. It is too large to be fitted into smaller devices."
 	icon_state = "cell"
 	origin_tech = "powerstorage=2;engineering=2"
-	w_class = WEIGHT_CLASS_SMALL
 	maxcharge = 1500
 
 /obj/item/weapon/stock_parts/cell/computer/super
@@ -97,17 +91,18 @@
 	desc = "An advanced power cell, often used in high-end laptops."
 	icon_state = "cell"
 	origin_tech = "powerstorage=3;engineering=3"
-	w_class = WEIGHT_CLASS_SMALL
 	maxcharge = 2000
 
 /obj/item/weapon/stock_parts/cell/computer/micro
 	name = "micro battery"
 	desc = "A small power cell, commonly seen in most portable microcomputers."
 	icon_state = "cell_micro"
+	w_class = WEIGHT_CLASS_TINY
 	maxcharge = 500
 
 /obj/item/weapon/stock_parts/cell/computer/nano
 	name = "nano battery"
 	desc = "A tiny power cell, commonly seen in low-end portable microcomputers."
 	icon_state = "cell_micro"
+	w_class = WEIGHT_CLASS_TINY
 	maxcharge = 300

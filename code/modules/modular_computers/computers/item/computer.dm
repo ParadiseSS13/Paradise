@@ -191,7 +191,7 @@
 		icon_state = icon_state_unpowered
 	else
 		icon_state = icon_state_powered
-		if(active_program)
+		if(active_program && active_program.program_state != PROGRAM_STATE_KILLED)
 			overlays += active_program.program_icon_state ? active_program.program_icon_state : icon_state_menu
 		else
 			overlays += icon_state_menu
