@@ -439,7 +439,10 @@
 /datum/species/proc/say_filter(mob/M, message, datum/language/speaking)
 	return message
 
-/datum/species/proc/equip(var/mob/living/carbon/human/H)
+/datum/species/proc/before_equip_job(datum/job/J, mob/living/carbon/human/H, visualsOnly = FALSE)
+	return
+
+/datum/species/proc/after_equip_job(datum/job/J, mob/living/carbon/human/H, visualsOnly = FALSE)
 	return
 
 /datum/species/proc/can_understand(var/mob/other)

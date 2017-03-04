@@ -261,7 +261,15 @@ var/world_topic_spam_protect_time = world.timeofday
 			log_admin("[key_name(usr)] has requested an immediate world restart via client side debugging tools")
 		spawn(0)
 			to_chat(world, "<span class='boldannounce'>Rebooting world immediately due to host request</span>")
-		return ..(1)
+		if(config && config.shutdown_on_reboot)
+			sleep(0)
+			if(shutdown_shell_command)
+				shell(shutdown_shell_command)
+			del(world)
+			return
+		else
+			return ..(1)
+
 	var/delay
 	if(!isnull(time))
 		delay = max(0,time)
@@ -271,6 +279,13 @@ var/world_topic_spam_protect_time = world.timeofday
 		to_chat(world, "<span class='boldannounce'>An admin has delayed the round end.</span>")
 		return
 	to_chat(world, "<span class='boldannounce'>Rebooting world in [delay/10] [delay > 10 ? "seconds" : "second"]. [reason]</span>")
+
+	var/round_end_sound = pick(round_end_sounds)
+	var/sound_length = round_end_sounds[round_end_sound]
+	if(delay > sound_length) // If there's time, play the round-end sound before rebooting
+		spawn(delay - sound_length)
+			if(!ticker.delay_end)
+				world << round_end_sound
 	sleep(delay)
 	if(blackbox)
 		blackbox.save_all_data_to_sql()
@@ -281,16 +296,19 @@ var/world_topic_spam_protect_time = world.timeofday
 	log_game("<span class='boldannounce'>Rebooting world. [reason]</span>")
 	//kick_clients_in_lobby("<span class='boldannounce'>The round came to an end with you in the lobby.</span>", 1)
 
-	spawn(0)
-		world << sound(pick('sound/AI/newroundsexy.ogg','sound/misc/apcdestroyed.ogg','sound/misc/bangindonk.ogg', 'sound/goonstation/misc/newround1.ogg', 'sound/goonstation/misc/newround2.ogg'))// random end sounds!! - LastyBatsy
-
-
 	processScheduler.stop()
 
-	for(var/client/C in clients)
-		if(config.server)	//if you set a server location in config.txt, it sends you there instead of trying to reconnect to the same world address. -- NeoFite
-			C << link("byond://[config.server]")
-	..(0)
+	if(config && config.shutdown_on_reboot)
+		sleep(0)
+		if(shutdown_shell_command)
+			shell(shutdown_shell_command)
+		del(world)
+		return
+	else
+		for(var/client/C in clients)
+			if(config.server)	//if you set a server location in config.txt, it sends you there instead of trying to reconnect to the same world address. -- NeoFite
+				C << link("byond://[config.server]")
+		..(0)
 
 #define INACTIVITY_KICK	6000	//10 minutes in ticks (approx.)
 /world/proc/KickInactiveClients()

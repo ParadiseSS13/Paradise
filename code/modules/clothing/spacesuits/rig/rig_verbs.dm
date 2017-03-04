@@ -115,7 +115,7 @@
 
 /obj/item/weapon/rig/verb/deploy_suit()
 	set name = "Deploy Hardsuit"
-	set desc = "Deploys helmet, gloves and boots."
+	set desc = "Deploys helmet, gloves and boots all at once."
 	set category = "Hardsuit"
 	set src = usr.contents
 
@@ -136,8 +136,8 @@
 	deploy(wearer, usr)
 
 /obj/item/weapon/rig/verb/toggle_seals_verb()
-	set name = "Toggle Hardsuit"
-	set desc = "Activates or deactivates your rig."
+	set name = "Toggle Hardsuit Seals"
+	set desc = "Seals or unseals your rig."
 	set category = "Hardsuit"
 	set src = usr.contents
 

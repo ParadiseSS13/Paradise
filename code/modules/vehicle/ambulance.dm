@@ -31,6 +31,8 @@
 
 /obj/vehicle/ambulance/Move(newloc, Dir)
 	var/oldloc = loc
+	if(bed && !Adjacent(bed))
+		bed = null
 	. = ..()
 	if(bed && get_dist(oldloc, loc) <= 2)
 		bed.Move(oldloc)

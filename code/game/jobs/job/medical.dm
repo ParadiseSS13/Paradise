@@ -7,7 +7,6 @@
 	is_medical = 1
 	supervisors = "the captain"
 	selection_color = "#ffddf0"
-	idtype = /obj/item/weapon/card/id/cmo
 	req_admin_notify = 1
 	access = list(access_medical, access_morgue, access_genetics, access_heads,
 			access_chemistry, access_virology, access_cmo, access_surgery, access_RC_announce,
@@ -18,25 +17,27 @@
 	minimal_player_age = 21
 	exp_requirements = 600
 	exp_type = EXP_TYPE_CREW
+	outfit = /datum/outfit/job/cmo
 
-	equip(var/mob/living/carbon/human/H)
-		if(!H)	return 0
-		H.equip_or_collect(new /obj/item/device/radio/headset/heads/cmo(H), slot_l_ear)
-		switch(H.backbag)
-			if(2) H.equip_or_collect(new /obj/item/weapon/storage/backpack/medic(H), slot_back)
-			if(3) H.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel_med(H), slot_back)
-			if(4) H.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel(H), slot_back)
-		H.equip_or_collect(new /obj/item/clothing/under/rank/chief_medical_officer(H), slot_w_uniform)
-		H.equip_or_collect(new /obj/item/clothing/shoes/brown(H), slot_shoes)
-		H.equip_or_collect(new /obj/item/device/pda/heads/cmo(H), slot_wear_pda)
-		H.equip_or_collect(new /obj/item/clothing/suit/storage/labcoat/cmo(H), slot_wear_suit)
-		H.equip_or_collect(new /obj/item/weapon/storage/firstaid/adv(H), slot_l_hand)
-		H.equip_or_collect(new /obj/item/device/flashlight/pen(H), slot_s_store)
-		H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H), slot_in_backpack)
-		H.equip_or_collect(new /obj/item/weapon/melee/classic_baton/telescopic(H), slot_in_backpack)
-		return 1
+/datum/outfit/job/cmo
+	name = "Chief Medical Officer"
+	jobtype = /datum/job/cmo
 
+	uniform = /obj/item/clothing/under/rank/chief_medical_officer
+	suit = /obj/item/clothing/suit/storage/labcoat/cmo
+	shoes = /obj/item/clothing/shoes/brown
+	l_ear = /obj/item/device/radio/headset/heads/cmo
+	id = /obj/item/weapon/card/id/cmo
+	suit_store = /obj/item/device/flashlight/pen
+	l_hand = /obj/item/weapon/storage/firstaid/adv
+	pda = /obj/item/device/pda/heads/cmo
+	backpack_contents = list(
+		/obj/item/weapon/melee/classic_baton/telescopic = 1
+	)
 
+	backpack = /obj/item/weapon/storage/backpack/medic
+	satchel = /obj/item/weapon/storage/backpack/satchel_med
+	dufflebag = /obj/item/weapon/storage/backpack/duffel/medical
 
 /datum/job/doctor
 	title = "Medical Doctor"
@@ -47,54 +48,56 @@
 	is_medical = 1
 	supervisors = "the chief medical officer"
 	selection_color = "#ffeef0"
-	idtype = /obj/item/weapon/card/id/medical
 	access = list(access_medical, access_morgue, access_surgery, access_chemistry, access_virology, access_genetics, access_mineral_storeroom)
 	minimal_access = list(access_medical, access_morgue, access_surgery, access_maint_tunnels)
 	alt_titles = list("Surgeon","Nurse","Coroner")
 	minimal_player_age = 3
+	outfit = /datum/outfit/job/doctor
 
-	equip(var/mob/living/carbon/human/H)
-		if(!H)	return 0
-		H.equip_or_collect(new /obj/item/device/radio/headset/headset_med(H), slot_l_ear)
-		switch(H.backbag)
-			if(2) H.equip_or_collect(new /obj/item/weapon/storage/backpack/medic(H), slot_back)
-			if(3) H.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel_med(H), slot_back)
-			if(4) H.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel(H), slot_back)
-		if(H.mind.role_alt_title)
-			switch(H.mind.role_alt_title)
-				if("Coroner")
-					H.equip_or_collect(new /obj/item/clothing/under/rank/medical/mortician(H), slot_w_uniform)
-					H.equip_or_collect(new /obj/item/clothing/suit/storage/labcoat/mortician(H), slot_wear_suit)
-					if(H.backbag != 1)
-						H.equip_or_collect(new /obj/item/clothing/head/surgery/black(H), slot_in_backpack)
-						H.equip_or_collect(new /obj/item/weapon/autopsy_scanner(H), slot_in_backpack)
-						H.equip_or_collect(new /obj/item/device/mass_spectrometer(H), slot_in_backpack)
-						H.equip_or_collect(new /obj/item/weapon/storage/box/bodybags(H), slot_in_backpack)
-				if("Surgeon")
-					H.equip_or_collect(new /obj/item/clothing/under/rank/medical/blue(H), slot_w_uniform)
-					H.equip_or_collect(new /obj/item/clothing/suit/storage/labcoat(H), slot_wear_suit)
-					H.equip_or_collect(new /obj/item/clothing/head/surgery/blue(H), slot_head)
-				if("Medical Doctor")
-					H.equip_or_collect(new /obj/item/clothing/under/rank/medical(H), slot_w_uniform)
-					H.equip_or_collect(new /obj/item/clothing/suit/storage/labcoat(H), slot_wear_suit)
-				if("Nurse")
-					if(H.gender == FEMALE)
-						if(prob(50))
-							H.equip_or_collect(new /obj/item/clothing/under/rank/nursesuit(H), slot_w_uniform)
-						else
-							H.equip_or_collect(new /obj/item/clothing/under/rank/nurse(H), slot_w_uniform)
-						H.equip_or_collect(new /obj/item/clothing/head/nursehat(H), slot_head)
+/datum/outfit/job/doctor
+	name = "Medical Doctor"
+	jobtype = /datum/job/doctor
+
+	uniform = /obj/item/clothing/under/rank/medical
+	suit = /obj/item/clothing/suit/storage/labcoat
+	shoes = /obj/item/clothing/shoes/white
+	l_ear = /obj/item/device/radio/headset/headset_med
+	id = /obj/item/weapon/card/id/medical
+	suit_store = /obj/item/device/flashlight/pen
+	l_hand = /obj/item/weapon/storage/firstaid/adv
+	pda = /obj/item/device/pda/medical
+
+	backpack = /obj/item/weapon/storage/backpack/medic
+	satchel = /obj/item/weapon/storage/backpack/satchel_med
+	dufflebag = /obj/item/weapon/storage/backpack/duffel/medical
+
+/datum/outfit/job/doctor/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	. = ..()
+	if(H.mind.role_alt_title)
+		switch(H.mind.role_alt_title)
+			if("Coroner")
+				uniform = /obj/item/clothing/under/rank/medical/mortician
+				suit = /obj/item/clothing/suit/storage/labcoat/mortician
+				backpack_contents = list(
+					/obj/item/clothing/head/surgery/black = 1,
+					/obj/item/weapon/autopsy_scanner = 1,
+					/obj/item/device/mass_spectrometer = 1,
+					/obj/item/weapon/storage/box/bodybags = 1
+				)
+			if("Surgeon")
+				uniform = /obj/item/clothing/under/rank/medical/blue
+				head = /obj/item/clothing/head/surgery/blue
+			if("Medical Doctor")
+				uniform = /obj/item/clothing/under/rank/medical
+			if("Nurse")
+				if(H.gender == FEMALE)
+					if(prob(50))
+						uniform = /obj/item/clothing/under/rank/nursesuit
 					else
-						H.equip_or_collect(new /obj/item/clothing/under/rank/medical/purple(H), slot_w_uniform)
-		else
-			H.equip_or_collect(new /obj/item/clothing/under/rank/medical(H), slot_w_uniform)
-			H.equip_or_collect(new /obj/item/clothing/suit/storage/labcoat(H), slot_wear_suit)
-		H.equip_or_collect(new /obj/item/clothing/shoes/white(H), slot_shoes)
-		H.equip_or_collect(new /obj/item/device/pda/medical(H), slot_wear_pda)
-		H.equip_or_collect(new /obj/item/weapon/storage/firstaid/adv(H), slot_l_hand)
-		H.equip_or_collect(new /obj/item/device/flashlight/pen(H), slot_s_store)
-		H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H), slot_in_backpack)
-		return 1
+						uniform = /obj/item/clothing/under/rank/nurse
+					head = /obj/item/clothing/head/nursehat
+				else
+					uniform = /obj/item/clothing/under/rank/medical/purple
 
 
 
@@ -108,28 +111,27 @@
 	is_medical = 1
 	supervisors = "the chief medical officer"
 	selection_color = "#ffeef0"
-	idtype = /obj/item/weapon/card/id/medical
 	access = list(access_medical, access_morgue, access_surgery, access_chemistry, access_virology, access_genetics, access_mineral_storeroom)
 	minimal_access = list(access_medical, access_chemistry, access_maint_tunnels, access_mineral_storeroom)
 	alt_titles = list("Pharmacist","Pharmacologist")
 	minimal_player_age = 7
+	outfit = /datum/outfit/job/chemist
 
-	equip(var/mob/living/carbon/human/H)
-		if(!H)	return 0
-		switch(H.backbag)
-			if(2) H.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/chemistry(H), slot_back)
-			if(3) H.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/satchel_chem(H), slot_back)
-			if(4) H.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/satchel(H), slot_back)
-		H.equip_to_slot_or_del(new /obj/item/device/radio/headset/headset_med(H), slot_l_ear)
-		H.equip_or_collect(new /obj/item/clothing/glasses/science(H), slot_glasses)
-		H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/chemist(H), slot_w_uniform)
-		H.equip_to_slot_or_del(new /obj/item/clothing/shoes/white(H), slot_shoes)
-		H.equip_to_slot_or_del(new /obj/item/device/pda/chemist(H), slot_wear_pda)
-		H.equip_to_slot_or_del(new /obj/item/clothing/suit/storage/labcoat/chemist(H), slot_wear_suit)
-		H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H), slot_in_backpack)
-		return 1
+/datum/outfit/job/chemist
+	name = "Chemist"
+	jobtype = /datum/job/chemist
 
+	uniform = /obj/item/clothing/under/rank/chemist
+	suit = /obj/item/clothing/suit/storage/labcoat/chemist
+	shoes = /obj/item/clothing/shoes/white
+	l_ear = /obj/item/device/radio/headset/headset_med
+	glasses = /obj/item/clothing/glasses/science
+	id = /obj/item/weapon/card/id/medical
+	pda = /obj/item/device/pda/chemist
 
+	backpack = /obj/item/weapon/storage/backpack/chemistry
+	satchel = /obj/item/weapon/storage/backpack/satchel_chem
+	dufflebag = /obj/item/weapon/storage/backpack/duffel/chemistry
 
 /datum/job/geneticist
 	title = "Geneticist"
@@ -140,25 +142,27 @@
 	is_medical = 1
 	supervisors = "the chief medical officer and the research director"
 	selection_color = "#ffeef0"
-	idtype = /obj/item/weapon/card/id/medical
 	access = list(access_medical, access_morgue, access_surgery, access_chemistry, access_virology, access_genetics, access_research, access_mineral_storeroom)
 	minimal_access = list(access_medical, access_morgue, access_genetics, access_research, access_maint_tunnels)
 	minimal_player_age = 3
+	outfit = /datum/outfit/job/geneticist
 
-	equip(var/mob/living/carbon/human/H)
-		if(!H)	return 0
-		switch(H.backbag)
-			if(2) H.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/genetics(H), slot_back)
-			if(3) H.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/satchel_gen(H), slot_back)
-			if(4) H.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/satchel(H), slot_back)
-		H.equip_to_slot_or_del(new /obj/item/device/radio/headset/headset_medsci(H), slot_l_ear)
-		H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/geneticist(H), slot_w_uniform)
-		H.equip_to_slot_or_del(new /obj/item/clothing/shoes/white(H), slot_shoes)
-		H.equip_to_slot_or_del(new /obj/item/device/pda/geneticist(H), slot_wear_pda)
-		H.equip_to_slot_or_del(new /obj/item/clothing/suit/storage/labcoat/genetics(H), slot_wear_suit)
-		H.equip_to_slot_or_del(new /obj/item/device/flashlight/pen(H), slot_s_store)
-		H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H), slot_in_backpack)
-		return 1
+/datum/outfit/job/geneticist
+	name = "Geneticist"
+	jobtype = /datum/job/geneticist
+
+	uniform = /obj/item/clothing/under/rank/geneticist
+	suit = /obj/item/clothing/suit/storage/labcoat/genetics
+	shoes = /obj/item/clothing/shoes/white
+	l_ear = /obj/item/device/radio/headset/headset_medsci
+	id = /obj/item/weapon/card/id/medical
+	suit_store = /obj/item/device/flashlight/pen
+	pda = /obj/item/device/pda/geneticist
+
+	backpack = /obj/item/weapon/storage/backpack/genetics
+	satchel = /obj/item/weapon/storage/backpack/satchel_gen
+	dufflebag = /obj/item/weapon/storage/backpack/duffel/genetics
+
 
 /datum/job/virologist
 	title = "Virologist"
@@ -169,27 +173,28 @@
 	is_medical = 1
 	supervisors = "the chief medical officer"
 	selection_color = "#ffeef0"
-	idtype = /obj/item/weapon/card/id/medical
 	access = list(access_medical, access_morgue, access_surgery, access_chemistry, access_virology, access_genetics)
 	minimal_access = list(access_medical, access_virology, access_maint_tunnels, access_mineral_storeroom)
 	alt_titles = list("Pathologist","Microbiologist")
 	minimal_player_age = 7
+	outfit = /datum/outfit/job/virologist
 
-	equip(var/mob/living/carbon/human/H)
-		if(!H)	return 0
-		H.equip_or_collect(new /obj/item/device/radio/headset/headset_med(H), slot_l_ear)
-		switch(H.backbag)
-			if(2) H.equip_or_collect(new /obj/item/weapon/storage/backpack/virology(H), slot_back)
-			if(3) H.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel_vir(H), slot_back)
-			if(4) H.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel(H), slot_back)
-		H.equip_or_collect(new /obj/item/clothing/under/rank/virologist(H), slot_w_uniform)
-		H.equip_or_collect(new /obj/item/device/pda/viro(H), slot_wear_pda)
-		H.equip_or_collect(new /obj/item/clothing/mask/surgical(H), slot_wear_mask)
-		H.equip_or_collect(new /obj/item/clothing/shoes/white(H), slot_shoes)
-		H.equip_or_collect(new /obj/item/clothing/suit/storage/labcoat/virologist(H), slot_wear_suit)
-		H.equip_or_collect(new /obj/item/device/flashlight/pen(H), slot_s_store)
-		H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H), slot_in_backpack)
-		return 1
+/datum/outfit/job/virologist
+	name = "Virologist"
+	jobtype = /datum/job/virologist
+
+	uniform = /obj/item/clothing/under/rank/virologist
+	suit = /obj/item/clothing/suit/storage/labcoat/virologist
+	shoes = /obj/item/clothing/shoes/white
+	mask = /obj/item/clothing/mask/surgical
+	l_ear = /obj/item/device/radio/headset/headset_med
+	id = /obj/item/weapon/card/id/medical
+	suit_store = /obj/item/device/flashlight/pen
+	pda = /obj/item/device/pda/viro
+
+	backpack = /obj/item/weapon/storage/backpack/virology
+	satchel = /obj/item/weapon/storage/backpack/satchel_vir
+	dufflebag = /obj/item/weapon/storage/backpack/duffel/virology
 
 /datum/job/psychiatrist
 	title = "Psychiatrist"
@@ -200,34 +205,33 @@
 	is_medical = 1
 	supervisors = "the chief medical officer"
 	selection_color = "#ffeef0"
-	idtype = /obj/item/weapon/card/id/medical
 	access = list(access_medical, access_morgue, access_surgery, access_chemistry, access_virology, access_genetics, access_psychiatrist)
 	minimal_access = list(access_medical, access_psychiatrist, access_maint_tunnels)
 	alt_titles = list("Psychologist","Therapist")
+	outfit = /datum/outfit/job/psychiatrist
 
-	equip(var/mob/living/carbon/human/H)
-		if(!H)	return 0
-		H.equip_or_collect(new /obj/item/device/radio/headset/headset_med(H), slot_l_ear)
-		switch(H.backbag)
-			if(2) H.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack(H), slot_back)
-			if(3) H.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/satchel_norm(H), slot_back)
-			if(4) H.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/satchel(H), slot_back)
-		if(H.mind.role_alt_title)
-			switch(H.mind.role_alt_title)
-				if("Psychiatrist")
-					H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/psych(H), slot_w_uniform)
-				if("Psychologist")
-					H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/psych/turtleneck(H), slot_w_uniform)
-				if("Therapist")
-					H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/medical(H), slot_w_uniform)
-		else
-			H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/medical(H), slot_w_uniform)
-		H.equip_to_slot_or_del(new /obj/item/clothing/suit/storage/labcoat(H), slot_wear_suit)
-		H.equip_to_slot_or_del(new /obj/item/clothing/shoes/laceup(H), slot_shoes)
-		H.equip_to_slot_or_del(new /obj/item/device/pda/medical(H), slot_wear_pda)
-		H.equip_or_collect(new /obj/item/device/flashlight/pen(H), slot_s_store)
-		H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H), slot_in_backpack)
-		return 1
+/datum/outfit/job/psychiatrist
+	name = "Psychiatrist"
+	jobtype = /datum/job/psychiatrist
+
+	uniform = /obj/item/clothing/under/rank/medical
+	suit = /obj/item/clothing/suit/storage/labcoat
+	shoes = /obj/item/clothing/shoes/laceup
+	l_ear = /obj/item/device/radio/headset/headset_med
+	id = /obj/item/weapon/card/id/medical
+	suit_store = /obj/item/device/flashlight/pen
+	pda = /obj/item/device/pda/medical
+
+/datum/outfit/job/psychiatrist/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	. = ..()
+	if(H.mind.role_alt_title)
+		switch(H.mind.role_alt_title)
+			if("Psychiatrist")
+				uniform = /obj/item/clothing/under/rank/psych
+			if("Psychologist")
+				uniform = /obj/item/clothing/under/rank/psych/turtleneck
+			if("Therapist")
+				uniform = /obj/item/clothing/under/rank/medical
 
 /datum/job/paramedic
 	title = "Paramedic"
@@ -238,23 +242,29 @@
 	is_medical = 1
 	supervisors = "the chief medical officer"
 	selection_color = "#ffeef0"
-	idtype = /obj/item/weapon/card/id/medical
 	access = list(access_paramedic, access_medical, access_sec_doors, access_maint_tunnels, access_external_airlocks, access_morgue)
 	minimal_access=list(access_paramedic, access_medical, access_sec_doors, access_maint_tunnels, access_external_airlocks, access_morgue)
 	minimal_player_age = 3
+	outfit = /datum/outfit/job/paramedic
 
+/datum/outfit/job/paramedic
+	name = "Paramedic"
+	jobtype = /datum/job/paramedic
 
-	equip(var/mob/living/carbon/human/H)
-		if(!H)  return 0
-		H.equip_or_collect(new /obj/item/device/radio/headset/headset_med(H), slot_l_ear)
-		if(H.backbag == 2) H.equip_or_collect(new /obj/item/weapon/storage/backpack/medic (H), slot_back)
-		if(H.backbag == 3) H.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel_med(H), slot_back)
-		H.equip_or_collect(new /obj/item/clothing/under/rank/medical/paramedic(H), slot_w_uniform)
-		H.equip_or_collect(new /obj/item/clothing/shoes/black(H), slot_shoes)
-		H.equip_or_collect(new /obj/item/device/pda/medical(H), slot_wear_pda)
-		H.equip_or_collect(new /obj/item/clothing/mask/cigarette(H), slot_wear_mask)
-		H.equip_or_collect(new /obj/item/clothing/head/soft/blue(H), slot_head)
-		H.equip_or_collect(new /obj/item/device/flashlight/pen(H), slot_s_store)
-		H.equip_or_collect(new /obj/item/weapon/storage/box/engineer(H), slot_in_backpack)
-		H.equip_or_collect(new /obj/item/device/healthanalyzer(H), slot_in_backpack)
-		return 1
+	uniform = /obj/item/clothing/under/rank/medical/paramedic
+	shoes = /obj/item/clothing/shoes/black
+	head = /obj/item/clothing/head/soft/blue
+	mask = /obj/item/clothing/mask/cigarette
+	l_ear = /obj/item/device/radio/headset/headset_med
+	id = /obj/item/weapon/card/id/medical
+	l_pocket = /obj/item/device/flashlight/pen
+	pda = /obj/item/device/pda/medical
+	backpack_contents = list(
+		/obj/item/device/healthanalyzer = 1
+	)
+
+	backpack = /obj/item/weapon/storage/backpack/medic
+	satchel = /obj/item/weapon/storage/backpack/satchel_med
+	dufflebag = /obj/item/weapon/storage/backpack/duffel/medical
+	box = /obj/item/weapon/storage/box/engineer
+

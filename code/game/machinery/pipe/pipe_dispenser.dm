@@ -7,9 +7,16 @@
 	var/unwrenched = 0
 	var/wait = 0
 
-/obj/machinery/pipedispenser/attack_hand(user as mob)
+/obj/machinery/pipedispenser/attack_hand(mob/user)
 	if(..())
-		return
+		return 1
+		
+	interact(user)
+	
+/obj/machinery/pipedispenser/attack_ghost(mob/user)
+	interact(user)
+			
+/obj/machinery/pipedispenser/interact(mob/user)
 	var/dat = {"
 <b>Regular pipes:</b><BR>
 <A href='?src=[UID()];make=0;dir=1'>Pipe</A><BR>
@@ -65,21 +72,19 @@
 	popup.set_content(dat)
 	popup.open(0)
 	onclose(user, "pipedispenser")
-	return
 
 /obj/machinery/pipedispenser/Topic(href, href_list)
-	if(..())
-		return
-	if(unwrenched || !usr.canmove || usr.stat || usr.restrained() || !in_range(loc, usr))
-		usr << browse(null, "window=pipedispenser")
-		return
+	if(..() || unwrenched)
+		return 1
+
 	usr.set_machine(src)
-	src.add_fingerprint(usr)
+	add_fingerprint(usr)
+
 	if(href_list["make"])
 		if(!wait)
 			var/p_type = text2num(href_list["make"])
 			var/p_dir = text2num(href_list["dir"])
-			var/obj/item/pipe/P = new (/*usr.loc*/ src.loc, pipe_type=p_type, dir=p_dir)
+			var/obj/item/pipe/P = new (loc, pipe_type=p_type, dir=p_dir)
 			P.update()
 			P.add_fingerprint(usr)
 			wait = 1
@@ -87,50 +92,49 @@
 				wait = 0
 	if(href_list["makemeter"])
 		if(!wait)
-			new /obj/item/pipe_meter(/*usr.loc*/ src.loc)
+			new /obj/item/pipe_meter(loc)
 			wait = 1
 			spawn(15)
 				wait = 0
 	if(href_list["makegsensor"])
 		if(!wait)
-			new /obj/item/pipe_gsensor(/*usr.loc*/ src.loc)
+			new /obj/item/pipe_gsensor(loc)
 			wait = 1
 			spawn(15)
 				wait = 0
-	return
 
 /obj/machinery/pipedispenser/attackby(var/obj/item/W as obj, var/mob/user as mob, params)
-	src.add_fingerprint(usr)
+	add_fingerprint(usr)
 	if(istype(W, /obj/item/pipe) || istype(W, /obj/item/pipe_meter) || istype(W, /obj/item/pipe_gsensor))
-		to_chat(usr, "\blue You put [W] back to [src].")
+		to_chat(usr, "<span class='notice'>You put [W] back to [src].</span>")
 		user.drop_item()
 		qdel(W)
 		return
 	else if(istype(W, /obj/item/weapon/wrench))
 		if(unwrenched==0)
-			playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
-			to_chat(user, "\blue You begin to unfasten \the [src] from the floor...")
+			playsound(loc, 'sound/items/Ratchet.ogg', 50, 1)
+			to_chat(user, "<span class='notice'>You begin to unfasten \the [src] from the floor...</span>")
 			if(do_after(user, 40, target = src))
 				user.visible_message( \
 					"[user] unfastens \the [src].", \
-					"\blue You have unfastened \the [src]. Now it can be pulled somewhere else.", \
+					"<span class='notice'>You have unfastened \the [src]. Now it can be pulled somewhere else.</span>", \
 					"You hear ratchet.")
-				src.anchored = 0
-				src.stat |= MAINT
-				src.unwrenched = 1
+				anchored = 0
+				stat |= MAINT
+				unwrenched = 1
 				if(usr.machine==src)
 					usr << browse(null, "window=pipedispenser")
 		else /*if(unwrenched==1)*/
-			playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
-			to_chat(user, "\blue You begin to fasten \the [src] to the floor...")
+			playsound(loc, 'sound/items/Ratchet.ogg', 50, 1)
+			to_chat(user, "<span class='notice'>You begin to fasten \the [src] to the floor...</span>")
 			if(do_after(user, 20, target = src))
 				user.visible_message( \
 					"[user] fastens \the [src].", \
-					"\blue You have fastened \the [src]. Now it can dispense pipes.", \
+					"<span class='notice'>You have fastened \the [src]. Now it can dispense pipes.</span>", \
 					"You hear ratchet.")
-				src.anchored = 1
-				src.stat &= ~MAINT
-				src.unwrenched = 0
+				anchored = 1
+				stat &= ~MAINT
+				unwrenched = 0
 				power_change()
 	else
 		return ..()
@@ -143,21 +147,12 @@
 	density = 1
 	anchored = 1.0
 
-/*
-//Allow you to push disposal pipes into it (for those with density 1)
-/obj/machinery/pipedispenser/disposal/Crossed(var/obj/structure/disposalconstruct/pipe as obj)
-	if(istype(pipe) && !pipe.anchored)
-		qdel(pipe)
-
-Nah
-*/
-
 //Allow you to drag-drop disposal pipes into it
-/obj/machinery/pipedispenser/disposal/MouseDrop_T(var/obj/structure/disposalconstruct/pipe as obj, mob/usr as mob)
-	if(!usr.canmove || usr.stat || usr.restrained())
+/obj/machinery/pipedispenser/disposal/MouseDrop_T(var/obj/structure/disposalconstruct/pipe, mob/usr)
+	if(usr.incapacitated())
 		return
 
-	if(!istype(pipe) || get_dist(usr, src) > 1 || get_dist(src,pipe) > 1 )
+	if(!istype(pipe) || get_dist(usr, src) > 1 || get_dist(src, pipe) > 1 )
 		return
 
 	if(pipe.anchored)
@@ -165,10 +160,16 @@ Nah
 
 	qdel(pipe)
 
-/obj/machinery/pipedispenser/disposal/attack_hand(user as mob)
+/obj/machinery/pipedispenser/disposal/attack_hand(mob/user)
 	if(..())
 		return
-
+		
+	interact(user)
+	
+/obj/machinery/pipedispenser/disposal/attack_ghost(mob/user)
+	interact(user)
+	
+/obj/machinery/pipedispenser/disposal/interact(mob/user)
 	var/dat = {"<b>Disposal Pipes</b><br><br>
 <A href='?src=[UID()];dmake=0'>Pipe</A><BR>
 <A href='?src=[UID()];dmake=1'>Bent Pipe</A><BR>
@@ -183,47 +184,39 @@ Nah
 	var/datum/browser/popup = new(user, "pipedispenser", name, 400, 400)
 	popup.set_content(dat)
 	popup.open()
-	return
-
-// 0=straight, 1=bent, 2=junction-j1, 3=junction-j2, 4=junction-y, 5=trunk
-
 
 /obj/machinery/pipedispenser/disposal/Topic(href, href_list)
-	if(..())
-		return
-	usr.set_machine(src)
-	src.add_fingerprint(usr)
-	if(href_list["dmake"])
-		if(unwrenched || !usr.canmove || usr.stat || usr.restrained() || !in_range(loc, usr))
-			usr << browse(null, "window=pipedispenser")
-			return
-		if(!wait)
-			var/p_type = text2num(href_list["dmake"])
-			var/obj/structure/disposalconstruct/C = new (src.loc)
-			switch(p_type)
-				if(0)
-					C.ptype = 0
-				if(1)
-					C.ptype = 1
-				if(2)
-					C.ptype = 2
-				if(3)
-					C.ptype = 4
-				if(4)
-					C.ptype = 5
-				if(5)
-					C.ptype = 6
-					C.density = 1
-				if(6)
-					C.ptype = 7
-					C.density = 1
-				if(7)
-					C.ptype = 8
-					C.density = 1
-			C.add_fingerprint(usr)
-			C.update()
-			wait = 1
-			spawn(15)
-				wait = 0
-	return
+	if(..() || unwrenched)
+		return 1
 
+	usr.set_machine(src)
+	add_fingerprint(usr)
+
+	if(!wait)
+		var/p_type = text2num(href_list["dmake"])
+		var/obj/structure/disposalconstruct/C = new (loc)
+		switch(p_type)
+			if(0)
+				C.ptype = 0
+			if(1)
+				C.ptype = 1
+			if(2)
+				C.ptype = 2
+			if(3)
+				C.ptype = 4
+			if(4)
+				C.ptype = 5
+			if(5)
+				C.ptype = 6
+				C.density = 1
+			if(6)
+				C.ptype = 7
+				C.density = 1
+			if(7)
+				C.ptype = 8
+				C.density = 1
+		C.add_fingerprint(usr)
+		C.update()
+		wait = 1
+		spawn(15)
+			wait = 0

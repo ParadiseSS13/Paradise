@@ -1149,6 +1149,13 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	cost = 10
 	containername = "glass sheets crate"
 
+/datum/supply_packs/materials/wood30
+	name = "30 Wood Planks Crate"
+	contains = list(/obj/item/stack/sheet/wood)
+	amount = 30
+	cost = 15
+	containername = "wood planks crate"
+
 /datum/supply_packs/materials/cardboard50
 	name = "50 Cardboard Sheets Crate"
 	contains = list(/obj/item/stack/sheet/cardboard)
@@ -1408,6 +1415,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 					/obj/item/clothing/head/collectable/flatcap,
 					/obj/item/clothing/head/collectable/pirate,
 					/obj/item/clothing/head/collectable/kitty,
+					/obj/item/clothing/head/crown/fancy,
 					/obj/item/clothing/head/collectable/rabbitears,
 					/obj/item/clothing/head/collectable/wizard,
 					/obj/item/clothing/head/collectable/hardhat,
@@ -1527,9 +1535,9 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 					/obj/item/weapon/beach_ball)
 	cost = 20
 	containername = "polo supply crate"
-	
-///////////// Station Goals	
-	
+
+///////////// Station Goals
+
 /datum/supply_packs/misc/bsa
 	name = "Bluespace Artillery Parts"
 	cost = 150
