@@ -135,7 +135,7 @@
 /datum/computer_file/program/filemanager/proc/prepare_printjob(t, font = PRINTER_FONT) // Additional stuff to parse if we want to print it and make a happy Head of Personnel. Forms FTW.
 	t = replacetext(t, "\[field\]", "<span class=\"paper_field\"></span>")
 	t = replacetext(t, "\[sign\]", "<span class=\"paper_field\"></span>")
-	t = pencode_to_html(t, P = /obj/item/weapon/pen, sign = 0, fields = 0, deffont = font)
+	t = pencode_to_html(t, sign = 0, fields = 0, deffont = font)
 	return t
 
 /datum/computer_file/program/filemanager/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
@@ -164,7 +164,7 @@
 			if(!istype(file))
 				data["error"] = "I/O ERROR: Unable to open file."
 			else
-				data["filedata"] = pencode_to_html(file.stored_data, P = /obj/item/weapon/pen, sign = 0, fields = 0)
+				data["filedata"] = pencode_to_html(file.stored_data, sign = 0, fields = 0)
 				data["filename"] = "[file.filename].[file.filetype]"
 	else
 		if(!computer || !HDD)

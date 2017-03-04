@@ -471,7 +471,7 @@ proc/checkhtml(var/t)
 	text = replacetext(text, "\[/large\]",	"</font>")
 	if(sign)
 		text = replacetext(text, "\[sign\]",	"<font face=\"[signfont]\"><i>[user ? user.real_name : "Anonymous"]</i></font>")
-	if(field)
+	if(fields)
 		text = replacetext(text, "\[field\]",	"<span class=\"paper_field\"></span>")
 
 	text = replacetext(text, "\[h1\]",	"<H1>")
@@ -549,3 +549,4 @@ proc/checkhtml(var/t)
 	text = replacetext(text, "<td>",					"\[cell\]")
 	text = replacetext(text, "<img src = ntlogo.png>",	"\[logo\]")
 	return text
+
