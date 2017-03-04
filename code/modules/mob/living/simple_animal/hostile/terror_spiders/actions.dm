@@ -90,6 +90,17 @@
 	var/mob/living/simple_animal/hostile/poison/terror_spider/queen/user = owner
 	user.QueenFakeLings()
 
+// ---------- EMPRESS
+
+/datum/action/innate/terrorspider/queen/empress/empresserase
+	name = "Erase Brood"
+	icon_icon = 'icons/effects/blood.dmi'
+	button_icon_state = "mgibbl1"
+
+/datum/action/innate/terrorspider/queen/empress/empresserase/Activate()
+	var/mob/living/simple_animal/hostile/poison/terror_spider/queen/empress/user = owner
+	user.EraseBrood()
+
 // ---------- WEB
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/Web(var/thick = 0)
@@ -109,6 +120,10 @@
 				W.creator_ckey = ckey
 				if(thick)
 					W.opacity = 1
+					W.name = "thick terror web"
+				if(web_infects)
+					W.infectious = 1
+					W.name = "sharp terror web"
 
 /obj/effect/spider/terrorweb
 	name = "terror web"
@@ -119,6 +134,7 @@
 	health = 20 // two welders, or one laser shot (15 for the normal spider webs)
 	icon_state = "stickyweb1"
 	var/creator_ckey = null
+	var/infectious = 0
 
 /obj/effect/spider/terrorweb/New()
 	..()
@@ -146,8 +162,14 @@
 			M.Weaken(4) // 8 seconds.
 			DeCloakNearby()
 			if(iscarbon(mover))
+				var/mob/living/carbon/C = mover
+				if(!IsTSInfected(C) && infectious)
+					var/inject_target = pick("chest","head")
+					if(C.can_inject(null, 0, inject_target, 0))
+						to_chat(C, "<span class='danger'>[src] slices into you!</span>")
+						new /obj/item/organ/internal/body_egg/terror_eggs(C)
 				spawn(70)
-					if(mover.loc == loc)
+					if(C.loc == loc)
 						qdel(src)
 			return 1
 		else
@@ -198,11 +220,12 @@
 					C.pixel_x = cocoon_target.pixel_x
 					C.pixel_y = cocoon_target.pixel_y
 					for(var/obj/O in C.loc)
-						if(istype(O, /obj/item))
-							O.loc = C
-						else if(istype(O, /obj/machinery) || istype(O, /obj/structure))
-							O.loc = C
-							large_cocoon = 1
+						if(!O.anchored)
+							if(istype(O, /obj/item))
+								O.loc = C
+							else if(istype(O, /obj/machinery) || istype(O, /obj/structure))
+								O.loc = C
+								large_cocoon = 1
 					for(var/mob/living/L in C.loc)
 						if(istype(L, /mob/living/simple_animal/hostile/poison/terror_spider))
 							continue
