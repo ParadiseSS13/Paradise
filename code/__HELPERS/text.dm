@@ -456,7 +456,7 @@ proc/checkhtml(var/t)
 
 
 // Pencode
-/proc/pencode_to_html(text, mob/user, var/obj/item/weapon/pen/P = null, deffont = "Verdana", signfont = "Times New Roman", crayonfont = "Comic Sans MS")
+/proc/pencode_to_html(text, mob/user, obj/item/weapon/pen/P = null, sign = 1, fields = 1, deffont = PEN_FONT, signfont = SIGNFONT, crayonfont = CRAYON_FONT)
 	text = replacetext(text, "\n",			"<BR>")
 	text = replacetext(text, "\[center\]",	"<center>")
 	text = replacetext(text, "\[/center\]",	"</center>")
@@ -469,8 +469,10 @@ proc/checkhtml(var/t)
 	text = replacetext(text, "\[/u\]",		"</U>")
 	text = replacetext(text, "\[large\]",	"<font size=\"4\">")
 	text = replacetext(text, "\[/large\]",	"</font>")
-	text = replacetext(text, "\[sign\]",	"<font face=\"[signfont]\"><i>[user ? user.real_name : "Anonymous"]</i></font>")
-	text = replacetext(text, "\[field\]",	"<span class=\"paper_field\"></span>")
+	if(sign)
+		text = replacetext(text, "\[sign\]",	"<font face=\"[signfont]\"><i>[user ? user.real_name : "Anonymous"]</i></font>")
+	if(field)
+		text = replacetext(text, "\[field\]",	"<span class=\"paper_field\"></span>")
 
 	text = replacetext(text, "\[h1\]",	"<H1>")
 	text = replacetext(text, "\[/h1\]",	"</H1>")

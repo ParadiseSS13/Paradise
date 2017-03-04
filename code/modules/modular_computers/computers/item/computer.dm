@@ -249,11 +249,6 @@
 	if(active_program && active_program.requires_ntnet && !get_ntnet_status(active_program.requires_ntnet_feature))
 		active_program.event_networkfailure(0) // Active program requires NTNet to run but we've just lost connection. Crash.
 
-	for(var/I in idle_threads)
-		var/datum/computer_file/program/P = I
-		if(P.requires_ntnet && !get_ntnet_status(P.requires_ntnet_feature))
-			P.event_networkfailure(1)
-
 	if(active_program)
 		if(active_program.program_state != PROGRAM_STATE_KILLED)
 			active_program.process_tick()
@@ -264,17 +259,18 @@
 	for(var/I in idle_threads)
 		var/datum/computer_file/program/P = I
 		if(P.program_state != PROGRAM_STATE_KILLED)
+			if(P.requires_ntnet && !get_ntnet_status(P.requires_ntnet_feature))
+				P.event_networkfailure(1)
 			P.process_tick()
 			P.ntnet_status = get_ntnet_status()
 		else
 			idle_threads.Remove(P)
 
 	handle_power() // Handles all computer power interaction
-	//check_update_ui_need()
 
 // Relays kill program request to currently active program. Use this to quit current program.
 /obj/item/device/modular_computer/proc/kill_program(forced = FALSE)
-	if(active_program)
+	if(active_program && active_program.program_state != PROGRAM_STATE_KILLED)
 		active_program.kill_program(forced)
 		active_program = null
 	var/mob/user = usr
@@ -297,14 +293,15 @@
 	return ntnet_global.add_log(text, network_card)
 
 /obj/item/device/modular_computer/proc/shutdown_computer(loud = 1)
-	kill_program(forced = TRUE)
-	for(var/datum/computer_file/program/P in idle_threads)
-		P.kill_program(forced = TRUE)
-		idle_threads.Remove(P)
-	if(loud)
-		physical.visible_message("<span class='notice'>\The [src] shuts down.</span>")
-	enabled = 0
-	update_icon()
+	if(enabled)
+		kill_program(forced = TRUE)
+		for(var/datum/computer_file/program/P in idle_threads)
+			P.kill_program(forced = TRUE)
+			idle_threads.Remove(P)
+		if(loud)
+			physical.visible_message("<span class='notice'>\The [src] shuts down.</span>")
+		enabled = 0
+		update_icon()
 
 
 /obj/item/device/modular_computer/attackby(obj/item/weapon/W, mob/user)
@@ -323,7 +320,7 @@
 		if(all_components.len)
 			to_chat(user, "<span class='warning'>Remove all components from \the [src] before disassembling it.</span>")
 			return
-		new /obj/item/stack/sheet/metal( get_turf(src.loc), steel_sheet_cost )
+		new /obj/item/stack/sheet/metal(get_turf(loc), steel_sheet_cost)
 		physical.visible_message("\The [src] has been disassembled by [user].")
 		relay_qdel()
 		qdel(src)

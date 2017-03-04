@@ -110,7 +110,7 @@
 			if(!printer)
 				error = "Missing Hardware: Your computer does not have required hardware to complete this operation."
 				return 1
-			if(!printer.print_text("<font face=\"[computer.emagged ? "Comic Sans MS" : "Verdana"]\">" + prepare_printjob(F.stored_data) + "</font>", open_file))
+			if(!printer.print_text(prepare_printjob(F.stored_data, computer.emagged ? CRAYON_FONT : PRINTER_FONT), open_file))
 				error = "Hardware error: Printer was unable to print the file. It may be out of paper."
 				return 1
 		if("PRG_copytousb")
@@ -132,48 +132,10 @@
 			var/datum/computer_file/C = F.clone(0)
 			HDD.store_file(C)
 
-/datum/computer_file/program/filemanager/proc/parse_tags(t)
-	t = replacetext(t, "\[center\]", "<center>")
-	t = replacetext(t, "\[/center\]", "</center>")
-	t = replacetext(t, "\[br\]", "<BR>")
-	t = replacetext(t, "\n", "<BR>")
-	t = replacetext(t, "\[b\]", "<B>")
-	t = replacetext(t, "\[/b\]", "</B>")
-	t = replacetext(t, "\[i\]", "<I>")
-	t = replacetext(t, "\[/i\]", "</I>")
-	t = replacetext(t, "\[u\]", "<U>")
-	t = replacetext(t, "\[/u\]", "</U>")
-	t = replacetext(t, "\[time\]", "[worldtime2text()]")
-	t = replacetext(t, "\[date\]", "[current_date_string] [worldtime2text()]")
-	t = replacetext(t, "\[large\]", "<font size=\"4\">")
-	t = replacetext(t, "\[/large\]", "</font>")
-	t = replacetext(t, "\[h1\]", "<H1>")
-	t = replacetext(t, "\[/h1\]", "</H1>")
-	t = replacetext(t, "\[h2\]", "<H2>")
-	t = replacetext(t, "\[/h2\]", "</H2>")
-	t = replacetext(t, "\[h3\]", "<H3>")
-	t = replacetext(t, "\[/h3\]", "</H3>")
-	t = replacetext(t, "\[*\]", "<li>")
-	t = replacetext(t, "\[hr\]", "<HR>")
-	t = replacetext(t, "\[small\]", "<font size = \"1\">")
-	t = replacetext(t, "\[/small\]", "</font>")
-	t = replacetext(t, "\[list\]", "<ul>")
-	t = replacetext(t, "\[/list\]", "</ul>")
-	t = replacetext(t, "\[table\]", "<table border=1 cellspacing=0 cellpadding=3 style='border: 1px solid black;'>")
-	t = replacetext(t, "\[/table\]", "</td></tr></table>")
-	t = replacetext(t, "\[grid\]", "<table>")
-	t = replacetext(t, "\[/grid\]", "</td></tr></table>")
-	t = replacetext(t, "\[row\]", "</td><tr>")
-	t = replacetext(t, "\[tr\]", "</td><tr>")
-	t = replacetext(t, "\[td\]", "<td>")
-	t = replacetext(t, "\[cell\]", "<td>")
-	t = replacetext(t, "\[tab\]", "&nbsp;&nbsp;&nbsp;&nbsp;")
-	return t
-
-/datum/computer_file/program/filemanager/proc/prepare_printjob(t) // Additional stuff to parse if we want to print it and make a happy Head of Personnel. Forms FTW.
+/datum/computer_file/program/filemanager/proc/prepare_printjob(t, font = PRINTER_FONT) // Additional stuff to parse if we want to print it and make a happy Head of Personnel. Forms FTW.
 	t = replacetext(t, "\[field\]", "<span class=\"paper_field\"></span>")
 	t = replacetext(t, "\[sign\]", "<span class=\"paper_field\"></span>")
-	t = parse_tags(t)
+	t = pencode_to_html(t, P = /obj/item/weapon/pen, sign = 0, fields = 0, deffont = font)
 	return t
 
 /datum/computer_file/program/filemanager/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
@@ -202,7 +164,7 @@
 			if(!istype(file))
 				data["error"] = "I/O ERROR: Unable to open file."
 			else
-				data["filedata"] = parse_tags(file.stored_data)
+				data["filedata"] = pencode_to_html(file.stored_data, P = /obj/item/weapon/pen, sign = 0, fields = 0)
 				data["filename"] = "[file.filename].[file.filetype]"
 	else
 		if(!computer || !HDD)

@@ -304,6 +304,7 @@
 					time_last_changed_position = world.time / 10
 				j.total_positions++
 				opened_positions[edit_job_target]++
+				log_game("[key_name(usr)] has opened a job slot for job \"[j]\".")
 
 		if("PRG_make_job_unavailable")
 			// MAKE JOB POSITION UNAVAILABLE FOR LATE JOINERS
@@ -319,6 +320,7 @@
 					time_last_changed_position = world.time / 10
 				j.total_positions--
 				opened_positions[edit_job_target]--
+				log_game("[key_name(usr)] has closed a job slot for job \"[j]\".")
 
 	if(modify)
 		modify.name = text("[modify.registered_name]'s ID Card ([modify.assignment])")

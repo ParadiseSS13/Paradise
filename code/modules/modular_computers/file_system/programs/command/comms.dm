@@ -1,6 +1,6 @@
 /datum/computer_file/program/comm
 	filename = "comm"
-	filedesc = "Command and communications program."
+	filedesc = "Command and communications"
 	program_icon_state = "comm"
 	extended_desc = "Used to command and control the station. Can relay long-range communications. This program can not be run on tablet computers."
 	required_access = access_heads
