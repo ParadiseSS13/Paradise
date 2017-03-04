@@ -7,7 +7,6 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 0)
 	spawn_positions = 1
 	supervisors = "Nanotrasen officials"
 	selection_color = "#ccccff"
-	idtype = /obj/item/weapon/card/id/gold
 	req_admin_notify = 1
 	is_command = 1
 	access = list() 			//See get_access()
@@ -15,36 +14,46 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 0)
 	minimal_player_age = 30
 	exp_requirements = 1200
 	exp_type = EXP_TYPE_CREW
-	equip(var/mob/living/carbon/human/H)
-		if(!H)	return 0
-		H.equip_or_collect(new /obj/item/device/radio/headset/heads/captain/alt(H), slot_l_ear)
-		switch(H.backbag)
-			if(2) H.equip_or_collect(new /obj/item/weapon/storage/backpack/captain(H), slot_back)
-			if(3) H.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel_cap(H), slot_back)
-			if(4) H.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel(H), slot_back)
-		H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H), slot_in_backpack)
-		var/obj/item/clothing/under/U = new /obj/item/clothing/under/rank/captain(H)
+	outfit = /datum/outfit/job/captain
+
+/datum/job/captain/get_access()
+	return get_all_accesses()
+
+/datum/job/captain/announce(mob/living/carbon/human/H)
+	. = ..()
+	captain_announcement.Announce("All hands, Captain [H.real_name] on deck!")
+	callHook("captain_spawned", list("captain" = H))
+
+/datum/outfit/job/captain
+	name = "Captain"
+	jobtype = /datum/job/captain
+
+	uniform = /obj/item/clothing/under/rank/captain
+	suit = /obj/item/clothing/suit/armor/vest/capcarapace
+	shoes = /obj/item/clothing/shoes/brown
+	head = /obj/item/clothing/head/caphat
+	l_ear = /obj/item/device/radio/headset/heads/captain/alt
+	glasses = /obj/item/clothing/glasses/sunglasses
+	id = /obj/item/weapon/card/id/gold
+	pda = /obj/item/device/pda/captain
+	backpack_contents = list(
+		/obj/item/weapon/storage/box/ids = 1,
+		/obj/item/weapon/melee/classic_baton/telescopic = 1
+	)
+
+	implants = list(/obj/item/weapon/implant/loyalty)
+
+	backpack = /obj/item/weapon/storage/backpack/captain
+	satchel = /obj/item/weapon/storage/backpack/satchel_cap
+	dufflebag = /obj/item/weapon/storage/backpack/duffel/captain
+
+/datum/outfit/job/captain/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	. = ..()
+	if(H && H.w_uniform)
+		var/obj/item/clothing/under/U = H.w_uniform
 		var/obj/item/clothing/accessory/medal/gold/captain/M = new /obj/item/clothing/accessory/medal/gold/captain(U)
 		U.accessories += M
 		M.on_attached(U)
-		H.equip_or_collect(U, slot_w_uniform)
-		H.equip_or_collect(new /obj/item/device/pda/captain(H), slot_wear_pda)
-		H.equip_or_collect(new /obj/item/clothing/suit/armor/vest/capcarapace(H), slot_wear_suit)
-		H.equip_or_collect(new /obj/item/clothing/shoes/brown(H), slot_shoes)
-		H.equip_or_collect(new /obj/item/clothing/head/caphat(H), slot_head)
-		H.equip_or_collect(new /obj/item/clothing/glasses/sunglasses(H), slot_glasses)
-		H.equip_or_collect(new /obj/item/weapon/storage/box/ids(H), slot_in_backpack)
-		H.equip_or_collect(new /obj/item/weapon/melee/classic_baton/telescopic(H), slot_in_backpack)
-		var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(H)
-		L.imp_in = H
-		L.implanted = 1
-		H.sec_hud_set_implants()
-		captain_announcement.Announce("All hands, Captain [H.real_name] on deck!")
-		callHook("captain_spawned", list("captain" = H))
-		return 1
-
-	get_access()
-		return get_all_accesses()
 
 
 
@@ -56,7 +65,6 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 0)
 	spawn_positions = 1
 	supervisors = "the captain"
 	selection_color = "#ddddff"
-	idtype = /obj/item/weapon/card/id/silver
 	req_admin_notify = 1
 	is_command = 1
 	minimal_player_age = 21
@@ -75,22 +83,25 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 0)
 			            access_theatre, access_chapel_office, access_library, access_research, access_mining, access_heads_vault, access_mining_station,
 			            access_clown, access_mime, access_hop, access_RC_announce, access_keycard_auth, access_gateway, access_weapons, access_mineral_storeroom)
 
+	outfit = /datum/outfit/job/hop
 
-	equip(var/mob/living/carbon/human/H)
-		if(!H)	return 0
-		H.equip_or_collect(new /obj/item/device/radio/headset/heads/hop(H), slot_l_ear)
-		switch(H.backbag)
-			if(2) H.equip_or_collect(new /obj/item/weapon/storage/backpack(H), slot_back)
-			if(3) H.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel_norm(H), slot_back)
-			if(4) H.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel(H), slot_back)
-		H.equip_or_collect(new /obj/item/clothing/under/rank/head_of_personnel(H), slot_w_uniform)
-		H.equip_or_collect(new /obj/item/clothing/head/hopcap(H), slot_head)
-		H.equip_or_collect(new /obj/item/clothing/shoes/brown(H), slot_shoes)
-		H.equip_or_collect(new /obj/item/device/pda/heads/hop(H), slot_wear_pda)
-		H.equip_or_collect(new /obj/item/weapon/storage/box/ids(H), slot_in_backpack)
-		H.equip_or_collect(new /obj/item/weapon/melee/classic_baton/telescopic(H), slot_in_backpack)
-		H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H), slot_in_backpack)
-		return 1
+/datum/outfit/job/hop
+	name = "Head of Personnel"
+	jobtype = /datum/job/hop
+
+	uniform = /obj/item/clothing/under/rank/head_of_personnel
+	shoes = /obj/item/clothing/shoes/brown
+	head = /obj/item/clothing/head/hopcap
+	l_ear = /obj/item/device/radio/headset/heads/hop
+	id = /obj/item/weapon/card/id/silver
+	pda = /obj/item/device/pda/heads/hop
+	backpack_contents = list(
+		/obj/item/weapon/storage/box/ids = 1,
+		/obj/item/weapon/melee/classic_baton/telescopic = 1
+	)
+
+	implants = list()
+
 
 
 /datum/job/nanotrasenrep
@@ -101,7 +112,6 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 0)
 	spawn_positions = 1
 	supervisors = "the command staff"
 	selection_color = "#ddddff"
-	idtype = /obj/item/weapon/card/id/nanotrasen
 	req_admin_notify = 1
 	is_command = 1
 	minimal_player_age = 21
@@ -118,25 +128,26 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 0)
 			            access_theatre, access_chapel_office, access_library, access_research, access_mining, access_heads_vault, access_mining_station,
 			            access_clown, access_mime, access_hop, access_RC_announce, access_keycard_auth, access_gateway, access_weapons, access_ntrep)
 
-	equip(var/mob/living/carbon/human/H)
-		if(!H)	return 0
-		H.equip_or_collect(new /obj/item/device/radio/headset/heads/ntrep(H), slot_l_ear)
-		switch(H.backbag)
-			if(2) H.equip_or_collect(new /obj/item/weapon/storage/backpack(H), slot_back)
-			if(3) H.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel_norm(H), slot_back)
-			if(4) H.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel(H), slot_back)
-		H.equip_or_collect(new /obj/item/weapon/melee/classic_baton/ntcane(H), slot_in_backpack)
-		H.equip_or_collect(new /obj/item/weapon/lighter/zippo/nt_rep(H), slot_in_backpack)
-		H.equip_or_collect(new /obj/item/clothing/under/rank/ntrep(H), slot_w_uniform)
-		H.equip_or_collect(new /obj/item/clothing/suit/storage/ntrep(H), slot_wear_suit)
-		H.equip_or_collect(new /obj/item/clothing/shoes/centcom(H), slot_shoes)
-		H.equip_or_collect(new /obj/item/device/pda/heads/ntrep(H), slot_wear_pda)
-		H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H), slot_in_backpack)
-		var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(H)
-		L.imp_in = H
-		L.implanted = 1
-		H.sec_hud_set_implants()
-		return 1
+	outfit = /datum/outfit/job/nanotrasenrep
+
+/datum/outfit/job/nanotrasenrep
+	name = "Nanotrasen Representative"
+	jobtype = /datum/job/nanotrasenrep
+
+	uniform = /obj/item/clothing/under/rank/ntrep
+	suit = /obj/item/clothing/suit/storage/ntrep
+	shoes = /obj/item/clothing/shoes/centcom
+	l_ear = /obj/item/device/radio/headset/heads/ntrep
+	id = /obj/item/weapon/card/id/nanotrasen
+	l_pocket = /obj/item/weapon/lighter/zippo/nt_rep
+	pda = /obj/item/device/pda/heads/ntrep
+	backpack_contents = list(
+		/obj/item/weapon/melee/classic_baton/ntcane = 1
+	)
+
+	implants = list(/obj/item/weapon/implant/loyalty)
+
+
 
 /datum/job/blueshield
 	title = "Blueshield"
@@ -146,7 +157,6 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 0)
 	spawn_positions = 1
 	supervisors = "the Nanotrasen representative"
 	selection_color = "#ddddff"
-	idtype = /obj/item/weapon/card/id/nanotrasen
 	req_admin_notify = 1
 	is_command = 1
 	minimal_player_age = 21
@@ -159,27 +169,29 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 0)
 	minimal_access = list(access_forensics_lockers, access_sec_doors, access_medical, access_construction, access_engine, access_maint_tunnels, access_research,
 			            access_RC_announce, access_keycard_auth, access_heads, access_blueshield, access_weapons)
 
-	equip(var/mob/living/carbon/human/H)
-		if(!H)	return 0
-		H.equip_or_collect(new /obj/item/device/radio/headset/heads/blueshield/alt(H), slot_l_ear)
-		switch(H.backbag)
-			if(2) H.equip_or_collect(new /obj/item/weapon/storage/backpack/security(H), slot_back)
-			if(3) H.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel_norm(H), slot_back)
-			if(4) H.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel(H), slot_back)
-		H.equip_or_collect(new /obj/item/clothing/gloves/combat(H), slot_gloves)
-		H.equip_or_collect(new /obj/item/clothing/shoes/jackboots(H), slot_shoes)
-		H.equip_or_collect(new /obj/item/clothing/glasses/hud/health/health_advanced, slot_glasses)
-		H.equip_or_collect(new /obj/item/clothing/under/rank/blueshield(H), slot_w_uniform)
-		H.equip_or_collect(new /obj/item/clothing/suit/armor/vest/blueshield(H), slot_wear_suit)
-		H.equip_or_collect(new /obj/item/device/pda/heads/blueshield(H), slot_wear_pda)
-		H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H), slot_in_backpack)
-		H.equip_or_collect(new /obj/item/weapon/storage/box/deathimp(H), slot_in_backpack)
-		H.equip_or_collect(new /obj/item/weapon/gun/energy/gun/blueshield(H), slot_in_backpack)
-		var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(H)
-		L.imp_in = H
-		L.implanted = 1
-		H.sec_hud_set_implants()
-		return 1
+	outfit = /datum/outfit/job/blueshield
+
+/datum/outfit/job/blueshield
+	name = "Blueshield"
+	jobtype = /datum/job/blueshield
+
+	uniform = /obj/item/clothing/under/rank/blueshield
+	suit = /obj/item/clothing/suit/armor/vest/blueshield
+	gloves = /obj/item/clothing/gloves/combat
+	shoes = /obj/item/clothing/shoes/jackboots
+	l_ear = /obj/item/device/radio/headset/heads/blueshield/alt
+	glasses = /obj/item/clothing/glasses/hud/health/health_advanced
+	id = /obj/item/weapon/card/id/nanotrasen
+	pda = /obj/item/device/pda/heads/blueshield
+	backpack_contents = list(
+		/obj/item/weapon/storage/box/deathimp = 1,
+		/obj/item/weapon/gun/energy/gun/blueshield = 1
+	)
+
+	implants = list(/obj/item/weapon/implant/loyalty)
+
+	backpack = /obj/item/weapon/storage/backpack/security
+
 
 /datum/job/judge
 	title = "Magistrate"
@@ -189,7 +201,6 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 0)
 	spawn_positions = 1
 	supervisors = "the Nanotrasen Supreme Court"
 	selection_color = "#ddddff"
-	idtype = /obj/item/weapon/card/id/nanotrasen
 	req_admin_notify = 1
 	is_legal = 1
 	minimal_player_age = 30
@@ -201,27 +212,28 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 0)
 			            access_clown, access_mime, access_hop, access_RC_announce, access_keycard_auth, access_gateway, access_magistrate)
 	minimal_access = list(access_security, access_sec_doors, access_brig, access_court, access_maint_tunnels, access_lawyer, access_magistrate)
 
-	equip(var/mob/living/carbon/human/H)
-		if(!H)	return 0
-		H.equip_or_collect(new /obj/item/device/radio/headset/heads/magistrate/alt(H), slot_l_ear)
-		switch(H.backbag)
-			if(2) H.equip_or_collect(new /obj/item/weapon/storage/backpack(H), slot_back)
-			if(3) H.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel_norm(H), slot_back)
-			if(4) H.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel(H), slot_back)
-		H.equip_or_collect(new /obj/item/clothing/under/suit_jacket/really_black(H), slot_w_uniform)
-		H.equip_or_collect(new /obj/item/clothing/suit/judgerobe(H), slot_wear_suit)
-		H.equip_or_collect(new /obj/item/clothing/shoes/centcom(H), slot_shoes)
-		H.equip_or_collect(new /obj/item/clothing/head/powdered_wig(H), slot_head)
-		H.equip_or_collect(new /obj/item/clothing/glasses/hud/security/sunglasses(H), slot_glasses)
-		H.equip_or_collect(new /obj/item/device/pda/heads/magistrate(H), slot_wear_pda)
-		H.equip_or_collect(new /obj/item/weapon/melee/classic_baton/telescopic(H), slot_in_backpack)
-		H.equip_or_collect(new /obj/item/device/flash(H), slot_r_store)
-		H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H), slot_in_backpack)
-		var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(H)
-		L.imp_in = H
-		L.implanted = 1
-		H.sec_hud_set_implants()
-		return 1
+	outfit = /datum/outfit/job/judge
+
+/datum/outfit/job/judge
+	name = "Magistrate"
+	jobtype = /datum/job/judge
+
+	uniform = /obj/item/clothing/under/suit_jacket/really_black
+	suit = /obj/item/clothing/suit/judgerobe
+	shoes = /obj/item/clothing/shoes/centcom
+	head = /obj/item/clothing/head/powdered_wig
+	l_ear = /obj/item/device/radio/headset/heads/magistrate/alt
+	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
+	id = /obj/item/weapon/card/id/nanotrasen
+	l_pocket = /obj/item/device/flash
+	pda = /obj/item/device/pda/heads/magistrate
+	backpack_contents = list(
+		/obj/item/weapon/melee/classic_baton/telescopic = 1
+	)
+
+	implants = list(/obj/item/weapon/implant/loyalty)
+
+
 
 //var/global/lawyer = 0//Checks for another lawyer //This changed clothes on 2nd lawyer, both IA get the same dreds.
 /datum/job/lawyer
@@ -239,26 +251,21 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 0)
 	minimal_player_age = 30
 	exp_requirements = 300
 	exp_type = EXP_TYPE_CREW
-	idtype = /obj/item/weapon/card/id/security
+	outfit = /datum/outfit/job/lawyer
 
-	equip(var/mob/living/carbon/human/H)
-		if(!H)	return 0
-		H.equip_or_collect(new /obj/item/device/radio/headset/headset_sec/alt(H), slot_l_ear)
-		switch(H.backbag)
-			if(2) H.equip_or_collect(new /obj/item/weapon/storage/backpack(H), slot_back)
-			if(3) H.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel_norm(H), slot_back)
-			if(4) H.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel(H), slot_back)
-		H.equip_or_collect(new /obj/item/clothing/under/rank/internalaffairs(H), slot_w_uniform)
-		H.equip_or_collect(new /obj/item/clothing/suit/storage/internalaffairs(H), slot_wear_suit)
-		H.equip_or_collect(new /obj/item/clothing/shoes/brown(H), slot_shoes)
-		H.equip_or_collect(new /obj/item/clothing/glasses/hud/security/sunglasses(H), slot_glasses)
-		H.equip_or_collect(new /obj/item/device/pda/lawyer(H), slot_wear_pda)
-		H.equip_or_collect(new /obj/item/weapon/storage/briefcase(H), slot_l_hand)
-		H.equip_or_collect(new /obj/item/device/laser_pointer(H), slot_l_store)
-		H.equip_or_collect(new /obj/item/device/flash(H), slot_r_store)
-		H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H), slot_in_backpack)
-		var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(H)
-		L.imp_in = H
-		L.implanted = 1
-		H.sec_hud_set_implants()
-		return 1
+/datum/outfit/job/lawyer
+	name = "Internal Affairs Agent"
+	jobtype = /datum/job/lawyer
+
+	uniform = /obj/item/clothing/under/rank/internalaffairs
+	suit = /obj/item/clothing/suit/storage/internalaffairs
+	shoes = /obj/item/clothing/shoes/brown
+	l_ear = /obj/item/device/radio/headset/headset_sec/alt
+	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
+	id = /obj/item/weapon/card/id/security
+	l_pocket = /obj/item/device/laser_pointer
+	r_pocket = /obj/item/device/flash
+	l_hand = /obj/item/weapon/storage/briefcase
+	pda = /obj/item/device/pda/lawyer
+
+	implants = list(/obj/item/weapon/implant/loyalty)

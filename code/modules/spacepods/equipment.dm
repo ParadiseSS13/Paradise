@@ -28,9 +28,8 @@
 					firstloc = get_turf(my_atom)
 					secondloc = get_step(firstloc,NORTH)
 		olddir = dir
-		var/proj_type = text2path(projectile_type)
-		var/obj/item/projectile/projone = new proj_type(firstloc)
-		var/obj/item/projectile/projtwo = new proj_type(secondloc)
+		var/obj/item/projectile/projone = new projectile_type(firstloc)
+		var/obj/item/projectile/projtwo = new projectile_type(secondloc)
 		projone.starting = get_turf(my_atom)
 		projone.firer = usr
 		projone.def_zone = "chest"
@@ -79,7 +78,7 @@
 	desc = "You shouldn't be seeing this"
 	icon = 'icons/vehicles/spacepod.dmi'
 	icon_state = "blank"
-	var/projectile_type
+	var/obj/item/projectile/projectile_type
 	var/shot_cost = 0
 	var/shots_per = 1
 	var/fire_sound
@@ -89,7 +88,7 @@
 	name = "disabler system"
 	desc = "A weak taser system for space pods, fires disabler beams."
 	icon_state = "weapon_taser"
-	projectile_type = "/obj/item/projectile/beam/disabler"
+	projectile_type = /obj/item/projectile/beam/disabler
 	shot_cost = 400
 	fire_sound = 'sound/weapons/Taser.ogg'
 
@@ -97,7 +96,7 @@
 	name = "burst taser system"
 	desc = "A weak taser system for space pods, this one fires 3 at a time."
 	icon_state = "weapon_burst_taser"
-	projectile_type = "/obj/item/projectile/beam/disabler"
+	projectile_type = /obj/item/projectile/beam/disabler
 	shot_cost = 1200
 	shots_per = 3
 	fire_sound = 'sound/weapons/Taser.ogg'
@@ -107,7 +106,7 @@
 	name = "laser system"
 	desc = "A weak laser system for space pods, fires concentrated bursts of energy"
 	icon_state = "weapon_laser"
-	projectile_type = "/obj/item/projectile/beam"
+	projectile_type = /obj/item/projectile/beam
 	shot_cost = 600
 	fire_sound = 'sound/weapons/Laser.ogg'
 
@@ -117,7 +116,7 @@
 	desc = "A weak mining laser system for space pods, fires bursts of energy that cut through rock"
 	icon = 'icons/goonstation/pods/ship.dmi'
 	icon_state = "pod_taser"
-	projectile_type = "/obj/item/projectile/kinetic"
+	projectile_type = /obj/item/projectile/kinetic/pod
 	shot_cost = 300
 	fire_delay = 14
 	fire_sound = 'sound/weapons/Kenetic_accel.ogg'
@@ -127,7 +126,7 @@
 	desc = "A mining laser system for space pods, fires bursts of energy that cut through rock"
 	icon = 'icons/goonstation/pods/ship.dmi'
 	icon_state = "pod_m_laser"
-	projectile_type = "/obj/item/projectile/kinetic/super"
+	projectile_type = /obj/item/projectile/kinetic/pod/regular
 	shot_cost = 250
 	fire_delay = 10
 	fire_sound = 'sound/weapons/Kenetic_accel.ogg'
@@ -137,7 +136,7 @@
 	desc = "An enhanced mining laser system for space pods, fires bursts of energy that cut through rock"
 	icon = 'icons/goonstation/pods/ship.dmi'
 	icon_state = "pod_w_laser"
-	projectile_type = "/obj/item/projectile/kinetic/hyper"
+	projectile_type = /obj/item/projectile/kinetic/pod/enhanced
 	shot_cost = 200
 	fire_delay = 8
 	fire_sound = 'sound/weapons/Kenetic_accel.ogg'

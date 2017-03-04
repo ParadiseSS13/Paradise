@@ -1,4 +1,3 @@
-
 var/global/list/ts_ckey_blacklist = list()
 var/global/ts_count_dead = 0
 var/global/ts_count_alive_awaymission = 0
@@ -43,6 +42,15 @@ var/global/list/ts_spiderling_list = list()
 
 	// Ventcrawling
 	ventcrawler = 1 // allows player ventcrawling
+	var/ai_ventcrawls = 1
+	var/idle_ventcrawl_chance = 3 // default 3% chance to ventcrawl when not in combat to a random exit vent
+	var/freq_ventcrawl_combat = 1800 // 3 minutes
+	var/freq_ventcrawl_idle =  9000 // 15 minutes
+	var/last_ventcrawl_time = -9000 // Last time the spider crawled. Used to prevent excessive crawling. Setting to freq*-1 ensures they can crawl once on spawn.
+
+	// AI movement tracking
+	var/spider_steps_taken = 0 // leave at 0, its a counter for ai steps taken.
+	var/spider_max_steps = 15 // after we take X turns trying to do something, give up!
 
 	// Speech
 	speak_chance = 0 // quiet but deadly
@@ -71,15 +79,35 @@ var/global/list/ts_spiderling_list = list()
 	aggro_vision_range = 10
 	see_in_dark = 10
 	nightvision = 1
-	vision_type = new /datum/vision_override/nightvision/thermals/ling_augmented_eyesight
 	see_invisible = 5
+	sight = SEE_MOBS
+
+	// AI aggression settings
+	var/ai_type = TS_AI_AGGRESSIVE // 0 = aggressive to everyone, 1 = defends self only
+	var/ai_target_method = TS_DAMAGE_SIMPLE
 
 	// AI player control by ghosts
 	var/ai_playercontrol_allowtype = 1 // if 0, this specific class of spider is not player-controllable. Default set in code for each class, cannot be changed.
 
+	var/ai_break_lights = 1 // AI lightbreaking behavior
+	var/freq_break_light = 600
+	var/last_break_light = 0 // leave this, changed by procs.
+
+	var/ai_spins_webs = 1 // AI web-spinning behavior
+	var/freq_spins_webs = 600
+	var/last_spins_webs = 0 // leave this, changed by procs.
+	var/delay_web = 40 // delay between starting to spin web, and finishing
+
+	var/freq_cocoon_object = 1200 // two minutes between each attempt
+	var/last_cocoon_object = 0 // leave this, changed by procs.
+
+	var/prob_ai_hides_in_vents = 15 // probabily of a gray spider hiding in a vent
+
 	var/spider_opens_doors = 1 // all spiders can open firedoors (they have no security). 1 = can open depowered doors. 2 = can open powered doors
 	faction = list("terrorspiders")
 	var/spider_awaymission = 0 // if 1, limits certain behavior in away missions
+	var/spider_uo71 = 0 // if 1, spider is in the UO71 away mission
+	var/spider_unlock_id_tag = "" // if defined, unlock awaymission blast doors with this tag on death
 	var/spider_role_summary = "UNDEFINED"
 	var/spider_placed = 0
 
@@ -90,16 +118,18 @@ var/global/list/ts_spiderling_list = list()
 	var/obj/machinery/atmospherics/unary/vent_pump/nest_vent // home vent, usually used by queens
 	var/fed = 0
 	var/travelling_in_vent = 0
+	var/list/enemies = list()
+	var/path_to_vent = 0
 	var/killcount = 0
 	var/busy = 0 // leave this alone!
 	var/spider_tier = TS_TIER_1 // 1 for red,gray,green. 2 for purple,black,white, 3 for prince, mother. 4 for queen
 	var/hasdied = 0
+	var/list/spider_special_drops = list()
 	var/attackstep = 0
 	var/attackcycles = 0
 	var/spider_myqueen = null
 	var/mylocation = null
 	var/chasecycles = 0
-	var/last_cocoon_object = 0 // leave this, changed by procs.
 
 	var/datum/action/innate/terrorspider/web/web_action
 	var/datum/action/innate/terrorspider/wrap/wrap_action
@@ -124,13 +154,15 @@ var/global/list/ts_spiderling_list = list()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/AttackingTarget()
 	if(isterrorspider(target))
+		if(target in enemies)
+			enemies -= target
 		var/mob/living/simple_animal/hostile/poison/terror_spider/T = target
 		if(T.spider_tier > spider_tier)
-			visible_message("<span class='notice'>[src] bows in respect for the terrifying presence of [target].</span>")
+			visible_message("<span class='notice'>[src] cowers before [target].</span>")
 		else if(T.spider_tier == spider_tier)
 			visible_message("<span class='notice'>[src] nuzzles [target].</span>")
 		else if(T.spider_tier < spider_tier && spider_tier >= 4)
-			visible_message("<span class='notice'>[src] gives [target] a stern look.</span>")
+			target.attack_animal(src)
 		else
 			visible_message("<span class='notice'>[src] harmlessly nuzzles [target].</span>")
 		T.CheckFaction()
@@ -223,6 +255,15 @@ var/global/list/ts_spiderling_list = list()
 	if(is_away_level(z))
 		spider_awaymission = 1
 		ts_count_alive_awaymission++
+		if(spider_tier >= 3)
+			ai_ventcrawls = 0 // means that pre-spawned bosses on away maps won't ventcrawl. Necessary to keep prince/mother in one place.
+		if(istype(get_area(src), /area/awaymission/UO71)) // if we are playing the away mission with our special spiders...
+			spider_uo71 = 1
+			if(world.time < 600)
+				// these are static spiders, specifically for the UO71 away mission, make them stay in place
+				ai_ventcrawls = 0
+				spider_placed = 1
+				wander = 0
 	else
 		ts_count_alive_station++
 	// after 30 seconds, assuming nobody took control of it yet, offer it to ghosts.

@@ -475,7 +475,9 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 
 				// Copy the signal.data entries we want
 				log.parameters["mobtype"] = signal.data["mobtype"]
+				log.parameters["race"] = signal.data["race"]
 				log.parameters["job"] = signal.data["job"]
+				log.parameters["language"] = signal.data["language"]
 				log.parameters["key"] = signal.data["key"]
 				log.parameters["vmessage"] = signal.data["message"]
 				log.parameters["vname"] = signal.data["vname"]
