@@ -35,6 +35,9 @@
 	add_fingerprint(user)
 	ui_interact(user)
 
+/obj/structure/dispenser/attack_ghost(mob/user)
+	ui_interact(user)
+
 /obj/structure/dispenser/ui_interact(mob/user, ui_key = "main", datum/nanoui/ui = null, force_open = 1, var/master_ui = null, var/datum/topic_state/state = default_state)
 	user.set_machine(src)
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
@@ -83,30 +86,35 @@
 	if(..())
 		return 1
 
-	if(href_list["oxygen"])
-		if(oxygentanks > 0)
-			var/obj/item/weapon/tank/oxygen/O
-			if(oxytanks.len == oxygentanks)
-				O = oxytanks[1]
-				oxytanks.Remove(O)
-			else
-				O = new /obj/item/weapon/tank/oxygen(loc)
-			O.forceMove(get_turf(src))
-			to_chat(usr, "<span class='notice'>You take [O] out of [src].</span>")
-			oxygentanks--
-			update_icon()
-	if(href_list["plasma"])
-		if(plasmatanks > 0)
-			var/obj/item/weapon/tank/plasma/P
-			if(platanks.len == plasmatanks)
-				P = platanks[1]
-				platanks.Remove(P)
-			else
-				P = new /obj/item/weapon/tank/plasma(loc)
-			P.forceMove(get_turf(src))
-			to_chat(usr, "<span class='notice'>You take [P] out of [src].</span>")
-			plasmatanks--
-			update_icon()
-
-	nanomanager.update_uis(src)
+	if(Adjacent(usr))
+		usr.set_machine(src)
+		if(href_list["oxygen"])
+			if(oxygentanks > 0)
+				var/obj/item/weapon/tank/oxygen/O
+				if(oxytanks.len == oxygentanks)
+					O = oxytanks[1]
+					oxytanks.Remove(O)
+				else
+					O = new /obj/item/weapon/tank/oxygen(loc)
+				O.loc = loc
+				to_chat(usr, "<span class='notice'>You take [O] out of [src].</span>")
+				oxygentanks--
+				update_icon()
+		if(href_list["plasma"])
+			if(plasmatanks > 0)
+				var/obj/item/weapon/tank/plasma/P
+				if(platanks.len == plasmatanks)
+					P = platanks[1]
+					platanks.Remove(P)
+				else
+					P = new /obj/item/weapon/tank/plasma(loc)
+				P.loc = loc
+				to_chat(usr, "<span class='notice'>You take [P] out of [src].</span>")
+				plasmatanks--
+				update_icon()
+		add_fingerprint(usr)
+		updateUsrDialog()
+		nanomanager.update_uis(src)
+	else
+		nanomanager.close_user_uis(usr,src)
 	return 1
