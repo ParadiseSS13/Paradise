@@ -1,5 +1,0 @@
-author: "Markolie"
-delete-after: True
-changes: 
-  - rscadd: "Ghosts can now interact with ore dispensers, mining equipment vendors and laptop vendors."
-  - rscadd: "Admins can now interact with crates, closets, false walls and conveyor switches if they have advanced interaction enabled."
