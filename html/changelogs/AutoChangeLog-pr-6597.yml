@@ -1,4 +1,0 @@
-author: "davipatury"
-delete-after: True
-changes: 
-  - rscadd: "Wires now uses Nano-UI."
