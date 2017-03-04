@@ -198,51 +198,32 @@
 	if(!istype(E,/obj/item/organ/external))
 		return
 
-	var/center=get_turf(E)
-	var/germ_count = 0
-
-	germ_count=area_germs(center,4)
-
-	if(tool.blood_DNA) //blood-stained tools
-		germ_count += 30
-
-	if(E.internal_organs.len)
-		germ_count = germ_count / E.internal_organs.len
-		for(var/obj/item/organ/internal/O in E.internal_organs)
-			if(!(O.status & ORGAN_ROBOT))
-				O.germ_level += germ_count
-
-	E.germ_level += germ_count
-	to_chat(world,"germs: [germ_count]")
-
-/proc/area_germs(var/turf/turf,var/range,var/list/L)
-	var adj_germs = 0
 	var/germs = 0
 
-	if(!L)
-		L = list()
-
-	if(!(turf in L))
-		L += turf
-
-		for(var/mob/living/carbon/human/H in turf)
+	for(var/mob/living/carbon/human/H in view(4, E.loc))//germs from people
+		if(AStar(E.loc, H.loc, /turf/proc/Distance, 4, simulated_only = 0))
 			if((!(NO_BREATH in H.mutations) || !(H.species.flags & NO_BREATH)) && !H.wear_mask) //wearing a mask helps preventing people from breathing cooties into open incisions
 				germs+=H.germ_level/4
 
-		for(var/obj/effect/decal/cleanable/M in turf)
-			if(istype(M,/obj/effect/decal/cleanable/dirt))//dirt is too common, its unfair to punish the player unless its a lot of it
+	for(var/obj/effect/decal/cleanable/M in view(4, E.loc))//germs from messes
+		if(AStar(E.loc, M.loc, /turf/proc/Distance, 4, simulated_only = 0))
+			if(istype(M,/obj/effect/decal/cleanable/dirt))//dirt is too common
 				if(prob(15))
-					germs+=5
+					germs++
 			else
-				germs+=5
+				germs++
 
-		if(range > 0)
-			for(var/turf/T in turf.GetAtmosAdjacentTurfs(alldir = 0))
-				adj_germs += area_germs(T,range-1,L)
+	if(tool.blood_DNA) //germs from blood-stained tools
+		germs += 30
 
-		germs += adj_germs
+	if(E.internal_organs.len)
+		germs = germs / E.internal_organs.len
+		for(var/obj/item/organ/internal/O in E.internal_organs)
+			if(!(O.status & ORGAN_ROBOT))
+				O.germ_level += germs
 
-		return germs
+	E.germ_level += germs
+
 
 /proc/sort_surgeries()
 	var/gap = surgery_steps.len
