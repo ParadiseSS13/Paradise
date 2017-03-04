@@ -98,3 +98,7 @@
 /datum/deepfryer_special/fries
 	input = /obj/item/weapon/reagent_containers/food/snacks/grown/potato/wedges
 	output = /obj/item/weapon/reagent_containers/food/snacks/fries
+
+/datum/deepfryer_special/carrotfries
+	input = /obj/item/weapon/reagent_containers/food/snacks/grown/carrot/wedges
+	output = /obj/item/weapon/reagent_containers/food/snacks/carrotfries

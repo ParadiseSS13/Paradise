@@ -22,16 +22,25 @@
 	filling_color = "#FFA500"
 	bitesize_mod = 2
 
-/obj/item/weapon/reagent_containers/food/snacks/grown/carrot/attackby(obj/item/I, mob/user, params)
-	if(is_sharp(I))
-		to_chat(user, "<span class='notice'>You sharpen the carrot into a shiv with [I].</span>")
-		var/obj/item/weapon/kitchen/knife/carrotshiv/Shiv = new /obj/item/weapon/kitchen/knife/carrotshiv
+/obj/item/weapon/reagent_containers/food/snacks/grown/carrot/wedges
+	name = "carrot wedges"
+	desc = "Slices of neatly cut carrot."
+	icon_state = "carrot_wedges"
+	filling_color = "#FFA500"
+	bitesize_mod = 2
+
+
+/obj/item/weapon/reagent_containers/food/snacks/grown/carrot/attackby(obj/item/weapon/W, mob/user, params)
+	if(is_sharp(W))
+		to_chat(user, "<span class='notice'>You cut the carrot into wedges with [W].</span>")
+		var/obj/item/weapon/reagent_containers/food/snacks/grown/carrot/wedges/Wedges = new /obj/item/weapon/reagent_containers/food/snacks/grown/carrot/wedges
 		if(!remove_item_from_storage(user))
 			user.unEquip(src)
-		user.put_in_hands(Shiv)
+		user.put_in_hands(Wedges)
 		qdel(src)
 	else
 		return ..()
+
 
 // Parsnip
 /obj/item/seeds/carrot/parsnip

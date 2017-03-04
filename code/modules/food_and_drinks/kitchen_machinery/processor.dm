@@ -79,10 +79,6 @@
 	input = /obj/item/weapon/reagent_containers/food/snacks/grown/potato
 	output = /obj/item/weapon/reagent_containers/food/snacks/tatortot
 
-/datum/food_processor_process/carrot
-	input = /obj/item/weapon/reagent_containers/food/snacks/grown/carrot
-	output = /obj/item/weapon/reagent_containers/food/snacks/carrotfries
-
 /datum/food_processor_process/soybeans
 	input = /obj/item/weapon/reagent_containers/food/snacks/grown/soybeans
 	output = /obj/item/weapon/reagent_containers/food/snacks/soydope
