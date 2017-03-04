@@ -131,8 +131,10 @@ var/list/wireColours = list("red", "blue", "green", "black", "orange", "brown", 
 							L.put_in_hands(O)
 					else
 						if(istype(I, /obj/item/device/assembly/signaler))
-							L.drop_item()
-							Attach(colour, I)
+							if(L.drop_item())
+								Attach(colour, I)
+							else
+								to_chat(L, "<span class='warning'>[L.get_active_hand()] is stuck to your hand!</span>")
 						else
 							to_chat(L, "<span class='error'>You need a remote signaller!</span>")
 
