@@ -24,7 +24,8 @@
 		if(stat & (BROKEN|NOPOWER))
 			return
 		user.set_machine(src)
-		var/dat = "<TITLE>Telecommunication Server Monitor</TITLE><center><b>Telecommunications Server Monitor</b></center>"
+		var/list/dat = list()
+		dat += "<TITLE>Telecommunication Server Monitor</TITLE><center><b>Telecommunications Server Monitor</b></center>"
 
 		switch(screen)
 
@@ -63,55 +64,16 @@
 				var/i = 0
 				for(var/datum/comm_log_entry/C in SelectedServer.log_entries)
 					i++
-
-
 					// If the log is a speech file
 					if(C.input_type == "Speech File")
-
 						dat += "<li><font color = #008F00>[C.name]</font color>  <font color = #FF0000><a href='?src=[UID()];delete=[i]'>\[X\]</a></font color><br>"
-
-						// -- Determine race of orator --
-
-						var/race			   // The actual race of the mob
-						var/language = "Human" // MMIs, pAIs, Cyborgs and humans all speak Human
-						var/mobtype = C.parameters["mobtype"]
-						var/mob/M = new mobtype
-
-						if(ishuman(M) || isbrain(M))
-							var/mob/living/carbon/human/H = M
-							race = "[H.species.name]"
-
-
-						else if(issmall(M))
-							race = "Monkey"
-							language = race
-
-						else if(issilicon(M) || C.parameters["job"] == "AI") // sometimes M gets deleted prematurely for AIs... just check the job
-							race = "Artificial Life"
-
-						else if(isslime(M)) // NT knows a lot about slimes, but not aliens. Can identify slimes
-							race = "Slime"
-							language = race
-
-						else if(isbot(M))
-							race = "Bot"
-
-						else if(isanimal(M))
-							race = "Domestic Animal"
-							language = race
-
-						else
-							race = "<i>Unidentifiable</i>"
-							language = race
-
-						qdel(M)
 
 						// -- If the orator is a human, or universal translate is active, OR mob has universal speech on --
 
-						if(language == "Human" || universal_translate || C.parameters["uspeech"])
+						if(user.say_understands(null, C.parameters["language"]) || universal_translate || C.parameters["uspeech"])
 							dat += "<u><font color = #18743E>Data type</font color></u>: [C.input_type]<br>"
 							dat += "<u><font color = #18743E>Source</font color></u>: [C.parameters["name"]] (Job: [C.parameters["job"]])<br>"
-							dat += "<u><font color = #18743E>Class</font color></u>: [race]<br>"
+							dat += "<u><font color = #18743E>Class</font color></u>: [C.parameters["race"]]<br>"
 							dat += "<u><font color = #18743E>Contents</font color></u>: \"[C.parameters["message"]]\"<br>"
 
 
@@ -120,7 +82,7 @@
 						else
 							dat += "<u><font color = #18743E>Data type</font color></u>: Audio File<br>"
 							dat += "<u><font color = #18743E>Source</font color></u>: <i>Unidentifiable</i><br>"
-							dat += "<u><font color = #18743E>Class</font color></u>: [race]<br>"
+							dat += "<u><font color = #18743E>Class</font color></u>: [C.parameters["race"]]<br>"
 							dat += "<u><font color = #18743E>Contents</font color></u>: <i>Unintelligble</i><br>"
 
 						dat += "</li><br>"
@@ -136,7 +98,7 @@
 
 
 
-		user << browse(dat, "window=comm_monitor;size=575x400")
+		user << browse(dat.Join(""), "window=comm_monitor;size=575x400")
 		onclose(user, "server_control")
 
 		temp = ""

@@ -71,10 +71,6 @@
 	input = /obj/item/weapon/reagent_containers/food/snacks/meat
 	output = /obj/item/weapon/reagent_containers/food/snacks/meatball
 
-/datum/food_processor_process/potatowedges
-	input = /obj/item/weapon/reagent_containers/food/snacks/grown/potato/wedges
-	output = /obj/item/weapon/reagent_containers/food/snacks/fries
-
 /datum/food_processor_process/sweetpotato
 	input = /obj/item/weapon/reagent_containers/food/snacks/grown/potato/sweet
 	output = /obj/item/weapon/reagent_containers/food/snacks/yakiimo

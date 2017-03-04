@@ -1,9 +1,3 @@
-// Solves problems with lighting updates lagging shit
-// Max constraints on number of updates per doWork():
-#define MAX_LIGHT_UPDATES_PER_WORK   100
-#define MAX_CORNER_UPDATES_PER_WORK  1000
-#define MAX_OVERLAY_UPDATES_PER_WORK 2000
-
 /var/lighting_overlays_initialised = FALSE
 
 /var/list/lighting_update_lights    = list()    // List of lighting sources  queued for update.
@@ -16,10 +10,22 @@
 
 
 /datum/controller/process/lighting
+	// Queues of update counts, waiting to be rolled into stats lists
+	var/list/stats_queues = list(
+		"Source" = list(), "Corner" = list(), "Overlay" = list())
+	// Stats lists
+	var/list/stats_lists = list(
+		"Source" = list(), "Corner" = list(), "Overlay" = list())
+	var/update_stats_every = (1 SECONDS)
+	var/next_stats_update = 0
+	var/stat_updates_to_keep = 5
+
 /datum/controller/process/lighting/setup()
 	name = "lighting"
 
-	schedule_interval = world.tick_lag // run as fast as you possibly can
+	schedule_interval = 0 // run as fast as you possibly can
+	sleep_interval = 10 // Yield every 10% of a tick
+	defer_usage = 80 // Defer at 80% of a tick
 	create_all_lighting_overlays()
 	lighting_overlays_initialised = TRUE
 
@@ -28,17 +34,10 @@
 		doWork(1)
 
 /datum/controller/process/lighting/doWork(roundstart)
-	// Counters
-	var/light_updates   = 0
-	var/corner_updates  = 0
-	var/overlay_updates = 0
 
 	lighting_update_lights_old = lighting_update_lights //We use a different list so any additions to the update lists during a delay from scheck() don't cause things to be cut from the list without being updated.
 	lighting_update_lights = list()
 	for(var/datum/light_source/L in lighting_update_lights_old)
-		if(light_updates >= MAX_LIGHT_UPDATES_PER_WORK && !roundstart)
-			lighting_update_lights += L
-			continue // DON'T break, we're adding stuff back into the update queue.
 
 		if(L.check() || L.destroyed || L.force_update)
 			L.remove_lum()
@@ -52,52 +51,48 @@
 		L.force_update = FALSE
 		L.needs_update = FALSE
 
-		light_updates++
-
 		SCHECK
 
 	lighting_update_corners_old = lighting_update_corners //Same as above.
 	lighting_update_corners = list()
 	for(var/A in lighting_update_corners_old)
-		if(corner_updates >= MAX_CORNER_UPDATES_PER_WORK && !roundstart)
-			lighting_update_corners += A
-			continue // DON'T break, we're adding stuff back into the update queue.
-
 		var/datum/lighting_corner/C = A
 
 		C.update_overlays()
 
 		C.needs_update = FALSE
 
-		corner_updates++
-
 		SCHECK
 
 	lighting_update_overlays_old = lighting_update_overlays //Same as above.
 	lighting_update_overlays = list()
 
-	for(var/atom/movable/lighting_overlay/O in lighting_update_overlays_old)
-		if(overlay_updates >= MAX_OVERLAY_UPDATES_PER_WORK && !roundstart)
-			lighting_update_overlays += O
-			continue // DON'T break, we're adding stuff back into the update queue.
-
+	for(var/A in lighting_update_overlays_old)
+		var/atom/movable/lighting_overlay/O = A
 		O.update_overlay()
 		O.needs_update = 0
-		overlay_updates++
 		SCHECK
 
+	stats_queues["Source"] += lighting_update_lights_old.len
+	stats_queues["Corner"] += lighting_update_corners_old.len
+	stats_queues["Overlay"] += lighting_update_overlays_old.len
 
+	if(next_stats_update <= world.time)
+		next_stats_update = world.time + update_stats_every
+		for(var/stat_name in stats_queues)
+			var/stat_sum = 0
+			var/list/stats_queue = stats_queues[stat_name]
+			for(var/count in stats_queue)
+				stat_sum += count
+			stats_queue.Cut()
 
+			var/list/stats_list = stats_lists[stat_name]
+			stats_list.Insert(1, stat_sum)
+			if(stats_list.len > stat_updates_to_keep)
+				stats_list.Cut(stats_list.len)
 
 /datum/controller/process/lighting/statProcess()
 	..()
-	stat(null, "[all_lighting_sources.len] light sources exist")
-	stat(null, "[all_lighting_corners.len] light corners exist")
-	stat(null, "[global.all_lighting_overlays.len] light overlays exist")
-	stat(null, "[lighting_update_lights.len] lighting sources queued")
-	stat(null, "[lighting_update_corners.len] lighting corners queued")
-	stat(null, "[lighting_update_overlays.len] lighting overlays queued")
-
-#undef MAX_LIGHT_UPDATES_PER_WORK
-#undef MAX_CORNER_UPDATES_PER_WORK
-#undef MAX_OVERLAY_UPDATES_PER_WORK
+	stat(null, "[total_lighting_sources] sources, [total_lighting_corners] corners, [total_lighting_overlays] overlays")
+	for(var/stat_type in stats_lists)
+		stat(null, "[stat_type] updates: [jointext(stats_lists[stat_type], " | ")]")
