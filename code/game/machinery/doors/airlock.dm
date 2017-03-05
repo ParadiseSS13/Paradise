@@ -890,7 +890,7 @@ About the new airlock wires panel:
 				return
 
 			var/time_to_open = 5
-			if(hasPower())
+			if(arePowerSystemsOn())
 				time_to_open = 50
 				playsound(src, 'sound/machines/airlock_alien_prying.ogg',100,1) //is it aliens or just the CE being a dick?
 				if(do_after(user, time_to_open, target = src))
