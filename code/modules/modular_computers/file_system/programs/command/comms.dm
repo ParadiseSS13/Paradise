@@ -99,6 +99,7 @@
 		var/datum/asset/assets = get_asset_datum(/datum/asset/simple/headers)
 		assets.send(user)
 		ui = new(user, src, ui_key, "comm_program.tmpl", "Command and communications program", 575, 500)
+		ui.set_layout_key("program")
 		ui.open()
 
 /datum/computer_file/program/comm/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)

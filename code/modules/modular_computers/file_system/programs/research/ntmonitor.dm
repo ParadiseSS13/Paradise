@@ -15,8 +15,8 @@
 		assets.send(user)
 		ui = new(user, src, ui_key, "ntnet_monitor.tmpl", "NTNet Diagnostics and Monitoring Tool", 575, 700)
 		ui.set_auto_update(1)
+		ui.set_layout_key("program")
 		ui.open()
-
 
 /datum/computer_file/program/ntnetmonitor/Topic(href, list/href_list)
 	if(..())

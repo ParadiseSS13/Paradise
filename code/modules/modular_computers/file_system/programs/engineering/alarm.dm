@@ -41,6 +41,7 @@
 		assets.send(user)
 		ui = new(user, src, ui_key, "alarm_monitor.tmpl", "Alarm Monitoring", 575, 700)
 		ui.set_auto_update(1)
+		ui.set_layout_key("program")
 		ui.open()
 
 /datum/computer_file/program/alarm_monitor/ui_data(mob/user)

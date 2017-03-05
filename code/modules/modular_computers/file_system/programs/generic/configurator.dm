@@ -21,6 +21,7 @@
 		assets.send(user)
 		ui = new(user, src, ui_key, "laptop_configuration.tmpl", "NTOS Configuration Utility", 575, 700)
 		ui.set_auto_update(1)
+		ui.set_layout_key("program")
 		ui.open()
 
 /datum/computer_file/program/computerconfig/ui_data(mob/user)

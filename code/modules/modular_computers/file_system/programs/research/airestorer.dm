@@ -129,6 +129,7 @@
 		assets.send(user)
 		ui = new(user, src, ui_key, "ai_restorer.tmpl", "Integrity Restorer", 600, 400)
 		ui.set_auto_update(1)
+		ui.set_layout_key("program")
 		ui.open()
 
 /datum/computer_file/program/aidiag/kill_program(forced)

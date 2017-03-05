@@ -16,7 +16,78 @@
 	var/netadmin_mode = 0		// Administrator mode (invisible to other users + bypasses passwords)
 
 /datum/computer_file/program/chatclient/New()
+	..()
 	username = "DefaultUser[rand(100, 999)]"
+
+/datum/computer_file/program/chatclient/process_tick()
+	..()
+	if(program_state != PROGRAM_STATE_KILLED)
+		ui_header = "ntnrc_idle.gif"
+		if(channel)
+			// Remember the last message. If there is no message in the channel remember null.
+			last_message = channel.messages.len ? channel.messages[channel.messages.len - 1] : null
+		else
+			last_message = null
+		return 1
+	if(channel && channel.messages && channel.messages.len)
+		ui_header = last_message == channel.messages[channel.messages.len - 1] ? "ntnrc_idle.gif" : "ntnrc_new.gif"
+	else
+		ui_header = "ntnrc_idle.gif"
+
+/datum/computer_file/program/chatclient/kill_program(forced = FALSE)
+	if(channel)
+		channel.remove_client(src)
+		channel = null
+	..()
+
+/datum/computer_file/program/chatclient/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		var/datum/asset/assets = get_asset_datum(/datum/asset/simple/headers)
+		assets.send(user)
+		ui = new(user, src, ui_key, "ntnet_chat.tmpl", "NTNet Relay Chat Client", 575, 700)
+		ui.set_auto_update(1)
+		ui.set_layout_key("program")
+		ui.open()
+
+
+/datum/computer_file/program/chatclient/ui_data(mob/user)
+	if(!ntnet_global || !ntnet_global.chat_channels)
+		return
+
+	var/list/data = get_header_data()
+
+	data["adminmode"] = netadmin_mode
+	if(channel)
+		data["title"] = channel.title
+		var/list/messages[0]
+		for(var/M in channel.messages)
+			messages.Add(list(list(
+				"msg" = M
+			)))
+		data["messages"] = messages
+		var/list/clients[0]
+		for(var/C in channel.clients)
+			var/datum/computer_file/program/chatclient/cl = C
+			clients.Add(list(list(
+				"name" = cl.username
+			)))
+		data["clients"] = clients
+		operator_mode = (channel.operator == src) ? 1 : 0
+		data["is_operator"] = operator_mode || netadmin_mode
+
+	else // Channel selection screen
+		var/list/all_channels[0]
+		for(var/C in ntnet_global.chat_channels)
+			var/datum/ntnet_conversation/conv = C
+			if(conv && conv.title)
+				all_channels.Add(list(list(
+					"chan" = conv.title,
+					"id" = conv.id
+				)))
+		data["all_channels"] = all_channels
+
+	return data
 
 /datum/computer_file/program/chatclient/Topic(href, list/href_list)
 	if(..())
@@ -158,72 +229,3 @@
 				channel.password = ""
 			else
 				channel.password = newpassword
-
-/datum/computer_file/program/chatclient/process_tick()
-	..()
-	if(program_state != PROGRAM_STATE_KILLED)
-		ui_header = "ntnrc_idle.gif"
-		if(channel)
-			// Remember the last message. If there is no message in the channel remember null.
-			last_message = channel.messages.len ? channel.messages[channel.messages.len - 1] : null
-		else
-			last_message = null
-		return 1
-	if(channel && channel.messages && channel.messages.len)
-		ui_header = last_message == channel.messages[channel.messages.len - 1] ? "ntnrc_idle.gif" : "ntnrc_new.gif"
-	else
-		ui_header = "ntnrc_idle.gif"
-
-/datum/computer_file/program/chatclient/kill_program(forced = FALSE)
-	if(channel)
-		channel.remove_client(src)
-		channel = null
-	..()
-
-/datum/computer_file/program/chatclient/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
-	if(!ui)
-		var/datum/asset/assets = get_asset_datum(/datum/asset/simple/headers)
-		assets.send(user)
-		ui = new(user, src, ui_key, "ntnet_chat.tmpl", "NTNet Relay Chat Client", 575, 700)
-		ui.set_auto_update(1)
-		ui.open()
-
-
-/datum/computer_file/program/chatclient/ui_data(mob/user)
-	if(!ntnet_global || !ntnet_global.chat_channels)
-		return
-
-	var/list/data = get_header_data()
-
-	data["adminmode"] = netadmin_mode
-	if(channel)
-		data["title"] = channel.title
-		var/list/messages[0]
-		for(var/M in channel.messages)
-			messages.Add(list(list(
-				"msg" = M
-			)))
-		data["messages"] = messages
-		var/list/clients[0]
-		for(var/C in channel.clients)
-			var/datum/computer_file/program/chatclient/cl = C
-			clients.Add(list(list(
-				"name" = cl.username
-			)))
-		data["clients"] = clients
-		operator_mode = (channel.operator == src) ? 1 : 0
-		data["is_operator"] = operator_mode || netadmin_mode
-
-	else // Channel selection screen
-		var/list/all_channels[0]
-		for(var/C in ntnet_global.chat_channels)
-			var/datum/ntnet_conversation/conv = C
-			if(conv && conv.title)
-				all_channels.Add(list(list(
-					"chan" = conv.title,
-					"id" = conv.id
-				)))
-		data["all_channels"] = all_channels
-
-	return data

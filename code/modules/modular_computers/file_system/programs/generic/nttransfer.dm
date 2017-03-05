@@ -92,6 +92,7 @@ var/global/nttransfer_uid = 0
 		assets.send(user)
 		ui = new(user, src, ui_key, "ntnet_transfer.tmpl", "NTNet P2P Transfer Client", 575, 700)
 		ui.set_auto_update(1)
+		ui.set_layout_key("program")
 		ui.open()
 
 /datum/computer_file/program/nttransfer/Topic(href, list/href_list)

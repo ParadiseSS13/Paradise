@@ -35,6 +35,7 @@
 		assets.send(user)
 		ui = new(user, src, ui_key, "computer_main.tmpl", "NTOS Main menu", 400, 500)
 		ui.set_auto_update(1)
+		ui.set_layout_key("program")
 		ui.open()
 
 
@@ -105,7 +106,6 @@
 		data["PC_programheaders"] = program_headers
 
 	data["PC_stationtime"] = worldtime2text()
-	data["PC_hasheader"] = 1
 	data["PC_showexitprogram"] = active_program ? 1 : 0 // Hides "Exit Program" button on mainscreen
 	return data
 

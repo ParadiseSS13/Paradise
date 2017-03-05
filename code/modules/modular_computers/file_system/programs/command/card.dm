@@ -142,6 +142,7 @@
 		var/datum/asset/assets = get_asset_datum(/datum/asset/simple/headers)
 		assets.send(user)
 		ui = new(user, src, ui_key, "card_prog.tmpl", "ID card modification program", 775, 700)
+		ui.set_layout_key("program")
 		ui.open()
 
 /datum/computer_file/program/card_mod/Topic(href, href_list)

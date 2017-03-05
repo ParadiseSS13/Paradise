@@ -67,6 +67,7 @@
 		assets.send(user)
 		ui = new(user, src, ui_key, "revelation.tmpl", "Revelation Virus", 575, 250)
 		ui.set_auto_update(1)
+		ui.set_layout_key("program")
 		ui.open()
 
 /datum/computer_file/program/revelation/ui_data(mob/user)

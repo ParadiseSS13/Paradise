@@ -110,6 +110,7 @@
 		assets.send(user)
 		ui = new(user, src, ui_key, "ntnet_downloader.tmpl", "NTNet Download Program", 575, 700)
 		ui.set_auto_update(1)
+		ui.set_layout_key("program")
 		ui.open()
 
 /datum/computer_file/program/ntnetdownload/ui_data(mob/user)

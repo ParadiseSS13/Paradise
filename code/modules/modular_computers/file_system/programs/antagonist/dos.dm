@@ -42,6 +42,7 @@
 		assets.send(user)
 		ui = new(user, src, ui_key, "ntnet_dos.tmpl", "DoS Traffic Generator", 575, 250)
 		ui.set_auto_update(1)
+		ui.set_layout_key("program")
 		ui.open()
 
 

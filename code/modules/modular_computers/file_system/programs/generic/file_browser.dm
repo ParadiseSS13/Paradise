@@ -10,6 +10,68 @@
 	var/open_file
 	var/error
 
+/datum/computer_file/program/filemanager/proc/prepare_printjob(t, font = PRINTER_FONT) // Additional stuff to parse if we want to print it and make a happy Head of Personnel. Forms FTW.
+	t = replacetext(t, "\[field\]", "<span class=\"paper_field\"></span>")
+	t = replacetext(t, "\[sign\]", "<span class=\"paper_field\"></span>")
+	t = pencode_to_html(t, sign = 0, fields = 0, deffont = font)
+	return t
+
+/datum/computer_file/program/filemanager/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		var/datum/asset/assets = get_asset_datum(/datum/asset/simple/headers)
+		assets.send(user)
+		ui = new(user, src, ui_key, "file_manager.tmpl", "NTOS File Manager", 575, 700)
+		ui.set_auto_update(1)
+		ui.set_layout_key("program")
+		ui.open()
+
+/datum/computer_file/program/filemanager/ui_data(mob/user)
+	var/list/data = get_header_data()
+
+	var/obj/item/weapon/computer_hardware/hard_drive/HDD = computer.all_components[MC_HDD]
+	var/obj/item/weapon/computer_hardware/hard_drive/portable/RHDD = computer.all_components[MC_SDD]
+	if(error)
+		data["error"] = error
+	if(open_file)
+		var/datum/computer_file/data/file
+
+		if(!computer || !HDD)
+			data["error"] = "I/O ERROR: Unable to access hard drive."
+		else
+			file = HDD.find_file_by_name(open_file)
+			if(!istype(file))
+				data["error"] = "I/O ERROR: Unable to open file."
+			else
+				data["filedata"] = pencode_to_html(file.stored_data, sign = 0, fields = 0)
+				data["filename"] = "[file.filename].[file.filetype]"
+	else
+		if(!computer || !HDD)
+			data["error"] = "I/O ERROR: Unable to access hard drive."
+		else
+			var/list/files[0]
+			for(var/datum/computer_file/F in HDD.stored_files)
+				files.Add(list(list(
+					"name" = F.filename,
+					"type" = F.filetype,
+					"size" = F.size,
+					"undeletable" = F.undeletable
+				)))
+			data["files"] = files
+			if(RHDD)
+				data["usbconnected"] = 1
+				var/list/usbfiles[0]
+				for(var/datum/computer_file/F in RHDD.stored_files)
+					usbfiles.Add(list(list(
+						"name" = F.filename,
+						"type" = F.filetype,
+						"size" = F.size,
+						"undeletable" = F.undeletable
+					)))
+				data["usbfiles"] = usbfiles
+
+	return data
+
 /datum/computer_file/program/filemanager/Topic(href, list/href_list)
 	if(..())
 		return 1
@@ -131,64 +193,3 @@
 				return 1
 			var/datum/computer_file/C = F.clone(0)
 			HDD.store_file(C)
-
-/datum/computer_file/program/filemanager/proc/prepare_printjob(t, font = PRINTER_FONT) // Additional stuff to parse if we want to print it and make a happy Head of Personnel. Forms FTW.
-	t = replacetext(t, "\[field\]", "<span class=\"paper_field\"></span>")
-	t = replacetext(t, "\[sign\]", "<span class=\"paper_field\"></span>")
-	t = pencode_to_html(t, sign = 0, fields = 0, deffont = font)
-	return t
-
-/datum/computer_file/program/filemanager/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
-	if(!ui)
-		var/datum/asset/assets = get_asset_datum(/datum/asset/simple/headers)
-		assets.send(user)
-		ui = new(user, src, ui_key, "file_manager.tmpl", "NTOS File Manager", 575, 700)
-		ui.set_auto_update(1)
-		ui.open()
-
-/datum/computer_file/program/filemanager/ui_data(mob/user)
-	var/list/data = get_header_data()
-
-	var/obj/item/weapon/computer_hardware/hard_drive/HDD = computer.all_components[MC_HDD]
-	var/obj/item/weapon/computer_hardware/hard_drive/portable/RHDD = computer.all_components[MC_SDD]
-	if(error)
-		data["error"] = error
-	if(open_file)
-		var/datum/computer_file/data/file
-
-		if(!computer || !HDD)
-			data["error"] = "I/O ERROR: Unable to access hard drive."
-		else
-			file = HDD.find_file_by_name(open_file)
-			if(!istype(file))
-				data["error"] = "I/O ERROR: Unable to open file."
-			else
-				data["filedata"] = pencode_to_html(file.stored_data, sign = 0, fields = 0)
-				data["filename"] = "[file.filename].[file.filetype]"
-	else
-		if(!computer || !HDD)
-			data["error"] = "I/O ERROR: Unable to access hard drive."
-		else
-			var/list/files[0]
-			for(var/datum/computer_file/F in HDD.stored_files)
-				files.Add(list(list(
-					"name" = F.filename,
-					"type" = F.filetype,
-					"size" = F.size,
-					"undeletable" = F.undeletable
-				)))
-			data["files"] = files
-			if(RHDD)
-				data["usbconnected"] = 1
-				var/list/usbfiles[0]
-				for(var/datum/computer_file/F in RHDD.stored_files)
-					usbfiles.Add(list(list(
-						"name" = F.filename,
-						"type" = F.filetype,
-						"size" = F.size,
-						"undeletable" = F.undeletable
-					)))
-				data["usbfiles"] = usbfiles
-
-	return data
