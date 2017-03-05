@@ -191,7 +191,6 @@
 	build_path = /obj/item/clothing/glasses/hud/hydroponic/night
 	category = list("Equipment")
 	
-
 /datum/design/handdrill
 	name = "Hand Drill"
 	desc = "A small electric hand drill with an interchangable screwdriver and bolt bit"

@@ -207,7 +207,7 @@
 	build_path = /obj/item/weapon/scalpel/alien
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 2000, MAT_SILVER = 1500, MAT_GOLD = 500, MAT_PLASMA = 500)
-	category = list("Medical Designs")
+	category = list("Medical")
 
 /datum/design/alienhemostat
 	name = "Alien Hemostat"
@@ -217,7 +217,7 @@
 	build_path = /obj/item/weapon/hemostat/alien
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 2000, MAT_SILVER = 1500, MAT_GOLD = 500, MAT_PLASMA = 500)
-	category = list("Medical Designs")
+	category = list("Medical")
 
 /datum/design/alienretractor
 	name = "Alien Retractor"
@@ -227,7 +227,7 @@
 	build_path = /obj/item/weapon/retractor/alien
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 2000, MAT_SILVER = 1500, MAT_GOLD = 500, MAT_PLASMA = 500)
-	category = list("Medical Designs")
+	category = list("Medical")
 
 /datum/design/aliensaw
 	name = "Alien Circular Saw"
@@ -237,7 +237,7 @@
 	build_path = /obj/item/weapon/circular_saw/alien
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 10000, MAT_SILVER = 2500, MAT_GOLD = 1000, MAT_PLASMA = 1000)
-	category = list("Medical Designs")
+	category = list("Medical")
 
 /datum/design/aliendrill
 	name = "Alien Drill"
@@ -247,7 +247,7 @@
 	build_path = /obj/item/weapon/surgicaldrill/alien
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 10000, MAT_SILVER = 2500, MAT_GOLD = 1000, MAT_PLASMA = 1000)
-	category = list("Medical Designs")
+	category = list("Medical")
 
 /datum/design/aliencautery
 	name = "Alien Cautery"
@@ -257,7 +257,7 @@
 	build_path = /obj/item/weapon/cautery/alien
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 2000, MAT_SILVER = 1500, MAT_GOLD = 500, MAT_PLASMA = 500)
-	category = list("Medical Designs")
+	category = list("Medical")
 
 /////////////////////////////////////////
 //////////Cybernetic Implants////////////
