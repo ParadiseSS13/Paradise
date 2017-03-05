@@ -41,27 +41,33 @@
 		return TryToSwitchState(user)
 	return
 
-/obj/structure/mineral_door/attack_ai(mob/user as mob) //those aren't machinery, they're just big fucking slabs of a mineral
+/obj/structure/mineral_door/attack_ai(mob/user) //those aren't machinery, they're just big fucking slabs of a mineral
 	if(isAI(user)) //so the AI can't open it
 		return
 	else if(isrobot(user)) //but cyborgs can
 		if(get_dist(user,src) <= 1) //not remotely though
 			return TryToSwitchState(user)
 
-/obj/structure/mineral_door/attack_hand(mob/user as mob)
+/obj/structure/mineral_door/attack_hand(mob/user)
 	return TryToSwitchState(user)
+	
+/obj/structure/mineral_door/attack_ghost(mob/user)
+	if(user.can_advanced_admin_interact())
+		SwitchState()
 
-/obj/structure/mineral_door/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
-	if(air_group) return 0
+/obj/structure/mineral_door/CanPass(atom/movable/mover, turf/target, height = 0, air_group = 0)
+	if(air_group) 
+		return 0
 	if(istype(mover, /obj/effect/beam))
 		return !opacity
 	return !density
 
-/obj/structure/mineral_door/CanAtmosPass()
+/obj/structure/mineral_door/CanAtmosPass(turf/T)
 	return !density
 
 /obj/structure/mineral_door/proc/TryToSwitchState(atom/user)
-	if(isSwitchingStates) return
+	if(isSwitchingStates) 
+		return
 	if(ismob(user))
 		var/mob/M = user
 		if(world.time - user.last_bumped <= 60) return //NOTE do we really need that?
@@ -111,7 +117,7 @@
 	else
 		icon_state = mineralType
 
-/obj/structure/mineral_door/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+/obj/structure/mineral_door/attackby(obj/item/weapon/W, mob/user, params)
 	if(istype(W,/obj/item/weapon/pickaxe))
 		var/obj/item/weapon/pickaxe/digTool = W
 		to_chat(user, "You start digging the [name].")
@@ -164,7 +170,6 @@
 		if(3)
 			hardness -= 0.1
 			CheckHardness()
-	return
 
 /obj/structure/mineral_door/iron
 	mineralType = "metal"
@@ -189,28 +194,28 @@
 /obj/structure/mineral_door/transparent
 	opacity = 0
 
-	Close()
-		..()
-		set_opacity(0)
+/obj/structure/mineral_door/transparent/Close()
+	..()
+	set_opacity(0)
 
 /obj/structure/mineral_door/transparent/plasma
 	mineralType = "plasma"
 
-	attackby(obj/item/weapon/W as obj, mob/user as mob)
-		if(is_hot(W))
-			message_admins("Plasma mineral door ignited by [key_name_admin(user)] in ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
-			log_game("Plasma mineral door ignited by [key_name(user)] in ([x],[y],[z])")
-			TemperatureAct(100)
-		..()
+/obj/structure/mineral_door/transparent/plasma/attackby(obj/item/weapon/W, mob/user)
+	if(is_hot(W))
+		message_admins("Plasma mineral door ignited by [key_name_admin(user)] in ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
+		log_game("Plasma mineral door ignited by [key_name(user)] in ([x],[y],[z])")
+		TemperatureAct(100)
+	..()
 
-	temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
-		if(exposed_temperature > 300)
-			TemperatureAct(exposed_temperature)
+/obj/structure/mineral_door/transparent/plasma/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+	if(exposed_temperature > 300)
+		TemperatureAct(exposed_temperature)
 
-	proc/TemperatureAct(temperature)
-		atmos_spawn_air(SPAWN_HEAT | SPAWN_TOXINS, 500)
-		hardness = 0
-		CheckHardness()
+/obj/structure/mineral_door/transparent/plasma/proc/TemperatureAct(temperature)
+	atmos_spawn_air(SPAWN_HEAT | SPAWN_TOXINS, 500)
+	hardness = 0
+	CheckHardness()
 
 /obj/structure/mineral_door/transparent/diamond
 	mineralType = "diamond"
@@ -222,72 +227,72 @@
 	burn_state = FLAMMABLE
 	burntime = 30
 
-	Open()
-		isSwitchingStates = 1
-		playsound(loc, 'sound/effects/doorcreaky.ogg', 100, 1)
-		flick("[mineralType]opening",src)
-		sleep(10)
-		density = 0
-		set_opacity(0)
-		state = 1
-		update_icon()
-		isSwitchingStates = 0
+/obj/structure/mineral_door/wood/Open()
+	isSwitchingStates = 1
+	playsound(loc, 'sound/effects/doorcreaky.ogg', 100, 1)
+	flick("[mineralType]opening",src)
+	sleep(10)
+	density = 0
+	set_opacity(0)
+	state = 1
+	update_icon()
+	isSwitchingStates = 0
 
-	Close()
-		isSwitchingStates = 1
-		playsound(loc, 'sound/effects/doorcreaky.ogg', 100, 1)
-		flick("[mineralType]closing",src)
-		sleep(10)
-		density = 1
-		set_opacity(1)
-		state = 0
-		update_icon()
-		isSwitchingStates = 0
+/obj/structure/mineral_door/wood/Close()
+	isSwitchingStates = 1
+	playsound(loc, 'sound/effects/doorcreaky.ogg', 100, 1)
+	flick("[mineralType]closing",src)
+	sleep(10)
+	density = 1
+	set_opacity(1)
+	state = 0
+	update_icon()
+	isSwitchingStates = 0
 
-	Dismantle(devastated = 0)
-		if(!devastated)
-			for(var/i = 1, i <= oreAmount, i++)
-				new/obj/item/stack/sheet/wood(get_turf(src))
-		qdel(src)
+/obj/structure/mineral_door/wood/Dismantle(devastated = 0)
+	if(!devastated)
+		for(var/i = 1, i <= oreAmount, i++)
+			new/obj/item/stack/sheet/wood(get_turf(src))
+	qdel(src)
 
 /obj/structure/mineral_door/resin
 	mineralType = "resin"
 	hardness = 1.5
 	var/close_delay = 100
 
-	TryToSwitchState(atom/user)
-		if(isalien(user))
-			return ..()
+/obj/structure/mineral_door/resin/TryToSwitchState(atom/user)
+	if(isalien(user))
+		return ..()
 
-	Open()
-		isSwitchingStates = 1
-		playsound(loc, 'sound/effects/attackblob.ogg', 100, 1)
-		flick("[mineralType]opening",src)
-		sleep(10)
-		density = 0
-		set_opacity(0)
-		state = 1
-		update_icon()
-		isSwitchingStates = 0
+/obj/structure/mineral_door/resin/Open()
+	isSwitchingStates = 1
+	playsound(loc, 'sound/effects/attackblob.ogg', 100, 1)
+	flick("[mineralType]opening",src)
+	sleep(10)
+	density = 0
+	set_opacity(0)
+	state = 1
+	update_icon()
+	isSwitchingStates = 0
 
-		spawn(close_delay)
-			if(!isSwitchingStates && state == 1)
-				Close()
+	spawn(close_delay)
+		if(!isSwitchingStates && state == 1)
+			Close()
 
-	Close()
-		isSwitchingStates = 1
-		playsound(loc, 'sound/effects/attackblob.ogg', 100, 1)
-		flick("[mineralType]closing",src)
-		sleep(10)
-		density = 1
-		set_opacity(1)
-		state = 0
-		update_icon()
-		isSwitchingStates = 0
+/obj/structure/mineral_door/resin/Close()
+	isSwitchingStates = 1
+	playsound(loc, 'sound/effects/attackblob.ogg', 100, 1)
+	flick("[mineralType]closing",src)
+	sleep(10)
+	density = 1
+	set_opacity(1)
+	state = 0
+	update_icon()
+	isSwitchingStates = 0
 
-	Dismantle(devastated = 0)
-		qdel(src)
+/obj/structure/mineral_door/resin/Dismantle(devastated = 0)
+	qdel(src)
 
-	CheckHardness()
-		playsound(loc, 'sound/effects/attackblob.ogg', 100, 1)
-		..()
+/obj/structure/mineral_door/resin/CheckHardness()
+	playsound(loc, 'sound/effects/attackblob.ogg', 100, 1)
+	..()

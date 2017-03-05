@@ -386,7 +386,7 @@
 				var/mob/living/simple_animal/borer/worm = H.has_brain_worms()
 				if(worm.controlling)
 					target.release_control()
-				worm.detatch()
+				worm.detach()
 				worm.leave_host()
 				user.visible_message("a slug like creature wiggles out of [H]'s [target_zone]!")
 

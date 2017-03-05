@@ -193,13 +193,17 @@
 	var/datum/job/J = job_master.GetJobType(jobtype)
 	if(!J)
 		J = job_master.GetJob(H.job)
+	
+	var/alt_title
+	if(H.mind)
+		alt_title = H.mind.role_alt_title
 
 	var/obj/item/weapon/card/id/C = H.wear_id
 	if(istype(C))
 		C.access = J.get_access()
 		C.registered_name = H.real_name
 		C.rank = J.title
-		C.assignment = J.title
+		C.assignment = alt_title ? alt_title : J.title
 		C.sex = capitalize(H.gender)
 		C.age = H.age
 		C.name = "[C.registered_name]'s ID Card ([C.assignment])"

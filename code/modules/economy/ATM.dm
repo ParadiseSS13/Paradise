@@ -119,6 +119,9 @@ log transactions
 		to_chat(user, "<span class='warning'>Artificial unit recognized. Artificial units do not currently receive monetary compensation, as per Nanotrasen regulation #1005.</span>")
 		return
 	ui_interact(user)
+	
+/obj/machinery/atm/attack_ghost(mob/user)
+	ui_interact(user)
 
 /obj/machinery/atm/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	user.set_machine(src)

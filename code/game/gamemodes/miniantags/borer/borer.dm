@@ -43,7 +43,7 @@
 	to_chat(B.host, "<span class='danger'>You feel the captive mind of [src] begin to resist your control.</span>")
 
 	var/delay = (rand(350,450) + B.host.brainloss)
-	addtimer(src, "return_control", delay)
+	addtimer(src, "return_control", delay, FALSE, B)
 
 /mob/living/captive_brain/proc/return_control(mob/living/simple_animal/borer/B)
 	if(!B || !B.controlling)
@@ -53,7 +53,7 @@
 	to_chat(src, "<span class='danger'>With an immense exertion of will, you regain control of your body!</span>")
 	to_chat(B.host, "<span class='danger'>You feel control of the host brain ripped from your grasp, and retract your probosci before the wild neural impulses can damage you.</span>")
 
-	B.detatch()
+	B.detach()
 
 /mob/living/simple_animal/borer
 	name = "cortical borer"
@@ -558,7 +558,7 @@
 	if(!host)
 		return
 	if(controlling)
-		detatch()
+		detach()
 	GrantBorerActions()
 	RemoveInfestActions()
 	forceMove(get_turf(host))
@@ -702,7 +702,7 @@
 	if(B && B.host_brain)
 		to_chat(src, "<span class='danger'>You withdraw your probosci, releasing control of [B.host_brain]</span>")
 
-		B.detatch()
+		B.detach()
 
 	else
 		log_runtime(EXCEPTION("Missing borer or missing host brain upon borer release."), src)
@@ -739,7 +739,7 @@
 		to_chat(src, "You need 100 chemicals to reproduce!")
 		return
 
-/mob/living/simple_animal/borer/proc/detatch()
+/mob/living/simple_animal/borer/proc/detach()
 
 	if(!host || !controlling)
 		return

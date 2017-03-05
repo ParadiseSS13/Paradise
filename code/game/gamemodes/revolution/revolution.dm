@@ -248,7 +248,7 @@
 	rev_mind.current.create_attack_log("<font color='red'>Has been converted to the revolution!</font>")
 	rev_mind.special_role = SPECIAL_ROLE_REV
 	update_rev_icons_added(rev_mind)
-	if(jobban_isbanned(rev_mind.current, ROLE_REV))
+	if(jobban_isbanned(rev_mind.current, ROLE_REV) || jobban_isbanned(rev_mind.current, ROLE_SYNDICATE))
 		replace_jobbaned_player(rev_mind.current, ROLE_REV)
 	return 1
 //////////////////////////////////////////////////////////////////////////////

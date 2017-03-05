@@ -177,6 +177,8 @@ var/list/non_simple_animals = typecacheof(list(/mob/living/carbon/human/monkey,/
 			plants_max = G.plant_count
 			dna_max = G.human_count
 			break
+			
+	..()
 
 /obj/machinery/dna_vault/Destroy()
 	for(var/V in fillers)

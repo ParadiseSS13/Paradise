@@ -156,7 +156,7 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 			update_icon()
 
 /obj/machinery/newscaster/attack_ghost(mob/user)
-	return attack_hand(user)
+	ui_interact(user)
 
 /obj/machinery/newscaster/attack_hand(mob/user)
 	if(..())

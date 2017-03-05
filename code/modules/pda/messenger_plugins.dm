@@ -57,7 +57,9 @@
 		else
 			difficulty += 2
 
-		if(prob(difficulty * 12) || (pda.hidden_uplink))
+		if(!P.detonate)
+			user.show_message("<span class=warning>The target PDA does not seem to respond to the detonation command.</span>", 1)
+		else if(prob(difficulty * 12) || (pda.hidden_uplink))
 			user.show_message("<span class=warning>An error flashes on your [pda].</span>", 1)
 		else if(prob(difficulty * 3))
 			user.show_message("<span class=danger>Energy feeds back into your [pda]!</span>", 1)

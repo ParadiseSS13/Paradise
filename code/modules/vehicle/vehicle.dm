@@ -143,7 +143,7 @@
 	if(has_gravity(src))
 		return 1
 
-	if(pulledby && pulledby != buckled_mob)	// no pulling the vehicle you're driving through space!
+	if(pulledby && !istype(buckled_mob))	// no pulling the vehicle you're driving through space!
 		return 1
 
 	if(needs_gravity)
