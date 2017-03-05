@@ -116,6 +116,11 @@
 	// Allows you to click on a box's contents, if that box is on the ground, but no deeper than that
 	sdepth = A.storage_depth_turf()
 	if(isturf(A) || isturf(A.loc) || (sdepth != -1 && sdepth <= 1))
+		if(ismob(A))
+			var/mob/living/M = A
+			if(isLivingSSD(M) && client && !client.can_harm_ssds() && !isAntag(src))
+				to_chat(src, "<span class='userdanger'>You can't touch SSD crew members. Read the rules.</span>")
+				return
 		if(A.Adjacent(src)) // see adjacent.dm
 			if(W)
 				// Return 1 in attackby() to prevent afterattack() effects (when safely moving items for example, params)

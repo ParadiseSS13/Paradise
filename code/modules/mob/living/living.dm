@@ -643,6 +643,10 @@
 	if(what.flags & NODROP)
 		to_chat(src, "<span class='warning'>You can't remove \the [what.name], it appears to be stuck!</span>")
 		return
+	if(isLivingSSD(who))
+		if(client && !client.can_harm_ssds() && !isAntag(src))
+			to_chat(src, "<span class='userdanger'>You can't remove items from SSD crew members. Read the rules.</span>")
+			return
 	if(!silent)
 		who.visible_message("<span class='danger'>[src] tries to remove [who]'s [what.name].</span>", \
 						"<span class='userdanger'>[src] tries to remove [who]'s [what.name].</span>")

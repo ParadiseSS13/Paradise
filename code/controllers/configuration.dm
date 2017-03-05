@@ -132,6 +132,7 @@
 	var/use_exp_tracking = 0
 	var/use_exp_restrictions = 0
 	var/use_exp_restrictions_admin_bypass = 0
+	var/use_exp_ssd_protect = 0
 
 	var/simultaneous_pm_warning_timeout = 100
 
@@ -259,6 +260,9 @@
 
 				if("use_exp_restrictions_admin_bypass")
 					config.use_exp_restrictions_admin_bypass = 1
+
+				if("use_exp_ssd_protect")
+					config.use_exp_ssd_protect = 1
 
 				if("jobs_have_minimal_access")
 					config.jobs_have_minimal_access = 1
