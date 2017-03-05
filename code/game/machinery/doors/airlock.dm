@@ -830,7 +830,7 @@ About the new airlock wires panel:
 	else if(istype(C, /obj/item/weapon/pai_cable))	// -- TLE
 		var/obj/item/weapon/pai_cable/cable = C
 		cable.plugin(src, user)
-	else if(istype(C, /obj/item/weapon/crowbar) || istype(C, /obj/item/weapon/twohanded/fireaxe) )
+	else if(istype(C, /obj/item/weapon/crowbar) || istype(C, /obj/item/weapon/twohanded/fireaxe))
 		var/beingcrowbarred = null
 		if(istype(C, /obj/item/weapon/crowbar) )
 			beingcrowbarred = 1 //derp, Agouri
@@ -873,6 +873,30 @@ About the new airlock wires panel:
 
 				qdel(src)
 				return
+		else if(istype(C, /obj/item/weapon/crowbar/power))
+			if(isElectrified())
+				shock(user, 100)//it's like sticking a forck in a power socket
+				return
+
+			if(!density)//already open
+				return
+
+			if(locked)
+				to_chat(user, "<span class='warning'>The bolts are down, it won't budge!</span>")
+				return
+
+			if(welded)
+				to_chat(user, "<span class='warning'>It's welded, it won't budge!</span>")
+				return
+
+			var/time_to_open = 5
+			if(hasPower())
+				time_to_open = 50
+				playsound(src, 'sound/machines/airlock_alien_prying.ogg',100,1) //is it aliens or just the CE being a dick?
+				if(do_after(user, time_to_open, target = src))
+					open(2)
+					if(density && !open(2))
+						to_chat(user, "<span class='warning'>Despite your attempts, the [src] refuses to open.</span>")
 		else if(arePowerSystemsOn())
 			to_chat(user, "\blue The airlock's motors resist your efforts to force it.")
 		else if(locked)
