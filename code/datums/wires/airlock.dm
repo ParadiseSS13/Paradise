@@ -6,6 +6,7 @@
 /datum/wires/airlock
 	holder_type = /obj/machinery/door/airlock
 	wire_count = 12
+	window_x = 410
 	window_y = 570
 
 var/const/AIRLOCK_WIRE_IDSCAN = 1
