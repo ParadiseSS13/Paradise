@@ -349,11 +349,11 @@ var/list/uplink_items = list()
 
 // Paper contact poison pen
 
-/datum/uplink_item/stealthy_weapons/poison_pen
+/datum/uplink_item/jobspecific/poison_pen
 	name = "Poison Pen"
 	desc = "Cutting edge of deadly writing implements technology, this gadget will infuse any piece of paper with delayed contact poison."
 	item = /obj/item/weapon/pen/poison
-	cost = 5
+	cost = 2
 	excludefrom = list(/datum/game_mode/nuclear)
 	job = list("Head of Personnel", "Quartermaster", "Cargo Technician")
 

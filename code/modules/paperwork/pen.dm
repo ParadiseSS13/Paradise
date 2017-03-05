@@ -194,7 +194,7 @@
 		to_chat(user, "<span class='warning'>[P] is already coated.</span>")
 	else if(uses_left)
 		uses_left--
-		P.contact_poison = "sarin"
+		P.contact_poison = "amanitin"
 		P.contact_poison_volume = 15
 		P.contact_poison_poisoner = user.name
 		add_logs(user, P, "used poison pen on")
