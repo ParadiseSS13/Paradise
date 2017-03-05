@@ -44,6 +44,10 @@
 //		/obj/item/weapon/paper_bundle,
 		/obj/item/weapon/card/id
 		)
+		
+/obj/item/weapon/gripper/New()
+	..()
+	can_hold = typecacheof(can_hold)
 
 /obj/item/weapon/gripper/attack_self(mob/user as mob)
 	if(wrapped)
@@ -118,10 +122,9 @@
 
 		//Check if the item is blacklisted.
 		var/grab = 0
-		for(var/typepath in can_hold)
-			if(istype(I,typepath))
+		if(can_hold.len)
+			if(is_type_in_typecache(I, can_hold))
 				grab = 1
-				break
 
 		//We can grab the item, finally.
 		if(grab)

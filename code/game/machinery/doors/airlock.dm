@@ -560,6 +560,8 @@ About the new airlock wires panel:
 	return
 
 /obj/machinery/door/airlock/attack_ghost(mob/user)
+	if(p_open)
+		wires.Interact(user)
 	ui_interact(user)
 
 /obj/machinery/door/airlock/attack_ai(mob/user)

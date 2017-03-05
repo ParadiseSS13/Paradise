@@ -745,16 +745,16 @@
 		beenhit += 1
 	return
 
-/obj/machinery/power/apc/attack_ghost(user as mob)
-	if(stat & (BROKEN|MAINT))
-		return
+/obj/machinery/power/apc/attack_ghost(mob/user)
+	if(wiresexposed) 
+		wires.Interact(user)
 	return ui_interact(user)
 
 /obj/machinery/power/apc/interact(mob/user)
 	if(!user)
 		return
 
-	if(wiresexposed /*&& (!istype(user, /mob/living/silicon))*/) //Commented out the typecheck to allow engiborgs to repair damaged apcs.
+	if(wiresexposed)
 		wires.Interact(user)
 
 	return ui_interact(user)

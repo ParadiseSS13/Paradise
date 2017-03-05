@@ -945,9 +945,11 @@ var/list/robot_verbs_default = list(
 				adjustStaminaLoss(damage)
 		updatehealth()
 
+/mob/living/silicon/robot/attack_ghost(mob/user)
+	if(wiresexposed)
+		wires.Interact(user)
 
 /mob/living/silicon/robot/attack_hand(mob/user)
-
 	add_fingerprint(user)
 
 	if(opened && !wiresexposed && (!istype(user, /mob/living/silicon)))

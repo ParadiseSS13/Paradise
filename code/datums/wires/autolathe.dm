@@ -6,6 +6,17 @@ var/const/AUTOLATHE_HACK_WIRE = 1
 var/const/AUTOLATHE_SHOCK_WIRE = 2
 var/const/AUTOLATHE_DISABLE_WIRE = 4
 
+/datum/wires/autolathe/GetWireName(index)
+	switch(index)
+		if(AUTOLATHE_HACK_WIRE)
+			return "Hack"
+		
+		if(AUTOLATHE_SHOCK_WIRE)
+			return "Shock"
+		
+		if(AUTOLATHE_DISABLE_WIRE)
+			return "Disable"
+
 /datum/wires/autolathe/get_status()
 	. = ..()
 	var/obj/machinery/autolathe/A = holder

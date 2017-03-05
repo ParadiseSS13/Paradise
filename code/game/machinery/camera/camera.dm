@@ -107,8 +107,12 @@
 /obj/machinery/camera/blob_act()
 	qdel(src)
 	return
+	
+/obj/machinery/camera/attack_ghost(mob/user)
+	if(panel_open)
+		wires.Interact(user)
 
-/obj/machinery/camera/attack_alien(mob/living/carbon/alien/humanoid/user as mob)
+/obj/machinery/camera/attack_alien(mob/living/carbon/alien/humanoid/user)
 	if(!istype(user))
 		return
 	user.do_attack_animation(src)

@@ -581,9 +581,7 @@
 	return ui_interact(user)
 
 /obj/machinery/alarm/attack_ghost(user as mob)
-	if(stat & (BROKEN|MAINT))
-		return
-	return ui_interact(user)
+	return interact(user)
 
 /obj/machinery/alarm/attack_hand(mob/user)
 	. = ..()
@@ -595,7 +593,7 @@
 	if(buildstage != 2)
 		return
 
-	if(wiresexposed && !istype(user, /mob/living/silicon/ai))
+	if(wiresexposed)
 		wires.Interact(user)
 
 	if(!shorted)

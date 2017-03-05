@@ -3,6 +3,11 @@
 
 var/const/WIRE_EXPLODE = 1
 
+/datum/wires/apc/GetWireName(index)
+	switch(index)
+		if(WIRE_EXPLODE)
+			return "Explode"
+
 /datum/wires/explosive/proc/explode()
 	return
 
