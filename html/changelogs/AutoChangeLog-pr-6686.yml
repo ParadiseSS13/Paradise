@@ -1,4 +1,0 @@
-author: "MarsM0nd"
-delete-after: True
-changes: 
-  - bugfix: "The grey satchel uses now the correct sprite instead of the leather one."

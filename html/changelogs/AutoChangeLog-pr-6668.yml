@@ -1,4 +1,0 @@
-author: "Kyep"
-delete-after: True
-changes: 
-  - tweak: "Antags whose objectives are manually announced by an admin, or altered automatically as a result of their target cryoing, will now hear a warning sound. The sound is the same as the 'crew transfer vote called' sound. Additionally, the text notice for changed objectives is more obvious."
