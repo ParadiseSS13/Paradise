@@ -24,10 +24,11 @@
 
 
 	attackby(obj/item/weapon/aiModule/module as obj, mob/user as mob, params)
-		if(is_away_level(user.z))
-			to_chat(user, "<span class='danger'>Unable to establish a connection</span>: You're too far away from the station!")
-			return
 		if(istype(module, /obj/item/weapon/aiModule))
+			var/turf/T = get_turf(current)
+			if(!atoms_share_level(T, src))
+				to_chat(user, "<span class='danger'>Unable to establish a connection</span>: You're too far away from the target silicon!")
+				return
 			module.install(src)
 		else
 			return ..()
@@ -60,6 +61,10 @@
 
 	attackby(obj/item/weapon/aiModule/module as obj, mob/user as mob, params)
 		if(istype(module, /obj/item/weapon/aiModule))
+			var/turf/T = get_turf(current)
+			if(!atoms_share_level(T, src))
+				to_chat(user, "<span class='danger'>Unable to establish a connection</span>: You're too far away from the target silicon!")
+				return
 			module.install(src)
 		else
 			return ..()

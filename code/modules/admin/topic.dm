@@ -1741,33 +1741,42 @@
 			btypes += "Heal Over Time"
 			btypes += "Permanent Regeneration"
 			btypes += "Super Powers"
-		var/blessing = input(src.owner, "How would you like to bless [M]?", "Its good to be good...", "") as null|anything in btypes
+		var/blessing = input(owner, "How would you like to bless [M]?", "Its good to be good...", "") as null|anything in btypes
 		if(!(blessing in btypes))
 			return
+		var/logmsg = null
 		switch(blessing)
 			if("To Arrivals")
 				M.forceMove(pick(latejoin))
 				to_chat(M, "<span class='userdanger'>You are abruptly pulled through space!</span>")
+				logmsg = "a teleport to arrivals."
 			if("Moderate Heal")
 				M.adjustBruteLoss(-25)
 				M.adjustFireLoss(-25)
 				M.adjustToxLoss(-25)
 				M.adjustOxyLoss(-25)
 				to_chat(M,"<span class='userdanger'>You feel invigorated!</span>")
+				logmsg = "a moderate heal."
 			if("Heal Over Time")
 				H.reagents.add_reagent("salglu_solution", 30)
 				H.reagents.add_reagent("salbutamol", 20)
 				H.reagents.add_reagent("spaceacillin", 20)
+				logmsg = "a heal over time."
 			if("Permanent Regeneration")
 				H.dna.SetSEState(REGENERATEBLOCK, 1)
 				genemutcheck(H, REGENERATEBLOCK,  null, MUTCHK_FORCED)
 				H.update_mutations()
+				logmsg = "permanent regeneration."
 			if("Super Powers")
 				var/list/default_genes = list(REGENERATEBLOCK, NOBREATHBLOCK, COLDBLOCK)
 				for(var/gene in default_genes)
 					H.dna.SetSEState(gene, 1)
 					genemutcheck(H, gene,  null, MUTCHK_FORCED)
 					H.update_mutations()
+				logmsg = "superpowers."
+		if(logmsg)
+			log_admin("[key_name(owner)] answered [key_name(M)]'s prayer with a blessing: [logmsg]")
+			message_admins("[key_name_admin(owner)] answered [key_name_admin(M)]'s prayer with a blessing: [logmsg]")
 	else if(href_list["Smite"])
 		if(!check_rights(R_ADMIN))
 			return
@@ -1784,9 +1793,10 @@
 			ptypes += "Cluwne"
 			ptypes += "Mutagen Cookie"
 			ptypes += "Hellwater Cookie"
-		var/punishment = input(src.owner, "How would you like to smite [M]?", "Its good to be baaaad...", "") as null|anything in ptypes
+		var/punishment = input(owner, "How would you like to smite [M]?", "Its good to be baaaad...", "") as null|anything in ptypes
 		if(!(punishment in ptypes))
 			return
+		var/logmsg = null
 		switch(punishment)
 			if("Lightning bolt")
 				M.electrocute_act(5, "Lightning Bolt", safety=1)
@@ -1794,20 +1804,25 @@
 				M.adjustFireLoss(75)
 				M.Weaken(5)
 				to_chat(M, "<span class='userdanger'>The gods have punished you for your sins!</span>")
+				logmsg = "a lightning bolt."
 			if("Brain Damage")
 				H.adjustBrainLoss(75)
+				logmsg = "75 brain damage."
 			if("Fire Death")
 				to_chat(M,"<span class='userdanger'>You feel hotter than usual. Maybe you should lowe-wait, is that your hand melting?</span>")
 				var/turf/simulated/T = get_turf(M)
 				new /obj/effect/hotspot(T)
 				M.adjustFireLoss(150)
+				logmsg = "a firey death."
 			if("Honk Tumor")
 				if(!H.get_int_organ(/obj/item/organ/internal/honktumor))
 					var/obj/item/organ/internal/organ = new /obj/item/organ/internal/honktumor
 					to_chat(H, "<span class='userdanger'>Life seems funnier, somehow.</span>")
 					organ.insert(H)
+				logmsg = "a honk tumor."
 			if("Cluwne")
 				H.makeCluwne()
+				logmsg = "cluwned."
 			if("Mutagen Cookie")
 				var/obj/item/weapon/reagent_containers/food/snacks/cookie/evilcookie = new /obj/item/weapon/reagent_containers/food/snacks/cookie
 				evilcookie.reagents.add_reagent("mutagen", 10)
@@ -1815,6 +1830,7 @@
 				evilcookie.bitesize = 100
 				H.drop_l_hand()
 				H.equip_to_slot_or_del(evilcookie, slot_l_hand)
+				logmsg = "a mutagen cookie."
 			if("Hellwater Cookie")
 				var/obj/item/weapon/reagent_containers/food/snacks/cookie/evilcookie = new /obj/item/weapon/reagent_containers/food/snacks/cookie
 				evilcookie.reagents.add_reagent("hell_water", 25)
@@ -1822,8 +1838,13 @@
 				evilcookie.bitesize = 100
 				H.drop_l_hand()
 				H.equip_to_slot_or_del(evilcookie, slot_l_hand)
+				logmsg = "a hellwater cookie."
 			if("Gib")
+				logmsg = "gibbed."
 				M.gib(FALSE)
+		if(logmsg)
+			log_admin("[key_name(owner)] answered [key_name(M)]'s prayer with a smiting: [logmsg]")
+			message_admins("[key_name_admin(owner)] answered [key_name_admin(M)]'s prayer with a smiting: [logmsg]")
 	else if(href_list["FaxReplyTemplate"])
 		if(!check_rights(R_ADMIN))
 			return
@@ -3132,7 +3153,7 @@
 			error_viewer.showTo(usr, locate(href_list["viewruntime_backto"]), href_list["viewruntime_linear"])
 		else
 			error_viewer.showTo(usr, null, href_list["viewruntime_linear"])
-			
+
 	else if(href_list["add_station_goal"])
 		if(!check_rights(R_EVENT))
 			return

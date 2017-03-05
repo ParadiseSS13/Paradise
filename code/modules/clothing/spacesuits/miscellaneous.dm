@@ -170,14 +170,14 @@
 /obj/item/clothing/head/helmet/space/eva/mime
 	name = "mime eva helmet"
 //	icon = 'spaceciv.dmi'
-	desc = "An eva helmet specifically designed for the mime."
+	desc = ". . ."
 	icon_state = "spacemimehelmet"
 	item_state = "spacemimehelmet"
 
 /obj/item/clothing/suit/space/eva/mime
 	name = "mime eva suit"
 //	icon = 'spaceciv.dmi'
-	desc = "An EVA suit specifically designed for the mime."
+	desc = ". . ."
 	icon_state = "spacemime_suit"
 	item_state = "spacemime_items"
 

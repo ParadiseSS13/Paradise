@@ -31,6 +31,9 @@
 	var/offset_y[0] //usage by the photocopier
 	var/rigged = 0
 	var/spam_flag = 0
+	var/contact_poison // Reagent ID to transfer on contact
+	var/contact_poison_volume = 0
+	var/contact_poison_poisoner = null
 
 	var/const/deffont = "Verdana"
 	var/const/signfont = "Times New Roman"
@@ -277,6 +280,8 @@
 		else
 			info += t // Oh, he wants to edit to the end of the file, let him.
 			updateinfolinks()
+
+		i.on_write(src,usr)
 
 		show_content(usr, forceshow = 1, infolinks = 1)
 
@@ -653,3 +658,13 @@
 /obj/item/weapon/paper/evilfax/proc/evilpaper_selfdestruct()
 	visible_message("<span class='danger'>[src] spontaneously catches fire, and burns up!</span>")
 	qdel(src)
+
+/obj/item/weapon/paper/pickup(user)
+	if(contact_poison && ishuman(user))
+		var/mob/living/carbon/human/H = user
+		var/obj/item/clothing/gloves/G = H.gloves
+		if(!istype(G) || G.transfer_prints)
+			H.reagents.add_reagent(contact_poison, contact_poison_volume)
+			contact_poison = null
+			add_logs(user, src, "picked up [src], the paper poisoned by [contact_poison_poisoner]")
+	..()

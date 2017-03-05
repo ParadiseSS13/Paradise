@@ -111,6 +111,8 @@
 							to_chat(usr, "You do not have enough karma!")
 							return
 						else
+							if(alert("Are you sure you want to unlock Barber?", "Confirmation", "No", "Yes") != "Yes")
+								return
 							DB_job_unlock("Barber",5)
 							return
 					if("2")
@@ -118,6 +120,8 @@
 							to_chat(usr, "You do not have enough karma!")
 							return
 						else
+							if(alert("Are you sure you want to unlock Brig Physician?", "Confirmation", "No", "Yes") != "Yes")
+								return
 							DB_job_unlock("Brig Physician",5)
 							return
 					if("3")
@@ -125,6 +129,8 @@
 							to_chat(usr, "You do not have enough karma!")
 							return
 						else
+							if(alert("Are you sure you want to unlock Nanotrasen Representative?", "Confirmation", "No", "Yes") != "Yes")
+								return
 							DB_job_unlock("Nanotrasen Representative",30)
 							return
 					if("5")
@@ -132,6 +138,8 @@
 							to_chat(usr, "You do not have enough karma!")
 							return
 						else
+							if(alert("Are you sure you want to unlock Blueshield?", "Confirmation", "No", "Yes") != "Yes")
+								return
 							DB_job_unlock("Blueshield",30)
 							return
 					if("6")
@@ -139,6 +147,8 @@
 							to_chat(usr, "You do not have enough karma!")
 							return
 						else
+							if(alert("Are you sure you want to unlock Mechanic?", "Confirmation", "No", "Yes") != "Yes")
+								return
 							DB_job_unlock("Mechanic",30)
 							return
 					if("7")
@@ -146,6 +156,8 @@
 							to_chat(usr, "You do not have enough karma!")
 							return
 						else
+							if(alert("Are you sure you want to unlock Magistrate?", "Confirmation", "No", "Yes") != "Yes")
+								return
 							DB_job_unlock("Magistrate",45)
 							return
 					if("9")
@@ -153,6 +165,8 @@
 							to_chat(usr, "You do not have enough karma!")
 							return
 						else
+							if(alert("Are you sure you want to unlock Security Pod Pilot?", "Confirmation", "No", "Yes") != "Yes")
+								return
 							DB_job_unlock("Security Pod Pilot",30)
 							return
 			if(href_list["KarmaBuy2"])
@@ -163,6 +177,8 @@
 							to_chat(usr, "You do not have enough karma!")
 							return
 						else
+							if(alert("Are you sure you want to unlock Machine People?", "Confirmation", "No", "Yes") != "Yes")
+								return
 							DB_species_unlock("Machine",15)
 							return
 					if("2")
@@ -170,6 +186,8 @@
 							to_chat(usr, "You do not have enough karma!")
 							return
 						else
+							if(alert("Are you sure you want to unlock Kidan?", "Confirmation", "No", "Yes") != "Yes")
+								return
 							DB_species_unlock("Kidan",30)
 							return
 					if("3")
@@ -177,6 +195,8 @@
 							to_chat(usr, "You do not have enough karma!")
 							return
 						else
+							if(alert("Are you sure you want to unlock Grey?", "Confirmation", "No", "Yes") != "Yes")
+								return
 							DB_species_unlock("Grey",30)
 							return
 					if("4")
@@ -184,6 +204,8 @@
 							to_chat(usr, "You do not have enough karma!")
 							return
 						else
+							if(alert("Are you sure you want to unlock Vox?", "Confirmation", "No", "Yes") != "Yes")
+								return
 							DB_species_unlock("Vox",45)
 							return
 					if("5")
@@ -191,6 +213,8 @@
 							to_chat(usr, "You do not have enough karma!")
 							return
 						else
+							if(alert("Are you sure you want to unlock Slime People?", "Confirmation", "No", "Yes") != "Yes")
+								return
 							DB_species_unlock("Slime People",45)
 							return
 					if("6")
@@ -198,6 +222,8 @@
 							to_chat(usr, "You do not have enough karma!")
 							return
 						else
+							if(alert("Are you sure you want to unlock Plasmaman?", "Confirmation", "No", "Yes") != "Yes")
+								return
 							DB_species_unlock("Plasmaman",100)
 							return
 					if("7")
@@ -205,6 +231,8 @@
 							to_chat(usr, "You do not have enough karma!")
 							return
 						else
+							if(alert("Are you sure you want to unlock Drask?", "Confirmation", "No", "Yes") != "Yes")
+								return
 							DB_species_unlock("Drask",30)
 							return
 			if(href_list["KarmaRefund"])

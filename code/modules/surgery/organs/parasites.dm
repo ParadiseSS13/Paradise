@@ -63,19 +63,19 @@
 			to_chat(owner,"<span class='danger'>Your spider bite wound hurts horribly! </span>")
 			if(istype(get_area(owner), /area/awaycontent) || istype(get_area(owner), /area/awaymission))
 				awaymission_infection = 1
-		if(15) // 30 seconds... enough time for the nerve agent to kick in, the pain to be blocked, and healing to begin
+		if(15) // 30s... enough time for the nerve agent to kick in, the pain to be blocked, and healing to begin
 			to_chat(owner,"<span class='notice'>The pain has faded, and stopped bleeding, though the skin around it has turned black.</span>")
 			owner.adjustBruteLoss(-10)
-		if(60) // 2 minutes... the point where the venom uses and accellerates the healing process, to feed the eggs
+		if(30) // 1m... the point where the venom uses and accellerates the healing process, to feed the eggs
 			to_chat(owner,"<span class='notice'>Your bite wound has completely sealed up, though the skin is still black. You feel significantly better.</span>")
 			owner.adjustBruteLoss(-20)
-		if(120) // 4 minutes... where the eggs are developing, and the wound is turning into a hatching site, but invisibly
+		if(90) // 3m... where the eggs are developing, and the wound is turning into a hatching site, but invisibly
 			to_chat(owner,"<span class='notice'>The black flesh around your old spider bite wound has started to peel off.</span>")
-		if(150) // 5 minutes... where the victim realizes something is wrong - this is not a normal wound
+		if(100) // 3m20s... where the victim realizes something is wrong - this is not a normal wound
 			to_chat(owner,"<span class='danger'>The black flesh around your spider bite wound has cracked, and started to split open!</span>")
-		if(165) // 5m 30s
+		if(110) // 3m40s...
 			to_chat(owner,"<span class='danger'>The black flesh splits open completely, revealing a cluster of small black oval shapes inside you, shapes that seem to be moving!</span>")
-		if(180) // 6m
+		if(120) // 4m...
 			if(awaymission_infection && is_away_level(owner.z))
 				// we started in the awaymission, we ended on the station.
 				// To prevent someone bringing an infection back, we're going to trigger an alternate, equally-bad result here.
