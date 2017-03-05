@@ -1,6 +1,4 @@
-//NOT using the existing /obj/machinery/door type, since that has some complications on its own, mainly based on its
-//machineryness
-
+//NOT using the existing /obj/machinery/door type, since that has some complications on its own, mainly based on its machineryness
 /obj/structure/mineral_door
 	name = "metal door"
 	density = 1
@@ -19,7 +17,8 @@
 	var/sheetType = /obj/item/stack/sheet/metal
 	var/sheetAmount = 7
 	var/openSound = 'sound/effects/stonedoor_openclose.ogg'
-	var/closeSound = 'sound/effects/stonedoor_openclose.ogg'	
+	var/closeSound = 'sound/effects/stonedoor_openclose.ogg'
+	var/damageSound = null
 
 /obj/structure/mineral_door/New(location)
 	..()
@@ -135,16 +134,26 @@
 /obj/structure/mineral_door/attackby(obj/item/weapon/W, mob/user, params)
 	if(istype(W, /obj/item/weapon/pickaxe))
 		var/obj/item/weapon/pickaxe/digTool = W
-		to_chat(user, "<span class='notice'>You start digging the [name].</span>")
+		to_chat(user, "<span class='notice'>You start digging \the [src].</span>")
 		if(do_after(user, digTool.digspeed * hardness, target = src) && src)
-			to_chat(user, "You finished digging.")
+			to_chat(user, "<span class='notice'>You finished digging.</span>")
 			deconstruct(TRUE)
-	else if(istype(W, /obj/item/weapon)) //not sure, can't not just weapons get passed to this proc?
-		hardness -= W.force/100
-		to_chat(user, "<span class='danger'>You hit the [name] with your [W.name]!</span>")
-		CheckHardness()
-	else
+	else if(user.a_intent != I_HARM)
 		attack_hand(user)
+	else
+		attacked_by(W, user)
+
+/obj/structure/mineral_door/proc/attacked_by(obj/item/I, mob/user)
+	if(I.damtype != STAMINA)
+		user.changeNext_move(CLICK_CD_MELEE)
+		user.do_attack_animation(src)
+		visible_message("<span class='notice'>[user] hits \the [src] with \the [I].</span>")
+		if(damageSound)
+			playsound(loc, damageSound, 100, 1)
+		else
+			playsound(loc, I.hitsound, 100, 1)
+		hardness -= I.force / 100
+		CheckHardness()
 
 /obj/structure/mineral_door/proc/CheckHardness()
 	if(hardness <= 0)
@@ -251,12 +260,9 @@
 	close_delay = 100
 	openSound = 'sound/effects/attackblob.ogg'
 	closeSound = 'sound/effects/attackblob.ogg'
+	damageSound = 'sound/effects/attackblob.ogg'
 	sheetType = null
 
 /obj/structure/mineral_door/resin/TryToSwitchState(atom/user)
 	if(isalien(user))
 		return ..()
-
-/obj/structure/mineral_door/resin/CheckHardness()
-	playsound(loc, 'sound/effects/attackblob.ogg', 100, 1)
-	..()

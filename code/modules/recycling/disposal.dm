@@ -210,7 +210,8 @@
 
 // leave the disposal
 /obj/machinery/disposal/proc/go_out(mob/user)
-	user.forceMove(loc)
+	if(user)
+		user.forceMove(loc)
 	update()
 
 // ai as human but can't flush

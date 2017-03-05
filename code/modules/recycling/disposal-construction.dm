@@ -175,26 +175,6 @@
 		to_chat(user, "You can only attach the [nicetype] if the floor plating is removed.")
 		return
 
-	var/obj/structure/disposalpipe/CP = locate() in T
-	if(ptype>=6 && ptype <= 8) // Disposal or outlet
-		if(CP) // There's something there
-			if(!istype(CP,/obj/structure/disposalpipe/trunk))
-				to_chat(user, "The [nicetype] requires a trunk underneath it in order to work.")
-				return
-		else // Nothing under, fuck.
-			to_chat(user, "The [nicetype] requires a trunk underneath it in order to work.")
-			return
-	else
-		if(CP)
-			update()
-			var/pdir = CP.dpdir
-			if(istype(CP, /obj/structure/disposalpipe/broken))
-				pdir = CP.dir
-			if(pdir & dpdir)
-				to_chat(user, "There is already a [nicetype] at that location.")
-				return
-
-
 	if(istype(I, /obj/item/weapon/wrench))
 		if(anchored)
 			anchored = 0
@@ -214,8 +194,28 @@
 			to_chat(user, "You attach the [nicetype] to the underfloor.")
 		playsound(src.loc, 'sound/items/Ratchet.ogg', 100, 1)
 		update()
+		return
+		
+	var/obj/structure/disposalpipe/CP = locate() in T
+	if(ptype>=6 && ptype <= 8) // Disposal or outlet
+		if(CP) // There's something there
+			if(!istype(CP,/obj/structure/disposalpipe/trunk))
+				to_chat(user, "The [nicetype] requires a trunk underneath it in order to work.")
+				return
+		else // Nothing under, fuck.
+			to_chat(user, "The [nicetype] requires a trunk underneath it in order to work.")
+			return
+	else
+		if(CP)
+			update()
+			var/pdir = CP.dpdir
+			if(istype(CP, /obj/structure/disposalpipe/broken))
+				pdir = CP.dir
+			if(pdir & dpdir)
+				to_chat(user, "There is already a [nicetype] at that location.")
+				return
 
-	else if(istype(I, /obj/item/weapon/weldingtool))
+	if(istype(I, /obj/item/weapon/weldingtool))
 		if(anchored)
 			var/obj/item/weapon/weldingtool/W = I
 			if(W.remove_fuel(0,user))

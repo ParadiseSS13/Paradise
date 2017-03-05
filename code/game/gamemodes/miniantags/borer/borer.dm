@@ -145,7 +145,7 @@
 	if(client.statpanel == "Status")
 		stat("Chemicals", chemicals)
 
-/mob/living/simple_animal/borer/say(message)
+/mob/living/simple_animal/borer/say(var/message)
 	var/datum/language/dialect = parse_language(message)
 	if(!dialect)
 		dialect = get_default_language()

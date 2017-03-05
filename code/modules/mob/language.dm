@@ -494,11 +494,10 @@
 	ask_verb = "sings"
 	exclaim_verb = "sings"
 	colour = "alien"
-	key = "w"
+	key = "bo"
 	flags = RESTRICTED | HIVEMIND
 
 /datum/language/corticalborer/broadcast(mob/living/speaker, message, speaker_mask)
-
 	var/mob/living/simple_animal/borer/B
 
 	if(iscarbon(speaker))
