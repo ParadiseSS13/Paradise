@@ -138,6 +138,7 @@
 // Use this proc to kill the program. Designed to be implemented by each program if it requires on-quit logic, such as the NTNRC client.
 /datum/computer_file/program/proc/kill_program(forced = FALSE)
 	program_state = PROGRAM_STATE_KILLED
+	computer.update_icon()
 	if(network_destination)
 		generate_network_log("Connection to [network_destination] closed.")
 	return 1

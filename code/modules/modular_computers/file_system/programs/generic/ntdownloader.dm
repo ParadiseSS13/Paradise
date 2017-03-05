@@ -144,7 +144,8 @@
 			"filedesc" = P.filedesc,
 			"fileinfo" = P.extended_desc,
 			"compatibility" = check_compatibility(P),
-			"size" = P.size
+			"size" = P.size,
+			"status" = !hard_drive || !hard_drive.can_store_file(P) ? "disabled" : null
 			)))
 		data["hackedavailable"] = 0
 		if(computer.emagged) // If we are running on emagged computer we have access to some "bonus" software

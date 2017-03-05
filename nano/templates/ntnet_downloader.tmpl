@@ -68,7 +68,7 @@
 				</div>
 				<div class='item'>
 					<div class='itemLabel'>File controls</div>
-					<div class='itemContent'>{{:helper.link('DOWNLOAD', 'download', {'action' : 'PRG_downloadfile', 'filename' : value.filename})}}</div>
+					<div class='itemContent'>{{:helper.link('DOWNLOAD', 'download', {'action' : 'PRG_downloadfile', 'filename' : value.filename, value.status})}}</div>
 				</div>
 			{{/for}}
 		</div>
