@@ -198,7 +198,7 @@
 	id = "handdrill"
 	req_tech = list("materials" = 4, "engineering" = 6)
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 3500, MAT_SILVER = 1500, MAT_TITANIUM = 2500)
+	materials = list(MAT_METAL = 3500, MAT_SILVER = 1500, MAT_GOLD = 1000)
 	build_path = /obj/item/weapon/screwdriver/power
 	category = list("Equipment")
 
@@ -209,7 +209,7 @@
 	req_tech = list("materials" = 4, "engineering" = 6, "magnets" = 6) // added one more requirment since the Jaws of Life are a bit OP
 	build_path = /obj/item/weapon/crowbar/power
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 4500, MAT_SILVER = 2500, MAT_TITANIUM = 3500)
+	materials = list(MAT_METAL = 4500, MAT_SILVER = 2500, MAT_DIAMOND = 1000)
 	category = list("Equipment")
 	
 /datum/design/alienwrench

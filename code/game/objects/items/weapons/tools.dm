@@ -588,6 +588,7 @@
 	light_intensity = 0
 	change_icons = 0
 	origin_tech = "plasmatech=5;engineering=5;abductor=3"
+	can_off_process = 1
 	
 /obj/item/weapon/weldingtool/abductor/process()
 	if(get_fuel() <= max_fuel)

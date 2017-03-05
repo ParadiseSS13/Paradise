@@ -16,7 +16,7 @@ var/const/PARTICLE_LIMIT_POWER_WIRE = 8 // Determines how strong the PA can be.
 			return "Strength"
 		
 		if(PARTICLE_INTERFACE_WIRE)
-			return "Interfact"
+			return "Interface"
 			
 		if(PARTICLE_LIMIT_POWER_WIRE)
 			return "Maximum Power"
