@@ -57,7 +57,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 	var/tele_proof = 0
 	var/no_teleportlocs = 0
-	
+
 	var/outdoors = 0 //For space, the asteroid, lavaland, etc. Used with blueprints to determine if we are adding a new area (vs editing a station room)
 
 /*Adding a wizard area teleport list because motherfucking lag -- Urist*/
@@ -2465,11 +2465,6 @@ area/security/podbay
 
 /area/awaymission/spacebattle/secret
 	name = "\improper Hidden Chamber"
-
-/area/awaymission/listeningpost
-	name = "\improper Listening Post"
-	icon_state = "away"
-	requires_power = 0
 
 /area/awaymission/beach
 	name = "Beach"
