@@ -145,6 +145,12 @@
 		return 1
 	if(!config.use_exp_ssd_protect)
 		return 1
+	if(bypass_ssd_guard)
+		return 1
+	if(mob && mob.job in security_positions)
+		return 1
+	if(config.use_exp_restrictions_admin_bypass && check_rights(R_ADMIN, 0, mob))
+		return 1
 	if(get_exp_living_num() >= 600)
 		return 1
 	return 0

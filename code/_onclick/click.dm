@@ -118,8 +118,8 @@
 	if(isturf(A) || isturf(A.loc) || (sdepth != -1 && sdepth <= 1))
 		if(ismob(A))
 			var/mob/living/M = A
-			if(isLivingSSD(M) && client && !client.can_harm_ssds() && !isAntag(src))
-				to_chat(src, "<span class='userdanger'>You can't touch SSD crew members. Read the rules.</span>")
+			if(isLivingSSD(M) && client && !client.can_harm_ssds() && !isAntag(src) && (W || (a_intent != I_GRAB && a_intent != I_HELP)))
+				to_chat(src, "<span class='warning'>AdminHelp (F1) to get permission before attacking players who are suffering from Space Sleep Disorder / disconnected from the game. Read the server rules for more details.</span>")
 				return
 		if(A.Adjacent(src)) // see adjacent.dm
 			if(W)

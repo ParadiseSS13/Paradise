@@ -93,9 +93,12 @@
 
 	// Donator stuff.
 	var/donator_level = DONATOR_LEVEL_NONE
-	
+
 	// If set to true, this client can interact with atoms such as buttons and doors on top of regular machinery interaction
 	var/advanced_admin_interaction = FALSE
 
 	// Has the client been varedited by an admin?
 	var/var_edited = FALSE
+
+	// Has the client been granted permission to mess with SSDs by an admin?
+	var/bypass_ssd_guard = FALSE

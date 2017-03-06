@@ -645,7 +645,7 @@
 		return
 	if(isLivingSSD(who))
 		if(client && !client.can_harm_ssds() && !isAntag(src))
-			to_chat(src, "<span class='userdanger'>You can't remove items from SSD crew members. Read the rules.</span>")
+			to_chat(src, "<span class='warning'>AdminHelp (F1) to get permission before stripping players who are suffering from Space Sleep Disorder / disconnected from the game. Read the server rules for more details.</span>")
 			return
 	if(!silent)
 		who.visible_message("<span class='danger'>[src] tries to remove [who]'s [what.name].</span>", \
