@@ -1,17 +1,4 @@
 
-var/global/list/fish_items_list = list("goldfish" = /obj/item/weapon/fish/goldfish,
-									"clownfish" = /obj/item/weapon/grown/bananapeel/clownfish,
-									"shark" = /obj/item/weapon/fish/shark,
-									"baby space carp" = /obj/item/weapon/fish/babycarp,
-									"catfish" = /obj/item/weapon/fish/catfish,
-									"feederfish" = /obj/item/weapon/reagent_containers/food/snacks/feederfish,
-									"salmon" = /obj/item/weapon/fish/salmon,
-									"shrimp" = /obj/item/weapon/reagent_containers/food/snacks/shrimp,
-									"electric eel" = /obj/item/weapon/fish/electric_eel,
-									"glofish" = /obj/item/weapon/fish/glofish
-,
-									)
-
 //////////////////////////////////////////////
 //			Aquarium Supplies				//
 //////////////////////////////////////////////
