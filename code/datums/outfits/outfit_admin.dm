@@ -480,7 +480,7 @@
 	)
 
 	var/briefcase_contents = list(
-		/obj/item/weapon/spacecash/c1000 = 3,
+		/obj/item/stack/spacecash/c1000 = 3,
 		/obj/item/weapon/gun/energy/kinetic_accelerator/crossbow = 1,
 		/obj/item/weapon/gun/projectile/revolver/mateba = 1,
 		/obj/item/ammo_box/a357 = 1,
