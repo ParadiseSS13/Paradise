@@ -157,7 +157,7 @@
 	fitting = "bulb"
 	brightness_range = 4
 	brightness_power = 2
-	brightness_color = "#a0a080"
+	brightness_color = null
 	desc = "A small lighting fixture."
 	light_type = /obj/item/weapon/light/bulb
 
@@ -195,7 +195,6 @@
 			if("bulb")
 				brightness_range = 4
 				brightness_power = 2
-				brightness_color = "#a0a080"
 				if(prob(5))
 					broken(1)
 		spawn(1)
