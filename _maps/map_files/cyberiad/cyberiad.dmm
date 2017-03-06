@@ -5403,7 +5403,7 @@
 "bZU" = (/obj/machinery/computer/aifixer,/obj/machinery/requests_console{announcementConsole = 1; department = "Research Director's Desk"; departmentType = 7; name = "Research Director Requests Console"; pixel_x = -2; pixel_y = 30},/turf/simulated/floor/plasteel{dir = 2; icon_state = "cafeteria"; tag = "icon-cafeteria (NORTHEAST)"},/area/crew_quarters/hor)
 "bZV" = (/obj/machinery/status_display{layer = 4; pixel_x = 0; pixel_y = 32},/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,/obj/structure/rack,/obj/item/weapon/circuitboard/aicore{pixel_x = -2; pixel_y = 4},/turf/simulated/floor/plasteel{dir = 8; icon_state = "warnwhite"; tag = "icon-warnwhite (NORTH)"},/area/crew_quarters/hor)
 "bZW" = (/obj/machinery/light{dir = 1},/turf/simulated/floor/plasteel{icon_state = "white"},/area/crew_quarters/hor)
-"bZX" = (/obj/machinery/ai_status_display{pixel_y = 32},/turf/simulated/floor/plasteel{dir = 4; icon_state = "warnwhite"; tag = "icon-warnwhite (NORTH)"},/area/crew_quarters/hor)
+"bZX" = (/obj/machinery/ai_status_display{pixel_y = 32},/obj/machinery/suit_storage_unit/rd,/turf/simulated/floor/plasteel{dir = 4; icon_state = "warnwhite"; tag = "icon-warnwhite (NORTH)"},/area/crew_quarters/hor)
 "bZY" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; tag = ""},/turf/simulated/floor/plating,/area/maintenance/asmaint2)
 "bZZ" = (/obj/effect/spawner/window/reinforced,/turf/simulated/floor/plating,/area/maintenance/asmaint2)
 "caa" = (/turf/simulated/floor/plasteel{icon_state = "white"},/area/medical/research_shuttle_dock)
