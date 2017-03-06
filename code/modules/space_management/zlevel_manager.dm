@@ -96,23 +96,36 @@ var/global/datum/zlev_manager/space_manager = new
 
 
 // For when you need the z-level to be at a certain point
-/datum/zlev_manager/proc/increase_max_zlevel_to(new_maxz)
+// Not sure if setting world.maxz at once or repeatedly incrementing makes
+// a performance difference
+/datum/zlev_manager/proc/increase_max_zlevel_to(new_maxz, list/name_list = null, linkage = SELFLOOPING, traits= list(BLOCK_TELEPORT))
 	if(world.maxz>=new_maxz)
 		return
-	while(world.maxz<new_maxz)
-		add_new_zlevel("Anonymous Z level [world.maxz]")
+	var/old_maxz = world.maxz
+	world.maxz = new_maxz
+	var/k = 1
+	for(var/i from old_maxz to new_maxz)
+		var/name = "Anonymous Z level #[i]"
+		if(name_list && k <= name_list.len)
+			name = name_list[k]
+		register_zlevel(name, i, linkage, traits)
 
 // Increments the max z-level by one
 // For convenience's sake returns the z-level added
 /datum/zlev_manager/proc/add_new_zlevel(name, linkage = SELFLOOPING, traits = list(BLOCK_TELEPORT))
-	if(name in levels_by_name)
-		throw EXCEPTION("Name already in use: [name]")
 	world.maxz++
 	var/our_z = world.maxz
-	var/datum/space_level/S = new /datum/space_level(our_z, name, transition_type = linkage, traits = traits)
-	levels_by_name[name] = S
-	z_list["[our_z]"] = S
+	register_zlevel(name, our_z, linkage = linkage, traits = traits)
 	return our_z
+
+/datum/zlev_manager/proc/register_zlevel(name, z, linkage, traits)
+	if(name in levels_by_name)
+		throw EXCEPTION("Name already in use: [name]")
+	if("[z]" in z_list)
+		throw EXCEPTION("Level already registered: '[z]'")
+	var/datum/space_level/S = new /datum/space_level(our_z, name, transition_type = linkage, traits = traits.Copy())
+	levels_by_name[name] = S
+	z_list["[z]"] = S
 
 /datum/zlev_manager/proc/cut_levels_downto(new_maxz)
 	if(world.maxz <= new_maxz)
@@ -134,18 +147,35 @@ var/global/datum/zlev_manager/space_manager = new
 /datum/zlev_manager/proc/add_new_heap()
 	world.maxz++
 	var/our_z = world.maxz
-	var/datum/space_level/yup = new /datum/space_level/heap(our_z)
+	var/datum/space_level/yup = new /datum/space_level/heap(our_z, traits = list(BLOCK_TELEPORT, ADMIN_LEVEL))
 	z_list["[our_z]"] = yup
+	levels_by_name["Heap level #[heaps.len]"] = yup
 	return yup
 
-// This is what you can call to allocate a section of space
+// This is what you can call to allocate a section of space smaller than an
+// entire z level - players aren't meant to explore outside of the region
+// you request
+//
+// Since we can theoretically add as many z levels as we'd like, this should
+// never fail, unless you request more space than is possible to give in a single
+// z level
+//
 // Later, I'll add an argument to let you define the flags on the region
 /datum/zlev_manager/proc/allocate_space(width, height)
+	if(width > world.maxz || height > world.maxy)
+		throw EXCEPTION("Too much space requested! \[[width],[height]\]")
 	if(!heaps.len)
 		heaps.len++
 		heaps[heaps.len] = add_new_heap()
 	var/datum/space_level/heap/our_heap
+	var/weve_got_vacancy = FALSE
 	for(our_heap in heaps)
 		var/weve_got_vacancy = our_heap.request(width, height)
 		if(weve_got_vacancy)
 			break // We're sticking with the present value of `our_heap` - it's got room
+		// This loop will also run out if no vacancies are found
+
+	if(!weve_got_vacancy)
+		heaps.len++
+		heaps[heaps.len] = add_new_heap()
+	our_heap.allocate(width, height)
