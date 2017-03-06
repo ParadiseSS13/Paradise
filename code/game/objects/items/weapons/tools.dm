@@ -56,7 +56,7 @@
 
 /obj/item/weapon/wrench/power
 	name = "Hand Drill"
-	desc = "A simple powered drill with a bolt bit"
+	desc = "A simple powered drill with a bolt bit."
 	icon_state = "drill_bolt"
 	item_state = "drill"
 	usesound = 'sound/items/drill_use.ogg'
@@ -200,7 +200,7 @@
 /obj/item/weapon/screwdriver/power/attack_self(mob/user)
 	playsound(get_turf(user), 'sound/items/change_drill.ogg', 50, 1)
 	var/obj/item/weapon/wrench/power/b_drill = new /obj/item/weapon/wrench/power
-	user << "<span class='notice'>You attach the bolt driver bit to [src].</span>"
+	to_chat(user, "<span class='notice'>You attach the bolt driver bit to [src].</span>")
 	qdel(src)
 	user.put_in_active_hand(b_drill)
 
@@ -643,6 +643,7 @@ obj/item/weapon/weldingtool/experimental/process()
 	force = 5
 	throwforce = 7
 	item_state = "crowbar"
+	w_class = WEIGHT_CLASS_SMALL
 	materials = list(MAT_METAL=50)
 	origin_tech = "engineering=1;combat=1"
 	attack_verb = list("attacked", "bashed", "battered", "bludgeoned", "whacked")

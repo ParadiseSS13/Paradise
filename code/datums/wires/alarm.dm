@@ -18,7 +18,7 @@ var/const/AALARM_WIRE_AALARM = 16
 			return "Power"
 		
 		if(AALARM_WIRE_SYPHON)
-			return "Panic Syphon"
+			return "Syphon"
 		
 		if(AALARM_WIRE_AI_CONTROL)
 			return "AI Control"

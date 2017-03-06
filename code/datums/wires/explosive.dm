@@ -27,7 +27,7 @@ var/const/WIRE_EXPLODE = 1
 /datum/wires/explosive/gibtonite
 	holder_type = /obj/item/weapon/twohanded/required/gibtonite
 
-/datum/wires/explosive/gibtonite/CanUse(mob/living/L)
+/datum/wires/explosive/gibtonite/CanUse(mob/L)
 	return 1
 
 /datum/wires/explosive/gibtonite/UpdateCut(index, mended)

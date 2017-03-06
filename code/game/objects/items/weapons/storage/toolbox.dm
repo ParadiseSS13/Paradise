@@ -55,7 +55,7 @@
 
 /obj/item/weapon/storage/toolbox/electrical/New()
 	..()
-	var/pickedcolor  = pick("red","yellow","green","blue","pink","orange","cyan","white")
+	var/pickedcolor = pick(COLOR_RED, COLOR_YELLOW, COLOR_GREEN, COLOR_BLUE, COLOR_PINK, COLOR_ORANGE, COLOR_CYAN, COLOR_WHITE)
 	new /obj/item/weapon/screwdriver(src)
 	new /obj/item/weapon/wirecutters(src)
 	new /obj/item/device/t_scanner(src)
@@ -93,7 +93,7 @@
 
 /obj/item/weapon/storage/toolbox/drone/New()
 	..()
-	var/pickedcolor = pick("red","yellow","green","blue","pink","orange","cyan","white")
+	var/pickedcolor = pick(pick(COLOR_RED, COLOR_YELLOW, COLOR_GREEN, COLOR_BLUE, COLOR_PINK, COLOR_ORANGE, COLOR_CYAN, COLOR_WHITE))
 	new /obj/item/weapon/screwdriver(src)
 	new /obj/item/weapon/wrench(src)
 	new /obj/item/weapon/weldingtool(src)

@@ -247,7 +247,7 @@
 		V.flags |= NODROP
 	agent.equip_to_slot_or_del(V, slot_wear_suit)
 	agent.equip_to_slot_or_del(new /obj/item/weapon/abductor_baton(agent), slot_in_backpack)
-	agent.equip_to_slot_or_del(new /obj/item/weapon/gun/energy/decloner/alien(agent), slot_belt)
+	agent.equip_to_slot_or_del(new /obj/item/weapon/gun/energy/decloner/alien(agent), slot_in_backpack)
 	agent.equip_to_slot_or_del(new /obj/item/device/abductor/silencer(agent), slot_in_backpack)
 	agent.equip_to_slot_or_del(new /obj/item/clothing/head/helmet/abductor(agent), slot_head)
 	agent.equip_to_slot_or_del(new /obj/item/weapon/storage/belt/military/abductor/full(agent), slot_belt)

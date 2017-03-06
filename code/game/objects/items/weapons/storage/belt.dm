@@ -68,7 +68,7 @@
 	new /obj/item/weapon/weldingtool(src)
 	new /obj/item/weapon/crowbar(src)
 	new /obj/item/weapon/wirecutters(src)
-	new /obj/item/stack/cable_coil(src, 30, pick("red","yellow","orange"))
+	new /obj/item/stack/cable_coil(src, 30, pick(COLOR_RED, COLOR_YELLOW, COLOR_ORANGE))
 	update_icon()
 
 /obj/item/weapon/storage/belt/utility/full/multitool/New()
@@ -99,7 +99,7 @@
 	new /obj/item/weapon/crowbar/power(src)
 	new /obj/item/weapon/weldingtool/experimental(src)//This can be changed if this is too much
 	new /obj/item/device/multitool(src)
-	new /obj/item/stack/cable_coil(src, 30, pick("red","yellow","orange"))
+	new /obj/item/stack/cable_coil(src, 30, pick(COLOR_RED, COLOR_YELLOW, COLOR_ORANGE))
 	new /obj/item/weapon/extinguisher/mini(src)
 	new /obj/item/device/analyzer(src)
 	update_icon()
@@ -265,7 +265,7 @@
 	new /obj/item/weapon/crowbar/abductor(src)
 	new /obj/item/weapon/wirecutters/abductor(src)
 	new /obj/item/device/multitool/abductor(src)
-	new /obj/item/stack/cable_coil(src, 30, "white")
+	new /obj/item/stack/cable_coil(src, 30, COLOR_WHITE)
 
 /obj/item/weapon/storage/belt/military/assault
 	name = "assault belt"
