@@ -151,7 +151,7 @@
 		return 1
 	if(config.use_exp_restrictions_admin_bypass && check_rights(R_ADMIN, 0, mob))
 		return 1
-	if(get_exp_living_num() >= 600)
+	if(get_exp_living_num() >= 300)
 		return 1
 	return 0
 
