@@ -2,7 +2,7 @@
 	name = "host brain"
 	real_name = "host brain"
 
-/mob/living/captive_brain/say(var/message)
+/mob/living/captive_brain/say(message)
 
 	if(client)
 		if(client.prefs.muted & MUTE_IC)

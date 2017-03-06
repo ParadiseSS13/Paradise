@@ -241,11 +241,11 @@ FIRE ALARM
 	//playsound(loc, 'sound/ambience/signal.ogg', 75, 0)
 	return
 
-/obj/machinery/firealarm/New(loc, dir, building)
+/obj/machinery/firealarm/New(location, dir, building)
 	..()
 
-	if(loc)
-		loc = loc
+	if(location)
+		loc = location
 
 	if(dir)
 		dir = dir
