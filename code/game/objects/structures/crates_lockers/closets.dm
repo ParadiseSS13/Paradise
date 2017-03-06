@@ -262,7 +262,8 @@
 					return
 		if(isrobot(user))
 			return
-		if(!usr.drop_item())
+		if(!user.drop_item()) //couldn't drop the item
+			to_chat(user, "<span class='notice'>\The [W] is stuck to your hand, you cannot put it in \the [src]!</span>")
 			return
 		if(W)
 			W.forceMove(loc)
