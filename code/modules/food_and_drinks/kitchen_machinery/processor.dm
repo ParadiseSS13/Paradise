@@ -91,6 +91,10 @@
 	input = /obj/item/weapon/reagent_containers/food/snacks/grown/parsnip
 	output = /obj/item/weapon/reagent_containers/food/snacks/roastparsnip
 
+/datum/food_processor_process/carrot
+	input =  /obj/item/weapon/reagent_containers/food/snacks/grown/carrot
+	output = /obj/item/weapon/reagent_containers/food/snacks/grown/carrot/wedges
+
 /////////////////////////
 ///END OBJECT RECIPIES///
 /////////////////////////
