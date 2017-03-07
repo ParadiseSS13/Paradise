@@ -254,7 +254,7 @@
 
 /obj/item/weapon/grenade/clusterbuster/glass
 	name = "Glass Gernade"
-	desc = "Useful to impale EVERYONE."
+	desc = "Useful to impaling EVERYONE."
 	payload = /obj/item/weapon/shard
 ////////////Clusterbuster of Clusterbusters////////////
 
