@@ -1,6 +1,6 @@
 
 /datum/event/spider_terror
-	announceWhen = 120
+	announceWhen = 240
 	var/spawncount = 1
 
 /datum/event/spider_terror/setup()
@@ -22,7 +22,7 @@
 	switch(infestation_type)
 		if(1)
 			spider_type = /mob/living/simple_animal/hostile/poison/terror_spider/green
-			spawncount = 3
+			spawncount = 4
 		if(2)
 			spider_type = /mob/living/simple_animal/hostile/poison/terror_spider/white
 			spawncount = 2

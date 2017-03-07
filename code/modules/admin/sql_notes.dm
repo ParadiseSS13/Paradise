@@ -8,7 +8,7 @@
 		var/new_ckey = ckey(input(usr,"Who would you like to add a note for?","Enter a ckey",null) as text|null)
 		if(!new_ckey)
 			return
-		new_ckey = sanitizeSQL(new_ckey)
+		new_ckey = ckey(new_ckey)
 		var/DBQuery/query_find_ckey = dbcon.NewQuery("SELECT ckey FROM [format_table_name("player")] WHERE ckey = '[new_ckey]'")
 		if(!query_find_ckey.Execute())
 			var/err = query_find_ckey.ErrorMsg()
@@ -19,7 +19,7 @@
 			return
 		else
 			target_ckey = new_ckey
-	var/target_sql_ckey = sanitizeSQL(target_ckey)
+	var/target_sql_ckey = ckey(target_ckey)
 	if(!notetext)
 		notetext = input(usr,"Write your note","Add Note") as message|null
 		if(!notetext)
@@ -31,6 +31,8 @@
 		adminckey = usr.ckey
 		if(!adminckey)
 			return
+	else if(usr && (usr.ckey == ckey(adminckey))) // Don't ckeyize special note sources
+		adminckey = ckey(adminckey)
 	var/admin_sql_ckey = sanitizeSQL(adminckey)
 	if(!server)
 		if(config && config.server_name)
@@ -86,7 +88,7 @@
 		return
 	note_id = text2num(note_id)
 	var/target_ckey
-	var/sql_ckey = sanitizeSQL(usr.ckey)
+	var/sql_ckey = usr.ckey
 	var/DBQuery/query_find_note_edit = dbcon.NewQuery("SELECT ckey, notetext, adminckey FROM [format_table_name("notes")] WHERE id = [note_id]")
 	if(!query_find_note_edit.Execute())
 		var/err = query_find_note_edit.ErrorMsg()
@@ -128,7 +130,7 @@
 	if(!linkless)
 		output = navbar
 	if(target_ckey)
-		var/target_sql_ckey = sanitizeSQL(target_ckey)
+		var/target_sql_ckey = ckey(target_ckey)
 		var/DBQuery/query_get_notes = dbcon.NewQuery("SELECT id, timestamp, notetext, adminckey, last_editor, server FROM [format_table_name("notes")] WHERE ckey = '[target_sql_ckey]' ORDER BY timestamp")
 		if(!query_get_notes.Execute())
 			var/err = query_get_notes.ErrorMsg()
@@ -179,7 +181,7 @@
 	usr << browse(output, "window=show_notes;size=900x500")
 
 /proc/show_player_info_irc(var/key as text)
-	var/target_sql_ckey = sanitizeSQL(key)
+	var/target_sql_ckey = ckey(key)
 	var/DBQuery/query_get_notes = dbcon.NewQuery("SELECT timestamp, notetext, adminckey, server FROM [format_table_name("notes")] WHERE ckey = '[target_sql_ckey]' ORDER BY timestamp")
 	if(!query_get_notes.Execute())
 		var/err = query_get_notes.ErrorMsg()

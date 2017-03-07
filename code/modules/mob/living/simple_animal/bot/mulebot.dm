@@ -311,7 +311,7 @@
 			else
 				dat += "<A href='?src=[UID()];op=cellinsert'>Removed</A><BR>"
 
-			dat += wires.GetInteractWindow()
+			wires.ui_interact(user)
 		else
 			dat += "<div class='notice'>The bot is in maintenance mode and cannot be controlled.</div><BR>"
 
