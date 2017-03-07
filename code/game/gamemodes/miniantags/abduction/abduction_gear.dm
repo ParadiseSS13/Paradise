@@ -612,8 +612,8 @@ Congratulations! You are now trained for xenobiology research!"}
 	if(istype(I, /obj/item/weapon/wrench))
 		to_chat(user, "<span class='notice'>You start disassembling [src]...</span>")
 		playsound(src.loc, I.usesound, 50, 1)
-		if(do_after(user, 30, target = src))
-			playsound(src.loc, 'sound/items/Deconstruct.ogg', 50, 1)
+		if(do_after(user, 30 * I.toolspeed, target = src))
+			playsound(src.loc, I.usesound, 50, 1)
 			new /obj/item/stack/sheet/mineral/abductor(get_turf(src))
 			qdel(src)
 			return
@@ -623,7 +623,7 @@ Congratulations! You are now trained for xenobiology research!"}
 			to_chat(user, "<span class='warning'>You need one alien alloy sheet to do this!</span>")
 			return
 		to_chat(user, "<span class='notice'>You start adding [P] to [src]...</span>")
-		if(do_after(user, 50, target = src))
+		if(do_after(user, 50 * I.toolspeed, target = src))
 			P.use(1)
 			new /obj/structure/table/abductor(src.loc)
 			qdel(src)

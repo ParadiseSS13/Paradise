@@ -795,7 +795,7 @@ About the new airlock wires panel:
 	update_icon()
 	return 1
 
-/obj/machinery/door/airlock/attackby(C as obj, mob/user as mob, params)
+/obj/machinery/door/airlock/attackby(obj/item/C, mob/user as mob, params)
 //	to_chat(world, text("airlock attackby src [] obj [] mob []", src, C, user))
 	if(!istype(usr, /mob/living/silicon))
 		if(isElectrified())
@@ -837,9 +837,9 @@ About the new airlock wires panel:
 		else
 			beingcrowbarred = 0
 		if( beingcrowbarred && p_open && (operating == -1 || (density && welded && operating != 1 && !arePowerSystemsOn() && !locked)) )
-			playsound(loc, 'sound/items/Crowbar.ogg', 100, 1)
+			playsound(loc, C.usesound, 100, 1)
 			user.visible_message("[user] removes the electronics from the airlock assembly.", "You start to remove electronics from the airlock assembly.")
-			if(do_after(user,40, target = src))
+			if(do_after(user, 40 * C.toolspeed, target = src))
 				to_chat(user, "\blue You removed the airlock electronics!")
 
 				var/obj/structure/door_assembly/da = new assembly_type(loc)

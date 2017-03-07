@@ -237,7 +237,7 @@
 		return
 
 	if(istype(I, /obj/item/weapon/screwdriver) && anchored)
-		playsound(loc, 'sound/items/Screwdriver.ogg', 50, 1)
+		playsound(loc, I.usesound, 50, 1)
 		panel_open = !panel_open
 		to_chat(user, "You [panel_open ? "open" : "close"] the maintenance panel.")
 		overlays.Cut()

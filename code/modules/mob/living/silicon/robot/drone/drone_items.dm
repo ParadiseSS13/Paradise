@@ -203,7 +203,7 @@
 
 			to_chat(D, "<span class='warning'>You begin decompiling the other drone.</span>")
 
-			if(!do_after(D,50, target = target))
+			if(!do_after(D, 50, target = target))
 				to_chat(D, "<span class='warning'>You need to remain still while decompiling such a large object.</span>")
 				return
 

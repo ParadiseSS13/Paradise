@@ -126,6 +126,8 @@
 	w_class = 2
 	item_state = "electronic"
 	flags = CONDUCT
+	usesound = 'sound/items/Deconstruct.ogg'
+	toolspeed = 1
 
 /obj/machinery/power/apc/connect_to_network()
 	//Override because the APC does not directly connect to the network; it goes through a terminal.
@@ -431,10 +433,10 @@
 			if(terminal)
 				to_chat(user, "<span class='warning'>Disconnect wires first.</span>")
 				return
-			playsound(src.loc, 'sound/items/Crowbar.ogg', 50, 1)
+			playsound(src.loc, W.usesound, 50, 1)
 			to_chat(user, "You are trying to remove the power control board...")//lpeters - fixed grammar issues
 
-			if(do_after(user, 50, target = src))
+			if(do_after(user, 50 * W.toolspeed, target = src))
 				if(has_electronics==1)
 					has_electronics = 0
 					if((stat & BROKEN) || malfhack)
@@ -472,6 +474,7 @@
 			user.visible_message(\
 				"<span class='warning'>[user.name] has inserted the power cell to [src.name]!</span>",\
 				"You insert the power cell.")
+			playsound(loc, W.usesound, 50, 1)
 			chargecount = 0
 			update_icon()
 	else if(istype(W, /obj/item/weapon/screwdriver))	// haxing
@@ -484,12 +487,12 @@
 				if(has_electronics==1 && terminal)
 					has_electronics = 2
 					stat &= ~MAINT
-					playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
+					playsound(src.loc, W.usesound, 50, 1)
 					to_chat(user, "You screw the circuit electronics into place.")
 				else if(has_electronics==2)
 					has_electronics = 1
 					stat |= MAINT
-					playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
+					playsound(src.loc, W.usesound, 50, 1)
 					to_chat(user, "You unfasten the electronics.")
 				else /* has_electronics==0 */
 					to_chat(user, "<span class='warning'>There is nothing to secure.</span>")
@@ -527,8 +530,8 @@
 			to_chat(user, "<span class='warning'>You need more wires.</span>")
 			return
 		to_chat(user, "You start adding cables to the APC frame...")
-		playsound(src.loc, 'sound/items/Deconstruct.ogg', 50, 1)
-		if(do_after(user, 20, target = src))
+		playsound(src.loc, C.usesound, 50, 1)
+		if(do_after(user, 20 * C.toolspeed, target = src))
 			if(C.amount >= 10 && !terminal && opened && has_electronics != 2)
 				var/turf/T = get_turf(src)
 				var/obj/structure/cable/N = T.get_cable_node()
@@ -548,8 +551,8 @@
 			to_chat(user, "<span class='warning'>You must remove the floor plating in front of the APC first.</span>")
 			return
 		to_chat(user, "You begin to cut the cables...")
-		playsound(src.loc, 'sound/items/Deconstruct.ogg', 50, 1)
-		if(do_after(user, 50, target = src))
+		playsound(src.loc, W.usesound, 50, 1)
+		if(do_after(user, 50 * W.toolspeed, target = src))
 			if(terminal && opened && has_electronics!=2)
 				if(prob(50) && electrocute_mob(usr, terminal.powernet, terminal))
 					var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
@@ -561,8 +564,8 @@
 				qdel(terminal) // qdel
 	else if(istype(W, /obj/item/weapon/apc_electronics) && opened && has_electronics==0 && !((stat & BROKEN) || malfhack))
 		to_chat(user, "You trying to insert the power control board into the frame...")
-		playsound(src.loc, 'sound/items/Deconstruct.ogg', 50, 1)
-		if(do_after(user, 10, target = src))
+		playsound(src.loc, W.usesound, 50, 1)
+		if(do_after(user, 10 * W.toolspeed, target = src))
 			if(has_electronics==0)
 				has_electronics = 1
 				to_chat(user, "<span class='notice'>You place the power control board inside the frame.</span>")
@@ -578,8 +581,8 @@
 		user.visible_message("<span class='warning'>[user.name] welds [src].</span>", \
 							"You start welding the APC frame...", \
 							"You hear welding.")
-		playsound(src.loc, 'sound/items/Welder.ogg', 50, 1)
-		if(do_after(user, 50, target = src))
+		playsound(src.loc, WT.usesound, 50, 1)
+		if(do_after(user, 50 * WT.toolspeed, target = src))
 			if(!src || !WT.remove_fuel(3, user)) return
 			if(emagged || malfhack || (stat & BROKEN) || opened==2)
 				new /obj/item/stack/sheet/metal(loc)
@@ -609,7 +612,7 @@
 			to_chat(user, "You cannot repair this APC until you remove the electronics still inside.")
 			return
 		to_chat(user, "You begin to replace the damaged APC frame...")
-		if(do_after(user, 50, target = src))
+		if(do_after(user, 50 * W.toolspeed, target = src))
 			user.visible_message(\
 				"<span class='notice'>[user.name] has replaced the damaged APC frame with new one.</span>",\
 				"You replace the damaged APC frame with new one.")

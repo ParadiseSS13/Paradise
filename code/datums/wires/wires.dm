@@ -122,7 +122,8 @@ var/list/wireColours = list("red", "blue", "green", "black", "orange", "brown", 
 		switch(href_list["action"])
 			if("cut") // Toggles the cut/mend status
 				if(istype(I, /obj/item/weapon/wirecutters) || L.can_admin_interact())
-					playsound(holder, 'sound/items/Wirecutter.ogg', 20, 1)
+					if(istype(I))
+						playsound(holder, I.usesound, 20, 1)
 					CutWireColour(colour)
 				else
 					to_chat(L, "<span class='error'>You need wirecutters!</span>")

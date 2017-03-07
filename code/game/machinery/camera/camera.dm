@@ -28,6 +28,8 @@
 	var/alarm_on = 0
 	var/busy = 0
 	var/emped = 0  //Number of consecutive EMP's on this camera
+	
+	var/toggle_message = 'sound/items/Wirecutter.ogg'
 
 /obj/machinery/camera/New()
 	..()
@@ -127,7 +129,7 @@
 	src.view_range = num
 	cameranet.updateVisibility(src, 0)
 
-/obj/machinery/camera/attackby(W as obj, mob/living/user as mob, params)
+/obj/machinery/camera/attackby(obj/item/W, mob/living/user as mob, params)
 	var/msg = "<span class='notice'>You attach [W] into the assembly inner circuits.</span>"
 	var/msg2 = "<span class='notice'>The camera already has that upgrade!</span>"
 
@@ -138,7 +140,7 @@
 		panel_open = !panel_open
 		user.visible_message("<span class='warning'>[user] screws the camera's panel [panel_open ? "open" : "closed"]!</span>",
 		"<span class='notice'>You screw the camera's panel [panel_open ? "open" : "closed"].</span>")
-		playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
+		playsound(src.loc, W.usesound, 50, 1)
 
 	else if((istype(W, /obj/item/weapon/wirecutters) || istype(W, /obj/item/device/multitool)) && panel_open)
 		wires.Interact(user)
@@ -238,7 +240,7 @@
 		var/datum/effect/system/spark_spread/spark_system = new /datum/effect/system/spark_spread()
 		spark_system.set_up(5, 0, loc)
 		spark_system.start()
-		playsound(loc, 'sound/weapons/blade1.ogg', 50, 1)
+		playsound(loc, W.usesound, 50, 1)
 		playsound(loc, "sparks", 50, 1)
 		visible_message("<span class='notice'>[user] has sliced the camera apart with an energy blade!</span>")
 		qdel(src)
@@ -275,7 +277,7 @@
 		else
 			visible_message("<span class='danger'>\The [src] [change_msg]!</span>")
 
-		playsound(src.loc, 'sound/items/Wirecutter.ogg', 100, 1)
+		playsound(src.loc, toggle_message, 100, 1)
 
 	// now disconnect anyone using the camera
 	//Apparently, this will disconnect anyone even if the camera was re-activated.
@@ -355,9 +357,9 @@
 		return 0
 
 	to_chat(user, "<span class='notice'>You start to weld [src]...</span>")
-	playsound(src.loc, 'sound/items/Welder.ogg', 50, 1)
+	playsound(src.loc, WT.usesound, 50, 1)
 	busy = 1
-	if(do_after(user, 100, target = src))
+	if(do_after(user, 100 * WT.toolspeed, target = src))
 		busy = 0
 		if(!WT.isOn())
 			return 0

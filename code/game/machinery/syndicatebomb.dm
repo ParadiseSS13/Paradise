@@ -59,14 +59,14 @@
 				to_chat(user, "<span class='notice'>The bomb must be placed on solid ground to attach it</span>")
 			else
 				to_chat(user, "<span class='notice'>You firmly wrench the bomb to the floor</span>")
-				playsound(loc, 'sound/items/ratchet.ogg', 50, 1)
+				playsound(loc, I.usesound, 50, 1)
 				anchored = 1
 				if(active)
 					to_chat(user, "<span class='notice'>The bolts lock in place</span>")
 		else
 			if(!active)
 				to_chat(user, "<span class='notice'>You wrench the bomb from the floor</span>")
-				playsound(loc, 'sound/items/ratchet.ogg', 50, 1)
+				playsound(loc, I.usesound, 50, 1)
 				anchored = 0
 			else
 				to_chat(user, "<span class='warning'>The bolts are locked down!</span>")
