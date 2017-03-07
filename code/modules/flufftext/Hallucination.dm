@@ -116,11 +116,11 @@ Gunshots/explosions/opening doors/less rare audio (done)
 	active = 0
 	return ..()
 
-#define FAKE_FLOOD_EXPAND_TIME 30
-#define FAKE_FLOOD_MAX_RADIUS 7
+#define FAKE_FLOOD_EXPAND_TIME 20
+#define FAKE_FLOOD_MAX_RADIUS 10
 
 /obj/effect/hallucination/fake_flood
-	//Plasma/N2O starts flooding from the nearby vent
+	//Plasma starts flooding from the nearby vent
 	var/list/flood_images = list()
 	var/list/turf/flood_turfs = list()
 	var/image_icon = 'icons/effects/tile_effects.dmi'
@@ -135,7 +135,6 @@ Gunshots/explosions/opening doors/less rare audio (done)
 		if(!U.welded)
 			src.loc = U.loc
 			break
-	image_state = pick("plasma","sleeping_agent")
 	flood_images += image(image_icon,src,image_state,MOB_LAYER)
 	flood_turfs += get_turf(src.loc)
 	if(target.client)
@@ -149,26 +148,30 @@ Gunshots/explosions/opening doors/less rare audio (done)
 		if(radius > FAKE_FLOOD_MAX_RADIUS)
 			qdel(src)
 		Expand()
+		if((get_turf(target) in flood_turfs) && !target.internal)
+			target.hallucinate("fake_alert", "tox_in_air")
 		next_expand = world.time + FAKE_FLOOD_EXPAND_TIME
 
 /obj/effect/hallucination/fake_flood/proc/Expand()
-	if(!flood_turfs) //for qdel
-		return
-	for(var/turf/T in circlerangeturfs(loc, radius))
-		if(T in flood_turfs || T.blocks_air)
-			continue
-		flood_images += image(image_icon,T,image_state,MOB_LAYER)
-		flood_turfs += T
+	for(var/turf/FT in flood_turfs)
+		for(var/dir in cardinal)
+			var/turf/T = get_step(FT, dir)
+			if((T in flood_turfs) || !FT.CanAtmosPass(T))
+				continue
+			flood_images += image(image_icon,T,image_state,MOB_LAYER)
+			flood_turfs += T
 	if(target.client)
 		target.client.images |= flood_images
 
 /obj/effect/hallucination/fake_flood/Destroy()
 	processing_objects -= src
+	qdel(flood_turfs)
+	flood_turfs = list()
 	if(target.client)
 		target.client.images.Remove(flood_images)
 	target = null
-	qdel(flood_turfs)
 	qdel(flood_images)
+	flood_images = list()
 	return ..()
 
 /obj/effect/hallucination/simple/xeno
@@ -809,7 +812,7 @@ var/list/non_fakeattack_weapons = list(/obj/item/weapon/gun/projectile, /obj/ite
 	to_chat(target, chosen)
 	qdel(src)
 
-/mob/living/carbon/proc/hallucinate(hal_type) // Todo -> proc / defines
+/mob/living/carbon/proc/hallucinate(hal_type, specific) // specific is used to specify a particular hallucination
 	switch(hal_type)
 		if("xeno")
 			new /obj/effect/hallucination/xeno_attack(loc, src)
@@ -933,6 +936,8 @@ var/list/non_fakeattack_weapons = list(/obj/item/weapon/gun/projectile, /obj/ite
 			hal_screwyhud = SCREWYHUD_NONE
 		if("fake_alert")
 			var/alert_type = pick("oxy","not_enough_tox","not_enough_co2","too_much_oxy","too_much_co2","tox_in_air","newlaw","nutrition","charge","weightless","fire","locked","hacked","temp","pressure")
+			if(specific)
+				alert_type = specific
 			switch(alert_type)
 				if("oxy")
 					throw_alert("oxy", /obj/screen/alert/oxy, override = TRUE)
