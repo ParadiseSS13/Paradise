@@ -5,7 +5,7 @@
 	var/tools[] = list() //type paths of items needed but not consumed
 	var/time = 30 //time in deciseconds
 	var/parts[] = list() //type paths of items that will be placed in the result
-	var/chem_catalists[] = list() //like tools but for reagents
+	var/chem_catalysts[] = list() //like tools but for reagents
 	var/category = CAT_MISC // Recipe category
 
 /datum/crafting_recipe/proc/AdjustChems(var/obj/resultobj as obj)

@@ -1770,6 +1770,7 @@
 #include "code\modules\nano\interaction\default.dm"
 #include "code\modules\nano\interaction\inventory.dm"
 #include "code\modules\nano\interaction\inventory_deep.dm"
+#include "code\modules\nano\interaction\not_incapacitated.dm"
 #include "code\modules\nano\interaction\physical.dm"
 #include "code\modules\nano\interaction\self.dm"
 #include "code\modules\nano\interaction\zlevel.dm"
