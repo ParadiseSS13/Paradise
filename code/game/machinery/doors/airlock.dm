@@ -889,11 +889,10 @@ About the new airlock wires panel:
 				to_chat(user, "<span class='warning'>It's welded, it won't budge!</span>")
 				return
 
-			var/time_to_open = 5
 			if(arePowerSystemsOn())
-				time_to_open = 50
+				var/obj/item/weapon/crowbar/power/P = C
 				playsound(src, 'sound/machines/airlock_alien_prying.ogg',100,1) //is it aliens or just the CE being a dick?
-				if(do_after(user, time_to_open, target = src))
+				if(do_after(user, P.airlock_open_time, target = src))
 					open(2)
 					if(density && !open(2))
 						to_chat(user, "<span class='warning'>Despite your attempts, the [src] refuses to open.</span>")
