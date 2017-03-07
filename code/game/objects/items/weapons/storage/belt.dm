@@ -93,7 +93,7 @@
 	icon_state = "utilitybelt_ce"
 	item_state = "utility_ce"
 
-/obj/item/weapon/storage/belt/utility/chief/New()
+/obj/item/weapon/storage/belt/utility/chief/full/New()
 	..()
 	new /obj/item/weapon/screwdriver/power(src)
 	new /obj/item/weapon/crowbar/power(src)

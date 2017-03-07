@@ -26,7 +26,7 @@
 	jobtype = /datum/job/chief_engineer
 
 	uniform = /obj/item/clothing/under/rank/chief_engineer
-	belt = /obj/item/weapon/storage/belt/utility/chief
+	belt = /obj/item/weapon/storage/belt/utility/chief/full
 	gloves = /obj/item/clothing/gloves/color/black/ce
 	shoes = /obj/item/clothing/shoes/brown
 	head = /obj/item/clothing/head/hardhat/white
