@@ -697,6 +697,7 @@ obj/item/weapon/weldingtool/experimental/process()
 	usesound = 'sound/items/jaws_pry.ogg'
 	force = 15
 	toolspeed = 0.25
+	var/airlock_open_time = 100 // Time required to open powered airlocks
 
 /obj/item/weapon/crowbar/power/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is putting their head in [src], it looks like they're trying to commit suicide!</span>")
