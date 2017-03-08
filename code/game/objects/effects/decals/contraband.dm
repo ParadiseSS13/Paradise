@@ -203,8 +203,8 @@ obj/structure/sign/poster/New(serial,var/subtypeIn = -1)
 				name += " - Noble Honk"
 				desc += " A rather terrifying poster of a one off Shellguard Noble cyborg prototype."
 			if(36)
-				name += " - Hacked Firearm"
-				desc += " An advertisement for a beefed up Shellguard pistol, fully decked out with customisations."
+				name += " - Cyborg Report"
+				desc += " A not very motivational poster talking about mining cyborg losses."
 			if(37)
 				name += " - Believe"
 				desc += " A religious poster."
@@ -212,9 +212,6 @@ obj/structure/sign/poster/New(serial,var/subtypeIn = -1)
 				name += " - Honk the Horns"
 				desc += " Top of the charts in clown controlled space for over 25 years."
 			if(39)
-				name += " - Purge them clean!"
-				desc += " An activists poster calling for the destruction of all non-humans."
-			if(40)
 				name += " - Blink"
 				desc += " Maybe this poster will distract you just long enough for them to get you."
 			else
@@ -353,6 +350,9 @@ obj/structure/sign/poster/New(serial,var/subtypeIn = -1)
 			if(43)
 				name += " - No to naughty!"
 				desc += " Don't you dare think of using those lusty xeno posters!"
+			if(44)
+				name += " - Stay Healthy!"
+				desc += " A healthy crew is a happy crew!"
 			else
 				name += " - Error (subtype 1 serial_number)"
 				desc += " This is a bug, please report the circumstances under which you encountered this poster at https://github.com/NTStation/NTstation13/issues."
