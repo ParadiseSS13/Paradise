@@ -147,7 +147,7 @@
 	name = "Exotic materials"
 	id = "exotics"
 	blacklist = null
-	whitelist = list(/obj/item/weapon/coin, /obj/item/weapon/spacecash, /obj/item/seeds,
+	whitelist = list(/obj/item/weapon/coin, /obj/item/stack/spacecash, /obj/item/seeds,
 					/obj/item/stack/sheet/mineral,/obj/item/stack/sheet/wood,/obj/item/stack/sheet/leather)
 
 /datum/cargoprofile/organics

@@ -512,7 +512,7 @@ var/const/POS_HEADER = {"<html>
 			acct.charge(credits_needed,linked_account,"Purchase at POS #[id].")
 			credits_needed=0
 			screen=POS_SCREEN_ORDER
-	else if(istype(A,/obj/item/weapon/spacecash))
+	else if(istype(A, /obj/item/stack/spacecash))
 		if(!linked_account)
 			visible_message("<span class='warning'>The machine buzzes, and flashes \"NO LINKED ACCOUNT\" on the screen.</span>","You hear a buzz.")
 			flick(src,"pos-error")
@@ -521,8 +521,8 @@ var/const/POS_HEADER = {"<html>
 			visible_message("<span class='notice'>The machine buzzes.</span>","<span class='warning'>You hear a buzz.</span>")
 			flick(src,"pos-error")
 			return
-		var/obj/item/weapon/spacecash/C=A
-		credits_held += C.get_total()
+		var/obj/item/stack/spacecash/C = A
+		credits_held += C.amount
 		if(credits_held >= credits_needed)
 			visible_message("<span class='notice'>The machine beeps, and begins printing a receipt</span>","You hear a beep and the sound of paper being shredded.")
 			PrintReceipt()
@@ -531,9 +531,6 @@ var/const/POS_HEADER = {"<html>
 			credits_needed=0
 			screen=POS_SCREEN_ORDER
 			if(credits_held)
-				var/obj/item/weapon/storage/box/B = new(loc)
-				dispense_cash(credits_held,B)
-				B.name="change"
-				B.desc="A box of change."
+				new /obj/item/stack/spacecash(loc, credits_held)
 			credits_held=0
 	..()

@@ -1479,6 +1479,7 @@
 
 /mob/living/carbon/human/proc/set_species(var/new_species, var/default_colour, var/delay_icon_update = 0)
 	var/datum/species/oldspecies = species
+	var/datum/species/NS = all_species[new_species]
 	if(!dna)
 		if(!new_species)
 			new_species = "Human"
@@ -1498,6 +1499,8 @@
 		if(species.default_language)
 			remove_language(species.default_language)
 
+		if(gender == PLURAL && NS.has_gender)
+			change_gender(pick(MALE,FEMALE))
 		species.handle_pre_change(src)
 
 	species = all_species[new_species]
@@ -1884,7 +1887,7 @@
 					threatcount += 2
 
 	//Check for dresscode violations
-	if(istype(head, /obj/item/clothing/head/wizard) || istype(head, /obj/item/clothing/head/helmet/space/rig/wizard))
+	if(istype(head, /obj/item/clothing/head/wizard) || istype(head, /obj/item/clothing/head/helmet/space/hardsuit/wizard))
 		threatcount += 2
 
 

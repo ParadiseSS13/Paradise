@@ -640,6 +640,9 @@
 				(istype(W, /obj/item/device/multitool) || \
 				istype(W, /obj/item/weapon/wirecutters) || istype(W, /obj/item/device/assembly/signaler)))
 				return src.attack_hand(user)
+			if(W.flags & NOBLUDGEON)
+				return
+			user.changeNext_move(CLICK_CD_MELEE)
 			user.do_attack_animation(src)
 			user.visible_message("<span class='warning'>The [src.name] has been hit with the [W.name] by [user.name]!</span>", \
 				"<span class='warning'>You hit the [src.name] with your [W.name]!</span>", \
@@ -667,36 +670,6 @@
 	if(!user)
 		return
 	src.add_fingerprint(user)
-	//Synthetic human mob goes here.
-	if(istype(user,/mob/living/carbon/human))
-		var/mob/living/carbon/human/H = user
-		if(H.get_int_organ(/obj/item/organ/internal/cell) && H.a_intent == I_GRAB)
-			if(emagged || stat & BROKEN)
-				var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
-				s.set_up(3, 1, src)
-				s.start()
-				to_chat(H, "<span class='warning'>The APC power currents surge erratically, damaging your chassis!</span>")
-				H.adjustFireLoss(10,0)
-			else if(src.cell && src.cell.charge > 0)
-				if(H.nutrition < NUTRITION_LEVEL_WELL_FED)
-					if(src.cell.charge >= 500)
-						H.nutrition += 50
-						src.cell.charge -= 500
-					else
-						H.nutrition += src.cell.charge/10
-						src.cell.charge = 0
-
-					to_chat(user, "<span class='notice'>You slot your fingers into the APC interface and siphon off some of the stored charge for your own use.</span>")
-					if(src.cell.charge < 0)
-						src.cell.charge = 0
-					if(H.nutrition > NUTRITION_LEVEL_WELL_FED + 50)
-						H.nutrition = NUTRITION_LEVEL_WELL_FED + 50
-					src.charging = 1
-				else
-					to_chat(user, "<span class='notice'>You are already fully charged.</span>")
-			else
-				to_chat(user, "<span class='warning'>There is no charge to draw from that APC.</span>")
-			return
 
 	if(usr == user && opened && (!issilicon(user)))
 		if(cell)

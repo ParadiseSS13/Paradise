@@ -63,16 +63,15 @@ log transactions
 
 	if(authenticated_account)
 		var/turf/T = get_turf(src)
-		if(istype(T) && locate(/obj/item/weapon/spacecash) in T)
-			var/list/cash_found = list()
-			for(var/obj/item/weapon/spacecash/S in T)
-				cash_found += S
-			if(cash_found.len > 0)
+		if(istype(T) && locate(/obj/item/stack/spacecash) in T)
+			var/cash_amount = 0
+			for(var/obj/item/stack/spacecash/S in T)
+				cash_amount += S.amount
+			if(cash_amount)
 				playsound(loc, pick('sound/items/polaroid1.ogg', 'sound/items/polaroid2.ogg'), 50, 1)
-				var/amount = count_cash(cash_found)
-				for(var/obj/item/weapon/spacecash/S in cash_found)
-					qdel(S)
-				authenticated_account.charge(-amount, null, "Credit deposit", terminal_id = machine_id, dest_name = "Terminal")
+				for(var/obj/item/stack/spacecash/S in T)
+					S.use(S.amount)
+				authenticated_account.charge(-cash_amount, null, "Credit deposit", terminal_id = machine_id, dest_name = "Terminal")
 
 /obj/machinery/atm/proc/reconnect_database()
 	for(var/obj/machinery/computer/account_database/DB in machines)
@@ -90,17 +89,17 @@ log transactions
 				authenticated_account = null
 			nanomanager.update_uis(src)
 	else if(authenticated_account)
-		if(istype(I, /obj/item/weapon/spacecash))
+		if(istype(I, /obj/item/stack/spacecash))
 			//consume the money
-			var/obj/item/weapon/spacecash/C = I
-			authenticated_account.money += C.get_total()
+			var/obj/item/stack/spacecash/C = I
+			authenticated_account.money += C.amount
 			playsound(loc, pick('sound/items/polaroid1.ogg', 'sound/items/polaroid2.ogg'), 50, 1)
 
 			//create a transaction log entry
 			var/datum/transaction/T = new()
 			T.target_name = authenticated_account.owner_name
 			T.purpose = "Credit deposit"
-			T.amount = C.get_total()
+			T.amount = C.amount
 			T.source_terminal = machine_id
 			T.date = current_date_string
 			T.time = worldtime2text()
@@ -108,7 +107,7 @@ log transactions
 
 			to_chat(user, "<span class='info'>You insert [C] into [src].</span>")
 			nanomanager.update_uis(src)
-			qdel(I)
+			C.use(C.amount)
 	else
 		..()
 
@@ -315,7 +314,7 @@ log transactions
 
 //create the most effective combination of notes to make up the requested amount
 /obj/machinery/atm/proc/withdraw_arbitrary_sum(arbitrary_sum)
-	dispense_cash(arbitrary_sum, get_step(get_turf(src), turn(dir, 180))) // Spawn on the ATM.
+	new /obj/item/stack/spacecash(get_step(get_turf(src), turn(dir, 180)), arbitrary_sum)
 
 //stolen wholesale and then edited a bit from newscasters, which are awesome and by Agouri
 /obj/machinery/atm/proc/scan_user(mob/living/carbon/human/H)
