@@ -31,6 +31,8 @@
 	..()
 	var/datum/space_level/S = space_manager.get_zlev(z)
 	S.remove_from_transit(src)
+	if(light_sources) // Turn off starlight, if present
+		set_light(0)
 
 /turf/space/AfterChange(ignore_air, keep_cabling = FALSE)
 	..()

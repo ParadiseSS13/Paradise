@@ -10,9 +10,9 @@ var/const/SMARTFRIDGE_WIRE_ELECTRIFY	= 1
 var/const/SMARTFRIDGE_WIRE_THROW		= 2
 var/const/SMARTFRIDGE_WIRE_IDSCAN		= 4
 
-/datum/wires/smartfridge/CanUse(var/mob/living/L)
+/datum/wires/smartfridge/CanUse(mob/living/L)
 	var/obj/machinery/smartfridge/S = holder
-	if(!istype(L, /mob/living/silicon))
+	if(!issilicon(L))
 		if(S.seconds_electrified)
 			if(S.shock(L, 100))
 				return 0
@@ -20,14 +20,14 @@ var/const/SMARTFRIDGE_WIRE_IDSCAN		= 4
 		return 1
 	return 0
 
-/datum/wires/smartfridge/GetInteractWindow()
+/datum/wires/smartfridge/get_status()
+	. = ..()
 	var/obj/machinery/smartfridge/S = holder
-	. += ..()
-	. += "<BR>The orange light is [S.seconds_electrified ? "off" : "on"].<BR>"
-	. += "The red light is [S.shoot_inventory ? "off" : "blinking"].<BR>"
-	. += "A [S.scan_id ? "purple" : "yellow"] light is on.<BR>"
+	. += "The orange light is [S.seconds_electrified ? "off" : "on"]."
+	. += "The red light is [S.shoot_inventory ? "off" : "blinking"]."
+	. += "A [S.scan_id ? "purple" : "yellow"] light is on."
 
-/datum/wires/smartfridge/UpdatePulsed(var/index)
+/datum/wires/smartfridge/UpdatePulsed(index)
 	var/obj/machinery/smartfridge/S = holder
 	switch(index)
 		if(SMARTFRIDGE_WIRE_THROW)
@@ -36,8 +36,9 @@ var/const/SMARTFRIDGE_WIRE_IDSCAN		= 4
 			S.seconds_electrified = 30
 		if(SMARTFRIDGE_WIRE_IDSCAN)
 			S.scan_id = !S.scan_id
+	..()
 
-/datum/wires/smartfridge/UpdateCut(var/index, var/mended)
+/datum/wires/smartfridge/UpdateCut(index, mended)
 	var/obj/machinery/smartfridge/S = holder
 	switch(index)
 		if(SMARTFRIDGE_WIRE_THROW)
@@ -49,3 +50,4 @@ var/const/SMARTFRIDGE_WIRE_IDSCAN		= 4
 				S.seconds_electrified = -1
 		if(SMARTFRIDGE_WIRE_IDSCAN)
 			S.scan_id = 1
+	..()

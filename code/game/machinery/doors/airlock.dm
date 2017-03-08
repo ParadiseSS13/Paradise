@@ -34,7 +34,7 @@
 	var/main_power_timer = null
 	var/backup_power_timer = null
 	var/spawnPowerRestoreRunning = 0
-	var/welded = null
+	var/welded = FALSE
 	var/locked = 0
 	var/lights = 1 // bolt lights show by default
 	var/datum/wires/airlock/wires = null
@@ -89,6 +89,9 @@
 	name = "External Airlock"
 	icon = 'icons/obj/doors/Doorext.dmi'
 	assembly_type = /obj/structure/door_assembly/door_assembly_ext
+
+/obj/machinery/door/airlock/welded
+	welded = 1
 
 /obj/machinery/door/airlock/glass
 	name = "Glass Airlock"
@@ -557,8 +560,8 @@ About the new airlock wires panel:
 	return
 
 /obj/machinery/door/airlock/attack_ghost(mob/user)
-	ui_interact(user)	
-	
+	ui_interact(user)
+
 /obj/machinery/door/airlock/attack_ai(mob/user)
 	ui_interact(user)
 
@@ -990,14 +993,17 @@ About the new airlock wires panel:
 /obj/machinery/door/airlock/New()
 	..()
 	wires = new(src)
+
+/obj/machinery/door/airlock/initialize()
+	. = ..()
 	if(closeOtherId != null)
-		spawn (5)
-			for(var/obj/machinery/door/airlock/A in airlocks)
-				if(A.closeOtherId == closeOtherId && A != src)
-					closeOther = A
-					break
+		for(var/obj/machinery/door/airlock/A in airlocks)
+			if(A.closeOtherId == closeOtherId && A != src)
+				closeOther = A
+				break
 	if(frozen)
-		welded = 1
+		welded = TRUE
+	if(welded)
 		update_icon()
 
 /obj/machinery/door/airlock/hatch/gamma/attackby(C as obj, mob/user as mob, params)

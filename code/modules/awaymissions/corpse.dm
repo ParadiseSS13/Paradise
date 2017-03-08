@@ -116,12 +116,12 @@
 /obj/effect/landmark/corpse/syndicatecommando
 	name = "Syndicate Commando"
 	corpseuniform = /obj/item/clothing/under/syndicate
-	corpsesuit = /obj/item/clothing/suit/space/rig/syndi
+	corpsesuit = /obj/item/clothing/suit/space/hardsuit/syndi
 	corpseshoes = /obj/item/clothing/shoes/combat
 	corpsegloves = /obj/item/clothing/gloves/combat
 	corpseradio = /obj/item/device/radio/headset
 	corpsemask = /obj/item/clothing/mask/gas/syndicate
-	corpsehelmet = /obj/item/clothing/head/helmet/space/rig/syndi
+	corpsehelmet = /obj/item/clothing/head/helmet/space/hardsuit/syndi
 	corpseback = /obj/item/weapon/tank/jetpack/oxygen
 	corpsepocket1 = /obj/item/weapon/tank/emergency_oxygen
 	corpseid = 1
@@ -170,10 +170,10 @@
 	corpseidjob = "Station Engineer"
 	corpseidaccess = "Station Engineer"
 
-/obj/effect/landmark/corpse/engineer/rig
-	corpsesuit = /obj/item/clothing/suit/space/rig
+/obj/effect/landmark/corpse/engineer/hardsuit
+	corpsesuit = /obj/item/clothing/suit/space/hardsuit
 	corpsemask = /obj/item/clothing/mask/breath
-	corpsehelmet = /obj/item/clothing/head/helmet/space/rig
+	corpsehelmet = /obj/item/clothing/head/helmet/space/hardsuit
 
 /obj/effect/landmark/corpse/clown
 
@@ -255,10 +255,10 @@
 	corpseidjob = "Shaft Miner"
 	corpseidaccess = "Shaft Miner"
 
-/obj/effect/landmark/corpse/miner/rig
-	corpsesuit = /obj/item/clothing/suit/space/rig/mining
+/obj/effect/landmark/corpse/miner/hardsuit
+	corpsesuit = /obj/item/clothing/suit/space/hardsuit/mining
 	corpsemask = /obj/item/clothing/mask/breath
-	corpsehelmet = /obj/item/clothing/head/helmet/space/rig/mining
+	corpsehelmet = /obj/item/clothing/head/helmet/space/hardsuit/mining
 
 
 /////////////////Officers//////////////////////

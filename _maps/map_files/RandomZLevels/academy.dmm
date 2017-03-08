@@ -35,7 +35,7 @@
 "aI" = (/obj/structure/table/reinforced,/obj/item/device/laser_pointer/upgraded,/turf/simulated/floor/carpet,/area/awaymission/academy/headmaster)
 "aJ" = (/obj/structure/cult/tome,/obj/item/weapon/twohanded/staff,/obj/item/weapon/spellbook/oneuse/charge,/turf/simulated/floor/wood,/area/awaymission/academy/headmaster)
 "aK" = (/obj/structure/stool/bed/chair/wood/wings{dir = 8},/turf/simulated/floor/wood,/area/awaymission/academy/headmaster)
-"aL" = (/obj/item/clothing/suit/space/rig/wizard,/obj/structure/table/woodentable,/obj/item/stack/sheet/mineral/silver{amount = 20},/turf/simulated/floor/wood,/area/awaymission/academy/headmaster)
+"aL" = (/obj/item/clothing/suit/space/hardsuit/wizard,/obj/structure/table/woodentable,/obj/item/stack/sheet/mineral/silver{amount = 20},/turf/simulated/floor/wood,/area/awaymission/academy/headmaster)
 "aM" = (/obj/structure/table/reinforced,/obj/item/weapon/storage/briefcase,/turf/simulated/floor/carpet,/area/awaymission/academy/headmaster)
 "aN" = (/obj/structure/table/reinforced,/obj/item/weapon/coin/plasma,/turf/simulated/floor/carpet,/area/awaymission/academy/headmaster)
 "aO" = (/obj/machinery/light/small{dir = 1},/turf/simulated/floor/carpet,/area/awaymission/academy/headmaster)

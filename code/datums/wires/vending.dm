@@ -9,7 +9,7 @@ var/const/VENDING_WIRE_CONTRABAND = 2
 var/const/VENDING_WIRE_ELECTRIFY = 4
 var/const/VENDING_WIRE_IDSCAN = 8
 
-/datum/wires/vending/CanUse(var/mob/living/L)
+/datum/wires/vending/CanUse(mob/living/L)
 	var/obj/machinery/vending/V = holder
 	if(!istype(L, /mob/living/silicon))
 		if(V.seconds_electrified)
@@ -19,15 +19,15 @@ var/const/VENDING_WIRE_IDSCAN = 8
 		return 1
 	return 0
 
-/datum/wires/vending/GetInteractWindow()
+/datum/wires/vending/get_status()
+	. = ..()
 	var/obj/machinery/vending/V = holder
-	. += ..()
-	. += "<BR>The orange light is [V.seconds_electrified ? "on" : "off"].<BR>"
-	. += "The red light is [V.shoot_inventory ? "off" : "blinking"].<BR>"
-	. += "The green light is [(V.categories & CAT_HIDDEN) ? "on" : "off"].<BR>"
-	. += "A [V.scan_id ? "purple" : "yellow"] light is on.<BR>"
+	. += "The orange light is [V.seconds_electrified ? "on" : "off"]."
+	. += "The red light is [V.shoot_inventory ? "off" : "blinking"]."
+	. += "The green light is [(V.categories & CAT_HIDDEN) ? "on" : "off"]."
+	. += "A [V.scan_id ? "purple" : "yellow"] light is on."
 
-/datum/wires/vending/UpdatePulsed(var/index)
+/datum/wires/vending/UpdatePulsed(index)
 	var/obj/machinery/vending/V = holder
 	switch(index)
 		if(VENDING_WIRE_THROW)
@@ -38,8 +38,9 @@ var/const/VENDING_WIRE_IDSCAN = 8
 			V.seconds_electrified = 30
 		if(VENDING_WIRE_IDSCAN)
 			V.scan_id = !V.scan_id
+	..()
 
-/datum/wires/vending/UpdateCut(var/index, var/mended)
+/datum/wires/vending/UpdateCut(index, mended)
 	var/obj/machinery/vending/V = holder
 	switch(index)
 		if(VENDING_WIRE_THROW)
@@ -53,3 +54,4 @@ var/const/VENDING_WIRE_IDSCAN = 8
 				V.seconds_electrified = -1
 		if(VENDING_WIRE_IDSCAN)
 			V.scan_id = 1
+	..()

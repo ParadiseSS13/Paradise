@@ -346,7 +346,7 @@
 	max_w_class = 3
 	w_class = 1
 
-	can_hold = list("/obj/item/weapon/coin","/obj/item/weapon/spacecash")
+	can_hold = list("/obj/item/weapon/coin","/obj/item/stack/spacecash")
 
 // -----------------------------
 //           Book bag

@@ -29,9 +29,6 @@
 	//Sellection screen color
 	var/selection_color = "#ffffff"
 
-	//the type of the ID the player will have
-	var/idtype = /obj/item/weapon/card/id
-
 	//List of alternate titles, if any
 	var/list/alt_titles
 
@@ -57,14 +54,32 @@
 	var/admin_only = 0
 	var/spawn_ert = 0
 
+	var/outfit = null
+
 	/////////////////////////////////
 	// /vg/ feature: Job Objectives!
 	/////////////////////////////////
 	var/required_objectives=list() // Objectives that are ALWAYS added.
 	var/optional_objectives=list() // Objectives that are SOMETIMES added.
 
-/datum/job/proc/equip(var/mob/living/carbon/human/H)
-	return 1
+//Only override this proc
+/datum/job/proc/after_spawn(mob/living/carbon/human/H)
+
+/datum/job/proc/announce(mob/living/carbon/human/H)
+
+/datum/job/proc/equip(mob/living/carbon/human/H, visualsOnly = FALSE, announce = TRUE)
+	if(!H)
+		return 0
+
+	H.species.before_equip_job(src, H, visualsOnly)
+
+	if(outfit)
+		H.equipOutfit(outfit, visualsOnly)
+
+	H.species.after_equip_job(src, H, visualsOnly)
+
+	if(!visualsOnly && announce)
+		announce(H)
 
 /datum/job/proc/get_access()
 	if(!config)	//Needed for robots.
@@ -94,44 +109,139 @@
 
 	return max(0, minimal_player_age - C.player_age)
 
-/datum/job/proc/apply_fingerprints(var/mob/living/carbon/human/H)
-	if(!istype(H))
-		return
-	if(H.back)
-		H.back.add_fingerprint(H,1)	//The 1 sets a flag to ignore gloves
-		for(var/obj/item/I in H.back.contents)
-			I.add_fingerprint(H,1)
-	if(H.wear_id)
-		H.wear_id.add_fingerprint(H,1)
-	if(H.w_uniform)
-		H.w_uniform.add_fingerprint(H,1)
-	if(H.wear_suit)
-		H.wear_suit.add_fingerprint(H,1)
-	if(H.wear_mask)
-		H.wear_mask.add_fingerprint(H,1)
-	if(H.head)
-		H.head.add_fingerprint(H,1)
-	if(H.shoes)
-		H.shoes.add_fingerprint(H,1)
-	if(H.gloves)
-		H.gloves.add_fingerprint(H,1)
-	if(H.l_ear)
-		H.l_ear.add_fingerprint(H,1)
-	if(H.r_ear)
-		H.r_ear.add_fingerprint(H,1)
-	if(H.glasses)
-		H.glasses.add_fingerprint(H,1)
-	if(H.belt)
-		H.belt.add_fingerprint(H,1)
-		for(var/obj/item/I in H.belt.contents)
-			I.add_fingerprint(H,1)
-	if(H.s_store)
-		H.s_store.add_fingerprint(H,1)
-	if(H.l_store)
-		H.l_store.add_fingerprint(H,1)
-	if(H.r_store)
-		H.r_store.add_fingerprint(H,1)
-	return 1
-
 /datum/job/proc/is_position_available()
 	return (current_positions < total_positions) || (total_positions == -1)
+
+/datum/outfit/job
+	name = "Standard Gear"
+	collect_not_del = TRUE // we don't want anyone to lose their job shit
+
+	var/jobtype = null
+
+	uniform = /obj/item/clothing/under/color/grey
+	id = /obj/item/weapon/card/id
+	l_ear = /obj/item/device/radio/headset
+	back = /obj/item/weapon/storage/backpack
+	shoes = /obj/item/clothing/shoes/black
+	pda = /obj/item/device/pda
+
+	var/list/implants = null
+
+	var/backpack = /obj/item/weapon/storage/backpack
+	var/satchel = /obj/item/weapon/storage/backpack/satchel_norm
+	var/dufflebag = /obj/item/weapon/storage/backpack/duffel
+	var/box = /obj/item/weapon/storage/box/survival
+
+	var/tmp/list/gear_leftovers = list()
+
+/datum/outfit/job/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	switch(H.backbag)
+		if(GBACKPACK)
+			back = /obj/item/weapon/storage/backpack //Grey backpack
+		if(GSATCHEL)
+			back = /obj/item/weapon/storage/backpack/satchel_norm //Grey satchel
+		if(GDUFFLEBAG)
+			back = /obj/item/weapon/storage/backpack/duffel //Grey Dufflebag
+		if(LSATCHEL)
+			back = /obj/item/weapon/storage/backpack/satchel //Leather Satchel
+		if(DSATCHEL)
+			back = satchel //Department satchel
+		if(DDUFFLEBAG)
+			back = dufflebag //Department dufflebag
+		else
+			back = backpack //Department backpack
+
+	var/datum/job/J = job_master.GetJobType(jobtype)
+	if(!J)
+		J = job_master.GetJob(H.job)
+
+	if(box)
+		backpack_contents.Insert(1, box) // Box always takes a first slot in backpack
+		backpack_contents[box] = 1
+
+	if(H.client && (H.client.prefs.gear && H.client.prefs.gear.len))
+		for(var/gear in H.client.prefs.gear)
+			var/datum/gear/G = gear_datums[gear]
+			if(G)
+				var/permitted = FALSE
+
+				if(G.allowed_roles)
+					if(name in G.allowed_roles)
+						permitted = TRUE
+				else
+					permitted = TRUE
+
+				if(G.whitelisted && (G.whitelisted != H.species.name || !is_alien_whitelisted(H, G.whitelisted)))
+					permitted = FALSE
+
+				if(!permitted)
+					to_chat(H, "<span class='warning'>Your current job or whitelist status does not permit you to spawn with [gear]!</span>")
+					continue
+
+				if(G.slot)
+					if(H.equip_to_slot_or_del(G.spawn_item(H), G.slot))
+						to_chat(H, "<span class='notice'>Equipping you with [gear]!</span>")
+					else
+						gear_leftovers += G
+				else
+					gear_leftovers += G
+
+/datum/outfit/job/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	if(visualsOnly)
+		return
+
+	var/datum/job/J = job_master.GetJobType(jobtype)
+	if(!J)
+		J = job_master.GetJob(H.job)
+
+	var/obj/item/weapon/card/id/C = H.wear_id
+	if(istype(C))
+		C.access = J.get_access()
+		C.registered_name = H.real_name
+		C.rank = J.title
+		C.assignment = J.title
+		C.sex = capitalize(H.gender)
+		C.age = H.age
+		C.name = "[C.registered_name]'s ID Card ([C.assignment])"
+		C.photo = get_id_photo(H)
+
+		if(H.mind && H.mind.initial_account)
+			C.associated_account_number = H.mind.initial_account.account_number
+
+	H.sec_hud_set_ID()
+
+	var/obj/item/device/pda/PDA = H.wear_pda
+	if(istype(PDA))
+		PDA.owner = H.real_name
+		PDA.ownjob = C.assignment
+		PDA.ownrank = C.rank
+		PDA.name = "PDA-[H.real_name] ([PDA.ownjob])"
+
+	if(implants)
+		for(var/implant_type in implants)
+			var/obj/item/weapon/implant/I = new implant_type(H)
+			I.imp_in = H
+			I.implanted = 1
+			H.sec_hud_set_implants()
+
+	if(gear_leftovers.len)
+		for(var/datum/gear/G in gear_leftovers)
+			var/atom/placed_in = H.equip_or_collect(G.spawn_item(null, H.client.prefs.gear[G.display_name]))
+			if(istype(placed_in))
+				if(isturf(placed_in))
+					to_chat(H, "<span class='notice'>Placing \the [G] on [placed_in]!</span>")
+				else
+					to_chat(H, "<span class='noticed'>Placing \the [G] in [placed_in.name]]")
+				continue
+			if(H.equip_to_appropriate_slot(G))
+				to_chat(H, "<span class='notice'>Placing \the [G] in your inventory!</span>")
+				continue
+			if(H.put_in_hands(G))
+				to_chat(H, "<span class='notice'>Placing \the [G] in your hands!</span>")
+				continue
+			to_chat(H, "<span class='danger'>Failed to locate a storage object on your mob, either you spawned with no hands free and no backpack or this is a bug.</span>")
+			qdel(G)
+
+		qdel(gear_leftovers)
+
+	return 1

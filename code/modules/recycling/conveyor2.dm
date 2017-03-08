@@ -253,9 +253,20 @@
 
 // attack with hand, switch position
 /obj/machinery/conveyor_switch/attack_hand(mob/user)
-	if(!allowed(user)) //this is in Para but not TG. I don't think there's any which are set anyway.
+	if(..())
+		return 1
+		
+	toggle(user)
+	
+/obj/machinery/conveyor_switch/attack_ghost(mob/user)
+	if(user.can_advanced_admin_interact())
+		toggle(user)
+
+/obj/machinery/conveyor_switch/proc/toggle(mob/user)
+	if(!allowed(user) && !user.can_advanced_admin_interact()) //this is in Para but not TG. I don't think there's any which are set anyway.
 		to_chat(user, "<span class='warning'>Access denied.</span>")
 		return
+
 	add_fingerprint(user)
 	if(position == 0)
 		if(convdir)   //is it a oneway switch
@@ -280,8 +291,7 @@
 			S.position = position
 			S.update()
 		CHECK_TICK
-
-
+		
 /obj/machinery/conveyor_switch/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/weapon/crowbar))
 		var/obj/item/conveyor_switch_construct/C = new/obj/item/conveyor_switch_construct(src.loc)

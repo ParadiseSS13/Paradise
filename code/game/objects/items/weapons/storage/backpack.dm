@@ -189,7 +189,7 @@
 /obj/item/weapon/storage/backpack/satchel_norm
 	name = "satchel"
 	desc = "A deluxe NT Satchel, made of the highest quality leather."
-	icon_state = "satchel"
+	icon_state = "satchel-norm"
 
 /obj/item/weapon/storage/backpack/satchel_eng
 	name = "industrial satchel"

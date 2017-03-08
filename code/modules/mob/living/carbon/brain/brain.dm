@@ -82,6 +82,17 @@ I'm using this for Stat to give it a more nifty interface to work with
 /mob/living/carbon/brain/proc/has_synthetic_assistance()
 	return (container && istype(container, /obj/item/device/mmi)) || in_contents_of(/obj/mecha)
 
+/mob/living/carbon/brain/proc/get_race()
+	if(container)
+		var/obj/item/device/mmi/M = container
+		if(istype(M) && M.held_brain)
+			return M.held_brain.dna.get_species_name()
+		else
+			return "Artificial Life"
+	if(istype(loc, /obj/item/organ/internal/brain))
+		var/obj/item/organ/internal/brain/B = loc
+		return B.dna.get_species_name()
+
 /mob/living/carbon/brain/Stat()
 	..()
 	if(has_synthetic_assistance())
