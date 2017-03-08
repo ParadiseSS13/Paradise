@@ -46,12 +46,12 @@
 
 
 
-/datum/outfit/admin/rig
+/datum/outfit/admin/hardsuit
 	back = /obj/item/weapon/tank/jetpack/oxygen
 	mask = /obj/item/clothing/mask/breath
 	id = /obj/item/weapon/card/id
 
-/datum/outfit/admin/rig/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/admin/hardsuit/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
 	if(visualsOnly)
 		return
@@ -63,42 +63,42 @@
 
 	var/obj/item/weapon/card/id/I = H.wear_id
 	if(istype(I))
-		apply_to_card(I, H, get_all_accesses(), "RIG Tester")
+		apply_to_card(I, H, get_all_accesses(), "Hardsuit Tester")
 
-/datum/outfit/admin/rig/engineer
-	name = "Engineer RIG"
-	suit = /obj/item/clothing/suit/space/rig
-	head = /obj/item/clothing/head/helmet/space/rig
+/datum/outfit/admin/hardsuit/engineer
+	name = "Engineer Hardsuit"
+	suit = /obj/item/clothing/suit/space/hardsuit
+	head = /obj/item/clothing/head/helmet/space/hardsuit
 
-/datum/outfit/admin/rig/ce
-	name = "CE RIG"
-	suit = /obj/item/clothing/suit/space/rig/elite
-	head = /obj/item/clothing/head/helmet/space/rig/elite
+/datum/outfit/admin/hardsuit/ce
+	name = "CE Hardsuit"
+	suit = /obj/item/clothing/suit/space/hardsuit/elite
+	head = /obj/item/clothing/head/helmet/space/hardsuit/elite
 
-/datum/outfit/admin/rig/mining
-	name = "Mining RIG"
-	suit = /obj/item/clothing/suit/space/rig/mining
-	head = /obj/item/clothing/head/helmet/space/rig/mining
+/datum/outfit/admin/hardsuit/mining
+	name = "Mining Hardsuit"
+	suit = /obj/item/clothing/suit/space/hardsuit/mining
+	head = /obj/item/clothing/head/helmet/space/hardsuit/mining
 
-/datum/outfit/admin/rig/syndi
-	name = "Syndi RIG"
-	suit = /obj/item/clothing/suit/space/rig/syndi
-	head = /obj/item/clothing/head/helmet/space/rig/syndi
+/datum/outfit/admin/hardsuit/syndi
+	name = "Syndi Hardsuit"
+	suit = /obj/item/clothing/suit/space/hardsuit/syndi
+	head = /obj/item/clothing/head/helmet/space/hardsuit/syndi
 
-/datum/outfit/admin/rig/wizard
-	name = "Wizard RIG"
-	suit = /obj/item/clothing/suit/space/rig/wizard
-	head = /obj/item/clothing/head/helmet/space/rig/wizard
+/datum/outfit/admin/hardsuit/wizard
+	name = "Wizard Hardsuit"
+	suit = /obj/item/clothing/suit/space/hardsuit/wizard
+	head = /obj/item/clothing/head/helmet/space/hardsuit/wizard
 
-/datum/outfit/admin/rig/medical
-	name = "Medical RIG"
-	suit = /obj/item/clothing/suit/space/rig/medical
-	head = /obj/item/clothing/head/helmet/space/rig/medical
+/datum/outfit/admin/hardsuit/medical
+	name = "Medical Hardsuit"
+	suit = /obj/item/clothing/suit/space/hardsuit/medical
+	head = /obj/item/clothing/head/helmet/space/hardsuit/medical
 
-/datum/outfit/admin/rig/atmos
-	name = "Atmos RIG"
-	suit = /obj/item/clothing/suit/space/rig/atmos
-	head = /obj/item/clothing/head/helmet/space/rig/atmos
+/datum/outfit/admin/hardsuit/atmos
+	name = "Atmos Hardsuit"
+	suit = /obj/item/clothing/suit/space/hardsuit/atmos
+	head = /obj/item/clothing/head/helmet/space/hardsuit/atmos
 
 
 /datum/outfit/admin/tournament
@@ -663,9 +663,9 @@
 /datum/outfit/admin/syndicate/operative
 	name = "Syndicate Operative"
 
-	suit = /obj/item/clothing/suit/space/rig/syndi
+	suit = /obj/item/clothing/suit/space/hardsuit/syndi
 	belt = /obj/item/weapon/storage/belt/military
-	head = /obj/item/clothing/head/helmet/space/rig/syndi
+	head = /obj/item/clothing/head/helmet/space/hardsuit/syndi
 	mask = /obj/item/clothing/mask/gas/syndicate
 	l_ear = /obj/item/device/radio/headset/syndicate/alt
 	glasses = /obj/item/clothing/glasses/night
@@ -905,12 +905,12 @@
 	name = "Singuloth Knight"
 
 	uniform = /obj/item/clothing/under/syndicate/combat
-	suit = /obj/item/clothing/suit/space/rig/singuloth
+	suit = /obj/item/clothing/suit/space/hardsuit/singuloth
 	back = /obj/item/weapon/twohanded/knighthammer
 	belt = /obj/item/weapon/claymore/ceremonial
 	gloves = /obj/item/clothing/gloves/combat
 	shoes = /obj/item/clothing/shoes/magboots
-	head = /obj/item/clothing/head/helmet/space/rig/singuloth
+	head = /obj/item/clothing/head/helmet/space/hardsuit/singuloth
 	mask = /obj/item/clothing/mask/breath
 	l_ear = /obj/item/device/radio/headset/ert
 	glasses = /obj/item/clothing/glasses/meson/cyber
