@@ -38,7 +38,14 @@
 /obj/structure/falsewall/CanAtmosPass(turf/T)
 	return !density
 
+/obj/structure/falsewall/attack_ghost(mob/user)
+	if(user.can_advanced_admin_interact())
+		toggle(user)
+	
 /obj/structure/falsewall/attack_hand(mob/user)
+	toggle(user)
+	
+/obj/structure/falsewall/proc/toggle(mob/user)
 	if(opening)
 		return
 

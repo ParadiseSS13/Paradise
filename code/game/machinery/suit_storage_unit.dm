@@ -41,33 +41,33 @@
 	MASK_TYPE = /obj/item/clothing/mask/gas
 
 /obj/machinery/suit_storage_unit/engine
-	SUIT_TYPE = /obj/item/clothing/suit/space/rig/engineering
-	HELMET_TYPE = /obj/item/clothing/head/helmet/space/rig/engineering
+	SUIT_TYPE = /obj/item/clothing/suit/space/hardsuit/engineering
+	HELMET_TYPE = /obj/item/clothing/head/helmet/space/hardsuit/engineering
 	MASK_TYPE = /obj/item/clothing/mask/breath
 
 /obj/machinery/suit_storage_unit/ce
-	SUIT_TYPE = /obj/item/clothing/suit/space/rig/elite
-	HELMET_TYPE = /obj/item/clothing/head/helmet/space/rig/elite
+	SUIT_TYPE = /obj/item/clothing/suit/space/hardsuit/elite
+	HELMET_TYPE = /obj/item/clothing/head/helmet/space/hardsuit/elite
 	MASK_TYPE = /obj/item/clothing/mask/breath
 
 /obj/machinery/suit_storage_unit/security
-	SUIT_TYPE = /obj/item/clothing/suit/space/rig/security
-	HELMET_TYPE = /obj/item/clothing/head/helmet/space/rig/security
+	SUIT_TYPE = /obj/item/clothing/suit/space/hardsuit/security
+	HELMET_TYPE = /obj/item/clothing/head/helmet/space/hardsuit/security
 	MASK_TYPE = /obj/item/clothing/mask/gas/sechailer
 
 /obj/machinery/suit_storage_unit/atmos
-	SUIT_TYPE = /obj/item/clothing/suit/space/rig/atmos
-	HELMET_TYPE = /obj/item/clothing/head/helmet/space/rig/atmos
+	SUIT_TYPE = /obj/item/clothing/suit/space/hardsuit/atmos
+	HELMET_TYPE = /obj/item/clothing/head/helmet/space/hardsuit/atmos
 	MASK_TYPE = /obj/item/clothing/mask/gas
 
 /obj/machinery/suit_storage_unit/mining
-	SUIT_TYPE = /obj/item/clothing/suit/space/rig/mining
-	HELMET_TYPE = /obj/item/clothing/head/helmet/space/rig/mining
+	SUIT_TYPE = /obj/item/clothing/suit/space/hardsuit/mining
+	HELMET_TYPE = /obj/item/clothing/head/helmet/space/hardsuit/mining
 	MASK_TYPE = /obj/item/clothing/mask/breath
 
 /obj/machinery/suit_storage_unit/cmo
-	SUIT_TYPE = /obj/item/clothing/suit/space/rig/medical
-	HELMET_TYPE = /obj/item/clothing/head/helmet/space/rig/medical
+	SUIT_TYPE = /obj/item/clothing/suit/space/hardsuit/medical
+	HELMET_TYPE = /obj/item/clothing/head/helmet/space/hardsuit/medical
 	MASK_TYPE = /obj/item/clothing/mask/breath
 
 /obj/machinery/suit_storage_unit/New()
@@ -628,7 +628,7 @@
 	var/target_species = "Human"
 
 	var/mob/living/carbon/human/occupant = null
-	var/obj/item/clothing/suit/space/rig/suit = null
+	var/obj/item/clothing/suit/space/hardsuit/suit = null
 	var/obj/item/clothing/head/helmet/space/helmet = null
 
 /obj/machinery/suit_cycler/engineering
@@ -714,7 +714,7 @@
 		src.updateUsrDialog()
 		return
 
-	else if(istype(I,/obj/item/clothing/suit/space/rig))
+	else if(istype(I,/obj/item/clothing/suit/space/hardsuit))
 
 		if(locked)
 			to_chat(user, "\red The suit cycler is locked.")
@@ -724,7 +724,7 @@
 			to_chat(user, "The cycler already contains a hardsuit.")
 			return
 
-		var/obj/item/clothing/suit/space/rig/S = I
+		var/obj/item/clothing/suit/space/hardsuit/S = I
 
 		if(S.helmet)
 			to_chat(user, "\The [S] will not fit into the cycler with a helmet attached.")
@@ -1049,60 +1049,60 @@
 		if("Engineering")
 			if(helmet)
 				helmet.name = "engineering hardsuit helmet"
-				helmet.icon_state = "rig0-engineering"
+				helmet.icon_state = "hardsuit0-engineering"
 				helmet.item_state = "eng_helm"
 				helmet.item_color = "engineering"
 			if(suit)
 				suit.name = "engineering hardsuit"
-				suit.icon_state = "rig-engineering"
+				suit.icon_state = "hardsuit-engineering"
 				suit.item_state = "eng_hardsuit"
 		if("Mining")
 			if(helmet)
 				helmet.name = "mining hardsuit helmet"
-				helmet.icon_state = "rig0-mining"
+				helmet.icon_state = "hardsuit0-mining"
 				helmet.item_state = "mining_helm"
 				helmet.item_color = "mining"
 			if(suit)
 				suit.name = "mining hardsuit"
-				suit.icon_state = "rig-mining"
+				suit.icon_state = "hardsuit-mining"
 				suit.item_state = "mining_hardsuit"
 		if("Medical")
 			if(helmet)
 				helmet.name = "medical hardsuit helmet"
-				helmet.icon_state = "rig0-medical"
+				helmet.icon_state = "hardsuit0-medical"
 				helmet.item_state = "medical_helm"
 				helmet.item_color = "medical"
 			if(suit)
 				suit.name = "medical hardsuit"
-				suit.icon_state = "rig-medical"
+				suit.icon_state = "hardsuit-medical"
 				suit.item_state = "medical_hardsuit"
 		if("Security")
 			if(helmet)
 				helmet.name = "security hardsuit helmet"
-				helmet.icon_state = "rig0-sec"
+				helmet.icon_state = "hardsuit0-sec"
 				helmet.item_state = "sec_helm"
 				helmet.item_color = "sec"
 			if(suit)
 				suit.name = "security hardsuit"
-				suit.icon_state = "rig-sec"
+				suit.icon_state = "hardsuit-sec"
 				suit.item_state = "sec_hardsuit"
 		if("Atmos")
 			if(helmet)
 				helmet.name = "atmospherics hardsuit helmet"
-				helmet.icon_state = "rig0-atmos"
+				helmet.icon_state = "hardsuit0-atmos"
 				helmet.item_state = "atmos_helm"
 				helmet.item_color = "atmos"
 			if(suit)
 				suit.name = "atmospherics hardsuit"
-				suit.icon_state = "rig-atmos"
+				suit.icon_state = "hardsuit-atmos"
 				suit.item_state = "atmos_hardsuit"
 		if("^%###^%$")
 			if(helmet)
 				helmet.name = "blood-red hardsuit helmet"
-				helmet.icon_state = "rig0-syndie"
+				helmet.icon_state = "hardsuit0-syndie"
 				helmet.item_state = "syndie_helm"
 				helmet.item_color = "syndie"
 			if(suit)
 				suit.name = "blood-red hardsuit"
 				suit.item_state = "syndie_hardsuit"
-				suit.icon_state = "rig-syndie"
+				suit.icon_state = "hardsuit-syndie"

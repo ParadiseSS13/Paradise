@@ -13,22 +13,27 @@
 	icon = 'icons/obj/doors/Doorfireglass.dmi'
 	icon_state = "door_open"
 	opacity = 0
-	density = 0
-	heat_proof = 1
-	glass = 1
+	density = FALSE
+	heat_proof = TRUE
+	glass = TRUE
 	power_channel = ENVIRON
 	closed_layer = 3.11
+	auto_close_time = 50
 
-	var/assembly_type = /obj/structure/firelock_frame	
+	var/can_force = TRUE
+	var/force_open_time = 300
+	var/can_crush = TRUE
+	var/assembly_type = /obj/structure/firelock_frame
 	var/nextstate = null
-	var/welded = 0
-	var/boltslocked = 1
-	var/can_deconstruct = 1
+	var/welded = FALSE
+	var/boltslocked = TRUE
+	var/can_deconstruct = TRUE
+	var/active_alarm = FALSE
 
 /obj/machinery/door/firedoor/Bumped(atom/AM)
-	if(p_open || operating)	
+	if(p_open || operating)
 		return
-	if(!density)	
+	if(!density)
 		return ..()
 	return 0
 
@@ -38,7 +43,7 @@
 		latetoggle()
 	else
 		stat |= NOPOWER
-	return
+	update_icon()
 
 /obj/machinery/door/firedoor/attackby(obj/item/weapon/C as obj, mob/user as mob, params)
 	add_fingerprint(user)
@@ -81,30 +86,44 @@
 
 	if(istype(C, /obj/item/weapon/crowbar) || istype(C, /obj/item/weapon/twohanded/fireaxe))
 		if(istype(C, /obj/item/weapon/twohanded/fireaxe))
-			var/obj/item/weapon/twohanded/fireaxe/F = C 
+			var/obj/item/weapon/twohanded/fireaxe/F = C
 			if(!F.wielded)
 				return
 
+		user.visible_message("[user] forces \the [src] with [C].",
+		"You force \the [src] with [C].")
 		if(density)
+			autoclose = TRUE
 			open()
 		else
 			close()
 
-/obj/machinery/door/firedoor/attack_hand(mob/user)		
-	add_fingerprint(user)
-	if(welded || operating || stat & NOPOWER)
+/obj/machinery/door/firedoor/attack_hand(mob/user)
+	if(operating || !density)
 		return
-	if(density)
-		open()
-	else
-		close()
-		
+
+	add_fingerprint(user)
+
+	if(can_force && (!glass || user.a_intent != I_HELP))
+		user.visible_message("<span class='notice'>[user] begins forcing \the [src].</span>", \
+							 "<span class='notice'>You begin forcing \the [src].</span>")
+		if(do_after(user, force_open_time, target = src))
+			user.visible_message("<span class='notice'>[user] forces \the [src].</span>", \
+								 "<span class='notice'>You force \the [src].</span>")
+			autoclose = TRUE
+			open()
+	else if(glass)
+		user.changeNext_move(CLICK_CD_MELEE)
+		user.visible_message("<span class='warning'>[user] bangs on \the [src].</span>",
+							 "<span class='warning'>You bang on \the [src].</span>")
+		playsound(get_turf(src), 'sound/effects/Glassknock.ogg', 10, 1)
+
 /obj/machinery/door/firedoor/attack_ai(mob/user)
-	attack_hand(user)
-	
+	forcetoggle()
+
 /obj/machinery/door/firedoor/attack_ghost(mob/user)
 	if(user.can_advanced_admin_interact())
-		attack_hand(user)
+		forcetoggle(TRUE)
 
 /obj/machinery/door/firedoor/attack_alien(mob/user)
 	add_fingerprint(user)
@@ -122,6 +141,8 @@
 
 /obj/machinery/door/firedoor/update_icon()
 	overlays.Cut()
+	if(active_alarm && !(stat & NOPOWER))
+		overlays += image('icons/obj/doors/Doorfire.dmi', "alarmlights")
 	if(density)
 		icon_state = "door_closed"
 		if(welded)
@@ -131,13 +152,27 @@
 		if(welded)
 			overlays += "welded_open"
 
+/obj/machinery/door/firedoor/proc/activate_alarm()
+	active_alarm = TRUE
+	update_icon()
+
+/obj/machinery/door/firedoor/proc/deactivate_alarm()
+	active_alarm = FALSE
+	update_icon()
+
 /obj/machinery/door/firedoor/open()
 	. = ..()
 	latetoggle()
 
 /obj/machinery/door/firedoor/close()
 	. = ..()
+	if(can_crush)
+		crush()
 	latetoggle()
+
+/obj/machinery/door/firedoor/autoclose()
+	if(active_alarm)
+		. = ..()
 
 /obj/machinery/door/firedoor/proc/latetoggle()
 	if(operating || stat & NOPOWER || !nextstate)
@@ -149,7 +184,15 @@
 		if(CLOSED)
 			nextstate = null
 			close()
-			
+
+/obj/machinery/door/firedoor/proc/forcetoggle(magic = FALSE)
+	if(!magic && (operating || stat & NOPOWER))
+		return
+	if(density)
+		open()
+	else
+		close()
+
 /obj/machinery/door/firedoor/proc/deconstruct(disassembled = TRUE)
 	if(can_deconstruct)
 		var/obj/structure/firelock_frame/F = new assembly_type(get_turf(src))
@@ -159,10 +202,11 @@
 			F.constructionStep = CONSTRUCTION_WIRES_EXPOSED
 		F.update_icon()
 	qdel(src)
-	
-/obj/machinery/door/firedoor/border_only	
+
+/obj/machinery/door/firedoor/border_only
 	icon = 'icons/obj/doors/edge_Doorfire.dmi'
 	flags = ON_BORDER
+	can_crush = FALSE
 
 /obj/machinery/door/firedoor/border_only/CanPass(atom/movable/mover, turf/target, height=0)
 	if(istype(mover) && mover.checkpass(PASSGLASS))
@@ -189,10 +233,11 @@
 /obj/machinery/door/firedoor/heavy
 	name = "heavy firelock"
 	icon = 'icons/obj/doors/Doorfire.dmi'
-	glass = 0
+	glass = FALSE
 	opacity = 1
 	assembly_type = /obj/structure/firelock_frame/heavy
-	
+	can_force = FALSE
+
 /obj/machinery/door/firedoor/heavy/ex_act(severity)
 	switch(severity)
 		if(1.0)
@@ -215,7 +260,7 @@
 	density = 1
 	var/constructionStep = CONSTRUCTION_NOCIRCUIT
 	var/reinforced = 0
-	
+
 /obj/structure/firelock_frame/heavy
 	name = "heavy firelock frame"
 	reinforced = 1

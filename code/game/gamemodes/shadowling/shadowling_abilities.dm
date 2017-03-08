@@ -72,8 +72,8 @@
 		var/datum/data/pda/utility/flashlight/FL = P.find_program(/datum/data/pda/utility/flashlight)
 		if(FL && FL.fon)
 			FL.start()
-	else if(istype(I, /obj/item/clothing/head/helmet/space/rig))
-		var/obj/item/clothing/head/helmet/space/rig/R = I
+	else if(istype(I, /obj/item/clothing/head/helmet/space/hardsuit))
+		var/obj/item/clothing/head/helmet/space/hardsuit/R = I
 		if(R.on)
 			R.toggle_light()
 			R.visible_message("<span class='danger'>[R]'s light fades and turns off.</span>")

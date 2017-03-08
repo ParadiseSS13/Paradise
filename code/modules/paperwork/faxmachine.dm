@@ -18,8 +18,10 @@ var/list/alldepartments = list()
 	active_power_usage = 200
 
 	var/obj/item/weapon/card/id/scan = null // identification
+
 	var/authenticated = 0
 	var/sendcooldown = 0 // to avoid spamming fax messages
+	var/cooldown_time = 1800
 
 	var/department = "Unknown" // our department
 
@@ -52,7 +54,7 @@ var/list/alldepartments = list()
 	else
 		return ..()
 
-/obj/machinery/photocopier/faxmachine/emag_act(user as mob)
+/obj/machinery/photocopier/faxmachine/emag_act(mob/user)
 	if(!emagged)
 		emagged = 1
 		to_chat(user, "<span class='notice'>The transmitters realign to an unknown source!</span>")
@@ -123,7 +125,7 @@ var/list/alldepartments = list()
 		if(copyitem)
 			copyitem.forceMove(get_turf(src))
 			if(ishuman(usr))
-				if(!usr.get_active_hand())
+				if(!usr.get_active_hand() && Adjacent(usr))
 					usr.put_in_hands(copyitem)
 			to_chat(usr, "<span class='notice'>You eject \the [copyitem] from \the [src].</span>")
 			copyitem = null
@@ -154,10 +156,10 @@ var/list/alldepartments = list()
 				destination = lastdestination
 
 	if(href_list["auth"])
-		if((!authenticated) && scan)
+		if(!is_authenticated && scan)
 			if(check_access(scan))
 				authenticated = 1
-		else if(!authenticated)
+		else if(is_authenticated)
 			authenticated = 0
 
 	if(href_list["rename"])
@@ -177,26 +179,42 @@ var/list/alldepartments = list()
 /obj/machinery/photocopier/faxmachine/proc/scan(var/obj/item/weapon/card/id/card = null)
 	if(scan) // Card is in machine
 		if(ishuman(usr))
-			scan.forceMove(get_turf(usr))
-			if(!usr.get_active_hand())
+			scan.forceMove(get_turf(src))
+			if(!usr.get_active_hand() && Adjacent(usr))
 				usr.put_in_hands(scan)
 			scan = null
 		else
 			scan.forceMove(get_turf(src))
 			scan = null
-	else
+	else if(Adjacent(usr))
 		if(!card)
 			var/obj/item/I = usr.get_active_hand()
 			if(istype(I, /obj/item/weapon/card/id))
 				usr.drop_item()
 				I.forceMove(src)
 				scan = I
-		else
-			if(istype(card))
-				usr.drop_item()
-				card.forceMove(src)
-				scan = card
+		else if(istype(card))
+			usr.drop_item()
+			card.forceMove(src)
+			scan = card
 	nanomanager.update_uis(src)
+	
+/obj/machinery/photocopier/faxmachine/verb/eject_id()
+	set category = null
+	set name = "Eject ID Card"
+	set src in oview(1)
+
+	if(usr.restrained())	
+		return
+
+	if(scan)
+		to_chat(usr, "You remove \the [scan] from \the [src].")
+		scan.forceMove(get_turf(src))
+		if(!usr.get_active_hand() && Adjacent(usr))
+			usr.put_in_hands(scan)
+		scan = null
+	else
+		to_chat(usr, "There is nothing to remove from \the [src].")
 
 /obj/machinery/photocopier/faxmachine/proc/sendfax(var/destination,var/mob/sender)
 	if(stat & (BROKEN|NOPOWER))
@@ -220,7 +238,6 @@ var/list/alldepartments = list()
 		F.sent_at = world.time
 
 		visible_message("[src] beeps, \"Message transmitted successfully.\"")
-		//sendcooldown = 600
 	else
 		visible_message("[src] beeps, \"Error transmitting message.\"")
 
@@ -253,6 +270,9 @@ var/list/alldepartments = list()
 /obj/machinery/photocopier/faxmachine/proc/send_admin_fax(var/mob/sender, var/destination)
 	if(stat & (BROKEN|NOPOWER))
 		return
+		
+	if(sendcooldown)
+		return
 
 	use_power(200)
 
@@ -284,15 +304,15 @@ var/list/alldepartments = list()
 			message_admins(sender, "CENTCOM FAX", destination, rcvdcopy, "#006100")
 		if("Syndicate")
 			message_admins(sender, "SYNDICATE FAX", destination, rcvdcopy, "#DC143C")
-	sendcooldown = 1800
-	sleep(50)
-	visible_message("[src] beeps, \"Message transmitted successfully.\"")
+	sendcooldown = cooldown_time
+	spawn(50)
+		visible_message("[src] beeps, \"Message transmitted successfully.\"")
 
 
 /obj/machinery/photocopier/faxmachine/proc/message_admins(var/mob/sender, var/faxname, var/faxtype, var/obj/item/sent, font_colour="#9A04D1")
-	var/msg = "<span class='boldnotice'><font color='[font_colour]'>[faxname]: </font>[key_name(sender, 1)] (<A HREF='?_src_=holder;adminplayeropts=\ref[sender]'>PP</A>) (<A HREF='?_src_=vars;Vars=[sender.UID()]'>VV</A>) (<A HREF='?_src_=holder;secretsadmin=check_antagonist'>CA</A>) ([admin_jump_link(sender)]) | REPLY: (<A HREF='?_src_=holder;CentcommReply=\ref[sender]'>RADIO</A>) (<a href='?_src_=holder;AdminFaxCreate=\ref[sender];originfax=\ref[src];faxtype=[faxtype];replyto=\ref[sent]'>FAX</a>) (<A HREF='?_src_=holder;subtlemessage=\ref[sender]'>SM</A>) | REJECT: (<A HREF='?_src_=holder;FaxReplyTemplate=\ref[sender];originfax=\ref[src]'>TEMPLATE</A>) (<A HREF='?_src_=holder;BlueSpaceArtillery=\ref[sender]'>BSA</A>) (<A HREF='?_src_=holder;EvilFax=\ref[sender];originfax=\ref[src]'>EVILFAX</A>) </span>: Receiving '[sent.name]' via secure connection... <a href='?_src_=holder;AdminFaxView=\ref[sent]'>view message</a>"
+	var/msg = "<span class='boldnotice'><font color='[font_colour]'>[faxname]: </font> [key_name_admin(sender)] | REPLY: (<A HREF='?_src_=holder;CentcommReply=\ref[sender]'>RADIO</A>) (<a href='?_src_=holder;AdminFaxCreate=\ref[sender];originfax=\ref[src];faxtype=[faxtype];replyto=\ref[sent]'>FAX</a>) (<A HREF='?_src_=holder;subtlemessage=\ref[sender]'>SM</A>) | REJECT: (<A HREF='?_src_=holder;FaxReplyTemplate=\ref[sender];originfax=\ref[src]'>TEMPLATE</A>) (<A HREF='?_src_=holder;BlueSpaceArtillery=\ref[sender]'>BSA</A>) (<A HREF='?_src_=holder;EvilFax=\ref[sender];originfax=\ref[src]'>EVILFAX</A>) </span>: Receiving '[sent.name]' via secure connection... <a href='?_src_=holder;AdminFaxView=\ref[sent]'>view message</a>"
 	for(var/client/C in admins)
-		if(R_EVENT & C.holder.rights)
+		if(check_rights(R_EVENT, 0, C.mob))
 			to_chat(C, msg)
 			if(C.prefs.sound & SOUND_ADMINHELP)
 				C << 'sound/effects/adminhelp.ogg'
