@@ -13,7 +13,7 @@
 "m" = (/obj/machinery/door/airlock/external,/turf/simulated/floor/plating,/area/ruin/powered)
 "n" = (/obj/machinery/light/small{dir = 1},/turf/simulated/floor/plating,/area/ruin/powered)
 "o" = (/obj/machinery/computer/message_monitor,/turf/simulated/floor/plasteel,/area/ruin/powered)
-"p" = (/obj/structure/stool/bed/chair{dir = 4},/mob/living/simple_animal/hostile/syndicate{desc = "A weary looking syndicate operative."; faction = "syndicate"},/turf/simulated/floor/plasteel,/area/ruin/powered)
+"p" = (/obj/structure/stool/bed/chair{dir = 4},/mob/living/simple_animal/hostile/syndicate{desc = "A weary looking syndicate operative."; environment_smash = 0; faction = "syndicate"},/turf/simulated/floor/plasteel,/area/ruin/powered)
 "q" = (/obj/structure/table,/obj/item/weapon/paper{info = "Nothing of interest to report."; name = "november report"},/obj/item/weapon/pen,/turf/simulated/floor/plasteel,/area/ruin/powered)
 "r" = (/obj/structure/table,/obj/item/device/radio/intercom/pirate{name = "listening post intercom"},/turf/simulated/floor/plasteel,/area/ruin/powered)
 "s" = (/obj/structure/rack,/obj/item/weapon/tank/jetpack/carbondioxide,/obj/item/weapon/tank/air,/turf/simulated/floor/plasteel,/area/ruin/powered)
