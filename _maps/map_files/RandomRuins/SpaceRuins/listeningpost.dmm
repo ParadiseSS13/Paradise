@@ -1,0 +1,87 @@
+"a" = (/turf/space,/area/space)
+"b" = (/turf/simulated/mineral,/area/ruin/powered)
+"c" = (/turf/simulated/mineral,/area/ruin/unpowered)
+"d" = (/turf/simulated/floor/plating/airless/asteroid,/area/ruin/unpowered)
+"e" = (/turf/simulated/wall/r_wall,/area/ruin/powered)
+"f" = (/turf/simulated/floor/plating,/area/ruin/powered)
+"g" = (/obj/machinery/power/smes/magical{desc = "A high-capacity superconducting magnetic energy storage (SMES) unit."; name = "power storage unit"},/turf/simulated/floor/plating,/area/ruin/powered)
+"h" = (/obj/machinery/door/airlock,/turf/simulated/floor/plasteel,/area/ruin/powered)
+"i" = (/turf/simulated/wall,/area/ruin/powered)
+"j" = (/obj/structure/table,/obj/item/weapon/paper/monitorkey,/obj/item/clothing/glasses/regular,/turf/simulated/floor/plasteel,/area/ruin/powered)
+"k" = (/obj/structure/table,/obj/item/device/radio/intercom/pirate{name = "listening post intercom"},/obj/machinery/light/small{dir = 1},/turf/simulated/floor/plasteel,/area/ruin/powered)
+"l" = (/turf/simulated/floor/plasteel,/area/ruin/powered)
+"m" = (/obj/machinery/door/airlock/external,/turf/simulated/floor/plating,/area/ruin/powered)
+"n" = (/obj/machinery/light/small{dir = 1},/turf/simulated/floor/plating,/area/ruin/powered)
+"o" = (/obj/machinery/computer/message_monitor,/turf/simulated/floor/plasteel,/area/ruin/powered)
+"p" = (/obj/structure/stool/bed/chair{dir = 4},/mob/living/simple_animal/hostile/syndicate{desc = "A weary looking syndicate operative."; faction = "syndicate"},/turf/simulated/floor/plasteel,/area/ruin/powered)
+"q" = (/obj/structure/table,/obj/item/weapon/paper{info = "Nothing of interest to report."; name = "november report"},/obj/item/weapon/pen,/turf/simulated/floor/plasteel,/area/ruin/powered)
+"r" = (/obj/structure/table,/obj/item/device/radio/intercom/pirate{name = "listening post intercom"},/turf/simulated/floor/plasteel,/area/ruin/powered)
+"s" = (/obj/structure/rack,/obj/item/weapon/tank/jetpack/carbondioxide,/obj/item/weapon/tank/air,/turf/simulated/floor/plasteel,/area/ruin/powered)
+"t" = (/obj/structure/stool/bed/chair{dir = 4},/turf/simulated/floor/plasteel,/area/ruin/powered)
+"u" = (/obj/structure/table,/obj/item/weapon/gun/projectile/automatic/pistol,/obj/item/weapon/paper{info = "I wonder how much longer they will accept my empty reports. They will cancel the case  soon without results.  When the pickup comes, I will tell them I have lost faith in our cause, and beg them to consider a diplomatic solution. How many nuclear teams have been dispatched with those nukes? I must try and prevent more from ever being sent. If they will not listen to reason, I will detonate the warehouse myself. Maybe some day in the immediate future, space will be peaceful, though I don't intend to live to see it. And that is why I write this down- it is my sacrifice that stabilised your worlds, traveller. Spare a thought for me, and please attempt to prevent nuclear proliferation, should it ever rear it's ugly head again. -Donk Co. Operative #451"; name = "odd report"},/obj/machinery/light/small{dir = 1},/turf/simulated/floor/plasteel,/area/ruin/powered)
+"v" = (/obj/machinery/light/small,/turf/simulated/floor/plasteel,/area/ruin/powered)
+"w" = (/obj/structure/rack,/obj/item/clothing/suit/space/syndicate,/obj/item/clothing/mask/gas,/obj/item/clothing/head/helmet/space/syndicate,/turf/simulated/floor/plasteel,/area/ruin/powered)
+"x" = (/obj/structure/falsewall,/turf/simulated/floor/plasteel,/area/ruin/powered)
+"y" = (/obj/structure/disposalpipe/segment{dir = 4; icon_state = "pipe-c"},/turf/simulated/mineral,/area/ruin/powered)
+"z" = (/obj/structure/disposalpipe/segment{dir = 4},/turf/simulated/mineral,/area/ruin/powered)
+"A" = (/obj/structure/disposaloutlet{dir = 4},/obj/structure/disposalpipe/trunk{dir = 8},/turf/simulated/floor/plating/airless,/area/ruin/powered)
+"B" = (/obj/structure/stool/bed,/obj/item/weapon/bedsheet/brown,/turf/simulated/floor/plasteel,/area/ruin/powered)
+"C" = (/obj/structure/table,/obj/item/device/flashlight/lamp/green,/turf/simulated/floor/plasteel,/area/ruin/powered)
+"D" = (/obj/machinery/light/small{dir = 1},/turf/simulated/floor/plasteel,/area/ruin/powered)
+"E" = (/obj/machinery/vending/snack,/turf/simulated/floor/plasteel,/area/ruin/powered)
+"F" = (/obj/structure/disposalpipe/segment,/turf/simulated/mineral,/area/ruin/powered)
+"G" = (/obj/machinery/vending/cola,/turf/simulated/floor/plasteel,/area/ruin/powered)
+"H" = (/obj/structure/closet,/obj/item/clothing/gloves/boxing,/turf/simulated/floor/plasteel,/area/ruin/powered)
+"I" = (/obj/structure/filingcabinet,/obj/item/weapon/paper{info = "A good start to the operation: intercepted Nanotrasen military communications. A convoy is scheduled to transfer nuclear warheads to a new military base. This is as good a chance as any to get our hands on some heavy weaponry, I suggest we take it."; name = "april report"},/obj/item/weapon/paper{info = "Nothing of real interest to report this month. I have intercepted faint transmissions from what appears to be some sort of pirate radio station. They do not appear to be relevant to my assignment."; name = "may report"},/obj/item/weapon/paper{info = "Nanotrasen communications have been noticably less frequent recently.  The pirate radio station I found last month has been transmitting pro-Nanotrasen propaganda. I will continue to monitor it."; name = "june report"},/obj/item/weapon/paper{info = "Nothing of interest to report."; name = "july report"},/obj/item/weapon/paper{info = "Nothing of interest to report."; name = "august report"},/obj/item/weapon/paper{info = "Nothing of interest to report."; name = "september report"},/obj/item/weapon/paper{info = "Nothing of interest to report."; name = "october report"},/obj/item/weapon/paper{info = "1 x Stechtkin pistol - $600<br>1 x silencer - $200<br>shipping charge - $4360<br>total - $5160"; name = "receipt"},/turf/simulated/floor/plasteel,/area/ruin/powered)
+"J" = (/obj/structure/table,/obj/item/weapon/paper{info = "<b>Mission Details</b>: You have been assigned to a newly constructed listening post constructed within an asteroid in Nanotrasen space to monitor their plasma mining operations. Accurate intel is crucial to the success of our operatives onboard, do not fail us."; name = "mission briefing"},/turf/simulated/floor/plasteel,/area/ruin/powered)
+"K" = (/obj/machinery/disposal,/obj/structure/disposalpipe/trunk{dir = 4},/turf/simulated/floor/plasteel,/area/ruin/powered)
+"L" = (/obj/structure/disposalpipe/segment{dir = 4},/turf/simulated/wall/r_wall,/area/ruin/powered)
+"M" = (/obj/structure/disposalpipe/segment{dir = 8; icon_state = "pipe-c"},/turf/simulated/mineral,/area/ruin/powered)
+"N" = (/obj/machinery/door/airlock{name = "Toilet"},/turf/simulated/floor/plasteel,/area/ruin/powered)
+"O" = (/obj/machinery/light/small{dir = 8},/turf/simulated/floor/plasteel{icon_state = "freezerfloor"},/area/ruin/powered)
+"P" = (/obj/machinery/shower{tag = "icon-shower (WEST)"; icon_state = "shower"; dir = 8},/turf/simulated/floor/plasteel{icon_state = "freezerfloor"},/area/ruin/powered)
+"Q" = (/turf/simulated/floor/plasteel{icon_state = "freezerfloor"},/area/ruin/powered)
+"R" = (/obj/structure/toilet{tag = "icon-toilet00 (WEST)"; icon_state = "toilet00"; dir = 8},/turf/simulated/floor/plasteel{icon_state = "freezerfloor"},/area/ruin/powered)
+
+(1,1,1) = {"
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aabbaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaabbbbaaaaaaaaaaaaaaaaaaaaaaaaccaccaaaa
+aaabbbbbaaaaaaaaaaaaaaaaacaaaaccccaaaaaa
+aaabbbbbbaaaaaaaaaaaaaabaaaaaaccccaaaaaa
+aaaabbbbaaaaaaaaaaaaaaabbbaaaaaaccaaaaaa
+aaaaabbbaaaaaaaaaaaaaaabbbbaaaaaaaaacaaa
+aaaaaaabbaaaccccaaaaaaaaabbaaaaaaaaaaaaa
+aaaaaaaaaacccccccccaaaaaaaaaaaaabbaaaaaa
+aaaaaaaaccbbccccccccccaaaaaaaaabbbcaaaaa
+aaaaaaacccbbccccccccccccaaaaaaaaabbbaaaa
+aaaaaaccbbdccbccccccccccbbaaaaaaaabbbaaa
+aaaaccccdddccbbbbbeeeebbbbbaaaaaaaaaaaaa
+aacccccdddcccbbbbbefgebbbbbbaaaaaaaaaaaa
+accccbddddbccbbbeeehieeeeaabbaaaaaaaaaaa
+addccddddcbccbbeejkllmnfmaaaaaaaaaaaaaaa
+aaddddddcccccbbeopqllmffmaaaaaaaaaaaaaaa
+aaddddddbbccceeeelrlseeeeccbaaaaaaaaaaaa
+aadddddccccccetuelvlwebbbbcccaaaaaaaaaaa
+aadddccccccccexiehiiiebyzzAaaaaaaaaaaaaa
+aaadcccccccbbeBCilDlEebFbbbbcaaaaaaaaaaa
+aaaddcbccccbbellhlllGebFbbcccaaaaaaaaaaa
+aaacccccccccceHIiJlKLLzMbbccaaaaaaaaaaaa
+aaaaccccccccceeeeeNiebbbbbcaaaaaaaaaaaaa
+aaaaaacccccbbbbbbeOPebbbbccccaaaaaaaaaaa
+aaaaaaaccccbbbbbbeQRebbbbccddaaaaaaaaaaa
+aaaaaaaccbbccbbbbeeeebbbbcddaaaaaaaaaaaa
+aaaaaccccbbccccccccccccdddddaaaaaaaaaaaa
+aaaaaacccccccccccccccdddddaaaaaaaaaaaaaa
+aaaaaaaacccccccccccdddddaaaaaaaaaaaaaaaa
+aaaaaaaaaacccccccdddddaaaaaaaaaaaaaaaaaa
+aaaaaaaaacccbbccddddaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaabcdddaaaaaaaaaaaaaaaaaaaaaa
+aaaaaabbaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaabbbaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aabcbbbaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaabbbaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaabbaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaabcaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaacaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+"}
