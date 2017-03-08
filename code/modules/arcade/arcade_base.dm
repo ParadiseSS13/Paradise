@@ -72,8 +72,8 @@
 			if(pay_with_card(C))
 				tokens += 1
 			return
-		else if(istype(O, /obj/item/weapon/spacecash))
-			var/obj/item/weapon/spacecash/C = O
+		else if(istype(O, /obj/item/stack/spacecash))
+			var/obj/item/stack/spacecash/C = O
 			if(pay_with_cash(C, user))
 				tokens += 1
 			return
@@ -83,16 +83,12 @@
 /obj/machinery/arcade/update_icon()
 	return
 
-/obj/machinery/arcade/proc/pay_with_cash(var/obj/item/weapon/spacecash/cashmoney, var/mob/user)
-	if(cashmoney.get_total() < token_price)
+/obj/machinery/arcade/proc/pay_with_cash(obj/item/stack/spacecash/cashmoney, mob/user)
+	if(cashmoney.amount < token_price)
 		to_chat(user, "[bicon(cashmoney)] <span class='warning'>That is not enough money.</span>")
 		return 0
 	visible_message("<span class='info'>[usr] inserts a credit chip into [src].</span>")
-	var/left = cashmoney.get_total() - token_price
-	user.unEquip(cashmoney)
-	qdel(cashmoney)
-	if(left)
-		dispense_cash(left, src.loc, user)
+	cashmoney.use(token_price)
 	return 1
 
 /obj/machinery/arcade/proc/pay_with_card(var/obj/item/weapon/card/id/I, var/mob/user)

@@ -147,7 +147,7 @@
 	if(..())
 		return
 	interact(user)
-	
+
 /obj/machinery/mineral/ore_redemption/attack_ghost(mob/user)
 	interact(user)
 
@@ -349,7 +349,7 @@
 		new /datum/data/mining_equipment("Lazarus Capsule", 	/obj/item/device/mobcapsule, 									   800),
 		new /datum/data/mining_equipment("Lazarus Capsule belt",/obj/item/weapon/storage/belt/lazarus,							   200),
 		new /datum/data/mining_equipment("Jetpack",             /obj/item/weapon/tank/jetpack/carbondioxide/mining,               2000),
-		new /datum/data/mining_equipment("Space Cash",    		/obj/item/weapon/spacecash/c1000,                    			  2000),
+		new /datum/data/mining_equipment("Space Cash",    		/obj/item/stack/spacecash/c1000,                    			  2000),
 		new /datum/data/mining_equipment("Diamond Pickaxe",		/obj/item/weapon/pickaxe/diamond,				                  2000),
 		new /datum/data/mining_equipment("Super Resonator",     /obj/item/weapon/resonator/upgraded,                              2500),
 		new /datum/data/mining_equipment("KA White Tracer Rounds",	/obj/item/borg/upgrade/modkit/tracer,								100),
@@ -398,7 +398,7 @@
 	if(..())
 		return
 	interact(user)
-	
+
 /obj/machinery/mineral/equipment_vendor/attack_ghost(mob/user)
 	interact(user)
 
