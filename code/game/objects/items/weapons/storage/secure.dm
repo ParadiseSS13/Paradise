@@ -56,7 +56,7 @@
 				else
 					user.show_message("<span class='danger'>Unable to reset internal memory.</span>", 1)
 					l_hacking = 0
-			else	
+			else
 				l_hacking = 0
 			return
 		//At this point you have exhausted all the special things to do when locked
@@ -212,9 +212,9 @@
 	force = 15
 
 /obj/item/weapon/storage/secure/briefcase/syndie/New()
-	..()	
+	..()
 	for(var/i = 0, i < storage_slots - 2, i++)
-		handle_item_insertion(new /obj/item/weapon/spacecash/c1000, 1)
+		handle_item_insertion(new /obj/item/stack/spacecash/c1000, 1)
 
 // -----------------------------
 //        Secure Safe
