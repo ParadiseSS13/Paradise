@@ -310,3 +310,40 @@
 	H.update_body(0)
 	H.reset_hair()
 	H.dna.ResetUIFrom(H)
+
+
+/obj/machinery/transformer/gene_applier
+	name = "genetic blueprint applier"
+	desc = "Here begin the clone wars. Upload a template by using a genetics disk on this machine."
+	var/datum/dna/template
+	var/locked = FALSE // For admins sealing the deal
+
+/obj/machinery/transformer/gene_applier/do_transform(mob/living/carbon/human/H)
+	if(!istype(H))
+		return
+	if(!istype(template))
+		to_chat(H, "<span class='warning'>No genetic template configured!</span>")
+		return
+	var/prev_ue = H.dna.unique_enzymes
+	H.set_species(template.species)
+	H.dna = template.Clone()
+	H.real_name = template.real_name
+	H.sync_organ_dna(assimilate = 0, old_ue = prev_ue)
+	H.UpdateAppearance()
+	domutcheck(H, null, MUTCHK_FORCED)
+	H.update_mutations()
+
+/obj/machinery/transformer/gene_applier/attackby(obj/item/W, mob/living/user, params)
+	if(istype(W, /obj/item/weapon/disk/data))
+		if(locked)
+			to_chat(user, "<span class='warning'>Access Denied.</span>")
+			return FALSE
+		var/obj/item/weapon/disk/data/D = W
+		if(!D.buf)
+			to_chat(user, "<span class='warning'>Error: No data found.</span>")
+			return FALSE
+		template = D.buf.dna.Clone()
+		to_chat(user, "<span class='notice'>Upload of gene template for '[template.real_name]' complete!</span>")
+		return TRUE
+	else
+		return ..()

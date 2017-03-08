@@ -303,8 +303,8 @@ var/ert_request_answered = 0
 
 /datum/outfit/job/centcom/response_team
 	name = "Response team"
-	var/RTassignment = "Emergency Response Team Member"
-	var/RTjob = "This is a bug"
+	var/rt_assignment = "Emergency Response Team Member"
+	var/rt_job = "This is a bug"
 	allow_backbag_choice = FALSE
 	allow_loadout = FALSE
 	pda = /obj/item/device/pda/heads/ert
@@ -322,12 +322,12 @@ var/ert_request_answered = 0
 	var/obj/item/weapon/card/id/W = H.wear_id
 	if(!istype(W))
 		return
-	W.assignment = RTassignment
+	W.assignment = rt_assignment
 	W.rank = W.assignment
 	W.age = H.age
 	W.sex = capitalize(H.gender)
 	W.registered_name = H.real_name
-	W.name = "[H.real_name]'s ID Card ([RTjob])"
+	W.name = "[H.real_name]'s ID Card ([rt_job])"
 	W.access = get_centcom_access(W.assignment)
 	W.photo = get_id_photo(H)
 
@@ -335,14 +335,14 @@ var/ert_request_answered = 0
 	var/obj/item/device/pda/PDA = H.wear_pda
 	if(istype(PDA))
 		PDA.owner = H.real_name
-		PDA.ownjob = RTassignment
-		PDA.ownrank = RTassignment
+		PDA.ownjob = rt_assignment
+		PDA.ownrank = rt_assignment
 		PDA.name = "PDA-[H.real_name] ([PDA.ownjob])"
 
 /datum/outfit/job/centcom/response_team/commander
 	name = "RT Commander"
-	RTassignment = "Emergency Response Team Leader"
-	RTjob = "Emergency Response Team Leader"
+	rt_assignment = "Emergency Response Team Leader"
+	rt_job = "Emergency Response Team Leader"
 
 	uniform = /obj/item/clothing/under/rank/centcom_officer
 	back = /obj/item/weapon/storage/backpack/ert/commander
@@ -403,7 +403,7 @@ var/ert_request_answered = 0
 
 /datum/outfit/job/centcom/response_team/security
 	name = "RT Security"
-	RTjob = "Emergency Response Team Officer"
+	rt_job = "Emergency Response Team Officer"
 	uniform = /obj/item/clothing/under/rank/security
 	back = /obj/item/weapon/storage/backpack/ert/security
 	belt = /obj/item/weapon/storage/belt/security/response_team
@@ -475,7 +475,7 @@ var/ert_request_answered = 0
 
 /datum/outfit/job/centcom/response_team/engineer
 	name = "RT Engineer"
-	RTjob = "Emergency Response Team Engineer"
+	rt_job = "Emergency Response Team Engineer"
 	back = /obj/item/weapon/storage/backpack/ert/engineer
 	uniform = /obj/item/clothing/under/rank/engineer
 
@@ -541,7 +541,7 @@ var/ert_request_answered = 0
 
 /datum/outfit/job/centcom/response_team/medic
 	name = "RT Medic"
-	RTjob = "Emergency Response Team Medic"
+	rt_job = "Emergency Response Team Medic"
 	uniform = /obj/item/clothing/under/rank/medical
 	back = /obj/item/weapon/storage/backpack/ert/medical
 	pda = /obj/item/device/pda/heads/ert/medical
