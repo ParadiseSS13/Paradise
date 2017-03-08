@@ -147,6 +147,19 @@
 			if(!H.heart_attack)
 				H.heart_attack = 1 // rip in pepperoni
 
+/datum/reagent/liquid_spacetime
+	name = "liquid spacetime"
+	id = "liquid_spacetime"
+	description = "A drop of liquid spacetime."
+	reagent_state = LIQUID
+	color = "#FFFFFF"
+	can_synth = 0
+
+/datum/reagent/liquid_spacetime/on_mob_life(mob/living/M)
+	if(volume > 4.5)
+		M.ForceContractDisease(new /datum/disease/wizarditis(0))
+	..()
+
 //virus foods
 
 /datum/reagent/consumable/virus_food

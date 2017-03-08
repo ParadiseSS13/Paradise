@@ -580,7 +580,7 @@
 			last = curr
 			curr = curr.transfer(src)
 			if(!curr)
-				last.expel(src, loc, dir)
+				last.expel(src, get_turf(src), dir)
 
 			//
 			if(!(count--))
@@ -677,7 +677,7 @@
 	if(H)
 		// holder was present
 		H.active = 0
-		var/turf/T = src.loc
+		var/turf/T = get_turf(src)
 		if(T.density)
 			// deleting pipe is inside a dense turf (wall)
 			// this is unlikely, but just dump out everything into the turf in case
@@ -753,7 +753,7 @@
 // called when there is a break in the pipe
 //
 
-/obj/structure/disposalpipe/proc/expel(var/obj/structure/disposalholder/H, var/turf/T, var/direction)
+/obj/structure/disposalpipe/proc/expel(obj/structure/disposalholder/H, turf/T, direction)
 
 	if(!T)
 		return
@@ -824,7 +824,7 @@
 	if(H)
 		// holder was present
 		H.active = 0
-		var/turf/T = src.loc
+		var/turf/T = get_turf(src)
 		if(T.density)
 			// broken pipe is inside a dense turf (wall)
 			// this is unlikely, but just dump out everything into the turf in case
@@ -1224,7 +1224,7 @@
 				D.expel(H)	// expel at disposal
 	else
 		if(H)
-			src.expel(H, src.loc, 0)	// expel at turf
+			expel(H, get_turf(src), 0)	// expel at turf
 	return null
 
 	// nextdir

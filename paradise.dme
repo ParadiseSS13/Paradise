@@ -1958,6 +1958,7 @@
 #include "code\modules\recycling\conveyor2.dm"
 #include "code\modules\recycling\disposal-construction.dm"
 #include "code\modules\recycling\disposal.dm"
+#include "code\modules\recycling\loafer.dm"
 #include "code\modules\recycling\sortingmachinery.dm"
 #include "code\modules\research\circuitprinter.dm"
 #include "code\modules\research\designs.dm"

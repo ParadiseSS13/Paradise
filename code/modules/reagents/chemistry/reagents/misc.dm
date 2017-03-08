@@ -1,10 +1,11 @@
-/*/datum/reagent/silicate
+/datum/reagent/silicate
 	name = "Silicate"
 	id = "silicate"
 	description = "A compound that can be used to reinforce glass."
 	reagent_state = LIQUID
-	color = "#C7FFFF" // rgb: 199, 255, 255
+	color = "#2680BF" // rgb: 38, 128, 191
 
+/*
 /datum/reagent/silicate/reaction_obj(obj/O, volume)
 	if(istype(O, /obj/structure/window))
 		if(O:silicate <= 200)
@@ -393,6 +394,45 @@
 
 /datum/reagent/love/reaction_mob(mob/living/M, method=TOUCH, volume)
 	to_chat(M, "<span class='notice'>You feel loved!</span>")
+
+
+/datum/reagent/george_melonium
+	name = "george melonium"
+	id = "george_melonium"
+	description = "A robust and mysterious substance."
+	reagent_state = LIQUID
+	color = "#00FF00"
+
+/datum/reagent/george_melonium/reaction_mob(mob/living/M, method=TOUCH, volume)
+	if(method == INGEST)
+		switch(rand(1, 5))
+			if(1)
+				to_chat(M, "<span class='warning'>What an explosive burst of flavor!</span>")
+				var/turf/T = get_turf(M)
+				explosion(T, -1, -1, 1, 1)
+			if(2)
+				to_chat(M, "<span class='warning'>So juicy!</span>")
+				M.reagents.add_reagent(pick("capsaicin", "psilocybin", "lsd", "thc", "ethanol", "toiletwater", "omnizine", "methamphetamine", "haloperidol", "mutagen", "radium", "acid", "mercury", "space_drugs", "morphine"), rand(10,40))
+			if(3)
+				to_chat(M, "<span class='notice'>How refreshing!</span>")
+				M.adjustBruteLoss(-30)
+				M.adjustFireLoss(-30)
+				M.adjustToxLoss(-30)
+				M.adjustOxyLoss(-30)
+				M.adjustBrainLoss(-30)
+			if(4)
+				to_chat(M, "<span class='notice'>This flavor is out of this world!</span>")
+				M.reagents.add_reagent("space_drugs", 30)
+				M.reagents.add_reagent("thc", 30)
+				M.reagents.add_reagent("lsd", 30)
+				M.reagents.add_reagent("psilocybin", 30)
+			if(5)
+				to_chat(M, "<span class='warning'>What stunning texture!</span>")
+				M.Paralyse(5)
+				M.Stun(10)
+				M.Weaken(10)
+				M.Stuttering(20)
+
 
 /datum/reagent/royal_bee_jelly
 	name = "royal bee jelly"
