@@ -73,3 +73,45 @@
 		log_admin("[key_name(user)] was incarnated by a respawner machine.")
 		message_admins("[key_name_admin(user)] was incarnated by a respawner machine.")
 		user.incarnate_ghost()
+
+/obj/structure/ghost_beacon
+	name = "ethereal beacon"
+	desc = "A structure that draws ethereal attention when active. Use an empty hand to activate."
+	icon = 'icons/obj/lavaland/artefacts.dmi'
+	icon_state = "anomaly_crystal"
+	anchored = 1
+	density = 1
+	var/active = FALSE
+	var/ghost_alert_delay = 30 SECONDS
+	var/last_ghost_alert
+
+
+/obj/structure/ghost_beacon/initialize()
+	. = ..()
+	last_ghost_alert = world.time
+	if(active)
+		processing_objects.Add(src)
+
+/obj/structure/ghost_beacon/Destroy()
+	if(active)
+		processing_objects.Remove(src)
+	. = ..()
+
+/obj/structure/ghost_beacon/attack_ghost(mob/dead/observer/user)
+	if(user.can_advanced_admin_interact())
+		attack_hand(user)
+
+/obj/structure/ghost_beacon/attack_hand(mob/user)
+	if(!is_admin(user))
+		return
+	to_chat(user, "<span class='notice'>You [active ? "disable" : "enable"] \the [src].</span>")
+	if(active)
+		processing_objects.Remove(src)
+	else
+		processing_objects.Add(src)
+	active = !active
+
+/obj/structure/ghost_beacon/process()
+	if(last_ghost_alert + ghost_alert_delay < world.time)
+		notify_ghosts("[src] active in [get_area(src)].", 'sound/effects/ghost2.ogg', source = src)
+		last_ghost_alert = world.time
