@@ -4,14 +4,11 @@
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "rcl-0"
 	item_state = "rcl-0"
-	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	opacity = 0
-	siemens_coefficient = 1 //Not quite as conductive as working with cables themselves
-	force = 5.0 //Plastic is soft
-	throwforce = 5.0
+	force = 5 //Plastic is soft
+	throwforce = 5
 	throw_speed = 1
-	throw_range = 10
+	throw_range = 7
 	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "engineering=4;materials=4"
 	var/max_amount = 90
@@ -70,7 +67,7 @@
 		loaded = null
 	last = null
 	active = 0
-	..()
+	return ..()
 
 /obj/item/weapon/twohanded/rcl/update_icon()
 	if(!loaded)
@@ -95,7 +92,7 @@
 	update_icon()
 	if(!loaded || !loaded.amount)
 		if(loud)
-			to_chat(user, "<span class='notice'>The last of the cables unreel from \the [src].</span>")
+			to_chat(user, "<span class='notice'>The last of the cables unreel from [src].</span>")
 		if(loaded)
 			qdel(loaded)
 			loaded = null
