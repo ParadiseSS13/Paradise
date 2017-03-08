@@ -251,16 +251,17 @@
 		stop_automated_movement = 0
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/DoVentSmash()
-	for(var/obj/machinery/atmospherics/unary/vent_pump/P in view(1,src))
-		if(P.welded)
-			P.welded = 0
-			P.update_icon()
-			visible_message("<span class='danger'>[src] smashes the welded cover off [P]!</span>")
-			return
-	for(var/obj/machinery/atmospherics/unary/vent_scrubber/C in view(1,src))
-		if(C.welded)
-			C.welded = 0
-			C.update_icon()
-			visible_message("<span class='danger'>[src] smashes the welded cover off [C]!</span>")
-			return
-	to_chat(src, "<span class='danger'>There is no unwelded vent close enough to do this.</span>")
+	if(do_after(src, 40, target = loc))
+		for(var/obj/machinery/atmospherics/unary/vent_pump/P in view(1, src))
+			if(P.welded)
+				P.welded = 0
+				P.update_icon()
+				P.visible_message("<span class='danger'>[src] smashes the welded cover off [P]!</span>")
+				return
+		for(var/obj/machinery/atmospherics/unary/vent_scrubber/C in view(1, src))
+			if(C.welded)
+				C.welded = 0
+				C.update_icon()
+				C.visible_message("<span class='danger'>[src] smashes the welded cover off [C]!</span>")
+				return
+		to_chat(src, "<span class='danger'>There is no welded vent or scrubber close enough to do this.</span>")
