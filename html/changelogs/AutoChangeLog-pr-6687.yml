@@ -1,0 +1,6 @@
+author: "MarsM0nd"
+delete-after: True
+changes: 
+  - rscadd: "Cultists get shoes on usage of the armor talisman."
+  - rscadd: "Cultists only get equipment if they have the slot for it free, weapons are always spawned."
+  - tweak: "The tome does a more fitting description of the talisman of armor."
