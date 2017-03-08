@@ -171,7 +171,7 @@
 	if(istype(W))
 		if(istype(W, /obj/item/clothing))
 			var/obj/item/clothing/C = W
-			if(C.rig_restrict_helmet)
+			if(C.hardsuit_restrict_helmet)
 				to_chat(src, "\red You must fasten the helmet to a hardsuit first. (Target the head and use on a hardsuit)")// Stop eva helms equipping.
 
 			else

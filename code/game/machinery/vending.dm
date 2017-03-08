@@ -221,8 +221,8 @@
 			if(PDA.id)
 				paid = pay_with_card(PDA.id)
 				handled = 1
-		else if(istype(I, /obj/item/weapon/spacecash))
-			var/obj/item/weapon/spacecash/C = I
+		else if(istype(I, /obj/item/stack/spacecash))
+			var/obj/item/stack/spacecash/C = I
 			paid = pay_with_cash(C, user)
 			handled = 1
 
@@ -297,8 +297,8 @@
  *
  *  usr is the mob who gets the change.
  */
-/obj/machinery/vending/proc/pay_with_cash(var/obj/item/weapon/spacecash/cashmoney, mob/user)
-	if(currently_vending.price > cashmoney.get_total())
+/obj/machinery/vending/proc/pay_with_cash(obj/item/stack/spacecash/cashmoney, mob/user)
+	if(currently_vending.price > cashmoney.amount)
 		// This is not a status display message, since it's something the character
 		// themselves is meant to see BEFORE putting the money in
 		to_chat(usr, "[bicon(cashmoney)] <span class='warning'>That is not enough money.</span>")
@@ -310,12 +310,7 @@
 	// just assume that all spacecash that's not something else is a bill
 
 	visible_message("<span class='info'>[usr] inserts a credit chip into [src].</span>")
-	var/left = cashmoney.get_total() - currently_vending.price
-	usr.unEquip(cashmoney)
-	qdel(cashmoney)
-
-	if(left)
-		dispense_cash(left, src.loc, user)
+	cashmoney.use(currently_vending.price)
 
 	// Vending machines have no idea who paid with cash
 	credit_purchase("(cash)")
@@ -391,7 +386,7 @@
 
 /obj/machinery/vending/attack_ai(mob/user)
 	return attack_hand(user)
-	
+
 /obj/machinery/vending/attack_ghost(mob/user)
 	return attack_hand(user)
 
