@@ -61,7 +61,8 @@
 
 
 /obj/machinery/pdapainter/attack_hand(mob/user as mob)
-	..()
+	if(..())
+		return 1
 
 	src.add_fingerprint(user)
 
@@ -84,6 +85,9 @@
 	set name = "Eject PDA"
 	set category = "Object"
 	set src in oview(1)
+	
+	if(usr.incapacitated())
+		return
 
 	if(storedpda)
 		storedpda.loc = get_turf(src.loc)

@@ -1,0 +1,199 @@
+<!--
+Title: Employment Records UI
+Used In File(s): \code\game\machinery\computer\skills.dm
+-->
+
+<!--
+#define SKILL_DATA_R_LIST	1	// Main menu
+#define SKILL_DATA_MAINT	2	// Record list
+#define SKILL_DATA_RECORD	3	// Records maintenance
+-->
+
+{{if !data.temp && data.screen == 1}}
+	<script type='text/javascript'>
+		var hidden;
+		function updateSearch(){
+			var filter_text = document.getElementById('filter');
+			var filter = filter_text.value.toLowerCase();
+
+			if(hidden != null){
+				hidden.parent("td").parent("tr").show()
+			}
+
+			if(filter == ""){
+				return;
+			} else {
+				hidden = $("#maintable_data").children("tbody").children("tr").children("td").children("input").filter(function(index) {
+					return $(this)[0].value.toLowerCase().indexOf(filter) == -1
+				});
+				hidden.parent("td").parent("tr").hide()
+			}
+		}
+		
+		function selectTextField(){
+			var filter_text = document.getElementById('filter');
+			filter_text.focus();
+			filter_text.select();
+		}
+		
+		$(window).load(function() {
+			selectTextField();
+			updateSearch();
+		});
+		
+		$("#filter").keyup(function() {
+			updateSearch();
+		});
+	</script>
+{{/if}}
+<style type="text/css">			
+	.infoButton {
+		background: none;
+		border: none;
+	}
+	input[type=text], input[type=submit] {
+		border: 1px solid #161616;
+		background-color: #40628a;
+		color: #FFFFFF;
+		padding: 4px;
+	}
+	input[type=submit]:hover {
+		background-color: #507aac;
+	}
+</style>
+
+<div class="item">
+	<div class="itemLabelNarrow">
+		<b>Confirm Identity:</b>
+	</div>
+	<div class="itemContent">
+		{{:helper.link(data.scan ? data.scan : "----------", 'eject', {'scan' : 1}, null, data.scan ? 'itemContentWide' : 'fixedLeft')}}
+	</div>
+</div>
+<hr>
+{{if data.authenticated}}
+	{{if data.screen == 1}} <!-- SKILL_DATA_R_LIST -->
+		<div style="text-align: center;">    
+			<div style="display: inline-block;">{{:helper.link('New Record', 'plus', {'new_g' : 1})}}</div>
+		</div>
+		<h3><center>Record List</center></h3>
+		<table width='560' align='center' cellspacing='0' cellpadding='5' id='maintable'>
+			<tr id='search_tr'>
+				<td align='center'>
+					<b>Search:</b> <input type='text' id='filter' value='' style='width:300px;'></input>
+				</td>
+			</tr>
+		</table>
+		<div class="statusDisplay" style="overflow: auto;">
+			<span id='maintable_data_archive'>
+				<table style='width: 100%;' id='maintable_data'>
+					<thead>
+						<tr>
+							<th>{{:helper.link('Name', null, {'sort' : 'name'}, null, 'infoButton')}}</th>
+							<th>{{:helper.link('ID', null, {'sort' : 'id'}, null, 'infoButton')}}</th>
+							<th>{{:helper.link('Rank', null, {'sort' : 'rank'}, null, 'infoButton')}}</th>
+							<th>{{:helper.link('Fingerprints', null, {'sort' : 'fingerprint'}, null, 'infoButton')}}</th>
+						</tr>
+					</thead>
+					<tbody>
+						{{for data.records}}
+							<tr>
+								<td><input type='hidden' value='{{:value.name}} {{:value.id}} {{:value.rank}} {{:value.fingerprint}}'></input> {{:helper.link(value.name, 'user', {'d_rec' : value.ref}, null, 'infoButton')}}</td>
+								<td>{{:value.id}}</td>
+								<td>{{:value.rank}}</td>
+								<td>{{:value.fingerprint}}</td>
+							</tr>
+						{{/for}}
+					</tbody>
+				</table>
+			</span>
+		</div>
+		<h3><center>Menu</center></h3>
+		<div class="line">{{:helper.link('Record Maintenance', 'wrench', {'screen' : 2})}}</div>
+		<div class="line">{{:helper.link('Logout', 'lock', {'logout' : 1})}}</div>
+	{{else data.screen == 2}} <!-- SKILL_DATA_MAINT -->
+		<h3>Records Maintenance</h3>
+		<div class="line">{{:helper.link('Backup To Disk', 'download', {'back' : 1}, 'disabled')}}</div>
+		<div class="line">{{:helper.link('Upload From disk', 'upload', {'u_load' : 1}, 'disabled')}}</div>
+		<div class="line">{{:helper.link('Delete All Records', 'trash', {'del_all' : 1})}}</div>
+		<div class="line">{{:helper.link('Back', 'arrow-left', {'screen' : 1})}}</div>
+	{{else data.screen == 3}} <!-- SKILL_DATA_RECORD -->
+		<h3><center>Employment Record</center></h3>
+		<h4><center>General Data</center></h4>
+		{{if data.general.empty}}
+			<span class="bad"><center>General Record Lost!</center></span>
+		{{else}}
+			<div class="statusDisplayRecords">
+				<table style='width:100%'><tr>
+					<td valign='top' style='margin-right: 300px;'>
+						{{for data.general.fields}}
+							<div class="item">
+								<div class="itemLabel">
+									{{:value.field}}
+								</div>
+								<div class="itemContent">
+									{{:helper.link(value.value, value.name ? 'pencil' : 'user-times', {'field' : value.name}, value.name ? null : 'disabled')}}
+								</div>
+							</div>
+						{{/for}}
+					</td>
+					<td valign='middle' align='center' style='width: 300px;'>
+						{{if data.general.has_photos}}
+							{{for data.general.photos}}
+								{{if value.photo}}
+									<img src={{:value.photo}} height=96 width=96 border=5>
+								{{/if}}
+							{{/for}}
+						{{/if}}
+					</td>
+				</tr></table>
+			</div>
+			
+			<h4><center>Employment Data</center></h4>
+			<div class="item">
+				<div class="itemLabel">
+					Employment/skills summary:
+				</div>
+				<div class="itemContent">
+					{{:data.general.notes ? data.general.notes : 'None'}}
+				</div>
+			</div>
+		{{/if}}
+		<h3><center>Menu</center></h3>
+		<div class="line">{{:helper.link('Delete Record (All)', 'trash', {'del_rg' : 1})}}</div>
+		<div class="line">{{:helper.link('Print Record', 'print', {'print_r' : 1})}}</div>
+		<div class="line">{{:helper.link('Back', 'arrow-left', {'screen' : 1})}}</div>
+	{{/if}}
+{{else}}
+	<h3>Menu</h3>
+	{{:helper.link('Login', 'unlock', {'login' : 1})}}
+{{/if}}
+
+{{if data.temp}}
+	<div class="mask" style="display: table;">
+		<div class="maskContent" style="margin: 0px; vertical-align: middle; display: table-cell;">
+			{{if data.temp.notice}}
+				<div class="notice"><center>{{:data.temp.text}}</center></div>
+			{{else}}
+				<center>{{:data.temp.text}}</center>
+			{{/if}}
+
+			
+			{{if data.temp.has_buttons}}
+				<div class="line">
+					<div style="display: inline-block;">
+						<div style="width: 500px; display: flex; display: -webkit-flex; flex-wrap: wrap; -webkit-flex-wrap: wrap; justify-content: center; -webkit-justify-content: center;">
+							{{for data.temp.buttons}}
+								{{:helper.link(value.name, value.icon, {'temp' : 1, 'temp_action' : value.val}, value.status)}}
+							{{/for}}
+						</div>
+					</div>
+				</div>
+			{{/if}}
+			
+			<div style="display: inline-block;">
+				<div class="line">{{:helper.link('Clear screen', 'home', {'temp' : 1})}}</div>
+			</div>
+		</div>
+	</div>
+{{/if}}

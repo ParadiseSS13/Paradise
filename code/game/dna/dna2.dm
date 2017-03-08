@@ -135,6 +135,7 @@ var/global/list/bad_blocks[0]
 	// FIXME:  Species-specific defaults pls
 	var/obj/item/organ/external/head/H = character.get_organ("head")
 	var/obj/item/organ/internal/eyes/eyes_organ = character.get_int_organ(/obj/item/organ/internal/eyes)
+	var/datum/species/S = character.species
 
 	/*// Body Accessory
 	if(!character.body_accessory)
@@ -170,7 +171,11 @@ var/global/list/bad_blocks[0]
 
 	SetUIValueRange(DNA_UI_SKIN_TONE,	35-character.s_tone,	220,	1) // Value can be negative.
 
-	SetUIState(DNA_UI_GENDER, character.gender!=MALE, 1)
+	if(S.has_gender)
+		SetUIState(DNA_UI_GENDER, character.gender!=MALE, 1)
+	else
+		SetUIState(DNA_UI_GENDER, pick(0,1), 1)
+
 	/*SetUIValueRange(DNA_UI_BACC_STYLE,	bodyacc,	facial_hair_styles_list.len,	1)*/
 	SetUIValueRange(DNA_UI_HEAD_MARK_STYLE,	head_marks,		marking_styles_list.len,		1)
 	SetUIValueRange(DNA_UI_BODY_MARK_STYLE,	body_marks,		marking_styles_list.len,		1)
@@ -426,3 +431,7 @@ var/global/list/bad_blocks[0]
 	species = data["species"]
 	b_type = data["b_type"]
 	real_name = data["real_name"]
+
+// a nice hook for if/when we refactor species on dna
+/datum/dna/proc/get_species_name()
+	return species

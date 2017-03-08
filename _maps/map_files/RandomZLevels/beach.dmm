@@ -47,7 +47,7 @@
 "aU" = (/obj/structure/ladder/dive_point/anchor,/turf/unsimulated/beach/water/deep/sand_floor,/area/awaymission/undersea)
 "aV" = (/obj/structure/barricade/wooden,/turf/unsimulated/beach/water/deep/wood_floor,/area/awaymission/undersea)
 "aW" = (/obj/structure/grille{density = 0; icon_state = "brokengrille"},/turf/unsimulated/beach/water/deep/sand_floor,/area/awaymission/undersea)
-"aX" = (/obj/item/weapon/spacecash/c500,/turf/unsimulated/beach/water/deep/sand_floor,/area/awaymission/undersea)
+"aX" = (/obj/item/stack/spacecash/c500,/turf/unsimulated/beach/water/deep/sand_floor,/area/awaymission/undersea)
 "aY" = (/obj/structure/closet/crate{icon_state = "crateopen"; opened = 1},/obj/item/weapon/coin/gold,/obj/item/weapon/coin/gold,/obj/item/weapon/coin/gold,/obj/item/weapon/coin/gold,/obj/item/weapon/coin/gold,/obj/item/weapon/coin/gold,/obj/item/weapon/coin/gold,/turf/unsimulated/beach/water/deep/sand_floor,/area/awaymission/undersea)
 "aZ" = (/turf/unsimulated/beach/sand{density = 1; icon = 'icons/turf/snow.dmi'; icon_state = "gravsnow"; name = "rough sand"},/area/awaymission/beach)
 "ba" = (/obj/structure/flora/rock,/turf/unsimulated/beach/sand{density = 1; icon = 'icons/turf/snow.dmi'; icon_state = "gravsnow"; name = "rough sand"},/area/awaymission/beach)

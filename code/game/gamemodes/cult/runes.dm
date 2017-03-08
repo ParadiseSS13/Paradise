@@ -965,7 +965,7 @@ var/list/teleport_runes = list()
 		if(O.client && !jobban_isbanned(O, ROLE_CULTIST))
 			ghosts_on_rune |= O
 	var/mob/dead/observer/ghost_to_spawn = pick(ghosts_on_rune)
-	var/mob/living/carbon/human/new_human = new(get_turf(src))
+	var/mob/living/carbon/human/dummy/new_human = new(get_turf(src))
 	new_human.real_name = ghost_to_spawn.real_name
 	new_human.alpha = 150 //Makes them translucent
 	new_human.color = "grey" //heh..cult greytide...litterly...

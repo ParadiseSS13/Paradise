@@ -14,6 +14,8 @@
 	faction = list("terrorspiders")
 	var/spider_myqueen = null
 	var/use_vents = 1
+	var/list/enemies = list()
+	var/immediate_ventcrawl = 0
 
 /obj/effect/spider/spiderling/terror_spiderling/New()
 	..()
@@ -72,8 +74,10 @@
 		var/list/nearby = oview(10, src)
 		if(nearby.len)
 			var/target_atom = pick(nearby)
-			walk_to(src, target_atom)
-	else if(prob(10) && use_vents)
+			if(!istype(get_turf(target_atom),/turf/space))
+				walk_to(src, target_atom)
+	else if(immediate_ventcrawl || (prob(10) && use_vents))
+		immediate_ventcrawl = 0
 		for(var/obj/machinery/atmospherics/unary/vent_pump/v in view(7,src))
 			if(!v.welded)
 				entry_vent = v
@@ -91,6 +95,7 @@
 				S.faction = faction
 				S.spider_myqueen = spider_myqueen
 				S.master_commander = master_commander
+				S.enemies = enemies
 				qdel(src)
 
 // --------------------------------------------------------------------------------
@@ -106,6 +111,7 @@
 	C.faction = faction
 	C.spider_myqueen = spider_myqueen
 	C.master_commander = master_commander
+	C.enemies = enemies
 	if(spider_growinstantly)
 		C.amount_grown = 250
 		C.spider_growinstantly = 1
@@ -122,6 +128,7 @@
 	var/spiderling_type = null
 	var/spiderling_number = 1
 	var/spiderling_ventcrawl = 1
+	var/list/enemies = list()
 
 /obj/effect/spider/eggcluster/terror_eggcluster/New()
 	..()
@@ -162,6 +169,7 @@
 			S.faction = faction
 			S.spider_myqueen = spider_myqueen
 			S.master_commander = master_commander
+			S.enemies = enemies
 			if(spider_growinstantly)
 				S.amount_grown = 250
 		var/rnum = 5 - spiderling_number

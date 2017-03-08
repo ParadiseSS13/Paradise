@@ -13,13 +13,13 @@
 	var/jtext
 	for(var/client/C in clients)
 		jtext = "No Job"
-		if(C.mob.mind.assigned_role)
+		if(C.mob.mind && C.mob.mind.assigned_role)
 			theirjob = job_master.GetJob(C.mob.mind.assigned_role)
 			if(theirjob)
 				jtext = theirjob.title
 				if(config.use_exp_restrictions && theirjob.exp_requirements && theirjob.exp_type)
 					jtext += "<span class='warning'>*</span>"
-		if(check_rights(R_ADMIN))
+		if(check_rights(R_ADMIN, 0))
 			pline = "<LI> [key_name_admin(C.mob)]: [jtext]: <A href='?_src_=holder;getplaytimewindow=[C.mob.UID()]'>" + C.get_exp_living() + "</a></LI>"
 		else
 			pline = "<LI> [key_name_mentor(C.mob)]: [jtext]: <A href='?_src_=holder;getplaytimewindow=[C.mob.UID()]'>" + C.get_exp_living() + "</a></LI>"

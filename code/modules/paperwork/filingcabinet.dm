@@ -110,17 +110,15 @@
 		for(var/datum/data/record/G in data_core.general)
 			var/datum/data/record/S
 			for(var/datum/data/record/R in data_core.security)
-				if((R.fields["name"] == G.fields["name"] || R.fields["id"] == G.fields["id"]))
+				if(R.fields["name"] == G.fields["name"] || R.fields["id"] == G.fields["id"])
 					S = R
 					break
 			var/obj/item/weapon/paper/P = new /obj/item/weapon/paper(src)
 			P.info = "<CENTER><B>Security Record</B></CENTER><BR>"
 			P.info += "Name: [G.fields["name"]] ID: [G.fields["id"]]<BR>\nSex: [G.fields["sex"]]<BR>\nAge: [G.fields["age"]]<BR>\nFingerprint: [G.fields["fingerprint"]]<BR>\nPhysical Status: [G.fields["p_stat"]]<BR>\nMental Status: [G.fields["m_stat"]]<BR>"
 			P.info += "<BR>\n<CENTER><B>Security Data</B></CENTER><BR>\nCriminal Status: [S.fields["criminal"]]<BR>\n<BR>\nMinor Crimes: [S.fields["mi_crim"]]<BR>\nDetails: [S.fields["mi_crim_d"]]<BR>\n<BR>\nMajor Crimes: [S.fields["ma_crim"]]<BR>\nDetails: [S.fields["ma_crim_d"]]<BR>\n<BR>\nImportant Notes:<BR>\n\t[S.fields["notes"]]<BR>\n<BR>\n<CENTER><B>Comments/Log</B></CENTER><BR>"
-			var/counter = 1
-			while(S.fields["com_[counter]"])
-				P.info += "[S.fields["com_[counter]"]]<BR>"
-				counter++
+			for(var/c in S.fields["comments"])
+				P.info += "[c]<BR>"
 			P.info += "</TT>"
 			P.name = "paper - '[G.fields["name"]]'"
 			virgin = 0	//tabbing here is correct- it's possible for people to try and use it
@@ -146,17 +144,15 @@
 		for(var/datum/data/record/G in data_core.general)
 			var/datum/data/record/M
 			for(var/datum/data/record/R in data_core.medical)
-				if((R.fields["name"] == G.fields["name"] || R.fields["id"] == G.fields["id"]))
+				if(R.fields["name"] == G.fields["name"] || R.fields["id"] == G.fields["id"])
 					M = R
 					break
 			var/obj/item/weapon/paper/P = new /obj/item/weapon/paper(src)
 			P.info = "<CENTER><B>Medical Record</B></CENTER><BR>"
 			P.info += "Name: [G.fields["name"]] ID: [G.fields["id"]]<BR>\nSex: [G.fields["sex"]]<BR>\nAge: [G.fields["age"]]<BR>\nFingerprint: [G.fields["fingerprint"]]<BR>\nPhysical Status: [G.fields["p_stat"]]<BR>\nMental Status: [G.fields["m_stat"]]<BR>"
 			P.info += "<BR>\n<CENTER><B>Medical Data</B></CENTER><BR>\nBlood Type: [M.fields["b_type"]]<BR>\nDNA: [M.fields["b_dna"]]<BR>\n<BR>\nMinor Disabilities: [M.fields["mi_dis"]]<BR>\nDetails: [M.fields["mi_dis_d"]]<BR>\n<BR>\nMajor Disabilities: [M.fields["ma_dis"]]<BR>\nDetails: [M.fields["ma_dis_d"]]<BR>\n<BR>\nAllergies: [M.fields["alg"]]<BR>\nDetails: [M.fields["alg_d"]]<BR>\n<BR>\nCurrent Diseases: [M.fields["cdi"]] (per disease info placed in log/comment section)<BR>\nDetails: [M.fields["cdi_d"]]<BR>\n<BR>\nImportant Notes:<BR>\n\t[M.fields["notes"]]<BR>\n<BR>\n<CENTER><B>Comments/Log</B></CENTER><BR>"
-			var/counter = 1
-			while(M.fields["com_[counter]"])
-				P.info += "[M.fields["com_[counter]"]]<BR>"
-				counter++
+			for(var/c in M.fields["comments"])
+				P.info += "[c]<BR>"
 			P.info += "</TT>"
 			P.name = "paper - '[G.fields["name"]]'"
 			virgin = 0	//tabbing here is correct- it's possible for people to try and use it

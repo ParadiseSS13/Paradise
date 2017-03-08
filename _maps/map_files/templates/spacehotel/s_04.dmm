@@ -4,7 +4,7 @@
 "d" = (/turf/unsimulated/floor{icon = 'icons/turf/shuttle.dmi'; icon_state = "floor4"},/area/template_noop)
 "e" = (/obj/structure/rack,/obj/item/clothing/suit/syndicatefake,/obj/item/clothing/under/syndicate,/turf/unsimulated/floor{icon = 'icons/turf/shuttle.dmi'; icon_state = "floor4"},/area/template_noop)
 "f" = (/obj/structure/rack,/obj/item/clothing/mask/gas/syndicate,/turf/unsimulated/floor{icon = 'icons/turf/shuttle.dmi'; icon_state = "floor4"},/area/template_noop)
-"g" = (/obj/structure/rack,/obj/structure/sign/poster{dir = 1; pixel_y = 32},/obj/item/clothing/suit/space/rig/syndi,/obj/item/clothing/head/helmet/space/syndicate{pixel_x = -4},/turf/unsimulated/floor{icon = 'icons/turf/shuttle.dmi'; icon_state = "floor4"},/area/template_noop)
+"g" = (/obj/structure/rack,/obj/structure/sign/poster{dir = 1; pixel_y = 32},/obj/item/clothing/suit/space/hardsuit/syndi,/obj/item/clothing/head/helmet/space/syndicate{pixel_x = -4},/turf/unsimulated/floor{icon = 'icons/turf/shuttle.dmi'; icon_state = "floor4"},/area/template_noop)
 "h" = (/obj/structure/dresser,/obj/structure/sign/poster{dir = 1; pixel_y = 32},/turf/unsimulated/floor{icon = 'icons/turf/shuttle.dmi'; icon_state = "floor4"},/area/template_noop)
 "i" = (/obj/structure/table/woodentable,/obj/item/device/flashlight/lamp/green,/obj/item/weapon/storage/fancy/cigarettes/syndicate{pixel_x = 8},/obj/structure/sign/poster{dir = 1; pixel_y = 32},/obj/structure/sign/poster{dir = 4; pixel_x = 32},/turf/unsimulated/floor{icon = 'icons/turf/shuttle.dmi'; icon_state = "floor4"},/area/template_noop)
 "j" = (/obj/structure/window/reinforced/polarized{dir = 4; id = "room_s"},/turf/unsimulated/floor{dir = 8; icon_state = "whiteblue"},/area/template_noop)

@@ -1204,10 +1204,11 @@
 
 	else if(href_list["obj_announce"])
 		var/obj_count = 1
-		to_chat(current, "\blue Your current objectives:")
+		to_chat(current, "<BR><span class='userdanger'>Your current objectives:</span>")
 		for(var/datum/objective/objective in objectives)
 			to_chat(current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
 			obj_count++
+		current << 'sound/ambience/alarm4.ogg'
 		log_admin("[key_name(usr)] has announced [key_name(current)]'s objectives")
 		message_admins("[key_name_admin(usr)] has announced [key_name_admin(current)]'s objectives")
 

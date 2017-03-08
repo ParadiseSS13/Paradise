@@ -19,16 +19,15 @@ var/const/BORG_WIRE_CAMERA      = 4
 var/const/BORG_WIRE_AI_CONTROL  = 8  // Not used on MoMMIs
 var/const/BORG_WIRE_LAWCHECK    = 16 // Not used on MoMMIs
 
-/datum/wires/robot/GetInteractWindow()
-
+/datum/wires/robot/get_status()
 	. = ..()
 	var/mob/living/silicon/robot/R = holder
-	. += text("<br>\n[(R.lawupdate ? "The LawSync light is on." : "The LawSync light is off.")]<br>\n[(R.connected_ai ? "The AI link light is on." : "The AI link light is off.")]")
-	. += text("<br>\n[((!isnull(R.camera) && R.camera.status == 1) ? "The Camera light is on." : "The Camera light is off.")]<br>\n")
-	. += text("<br>\n[(R.lockcharge ? "The lockdown light is on." : "The lockdown light is off.")]")
-	return .
+	. += "The LawSync light is [R.lawupdate ? "on" : "off"]."
+	. += "The AI link light is [R.connected_ai ? "on" : "off"]."
+	. += "The Camera light is [(R.camera && R.camera.status == 1) ? "on" : "off"]."
+	. += "The lockdown light is [R.lockcharge ? "on" : "off"]."
 
-/datum/wires/robot/UpdateCut(var/index, var/mended)
+/datum/wires/robot/UpdateCut(index, mended)
 
 	var/mob/living/silicon/robot/R = holder
 	switch(index)
@@ -57,9 +56,10 @@ var/const/BORG_WIRE_LAWCHECK    = 16 // Not used on MoMMIs
 
 		if(BORG_WIRE_LOCKED_DOWN)
 			R.SetLockdown(!mended)
+	..()
 
 
-/datum/wires/robot/UpdatePulsed(var/index)
+/datum/wires/robot/UpdatePulsed(index)
 
 	var/mob/living/silicon/robot/R = holder
 	switch(index)
@@ -76,8 +76,9 @@ var/const/BORG_WIRE_LAWCHECK    = 16 // Not used on MoMMIs
 
 		if(BORG_WIRE_LOCKED_DOWN)
 			R.SetLockdown(!R.lockcharge) // Toggle
+	..()
 
-/datum/wires/robot/CanUse(var/mob/living/L)
+/datum/wires/robot/CanUse(mob/living/L)
 	var/mob/living/silicon/robot/R = holder
 	if(R.wiresexposed)
 		return 1
