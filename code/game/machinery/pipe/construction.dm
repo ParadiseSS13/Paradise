@@ -620,7 +620,7 @@
 			var/obj/machinery/atmospherics/omni/filter/P = new(loc)
 			P.construction(dir, pipe_dir, color)
 
-	playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
+	playsound(src.loc, W.usesound, 50, 1)
 	user.visible_message( \
 		"[user] fastens the [src].", \
 		"<span class='notice'>You have fastened the [src].</span>", \
@@ -645,9 +645,9 @@
 	if(!locate(/obj/machinery/atmospherics/pipe, src.loc))
 		to_chat(user, "<span class='warning'>You need to fasten it to a pipe</span>")
 		return 1
-	new/obj/machinery/meter( src.loc )
-	playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
-	to_chat(user, "<span class='notice'>You have fastened the meter to the pipe</span>")
+	new /obj/machinery/meter(loc)
+	playsound(src.loc, W.usesound, 50, 1)
+	to_chat(user, "<span class='notice'>You have fastened the meter to the pipe.</span>")
 	qdel(src)
 
 /obj/item/pipe_gsensor
@@ -663,8 +663,8 @@
 	if(!istype(W, /obj/item/weapon/wrench))
 		return ..()
 	new/obj/machinery/air_sensor( src.loc )
-	playsound(get_turf(src), 'sound/items/Ratchet.ogg', 50, 1)
-	to_chat(user, "<span class='notice'>You have fastened the gas sensor</span>")
+	playsound(get_turf(src), W.usesound, 50, 1)
+	to_chat(user, "<span class='notice'>You have fastened the gas sensor.</span>")
 	qdel(src)
 
 #undef PIPE_SIMPLE_STRAIGHT

@@ -617,7 +617,7 @@ var/list/robot_verbs_default = list(
 		var/obj/item/weapon/weldingtool/WT = W
 		user.changeNext_move(CLICK_CD_MELEE)
 		if(WT.remove_fuel(0))
-			playsound(src.loc, 'sound/items/Welder2.ogg', 50, 1)
+			playsound(src.loc, W.usesound, 50, 1)
 			adjustBruteLoss(-30)
 			updatehealth()
 			add_fingerprint(user)
@@ -651,7 +651,7 @@ var/list/robot_verbs_default = list(
 					return
 
 				to_chat(user, "You jam the crowbar into the robot and begin levering [mmi].")
-				if(do_after(user,3 SECONDS, target = src))
+				if(do_after(user, 30 * W.toolspeed, target = src))
 					to_chat(user, "You damage some parts of the chassis, but eventually manage to rip out [mmi]!")
 					var/obj/item/robot_parts/robot_suit/C = new/obj/item/robot_parts/robot_suit(loc)
 					C.l_leg = new/obj/item/robot_parts/l_leg(C)
@@ -945,9 +945,11 @@ var/list/robot_verbs_default = list(
 				adjustStaminaLoss(damage)
 		updatehealth()
 
+/mob/living/silicon/robot/attack_ghost(mob/user)
+	if(wiresexposed)
+		wires.Interact(user)
 
 /mob/living/silicon/robot/attack_hand(mob/user)
-
 	add_fingerprint(user)
 
 	if(opened && !wiresexposed && (!istype(user, /mob/living/silicon)))

@@ -10,6 +10,8 @@
 	throw_speed = 3
 	throw_range = 10
 	origin_tech = "magnets=1"
+	toolspeed = 1
+	usesound = 'sound/items/Deconstruct.ogg'
 
 	var/bomb_name = "bomb" // used for naming bombs / mines
 

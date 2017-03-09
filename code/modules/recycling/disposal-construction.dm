@@ -212,16 +212,16 @@
 			else
 				density = 1 // We don't want disposal bins or outlets to go density 0
 			to_chat(user, "You attach the [nicetype] to the underfloor.")
-		playsound(src.loc, 'sound/items/Ratchet.ogg', 100, 1)
+		playsound(src.loc, I.usesound, 100, 1)
 		update()
 
 	else if(istype(I, /obj/item/weapon/weldingtool))
 		if(anchored)
 			var/obj/item/weapon/weldingtool/W = I
 			if(W.remove_fuel(0,user))
-				playsound(src.loc, 'sound/items/Welder2.ogg', 100, 1)
+				playsound(src.loc, W.usesound, 100, 1)
 				to_chat(user, "Welding the [nicetype] in place.")
-				if(do_after(user, 20, target = src))
+				if(do_after(user, 20 * W.toolspeed, target = src))
 					if(!src || !W.isOn()) return
 					to_chat(user, "The [nicetype] has been welded in place!")
 					update() // TODO: Make this neat

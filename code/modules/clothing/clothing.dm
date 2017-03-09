@@ -201,7 +201,7 @@ BLIND     // can't see anything
 /obj/item/clothing/gloves/attackby(obj/item/weapon/W, mob/user, params)
 	if(istype(W, /obj/item/weapon/wirecutters))
 		if(!clipped)
-			playsound(src.loc, 'sound/items/Wirecutter.ogg', 100, 1)
+			playsound(src.loc, W>usesound, 100, 1)
 			user.visible_message("<span class='warning'>[user] snips the fingertips off [src].</span>","<span class='warning'>You snip the fingertips off [src].</span>")
 			clipped = 1
 			name = "mangled [name]"
@@ -399,7 +399,7 @@ BLIND     // can't see anything
 	if(istype(I, /obj/item/weapon/wirecutters))
 		if(can_cut_open)
 			if(!cut_open)
-				playsound(src.loc, 'sound/items/Wirecutter.ogg', 100, 1)
+				playsound(src.loc, I.usesound, 100, 1)
 				user.visible_message("<span class='warning'>[user] cuts open the toes of [src].</span>","<span class='warning'>You cut open the toes of [src].</span>")
 				cut_open = 1
 				icon_state = "[icon_state]_opentoe"

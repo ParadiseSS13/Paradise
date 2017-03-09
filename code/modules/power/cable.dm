@@ -480,21 +480,21 @@ var/global/list/datum/stack_recipe/cable_coil_recipes = list(
 	slot_flags = SLOT_BELT
 	item_state = "coil"
 	attack_verb = list("whipped", "lashed", "disciplined", "flogged")
+	usesound = 'sound/items/Deconstruct.ogg'
+	toolspeed = 1
 
 /obj/item/stack/cable_coil/suicide_act(mob/user)
 	if(locate(/obj/structure/stool) in user.loc)
-		user.visible_message("<span class='suicide'>[user] is making a noose with the [src.name]! It looks like \he's trying to commit suicide.</span>")
+		user.visible_message("<span class='suicide'>[user] is making a noose with the [name]! It looks like \he's trying to commit suicide.</span>")
 	else
-		user.visible_message("<span class='suicide'>[user] is strangling \himself with the [src.name]! It looks like \he's trying to commit suicide.</span>")
+		user.visible_message("<span class='suicide'>[user] is strangling \himself with the [name]! It looks like \he's trying to commit suicide.</span>")
 	return(OXYLOSS)
 
 /obj/item/stack/cable_coil/New(loc, length = MAXCOIL, var/paramcolor = null)
 	..()
-	src.amount = length
+	amount = length
 	if(paramcolor)
 		color = paramcolor
-	else
-		color = color
 	pixel_x = rand(-2,2)
 	pixel_y = rand(-2,2)
 	update_icon()
@@ -543,7 +543,6 @@ var/global/list/datum/stack_recipe/cable_coil_recipes = list(
 /obj/item/stack/cable_coil/update_icon()
 	if(!color)
 		color = pick(COLOR_RED, COLOR_BLUE, COLOR_GREEN, COLOR_ORANGE, COLOR_WHITE, COLOR_PINK, COLOR_YELLOW, COLOR_CYAN)
-		color = color
 	if(amount == 1)
 		icon_state = "coil1"
 		name = "cable piece"

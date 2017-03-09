@@ -32,25 +32,26 @@
 /obj/structure/girder/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/weapon/wrench) && state == 0)
 		if(anchored && !istype(src,/obj/structure/girder/displaced))
-			playsound(src.loc, 'sound/items/Ratchet.ogg', 100, 1)
+			playsound(src.loc, W.usesound, 100, 1)
 			to_chat(user, "<span class='notice'>Now disassembling the girder</span>")
-			if(do_after(user,40, target = src))
+			if(do_after(user, 40 * W.toolspeed, target = src))
 				if(!src) return
 				to_chat(user, "<span class='notice'>You dissasembled the girder!</span>")
 				refundMetal(metalUsed)
 				qdel(src)
 		else if(!anchored)
-			playsound(src.loc, 'sound/items/Ratchet.ogg', 100, 1)
+			playsound(src.loc, W.usesound, 100, 1)
 			to_chat(user, "<span class='notice'>Now securing the girder</span>")
-			if(do_after(user, 40, target = src))
+			if(do_after(user, 40 * W.toolspeed, target = src))
 				to_chat(user, "<span class='notice'>You secured the girder!</span>")
 				new/obj/structure/girder( src.loc )
 				qdel(src)
 
 	else if(istype(W, /obj/item/weapon/gun/energy/plasmacutter))
 		to_chat(user, "<span class='notice'>Now slicing apart the girder</span>")
-		if(do_after(user,30, target = src))
+		if(do_after(user, 30 * W.toolspeed, target = src))
 			if(!src) return
+			playsound(loc, W.usesound, 100, 1)
 			to_chat(user, "<span class='notice'>You slice apart the girder!</span>")
 			refundMetal(metalUsed)
 			qdel(src)
@@ -61,32 +62,32 @@
 		qdel(src)
 
 	else if(istype(W, /obj/item/weapon/pickaxe/drill/jackhammer))
-		playsound(src.loc, 'sound/weapons/sonic_jackhammer.ogg', 100, 1)
+		playsound(src.loc, W.usesound, 100, 1)
 		to_chat(user, "<span class='notice'>You Disintegrate the girder!</span>")
 		refundMetal(metalUsed)
 		qdel(src)
 
 	else if(istype(W, /obj/item/weapon/screwdriver) && state == 2 && istype(src,/obj/structure/girder/reinforced))
-		playsound(src.loc, 'sound/items/Screwdriver.ogg', 100, 1)
+		playsound(src.loc, W.usesound, 100, 1)
 		to_chat(user, "<span class='notice'>Now unsecuring support struts</span>")
-		if(do_after(user,40, target = src))
+		if(do_after(user, 40 * W.toolspeed, target = src))
 			if(!src) return
 			to_chat(user, "<span class='notice'>You unsecured the support struts!</span>")
 			state = 1
 
 	else if(istype(W, /obj/item/weapon/wirecutters) && istype(src,/obj/structure/girder/reinforced) && state == 1)
-		playsound(src.loc, 'sound/items/Wirecutter.ogg', 100, 1)
+		playsound(src.loc, W.usesound, 100, 1)
 		to_chat(user, "<span class='notice'>Now removing support struts</span>")
-		if(do_after(user,40, target = src))
+		if(do_after(user, 40 * W.toolspeed, target = src))
 			if(!src) return
 			to_chat(user, "<span class='notice'>You removed the support struts!</span>")
 			new/obj/structure/girder( src.loc )
 			qdel(src)
 
 	else if(istype(W, /obj/item/weapon/crowbar) && state == 0 && anchored )
-		playsound(src.loc, 'sound/items/Crowbar.ogg', 100, 1)
+		playsound(src.loc, W.usesound, 100, 1)
 		to_chat(user, "<span class='notice'>Now dislodging the girder</span>")
-		if(do_after(user, 40, target = src))
+		if(do_after(user, 40 * W.toolspeed, target = src))
 			if(!src) return
 			to_chat(user, "<span class='notice'>You dislodged the girder!</span>")
 			new/obj/structure/girder/displaced( src.loc )
@@ -107,7 +108,7 @@
 				else
 					if(S.amount < 2) return ..()
 					to_chat(user, "<span class='notice'>Now adding plating...</span>")
-					if(do_after(user,40, target = src))
+					if(do_after(user, 40 * W.toolspeed, target = src))
 						if(!src || !S || S.amount < 2) return
 						S.use(2)
 						to_chat(user, "<span class='notice'>You added the plating!</span>")
@@ -240,15 +241,16 @@
 
 /obj/structure/cultgirder/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/weapon/wrench))
-		playsound(src.loc, 'sound/items/Ratchet.ogg', 100, 1)
+		playsound(loc, W.usesound, 100, 1)
 		to_chat(user, "<span class='notice'>Now disassembling the girder</span>")
-		if(do_after(user,40, target = src))
+		if(do_after(user, 40 * W.toolspeed, target = src))
 			to_chat(user, "<span class='notice'>You dissasembled the girder!</span>")
 			dismantle()
 
 	else if(istype(W, /obj/item/weapon/gun/energy/plasmacutter))
 		to_chat(user, "<span class='notice'>Now slicing apart the girder</span>")
-		if(do_after(user,30, target = src))
+		if(do_after(user, 30 * W.toolspeed, target = src))
+			playsound(loc, W.usesound, 100, 1)
 			to_chat(user, "<span class='notice'>You slice apart the girder!</span>")
 			dismantle()
 

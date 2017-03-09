@@ -720,7 +720,7 @@
 	icon_state = "implant"
 	max_w_class = 3
 	storage_slots = 2
-	can_hold = list("/obj/item/weapon/mining_drone_cube","/obj/item/weapon/weldingtool/hugetank")
+	can_hold = list(/obj/item/weapon/mining_drone_cube, /obj/item/weapon/weldingtool/hugetank)
 
 /obj/item/weapon/storage/box/drone_kit/New()
 	..()

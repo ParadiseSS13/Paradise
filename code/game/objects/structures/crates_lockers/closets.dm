@@ -13,7 +13,7 @@
 	var/lastbang
 	var/cutting_tool = /obj/item/weapon/weldingtool
 	var/sound = 'sound/machines/click.ogg'
-	var/cutting_sound = 'sound/items/Welder.ogg'
+	var/cutting_sound
 	var/storage_capacity = 30 //This is so that someone can't pack hundreds of items in a locker/crate then open it in a populated area to crash clients.
 	var/material_drop = /obj/item/stack/sheet/metal
 	var/material_drop_amount = 2
@@ -193,10 +193,10 @@
 							L[tmpname] = R
 					var/desc = input("Please select a telepad.", "RCS") in L
 					E.pad = L[desc]
-					playsound(E.loc, 'sound/machines/click.ogg', 50, 1)
+					playsound(E.loc, E.usesound, 50, 1)
 					to_chat(user, "<span class='notice'>Teleporting [name]...</span>")
 					E.teleporting = 1
-					if(!do_after(user, 50, target = src))
+					if(!do_after(user, 50 * E.toolspeed, target = src))
 						E.teleporting = 0
 						return
 					E.teleporting = 0
@@ -215,10 +215,10 @@
 				E.rand_x = rand(50,200)
 				E.rand_y = rand(50,200)
 				var/L = locate(E.rand_x, E.rand_y, 6)
-				playsound(E.loc, 'sound/machines/click.ogg', 50, 1)
+				playsound(E.loc, E.usesound, 50, 1)
 				to_chat(user, "<span class='notice'>Teleporting [name]...</span>")
 				E.teleporting = 1
-				if(!do_after(user, 50, target = src))
+				if(!do_after(user, 50, E.toolspeed, target = src))
 					E.teleporting = 0
 					return
 				E.teleporting = 0
@@ -248,11 +248,11 @@
 				if(!WT.remove_fuel(0, user))
 					return
 				to_chat(user, "<span class='notice'>You begin cutting \the [src] apart...</span>")
-				playsound(loc, cutting_sound, 40, 1)
-				if(do_after(user, 40, 1, target = src))
+				playsound(loc, cutting_sound ? cutting_sound : WT.usesound, 40, 1)
+				if(do_after(user, 40 * WT.toolspeed, 1, target = src))
 					if(!opened || !WT.isOn())
 						return
-					playsound(loc, cutting_sound, 50, 1)
+					playsound(loc, cutting_sound ? cutting_sound : WT.usesound, 50, 1)
 					visible_message("<span class='notice'>[user] slices apart \the [src].</span>",
 									"<span class='notice'>You cut \the [src] apart with \the [WT].</span>",
 									"<span class='italics'>You hear welding.</span>")

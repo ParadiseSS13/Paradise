@@ -14,6 +14,8 @@
 	max_amount = 60
 	attack_verb = list("hit", "bludgeoned", "whacked")
 	hitsound = 'sound/weapons/grenadelaunch.ogg'
+	toolspeed = 1
+	usesound = 'sound/items/Deconstruct.ogg'
 
 /obj/item/stack/rods/cyborg
 	materials = list()

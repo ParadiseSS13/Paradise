@@ -382,7 +382,7 @@
 				connected = null
 			else
 				anchored = 1
-			playsound(loc, 'sound/items/Ratchet.ogg', 100, 1)
+			playsound(loc, W.usesound, 100, 1)
 			if(anchored)
 				user.visible_message("[user] secures [src] to the floor.", "You secure [src] to the floor.")
 			else

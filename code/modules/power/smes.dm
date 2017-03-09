@@ -180,9 +180,9 @@
 			return
 
 		to_chat(user, "<span class='notice'>You begin to dismantle the power terminal...</span>")
-		playsound(src.loc, 'sound/items/Deconstruct.ogg', 50, 1)
+		playsound(src.loc, I.usesound, 50, 1)
 
-		if(do_after(user, 50, target = src))
+		if(do_after(user, 50 * I.toolspeed, target = src))
 			if(prob(50) && electrocute_mob(usr, terminal.powernet, terminal)) //animate the electrocution if uncautious and unlucky
 				var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 				s.set_up(5, 1, src)

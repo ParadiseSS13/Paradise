@@ -238,7 +238,7 @@
 		update_icon()
 
 	else if(istype(W, /obj/item/weapon/screwdriver))
-		playsound(src.loc, 'sound/items/Screwdriver.ogg', 100, 1)
+		playsound(src.loc, W.usesound, 100, 1)
 		if(is_open)
 			to_chat(user, "<span class='notice'>You close the panel.</span>")
 			is_open = 0
@@ -250,11 +250,12 @@
 		var/obj/item/stack/cable_coil/coil = W
 		to_chat(user, "<span class='notice'>You begin to replace the wires.</span>")
 		//if(do_after(user, min(60, round( ((maxhealth/health)*10)+(malfunction*10) ), target = src)) //Take longer to repair heavier damage
-		if(do_after(user, 30, target = src))
+		if(do_after(user, 30 * coil.toolspeed, target = src))
 			if(!src || !coil) return
 			coil.use(1)
 			health = max_health
 			malfunction = 0
+			playsound(loc, coil.usesound, 50, 1)
 			to_chat(user, "<span class='notice'>You repair the [src]!</span>")
 			update_icon()
 
@@ -263,7 +264,7 @@
 			to_chat(user, "The bolts are covered, unlocking this would retract the covers.")
 			return
 		if(anchored)
-			playsound(src.loc, 'sound/items/Ratchet.ogg', 100, 1)
+			playsound(src.loc, W.usesound, 100, 1)
 			to_chat(user, "<span class='notice'>You unsecure the [src] from the floor!</span>")
 			if(active)
 				to_chat(user, "<span class='notice'>The [src] shuts off!</span>")
@@ -271,7 +272,7 @@
 			anchored = 0
 		else
 			if(istype(get_turf(src), /turf/space)) return //No wrenching these in space!
-			playsound(src.loc, 'sound/items/Ratchet.ogg', 100, 1)
+			playsound(src.loc, W.usesound, 100, 1)
 			to_chat(user, "<span class='notice'>You secure the [src] to the floor!</span>")
 			anchored = 1
 
@@ -460,14 +461,14 @@
 
 		else if(state == 0)
 			state = 1
-			playsound(src.loc, 'sound/items/Ratchet.ogg', 75, 1)
+			playsound(src.loc, W.usesound, 75, 1)
 			to_chat(user, "You secure the external reinforcing bolts to the floor.")
 			src.anchored = 1
 			return
 
 		else if(state == 1)
 			state = 0
-			playsound(src.loc, 'sound/items/Ratchet.ogg', 75, 1)
+			playsound(src.loc, W.usesound, 75, 1)
 			to_chat(user, "You undo the external reinforcing bolts.")
 			src.anchored = 0
 			return

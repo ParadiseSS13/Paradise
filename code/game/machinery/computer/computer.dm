@@ -101,18 +101,19 @@
 	text = replacetext(text, "\n", "<BR>")
 	return text
 
-/obj/machinery/computer/attack_ghost(user as mob)
+/obj/machinery/computer/attack_ghost(mob/user)
 	return attack_hand(user)
 
-/obj/machinery/computer/attack_hand(user as mob)
+/obj/machinery/computer/attack_hand(mob/user)
 	/* Observers can view computers, but not actually use them via Topic*/
 	if(istype(user, /mob/dead/observer)) return 0
 	return ..()
 
-/obj/machinery/computer/attackby(I as obj, user as mob, params)
+/obj/machinery/computer/attackby(obj/I, mob/user, params)
 	if(istype(I, /obj/item/weapon/screwdriver) && circuit)
-		playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
-		if(do_after(user, 20, target = src))
+		var/obj/item/weapon/screwdriver/S = I
+		playsound(src.loc, S.usesound, 50, 1)
+		if(do_after(user, 20 * S.toolspeed, target = src))
 			var/obj/structure/computerframe/A = new /obj/structure/computerframe( src.loc )
 			var/obj/item/weapon/circuitboard/M = new circuit( A )
 			A.circuit = M

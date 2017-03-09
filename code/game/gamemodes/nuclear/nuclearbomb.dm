@@ -58,12 +58,12 @@ var/bomb_set
 				panel_open = 1
 				overlays += image(icon, "npanel_open")
 				to_chat(user, "You unscrew the control panel of [src].")
-				playsound(src, 'sound/items/Screwdriver.ogg', 50, 1)
+				playsound(src, O.usesound, 50, 1)
 			else
 				panel_open = 0
 				overlays -= image(icon, "npanel_open")
 				to_chat(user, "You screw the control panel of [src] back on.")
-				playsound(src, 'sound/items/Screwdriver.ogg', 50, 1)
+				playsound(src, O.usesound, 50, 1)
 		else
 			if(panel_open == 0)
 				to_chat(user, "[src] emits a buzzing noise, the panel staying locked in.")
@@ -71,7 +71,7 @@ var/bomb_set
 				panel_open = 0
 				overlays -= image(icon, "npanel_open")
 				to_chat(user, "You screw the control panel of [src] back on.")
-				playsound(src, 'sound/items/Screwdriver.ogg', 50, 1)
+				playsound(src, O.usesound, 50, 1)
 			flick("nuclearbombc", src)
 		return
 

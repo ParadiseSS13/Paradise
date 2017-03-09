@@ -7,6 +7,17 @@ var/const/NUCLEARBOMB_WIRE_LIGHT		= 1
 var/const/NUCLEARBOMB_WIRE_TIMING		= 2
 var/const/NUCLEARBOMB_WIRE_SAFETY		= 4
 
+/datum/wires/nuclearbomb/GetWireName(index)
+	switch(index)
+		if(NUCLEARBOMB_WIRE_LIGHT)
+			return "Bomb Light"
+		
+		if(NUCLEARBOMB_WIRE_TIMING)
+			return "Bomb Timing"
+		
+		if(NUCLEARBOMB_WIRE_SAFETY)
+			return "Bomb Safety"	
+
 /datum/wires/nuclearbomb/CanUse(mob/living/L)
 	var/obj/machinery/nuclearbomb/N = holder
 	if(N.panel_open)

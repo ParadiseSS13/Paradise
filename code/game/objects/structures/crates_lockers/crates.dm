@@ -102,10 +102,10 @@
 							L[tmpname] = R
 					var/desc = input("Please select a telepad.", "RCS") in L
 					E.pad = L[desc]
-					playsound(E.loc, 'sound/machines/click.ogg', 50, 1)
+					playsound(E.loc, E.usesound, 50, 1)
 					to_chat(user, "<span class='notice'>Teleporting [src.name]...</span>")
 					E.teleporting = 1
-					if(!do_after(user, 50, target = src))
+					if(!do_after(user, 50 * E.toolspeed, target = src))
 						E.teleporting = 0
 						return
 					E.teleporting = 0
@@ -120,10 +120,10 @@
 				E.rand_x = rand(50,200)
 				E.rand_y = rand(50,200)
 				var/L = locate(E.rand_x, E.rand_y, 6)
-				playsound(E.loc, 'sound/machines/click.ogg', 50, 1)
+				playsound(E.loc, E.usesound, 50, 1)
 				to_chat(user, "<span class='notice'>Teleporting [src.name]...</span>")
 				E.teleporting = 1
-				if(!do_after(user, 50, target = src))
+				if(!do_after(user, 50 * E.toolspeed, target = src))
 					E.teleporting = 0
 					return
 				E.teleporting = 0
@@ -166,7 +166,7 @@
 	else if(istype(W, /obj/item/weapon/wirecutters))
 		if(rigged)
 			to_chat(user, "<span class='notice'>You cut away the wiring.</span>")
-			playsound(loc, 'sound/items/Wirecutter.ogg', 100, 1)
+			playsound(loc, W.usesound, 100, 1)
 			rigged = 0
 			return
 	else return attack_hand(user)

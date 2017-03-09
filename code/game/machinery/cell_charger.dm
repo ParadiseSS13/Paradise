@@ -62,7 +62,7 @@
 
 			anchored = !anchored
 			to_chat(user, "You [anchored ? "attach" : "detach"] the cell charger [anchored ? "to" : "from"] the ground")
-			playsound(get_turf(src), 'sound/items/Ratchet.ogg', 75, 1)
+			playsound(get_turf(src), W.usesound, 75, 1)
 
 	attack_hand(mob/user)
 		if(charging)

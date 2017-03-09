@@ -66,7 +66,7 @@ for reference:
 	if(istype(W, stacktype))
 		if(src.health < src.maxhealth)
 			visible_message("<span class='warning'>[user] begins to repair the [src]!</span>")
-			if(do_after(user,20, target = src))
+			if(do_after(user, 20 * W.toolspeed, target = src))
 				src.health = src.maxhealth
 				W:use(1)
 				visible_message("<span class='warning'>[user] repairs the [src]!</span>")
@@ -77,9 +77,9 @@ for reference:
 	else if(istype(W, /obj/item/weapon/crowbar))
 		user.changeNext_move(CLICK_CD_MELEE)
 		user.visible_message("<span class='notice'>[user] is prying apart \the [src].</span>", "<span class='notice'>You begin to pry apart \the [src].</span>")
-		playsound(src, 'sound/items/Crowbar.ogg', 200, 1)
+		playsound(src, W.usesound, 200, 1)
 
-		if(do_after(user, 300, target = src) && src && !src.gcDestroyed)
+		if(do_after(user, 300 * W.toolspeed, target = src) && src && !src.gcDestroyed)
 			user.visible_message("<span class='notice'>[user] pries apart \the [src].</span>", "<span class='notice'>You pry apart \the [src].</span>")
 			dismantle()
 		return
