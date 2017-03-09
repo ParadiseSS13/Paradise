@@ -10,23 +10,23 @@
 	var/obj/machinery/atmospherics/binary/circulator/hot_circ
 
 	var/cold_dir = WEST
-	var/hot_dir = EAST	
-	
+	var/hot_dir = EAST
+
 	var/lastgen = 0
 	var/lastgenlev = -1
 	var/lastcirc = "00"
-	
+
 /obj/machinery/power/generator/New()
 	..()
 	update_desc()
-	
+
 /obj/machinery/power/generator/proc/update_desc()
 	desc = initial(desc) + " Its cold circulator is located on the [dir2text(cold_dir)] side, and its heat circulator is located on the [dir2text(hot_dir)] side."
-	
+
 /obj/machinery/power/generator/Destroy()
 	disconnect()
 	return ..()
-	
+
 /obj/machinery/power/generator/proc/disconnect()
 	if(cold_circ)
 		cold_circ.generator = null
@@ -38,10 +38,10 @@
 /obj/machinery/power/generator/initialize()
 	..()
 	connect()
-	
+
 /obj/machinery/power/generator/proc/connect()
 	connect_to_network()
-	
+
 	var/obj/machinery/atmospherics/binary/circulator/circpath = /obj/machinery/atmospherics/binary/circulator
 	cold_circ = locate(circpath) in get_step(src, cold_dir)
 	hot_circ = locate(circpath) in get_step(src, hot_dir)
@@ -61,13 +61,13 @@
 	power_change()
 	update_icon()
 	updateDialog()
-	
+
 /obj/machinery/power/generator/power_change()
 	if(!anchored)
 		stat |= NOPOWER
 	else
 		..()
-	
+
 /obj/machinery/power/generator/update_icon()
 	if(stat & (NOPOWER|BROKEN))
 		overlays.Cut()
@@ -79,7 +79,7 @@
 
 		overlays += image('icons/obj/power.dmi', "teg-oc[lastcirc]")
 
-/obj/machinery/power/generator/process()	
+/obj/machinery/power/generator/process()
 	if(stat & (NOPOWER|BROKEN))
 		return
 
@@ -128,11 +128,11 @@
 		// update icon overlays only if displayed level has changed
 
 		if(hot_air)
-			var/datum/gas_mixture/hot_circ_air1 = hot_circ.air1
+			var/datum/gas_mixture/hot_circ_air1 = hot_circ.get_outlet_air()
 			hot_circ_air1.merge(hot_air)
 
 		if(cold_air)
-			var/datum/gas_mixture/cold_circ_air1 = cold_circ.air1
+			var/datum/gas_mixture/cold_circ_air1 = cold_circ.get_outlet_air()
 			cold_circ_air1.merge(cold_air)
 
 	var/genlev = max(0, min( round(11 * lastgen / 100000), 11))
@@ -146,12 +146,12 @@
 
 /obj/machinery/power/generator/attack_ai(mob/user)
 	return attack_hand(user)
-	
+
 /obj/machinery/power/generator/attack_ghost(mob/user)
 	if(stat & (NOPOWER|BROKEN))
 		return
-	interact(user)	
-	
+	interact(user)
+
 /obj/machinery/power/generator/attack_hand(mob/user)
 	if(..())
 		user << browse(null, "window=teg")
@@ -166,31 +166,37 @@
 			power_change()
 		else
 			connect()
-		playsound(loc, 'sound/items/Ratchet.ogg', 50, 1)
+		playsound(loc, W.usesound, 50, 1)
 		to_chat(user, "<span class='notice'>You [anchored ? "secure" : "unsecure"] the bolts holding [src] to the floor.</span>")
-	else if(istype(W, /obj/item/device/multitool))
+	else if(ismultitool(W))
 		if(cold_dir == WEST)
 			cold_dir = EAST
 			hot_dir = WEST
-		else
+		else if(cold_dir == NORTH)
+			cold_dir = SOUTH
+			hot_dir = NORTH
+		else if(cold_dir == EAST)
 			cold_dir = WEST
 			hot_dir = EAST
+		else
+			cold_dir = NORTH
+			hot_dir = SOUTH
 		connect()
 		to_chat(user, "<span class='notice'>You reverse the generator's circulator settings. The cold circulator is now on the [dir2text(cold_dir)] side, and the heat circulator is now on the [dir2text(hot_dir)] side.</span>")
 		update_desc()
 	else
-		..()	
-	
+		..()
+
 /obj/machinery/power/generator/proc/get_menu(include_link = 1)
 	var/t = ""
 	if(!powernet)
 		t += "<span class='bad'>Unable to connect to the power network!</span>"
 		t += "<BR><A href='?src=[UID()];check=1'>Retry</A>"
 	else if(cold_circ && hot_circ)
-		var/datum/gas_mixture/cold_circ_air1 = cold_circ.air1
-		var/datum/gas_mixture/cold_circ_air2 = cold_circ.air2
-		var/datum/gas_mixture/hot_circ_air1 = hot_circ.air1
-		var/datum/gas_mixture/hot_circ_air2 = hot_circ.air2
+		var/datum/gas_mixture/cold_circ_air1 = cold_circ.get_outlet_air()
+		var/datum/gas_mixture/cold_circ_air2 = cold_circ.get_inlet_air()
+		var/datum/gas_mixture/hot_circ_air1 = hot_circ.get_outlet_air()
+		var/datum/gas_mixture/hot_circ_air2 = hot_circ.get_inlet_air()
 
 		t += "<div class='statusDisplay'>"
 

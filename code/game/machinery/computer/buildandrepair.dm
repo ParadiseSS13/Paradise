@@ -29,8 +29,15 @@
 	var/list/records = null
 	var/frame_desc = null
 	var/contain_parts = 1
+	toolspeed = 1
+	usesound = 'sound/items/Deconstruct.ogg' 
 
-
+/obj/item/weapon/circuitboard/computer
+	board_type = "computer"	
+	
+/obj/item/weapon/circuitboard/machine
+	board_type = "machine"	
+	
 /obj/item/weapon/circuitboard/message_monitor
 	name = "Circuit board (Message Monitor)"
 	build_path = /obj/machinery/computer/message_monitor
@@ -39,6 +46,10 @@
 	name = "Circuit board (Camera Monitor)"
 	build_path = /obj/machinery/computer/security
 	origin_tech = "programming=2"
+/obj/item/weapon/circuitboard/xenobiology
+	name = "Circuit board (Xenobiology Console)"
+	build_path = /obj/machinery/computer/camera_advanced/xenobio
+	origin_tech = "programming=3;biotech=3"
 /obj/item/weapon/circuitboard/aicore
 	name = "Circuit board (AI Core)"
 	origin_tech = "programming=4;biotech=2"
@@ -345,8 +356,8 @@
 	switch(state)
 		if(0)
 			if(istype(P, /obj/item/weapon/wrench))
-				playsound(loc, 'sound/items/Ratchet.ogg', 50, 1)
-				if(do_after(user, 20, target = src))
+				playsound(loc, P.usesound, 50, 1)
+				if(do_after(user, 20 * P.toolspeed, target = src))
 					to_chat(user, "<span class='notice'>You wrench the frame into place.</span>")
 					anchored = 1
 					state = 1
@@ -355,23 +366,23 @@
 				if(!WT.remove_fuel(0, user))
 					to_chat(user, "<span class='warning'>The welding tool must be on to complete this task.</span>")
 					return
-				playsound(loc, 'sound/items/Welder.ogg', 50, 1)
-				if(do_after(user, 20, target = src))
+				playsound(loc, WT.usesound, 50, 1)
+				if(do_after(user, 20 * WT.toolspeed, target = src))
 					if(!src || !WT.isOn()) return
 					to_chat(user, "<span class='notice'>You deconstruct the frame.</span>")
 					new /obj/item/stack/sheet/metal(loc, 5)
 					qdel(src)
 		if(1)
 			if(istype(P, /obj/item/weapon/wrench))
-				playsound(loc, 'sound/items/Ratchet.ogg', 50, 1)
-				if(do_after(user, 20, target = src))
+				playsound(loc, P.usesound, 50, 1)
+				if(do_after(user, 20 * P.toolspeed, target = src))
 					to_chat(user, "<span class='notice'>You unfasten the frame.</span>")
 					anchored = 0
 					state = 0
 			if(istype(P, /obj/item/weapon/circuitboard) && !circuit)
 				var/obj/item/weapon/circuitboard/B = P
 				if(B.board_type == "computer")
-					playsound(loc, 'sound/items/Deconstruct.ogg', 50, 1)
+					playsound(loc, B.usesound, 50, 1)
 					to_chat(user, "<span class='notice'>You place the circuit board inside the frame.</span>")
 					icon_state = "1"
 					circuit = P
@@ -380,12 +391,12 @@
 				else
 					to_chat(user, "<span class='warning'>This frame does not accept circuit boards of this type!</span>")
 			if(istype(P, /obj/item/weapon/screwdriver) && circuit)
-				playsound(loc, 'sound/items/Screwdriver.ogg', 50, 1)
+				playsound(loc, P.usesound, 50, 1)
 				to_chat(user, "<span class='notice'>You screw the circuit board into place.</span>")
 				state = 2
 				icon_state = "2"
 			if(istype(P, /obj/item/weapon/crowbar) && circuit)
-				playsound(loc, 'sound/items/Crowbar.ogg', 50, 1)
+				playsound(loc, P.usesound, 50, 1)
 				to_chat(user, "<span class='notice'>You remove the circuit board.</span>")
 				state = 1
 				icon_state = "0"
@@ -393,16 +404,16 @@
 				circuit = null
 		if(2)
 			if(istype(P, /obj/item/weapon/screwdriver) && circuit)
-				playsound(loc, 'sound/items/Screwdriver.ogg', 50, 1)
+				playsound(loc, P.usesound, 50, 1)
 				to_chat(user, "<span class='notice'>You unfasten the circuit board.</span>")
 				state = 1
 				icon_state = "1"
 			if(istype(P, /obj/item/stack/cable_coil))
 				var/obj/item/stack/cable_coil/C = P
 				if(C.amount >= 5)
-					playsound(loc, 'sound/items/Deconstruct.ogg', 50, 1)
+					playsound(loc, C.usesound, 50, 1)
 					to_chat(user, "<span class='notice'>You start to add cables to the frame.</span>")
-					if(do_after(user, 20, target = src))
+					if(do_after(user, 20 * C.toolspeed, target = src))
 						if(state == 2 && C.amount >= 5 && C.use(5))
 							to_chat(user, "<span class='notice'>You add cables to the frame.</span>")
 							state = 3
@@ -415,7 +426,7 @@
 					return
 		if(3)
 			if(istype(P, /obj/item/weapon/wirecutters))
-				playsound(loc, 'sound/items/Wirecutter.ogg', 50, 1)
+				playsound(loc, P.usesound, 50, 1)
 				to_chat(user, "<span class='notice'>You remove the cables.</span>")
 				state = 2
 				icon_state = "2"
@@ -425,9 +436,9 @@
 			if(istype(P, /obj/item/stack/sheet/glass))
 				var/obj/item/stack/sheet/glass/G = P
 				if(G.amount >= 2)
-					playsound(loc, 'sound/items/Deconstruct.ogg', 50, 1)
+					playsound(loc, G.usesound, 50, 1)
 					to_chat(user, "<span class='notice'>You start to add the glass panel to the frame.</span>")
-					if(do_after(user, 20, target = src))
+					if(do_after(user, 20 * G.toolspeed, target = src))
 						if(state == 3 && G.amount >= 2 && G.use(2))
 							to_chat(user, "<span class='notice'>You put in the glass panel.</span>")
 							state = 4
@@ -440,13 +451,13 @@
 					return
 		if(4)
 			if(istype(P, /obj/item/weapon/crowbar))
-				playsound(loc, 'sound/items/Crowbar.ogg', 50, 1)
+				playsound(loc, P.usesound, 50, 1)
 				to_chat(user, "<span class='notice'>You remove the glass panel.</span>")
 				state = 3
 				icon_state = "3"
 				new /obj/item/stack/sheet/glass(loc, 2)
 			if(istype(P, /obj/item/weapon/screwdriver))
-				playsound(loc, 'sound/items/Screwdriver.ogg', 50, 1)
+				playsound(loc, P.usesound, 50, 1)
 				to_chat(user, "<span class='notice'>You connect the monitor.</span>")
 				var/B = new circuit.build_path (loc)
 				if(circuit.powernet) B:powernet = circuit.powernet
@@ -469,7 +480,7 @@
 	switch(state)
 		if(0)
 			if(istype(P, /obj/item/weapon/wrench))
-				playsound(loc, 'sound/items/Ratchet.ogg', 50, 1)
+				playsound(loc, P.usesound, 50, 1)
 				if(do_after(user, 20, target = src))
 					to_chat(user, "<span class='notice'>You wrench the frame into place.</span>")
 					anchored = 1
@@ -479,23 +490,23 @@
 				if(!WT.remove_fuel(0, user))
 					to_chat(user, "<span class='warning'>The welding tool must be on to complete this task.</span>")
 					return
-				playsound(loc, 'sound/items/Welder.ogg', 50, 1)
-				if(do_after(user, 20, target = src))
+				playsound(loc, WT.usesound, 50, 1)
+				if(do_after(user, 20 * WT.toolspeed, target = src))
 					if(!src || !WT.isOn()) return
 					to_chat(user, "<span class='notice'>You deconstruct the frame.</span>")
 					new /obj/item/stack/sheet/mineral/bananium(loc, 5)
 					qdel(src)
 		if(1)
 			if(istype(P, /obj/item/weapon/wrench))
-				playsound(loc, 'sound/items/Ratchet.ogg', 50, 1)
-				if(do_after(user, 20, target = src))
+				playsound(loc, P.usesound, 50, 1)
+				if(do_after(user, 20 * P.toolspeed, target = src))
 					to_chat(user, "<span class='notice'>You unfasten the frame.</span>")
 					anchored = 0
 					state = 0
 			if(istype(P, /obj/item/weapon/circuitboard) && !circuit)
 				var/obj/item/weapon/circuitboard/B = P
 				if(B.board_type == "honkcomputer")
-					playsound(loc, 'sound/items/Deconstruct.ogg', 50, 1)
+					playsound(loc, P.usesound, 50, 1)
 					to_chat(user, "<span class='notice'>You place the circuit board inside the frame.</span>")
 					icon_state = "1"
 					circuit = P
@@ -504,12 +515,12 @@
 				else
 					to_chat(user, "<span class='warning'>This frame does not accept circuit boards of this type!</span>")
 			if(istype(P, /obj/item/weapon/screwdriver) && circuit)
-				playsound(loc, 'sound/items/Screwdriver.ogg', 50, 1)
+				playsound(loc, P.usesound, 50, 1)
 				to_chat(user, "<span class='notice'>You screw the circuit board into place.</span>")
 				state = 2
 				icon_state = "2"
 			if(istype(P, /obj/item/weapon/crowbar) && circuit)
-				playsound(loc, 'sound/items/Crowbar.ogg', 50, 1)
+				playsound(loc, P.usesound, 50, 1)
 				to_chat(user, "<span class='notice'>You remove the circuit board.</span>")
 				state = 1
 				icon_state = "0"
@@ -517,16 +528,16 @@
 				circuit = null
 		if(2)
 			if(istype(P, /obj/item/weapon/screwdriver) && circuit)
-				playsound(loc, 'sound/items/Screwdriver.ogg', 50, 1)
+				playsound(loc, P.usesound, 50, 1)
 				to_chat(user, "<span class='notice'>You unfasten the circuit board.</span>")
 				state = 1
 				icon_state = "1"
 			if(istype(P, /obj/item/stack/cable_coil))
 				var/obj/item/stack/cable_coil/C = P
 				if(C.amount >= 5)
-					playsound(loc, 'sound/items/Deconstruct.ogg', 50, 1)
+					playsound(loc, C.usesound, 50, 1)
 					to_chat(user, "<span class='notice'>You start to add cables to the frame.</span>")
-					if(do_after(user, 20, target = src))
+					if(do_after(user, 20 * C.toolspeed, target = src))
 						if(state == 2 && C.amount >= 5 && C.use(5))
 							to_chat(user, "<span class='notice'>You add cables to the frame.</span>")
 							state = 3
@@ -539,7 +550,7 @@
 					return
 		if(3)
 			if(istype(P, /obj/item/weapon/wirecutters))
-				playsound(loc, 'sound/items/Wirecutter.ogg', 50, 1)
+				playsound(loc, P.usesound, 50, 1)
 				to_chat(user, "<span class='notice'>You remove the cables.</span>")
 				state = 2
 				icon_state = "2"
@@ -549,9 +560,9 @@
 			if(istype(P, /obj/item/stack/sheet/glass))
 				var/obj/item/stack/sheet/glass/G = P
 				if(G.amount >= 2)
-					playsound(loc, 'sound/items/Deconstruct.ogg', 50, 1)
+					playsound(loc, G.usesound, 50, 1)
 					to_chat(user, "<span class='notice'>You start to add the glass panel to the frame.</span>")
-					if(do_after(user, 20, target = src))
+					if(do_after(user, 20 * G.toolspeed, target = src))
 						if(state == 3 && G.amount >= 2 && G.use(2))
 							to_chat(user, "<span class='notice'>You put in the glass panel.</span>")
 							state = 4
@@ -564,13 +575,13 @@
 					return
 		if(4)
 			if(istype(P, /obj/item/weapon/crowbar))
-				playsound(loc, 'sound/items/Crowbar.ogg', 50, 1)
+				playsound(loc, P.usesound, 50, 1)
 				to_chat(user, "<span class='notice'>You remove the glass panel.</span>")
 				state = 3
 				icon_state = "3"
 				new /obj/item/stack/sheet/glass(loc, 2)
 			if(istype(P, /obj/item/weapon/screwdriver))
-				playsound(loc, 'sound/items/Screwdriver.ogg', 50, 1)
+				playsound(loc, P.usesound, 50, 1)
 				to_chat(user, "<span class='notice'>You connect the monitor.</span>")
 				var/B = new circuit.build_path (loc)
 				if(circuit.powernet) B:powernet = circuit.powernet

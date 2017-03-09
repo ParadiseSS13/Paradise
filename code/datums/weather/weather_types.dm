@@ -16,7 +16,7 @@
 	end_duration = 0
 
 	area_type = /area
-	target_level = MAIN_STATION
+	target_z = MAIN_STATION
 
 	overlay_layer = 2 //Covers floors only
 	immunity_type = "lava"
@@ -50,7 +50,7 @@
 	end_duration = 0
 
 	area_type = /area
-	target_level = MAIN_STATION
+	target_z = MAIN_STATION
 
 /datum/weather/advanced_darkness/update_areas()
 	for(var/V in impacted_areas)
@@ -87,7 +87,7 @@
 	end_overlay = "light_ash"
 
 	area_type = /area/mine/dangerous
-	target_level = MINING
+	target_z = MINING
 
 	immunity_type = "ash"
 

@@ -284,7 +284,7 @@
 		dat += "<b>Destination:</b> [!destination ? "<i>none</i>" : destination]<BR>"
 		dat += "<b>Power level:</b> [cell ? cell.percent() : 0]%"
 
-		if(locked && !ai && !check_rights(R_ADMIN, 0, user))
+		if(locked && !ai && !user.can_admin_interact())
 			dat += "&nbsp;<br /><div class='notice'>Controls are locked</div><A href='?src=[UID()];op=unlock'>Unlock Controls</A>"
 		else
 			dat += "&nbsp;<br /><div class='notice'>Controls are unlocked</div><A href='?src=[UID()];op=lock'>Lock Controls</A><BR><BR>"
@@ -311,7 +311,7 @@
 			else
 				dat += "<A href='?src=[UID()];op=cellinsert'>Removed</A><BR>"
 
-			dat += wires.GetInteractWindow()
+			wires.Interact(user)
 		else
 			dat += "<div class='notice'>The bot is in maintenance mode and cannot be controlled.</div><BR>"
 

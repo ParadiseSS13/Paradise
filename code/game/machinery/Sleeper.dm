@@ -312,7 +312,7 @@
 		else
 			orient = "RIGHT"
 			dir = 4
-		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
+		playsound(src.loc, G.usesound, 50, 1)
 		return
 
 	if(exchange_parts(user, G))
@@ -389,6 +389,12 @@
 	if(occupant)
 		go_out()
 	..(severity)
+
+/obj/machinery/sleeper/narsie_act()
+	go_out()
+	new /obj/effect/gibspawner/generic(get_turf(loc)) //I REPLACE YOUR TECHNOLOGY WITH FLESH!
+	qdel(src)
+
 
 // ???
 // This looks cool, although mildly broken, should it be included again?
@@ -513,7 +519,7 @@
 
 	if(do_after(user, 20, target = L))
 		if(src.occupant)
-			to_chat(user, "<span class='boldnotice'>>The sleeper is already occupied!</span>")
+			to_chat(user, "<span class='boldnotice'>The sleeper is already occupied!</span>")
 			return
 		if(!L) return
 		L.forceMove(src)

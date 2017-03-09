@@ -132,6 +132,22 @@ Class Procs:
 	else
 		fast_processing += src
 
+// gotta go fast
+/obj/machinery/proc/makeSpeedProcess()
+	if(speed_process)
+		return
+	speed_process = 1
+	machine_processing -= src
+	fast_processing += src
+
+// gotta go slow
+/obj/machinery/proc/makeNormalProcess()
+	if(!speed_process)
+		return
+	speed_process = 0
+	machine_processing += src
+	fast_processing -= src
+
 /obj/machinery/New() //new
 	machines += src
 	..()
@@ -379,10 +395,8 @@ Class Procs:
 
 /obj/machinery/proc/default_deconstruction_crowbar(var/obj/item/weapon/crowbar/C, var/ignore_panel = 0)
 	if(istype(C) && (panel_open || ignore_panel))
-		playsound(loc, 'sound/items/Crowbar.ogg', 50, 1)
-		var/obj/machinery/constructable_frame/machine_frame/M = new /obj/machinery/constructable_frame/machine_frame(loc)
-		M.state = 2
-		M.icon_state = "box_1"
+		playsound(loc, C.usesound, 50, 1)
+		spawn_frame()
 		for(var/obj/item/I in component_parts)
 			if(I.reliability != 100 && crit_fail)
 				I.crit_fail = 1
@@ -391,9 +405,15 @@ Class Procs:
 		return 1
 	return 0
 
+
+/obj/machinery/proc/spawn_frame()
+	var/obj/machinery/constructable_frame/machine_frame/M = new /obj/machinery/constructable_frame/machine_frame(loc)
+	M.state = 2
+	M.icon_state = "box_1"
+
 /obj/machinery/proc/default_deconstruction_screwdriver(var/mob/user, var/icon_state_open, var/icon_state_closed, var/obj/item/weapon/screwdriver/S)
 	if(istype(S))
-		playsound(loc, 'sound/items/Screwdriver.ogg', 50, 1)
+		playsound(loc, S.usesound, 50, 1)
 		if(!panel_open)
 			panel_open = 1
 			icon_state = icon_state_open
@@ -407,7 +427,7 @@ Class Procs:
 
 /obj/machinery/proc/default_change_direction_wrench(var/mob/user, var/obj/item/weapon/wrench/W)
 	if(panel_open && istype(W))
-		playsound(loc, 'sound/items/Ratchet.ogg', 50, 1)
+		playsound(loc, W.usesound, 50, 1)
 		dir = turn(dir,-90)
 		to_chat(user, "<span class='notice'>You rotate [src].</span>")
 		return 1
@@ -416,14 +436,14 @@ Class Procs:
 /obj/proc/default_unfasten_wrench(mob/user, obj/item/weapon/wrench/W, time = 20)
 	if(istype(W))
 		to_chat(user, "<span class='notice'>Now [anchored ? "un" : ""]securing [name].</span>")
-		playsound(loc, 'sound/items/Ratchet.ogg', 50, 1)
-		if(do_after(user, time, target = src))
+		playsound(loc, W.usesound, 50, 1)
+		if(do_after(user, time * W.toolspeed, target = src))
 			to_chat(user, "<span class='notice'>You've [anchored ? "un" : ""]secured [name].</span>")
 			anchored = !anchored
 			if(istype(src, /obj/machinery))
 				var/obj/machinery/M = src
 				M.power_change() //Turn on or off the machine depending on the status of power in the new area.
-			playsound(loc, 'sound/items/Deconstruct.ogg', 50, 1)
+			playsound(loc, W.usesound, 50, 1)
 		return 1
 	return 0
 

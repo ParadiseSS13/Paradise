@@ -7,6 +7,7 @@
 	force = 30
 	throwforce = 10
 	sharp = 1
+	edge = 1
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 
@@ -244,7 +245,7 @@
 		var/timer = shuttle_master.emergency.timeLeft(1) + cursetime
 		shuttle_master.emergency.setTimer(timer)
 		to_chat(user,"<span class='danger'>You shatter the orb! A dark essence spirals into the air, then disappears.</span>")
-		playsound(user.loc, "sound/effects/Glassbr1.ogg", 50, 1)
+		playsound(user.loc, 'sound/effects/Glassbr1.ogg', 50, 1)
 		qdel(src)
 		sleep(20)
 		var/global/list/curses

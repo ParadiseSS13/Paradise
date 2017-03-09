@@ -14,6 +14,8 @@
 					nanoui_fancy,
 					show_ghostitem_attack,
 					lastchangelog,
+					windowflashing,
+					ghost_anonsay,
 					exp
 					FROM [format_table_name("player")]
 					WHERE ckey='[C.ckey]'"}
@@ -41,7 +43,9 @@
 		nanoui_fancy = text2num(query.item[11])
 		show_ghostitem_attack = text2num(query.item[12])
 		lastchangelog = query.item[13]
-		exp = query.item[14]
+		windowflashing = text2num(query.item[14])
+		ghost_anonsay = text2num(query.item[15])
+		exp = query.item[16]
 
 	//Sanitize
 	ooccolor		= sanitize_hexcolor(ooccolor, initial(ooccolor))
@@ -56,6 +60,8 @@
 	nanoui_fancy	= sanitize_integer(nanoui_fancy, 0, 1, initial(nanoui_fancy))
 	show_ghostitem_attack = sanitize_integer(show_ghostitem_attack, 0, 1, initial(show_ghostitem_attack))
 	lastchangelog	= sanitize_text(lastchangelog, initial(lastchangelog))
+	windowflashing = sanitize_integer(windowflashing, 0, 1, initial(windowflashing))
+	ghost_anonsay = sanitize_integer(ghost_anonsay, 0, 1, initial(ghost_anonsay))
 	exp	= sanitize_text(exp, initial(exp))
 	return 1
 
@@ -81,7 +87,9 @@
 					volume='[volume]',
 					nanoui_fancy='[nanoui_fancy]',
 					show_ghostitem_attack='[show_ghostitem_attack]',
-					lastchangelog='[lastchangelog]'
+					lastchangelog='[lastchangelog]',
+					windowflashing='[windowflashing]',
+					ghost_anonsay='[ghost_anonsay]'
 					WHERE ckey='[C.ckey]'"}
 					)
 
@@ -216,7 +224,7 @@
 		b_eyes = text2num(query.item[35])
 		underwear = query.item[36]
 		undershirt = query.item[37]
-		backbag = text2num(query.item[38])
+		backbag = query.item[38]
 		b_type = query.item[39]
 
 
@@ -262,15 +270,16 @@
 		gear = params2list(query.item[65])
 
 	//Sanitize
+	var/datum/species/SP = all_species[species]
 	metadata		= sanitize_text(metadata, initial(metadata))
-	real_name		= reject_bad_name(real_name)
+	real_name		= reject_bad_name(real_name, 1)
 	if(isnull(species)) species = "Human"
 	if(isnull(language)) language = "None"
 	if(isnull(nanotrasen_relation)) nanotrasen_relation = initial(nanotrasen_relation)
 	if(isnull(speciesprefs)) speciesprefs = initial(speciesprefs)
 	if(!real_name) real_name = random_name(gender,species)
 	be_random_name	= sanitize_integer(be_random_name, 0, 1, initial(be_random_name))
-	gender			= sanitize_gender(gender)
+	gender			= sanitize_gender(gender, FALSE, !SP.has_gender)
 	age				= sanitize_integer(age, AGE_MIN, AGE_MAX, initial(age))
 	r_hair			= sanitize_integer(r_hair, 0, 255, initial(r_hair))
 	g_hair			= sanitize_integer(g_hair, 0, 255, initial(g_hair))
@@ -304,7 +313,7 @@
 	b_eyes			= sanitize_integer(b_eyes, 0, 255, initial(b_eyes))
 	underwear		= sanitize_text(underwear, initial(underwear))
 	undershirt		= sanitize_text(undershirt, initial(undershirt))
-	backbag			= sanitize_integer(backbag, 1, backbaglist.len, initial(backbag))
+	backbag			= sanitize_text(backbag, initial(backbag))
 	b_type			= sanitize_text(b_type, initial(b_type))
 
 	alternate_option = sanitize_integer(alternate_option, 0, 2, initial(alternate_option))
@@ -500,21 +509,24 @@
 		return
 	return 1
 
-/*
-/datum/preferences/proc/random_character(client/C)
+/datum/preferences/proc/load_random_character_slot(client/C)
 	var/DBQuery/query = dbcon.NewQuery("SELECT slot FROM [format_table_name("characters")] WHERE ckey='[C.ckey]' ORDER BY slot")
+	var/list/saves = list()
+
+	if(!query.Execute())
+		var/err = query.ErrorMsg()
+		log_game("SQL ERROR during random character slot picking. Error : \[[err]\]\n")
+		message_admins("SQL ERROR during random character slot picking. Error : \[[err]\]\n")
+		return
 
 	while(query.NextRow())
-	var/list/saves = list()
-	for(var/i=1, i<=MAX_SAVE_SLOTS, i++)
-		if(i==text2num(query.item[1]))
-			saves += i
+		saves += text2num(query.item[1])
 
 	if(!saves.len)
 		load_character(C)
 		return 0
 	load_character(C,pick(saves))
-	return 1*/
+	return 1
 
 /datum/preferences/proc/SetChangelog(client/C,hash)
 	lastchangelog=hash

@@ -214,6 +214,7 @@
 	new /obj/item/clothing/head/ushanka(src.loc)
 	qdel(src)
 
+
 /obj/effect/landmark/costume/imperium_monk/New()
 	new /obj/item/clothing/suit/imperium_monk(src.loc)
 	if(prob(25))
@@ -250,3 +251,17 @@
 	new /obj/item/clothing/mask/gas/sexymime(src.loc)
 	new /obj/item/clothing/under/sexymime(src.loc)
 	qdel(src)
+	
+/obj/effect/landmark/ruin
+	var/datum/map_template/ruin/ruin_template
+
+/obj/effect/landmark/ruin/New(loc, my_ruin_template)
+	name = "ruin_[ruin_landmarks.len + 1]"
+	..(loc)
+	ruin_template = my_ruin_template
+	ruin_landmarks |= src
+
+/obj/effect/landmark/ruin/Destroy()
+	ruin_landmarks -= src
+	ruin_template = null
+	. = ..()

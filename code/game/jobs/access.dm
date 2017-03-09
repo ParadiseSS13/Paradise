@@ -93,17 +93,20 @@
 /var/const/access_cent_bridge = 113//Bridge.
 /var/const/access_cent_commander = 114//Commander's Office/ID computer.
 
-	//The Syndicate
+//The Syndicate
 /var/const/access_syndicate = 150//General Syndicate Access
 /var/const/access_syndicate_leader = 151//Nuke Op Leader Access
 /var/const/access_vox = 152//Vox Access
 
 //Trade Stations
-
 var/const/access_trade_sol = 160
 
-	//MONEY
+//MONEY
 /var/const/access_crate_cash = 200
+
+//Awaymissions
+/var/const/access_away01 = 271
+
 
 /obj/var/list/req_access = null
 /obj/var/req_access_txt = "0"

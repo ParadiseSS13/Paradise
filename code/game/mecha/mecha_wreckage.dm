@@ -35,7 +35,7 @@
 		var/obj/item/weapon/weldingtool/WT = W
 		if(salvage_num <= 0)
 			user.visible_message("[user] begins to slice apart the now completely stripped [src].", "You begin to slice apart the [src].", "You hear the sound of a welder nearby.")
-			if(WT.remove_fuel(0,user) && do_after(user,80,target=src))
+			if(WT.remove_fuel(0,user) && do_after(user, 80 * WT.toolspeed, target = src))
 				user.visible_message("The now-dilapidated [src] falls apart in a clatter.", "As you slice apart the final support structures, the [src] falls apart in a heap.", "You hear metal clanking to the floor.")
 				new /obj/item/stack/sheet/metal(src.loc)
 				var/obj/item/stack/rods/rods = new /obj/item/stack/rods(src.loc)

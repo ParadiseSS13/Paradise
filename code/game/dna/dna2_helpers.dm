@@ -22,27 +22,27 @@
 
 // Give Random Bad Mutation to M
 /proc/randmutb(var/mob/living/M)
-	if(!M) return
+	if(!M || !M.dna) return
 	M.dna.check_integrity()
 	var/block = pick(bad_blocks)
 	M.dna.SetSEState(block, 1)
 
 // Give Random Good Mutation to M
 /proc/randmutg(var/mob/living/M)
-	if(!M) return
+	if(!M || !M.dna) return
 	M.dna.check_integrity()
 	var/block = pick(good_blocks)
 	M.dna.SetSEState(block, 1)
 
 // Random Appearance Mutation
 /proc/randmuti(var/mob/living/M)
-	if(!M) return
+	if(!M || !M.dna) return
 	M.dna.check_integrity()
 	M.dna.SetUIValue(rand(1,DNA_UI_LENGTH),rand(1,4095))
 
 // Scramble UI or SE.
 /proc/scramble(var/UI, var/mob/M, var/prob)
-	if(!M)	return
+	if(!M || !M.dna)	return
 	M.dna.check_integrity()
 	if(UI)
 		for(var/i = 1, i <= DNA_UI_LENGTH-1, i++)
@@ -132,6 +132,7 @@
 		dna.check_integrity()
 		var/mob/living/carbon/human/H = src
 		var/obj/item/organ/external/head/head_organ = H.get_organ("head")
+		var/datum/species/S = H.species
 		dna.write_head_attributes(head_organ)
 
 		H.r_skin		= dna.GetUIValueRange(DNA_UI_SKIN_R,	255)
@@ -144,10 +145,11 @@
 
 		H.s_tone   = 35 - dna.GetUIValueRange(DNA_UI_SKIN_TONE, 220) // Value can be negative.
 
-		if(dna.GetUIState(DNA_UI_GENDER))
-			H.change_gender(FEMALE, 0)
-		else
-			H.change_gender(MALE, 0)
+		if(S.has_gender)
+			if(dna.GetUIState(DNA_UI_GENDER))
+				H.change_gender(FEMALE, 0)
+			else
+				H.change_gender(MALE, 0)
 
 		//Head Markings
 		var/head_marks = dna.GetUIValueRange(DNA_UI_HEAD_MARK_STYLE, marking_styles_list.len)

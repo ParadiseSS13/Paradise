@@ -71,6 +71,7 @@ var/global/list/default_medbay_channels = list(
 		initialize()
 
 	internal_channels = default_internal_channels.Copy()
+	global_radios |= src
 
 /obj/item/device/radio/Destroy()
 	qdel(wires)
@@ -80,6 +81,7 @@ var/global/list/default_medbay_channels = list(
 		for(var/ch_name in channels)
 			radio_controller.remove_object(src, radiochannels[ch_name])
 	patch_link = null
+	global_radios -= src
 	return ..()
 
 
@@ -92,7 +94,7 @@ var/global/list/default_medbay_channels = list(
 		secure_radio_connections[ch_name] = radio_controller.add_object(src, radiochannels[ch_name],  RADIO_CHAT)
 
 /obj/item/device/radio/attack_ghost(mob/user)
-	return ui_interact(user)
+	return interact(user)
 
 /obj/item/device/radio/attack_self(mob/user as mob)
 	user.set_machine(src)
@@ -178,11 +180,6 @@ var/global/list/default_medbay_channels = list(
 /mob/dead/observer/has_internal_radio_channel_access(var/mob/user, var/list/req_one_accesses)
 	return can_admin_interact()
 
-/obj/item/device/radio/proc/text_wires()
-	if(b_stat)
-		return wires.GetInteractWindow()
-	return
-
 /obj/item/device/radio/proc/ToggleBroadcast()
 	broadcasting = !broadcasting && !(wires.IsIndexCut(WIRE_TRANSMIT) || wires.IsIndexCut(WIRE_SIGNAL))
 
@@ -240,7 +237,6 @@ var/global/list/default_medbay_channels = list(
 	var/datum/radio_frequency/connection = null
 	if(channel && channels && channels.len > 0)
 		if(channel == "department")
-//			to_chat(world, "DEBUG: channel=\"[channel]\" switching to \"[channels[1]]\"")
 			channel = channels[1]
 		connection = secure_radio_connections[channel]
 	else
@@ -257,9 +253,8 @@ var/global/list/default_medbay_channels = list(
 	Broadcast_Message(connection, A,
 						0, "*garbled automated announcement*", src,
 						message, from, "Automated Announcement", from, "synthesized voice",
-						4, 0, zlevel, connection.frequency, follow_target=follow_target)
+						4, 0, zlevel, connection.frequency, follow_target = follow_target)
 	qdel(A)
-	return
 
 // Just a dummy mob used for making announcements, so we don't create AIs to do this
 // I'm not sure who thought that was a good idea. -- Crazylemon
@@ -401,6 +396,7 @@ var/global/list/default_medbay_channels = list(
 		  // Identity-associated tags:
 			"mob" = M, // store a reference to the mob
 			"mobtype" = M.type, 	// the mob's type
+			"race" = signal.get_race(M),
 			"realname" = real_name, // the mob's real name
 			"name" = displayname,	// the mob's display name
 			"job" = jobname,		// the mob's job
@@ -462,6 +458,7 @@ var/global/list/default_medbay_channels = list(
 
 		"mob" = M, // store a reference to the mob
 		"mobtype" = M.type, 	// the mob's type
+		"race" = signal.get_race(M), // text to show next to mob in comms log console
 		"realname" = real_name, // the mob's real name
 		"name" = displayname,	// the mob's display name
 		"job" = jobname,		// the mob's job
@@ -532,19 +529,15 @@ var/global/list/default_medbay_channels = list(
 	// what the range is in which mobs will hear the radio
 	// returns: -1 if can't receive, range otherwise
 
-	if(!wires || wires.IsIndexCut(WIRE_RECEIVE))
-		return -1
-	if(!listening)
+	if(!is_listening())
 		return -1
 	if(!(0 in level))
 		var/turf/position = get_turf(src)
 		if(!position || !(position.z in level))
 			return -1
 	if(freq in ANTAG_FREQS)
-		if(!(src.syndie))//Checks to see if it's allowed on that frequency, based on the encryption keys
+		if(!(syndie))//Checks to see if it's allowed on that frequency, based on the encryption keys
 			return -1
-	if(!on)
-		return -1
 	if(!freq) //recieved on main frequency
 		if(!listening)
 			return -1
@@ -561,11 +554,26 @@ var/global/list/default_medbay_channels = list(
 	return canhear_range
 
 /obj/item/device/radio/proc/send_hear(freq, level)
-
 	var/range = receive_range(freq, level)
 	if(range > -1)
 		return get_mobs_in_view(canhear_range, src)
 
+/obj/item/device/radio/proc/is_listening()
+	var/is_listening = TRUE
+	if(!on)
+		is_listening = FALSE
+	if(!wires || wires.IsIndexCut(WIRE_RECEIVE))
+		is_listening = FALSE
+	if(!listening)
+		is_listening = FALSE
+
+	return is_listening
+
+/obj/item/device/radio/proc/send_announcement()
+	if(is_listening())
+		return get_mobs_in_view(canhear_range, src)
+
+	return null
 
 /obj/item/device/radio/examine(mob/user, var/distance = -1)
 	. = ..(user, distance)

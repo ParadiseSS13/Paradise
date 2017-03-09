@@ -159,18 +159,20 @@
 		if(!A.requiresID() || A.allowed(user)) //This is to prevent stupid shit like hitting a door with an arm blade, the door opening because you have acces and still getting a "the airlocks motors resist our efforts to force it" message.
 			return
 
-		if(A.arePowerSystemsOn())
-			to_chat(user, "<span class='notice'>The airlock's motors resist our efforts to force it.</span>")
-			return
-
-		else if(A.locked)
+		if(A.locked)
 			to_chat(user, "<span class='notice'>The airlock's bolts prevent it from being forced.</span>")
 			return
 
-		else
-			//user.say("Heeeeeeeeeerrre's Johnny!")
-			user.visible_message("<span class='warning'>[user] forces the door to open with \his [src]!</span>", "<span class='warning'>We force the door to open.</span>", "<span class='warning'>You hear a metal screeching sound.</span>")
-			A.open(1)
+		if(A.arePowerSystemsOn())
+			user.visible_message("<span class='warning'>[user] jams [src] into the airlock and starts prying it open!</span>", "<span class='warning'>We start forcing the airlock open.</span>", \
+			"<span class='italics'>You hear a metal screeching sound.</span>")
+			playsound(A, 'sound/machines/airlock_alien_prying.ogg', 150, 1)
+			if(!do_after(user, 150, target = A))
+				return
+
+		//user.say("Heeeeeeeeeerrre's Johnny!")
+		user.visible_message("<span class='warning'>[user] forces the airlock to open with \his [src]!</span>", "<span class='warning'>We force the airlock to open.</span>", "<span class='warning'>You hear a metal screeching sound.</span>")
+		A.open(2)
 
 
 /***************************************\

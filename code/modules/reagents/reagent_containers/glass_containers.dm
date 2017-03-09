@@ -38,8 +38,9 @@
 		/obj/machinery/sleeper,
 		/obj/machinery/smartfridge/,
 		/obj/machinery/biogenerator,
-		/obj/machinery/portable_atmospherics/hydroponics,
-		/obj/machinery/constructable_frame)
+		/obj/machinery/hydroponics,
+		/obj/machinery/constructable_frame,
+		/obj/machinery/icemachine)
 
 /obj/item/weapon/reagent_containers/glass/New()
 	..()
@@ -62,7 +63,8 @@
 	update_icon()
 
 /obj/item/weapon/reagent_containers/glass/afterattack(obj/target, mob/user, proximity)
-	if(!proximity) return
+	if(!proximity)
+		return
 	if(!is_open_container())
 		return
 
@@ -78,8 +80,8 @@
 		for(var/datum/reagent/R in reagents.reagent_list)
 			injected += R.name
 		var/contained = english_list(injected)
-		M.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been splashed with [name] by [key_name(user)]. Reagents: [contained]</font>")
-		user.attack_log += text("\[[time_stamp()]\] <font color='red'>Used the [name] to splash [key_name(M)]. Reagents: [contained]</font>")
+		M.create_attack_log("<font color='orange'>Has been splashed with [name] by [key_name(user)]. Reagents: [contained]</font>")
+		user.create_attack_log("<font color='red'>Used the [name] to splash [key_name(M)]. Reagents: [contained]</font>")
 		if(M.ckey)
 			msg_admin_attack("[key_name_admin(user)] splashed [key_name_admin(M)] with [name]. Reagents: [contained] (INTENT: [uppertext(user.a_intent)])")
 		if(!iscarbon(user))
@@ -94,16 +96,16 @@
 		return
 	else if(istype(target, /obj/structure/reagent_dispensers)) //A dispenser. Transfer FROM it TO us.
 
-		if(!target.reagents.total_volume && target.reagents)
-			to_chat(user, "<span class='warning'>[target] is empty.</span>")
+		if(target.reagents && !target.reagents.total_volume)
+			to_chat(user, "<span class='warning'>[target] is empty and can't be refilled!</span>")
 			return
 
 		if(reagents.total_volume >= reagents.maximum_volume)
-			to_chat(user, "<span class='warning'>[src] is full.</span>")
+			to_chat(user, "<span class='notice'>[src] is full.</span>")
 			return
 
-		var/trans = target.reagents.trans_to(src, target:amount_per_transfer_from_this)
-		to_chat(user, "<span class='notice'>You fill [src] with [trans] units of the contents of [target].</span>")
+		var/trans = target.reagents.trans_to(src, amount_per_transfer_from_this)
+		to_chat(user, "<span class='notice'>You fill [src] with [trans] unit\s of the contents of [target].</span>")
 
 	else if(target.is_open_container() && target.reagents) //Something like a glass. Player probably wants to transfer TO it.
 		if(!reagents.total_volume)
@@ -290,7 +292,11 @@
 	materials = list(MAT_GLASS=500)
 	volume = 50
 	amount_per_transfer_from_this = 10
-	flags = OPENCONTAINER | NOREACT
+	flags = OPENCONTAINER
+
+/obj/item/weapon/reagent_containers/glass/beaker/noreact/New()
+	..()
+	reagents.set_reacting(FALSE)
 
 /obj/item/weapon/reagent_containers/glass/beaker/bluespace
 	name = "bluespace beaker"

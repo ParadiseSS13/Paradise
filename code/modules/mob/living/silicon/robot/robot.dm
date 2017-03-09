@@ -289,6 +289,7 @@ var/list/robot_verbs_default = list(
 			module_sprites["Basic"] = "robot_old"
 			module_sprites["Android"] = "droid"
 			module_sprites["Default"] = "robot"
+			module_sprites["Noble-STD"] = "Noble-STD"
 
 		if("Service")
 			module = new /obj/item/weapon/robot_module/butler(src)
@@ -299,6 +300,7 @@ var/list/robot_verbs_default = list(
 			module_sprites["Rich"] = "maximillion"
 			module_sprites["Default"] = "Service2"
 			module_sprites["Standard"] = "robotServ"
+			module_sprites["Noble-SRV"] = "Noble-SRV"
 
 		if("Miner")
 			module = new /obj/item/weapon/robot_module/miner(src)
@@ -309,6 +311,7 @@ var/list/robot_verbs_default = list(
 			module_sprites["Advanced Droid"] = "droid-miner"
 			module_sprites["Treadhead"] = "Miner"
 			module_sprites["Standard"] = "robotMine"
+			module_sprites["Noble-DIG"] = "Noble-DIG"
 
 		if("Medical")
 			module = new /obj/item/weapon/robot_module/medical(src)
@@ -320,6 +323,7 @@ var/list/robot_verbs_default = list(
 			module_sprites["Advanced Droid"] = "droid-medical"
 			module_sprites["Needles"] = "medicalrobot"
 			module_sprites["Standard"] = "robotMedi"
+			module_sprites["Noble-MED"] = "Noble-MED"
 			status_flags &= ~CANPUSH
 
 		if("Security")
@@ -330,6 +334,7 @@ var/list/robot_verbs_default = list(
 			module_sprites["Black Knight"] = "securityrobot"
 			module_sprites["Bloodhound"] = "bloodhound"
 			module_sprites["Standard"] = "robotSecy"
+			module_sprites["Noble-SEC"] = "Noble-SEC"
 			status_flags &= ~CANPUSH
 
 		if("Engineering")
@@ -341,6 +346,7 @@ var/list/robot_verbs_default = list(
 			module_sprites["Antique"] = "engineerrobot"
 			module_sprites["Landmate"] = "landmate"
 			module_sprites["Standard"] = "robotEngi"
+			module_sprites["Noble-ENG"] = "Noble-ENG"
 			magpulse = 1
 
 		if("Janitor")
@@ -350,6 +356,7 @@ var/list/robot_verbs_default = list(
 			module_sprites["Mopbot"]  = "janitorrobot"
 			module_sprites["Mop Gear Rex"] = "mopgearrex"
 			module_sprites["Standard"] = "robotJani"
+			module_sprites["Noble-CLN"] = "Noble-CLN"
 
 		if("Combat")
 			module = new /obj/item/weapon/robot_module/combat(src)
@@ -610,7 +617,7 @@ var/list/robot_verbs_default = list(
 		var/obj/item/weapon/weldingtool/WT = W
 		user.changeNext_move(CLICK_CD_MELEE)
 		if(WT.remove_fuel(0))
-			playsound(src.loc, 'sound/items/Welder2.ogg', 50, 1)
+			playsound(src.loc, W.usesound, 50, 1)
 			adjustBruteLoss(-30)
 			updatehealth()
 			add_fingerprint(user)
@@ -644,7 +651,7 @@ var/list/robot_verbs_default = list(
 					return
 
 				to_chat(user, "You jam the crowbar into the robot and begin levering [mmi].")
-				if(do_after(user,3 SECONDS, target = src))
+				if(do_after(user, 30 * W.toolspeed, target = src))
 					to_chat(user, "You damage some parts of the chassis, but eventually manage to rip out [mmi]!")
 					var/obj/item/robot_parts/robot_suit/C = new/obj/item/robot_parts/robot_suit(loc)
 					C.l_leg = new/obj/item/robot_parts/l_leg(C)
@@ -938,9 +945,11 @@ var/list/robot_verbs_default = list(
 				adjustStaminaLoss(damage)
 		updatehealth()
 
+/mob/living/silicon/robot/attack_ghost(mob/user)
+	if(wiresexposed)
+		wires.Interact(user)
 
 /mob/living/silicon/robot/attack_hand(mob/user)
-
 	add_fingerprint(user)
 
 	if(opened && !wiresexposed && (!istype(user, /mob/living/silicon)))

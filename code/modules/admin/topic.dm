@@ -1533,6 +1533,51 @@
 	else if(href_list["check_antagonist"])
 		check_antagonists()
 
+	else if(href_list["take_question"])
+		var/mob/M = locateUID(href_list["take_question"])
+		var/is_mhelp = href_list["is_mhelp"]
+		if(ismob(M))
+			var/helptype = "ADMINHELP"
+			if(is_mhelp)
+				helptype = "MENTORHELP"
+			var/take_msg = "<span class='notice'><b>[helptype]</b>: <b>[key_name(usr.client)]</b> is attending to <b>[key_name(M)]'s</b> question.</span>"
+			for(var/client/X in admins)
+				if(check_rights(R_ADMIN, 0, X.mob))
+					to_chat(X, take_msg)
+				else if(is_mhelp && check_rights(R_MOD|R_MENTOR, 0, X.mob))
+					to_chat(X, take_msg)
+			to_chat(M, "<span class='notice'><b>Your question is being attended to by [key_name(usr.client)]. Thanks for your patience!</b></span>")
+		else
+			to_chat(usr, "<span class='warning'>Unable to locate mob.</span>")
+
+	else if(href_list["cult_nextobj"])
+		if(alert(usr, "Validate the current Cult objective and unlock the next one?", "Cult Cheat Code", "Yes", "No") != "Yes")
+			return
+
+		if(!GAMEMODE_IS_CULT)
+			alert("Couldn't locate cult mode datum! This shouldn't ever happen, tell a coder!")
+			return
+
+		var/datum/game_mode/cult/cult_round = ticker.mode
+		cult_round.bypass_phase()
+		message_admins("Admin [key_name_admin(usr)] has unlocked the Cult's next objective.")
+		log_admin("Admin [key_name_admin(usr)] has unlocked the Cult's next objective.")
+
+	else if(href_list["cult_mindspeak"])
+		var/input = stripped_input(usr, "Communicate to all the cultists with the voice of [ticker.mode.cultdat.entity_name]", "Voice of [ticker.mode.cultdat.entity_name]", "")
+		if(!input)
+			return
+
+		for(var/datum/mind/H in ticker.mode.cult)
+			if (H.current)
+				to_chat(H.current, "<span class='danger'>[ticker.mode.cultdat.entity_name]</span> murmurs, <span class='cultlarge'>[input]</span></span>")
+
+		for(var/mob/dead/observer/O in player_list)
+			to_chat(O, "<span class='danger'>[ticker.mode.cultdat.entity_name]</span> murmurs, <span class='cultlarge'>[input]</span></span>")
+
+		message_admins("Admin [key_name_admin(usr)] has talked with the Voice of [ticker.mode.cultdat.entity_name].")
+		log_admin("[key_name(usr)] Voice of [ticker.mode.cultdat.entity_name]: [input]")
+
 	else if(href_list["adminplayerobservecoodjump"])
 		if(!check_rights(R_ADMIN))	return
 
@@ -1682,6 +1727,124 @@
 		to_chat(src.owner, "You sent a [eviltype] fax to [H]")
 		log_admin("[key_name(src.owner)] sent [key_name(H)] a [eviltype] fax")
 		message_admins("[key_name_admin(src.owner)] replied to [key_name_admin(H)] with a [eviltype] fax")
+	else if(href_list["Bless"])
+		if(!check_rights(R_ADMIN))
+			return
+		var/mob/living/M = locateUID(href_list["Bless"])
+		if(!istype(M))
+			to_chat(usr, "This can only be used on instances of type /mob/living")
+			return
+		var/btypes = list("To Arrivals", "Moderate Heal")
+		var/mob/living/carbon/human/H
+		if(ishuman(M))
+			H = M
+			btypes += "Heal Over Time"
+			btypes += "Permanent Regeneration"
+			btypes += "Super Powers"
+		var/blessing = input(owner, "How would you like to bless [M]?", "Its good to be good...", "") as null|anything in btypes
+		if(!(blessing in btypes))
+			return
+		var/logmsg = null
+		switch(blessing)
+			if("To Arrivals")
+				M.forceMove(pick(latejoin))
+				to_chat(M, "<span class='userdanger'>You are abruptly pulled through space!</span>")
+				logmsg = "a teleport to arrivals."
+			if("Moderate Heal")
+				M.adjustBruteLoss(-25)
+				M.adjustFireLoss(-25)
+				M.adjustToxLoss(-25)
+				M.adjustOxyLoss(-25)
+				to_chat(M,"<span class='userdanger'>You feel invigorated!</span>")
+				logmsg = "a moderate heal."
+			if("Heal Over Time")
+				H.reagents.add_reagent("salglu_solution", 30)
+				H.reagents.add_reagent("salbutamol", 20)
+				H.reagents.add_reagent("spaceacillin", 20)
+				logmsg = "a heal over time."
+			if("Permanent Regeneration")
+				H.dna.SetSEState(REGENERATEBLOCK, 1)
+				genemutcheck(H, REGENERATEBLOCK,  null, MUTCHK_FORCED)
+				H.update_mutations()
+				logmsg = "permanent regeneration."
+			if("Super Powers")
+				var/list/default_genes = list(REGENERATEBLOCK, NOBREATHBLOCK, COLDBLOCK)
+				for(var/gene in default_genes)
+					H.dna.SetSEState(gene, 1)
+					genemutcheck(H, gene,  null, MUTCHK_FORCED)
+					H.update_mutations()
+				logmsg = "superpowers."
+		if(logmsg)
+			log_admin("[key_name(owner)] answered [key_name(M)]'s prayer with a blessing: [logmsg]")
+			message_admins("[key_name_admin(owner)] answered [key_name_admin(M)]'s prayer with a blessing: [logmsg]")
+	else if(href_list["Smite"])
+		if(!check_rights(R_ADMIN))
+			return
+		var/mob/living/M = locateUID(href_list["Smite"])
+		var/mob/living/carbon/human/H
+		if(!istype(M))
+			to_chat(usr, "This can only be used on instances of type /mob/living")
+			return
+		var/ptypes = list("Lightning bolt", "Fire Death", "Gib")
+		if(ishuman(M))
+			H = M
+			ptypes += "Brain Damage"
+			ptypes += "Honk Tumor"
+			ptypes += "Cluwne"
+			ptypes += "Mutagen Cookie"
+			ptypes += "Hellwater Cookie"
+		var/punishment = input(owner, "How would you like to smite [M]?", "Its good to be baaaad...", "") as null|anything in ptypes
+		if(!(punishment in ptypes))
+			return
+		var/logmsg = null
+		switch(punishment)
+			if("Lightning bolt")
+				M.electrocute_act(5, "Lightning Bolt", safety=1)
+				playsound(get_turf(M), 'sound/magic/LightningShock.ogg', 50, 1, -1)
+				M.adjustFireLoss(75)
+				M.Weaken(5)
+				to_chat(M, "<span class='userdanger'>The gods have punished you for your sins!</span>")
+				logmsg = "a lightning bolt."
+			if("Brain Damage")
+				H.adjustBrainLoss(75)
+				logmsg = "75 brain damage."
+			if("Fire Death")
+				to_chat(M,"<span class='userdanger'>You feel hotter than usual. Maybe you should lowe-wait, is that your hand melting?</span>")
+				var/turf/simulated/T = get_turf(M)
+				new /obj/effect/hotspot(T)
+				M.adjustFireLoss(150)
+				logmsg = "a firey death."
+			if("Honk Tumor")
+				if(!H.get_int_organ(/obj/item/organ/internal/honktumor))
+					var/obj/item/organ/internal/organ = new /obj/item/organ/internal/honktumor
+					to_chat(H, "<span class='userdanger'>Life seems funnier, somehow.</span>")
+					organ.insert(H)
+				logmsg = "a honk tumor."
+			if("Cluwne")
+				H.makeCluwne()
+				logmsg = "cluwned."
+			if("Mutagen Cookie")
+				var/obj/item/weapon/reagent_containers/food/snacks/cookie/evilcookie = new /obj/item/weapon/reagent_containers/food/snacks/cookie
+				evilcookie.reagents.add_reagent("mutagen", 10)
+				evilcookie.desc = "It has a faint green glow."
+				evilcookie.bitesize = 100
+				H.drop_l_hand()
+				H.equip_to_slot_or_del(evilcookie, slot_l_hand)
+				logmsg = "a mutagen cookie."
+			if("Hellwater Cookie")
+				var/obj/item/weapon/reagent_containers/food/snacks/cookie/evilcookie = new /obj/item/weapon/reagent_containers/food/snacks/cookie
+				evilcookie.reagents.add_reagent("hell_water", 25)
+				evilcookie.desc = "Sulphur-flavored."
+				evilcookie.bitesize = 100
+				H.drop_l_hand()
+				H.equip_to_slot_or_del(evilcookie, slot_l_hand)
+				logmsg = "a hellwater cookie."
+			if("Gib")
+				logmsg = "gibbed."
+				M.gib(FALSE)
+		if(logmsg)
+			log_admin("[key_name(owner)] answered [key_name(M)]'s prayer with a smiting: [logmsg]")
+			message_admins("[key_name_admin(owner)] answered [key_name_admin(M)]'s prayer with a smiting: [logmsg]")
 	else if(href_list["FaxReplyTemplate"])
 		if(!check_rights(R_ADMIN))
 			return
@@ -2003,7 +2166,7 @@
 		if(!M)
 			to_chat(usr, "ERROR: Mob not found.")
 			return
-		cmd_show_exp_panel(M.client)
+		cmd_mentor_show_exp_panel(M.client)
 
 	else if(href_list["jumpto"])
 		if(!check_rights(R_ADMIN))	return
@@ -2145,6 +2308,7 @@
 					else
 						var/atom/O = new path(target)
 						if(O)
+							O.admin_spawned = TRUE
 							O.dir = obj_dir
 							if(obj_name)
 								O.name = obj_name
@@ -2277,11 +2441,11 @@
 				if(gravity_is_on)
 					log_admin("[key_name(usr)] toggled gravity on.", 1)
 					message_admins("\blue [key_name_admin(usr)] toggled gravity on.", 1)
-					command_announcement.Announce("Gravity generators are again functioning within normal parameters. Sorry for any inconvenience.")
+					event_announcement.Announce("Gravity generators are again functioning within normal parameters. Sorry for any inconvenience.")
 				else
 					log_admin("[key_name(usr)] toggled gravity off.", 1)
 					message_admins("\blue [key_name_admin(usr)] toggled gravity off.", 1)
-					command_announcement.Announce("Feedback surge detected in mass-distributions systems. Artifical gravity has been disabled whilst the system reinitializes. Further failures may result in a gravitational collapse and formation of blackholes. Have a nice day.")
+					event_announcement.Announce("Feedback surge detected in mass-distributions systems. Artifical gravity has been disabled whilst the system reinitializes. Further failures may result in a gravitational collapse and formation of blackholes. Have a nice day.")
 
 			if("power")
 				feedback_inc("admin_secrets_fun_used",1)
@@ -2553,7 +2717,7 @@
 					if(is_station_level(W.z) && !istype(get_area(W), /area/bridge) && !istype(get_area(W), /area/crew_quarters) && !istype(get_area(W), /area/security/prison))
 						W.req_access = list()
 				message_admins("[key_name_admin(usr)] activated Egalitarian Station mode")
-				command_announcement.Announce("Centcomm airlock control override activated. Please take this time to get acquainted with your coworkers.", new_sound = 'sound/AI/commandreport.ogg')
+				event_announcement.Announce("Centcomm airlock control override activated. Please take this time to get acquainted with your coworkers.", new_sound = 'sound/AI/commandreport.ogg')
 			if("onlyone")
 				feedback_inc("admin_secrets_fun_used",1)
 				feedback_add_details("admin_secrets_fun_used","OO")
@@ -2989,6 +3153,80 @@
 			error_viewer.showTo(usr, locate(href_list["viewruntime_backto"]), href_list["viewruntime_linear"])
 		else
 			error_viewer.showTo(usr, null, href_list["viewruntime_linear"])
+
+	else if(href_list["add_station_goal"])
+		if(!check_rights(R_EVENT))
+			return
+		var/list/type_choices = typesof(/datum/station_goal)
+		var/picked = input("Choose goal type") in type_choices|null
+		if(!picked)
+			return
+		var/datum/station_goal/G = new picked()
+		if(picked == /datum/station_goal)
+			var/newname = input("Enter goal name:") as text|null
+			if(!newname)
+				return
+			G.name = newname
+			var/description = input("Enter [command_name()] message contents:") as message|null
+			if(!description)
+				return
+			G.report_message = description
+		message_admins("[key_name_admin(usr)] created \"[G.name]\" station goal.")
+		ticker.mode.station_goals += G
+		modify_goals()
+
+	// Library stuff
+	else if(href_list["library_book_id"])
+		var/isbn = sanitizeSQL(href_list["library_book_id"])
+
+		if(href_list["view_library_book"])
+			var/DBQuery/query_view_book = dbcon.NewQuery("SELECT content, title FROM [format_table_name("library")] WHERE id=[isbn]")
+			if(!query_view_book.Execute())
+				var/err = query_view_book.ErrorMsg()
+				log_game("SQL ERROR viewing book. Error : \[[err]\]\n")
+				return
+
+			var/content = ""
+			var/title = ""
+			while(query_view_book.NextRow())
+				content = query_view_book.item[1]
+				title = html_encode(query_view_book.item[2])
+
+			var/dat = "<pre><code>"
+			dat += "[html_encode(html_to_pencode(content))]"
+			dat += "</code></pre>"
+
+			var/datum/browser/popup = new(usr, "admin_view_book", "[title]", 700, 400)
+			popup.set_content(dat)
+			popup.open(0)
+
+			log_admin("[key_name(usr)] has viewed the book [isbn].")
+			message_admins("[key_name_admin(usr)] has viewed the book [isbn].")
+			return
+
+		else if(href_list["unflag_library_book"])
+			var/DBQuery/query_unflag_book = dbcon.NewQuery("UPDATE [format_table_name("library")] SET flagged = 0 WHERE id=[isbn]")
+			if(!query_unflag_book.Execute())
+				var/err = query_unflag_book.ErrorMsg()
+				log_game("SQL ERROR unflagging book. Error : \[[err]\]\n")
+				return
+
+			log_admin("[key_name(usr)] has unflagged the book [isbn].")
+			message_admins("[key_name_admin(usr)] has unflagged the book [isbn].")
+
+		else if(href_list["delete_library_book"])
+			var/DBQuery/query_delbook = dbcon.NewQuery("DELETE FROM [format_table_name("library")] WHERE id=[isbn]")
+			if(!query_delbook.Execute())
+				var/err = query_delbook.ErrorMsg()
+				log_game("SQL ERROR deleting book. Error : \[[err]\]\n")
+				return
+
+			log_admin("[key_name(usr)] has deleted the book [isbn].")
+			message_admins("[key_name_admin(usr)] has deleted the book [isbn].")
+
+		// Refresh the page
+		src.view_flagged_books()
+
 
 /proc/admin_jump_link(var/atom/target)
 	if(!target) return

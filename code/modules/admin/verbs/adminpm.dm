@@ -133,6 +133,7 @@
 	if(holder && !C.holder)
 		recieve_message = "<span class='[recieve_span]' size='3'>-- Click the [recieve_pm_type]'s name to reply --</span>\n"
 		if(C.adminhelped)
+			window_flash(C)
 			to_chat(C, recieve_message)
 			C.adminhelped = 0
 
@@ -148,6 +149,9 @@
 					else
 						adminhelp(reply)													//sender has left, adminhelp instead
 				return
+
+	// for emoji, we have to define a specific span for jquery to look for
+	msg = "<span class='emoji_enabled'>[msg]</span>"
 
 	recieve_message = "<span class='[recieve_span]'>[type] from-<b>[recieve_pm_type][key_name(src, C, C.holder ? 1 : 0, type)]</b>: [msg]</span>"
 	to_chat(C, recieve_message)

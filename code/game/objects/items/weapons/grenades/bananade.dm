@@ -9,7 +9,7 @@ var/turf/T
 	icon_state = "banana"
 	item_state = "flashbang"
 	var/deliveryamt = 8
-	var/spawner_type = /obj/item/weapon/bananapeel
+	var/spawner_type = /obj/item/weapon/grown/bananapeel
 
 /obj/item/weapon/grenade/bananade/prime()
 	if(spawner_type && deliveryamt)
@@ -38,7 +38,7 @@ var/turf/T
 
 
 /obj/item/weapon/grenade/bananade/casing/attackby(var/obj/item/I, mob/user as mob, params)
-	if(istype(I, /obj/item/weapon/bananapeel))
+	if(istype(I, /obj/item/weapon/grown/bananapeel))
 		if(fillamt < 9)
 			to_chat(usr, "<span  class='notice'>You add another banana peel to the assembly.</span>")
 			fillamt += 1

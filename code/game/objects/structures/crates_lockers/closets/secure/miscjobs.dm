@@ -18,7 +18,7 @@
 	new /obj/item/weapon/bikehorn(src)
 	new /obj/item/weapon/reagent_containers/spray/waterflower(src)
 	new /obj/item/toy/crayon/rainbow(src)
-	new /obj/item/seeds/bananaseed(src)
+	new /obj/item/seeds/banana(src)
 
 
 

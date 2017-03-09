@@ -44,6 +44,10 @@
 //		/obj/item/weapon/paper_bundle,
 		/obj/item/weapon/card/id
 		)
+		
+/obj/item/weapon/gripper/New()
+	..()
+	can_hold = typecacheof(can_hold)
 
 /obj/item/weapon/gripper/attack_self(mob/user as mob)
 	if(wrapped)
@@ -51,7 +55,7 @@
 
 /obj/item/weapon/gripper/verb/drop_item()
 
-	set name = "Drop Item"
+	set name = "Drop Gripped Item"
 	set desc = "Release an item from your magnetic gripper."
 	set category = "Drone"
 
@@ -118,10 +122,9 @@
 
 		//Check if the item is blacklisted.
 		var/grab = 0
-		for(var/typepath in can_hold)
-			if(istype(I,typepath))
+		if(can_hold.len)
+			if(is_type_in_typecache(I, can_hold))
 				grab = 1
-				break
 
 		//We can grab the item, finally.
 		if(grab)
@@ -200,7 +203,7 @@
 
 			to_chat(D, "<span class='warning'>You begin decompiling the other drone.</span>")
 
-			if(!do_after(D,50, target = target))
+			if(!do_after(D, 50, target = target))
 				to_chat(D, "<span class='warning'>You need to remain still while decompiling such a large object.</span>")
 				return
 

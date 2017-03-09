@@ -35,10 +35,10 @@
 			return 1
 		else
 			to_chat(user, "<span class='notice'>You begin reinforcing the floor...</span>")
-			if(do_after(user, 30, target = src))
+			if(do_after(user, 30 * C.toolspeed, target = src))
 				if(R.get_amount() >= 2 && !istype(src, /turf/simulated/floor/engine))
 					ChangeTurf(/turf/simulated/floor/engine)
-					playsound(src, 'sound/items/Deconstruct.ogg', 80, 1)
+					playsound(src, C.usesound, 80, 1)
 					R.use(2)
 					to_chat(user, "<span class='notice'>You reinforce the floor.</span>")
 				return 1
@@ -59,7 +59,7 @@
 		if( welder.isOn() && (broken || burnt) )
 			if(welder.remove_fuel(0,user))
 				to_chat(user, "<span class='danger'>You fix some dents on the broken plating.</span>")
-				playsound(src, 'sound/items/Welder.ogg', 80, 1)
+				playsound(src, welder.usesound, 80, 1)
 				icon_state = icon_plating
 				burnt = 0
 				broken = 0
@@ -75,12 +75,6 @@
 /turf/simulated/floor/plating/airless/New()
 	..()
 	name = "plating"
-
-/turf/simulated/floor/plating/airless/catwalk
-	icon = 'icons/turf/catwalks.dmi'
-	icon_state = "Floor3"
-	name = "catwalk"
-	desc = "Cats really don't like these things."
 
 /turf/simulated/floor/engine
 	name = "reinforced floor"
@@ -105,8 +99,8 @@
 		return
 	if(istype(C, /obj/item/weapon/wrench))
 		to_chat(user, "<span class='notice'>You begin removing rods...</span>")
-		playsound(src, 'sound/items/Ratchet.ogg', 80, 1)
-		if(do_after(user, 30, target = src))
+		playsound(src, C.usesound, 80, 1)
+		if(do_after(user, 30 * C.toolspeed, target = src))
 			if(!istype(src, /turf/simulated/floor/engine))
 				return
 			new /obj/item/stack/rods(src, 2)
@@ -242,7 +236,7 @@
 			if(istype(T, /turf/simulated/floor/plating/airless/catwalk))
 				var/turf/simulated/floor/plating/airless/catwalk/CW=T
 				CW.update_icon(0)
-		playsound(src, 'sound/items/Screwdriver.ogg', 80, 1)
+		playsound(src, C.usesound, 80, 1)
 
 /turf/simulated/floor/plating/metalfoam
 	name = "foamed metal plating"
@@ -293,16 +287,6 @@
 
 /turf/simulated/floor/plating/metalfoam/proc/smash()
 	ChangeTurf(/turf/space)
-
-/turf/simulated/floor/plasteel/airless
-	name = "airless floor"
-	oxygen = 0.01
-	nitrogen = 0.01
-	temperature = TCMB
-
-/turf/simulated/floor/plasteel/airless/New()
-	..()
-	name = "floor"
 
 /turf/simulated/floor/plating/abductor
 	name = "alien floor"

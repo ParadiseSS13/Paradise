@@ -19,7 +19,8 @@
 		for(var/datum/alternate_appearance/AA in viewing_alternate_appearances)
 			AA.viewers -= src
 		viewing_alternate_appearances = null
-	return ..()
+	..()
+	return QDEL_HINT_HARDDEL_NOW
 
 /mob/New()
 	mob_list += src
@@ -170,7 +171,7 @@
 	if(istype(W))
 		if(istype(W, /obj/item/clothing))
 			var/obj/item/clothing/C = W
-			if(C.rig_restrict_helmet)
+			if(C.hardsuit_restrict_helmet)
 				to_chat(src, "\red You must fasten the helmet to a hardsuit first. (Target the head and use on a hardsuit)")// Stop eva helms equipping.
 
 			else
@@ -230,22 +231,18 @@
 		//Mob can equip.  Equip it.
 		equip_to_slot_or_del(W, slot)
 	else
-		//Mob can't equip it.  Put it in a bag B.
-		// Do I have a backpack?
-		var/obj/item/weapon/storage/B
-		if(istype(back,/obj/item/weapon/storage))
-			//Mob is wearing backpack
-			B = back
-		else
-			//not wearing backpack.  Check if player holding plastic bag
-			B=is_in_hands(/obj/item/weapon/storage/bag/plasticbag)
-			if(!B) //If not holding plastic bag, give plastic bag
-				B=new /obj/item/weapon/storage/bag/plasticbag(null) // Null in case of failed equip.
-				if(!put_in_hands(B))
-					return // Bag could not be placed in players hands.  I don't know what to do here...
-		//Now, B represents a container we can insert W into.
-		B.handle_item_insertion(W,1)
-		return B
+		//Mob can't equip it.  Put it their backpack or toss it on the floor
+		if(istype(back, /obj/item/weapon/storage))
+			var/obj/item/weapon/storage/S = back
+			//Now, B represents a container we can insert W into.
+			S.handle_item_insertion(W,1)
+			return S
+
+		var/turf/T = get_turf(src)
+		if(istype(T))
+			W.forceMove(T)
+			return T
+
 
 //The list of slots by priority. equip_to_appropriate_slot() uses this list. Doesn't matter if a mob type doesn't have a slot.
 var/list/slot_equipment_priority = list( \
@@ -1060,7 +1057,7 @@ var/list/slot_equipment_priority = list( \
 			visible_implants += O
 	return visible_implants
 
-mob/proc/yank_out_object()
+/mob/proc/yank_out_object()
 	set category = "Object"
 	set name = "Yank out object"
 	set desc = "Remove an embedded item at the cost of bleeding and pain."
@@ -1222,9 +1219,11 @@ mob/proc/yank_out_object()
 	if(mind)
 		return mind.grab_ghost(force = force)
 
-/mob/proc/notify_ghost_cloning(var/message = "Someone is trying to revive you. Re-enter your corpse if you want to be revived!", var/sound = 'sound/effects/genetics.ogg', var/atom/source = null)
+/mob/proc/notify_ghost_cloning(message = "Someone is trying to revive you. Re-enter your corpse if you want to be revived!", sound = 'sound/effects/genetics.ogg', atom/source = null, flashwindow = TRUE)
 	var/mob/dead/observer/ghost = get_ghost()
 	if(ghost)
+		if(flashwindow)
+			window_flash(ghost.client)
 		ghost.notify_cloning(message, sound, source)
 		return ghost
 
@@ -1263,7 +1262,7 @@ mob/proc/yank_out_object()
 	return // Only living mobs can ventcrawl
 
 //You can buckle on mobs if you're next to them since most are dense
-/mob/buckle_mob(mob/living/M)
+/mob/buckle_mob(mob/living/M, force = 0)
 	if(M.buckled)
 		return 0
 	var/turf/T = get_turf(src)
@@ -1309,3 +1308,39 @@ mob/proc/yank_out_object()
 		if(F in target.faction)
 			return 1
 	return 0
+
+/mob/proc/create_attack_log(var/text, var/collapse = 1)//forgive me code gods for this shitcode proc
+	//this proc enables lovely stuff like an attack log that looks like this: "[18:20:29-18:20:45]21x John Smith attacked Andrew Jackson with a crowbar."
+	//That makes the logs easier to read, but because all of this is stored in strings, weird things have to be used to get it all out.
+	var/new_log = "\[[time_stamp()]] [text]"
+
+	if(length(attack_log) > 0)//if there are other logs already present
+		var/previous_log = attack_log[length(attack_log)]//get the latest log
+		var/last_log_is_range = (copytext(previous_log, 10, 11) == "-") //whether the last log is a time range or not. The "-" will be an indicator that it is.
+		var/x_sign_position = findtext(previous_log, "x")
+
+		if(world.timeofday - last_log > 100)//if more than 10 seconds from last log
+			collapse = 0//don't collapse anyway
+
+		//the following checks if the last log has the same contents as the new one
+		if(last_log_is_range)
+			if(!(copytext(previous_log, x_sign_position + 13) == text))//the 13 is there because of span classes; you won't see those normally in-game
+				collapse = 0
+		else
+			if(!(copytext(previous_log, 12) == text))
+				collapse = 0
+
+
+		if(collapse == 1)
+			var/rep = 0
+			var/old_timestamp = copytext(previous_log, 2, 10)//copy the first time value. This one doesn't move when it's a timespan, so no biggie
+			//An attack log entry can either be a time range with multiple occurences of an action or a single one, with just one time stamp
+			if(last_log_is_range)
+
+				rep = text2num(copytext(previous_log, 44, x_sign_position))//get whatever number is right before the 'x'
+
+			new_log = "\[[old_timestamp]-[time_stamp()]]<font color='purple'><b>[rep?rep+1:2]x</b></font> [text]"
+			attack_log -= attack_log[length(attack_log)]//remove the last log
+
+	attack_log += new_log
+	last_log = world.timeofday

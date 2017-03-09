@@ -60,7 +60,7 @@ CREATE TABLE `SS13_characters` (
   `eyes_blue` smallint(4) NOT NULL,
   `underwear` mediumtext NOT NULL,
   `undershirt` mediumtext NOT NULL,
-  `backbag` smallint(4) NOT NULL,
+  `backbag` mediumtext NOT NULL,
   `b_type` varchar(45) NOT NULL,
   `alternate_option` smallint(4) NOT NULL,
   `job_support_high` mediumint(8) NOT NULL,
@@ -273,6 +273,8 @@ CREATE TABLE `SS13_player` (
   `nanoui_fancy` smallint(4) DEFAULT '1',
   `show_ghostitem_attack` smallint(4) DEFAULT '1',
   `lastchangelog` varchar(32) NOT NULL DEFAULT '0',
+  `windowflashing` smallint(4) DEFAULT '1',
+  `ghost_anonsay` tinyint(1) NOT NULL DEFAULT '0',
   `exp` mediumtext,
   PRIMARY KEY (`id`),
   UNIQUE KEY `ckey` (`ckey`)
