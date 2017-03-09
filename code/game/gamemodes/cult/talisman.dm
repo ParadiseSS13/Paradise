@@ -270,8 +270,9 @@
 	var/mob/living/carbon/human/H = user
 	user.visible_message("<span class='warning'>Otherworldly armor suddenly appears on [user]!</span>", \
 						 "<span class='cultitalic'>You speak the words of the talisman, arming yourself!</span>")
-	H.equip_or_collect(new /obj/item/clothing/suit/hooded/cultrobes/alt(user), slot_wear_suit)
-	H.equip_or_collect(new /obj/item/weapon/storage/backpack/cultpack(user), slot_back)
+	H.equip_to_slot_or_del(new /obj/item/clothing/suit/hooded/cultrobes/alt(user), slot_wear_suit)
+	H.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/cultpack(user), slot_back)
+	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/cult(user), slot_shoes)
 	H.put_in_hands(new /obj/item/weapon/melee/cultblade(user))
 	H.put_in_hands(new /obj/item/weapon/restraints/legcuffs/bola/cult(user))
 

@@ -312,7 +312,7 @@
 		ui.open()
 		ui.set_auto_update(1)
 
-/obj/machinery/computer/bsa_control/ui_data(mob/user, ui_key = "main", datum/topic_state/state = physical_state)
+/obj/machinery/computer/bsa_control/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/list/data = list()
 	data["connected"] = cannon
 	data["notice"] = notice

@@ -10,6 +10,17 @@ var/const/SMARTFRIDGE_WIRE_ELECTRIFY	= 1
 var/const/SMARTFRIDGE_WIRE_THROW		= 2
 var/const/SMARTFRIDGE_WIRE_IDSCAN		= 4
 
+/datum/wires/smartfridge/GetWireName(index)
+	switch(index)
+		if(SMARTFRIDGE_WIRE_ELECTRIFY)
+			return "Electrification"
+		
+		if(SMARTFRIDGE_WIRE_THROW)
+			return "Item Throw"
+		
+		if(SMARTFRIDGE_WIRE_IDSCAN)
+			return "ID Scan"
+
 /datum/wires/smartfridge/CanUse(mob/living/L)
 	var/obj/machinery/smartfridge/S = holder
 	if(!issilicon(L))

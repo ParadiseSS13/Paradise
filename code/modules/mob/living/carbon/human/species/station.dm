@@ -899,6 +899,7 @@
 	default_hair = "Blue IPC Screen"
 	virus_immune = 1
 	can_revive_by_healing = 1
+	has_gender = FALSE
 	reagent_tag = PROCESS_SYN
 	male_scream_sound = 'sound/goonstation/voice/robot_scream.ogg'
 	female_scream_sound = 'sound/goonstation/voice/robot_scream.ogg'
@@ -911,7 +912,8 @@
 	has_organ = list(
 		"brain" = /obj/item/organ/internal/brain/mmi_holder/posibrain,
 		"cell" = /obj/item/organ/internal/cell,
-		"optics" = /obj/item/organ/internal/eyes/optical_sensor //Default darksight of 2.
+		"optics" = /obj/item/organ/internal/eyes/optical_sensor, //Default darksight of 2.
+		"charger" = /obj/item/organ/internal/cyberimp/chest/arm_mod/power_cord
 		)
 
 	vision_organ = /obj/item/organ/internal/eyes/optical_sensor
