@@ -1063,7 +1063,7 @@ var/list/non_fakeattack_weapons = list(/obj/item/weapon/gun/projectile, /obj/ite
 			hal_screwyhud = SCREWYHUD_DEAD
 			SetSleeping(20, no_alert = TRUE)
 			if(prob(50))
-				var/list/dead_people
+				var/list/dead_people = list()
 				for(var/mob/dead/observer/G in player_list)
 					dead_people += G
 				var/mob/dead/observer/fakemob = pick(dead_people)
