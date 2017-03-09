@@ -501,6 +501,7 @@
 	sharp = 1
 	edge = 1
 	no_embed = 1
+	var/cursed = 0
 
 /obj/item/weapon/twohanded/chainsaw/update_icon()
 	if(wielded)
@@ -530,7 +531,8 @@
 
 /obj/item/weapon/twohanded/chainsaw/unwield()
 	..()
-	flags &= ~NODROP
+	if(cursed == 0)
+		flags &= ~NODROP
 
 // SINGULOHAMMER
 /obj/item/weapon/twohanded/singularityhammer
@@ -761,3 +763,59 @@
 				if(prob(4))
 					charged++
 					user.visible_message("<span class='notice'>The axe starts to emit an electric buzz!</span>")
+
+
+///Honkmother's Wrath///
+/obj/item/weapon/twohanded/chainsaw/honkmother
+	icon_state = "honkmother0"
+	name = "Honkmother's Wrath"
+	desc = "Perfect for felling trees or fellow spacemen."
+	wieldsound = 'sound/weapons/chainsawstart.ogg'
+	armour_penetration = 60
+	attack_verb = list("sawed", "cut", "hacked", "carved", "cleaved", "butchered", "felled", "timbered")
+
+/obj/item/weapon/twohanded/chainsaw/honkmother/update_icon()
+	if(wielded)
+		icon_state = "honkmother[wielded]"
+	else
+		icon_state = "honkmother0"
+
+/obj/item/weapon/twohanded/chainsaw/honkmother/attack(mob/target as mob, mob/living/user as mob)
+	..()
+	if(wielded)
+		playsound(loc, 'sound/weapons/chainsaw.ogg', 100, 1, -1) //incredibly loud; you ain't goin' for stealth with this thing. Credit to Lonemonk of Freesound for this sound.
+		if(isrobot(target))
+			..()
+			return
+		if(!isliving(target))
+			return
+		else
+			target.Weaken(4)
+			..()
+			var/mob/living/carbon/human/H = user
+			//if(target.client)
+			user.reagents.add_reagent("adminordrazine", 0.4)
+			H.restore_blood()
+		return
+	else
+		playsound(loc, "swing_hit", 50, 1, -1)
+		return ..()
+
+/obj/item/weapon/twohanded/chainsaw/honkmother/wield(mob/living/carbon/user) //you can't disarm an active chainsaw, you crazy person.
+	..()
+	if (cursed == 0)
+		cursed = 1
+		//play a grousome sound
+		user.visible_message("<span class='notice'>You feel your flesh twist and distort as the chainsaw replaces your hand attaching to your wrist!</span>")
+		user.mind.AddSpell(new /obj/effect/proc_holder/spell/bloodcrawl(null))
+		user.bloodcrawl = 1
+		processing_objects |= src
+		flags |= ABSTRACT
+
+/obj/item/weapon/twohanded/chainsaw/honkmother/process()
+	if(ishuman(loc))
+		var/mob/living/carbon/human/user = loc
+		if(user.species.exotic_blood)
+			user.vessel.remove_reagent(user.species.exotic_blood,2)
+		else
+			user.vessel.remove_reagent("blood",2)
