@@ -36,6 +36,17 @@
 	if(!density)
 		return ..()
 	return 0
+	
+/obj/machinery/door/firedoor/ex_act(severity)
+	switch(severity)
+		if(1.0)
+			qdel(src)
+		if(2.0)
+			if(prob(50))
+				qdel(src)
+		if(3.0)
+			if(prob(5))
+				qdel(src)
 
 /obj/machinery/door/firedoor/power_change()
 	if(powered(power_channel))
