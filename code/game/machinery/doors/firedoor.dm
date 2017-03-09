@@ -93,7 +93,6 @@
 		user.visible_message("[user] forces \the [src] with [C].",
 		"You force \the [src] with [C].")
 		if(density)
-			autoclose = TRUE
 			open()
 		else
 			close()
@@ -110,7 +109,6 @@
 		if(do_after(user, force_open_time, target = src))
 			user.visible_message("<span class='notice'>[user] forces \the [src].</span>", \
 								 "<span class='notice'>You force \the [src].</span>")
-			autoclose = TRUE
 			open()
 	else if(glass)
 		user.changeNext_move(CLICK_CD_MELEE)
@@ -160,9 +158,12 @@
 	active_alarm = FALSE
 	update_icon()
 
-/obj/machinery/door/firedoor/open()
+/obj/machinery/door/firedoor/open(auto_close = TRUE)
 	. = ..()
-	latetoggle()
+	latetoggle(auto_close)
+	
+	if(auto_close)
+		autoclose = TRUE
 
 /obj/machinery/door/firedoor/close()
 	. = ..()
@@ -174,22 +175,22 @@
 	if(active_alarm)
 		. = ..()
 
-/obj/machinery/door/firedoor/proc/latetoggle()
+/obj/machinery/door/firedoor/proc/latetoggle(auto_close = TRUE)
 	if(operating || stat & NOPOWER || !nextstate)
 		return
 	switch(nextstate)
 		if(OPEN)
 			nextstate = null
-			open()
+			open(auto_close)
 		if(CLOSED)
 			nextstate = null
 			close()
 
-/obj/machinery/door/firedoor/proc/forcetoggle(magic = FALSE)
+/obj/machinery/door/firedoor/proc/forcetoggle(magic = FALSE, auto_close = TRUE)
 	if(!magic && (operating || stat & NOPOWER))
 		return
 	if(density)
-		open()
+		open(auto_close)
 	else
 		close()
 

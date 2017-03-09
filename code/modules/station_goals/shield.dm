@@ -9,7 +9,7 @@
 	return {"<b>Station Shield construction</b><br>
 	The station is located in a zone full of space debris. We have a prototype shielding system you will deploy to reduce collision related accidents.
 	<br><br>
-	You can order the satellites and control systems through cargo shuttle."}
+	You can order the satellites and control systems through the cargo shuttle."}
 
 /datum/station_goal/station_shield/on_report()
 	//Unlock
