@@ -1,15 +1,11 @@
  /**
-  * tgui state: not_incapacitated_state
-  *
-  * Checks that the user isn't incapacitated
+  * This state only checks if the user isn't incapacitated
  **/
 
 /var/global/datum/topic_state/not_incapacitated_state/not_incapacitated_state = new()
 
  /**
-  * tgui state: not_incapacitated_turf_state
-  *
-  * Checks that the user isn't incapacitated and that their loc is a turf
+  * This state checks if the user isn't incapacitated and that their loc is a turf
  **/
 
 /var/global/datum/topic_state/not_incapacitated_state/not_incapacitated_turf_state = new(no_turfs = TRUE)
