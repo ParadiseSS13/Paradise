@@ -69,9 +69,9 @@
 
 			if(SEC_LEVEL_RED)
 				if(security_level < SEC_LEVEL_RED)
-					security_announcement_up.Announce("There is an immediate and serious threat to the station. Security may have weapons unholstered at all times. Random searches are allowed and advised. Maintenance tunnels are unrestricted.","Attention! Code Red!")
+					security_announcement_up.Announce("There is an immediate and serious threat to the station. Security may have weapons unholstered at all times. Random searches are allowed and advised. Maintenance access will be restricted shortly.","Attention! Code Red!")
 				else
-					security_announcement_down.Announce("The station's self-destruct mechanism has been deactivated, but there is still an immediate and serious threat to the station. Security may have weapons unholstered at all times. Random searches are allowed and advised. Maintenance tunnels are restricted.","Attention! Code Red!")
+					security_announcement_down.Announce("The station's self-destruct mechanism has been deactivated, but there is still an immediate and serious threat to the station. Security may have weapons unholstered at all times. Random searches are allowed and advised. Maintenance access will be restricted shortly.","Attention! Code Red!")
 				security_level = SEC_LEVEL_RED
 
 				var/obj/machinery/door/airlock/highsecurity/red/R = locate(/obj/machinery/door/airlock/highsecurity/red) in world
@@ -87,6 +87,10 @@
 					if(is_station_contact(FA.z))
 						FA.overlays = list()
 						FA.overlays += image('icons/obj/monitors.dmi', "overlay_red")
+
+				sleep(600)
+
+				priority_announcement.Announce("Maintenance access has now been restricted to engineering and security personnel.","Security Announcement")
 
 				for(var/obj/machinery/door/airlock/maintenance/M in airlocks)
 					if(access_maint_tunnels in M.req_access)
