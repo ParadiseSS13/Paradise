@@ -41,10 +41,11 @@
 						FA.overlays = list()
 						FA.overlays += image('icons/obj/monitors.dmi', "overlay_green")
 
-				for(var/obj/machinery/door/airlock/maintenance/M in airlocks)
-					if(access_brig || access_engine in M.req_one_access)
-						M.req_access = list(access_maint_tunnels)
-						M.req_one_access = list()
+				for(var/area/maintenance/A in world)
+					for(var/obj/machinery/door/airlock/M in A)
+						if((access_brig in M.req_one_access) || (access_engine in M.req_one_access))
+							M.req_access = list(access_maint_tunnels)
+							M.req_one_access = list()
 
 			if(SEC_LEVEL_BLUE)
 				if(security_level < SEC_LEVEL_BLUE)
@@ -62,10 +63,11 @@
 						FA.overlays = list()
 						FA.overlays += image('icons/obj/monitors.dmi', "overlay_blue")
 
-				for(var/obj/machinery/door/airlock/maintenance/M in airlocks)
-					if(access_brig || access_engine in M.req_one_access)
-						M.req_access = list(access_maint_tunnels)
-						M.req_one_access = list()
+				for(var/area/maintenance/A in world)
+					for(var/obj/machinery/door/airlock/M in A)
+						if((access_brig in M.req_one_access) || (access_engine in M.req_one_access))
+							M.req_access = list(access_maint_tunnels)
+							M.req_one_access = list()
 
 			if(SEC_LEVEL_RED)
 				if(security_level < SEC_LEVEL_RED)
@@ -92,8 +94,10 @@
 
 				if(security_level >= SEC_LEVEL_RED)
 					priority_announcement.Announce("Maintenance access has now been restricted to engineering and security personnel.","Security Announcement")
-					for(var/obj/machinery/door/airlock/maintenance/M in airlocks)
-						if(access_maint_tunnels in M.req_access)
+
+				for(var/area/maintenance/A in world)
+					for(var/obj/machinery/door/airlock/M in A)
+						if(M.req_access_txt == "12")
 							M.req_access = list()
 							M.req_one_access = list(access_brig,access_engine)
 
