@@ -29,7 +29,7 @@
 	if(level >= SEC_LEVEL_GREEN && level <= SEC_LEVEL_DELTA && level != security_level)
 		switch(level)
 			if(SEC_LEVEL_GREEN)
-				security_announcement_down.Announce("All threats to the station have passed. All weapons need to be holstered and privacy laws are once again fully enforced.","Attention! Security level lowered to green.")
+				security_announcement_down.Announce("All threats to the station have passed. All weapons need to be holstered and privacy laws are once again fully enforced. Maintenance tunnels are unrestricted.","Attention! Security level lowered to green.")
 				security_level = SEC_LEVEL_GREEN
 
 				var/obj/machinery/computer/communications/CC = locate(/obj/machinery/computer/communications,world)
@@ -41,11 +41,16 @@
 						FA.overlays = list()
 						FA.overlays += image('icons/obj/monitors.dmi', "overlay_green")
 
+				for(var/obj/machinery/door/airlock/maintenance/M in airlocks)
+					if(access_brig || access_engine in M.req_one_access)
+						M.req_access = list(access_maint_tunnels)
+						M.req_one_access = list()
+
 			if(SEC_LEVEL_BLUE)
 				if(security_level < SEC_LEVEL_BLUE)
-					security_announcement_up.Announce("The station has received reliable information about possible hostile activity on the station. Security staff may have weapons visible and random searches are permitted.","Attention! Security level elevated to blue.")
+					security_announcement_up.Announce("The station has received reliable information about possible hostile activity on the station. Security staff may have weapons visible and random searches are permitted.  Maintenance tunnels are unrestricted.","Attention! Security level elevated to blue.")
 				else
-					security_announcement_down.Announce("The immediate threat has passed. Security may no longer have weapons drawn at all times, but may continue to have them visible. Random searches are still allowed.","Attention! Security level lowered to blue.")
+					security_announcement_down.Announce("The immediate threat has passed. Security may no longer have weapons drawn at all times, but may continue to have them visible. Random searches are still allowed.  Maintenance tunnels are unrestricted.","Attention! Security level lowered to blue.")
 				security_level = SEC_LEVEL_BLUE
 
 				var/obj/machinery/computer/communications/CC = locate(/obj/machinery/computer/communications,world)
@@ -57,11 +62,16 @@
 						FA.overlays = list()
 						FA.overlays += image('icons/obj/monitors.dmi', "overlay_blue")
 
+				for(var/obj/machinery/door/airlock/maintenance/M in airlocks)
+					if(access_brig || access_engine in M.req_one_access)
+						M.req_access = list(access_maint_tunnels)
+						M.req_one_access = list()
+
 			if(SEC_LEVEL_RED)
 				if(security_level < SEC_LEVEL_RED)
-					security_announcement_up.Announce("There is an immediate and serious threat to the station. Security may have weapons unholstered at all times. Random searches are allowed and advised.","Attention! Code Red!")
+					security_announcement_up.Announce("There is an immediate and serious threat to the station. Security may have weapons unholstered at all times. Random searches are allowed and advised. Maintenance tunnels are unrestricted.","Attention! Code Red!")
 				else
-					security_announcement_down.Announce("The station's self-destruct mechanism has been deactivated, but there is still an immediate and serious threat to the station. Security may have weapons unholstered at all times. Random searches are allowed and advised.","Attention! Code Red!")
+					security_announcement_down.Announce("The station's self-destruct mechanism has been deactivated, but there is still an immediate and serious threat to the station. Security may have weapons unholstered at all times. Random searches are allowed and advised. Maintenance tunnels are restricted.","Attention! Code Red!")
 				security_level = SEC_LEVEL_RED
 
 				var/obj/machinery/door/airlock/highsecurity/red/R = locate(/obj/machinery/door/airlock/highsecurity/red) in world
@@ -77,6 +87,11 @@
 					if(is_station_contact(FA.z))
 						FA.overlays = list()
 						FA.overlays += image('icons/obj/monitors.dmi', "overlay_red")
+
+				for(var/obj/machinery/door/airlock/maintenance/M in airlocks)
+					if(access_maint_tunnels in M.req_access)
+						M.req_access = list()
+						M.req_one_access = list(access_brig,access_engine)
 
 			if(SEC_LEVEL_GAMMA)
 				security_announcement_up.Announce("Central Command has ordered the Gamma security level on the station. Security is to have weapons equipped at all times, and all civilians are to immediately seek their nearest head for transportation to a secure location. The station's Gamma armory has been unlocked and is ready for use.","Attention! Gamma security level activated!")
