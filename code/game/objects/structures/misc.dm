@@ -95,7 +95,7 @@
 /obj/structure/ghost_beacon/Destroy()
 	if(active)
 		processing_objects.Remove(src)
-	. = ..()
+	return ..()
 
 /obj/structure/ghost_beacon/attack_ghost(mob/dead/observer/user)
 	if(user.can_advanced_admin_interact())

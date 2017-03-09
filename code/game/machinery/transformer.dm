@@ -29,6 +29,12 @@
 	else
 		icon_state = initial(icon_state)
 
+/obj/machinery/transformer/setDir(newdir)
+	. = ..()
+	var/obj/machinery/conveyor/C = locate() in loc
+	C.setDir(newdir)
+	acceptdir = turn(newdir, 180)
+
 /obj/machinery/transformer/Bumped(var/atom/movable/AM)
 
 	if(cooldown == 1)
