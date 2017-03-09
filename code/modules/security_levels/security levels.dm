@@ -90,12 +90,12 @@
 
 				sleep(600)
 
-				priority_announcement.Announce("Maintenance access has now been restricted to engineering and security personnel.","Security Announcement")
-
-				for(var/obj/machinery/door/airlock/maintenance/M in airlocks)
-					if(access_maint_tunnels in M.req_access)
-						M.req_access = list()
-						M.req_one_access = list(access_brig,access_engine)
+				if(security_level >= SEC_LEVEL_RED)
+					priority_announcement.Announce("Maintenance access has now been restricted to engineering and security personnel.","Security Announcement")
+					for(var/obj/machinery/door/airlock/maintenance/M in airlocks)
+						if(access_maint_tunnels in M.req_access)
+							M.req_access = list()
+							M.req_one_access = list(access_brig,access_engine)
 
 			if(SEC_LEVEL_GAMMA)
 				security_announcement_up.Announce("Central Command has ordered the Gamma security level on the station. Security is to have weapons equipped at all times, and all civilians are to immediately seek their nearest head for transportation to a secure location. The station's Gamma armory has been unlocked and is ready for use.","Attention! Gamma security level activated!")
