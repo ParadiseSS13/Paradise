@@ -262,7 +262,7 @@
 					config.use_exp_restrictions_admin_bypass = 1
 
 				if("use_exp_ssd_protect")
-					config.use_exp_ssd_protect = 1
+					config.use_exp_ssd_protect = text2num(value)
 
 				if("jobs_have_minimal_access")
 					config.jobs_have_minimal_access = 1
