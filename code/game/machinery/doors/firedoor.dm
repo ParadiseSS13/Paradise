@@ -44,9 +44,6 @@
 		if(2.0)
 			if(prob(50))
 				qdel(src)
-		if(3.0)
-			if(prob(5))
-				qdel(src)
 
 /obj/machinery/door/firedoor/power_change()
 	if(powered(power_channel))
