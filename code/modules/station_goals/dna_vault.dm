@@ -211,7 +211,7 @@ var/list/non_simple_animals = typecacheof(list(/mob/living/carbon/human/monkey,/
 	L += pick_n_take(possible_powers)
 	power_lottery[user] = L
 
-/obj/machinery/dna_vault/ui_data(mob/user, ui_key = "main", datum/topic_state/state = physical_state) //TODO Make it % bars maybe
+/obj/machinery/dna_vault/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state) //TODO Make it % bars maybe
 	var/list/data = list()
 	data["plants"] = plants.len
 	data["plants_max"] = plants_max

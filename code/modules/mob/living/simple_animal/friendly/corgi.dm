@@ -87,9 +87,9 @@
 			to_chat(user, "<span class='warning'>You can't shave this corgi, it's already been shaved!</span>")
 			return
 		user.visible_message("[user] starts to shave [src] using \the [O].", "<span class='notice'>You start to shave [src] using \the [O]...</span>")
-		if(do_after(user, 50, target = src))
+		if(do_after(user, 50 * O.toolspeed, target = src))
 			user.visible_message("[user] shaves [src]'s hair using \the [O].")
-			playsound(loc, 'sound/items/Welder2.ogg', 20, 1)
+			playsound(loc, O.usesound, 20, 1)
 			shaved = 1
 			icon_living = "[initial(icon_living)]_shaved"
 			icon_dead = "[initial(icon_living)]_shaved_dead"

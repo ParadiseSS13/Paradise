@@ -1025,7 +1025,7 @@
 	if(!can_touch(user, wearer) || !has_emergency_release)
 		return can_touch(user,wearer)
 	usr.visible_message("<span class='warning'>[user] starts activating \the [src] emergency seals release!</span>")
-	if(!do_after(user,240, target = wearer))
+	if(!do_after(user, 240, target = wearer))
 		to_chat(user, "<span class='notice'>You need to focus on activating the emergency release.</span>")
 		return 0
 	usr.visible_message("<span class='warning'>[user] activated \the [src] emergency seals release!</span>")
