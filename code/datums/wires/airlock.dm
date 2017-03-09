@@ -21,9 +21,9 @@ var/const/AIRLOCK_WIRE_SAFETY = 512
 var/const/AIRLOCK_WIRE_SPEED = 1024
 var/const/AIRLOCK_WIRE_LIGHT = 2048
 
-/datum/wires/airlock/CanUse(var/mob/living/L)
+/datum/wires/airlock/CanUse(mob/living/L)
 	var/obj/machinery/door/airlock/A = holder
-	if(!istype(L, /mob/living/silicon))
+	if(!issilicon(L))
 		if(A.isElectrified())
 			if(A.shock(L, 100))
 				return 0
@@ -31,20 +31,20 @@ var/const/AIRLOCK_WIRE_LIGHT = 2048
 		return 1
 	return 0
 
-/datum/wires/airlock/GetInteractWindow()
+/datum/wires/airlock/get_status()
+	. = ..()
 	var/obj/machinery/door/airlock/A = holder
 	var/haspower = A.arePowerSystemsOn()
-	. += ..()
-	. += text("<br>\n[]<br>\n[]<br>\n[]<br>\n[]<br>\n[]<br>\n[]<br>\n[]", 
-	(A.locked ? "The door bolts have fallen!" : "The door bolts look up."),
-	((A.lights && haspower) ? "The door bolt lights are on." : "The door bolt lights are off!"),
-	((haspower) ? "The test light is on." : "The test light is off!"),
-	((A.aiControlDisabled==0 && !A.emagged && haspower) ? "The 'AI control allowed' light is on." : "The 'AI control allowed' light is off."),
-	((A.safe==0 && haspower) ? "The 'Check Wiring' light is on." : "The 'Check Wiring' light is off."),
-	((A.normalspeed==0 && haspower) ? "The 'Check Timing Mechanism' light is on." : "The 'Check Timing Mechanism' light is off."),
-	((A.emergency && haspower) ? "The emergency lights are on." : "The emergency lights are off."))
 
-/datum/wires/airlock/UpdateCut(var/index, var/mended)
+	. += "The door bolts [A.locked ? "have fallen!" : "look up."]"
+	. += "The door bolt lights are [(A.lights && haspower) ? "on." : "off!"]"
+	. +=  "The test light is [haspower ? "on." : "off!"]"
+	. += "The 'AI control allowed' light is [(A.aiControlDisabled == 0 && !A.emagged && haspower) ? "on" : "off"]."
+	. += "The 'Check Wiring' light is [(A.safe == 0 && haspower) ? "on" : "off"]."
+	. += "The 'Check Timing Mechanism' light is [(A.normalspeed == 0 && haspower) ? "on" : "off"]."
+	. += "The emergency lights are [(A.emergency && haspower) ? "on" : "off"]."
+
+/datum/wires/airlock/UpdateCut(index, mended)
 
 	var/obj/machinery/door/airlock/A = holder
 	switch(index)
@@ -113,8 +113,9 @@ var/const/AIRLOCK_WIRE_LIGHT = 2048
 		if(AIRLOCK_WIRE_LIGHT)
 			A.lights = mended
 			A.update_icon()
+	..()
 
-/datum/wires/airlock/UpdatePulsed(var/index)
+/datum/wires/airlock/UpdatePulsed(index)
 
 	var/obj/machinery/door/airlock/A = holder
 	switch(index)
@@ -177,3 +178,5 @@ var/const/AIRLOCK_WIRE_LIGHT = 2048
 		if(AIRLOCK_WIRE_LIGHT)
 			A.lights = !A.lights
 			A.update_icon()
+
+	..()

@@ -7,7 +7,7 @@
 
 /datum/action/innate/terrorspider/web/Activate()
 	var/mob/living/simple_animal/hostile/poison/terror_spider/user = owner
-	user.Web()
+	user.Web(0)
 
 /datum/action/innate/terrorspider/wrap
 	name = "Wrap"
@@ -32,14 +32,25 @@
 
 // ---------- PRINCE ACTIONS
 
-/datum/action/innate/terrorspider/princesmash
+/datum/action/innate/terrorspider/thickweb
+	name = "Thick Web"
+	icon_icon = 'icons/effects/effects.dmi'
+	button_icon_state = "stickyweb2"
+
+/datum/action/innate/terrorspider/thickweb/Activate()
+	var/mob/living/simple_animal/hostile/poison/terror_spider/user = owner
+	user.Web(1)
+
+// ---------- BOSS ACTIONS
+
+/datum/action/innate/terrorspider/ventsmash
 	name = "Smash Welded Vent"
 	icon_icon = 'icons/atmos/vent_pump.dmi'
 	button_icon_state = "map_vent"
 
-/datum/action/innate/terrorspider/princesmash/Activate()
-	var/mob/living/simple_animal/hostile/poison/terror_spider/prince/user = owner
-	user.DoPrinceSmash()
+/datum/action/innate/terrorspider/ventsmash/Activate()
+	var/mob/living/simple_animal/hostile/poison/terror_spider/user = owner
+	user.DoVentSmash()
 
 // ---------- QUEEN ACTIONS
 
@@ -50,7 +61,7 @@
 
 /datum/action/innate/terrorspider/queen/queennest/Activate()
 	var/mob/living/simple_animal/hostile/poison/terror_spider/queen/user = owner
-	user.NestMode()
+	user.NestPrompt()
 
 /datum/action/innate/terrorspider/queen/queensense
 	name = "Hive Sense"
@@ -81,7 +92,7 @@
 
 // ---------- WEB
 
-/mob/living/simple_animal/hostile/poison/terror_spider/proc/Web()
+/mob/living/simple_animal/hostile/poison/terror_spider/proc/Web(var/thick = 0)
 	var/turf/mylocation = loc
 	visible_message("<span class='notice'>[src] begins to secrete a sticky substance.</span>")
 	if(do_after(src, delay_web, target = loc))
@@ -96,6 +107,8 @@
 			else
 				var/obj/effect/spider/terrorweb/W = new /obj/effect/spider/terrorweb(loc)
 				W.creator_ckey = ckey
+				if(thick)
+					W.opacity = 1
 
 /obj/effect/spider/terrorweb
 	name = "terror web"
@@ -214,7 +227,7 @@
 		busy = 0
 		stop_automated_movement = 0
 
-/mob/living/simple_animal/hostile/poison/terror_spider/prince/proc/DoPrinceSmash()
+/mob/living/simple_animal/hostile/poison/terror_spider/proc/DoVentSmash()
 	for(var/obj/machinery/atmospherics/unary/vent_pump/P in view(1,src))
 		if(P.welded)
 			P.welded = 0

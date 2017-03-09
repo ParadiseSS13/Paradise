@@ -17,7 +17,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	var/startside = pick(cardinal)
 	var/turf/startT = spaceDebrisStartLoc(startside, 1)
 	var/turf/endT = spaceDebrisFinishLoc(startside, 1)
-	new /obj/effect/immovablerod(startT, endT)
+	new /obj/effect/immovablerod/event(startT, endT)
 
 /obj/effect/immovablerod
 	name = "Immovable Rod"
@@ -30,18 +30,20 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	var/z_original = 0
 	var/destination
 	var/notify = TRUE
+	var/move_delay = 1
 
-/obj/effect/immovablerod/New(atom/start, atom/end)
+/obj/effect/immovablerod/New(atom/start, atom/end, delay)
 	loc = start
 	z_original = z
 	destination = end
+	move_delay = delay
 	if(notify)
 		notify_ghosts("\A [src] is inbound!",
 				enter_link="<a href=?src=[UID()];follow=1>(Click to follow)</a>",
 				source=src, action=NOTIFY_FOLLOW)
 	poi_list |= src
 	if(end && end.z==z_original)
-		walk_towards(src, destination, 1)
+		walk_towards(src, destination, move_delay)
 
 /obj/effect/immovablerod/Topic(href, href_list)
 	if(href_list["follow"])
@@ -51,11 +53,6 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 
 /obj/effect/immovablerod/Destroy()
 	poi_list.Remove(src)
-	return ..()
-
-/obj/effect/immovablerod/Move()
-	if(z != z_original || loc == destination)
-		qdel(src)
 	return ..()
 
 /obj/effect/immovablerod/ex_act(test)
@@ -81,4 +78,13 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 			H.adjustBruteLoss(160)
 		if(clong.density || prob(10))
 			clong.ex_act(2)
-	return
+
+/obj/effect/immovablerod/event
+	var/tiles_moved = 0
+
+/obj/effect/immovablerod/event/Move()
+	var/atom/oldloc = loc
+	. = ..()
+	tiles_moved++
+	if(get_dist(oldloc, loc) > 2 && tiles_moved > 10) // We went on a journey, commit sudoku
+		qdel(src)

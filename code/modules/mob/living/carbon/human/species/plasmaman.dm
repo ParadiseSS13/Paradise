@@ -35,19 +35,20 @@
 	return message
 
 /datum/species/plasmaman/after_equip_job(datum/job/J, mob/living/carbon/human/H)
+	var/assigned_role = H.mind && H.mind.assigned_role ? H.mind.assigned_role : "Civilian"
 	// Unequip existing suits and hats.
 	H.unEquip(H.wear_suit)
 	H.unEquip(H.head)
-	if(H.mind.assigned_role != "Clown")
+	if(assigned_role != "Clown")
 		H.unEquip(H.wear_mask)
 
 	H.equip_or_collect(new /obj/item/clothing/mask/breath(H), slot_wear_mask)
-	var/suit=/obj/item/clothing/suit/space/eva/plasmaman
-	var/helm=/obj/item/clothing/head/helmet/space/eva/plasmaman
+	var/suit=/obj/item/clothing/suit/space/eva/plasmaman/assistant
+	var/helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/assistant
 	var/tank_slot = slot_s_store
 	var/tank_slot_name = "suit storage"
 
-	switch(H.mind.assigned_role)
+	switch(assigned_role)
 		if("Scientist","Geneticist","Roboticist")
 			suit=/obj/item/clothing/suit/space/eva/plasmaman/science
 			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/science
@@ -55,8 +56,8 @@
 			suit=/obj/item/clothing/suit/space/eva/plasmaman/science/rd
 			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/science/rd
 		if("Station Engineer", "Mechanic")
-			suit=/obj/item/clothing/suit/space/eva/plasmaman/engineer/
-			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/engineer/
+			suit=/obj/item/clothing/suit/space/eva/plasmaman/engineer
+			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/engineer
 		if("Chief Engineer")
 			suit=/obj/item/clothing/suit/space/eva/plasmaman/engineer/ce
 			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/engineer/ce
@@ -64,11 +65,11 @@
 			suit=/obj/item/clothing/suit/space/eva/plasmaman/atmostech
 			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/atmostech
 		if("Detective")
-			suit=/obj/item/clothing/suit/space/eva/plasmaman/security/
-			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/security/
+			suit=/obj/item/clothing/suit/space/eva/plasmaman/security
+			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/security
 		if("Warden","Security Officer","Security Pod Pilot")
-			suit=/obj/item/clothing/suit/space/eva/plasmaman/security/
-			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/security/
+			suit=/obj/item/clothing/suit/space/eva/plasmaman/security
+			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/security
 			H.equip_or_collect(new /obj/item/weapon/gun/energy/gun/advtaser(H), slot_in_backpack)
 		if("Internal Affairs Agent")
 			suit=/obj/item/clothing/suit/space/eva/plasmaman/lawyer
@@ -249,7 +250,7 @@
 				H.visible_message("<span class='danger'>[H]'s body reacts with the atmosphere and bursts into flames!</span>","<span class='userdanger'>Your body reacts with the atmosphere and bursts into flame!</span>")
 			H.IgniteMob()
 	else
-		if(H.fire_stacks)
+		if(H.on_fire && H.fire_stacks > 0)
 			var/obj/item/clothing/suit/space/eva/plasmaman/P = H.wear_suit
 			if(istype(P))
 				P.Extinguish(H)
