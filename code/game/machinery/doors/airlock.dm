@@ -892,11 +892,11 @@ About the new airlock wires panel:
 			if(arePowerSystemsOn())
 				var/obj/item/weapon/crowbar/power/P = C
 				playsound(src, 'sound/machines/airlock_alien_prying.ogg', 100, 1) //is it aliens or just the CE being a dick?
-				user.visible_message("<span class='notice'>[user] starts forcing \the [src] with \the [P]...</span>", \
-									 "<span class='notice'>You begin forcing \the [src] with \the [P]...</span>")
+				user.visible_message("<span class='notice'>[user] starts forcing [src] with \the [P]...</span>", \
+									 "<span class='notice'>You begin forcing [src] with \the [P]...</span>")
 				if(do_after(user, P.airlock_open_time, target = src))
-					user.visible_message("<span class='notice'>[user] forces \the [src] with \the [P].</span>", \
-						 "<span class='notice'>You force \the [src] with \the [P].</span>")
+					user.visible_message("<span class='notice'>[user] forces [src] with \the [P].</span>", \
+						 "<span class='notice'>You force [src] with \the [P].</span>")
 					open(2)
 					if(density && !open(2))
 						to_chat(user, "<span class='warning'>Despite your attempts, the [src] refuses to open.</span>")
