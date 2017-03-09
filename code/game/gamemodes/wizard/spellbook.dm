@@ -103,8 +103,13 @@
 
 /datum/spellbook_entry/fireball
 	name = "Fireball"
-	spell_type = /obj/effect/proc_holder/spell/dumbfire/fireball
+	spell_type = /obj/effect/proc_holder/spell/fireball
 	log_name = "FB"
+
+/datum/spellbook_entry/rod_form
+	name = "Rod Form"
+	spell_type = /obj/effect/proc_holder/spell/targeted/rod_form
+	log_name = "RF"
 
 /datum/spellbook_entry/magicm
 	name = "Magic Missile"
@@ -348,7 +353,7 @@
 /datum/spellbook_entry/item/armor
 	name = "Mastercrafted Armor Set"
 	desc = "An artefact suit of armor that allows you to cast spells while providing more protection against attacks and the void of space."
-	item_path = /obj/item/clothing/suit/space/rig/wizard
+	item_path = /obj/item/clothing/suit/space/hardsuit/wizard
 	log_name = "HS"
 	category = "Defensive"
 
@@ -357,7 +362,7 @@
 	if(.)
 		new /obj/item/clothing/shoes/sandal(get_turf(user)) //In case they've lost them.
 		new /obj/item/clothing/gloves/color/purple(get_turf(user))//To complete the outfit
-		new /obj/item/clothing/head/helmet/space/rig/wizard(get_turf(user))
+		new /obj/item/clothing/head/helmet/space/hardsuit/wizard(get_turf(user))
 
 /datum/spellbook_entry/item/contract
 	name = "Contract of Apprenticeship"
@@ -699,7 +704,7 @@
 	else
 		user.mind.AddSpell(S)
 		to_chat(user, "<span class='notice'>you rapidly read through the arcane book. Suddenly you realize you understand [spellname]!</span>")
-		user.attack_log += text("\[[time_stamp()]\] <font color='orange'>[user.real_name] ([user.ckey]) learned the spell [spellname] ([S]).</font>")
+		user.create_attack_log("<font color='orange'>[user.real_name] ([user.ckey]) learned the spell [spellname] ([S]).</font>")
 		onlearned(user)
 
 
@@ -714,7 +719,7 @@
 	return
 
 /obj/item/weapon/spellbook/oneuse/fireball
-	spell = /obj/effect/proc_holder/spell/dumbfire/fireball
+	spell = /obj/effect/proc_holder/spell/fireball
 	spellname = "fireball"
 	icon_state ="bookfireball"
 	desc = "This book feels warm to the touch."
@@ -848,9 +853,14 @@
 	to_chat(user, "<span class='warning'>[src] suddenly vanishes!</span>")
 	qdel(src)
 
-
 /obj/item/weapon/spellbook/oneuse/fake_gib
 	spell = /obj/effect/proc_holder/spell/targeted/touch/fake_disintegrate
 	spellname = "disintegrate"
 	icon_state ="bookfireball"
 	desc = "This book feels like it will rip stuff apart."
+
+/obj/item/weapon/spellbook/oneuse/sacredflame
+	spell = /obj/effect/proc_holder/spell/targeted/sacred_flame
+	spellname = "sacred flame"
+	icon_state ="booksacredflame"
+	desc = "Become one with the flames that burn within... and invite others to do so as well."

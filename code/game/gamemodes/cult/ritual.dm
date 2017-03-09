@@ -12,7 +12,11 @@
 	return
 
 /obj/effect/rune/proc/check_icon()
-	icon = get_rune_cult(invocation)
+	if(!ticker.mode)//work around for maps with runes and cultdat is not loaded all the way
+		var/bits = make_bit_triplet()
+		icon = get_rune(bits)
+	else
+		icon = get_rune_cult(invocation)
 
 /obj/item/weapon/tome
 	name = "arcane tome"
@@ -36,7 +40,10 @@
 	canbypass = 1
 
 /obj/item/weapon/tome/New()
-	icon_state = ticker.mode.cultdat.tome_icon
+	if(!ticker.mode)
+		icon_state = "tome"
+	else
+		icon_state = ticker.mode.cultdat.tome_icon
 	..()
 
 /obj/item/weapon/tome/examine(mob/user)
@@ -151,8 +158,8 @@
 	text += "<font color='red'><b>Talisman of Stunning</b></font><br>Attacking a target will knock them down for a long duration in addition to inhibiting their speech. \
 	Robotic lifeforms will suffer the effects of a heavy electromagnetic pulse instead.<br><br>"
 
-	text += "<font color='red'><b>Talisman of Armaments</b></font><br>The Talisman of Arming will equip the user with armored robes, a backpack, an eldritch longsword, an empowered bola, and a pair of boots. Any items that cannot \
-	be equipped will not be summoned. Attacking a fellow cultist with it will instead equip them.<br><br>"
+	text += "<font color='red'><b>Talisman of Armaments</b></font><br>The Talisman of Arming will equip the user with armored robes, a backpack, shoes, an eldritch longsword, and an empowered bola. Any equipment that cannot \
+	be equipped will not be summoned, weaponary will be put on the floor below the user. Attacking a fellow cultist with it will instead equip them.<br><br>"
 
 	text += "<font color='red'><b>Talisman of Horrors</b></font><br>The Talisman of Horror must be applied directly to the victim, it will shatter your victim's mind with visions of the endtimes that may incapitate them.<br><br>"
 
@@ -194,10 +201,9 @@
 	return 1
 
 /obj/item/weapon/tome/proc/finale_runes_ok(mob/living/user, obj/effect/rune/rune_to_scribe)
-
-	if(ticker.mode.name == "cult")
-		if(!canbypass == 1)//not an admin-tome, check things
-			var/datum/game_mode/cult/cult_mode = ticker.mode
+	var/datum/game_mode/cult/cult_mode = ticker.mode
+	if(GAMEMODE_IS_CULT)
+		if(!canbypass)//not an admin-tome, check things
 			if(!cult_mode.narsie_condition_cleared)
 				to_chat(user, "<span class='warning'>There is still more to do before unleashing [cult_mode.cultdat.entity_name] power!</span>")
 				return 0
@@ -207,23 +213,22 @@
 			if(cult_mode.demons_summoned)
 				to_chat(user, "<span class='cultlarge'>\"We are already here. There is no need to try to summon us now.\"</span>")
 				return 0
-			if(!(CULT_ELDERGOD in cult_mode.objectives) || !(CULT_SLAUGHTER in cult_mode.objectives))
+			if(!((CULT_ELDERGOD in cult_mode.objectives) || (CULT_SLAUGHTER in cult_mode.objectives)))
 				to_chat(user, "<span class='warning'>[cult_mode.cultdat.entity_name]'s power does not wish to be unleashed!</span>")
 				return 0
-			var/confirm_final = alert(user, "This is the FINAL step to summon your dietys power, it is a long, painful ritual and the crew will be alerted to your presence", "Are you prepared for the final battle?", "My life for Nar-Sie!", "No")
-			if(confirm_final == "No")
-				to_chat(user, "<span class='cult'>You decide to prepare further before scribing the rune.</span>")
-				return
-			else
-				return 1
+		var/confirm_final = alert(user, "This is the FINAL step to summon your dietys power, it is a long, painful ritual and the crew will be alerted to your presence", "Are you prepared for the final battle?", "My life for [cult_mode.cultdat.entity_name]!", "No")
+		if(confirm_final == "No" || confirm_final == null)
+			to_chat(user, "<span class='cult'>You decide to prepare further before scribing the rune.</span>")
+			return 0
+		else
+			return 1
 	else//the game mode is not cult..but we ARE a cultist...ALL ON THE ADMINBUS
-		if(!canbypass == 1)//not an admin-tome, check things
-			var/confirm_final = alert(user, "This is the FINAL step to summon your dietys power, it is a long, painful ritual and the crew will be alerted to your presence", "Are you prepared for the final battle?", "My life for Nar-Sie!", "No")
-			if(confirm_final == "No")
-				to_chat(user, "<span class='cult'>You decide to prepare further before scribing the rune.</span>")
-				return 0
-			else
-				return 1
+		var/confirm_final = alert(user, "This is the FINAL step to summon your dietys power, it is a long, painful ritual and the crew will be alerted to your presence", "Are you prepared for the final battle?", "My life for [cult_mode.cultdat.entity_name]!", "No")
+		if(confirm_final == "No" || confirm_final == null)
+			to_chat(user, "<span class='cult'>You decide to prepare further before scribing the rune.</span>")
+			return 0
+		else
+			return 1
 
 /obj/item/weapon/tome/proc/scribe_rune(mob/living/user)
 	var/turf/runeturf = get_turf(user)
@@ -273,6 +278,8 @@
 				N.icon_state = "shield-cult"
 				N.health = 60
 				shields |= N
+		else
+			return//don't do shit
 
 	var/mob/living/carbon/human/H = user
 	var/dam_zone = pick("head", "chest", "groin", "l_arm", "l_hand", "r_arm", "r_hand", "l_leg", "l_foot", "r_leg", "r_foot")

@@ -65,7 +65,7 @@
 		var/list/choices = list("West" = WEST, "East" = EAST, "South" = SOUTH, "North" = NORTH)
 		var/selected = input(user,"Select a direction for the connector.", "Connector Direction") in choices
 		dir = choices[selected]
-		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
+		playsound(src.loc, I.usesound, 50, 1)
 		var/node_connect = dir
 		initialize_directions = dir
 		for(var/obj/machinery/atmospherics/target in get_step(src,node_connect))
@@ -224,7 +224,7 @@
 		var/list/choices = list("West" = WEST, "East" = EAST, "South" = SOUTH, "North" = NORTH)
 		var/selected = input(user,"Select a direction for the connector.", "Connector Direction") in choices
 		dir = choices[selected]
-		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
+		playsound(src.loc, I.usesound, 50, 1)
 		var/node_connect = dir
 		initialize_directions = dir
 		for(var/obj/machinery/atmospherics/target in get_step(src,node_connect))

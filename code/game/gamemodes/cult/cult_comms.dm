@@ -34,6 +34,6 @@
 		if(iscultist(M))
 			to_chat(M, my_message)
 		else if(M in dead_mob_list)
-			to_chat(M, "<span class='cultspeech'> <a href='?src=\ref[M];follow=\ref[user]'>(F)</a> [my_message] </span>")
+			to_chat(M, "<span class='cultspeech'> <a href='?src=[M.UID()];follow=\ref[user]'>(F)</a> [my_message] </span>")
 
 	log_say("[user.real_name]/[user.key] : [message]")

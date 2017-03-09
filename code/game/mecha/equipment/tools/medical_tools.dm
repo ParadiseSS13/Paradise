@@ -243,7 +243,6 @@
 	desc = "Equipment for medical exosuits. A chem synthesizer with syringe gun. Reagents inside are held in stasis, so no reactions will occur."
 	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "syringegun"
-	flags = NOREACT
 	var/list/syringes
 	var/list/known_reagents
 	var/list/processed_reagents
@@ -259,6 +258,7 @@
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/New()
 	..()
 	create_reagents(max_volume)
+	reagents.set_reacting(FALSE)
 	syringes = new
 	known_reagents = list("epinephrine"="Epinephrine","charcoal"="Charcoal")
 	processed_reagents = new
@@ -273,7 +273,8 @@
 
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/critfail()
 	..()
-	flags &= ~NOREACT
+	if(reagents)
+		reagents.set_reacting(TRUE)
 
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/can_attach(obj/mecha/medical/M)
 	if(..())

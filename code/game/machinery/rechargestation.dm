@@ -92,6 +92,12 @@
 		A.blob_act()
 		qdel(src)
 
+/obj/machinery/recharge_station/narsie_act()
+	go_out()
+	new /obj/effect/gibspawner/generic(get_turf(loc)) //I REPLACE YOUR TECHNOLOGY WITH FLESH!
+	qdel(src)
+
+
 /obj/machinery/recharge_station/attack_animal(var/mob/living/simple_animal/M)//Stop putting hostile mobs in things guise
 	if(M.environment_smash)
 		M.do_attack_animation(src)
@@ -186,8 +192,8 @@
 					// Engineering
 					if(istype(O,/obj/item/stack/sheet))
 						var/obj/item/stack/sheet/S = O
-						if(S.amount < 50)
-							S.amount += 1 * coeff
+						if(S.amount < S.max_amount)
+							S.amount += round(min(1 * coeff, S.max_amount - S.amount))
 					// Security
 					if(istype(O,/obj/item/device/flash))
 						var/obj/item/device/flash/F = O

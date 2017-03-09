@@ -149,8 +149,6 @@ var/global/datum/controller/process/garbage_collector/garbageCollector
 				del(D)
 				if(garbageCollector)
 					garbageCollector.dels_count++
-			if(QDEL_HINT_PUTINPOOL)  //qdel will put this object in the pool.
-				PlaceInPool(D,0)
 			if(QDEL_HINT_FINDREFERENCE)//qdel will, if TESTING is enabled, display all references to this object, then queue the object for deletion.
 				#ifdef TESTING
 				D.find_references(remove_from_queue = FALSE)

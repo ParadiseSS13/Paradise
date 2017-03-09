@@ -222,7 +222,7 @@
 		var/obj/item/weapon/weldingtool/WT = I
 		if(WT.remove_fuel(0, user))
 			damage = 15
-			playsound(loc, 'sound/items/Welder.ogg', 100, 1)
+			playsound(loc, WT.usesound, 100, 1)
 
 	health -= damage
 	healthcheck()
@@ -363,7 +363,8 @@
 							break
 
 /obj/structure/alien/egg/bullet_act(obj/item/projectile/Proj)
-	health -= Proj.damage
+	if((Proj.damage_type == BRUTE || Proj.damage_type == BURN))
+		health -= Proj.damage
 	..()
 	healthcheck()
 
@@ -380,7 +381,7 @@
 
 		if(WT.remove_fuel(0, user))
 			damage = 15
-			playsound(loc, 'sound/items/Welder.ogg', 100, 1)
+			playsound(loc, WT.usesound, 100, 1)
 
 	health -= damage
 	user.changeNext_move(CLICK_CD_MELEE)

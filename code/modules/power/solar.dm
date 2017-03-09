@@ -60,12 +60,12 @@
 	if(istype(W, /obj/item/weapon/crowbar))
 		playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
 		user.visible_message("[user] begins to take the glass off the solar panel.", "<span class='notice'>You begin to take the glass off the solar panel...</span>")
-		if(do_after(user, 50, target = src))
+		if(do_after(user, 50 * W.toolspeed, target = src))
 			var/obj/item/solar_assembly/S = locate() in src
 			if(S)
 				S.loc = src.loc
 				S.give_glass()
-			playsound(src.loc, 'sound/items/Deconstruct.ogg', 50, 1)
+			playsound(src.loc, W.usesound, 50, 1)
 			user.visible_message("[user] takes the glass off the solar panel.", "<span class='notice'>You take the glass off the solar panel.</span>")
 			qdel(src)
 		return
@@ -227,20 +227,20 @@
 		if(istype(W, /obj/item/weapon/wrench))
 			anchored = 1
 			user.visible_message("[user] wrenches the solar assembly into place.", "<span class='notice'>You wrench the solar assembly into place.</span>")
-			playsound(src.loc, 'sound/items/Ratchet.ogg', 75, 1)
+			playsound(src.loc, W.usesound, 50, 1)
 			return 1
 	else
 		if(istype(W, /obj/item/weapon/wrench))
 			anchored = 0
 			user.visible_message("[user] unwrenches the solar assembly from its place.", "<span class='notice'>You unwrench the solar assembly from its place.</span>")
-			playsound(src.loc, 'sound/items/Ratchet.ogg', 75, 1)
+			playsound(src.loc, W.usesound, 50, 1)
 			return 1
 
 		if(istype(W, /obj/item/stack/sheet/glass) || istype(W, /obj/item/stack/sheet/rglass))
 			var/obj/item/stack/sheet/S = W
 			if(S.use(2))
 				glass_type = W.type
-				playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
+				playsound(loc, S.usesound, 50, 1)
 				user.visible_message("[user] places the glass on the solar assembly.", "<span class='notice'>You place the glass on the solar assembly.</span>")
 				if(tracker)
 					new /obj/machinery/power/tracker(get_turf(src), src)
@@ -263,6 +263,7 @@
 		if(istype(W, /obj/item/weapon/crowbar))
 			new /obj/item/weapon/tracker_electronics(src.loc)
 			tracker = 0
+			playsound(loc, W.usesound, 50, 1)
 			user.visible_message("[user] takes out the electronics from the solar assembly.", "<span class='notice'>You take out the electronics from the solar assembly.</span>")
 			return 1
 	..()
@@ -411,10 +412,10 @@
 
 	return data
 
-/obj/machinery/power/solar_control/attackby(I as obj, user as mob, params)
+/obj/machinery/power/solar_control/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/weapon/screwdriver))
-		playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
-		if(do_after(user, 20, target = src))
+		playsound(src.loc, I.usesound, 50, 1)
+		if(do_after(user, 20 * I.toolspeed, target = src))
 			if(src.stat & BROKEN)
 				to_chat(user, "<span class='notice'>The broken glass falls out.</span>")
 				var/obj/structure/computerframe/A = new /obj/structure/computerframe( src.loc )

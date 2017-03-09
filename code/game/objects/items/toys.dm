@@ -43,14 +43,20 @@
 /obj/item/toy/balloon/attack(mob/living/carbon/human/M as mob, mob/user as mob)
 	return
 
-/obj/item/toy/balloon/afterattack(atom/A as mob|obj, mob/user as mob, proximity)
-	if(!proximity) return
-	if(istype(A, /obj/structure/reagent_dispensers) && get_dist(src,A) <= 1)
-		A.reagents.trans_to(src, 10)
-		to_chat(user, "<span class='notice'>You fill the balloon with the contents of [A].</span>")
-		desc = "A translucent balloon with some form of liquid sloshing around in it."
-		update_icon()
-	return
+/obj/item/toy/balloon/afterattack(atom/A, mob/user, proximity)
+	if(!proximity)
+		return
+	if(istype(A, /obj/structure/reagent_dispensers))
+		var/obj/structure/reagent_dispensers/RD = A
+		if(RD.reagents.total_volume <= 0)
+			to_chat(user, "<span class='warning'>[RD] is empty.</span>")
+		else if(reagents.total_volume >= 10)
+			to_chat(user, "<span class='warning'>[src] is full.</span>")
+		else
+			A.reagents.trans_to(src, 10)
+			to_chat(user, "<span class='notice'>You fill the balloon with the contents of [A].</span>")
+			desc = "A translucent balloon with some form of liquid sloshing around in it."
+			update_icon()
 
 /obj/item/toy/balloon/wash(mob/user, atom/source)
 	if(reagents.total_volume < 10)
@@ -877,7 +883,7 @@ obj/item/toy/cards/deck/syndicate/black
 
 /obj/item/toy/minimeteor
 	name = "Mini-Meteor"
-	desc = "Relive the excitement of a meteor shower! SweetMeat-eor. Co is not responsible for any injuries, headaches or hearing loss caused by Mini-Meteor"
+	desc = "Relive the excitement of a meteor shower! SweetMeat-eor. Co is not responsible for any injuries, headaches or hearing loss caused by Mini-Meteor."
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "minimeteor"
 	w_class = 2
@@ -1295,7 +1301,7 @@ obj/item/toy/cards/deck/syndicate/black
 /obj/item/toy/minigibber/attackby(var/obj/O, var/mob/user, params)
 	if(istype(O,/obj/item/toy/character) && O.loc == user)
 		to_chat(user, "<span class='notice'>You start feeding \the [O] [bicon(O)] into \the [src]'s mini-input.</span>")
-		if(do_after(user,10, target = src))
+		if(do_after(user, 10, target = src))
 			if(O.loc != user)
 				to_chat(user, "<span class='alert'>\The [O] is too far away to feed into \the [src]!</span>")
 			else

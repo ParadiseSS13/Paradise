@@ -10,8 +10,9 @@
 	vision_restriction = 1
 	offline_vision_restriction = 2
 
-	chest_type = /obj/item/clothing/suit/space/new_rig
+	chest_type = /obj/item/clothing/suit/space/new_rig/unathi
 	helm_type = /obj/item/clothing/head/helmet/space/new_rig/unathi
+	glove_type = /obj/item/clothing/gloves/rig/unathi
 	boot_type = /obj/item/clothing/shoes/magboots/rig/unathi
 
 /obj/item/weapon/rig/unathi/fancy
@@ -23,10 +24,23 @@
 	vision_restriction = 0
 
 /obj/item/clothing/head/helmet/space/new_rig/unathi
+	icon = 'icons/obj/clothing/species/unathi/hats.dmi'
 	species_restricted = list("Unathi")
 
 /obj/item/clothing/suit/space/new_rig/unathi
+	icon = 'icons/obj/clothing/species/unathi/suits.dmi'
 	species_restricted = list("Unathi")
 
-/obj/item/clothing/shoes/magboots/rig/unathi
+/obj/item/clothing/gloves/rig/unathi
+	icon = 'icons/obj/clothing/species/unathi/gloves.dmi'
 	species_restricted = list("Unathi")
+	sprite_sheets = list(
+		"Unathi" = 'icons/mob/species/unathi/gloves.dmi'
+		)
+
+/obj/item/clothing/shoes/magboots/rig/unathi
+	icon = 'icons/obj/clothing/species/unathi/shoes.dmi'
+	species_restricted = list("Unathi")
+	sprite_sheets = list(
+		"Unathi" = 'icons/mob/species/unathi/feet.dmi'
+		)

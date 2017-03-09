@@ -171,7 +171,7 @@
 		if(gene.is_active(src))
 			speech_problem_flag = 1
 			gene.OnMobLife(src)
-	if(gene_stability < GENETIC_DAMAGE_STAGE_1)
+	if(!ignore_gene_stability && gene_stability < GENETIC_DAMAGE_STAGE_1)
 		var/instability = DEFAULT_GENE_STABILITY - gene_stability
 		if(prob(instability * 0.1))
 			adjustFireLoss(min(5, instability * 0.67))
@@ -675,14 +675,14 @@
 	// nutrition decrease
 	if(nutrition > 0 && stat != DEAD)
 		// THEY HUNGER
-		var/hunger_rate = HUNGER_FACTOR
+		var/hunger_rate = hunger_drain
 		if(satiety > 0)
 			satiety--
 		if(satiety < 0)
 			satiety++
 			if(prob(round(-satiety/40)))
 				Jitter(5)
-			hunger_rate = 3 * HUNGER_FACTOR
+			hunger_rate = 3 * hunger_drain
 		nutrition = max(0, nutrition - hunger_rate)
 
 	if(nutrition > NUTRITION_LEVEL_FULL)

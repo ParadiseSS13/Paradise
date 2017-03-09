@@ -361,6 +361,11 @@
 	desc = "A hat with bells, to add some merryness to the suit."
 	icon_state = "jester_hat"
 
+/obj/item/clothing/head/rice_hat
+	name = "rice hat"
+	desc = "Welcome to the rice fields, motherfucker."
+	icon_state = "rice_hat"
+
 /obj/item/clothing/head/griffin
 	name = "griffon head"
 	desc = "Why not 'eagle head'? Who knows."
@@ -378,7 +383,7 @@
 
 /obj/item/clothing/head/griffin/proc/caw()
 	if(cooldown < world.time - 20) // A cooldown, to stop people being jerks
-		playsound(src.loc, "sound/misc/caw.ogg", 50, 1)
+		playsound(src.loc, 'sound/misc/caw.ogg', 50, 1)
 		cooldown = world.time
 
 

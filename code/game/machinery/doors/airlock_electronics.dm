@@ -14,6 +14,8 @@
 	var/last_configurator = null
 	var/locked = TRUE
 	var/const/max_brain_damage = 60 // Maximum brain damage a mob can have until it can't use the electronics
+	toolspeed = 1
+	usesound = 'sound/items/Deconstruct.ogg'
 
 /obj/item/weapon/airlock_electronics/attack_self(mob/user)
 	if(!ishuman(user) && !isrobot(user))

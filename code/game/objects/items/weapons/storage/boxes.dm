@@ -390,60 +390,33 @@
 	icon = 'icons/obj/food/food.dmi'
 	icon_state = "monkeycubebox"
 	storage_slots = 7
-	can_hold = list("/obj/item/weapon/reagent_containers/food/snacks/monkeycube")
-	New()
-		..()
-		for(var/i = 1; i <= 5; i++)
-			new /obj/item/weapon/reagent_containers/food/snacks/monkeycube/wrapped(src)
-/obj/item/weapon/storage/box/farwacubes
+	can_hold = list(/obj/item/weapon/reagent_containers/food/snacks/monkeycube)
+	var/monkey_cube_type = /obj/item/weapon/reagent_containers/food/snacks/monkeycube
+
+/obj/item/weapon/storage/box/monkeycubes/New()
+	..()
+	for(var/i in 1 to 5)
+		new monkey_cube_type(src)
+
+/obj/item/weapon/storage/box/monkeycubes/farwacubes
 	name = "farwa cube box"
 	desc = "Drymate brand farwa cubes. Just add water!"
-	icon = 'icons/obj/food/food.dmi'
-	icon_state = "monkeycubebox"
-	storage_slots = 7
-	can_hold = list("/obj/item/weapon/reagent_containers/food/snacks/monkeycube/wrapped/farwacube")
-	New()
-		..()
-		for(var/i = 1; i <= 5; i++)
-			new /obj/item/weapon/reagent_containers/food/snacks/monkeycube/wrapped/farwacube(src)
+	monkey_cube_type = /obj/item/weapon/reagent_containers/food/snacks/monkeycube/farwacube
 
-/obj/item/weapon/storage/box/stokcubes
+/obj/item/weapon/storage/box/monkeycubes/stokcubes
 	name = "stok cube box"
 	desc = "Drymate brand stok cubes. Just add water!"
-	icon = 'icons/obj/food/food.dmi'
-	icon_state = "monkeycubebox"
-	storage_slots = 7
-	can_hold = list("/item/weapon/reagent_containers/food/snacks/monkeycube/wrapped/stokcube")
-	New()
-		..()
-		for(var/i = 1; i <= 5; i++)
-			new /obj/item/weapon/reagent_containers/food/snacks/monkeycube/wrapped/stokcube(src)
+	monkey_cube_type = /obj/item/weapon/reagent_containers/food/snacks/monkeycube/stokcube
 
-/obj/item/weapon/storage/box/neaeracubes
+/obj/item/weapon/storage/box/monkeycubes/neaeracubes
 	name = "neaera cube box"
 	desc = "Drymate brand neaera cubes. Just add water!"
-	icon = 'icons/obj/food/food.dmi'
-	icon_state = "monkeycubebox"
-	storage_slots = 7
-	can_hold = list("/obj/item/weapon/reagent_containers/food/snacks/monkeycube/wrapped/neaeracube")
-	New()
-		..()
-		for(var/i = 1; i <= 5; i++)
-			new /obj/item/weapon/reagent_containers/food/snacks/monkeycube/wrapped/neaeracube(src)
+	monkey_cube_type = /obj/item/weapon/reagent_containers/food/snacks/monkeycube/neaeracube
 
-
-/obj/item/weapon/storage/box/wolpincubes
+/obj/item/weapon/storage/box/monkeycubes/wolpincubes
 	name = "wolpin cube box"
 	desc = "Drymate brand wolpin cubes. Just add water!"
-	icon = 'icons/obj/food/food.dmi'
-	icon_state = "monkeycubebox"
-	storage_slots = 7
-	can_hold = list("/obj/item/weapon/reagent_containers/food/snacks/monkeycube/wrapped/wolpincube")
-	New()
-		..()
-		for(var/i = 1; i <= 5; i++)
-			new /obj/item/weapon/reagent_containers/food/snacks/monkeycube/wrapped/wolpincube(src)
-
+	monkey_cube_type = /obj/item/weapon/reagent_containers/food/snacks/monkeycube/wolpincube
 
 /obj/item/weapon/storage/box/permits
 	name = "box of construction permits"
@@ -588,7 +561,7 @@
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "spbox"
 	storage_slots = 8
-	can_hold = list("/obj/item/toy/snappop")
+	can_hold = list(/obj/item/toy/snappop)
 	New()
 		..()
 		for(var/i=1; i <= storage_slots; i++)
@@ -648,7 +621,7 @@
 	item_state = "syringe_kit"
 	foldable = /obj/item/stack/sheet/cardboard //BubbleWrap
 	storage_slots=21
-	can_hold = list("/obj/item/weapon/light/tube", "/obj/item/weapon/light/bulb")
+	can_hold = list(/obj/item/weapon/light/tube, /obj/item/weapon/light/bulb)
 	max_combined_w_class = 21
 	use_to_pickup = 1 // for picking up broken bulbs, not that most people will try
 

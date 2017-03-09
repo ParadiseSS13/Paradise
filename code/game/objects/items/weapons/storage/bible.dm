@@ -23,9 +23,9 @@
 	..()
 	new /obj/item/weapon/reagent_containers/food/drinks/cans/beer(src)
 	new /obj/item/weapon/reagent_containers/food/drinks/cans/beer(src)
-	new /obj/item/weapon/spacecash(src)
-	new /obj/item/weapon/spacecash(src)
-	new /obj/item/weapon/spacecash(src)
+	new /obj/item/stack/spacecash(src)
+	new /obj/item/stack/spacecash(src)
+	new /obj/item/stack/spacecash(src)
 //BS12 EDIT
  // All cult functionality moved to Null Rod
 /obj/item/weapon/storage/bible/proc/bless(mob/living/carbon/M as mob)
@@ -44,8 +44,8 @@
 		chaplain = 1
 
 
-	M.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been attacked with [src.name] by [user.name] ([user.ckey])</font>")
-	user.attack_log += text("\[[time_stamp()]\] <font color='red'>Used the [src.name] to attack [M.name] ([M.ckey])</font>")
+	M.create_attack_log("<font color='orange'>Has been attacked with [src.name] by [user.name] ([user.ckey])</font>")
+	user.create_attack_log("<font color='red'>Used the [src.name] to attack [M.name] ([M.ckey])</font>")
 	log_attack("<font color='red'>[user.name] ([user.ckey]) attacked [M.name] ([M.ckey]) with [src.name] (INTENT: [uppertext(user.a_intent)])</font>")
 
 	if(!iscarbon(user))
@@ -100,7 +100,9 @@
 	if(istype(A, /turf/simulated/floor))
 		to_chat(user, "<span class='notice'>You hit the floor with the bible.</span>")
 		if(user.mind && (user.mind.assigned_role == "Chaplain"))
-			call(/obj/effect/rune/proc/talismanreveal)(src)
+			for(var/obj/effect/rune/R in A)
+				if(R.invisibility)
+					R.talismanreveal()
 	if(user.mind && (user.mind.assigned_role == "Chaplain"))
 		if(A.reagents && A.reagents.has_reagent("water")) //blesses all the water in the holder
 			to_chat(user, "<span class='notice'>You bless [A].</span>")

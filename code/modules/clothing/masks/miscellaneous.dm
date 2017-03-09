@@ -139,12 +139,6 @@
 	w_class = 2
 	gas_transfer_coefficient = 0.90
 
-/obj/item/clothing/mask/joy
-	name = "joy mask"
-	desc = "Express your happiness or hide your sorrows with this face with tears of joy cutout."
-	icon_state = "joy"
-	flags = MASKCOVERSMOUTH
-	flags_inv = HIDEFACE
 
 /obj/item/clothing/mask/pig
 	name = "pig mask"
@@ -346,7 +340,7 @@
 	icon_override = 'icons/goonstation/mob/clothing/mask.dmi'
 	lefthand_file = 'icons/goonstation/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/goonstation/mob/inhands/clothing_righthand.dmi'
-	flags = NODROP
+	flags = NODROP | AIRTIGHT | MASKCOVERSMOUTH
 
 /obj/item/clothing/mask/cursedclown/equipped(mob/user, slot)
 	..()

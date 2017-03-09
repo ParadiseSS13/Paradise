@@ -28,6 +28,7 @@ Possible to do for anyone motivated enough:
 // 0 = RANGE BASED
 // 1 = AREA BASED
 var/const/HOLOPAD_MODE = 0
+var/list/holopads = list()
 
 /obj/machinery/hologram/holopad
 	name = "\improper AI holopad"
@@ -42,6 +43,7 @@ var/const/HOLOPAD_MODE = 0
 
 /obj/machinery/hologram/holopad/New()
 	..()
+	holopads += src
 	component_parts = list()
 	component_parts += new /obj/item/weapon/circuitboard/holopad(null)
 	component_parts += new /obj/item/weapon/stock_parts/capacitor(null)
@@ -89,13 +91,15 @@ var/const/HOLOPAD_MODE = 0
 	if(user.eyeobj.loc != src.loc)//Set client eye on the object if it's not already.
 		user.eyeobj.setLoc(get_turf(src))
 	else if(!hologram)//If there is no hologram, possibly make one.
-		activate_holo(user)
+		activate_holo(user, 0)
 	else if(master == user)//If there is a hologram, remove it. But only if the user is the master. Otherwise do nothing.
 		clear_holo()
 	return
 
-/obj/machinery/hologram/holopad/proc/activate_holo(mob/living/silicon/ai/user)
-	if(!(stat & NOPOWER) && user.eyeobj.loc == src.loc)//If the projector has power and client eye is on it.
+/obj/machinery/hologram/holopad/proc/activate_holo(mob/living/silicon/ai/user, var/force = 0)
+	if(!force && user.eyeobj.loc != src.loc) // allows holopads to pass off holograms to the next holopad in the chain
+		to_chat(user, "<font color='red'>ERROR:</font> Unable to project hologram.")
+	else if(!(stat & NOPOWER))//If the projector has power
 		if(user.holo)
 			var/obj/machinery/hologram/holopad/current = user.holo
 			current.clear_holo()
@@ -163,7 +167,17 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 					if(eye_area != holo_area)
 						return 1
 
+		var/mob/living/silicon/ai/theai = master
+		var/turf/target_turf = get_turf(master.eyeobj)
+		var/newdir = hologram.dir
 		clear_holo()//If not, we want to get rid of the hologram.
+		var/obj/machinery/hologram/holopad/pad_close = get_closest_atom(/obj/machinery/hologram/holopad, holopads, theai.eyeobj)
+		if(get_dist(pad_close, theai.eyeobj) <= pad_close.holo_range)
+			if(!(pad_close.stat & NOPOWER) && !pad_close.hologram)
+				pad_close.activate_holo(theai, 1)
+				if(pad_close.hologram)
+					pad_close.hologram.forceMove(target_turf)
+					pad_close.hologram.dir = newdir
 	return 1
 
 /obj/machinery/hologram/holopad/proc/move_hologram()
@@ -221,6 +235,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 	return
 
 /obj/machinery/hologram/holopad/Destroy()
+	holopads -= src
 	if(hologram)
 		clear_holo()
 	return ..()

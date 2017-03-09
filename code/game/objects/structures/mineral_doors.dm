@@ -115,7 +115,7 @@
 	if(istype(W,/obj/item/weapon/pickaxe))
 		var/obj/item/weapon/pickaxe/digTool = W
 		to_chat(user, "You start digging the [name].")
-		if(do_after(user,digTool.digspeed*hardness, target = src) && src)
+		if(do_after(user,digTool.digspeed * hardness, target = src) && src)
 			to_chat(user, "You finished digging.")
 			Dismantle()
 	else if(istype(W,/obj/item/weapon)) //not sure, can't not just weapons get passed to this proc?
@@ -191,7 +191,7 @@
 
 	Close()
 		..()
-		opacity = 0
+		set_opacity(0)
 
 /obj/structure/mineral_door/transparent/plasma
 	mineralType = "plasma"
@@ -228,7 +228,7 @@
 		flick("[mineralType]opening",src)
 		sleep(10)
 		density = 0
-		opacity = 0
+		set_opacity(0)
 		state = 1
 		update_icon()
 		isSwitchingStates = 0
@@ -239,7 +239,7 @@
 		flick("[mineralType]closing",src)
 		sleep(10)
 		density = 1
-		opacity = 1
+		set_opacity(1)
 		state = 0
 		update_icon()
 		isSwitchingStates = 0
@@ -265,7 +265,7 @@
 		flick("[mineralType]opening",src)
 		sleep(10)
 		density = 0
-		opacity = 0
+		set_opacity(0)
 		state = 1
 		update_icon()
 		isSwitchingStates = 0
@@ -280,7 +280,7 @@
 		flick("[mineralType]closing",src)
 		sleep(10)
 		density = 1
-		opacity = 1
+		set_opacity(1)
 		state = 0
 		update_icon()
 		isSwitchingStates = 0

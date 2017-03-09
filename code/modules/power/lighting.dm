@@ -40,14 +40,14 @@
 	src.add_fingerprint(user)
 	if(istype(W, /obj/item/weapon/wrench))
 		if(src.stage == 1)
-			playsound(src.loc, 'sound/items/Ratchet.ogg', 75, 1)
+			playsound(src.loc, W.usesound, 75, 1)
 			to_chat(usr, "You begin deconstructing [src].")
-			if(!do_after(usr, 30, target = src))
+			if(!do_after(usr, 30 * W.toolspeed, target = src))
 				return
 			new /obj/item/stack/sheet/metal( get_turf(src.loc), sheets_refunded )
 			user.visible_message("[user.name] deconstructs [src].", \
 				"You deconstruct [src].", "You hear a noise.")
-			playsound(src.loc, 'sound/items/Deconstruct.ogg', 75, 1)
+			playsound(src.loc, W.usesound, 75, 1)
 			qdel(src)
 		if(src.stage == 2)
 			to_chat(usr, "You have to remove the wires first.")
@@ -65,10 +65,10 @@
 				src.icon_state = "tube-construct-stage1"
 			if("bulb")
 				src.icon_state = "bulb-construct-stage1"
-		new /obj/item/stack/cable_coil(get_turf(src.loc), 1, "red")
+		new /obj/item/stack/cable_coil(get_turf(src.loc), 1, COLOR_RED)
 		user.visible_message("[user.name] removes the wiring from [src].", \
 			"You remove the wiring from [src].", "You hear a noise.")
-		playsound(src.loc, 'sound/items/Wirecutter.ogg', 100, 1)
+		playsound(loc, W.usesound, 100, 1)
 		return
 
 	if(istype(W, /obj/item/stack/cable_coil))
@@ -81,6 +81,7 @@
 			if("bulb")
 				src.icon_state = "bulb-construct-stage2"
 		src.stage = 2
+		playsound(loc, coil.usesound, 50, 1)
 		user.visible_message("[user.name] adds wires to [src].", \
 			"You add wires to [src].")
 		return
@@ -95,7 +96,7 @@
 			src.stage = 3
 			user.visible_message("[user.name] closes [src]'s casing.", \
 				"You close [src]'s casing.", "You hear a noise.")
-			playsound(src.loc, 'sound/items/Screwdriver.ogg', 75, 1)
+			playsound(src.loc, W.usesound, 75, 1)
 
 			switch(fixture_type)
 
@@ -348,7 +349,7 @@
 	// attempt to stick weapon into light socket
 	else if(status == LIGHT_EMPTY)
 		if(istype(W, /obj/item/weapon/screwdriver)) //If it's a screwdriver open it.
-			playsound(src.loc, 'sound/items/Screwdriver.ogg', 75, 1)
+			playsound(src.loc, W.usesound, 75, 1)
 			user.visible_message("[user.name] opens [src]'s casing.", \
 				"You open [src]'s casing.", "You hear a noise.")
 			var/obj/machinery/light_construct/newlight = null
@@ -514,14 +515,14 @@
 	status = LIGHT_EMPTY
 	update()
 
-/obj/machinery/light/proc/broken(skip_sound_and_sparks = 0)
+/obj/machinery/light/proc/broken(skip_sound_and_sparks = 0, overloaded = 0)
 	if(status == LIGHT_EMPTY || status == LIGHT_BROKEN)
 		return
 
 	if(!skip_sound_and_sparks)
 		if(status == LIGHT_OK || status == LIGHT_BURNED)
 			playsound(src.loc, 'sound/effects/Glasshit.ogg', 75, 1)
-		if(on)
+		if(on || overloaded)
 			var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 			s.set_up(3, 1, src)
 			s.start()
@@ -674,10 +675,10 @@
 
 		to_chat(user, "You inject the solution into the [src].")
 
-		if(S.reagents.has_reagent("plasma", 5))
+		if(S.reagents.has_reagent("plasma", 5) || S.reagents.has_reagent("plasma_dust", 5))
 
-			log_admin("LOG: [user.name] ([user.ckey]) injected a light with plasma, rigging it to explode.")
-			message_admins("LOG: [user.name] ([user.ckey]) injected a light with plasma, rigging it to explode.")
+			log_admin("LOG: [key_name(user)] injected a light with plasma, rigging it to explode.")
+			message_admins("LOG: [key_name_admin(user)] injected a light with plasma, rigging it to explode.")
 
 			rigged = 1
 

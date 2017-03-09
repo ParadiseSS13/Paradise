@@ -134,18 +134,36 @@ var/global/datum/zlev_manager/space_manager = new
 /datum/zlev_manager/proc/add_new_heap()
 	world.maxz++
 	var/our_z = world.maxz
-	var/datum/space_level/yup = new /datum/space_level/heap(our_z)
+	var/datum/space_level/yup = new /datum/space_level/heap(our_z, traits = list(BLOCK_TELEPORT, ADMIN_LEVEL))
 	z_list["[our_z]"] = yup
 	return yup
 
 // This is what you can call to allocate a section of space
 // Later, I'll add an argument to let you define the flags on the region
 /datum/zlev_manager/proc/allocate_space(width, height)
+	if(width > world.maxx || height > world.maxy)
+		throw EXCEPTION("Too much space requested! \[[width],[height]\]")
 	if(!heaps.len)
 		heaps.len++
 		heaps[heaps.len] = add_new_heap()
 	var/datum/space_level/heap/our_heap
+	var/weve_got_vacancy = 0
 	for(our_heap in heaps)
-		var/weve_got_vacancy = our_heap.request(width, height)
+		weve_got_vacancy = our_heap.request(width, height)
 		if(weve_got_vacancy)
 			break // We're sticking with the present value of `our_heap` - it's got room
+		// This loop will also run out if no vacancies are found
+
+	if(!weve_got_vacancy)
+		heaps.len++
+		our_heap = add_new_heap()
+		heaps[heaps.len] = our_heap
+	return our_heap.allocate(width, height)
+
+/datum/zlev_manager/proc/free_space(datum/space_chunk/C)
+	if(!istype(C))
+		return
+	var/datum/space_level/heap/heap = z_list["[C.zpos]"]
+	if(!istype(heap))
+		throw EXCEPTION("Attempted to free chunk at invalid z-level ([C.x],[C.y],[C.zpos]) [C.width]x[C.height]")
+	heap.free(C)

@@ -2,7 +2,7 @@
 	name = "clothing"
 	burn_state = FLAMMABLE
 	var/list/species_restricted = null //Only these species can wear this kit.
-	var/rig_restrict_helmet = 0 // Stops the user from equipping a rig helmet without attaching it to the suit first.
+	var/hardsuit_restrict_helmet = 0 // Stops the user from equipping a hardsuit helmet without attaching it to the suit first.
 	var/scan_reagents = 0 //Can the wearer see reagents while it's equipped?
 
 	/*
@@ -24,6 +24,7 @@
 	var/toggle_message = null
 	var/alt_toggle_message = null
 	var/active_sound = null
+	var/toggle_sound = null
 	var/toggle_cooldown = null
 	var/cooldown = 0
 	var/species_disguise = null
@@ -193,13 +194,14 @@ BLIND     // can't see anything
 		"Drask" = 'icons/mob/species/drask/gloves.dmi'
 		)
 
-/obj/item/clothing/gloves/proc/Touch()
-	return
+// Called just before an attack_hand(), in mob/UnarmedAttack()
+/obj/item/clothing/gloves/proc/Touch(atom/A, proximity)
+	return 0 // return 1 to cancel attack_hand()
 
 /obj/item/clothing/gloves/attackby(obj/item/weapon/W, mob/user, params)
 	if(istype(W, /obj/item/weapon/wirecutters))
 		if(!clipped)
-			playsound(src.loc, 'sound/items/Wirecutter.ogg', 100, 1)
+			playsound(src.loc, W>usesound, 100, 1)
 			user.visible_message("<span class='warning'>[user] snips the fingertips off [src].</span>","<span class='warning'>You snip the fingertips off [src].</span>")
 			clipped = 1
 			name = "mangled [name]"
@@ -397,7 +399,7 @@ BLIND     // can't see anything
 	if(istype(I, /obj/item/weapon/wirecutters))
 		if(can_cut_open)
 			if(!cut_open)
-				playsound(src.loc, 'sound/items/Wirecutter.ogg', 100, 1)
+				playsound(src.loc, I.usesound, 100, 1)
 				user.visible_message("<span class='warning'>[user] cuts open the toes of [src].</span>","<span class='warning'>You cut open the toes of [src].</span>")
 				cut_open = 1
 				icon_state = "[icon_state]_opentoe"
@@ -565,7 +567,7 @@ BLIND     // can't see anything
 	permeability_coefficient = 0.90
 	slot_flags = SLOT_ICLOTHING
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
-	species_fit = list("Vox")
+	species_fit = list("Vox", "Drask")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/uniform.dmi',
 		"Drask" = 'icons/mob/species/drask/uniform.dmi'

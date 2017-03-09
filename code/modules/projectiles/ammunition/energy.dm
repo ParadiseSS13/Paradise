@@ -118,23 +118,11 @@
 	projectile_type = /obj/item/projectile/meteor
 	select_name = "goddamn meteor"
 
-/obj/item/ammo_casing/energy/kinetic
-	projectile_type = /obj/item/projectile/kinetic
-	select_name = "kinetic"
-	e_cost = 5000
-	fire_sound = 'sound/weapons/Kenetic_accel.ogg' // fine spelling there chap
-
-/obj/item/ammo_casing/energy/kinetic/super
-	projectile_type = /obj/item/projectile/kinetic/super
-
-/obj/item/ammo_casing/energy/kinetic/hyper
-	projectile_type = /obj/item/projectile/kinetic/hyper
-
 /obj/item/ammo_casing/energy/disabler
 	projectile_type = /obj/item/projectile/beam/disabler
 	select_name  = "disable"
 	e_cost = 500
-	fire_sound = "sound/weapons/taser2.ogg"
+	fire_sound = 'sound/weapons/taser2.ogg'
 
 /obj/item/ammo_casing/energy/plasma
 	projectile_type = /obj/item/projectile/plasma
@@ -151,7 +139,7 @@
 /obj/item/ammo_casing/energy/wormhole
 	projectile_type = /obj/item/projectile/beam/wormhole
 	e_cost = 0
-	fire_sound = "sound/weapons/pulse3.ogg"
+	fire_sound = 'sound/weapons/pulse3.ogg'
 	var/obj/item/weapon/gun/energy/wormhole_projector/gun = null
 	select_name = "blue"
 
@@ -205,7 +193,7 @@
 
 /obj/item/ammo_casing/energy/toxplasma
 	projectile_type = /obj/item/projectile/energy/toxplasma
-	fire_sound = "sound/weapons/taser2.ogg"
+	fire_sound = 'sound/weapons/taser2.ogg'
 	select_name = "plasma dart"
 
 /obj/item/ammo_casing/energy/clown
