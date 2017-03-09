@@ -7,6 +7,20 @@ var/const/APC_WIRE_MAIN_POWER1 = 2
 var/const/APC_WIRE_MAIN_POWER2 = 4
 var/const/APC_WIRE_AI_CONTROL = 8
 
+/datum/wires/apc/GetWireName(index)
+	switch(index)
+		if(APC_WIRE_IDSCAN)
+			return "ID Scan"
+		
+		if(APC_WIRE_MAIN_POWER1)
+			return "Primary Power"
+		
+		if(APC_WIRE_MAIN_POWER2)
+			return "Secondary Power"
+		
+		if(APC_WIRE_AI_CONTROL)
+			return "AI Control"
+
 /datum/wires/apc/get_status()
 	. = ..()
 	var/obj/machinery/power/apc/A = holder

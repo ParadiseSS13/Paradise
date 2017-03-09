@@ -874,8 +874,8 @@
 
 		if(!anchored && !isinspace())
 			user.visible_message("[user] begins to wrench [src] into place.", "<span class='notice'>You begin to wrench [src] in place...</span>")
-			playsound(loc, 'sound/items/Ratchet.ogg', 50, 1)
-			if (do_after(user, 20, target = src))
+			playsound(loc, O.usesound, 50, 1)
+			if (do_after(user, 20 * O.toolspeed, target = src))
 				if(anchored)
 					return
 				anchored = 1
@@ -884,8 +884,8 @@
 		else if(anchored)
 			user.visible_message("[user] begins to unwrench [src].", \
 								"<span class='notice'>You begin to unwrench [src]...</span>")
-			playsound(loc, 'sound/items/Ratchet.ogg', 50, 1)
-			if (do_after(user, 20, target = src))
+			playsound(loc, O.usesound, 50, 1)
+			if (do_after(user, 20 * O.toolspeed, target = src))
 				if(!anchored)
 					return
 				anchored = 0
@@ -894,7 +894,7 @@
 
 	else if(iswirecutter(O) && wrenchable)
 		using_irrigation = !using_irrigation
-		playsound(src, 'sound/items/Wirecutter.ogg', 50, 1)
+		playsound(src, O.usesound, 50, 1)
 		user.visible_message("<span class='notice'>[user] [using_irrigation ? "" : "dis"]connects [src]'s irrigation hoses.</span>", \
 		"<span class='notice'>You [using_irrigation ? "" : "dis"]connect [src]'s irrigation hoses.</span>")
 		for(var/obj/machinery/hydroponics/h in range(1,src))
@@ -905,11 +905,11 @@
 			to_chat(user, "<span class='warning'>[src] doesn't have any plants or weeds!</span>")
 			return
 		user.visible_message("<span class='notice'>[user] starts digging out [src]'s plants...</span>", "<span class='notice'>You start digging out [src]'s plants...</span>")
-		playsound(src, 'sound/effects/shovel_dig.ogg', 50, 1)
-		if(!do_after(user, 50, target = src) || (!myseed && !weedlevel))
+		playsound(src, O.usesound, 50, 1)
+		if(!do_after(user, 25 * O.toolspeed, target = src) || (!myseed && !weedlevel))
 			return
 		user.visible_message("<span class='notice'>[user] digs out the plants in [src]!</span>", "<span class='notice'>You dig out all of [src]'s plants!</span>")
-		playsound(src, 'sound/effects/shovel_dig.ogg', 50, 1)
+		playsound(src, O.usesound, 50, 1)
 		if(myseed) //Could be that they're just using it as a de-weeder
 			age = 0
 			plant_health = 0

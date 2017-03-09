@@ -26,6 +26,26 @@ var/const/CAMERA_WIRE_ALARM = 8
 var/const/CAMERA_WIRE_NOTHING1 = 16
 var/const/CAMERA_WIRE_NOTHING2 = 32
 
+/datum/wires/camera/GetWireName(index)
+	switch(index)
+		if(CAMERA_WIRE_FOCUS)
+			return "Focus"
+		
+		if(CAMERA_WIRE_POWER)
+			return "Power"
+		
+		if(CAMERA_WIRE_LIGHT)
+			return "Light"
+			
+		if(CAMERA_WIRE_ALARM)
+			return "Alarm"
+		
+		if(CAMERA_WIRE_NOTHING1)
+			return "Nothing"
+		
+		if(CAMERA_WIRE_NOTHING2)
+			return "Nothing"			
+
 /datum/wires/camera/UpdateCut(index, mended)
 	var/obj/machinery/camera/C = holder
 

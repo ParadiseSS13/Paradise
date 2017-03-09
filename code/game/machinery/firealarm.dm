@@ -97,7 +97,7 @@ FIRE ALARM
 
 				else if(istype(W, /obj/item/weapon/wirecutters))  // cutting the wires out
 					to_chat(user, "<span class='warning'>You cut the wires!</span>")
-					playsound(loc, 'sound/items/Wirecutter.ogg', 50, 1)
+					playsound(loc, W.usesound, 50, 1)
 					var/obj/item/stack/cable_coil/new_coil = new /obj/item/stack/cable_coil()
 					new_coil.amount = 5
 					new_coil.loc = user.loc
@@ -111,17 +111,18 @@ FIRE ALARM
 						return
 
 					buildstage = 2
+					playsound(get_turf(src), W.usesound, 50, 1)
 					to_chat(user, "<span class='notice'>You wire \the [src]!</span>")
 					update_icon()
 
 				else if(istype(W, /obj/item/weapon/crowbar))
 					to_chat(user, "<span class='warning'>You pry out the circuit!</span>")
-					playsound(get_turf(src), 'sound/items/Crowbar.ogg', 50, 1)
-					if(do_after(user, 20, target = src))
+					playsound(get_turf(src), W.usesound, 50, 1)
+					if(do_after(user, 20 * W.toolspeed, target = src))
 						if(buildstage != 1)
 							return
 						var/obj/item/weapon/firealarm_electronics/circuit = new /obj/item/weapon/firealarm_electronics()
-						circuit.loc = user.loc
+						circuit.forceMove(get_turf(src))
 						buildstage = 0
 						update_icon()
 			if(0)
@@ -134,7 +135,7 @@ FIRE ALARM
 				else if(istype(W, /obj/item/weapon/wrench))
 					to_chat(user, "<span class='warning'>You remove the fire alarm assembly from the wall!</span>")
 					new /obj/item/mounted/frame/firealarm(get_turf(user))
-					playsound(get_turf(src), 'sound/items/Ratchet.ogg', 50, 1)
+					playsound(get_turf(src), W.usesound, 50, 1)
 					qdel(src)
 		return
 
@@ -275,6 +276,8 @@ Just a object used in constructing fire alarms
 	desc = "A circuit. It has a label on it, it says \"Can handle heat levels up to 40 degrees celsius!\""
 	w_class = 2
 	materials = list(MAT_METAL=50, MAT_GLASS=50)
+	toolspeed = 1
+	usesound = 'sound/items/Deconstruct.ogg'
 
 /obj/machinery/partyalarm
 	name = "\improper PARTY BUTTON"
