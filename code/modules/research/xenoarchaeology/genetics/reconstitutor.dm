@@ -183,7 +183,7 @@ datum/genesequence
 		if(pod1)
 			if(pod1.occupant)
 				visible_message("\red [bicon(src)] The cloning pod is currently occupied.")
-			else if(pod1.biomass < CLONE_BIOMASS)
+			else if(pod1.meat_level < MEAT_NEEDED_TO_CLONE)
 				visible_message("\red [bicon(src)] Not enough biomass in the cloning pod.")
 			else if(pod1.mess)
 				visible_message("\red [bicon(src)] Error: clonepod malfunction.")
@@ -194,7 +194,7 @@ datum/genesequence
 				pod1.locked = 1
 				pod1.icon_state = "pod_1"
 				//pod1.occupant.name = "[pod1.occupant.name] ([rand(0,999)])"
-				pod1.biomass -= CLONE_BIOMASS
+				pod1.meat_level -= MEAT_NEEDED_TO_CLONE
 		else
 			to_chat(usr, "\red [bicon(src)] Unable to locate cloning pod!")
 	else
