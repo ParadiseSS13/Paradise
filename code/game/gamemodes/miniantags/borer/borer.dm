@@ -322,7 +322,7 @@
 
 	to_chat(src, "You slither up [M] and begin probing at their ear canal...")
 
-	if(!do_after(src,50, target = M))
+	if(!do_after(src, 50, target = M))
 		to_chat(src, "As [M] moves away, you are dislodged and fall to the ground.")
 		return
 

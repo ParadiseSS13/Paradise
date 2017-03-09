@@ -14,10 +14,10 @@
 	user.changeNext_move(CLICK_CD_MELEE)
 	if(iswrench(W))
 		if(anchored)
-			playsound(loc, 'sound/items/Ratchet.ogg', 100, 1)
+			playsound(loc, W.usesound, 100, 1)
 			user.visible_message("[user] is loosening the [name]'s bolts.", \
 								 "<span class='notice'>You are loosening the [name]'s bolts...</span>")
-			if(do_after(user, 40, target = src))
+			if(do_after(user, 40 * W.toolspeed, target = src))
 				if(!loc || !anchored)
 					return
 				user.visible_message("[user] loosened the [name]'s bolts!", \
@@ -27,10 +27,10 @@
 			if(!isfloorturf(loc))
 				user.visible_message("<span class='warning'>A floor must be present to secure the [name]!</span>")
 				return
-			playsound(loc, 'sound/items/Ratchet.ogg', 100, 1)
+			playsound(loc, W.usesound, 100, 1)
 			user.visible_message("[user] is securing the [name]'s bolts...", \
 								 "<span class='notice'>You are securing the [name]'s bolts...</span>")
-			if(do_after(user, 40, target = src))
+			if(do_after(user, 40 * W.toolspeed, target = src))
 				if(!loc || anchored)
 					return
 				user.visible_message("[user] has secured the [name]'s bolts.", \
@@ -38,10 +38,10 @@
 				anchored = 1
 
 	else if(istype(W, /obj/item/weapon/gun/energy/plasmacutter))
-		playsound(src, 'sound/items/Welder.ogg', 100, 1)
+		playsound(src, W.usesound, 100, 1)
 		user.visible_message("[user] is slicing apart the [name]...", \
 							 "<span class='notice'>You are slicing apart the [name]...</span>")
-		if(do_after(user, 40, target = src))
+		if(do_after(user, 40 * W.toolspeed, target = src))
 			if(!loc)
 				return
 			user.visible_message("[user] slices apart the [name].", \
@@ -58,13 +58,13 @@
 		qdel(src)
 
 	else if(iswelder(W) && !anchored)
-		playsound(loc, 'sound/items/Welder.ogg', 40, 1)
+		playsound(loc, W.usesound, 40, 1)
 		user.visible_message("[user] is slicing apart the [name].", \
 							 "<span class='notice'>You are slicing apart the [name]...</span>")
-		if(do_after(user, 40, target = src))
+		if(do_after(user, 40 * W.toolspeed, target = src))
 			if(!loc)
 				return
-			playsound(loc, 'sound/items/Welder2.ogg', 50, 1)
+			playsound(loc, W.usesound, 50, 1)
 			user.visible_message("[user] slices apart the [name].", \
 								 "<span class='notice'>You slice apart the [name]!</span>")
 			Dismantle(TRUE)

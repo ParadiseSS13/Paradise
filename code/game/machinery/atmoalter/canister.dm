@@ -631,9 +631,9 @@ update_flag
 
 	// Do after stuff here
 	to_chat(user, "<span class='notice'>You start to slice away at \the [src]...</span>")
-	playsound(src.loc, 'sound/items/Welder.ogg', 50, 1)
+	playsound(src.loc, WT.usesound, 50, 1)
 	busy = 1
-	if(do_after(user, 50, target = src))
+	if(do_after(user, 50 * WT.toolspeed, target = src))
 		busy = 0
 		if(!WT.isOn())
 			return 0
