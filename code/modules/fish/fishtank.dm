@@ -293,7 +293,7 @@
 		fish_list.Add(fish_type)					//Add a fish of the specified type
 		fish_count++								//Increase fish_count to reflect the introduction of a fish, so the everything else works fine
 		//Announce the new fish
-		src.visible_message("A new [fish_type.fish_name] has hatched in \the [src]!")
+		visible_message("A new [fish_type.fish_name] has hatched in \the [src]!")
 	//Null type fish are dud eggs, give a message to inform the player
 	else
 		to_chat(usr, "The eggs disolve in the water. They were duds!")
