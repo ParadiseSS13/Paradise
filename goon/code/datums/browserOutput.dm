@@ -266,9 +266,4 @@ var/to_chat_src
 				C.chatOutput.messageQueue.Add(message)
 				return
 
-		// url_encode it TWICE, this way any UTF-8 characters are able to be decoded by the javascript.
-		var/output_message = "[url_encode(url_encode(message))]"
-		if(flag)
-			output_message += "&[url_encode(flag)]"
-
-		target << output(output_message, "browseroutput:output")
+		target << output(url_encode(message), "browseroutput:output")

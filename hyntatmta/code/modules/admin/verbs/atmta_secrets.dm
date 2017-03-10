@@ -4,10 +4,22 @@
 	var/turf/T = get_turf(usr)
 	var/mob/living/carbon/human/dummy/D = new /mob/living/carbon/human/dummy(T)
 	usr.client.cmd_assume_direct_control(D)
-	D.equip_to_slot_or_del(new /obj/item/clothing/under/lawyer/oldman(D), slot_w_uniform)
-	D.equip_to_slot_or_del(new /obj/item/clothing/shoes/black(D), slot_shoes)
-	D.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/satchel(D), slot_back)
-	playsound(D.loc, 'sound/misc/adminspawn.ogg', 50, 0)
+	if(ckey == "itblackwood")
+		D.equip_to_slot_or_del(new /obj/item/clothing/under/atmta/hunter(D), slot_w_uniform)
+		D.equip_to_slot_or_del(new /obj/item/clothing/shoes/atmta/hunter_boots(D), slot_shoes)
+		D.equip_to_slot_or_del(new /obj/item/clothing/head/atmta/helmet/hunter(D), slot_head)
+		D.equip_to_slot_or_del(new /obj/item/clothing/suit/atmta/hunter_coat(D), slot_wear_suit)
+		D.equip_to_slot_or_del(new /obj/item/clothing/mask/atmta/hunter_mask(D), slot_wear_mask)
+		playsound(D.loc, 'sound/misc/adminspawn2.ogg', 50, 0)
+		D.name = "ITBlackwood"
+		D.real_name = "ITBlackwood"
+	else
+		D.equip_to_slot_or_del(new /obj/item/clothing/under/lawyer/oldman(D), slot_w_uniform)
+		D.equip_to_slot_or_del(new /obj/item/clothing/shoes/black(D), slot_shoes)
+		D.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/satchel(D), slot_back)
+		playsound(D.loc, 'sound/misc/adminspawn2.ogg', 50, 0)
+		D.name = "Admin"
+		D.real_name = "Admin"
 	var/atom/movable/overlay/animation = null
 	animation = new(D.loc)
 	animation.icon_state = "blank" // Зачем? Не знаю.
@@ -16,14 +28,6 @@
 	flick("beamin", animation)
 	spawn(15)
 		if(animation)	qdel(animation) //Это чтобы оверлей не оставался висеть.
-	D.name = "Admin"
-	D.real_name = "Admin"
-	var/newname = ""
-	newname = copytext(sanitize(input(D, "Before you step out as an embodied god, what name do you wish for?", "Choose your name.", "Admin") as null|text),1,MAX_NAME_LEN)
-	if (!newname)
-		newname = "Admin"
-		D.name = newname
-		D.real_name = newname
-		var/obj/item/weapon/card/id/admin/admin_id = new(D)
-		admin_id.registered_name = newname
-		D.equip_to_slot_or_del(admin_id, slot_wear_id)
+	var/obj/item/weapon/card/id/admin/admin_id = new(D)
+	admin_id.registered_name = D.name
+	D.equip_to_slot_or_del(admin_id, slot_wear_id)
