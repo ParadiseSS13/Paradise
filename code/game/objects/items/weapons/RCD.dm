@@ -378,6 +378,9 @@ RCD
 	explosion(src, 0, 0, 3, 1, flame_range = 1)
 	qdel(src)
 
+/obj/item/weapon/rcd/preloaded
+	matter = 100
+
 /obj/item/weapon/rcd/combat
 	name = "combat RCD"
 	max_matter = 500
