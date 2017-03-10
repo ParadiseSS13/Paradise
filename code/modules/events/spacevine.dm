@@ -269,6 +269,15 @@
 	quality = NEGATIVE
 
 /datum/spacevine_mutation/aggressive_spread/on_spread(obj/effect/spacevine/holder, turf/target)
+	if(istype(target, /turf/simulated/wall/r_wall))
+		// Too tough to pierce - should lead to interesting spread patterns
+		return
+	// Bust through windows or other stuff blocking the way
+	if(!target.Enter(holder))
+		for(var/atom/movable/AM in target)
+			if(istype(AM, /obj/effect/spacevine) || !AM.density)
+				continue
+			AM.ex_act(severity)
 	target.ex_act(severity) // vine immunity handled at /mob/ex_act
 	. = TRUE
 

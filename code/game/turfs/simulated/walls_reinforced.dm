@@ -313,11 +313,3 @@
 	else
 		smooth = SMOOTH_TRUE
 		icon_state = ""
-
-/turf/simulated/wall/r_wall/ex_act(severity)
-	if(severity == 2)
-		return ..(3)
-	else if(severity >= 3)
-		// shrug off small explosions
-		return
-	return ..()
