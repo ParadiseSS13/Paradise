@@ -1,5 +1,0 @@
-author: "Crazylemon64"
-delete-after: True
-changes: 
-  - rscadd: "Adds an \"ethereal beacon\", an admin-only structure usable to attract ghosts to an area."
-  - rscadd: "Adds several transformer machines to streamline the ghost-to-PC process."
