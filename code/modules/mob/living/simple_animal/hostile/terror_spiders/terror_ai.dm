@@ -182,7 +182,6 @@
 			var/mob/living/M = A
 			if(!("terrorspiders" in M.faction))
 				enemies |= M
-				visible_message("<span class='danger'>[src] glares at [M]!</span>")
 		else if(istype(A, /obj/mecha))
 			var/obj/mecha/M = A
 			if(M.occupant)
