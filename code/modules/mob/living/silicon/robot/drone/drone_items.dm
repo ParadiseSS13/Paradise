@@ -28,7 +28,7 @@
 		/obj/item/weapon/tank,
 		/obj/item/weapon/circuitboard,
 		/obj/item/stack/tile/light,
-		/obj/item/weapon/ore/bluespace_crystal/artificial
+		/obj/item/weapon/ore/bluespace_crystal
 		)
 
 	//Item currently being held.
