@@ -35,6 +35,7 @@
 
 		return 0
 	on = !on
+	playsound(user, 'sound/weapons/empty.ogg', 100, 1)
 	update_brightness(user)
 	for(var/X in actions)
 		var/datum/action/A = X
