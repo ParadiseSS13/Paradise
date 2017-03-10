@@ -47,7 +47,7 @@
 	if(istype(drill, /obj/item/mecha_parts/mecha_equipment/drill/diamonddrill))
 		if(drill.do_after_cooldown(src))//To slow down how fast mechs can drill through the station
 			drill.log_message("Drilled through [src]")
-			ex_act(3)
+			ex_act(2)
 	else
 		drill.occupant_message("<span class='danger'>[src] is too durable to drill through.</span>")
 
