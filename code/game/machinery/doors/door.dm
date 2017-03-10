@@ -39,19 +39,23 @@
 	else
 		layer = open_layer
 
+	update_dir()
+	update_freelook_sight()
+	airlocks += src
+	
+/obj/machinery/door/setDir(newdir)
+	..()
+	update_dir()
 
+/obj/machinery/door/proc/update_dir()
 	if(width > 1)
 		if(dir in list(EAST, WEST))
 			bound_width = width * world.icon_size
 			bound_height = world.icon_size
 		else
 			bound_width = world.icon_size
-			bound_height = width * world.icon_size
-
-	update_freelook_sight()
-	airlocks += src
-	return
-
+			bound_height = width * world.icon_size	
+	
 /obj/machinery/door/initialize()
 	air_update_turf(1)
 	..()

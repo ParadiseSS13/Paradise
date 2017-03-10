@@ -210,7 +210,8 @@
 
 // leave the disposal
 /obj/machinery/disposal/proc/go_out(mob/user)
-	user.forceMove(loc)
+	if(user)
+		user.forceMove(loc)
 	update()
 
 // ai as human but can't flush
@@ -1145,6 +1146,19 @@
 
 	update()
 	return
+	
+/obj/structure/disposalpipe/trunk/Destroy()
+	if(istype(linked, /obj/structure/disposaloutlet))
+		var/obj/structure/disposaloutlet/O = linked
+		O.expel()
+	else if(istype(linked, /obj/machinery/disposal))
+		var/obj/machinery/disposal/D = linked
+		if(D.trunk == src)
+			D.go_out()
+			D.trunk = null
+
+	linked = null
+	return ..()
 
 /obj/structure/disposalpipe/trunk/proc/getlinked()
 	linked = null
@@ -1285,7 +1299,7 @@
 
 		if(H)
 			for(var/atom/movable/AM in H)
-				AM.loc = src.loc
+				AM.forceMove(loc)
 				AM.pipe_eject(dir)
 				if(!istype(AM,/mob/living/silicon/robot/drone)) //Drones keep smashing windows from being fired out of chutes. Bad for the station. ~Z
 					spawn(5)
