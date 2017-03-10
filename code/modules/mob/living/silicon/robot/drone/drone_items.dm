@@ -12,6 +12,7 @@
 		/obj/item/weapon/firealarm_electronics,
 		/obj/item/weapon/airalarm_electronics,
 		/obj/item/weapon/airlock_electronics,
+		/obj/item/weapon/firelock_electronics,
 		/obj/item/weapon/intercom_electronics,
 		/obj/item/weapon/apc_electronics,
 		/obj/item/weapon/stock_parts,
@@ -26,7 +27,8 @@
 		/obj/item/weapon/camera_assembly,
 		/obj/item/weapon/tank,
 		/obj/item/weapon/circuitboard,
-		/obj/item/stack/tile/light
+		/obj/item/stack/tile/light,
+		/obj/item/weapon/ore/bluespace_crystal/artificial
 		)
 
 	//Item currently being held.
