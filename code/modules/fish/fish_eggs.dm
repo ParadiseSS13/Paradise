@@ -7,11 +7,6 @@
 	w_class = 2
 	var/datum/fish/fish_type = null			//Holds the datum of the fish that the egg is for, null means dud eggs
 
-/obj/item/fish_eggs/New()
-	..()
-	if(fish_type)
-		fish_type = new fish_type
-
 /obj/item/fish_eggs/goldfish
 	name = "goldfish eggs"
 	desc = "Goldfish eggs, surprisingly, don't contain actual gold."

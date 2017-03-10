@@ -42,7 +42,7 @@
 	if(!my_tank || !istype(my_tank))
 		return
 	if(my_tank.filth_level > 0 && prob(33))
-		my_tank.filth_level -= 0.1
+		my_tank.adjust_filth_level(-0.1)
 
 /datum/fish/salmon
 	fish_name = "salmon"
@@ -66,7 +66,7 @@
 	if(my_tank.fish_count < 2)
 		return
 	if(my_tank.food_level <= 5 && prob(25))
-		my_tank.food_level += 1
+		my_tank.adjust_food_level(1)
 		my_tank.kill_fish(src)
 
 /datum/fish/electric_eel

@@ -112,7 +112,7 @@
 	if(light_switch)
 		set_light(2,2,"#a0a080")
 	else
-		adjust_light()
+		adjust_tank_light()
 
 //////////////////////////////
 //		NEW() PROCS			//
@@ -185,10 +185,9 @@
 	if((fish_count * 50) > water_level)
 		if(prob(50))								//Not enough water for all the fish, chance to kill one
 			kill_fish()								//Chance passed, kill a random fish
-			filth_level += 2						//Dead fish raise the filth level quite a bit, reflect this
+			adjust_filth_level(2)					//Dead fish raise the filth level quite a bit, reflect this
 
 	//Check filth_level
-	check_filth_level()
 	if(filth_level == 10 && fish_count > 0)			//This tank is nasty and possibly unsuitable for fish if any are in it
 		if(prob(30))								//Chance for a fish to die each cycle while the tank is this nasty
 			kill_fish()								//Kill a random fish, don't raise filth level since we're at cap already
@@ -198,29 +197,26 @@
 		if(food_level >= 0.2 && filth_level <=5)	//Breeding is going to use extra food, and the filth_level shouldn't be too high
 			if(prob(((fish_count - 2) * 5)+10))		//Chances increase with each additional fish, 10% base + 5% per additional fish
 				breed_fish()
-				food_level -= 0.2					//Remove extra food for the breeding process
+				adjust_food_level(-0.2)				//Remove extra food for the breeding process
 				ate_food = 1
 
 	//Handle standard food and filth adjustments
-	check_food_level()
 	if(food_level > 0 && prob(50))					//Chance for the fish to eat some food
 		if(food_level >= (fish_count * 0.1))		//If there is at least enough food to go around, feed all the fish
-			food_level -= fish_count * 0.1
+			adjust_food_level(fish_count * -0.1)
 		else										//Use up the last of the food
-			food_level = 0
+			adjust_food_level(-food_level)
 		ate_food = 1
-	check_food_level()
 
 	if(water_level > 0)								//Don't dirty the tank if it has no water
 		if(fish_count == 0)							//If the tank has no fish, algae growth can occur
 			if(filth_level < 7.5 && prob(15))		//Algae growth is a low chance and cannot exceed filth_level of 7.5
-				filth_level += 0.05					//Algae growth is slower than fish filth build-up
+				adjust_filth_level(0.05)			//Algae growth is slower than fish filth build-up
 		else if(filth_level < 10 && prob(10))		//Chance for the tank to get dirtier if the filth_level isn't 10
 			if(ate_food && prob(25))				//If they ate this cycle, there is an additional chance they make a bigger mess
-				filth_level += fish_count * 0.1
+				adjust_filth_level(fish_count * 0.1)
 			else									//If they didn't make the big mess, make a little one
-				filth_level += 0.1
-	check_filth_level()
+				adjust_filth_level(0.1)
 
 	//Handle special interactions
 	handle_special_interactions()
@@ -228,10 +224,10 @@
 	//Handle water leakage from damage
 	if(water_level > 0)								//Can't leak water if there is no water in the tank
 		if(leaking == 2)							//At or below 25% health, the tank will lose 10 water_level per cycle (major leak)
-			water_level -= 10
+			adjust_water_level(-10)
 		else if(leaking == 1)						//At or below 50% health, the tank will lose 1 water_level per cycle (minor leak)
-			water_level -= 1
-	check_water_level()
+			adjust_water_level(-1)
+	update_icon()
 
 //////////////////////////////
 //		SUPPORT PROCS		//
@@ -240,12 +236,9 @@
 /obj/machinery/fishtank/proc/handle_special_interactions()
 	for(var/datum/fish/fish in fish_list)
 		fish.special_interact(src)
-	check_food_level()
-	check_filth_level()
-	check_water_level()
-	adjust_light()
+	adjust_tank_light()
 
-/obj/machinery/fishtank/proc/adjust_light()
+/obj/machinery/fishtank/proc/adjust_tank_light()
 	if(light_switch)								//tank light overrides fish lights
 		return
 	else
@@ -258,15 +251,15 @@
 		else
 			set_light(0, 0)
 
-/obj/machinery/fishtank/proc/check_water_level()
-	water_level = min(water_capacity, max(0, water_level))
+/obj/machinery/fishtank/proc/adjust_water_level(amount = 0)
+	water_level = min(water_capacity, max(0, water_level + amount))
 	update_icon()
 
-/obj/machinery/fishtank/proc/check_filth_level()
-	filth_level = min(10, max(0, filth_level))
+/obj/machinery/fishtank/proc/adjust_filth_level(amount = 0)
+	filth_level = min(10, max(0, filth_level + amount))
 
-/obj/machinery/fishtank/proc/check_food_level()
-	food_level = min(10, max(0, food_level))
+/obj/machinery/fishtank/proc/adjust_food_level(amount = 0)
+	food_level = min(10, max(0, food_level + amount))
 
 /obj/machinery/fishtank/proc/check_health()
 	//Max value check
@@ -289,12 +282,14 @@
 		fish_type = pick(fish_list)
 	fish_list.Remove(fish_type)						//Kill a fish of the specified type
 	fish_count --									//Lower fish_count to reflect the death of a fish, so the everything else works fine
-	if(istype(type, /datum/fish/glofish))
-		adjust_light()
+	if(istype(fish_type, /datum/fish/glofish))
+		adjust_tank_light()
+	qdel(fish_type)
 
 /obj/machinery/fishtank/proc/add_fish(datum/fish/fish_type = null)
 	//Check if we were passed a fish type
 	if(fish_type)
+		fish_type = new fish_type
 		fish_list.Add(fish_type)					//Add a fish of the specified type
 		fish_count++								//Increase fish_count to reflect the introduction of a fish, so the everything else works fine
 		//Announce the new fish
@@ -654,13 +649,13 @@
 						return
 					else
 						message = "The filtration process purifies the water, raising the water level."
-						water_level += water_value
-						if(water_level == water_capacity)
+
+						if((water_level + water_value) == water_capacity)
 							message += " You filled \the [src] to the brim!"
-						if(water_level > water_capacity)
+						if((water_level + water_value) > water_capacity)
 							message += " You overfilled \the [src] and some water runs down the side, wasted."
 						C.reagents.clear_reagents()
-				check_water_level()
+						adjust_water_level(water_value)
 				user.visible_message("[user.name] pours the contents of [C.name] into \the [src].", "[message]")
 				return
 			//Empty containers will scoop out water, filling the container as much as possible from the water_level
@@ -670,13 +665,12 @@
 				else
 					if(water_level >= C.volume)										//Enough to fill the container completely
 						C.reagents.add_reagent("fishwater", C.volume)
-						water_level -= C.volume
+						adjust_water_level(-C.volume)
 						user.visible_message("[user.name] scoops out some water from \the [src].", "You completely fill [C.name] from \the [src].")
 					else															//Fill the container as much as possible with the water_level
 						C.reagents.add_reagent("fishwater", water_level)
-						water_level = 0
+						adjust_water_level(-water_level)
 						user.visible_message("[user.name] scoops out some water from \the [src].", "You fill [C.name] with the last of the water in \the [src].")
-					check_water_level()
 			return
 	//Wrenches can deconstruct empty tanks, but not tanks with any water. Kills any fish left inside and destroys any unharvested eggs in the process
 	if(istype(O, /obj/item/weapon/wrench))
@@ -711,12 +705,11 @@
 					user.visible_message("[user.name] shakes some fish food into the empty [src]... How sad.", "You shake some fish food into the empty [src]... If only it had fish.")
 				else
 					user.visible_message("[user.name] feeds the fish in \the [src]. The fish look excited!", "You feed the fish in \the [src]. They look excited!")
-				food_level += 10
+				adjust_food_level(10)
 			else
 				to_chat(usr, "[src] already has plenty of food in it. You decide to not add more.")
 		else
 			to_chat(usr, "[src] doesn't have any water in it. You should fill it with water first.")
-		check_food_level()
 		return
 	//Fish egg scoop
 	else if(istype(O, /obj/item/weapon/egg_scoop))
@@ -735,7 +728,7 @@
 		if(filth_level == 0)
 			to_chat(usr, "[src] is already spotless!")
 		else
-			filth_level = 0
+			adjust_filth_level(-filth_level)
 			user.visible_message("[user.name] scrubs the inside of \the [src], cleaning the filth.", "You scrub the inside of \the [src], cleaning the filth.")
 	else if(O && O.force)
 		user.visible_message("<span class='danger'>\The [src] has been attacked by [user.name] with \the [O]!</span>")
