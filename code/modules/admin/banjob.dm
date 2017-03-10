@@ -140,3 +140,60 @@ DEBUG
 				jobban_savebanfile()
 			return 1
 	return 0
+
+/mob/verb/displayjobbans()
+	set category = "OOC"
+	set name = "Display Current Jobbans"
+	set desc = "Displays all of your current jobbans."
+
+	if(!client || !ckey)
+		return
+	if(config.ban_legacy_system)
+		if(!ckey in jobban_keylist)
+			to_chat(src, "<span class='danger'>You have no active jobbans!</span>")
+			return
+		for(var/J in jobban_assoclist[ckey])
+			to_chat(src, "<span class='danger'>[J]: [jobban_assoclist[ckey][J]]</span>")
+	else
+
+		//permas
+		var/DBQuery/select_query = dbcon.NewQuery("SELECT bantype, reason, job, a_ckey , bantime FROM [format_table_name("ban")] WHERE ckey like '[ckey]' AND bantype like 'JOB_PERMABAN' AND isnull(unbanned) ORDER BY bantime DESC LIMIT 100")
+		select_query.Execute()
+
+		var/is_actually_banned = 0
+
+		while(select_query.NextRow())
+
+			var/bantype  = select_query.item[1]
+			var/reason = select_query.item[2]
+			var/job = select_query.item[3]
+			var/ackey = select_query.item[4]
+			var/bantime = select_query.item[5]
+
+			if(bantype != null)
+				is_actually_banned = 1
+
+			var/output = "[bantype]: [bantime] [job] - [reason] by [ackey]"
+			to_chat(src, "<span class='warning'>[output]</span>")
+
+		//temps
+		select_query = dbcon.NewQuery("SELECT bantime, bantype, reason, job, duration, expiration_time, a_ckey FROM [format_table_name("ban")] WHERE ckey like '[ckey]' AND bantype like 'JOB_TEMPBAN' AND expiration_time > Now() AND isnull(unbanned) ORDER BY bantime DESC LIMIT 100")
+		select_query.Execute()
+
+		while(select_query.NextRow())
+
+			var/bantime = select_query.item[1]
+			var/bantype  = select_query.item[2]
+			var/reason = select_query.item[3]
+			var/job = select_query.item[4]
+			var/duration = select_query.item[5]
+			var/expiration = select_query.item[6]
+			var/ackey = select_query.item[7]
+
+			if(bantype != null)
+				is_actually_banned = 1
+
+			to_chat(src, "<span class='warning'>[bantype]: [job] - [reason] by [ackey]; [bantime]; [duration]; expires [expiration]</span>")
+
+		if(!is_actually_banned)
+			to_chat(src, "<span class='warning'>You have no active jobbans!</span>")
