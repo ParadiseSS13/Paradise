@@ -1,0 +1,6 @@
+author: "LordJike"
+delete-after: True
+changes: 
+  - tweak: "Space Fries are now made by deep-frying potato wedges instead of processing them."
+  - rscadd: "Introducing carrots inside the food processor gives you carrot wedges now."
+  - tweak: "Now you can make carrot fries by deep-frying carrot wedges instead of formerly processing the whole carrots."
