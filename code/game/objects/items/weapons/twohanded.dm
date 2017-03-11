@@ -796,7 +796,7 @@
 			target.Weaken(4)
 			..()
 			var/mob/living/carbon/human/H = user
-			if(target.client)
+			if(target.client && (target.stat != DEAD))
 				user.reagents.add_reagent("adminordrazine", 0.4)
 				H.restore_blood()
 		return
