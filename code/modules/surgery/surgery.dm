@@ -110,7 +110,12 @@
 		prob_chance = min(allowed_tools[implement_type], 100)
 	prob_chance *= get_location_modifier(target)
 
-	if(do_after(user, time * tool.toolspeed, target = target))
+	if(prob_chance > 100)//if we are using a super tool
+		time = time/prob_chance //PLACEHOLDER VALUES
+
+	if(do_after(user, time, target = target))
+
+
 		if(prob(prob_chance) || isrobot(user))
 			if(end_step(user, target, target_zone, tool, surgery))
 				advance = 1
@@ -195,14 +200,17 @@
 
 	var/germs = 0
 
-	for(var/mob/living/carbon/human/H in view(2, E.loc))//germs from people
-		if(AStar(E.loc, H.loc, /turf/proc/Distance, 2, simulated_only = 0))
+	for(var/mob/living/carbon/human/H in view(4, E.loc))//germs from people
+		if(AStar(E.loc, H.loc, /turf/proc/Distance, 4, simulated_only = 0))
 			if((!(NO_BREATH in H.mutations) || !(H.species.flags & NO_BREATH)) && !H.wear_mask) //wearing a mask helps preventing people from breathing cooties into open incisions
 				germs+=H.germ_level/4
 
-	for(var/obj/effect/decal/cleanable/M in view(2, E.loc))//germs from messes
-		if(AStar(E.loc, M.loc, /turf/proc/Distance, 2, simulated_only = 0))
-			if(!istype(M,/obj/effect/decal/cleanable/dirt))//dirt is too common
+	for(var/obj/effect/decal/cleanable/M in view(4, E.loc))//germs from messes
+		if(AStar(E.loc, M.loc, /turf/proc/Distance, 4, simulated_only = 0))
+			if(istype(M,/obj/effect/decal/cleanable/dirt))//dirt is too common
+				if(prob(15))
+					germs++
+			else
 				germs++
 
 	if(tool.blood_DNA) //germs from blood-stained tools
@@ -215,6 +223,7 @@
 				O.germ_level += germs
 
 	E.germ_level += germs
+
 
 /proc/sort_surgeries()
 	var/gap = surgery_steps.len
