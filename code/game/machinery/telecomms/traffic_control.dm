@@ -340,8 +340,8 @@
 
 /obj/machinery/computer/telecomms/traffic/attackby(var/obj/item/weapon/D as obj, var/mob/user as mob, params)
 	if(istype(D, /obj/item/weapon/screwdriver))
-		playsound(get_turf(src), 'sound/items/Screwdriver.ogg', 50, 1)
-		if(do_after(user, 20, target = src))
+		playsound(get_turf(src), D.usesound, 50, 1)
+		if(do_after(user, 20 * D.toolspeed, target = src))
 			if(src.stat & BROKEN)
 				to_chat(user, "\blue The broken glass falls out.")
 				var/obj/structure/computerframe/A = new /obj/structure/computerframe( src.loc )

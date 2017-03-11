@@ -154,7 +154,7 @@ var/list/icons_to_ignore_at_floor_init = list("damaged1","damaged2","damaged3","
 				builtin_tile.loc = src
 				builtin_tile = null //deassociate tile, it no longer belongs to this turf
 		make_plating()
-		playsound(src, 'sound/items/Crowbar.ogg', 80, 1)
+		playsound(src, C.usesound, 80, 1)
 		return 1
 	if(istype(C, /obj/item/pipe))
 		var/obj/item/pipe/P = C

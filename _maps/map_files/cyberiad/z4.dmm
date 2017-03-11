@@ -105,7 +105,7 @@
 "ca" = (/turf/simulated/floor/plating{icon_state = "warnplate"; dir = 4},/area/engiestation)
 "cb" = (/obj/structure/cable{d2 = 2; icon_state = "0-2"; pixel_y = 0},/obj/machinery/power/smes/engineering{input_attempt = 1; input_level = 50000; inputting = 1; output_level = 15000},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/engiestation)
 "cc" = (/obj/machinery/power/terminal{dir = 8},/obj/structure/cable,/turf/simulated/floor/plating{icon_state = "warnplate"; dir = 8},/area/engiestation)
-"cd" = (/obj/structure/rack,/obj/item/clothing/suit/space/rig/engineering,/obj/item/clothing/head/helmet/space/rig/engineering,/turf/simulated/floor/plasteel,/area/engiestation)
+"cd" = (/obj/structure/rack,/obj/item/clothing/suit/space/hardsuit/engineering,/obj/item/clothing/head/helmet/space/hardsuit/engineering,/turf/simulated/floor/plasteel,/area/engiestation)
 "ce" = (/obj/machinery/driver_button{id_tag = "constructiondriver1"; name = "Construction Driver #1"; pixel_x = 25},/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel,/area/engiestation)
 "cf" = (/turf/simulated/floor/plating/airless,/obj/structure/cable{d1 = 2; d2 = 4; icon_state = "2-4"},/turf/simulated/floor/plating/airless/catwalk{tag = "icon-catwalk12"; icon_state = "catwalk12"},/area/engiestation/solars)
 "cg" = (/turf/simulated/floor/plating/airless,/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_x = 0},/obj/structure/cable{d1 = 2; d2 = 4; icon_state = "2-4"},/turf/simulated/floor/plating/airless/catwalk{tag = "icon-catwalk12"; icon_state = "catwalk12"},/area/engiestation/solars)

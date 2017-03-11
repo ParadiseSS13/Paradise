@@ -98,13 +98,16 @@ var/global/list/datum/stack_recipe/metal_recipes = list(
 	flags = CONDUCT
 	origin_tech = "materials=1"
 
+/obj/item/stack/sheet/metal/cyborg
+	materials = list()
+
+/obj/item/stack/sheet/metal/fifty
+	amount = 50
+
 /obj/item/stack/sheet/metal/narsie_act()
 	if(prob(20))
 		new /obj/item/stack/sheet/runed_metal(loc, amount)
 		qdel(src)
-
-/obj/item/stack/sheet/metal/cyborg
-	materials = list()
 
 /obj/item/stack/sheet/metal/New(var/loc, var/amount=null)
 	recipes = metal_recipes

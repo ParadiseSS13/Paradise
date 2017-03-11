@@ -103,8 +103,7 @@
 /obj/item/clothing/accessory/storage/knifeharness/New()
 	..()
 	hold.max_combined_w_class = 4
-	hold.can_hold = list("/obj/item/weapon/hatchet/unathiknife",\
-	"/obj/item/weapon/kitchen/knife")
+	hold.can_hold = list(/obj/item/weapon/hatchet/unathiknife, /obj/item/weapon/kitchen/knife)
 
 	new /obj/item/weapon/hatchet/unathiknife(hold)
 	new /obj/item/weapon/hatchet/unathiknife(hold)

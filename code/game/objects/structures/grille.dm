@@ -141,7 +141,7 @@
 	user.changeNext_move(CLICK_CD_MELEE)
 	if(iswirecutter(W))
 		if(!shock(user, 100))
-			playsound(loc, 'sound/items/Wirecutter.ogg', 100, 1)
+			playsound(loc, W.usesound, 100, 1)
 			if(!destroyed)
 				new /obj/item/stack/rods(loc, 2)
 			else
@@ -149,7 +149,7 @@
 			qdel(src)
 	else if((isscrewdriver(W)) && (istype(loc, /turf/simulated) || anchored))
 		if(!shock(user, 90))
-			playsound(loc, 'sound/items/Screwdriver.ogg', 100, 1)
+			playsound(loc, W.usesound, 100, 1)
 			anchored = !anchored
 			user.visible_message("<span class='notice'>[user] [anchored ? "fastens" : "unfastens"] the grille.</span>", \
 								 "<span class='notice'>You have [anchored ? "fastened the grille to" : "unfastened the grill from"] the floor.</span>")
@@ -180,7 +180,7 @@
 				to_chat(user, "<span class='notice'>There is already a window facing this way there.</span>")
 				return
 		to_chat(user, "<span class='notice'>You start placing the window.</span>")
-		if(do_after(user,20, target = src))
+		if(do_after(user, 20 * W.toolspeed, target = src))
 			if(!src) return //Grille destroyed while waiting
 			for(var/obj/structure/window/WINDOW in loc)
 				if(WINDOW.dir == dir_to_set)//checking this for a 2nd time to check if a window was made while we were waiting.
