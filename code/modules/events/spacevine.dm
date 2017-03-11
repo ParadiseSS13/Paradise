@@ -348,7 +348,7 @@
 	name = "plasticine"
 	hue = "#222288"
 	mineral_results = list(
-	/obj/item/stack/sheet/mineral/plastic = 1
+	/obj/item/stack/sheet/plastic = 1
 	)
 
 /datum/spacevine_mutation/mineral/wood

@@ -21,6 +21,7 @@
 #include "code\__DEFINES\bots.dm"
 #include "code\__DEFINES\clothing.dm"
 #include "code\__DEFINES\combat.dm"
+#include "code\__DEFINES\construction.dm"
 #include "code\__DEFINES\crafting.dm"
 #include "code\__DEFINES\error_handler.dm"
 #include "code\__DEFINES\flags.dm"
