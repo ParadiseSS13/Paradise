@@ -59,9 +59,7 @@
 	if(user.can_advanced_admin_interact())
 		SwitchState()
 
-/obj/structure/mineral_door/CanPass(atom/movable/mover, turf/target, height = 0, air_group = 0)
-	if(air_group) 
-		return 0
+/obj/structure/mineral_door/CanPass(atom/movable/mover, turf/target, height = 0)
 	if(istype(mover, /obj/effect/beam))
 		return !opacity
 	return !density

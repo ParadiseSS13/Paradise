@@ -458,7 +458,7 @@
 		H.vent_gas(loc)
 		qdel(H)
 
-/obj/machinery/disposal/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
+/obj/machinery/disposal/CanPass(atom/movable/mover, turf/target, height=0)
 	if(istype(mover,/obj/item) && mover.throwing)
 		var/obj/item/I = mover
 		if(istype(I, /obj/item/projectile))
@@ -472,7 +472,7 @@
 				M.show_message("\the [I] bounces off of \the [src]'s rim!.", 3)
 		return 0
 	else
-		return ..(mover, target, height, air_group)
+		return ..(mover, target, height)
 
 
 /obj/machinery/disposal/singularity_pull(S, current_size)
