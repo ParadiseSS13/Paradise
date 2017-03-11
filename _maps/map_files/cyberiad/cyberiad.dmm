@@ -3432,7 +3432,7 @@
 "bob" = (/obj/machinery/computer/shuttle/labor,/turf/simulated/floor/plasteel{dir = 10; icon_state = "blue"},/area/bridge)
 "boc" = (/obj/machinery/computer/communications,/turf/simulated/floor/plasteel{dir = 0; icon_state = "blue"},/area/bridge)
 "bod" = (/obj/machinery/computer/shuttle/mining,/turf/simulated/floor/plasteel{dir = 6; icon_state = "blue"},/area/bridge)
-"boe" = (/obj/machinery/computer/card,/turf/simulated/floor/plasteel{dir = 10; icon_state = "green"},/area/bridge)
+"boe" = (/obj/machinery/modular_computer/console/preset/command,/turf/simulated/floor/plasteel{dir = 10; icon_state = "green"},/area/bridge)
 "bof" = (/obj/machinery/computer/crew,/obj/machinery/atmospherics/pipe/simple/hidden/supply,/turf/simulated/floor/plasteel{dir = 0; icon_state = "green"},/area/bridge)
 "bog" = (/obj/machinery/computer/med_data,/turf/simulated/floor/plasteel{dir = 6; icon_state = "green"},/area/bridge)
 "boh" = (/obj/structure/table/reinforced,/obj/item/weapon/storage/toolbox/emergency,/obj/item/weapon/wrench,/obj/item/device/assembly/timer,/obj/item/device/assembly/signaler,/obj/item/device/assembly/signaler,/turf/simulated/floor/plasteel,/area/bridge)
