@@ -102,3 +102,7 @@
 /datum/deepfryer_special/carrotfries
 	input = /obj/item/weapon/reagent_containers/food/snacks/grown/carrot/wedges
 	output = /obj/item/weapon/reagent_containers/food/snacks/carrotfries
+	
+/datum/deepfryer_special/disk 	//memes!
+	input = /obj/item/weapon/disk/nuclear
+	output = /obj/item/weapon/grenade/spawnergrenade/feral_cats //CATS!!
