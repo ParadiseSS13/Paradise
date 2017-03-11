@@ -781,7 +781,6 @@
 		icon_state = "chainsaw0"
 
 /obj/item/weapon/twohanded/chainsaw/honkmother/attack(mob/target as mob, mob/living/user as mob)
-	..()
 	if(wielded)
 		if (prob(50))
 			playsound(loc, 'sound/weapons/chainsaw.ogg', 100, 1, -1) //incredibly loud; you ain't goin' for stealth with this thing. Credit to Lonemonk of Freesound for this sound.

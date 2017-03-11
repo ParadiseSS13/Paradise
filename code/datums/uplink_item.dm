@@ -130,9 +130,9 @@ var/list/uplink_items = list()
 
 /datum/uplink_item/jobspecific/clownsaw
 	name = "Honkmother's Wrath"
-	desc = "The blade of the Honkmother herself. It hungers for blood, draining cowards who weild it, while sustaining thoes who kill in her name."
+	desc = "The blade of the Honkmother herself. It hungers for blood, draining cowards who wield it, while sustaining thoes who kill in her name. (Does not work for IPCs. USE AT OWN RISK)"
 	reference = "HW"
-	item = /obj/item/weapon/storage/toolbox/green/memetic
+	item = /obj/item/weapon/twohanded/chainsaw/honkmother
 	cost = 20
 	job = list("Clown")
 	surplus = 0     //No lucky chances from the crate; if you get this, this is ALL you're getting
