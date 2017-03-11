@@ -115,12 +115,6 @@
 	airlock_type = "/multi_tile/glass"
 	glass = -1 //To prevent bugs in deconstruction process.
 
-/obj/structure/door_assembly/door_assembly_cult
-	base_name = "cult airlock assembly"
-	icon = 'icons/obj/doors/Doorcult.dmi'
-	base_icon_state ="construction"
-	airlock_type = "/cult"
-
 /obj/structure/door_assembly/multi_tile/New()
 	if(dir in list(EAST, WEST))
 		bound_width = width * world.icon_size
@@ -146,14 +140,12 @@
 	airlock_type = "/cult"
 	glass = -1
 
-
 /obj/structure/door_assembly/door_assembly_cultruned
 	icon = 'icons/obj/doors/Doorcultruned.dmi'
 	base_icon_state = "construction"
 	base_name = "runed airlock"
 	airlock_type = "/cult/runed"
 	glass = -1
-
 
 /obj/structure/door_assembly/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/weapon/pen))
@@ -292,6 +284,7 @@
 			else
 				path = text2path("/obj/machinery/door/airlock[airlock_type]")
 			var/obj/machinery/door/airlock/door = new path(src.loc)
+			door.setDir(dir)
 			door.assembly_type = type
 			door.electronics = src.electronics
 			if(src.electronics.one_access)

@@ -8,6 +8,7 @@
 //then you MUST update the database!
 // If you're adding a new role, remember to update modules/admin/topic.dm, so admins can dish out
 // justice if someone's abusing your role
+#define ROLE_SYNDICATE			"Syndicate"
 #define ROLE_TRAITOR			"traitor"
 #define ROLE_OPERATIVE			"operative"
 #define ROLE_CHANGELING			"changeling"
@@ -37,7 +38,7 @@
 #define ROLE_MORPH				"morph"
 #define ROLE_ERT				"emergency response team"
 #define ROLE_NYMPH				"Dionaea"
-#define ROLE_GSPIDER				"giant spider"
+#define ROLE_GSPIDER			"giant spider"
 
 
 //Missing assignment means it's not a gamemode specific role, IT'S NOT A BUG OR ERROR.
