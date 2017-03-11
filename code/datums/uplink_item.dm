@@ -128,6 +128,17 @@ var/list/uplink_items = list()
 	cost = 5
 	job = list("Clown")
 
+/datum/uplink_item/jobspecific/clownsaw
+	name = "Honkmother's Wrath"
+	desc = "The blade of the Honkmother herself. It hungers for blood, draining cowards who weild it, while sustaining thoes who kill in her name."
+	reference = "HW"
+	item = /obj/item/weapon/storage/toolbox/green/memetic
+	cost = 20
+	job = list("Clown")
+	surplus = 0     //No lucky chances from the crate; if you get this, this is ALL you're getting
+	hijack_only = 1 //This is a murderbone weapon, as such, it should only be available in those scenarios.
+
+
 //mime
 /datum/uplink_item/job_specific/caneshotgun
 	name = "Cane Shotgun + Assassination Darts"

@@ -767,23 +767,26 @@
 
 ///Honkmother's Wrath///
 /obj/item/weapon/twohanded/chainsaw/honkmother
-	icon_state = "honkmother0"
+	icon_state = "chainsaw0"
 	name = "Honkmother's Wrath"
-	desc = "Perfect for felling trees or fellow spacemen."
+	desc = "The blade of the Honkmother herself. It hungers for blood, draining cowards who weild it, while rewarding thoes who kill in her name."
 	wieldsound = 'sound/weapons/chainsawstart.ogg'
 	armour_penetration = 60
-	attack_verb = list("sawed", "cut", "hacked", "carved", "cleaved", "butchered", "felled", "timbered")
+	attack_verb = list("SEEN", "LAUGHED", "PRANKED", "HONKED", "CUT ABOVE", "TIMBERED", "HATCHETED")
 
 /obj/item/weapon/twohanded/chainsaw/honkmother/update_icon()
 	if(wielded)
-		icon_state = "honkmother[wielded]"
+		icon_state = "chainsaw[wielded]"
 	else
-		icon_state = "honkmother0"
+		icon_state = "chainsaw0"
 
 /obj/item/weapon/twohanded/chainsaw/honkmother/attack(mob/target as mob, mob/living/user as mob)
 	..()
 	if(wielded)
-		playsound(loc, 'sound/weapons/chainsaw.ogg', 100, 1, -1) //incredibly loud; you ain't goin' for stealth with this thing. Credit to Lonemonk of Freesound for this sound.
+		if (prob(50))
+			playsound(loc, 'sound/weapons/chainsaw.ogg', 100, 1, -1) //incredibly loud; you ain't goin' for stealth with this thing. Credit to Lonemonk of Freesound for this sound.
+		else
+			playsound(loc, 'sound/items/bikehorn.ogg', 100, 1, -1)
 		if(isrobot(target))
 			..()
 			return
@@ -793,9 +796,9 @@
 			target.Weaken(4)
 			..()
 			var/mob/living/carbon/human/H = user
-			//if(target.client)
-			user.reagents.add_reagent("adminordrazine", 0.4)
-			H.restore_blood()
+			if(target.client)
+				user.reagents.add_reagent("adminordrazine", 0.4)
+				H.restore_blood()
 		return
 	else
 		playsound(loc, "swing_hit", 50, 1, -1)
@@ -805,7 +808,7 @@
 	..()
 	if (cursed == 0)
 		cursed = 1
-		//play a grousome sound
+		playsound(get_turf(src), 'sound/effects/blobattack.ogg', 100, 1, -1)
 		user.visible_message("<span class='notice'>You feel your flesh twist and distort as the chainsaw replaces your hand attaching to your wrist!</span>")
 		user.mind.AddSpell(new /obj/effect/proc_holder/spell/bloodcrawl(null))
 		user.bloodcrawl = 1
@@ -819,3 +822,8 @@
 			user.vessel.remove_reagent(user.species.exotic_blood,2)
 		else
 			user.vessel.remove_reagent("blood",2)
+		if(!isturf(user.loc))
+			if(prob(50) && !user.stat)
+				playsound(get_turf(user), 'sound/effects/clownstep1.ogg', 25, 1, -1)
+				sleep(5)
+				playsound(get_turf(user), 'sound/effects/clownstep1.ogg', 25, 1, -1)

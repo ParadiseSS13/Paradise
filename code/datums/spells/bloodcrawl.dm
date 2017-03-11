@@ -58,7 +58,7 @@
 		C.regenerate_icons()
 
 	if(clown == 1)
-		if(!do_after(src, 30, target = src))
+		if(!do_after(src, 20, target = B))
 			return
 
 	var/mob/living/kidnapped = null
@@ -74,7 +74,7 @@
 			animation.density = 0
 			animation.anchored = 1
 			animation.icon = 'icons/mob/mob.dmi'
-			animation.icon_state = "liquify"
+			animation.icon_state = "melt"
 			animation.layer = 5
 			animation.master = holder
 			animation.dir = dir
@@ -103,10 +103,7 @@
 					visible_message("<span class='warning'><b>[src] drags [victim] into [B]!</b></span>")
 					kidnapped = victim
 					stop_pulling()
-		if (clown == 1)
-			flick("liquify",animation)
-		else
-			flick("jaunt",animation)
+
 		loc = holder
 		holder = holder
 
@@ -161,6 +158,11 @@
 
 /mob/living/proc/phasein(var/obj/effect/decal/cleanable/B)
 
+	var/mob/living/carbon/C = src
+	var/clown = 0
+	if (istype(C.l_hand,/obj/item/weapon/twohanded/chainsaw/honkmother) || istype(C.r_hand,/obj/item/weapon/twohanded/chainsaw/honkmother))
+		clown = 1
+
 	if(notransform)
 		to_chat(src, "<span class='warning'>Finish eating first!</span>")
 		return 0
@@ -169,18 +171,31 @@
 		return
 	if(!B)
 		return
-	forceMove(B.loc)
 	client.eye = src
 
 	var/atom/movable/overlay/animation = new /atom/movable/overlay( B.loc )
-	animation.name = "odd blood"
-	animation.density = 0
-	animation.anchored = 1
-	animation.icon = 'icons/mob/mob.dmi'
-	animation.icon_state = "jauntup" //Paradise Port:I reversed the jaunt animation so it looks like its rising up
-	animation.layer = 5
-	animation.master = B.loc
-	animation.dir = dir
+	if(clown == 1)
+		animation.name = "odd blood"
+		animation.density = 0
+		animation.anchored = 1
+		animation.icon = 'icons/mob/mob.dmi'
+		animation.icon_state = "meltup" //Paradise Port:I reversed the jaunt animation so it looks like its rising up
+		animation.layer = 5
+		animation.master = B.loc
+		animation.dir = dir
+		sleep(12)
+	else
+		animation.name = "odd blood"
+		animation.density = 0
+		animation.anchored = 1
+		animation.icon = 'icons/mob/mob.dmi'
+		animation.icon_state = "jauntup" //Paradise Port:I reversed the jaunt animation so it looks like its rising up
+		animation.layer = 5
+		animation.master = B.loc
+		animation.dir = dir
+		sleep(6)
+
+	forceMove(B.loc)
 
 	if(prob(25) && istype(src, /mob/living/simple_animal/slaughter))
 		var/list/voice = list('sound/hallucinations/behind_you1.ogg','sound/hallucinations/im_here1.ogg','sound/hallucinations/turn_around1.ogg','sound/hallucinations/i_see_you1.ogg')
@@ -188,12 +203,10 @@
 	visible_message("<span class='warning'><B>\The [src] rises out of \the [B]!</B>")
 	playsound(get_turf(src), 'sound/misc/exit_blood.ogg', 100, 1, -1)
 
-	flick("jauntup",animation)
 	qdel(holder)
 	holder = null
 
 	if(iscarbon(src))
-		var/mob/living/carbon/C = src
 		for(var/obj/item/weapon/bloodcrawl/BC in C)
 			C.flags = null
 			C.unEquip(BC)
