@@ -819,6 +819,8 @@
 		var/mob/living/carbon/human/user = loc
 		if(user.species.exotic_blood)
 			user.vessel.remove_reagent(user.species.exotic_blood,2)
+		else if(user.get_species() == "Machine")
+			user.oxyloss += 0.368
 		else
 			user.vessel.remove_reagent("blood",2)
 		if(!isturf(user.loc))

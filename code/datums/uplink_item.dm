@@ -130,7 +130,7 @@ var/list/uplink_items = list()
 
 /datum/uplink_item/jobspecific/clownsaw
 	name = "Honkmother's Wrath"
-	desc = "The blade of the Honkmother herself. It hungers for blood, draining cowards who wield it, while sustaining thoes who kill in her name. (Does not work for IPCs. USE AT OWN RISK)"
+	desc = "The blade of the Honkmother herself. It hungers for blood, draining cowards who wield it, while sustaining thoes who kill in her name."
 	reference = "HW"
 	item = /obj/item/weapon/twohanded/chainsaw/honkmother
 	cost = 20
