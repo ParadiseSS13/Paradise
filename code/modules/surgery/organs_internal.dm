@@ -1,3 +1,5 @@
+#define GHETTO_DISINFECT_AMOUNT 5 //Amount of units to transfer from the container to the organs during ghetto surgery disinfection step
+
 /datum/surgery/organ_manipulation
 	name = "Organ Manipulation"
 	steps = list(/datum/surgery_step/generic/cut_open,/datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/open_encased/saw,
@@ -68,6 +70,11 @@
 	allowed_tools = list(/obj/item/organ/internal = 100, /obj/item/weapon/reagent_containers/food/snacks/organ = 0)
 	var/implements_extract = list(/obj/item/weapon/hemostat = 100, /obj/item/weapon/kitchen/utensil/fork = 55)
 	var/implements_mend = list(/obj/item/stack/medical/bruise_pack = 20,/obj/item/stack/medical/bruise_pack/advanced = 100,/obj/item/stack/nanopaste = 100)
+	var/implements_clean = list(/obj/item/weapon/reagent_containers/dropper = 100,
+								/obj/item/weapon/reagent_containers/food/drinks/bottle = 75,
+								/obj/item/weapon/reagent_containers/glass/beaker = 65,
+								/obj/item/weapon/reagent_containers/spray = 55,
+								/obj/item/weapon/reagent_containers/glass/bucket = 45)
 	//Finish is just so you can close up after you do other things.
 	var/implements_finsh = list(/obj/item/weapon/scalpel/manager = 120,/obj/item/weapon/retractor = 100 ,/obj/item/weapon/crowbar = 75)
 	var/current_type
@@ -77,7 +84,7 @@
 
 /datum/surgery_step/internal/manipulate_organs/New()
 	..()
-	allowed_tools = allowed_tools + implements_extract + implements_mend + implements_finsh
+	allowed_tools = allowed_tools + implements_extract + implements_mend + implements_clean + implements_finsh
 
 
 /datum/surgery_step/internal/manipulate_organs/begin_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -109,6 +116,27 @@
 		else
 			user.visible_message("[user] starts transplanting \the [tool] into [target]'s [parse_zone(target_zone)].", \
 			"You start transplanting \the [tool] into [target]'s [parse_zone(target_zone)].")
+
+	else if(implement_type in implements_clean)
+		current_type = "clean"
+
+		if(!istype(tool, /obj/item/weapon/reagent_containers/))
+			return
+
+		var/obj/item/weapon/reagent_containers/C = tool
+
+		for(var/obj/item/organ/internal/I in affected.internal_organs)
+			if(I)
+				if(C.reagents.total_volume < GHETTO_DISINFECT_AMOUNT)
+					user.visible_message("[user] notices \the [tool] is emtpy.", \
+					"You notice \the [tool]. is empty")
+					return 0
+
+				var/msg = "[user] starts pouring some of \the [tool] over [target]'s [I.name]."
+				var/self_msg = "You start pouring some of \the [tool] over [target]'s [I.name]."
+				user.visible_message(msg, self_msg)
+				if(H && affected)
+					H.custom_pain("Something burns horribly in your [affected.name]!",1)
 
 	else if(implement_type in implements_finsh)
 	//same as surgery step /datum/surgery_step/open_encased/close/
@@ -168,7 +196,7 @@
 			if(I && I.damage > 0)
 				if(I.robotic < 2 && !istype (tool, /obj/item/stack/nanopaste))
 					if(!(I.sterile))
-						spread_germs_to_organ(I, user)
+						spread_germs_to_organ(I, user, tool)
 					user.visible_message("[user] starts treating damage to [target]'s [I.name] with [tool_name].", \
 					"You start treating damage to [target]'s [I.name] with [tool_name]." )
 				else if(I.robotic >= 2 && istype(tool, /obj/item/stack/nanopaste))
@@ -182,7 +210,7 @@
 			H.custom_pain("The pain in your [affected.name] is living hell!", 1)
 
 	else if(istype(tool, /obj/item/weapon/reagent_containers/food/snacks/organ))
-		to_chat(user, "<span class='warning'>[tool] was bitten by someone! It's too damaged to use!</span>")
+		to_chat(user, "<span class='warning'>[tool] was biten by someone! It's too damaged to use!</span>")
 		return -1
 
 	..()
@@ -217,7 +245,7 @@
 		I = tool
 		user.drop_item()
 		I.insert(target)
-		spread_germs_to_organ(I, user)
+		spread_germs_to_organ(I, user, tool)
 		if(!user.canUnEquip(I, 0))
 			to_chat(user, "<span class='warning'>[I] is stuck to your hand, you can't put it in [target]!</span>")
 			return 0
@@ -237,18 +265,55 @@
 			"<span class='notice'> You have separated and extracted [target]'s [I] with \the [tool].</span>")
 
 			add_logs(user, target, "surgically removed [I.name] from", addition="INTENT: [uppertext(user.a_intent)]")
-			spread_germs_to_organ(I, user)
+			spread_germs_to_organ(I, user, tool)
 			I.status |= ORGAN_CUT_AWAY
 			var/obj/item/thing = I.remove(target)
 			if(!istype(thing))
 				thing.forceMove(get_turf(target))
 			else
 				user.put_in_hands(thing)
-
-			target.update_icons()
 		else
 			user.visible_message("<span class='notice'>[user] can't seem to extract anything from [target]'s [parse_zone(target_zone)]!</span>",
 				"<span class='notice'>You can't extract anything from [target]'s [parse_zone(target_zone)]!</span>")
+
+	else if(current_type == "clean")
+		if(!hasorgans(target))
+			return
+		if(!istype(tool,/obj/item/weapon/reagent_containers/))
+			return
+
+		var/obj/item/weapon/reagent_containers/C = tool
+		var/datum/reagents/R = C.reagents
+		var/ethanol = 0 //how much alcohol is in the thing
+
+		if(R.reagent_list.len)
+			for(var/datum/reagent/consumable/ethanol/alcohol in R.reagent_list)
+				ethanol += alcohol.alcohol_perc * 500
+			ethanol /= R.reagent_list.len
+
+		for(var/obj/item/organ/internal/I in affected.internal_organs)
+			if(I)
+				if(R.total_volume < GHETTO_DISINFECT_AMOUNT)
+					user.visible_message("[user] notices there is not enough of \the [tool].", \
+					"You notice there is not enough of \the [tool].")
+					return 0
+				if(I.germ_level < INFECTION_LEVEL_ONE)
+					to_chat(user, "[I] does not appear to be infected.")
+				if(I.germ_level >= INFECTION_LEVEL_ONE)
+					I.surgeryize()//is this even needed?
+					I.germ_level = max(I.germ_level-ethanol, 0)
+					user.visible_message("<span class='notice'> [user] has poured some of \the [tool] over [target]'s [I.name].</span>",
+					"<span class='notice'> You have poured some of \the [tool] over [target]'s [I.name].</span>")
+					R.trans_to(target, GHETTO_DISINFECT_AMOUNT)
+					R.reaction(target, INGEST)
+
+					if(istype(C, /obj/item/weapon/reagent_containers/dropper/) && C.reagents.total_volume<=0) //trans_to() doesnt do this to droppers???
+						var/obj/item/weapon/reagent_containers/dropper/D = C
+						D.filled = 0
+						D.icon_state = "dropper"
+
+				if(R.has_reagent("mitocholide"))
+					affected.status &= ~ORGAN_DEAD
 
 	else if(current_type == "finish")
 		if(affected && affected.encased)
@@ -262,7 +327,6 @@
 			user.visible_message(msg, self_msg)
 
 		return 1
-
 
 	return 0
 
@@ -299,6 +363,39 @@
 
 		return 0
 
+	else if(current_type == "clean")
+		if(!hasorgans(target))
+			return
+		if(!istype(tool,/obj/item/weapon/reagent_containers/))
+			return
+
+		var/obj/item/weapon/reagent_containers/C = tool
+		var/datum/reagents/R = C.reagents
+		var/ethanol = 0 //how much alcohol is in the thing
+
+		if(R.reagent_list.len)
+			for(var/datum/reagent/consumable/ethanol/alcohol in R.reagent_list)
+				ethanol += alcohol.alcohol_perc * 500
+			ethanol /= C.reagents.reagent_list.len
+
+		for(var/obj/item/organ/internal/I in affected.internal_organs)
+			I.germ_level = max(I.germ_level-ethanol, 0)
+			I.take_damage(rand(3,6),0)
+
+		R.trans_to(target, GHETTO_DISINFECT_AMOUNT * 10)
+		R.reaction(target, INGEST)
+
+		if(istype(C, /obj/item/weapon/reagent_containers/dropper/) && C.reagents.total_volume<=0) //trans_to() doesnt do this to droppers???
+			var/obj/item/weapon/reagent_containers/dropper/D = C
+			D.filled = 0
+			D.icon_state = "dropper"
+
+		if(R.has_reagent("mitocholide"))
+			affected.status &= ~ORGAN_DEAD
+
+		user.visible_message("<span class='warning'> [user]'s hand slips, splashing the contents of \the [tool] all over [target]'s [affected.name] incision!</span>", \
+		"<span class='warning'> Your hand slips, splashing the contents of \the [tool] all over [target]'s [affected.name] incision!</span>")
+		return 0
 
 	else if(current_type == "extract")
 		if(I && I.owner == target)
