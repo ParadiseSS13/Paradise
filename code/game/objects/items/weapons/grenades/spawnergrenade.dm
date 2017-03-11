@@ -66,3 +66,8 @@
 
 	qdel(src)
 	return
+
+/obj/item/weapon/grenade/spawnergrenade/feral_cats/meme/New()
+	..()
+	prime()
+
