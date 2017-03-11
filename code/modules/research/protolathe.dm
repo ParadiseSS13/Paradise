@@ -18,6 +18,7 @@ Note: Must be placed west/left of and R&D console to function.
 
 	var/list/categories = list(
 								"Bluespace",
+								"Computer Parts",
 								"Equipment",
 								"Janitorial",
 								"Medical",
