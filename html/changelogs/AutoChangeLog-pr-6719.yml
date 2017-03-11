@@ -1,6 +1,0 @@
-author: "uraniummeltdown"
-delete-after: True
-changes: 
-  - rscadd: "EVA has 2 more EVA Suits"
-  - rscdel: "Removed Vox-only EVA suits (the grey ones in EVA)"
-  - tweak: "Vox can now wear EVA suits"
