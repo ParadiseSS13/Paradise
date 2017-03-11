@@ -105,4 +105,4 @@
 	
 /datum/deepfryer_special/disk 	//memes!
 	input = /obj/item/weapon/disk/nuclear
-	output = /obj/item/weapon/grenade/spawnergrenade/feral_cats //CATS!!
+	output = /obj/item/weapon/grenade/spawnergrenade/feral_cats/meme //CATS!!
