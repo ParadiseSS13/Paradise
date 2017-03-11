@@ -109,7 +109,7 @@
 	if(implement_type)	//this means it isn't a require nd or any item step.
 		prob_chance = min(allowed_tools[implement_type], 100)
 	prob_chance *= get_location_modifier(target)
-
+	
 	if(do_after(user, time * tool.toolspeed, target = target))
 		if(prob(prob_chance) || isrobot(user))
 			if(end_step(user, target, target_zone, tool, surgery))
