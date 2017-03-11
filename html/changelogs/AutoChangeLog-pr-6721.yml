@@ -1,6 +1,0 @@
-author: "Markolie"
-delete-after: True
-changes: 
-  - tweak: "Firelocks forced by AI's, cyborgs at range or admin ghosts will now autoclose if there's still an atmospherics alarm present."
-  - tweak: "Regular (non-heavy) firelocks will now properly respond to explosions (100% chance of being destroyed at severity 1 explosions and 50% at severity 2). Heavy firelocks are still only destroyed in severity 1 explosions."
-  - tweak: "Added a visible message to forcing airlocks with the Jaws of Life."
