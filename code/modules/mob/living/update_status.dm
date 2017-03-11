@@ -30,9 +30,10 @@
 	else
 		clear_fullscreen("nearsighted")
 
-/mob/living/update_sleeping_effects()
+/mob/living/update_sleeping_effects(no_alert = FALSE)
 	if(sleeping)
-		throw_alert("asleep", /obj/screen/alert/asleep)
+		if(!no_alert)
+			throw_alert("asleep", /obj/screen/alert/asleep)
 	else
 		clear_alert("asleep")
 
