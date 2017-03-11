@@ -135,12 +135,24 @@
 	desc = "A paramedic EVA helmet. Used in the recovery of bodies from space."
 	icon_state = "paramedic-eva-helmet"
 	item_state = "paramedic-eva-helmet"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/helmet.dmi'
+		)
+	sprite_sheets_obj = list(
+		"Vox" = 'icons/obj/clothing/species/vox/hats.dmi',
+		)
 
 /obj/item/clothing/suit/space/eva/paramedic
 	name = "Paramedic EVA suit"
 	icon_state = "paramedic-eva"
 	item_state = "paramedic-eva"
 	desc = "A paramedic EVA suit. Used in the recovery of bodies from space."
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		)
+	sprite_sheets_obj = list(
+		"Vox" = 'icons/obj/clothing/species/vox/suits.dmi',
+		)
 
 /obj/item/clothing/suit/space/eva
 	name = "EVA suit"
