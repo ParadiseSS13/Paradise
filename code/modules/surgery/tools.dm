@@ -89,6 +89,7 @@
 	item_state = "scalpel"
 	damtype = "fire"
 	hitsound = 'sound/weapons/sear.ogg'
+	toolspeed = 0.8
 
 /obj/item/weapon/scalpel/laser2
 	name = "laser scalpel"
@@ -97,6 +98,7 @@
 	item_state = "scalpel"
 	damtype = "fire"
 	hitsound = 'sound/weapons/sear.ogg'
+	toolspeed = 0.6
 
 /obj/item/weapon/scalpel/laser3
 	name = "laser scalpel"
@@ -105,6 +107,7 @@
 	item_state = "scalpel"
 	damtype = "fire"
 	hitsound = 'sound/weapons/sear.ogg'
+	toolspeed = 0.4
 
 /obj/item/weapon/scalpel/manager //super tool! Retractor/hemostat
 	name = "incision management system"
@@ -113,6 +116,7 @@
 	item_state = "scalpel"
 	damtype = "fire"
 	hitsound = 'sound/weapons/sear.ogg'
+	toolspeed = 0.2
 
 /obj/item/weapon/circular_saw
 	name = "circular saw"

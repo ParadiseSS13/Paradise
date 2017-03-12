@@ -55,7 +55,7 @@
 			return 0
 	return connectedparts
 
-/obj/item/pod_parts/pod_frame/attackby(var/obj/O, mob/user)
+/obj/item/pod_parts/pod_frame/attackby(var/obj/item/O, mob/user)
 	if(istype(O, /obj/item/stack/rods))
 		var/obj/item/stack/rods/R = O
 		var/list/linkedparts = find_square()
@@ -71,12 +71,12 @@
 				//log_admin("Repositioning")
 				pod.loc = F.loc
 			qdel(F)
-		playsound(get_turf(src), 'sound/items/Ratchet.ogg', 50, 1)
+		playsound(get_turf(src), O.usesound, 50, 1)
 	if(istype(O, /obj/item/weapon/wrench))
 		to_chat(user, "<span class='notice'>You [!anchored ? "secure \the [src] in place."  : "remove the securing bolts."]</span>")
 		anchored = !anchored
 		density = anchored
-		playsound(get_turf(src), 'sound/items/Ratchet.ogg', 50, 1)
+		playsound(get_turf(src), O.usesound, 50, 1)
 
 /obj/item/pod_parts/pod_frame/verb/rotate()
 	set name = "Rotate Frame"

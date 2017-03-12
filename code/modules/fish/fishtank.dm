@@ -606,6 +606,7 @@
 		if(user.a_intent == I_HELP)
 			if(W.isOn())
 				if(cur_health < max_health)
+					playsound(loc, W.usesound, 50, 1)
 					to_chat(usr, "You repair some of the cracks on \the [src].")
 					cur_health += 20
 					check_health()
@@ -613,7 +614,7 @@
 					to_chat(usr, "There is no damage to fix!")
 			else
 				if(cur_health < max_health)
-					to_chat(usr, "[W.name] must on to repair this damage.")
+					to_chat(usr, "[W.name] must be on to repair this damage.")
 		else
 			user.changeNext_move(CLICK_CD_MELEE)
 			hit(W.force)
@@ -672,8 +673,8 @@
 	if(istype(O, /obj/item/weapon/wrench))
 		if(water_level == 0)
 			to_chat(usr, "<span class='notice'>Now disassembling [src].</span>")
-			playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
-			if(do_after(user,50, target = src))
+			playsound(src.loc, O.usesound, 50, 1)
+			if(do_after(user, 50 * O.toolspeed, target = src))
 				destroy(1)
 		else
 			to_chat(usr, "[src] must be empty before you disassemble it!")

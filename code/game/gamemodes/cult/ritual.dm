@@ -158,8 +158,8 @@
 	text += "<font color='red'><b>Talisman of Stunning</b></font><br>Attacking a target will knock them down for a long duration in addition to inhibiting their speech. \
 	Robotic lifeforms will suffer the effects of a heavy electromagnetic pulse instead.<br><br>"
 
-	text += "<font color='red'><b>Talisman of Armaments</b></font><br>The Talisman of Arming will equip the user with armored robes, a backpack, an eldritch longsword, an empowered bola. Any items that cannot \
-	be equipped will not be summoned. Attacking a fellow cultist with it will instead equip them.<br><br>"
+	text += "<font color='red'><b>Talisman of Armaments</b></font><br>The Talisman of Arming will equip the user with armored robes, a backpack, shoes, an eldritch longsword, and an empowered bola. Any equipment that cannot \
+	be equipped will not be summoned, weaponary will be put on the floor below the user. Attacking a fellow cultist with it will instead equip them.<br><br>"
 
 	text += "<font color='red'><b>Talisman of Horrors</b></font><br>The Talisman of Horror must be applied directly to the victim, it will shatter your victim's mind with visions of the endtimes that may incapitate them.<br><br>"
 

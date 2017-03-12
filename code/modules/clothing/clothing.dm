@@ -2,7 +2,7 @@
 	name = "clothing"
 	burn_state = FLAMMABLE
 	var/list/species_restricted = null //Only these species can wear this kit.
-	var/rig_restrict_helmet = 0 // Stops the user from equipping a rig helmet without attaching it to the suit first.
+	var/hardsuit_restrict_helmet = 0 // Stops the user from equipping a hardsuit helmet without attaching it to the suit first.
 	var/scan_reagents = 0 //Can the wearer see reagents while it's equipped?
 
 	/*
@@ -14,7 +14,7 @@
 	var/list/sprite_sheets_refit = null
 	lefthand_file = 'icons/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/clothing_righthand.dmi'
-
+	var/alt_desc = null
 	var/flash_protect = 0		//What level of bright light protection item has. 1 = Flashers, Flashes, & Flashbangs | 2 = Welding | -1 = OH GOD WELDING BURNT OUT MY RETINAS
 	var/tint = 0				//Sets the item's level of visual impairment tint, normally set to the same as flash_protect
 	var/up = 0					//but seperated to allow items to protect but not impair vision, like space helmets
@@ -146,7 +146,7 @@
 	name = "glasses"
 	icon = 'icons/obj/clothing/glasses.dmi'
 	w_class = 2
-	flags = GLASSESCOVERSEYES
+	flags_cover = GLASSESCOVERSEYES
 	slot_flags = SLOT_EYES
 	materials = list(MAT_GLASS = 250)
 	var/vision_flags = 0
@@ -201,7 +201,7 @@ BLIND     // can't see anything
 /obj/item/clothing/gloves/attackby(obj/item/weapon/W, mob/user, params)
 	if(istype(W, /obj/item/weapon/wirecutters))
 		if(!clipped)
-			playsound(src.loc, 'sound/items/Wirecutter.ogg', 100, 1)
+			playsound(src.loc, W>usesound, 100, 1)
 			user.visible_message("<span class='warning'>[user] snips the fingertips off [src].</span>","<span class='warning'>You snip the fingertips off [src].</span>")
 			clipped = 1
 			name = "mangled [name]"
@@ -312,10 +312,11 @@ BLIND     // can't see anything
 			if(initial(flags_inv) & HIDEFACE) //If the mask is one that hides the face and can be adjusted yet lost that trait when it was adjusted, make it hide the face again.
 				flags_inv |= HIDEFACE
 		if(flags != initial(flags))
-			if(initial(flags) & MASKCOVERSMOUTH) //If the mask covers the mouth when it's down and can be adjusted yet lost that trait when it was adjusted, make it cover the mouth again.
-				flags |= MASKCOVERSMOUTH
 			if(initial(flags) & AIRTIGHT) //If the mask is airtight and thus, one that you'd be able to run internals from yet can't because it was adjusted, make it airtight again.
 				flags |= AIRTIGHT
+		if(flags_cover != initial(flags_cover))
+			if(initial(flags_cover) & MASKCOVERSMOUTH) //If the mask covers the mouth when it's down and can be adjusted yet lost that trait when it was adjusted, make it cover the mouth again.
+				flags_cover |= MASKCOVERSMOUTH
 		if(H.head == src && flags_inv == HIDEFACE) //Means that only things like bandanas and balaclavas will be affected since they obscure the identity of the wearer.
 			if(H.l_hand && H.r_hand) //If both hands are occupied, drop the object on the ground.
 				user.unEquip(src)
@@ -338,8 +339,8 @@ BLIND     // can't see anything
 		if(flags_inv & HIDEFACE) //Means that only things like bandanas and balaclavas will be affected since they obscure the identity of the wearer.
 			flags_inv &= ~HIDEFACE /*Done after the above to avoid having to do a check for initial(src.flags_inv == HIDEFACE).
 									This reveals the user's face since the bandana will now be going on their head.*/
-		if(flags & MASKCOVERSMOUTH) //Mask won't cover the mouth any more since it's been pushed out of the way. Allows for CPRing with adjusted masks.
-			flags &= ~MASKCOVERSMOUTH
+		if(flags_cover & MASKCOVERSMOUTH) //Mask won't cover the mouth any more since it's been pushed out of the way. Allows for CPRing with adjusted masks.
+			flags_cover &= ~MASKCOVERSMOUTH
 		if(flags & AIRTIGHT) //If the mask was airtight, it won't be anymore since you just pushed it off your face.
 			flags &= ~AIRTIGHT
 		if(user.wear_mask == src && initial(flags_inv) == HIDEFACE) //Means that you won't have to take off and put back on simple things like breath masks which, realistically, can just be pulled down off your face.
@@ -399,7 +400,7 @@ BLIND     // can't see anything
 	if(istype(I, /obj/item/weapon/wirecutters))
 		if(can_cut_open)
 			if(!cut_open)
-				playsound(src.loc, 'sound/items/Wirecutter.ogg', 100, 1)
+				playsound(src.loc, I.usesound, 100, 1)
 				user.visible_message("<span class='warning'>[user] cuts open the toes of [src].</span>","<span class='warning'>You cut open the toes of [src].</span>")
 				cut_open = 1
 				icon_state = "[icon_state]_opentoe"
@@ -521,7 +522,8 @@ BLIND     // can't see anything
 	name = "Space helmet"
 	icon_state = "space"
 	desc = "A special helmet designed for work in a hazardous, low-pressure environment."
-	flags = HEADCOVERSEYES | BLOCKHAIR | HEADCOVERSMOUTH | STOPSPRESSUREDMAGE | THICKMATERIAL
+	flags = BLOCKHAIR | STOPSPRESSUREDMAGE | THICKMATERIAL
+	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	item_state = "s_helmet"
 	permeability_coefficient = 0.01
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 100, rad = 50)

@@ -50,6 +50,7 @@ var/global/list/datum/stack_recipe/metal_recipes = list(
 	new /datum/stack_recipe/rods("metal rod", /obj/item/stack/rods, 1, 2, 60),
 	null,
 	new /datum/stack_recipe("computer frame", /obj/structure/computerframe, 5, time = 25, one_per_turf = 1, on_floor = 1),
+	new /datum/stack_recipe("modular console", /obj/machinery/modular_computer/console/buildable/, 10, time = 25, one_per_turf = 1, on_floor = 1),
 	new /datum/stack_recipe("wall girders", /obj/structure/girder, 2, time = 50, one_per_turf = 1, on_floor = 1),
 	new /datum/stack_recipe("machine frame", /obj/machinery/constructable_frame/machine_frame, 5, time = 25, one_per_turf = 1, on_floor = 1),
 	new /datum/stack_recipe("turret frame", /obj/machinery/porta_turret_construct, 5, time = 25, one_per_turf = 1, on_floor = 1),
@@ -98,13 +99,16 @@ var/global/list/datum/stack_recipe/metal_recipes = list(
 	flags = CONDUCT
 	origin_tech = "materials=1"
 
+/obj/item/stack/sheet/metal/cyborg
+	materials = list()
+
+/obj/item/stack/sheet/metal/fifty
+	amount = 50
+
 /obj/item/stack/sheet/metal/narsie_act()
 	if(prob(20))
 		new /obj/item/stack/sheet/runed_metal(loc, amount)
 		qdel(src)
-
-/obj/item/stack/sheet/metal/cyborg
-	materials = list()
 
 /obj/item/stack/sheet/metal/New(var/loc, var/amount=null)
 	recipes = metal_recipes

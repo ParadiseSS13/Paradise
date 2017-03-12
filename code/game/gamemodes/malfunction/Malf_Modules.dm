@@ -163,9 +163,7 @@
 			D.hostile_lockdown(src)
 		addtimer(D, "disable_lockdown", 900)
 
-	var/obj/machinery/computer/communications/C = locate() in machines
-	if(C)
-		C.post_status("alert", "lockdown")
+	post_status("alert", "lockdown")
 
 	verbs -= /mob/living/silicon/ai/proc/lockdown
 	minor_announcement.Announce("Hostile runtime detected in door controllers. Isolation lockdown protocols are now in effect. Please remain calm.", "Network Alert")

@@ -31,7 +31,7 @@
 			I.forceMove(src)
 	update_icon()
 
-/obj/structure/bookcase/attackby(obj/O as obj, mob/user as mob, params)
+/obj/structure/bookcase/attackby(obj/item/O as obj, mob/user as mob, params)
 	if(busy) //So that you can't mess with it while deconstructing
 		return 1
 	if(is_type_in_list(O, allowed_books))
@@ -51,11 +51,11 @@
 	else if(istype(O, /obj/item/weapon/wrench))
 		user.visible_message("<span class='warning'>[user] starts disassembling \the [src].</span>", \
 		"<span class='notice'>You start disassembling \the [src].</span>")
-		playsound(get_turf(src), 'sound/items/Ratchet.ogg', 50, 1)
+		playsound(get_turf(src), O.usesound, 50, 1)
 		busy = 1
 
-		if(do_after(user,50, target = src))
-			playsound(get_turf(src), 'sound/items/Deconstruct.ogg', 75, 1)
+		if(do_after(user, 50 * O.toolspeed, target = src))
+			playsound(get_turf(src), O.usesound, 75, 1)
 			user.visible_message("<span class='warning'>[user] disassembles \the [src].</span>", \
 			"<span class='notice'>You disassemble \the [src].</span>")
 			busy = 0
@@ -276,7 +276,7 @@
 		if(carved)
 			return 1
 		to_chat(user, "<span class='notice'>You begin to carve out [title].</span>")
-		if(do_after(user, 30, target = src))
+		if(do_after(user, 30 * W.toolspeed, target = src))
 			to_chat(user, "<span class='notice'>You carve out the pages from [title]! You didn't want to read it anyway.</span>")
 			carved = 1
 			return 1

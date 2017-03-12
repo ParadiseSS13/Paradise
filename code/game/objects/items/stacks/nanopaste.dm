@@ -6,7 +6,7 @@
 	icon_state = "tube"
 	origin_tech = "materials=3;engineering=2"
 	amount = 10
-
+	toolspeed = 1
 
 /obj/item/stack/nanopaste/attack(mob/living/M as mob, mob/user as mob)
 	if(!istype(M) || !istype(user))

@@ -11,6 +11,7 @@
 	var/payload_name = null // used for spawned grenades
 	w_class = 2
 	force = 2
+	var/prime_sound = 'sound/items/Screwdriver2.ogg'
 	var/stage = EMPTY
 	var/list/beakers = list()
 	var/list/allowed_containers = list(/obj/item/weapon/reagent_containers/glass/beaker, /obj/item/weapon/reagent_containers/glass/bottle)
@@ -124,7 +125,7 @@
 		if(stage == WIRED)
 			if(beakers.len)
 				to_chat(user, "<span class='notice'>You lock the assembly.</span>")
-				playsound(loc, 'sound/items/Screwdriver.ogg', 25, -3)
+				playsound(loc, prime_sound, 25, -3)
 				stage = READY
 				update_icon()
 				var/contained = ""
@@ -265,7 +266,7 @@
 			has_reagents = 1
 
 	if(!has_reagents)
-		playsound(loc, 'sound/items/Screwdriver2.ogg', 50, 1)
+		playsound(loc, usesound, 50, 1)
 		return
 
 	if(nadeassembly)
@@ -347,7 +348,7 @@
 		if(E.reagents.total_volume) has_reagents = 1
 
 	if(!has_reagents)
-		playsound(loc, 'sound/items/Screwdriver2.ogg', 50, 1)
+		playsound(loc, prime_sound, 50, 1)
 		return
 
 	playsound(loc, 'sound/effects/bamf.ogg', 50, 1)
