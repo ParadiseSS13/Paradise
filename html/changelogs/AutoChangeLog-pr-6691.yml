@@ -1,4 +1,0 @@
-author: "davipatury"
-delete-after: True
-changes: 
-  - rscadd: "Ported Rapid Cable Layer from /vg/."
