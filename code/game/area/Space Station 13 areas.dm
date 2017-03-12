@@ -513,6 +513,10 @@ var/list/ghostteleportlocs = list()
 	name = "\improper Centcom Special Ops"
 	icon_state = "centcom_specops"
 
+/area/centcom/gamma
+	name = "\improper Centcom Gamma Armory"
+	icon_state = "centcom_gamma"
+
 /area/centcom/holding
 	name = "\improper Holding Facility"
 
