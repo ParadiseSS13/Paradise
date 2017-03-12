@@ -94,7 +94,7 @@ var/global/list/default_medbay_channels = list(
 		secure_radio_connections[ch_name] = radio_controller.add_object(src, radiochannels[ch_name],  RADIO_CHAT)
 
 /obj/item/device/radio/attack_ghost(mob/user)
-	return ui_interact(user)
+	return interact(user)
 
 /obj/item/device/radio/attack_self(mob/user as mob)
 	user.set_machine(src)
@@ -179,11 +179,6 @@ var/global/list/default_medbay_channels = list(
 
 /mob/dead/observer/has_internal_radio_channel_access(var/mob/user, var/list/req_one_accesses)
 	return can_admin_interact()
-
-/obj/item/device/radio/proc/text_wires()
-	if(b_stat)
-		return wires.GetInteractWindow()
-	return
 
 /obj/item/device/radio/proc/ToggleBroadcast()
 	broadcasting = !broadcasting && !(wires.IsIndexCut(WIRE_TRANSMIT) || wires.IsIndexCut(WIRE_SIGNAL))

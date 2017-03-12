@@ -192,8 +192,12 @@
 			quality = 1
 			return
 	..()
+	
+/obj/item/weapon/twohanded/required/gibtonite/attack_ghost(mob/user)
+	if(wires)
+		wires.Interact(user)
 
-/obj/item/weapon/twohanded/required/gibtonite/attack_self(user)
+/obj/item/weapon/twohanded/required/gibtonite/attack_self(mob/user)
 	if(wires)
 		wires.Interact(user)
 	else

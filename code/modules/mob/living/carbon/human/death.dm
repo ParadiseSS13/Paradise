@@ -114,7 +114,7 @@
 				B = I
 	if(B)
 		if(B.controlling && B.host == src)
-			B.detatch()
+			B.detach()
 
 		verbs -= /mob/living/carbon/proc/release_control
 

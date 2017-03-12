@@ -88,20 +88,6 @@
 
 	return 1
 
-/obj/machinery/atmospherics/binary/passive_gate/interact(mob/user)
-	user.set_machine(src)
-	add_fingerprint(user)
-
-	var/dat = {"<b>Power: </b><a href='?src=[UID()];power=1'>[on?"On":"Off"]</a><br>
-				<b>Desirable output pressure: </b>
-				[round(target_pressure,0.1)]kPa | <a href='?src=[UID()];set_press=1'>Change</a>
-				"}
-
-	var/datum/browser/popup = new(user, "atmo_pump", name, 400, 400)
-	popup.set_content(dat)
-	popup.open(0)
-	onclose(user, "atmo_pump")
-
 /obj/machinery/atmospherics/binary/passive_gate/receive_signal(datum/signal/signal)
 	if(!signal.data["tag"] || (signal.data["tag"] != id) || (signal.data["sigtype"]!="command"))
 		return 0
@@ -142,27 +128,54 @@
 		to_chat(user, "<span class='alert'>Access denied.</span>")
 		return
 
-	interact(user)
-	
+	add_fingerprint(user)
+	ui_interact(user)
+
 /obj/machinery/atmospherics/binary/passive_gate/attack_ghost(mob/user)
-	interact(user)
+	ui_interact(user)
+
+/obj/machinery/atmospherics/binary/passive_gate/ui_interact(mob/user, ui_key = "main", datum/nanoui/ui = null, force_open = 1, var/master_ui = null, var/datum/topic_state/state = default_state)
+	user.set_machine(src)
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "atmos_pump.tmpl", name, 385, 115, state = state)
+		ui.open()
+
+/obj/machinery/atmospherics/binary/passive_gate/ui_data(mob/user)
+	var/list/data = list()
+	data["on"] = on
+	data["pressure"] = round(target_pressure)
+	data["max_pressure"] = round(MAX_OUTPUT_PRESSURE)
+	return data
 
 /obj/machinery/atmospherics/binary/passive_gate/Topic(href,href_list)
-	if(..()) 
+	if(..())
 		return 1
+
 	if(href_list["power"])
 		on = !on
 		investigate_log("was turned [on ? "on" : "off"] by [key_name(usr)]", "atmos")
-	if(href_list["set_press"])
-		var/new_pressure = input(usr,"Enter new output pressure (0-4500kPa)","Pressure control",target_pressure) as num
-		target_pressure = max(0, min(4500, new_pressure))
-		investigate_log("was set to [target_pressure] kPa by [key_name(usr)]", "atmos")
-	usr.set_machine(src)
-	update_icon()
-	updateUsrDialog()
-	return
+		. = TRUE
+	if(href_list["pressure"])
+		var/pressure = href_list["pressure"]
+		if(pressure == "max")
+			pressure = MAX_OUTPUT_PRESSURE
+			. = TRUE
+		else if(pressure == "input")
+			pressure = input("New output pressure (0-[MAX_OUTPUT_PRESSURE] kPa):", name, target_pressure) as num|null
+			if(!isnull(pressure))
+				. = TRUE
+		else if(text2num(pressure) != null)
+			pressure = text2num(pressure)
+			. = TRUE
+		if(.)
+			target_pressure = Clamp(pressure, 0, MAX_OUTPUT_PRESSURE)
+			investigate_log("was set to [target_pressure] kPa by [key_name(usr)]", "atmos")
 
-/obj/machinery/atmospherics/binary/passive_gate/attackby(var/obj/item/weapon/W, var/mob/user, params)
+	update_icon()
+	nanomanager.update_uis(src)
+
+/obj/machinery/atmospherics/binary/passive_gate/attackby(obj/item/weapon/W, mob/user, params)
 	if(!istype(W, /obj/item/weapon/wrench))
 		return ..()
 	if(on)

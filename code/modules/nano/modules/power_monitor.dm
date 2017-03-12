@@ -33,7 +33,7 @@
 		data["poweravail"] = powermonitor.powernet.avail
 		data["powerload"] = powermonitor.powernet.viewload
 		data["powerdemand"] = powermonitor.powernet.load
-		data["apcs"] = apc_repository.apc_data(powermonitor)
+		data["apcs"] = apc_repository.apc_data(powermonitor.powernet)
 
 	return data
 

@@ -171,7 +171,7 @@
 	if(istype(W))
 		if(istype(W, /obj/item/clothing))
 			var/obj/item/clothing/C = W
-			if(C.rig_restrict_helmet)
+			if(C.hardsuit_restrict_helmet)
 				to_chat(src, "\red You must fasten the helmet to a hardsuit first. (Target the head and use on a hardsuit)")// Stop eva helms equipping.
 
 			else
@@ -1057,7 +1057,7 @@ var/list/slot_equipment_priority = list( \
 			visible_implants += O
 	return visible_implants
 
-mob/proc/yank_out_object()
+/mob/proc/yank_out_object()
 	set category = "Object"
 	set name = "Yank out object"
 	set desc = "Remove an embedded item at the cost of bleeding and pain."
