@@ -249,7 +249,7 @@ obj/item/clothing/head/blob
 	desc = "A set of armor worn by medical members of the NanoTrasen Emergency Response Team. Has red and white highlights."
 	icon_state = "erthelmet_med"
 
-//Medical
+//Janitorial
 /obj/item/clothing/head/helmet/ert/janitor
 	name = "emergency response team janitor helmet"
 	desc = "A set of armor worn by janitorial members of the NanoTrasen Emergency Response Team. Has red and white highlights."
