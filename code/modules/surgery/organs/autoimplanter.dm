@@ -4,6 +4,7 @@
 	icon_state = "autoimplanter"
 	item_state = "walkietalkie"//left as this so as to intentionally not have inhands
 	w_class = 2
+	usesound = 'sound/weapons/circsawhit.ogg'
 	var/obj/item/organ/internal/cyberimp/storedorgan
 
 /obj/item/device/autoimplanter/attack_self(mob/user)//when the object it used...
@@ -12,7 +13,7 @@
 		return
 	storedorgan.insert(user)//insert stored organ into the user
 	user.visible_message("<span class='notice'>[user] presses a button on [src], and you hear a short mechanical noise.</span>", "<span class='notice'>You feel a sharp sting as [src] plunges into your body.</span>")
-	playsound(get_turf(user), 'sound/weapons/circsawhit.ogg', 50, 1)
+	playsound(get_turf(user), usesound, 50, 1)
 	storedorgan = null
 
 /obj/item/device/autoimplanter/attackby(obj/item/I, mob/user, params)
@@ -32,4 +33,4 @@
 			storedorgan.forceMove(get_turf(user))
 			storedorgan = null
 			to_chat(user, "<span class='notice'>You remove the [storedorgan] from [src].</span>")
-			playsound(get_turf(user), 'sound/items/Screwdriver.ogg', 50, 1)
+			playsound(get_turf(user), I.usesound, 50, 1)

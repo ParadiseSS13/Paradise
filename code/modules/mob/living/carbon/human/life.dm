@@ -1102,7 +1102,7 @@
 			if(istype(loc,/obj/item/bodybag))
 				return
 			var/obj/item/clothing/mask/M = H.wear_mask
-			if(M && (M.flags & MASKCOVERSMOUTH))
+			if(M && (M.flags_cover & MASKCOVERSMOUTH))
 				return
 			if(H.species && H.species.flags & NO_BREATHE)
 				return //no puking if you can't smell!

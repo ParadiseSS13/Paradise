@@ -61,7 +61,15 @@
 		..()
 
 
-/obj/machinery/lapvend/attack_hand(mob/user as mob)
+/obj/machinery/lapvend/attack_hand(mob/user)
+	if(..())
+		return 1
+	interact(user)
+	
+/obj/machinery/lapvend/attack_ghost(mob/user)
+	interact(user)
+	
+/obj/machinery/lapvend/interact(mob/user)
 	user.set_machine(src)
 	var/vendorname = (src.name)  //import the machine's name
 	var/dat = "<TT><center><b>[vendorname]</b></center><hr /><br>" //display the name, and added a horizontal rule
@@ -133,8 +141,10 @@
 
 
 /obj/machinery/lapvend/Topic(href, href_list)
-	if((usr.contents.Find(src) || (in_range(src, usr) && istype(src.loc, /turf))))
-		usr.set_machine(src)
+	if(..())
+		return 1
+		
+	usr.set_machine(src)
 	switch(href_list["choice"])
 		if("single_add")
 			cardreader = 1

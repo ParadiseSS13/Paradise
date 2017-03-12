@@ -186,6 +186,7 @@
 	force = 10
 	origin_tech = null
 	selfcharge = 1
+	can_charge = 0
 	var/inawaymission = 1
 
 /obj/item/weapon/gun/energy/laser/awaymission_aeg/process()

@@ -34,7 +34,7 @@
 	if(istype(A, /obj/item/weapon/crowbar))
 		if(modkits.len)
 			to_chat(user, "<span class='notice'>You pry the modifications out.</span>")
-			playsound(loc, 'sound/items/Crowbar.ogg', 100, 1)
+			playsound(loc, A.usesound, 100, 1)
 			for(var/obj/item/borg/upgrade/modkit/M in modkits)
 				M.uninstall(src)
 		else
@@ -230,6 +230,7 @@
 	origin_tech = "programming=2;materials=2;magnets=4"
 	require_module = 1
 	module_type = /obj/item/weapon/robot_module/miner
+	usesound = 'sound/items/Screwdriver.ogg'
 	var/denied_type = null
 	var/maximum_of_type = 1
 	var/cost = 30
@@ -266,7 +267,7 @@
 	if(KA.get_remaining_mod_capacity() >= cost)
 		if(.)
 			to_chat(user, "<span class='notice'>You install the modkit.</span>")
-			playsound(loc, 'sound/items/Screwdriver.ogg', 100, 1)
+			playsound(loc, usesound, 100, 1)
 			user.unEquip(src)
 			forceMove(KA)
 			KA.modkits += src

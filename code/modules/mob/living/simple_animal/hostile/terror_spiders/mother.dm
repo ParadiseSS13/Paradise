@@ -25,7 +25,12 @@
 	spider_tier = TS_TIER_3
 	spider_opens_doors = 2
 	var/canspawn = 1
+	var/datum/action/innate/terrorspider/ventsmash/ventsmash_action
 
+/mob/living/simple_animal/hostile/poison/terror_spider/mother/New()
+	..()
+	ventsmash_action = new()
+	ventsmash_action.Grant(src)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/mother/death(gibbed)
 	if(canspawn)
@@ -38,6 +43,7 @@
 			else if(prob(10))
 				S.grow_as = pick(/mob/living/simple_animal/hostile/poison/terror_spider/black, /mob/living/simple_animal/hostile/poison/terror_spider/green)
 			S.amount_grown = 50 // double speed growth
+			S.immediate_ventcrawl = 1
 		visible_message("<span class='userdanger'>[src] breaks apart, the many spiders on its back scurrying everywhere!</span>")
 		degenerate = 1
 	..()
