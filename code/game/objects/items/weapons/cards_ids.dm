@@ -715,6 +715,18 @@
 	desc = "A modified ID card given only to those people who have devoted their lives to the better interests of Nanotrasen. It sparkles blue."
 	icon_state = "lifetimeid"
 
+/obj/item/weapon/card/id/ert
+	name = "ERT ID"
+	icon_state = "ERT_empty"
+
+/obj/item/weapon/card/id/ert/commander
+	icon_state = "ERT_leader"
+/obj/item/weapon/card/id/ert/security
+	icon_state = "ERT_security"
+/obj/item/weapon/card/id/ert/engineering
+	icon_state = "ERT_engineering"
+/obj/item/weapon/card/id/ert/medic
+	icon_state = "ERT_medical"
 // Decals
 /obj/item/weapon/id_decal
 	name = "identification card decal"

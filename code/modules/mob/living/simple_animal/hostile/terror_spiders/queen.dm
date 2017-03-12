@@ -18,6 +18,7 @@
 	icon_dead = "terror_queen_dead"
 	maxHealth = 200
 	health = 200
+	regen_points_per_tick = 3
 	melee_damage_lower = 10
 	melee_damage_upper = 20
 	move_to_delay = 15 // yeah, this is very slow, but
@@ -30,7 +31,7 @@
 	var/neststep = 0
 	var/hasnested = 0
 	var/spider_max_per_nest = 20 // above this, queen stops spawning more, and declares war.
-	var/canlay = 0 // main counter for egg-laying ability! # = num uses, incremented at intervals
+	var/canlay = 4 // main counter for egg-laying ability! # = num uses, incremented at intervals
 	var/eggslaid = 0
 	var/spider_can_fakelings = 3 // spawns defective spiderlings that don't grow up, used to freak out crew, atmosphere
 	idle_ventcrawl_chance = 0
@@ -47,12 +48,14 @@
 	var/datum/action/innate/terrorspider/queen/queensense/queensense_action
 	var/datum/action/innate/terrorspider/queen/queeneggs/queeneggs_action
 	var/datum/action/innate/terrorspider/queen/queenfakelings/queenfakelings_action
-
+	var/datum/action/innate/terrorspider/ventsmash/ventsmash_action
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/New()
 	..()
 	queennest_action = new()
 	queennest_action.Grant(src)
+	ventsmash_action = new()
+	ventsmash_action.Grant(src)
 	spider_myqueen = src
 	if(spider_awaymission)
 		spider_growinstantly = 1
@@ -160,8 +163,6 @@
 					if(prob(20))
 						var/obj/effect/spider/eggcluster/terror_eggcluster/N = locate() in get_turf(src)
 						if(!N)
-							if(!spider_awaymission)
-								QueenFakeLings()
 							spider_lastspawn = world.time
 							DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/red, 2, 1)
 							neststep = 5
@@ -214,6 +215,11 @@
 						else
 							DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/purple, 2, 0)
 						neststep = 6
+
+/mob/living/simple_animal/hostile/poison/terror_spider/queen/proc/NestPrompt()
+	var/confirm = alert(src, "Are you sure you want to nest? You will be able to lay eggs, and smash walls, but not ventcrawl.","Nest?","Yes","No")
+	if(confirm == "Yes")
+		NestMode()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/proc/NestMode()
 	queeneggs_action = new()
@@ -316,6 +322,9 @@
 			C.toggle_cam(src, 0)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/proc/QueenFakeLings()
+	if(eggslaid < 10)
+		to_chat(src, "<span class='danger'>You must lay at least 10 eggs before doing this.</span>")
+		return
 	if(spider_can_fakelings)
 		spider_can_fakelings--
 		var/numlings = 15

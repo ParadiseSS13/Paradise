@@ -9,6 +9,7 @@
 	w_class = 2
 	origin_tech = "materials=1;biotech=3;programming=2"
 	materials = list(MAT_METAL=600, MAT_GLASS=200)
+	toolspeed = 1
 	var/obj/item/weapon/implant/imp = null
 
 
@@ -29,7 +30,7 @@
 			M.visible_message("<span class='warning'>[user] is attemping to implant [M].</span>")
 
 		var/turf/T = get_turf(M)
-		if(T && (M == user || do_after(user, 50, target = M)))
+		if(T && (M == user || do_after(user, 50 * toolspeed, target = M)))
 			if(user && M && (get_turf(M) == T) && src && imp)
 				if(imp.implant(M, user))
 					if(M == user)
