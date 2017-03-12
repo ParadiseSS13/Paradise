@@ -17,7 +17,19 @@
 
 	if(turfs.len) //Pick a turf to spawn at if we can
 		var/turf/T = pick(turfs)
-		new/obj/effect/spacevine_controller(T) //spawn a controller at turf
+		var/obj/effect/spacevine_controller/SC = new /obj/effect/spacevine_controller(T, , rand(30,70),rand(5,2)) //spawn a controller at turf
+
+		// Make the event start fun - give the vine a random hostile mutation
+		if(SC.vines.len)
+			SV = SC.vines[1]
+			var/list/mutations = SC.mutations_list.Copy()
+			while(mutations.len)
+				var/datum/spacevine_mutation/SM = pick_n_take(mutations)
+				if(SM.quality == NEGATIVE && !SM.nofun)
+					SM.add_mutation_to_vinepiece(SV)
+					break
+			mutations.Cut()
+			mutations = null
 
 
 /datum/spacevine_mutation
@@ -25,10 +37,21 @@
 	var/severity = 1
 	var/hue
 	var/quality
+	// For stuff that isn't fun as a random-event vine
+	var/nofun = FALSE
 
 /datum/spacevine_mutation/proc/add_mutation_to_vinepiece(obj/effect/spacevine/holder)
 	holder.mutations |= src
 	holder.color = hue
+
+/datum/spacevine_mutation/proc/remove_mutation_from_vinepiece(obj/effect/spacevine/holder)
+	holder.mutations -= src
+	var/datum/spacevine_mutation/oldmutation
+	if(holder.mutations.len)
+		oldmutation = pick(holder.mutations)
+		holder.color = oldmutation.hue
+	else
+		holder.color = ""
 
 /datum/spacevine_mutation/proc/process_mutation(obj/effect/spacevine/holder)
 	return
@@ -136,6 +159,11 @@
 /datum/spacevine_mutation/space_covering/on_grow(obj/effect/spacevine/holder)
 	process_mutation(holder)
 
+/datum/spacevine_mutation/space_covering/on_spread(obj/effect/spacevine/holder, turf/target)
+	if(target.type == /turf/space && !locate(/obj/effect/spacevine) in target)
+		holder.master.spawn_spacevine_piece(target, holder)
+		. = TRUE
+
 /datum/spacevine_mutation/space_covering/process_mutation(obj/effect/spacevine/holder)
 	var/turf/T = get_turf(holder)
 	if(is_type_in_typecache(T, coverable_turfs))
@@ -155,7 +183,12 @@
 
 /datum/spacevine_mutation/bluespace/on_spread(obj/effect/spacevine/holder, turf/target)
 	if(holder.energy > 1 && !locate(/obj/effect/spacevine) in target)
+		// Lose bluespace upon piercing a single tile, and drop it from our own mutations too
+		// Representing a loss in "high potential"
+		// also conveniently prevents this from spreading too crazily
+		remove_mutation_from_vinepiece(holder)
 		holder.master.spawn_spacevine_piece(target, holder)
+		playsound(holder, 'sound/misc/interference.ogg', 50, 1)
 		. = TRUE
 
 /datum/spacevine_mutation/light
@@ -190,6 +223,8 @@
 	hue = "#ff0000"
 	quality = NEGATIVE
 	severity = 2
+	// kaboom events aren't fun
+	nofun = TRUE
 
 /datum/spacevine_mutation/explosive/on_explosion(explosion_severity, obj/effect/spacevine/holder)
 	if(explosion_severity < 3)
@@ -234,6 +269,15 @@
 	quality = NEGATIVE
 
 /datum/spacevine_mutation/aggressive_spread/on_spread(obj/effect/spacevine/holder, turf/target)
+	if(istype(target, /turf/simulated/wall/r_wall))
+		// Too tough to pierce - should lead to interesting spread patterns
+		return
+	// Bust through windows or other stuff blocking the way
+	if(!target.Enter(holder))
+		for(var/atom/movable/AM in target)
+			if(istype(AM, /obj/effect/spacevine) || !AM.density)
+				continue
+			AM.ex_act(severity)
 	target.ex_act(severity) // vine immunity handled at /mob/ex_act
 	. = TRUE
 
@@ -406,8 +450,8 @@
 		if(!master.vines.len)
 			var/obj/item/seeds/kudzu/KZ = new(loc)
 			KZ.mutations |= mutations
-			KZ.set_potency(master.mutativeness * 10)
-			KZ.set_production((master.spread_cap / initial(master.spread_cap)) * 5)
+			KZ.set_potency(10 ** sqrt(master.mutativeness))
+			KZ.set_production(10 - (master.spread_cap / 10))
 			qdel(master)
 	master = null
 	mutations.Cut()
@@ -499,11 +543,19 @@
 	spawn_spacevine_piece(loc, , muts)
 	processing_objects.Add(src)
 	init_subtypes(/datum/spacevine_mutation/, mutations_list)
-	if(potency != null)
-		mutativeness = potency / 10
+	if(potency != null && potency > 0)
+		// 1 mutativeness at 10 potency
+		// 4 mutativeness at 100 potency
+		mutativeness = log(10, potency) ** 2
 	if(production != null)
-		spread_cap /= production / 5
-		spread_multiplier *= production / 5
+		// 1 production is crazy powerful
+		var/spread_value = max(10 - production, 1)
+		// 40 at 6 production
+		// 90 at 1 production
+		spread_cap = spread_value * 10
+		// 6 vines/spread at 6 production
+		// ~2.5 vines/spread at 1 production
+		spread_multiplier /= spread_value / 5
 	..()
 
 
@@ -618,7 +670,8 @@
 		for(var/datum/spacevine_mutation/SM in mutations)
 			spread_success |= SM.on_spread(src, stepturf) // If this returns 1, spreading succeeded
 		if(!locate(/obj/effect/spacevine, stepturf))
-			if(stepturf.Enter(src))
+			// snowflake for space turf, but space turf is super common and a big deal
+			if(!istype(stepturf, /turf/space) && stepturf.Enter(src))
 				if(master)
 					master.spawn_spacevine_piece(stepturf, src)
 				spread_success = TRUE
