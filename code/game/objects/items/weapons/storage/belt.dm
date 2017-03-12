@@ -249,7 +249,7 @@
 	icon_state = "militarybelt"
 	item_state = "military"
 	max_w_class = WEIGHT_CLASS_SMALL
-	
+
 /obj/item/weapon/storage/belt/military/abductor
 	name = "agent belt"
 	desc = "A belt used by abductor agents."
@@ -273,6 +273,15 @@
 	icon_state = "assaultbelt"
 	item_state = "assault"
 	storage_slots = 6
+
+/obj/item/weapon/storage/belt/military/assault/full/New()
+	..()
+	new /obj/item/weapon/gun/projectile/automatic/pistol/deagle(src)
+	new /obj/item/weapon/grenade/plastic/x4(src)
+	new /obj/item/weapon/grenade/plastic/x4(src)
+	new /obj/item/weapon/reagent_containers/hypospray/combat/nanites(src)
+	new /obj/item/weapon/kitchen/knife/combat(src)
+	new /obj/item/weapon/card/emag(src)
 
 /obj/item/weapon/storage/belt/janitor
 	name = "janibelt"

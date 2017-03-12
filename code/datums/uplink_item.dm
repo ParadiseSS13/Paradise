@@ -249,6 +249,15 @@ var/list/uplink_items = list()
 	cost = 6
 	job = list("Bartender")
 
+/datum/uplink_item/jobspecific/assult_box
+	name = "Box O' Guns"
+	desc = "A box. An unassuming box of WAR! Everything you need for a gun fueled rampage."
+	reference = "AB"
+	item = /obj/item/weapon/storage/box/syndie_kit/assault_box
+	cost = 20
+	job = list("Bartender")
+	surplus = 0     //No lucky chances from the crate; if you get this, this is ALL you're getting
+	hijack_only = 1 //This is a murderbone item, as such, it should only be available in those scenarios.
 
 //Barber
 
