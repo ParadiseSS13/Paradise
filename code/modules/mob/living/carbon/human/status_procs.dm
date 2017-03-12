@@ -13,7 +13,7 @@
 		amount = amount * species.stun_mod
 	..()
 
-/mob/living/carbon/human/SetSleeping(amount, updating = 1)
+/mob/living/carbon/human/SetSleeping(amount, updating = 1, no_alert = FALSE)
 	if(species)
 		amount = amount * species.stun_mod
 	..()

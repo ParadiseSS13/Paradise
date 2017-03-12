@@ -434,14 +434,26 @@ proc/add_logs(mob/user, mob/target, what_done, var/object=null, var/addition=nul
 	if(!.)
 		to_chat(user, "<span class='warning'>No mob located in [A].</span>")
 
-//suppress the .click macro
-/client/var/next_click_macro_warning
-/mob/verb/ClickSubstitute()
+// Suppress the mouse macros
+/client/var/next_mouse_macro_warning
+/mob/proc/LogMouseMacro(verbused, params)
+	if(!client)
+		return
+	if(!client.next_mouse_macro_warning) // Log once
+		log_admin("[key_name(usr)] attempted to use a mouse macro: [verbused] [params]")
+		message_admins("[key_name_admin(usr)] attempted to use a mouse macro: [verbused] [html_encode(params)]")
+	if(client.next_mouse_macro_warning < world.time) // Warn occasionally
+		usr << 'sound/misc/sadtrombone.ogg'
+		client.next_mouse_macro_warning = world.time + 600
+/mob/verb/ClickSubstitute(params as command_text)
 	set hidden = 1
 	set name = ".click"
-	if(!client.next_click_macro_warning) // Log once
-		log_admin("[key_name(usr)] attempted to use a .click macro.")
-		message_admins("[key_name_admin(usr)] attempted to use a .click macro.")
-	if(client.next_click_macro_warning < world.time) // Warn occasionally
-		usr << 'sound/misc/sadtrombone.ogg'
-		client.next_click_macro_warning = world.time + 600	
+	LogMouseMacro(".click", params)
+/mob/verb/DblClickSubstitute(params as command_text)
+	set hidden = 1
+	set name = ".dblclick"
+	LogMouseMacro(".dblclick", params)
+/mob/verb/MouseSubstitute(params as command_text)
+	set hidden = 1
+	set name = ".mouse"
+	LogMouseMacro(".mouse", params)

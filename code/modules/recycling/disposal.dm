@@ -74,12 +74,12 @@
 				return
 			if(mode==0) // It's off but still not unscrewed
 				mode=-1 // Set it to doubleoff l0l
-				playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
+				playsound(src.loc, I.usesound, 50, 1)
 				to_chat(user, "You remove the screws around the power connection.")
 				return
 			else if(mode==-1)
 				mode=0
-				playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
+				playsound(src.loc, I.usesound, 50, 1)
 				to_chat(user, "You attach the screws around the power connection.")
 				return
 		else if(istype(I,/obj/item/weapon/weldingtool) && mode==-1)
@@ -88,10 +88,10 @@
 				return
 			var/obj/item/weapon/weldingtool/W = I
 			if(W.remove_fuel(0,user))
-				playsound(src.loc, 'sound/items/Welder2.ogg', 100, 1)
+				playsound(src.loc, W.usesound, 100, 1)
 				to_chat(user, "You start slicing the floorweld off the disposal unit.")
 
-				if(do_after(user,20, target = src))
+				if(do_after(user, 20 * W.toolspeed, target = src))
 					if(!src || !W.isOn()) return
 					to_chat(user, "You sliced the floorweld off the disposal unit.")
 					var/obj/structure/disposalconstruct/C = new (src.loc)
@@ -210,7 +210,8 @@
 
 // leave the disposal
 /obj/machinery/disposal/proc/go_out(mob/user)
-	user.forceMove(loc)
+	if(user)
+		user.forceMove(loc)
 	update()
 
 // ai as human but can't flush
@@ -457,7 +458,7 @@
 		H.vent_gas(loc)
 		qdel(H)
 
-/obj/machinery/disposal/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
+/obj/machinery/disposal/CanPass(atom/movable/mover, turf/target, height=0)
 	if(istype(mover,/obj/item) && mover.throwing)
 		var/obj/item/I = mover
 		if(istype(I, /obj/item/projectile))
@@ -471,7 +472,7 @@
 				M.show_message("\the [I] bounces off of \the [src]'s rim!.", 3)
 		return 0
 	else
-		return ..(mover, target, height, air_group)
+		return ..(mover, target, height)
 
 
 /obj/machinery/disposal/singularity_pull(S, current_size)
@@ -882,8 +883,8 @@
 		var/obj/item/weapon/weldingtool/W = I
 		if(W.remove_fuel(0, user))
 			to_chat(user, "<span class='notice'>You begin slicing \the [src].</span>")
-			playsound(loc, 'sound/items/Welder2.ogg', 100, 1)
-			if(do_after(user, 30, target = src))
+			playsound(loc, W.usesound, 100, 1)
+			if(do_after(user, 30 * W.toolspeed, target = src))
 				to_chat(user, "<span class='notice'>You finish slicing \the [src].</span>")
 				welded()
 		else
@@ -1145,6 +1146,19 @@
 
 	update()
 	return
+	
+/obj/structure/disposalpipe/trunk/Destroy()
+	if(istype(linked, /obj/structure/disposaloutlet))
+		var/obj/structure/disposaloutlet/O = linked
+		O.expel()
+	else if(istype(linked, /obj/machinery/disposal))
+		var/obj/machinery/disposal/D = linked
+		if(D.trunk == src)
+			D.go_out()
+			D.trunk = null
+
+	linked = null
+	return ..()
 
 /obj/structure/disposalpipe/trunk/proc/getlinked()
 	linked = null
@@ -1190,19 +1204,14 @@
 		var/obj/item/weapon/weldingtool/W = I
 
 		if(W.remove_fuel(0,user))
-			playsound(src.loc, 'sound/items/Welder2.ogg', 100, 1)
-			// check if anything changed over 2 seconds
-			var/turf/uloc = user.loc
-			var/atom/wloc = W.loc
-			to_chat(user, "Slicing the disposal pipe.")
-			sleep(30)
-			if(!W.isOn()) return
-			if(user.loc == uloc && wloc == W.loc)
+			playsound(loc, W.usesound, 100, 1)
+			to_chat(user, "<span class='notice'>Slicing the disposal pipe.</span>")
+			if(do_after(user, 30 * W.toolspeed, target = src))
+				if(!W.isOn()) 
+					return
 				welded()
-			else
-				to_chat(user, "You must stay still while welding the pipe.")
 		else
-			to_chat(user, "You need more welding fuel to cut the pipe.")
+			to_chat(user, "<span class='warning'>You need more welding fuel to cut the pipe.</span>")
 			return
 
 	// would transfer to next pipe segment, but we are in a trunk
@@ -1290,7 +1299,7 @@
 
 		if(H)
 			for(var/atom/movable/AM in H)
-				AM.loc = src.loc
+				AM.forceMove(loc)
 				AM.pipe_eject(dir)
 				if(!istype(AM,/mob/living/silicon/robot/drone)) //Drones keep smashing windows from being fired out of chutes. Bad for the station. ~Z
 					spawn(5)
@@ -1308,20 +1317,20 @@
 		if(istype(I, /obj/item/weapon/screwdriver))
 			if(mode==0)
 				mode=1
-				playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
+				playsound(src.loc, I.usesound, 50, 1)
 				to_chat(user, "You remove the screws around the power connection.")
 				return
 			else if(mode==1)
 				mode=0
-				playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
+				playsound(src.loc, I.usesound, 50, 1)
 				to_chat(user, "You attach the screws around the power connection.")
 				return
 		else if(istype(I,/obj/item/weapon/weldingtool) && mode==1)
 			var/obj/item/weapon/weldingtool/W = I
 			if(W.remove_fuel(0,user))
-				playsound(src.loc, 'sound/items/Welder2.ogg', 100, 1)
+				playsound(src.loc, W.usesound, 100, 1)
 				to_chat(user, "You start slicing the floorweld off the disposal outlet.")
-				if(do_after(user,20, target = src))
+				if(do_after(user, 20 * W.toolspeed, target = src))
 					if(!src || !W.isOn()) return
 					to_chat(user, "You sliced the floorweld off the disposal outlet.")
 					var/obj/structure/disposalconstruct/C = new (src.loc)
