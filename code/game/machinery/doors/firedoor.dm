@@ -110,6 +110,7 @@
 		return
 
 	add_fingerprint(user)
+	user.changeNext_move(CLICK_CD_MELEE)
 
 	if(can_force && (!glass || user.a_intent != I_HELP))
 		user.visible_message("<span class='notice'>[user] begins forcing \the [src].</span>", \
@@ -119,7 +120,6 @@
 								 "<span class='notice'>You force \the [src].</span>")
 			open()
 	else if(glass)
-		user.changeNext_move(CLICK_CD_MELEE)
 		user.visible_message("<span class='warning'>[user] bangs on \the [src].</span>",
 							 "<span class='warning'>You bang on \the [src].</span>")
 		playsound(get_turf(src), 'sound/effects/Glassknock.ogg', 10, 1)
