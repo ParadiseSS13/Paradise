@@ -22,8 +22,8 @@
 	switch(state)
 		if(0)
 			if(istype(P, /obj/item/weapon/wrench))
-				playsound(loc, 'sound/items/Ratchet.ogg', 50, 1)
-				if(do_after(user, 20, target = src))
+				playsound(loc, P.usesound, 50, 1)
+				if(do_after(user, 20 * P.toolspeed, target = src))
 					to_chat(user, "\blue You wrench the frame into place.")
 					anchored = 1
 					state = 1
@@ -32,33 +32,33 @@
 				if(!WT.isOn())
 					to_chat(user, "The welder must be on for this task.")
 					return
-				playsound(loc, 'sound/items/Welder.ogg', 50, 1)
-				if(do_after(user, 20, target = src))
+				playsound(loc, WT.usesound, 50, 1)
+				if(do_after(user, 20 * WT.toolspeed, target = src))
 					if(!src || !WT.remove_fuel(0, user)) return
 					to_chat(user, "\blue You deconstruct the frame.")
 					new /obj/item/stack/sheet/plasteel(loc, 4)
 					qdel(src)
 		if(1)
 			if(istype(P, /obj/item/weapon/wrench))
-				playsound(loc, 'sound/items/Ratchet.ogg', 50, 1)
-				if(do_after(user, 20, target = src))
+				playsound(loc, P.usesound, 50, 1)
+				if(do_after(user, 20 * P.toolspeed, target = src))
 					to_chat(user, "\blue You unfasten the frame.")
 					anchored = 0
 					state = 0
 			if(istype(P, /obj/item/weapon/circuitboard/aicore) && !circuit)
-				playsound(loc, 'sound/items/Deconstruct.ogg', 50, 1)
+				playsound(loc, P.usesound, 50, 1)
 				to_chat(user, "\blue You place the circuit board inside the frame.")
 				icon_state = "1"
 				circuit = P
 				user.drop_item()
 				P.loc = src
 			if(istype(P, /obj/item/weapon/screwdriver) && circuit)
-				playsound(loc, 'sound/items/Screwdriver.ogg', 50, 1)
+				playsound(loc, P.usesound, 50, 1)
 				to_chat(user, "\blue You screw the circuit board into place.")
 				state = 2
 				icon_state = "2"
 			if(istype(P, /obj/item/weapon/crowbar) && circuit)
-				playsound(loc, 'sound/items/Crowbar.ogg', 50, 1)
+				playsound(loc, P.usesound, 50, 1)
 				to_chat(user, "\blue You remove the circuit board.")
 				state = 1
 				icon_state = "0"
@@ -66,14 +66,14 @@
 				circuit = null
 		if(2)
 			if(istype(P, /obj/item/weapon/screwdriver) && circuit)
-				playsound(loc, 'sound/items/Screwdriver.ogg', 50, 1)
+				playsound(loc, P.usesound, 50, 1)
 				to_chat(user, "\blue You unfasten the circuit board.")
 				state = 1
 				icon_state = "1"
 			if(istype(P, /obj/item/stack/cable_coil))
 				if(P:amount >= 5)
-					playsound(loc, 'sound/items/Deconstruct.ogg', 50, 1)
-					if(do_after(user, 20, target = src))
+					playsound(loc, P.usesound, 50, 1)
+					if(do_after(user, 20 * P.toolspeed, target = src))
 						P:amount -= 5
 						if(!P:amount) qdel(P)
 						to_chat(user, "\blue You add cables to the frame.")
@@ -84,7 +84,7 @@
 				if(brain)
 					to_chat(user, "Get that brain out of there first")
 				else
-					playsound(loc, 'sound/items/Wirecutter.ogg', 50, 1)
+					playsound(loc, P.usesound, 50, 1)
 					to_chat(user, "\blue You remove the cables.")
 					state = 2
 					icon_state = "2"
@@ -93,8 +93,8 @@
 
 			if(istype(P, /obj/item/stack/sheet/rglass))
 				if(P:amount >= 2)
-					playsound(loc, 'sound/items/Deconstruct.ogg', 50, 1)
-					if(do_after(user, 20, target = src))
+					playsound(loc, P.usesound, 50, 1)
+					if(do_after(user, 20 * P.toolspeed, target = src))
 						if(P)
 							P:amount -= 2
 							if(!P:amount) qdel(P)
@@ -147,7 +147,7 @@
 				icon_state = "3b"
 
 			if(istype(P, /obj/item/weapon/crowbar) && brain)
-				playsound(loc, 'sound/items/Crowbar.ogg', 50, 1)
+				playsound(loc, P.usesound, 50, 1)
 				to_chat(user, "\blue You remove the brain.")
 				brain.loc = loc
 				brain = null
@@ -155,7 +155,7 @@
 
 		if(4)
 			if(istype(P, /obj/item/weapon/crowbar))
-				playsound(loc, 'sound/items/Crowbar.ogg', 50, 1)
+				playsound(loc, P.usesound, 50, 1)
 				to_chat(user, "\blue You remove the glass panel.")
 				state = 3
 				if(brain)
@@ -166,7 +166,7 @@
 				return
 
 			if(istype(P, /obj/item/weapon/screwdriver))
-				playsound(loc, 'sound/items/Screwdriver.ogg', 50, 1)
+				playsound(loc, P.usesound, 50, 1)
 				to_chat(user, "<span class='notice'>You connect the monitor.</span>")
 				if(!brain)
 					var/open_for_latejoin = alert(user, "Would you like this core to be open for latejoining AIs?", "Latejoin", "Yes", "Yes", "No") == "Yes"
@@ -199,7 +199,7 @@
 	else if(istype(W, /obj/item/weapon/wrench))
 		if(anchored)
 			user.visible_message("\blue \The [user] starts to unbolt \the [src] from the plating...")
-			if(!do_after(user,40, target = src))
+			if(!do_after(user, 40 * W.toolspeed, target = src))
 				user.visible_message("\blue \The [user] decides not to unbolt \the [src].")
 				return
 			user.visible_message("\blue \The [user] finishes unfastening \the [src]!")
@@ -207,7 +207,7 @@
 			return
 		else
 			user.visible_message("\blue \The [user] starts to bolt \the [src] to the plating...")
-			if(!do_after(user,40, target = src))
+			if(!do_after(user, 40 * W.toolspeed, target = src))
 				user.visible_message("\blue \The [user] decides not to bolt \the [src].")
 				return
 			user.visible_message("\blue \The [user] finishes fastening down \the [src]!")

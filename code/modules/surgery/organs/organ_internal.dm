@@ -11,9 +11,9 @@
 	var/non_primary = 0
 
 /obj/item/organ/internal/New(var/mob/living/carbon/holder)
+	..()
 	if(istype(holder))
 		insert(holder)
-	..()
 
 /obj/item/organ/internal/Destroy()
 	if(owner)
@@ -412,7 +412,8 @@
 	colourmatrix = null
 	dark_view = 2
 	..() //Make sure the organ's got the robotic status indicators before updating the client colour.
-	owner.update_client_colour(0) //Since both mechassisted and mechanical eyes give dark_view of 2 and full colour vision atm, just having this here is fine as mechassist() will call it anyway.
+	if(owner)
+		owner.update_client_colour(0) //Since both mechassisted and mechanical eyes give dark_view of 2 and full colour vision atm, just having this here is fine as mechassist() will call it anyway.
 
 /obj/item/organ/internal/mechassist()
 	..() //Go back, call robotize(), adjust the robotic status indicators and the organ damage parameters.

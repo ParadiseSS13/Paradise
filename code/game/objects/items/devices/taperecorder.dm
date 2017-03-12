@@ -303,7 +303,7 @@
 /obj/item/device/tape/attackby(obj/item/I, mob/user)
 	if(ruined && istype(I, /obj/item/weapon/screwdriver))
 		to_chat(user, "<span class='notice'>You start winding the tape back in.</span>")
-		if(do_after(user, 120, target = src))
+		if(do_after(user, 120 * I.toolspeed, target = src))
 			to_chat(user, "<span class='notice'>You wound the tape back in!</span>")
 			fix()
 	else if(istype(I, /obj/item/weapon/pen))
