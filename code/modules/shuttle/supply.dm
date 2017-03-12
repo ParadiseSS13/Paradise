@@ -806,7 +806,7 @@
 		if(state == PLASTIC_FLAPS_NORMAL)
 			playsound(loc, W.usesound, 100, 1)
 			user.visible_message("<span class='warning'>[user] unscrews [src] from the floor.</span>", "<span class='notice'>You start to unscrew [src] from the floor...</span>", "You hear rustling noises.")
-			if(do_after(user, 100*W.toolspeed, target = src))
+			if(do_after(user, 180*W.toolspeed, target = src))
 				if(state != PLASTIC_FLAPS_NORMAL)
 					return
 				state = PLASTIC_FLAPS_DETACHED
@@ -825,7 +825,7 @@
 		if(state == PLASTIC_FLAPS_DETACHED)
 			playsound(loc, W.usesound, 100, 1)
 			user.visible_message("<span class='warning'>[user] cuts apart [src].</span>", "<span class='notice'>You start to cut apart [src].</span>", "You hear cutting.")
-			if(do_after(user, 50*W.toolspeed, target = src))
+			if(do_after(user, 80*W.toolspeed, target = src))
 				if(state != PLASTIC_FLAPS_DETACHED)
 					return
 				to_chat(user, "<span class='notice'>You cut apart [src].</span>")
