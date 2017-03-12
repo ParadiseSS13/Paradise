@@ -1,0 +1,7 @@
+author: "Markolie"
+delete-after: True
+changes: 
+  - tweak: "The system for picking ghosts to inhabit cultist slaughter demons now shows a confirmation prompt like most other role checks."
+  - bugfix: "Fixed an issue where you could join as a cultist slaughter demon despite having antagHUD enabled."
+  - bugfix: "Fixed an issue where it was possible to weld statues without any fuel."
+  - tweak: "It is no longer possible to spam the firelock force message."
