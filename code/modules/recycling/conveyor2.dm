@@ -129,12 +129,13 @@
 			var/obj/item/conveyor_construct/C = new/obj/item/conveyor_construct(src.loc)
 			C.id = id
 			transfer_fingerprints_to(C)
+		playsound(loc, I.usesound, 50, 1)
 		to_chat(usr,"<span class='notice'>You remove the conveyor belt.</span>")
 		qdel(src)
 
 	else if(istype(I, /obj/item/weapon/wrench))
 		if(!(stat & BROKEN))
-			playsound(loc, 'sound/items/Ratchet.ogg', 50, 1)
+			playsound(loc, I.usesound, 50, 1)
 			dir = turn(dir,-45)
 			update_move_direction()
 			to_chat(user, "<span class='notice'>You rotate [src].</span>")

@@ -9,7 +9,7 @@
 	return {"<b>Station Shield construction</b><br>
 	The station is located in a zone full of space debris. We have a prototype shielding system you will deploy to reduce collision related accidents.
 	<br><br>
-	You can order the satellites and control systems through cargo shuttle."}
+	You can order the satellites and control systems through the cargo shuttle."}
 
 /datum/station_goal/station_shield/on_report()
 	//Unlock
@@ -71,7 +71,7 @@
 		if(S.id == id && atoms_share_level(src, S))
 			S.toggle()
 
-/obj/machinery/computer/sat_control/ui_data(mob/user, ui_key = "main", datum/topic_state/state = physical_state)
+/obj/machinery/computer/sat_control/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/list/data = list()
 
 	data["satellites"] = list()

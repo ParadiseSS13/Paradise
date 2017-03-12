@@ -116,6 +116,8 @@
 	name = "Standard Gear"
 	collect_not_del = TRUE // we don't want anyone to lose their job shit
 
+	var/allow_loadout = TRUE
+	var/allow_backbag_choice = TRUE
 	var/jobtype = null
 
 	uniform = /obj/item/clothing/under/color/grey
@@ -135,31 +137,28 @@
 	var/tmp/list/gear_leftovers = list()
 
 /datum/outfit/job/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	switch(H.backbag)
-		if(GBACKPACK)
-			back = /obj/item/weapon/storage/backpack //Grey backpack
-		if(GSATCHEL)
-			back = /obj/item/weapon/storage/backpack/satchel_norm //Grey satchel
-		if(GDUFFLEBAG)
-			back = /obj/item/weapon/storage/backpack/duffel //Grey Dufflebag
-		if(LSATCHEL)
-			back = /obj/item/weapon/storage/backpack/satchel //Leather Satchel
-		if(DSATCHEL)
-			back = satchel //Department satchel
-		if(DDUFFLEBAG)
-			back = dufflebag //Department dufflebag
-		else
-			back = backpack //Department backpack
-
-	var/datum/job/J = job_master.GetJobType(jobtype)
-	if(!J)
-		J = job_master.GetJob(H.job)
+	if(allow_backbag_choice)
+		switch(H.backbag)
+			if(GBACKPACK)
+				back = /obj/item/weapon/storage/backpack //Grey backpack
+			if(GSATCHEL)
+				back = /obj/item/weapon/storage/backpack/satchel_norm //Grey satchel
+			if(GDUFFLEBAG)
+				back = /obj/item/weapon/storage/backpack/duffel //Grey Dufflebag
+			if(LSATCHEL)
+				back = /obj/item/weapon/storage/backpack/satchel //Leather Satchel
+			if(DSATCHEL)
+				back = satchel //Department satchel
+			if(DDUFFLEBAG)
+				back = dufflebag //Department dufflebag
+			else
+				back = backpack //Department backpack
 
 	if(box)
 		backpack_contents.Insert(1, box) // Box always takes a first slot in backpack
 		backpack_contents[box] = 1
 
-	if(H.client && (H.client.prefs.gear && H.client.prefs.gear.len))
+	if(allow_loadout && H.client && (H.client.prefs.gear && H.client.prefs.gear.len))
 		for(var/gear in H.client.prefs.gear)
 			var/datum/gear/G = gear_datums[gear]
 			if(G)
@@ -190,32 +189,11 @@
 	if(visualsOnly)
 		return
 
-	var/datum/job/J = job_master.GetJobType(jobtype)
-	if(!J)
-		J = job_master.GetJob(H.job)
-
-	var/obj/item/weapon/card/id/C = H.wear_id
-	if(istype(C))
-		C.access = J.get_access()
-		C.registered_name = H.real_name
-		C.rank = J.title
-		C.assignment = J.title
-		C.sex = capitalize(H.gender)
-		C.age = H.age
-		C.name = "[C.registered_name]'s ID Card ([C.assignment])"
-		C.photo = get_id_photo(H)
-
-		if(H.mind && H.mind.initial_account)
-			C.associated_account_number = H.mind.initial_account.account_number
+	imprint_idcard(H)
 
 	H.sec_hud_set_ID()
 
-	var/obj/item/device/pda/PDA = H.wear_pda
-	if(istype(PDA))
-		PDA.owner = H.real_name
-		PDA.ownjob = C.assignment
-		PDA.ownrank = C.rank
-		PDA.name = "PDA-[H.real_name] ([PDA.ownjob])"
+	imprint_pda(H)
 
 	if(implants)
 		for(var/implant_type in implants)
@@ -245,3 +223,35 @@
 		qdel(gear_leftovers)
 
 	return 1
+
+/datum/outfit/job/proc/imprint_idcard(mob/living/carbon/human/H)
+	var/datum/job/J = job_master.GetJobType(jobtype)
+	if(!J)
+		J = job_master.GetJob(H.job)
+		
+	var/alt_title
+	if(H.mind)
+		alt_title = H.mind.role_alt_title
+
+	var/obj/item/weapon/card/id/C = H.wear_id
+	if(istype(C))
+		C.access = J.get_access()
+		C.registered_name = H.real_name
+		C.rank = J.title
+		C.assignment = alt_title ? alt_title : J.title
+		C.sex = capitalize(H.gender)
+		C.age = H.age
+		C.name = "[C.registered_name]'s ID Card ([C.assignment])"
+		C.photo = get_id_photo(H)
+
+		if(H.mind && H.mind.initial_account)
+			C.associated_account_number = H.mind.initial_account.account_number
+
+/datum/outfit/job/proc/imprint_pda(mob/living/carbon/human/H)
+	var/obj/item/device/pda/PDA = H.wear_pda
+	var/obj/item/weapon/card/id/C = H.wear_id
+	if(istype(PDA) && istype(C))
+		PDA.owner = H.real_name
+		PDA.ownjob = C.assignment
+		PDA.ownrank = C.rank
+		PDA.name = "PDA-[H.real_name] ([PDA.ownjob])"

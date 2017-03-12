@@ -32,25 +32,26 @@
 /obj/structure/girder/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/weapon/wrench) && state == 0)
 		if(anchored && !istype(src,/obj/structure/girder/displaced))
-			playsound(src.loc, 'sound/items/Ratchet.ogg', 100, 1)
+			playsound(src.loc, W.usesound, 100, 1)
 			to_chat(user, "\blue Now disassembling the girder")
-			if(do_after(user,40, target = src))
+			if(do_after(user, 40 * W.toolspeed, target = src))
 				if(!src) return
 				to_chat(user, "\blue You dissasembled the girder!")
 				refundMetal(metalUsed)
 				qdel(src)
 		else if(!anchored)
-			playsound(src.loc, 'sound/items/Ratchet.ogg', 100, 1)
+			playsound(src.loc, W.usesound, 100, 1)
 			to_chat(user, "\blue Now securing the girder")
-			if(do_after(user, 40, target = src))
+			if(do_after(user, 40 * W.toolspeed, target = src))
 				to_chat(user, "\blue You secured the girder!")
 				new/obj/structure/girder( src.loc )
 				qdel(src)
 
 	else if(istype(W, /obj/item/weapon/gun/energy/plasmacutter))
 		to_chat(user, "\blue Now slicing apart the girder")
-		if(do_after(user,30, target = src))
+		if(do_after(user, 30 * W.toolspeed, target = src))
 			if(!src) return
+			playsound(loc, W.usesound, 100, 1)
 			to_chat(user, "\blue You slice apart the girder!")
 			refundMetal(metalUsed)
 			qdel(src)
@@ -61,32 +62,32 @@
 		qdel(src)
 
 	else if(istype(W, /obj/item/weapon/pickaxe/drill/jackhammer))
-		playsound(src.loc, 'sound/weapons/sonic_jackhammer.ogg', 100, 1)
+		playsound(src.loc, W.usesound, 100, 1)
 		to_chat(user, "<span class='notice'>You Disintegrate the girder!</span>")
 		refundMetal(metalUsed)
 		qdel(src)
 
 	else if(istype(W, /obj/item/weapon/screwdriver) && state == 2 && istype(src,/obj/structure/girder/reinforced))
-		playsound(src.loc, 'sound/items/Screwdriver.ogg', 100, 1)
+		playsound(src.loc, W.usesound, 100, 1)
 		to_chat(user, "\blue Now unsecuring support struts")
-		if(do_after(user,40, target = src))
+		if(do_after(user, 40 * W.toolspeed, target = src))
 			if(!src) return
 			to_chat(user, "\blue You unsecured the support struts!")
 			state = 1
 
 	else if(istype(W, /obj/item/weapon/wirecutters) && istype(src,/obj/structure/girder/reinforced) && state == 1)
-		playsound(src.loc, 'sound/items/Wirecutter.ogg', 100, 1)
+		playsound(src.loc, W.usesound, 100, 1)
 		to_chat(user, "\blue Now removing support struts")
-		if(do_after(user,40, target = src))
+		if(do_after(user, 40 * W.toolspeed, target = src))
 			if(!src) return
 			to_chat(user, "\blue You removed the support struts!")
 			new/obj/structure/girder( src.loc )
 			qdel(src)
 
 	else if(istype(W, /obj/item/weapon/crowbar) && state == 0 && anchored )
-		playsound(src.loc, 'sound/items/Crowbar.ogg', 100, 1)
+		playsound(src.loc, W.usesound, 100, 1)
 		to_chat(user, "\blue Now dislodging the girder")
-		if(do_after(user, 40, target = src))
+		if(do_after(user, 40 * W.toolspeed, target = src))
 			if(!src) return
 			to_chat(user, "\blue You dislodged the girder!")
 			new/obj/structure/girder/displaced( src.loc )
@@ -107,7 +108,7 @@
 				else
 					if(S.amount < 2) return ..()
 					to_chat(user, "\blue Now adding plating...")
-					if(do_after(user,40, target = src))
+					if(do_after(user, 40 * W.toolspeed, target = src))
 						if(!src || !S || S.amount < 2) return
 						S.use(2)
 						to_chat(user, "\blue You added the plating!")
@@ -240,15 +241,16 @@
 
 /obj/structure/cultgirder/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/weapon/wrench))
-		playsound(src.loc, 'sound/items/Ratchet.ogg', 100, 1)
+		playsound(loc, W.usesound, 100, 1)
 		to_chat(user, "\blue Now disassembling the girder")
-		if(do_after(user,40, target = src))
+		if(do_after(user, 40 * W.toolspeed, target = src))
 			to_chat(user, "\blue You dissasembled the girder!")
 			dismantle()
 
 	else if(istype(W, /obj/item/weapon/gun/energy/plasmacutter))
 		to_chat(user, "\blue Now slicing apart the girder")
-		if(do_after(user,30, target = src))
+		if(do_after(user, 30 * W.toolspeed, target = src))
+			playsound(loc, W.usesound, 100, 1)
 			to_chat(user, "\blue You slice apart the girder!")
 			dismantle()
 

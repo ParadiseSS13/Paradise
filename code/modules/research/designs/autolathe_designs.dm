@@ -130,7 +130,7 @@
 	materials = list(MAT_METAL = 50, MAT_GLASS = 50)
 	build_path = /obj/item/weapon/airlock_electronics
 	category = list("initial", "Electronics")
-	
+
 /datum/design/firelock_board
 	name = "Firelock Electronics"
 	id = "firelock_board"
@@ -170,7 +170,7 @@
 	materials = list(MAT_METAL = 50, MAT_GLASS = 50)
 	build_path = /obj/item/weapon/firealarm_electronics
 	category = list("initial", "Electronics")
-	
+
 /datum/design/earmuffs
 	name = "Earmuffs"
 	id = "earmuffs"
@@ -745,3 +745,19 @@
 	materials = list(MAT_METAL = 450, MAT_GLASS = 190)
 	build_path = /obj/item/conveyor_switch_construct
 	category = list("initial", "Construction")
+
+/datum/design/laptop
+	name = "Laptop Frame"
+	id = "laptop"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 10000, MAT_GLASS = 1000)
+	build_path = /obj/item/device/modular_computer/laptop/buildable
+	category = list("initial", "Miscellaneous")
+
+/datum/design/tablet
+	name = "Tablet Frame"
+	id = "tablet"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 2000, MAT_GLASS = 1000)
+	build_path = /obj/item/device/modular_computer/tablet
+	category = list("initial", "Miscellaneous")
