@@ -249,7 +249,7 @@ var/list/uplink_items = list()
 	cost = 6
 	job = list("Bartender")
 
-/datum/uplink_item/jobspecific/assult_box
+/datum/uplink_item/jobspecific/assault_box
 	name = "Box O' Guns"
 	desc = "A box. An unassuming box of WAR! Everything you need for a gun fueled rampage."
 	reference = "AB"
