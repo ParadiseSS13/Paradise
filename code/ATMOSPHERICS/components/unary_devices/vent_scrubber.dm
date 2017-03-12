@@ -375,9 +375,9 @@
 		var/obj/item/weapon/weldingtool/WT = W
 		if(WT.remove_fuel(0,user))
 			to_chat(user, "<span class='notice'>Now welding the scrubber.</span>")
-			if(do_after(user, 20, target = src))
+			if(do_after(user, 20 * WT.toolspeed, target = src))
 				if(!src || !WT.isOn()) return
-				playsound(get_turf(src), 'sound/items/Welder2.ogg', 50, 1)
+				playsound(get_turf(src), WT.usesound, 50, 1)
 				if(!welded)
 					user.visible_message("[user] welds the scrubber shut.", "You weld the vent scrubber.", "You hear welding.")
 					welded = 1

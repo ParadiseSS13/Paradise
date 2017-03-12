@@ -99,21 +99,6 @@ Thus, the two variables affect pump operation are set in New():
 
 	return 1
 
-/obj/machinery/atmospherics/binary/volume_pump/interact(mob/user)
-	user.set_machine(src)
-	add_fingerprint(user)
-
-	var/dat = {"<b>Power: </b><a href='?src=[UID()];power=1'>[on?"On":"Off"]</a><br>
-				<b>Desirable output flow: </b>
-				[round(transfer_rate,1)]l/s | <a href='?src=[UID()];set_transfer_rate=1'>Change</a>
-				"}
-
-	var/datum/browser/popup = new(user, "atmo_pump", name, 400, 400)
-	popup.set_content(dat)
-	popup.open(0)
-	onclose(user, "atmo_pump")
-
-
 /obj/machinery/atmospherics/binary/volume_pump/receive_signal(datum/signal/signal)
 	if(!signal.data["tag"] || (signal.data["tag"] != id) || (signal.data["sigtype"]!="command"))
 		return 0
@@ -153,24 +138,52 @@ Thus, the two variables affect pump operation are set in New():
 		to_chat(user, "<span class='alert'>Access denied.</span>")
 		return
 
-	interact(user)
-	
+	add_fingerprint(user)
+	ui_interact(user)
+
 /obj/machinery/atmospherics/binary/volume_pump/attack_ghost(mob/user)
-	interact(user)
+	ui_interact(user)
+
+/obj/machinery/atmospherics/binary/volume_pump/ui_interact(mob/user, ui_key = "main", datum/nanoui/ui = null, force_open = 1, var/master_ui = null, var/datum/topic_state/state = default_state)
+	user.set_machine(src)
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "atmos_pump.tmpl", name, 310, 115, state = state)
+		ui.open()
+
+/obj/machinery/atmospherics/binary/volume_pump/ui_data(mob/user)
+	var/list/data = list()
+	data["on"] = on
+	data["rate"] = round(transfer_rate)
+	data["max_rate"] = round(MAX_TRANSFER_RATE)
+	return data
 
 /obj/machinery/atmospherics/binary/volume_pump/Topic(href,href_list)
 	if(..())
 		return 1
+
 	if(href_list["power"])
 		on = !on
 		investigate_log("was turned [on ? "on" : "off"] by [key_name(usr)]", "atmos")
-	if(href_list["set_transfer_rate"])
-		var/new_transfer_rate = input(usr,"Enter new output volume (0-200l/s)","Flow control",transfer_rate) as num
-		transfer_rate = max(0, min(200, new_transfer_rate))
-		investigate_log("was set to [transfer_rate] L/s by [key_name(usr)]", "atmos")
-	usr.set_machine(src)
+		. = TRUE
+	if(href_list["rate"])
+		var/rate = href_list["rate"]
+		if(rate == "max")
+			rate = MAX_TRANSFER_RATE
+			. = TRUE
+		else if(rate == "input")
+			rate = input("New transfer rate (0-[MAX_TRANSFER_RATE] L/s):", name, transfer_rate) as num|null
+			if(!isnull(rate))
+				. = TRUE
+		else if(text2num(rate) != null)
+			rate = text2num(rate)
+			. = TRUE
+		if(.)
+			transfer_rate = Clamp(rate, 0, MAX_TRANSFER_RATE)
+			investigate_log("was set to [transfer_rate] L/s by [key_name(usr)]", "atmos")
+
 	update_icon()
-	updateUsrDialog()
+	nanomanager.update_uis(src)
 
 /obj/machinery/atmospherics/binary/volume_pump/power_change()
 	var/old_stat = stat
@@ -178,7 +191,7 @@ Thus, the two variables affect pump operation are set in New():
 	if(old_stat != stat)
 		update_icon()
 
-/obj/machinery/atmospherics/binary/volume_pump/attackby(var/obj/item/weapon/W, var/mob/user, params)
+/obj/machinery/atmospherics/binary/volume_pump/attackby(obj/item/weapon/W, mob/user, params)
 	if(!istype(W, /obj/item/weapon/wrench))
 		return ..()
 	if(!(stat & NOPOWER) && on)

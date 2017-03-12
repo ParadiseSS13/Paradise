@@ -36,7 +36,7 @@
 /datum/gear/uniform/skirt/job/atmos
 	display_name = "skirt, atmos"
 	path = /obj/item/clothing/under/rank/atmospheric_technician/skirt
-	allowed_roles = list("Chief Engineer","Atmospheric Technician")
+	allowed_roles = list("Chief Engineer","Life Support Specialist")
 
 /datum/gear/uniform/skirt/job/eng
 	display_name = "skirt, engineer"

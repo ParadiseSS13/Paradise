@@ -164,7 +164,7 @@
 	else if(istype(target,/obj/item)) // Eat items just to be annoying
 		var/obj/item/I = target
 		if(!I.anchored)
-			if(do_after(src,20, target = I))
+			if(do_after(src, 20, target = I))
 				eat(I)
 			return
 	target.attack_animal(src)

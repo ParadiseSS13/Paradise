@@ -27,6 +27,7 @@
 	"The tray contains a body that might be responsive."
 	)
 	anchored = 1.0
+	var/open_sound = 'sound/items/Deconstruct.ogg'
 
 /obj/structure/morgue/initialize()
 	. = ..()
@@ -100,11 +101,11 @@
 		for(var/atom/movable/A as mob|obj in connected.loc)
 			if(!( A.anchored ))
 				A.forceMove(src)
-		playsound(loc, 'sound/items/Deconstruct.ogg', 50, 1)
+		playsound(loc, open_sound, 50, 1)
 		qdel(connected)
 		connected = null
 	else
-		playsound(loc, 'sound/items/Deconstruct.ogg', 50, 1)
+		playsound(loc, open_sound, 50, 1)
 		connected = new /obj/structure/m_tray( loc )
 		step(connected, dir)
 		connected.layer = OBJ_LAYER
@@ -258,6 +259,7 @@
 	var/cremating = 0
 	var/id = 1
 	var/locked = 0
+	var/open_sound = 'sound/items/Deconstruct.ogg'
 
 /obj/structure/crematorium/proc/update()
 	if(connected)
@@ -305,11 +307,11 @@
 		for(var/atom/movable/A as mob|obj in connected.loc)
 			if(!( A.anchored ))
 				A.forceMove(src)
-		playsound(loc, 'sound/items/Deconstruct.ogg', 50, 1)
+		playsound(loc, open_sound, 50, 1)
 		qdel(connected)
 		connected = null
 	else if(locked == 0)
-		playsound(loc, 'sound/items/Deconstruct.ogg', 50, 1)
+		playsound(loc, open_sound, 50, 1)
 		connected = new /obj/structure/c_tray( loc )
 		step(connected, SOUTH)
 		connected.layer = OBJ_LAYER
