@@ -1,8 +1,0 @@
-author: "Crazylemon64"
-delete-after: True
-changes: 
-  - bugfix: "Kudzu should now be less of (but still) a station-destroying force of nature."
-  - tweak: "Bluespace kudzu now only pierces a single layer of walls before losing its \"charge\"."
-  - tweak: "Aggressive spread now does not bust rwalls, but does attack obstructing objects in its path."
-  - tweak: "Kudzu now only spreads on space turfs when it has specific mutations to do so."
-  - tweak: "Kudzu events should be more interesting on their own."
