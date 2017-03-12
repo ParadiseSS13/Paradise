@@ -139,7 +139,7 @@
 		"Vox" = 'icons/mob/species/vox/helmet.dmi'
 		)
 	sprite_sheets_obj = list(
-		"Vox" = 'icons/obj/clothing/species/vox/hats.dmi',
+		"Vox" = 'icons/obj/clothing/species/vox/hats.dmi'
 		)
 
 /obj/item/clothing/suit/space/eva/paramedic
@@ -151,7 +151,7 @@
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
 		)
 	sprite_sheets_obj = list(
-		"Vox" = 'icons/obj/clothing/species/vox/suits.dmi',
+		"Vox" = 'icons/obj/clothing/species/vox/suits.dmi'
 		)
 
 /obj/item/clothing/suit/space/eva
