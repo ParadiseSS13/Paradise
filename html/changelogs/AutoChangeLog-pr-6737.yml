@@ -1,4 +1,0 @@
-author: "uraniummeltdown"
-delete-after: True
-changes: 
-  - rscadd: "Clicking on a tile with another tile and a crowbar or screwdriver in hand directly replaces the tile."

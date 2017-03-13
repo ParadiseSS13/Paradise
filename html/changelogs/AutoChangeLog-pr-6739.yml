@@ -1,4 +1,0 @@
-author: "Kyep"
-delete-after: True
-changes: 
-  - bugfix: "Syndicate mobs in the Wild West are no longer so stupid that they trip over, and die to, their own mines. This also means that they won't set their own buildings on fire anymore."
