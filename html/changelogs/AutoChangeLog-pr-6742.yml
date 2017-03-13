@@ -1,0 +1,5 @@
+author: "Kyep"
+delete-after: True
+changes: 
+  - bugfix: "Phazons' phase ability now works again."
+  - bugfix: "Phazons' toxin injector melee damage type (a weak melee attack) now works again."
