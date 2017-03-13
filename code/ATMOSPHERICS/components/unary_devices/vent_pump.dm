@@ -337,8 +337,8 @@
 					welded = 0
 					update_icon()
 			else
-
 				to_chat(user, "<span class='notice'>The welding tool needs to be on to start this task.</span>")
+			return 1
 		else
 			to_chat(user, "<span class='notice'>You need more welding fuel to complete this task.</span>")
 			return 1
@@ -366,7 +366,7 @@
 				to_chat(user, "You can't shove that down there when it is closed")
 		else
 			to_chat(user, "The vent is welded.")
-		return
+		return 1
 	if(istype(W, /obj/item/device/multitool))
 		update_multitool_menu(user)
 		return 1
