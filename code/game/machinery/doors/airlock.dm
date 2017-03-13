@@ -873,12 +873,9 @@ About the new airlock wires panel:
 
 				qdel(src)
 				return
-		else if(istype(C, /obj/item/weapon/crowbar/power))
+		if(istype(C, /obj/item/weapon/crowbar/power) && density)
 			if(isElectrified())
 				shock(user, 100)//it's like sticking a fork in a power socket
-				return
-
-			if(!density)//already open
 				return
 
 			if(locked)
@@ -900,7 +897,8 @@ About the new airlock wires panel:
 					open(2)
 					if(density && !open(2))
 						to_chat(user, "<span class='warning'>Despite your attempts, the [src] refuses to open.</span>")
-		else if(arePowerSystemsOn())
+				return
+		if(arePowerSystemsOn())
 			to_chat(user, "\blue The airlock's motors resist your efforts to force it.")
 		else if(locked)
 			to_chat(user, "\blue The airlock's bolts prevent it from being forced.")
