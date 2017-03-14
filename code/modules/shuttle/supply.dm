@@ -798,7 +798,7 @@
 		if(PLASTIC_FLAPS_NORMAL)
 			to_chat(user, "<span class='notice'>[src] are <b>screwed</b> to the floor.</span>")
 		if(PLASTIC_FLAPS_DETACHED)
-			to_chat(user, "<span class='notice'>[src] are no longer <i>screwed</i> to the floor, and the flaps can be <b>cut</b> apart.</span>")
+			to_chat(user, "<span class='notice'>[src] are no longer <i>screwed</i> to the floor, and the flaps can be <b>sliced</b> apart.</span>")
 
 /obj/structure/plasticflaps/attackby(obj/item/W, mob/user, params)
 	add_fingerprint(user)
@@ -821,14 +821,17 @@
 				state = PLASTIC_FLAPS_NORMAL
 				anchored = TRUE
 				to_chat(user, "<span class='notice'>You screw [src] from the floor.</span>")
-	else if(iswirecutter(W))
+	else if(iswelder(W))
 		if(state == PLASTIC_FLAPS_DETACHED)
-			playsound(loc, W.usesound, 100, 1)
-			user.visible_message("<span class='warning'>[user] cuts apart [src].</span>", "<span class='notice'>You start to cut apart [src].</span>", "You hear cutting.")
-			if(do_after(user, 80*W.toolspeed, target = src))
+			var/obj/item/weapon/weldingtool/WT = W
+			if(!WT.remove_fuel(0, user))
+				return
+			playsound(loc, WT.usesound, 100, 1)
+			user.visible_message("<span class='warning'>[user] slices apart [src].</span>", "<span class='notice'>You start to slice apart [src].</span>", "You hear welding.")
+			if(do_after(user, 120*WT.toolspeed, target = src))
 				if(state != PLASTIC_FLAPS_DETACHED)
 					return
-				to_chat(user, "<span class='notice'>You cut apart [src].</span>")
+				to_chat(user, "<span class='notice'>You slice apart [src].</span>")
 				var/obj/item/stack/sheet/plastic/five/P = new(loc)
 				P.add_fingerprint(user)
 				qdel(src)
