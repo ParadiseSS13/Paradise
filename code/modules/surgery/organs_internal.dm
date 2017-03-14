@@ -71,10 +71,12 @@
 	var/implements_extract = list(/obj/item/weapon/hemostat = 100, /obj/item/weapon/kitchen/utensil/fork = 55)
 	var/implements_mend = list(/obj/item/stack/medical/bruise_pack = 20,/obj/item/stack/medical/bruise_pack/advanced = 100,/obj/item/stack/nanopaste = 100)
 	var/implements_clean = list(/obj/item/weapon/reagent_containers/dropper = 100,
-								/obj/item/weapon/reagent_containers/food/drinks/bottle = 75,
-								/obj/item/weapon/reagent_containers/glass/beaker = 65,
-								/obj/item/weapon/reagent_containers/spray = 55,
-								/obj/item/weapon/reagent_containers/glass/bucket = 45)
+								/obj/item/weapon/reagent_containers/glass/bottle = 75,
+								/obj/item/weapon/reagent_containers/food/drinks/drinkingglass = 70,
+								/obj/item/weapon/reagent_containers/food/drinks/bottle = 65,
+								/obj/item/weapon/reagent_containers/glass/beaker = 60,
+								/obj/item/weapon/reagent_containers/spray = 50,
+								/obj/item/weapon/reagent_containers/glass/bucket = 40)
 	//Finish is just so you can close up after you do other things.
 	var/implements_finsh = list(/obj/item/weapon/scalpel/manager = 120,/obj/item/weapon/retractor = 100 ,/obj/item/weapon/crowbar = 75)
 	var/current_type
@@ -288,7 +290,7 @@
 
 		if(R.reagent_list.len)
 			for(var/datum/reagent/consumable/ethanol/alcohol in R.reagent_list)
-				ethanol += alcohol.alcohol_perc * 500
+				ethanol += alcohol.alcohol_perc * 300
 			ethanol /= R.reagent_list.len
 
 		for(var/obj/item/organ/internal/I in affected.internal_organs)
@@ -372,12 +374,12 @@
 
 		if(R.reagent_list.len)
 			for(var/datum/reagent/consumable/ethanol/alcohol in R.reagent_list)
-				ethanol += alcohol.alcohol_perc * 500
+				ethanol += alcohol.alcohol_perc * 300
 			ethanol /= C.reagents.reagent_list.len
 
 		for(var/obj/item/organ/internal/I in affected.internal_organs)
 			I.germ_level = max(I.germ_level-ethanol, 0)
-			I.take_damage(rand(3,6),0)
+			I.take_damage(rand(4,8),0)
 
 		R.trans_to(target, GHETTO_DISINFECT_AMOUNT * 10)
 		R.reaction(target, INGEST)

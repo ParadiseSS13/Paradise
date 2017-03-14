@@ -44,6 +44,24 @@
 			return 1
 		return 0
 
+/datum/surgery/debridement/can_start(mob/user, mob/living/carbon/target)
+	if(ishuman(target))
+		var/mob/living/carbon/human/H = target
+		var/obj/item/organ/external/affected = H.get_organ(user.zone_sel.selecting)
+
+		if(!hasorgans(target))
+			return 0
+
+		if(!affected)
+			return 0
+
+		if(!(affected.status & ORGAN_DEAD))
+			return 0
+
+		return 1
+
+	return 0
+
 /datum/surgery_step/fix_vein
 	name = "mend internal bleeding"
 	allowed_tools = list(
@@ -150,9 +168,11 @@
 	allowed_tools = list(
 		/obj/item/weapon/reagent_containers/dropper = 100,
 		/obj/item/weapon/reagent_containers/glass/bottle = 75,
-		/obj/item/weapon/reagent_containers/glass/beaker = 75,
+		/obj/item/weapon/reagent_containers/food/drinks/drinkingglass = 70,
+		/obj/item/weapon/reagent_containers/food/drinks/bottle = 65,
+		/obj/item/weapon/reagent_containers/glass/beaker = 60,
 		/obj/item/weapon/reagent_containers/spray = 50,
-		/obj/item/weapon/reagent_containers/glass/bucket = 50,
+		/obj/item/weapon/reagent_containers/glass/bucket = 40
 	)
 
 	can_infect = 0
@@ -160,12 +180,14 @@
 
 	time = 24
 
-datum/surgery_step/treat_necrosis/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+/datum/surgery_step/treat_necrosis/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	if(!istype(tool, /obj/item/weapon/reagent_containers))
 		return 0
 
 	var/obj/item/weapon/reagent_containers/container = tool
 	if(!container.reagents.has_reagent("mitocholide"))
+		user.visible_message("[user] looks at \the [tool] and ponders." , \
+		"You are not sure if \the [tool] contains mitocholide to treat the necrosis.")
 		return 0
 
 	if(!hasorgans(target))
@@ -176,7 +198,7 @@ datum/surgery_step/treat_necrosis/can_use(mob/living/user, mob/living/carbon/hum
 		return 0
 	return 1
 
-datum/surgery_step/treat_necrosis/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+/datum/surgery_step/treat_necrosis/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message("[user] starts applying medication to the affected tissue in [target]'s [affected.name] with \the [tool]." , \
 	"You start applying medication to the affected tissue in [target]'s [affected.name] with \the [tool].")
