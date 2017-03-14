@@ -275,7 +275,7 @@
 				name = "torso"
 			preview_icon.Blend(icon(R.icon, "[name]"), ICON_OVERLAY) // This doesn't check gendered_icon. Not an issue while only limbs can be robotic.
 			continue
-		if(name == "r_hand" || name == "l_hand" && speciesprefs && species in list("Tajaran", "Unathi"))
+		if((name in list("r_hand", "l_hand")) && speciesprefs && species in list("Tajaran", "Unathi"))
 			name = "[name]_claw"
 		preview_icon.Blend(new /icon(icobase, "[name]"), ICON_OVERLAY)
 
