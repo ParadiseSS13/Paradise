@@ -212,13 +212,18 @@ datum/surgery_step/treat_necrosis/end_step(mob/living/user, mob/living/carbon/hu
 		return 0
 
 	var/obj/item/weapon/reagent_containers/container = tool
+	var/mithocolide = 0
+
+	if(container.reagents.has_reagent("mitocholide"))
+		mithocolide = 1
 
 	var/trans = container.reagents.trans_to(target, container.amount_per_transfer_from_this)
 	if(trans > 0)
 		container.reagents.reaction(target, INGEST)	//technically it's contact, but the reagents are being applied to internal tissue
 
-		if(container.reagents.has_reagent("mitocholide"))
+		if(mithocolide)
 			affected.status &= ~ORGAN_DEAD
+			target.update_body()
 
 		user.visible_message("<span class='notice'> [user] applies [trans] units of the solution to affected tissue in [target]'s [affected.name]</span>", \
 			"<span class='notice'> You apply [trans] units of the solution to affected tissue in [target]'s [affected.name] with \the [tool].</span>")

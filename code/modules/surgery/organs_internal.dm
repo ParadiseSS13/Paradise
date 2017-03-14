@@ -212,7 +212,7 @@
 			H.custom_pain("The pain in your [affected.name] is living hell!", 1)
 
 	else if(istype(tool, /obj/item/weapon/reagent_containers/food/snacks/organ))
-		to_chat(user, "<span class='warning'>[tool] was biten by someone! It's too damaged to use!</span>")
+		to_chat(user, "<span class='warning'>[tool] was bitten by someone! It's too damaged to use!</span>")
 		return -1
 
 	..()
@@ -299,20 +299,15 @@
 					user.visible_message("[user] notices there is not enough of \the [tool].", \
 					"You notice there is not enough of \the [tool].")
 					return 0
-				if(I.germ_level < INFECTION_LEVEL_ONE)
+				if(I.germ_level < INFECTION_LEVEL_ONE / 2)
 					to_chat(user, "[I] does not appear to be infected.")
-				if(I.germ_level >= INFECTION_LEVEL_ONE)
+				if(I.germ_level >= INFECTION_LEVEL_ONE / 2)
 					I.surgeryize()//is this even needed?
 					I.germ_level = max(I.germ_level-ethanol, 0)
 					user.visible_message("<span class='notice'> [user] has poured some of \the [tool] over [target]'s [I.name].</span>",
 					"<span class='notice'> You have poured some of \the [tool] over [target]'s [I.name].</span>")
 					R.trans_to(target, GHETTO_DISINFECT_AMOUNT)
 					R.reaction(target, INGEST)
-
-					if(istype(C, /obj/item/weapon/reagent_containers/dropper/) && C.reagents.total_volume<=0) //trans_to() doesnt do this to droppers???
-						var/obj/item/weapon/reagent_containers/dropper/D = C
-						D.filled = 0
-						D.icon_state = "dropper"
 
 	else if(current_type == "finish")
 		if(affected && affected.encased)
@@ -383,11 +378,6 @@
 
 		R.trans_to(target, GHETTO_DISINFECT_AMOUNT * 10)
 		R.reaction(target, INGEST)
-
-		if(istype(C, /obj/item/weapon/reagent_containers/dropper/) && C.reagents.total_volume<=0) //trans_to() doesnt do this to droppers???
-			var/obj/item/weapon/reagent_containers/dropper/D = C
-			D.filled = 0
-			D.icon_state = "dropper"
 
 		user.visible_message("<span class='warning'> [user]'s hand slips, splashing the contents of \the [tool] all over [target]'s [affected.name] incision!</span>", \
 		"<span class='warning'> Your hand slips, splashing the contents of \the [tool] all over [target]'s [affected.name] incision!</span>")
