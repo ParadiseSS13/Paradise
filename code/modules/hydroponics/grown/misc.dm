@@ -78,7 +78,7 @@
 	product = /obj/item/weapon/reagent_containers/food/snacks/grown/cherry_bomb
 	mutatelist = list()
 	reagents_add = list("plantmatter" = 0.1, "sugar" = 0.1, "blackpowder" = 0.7)
-	rarity = 60 //See above
+	rarity = 60 // Acquirable via Xenobio
 
 /obj/item/weapon/reagent_containers/food/snacks/grown/cherry_bomb
 	name = "cherry bombs"
