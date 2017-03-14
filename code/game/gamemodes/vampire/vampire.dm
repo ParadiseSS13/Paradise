@@ -304,7 +304,7 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 		H.vessel.remove_reagent("blood", 25)
 		if(ishuman(owner))
 			var/mob/living/carbon/human/V = owner
-			V.nutrition = min(450, V.nutrition + (blood / 2))
+			V.nutrition = min(NUTRITION_LEVEL_WELL_FED, V.nutrition + (blood / 2))
 
 	draining = null
 	to_chat(owner, "<span class='notice'>You stop draining [H.name] of blood.</span>")

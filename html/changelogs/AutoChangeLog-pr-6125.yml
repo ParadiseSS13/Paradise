@@ -1,0 +1,4 @@
+author: "Crazylemon"
+delete-after: True
+changes: 
+  - tweak: "Giant spiders now have their own role pref"

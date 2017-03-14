@@ -817,8 +817,8 @@
 	H.nutrition += light_amount
 	H.traumatic_shock -= light_amount
 
-	if(H.nutrition > 450)
-		H.nutrition = 450
+	if(H.nutrition > NUTRITION_LEVEL_WELL_FED)
+		H.nutrition = NUTRITION_LEVEL_WELL_FED
 
 	if((light_amount >= 5) && !H.suiciding) //if there's enough light, heal
 		H.adjustBruteLoss(-(light_amount/2))

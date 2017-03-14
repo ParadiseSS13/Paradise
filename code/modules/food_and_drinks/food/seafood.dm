@@ -6,7 +6,7 @@
 	icon_state = "fishfillet"
 	filling_color = "#FFDEFE"
 	bitesize = 6
-	list_reagents = list("protein" = 3, "carpotoxin" = 3)
+	list_reagents = list("protein" = 3, "carpotoxin" = 2, "vitamin" = 2)
 
 /obj/item/weapon/reagent_containers/food/snacks/salmonmeat
 	name = "raw salmon"
@@ -14,8 +14,8 @@
 	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "fishfillet"
 	filling_color = "#FFDEFE"
-	bitesize = 3
-	list_reagents = list("protein" = 3)
+	bitesize = 6
+	list_reagents = list("protein" = 3, "vitamin" = 2)
 
 /obj/item/weapon/reagent_containers/food/snacks/salmonsteak
 	name = "Salmon steak"
@@ -25,7 +25,7 @@
 	trash = /obj/item/trash/plate
 	filling_color = "#7A3D11"
 	bitesize = 3
-	list_reagents = list("nutriment" = 4, "sodiumchloride" = 1, "blackpepper" = 1)
+	list_reagents = list("nutriment" = 4, "vitamin" = 2)
 
 /obj/item/weapon/reagent_containers/food/snacks/catfishmeat
 	name = "raw catfish"
@@ -33,8 +33,8 @@
 	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "fishfillet"
 	filling_color = "#FFDEFE"
-	bitesize = 3
-	list_reagents = list("protein" = 3)
+	bitesize = 6
+	list_reagents = list("protein" = 3, "vitamin" = 2)
 
 /obj/item/weapon/reagent_containers/food/snacks/fishfingers
 	name = "Fish Fingers"
@@ -42,8 +42,8 @@
 	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "fishfingers"
 	filling_color = "#FFDEFE"
-	bitesize = 3
-	list_reagents = list("nutriment" = 4, "carpotoxin" = 3)
+	bitesize = 1
+	list_reagents = list("nutriment" = 4)
 
 /obj/item/weapon/reagent_containers/food/snacks/fishburger
 	name = "Fillet -o- Carp Sandwich"
@@ -52,7 +52,7 @@
 	icon_state = "fishburger"
 	filling_color = "#FFDEFE"
 	bitesize = 3
-	list_reagents = list("nutriment" = 6, "carpotoxin" = 3)
+	list_reagents = list("nutriment" = 6, "vitamin" = 1)
 
 /obj/item/weapon/reagent_containers/food/snacks/cubancarp
 	name = "Cuban Carp"
@@ -62,7 +62,7 @@
 	trash = /obj/item/trash/plate
 	filling_color = "#E9ADFF"
 	bitesize = 3
-	list_reagents = list("nutriment" = 6, "carpotoxin" = 3, "capsaicin" = 3)
+	list_reagents = list("nutriment" = 6, "capsaicin" = 1)
 
 /obj/item/weapon/reagent_containers/food/snacks/fishandchips
 	name = "Fish and Chips"
@@ -71,7 +71,7 @@
 	icon_state = "fishandchips"
 	filling_color = "#E3D796"
 	bitesize = 3
-	list_reagents = list("nutriment" = 6, "carpotoxin" = 3)
+	list_reagents = list("nutriment" = 6)
 
 /obj/item/weapon/reagent_containers/food/snacks/sashimi
 	name = "carp sashimi"
@@ -79,7 +79,7 @@
 	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "sashimi"
 	bitesize = 3
-	list_reagents = list("nutriment" = 6, "toxin" = 5)
+	list_reagents = list("nutriment" = 6, "capsaicin" = 5)
 
 /obj/item/weapon/reagent_containers/food/snacks/fried_shrimp
 	name = "fried shrimp"

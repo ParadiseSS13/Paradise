@@ -22,7 +22,6 @@
 	desc = "Such sweet, fattening food."
 	icon_state = "chocolatebar"
 	filling_color = "#7D5F46"
-	bitesize = 2
 	list_reagents = list("nutriment" = 2, "chocolate" = 4)
 
 /obj/item/weapon/reagent_containers/food/snacks/candy/caramel
@@ -30,7 +29,6 @@
 	desc = "Chewy and dense, yet it practically melts in your mouth!"
 	icon_state = "caramel"
 	filling_color = "#DB944D"
-	bitesize = 2
 	list_reagents = list("cream" = 2, "sugar" = 2)
 
 
@@ -39,7 +37,6 @@
 	desc = "A hard, brittle candy with a distinctive taste."
 	icon_state = "toffee"
 	filling_color = "#7D5F46"
-	bitesize = 2
 	list_reagents = list("nutriment" = 3, "sugar" = 3)
 
 /obj/item/weapon/reagent_containers/food/snacks/candy/nougat
@@ -47,7 +44,6 @@
 	desc = "A soft, chewy candy commonly found in candybars."
 	icon_state = "nougat"
 	filling_color = "#7D5F46"
-	bitesize = 2
 	list_reagents = list("nutriment" = 3, "sugar" = 3)
 
 /obj/item/weapon/reagent_containers/food/snacks/candy/taffy
@@ -55,7 +51,6 @@
 	desc = "Old fashioned saltwater taffy. Chewy!"
 	icon_state = "candy1"
 	filling_color = "#7D5F46"
-	bitesize = 2
 	list_reagents = list("nutriment" = 3, "sugar" = 3)
 
 /obj/item/weapon/reagent_containers/food/snacks/candy/taffy/New()
@@ -111,7 +106,6 @@
 	desc = "It's a handful of candy corn. Cannot be stored in a detective's hat, alas."
 	icon_state = "candycorn"
 	filling_color = "#FFFCB0"
-	bitesize = 2
 	list_reagents = list("nutriment" = 4, "sugar" = 2)
 
 // ***********************************************************
@@ -134,14 +128,15 @@
 	trash = /obj/item/trash/candy
 	filling_color = "#7D5F46"
 	bitesize = 3
-	list_reagents = list("nutriment" = 2, "chocolate" = 5)
+	junkiness = 25
+	list_reagents = list("nutriment" = 1, "chocolate" = 1)
+
 
 /obj/item/weapon/reagent_containers/food/snacks/candy/candycane
 	name = "candy cane"
 	desc = "A festive mint candy cane."
 	icon_state = "candycane"
 	filling_color = "#F2F2F2"
-	bitesize = 2
 	list_reagents = list("minttoxin" = 1, "sugar" = 5)
 
 /obj/item/weapon/reagent_containers/food/snacks/candy/gummybear
@@ -181,7 +176,6 @@
 	desc = "Not legal tender. Tasty though."
 	icon_state = "candy_cash"
 	filling_color = "#302000"
-	bitesize = 2
 	list_reagents = list("nutriment" = 2, "chocolate" = 4)
 
 /obj/item/weapon/reagent_containers/food/snacks/candy/coin
@@ -511,32 +505,35 @@
 // Candybar Flavors
 // ***********************************************************
 
-/obj/item/weapon/reagent_containers/food/snacks/candy/candybar/rice
+/obj/item/weapon/reagent_containers/food/snacks/candy/confectionery
+	list_reagents = list("nutriment" = 1, "chocolate" = 1)
+
+/obj/item/weapon/reagent_containers/food/snacks/candy/confectionery/rice
 	name = "Asteroid Crunch Bar"
 	desc = "Crunchy rice deposits in delicious chocolate! A favorite of miners galaxy-wide."
 	icon_state = "asteroidcrunch"
 	trash = /obj/item/trash/candy
 	filling_color = "#7D5F46"
 
-/obj/item/weapon/reagent_containers/food/snacks/candy/candybar/toffee
+/obj/item/weapon/reagent_containers/food/snacks/candy/confectionery/toffee
 	name = "Yum-baton Bar"
 	desc = "Chocolate and toffee in the shape of a baton. Security sure knows how to pound these down!"
 	icon_state = "yumbaton"
 	filling_color = "#7D5F46"
 
-/obj/item/weapon/reagent_containers/food/snacks/candy/candybar/caramel
+/obj/item/weapon/reagent_containers/food/snacks/candy/confectionery/caramel
 	name = "Malper Bar"
 	desc = "A chocolate syringe filled with a caramel injection. Just what the doctor ordered!"
 	icon_state = "malper"
 	filling_color = "#7D5F46"
 
-/obj/item/weapon/reagent_containers/food/snacks/candy/candybar/caramel_nougat
+/obj/item/weapon/reagent_containers/food/snacks/candy/confectionery/caramel_nougat
 	name = "Toxins Test Bar"
 	desc = "An explosive combination of chocolate, caramel, and nougat. Research has never been so tasty!"
 	icon_state = "toxinstest"
 	filling_color = "#7D5F46"
 
-/obj/item/weapon/reagent_containers/food/snacks/candy/candybar/nougat
+/obj/item/weapon/reagent_containers/food/snacks/candy/confectionery/nougat
 	name = "Tool-erone Bar"
 	desc = "Chocolate-covered nougat, shaped like a wrench. Great for an engineer on the go!"
 	icon_state = "toolerone"
