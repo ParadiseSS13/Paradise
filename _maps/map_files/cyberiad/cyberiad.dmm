@@ -3636,7 +3636,7 @@
 "brV" = (/obj/structure/stool/bed/chair/comfy/beige{tag = "icon-comfychair (EAST)"; icon_state = "comfychair"; dir = 4},/turf/simulated/floor/wood,/area/hallway/secondary/entry)
 "brW" = (/obj/machinery/alarm{dir = 1; icon_state = "alarm0"; pixel_y = -22},/obj/item/weapon/twohanded/required/kirbyplants{tag = "icon-plant-22"; icon_state = "plant-22"},/obj/machinery/light,/turf/simulated/floor/wood,/area/hallway/secondary/entry)
 "brX" = (/obj/machinery/firealarm{dir = 2; pixel_y = -24},/obj/structure/table/woodentable,/obj/item/weapon/reagent_containers/food/drinks/coffee,/turf/simulated/floor/wood,/area/hallway/secondary/entry)
-"brY" = (/obj/machinery/camera{c_tag = "EVA Airlock"; dir = 1},/turf/simulated/floor/plasteel,/area/hallway/secondary/entry)
+"brY" = (/obj/machinery/camera{c_tag = "Arrivals Center"; dir = 1},/turf/simulated/floor/plasteel,/area/hallway/secondary/entry)
 "brZ" = (/obj/structure/stool/bed/chair/office/dark{dir = 4},/turf/simulated/floor/wood,/area/security/vacantoffice)
 "bsa" = (/obj/structure/stool/bed/chair/office/dark{dir = 8},/turf/simulated/floor/wood,/area/security/vacantoffice)
 "bsb" = (/obj/machinery/alarm{pixel_y = 23},/turf/simulated/floor/wood,/area/security/vacantoffice)
