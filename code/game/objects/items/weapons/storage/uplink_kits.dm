@@ -217,3 +217,15 @@
 		B.deity_name = "Success"
 		B.icon_state = "greentext"
 		B.item_state = "greentext"
+
+/obj/item/weapon/storage/box/syndie_kit/syringes
+	name = "Syringe variety pack"
+
+/obj/item/weapon/storage/box/syndie_kit/syringes/New()
+	..()
+	new /obj/item/weapon/reagent_containers/syringe(src)
+	new /obj/item/weapon/reagent_containers/syringe/cryo(src)
+	new /obj/item/weapon/reagent_containers/syringe/bluespace(src)
+	new /obj/item/weapon/reagent_containers/syringe/microneedle(src)
+	new /obj/item/weapon/reagent_containers/syringe/armorpiercing(src)
+	new /obj/item/weapon/gun/syringe(src)

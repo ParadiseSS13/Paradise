@@ -832,6 +832,13 @@ var/list/uplink_items = list()
 	item = /obj/item/flag/chameleon
 	cost = 7
 
+/datum/uplink_item/stealthy_weapons/syringes
+	name = "Syringe Variety Pack"
+	desc = "A variety of syringes, each desgined to serve a specific purpose."
+	reference = "SVP"
+	item = /obj/item/weapon/storage/box/syndie_kit/syringes
+	cost = 5
+
 // STEALTHY TOOLS
 
 /datum/uplink_item/stealthy_tools
