@@ -41,7 +41,7 @@
 	//height=42
 	icon='icons/fence-ns.dmi'
 
-/obj/structure/grille/ex_act(severity, target)
+/obj/structure/grille/ex_act(severity)
 	switch(severity)
 		if(1)
 			qdel(src)
