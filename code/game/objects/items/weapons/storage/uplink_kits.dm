@@ -227,7 +227,7 @@
 	new /obj/item/weapon/storage/belt/military/assault/full/(src)
 	new /obj/item/weapon/gun/projectile/automatic/l6_saw(src)
 	new /obj/item/clothing/head/bandana(src)
-	new /obj/item/device/radio/headset/headset_sec/alt(src)
+	new /obj/item/clothing/ears/earmuffs(src)
 	new /obj/item/clothing/gloves/combat(src)
 	new /obj/item/clothing/suit/jacket/miljacket(src)
 	new /obj/item/clothing/under/bane(src)

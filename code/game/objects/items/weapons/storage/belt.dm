@@ -279,9 +279,9 @@
 	new /obj/item/weapon/gun/projectile/automatic/pistol/deagle(src)
 	new /obj/item/weapon/grenade/plastic/x4(src)
 	new /obj/item/weapon/grenade/plastic/x4(src)
-	new /obj/item/weapon/reagent_containers/hypospray/combat/nanites(src)
+	new /obj/item/weapon/grenade/plastic/x4(src)
 	new /obj/item/weapon/kitchen/knife/combat(src)
-	new /obj/item/weapon/card/emag(src)
+	new /obj/item/weapon/implanter/adrenalin (src)
 
 /obj/item/weapon/storage/belt/janitor
 	name = "janibelt"
