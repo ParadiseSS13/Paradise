@@ -203,6 +203,7 @@
 	access = list(access_medical, access_morgue, access_surgery, access_chemistry, access_virology, access_genetics)
 	minimal_access = list(access_medical, access_morgue, access_surgery, access_security, access_sec_doors, access_brig, access_court, access_maint_tunnels)
 	outfit = /datum/outfit/job/brigdoc
+	demotable_by = list("Head of Security")
 
 /datum/outfit/job/brigdoc
 	name = "Brig Physician"

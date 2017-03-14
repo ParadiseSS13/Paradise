@@ -146,6 +146,7 @@
 	minimal_access = list(access_medical, access_morgue, access_genetics, access_research, access_maint_tunnels)
 	minimal_player_age = 3
 	outfit = /datum/outfit/job/geneticist
+	demotable_by = list("Chief Medical Officer", "Research Director")
 
 /datum/outfit/job/geneticist
 	name = "Geneticist"

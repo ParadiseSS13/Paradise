@@ -23,11 +23,19 @@
 				return
 			// Stop heads from demoting the staff of other departments. HoP/Captain can still demote anyone.
 			if(!(access_change_ids in headaccess))
-				for(var/thisaccess in D.access)
-					if(!(thisaccess in headaccess))
-						visible_message("<span class='warning'>[src]: [headrank] [headname] cannot use this method to demote [D.assignment] [D.registered_name]. Contact the Head of Personnel.</span>")
-						playsound(src, 'sound/machines/buzz-two.ogg', 50, 1)
-						return
+				var/datum/job/J = job_master.GetJob(D.assignment)
+				var/fail_demote = 0
+				if(J && J.demotable_by.len)
+					if(!(headrank in J.demotable_by))
+						fail_demote = 1
+				else
+					for(var/thisaccess in D.access)
+						if(!(thisaccess in headaccess))
+							fail_demote = 1
+				if(fail_demote)
+					visible_message("<span class='warning'>[src]: [headrank] [headname] cannot use this method to demote [D.assignment] [D.registered_name]. Contact the Head of Personnel.</span>")
+					playsound(src, 'sound/machines/buzz-two.ogg', 50, 1)
+					return
 			visible_message("<span class='notice'>[src]: [headrank] [headname] has demoted [D.registered_name] from [D.assignment] to Civilian. Remember to recover any job-specific items they may have.</span>")
 			playsound(src.loc, 'sound/machines/twobeep.ogg', 50, 0)
 			var/datum/job/civilian/C = new/datum/job/civilian
@@ -51,7 +59,8 @@
 			playsound(src.loc, 'sound/machines/twobeep.ogg', 50, 0)
 			spawn(300)
 				if(headaccess.len)
-					visible_message("<span class='notice'>[src] beeps: [headrank] [headname] has been automatically logged out. Please swipe your ID again if you wish to demote any more IDs.</span>")
+					visible_message("<span class='notice'>[src]: [headrank] [headname] has been automatically logged out. Please swipe your ID again if you wish to demote any more IDs.</span>")
+					playsound(src, 'sound/machines/buzz-two.ogg', 50, 1)
 					headname = null
 					headrank = null
 					headaccess = list()
