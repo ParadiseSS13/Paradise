@@ -137,8 +137,10 @@
 	new /obj/item/clothing/shoes/black(src)
 	new /obj/item/clothing/head/soft/blue(src)
 	new /obj/item/clothing/head/soft/blue(src)
+	new /obj/item/clothing/mask/cigarette(src)
 	new /obj/item/clothing/suit/storage/paramedic(src)
 	new /obj/item/clothing/suit/storage/paramedic(src)
 	new /obj/item/weapon/tank/emergency_oxygen/engi(src)
 	new /obj/item/weapon/tank/emergency_oxygen/engi(src)
 	new /obj/item/key/ambulance(src)
+

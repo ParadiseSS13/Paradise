@@ -244,6 +244,7 @@
 	selection_color = "#ffeef0"
 	access = list(access_paramedic, access_medical, access_sec_doors, access_maint_tunnels, access_external_airlocks, access_morgue)
 	minimal_access=list(access_paramedic, access_medical, access_sec_doors, access_maint_tunnels, access_external_airlocks, access_morgue)
+	alt_titles = list("EMT")
 	minimal_player_age = 3
 	outfit = /datum/outfit/job/paramedic
 
@@ -252,12 +253,13 @@
 	jobtype = /datum/job/paramedic
 
 	uniform = /obj/item/clothing/under/rank/medical/paramedic
+	suit = /obj/item/clothing/suit/storage/paramedic
 	shoes = /obj/item/clothing/shoes/black
 	head = /obj/item/clothing/head/soft/blue
-	mask = /obj/item/clothing/mask/cigarette
+	//mask = /obj/item/clothing/mask/cigarette
 	l_ear = /obj/item/device/radio/headset/headset_med
 	id = /obj/item/weapon/card/id/medical
-	l_pocket = /obj/item/device/flashlight/pen
+	suit_store = /obj/item/weapon/reagent_containers/hypospray/autoinjector
 	pda = /obj/item/device/pda/medical
 	backpack_contents = list(
 		/obj/item/device/healthanalyzer = 1
