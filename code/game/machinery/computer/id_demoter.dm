@@ -1,6 +1,7 @@
 /obj/machinery/computer/id_demoter
 	name = "ID Demotion Terminal"
 	desc = "Allows heads of staff to demote members of their department, by swiping their ID, then the ID of the person they wish to demote."
+	density = 0
 	icon_state = "guest"
 	icon_screen = "pass"
 	var/headname = null
