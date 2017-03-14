@@ -13,6 +13,11 @@
 	steps = list(/datum/surgery_step/generic/cut_open,/datum/surgery_step/generic/clamp_bleeders,/datum/surgery_step/generic/retract_skin,/datum/surgery_step/fix_vein,/datum/surgery_step/generic/cauterize)
 	possible_locs = list("chest","head","groin", "l_arm", "r_arm", "l_leg", "r_leg", "r_hand", "l_hand", "r_foot", "l_foot")
 
+/datum/surgery/debridement
+	name = "Debridement"
+	steps = list(/datum/surgery_step/generic/cut_open,/datum/surgery_step/generic/clamp_bleeders,/datum/surgery_step/generic/retract_skin,/datum/surgery_step/fix_dead_tissue,/datum/surgery_step/treat_necrosis,/datum/surgery_step/generic/cauterize)
+	possible_locs = list("chest","head","groin", "l_arm", "r_arm", "l_leg", "r_leg", "r_hand", "l_hand", "r_foot", "l_foot")
+
 /datum/surgery/infection/can_start(mob/user, mob/living/carbon/target)
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
@@ -94,9 +99,9 @@
 /datum/surgery_step/fix_dead_tissue		//Debridement
 	name = "remove dead tissue"
 	allowed_tools = list(
-		/obj/item/weapon/scalpel = 100,		\
-		/obj/item/weapon/kitchen/knife = 75,	\
-		/obj/item/weapon/shard = 50, 		\
+		/obj/item/weapon/scalpel = 100, \
+		/obj/item/weapon/kitchen/knife = 75, \
+		/obj/item/weapon/shard = 50,
 	)
 
 	can_infect = 1
@@ -115,7 +120,6 @@
 
 	if(!(affected.status & ORGAN_DEAD))
 		return 0
-
 	return 1
 
 /datum/surgery_step/fix_dead_tissue/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
@@ -156,7 +160,7 @@
 
 	time = 24
 
-/datum/surgery_step/fix_dead_tissue/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+datum/surgery_step/treat_necrosis/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	if(!istype(tool, /obj/item/weapon/reagent_containers))
 		return 0
 
@@ -172,14 +176,14 @@
 		return 0
 	return 1
 
-/datum/surgery_step/fix_dead_tissue/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+datum/surgery_step/treat_necrosis/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message("[user] starts applying medication to the affected tissue in [target]'s [affected.name] with \the [tool]." , \
 	"You start applying medication to the affected tissue in [target]'s [affected.name] with \the [tool].")
 	target.custom_pain("Something in your [affected.name] is causing you a lot of pain!",1)
 	..()
 
-/datum/surgery_step/fix_dead_tissue/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+datum/surgery_step/treat_necrosis/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
 	if(!istype(tool, /obj/item/weapon/reagent_containers))
@@ -199,7 +203,7 @@
 
 	return 1
 
-/datum/surgery_step/fix_dead_tissue/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+/datum/surgery_step/treat_necrosis/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
 	if(!istype(tool, /obj/item/weapon/reagent_containers))

@@ -128,8 +128,8 @@
 		for(var/obj/item/organ/internal/I in affected.internal_organs)
 			if(I)
 				if(C.reagents.total_volume < GHETTO_DISINFECT_AMOUNT)
-					user.visible_message("[user] notices \the [tool] is emtpy.", \
-					"You notice \the [tool]. is empty")
+					user.visible_message("[user] notices \the [tool] is empty.", \
+					"You notice \the [tool] is empty")
 					return 0
 
 				var/msg = "[user] starts pouring some of \the [tool] over [target]'s [I.name]."
@@ -312,9 +312,6 @@
 						D.filled = 0
 						D.icon_state = "dropper"
 
-				if(R.has_reagent("mitocholide"))
-					affected.status &= ~ORGAN_DEAD
-
 	else if(current_type == "finish")
 		if(affected && affected.encased)
 			var/msg = "<span class='notice'> [user] bends [target]'s [affected.encased] back into place with \the [tool].</span>"
@@ -389,9 +386,6 @@
 			var/obj/item/weapon/reagent_containers/dropper/D = C
 			D.filled = 0
 			D.icon_state = "dropper"
-
-		if(R.has_reagent("mitocholide"))
-			affected.status &= ~ORGAN_DEAD
 
 		user.visible_message("<span class='warning'> [user]'s hand slips, splashing the contents of \the [tool] all over [target]'s [affected.name] incision!</span>", \
 		"<span class='warning'> Your hand slips, splashing the contents of \the [tool] all over [target]'s [affected.name] incision!</span>")
