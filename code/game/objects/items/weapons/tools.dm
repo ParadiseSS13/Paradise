@@ -28,12 +28,12 @@
 	origin_tech = "materials=1;engineering=1"
 	attack_verb = list("bashed", "battered", "bludgeoned", "whacked")
 	toolspeed = 1
-	
+
 /obj/item/weapon/wrench/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is beating themself to death with [src]! It looks like they're trying to commit suicide!</span>")
 	playsound(loc, 'sound/weapons/genhit.ogg', 50, 1, -1)
 	return (BRUTELOSS)
-	
+
 /obj/item/weapon/wrench/cyborg
 	name = "automatic wrench"
 	desc = "An advanced robotic wrench. Can be found in construction cyborgs."
@@ -44,7 +44,7 @@
 	desc = "A brass wrench. It's faintly warm to the touch."
 	icon_state = "wrench_brass"
 	toolspeed = 0.5
-	
+
 /obj/item/weapon/wrench/abductor
 	name = "alien wrench"
 	desc = "A polarized wrench. It causes anything placed between the jaws to turn."
@@ -162,7 +162,7 @@
 	if((CLUMSY in user.mutations) && prob(50))
 		M = user
 	return eyestab(M,user)
-	
+
 /obj/item/weapon/screwdriver/brass
 	name = "brass screwdriver"
 	desc = "A screwdriver made of brass. The handle feels freezing cold."
@@ -249,7 +249,7 @@
 		return
 	else
 		..()
-	
+
 /obj/item/weapon/wirecutters/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is cutting at their arteries with [src]! It looks like they're trying to commit suicide!</span>")
 	playsound(loc, usesound, 50, 1, -1)
@@ -388,7 +388,7 @@
 			location = get_turf(M)
 	if(isturf(location))
 		location.hotspot_expose(700, 5)
-		
+
 /obj/item/weapon/weldingtool/attackby(obj/item/I, mob/user, params)
 	if(isscrewdriver(I))
 		flamethrower_screwdriver(I, user)
@@ -578,7 +578,7 @@
 
 /obj/item/weapon/weldingtool/mini/flamethrower_screwdriver()
 	return
-	
+
 /obj/item/weapon/weldingtool/abductor
 	name = "alien welding tool"
 	desc = "An alien welding tool. Whatever fuel it uses, it never runs out."
@@ -589,7 +589,7 @@
 	change_icons = 0
 	origin_tech = "plasmatech=5;engineering=5;abductor=3"
 	can_off_process = 1
-	
+
 /obj/item/weapon/weldingtool/abductor/process()
 	if(get_fuel() <= max_fuel)
 		reagents.add_reagent("fuel", 1)
@@ -617,7 +617,7 @@
 	light_intensity = 1
 	toolspeed = 0.5
 	var/last_gen = 0
-	
+
 /obj/item/weapon/weldingtool/experimental/brass
 	name = "brass welding tool"
 	desc = "A brass welder that seems to constantly refuel itself. It is faintly warm to the touch."
@@ -651,12 +651,14 @@ obj/item/weapon/weldingtool/experimental/process()
 
 /obj/item/weapon/crowbar/red
 	icon_state = "crowbar_red"
+	item_state = "crowbar_red"
 	force = 8
-	
+
 /obj/item/weapon/crowbar/brass
 	name = "brass crowbar"
 	desc = "A brass crowbar. It feels faintly warm to the touch."
 	icon_state = "crowbar_brass"
+	item_state = "crowbar_brass"
 	toolspeed = 0.5
 
 /obj/item/weapon/crowbar/abductor
@@ -677,9 +679,9 @@ obj/item/weapon/weldingtool/experimental/process()
 	throw_range = 3
 	materials = list(MAT_METAL=70)
 	icon_state = "crowbar_large"
-	item_state = "crowbar"
+	item_state = "crowbar_large"
 	toolspeed = 0.5
-	
+
 /obj/item/weapon/crowbar/cyborg
 	name = "hydraulic crowbar"
 	desc = "A hydraulic prying tool, compact but powerful. Designed to replace crowbar in construction cyborgs."
