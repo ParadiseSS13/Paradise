@@ -1,0 +1,4 @@
+author: "uraniummeltdown"
+delete-after: True
+changes: 
+  - rscadd: "Strong supply talismans can now summon 5 sheets of runed metal."
