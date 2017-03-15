@@ -30,14 +30,14 @@
 	var/frame_desc = null
 	var/contain_parts = 1
 	toolspeed = 1
-	usesound = 'sound/items/Deconstruct.ogg' 
+	usesound = 'sound/items/Deconstruct.ogg'
 
 /obj/item/weapon/circuitboard/computer
-	board_type = "computer"	
-	
+	board_type = "computer"
+
 /obj/item/weapon/circuitboard/machine
-	board_type = "machine"	
-	
+	board_type = "machine"
+
 /obj/item/weapon/circuitboard/message_monitor
 	name = "Circuit board (Message Monitor)"
 	build_path = /obj/machinery/computer/message_monitor
@@ -80,6 +80,10 @@
 /obj/item/weapon/circuitboard/card
 	name = "Circuit board (ID Computer)"
 	build_path = /obj/machinery/computer/card
+/obj/item/weapon/circuitboard/card/minor
+	name = "Circuit board (Dept ID Computer)"
+	build_path = /obj/machinery/computer/card/minor
+	var/target_dept = 1
 /obj/item/weapon/circuitboard/card/centcom
 	name = "Circuit board (CentComm ID Computer)"
 	build_path = /obj/machinery/computer/card/centcom
