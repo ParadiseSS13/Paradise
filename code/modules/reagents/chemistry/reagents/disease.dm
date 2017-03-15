@@ -2,7 +2,6 @@
 	name = "spider eggs"
 	id = "spidereggs"
 	description = "A fine dust containing spider eggs. Oh gosh."
-	reagent_state = SOLID
 	color = "#FFFFFF"
 	can_synth = 0
 
@@ -55,7 +54,6 @@
 	name = "Jagged Crystals"
 	id = "jagged_crystals"
 	description = "Rapid chemical decomposition has warped these crystals into twisted spikes."
-	reagent_state = SOLID
 	color = "#FA0000" // rgb: 250, 0, 0
 	can_synth = 0
 
@@ -67,7 +65,6 @@
 	name = "Salmonella"
 	id = "salmonella"
 	description = "A nasty bacteria found in spoiled food."
-	reagent_state = LIQUID
 	color = "#1E4600"
 	can_synth = 0
 
@@ -79,7 +76,6 @@
 	name = "Gibbis"
 	id = "gibbis"
 	description = "Liquid gibbis."
-	reagent_state = LIQUID
 	color = "#FF0000"
 	can_synth = 0
 
@@ -92,7 +88,6 @@
 	name = "Prions"
 	id = "prions"
 	description = "A disease-causing agent that is neither bacterial nor fungal nor viral and contains no genetic material."
-	reagent_state = LIQUID
 	color = "#FFFFFF"
 	can_synth = 0
 
@@ -105,7 +100,6 @@
 	name = "Grave Dust"
 	id = "grave_dust"
 	description = "Moldy old dust taken from a grave site."
-	reagent_state = LIQUID
 	color = "#465046"
 	can_synth = 0
 
@@ -118,7 +112,6 @@
 	name = "Space heartworms"
 	id = "heartworms"
 	description = "Aww, gross! These things can't be good for your heart. They're gunna eat it!"
-	reagent_state = SOLID
 	color = "#925D6C"
 	can_synth = 0
 
@@ -136,7 +129,6 @@
 	name = "Concentrated Initropidril"
 	id = "concentrated_initro"
 	description = "A guaranteed heart-stopper!"
-	reagent_state = LIQUID
 	color = "#AB1CCF"
 	can_synth = 0
 
@@ -153,7 +145,6 @@
 	name = "Virus Food"
 	id = "virusfood"
 	description = "A mixture of water, milk, and oxygen. Virus cells can use this mixture to reproduce."
-	reagent_state = LIQUID
 	nutriment_factor = 2 * REAGENTS_METABOLISM
 	color = "#899613" // rgb: 137, 150, 19
 
