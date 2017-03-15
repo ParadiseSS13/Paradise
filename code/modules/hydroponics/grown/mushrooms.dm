@@ -235,10 +235,10 @@
 
 /obj/item/weapon/reagent_containers/food/snacks/grown/mushroom/glowshroom/attack_self(mob/user)
 	if(istype(user.loc, /turf/space))
-		return
+		return FALSE
 	if(!isturf(user.loc))
 		to_chat(user, "<span class='warning'>You need more space to plant [src].</span>")
-		return
+		return FALSE
 	var/count = 0
 	var/maxcount = 1
 	for(var/tempdir in cardinal)
@@ -249,10 +249,11 @@
 		count++
 	if(count >= maxcount)
 		to_chat(user, "<span class='warning'>There are too many shrooms here to plant [src].</span>")
-		return
+		return FALSE
 	new effect_path(user.loc, seed)
 	to_chat(user, "<span class='notice'>You plant [src].</span>")
 	qdel(src)
+	return TRUE
 
 
 // Glowcap

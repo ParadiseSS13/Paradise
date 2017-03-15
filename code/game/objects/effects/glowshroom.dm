@@ -54,6 +54,7 @@
 		myseed.adjust_production(rand(-3,6))
 		myseed.adjust_endurance(rand(-3,6))
 	delay = delay - myseed.production * 100 //So the delay goes DOWN with better stats instead of up. :I
+	endurance = myseed.endurance
 	if(myseed.get_gene(/datum/plant_gene/trait/glow))
 		var/datum/plant_gene/trait/glow/G = myseed.get_gene(/datum/plant_gene/trait/glow)
 		set_light(G.glow_range(myseed), G.glow_power(myseed), G.glow_color)
@@ -114,6 +115,8 @@
 			shrooms_planted++
 
 			CHECK_TICK
+		else
+			shrooms_planted++ //if we failed due to generation, don't try to plant one later
 	if(shrooms_planted < myseed.yield) //if we didn't get all possible shrooms planted, try again later
 		myseed.yield -= shrooms_planted
 		addtimer(src, "Spread", delay, FALSE)
