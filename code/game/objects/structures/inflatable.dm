@@ -33,7 +33,7 @@
 	air_update_turf(1)
 	return ..()
 
-/obj/structure/inflatable/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
+/obj/structure/inflatable/CanPass(atom/movable/mover, turf/target, height=0)
 	return 0
 
 /obj/structure/inflatable/CanAtmosPass(turf/T)
@@ -178,9 +178,7 @@
 /obj/structure/inflatable/door/attack_hand(mob/user as mob)
 	return TryToSwitchState(user)
 
-/obj/structure/inflatable/door/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
-	if(air_group)
-		return state
+/obj/structure/inflatable/door/CanPass(atom/movable/mover, turf/target, height=0)
 	if(istype(mover, /obj/effect/beam))
 		return !opacity
 	return !density

@@ -337,8 +337,8 @@ steam.start() -- spawns the effect
 	return
 
 
-/obj/effect/effect/bad_smoke/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
-	if(air_group || (height==0)) return 1
+/obj/effect/effect/bad_smoke/CanPass(atom/movable/mover, turf/target, height=0)
+	if(height==0) return 1
 	if(istype(mover, /obj/item/projectile/beam))
 		var/obj/item/projectile/beam/B = mover
 		B.damage = (B.damage/2)
@@ -1124,8 +1124,7 @@ steam.start() -- spawns the effect
 	M.visible_message("<span class='danger'>[M] tears apart \the [src]!</span>");
 	qdel(src)
 
-/obj/structure/foamedmetal/CanPass(atom/movable/mover, turf/target, height=1.5, air_group = 0)
-	if(air_group) return 0
+/obj/structure/foamedmetal/CanPass(atom/movable/mover, turf/target, height=1.5)
 	return !density
 
 /obj/structure/foamedmetal/CanAtmosPass()

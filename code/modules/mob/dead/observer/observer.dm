@@ -99,7 +99,7 @@ var/list/image/ghost_darkness_images = list() //this is a list of images for thi
 		updateallghostimages()
 	return ..()
 
-/mob/dead/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
+/mob/dead/CanPass(atom/movable/mover, turf/target, height=0)
 	return 1
 
 

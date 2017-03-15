@@ -347,9 +347,9 @@
 						if(state < GRAB_NECK)
 							to_chat(assailant, "<span class='warning'>You require a better grab to do this.</span>")
 							return
-						if((affected.head && affected.head.flags & HEADCOVERSEYES) || \
-							(affected.wear_mask && affected.wear_mask.flags & MASKCOVERSEYES) || \
-							(affected.glasses && affected.glasses.flags & GLASSESCOVERSEYES))
+						if((affected.head && affected.head.flags_cover & HEADCOVERSEYES) || \
+							(affected.wear_mask && affected.wear_mask.flags_cover & MASKCOVERSEYES) || \
+							(affected.glasses && affected.glasses.flags_cover & GLASSESCOVERSEYES))
 							to_chat(assailant, "<span class='danger'>You're going to need to remove the eye covering first.</span>")
 							return
 						if(!affected.internal_organs_by_name["eyes"])

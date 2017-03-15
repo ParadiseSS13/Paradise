@@ -313,4 +313,3 @@
 	else
 		smooth = SMOOTH_TRUE
 		icon_state = ""
-

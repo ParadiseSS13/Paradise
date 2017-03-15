@@ -23,6 +23,9 @@
 	var/created_window = /obj/structure/window/basic
 	var/full_window = /obj/structure/window/full/basic
 
+/obj/item/stack/sheet/glass/fifty
+	amount = 50
+
 /obj/item/stack/sheet/glass/cyborg
 	materials = list()
 

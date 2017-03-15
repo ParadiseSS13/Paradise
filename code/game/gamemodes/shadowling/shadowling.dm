@@ -162,8 +162,8 @@ Made by Xhuis
 		to_chat(new_thrall_mind.current, "<span class='shadowling'>Your body has been irreversibly altered. The attentive can see this - you may conceal it by wearing a mask.</span>")
 		to_chat(new_thrall_mind.current, "<span class='shadowling'>Though not nearly as powerful as your masters, you possess some weak powers. These can be found in the Thrall Abilities tab.</span>")
 		to_chat(new_thrall_mind.current, "<span class='shadowling'>You may communicate with your allies by speaking in the Shadowling Hivemind (:8).</span>")
-		if(jobban_isbanned(new_thrall_mind.current, ROLE_SHADOWLING))
-			replace_jobbaned_player(new_thrall_mind.current, ROLE_SHADOWLING)
+		if(jobban_isbanned(new_thrall_mind.current, ROLE_SHADOWLING) || jobban_isbanned(new_thrall_mind.current, ROLE_SYNDICATE))
+			replace_jobbanned_player(new_thrall_mind.current, ROLE_SHADOWLING)
 
 		return 1
 

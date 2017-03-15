@@ -199,6 +199,10 @@
 		var/atom/O = mob.loc
 		return O.relaymove(mob, direct)
 
+	if(istype(mob.get_active_hand(), /obj/item))
+		var/obj/item/I = mob.get_active_hand()
+		I.moved(mob, n, direct)
+
 	if(!mob.Process_Spacemove(direct))
 		return 0
 

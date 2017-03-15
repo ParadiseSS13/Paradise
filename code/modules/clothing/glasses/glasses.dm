@@ -75,6 +75,7 @@
 	icon_state = "cybereye-green"
 	item_state = "eyepatch"
 	flags = NODROP
+	flags_cover = null
 	prescription_upgradable = 0
 
 /obj/item/clothing/glasses/science
@@ -167,6 +168,7 @@
 	icon_state = "cybereye-blue"
 	item_state = "eyepatch"
 	flags = NODROP
+	flags_cover = null
 
 /obj/item/clothing/glasses/regular
 	name = "prescription glasses"
@@ -284,7 +286,7 @@
 /obj/item/clothing/glasses/sunglasses/lasers
 	desc = "A peculiar set of sunglasses; they have various chips and other panels attached to the sides of the frames."
 	name = "high-tech sunglasses"
-	flags = GLASSESCOVERSEYES | NODROP
+	flags = NODROP
 
 /obj/item/clothing/glasses/sunglasses/lasers/equipped(mob/user, slot) //grant them laser eyes upon equipping it.
 	if(slot == slot_glasses)
@@ -312,7 +314,7 @@
 /obj/item/clothing/glasses/welding/proc/toggle()
 	if(up)
 		up = !up
-		flags |= GLASSESCOVERSEYES
+		flags_cover |= GLASSESCOVERSEYES
 		flags_inv |= HIDEEYES
 		icon_state = initial(icon_state)
 		to_chat(usr, "You flip the [src] down to protect your eyes.")
@@ -320,7 +322,7 @@
 		tint = initial(tint) //better than istype
 	else
 		up = !up
-		flags &= ~GLASSESCOVERSEYES
+		flags_cover &= ~GLASSESCOVERSEYES
 		flags_inv &= ~HIDEEYES
 		icon_state = "[initial(icon_state)]up"
 		to_chat(usr, "You push the [src] up out of your face.")
@@ -397,7 +399,7 @@
 	name = "Thermoncle"
 	desc = "A monocle thermal."
 	icon_state = "thermoncle"
-	flags = null //doesn't protect eyes because it's a monocle, duh
+	flags_cover = null //doesn't protect eyes because it's a monocle, duh
 
 /obj/item/clothing/glasses/thermal/eyepatch
 	name = "Optical Thermal Eyepatch"
@@ -478,6 +480,7 @@
 	darkness_view = 8
 	scan_reagents = 1
 	flags = NODROP
+	flags_cover = null
 	invis_view = SEE_INVISIBLE_MINIMUM
 
 /obj/item/clothing/glasses/godeye/attackby(obj/item/weapon/W as obj, mob/user as mob, params)

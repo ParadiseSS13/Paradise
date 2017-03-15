@@ -175,7 +175,7 @@ var/global/list/breach_burn_descriptors = list(
 //Handles repairs (and also upgrades).
 
 /obj/item/clothing/suit/space/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W,/obj/item/stack/sheet/mineral/plastic) || istype(W,/obj/item/stack/sheet/metal))
+	if(istype(W,/obj/item/stack/sheet/plastic) || istype(W,/obj/item/stack/sheet/metal))
 
 		if(istype(src.loc,/mob/living))
 			to_chat(user, "<span class='warning'>How do you intend to patch a hardsuit while someone is wearing it?</span>")
@@ -188,10 +188,10 @@ var/global/list/breach_burn_descriptors = list(
 		var/obj/item/stack/sheet/P = W
 		if(P.amount < 3)
 			P.use(P.amount)
-			repair_breaches(BURN, ( istype(P,/obj/item/stack/sheet/mineral/plastic) ? P.amount : (P.amount*2) ), user)
+			repair_breaches(BURN, ( istype(P,/obj/item/stack/sheet/plastic) ? P.amount : (P.amount*2) ), user)
 		else
 			P.use(3)
-			repair_breaches(BURN, ( istype(P,/obj/item/stack/sheet/mineral/plastic) ? 3 : 5), user)
+			repair_breaches(BURN, ( istype(P,/obj/item/stack/sheet/plastic) ? 3 : 5), user)
 		return
 
 	else if(istype(W, /obj/item/weapon/weldingtool))

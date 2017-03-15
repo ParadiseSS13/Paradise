@@ -286,7 +286,7 @@
 	time = 150
 	reqs = list(/obj/item/stack/rods = 3,
 				/obj/item/stack/cable_coil = 10,
-				/obj/item/stack/sheet/mineral/plastic = 3,
+				/obj/item/stack/sheet/plastic = 3,
 				/obj/item/stack/sheet/wood = 5)
 	tools = list(/obj/item/weapon/weldingtool,
 				/obj/item/weapon/screwdriver)
