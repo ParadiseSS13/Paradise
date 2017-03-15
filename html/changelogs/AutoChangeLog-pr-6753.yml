@@ -1,6 +1,0 @@
-author: "uraniummeltdown"
-delete-after: True
-changes: 
-  - rscadd: "You can now damage grilles by throwing things at them."
-  - rscadd: "You can rebuild broken grilles by using a metal rod on them."
-  - tweak: "Metal rods maximum amount reduced from 60 to 50."
