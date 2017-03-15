@@ -503,7 +503,7 @@ var/list/uplink_items = list()
 			security's energy weapons, and silicon lifeforms when you're in a tight spot."
 	reference = "EMPK"
 	item = /obj/item/weapon/storage/box/syndie_kit/emp
-	cost = 2
+	cost = 6
 
 /datum/uplink_item/dangerous/syndicate_minibomb
 	name = "Syndicate Minibomb"
@@ -918,7 +918,7 @@ var/list/uplink_items = list()
 		Useful for disrupting headsets, cameras, and borgs during stealth operations."
 	reference = "EMPL"
 	item = /obj/item/device/flashlight/emp
-	cost = 2
+	cost = 6
 	surplus = 30
 
 // DEVICE AND TOOLS
