@@ -48,7 +48,7 @@
 	wreckage = /obj/effect/decal/mecha_wreckage/seraph
 	internal_damage_threshold = 20
 	force = 55
-	max_equip = 5
+	max_equip = 6
 
 /obj/mecha/combat/marauder/seraph/add_cell()
 	cell = new /obj/item/weapon/stock_parts/cell/bluespace(src)
@@ -65,6 +65,8 @@
 	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/scattershot(src)
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack(src)
+	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/energy/xray(src)
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/teleporter/precise(src)
 	ME.attach(src)

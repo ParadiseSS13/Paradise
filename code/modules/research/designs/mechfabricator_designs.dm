@@ -959,6 +959,39 @@
 	construction_time = 100
 	category = list("Exosuit Equipment")
 
+/datum/design/mech_tesla
+	name = "Exosuit Weapon (MKI Tesla Cannon)"
+	desc = "Allows for the construction of MKI Tesla Cannon."
+	id = "mech_tesla"
+	build_type = MECHFAB
+	req_tech = list("combat" = 6, "magnets" = 5, "materials" = 5)
+	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/energy/tesla
+	materials = list(MAT_METAL = 10000, MAT_GLASS = 10000, MAT_SILVER = 10000)
+	construction_time = 100
+	category = list("Exosuit Equipment")
+
+/datum/design/mech_xray
+	name = "Exosuit Weapon (MKI X-Ray Laser)"
+	desc = "Allows for the construction of MKI X-Ray Laser."
+	id = "mech_tesla"
+	build_type = MECHFAB
+	req_tech = list("combat" = 5, "materials" = 3, "syndicate" = 2, "magnets" = 2)
+	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/energy/xray
+	materials = list(MAT_GOLD = 5000, MAT_URANIUM = 10000, MAT_METAL = 4000)
+	construction_time = 100
+	category = list("Exosuit Equipment")
+
+/datum/design/mech_immolator
+	name = "Exosuit Weapon (MKI Immolator Laser)"
+	desc = "Allows for the construction of MKI Immolator Laser."
+	id = "mech_tesla"
+	build_type = MECHFAB
+	req_tech = list("combat" = 4, "materials" = 4, "plasmatech" = 2, "magnets" = 3)
+	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/energy/immolator
+	materials = list(MAT_METAL = 4000, MAT_GLASS = 1000, MAT_SILVER = 3000, MAT_PLASMA = 2000)
+	construction_time = 100
+	category = list("Exosuit Equipment")
+
 //Cyborg Upgrade Modules
 
 /datum/design/borg_upgrade_reset

@@ -68,7 +68,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser
 	equip_cooldown = 8
-	name = "CH-PS \"Immolator\" Laser"
+	name = "CH-PS \"Standard\" Laser"
 	icon_state = "mecha_laser"
 	energy_drain = 30
 	projectile = /obj/item/projectile/beam
@@ -89,6 +89,36 @@
 	energy_drain = 120
 	projectile = /obj/item/projectile/ion
 	fire_sound = 'sound/weapons/Laser.ogg'
+
+/obj/item/mecha_parts/mecha_equipment/weapon/energy/tesla
+	equip_cooldown = 35
+	name = "P-X Tesla Cannon"
+	desc = "A weapon for combat exosuits. Fires bolts of electricity similar to the experimental tesla engine"
+	icon_state = "mecha_laser"
+	origin_tech = "materials=4;combat=5;magnets=4"
+	energy_drain = 500
+	projectile = /obj/item/projectile/energy/shock_revolver
+	fire_sound = 'sound/magic/lightningbolt.ogg'
+
+/obj/item/mecha_parts/mecha_equipment/weapon/energy/xray
+	equip_cooldown = 35
+	name = "S-1 XRay Projector"
+	desc = "A weapon for combat exosuits. Fires beams of X-Rays that pass through solid matter."
+	icon_state = "mecha_laser"
+	origin_tech = "materials=3;combat=5;magnets=2;syndicate=2"
+	energy_drain = 80
+	projectile = /obj/item/projectile/beam/xray
+	fire_sound = 'sound/weapons/laser3.ogg'
+
+/obj/item/mecha_parts/mecha_equipment/weapon/energy/immolator
+	equip_cooldown = 35
+	name = "ZFI Immolator Cannon"
+	desc = "A weapon for combat exosuits. Fires beams of extreme heat that set targets on fire."
+	icon_state = "mecha_laser"
+	origin_tech = "materials=4;combat=4;magnets=3;plasmatech=2"
+	energy_drain = 80
+	projectile = /obj/item/projectile/beam/immolator
+	fire_sound = 'sound/weapons/laser3.ogg'
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/pulse
 	equip_cooldown = 30
