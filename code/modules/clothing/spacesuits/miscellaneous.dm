@@ -133,7 +133,6 @@
 /obj/item/clothing/head/helmet/space/eva/paramedic
 	name = "Paramedic EVA helmet"
 	desc = "A paramedic EVA helmet. Used in the recovery of bodies from space."
-	armor = list(melee = 15, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 100, rad = 0)
 	icon_state = "paramedic-eva-helmet"
 	item_state = "paramedic-eva-helmet"
 	sprite_sheets = list(
@@ -148,7 +147,6 @@
 	icon_state = "paramedic-eva"
 	item_state = "paramedic-eva"
 	desc = "A paramedic EVA suit. Used in the recovery of bodies from space."
-	armor = list(melee = 15, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 100, rad = 0)
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
 		)

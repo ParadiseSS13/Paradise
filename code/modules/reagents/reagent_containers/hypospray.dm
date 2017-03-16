@@ -42,9 +42,6 @@
 /obj/item/weapon/reagent_containers/hypospray/CMO
 	list_reagents = list("omnizine" = 30)
 
-/obj/item/weapon/reagent_containers/hypospray/paramedic
-	list_reagents = list("omnizine" = 15)
-
 /obj/item/weapon/reagent_containers/hypospray/combat
 	name = "combat stimulant injector"
 	desc = "A modified air-needle autoinjector, used by support operatives to quickly heal injuries in combat."

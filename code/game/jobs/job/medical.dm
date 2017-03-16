@@ -259,10 +259,11 @@
 	//mask = /obj/item/clothing/mask/cigarette
 	l_ear = /obj/item/device/radio/headset/headset_med
 	id = /obj/item/weapon/card/id/medical
+	r_pocket = /obj/item/device/flashlight/pen
 	suit_store = /obj/item/weapon/reagent_containers/hypospray/autoinjector
 	pda = /obj/item/device/pda/medical
 	backpack_contents = list(
-		/obj/item/device/healthanalyzer = 1
+		/obj/item/weapon/storage/firstaid/regular = 1
 	)
 
 	backpack = /obj/item/weapon/storage/backpack/medic
