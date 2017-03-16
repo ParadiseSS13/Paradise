@@ -883,12 +883,23 @@
 	category = list("Exosuit Equipment")
 
 /datum/design/mech_laser
-	name = "Exosuit Weapon (CH-PS \"Immolator\" Laser)"
+	name = "Exosuit Weapon (CH-PL \"Standard\" Laser)"
 	desc = "Allows for the construction of CH-PS Laser."
 	id = "mech_laser"
 	build_type = MECHFAB
 	req_tech = list("combat" = 3, "magnets" = 3)
 	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser
+	materials = list(MAT_METAL=10000)
+	construction_time = 100
+	category = list("Exosuit Equipment")
+
+/datum/design/mech_disabler
+	name = "Exosuit Weapon (CH-PD Disabler)"
+	desc = "Allows for the construction of CH-PD Disabler."
+	id = "mech_laser"
+	build_type = MECHFAB
+	req_tech = list("combat" = 3, "magnets" = 3)
+	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser/disabler
 	materials = list(MAT_METAL=10000)
 	construction_time = 100
 	category = list("Exosuit Equipment")

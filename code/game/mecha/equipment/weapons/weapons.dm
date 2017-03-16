@@ -68,11 +68,17 @@
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser
 	equip_cooldown = 8
-	name = "CH-PS \"Standard\" Laser"
+	name = "CH-PS \"Old Faithful\" Laser"
 	icon_state = "mecha_laser"
 	energy_drain = 30
 	projectile = /obj/item/projectile/beam
 	fire_sound = 'sound/weapons/Laser.ogg'
+
+/obj/item/mecha_parts/mecha_equipment/weapon/energy/laser/disabler
+	name = "DD7 Rapid Disabler Module"
+	projectile = /obj/item/projectile/beam/disabler
+	projectiles_per_shot = 2
+	projectile_delay = 1
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser/heavy
 	equip_cooldown = 10
@@ -102,7 +108,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/xray
 	equip_cooldown = 35
-	name = "S-1 XRay Projector"
+	name = "S-1 X-Ray Projector"
 	desc = "A weapon for combat exosuits. Fires beams of X-Rays that pass through solid matter."
 	icon_state = "mecha_laser"
 	origin_tech = "materials=3;combat=5;magnets=2;syndicate=2"
@@ -110,9 +116,14 @@
 	projectile = /obj/item/projectile/beam/xray
 	fire_sound = 'sound/weapons/laser3.ogg'
 
+/obj/item/mecha_parts/mecha_equipment/weapon/energy/xray/triple
+	name = "X-XR Triple-barrel X-Ray Stream Projector"
+	projectiles_per_shot = 3
+	projectile_delay = 1
+
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/immolator
 	equip_cooldown = 35
-	name = "ZFI Immolator Cannon"
+	name = "ZFI Immolation Beam Gun"
 	desc = "A weapon for combat exosuits. Fires beams of extreme heat that set targets on fire."
 	icon_state = "mecha_laser"
 	origin_tech = "materials=4;combat=4;magnets=3;plasmatech=2"
@@ -303,8 +314,12 @@
 	variance = 6
 	projectile_delay = 2
 
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg/dual
+	name = "XMG-9 Autocannon"
+	projectiles_per_shot = 6
+
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack
-	name = "SRM-8 Missile Rack"
+	name = "SRM-8 Light Missile Rack"
 	icon_state = "mecha_missilerack"
 	projectile = /obj/item/missile
 	fire_sound = 'sound/effects/bang.ogg'
@@ -313,6 +328,7 @@
 	equip_cooldown = 60
 	var/missile_speed = 2
 	var/missile_range = 30
+	var/heavy_missile = 0
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/action(target, params)
 	if(!action_checks(target))
@@ -320,6 +336,8 @@
 	set_ready_state(0)
 	var/obj/item/missile/M = new projectile(chassis.loc)
 	M.primed = 1
+	if(heavy_missile)
+		M.heavy_missile = 1
 	playsound(chassis, fire_sound, 50, 1)
 	M.throw_at(target, missile_range, missile_speed, chassis)
 	projectiles--
@@ -330,16 +348,23 @@
 	do_after_cooldown()
 	return
 
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/heavy
+	name = "SRX-13 Heavy Missile Launcher"
+	heavy_missile = 1
 
 /obj/item/missile
 	icon = 'icons/obj/grenade.dmi'
 	icon_state = "missile"
 	var/primed = null
+	var/heavy_missile = 0
 	throwforce = 15
 
 /obj/item/missile/throw_impact(atom/hit_atom)
 	if(primed)
-		explosion(hit_atom, 0, 0, 2, 4, 0)
+		if(heavy_missile)
+			explosion(hit_atom, 2, 3, 4, 6, 0)
+		else
+			explosion(hit_atom, 0, 0, 2, 4, 0)
 		qdel(src)
 	else
 		..()
