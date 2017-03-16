@@ -414,7 +414,7 @@
 
 			if(Entry[2] == ckey && Entry[3] == real_name)	//They're in the list? Custom sprite time, var and icon change required
 				custom_sprite = 1
-				icon = 'icons/mob/custom-synthetic.dmi'
+				icon = 'icons/mob/custom_synthetic/custom-synthetic.dmi'
 
 	if(custom_sprite)
 		chassis = "[ckey]-pai"
@@ -594,10 +594,11 @@
 		icon_state = "[chassis]"
 		resting = 0
 	if(custom_sprite)
-		H.icon_override = 'icons/mob/custom-synthetic.dmi'
-		H.lefthand_file = 'icons/mob/custom-synthetic.dmi'		//unless we want to make a new file for the left and right in-hands for custom pAIs...
-		H.righthand_file = 'icons/mob/custom-synthetic.dmi'		//you'll want to just use one in-hand sprite that looks the same in both hands. --FalseIncarnate
-		H.icon_state = "[icon_state]_head"
+		H.icon = 'icons/mob/custom_synthetic/custom-synthetic.dmi'
+		H.icon_override = 'icons/mob/custom_synthetic/custom_head.dmi'
+		H.lefthand_file = 'icons/mob/custom_synthetic/custom_lefthand.dmi'
+		H.righthand_file = 'icons/mob/custom_synthetic/custom_righthand.dmi'
+		H.icon_state = "[icon_state]"
 		H.item_state = "[icon_state]_hand"
 	else
 		H.icon_state = "pai-[icon_state]"

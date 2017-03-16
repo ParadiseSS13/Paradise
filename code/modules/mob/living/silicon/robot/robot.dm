@@ -189,7 +189,7 @@ var/list/robot_verbs_default = list(
 
 				if(Entry[2] == ckey && Entry[3] == real_name)	//They're in the list? Custom sprite time, var and icon change required
 					custom_sprite = 1
-					icon = 'icons/mob/custom-synthetic.dmi'
+					icon = 'icons/mob/custom_synthetic/custom-synthetic.dmi'
 
 	return 1
 

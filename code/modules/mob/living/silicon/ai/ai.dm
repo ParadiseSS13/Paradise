@@ -304,7 +304,7 @@ var/list/ai_verbs_default = list(
 
 			if(Entry[2] == ckey && Entry[3] == real_name)	//They're in the list? Custom sprite time, var and icon change required
 				custom_sprite = 1
-				icon = 'icons/mob/custom-synthetic.dmi'
+				icon = 'icons/mob/custom_synthetic/custom-synthetic.dmi'
 
 
 		//if(icon_state == initial(icon_state))
@@ -971,10 +971,10 @@ var/list/ai_verbs_default = list(
 					if("ancient machine")
 						holo_icon = getHologramIcon(icon('icons/mob/ancient_machine.dmi', "ancient_machine"))
 					if("custom")
-						if("[ckey]-ai-holo" in icon_states('icons/mob/custom-synthetic.dmi'))
-							holo_icon = getHologramIcon(icon('icons/mob/custom-synthetic.dmi', "[ckey]-ai-holo"))
-						else if("[ckey]-ai-holo" in icon_states('icons/mob/custom-synthetic64.dmi'))
-							holo_icon = getHologramIcon(icon('icons/mob/custom-synthetic64.dmi', "[ckey]-ai-holo"))
+						if("[ckey]-ai-holo" in icon_states('icons/mob/custom_synthetic/custom-synthetic.dmi'))
+							holo_icon = getHologramIcon(icon('icons/mob/custom_synthetic/custom-synthetic.dmi', "[ckey]-ai-holo"))
+						else if("[ckey]-ai-holo" in icon_states('icons/mob/custom_synthetic/custom-synthetic64.dmi'))
+							holo_icon = getHologramIcon(icon('icons/mob/custom_synthetic/custom-synthetic64.dmi', "[ckey]-ai-holo"))
 						else
 							holo_icon = getHologramIcon(icon('icons/mob/AI.dmi',"holo1"))
 
