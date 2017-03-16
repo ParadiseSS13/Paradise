@@ -201,7 +201,8 @@ var/list/admin_verbs_mod = list(
 var/list/admin_verbs_mentor = list(
 	/client/proc/cmd_admin_pm_context,	/*right-click adminPM interface*/
 	/client/proc/cmd_admin_pm_panel,	/*admin-pm list*/
-	/client/proc/cmd_admin_pm_by_key_panel	/*admin-pm list by key*/
+	/client/proc/cmd_admin_pm_by_key_panel,	/*admin-pm list by key*/
+	/client/proc/cmd_mentor_say	/* mentor say*/
 	// cmd_mentor_say is added/removed by the toggle_mentor_chat verb
 )
 var/list/admin_verbs_proccall = list(
@@ -989,12 +990,12 @@ var/list/admin_verbs_snpc = list(
 	verbs -= admin_verbs_snpc
 	verbs += /client/proc/show_snpc_verbs
 	to_chat(src, "<span class='interface'>SNPC verbs have been toggled off.</span>")
-	
+
 /client/proc/toggle_advanced_interaction()
 	set name = "Toggle Advanced Admin Interaction"
 	set category = "Admin"
 	set desc = "Allows you to interact with atoms such as buttons and doors, on top of regular machinery interaction."
-	
+
 	if(!check_rights(R_ADMIN))
 		return
 
