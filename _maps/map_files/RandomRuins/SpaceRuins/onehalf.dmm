@@ -161,7 +161,7 @@
 "df" = (/obj/structure/lattice,/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/turf/space,/area/space)
 "dg" = (/obj/structure/girder/reinforced,/obj/item/stack/sheet/plasteel,/turf/simulated/floor/plating/airless,/area/space)
 "dh" = (/turf/simulated/floor/plating/airless{broken = 1; icon_state = "platingdmg2"},/area/space)
-"di" = (/obj/structure/grille{density = 0; icon_state = "brokengrille"},/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/turf/simulated/floor/plating/airless{broken = 1; icon_state = "platingdmg1"},/area/ruin/onehalf/hallway)
+"di" = (/obj/structure/grille/broken,/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/turf/simulated/floor/plating/airless{broken = 1; icon_state = "platingdmg1"},/area/ruin/onehalf/hallway)
 "dj" = (/obj/structure/grille,/obj/item/weapon/shard,/turf/simulated/floor/plating,/area/ruin/onehalf/hallway)
 "dk" = (/obj/structure/grille,/obj/structure/window/full/reinforced,/obj/structure/cable{d2 = 2; icon_state = "0-2"},/obj/structure/cable{d2 = 4; icon_state = "0-4"},/obj/machinery/door/poddoor/preopen{id_tag = "onehalf bridge"; name = "bridge blast door"},/turf/simulated/floor/plating,/area/ruin/onehalf/bridge)
 "dl" = (/obj/structure/grille,/obj/structure/window/full/reinforced,/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; tag = ""},/obj/machinery/door/poddoor/preopen{id_tag = "onehalf bridge"; name = "bridge blast door"},/turf/simulated/floor/plating,/area/ruin/onehalf/bridge)
