@@ -46,6 +46,8 @@
 		var/mob/living/carbon/human/H = user
 		if(!H.gloves)
 			var/obj/item/organ/external/affecting = H.get_organ("[user.hand ? "l" : "r" ]_hand")
+			if(affecting.status & ORGAN_ROBOT)
+				return
 			to_chat(H, "<span class='warning'>[src] cuts into your hand!</span>")
 			if(affecting.take_damage(force*0.5))
 				H.UpdateDamageIcon()
