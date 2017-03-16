@@ -311,7 +311,7 @@
 		if(iscrowbar(W))
 			if(!equipment_system.lock_system || unlocked || hatch_open)
 				hatch_open = !hatch_open
-				playsound(loc, 'sound/items/Crowbar.ogg', 50, 1)
+				playsound(loc, W.usesound, 50, 1)
 				to_chat(user, "<span class='notice'>You [hatch_open ? "open" : "close"] the maintenance hatch.</span>")
 			else
 				to_chat(user, "<span class='warning'>The hatch is locked shut!</span>")
@@ -369,8 +369,8 @@
 				return
 			if(health < initial(health))
 				to_chat(user, "\blue You start welding the spacepod...")
-				playsound(loc, 'sound/items/Welder.ogg', 50, 1)
-				if(do_after(user, 20, target = src))
+				playsound(loc, W.usesound, 50, 1)
+				if(do_after(user, 20 * W.toolspeed, target = src))
 					if(!src || !WT.remove_fuel(3, user)) return
 					repair_damage(10)
 					to_chat(user, "\blue You mend some [pick("dents","bumps","damage")] with \the [WT]")
@@ -383,7 +383,7 @@
 			if(L.on && equipment_system.lock_system)
 				user.visible_message(user, "<span class='warning'>[user] is drilling through the [src]'s lock!</span>",
 					"<span class='notice'>You start drilling through the [src]'s lock!</span>")
-				if(do_after(user, 100, target = src))
+				if(do_after(user, 100 * W.toolspeed, target = src))
 					qdel(equipment_system.lock_system)
 					equipment_system.lock_system = null
 					user.visible_message(user, "<span class='warning'>[user] has destroyed the [src]'s lock!</span>",

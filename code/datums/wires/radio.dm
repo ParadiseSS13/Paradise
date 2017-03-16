@@ -6,6 +6,17 @@ var/const/WIRE_SIGNAL = 1
 var/const/WIRE_RECEIVE = 2
 var/const/WIRE_TRANSMIT = 4
 
+/datum/wires/radio/GetWireName(index)
+	switch(index)
+		if(WIRE_SIGNAL)
+			return "Signal"
+		
+		if(WIRE_RECEIVE)
+			return "Receiver"
+		
+		if(WIRE_TRANSMIT)
+			return "Transmitter"
+
 /datum/wires/radio/CanUse(mob/living/L)
 	var/obj/item/device/radio/R = holder
 	if(R.b_stat)

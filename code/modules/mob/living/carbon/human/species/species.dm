@@ -528,9 +528,9 @@
 			H.healths.icon_state = "health7"
 		else
 			switch(H.hal_screwyhud)
-				if(1)	H.healths.icon_state = "health6"
-				if(2)	H.healths.icon_state = "health7"
-				if(5)	H.healths.icon_state = "health0"
+				if(SCREWYHUD_CRIT)	H.healths.icon_state = "health6"
+				if(SCREWYHUD_DEAD)	H.healths.icon_state = "health7"
+				if(SCREWYHUD_HEALTHY)	H.healths.icon_state = "health0"
 				else
 					switch(100 - ((flags & NO_PAIN) ? 0 : H.traumatic_shock) - H.staminaloss)
 						if(100 to INFINITY)		H.healths.icon_state = "health0"

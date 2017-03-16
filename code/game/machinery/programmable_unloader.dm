@@ -198,9 +198,9 @@
 /obj/machinery/programmable/attackby(obj/item/I as obj, mob/user as mob, params)
 	if(istype(I,/obj/item/weapon/wrench)) // code borrowed from pipe dispenser
 		if(unwrenched==0)
-			playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
+			playsound(src.loc, I.usesound, 50, 1)
 			to_chat(user, "\blue You begin to unfasten \the [src] from the floor...")
-			if(do_after(user, 40, target = src))
+			if(do_after(user, 40 * I.toolspeed, target = src))
 				user.visible_message( \
 					"[user] unfastens \the [src].", \
 					"\blue You have unfastened \the [src]. Now it can be pulled somewhere else.", \
@@ -211,9 +211,9 @@
 				if(usr.machine==src)
 					usr << browse(null, "window=pipedispenser")
 		else /* unwrenched */
-			playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
+			playsound(src.loc, I.usesound, 50, 1)
 			to_chat(user, "\blue You begin to fasten \the [src] to the floor...")
-			if(do_after(user, 20, target = src))
+			if(do_after(user, 20 * I.toolspeed, target = src))
 				user.visible_message( \
 					"[user] fastens \the [src].", \
 					"\blue You fastened \the [src] into place.", \
@@ -238,8 +238,9 @@
 	if(istype(I,/obj/item/weapon/crowbar))
 		if(open)
 			to_chat(user, "\blue You begin to pry out the [src]'s circuits.")
-			if(do_after(user,40, target = src))
+			if(do_after(user, 40 * I.toolspeed, target = src))
 				to_chat(user, "\blue You remove the circuitboard.")
+				playsound(loc, I.usesound, 50, 1)
 				circuit_removed = 1
 				use_power = 0
 				on = 0

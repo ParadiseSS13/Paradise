@@ -19,6 +19,23 @@ var/const/BORG_WIRE_CAMERA      = 4
 var/const/BORG_WIRE_AI_CONTROL  = 8  // Not used on MoMMIs
 var/const/BORG_WIRE_LAWCHECK    = 16 // Not used on MoMMIs
 
+/datum/wires/robot/GetWireName(index)
+	switch(index)
+		if(BORG_WIRE_MAIN_POWER)
+			return "Main Power"
+		
+		if(BORG_WIRE_LOCKED_DOWN)
+			return "Lockdown"
+		
+		if(BORG_WIRE_CAMERA)
+			return "Camera"
+			
+		if(BORG_WIRE_AI_CONTROL)
+			return "AI Control"
+		
+		if(BORG_WIRE_LAWCHECK)
+			return "Law Check"
+
 /datum/wires/robot/get_status()
 	. = ..()
 	var/mob/living/silicon/robot/R = holder

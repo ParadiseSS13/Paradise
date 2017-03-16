@@ -69,8 +69,8 @@
 				feedback_inc("alert_comms_green",1)
 			if(SEC_LEVEL_BLUE)
 				feedback_inc("alert_comms_blue",1)
-	tmp_alertlevel = 0		
-		
+	tmp_alertlevel = 0
+
 /obj/machinery/computer/communications/Topic(href, href_list)
 	if(..(href, href_list))
 		return 1
@@ -196,9 +196,9 @@
 					var/text  = messagetext[id]
 					messagetitle.Remove(title)
 					messagetext.Remove(text)
-					if(currmsg == id) 
+					if(currmsg == id)
 						currmsg = 0
-					if(aicurrmsg == id) 
+					if(aicurrmsg == id)
 						aicurrmsg = 0
 			setMenuState(usr,COMM_SCREEN_MESSAGES)
 
@@ -210,11 +210,11 @@
 			display_type=href_list["statdisp"]
 			switch(display_type)
 				if("message")
-					post_status("message", stat_msg1, stat_msg2)
+					post_status("message", stat_msg1, stat_msg2, usr)
 				if("alert")
-					post_status("alert", href_list["alert"])
+					post_status("alert", href_list["alert"], user = usr)
 				else
-					post_status(href_list["statdisp"])
+					post_status(href_list["statdisp"], user = usr)
 			setMenuState(usr,COMM_SCREEN_STAT)
 
 		if("setmsg1")
@@ -378,7 +378,7 @@
 		list("id" = SEC_LEVEL_BLUE,  "name" = "Blue"),
 		//SEC_LEVEL_RED = list("name"="Red"),
 	)
-	
+
 	var/list/msg_data = list()
 	for(var/i = 1; i <= messagetext.len; i++)
 		msg_data.Add(list(list("title" = messagetitle[i], "body" = messagetext[i], "id" = i)))
@@ -499,7 +499,7 @@
 	message_admins("[key_name_admin(user)] has recalled the shuttle - [formatJumpTo(user)].", 1)
 	return
 
-/obj/machinery/computer/communications/proc/post_status(var/command, var/data1, var/data2)
+/proc/post_status(command, data1, data2, mob/user = null)
 
 	var/datum/radio_frequency/frequency = radio_controller.return_frequency(1435)
 
@@ -514,7 +514,7 @@
 		if("message")
 			status_signal.data["msg1"] = data1
 			status_signal.data["msg2"] = data2
-			log_admin("STATUS: [src.fingerprintslast] set status screen message with [src]: [data1] [data2]")
+			log_admin("STATUS: [user] set status screen message with [src]: [data1] [data2]")
 			//message_admins("STATUS: [user] set status screen with [PDA]. Message: [data1] [data2]")
 		if("alert")
 			status_signal.data["picture_state"] = data1
@@ -527,35 +527,30 @@
 	shuttle_master.autoEvac()
 	return ..()
 
+/obj/item/weapon/circuitboard/communications/New()
+	shuttle_caller_list += src
+	..()
+
 /obj/item/weapon/circuitboard/communications/Destroy()
-
-	for(var/obj/machinery/computer/communications/commconsole in world)
-		if(istype(commconsole.loc,/turf))
-			return ..()
-
-	for(var/obj/item/weapon/circuitboard/communications/commboard in world)
-		if((istype(commboard.loc,/turf) || istype(commboard.loc,/obj/item/weapon/storage)) && commboard != src)
-			return ..()
-
-	for(var/mob/living/silicon/ai/shuttlecaller in player_list)
-		if(!shuttlecaller.stat && shuttlecaller.client && istype(shuttlecaller.loc,/turf))
-			return ..()
-
-	if(GAMEMODE_IS_REVOLUTION || sent_strike_team)
-		return ..()
-
-	shuttle_master.emergency.request(null, 0.3, null, "All communication consoles, boards, and AI's have been destroyed.")
-	log_game("All the AI's, communication consoles and boards are destroyed. Shuttle called.")
-	message_admins("All the AI's, communication consoles and boards are destroyed. Shuttle called.", 1)
-
+	shuttle_caller_list -= src
+	shuttle_master.autoEvac()
 	return ..()
-	
+
 /proc/print_command_report(text = "", title = "Central Command Update")
-	for(var/obj/machinery/computer/communications/C in machines)
+	for(var/obj/machinery/computer/communications/C in shuttle_caller_list)
 		if(!(C.stat & (BROKEN|NOPOWER)) && is_station_contact(C.z))
 			var/obj/item/weapon/paper/P = new /obj/item/weapon/paper(C.loc)
 			P.name = "paper- '[title]'"
 			P.info = text
+			P.update_icon()
 			C.messagetitle.Add("[title]")
 			C.messagetext.Add(text)
-			P.update_icon()
+	for(var/datum/computer_file/program/comm/P in shuttle_caller_list)
+		var/turf/T = get_turf(P.computer)
+		if(T && P.program_state != PROGRAM_STATE_KILLED && is_station_contact(T.z))
+			if(P.computer)
+				var/obj/item/weapon/computer_hardware/printer/printer = P.computer.all_components[MC_PRINT]
+				if(printer)
+					printer.print_text(text, "paper- '[title]'")
+			P.messagetitle.Add("[title]")
+			P.messagetext.Add(text)

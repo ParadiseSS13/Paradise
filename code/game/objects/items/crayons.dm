@@ -10,6 +10,7 @@
 	w_class = 1
 	slot_flags = SLOT_BELT | SLOT_EARS
 	attack_verb = list("attacked", "coloured")
+	toolspeed = 1
 	var/colour = "#FF0000" //RGB
 	var/drawtype = "rune"
 	var/list/graffiti = list("body","amyjon","face","matt","revolution","engie","guy","end","dwarf","uboa","up","down","left","right","heart","borgsrogue","voxpox","shitcurity","catbeast","hieroglyphs1","hieroglyphs2","hieroglyphs3","security","syndicate1","syndicate2","nanotrasen","lie","valid","arrowleft","arrowright","arrowup","arrowdown","chicken","hailcrab","brokenheart","peace","scribble","scribble2","scribble3","skrek","squish","tunnelsnake","yip","youaredead")
@@ -86,7 +87,7 @@
 		else if(graffiti.Find(drawtype))
 			temp = "graffiti"
 		to_chat(user, "You start drawing a [temp] on the [target.name].")
-		if(instant || do_after(user, 50, target = target))
+		if(instant || do_after(user, 50 * toolspeed, target = target))
 			var/obj/effect/decal/cleanable/crayon/C = new /obj/effect/decal/cleanable/crayon(target,colour,drawtype,temp)
 			C.add_hiddenprint(user)
 			to_chat(user, "You finish drawing [temp].")

@@ -220,7 +220,7 @@ datum/tech/engineering
 	name = "Engineering Research"
 	desc = "Development of new and improved engineering parts and methods."
 	id = "engineering"
-	max_level = 5
+	max_level = 6
 
 datum/tech/plasmatech
 	name = "Plasma Research"

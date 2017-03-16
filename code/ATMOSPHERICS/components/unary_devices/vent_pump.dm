@@ -325,9 +325,9 @@
 		var/obj/item/weapon/weldingtool/WT = W
 		if(WT.remove_fuel(0,user))
 			to_chat(user, "<span class='notice'>Now welding the vent.</span>")
-			if(do_after(user, 20, target = src))
+			if(do_after(user, 20 * WT.toolspeed, target = src))
 				if(!src || !WT.isOn()) return
-				playsound(src.loc, 'sound/items/Welder2.ogg', 50, 1)
+				playsound(src.loc, WT.usesound, 50, 1)
 				if(!welded)
 					user.visible_message("[user] welds the vent shut.", "You weld the vent shut.", "You hear welding.")
 					welded = 1
@@ -345,13 +345,15 @@
 	if(istype(W, /obj/item/weapon/screwdriver))
 		if(!welded)
 			if(open)
-				to_chat(user, "<span class='notice'> Now closing the vent.</span>")
-				if(do_after(user, 20, target = src))
+				to_chat(user, "<span class='notice'>Now closing the vent.</span>")
+				if(do_after(user, 20 * W.toolspeed, target = src))
+					playsound(loc, W.usesound, 100, 1)
 					open = 0
 					user.visible_message("[user] screwdrivers the vent shut.", "You screwdriver the vent shut.", "You hear a screwdriver.")
 			else
-				to_chat(user, "<span class='notice'> Now opening the vent.</span>")
-				if(do_after(user, 20, target = src))
+				to_chat(user, "<span class='notice'>Now opening the vent.</span>")
+				if(do_after(user, 20 * W.toolspeed, target = src))
+					playsound(loc, W.usesound, 100, 1)
 					open = 1
 					user.visible_message("[user] screwdrivers the vent shut.", "You screwdriver the vent shut.", "You hear a screwdriver.")
 		return
