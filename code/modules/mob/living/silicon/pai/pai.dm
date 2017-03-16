@@ -81,6 +81,7 @@
 	var/translator_on = 0 // keeps track of the translator module
 
 	var/current_pda_messaging = null
+	var/custom_sprite = 0
 
 /mob/living/silicon/pai/New(var/obj/item/device/paicard)
 	loc = paicard
@@ -396,15 +397,38 @@
 
 	var/choice
 	var/finalized = "No"
-	while(finalized == "No" && client)
 
-		choice = input(usr,"What would you like to use for your mobile chassis icon? This decision can only be made once.") as null|anything in possible_chassis
-		if(!choice) return
+	//check for custom_sprite
+	if(!custom_sprite)
+		var/file = file2text("config/custom_sprites.txt")
+		var/lines = splittext(file, "\n")
 
-		icon_state = possible_chassis[choice]
-		finalized = alert("Look at your sprite. Is this what you wish to use?",,"No","Yes")
+		for(var/line in lines)
+		// split & clean up
+			var/list/Entry = splittext(line, ":")
+			for(var/i = 1 to Entry.len)
+				Entry[i] = trim(Entry[i])
 
-	chassis = possible_chassis[choice]
+			if(Entry.len < 3 || Entry[1] != "pai")			//ignore incorrectly formatted entries or entries that aren't marked for pAI
+				continue;
+
+			if(Entry[2] == ckey && Entry[3] == real_name)	//They're in the list? Custom sprite time, var and icon change required
+				custom_sprite = 1
+				icon = 'icons/mob/custom-synthetic.dmi'
+
+	if(custom_sprite)
+		chassis = "[ckey]-pai"
+		icon_state = "[ckey]-pai"
+	else
+		while(finalized == "No" && client)
+
+			choice = input(usr,"What would you like to use for your mobile chassis icon? This decision can only be made once.") as null|anything in possible_chassis
+			if(!choice) return
+
+			icon_state = possible_chassis[choice]
+			finalized = alert("Look at your sprite. Is this what you wish to use?",,"No","Yes")
+
+		chassis = possible_chassis[choice]
 	verbs -= /mob/living/silicon/pai/proc/choose_chassis
 
 /mob/living/silicon/pai/proc/choose_verbs()
@@ -569,8 +593,15 @@
 	if(resting)
 		icon_state = "[chassis]"
 		resting = 0
-	H.icon_state = "pai-[icon_state]"
-	H.item_state = "pai-[icon_state]"
+	if(custom_sprite)
+		H.icon_override = 'icons/mob/custom-synthetic.dmi'
+		H.lefthand_file = 'icons/mob/custom-synthetic.dmi'		//unless we want to make a new file for the left and right in-hands for custom pAIs...
+		H.righthand_file = 'icons/mob/custom-synthetic.dmi'		//you'll want to just use one in-hand sprite that looks the same in both hands. --FalseIncarnate
+		H.icon_state = "[icon_state]_head"
+		H.item_state = "[icon_state]_hand"
+	else
+		H.icon_state = "pai-[icon_state]"
+		H.item_state = "pai-[icon_state]"
 	grabber.put_in_active_hand(H)//for some reason unless i call this it dosen't work
 	grabber.update_inv_l_hand()
 	grabber.update_inv_r_hand()

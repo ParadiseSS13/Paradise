@@ -299,11 +299,11 @@ var/list/ai_verbs_default = list(
 			for(var/i = 1 to Entry.len)
 				Entry[i] = trim(Entry[i])
 
-			if(Entry.len < 2)
-				continue
+			if(Entry.len < 3 || Entry[1] != "ai")			//ignore incorrectly formatted entries or entries that aren't marked for AI
+				continue;
 
-			if(Entry.len < 3 && Entry[1] == ckey && Entry[2] == real_name)
-				custom_sprite = 1 //They're in the list? Custom sprite time
+			if(Entry[2] == ckey && Entry[3] == real_name)	//They're in the list? Custom sprite time, var and icon change required
+				custom_sprite = 1
 				icon = 'icons/mob/custom-synthetic.dmi'
 
 
@@ -859,10 +859,10 @@ var/list/ai_verbs_default = list(
 			for(var/i = 1 to Entry.len)
 				Entry[i] = trim(Entry[i])
 
-			if(Entry.len < 3)
+			if(Entry.len < 3 || Entry[1] != "hologram")
 				continue
 
-			if (Entry[1] == ckey && Entry[2] == real_name && Entry[3] == "Hologram") //Custom holograms
+			if (Entry[2] == ckey && Entry[3] == real_name) //Custom holograms
 				custom_hologram = 1  // option is given in hologram menu
 
 	var/input

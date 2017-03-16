@@ -180,14 +180,14 @@ var/list/robot_verbs_default = list(
 
 			for(var/line in lines)
 			// split & clean up
-				var/list/Entry = splittext(line, ";")
+				var/list/Entry = splittext(line, ":")
 				for(var/i = 1 to Entry.len)
 					Entry[i] = trim(Entry[i])
 
-				if(Entry.len < 2)
+				if(Entry.len < 3 || Entry[1] != "cyborg")		//ignore incorrectly formatted entries or entries that aren't marked for cyborg
 					continue;
 
-				if(Entry[1] == src.ckey && Entry[2] == src.real_name) //They're in the list? Custom sprite time, var and icon change required
+				if(Entry[2] == ckey && Entry[3] == real_name)	//They're in the list? Custom sprite time, var and icon change required
 					custom_sprite = 1
 					icon = 'icons/mob/custom-synthetic.dmi'
 
