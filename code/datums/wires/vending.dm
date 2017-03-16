@@ -9,6 +9,20 @@ var/const/VENDING_WIRE_CONTRABAND = 2
 var/const/VENDING_WIRE_ELECTRIFY = 4
 var/const/VENDING_WIRE_IDSCAN = 8
 
+/datum/wires/vending/GetWireName(index)
+	switch(index)
+		if(VENDING_WIRE_THROW)
+			return "Item Throw"
+		
+		if(VENDING_WIRE_CONTRABAND)
+			return "Contraband"
+		
+		if(VENDING_WIRE_ELECTRIFY)
+			return "Electrification"
+			
+		if(VENDING_WIRE_IDSCAN)
+			return "ID Scan"
+
 /datum/wires/vending/CanUse(mob/living/L)
 	var/obj/machinery/vending/V = holder
 	if(!istype(L, /mob/living/silicon))

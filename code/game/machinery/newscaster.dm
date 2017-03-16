@@ -156,7 +156,7 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 			update_icon()
 
 /obj/machinery/newscaster/attack_ghost(mob/user)
-	return attack_hand(user)
+	ui_interact(user)
 
 /obj/machinery/newscaster/attack_hand(mob/user)
 	if(..())
@@ -543,10 +543,10 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 /obj/machinery/newscaster/attackby(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/weapon/wrench))
 		to_chat(user, "<span class='notice'>Now [anchored ? "un" : ""]securing [name]</span>")
-		playsound(loc, 'sound/items/Ratchet.ogg', 50, 1)
-		if(do_after(user, 60, target = src))
+		playsound(loc, I.usesound, 50, 1)
+		if(do_after(user, 60 * I.toolspeed, target = src))
 			new /obj/item/mounted/frame/newscaster_frame(loc)
-			playsound(loc, 'sound/items/Deconstruct.ogg', 50, 1)
+			playsound(loc, I.usesound, 50, 1)
 			qdel(src)
 		return
 

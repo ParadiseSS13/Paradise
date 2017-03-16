@@ -6,6 +6,7 @@
 /datum/wires/airlock
 	holder_type = /obj/machinery/door/airlock
 	wire_count = 12
+	window_x = 410
 	window_y = 570
 
 var/const/AIRLOCK_WIRE_IDSCAN = 1
@@ -20,6 +21,44 @@ var/const/AIRLOCK_WIRE_ELECTRIFY = 256
 var/const/AIRLOCK_WIRE_SAFETY = 512
 var/const/AIRLOCK_WIRE_SPEED = 1024
 var/const/AIRLOCK_WIRE_LIGHT = 2048
+
+/datum/wires/airlock/GetWireName(index)
+	switch(index)
+		if(AIRLOCK_WIRE_IDSCAN)
+			return "ID Scan"
+		
+		if(AIRLOCK_WIRE_MAIN_POWER1)
+			return "Primary Power"
+		
+		if(AIRLOCK_WIRE_MAIN_POWER2)
+			return "Secondary Power"
+		
+		if(AIRLOCK_WIRE_DOOR_BOLTS)
+			return "Door Bolts"
+			
+		if(AIRLOCK_WIRE_BACKUP_POWER1)
+			return "Primary Backup Power"
+		
+		if(AIRLOCK_WIRE_BACKUP_POWER2)
+			return "Secondary Backup Power"
+			
+		if(AIRLOCK_WIRE_OPEN_DOOR)
+			return "Door State"
+			
+		if(AIRLOCK_WIRE_AI_CONTROL)
+			return "AI Control"
+			
+		if(AIRLOCK_WIRE_ELECTRIFY)
+			return "Electrification"
+			
+		if(AIRLOCK_WIRE_ELECTRIFY)
+			return "Door Safeties"
+			
+		if(AIRLOCK_WIRE_ELECTRIFY)
+			return "Door Timing"
+			
+		if(AIRLOCK_WIRE_ELECTRIFY)
+			return "Bolt Lights"
 
 /datum/wires/airlock/CanUse(mob/living/L)
 	var/obj/machinery/door/airlock/A = holder

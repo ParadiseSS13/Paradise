@@ -334,7 +334,7 @@
 		else if(istype(obstacle, /obj/structure/grille/))
 			var/obj/structure/grille/G = obstacle
 			G.health = (0.25*initial(G.health))
-			G.destroyed = 1
+			G.broken = 1
 			G.icon_state = "[initial(G.icon_state)]-b"
 			G.density = 0
 			new /obj/item/stack/rods(get_turf(G.loc))
@@ -734,7 +734,7 @@
 			// Since having maint protocols available is controllable by the MMI, I see this as a consensual way to remove an MMI without destroying the mech
 			user.visible_message("[user] begins levering out the MMI from the [src].", "You begin to lever out the MMI from the [src].")
 			to_chat(occupant, "<span class='warning'>[user] is prying you out of the exosuit!</span>")
-			if(do_after(user,80,target=src))
+			if(do_after(user, 80 * W.toolspeed, target=src))
 				user.visible_message("<span class='notice'>[user] pries the MMI out of the [src]!</span>", "<span class='notice'>You finish removing the MMI from the [src]!</span>")
 				go_out()
 		return

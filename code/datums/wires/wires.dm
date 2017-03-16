@@ -71,7 +71,7 @@ var/list/wireColours = list("red", "blue", "green", "black", "orange", "brown", 
 /datum/wires/proc/get_status()
 	return list()
 
-/datum/wires/proc/Interact(mob/living/user)
+/datum/wires/proc/Interact(mob/user)
 	if(user && istype(user) && holder && CanUse(user))
 		ui_interact(user)
 
@@ -81,12 +81,12 @@ var/list/wireColours = list("red", "blue", "green", "black", "orange", "brown", 
 		ui = new(user, src, ui_key, "wires.tmpl", holder.name, window_x, window_y)
 		ui.open()
 
-/datum/wires/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+/datum/wires/ui_data(mob/user, ui_key = "main", datum/topic_state/state = physical_state)
 	var/data[0]
 
 	var/list/W[0]
 	for(var/colour in wires)
-		W[++W.len] = list("colour" = capitalize(colour), "cut" = IsColourCut(colour), "attached" = IsAttached(colour))
+		W[++W.len] = list("colour" = capitalize(colour), "cut" = IsColourCut(colour), "index" = can_see_wire_index(user) ? GetWireName(GetIndex(colour)) : null, "attached" = IsAttached(colour))
 
 	if(W.len > 0)
 		data["wires"] = W
@@ -99,44 +99,53 @@ var/list/wireColours = list("red", "blue", "green", "black", "orange", "brown", 
 
 /datum/wires/nano_host()
 	return holder
+	
+/datum/wires/proc/can_see_wire_index(mob/user)
+	if(user.can_admin_interact())
+		return TRUE
+	else if(istype(user.get_active_hand(), /obj/item/device/multitool))
+		var/obj/item/device/multitool/M = user.get_active_hand()
+		if(M.shows_wire_information)
+			return TRUE
+		
+	return FALSE
 
 /datum/wires/Topic(href, href_list)
 	if(..())
 		return 1
 
-	if(in_range(holder, usr) && isliving(usr))
-
-		var/mob/living/L = usr
-		if(CanUse(L) && href_list["action"])
-			var/obj/item/I = L.get_active_hand()
-			var/colour = lowertext(href_list["wire"])
-			holder.add_hiddenprint(L)
-			switch(href_list["action"])
-				if("cut") // Toggles the cut/mend status
-					if(istype(I, /obj/item/weapon/wirecutters))
-						playsound(holder, 'sound/items/Wirecutter.ogg', 20, 1)
-						CutWireColour(colour)
-					else
-						to_chat(L, "<span class='error'>You need wirecutters!</span>")
-				if("pulse")
-					if(istype(I, /obj/item/device/multitool))
-						playsound(holder, 'sound/weapons/empty.ogg', 20, 1)
-						PulseColour(colour)
-					else
-						to_chat(L, "<span class='error'>You need a multitool!</span>")
-				if("attach")
-					if(IsAttached(colour))
-						var/obj/item/O = Detach(colour)
-						if(O)
-							L.put_in_hands(O)
-					else
-						if(istype(I, /obj/item/device/assembly/signaler))
-							if(L.drop_item())
-								Attach(colour, I)
-							else
-								to_chat(L, "<span class='warning'>[L.get_active_hand()] is stuck to your hand!</span>")
+	var/mob/L = usr
+	if(CanUse(L) && href_list["action"])
+		var/obj/item/I = L.get_active_hand()
+		var/colour = lowertext(href_list["wire"])
+		holder.add_hiddenprint(L)
+		switch(href_list["action"])
+			if("cut") // Toggles the cut/mend status
+				if(istype(I, /obj/item/weapon/wirecutters) || L.can_admin_interact())
+					if(istype(I))
+						playsound(holder, I.usesound, 20, 1)
+					CutWireColour(colour)
+				else
+					to_chat(L, "<span class='error'>You need wirecutters!</span>")
+			if("pulse")
+				if(istype(I, /obj/item/device/multitool) || L.can_admin_interact())
+					playsound(holder, 'sound/weapons/empty.ogg', 20, 1)
+					PulseColour(colour)
+				else
+					to_chat(L, "<span class='error'>You need a multitool!</span>")
+			if("attach")
+				if(IsAttached(colour))
+					var/obj/item/O = Detach(colour)
+					if(O)
+						L.put_in_hands(O)
+				else
+					if(istype(I, /obj/item/device/assembly/signaler))
+						if(L.drop_item())
+							Attach(colour, I)
 						else
-							to_chat(L, "<span class='error'>You need a remote signaller!</span>")
+							to_chat(L, "<span class='warning'>[L.get_active_hand()] is stuck to your hand!</span>")
+					else
+						to_chat(L, "<span class='error'>You need a remote signaller!</span>")
 
 	nanomanager.update_uis(src)
 	return 1
@@ -155,7 +164,7 @@ var/list/wireColours = list("red", "blue", "green", "black", "orange", "brown", 
 	if(holder)
 		nanomanager.update_uis(holder)
 
-/datum/wires/proc/CanUse(mob/living/L)
+/datum/wires/proc/CanUse(mob/L)
 	return 1
 
 /datum/wires/CanUseTopic(mob/user, datum/topic_state/state)
@@ -203,6 +212,9 @@ var/const/POWER = 8
 		return index
 	else
 		CRASH("[colour] is not a key in wires.")
+		
+/datum/wires/proc/GetWireName(index)
+	return
 
 //
 // Is Index/Colour Cut procs

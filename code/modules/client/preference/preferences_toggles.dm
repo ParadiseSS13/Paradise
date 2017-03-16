@@ -36,8 +36,8 @@
 	to_chat(usr, "You will [(prefs.toggles & CHAT_RADIO) ? "now" : "no longer"] see radio chatter from radios or speakers")
 	feedback_add_details("admin_verb","THR") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/client/verb/toggleadminhelpsound()
-	set name = "Hear/Silence Adminhelps"
+/client/proc/toggleadminhelpsound()
+	set name = "Hear/Silence Admin Bwoinks"
 	set category = "Preferences"
 	set desc = "Toggle hearing a notification when admin PMs are recieved"
 	if(!holder)	return

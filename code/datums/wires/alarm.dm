@@ -9,6 +9,22 @@ var/const/AALARM_WIRE_SYPHON = 4
 var/const/AALARM_WIRE_AI_CONTROL = 8
 var/const/AALARM_WIRE_AALARM = 16
 
+/datum/wires/alarm/GetWireName(index)
+	switch(index)
+		if(AALARM_WIRE_IDSCAN)
+			return "ID Scan"
+		
+		if(AALARM_WIRE_POWER)
+			return "Power"
+		
+		if(AALARM_WIRE_SYPHON)
+			return "Syphon"
+		
+		if(AALARM_WIRE_AI_CONTROL)
+			return "AI Control"
+			
+		if(AALARM_WIRE_AALARM)
+			return "Atmospherics Alarm"
 
 /datum/wires/alarm/CanUse(mob/living/L)
 	var/obj/machinery/alarm/A = holder

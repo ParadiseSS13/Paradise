@@ -26,6 +26,8 @@
 	var/tattoo_r = 1 // RGB values for the body markings
 	var/tattoo_g = 1
 	var/tattoo_b = 1
+	toolspeed = 1
+	usesound = 'sound/items/Welder2.ogg'
 
 /obj/item/device/fluff/tattoo_gun/attack(mob/living/carbon/M as mob, mob/user as mob)
 	if(user.a_intent == "harm")
@@ -61,7 +63,7 @@
 
 	else
 		user.visible_message("<span class='notice'>[user] begins to apply a [tattoo_name] [target] with the [src].</span>", "<span class='notice'>You begin to tattoo [target] with the [src]!</span>")
-		if(!do_after(user,30, target = M))
+		if(!do_after(user, 30 * toolspeed, target = M))
 			return
 		user.visible_message("<span class='notice'>[user] finishes the [tattoo_name] on [target].</span>", "<span class='notice'>You finish the [tattoo_name].</span>")
 
@@ -69,7 +71,7 @@
 		target.change_markings(tattoo_icon, "body")
 		target.change_marking_color(rgb(tattoo_r, tattoo_g, tattoo_b), "body")
 
-		playsound(src.loc, 'sound/items/Welder2.ogg', 20, 1)
+		playsound(src.loc, usesound, 20, 1)
 		used = 1
 		update_icon()
 
@@ -623,7 +625,8 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "chronx_hood"
 	item_state = "chronx_hood"
-	flags = HEADCOVERSEYES | BLOCKHAIR
+	flags = BLOCKHAIR
+	flags_cover = HEADCOVERSEYES
 	actions_types = list(/datum/action/item_action/toggle)
 	var/adjusted = 0
 

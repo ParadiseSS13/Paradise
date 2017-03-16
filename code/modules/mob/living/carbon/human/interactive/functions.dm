@@ -86,7 +86,7 @@
 					custom_emote(1, "[src]'s chest opens up, revealing a large mass of explosives and tangled wires!")
 					if(inactivity_period <= 0)
 						inactivity_period = 9999 // technically infinite
-						if(do_after(src, 60, target=traitorTarget))
+						if(do_after(src, 60, target = traitorTarget))
 							custom_emote(1, "A fire bursts from [src]'s eyes, igniting white hot and consuming their body in a flaming explosion!")
 							explosion(src, 6, 6, 6)
 						else

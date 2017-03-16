@@ -57,7 +57,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 	var/tele_proof = 0
 	var/no_teleportlocs = 0
-	
+
 	var/outdoors = 0 //For space, the asteroid, lavaland, etc. Used with blueprints to determine if we are adding a new area (vs editing a station room)
 
 /*Adding a wizard area teleport list because motherfucking lag -- Urist*/
@@ -1874,6 +1874,10 @@ area/security/podbay
 /area/toxins/mixing
 	name = "\improper Toxins Mixing Room"
 	icon_state = "toxmix"
+
+/area/toxins/launch
+	name = "Toxins Launch Room"
+	icon_state = "toxlaunch"
 
 /area/toxins/misc_lab
 	name = "\improper Research Testing Lab"
