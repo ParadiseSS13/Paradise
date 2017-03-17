@@ -251,6 +251,8 @@
 		I.flicker()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/proc/LayQueenEggs()
+	if(stat == DEAD)
+		return
 	if(!hasnested)
 		to_chat(src, "<span class='danger'>You must nest before doing this.</span>")
 		return
