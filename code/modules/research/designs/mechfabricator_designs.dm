@@ -971,8 +971,8 @@
 	category = list("Exosuit Equipment")
 
 /datum/design/mech_tesla
-	name = "Exosuit Weapon (MKI Tesla Cannon)"
-	desc = "Allows for the construction of MKI Tesla Cannon."
+	name = "Exosuit Weapon (P-X Tesla Cannon)"
+	desc = "Allows for the construction of P-X Tesla Cannon."
 	id = "mech_tesla"
 	build_type = MECHFAB
 	req_tech = list("combat" = 6, "magnets" = 5, "materials" = 5)

@@ -75,7 +75,7 @@
 	fire_sound = 'sound/weapons/Laser.ogg'
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser/disabler
-	name = "DD7 Rapid Disabler Module"
+	name = "CH-PD Disabler"
 	projectile = /obj/item/projectile/beam/disabler
 	projectiles_per_shot = 2
 	projectile_delay = 1
