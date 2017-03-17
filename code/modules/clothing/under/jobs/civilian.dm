@@ -201,3 +201,11 @@
 	icon_state = "barber"
 	item_state = "barber"
 	item_color = "barber"
+
+/obj/item/clothing/under/rank/explorer
+	name = "explorer's jumpsuit"
+	desc = "It's a jumpsuit worn by explorers."
+	icon_state = "ge"
+	item_state = "ge_suit"
+	item_color = "ge"
+	flags_size = ONESIZEFITSALL

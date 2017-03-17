@@ -36,8 +36,6 @@
 	H.mutations += SOBER
 	H.check_mutations = 1
 
-
-
 /datum/job/chef
 	title = "Chef"
 	flag = CHEF
