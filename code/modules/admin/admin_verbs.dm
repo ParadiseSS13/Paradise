@@ -577,6 +577,8 @@ var/list/admin_verbs_snpc = list(
 			if(flash_range == null)
 				return
 			explosion(epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, 1, 1)
+		if("Cancel")
+			return //No really why wasn't this a thing before
 	log_admin("[key_name(usr)] created an admin explosion at [epicenter.loc]")
 	message_admins("<span class='adminnotice'>[key_name_admin(usr)] created an admin explosion at [epicenter.loc]</span>")
 	feedback_add_details("admin_verb","DB") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
