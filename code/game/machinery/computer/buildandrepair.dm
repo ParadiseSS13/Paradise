@@ -84,6 +84,22 @@
 	name = "Circuit board (Dept ID Computer)"
 	build_path = /obj/machinery/computer/card/minor
 	var/target_dept = 1
+/obj/item/weapon/circuitboard/card/minor/hos
+	name = "Circuit board (Sec ID Computer)"
+	build_path = /obj/machinery/computer/card/minor/hos
+	target_dept = 2
+/obj/item/weapon/circuitboard/card/minor/cmo
+	name = "Circuit board (Medical ID Computer)"
+	build_path = /obj/machinery/computer/card/minor/cmo
+	target_dept = 3
+/obj/item/weapon/circuitboard/card/minor/rd
+	name = "Circuit board (Science ID Computer)"
+	build_path = /obj/machinery/computer/card/minor/rd
+	target_dept = 4
+/obj/item/weapon/circuitboard/card/minor/ce
+	name = "Circuit board (Engineering ID Computer)"
+	build_path = /obj/machinery/computer/card/minor/ce
+	target_dept = 5
 /obj/item/weapon/circuitboard/card/centcom
 	name = "Circuit board (CentComm ID Computer)"
 	build_path = /obj/machinery/computer/card/centcom

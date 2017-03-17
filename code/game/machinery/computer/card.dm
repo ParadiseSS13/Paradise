@@ -166,11 +166,13 @@ var/time_last_changed_position = 0
 	return 0
 
 /obj/machinery/computer/card/proc/job_in_department(datum/job/targetjob)
-	if(!scan.access)
+	if(!scan || !scan.access)
 		return 0
 	if(!target_dept)
 		return 1
 	if(!scan.assignment)
+		return 0
+	if(!targetjob || !targetjob.title)
 		return 0
 	if(targetjob.title in get_subordinates(scan.assignment))
 		return 1
@@ -333,8 +335,11 @@ var/time_last_changed_position = 0
 		if("assign")
 			if(is_authenticated(usr) && modify)
 				var/t1 = href_list["assign_target"]
-				if(!job_in_department(job_master.GetJob(modify.assignment)))
-					src.visible_message("<span class='notice'>[src] buzzes. Non-civilian job transfers must be done by the HoP.</span>")
+				if(target_dept && modify.assignment == "Unassigned")
+					src.visible_message("<span class='notice'>[src]: Demoted individuals must see the HoP for a new job.</span>")
+					return 0
+				if(!job_in_department(job_master.GetJob(modify.rank)))
+					src.visible_message("<span class='notice'>[src]: Cross-department job transfers must be done by the HoP.</span>")
 					return 0
 				if(!job_in_department(job_master.GetJob(t1)))
 					return 0
@@ -359,14 +364,14 @@ var/time_last_changed_position = 0
 							return
 
 						access = jobdatum.get_access()
-						if(target_dept) // Automatically apply default job skin.
-							var/datum/outfit/job/default_outfit = jobdatum.outfit
-							var/obj/item/weapon/card/id/default_job_id = default_outfit.id
-							modify.icon_state = default_job_id.icon_state
 
 					modify.access = access
-					modify.assignment = t1
 					modify.rank = t1
+					if(t1 == "Civilian")
+						modify.assignment = "Unassigned"
+						modify.icon_state = "id"
+					else
+						modify.assignment = t1
 
 
 				callHook("reassign_employee", list(modify))
@@ -484,39 +489,38 @@ var/time_last_changed_position = 0
 
 /obj/machinery/computer/card/minor
 	name = "department management console"
+	target_dept = 1
 	desc = "You can use this to change ID's for specific departments."
 	icon_screen = "idminor"
 	circuit = /obj/item/weapon/circuitboard/card/minor
 
-/obj/machinery/computer/card/minor/New()
-	..()
-	var/obj/item/weapon/circuitboard/card/minor/typed_circuit = circuit
-	if(target_dept)
-		typed_circuit.target_dept = target_dept
-	else
-		target_dept = typed_circuit.target_dept
-	var/list/dept_list = list("general","security","medical","science","engineering")
-	name = "[dept_list[target_dept]] department console"
-
 /obj/machinery/computer/card/minor/hos
+	name = "security management console"
 	target_dept = 2
 	icon_screen = "idhos"
 	light_color = LIGHT_COLOR_RED
 	req_access = list(access_hos)
+	circuit = /obj/item/weapon/circuitboard/card/minor/hos
 
 /obj/machinery/computer/card/minor/cmo
+	name = "medical management console"
 	target_dept = 3
 	icon_screen = "idcmo"
 	req_access = list(access_cmo)
+	circuit = /obj/item/weapon/circuitboard/card/minor/cmo
 
 /obj/machinery/computer/card/minor/rd
+	name = "science management console"
 	target_dept = 4
 	icon_screen = "idrd"
 	light_color = LIGHT_COLOR_PINK
 	req_access = list(access_rd)
+	circuit = /obj/item/weapon/circuitboard/card/minor/rd
 
 /obj/machinery/computer/card/minor/ce
+	name = "engineering management console"
 	target_dept = 5
 	icon_screen = "idce"
 	light_color = COLOR_YELLOW
 	req_access = list(access_ce)
+	circuit = /obj/item/weapon/circuitboard/card/minor/ce
