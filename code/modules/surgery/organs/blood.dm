@@ -106,7 +106,6 @@
 /mob/living/carbon/human/restore_blood()
 	blood_volume = BLOOD_VOLUME_NORMAL
 	bleed_rate = 0
-	blood_DNA = copytext(dna.unique_enzymes,1,0)
 
 /****************************************************
 				BLOOD TRANSFERS
@@ -257,7 +256,6 @@
 	B.transfer_mob_blood_dna(src) //give blood info to the blood decal.
 	if(temp_blood_DNA)
 		B.blood_DNA |= temp_blood_DNA
-	B.basecolor = b_data["blood_color"]
 	B.update_icon()
 
 /mob/living/carbon/human/add_splatter_floor(turf/T, small_drip)

@@ -476,8 +476,8 @@ var/list/blood_splatter_icons = list()
 		var/obj/item/clothing/gloves/G = gloves
 		G.add_blood(blood_dna, color)
 	else
-		transfer_blood_dna(blood_dna)
-		hand_blood_color = blood_dna["blood_color"]
+		hand_blood_color = color
+	transfer_blood_dna(blood_dna)
 	bloody_hands = rand(2, 4)
 	update_inv_gloves()	//handles bloody hands overlays and updating
 	return 1

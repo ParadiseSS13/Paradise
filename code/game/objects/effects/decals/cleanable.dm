@@ -3,8 +3,6 @@
 	var/targeted_by = null			// Used so cleanbots can't claim a mess.
 	var/noscoop = 0   //if it has this, don't let it be scooped up
 	var/noclear = 0    //if it has this, don't delete it when its' scooped up
-	var/blood_state = "" //relates to icon mostly
-	var/bloodiness = 0 //0-100, amount of blood in this decal, used for making footprints and affecting the alpha of bloody footprints
 
 /obj/effect/decal/cleanable/proc/can_bloodcrawl_in()
 	return FALSE
@@ -47,41 +45,3 @@
 		reagents.chem_temp += 30
 		reagents.handle_reactions()
 	..()
-
-//Add "bloodiness" of this blood's type, to the human's shoes
-/obj/effect/decal/cleanable/Crossed(atom/movable/O)
-	if(ishuman(O))
-		var/mob/living/carbon/human/H = O
-		var/obj/item/organ/external/l_foot = H.get_organ("l_foot")
-		var/obj/item/organ/external/r_foot = H.get_organ("r_foot")
-		var/hasfeet = 1
-		if((!l_foot || l_foot.status & ORGAN_DESTROYED) && (!r_foot || r_foot.status & ORGAN_DESTROYED))
-			hasfeet = 0
-		if(H.shoes && blood_state && bloodiness)
-			var/obj/item/clothing/shoes/S = H.shoes
-			var/add_blood = 0
-			if(bloodiness >= BLOOD_GAIN_PER_STEP)
-				add_blood = BLOOD_GAIN_PER_STEP
-			else
-				add_blood = bloodiness
-			bloodiness -= add_blood
-			S.bloody_shoes[blood_state] = min(MAX_SHOE_BLOODINESS,S.bloody_shoes[blood_state] + add_blood)
-			if(blood_DNA && blood_DNA.len)
-				S.add_blood(H.blood_DNA,H.species.blood_color)
-			S.blood_state = blood_state
-			update_icon()
-			H.update_inv_shoes()
-		else if(hasfeet && blood_state && bloodiness)//Or feet
-			var/add_blood = 0
-			if(bloodiness >= BLOOD_GAIN_PER_STEP)
-				add_blood = BLOOD_GAIN_PER_STEP
-			else
-				add_blood = bloodiness
-			bloodiness -= add_blood
-			H.bloody_feet[blood_state] = min(MAX_SHOE_BLOODINESS,H.bloody_feet[blood_state] + add_blood)
-			if(!H.feet_blood_DNA)
-				H.feet_blood_DNA = list()
-			H.blood_state = blood_state
-			H.feet_blood_DNA |= blood_DNA.Copy()
-			update_icon()
-			H.update_inv_shoes()
