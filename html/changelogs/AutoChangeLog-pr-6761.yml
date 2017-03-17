@@ -1,5 +1,0 @@
-author: "Jovaniph"
-delete-after: True
-changes: 
-  - rscadd: "New sounds to Firelocks and Airlock External"
-  - rscadd: "Door closing sound to Airlocks - from yogstation"
