@@ -137,6 +137,7 @@
 		new /obj/item/weapon/dnainjector/m2h(src)
 		new /obj/item/weapon/dnainjector/m2h(src)
 
+
 /obj/item/weapon/storage/box/gauge
 	name = "box of 12 gauge slugs"
 	desc = "It has a picture of a gun and several warning symbols on the front."
@@ -612,6 +613,21 @@
 		new /obj/item/weapon/reagent_containers/hypospray/autoinjector/stimpack(src)
 		new /obj/item/weapon/reagent_containers/hypospray/autoinjector/stimpack(src)
 		new /obj/item/weapon/reagent_containers/hypospray/autoinjector/stimpack(src)
+
+/obj/item/weapon/storage/box/autoinjector/standard
+	name = "Autoinjectors"
+	desc = "This box contains several autoinjectors for emergencies."
+	icon_state = "syringe"
+
+	New()
+		..()
+		new /obj/item/weapon/reagent_containers/hypospray/autoinjector(src)
+		new /obj/item/weapon/reagent_containers/hypospray/autoinjector(src)
+		new /obj/item/weapon/reagent_containers/hypospray/autoinjector(src)
+		new /obj/item/weapon/reagent_containers/hypospray/autoinjector(src)
+		new /obj/item/weapon/reagent_containers/hypospray/autoinjector(src)
+		new /obj/item/weapon/reagent_containers/hypospray/autoinjector(src)
+		new /obj/item/weapon/reagent_containers/hypospray/autoinjector(src)
 
 /obj/item/weapon/storage/box/lights
 	name = "replacement bulbs"
