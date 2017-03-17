@@ -883,7 +883,7 @@
 	category = list("Exosuit Equipment")
 
 /datum/design/mech_laser
-	name = "Exosuit Weapon (CH-PL \"Standard\" Laser)"
+	name = "Exosuit Weapon (CH-PL \"Old Faithful\" Laser)"
 	desc = "Allows for the construction of CH-PS Laser."
 	id = "mech_laser"
 	build_type = MECHFAB
@@ -981,20 +981,9 @@
 	construction_time = 100
 	category = list("Exosuit Equipment")
 
-/datum/design/mech_xray
-	name = "Exosuit Weapon (MKI X-Ray Laser)"
-	desc = "Allows for the construction of MKI X-Ray Laser."
-	id = "mech_tesla"
-	build_type = MECHFAB
-	req_tech = list("combat" = 5, "materials" = 3, "syndicate" = 2, "magnets" = 2)
-	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/energy/xray
-	materials = list(MAT_GOLD = 5000, MAT_URANIUM = 10000, MAT_METAL = 4000)
-	construction_time = 100
-	category = list("Exosuit Equipment")
-
 /datum/design/mech_immolator
-	name = "Exosuit Weapon (MKI Immolator Laser)"
-	desc = "Allows for the construction of MKI Immolator Laser."
+	name = "Exosuit Weapon (ZFI Immolation Beam Gun)"
+	desc = "Allows for the construction of ZFI Immolation Beam Gun."
 	id = "mech_tesla"
 	build_type = MECHFAB
 	req_tech = list("combat" = 4, "materials" = 4, "plasmatech" = 2, "magnets" = 3)
