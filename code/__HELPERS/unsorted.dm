@@ -550,17 +550,17 @@ proc/anim(turf/location as turf,target as mob|obj,a_icon,a_icon_state as text,fl
 	var/turf/current = get_turf(source)
 	var/turf/target_turf = get_turf(target)
 	var/steps = 1
-	
+
 	if(current != target_turf)
-		current = get_step_towards(current, target_turf)	
+		current = get_step_towards(current, target_turf)
 		while(current != target_turf)
-			if(steps > length) 
+			if(steps > length)
 				return 0
-			if(current.opacity) 
+			if(current.opacity)
 				return 0
 			for(var/thing in current)
 				var/atom/A = thing
-				if(A.opacity) 
+				if(A.opacity)
 					return 0
 			current = get_step_towards(current, target_turf)
 			steps++
@@ -1347,19 +1347,19 @@ Standard way to write links -Sayu
 /proc/get_location_accessible(mob/M, location)
 	var/covered_locations	= 0	//based on body_parts_covered
 	var/face_covered		= 0	//based on flags_inv
-	var/eyesmouth_covered	= 0	//based on flags
+	var/eyesmouth_covered	= 0	//based on flags_cover
 	if(iscarbon(M))
 		var/mob/living/carbon/C = M
 		for(var/obj/item/clothing/I in list(C.back, C.wear_mask))
 			covered_locations |= I.body_parts_covered
 			face_covered |= I.flags_inv
-			eyesmouth_covered |= I.flags
+			eyesmouth_covered |= I.flags_cover
 		if(ishuman(C))
 			var/mob/living/carbon/human/H = C
 			for(var/obj/item/I in list(H.wear_suit, H.w_uniform, H.shoes, H.belt, H.gloves, H.glasses, H.head, H.r_ear, H.l_ear))
 				covered_locations |= I.body_parts_covered
 				face_covered |= I.flags_inv
-				eyesmouth_covered |= I.flags
+				eyesmouth_covered |= I.flags_cover
 
 	switch(location)
 		if("head")
@@ -1863,7 +1863,7 @@ var/global/list/g_fancy_list_of_types = null
 			pois[name] = A
 
 	return pois
-	
+
 /proc/flash_color(mob_or_client, flash_color="#960000", flash_time=20)
 	var/client/C
 	if(istype(mob_or_client, /mob))
@@ -1881,7 +1881,7 @@ var/global/list/g_fancy_list_of_types = null
 	C.color = flash_color
 	spawn(0)
 		animate(C, color = initial(C.color), time = flash_time)
-		
+
 #define RANDOM_COLOUR (rgb(rand(0,255),rand(0,255),rand(0,255)))
 
 /proc/make_bit_triplet()

@@ -1,0 +1,7 @@
+/*ALL DEFINES RELATED TO CONSTRUCTION, CONSTRUCTING THINGS, OR CONSTRUCTED OBJECTS GO HERE*/
+
+//Defines for construction states
+
+//plastic flaps construction states
+#define PLASTIC_FLAPS_NORMAL 0
+#define PLASTIC_FLAPS_DETACHED 1

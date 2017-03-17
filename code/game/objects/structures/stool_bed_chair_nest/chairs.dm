@@ -32,7 +32,7 @@
 			return
 		user.drop_item()
 		var/obj/structure/stool/bed/chair/e_chair/E = new /obj/structure/stool/bed/chair/e_chair(src.loc)
-		playsound(src.loc, 'sound/items/Deconstruct.ogg', 50, 1)
+		playsound(src.loc, W.usesound, 50, 1)
 		E.dir = dir
 		E.part = SK
 		SK.loc = E
@@ -60,18 +60,15 @@
 	set src in oview(1)
 
 	if(config.ghost_interaction)
-		src.dir = turn(src.dir, 90)
+		setDir(turn(dir, 90))
 		handle_rotation()
 		return
-	else
-		if(!usr || !isturf(usr.loc))
-			return
-		if(usr.stat || usr.restrained())
-			return
 
-		src.dir = turn(src.dir, 90)
-		handle_rotation()
+	if(usr.incapacitated())
 		return
+
+	setDir(turn(dir, 90))
+	handle_rotation()
 
 /obj/structure/stool/bed/chair/AltClick(mob/user)
 	if(user.incapacitated())
@@ -102,7 +99,7 @@
 
 /obj/structure/stool/bed/chair/wood/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/weapon/wrench))
-		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
+		playsound(src.loc, W.usesound, 50, 1)
 		new /obj/item/stack/sheet/wood(get_turf(src))
 		new /obj/item/stack/sheet/wood(get_turf(src))
 		new /obj/item/stack/sheet/wood(get_turf(src))
@@ -164,7 +161,7 @@
 
 /obj/structure/stool/bed/chair/comfy/attackby(obj/item/weapon/W, mob/user, params)
 	if(iswrench(W))
-		playsound(loc, 'sound/items/Ratchet.ogg', 50, 1)
+		playsound(loc, W.usesound, 50, 1)
 		new /obj/item/stack/sheet/metal(get_turf(src))
 		new /obj/item/stack/sheet/metal(get_turf(src))
 		qdel(src)

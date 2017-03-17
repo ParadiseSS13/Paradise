@@ -1,0 +1,149 @@
+<!-- 
+Title: ATM
+Used In File(s): /code/modules/economy/ATM.dm
+-->
+
+<!--
+#define NO_SCREEN					0
+#define CHANGE_SECURITY_LEVEL		1
+#define TRANSFER_FUNDS				2
+#define VIEW_TRANSACTION_LOGS		3
+-->
+
+<style type="text/css">
+	input[type=text], input[type=submit] {
+		border: 1px solid #161616;
+		background-color: #40628a;
+		color: #FFFFFF;
+		padding: 4px;
+	}
+	input[type=submit]:hover {
+		background-color: #507aac;
+	}
+</style>
+
+<h1>Nanotrasen Automatic Teller Machine</h1>
+For all your monetary needs!
+<br>
+<i>This terminal is</i> {{:data.machine_id}}. <i>Report this code when contacting Nanotrasen IT Support</i>
+<br>
+
+<div class="item">
+	<div class='itemLabel'>Card:</div>
+	<div class='itemContent'>{{:helper.link(data.held_card_name, 'eject', {'choice' : 'insert_card'})}}</div>
+</div>
+<hr>
+{{if data.ticks_left_locked_down > 0}}
+	<span class='exclamation-triangle'>Maximum number of pin attempts exceeded! Access to this ATM has been temporarily disabled.</span>
+{{else data.authenticated_account}}
+	{{if data.view_screen == 1}} <!-- CHANGE_SECURITY_LEVEL -->
+		<h4>Select a new security level for this account:</h4>
+		<div class="item">
+			<div class='itemLabel'>Level:</div>
+			<div class='itemContent'>{{:helper.link('Zero', 'unlock', {'choice' : 'change_security_level', 'new_security_level' : 0}, data.security_level == 0 ? 'selected' : null)}}</div>
+		</div>
+		<div class="item">
+			<div class='itemLabel'>Description:</div>
+			<div class='itemContent'>Either the account number or card is required to access this account. EFTPOS transactions will require a card and ask for a pin, but not verify the pin is correct.</div>
+		</div>
+		<hr>
+		<div class="item">
+			<div class='itemLabel'>Level:</div>
+			<div class='itemContent'>{{:helper.link('One', 'unlock-alt', {'choice' : 'change_security_level', 'new_security_level' : 1}, data.security_level == 1 ? 'selected' : null)}}</div>
+		</div>
+		<div class="item">
+			<div class='itemLabel'>Description:</div>
+			<div class='itemContent'>An account number and pin must be manually entered to access this account and process transactions.</div>
+		</div>
+		<hr>
+		<div class="item">
+			<div class='itemLabel'>Level:</div>
+			<div class='itemContent'>{{:helper.link('Two', 'lock', {'choice' : 'change_security_level', 'new_security_level' : 2}, data.security_level == 2 ? 'selected' : null)}}</div>
+		</div>
+		<div class="item">
+			<div class='itemLabel'>Description:</div>
+			<div class='itemContent'>In addition to account number and pin, a card is required to access this account and process transactions.</div>
+		</div>
+		<hr>
+		{{:helper.link('Back', 'arrow-left', {'choice' : 'view_screen', 'view_screen' : 0})}}
+	{{else data.view_screen == 2}} <!-- TRANSFER_FUNDS -->
+		<div class='line'><b>Account balance:</b> ${{:helper.smoothRound(data.money)}}</div>
+		<form name='transfer' id='transfer' action='?src={{:data.src}}' method='get'>
+			<input type='hidden' name='src' value='{{:data.src}}'>
+			<input type='hidden' name='choice' value='transfer'>
+			<div class='itemLabel'>Target account number:</div>
+			<div class='itemContent'><input type='text' name='target_acc_number' value='' style='width:200px;'></div>
+			
+			<div class='itemLabel'>Funds to transfer:</div>
+			<div class='itemContent'><input type='text' name='funds_amount' value='' style='width:200px;'></div>
+
+			<div class='itemLabel'>Transaction purpose:</div>
+			<div class='itemContent'><input type='text' name='purpose' value='Funds transfer' style='width:200px;'></div>
+			<input type='submit' value='Transfer funds'>
+		</form>
+		<hr>
+		{{:helper.link('Back', 'arrow-left', {'choice' : 'view_screen', 'view_screen' : 0})}}
+	{{else data.view_screen == 3}} <!-- VIEW_TRANSACTION_LOGS -->
+		<h4>Transaction logs</h4>
+		<div class='item'>{{:helper.link('Back', 'arrow-left', {'choice' : 'view_screen', 'view_screen' : 0})}}</div>
+
+		<div class="statusDisplay" style="overflow: auto;">
+			{{if data.transaction_log}}
+				<table style='width: 100%'>
+					<thead>
+						<tr>
+							<th><b>Timestamp</b></th>
+							<th><b>Target</b></th>
+							<th><b>Reason</b></th>
+							<th><b>Value</b></th>
+							<th><b>Terminal</b></th>
+						</tr>
+					</thead>
+					<tbody>
+						{{for data.transaction_log}}
+							<tr>
+								<td>{{:value.date}} {{:value.time}}</td>
+								<td>{{:value.target_name}}</td>
+								<td>{{:value.purpose}}</td>
+								<td>${{:value.amount}}</td>
+								<td>{{:value.source_terminal}}</td>
+							</tr>
+						{{/for}}
+					</tbody>
+				</table>
+			{{else}}
+				<span class='exclamation-triangle'>Your account has no financial transactions on record for today.</span>
+			{{/if}}
+		</div>
+	{{else}} <!-- NO_SCREEN -->
+		Welcome, <b>{{:data.owner_name}}</b>.<br>
+		<b>Account balance:</b> ${{:helper.smoothRound(data.money)}}
+		<form name='withdrawal' action='?src={{:data.src}}' method='get'>
+			<input type='hidden' name='src' value='{{:data.src}}'>
+			<input type='hidden' name='choice' value='withdrawal'>
+			<input type='text' name='funds_amount' value=''>  <input type='submit' value='Withdraw funds'><br>
+		</form>
+		<hr>
+		
+		<h3>Menu</h3>
+		<div class="line">{{:helper.link('Change account security level', 'lock', {'choice' : 'view_screen', 'view_screen' : 1})}}</div>
+		<div class="line">{{:helper.link('Make transfer', 'exchange', {'choice' : 'view_screen', 'view_screen' : 2})}}</div>
+		<div class="line">{{:helper.link('View transaction log', 'list', {'choice' : 'view_screen', 'view_screen' : 3})}}</div>
+		<div class="line">{{:helper.link('Print balance statement', 'print', {'choice' : 'balance_statement'})}}</div>
+		<div class="line">{{:helper.link('Logout', 'sign-out', {'choice' : 'logout'})}}</div>
+	{{/if}}
+{{else data.linked_db}}
+	<form name='atm_auth' action='?src={{:data.src}}' method='get'>
+		<input type='hidden' name='src' value='{{:data.src}}'>
+		<input type='hidden' name='choice' value='attempt_auth'>
+		<div class='itemLabel'>Account:</div> 
+		<div class='itemContent'><input type='text' id='account_num' name='account_num' style='width:250px;'></div>
+		
+		<div class='itemLabel'>PIN:</div>
+		<div class='itemContent'><input type='text' id='account_pin' name='account_pin' style='width:250px;'></div>
+		<br>
+		<input type='submit' value='Submit'>
+	</form>
+{{else}}
+	<span class='exclamation-triangle'>Unable to connect to accounts database, please retry and if the issue persists contact Nanotrasen IT support.</span>
+{{/if}}

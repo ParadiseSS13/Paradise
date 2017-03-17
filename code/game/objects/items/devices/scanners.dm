@@ -285,7 +285,7 @@ REAGENT SCANNER
 		else
 			to_chat(user, "<span class='notice'>You install the upgrade in the [src].</span>")
 			overlays += "advanced"
-			playsound(src.loc, 'sound/items/Deconstruct.ogg', 50, 1)
+			playsound(src.loc, usesound, 50, 1)
 			upgraded = 1
 			qdel(W)
 
@@ -302,6 +302,7 @@ REAGENT SCANNER
 	desc = "An upgrade unit that can be installed on a health analyzer for expanded functionality."
 	w_class = 1
 	origin_tech = "magnets=2;biotech=2"
+	usesound = 'sound/items/Deconstruct.ogg'
 
 /obj/item/device/analyzer
 	desc = "A hand-held environmental scanner which reports current gas levels."

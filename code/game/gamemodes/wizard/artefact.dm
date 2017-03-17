@@ -586,6 +586,11 @@ var/global/list/multiverse = list()
 	W.SetOwnerInfo(M)
 	M.equip_to_slot_or_del(W, slot_wear_id)
 
+	if(M.get_species() == "Vox")
+		M.species.after_equip_job(null, M) //Voxygen(tm)
+	if(M.get_species() == "Plasmaman")
+		M.species.after_equip_job(null, M) //No fireballs from other dimensions.
+
 	M.update_icons()
 
 /obj/item/weapon/multisword/pure_evil

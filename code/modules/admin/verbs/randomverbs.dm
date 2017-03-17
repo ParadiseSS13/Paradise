@@ -88,7 +88,7 @@
 			missing_ages = 1
 			continue
 		if(C.player_age < age)
-			if(check_rights(R_ADMIN))
+			if(check_rights(R_ADMIN, 0))
 				msg += "[key_name_admin(C.mob)]: [C.player_age] days old<br>"
 			else
 				msg += "[key_name_mentor(C.mob)]: [C.player_age] days old<br>"
@@ -549,8 +549,10 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 	var/type = input(usr, "Pick a type of report to send", "Report Type", "") as anything in MsgType
 	var/input = input(usr, "Please enter anything you want. Anything. Serious.", "What?", "") as message|null
-	var/customname = input(usr, "Pick a title for the report.", "Title") as text|null
 	if(!input)
+		return
+	var/customname = input(usr, "Pick a title for the report.", "Title") as text|null
+	if(!customname)
 		return
 
 	if(type == "Enemy Communications")
@@ -560,11 +562,13 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		var/from = input(usr, "What kind of report? Example: Syndicate Communique", "From") as text|null
 		if(!from)
 			from = "Syndicate Communique"
-		switch(alert("Should this be announced to the general population?",,"Yes","No"))
+		switch(alert("Should this be announced to the general population?",,"Yes","No", "Cancel"))
 			if("Yes")
 				communications_announcement.Announce(input, customname, , , , from);
-			if("No")
+			else if("No")
 				to_chat(world, "<span class='danger'>[from] available at all communications consoles.</span>")
+			else
+				return
 
 		print_command_report(input, from)
 
@@ -899,7 +903,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		to_chat(usr, "\red ERT has been <b>Disabled</b>.")
 		log_admin("Admin [key_name(src)] has disabled ERT calling.")
 		message_admins("Admin [key_name_admin(usr)] has disabled ERT calling.", 1)
-		
+
 /client/proc/modify_goals()
 	set category = "Event"
 	set name = "Modify Station Goals"
@@ -910,6 +914,10 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	holder.modify_goals()
 
 /datum/admins/proc/modify_goals()
+	if(!ticker || !ticker.mode)
+		to_chat(usr, "<span class='warning'>This verb can only be used if the round has started.</span>")
+		return
+
 	var/dat = ""
 	for(var/datum/station_goal/S in ticker.mode.station_goals)
 		dat += "[S.name] - <a href='?src=[S.UID()];announce=1'>Announce</a> | <a href='?src=[S.UID()];remove=1'>Remove</a><br>"

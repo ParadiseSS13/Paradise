@@ -3,7 +3,8 @@
 	name = "breath mask"
 	icon_state = "breath"
 	item_state = "breath"
-	flags = MASKCOVERSMOUTH | AIRTIGHT
+	flags = AIRTIGHT
+	flags_cover = MASKCOVERSMOUTH
 	w_class = 2
 	gas_transfer_coefficient = 0.10
 	permeability_coefficient = 0.50

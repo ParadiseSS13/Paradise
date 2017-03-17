@@ -227,18 +227,19 @@
 /obj/machinery/door/window/attack_hand(mob/user as mob)
 	return attackby(user, user)
 
-/obj/machinery/door/window/emag_act(user as mob, weapon as obj)
+/obj/machinery/door/window/emag_act(mob/user, obj/weapon)
 	if(density)
 		operating = -1
 		flick("[base_state]spark", src)
 		sleep(6)
 		desc += "<BR><span class='warning'>Its access panel is smoking slightly.</span>"
 		if(istype(weapon, /obj/item/weapon/melee/energy/blade))
+			var/obj/item/weapon/melee/energy/blade/B
 			var/datum/effect/system/spark_spread/spark_system = new /datum/effect/system/spark_spread()
 			spark_system.set_up(5, 0, loc)
 			spark_system.start()
 			playsound(loc, "sparks", 50, 1)
-			playsound(loc, 'sound/weapons/blade1.ogg', 50, 1)
+			playsound(loc, B.usesound, 50, 1)
 			visible_message("<span class='warning'> The glass door was sliced open by [user]!</span>")
 			open(2)
 			emagged = 1
@@ -264,17 +265,17 @@
 		if(density || operating)
 			to_chat(user, "<span class='warning'>You need to open the door to access the maintenance panel.</span>")
 			return
-		playsound(loc, 'sound/items/Screwdriver.ogg', 50, 1)
+		playsound(loc, I.usesound, 50, 1)
 		p_open = !( p_open )
 		to_chat(user, "<span class='notice'>You [p_open ? "open":"close"] the maintenance panel of the [name].</span>")
 		return
 
 	if(istype(I, /obj/item/weapon/crowbar))
 		if(p_open && !density && !operating)
-			playsound(loc, 'sound/items/Crowbar.ogg', 100, 1)
+			playsound(loc, I.usesound, 100, 1)
 			user.visible_message("<span class='warning'>[user] removes the electronics from the [name].</span>", \
 								 "You start to remove electronics from the [name].")
-			if(do_after(user,40, target = src))
+			if(do_after(user, 40 * I.toolspeed, target = src))
 				if(p_open && !density && !operating && loc)
 					var/obj/structure/windoor_assembly/WA = new /obj/structure/windoor_assembly(loc)
 					switch(base_state)

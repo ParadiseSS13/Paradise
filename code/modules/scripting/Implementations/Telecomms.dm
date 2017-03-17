@@ -321,6 +321,7 @@
 
 	newsign.data["mob"] = null
 	newsign.data["mobtype"] = /mob/living/carbon/human
+	newsign.data["race"] = "Automated Signal"
 	newsign.data["name"] = source
 	newsign.data["realname"] = newsign.data["name"]
 	newsign.data["job"] = "[job]"

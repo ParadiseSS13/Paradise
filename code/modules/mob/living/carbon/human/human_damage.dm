@@ -88,19 +88,19 @@
 	return amount
 
 
-/mob/living/carbon/human/adjustBruteLoss(amount)
+/mob/living/carbon/human/adjustBruteLoss(amount, damage_source)
 	if(species)
 		amount = amount * species.brute_mod
 	if(amount > 0)
-		take_overall_damage(amount, 0)
+		take_overall_damage(amount, 0, used_weapon = damage_source)
 	else
 		heal_overall_damage(-amount, 0)
 
-/mob/living/carbon/human/adjustFireLoss(amount)
+/mob/living/carbon/human/adjustFireLoss(amount, damage_source)
 	if(species)
 		amount = amount * species.burn_mod
 	if(amount > 0)
-		take_overall_damage(0, amount)
+		take_overall_damage(0, amount, used_weapon = damage_source)
 	else
 		heal_overall_damage(0, -amount)
 

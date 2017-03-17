@@ -21,6 +21,8 @@
 	var/autoclose_timer
 	var/glass = 0
 	var/normalspeed = 1
+	var/auto_close_time = 150
+	var/auto_close_time_dangerous = 5
 	var/heat_proof = 0 // For glass airlocks/opacity firedoors
 	var/emergency = 0
 	var/air_properties_vary_with_direction = 0
@@ -37,19 +39,23 @@
 	else
 		layer = open_layer
 
+	update_dir()
+	update_freelook_sight()
+	airlocks += src
+	
+/obj/machinery/door/setDir(newdir)
+	..()
+	update_dir()
 
+/obj/machinery/door/proc/update_dir()
 	if(width > 1)
 		if(dir in list(EAST, WEST))
 			bound_width = width * world.icon_size
 			bound_height = world.icon_size
 		else
 			bound_width = world.icon_size
-			bound_height = width * world.icon_size
-
-	update_freelook_sight()
-	airlocks += src
-	return
-
+			bound_height = width * world.icon_size	
+	
 /obj/machinery/door/initialize()
 	air_update_turf(1)
 	..()
@@ -85,8 +91,7 @@
 	return
 
 
-/obj/machinery/door/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
-	if(air_group) return 0
+/obj/machinery/door/CanPass(atom/movable/mover, turf/target, height=0)
 	if(istype(mover) && mover.checkpass(PASSGLASS))
 		return !opacity
 	return !density
@@ -116,8 +121,8 @@
 
 /obj/machinery/door/attack_ghost(mob/user)
 	if(user.can_advanced_admin_interact())
-		return attack_hand(user)	
-	
+		return attack_hand(user)
+
 /obj/machinery/door/attack_hand(mob/user)
 	return attackby(user, user)
 
@@ -130,7 +135,7 @@
 	if(istype(I, /obj/item/device/detective_scanner))
 		return
 
-	if(operating || isrobot(user))	
+	if(operating || isrobot(user))
 		return //borgs can't attack doors open because it conflicts with their AI-like interaction with them.
 
 	add_fingerprint(user)
@@ -231,7 +236,7 @@
 
 	// The `addtimer` system has the advantage of being cancelable
 	if(autoclose)
-		autoclose_timer = addtimer(src, "autoclose", normalspeed ? 150 : 5, unique = 1)
+		autoclose_timer = addtimer(src, "autoclose", normalspeed ? auto_close_time : auto_close_time_dangerous, unique = 1)
 
 	return 1
 

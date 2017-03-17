@@ -33,7 +33,7 @@
 
 	var/msg = "<span class='info'>*---------*\nThis is "
 
-	if(skipjumpsuit && skipface) //big suits/masks/helmets make it hard to tell their gender
+	if((skipjumpsuit && skipface)) //big suits/masks/helmets make it hard to tell their gender
 		t_He = "They"
 		t_his = "their"
 		t_him = "them"
@@ -51,6 +51,12 @@
 				t_He = "She"
 				t_his = "her"
 				t_him = "her"
+			if(PLURAL)
+				t_He = "They"
+				t_his = "their"
+				t_him = "them"
+				t_has = "have"
+				t_is = "are"
 
 	msg += "<EM>[name]</EM>"
 
@@ -498,7 +504,8 @@
 		msg += "<span class = 'deptradio'>Medical records:</span> <a href='?src=[UID()];medrecord=`'>\[View\]</a> <a href='?src=[UID()];medrecordadd=`'>\[Add comment\]</a>\n"
 
 
-	if(print_flavor_text()) msg += "[print_flavor_text()]\n"
+	if(print_flavor_text() && !skipface)
+		msg += "[print_flavor_text()]\n"
 
 	msg += "*---------*</span>"
 	if(pose)

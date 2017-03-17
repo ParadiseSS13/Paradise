@@ -10,19 +10,19 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	flags_inv = HIDEGLOVES|HIDESHOES
 	max_heat_protection_temperature = SPACE_SUIT_MAX_TEMP_PROTECT
+	icon = 'icons/obj/clothing/species/plasmaman/suits.dmi'
 	species_restricted = list("Plasmaman")
+	sprite_sheets = list(
+		"Plasmaman" = 'icons/mob/species/plasmaman/suit.dmi'
+		)
 	flags = STOPSPRESSUREDMAGE
-
 	icon_state = "plasmaman_suit"
 	item_state = "plasmaman_suit"
 
 	var/next_extinguish = 0
 	var/extinguish_cooldown = 10 SECONDS
-	var/extinguishes_left = 10 // Yeah yeah, reagents, blah blah blah.  This should be simple.
-
-/obj/item/clothing/suit/space/eva/plasmaman/examine(mob/user)
-	..(user)
-	to_chat(user, "<span class='info'>There are [extinguishes_left] extinguisher canisters left in this suit.</span>")
+	var/max_extinguishes = 5
+	var/extinguishes_left = 5 // Yeah yeah, reagents, blah blah blah.  This should be simple.
 
 /obj/item/clothing/suit/space/eva/plasmaman/proc/Extinguish(var/mob/user)
 	var/mob/living/carbon/human/H=user
@@ -32,15 +32,49 @@
 
 		next_extinguish = world.time + extinguish_cooldown
 		extinguishes_left--
-		to_chat(H, "<span class='warning'>Your suit automatically extinguishes the fire.</span>")
+		to_chat(user, "<span class='warning'>You hear a soft click and a hiss from your suit as it automatically extinguishes the fire.</span>")
+		if(!extinguishes_left)
+			to_chat(user, "<span class='warning'>Onboard auto-extinguisher depleted, refill with a cartridge.</span>")
+		playsound(src.loc, 'sound/effects/spray.ogg', 10, 1, -3)
 		H.ExtinguishMob()
+
+/obj/item/clothing/suit/space/eva/plasmaman/attackby(var/obj/item/A as obj, mob/user as mob, params)
+	..()
+	if(istype(A, /obj/item/weapon/plasmensuit_cartridge)) //This suit can only be reloaded by the appropriate cartridges, and only if it's got no more extinguishes left.
+		if(!extinguishes_left)
+			extinguishes_left = max_extinguishes //Full replenishment from the cartridge.
+			to_chat(user, "<span class='notice'>You replenish \the [src] with the cartridge.</span>")
+			qdel(A)
+		else
+			to_chat(user, "<span class='notice'>The suit must be depleted before it can be refilled.</span>")
+
+/obj/item/clothing/suit/space/eva/plasmaman/examine(mob/user)
+	..(user)
+	to_chat(user, "<span class='info'>There are [extinguishes_left] extinguisher canisters left in this suit.</span>")
+
+/obj/item/weapon/plasmensuit_cartridge //Can be used to refill Plasmaman suits when they run out of autoextinguishes.
+	name = "auto-extinguisher cartridge"
+	desc = "A tiny and light fibreglass-framed auto-extinguisher cartridge."
+	icon = 'icons/obj/items.dmi'
+	icon_state = "miniFE0"
+	item_state = "miniFE"
+	hitsound = null //Ultralight and
+	flags = null //non-conductive
+	force = 0
+	throwforce = 0
+	w_class = 2 //Fits in boxes.
+	materials = list()
+	attack_verb = list("tapped")
 
 /obj/item/clothing/head/helmet/space/eva/plasmaman
 	name = "plasmaman helmet"
 	desc = "A special containment helmet designed to protect a plasmaman's volatile body from outside exposure and quickly extinguish it in emergencies."
 	flags = STOPSPRESSUREDMAGE
+	icon = 'icons/obj/clothing/species/plasmaman/hats.dmi'
 	species_restricted = list("Plasmaman")
-
+	sprite_sheets = list(
+		"Plasmaman" = 'icons/mob/species/plasmaman/helmet.dmi'
+		)
 	icon_state = "plasmaman_helmet0"
 	item_state = "plasmaman_helmet0"
 	var/base_state = "plasmaman_helmet"

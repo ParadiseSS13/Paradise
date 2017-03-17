@@ -8,17 +8,17 @@
 	var/implant_overlay
 	tough = 1 //not easyly broken by combat damage
 	sterile = 1 //not very germy
+	robotic = 2 // these are cybernetic after all
 
 /obj/item/organ/internal/cyberimp/New(var/mob/M = null)
-	if(iscarbon(M))
-		src.insert(M)
+	. = ..()
 	if(implant_overlay)
 		var/image/overlay = new /image(icon, implant_overlay)
 		overlay.color = implant_color
 		overlays |= overlay
-	return ..()
 
-
+/obj/item/organ/internal/cyberimp/emp_act()
+	return // These shouldn't be hurt by EMPs in the standard way
 
 //[[[[BRAIN]]]]
 
@@ -270,9 +270,15 @@
 	var/lasthand = null
 
 /obj/item/organ/internal/cyberimp/chest/arm_mod/ui_action_click()
+	toggle_item()
+
+/obj/item/organ/internal/cyberimp/chest/arm_mod/proc/toggle_item()
 	if(overloaded)//ensure the implant isn't broken
 		to_chat(owner, "<span class='warning'>The implant doesn't respond. It seems to be broken...</span>")
 		return
+	owner.changeNext_move(CLICK_CD_MELEE)
+	if(owner.next_move < world.time)
+		return // No spam
 	if(out)//check if the owner has the item out already
 		owner.unEquip(holder, 1)//if he does, take it away. then,
 		holder.loc = null//stash it in nullspace
@@ -297,6 +303,9 @@
 		holder.loc = null
 		out = 0
 		owner.visible_message("<span class='notice'>[holder] forcibly retracts into [owner]'s arm.</span>")
+	overload() // Make sure this doesn't happen again
+
+/obj/item/organ/internal/cyberimp/chest/arm_mod/proc/overload()
 	owner.visible_message("<span class='danger'>A loud bang comes from [owner]...</span>")
 	playsound(get_turf(owner), 'sound/effects/bang.ogg', 100, 1)
 	to_chat(owner, "<span class='warning'>You feel an explosion erupt inside you as your chest implant breaks. Is it hot in here?</span>")
@@ -312,7 +321,7 @@
 			limb.droplimb(0, DROPLIMB_EDGE)
 		owner.say("I HAVE BEEN DISARMED!!!")
 	owner.adjustFireLoss(25)//severely injure him!
-	overloaded = 1//then make sure this can't happen again by breaking the implant.
+	overloaded = TRUE
 
 /obj/item/organ/internal/cyberimp/chest/arm_mod/tase//mounted, self-charging taser!
 	name = "Arm-cannon taser implant"
@@ -322,6 +331,7 @@
 	actions_types = list(/datum/action/item_action/organ_action/toggle)
 
 /obj/item/organ/internal/cyberimp/chest/arm_mod/tase/New()//when the implant is created...
+	..()
 	holder = new /obj/item/weapon/gun/energy/gun/advtaser/mounted(src)//assign a brand new item to it. (in this case, a gun)
 
 /obj/item/organ/internal/cyberimp/chest/arm_mod/lase//mounted, self-charging laser!
@@ -332,7 +342,87 @@
 	actions_types = list(/datum/action/item_action/organ_action/toggle)
 
 /obj/item/organ/internal/cyberimp/chest/arm_mod/lase/New()
+	..()
 	holder = new /obj/item/weapon/gun/energy/laser/mounted(src)
+
+// lets make IPCs even *more* vulnerable to EMPs!
+/obj/item/organ/internal/cyberimp/chest/arm_mod/power_cord
+	name = "APC-compatible power adapter implant"
+	desc = "An implant commonly installed inside IPCs in order to allow them to easily collect energy from their environment"
+	origin_tech = "materials=3;biotech=2;powerstorage=3"
+	slot = "shoulders2"
+	actions_types = list(/datum/action/item_action/organ_action/toggle)
+
+
+/obj/item/organ/internal/cyberimp/chest/arm_mod/power_cord/New()
+	..()
+	holder = new /obj/item/apc_powercord(src)
+
+/obj/item/organ/internal/cyberimp/chest/arm_mod/power_cord/overload()
+	// To allow repair via nanopaste/screwdriver
+	// also so IPCs don't also catch on fire and fall even more apart upon EMP
+	damage = 1
+	overloaded = TRUE
+
+/obj/item/organ/internal/cyberimp/chest/arm_mod/power_cord/surgeryize()
+	if(overloaded && owner)
+		to_chat(owner, "<span class='notice'>Your [src] feels functional again.</span>")
+	overloaded = FALSE
+
+
+/obj/item/apc_powercord
+	name = "power cable"
+	desc = "Insert into a nearby APC to draw power from it."
+	icon = 'icons/obj/power.dmi'
+	icon_state = "wire1"
+	flags = NODROP | NOBLUDGEON
+
+/obj/item/apc_powercord/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+	if(!istype(target, /obj/machinery/power/apc) || !ishuman(user) || !proximity_flag)
+		return ..()
+	user.changeNext_move(CLICK_CD_MELEE)
+	var/obj/machinery/power/apc/A = target
+	var/mob/living/carbon/human/H = user
+	if(H.get_int_organ(/obj/item/organ/internal/cell))
+		if(A.emagged || A.stat & BROKEN)
+			var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+			s.set_up(3, 1, A)
+			s.start()
+			to_chat(H, "<span class='warning'>The APC power currents surge erratically, damaging your chassis!</span>")
+			H.adjustFireLoss(10,0)
+		else if(A.cell && A.cell.charge > 0)
+			if(H.nutrition >= NUTRITION_LEVEL_WELL_FED)
+				to_chat(user, "<span class='warning'>You are already fully charged!</span>")
+			else
+				addtimer(src, "powerdraw_loop", 0, TRUE, A, H)
+		else
+			to_chat(user, "<span class='warning'>There is no charge to draw from that APC.</span>")
+	else
+		to_chat(user, "<span class='warning'>You lack a cell in which to store charge!</span>")
+
+/obj/item/apc_powercord/proc/powerdraw_loop(obj/machinery/power/apc/A, mob/living/carbon/human/H)
+	H.visible_message("<span class='notice'>[H] inserts a power connector into \the [A].</span>", "<span class='notice'>You begin to draw power from \the [A].</span>")
+	while(do_after(H, 10, target = A))
+		if(loc != H)
+			to_chat(H, "<span class='warning'>You must keep your connector out while charging!</span>")
+			break
+		if(A.cell.charge == 0)
+			to_chat(H, "<span class='warning'>\The [A] has no more charge.</span>")
+			break
+		A.charging = 1
+		if(A.cell.charge >= 500)
+			H.nutrition += 50
+			A.cell.charge -= 500
+			to_chat(H, "<span class='notice'>You siphon off some of the stored charge for your own use.</span>")
+		else
+			H.nutrition += A.cell.charge/10
+			A.cell.charge = 0
+			to_chat(H, "<span class='notice'>You siphon off the last of \the [A]'s charge.</span>")
+			break
+		if(H.nutrition > NUTRITION_LEVEL_WELL_FED)
+			to_chat(H, "<span class='notice'>You are now fully charged.</span>")
+			break
+	H.visible_message("<span class='notice'>[H] unplugs from \the [A].</span>", "<span class='notice'>You unplug from \the [A].</span>")
 
 //BOX O' IMPLANTS
 

@@ -1,3 +1,70 @@
+/*
+ * AI Saycode
+ */
+
+
+/mob/living/silicon/ai/handle_track(var/message, var/verb = "says", var/datum/language/language, var/mob/speaker = null, var/speaker_name, var/atom/follow_target, var/hard_to_hear)
+	if(hard_to_hear)
+		return
+
+	var/jobname // the mob's "job"
+	var/mob/living/carbon/human/impersonating //The crewmember being impersonated, if any.
+	var/changed_voice
+
+	if(ishuman(speaker))
+		var/mob/living/carbon/human/H = speaker
+
+		var/obj/item/weapon/card/id/id = H.wear_id
+		if((istype(id) && id.is_untrackable()) && H.HasVoiceChanger())
+			changed_voice = 1
+			var/mob/living/carbon/human/I = locate(speaker_name)
+			if(I)
+				impersonating = I
+				jobname = impersonating.get_assignment()
+			else
+				jobname = "Unknown"
+		else
+			jobname = H.get_assignment()
+
+	else if(iscarbon(speaker)) // Nonhuman carbon mob
+		jobname = "No ID"
+	else if(isAI(speaker))
+		jobname = "AI"
+	else if(isrobot(speaker))
+		jobname = "Cyborg"
+	else if(ispAI(speaker))
+		jobname = "Personal AI"
+	else if(isAutoAnnouncer(speaker))
+		var/mob/living/automatedannouncer/AA = speaker
+		jobname = AA.role
+	else
+		jobname = "Unknown"
+
+	var/track = ""
+	var/mob/mob_to_track = null
+	if(changed_voice)
+		if(impersonating)
+			mob_to_track = impersonating
+		else
+			track = "[speaker_name] ([jobname])"
+	else
+		if(istype(follow_target, /mob/living/simple_animal/bot))
+			track = "<a href='byond://?src=[UID()];trackbot=\ref[follow_target]'>[speaker_name] ([jobname])</a>"
+		else
+			mob_to_track = speaker
+
+	if(mob_to_track)
+		track = "<a href='byond://?src=[UID()];track=\ref[mob_to_track]'>[speaker_name] ([jobname])</a>"
+		track += "<a href='byond://?src=[UID()];open=\ref[mob_to_track]'>\[OPEN\]</a>"
+
+	return track
+
+
+
+/*
+ * AI VOX Announcements
+ */
+
 var/announcing_vox = 0 // Stores the time of the last announcement
 var/const/VOX_CHANNEL = 200
 var/const/VOX_DELAY = 100

@@ -311,7 +311,7 @@
 		else
 			orient = "RIGHT"
 			dir = 4
-		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
+		playsound(src.loc, G.usesound, 50, 1)
 		return
 
 	if(exchange_parts(user, G))
@@ -518,7 +518,7 @@
 
 	if(do_after(user, 20, target = L))
 		if(src.occupant)
-			to_chat(user, "<span class='boldnotice'>>The sleeper is already occupied!</span>")
+			to_chat(user, "<span class='boldnotice'>The sleeper is already occupied!</span>")
 			return
 		if(!L) return
 		L.forceMove(src)

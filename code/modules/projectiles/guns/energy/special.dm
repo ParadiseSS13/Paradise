@@ -139,6 +139,8 @@
 	origin_tech = "combat=1;materials=3;magnets=2;plasmatech=2;engineering=1"
 	ammo_type = list(/obj/item/ammo_casing/energy/plasma)
 	fire_sound = 'sound/weapons/laser.ogg'
+	usesound = 'sound/items/Welder.ogg'
+	toolspeed = 1
 	flags = CONDUCT | OPENCONTAINER
 	attack_verb = list("attacked", "slashed", "cut", "sliced")
 	force = 12

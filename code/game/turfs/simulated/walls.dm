@@ -272,7 +272,7 @@
 			var/obj/item/weapon/weldingtool/WT = W
 			if(WT.remove_fuel(0,user))
 				to_chat(user, "<span class='notice'>You burn away the fungi with \the [WT].</span>")
-				playsound(src, 'sound/items/Welder.ogg', 10, 1)
+				playsound(src, WT.usesound, 10, 1)
 				for(var/obj/effect/overlay/wall_rot/WR in src)
 					qdel(WR)
 				rotting = 0
@@ -300,7 +300,7 @@
 			EB.spark_system.start()
 			to_chat(user, "<span class='notice'>You slash \the [src] with \the [EB]; the thermite ignites!</span>")
 			playsound(src, "sparks", 50, 1)
-			playsound(src, 'sound/weapons/blade1.ogg', 50, 1)
+			playsound(src, EB.usesound, 50, 1)
 
 			thermitemelt(user)
 			return
@@ -317,16 +317,16 @@
 		if(WT.remove_fuel(0,user))
 			if(response == "Repair")
 				to_chat(user, "<span class='notice'>You start repairing the damage to [src].</span>")
-				playsound(src, 'sound/items/Welder.ogg', 100, 1)
-				if(do_after(user, max(5, damage / 5), target = src) && WT && WT.isOn())
+				playsound(src, WT.usesound, 100, 1)
+				if(do_after(user, max(5, damage / 5) * WT.toolspeed, target = src) && WT && WT.isOn())
 					to_chat(user, "<span class='notice'>You finish repairing the damage to [src].</span>")
 					take_damage(-damage)
 
 			else if(response == "Dismantle")
 				to_chat(user, "<span class='notice'>You begin slicing through the outer plating.</span>")
-				playsound(src, 'sound/items/Welder.ogg', 100, 1)
+				playsound(src, WT.usesound, 100, 1)
 
-				if(do_after(user, 100, target = src) && WT && WT.isOn())
+				if(do_after(user, 100 * WT.toolspeed, target = src) && WT && WT.isOn())
 					to_chat(user, "<span class='notice'>You remove the outer plating.</span>")
 					dismantle_wall()
 
@@ -341,9 +341,9 @@
 	else if(istype(W, /obj/item/weapon/gun/energy/plasmacutter))
 
 		to_chat(user, "<span class='notice'>You begin slicing through the outer plating.</span>")
-		playsound(src, 'sound/items/Welder.ogg', 100, 1)
+		playsound(src, W.usesound, 100, 1)
 
-		if(do_after(user, istype(sheet_type, /obj/item/stack/sheet/mineral/diamond) ? 120 : 60, target = src))
+		if(do_after(user, istype(sheet_type, /obj/item/stack/sheet/mineral/diamond) ? 120 * W.toolspeed : 60 * W.toolspeed, target = src))
 			to_chat(user, "<span class='notice'>You remove the outer plating.</span>")
 			dismantle_wall()
 			visible_message("<span class='warning'>[user] slices apart \the [src]!</span>","<span class='warning'>You hear metal being sliced apart.</span>")
@@ -353,7 +353,7 @@
 
 		to_chat(user, "<span class='notice'>You begin to drill though the wall.</span>")
 
-		if(do_after(user, istype(sheet_type, /obj/item/stack/sheet/mineral/diamond) ? 120 : 60, target = src))
+		if(do_after(user, istype(sheet_type, /obj/item/stack/sheet/mineral/diamond) ? 480 * W.toolspeed : 240 * W.toolspeed, target = src)) // Diamond pickaxe has 0.25 toolspeed, so 120/60
 			to_chat(user, "<span class='notice'>Your drill tears though the last of the reinforced plating.</span>")
 			dismantle_wall()
 			visible_message("<span class='warning'>[user] drills through \the [src]!</span>","<span class='warning'>You hear the grinding of metal.</span>")
@@ -362,8 +362,8 @@
 
 		to_chat(user, "<span class='notice'>You begin to disintegrates the wall.</span>")
 
-		if(do_after(user, istype(sheet_type, /obj/item/stack/sheet/mineral/diamond) ? 60 : 30, target = src))
-			to_chat(user, "<span class='notice'>Your jackhammer disintegrate the reinforced plating.</span>")
+		if(do_after(user, istype(sheet_type, /obj/item/stack/sheet/mineral/diamond) ? 600 * W.toolspeed : 300 * W.toolspeed, target = src)) // Jackhammer has 0.1 toolspeed, so 60/30
+			to_chat(user, "<span class='notice'>Your sonic jackhammer disintegrate the reinforced plating.</span>")
 			dismantle_wall()
 			visible_message("<span class='warning'>[user] disintegrates \the [src]!</span>","<span class='warning'>You hear the grinding of metal.</span>")
 
@@ -374,10 +374,10 @@
 		to_chat(user, "<span class='notice'>You stab \the [EB] into the wall and begin to slice it apart.</span>")
 		playsound(src, "sparks", 50, 1)
 
-		if(do_after(user, istype(sheet_type, /obj/item/stack/sheet/mineral/diamond) ? 140 : 70, target = src))
+		if(do_after(user, istype(sheet_type, /obj/item/stack/sheet/mineral/diamond) ? 140 * EB.toolspeed : 70 * EB.toolspeed, target = src))
 			EB.spark_system.start()
 			playsound(src, "sparks", 50, 1)
-			playsound(src, 'sound/weapons/blade1.ogg', 50, 1)
+			playsound(src, EB.usesound, 50, 1)
 			dismantle_wall(1)
 			visible_message("<span class='warning'>[user] slices apart \the [src]!</span>","<span class='warning'>You hear metal being sliced apart and sparks flying.</span>")
 
@@ -400,7 +400,7 @@
 				"[user] starts drilling a hole in \the [src].", \
 				"\blue You start drilling a hole in \the [src].", \
 				"You hear ratchet.")
-			if(do_after(user, 80, target = src))
+			if(do_after(user, 80 * W.toolspeed, target = src))
 				user.visible_message( \
 					"[user] drills a hole in \the [src] and pushes \a [P] into the void", \
 					"\blue You have finished drilling in \the [src] and push the [P] into the void.", \

@@ -65,7 +65,7 @@
 			dir = 8
 		else
 			dir = 4
-		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
+		playsound(src.loc, G.usesound, 50, 1)
 		return
 
 	if(exchange_parts(user, G))
@@ -293,7 +293,7 @@
 			dir = 8
 		else
 			dir = 4
-		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
+		playsound(loc, G.usesound, 50, 1)
 
 	if(exchange_parts(user, G))
 		return
