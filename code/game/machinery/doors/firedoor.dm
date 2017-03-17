@@ -36,7 +36,7 @@
 	if(!density)
 		return ..()
 	return 0
-	
+
 /obj/machinery/door/firedoor/ex_act(severity)
 	switch(severity)
 		if(1.0)
@@ -142,8 +142,10 @@
 	switch(animation)
 		if("opening")
 			flick("door_opening", src)
+			playsound(src, 'sound/machines/airlock_ext_open.ogg', 30, 1)
 		if("closing")
 			flick("door_closing", src)
+			playsound(src, 'sound/machines/airlock_ext_close.ogg', 30, 1)
 
 /obj/machinery/door/firedoor/update_icon()
 	overlays.Cut()
@@ -169,7 +171,7 @@
 /obj/machinery/door/firedoor/open(auto_close = TRUE)
 	. = ..()
 	latetoggle(auto_close)
-	
+
 	if(auto_close)
 		autoclose = TRUE
 
