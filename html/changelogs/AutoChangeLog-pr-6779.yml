@@ -1,0 +1,4 @@
+author: "uraniummeltdown"
+delete-after: True
+changes: 
+  - rscadd: "Attacking with glass shards now hurts your hand if not wearing gloves. Does not affect robotic hands though."
