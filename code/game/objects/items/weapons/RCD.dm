@@ -7,7 +7,7 @@ RCD
 /obj/item/weapon/rcd
 	name = "rapid-construction-device (RCD)"
 	desc = "A device used to rapidly build and deconstruct walls and floors."
-	icon = 'icons/obj/items.dmi'
+	icon = 'icons/obj/tools.dmi'
 	icon_state = "rcd"
 	opacity = 0
 	density = 0
@@ -18,8 +18,10 @@ RCD
 	throw_speed = 3
 	throw_range = 5
 	w_class = 3
-	materials = list(MAT_METAL=100000)
+	materials = list(MAT_METAL = 30000)
 	origin_tech = "engineering=4;materials=2"
+	toolspeed = 1
+	usesound = 'sound/items/Deconstruct.ogg'
 	var/datum/effect/system/spark_spread/spark_system
 	var/max_matter = 100
 	var/matter = 0
@@ -28,6 +30,7 @@ RCD
 	var/canRwall = 0
 	var/menu = 1
 	var/door_type = /obj/machinery/door/airlock
+	var/door_name = "Airlock"
 	req_access = list(access_engine)
 	var/list/door_accesses = list()
 	var/list/door_accesses_list = list()
@@ -85,7 +88,7 @@ RCD
 /obj/item/weapon/rcd/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/topic_state/state = inventory_state)
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "rcd.tmpl", "[name]", 400, 400, state = state)
+		ui = new(user, src, ui_key, "rcd.tmpl", "[name]", 450, 400, state = state)
 		ui.open()
 		ui.set_auto_update(1)
 
@@ -93,6 +96,7 @@ RCD
 	var/data[0]
 	data["mode"] = mode
 	data["door_type"] = door_type
+	data["door_name"] = door_name
 	data["menu"] = menu
 	data["matter"] = matter
 	data["max_matter"] = max_matter
@@ -164,8 +168,13 @@ RCD
 			door_accesses_list[++door_accesses_list.len] = list("name" = get_access_desc(access), "id" = access, "enabled" = (access in door_accesses))
 		. = 1
 
+	if(href_list["choice"] && !locked)
+		var/temp_t = sanitize(copytext(input("Enter a custom Airlock Name.","Airlock Name"),1,MAX_MESSAGE_LEN))
+		if(temp_t)
+			door_name = temp_t
+
 /obj/item/weapon/rcd/proc/activate()
-	playsound(loc, 'sound/items/Deconstruct.ogg', 50, 1)
+	playsound(loc, usesound, 50, 1)
 
 
 /obj/item/weapon/rcd/afterattack(atom/A, mob/user, proximity)
@@ -190,7 +199,7 @@ RCD
 				if(checkResource(3, user))
 					to_chat(user, "Building Wall ...")
 					playsound(loc, 'sound/machines/click.ogg', 50, 1)
-					if(do_after(user, 20, target = A))
+					if(do_after(user, 20 * toolspeed, target = A))
 						if(!useResource(3, user)) return 0
 						activate()
 						var/turf/AT = A
@@ -203,10 +212,11 @@ RCD
 				if(checkResource(10, user))
 					to_chat(user, "Building Airlock...")
 					playsound(loc, 'sound/machines/click.ogg', 50, 1)
-					if(do_after(user, 50, target = A))
+					if(do_after(user, 50 * toolspeed, target = A))
 						if(!useResource(10, user)) return 0
 						activate()
 						var/obj/machinery/door/airlock/T = new door_type(A)
+						T.name = door_name
 						T.autoclose = 1
 						if(one_access)
 							T.req_one_access = door_accesses.Copy()
@@ -223,7 +233,7 @@ RCD
 				if(checkResource(5, user))
 					to_chat(user, "Deconstructing Wall...")
 					playsound(loc, 'sound/machines/click.ogg', 50, 1)
-					if(do_after(user, 40, target = A))
+					if(do_after(user, 40 * toolspeed, target = A))
 						if(!useResource(5, user)) return 0
 						activate()
 						var/turf/AT = A
@@ -235,7 +245,7 @@ RCD
 				if(checkResource(5, user))
 					to_chat(user, "Deconstructing Floor...")
 					playsound(loc, 'sound/machines/click.ogg', 50, 1)
-					if(do_after(user, 50, target = A))
+					if(do_after(user, 50 * toolspeed, target = A))
 						if(!useResource(5, user)) return 0
 						activate()
 						var/turf/AT = A
@@ -247,7 +257,7 @@ RCD
 				if(checkResource(20, user))
 					to_chat(user, "Deconstructing Airlock...")
 					playsound(loc, 'sound/machines/click.ogg', 50, 1)
-					if(do_after(user, 50, target = A))
+					if(do_after(user, 50 * toolspeed, target = A))
 						if(!useResource(20, user)) return 0
 						activate()
 						qdel(A)
@@ -262,7 +272,7 @@ RCD
 					return 0
 				to_chat(user, "Deconstructing window...")
 				playsound(loc, 'sound/machines/click.ogg', 50, 1)
-				if(!do_after(user, 20, target = A))
+				if(!do_after(user, 20 * toolspeed, target = A))
 					return 0
 				if(locate(/obj/structure/window/full/shuttle) in A.contents)
 					return 0 // Let's not give shuttle-griefers an easy time.
@@ -299,7 +309,7 @@ RCD
 					return 0
 				to_chat(user, "Constructing window...")
 				playsound(loc, 'sound/machines/click.ogg', 50, 1)
-				if(!do_after(user, 20, target = A))
+				if(!do_after(user, 20 * toolspeed, target = A))
 					return 0
 				if(locate(/obj/structure/grille) in A.contents)
 					return 0 // We already have window
@@ -367,6 +377,9 @@ RCD
 /obj/item/weapon/rcd/proc/detonate_pulse_explode()
 	explosion(src, 0, 0, 3, 1, flame_range = 1)
 	qdel(src)
+
+/obj/item/weapon/rcd/preloaded
+	matter = 100
 
 /obj/item/weapon/rcd/combat
 	name = "combat RCD"

@@ -41,7 +41,7 @@
 
 /obj/machinery/bottler/attackby(obj/item/O, mob/user, params)
 	if(iswrench(O))		//This being before the canUnequip check allows borgs to (un)wrench bottlers in case they need move them to fix stuff
-		playsound(src, 'sound/items/Ratchet.ogg', 50, 1)
+		playsound(src, O.usesound, 50, 1)
 		if(anchored)
 			anchored = 0
 			to_chat(user, "<span class='alert'>[src] can now be moved.</span>")
@@ -213,12 +213,7 @@
 		for(var/i = 1, i <= slots.len, i++)
 			var/obj/item/O = slots[i]
 			if(istype(O, recipe.ingredients[i]))
-				if(istype(O, /obj/item/weapon/reagent_containers/food/snacks/grown))
-					var/obj/item/weapon/reagent_containers/food/snacks/grown/G = O
-					if(G.seed && G.seed.kitchen_tag == recipe.tags[i])
-						number_matches++
-				else
-					number_matches++
+				number_matches++
 		if(number_matches == 3)
 			return recipe
 	return null

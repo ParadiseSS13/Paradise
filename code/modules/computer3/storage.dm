@@ -163,6 +163,7 @@
 	//parent_type = /obj/item/part/computer/storage // todon't: do this
 	name = "Data Disk"
 	desc = "A device that can be inserted and removed into computers easily as a form of portable data storage. This one stores 1 Megabyte"
+	icon_state = "datadisk_arcade"
 	var/list/files
 	var/list/spawn_files = list()
 	var/writeprotect = 0

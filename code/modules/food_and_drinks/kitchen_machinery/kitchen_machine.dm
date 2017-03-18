@@ -8,7 +8,7 @@
 	use_power = 1
 	idle_power_usage = 5
 	active_power_usage = 100
-	flags = OPENCONTAINER | NOREACT
+	flags = OPENCONTAINER
 	var/operating = 0 // Is it on?
 	var/dirty = 0 // = {0..100} Does it need cleaning?
 	var/broken = 0 // ={0,1,2} How broken is it???
@@ -33,6 +33,7 @@
 
 /obj/machinery/kitchen_machine/New()
 	create_reagents(100)
+	reagents.set_reacting(FALSE)
 	if(!available_recipes)
 		available_recipes = new
 		acceptable_items = new
@@ -45,7 +46,7 @@
 					acceptable_items |= item
 				for(var/reagent in recipe.reagents)
 					acceptable_reagents |= reagent
-				if(recipe.items || recipe.fruit)
+				if(recipe.items)
 					max_n_of_items = max(max_n_of_items,recipe.count_n_items())
 			else
 				qdel(recipe)
@@ -64,7 +65,7 @@
 		if(exchange_parts(user, O))
 			return
 	if(!broken && istype(O, /obj/item/weapon/wrench))
-		playsound(src, 'sound/items/Ratchet.ogg', 50, 1)
+		playsound(src, O.usesound, 50, 1)
 		if(anchored)
 			anchored = 0
 			to_chat(user, "<span class='alert'>\The [src] can now be moved.</span>")
@@ -82,7 +83,7 @@
 				"<span class='notice'>[user] starts to fix part of \the [src].</span>", \
 				"<span class='notice'>You start to fix part of \the [src].</span>" \
 			)
-			if(do_after(user,20, target = src))
+			if(do_after(user, 20 * O.toolspeed, target = src))
 				user.visible_message( \
 					"<span class='notice'>[user] fixes part of \the [src].</span>", \
 					"<span class='notice'>You have fixed part of \the [src].</span>" \
@@ -93,7 +94,7 @@
 				"<span class='notice'>[user] starts to fix part of \the [src].</span>", \
 				"<span class='notice'>You start to fix part of \the [src].</span>" \
 			)
-			if(do_after(user,20, target = src))
+			if(do_after(user, 20 * O.toolspeed, target = src))
 				user.visible_message( \
 					"<span class='notice'>[user] fixes \the [src].</span>", \
 					"<span class='notice'>You have fixed \the [src].</span>" \
@@ -111,7 +112,7 @@
 				"<span class='notice'>[user] starts to clean \the [src].</span>", \
 				"<span class='notice'>You start to clean \the [src].</span>" \
 			)
-			if(do_after(user,20, target = src))
+			if(do_after(user, 20 * O.toolspeed, target = src))
 				user.visible_message( \
 					"<span class='notice'>[user]  has cleaned \the [src].</span>", \
 					"<span class='notice'>You have cleaned \the [src].</span>" \

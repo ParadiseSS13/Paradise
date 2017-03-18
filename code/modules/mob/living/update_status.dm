@@ -30,9 +30,10 @@
 	else
 		clear_fullscreen("nearsighted")
 
-/mob/living/update_sleeping_effects()
+/mob/living/update_sleeping_effects(no_alert = FALSE)
 	if(sleeping)
-		throw_alert("asleep", /obj/screen/alert/asleep)
+		if(!no_alert)
+			throw_alert("asleep", /obj/screen/alert/asleep)
 	else
 		clear_alert("asleep")
 
@@ -95,3 +96,29 @@
 
 /mob/living/proc/update_stamina()
 	return
+
+/mob/living/on_varedit(modified_var)
+	switch(modified_var)
+		if("weakened")
+			SetWeakened(weakened)
+		if("stunned")
+			SetStunned(stunned)
+		if("paralysis")
+			SetParalysis(paralysis)
+		if("sleeping")
+			SetSleeping(sleeping)
+		if("eye_blind")
+			SetEyeBlind(eye_blind)
+		if("eye_blurry")
+			SetEyeBlurry(eye_blurry)
+		if("ear_deaf")
+			SetEarDeaf(ear_deaf)
+		if("ear_damage")
+			SetEarDamage(ear_damage)
+		if("druggy")
+			SetDruggy(druggy)
+		if("maxHealth")
+			updatehealth()
+		if("resize")
+			update_transform()
+	..()

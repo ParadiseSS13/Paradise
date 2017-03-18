@@ -137,32 +137,38 @@
 					for(var/mob/M in mob_list)
 						if( istype(M , O.type) )
 							M.vars[variable] = O.vars[variable]
+							M.on_varedit(variable)
 
 				else if(istype(O, /obj))
 					for(var/obj/A in world)
 						if( istype(A , O.type) )
 							A.vars[variable] = O.vars[variable]
+							A.on_varedit(variable)
 
 				else if(istype(O, /turf))
 					for(var/turf/A in world)
 						if( istype(A , O.type) )
 							A.vars[variable] = O.vars[variable]
+							A.on_varedit(variable)
 
 			else
 				if(istype(O, /mob))
 					for(var/mob/M in mob_list)
 						if(M.type == O.type)
 							M.vars[variable] = O.vars[variable]
+							M.on_varedit(variable)
 
 				else if(istype(O, /obj))
 					for(var/obj/A in world)
 						if(A.type == O.type)
 							A.vars[variable] = O.vars[variable]
+							A.on_varedit(variable)
 
 				else if(istype(O, /turf))
 					for(var/turf/A in world)
 						if(A.type == O.type)
 							A.vars[variable] = O.vars[variable]
+							A.on_varedit(variable)
 
 		if("edit referenced object")
 			return .(O.vars[variable])

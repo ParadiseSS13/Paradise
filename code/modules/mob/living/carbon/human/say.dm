@@ -1,10 +1,10 @@
-/mob/living/carbon/human/say(var/message)
+/mob/living/carbon/human/say(var/message, var/sanitize = TRUE, var/ignore_speech_problems = FALSE, var/ignore_atmospherics = FALSE)
 	var/alt_name = ""
 
 	if(name != GetVoice())
 		alt_name = " (as [get_id_name("Unknown")])"
 
-	..(message, alt_name = alt_name)	//ohgod we should really be passing a datum here.
+	..(message, alt_name = alt_name, sanitize = sanitize, ignore_speech_problems = ignore_speech_problems, ignore_atmospherics = ignore_atmospherics)	//ohgod we should really be passing a datum here.
 
 /mob/living/carbon/human/proc/forcesay(list/append)
 	if(stat == CONSCIOUS)
@@ -105,6 +105,9 @@
 /mob/living/carbon/human/handle_speech_problems(var/message, var/verb)
 	var/list/returns[3]
 	var/speech_problem_flag = 0
+	var/span = ""
+	if(mind)
+		span = mind.speech_span
 
 	if(silent || (disabilities & MUTE))
 		message = ""
@@ -143,8 +146,10 @@
 				verb = "yells loudly"
 
 	if((COMIC in mutations) || (locate(/obj/item/organ/internal/cyberimp/brain/clown_voice) in internal_organs))
-		message = "<span class='sans'>[message]</span>"
+		span = "sans"
 
+	if(span)
+		message = "<span class='[span]'>[message]</span>"
 	returns[1] = message
 	returns[2] = verb
 	returns[3] = speech_problem_flag

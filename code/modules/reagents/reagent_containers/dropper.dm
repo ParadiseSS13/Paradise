@@ -33,10 +33,10 @@
 
 				var/obj/item/safe_thing = null
 				if( victim.wear_mask )
-					if( victim.wear_mask.flags & MASKCOVERSEYES )
+					if(victim.wear_mask.flags_cover & MASKCOVERSEYES)
 						safe_thing = victim.wear_mask
 				if( victim.head )
-					if( victim.head.flags & MASKCOVERSEYES )
+					if(victim.head.flags_cover & MASKCOVERSEYES)
 						safe_thing = victim.head
 				if(victim.glasses)
 					if( !safe_thing )
@@ -69,8 +69,8 @@
 			for(var/datum/reagent/R in reagents.reagent_list)
 				injected += R.name
 			var/contained = english_list(injected)
-			M.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been squirted with [name] by [key_name(user)]. Reagents: [contained]</font>")
-			user.attack_log += text("\[[time_stamp()]\] <font color='red'>Used the [name] to squirt [key_name(M)]. Reagents: [contained]</font>")
+			M.create_attack_log("<font color='orange'>Has been squirted with [name] by [key_name(user)]. Reagents: [contained]</font>")
+			user.create_attack_log("<font color='red'>Used the [name] to squirt [key_name(M)]. Reagents: [contained]</font>")
 			if(M.ckey)
 				msg_admin_attack("[key_name_admin(user)] squirted [key_name_admin(M)] with [name]. Reagents: [contained] (INTENT: [uppertext(user.a_intent)])")
 			if(!iscarbon(user))

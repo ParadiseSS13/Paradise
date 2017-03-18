@@ -73,7 +73,7 @@
 		var/mob/living/simple_animal/borer/borer = owner.has_brain_worms()
 
 		if(borer)
-			borer.detatch() //Should remove borer if the brain is removed - RR
+			borer.detach() //Should remove borer if the brain is removed - RR
 		if(owner.mind && !non_primary)//don't transfer if the owner does not have a mind.
 			B.transfer_identity(user)
 
@@ -115,12 +115,6 @@
 	icon_state = "green slime extract"
 	mmi_icon_state = "slime_mmi"
 //	parent_organ = "chest" Hello I am from the ministry of rubber forehead aliens how are you
-
-/obj/item/organ/internal/brain/slime/take_damage(var/amount, var/silent = 1)
-	//Slimes are 150% more vulnerable to brain damage
-	damage = between(0, src.damage + (1.5*amount), max_damage) //Since they take the damage twice, this is +150%
-	return ..()
-
 
 /obj/item/organ/internal/brain/golem
 	name = "Runic mind"

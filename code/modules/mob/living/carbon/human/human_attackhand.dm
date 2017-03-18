@@ -75,10 +75,10 @@
 			if(!check_has_mouth())
 				to_chat(H, "<span class='danger'>They don't have a mouth, you cannot perform CPR!</span>")
 				return
-			if((M.head && (M.head.flags & HEADCOVERSMOUTH)) || (M.wear_mask && (M.wear_mask.flags & MASKCOVERSMOUTH) && !M.wear_mask.mask_adjusted))
+			if((M.head && (M.head.flags_cover & HEADCOVERSMOUTH)) || (M.wear_mask && (M.wear_mask.flags_cover & MASKCOVERSMOUTH) && !M.wear_mask.mask_adjusted))
 				to_chat(M, "<span class='warning'>Remove your mask!</span>")
 				return 0
-			if((head && (head.flags & HEADCOVERSMOUTH)) || (wear_mask && (wear_mask.flags & MASKCOVERSMOUTH) && !wear_mask.mask_adjusted))
+			if((head && (head.flags_cover & HEADCOVERSMOUTH)) || (wear_mask && (wear_mask.flags_cover & MASKCOVERSMOUTH) && !wear_mask.mask_adjusted))
 				to_chat(M, "<span class='warning'>Remove his mask!</span>")
 				return 0
 
@@ -182,8 +182,8 @@
 					apply_effect(2, WEAKEN, run_armor_check(affecting, "melee"))
 					playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 					visible_message("<span class='danger'>[M] has pushed [src]!</span>")
-					M.attack_log += text("\[[time_stamp()]\] <font color='red'>Pushed [src.name] ([src.ckey])</font>")
-					src.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been pushed by [M.name] ([M.ckey])</font>")
+					M.create_attack_log("<font color='red'>Pushed [src.name] ([src.ckey])</font>")
+					src.create_attack_log("<font color='orange'>Has been pushed by [M.name] ([M.ckey])</font>")
 					if(!iscarbon(M))
 						LAssailant = null
 					else

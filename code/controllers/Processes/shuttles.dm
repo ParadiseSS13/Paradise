@@ -182,6 +182,8 @@ var/const/CALL_SHUTTLE_REASON_LENGTH = 12
 			var/obj/machinery/computer/communications/C = thing
 			if(C.stat & BROKEN)
 				continue
+		else if(istype(thing, /datum/computer_file/program/comm) || istype(thing, /obj/item/weapon/circuitboard/communications))
+			continue
 
 		var/turf/T = get_turf(thing)
 		if(T && is_station_level(T.z))
@@ -229,10 +231,4 @@ var/const/CALL_SHUTTLE_REASON_LENGTH = 12
 	for(var/obj/docking_port/mobile/M in mobile)
 		if(!M.roundstart_move)
 			continue
-		for(var/obj/docking_port/stationary/S in stationary)
-			if(!is_station_level(S.z) && findtext(S.id, M.id))
-				S.width = M.width
-				S.height = M.height
-				S.dwidth = M.dwidth
-				S.dheight = M.dheight
-		moveShuttle(M.id, "[M.roundstart_move]", 0)
+		M.dockRoundstart()

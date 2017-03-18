@@ -80,8 +80,7 @@
 	//TODO; Add support for reagents in water.
 	if(target.loc == user)//No more spraying yourself when putting your extinguisher away
 		return
-	var/Refill = AttemptRefill(target, user)
-	if(Refill)
+	if(AttemptRefill(target, user))
 		return
 	if(!safety)
 		if(src.reagents.total_volume < 1)

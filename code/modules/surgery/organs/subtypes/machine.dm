@@ -117,36 +117,25 @@
 	robotize()
 	..()
 
-/obj/item/organ/internal/optical_sensor
+/obj/item/organ/internal/eyes/optical_sensor
 	name = "optical sensor"
-	organ_tag = "eyes"
-	parent_organ = "head"
 	icon = 'icons/obj/robot_component.dmi'
 	icon_state = "camera"
-	slot = "eyes"
 	status = ORGAN_ROBOT
 	species = "Machine"
 //	dead_icon = "camera_broken"
+	weld_proof = 1
 
-/obj/item/organ/internal/optical_sensor/New()
+/obj/item/organ/internal/eyes/optical_sensor/New()
 	robotize()
 	..()
 
 
-/obj/item/organ/internal/optical_sensor/remove(var/mob/living/user,special = 0)
+/obj/item/organ/internal/eyes/optical_sensor/remove(var/mob/living/user,special = 0)
 	if(!special)
 		to_chat(owner, "Error 404:Optical Sensors not found.")
 
 	. = ..()
-
-/obj/item/organ/internal/optical_sensor/surgeryize()
-	if(!owner)
-		return
-	owner.CureNearsighted()
-	owner.CureBlind()
-	owner.SetEyeBlurry(0)
-	owner.SetEyeBlind(0)
-
 
 // Used for an MMI or posibrain being installed into a human.
 /obj/item/organ/internal/brain/mmi_holder
@@ -159,7 +148,6 @@
 	status = ORGAN_ROBOT
 	species = "Machine"
 	var/obj/item/device/mmi/stored_mmi
-
 
 /obj/item/organ/internal/brain/mmi_holder/Destroy()
 	if(stored_mmi)

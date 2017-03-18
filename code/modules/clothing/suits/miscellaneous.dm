@@ -106,7 +106,7 @@
 	icon_state = "judge"
 	item_state = "judge"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
-	allowed = list(/obj/item/weapon/storage/fancy/cigarettes,/obj/item/weapon/spacecash)
+	allowed = list(/obj/item/weapon/storage/fancy/cigarettes,/obj/item/stack/spacecash)
 	flags_inv = HIDEJUMPSUIT
 
 
@@ -421,7 +421,7 @@
 /obj/item/clothing/suit/hooded/wintercoat/hydro
 	name = "hydroponics winter coat"
 	icon_state = "wintercoat_hydro"
-	allowed = list(/obj/item/weapon/reagent_containers/spray, /obj/item/device/analyzer/plant_analyzer, /obj/item/seeds, /obj/item/weapon/reagent_containers/glass/bottle, /obj/item/weapon/hatchet, /obj/item/weapon/storage/bag/plants)
+	allowed = list(/obj/item/weapon/reagent_containers/spray, /obj/item/device/plant_analyzer, /obj/item/seeds, /obj/item/weapon/reagent_containers/glass/bottle, /obj/item/weapon/hatchet, /obj/item/weapon/storage/bag/plants)
 	hoodtype = /obj/item/clothing/head/winterhood/hydro
 
 /obj/item/clothing/head/winterhood/hydro
@@ -727,7 +727,8 @@
 	icon_state = "mercy_hood"
 	item_state = "mercy_hood"
 	permeability_coefficient = 0.01
-	flags = HEADCOVERSEYES | HEADCOVERSMOUTH | BLOCKHAIR
+	flags = BLOCKHAIR
+	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 100, rad = 20)
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES
 
@@ -772,6 +773,13 @@
 	actions_types = list()
 	adjust_flavour = null
 	burn_state = FIRE_PROOF
+
+/obj/item/clothing/suit/jacket/leather/overcoat
+	name = "leather overcoat"
+	desc = "That's a damn fine coat."
+	icon_state = "leathercoat"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
+	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
 
 /obj/item/clothing/suit/officercoat
 	name = "Clown Officer's Coat"

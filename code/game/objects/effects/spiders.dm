@@ -33,7 +33,7 @@
 
 		if(WT.remove_fuel(0, user))
 			damage = 15
-			playsound(loc, 'sound/items/Welder.ogg', 100, 1)
+			playsound(loc, WT.usesound, 100, 1)
 
 	health -= damage
 	healthcheck()
@@ -59,8 +59,8 @@
 	if(prob(50))
 		icon_state = "stickyweb2"
 
-/obj/effect/spider/stickyweb/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
-	if(air_group || (height==0)) return 1
+/obj/effect/spider/stickyweb/CanPass(atom/movable/mover, turf/target, height=0)
+	if(height==0) return 1
 	if(istype(mover, /mob/living/simple_animal/hostile/poison/giant_spider))
 		return 1
 	else if(istype(mover, /mob/living))

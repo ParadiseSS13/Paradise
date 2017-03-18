@@ -23,14 +23,21 @@ var/global/list/rcd_list = list() //list of Rapid Construction Devices.
 var/global/list/apcs = list()
 var/global/list/air_alarms = list()
 var/global/list/power_monitors = list()
+var/global/list/all_vent_pumps = list()
 
 var/global/list/navbeacons = list()					//list of all bot nagivation beacons, used for patrolling.
 var/global/list/deliverybeacons = list()			//list of all MULEbot delivery beacons.
 var/global/list/deliverybeacontags = list()			//list of all tags associated with delivery beacons.
 
 var/global/list/beacons = list()
-var/global/list/shuttle_caller_list = list()  		//list of all communication consoles and AIs, for automatic shuttle calls when there are none.
+var/global/list/shuttle_caller_list = list()  		//list of all communication consoles, comms consoles circuit and AIs, for automatic shuttle calls when there are none.
 var/global/list/tracked_implants = list()			//list of all current implants that are tracked to work out what sort of trek everyone is on. Sadly not on lavaworld not implemented...
 var/global/list/pinpointer_list = list()			//list of all pinpointers. Used to change stuff they are pointing to all at once.
 var/global/list/abductor_equipment = list()			//list of all abductor equipment
+
 var/global/list/global_intercoms = list()			//list of all intercomms, across all z-levels
+var/global/list/global_radios = list()				//list of all radios, across all z-levels
+
+var/global/list/meteor_list = list()				//list of all meteors
+var/global/list/poi_list = list()					//list of points of interest for observe/follow
+

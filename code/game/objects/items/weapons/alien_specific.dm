@@ -64,10 +64,3 @@
 	desc = "Useful for taking pictures, making friends and flash-frying chips."
 	icon = 'icons/mob/alien.dmi'
 	icon_state = "borg-flash"
-
-//heat vision
-
-/obj/item/borg/sight/thermal/alien
-	name = "thermal module"
-	icon = 'icons/mob/alien.dmi'
-	icon_state = "borg-extra-vision"

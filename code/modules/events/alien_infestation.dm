@@ -10,7 +10,7 @@
 
 /datum/event/alien_infestation/announce()
 	if(successSpawn)
-		command_announcement.Announce("Unidentified lifesigns detected coming aboard [station_name()]. Secure any exterior access, including ducting and ventilation.", "Lifesign Alert", new_sound = 'sound/AI/aliens.ogg')
+		event_announcement.Announce("Unidentified lifesigns detected coming aboard [station_name()]. Secure any exterior access, including ducting and ventilation.", "Lifesign Alert", new_sound = 'sound/AI/aliens.ogg')
 
 /datum/event/alien_infestation/start()
 	var/list/vents = list()
@@ -29,6 +29,8 @@
 				respawnable_list -= C.client
 				var/mob/living/carbon/alien/larva/new_xeno = new(vent.loc)
 				new_xeno.key = C.key
+				if(ticker && ticker.mode)
+					ticker.mode.xenos += new_xeno.mind
 
 				spawncount--
 				successSpawn = 1

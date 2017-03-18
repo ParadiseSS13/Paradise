@@ -30,18 +30,12 @@
 	if(!possible_transfer_amounts)
 		verbs -= /obj/item/weapon/reagent_containers/verb/set_APTFT
 	create_reagents(volume)
-	processing_objects.Add(src)
 	if(spawned_disease)
 		var/datum/disease/F = new spawned_disease(0)
 		var/list/data = list("viruses" = list(F), "blood_colour" = "#A10808")
 		reagents.add_reagent("blood", disease_amount, data)
 	if(list_reagents)
 		reagents.add_reagent_list(list_reagents)
-
-/obj/item/weapon/reagent_containers/process()
-	if(reagents)
-		reagents.reagent_on_tick()
-	return
 
 /obj/item/weapon/reagent_containers/ex_act()
 	if(reagents)

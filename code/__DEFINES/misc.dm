@@ -17,6 +17,8 @@
 #define CLICK_CD_TKSTRANGLE 10
 #define CLICK_CD_POINT 10
 #define CLICK_CD_RESIST 20
+#define CLICK_CD_CLICK_ABILITY 6
+#define CLICK_CD_RAPID 2
 
 //Sizes of mobs, used by mob/living/var/mob_size
 #define MOB_SIZE_TINY 0
@@ -55,6 +57,16 @@
 #define COLOR_ORANGE 	"#FF9900"
 #define COLOR_WHITE 	"#FFFFFF"
 #define COLOR_GRAY      "#808080"
+
+//FONTS:
+// Used by Paper and PhotoCopier (and PaperBin once a year).
+// Used by PDA's Notekeeper.
+// Used by NewsCaster and NewsPaper.
+// Used by Modular Computers
+#define PEN_FONT "Verdana"
+#define CRAYON_FONT "Comic Sans MS"
+#define PRINTER_FONT "Times New Roman"
+#define SIGNFONT "Times New Roman"
 
 //some arbitrary defines to be used by self-pruning global lists. (see master_controller)
 #define PROCESS_KILL 26	//Used to trigger removal from a processing list
@@ -160,6 +172,7 @@
 #define MAT_PLASMA			"$plasma"
 #define MAT_BANANIUM		"$bananium"
 #define MAT_TRANQUILLITE	"$tranquillite"
+#define MAT_BIOMASS			"$biomass"
 
 #define MAX_STACK_SIZE 50
 
@@ -250,16 +263,19 @@
 #define MAP_MAXZ 6
 
 //Matricies
-#define MATRIX_DEFAULT list(1, 0, 0, 0,\
-                            0, 1, 0, 0,\
-                            0, 0, 1, 0,\
-                            0, 0, 0, 1)
+#define MATRIX_GREYSCALE list(0.33, 0.33, 0.33,\
+                              0.33, 0.33, 0.33,\
+                              0.33, 0.33, 0.33)
 
-#define MATRIX_GREYSCALE list(0.33, 0.33, 0.33, 0,\
-                              0.33, 0.33, 0.33, 0,\
-                              0.33, 0.33, 0.33, 0,\
-                              0.00, 0.00, 0.00, 1,\
-                              0.00, 0.00, 0.00, 0)
+#define MATRIX_VULP_CBLIND list(0.5,0.4,0.1,\
+                                0.5,0.4,0.1,\
+                                0.0,0.2,0.8)
+
+#define MATRIX_TAJ_CBLIND list(0.4,0.2,0.4,\
+                               0.4,0.6,0.0,\
+                               0.2,0.2,0.6)
+
+
 //Gun trigger guards
 #define TRIGGER_GUARD_ALLOW_ALL -1
 #define TRIGGER_GUARD_NONE 0
@@ -285,7 +301,6 @@
 #define SOUND_MINIMUM_PRESSURE 10
 #define FALLOFF_SOUNDS 0.5
 
-
 // Bluespace shelter deploy checks
 #define SHELTER_DEPLOY_ALLOWED "allowed"
 #define SHELTER_DEPLOY_BAD_TURFS "bad turfs"
@@ -299,3 +314,19 @@
 
 // The cooldown on OOC messages such as OOC, LOOC, praying and adminhelps
 #define OOC_COOLDOWN 5
+
+// Medal names
+#define BOSS_KILL_MEDAL "Killer"
+#define ALL_KILL_MEDAL "Exterminator"	//Killing all of x type
+
+// Score names
+#define LEGION_SCORE "Legion Killed"
+#define COLOSSUS_SCORE "Colossus Killed"
+#define BUBBLEGUM_SCORE "Bubblegum Killed"
+#define DRAKE_SCORE "Drakes Killed"
+#define BIRD_SCORE "Hierophants Killed"
+#define BOSS_SCORE "Bosses Killed"
+#define TENDRIL_CLEAR_SCORE "Tendrils Killed"
+
+// The number of station goals generated each round.
+#define STATION_GOAL_BUDGET 1

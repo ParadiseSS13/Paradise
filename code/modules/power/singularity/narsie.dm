@@ -32,7 +32,7 @@
 	var/area/A = get_area(src)
 	if(A)
 		var/image/alert_overlay = image('icons/effects/effects.dmi', "ghostalertsie")
-		notify_ghosts("Nar-Sie has risen in \the [A.name]. Reach out to the Geometer to be given a new shell for your soul.", source = src, alert_overlay = alert_overlay, attack_not_jump = 1)
+		notify_ghosts("Nar-Sie has risen in \the [A.name]. Reach out to the Geometer to be given a new shell for your soul.", source = src, alert_overlay = alert_overlay, action=NOTIFY_ATTACK)
 
 	narsie_spawn_animation()
 
@@ -123,6 +123,8 @@
 
 
 /obj/singularity/narsie/proc/acquire(var/mob/food)
+	if(food == target)
+		return
 	to_chat(target, "<span class='cultlarge'>[uppertext(ticker.mode.cultdat.entity_name)] HAS LOST INTEREST IN YOU</span>")
 	target = food
 	if(ishuman(target))

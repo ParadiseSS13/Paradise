@@ -1,22 +1,3 @@
-/*/proc/spawn_diona_nymph_from_organ(var/obj/item/organ/organ)
-	if(!istype(organ))
-		return 0
-
-	//This is a terrible hack and I should be ashamed.
-	var/datum/seed/diona = plant_controller.seeds["diona"]
-	if(!diona)
-		return 0
-
-	spawn(1) // So it has time to be thrown about by the gib() proc.
-		var/mob/living/simple_animal/diona/D = new(get_turf(organ))
-		var/datum/ghosttrap/plant/P = get_ghost_trap("living plant")
-		P.request_player(D, "A diona nymph has split off from its gestalt. ")
-		spawn(60)
-			if(D)
-				if(!D.ckey || !D.client)
-					D.death()
-		return 1 */
-
 /obj/item/organ/external/chest/diona
 	name = "core trunk"
 	max_damage = 200
@@ -116,74 +97,42 @@
 /obj/item/organ/diona/process()
 	return
 
-/obj/item/organ/internal/heart/diona
+/obj/item/organ/internal/heart/diona // Turns into a nymph instantly, no transplanting possible.
 	name = "neural strata"
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "nymph"
-	organ_tag = "heart" // Turns into a nymph instantly, no transplanting possible.
-	origin_tech = "biotech=3"
-	parent_organ = "chest"
-	slot = "heart"
 	species = "Diona"
 
-/obj/item/organ/internal/brain/diona
+/obj/item/organ/internal/brain/diona // Turns into a nymph instantly, no transplanting possible.
 	name = "gas bladder"
-	parent_organ = "head"
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "nymph"
-	organ_tag = "brain" // Turns into a nymph instantly, no transplanting possible.
-	origin_tech = "biotech=3"
-	slot = "brain"
 	species = "Diona"
 
-/obj/item/organ/internal/kidneys/diona
+/obj/item/organ/internal/kidneys/diona // Turns into a nymph instantly, no transplanting possible.
 	name = "polyp segment"
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "nymph"
-	organ_tag = "kidneys" // Turns into a nymph instantly, no transplanting possible.
-	origin_tech = "biotech=3"
-	parent_organ = "groin"
-	slot = "kidneys"
 	species = "Diona"
 
-/obj/item/organ/internal/appendix/diona
+/obj/item/organ/internal/appendix/diona // Turns into a nymph instantly, no transplanting possible.
 	name = "anchoring ligament"
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "nymph"
-	organ_tag = "appendix" // Turns into a nymph instantly, no transplanting possible.
-	origin_tech = "biotech=3"
-	parent_organ = "groin"
-	slot = "appendix"
 	species = "Diona"
 
-/obj/item/organ/internal/diona_receptor
+/obj/item/organ/internal/eyes/diona // Turns into a nymph instantly, no transplanting possible.
 	name = "receptor node"
-	organ_tag = "eyes"
 	icon = 'icons/mob/alien.dmi'
 	icon_state = "claw"
-	origin_tech = "biotech=3"
-	parent_organ = "head"
-	slot = "eyes"
 	species = "Diona"
-
-/obj/item/organ/internal/diona_receptor/surgeryize()
-	if(!owner)
-		return
-	owner.CureNearsighted()
-	owner.CureBlind()
-	owner.SetEyeBlurry(0)
-	owner.SetEyeBlind(0)
-
 
 //TODO:Make absorb rads on insert
 
-/obj/item/organ/internal/liver/diona
+/obj/item/organ/internal/liver/diona // Turns into a nymph instantly, no transplanting possible.
 	name = "nutrient vessel"
-	parent_organ = "chest"
-	organ_tag = "liver"
 	icon = 'icons/mob/alien.dmi'
 	icon_state = "claw"
-	slot = "liver"
 	alcohol_intensity = 0.5
 	species = "Diona"
 

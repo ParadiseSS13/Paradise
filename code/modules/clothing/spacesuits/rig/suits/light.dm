@@ -112,7 +112,7 @@
 	name = "stealth suit control module"
 	suit_type = "stealth"
 	desc = "A highly advanced and expensive suit designed for covert operations."
-	icon_state = "stealth_rig"
+	icon_state = "ninja_rig" //supposed to be "stealth_rig", but as it currently only has a semi-copied ninja rig sprite, we can just use them directly.
 
 	req_access = list(access_syndicate)
 

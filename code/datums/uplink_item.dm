@@ -305,7 +305,7 @@ var/list/uplink_items = list()
 	name = "Ambrosia Cruciatus Seeds"
 	desc = "Part of the notorious Ambrosia family, this species is nearly indistinguishable from Ambrosia Vulgaris- but its' branches contain a revolting toxin. Eight units are enough to drive victims insane."
 	reference = "BRO"
-	item = /obj/item/seeds/ambrosiavulgarisseed/cruciatus
+	item = /obj/item/seeds/ambrosia/cruciatus
 	cost = 2
 	job = list("Botanist")
 
@@ -346,6 +346,17 @@ var/list/uplink_items = list()
 	item = /obj/item/weapon/reagent_containers/glass/bottle/traitor
 	cost = 2
 	job = list("Research Director","Chief Medical Officer","Medical Doctor","Psychiatrist","Paramedic","Virologist","Bartender")
+
+// Paper contact poison pen
+
+/datum/uplink_item/jobspecific/poison_pen
+	name = "Poison Pen"
+	desc = "Cutting edge of deadly writing implements technology, this gadget will infuse any piece of paper with delayed contact poison."
+	item = /obj/item/weapon/pen/poison
+	cost = 2
+	excludefrom = list(/datum/game_mode/nuclear)
+	job = list("Head of Personnel", "Quartermaster", "Cargo Technician")
+
 
 // DANGEROUS WEAPONS
 

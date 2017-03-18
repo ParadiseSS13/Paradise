@@ -133,6 +133,7 @@
 	if(holder && !C.holder)
 		recieve_message = "<span class='[recieve_span]' size='3'>-- Click the [recieve_pm_type]'s name to reply --</span>\n"
 		if(C.adminhelped)
+			window_flash(C)
 			to_chat(C, recieve_message)
 			C.adminhelped = 0
 
@@ -149,6 +150,9 @@
 						adminhelp(reply)													//sender has left, adminhelp instead
 				return
 
+	// for emoji, we have to define a specific span for jquery to look for
+	msg = "<span class='emoji_enabled'>[msg]</span>"
+
 	recieve_message = "<span class='[recieve_span]'>[type] from-<b>[recieve_pm_type][key_name(src, C, C.holder ? 1 : 0, type)]</b>: [msg]</span>"
 	to_chat(C, recieve_message)
 	to_chat(src, "<font color='blue'>[send_pm_type][type] to-<b>[key_name(C, src, holder ? 1 : 0, type)]</b>: [msg]</font>")
@@ -158,8 +162,8 @@
 		C.ckey_last_pm = ckey*/
 
 	//play the recieving admin the adminhelp sound (if they have them enabled)
-	//non-admins shouldn't be able to disable this
-	if(C.prefs.sound & SOUND_ADMINHELP)
+	//non-admins always hear the sound, as they cannot toggle it
+	if((!C.holder) || (C.prefs.sound & SOUND_ADMINHELP))
 		C << 'sound/effects/adminhelp.ogg'
 
 	log_admin("PM: [key_name(src)]->[key_name(C)]: [msg]")

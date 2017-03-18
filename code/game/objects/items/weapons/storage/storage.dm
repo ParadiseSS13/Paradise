@@ -242,23 +242,15 @@
 		return 0 //Storage item is full
 
 	if(can_hold.len)
-		var/ok = 0
-		for(var/A in can_hold)
-			if(istype(W, text2path(A) ))
-				ok = 1
-				break
-		if(!ok)
+		if(!is_type_in_typecache(W, can_hold))
 			if(!stop_messages)
-				if(istype(W, /obj/item/weapon/hand_labeler))
-					return 0
 				to_chat(usr, "<span class='notice'>[src] cannot hold [W].</span>")
 			return 0
 
-	for(var/A in cant_hold) //Check for specific items which this container can't hold.
-		if(istype(W, text2path(A) ))
-			if(!stop_messages)
-				to_chat(usr, "<span class='notice'>[src] cannot hold [W].</span>")
-			return 0
+	if(is_type_in_typecache(W, cant_hold)) //Check for specific items which this container can't hold.
+		if(!stop_messages)
+			to_chat(usr, "<span class='notice'>[src] cannot hold [W].</span>")
+		return 0
 
 	if(W.w_class > max_w_class)
 		if(!stop_messages)
@@ -298,7 +290,7 @@
 		usr.update_icons()	//update our overlays
 	if(silent)
 		prevent_warning = 1
-	W.loc = src
+	W.forceMove(src)
 	W.on_enter_storage(src)
 	if(usr)
 		if(usr.client && usr.s_active != src)
@@ -344,9 +336,9 @@
 		else
 			W.layer = initial(W.layer)
 			W.plane = initial(W.plane)
-		W.loc = new_location
+		W.forceMove(new_location)
 	else
-		W.loc = get_turf(src)
+		W.forceMove(get_turf(src))
 
 	if(usr)
 		src.orient2hud(usr)
@@ -432,6 +424,8 @@
 		remove_from_storage(I, T)
 
 /obj/item/weapon/storage/New()
+	can_hold = typecacheof(can_hold)
+	cant_hold = typecacheof(cant_hold)
 
 	if(allow_quick_empty)
 		verbs += /obj/item/weapon/storage/verb/quick_empty
@@ -455,7 +449,6 @@
 	src.closer.layer = 20
 	src.closer.plane = HUD_PLANE
 	orient2hud()
-	return
 
 /obj/item/weapon/storage/Destroy()
 	for(var/obj/O in contents)

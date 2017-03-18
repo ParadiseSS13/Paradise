@@ -8,24 +8,19 @@
 #define ABSTRACT				64		// for all things that are technically items but used for various different stuff, made it 128 because it could conflict with other flags other way
 #define ON_BORDER				128		// item has priority to check when entering or leaving
 
-#define GLASSESCOVERSEYES		1024
-#define MASKCOVERSEYES			1024	// get rid of some of the other retardation in these flags
-#define HEADCOVERSEYES			1024	// feel free to realloc these numbers for other purposes
-#define MASKCOVERSMOUTH			2048	// on other items, these are just for mask/head
-#define HEADCOVERSMOUTH			2048
-
-#define HEADBANGPROTECT			4096
 #define EARBANGPROTECT			1024
 
 #define NOSLIP					1024 	//prevents from slipping on wet floors, in space etc
+
+#define HEADBANGPROTECT			4096
 
 #define OPENCONTAINER			4096	// is an open container for chemistry purposes
 
 #define BLOCK_GAS_SMOKE_EFFECT	8192	// blocks the effect that chemical clouds would have on a mob --glasses, mask and helmets ONLY!
 #define THICKMATERIAL 			8192	//prevents syringes, parapens and hypos if the external suit or helmet (if targeting head) has this flag. Example: space suits, biosuit, bombsuits, thick suits that cover your body. (NOTE: flag shared with BLOCK_GAS_SMOKE_EFFECT)
 
-
-#define	NOREACT					16384 	//Reagents dont' react inside this container.
+//Reagent flags
+#define REAGENT_NOREACT			1
 
 //Species flags.
 
@@ -39,10 +34,10 @@
 #define IS_PLANT 		128
 #define CAN_BE_FAT 		256
 #define NO_INTORGANS	512
-#define NO_POISON		1024
-#define RADIMMUNE		2048
-#define ALL_RPARTS		4096
-#define NOGUNS			8192
+#define RADIMMUNE		1024
+#define ALL_RPARTS		2048
+#define NOGUNS			4096
+#define NOTRANSSTING	8192
 
 //Species clothing flags
 #define HAS_UNDERWEAR 	1

@@ -43,11 +43,13 @@
 
 	var/body_temperature = 310.15	//non-IS_SYNTHETIC species will try to stabilize at this temperature. (also affects temperature processing)
 	var/reagent_tag                 //Used for metabolizing reagents.
+	var/hunger_drain = HUNGER_FACTOR
+	var/digestion_ratio = 1 //How quickly the species digests/absorbs reagents.
 
 	var/siemens_coeff = 1 //base electrocution coefficient
 
 	var/invis_sight = SEE_INVISIBLE_LIVING
-	var/darksight = 2
+
 	var/hazard_high_pressure = HAZARD_HIGH_PRESSURE   // Dangerously high pressure.
 	var/warning_high_pressure = WARNING_HIGH_PRESSURE // High pressure warning.
 	var/warning_low_pressure = WARNING_LOW_PRESSURE   // Low pressure warning.
@@ -66,8 +68,13 @@
 		"sa_sleep" = 5
 		)
 
-	var/brute_mod = null    // Physical damage reduction/malus.
-	var/burn_mod = null     // Burn damage reduction/malus.
+	var/brute_mod = 1    // Physical damage reduction/amplification
+	var/burn_mod = 1     // Burn damage reduction/amplification
+	var/tox_mod = 1      // Toxin damage reduction/amplification
+	var/oxy_mod = 1		 // Oxy damage reduction/amplification
+	var/clone_mod = 1	 // Clone damage reduction/amplification
+	var/brain_mod = 1    // Brain damage damage reduction/amplification
+	var/stun_mod = 1	 // If a species is more/less impacated by stuns/weakens/paralysis
 
 	var/total_health = 100
 	var/punchdamagelow = 0       //lowest possible punch damage
@@ -77,6 +84,8 @@
 
 	var/ventcrawler = 0 //Determines if the mob can go through the vents.
 	var/has_fine_manipulation = 1 // Can use small items.
+
+	var/mob/living/list/ignored_by = list() // list of mobs that will ignore this species
 
 	var/list/allowed_consumed_mobs = list() //If a species can consume mobs, put the type of mobs it can consume here.
 
@@ -101,6 +110,7 @@
 	var/show_ssd = 1
 	var/virus_immune
 	var/can_revive_by_healing				// Determines whether or not this species can be revived by simply healing them
+	var/has_gender = TRUE
 
 	//Death vars.
 	var/death_message = "seizes up and falls limp, their eyes dead and lifeless..."
@@ -119,6 +129,10 @@
 	var/scream_verb = "screams"
 	var/male_scream_sound = 'sound/goonstation/voice/male_scream.ogg'
 	var/female_scream_sound = 'sound/goonstation/voice/female_scream.ogg'
+	var/male_cough_sounds = list('sound/effects/mob_effects/m_cougha.ogg','sound/effects/mob_effects/m_coughb.ogg', 'sound/effects/mob_effects/m_coughc.ogg')
+	var/female_cough_sounds = list('sound/effects/mob_effects/f_cougha.ogg','sound/effects/mob_effects/f_coughb.ogg')
+	var/male_sneeze_sound = 'sound/effects/mob_effects/sneeze.ogg'
+	var/female_sneeze_sound = 'sound/effects/mob_effects/f_sneeze.ogg'
 
 	//Default hair/headacc style vars.
 	var/default_hair				//Default hair style for newly created humans unless otherwise set.
@@ -155,7 +169,6 @@
 		"l_foot" = list("path" = /obj/item/organ/external/foot),
 		"r_foot" = list("path" = /obj/item/organ/external/foot/right)
 		)
-	var/cyborg_type = "Cyborg"
 	var/list/proc/species_abilities = list()
 
 /datum/species/New()
@@ -427,7 +440,10 @@
 /datum/species/proc/say_filter(mob/M, message, datum/language/speaking)
 	return message
 
-/datum/species/proc/equip(var/mob/living/carbon/human/H)
+/datum/species/proc/before_equip_job(datum/job/J, mob/living/carbon/human/H, visualsOnly = FALSE)
+	return
+
+/datum/species/proc/after_equip_job(datum/job/J, mob/living/carbon/human/H, visualsOnly = FALSE)
 	return
 
 /datum/species/proc/can_understand(var/mob/other)
@@ -512,9 +528,9 @@
 			H.healths.icon_state = "health7"
 		else
 			switch(H.hal_screwyhud)
-				if(1)	H.healths.icon_state = "health6"
-				if(2)	H.healths.icon_state = "health7"
-				if(5)	H.healths.icon_state = "health0"
+				if(SCREWYHUD_CRIT)	H.healths.icon_state = "health6"
+				if(SCREWYHUD_DEAD)	H.healths.icon_state = "health7"
+				if(SCREWYHUD_HEALTHY)	H.healths.icon_state = "health0"
 				else
 					switch(100 - ((flags & NO_PAIN) ? 0 : H.traumatic_shock) - H.staminaloss)
 						if(100 to INFINITY)		H.healths.icon_state = "health0"
@@ -579,11 +595,22 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 		return null
 	return has_organ[organ_slot]
 
+/datum/species/proc/get_resultant_darksight(mob/living/carbon/human/H) //Returns default value of 2 if the mob doesn't have eyes, otherwise it grabs the eyes darksight.
+	var/resultant_darksight = 2
+	var/obj/item/organ/internal/eyes/eyes = H.get_int_organ(/obj/item/organ/internal/eyes)
+	if(eyes)
+		resultant_darksight = eyes.get_dark_view()
+	return resultant_darksight
 
 /datum/species/proc/update_sight(mob/living/carbon/human/H)
 	H.sight = initial(H.sight)
-	H.see_in_dark = darksight
+	H.see_in_dark = get_resultant_darksight(H)
 	H.see_invisible = invis_sight
+
+	if(H.see_in_dark > 2) //Preliminary see_invisible handling as per set_species() in code\modules\mob\living\carbon\human\human.dm.
+		H.see_invisible = SEE_INVISIBLE_LEVEL_ONE
+	else
+		H.see_invisible = SEE_INVISIBLE_LIVING
 
 	if(H.client.eye != H)
 		var/atom/A = H.client.eye
@@ -635,7 +662,7 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 				if(rig.visor && rig.visor.vision && rig.visor.active && rig.visor.vision.glasses)
 					var/obj/item/clothing/glasses/G = rig.visor.vision.glasses
 					if(istype(G))
-						H.see_in_dark = (G.darkness_view ? G.darkness_view : darksight) // Otherwise we keep our darkness view with togglable nightvision.
+						H.see_in_dark = (G.darkness_view ? G.darkness_view : get_resultant_darksight(H)) // Otherwise we keep our darkness view with togglable nightvision.
 						if(G.vision_flags)		// MESONS
 							H.sight |= G.vision_flags
 
@@ -645,7 +672,7 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 		H.see_in_dark = max(lesser_darkview_bonus, H.see_in_dark)
 
 	if(H.vision_type)
-		H.see_in_dark = max(H.see_in_dark, H.vision_type.see_in_dark, darksight)
+		H.see_in_dark = max(H.see_in_dark, H.vision_type.see_in_dark, get_resultant_darksight(H))
 		H.see_invisible = H.vision_type.see_invisible
 		if(H.vision_type.light_sensitive)
 			H.weakeyes = 1

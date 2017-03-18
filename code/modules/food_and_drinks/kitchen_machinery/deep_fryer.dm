@@ -48,11 +48,7 @@
 		return 0
 	for(var/Type in subtypesof(/datum/deepfryer_special))
 		var/datum/deepfryer_special/P = new Type()
-		if(istype(I, /obj/item/weapon/reagent_containers/food/snacks/grown))
-			var/obj/item/weapon/reagent_containers/food/snacks/grown/G = I
-			if(G.seed.kitchen_tag != P.input)
-				continue
-		else if(!istype(I, P.input))
+		if(!istype(I, P.input))
 			continue
 		return P
 	return 0
@@ -80,7 +76,7 @@
 	output = /obj/item/weapon/reagent_containers/food/snacks/fried_shrimp
 
 /datum/deepfryer_special/banana
-	input = "banana"
+	input = /obj/item/weapon/reagent_containers/food/snacks/grown/banana
 	output = /obj/item/weapon/reagent_containers/food/snacks/friedbanana
 
 /datum/deepfryer_special/potato_chips
@@ -88,7 +84,7 @@
 	output = /obj/item/weapon/reagent_containers/food/snacks/chips
 
 /datum/deepfryer_special/corn_chips
-	input = "corn"
+	input = /obj/item/weapon/reagent_containers/food/snacks/grown/corn
 	output = /obj/item/weapon/reagent_containers/food/snacks/cornchips
 
 /datum/deepfryer_special/fried_tofu
@@ -98,3 +94,11 @@
 /datum/deepfryer_special/chimichanga
 	input = /obj/item/weapon/reagent_containers/food/snacks/burrito
 	output = /obj/item/weapon/reagent_containers/food/snacks/chimichanga
+
+/datum/deepfryer_special/fries
+	input = /obj/item/weapon/reagent_containers/food/snacks/grown/potato/wedges
+	output = /obj/item/weapon/reagent_containers/food/snacks/fries
+
+/datum/deepfryer_special/carrotfries
+	input = /obj/item/weapon/reagent_containers/food/snacks/grown/carrot/wedges
+	output = /obj/item/weapon/reagent_containers/food/snacks/carrotfries

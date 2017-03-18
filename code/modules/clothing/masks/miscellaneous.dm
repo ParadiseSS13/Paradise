@@ -3,7 +3,7 @@
 	desc = "To stop that awful noise."
 	icon_state = "muzzle"
 	item_state = "muzzle"
-	flags = MASKCOVERSMOUTH
+	flags_cover = MASKCOVERSMOUTH
 	w_class = 2
 	gas_transfer_coefficient = 0.90
 	put_on_delay = 20
@@ -60,7 +60,7 @@
 	icon_state = "sterile"
 	item_state = "sterile"
 	w_class = 1
-	flags = MASKCOVERSMOUTH
+	flags_cover = MASKCOVERSMOUTH
 	gas_transfer_coefficient = 0.90
 	permeability_coefficient = 0.01
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 25, rad = 0)
@@ -108,7 +108,7 @@
 	desc = "A blue neck scarf."
 	icon_state = "blueneckscarf"
 	item_state = "blueneckscarf"
-	flags = MASKCOVERSMOUTH
+	flags_cover = MASKCOVERSMOUTH
 	w_class = 2
 	gas_transfer_coefficient = 0.90
 
@@ -117,7 +117,7 @@
 	desc = "A red and white checkered neck scarf."
 	icon_state = "redwhite_scarf"
 	item_state = "redwhite_scarf"
-	flags = MASKCOVERSMOUTH
+	flags_cover = MASKCOVERSMOUTH
 	w_class = 2
 	gas_transfer_coefficient = 0.90
 
@@ -126,7 +126,7 @@
 	desc = "A green neck scarf."
 	icon_state = "green_scarf"
 	item_state = "green_scarf"
-	flags = MASKCOVERSMOUTH
+	flags_cover = MASKCOVERSMOUTH
 	w_class = 2
 	gas_transfer_coefficient = 0.90
 
@@ -135,16 +135,10 @@
 	desc = "A stealthy, dark scarf."
 	icon_state = "ninja_scarf"
 	item_state = "ninja_scarf"
-	flags = MASKCOVERSMOUTH
+	flags_cover = MASKCOVERSMOUTH
 	w_class = 2
 	gas_transfer_coefficient = 0.90
 
-/obj/item/clothing/mask/joy
-	name = "joy mask"
-	desc = "Express your happiness or hide your sorrows with this face with tears of joy cutout."
-	icon_state = "joy"
-	flags = MASKCOVERSMOUTH
-	flags_inv = HIDEFACE
 
 /obj/item/clothing/mask/pig
 	name = "pig mask"
@@ -196,8 +190,8 @@
 		user.real_name = originalname
 
 /obj/item/clothing/mask/face
-	flags = MASKCOVERSMOUTH
 	flags_inv = HIDEFACE
+	flags_cover = MASKCOVERSMOUTH
 
 /obj/item/clothing/mask/face/rat
 	name = "rat mask"
@@ -261,14 +255,14 @@
 	icon_state = "pennywise_mask"
 	item_state = "pennywise_mask"
 	species_fit = list("Vox")
-	flags = MASKCOVERSMOUTH | MASKCOVERSEYES | BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | BLOCKHAIR
+	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | BLOCKHAIR
 
 // Bandanas
 /obj/item/clothing/mask/bandana
 	name = "bandana"
 	desc = "A colorful bandana."
-	flags = MASKCOVERSMOUTH
 	flags_inv = HIDEFACE
+	flags_cover = MASKCOVERSMOUTH
 	w_class = 1
 	slot_flags = SLOT_MASK
 	adjusted_flags = SLOT_HEAD
@@ -346,7 +340,8 @@
 	icon_override = 'icons/goonstation/mob/clothing/mask.dmi'
 	lefthand_file = 'icons/goonstation/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/goonstation/mob/inhands/clothing_righthand.dmi'
-	flags = NODROP
+	flags = NODROP | AIRTIGHT
+	flags_cover = MASKCOVERSMOUTH
 
 /obj/item/clothing/mask/cursedclown/equipped(mob/user, slot)
 	..()

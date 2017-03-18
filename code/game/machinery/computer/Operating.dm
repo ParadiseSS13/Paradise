@@ -29,6 +29,14 @@
 			table.computer = src
 			break
 
+/obj/machinery/computer/operating/Destroy()
+	if(table)
+		table.computer = null
+		table = null
+	if(victim)
+		victim = null
+	return ..()
+
 /obj/machinery/computer/operating/attack_ai(mob/user)
 	add_fingerprint(user)
 	if(stat & (BROKEN|NOPOWER))
@@ -94,7 +102,9 @@
 
 /obj/machinery/computer/operating/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/data[0]
-	var/mob/living/carbon/human/occupant = src.table.victim
+	var/mob/living/carbon/human/occupant
+	if(table)
+		occupant = table.victim
 	data["hasOccupant"] = occupant ? 1 : 0
 	var/occupantData[0]
 

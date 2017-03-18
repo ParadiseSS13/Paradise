@@ -12,6 +12,7 @@
 		/obj/item/weapon/firealarm_electronics,
 		/obj/item/weapon/airalarm_electronics,
 		/obj/item/weapon/airlock_electronics,
+		/obj/item/weapon/firelock_electronics,
 		/obj/item/weapon/intercom_electronics,
 		/obj/item/weapon/apc_electronics,
 		/obj/item/weapon/stock_parts,
@@ -26,7 +27,8 @@
 		/obj/item/weapon/camera_assembly,
 		/obj/item/weapon/tank,
 		/obj/item/weapon/circuitboard,
-		/obj/item/stack/tile/light
+		/obj/item/stack/tile/light,
+		/obj/item/weapon/ore/bluespace_crystal
 		)
 
 	//Item currently being held.
@@ -44,6 +46,10 @@
 //		/obj/item/weapon/paper_bundle,
 		/obj/item/weapon/card/id
 		)
+		
+/obj/item/weapon/gripper/New()
+	..()
+	can_hold = typecacheof(can_hold)
 
 /obj/item/weapon/gripper/attack_self(mob/user as mob)
 	if(wrapped)
@@ -51,7 +57,7 @@
 
 /obj/item/weapon/gripper/verb/drop_item()
 
-	set name = "Drop Item"
+	set name = "Drop Gripped Item"
 	set desc = "Release an item from your magnetic gripper."
 	set category = "Drone"
 
@@ -118,10 +124,9 @@
 
 		//Check if the item is blacklisted.
 		var/grab = 0
-		for(var/typepath in can_hold)
-			if(istype(I,typepath))
+		if(can_hold.len)
+			if(is_type_in_typecache(I, can_hold))
 				grab = 1
-				break
 
 		//We can grab the item, finally.
 		if(grab)
@@ -200,7 +205,7 @@
 
 			to_chat(D, "<span class='warning'>You begin decompiling the other drone.</span>")
 
-			if(!do_after(D,50, target = target))
+			if(!do_after(D, 50, target = target))
 				to_chat(D, "<span class='warning'>You need to remain still while decompiling such a large object.</span>")
 				return
 

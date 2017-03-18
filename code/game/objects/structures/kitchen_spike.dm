@@ -43,8 +43,8 @@
 /obj/structure/kitchenspike/attackby(obj/item/weapon/grab/G as obj, mob/user as mob)
 	if(istype(G, /obj/item/weapon/crowbar))
 		if(!buckled_mob)
-			playsound(loc, 'sound/items/Crowbar.ogg', 100, 1)
-			if(do_after(user, 20, target = src))
+			playsound(loc, G.usesound, 100, 1)
+			if(do_after(user, 20 * G.toolspeed, target = src))
 				to_chat(user, "<span class='notice'>You pry the spikes out of the frame.</span>")
 				new /obj/item/stack/rods(loc, 4)
 				new /obj/structure/kitchenspike_frame(loc)
@@ -79,7 +79,7 @@
 	if(victim.buckled)
 		return 0
 	var/mob/living/H = victim
-	playsound(loc, "sound/effects/splat.ogg", 25, 1)
+	playsound(loc, 'sound/effects/splat.ogg', 25, 1)
 	H.forceMove(loc)
 	H.emote("scream")
 	if(istype(H, /mob/living/carbon/human)) //So you don't get human blood when you spike a giant spidere

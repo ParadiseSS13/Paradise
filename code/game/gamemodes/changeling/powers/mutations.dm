@@ -159,18 +159,20 @@
 		if(!A.requiresID() || A.allowed(user)) //This is to prevent stupid shit like hitting a door with an arm blade, the door opening because you have acces and still getting a "the airlocks motors resist our efforts to force it" message.
 			return
 
-		if(A.arePowerSystemsOn())
-			to_chat(user, "<span class='notice'>The airlock's motors resist our efforts to force it.</span>")
-			return
-
-		else if(A.locked)
+		if(A.locked)
 			to_chat(user, "<span class='notice'>The airlock's bolts prevent it from being forced.</span>")
 			return
 
-		else
-			//user.say("Heeeeeeeeeerrre's Johnny!")
-			user.visible_message("<span class='warning'>[user] forces the door to open with \his [src]!</span>", "<span class='warning'>We force the door to open.</span>", "<span class='warning'>You hear a metal screeching sound.</span>")
-			A.open(1)
+		if(A.arePowerSystemsOn())
+			user.visible_message("<span class='warning'>[user] jams [src] into the airlock and starts prying it open!</span>", "<span class='warning'>We start forcing the airlock open.</span>", \
+			"<span class='italics'>You hear a metal screeching sound.</span>")
+			playsound(A, 'sound/machines/airlock_alien_prying.ogg', 150, 1)
+			if(!do_after(user, 150, target = A))
+				return
+
+		//user.say("Heeeeeeeeeerrre's Johnny!")
+		user.visible_message("<span class='warning'>[user] forces the airlock to open with \his [src]!</span>", "<span class='warning'>We force the airlock to open.</span>", "<span class='warning'>You hear a metal screeching sound.</span>")
+		A.open(2)
 
 
 /***************************************\
@@ -277,7 +279,7 @@
 	name = "flesh mass"
 	icon_state = "lingspacehelmet"
 	desc = "A covering of pressure and temperature-resistant organic tissue with a glass-like chitin front."
-	flags = HEADCOVERSEYES | BLOCKHAIR | HEADCOVERSMOUTH | STOPSPRESSUREDMAGE | NODROP
+	flags = BLOCKHAIR | STOPSPRESSUREDMAGE | NODROP
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
 
 /obj/item/clothing/head/helmet/space/changeling/dropped()
@@ -328,7 +330,7 @@
 	name = "chitinous mass"
 	desc = "A tough, hard covering of black chitin with transparent chitin in front."
 	icon_state = "lingarmorhelmet"
-	flags = HEADCOVERSEYES | BLOCKHAIR | NODROP
+	flags = BLOCKHAIR | NODROP
 	armor = list(melee = 30, bullet = 30, laser = 40, energy = 20, bomb = 10, bio = 4, rad = 0)
 	flags_inv = HIDEEARS
 

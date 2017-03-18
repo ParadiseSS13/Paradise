@@ -120,15 +120,13 @@
 		attack_self(user)
 
 /obj/item/device/radio/intercom/receive_range(freq, level)
-	if(!on)
+	if(!is_listening())
 		return -1
 	if(!(0 in level))
 		var/turf/position = get_turf(src)
 		// TODO: Integrate radio with the space manager
 		if(isnull(position) || !(position.z in level))
 			return -1
-	if(!src.listening)
-		return -1
 	if(freq in ANTAG_FREQS)
 		if(!(src.syndie))
 			return -1//Prevents broadcast of messages over devices lacking the encryption
@@ -140,8 +138,8 @@
 		if(3)
 			if(iswirecutter(W) && b_stat && wires.IsAllCut())
 				to_chat(user, "<span class='notice'>You cut out the intercoms wiring and disconnect its electronics.</span>")
-				playsound(get_turf(src), 'sound/items/Wirecutter.ogg', 50, 1)
-				if(do_after(user, 10, target = src))
+				playsound(get_turf(src), W.usesound, 50, 1)
+				if(do_after(user, 10 * W.toolspeed, target = src))
 					if(buildstage != 3)
 						return
 					new /obj/item/stack/cable_coil(get_turf(src),5)
@@ -154,8 +152,8 @@
 			else return ..()
 		if(2)
 			if(isscrewdriver(W))
-				playsound(get_turf(src), 'sound/items/Screwdriver.ogg', 50, 1)
-				if(do_after(user, 10, target = src))
+				playsound(get_turf(src), W.usesound, 50, 1)
+				if(do_after(user, 10 * W.toolspeed, target = src))
 					update_icon()
 					on = 1
 					b_stat = 0
@@ -172,15 +170,15 @@
 				if(coil.amount < 5)
 					to_chat(user, "<span class='warning'>You need more cable for this!</span>")
 					return
-				if(do_after(user, 10, target = src))
+				if(do_after(user, 10 * coil.toolspeed, target = src))
 					coil.use(5)
 					to_chat(user, "<span class='notice'>You wire \the [src]!</span>")
 					buildstage = 2
 				return 1
 			if(iscrowbar(W))
 				to_chat(user, "<span class='notice'>You begin removing the electronics...</span>")
-				playsound(get_turf(src), 'sound/items/Deconstruct.ogg', 50, 1)
-				if(do_after(user, 10, target = src))
+				playsound(get_turf(src), W.usesound, 50, 1)
+				if(do_after(user, 10 * W.toolspeed, target = src))
 					if(buildstage != 1)
 						return
 					new /obj/item/weapon/intercom_electronics(get_turf(src))
@@ -189,19 +187,19 @@
 				return 1
 		if(0)
 			if(istype(W,/obj/item/weapon/intercom_electronics))
-				playsound(get_turf(src), 'sound/items/Deconstruct.ogg', 50, 1)
-				if(do_after(user, 10, target = src))
+				playsound(get_turf(src), W.usesound, 50, 1)
+				if(do_after(user, 10 * W.toolspeed, target = src))
 					qdel(W)
 					to_chat(user, "<span class='notice'>You insert \the [W] into \the [src]!</span>")
 					buildstage = 1
 				return 1
 			if(iswelder(W))
 				var/obj/item/weapon/weldingtool/WT=W
-				playsound(get_turf(src), 'sound/items/Welder.ogg', 50, 1)
+				playsound(get_turf(src), WT.usesound, 50, 1)
 				if(!WT.remove_fuel(3, user))
 					to_chat(user, "<span class='warning'>You're out of welding fuel.</span>")
 					return 1
-				if(do_after(user, 10, target = src))
+				if(do_after(user, 10 * WT.toolspeed, target = src))
 					to_chat(user, "<span class='notice'>You cut the intercom frame from the wall!</span>")
 					new /obj/item/mounted/frame/intercom(get_turf(src))
 					qdel(src)
@@ -235,6 +233,8 @@
 	desc = "Looks like a circuit. Probably is."
 	w_class = 2
 	materials = list(MAT_METAL=50, MAT_GLASS=50)
+	toolspeed = 1
+	usesound = 'sound/items/Deconstruct.ogg'
 
 /obj/item/device/radio/intercom/locked
     var/locked_frequency

@@ -64,9 +64,10 @@
 	name = "bomb hood"
 	desc = "Use in case of bomb."
 	icon_state = "bombsuit"
-	flags = HEADCOVERSEYES | HEADCOVERSMOUTH | BLOCKHAIR | THICKMATERIAL
+	flags = BLOCKHAIR | THICKMATERIAL
 	armor = list(melee = 20, bullet = 0, laser = 20, energy = 10, bomb = 100, bio = 0, rad = 0)
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES
+	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	cold_protection = HEAD
 	min_cold_protection_temperature = HELMET_MIN_TEMP_PROTECT
 	heat_protection = HEAD
@@ -74,6 +75,10 @@
 	strip_delay = 70
 	put_on_delay = 70
 	burn_state = FIRE_PROOF
+	species_fit = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/head.dmi'
+		)
 
 /obj/item/clothing/suit/bomb_suit
 	name = "bomb suit"
@@ -99,17 +104,20 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
 		)
-	hide_tail_by_species = list("Vox")
 
 /obj/item/clothing/head/bomb_hood/security
 	icon_state = "bombsuitsec"
 	item_state = "bombsuitsec"
+	species_fit = null
+	sprite_sheets = null
 
 
 /obj/item/clothing/suit/bomb_suit/security
 	icon_state = "bombsuitsec"
 	item_state = "bombsuitsec"
 	allowed = list(/obj/item/weapon/gun/energy,/obj/item/weapon/melee/baton,/obj/item/weapon/restraints/handcuffs)
+	species_fit = null
+	sprite_sheets = null
 
 /*
  * Radiation protection
@@ -118,11 +126,16 @@
 	name = "Radiation Hood"
 	icon_state = "rad"
 	desc = "A hood with radiation protective properties. Label: Made with lead, do not eat insulation"
-	flags = HEADCOVERSEYES|HEADCOVERSMOUTH|BLOCKHAIR|THICKMATERIAL
+	flags = BLOCKHAIR|THICKMATERIAL
+	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 60, rad = 100)
 	strip_delay = 60
 	put_on_delay = 60
 	burn_state = FIRE_PROOF
+	species_fit = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/head.dmi'
+		)
 
 /obj/item/clothing/suit/radiation
 	name = "Radiation suit"
@@ -141,3 +154,7 @@
 	strip_delay = 60
 	put_on_delay = 60
 	burn_state = FIRE_PROOF
+	species_fit = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		)

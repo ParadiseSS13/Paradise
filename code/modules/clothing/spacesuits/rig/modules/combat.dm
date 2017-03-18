@@ -119,7 +119,7 @@
 		gun.attack_self(holder.wearer)
 		return 1
 
-	gun.process_fire(target,holder.wearer)
+	gun.afterattack(target,holder.wearer)
 	return 1
 
 /obj/item/rig_module/mounted/egun

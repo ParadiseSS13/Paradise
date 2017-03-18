@@ -37,7 +37,7 @@
 	max_w_class = 2
 	storage_slots = 30
 	can_hold = list() // any
-	cant_hold = list("/obj/item/weapon/disk/nuclear")
+	cant_hold = list(/obj/item/weapon/disk/nuclear)
 
 /obj/item/weapon/storage/bag/trash/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] puts the [src.name] over their head and starts chomping at the insides! Disgusting!</span>")
@@ -93,7 +93,7 @@
 	storage_slots = 7
 	display_contents_with_number = 0 //or else this will lead to stupid behavior.
 	can_hold = list() // any
-	cant_hold = list("/obj/item/weapon/disk/nuclear")
+	cant_hold = list(/obj/item/weapon/disk/nuclear)
 
 /obj/item/weapon/storage/bag/plasticbag/mob_can_equip(M as mob, slot)
 
@@ -136,7 +136,7 @@
 	storage_slots = 50
 	max_combined_w_class = 200 //Doesn't matter what this is, so long as it's more or equal to storage_slots * ore.w_class
 	max_w_class = 3
-	can_hold = list("/obj/item/weapon/ore")
+	can_hold = list(/obj/item/weapon/ore)
 
 /obj/item/weapon/storage/bag/ore/cyborg
 	name = "cyborg mining satchel"
@@ -159,52 +159,34 @@
 // -----------------------------
 
 /obj/item/weapon/storage/bag/plants
-	icon = 'icons/obj/hydroponics.dmi'
+	name = "plant bag"
+	icon = 'icons/obj/hydroponics/equipment.dmi'
 	icon_state = "plantbag"
-	name = "Plant Bag"
-	storage_slots = 50; //the number of plant pieces it can carry.
-	max_combined_w_class = 200 //Doesn't matter what this is, so long as it's more or equal to storage_slots * plants.w_class
+	storage_slots = 100 //the number of plant pieces it can carry.
+	max_combined_w_class = 100 //Doesn't matter what this is, so long as it's more or equal to storage_slots * plants.w_class
 	max_w_class = 3
 	w_class = 1
-	can_hold = list("/obj/item/weapon/reagent_containers/food/snacks/grown","/obj/item/seeds","/obj/item/weapon/grown", "/obj/item/stack/tile/grass","/obj/item/stack/medical/ointment/aloe","/obj/item/stack/medical/bruise_pack/comfrey", "/obj/item/weapon/reagent_containers/honeycomb")
+	can_hold = list(/obj/item/weapon/reagent_containers/food/snacks/grown,/obj/item/seeds,/obj/item/weapon/grown,/obj/item/weapon/reagent_containers/food/snacks/ash_flora)
 	burn_state = FLAMMABLE
 
 /obj/item/weapon/storage/bag/plants/portaseeder
 	name = "portable seed extractor"
 	desc = "For the enterprising botanist on the go. Less efficient than the stationary model, it creates one seed per plant."
 	icon_state = "portaseeder"
+	origin_tech = "biotech=3;engineering=2"
 
 /obj/item/weapon/storage/bag/plants/portaseeder/verb/dissolve_contents()
 	set name = "Activate Seed Extraction"
 	set category = "Object"
 	set desc = "Activate to convert your plants into plantable seeds."
-	if(usr.stat || !usr.canmove || usr.restrained())
+
+	if(usr.incapacitated())
 		return
 	for(var/obj/item/O in contents)
-		if(istype(O, /obj/item/weapon/reagent_containers/food/snacks/grown) || istype(O, /obj/item/weapon/grown))
-
-			var/datum/seed/new_seed_type
-			if(istype(O, /obj/item/weapon/grown))
-				var/obj/item/weapon/grown/F = O
-				new_seed_type = plant_controller.seeds[F.plantname]
-			else
-				var/obj/item/weapon/reagent_containers/food/snacks/grown/F = O
-				new_seed_type = plant_controller.seeds[F.plantname]
-
-			if(new_seed_type)
-				var/obj/item/seeds/seeds = new(O.loc, O)
-				seeds.seed_type = new_seed_type.name
-				seeds.update_seed()
-			qdel(O)
-
-		if(istype(O, /obj/item/stack/tile/grass))
-			var/obj/item/stack/tile/grass/S = O
-			S.use(1)
-			new /obj/item/seeds/grassseed(O.loc, O)
-
+		seedify(O, 1)
 	for(var/mob/M in range(1))
 		if(M.s_active == src)
-			src.close(M)
+			close(M)
 
 
 // -----------------------------
@@ -363,8 +345,7 @@
 	max_combined_w_class = 200 //Doesn't matter what this is, so long as it's more or equal to storage_slots * cash.w_class
 	max_w_class = 3
 	w_class = 1
-
-	can_hold = list("/obj/item/weapon/coin","/obj/item/weapon/spacecash")
+	can_hold = list(/obj/item/weapon/coin,/obj/item/stack/spacecash)
 
 // -----------------------------
 //           Book bag
@@ -380,7 +361,7 @@
 	max_combined_w_class = 21
 	max_w_class = 3
 	w_class = 4 //Bigger than a book because physics
-	can_hold = list("/obj/item/weapon/book", "/obj/item/weapon/storage/bible", "/obj/item/weapon/tome", "/obj/item/weapon/spellbook")
+	can_hold = list(/obj/item/weapon/book, /obj/item/weapon/storage/bible, /obj/item/weapon/tome, /obj/item/weapon/spellbook)
 	burn_state = FLAMMABLE
 
 /*
@@ -489,7 +470,7 @@
 	storage_slots = 50
 	max_combined_w_class = 200
 	w_class = 1
-	can_hold = list("/obj/item/weapon/reagent_containers/food/pill","/obj/item/weapon/reagent_containers/glass/beaker","/obj/item/weapon/reagent_containers/glass/bottle")
+	can_hold = list(/obj/item/weapon/reagent_containers/food/pill,/obj/item/weapon/reagent_containers/glass/beaker,/obj/item/weapon/reagent_containers/glass/bottle)
 	burn_state = FLAMMABLE
 /*
  *  Biowaste bag (mostly for xenobiologists)
@@ -503,5 +484,5 @@
 	storage_slots = 25
 	max_combined_w_class = 200
 	w_class = 1
-	can_hold = list("/obj/item/slime_extract","/obj/item/weapon/reagent_containers/food/snacks/monkeycube","/obj/item/weapon/reagent_containers/syringe","/obj/item/weapon/reagent_containers/glass/beaker","/obj/item/weapon/reagent_containers/glass/bottle","/obj/item/weapon/reagent_containers/blood","/obj/item/weapon/reagent_containers/hypospray/autoinjector")
+	can_hold = list(/obj/item/slime_extract,/obj/item/weapon/reagent_containers/food/snacks/monkeycube,/obj/item/weapon/reagent_containers/syringe,/obj/item/weapon/reagent_containers/glass/beaker,/obj/item/weapon/reagent_containers/glass/bottle,/obj/item/weapon/reagent_containers/blood,/obj/item/weapon/reagent_containers/hypospray/autoinjector)
 	burn_state = FLAMMABLE

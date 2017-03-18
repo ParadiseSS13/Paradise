@@ -62,6 +62,16 @@
 	build_path = /obj/item/weapon/circuitboard/power_turbine
 	category = list ("Engineering Machinery")
 
+/datum/design/quantumpad
+	name = "Machine Board (Quantum Pad Board)"
+	desc = "The circuit board for a quantum telepad."
+	id = "quantumpad"
+	req_tech = list("programming" = 4, "bluespace" = 4, "plasmatech" = 3, "engineering" = 4)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000, "sacid" = 20)
+	build_path = /obj/item/weapon/circuitboard/quantumpad
+	category = list ("Teleportation Machinery")
+
 /datum/design/telepad
 	name = "Machine Board (Telepad Board)"
 	desc = "Allows for the construction of circuit boards used to build a Telepad."
@@ -340,7 +350,7 @@
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/seed_extractor
-	category = list ("Misc. Machinery")
+	category = list ("Hydroponics Machinery")
 
 /datum/design/processor
 	name = "Machine Design (Processor Board)"
@@ -512,23 +522,12 @@
 	build_path = /obj/item/weapon/circuitboard/gameboard
 	category = list("Misc. Machinery")
 
-
-/datum/design/botany_extractor
-	name = "Machine Design (Lysis-Isolation Centrifuge)"
-	desc = "The circuit board for a lysis-isolation centrifuge."
-	id = "botany_extractor"
-	req_tech = list("biotech" = 3, "programming" = 3)
+/datum/design/plantgenes
+	name = "Machine Design (Plant DNA Manipulator Board)"
+	desc = "The circuit board for a plant DNA manipulator."
+	id = "plantgenes"
+	req_tech = list("programming" = 4, "biotech" = 3)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS=1000, "sacid"=20)
-	build_path = /obj/item/weapon/circuitboard/botany_extractor
-	category = list("Hydroponics Machinery")
-
-/datum/design/botany_editor
-	name = "Machine Design (Bioballistic Delivery System)"
-	desc = "The circuit board for a bioballistic delivery system."
-	id = "botany_editor"
-	req_tech = list("biotech" = 3, "programming" = 3)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS=1000, "sacid"=20)
-	build_path = /obj/item/weapon/circuitboard/botany_editor
+	build_path = /obj/item/weapon/circuitboard/plantgenes
 	category = list("Hydroponics Machinery")

@@ -27,14 +27,14 @@
 
 /datum/recipe/candy/fudge_peanut
 	reagents = list("sugar" = 5, "milk" = 5)
-	items = list(/obj/item/weapon/reagent_containers/food/snacks/chocolatebar)
-	fruit = list("peanuts" = 3)
+	items = list(/obj/item/weapon/reagent_containers/food/snacks/chocolatebar, /obj/item/weapon/reagent_containers/food/snacks/grown/peanuts,
+				 /obj/item/weapon/reagent_containers/food/snacks/grown/peanuts, /obj/item/weapon/reagent_containers/food/snacks/grown/peanuts)
 	result = /obj/item/weapon/reagent_containers/food/snacks/candy/fudge/peanut
 
 /datum/recipe/candy/fudge_cherry
 	reagents = list("sugar" = 5, "milk" = 5)
-	items = list(/obj/item/weapon/reagent_containers/food/snacks/chocolatebar)
-	fruit = list("cherries" = 3)
+	items = list(/obj/item/weapon/reagent_containers/food/snacks/chocolatebar, /obj/item/weapon/reagent_containers/food/snacks/grown/cherries,
+				 /obj/item/weapon/reagent_containers/food/snacks/grown/cherries, /obj/item/weapon/reagent_containers/food/snacks/grown/cherries)
 	result = /obj/item/weapon/reagent_containers/food/snacks/candy/fudge/cherry
 
 /datum/recipe/candy/fudge_cookies_n_cream
@@ -50,8 +50,8 @@
 	items = list(
 				/obj/item/weapon/reagent_containers/food/snacks/chocolatebar,
 				/obj/item/weapon/reagent_containers/food/snacks/candy/caramel,
+				/obj/item/weapon/reagent_containers/food/snacks/grown/peanuts
 				)
-	fruit = list("peanuts" = 1)
 	result = /obj/item/weapon/reagent_containers/food/snacks/candy/fudge/turtle
 
 /datum/recipe/candy/fudge
@@ -319,10 +319,7 @@
 
 /datum/recipe/candy/gummybear_wtf2
 	reagents = list()
-	fruit = list("ambrosia" = 1)
-	items = list(
-		/obj/item/weapon/reagent_containers/food/snacks/candy/gummybear
-		)
+	items = list(/obj/item/weapon/reagent_containers/food/snacks/candy/gummybear, /obj/item/weapon/reagent_containers/food/snacks/grown/ambrosia/vulgaris)
 	result = /obj/item/weapon/reagent_containers/food/snacks/candy/gummybear/wtf
 
 // ***********************************************************
@@ -386,10 +383,7 @@
 	result = /obj/item/weapon/reagent_containers/food/snacks/candy/gummyworm/wtf
 
 /datum/recipe/candy/gummyworm_wtf2
-	fruit = list("ambrosia" = 1)
-	items = list(
-		/obj/item/weapon/reagent_containers/food/snacks/candy/gummyworm
-		)
+	items = list(/obj/item/weapon/reagent_containers/food/snacks/candy/gummyworm, /obj/item/weapon/reagent_containers/food/snacks/grown/ambrosia/vulgaris)
 	result = /obj/item/weapon/reagent_containers/food/snacks/candy/gummyworm/wtf
 
 // ***********************************************************
@@ -489,10 +483,7 @@
 	result = /obj/item/weapon/reagent_containers/food/snacks/candy/jellybean/wtf
 
 /datum/recipe/candy/jellybean_wtf2
-	fruit = list("ambrosia" = 1)
-	items = list(
-		/obj/item/weapon/reagent_containers/food/snacks/candy/jellybean
-		)
+	items = list(/obj/item/weapon/reagent_containers/food/snacks/candy/jellybean, /obj/item/weapon/reagent_containers/food/snacks/grown/ambrosia/vulgaris)
 	result = /obj/item/weapon/reagent_containers/food/snacks/candy/jellybean/wtf
 
 // ***********************************************************

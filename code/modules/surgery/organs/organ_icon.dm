@@ -14,6 +14,16 @@ var/global/list/limb_icon_cache = list()
 		overlays += organ.mob_icon
 		child_icons += organ.mob_icon
 
+/obj/item/organ/external/proc/change_organ_icobase(var/new_icobase, var/new_deform, var/owner_sensitive) //Change the icobase/deform of this organ. If owner_sensitive is set, that means the proc won't mess with frankenstein limbs.
+	if(owner_sensitive) //This and the below statements mean that the icobase/deform will only get updated if the limb is the same species as and is owned by the mob it's attached to.
+		if(species && owner.species && species.name != owner.species.name)
+			return
+		if(dna.unique_enzymes != owner.dna.unique_enzymes) // This isn't MY arm
+			return
+
+	icobase = new_icobase ? new_icobase : icobase
+	deform	= new_deform ? new_deform : deform
+
 /obj/item/organ/external/proc/sync_colour_to_human(var/mob/living/carbon/human/H)
 	if(status & ORGAN_ROBOT && !(species && species.name == "Machine")) //machine people get skin color
 		return
@@ -29,6 +39,9 @@ var/global/list/limb_icon_cache = list()
 	if(H.species.bodyflags & HAS_SKIN_COLOR)
 		s_tone = null
 		s_col = list(H.r_skin, H.g_skin, H.b_skin)
+	if(H.species.bodyflags & HAS_ICON_SKIN_TONE)
+		var/obj/item/organ/external/chest/C = H.get_organ("chest")
+		change_organ_icobase(C.icobase, C.deform)
 
 /obj/item/organ/external/proc/sync_colour_to_dna()
 	if(status & ORGAN_ROBOT)
@@ -171,10 +184,10 @@ var/global/list/limb_icon_cache = list()
 			icon_file = 'icons/mob/human_races/robotic.dmi'
 		else
 			if(status & ORGAN_MUTATED)
-				icon_file = species.deform
+				icon_file = deform
 			else
 				// Congratulations, you are normal
-				icon_file = species.icobase
+				icon_file = icobase
 	return list(icon_file, new_icon_state)
 
 /obj/item/organ/external/chest/get_icon_state(skeletal)

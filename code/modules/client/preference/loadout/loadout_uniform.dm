@@ -36,7 +36,7 @@
 /datum/gear/uniform/skirt/job/atmos
 	display_name = "skirt, atmos"
 	path = /obj/item/clothing/under/rank/atmospheric_technician/skirt
-	allowed_roles = list("Chief Engineer","Atmospheric Technician")
+	allowed_roles = list("Chief Engineer","Life Support Specialist")
 
 /datum/gear/uniform/skirt/job/eng
 	display_name = "skirt, engineer"
@@ -97,6 +97,19 @@
 	display_name = "skirt, hos"
 	path = /obj/item/clothing/under/rank/head_of_security/skirt
 	allowed_roles = list("Head of Security")
+
+/datum/gear/uniform/medical
+	subtype_path = /datum/gear/uniform/medical
+
+/datum/gear/uniform/medical/pscrubs
+	display_name = "medical scrubs, purple"
+	path = /obj/item/clothing/under/rank/medical/purple
+	allowed_roles = list("Chief Medical Officer", "Medical Doctor")
+
+/datum/gear/uniform/medical/gscrubs
+	display_name = "medical scrubs, green"
+	path = /obj/item/clothing/under/rank/medical/green
+	allowed_roles = list("Chief Medical Officer", "Medical Doctor")
 
 /datum/gear/uniform/sec
 	subtype_path = /datum/gear/uniform/sec

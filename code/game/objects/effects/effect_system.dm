@@ -337,8 +337,8 @@ steam.start() -- spawns the effect
 	return
 
 
-/obj/effect/effect/bad_smoke/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
-	if(air_group || (height==0)) return 1
+/obj/effect/effect/bad_smoke/CanPass(atom/movable/mover, turf/target, height=0)
+	if(height==0) return 1
 	if(istype(mover, /obj/item/projectile/beam))
 		var/obj/item/projectile/beam/B = mover
 		B.damage = (B.damage/2)
@@ -425,21 +425,6 @@ steam.start() -- spawns the effect
 /obj/effect/effect/chem_smoke/Move()
 	..()
 
-	return
-
-// Spores
-/datum/effect/system/chem_smoke_spread/spores
-	var/datum/seed/seed
-
-/datum/effect/system/chem_smoke_spread/spores/New(seed_name)
-	if(seed_name && plant_controller)
-		seed = plant_controller.seeds[seed_name]
-	if(!seed)
-		qdel(src)
-	..()
-
-
-
 /datum/effect/system/chem_smoke_spread/New()
 	..()
 	chemholder = new/obj()
@@ -517,13 +502,6 @@ steam.start() -- spawns the effect
 				var/mob/living/carbon/C = A
 				if(C.can_breathe_gas())
 					chemholder.reagents.copy_to(C, chemholder.reagents.total_volume)
-			if(istype(A, /obj/machinery/portable_atmospherics/hydroponics))
-				var/obj/machinery/portable_atmospherics/hydroponics/tray = A
-				chemholder.reagents.copy_to(tray, chemholder.reagents.total_volume)
-			if(istype(A, /obj/effect/plant))
-				var/obj/effect/plant/plant = A
-				if(chemholder.reagents.has_reagent("atrazine"))
-					plant.die_off()
 		qdel(smokeholder)
 		for(i=0, i<src.number, i++)
 			if(src.total_smoke > 20)
@@ -772,7 +750,7 @@ steam.start() -- spawns the effect
 				var/obj/effect/effect/ion_trails/I = new /obj/effect/effect/ion_trails(src.oldposition)
 				I.dir = src.holder.dir
 				flick("ion_fade", I)
-				I.icon_state = "blank"
+				I.icon_state = ""
 				spawn( 20 )
 					if(I)
 						I.delete()
@@ -834,8 +812,8 @@ steam.start() -- spawns the effect
 					II.dir = src.holder.dir
 					flick("ion_fade", I)
 					flick("ion_fade", II)
-					I.icon_state = "blank"
-					II.icon_state = "blank"
+					I.icon_state = ""
+					II.icon_state = ""
 					spawn( 20 )
 						if(I) I.delete()
 						if(II) II.delete()
@@ -1146,8 +1124,7 @@ steam.start() -- spawns the effect
 	M.visible_message("<span class='danger'>[M] tears apart \the [src]!</span>");
 	qdel(src)
 
-/obj/structure/foamedmetal/CanPass(atom/movable/mover, turf/target, height=1.5, air_group = 0)
-	if(air_group) return 0
+/obj/structure/foamedmetal/CanPass(atom/movable/mover, turf/target, height=1.5)
 	return !density
 
 /obj/structure/foamedmetal/CanAtmosPass()

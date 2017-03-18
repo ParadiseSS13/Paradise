@@ -2,8 +2,9 @@
 	name = "gas mask"
 	desc = "A face-covering mask that can be connected to an air supply."
 	icon_state = "gas_alt"
-	flags = MASKCOVERSMOUTH | MASKCOVERSEYES | BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT
+	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT
 	flags_inv = HIDEEARS|HIDEEYES|HIDEFACE
+	flags_cover = MASKCOVERSMOUTH | MASKCOVERSEYES
 	w_class = 3
 	item_state = "gas_alt"
 	gas_transfer_coefficient = 0.01
@@ -38,7 +39,7 @@
 /obj/item/clothing/mask/gas/welding/proc/toggle()
 	if(up)
 		up = !src.up
-		flags |= (MASKCOVERSEYES)
+		flags_cover |= (MASKCOVERSEYES)
 		flags_inv |= (HIDEEYES)
 		icon_state = initial(icon_state)
 		to_chat(usr, "You flip the [src] down to protect your eyes.")
@@ -46,13 +47,15 @@
 		tint = 2
 	else
 		up = !up
-		flags &= ~(MASKCOVERSEYES)
+		flags_cover &= ~(MASKCOVERSEYES)
 		flags_inv &= ~(HIDEEYES)
 		icon_state = "[initial(icon_state)]up"
 		to_chat(usr, "You push the [src] up out of your face.")
 		flash_protect = 0
 		tint = 0
-	usr.update_inv_wear_mask()	//so our mob-overlays update
+	var/mob/living/carbon/user = usr
+	user.update_tint()
+	user.update_inv_wear_mask()	//so our mob-overlays update
 
 	for(var/X in actions)
 		var/datum/action/A = X
@@ -63,8 +66,9 @@
 	name = "bane mask"
 	desc = "Only when the station is in flames, do you have my permission to robust."
 	icon_state = "bane_mask"
-	flags = MASKCOVERSMOUTH | MASKCOVERSEYES | BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT
+	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT
 	flags_inv = HIDEEARS|HIDEEYES|HIDEFACE
+	flags_cover = MASKCOVERSMOUTH | MASKCOVERSEYES
 	w_class = 3
 	item_state = "bane_mask"
 	gas_transfer_coefficient = 0.01
@@ -95,7 +99,7 @@
 	desc = "A true prankster's facial attire. A clown is incomplete without his wig and mask."
 	icon_state = "clown"
 	item_state = "clown_hat"
-	flags = MASKCOVERSMOUTH | MASKCOVERSEYES | BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | BLOCKHAIR
+	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | BLOCKHAIR
 	burn_state = FLAMMABLE
 
 /obj/item/clothing/mask/gas/clown_hat/attack_self(mob/user)
@@ -119,7 +123,7 @@
 	desc = "Some pranksters are truly magical."
 	icon_state = "wizzclown"
 	item_state = "wizzclown"
-	flags = MASKCOVERSMOUTH | MASKCOVERSEYES | BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | BLOCKHAIR
+	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | BLOCKHAIR
 
 /obj/item/clothing/mask/gas/virusclown_hat
 	name = "clown wig and mask"
@@ -170,19 +174,18 @@
 	name = "owl mask"
 	desc = "Twoooo!"
 	icon_state = "owl"
-	flags = MASKCOVERSMOUTH | MASKCOVERSEYES | BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT
 	burn_state = FLAMMABLE
 	actions_types = list(/datum/action/item_action/hoot)
 
 /obj/item/clothing/mask/gas/owl_mask/super_hero
-	flags = MASKCOVERSMOUTH | MASKCOVERSEYES | BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | NODROP
+	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | NODROP
 
 /obj/item/clothing/mask/gas/owl_mask/attack_self()
 	hoot()
 
 /obj/item/clothing/mask/gas/owl_mask/proc/hoot()
 	if(cooldown < world.time - 35) // A cooldown, to stop people being jerks
-		playsound(src.loc, "sound/misc/hoot.ogg", 50, 1)
+		playsound(src.loc, 'sound/misc/hoot.ogg', 50, 1)
 		cooldown = world.time
 
 // ********************************************************************
