@@ -883,7 +883,7 @@
 	category = list("Exosuit Equipment")
 
 /datum/design/mech_laser
-	name = "Exosuit Weapon (CH-PL \"Old Faithful\" Laser)"
+	name = "Exosuit Weapon (CH-PL \"Firedart\" Laser)"
 	desc = "Allows for the construction of CH-PS Laser."
 	id = "mech_laser"
 	build_type = MECHFAB

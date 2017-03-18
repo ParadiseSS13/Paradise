@@ -68,7 +68,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser
 	equip_cooldown = 8
-	name = "CH-PS \"Old Faithful\" Laser"
+	name = "CH-PS \"Firedart\" Laser"
 	icon_state = "mecha_laser"
 	energy_drain = 30
 	projectile = /obj/item/projectile/beam
