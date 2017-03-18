@@ -15,7 +15,7 @@
 	req_access = list(access_engine, access_robotics)
 	ventcrawler = 2
 	magpulse = 1
-	
+
 	default_language = "Drone"
 
 	// We need to keep track of a few module items so we don't need to do list operations
@@ -43,7 +43,7 @@
 	remove_language("Galactic Common")
 	add_language("Drone Talk", 1)
 	add_language("Drone", 1)
-	
+
 	// Disable the microphone wire on Drones
 	if(radio)
 		radio.wires.CutWireIndex(WIRE_TRANSMIT)
@@ -281,7 +281,7 @@
 
 	if(!player) return
 
-	src.ckey = player.ckey
+	ckey = player.ckey
 
 	if(player.mob && player.mob.mind)
 		player.mob.mind.transfer_to(src)

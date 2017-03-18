@@ -184,12 +184,11 @@ var/list/robot_verbs_default = list(
 				for(var/i = 1 to Entry.len)
 					Entry[i] = trim(Entry[i])
 
-				if(Entry.len < 3 || Entry[1] != "cyborg")		//ignore incorrectly formatted entries or entries that aren't marked for cyborg
+				if(Entry.len < 2 || Entry[1] != "cyborg")		//ignore incorrectly formatted entries or entries that aren't marked for cyborg
 					continue;
 
-				if(Entry[2] == ckey && Entry[3] == real_name)	//They're in the list? Custom sprite time, var and icon change required
+				if(Entry[2] == ckey)	//They're in the list? Custom sprite time, var and icon change required
 					custom_sprite = 1
-					icon = 'icons/mob/custom_synthetic/custom-synthetic.dmi'
 
 	return 1
 
@@ -1252,15 +1251,14 @@ var/list/robot_verbs_default = list(
 		triesleft--
 
 	var/icontype
-
-	if(custom_sprite == 1)
-		icontype = "Custom"
-		triesleft = 0
-	else
-		lockcharge = 1  //Locks borg until it select an icon to avoid secborgs running around with a standard sprite
-		icontype = input("Select an icon! [triesleft ? "You have [triesleft] more chances." : "This is your last try."]", "Robot", null, null) in module_sprites
+	lockcharge = 1  //Locks borg until it select an icon to avoid secborgs running around with a standard sprite
+	icontype = input("Select an icon! [triesleft ? "You have [triesleft] more chances." : "This is your last try."]", "Robot", null, null) in module_sprites
 
 	if(icontype)
+		if(icontype == "Custom")
+			icon = 'icons/mob/custom_synthetic/custom-synthetic.dmi'
+		else
+			icon = 'icons/mob/robots.dmi'
 		icon_state = module_sprites[icontype]
 		if(icontype == "Bro")
 			module.module_type = "Brobot"

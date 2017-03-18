@@ -395,6 +395,7 @@
 	set category = "pAI Commands"
 	set name = "Choose Chassis"
 
+	var/list/my_choices = list()
 	var/choice
 	var/finalized = "No"
 
@@ -409,26 +410,32 @@
 			for(var/i = 1 to Entry.len)
 				Entry[i] = trim(Entry[i])
 
-			if(Entry.len < 3 || Entry[1] != "pai")			//ignore incorrectly formatted entries or entries that aren't marked for pAI
+			if(Entry.len < 2 || Entry[1] != "pai")			//ignore incorrectly formatted entries or entries that aren't marked for pAI
 				continue;
 
-			if(Entry[2] == ckey && Entry[3] == real_name)	//They're in the list? Custom sprite time, var and icon change required
+			if(Entry[2] == ckey)							//They're in the list? Custom sprite time, var and icon change required
 				custom_sprite = 1
-				icon = 'icons/mob/custom_synthetic/custom-synthetic.dmi'
+				my_choices["Custom"] = "[ckey]-pai"
 
+	my_choices = possible_chassis.Copy()
 	if(custom_sprite)
-		chassis = "[ckey]-pai"
-		icon_state = "[ckey]-pai"
-	else
-		while(finalized == "No" && client)
+		my_choices["Custom"] = "[ckey]-pai"
 
-			choice = input(usr,"What would you like to use for your mobile chassis icon? This decision can only be made once.") as null|anything in possible_chassis
-			if(!choice) return
+	if(loc == card)		//don't let them continue in card form, since they won't be able to actually see their new mobile form sprite.
+		to_chat(src, "<span class='warning'>You must be in your mobile form to reconfigure your chassis.</span>")
+		return
 
-			icon_state = possible_chassis[choice]
-			finalized = alert("Look at your sprite. Is this what you wish to use?",,"No","Yes")
+	while(finalized == "No" && client)
+		choice = input(usr,"What would you like to use for your mobile chassis icon? This decision can only be made once.") as null|anything in my_choices
+		if(!choice) return
+		if(choice == "Custom")
+			icon = 'icons/mob/custom_synthetic/custom-synthetic.dmi'
+		else
+			icon = 'icons/mob/pai.dmi'
+		icon_state = my_choices[choice]
+		finalized = alert("Look at your sprite. Is this what you wish to use?",,"No","Yes")
 
-		chassis = possible_chassis[choice]
+	chassis = my_choices[choice]
 	verbs -= /mob/living/silicon/pai/proc/choose_chassis
 
 /mob/living/silicon/pai/proc/choose_verbs()
@@ -586,7 +593,7 @@
 // Handle being picked up.
 
 
-/mob/living/silicon/pai/get_scooped(var/mob/living/carbon/grabber)
+/mob/living/silicon/pai/get_scooped(mob/living/carbon/grabber)
 	var/obj/item/weapon/holder/H = ..()
 	if(!istype(H))
 		return
