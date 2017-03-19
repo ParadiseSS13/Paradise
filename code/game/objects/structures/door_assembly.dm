@@ -213,7 +213,7 @@
 		if(do_after(user, 40 * W.toolspeed, target = src))
 			if(!src) return
 			to_chat(user, "\blue You cut the airlock wires!")
-			if(state ==1)
+			if(state == 1)
 				new/obj/item/stack/cable_coil(src.loc, 1)
 			src.state = 0
 
