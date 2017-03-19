@@ -1,0 +1,4 @@
+author: "uraniummeltdown"
+delete-after: True
+changes: 
+  - rscadd: "Shipping errors can sometimes cause the supply shuttle to receive an extra crate when ordering supplies."
