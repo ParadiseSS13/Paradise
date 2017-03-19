@@ -264,7 +264,7 @@ var/round_start_time = 0
 			if(M.stat != DEAD)
 				var/turf/T = get_turf(M)
 				if(T && is_station_level(T.z))
-					M.death(0) //no mercy
+					M.dust() //no mercy
 
 	//Now animate the cinematic
 	switch(station_missed)
@@ -472,7 +472,7 @@ var/round_start_time = 0
 
 	// Declare the completion of the station goals
 	mode.declare_station_goal_completion()
-	
+
 	//Ask the event manager to print round end information
 	event_manager.RoundEnd()
 
