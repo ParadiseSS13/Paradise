@@ -263,7 +263,7 @@ var/round_start_time = 0
 				M.client.screen += cinematic
 			if(M.stat != DEAD)
 				var/turf/T = get_turf(M)
-				if(T && is_station_level(T.z))
+				if(T && is_station_level(T.z) && !istype(M.loc, /obj/structure/closet/secure_closet/freezer))
 					M.dust() //no mercy
 
 	//Now animate the cinematic
