@@ -593,7 +593,7 @@
 						new_objective.explanation_text = "Absorb [target_number] compatible genomes."
 					if("blood")
 						new_objective = new /datum/objective/blood
-						new_objective.explanation_text = "Accumulate atleast [target_number] units of blood in total."
+						new_objective.explanation_text = "Accumulate at least [target_number] units of blood in total."
 				new_objective.owner = src
 				new_objective.target_amount = target_number
 
@@ -728,7 +728,7 @@
 				if(src in ticker.mode.revolutionaries)
 					ticker.mode.revolutionaries -= src
 					ticker.mode.update_rev_icons_removed(src)
-					to_chat(current, "\red <FONT size = 3><B>You have proved your devotion to revoltion! Yea are a head revolutionary now!</B></FONT>")
+					to_chat(current, "\red <FONT size = 3><B>You have proved your devotion to revolution! You are a head revolutionary now!</B></FONT>")
 				else if(!(src in ticker.mode.head_revolutionaries))
 					to_chat(current, "\blue You are a member of the revolutionaries' leadership now!")
 				else
@@ -875,7 +875,7 @@
 				message_admins("[key_name_admin(usr)] has allowed wizard [key_name_admin(current)] to name themselves")
 			if("autoobjectives")
 				ticker.mode.forge_wizard_objectives(src)
-				to_chat(usr, "\blue The objectives for wizard [key] have been generated. You can edit them and anounce manually.")
+				to_chat(usr, "\blue The objectives for wizard [key] have been generated. You can edit them and announce manually.")
 				log_admin("[key_name(usr)] has automatically forged wizard objectives for [key_name(current)]")
 				message_admins("[key_name_admin(usr)] has automatically forged wizard objectives for [key_name_admin(current)]")
 
@@ -898,13 +898,13 @@
 					ticker.mode.grant_changeling_powers(current)
 					ticker.mode.update_change_icons_added(src)
 					special_role = SPECIAL_ROLE_CHANGELING
-					to_chat(current, "<B><font color='red'>Your powers are awoken. A flash of memory returns to us...we are a changeling!</font></B>")
+					to_chat(current, "<B><font color='red'>Your powers are awoken. A flash of memory returns to us... we are a changeling!</font></B>")
 					log_admin("[key_name(usr)] has changelinged [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has changelinged [key_name_admin(current)]")
 
 			if("autoobjectives")
 				ticker.mode.forge_changeling_objectives(src)
-				to_chat(usr, "\blue The objectives for changeling [key] have been generated. You can edit them and anounce manually.")
+				to_chat(usr, "\blue The objectives for changeling [key] have been generated. You can edit them and announce manually.")
 				log_admin("[key_name(usr)] has automatically forged objectives for [key_name(current)]")
 				message_admins("[key_name_admin(usr)] has automatically forged objectives for [key_name_admin(current)]")
 
@@ -1061,7 +1061,7 @@
 
 			if("autoobjectives")
 				ticker.mode.forge_traitor_objectives(src)
-				to_chat(usr, "\blue The objectives for traitor [key] have been generated. You can edit them and anounce manually.")
+				to_chat(usr, "\blue The objectives for traitor [key] have been generated. You can edit them and announce manually.")
 				log_admin("[key_name(usr)] has automatically forged objectives for [key_name(current)]")
 				message_admins("[key_name_admin(usr)] has automatically forged objectives for [key_name_admin(current)]")
 

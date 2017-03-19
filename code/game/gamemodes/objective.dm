@@ -489,7 +489,7 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) \
 /datum/objective/blood/proc/gen_amount_goal(low = 150, high = 400)
 	target_amount = rand(low,high)
 	target_amount = round(round(target_amount/5)*5)
-	explanation_text = "Accumulate atleast [target_amount] units of blood in total."
+	explanation_text = "Accumulate at least [target_amount] units of blood in total."
 	return target_amount
 
 /datum/objective/blood/check_completion()
@@ -768,5 +768,5 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) \
 //wizard
 
 /datum/objective/wizchaos
-	explanation_text = "Wreak havoc upon the station as much you can. Send those wandless Nanotrasen scum a message!"
+	explanation_text = "Wreak havoc upon the station as much you can. Send those wandless NanoTrasen scum a message!"
 	completed = 1
