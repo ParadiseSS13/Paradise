@@ -99,18 +99,23 @@
 		return
 	surgery.step_in_progress = 1
 
+	var/speed_mod = 1
+
 	if(begin_step(user, target, target_zone, tool, surgery) == -1)
 		surgery.step_in_progress = 0
 		return
 
-	var/advance = 0
-	var/prob_chance = 100
+	if(tool)
+		speed_mod = tool.toolspeed
 
-	if(implement_type)	//this means it isn't a require nd or any item step.
-		prob_chance = min(allowed_tools[implement_type], 100)
-	prob_chance *= get_location_modifier(target)
+	if(do_after(user, time * speed_mod, target = target))
+		var/advance = 0
+		var/prob_chance = 100
 
-	if(do_after(user, time * tool.toolspeed, target = target))
+		if(implement_type)	//this means it isn't a require nd or any item step.
+			prob_chance = allowed_tools[implement_type]
+		prob_chance *= get_location_modifier(target)
+
 		if(prob(prob_chance) || isrobot(user))
 			if(end_step(user, target, target_zone, tool, surgery))
 				advance = 1
