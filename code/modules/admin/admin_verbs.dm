@@ -89,7 +89,8 @@ var/list/admin_verbs_sounds = list(
 	/client/proc/play_local_sound,
 	/client/proc/play_sound,
 	/client/proc/play_server_sound,
-	/client/proc/play_intercomm_sound
+	/client/proc/play_intercomm_sound,
+	/client/proc/stop_global_admin_sounds
 	)
 var/list/admin_verbs_event = list(
 	/client/proc/object_talk,
@@ -989,12 +990,12 @@ var/list/admin_verbs_snpc = list(
 	verbs -= admin_verbs_snpc
 	verbs += /client/proc/show_snpc_verbs
 	to_chat(src, "<span class='interface'>SNPC verbs have been toggled off.</span>")
-	
+
 /client/proc/toggle_advanced_interaction()
 	set name = "Toggle Advanced Admin Interaction"
 	set category = "Admin"
 	set desc = "Allows you to interact with atoms such as buttons and doors, on top of regular machinery interaction."
-	
+
 	if(!check_rights(R_ADMIN))
 		return
 
