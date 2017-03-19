@@ -212,8 +212,9 @@
 
 		if(do_after(user, 40 * W.toolspeed, target = src))
 			if(!src) return
-			to_chat(user, "\blue You cut the airlock wires.!")
-			new/obj/item/stack/cable_coil(src.loc, 1)
+			to_chat(user, "\blue You cut the airlock wires!")
+			if(state ==1)
+				new/obj/item/stack/cable_coil(src.loc, 1)
 			src.state = 0
 
 	else if(istype(W, /obj/item/weapon/airlock_electronics) && state == 1 && W:icon_state != "door_electronics_smoked")
