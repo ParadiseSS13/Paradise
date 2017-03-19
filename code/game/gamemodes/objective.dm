@@ -177,8 +177,8 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) \
 
 /datum/objective/hijack
 	martyr_compatible = 0 //Technically you won't get both anyway.
-	explanation_text = "Hijack the shuttle by escaping on it with no loyalist NanoTrasen crew on board and alive. \
-	Syndicate agents, other enemies of NanoTrasen, cyborgs, and pets may be allowed to escape alive."
+	explanation_text = "Hijack the shuttle by escaping on it with no loyalist Nanotrasen crew on board and alive. \
+	Syndicate agents, other enemies of Nanotrasen, cyborgs, and pets may be allowed to escape alive."
 
 /datum/objective/hijack/check_completion()
 	if(!owner.current || owner.current.stat)
@@ -768,5 +768,5 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) \
 //wizard
 
 /datum/objective/wizchaos
-	explanation_text = "Wreak havoc upon the station as much you can. Send those wandless NanoTrasen scum a message!"
+	explanation_text = "Wreak havoc upon the station as much you can. Send those wandless Nanotrasen scum a message!"
 	completed = 1

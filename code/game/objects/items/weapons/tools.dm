@@ -305,7 +305,7 @@
 //Welding Tool
 /obj/item/weapon/weldingtool
 	name = "welding tool"
-	desc = "A standard edition welder provided by NanoTrasen."
+	desc = "A standard edition welder provided by Nanotrasen."
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "welder"
 	item_state = "welder"
