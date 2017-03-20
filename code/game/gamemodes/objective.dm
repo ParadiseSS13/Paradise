@@ -195,7 +195,7 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) \
 	return shuttle_master.emergency.is_hijacked()
 
 /datum/objective/hijackclone
-	explanation_text = "Hijack the emergency shuttle by ensuring only you (or your copies) escape."
+	explanation_text = "Hijack the shuttle by ensuring only you (or your copies) escape."
 	martyr_compatible = 0
 
 /datum/objective/hijackclone/check_completion()
@@ -489,7 +489,7 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) \
 /datum/objective/blood/proc/gen_amount_goal(low = 150, high = 400)
 	target_amount = rand(low,high)
 	target_amount = round(round(target_amount/5)*5)
-	explanation_text = "Accumulate at least [target_amount] units of blood in total."
+	explanation_text = "Accumulate at least [target_amount] total units of blood."
 	return target_amount
 
 /datum/objective/blood/check_completion()
