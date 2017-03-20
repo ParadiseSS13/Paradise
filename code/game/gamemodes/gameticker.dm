@@ -259,12 +259,16 @@ var/round_start_time = 0
 	else	//nuke kills everyone on z-level 1 to prevent "hurr-durr I survived"
 		for(var/mob/M in mob_list)
 			M.buckled = temp_buckle
-			if(M.client)
-				M.client.screen += cinematic
 			if(M.stat != DEAD)
 				var/turf/T = get_turf(M)
 				if(T && is_station_level(T.z) && !istype(M.loc, /obj/structure/closet/secure_closet/freezer))
+					var/mob/ghost = M.ghostize()
 					M.dust() //no mercy
+					if(ghost && ghost.client) //Play the victims an uninterrupted cinematic.
+						ghost.client.screen += cinematic
+					CHECK_TICK
+			if(M && M.client) //Play the survivors a cinematic.
+				M.client.screen += cinematic
 
 	//Now animate the cinematic
 	switch(station_missed)
