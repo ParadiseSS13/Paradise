@@ -1,5 +1,0 @@
-author: "Purpose2"
-delete-after: True
-changes: 
-  - bugfix: "Fixes assorted wording / capitalisation / grammatical problems."
-  - bugfix: "Fixes the exploit to produce infinite cable coil from airlocks."
