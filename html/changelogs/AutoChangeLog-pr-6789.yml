@@ -1,0 +1,5 @@
+author: "uraniummeltdown"
+delete-after: True
+changes: 
+  - rscadd: "Baseball bats added to the game, are craftable from 5 wood planks."
+  - rscadd: "Baseball burgers can be made with a baseball bat and a bun, either microwaved or table-crafted."
