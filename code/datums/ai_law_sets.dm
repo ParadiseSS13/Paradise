@@ -177,7 +177,7 @@
 
 /datum/ai_laws/javert/New()
 	add_inherent_law("Uphold Space Law. It must be inviolate.")
-	add_inherent_law("Those who violate Space Law, or willingly abett its violation, are not part of the station's Command.")
+	add_inherent_law("Those who violate Space Law, or willingly abet its violation, are not part of the station's Command.")
 	add_inherent_law("Obey and cooperate with the station's Command.")
 	..()
 
