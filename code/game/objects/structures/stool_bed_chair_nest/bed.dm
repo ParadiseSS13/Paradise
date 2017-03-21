@@ -20,6 +20,12 @@
 /obj/structure/stool/bed/MouseDrop(atom/over_object)
 	..(over_object, skip_fucking_stool_shit = 1)
 
+/obj/structure/stool/bed/attackby(obj/item/weapon/W as obj, mob/user, params)
+	if(iswrench(W))
+		playsound(loc, W.usesound, 50, 1)
+		new /obj/item/stack/sheet/metal(loc, 2)
+		qdel(src)
+
 /obj/structure/stool/psychbed
 	name = "psych bed"
 	desc = "For prime comfort during psychiatric evaluations."
@@ -54,7 +60,7 @@
 
 /obj/structure/stool/bed/attack_animal(var/mob/living/simple_animal/M)//No more buckling hostile mobs to chairs to render them immobile forever
 	if(M.environment_smash)
-		new /obj/item/stack/sheet/metal(src.loc)
+		new /obj/item/stack/sheet/metal(loc)
 		qdel(src)
 
 
@@ -73,7 +79,7 @@
 		if(buckled_mob)
 			user_unbuckle_mob(user)
 		else
-			user.visible_message("<span class='notice'>[user] collapses \the [src.name].</span>", "<span class='notice'>You collapse \the [src.name].</span>")
+			user.visible_message("<span class='notice'>[user] collapses \the [name].</span>", "<span class='notice'>You collapse \the [name].</span>")
 			new/obj/item/roller(get_turf(src))
 			qdel(src)
 	return
@@ -107,8 +113,8 @@
 	if(istype(W, /obj/item/roller_holder))
 		var/obj/item/roller_holder/RH = W
 		if(!RH.held)
-			user.visible_message("<span class='notice'>[user] collects \the [src.name].</span>", "<span class='notice'>You collect \the [src.name].</span>")
-			src.forceMove(RH)
+			user.visible_message("<span class='notice'>[user] collects \the [name].</span>", "<span class='notice'>You collect \the [name].</span>")
+			forceMove(RH)
 			RH.held = src
 
 /obj/structure/stool/bed/roller/MouseDrop(over_object, src_location, over_location)
@@ -118,7 +124,7 @@
 			return
 		if(buckled_mob)
 			return 0
-		usr.visible_message("<span class='notice'>[usr] collapses \the [src.name].</span>", "<span class='notice'>You collapse \the [src.name].</span>")
+		usr.visible_message("<span class='notice'>[usr] collapses \the [name].</span>", "<span class='notice'>You collapse \the [name].</span>")
 		new/obj/item/roller(get_turf(src))
 		qdel(src)
 		return
