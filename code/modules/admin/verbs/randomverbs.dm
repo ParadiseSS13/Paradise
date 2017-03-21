@@ -543,49 +543,46 @@ Traitors and the like can also be revived with the previous role mostly intact.
 /client/proc/cmd_admin_create_centcom_report()
 	set category = "Event"
 	set name = "Create Communications Report"
-	var/list/MsgType = list("Centcom Report","Enemy Communications")
+
 	if(!check_rights(R_SERVER|R_EVENT))
 		return
 
+//the stuff on the list is |"report type" = "report title"|, if that makes any sense
+	var/list/MsgType = list("Central Command Report" = "Nanotrasen Update",
+		"Syndicate Communique" = "Syndicate Message",
+		"Space Wizard Federation Message" = "Sorcerous Message",
+		"Enemy Communications" = "Unknown Message",
+		"Custom" = "Cryptic Message")
+
+	var/list/MsgSound = list("Beep" = 'sound/misc/notice2.ogg',
+		"Enemy Communications Intercepted" = 'sound/AI/intercept2.ogg',
+		"New Command Report Created" = 'sound/AI/commandreport.ogg')
+
 	var/type = input(usr, "Pick a type of report to send", "Report Type", "") as anything in MsgType
-	var/input = input(usr, "Please enter anything you want. Anything. Serious.", "What?", "") as message|null
-	if(!input)
-		return
-	var/customname = input(usr, "Pick a title for the report.", "Title") as text|null
+
+	if(type == "Custom")
+		type = input(usr, "What would you like the report type to be?", "Report Type", "Encrypted Transmission") as text|null
+
+	var/customname = input(usr, "Pick a title for the report.", "Title", MsgType[type]) as text|null
 	if(!customname)
 		return
+	var/input = input(usr, "Please enter anything you want. Anything. Serious.", "What's the message?") as message|null
+	if(!input)
+		return
 
-	if(type == "Enemy Communications")
-		if(!customname)
-			customname = type
+	switch(alert("Should this be announced to the general population?",,"Yes","No", "Cancel"))
+		if("Yes")
+			var/beepsound = input(usr, "What sound should the announcement make?", "Announcement Sound", "") as anything in MsgSound
 
-		var/from = input(usr, "What kind of report? Example: Syndicate Communique", "From") as text|null
-		if(!from)
-			from = "Syndicate Communique"
-		switch(alert("Should this be announced to the general population?",,"Yes","No", "Cancel"))
-			if("Yes")
-				communications_announcement.Announce(input, customname, , , , from);
-			else if("No")
-				to_chat(world, "<span class='danger'>[from] available at all communications consoles.</span>")
-			else
-				return
+			command_announcement.Announce(input, customname, MsgSound[beepsound], , , type)
+			print_command_report(input, "[command_name()] Update")
+		else if("No")
+			//same thing as the blob stuff - it's not public, so it's classified, dammit
+			command_announcement.Announce("A report has been downloaded and printed out at all communications consoles.", "Incoming Classified Message", 'sound/AI/commandreport.ogg', from = "[command_name()] Update")
+			print_command_report(input, "Classified [command_name()] Update")
+		else
+			return
 
-		print_command_report(input, from)
-
-	if(type == "Centcom Report")
-		if(!customname)
-			customname = "Nanotrasen Update"
-
-		var/announce = alert("Should this be announced to the general population?",,"Yes","No")
-		switch(announce)
-			if("Yes")
-				command_announcement.Announce(input, customname);
-			if("No")
-				to_chat(world, "<span class='danger'>New Nanotrasen Update available at all communication consoles.</span>")
-
-		print_command_report(input, "[announce == "No" ? "Classified " : ""][command_name()] Update")
-
-//	world << sound('sound/AI/commandreport.ogg')
 	log_admin("[key_name(src)] has created a communications report: [input]")
 	message_admins("[key_name_admin(src)] has created a communications report", 1)
 	feedback_add_details("admin_verb","CCR") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
