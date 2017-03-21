@@ -775,7 +775,7 @@
 			var/obj/item/organ/external/l_foot = driver.get_organ("l_foot")
 			var/obj/item/organ/external/r_foot = driver.get_organ("r_foot")
 			if((!l_foot || (l_foot.status & ORGAN_DESTROYED)) && (!r_foot || (r_foot.status & ORGAN_DESTROYED)))
-				return 0 // No hands to drive your chair? Tough luck!
+				return 0 // No feet to ride your hoverboard? Tough luck!
 
 		if(calculated_move_delay < 2)
 			calculated_move_delay = 2 //no racecarts
