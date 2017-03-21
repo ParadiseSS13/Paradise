@@ -696,3 +696,50 @@
 	name = "Voxcaster"
 	desc = "Battered, Sol-made military radio backpack that had its speakers fried from playing Vox opera. The words 'Swift-Talon' are crudely scratched onto its side."
 	icon_state = "voxcaster_fluff"
+
+/obj/item/weapon/fluff/traveling_merchant
+    name = "Hoverboard"
+    icon = 'icons/obj/custom_items.dmi'
+    icon_state = "hoverboard"
+    item_state = "hoverboard"
+    w_class = 3
+    var/on = 0
+
+/obj/item/weapon/fluff/traveling_merchant/attack_self(mob/living/user)
+	if(!on)
+		on = 1
+		update_icon()
+	else
+		new /obj/structure/stool/bed/chair/wheelchair/fluff/traveling_merchant(user.loc)
+		qdel(src)
+
+/obj/item/weapon/fluff/traveling_merchant/update_icon()
+	if(!on)
+		icon_state = "hoverboard"
+	else
+		icon_state = "hoverboard1"
+
+/obj/structure/stool/bed/chair/wheelchair/fluff/traveling_merchant //Travelling Merchant
+    name = "Prototype Jetboard"
+    desc = "Protoype Jetboard with the name \"Travelling Merchant\" painstakingly etched into the side."
+    icon = 'icons/obj/custom_items.dmi'
+    icon_state = "hoverboard_chair"
+
+/obj/structure/stool/bed/chair/wheelchair/fluff/traveling_merchant/handle_rotation()
+    overlays = null
+    var/image/O = image(icon = 'icons/obj/custom_items.dmi', icon_state = "hoverboard_chair", layer = FLY_LAYER, dir = src.dir)
+    overlays += O
+    if(buckled_mob)
+        buckled_mob.dir = dir
+
+/obj/structure/stool/bed/chair/wheelchair/fluff/traveling_merchant/MouseDrop(over_object, src_location, over_location)
+    ..()
+    if(over_object == usr && Adjacent(usr) && (in_range(src, usr) || usr.contents.Find(src)))
+        if(!ishuman(usr))
+            return
+        if(buckled_mob)
+            return 0
+        usr.visible_message("<span class='notice'>[usr] collapses \the [src.name].</span>", "<span class='notice'>You collapse \the [src.name].</span>")
+        new/obj/item/weapon/fluff/traveling_merchant(get_turf(src))
+        qdel(src)
+        return
