@@ -40,6 +40,7 @@ var/list/prisonwarped = list()	//list of players already warped
 var/list/blobstart = list()
 var/list/ninjastart = list()
 var/list/carplist = list() //list of all carp-spawn landmarks
+var/list/avatarspawn = list()
 
 //away missions
 var/list/awaydestinations = list()	//a list of landmarks that the warpgate can take you to

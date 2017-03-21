@@ -20,6 +20,10 @@
 			wizardstart += loc
 			qdel(src)
 
+		if("avatarspawn")
+			avatarspawn += loc
+			qdel(src)
+
 		if("JoinLate")
 			latejoin += loc
 			qdel(src)
@@ -251,7 +255,7 @@
 	new /obj/item/clothing/mask/gas/sexymime(src.loc)
 	new /obj/item/clothing/under/sexymime(src.loc)
 	qdel(src)
-	
+
 /obj/effect/landmark/ruin
 	var/datum/map_template/ruin/ruin_template
 
