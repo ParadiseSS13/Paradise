@@ -662,6 +662,13 @@
 			investigate_log("[key_name(usr)] has sent the supply shuttle away. Remaining points: [shuttle_master.points]. Shuttle contents: [shuttle_master.sold_atoms]", "cargo")
 		else if(!shuttle_master.supply.request(shuttle_master.getDock("supply_home")))
 			post_signal("supply")
+			if(LAZYLEN(shuttle_master.shoppinglist) && prob(10))
+				var/datum/supply_order/O = new /datum/supply_order()
+				O.ordernum = shuttle_master.ordernum
+				O.object = shuttle_master.supply_packs[pick(shuttle_master.supply_packs)]
+				O.orderedby = random_name(pick(MALE,FEMALE), species = "Human")
+				shuttle_master.shoppinglist += O
+				investigate_log("Random [O.object] crate added to supply shuttle")
 
 	else if(href_list["doorder"])
 		if(world.time < reqtime)
@@ -789,6 +796,54 @@
 		/mob/living/silicon/robot/drone,
 		/mob/living/simple_animal/bot/mulebot
 		)
+	var/state = PLASTIC_FLAPS_NORMAL
+	var/can_deconstruct = TRUE
+
+/obj/structure/plasticflaps/examine(mob/user)
+	. = ..()
+	switch(state)
+		if(PLASTIC_FLAPS_NORMAL)
+			to_chat(user, "<span class='notice'>[src] are <b>screwed</b> to the floor.</span>")
+		if(PLASTIC_FLAPS_DETACHED)
+			to_chat(user, "<span class='notice'>[src] are no longer <i>screwed</i> to the floor, and the flaps can be <b>sliced</b> apart.</span>")
+
+/obj/structure/plasticflaps/attackby(obj/item/W, mob/user, params)
+	add_fingerprint(user)
+	if(isscrewdriver(W))
+		if(state == PLASTIC_FLAPS_NORMAL)
+			playsound(loc, W.usesound, 100, 1)
+			user.visible_message("<span class='warning'>[user] unscrews [src] from the floor.</span>", "<span class='notice'>You start to unscrew [src] from the floor...</span>", "You hear rustling noises.")
+			if(do_after(user, 180*W.toolspeed, target = src))
+				if(state != PLASTIC_FLAPS_NORMAL)
+					return
+				state = PLASTIC_FLAPS_DETACHED
+				anchored = FALSE
+				to_chat(user, "<span class='notice'>You unscrew [src] from the floor.</span>")
+		else if(state == PLASTIC_FLAPS_DETACHED)
+			playsound(loc, W.usesound, 100, 1)
+			user.visible_message("<span class='warning'>[user] screws [src] to the floor.</span>", "<span class='notice'>You start to screw [src] to the floor...</span>", "You hear rustling noises.")
+			if(do_after(user, 40*W.toolspeed, target = src))
+				if(state != PLASTIC_FLAPS_DETACHED)
+					return
+				state = PLASTIC_FLAPS_NORMAL
+				anchored = TRUE
+				to_chat(user, "<span class='notice'>You screw [src] from the floor.</span>")
+	else if(iswelder(W))
+		if(state == PLASTIC_FLAPS_DETACHED)
+			var/obj/item/weapon/weldingtool/WT = W
+			if(!WT.remove_fuel(0, user))
+				return
+			playsound(loc, WT.usesound, 100, 1)
+			user.visible_message("<span class='warning'>[user] slices apart [src].</span>", "<span class='notice'>You start to slice apart [src].</span>", "You hear welding.")
+			if(do_after(user, 120*WT.toolspeed, target = src))
+				if(state != PLASTIC_FLAPS_DETACHED)
+					return
+				to_chat(user, "<span class='notice'>You slice apart [src].</span>")
+				var/obj/item/stack/sheet/plastic/five/P = new(loc)
+				P.add_fingerprint(user)
+				qdel(src)
+	else
+		. = ..()
 
 /obj/structure/plasticflaps/CanPass(atom/A, turf/T)
 	if(istype(A) && A.checkpass(PASSGLASS))
@@ -843,6 +898,11 @@
 		if(3)
 			if(prob(5))
 				qdel(src)
+
+/obj/structure/plasticflaps/proc/deconstruct(disassembled = TRUE)
+	if(can_deconstruct)
+		new /obj/item/stack/sheet/plastic/five(loc)
+	qdel(src)
 
 /obj/structure/plasticflaps/mining //A specific type for mining that doesn't allow airflow because of them damn crates
 	name = "\improper Airtight plastic flaps"

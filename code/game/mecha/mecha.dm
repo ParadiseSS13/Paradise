@@ -334,7 +334,7 @@
 		else if(istype(obstacle, /obj/structure/grille/))
 			var/obj/structure/grille/G = obstacle
 			G.health = (0.25*initial(G.health))
-			G.destroyed = 1
+			G.broken = 1
 			G.icon_state = "[initial(G.icon_state)]-b"
 			G.density = 0
 			new /obj/item/stack/rods(get_turf(G.loc))

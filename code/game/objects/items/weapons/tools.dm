@@ -30,7 +30,7 @@
 	toolspeed = 1
 
 /obj/item/weapon/wrench/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is beating themself to death with [src]! It looks like they're trying to commit suicide!</span>")
+	user.visible_message("<span class='suicide'>[user] is beating themselves to death with [src]! It looks like they're trying to commit suicide!</span>")
 	playsound(loc, 'sound/weapons/genhit.ogg', 50, 1, -1)
 	return (BRUTELOSS)
 
@@ -55,7 +55,7 @@
 	origin_tech = "materials=5;engineering=5;abductor=3"
 
 /obj/item/weapon/wrench/power
-	name = "Hand Drill"
+	name = "hand drill"
 	desc = "A simple powered drill with a bolt bit."
 	icon_state = "drill_bolt"
 	item_state = "drill"
@@ -178,7 +178,7 @@
 	toolspeed = 0.1
 
 /obj/item/weapon/screwdriver/power
-	name = "Hand Drill"
+	name = "hand drill"
 	desc = "A simple hand drill with a screwdriver bit attached."
 	icon_state = "drill_screw"
 	item_state = "drill"
@@ -275,7 +275,7 @@
 	toolspeed = 0.5
 
 /obj/item/weapon/wirecutters/power
-	name = "Jaws of Life"
+	name = "jaws of life"
 	desc = "A set of jaws of life, the magic of science has managed to fit it down into a device small enough to fit in a tool belt. It's fitted with a cutting head."
 	icon_state = "jaws_cutter"
 	item_state = "jawsoflife"
@@ -672,7 +672,7 @@ obj/item/weapon/weldingtool/experimental/process()
 
 /obj/item/weapon/crowbar/large
 	name = "crowbar"
-	desc = "It's a big crowbar. It doesn't fit in your pockets, because it's big."
+	desc = "It's a big crowbar. It doesn't fit in your pockets, because its too big."
 	force = 12
 	w_class = WEIGHT_CLASS_NORMAL
 	throw_speed = 3
@@ -690,8 +690,8 @@ obj/item/weapon/weldingtool/experimental/process()
 	toolspeed = 0.5
 
 /obj/item/weapon/crowbar/power
-	name = "Jaws of Life"
-	desc = "A set of jaws of life, the magic of science has managed to fit it down into a device small enough to fit in a tool belt. It's fitted with a prying head"
+	name = "jaws of life"
+	desc = "A set of jaws of life, the magic of science has managed to fit it down into a device small enough to fit in a tool belt. It's fitted with a prying head."
 	icon_state = "jaws_pry"
 	item_state = "jawsoflife"
 	materials = list(MAT_METAL=150,MAT_SILVER=50,MAT_TITANIUM=25)
@@ -716,7 +716,7 @@ obj/item/weapon/weldingtool/experimental/process()
 // Conversion kit
 /obj/item/weapon/conversion_kit
 	name = "\improper Revolver Conversion Kit"
-	desc = "A professional conversion kit used to convert any knock off revolver into the real deal capable of shooting lethal .357 rounds without the possibility of catastrophic failure"
+	desc = "A professional conversion kit used to convert any knock off revolver into the real deal capable of shooting lethal .357 rounds without the possibility of catastrophic failure."
 	icon = 'icons/obj/weapons.dmi'
 	icon_state = "kit"
 	flags = CONDUCT
