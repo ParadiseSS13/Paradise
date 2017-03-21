@@ -7,11 +7,11 @@
 
 
 /obj/machinery/computer/vr_control/New()
-	vr_control = new(src)
+	//vr_control = new(src)
 	..()
 
 /obj/machinery/computer/vr_control/Destroy()
-	qdel(vr_control)
+	//qdel(vr_control)
 	return ..()
 
 /obj/machinery/computer/vr_control/attack_ai(mob/user)
