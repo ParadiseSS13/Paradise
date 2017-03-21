@@ -182,6 +182,8 @@ var/const/CALL_SHUTTLE_REASON_LENGTH = 12
 			var/obj/machinery/computer/communications/C = thing
 			if(C.stat & BROKEN)
 				continue
+		else if(istype(thing, /datum/computer_file/program/comm) || istype(thing, /obj/item/weapon/circuitboard/communications))
+			continue
 
 		var/turf/T = get_turf(thing)
 		if(T && is_station_level(T.z))

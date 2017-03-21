@@ -37,6 +37,7 @@
 	Radio = new /obj/item/device/radio(src)
 	Radio.listening = 0
 	Radio.config(list("Security" = 0))
+	Radio.follow_target = src
 
 	pixel_x = ((dir & 3)? (0) : (dir == 4 ? 32 : -32))
 	pixel_y = ((dir & 3)? (dir ==1 ? 24 : -32) : (0))

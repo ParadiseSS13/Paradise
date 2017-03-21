@@ -2,7 +2,7 @@
 	name = "host brain"
 	real_name = "host brain"
 
-/mob/living/captive_brain/say(var/message)
+/mob/living/captive_brain/say(message)
 
 	if(client)
 		if(client.prefs.muted & MUTE_IC)
@@ -43,7 +43,7 @@
 	to_chat(B.host, "<span class='danger'>You feel the captive mind of [src] begin to resist your control.</span>")
 
 	var/delay = (rand(350,450) + B.host.brainloss)
-	addtimer(src, "return_control", delay)
+	addtimer(src, "return_control", delay, FALSE, B)
 
 /mob/living/captive_brain/proc/return_control(mob/living/simple_animal/borer/B)
 	if(!B || !B.controlling)
@@ -53,7 +53,7 @@
 	to_chat(src, "<span class='danger'>With an immense exertion of will, you regain control of your body!</span>")
 	to_chat(B.host, "<span class='danger'>You feel control of the host brain ripped from your grasp, and retract your probosci before the wild neural impulses can damage you.</span>")
 
-	B.detatch()
+	B.detach()
 
 /mob/living/simple_animal/borer
 	name = "cortical borer"
@@ -145,7 +145,7 @@
 	if(client.statpanel == "Status")
 		stat("Chemicals", chemicals)
 
-/mob/living/simple_animal/borer/say(message)
+/mob/living/simple_animal/borer/say(var/message)
 	var/datum/language/dialect = parse_language(message)
 	if(!dialect)
 		dialect = get_default_language()
@@ -558,7 +558,7 @@
 	if(!host)
 		return
 	if(controlling)
-		detatch()
+		detach()
 	GrantBorerActions()
 	RemoveInfestActions()
 	forceMove(get_turf(host))
@@ -702,7 +702,7 @@
 	if(B && B.host_brain)
 		to_chat(src, "<span class='danger'>You withdraw your probosci, releasing control of [B.host_brain]</span>")
 
-		B.detatch()
+		B.detach()
 
 	else
 		log_runtime(EXCEPTION("Missing borer or missing host brain upon borer release."), src)
@@ -739,7 +739,7 @@
 		to_chat(src, "You need 100 chemicals to reproduce!")
 		return
 
-/mob/living/simple_animal/borer/proc/detatch()
+/mob/living/simple_animal/borer/proc/detach()
 
 	if(!host || !controlling)
 		return
@@ -815,7 +815,7 @@
 		to_chat(src, "<span class='notice'>You are a cortical borer!</span>")
 		to_chat(src, "You are a brain slug that worms its way into the head of its victim. Use stealth, persuasion and your powers of mind control to keep you, your host and your eventual spawn safe and warm.")
 		to_chat(src, "Sugar nullifies your abilities, avoid it at all costs!")
-		to_chat(src, "You can speak to your fellow borers by prefixing your messages with ':x'. Check out your Borer tab to see your abilities.")
+		to_chat(src, "You can speak to your fellow borers by prefixing your messages with ':bo'. Check out your Borer tab to see your abilities.")
 
 /proc/create_borer_mind(key)
 	var/datum/mind/M = new /datum/mind(key)
