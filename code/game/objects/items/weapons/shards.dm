@@ -35,6 +35,24 @@
 		else
 	..()
 
+/obj/item/weapon/shard/afterattack(atom/movable/AM, mob/user, proximity)
+	if(!proximity || !(src in user))
+		return
+	if(isturf(AM))
+		return
+	if(istype(AM, /obj/item/weapon/storage))
+		return
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		if(!H.gloves)
+			var/obj/item/organ/external/affecting = H.get_organ("[user.hand ? "l" : "r" ]_hand")
+			if(affecting.status & ORGAN_ROBOT)
+				return
+			to_chat(H, "<span class='warning'>[src] cuts into your hand!</span>")
+			if(affecting.take_damage(force*0.5))
+				H.UpdateDamageIcon()
+				H.updatehealth()
+
 /obj/item/weapon/shard/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/weapon/weldingtool))
 		var/obj/item/weapon/weldingtool/WT = I
