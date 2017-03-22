@@ -427,6 +427,9 @@ var/list/teleport_runes = list()
 			if(is_sacrifice_target(T.mind))
 				sacrifice_fulfilled = 1
 		new /obj/effect/overlay/temp/cult/sac(loc)
+		if(ticker && ticker.mode && ticker.mode.name == "cult")
+			var/datum/game_mode/cult/cult_mode = ticker.mode
+			cult_mode.harvested++
 		for(var/M in invokers)
 			if(sacrifice_fulfilled)
 				to_chat(M, "<span class='cultlarge'>\"Yes! This is the one I desire! You have done well.\"</span>")
