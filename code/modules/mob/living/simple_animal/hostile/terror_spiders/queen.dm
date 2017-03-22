@@ -353,6 +353,6 @@
 		var/mob/living/L = target
 		if(L.reagents)
 			if(L.can_inject(null, 0, "chest", 0))
-				L.reagents.add_reagent("terror_queen_toxin", 15)
+				L.Hallucinate(400)
 		if(!isterrorspider(L))
 			L.adjustToxLoss(bonus_tox)
