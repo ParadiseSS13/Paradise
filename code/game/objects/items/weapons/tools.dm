@@ -495,7 +495,7 @@
 //Switches the welder on
 /obj/item/weapon/weldingtool/proc/switched_on(mob/user)
 	if(!status)
-		to_chat(user, "span class='warning'>[src] can't be turned on while unsecured!</span>")
+		to_chat(user, "<span class='warning'>[src] can't be turned on while unsecured!</span>")
 		return
 	welding = !welding
 	if(welding)
