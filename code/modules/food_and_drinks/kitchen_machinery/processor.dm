@@ -71,10 +71,6 @@
 	input = /obj/item/weapon/reagent_containers/food/snacks/meat
 	output = /obj/item/weapon/reagent_containers/food/snacks/meatball
 
-/datum/food_processor_process/potatowedges
-	input = /obj/item/weapon/reagent_containers/food/snacks/grown/potato/wedges
-	output = /obj/item/weapon/reagent_containers/food/snacks/fries
-
 /datum/food_processor_process/sweetpotato
 	input = /obj/item/weapon/reagent_containers/food/snacks/grown/potato/sweet
 	output = /obj/item/weapon/reagent_containers/food/snacks/yakiimo
@@ -82,10 +78,6 @@
 /datum/food_processor_process/potato
 	input = /obj/item/weapon/reagent_containers/food/snacks/grown/potato
 	output = /obj/item/weapon/reagent_containers/food/snacks/tatortot
-
-/datum/food_processor_process/carrot
-	input = /obj/item/weapon/reagent_containers/food/snacks/grown/carrot
-	output = /obj/item/weapon/reagent_containers/food/snacks/carrotfries
 
 /datum/food_processor_process/soybeans
 	input = /obj/item/weapon/reagent_containers/food/snacks/grown/soybeans
@@ -98,6 +90,10 @@
 /datum/food_processor_process/parsnip
 	input = /obj/item/weapon/reagent_containers/food/snacks/grown/parsnip
 	output = /obj/item/weapon/reagent_containers/food/snacks/roastparsnip
+
+/datum/food_processor_process/carrot
+	input =  /obj/item/weapon/reagent_containers/food/snacks/grown/carrot
+	output = /obj/item/weapon/reagent_containers/food/snacks/grown/carrot/wedges
 
 /////////////////////////
 ///END OBJECT RECIPIES///

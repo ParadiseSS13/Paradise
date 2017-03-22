@@ -92,8 +92,8 @@
 	icon = 'icons/obj/doors/Doorsand.dmi'
 	icon_state = "door_closed"
 	autoclose = 1
-	var/doorOpen = 'sound/machines/airlock.ogg'
-	var/doorClose = 'sound/machines/airlock.ogg'
+	var/doorOpen = 'sound/machines/airlock_open.ogg'
+	var/doorClose = 'sound/machines/airlock_close.ogg'
 	var/doorDeni = 'sound/machines/DeniedBeep.ogg'
 	var/id									// the room number, eg 101
 	var/obj/item/weapon/card/hotel_card/card// room's key card

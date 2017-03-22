@@ -29,10 +29,9 @@
 
 /obj/structure/stool/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/weapon/wrench))
-		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
+		playsound(src.loc, W.usesound, 50, 1)
 		new /obj/item/stack/sheet/metal(src.loc)
 		qdel(src)
-	return
 
 /obj/structure/stool/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params, skip_fucking_stool_shit = 0)
 	if(skip_fucking_stool_shit)

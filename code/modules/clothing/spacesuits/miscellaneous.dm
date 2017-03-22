@@ -92,7 +92,8 @@
 	name = "Santa's hat"
 	desc = "Ho ho ho. Merrry X-mas!"
 	icon_state = "santahat"
-	flags = HEADCOVERSEYES | BLOCKHAIR | STOPSPRESSUREDMAGE
+	flags = BLOCKHAIR | STOPSPRESSUREDMAGE
+	flags_cover = HEADCOVERSEYES
 
 /obj/item/clothing/suit/space/santa
 	name = "Santa's suit"
@@ -111,7 +112,8 @@
 	icon_state = "pirate"
 	item_state = "pirate"
 	armor = list(melee = 30, bullet = 50, laser = 30, energy = 15, bomb = 30, bio = 30, rad = 30)
-	flags = HEADCOVERSEYES | BLOCKHAIR | STOPSPRESSUREDMAGE
+	flags = BLOCKHAIR | STOPSPRESSUREDMAGE
+	flags_cover = HEADCOVERSEYES
 	strip_delay = 40
 	put_on_delay = 20
 
@@ -133,10 +135,12 @@
 	desc = "A paramedic EVA helmet. Used in the recovery of bodies from space."
 	icon_state = "paramedic-eva-helmet"
 	item_state = "paramedic-eva-helmet"
-	species_restricted = list("exclude","Diona","Wryn")
 	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/helmet.dmi'
+		)
+	sprite_sheets_obj = list(
+		"Vox" = 'icons/obj/clothing/species/vox/hats.dmi'
 		)
 
 /obj/item/clothing/suit/space/eva/paramedic
@@ -144,10 +148,12 @@
 	icon_state = "paramedic-eva"
 	item_state = "paramedic-eva"
 	desc = "A paramedic EVA suit. Used in the recovery of bodies from space."
-	species_restricted = list("exclude","Diona","Wryn")
 	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		)
+	sprite_sheets_obj = list(
+		"Vox" = 'icons/obj/clothing/species/vox/suits.dmi'
 		)
 
 /obj/item/clothing/suit/space/eva
@@ -156,6 +162,20 @@
 	item_state = "s_suit"
 	desc = "A lightweight space suit with the basic ability to protect the wearer from the vacuum of space during emergencies."
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 100, rad = 20)
+	species_restricted = list("exclude", "Diona", "Wryn")
+	species_fit = list("Tajaran", "Unathi", "Vox", "Vulpkanin")
+	sprite_sheets = list(
+		"Tajaran" = 'icons/mob/species/tajaran/suit.dmi',
+		"Unathi" = 'icons/mob/species/unathi/suit.dmi',
+		"Vox" = 'icons/mob/species/vox/suit.dmi',
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/suit.dmi',
+		)
+	sprite_sheets_obj = list(
+		"Tajaran" = 'icons/obj/clothing/species/tajaran/suits.dmi',
+		"Unathi" = 'icons/obj/clothing/species/unathi/suits.dmi',
+		"Vox" = 'icons/obj/clothing/species/vox/suits.dmi',
+		"Vulpkanin" = 'icons/obj/clothing/species/vulpkanin/suits.dmi'
+		)
 
 /obj/item/clothing/head/helmet/space/eva
 	name = "EVA helmet"
@@ -165,21 +185,41 @@
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 100, rad = 20)
 	flash_protect = 0
+	species_restricted = list("exclude", "Diona", "Wryn")
+	species_fit = list("Tajaran", "Unathi", "Vox", "Vulpkanin")
+	sprite_sheets = list(
+		"Tajaran" = 'icons/mob/species/tajaran/helmet.dmi',
+		"Unathi" = 'icons/mob/species/unathi/helmet.dmi',
+		"Vox" = 'icons/mob/species/vox/helmet.dmi',
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/helmet.dmi'
+		)
+	sprite_sheets_obj = list(
+		"Vox" = 'icons/obj/clothing/species/vox/hats.dmi',
+		"Vulpkanin" = 'icons/obj/clothing/species/vulpkanin/hats.dmi'
+		)
 
 //Mime's Hardsuit
 /obj/item/clothing/head/helmet/space/eva/mime
 	name = "mime eva helmet"
 //	icon = 'spaceciv.dmi'
-	desc = "An eva helmet specifically designed for the mime."
+	desc = ". . ."
 	icon_state = "spacemimehelmet"
 	item_state = "spacemimehelmet"
+	species_restricted = list("exclude","Diona","Vox","Wryn")
+	species_fit = null
+	sprite_sheets = null
+	sprite_sheets_obj = null
 
 /obj/item/clothing/suit/space/eva/mime
 	name = "mime eva suit"
 //	icon = 'spaceciv.dmi'
-	desc = "An EVA suit specifically designed for the mime."
+	desc = ". . ."
 	icon_state = "spacemime_suit"
 	item_state = "spacemime_items"
+	species_restricted = list("exclude","Diona","Vox","Wryn")
+	species_fit = null
+	sprite_sheets = null
+	sprite_sheets_obj = null
 
 /obj/item/clothing/head/helmet/space/eva/clown
 	name = "clown eva helmet"
@@ -187,6 +227,10 @@
 	desc = "An EVA helmet specifically designed for the clown. SPESSHONK!"
 	icon_state = "clownhelmet"
 	item_state = "clownhelmet"
+	species_restricted = list("exclude","Diona","Vox","Wryn")
+	species_fit = null
+	sprite_sheets = null
+	sprite_sheets_obj = null
 
 /obj/item/clothing/suit/space/eva/clown
 	name = "clown eva suit"
@@ -194,6 +238,10 @@
 	desc = "An EVA suit specifically designed for the clown. SPESSHONK!"
 	icon_state = "spaceclown_suit"
 	item_state = "spaceclown_items"
+	species_restricted = list("exclude","Diona","Vox","Wryn")
+	species_fit = null
+	sprite_sheets = null
+	sprite_sheets_obj = null
 
 /obj/item/clothing/head/helmet/space/freedom
 	name = "eagle helmet"

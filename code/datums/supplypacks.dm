@@ -1149,6 +1149,13 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	cost = 10
 	containername = "glass sheets crate"
 
+/datum/supply_packs/materials/wood30
+	name = "30 Wood Planks Crate"
+	contains = list(/obj/item/stack/sheet/wood)
+	amount = 30
+	cost = 15
+	containername = "wood planks crate"
+
 /datum/supply_packs/materials/cardboard50
 	name = "50 Cardboard Sheets Crate"
 	contains = list(/obj/item/stack/sheet/cardboard)
@@ -1166,7 +1173,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 
 /datum/supply_packs/materials/plastic30
 	name = "30 Plastic Sheets Crate"
-	contains = list(/obj/item/stack/sheet/mineral/plastic)
+	contains = list(/obj/item/stack/sheet/plastic)
 	amount = 30
 	cost = 25
 	containername = "plastic sheets crate"

@@ -1,0 +1,58 @@
+{{if data.adminmode}}
+	<h1>ADMINISTRATIVE MODE</h1>
+{{/if}}
+
+{{if data.title}}
+	<div class='item'>
+		<div class="itemLabel">Current channel:</div>
+		<div class="itemContent">{{:data.title}}</div>
+	</div>
+	<div class='item'>
+		<div class="itemLabel">Operator access:</div>
+		<div class="itemContent"><b>{{if data.is_operator}}Enabled{{else}}Disabled{{/if}}</b></div>
+	</div>
+	<div class='item'>
+		<div class="itemLabel">Controls:</div>
+		<div class="itemContent">
+			<table>
+				<tr><td>{{:helper.link('Send message', 'comment-o', {'action' : 'PRG_speak'})}}
+				<tr><td>{{:helper.link('Change nickname', 'pencil', {'action' : 'PRG_changename'})}}
+				<tr><td>{{:helper.link('Toggle administration mode', 'lock', {'action' : 'PRG_toggleadmin'})}}
+				<tr><td>{{:helper.link('Leave channel', 'sign-out', {'action' : 'PRG_leavechannel'})}}
+				<tr><td>{{:helper.link('Save log to local drive', 'download', {'action' : 'PRG_savelog'})}}
+				{{if data.is_operator}}
+					<tr><td>{{:helper.link('Rename channel', 'pencil', {'action' : 'PRG_renamechannel'})}}
+					<tr><td>{{:helper.link('Set password', 'key', {'action' : 'PRG_setpassword'})}}
+					<tr><td>{{:helper.link('Delete channel', 'trash', {'action' : 'PRG_deletechannel'})}}
+				{{/if}}
+			</table>
+		</div>
+	</div>
+	<b>Chat Window</b>
+	<div class="statusDisplay" style="overflow: auto;">
+		<div class="item">
+			<div class="itemContent" style="width: 100%;">
+				{{for data.messages}}
+					{{:value.msg}}<br>
+				{{/for}}
+			</div>
+		</div>
+	</div>
+	<b>Connected Users</b><br>
+	{{for data.clients}}
+		{{:value.name}}<br>
+	{{/for}}
+{{else}}
+	<b>Controls:</b>
+	<table>
+		<tr><td>{{:helper.link('Change nickname', 'pencil', {'action' : 'PRG_changename'})}}
+		<tr><td>{{:helper.link('New Channel', 'plus', {'action' : 'PRG_newchannel'})}}
+		<tr><td>{{:helper.link('Toggle administration mode', 'lock', {'action' : 'PRG_toggleadmin'})}}
+	</table>
+	<b>Available channels:</b>
+	<table>
+		{{for data.all_channels}}
+			<tr><td>{{:helper.link(value.chan, 'sign-in', {'action' : 'PRG_joinchannel', 'id' : value.id})}}<br>
+		{{/for}}
+	</table>
+{{/if}}

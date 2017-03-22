@@ -427,6 +427,9 @@ var/list/teleport_runes = list()
 			if(is_sacrifice_target(T.mind))
 				sacrifice_fulfilled = 1
 		new /obj/effect/overlay/temp/cult/sac(loc)
+		if(ticker && ticker.mode && ticker.mode.name == "cult")
+			var/datum/game_mode/cult/cult_mode = ticker.mode
+			cult_mode.harvested++
 		for(var/M in invokers)
 			if(sacrifice_fulfilled)
 				to_chat(M, "<span class='cultlarge'>\"Yes! This is the one I desire! You have done well.\"</span>")
@@ -949,7 +952,7 @@ var/list/teleport_runes = list()
 		return list()
 	var/list/ghosts_on_rune = list()
 	for(var/mob/dead/observer/O in get_turf(src))
-		if(O.client && !jobban_isbanned(O, ROLE_CULTIST))
+		if(O.client && !jobban_isbanned(O, ROLE_CULTIST) && !jobban_isbanned(O, ROLE_SYNDICATE))
 			ghosts_on_rune |= O
 	if(!ghosts_on_rune.len)
 		to_chat(user, "<span class='cultitalic'>There are no spirits near [src]!</span>")
@@ -962,7 +965,7 @@ var/list/teleport_runes = list()
 	var/mob/living/user = invokers[1]
 	var/list/ghosts_on_rune = list()
 	for(var/mob/dead/observer/O in get_turf(src))
-		if(O.client && !jobban_isbanned(O, ROLE_CULTIST))
+		if(O.client && !jobban_isbanned(O, ROLE_CULTIST) && !jobban_isbanned(O, ROLE_SYNDICATE))
 			ghosts_on_rune |= O
 	var/mob/dead/observer/ghost_to_spawn = pick(ghosts_on_rune)
 	var/mob/living/carbon/human/dummy/new_human = new(get_turf(src))

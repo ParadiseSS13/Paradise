@@ -4,7 +4,9 @@
  *		Plasteel
  *		Wood
  *		Cloth
+ *		Plastic
  *		Cardboard
+ *		Runed Metal (cult)
  */
 
 /*
@@ -50,6 +52,7 @@ var/global/list/datum/stack_recipe/metal_recipes = list(
 	new /datum/stack_recipe/rods("metal rod", /obj/item/stack/rods, 1, 2, 60),
 	null,
 	new /datum/stack_recipe("computer frame", /obj/structure/computerframe, 5, time = 25, one_per_turf = 1, on_floor = 1),
+	new /datum/stack_recipe("modular console", /obj/machinery/modular_computer/console/buildable/, 10, time = 25, one_per_turf = 1, on_floor = 1),
 	new /datum/stack_recipe("wall girders", /obj/structure/girder, 2, time = 50, one_per_turf = 1, on_floor = 1),
 	new /datum/stack_recipe("machine frame", /obj/machinery/constructable_frame/machine_frame, 5, time = 25, one_per_turf = 1, on_floor = 1),
 	new /datum/stack_recipe("turret frame", /obj/machinery/porta_turret_construct, 5, time = 25, one_per_turf = 1, on_floor = 1),
@@ -98,13 +101,16 @@ var/global/list/datum/stack_recipe/metal_recipes = list(
 	flags = CONDUCT
 	origin_tech = "materials=1"
 
+/obj/item/stack/sheet/metal/cyborg
+	materials = list()
+
+/obj/item/stack/sheet/metal/fifty
+	amount = 50
+
 /obj/item/stack/sheet/metal/narsie_act()
 	if(prob(20))
 		new /obj/item/stack/sheet/runed_metal(loc, amount)
 		qdel(src)
-
-/obj/item/stack/sheet/metal/cyborg
-	materials = list()
 
 /obj/item/stack/sheet/metal/New(var/loc, var/amount=null)
 	recipes = metal_recipes
@@ -146,13 +152,15 @@ var/global/list/datum/stack_recipe/wood_recipes = list(
 	new /datum/stack_recipe("wooden barricade", /obj/structure/barricade/wooden, 5, time = 50, one_per_turf = 1, on_floor = 1),
 	new /datum/stack_recipe("bookcase", /obj/structure/bookcase, 5, time = 50, one_per_turf = 1, on_floor = 1),
 	new /datum/stack_recipe("drying rack", /obj/machinery/smartfridge/drying_rack, 10, time = 15, one_per_turf = 1, on_floor = 1),
+	new /datum/stack_recipe("dog bed", /obj/structure/stool/bed/dogbed, 10, time = 10, one_per_turf = 1, on_floor = 1), \
 	new /datum/stack_recipe("rifle stock", /obj/item/weaponcrafting/stock, 10, time = 40),
 	new /datum/stack_recipe("wooden door", /obj/structure/mineral_door/wood, 10, time = 20, one_per_turf = 1, on_floor = 1),
 	new /datum/stack_recipe("coffin", /obj/structure/closet/coffin, 5, time = 15, one_per_turf = 1, on_floor = 1),
 	new /datum/stack_recipe("easel", /obj/structure/easel, 3, one_per_turf = 1, on_floor = 1),
 	new /datum/stack_recipe("wooden buckler", /obj/item/weapon/shield/riot/buckler, 20, time = 40),
 	new /datum/stack_recipe("apiary", /obj/structure/beebox, 40, time = 50),
-	new /datum/stack_recipe("honey frame", /obj/item/honey_frame, 5, time = 10)
+	new /datum/stack_recipe("honey frame", /obj/item/honey_frame, 5, time = 10),
+	new /datum/stack_recipe("baseball bat", /obj/item/weapon/melee/baseball_bat, 5, time = 15)
 )
 
 /obj/item/stack/sheet/wood
@@ -286,3 +294,39 @@ var/global/list/datum/stack_recipe/runed_metal_recipes = list ( \
 	throw_speed = 1
 	throw_range = 3
 	origin_tech = "materials=2;biotech=2"
+
+var/global/list/datum/stack_recipe/plastic_recipes = list ( \
+	new/datum/stack_recipe("plastic flaps", /obj/structure/plasticflaps, 5, one_per_turf = 1, on_floor = 1, time = 40), \
+	new/datum/stack_recipe("plastic crate", /obj/structure/closet/crate/plastic, 10, one_per_turf = 1, on_floor = 1), \
+	new/datum/stack_recipe("plastic ashtray", /obj/item/ashtray/plastic, 2, one_per_turf = 1, on_floor = 1), \
+	new/datum/stack_recipe("plastic fork", /obj/item/weapon/kitchen/utensil/pfork, 1, on_floor = 1), \
+	new/datum/stack_recipe("plastic spoon", /obj/item/weapon/kitchen/utensil/pspoon, 1, on_floor = 1), \
+	new/datum/stack_recipe("plastic knife", /obj/item/weapon/kitchen/knife/plastic, 1, on_floor = 1), \
+	new/datum/stack_recipe("plastic bag", /obj/item/weapon/storage/bag/plasticbag, 3, on_floor = 1), \
+	new/datum/stack_recipe("bear mould", /obj/item/weapon/kitchen/mould/bear, 1, on_floor = 1), \
+	new/datum/stack_recipe("worm mould", /obj/item/weapon/kitchen/mould/worm, 1, on_floor = 1), \
+	new/datum/stack_recipe("bean mould", /obj/item/weapon/kitchen/mould/bean, 1, on_floor = 1), \
+	new/datum/stack_recipe("ball mould", /obj/item/weapon/kitchen/mould/ball, 1, on_floor = 1), \
+	new/datum/stack_recipe("cane mould", /obj/item/weapon/kitchen/mould/cane, 1, on_floor = 1), \
+	new/datum/stack_recipe("cash mould", /obj/item/weapon/kitchen/mould/cash, 1, on_floor = 1), \
+	new/datum/stack_recipe("coin mould", /obj/item/weapon/kitchen/mould/coin, 1, on_floor = 1), \
+	new/datum/stack_recipe("sucker mould", /obj/item/weapon/kitchen/mould/loli, 1, on_floor = 1), \
+	)
+
+/obj/item/stack/sheet/plastic
+	name = "plastic"
+	desc = "Compress dinosaur over millions of years, then refine, split and mold, and voila! You have plastic."
+	singular_name = "plastic sheet"
+	icon_state = "sheet-plastic"
+	throwforce = 7
+	origin_tech = "materials=1;biotech=1"
+
+/obj/item/stack/sheet/plastic/New()
+	recipes = plastic_recipes
+	. = ..()
+
+/obj/item/stack/sheet/plastic/fifty
+	amount = 50
+
+/obj/item/stack/sheet/plastic/five
+	amount = 5
