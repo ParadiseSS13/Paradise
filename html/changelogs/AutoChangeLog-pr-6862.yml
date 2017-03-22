@@ -1,4 +1,0 @@
-author: "FlattestGuitar"
-delete-after: True
-changes: 
-  - bugfix: "Welding tools no longer tell you about their span classes"
