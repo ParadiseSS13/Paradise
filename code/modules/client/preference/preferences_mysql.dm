@@ -171,7 +171,6 @@
 					player_alt_titles,
 					organ_data,
 					rlimb_data,
-					nanotrasen_relation,
 					speciesprefs,
 					socks,
 					body_accessory,
@@ -261,13 +260,12 @@
 		player_alt_titles = params2list(query.item[58])
 		organ_data = params2list(query.item[59])
 		rlimb_data = params2list(query.item[60])
-		nanotrasen_relation = query.item[61]
-		speciesprefs = text2num(query.item[62])
+		speciesprefs = text2num(query.item[61])
 
 		//socks
-		socks = query.item[63]
-		body_accessory = query.item[64]
-		gear = params2list(query.item[65])
+		socks = query.item[62]
+		body_accessory = query.item[63]
+		gear = params2list(query.item[64])
 
 	//Sanitize
 	var/datum/species/SP = all_species[species]
@@ -275,7 +273,6 @@
 	real_name		= reject_bad_name(real_name, 1)
 	if(isnull(species)) species = "Human"
 	if(isnull(language)) language = "None"
-	if(isnull(nanotrasen_relation)) nanotrasen_relation = initial(nanotrasen_relation)
 	if(isnull(speciesprefs)) speciesprefs = initial(speciesprefs)
 	if(!real_name) real_name = random_name(gender,species)
 	be_random_name	= sanitize_integer(be_random_name, 0, 1, initial(be_random_name))
@@ -423,7 +420,6 @@
 												disabilities='[disabilities]',
 												organ_data='[organlist]',
 												rlimb_data='[rlimblist]',
-												nanotrasen_relation='[nanotrasen_relation]',
 												speciesprefs='[speciesprefs]',
 												socks='[socks]',
 												body_accessory='[body_accessory]',
@@ -466,7 +462,7 @@
 											sec_record,
 											gen_record,
 											player_alt_titles,
-											disabilities, organ_data, rlimb_data, nanotrasen_relation, speciesprefs,
+											disabilities, organ_data, rlimb_data, speciesprefs,
 											socks, body_accessory, gear)
 
 					VALUES
@@ -496,7 +492,7 @@
 											'[sanitizeSQL(sec_record)]',
 											'[sanitizeSQL(gen_record)]',
 											'[playertitlelist]',
-											'[disabilities]', '[organlist]', '[rlimblist]', '[nanotrasen_relation]', '[speciesprefs]',
+											'[disabilities]', '[organlist]', '[rlimblist]', '[speciesprefs]',
 											'[socks]', '[body_accessory]', '[gearlist]')
 
 "}
