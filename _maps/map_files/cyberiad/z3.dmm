@@ -28,7 +28,7 @@
 "bY" = (/obj/structure/cable{d1 = 2; d2 = 4; icon_state = "2-4"},/obj/structure/cable{d1 = 2; d2 = 8; icon_state = "2-8"; tag = ""},/turf/simulated/floor/plating/airless,/area/space)
 "bZ" = (/obj/machinery/power/solar,/obj/structure/cable{d2 = 8; icon_state = "0-8"},/turf/simulated/floor/plasteel/airless{icon_state = "solarpanel"},/area/space)
 "ca" = (/obj/structure/cable{d1 = 2; d2 = 4; icon_state = "2-4"},/obj/structure/cable{d1 = 2; d2 = 8; icon_state = "2-8"; tag = ""},/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/turf/simulated/floor/plating/airless,/area/space)
-"cb" = (/obj/structure/lattice,/obj/structure/grille{density = 0; icon_state = "brokengrille"},/turf/space,/area/space)
+"cb" = (/obj/structure/lattice,/obj/structure/grille/broken,/turf/space,/area/space)
 "cc" = (/obj/machinery/camera{c_tag = "Telecomms North Solars"; dir = 8; network = list("Telecomms")},/turf/space,/area/space)
 "cd" = (/obj/structure/cable{d1 = 1; d2 = 4; icon_state = "1-4"; tag = ""},/turf/simulated/floor/plating/airless,/area/space)
 "ce" = (/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_x = 0; tag = ""},/turf/simulated/floor/plating/airless,/area/space)
