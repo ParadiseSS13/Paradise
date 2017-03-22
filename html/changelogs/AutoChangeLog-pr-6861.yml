@@ -1,0 +1,4 @@
+author: "FlattestGuitar"
+delete-after: True
+changes: 
+  - bugfix: "When a person's limb is dying, it will no longer notify the whole server of the ordeal"
