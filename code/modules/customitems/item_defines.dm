@@ -699,7 +699,7 @@
 	icon_state = "voxcaster_fluff"
 
 /obj/item/weapon/fluff/traveling_merchant
-    name = "Hoverboard"
+    name = "Prototype Jetboard"
     icon = 'icons/obj/custom_items.dmi'
     icon_state = "hoverboard"
     item_state = "hoverboard"
@@ -714,7 +714,8 @@
 		playsound(get_turf(src), 'sound/items/Ratchet.ogg', 50, 1, -1)
 		update_icon()
 	else
-		new /obj/structure/stool/bed/chair/wheelchair/fluff/traveling_merchant(user.loc)
+		var/obj/structure/stool/bed/chair/wheelchair/fluff/traveling_merchant/R = new /obj/structure/stool/bed/chair/wheelchair/fluff/traveling_merchant(user.loc)
+		src.transfer_fingerprints_to(R)
 		qdel(src)
 
 /obj/item/weapon/fluff/traveling_merchant/update_icon()
