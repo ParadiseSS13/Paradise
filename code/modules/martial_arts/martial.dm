@@ -183,9 +183,7 @@
 	if(!istype(user) || !user)
 		return
 	to_chat(user, "<span class='sciradio'>You have learned the ancient martial art of the Space Ninja! \
-					Your hand-to-hand combat has become much more effective, and you are now able to deflect any projectiles directed toward you. \
-					However, you are also unable to use any ranged weaponry. \
-					You can learn more about your newfound art by using the Recall Teachings verb in the Ninjitsu tab.</span>")
+					Your hand-to-hand combat has become much more effective, and you are now able to deflect 75% of projectiles directed toward you.</span>")
 	var/datum/martial_art/ninjitsu/theninjitsu = new(null)
 	theninjitsu.teach(user)
 	user.drop_item()

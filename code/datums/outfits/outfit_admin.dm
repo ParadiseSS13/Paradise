@@ -1066,30 +1066,6 @@
 		apply_to_card(I, H, get_all_accesses() + get_all_centcom_access(), name, "syndie")
 
 
-/datum/outfit/admin/chrono
-	name = "Chrono Legionnaire"
-
-	uniform = /obj/item/clothing/under/syndicate
-	suit = /obj/item/clothing/suit/space/chronos
-	back = /obj/item/weapon/chrono_eraser
-	gloves = /obj/item/clothing/gloves/combat
-	shoes = /obj/item/clothing/shoes/combat
-	head = /obj/item/clothing/head/helmet/space/chronos
-	mask = /obj/item/clothing/mask/gas/syndicate
-	glasses = /obj/item/clothing/glasses/night
-	id = /obj/item/weapon/card/id/syndicate
-	suit_store = /obj/item/weapon/tank/emergency_oxygen/double/full
-
-/datum/outfit/admin/chrono/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	. = ..()
-	if(visualsOnly)
-		return
-
-	var/obj/item/weapon/card/id/I = H.wear_id
-	if(istype(I))
-		apply_to_card(I, H, get_all_accesses() + get_all_centcom_access(), name, "syndie")
-
-
 /datum/outfit/admin/ninja
 	name = "Space Ninja"
 	uniform = /obj/item/clothing/under/syndicate/combat
