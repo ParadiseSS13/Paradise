@@ -46,7 +46,7 @@
 //		/obj/item/weapon/paper_bundle,
 		/obj/item/weapon/card/id
 		)
-		
+
 /obj/item/weapon/gripper/New()
 	..()
 	can_hold = typecacheof(can_hold)
@@ -374,7 +374,7 @@
 					stack = stack_wood
 				if("plastic")
 					if(!stack_plastic)
-						stack_plastic = new /obj/item/stack/sheet/mineral/plastic/cyborg(src.module)
+						stack_plastic = new /obj/item/stack/sheet/plastic(src.module)
 						stack_plastic.amount = 1
 					stack = stack_plastic
 
