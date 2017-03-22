@@ -549,8 +549,10 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 	var/type = input(usr, "Pick a type of report to send", "Report Type", "") as anything in MsgType
 	var/input = input(usr, "Please enter anything you want. Anything. Serious.", "What?", "") as message|null
-	var/customname = input(usr, "Pick a title for the report.", "Title") as text|null
 	if(!input)
+		return
+	var/customname = input(usr, "Pick a title for the report.", "Title") as text|null
+	if(!customname)
 		return
 
 	if(type == "Enemy Communications")
@@ -560,11 +562,13 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		var/from = input(usr, "What kind of report? Example: Syndicate Communique", "From") as text|null
 		if(!from)
 			from = "Syndicate Communique"
-		switch(alert("Should this be announced to the general population?",,"Yes","No"))
+		switch(alert("Should this be announced to the general population?",,"Yes","No", "Cancel"))
 			if("Yes")
 				communications_announcement.Announce(input, customname, , , , from);
-			if("No")
+			else if("No")
 				to_chat(world, "<span class='danger'>[from] available at all communications consoles.</span>")
+			else
+				return
 
 		print_command_report(input, from)
 

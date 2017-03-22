@@ -54,6 +54,15 @@
 	result = /obj/item/weapon/reagent_containers/food/snacks/jellyburger/cherry
 	category = CAT_FOOD
 
+/datum/crafting_recipe/baseballburger
+	name = "Home run baseball burger"
+	reqs = list(
+		/obj/item/weapon/melee/baseball_bat = 1,
+		/obj/item/weapon/reagent_containers/food/snacks/bun = 1,
+	)
+	result = /obj/item/weapon/reagent_containers/food/snacks/baseballburger
+	category = CAT_FOOD
+
 /datum/crafting_recipe/notasandwich
 	name = "not-a-sandwich"
 	reqs = list(

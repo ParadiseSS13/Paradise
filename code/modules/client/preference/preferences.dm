@@ -266,9 +266,9 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			dat += "</td><td width='405px' height='25px' valign='left'>"
 			dat += "<center>"
 			dat += "Slot <b>[slot_name]</b> - "
-			dat += "<a href=\"byond://?src=[user.UID()];preference=open_load_dialog\">Load slot</a> - "
-			dat += "<a href=\"byond://?src=[user.UID()];preference=save\">Save slot</a> - "
-			dat += "<a href=\"byond://?src=[user.UID()];preference=reload\">Reload slot</a>"
+			dat += "<a href=\"byond://?_src_=prefs;preference=open_load_dialog\">Load slot</a> - "
+			dat += "<a href=\"byond://?_src_=prefs;preference=save\">Save slot</a> - "
+			dat += "<a href=\"byond://?_src_=prefs;preference=reload\">Reload slot</a>"
 			dat += "</center>"
 			dat += "</td></tr></table>"
 			dat += "<table width='100%'><tr><td width='405px' height='200px' valign='top'>"
@@ -291,7 +291,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			if(species in list("Human", "Drask", "Vox"))
 				dat += "<b>Skin Tone:</b> <a href='?_src_=prefs;preference=s_tone;task=input'>[species == "Vox" ? "[s_tone]" : "[-s_tone + 35]/220"]</a><br>"
 			dat += "<b>Disabilities:</b> <a href='?_src_=prefs;preference=disabilities'>\[Set\]</a><br>"
-			dat += "<a href='byond://?src=[user.UID()];preference=flavor_text;task=input'>Set Flavor Text</a><br>"
+			dat += "<a href='byond://?_src_=prefs;preference=flavor_text;task=input'>Set Flavor Text</a><br>"
 			if(lentext(flavor_text) <= 40)
 				if(!lentext(flavor_text))	dat += "\[...\]<br>"
 				else						dat += "[flavor_text]<br>"
@@ -355,7 +355,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			if(jobban_isbanned(user, "Records"))
 				dat += "<b>You are banned from using character records.</b><br>"
 			else
-				dat += "<a href=\"byond://?src=[user.UID()];preference=records;record=1\">Character Records</a><br>"
+				dat += "<a href=\"byond://?_src_=prefs;preference=records;record=1\">Character Records</a><br>"
 
 			dat += "<h2>Limbs</h2>"
 			if(species in list("Unathi")) //Species with alt heads.
@@ -655,7 +655,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			else
 				HTML += " <font color=red>\[No]</font></a>"
 			if(job.alt_titles)
-				HTML += "<br><b><a class='white' href=\"byond://?src=[user.UID()];preference=job;task=alt_title;job=\ref[job]\">\[[GetPlayerAltTitle(job)]\]</a></b></td></tr>"
+				HTML += "<br><b><a class='white' href=\"byond://?_src_=prefs;preference=job;task=alt_title;job=\ref[job]\">\[[GetPlayerAltTitle(job)]\]</a></b></td></tr>"
 			HTML += "</td></tr>"
 			continue
 /*
@@ -671,7 +671,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 		HTML += "<font color=[prefLevelColor]>[prefLevelLabel]</font></a>"
 
 		if(job.alt_titles)
-			HTML += "<br><b><a class='white' href=\"byond://?src=[user.UID()];preference=job;task=alt_title;job=\ref[job]\">\[[GetPlayerAltTitle(job)]\]</a></b></td></tr>"
+			HTML += "<br><b><a class='white' href=\"?_src_=prefs;preference=job;task=alt_title;job=\ref[job]\">\[[GetPlayerAltTitle(job)]\]</a></b></td></tr>"
 
 
 		HTML += "</td></tr>"
@@ -809,12 +809,8 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 /datum/preferences/proc/SetDisabilities(mob/user)
 	var/HTML = "<body>"
+	HTML += "<tt><center>"
 
-	// AUTOFIXED BY fix_string_idiocy.py
-	// C:\Users\Rob\Documents\Projects\vgstation13\code\modules\client\preferences.dm:474: HTML += "<tt><center>"
-	HTML += {"<tt><center>
-		<b>Choose disabilities</b><ul>"}
-	// END AUTOFIX
 	HTML += ShowDisabilityState(user,DISABILITY_FLAG_NEARSIGHTED,"Needs Glasses")
 	HTML += ShowDisabilityState(user,DISABILITY_FLAG_FAT,"Obese")
 	HTML += ShowDisabilityState(user,DISABILITY_FLAG_EPILEPTIC,"Seizures")
@@ -824,50 +820,46 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	HTML += ShowDisabilityState(user,DISABILITY_FLAG_MUTE,"Mute")
 
 
-	// AUTOFIXED BY fix_string_idiocy.py
-	// C:\Users\Rob\Documents\Projects\vgstation13\code\modules\client\preferences.dm:481: HTML += "</ul>"
 	HTML += {"</ul>
 		<a href=\"?_src_=prefs;task=close;preference=disabilities\">\[Done\]</a>
 		<a href=\"?_src_=prefs;task=reset;preference=disabilities\">\[Reset\]</a>
 		</center></tt>"}
-	// END AUTOFIX
-	user << browse(null, "window=preferences")
-	user << browse(HTML, "window=disabil;size=350x300")
-	return
+
+	var/datum/browser/popup = new(user, "disabil", "<div align='center'>Choose Disabilities</div>", 350, 300)
+	popup.set_content(HTML)
+	popup.open(0)
 
 /datum/preferences/proc/SetRecords(mob/user)
 	var/HTML = "<body>"
 	HTML += "<tt><center>"
-	HTML += "<b>Set Character Records</b><br>"
 
-	HTML += "<a href=\"byond://?src=[user.UID()];preference=records;task=med_record\">Medical Records</a><br>"
+	HTML += "<a href=\"byond://?_src_=prefs;preference=records;task=med_record\">Medical Records</a><br>"
 
 	if(lentext(med_record) <= 40)
 		HTML += "[med_record]"
 	else
 		HTML += "[copytext(med_record, 1, 37)]..."
 
-	HTML += "<br><br><a href=\"byond://?src=[user.UID()];preference=records;task=gen_record\">Employment Records</a><br>"
+	HTML += "<br><a href=\"byond://?_src_=prefs;preference=records;task=gen_record\">Employment Records</a><br>"
 
 	if(lentext(gen_record) <= 40)
 		HTML += "[gen_record]"
 	else
 		HTML += "[copytext(gen_record, 1, 37)]..."
 
-	HTML += "<br><br><a href=\"byond://?src=[user.UID()];preference=records;task=sec_record\">Security Records</a><br>"
+	HTML += "<br><a href=\"byond://?_src_=prefs;preference=records;task=sec_record\">Security Records</a><br>"
 
 	if(lentext(sec_record) <= 40)
 		HTML += "[sec_record]<br>"
 	else
 		HTML += "[copytext(sec_record, 1, 37)]...<br>"
 
-	HTML += "<br>"
-	HTML += "<a href=\"byond://?src=[user.UID()];preference=records;records=-1\">\[Done\]</a>"
+	HTML += "<a href=\"byond://?_src_=prefs;preference=records;records=-1\">\[Done\]</a>"
 	HTML += "</center></tt>"
 
-	user << browse(null, "window=preferences")
-	user << browse(HTML, "window=records;size=350x300")
-	return
+	var/datum/browser/popup = new(user, "records", "<div align='center'>Character Records</div>", 350, 300)
+	popup.set_content(HTML)
+	popup.open(0)	
 
 /datum/preferences/proc/GetPlayerAltTitle(datum/job/job)
 	return player_alt_titles.Find(job.title) > 0 \
@@ -2228,7 +2220,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 		dat += "<a href='?_src_=prefs;preference=changeslot;num=[i];'>[name]</a><br>"
 
 	dat += "<hr>"
-	dat += "<a href='byond://?src=[user.UID()];preference=close_load_dialog'>Close</a><br>"
+	dat += "<a href='byond://?_src_=prefs;preference=close_load_dialog'>Close</a><br>"
 	dat += "</center></tt>"
 //		user << browse(dat, "window=saves;size=300x390")
 	var/datum/browser/popup = new(user, "saves", "<div align='center'>Character Saves</div>", 300, 390)
