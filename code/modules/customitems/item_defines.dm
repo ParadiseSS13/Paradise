@@ -697,3 +697,99 @@
 	name = "Voxcaster"
 	desc = "Battered, Sol-made military radio backpack that had its speakers fried from playing Vox opera. The words 'Swift-Talon' are crudely scratched onto its side."
 	icon_state = "voxcaster_fluff"
+
+/obj/item/weapon/fluff/traveling_merchant
+    name = "Prototype Jetboard"
+    icon = 'icons/obj/custom_items.dmi'
+    icon_state = "hoverboard"
+    item_state = "hoverboard"
+    slot_flags = SLOT_BACK
+    w_class = 3
+    var/on = 0
+
+/obj/item/weapon/fluff/traveling_merchant/attack_self(mob/living/user)
+	if(!on)
+		on = 1
+		slot_flags = null
+		playsound(get_turf(src), 'sound/items/Ratchet.ogg', 50, 1, -1)
+		update_icon()
+	else
+		var/obj/structure/stool/bed/chair/wheelchair/fluff/traveling_merchant/R = new /obj/structure/stool/bed/chair/wheelchair/fluff/traveling_merchant(user.loc)
+		src.transfer_fingerprints_to(R)
+		qdel(src)
+
+/obj/item/weapon/fluff/traveling_merchant/update_icon()
+	if(!on)
+		icon_state = "hoverboard"
+	else
+		icon_state = "hoverboard1"
+
+/obj/structure/stool/bed/chair/wheelchair/fluff/traveling_merchant //Travelling Merchant
+    name = "Prototype Jetboard"
+    desc = "Protoype Jetboard with the name \"Travelling Merchant\" painstakingly etched into the side."
+    icon = 'icons/obj/custom_items.dmi'
+    icon_state = "hoverboard_chair"
+
+/obj/structure/stool/bed/chair/wheelchair/fluff/traveling_merchant/handle_rotation()
+    overlays = null
+    var/image/O = image(icon = 'icons/obj/custom_items.dmi', icon_state = "hoverboard_chair", layer = FLY_LAYER, dir = src.dir)
+    overlays += O
+    if(buckled_mob)
+        buckled_mob.dir = dir
+
+/obj/structure/stool/bed/chair/wheelchair/fluff/traveling_merchant/MouseDrop(over_object, src_location, over_location)
+    ..()
+    if(over_object == usr && Adjacent(usr) && (in_range(src, usr) || usr.contents.Find(src)))
+        if(!ishuman(usr))
+            return
+        if(buckled_mob)
+            return 0
+        usr.visible_message("<span class='notice'>[usr] collapses \the [src.name].</span>", "<span class='notice'>You collapse \the [src.name].</span>")
+        new/obj/item/weapon/fluff/traveling_merchant(get_turf(src))
+        qdel(src)
+        return
+
+/obj/structure/stool/bed/chair/wheelchair/fluff/traveling_merchant/relaymove(mob/user, direction)
+	if(propelled)
+		return 0
+
+	if(!Process_Spacemove(direction) || !has_gravity(src.loc) || !isturf(loc))
+		return 0
+
+	if(world.time < move_delay)
+		return
+
+	var/calculated_move_delay
+	calculated_move_delay += 2 //wheelchairs are not infact sport bikes
+
+	if(buckled_mob)
+		if(buckled_mob.incapacitated())
+			return 0
+
+		var/mob/living/thedriver = user
+		var/mob_delay = thedriver.movement_delay()
+		if(mob_delay > 0)
+			calculated_move_delay += mob_delay
+
+		if(ishuman(buckled_mob))
+			var/mob/living/carbon/human/driver = user
+			var/obj/item/organ/external/l_foot = driver.get_organ("l_foot")
+			var/obj/item/organ/external/r_foot = driver.get_organ("r_foot")
+			if((!l_foot || (l_foot.status & ORGAN_DESTROYED)) && (!r_foot || (r_foot.status & ORGAN_DESTROYED)))
+				return 0 // No feet to ride your hoverboard? Tough luck!
+
+		if(calculated_move_delay < 2)
+			calculated_move_delay = 2 //no racecarts
+
+		move_delay = world.time
+		move_delay += calculated_move_delay
+
+		if(!buckled_mob.Move(get_step(buckled_mob, direction), direction))
+			loc = buckled_mob.loc //we gotta go back
+			last_move = buckled_mob.last_move
+			inertia_dir = last_move
+			buckled_mob.inertia_dir = last_move
+			. = 0
+
+		else
+			. = 1
