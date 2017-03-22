@@ -717,6 +717,14 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 6, "vitamin" = 1)
 
+/obj/item/weapon/reagent_containers/food/snacks/baseballburger
+	name = "home run baseball burger"
+	desc = "It's still warm. The steam coming off of it looks like baseball."
+	icon_state = "baseball"
+	filling_color = "#CD853F"
+	bitesize = 3
+	list_reagents = list("nutriment" = 6, "vitamin" = 1)
+
 /obj/item/weapon/reagent_containers/food/snacks/omelette
 	name = "Omelette Du Fromage"
 	desc = "That's all you can say!"
