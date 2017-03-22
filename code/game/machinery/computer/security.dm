@@ -120,7 +120,7 @@
 				else
 					security["empty"] = 1
 	return data
-
+	
 /obj/machinery/computer/secure_data/Topic(href, href_list)
 	if(..())
 		return 1
@@ -139,10 +139,12 @@
 			if("del_all2")
 				for(var/datum/data/record/R in data_core.security)
 					qdel(R)
+				update_all_mob_security_hud()
 				setTemp("<h3>All records deleted.</h3>")
 			if("del_r2")
 				if(active2)
 					qdel(active2)
+					update_all_mob_security_hud()
 			if("del_rg2")
 				if(active1)
 					for(var/datum/data/record/R in data_core.medical)
@@ -153,6 +155,7 @@
 				if(active2)
 					qdel(active2)
 					active2 = null
+				update_all_mob_security_hud()
 				screen = SEC_DATA_R_LIST
 			if("criminal")
 				if(active2)
@@ -168,8 +171,7 @@
 						if("released")
 							active2.fields["criminal"] = "Released"
 
-					for(var/mob/living/carbon/human/H in mob_list)
-						H.sec_hud_set_security_status()
+					update_all_mob_security_hud()
 			if("rank")
 				if(active1)
 					active1.fields["rank"] = temp_href[2]
@@ -208,7 +210,6 @@
 			screen = SEC_DATA_R_LIST
 
 	if(authenticated)
-		var/incapable = (usr.stat || usr.restrained() || (!in_range(src, usr) && !issilicon(usr)))
 		if(href_list["logout"])
 			authenticated = null
 			screen = null
@@ -246,24 +247,6 @@
 			active1 = R
 			active2 = M
 			screen = SEC_DATA_RECORD
-
-		/*else if("s_fingerprint")
-			var/t1 = input("Search String: (Fingerprint)", "Secure. records", null, null)  as text
-			if(!t1 || usr.stat || !authenticated || usr.restrained() || (!in_range(src, usr) && (!issilicon(usr)))
-				return
-			active1 = null
-			active2 = null
-			t1 = lowertext(t1)
-			for(var/datum/data/record/R in data_core.general)
-				if(lowertext(R.fields["fingerprint"]) == t1)
-					active1 = R
-			if(!active1)
-				setTemp("Could not locate record [t1].")
-			else
-				for(var/datum/data/record/E in data_core.security)
-					if((E.fields["name"] == active1.fields["name"] && E.fields["id"] == active1.fields["id"]))
-						active2 = E
-				screen = SEC_DATA_RECORD	*/
 
 		else if(href_list["del_all"])
 			var/list/buttons = list()
@@ -363,7 +346,7 @@
 			if(istype(active2, /datum/data/record))
 				var/a2 = active2
 				var/t1 = copytext(trim(sanitize(input("Add Comment:", "Secure. records", null, null) as message)), 1, MAX_MESSAGE_LEN)
-				if(!t1 || incapable || active2 != a2)
+				if(!t1 || ..() || active2 != a2)
 					return 1
 				active2.fields["comments"] += "Made by [authenticated] ([rank]) on [current_date_string] [worldtime2text()]<BR>[t1]"
 
@@ -373,7 +356,7 @@
 				active2.fields["comments"] -= active2.fields["comments"][index]
 
 		if(href_list["field"])
-			if(incapable)
+			if(..())
 				return 1
 			var/a1 = active1
 			var/a2 = active2
@@ -381,7 +364,7 @@
 				if("name")
 					if(istype(active1, /datum/data/record))
 						var/t1 = reject_bad_name(input("Please input name:", "Secure. records", active1.fields["name"], null) as text)
-						if(!t1 || !length(trim(t1)) || incapable || active1 != a1)
+						if(!t1 || !length(trim(t1)) || ..() || active1 != a1)
 							return 1
 						active1.fields["name"] = t1
 						if(istype(active2, /datum/data/record))
@@ -389,7 +372,7 @@
 				if("id")
 					if(istype(active1, /datum/data/record))
 						var/t1 = copytext(trim(sanitize(input("Please input id:", "Secure. records", active1.fields["id"], null) as text)), 1, MAX_MESSAGE_LEN)
-						if(!t1 || incapable || active1 != a1)
+						if(!t1 || ..() || active1 != a1)
 							return 1
 						active1.fields["id"] = t1
 						if(istype(active2, /datum/data/record))
@@ -397,7 +380,7 @@
 				if("fingerprint")
 					if(istype(active1, /datum/data/record))
 						var/t1 = copytext(trim(sanitize(input("Please input fingerprint hash:", "Secure. records", active1.fields["fingerprint"], null) as text)), 1, MAX_MESSAGE_LEN)
-						if(!t1 || incapable || active1 != a1)
+						if(!t1 || ..() || active1 != a1)
 							return 1
 						active1.fields["fingerprint"] = t1
 				if("sex")
@@ -409,37 +392,37 @@
 				if("age")
 					if(istype(active1, /datum/data/record))
 						var/t1 = input("Please input age:", "Secure. records", active1.fields["age"], null) as num
-						if(!t1 || incapable || active1 != a1)
+						if(!t1 || ..() || active1 != a1)
 							return 1
 						active1.fields["age"] = t1
 				if("mi_crim")
 					if(istype(active2, /datum/data/record))
 						var/t1 = copytext(trim(sanitize(input("Please input minor crimes list:", "Secure. records", active2.fields["mi_crim"], null) as text)), 1, MAX_MESSAGE_LEN)
-						if(!t1 || incapable || active2 != a2)
+						if(!t1 || ..() || active2 != a2)
 							return 1
 						active2.fields["mi_crim"] = t1
 				if("mi_crim_d")
 					if(istype(active2, /datum/data/record))
 						var/t1 = copytext(trim(sanitize(input("Please summarize minor crimes:", "Secure. records", active2.fields["mi_crim_d"], null) as message)), 1, MAX_MESSAGE_LEN)
-						if(!t1 || incapable || active2 != a2)
+						if(!t1 || ..() || active2 != a2)
 							return 1
 						active2.fields["mi_crim_d"] = t1
 				if("ma_crim")
 					if(istype(active2, /datum/data/record))
 						var/t1 = copytext(trim(sanitize(input("Please input major crimes list:", "Secure. records", active2.fields["ma_crim"], null) as text)), 1, MAX_MESSAGE_LEN)
-						if(!t1 || incapable || active2 != a2)
+						if(!t1 || ..() || active2 != a2)
 							return 1
 						active2.fields["ma_crim"] = t1
 				if("ma_crim_d")
 					if(istype(active2, /datum/data/record))
 						var/t1 = copytext(trim(sanitize(input("Please summarize major crimes:", "Secure. records", active2.fields["ma_crim_d"], null) as message)), 1, MAX_MESSAGE_LEN)
-						if(!t1 || incapable || active2 != a2)
+						if(!t1 || ..() || active2 != a2)
 							return 1
 						active2.fields["ma_crim_d"] = t1
 				if("notes")
 					if(istype(active2, /datum/data/record))
 						var/t1 = copytext(html_encode(trim(input("Please summarize notes:", "Secure. records", html_decode(active2.fields["notes"]), null) as message)), 1, MAX_MESSAGE_LEN)
-						if(!t1 || incapable || active2 != a2)
+						if(!t1 || ..() || active2 != a2)
 							return 1
 						active2.fields["notes"] = t1
 				if("criminal")
@@ -464,13 +447,17 @@
 				if("species")
 					if(istype(active1, /datum/data/record))
 						var/t1 = copytext(trim(sanitize(input("Please enter race:", "General records", active1.fields["species"], null) as message)), 1, MAX_MESSAGE_LEN)
-						if(!t1 || incapable || active1 != a1)
+						if(!t1 || ..() || active1 != a1)
 							return 1
 						active1.fields["species"] = t1
 	return 1
 
 /obj/machinery/computer/secure_data/proc/setTemp(text, list/buttons = list())
 	temp = list("text" = text, "buttons" = buttons, "has_buttons" = buttons.len > 0)
+	
+/obj/machinery/computer/secure_data/proc/update_all_mob_security_hud()	
+	for(var/mob/living/carbon/human/H in mob_list)
+		H.sec_hud_set_security_status()	
 
 /obj/machinery/computer/secure_data/proc/create_record_photo(datum/data/record/R)
 	// basically copy-pasted from the camera code but different enough that it has to be redone
