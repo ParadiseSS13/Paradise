@@ -121,7 +121,7 @@
 				afterattack(user, user)	//you know the drill
 				user.visible_message("<span class='danger'>[src] goes off!</span>", "<span class='userdanger'>[src] goes off in your face!</span>")
 				return
-			if(do_after(user, 30, target = src))
+			if(do_after(user, 30 * A.toolspeed, target = src))
 				if(magazine.ammo_count())
 					to_chat(user, "<span class='warning'>You can't modify it!</span>")
 					return
@@ -134,7 +134,7 @@
 				afterattack(user, user)	//and again
 				user.visible_message("<span class='danger'>[src] goes off!</span>", "<span class='userdanger'>[src] goes off in your face!</span>")
 				return
-			if(do_after(user, 30, target = src))
+			if(do_after(user, 30 * A.toolspeed, target = src))
 				if(magazine.ammo_count())
 					to_chat(user, "<span class='warning'>You can't modify it!</span>")
 					return

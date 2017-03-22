@@ -192,7 +192,7 @@
 				/obj/item/weapon/stock_parts/matter_bin = 1,
 				/obj/item/weapon/stock_parts/micro_laser = 1,
 				/obj/item/weapon/stock_parts/scanning_module = 1,
-				/obj/item/weapon/spacecash/c200 = 1,
+				/obj/item/stack/spacecash/c200 = 1,
 				/obj/item/weapon/airlock_electronics = 1,
 				/obj/item/weapon/gun/energy/kinetic_accelerator = 1,
 				/obj/item/pizzabox = 3,

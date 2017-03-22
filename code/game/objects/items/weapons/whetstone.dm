@@ -4,6 +4,7 @@
 	icon_state = "whetstone"
 	desc = "A block of stone used to sharpen things."
 	w_class = 2
+	usesound = 'sound/items/Screwdriver.ogg'
 	var/used = 0
 	var/increment = 4
 	var/max = 30
@@ -43,7 +44,7 @@
 	I.force = Clamp(I.force + increment, 0, max)
 	I.throwforce = Clamp(I.throwforce + increment, 0, max)
 	I.name = "[prefix] [I.name]"
-	playsound(get_turf(src), 'sound/items/Screwdriver.ogg', 50, 1)
+	playsound(get_turf(src), usesound, 50, 1)
 	name = "worn out [name]"
 	desc = "[desc] At least, it used to."
 	used = 1
@@ -54,7 +55,7 @@
 		var/datum/unarmed_attack/attack = H.species.unarmed
 		if(istype(attack, /datum/unarmed_attack/claws))
 			H.visible_message("<span class='notice'>[H] sharpens \his claws on the [src]!</span>", "<span class='notice'>You sharpen your claws on the [src].</span>")
-			playsound(get_turf(H), 'sound/items/Screwdriver.ogg', 50, 1)
+			playsound(get_turf(H), usesound, 50, 1)
 
 /obj/item/weapon/whetstone/super
 	name = "super whetstone block"

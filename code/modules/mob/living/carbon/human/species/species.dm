@@ -110,6 +110,7 @@
 	var/show_ssd = 1
 	var/virus_immune
 	var/can_revive_by_healing				// Determines whether or not this species can be revived by simply healing them
+	var/has_gender = TRUE
 
 	//Death vars.
 	var/death_message = "seizes up and falls limp, their eyes dead and lifeless..."
@@ -439,7 +440,10 @@
 /datum/species/proc/say_filter(mob/M, message, datum/language/speaking)
 	return message
 
-/datum/species/proc/equip(var/mob/living/carbon/human/H)
+/datum/species/proc/before_equip_job(datum/job/J, mob/living/carbon/human/H, visualsOnly = FALSE)
+	return
+
+/datum/species/proc/after_equip_job(datum/job/J, mob/living/carbon/human/H, visualsOnly = FALSE)
 	return
 
 /datum/species/proc/can_understand(var/mob/other)
@@ -524,9 +528,9 @@
 			H.healths.icon_state = "health7"
 		else
 			switch(H.hal_screwyhud)
-				if(1)	H.healths.icon_state = "health6"
-				if(2)	H.healths.icon_state = "health7"
-				if(5)	H.healths.icon_state = "health0"
+				if(SCREWYHUD_CRIT)	H.healths.icon_state = "health6"
+				if(SCREWYHUD_DEAD)	H.healths.icon_state = "health7"
+				if(SCREWYHUD_HEALTHY)	H.healths.icon_state = "health0"
 				else
 					switch(100 - ((flags & NO_PAIN) ? 0 : H.traumatic_shock) - H.staminaloss)
 						if(100 to INFINITY)		H.healths.icon_state = "health0"

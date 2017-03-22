@@ -11,9 +11,9 @@
 	exp_requirements = 1200
 	exp_type = EXP_TYPE_CREW
 
-	equip(var/mob/living/carbon/human/H)
-		if(!H)	return 0
-		return 1
+/datum/job/ai/equip(mob/living/carbon/human/H)
+	if(!H)
+		return 0
 
 /datum/job/ai/is_position_available()
 	return (empty_playable_ai_cores.len != 0)
@@ -32,6 +32,7 @@
 	exp_type = EXP_TYPE_CREW
 	alt_titles = list("Android", "Robot")
 
-	equip(var/mob/living/carbon/human/H)
-		if(!H)	return 0
-		return 1
+/datum/job/cyborg/equip(mob/living/carbon/human/H)
+	if(!H)
+		return 0
+	return H.Robotize()

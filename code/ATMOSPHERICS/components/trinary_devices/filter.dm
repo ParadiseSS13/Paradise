@@ -6,8 +6,6 @@
 
 	name = "gas filter"
 
-	var/temp = null // -- TLE
-
 	var/target_pressure = ONE_ATMOSPHERE
 
 	var/filter_type = 0
@@ -146,9 +144,9 @@ Filter types:
 /obj/machinery/atmospherics/trinary/filter/initialize()
 	set_frequency(frequency)
 	..()
-	
-/obj/machinery/atmospherics/trinary/filter/attack_ghost(mob/user) 
-	interact(user)
+
+/obj/machinery/atmospherics/trinary/filter/attack_ghost(mob/user)
+	ui_interact(user)
 
 /obj/machinery/atmospherics/trinary/filter/attack_hand(mob/user)
 	if(..())
@@ -157,63 +155,52 @@ Filter types:
 	if(!allowed(user))
 		to_chat(user, "<span class='alert'>Access denied.</span>")
 		return
-		
-	interact(user)
-		
-/obj/machinery/atmospherics/trinary/filter/interact(mob/user)	
-	user.set_machine(src)
+
 	add_fingerprint(user)
-	
-	var/dat
-	var/current_filter_type
-	switch(filter_type)
-		if(0)
-			current_filter_type = "Toxins"
-		if(1)
-			current_filter_type = "Oxygen"
-		if(2)
-			current_filter_type = "Nitrogen"
-		if(3)
-			current_filter_type = "Carbon Dioxide"
-		if(4)
-			current_filter_type = "Nitrous Oxide"
-		if(-1)
-			current_filter_type = "Nothing"
-		else
-			current_filter_type = "ERROR - Report this bug to the admin, please!"
+	ui_interact(user)
 
-	dat += {"
-			<b>Power: </b><a href='?src=[UID()];power=1'>[on?"On":"Off"]</a><br>
-			<b>Filtering: </b>[current_filter_type]<br><HR>
-			<h4>Set Filter Type:</h4>
-			<A href='?src=[UID()];filterset=0'>Toxins</A><BR>
-			<A href='?src=[UID()];filterset=1'>Oxygen</A><BR>
-			<A href='?src=[UID()];filterset=2'>Nitrogen</A><BR>
-			<A href='?src=[UID()];filterset=3'>Carbon Dioxide</A><BR>
-			<A href='?src=[UID()];filterset=4'>Nitrous Oxide</A><BR>
-			<A href='?src=[UID()];filterset=-1'>Nothing</A><BR>
-			<HR><B>Desirable output pressure:</B>
-			[target_pressure]kPa | <a href='?src=[UID()];set_press=1'>Change</a>
-			"}
+/obj/machinery/atmospherics/trinary/filter/ui_interact(mob/user, ui_key = "main", datum/nanoui/ui = null, force_open = 1, var/master_ui = null, var/datum/topic_state/state = default_state)
+	user.set_machine(src)
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "atmos_filter.tmpl", name, 475, 155, state = state)
+		ui.open()
 
-	var/datum/browser/popup = new(user, "atmo_filter", name, 400, 400)
-	popup.set_content(dat)
-	popup.open(0)
-	onclose(user, "atmo_filter")
+/obj/machinery/atmospherics/trinary/filter/ui_data(mob/user)
+	var/list/data = list()
+	data["on"] = on
+	data["pressure"] = round(target_pressure)
+	data["max_pressure"] = round(MAX_OUTPUT_PRESSURE)
+	data["filter_type"] = filter_type
+	return data
 
 /obj/machinery/atmospherics/trinary/filter/Topic(href, href_list) // -- TLE
 	if(..())
 		return 1
-	usr.set_machine(src)
-	add_fingerprint(usr)
-	if(href_list["filterset"])
-		filter_type = text2num(href_list["filterset"])
-	if(href_list["temp"])
-		temp = null
-	if(href_list["set_press"])
-		var/new_pressure = input(usr,"Enter new output pressure (0-4500kPa)","Pressure control",target_pressure) as num
-		target_pressure = max(0, min(4500, new_pressure))
+
 	if(href_list["power"])
-		on=!on
+		on = !on
+		investigate_log("was turned [on ? "on" : "off"] by [key_name(usr)]", "atmos")
+		. = TRUE
+	if(href_list["pressure"])
+		var/pressure = href_list["pressure"]
+		if(pressure == "max")
+			pressure = MAX_OUTPUT_PRESSURE
+			. = TRUE
+		else if(pressure == "input")
+			pressure = input("New output pressure (0-[MAX_OUTPUT_PRESSURE] kPa):", name, target_pressure) as num|null
+			if(!isnull(pressure) && !..())
+				. = TRUE
+		else if(text2num(pressure) != null)
+			pressure = text2num(pressure)
+			. = TRUE
+		if(.)
+			target_pressure = Clamp(pressure, 0, MAX_OUTPUT_PRESSURE)
+			investigate_log("was set to [target_pressure] kPa by [key_name(usr)]", "atmos")
+	if(href_list["filter"])
+		filter_type = text2num(href_list["filter"])
+		investigate_log("was set to filter [filter_type] by [key_name(usr)]", "atmos")
+		. = TRUE
+
 	update_icon()
-	updateUsrDialog()
+	nanomanager.update_uis(src)

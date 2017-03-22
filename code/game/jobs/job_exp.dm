@@ -19,7 +19,7 @@
 				jtext = theirjob.title
 				if(config.use_exp_restrictions && theirjob.exp_requirements && theirjob.exp_type)
 					jtext += "<span class='warning'>*</span>"
-		if(check_rights(R_ADMIN))
+		if(check_rights(R_ADMIN, 0))
 			pline = "<LI> [key_name_admin(C.mob)]: [jtext]: <A href='?_src_=holder;getplaytimewindow=[C.mob.UID()]'>" + C.get_exp_living() + "</a></LI>"
 		else
 			pline = "<LI> [key_name_mentor(C.mob)]: [jtext]: <A href='?_src_=holder;getplaytimewindow=[C.mob.UID()]'>" + C.get_exp_living() + "</a></LI>"
