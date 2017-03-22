@@ -56,14 +56,3 @@
 	if(check_streak(A,D))
 		return 1
 	return ..()
-
-/*
-/mob/living/carbon/human/proc/ninjitsu_help()
-	set name = "Recall Teachings"
-	set desc = "Remember the martial techniques of the Spider clan."
-	set category = "Ninjitsu"
-
-	to_chat(usr, "<b><i>You retreat inward and recall the teachings of Ninjitsu...</i></b>")
-
-	to_chat(usr, "<span class='notice'>Wrist Wrench</span>: Disarm Disarm. Forces opponent to drop item in hand.")
-*/
