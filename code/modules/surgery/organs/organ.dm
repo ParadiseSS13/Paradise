@@ -66,7 +66,7 @@ var/list/organ_cache = list()
 			blood_DNA = list()
 		blood_DNA[dna.unique_enzymes] = dna.b_type
 
-/obj/item/organ/proc/die()
+/obj/item/organ/proc/necrotize(update_sprite=TRUE)
 	if(status & ORGAN_ROBOT)
 		return
 	damage = max_damage
@@ -105,10 +105,10 @@ var/list/organ_cache = list()
 		if(germ_level >= INFECTION_LEVEL_TWO)
 			germ_level += rand(2,6)
 		if(germ_level >= INFECTION_LEVEL_THREE)
-			die()
+			necrotize()
 
 		if(damage >= max_damage)
-			die()
+			necrotize()
 
 	else if(owner.bodytemperature >= 170)	//cryo stops germs from moving and doing their bad stuffs
 		//** Handle antibiotics and curing infections
@@ -117,7 +117,7 @@ var/list/organ_cache = list()
 
 	//check if we've hit max_damage
 	if(damage >= max_damage)
-		die()
+		necrotize()
 
 /obj/item/organ/proc/is_preserved()
 	if(istype(loc,/obj/item/device/mmi))

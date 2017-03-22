@@ -101,7 +101,7 @@
 	result_amount = 1
 
 /datum/chemical_reaction/plastication/on_reaction(datum/reagents/holder)
-	var/obj/item/stack/sheet/metal/M = new /obj/item/stack/sheet/mineral/plastic
+	var/obj/item/stack/sheet/metal/M = new /obj/item/stack/sheet/plastic
 	M.amount = 10
 	M.forceMove(get_turf(holder.my_atom))
 

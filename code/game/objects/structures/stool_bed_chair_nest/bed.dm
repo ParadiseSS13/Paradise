@@ -27,6 +27,23 @@
 	can_buckle = 1
 	buckle_lying = 1
 
+/obj/structure/stool/bed/dogbed
+	name = "dog bed"
+	icon_state = "dogbed"
+	desc = "A comfy-looking dog bed. You can even strap your pet in, in case the gravity turns off."
+	anchored = 0
+
+/obj/structure/stool/bed/dogbed/ian
+	name = "Ian's bed"
+	desc = "Ian's bed! Looks comfy."
+	anchored = 1
+
+/obj/structure/stool/bed/dogbed/attackby(obj/item/weapon/W, mob/user, params)
+	if(iswrench(W))
+		playsound(loc, W.usesound, 50, 1)
+		new /obj/item/stack/sheet/wood(loc, 10)
+		qdel(src)
+
 /obj/structure/stool/bed/alien
 	name = "resting contraption"
 	desc = "This looks similar to contraptions from earth. Could aliens be stealing our technology?"

@@ -1,5 +1,18 @@
 var/list/sounds_cache = list()
 
+/client/proc/stop_global_admin_sounds()
+	set category = "Event"
+	set name = "Stop Global Admin Sounds"
+	if(!check_rights(R_SOUNDS))
+		return
+
+	var/sound/awful_sound = sound(null, repeat = 0, wait = 0, channel = 777)
+
+	log_admin("[key_name(src)] stopped admin sounds.")
+	message_admins("[key_name_admin(src)] stopped admin sounds.", 1)
+	for(var/mob/M in player_list)
+		M << awful_sound
+
 /client/proc/play_sound(S as sound)
 	set category = "Event"
 	set name = "Play Global Sound"
