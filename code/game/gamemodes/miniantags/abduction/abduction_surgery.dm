@@ -51,7 +51,7 @@
 
 /datum/surgery_step/internal/gland_insert
 	name = "insert gland"
-	allowed_tools = list(/obj/item/organ/internal/gland = 100)
+	allowed_tools = list(/obj/item/organ/internal/heart/gland = 100)
 	time = 32
 
 /datum/surgery_step/internal/gland_insert/begin_step(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -61,6 +61,6 @@
 /datum/surgery_step/internal/gland_insert/end_step(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	user.visible_message("[user] inserts [tool] into [target].", "<span class ='notice'>You insert [tool] into [target].</span>")
 	user.drop_item()
-	var/obj/item/organ/internal/gland/gland = tool
+	var/obj/item/organ/internal/heart/gland/gland = tool
 	gland.insert(target, 2)
 	return 1

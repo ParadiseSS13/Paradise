@@ -740,7 +740,7 @@
 	..()
 
 /obj/item/clothing/under/contortionist/dropped(mob/living/carbon/human/user)
-	if(!user.get_int_organ(/obj/item/organ/internal/gland/ventcrawling))
+	if(!user.get_int_organ(/obj/item/organ/internal/heart/gland/ventcrawling))
 		user.ventcrawler = 0
 	..()
 
