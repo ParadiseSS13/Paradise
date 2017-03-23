@@ -1,7 +1,0 @@
-author: "Fox McCloud"
-delete-after: True
-changes: 
-  - rscadd: "Adds in emergency welding tool, fork, trays, drinking glasses, shot glasses, shakers, butcher cleavers, and riot darts to the autolathe"
-  - rscadd: "Adds all basic stock parts to the autolathe"
-  - tweak: "re-arranges the autolathe menu to be more logical"
-  - tweak: "light bulbs no longer require metal to produce"
