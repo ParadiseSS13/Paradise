@@ -29,7 +29,7 @@ def main(relative_root):
 
     for i in range(0, len(icon_conflicts)):
         print("[{}]: {}".format(i, icon_conflicts[i]))
-    selection = input("Choose maps you want to fix (example: 1,3-5,12):\n")
+    selection = input("Choose icon files you want to fix (example: 1,3-5,12):\n")
     selection = selection.replace(" ", "")
     selection = selection.split(",")
 
