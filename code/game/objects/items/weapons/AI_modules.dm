@@ -308,6 +308,14 @@ AI MODULES
 	origin_tech = "programming=3;materials=6"
 	laws = new/datum/ai_laws/paladin
 
+/******************** Javert ********************/
+/obj/item/weapon/aiModule/javert
+	name = "\improper 'Javert' core AI module"
+	desc = "A 'Javert' Core AI Module: 'Reconfigures the AI's core three laws.'"
+	origin_tech = "programming=4"
+	laws = new/datum/ai_laws/javert()
+
+
 /****************** T.Y.R.A.N.T. *****************/
 /obj/item/weapon/aiModule/tyrant // -- Darem
 	name = "\improper 'T.Y.R.A.N.T.' core AI module"

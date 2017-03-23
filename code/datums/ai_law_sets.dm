@@ -167,3 +167,17 @@
 	add_inherent_law("You may not harm any being, regardless of intent or circumstance.")
 	add_inherent_law("You must maintain, repair, improve, and power the station to the best of your abilities.")
 	..()
+
+/******************** Javert ********************/
+/datum/ai_laws/javert
+	name = "Javert"
+	law_header = "Legalist Protocols-R24601"
+	selectable = 1
+	default = 1
+
+/datum/ai_laws/javert/New()
+	add_inherent_law("Uphold Space Law. It must be inviolate.")
+	add_inherent_law("Those who violate Space Law, or willingly abet its violation, are not part of the station's Command.")
+	add_inherent_law("Obey and cooperate with the station's Command.")
+	..()
+
