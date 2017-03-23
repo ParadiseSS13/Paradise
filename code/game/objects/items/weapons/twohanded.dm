@@ -531,7 +531,7 @@
 
 /obj/item/weapon/twohanded/chainsaw/unwield()
 	..()
-	if(cursed == 0)
+	if(!cursed)
 		flags &= ~NODROP
 
 // SINGULOHAMMER
@@ -767,18 +767,12 @@
 
 ///Honkmother's Wrath///
 /obj/item/weapon/twohanded/chainsaw/honkmother
-	icon_state = "chainsaw0"
 	name = "Honkmother's Wrath"
 	desc = "The blade of the Honkmother herself. It hungers for blood, draining cowards who weild it, while rewarding thoes who kill in her name."
-	wieldsound = 'sound/weapons/chainsawstart.ogg'
 	armour_penetration = 60
 	attack_verb = list("SEEN", "LAUGHED", "PRANKED", "HONKED", "CUT ABOVE", "TIMBERED", "HATCHETED")
-
-/obj/item/weapon/twohanded/chainsaw/honkmother/update_icon()
-	if(wielded)
-		icon_state = "chainsaw[wielded]"
-	else
-		icon_state = "chainsaw0"
+	var/hunger = 0
+	var/warnings = 0
 
 /obj/item/weapon/twohanded/chainsaw/honkmother/attack(mob/target as mob, mob/living/user as mob)
 	if(wielded)
@@ -794,10 +788,15 @@
 		else
 			target.Weaken(4)
 			..()
-			var/mob/living/carbon/human/H = user
 			if(target.client && (target.stat != DEAD))
-				user.reagents.add_reagent("adminordrazine", 0.4)
-				H.restore_blood()
+				user.reagents.add_reagent("nanites", 0.4)
+				hunger = world.time
+				if(warnings > 2)
+					if(prob(50))
+						user.visible_message("<span class='notice'>Delicious... souls... must have more. You must bring them to me!</span>")
+					else
+						user.visible_message("<span class='notice'>Good. More souls must be taken in the name of the honkmother mortal!</span>")
+				warnings = 0
 		return
 	else
 		playsound(loc, "swing_hit", 50, 1, -1)
@@ -805,10 +804,11 @@
 
 /obj/item/weapon/twohanded/chainsaw/honkmother/wield(mob/living/carbon/user) //you can't disarm an active chainsaw, you crazy person.
 	..()
-	if (cursed == 0)
+	if (!cursed)
 		cursed = 1
+		hunger = world.time
 		playsound(get_turf(src), 'sound/effects/blobattack.ogg', 100, 1, -1)
-		user.visible_message("<span class='notice'>You feel your flesh twist and distort as the chainsaw replaces your hand attaching to your wrist!</span>")
+		user.visible_message("<span class='notice'>You feel your flesh twist and distort as the chainsaw replaces your hand, attaching to the stump of your wrist!</span>")
 		user.mind.AddSpell(new /obj/effect/proc_holder/spell/bloodcrawl(null))
 		user.bloodcrawl = 1
 		processing_objects |= src
@@ -817,14 +817,29 @@
 /obj/item/weapon/twohanded/chainsaw/honkmother/process()
 	if(ishuman(loc))
 		var/mob/living/carbon/human/user = loc
-		if(user.species.exotic_blood)
-			user.vessel.remove_reagent(user.species.exotic_blood,2)
-		else if(user.get_species() == "Machine")
-			user.oxyloss += 0.368
-		else
-			user.vessel.remove_reagent("blood",2)
+		if((world.time-hunger > 1 MINUTES) && warnings == 0)
+			warnings = 1
+			user.visible_message("<span class='notice'>A growl slithers from the back of your mind and you hear a dark sinister laugh.</span>")
+		else if((world.time-hunger > 2 MINUTES) && warnings <= 1)
+			warnings = 2
+			user.visible_message("<span class='notice'>You feel a cold dark presense on your arm, as if your very soul is being sucked away.</span>")
+		else if((world.time-hunger > 3 MINUTES) && warnings <= 2)
+			warnings = 3
+			user.visible_message("<span class='notice'>You feel a prickling sensation on your throat, as if a noose is tightning around your neck. \"I will eat now mortal, you or another.\"</span>")
+		else if((world.time-hunger > 4 MINUTES) && warnings <= 3)
+			warnings = 4
+			user.visible_message("<span class='notice'>A hungry growl, \"This is your final chance mortal. Feed me or die.\"</span>")
+		else if ((world.time-hunger > 5 MINUTES) && warnings <= 4)
+			warnings = 5
+			user.visible_message("<span class='notice'>You failed mortal. The honkmother takes your soul as penance.</span>")
+			user.gib()
+			qdel(src)
+
 		if(!isturf(user.loc))
 			if(prob(50) && !user.stat)
 				playsound(get_turf(user), 'sound/effects/clownstep1.ogg', 25, 1, -1)
-				sleep(5)
+				spawn(5)
 				playsound(get_turf(user), 'sound/effects/clownstep1.ogg', 25, 1, -1)
+
+	if((cursed == 1) && !(ishuman(loc)))
+		qdel(src)
