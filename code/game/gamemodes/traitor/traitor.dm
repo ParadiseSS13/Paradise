@@ -70,6 +70,9 @@
 	modePlayer += traitors
 	..()
 
+/datum/game_mode/traitor/setup_chumps()
+	//since we actually have potential collaborators, we don't prepare any chumps to avoid extra people knowing our codewords.
+	return
 
 /datum/game_mode/proc/forge_traitor_objectives(datum/mind/traitor)
 	if(istype(traitor.current, /mob/living/silicon))
@@ -348,30 +351,10 @@
 		//let's also inform their contact that they might be called upon, but leave it vague.
 		inform_collab(M)
 
-/datum/game_mode/proc/inform_collab(mob/living/carbon/human/M)
-	if(!M)
-		return
+/datum/game_mode/traitor/inform_collab(mob/living/carbon/human/M)
 	if(M.mind in traitors)		//if you are already a traitor, you already know the codewords and your role, so skip this message.
 		return
-	//Mad-libs for their message
-	var/adjective = pick("strange", "mysterious", "sinister", "un-assuming", "unexpected")
-	var/action_words = pick("aid the fight against Nanotrasen", "repay a debt", "partake in some mischief", "help overthrow the system", "stick it to the man")
-	var/organization = pick("Anti-Facist Movement", "Syndicate", "Spessmen for the Protesting of Nanotrasen", "Greytider's Union", "Illuminati (in space)")
-	//Stuff to give them a single set of code-words
-	var/list/possible_words = splittext(syndicate_code_phrase, ", ")
-	var/list/possible_reply = splittext(syndicate_code_response, ", ")
-	var/index = rand(1, possible_words.len)
-	var/my_word = possible_words[index]
-	var/my_reply
-	if(possible_reply.len < index)		//just in case we had a longer code word list than the response list
-		my_reply = pick(possible_reply)
-	else
-		my_reply = possible_reply[index]
-
-	to_chat(M, "You suddenly remember \an [adjective] note you received earlier informing you that a chance to [action_words] may present itself today. An agent of the [organization] may contact you for help.")
-	to_chat(M, "The note had the words \"[my_word]\" and \"[my_reply]\" written at the bottom, which you memorized just in case.")
-	to_chat(M, "<span class='warning'>You are NOT an antagonist, so self-antagging rules still apply to you. Use your good judgement and ahelp if you are unsure of what you are allowed to do.</span>")
-	M.mind.store_memory("<b>Important Words</b>: \"[my_word]\", \"[my_reply]\"")
+	..(M)
 
 
 /datum/game_mode/proc/remove_traitor(datum/mind/traitor_mind)
