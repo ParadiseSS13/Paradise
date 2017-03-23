@@ -108,26 +108,26 @@
 	switch(open)
 		if(0)
 			if(istype(W,/obj/item/weapon/scalpel))
-				spread_germs_to_organ(src,user)
+				spread_germs_to_organ(src,user, W)
 				user.visible_message("<span class='danger'><b>[user]</b> cuts [src] open with [W]!</span>")
 				open++
 				return
 		if(1)
 			if(istype(W,/obj/item/weapon/retractor))
-				spread_germs_to_organ(src,user)
+				spread_germs_to_organ(src,user, W)
 				user.visible_message("<span class='danger'><b>[user]</b> cracks [src] open like an egg with [W]!</span>")
 				open++
 				return
 		if(2)
 			if(istype(W,/obj/item/weapon/hemostat))
-				spread_germs_to_organ(src,user)
+				spread_germs_to_organ(src,user, W)
 				if(contents.len)
 					var/obj/item/removing = pick(contents)
 					var/obj/item/organ/internal/O = removing
 					if(istype(O))
 						O.status |= ORGAN_CUT_AWAY
 						if(!O.sterile)
-							spread_germs_to_organ(O,user) // This wouldn't be any cleaner than the actual surgery
+							spread_germs_to_organ(O,user, W) // This wouldn't be any cleaner than the actual surgery
 					user.put_in_hands(removing)
 					user.visible_message("<span class='danger'><b>[user]</b> extracts [removing] from [src] with [W]!</span>")
 				else
