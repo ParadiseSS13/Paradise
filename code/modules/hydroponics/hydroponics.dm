@@ -300,7 +300,7 @@
 	if(!self_sustaining)
 		if(myseed && myseed.get_gene(/datum/plant_gene/trait/glow))
 			var/datum/plant_gene/trait/glow/G = myseed.get_gene(/datum/plant_gene/trait/glow)
-			set_light(G.get_lum(myseed))
+			set_light(G.glow_range(myseed), G.glow_power(myseed), G.glow_color)
 		else
 			set_light(0)
 
@@ -996,8 +996,8 @@
 	C.faction = list("plants")
 
 ///Diona Nymph Related Procs///
-/obj/machinery/hydroponics/CanPass(atom/movable/mover, turf/target, height=0, air_group=0) //So nymphs can climb over top of trays.
-	if(air_group || (height==0))
+/obj/machinery/hydroponics/CanPass(atom/movable/mover, turf/target, height=0) //So nymphs can climb over top of trays.
+	if(height==0)
 		return 1
 
 	if(istype(mover) && mover.checkpass(PASSTABLE))
