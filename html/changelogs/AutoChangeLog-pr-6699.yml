@@ -1,0 +1,4 @@
+author: "FalseIncarnate"
+delete-after: True
+changes: 
+  - tweak: "Fish breeding has been tweaked to support fish refusing to cross-breed and improved egg chances with same-species parents."
