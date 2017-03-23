@@ -1,6 +1,0 @@
-author: "uraniummeltdown"
-delete-after: True
-changes: 
-  - tweak: "Station lighting has less lighting power, this is not noticeable apart from maint and 1 bulb rooms being a bit darker."
-  - tweak: "Tweaked the potency scaling for glowshroom/glowberry light; high-potency plants no longer light up a huge area, but are slightly brighter."
-  - rscadd: "Added Shadowshrooms as a glowshroom mutation. They do exactly what you'd expect."
