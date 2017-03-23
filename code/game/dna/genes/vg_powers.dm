@@ -237,7 +237,7 @@
 	if(!say)
 		return
 	say = strip_html(say)
-	say = pencode_to_html(say, usr, format = 0, fields = 0
+	say = pencode_to_html(say, usr, format = 0, fields = 0)
 
 	for(var/mob/living/target in targets)
 		log_say("Project Mind: [key_name(user)]->[key_name(target)]: [say]")
