@@ -471,3 +471,6 @@ emp_act
 	..()
 	if(temperature >= 330)	bodytemperature = bodytemperature + (temperature - bodytemperature)
 	if(temperature <= 280)	bodytemperature = bodytemperature - (bodytemperature - temperature)
+	if(get_species() == "Grey")
+		take_organ_damage(5,min(volume,20))
+		emote("scream")
