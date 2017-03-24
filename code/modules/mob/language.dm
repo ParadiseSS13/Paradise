@@ -296,6 +296,13 @@
 	flags = RESTRICTED | HIVEMIND
 
 /datum/language/grey/broadcast(mob/living/speaker, message, speaker_mask)
+	var/their = "their"
+	if(speaker.gender == "female")
+		their = "her"
+	if(speaker.gender == "male")
+		their = "his"
+	for(var/mob/living/player in view(4, speaker))
+		to_chat(player,"<span class='notice'>[speaker] touches [their] fingers to [their] temple.</span>")
 	..(speaker,message,speaker.real_name)
 
 /datum/language/grey/check_can_speak(mob/living/speaker)
