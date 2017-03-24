@@ -3,15 +3,15 @@
 	species = "Vox"
 
 /obj/item/organ/external/chest/vox
-	min_broken_damage = 29.5
+	min_broken_damage = 29
 	species = "Vox"
 
 /obj/item/organ/external/groin/vox
-	min_broken_damage = 29.5
+	min_broken_damage = 29
 	species = "Vox"
 
 /obj/item/organ/external/head/vox
-	min_broken_damage = 29.5
+	min_broken_damage = 29
 	species = "Vox"
 
 /obj/item/organ/external/arm/vox
@@ -31,17 +31,17 @@
 	species = "Vox"
 
 /obj/item/organ/external/hand/vox
-	min_broken_damage = 12.5
+	min_broken_damage = 12
 	species = "Vox"
 
 /obj/item/organ/external/hand/right/vox
-	min_broken_damage = 12.5
+	min_broken_damage = 12
 	species = "Vox"
 
 /obj/item/organ/external/foot/vox
-	min_broken_damage = 12.5
+	min_broken_damage = 12
 	species = "Vox"
 
 /obj/item/organ/external/foot/right/vox
-	min_broken_damage = 12.5
+	min_broken_damage = 12
 	species = "Vox"
