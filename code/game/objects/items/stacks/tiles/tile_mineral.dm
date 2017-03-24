@@ -17,6 +17,10 @@
 	mineralType = "uranium"
 	materials = list(MAT_URANIUM=500)
 
+var/global/list/datum/stack_recipe/gold_tile_recipes = list ( \
+	new/datum/stack_recipe("fancy gold tile", /obj/item/stack/tile/mineral/gold/fancy, max_res_amount = 20), \
+	)
+
 /obj/item/stack/tile/mineral/gold
 	name = "gold tile"
 	singular_name = "gold floor tile"
@@ -26,6 +30,26 @@
 	mineralType = "gold"
 	materials = list(MAT_GOLD=500)
 
+/obj/item/stack/tile/mineral/gold/New(loc, amount=null)
+	..()
+	recipes = gold_tile_recipes
+
+var/global/list/datum/stack_recipe/goldfancy_tile_recipes = list ( \
+	new/datum/stack_recipe("regular gold tile", /obj/item/stack/tile/mineral/gold, max_res_amount = 20), \
+	)
+
+/obj/item/stack/tile/mineral/gold/fancy
+	icon_state = "tile_goldfancy"
+	turf_type = /turf/simulated/floor/mineral/gold/fancy
+
+/obj/item/stack/tile/mineral/gold/fancy/New(loc, amount=null)
+	..()
+	recipes = goldfancy_tile_recipes
+
+var/global/list/datum/stack_recipe/silver_tile_recipes = list ( \
+	new/datum/stack_recipe("fancy silver tile", /obj/item/stack/tile/mineral/silver/fancy, max_res_amount = 20), \
+	)
+
 /obj/item/stack/tile/mineral/silver
 	name = "silver tile"
 	singular_name = "silver floor tile"
@@ -34,6 +58,22 @@
 	turf_type = /turf/simulated/floor/mineral/silver
 	mineralType = "silver"
 	materials = list(MAT_SILVER=500)
+
+/obj/item/stack/tile/mineral/silver/New(loc, amount=null)
+	..()
+	recipes = silver_tile_recipes
+
+var/global/list/datum/stack_recipe/silverfancy_tile_recipes = list ( \
+	new/datum/stack_recipe("regular silver tile", /obj/item/stack/tile/mineral/silver, max_res_amount = 20), \
+	)
+
+/obj/item/stack/tile/mineral/silver/fancy
+	icon_state = "tile_silverfancy"
+	turf_type = /turf/simulated/floor/mineral/silver/fancy
+
+/obj/item/stack/tile/mineral/silver/fancy/New(loc, amount=null)
+	..()
+	recipes = silverfancy_tile_recipes
 
 /obj/item/stack/tile/mineral/diamond
 	name = "diamond tile"
