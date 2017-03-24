@@ -14,7 +14,7 @@
 	update_icon()
 
 /obj/item/weapon/reagent_containers/dropper/update_icon()
-	if(reagents.total_volume<=0)
+	if(reagents.total_volume <= 0)
 		icon_state = "[initial(icon_state)]"
 	else
 		icon_state = "[initial(icon_state)]1"
