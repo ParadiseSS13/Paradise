@@ -72,8 +72,7 @@
 ///post_setup()
 ///Everyone should now be on the station and have their normal gear.  This is the place to give the special roles extra things
 /datum/game_mode/proc/post_setup()
-	spawn(30)
-		setup_chumps()
+	setup_chumps()
 
 	spawn (ROUNDSTART_LOGOUT_REPORT_TIME)
 		display_roundstart_logout_report()
@@ -116,7 +115,12 @@
 		return 0
 	//we've got chumps! misinform them!
 	for(var/mob/living/carbon/human/chump in chumps)
-		inform_collab(chump)
+		if(prob(33))
+			spawn(rand(3000, 18000))	//5-30 minute delay to throw off would-be autotraitor metagamers
+				inform_collab(chump)
+		else
+			spawn(rand(10, 100))		//same delay as if the mode were traitor
+				inform_collab(chump)
 	return 1
 
 ///process()
