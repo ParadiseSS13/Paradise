@@ -651,12 +651,14 @@ obj/item/weapon/weldingtool/experimental/process()
 
 /obj/item/weapon/crowbar/red
 	icon_state = "crowbar_red"
+	item_state = "crowbar_red"
 	force = 8
 
 /obj/item/weapon/crowbar/brass
 	name = "brass crowbar"
 	desc = "A brass crowbar. It feels faintly warm to the touch."
 	icon_state = "crowbar_brass"
+	item_state = "crowbar_brass"
 	toolspeed = 0.5
 
 /obj/item/weapon/crowbar/abductor
@@ -677,7 +679,7 @@ obj/item/weapon/weldingtool/experimental/process()
 	throw_range = 3
 	materials = list(MAT_METAL=70)
 	icon_state = "crowbar_large"
-	item_state = "crowbar"
+	item_state = "crowbar_large"
 	toolspeed = 0.5
 
 /obj/item/weapon/crowbar/cyborg
