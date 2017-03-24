@@ -1,0 +1,4 @@
+author: "uraniummeltdown"
+delete-after: True
+changes: 
+  - rscadd: "You can change gold and silver tiles into fancy versions by using them in hand."
