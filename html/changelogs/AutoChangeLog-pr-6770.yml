@@ -1,6 +1,0 @@
-author: "KasparoVy"
-delete-after: True
-changes: 
-  - bugfix: "Red wire-cutters and red crowbars now appear correctly in-hands again.
-imgadd: The medical wrench and all the brass tools (screwdriver, crowbar, wrench, wire-cutters, welder) now have in-hand sprites of their own."
-  - tweak: "Adds TG's inhand icons for screwdrivers, crowbars, wrenches, wire-cutters and welders."
