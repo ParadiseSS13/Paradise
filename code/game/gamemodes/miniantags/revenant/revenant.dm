@@ -17,7 +17,7 @@
 	invisibility = INVISIBILITY_REVENANT
 	health =  INFINITY //Revenants don't use health, they use essence instead
 	maxHealth =  INFINITY
-	see_invisible = INVISIBILITY_REVENANT
+	see_invisible = SEE_INVISIBLE_OBSERVER_NOLIGHTING
 	see_in_dark = 8
 	universal_understand = 1
 	response_help   = "passes through"

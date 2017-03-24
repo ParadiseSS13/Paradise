@@ -68,6 +68,19 @@
 	var/can_stand
 	var/wound_cleanup_timer
 
+/obj/item/organ/external/necrotize(update_sprite=TRUE)
+	if(status & (ORGAN_ROBOT|ORGAN_DEAD))
+		return
+	to_chat(owner, "<span class='notice'>You can't feel your [name] anymore...</span>")
+	status |= ORGAN_DEAD
+	if(dead_icon)
+		icon_state = dead_icon
+	if(owner)
+		owner.update_body(update_sprite)
+		owner.bad_external_organs |= src
+		if(vital)
+			owner.death()
+
 /obj/item/organ/external/Destroy()
 	if(parent && parent.children)
 		parent.children -= src
@@ -541,10 +554,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 					parent.germ_level++
 
 	if(germ_level >= INFECTION_LEVEL_THREE && antibiotics < 30)	//overdosing is necessary to stop severe infections
-		if(!(status & ORGAN_DEAD))
-			status |= ORGAN_DEAD
-			to_chat(owner, "<span class='notice'>You can't feel your [name] anymore...</span>")
-			owner.update_body(1)
+		necrotize()
 
 		germ_level++
 		owner.adjustToxLoss(1)

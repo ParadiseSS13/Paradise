@@ -139,7 +139,7 @@
 	var/on_gs = 0
 	var/static_power_used = 0
 	var/brightness_range = 8	// luminosity when on, also used in power calculation
-	var/brightness_power = 3
+	var/brightness_power = 1
 	var/brightness_color = null
 	var/status = LIGHT_OK		// LIGHT_OK, _EMPTY, _BURNED or _BROKEN
 	var/flickering = 0
@@ -157,7 +157,6 @@
 	base_state = "bulb"
 	fitting = "bulb"
 	brightness_range = 4
-	brightness_power = 2
 	brightness_color = "#a0a080"
 	desc = "A small lighting fixture."
 	light_type = /obj/item/weapon/light/bulb
@@ -190,12 +189,10 @@
 		switch(fitting)
 			if("tube")
 				brightness_range = 8
-				brightness_power = 3
 				if(prob(2))
 					broken(1)
 			if("bulb")
 				brightness_range = 4
-				brightness_power = 2
 				brightness_color = "#a0a080"
 				if(prob(5))
 					broken(1)
@@ -608,13 +605,12 @@
 	item_state = "c_tube"
 	materials = list(MAT_GLASS=100)
 	brightness_range = 8
-	brightness_power = 3
 
 /obj/item/weapon/light/tube/large
 	w_class = 2
 	name = "large light tube"
 	brightness_range = 15
-	brightness_power = 4
+	brightness_power = 2
 
 /obj/item/weapon/light/bulb
 	name = "light bulb"
@@ -624,7 +620,6 @@
 	item_state = "contvapour"
 	materials = list(MAT_GLASS=100)
 	brightness_range = 5
-	brightness_power = 2
 	brightness_color = "#a0a080"
 
 /obj/item/weapon/light/throw_impact(atom/hit_atom)
@@ -639,7 +634,6 @@
 	item_state = "egg4"
 	materials = list(MAT_GLASS=100)
 	brightness_range = 5
-	brightness_power = 2
 
 // update the icon state and description of the light
 

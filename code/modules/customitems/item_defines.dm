@@ -697,3 +697,32 @@
 	name = "Voxcaster"
 	desc = "Battered, Sol-made military radio backpack that had its speakers fried from playing Vox opera. The words 'Swift-Talon' are crudely scratched onto its side."
 	icon_state = "voxcaster_fluff"
+
+/obj/item/clothing/head/wizard/fake/fluff/dreamy //phantasmicdream : Dreamy Rockwall
+	name = "strange witch hat"
+	desc = "A shapeshifting witch hat. A strange aura comes from it..."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "classic_witch"
+	item_state = "classic_witch"
+
+/obj/item/clothing/head/wizard/fake/fluff/dreamy/attack_self(mob/user)
+	var/list/options = list()
+	options["Classic"] = "classic_witch"
+	options["Good"] = "good_witch"
+	options["Dark"] = "dark_witch"
+	options["Steampunk"] ="steampunk_witch"
+	options["Healer"] = "healer_witch"
+	options["Cute"] = "cutie_witch"
+	options["Shy"] = "shy_witch"
+	options["Sexy"] ="sexy_witch"
+	options["Bunny"] = "bunny_witch"
+	options["Potions"] = "potions_witch"
+	options["Syndicate"] = "syndie_witch"
+	options["Nanotrasen"] ="nt_witch"
+
+	var/choice = input(user, "To what form do you wish to Shapeshift this hat?", "Shapeshift Hat") as null|anything in options
+
+	if(choice && !user.stat && in_range(user, src))
+		icon_state = options[choice]
+		to_chat(user, "Your strange witch hat has now shapeshifted into it's [choice] form!")
+		return 1
