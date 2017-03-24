@@ -11,10 +11,13 @@
 	invocation_type = "shout"
 	action_icon_state = "immrod"
 
+	sound = 'sound/effects/whoosh.ogg'
+	var/rod_delay = 2
+
 /obj/effect/proc_holder/spell/targeted/rod_form/cast(list/targets,mob/user = usr)
 	for(var/mob/living/M in targets)
 		var/turf/start = get_turf(M)
-		var/obj/effect/immovablerod/wizard/W = new(start, get_ranged_target_turf(M, M.dir, (15 + spell_level * 3)))
+		var/obj/effect/immovablerod/wizard/W = new(start, get_ranged_target_turf(M, M.dir, (15 + spell_level * 3)), rod_delay)
 		W.wizard = M
 		W.max_distance += spell_level * 3 //You travel farther when you upgrade the spell
 		W.start_turf = start
