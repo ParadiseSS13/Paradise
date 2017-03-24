@@ -473,7 +473,7 @@ proc/checkhtml(var/t)
 		text = replacetext(text, "\[large\]",	"<font size=\"4\">")
 		text = replacetext(text, "\[/large\]",	"</font>")
 
-	if(istype(P, /obj/item/toy/crayon) | !format) // If it is a crayon, and he still tries to use these, make them empty!
+	if(istype(P, /obj/item/toy/crayon) || !format) // If it is a crayon, and he still tries to use these, make them empty!
 		text = replacetext(text, "\[*\]", 		"")
 		text = replacetext(text, "\[hr\]",		"")
 		text = replacetext(text, "\[small\]", 	"")
@@ -485,7 +485,7 @@ proc/checkhtml(var/t)
 		text = replacetext(text, "\[row\]", 	"")
 		text = replacetext(text, "\[cell\]", 	"")
 		text = replacetext(text, "\[logo\]", 	"")
-
+	if(istype(P, /obj/item/toy/crayon))
 		text = "<font face=\"[crayonfont]\" color=[P ? P.colour : "black"]><b>[text]</b></font>"
 	else 	// They are using "not a crayon" - formatting is OK and such
 		text = replacetext(text, "\[*\]",		"<li>")
@@ -501,9 +501,10 @@ proc/checkhtml(var/t)
 		text = replacetext(text, "\[row\]",		"</td><tr>")
 		text = replacetext(text, "\[cell\]",	"<td>")
 		text = replacetext(text, "\[logo\]",	"<img src = ntlogo.png>")
-
+	if(P)
 		text = "<font face=\"[deffont]\" color=[P ? P.colour : "black"]>[text]</font>"
-
+	else
+		text = "<font face=\"[deffont]\">[text]</font>"
 	text = copytext(text, 1, MAX_PAPER_MESSAGE_LEN)
 	return text
 
