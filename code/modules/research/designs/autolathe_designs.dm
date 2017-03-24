@@ -632,6 +632,14 @@
 	build_path = /obj/item/weapon/restraints/handcuffs
 	category = list("hacked", "Security")
 
+/datum/design/receiver
+	name = "Modular Receiver"
+	id = "receiver"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 15000)
+	build_path = /obj/item/weaponcrafting/receiver
+	category = list("hacked", "Security")
+
 /datum/design/shotgun_slug
 	name = "Shotgun Slug"
 	id = "shotgun_slug"
