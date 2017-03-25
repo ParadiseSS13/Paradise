@@ -11,14 +11,32 @@
 /turf/simulated/floor/wood/attackby(obj/item/C, mob/user, params)
 	if(..())
 		return
-	if(istype(C, /obj/item/weapon/screwdriver))
-		if(broken || burnt)
-			return
-		to_chat(user, "<span class='danger'>You unscrew the planks.</span>")
-		new floor_tile(src)
-		make_plating()
-		playsound(src, C.usesound, 80, 1)
+	if(isscrewdriver(C))
+		pry_tile(C, user)
 		return
+
+/turf/simulated/floor/wood/pry_tile(obj/item/C, mob/user, silent = FALSE)
+	var/is_screwdriver = isscrewdriver(C)
+	playsound(src, C.usesound, 80, 1)
+	return remove_tile(user, silent, make_tile = is_screwdriver)
+
+/turf/simulated/floor/wood/remove_tile(mob/user, silent = FALSE, make_tile = TRUE)
+	if(broken || burnt)
+		broken = 0
+		burnt = 0
+		if(user && !silent)
+			to_chat(user, "<span class='danger'>You remove the broken planks.</span>")
+	else
+		if(make_tile)
+			if(user && !silent)
+				to_chat(user, "<span class='danger'>You unscrew the planks.</span>")
+			if(builtin_tile)
+				builtin_tile.forceMove(src)
+				builtin_tile = null
+		else
+			if(user && !silent)
+				to_chat(user, "<span class='danger'>You forcefully pry off the planks, destroying them in the process.</span>")
+	return make_plating()
 
 /turf/simulated/floor/grass
 	name = "grass patch"
@@ -45,7 +63,7 @@
 		to_chat(user, "<span class='notice'>You shovel the grass.</span>")
 		playsound(src, 'sound/effects/shovel_dig.ogg', 50, 1)
 		make_plating()
-		
+
 // NEEDS TO BE UPDATED
 /turf/simulated/floor/basalt //By your powers combined, I am captain planet
 	name = "volcanic floor"
@@ -54,7 +72,7 @@
 	oxygen = 14
 	nitrogen = 23
 	temperature = 300
-	
+
 /turf/simulated/floor/basalt/attackby(obj/item/W, mob/user, params)
 	if(..())
 		return

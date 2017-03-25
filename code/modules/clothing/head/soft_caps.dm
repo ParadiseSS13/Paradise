@@ -6,6 +6,10 @@
 	item_color = "cargo"
 	var/flipped = 0
 	actions_types = list(/datum/action/item_action/flip_cap)
+	species_fit = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/head.dmi'
+		)
 
 /obj/item/clothing/head/soft/dropped()
 	icon_state = "[item_color]soft"
