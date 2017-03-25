@@ -431,106 +431,87 @@
 /datum/sprite_accessory/hair/ipc
 	species_allowed = list("Machine")
 	glasses_over = 1
+	models_allowed = list("Bishop Cybernetics mtr.", "Hesphiastos Industries mtr.", "Morpheus Cyberkinetics", "Ward-Takahashi mtr.", "Xion Manufacturing Group mtr.", "Shellguard Munitions Monitor Series")
 
 /datum/sprite_accessory/hair/ipc/ipc_screen_pink
 	name = "Pink IPC Screen"
 	icon_state = "ipc_pink"
-	models_allowed = list("Bishop Cybernetics mtr.", "Hesphiastos Industries mtr.", "Morpheus Cyberkinetics", "Ward-Takahashi mtr.", "Xion Manufacturing Group mtr.")
 
 /datum/sprite_accessory/hair/ipc/ipc_screen_red
 	name = "Red IPC Screen"
 	icon_state = "ipc_red"
-	models_allowed = list("Bishop Cybernetics mtr.", "Hesphiastos Industries mtr.", "Morpheus Cyberkinetics", "Ward-Takahashi mtr.", "Xion Manufacturing Group mtr.")
 
 /datum/sprite_accessory/hair/ipc/ipc_screen_green
 	name = "Green IPC Screen"
 	icon_state = "ipc_green"
-	models_allowed = list("Bishop Cybernetics mtr.", "Hesphiastos Industries mtr.", "Morpheus Cyberkinetics", "Ward-Takahashi mtr.", "Xion Manufacturing Group mtr.")
 
 /datum/sprite_accessory/hair/ipc/ipc_screen_blue
 	name = "Blue IPC Screen"
 	icon_state = "ipc_blue"
-	models_allowed = list("Bishop Cybernetics mtr.", "Hesphiastos Industries mtr.", "Morpheus Cyberkinetics", "Ward-Takahashi mtr.", "Xion Manufacturing Group mtr.")
 
 /datum/sprite_accessory/hair/ipc/ipc_screen_breakout
 	name = "Breakout IPC Screen"
 	icon_state = "ipc_breakout"
-	models_allowed = list("Bishop Cybernetics mtr.", "Hesphiastos Industries mtr.", "Morpheus Cyberkinetics", "Ward-Takahashi mtr.", "Xion Manufacturing Group mtr.")
 
 /datum/sprite_accessory/hair/ipc/ipc_screen_eight
 	name = "Eight IPC Screen"
 	icon_state = "ipc_eight"
-	models_allowed = list("Bishop Cybernetics mtr.", "Hesphiastos Industries mtr.", "Morpheus Cyberkinetics", "Ward-Takahashi mtr.", "Xion Manufacturing Group mtr.")
 
 /datum/sprite_accessory/hair/ipc/ipc_screen_rainbow
 	name = "Rainbow IPC Screen"
 	icon_state = "ipc_rainbow"
-	models_allowed = list("Bishop Cybernetics mtr.", "Hesphiastos Industries mtr.", "Morpheus Cyberkinetics", "Ward-Takahashi mtr.", "Xion Manufacturing Group mtr.")
 
 /datum/sprite_accessory/hair/ipc/ipc_screen_goggles
 	name = "Goggles IPC Screen"
 	icon_state = "ipc_goggles"
-	models_allowed = list("Bishop Cybernetics mtr.", "Hesphiastos Industries mtr.", "Morpheus Cyberkinetics", "Ward-Takahashi mtr.", "Xion Manufacturing Group mtr.")
 
 /datum/sprite_accessory/hair/ipc/ipc_screen_heart
 	name = "Heart IPC Screen"
 	icon_state = "ipc_heart"
-	models_allowed = list("Bishop Cybernetics mtr.", "Hesphiastos Industries mtr.", "Morpheus Cyberkinetics", "Ward-Takahashi mtr.", "Xion Manufacturing Group mtr.")
 
 /datum/sprite_accessory/hair/ipc/ipc_screen_monoeye
 	name = "Monoeye IPC Screen"
 	icon_state = "ipc_monoeye"
-	models_allowed = list("Bishop Cybernetics mtr.", "Hesphiastos Industries mtr.", "Morpheus Cyberkinetics", "Ward-Takahashi mtr.", "Xion Manufacturing Group mtr.")
 
 /datum/sprite_accessory/hair/ipc/ipc_screen_nature
 	name = "Nature IPC Screen"
 	icon_state = "ipc_nature"
-	models_allowed = list("Bishop Cybernetics mtr.", "Hesphiastos Industries mtr.", "Morpheus Cyberkinetics", "Ward-Takahashi mtr.", "Xion Manufacturing Group mtr.")
 
 /datum/sprite_accessory/hair/ipc/ipc_screen_orange
 	name = "Orange IPC Screen"
 	icon_state = "ipc_orange"
-	models_allowed = list("Bishop Cybernetics mtr.", "Hesphiastos Industries mtr.", "Morpheus Cyberkinetics", "Ward-Takahashi mtr.", "Xion Manufacturing Group mtr.")
 
 /datum/sprite_accessory/hair/ipc/ipc_screen_purple
 	name = "Purple IPC Screen"
 	icon_state = "ipc_purple"
-	models_allowed = list("Bishop Cybernetics mtr.", "Hesphiastos Industries mtr.", "Morpheus Cyberkinetics", "Ward-Takahashi mtr.", "Xion Manufacturing Group mtr.")
 
 /datum/sprite_accessory/hair/ipc/ipc_screen_shower
 	name = "Shower IPC Screen"
 	icon_state = "ipc_shower"
-	models_allowed = list("Bishop Cybernetics mtr.", "Hesphiastos Industries mtr.", "Morpheus Cyberkinetics", "Ward-Takahashi mtr.", "Xion Manufacturing Group mtr.")
 
 /datum/sprite_accessory/hair/ipc/ipc_screen_static
 	name = "Static IPC Screen"
 	icon_state = "ipc_static"
-	models_allowed = list("Bishop Cybernetics mtr.", "Hesphiastos Industries mtr.", "Morpheus Cyberkinetics", "Ward-Takahashi mtr.", "Xion Manufacturing Group mtr.")
 
 /datum/sprite_accessory/hair/ipc/ipc_screen_yellow
 	name = "Yellow IPC Screen"
 	icon_state = "ipc_yellow"
-	models_allowed = list("Bishop Cybernetics mtr.", "Hesphiastos Industries mtr.", "Morpheus Cyberkinetics", "Ward-Takahashi mtr.", "Xion Manufacturing Group mtr.")
 
 /datum/sprite_accessory/hair/ipc/ipc_screen_scrolling
 	name = "Scanline IPC Screen"
 	icon_state = "ipc_scroll"
-	models_allowed = list("Bishop Cybernetics mtr.", "Hesphiastos Industries mtr.", "Morpheus Cyberkinetics", "Ward-Takahashi mtr.", "Xion Manufacturing Group mtr.")
 
 /datum/sprite_accessory/hair/ipc/ipc_screen_console
 	name = "Console IPC Screen"
 	icon_state = "ipc_console"
-	models_allowed = list("Bishop Cybernetics mtr.", "Hesphiastos Industries mtr.", "Morpheus Cyberkinetics", "Ward-Takahashi mtr.", "Xion Manufacturing Group mtr.")
 
 /datum/sprite_accessory/hair/ipc/ipc_screen_rgb
 	name = "RGB IPC Screen"
 	icon_state = "ipc_rgb"
-	models_allowed = list("Bishop Cybernetics mtr.", "Hesphiastos Industries mtr.", "Morpheus Cyberkinetics", "Ward-Takahashi mtr.", "Xion Manufacturing Group mtr.")
 
 /datum/sprite_accessory/hair/ipc/ipc_screen_glider
 	name = "Glider IPC Screen"
 	icon_state = "ipc_gol_glider"
-	models_allowed = list("Bishop Cybernetics mtr.", "Hesphiastos Industries mtr.", "Morpheus Cyberkinetics", "Ward-Takahashi mtr.", "Xion Manufacturing Group mtr.")
 
 /datum/sprite_accessory/hair/ipc/hesphiastos_alt_off
 	name = "Dark Hesphiastos Screen"
