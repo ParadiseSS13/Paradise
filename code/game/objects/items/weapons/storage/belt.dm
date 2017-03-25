@@ -187,6 +187,7 @@
 		/obj/item/clothing/glasses,
 		/obj/item/ammo_casing/shotgun,
 		/obj/item/ammo_box,
+		/obj/item/weapon/stock_parts/cell/senergy,
 		/obj/item/weapon/reagent_containers/food/snacks/donut,
 		/obj/item/weapon/kitchen/knife/combat,
 		/obj/item/weapon/melee/baton,
@@ -249,7 +250,7 @@
 	icon_state = "militarybelt"
 	item_state = "military"
 	max_w_class = WEIGHT_CLASS_SMALL
-	
+
 /obj/item/weapon/storage/belt/military/abductor
 	name = "agent belt"
 	desc = "A belt used by abductor agents."
