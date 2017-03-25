@@ -1042,4 +1042,7 @@
 	else
 		..()
 
+/obj/machinery/hydroponics/soil/CanPass()
+	return 1
+
 #undef HYDRO_CYCLES_PER_AGE
