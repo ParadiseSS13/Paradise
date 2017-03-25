@@ -29,6 +29,7 @@
 	else
 		living_mob_list += src
 	prepare_huds()
+	hook_vr("mob_new", list(src))
 	..()
 
 /atom/proc/prepare_huds()

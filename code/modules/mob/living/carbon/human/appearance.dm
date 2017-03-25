@@ -233,6 +233,12 @@
 	update_body()
 	return 1
 
+/mob/living/carbon/human/proc/get_eye_color()
+	// fucking kasparov makes me want to :tiger::gun:
+	var/obj/item/organ/internal/eyes/eyes_organ = get_int_organ(/obj/item/organ/internal/eyes)
+	if(eyes_organ)
+		return eyes_organ.eye_colour
+
 /mob/living/carbon/human/proc/change_hair_color(var/red, var/green, var/blue, var/secondary)
 	var/obj/item/organ/external/head/H = get_organ("head")
 	if(!H)
@@ -256,6 +262,12 @@
 	update_hair()
 	return 1
 
+/mob/living/carbon/human/proc/get_hair_color()
+	// fucking kasparov makes me want to :tiger::gun:
+	var/obj/item/organ/external/head/H = get_organ("head")
+	if(H)
+		return list(H.r_hair, H.g_hair, H.b_hair)
+
 /mob/living/carbon/human/proc/change_facial_hair_color(var/red, var/green, var/blue, var/secondary)
 	var/obj/item/organ/external/head/H = get_organ("head")
 	if(!H)
@@ -278,6 +290,12 @@
 
 	update_fhair()
 	return 1
+
+/mob/living/carbon/human/proc/get_facial_hair_color()
+	// fucking kasparov makes me want to :tiger::gun:
+	var/obj/item/organ/external/head/H = get_organ("head")
+	if(H)
+		return list(H.r_facial, H.g_facial, H.b_facial)
 
 /mob/living/carbon/human/proc/change_head_accessory_color(var/red, var/green, var/blue)
 	var/obj/item/organ/external/head/H = get_organ("head")

@@ -27,6 +27,8 @@
 		//Random events (vomiting etc)
 		handle_random_events()
 
+		attempt_vr(src, "handle_internal_contents", args)
+
 		. = 1
 
 	//Handle temperature/pressure differences between body and environment
@@ -36,7 +38,7 @@
 	handle_fire()
 
 	//stuff in the stomach
-	handle_stomach()
+	//handle_stomach()
 
 	update_gravity(mob_has_gravity())
 
