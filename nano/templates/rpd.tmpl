@@ -1,0 +1,105 @@
+<!-- 
+Used In File(s): /code/game/objects/items/weapons/rpd.dm
+-->
+<h2 style = "float:left;">Mode:</h2>
+<div style = "float:right;">{{:helper.link("Reset RPD", "refresh", {"refresh": 1}, data.refresh == 1 ? "linkOn" : null)}}</div>
+<div class = "item">
+	{{for data.mainmenu}}
+		{{:helper.link(String(value.key1), String(value.key3), {"mode": Number(value.key2)}, data.mode == Number(value.key2) ? "linkOn" : null)}}
+	{{/for}}
+</div>
+{{if data.mode == 1}}
+	<h3>Pipe type:</h3>
+	<div>
+		{{for data.pipemenu}}
+			{{:helper.link(String(value.key1), null, {"pipetype": Number(value.key2)}, data.pipetype == Number(value.key2) ? "linkOn" : null)}}
+		{{/for}}
+	</div>
+	<h3>Available pipes:</h3>
+	<div style = "width:45%; float:left;">
+		{{for data.pipelist}}
+			{{if value.key3 == data.pipetype}}
+				<div class = "item">{{:helper.link(String(value.key1), "arrow-right", {"whatpipe": Number(value.key2)}, data.whatpipe == Number(value.key2) ? "linkOn" : null)}}</div>
+			{{/if}}
+		{{/for}}
+	</div>
+	{{for data.pipelist}}
+		{{if value.key2 == data.whatpipe && value.key4 != 1}}
+			<div style = "float:right; width:50%;">
+				<div style = "margin-bottom:30pt;">
+					{{:helper.link("Orient automatically", null, {"iconrotation": 0}, data.iconrotation == 0 ? "linkOn" : null)}}
+				</div>
+				<div>
+					{{:helper.link("", "arrow-right", {"iconrotation": 1}, data.iconrotation == 1 ? "linkOn" : null)}}
+					{{if value.key6 == 1}}
+						<img src = "{{:value.key5}}-northeast.png">
+					{{else}}
+						<img src = "{{:value.key5}}-north.png">
+					{{/if}}
+				</div>
+				<div>
+					{{:helper.link("", "arrow-right", {"iconrotation": 4}, data.iconrotation == 4 ? "linkOn" : null)}}
+					{{if value.key6 == 1}}
+						<img src = "{{:value.key5}}-southeast.png">
+					{{else}}
+						<img src = "{{:value.key5}}-east.png">
+					{{/if}}
+				</div>
+			{{if value.key4 == 4}}
+				<div>
+					{{:helper.link("", "arrow-right", {"iconrotation": 2}, data.iconrotation == 2 ? "linkOn" : null)}}
+					{{if value.key6 == 1}}
+						<img src = "{{:value.key5}}-southwest.png">
+					{{else}}
+						<img src = "{{:value.key5}}-south.png">
+					{{/if}}
+				</div>
+				<div>
+					{{:helper.link("", "arrow-right", {"iconrotation": 8}, data.iconrotation == 8 ? "linkOn" : null)}}
+					{{if value.key6 == 1}}
+						<img src = "{{:value.key5}}-northwest.png">
+					{{else}}
+						<img src = "{{:value.key5}}-west.png">
+					{{/if}}
+				</div>
+			{{/if}}
+			</div>
+		{{/if}}
+	{{/for}}
+{{else data.mode == 2}}
+	<h3>Available pipes:</h3>
+	<div style = "width:45%; float:left;">
+	{{for data.dpipelist}}
+			<div class = "item">{{:helper.link(String(value.key1), "arrow-right", {"whatdpipe": Number(value.key2)}, data.whatdpipe == Number(value.key2) ? "linkOn" : null)}}</div>
+	{{/for}}
+	</div>
+	{{for data.dpipelist}}
+		{{if value.key2 == data.whatdpipe && value.key3 != 1}}
+			<div style = "float:right; width:50%;">
+				<div style = "margin-bottom:30pt;">
+						{{:helper.link("Orient automatically", null, {"iconrotation": 0}, data.iconrotation == 0 ? "linkOn" : null)}}
+				</div>
+				<div>
+					{{:helper.link("", "arrow-right", {"iconrotation": 1}, data.iconrotation == 1 ? "linkOn" : null)}} <img src = "{{:value.key4}}-north.png">
+				</div>
+				<div>
+					{{:helper.link("", "arrow-right", {"iconrotation": 4}, data.iconrotation == 4 ? "linkOn" : null)}}<img src = "{{:value.key4}}-east.png">
+				</div>
+				{{if value.key3 == 4}}
+					<div>
+						{{:helper.link("", "arrow-right", {"iconrotation": 2}, data.iconrotation == 2 ? "linkOn" : null)}} <img src = "{{:value.key4}}-south.png">
+					</div>
+					<div>
+						{{:helper.link("", "arrow-right", {"iconrotation": 8}, data.iconrotation == 8 ? "linkOn" : null)}}<img src = "{{:value.key4}}-west.png">
+					</div>
+				{{/if}}
+			</div>
+		{{/if}}
+	{{/for}}
+{{else data.mode == 3}}
+	<h3>Device ready to rotate loose pipes...</h3>
+{{else data.mode == 4}}
+	<h3>Device ready to flip loose pipes...</h3>
+{{else data.mode == 5}}
+	<h3>Device ready to eat loose pipes...</h3>
+{{/if}}
