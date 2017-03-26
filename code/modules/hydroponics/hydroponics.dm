@@ -1003,7 +1003,7 @@
 	if(istype(mover) && mover.checkpass(PASSTABLE))
 		return 1
 	else
-		return 0
+		return ..()
 
 /obj/machinery/hydroponics/attack_animal(mob/living/user)
 	if(istype(user, /mob/living/simple_animal/diona))
