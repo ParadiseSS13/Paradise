@@ -143,3 +143,4 @@
 		new /obj/item/weapon/watertank/atmos(src)
 		new /obj/item/clothing/suit/fire/atmos(src)
 		new /obj/item/clothing/head/hardhat/atmos(src)
+		new /obj/item/weapon/rpd(src)
