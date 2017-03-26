@@ -56,7 +56,8 @@
 	reagent_tag = PROCESS_ORG
 	base_color = "#066000"
 	//Default styles for created mobs.
-	default_hair = "Unathi Horns"
+	default_headacc = "Simple"
+	default_headacc_colour = "#404040"
 	butt_sprite = "unathi"
 
 	has_organ = list(
@@ -80,6 +81,19 @@
 
 /datum/species/unathi/handle_death(var/mob/living/carbon/human/H)
 	H.stop_tail_wagging(1)
+
+/datum/species/unathi/handle_post_spawn(var/mob/living/carbon/human/H, var/skip_abilities)
+	if(H.client && H.client.prefs.speciesprefs)
+		var/obj/item/organ/external/hand/L = H.get_organ("l_hand")
+		var/obj/item/organ/external/hand/right/R = H.get_organ("r_hand")
+		if(L)
+			L.claws_out()
+		if(R)
+			R.claws_out()
+		H.update_body(0, 1) //Rebuild the body to display those claws.
+		if(skip_abilities)
+			return
+	..()
 
 /datum/species/tajaran
 	name = "Tajaran"
@@ -140,6 +154,19 @@
 
 /datum/species/tajaran/handle_death(var/mob/living/carbon/human/H)
 	H.stop_tail_wagging(1)
+
+/datum/species/tajaran/handle_post_spawn(var/mob/living/carbon/human/H, var/skip_abilities)
+	if(H.client && H.client.prefs.speciesprefs)
+		var/obj/item/organ/external/hand/L = H.get_organ("l_hand")
+		var/obj/item/organ/external/hand/right/R = H.get_organ("r_hand")
+		if(L)
+			L.claws_out()
+		if(R)
+			R.claws_out()
+		H.update_body(0, 1) //Rebuild the body to display those claws.
+		if(skip_abilities)
+			return
+	..()
 
 /datum/species/vulpkanin
 	name = "Vulpkanin"
@@ -212,10 +239,13 @@
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_SKIN_COLOR | HAS_BODY_MARKINGS
 	dietflags = DIET_HERB
+	base_color = "#34AC5B"
 	flesh_color = "#8CD7A3"
 	blood_color = "#1D2CBF"
 	//Default styles for created mobs.
+	eyes = "skrell_eyes_s"
 	default_hair = "Skrell Male Tentacles"
+	default_hair_colour = "#2A8C54"
 	reagent_tag = PROCESS_ORG
 	butt_sprite = "skrell"
 
@@ -481,11 +511,13 @@
 
 	flags = IS_WHITELISTED
 	clothing_flags = HAS_SOCKS
-	bodyflags = FEET_CLAWS
-	eyes = "kidan_eyes"
+	bodyflags = FEET_CLAWS | HAS_HEAD_ACCESSORY
+	eyes = "kidan_eyes_s"
 	dietflags = DIET_HERB
 	blood_color = "#FB9800"
 	reagent_tag = PROCESS_ORG
+	//Default styles for created mobs.
+	default_headacc = "Normal Antennae"
 	butt_sprite = "kidan"
 
 	has_organ = list(

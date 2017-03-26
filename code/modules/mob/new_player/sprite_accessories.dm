@@ -1645,7 +1645,7 @@
 
 /datum/sprite_accessory/head_accessory/none
 	name = "None"
-	species_allowed = list("Human", "Unathi", "Diona", "Grey", "Machine", "Tajaran", "Vulpkanin", "Slime People", "Skeleton", "Vox")
+	species_allowed = list("Human", "Unathi", "Diona", "Grey", "Kidan", "Machine", "Tajaran", "Vulpkanin", "Slime People", "Skeleton", "Vox")
 	icon_state = "accessory_none"
 
 /datum/sprite_accessory/head_accessory/unathi
@@ -1680,12 +1680,20 @@
 	icon_state = "markings_face_inears_taj"
 
 /datum/sprite_accessory/head_accessory/tajara/muzzle_taj
-	name = "Tajaran Muzzle"
+	name = "Tajaran Male Muzzle"
 	icon_state = "markings_face_muzzle_taj"
+
+/datum/sprite_accessory/head_accessory/tajara/muzzle_f_taj
+	name = "Tajaran Female Muzzle"
+	icon_state = "markings_face_muzzle_f_taj"
 
 /datum/sprite_accessory/head_accessory/tajara/muzzle_and_inears_taj
 	name = "Tajaran Muzzle and Inner Ears"
 	icon_state = "markings_face_muzzle_and_inears_taj"
+
+/datum/sprite_accessory/head_accessory/tajara/nose_and_inears_taj
+	name = "Tajaran Nose and Inner Ears"
+	icon_state = "markings_face_nose_and_inears_taj"
 
 /datum/sprite_accessory/head_accessory/tajara/taj_ears
 	icon = 'icons/mob/human_face.dmi'
@@ -1768,6 +1776,47 @@
 	name = "Head Light"
 	icon_state = "light"
 
+/datum/sprite_accessory/head_accessory/kidan
+	icon = 'icons/mob/human_face.dmi'
+	species_allowed = list("Kidan")
+	over_hair = 1
+	do_colouration = 0
+
+/datum/sprite_accessory/head_accessory/kidan/perked_antennae
+	name = "Perked-up Antennae"
+	icon_state = "kidan_perky"
+
+/datum/sprite_accessory/head_accessory/kidan/mopey_antennae
+	name = "Mopey Antennae"
+	icon_state = "kidan_mopey"
+
+/datum/sprite_accessory/head_accessory/kidan/curious_antennae
+	name = "Curious Antennae"
+	icon_state = "kidan_curious"
+
+/datum/sprite_accessory/head_accessory/kidan/mopey_antennae
+	name = "Mopey Antennae"
+	icon_state = "kidan_mopey"
+
+/datum/sprite_accessory/head_accessory/kidan/crescent_antennae
+	name = "Crescent Antennae"
+	icon_state = "kidan_crescent"
+
+/datum/sprite_accessory/head_accessory/kidan/alert_antennae
+	name = "Alert Antennae"
+	icon_state = "kidan_alert"
+
+/datum/sprite_accessory/head_accessory/kidan/normal_antennae
+	name = "Normal Antennae"
+	icon_state = "kidan_normal"
+
+/datum/sprite_accessory/head_accessory/kidan/long_antennae
+	name = "Long Antennae"
+	icon_state = "kidan_long"
+
+/datum/sprite_accessory/head_accessory/kidan/moth_antennae
+	name = "Moth Antennae"
+	icon_state = "kidan_moth"
 
 /* BODY MARKINGS */
 
@@ -1795,8 +1844,16 @@
 	icon_state = "markings_stripe_una"
 
 /datum/sprite_accessory/body_markings/unathi/belly_narrow_una
-	name = "Unathi Belly"
+	name = "Unathi Narrow Belly"
 	icon_state = "markings_belly_narrow_una"
+
+/datum/sprite_accessory/body_markings/unathi/belly_una
+	name = "Unathi Male Belly"
+	icon_state = "markings_belly_una"
+
+/datum/sprite_accessory/body_markings/unathi/belly_una_f
+	name = "Unathi Female Belly"
+	icon_state = "markings_belly_una_f"
 
 /datum/sprite_accessory/body_markings/unathi/banded_una
 	name = "Unathi Banded"
@@ -1810,7 +1867,7 @@
 	species_allowed = list("Tajaran")
 
 /datum/sprite_accessory/body_markings/tajara/belly_flat_taj
-	name = "Tajaran Belly"
+	name = "Tajaran Belly Stripe"
 	icon_state = "markings_belly_flat_taj"
 
 /datum/sprite_accessory/body_markings/tajara/belly_crest_taj
@@ -1818,8 +1875,12 @@
 	icon_state = "markings_belly_crest_taj"
 
 /datum/sprite_accessory/body_markings/tajara/belly_full_taj
-	name = "Tajaran Belly 2"
+	name = "Tajaran Male Belly"
 	icon_state = "markings_belly_full_taj"
+
+/datum/sprite_accessory/body_markings/tajara/belly_full_f_taj
+	name = "Tajaran Female Belly"
+	icon_state = "markings_belly_full_f_taj"
 
 /datum/sprite_accessory/body_markings/tajara/points_taj
 	name = "Tajaran Points"
@@ -1882,9 +1943,17 @@
 	name = "Tajaran Tiger Head"
 	icon_state = "markings_head_tiger_taj"
 
+/datum/sprite_accessory/body_markings/head/tajara/tiger_head_taj_alt
+	name = "Tajaran Tiger Head 2"
+	icon_state = "markings_head_tiger_taj_alt"
+
 /datum/sprite_accessory/body_markings/head/tajara/tiger_face_taj
 	name = "Tajaran Tiger Head and Face"
 	icon_state = "markings_face_tiger_taj"
+
+/datum/sprite_accessory/body_markings/head/tajara/tiger_face_taj_alt
+	name = "Tajaran Tiger Head and Face 2"
+	icon_state = "markings_face_tiger_taj_alt"
 
 /datum/sprite_accessory/body_markings/head/tajara/outears_taj
 	name = "Tajaran Outer Ears"
@@ -1899,15 +1968,23 @@
 	icon_state = "markings_face_nose_taj"
 
 /datum/sprite_accessory/body_markings/head/tajara/muzzle_taj
-	name = "Tajaran Muzzle"
+	name = "Tajaran Male Muzzle"
 	icon_state = "markings_face_muzzle_taj"
+
+/datum/sprite_accessory/body_markings/head/tajara/muzzle_f_taj
+	name = "Tajaran Female Muzzle"
+	icon_state = "markings_face_muzzle_f_taj"
 
 /datum/sprite_accessory/body_markings/head/tajara/muzzle_and_inears_taj
 	name = "Tajaran Muzzle and Inner Ears"
 	icon_state = "markings_face_muzzle_and_inears_taj"
 
+/datum/sprite_accessory/body_markings/head/tajara/nose_and_inears_taj
+	name = "Tajaran Nose and Inner Ears"
+	icon_state = "markings_face_nose_and_inears_taj"
+
 /datum/sprite_accessory/body_markings/head/tajara/muzzle_alt_taj //Companion marking for Tajaran Belly 2.
-	name = "Tajaran Muzzle 2"
+	name = "Tajaran Full Face Muzzle"
 	icon_state = "markings_face_full_taj"
 
 /datum/sprite_accessory/body_markings/head/tajara/points_taj //Companion marking for Tajaran Points.
@@ -1961,13 +2038,23 @@
 	name = "Unathi Tiger Head and Face"
 	icon_state = "markings_face_tiger_una"
 
+/datum/sprite_accessory/body_markings/head/unathi/tiger_face_una_alt
+	name = "Unathi Tiger Head and Face 2"
+	icon_state = "markings_face_tiger_una_alt"
+
 /datum/sprite_accessory/body_markings/head/unathi/snout_una_round
 	name = "Unathi Round Snout"
 	icon_state = "markings_face_snout_una_round"
 
-/datum/sprite_accessory/body_markings/head/unathi/snout_lower_una_round
-	name = "Unathi Lower Round Snout"
+/datum/sprite_accessory/body_markings/head/unathi/snout_lower_una
+	name = "Unathi Lower Snout"
 	icon_state = "markings_face_snout_lower_una"
+	heads_allowed = list("All")
+
+/datum/sprite_accessory/body_markings/head/unathi/snout_lower2_una
+	name = "Unathi Lower Snout 2"
+	icon_state = "markings_face_snout_lower2_una"
+	heads_allowed = list("All")
 
 /datum/sprite_accessory/body_markings/head/unathi/banded_una //Companion marking for Unathi Banded.
 	name = "Unathi Banded Head"
@@ -1975,12 +2062,13 @@
 	heads_allowed = list("All")
 
 /datum/sprite_accessory/body_markings/head/unathi/snout_narrow_una //Companion marking for Unathi Narrow Belly.
-	name = "Unathi Snout 2"
+	name = "Unathi Round Snout 2"
 	icon_state = "markings_face_narrow_una"
 
 /datum/sprite_accessory/body_markings/head/unathi/points_una //Companion marking for Unathi Points.
 	name = "Unathi Points Head"
 	icon_state = "markings_face_points_una"
+	heads_allowed = list("All")
 
 /datum/sprite_accessory/body_markings/head/unathi/sharp
 	heads_allowed = list("Unathi Sharp Snout")
@@ -1989,6 +2077,10 @@
 	name = "Unathi Sharp Tiger Head and Face"
 	icon_state = "markings_face_tiger_una_sharp"
 
+/datum/sprite_accessory/body_markings/head/unathi/sharp/tiger_face_una_sharp_alt
+	name = "Unathi Sharp Tiger Head and Face 2"
+	icon_state = "markings_face_tiger_una_sharp_alt"
+
 /datum/sprite_accessory/body_markings/head/unathi/sharp/snout_una_sharp
 	name = "Unathi Sharp Snout"
 	icon_state = "markings_face_snout_una_sharp"
@@ -1996,10 +2088,6 @@
 /datum/sprite_accessory/body_markings/head/unathi/sharp/snout_narrow_una_sharp //Companion marking for Unathi Narrow Belly.
 	name = "Unathi Sharp Snout 2"
 	icon_state = "markings_face_narrow_una_sharp"
-
-/datum/sprite_accessory/body_markings/head/unathi/sharp/points_una_sharp //Companion marking for Unathi Points.
-	name = "Unathi Sharp Points Head"
-	icon_state = "markings_face_points_una"
 
 /datum/sprite_accessory/body_markings/head/optics
 	name = "Humanoid Optics"

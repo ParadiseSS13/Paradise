@@ -859,6 +859,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		set_company(company)
 
 	cannot_break = 1
+	icon_name = initial(icon_name)
 	get_icon()
 	for(var/obj/item/organ/external/T in children)
 		if(T)

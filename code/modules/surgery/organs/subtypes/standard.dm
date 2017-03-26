@@ -127,6 +127,11 @@
 	amputation_point = "left wrist"
 	can_grasp = 1
 
+/obj/item/organ/external/hand/proc/claws_out()
+	var/hand_species = species.name ? species.name : species
+	if(!robotic && owner.species.name == hand_species && (icon_name in icon_states(owner.species.icobase)))
+		icon_name = "[initial(icon_name)]_claw"
+
 /obj/item/organ/external/hand/remove()
 	if(owner)
 		if(owner.gloves)
