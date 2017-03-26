@@ -187,7 +187,6 @@
 		/obj/item/clothing/glasses,
 		/obj/item/ammo_casing/shotgun,
 		/obj/item/ammo_box,
-		/obj/item/weapon/stock_parts/cell/senergy,
 		/obj/item/weapon/reagent_containers/food/snacks/donut,
 		/obj/item/weapon/kitchen/knife/combat,
 		/obj/item/weapon/melee/baton,

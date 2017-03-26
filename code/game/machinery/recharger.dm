@@ -21,7 +21,7 @@
 		to_chat(user, "<span class='warning'>[G] is stuck to your hand, you can't put it in [src]!</span>")
 		return
 
-	if(istype(G, /obj/item/weapon/gun/energy) || istype(G, /obj/item/weapon/melee/baton) || istype(G,/obj/item/device/laptop) || istype(G, /obj/item/weapon/rcs))
+	if(istype(G, /obj/item/weapon/gun/energy) || istype(G, /obj/item/weapon/melee/baton) || istype(G,/obj/item/device/laptop) || istype(G, /obj/item/weapon/rcs) || istype(G,/obj/item/ammo_box/magazine/energy))
 		if(charging)
 			return
 
@@ -31,8 +31,9 @@
 			to_chat(user, "\red The [name] blinks red as you try to insert the item!")
 			return
 		if(a.power_equip == 0 && a.requires_power)
-			to_chat(user, "\red The [name] blinks red as you try to insert the item!")
-			return
+			if(!istype(G, /obj/item/ammo_box/magazine/energy))
+				to_chat(user, "\red The [name] blinks red as you try to insert the item!")
+				return
 
 		if(istype(G, /obj/item/weapon/gun/energy))
 			var/obj/item/weapon/gun/energy/E = G
@@ -45,6 +46,13 @@
 			if(!L.stored_computer.battery)
 				to_chat(user, "There's no battery in it!")
 				return
+
+		if(istype(G, /obj/item/ammo_box/magazine/energy))
+			var/obj/item/ammo_box/magazine/energy/S = G
+			if(!S.charge)
+				to_chat(user, "This is non-recharable!")
+				return
+
 
 		user.drop_item()
 		G.loc = src
@@ -106,6 +114,15 @@
 				R.rcell.charge += 1750
 				icon_state = icon_state_charging
 				use_power(2000)
+			else
+				icon_state = icon_state_charged
+			return
+		if(istype(charging, /obj/item/ammo_box/magazine/energy))
+			var/obj/item/ammo_box/magazine/energy/S = charging
+			if(S.stored_ammo.len < S.max_ammo)
+				S.stored_ammo += new S.ammo_type(src)
+				icon_state = icon_state_charging
+				use_power(S.charge)
 			else
 				icon_state = icon_state_charged
 			return
