@@ -1,6 +1,6 @@
 /obj/machinery/computer/vr_control
-	name = "crew monitoring computer"
-	desc = "Used to monitor active health sensors built into most of the crew's uniforms."
+	name = "VR console"
+	desc = "A list and control panel for all virtual servers."
 	icon_screen = "comm_logs"
 
 	light_color = LIGHT_COLOR_DARKGREEN
@@ -31,5 +31,10 @@
 /obj/machinery/computer/vr_control/interact(mob/user)
 	//crew_monitor.ui_interact(user)
 
-/obj/machinery/computer/vr_control/proc/loadlevel(template)
-	var/datum/space_chunk/C = zlev_manager.allocate_space(template.width, template.height)
+/obj/machinery/computer/vr_control/proc/loadlevel(var/datum/map_template/template)
+	//var/map = input(usr, "Choose a Map Template to place at your CURRENT LOCATION","Place Map Template") as null|anything in map_templates
+	//if(!map)
+	//	return
+	template = "_maps/map_files/templates/vr/lobby.dmm"
+	var/datum/space_chunk/C = space_manager.allocate_space(template.width, template.height)
+	template.load(C, centered = FALSE)
