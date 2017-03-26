@@ -74,11 +74,11 @@
 		agent = preset_agent
 
 
-	scientist.assigned_role = "Abductor Scientist"
+	scientist.assigned_role = "MODE"
 	scientist.special_role = SPECIAL_ROLE_ABDUCTOR_SCIENTIST
 	log_game("[scientist.key] (ckey) has been selected as an abductor team [team_number] scientist.")
 
-	agent.assigned_role = "Abductor Agent"
+	agent.assigned_role = "MODE"
 	agent.special_role = SPECIAL_ROLE_ABDUCTOR_AGENT
 	log_game("[agent.key] (ckey) has been selected as an abductor team [team_number] agent.")
 
@@ -223,7 +223,7 @@
 
 	var/obj/item/device/radio/R = new /obj/item/device/radio/headset/syndicate/alt(agent)
 	R.set_frequency(radio_freq)
-	R.name = "strange headset"
+	R.name = "alien headset"
 	agent.equip_to_slot_or_del(R, slot_l_ear)
 	agent.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(agent), slot_shoes)
 	agent.equip_to_slot_or_del(new /obj/item/clothing/under/color/grey(agent), slot_w_uniform) //they're greys gettit
