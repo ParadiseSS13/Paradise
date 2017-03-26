@@ -112,6 +112,8 @@
 		return
 	if(panel_open)
 		if(istype(W, /obj/item/weapon/crowbar))
+			if(inserted_id)
+				inserted_id.forceMove(loc) //Prevents deconstructing the ORM from deleting whatever ID was inside it.
 			empty_content()
 			default_deconstruction_crowbar(W)
 		if(ismultitool(W))
@@ -304,6 +306,9 @@
 /obj/machinery/mineral/ore_redemption/power_change()
 	..()
 	update_icon()
+	if(inserted_id && !powered())
+		visible_message("<span class='notice'>The ID slot indicator light flickers on \the [src] as it spits out a card before powering down.</span>")
+		inserted_id.forceMove(loc)
 
 /obj/machinery/mineral/ore_redemption/update_icon()
 	if(powered())
@@ -387,6 +392,9 @@
 /obj/machinery/mineral/equipment_vendor/power_change()
 	..()
 	update_icon()
+	if(inserted_id && !powered())
+		visible_message("<span class='notice'>The ID slot indicator light flickers on \the [src] as it spits out a card before powering down.</span>")
+		inserted_id.forceMove(loc)
 
 /obj/machinery/mineral/equipment_vendor/update_icon()
 	if(powered())
@@ -456,6 +464,8 @@
 		return
 	if(panel_open)
 		if(istype(I, /obj/item/weapon/crowbar))
+			if(inserted_id)
+				inserted_id.forceMove(loc) //Prevents deconstructing the ORM from deleting whatever ID was inside it.
 			default_deconstruction_crowbar(I)
 		return 1
 	if(istype(I, /obj/item/weapon/mining_voucher))

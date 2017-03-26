@@ -37,7 +37,7 @@
 
 	var/datum/material_container/materials
 
-	var/list/categories = list("Communication", "Construction", "Electronics", "Imported", "Medical", "Miscellaneous", "Security", "Tools")
+	var/list/categories = list("Tools", "Electronics", "Construction", "Communication", "Security", "Machinery", "Medical", "Miscellaneous", "Dinnerware", "Imported")
 
 /obj/machinery/autolathe/New()
 	..()
