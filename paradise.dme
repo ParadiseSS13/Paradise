@@ -1326,6 +1326,7 @@
 #include "code\modules\ext_scripts\python.dm"
 #include "code\modules\fish\fish_eggs.dm"
 #include "code\modules\fish\fish_items.dm"
+#include "code\modules\fish\fish_types.dm"
 #include "code\modules\fish\fishtank.dm"
 #include "code\modules\flufftext\Dreaming.dm"
 #include "code\modules\flufftext\Hallucination.dm"

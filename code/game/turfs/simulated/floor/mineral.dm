@@ -58,12 +58,22 @@
 	floor_tile = /obj/item/stack/tile/mineral/gold
 	icons = list("gold","gold_dam")
 
+/turf/simulated/floor/mineral/gold/fancy
+	icon_state = "goldfancy"
+	floor_tile = /obj/item/stack/tile/mineral/gold/fancy
+	icons = list("goldfancy","goldfancy_dam")
+
 //SILVER
 /turf/simulated/floor/mineral/silver
 	name = "silver floor"
 	icon_state = "silver"
 	floor_tile = /obj/item/stack/tile/mineral/silver
 	icons = list("silver","silver_dam")
+
+/turf/simulated/floor/mineral/silver/fancy
+	icon_state = "silverfancy"
+	floor_tile = /obj/item/stack/tile/mineral/silver/fancy
+	icons = list("silverfancy","silverfancy_dam")
 
 //BANANIUM
 /turf/simulated/floor/mineral/bananium
