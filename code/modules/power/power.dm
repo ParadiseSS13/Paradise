@@ -246,12 +246,6 @@
 
 	return 1
 
-/proc/makepowernets_zlevel(zlevel)
-	for(var/obj/structure/cable/PC in cable_list)
-		if(PC.z == zlevel)
-			makepowernet_for(PC)
-	return 1
-
 /proc/makepowernet_for(var/obj/structure/cable/PC)
 	if(!PC.powernet)
 		var/datum/powernet/NewPN = new()
