@@ -84,7 +84,7 @@
 	burntime = 20
 	// TODO:  Special ash subtype that looks like charred chair legs
 
-/obj/structure/stool/bed/chair/wood/attack_animal(mob/living/simple_animal/user)
+/obj/structure/stool/bed/chair/wood/attack_animal(mob/living/simple_animal/user) // Snowflakey, but limited current uses. Future refactor
 	if(user.environment_smash)
 		user.do_attack_animation(src)
 		visible_message("<span class='danger'>[user] smashes [src] apart!</span>")
