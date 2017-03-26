@@ -2470,11 +2470,6 @@ area/security/podbay
 /area/awaymission/spacebattle/secret
 	name = "\improper Hidden Chamber"
 
-/area/awaymission/listeningpost
-	name = "\improper Listening Post"
-	icon_state = "away"
-	requires_power = 0
-
 /area/awaymission/beach
 	name = "Beach"
 	icon_state = "beach"
