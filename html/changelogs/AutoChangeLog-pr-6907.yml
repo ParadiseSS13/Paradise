@@ -1,6 +1,0 @@
-author: "FalseIncarnate"
-delete-after: True
-changes: 
-  - rscadd: "Re-adds the telescopic scythe, the pinnacle of covert reaping technologies. Currently admin-spawn only, for use in the most dire of harvest times."
-  - bugfix: "Scythes (normal and telescopic) should once again clear swathes through all but the hardiest of vines when in proper reaping configurations, and heavily damage those they don't outright destroy."
-  - bugfix: "Ankle-high piles of dirt will no longer prevent you from stepping over them."
