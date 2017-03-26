@@ -1039,7 +1039,7 @@ var/list/ghostteleportlocs = list()
 
 /area/bridge/meeting_room
 	name = "\improper Heads of Staff Meeting Room"
-	icon_state = "bridge"
+	icon_state = "meeting"
 	music = null
 
 /area/crew_quarters/captain
