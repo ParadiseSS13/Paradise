@@ -32,6 +32,7 @@
 	head = /obj/item/clothing/head/hardhat/white
 	l_ear = /obj/item/device/radio/headset/heads/ce
 	id = /obj/item/weapon/card/id/ce
+	l_pocket = /obj/item/device/t_scanner
 	pda = /obj/item/device/pda/heads/ce
 	backpack_contents = list(
 		/obj/item/weapon/melee/classic_baton/telescopic = 1
