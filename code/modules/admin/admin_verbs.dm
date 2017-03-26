@@ -554,7 +554,7 @@ var/list/admin_verbs_snpc = list(
 
 	var/turf/epicenter = mob.loc
 	var/list/choices = list("Small Bomb", "Medium Bomb", "Big Bomb", "Custom Bomb")
-	var/choice = input("What size explosion would you like to produce?") in choices
+	var/choice = input("What size explosion would you like to produce?") as null|anything in choices
 	switch(choice)
 		if(null)
 			return 0

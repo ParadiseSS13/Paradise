@@ -1,0 +1,6 @@
+author: "Purpose2"
+delete-after: True
+changes: 
+  - tweak: "QoL: Newly built APCs come unlocked."
+  - tweak: "QoL: Chief Engineer's locker has more building permits."
+  - bugfix: "Assorted grammatical fixes."
