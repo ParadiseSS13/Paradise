@@ -15,9 +15,9 @@
 			return 0
 	var/mob/living/carbon/human/H = user
 	// You must either: Be of the abductor species, or contain an abductor implant
-	if(!(H.get_species() == "Abductor" || (locate(/obj/item/weapon/implant/abductor) in H)))
-		return 0
-	return 1
+	if((H.get_species() == "Abductor" || (locate(/obj/item/weapon/implant/abductor) in H)))
+		return 1
+	return 0
 
 
 /datum/surgery_step/internal/extract_organ
@@ -47,7 +47,7 @@
 		return 1
 	else
 		to_chat(user, "<span class='warning'>You don't find anything in [target]'s [target_zone]!</span>")
-		return 0
+		return 1
 
 /datum/surgery_step/internal/gland_insert
 	name = "insert gland"
