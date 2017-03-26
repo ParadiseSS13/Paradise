@@ -15,21 +15,17 @@
 	buckle_lying = 1
 	burn_state = FLAMMABLE
 	burntime = 30
+	parts = 2
 	var/movable = 0 // For mobility checks
 
 /obj/structure/stool/bed/MouseDrop(atom/over_object)
 	..(over_object, skip_fucking_stool_shit = 1)
 
-/obj/structure/stool/bed/attackby(obj/item/weapon/W as obj, mob/user, params)
-	if(iswrench(W))
-		playsound(loc, W.usesound, 50, 1)
-		new /obj/item/stack/sheet/metal(loc, 2)
-		qdel(src)
-
 /obj/structure/stool/psychbed
 	name = "psych bed"
 	desc = "For prime comfort during psychiatric evaluations."
 	icon_state = "psychbed"
+	parts = 5
 	can_buckle = 1
 	buckle_lying = 1
 
@@ -38,21 +34,17 @@
 	icon_state = "dogbed"
 	desc = "A comfy-looking dog bed. You can even strap your pet in, in case the gravity turns off."
 	anchored = 0
+	parts = 10
+	is_wooden = 1
 
 /obj/structure/stool/bed/dogbed/ian
 	name = "Ian's bed"
 	desc = "Ian's bed! Looks comfy."
 	anchored = 1
 
-/obj/structure/stool/bed/dogbed/attackby(obj/item/weapon/W, mob/user, params)
-	if(iswrench(W))
-		playsound(loc, W.usesound, 50, 1)
-		new /obj/item/stack/sheet/wood(loc, 10)
-		qdel(src)
-
 /obj/structure/stool/bed/alien
 	name = "resting contraption"
-	desc = "This looks similar to contraptions from earth. Could aliens be stealing our technology?"
+	desc = "This looks similar to contraptions from Earth. Could aliens be stealing our technology?"
 	icon_state = "abed"
 
 /obj/structure/stool/bed/proc/handle_rotation()
@@ -62,7 +54,6 @@
 	if(M.environment_smash)
 		new /obj/item/stack/sheet/metal(loc)
 		qdel(src)
-
 
 /*
  * Roller beds
@@ -95,14 +86,12 @@
 		M.pixel_x = M.get_standard_pixel_x_offset(M.lying)
 		M.pixel_y = M.get_standard_pixel_y_offset(M.lying)
 
-
 /obj/item/roller
 	name = "roller bed"
 	desc = "A collapsed roller bed that can be carried around."
 	icon = 'icons/obj/rollerbed.dmi'
 	icon_state = "folded"
 	w_class = 4 // Can't be put in backpacks.
-
 
 /obj/item/roller/attack_self(mob/user)
 	var/obj/structure/stool/bed/roller/R = new /obj/structure/stool/bed/roller(user.loc)
@@ -128,8 +117,6 @@
 		new/obj/item/roller(get_turf(src))
 		qdel(src)
 		return
-
-
 
 /obj/item/roller_holder
 	name = "roller bed rack"

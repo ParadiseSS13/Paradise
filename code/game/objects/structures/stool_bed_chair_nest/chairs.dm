@@ -4,6 +4,7 @@
 	icon_state = "chair"
 	buckle_lying = 0 //you sit in a chair, not lay
 	burn_state = FIRE_PROOF
+	parts = 1
 
 	var/propelled = 0 // Check for fire-extinguisher-driven chairs
 
@@ -82,15 +83,15 @@
 /obj/structure/stool/bed/chair/wood
 	burn_state = FLAMMABLE
 	burntime = 20
+	parts = 3
+	is_wooden = 1
 	// TODO:  Special ash subtype that looks like charred chair legs
 
 /obj/structure/stool/bed/chair/wood/attack_animal(mob/living/simple_animal/user) // Snowflakey, but limited current uses. Future refactor
 	if(user.environment_smash)
 		user.do_attack_animation(src)
 		visible_message("<span class='danger'>[user] smashes [src] apart!</span>")
-		new /obj/item/stack/sheet/wood(get_turf(src))
-		new /obj/item/stack/sheet/wood(get_turf(src))
-		new /obj/item/stack/sheet/wood(get_turf(src))
+		new /obj/item/stack/sheet/wood(loc, 3)
 		qdel(src)
 
 /obj/structure/stool/bed/chair/wood/narsie_act()
@@ -106,16 +107,6 @@
 	name = "wooden chair"
 	desc = "Old is never too old to not be in fashion."
 
-/obj/structure/stool/bed/chair/wood/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/weapon/wrench))
-		playsound(src.loc, W.usesound, 50, 1)
-		new /obj/item/stack/sheet/wood(get_turf(src))
-		new /obj/item/stack/sheet/wood(get_turf(src))
-		new /obj/item/stack/sheet/wood(get_turf(src))
-		qdel(src)
-	else
-		..()
-
 /obj/structure/stool/bed/chair/comfy
 	name = "comfy chair"
 	desc = "It looks comfy."
@@ -123,6 +114,7 @@
 	color = rgb(255,255,255)
 	burn_state = FLAMMABLE
 	burntime = 30
+	parts = 2
 	var/image/armrest = null
 
 /obj/structure/stool/bed/chair/comfy/New()
@@ -167,15 +159,7 @@
 /obj/structure/stool/bed/chair/office
 	anchored = 0
 	movable = 1
-
-/obj/structure/stool/bed/chair/comfy/attackby(obj/item/weapon/W, mob/user, params)
-	if(iswrench(W))
-		playsound(loc, W.usesound, 50, 1)
-		new /obj/item/stack/sheet/metal(get_turf(src))
-		new /obj/item/stack/sheet/metal(get_turf(src))
-		qdel(src)
-	else
-		..()
+	parts = 5
 
 /obj/structure/stool/bed/chair/office/Bump(atom/A)
 	..()
@@ -205,11 +189,13 @@
 
 /obj/structure/stool/bed/chair/barber
 	icon_state = "barber_chair"
+	parts = 1
 
 /obj/structure/stool/bed/chair/sofa
 	name = "old ratty sofa"
 	icon_state = "sofamiddle"
 	anchored = 1
+	parts = 1
 
 /obj/structure/stool/bed/chair/sofa/left
 	icon_state = "sofaend_left"
