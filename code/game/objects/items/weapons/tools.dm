@@ -280,7 +280,7 @@
 	icon_state = "jaws_cutter"
 	item_state = "jawsoflife"
 	origin_tech = "materials=2;engineering=2"
-	materials = list(MAT_METAL=150,MAT_SILVER=50,MAT_TITANIUM=25)
+	materials = list(MAT_METAL=150,MAT_SILVER=50,MAT_GOLD=25)
 	usesound = 'sound/items/jaws_cut.ogg'
 	toolspeed = 0.25
 
@@ -495,7 +495,7 @@
 //Switches the welder on
 /obj/item/weapon/weldingtool/proc/switched_on(mob/user)
 	if(!status)
-		to_chat(user, "span class='warning'>[src] can't be turned on while unsecured!</span>")
+		to_chat(user, "<span class='warning'>[src] can't be turned on while unsecured!</span>")
 		return
 	welding = !welding
 	if(welding)
@@ -651,12 +651,14 @@ obj/item/weapon/weldingtool/experimental/process()
 
 /obj/item/weapon/crowbar/red
 	icon_state = "crowbar_red"
+	item_state = "crowbar_red"
 	force = 8
 
 /obj/item/weapon/crowbar/brass
 	name = "brass crowbar"
 	desc = "A brass crowbar. It feels faintly warm to the touch."
 	icon_state = "crowbar_brass"
+	item_state = "crowbar_brass"
 	toolspeed = 0.5
 
 /obj/item/weapon/crowbar/abductor
@@ -677,7 +679,7 @@ obj/item/weapon/weldingtool/experimental/process()
 	throw_range = 3
 	materials = list(MAT_METAL=70)
 	icon_state = "crowbar_large"
-	item_state = "crowbar"
+	item_state = "crowbar_large"
 	toolspeed = 0.5
 
 /obj/item/weapon/crowbar/cyborg
@@ -692,7 +694,7 @@ obj/item/weapon/weldingtool/experimental/process()
 	desc = "A set of jaws of life, the magic of science has managed to fit it down into a device small enough to fit in a tool belt. It's fitted with a prying head."
 	icon_state = "jaws_pry"
 	item_state = "jawsoflife"
-	materials = list(MAT_METAL=150,MAT_SILVER=50,MAT_TITANIUM=25)
+	materials = list(MAT_METAL=150,MAT_SILVER=50,MAT_DIAMOND=25)
 	origin_tech = "materials=2;engineering=2"
 	usesound = 'sound/items/jaws_pry.ogg'
 	force = 15

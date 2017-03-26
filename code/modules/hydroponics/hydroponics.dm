@@ -300,7 +300,7 @@
 	if(!self_sustaining)
 		if(myseed && myseed.get_gene(/datum/plant_gene/trait/glow))
 			var/datum/plant_gene/trait/glow/G = myseed.get_gene(/datum/plant_gene/trait/glow)
-			set_light(G.get_lum(myseed))
+			set_light(G.glow_range(myseed), G.glow_power(myseed), G.glow_color)
 		else
 			set_light(0)
 
@@ -1003,7 +1003,7 @@
 	if(istype(mover) && mover.checkpass(PASSTABLE))
 		return 1
 	else
-		return 0
+		return ..()
 
 /obj/machinery/hydroponics/attack_animal(mob/living/user)
 	if(istype(user, /mob/living/simple_animal/diona))

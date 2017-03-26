@@ -209,6 +209,7 @@
 	icon_state = "knight_templar"
 	item_state = "knight_templar"
 	allowed = list(/obj/item/weapon/nullrod/claymore)
+	armor = list(melee = 25, bullet = 5, laser = 5, energy = 5, bomb = 0, bio = 0, rad = 0)
 
 /obj/item/clothing/suit/armor/bulletproof
 	name = "Bulletproof Vest"
