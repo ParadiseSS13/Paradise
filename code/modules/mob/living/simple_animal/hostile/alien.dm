@@ -136,25 +136,3 @@
 	name = "neurotoxin"
 	damage = 30
 	icon_state = "toxin"
-
-/mob/living/simple_animal/hostile/alien/maid
-	name = "lusty xenomorph maid"
-	melee_damage_lower = 0
-	melee_damage_upper = 0
-	a_intent = "help"
-	friendly = "caresses"
-	environment_smash = 0
-	icon_state = "maid"
-	icon_living = "maid"
-	icon_dead = "maid_dead"
-	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID //no fun allowed
-
-/mob/living/simple_animal/hostile/alien/maid/AttackingTarget()
-	if(istype(target, /atom/movable))
-		if(istype(target, /obj/effect/decal/cleanable))
-			visible_message("<span class='notice'>\The [src] cleans up \the [target].</span>")
-			qdel(target)
-			return
-		var/atom/movable/M = target
-		M.clean_blood()
-		visible_message("<span class='notice'>\The [src] polishes \the [target].</span>")
