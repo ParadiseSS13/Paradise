@@ -140,6 +140,9 @@
 	..()
 	L.blob_act()
 
+/obj/effect/blob/tesla_act(power)
+	..()
+	take_damage(power/400, BURN)
 
 /obj/effect/blob/attackby(var/obj/item/weapon/W, var/mob/living/user, params)
 	user.changeNext_move(CLICK_CD_MELEE)

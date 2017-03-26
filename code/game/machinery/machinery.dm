@@ -579,13 +579,11 @@ Class Procs:
 /obj/machinery/proc/can_be_overridden()
 	. = 1
 
-/obj/machinery/tesla_act(var/power)
+/obj/machinery/tesla_act(power, explosive = FALSE)
 	..()
-	if(prob(85))
-		emp_act(2)
+	if(prob(85) && explosive)
+		explosion(loc, 1, 2, 4, flame_range = 2, adminlog = 0, smoke = 0)
 	else if(prob(50))
-		ex_act(3)
-	else if(prob(90))
-		ex_act(2)
+		emp_act(2)
 	else
-		ex_act(1)
+		ex_act(2)

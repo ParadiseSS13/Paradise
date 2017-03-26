@@ -338,6 +338,11 @@ var/bomb_set
 		return ..()
 	return
 
+/obj/machinery/nuclearbomb/tesla_act(power, explosive)
+	..()
+	if(explosive)
+		qdel(src)//like the singulo, tesla deletes it. stops it from exploding over and over
+
 #define NUKERANGE 80
 /obj/machinery/nuclearbomb/proc/explode()
 	if(safety)
