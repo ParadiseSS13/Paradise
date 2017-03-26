@@ -88,7 +88,8 @@
 
 /obj/item/clothing/head/helmet/space/vox
 	armor = list(melee = 40, bullet = 40, laser = 30, energy = 15, bomb = 30, bio = 30, rad = 30)
-	flags = HEADCOVERSEYES|STOPSPRESSUREDMAGE
+	flags = STOPSPRESSUREDMAGE
+	flags_cover = HEADCOVERSEYES
 	icon = 'icons/obj/clothing/species/vox/hats.dmi'
 	species_restricted = list("Vox","Vox Armalis")
 	sprite_sheets = list(
@@ -235,26 +236,3 @@
 	..(user)
 	if(magpulse)
 		to_chat(user, "It would be hard to take these off without relaxing your grip first.")//theoretically this message should only be seen by the wearer when the claws are equipped.
-
-
-/obj/item/clothing/suit/space/eva/vox
-	name = "Vox EVA Suit"
-	icon_state = "voxspace"
-	item_state = "voxspace"
-	icon = 'icons/obj/clothing/species/vox/suits.dmi'
-	species_restricted = list("Vox", "Vox Armalis")
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi',
-		"Vox Armalis" = 'icons/mob/species/armalis/suit.dmi',
-		)
-
-/obj/item/clothing/head/helmet/space/eva/vox
-	name = "Vox EVA Suit"
-	icon_state = "voxspace"
-	item_state = "voxspace"
-	icon = 'icons/obj/clothing/species/vox/hats.dmi'
-	species_restricted = list("Vox","Vox Armalis")
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/head.dmi',
-		"Vox Armalis" = 'icons/mob/species/armalis/head.dmi',
-		)

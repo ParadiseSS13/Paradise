@@ -122,8 +122,8 @@ var/global/sent_syndicate_infiltration_team = 0
 			syndimgmtmob.update_internals_hud_icon(1)
 			syndimgmtmob.faction += "syndicate"
 			syndimgmtmob.equip_to_slot_or_del(new /obj/item/clothing/glasses/thermal(src), slot_glasses)
-			syndimgmtmob.equip_to_slot_or_del(new /obj/item/clothing/suit/space/rig/syndi/elite, slot_wear_suit)
-			syndimgmtmob.equip_to_slot_or_del(new /obj/item/clothing/head/helmet/space/rig/syndi/elite, slot_head)
+			syndimgmtmob.equip_to_slot_or_del(new /obj/item/clothing/suit/space/hardsuit/syndi/elite, slot_wear_suit)
+			syndimgmtmob.equip_to_slot_or_del(new /obj/item/clothing/head/helmet/space/hardsuit/syndi/elite, slot_head)
 			syndimgmtmob.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/syndicate, slot_wear_mask)
 			var/datum/atom_hud/antag/opshud = huds[ANTAG_HUD_OPS]
 			opshud.join_hud(syndimgmtmob.mind.current)

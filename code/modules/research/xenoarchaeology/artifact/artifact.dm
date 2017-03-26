@@ -80,7 +80,7 @@
 	if(istype(W, /obj/item/device/measuring_tape))
 		var/obj/item/device/measuring_tape/P = W
 		user.visible_message("\blue[user] extends [P] towards [src].","\blue You extend [P] towards [src].")
-		if(do_after(user,40, target = src))
+		if(do_after(user, 40, target = src))
 			to_chat(user, "\blue [bicon(P)] [src] has been excavated to a depth of [2*src.excavation_level]cm.")
 		return
 
@@ -89,7 +89,7 @@
 
 		to_chat(user, "\red You start [P.drill_verb] [src].")
 
-		if(!do_after(user,P.digspeed, target = src))
+		if(!do_after(user, P.digspeed, target = src))
 			return
 
 		to_chat(user, "\blue You finish [P.drill_verb] [src].")

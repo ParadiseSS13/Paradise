@@ -80,7 +80,7 @@
 	src.opened = 0
 	return 1
 
-/obj/structure/closet/crate/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+/obj/structure/closet/crate/attackby(obj/item/weapon/W, mob/user, params)
 	if(istype(W, /obj/item/weapon/rcs) && !src.opened)
 		var/obj/item/weapon/rcs/E = W
 		if(E.rcell && (E.rcell.charge >= E.chargecost))
@@ -102,10 +102,10 @@
 							L[tmpname] = R
 					var/desc = input("Please select a telepad.", "RCS") in L
 					E.pad = L[desc]
-					playsound(E.loc, 'sound/machines/click.ogg', 50, 1)
+					playsound(E.loc, E.usesound, 50, 1)
 					to_chat(user, "\blue Teleporting [src.name]...")
 					E.teleporting = 1
-					if(!do_after(user, 50, target = src))
+					if(!do_after(user, 50 * E.toolspeed, target = src))
 						E.teleporting = 0
 						return
 					E.teleporting = 0
@@ -120,10 +120,10 @@
 				E.rand_x = rand(50,200)
 				E.rand_y = rand(50,200)
 				var/L = locate(E.rand_x, E.rand_y, 6)
-				playsound(E.loc, 'sound/machines/click.ogg', 50, 1)
+				playsound(E.loc, E.usesound, 50, 1)
 				to_chat(user, "\blue Teleporting [src.name]...")
 				E.teleporting = 1
-				if(!do_after(user, 50, target = src))
+				if(!do_after(user, 50 * E.toolspeed, target = src))
 					E.teleporting = 0
 					return
 				E.teleporting = 0
@@ -166,7 +166,7 @@
 	else if(istype(W, /obj/item/weapon/wirecutters))
 		if(rigged)
 			to_chat(user, "<span class='notice'>You cut away the wiring.</span>")
-			playsound(loc, 'sound/items/Wirecutter.ogg', 100, 1)
+			playsound(loc, W.usesound, 100, 1)
 			rigged = 0
 			return
 	else return attack_hand(user)
@@ -191,7 +191,7 @@
 		else
 	return
 
-/obj/structure/closet/crate/attack_hand(mob/user as mob)
+/obj/structure/closet/crate/attack_hand(mob/user)
 	if(manifest)
 		to_chat(user, "<span class='notice'>You tear the manifest off of the crate.</span>")
 		playsound(src.loc, 'sound/items/poster_ripped.ogg', 75, 1)
@@ -250,7 +250,7 @@
 /obj/structure/closet/crate/secure/can_open()
 	return !locked
 
-/obj/structure/closet/crate/secure/proc/togglelock(mob/user as mob)
+/obj/structure/closet/crate/secure/proc/togglelock(mob/user)
 	if(src.opened)
 		to_chat(user, "<span class='notice'>Close the crate first.</span>")
 		return
@@ -280,7 +280,7 @@
 	else
 		to_chat(usr, "<span class='warning'>This mob type can't use this verb.</span>")
 
-/obj/structure/closet/crate/secure/attack_hand(mob/user as mob)
+/obj/structure/closet/crate/secure/attack_hand(mob/user)
 	if(manifest)
 		to_chat(user, "<span class='notice'>You tear the manifest off of the crate.</span>")
 		playsound(src.loc, 'sound/items/poster_ripped.ogg', 75, 1)
@@ -296,7 +296,7 @@
 		src.toggle(user)
 
 
-/obj/structure/closet/crate/secure/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+/obj/structure/closet/crate/secure/attackby(obj/item/weapon/W, mob/user, params)
 	if(is_type_in_list(W, list(/obj/item/stack/packageWrap, /obj/item/stack/cable_coil, /obj/item/device/radio/electropack, /obj/item/weapon/wirecutters,/obj/item/weapon/rcs)))
 		return ..()
 	if((istype(W, /obj/item/weapon/card/emag) || istype(W, /obj/item/weapon/melee/energy/blade)))
@@ -307,7 +307,7 @@
 		return
 	return ..()
 
-/obj/structure/closet/crate/secure/emag_act(user as mob)
+/obj/structure/closet/crate/secure/emag_act(mob/user)
 	if(locked)
 		overlays += sparks
 		spawn(6) overlays -= sparks //Tried lots of stuff but nothing works right. so i have to use this *sadface*

@@ -380,9 +380,16 @@ var/list/intents = list(I_HELP,I_DISARM,I_GRAB,I_HARM)
 	set name = "Rest"
 	set category = "IC"
 
-	resting = !resting
-	update_canmove()
-	to_chat(src, "<span class='notice'>You are now [resting ? "resting" : "getting up"].</span>")
+	if(world.time < client.move_delay)
+		return
+
+	if(!resting)
+		client.move_delay = world.time + 20
+		to_chat(src, "<span class='notice'>You are now resting.</span>")
+		StartResting()
+	else if(resting)
+		to_chat(src, "<span class='notice'>You are now getting up.</span>")
+		StopResting()
 
 /proc/is_blind(A)
 	if(iscarbon(A))

@@ -20,6 +20,8 @@ RCD
 	w_class = 3
 	materials = list(MAT_METAL = 30000)
 	origin_tech = "engineering=4;materials=2"
+	toolspeed = 1
+	usesound = 'sound/items/Deconstruct.ogg'
 	var/datum/effect/system/spark_spread/spark_system
 	var/max_matter = 100
 	var/matter = 0
@@ -172,7 +174,7 @@ RCD
 			door_name = temp_t
 
 /obj/item/weapon/rcd/proc/activate()
-	playsound(loc, 'sound/items/Deconstruct.ogg', 50, 1)
+	playsound(loc, usesound, 50, 1)
 
 
 /obj/item/weapon/rcd/afterattack(atom/A, mob/user, proximity)
@@ -197,7 +199,7 @@ RCD
 				if(checkResource(3, user))
 					to_chat(user, "Building Wall ...")
 					playsound(loc, 'sound/machines/click.ogg', 50, 1)
-					if(do_after(user, 20, target = A))
+					if(do_after(user, 20 * toolspeed, target = A))
 						if(!useResource(3, user)) return 0
 						activate()
 						var/turf/AT = A
@@ -210,7 +212,7 @@ RCD
 				if(checkResource(10, user))
 					to_chat(user, "Building Airlock...")
 					playsound(loc, 'sound/machines/click.ogg', 50, 1)
-					if(do_after(user, 50, target = A))
+					if(do_after(user, 50 * toolspeed, target = A))
 						if(!useResource(10, user)) return 0
 						activate()
 						var/obj/machinery/door/airlock/T = new door_type(A)
@@ -231,7 +233,7 @@ RCD
 				if(checkResource(5, user))
 					to_chat(user, "Deconstructing Wall...")
 					playsound(loc, 'sound/machines/click.ogg', 50, 1)
-					if(do_after(user, 40, target = A))
+					if(do_after(user, 40 * toolspeed, target = A))
 						if(!useResource(5, user)) return 0
 						activate()
 						var/turf/AT = A
@@ -243,7 +245,7 @@ RCD
 				if(checkResource(5, user))
 					to_chat(user, "Deconstructing Floor...")
 					playsound(loc, 'sound/machines/click.ogg', 50, 1)
-					if(do_after(user, 50, target = A))
+					if(do_after(user, 50 * toolspeed, target = A))
 						if(!useResource(5, user)) return 0
 						activate()
 						var/turf/AT = A
@@ -255,7 +257,7 @@ RCD
 				if(checkResource(20, user))
 					to_chat(user, "Deconstructing Airlock...")
 					playsound(loc, 'sound/machines/click.ogg', 50, 1)
-					if(do_after(user, 50, target = A))
+					if(do_after(user, 50 * toolspeed, target = A))
 						if(!useResource(20, user)) return 0
 						activate()
 						qdel(A)
@@ -270,7 +272,7 @@ RCD
 					return 0
 				to_chat(user, "Deconstructing window...")
 				playsound(loc, 'sound/machines/click.ogg', 50, 1)
-				if(!do_after(user, 20, target = A))
+				if(!do_after(user, 20 * toolspeed, target = A))
 					return 0
 				if(locate(/obj/structure/window/full/shuttle) in A.contents)
 					return 0 // Let's not give shuttle-griefers an easy time.
@@ -307,7 +309,7 @@ RCD
 					return 0
 				to_chat(user, "Constructing window...")
 				playsound(loc, 'sound/machines/click.ogg', 50, 1)
-				if(!do_after(user, 20, target = A))
+				if(!do_after(user, 20 * toolspeed, target = A))
 					return 0
 				if(locate(/obj/structure/grille) in A.contents)
 					return 0 // We already have window
@@ -375,6 +377,9 @@ RCD
 /obj/item/weapon/rcd/proc/detonate_pulse_explode()
 	explosion(src, 0, 0, 3, 1, flame_range = 1)
 	qdel(src)
+
+/obj/item/weapon/rcd/preloaded
+	matter = 100
 
 /obj/item/weapon/rcd/combat
 	name = "combat RCD"

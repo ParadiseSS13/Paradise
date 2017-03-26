@@ -581,9 +581,7 @@
 	return ui_interact(user)
 
 /obj/machinery/alarm/attack_ghost(user as mob)
-	if(stat & (BROKEN|MAINT))
-		return
-	return ui_interact(user)
+	return interact(user)
 
 /obj/machinery/alarm/attack_hand(mob/user)
 	. = ..()
@@ -595,7 +593,7 @@
 	if(buildstage != 2)
 		return
 
-	if(wiresexposed && !istype(user, /mob/living/silicon/ai))
+	if(wiresexposed)
 		wires.Interact(user)
 
 	if(!shorted)
@@ -1004,6 +1002,7 @@
 					return
 
 				to_chat(user, "You wire \the [src]!")
+				playsound(get_turf(src), coil.usesound, 50, 1)
 				coil.amount -= 5
 				if(!coil.amount)
 					qdel(coil)
@@ -1015,8 +1014,8 @@
 
 			else if(istype(W, /obj/item/weapon/crowbar))
 				to_chat(user, "You start prying out the circuit.")
-				playsound(get_turf(src), 'sound/items/Crowbar.ogg', 50, 1)
-				if(do_after(user,20, target = src))
+				playsound(get_turf(src), W.usesound, 50, 1)
+				if(do_after(user, 20 * W.toolspeed, target = src))
 					if(buildstage != 1)
 						return
 					to_chat(user, "You pry out the circuit!")
@@ -1028,6 +1027,7 @@
 		if(0)
 			if(istype(W, /obj/item/weapon/airalarm_electronics))
 				to_chat(user, "You insert the circuit!")
+				playsound(get_turf(src), W.usesound, 50, 1)
 				qdel(W)
 				buildstage = 1
 				update_icon()
@@ -1036,7 +1036,7 @@
 			else if(istype(W, /obj/item/weapon/wrench))
 				to_chat(user, "You remove the fire alarm assembly from the wall!")
 				new /obj/item/mounted/frame/alarm_frame(get_turf(user))
-				playsound(get_turf(src), 'sound/items/Ratchet.ogg', 50, 1)
+				playsound(get_turf(src), W.usesound, 50, 1)
 				qdel(src)
 
 	return 0
@@ -1067,3 +1067,5 @@ Just an object used in constructing air alarms
 	desc = "Looks like a circuit. Probably is."
 	w_class = 2
 	materials = list(MAT_METAL=50, MAT_GLASS=50)
+	toolspeed = 1
+	usesound = 'sound/items/Deconstruct.ogg'

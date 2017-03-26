@@ -99,7 +99,7 @@ var/list/image/ghost_darkness_images = list() //this is a list of images for thi
 		updateallghostimages()
 	return ..()
 
-/mob/dead/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
+/mob/dead/CanPass(atom/movable/mover, turf/target, height=0)
 	return 1
 
 
@@ -657,6 +657,9 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		return TRUE
 
 	return FALSE
+	
+/mob/dead/observer/incapacitated()
+	return TRUE
 
 //this is a mob verb instead of atom for performance reasons
 //see /mob/verb/examinate() in mob.dm for more info

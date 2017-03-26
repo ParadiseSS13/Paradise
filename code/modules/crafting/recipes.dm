@@ -5,7 +5,7 @@
 	var/tools[] = list() //type paths of items needed but not consumed
 	var/time = 30 //time in deciseconds
 	var/parts[] = list() //type paths of items that will be placed in the result
-	var/chem_catalists[] = list() //like tools but for reagents
+	var/chem_catalysts[] = list() //like tools but for reagents
 	var/category = CAT_MISC // Recipe category
 
 /datum/crafting_recipe/proc/AdjustChems(var/obj/resultobj as obj)
@@ -286,7 +286,7 @@
 	time = 150
 	reqs = list(/obj/item/stack/rods = 3,
 				/obj/item/stack/cable_coil = 10,
-				/obj/item/stack/sheet/mineral/plastic = 3,
+				/obj/item/stack/sheet/plastic = 3,
 				/obj/item/stack/sheet/wood = 5)
 	tools = list(/obj/item/weapon/weldingtool,
 				/obj/item/weapon/screwdriver)

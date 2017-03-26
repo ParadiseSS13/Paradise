@@ -15,6 +15,7 @@
 	var/spider_myqueen = null
 	var/use_vents = 1
 	var/list/enemies = list()
+	var/immediate_ventcrawl = 0
 
 /obj/effect/spider/spiderling/terror_spiderling/New()
 	..()
@@ -73,8 +74,10 @@
 		var/list/nearby = oview(10, src)
 		if(nearby.len)
 			var/target_atom = pick(nearby)
-			walk_to(src, target_atom)
-	else if(prob(10) && use_vents)
+			if(!istype(get_turf(target_atom),/turf/space))
+				walk_to(src, target_atom)
+	else if(immediate_ventcrawl || (prob(10) && use_vents))
+		immediate_ventcrawl = 0
 		for(var/obj/machinery/atmospherics/unary/vent_pump/v in view(7,src))
 			if(!v.welded)
 				entry_vent = v
