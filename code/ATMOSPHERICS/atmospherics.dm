@@ -43,6 +43,8 @@ Pipelines + Other Objects -> Pipe network
 
 	if(!pipe_color_check(pipe_color))
 		pipe_color = null
+	// No need for a tween worldstart roundstart handler - pipenet creation is
+	// handled there
 
 /obj/machinery/atmospherics/initialize()
 	..()
