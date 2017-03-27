@@ -32,6 +32,9 @@
 
 // Syndicate device disguised as a multitool; it will turn red when an AI camera is nearby.
 
+/obj/item/device/multitool/Destroy()
+	buffer = null
+	return ..()
 
 /obj/item/device/multitool/ai_detect
 	var/track_cooldown = 0
@@ -56,7 +59,7 @@
 	multitool_detect()
 	icon_state = "[initial(icon_state)][detect_state]"
 	track_cooldown = world.time + track_delay
-	
+
 /obj/item/device/multitool/ai_detect/proc/multitool_detect()
 	var/turf/our_turf = get_turf(src)
 	for(var/mob/living/silicon/ai/AI in ai_list)
@@ -76,7 +79,7 @@
 					if(get_dist(our_turf, detect_turf) < rangewarning)
 						detect_state = PROXIMITY_NEAR
 						break
-						
+
 /obj/item/device/multitool/ai_detect/admin
 	desc = "Used for pulsing wires to test which to cut. Not recommended by doctors. Has a strange tag that says 'Grief in Safety'" //What else should I say for a meme item?
 	track_delay = 5

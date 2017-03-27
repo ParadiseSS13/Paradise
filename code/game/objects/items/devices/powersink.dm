@@ -27,6 +27,8 @@
 /obj/item/device/powersink/Destroy()
 	processing_objects.Remove(src)
 	processing_power_items.Remove(src)
+	PN = null
+	attached = null
 	return ..()
 
 /obj/item/device/powersink/attackby(var/obj/item/I, var/mob/user)

@@ -14,6 +14,33 @@
 	var/obj/item/weapon/storage/toolbox/emergency/myredtoolbox = null
 	var/obj/item/taperoll/engineering/myengitape = null
 
+/obj/structure/engineeringcart/Destroy()
+	if(myglass)
+		qdel(myglass)
+		myglass = null
+	if(mymetal)
+		qdel(mymetal)
+		mymetal = null
+	if(myplasteel)
+		qdel(myplasteel)
+		myplasteel = null
+	if(myflashlight)
+		qdel(myflashlight)
+		myflashlight = null
+	if(mybluetoolbox)
+		qdel(mybluetoolbox)
+		mybluetoolbox = null
+	if(myyellowtoolbox)
+		qdel(myyellowtoolbox)
+		myyellowtoolbox = null
+	if(myredtoolbox)
+		qdel(myredtoolbox)
+		myredtoolbox = null
+	if(myengitape)
+		qdel(myengitape)
+		myengitape = null
+	return ..()
+
 /obj/structure/engineeringcart/proc/put_in_cart(obj/item/I, mob/user)
 	user.drop_item()
 	I.loc = src
