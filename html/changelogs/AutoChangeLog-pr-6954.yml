@@ -1,0 +1,4 @@
+author: "Kyep"
+delete-after: True
+changes: 
+  - bugfix: "The invisible floors in the engineering area of the UO45 away mission are no longer invisible. Previously, you had to crowbar up a seemingly invisible floor to make a wire appear."
