@@ -74,6 +74,12 @@ By design, d1 is the smallest direction and d2 is the highest
 	if(level==1) hide(T.intact)
 	cable_list += src //add it to the global cable list
 
+	// Catches the interim-zone of worldstart and roundstart
+	// I want both the ticker to exist (so mapped-in cables don't trip this)
+	// but also not have started yet (since the zlevel system would handle this on its own otherwise)
+	if((ticker && ticker.current_state < GAME_STATE_PLAYING))
+		attempt_init()
+
 
 /obj/structure/cable/Destroy()					// called when a cable is deleted
 	if(powernet)
