@@ -1,5 +1,0 @@
-author: "KasparoVy"
-delete-after: True
-changes: 
-  - bugfix: "You can no longer climb through interdimensional rifts into cryopods."
-  - bugfix: "Revenants can see properly in the dark again."
