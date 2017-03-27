@@ -104,20 +104,20 @@
 			return -1
 
 		if(I.damage > (I.max_damage * 0.75))
-			to_chat(user, "<span class='notice'>  [I] is in no state to be transplanted.</span>")
+			to_chat(user, "<span class='notice'> [I] is in no state to be transplanted.</span>")
 			return -1
 
 		if(target.get_int_organ(I))
-			to_chat(user, "<span class='warning'>  [target] already has [I].</span>")
+			to_chat(user, "<span class='warning'> [target] already has [I].</span>")
 			return -1
 
 		if(affected)
-			user.visible_message("[user] starts transplanting  [tool] into [target]'s [affected.name].", \
-			"You start transplanting  [tool] into [target]'s [affected.name].")
+			user.visible_message("[user] starts transplanting [tool] into [target]'s [affected.name].", \
+			"You start transplanting [tool] into [target]'s [affected.name].")
 			H.custom_pain("Someone's rooting around in your [affected.name]!",1)
 		else
-			user.visible_message("[user] starts transplanting  [tool] into [target]'s [parse_zone(target_zone)].", \
-			"You start transplanting  [tool] into [target]'s [parse_zone(target_zone)].")
+			user.visible_message("[user] starts transplanting [tool] into [target]'s [parse_zone(target_zone)].", \
+			"You start transplanting [tool] into [target]'s [parse_zone(target_zone)].")
 
 	else if(implement_type in implements_clean)
 		current_type = "clean"
@@ -130,12 +130,12 @@
 		for(var/obj/item/organ/internal/I in affected.internal_organs)
 			if(I)
 				if(C.reagents.total_volume < GHETTO_DISINFECT_AMOUNT)
-					user.visible_message("[user] notices  [tool] is empty.", \
-					"You notice  [tool] is empty")
+					user.visible_message("[user] notices [tool] is empty.", \
+					"You notice [tool] is empty")
 					return 0
 
-				var/msg = "[user] starts pouring some of  [tool] over [target]'s [I.name]."
-				var/self_msg = "You start pouring some of  [tool] over [target]'s [I.name]."
+				var/msg = "[user] starts pouring some of [tool] over [target]'s [I.name]."
+				var/self_msg = "You start pouring some of [tool] over [target]'s [I.name]."
 				user.visible_message(msg, self_msg)
 				if(H && affected)
 					H.custom_pain("Something burns horribly in your [affected.name]!",1)
@@ -145,12 +145,12 @@
 		current_type = "finish"
 
 		if(affected && affected.encased)
-			var/msg = "[user] starts bending [target]'s [affected.encased] back into place with  [tool]."
-			var/self_msg = "You start bending [target]'s [affected.encased] back into place with  [tool]."
+			var/msg = "[user] starts bending [target]'s [affected.encased] back into place with [tool]."
+			var/self_msg = "You start bending [target]'s [affected.encased] back into place with [tool]."
 			user.visible_message(msg, self_msg)
 		else
-			var/msg = "[user] starts pulling [target]'s skin back into place with  [tool]."
-			var/self_msg = "You start pulling [target]'s skin back into place with  [tool]."
+			var/msg = "[user] starts pulling [target]'s skin back into place with [tool]."
+			var/self_msg = "You start pulling [target]'s skin back into place with [tool]."
 			user.visible_message(msg, self_msg)
 
 		if(H && affected)
@@ -173,8 +173,8 @@
 			I = organs[I]
 			if(!I)
 				return -1
-			user.visible_message("[user] starts to separate [target]'s [I] with  [tool].", \
-			"You start to separate [target]'s [I] with  [tool] for removal." )
+			user.visible_message("[user] starts to separate [target]'s [I] with [tool].", \
+			"You start to separate [target]'s [I] with [tool] for removal." )
 			if(H && affected)
 				H.custom_pain("The pain in your [affected.name] is living hell!",1)
 		else
@@ -253,18 +253,18 @@
 			return 0
 
 		if(affected)
-			user.visible_message("<span class='notice'> [user] has transplanted  [tool] into [target]'s [affected.name].</span>",
-			"<span class='notice'> You have transplanted  [tool] into [target]'s [affected.name].</span>")
+			user.visible_message("<span class='notice'> [user] has transplanted [tool] into [target]'s [affected.name].</span>",
+			"<span class='notice'> You have transplanted [tool] into [target]'s [affected.name].</span>")
 		else
-			user.visible_message("<span class='notice'> [user] has transplanted  [tool] into [target]'s [parse_zone(target_zone)].</span>",
-			"<span class='notice'> You have transplanted  [tool] into [target]'s [parse_zone(target_zone)].</span>")
+			user.visible_message("<span class='notice'> [user] has transplanted [tool] into [target]'s [parse_zone(target_zone)].</span>",
+			"<span class='notice'> You have transplanted [tool] into [target]'s [parse_zone(target_zone)].</span>")
 
 		I.status &= ~ORGAN_CUT_AWAY
 
 	else if(current_type == "extract")
 		if(I && I.owner == target)
-			user.visible_message("<span class='notice'> [user] has separated and extracts [target]'s [I] with  [tool].</span>",
-			"<span class='notice'> You have separated and extracted [target]'s [I] with  [tool].</span>")
+			user.visible_message("<span class='notice'> [user] has separated and extracts [target]'s [I] with [tool].</span>",
+			"<span class='notice'> You have separated and extracted [target]'s [I] with [tool].</span>")
 
 			add_logs(user, target, "surgically removed [I.name] from", addition="INTENT: [uppertext(user.a_intent)]")
 			spread_germs_to_organ(I, user, tool)
@@ -298,27 +298,27 @@
 		for(var/obj/item/organ/internal/I in affected.internal_organs)
 			if(I)
 				if(R.total_volume < GHETTO_DISINFECT_AMOUNT)
-					user.visible_message("[user] notices there is not enough of  [tool].", \
-					"You notice there is not enough of  [tool].")
+					user.visible_message("[user] notices there is not enough of [tool].", \
+					"You notice there is not enough of [tool].")
 					return 0
 				if(I.germ_level < INFECTION_LEVEL_ONE / 2)
 					to_chat(user, "[I] does not appear to be infected.")
 				if(I.germ_level >= INFECTION_LEVEL_ONE / 2)
 					I.germ_level = max(I.germ_level-ethanol, 0)
-					user.visible_message("<span class='notice'> [user] has poured some of  [tool] over [target]'s [I.name].</span>",
-					"<span class='notice'> You have poured some of  [tool] over [target]'s [I.name].</span>")
+					user.visible_message("<span class='notice'> [user] has poured some of [tool] over [target]'s [I.name].</span>",
+					"<span class='notice'> You have poured some of [tool] over [target]'s [I.name].</span>")
 					R.trans_to(target, GHETTO_DISINFECT_AMOUNT)
 					R.reaction(target, INGEST)
 
 	else if(current_type == "finish")
 		if(affected && affected.encased)
-			var/msg = "<span class='notice'> [user] bends [target]'s [affected.encased] back into place with  [tool].</span>"
-			var/self_msg = "<span class='notice'> You bend [target]'s [affected.encased] back into place with  [tool].</span>"
+			var/msg = "<span class='notice'> [user] bends [target]'s [affected.encased] back into place with [tool].</span>"
+			var/self_msg = "<span class='notice'> You bend [target]'s [affected.encased] back into place with [tool].</span>"
 			user.visible_message(msg, self_msg)
 			affected.open = 2.5
 		else
-			var/msg = "<span class='notice'>[user] pulls [target]'s flesh back into place with  [tool].</span>"
-			var/self_msg = "<span class='notice'>You pull [target]'s flesh back into place with  [tool].</span>"
+			var/msg = "<span class='notice'>[user] pulls [target]'s flesh back into place with [tool].</span>"
+			var/self_msg = "<span class='notice'>You pull [target]'s flesh back into place with [tool].</span>"
 			user.visible_message(msg, self_msg)
 
 		return 1
@@ -330,8 +330,8 @@
 		if(!hasorgans(target))
 			return
 
-		user.visible_message("<span class='warning'> [user]'s hand slips, getting mess and tearing the inside of [target]'s [affected.name] with  [tool]!</span>", \
-		"<span class='warning'> Your hand slips, getting mess and tearing the inside of [target]'s [affected.name] with  [tool]!</span>")
+		user.visible_message("<span class='warning'> [user]'s hand slips, getting mess and tearing the inside of [target]'s [affected.name] with [tool]!</span>", \
+		"<span class='warning'> Your hand slips, getting mess and tearing the inside of [target]'s [affected.name] with [tool]!</span>")
 
 		var/dam_amt = 2
 
@@ -350,8 +350,8 @@
 		return 0
 
 	else if(current_type == "insert")
-		user.visible_message("<span class='warning'> [user]'s hand slips, damaging  [tool]!</span>", \
-		"<span class='warning'> Your hand slips, damaging  [tool]!</span>")
+		user.visible_message("<span class='warning'> [user]'s hand slips, damaging [tool]!</span>", \
+		"<span class='warning'> Your hand slips, damaging [tool]!</span>")
 		var/obj/item/organ/internal/I = tool
 		if(istype(I) && !I.tough)
 			I.take_damage(rand(3,5),0)
@@ -380,19 +380,19 @@
 		R.trans_to(target, GHETTO_DISINFECT_AMOUNT * 10)
 		R.reaction(target, INGEST)
 
-		user.visible_message("<span class='warning'> [user]'s hand slips, splashing the contents of  [tool] all over [target]'s [affected.name] incision!</span>", \
-		"<span class='warning'> Your hand slips, splashing the contents of  [tool] all over [target]'s [affected.name] incision!</span>")
+		user.visible_message("<span class='warning'> [user]'s hand slips, splashing the contents of [tool] all over [target]'s [affected.name] incision!</span>", \
+		"<span class='warning'> Your hand slips, splashing the contents of [tool] all over [target]'s [affected.name] incision!</span>")
 		return 0
 
 	else if(current_type == "extract")
 		if(I && I.owner == target)
 			if(affected)
-				user.visible_message("<span class='warning'> [user]'s hand slips, damaging [target]'s [affected.name] with  [tool]!</span>", \
-				"<span class='warning'> Your hand slips, damaging [target]'s [affected.name] with  [tool]!</span>")
+				user.visible_message("<span class='warning'> [user]'s hand slips, damaging [target]'s [affected.name] with [tool]!</span>", \
+				"<span class='warning'> Your hand slips, damaging [target]'s [affected.name] with [tool]!</span>")
 				affected.createwound(BRUISE, 20)
 			else
-				user.visible_message("<span class='warning'> [user]'s hand slips, damaging [target]'s [parse_zone(target_zone)] with  [tool]!</span>", \
-				"<span class='warning'> Your hand slips, damaging [target]'s [parse_zone(target_zone)] with  [tool]!</span>")
+				user.visible_message("<span class='warning'> [user]'s hand slips, damaging [target]'s [parse_zone(target_zone)] with [tool]!</span>", \
+				"<span class='warning'> Your hand slips, damaging [target]'s [parse_zone(target_zone)] with [tool]!</span>")
 		else
 			user.visible_message("[user] can't seem to extract anything from [target]'s [parse_zone(target_zone)]!",
 				"<span class='notice'>You can't extract anything from [target]'s [parse_zone(target_zone)]!</span>")
@@ -433,20 +433,20 @@
 
 /datum/surgery_step/saw_carapace/begin_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool,datum/surgery/surgery)
 
-	user.visible_message("[user] begins to cut through [target]'s [target_zone] with  [tool].", \
-	"You begin to cut through [target]'s [target_zone] with  [tool].")
+	user.visible_message("[user] begins to cut through [target]'s [target_zone] with [tool].", \
+	"You begin to cut through [target]'s [target_zone] with [tool].")
 	..()
 
 /datum/surgery_step/saw_carapace/end_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool,datum/surgery/surgery)
 
-	user.visible_message("<span class='notice'> [user] has cut [target]'s [target_zone] open with  [tool].</span>",		\
-	"<span class='notice'> You have cut [target]'s [target_zone] open with  [tool].</span>")
+	user.visible_message("<span class='notice'> [user] has cut [target]'s [target_zone] open with [tool].</span>",		\
+	"<span class='notice'> You have cut [target]'s [target_zone] open with [tool].</span>")
 	return 1
 
 /datum/surgery_step/saw_carapace/fail_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool,datum/surgery/surgery)
 
-	user.visible_message("<span class='warning'> [user]'s hand slips, cracking [target]'s [target_zone] with  [tool]!</span>" , \
-	"<span class='warning'> Your hand slips, cracking [target]'s [target_zone] with  [tool]!</span>" )
+	user.visible_message("<span class='warning'> [user]'s hand slips, cracking [target]'s [target_zone] with [tool]!</span>" , \
+	"<span class='warning'> Your hand slips, cracking [target]'s [target_zone] with [tool]!</span>" )
 	return 0
 
 /datum/surgery_step/cut_carapace
@@ -463,27 +463,27 @@
 	/obj/item/weapon/twohanded/chainsaw = 1, \
 	/obj/item/weapon/claymore = 5, \
 	/obj/item/weapon/melee/energy/ = 5, \
-	/obj/item/weapon/pen/edagger = 5,  \
+	/obj/item/weapon/pen/edagger = 5, \
 	)
 
 	time = 16
 
 /datum/surgery_step/cut_carapace/begin_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool,datum/surgery/surgery)
 
-	user.visible_message("[user] starts the incision on [target]'s [target_zone] with  [tool].", \
-	"You start the incision on [target]'s [target_zone] with  [tool].")
+	user.visible_message("[user] starts the incision on [target]'s [target_zone] with [tool].", \
+	"You start the incision on [target]'s [target_zone] with [tool].")
 	..()
 
 /datum/surgery_step/cut_carapace/end_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool,datum/surgery/surgery)
 
-	user.visible_message("<span class='notice'> [user] has made an incision on [target]'s [target_zone] with  [tool].</span>", \
-	"<span class='notice'> You have made an incision on [target]'s [target_zone] with  [tool].</span>",)
+	user.visible_message("<span class='notice'> [user] has made an incision on [target]'s [target_zone] with [tool].</span>", \
+	"<span class='notice'> You have made an incision on [target]'s [target_zone] with [tool].</span>",)
 	return 1
 
 /datum/surgery_step/cut_carapace/fail_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool,datum/surgery/surgery)
 
-	user.visible_message("<span class='warning'> [user]'s hand slips, slicing open [target]'s [target_zone] in a wrong spot with  [tool]!</span>", \
-	"<span class='warning'> Your hand slips, slicing open [target]'s [target_zone] in a wrong spot with  [tool]!</span>")
+	user.visible_message("<span class='warning'> [user]'s hand slips, slicing open [target]'s [target_zone] in a wrong spot with [tool]!</span>", \
+	"<span class='warning'> Your hand slips, slicing open [target]'s [target_zone] in a wrong spot with [tool]!</span>")
 	return 0
 
 /datum/surgery_step/retract_carapace
@@ -499,37 +499,37 @@
 	time = 24
 
 /datum/surgery_step/retract_carapace/begin_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool,datum/surgery/surgery)
-	var/msg = "[user] starts to pry open the incision on [target]'s [target_zone] with  [tool]."
-	var/self_msg = "You start to pry open the incision on [target]'s [target_zone] with  [tool]."
+	var/msg = "[user] starts to pry open the incision on [target]'s [target_zone] with [tool]."
+	var/self_msg = "You start to pry open the incision on [target]'s [target_zone] with [tool]."
 	if(target_zone == "chest")
-		msg = "[user] starts to separate the ribcage and rearrange the organs in [target]'s torso with  [tool]."
-		self_msg = "You start to separate the ribcage and rearrange the organs in [target]'s torso with  [tool]."
+		msg = "[user] starts to separate the ribcage and rearrange the organs in [target]'s torso with [tool]."
+		self_msg = "You start to separate the ribcage and rearrange the organs in [target]'s torso with [tool]."
 	if(target_zone == "groin")
-		msg = "[user] starts to pry open the incision and rearrange the organs in [target]'s lower abdomen with  [tool]."
-		self_msg = "You start to pry open the incision and rearrange the organs in [target]'s lower abdomen with  [tool]."
+		msg = "[user] starts to pry open the incision and rearrange the organs in [target]'s lower abdomen with [tool]."
+		self_msg = "You start to pry open the incision and rearrange the organs in [target]'s lower abdomen with [tool]."
 	user.visible_message(msg, self_msg)
 	..()
 
 /datum/surgery_step/retract_carapace/end_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool,datum/surgery/surgery)
-	var/msg = "<span class='notice'> [user] keeps the incision open on [target]'s [target_zone] with  [tool]</span>."
-	var/self_msg = "<span class='notice'> You keep the incision open on [target]'s [target_zone] with  [tool].</span>"
+	var/msg = "<span class='notice'> [user] keeps the incision open on [target]'s [target_zone] with [tool]</span>."
+	var/self_msg = "<span class='notice'> You keep the incision open on [target]'s [target_zone] with [tool].</span>"
 	if(target_zone == "chest")
-		msg = "<span class='notice'> [user] keeps the ribcage open on [target]'s torso with  [tool].</span>"
-		self_msg = "<span class='notice'> You keep the ribcage open on [target]'s torso with  [tool].</span>"
+		msg = "<span class='notice'> [user] keeps the ribcage open on [target]'s torso with [tool].</span>"
+		self_msg = "<span class='notice'> You keep the ribcage open on [target]'s torso with [tool].</span>"
 	if(target_zone == "groin")
-		msg = "<span class='notice'> [user] keeps the incision open on [target]'s lower abdomen with  [tool].</span>"
-		self_msg = "<span class='notice'> You keep the incision open on [target]'s lower abdomen with  [tool].</span>"
+		msg = "<span class='notice'> [user] keeps the incision open on [target]'s lower abdomen with [tool].</span>"
+		self_msg = "<span class='notice'> You keep the incision open on [target]'s lower abdomen with [tool].</span>"
 	user.visible_message(msg, self_msg)
 	return 1
 
 /datum/surgery_step/generic/retract_carapace/fail_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool,datum/surgery/surgery)
-	var/msg = "<span class='warning'> [user]'s hand slips, tearing the edges of incision on [target]'s [target_zone] with  [tool]!</span>"
-	var/self_msg = "<span class='warning'> Your hand slips, tearing the edges of incision on [target]'s [target_zone] with  [tool]!</span>"
+	var/msg = "<span class='warning'> [user]'s hand slips, tearing the edges of incision on [target]'s [target_zone] with [tool]!</span>"
+	var/self_msg = "<span class='warning'> Your hand slips, tearing the edges of incision on [target]'s [target_zone] with [tool]!</span>"
 	if(target_zone == "chest")
-		msg = "<span class='warning'> [user]'s hand slips, damaging several organs [target]'s torso with  [tool]!</span>"
-		self_msg = "<span class='warning'> Your hand slips, damaging several organs [target]'s torso with  [tool]!</span>"
+		msg = "<span class='warning'> [user]'s hand slips, damaging several organs [target]'s torso with [tool]!</span>"
+		self_msg = "<span class='warning'> Your hand slips, damaging several organs [target]'s torso with [tool]!</span>"
 	if(target_zone == "groin")
-		msg = "<span class='warning'> [user]'s hand slips, damaging several organs [target]'s lower abdomen with  [tool]</span>"
-		self_msg = "<span class='warning'> Your hand slips, damaging several organs [target]'s lower abdomen with  [tool]!</span>"
+		msg = "<span class='warning'> [user]'s hand slips, damaging several organs [target]'s lower abdomen with [tool]</span>"
+		self_msg = "<span class='warning'> Your hand slips, damaging several organs [target]'s lower abdomen with [tool]!</span>"
 	user.visible_message(msg, self_msg)
 	return 0
