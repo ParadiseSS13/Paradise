@@ -4,7 +4,7 @@
 	icon_state = "chair"
 	buckle_lying = 0 //you sit in a chair, not lay
 	burn_state = FIRE_PROOF
-	parts = 1
+	buildstackamount = 1
 
 	var/propelled = 0 // Check for fire-extinguisher-driven chairs
 
@@ -83,15 +83,15 @@
 /obj/structure/stool/bed/chair/wood
 	burn_state = FLAMMABLE
 	burntime = 20
-	parts = 3
-	is_wooden = 1
+	buildstackamount = 3
+	buildstacktype = /obj/item/stack/sheet/wood
 	// TODO:  Special ash subtype that looks like charred chair legs
 
 /obj/structure/stool/bed/chair/wood/attack_animal(mob/living/simple_animal/user) // Snowflakey, but limited current uses. Future refactor
 	if(user.environment_smash)
 		user.do_attack_animation(src)
 		visible_message("<span class='danger'>[user] smashes [src] apart!</span>")
-		new /obj/item/stack/sheet/wood(loc, 3)
+		new buildstacktype(loc, buildstackamount)
 		qdel(src)
 
 /obj/structure/stool/bed/chair/wood/narsie_act()
@@ -114,7 +114,7 @@
 	color = rgb(255,255,255)
 	burn_state = FLAMMABLE
 	burntime = 30
-	parts = 2
+	buildstackamount = 2
 	var/image/armrest = null
 
 /obj/structure/stool/bed/chair/comfy/New()
@@ -159,7 +159,7 @@
 /obj/structure/stool/bed/chair/office
 	anchored = 0
 	movable = 1
-	parts = 5
+	buildstackamount = 5
 
 /obj/structure/stool/bed/chair/office/Bump(atom/A)
 	..()
@@ -189,13 +189,13 @@
 
 /obj/structure/stool/bed/chair/barber
 	icon_state = "barber_chair"
-	parts = 1
+	buildstackamount = 1
 
 /obj/structure/stool/bed/chair/sofa
 	name = "old ratty sofa"
 	icon_state = "sofamiddle"
 	anchored = 1
-	parts = 1
+	buildstackamount = 1
 
 /obj/structure/stool/bed/chair/sofa/left
 	icon_state = "sofaend_left"

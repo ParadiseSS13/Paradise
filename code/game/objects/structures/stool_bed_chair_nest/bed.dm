@@ -15,7 +15,7 @@
 	buckle_lying = 1
 	burn_state = FLAMMABLE
 	burntime = 30
-	parts = 2
+	buildstackamount = 2
 	var/movable = 0 // For mobility checks
 
 /obj/structure/stool/bed/MouseDrop(atom/over_object)
@@ -25,7 +25,7 @@
 	name = "psych bed"
 	desc = "For prime comfort during psychiatric evaluations."
 	icon_state = "psychbed"
-	parts = 5
+	buildstackamount = 5
 	can_buckle = 1
 	buckle_lying = 1
 
@@ -34,8 +34,8 @@
 	icon_state = "dogbed"
 	desc = "A comfy-looking dog bed. You can even strap your pet in, in case the gravity turns off."
 	anchored = 0
-	parts = 10
-	is_wooden = 1
+	buildstackamount = 10
+	buildstacktype = /obj/item/stack/sheet/wood
 
 /obj/structure/stool/bed/dogbed/ian
 	name = "Ian's bed"
@@ -52,7 +52,7 @@
 
 /obj/structure/stool/bed/attack_animal(var/mob/living/simple_animal/M)//No more buckling hostile mobs to chairs to render them immobile forever
 	if(M.environment_smash)
-		new /obj/item/stack/sheet/metal(loc)
+		new buildstacktype(loc, buildstackamount)
 		qdel(src)
 
 /*
