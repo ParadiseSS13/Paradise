@@ -24,8 +24,15 @@
 	rapid = 1
 	canlay = 1000
 	spider_tier = TS_TIER_5
+	projectiletype = /obj/item/projectile/terrorqueenspit/empress
 	var/datum/action/innate/terrorspider/queen/empress/empresslings/empresslings_action
+	var/datum/action/innate/terrorspider/queen/empress/empresserase/empresserase_action
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+
+/mob/living/simple_animal/hostile/poison/terror_spider/queen/empress/New()
+	..()
+	empresserase_action = new()
+	empresserase_action.Grant(src)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/empress/handle_automated_action()
 	return
@@ -88,5 +95,10 @@
 		qdel(T)
 	for(var/obj/effect/spider/spiderling/terror_spiderling/T in ts_spiderling_list)
 		T.stillborn = 1
-	to_chat(src, "<span class='userdanger'>Brood will die off shortly.</span>")
+	to_chat(src, "<span class='userdanger'>All Terror Spiders, except yourself, will die off shortly.</span>")
 
+
+/obj/item/projectile/terrorqueenspit/empress
+	damage_type = BURN
+	damage = 30
+	bonus_tox = 0

@@ -21,7 +21,7 @@
 			continue
 		if(iscarbon(H))
 			var/mob/living/carbon/C = H
-			if(IsInfected(C)) // only target the infected if they're attacking us. Even then, lowest priority.
+			if(IsTSInfected(C)) // only target the infected if they're attacking us. Even then, lowest priority.
 				if(C in enemies)
 					targets3 += C
 					continue
@@ -65,15 +65,13 @@
 				targets2 += H
 			else
 				targets3 += H
-	if(health < maxHealth)
-		// if we're hurt, and ONLY if we're hurt, do the additional check for mechs/space pods. Save processing time.
-		for(var/obj/mecha/M in view(src, vision_range))
-			if(get_dist(M, src) <= 2)
-				targets2 += M
-			else
-				targets3 += M
-		for(var/obj/spacepod/S in view(src, vision_range))
-			targets3 += S
+	for(var/obj/mecha/M in view(src, vision_range))
+		if(get_dist(M, src) <= 2)
+			targets2 += M
+		else
+			targets3 += M
+	for(var/obj/spacepod/S in view(src, vision_range))
+		targets3 += S
 	if(targets1.len)
 		return targets1
 	if(targets2.len)
@@ -140,7 +138,10 @@
 			last_spins_webs = world.time
 			var/obj/effect/spider/terrorweb/T = locate() in get_turf(src)
 			if(!T)
-				new /obj/effect/spider/terrorweb(get_turf(src))
+				var/obj/effect/spider/terrorweb/W = new /obj/effect/spider/terrorweb(loc)
+				if(web_infects)
+					W.infectious = 1
+					W.name = "sharp terror web"
 				visible_message("<span class='notice'>[src] puts up some spider webs.</span>")
 		else if(ai_ventcrawls && world.time > (last_ventcrawl_time + my_ventcrawl_freq))
 			if(prob(idle_ventcrawl_chance))
@@ -181,7 +182,6 @@
 			var/mob/living/M = A
 			if(!("terrorspiders" in M.faction))
 				enemies |= M
-				visible_message("<span class='danger'>[src] glares at [M]!</span>")
 		else if(istype(A, /obj/mecha))
 			var/obj/mecha/M = A
 			if(M.occupant)
@@ -211,7 +211,7 @@
 	if(m2 == mylocation)
 		chasecycles++
 		ClearObstacle(get_turf(mygoal))
-		if(chasecycles >= 2)
+		if(chasecycles >= 1)
 			chasecycles = 0
 			if(spider_opens_doors)
 				var/tgt_dir = get_dir(src,mygoal)
