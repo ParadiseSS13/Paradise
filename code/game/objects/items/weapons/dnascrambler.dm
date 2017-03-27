@@ -22,6 +22,10 @@
 		if(src.used)
 			return
 
+		if(M.get_species() == "Machine")
+			to_chat(user, "\red You failed to inject [M.name], as they have no DNA to scramble, nor flesh to inject.")
+			return
+
 		if(M == user)
 			user.visible_message("<span class='danger'>[user.name] injects \himself with [src]!</span>")
 			src.injected(user,user)
