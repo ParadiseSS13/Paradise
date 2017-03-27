@@ -236,7 +236,7 @@
 /proc/forbidden_atoms_check(atom/A)
 	var/list/blacklist = list(
 		/mob/living,
-		/obj/effect/blob,
+		/obj/structure/blob,
 		/obj/effect/spider/spiderling,
 		/obj/item/weapon/disk/nuclear,
 		/obj/machinery/nuclearbomb,
