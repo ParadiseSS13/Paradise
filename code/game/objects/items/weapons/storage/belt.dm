@@ -65,7 +65,7 @@
 	..()
 	new /obj/item/weapon/screwdriver/power(src)
 	new /obj/item/weapon/crowbar/power(src)
-	new /obj/item/weapon/weldingtool/experimental(src)//This can be changed if this is too much
+	new /obj/item/weapon/weldingtool/experimental(src)
 	new /obj/item/device/multitool(src)
 	new /obj/item/stack/cable_coil(src, 30, pick(COLOR_RED, COLOR_YELLOW, COLOR_ORANGE))
 	new /obj/item/weapon/extinguisher/mini(src)
