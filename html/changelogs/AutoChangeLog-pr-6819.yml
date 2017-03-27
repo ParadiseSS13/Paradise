@@ -1,7 +1,0 @@
-author: "KasparoVy"
-delete-after: True
-changes: 
-  - rscadd: "Skrell have been greyscaled and darkened. You can now colour your Skrell characters as you please."
-  - rscadd: "Kidan can now select from multiple different antennae head-accessory styles."
-  - tweak: "Kidan male/female bodies now have differences, namely mandible/torso structure."
-  - tweak: "Skrell flesh is now blue (like their blood), though you'll only ever see this under certain circumstances if they're dismembered."
