@@ -187,6 +187,7 @@
 #include "code\controllers\Processes\obj.dm"
 #include "code\controllers\Processes\pipenet.dm"
 #include "code\controllers\Processes\shuttles.dm"
+#include "code\controllers\Processes\ssd.dm"
 #include "code\controllers\Processes\sun.dm"
 #include "code\controllers\Processes\ticker.dm"
 #include "code\controllers\Processes\timer.dm"
