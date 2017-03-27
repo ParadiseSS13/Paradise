@@ -270,8 +270,11 @@
 	name = "Tranquillite Airlock"
 	icon = 'icons/obj/doors/Doorfreezer.dmi'
 	mineral = "tranquillite"
-	doorOpen = null
+	doorOpen = null // it's silent!
 	doorClose = null
+	doorDeni = null
+	boltUp = null
+	boltDown = null
 
 /obj/machinery/door/airlock/sandstone
 	name = "Sandstone Airlock"
