@@ -279,7 +279,7 @@ REAGENT SCANNER
 		else
 			to_chat(user, "<span class='notice'>You install the upgrade in the [src].</span>")
 			overlays += "advanced"
-			playsound(src.loc, usesound, 50, 1)
+			playsound(loc, W.usesound, 50, 1)
 			upgraded = 1
 			qdel(W)
 
