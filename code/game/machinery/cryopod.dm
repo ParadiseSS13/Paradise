@@ -531,7 +531,7 @@
 		willing = 1
 
 	if(willing)
-		if(!(L in range(1,src)))
+		if(!Adjacent(L))
 			to_chat(user, "<span class='boldnotice'>You're not close enough to \the [src].</span>")
 			return
 		if(L == user)
