@@ -87,13 +87,6 @@
 	buildstacktype = /obj/item/stack/sheet/wood
 	// TODO:  Special ash subtype that looks like charred chair legs
 
-/obj/structure/stool/bed/chair/wood/attack_animal(mob/living/simple_animal/user)
-	if(user.environment_smash)
-		user.do_attack_animation(src)
-		visible_message("<span class='danger'>[user] smashes [src] apart!</span>")
-		new buildstacktype(loc, buildstackamount)
-		qdel(src)
-
 /obj/structure/stool/bed/chair/wood/narsie_act()
 	return
 
