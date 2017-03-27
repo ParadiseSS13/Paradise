@@ -237,7 +237,7 @@
 	var/list/blacklist = list(
 		/mob/living,
 		/obj/structure/blob,
-		/obj/effect/spider/spiderling,
+		/obj/structure/spider/spiderling,
 		/obj/item/weapon/disk/nuclear,
 		/obj/machinery/nuclearbomb,
 		/obj/item/device/radio/beacon,

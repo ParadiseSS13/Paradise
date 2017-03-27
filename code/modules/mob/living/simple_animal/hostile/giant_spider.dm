@@ -116,7 +116,7 @@
 					GiveUp(C)
 					return
 			//second, spin a sticky spiderweb on this tile
-			var/obj/effect/spider/stickyweb/W = locate() in get_turf(src)
+			var/obj/structure/spider/stickyweb/W = locate() in get_turf(src)
 			if(!W)
 				Web()
 			else
@@ -157,7 +157,7 @@
 		stop_automated_movement = 1
 		spawn(40)
 			if(busy == SPINNING_WEB && src.loc == T)
-				new /obj/effect/spider/stickyweb(T)
+				new /obj/structure/spider/stickyweb(T)
 			busy = 0
 			stop_automated_movement = 0
 
@@ -187,7 +187,7 @@
 		spawn(50)
 			if(busy == SPINNING_COCOON)
 				if(cocoon_target && istype(cocoon_target.loc, /turf) && get_dist(src,cocoon_target) <= 1)
-					var/obj/effect/spider/cocoon/C = new(cocoon_target.loc)
+					var/obj/structure/spider/cocoon/C = new(cocoon_target.loc)
 					var/large_cocoon = 0
 					C.pixel_x = cocoon_target.pixel_x
 					C.pixel_y = cocoon_target.pixel_y
@@ -223,7 +223,7 @@
 	set category = "Spider"
 	set desc = "Lay a clutch of eggs, but you must wrap a creature for feeding first."
 
-	var/obj/effect/spider/eggcluster/E = locate() in get_turf(src)
+	var/obj/structure/spider/eggcluster/E = locate() in get_turf(src)
 	if(E)
 		to_chat(src, "<span class='notice'>There is already a cluster of eggs here!</span>")
 	else if(!fed)
@@ -236,7 +236,7 @@
 			if(busy == LAYING_EGGS)
 				E = locate() in get_turf(src)
 				if(!E)
-					var/obj/effect/spider/eggcluster/C = new /obj/effect/spider/eggcluster(src.loc)
+					var/obj/structure/spider/eggcluster/C = new /obj/structure/spider/eggcluster(src.loc)
 					C.faction = faction
 					C.master_commander = master_commander
 					if(ckey)
