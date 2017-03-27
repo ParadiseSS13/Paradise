@@ -185,7 +185,7 @@ var/list/robot_verbs_default = list(
 					Entry[i] = trim(Entry[i])
 
 				if(Entry.len < 2 || Entry[1] != "cyborg")		//ignore incorrectly formatted entries or entries that aren't marked for cyborg
-					continue;
+					continue
 
 				if(Entry[2] == ckey)	//They're in the list? Custom sprite time, var and icon change required
 					custom_sprite = 1

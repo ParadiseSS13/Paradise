@@ -411,7 +411,7 @@
 				Entry[i] = trim(Entry[i])
 
 			if(Entry.len < 2 || Entry[1] != "pai")			//ignore incorrectly formatted entries or entries that aren't marked for pAI
-				continue;
+				continue
 
 			if(Entry[2] == ckey)							//They're in the list? Custom sprite time, var and icon change required
 				custom_sprite = 1
