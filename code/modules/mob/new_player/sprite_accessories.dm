@@ -1626,7 +1626,7 @@
 
 /datum/sprite_accessory/head_accessory/none
 	name = "None"
-	species_allowed = list("Human", "Unathi", "Diona", "Grey", "Machine", "Tajaran", "Vulpkanin", "Slime People", "Skeleton", "Vox")
+	species_allowed = list("Human", "Unathi", "Diona", "Grey", "Kidan", "Machine", "Tajaran", "Vulpkanin", "Slime People", "Skeleton", "Vox")
 	icon_state = "accessory_none"
 
 /datum/sprite_accessory/head_accessory/unathi
@@ -1748,6 +1748,48 @@
 /datum/sprite_accessory/head_accessory/ipc/ipc_light
 	name = "Head Light"
 	icon_state = "light"
+
+/datum/sprite_accessory/head_accessory/kidan
+	icon = 'icons/mob/human_face.dmi'
+	species_allowed = list("Kidan")
+	over_hair = 1
+	do_colouration = 0
+
+/datum/sprite_accessory/head_accessory/kidan/perked_antennae
+	name = "Perked-up Antennae"
+	icon_state = "kidan_perky"
+
+/datum/sprite_accessory/head_accessory/kidan/mopey_antennae
+	name = "Mopey Antennae"
+	icon_state = "kidan_mopey"
+
+/datum/sprite_accessory/head_accessory/kidan/curious_antennae
+	name = "Curious Antennae"
+	icon_state = "kidan_curious"
+
+/datum/sprite_accessory/head_accessory/kidan/mopey_antennae
+	name = "Mopey Antennae"
+	icon_state = "kidan_mopey"
+
+/datum/sprite_accessory/head_accessory/kidan/crescent_antennae
+	name = "Crescent Antennae"
+	icon_state = "kidan_crescent"
+
+/datum/sprite_accessory/head_accessory/kidan/alert_antennae
+	name = "Alert Antennae"
+	icon_state = "kidan_alert"
+
+/datum/sprite_accessory/head_accessory/kidan/normal_antennae
+	name = "Normal Antennae"
+	icon_state = "kidan_normal"
+
+/datum/sprite_accessory/head_accessory/kidan/long_antennae
+	name = "Long Antennae"
+	icon_state = "kidan_long"
+
+/datum/sprite_accessory/head_accessory/kidan/moth_antennae
+	name = "Moth Antennae"
+	icon_state = "kidan_moth"
 
 
 /* BODY MARKINGS */
@@ -1949,6 +1991,7 @@
 /datum/sprite_accessory/body_markings/head/unathi/snout_lower_una_round
 	name = "Unathi Lower Round Snout"
 	icon_state = "markings_face_snout_lower_una"
+	heads_allowed = list("All")
 
 /datum/sprite_accessory/body_markings/head/unathi/banded_una //Companion marking for Unathi Banded.
 	name = "Unathi Banded Head"
