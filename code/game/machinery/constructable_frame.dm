@@ -147,7 +147,7 @@
 				if(component_check)
 					playsound(src.loc, P.usesound, 50, 1)
 					var/obj/machinery/new_machine = new src.circuit.build_path(src.loc)
-					new_machine.construction()
+					new_machine.on_construction()
 					for(var/obj/O in new_machine.component_parts)
 						qdel(O)
 					new_machine.component_parts = list()

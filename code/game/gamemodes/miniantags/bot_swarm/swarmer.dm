@@ -348,9 +348,12 @@
 	gender = NEUTER
 	icon = 'icons/mob/swarmer.dmi'
 	icon_state = "ui_light"
-	anchored = 1
 	layer = MOB_LAYER
+	anchored = 1
 	unacidable = 1
+	light_range = 1
+	mouse_opacity = 1
+	var/health = 30
 
 /obj/structure/swarmer/disintegration
 	icon_state = "disintegrate"
@@ -373,11 +376,6 @@
 /obj/structure/swarmer/integrate/New()
 	spawn(5)
 		qdel(src)
-
-/obj/structure/swarmer/destructible //Default destroyable object for swarmer constructions
-	light_range = 1
-	mouse_opacity = 1
-	var/health = 30
 
 /obj/structure/swarmer/proc/TakeDamage(damage)
 	health -= damage

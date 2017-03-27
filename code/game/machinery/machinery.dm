@@ -400,7 +400,7 @@ Class Procs:
 		return 1
 	return 0
 
-/obj/machinery/proc/deconstruct()
+/obj/machinery/proc/deconstruct(disassembled = TRUE)
 	on_deconstruction()
 	spawn_frame()
 	for(var/obj/item/I in component_parts)

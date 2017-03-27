@@ -204,7 +204,7 @@
 	else
 		close()
 
-/obj/machinery/door/firedoor/proc/deconstruct(disassembled = TRUE)
+/obj/machinery/door/firedoor/deconstruct(disassembled = TRUE)
 	if(can_deconstruct)
 		var/obj/structure/firelock_frame/F = new assembly_type(get_turf(src))
 		if(disassembled)
