@@ -1,5 +1,0 @@
-author: "Kyep"
-delete-after: True
-changes: 
-  - bugfix: "Fixed several Terror Spider bugs. Including the notorious 'spiders can get stuck in vents' bug, the 'spiders ignore mechs' bug, and the 'prince is cheesable' bug."
-  - tweak: "Adjusted White & Empress spider abilities - webs spun by white spiders are now infectious."

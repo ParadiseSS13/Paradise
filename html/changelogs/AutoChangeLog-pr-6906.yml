@@ -1,4 +1,0 @@
-author: "Fox McCloud"
-delete-after: True
-changes: 
-  - bugfix: "Fixes some stacks not wanting to stack with similar stacks (such as space cash)"
