@@ -87,7 +87,7 @@
 	buildstacktype = /obj/item/stack/sheet/wood
 	// TODO:  Special ash subtype that looks like charred chair legs
 
-/obj/structure/stool/bed/chair/wood/attack_animal(mob/living/simple_animal/user) // Snowflakey, but limited current uses. Future refactor
+/obj/structure/stool/bed/chair/wood/attack_animal(mob/living/simple_animal/user)
 	if(user.environment_smash)
 		user.do_attack_animation(src)
 		visible_message("<span class='danger'>[user] smashes [src] apart!</span>")

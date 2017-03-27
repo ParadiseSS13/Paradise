@@ -22,9 +22,11 @@
 		if(src.used)
 			return
 
-		if(M.get_species() == "Machine")
-			to_chat(user, "<span class='warning'>You failed to inject [M], as they have no DNA to scramble, nor flesh to inject.</span>")
-			return
+		if(ishuman(M))
+			var/mob/living/carbon/human/H = M
+			if(H.species.flags & NO_DNA)
+				to_chat(user, "<span class='warning'>You failed to inject [M], as they have no DNA to scramble, nor flesh to inject.</span>")
+				return
 
 		if(M == user)
 			user.visible_message("<span class='danger'>[user] injects \himself with [src]!</span>")

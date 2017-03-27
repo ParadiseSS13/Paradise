@@ -50,8 +50,10 @@
 /obj/structure/stool/bed/proc/handle_rotation()
 	return
 
-/obj/structure/stool/bed/attack_animal(var/mob/living/simple_animal/M)//No more buckling hostile mobs to chairs to render them immobile forever
-	if(M.environment_smash)
+/obj/structure/stool/bed/attack_animal(mob/living/simple_animal/user)
+	if(user.environment_smash)
+		user.do_attack_animation(src)
+		visible_message("<span class='danger'>[user] smashes [src] apart!</span>")
 		new buildstacktype(loc, buildstackamount)
 		qdel(src)
 
