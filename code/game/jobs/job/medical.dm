@@ -50,7 +50,7 @@
 	selection_color = "#ffeef0"
 	access = list(access_medical, access_morgue, access_surgery, access_chemistry, access_virology, access_genetics, access_mineral_storeroom)
 	minimal_access = list(access_medical, access_morgue, access_surgery, access_maint_tunnels)
-	alt_titles = list("Surgeon","Nurse","Coroner")
+	alt_titles = list("Surgeon","Nurse","Coroner", "Proctologist")
 	minimal_player_age = 3
 	outfit = /datum/outfit/job/doctor
 
@@ -89,6 +89,8 @@
 				head = /obj/item/clothing/head/surgery/blue
 			if("Medical Doctor")
 				uniform = /obj/item/clothing/under/rank/medical
+			if("Proctologist")
+				gloves = /obj/item/clothing/gloves/color/latex/nitrile // Trust me. They'll need these.
 			if("Nurse")
 				if(H.gender == FEMALE)
 					if(prob(50))
