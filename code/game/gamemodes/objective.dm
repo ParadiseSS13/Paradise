@@ -390,12 +390,11 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) \
 	var/list/all_items = owner.current.GetAllContents()
 
 	for(var/obj/I in all_items)
-		if(istype(I, steal_target))
-			return 1
-		if (steal_target.check_special_completion(I))
-			return 1
+		if(istype(I, steal_target.typepath))
+			return steal_target.check_special_completion(I)
+		if(I.type in steal_target.altitems)
+			return steal_target.check_special_completion(I)
 
-	return 0
 
 /datum/objective/steal/exchange
 	martyr_compatible = 0
