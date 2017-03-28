@@ -508,7 +508,7 @@ var/ert_request_answered = 0
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/engineer
 	suit_store = /obj/item/weapon/tank/emergency_oxygen/engi
 	glasses = /obj/item/clothing/glasses/meson
-	belt = /obj/item/weapon/storage/belt/utility/ert
+	belt = /obj/item/weapon/storage/belt/utility/ert/New()
 
 	l_pocket = /obj/item/device/t_scanner/extended_range
 	r_pocket = /obj/item/weapon/melee/classic_baton/telescopic
@@ -528,7 +528,7 @@ var/ert_request_answered = 0
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/engineer
 	suit_store = /obj/item/weapon/tank/emergency_oxygen/double/full
 	glasses = /obj/item/clothing/glasses/meson/night
-	belt = /obj/item/weapon/storage/belt/utility/ert
+	belt = /obj/item/weapon/storage/belt/utility/ert/New()
 
 	l_pocket = /obj/item/device/t_scanner/extended_range
 	r_pocket = /obj/item/weapon/melee/classic_baton/telescopic
