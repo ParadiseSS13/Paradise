@@ -148,6 +148,7 @@
 				/obj/item/weapon/implanter/storage = 1,
 				/obj/item/toy/cards/deck/syndicate = 2,
 				/obj/item/weapon/storage/secure/briefcase/syndie = 2,
+				/obj/item/weapon/storage/pill_bottle/random_drug_bottle = 3,
 				"" = 90
 				)
 
