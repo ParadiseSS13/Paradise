@@ -448,6 +448,11 @@ var/list/intents = list(I_HELP,I_DISARM,I_GRAB,I_HARM)
 				var/mob/dead/observer/DM
 				if(istype(subject, /mob/dead/observer))
 					DM = subject
+					if(prob(10))
+						var/turf/T = get_turf(DM)
+						for(var/mob/living/carbon/C in range(T, 1))
+							to_chat(C, "<span class='warning'>You feel saltier.</span>")
+							C.reagents.add_reagent("sodiumchloride", 30)
 				if(check_rights(R_ADMIN|R_MOD,0,M)) 							// What admins see
 					lname = "[keyname][(DM && DM.client && DM.client.prefs.ghost_anonsay) ? "*" : (DM ? "" : "^")] ([name])"
 				else
