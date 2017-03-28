@@ -61,7 +61,7 @@
 		/obj/item/taperoll/engineering,
 		/obj/item/weapon/extinguisher/mini)
 		
-/obj/item/weapon/storage/belt/utility/ert
+/obj/item/weapon/storage/belt/utility/ert/New()
 	..()
 	new /obj/item/weapon/screwdriver/power(src)
 	new /obj/item/weapon/crowbar/power(src)
