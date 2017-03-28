@@ -384,8 +384,18 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) \
 	return steal_target
 
 /datum/objective/steal/check_completion()
-	if(!steal_target) return 1 // Free Objective
-	return steal_target.check_completion(owner)
+	if(!steal_target)
+		return 1 // Free Objective
+
+	var/list/all_items = owner.current.GetAllContents()
+
+	for(var/obj/I in all_items)
+		if(istype(I, steal_target))
+			return 1
+		if (steal_target.check_special_completion(I))
+			return 1
+
+	return 0
 
 /datum/objective/steal/exchange
 	martyr_compatible = 0

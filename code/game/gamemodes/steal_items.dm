@@ -71,6 +71,15 @@ datum/theft_objective/ai/check_special_completion(var/obj/item/device/aicard/C)
 	typepath = /obj/item/areaeditor/blueprints
 	protected_jobs = list("Chief Engineer")
 
+/datum/objective_item/steal/blueprints/check_special_completion(obj/item/I)
+	if(istype(I, /obj/item/areaeditor/blueprints))
+		return 1
+	if(istype(I, /obj/item/weapon/photo))
+		var/obj/item/weapon/photo/P = I
+		if(P.blueprints)
+			return 1
+	return 0
+
 /datum/theft_objective/voidsuit
 	name = "a nasa voidsuit"
 	typepath = /obj/item/clothing/suit/space/nasavoid
