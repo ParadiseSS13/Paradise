@@ -179,7 +179,7 @@
 		con_type = "glass bottle"
 		max_define = MAX_GLASS
 		mat_ratio = RATIO_GLASS
-	else if(istype(S, /obj/item/stack/sheet/mineral/plastic))
+	else if(istype(S, /obj/item/stack/sheet/plastic))
 		con_type = "plastic bottle"
 		max_define = MAX_PLAST
 		mat_ratio = RATIO_PLAST

@@ -1,0 +1,110 @@
+<script>
+	{{var tooltiptext = function(req_text, catalyst_text, tool_text) { var text = ""; if(req_text){text += "REQUIREMENTS: " + req_text + " ";} if(catalyst_text){text += "CATALYSTS: " + catalyst_text + " ";} if(tool_text){text += "TOOLS: " + tool_text;}return text;};}}
+</script>
+
+
+<div class='display'>
+	<header><h3>{{:data.category}}</h3></header>
+	<article>
+		<div class='item'>
+			{{:helper.link(data.prev_cat, 'arrow-left', {'backwardCat': 1})}}
+			{{:helper.link(data.next_cat, 'arrow-right', {'forwardCat': 1})}}
+			{{if data.display_craftable_only}}
+				{{:helper.link('Showing Craftable Recipes', 'lock', {'toggle_recipes': 1})}}
+			{{else}}
+				{{:helper.link('Showing All Recipes', 'unlock', {'toggle_recipes': 1})}}
+			{{/if}}
+			{{:helper.link('Compact', data.display_compact ? 'check-square-o' : 'square-o', {'toggle_compact': 1})}}
+		</div>
+		{{if data.display_compact}}
+			<div class='display'>
+				<article>
+					<table style='width: 50%;'>
+						{{for data.can_craft}}
+							<tr>
+								<td><div class='itemLabelWidest'>{{:value.name}}:</div></td>
+								<td><div class='floatLeft tooltipRight' data-tooltip='{{:tooltiptext(value.req_text, value.catalyst_text, value.tool_text)}}'>
+									{{:helper.link('Craft', 'gears', {'make': value.ref})}}
+								</div></td>
+							</tr>
+						{{/for}}
+						{{if !data.display_craftable_only}}
+							{{for data.cant_craft}}
+								<tr>
+									<td><div class='itemLabelWidest'>{{:value.name}}:</div></td>
+									<td><div class='floatLeft tooltipRight' data-tooltip='{{:tooltiptext(value.req_text, value.catalyst_text, value.tool_text)}}'>
+										{{:helper.link('Craft', 'gears', {'make': value.ref}, 'disabled')}}
+									</div></td>
+								</tr>
+							{{/for}}
+						{{/if}}
+					</table>
+				</article>
+			</div>
+		{{else}}
+			{{for data.can_craft}}
+				<div class='display'>
+					<header><h3>{{:value.name}}</h3></header>
+					<article>
+						{{if value.req_text}}
+							<div class='item'>
+								<div class='itemLabel'>Requirements:</div>
+								<div class='itemContent'>{{:value.req_text}}</div>
+							</div>
+						{{/if}}
+						{{if value.catalyst_text}}
+							<div class='item'>
+								<div class='itemLabel'>Catalysts:</div>
+								<div class='itemContent'>{{:value.catalyst_text}}</div>
+							</div>
+						{{/if}}
+						{{if value.tool_text}}
+							<div class='item'>
+								<div class='itemLabel'>Tools:</div>
+								<div class='itemContent'>{{:value.tool_text}}</div>
+							</div>
+						{{/if}}
+						<div class='item'>
+							{{:helper.link('Craft', 'gears', {'make': value.ref})}}
+						</div>
+					</article>
+				</div>
+			{{/for}}
+			{{if !data.display_craftable_only}}
+				{{for data.cant_craft}}
+					<div class="display">
+						<header><h3>{{:value.name}}</h3></header>
+						<article>
+							{{if value.req_text}}
+								<div class='item'>
+									<div class='itemLabel'>Requirements:</div>
+									<div class='itemContent'>{{:value.req_text}}</div>
+								</div>
+							{{/if}}
+							{{if value.catalyst_text}}
+								<div class='item'>
+									<div class='itemLabel'>Catalysts:</div>
+									<div class='itemContent'>{{:value.catalyst_text}}</div>
+								</div>
+							{{/if}}
+							{{if value.tool_text}}
+								<div class='item'>
+									<div class='itemLabel'>Tools:</div>
+									<div class='itemContent'>{{:value.tool_text}}</div>
+								</div>
+							{{/if}}
+						</article>
+					</div>
+				{{/for}}
+			{{/if}}
+		{{/if}}
+	</article>
+</div>
+
+{{if data.busy}}
+	<div class="mask">
+		<div class="maskContent">
+			<h1>Crafting...</h1>
+		</div>
+	</div>
+{{/if}}

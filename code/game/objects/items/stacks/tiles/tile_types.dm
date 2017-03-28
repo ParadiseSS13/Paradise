@@ -136,6 +136,7 @@
 	icon_state = "tile_space"
 	turf_type = /turf/simulated/floor/fakespace
 	burn_state = FLAMMABLE
+	merge_type = /obj/item/stack/tile/fakespace
 
 /obj/item/stack/tile/fakespace/loaded
 	amount = 30
@@ -148,6 +149,7 @@
 	icon_state = "tile_noslip"
 	turf_type = /turf/simulated/floor/noslip
 	origin_tech = "materials=3"
+	merge_type = /obj/item/stack/tile/noslip
 
 /obj/item/stack/tile/noslip/loaded
 	amount = 20

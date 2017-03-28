@@ -392,7 +392,7 @@
 	name = "plasticine"
 	hue = "#222288"
 	mineral_results = list(
-	/obj/item/stack/sheet/mineral/plastic = 1
+	/obj/item/stack/sheet/plastic = 1
 	)
 
 /datum/spacevine_mutation/mineral/wood
@@ -488,18 +488,15 @@
 	var/force = W.force
 
 	if(istype(W, /obj/item/weapon/scythe))
-		force = force * 4
-		for(var/obj/effect/spacevine/B in orange(1,src))
-			B.health = health - force
-			if(B.health < 1)
-				wither()
-
-		health = health - force
-
-		if(health < 1)
-			wither()
-
-		return
+		var/obj/item/weapon/scythe/S = W
+		if(S.extend)	//so folded telescythes won't get damage boosts / insta-clears (they instead will instead be treated like non-scythes)
+			force = force * 4
+			for(var/obj/effect/spacevine/B in range(1,src))
+				if(B.health > force)	//this only is going to occur for woodening mutation vines (increased health) or if we nerf scythe damage/multiplier
+					B.health -= force
+				else
+					B.wither()
+			return
 
 	if(is_sharp(W))
 		force = force * 4
@@ -510,7 +507,7 @@
 	for(var/datum/spacevine_mutation/SM in mutations)
 		force = SM.on_hit(src, user, W, force) //on_hit now takes override damage as arg and returns new value for other mutations to permutate further
 
-	health = health - force
+	health -= force
 	if(health < 1)
 		wither()
 

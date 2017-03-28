@@ -53,8 +53,8 @@
 	var/frozen = 0 //special condition for airlocks that are frozen shut, this will look weird on not normal airlocks because of a lack of special overlays.
 	autoclose = 1
 	explosion_block = 1
-	var/doorOpen = 'sound/machines/airlock.ogg'
-	var/doorClose = 'sound/machines/airlock.ogg'
+	var/doorOpen = 'sound/machines/airlock_open.ogg'
+	var/doorClose = 'sound/machines/airlock_close.ogg'
 	var/doorDeni = 'sound/machines/DeniedBeep.ogg' // i'm thinkin' Deni's
 	var/boltUp = 'sound/machines/BoltsUp.ogg'
 	var/boltDown = 'sound/machines/BoltsDown.ogg'
@@ -89,6 +89,8 @@
 	name = "External Airlock"
 	icon = 'icons/obj/doors/Doorext.dmi'
 	assembly_type = /obj/structure/door_assembly/door_assembly_ext
+	doorOpen = 'sound/machines/airlock_ext_open.ogg'
+	doorClose = 'sound/machines/airlock_ext_close.ogg'
 
 /obj/machinery/door/airlock/welded
 	welded = 1
@@ -268,8 +270,11 @@
 	name = "Tranquillite Airlock"
 	icon = 'icons/obj/doors/Doorfreezer.dmi'
 	mineral = "tranquillite"
-	doorOpen = null
+	doorOpen = null // it's silent!
 	doorClose = null
+	doorDeni = null
+	boltUp = null
+	boltDown = null
 
 /obj/machinery/door/airlock/sandstone
 	name = "Sandstone Airlock"
@@ -873,12 +878,9 @@ About the new airlock wires panel:
 
 				qdel(src)
 				return
-		else if(istype(C, /obj/item/weapon/crowbar/power))
+		if(istype(C, /obj/item/weapon/crowbar/power) && density)
 			if(isElectrified())
 				shock(user, 100)//it's like sticking a fork in a power socket
-				return
-
-			if(!density)//already open
 				return
 
 			if(locked)
@@ -900,7 +902,8 @@ About the new airlock wires panel:
 					open(2)
 					if(density && !open(2))
 						to_chat(user, "<span class='warning'>Despite your attempts, the [src] refuses to open.</span>")
-		else if(arePowerSystemsOn())
+				return
+		if(arePowerSystemsOn())
 			to_chat(user, "\blue The airlock's motors resist your efforts to force it.")
 		else if(locked)
 			to_chat(user, "\blue The airlock's bolts prevent it from being forced.")

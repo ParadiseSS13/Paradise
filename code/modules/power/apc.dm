@@ -234,7 +234,7 @@
 			if(has_electronics && terminal)
 				to_chat(user, "The cover is [opened==2?"removed":"open"] and the power cell is [ cell ? "installed" : "missing"].")
 			else if(!has_electronics && terminal)
-				to_chat(user, "There are some wires but no any electronics.")
+				to_chat(user, "There are some wires but no electronics.")
 			else if(has_electronics && !terminal)
 				to_chat(user, "Electronics installed but not wired.")
 			else /* if(!has_electronics && !terminal) */
@@ -502,7 +502,7 @@
 			to_chat(user, "The interface is broken.")
 		else
 			wiresexposed = !wiresexposed
-			to_chat(user, "The wires have been [wiresexposed ? "exposed" : "unexposed"]")
+			to_chat(user, "The wires have been [wiresexposed ? "exposed" : "unexposed"].")
 			update_icon()
 
 	else if(istype(W, /obj/item/weapon/card/id)||istype(W, /obj/item/device/pda))			// trying to unlock the interface with an ID card
@@ -511,7 +511,7 @@
 		else if(opened)
 			to_chat(user, "You must close the cover to swipe an ID card.")
 		else if(wiresexposed)
-			to_chat(user, "You must close the panel")
+			to_chat(user, "You must close the panel.")
 		else if(stat & (BROKEN|MAINT))
 			to_chat(user, "Nothing happens.")
 		else
@@ -568,6 +568,7 @@
 		if(do_after(user, 10 * W.toolspeed, target = src))
 			if(has_electronics==0)
 				has_electronics = 1
+				locked = 0
 				to_chat(user, "<span class='notice'>You place the power control board inside the frame.</span>")
 				qdel(W) // qdel
 	else if(istype(W, /obj/item/weapon/apc_electronics) && opened && has_electronics==0 && ((stat & BROKEN) || malfhack))
@@ -634,7 +635,7 @@
 			opened = 2
 			user.visible_message("<span class='danger'>The APC cover was knocked down with the [W.name] by [user.name]!</span>", \
 				"<span class='danger'>You knock down the APC cover with your [W.name]!</span>", \
-				"You hear bang")
+				"You hear a bang.")
 			update_icon()
 		else
 			if(istype(user, /mob/living/silicon))
@@ -649,14 +650,14 @@
 			user.do_attack_animation(src)
 			user.visible_message("<span class='warning'>The [src.name] has been hit with the [W.name] by [user.name]!</span>", \
 				"<span class='warning'>You hit the [src.name] with your [W.name]!</span>", \
-				"You hear bang")
+				"You hear a bang.")
 
 /obj/machinery/power/apc/emag_act(user as mob)
 	if(!(emagged || malfhack))		// trying to unlock with an emag card
 		if(opened)
 			to_chat(user, "You must close the cover to swipe an ID card.")
 		else if(wiresexposed)
-			to_chat(user, "You must close the panel first")
+			to_chat(user, "You must close the panel first.")
 		else if(stat & (BROKEN|MAINT))
 			to_chat(user, "Nothing happens.")
 		else
@@ -722,7 +723,7 @@
 	return
 
 /obj/machinery/power/apc/attack_ghost(mob/user)
-	if(wiresexposed) 
+	if(wiresexposed)
 		wires.Interact(user)
 	return ui_interact(user)
 

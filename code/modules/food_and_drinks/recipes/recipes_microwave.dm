@@ -126,6 +126,13 @@
 	)
 	result = /obj/item/weapon/reagent_containers/food/snacks/mimeburger
 
+/datum/recipe/microwave/baseballburger
+	items = list(
+		/obj/item/weapon/reagent_containers/food/snacks/bun,
+		/obj/item/weapon/melee/baseball_bat
+	)
+	result = /obj/item/weapon/reagent_containers/food/snacks/baseballburger
+
 /datum/recipe/microwave/hotdog
 	items = list(
 		/obj/item/weapon/reagent_containers/food/snacks/bun,

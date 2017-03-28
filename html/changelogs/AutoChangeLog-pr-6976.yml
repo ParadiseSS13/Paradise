@@ -1,0 +1,4 @@
+author: "uraniummeltdown"
+delete-after: True
+changes: 
+  - bugfix: "Quick-replacing non-wooden tiles will only work with a crowbar in inactive hand instead of any item"
