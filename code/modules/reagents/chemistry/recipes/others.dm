@@ -326,6 +326,14 @@
 	required_reagents = list("sodium" = 1, "chlorine" = 1, "water" = 1)
 	result_amount = 3
 	mix_message = "The solution crystallizes with a brief flare of light."
+	
+/datum/chemical_reaction/sodiumchloride/on_reaction(datum/reagents/holder)
+	var/turf/T = get_turf(holder.my_atom)
+	T.visible_message("<span class='warning'>The solution generates a salty vapor!</span>")
+	for(var/mob/living/carbon/C in range(T, 1))
+		if(C.can_breathe_gas())
+			C.emote("cry")
+			C.reagents.add_reagent("sodiumchloride", 30)
 
 /datum/chemical_reaction/ice
 	name = "Ice"
