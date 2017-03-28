@@ -261,6 +261,8 @@
 	smell.<br/><br/>Most humans will never meet a Vox raider, instead learning of this insular species through \
 	dealing with their traders and merchants; those that do rarely enjoy the experience."
 
+	brute_mod = 1.2 //20% more brute damage. Fragile bird bones.
+
 	warning_low_pressure = 50
 	hazard_low_pressure = 0
 
