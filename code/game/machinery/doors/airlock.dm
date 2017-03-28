@@ -420,10 +420,10 @@ About the new airlock wires panel:
 	return 0
 
 /obj/machinery/door/airlock/proc/mainPowerCablesCut()
-	return src.isWireCut(AIRLOCK_WIRE_MAIN_POWER1) || src.isWireCut(AIRLOCK_WIRE_MAIN_POWER2)
+	return src.isWireCut(AIRLOCK_WIRE_MAIN_POWER1)
 
 /obj/machinery/door/airlock/proc/backupPowerCablesCut()
-	return src.isWireCut(AIRLOCK_WIRE_BACKUP_POWER1) || src.isWireCut(AIRLOCK_WIRE_BACKUP_POWER2)
+	return src.isWireCut(AIRLOCK_WIRE_BACKUP_POWER1)
 
 /obj/machinery/door/airlock/proc/loseMainPower()
 	main_power_lost_until = mainPowerCablesCut() ? -1 : world.time + SecondsToTicks(60)
