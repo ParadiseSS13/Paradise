@@ -261,12 +261,12 @@
 	smell.<br/><br/>Most humans will never meet a Vox raider, instead learning of this insular species through \
 	dealing with their traders and merchants; those that do rarely enjoy the experience."
 
-	warning_low_pressure = 50
-	hazard_low_pressure = 0
+	warning_low_pressure = (WARNING_LOW_PRESSURE-20)
+	hazard_low_pressure =  (HAZARD_LOW_PRESSURE-10)
 
-	cold_level_1 = 80
-	cold_level_2 = 50
-	cold_level_3 = 0
+	cold_level_1 = 160
+	cold_level_2 = 130
+	cold_level_3 = 90
 
 	atmos_requirements = list(
 		"min_oxy" = 0,
