@@ -173,7 +173,7 @@ DEBUG
 			if(bantype != null)
 				is_actually_banned = 1
 
-			var/output = "[bantype]: [bantime] [job] - [reason] by [ackey]"
+			var/output = "[bantype]: [bantime] [job] - REASON: [reason], by [ackey]"
 			to_chat(src, "<span class='warning'>[output]</span>")
 
 		//temps
@@ -193,7 +193,7 @@ DEBUG
 			if(bantype != null)
 				is_actually_banned = 1
 
-			to_chat(src, "<span class='warning'>[bantype]: [job] - [reason] by [ackey]; [bantime]; [duration]; expires [expiration]</span>")
+			to_chat(src, "<span class='warning'>[bantype]: [job] - REASON: [reason], by [ackey]; [bantime]; [duration]; expires [expiration]</span>")
 
 		if(!is_actually_banned)
 			to_chat(src, "<span class='warning'>You have no active jobbans!</span>")
