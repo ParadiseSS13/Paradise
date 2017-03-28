@@ -34,6 +34,9 @@
 	if(beaker)
 		qdel(beaker)
 		beaker = null
+	if(files)
+		qdel(files)
+		files = null
 	return ..()
 
 /obj/machinery/biogenerator/ex_act(severity)
@@ -208,7 +211,7 @@
 
 /obj/machinery/biogenerator/attack_hand(mob/user)
 	interact(user)
-	
+
 /obj/machinery/biogenerator/attack_ghost(mob/user)
 	interact(user)
 
