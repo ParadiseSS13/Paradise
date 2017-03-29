@@ -111,8 +111,6 @@
 	//languages
 	module.add_languages(src)
 	//subsystems
-//	module.add_subsystems(src) //Doesn't needed anymore.
-
 	status_flags &= ~CANPUSH
 
 	notify_ai(2)
