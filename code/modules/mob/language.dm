@@ -301,8 +301,8 @@
 		their = "her"
 	if(speaker.gender == "male")
 		their = "his"
-	for(var/mob/living/player in view(4, speaker))
-		to_chat(player,"<span class='notice'>[speaker] touches [their] fingers to [their] temple.</span>")
+
+	speaker.visible_message("<span class='notice'>[speaker] touches [their] fingers to [their] temple.</span>")
 	..(speaker,message,speaker.real_name)
 
 /datum/language/grey/check_can_speak(mob/living/speaker)
